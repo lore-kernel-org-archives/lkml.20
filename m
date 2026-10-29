@@ -1,95 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267062;
-	b=KDdtma0qB6RWaeMplP/7lqleqebAkHor80Yj8TMfxNZL7kuUron77S9k6ldisNM3V2S+
-	 DDa+JURXI177F1H0qNb87kuRqBkvpWcX/FcVfXsKGwR9WW/8jszqy6IbDWsRNC3OEf85V
-	 Zi87uBgnZxyZOUk5GNGRyujzIwDmLK391AsOeJPWiS187gWecOokPYZgIUGOUF3Ur4Icc
-	 N4npZUJYNOb+R71RjUJBEQuXEFh5PTE4A9FiEEugTXSYKANWMgnunNr3BrwpfGlaVxlkv
-	 L1kszXma040efe3JHQibumvC0ciihs0m6qCFgqq7ukxyYLpBX1yRXT9o5LhYsTkBhsg==
+	t=1793267082;
+	b=3tXP0l72gEggj5BZ7egVle72kl2NGyAx/RCD5JA1ICA3bcy/tWeRHa4UCcNb4c3yMaj/
+	 +NwCxVNV8/NFFwqAT5lbx1TKUfciNOT5uTFCYxA0Z0ZDMDN+errjCVOVJVvuIUpSgweol
+	 NKmyCFHTLtF0BisVNw/vwxKnZ3JQeMTKQdaVOX9nNOgOVmBCr88m/yxD3LHY+w2Kkuv9w
+	 pjYlp0rfxg7T3OGxCj8/NnGMMXHyxkqhRvab3OzBsqfmbpLyh1B41n+3+a7EmVy31/6RX
+	 E17OIilWsET9mdPWwoueamSLG/nvG5tGmh3B9EJ+02ZEo9YBBaE6pbt01uK6D9UP/aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267062;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267082;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=UKSebZaSFVefMa83WA9Risb9bDftelK4ymQGDTUiUGc=;
-	b=5JLnK8ofiOBcuN1cK8LMoH7fG0zK8cCSMmArie+CZL5UkkV5D64wB2Z2DBaiy7ovC0U8
-	 wPxoOxV3NyGXnVlZ0/psqwknR8unUcsQVbkRA7BGBELOVvmgeBMrAaJYW0RylnZaCUbCU
-	 lwQNGMoFLaTIjmC+V9doYdMmoQRQJxPkOIgQyuNVDH6Lqi6x6xpVUlP5Bn+d4Ja/twiPs
-	 /JYyLdE1AR0y9BjPVbAi9JJ2YGWqdXK9X91TyqRZjRM3N/Lu3jyFgGbGefERo1VbyKiX0
-	 EzS7u55jirFAi4eA5eRZMq+yVbEHGRVLRXeaPiNwI+/4q1j0FVR8bEYIXxnNtwHCZ7A==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=XB5wy8uf7FyauSpZxvm0L4wuvw+kVmeWTT3Ttyk8h0A=;
+	b=2cCiw/+/oYU0BTHGipvJq5WYGh3wxL7yFngZH/KbjGpfM4XU4Tx0Ccck5nEYbREbf4xQ
+	 zPqCd63n9MSErGlr1Q0NcZcgiyx6N1H1F+XkmsTAXeinP+ehBfIgsToJCSqreg/sKSHtE
+	 1ybsvHRw43UAFU+6w0BMbPv7FktiDaCzcsL13G5xqyR8PBvGam3xGRnSgsNFN7h5uva4t
+	 LoTDB+GROAXPeUfWLiKmwpXHpQir3u3N8YRarvea4DHDyKRgUAD3FrOoqid2BVcu9lQCB
+	 vS1QSyZrsehJgDhAuA4m8AzZYE7hGHHGbe3oe5i6viyazeRrcMmgDNdxrWmUfazVEjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RhUWxnDw;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=dIfdgFtB;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B15606A331
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:44:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9B15606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A93606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:44:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92A93606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RhUWxnDw
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-ccca948203aso838811a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:44:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=dIfdgFtB
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so17942405e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:44:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793267061; x=1793871861; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UKSebZaSFVefMa83WA9Risb9bDftelK4ymQGDTUiUGc=;
-        b=RhUWxnDwJvX15K7ipRR4XPyycz56J4nWxBJ9wQ+7eveSbrpw04HV1uu0M/TFmlJFmu
-         lz0Yh8IQWBwf4EE41qfAD3bAIpcDW4vWPzANZwgbOIgn8rhNRIh+vxKHE1OH2Sii3drj
-         1D9ouxhDZbqIFhW1+IUYbrnXkM7Xz9jbkkHOZ2LoBy9ZfSDgFETK+iOTjip9E+kholLQ
-         oxQmFNP2JgK2m3UOLr0n1jREU+DEtFBd8idnQhSc3UeYOaw2KEk9HtN5Yc9roucMviUc
-         lErwfgPN1F3zlPe834PQmwHx3H5ARm6HXu48UzJQYYsr+Y71lX8bzBgpV6ewGH8GTH/Q
-         13Jw==
+        d=suse.com; s=google; t=1793267080; x=1793871880; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XB5wy8uf7FyauSpZxvm0L4wuvw+kVmeWTT3Ttyk8h0A=;
+        b=dIfdgFtBPMLRamF68EyIRlEICj9q4kb42Jffqes2SFNWzyCNmCJvC8B0i2maza6Uw5
+         PdkkcIjbfldyfBT2kHfRFEohr8FqgSQfqKdRT8fvITjZjmUNQQWmcNVlJ4KxvSqfGsKA
+         9XnBgNd7l4aLO04juHA44YpcWfJmTtfb2c8mQVh6pSvCsT55zjxNMC/mVTmgmL3vymGK
+         RcSkkcSgasSRmgJG0p8qUuagAq9M1RlIn6zUnl6IWRYcCdUDrkA3bvIGkrW5EXsvYW2M
+         BPKsb1+7op8EPOfiwHRSci830GZs/eACD+txguFouPbEo0SFPfNtBtA0m4/fbLsWI7qY
+         MzMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793267061; x=1793871861;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UKSebZaSFVefMa83WA9Risb9bDftelK4ymQGDTUiUGc=;
-        b=0nv6U8NiA/MFMkELYtugheZ6dzxVcUnT1JYZu7mI8ejfsfGZfYyPpqm05jqtk+Yl5h
-         mf/P7MdIgdI4knL9BSuh33SZ3xYo5VUDeiE2aAyKsEX0bHl00khH+pnFOOELYdwL7Jlk
-         /LkL+qLfM8dWpMqx0OT2wrKLLXkK76Ut/jy8MQd9OAyI5x3uLHf0xr7Mrx4G0O0Mfy9z
-         hS1mHcolK5lPsLOlnKCP+qdZt3iwppxOa21IVQEJqvCZxAyjWshjkGusAyLYt27FlsPS
-         efkHJM7+0bRYzDxWUscSeibsd9Qi7GYNPjlWB7Umax9HT1BWIwIbNQuEydNFbp8hFjxK
-         ynPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxr7mnm1z5dg5CmasHueSi/PVVl8cg9f7ya7vZptMrSYf3baLByNEpDdzfBGPV13fKReA1F/3EzVct3LPQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8jWbhNrYLdA4xvNF1Zxv4PcceEy9KYaRcKTc59c3FJ2sz7Zd9
-	ik0vBIUAFyNRoX2DRocqFEX2m3lbj4WmMjo52Zwt+EeXC5rXoHHvo2aH
-X-Gm-Gg: AYBFou3QnkXaBXw64eiBaUsNDZle28wLq05SqYmcFRywIrNqZMHz75lkq+FT8BUrK10
-	XOocCQZJrzdTGblXWcxiAhF0cjp6ON6umMqGaGxkv+Xa1Op0dTlbeUBGmns/IOKsNVihF+7a3Ld
-	KXVhrhtnAr+7qAw1kyYZM5CfrL8yG+9p4ofl1HYrI8iU1UF6mEifLYp/bqhtu/XetTRoZDd5y84
-	T/Hk2UqCORkChmQRS3FhK3aKMfzSkNy2Pfx2aO9DZXYhAWWbBiddYWDeTd9Ry9G667yMYv+T65U
-	jepS4k6TneMIz1t6mNOL/y710h9LpOUgOJHPyhNvJmBwDYeePsha7wiEEwgrqEjmxm1cneL4/E+
-	Q3ERdTgK3mll8HjRjjae29cnPyxd/Frh48E22TX8DXprCT+M7XVjuD/zvjjrV0uT3D/qmTz1zCi
-	meNjfAfTW7WxBo2QXmCNTySUOzLGvsqbL2e0WJfw+Opjnwdch1HRcJGHyQkPkqwjutF1ykAZC6l
-	El7kgXvF8E4cLkFfIH4jLH9ntWs4KmJA12I+BU5uTMAi1lczseZT75ur/1Qxu/1cR/MDIm65PNk
-	cWom9IA/WIAB4X9tjMF134oZk3eTgAK4u4p/0BC+H/o1HfQ/TxZDqr1/HdhYlL8H
-X-Received: by 2002:a17:90b:4b89:b0:3ac:17c:6e85 with SMTP id 98e67ed59e1d1-3ae581e1959mr3851734a91.47.1793267060784;
-        Thu, 29 Oct 2026 02:44:20 -0700 (PDT)
-Received: from KRHW1CJW23.bytedance.net ([139.177.225.227])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae579c59a6sm2912203a91.3.2026.10.29.02.44.17
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 02:44:20 -0700 (PDT)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: Wey-Yi Guy <wey-yi.w.guy@intel.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: iwlegacy: unregister the LED if 3945 hardware registration fails
-Date: Thu, 29 Oct 2026 17:43:37 +0800
-Message-ID: <20261029094336.19250-2-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261029081955.GA10212@wp.pl>
-References: <20261028142328.18560-1-enderaoelyther@gmail.com> <20261029081955.GA10212@wp.pl>
+        d=1e100.net; s=20260707; t=1793267080; x=1793871880;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XB5wy8uf7FyauSpZxvm0L4wuvw+kVmeWTT3Ttyk8h0A=;
+        b=tFqS8aT8U/tCDxOGuwIjCmwyVEnzJgGKjyTgrUWnwfRGe5WwLRZmr3q6lpjtaR7j32
+         ydtO7rY/X1LGeEtAmWdvfMiQF3T43LgckTMsFiuVKxbJr1V1Sl8Ks9Xu0k1XfXzsZe7o
+         TtLZauUSENzGdahDU1SSlr2ZsyFMorBsF3/Itnxlaiuo6bEkJ3Lj9wDLD/7YyX7YKo83
+         WLNkfNjHL0J8OxHDS3ggxp6TzzWa0PEPfGHm2FKOwyfrZPfoNtH2R0vanqmZZo9vDrVH
+         nmn5JcyeNFE0QyW4JNxTzIRCn+MW1vqfLRnQIMDGaH/62S/5oBB4wrpb5h2Bt8P1bifE
+         6PVw==
+X-Forwarded-Encrypted: i=1; AKwUvBzJ9a4/oltr0uOaohWL4t2DSGH+cckmyAdE69OvO7He31KzsT/wP2PopvYySvmCIsXb2CDg3ImgfcmQKEI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJu//MOSbI4vDq0ncxhHb5AMSn81Hcuujk41DuQWehsVCH6bial
+	FDEPPAm6DyxdsZ8NPmQd++dzeFrCeEd97V2kPKuW/vC4MSkDFx6XM/1Na89xXW2mzVM=
+X-Gm-Gg: AYBFou1j7T+bZJowJdpqPUflq08ie+xm0gehuepCC7ohL6V07cqEyEsK4alE5VQfrCq
+	emmSCoPcaHBX5LWyR9G6vBHZ2rsQAC9oRD6W+ZVTFZj7EPsAXfdofOHA1dwkGuS+j4lALD/NyRy
+	+Z6/ndHlHxd07HLPPzywKJybL76zYPlvASEOrED6jPH590EaUebLv7LS+blV0PPvLPSPHTQpfZx
+	vZAyd8pF3YBn6vvmNQ9DYxHj4JwELJz/nfB+oLXou8Dmo3rG5tvC4HDVzp9Gk/2aK5LqL2VOwbu
+	QRPusxtSSI6ZKXWPjFYibhY0/oyTmRYUOA0zSvl88YTXXsYzqoh0n3HMNAmy+X2F7Yj3pweyHqL
+	/nm8dAIIDNg9nFRIj3pVxaWJC4/pZpxTdKPOKfUGVpcxf9LwiqPetEJ8OciXvqu94tIvUEFkC7C
+	QLzIGZxIN0OwhjBfwrrrF6ScTHx2QOKUcYLdVzAXvvnXf6QHrJMG34fnIhuvASHq5Vx5yCqV2Tb
+	gPhEfEPvyVI0R995pAGAvzg5e/ydT72dn3uOqfxA6n4bH4ip50GKtf/yH9z7ytrAz2AW640y1lF
+	qe50sQpBfpx237wD+3C+ZORlW4fE61Lb7mUt3jO/8B3ewAp3cS2zPJUsUAdaFu+L
+X-Received: by 2002:a05:600c:4f89:b0:4a1:d8fc:8165 with SMTP id 5b1f17b1804b1-4a966f209d9mr110155365e9.20.1793267079846;
+        Thu, 29 Oct 2026 02:44:39 -0700 (PDT)
+Received: from localhost (109-81-92-234.rct.o2.cz. [109.81.92.234])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80286fc6sm60488145e9.15.2026.10.29.02.44.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 02:44:39 -0700 (PDT)
+Date: Thu, 29 Oct 2026 10:44:38 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
+Subject: Re: [PATCH] mm/vmstat: annotate data race in
+ zone_page_state_snapshot()
+Message-ID: <auMVhhCC5Ap5pdh5@tiehlicka>
+References: <20261028100549.70689-1-hui.zhu@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,48 +103,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028100549.70689-1-hui.zhu@linux.dev>
 
-Hi Stanislaw,
+On Wed 28-10-26 18:05:49, Hui Zhu wrote:
+> From: Hui Zhu <zhuhui@kylinos.cn>
+> 
+> KCSAN reports a data-race on v6.6 which also exists on mainline:
+> 
+> BUG: KCSAN: data-race in zone_page_state_snapshot root/klinux/./include/linux/vmstat.h:232 [inline]
+> BUG: KCSAN: data-race in allow_direct_reclaim+0x150/0x290 root/klinux/mm/vmscan.c:6328
+> 
+> race at unknown origin, with read to 0xffff9e0575410740 of 1 bytes by task 209280 on cpu 15:
+> zone_page_state_snapshot root/klinux/./include/linux/vmstat.h:232 [inline]
+> allow_direct_reclaim+0x150/0x290 root/klinux/mm/vmscan.c:6328
+> throttle_direct_reclaim+0x1c4/0x480 root/klinux/mm/vmscan.c:6402
+> try_to_free_pages+0x177/0x590 root/klinux/mm/vmscan.c:6466
+> __perform_reclaim root/klinux/mm/page_alloc.c:3966 [inline]
+> __alloc_pages_direct_reclaim root/klinux/mm/page_alloc.c:3988 [inline]
+> __alloc_pages_slowpath.constprop.0+0x3b3/0xdf0 root/klinux/mm/page_alloc.c:4395
+> __alloc_pages_noprof+0x28a/0x2d0 root/klinux/mm/page_alloc.c:4794
+> alloc_pages_mpol_noprof+0x181/0x470 root/klinux/mm/mempolicy.c:2270
+> alloc_pages_noprof+0x7a/0xe0 root/klinux/mm/mempolicy.c:2347
+> io_mem_alloc_compound root/klinux/io_uring/io_uring.c:2848 [inline]
+> io_pages_map+0xb9/0x330 root/klinux/io_uring/io_uring.c:2892
+> io_allocate_scq_urings+0x231/0x300 root/klinux/io_uring/io_uring.c:3933
+> io_uring_create+0x29c/0x9c0 root/klinux/io_uring/io_uring.c:4091
+> io_uring_setup+0xb6/0x100 root/klinux/io_uring/io_uring.c:4203
+> __do_sys_io_uring_setup root/klinux/io_uring/io_uring.c:4230 [inline]
+> __se_sys_io_uring_setup root/klinux/io_uring/io_uring.c:4224 [inline]
+> __x64_sys_io_uring_setup+0x66/0xe0 root/klinux/io_uring/io_uring.c:4224
+> x64_sys_call+0x1816/0x1d90 root/klinux/./arch/x86/include/generated/asm/syscalls_64.h:426
+> do_syscall_x64 root/klinux/arch/x86/entry/common.c:51 [inline]
+> do_syscall_64+0x70/0x2a0 root/klinux/arch/x86/entry/common.c:81
+> entry_SYSCALL_64_after_hwframe+0x76/0xe0
+> 
+> value changed: 0xdd -> 0xb6
+> 
+> Reported by Kernel Concurrency Sanitizer on:
+> CPU: 15 PID: 209280 Comm: syz-executor.13 Tainted: G S ------- ---- 6.6.89+ #1250
+> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
+> 
+> Found by KCSAN testing on an older kernel; the same race still exists on
+> mainline.
+> 
+> zone_page_state_snapshot() sums the per-cpu vm_stat_diff[] deltas of all
+> online CPUs with a plain load, while the allocation and free fast paths
+> update the local delta through this_cpu_cmpxchg() and friends.  Those are
+> inline asm, and page_alloc.o is excluded from KCSAN, so the writer is not
+> instrumented and the report is of unknown origin.
+> 
+> The race is benign: the function already documents that the result cannot be
+> exactly accurate, and every consumer is a reclaim or compaction heuristic
+> that tolerates an estimate.  Annotate the read with data_race(), following
+> commit af1c31acc853 ("mm/vmstat: annotate data race for
+> zone->free_area[order].nr_free").
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
 
-On Thu, Oct 29, 2026 at 09:19:55AM +0100, Stanislaw Gruszka wrote:
-> On Wed, Oct 28, 2026 at 10:23:28PM +0800, Zhao Li wrote:
-> > il3945_setup_mac() registers the LED before the mac80211 hardware, but
-> > its registration error path does not call il_leds_exit(). The analogous
-> > 4965 failure releases the driver and reaches its existing remove cleanup.
->
-> Could you explain exacly how this is fixed in 4965?
-> I do not see this in the code.
+Acked-by: Michal Hocko <mhocko@suse.com>
+Thanks!
 
-There is no il_leds_exit() in the 4965 error path itself. The caller
-handles it: il4965_mac_setup_register() runs from the firmware callback,
-and a failure there unbinds the driver.
+> ---
+>  include/linux/vmstat.h | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/vmstat.h b/include/linux/vmstat.h
+> index 5b31d8e7ae405..9df3587a29685 100644
+> --- a/include/linux/vmstat.h
+> +++ b/include/linux/vmstat.h
+> @@ -236,9 +236,15 @@ static inline unsigned long zone_page_state_snapshot(struct zone *zone,
+>  	long x = atomic_long_read(&zone->vm_stat[item]);
+>  
+>  #ifdef CONFIG_SMP
+> +	struct per_cpu_zonestat __percpu *pzstats = zone->per_cpu_zonestats;
+>  	int cpu;
+> +
+>  	for_each_online_cpu(cpu)
+> -		x += per_cpu_ptr(zone->per_cpu_zonestats, cpu)->vm_stat_diff[item];
+> +		/*
+> +		 * Access to vm_stat_diff is lockless as the result is only
+> +		 * an estimate. Use data_race to avoid KCSAN warning.
+> +		 */
+> +		x += data_race(per_cpu_ptr(pzstats, cpu)->vm_stat_diff[item]);
+>  
+>  	if (x < 0)
+>  		x = 0;
+> -- 
+> 2.43.0
 
-  il4965_ucode_callback()
-    il4965_mac_setup_register()   /* il_leds_init(), register_hw fails */
-    goto out_unbind
-      complete(&il->_4965.firmware_loading_complete)
-      device_release_driver(&il->pci_dev->dev)
-        il4965_pci_remove()
-          il_leds_exit(il)
-          ...
-          ieee80211_free_hw(il->hw)
-
-il4965_pci_probe() returns success after submitting the asynchronous
-firmware request. If the callback reaches device_release_driver()
-before probe finishes, the device lock serializes unbind with probe.
-The callback completes firmware_loading_complete before unbinding,
-and il4965_pci_remove() unregisters the LED regardless of
-mac80211_registered.
-
-3945 calls il3945_setup_mac() directly from il3945_pci_probe(), and the
-probe error labels never call il_leds_exit(). ieee80211_free_hw() then
-frees the il_priv that embeds il->led while the LED is still on
-leds_list, so the next led_trigger_register() takes the trigger_lock of
-a freed LED.
-
-That should have been in the changelog. I'll send a v2 that spells out
-the 4965 path; the code change stays the same.
-
-Thanks,
-Zhao
+-- 
+Michal Hocko
+SUSE Labs
