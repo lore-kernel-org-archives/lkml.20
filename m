@@ -1,88 +1,148 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793295586;
-	b=HHl0ARqqPnd8iHEeOiJGHGhbdJhdgl3ULBJslk3IrMJugbR7gFbFVoCRZ26vgVIwBWuh
-	 Evg7eYUIaIiLUqER9Auc0QPQSIegubMIkqDNyjuLNUTjAFpEq2SCpuaCnbyIPW0UdOlfr
-	 BZgZDiqRxn6gzlwOjzVybj6o8rYQiaang983xf7GCQ572Mt7JJQCCrLf9KgoeYL1vGfHq
-	 0vefJvrcEDLBd3ciKwItJsdxjORUeDgh4Co5kAi/0xOCnUouXbrlHGc0uN86El2p5S7kP
-	 ZkQxb/xFV061qIwVZueDtpW3c4zMf5zmzahGmUM2nOWK8DYpx1MnnbMiGtkDIicFJew==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793295586;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=2KFGBRNvis/xUmUAvIOrrCN5aEDyUWLLVbvBnaXFBhc=;
-	b=xE2t5kwQc1WjYuliaxJI0nAEIH8Cl+hh+48Y6R65vhXyO0POVBZIZcvh7Fhf9ctZUuxs
-	 D3JL90eS1INWXS7lb5VHJ8vKMwEu0fjxp388jEQthqUX5/KDMhQ/k6rhRvEKARu3ghzcG
-	 SyPBMnwNAn4i4Zg7+CyzXyPM0zzNQIqmE/nfodXS+tVKV100BGMeFlP/7K/riZkjM4eSI
-	 /6PcoyQ6GSqetm2XTvzQn2jI6RElHQ2IoDL7r7yPuskMQOMDq9RucDNhVOjUW8CH9gaF6
-	 KZnsCbJFG1mgTt4Ilot3bpETzeevQ51IZJz64/kQzOHz2B24p7AOXjvPt7IMllTxe3A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bTChIusW;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.14.56
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793295582;
+	b=PP380ruErt97Iv4ChNwDm85pN5a+pOgoArbTXXQuHoY4zNnFOD6bRxvdcapt7qe866pQ
+	 lX7kGRnJT1BubmdxZ8wvpK0/GOvS6ofIlkJWNOPIVvZCVEbeHeVBI6RVi43hRIggU3LxM
+	 dTUg90Bbm5lKFPmFj5LL6ZgG4HWNFNkaXp//sUYD89z1fEKv4thoBtqZ30qN3B3kjYxrr
+	 /ATDb6Sa88MMfFWpPo2ZXfFoKa5EMh3mdI7kNlHItDSOPYLx4/DBfmIwjw9rRR9JVa95I
+	 2q6vb1TcjicWMoEmeDKAshGjADdMAn5c8FcxUjGMLSSuAw/HCST6a0m6sefMywoXEzA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793295582;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=L/evzt8Yf/AquoRl3xbKClrS38CkfN1//dy/8K2TETI=;
+	b=qeeSFPvlTDp5VAB/IBFIYq5uV5JU/YOSkfcO0aI3N3UWljOALM1ViXBYjfuATIwX/xb5
+	 vNk0zEmhW8iRWoz4TtbgJi+O0mloBKjG85srSKAa/VkX0PrjFcsjg4RuGdYnWqjHHz1xr
+	 CI0Y5QLr2fkxwOJfaJ1XK2SKek3ial9r6AJTiBAe1jYhhPQZUHh+sAnhmQ6nzS4a1cRpp
+	 /aioUMsYbOKIURiMhHBnwku3U0BbwuQyeb8lBnEVLAHWCLEM7NTnP3vhi/ALH8AnPahP+
+	 cpr9SwBP2pJL7sXeUrieYujrgyRYD6U7ZamzPW0NTCPvoH6+YGt+03PQZKUNGNMfm7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=fiL1Zhk+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.14.56
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazolkn19011056.outbound.protection.outlook.com [52.103.14.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C87606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:39:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18C87606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB41606A31A;
+	Thu, 29 Oct 2026 17:39:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AB41606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bTChIusW
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a18fc7a38so4823126eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:39:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793295585; x=1793900385; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2KFGBRNvis/xUmUAvIOrrCN5aEDyUWLLVbvBnaXFBhc=;
-        b=bTChIusWhmWDjhb/gvsYidbtfMSN8BhAoQoTqV2awLxnaSpbKivz/o6b+oh5WEv2HO
-         fXSD9C1lB5FdUuy01Wwl7F4l/wA7GtF/eMIu1FURCn9XG6GFw+3B+0BMuEB5Ofb0Hgpt
-         JXvYvCCAq6uQjhzOW84vuyN+2p15bZg3AOiaVy6a0Idg+p2/IKXPIQQJ1sAeeLMUk7e0
-         HcYcfakIPQX5L9DNef0xqdonwWllXEziBRvF9j2Xks6eWacdkElomVKlvzeM5oNhOebM
-         X0Fw1yBMk3BpWIHLcRFcDueDeMD3tRdPQDZCCfE8WeSQkqFImM7EuhJ/oY4Nqn5XSzk6
-         i3XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793295585; x=1793900385;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2KFGBRNvis/xUmUAvIOrrCN5aEDyUWLLVbvBnaXFBhc=;
-        b=Nm+3VIM8z9PaOuS5839gJYAoTiHV1BZpthPYcAIRGL23xiKXAtwzUvGzjfYtA0D6VK
-         X9NDE8oqVhMrlwfzJLxxXB64iMQ3wjGX47SNDvcUat9KwRICtacN4KbhEmPItROx3EBm
-         oBGsF8riVG0W7/ysqRzcE/d6yqvdaki8p32HhxqaKG/hG+Q+x8V4UsWdYyeDwJN9gEXu
-         a75GHHgrZcQYPzxFhIobjxb3wvwMiE7cDPobdoNnqze8RMkStS2QC+9tQ4WFEvMDr7K9
-         4hyhB6Av8u00B6jFQ/+bt4X75kJTGIBDFoUQcH9YEstNOc+6XvY5P1QNeIhRewr3YZjQ
-         9A1A==
-X-Forwarded-Encrypted: i=1; AKwUvBx58itK5E0FAm0aTaf2/mB/bHPA+JIe9nxMPMlwxGHKUqVILnq5LKUzF0TfGTFg+WmwCV6+Ab9yd6PmbKI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+t6CaYou3OyoT83CkyhIpqGgedZMAevfGJDo7gV5YwPqTuNQX
-	w6PFxUm1ocYAhoV8Yp4PYaSq+JJWge9IrS995bhUqk1BOC8Lz9J2uCSo
-X-Gm-Gg: AYBFou0ML5PXD7/7Ld04/IEsr/FkjVKoo7zKwbzW0PW5J1tvH8Ay1W803XHVwQtLzh7
-	KzwJP89hvNy0xqINhDB6/8XUJdirh4uPUq0ewofXPDZuuTsdA1la1QaPmY9rziUrSjBJeLFXTn1
-	xDrvmUkGMD9m5UF3dl3Y7sUsDPn0DvRKfPeWb2gCkE5B+s06ccz+n1xFFKvKU+ojQYrPZDwrc6F
-	ZVgAqkY2l19T410hN+waWXI9ALyZ5zl1H0IYE8rm9SbOQhCdeJw8xjD7gh3aZrlxw4SsgtEimXo
-	zfCp1T6Fs1k2FUz2D/RG6XYOMbABbtYSyMfEjTnrKGfloFTiGZE8n5mGmQ+HrKUgPBZwCeonVJR
-	bnixedSOHlLmL3pNjt5FJZB8SgAcO72bVDv+5AwSwc3jyd2bzgSUQUnoSVkeGV/VeAnsAHeojDL
-	8Mr1lQg499yrtksXsKuo8XAARzS+x/BRD/HPX4ptNq4/y9lUwa7MtWexEaFtzPOE0y8+SuSnY2S
-	Mjgz42UJ0Hea059tMx7nbp3J3XVaeDFbRLyEJB6Xi+Eb8bTaI2VjH/Qgnj6dj6VwwC5SeR9FAhm
-	kiACwzIyHr/GPB1FEbhX750K9chHiUImiK1zZRHCY7d5ldun/juY6Xsz
-X-Received: by 2002:a05:7301:7306:b0:366:dbf9:32bd with SMTP id 5a478bee46e88-36a4235f4a1mr105133eec.9.1793295584796;
-        Thu, 29 Oct 2026 10:39:44 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4294419dsm51546eec.18.2026.10.29.10.39.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 10:39:43 -0700 (PDT)
-Message-ID: <86ae31a1-381a-4f38-89fb-a19b35d06d5f@gmail.com>
-Date: Thu, 29 Oct 2026 10:39:38 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=fiL1Zhk+
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cnBCsY0vn7F5int+qt3BVH9FH8EbC5bQzB/MaC9umE5AoeKCU4S5DSVmVr9NzPb2r8l5MthzJUbEdQZwDuukJYbtr/mLWJ+s/6pn1eL5BE9RUfkLeOHEKFxISLfosO6N0ry43IBGt0cIdIbFPE1J0FxD8d0JmMrBsHZwRWsIw7HipEulOgsDJrKfCchiqMmthc2z7+0xsa3kVquICtB6eYGDB5Bhq1qH9BwBN+kzlppnzQVc6GkdBNlhv3yFWeNteoa03JSPQ3GfU+shteiYdn9YTgaGrEzJj7upF0CNb0Y29iFuB8Hm2JMrccXTJpziivtzm3X+Hwj4Jtr6x40rbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L/evzt8Yf/AquoRl3xbKClrS38CkfN1//dy/8K2TETI=;
+ b=aNDZ9GnFxHF11trhRoB4pUAGSexrGDq/n5hwf4BfUO+4EIoUQrFc025LfN2zEsXZkaBswuryeUBMEw8v7To7jo2i4N+8J+Lqz43a+ASWaMEbDwPVqCSQhZi4Fl5HZUg6Gsr72/QYmcFMvjHdNuIPAVH3JyDyG+boCVjsRnQvry9+tp+HJEOwPVob47tKKl0cWtSSPTVNhcbVNoJpWxn4aauzQVTDEb0UaeJvupWWOSBq4NnC88WxY0nGf2MGtccrwtvFsCERaBY899f2fQLU8VZrsA9DMNRcuEUwbVBkXIOi/sJqiBDWSXQMJn8eamN9fadepNQQOrKv8cE+lOQCxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L/evzt8Yf/AquoRl3xbKClrS38CkfN1//dy/8K2TETI=;
+ b=fiL1Zhk+6YDoEnY/rnaw3qtbCJ0pFmhSm6CEl4Gokxa/2dGCVcfgC69gDhKVKUIDglm8v9Bsh62IKfUEJznGyFK6VF2N1o5P0laofDopde5W07jAmIct9wZcqPv0uM5XX26ypL3N1gK9R+b3m3CcJpa/n25xhtHhyc/ytpEt2OI1zopY7qUt3oKFpfb8lsx15wTCR2zBKKqvFR+jUjX61yJWjR/tYqW0Ohnvaq9z2cvVfDuiU8IgmF4fQOUo0FxxgOI1V0PES9OkXjswY4WxoOOPHRXNs+2iCf55IVRTIk1/c7+HtLDmBJa9Aaboi6eYOiAjWAJTWCeAjvSBldCGUA==
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com (2603:10b6:208:1d7::20)
+ by SA1PR02MB9698.namprd02.prod.outlook.com (2603:10b6:806:385::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Thu, 29 Oct
+ 2026 17:39:39 +0000
+Received: from MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53]) by MN2PR02MB6863.namprd02.prod.outlook.com
+ ([fe80::da67:fd0f:d96d:ac53%4]) with mapi id 15.21.0569.008; Thu, 29 Oct 2026
+ 17:39:39 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Giorgi Kobakhia <gkobakhi@asu.edu>, Marek Szyprowski
+	<m.szyprowski@samsung.com>
+CC: "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Xiang Mei
+	<xmei5@asu.edu>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH] swiotlb: fix out-of-bounds read in
+ swiotlb_release_slots()
+Thread-Topic: [PATCH] swiotlb: fix out-of-bounds read in
+ swiotlb_release_slots()
+Thread-Index: AQFgKk/cI909fRkJAsTJbQaejYuCm7gPQD9Q
+Date: Thu, 29 Oct 2026 17:39:39 +0000
+Message-ID:
+ <MN2PR02MB6863E09805FBA39C6779D209D46E2@MN2PR02MB6863.namprd02.prod.outlook.com>
+References: <20261026032007.1957949-1-gkobakhi@asu.edu>
+In-Reply-To: <20261026032007.1957949-1-gkobakhi@asu.edu>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MN2PR02MB6863:EE_|SA1PR02MB9698:EE_
+x-ms-office365-filtering-correlation-id: 5ede9dae-9652-4caf-58c6-08df35e39bc8
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|12121999013|25010399006|4140399003|19110799012|37011999003|8062599012|31061999003|8060799015|13091999003|15080799012|55001999006|24021099003|12091999003|40105399003|52005399003|102099032|440099028|3412199025;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?9V6kGA9CuJ+9jWDSDfRhqpSKxBfBKklnTdlSMuE5v0lnI0yY2h6Igo1g3vyS?=
+ =?us-ascii?Q?MYbQhEHJhTTOu8qPN3Se2wwe1outWgoC4+NaXG95E7t16vSr/ramIv7CNsPs?=
+ =?us-ascii?Q?MCmc0KQ0KuruwArULxlf0WhjRz/TCz5/6pDpwyISeSwTZoUHwDvzlJ3CzTf4?=
+ =?us-ascii?Q?n8TINc8fCxEPctK5d38gBGFj9QV1TlQRyAEZtpsFyyUrSvGplknrefHIpUMt?=
+ =?us-ascii?Q?pIUE8LALnrmZ2FLR8qTPQ2QU/XbRFBD2HjtRncImLo2LazMvCQD5XaKqWJPt?=
+ =?us-ascii?Q?5j3gALndta6DhIWFeKpF+BYtQ8H9sG/uiFexT9NERkeJczbEwUAavp8EbUlw?=
+ =?us-ascii?Q?bXYbZ3Wb6L9YRCubtjqTOmCRhzJ8mI9OMouC/C77CHREgDilEg3eTw3bc3ks?=
+ =?us-ascii?Q?Dio1Ow9M9rVy6x5/XrFGRaF6iK98XtpgPw/bHj5/KcSaZUcD8rozMIRb30KX?=
+ =?us-ascii?Q?bIwX71Ywn069u1vr5exfsICjSoDhPIj4Klv7O6PR2qNFF8LrSFgFrOy9ppKy?=
+ =?us-ascii?Q?KrLMjb5ASzQWFXlYMKCWRtPkduVPoW0mdbW7ehsLOJ75S2WDUZc/HQoRKCJw?=
+ =?us-ascii?Q?P8LutwHwMMjsoGkr+uKCWMZNTbthGAICyBUDORVEnS/snI4i4ftdLbdUYFRL?=
+ =?us-ascii?Q?Ko/HryqV68w5twUOJhwGf3mic5hDIt5zqyjNTTGzh/ngAHCeYKHMwbFFm/py?=
+ =?us-ascii?Q?inqruvEDJYkVFz7L6OTz7oan7+uyesR8E8ES4O0VG1h4LMlN9HOtOI7Aq1sA?=
+ =?us-ascii?Q?IdbjCq0DZc5bBGMmIRp3Mnq4Nf0KL9I+02mVkCEOP7K6b++UvStV5PvDHZk/?=
+ =?us-ascii?Q?OgneMWkbGUbRi0mZqtmUiNyAMRBkw6JG2AoqnXjp0CSbTOB3zexQ6uQLU+Pl?=
+ =?us-ascii?Q?67Zwg8NW3Ai4ZGf1H9vNs3HvlV1m6Wt8Kq6aCvnxOddqKjriAs60d1wYJJHn?=
+ =?us-ascii?Q?KQBgeTY1rXXIrrKRYtybwVWVHBFr+pY+wQClWyZstMN3hSjONtEExtqj2efY?=
+ =?us-ascii?Q?ma2PvHqelSxyUPUbiwir5xCMf7v0rABEMvmrUuWBkdoCTqui2lw2GI683n+l?=
+ =?us-ascii?Q?zbzFiaCvo6exqJXrllj1RfKRm/dx5lB0Oo8ptGI0utLcYnT7ORg=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?PWMkHc7UkinMhTpR/YJA+fYSMgiUgUcJDclqQ22Atf6HnvdELlXkUhazCklO?=
+ =?us-ascii?Q?7G3x/gXTsCXiCdIEonL3w/OQWgimCl86Dcjw/Ag32Ln3rXO7lrvymMPADYsD?=
+ =?us-ascii?Q?d0A0D5XXHkg92v5n77Pk5osEvir64hPFXnTvJftzEot1VWZQ2+crahOdb0+n?=
+ =?us-ascii?Q?MBuTi2MovVN8zQuHIuqDZM+8od+4Y+2fBygDcYT7ncOsr5bhSWKuwdi3Wibo?=
+ =?us-ascii?Q?aK8hbePus2wJiMstuuwe2ROXsnD1mUfNtQhJ72l7b9D6oCXv9xhnx79p2TsO?=
+ =?us-ascii?Q?zI8PJitjlL7MDQZWowJooQXoZEFMtfNFDNXUNS1kiUjrpMq6fKYkWJUDm/qr?=
+ =?us-ascii?Q?uMm/WkfTNtKydsvMb2FSm+s9ZRxXfwQXMnGI+OBYxn1zQpqSj9TIm75zpBYi?=
+ =?us-ascii?Q?aEehMBXyPbUibTYrOED3i4FvkUqo5UoYa88nuy6WtHPca8XAW5BQ0S2Jxz0N?=
+ =?us-ascii?Q?n+3A4jU9DeGPfBIlbw4/tXK0a1NRvP0oUlQopej3TiGliYMR4/waHhPZ0iyQ?=
+ =?us-ascii?Q?sRg4lb7iMFQ4tNyjtO4Pc3e8fXQmrIPWjoisGguRXjMA2U0nixmQoGThiPkd?=
+ =?us-ascii?Q?CAGESgm3jL2GOoGntxUGBSVYsIEXLWBAahXqHWUPm4GC78RuOYGq9XmElgnT?=
+ =?us-ascii?Q?ezWkr54W7HO+XxouZgcP7OPQVTTEpr7gSa+ONHjG37xQTVIczxjh4yKgL1wv?=
+ =?us-ascii?Q?4iAPT5VXlYAmel/XaSKNDD9fm9OPV0otnYcLtrFksIHZnpvkp4Z9OnTJGFVS?=
+ =?us-ascii?Q?UHEkwashAZq94ho5e4JO0KDjnErhNfbL8EmYt2cJ6E8FdQ0tnU+nqtpFiXyV?=
+ =?us-ascii?Q?C2kLb3v1aAxVmQ7iOwPQAxPWeaD8nDB2EsT+x3OX0tlKOYS4yLH7+qY6ZsJH?=
+ =?us-ascii?Q?UNZoSq8Qj0grfxq0NcvIH+ZvtEoUCa/c+FWP8NpTQMPZ9ZdOuc+lVHwLKPhi?=
+ =?us-ascii?Q?L+njbQxIjZX/R4WAd+GiJHTJ/YF0ZeZK8C/G0OVDiwax/xMRK4N9jDqNjh1y?=
+ =?us-ascii?Q?dYtgK1VAHBq1hx4l6T9mB1E+nio7Gr4Xwr5Xm8TKBs8Ia9cS0hYND1D1zdjn?=
+ =?us-ascii?Q?5qsznURuFCN6CL0QqurH7roRWZ6bPgAJTfsHQX2ubYhLvUguwJ4mq5ZMMsOn?=
+ =?us-ascii?Q?4kdF9LG2m20WqjeLsg70lc8tCDcz7eIi7xdjpyKeAURoaIpSAKP/ohd0vwaw?=
+ =?us-ascii?Q?S4y2dp1ChYZWTYVhIvMZbKlTKPJLJgTCGAjL9TFoPn5NOuUdE1UYiB4/weMA?=
+ =?us-ascii?Q?z4IJGoR+KyUkyQMEXFNo/6EXefC0XkfYH6QCE9K3z1J2aTbgCK4EdqKRmp6Q?=
+ =?us-ascii?Q?5urxsSOO1zd2gO0gKyY+vmYtgXer8BDG3aBmjNLLwx7Yq50y94cjfpc8p5ul?=
+ =?us-ascii?Q?8+btZHM=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,243 +152,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 10/11] net: au1000: keep the MAC stopped until the PHY
- link is ready
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- hkallweit1@gmail.com, linux@armlinux.org.uk, shaojijie@huawei.com,
- horms@kernel.org, runyu.xiao@seu.edu.cn, mmyangfl@gmail.com, hvr@gnu.org,
- jeff@garzik.org, danny.kukawka@bisect.de, mugunthanvnm@ti.com,
- sebastian.hesselbarth@gmail.com, linux-kernel@vger.kernel.org,
- manuel.lauss@gmail.com
-References: <20261027223140.3774570-11-f.fainelli@gmail.com>
- <179329052077.3134.10233975410162013013@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <179329052077.3134.10233975410162013013@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR02MB6863.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ede9dae-9652-4caf-58c6-08df35e39bc8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Oct 2026 17:39:39.6820
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR02MB9698
 
-On 10/29/26 09:15, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 2 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] au1000_open() now calls phy_start() before au1000_init().
-> - [Medium] Reopening the interface after a PHY status read that changed
->    phydev->link and then failed can leave MAC RX/TX disabled for good…
-> - [Low] The new au1000_hard_stop() call in the link-down branch of
->    au1000_adjust_link() runs inside spin_lock_irqsave(&aup->lock).
-> 
+From: Giorgi Kobakhia <gkobakhi@asu.edu> Sent: Sunday, October 25, 2026 8:2=
+0 PM
+>=20
+> When buffer is freed, swiotlb_release_slots() tries to merge it with the
+> following free space by reading the list value of the next slot.
+>=20
+>     if (index + nslots < ALIGN(index + 1, IO_TLB_SEGSIZE))
+>         count =3D mem->slots[index + nslots].list;
+>     else
+>         count =3D 0;
+>=20
+> If index is in the last segment of the pool and the pool size is not
+> multiple of IO_TLB_SEGSIZE, index + nslots becomes equal to mem->nslabs
+> leading to out of bound read.
+>=20
+>  BUG: KASAN: slab-out-of-bounds in swiotlb_release_slots
+>  Read of size 2
+>=20
+>  Call trace:
+>   swiotlb_release_slots (kernel/dma/swiotlb.c:1653)
+>   __swiotlb_tbl_unmap_single (kernel/dma/swiotlb.c:1734)
+>   dma_unmap_phys (./include/linux/swiotlb.h:262 kernel/dma/direct.h:102
+>                     kernel/dma/mapping.c:218)
+>   dma_unmap_page_attrs (kernel/dma/mapping.c:236)
+>=20
+> The commit 0b84e4f8b793 ("swiotlb: Add restricted DMA pool
+> initialization") makes it possible to initialize a pool with an
+> arbitrary size. Before it nslabs was multiple of IO_TLB_SEGSIZE and no
+> OOB occurred.
+>=20
+> Add overflow check.
+
+I can see that this is a legitimate problem. But I'm not sure this is the r=
+ight
+solution.
+
+All other paths for creating a swiotlb pool ensure that nslabs is a multipl=
+e
+of IO_TLB_SEGSIZE. The better solution may be for rmem_swiotlb_device_init(=
+)
+to round-up nslabs to be a multiple of IO_TLB_SEGSIZE. My concern is
+that there may be other places in the swiotlb code where there is an
+implicit assumption that there are no partial segments at the end of
+a pool. It would take some effort for me to re-immerse myself in the
+swiotlb code to see if that's true, and I haven't done that. But my
+guess is that there's a good chance of such an assumption.
+
+What are the implications of potentially allocating slightly more memory
+for a restricted pool than is specified? It wouldn't be much additional
+memory since the segment size is 256 KiB.
+
+Michael
+
+>=20
+> Fixes: 0b84e4f8b793 ("swiotlb: Add restricted DMA pool initialization")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Tested-by: Xiang Mei <xmei5@asu.edu>
+> Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
+> ---
+>  kernel/dma/swiotlb.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index ded7016a46a7..1f18003be343 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -1649,7 +1649,8 @@ static void swiotlb_release_slots(struct device *de=
+v,
+> phys_addr_t tlb_addr,
+>  	BUG_ON(aindex >=3D mem->nareas);
+>=20
+>  	spin_lock_irqsave(&area->lock, flags);
+> -	if (index + nslots < ALIGN(index + 1, IO_TLB_SEGSIZE))
+> +	if (index + nslots < ALIGN(index + 1, IO_TLB_SEGSIZE) &&
+> +	    index + nslots < mem->nslabs)
+>  		count =3D mem->slots[index + nslots].list;
+>  	else
+>  		count =3D 0;
 > --
-> 
-> net: au1000: keep the MAC stopped until the PHY link is ready
-> 
-> The patch moves phy_start() ahead of au1000_init() in au1000_open(). It
-> also leaves MAC RX/TX disabled in au1000_init() while the PHY reports no
-> link, and stops the MAC in the link-down branch of au1000_adjust_link().
-> If au1000_init() fails, the PHY is now stopped.
-> 
->> diff --git a/drivers/net/ethernet/amd/au1000_eth.c b/drivers/net/ethernet/amd/au1000_eth.c
->> index 8c2dbf72652e9..c616ce616541f 100644
->> --- a/drivers/net/ethernet/amd/au1000_eth.c
->> +++ b/drivers/net/ethernet/amd/au1000_eth.c
->> @@ -458,7 +458,8 @@ au1000_adjust_link(struct net_device *dev)
->>   		/* link state changed */
->>   
->>   		if (!phydev->link) {
->> -			/* link went down */
->> +			/* Stop the MAC before the PHY can remove its clocks. */
->> +			au1000_hard_stop(dev);
-> 
-> [Severity: Low]
-> 
-> au1000_adjust_link() holds spin_lock_irqsave(&aup->lock) at this point,
-> and au1000_hard_stop() ends with:
-> 
-> 	wmb(); /* drain writebuffer */
-> 	mdelay(10);
-> 
-> So each link-down now busy-waits 10 ms with interrupts off.
-> 
-> On close, the sequence looks like this:
-> 
-> au1000_close()
->    phy_stop()
->      -> au1000_adjust_link() -> au1000_hard_stop()   /* 10 ms */
->    spin_lock_irqsave(&aup->lock, flags)
->    au1000_reset_mac_unlocked()
->      au1000_hard_stop()                              /* 10 ms again */
->      two mdelay(2) for the reset                     /* 4 ms */
-> 
-> That is roughly 24 ms per close with interrupts off. The duplex branch
-> already does something similar on link-up.
-> 
-> Is the second au1000_hard_stop() in au1000_reset_mac_unlocked() still
-> needed now that the link-down callback stops the MAC?
-> 
->>   			aup->old_speed = 0;
->>   			aup->old_duplex = -1;
->>   		}
-> 
-> [ ... ]
-> 
->> @@ -740,6 +741,10 @@ static int au1000_init(struct net_device *dev)
->>   		control |= MAC_FULL_DUPLEX;
->>   	}
->>   
->> +	/* The PHY may still be restoring its MII clocks after resume. */
->> +	if (!dev->phydev || dev->phydev->link)
->> +		control |= MAC_RX_ENABLE | MAC_TX_ENABLE;
->> +
-> 
-> [Severity: Medium]
-> 
-> Can the MAC stay stopped after a reopen if old_link and old_duplex are
-> stale?
-> 
-> With this change, RX/TX get turned back on after open only through
-> au1000_adjust_link(). It calls au1000_enable_rx_tx() in just one place,
-> the duplex branch:
-> 
-> 	if (phydev->link && (aup->old_duplex != phydev->duplex)) {
-> 		...
-> 		au1000_enable_rx_tx(dev);
-> 
-> Neither au1000_close() nor au1000_reset_mac_unlocked() resets old_link,
-> old_speed or old_duplex.
-> 
-> Here is one sequence that could leave them stale. Assume autoneg is
-> disabled and the link is up at 100/Full:
-> 
-> genphy_read_status()
->    genphy_update_link()        /* BMSR says link down, phydev->link = 0 */
->    genphy_read_status_fixed()  /* BMCR read fails with -ETIMEDOUT */
-> phy_check_link_status()
->    returns the error before phy_link_down()
-> 
-> MDIO timeouts reach phylib since "net: au1000: report MDIO transaction
-> timeouts". The PHY_ERROR handling, and a later phy_stop() into
-> PHY_HALTED, call phy_link_down() only if phydev->link is still set.
-> au1000_adjust_link() therefore never sees the link drop, so old_link
-> stays 1 and old_duplex stays DUPLEX_FULL.
-> 
-> On the next open, au1000_init() leaves RX/TX disabled because
-> phydev->link is 0. When the link comes back at the same speed and
-> duplex, au1000_adjust_link() skips all three branches. The MAC stays
-> stopped while carrier is reported up.
-> 
-> Before this patch, au1000_init() always set MAC_RX_ENABLE |
-> MAC_TX_ENABLE, so this case recovered on reopen. Would resetting
-> old_link, old_speed and old_duplex in the open or close path avoid it?
-> 
->>   	writel(control, &aup->mac->control);
->>   	writel(0x8100, &aup->mac->vlan1_tag); /* activate vlan support */
->>   	wmb(); /* drain writebuffer */
->> @@ -928,16 +933,18 @@ static int au1000_open(struct net_device *dev)
->>   		return retval;
->>   	}
->>   
->> +	if (dev->phydev)
->> +		phy_start(dev->phydev);
->> +
->>   	retval = au1000_init(dev);
-> 
-> [Severity: Medium]
-> 
-> Is it safe to start the PHY before the MAC is initialized?
-> Documentation/networking/phy.rst says:
-> 
->    Lastly, once the controller is ready to handle network traffic, you call
->    phy_start(phydev).
-> 
-> The commit message says "Start the PHY before initializing the MAC" but
-> doesn't explain why the order has to change.
-> 
-> phy_start() resumes the PHY over MDIO:
-> 
-> au1000_mdiobus_read() / au1000_mdiobus_write()
->    au1000_enable_mac(dev, 0)
-> 
-> mac_enabled is 0 after probe or close, so this takes the MAC out of reset
-> before au1000_init() runs. That contradicts the comment above
-> au1000_init():
-> 
->   * conserve power. Thus, whenever au1000_init() is called,
->   * the device should already be in reset state.
-> 
-> phy_start() then queues the state machine with zero delay, and
-> au1000_init() does:
-> 
-> 	/* bring the device out of reset */
-> 	au1000_enable_mac(dev, 1);
-> 
-> With force_reset set, this holds the MAC block in reset for about 2 ms,
-> including mii_control and mii_data. It takes only aup->lock, not the
-> mii_bus lock. au1000_mdio_read() and au1000_mdio_write() program
-> mii_control, poll with mdelay(1) and read mii_data without any driver
-> lock.
-> 
-> Could that forced reset land in the middle of an MDIO transaction from
-> the phylib worker, for example on a preemptible UP kernel? A read could
-> then return a reset value, a BMCR or advertisement write could be lost,
-> or -ETIMEDOUT could put the PHY into PHY_ERROR.
-> 
-> If the worker runs first and already sees link up, au1000_adjust_link()
-> takes the duplex branch (old_duplex == -1) and calls
-> au1000_enable_rx_tx(). That happens before the MAC address and RX
-> descriptors are programmed. au1000_init() then force-resets a MAC with
-> RX/TX enabled.
-> 
-> There is also a problem with the new check in au1000_init(). It reads
-> phydev->link under aup->lock, while phylib updates it under
-> phydev->lock:
-> 
-> 	if (!dev->phydev || dev->phydev->link)
-> 		control |= MAC_RX_ENABLE | MAC_TX_ENABLE;
-> 
-> genphy_update_link() can set link to 1 for a moment and then clear it:
-> 
-> 	phydev->link = status & BMSR_LSTATUS ? 1 : 0;
-> 	...
-> 	if (phydev->autoneg == AUTONEG_ENABLE && !phydev->autoneg_complete)
-> 		phydev->link = 0;
-> 
-> If au1000_init() reads that brief 1, RX/TX get enabled. The link-down
-> callback never runs afterwards, because phydev->link still equals
-> old_link.
-> 
-> Wouldn't that leave the MAC running with no link, which is the state
-> this patch is meant to prevent?
-> 
->>   	if (retval) {
->>   		netdev_err(dev, "error in au1000_init\n");
->> +		if (dev->phydev)
->> +			phy_stop(dev->phydev);
->>   		free_irq(dev->irq, dev);
->>   		return retval;
->>   	}
-> 
-> [ ... ]
-> 
+> 2.43.0
+>=20
 
-Agreed on both medium findings. I’ll initialize the MAC before starting 
-the PHY, clear the cached link state on open, and use the driver’s 
-acknowledged link state during initialization.
-
-I’ll retain the reset-time hard stop because watchdog recovery and other 
-reset paths do not guarantee a preceding link-down callback. Reducing 
-the IRQ-off delays needs separate work.
-
-pw-bot: cr
--- 
-Florian
