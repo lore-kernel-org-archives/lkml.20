@@ -1,122 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258533;
-	b=nlpZEHX/Ggb0UQcL8c0Bg6H9K2fSA4XtdBYi+HXjwkXSJO59pYwSHEHjXkzVMLXgaOzc
-	 CiCs2LlUA8FcSkWWHLjyXZtXxyvLNjmazC5YJqoWh1tdCzJ772K6w1niNAzGg6WlacFDW
-	 KrWjfiOACHBeUfgea3SU/Lhk66va+xZVL/AtjymlJFwLFzEQAtEQaf4d9i2kkdAbQqyDl
-	 L5QgNWWRKKpkU2fkDH77ST0FKeqktIGwIz3q0vtPPWzajqsOuVziv0NuO8+wj3SbcyW8U
-	 6YSrmrhAb9vo7pqgRq5IilyiqHuV9diPBsGA12T0DPxZ2oNdelmDur0Yg+P72/HIP7g==
+	t=1793258722;
+	b=lpfGxu4Mt1HfW6fkl8S38RIt7SIn3KJ4zKkC9eY+zykK8lYK31Hk8zeAzJDjbrqB7axL
+	 iqiUdLhG7B1wZS11ntqqFueVoAv0m4DxyV8zWn3AFAoU5zbaxI4xp/ik0LKh8SrDbtuid
+	 FtnHSTZR4bPHwKbDwUCJhCKOJBxrUxsrvjC9JQ93Q2F1JjegDiugqEqsnX3bWTAfORljL
+	 EqreICbyDHohmW013yxvasj/HPxjqbXZZ2PD9IKNu+LLOmVLH4Uq9QjM1RICB6igjlDja
+	 iZzZSEjWGAjBAd/NHutwx4B6CEr0qgwUqTQ/tKYL6P54vt85OBaSHVtB1/vNGkO0NYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258533;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=TsAQS4rA4H1iNqLsq84hKblFTfrWhP+kWPfdX+CCGew=;
-	b=NB04CamW1+cUfiadld/AvRVe3lMFqLxSTlwlh7aJJ15enlTZvZHQAxyMxjs8x5VWMNDl
-	 HFegyAaBASdC6H+o3anWTZ+BnkOeUjKA9CWk57bTkCklVNwmn9ZYifDW7HHSaAw8cTiBp
-	 mhHGuae0s6ScSmCpaHzZY+RPO8Knr0KGfW1qT9UUPljtQtQF85a5TB0u0t7hjczsTDtfB
-	 n/Hq/0ExmF3oG0dv+WAGkuJkro+pSUkICdtCfMZZr/5uXCKG/pXp6fpRoE5nTscYOIlIL
-	 FHBjrIrujwuI7SK/Rg4XREc0vNIJMunJ1iFjExDa4b2Zwwq4zt0W4IXbAfF54KFfiwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258722;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xNUN+utYqDHfZafRgwtlnx10jDhmyVmzJ84YHVaSRLc=;
+	b=J6bhkjuU5VnHhSAsC8hSjXpOG6tZJ/dmhEh1t59diSWQlGyAmHU7FIxffDjxd5mjHbp2
+	 OPA7UT4fHT17LHwOHgRwc/DT6/ERQBGOWXOl7qd2B8FC85laLN8jyMQyeKLzBtf+N8fiH
+	 RsnaB58Rq2jf2TicAA/pNtxpyWwY8SwVASxNejiy5AuZ65VKqSte1AJJ6H8vO8UydfcI4
+	 hyPLL0ekahbKaIpaHtnD2E1pB1fyuQLqSay0eL5ZmdQak6ptfyvNaMslcUK2iLyGuC8Ta
+	 tB0kQrywBl+88OoHPO6MDVKxjTqmuglTDFlJ0royeQVIhx9z56JEYVwaXtNav8CLrHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=h3nLwMmr;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bkhC7wkX;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C861606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:22:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C861606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KFJuOTqr;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 91E6A606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:25:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91E6A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=h3nLwMmr;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bkhC7wkX
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793258532;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TsAQS4rA4H1iNqLsq84hKblFTfrWhP+kWPfdX+CCGew=;
-	b=h3nLwMmrpaKBunfv6J9qj8Mygc+YphlZjqN7N7KR8jR0YGYdb3HGDiZdNYh9KOJ/4qmddq
-	RRNQQyJR+L9z3P45u+ls8clcYTthLAPRBQzbL+S0FtIEyCj7Zyo93OrTURPponA7VvqLks
-	C/t6yGNVc4bqVyjv10uFS1YdSs5O7l4=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-688-FTpMHe7YNH-_sRHGbnYQGw-1; Thu, 29 Oct 2026 03:22:10 -0400
-X-MC-Unique: FTpMHe7YNH-_sRHGbnYQGw-1
-X-Mimecast-MFC-AGG-ID: FTpMHe7YNH-_sRHGbnYQGw_1793258530
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a20e41008cso12103485e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:22:10 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=KFJuOTqr
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793258529; x=1793863329; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TsAQS4rA4H1iNqLsq84hKblFTfrWhP+kWPfdX+CCGew=;
-        b=bkhC7wkX80TDMr0jrySIenQ9LIPQkMEWscjm3Nm+nMoLwgMgpJH0BntBG4pfwxmbBz
-         OJwQkC0P3UQNU2hXtETahje3JM12DZddx+qi/bT+XEIkZNSEBgs+xvtB1xE9R9mKZgb1
-         t2U1rV/PN9Jlx5DwHWFTZxsIF95/r+lh7nZciqdsb6cO048f4VYP0Xd65iRPR2RWN2ll
-         bT27LzKkM2+YIHSNKugU/rYeQpLSPe2JHaReH0pcjmx4gV2lj+vPyGElk7nD6vMuuVrY
-         yiSC3T2TVmo+1VLlV7HvwG4S6Tf0TO55c9QM9/i4V9NlW8ouKYURZjhuuvWjIwq3byX0
-         APmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793258529; x=1793863329;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TsAQS4rA4H1iNqLsq84hKblFTfrWhP+kWPfdX+CCGew=;
-        b=eccPEOni+0pKjB9QRnpUL3MCFl5H7sgthaTnIgxFPPFS8+4+Q75J9ltKAQmCv1EaDu
-         V4UUyWt5bqCJQCxqHnzSee2Q0tLRyT29y5WXqR5cWFx1SI0KJ7V5nSkuK6sGSFrmVfN9
-         WJFro6mNVvSo6rC1JGkU7bKWkb0vuTBOT18tOa5vMx4cXuOu5ojPYPHwGes2gPymdTpp
-         1lC6DVaSU1wNYNaVfKvC1tZp47i0ARuKNjcpS2WlXVmSF5NcQbWbn3BPQFcg7LWWhfrq
-         2MFfaJXmuMCg9LtKLwNvEwUUpU7nMAMKa2unBpqxC1hBw++iQd5Sb24hMeJq/0Q6ULEj
-         ltyQ==
-X-Gm-Message-State: AFq9FYLcT6HgzjYi6QbgXi0BJGeWKg18mjFaNy50U7F9jh8NB2XqtAvs
-	tVInKTz/wEoHV9uLmKHKE+tyfFhagYCIZvOCG+MpgvacSaDvoH7mTEDuvWO6akjjr6fZEpIETOn
-	yMMuZryl8iW0Ex13bkI4isR9Lmx+cDz1kH3J8HYNSkKxqwhB1GfKCgbc6X4Xnfx1ZEg==
-X-Gm-Gg: AYBFou1ko/oqDBflABAMUF1FC7VC3fhysx9GMZOZA/cTbCMlxlBaARiHQNkFL3ES4hT
-	h9WBXZX/USPzPaIfZ2QbqpHLyM56pjHRJKwhYXvnHJT7V46RoZJNBqcM5vlCEmSYoVXEYRM+owp
-	jSmIt+ClXdTVVvpHy/hdCNNu+LK8rMaj/sT/wopOiOyI8LGVMT8exSnpWjFvfA2moUY5IeZnuKu
-	NS9ZhjiL8xTYwdK8y07CT75TcUmkQ+OT+/aReSFiPH2sYlVkge1L6N0EZ5vulPksGLUvUMxKGX7
-	pN3kZLUM94xGFDstVt2q0JFuzizEU98kUH8yxwAN1A2OBUZ0OghFji+nPunJIe5WzRav2E9TkVO
-	gB3Kd2O3UBeaODbs/uN//FLAvwqmrRVa96zCCdJHVLs8=
-X-Received: by 2002:a05:600c:811b:b0:4a7:462c:6b9e with SMTP id 5b1f17b1804b1-4a967d96eebmr99427665e9.32.1793258529395;
-        Thu, 29 Oct 2026 00:22:09 -0700 (PDT)
-X-Received: by 2002:a05:600c:811b:b0:4a7:462c:6b9e with SMTP id 5b1f17b1804b1-4a967d96eebmr99427315e9.32.1793258528864;
-        Thu, 29 Oct 2026 00:22:08 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:1501:b100:9ea2:fd21:b361:8dab])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece5e4asm31993080f8f.59.2026.10.29.00.22.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 00:22:06 -0700 (PDT)
-Date: Thu, 29 Oct 2026 03:22:02 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Chris Arges <carges@cloudflare.com>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, virtualization@lists.linux.dev,
-	Max Krasnyansky <maxk@qualcomm.com>,
-	Rusty Russell <rusty@rustcorp.com.au>
-Subject: Re: [PATCH net v6 0/5] more virtio-net csum hardening
-Message-ID: <20261029030932-mutt-send-email-mst@kernel.org>
-References: <cover.1792768096.git.mst@redhat.com>
- <20261025094449-mutt-send-email-mst@kernel.org>
- <20261028154315.4b9f3077@kernel.org>
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=KFJuOTqr/wjEehlJbrrGSwU0UbXsfFpWkKsyYMzuXeOqtXwq6zbbDJ+1QEAGGRMGu9tAZDkWnOzXA
+	 dAbNxItYz6qpjaMyjDJKu2V2Fy2XbWSN4B92bQo9lVSBILeZHZMCNYpfuosPGUWT+xdX6Mj29wjiSP
+	 8ZZp1yMOOydhfCCM=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26ae2f4de60b-a3b33;
+	Thu, 29 Oct 2026 15:25:18 +0800 (CST)
+X-RM-TRANSID:2ee26ae2f4de60b-a3b33
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from Z04181454368174 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr04-12004 (RichMail) with SMTP id 2ee46ae2f4db9d5-5eade;
+	Thu, 29 Oct 2026 15:25:18 +0800 (CST)
+X-RM-TRANSID:2ee46ae2f4db9d5-5eade
+From: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
+To: eperezma@redhat.com
+Cc: mst@redhat.com,
+	jasowangio@gmail.com,
+	xuanzhuo@linux.alibaba.com,
+	graf@amazon.com,
+	linux-kernel@vger.kernel.org,
+	trivial@kernel.org,
+	zhang jiao <zhangjiao2@cmss.chinamobile.com>
+Subject: [PATCH] virtio_ring: Initialize id field in packed indirect descriptors
+Date: Thu, 29 Oct 2026 15:25:10 +0800
+Message-ID: <20261029072511.851-1-zhangjiao2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,34 +72,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028154315.4b9f3077@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 03:43:15PM -0700, Jakub Kicinski wrote:
-> On Sun, 25 Oct 2026 09:50:24 -0400 Michael S. Tsirkin wrote:
-> > > Apologies for reposting so frequently, I know netdev bot will be unhappy
-> > > with that.  But Paulos's report made a lot of publicity, there is a lot
-> > > of people looking into this, so I feel there's value in defending
-> > > against all this class of issues sooner rather than later.
-> > > 
-> > > The issues were mostly found by code inspection, but all reproduced by
-> > > me in a VM.  
-> > 
-> > Ok, I looked at netdev bot review, and there's another issue.
-> > 
-> > If a tunnel inner packet happens to have a valid header at
-> > inner_nh_offset, it will pass all checks, but the transport header can
-> > in fact overlap e.g. the real TCP header and checksum will overwrite
-> > that.
-> 
-> Sorry for boring process stuff but FWIW the last patch also does not
-> apply?
-> -- 
-> pw-bot: cr
+From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
 
-I guess I need to rebase. Still don't have an idea what to do though.
+The virtqueue_add_indirect_packed() function fills an indirect
+descriptor table with addr, len, and flags for each entry, but does
+not initialize the id field of struct vring_packed_desc. The table is
+allocated via kmalloc() (not kzalloc) and then DMA-mapped with
+DMA_TO_DEVICE, making the uninitialized 2-byte id field of each
+descriptor readable by the device.
 
+This leaks kernel heap memory to the device for every packed indirect
+descriptor entry. A malicious or compromised device could extract heap
+contents by reading the id fields from the DMA-mapped indirect
+descriptor tables. This affects all virtio devices that use packed
+virtqueues with indirect descriptors, which is the common configuration
+for modern virtio devices.
+
+Fix this by explicitly initializing desc[i].id to zero in the
+descriptor filling loop. The id field is unused in indirect descriptor
+table entries per the virtio specification (only the head descriptor in
+the main ring uses id for buffer identification), so setting it to zero
+is semantically correct.
+
+This matches the split ring path where all four fields of struct
+vring_desc (addr, len, flags, next) are explicitly written in
+virtqueue_add_desc_split().
+
+Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+---
+ drivers/virtio/virtio_ring.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/virtio/virtio_ring.c b/drivers/virtio/virtio_ring.c
+index 5c169fbb418a..42883b01fab0 100644
+--- a/drivers/virtio/virtio_ring.c
++++ b/drivers/virtio/virtio_ring.c
+@@ -1571,6 +1571,11 @@ static int virtqueue_add_indirect_packed(struct vring_virtqueue *vq,
+ 						0 : VRING_DESC_F_WRITE);
+ 			desc[i].addr = cpu_to_le64(addr);
+ 			desc[i].len = cpu_to_le32(len);
++			/* The id field is unused in indirect descriptors but
++			 * must be initialized to prevent leaking kernel heap
++			 * memory to the device through the DMA-mapped table.
++			 */
++			desc[i].id = 0;
+ 
+ 			if (unlikely(vq->use_map_api)) {
+ 				extra[i].addr = premapped ? DMA_MAPPING_ERROR : addr;
 -- 
-MST
+2.33.0
+
+
 
