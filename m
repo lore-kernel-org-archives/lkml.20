@@ -1,114 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793312610;
-	b=a7GnGizLN95Xu1K+zDb5h6ukAYrFZ2dGRXmVWuDDlkXjXkwFj9JzdjwLHpMTZnkECZ2T
-	 HpFbQtTf9h1OAc9qIWCa94N/0FrUeZBTYSfTe2dpsdzPdxMDR36C9Siqh2D5OC9F6HXpw
-	 fgfaetZC5BqPc2BLOal5cANdDX8n0HY2ruyLrEbrmmxAaejNi5bzFd+a50WPpFg/yWPhl
-	 rIBlId3j704Jboyz1lQWvEh2fBZQB5F+8SELvIb2/4vAF77GTTMWK542i0w5Vz05BN1Mz
-	 AIaV/xu6ImClBCu87z9kHogA1GSetOwUirBuZ9Nze94Og7v5jIwvf0iPoUxv+DfItlA==
+	t=1793312627;
+	b=np0u0W2PA3ZykpAKQUgNZblwoFO+opAKehl/yurWnnroRMwunsAx1DTbOt50iKNZoKrY
+	 qBkOjLKT7pcyE42rBWWNU3nudqtz/azw2hJ5KE/oUh/a65qxpPN4es3NK7cqy1rt42wcX
+	 zNqQCH0roEvRNK2VufFlmeXo5iH5eMYmChae5u8ZLXXU9mfBVCS+awhy79I18SHDCwA0L
+	 tQ/zdGP5csNnHpiaDVOZdLHyYVPXIaspO53vN3zYgcrtZo40t0/05rwohfxpINeaKm9oU
+	 xXa93MKihQGqGqTeHQVv6V/REp5ExfL26+eCwmNwD3whSp8jE8jmtNT7jaurLcGxT/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793312610;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793312627;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Content-Type:Content-Transfer-Encoding:MIME-Version:From:To:
-	 Cc:Subject:In-reply-to:References:Date:Message-id:Reply-To;
-	bh=ZvSqu33VwzN9N6NrqP0yeIbdJwaFf2DGli8QvsjzCCM=;
-	b=W+Ts0P/lLbK4qahuyIn+sufgJBvNYTBzANl6hAwzFS+i278TnE0bPybWtzs8bAlTnOMl
-	 dUawY1QiVrYUzgEaSpndk0UKoDmXAqLs12lJdx3rk6iqVmerDLckX+JQoAXQA/nonOtMk
-	 RzkZTA3LC7cNYcOiQstJkEVrwPtUZ8wiNxTpo0LBHIXcP+tkni7pormOIDZp746j/vw5d
-	 VMDcgZS1mrwD36bymSTEZj0u0nH0mNHyY9uDZ6MeYptLX5u3QRasxxvMNrzqjUy05trEf
-	 fbI46qyyIW2McC5B2DGDMkM+2C9mU32i3SKEXz3EOluIhfXrSv1WsEl/WjRTw4PmS5Q==
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=3kiZulZmsMW30AFctFkvQQNZ5K7UBvVZ9vKgq36uOxM=;
+	b=1hGIcon/ZWyT5F4I7f/UJ3UKTdHz87xZrzWPsULnWk5EuKsNDB9UNwuQAb7vo27g1uh6
+	 i8lTZbl4vAm9ICH2h+46SA2/tukRWOkXXhJC3NC9MRl6aMXRlF90XU8/kgPjcc2nuRTU4
+	 EJieagToEirQ2ZVEe5Bj/WxxkvwZSztqzb2EehzkBzENiBMv12uKV+z+LnQ3gqS8lPNU6
+	 6svVvW3+hn4jogOrbuOT7xABX0OU67QBIJ6UhNe0mRB6K9Thah7hk0zENRUxRuqefyqhQ
+	 B4Z0Xnl7HdRR3/VARgJmg+LgRopwooT2Q3GNsNSDaQGdTBnBzGYOblNN+xgH8MTaRUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ownmail.net;
-	spf=pass smtp.mailfrom=ownmail.net;
-	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=VedKNd8g;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=tF00iBdP;
-	arc=none smtp.remote-ip=202.12.124.151
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	dmarc=none header.from=seanlyon.dev;
+	spf=pass smtp.mailfrom=seanlyon.dev;
+	dkim=pass header.d=seanlyon.dev header.i=@seanlyon.dev header.a=rsa-sha256 header.s=fm1 header.b=ock8aaYD;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kChEqgEW;
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3431B606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:23:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3431B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A00606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:23:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41A00606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=seanlyon.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seanlyon.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=VedKNd8g;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=tF00iBdP
+	dkim=pass (2048-bit key, unprotected) header.d=seanlyon.dev header.i=@seanlyon.dev header.a=rsa-sha256 header.s=fm1 header.b=ock8aaYD;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kChEqgEW
 Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 73D021D000AB
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:23:28 -0400 (EDT)
+	by mailfout.phl.internal (Postfix) with ESMTP id 6E7D4EC0184
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:23:46 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Thu, 29 Oct 2026 18:23:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
-	1793312608; x=1793399008; bh=ZvSqu33VwzN9N6NrqP0yeIbdJwaFf2DGli8
-	QvsjzCCM=; b=VedKNd8gqxVo2N0oqk0oDxszhCNQHyDIzKPBeE05wxY2RCWMPVV
-	OkOuKq8I+kLpifWQTgEEDMDyZ23ZzPNSjaaY5AxuoSrnmEHIk0U3l7QA2wtdkT3g
-	KLmybRSpivOoQwGSdaq11ZhwgL7wJiwzxtkwa5rIICWoGB/JHBERVVWtZWWJfFA5
-	qDuRnH5QEtxFg2uxkaSGMxh9GqGF8J7GP1XNo9+zCvbANfubMA1eYeg10OJIYERE
-	fDXE3BoAuv+etXWgjWC+kJfZmn3smXGmW4IxPj5c3yTqsJzhKinHwZYTB9cB4y+/
-	QAJDt59TCGzKLvCl023Zmi8UHOP3ORUkxeA==
+  by phl-compute-01.internal (MEProxy); Thu, 29 Oct 2026 18:23:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seanlyon.dev; h=
+	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1793312626; x=1793399026; bh=3kiZulZmsM
+	W30AFctFkvQQNZ5K7UBvVZ9vKgq36uOxM=; b=ock8aaYDfNTFGCndeRQENHS+Ho
+	D+8Wmgv97Y1Y7DCGbcy0RQWJwzTSzWSP8cDvR8WoIOYnwqb+dRAZ+7vghVs6kjnp
+	8G0o5uOLTNZ2d7O+DIFRHivI0LfCSP4LsP2V+ESUaCi/uefQAXa9Q+wgIPace7Qx
+	+pJ2qRPVzWhbGtl05GSiY1Ygf5csV1mbOqYcTvVNZvz37JTnOOhQC6s8WtltDoxl
+	Q9ysensTNiXtXH6s0zs5jypnoo5dR+vzAu8XCzbsccBQilCAxpB5k3CD2DRqiiri
+	oAtvswxTdm7pAS+3o44OF/Jkhe+WYIPgCys7NSfppP7jNjEKYnjlf4Xg8xwg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793312608; x=
-	1793399008; bh=ZvSqu33VwzN9N6NrqP0yeIbdJwaFf2DGli8QvsjzCCM=; b=t
-	F00iBdPTsY8WqmUbnu0lR2CYgL5G2GJHaxtwSdHwWk2pVZVQ04n+rLfhgwXG7mwO
-	6O81mNP2N/h8gOu1cUF0zvwzJvvDcWg1UOHIERS3/KRQobwox1jy2ZBE89MCDjFK
-	N8eu1YGU4R1HDAsBv6RvIFymXuOXWRK70r2NRjDRaUePoAl7VNLde3zbmSGf8LEu
-	gUx1B/mVCF2rYOsq/IrULbEd6f5jnNOJ+x35p4n2+EA5UIpqone+on8mPt0ZnpVV
-	Mx8giMzpOdBMxL+eGDJTewNBMvQbI7uEPoxGm5vecCfhAsYX3EZU1qV8hyicQ/xA
-	dJcPPnHiLqZVLI9Ua9TqQ==
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793312626; x=1793399026; bh=3kiZulZmsMW30AFctFkvQQNZ5K7UBvVZ9vK
+	gq36uOxM=; b=kChEqgEWN6+UGUa5muOA5cxzbrmZ3vdwpSMrWUc9HFziAooUMPc
+	/grfLraOrO2btwbhnmw1c0tJAK4elR0jqdTt1CJcWULxutCrV610mASTUjUTRZwD
+	8VnTuELeZJ2UteAFD8/HdMFE37U86GoTIcQU2ycZ8FXyaD4M+hBuZefeEpreTXtx
+	1b933Ls/6uP1sGRNnapfq/Y7/URGX99dKOSEzyLKklA82TnlbSqfRLXez4Wb7F6h
+	r962hk8f9edR+YC3VWCqJwQ5BAGSMSGVA30Gu2jqO2/GkisgQenbYjukfkqZztVJ
+	s1XT198CwzetWah5Cl3t+79ZHYU8M057emw==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=ownmail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793312608; d=ownmail.net;
-	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	action=sign d=seanlyon.dev a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793312626; d=seanlyon.dev;
+	mf=PHNlYW5Ac2Vhbmx5b24uZGV2Pg==;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:cZgoWd+LRM7Ly6vx7wxZrcMr3di/aA3xU7mTXGy3Ac4q3yh
-	+MxJFFDx2Mw6rfiPaLl8BtM/yQIop+X1iD7O8XoDXJTvtEPWRF7NpOPVlrJABDO+
-	KsF6XCAGDkWD6tFo7JOPo9D53ihELYm2vmdyI8eyDemcdQzI53GnBaSi80plUm4E
-	WOPI9+yAiVydkhjoMlGqHc2kStcbZDUC6EUbk9KjdyTWLPTYCeC6EQgEFJtlZxNL
-	8nHpy5ulIxQfD6wYkXW6l+wh3yHF9N+pOKehUcCWSTymMhJTcLHnsR0jCLVX6jjC
-	aa/AFGCENN+DRYKl8ABzrWs6pTMuHxVcw0RPBVg==;
+	s=fm1:rsa-sha256:TLKvkQwCS7j1XK4UHq6jDsfVLcUoQZSUhEt8SNaD9O4p+Kj
+	eP8vkYFRoNr+ezSRaNQPoHIM/7INzJd3NdwuLT4Vk2vTrNVKXoBqal7YcNYUzhKV
+	fD6B5Gb+P54xe89769iGGV8aHdkyfZRWMxKlHVEyF5eYsLe/5gjFj8XRFwnaYtsY
+	Z9RKoxlWQ8Kr4xyl5Cz5L7HWIwgEVWkh3X7jShfcCFb/t36Tq1QEApIWMCR1ZyzZ
+	zxuBZANg5Lg5qiDdIkiZbofuXEM2o1p8vcVh8Hv+xctYcDeTqXznk0jw8BVl2GYB
+	6l9Mx2hRBf8F1N3o+2gLgFTt/4ziTHeCUffqZyw==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,reply-to,
-	subject,to;
-Message-Instance: m=1; h=sha256:PJaC5ePuITNYs3Isdew3ZWP9oM6BkaNc+LgFBktKDNE=:9Xhi+KkqG3inG8QmyT83XzAcRCxsLosfwTCzc/SAnY8=;
-X-ME-Sender: <xms:X8fjatBuNNa9YkDZoQag2LXy8D1i1HBxcA7ARNCnweq2ewERMU7K5Q>
-    <xme:X8fjan6OghgqlatZqDH-_fJuyGVP51QKTgxF7Pc3mX2bfOz85U9jCkIcRl4-NBQQH
-    RMdfDpTqy6_sqrCVspYtVKhztUM_F1h63hWrwTgjngZK-Fqv_g>
-X-ME-Received: <xmr:X8fjatBwf56tcDq6ETSv4Kjr5iSk2JW2GOnSw4Uy-MwmzPDUpvw6WCr3ReP6kV6wnIqE70ZKFiyFbl4sV1WcONKcq0dqZqQ>
-X-ME-Proxy-Cause: dmFkZTE5nlQ15e2vVjI800vPsKIFX6u6l/cv1Dtj+ZXc0iB6zB9GRyFRt/uKLv1NH/wSMx
-    S4LF9sRWFHcc1nsXe8iGnS3+pVlVSlS3OYcHuOyLd+rlWe6wBoUcItYFVYlmSIowbVxcPF
-    HjilRmmynrLdTFnIW6yBeoqShnhHSFsb8VZFH9DgjH6vGFjTfsIYiyEFdNFnwwblVH+7PB
-    bzZbg9usoCZuRpF+TU7J4vy7pdeMyoedEUKnjjq8VIL+5hzenYTzvK0/Veh8Mqg1YZvrey
-    TYEJmc2eH5UDb895p6A2qnME+wCsHv+htHQ8NvTrJChc0Z304KtqLVMHsmIoyl++IZEgj4
-    uhiLO/mPZaJuPKPw7IdTyH4ePihavxwIdb4ScnUmnlva3oa7EhC7Tt+kayGonByBOkll2X
-    qf8GhEKaWVQTZPvQjqFnDMsIxfxxrsh0JQkDW4RcOimq7U7olkKhkWdhFovoToxiFu6aqB
-    eZHG300koFyNyg5WV2X710VmSQLPibyci01I4vXTP2dt9v5p9OCfdAzITA/R+eZdTlxnzw
-    z4Boh2/6wQUZoPWGBVPEnSrI5rD6y5C8c1rVpHReQ5/QHLunmfp9c+dcU70FepXJaXeq7D
-    z9h4UqbElM1MKe1O4VjTKd0ABZUb03tAVCjolSfabOVhNqCCqK8KXN2MzneA
-X-ME-Proxy: <xmx:X8fjal79kuLBe0RyjtRsMqJ7sHKuCZK9J545xcYm1Muec0ZRrQmefA>
-    <xmx:X8fjauv0pkuQtHdE67mYG7ICvM9dDG4RnyvJLPQ6wcauADXUlBkC8g>
-    <xmx:X8fjai6OLORBk8sM7gFQ86lWvOTgdZkNaAhG7zr_ULiBKkhOIYO1ew>
-    <xmx:X8fjaq3iSLlWbhImoR1vlmQyRHyfwRksaZ2MfpoUHE4YzNSSvFVPwA>
-    <xmx:YMfjavnv8THOTMqOWgrX7D3pNpkrpLV_g-hNtBQjb0RlHkz2CtMLolci>
-Feedback-ID: i9d664b8f:Fastmail
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:GzoDna3Fq6+crKYNj7BIe6kIAovVHOhT+X4UWWxtcPs=:UGJq2selnKm3jmH0h6j35mWKm0O2jeSQKvSZ4gQ9qzg=;
+X-ME-Sender: <xms:ccfjahRjiyZu8F9m2suNjBFlF0DilQadZpzZRFK-dgW1X03Df-swdQ>
+    <xme:ccfjamp20C5M29AlFR01yaVpsNXIO8bNc9uzN10bgVdjEmgiVZ-cDKt0mhGX8CVvF
+    Q2k_mhmiZD98xGcFsyIaHCfH960IJzpbDtiCFTKR93Z98CMJc2OLjj8>
+X-ME-Received: <xmr:ccfjaiWO8Vf3mc9pvrojwp3BjEA8wdyJ0Y1YgT0kjNnVV-kR0ZvP8syzS6L-cR85cxPt31p20CFR1lso9EFMxI7fu48>
+X-ME-Proxy-Cause: dmFkZTEsMFK4+tEdeywpm1S+ggPFr2a5W3qul9TABGbQw3zx9wuVbpnBWg8DlbilZqRshp
+    WklaP9mfBkypsFNTF3l5tUe3kyADfhQ8Ad+sx4bYD6v3lnZnfRvbRGMrOZO4mivMBWpZ1D
+    KXi04N47mjESyF1Gh7PT3h7cYn90qSIFiTXhLqHujfQwK5+htDtdwcGZK1lyotxEUqauER
+    Vrt0ZBHj33iY6qbvecKnlmxUoQr3xBR0IXHAv9N8OZUP+pVZB8Uc1aEQb6tCsiMZjDLukn
+    EPa07eMNCmvYS9nb4g66l1HcGw9Zw8AOphnvjAIslajx32TbGGo1AMohozDjtW8zwPtNJe
+    buDEzv0uzBaxc+Wlidk28w5uxRlOoXNXgxpc3hSP0mP0qKMbHMZXVZg3aqPxT6NfLQtn14
+    fOYZUH2Desg21+SWlr73FzRLXgW86iGD2kTSZEiFYnBsZ2atNRBvisFVW/+gPT+J6guH1B
+    CLZPGus2vRHeGNa26mJAlBSy3vpLx5/iA1nWt3DnVkYnSUmd5kOk4AUmvm6n5ybqImFEMx
+    TQCWCBsI9ThE0ncGJopXzGTWTRTI5lwBHJAeMJhhDydMoSCnbcwniAPYQ4pIxkZ2auadTJ
+    hlNL1V7Ie+ztbcZfDGHtpNH7ts7QCJxNZLhzz8VzQd+ohLSb+gZsIgbyHwsQ
+X-ME-Proxy: <xmx:ccfjas-tHeusEU3hwJWqjzR01dm1PWdwy3NSoDyaP6eSPCpBhqMj3g>
+    <xmx:ccfjaia0Cv5Nb-b5BAR2iOeafACodHZBF5WMgZ-ymHraLjQR259lIw>
+    <xmx:ccfjasduzI9TAGso-Fb9KIaD_y-k1g5hFsm1mfHFS8zlyiIG7XWvew>
+    <xmx:ccfjakoW0KBxWY-SevK3AVmGExypzSFDrt7gYucKNJV0BjdjmY6chw>
+    <xmx:csfjaoGmCQThLF5cpOt4oSmPfZXzHI2qp5Qk0CTMs8dqZ6_NxJaovsWL>
+Feedback-ID: i07c64b5b:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 18:23:23 -0400 (EDT)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+ 29 Oct 2026 18:23:45 -0400 (EDT)
+Date: Thu, 29 Oct 2026 18:23:44 -0400
+From: Sean Lyon <sean@seanlyon.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/247] 6.12.115-rc1 review
+Message-ID: <auPHcDLRykuYd3ni@ncase>
+References: <20261028165947.349197979@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,172 +127,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Jonathan Flynn" <jonathan.flynn@hammerspace.com>
-Cc: "Alexander Viro" <viro@zeniv.linux.org.uk>,
- "Christian Brauner" <brauner@kernel.org>,
- "Trond Myklebust" <trondmy@kernel.org>, "Anna Schumaker" <anna@kernel.org>,
- "Jeff Layton" <jlayton@kernel.org>, "Chuck Lever" <cel@kernel.org>,
- "Jan Kara" <jack@suse.cz>, "Jonathan Corbet" <corbet@lwn.net>,
- linux-doc@vger.kernel.org, linux-nfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC 03/12] nfs: tell the VFS when two names can be one
- entry on the server
-In-reply-to: <20261029180957.387138-4-jonathan.flynn@hammerspace.com>
-References: <20261028041023.3738553-1-neilb@ownmail.net>
-  <20261029180957.387138-1-jonathan.flynn@hammerspace.com>
-  <20261029180957.387138-4-jonathan.flynn@hammerspace.com>
-Date: Fri, 30 Oct 2026 09:23:21 +1100
-Message-id: <179331260192.1157394.6210237718575047017@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
 
-On Fri, 30 Oct 2026, Jonathan Flynn wrote:
-> A server that reports itself case-insensitive, or as not preserving
-> case, can make one entry of two names that the client caches apart,
-> because the client compares names byte for byte.  Mark the filesystem
-> on such a server with SB_I_NAMES_COLLIDE, from "vfs: allow the parent
-> lock to be shared for O_CREAT", so that the VFS keeps the exclusive
-> directory lock for creates there: the per-name exclusion that replaces
-> the lock for a create made with it held shared covers one byte string,
-> not the names the server treats as equal.  The client learns this when
-> it reads the server's capabilities, which it does again on remount, on
-> migration and when a later mount reuses the filesystem, and it updates
-> the mark each time.
->=20
-> This is a conservative fallback.  A server that declares itself
-> case-insensitive should itself treat the two names as one, but one that
-> did not was seen making two files of one name when such creates arrived
-> together.  No filesystem relies on the mark yet, so nothing changes.
+On Wed, Oct 28, 2026 at 05:56:43PM +0100, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.115 release.
+> There are 247 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-We don't normally work around server bugs in the client.  We tell the
-server maintainers to fix their server.
+Built, booted, and tested on hardware for x86_64:
 
-But we *certainly* don't work around them in the VFS with
-SB_I_NAMES_COLLIDE.  That sort of fs behaviour might be tolerable for
-files but it is a real problem for directories!
+- Intel N100
 
-Once we move directory locking into the filesystem, the NFS client code
-might choose to add extra locking for servers that might be problematic.
-It would then be entirely in the NFS code then, and up to the NFS
-maintainers to decide what to do.
-But this logic does not, I think, belong in the VFS layer at all.
+No regressions found.
 
-This just confirms me in my preference to continue on the path I have
-planned.
+Tested-by: Sean Lyon <sean@seanlyon.dev>
 
-Hopefully next week I'll put together an RFC for the next steps, and
-we pursue the prep patches that haven't been acked yet.
-
-Thanks,
-NeilBrown
-
-
->=20
-> Signed-off-by: Jonathan Flynn <jonathan.flynn@hammerspace.com>
-> ---
->  fs/nfs/client.c   |  1 +
->  fs/nfs/internal.h | 35 +++++++++++++++++++++++++++++++++++
->  fs/nfs/nfs4proc.c |  1 +
->  fs/nfs/super.c    |  2 ++
->  4 files changed, 39 insertions(+)
->=20
-> diff --git a/fs/nfs/client.c b/fs/nfs/client.c
-> index ea99b3c105..30206b309c 100644
-> --- a/fs/nfs/client.c
-> +++ b/fs/nfs/client.c
-> @@ -975,6 +975,7 @@ static int nfs_probe_fsinfo(struct nfs_server *server, =
-struct nfs_fh *mntfh, str
->  			server->caps &=3D ~(NFS_CAP_CASE_INSENSITIVE |
->  					  NFS_CAP_CASE_NONPRESERVING);
->  		}
-> +		nfs_server_publish_name_caps(server);
->  	}
-> =20
->  	if (clp->rpc_ops->discover_trunking !=3D NULL &&
-> diff --git a/fs/nfs/internal.h b/fs/nfs/internal.h
-> index 5af6a032f1..34b8aff4e0 100644
-> --- a/fs/nfs/internal.h
-> +++ b/fs/nfs/internal.h
-> @@ -224,6 +224,41 @@ int nfs_init_server_rpcclient(struct nfs_server *, con=
-st struct rpc_timeout *t,
->  struct nfs_server *nfs_alloc_server(void);
->  void nfs_server_copy_userdata(struct nfs_server *, struct nfs_server *);
-> =20
-> +/*
-> + * Tell the VFS whether this server can make one directory entry of two na=
-mes
-> + * that differ as byte strings.  NFS installs no ->d_hash or ->d_compare, =
-so
-> + * the dcache compares names byte for byte, while a server that is
-> + * case-insensitive, or does not preserve case, makes "foo" and "FOO" one
-> + * entry.  On such a server SB_I_NAMES_COLLIDE keeps the parent of an O_CR=
-EAT
-> + * open locked exclusive; see atomic_open_create_shared() in fs/namei.c.
-> + *
-> + * server->caps is derived again on every probe of the server: at mount, at
-> + * remount, on migration, and when a later mount reuses this superblock
-> + * (nfs4_proc_get_root()).  So this is called wherever the case bits of
-> + * server->caps are written, once they have their final value, and when the
-> + * superblock is set up, because the first probe runs before it exists.  T=
-he
-> + * value is what the probed file handle reported, normally the mount root'=
-s;
-> + * the homogeneous attribute is not fetched, so a server whose answer diff=
-ers
-> + * below the root is described by the root.  Migration runs the probe from
-> + * the state manager without ->s_umount, so the update is atomic, and it is
-> + * made only when the value changes.  Two probes of one server at once can
-> + * leave the bit as the earlier of them derived it; that needs the server's
-> + * answer to change between them, and server->caps has the same race.
-> + */
-> +static inline void nfs_server_publish_name_caps(struct nfs_server *server)
-> +{
-> +	struct super_block *sb =3D server->super;
-> +	unsigned long bits =3D 0;
-> +
-> +	if (!sb)
-> +		return;
-> +	if (READ_ONCE(server->caps) & (NFS_CAP_CASE_INSENSITIVE |
-> +				       NFS_CAP_CASE_NONPRESERVING))
-> +		bits =3D SB_I_NAMES_COLLIDE;
-> +	if ((READ_ONCE(sb->s_iflags) & SB_I_NAMES_COLLIDE) !=3D bits)
-> +		set_mask_bits(&sb->s_iflags, SB_I_NAMES_COLLIDE, bits);
-> +}
-> +
->  extern void nfs_put_client(struct nfs_client *);
->  extern void nfs_free_client(struct nfs_client *);
->  void nfs_cb_idr_remove(struct nfs_client *clp);
-> diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-> index 113c199a6f..fac8450b65 100644
-> --- a/fs/nfs/nfs4proc.c
-> +++ b/fs/nfs/nfs4proc.c
-> @@ -4020,6 +4020,7 @@ static int _nfs4_server_capabilities(struct nfs_serve=
-r *server, struct nfs_fh *f
->  		if (nfs4_server_delegtime_capable(&res))
->  			caps |=3D NFS_CAP_DELEGTIME;
->  		WRITE_ONCE(server->caps, caps);
-> +		nfs_server_publish_name_caps(server);
-> =20
->  		memcpy(server->cache_consistency_bitmask, res.attr_bitmask, sizeof(serve=
-r->cache_consistency_bitmask));
->  		server->cache_consistency_bitmask[0] &=3D FATTR4_WORD0_CHANGE|FATTR4_WOR=
-D0_SIZE;
-> diff --git a/fs/nfs/super.c b/fs/nfs/super.c
-> index 23292680ad..e70cef88fb 100644
-> --- a/fs/nfs/super.c
-> +++ b/fs/nfs/super.c
-> @@ -1082,6 +1082,8 @@ static void nfs_fill_super(struct super_block *sb, st=
-ruct nfs_fs_context *ctx)
->  			sb->s_export_op =3D &nfs_export_ops;
->  		break;
->  	}
-> +	/* The first probe of the caps ran before this superblock existed */
-> +	nfs_server_publish_name_caps(server);
-> =20
->  	sb->s_magic =3D NFS_SUPER_MAGIC;
-> =20
-> --=20
-> 2.43.0
->=20
->=20
-
+Thanks!
+Sean
