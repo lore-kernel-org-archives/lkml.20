@@ -1,102 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793278844;
-	b=TKX5bbSD2aLQMSUWph+mSaUbnvijRu7eE8Svn/okgykhnmNJ6Yb0GKyY7IdE6tCHWB9a
-	 4Eu1gB3mPdmwttIApeZWxTzOmBYhThoI9hxH5ZDGVr/u9AuwPeljhYTA8Aq5Ojq5UhmFr
-	 wCclzgED+7pIJSNXn5EBtnxIp0eW9iLxBE/9q94/pTreHJio6dKXFSJwTChh5yE7XkeFf
-	 YuSuFQ9VLEW9zHSZw4X2mhR4REdGIHlGc+k63XlZfwlCmfKLyUnyuS4hTbecdgBfe2yy5
-	 FrRhCnXwjm5wS0709SuxlLO0ULfYQOzZhvEgbnUrSxxqKZYeydmxqvgJq6fuDf6IMbA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793278844;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ganH4EWpICXirAxibAD+5YRIHmRwYY6kvCGrRyrhM1Y=;
-	b=1rVWsqhhc9jbVL7u7FOPqTIRTRrQizRPROD5PUWqJbPmQT9uew0/heVa6qiOhQ5Mf1Nm
-	 /SSSIFqZv8m+8J53g3bLJAFeHw6S+SOuA8TZSvWc3QwJ/QSLoizoruH5Zo13N+3YaEpvp
-	 T3SMtzqTBN9/x0Cii+LE4CgtfPvGm1+dsmMISDGTktUJRW0z0f+OvqKUB5X8i0n2yCFnt
-	 4NoiGhpwJfe5dTq+Wl85pEozymfch4QFHKqyAGWmkLSEy5RhUPqDUdeXfTii/mdxLJdiY
-	 Ul4y82j9U9OwcYelHkqFMp3pEFt+Tfdw2/Dhv5IPBkr/Il7Y1k3uvv7ZK3SrVPgSmqA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x0uVrh4f;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.60.163
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793278841;
+	b=lu51RWEDE9IzhaLhDOcF4VvlaINlZSoP+tsy9diPxliORzREDN18wBm3WNTj46S1n36g
+	 42/WdbWW2s7TNMiDFZ+UDDfQmEMMZCn5nw7dfm7UdRgqsUU5SDLwKpCOlqht0/YvAuhTY
+	 dai0N/UGA02JW4+G8KiS8zxjsmHqZfUDikNg433w1r5EqZhm89cUzMYZrbSDRdwIM9OMa
+	 djcbxb81hH+NXqxGDC4kjqTsRSWAFuhVmdQLzmGEICR3iU98vgfArO3ZG9ixUD0GS8+eh
+	 Fdbk1eo1zgjQxmRuvB+vJededKwRs3gRCVH/aQNJ01KG/jhFnFBZziI9cbR0Yvhmv8Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793278841;
+	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:From:To:
+	 Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=OUXYjt8dvAsEPE6PsQOQb6gwqlZLQFgR3EWNJ6ptA0E=;
+	b=w+swS1t1z/pksVy2iWvDrNIrEZ5ZYq5WqA/qJv2ESdTF/rMmh/YyH2gzfjehwVXOTx04
+	 t1Pro71znWdFS9Mf4/FyyFyb98gw9f8ohVFAwx/TN/z1OdDB+QXt4JUev1qZBNMnNwNrA
+	 HEsu8NHK3OvWltkymJaOokw6y5GMf2paSdvmOWEoafnfYah77LKlfSOibTQPu8PB+oy3H
+	 0VEwORti8GqVJ72Izbk6A/rPfS2VcjFHRSefebG+gzi2zhG/9rFc9khc4R9SkDgvcoBCc
+	 7oyotXTsnUiIJEUovIYfoYCCogKBE5li2S/e7P51J1DlzEHzI7v3OYK7tSgHsHms8Uw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=yandex.com;
+	spf=pass smtp.mailfrom=yandex.com;
+	dkim=pass header.d=yandex.com header.i=@yandex.com header.a=rsa-sha256 header.s=mail header.b=LGzwtka2;
+	arc=none smtp.remote-ip=51.250.60.163
+Received: from forward103d.mail.yandex.net (forward103d.mail.yandex.net [51.250.60.163])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA80A606A322
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:00:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA80A606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9218D606A333;
+	Thu, 29 Oct 2026 13:00:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9218D606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x0uVrh4f
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-34c522572bfso308677eec.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:00:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793278843; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VMY2G73wggxTYNACKx/FiD8CTClvyRGIQ5dgZsAGFzoWuaOFajM6vv5S2R6Y4FXZrT
-         nxAhNuoClGhF145Ds4u7ZERTS2AxenMmkGMFhdEQEXxlBhSdB+qNHvrgo2JyE0JgNuTQ
-         XeUu/aWlg9m3+70eZUBFHHvxSnTixamFBmRS4mgLqO/9eY6bVgK92OO/twUlBcZbVHau
-         pNMtgnAG028S/U+NHkm+PBysULwj6ilRhGV7DVoJSVgYk1i/7PrwHBSTyoCz5EuCUrBJ
-         KO2+vf4mB6ARy+qSBNU6g/z4uCbMdNF6usWN9aWoFtghcYC0npWITTtU/OtR46kM7iJs
-         83aQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ganH4EWpICXirAxibAD+5YRIHmRwYY6kvCGrRyrhM1Y=;
-        fh=KhEh//S37QsptdygU+IgOYlpG80VH6yXP3tVNRoziSU=;
-        b=o82ux7K1FtMdHnUHIL1H5AsXeXo1iJPe5eFH20mPDqgV22mGKKIRGNNuu/k0vh40+Z
-         LJi0qheOyWivxuIAZ7s8cRscpWLU+HWuFqFEr871ZArC/IfBj/jnhHWqJ3+Vs4pIyV9l
-         rQWsKKSxfmpedOhNty3iJ7qDjT9X6B3WZHrIJ0yqVkxe7jMey46jr1co5kg2pVhE6zmj
-         5H8iccvOwXL9bUhXeR708mtaBSJlg1QV7PZOKaArrE+SBYYwLNw/gNROKhKwH5QbYV/J
-         2jT09h7aKbcBOjvbWgYDnWuwNA2pNh9r3TateqvgyUYc9wrkYTByYjZh160Sn0dJAZUM
-         LbzA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793278843; x=1793883643; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ganH4EWpICXirAxibAD+5YRIHmRwYY6kvCGrRyrhM1Y=;
-        b=x0uVrh4fq8/oKA8pxygRZLoyNCj/LZ2CYi5iiE7sT0F3m4cQTHk58RCDC5/d0tWCh5
-         W1iyfyZQ+tDYPgxZjOiiYIGTLc2A+kozS9Vv/msqpzAVXxtjB8rSwN7z9DC7HnMAoE6L
-         c4RjCKveI7UzUUlUDqztw3MSHiVYR7D7bWCKBtPLqR+9BlAoUOpcRVZ+6Niby+LPsPOz
-         AoFScOS3HjFol8ohqQ24FB6NNqwKWAVtzrhs7It+bUwgK7+s10zlQ6NsbUdhPvQrx1Vo
-         x2oVDkCEpkMw2fAJMHjq4yAXeaEikbHKYhcLAJE5P5H6Bt8v0cegiPPjUr9pF5QU8G72
-         IB4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793278843; x=1793883643;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ganH4EWpICXirAxibAD+5YRIHmRwYY6kvCGrRyrhM1Y=;
-        b=Aise59GarM/NFF6vSXM6N/zt2Ww/4lsCU+IBD6B0MsP8dC+4Rofebahjcbg+eI2yOk
-         zLcngn6AcDFAuIT2NiknsxaFhM7WvnrZbO64fjGbOy+PBVuotr/E2L7QBt0k1S4dCF3M
-         crGU05Vg78+c5xil5P+WxlkZ4F68Y60TYO5huvY92UHzgOTRf1eKZ+1Rx7NpViZtCDMG
-         BQCWFWa16GgeObUrxqNYSwucwf+XOP9o0Irmp1JAtHzVzvRnPiaxk4dZ+UGjmNFDgMHL
-         WFXfGknRGRxhbXjgx5PBmwFp0uhNP6PaKFEN8OUCP7ky8ayjyshvPOsGXlqZJ7Fk5n07
-         vFQg==
-X-Forwarded-Encrypted: i=1; AKwUvBw1yd5E9QVfnmb9gwyDbDr3a0Jz7ZE4ml3BqmzDxdV1O5ctZtpeHlCUyIzKPtThj4z8j7I6PZFwXFzuV00=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKX23k/8lTBlX8MWrYLgqWjukRAcwMD2PY3aT6t2qsm5HWRu/ip
-	BrVyA6gRCtG/VA6RTfaLTjN9VYGIiy33VwyDD22kMbBSOGSUKmKcwch1tBtBCY4sHrAJsniig7K
-	5ZZ75CxB0L41jyw7BtFOfB+w9I8oPCnE=
-X-Gm-Gg: AYBFou3L9GUTCLlsGfNWLPJqtN+get7LUcR9f4pwqDRSo1EvsQnmwcj3bl2qRspR11S
-	l1Et7l3V5H5kQ8OXw1qqG4e2rkE1NPJo1SvP3i9cZlg61DgJDDFBH5dDUUKv94poxALXybM5bFc
-	Fw+bz5o2hIOgw/tXd1GLR1PgXUajwgjuan9ZW8yaGxI5FTsqYTaWWFyb1+DhxNEjiEJcD20FTC7
-	m+tK7jcYvfb9lfQrtCWLyY+ftO0pIn+jyVFHzFNx/xF2ChLdzvX4rvw7N8KbeRKJ/qTOKuy9caQ
-	FsdijUiAtTBLvPB+/FtmrDN0pHMtEdmjo1yZCgxqxp1e6adQLvRDMZSxHbmJSGpZfnUlJa62pt3
-	jfAGfWlkEXC+dd5mdVpRrGDfzAjuCkdEaC4rCm4wJnCdznrF+x/WqY9ufdMFPs3gD3Hrd3LnjJA
-	TeAqMoH6f5xrGEC/TN/zK5tz3CQd7Pn/pzttZD1xrNPxk6d8wMzTYTHgfk6FCFe3TzRZ2PkszVZ
-	dN+i+6Gr2UGbnxvY/0S5LJggVgE4qRHK7MjQA==
-X-Received: by 2002:a05:693c:4196:20b0:36a:e7a:e89 with SMTP id
- 5a478bee46e88-36a202cb0e4mr12034617eec.2.1793278841146; Thu, 29 Oct 2026
- 06:00:41 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=yandex.com header.i=@yandex.com header.a=rsa-sha256 header.s=mail header.b=LGzwtka2
+Received: from mail-nwsmtp-smtp-production-main-94 (mail-nwsmtp-smtp-production-main-94.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:2501:0:640:a27e:0])
+	by forward103d.mail.yandex.net (postfix) with ESMTPS id E9726C0844;
+	Thu, 29 Oct 2026 16:00:30 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-94 with ESMTPSA id G0j4ICQiIeA0-NuWAJvZs;
+	Thu, 29 Oct 2026 16:00:29 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.com; s=mail;
+	t=1793278830; bh=OUXYjt8dvAsEPE6PsQOQb6gwqlZLQFgR3EWNJ6ptA0E=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=LGzwtka26ZTwj8w/A8gqOP8u+QKep05jpFHjy+bV3NIb5JGQ1N10zm84udaFNNx+A
+	 Sx/hm5s1K06tQH4wk6Cd5q48lv2LF4HlCpM5nrIH5zd/kOaRFoS8IvEZZfoDIYDpEf
+	 nNumWk/X+clpOFjd3ymAaVxLxfmoRT4nkot4tnEE=
+Authentication-Results: mail-nwsmtp-smtp-production-main-94; dkim=pass header.i=@yandex.com
+From: Alex <xnderv@yandex.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: Martin Roukala <martin.roukala@mupuf.org>,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Alex <xnderv@yandex.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/nouveau/therm: mask the update bit when reading back the fan PWM duty
+Date: Thu, 29 Oct 2026 16:00:12 +0300
+Message-ID: <20261029130012.21738-1-xnderv@yandex.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,45 +68,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1793027261.git.d@ilvokhin.com> <5bfdc1491d297b5e98cf42322c790f06481c28c7.1793027261.git.d@ilvokhin.com>
- <fb3b6a24-74ca-4da8-8593-352afd515313@suse.de>
-In-Reply-To: <fb3b6a24-74ca-4da8-8593-352afd515313@suse.de>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Thu, 29 Oct 2026 14:00:28 +0100
-X-Gm-Features: AclHuK_VOCF7u599iESvOsHhN0DoC1VeK-LagvEMwpUC6WNOUUTl411X-macJoc
-Message-ID: <CANiq72mMm75svCqevd8fHtVoczDpvpo4NwL0SC8=bWy030vQuQ@mail.gmail.com>
-Subject: Re: [PATCH 07/10] drm/gem: Switch to __nonnull_args() macro
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Dmitry Ilvokhin <d@ilvokhin.com>, Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Jani Nikula <jani.nikula@linux.intel.com>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Andy Shevchenko <andy@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Andy Whitcroft <apw@canonical.com>, 
-	Joe Perches <joe@perches.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	intel-gfx@lists.freedesktop.org, linux-leds@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
-	linux-hardening@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-mm@kvack.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 8:32=E2=80=AFAM Thomas Zimmermann <tzimmermann@suse=
-.de> wrote:
->
-> Should gem.h now include <linux/compiler_attributes.h> ?
+nv50_fan_pwm_set() and gf119_fan_pwm_set() write the fan duty cycle to
+0xe118 with bit 31 set.  Normally the bit reads back clear, but when
+the register is read back shortly after such a write it can still be
+set, and nv50_fan_pwm_get() and gf119_fan_pwm_get() return it as part
+of the duty cycle.  nvkm_fanpwm_get() then takes divs = max(divs, duty),
+so divs becomes 0x8000xxxx too, and duty * 100 wraps around in u32
+(0x80000000 * 100 == 0 mod 2^32): the fan speed reads as 0%.
+nvkm_fan_update() uses that as the current speed and steps up from it,
+so it writes 3% to the fan and then ramps it back by 3% per bump
+period.
 
-No, it should be included for you (unless you are doing something
-custom with the compiler flags etc.).
+Found with the help of an AI assistant (Claude); reviewed and tested by me.
 
-I hope that helps!
+Fixes: cb9fa62671ac ("drm/nv50/pm: add support for pwm fan control")
+Fixes: bc79202f4c8f ("nvd0/therm: implement more appropriate pwm fan control functions")
+Cc: stable@vger.kernel.org
+Acked-by: Martin Roukala <martin.roukala@mupuf.org>
+Signed-off-by: Alex <xnderv@yandex.com>
+---
+v2: commit message trimmed as Martin asked, the details moved here; one
+sentence on the AI assistance kept in the changelog, as
+Documentation/process/generated-content.rst asks for tools used to find
+a problem; picked up Martin's Acked-by; code unchanged.
+v1: https://lore.kernel.org/all/20261025101640.49779-1-xnderv@yandex.com/
 
-Cheers,
-Miguel
+How it was found: the reads that hit this come from the two therm timers.
+nvkm_therm_alarm() (the 1 s poll) and nvkm_fan_alarm() (the bump alarm)
+both call nvkm_fan_update(), which reads the duty cycle before it writes
+a new one. When the two alarms fire within microseconds of each other,
+the second one reads 0xe118 right after the first one wrote it. On a
+GeForce GTX 560 Ti (GF114, nv50 PWM path) a bpftrace probe on
+nv50_fan_pwm_get() saw 7 of 239 reads in two minutes come 7-25 us after
+the other timer's write with bit 31 still set (e.g. 0x800001e1 with divs
+0x21c), each followed by a drop to 3%. gm107_fan_pwm_get() and the
+PTHERM path of gf119_fan_pwm_get() already mask their duty reads.
+
+Testing: same workload and probe with the fix, no such reads in 155 and
+no fan drops. The gf119 hunk changes the same register in the same way
+but was not tested on GF119 or later hardware. Both files build without
+warnings.
+
+ drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c | 6 +++++-
+ drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c  | 6 +++++-
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
+index 684aff7..f56e763 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
+@@ -74,7 +74,11 @@ gf119_fan_pwm_get(struct nvkm_therm *therm, int line, u32 *divs, u32 *duty)
+ 	else if (indx < 2) {
+ 		if (nvkm_rd32(device, 0x00d610 + (line * 0x04)) & 0x00000040) {
+ 			*divs = nvkm_rd32(device, 0x00e114 + (indx * 8));
+-			*duty = nvkm_rd32(device, 0x00e118 + (indx * 8));
++			/*
++			 * Bit 31 is the update trigger set by pwm_set();
++			 * it can still read back as set after a write.
++			 */
++			*duty = nvkm_rd32(device, 0x00e118 + (indx * 8)) & 0x7fffffff;
+ 			return 0;
+ 		}
+ 	} else if (indx == 2) {
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
+index 9cf16a7..9272256 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
+@@ -72,7 +72,11 @@ nv50_fan_pwm_get(struct nvkm_therm *therm, int line, u32 *divs, u32 *duty)
+ 
+ 	if (nvkm_rd32(device, ctrl) & (1 << line)) {
+ 		*divs = nvkm_rd32(device, 0x00e114 + (id * 8));
+-		*duty = nvkm_rd32(device, 0x00e118 + (id * 8));
++		/*
++		 * Bit 31 is the update trigger set by pwm_set();
++		 * it can still read back as set after a write.
++		 */
++		*duty = nvkm_rd32(device, 0x00e118 + (id * 8)) & 0x7fffffff;
+ 		return 0;
+ 	}
+ 
+-- 
+2.53.0
+
