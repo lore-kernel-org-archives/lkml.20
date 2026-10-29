@@ -1,112 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793261561;
-	b=d/wvBE6LJxuoYlRRgyUfwRy/mqceqy1MS+aU+VFimwO2RzBGcW/AIUftj2UxqneSzeXn
-	 Ro/4TGABPLaL5gjyLbLA3jGppXGTDBjXiEdeoq4sIF6EpLj/1C9kivfmQ1Ye2642AkKAz
-	 5c6k4W6nvwj879dMYuClWkWabSQOedhTCF7q8gSQTpS5PC6XX+lqGqJoe3//zByssuxYD
-	 nK7+BQO+CRX3g/WluxMsCjnJ/cFQTchJYHys/TRM5C9h4Sx5ZNjOlNjTeFZ0YodUUP8ii
-	 BI0luGE/3N1dmVxoxF24G9u+ZxuiyR+ggkX+QMbdR2I1NdiKf6aMY71k1ZPIg74pQUQ==
+	t=1793261581;
+	b=WKu2TlfxGsyoy7ev4kdpZecwWo4YrBzIkRUgPL1i49FEQE2b2nnWVH/oHhByrECrK0T5
+	 h67TP8hBxSGcyIt+TUV0VDOVeOVhMBnWH/XwXd/poQMtFkuS+yCQaOBZ7OnqoazZYnqdf
+	 xgSbeC3+jpXpPxbeCX4EmCuP3WhzQ2+lFqoY85XAY+6wwor8ueAejGLIgVga7uIjFSj1I
+	 2zmEoh8qzaM6RnSQnzs+9fc1FMN4jsw7cWiSrc1+husv+BzKgZJ6hqe80OjjLLxnE2Zq+
+	 hv/o2thPTW0oQXq8dLqbSR9FF5K+VVwwWFNrIphjqPuY/33q4gwux07bzShFR3aof7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793261561;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=4Gx7lqvnG/BvQzcb7FZF75lNrmiCJrQ3HXAWDiqM22g=;
-	b=FfqsuhlG3xGKKFaKuSgssLf1l6IZZd8VRVFOzohi5fvLWV+YeRKUGuK3AjA1pQQvOJ34
-	 xh233F0m0RnBUgtYhg49mNxBan914M5OTEd5RQ3guB96EaMP9GZ2vrJhHbq1xGuJ6QwXA
-	 bq7zi755cuIDwF2cVqxxWmM/LIb4Pdu3FtGMUENtDsgRnKlxDs1D9NhhPx32oD/zeJDra
-	 CIm07N+LAmBboeqEOAPtXkm/roE8joFA2FXb7XtUQ8r5RUp/so/835YElmWf2sLYNGc1d
-	 1Y/hntvmznzDhOZpE2/jHOoqCMbzcWwwMwjruUQs+TARzWoFfUkKoaXcFd4yTBpBHlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793261581;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=sLX0dAXJtQCVkv3TbihTh8YXNXMoEZpgRUeoWcPA1mU=;
+	b=QshAhXtR7V98MmH/C4qUPCyoOKONmZWpgx2TG0iHONWKero6+1rnakCJ+iJikdAGnpLi
+	 XLvcVDLJ0BJn0prNPuVPSoMAUisDjKE5RGa8mSSgDBMU2jWhiXBHMIlhD37uG7cg9Gt98
+	 CMN/k3IYfT/FJdaQydya9Pok7amXghe/BujuCODmNeN/jOx9lGL1cMxpCi3dpDY/UcwuF
+	 06zk7sUwNw32NoDMzc4oOO7rnvfZJ7IQiY/a0tJ3mmSjlB8Tt6bShdQFUF27YWsRgrKCr
+	 gOcrWdfVsJ8TymjEmynwKa/oKJSJcqSMORVc8rRzUYrqJ0uUVwQOzwLYnJ05BnSprew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cfNAFbY7;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JmXOH2jL;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=k6m0K6oh;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318D0606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:12:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 318D0606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CCF606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:12:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66CCF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cfNAFbY7;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JmXOH2jL
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5HXd41793407
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:12:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4Gx7lqvnG/BvQzcb7FZF75lNrmiCJrQ3HXAWDiqM22g=; b=cfNAFbY718CdPzs0
-	gks9jL3tDCLNUytVxopK0FMhowj8SONPJGzNffluO9R+OYPIH3oS2J4tqtGNYryt
-	aTM1g2YJ9xW86cvZXEByPXNnR23RcnKz62chCqSqK7LkQ3jQK4+Os2yH+vm2Z0IF
-	4ZfjoZCyN1NBWoWXqHxokEbF6uNX3XSkpCgcYGox/eBdNAsbS2l+WXlVDFwDQSlA
-	0/aXAGvJVyfu8SLKejBMJnUo0O4AbRNoJN/q1T+Uj5Ehm37qzVLjeT5bmlAXd3P9
-	VJ9E14oHQJBxgMfo/8DwVTmK5tcfVFh132q/UeX/oEZok0/rfuSb7lQSDwdl4XiX
-	anYSWg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkhtnm174-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:12:40 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f1f1f2ecfso42350485a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:12:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793261559; x=1793866359; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4Gx7lqvnG/BvQzcb7FZF75lNrmiCJrQ3HXAWDiqM22g=;
-        b=JmXOH2jLg1uwQv5EuX6ntSNU5SivKZ4oqmfPYQXR4thXk+cAD1DeYJCfhISEZiZE0n
-         NfSfKxmc6IwqbTtMZEHdC0gjKYvPoKISox/qt+OwLPOWN/MSx/VqHWBWnRpsflogx9ol
-         LZv5UDaVQ1bUhRi6PrJoSADrnxiz2egqZ1H9rpVDVUM+KG54JTk09s9K1fGkdyqFiTpX
-         nfQgfBt9VXdlDVef1LQ5gfhHl16khINIqbEvbRm2wixRdL7e+1YBsRop3ZkD1XNJkXzn
-         N3yIAj2Uc10gU5TL/pDglV5Mql6MRbO/CNgfe7W0NCAZvXpOFNimyjhnEiyhkM2B7kmj
-         tFxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793261559; x=1793866359;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4Gx7lqvnG/BvQzcb7FZF75lNrmiCJrQ3HXAWDiqM22g=;
-        b=croY30Nyz4U2iKS2iVv0fM87EoyCRV/i1OQ9Fcw14u4PpylJFFjnoEiju42PnWFFvw
-         s0ZVR40USWxRwaecdWSuKlo8gVLGxquAbM6u5avIBz8nz0QsgK6fJSKewiv+tmnzvQ9t
-         V44o4wd2px5Y4fVbtd9mlYj8I8iK/Zmav82GY7hzRDGihrqJ8LGK7Q8N1i9rSIWOio/I
-         boQ3LbMHvc1G4O5tk1Lo8ACe6LYLZoEimFYHCHgqtxlO0TiABgTXpZ6kGNUWax2JbdyW
-         kvtpswQ2aN3WODEqHLR+FagOBThjEFQqZWTosBZDgfqf13KC0wwom5VuLqskNqilbd8Q
-         kp2w==
-X-Forwarded-Encrypted: i=1; AKwUvBxy3IH/Eacn6rSksTssvg18/1ORSuY224Qu74Pk4ebyJwv+eR01vIoMn9yG2WD+VnTscINC28bsVmcVIms=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6XVNKGrAtaLD1Sfg1CJfYXRYUEouJIxO1Vl8vvl/MmH9FOiFD
-	xD80RtLMbwy8huIQ6e6FySvZl7Hl33SLy4WrTCxXmiSZH7r023mK1flOlEXw6fzMm+jfx/VcQxS
-	RZJX9XoyW0v9iaO+dxiITRYMucQ543UqYsRe4fjfbePQ9cjsRmAjPljLy1kIERR6EN302G+qZft
-	I=
-X-Gm-Gg: AYBFou2oYXRhXa2Mbg0dM/fer1HCj3vJuYoSySDjbWectGOSABSdg/f/fIWqcny5hYM
-	Nds7kFlK+1iDPPemGrTFzrS5oiYp0g0gysAWfb4ThF/2MlSb/JYWpZi7l+A2G3oH+rXxdF8Btx5
-	0huicyVnvm+OiiuqYSRSDhzy3hGGiaNk0fWKHb8dGk7qix411gj4LRmKRgU3B6MLs6t05WNg7cv
-	NWYqc1NfkCRKFIM6ZHaAhhmFGY70WrlFRUBAe8gSIp4hTwsvZaih4ktAYBsaHmu8Y9QFMl+3mYz
-	B0F4mZyFLKDTS8Raj6sntYj+TbJ2i4OYchbeGNObUVJ1Cw1Cd3QQR0iSs5T6e0eB3+tk4NnHOx6
-	JPHI3WA2OPCEw50rw+8ZAICkLFSBs6eL0gHpBEc47emzkHcyTEnotPRP/k1UIxmIaSkl1l9w=
-X-Received: by 2002:a05:620a:3bc9:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-94408d42cd1mr786313985a.6.1793261559400;
-        Thu, 29 Oct 2026 01:12:39 -0700 (PDT)
-X-Received: by 2002:a05:620a:3bc9:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-94408d42cd1mr786311785a.6.1793261558953;
-        Thu, 29 Oct 2026 01:12:38 -0700 (PDT)
-Received: from [192.168.226.64] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd34fa1asm706394666b.6.2026.10.29.01.12.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 01:12:38 -0700 (PDT)
-Message-ID: <3481d0a0-0d22-454a-91a2-45b983710f83@oss.qualcomm.com>
-Date: Thu, 29 Oct 2026 09:12:36 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=k6m0K6oh
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=sLX0dAXJtQCVkv3TbihTh8YXNXMoEZpgRUeoWcPA1mU=;
+	b=k6m0K6ohzROjiXTPxRaJoJPL5oH2Hj3XemhqYiI4XA4SQU1NV72L/nAHes80uhboCtMGZgHWQ
+	smdX+5iu+6YQFynGMcWDbNcA0opjC8eYlohw0BjI/jzGN1BvdNh/GUqmmvR33VzPeG9DaYzaHWL
+	plub0paio/oyi+lflNRVV+8=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jFcRK2hS3z1T4JY
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:12:45 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 68EA640537
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:12:56 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 29 Oct
+ 2026 16:12:56 +0800
+Message-ID: <38134f28-557b-4f04-ad0f-b3c1290b187d@huawei.com>
+Date: Thu, 29 Oct 2026 16:12:55 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,54 +63,64 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] soc: qcom: pd-mapper: Add support for SM6125
-To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261028-sm6125-pd-mapper-v1-1-af9a645b4b8a@mainlining.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261028-sm6125-pd-mapper-v1-1-af9a645b4b8a@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v4 2/6] arm_mpam: Fix MSC MMIO window size off-by-one with
+ resource_size()
+To: <linux-kernel@vger.kernel.org>
+References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
+ <20261028-mpam-resctrl-dt-knp-support-v4-2-bdda1e445cba@oss.qualcomm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20261028-mpam-resctrl-dt-knp-support-v4-2-bdda1e445cba@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: KV0HNQArEZyqbhOc-TYG-dUmDEOHSx0S
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzMSBTYWx0ZWRfXzFrZ29Ld1vWk
- eOe5HWvsJHdMNtg39Y+JlVkyiCPpVP3WBBvxfVrnAgUhEQuv9n/uxUMDSkZC0MPvhq0c59bHrug
- b8QHoMwBnua1HyUBzs+HvqknVjcFVHsp0TWYZ/YIMz6qeqPwyJCIDhnmtj1WKuZ1gewpo0rkOzl
- 6Ho6ie3DMdBAkfqYrQ1CSQUp0ljyuO+3m0qMtKAFkVL8JK8d+/wrpV3vY6sNQMC5W8TH6yAhHu3
- AMEHJBfySYz806sRcxcI0j1MoU0KlSd7mmt/5Vkvx1KfGbBu5zjdpY8tCcYW9AlwLTud+U20wT4
- NlFI7BrcY3YZfrPfDw5Xdv1Rsv401emRNmkjXLhfn+/QK/WxPYCCsfGMDLTHdKzHappYcix1hr2
- gyuWg3sT4bK6/zeA9vRdaufXITIu0e5wEOwqbuBYw9QZm8WY9969nB1Sfl1PClKeeepzRat1XCn
- RxgYq1YNJ8WD37rnGTQ==
-X-Authority-Analysis: v=2.4 cv=c/A+0h9l c=1 sm=1 tr=0 ts=6ae2fff8 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8 a=5y-B75Cv0MY6F-VHK48A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-ORIG-GUID: KV0HNQArEZyqbhOc-TYG-dUmDEOHSx0S
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzMSBTYWx0ZWRfX/H6KXGw/ouVT
- trIL9FRtV4XDlPrcm6XcnzrAwjHo02uGLlMfFNvlLRZN6ad6mjISzs7oaEa+p2TwaDJcvGp4JHc
- g7nj/N+D+17BbeHv7PbJC2VYfgLa76M=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 adultscore=0 clxscore=1015 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290031
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On 10/28/26 9:20 PM, Barnabás Czémán wrote:
-> Add support for the Qualcomm SM6125 SoC to the protection
-> domain mapper. SM6125 shares the same protection domain
-> configuration as SM6115.
+
+
+在 2026/10/28 19:45, Yin Li 写道:
+> struct resource uses an inclusive end address, so the window size is
+> end - start + 1. do_mpam_msc_drv_probe() computed it as end - start,
+> which is one byte too small.
 > 
-> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
+> mapped_hwpage_sz is used by the register access bounds checks, which
+> have the form "offset + width > mapped_hwpage_sz". With the size one
+> byte too small, an access to the last register in the window is
+> incorrectly flagged as out of bounds: for a 0x1000 window, a 4-byte
+> access at offset 0xFFC (bytes 0xFFC..0xFFF, legal) computes
+> 0xFFC + 4 = 0x1000 > 0xFFF and falsely warns.
+> 
+> Use resource_size() so the size is correct. The ">" bounds checks are
+> correct as-is once the size is accurate and are left unchanged.
+> 
+> Fixes: f04046f2577a ("arm_mpam: Add probe/remove for mpam msc driver and kbuild boiler plate")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609030809.ObirDhR3-lkp@intel.com/
+> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
 > ---
+>  drivers/resctrl/mpam_devices.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index 347a5a6d6a1d..0f984fcbcae9 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -2508,7 +2508,7 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
+>  			dev_err_once(dev, "Failed to map MSC base address\n");
+>  			return ERR_CAST(io);
+>  		}
+> -		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
+> +		msc->mapped_hwpage_sz = resource_size(msc_res);
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Konrad
+>  		msc->mapped_hwpage = io;
+>  	} else if (msc->iface == MPAM_IFACE_PCC) {
+>  		u32 mpam_fb_msc_id;
+> 
+
+-- 
+Best regards,
+Jinjie
+
