@@ -1,89 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257404;
-	b=WQwTK2ac/MKTrMnbELPugF/8vqpqTGwhOkIgEMtztGprYNa86MN+6HyPexACbekZuB4X
-	 LdqMB0C3qaKB87HJUMWYdQya1HwShr4Ijj4cvnV2b8s0phyKuDoCvrINWDnkac9o282wF
-	 F6CIkUYEBn51bLz73hrbohYTvY+BGLdiCUnRYuLPxjftuzELDNLFlOxm2Yj+97bmCStEL
-	 hi1+OQlPJoUlynOgqQk22BouR3AhjtUsvt2mNolHyTeYl1GOjaQNSESirn5oy8vos22ea
-	 CjDmeE+p7fmTmsxUJOiAOHNQoMY2pORp553mJOfaKf5TfOkq2EnPZRD1ICpFMprqzHg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257404;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=3b6vdH2+jz8Vj41dc+Mlr3MP2syrLhugxkFarVQVfaw=;
-	b=k0Rizwj22dPJRiepAJIPR+T9JJGolov6PQnSt1iLhomtWdLbPQb7hO/pvgZmQDwHvYQh
-	 94a3mDmchjnruv2SNjToECTjTqzulODcUEPlBS5yLrkGhcJXB3/lV71RBMKQ64lUowtsS
-	 9juuPn+eWnnsYeDDuRZnoFJ8mKXQ7Fsu8L4/UpkUDwGuCJgOOwSs5Utq06pVd0a5fDIWe
-	 F9lj+ARkUxjnLUegxxvuJXTjJUNOWlmDLzI9C/hIVWozzS9kuASIhX9GQZX7Vy5SvHAZa
-	 TMb90uq6aJK2hbg7IPalKgyiHwWtyjocBTO+Nm9yuHcWQK1+xVUwauH1MkkRV6tCb9A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DqD7hgyn;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793257397;
+	b=BvP6u2D56pDyGM6dHV0hOAMISc2EcmNSXMXi8ZSinvWtnLEQp3k5q3VrjszDFxm135+4
+	 1WF7AiZr5SsenTxaJmvU1ZBmLeNFggzobs9/xDjPSpFehaSCNUaXZR5Gb7u/qNUhEgL92
+	 SbsQvGA1fAVghRrIiLB+ElLWZv3DnlziUqpUDsRzFyo5h34rjy5NmhxXRkunrQm0oiNKZ
+	 CowGAgeXpfJSA57W6VUddSOi3JslHqPXUnDjbA3OjtVgTVY1cTFuM9Ne2PmXbYEpH2eiB
+	 Gcdx++Yjreo8XyBOmX7blQ4VOFcAF4hU9KAaItu3q7SM8lJDembDsBHwVeAax96v0iQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257397;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
+	 X-ZohoMailClient;
+	bh=siAtoA3LmwM66cto6wEnaQCAaHagsf4O0rPv61+/NIY=;
+	b=oqb7I7y5Tx5mG4bfjb3FtutTmYRgCDUPxwdiPoByUEy6r1kNfqz42OScQti4NkSdEoMR
+	 1tecYpkzKoZvz2I5Ev6LCbM0gxl1AabNh6CSt+gor86RUQW/VQ2vcp4KcaWVnuDGYg0KR
+	 hOYk10OBss+ZTn6mfwIyANH+RvUhExJvghg30c0ELnj9qKys6PmyMGfubMvetipq5IKGq
+	 sBiG8IsqBDLFwPVbvbbNCfj55MEMZsMAHJX6BdTStmwlVi3f4JREZxhG4dvBDWLw8JOD6
+	 hrNzzvLDw5otqwYD2XgOLTJr1+XWo5GZF2iOX4E8v9EuMwQYARmSLdDOWDaQXobwTPg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zohomail.com;
+	spf=pass smtp.mailfrom=zohomail.com;
+	dkim=pass header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=QOzAm7gt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
+Received: from sender6-pp-o94.zoho.com (sender6-pp-o94.zoho.com [165.173.180.94])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8159C606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:03:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8159C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9471606A31E;
+	Thu, 29 Oct 2026 07:03:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9471606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DqD7hgyn
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-353804b591eso2833260eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:03:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793257404; x=1793862204; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3b6vdH2+jz8Vj41dc+Mlr3MP2syrLhugxkFarVQVfaw=;
-        b=DqD7hgynyTM/03cNIhthLnim5lUHOcm9EuUdqKU8mQK0rsVXiPVYBfTtn92MGF/000
-         LfIoDIH9EqWpxO654xPBZfGrMyhMH1Jdj7iCaqLmHFG/S2yQUnkBJyMPM4LSI90/W2EG
-         kMSecfaLX2HyrM8N3q0BqRd5MyRb2QmQ+ThDwV3yFQ+ipZbFgwb52atj0K6Jo5a5FUsV
-         h56LvxLm0cYG+lz+U42qKhp+nZEqUJzxrGMXQyR7tMC++SrUedHLcIaIli9PqYrecTuj
-         avbDojozjUEReS6doZPuw9gDZQQ4v78dm953vTJKN1eJnim5EQ3l4b8OlQclbU4u08Cr
-         ZD2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793257404; x=1793862204;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3b6vdH2+jz8Vj41dc+Mlr3MP2syrLhugxkFarVQVfaw=;
-        b=QYxcIz5epAKxhXCfAXLvpB+bgTV6jwBbZjZFGD9vrgYLXdsyZbZvP2P0sW0SmdDOz8
-         ltC3uRF72ePIEnYuxecqgw5Hb05Vgg6jaF5nw7CM3TjHxrF3CWbM5UgCVAYwYcqH6N/l
-         4ahBhRvO+8QgfibGPFQXdMoGEL2iX04MtHsfvmCtF+kjarVhnjGO0R0SJCb7YLmq3H9B
-         mEsdZpQ8hdD4NLmXZJLgLhK2EhS8hFr54Co5vfpW0Pu9UbIwSReuK1qdoDVshkkpyN/0
-         2VE3kb62GkYKq4esGR7GNFpPattPwsmzUgTYH7uIR746a9d672TFLk6zG6UaA1HymhMh
-         VW1w==
-X-Forwarded-Encrypted: i=1; AKwUvBx/8Ld0/uka6r3Er6Bbzvntjz/8EbhkBpxRULX6644x//zHThqmIjajsKG5/eBXTLjvv8J9tEYGeXg7LZc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKP4zOUAppIVPsyNYwEHeWicwgRsn2Ji1gBj6ZOKFBAUULEpB9s
-	fcV+Oo3neQ5xtgOTu4gDARTzBS9XnVGR5pSkRYC8CL3L9dZbt+fw0dwm
-X-Gm-Gg: AYBFou2qjeJ6YwUA7h/3lCpoZWCy7dkPYO2WIRcLPNDPM+IrAYd3LR+CCEWKHuokgXX
-	V3XCSN5V9+k1Oo6emj1Izwu3lr5d7m33sT/lVX1bS8Hi4cI+R2/WjGrEn0/4r+KLR+oVEiJjmpv
-	Ug3ZzUO70UbcJ4FNxoFLSoabH4PxF5BgiKfrC/9jdcx8npZW+61p7EiCuU9rwRs4Fcd4dvWz+Un
-	l+5YbY3a2muIGD6NBoqeIbr55dHsr/rezkfX/LWOPQHXXcC3ynKJQN0Wg8yblHFLjCL+1vpSw2T
-	LYiZz0DhaR8Nw1PlWYSBu7bQUK6RKp8EvojMnGpB1Jin95+RiaOPrzfDm3q35ov75pD1lD4rtFf
-	UhZ3Fvj9uTyf4Y7t+ywOYQ7p6b3TcucxgdTZsH8IhnALKOetu+WslZhyf/lGxFKqHpV3TUwhCmK
-	olnidcZXaj2sxuv9Xqy4VXbo20MZslYGFw3xv7zJNY8mOPVFDKyrt3mApEjbYic3uZHRG8zRuZX
-	R96QHfgHKt4ScXb3xalDNOU23oQWXW8iYsJmJdPeSKs7wLtQLQVSyip3Ry3VmNHOaWRcS/Jyaxu
-	CCn4SFw+4bZVpiIU9Nndclm78UjZEByEjGZDkL5T8E6DgQCtL+yhhIcepxM9Fw2OC4BkzBSWw8S
-	f7DuhO3A=
-X-Received: by 2002:a05:693c:42d3:b0:36a:2383:eb51 with SMTP id 5a478bee46e88-36a2383ec49mr5494275eec.26.1793257403363;
-        Thu, 29 Oct 2026 00:03:23 -0700 (PDT)
-Received: from Sobhana.localdomain ([152.58.200.233])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2398fa4csm16955443eec.24.2026.10.29.00.03.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 00:03:22 -0700 (PDT)
-From: Sreeshankar K <sreeshankar0910@gmail.com>
-Subject: [PATCH RESEND v11 0/5] Add initial support for Qualcomm SM7250 SoC
-Date: Thu, 29 Oct 2026 07:02:57 +0000
-Message-Id: <20261029-master-v11-0-2c29e382162c@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=QOzAm7gt
+ARC-Seal: i=1; a=rsa-sha256; t=1793257384; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bDX0ikBnqRfvx0lJHIydfPHNQCLV9MSPR12BgbmRBOirqQesxNVKu1mJsZRtjlhqTpySEe7Z3sZc2IjTyXTFfAItRDPAUCQ1eSZ9981/bIKryFW4tUMy5UmAQYGwlnD9mGJZK8RBs/s+5tPJsPBau3TilVqx4xSV2qVxJ5AuKnE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793257384; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=siAtoA3LmwM66cto6wEnaQCAaHagsf4O0rPv61+/NIY=; 
+	b=jiH3gRfJfHAw88YOTuYlK4bfOkfZmlFb1O+LBUNf9k2T/Ptk4UXNCUWJVV5ubUcoU+J40I2hyfyEdJPchfUS7eaIXLvmKdS0WeMiGY/fYYOawrFkdDSMKPZpgnBtOe11+yVLAhniMXNBf0nZx2NbVGg4f0tWCjA1/tCpiVDfjOw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=zohomail.com;
+	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
+	dmarc=pass header.from=<ming.li@zohomail.com>
+DKIM-Signature: a=rsa-sha256; b=QOzAm7gtHmJvMP6qJpIhb4y52Te/5xkhHQnMnilgtXh2fl37Zagu9d6sCwEoGhP9LCYBYZyjIn3qzxGh1qinU/4SnJm0nUzjO6OL5YH7VNPXEKrr4JAneH0KA0iwPz280eM+sPVrUPNKDeeUZDGoD8pyLXPlPAe+718406ZPc4Q=; c=relaxed/relaxed; s=zm2022; d=zohomail.com; v=1; bh=siAtoA3LmwM66cto6wEnaQCAaHagsf4O0rPv61+/NIY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793257383109417.86376047976523;
+	Thu, 29 Oct 2026 00:03:03 -0700 (PDT)
+Message-ID: <d80771e0-29c5-4a32-9887-72a56190c9b9@zohomail.com>
+Date: Thu, 29 Oct 2026 15:02:55 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,160 +59,524 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKHv4moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDA11FJSSM
- xLz0lN1M1OAAkpGBkZmhgZGlrq5icUlqUW6iQbGFuZmFhaWBiZmSkDFBUWpaZkVYJOilYJcg13
- 9XJRia2sBw02Md2EAAAA=
-To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
- Danila Tikhonov <danila@mainlining.org>, 
- David Wronek <davidwronek@gmail.com>, Abel Vesa <abelvesa@kernel.org>, 
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Viresh Kumar <viresh.kumar@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-pm@vger.kernel.org, Sreeshankar K <sreeshankar0910@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793257394; l=6160;
- i=sreeshankar0910@gmail.com; s=20261029; h=from:subject:message-id;
- bh=pMaV3p1wY/hJ19yVZNVUSH6boZE8iznCu8d5b6Dyemw=;
- b=LwPehCJnihIRvMueFhLEqIdojCA/JwtVKPuYsUDw522On0R9tTY1rSkXbTjqDNPHDjGf1RiWG
- uPX3Hqn5vvjCxMd4yqS4Xi2FRAh/SYDQ16/HLu8FoVDnd8Q38+YLd+P
-X-Developer-Key: i=sreeshankar0910@gmail.com; a=ed25519;
- pk=CGSHduvtn2hwLCNRXRc9s/fh6X8PH/zNdp08zC8hOuQ=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 09/16] PCI/CXL: Cache endpoint HDM state during PCI
+ enumeration
+To: Srirangan Madhavan <smadhavan@nvidia.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
+ Jonathan Cameron <jic23@kernel.org>, Vishal Verma
+ <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20261011021422.3428136-1-smadhavan@nvidia.com>
+ <20261011021422.3428136-10-smadhavan@nvidia.com>
+From: Li Ming <ming.li@zohomail.com>
+In-Reply-To: <20261011021422.3428136-10-smadhavan@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Feedback-ID: zu08011227403eb141366044df6aa1131e00003495e3f25ea589af0f55595944b9af85efbb9220a397eda728:ZohoMail
+X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
+X-ZohoMailClient: External
 
-This patchset introduces foundational upstream support for the Qualcomm SM7250
-SoC (internally codenamed Lito).
 
-SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
-octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex-A76,
-and 6x Silver Cortex-A55) and Adreno 620 GPU.
+在 2026/10/11 10:14, Srirangan Madhavan 写道:
+> Cache HDM state in pci_dev->hdm after BAR resource setup and before driver
+> binding, so reset can restore it without a bound CXL driver.
+>
+> Save the HDM register location, decoder settings, and Device DVSEC state.
+> Validate capability reads and decoder counts, and restore PCI_COMMAND
+> after temporary MMIO access, reporting restoration failures.
+>
+> Keep PCI discovery separate from shared HDM helpers. Move cxl_rwsem into
+> built-in state code and protect cache publication with its DPA lock, so
+> the cache remains usable when cxl_core is modular.
+>
+> Link: https://git.kernel.org/pub/scm/linux/kernel/git/djiang/linux.git/commit/?id=b12baa1105f33cc1a10f9c9c0c6376194397d9f3
+> Suggested-by: Dave Jiang <dave.jiang@intel.com>
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+> Assisted-by: LLM
+> ---
+>   MAINTAINERS                  |   1 +
+>   drivers/cxl/core/Makefile    |   3 +-
+>   drivers/cxl/core/hdm.c       |   5 -
+>   drivers/cxl/core/hdm_regs.c  |  99 ++++++++++++++++
+>   drivers/cxl/core/hdm_state.c |  64 ++++++++++
+>   drivers/cxl/core/pci.c       |  17 ++-
+>   drivers/cxl/core/regs.c      |   9 ++
+>   drivers/cxl/cxl.h            |   3 -
+>   drivers/pci/Makefile         |   1 +
+>   drivers/pci/bus.c            |   1 +
+>   drivers/pci/cxl.c            | 223 +++++++++++++++++++++++++++++++++++
+>   drivers/pci/pci.h            |   8 ++
+>   drivers/pci/probe.c          |   1 +
+>   include/cxl/cxl.h            |   6 +
+>   include/cxl/hdm.h            |  12 ++
+>   include/cxl/pci.h            |  13 ++
+>   tools/testing/cxl/Kbuild     |   1 -
+>   17 files changed, 454 insertions(+), 13 deletions(-)
+>   create mode 100644 drivers/cxl/core/hdm_state.c
+>   create mode 100644 drivers/pci/cxl.c
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c2414447892c..b874340b0265 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -6572,6 +6572,7 @@ S:	Maintained
+>   F:	Documentation/driver-api/cxl
+>   F:	Documentation/userspace-api/fwctl/fwctl-cxl.rst
+>   F:	drivers/cxl/
+> +F:	drivers/pci/cxl.c
+>   F:	include/cxl/
+>   F:	include/uapi/linux/cxl_mem.h
+>   F:	tools/testing/cxl/
+> diff --git a/drivers/cxl/core/Makefile b/drivers/cxl/core/Makefile
+> index 6703c1729396..9a77e68d44ce 100644
+> --- a/drivers/cxl/core/Makefile
+> +++ b/drivers/cxl/core/Makefile
+> @@ -1,6 +1,6 @@
+>   # SPDX-License-Identifier: GPL-2.0
+>   obj-$(CONFIG_CXL_BUS) += cxl_core.o
+> -obj-$(subst m,y,$(CONFIG_CXL_BUS)) += hdm_regs.o
+> +obj-$(subst m,y,$(CONFIG_CXL_BUS)) += hdm_regs.o hdm_state.o regs.o
+>   obj-$(CONFIG_CXL_SUSPEND) += suspend.o
+>   
+>   ccflags-y += -I$(srctree)/drivers/cxl
+> @@ -8,7 +8,6 @@ CFLAGS_trace.o = -DTRACE_INCLUDE_PATH=. -I$(src)
+>   
+>   cxl_core-y := port.o
+>   cxl_core-y += pmem.o
+> -cxl_core-y += regs.o
+>   cxl_core-y += memdev.o
+>   cxl_core-y += mbox.o
+>   cxl_core-y += pci.o
+> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
+> index b57257efbf4e..a0d8f6a66810 100644
+> --- a/drivers/cxl/core/hdm.c
+> +++ b/drivers/cxl/core/hdm.c
+> @@ -17,11 +17,6 @@
+>    * for enumerating these registers and capabilities.
+>    */
+>   
+> -struct cxl_rwsem cxl_rwsem = {
+> -	.region = __RWSEM_INITIALIZER(cxl_rwsem.region),
+> -	.dpa = __RWSEM_INITIALIZER(cxl_rwsem.dpa),
+> -};
+> -
+>   static int add_hdm_decoder(struct cxl_port *port, struct cxl_decoder *cxld)
+>   {
+>   	int rc;
+> diff --git a/drivers/cxl/core/hdm_regs.c b/drivers/cxl/core/hdm_regs.c
+> index b6ee4becde8d..f0b360867655 100644
+> --- a/drivers/cxl/core/hdm_regs.c
+> +++ b/drivers/cxl/core/hdm_regs.c
+> @@ -2,6 +2,7 @@
+>   /* Copyright (c) 2026 NVIDIA Corporation & Affiliates */
+>   #include <linux/delay.h>
+>   #include <linux/bug.h>
+> +#include <linux/device.h>
+>   #include <linux/errno.h>
+>   #include <linux/export.h>
+>   #include <linux/kernel.h>
+> @@ -174,3 +175,101 @@ int cxl_hdm_unpack_decoder(struct cxl_decoder_config *config, int id,
+>   	return 0;
+>   }
+>   EXPORT_SYMBOL_FOR_MODULES(cxl_hdm_unpack_decoder, "cxl_core");
+> +
+> +/**
+> + * cxl_hdm_decoder_count_mapped() - read the decoder count of a mapped block
+> + * @dev: device for error reporting
+> + * @hdm: mapped HDM decoder capability
+> + * @size: size of the mapping
+> + *
+> + * Return: the decoder count, or a negative errno if the count is reserved or
+> + * the mapping cannot hold every decoder.
+> + */
+> +int cxl_hdm_decoder_count_mapped(struct device *dev, void __iomem *hdm,
+> +				 resource_size_t size)
+> +{
+> +	int count;
+> +
+> +	count = cxl_hdm_decoder_count(readl(hdm + CXL_HDM_DECODER_CAP_OFFSET));
+> +	if (count < 0)
+> +		return count;
+> +
+> +	/* The last decoder's target-list high register must fit in the mapping. */
+> +	if (CXL_HDM_DECODER0_TL_HIGH(count - 1) + sizeof(u32) > size) {
+> +		dev_err(dev, "CXL HDM decoder count exceeds mapped register block\n");
+> +		return -ENXIO;
+> +	}
+> +
+> +	return count;
+> +}
+> +
+> +/* Read one endpoint decoder; a disabled decoder keeps only its id. */
+> +static int cxl_hdm_read_decoder_settings(struct device *dev,
+> +					 struct cxl_endpoint_decoder_settings *settings,
+> +					 void __iomem *hdm, int id)
+> +{
+> +	u64 base, size;
+> +	u32 ctrl;
+> +	int rc;
+> +
+> +	ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
+> +	base = ((u64)readl(hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id)) << 32) |
+> +	       readl(hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
+> +	size = ((u64)readl(hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id)) << 32) |
+> +	       readl(hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
+> +	rc = cxl_hdm_unpack_decoder(&settings->config, id, ctrl, base, size);
+> +	if (rc) {
+> +		dev_err(dev,
+> +			"CXL HDM decoder %d has invalid configuration: %d\n",
+> +			id, rc);
+> +		return rc;
+> +	}
+> +
+> +	if (!(settings->config.flags & CXL_DECODER_F_ENABLE))
+> +		*settings = (struct cxl_endpoint_decoder_settings) {
+> +			.config.id = id,
+> +		};
+> +	else
+> +		settings->skip =
+> +			((u64)readl(hdm + CXL_HDM_DECODER0_SKIP_HIGH(id)) << 32) |
+> +			readl(hdm + CXL_HDM_DECODER0_SKIP_LOW(id));
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * cxl_hdm_read_state() - read endpoint HDM decoder state
+> + * @dev: device for error messages
+> + * @hdm: mapped HDM decoder capability
+> + * @info: state to fill; @info->decoder_count must be set
+> + *
+> + * Return: 0 on success, or a negative errno if a decoder holds an invalid
+> + * configuration or the decoder count changed while reading.
+> + */
+> +int cxl_hdm_read_state(struct device *dev, void __iomem *hdm,
+> +		       struct cxl_hdm_info *info)
+> +{
+> +	int count;
+> +	int rc;
+> +
+> +	info->global_ctrl = readl(hdm + CXL_HDM_DECODER_CTRL_OFFSET);
+> +	for (int i = 0; i < info->decoder_count; i++) {
+> +		rc = cxl_hdm_read_decoder_settings(dev, &info->settings[i],
+> +						    hdm, i);
+> +		if (rc)
+> +			return rc;
+> +	}
+> +
+> +	/*
+> +	 * A changed decoder count means the snapshot no longer describes the
+> +	 * complete hardware state. Reject it rather than publish a partial cache.
+> +	 */
+> +	count = cxl_hdm_decoder_count(readl(hdm + CXL_HDM_DECODER_CAP_OFFSET));
+> +	if (count != info->decoder_count) {
+> +		dev_err(dev, "CXL HDM decoder count changed from %d to %d\n",
+> +			info->decoder_count, count);
+> +		return -ENXIO;
+> +	}
+> +
+> +	return 0;
+> +}
+> diff --git a/drivers/cxl/core/hdm_state.c b/drivers/cxl/core/hdm_state.c
+> new file mode 100644
+> index 000000000000..9a31f5996c74
+> --- /dev/null
+> +++ b/drivers/cxl/core/hdm_state.c
+> @@ -0,0 +1,64 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/* Copyright (c) 2026 NVIDIA Corporation & Affiliates */
+> +#include <linux/cleanup.h>
+> +#include <linux/export.h>
+> +#include <linux/slab.h>
+> +
+> +#include <cxl/hdm.h>
+> +#include "cxl.h"
+> +#include "core.h"
+> +
+> +/*
+> + * CXL state that must stay available while no CXL driver is bound: the CXL
+> + * locks and the per-device HDM cache filled during PCI enumeration.
+> + */
+> +struct cxl_rwsem cxl_rwsem = {
+> +	.region = __RWSEM_INITIALIZER(cxl_rwsem.region),
+> +	.dpa = __RWSEM_INITIALIZER(cxl_rwsem.dpa),
+> +};
+> +EXPORT_SYMBOL_FOR_MODULES(cxl_rwsem, "cxl_core");
+> +
+> +/* A published cache is usable only if its HDM register block was mapped. */
+> +bool cxl_hdm_cache_present(struct cxl_hdm_info *const *slot)
+> +{
+> +	guard(rwsem_read)(&cxl_rwsem.dpa);
+> +	return *slot && (*slot)->hdm_size;
+> +}
+> +
+> +/**
+> + * cxl_hdm_cache_publish() - publish HDM state read during enumeration
+> + * @slot: cache pointer owned by the device, for example &pci_dev->hdm
+> + * @info: state to publish
+> + *
+> + * Ownership of @info passes to @slot, or @info is freed if another caller
+> + * published first.
+> + */
+> +void cxl_hdm_cache_publish(struct cxl_hdm_info **slot,
+> +			   struct cxl_hdm_info *info)
+> +{
+> +	struct cxl_hdm_info *new __free(kfree) = info;
+> +
+> +	guard(rwsem_write)(&cxl_rwsem.dpa);
 
-This patchset is organized as follows:
-> Document relevant device tree bindings (SoC ID, Kryo 475 CPUs, SCM, PDC,
-RPMh clocks/power domains, GCC and cpufreq hardware).
-> Add driver support for SM7250 in socinfo, rpmh-clk, rpmhpd, and GCC.
-> Add the base SoC DTSI (sm7250.dtsi) defining the cpus, PSCI,
-interrupt controllers, clock providers, power domains, and reserved memory.
+Why we need to holding cxl_rwsem.dpa in cxl_hdm_cache_publish() and 
+cxl_hdm_cache_present()? I guess the lock is used to protect the struct 
+cxl_hdm_info of a pci device assignment. But struct cxl_hdm_info 
+allocation only happens during pci_bus_add_device()-> 
+pci_cxl_hdm_cache_init(). If I understand correctly, holding pci_dev 
+lock is enough.
 
->-----------------------------------------------------------------------------<
-Merged patches:
-dt-bindings: arm: qcom,ids: Add SoC ID for SM7250
-soc: qcom: socinfo: Add SM7250 SoC ID
-dt-bindings: clock: qcom,rpmhcc: Document RPMHCC compatible
-clk: qcom: rpmh: Add SM7250 rpmh clocks
-dt-bindings: power: qcom,rpmhpd: Document RPMh power domain for SM7250
-pmdomain: qcom: rpmhpd: Add RPMh power domains
-dt-bindings: arm: cpus: Document Kryo 475 CPUs
-dt-bindings: interrupt-controller: qcom,pdc: Document SM7250 PDC
+snip
 
-Pending patches:
-dt-bindings: clock: Add SM7250 global clock controller
-clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
-dt-bindings: firmware: qcom,scm: Document SM7250 SCM
-dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
-arm64: dts: qcom: Add SM7250 devicetree file
->------------------------------------------------------------------------------<
-
-Previous v11: https://lore.kernel.org/linux-arm-msm/20261016042432.824-1-sreeshankar0910@gmail.com/T/#t
-Changelog [v11]:
-[PATCH v11 2/5] clk: qcom: Add Global Clock Controller (GCC) driver
-> Drop hw_ctl clock branches
-> Populate default values for GDSCs
-
-Link [v10]: https://lore.kernel.org/linux-arm-msm/20261015051926.13752-1-sreeshankar0910@gmail.com/T/#t
-Changelog [v10]:
-[PATCH v10 2/6] clk: qcom: Add Global Clock Controller (GCC) driver
-> Update .halt_check and .ops are per the review.
-
-Link [v9]: https://lore.kernel.org/linux-arm-msm/20260901092447.3028-1-sreeshankar0910@gmail.com/T/#t
-Changelog [v9]:
-[PATCH v9 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
-> Make all clk_init_data instances const across the driver.
-
-Link [v8]: https://lore.kernel.org/linux-arm-msm/20260901070717.20513-1-sreeshankar0910@gmail.com/T/#t
-Changelog [v8]:
-Same as v7. Resending the full patchset as v8 due to a transmission interruption during v7.
-
-Link [v7]: https://lore.kernel.org/linux-arm-msm/20260901064357.20055-1-sreeshankar0910@gmail.com/T/#t
-Changelog [v7]:
-[PATCH v7 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
-> Fixed missing (struct device *dev) in gcc_sm7250_clk_regs_configure
-
-Link [v6]: https://lore.kernel.org/linux-arm-msm/20260824150156.1310-1-sreeshankar0910@gmail.com/T/#t
-Changelog [v6]:
-[PATCH v6 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
-> Make all clk_init_data instances const across the driver.
-
-Link [v5]: https://lore.kernel.org/linux-arm-msm/20260824130437.2771-1-sreeshankar0910@gmail.com/T/#t
-Changelog [v5]:
-[PATCH v5 13/13]: arm64: dts: qcom: Add SM7250 devicetree file
-> Reformat multi-entry phandle lists (domain-idle-states) to '<&a>, <&b>'.
-> Reformat multi-entry tuples and string lists (qcom,pdc-ranges, qcom,tcs-config, reg-names)
-  to one item per line.
-> Enable QUPv3 wrapper globally by dropping 'status = "disabled"'.
-> Move compatible property to first.
-> Remove clock-frequency property for timer.
-
-Link [v4]: https://lore.kernel.org/linux-arm-msm/20260821154030.2514-1-sreeshankar0910@gmail.com/T/#t
-Changelog [v4]:
-[PATCH v4 04/13] clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
-> Update .fw_name with .index
-[PATCH v4 13/13] arm64: dts: qcom: Add SM7250 devicetree file
-> Added missing capacity-dmips-mhz and dynamic-power-coefficient for cpu@300
-> Added power-domains for cpus and apps_rsc
-
-Link [v3]: https://lore.kernel.org/linux-arm-msm/20260821081125.4522-1-sreeshankar0910@gmail.com/T/#t
-Changelog [v3]:
-[PATCH v3 04/13] clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
-> Updated the way of registering critical clocks.
-> Made some more clock critical.
-        GCC_VIDEO_XO_CLK
-        GCC_CAMERA_XO_CLK
-        GCC_DISP_XO_CLK
-        GCC_NPU_CFG_AHB_CLK
-        GCC_CPUSS_AHB_CLK
-        GCC_NPU_BWMON_CFG_AHB_CLK
-  These clocks are flagged as critical in gcc-lito.c
-
-Link [v2]: https://lore.kernel.org/linux-arm-msm/20260819152545.3934-1-sreeshankar0910@gmail.com/T/#t
-Changelog [v2]:
-[PATCH v2 12/13] dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
-[PATCH v2 13/13] arm64: dts: qcom: Add SM7250 devicetree file
-> Added SM7250 cpufreq hardware
-
-Link [v1]: https://lore.kernel.org/linux-arm-msm/20260818080754.4362-1-sreeshankar0910@gmail.com/T/#t
-
-Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
----
-Sreeshankar K (5):
-      dt-bindings: clock: Add SM7250 global clock controller
-      clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
-      dt-bindings: firmware: qcom,scm: Document SM7250 SCM
-      dt-bindings: cpufreq: qcom-hw: Document SM7250 cpufreq hardware
-      arm64: dts: qcom: Add SM7250 devicetree file
-
- .../devicetree/bindings/clock/qcom,sm6375-gcc.yaml |    4 +-
- .../bindings/cpufreq/cpufreq-qcom-hw.yaml          |    1 +
- .../devicetree/bindings/firmware/qcom,scm.yaml     |    1 +
- arch/arm64/boot/dts/qcom/sm7250.dtsi               |  771 +++++++
- drivers/clk/qcom/Kconfig                           |   10 +
- drivers/clk/qcom/Makefile                          |    1 +
- drivers/clk/qcom/gcc-sm7250.c                      | 2286 ++++++++++++++++++++
- include/dt-bindings/clock/qcom,sm7250-gcc.h        |  163 ++
- 8 files changed, 3236 insertions(+), 1 deletion(-)
----
-base-commit: f5491c67aeee4a68dd2b218e2f4c5baa7786c566
-change-id: 20261029-master-a03876889046
-
-Best regards,
--- 
-Sreeshankar K <sreeshankar0910@gmail.com>
-
+> +static struct cxl_hdm_info *cxl_pci_hdm_read_info(struct pci_dev *pdev,
+> +						  struct cxl_register_map *map,
+> +						  int dvsec)
+> +{
+> +	struct cxl_hdm_info *info;
+> +	u16 command;
+> +	int rc;
+> +
+> +	guard(pci_dev)(pdev);
+> +
+> +	rc = pci_read_config_word(pdev, PCI_COMMAND, &command);
+> +	if (rc)
+> +		return ERR_PTR(pcibios_err_to_errno(rc));
+> +
+> +	if (command & PCI_COMMAND_MEMORY)
+> +		return __cxl_pci_hdm_read_info(pdev, map, dvsec);
+> +
+> +	rc = pci_write_config_word(pdev, PCI_COMMAND,
+> +				   command | PCI_COMMAND_MEMORY);
+> +	if (rc)
+> +		return ERR_PTR(pcibios_err_to_errno(rc));
+> +
+> +	info = __cxl_pci_hdm_read_info(pdev, map, dvsec);
+> +	rc = pci_write_config_word(pdev, PCI_COMMAND, command);
+> +	if (!rc)
+> +		return info;
+> +
+> +	pci_err(pdev,
+> +		"failed to restore PCI_COMMAND after CXL HDM cache init: %d\n",
+> +		pcibios_err_to_errno(rc));
+> +	if (IS_ERR(info))
+> +		return info;
+> +
+> +	kfree(info);
+> +	return ERR_PTR(pcibios_err_to_errno(rc));
+> +}
+> +
+> +static int __pci_cxl_hdm_cache_init(struct pci_dev *pdev)
+> +{
+> +	struct cxl_register_map map = { };
+> +	u16 dvsec, cap;
+> +	int rc;
+> +
+> +	/* Avoid duplicate MMIO reads when the cache is already present. */
+> +	if (cxl_hdm_cache_present(&pdev->hdm))
+> +		return 0;
+> +
+> +	rc = cxl_pci_device_dvsec(pdev, &dvsec, &cap);
+> +	if (rc == -ENOTTY)
+> +		return 0;
+> +	if (rc)
+> +		return rc;
+> +	if (!(cap & PCI_DVSEC_CXL_MEM_CAPABLE) ||
+> +	    !cxl_dvsec_hdm_count_valid(FIELD_GET(PCI_DVSEC_CXL_HDM_COUNT, cap)))
+> +		return 0;
+> +
+> +	rc = cxl_find_regblock(pdev, CXL_REGLOC_RBI_COMPONENT, &map);
+> +	if (rc)
+> +		return rc;
+> +	if (map.bar < 0 || map.bar >= PCI_STD_NUM_BARS ||
+> +	    !cxl_pci_bar_assigned(pdev, map.bar))
+> +		return -ENODEV;
+> +
+> +	struct cxl_hdm_info *read_info =
+> +		cxl_pci_hdm_read_info(pdev, &map, dvsec);
+Should move read_info definition to the top of the function if we don't 
+need scope-based cleanup helper for the variable.
+> +	if (IS_ERR(read_info))
+> +		return PTR_ERR(read_info);
+> +
+> +	/* Another initializer may have published while we read MMIO. */
+> +	cxl_hdm_cache_publish(&pdev->hdm, read_info);
+> +
+> +	return 0;
+> +}
+Like what I said above, if we can use pci_dev lock in 
+cxl_hdm_cache_present(), since cxl_pci_hdm_read_info() also needs to 
+hold pci_dev lock, I think we can hold pci_dev lock at the beginning of 
+this function, then you don't need cxl_hdm_cache_publish() anymore. 
+Assigning read_info to pdev->hdm directly is enough.
+> +
+> +void pci_cxl_hdm_cache_init(struct pci_dev *pdev)
+> +{
+> +	int rc;
+> +
+> +	rc = __pci_cxl_hdm_cache_init(pdev);
+> +	if (rc)
+> +		pci_dbg(pdev, "CXL HDM cache init failed: %d\n", rc);
+> +}
+> +
+> +void pci_cxl_hdm_cache_release(struct pci_dev *pdev)
+> +{
+> +	cxl_hdm_cache_release(&pdev->hdm);
+> +}
+> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
+> index ba3c3fddddc2..9e218f236e66 100644
+> --- a/drivers/pci/pci.h
+> +++ b/drivers/pci/pci.h
+> @@ -730,6 +730,14 @@ static inline void pci_doe_destroy(struct pci_dev *pdev) { }
+>   static inline void pci_doe_disconnected(struct pci_dev *pdev) { }
+>   #endif
+>   
+> +#ifdef CONFIG_CXL_RESET
+> +void pci_cxl_hdm_cache_init(struct pci_dev *pdev);
+> +void pci_cxl_hdm_cache_release(struct pci_dev *pdev);
+> +#else
+> +static inline void pci_cxl_hdm_cache_init(struct pci_dev *pdev) { }
+> +static inline void pci_cxl_hdm_cache_release(struct pci_dev *pdev) { }
+> +#endif
+> +
+>   #ifdef CONFIG_PCI_NPEM
+>   void pci_npem_create(struct pci_dev *dev);
+>   void pci_npem_remove(struct pci_dev *dev);
+> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
+> index 27008e2ea5af..cb52357344ed 100644
+> --- a/drivers/pci/probe.c
+> +++ b/drivers/pci/probe.c
+> @@ -2484,6 +2484,7 @@ static void pci_release_dev(struct device *dev)
+>   	struct pci_dev *pci_dev;
+>   
+>   	pci_dev = to_pci_dev(dev);
+> +	pci_cxl_hdm_cache_release(pci_dev);
+>   	pci_release_capabilities(pci_dev);
+>   	pci_release_of_node(pci_dev);
+>   	pcibios_release_device(pci_dev);
+> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
+> index b29374b34cfa..3e70f74685b6 100644
+> --- a/include/cxl/cxl.h
+> +++ b/include/cxl/cxl.h
+> @@ -27,6 +27,7 @@ enum cxl_devtype {
+>   
+>   struct cxl_region;
+>   struct cxl_hdm_info;
+> +struct pci_dev;
+>   
+>   enum cxl_decoder_type {
+>   	CXL_DECODER_DEVMEM = 2,
+> @@ -149,6 +150,8 @@ struct cxl_pmu_reg_map {
+>    * @base: virtual base of the register-block-BAR + @block_offset
+>    * @resource: physical resource base of the register block
+>    * @max_size: maximum mapping size to perform register search
+> + * @bar: PCI BAR containing the register block
+> + * @bar_offset: register block offset relative to @bar
+>    * @reg_type: see enum cxl_regloc_type
+>    * @component_map: cxl_reg_map for component registers
+>    * @device_map: cxl_reg_maps for device registers
+> @@ -159,6 +162,8 @@ struct cxl_register_map {
+>   	void __iomem *base;
+>   	resource_size_t resource;
+>   	resource_size_t max_size;
+> +	int bar;
+> +	resource_size_t bar_offset;
+>   	u8 reg_type;
+>   	union {
+>   		struct cxl_component_reg_map component_map;
+> @@ -167,6 +172,7 @@ struct cxl_register_map {
+>   	};
+>   };
+>   
+> +
+>   /**
+>    * struct cxl_dpa_perf - DPA performance property entry
+>    * @dpa_range: range for DPA address
+> diff --git a/include/cxl/hdm.h b/include/cxl/hdm.h
+> index d5e7efd2ffc0..af7cef649446 100644
+> --- a/include/cxl/hdm.h
+> +++ b/include/cxl/hdm.h
+> @@ -23,6 +23,7 @@ struct cxl_endpoint_decoder_settings {
+>    * @hdm_offset: offset of the HDM decoder capability in @hdm_bar
+>    * @hdm_size: size of the HDM decoder register block
+>    * @global_ctrl: HDM decoder global control register
+> + * @dvsec: config space offset of the CXL Device DVSEC
+>    * @dvsec_ctrl: CXL DVSEC control register
+>    * @dvsec_ctrl_valid: whether @dvsec_ctrl contains valid state
+>    * @settings: per-endpoint-decoder programming state
+> @@ -36,9 +37,20 @@ struct cxl_hdm_info {
+>   	resource_size_t hdm_offset;
+>   	resource_size_t hdm_size;
+>   	u32 global_ctrl;
+> +	u16 dvsec;
+>   	u16 dvsec_ctrl;
+>   	bool dvsec_ctrl_valid;
+>   	struct cxl_endpoint_decoder_settings settings[] __counted_by(decoder_count);
+>   };
+> +struct device;
+> +
+> +int cxl_hdm_decoder_count_mapped(struct device *dev, void __iomem *hdm,
+> +				 resource_size_t size);
+> +int cxl_hdm_read_state(struct device *dev, void __iomem *hdm,
+> +		       struct cxl_hdm_info *info);
+> +bool cxl_hdm_cache_present(struct cxl_hdm_info *const *slot);
+> +void cxl_hdm_cache_publish(struct cxl_hdm_info **slot,
+> +			   struct cxl_hdm_info *info);
+> +void cxl_hdm_cache_release(struct cxl_hdm_info **slot);
+>   
+>   #endif /* __CXL_HDM_H__ */
+> diff --git a/include/cxl/pci.h b/include/cxl/pci.h
+> index 3e0000015871..b15d7e415e27 100644
+> --- a/include/cxl/pci.h
+> +++ b/include/cxl/pci.h
+> @@ -4,6 +4,8 @@
+>   #ifndef __CXL_CXL_PCI_H__
+>   #define __CXL_CXL_PCI_H__
+>   
+> +#include <linux/types.h>
+> +
+>   /* Register Block Identifier (RBI) */
+>   enum cxl_regloc_type {
+>   	CXL_REGLOC_RBI_EMPTY = 0,
+> @@ -19,4 +21,15 @@ struct pci_dev;
+>   
+>   int cxl_pci_setup_regs(struct pci_dev *pdev, enum cxl_regloc_type type,
+>   		       struct cxl_register_map *map);
+> +int cxl_find_regblock(struct pci_dev *pdev, enum cxl_regloc_type type,
+> +		      struct cxl_register_map *map);
+> +int cxl_setup_regs(struct cxl_register_map *map);
+> +/*
+> + * CXL r4.0 sec 8.1.3.1: a CXL.mem capable device reports one or two HDM
+> + * ranges. 00b is illegal when Mem_Capable is set and 11b is reserved.
+> + */
+> +static inline bool cxl_dvsec_hdm_count_valid(unsigned int hdm_count)
+> +{
+> +	return hdm_count == 1 || hdm_count == 2;
+> +}
+>   #endif
+> diff --git a/tools/testing/cxl/Kbuild b/tools/testing/cxl/Kbuild
+> index 2be1df80fcc9..e80500f457a9 100644
+> --- a/tools/testing/cxl/Kbuild
+> +++ b/tools/testing/cxl/Kbuild
+> @@ -55,7 +55,6 @@ obj-m += cxl_core.o
+>   
+>   cxl_core-y := $(CXL_CORE_SRC)/port.o
+>   cxl_core-y += $(CXL_CORE_SRC)/pmem.o
+> -cxl_core-y += $(CXL_CORE_SRC)/regs.o
+>   cxl_core-y += $(CXL_CORE_SRC)/memdev.o
+>   cxl_core-y += $(CXL_CORE_SRC)/mbox.o
+>   cxl_core-y += $(CXL_CORE_SRC)/pci.o
