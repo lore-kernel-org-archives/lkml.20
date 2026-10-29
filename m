@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793237896;
-	b=YiOhNrFuifnXkGXM3FEyomVDqFuyNd6nwUWLzyWambtiMot3RAGs2gmU5TTbKpp1xN/v
-	 VqyV58FYGX/+XxLOp08E9QyGGi63B20AA46rAZX4RpF1fZ5NLuJdCu+fmbxIuJpjQmEtR
-	 ckOlgZyZVKYi/tRjsvQdgznRt99pNh+r7gSfWDI+fDRt5iXNHQruWabE5/dS5xYo/BBeK
-	 H3h1w75Hb+01PsnUSdVAvavhj0Ssm6A0F4aZxyAt0NDcKsphF4ZFUbnMGhpKp2l24SCxB
-	 MclWb6hpzWovJSIheEny4+hZUKunfR9xa0aX0QwHmrqw7BDX9DrU8O/WiNBlJOIFOkg==
+	t=1793237914;
+	b=2dJ1KHWC2QC412FldcNUeDCMYiadMy9KSsDo2C3/cvg0TDdhxMBXNE2VDawt+TdeQUFe
+	 yBla1AF6bgmAEFbMIhKEgwlRqN42v5ys6+gBdXXj0DyT9irpuC1guDH162mpTaz6nxlOq
+	 hr/hpbU0OWIm/IMzhnACvv0m3LsOItEjzIR7qM7tzsr7kOc7jA3GhQ6Wu+GToGMqdR+KA
+	 oM4wFcdn6Y6v24oKktt9GFOEx1bH2eyGXo6ABZbY/vkKl+RuuFyi+KTmp4ukfhVWN+w/Z
+	 NVVsaD2jfidIXfFa+CH6BUPGLTv4eXfkp/Y2zdddCU7QpmCZJ9ZGfgHP+O6AYIFvomw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793237896;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793237914;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=hRhmKkCw+4uGKMkh3X9YIRZBdi4um4ip/IbrjTfTHAI=;
-	b=RPLzpLpHpXBy1t+47aUy1Asz0ATR0VZ8pwGBZ51F4aR5Wj5s/n2CKtVHqX3L+JIJWV4H
-	 dlRTc2E5fRDAUkdKV8ySxdYC6dy+xMaAbeEvrGnEuWrmJmTHlYSYLxOkQD8KjEoLspnbn
-	 W/3KoYIC96l63pvu44bhbNPJl73CezOpFdV6kiO5AVpsnBA5eXsmZ2WohjBWdhTxaAkWO
-	 XL0B428KV8lPjrozouJnka4OkCVzHUQvY2owA81syl9Dc0ZV/AOyUZxv78PtFpjSSkYa7
-	 6WeoUxXfyOO7rQt17ur8RP6d9lH/uhRdafRT8qY2X6yLWvhTBU1g1paGWyS6yL2eHUw==
+	bh=jxH03hHgKl65iUtHtrCqp+AM+yS+y7DQ8MSqObvXwUM=;
+	b=b1BJDaH6APyLVlcK20i7J8/VjM0/pmLEqUSCPnOYR0YsqoFORGbwmBUvOxZI6+gZTAdD
+	 V97fQ22SOq+ZU0Q3Jg0rsLcEqLa8S8lUvHB2ZVmxAPZVIMbQyOyMGqfzTAROU/EBLDeHB
+	 VMmA0Amw5vLYf0xDnbz1AYCFbB7FTniELC15I3feAicxYkSUj8xzd2QVdsMRfTdgXiRgd
+	 cj4FT4WNK04JW/iD7itdJi5qJXfPwyYYXw3p9tHKm9mpGQqq0HwxsNFg9TR3z6qt9rE3U
+	 SdCyNlJYQLwZhAJxqKWzQgtL+iciwngpI7VeMXhoVgvAI7hKUpZ/KlBZr148/OnAkAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dwPEJ8sw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kFKoL6rg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01927606A31A;
-	Thu, 29 Oct 2026 01:38:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42421606A320;
+	Thu, 29 Oct 2026 01:38:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dwPEJ8sw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13A8A1F01825;
-	Thu, 29 Oct 2026 01:38:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kFKoL6rg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6C61F01825;
+	Thu, 29 Oct 2026 01:38:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793237895;
-	bh=hRhmKkCw+4uGKMkh3X9YIRZBdi4um4ip/IbrjTfTHAI=;
+	s=k20260515; t=1793237913;
+	bh=jxH03hHgKl65iUtHtrCqp+AM+yS+y7DQ8MSqObvXwUM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dwPEJ8swgJIaiIxMk0mgoSXD/0cr0tSPJlnPw0Ke4vC2UYeUpXu7szi+areBHhVaF
-	 MuCJGnScwYTv5zriEqiGusZN0xaKFs1DBvYRC/dlbr3ij4auWfbi8R2qTJJFk+B1kP
-	 R5rHPFtrZOfIVc5T5wpIC72PHW7kKeB2s3CI4ShRO6XTS81PGFeaFGZq4+zcd85eHq
-	 LAqr1Yq7fFLfVnwO6Xcv7rnkwBCfPYLVV6fT7Mc5IRCAz8NMMjEOsIMpqa2WXE6cI+
-	 eNkbOtt8bt8kGujgaIiCCtuEkRZ0B2sY78qpHEbumywrRa537HaO1WQSstq82200TM
-	 XoqsMeR1qgRag==
+	b=kFKoL6rgip04vqGlz1xQe5yeRK8E1X1ldeCqTgW0cTVIgffjl1Ebb0Gcfpv2f06Cr
+	 8GcFYIIkLBUMvDgR18g9afAs04TaLQTpVdoyvUhjalPN79zSDW6NADNk6FTbub5F4J
+	 1wgLufQWsjQaCpwCNKEp9dE7Vuw6VgxSRuUyZQoZkt9yJ/HHSR0s8N7tGvabEfxt77
+	 BDzs86rmxkPlIPdEnMwII16YipgZVcTNSLN54weBtqS7o1kRLSNHeclPkpk9ms/6/I
+	 K/AbRJ/86SaUabAelrvNcyfRMWd4VEIR9+YP8LXst4+XOI35FtCZaieNKvSrVu4IiS
+	 13DOF6e77X7OA==
 From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
@@ -48,9 +48,9 @@ Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	linux-kernel@vger.kernel.org,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH v4 05/15] tracing/filters: Check for missing operand after operator in parse_pred()
-Date: Thu, 29 Oct 2026 10:38:11 +0900
-Message-ID: <179323789181.740114.16161070743864669086.stgit@devnote2>
+Subject: [PATCH v4 07/15] tracing/filters: Reject empty unquoted operand in function event filter
+Date: Thu, 29 Oct 2026 10:38:30 +0900
+Message-ID: <179323791027.740114.822862076687011726.stgit@devnote2>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <179323784538.740114.15323117974242744566.stgit@devnote2>
 References: <179323784538.740114.15323117974242744566.stgit@devnote2>
@@ -69,45 +69,42 @@ Content-Transfer-Encoding: 8bit
 
 From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-In parse_pred(), after matching the operator and skipping whitespace,
-the filter string may terminate (str[i] == '\0') if the operand is
-missing (e.g. "ip ==" or "common_pid ==").
+In parse_pred(), when parsing an unquoted operand for function events,
+if the filter expression has no operand before a delimiter (e.g.
+'(ip == )' or '(ip == && x == 1)'), the loop terminates with len == 0.
 
-For function events, the loop 'for (i++; str[i]; i++)' unconditionally
-increments 'i' past the NUL terminator, causing an out-of-bounds read.
-For other event types, allocating a predicate only to fail later during
-value parsing is wasteful.
+While an empty quoted string (e.g. 'ip == ""') is syntactically valid
+and denotes an empty pattern, an unquoted empty operand is a syntax
+error where an operand was expected before the delimiter. Previously,
+this accepted the predicate with an empty pattern.
 
-Check if 'str[i]' is NUL immediately after skipping whitespace after
-the operator, and report FILT_ERR_INVALID_FILTER.
+Reject empty unquoted operands by checking '!q && !len' and reporting
+FILT_ERR_INVALID_VALUE.
 
 Fixes: 80765597bc58 ("tracing: Rewrite filter logic to be simpler and faster")
 Cc: stable@vger.kernel.org
 Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 ---
 Changes in v3:
- - Split from the monolithic function event parsing patch.
- - Check if str[i] is NUL immediately after skipping whitespace after
-   the operator in parse_pred() across all event types, as suggested
-   by Steven Rostedt.
+ - Split from the monolithic function event parsing patch into a
+   standalone patch rejecting empty unquoted operands (!q && !len).
 ---
- kernel/trace/trace_events_filter.c |    5 +++++
- 1 file changed, 5 insertions(+)
+ kernel/trace/trace_events_filter.c |    4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index b8d765ca9f1a..a7a89e0f9b87 100644
+index 05579895c810..a645af9eb1f8 100644
 --- a/kernel/trace/trace_events_filter.c
 +++ b/kernel/trace/trace_events_filter.c
-@@ -1762,6 +1762,11 @@ static int parse_pred(const char *str, void *data,
- 	while (isspace(str[i]))
- 		i++;
- 
-+	if (!str[i]) {
-+		parse_error(pe, FILT_ERR_INVALID_FILTER, pos + i);
-+		goto err_free;
-+	}
-+
- 	s = i;
- 
- 	pred = kzalloc_obj(*pred);
+@@ -1880,6 +1880,10 @@ static int parse_pred(const char *str, void *data,
+ 		len = i - s;
+ 		if (q)
+ 			i++;
++		if (!q && !len) {
++			parse_error(pe, FILT_ERR_INVALID_VALUE, pos + i);
++			goto err_free;
++		}
+ 		if (len >= MAX_FILTER_STR_VAL) {
+ 			parse_error(pe, FILT_ERR_OPERAND_TOO_LONG, pos + i);
+ 			goto err_free;
 
