@@ -1,55 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793279200;
-	b=XAVjIeq67FSazI5Xd8jVrqXkfhREoaMywTer56auhR1/n6Vn1lotMz2P8pOwP9TKEbQ7
-	 DCALjpNkdObADXV1q8I8aneqbvOb6rt/IA1DLNbV/SUchxTbNxNMzRRH50gFfTL/4GyJ4
-	 egFvrE+VkglGZNAv2/vgC8EuP8mPl6ZuAKm1RlwcHSdzowEGWkYPR2+JnC+qppcxqUugE
-	 ds+olGmWmovMmcgi9PIigm7fmLWwlEpCYzx0pZAPl5pAf7S2ku2DG3fwOjQ6a1Dehm6Cr
-	 0med0NtnXS3/vdxu3XuUOs0u7LJxZvP2lsjLh/AE8fMgdtYC3HcrTxB2wXc0BLdUjWg==
+	t=1793279375;
+	b=RP9q49NP+Mf+XzrFY0pqVII8KFCppGvO1fw9iu0yI90J8N/JAWPFgYJp+Cf0kLbP0yHp
+	 rVFtGPL1MoIfbeOeUINNOHXwlaQNgXaYnYgtl6I/DkltkRFbTGnmPbw94BoiI4/zhau0k
+	 xz3WoBdzWRkOtfrAiJBW1DcLl5/I+Rll7IQ4PalSMbMzshyt5KWI1Tke2zPTg2qjOpHyD
+	 HRA1P1s6+UzmloGr9va1mkwtHOzi1IHD0YA2q3bj2uxiM+SuwC5RSO3VQfK8c4QGvA7rr
+	 lgpezymUXeKcZ/Wa+H8JeFvQh2bhv70yRO6lX5aT3jKuS/ZiTQ5+MKzSd7JYwubAYjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793279200;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=j9d8HMdPOBLx2izzwVSbxm7Ew442zRczjYj1drdD8eQ=;
-	b=jq2Kj14UigAJZMtnuuJvI9+wlCB8bna43SBvrrItae2wIlH4FP0GluYvgqlvxma/wCp/
-	 2x9jPkApJBSYXtSz1g25/qc4Sf0zW8FJ8a3WaAbMHSStze1ILY+F2KfF2ikBSZn/KrHrh
-	 YUd8e3ImmVZwIPMbY+X2X9eyt/q+oz0wm+gTuUxEsTbmGEzAZquLP1I4t8KAwtq5A7YyW
-	 cg1bNxJSgUjrfzq4iUhCVc9fWkz4wYmpkUdAEGReaua90U4TLe4kx/W5Q86QelqUI+ZHg
-	 UATSZ+BGycXqd1pqQMIEhuil8kqLhwig4diM10A4jmk68yviNnFa55w04ds+C1V9iWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793279375;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=UMz+d1PJLg5h+Wtxm65zwHt8O1ssfbNLYkm9paEGB2k=;
+	b=3pBlgEMIUZMzHj+hh8N60j2ojQBEYwFse+5zKN7pD/T7mnc3MXeB7yNShIzrkZCaO3HY
+	 9jdymVISuTGrH2TcGofuUrRqfrz026JoAsKXoBKHfHLrI+HJDtIBTWg7lotEQ/EWhGxjY
+	 nCg2uHj/gFcsDBO2Qs0VeFajhyWG2bopcwlIM+JoE4RMK+qjKAqfF3Zpd0I4dx9aJ9piE
+	 mPDEAneyPqnAA2KVhZxMb290yhqzLMuiSkclDzu1SG9b5GRYV+sEFwFf9WrJJdmcqZWfM
+	 /iEGGbZ2OaReN95a4qQp3EEDbjviwRM/oZYJS3AzKnH0XRMus6+x7cYjVQ2TNpMrhCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UW+EsRMb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=91.218.175.95
+Received: from mta0.migadu.com (out-95.mta0.migadu.com [91.218.175.95])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B92606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:06:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UW+EsRMb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DC1A1F031E8
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:06:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793279200;
-	bh=j9d8HMdPOBLx2izzwVSbxm7Ew442zRczjYj1drdD8eQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=UW+EsRMbpOtnUZJkL8ULWM5F+FbBi+YSir5WfgzdfSKmr6/u6RtLOLbhJwMK7BrCF
-	 uY2O453fYdRT+aSNSC1mIrI7t0sHIXqG/76ihb2yGfkOO1bHRdBzTptMhiboZBw0H2
-	 TdTfapOKcyNEECz2evB3TcNtspTWG7MkcAuvmYuFdzULWZi5w7uAZij8wg00ebVjh4
-	 utinmmVi/ORqAcByLiH5BaeysrsnoQmEQAdBzOPyDsV05xYIYRiFuTAHRnyJfjR0i3
-	 XNahjKRB1nbTWiLXxv4UGWhePRsI9XHc2M0xsaNSjxzFQDYBr65X30FrK2u6zXqqYm
-	 X4noo7VDlEtUA==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so2188010e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:06:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzgKxnyl0QWQU+Lw0T3aKysQdZ0+/cAcQVcyeRwo8VM8VzzTR+5AVLHN2QUgZNr0PQ+QnS6De1XDaxbAd4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxUowwaq1J4TH3NGCSrHm0UI2z8fg1XmLA2L8lVLneU5O0ii6R
-	hp7BjBvCF2KsNUJMFrLkt8/2E2Ld4o01jbIqgn8Msr4/Wmy4pC8Rsdh6hRtLJ21sC/0s+cCMntR
-	6V7SDT3M5codGkTJhJ+VwSLwGIwKV6SM=
-X-Received: by 2002:a05:6512:3c9a:b0:5be:50d5:1909 with SMTP id
- 2adb3069b0e04-5bfcad58b3dmr2147748e87.27.1793279198981; Thu, 29 Oct 2026
- 06:06:38 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87DB2606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:09:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87DB2606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=F7yOuWqfxHFz/mG7VplEXKs0bWF5sLdGW/cWLYDLPpQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793279371; v=1; x=1793884171;
+ b=hO4SP2x2jRGPbqcOlM33ldS40kvt7NMghS/gYpk4Q18xhOWJ4TEprj8idzflFsVC97SieC01
+ OEe+gafuBJsNtv4xxmt9qd+kDbzkjMhSr9gMtz4VVIS1B5KaHdCrUFcW06lsEuc4vXRSq9T+seL
+ XDO3SpRVFwYjsOhuJ3eAF85Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id dff8b26f4d6af5c4;
+	Thu, 29 Oct 2026 13:09:31 +0000
+X-Mizu-Trace-ID: dff8b26f4d6af5c4
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <dfa3f8d1-fa82-4c4b-91bc-e2529fbb5ddc@linux.dev>
+Date: Thu, 29 Oct 2026 21:09:19 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,123 +55,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261011-gpio-mxc-cleanup-v6-0-cb47ce2ad758@nxp.com>
- <20261011-gpio-mxc-cleanup-v6-7-cb47ce2ad758@nxp.com> <CAD++jLnDxTAz2=ge5RgvO02mp+BJyLBV0zR8xqsm8LSsSEcRYQ@mail.gmail.com>
- <as8+sqlBEuhfdtZ8@shlinux89> <CAD++jL=tKnT0qr5chD-fhxgTM-f9kcdFRsKVBbbqionBp9iTyw@mail.gmail.com>
- <atIqPOBaflct369Q@shlinux89>
-In-Reply-To: <atIqPOBaflct369Q@shlinux89>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 29 Oct 2026 14:06:26 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=nkoYnPfU_swDYrtrxNZtAy+yq8O5SnoLdtqrh_QoxTA@mail.gmail.com>
-X-Gm-Features: AclHuK-fkIL7gTTQhakmRRraBxB0TPX72u2Kqo5bF_nURy3d6i6ZKcYJu7FOOm0
-Message-ID: <CAD++jL=nkoYnPfU_swDYrtrxNZtAy+yq8O5SnoLdtqrh_QoxTA@mail.gmail.com>
-Subject: Re: [PATCH v6 07/13] gpio: mxc: convert pad wakeup compatible checks
- to hwdata flags
-To: Peng Fan <peng.fan@oss.nxp.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
-	Andy Shevchenko <andy.shevchenko@gmail.com>, linux-gpio@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Peng Fan <peng.fan@nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] blk-mq: run the hw queue synchronously for unplugged
+ scheduler inserts
+To: Qiliang Yuan <odys.yuan@gmail.com>, Jens Axboe <axboe@kernel.dk>,
+ Ming Lei <tom.leiming@gmail.com>, Wen Xiong <wenxiong@linux.ibm.com>,
+ yukuai3@huawei.com
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260930-bug-blk-mq-noplug-sched-dispatch-v1-1-ff1e49e52b00@gmail.com>
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+In-Reply-To: <20260930-bug-blk-mq-noplug-sched-dispatch-v1-1-ff1e49e52b00@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Peng,
 
-On Fri, Oct 16, 2026 at 3:39=E2=80=AFPM Peng Fan <peng.fan@oss.nxp.com> wro=
-te:
-> Hi Linus,
-> On Fri, Oct 16, 2026 at 11:13:28AM +0200, Linus Walleij wrote:
-> >On Wed, Oct 14, 2026 at 10:30=E2=80=AFAM Peng Fan <peng.fan@oss.nxp.com>=
- wrote:
-> >> On Wed, Oct 14, 2026 at 01:10:48AM +0200, Linus Walleij wrote:
-> >
-> >> >Hi Peng,
-> >> >
-> >> >On Sun, Oct 11, 2026 at 1:51=E2=80=AFPM Peng Fan (OSS) <peng.fan@oss.=
-nxp.com> wrote:
-> >> >
-> >> >>  static bool mxc_gpio_generic_config(struct mxc_gpio_port *port,
-> >> >>                 unsigned int offset, unsigned long conf)
-> >> >>  {
-> >> >> -       struct device_node *np =3D port->dev->of_node;
-> >> >> +       int ret;
-> >> >> +
-> >> >> +       if (!mxc_gpio_has_pad_wakeup(port))
-> >> >> +               return false;
-> >> >
-> >> >Why is the entire call to mxc_gpio_generic_config()
-> >> >bailing out here if the port does not have pad wakeup?
-> >> >
-> >> >> -       if (of_device_is_compatible(np, "fsl,imx8dxl-gpio") ||
-> >> >> -           of_device_is_compatible(np, "fsl,imx8qxp-gpio") ||
-> >> >> -           of_device_is_compatible(np, "fsl,imx8qm-gpio"))
-> >> >> -               return (gpiochip_generic_config(&port->gen_gc.gc,
-> >> >> -                                               offset, conf) =3D=
-=3D 0);
-> >> >> +       ret =3D gpiochip_generic_config(&port->gen_gc.gc, offset, c=
-onf);
-> >> >> +       if (ret)
-> >> >> +               return false;
-> >> >
-> >> >Then no generic config can happen.
-> >> >
-> >> >This looks weird, isn't it just some of the configs that
-> >> >don't work?
-> >>
-> >> The early return is correct and matches the original behavior - only
-> >> i.MX8 SoCs with SCU have pad wakeup hardware.
-> >>
-> >> gpiochip_generic_config() here calls into the pinctrl backend's
-> >> pin_config_set(), which on i.MX8 programs the SCU firmware with the
-> >> PAD wakeup source type.  Non-i.MX8 SoCs don't have an SCU pinctrl back=
-end.
-> >>
-> >> The function name is misleading - its only caller is mxc_gpio_set_pad_=
-wakeup().
-> >
-> >This is just a big hack and I want it removed.
-> >
-> >Implicit in this reasoning is: the only config we support on
-> >the pinctrl back-end is wakeups so let's gate the entire function
-> >call if we don't support wakeup.
-> >
-> >This is a *generic* back-end like the function says:
-> >gpiochip_generic_config() so the GPIO driver can't make
-> >assumptions about what the pinctrl backend can and
-> >cannot do. In a new SoC using the same driver the
-> >pinctrl back-end could be something different.
-> >
-> >So this is breaking modularization and encapsulation.
-> >
-> >It is better to let the pin controller return -ENOTSUPP
-> >or whatever is appropriate instead of gating the
-> >call like this,
->
-> Sure. To get rid of the hack in gpio-mxc.c, we need update pinctrl imx dr=
-iver
-> and gpio-mxc driver both, which will create cross-dependency. So I need
-> to take two steps:
->
-> 1. Update pinctrl-imx.c to return -ENOTSUPP for non-i.MX8 SoC
-> 2. get rid of the hack in gpio-mxc.c
->
-> The current patch is mainly code style change. Could the above 2 steps ba=
-sed
-> on current patch/patchset? Then we no need to carry more changes in one
-> patchset.
 
-The current patch is NOT a cleaup because you add this:
+在 2026/9/30 15:38, Qiliang Yuan 写道:
+> When the submitter holds no plug, blk_mq_submit_bio() inserts a request
+> into the I/O scheduler and runs the hardware queue asynchronously. Now
+> that __submit_bio() no longer opens a plug around every bio, this path
+> is taken by all unplugged I/O to devices with an elevator, such as
+> io_uring submitting at most two SQEs per io_uring_enter() or synchronous
+> O_DIRECT reads and writes.
+> 
+> Each of these requests queues hctx->run_work on kblockd. kblockd is a
+> per-CPU WQ_HIGHPRI workqueue and blk_mq_hctx_next_cpu() returns
+> WORK_CPU_UNBOUND for single-queue devices, so the work runs on the
+> submitting CPU and the kworker preempts the submitter once per I/O.
+> With fio (io_uring, 4k randread, iodepth=16, one job) the submitter
+> context switches about once per I/O. A single-queue null_blk device
+> with mq-deadline drops from 289K to 193K IOPS, and a single-queue ublk
+> device, which defaults to mq-deadline, drops from 265K to 113K IOPS.
+> 
+> Run the hardware queue from the submitting context for scheduler
+> inserts, as flushing the per-bio plug did. Keep the asynchronous run for
+> the hctx->dispatch_busy case.
+> 
+> fio, io_uring, 4k randread, 16 vCPU KVM guest:
+> 
+>                                                   before     after
+>   null_blk, 1 queue, mq-deadline, qd16              193K      289K
+>   null_blk, 1 queue, none, qd16                     354K      356K
+>   null_blk, 4 queues, none, qd1                     356K      358K
+>   ublk (ublksrv null), 1 queue, mq-deadline, qd16   113K      265K
+>   ublk (ublksrv null), 4 x 1-queue devices, qd16    290K      852K
+> 
+> Fixes: 9cbbac29d752 ("block: Remove redundant plug in __submit_bio()")
 
-+       if (!mxc_gpio_has_pad_wakeup(port))
-+               return false;
+Commit 9cbbac29d752 does need to be reevaluated.
 
-If you want you can drop this and related parts and make a pure cleanup
-patch, that is fine.
+Our customer ran fio tests with --bs=4K --rw=randwrite --iodepth=1 --numjobs=1
+and confirmed that adding bio plugging to __submit_bio() improves performance.
 
-If you want the above semantic change, make change 1 above, fix the
-pinctrl driver.
+Without bio plugging in __submit_bio():
+fio:
+__submit_bio                              (17.16%)
+  → blk_mq_submit_bio                     (16.80%)
+    → blk_mq_run_hw_queue                 (9.97%)
+      → blk_mq_delay_run_hw_queue         (9.41%)
+        → kblockd_mod_delayed_work_on     (9.13%)
+          → mod_delayed_work_on           (9.11%)
 
-Yours,
-Linus Walleij
+kworker:
+process_one_work                          (12.48%)
+  → blk_mq_run_work_fn                    (11.70%)
+    → blk_mq_sched_dispatch_requests      (11.00%)
+      → __blk_mq_sched_dispatch_requests  (10.91%)
+        → __blk_mq_do_dispatch_sched      (10.26%)
+          → blk_mq_dispatch_rq_list       (7.84%)
+            → nvme_queue_rq               (5.85%)
+
+With bio plugging in __submit_bio():
+__submit_bio                                (26.94%)
+  → __blk_flush_plug                        (21.36%)
+    → blk_mq_flush_plug_list                (21.24%)
+      → blk_mq_flush_plug_list.part.0       (18.38%)
+        → blk_mq_run_hw_queue               (15.34%)
+          → blk_mq_sched_dispatch_requests  (14.55%)
+            → __blk_mq_sched_dispatch_requests (11.27%)
+              → blk_mq_dispatch_rq_list      (7.41%)
+                → nvme_queue_rq              (5.72%)
+
+Adding bio plugging increased IOPS from 60,000 to 74,000 and reduced latency
+from 12.4 µs to 9.5 µs.
+
+Commit 9cbbac29d752 states that bio plugging increases CPU usage. I suspect
+that plugging may allow I/O to be dispatched faster, concentrating CPU
+activity into a shorter period. This could increase instantaneous CPU
+utilization while reducing the total test duration.
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+> ---
+>  block/blk-mq.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+> 
+> diff --git a/block/blk-mq.c b/block/blk-mq.c
+> index a26a11c73ee3e..54eff3cf45fae 100644
+> --- a/block/blk-mq.c
+> +++ b/block/blk-mq.c
+> @@ -3200,8 +3200,16 @@ void blk_mq_submit_bio(struct bio *bio)
+>  	}
+>  
+>  	hctx = rq->mq_hctx;
+> -	if ((rq->rq_flags & RQF_USE_SCHED) ||
+> -	    (hctx->dispatch_busy && (q->nr_hw_queues == 1 || !is_sync))) {
+> +	if (rq->rq_flags & RQF_USE_SCHED) {
+> +		/*
+> +		 * Run the queue from the submitting context, as flushing a plug
+> +		 * does. Punting every unplugged request to kblockd lets the
+> +		 * kworker preempt the submitter once per I/O.
+> +		 */
+> +		blk_mq_insert_request(rq, 0);
+> +		blk_mq_run_hw_queue(hctx, false);
+> +	} else if (hctx->dispatch_busy &&
+> +		   (q->nr_hw_queues == 1 || !is_sync)) {
+>  		blk_mq_insert_request(rq, 0);
+>  		blk_mq_run_hw_queue(hctx, true);
+>  	} else {
+> 
+> ---
+> base-commit: 551c722f40809618230001baccf219193e22fc5a
+> change-id: 20260930-bug-blk-mq-noplug-sched-dispatch-4f19360b0bf7
+> 
+> Best regards,
+
+-- 
+Thanks
+Kaitao Cheng
+
