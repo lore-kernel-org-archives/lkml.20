@@ -1,60 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.181.3.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793278384;
-	b=NnVx8YkGZeNZAszVgJRXUzZvLmc+TexOcRdTtDnykd2ENpImE1oMdNTnQ7BUHlEAhVOU
-	 9UudinJQYJSsadJ2aToZoOApbJo8emZ5eidqgpkZiBJ5PiPG7BK/6yxhrUVJ92O2yjCld
-	 sK265xYjIdm8taPYGu5MIGpzwCtIfuuZP/TSNWDcgQJ58RYWWZCSc8qK1ZXH1cqmaqMWx
-	 oew8jUvs1NqktDAJf2q/xC9P74tRY46GnS1KCVf4UYKlb8UWsLVj3D7wqvhHUf5Aer1fQ
-	 P3zfNuKyvBQWEoQZejc8hO2Dxw1aYpMTzB4MJm4dfWflvNrZB958/sJfJ5vmqzWDmIQ==
+	t=1793278460;
+	b=TdKQS5dSz6wvNhGjSFFy/guwozGgIK+l+yQAQUd8r4hkyKSjCEOCYYxvkEoh/ZL+L+Ti
+	 fjebwqZw3kycKmkBG1+kKAEYilvOlb1iqUEFsl/IKwIAGrdxPRQAj1DssMxZe5nlTHhmI
+	 u7SETo+SCiN1R1lkxUqN+zDDGaGwEH711GXlEcFAwR5kJSXam9kbjW4PCP+uzeSKmsOiW
+	 2zFlMjkafoJWAU4hulcOf9tATAfF4KwHfdPHNd4/XMlCO2HqRm3zO1iflruGiwACTAN5m
+	 St4aZjdiz94xxdqJGa/DdyqOMbXUNkUYU6tRzU4Mc6KPWBczevGaJMxxpIQ8+VnmEmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793278384;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=sT0ArFBMJeyGkeMmr3StEsEq3sIwZCVpenaZi3WO0Gk=;
-	b=AR22LEhvlJpr3DYZUelb8kpRUjLsoC9o8oFpDn9C04tASp9RPMxBKw7DiyVhIffiG4zD
-	 UjSiZxqGKmOsavqbAPznKSeciHh2dViRNRKfDJLH/wOHGAijBpYhjE/ljooXIdebTSx6w
-	 BheVMsRc5BDrE6NR5UcE8SURHZoWplTFNF/gFe+1/ZFbkBKHN5HAx96uOew3m5hzCTUTC
-	 kVUDxTd85u1RbXxQp8FUNt8O9uNg5OQbbqGRbEAvAFHMcFzw6S5H/3JD0bQgk3/gZl47i
-	 /rVea2zeKXjTnDEyrAYmY+nXyrRL1dmibrVlmEK+Gu3NesXBQ7GhOVj9SYF3qj0LRaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793278460;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:DKIM-Signature;
+	bh=FtU8Inpw+jVWYTylDfqR88WUy4Wf3QCqAYa7s1yMIlY=;
+	b=jxiLNPAFjZew7yzmEOJvahuh6uwJvo5WZTFBP/MIAbQJnRQL55bcCC9JUavtFiCsVT3z
+	 +Q1fGpQGfr8ZpeiQc9WitFS6lY7011kkW8u3QWQOjH6HGPEVi08/k8XKTUxDQjpb6xxzb
+	 oUUDX6jrX1UrXgbDGJqq4xEAxFZawi88Usu99K3sjg26x9TO2JQHIRmfihHqj2dgwSLrJ
+	 u29Q3uNFR6RROwvbTuhOrmVe86VFNJJG1saIPXLhIhjgJjpfiRXC28hUspkubJG5mtYFs
+	 TEQ34pbRLfVaPQ0C+AvaZ+z7V7LNcD9ltN/DUj7E74hXS8C4Lw5N2yRR/IJqjo5RcBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=su7kwgrvcjd55nvbtudooyjwom.protonmail2 header.b=QEBxD9i7;
-	arc=none smtp.remote-ip=185.70.43.22
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7385606A31A;
-	Thu, 29 Oct 2026 12:53:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7385606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=jE7zi1yP;
+	arc=none smtp.remote-ip=220.181.3.101
+Received: from outbound.baidu.com (mx14.baidu.com [220.181.3.101])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id BC59B606A321;
+	Thu, 29 Oct 2026 12:54:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC59B606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=su7kwgrvcjd55nvbtudooyjwom.protonmail2 header.b=QEBxD9i7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=su7kwgrvcjd55nvbtudooyjwom.protonmail2; t=1793278381;
-	x=1793537581; bh=sT0ArFBMJeyGkeMmr3StEsEq3sIwZCVpenaZi3WO0Gk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=QEBxD9i7ipkTa/oGhMGUO1xy9rWcmfjR+tCaaNzBocPjeXihSnBH8cwq4L/0fsU46
-	 5YH8zNCIGbQR9+d1bekeY+k6RiQ5F6+hdr5Orgs2JqJ4fEm4rdbJOYBRtJ9NxEoghy
-	 K6fvLsj5uORqMb3V+ER6tvO386nhcLQOodCPB/VbWYbNOZc2pb/0BstEesGvK+ZTAD
-	 BdyQYNGGh0Ys91XFbeWtKasl0FkaUnxT5z767Jwa1h1jCUT0U7GeTOtTSP+TC8MfYn
-	 9OF5yO5jmmHBWJGzT2caCaFvYMffIQ1mhBNKhbMTq4+nbel0pzpgTQcMycL/mNa1s6
-	 aiNiSzGRSRj6w==
-Date: Thu, 29 Oct 2026 12:52:58 +0000
-To: linux-bluetooth@vger.kernel.org
-From: cochcoder <cochcoder@proton.me>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Bluetooth: hci: Represent advertising report payloads as bytes
-Message-ID: <Ah3BUlHJg017ETZ8GZQG69Rs35nMmhg5WG73kEiV7X5u9R_WTd9V1Et1UJmum1Ub_rlkRpEUlC8V39VHQdwA-Yq-Z5s_t63QJWQJ1uHMeL8=@proton.me>
-In-Reply-To: <Y6cAlirXtAS9pWAG1oay3YLbNw88cB8O4sDjEgoDnZrn3kKIWdDUo2MLkwWjYcmF4DWJ5s4WLSaXw5zc0sdDh5RT2dWo34mxaImxGQdetXM=@proton.me>
-References: <20261014052244.416087-1-cochcoder@proton.me> <Y6cAlirXtAS9pWAG1oay3YLbNw88cB8O4sDjEgoDnZrn3kKIWdDUo2MLkwWjYcmF4DWJ5s4WLSaXw5zc0sdDh5RT2dWo34mxaImxGQdetXM=@proton.me>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: 4f7a1d16f22b61cc1fc70c2ce1716881d1056c27
+	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=jE7zi1yP
+X-MD-Sfrom: zhangyili01@baidu.com
+X-MD-SrcIP: 172.31.51.15
+From: Yili Zhang <zhangyili01@baidu.com>
+To: <benjamin.cheatham@amd.com>
+CC: <alison.schofield@intel.com>, <dave.jiang@intel.com>, <dave@stgolabs.net>,
+	<djbw@kernel.org>, <jic23@kernel.org>, <linux-cxl@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <shijujose2008@gmail.com>,
+	<vishal.l.verma@intel.com>, <zhangyili01@baidu.com>
+Subject: Re: [PATCH v3] cxl/edac: Fail ECS threshold read for reserved encodings
+Date: Thu, 29 Oct 2026 20:54:00 +0800
+Message-ID: <20261029125400.84466-1-zhangyili01@baidu.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <d65d524d-49a0-4b5a-8df0-68ef63a0b1af@amd.com>
+References: <d65d524d-49a0-4b5a-8df0-68ef63a0b1af@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,78 +54,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: bjhj-exc4.internal.baidu.com (172.31.3.14) To
+ BJKJY-Exc19.internal.baidu.com (172.31.51.15)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1793278448;
+	bh=FtU8Inpw+jVWYTylDfqR88WUy4Wf3QCqAYa7s1yMIlY=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=jE7zi1yPCbVSE7nWky2SGuEz0NTLa634ipNnIk24IwHjqfJW6zHd4cwlVTrzoMfjU
+	 Bhba0cvh5HLNbv1k2tDU6frpPZUPd0mNkkAQWkPr5imFphHAb1rv5v1oNZhf+CgaGD
+	 dE7pG02ss1YqgKY7wLE8yIz7aRhc0CXZ2lZz9MgTso1oaVb8W8SAKVE3CgEgk+R80c
+	 D9U9rgOXnDcqCPEFl60L/lf/+fJuB6XsHQ4/XP4Tbrf01TGwtE1UF+SOLlBqUSQB0K
+	 xM3oXuaiuwfWmiCT7xTtk23cZHmW9s4KM7SHye5gPsNYOTo417E7T2xHoiedGXD5YA
+	 PuvWiBg38GIfw==
 
-I'm withdrawing this patch since v3 of the UB500 patch at https://lore.kern=
-el.org/linux-bluetooth/20261029023235.1280321-2-cochcoder@proton.me/ is no =
-longer producing any warnings.=20
+Hi Ben,
 
+Thanks for the review, and thanks Jonathan for sorting out the
+documentation question.
 
+On 2026-10-28 09:18, Cheatham, Benjamin wrote:
+> On 10/27/2026 8:16 PM, Jonathan Cameron wrote:
+> > On Fri, 23 Oct 2026 16:05:27 -0500
+> > "Cheatham, Benjamin" <benjamin.cheatham@amd.com> wrote:
+> > 
+> >> On 10/21/2026 10:20 AM, Yili Zhang wrote:
+> >>> cxl_get_ecs_threshold() extracts a 3-bit index (0-7) from the
+> >>> device-supplied ECS config word and uses it to index  
+> >>
+> >> Nit: Should probably spell out ECS here for people (like myself) who don't
+> >> know what it means.
 
-On Wednesday, October 28th, 2026 at 10:05 AM, cochcoder <cochcoder@proton.m=
-e> wrote:
+Will do. v4 will spell out "Error Check Scrub (ECS)" in the first
+paragraph, matching the wording in Documentation/ABI/testing/sysfs-edac-ecs.
 
-> Just checking in on this patch. Is there anything else I can do to help i=
-t move forward?
->=20
->=20
->=20
-> On Wednesday, October 14th, 2026 at 1:22 AM, Kyle Pepper <cochcoder@proto=
-n.me> wrote:
->=20
-> > Advertising records have variable-length data and cannot form a C
-> > array of flexible structures. Describe the report payloads as bytes
-> > to avoid Sparse warnings without changing their wire layout.
-> >
-> > Assisted-by: OpenCode:gpt-6.1-sol sparse
-> > Signed-off-by: Kyle Pepper <cochcoder@proton.me>
-> > ---
-> > Separate cleanup of warnings inherited from upstream, not a v2 of the
-> > UB500 shared-buffer RFC. The same two "array of flexible structures"
-> > warnings reproduce on that RFC's parent and exact submitted commit.
-> > The public bot report only contains the matching include-file note;
-> > its complete Sparse output was not available.
-> >
-> > Testing:
-> > - GCC W=3D1 C=3D2: hci_event.o and btusb_main.o, no diagnostics after c=
-leanup.
-> > - Exact submitted UB500 commit plus this cleanup: same clean checks.
-> > - Strict GCC/Clang layout checks and LLVM/32-bit hci_event.o builds pas=
-s.
-> > - GCC hci_event .text section is byte-identical before/after cleanup.
-> > - A guest carrying the cleanup passes pairing and both HoG variants
-> >   on baseline BlueZ and each of four independent ASHA topics: 15/15.
-> >
-> > This does not change the UB500 quirk or certify an unseen complete
-> > remote Sparse report. No full architecture/configuration build matrix
-> > or physical hearing-aid regression test is claimed.
-> >
-> >  include/net/bluetooth/hci.h | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
-> > index 1641d879d..e873ffc15 100644
-> > --- a/include/net/bluetooth/hci.h
-> > +++ b/include/net/bluetooth/hci.h
-> > @@ -2972,7 +2972,7 @@ struct hci_ev_le_advertising_info {
-> >
-> >  struct hci_ev_le_advertising_report {
-> >  =09__u8    num;
-> > -=09struct hci_ev_le_advertising_info info[];
-> > +=09__u8    data[];
-> >  } __packed;
-> >
-> >  #define HCI_EV_LE_CONN_UPDATE_COMPLETE=090x03
-> > @@ -3058,7 +3058,7 @@ struct hci_ev_le_ext_adv_info {
-> >
-> >  struct hci_ev_le_ext_adv_report {
-> >  =09__u8     num;
-> > -=09struct hci_ev_le_ext_adv_info info[];
-> > +=09__u8     data[];
-> >  } __packed;
-> >
-> >  #define HCI_EV_LE_PA_SYNC_ESTABLISHED=090x0e
-> >
-> > base-commit: 609a23989d637e2f90522a37c62e65c8c9b8b0ff
-> >
+> 
+> Cool, then this looks good to me. For Yili:
+> 
+> Reviewed-by: Ben Cheatham <benjamin.cheatham@amd.com>
+> 
+> And thanks for the response Jonathan!
+> 
+> Thanks,
+> Ben
+> 
+
+v4 will also drop the Suggested-by tag, per feedback on the v2 thread.
+The diff itself is unchanged, so unless anyone objects I'll carry your
+Reviewed-by over to v4.
+
+Best regards,
+Yili
+
