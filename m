@@ -1,94 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793291256;
-	b=hZwAW+k5SzcBzC8tq9l/vLpoFGmUcotsSfvAi0AiUAfcMYx4mLggpwJ9u7/bmgmpcwgJ
-	 cW7TlT7mHwQJUWGtl9QjBEINV+2hD25sc9JxAF3ndpPOOPdecbVYl0Khi+Pay1xX/DiZH
-	 IM24XU2w8CQoSg2nEL7f7doUUI7SX2di7O7Pj1P5cU2OaujOQAV0o5Okl4q8Qxi+9wUgm
-	 wrYTOyOEtL/j+K6EoxiiWd1EXON0ZCn31oVfrRtQcYWrcm4VWwxhjqJ4l0PNlvovQMDl4
-	 16rsDvNL5sALptfNWEOBHEQrXEZPCbOkIZjcs2ttgtHEh+oTM2e0CAJy7Vvc9se/FTw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793291256;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=QaCdRNnHz+8N7HXTLuFRnsZC+AC3EUSu4/cODcTHB7E=;
-	b=V83XanyZk0t4VIrczmnSGAp0aPLMeJJb97uQAyyXNVhKrRe8SY0fKgQfyMglfZmD1ZLk
-	 QghOw2nzakFqd4WzkM+v2aRnLs9qnHkxfyU9uRer0ukoHTsR7ue2hrW8nsRluiWUu+mgb
-	 RX7Ys1xt8KvtrHKzoWDhCoXnjqRib2wi/gyjQiySDN3fdCxMHwC5V5NPhiBRoizxVsJni
-	 T+N0G5MhILZLMbpeAobuIpSlx9y/DEF4hGHzQ1WQAx2WLBahqVmDTdxoRSpTswadZ9Zae
-	 Qdxu6PxBQfCS42gYWLT7MYyaTC6HdTRkMfZbJ0Kj3Jw49y0/HMJisn948BlynZBr9Yw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=CbDqvhok;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793291283;
+	b=IXGqoCZL+bvE+uuhfcWn0q3ALUxnzulLjTWZ2cORjbk4exXvWH+XCeWXmTUVcuBfn/iX
+	 sy/UwepuvuT+LfcD+EEQYSXRNyj+k7gq9b73e83vrWlkSUPF2v4aAW/QeZNkwgB6UYSKK
+	 tMRpGpKFo1em9fxiVwbNj1T0UIiltGMHY54LUC45b83Z68NN3mzes7vxRWJKo3tz0kEmw
+	 LPAHsTAubVI9ACKlqYReXU1HUCWXoRrFTIHfMPmshC2i9JN2L9T2ZRXfF2SohDzGrIu41
+	 dpexL8W/0/+jbCy53H3izRJ5tbs+fY+68orIqNtL8DW9lGURLVBcvu0a7FKJmHyAccg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793291283;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=LQ37hPvquQn330cxCo8SGW3/WEute1UfVq1UF21kzCw=;
+	b=hsa2yyxzAotnr3b61dPTCbfz8gk39r9cjIWw8B1b/5NgMQmufttxaBN9wbsU7llT50u2
+	 +JbiIdahXMyxGc91u41TUB/6S/i33LMqaPOnxZ/fY4Kx1yRa0K40shLO8c64idslmOnAA
+	 kP9gZc0YAqyKAHxalRaBIQeSd2Bx6gBIo+mWIF0rSZR1w/68eykVUtLSx1v78OqktRpHe
+	 2SutAWUrFjw6QWFnD2CfuiBOKB327sllpvCNz8QJaorPwteaoKFmjzbRfpeHFzDEdSZY7
+	 /vvJR4cAILbZQ/HOvz1wIWlaK5dSNul/NbED438tV5I+2kq8EHlIg9HACgdphOYmMfw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="HjoSan8/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0222A606A31A;
-	Thu, 29 Oct 2026 16:27:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0222A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01458606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:28:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01458606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=CbDqvhok
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0C66F40E04D6;
-	Thu, 29 Oct 2026 16:27:33 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id AGVulI0bbCsi; Thu, 29 Oct 2026 16:27:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793291250; bh=QaCdRNnHz+8N7HXTLuFRnsZC+AC3EUSu4/cODcTHB7E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=CbDqvhokTaYDiuAP1AHxdAEX8izv4p9epcFDGVjcidJq4OXeLUq7+ghhHZDnnrCat
-	 B3ccvoCH6IGmN5AD7pyzEr/fHh0skHpatrQX4rIW+y9V8jjpx0qTAbIJecvtY3ubOZ
-	 V5bwxcjqZnkk/0Inf/3VBgSFGwFsxkm3xIiwIcc01j01OULGMh0rJsIv9FOcIulNGm
-	 zKtQ09/rLiGHG3EVPZ77THvKFRKtkNMmMBlz0miOyjoIoIxDd80axd+5VsBO9TdPFF
-	 DZDNTSScCurezV6bycLlmHp1QGDeUmGGfHqKIwLNF4cnpenS3oygGFarjU5Uj0eijD
-	 YQnmtbMiQOufYKHFyJABCjtPRLv+NCwPmLluQk9fDRInS1w7cykJ7+BLMgOaYcl257
-	 szHUPmdN9XMo9r39kHtaEhVoYqhdu4cHCMQFZJy7OhuEjkhgisI5Olm+iR+tVyxIAT
-	 RtBjLpMeUR/lbTwxXG4tAUAf00U2pUUE0bvxjBluvfS2sb5St+AaVpTkz6NAemYFYU
-	 Uyu8ALCRzI9Um8fCZI9E7lno+plkvFc6KufeQq631Lu6VX/cdps3yi+bC5Mo8uKbg0
-	 hftWYLmec0kGqnRihrX3pDQnG+Q5g9mxoaXg6QTrdLEfK241b8CrosM580686jNfNF
-	 DAb6sxecpVRsIAZu1ZQiWoh4=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4D16540E04D1;
-	Thu, 29 Oct 2026 16:27:15 +0000 (UTC)
-Date: Thu, 29 Oct 2026 09:27:11 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Michal Simek <michal.simek@amd.com>
-Cc: "Veggalam, Rama Devi" <rama.devi.veggalam@amd.com>,
-	"Ghannam, Yazen" <Yazen.Ghannam@amd.com>,
-	Rob Herring <robh@kernel.org>,
-	"tony.luck@intel.com" <tony.luck@intel.com>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"james.morse@arm.com" <james.morse@arm.com>,
-	"mchehab@kernel.org" <mchehab@kernel.org>,
-	"rric@kernel.org" <rric@kernel.org>,
-	"git (AMD-Xilinx)" <git@amd.com>
-Subject: Re: [PATCH v4 1/3] dt-bindings: edac: xlnx,versal-ddrmc: Add
- xlnx,versal-xilsem compatible
-Message-ID: <20261029162711.GCauNz378qqsVFtI6y@fat_crate.local>
-References: <1792587442-2794880-1-git-send-email-rama.devi.veggalam@amd.com>
- <1792587442-2794880-2-git-send-email-rama.devi.veggalam@amd.com>
- <20261022143730.GA1287910-robh@kernel.org>
- <20261026203920.GA696395@yaz-khff2.amd.com>
- <PH0PR12MB8125B27A7814A3818739C4B9CE6F2@PH0PR12MB8125.namprd12.prod.outlook.com>
- <b683fcbd-ae5b-416c-96e1-7b0d7146c468@amd.com>
- <20261029152549.GBauNlfeOlTwktwjYs@fat_crate.local>
- <9dd48bd6-70ce-49f1-b3cc-7cf8f49e995b@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HjoSan8/
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b10d24345dso22812367b3.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:28:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793291282; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Zc4PE34Q4icEyuCdCoIDLYHiFjchP6EzxKy1cUv6vR1ZG3nHz4/giTcb7Rm+7eOIcH
+         1lILyPPlya/UVrYvb/qW/KVdF3LjTzFIHI18XcAmuUe5ZWVgcSg1XOm0vxHEUm5PrlYG
+         OiyLbwyxcYABCuwNkZa1E8EwbjzFCDaTP8+mOkzsPUH0aahk8fea2Ai2wJlM9lmPYfOJ
+         TC9zxqpmvts+0YHnSiv5Zd3/G64MWlaQJf2AZ/y2jvIIa3iDv3tG8EgEik0/uDQEOebZ
+         XywUM8VoE8jfvOl+X54MtifUXMDEzDggOp/o3upBQXwiML/WjEEkG6nLn3oGDNsHIhJC
+         UkgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LQ37hPvquQn330cxCo8SGW3/WEute1UfVq1UF21kzCw=;
+        fh=9BZZBCzk56+FSGxnJJAmjEvClX0RajEOqNhBNiqIksk=;
+        b=sac1ns4FEP/KsQNs68HL8PS6ejxJv9/+mQPnpioKzMXQa+rWuU1q5D0bP6d50NoZsK
+         SL2Y5aO+zcKhToiHTez1rzCyvvVVM3owqE/WoXfVb8kASBSOxIEaJmBhUhr91Qx5qnL6
+         wluI3Rw0WonAujJ7AVq1NPtDxv/ATloa6Ko3B5QALrVkNIQB+e3HSU7CAJnxiSM3dSXu
+         0he2MATK9lCjwYtt2kCvPcvR6te0wC+w35fmFHMSSfOvRkJQPbodSSvN2rWadCA82RU7
+         Zmt6cR0R3edztoi4EtGXIzhHx1j6fkVzuxpQzKMcI84L84wsnpv4F2DlYSGe1bXvKtK1
+         +zew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793291282; x=1793896082; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LQ37hPvquQn330cxCo8SGW3/WEute1UfVq1UF21kzCw=;
+        b=HjoSan8/zv52FMl4OuQXuVzj8JTJSp6j9wKD5+65byXrynFR74lCdsAoDxVmdJnPR8
+         WxAUUtKnd+gjNA5sOV5pXkj2by7gF3+iblhP61asLLJB4/4+wts9YTkkdCV4957ZeCHt
+         E1enKaP20QMf6OfBEz7aqGsjn6T9AdjP4v9YDb6oNq3Gp+uplfQGUq15z4L4F045nPbJ
+         jeJDzp+zVlw+MTCCUI1sdxUPw615ahw2d+Oc0ET/gwIaRcihtqmjObXsEOrGgrXZaFgD
+         yWkl9C+5I8nmx2S6p1XpuIFLMFlAJXB7vNcRcDi7hj0dWi4DdrWXmIVigfIFxDmjodIS
+         OTzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793291282; x=1793896082;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LQ37hPvquQn330cxCo8SGW3/WEute1UfVq1UF21kzCw=;
+        b=dUEEy2MIGnXSUn/psohowuadx8IficOZo1Otgvg5lGyn2+C9onRuCwYgFG9VWzd1Id
+         TLDtpz6gzbysmNTGWPAp/09MBvWL9LHkJCMFSqSHi09YKFo7HM4Re+5yL/08FY1hzzyS
+         Y4vY+iSAWKcyIF3CDqBF/fn1Qp8gKxxZy2ZIdeb+NBaKFfdi4HMDU/VUf11iCAaDDDh0
+         tkE980CERSnzS8i+0Ofj1JsDW78KFtYwfiBOdjl4z0fGQvU42g5WvJRgTCpUXBVBGKHf
+         WeBjbbpHWqdWU4UEupIiruQzq8c/13puTgIACBDwncP5TLir7LcO+ePzGxKitYgVnJ71
+         3LWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzsJ3BGDrdC+xx62N/0aeG34lNyPFU1PAYBSUf1Xxq7Tr6+4RbGVzlQdPr5v9McU//bLDpHDJS0E3IzVV0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3Gfy5qMTTaOAuWl1jmiF91POtWfmqa3Xj2W9PdeqqfnjH2KmT
+	Y5pMLxQtCw3SayGEgYiiKCD7/KTRMMEO9VOdoV89P2pWRaAlHuaQGIOaXxEybZpFZTh6TQwOG+7
+	Gfoc5Vp5uim5+zpCAy21ltkhpAwiTmT4=
+X-Gm-Gg: AYBFou02zKZlSpWG7pGM6CaJH02JzN8fuHQaS7YzH6wYZxKAF6VpnYXALGTei02Q/uR
+	DhL5b/bvHztWDfNxrcShsZXsY5LnJZ8UyAJVQkMsZzFvNVWXBCKsCZHfVEzZm3rJLA12zZxfAyJ
+	0O30h8dbQLwMoMOaXzbFBO4kiQ/3YB90/daZXE8Zc0+2U3Z/IwwPc9u4fCnGvaLVyT4e5IM+oui
+	e0nRNwQ2ZSsuzS+sE8C+qo2qOMeGyK1b5O939Lw1CqQ4PDNemM0phRsMWnJy5VNLk0JLbYG2baY
+	0UAkL0BYiHXxdu8tljlFjv9ZVTz2H/lwH2c+weABDe0CurhvipjySe8ekGzFqtd+gYczsLtUfrK
+	QP4T4l52I9qGAv4CPx4fAHhXA9XMQwv7VCxzO72AWDQ3JT5KQvWRERSkD4yQnTzo2I91KIro0bf
+	3OrM3BYC0apraKqkDVb2ScxCzvCBL13HT1Zk2L9Qkyc80=
+X-Received: by 2002:a05:690c:e3c9:b0:8b0:e680:6157 with SMTP id
+ 00721157ae682-8b1b5d0f2acmr47617697b3.39.1793291281718; Thu, 29 Oct 2026
+ 09:28:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,35 +105,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <9dd48bd6-70ce-49f1-b3cc-7cf8f49e995b@amd.com>
+References: <20261013032742.497402-1-cochcoder@proton.me> <20261029023235.1280321-1-cochcoder@proton.me>
+ <20261029023235.1280321-2-cochcoder@proton.me>
+In-Reply-To: <20261029023235.1280321-2-cochcoder@proton.me>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Thu, 29 Oct 2026 12:27:50 -0400
+X-Gm-Features: AclHuK-NgM6Qw5Y3C2mGCjEAWYJbcX_bTgC3W0mleGrwBRXFkQrCU6Q6Z-A3hJw
+Message-ID: <CABBYNZK7wGJwAsVLWNhLfLXqGLtA-gtj9ZLYww20FpVL0Kcobw@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 1/1] Bluetooth: btusb: test reported maximum LE
+ length on TP-Link UB500
+To: Kyle Pepper <cochcoder@proton.me>
+Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	marcel@holtmann.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 05:12:44PM +0100, Michal Simek wrote:
-> With Versal Gen 2 which is still under development I can imagine that we can
-> design it in a way that we say that we won't allow any MMIO interface and
-> only firmware interface will be used and firmware itself will integrate all
-> edacs in the system and export it via the same API. Then we will have only
-> one single driver for the whole platform and it depends only on firmware
-> which functionality is going to be exported to Linux. Which is IMHO model
-> which you would like to see.
+Hi Kyle,
 
-I appreciate the intention to make it saner but ARM is insane by definition in
-that regard. You have IP blocks which can be built in in all kinds of
-platforms and sw needs to mimick that. For some EDAC drivers we even have .c
-compilation units which get linked into each platform which supports them.
+On Wed, Oct 28, 2026 at 10:33=E2=80=AFPM Kyle Pepper <cochcoder@proton.me> =
+wrote:
+>
+> The tested TP-Link UB500 (2357:0604, RTL8761BU firmware 0xdfc6d922)
+> reports maximum TX and RX data lengths of 251 octets through LE Read
+> Maximum Data Length, while LE Read Buffer Size reports 27 octets and
+> eight packets. The previous RFC demonstrated 167-byte HCI packets
+> with unchanged LE credits during ASHA playback.
+>
+> Use the reported maximum TX data length as the next experimental host
+> LE ACL length instead of an ASHA-specific 167-byte constant. Require
+> the observed 251-byte maximum and 27/eight buffer reply; preserve LE
+> credits and BR/EDR fields. The maximum-data-length value describes
+> Link Layer capability and is an indication to test, not proof of the
+> physical HCI buffer size or pool layout.
+>
+> A direct HCI user-channel experiment sends sixteen whole packets at
+> each HCI payload length of 27, 167 and 251 octets from UB500 to a
+> MediaTek receiver. All 48 payloads are received byte-for-byte intact
+> and all 48 HCI packets complete, with zero pending. This establishes
+> 251-byte HCI acceptance separately from the reported Link Layer limit.
+> Only one packet is outstanding at a time; the experiment neither
+> installs the revised callback nor streams audio.
+>
+> Keep this a TEST ONLY RFC. Eight simultaneous large packets, larger
+> HCI limits, mixed BR/EDR capacity, other firmware and sustained audio
+> with the revised callback have not been established.
+>
+> Assisted-by: LLM
+> Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+> ---
+>  drivers/bluetooth/btusb_main.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+>
+> diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_mai=
+n.c
+> index 92a78a7e6..b654cf5be 100644
+> --- a/drivers/bluetooth/btusb_main.c
+> +++ b/drivers/bluetooth/btusb_main.c
+> @@ -2972,6 +2972,19 @@ static int btusb_setup_realtek(struct hci_dev *hde=
+v)
+>         return ret;
+>  }
+>
+> +/* Private diagnostic: test the reported Link Layer maximum as an HCI si=
+ze. */
+> +static int btusb_ub500_test_post_init(struct hci_dev *hdev)
+> +{
+> +       if (hdev->le_mtu !=3D 27 || hdev->le_pkts !=3D 8 ||
+> +           hdev->le_max_tx_len !=3D 251)
+> +               return -EINVAL;
+> +
+> +       bt_dev_info(hdev, "UB500 TEST ONLY: LE ACL MTU 27 -> %u; LE packe=
+ts %u unchanged",
+> +                   hdev->le_max_tx_len, hdev->le_pkts);
+> +       hdev->le_mtu =3D hdev->le_max_tx_len;
+> +       return 0;
+> +}
+> +
+>  static int btusb_recv_event_realtek(struct hci_dev *hdev, struct sk_buff=
+ *skb)
+>  {
+>         if (skb->len >=3D HCI_EVENT_HDR_SIZE + 1 &&
+> @@ -4715,6 +4728,9 @@ static int btusb_probe(struct usb_interface *intf,
+>             (id->driver_info & BTUSB_REALTEK)) {
+>                 btrtl_set_driver_name(hdev, btusb_driver.name);
+>                 hdev->setup =3D btusb_setup_realtek;
+> +               if (le16_to_cpu(data->udev->descriptor.idVendor) =3D=3D 0=
+x2357 &&
+> +                   le16_to_cpu(data->udev->descriptor.idProduct) =3D=3D =
+0x0604)
+> +                       hdev->post_init =3D btusb_ub500_test_post_init;
+>                 hdev->shutdown =3D btrtl_shutdown_realtek;
+>                 hdev->reset =3D btusb_rtl_reset;
+>                 hdev->hw_error =3D btusb_rtl_hw_error;
+> --
+> 2.56.0
 
-We would usually do that when you have too many EDAC wrapper drivers loading
-on the system and them needing to talk to each other. Which the subsystem
-hasn't really planned on supporting.
+Sashiko flagged 2 problem with these changes:
 
-But if the wrappers can be relatively independent, we can do the simple
-thing and do a separate wrapper for each. No biggie.
+https://sashiko.dev/#/patchset/20261029023235.1280321-1-cochcoder%40proton.=
+me
 
-Thx.
+Both seem valid to me.
 
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+--=20
+Luiz Augusto von Dentz
