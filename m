@@ -1,95 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281487;
-	b=rldyCbnvCiQFUjpITb4O7ln2YJP6buVKp/eGIxdn7oebSoqOFef0uIJRuflBZ5z+Fz61
-	 AImkB4kvdLaFjV0v6J/soWq/fbYVp8UW+vXvBe6X8FcP18LLJL9vyhxIpbVIf3NzDtYaW
-	 iZEKS3KsJa07NjJJKtyLt986kIvi1tmxTeJomuio+qGbBXpqgjfD1X/EJRJN4Dn3CucKC
-	 BekP4+w9MEhKFqa8hvZrTr8Uw/joShHITY91KJHADex/FloejeUDhr/X+kAIRBqFEJ+Ai
-	 glEP0um33vZ5+lwkUEdDq8q4tL9tau3v8YmbCG05u0MuzdyPa8zvwisFUdPRklcvOlw==
+	t=1793281543;
+	b=eygeUvmdm0OsTen3lpvYfcem6PIFVziupxqQR3YkoOkCNsKXvMjmCJ5bz8QwIKVC6oHu
+	 aHISmroGqaDH7lUpvra64QIWRdqSpH0rRcqHH/rMWM3bDdoXXKH6Hc7LbtJ6PNXVm4qOL
+	 KauJOKr2Sm+F9cdjauE2X7rZpQWtZAPcaKXPjmDU/PhrqVGQBkIjS2Z91wwAP+/OZLndA
+	 JFcUc5erI7cx++MJkLpdcCydtzkrQOvEIGvFrclnQwOlO430dTDSitr/MNggfYlFhmue7
+	 oHz0I925SG12kRn7r9cvygNCz+eYsnSqnTGjic3d416k6W8y0iSGRZV+dKbHamwTCbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281487;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:In-Reply-To:
-	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=q2xEk318stCghrlIrW9didzhntYxJYBR065U1dSrXiw=;
-	b=hyzjJEWilc1U3Hst2ctj42BtpGNvKW7AY2+jzZrzuIh/C06ay4g9U2hx/aGqTcsuD8Ue
-	 2ynpepJ/dJda44vA/pBLNI1xWbX08W0sDCL6G/wEsNVnI0gA+bc9rpmNx0RXfrOMm/i+O
-	 Sr2fFt+SpcrpkaAZDDF1Kj4RusYKm/D4JS48htmm+j1A25pGDH8NQzN4lc1UxISZ9/rrG
-	 Um9piRq7eGB9Jz+0vahi8wEw7HurNk/UxXpyMhAg3qfmKNt2ytT2cbgTTH6SnRUVZYOKo
-	 oWB5HY+CkLdTj5xEOQ9K6IUfJQQgyyuxodLjPEbqkYIpvbav+H5Z7Xc24YZ/pTyLd2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281543;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=wJT0qNivsFiEMNKsSij5ScAgPVWg2VVQlzOAywU4J9k=;
+	b=mAgdySy0EM9rfsNgIXToFLEsBMtD/HsU03cron3k5yFo0sre7Hx8fy4SZzavlwXmg2QI
+	 C0D5eN+8zLuz23jkMecWAlbd0wtoxQHtxUNVPfxm3qIRk+J3fQQOlD6i2sPkvfjdOq83c
+	 7xcr7rT0PXNzFp1U3eDqparIrBhKX2hOxCpeZtX66zHlzBHojMmuO0oumBQXeLo3FzQLQ
+	 byXSJAANKpz27ujWEYmE4cigLXVfIkrJ5Q2XFhcAr78hVpcQQbFeCDYhiwpCWCns1oKq9
+	 LXvdt0kx834QR14aE2xkXustm5FH/35li1msqZeSVOx+NCwXkPfKAulvqV7HqcaFhhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="fJBe1/vj";
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Cz5HSguP;
+	arc=none smtp.remote-ip=95.215.58.176
+Received: from mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58968606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:44:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58968606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0FF5606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:45:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0FF5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=fJBe1/vj
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3514b90bb89so3937301eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:44:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1793281485; x=1793886285; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q2xEk318stCghrlIrW9didzhntYxJYBR065U1dSrXiw=;
-        b=fJBe1/vjyxbYvmPGRF32wIti2+b0qBZ5U1DFuX9vrsp3pzM8QZyT50/qnNdvIhcHuB
-         BRvsz45uhCWqR4tb7L7mK0e9fGfXX5WerttOQCJGGznvT4CFWaOuEN2dJ7NzT4sFTiPq
-         O4zh8/8O1TDKbiJqq7G0p7/fsJBBzMpubRGzwLhdOU++dmt2KgpCsoVVLK5agdLUsZrL
-         nTV6EejRmAoso2SZA2GWgY3Fq3Qw0DIIjBTWQdblwYgSh1wb2YXt3Eiwjan57w1rDw1s
-         rV9Zw80PJmJvwr00sArhWUCgho+PPPde9jjYZ2RFMgcBYJ4kGGw3Ubgv9Qwman+ttD5+
-         thBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793281485; x=1793886285;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q2xEk318stCghrlIrW9didzhntYxJYBR065U1dSrXiw=;
-        b=zFzqZFhbkUxh/6s5rk/i4EY580NBpNlZnpAVKsFVyuLNdTIUmpUK39tJfqVswVw1TX
-         MjbukLlS3vgfrxu/MNyjBDkZW/LaN7SvYyw4OPEik54GOYmiWBmo17UPP084c5J5/GJR
-         vBLMsIYeN8j50G8LkKd4HHOYtzQeUXEIPTFgm6WDDEthowb3O1ecz0jDf5c1OoYqY98J
-         UJBigvSzEoX/fIi3S9criSx24MsQBWDtO++s7W9yw8Yv643C3M0yvtr2DRPPXenbONBf
-         /bU5q3XEjdmobMDZ3516KKwrHyhEskSlT6JlXBggL8Vh1YBtvYdoaXBvHZnCHguwDHKm
-         DFJQ==
-X-Gm-Message-State: AFq9FYIcslCf6tJbjDImQLeqvvSi0gguNLjy4ONeh6WgY/qdYRruvJ7w
-	eFZB0dEiZosw6UJA8aEIrBihaLrq11CeyU0lLcWF8xDuz23ai7/+bmegcCIZq3L8K0JfnOIYBEQ
-	sqp7ySNo=
-X-Gm-Gg: AYBFou0lkhWpg4gn3soRJKITno8EwbSiypfWgR1lJe6PXLxgKhVIeUqDhZrLwSu4bnA
-	X+PRgrYr+Y+VYobYlwOQQVvMI4k/rAOx3K//M59DJBxs+AfkclzPFmCysxmbCnw+qQyENqjbXwo
-	CXTgEtYbBrFfOitjXoOqMKTeo0mXmiO8ktcroMx7I5I0wDSKi8a6LbpW89Fn9DRTqB9yzpgycs6
-	IQHhDqVtDyyV4NPoXyw9iDtOkx2l9I3Rf6mqiDIK3SD9obpHjgmtH3gMpucQCXupb2NTFViXrXf
-	357u2hrdI1/lYCqvl0/otMctK8dXMVGnRaxi9ljUw9/Iq+lC0bNVsjjpvA6AVUnBCk1/XQq3zL4
-	cm1CkTmIx4huQkdBJ6ky4kxBmt7yqkxdHQp6D52ruHxkFMEqPzJq1MhMeM4fGwwkG3fkRF5ZQZc
-	wX7u6aksSzq93KR4SUvh3W296iDPsAZvEP3KMJ1CgeyWUzQ8N7AomofwhxSyQUwFwj518LpkSs9
-	VLKVW4XDPmK65yA3xWzdqUdE8TW677DcKU1S/mKfASefBhIgPUaniRCtz35kmJSZG84fGOCtuSo
-	XeScOG34hIMX/opIaQA8Ym9AXsgbdMbjRVO6cmo9xrkA+9/8LLpyiIaBifYgL6djWA8aapRCF3w
-	qfhvNiiHfSEzz
-X-Received: by 2002:a05:7301:6195:10b0:35d:95e4:267d with SMTP id 5a478bee46e88-36a200c3b89mr7658330eec.27.1793281485257;
-        Thu, 29 Oct 2026 06:44:45 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2390929asm21976894eec.12.2026.10.29.06.44.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 06:44:43 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: linux-block@vger.kernel.org, 
- Yuehong Wu <wuyuehong@cmss.chinamobile.com>
-Cc: linux-kernel@vger.kernel.org
-In-Reply-To: <20261029091047.3085558-1-wuyuehong@cmss.chinamobile.com>
-References: <20261029091047.3085558-1-wuyuehong@cmss.chinamobile.com>
-Subject: Re: [PATCH] block: fix kernel-doc warnings in blk-map.c and
- blk-mq-dma.c
-Message-Id: <179328148355.1447413.12784819790561394252.b4-ty@b4>
-Date: Thu, 29 Oct 2026 07:44:43 -0600
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Cz5HSguP
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6DYKw41ZmZGB0uwcA/t8yCtX3UGied1T2paRqqLwCDY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793281538; v=1; x=1793886338;
+ b=Cz5HSguPR83KNma2vGPylNYYzanACosUzv6DCUd/SGnlh0nUQ1YEpmAV2GAFYhMsypRKUtWC
+ r/AarEpJUNM5uMjxnJtfesPmAhA/J2cqH4VIPJFndj8ttSrTB5oX+w7s4GlAVlEsw+XhGSERakq
+ NdDwWJSyLO8Pc/U8yGnrLDrA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 57fb9af743bccf99;
+	Thu, 29 Oct 2026 13:45:32 +0000
+X-Mizu-Trace-ID: 57fb9af743bccf99
+X-Migadu-Flow: FLOW_OUT
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Kaitao Cheng <chengkaitao@kylinos.cn>
+Subject: [PATCH v2] mm/sparse: simplify the vmemmap alignment check
+Date: Thu, 29 Oct 2026 21:45:21 +0800
+Message-ID: <20261029134521.62146-1-kaitao.cheng@linux.dev>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,33 +72,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
+From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-On Thu, 29 Oct 2026 17:10:47 +0800, Yuehong Wu wrote:
-> make W=1 reports excess kernel-doc parameters for bio_copy_kern()
-> and blk_rq_integrity_dma_map_iter_next():
-> 
->   block/blk-map.c:366: warning: Excess function parameter 'op' description in 'bio_copy_kern'
->   block/blk-mq-dma.c:379: warning: Excess function parameter 'state' description in 'blk_rq_integrity_dma_map_iter_next'
-> 
-> bio_copy_kern() derives the operation from @rq and has no @op argument,
-> and blk_rq_integrity_dma_map_iter_next() lost its @state argument in
-> commit 91e1c1bcf0f2 ("block, nvme: remove unused dma_iova_state function
-> parameter").  Drop the stale parameter descriptions.
-> 
-> [...]
+sparse_init() is called only once during boot, and the vmemmap alignment
+check is outside any loop, so VM_WARN_ON_ONCE() provides no benefit over
+VM_WARN_ON() here.
 
-Applied, thanks!
+Use VM_WARN_ON() and fold compound_info_has_mask() into its condition,
+preserving short-circuit evaluation.
 
-[1/1] block: fix kernel-doc warnings in blk-map.c and blk-mq-dma.c
-      commit: aa977f5d96745d5ce61eb2da4b121a3299004ca8
+Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+---
+ mm/sparse.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-Best regards,
+diff --git a/mm/sparse.c b/mm/sparse.c
+index 6acb628c8a73..759b85172adb 100644
+--- a/mm/sparse.c
++++ b/mm/sparse.c
+@@ -277,10 +277,8 @@ static void __init sparse_metadata_init(void)
+  */
+ void __init sparse_init(void)
+ {
+-	if (compound_info_has_mask()) {
+-		VM_WARN_ON_ONCE(!IS_ALIGNED((unsigned long) pfn_to_page(0),
+-				    MAX_FOLIO_VMEMMAP_ALIGN));
+-	}
++	VM_WARN_ON(compound_info_has_mask() &&
++		   !IS_ALIGNED((unsigned long)pfn_to_page(0), MAX_FOLIO_VMEMMAP_ALIGN));
+ 
+ 	sparse_metadata_init();
+ 	sparse_init_subsection_map();
 -- 
-Jens Axboe
-
-
+2.53.0
 
