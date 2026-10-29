@@ -1,55 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793279697;
-	b=1GhHjc4D3FtXoURXU09Q5nZxdwJxEuhTIcMD8MuxqUQpKZf3eqOaYPQuNqOEZlA2RyXf
-	 56IKUs1Yc1xu/ZurKcBcoalMbqGBz2KXf9h0NL6q/JZ79eRFWTIzu3MtzA+S2xEvMwF1z
-	 YkmhQrj3pujH7e60+C3z6Uu8FHB2nJcNlUFoPug7BKIbCJvAKH7puHckTWZQk8v2iokVP
-	 JiunsZhImG8Nku8reMjZuTnPnrkmJ2V7U2ILVhz+oxU16ng1DS2ruyx1r/w9BRKTbdDhv
-	 omLXgIVOnBm7stEBUFNt3VAGCKv0/klSVA6Pz2JiiGMTo3Y2e6viofn6h17lGQf98Yw==
+	t=1793279746;
+	b=SCQCy7ZhIIrjzeZfxl8zHEM/fFkx+2oxCaRfUF4KgJA9dsvdD2fzweXoml8JeyxILz+q
+	 6qaYpQW6daq1evoTIAzm8DPEEQzONj+kWFFf9Etxz2oYloLM5e1wuH60KEmwcxTAFZH0a
+	 r7yJBF/9jtZUhbtKtJ13Pt7QaVxSLd5wIUjqN/EBvXcjf8U8Y0NrTqauLyOdqe/XSwNRp
+	 PA2Aj/zVopU3bVOCIRP8zA1VbaacHCgo1JDFYYK++3ftBD+hx38SznVW5hVT2Osr3Xay9
+	 /4Z70H6kwmotVEVXFWoWDK9vn7ugjLr2FcqRnN87mg/jy5jpwYL2G/EpfswnYUzruuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793279697;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=IlrVOpwJaTGTlDuUwqeTHk9QESdPLeKpM6jhbtM0OEU=;
-	b=S5Xn1+2+PAsNCE9JUMOa+w3XDsxSVHsxxkXWxI1JEtbkp6d1CsyC64pyP+nQ9T/2yJH0
-	 PLaPOESwoM7CRzmdpjSszdFy2DsXwvUtxve88MoomAJUneVxTW3ra6JG7oeDziiFb3EGZ
-	 awQ96al7EQp+semYEdCcj0/D+Qhq0VV4m3m7ImXAQgNqfjba4/t8Z7pjdAN4YUqjyZIlF
-	 RkfGRZEyqjzs58Ao0pAyom7fBz1tiyTDHx3a2olq9o1YSqAl9oH2IIcxiSEwaI28nGqs2
-	 2/tTPvqSbQWiFlzBPX0z9z3AcGkFoVA4EQ+h3nVL3wc8Ix78bjhf2x5p0GsKPNxgJ/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793279746;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=lqh2h9OdAhEsv8R7JgV92DMgdxSdmNya/U3mKn63VeQ=;
+	b=EMwlC4pHLObymr2xfyeVD7/Qr4icU0WOlUB+LoGBCqijEl7uo9Rt5yWJfYziM59LZv6Z
+	 A80+wd421hXs9yQsfOdjizy0brWCuJvZa08Jkb08NvJETNRdwGudUFc7s5n/B5UEp24R8
+	 v4wCjZba9iZti1m1+dK/rOVfYDztkLLzZyNfFt2fjLroUzSgFdtc9YtJbet0OnmiBL8Yw
+	 NlZGhjyi7o6x63Iwm5hRWkPLN8IahmUKDmtwKOVjsAJtnRqzZKyOmRdVC1mJQi6EDsks3
+	 jO1leW4mlkVsEne2ibzNfYbQ0fHZ8qYuGjOz9llwLONszaXR+rgHHlaieiHTsPSX5BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAUe5cvo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MmZFJDiu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 27AC1606A31A;
-	Thu, 29 Oct 2026 13:14:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05877606A31A;
+	Thu, 29 Oct 2026 13:15:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QAUe5cvo
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 45FFE1F01825;
-	Thu, 29 Oct 2026 13:14:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MmZFJDiu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A98C01F01825;
+	Thu, 29 Oct 2026 13:15:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793279696;
-	bh=IlrVOpwJaTGTlDuUwqeTHk9QESdPLeKpM6jhbtM0OEU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QAUe5cvo/sqCthYn89K+3BawyDIxpvUAgSF4n1z3ZNl7uihHE9jIERbAohHkgBBCB
-	 dDEbRei14KAICkqciQ6QqxZ2+s/6On3euJjrTYjmmz4yEMFx49aP5oBzvqxibO99pB
-	 VZcOewrZXsUUF7oA8rVgDT9Sam6R59+g5an++6UeTQOM8XnOULPfbjSAdN76s7RJ5f
-	 9GIISGQmG2E0XBK2OjUnFO68O3qXiDAUpNJP7hhZtHUOCIklkhqcN6NiDlED+LMBUa
-	 Corl1br2jmylRpXp/Yk+HXiMahi4bEDqa7CnxSUXOunxE4tN+YI5F3Ybm/ihi0CB0h
-	 nwCRhznpfhogA==
-Date: Thu, 29 Oct 2026 15:14:52 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
-	serge@hallyn.com, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com, jjzuming@gmail.com
-Subject: Re: [PATCH] keys: Protect the update method check against type
- removal
-Message-ID: <auNGzJIWFt64IMWY@kernel.org>
-References: <pm-keys-update-type-removal-20261029-v6-3d92b2f9693854230a02@gmail.com>
+	s=k20260515; t=1793279745;
+	bh=lqh2h9OdAhEsv8R7JgV92DMgdxSdmNya/U3mKn63VeQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=MmZFJDiu5p0O+/D6H9EcM1bWgs2P1sLao6pof6JMiCUbkuDuhoUnWvIYq6wdOTfbm
+	 BpcdU9h8weFSI7YLOAuJPhsKw4Gi4YRQO5cUZN10fGi7ReIbYh9hagBT+jrYElX2YH
+	 +ih3xGMrA3kLoEpG35T95VY9VY8CZ9PitTQpY1G0Ri8tbgIY4OEyb5lujXrodMB0ht
+	 9mq4mqJBN5iSIEzqMYOWBi7auC6ctfTuZZc8lG2Ic63rca7gBPiLKOXjhv0fOpMgDy
+	 ZaqKgfNBg3F6hiO66BQ6fFngZ+rT7A9j651kIkx8sefoDuBSSHj73PbusVG/D+GcyR
+	 U4/gnsox7yWQw==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>,  Alexander Viro
+ <viro@zeniv.linux.org.uk>,  Christian Brauner <brauner@kernel.org>,  Jan
+ Kara <jack@suse.cz>,  "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+  Hugh Dickins <hughd@google.com>,  Baolin Wang
+ <baolin.wang@linux.alibaba.com>,  Andrew Morton
+ <akpm@linux-foundation.org>,  David Hildenbrand <david@kernel.org>,  Zi
+ Yan <ziy@nvidia.com>,  "Liam R. Howlett" <liam@infradead.org>,  Nico Pache
+ <nico.pache@linux.dev>,  Ryan Roberts <ryan.roberts@arm.com>,  Dev Jain
+ <dev.jain@arm.com>,  Barry Song <baohua@kernel.org>,  Lance Yang
+ <lance.yang@linux.dev>,  Usama Arif <usama.arif@linux.dev>,  Kiryl
+ Shutsemau <kas@kernel.org>,  Mike Rapoport <rppt@kernel.org>,  Matthew
+ Brost <matthew.brost@intel.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>,
+  Byungchul Park <byungchul@sk.com>,  Gregory Price <gourry@gourry.net>,
+  Ying Huang <ying.huang@linux.alibaba.com>,  Alistair Popple
+ <apopple@nvidia.com>,  Kairui Song <kasong@tencent.com>,  Qi Zheng
+ <qi.zheng@linux.dev>,  Shakeel Butt <shakeel.butt@linux.dev>,  Axel
+ Rasmussen <axelrasmussen@google.com>,  Yuanchu Xie <yuanchu@google.com>,
+  Wei Xu <weixugc@google.com>,  Baoquan He <baoquan.he@linux.dev>,
+  Johannes Weiner <hannes@cmpxchg.org>,  Michal Hocko <mhocko@kernel.org>,
+  Lorenzo Stoakes <ljs@kernel.org>,  linux-fsdevel@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-mm@kvack.org,
+  kexec@lists.infradead.org
+Subject: Re: [PATCH 1/3] mm/memfd_luo: don't use memfd_pin_folios()
+In-Reply-To: <auKJXHWnNMzju7cv@google.com> (Pasha Tatashin's message of "Wed,
+	28 Oct 2026 20:01:59 -0400")
+References: <20261027173031.763213-1-pratyush@kernel.org>
+	<20261027173031.763213-2-pratyush@kernel.org>
+	<179321872100.1775665.6881420026761127422.b4-review@b4>
+	<2vxz4ie5o2ak.fsf@kernel.org> <auKJXHWnNMzju7cv@google.com>
+Date: Thu, 29 Oct 2026 14:15:38 +0100
+Message-ID: <2vxzv76kmyv9.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,135 +82,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <pm-keys-update-type-removal-20261029-v6-3d92b2f9693854230a02@gmail.com>
+Content-Type: text/plain
 
-On Thu, Oct 29, 2026 at 07:58:06PM +0800, Cen Zhang wrote:
-> key_update() reads key->type->update, ->def_datalen and ->preparse
-> before it takes key->sem. A reference on the key does not pin the
-> module that provides its type, so KEYCTL_UPDATE can race with the
-> unloading of that module, for example dns_resolver:
-> 
->   KEYCTL_UPDATE task                  Module unload and key GC
->   ------------------                  ------------------------
->   keyctl_update_key()
->     key_update()
->       key_permission()
->       load key->type
->                                       exit_dns_resolver()
->                                         unregister_key_type()
->                                           GC: down_write(&key->sem)
->                                           GC: retype to key_type_dead
->                                           GC: up_write(&key->sem)
->                                         unregister_key_type() returns
->                                       free_module()
->       read saved type's update member
-> 
-> The final access reads freed module memory. With the updating task
-> held after the key->type load, it faults:
-> 
->   BUG: unable to handle page fault for address: fffffbfff804107f
->   #PF: supervisor read access in kernel mode
->   RIP: 0010:key_update+0x12d/0x550
->   Call Trace:
->    keyctl_update_key+0x6b/0x110
->    __do_sys_keyctl+0x21d/0x4f0
-> 
-> This is the same problem that commit 925c84e3cc21 ("keys: Protect the
-> read method check against type removal") fixed for KEYCTL_READ.
+On Wed, Oct 28 2026, Pasha Tatashin wrote:
 
-This is useful bit, thanks.
+> On 10-29 00:04, Pratyush Yadav wrote:
+>> > Nit:
+>> >
+>> > I would suggest adding another helper, memfd_luo_get_folio(inode, index, 
+>> > &folio), that wraps:
+>> >
+>> > - shmem_get_folio()
+>> > - The !folio_is_longterm_pinnable() migration retry loop logic
+>> >
+>> > I think this would make the final code a bit more manageable.
+>> 
+>> Sounds good, will do.
+>> 
+>> >
+>> > Other than that the patch looks alright, feel free to add
+>> > Acked-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+>> > Once the nit is addressed.
+>> 
+>> Thanks!
+>> 
+>> I think the MM side might take some time to gather reviews so I will
+>> send this out as part of a liveupdate-only series. This patch is useful
+>> on its own anyway.
+>
+> Sounds good. Could you also consider adding a patch to that live 
+> update-only series to extend the memfd freeze from retrieve to finish()? 
+> That would close another gap that does not affect us yet, but will once 
+> other session fds depend on the memfd mapping.
+>
+> See:
+> https://lore.kernel.org/r/20261022225035.377445-8-dmatlack@google.com
 
-> 
-> The encrypted and trusted types can be built as modules and have an
-> update method. For them there is a second window: the GC can move the
+Hmm, right. That's a useful fix. I think I'll do that in a separate
+series, since it can go independently.
 
-How is the second window related to the fact that encrypted and trusted
-can be built as LKMs and where is "there"?
-
-> key to key_type_dead after the method check and before key_update()
-> takes key->sem. key_update() then calls the NULL update method of
-> key_type_dead.
-
-I don't understand this paragrap overall. Needs a rewrite.
-
-> 
-> Take key->sem before the first access to key->type and hold it until
-> the preparsed payload has been freed. Once a key exists, only the GC
-> changes key->type, and it does so with key->sem held for writing.
-
-+1
-
-> unregister_key_type() does not return before the GC has done that for
-> every key of the type that is still in use, so the type stays valid
-> for the whole update. If the GC has already moved the key to
-> key_type_dead when key_update() gets key->sem, there is no update
-> method and key_update() returns -EOPNOTSUPP.
-
-I don't understand this but the difference to the previous case is that
-it would be better to be just deleted.
-
-> 
-> Assisted-by: LLM
-
-Please run checkpatch.pl --strict for the next version.
-
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> ---
->  security/keys/key.c | 12 +++++++-----
->  1 file changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/security/keys/key.c b/security/keys/key.c
-> index e88548f1a704..bac2333089fc 100644
-> --- a/security/keys/key.c
-> +++ b/security/keys/key.c
-> @@ -1101,9 +1101,13 @@ int key_update(key_ref_t key_ref, const void *payload, size_t plen)
->  	if (ret < 0)
->  		return ret;
->  
-> +	/* the GC cannot change the key's type while we hold the semaphore */
-
-I don't understand this.
-
-> +	down_write(&key->sem);
-> +
->  	/* attempt to update it if supported */
-> +	ret = -EOPNOTSUPP;
->  	if (!key->type->update)
-> -		return -EOPNOTSUPP;
-> +		goto out;
->  
->  	memset(&prep, 0, sizeof(prep));
->  	prep.data = payload;
-> @@ -1116,8 +1120,6 @@ int key_update(key_ref_t key_ref, const void *payload, size_t plen)
->  			goto error;
->  	}
->  
-> -	down_write(&key->sem);
-> -
->  	ret = key->type->update(key, &prep);
->  	if (ret == 0) {
->  		/* Updating a negative key positively instantiates it */
-> @@ -1125,11 +1127,11 @@ int key_update(key_ref_t key_ref, const void *payload, size_t plen)
->  		notify_key(key, NOTIFY_KEY_UPDATED, 0);
->  	}
->  
-> -	up_write(&key->sem);
-> -
->  error:
->  	if (key->type->preparse)
->  		key->type->free_preparse(&prep);
-> +out:
-> +	up_write(&key->sem);
->  	return ret;
->  }
->  EXPORT_SYMBOL(key_update);
-> 
-> base-commit: 9a2a4c51dccc3168c3dc949fcbaa360a478fa228
-> -- 
-> 2.43.0
-> 
-
-Br, Jarkko
+-- 
+Regards,
+Pratyush Yadav
