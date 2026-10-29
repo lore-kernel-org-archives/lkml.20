@@ -1,95 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793316537;
-	b=3oCVuH+TdMzLEEGLRkdmm4B3HFyI+VB1ozxb3IoP4wH5M03lOxGzJOMk4MtYjtRcpu2G
-	 Xeyijv3zP0PS0F9EjfjSNE14NCCZeG6njlW/t8yIMoT74nsoeEnZXMlnf0sILqIRHx1C2
-	 zD5XOGKZh+hOE+kCNegpdgR2+meR9bBqNjHLkoNlNM2sBERfz/8nP0HsCh4o7NKYdKx6t
-	 5f4+3aDDOj0f65KPibS1norl4SrN9/dp3js6YoOwkAaHZMyjL22NM1QUBISUN2yJ1Tlqq
-	 OXk9OlMBBVDhxXKiyy1Ge8iOBQIWzLnh9h/2BdcwQqvQ1LVATKAaNxD9bME4HgMwm/g==
+	t=1793316625;
+	b=BfnyY/diBgU2a2SpMq4rkFoNVL0zwumKORYyrSBIDE+/m43K1zEr6jULkbYWup1ic2+s
+	 iVrj+7EmrzozwcTyOIf9YEHCw8sZ323TBLINhvlwxogA6tfnrTnJ0I62xTjaHCYzABP+k
+	 1hdtquN8ReYQkxLEMg+Jcyzg7d3OSmCziwP2MNK90VOyHKs6Zqn30/qYgEKXGSflLKR2s
+	 pMChuS7oT6559pYSL1KlbgyKfIcrWiyFaZ+V0x01RY5usZYO4m9KX7I2397jEP569S+a9
+	 RqXa0WkirD6shG1Vse08pNKL2+gsMsOxOdRnvWWuLgvbgFcsdzOPiYz3C+l+nqADmwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793316537;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:User-Agent:MIME-Version:
-	 Content-Type;
-	bh=5h2QYAUToJaBGd0SGBHbFjbHZlMRwFbs4A1MHWtxF2o=;
-	b=u3sRlfu6N68XaEHbs6Xv2rrpLxMNXSL0stIJp703sUla0O1Fqw0YC0Ck25czWPClCPCI
-	 aKkTYmnhuhQdxH9kuLDv7CYoQmI//I9XVeXS3qFSKcoNtsAFVdcoHZlu1xIl7STK4Gh+H
-	 VUjjuSyXUP5vo+JmJOGKiEZ6vPuYP/28lmuq49F+0mhhtVppjpKULH4i96cdroSx/ty+y
-	 nMOLHffm3Lc2Ck2g29FSu4fYRQjCIJqPXCLfaK3sUwox6d5K+MB/QT1N3EKNr51+FldZy
-	 pGl5leoqZ/erNpvH56zNSDX1MpAqGpeLQPnDlRH/UQNrv3qrZLWfsEBGNXmnhZbsQbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793316625;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=aVdetZY9Do9isKUPb6qz8CWfVwLqoRc2UCiZFRh14fY=;
+	b=5qYauMMfuCkbEZDeefhJJo44U7iH2gdaUhQ9VPtrIKP40WKz5blxOzWUbMZNDxRzJvRU
+	 Jm9wYCYl9EttdT/BqSUIJky3PG4sWPvqbJIQ3RLHJyLIuQhT5U3gjA2TepswmaYy2bWfy
+	 c9f+aJSLhKOHa6A9UqhA+gmwQvpri3vpSsTTNclNEcTYRchGCo9dCqWwcOKAseBZThk1H
+	 WgKJoH/h1gnv8A0EwjOHLKRS3dq2EvUe+GXo42kzwyye7IGeuBMVhiZrkjdtgMoqrHlOM
+	 XYfbSSu3GIqB6qRWfkYnPvyvcRDu+xSzcB8K25cFiy0mHiHBXAGfGM/ICOcVq36egHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YOgm8mcb;
-	arc=none smtp.remote-ip=74.125.82.52
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjB+DBzz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82FE60A2601
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:28:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A82FE60A2601
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C014F60A2610;
+	Thu, 29 Oct 2026 23:30:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=YOgm8mcb
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-1846bc43c28so137695c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:28:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793316536; x=1793921336; darn=vger.kernel.org;
-        h=content-type:mime-version:user-agent:message-id:date:subject:cc:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5h2QYAUToJaBGd0SGBHbFjbHZlMRwFbs4A1MHWtxF2o=;
-        b=YOgm8mcbczfA7htknXvada6PreAPrkYysyTyxZIjC0VGtZBE8sM2qbalP55zVF52zF
-         Je7HazYD9Hm80fZzmMbfwmSxVHCginJPN6PzK7/X3WWrl7aC37ytFd6b0iy/wRRXNi94
-         tYw3fN9Mh51WgGDhAy5EWVUTfBx7oOi9Qhe/oQicWugzmsaAFKccgq1AxeOwuk9U3O7a
-         xmlHbSAowdwzgS/0s1t8uQgi/w+3Akx0vPOf3IIRwp7lfXgY5sYmarSaa43wpJVasINm
-         t23ZH/X+/xsvCrOv4+ctvnCT5vt+FWvsBwhyOCmT/qfgq+uShGXAJhYdjrpTG4r90V9Y
-         sR0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793316536; x=1793921336;
-        h=content-type:mime-version:user-agent:message-id:date:subject:cc:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5h2QYAUToJaBGd0SGBHbFjbHZlMRwFbs4A1MHWtxF2o=;
-        b=lQeymCl7k45+we8sIIbdlc857nqh45cmKUCn6n1Qa1ziVg5LyUOGBVBMRUBWtCdCEz
-         X1o1jjfY8FFgH5BGrS4/CuyATlbvYPargGntbH4OBMnqmurXUPUX6x6jfa8cFNaTcBtX
-         iB3/z+OcYnIR+p2LAe5E+Rj/+AFPcqGhbVLCLNQ42b3zov+TikikuPZBFkoLE8uBDbbk
-         Zl4H2f/6Nh1FlUy7XmHAO7aq47igDtKfxEpx5fRfAMutBAyLAiic/GvfzraL+tl7myDh
-         64N5K2uqEmme3xpL8b8YjCI6EddJxDPsmw6T5XFhphMt6igWn1lHZNl1XYJ3PN2uisap
-         LUeg==
-X-Forwarded-Encrypted: i=1; AKwUvBzbE7IIHV2tAaMfwwQfQ6ablzh3kjVx+vXanTaGBL9r6/tMULJj53dXLjkd/7WtB4soTP5JKX4X0rNbwbM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcLMuFbpmtmmH2dV+400BCgfBqsnB1z3W98Q+iazw8yoXD/gri
-	iwqODjudJpDqWcSk9ASWsqW056e0NUds1pBItSfcaCXgFFNY7d4Blm1/18J5LY6fP1basZMvQUj
-	rqowpxn4KQFI=
-X-Gm-Gg: AYBFou3fFkvt9v+mdCx0YY+in4RUPAAPwTlZNPRDuXk8MYuJNJ41GpcdJApI+EG5yzO
-	kHY5ynW+lMZgF1sxiQYP51WJgtjWX8vhnmMRXdSRD8tBjRpk5IiLZwrMqcz4kIO6tMiBk3PczkB
-	pUqklgYXqeY7ylmLVWdUCfyJb0ewGQMtqaSGFk/+rrCV4QrbWPUdDmKIZNIRbRERMstP1K+nVEQ
-	n9RJKCtA9zMLp4M5THihRBSi5gEGf4jFqvZOz5hGfkOZd601y/HF65NAdNVhRwmjxbpiIPXOXn6
-	GueQUKmVAl7vaWMz7MzC8EHSYgdymL8Z87FRauL4nkm+tuvnYctdn+uFN7Mg8ks3fOQb9QLkxFr
-	N5LPRRkRezcCtw9TpnP7vhyH3jpUfn/9fVpLjeVjlm1lJaqaqe6pvoZBu6xOmW7nDNkebkByuBb
-	E5XeXzBi3y7OmtZetpf+SW7A/5dgWqHjEuy77ohybjUsCqJPqpP7RlR59DrwR51N6jjmIRkJnFY
-	TQy3yia49RnBsxTte1/vLOubzIiOv7I6zdusG5bTPrSYiCyjt6zbEQD+5gh9svmPXCwlcW4UU3d
-	znf9W+FL9EoTH5tTkzydKYHL4uWf3D63JV7JjQ==
-X-Received: by 2002:a05:7022:f20b:b0:136:c443:80e5 with SMTP id a92af1059eb24-1ac56d94b0amr847420c88.6.1793316534852;
-        Thu, 29 Oct 2026 16:28:54 -0700 (PDT)
-Received: from bsegall27.localhost ([98.45.141.147])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c2e9dsm2146185c88.9.2026.10.29.16.28.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 16:28:54 -0700 (PDT)
-From: Benjamin Segall <bsegall@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim
- <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Alexander
- Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa
- <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter
- <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] perf: skew perf_mux_hrtimer_handler firing across cpus
-Date: Thu, 29 Oct 2026 16:28:52 -0700
-Message-ID: <xm265wykhyrv.fsf@google.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjB+DBzz
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DD9101F000C1;
+	Thu, 29 Oct 2026 23:30:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793316624;
+	bh=aVdetZY9Do9isKUPb6qz8CWfVwLqoRc2UCiZFRh14fY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DjB+DBzz3w8/CzjvBWnS1I46ATi/RbuQRPJU3RrRrx5/uHro5rHl8Ej9oL/ZcyosV
+	 9+rt4p9LbXTuAMGF6vGsFUGYlEqdsSnPHLspJf22yDR1zjH5YPo74jqnSMXFR2e02U
+	 5ZZ7z0foCNHY+myCoLEeiO/49LWsScEtO4lpO/Om5tESO4kYhMrMr9khL8rPC4P1/F
+	 MjT0uJDSQaieeyni95jp8WGlohonLvPoMTOycF2vaUsOVeza8AgXRR010gr96+e5rI
+	 lfZYa/7bwzBLwV9UlviGUAnk1vrNUktMO8AiSDCPlVwkbs9SLP/YXSUjOjQ/ot6Ku6
+	 rkvf1gNvUttTA==
+Date: Fri, 30 Oct 2026 01:30:21 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Arun Menon <armenon@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+	Peter Huewe <peterhuewe@gmx.de>, linux-integrity@vger.kernel.org
+Subject: Re: [PATCH v5 0/7] tpm_crb: Add command and response buffer chunking
+ support
+Message-ID: <auPXDdXZ8L8KOwUW@kernel.org>
+References: <20261029181541.99505-1-armenon@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,77 +57,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029181541.99505-1-armenon@redhat.com>
 
-When in nohz_full, perf_mux_hrtimer will wind up checking if it needs to
-update jiffies as of commit 53e87e3cdc15 ("timers/nohz: Last resort update
-jiffies on nohz_full IRQ entry"). When perf is run systemwide or against
-a wide process and needs the mux timer, this will fire against many cpus
-at the same interval. Then, much like the timer tick did, this will
-result in unnecessary lock contention on jiffies_lock. This is
-particularly unfortunate since nohz_full is intended to reduce the time
-spent in irqs on those cpus.
+On Thu, Oct 29, 2026 at 11:45:34PM +0530, Arun Menon wrote:
+> The new version of TCG TPM v185 [1] supports sending data/commands in
+> chunks for the CRB (Command Response Buffer) interface. This is in line
+> with the initiative to support PQC algorithms.
+> 
+> This series implements the logic to send and receive larger TPM
+> cmd/rsp between the linux guest and the TPM backend in chunks.
+> Currently, the TPM CRB driver is limited by the physical size of the
+> MMIO window. When userspace attempts to send a payload that exceeds this
+> size, the driver rejects it.
+> 
+> This series introduces chunking support. The driver now checks the CRB
+> interface capability for CRB_INTF_CAP_CRB_CHUNK. If supported by the
+> backend, the driver will slice oversized commands into MMIO-sized
+> chunks, signalling the backend via CRB_START_NEXT_CHUNK, and finalizing
+> with CRB_START_INVOKE. Responses are also read back in a similar chunked
+> manner.
+> 
+> If the backend does not support chunking, the driver retains its legacy
+> behaviour and enforces the standard size limits.
+> 
+> This feature also requires the QEMU to interpret the data in chunks and
+> forward it to the TPM backend and subsequently dispatch the TPM response
+> in chunks back to the linux guest. This is implemented in [2] and
+> already merged into the mainline.
+> 
+> The whole series applied on top of for-next-tpm (including prerequisite)
+> can be found here:
+> https://github.com/armenon-rh/linux/tree/tpm-crb-linux
+> 
+> [1] https://trustedcomputinggroup.org/wp-content/uploads/PC-Client-Specific-Platform-TPM-Profile-for-TPM-2p0-v1p07_Pub.pdf
+> [2] https://lore.kernel.org/qemu-devel/20260601215410.517009-1-stefanb@linux.ibm.com/
+> 
+> v5
+> --
+> - Split [PATCH v4 06/06] into 2. The preparation patch separates the
+>   no-chunking send() and recv() from chunking.
+> - Fixed block comments to respect kernel's preferred multi-line style.
+> - Added citations to the TCG TPM and NIST FIPS documentations. Explained
+>   the logic and newly introduced registers in brief in the git commit
+>   message.
+> 
+> v4
+> --
+> - Rebased on master (or for-next-tpm, both point to the same commit).
+> - Resolved one conflict in PATCH v3 05/06, as TPM_BUFSIZE is declared in
+>   include/linux/tpm_command.h.
+> 
+> v3
+> --
+> - Split patch 2, so that the code is cleaner.
+> - Re-order the buffer size adjustment patch.
+> - Rename crb_trigger_tpm to tpm_crb_start.
+> - Add dispatching logic in send and recv functions. Chunking is
+>   separated from no-chunking for clarity.
+> - Increase TPM_BUFSIZE in the common file include/linux/tpm.h following,
+>   [PATCH v9 11/11] tpm-buf: Implement managed allocations
+>   https://lore.kernel.org/linux-integrity/20260125192526.782202-12-jarkko@kernel.org/
+> 
+> v2
+> --
+> - Add size checks before copying memory.
+> - Update TPM_BUFSIZE to 8KB.
+> - Commit messages updated to indicate motivation and logic of the change.
+> 
+> Arun Menon (7):
+>   tpm_crb: Add register definitions of TPM CRB chunking fields
+>   tpm_crb: Split start method into a separate header
+>   tpm_crb: Add start_cmd parameter to tpm_crb_start wrapper
+>   tpm: tis_i2c: Use local 4KB buffer to limit memory usage
+>   tpm: Increase TPM_BUFSIZE to 8KB for chunking support
+>   tpm_crb: Factor crb_send()/crb_recv() bodies into helpers
+>   tpm_crb: Implement command and response chunking logic
+> 
+>  drivers/char/tpm/tpm_crb.c     | 226 +++++++++++++++++++++++++++------
+>  drivers/char/tpm/tpm_tis_i2c.c |   6 +-
+>  include/linux/tpm_command.h    |   2 +-
+>  3 files changed, 189 insertions(+), 45 deletions(-)
+> 
+> -- 
+> 2.56.0
+> 
 
-Adopt the same solution as sched_skew_tick and just have a different
-offset for the timer on each cpu, and make sure to redo the skew if the
-interval is changed.
+Applied, thank you.
 
-Signed-off-by: Ben Segall <bsegall@google.com>
----
- include/linux/perf_event.h |  1 +
- kernel/events/core.c       | 12 ++++++++++++
- 2 files changed, 13 insertions(+)
-
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index eb3f7bab498ca..e1cb052af3d2e 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -1123,10 +1123,11 @@ struct perf_cpu_pmu_context {
- 	int				pmu_disable_count;
- 
- 	raw_spinlock_t			hrtimer_lock;
- 	struct hrtimer			hrtimer;
- 	ktime_t				hrtimer_interval;
-+	ktime_t				hrtimer_old_interval;
- 	unsigned int			hrtimer_active;
- };
- 
- /**
-  * struct perf_event_cpu_context - per cpu event context structure
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 457d75ea71420..7885071bf0856 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -1277,17 +1277,29 @@ static void perf_cgroup_switch(struct task_struct *task)
-  */
- static enum hrtimer_restart perf_mux_hrtimer_handler(struct hrtimer *hr)
- {
- 	struct perf_cpu_pmu_context *cpc;
- 	bool rotations;
-+	u64 offset;
- 
- 	lockdep_assert_irqs_disabled();
- 
- 	cpc = container_of(hr, struct perf_cpu_pmu_context, hrtimer);
- 	rotations = perf_rotate_context(cpc);
- 
- 	raw_spin_lock(&cpc->hrtimer_lock);
-+	if (cpc->hrtimer_old_interval != cpc->hrtimer_interval) {
-+		/*
-+		 * Skew the timer to avoid contention on jiffies_lock in
-+		 * nohz_full, whenever we change interval
-+		 */
-+		offset = cpc->hrtimer_interval;
-+		do_div(offset, num_possible_cpus());
-+		offset *= smp_processor_id(); /* we are PINNED_HARD */
-+		hrtimer_set_expires(hr, offset);
-+		cpc->hrtimer_old_interval = cpc->hrtimer_interval;
-+	}
- 	if (rotations)
- 		hrtimer_forward_now(hr, cpc->hrtimer_interval);
- 	else
- 		cpc->hrtimer_active = 0;
- 	raw_spin_unlock(&cpc->hrtimer_lock);
--- 
-2.56.0.317.g454f8302e1-goog
-
+Br, Jarkko
