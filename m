@@ -1,95 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793241774;
-	b=jkvCQtaSLzIuklaj0bPZ2avOw18RFES4+EVU6bokrzLKyM3Re4ikc0bf3JKpIYrk+Tge
-	 qH2HmwKFic703PmIRuh36d0b9jh44w7/16r75g4kkxSvfNXpUMG926jHzB7Y3Kqh1rCek
-	 Mi0Vn+BAyFNtAfaFaT7xPUSV3FPG1OpuAlCgkSO1wSRzYyLNphxIlfDKz7kTX447AnEQ2
-	 SrYKXnB7A+WFlYWFDku3xIe2gFtQEqHsHE8E8N1XjB5vtdGx9QBxBJ+PtjdcJFbLSsTKU
-	 +OCIlU4ZbTehixn36qMbINGC4XftwOgb7DPrCGVlxoJL+Vm1FOsKZRh1cPHvjZPadGA==
+	t=1793241848;
+	b=NXKNYQUtQ7xLqbggSy0Dajz4Wlo/k1Bgep7MrJHTUapAZiLMYO5K5eJXKEVdNjogp6nk
+	 Wtxq4LVSjVWac/NSseJyoipy1UJn/lhMt8R39biTzyGPCVnbpmAvhY4AvICTLQtoiyeat
+	 6vuwYPaHJ+By64I+mHqd1Ee3t1S973fYpXyaG3daY0WhbEO7YH0lSNHings/82eGmCVf/
+	 ZK+XOpQ+/g8bmeqHHSkdp8I5FQP6uBIcm3yW5sliNv+N/T5eyvtFw1JoAwXPQ5ZP17G2o
+	 rLMgNimCawL72eVQzaYWh9GZuuZ51dySnipgPo3ZaSHtimHk3QHVPx411YyayoTHznA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793241774;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=li6JwHU0iWRxuOXLh3ZiIpZVFgZFIl6/9VTBe15UUWc=;
-	b=mPbMRg+igRVokEYnkysulTNH1wkcm8mlpqv6TNAYkQ/JhRrwaU3HBriPmZ1ZnBs6mpwT
-	 xJzrRYT+NJbSeLrXBeeJjkXyfPdnf9TxgcqRAWlqmpT+tbgOTAYWkOcLKV39WkeGJm4FR
-	 wgW2SmnLWH9y3ZxHDimcnMezX9S6cxIrOhyeNuLn7ryEDGVfbVZs63qF4xcZb75y0sXRb
-	 C/SGWNSvxbSCKLJ0Js9IAzumrLM81PN0dl/6kB2zHOF0lgv8gcJxNylUkSzsix/ZvWkWL
-	 x/bwMURWzLrAeUso8GUutHRUDUVf/+Uir4yBbo4iMqgwCm3/Dfx2pxlk4nsE2IzGJsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793241848;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=YsWn4SWNcYb+OJyqmSR/cAEl8CGGrsLe7qipdFVd7F4=;
+	b=TZ0kzCV3hMpKnnbLPF/ZXoTm9zLPrnwOFiAA6Z4aFIaBPSPklTCKE1T0eARlL92x8hFw
+	 cc9eyulkjKEKiK4TBP0w4jCSNGsJQNbKtbVIKNT2PDTvI/AUt1ZOC1AfplLWUSl53AT4v
+	 wuEZV0XnWzhRjA870UEtL2PcRyi5zeqWL+0IZr54YZNsDS6SHSYvQ+wtOolNlQW0z08TY
+	 uf0FZftdWbxlJvN6FOdNq67zd5Y6jZUt5eR++lEfj90nVm2ZurncQxf5ejVCmF86bKVtS
+	 eJrH3rc6V6eHA2/MGgzcCSbbR0UIMgBtiwydwwZvg2wwOjf8tZxuiGAHyhjHBj0qoqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KWY6elZz;
-	arc=none smtp.remote-ip=209.85.221.173
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bhixhxxO;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D75606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:42:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9D75606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64881606A31C;
+	Thu, 29 Oct 2026 02:44:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64881606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KWY6elZz
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5eac01ff101so594882e0c.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:42:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793241773; x=1793846573; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=li6JwHU0iWRxuOXLh3ZiIpZVFgZFIl6/9VTBe15UUWc=;
-        b=KWY6elZzkkw4orAxy35St8JuB6yvMwapHJuKAW272znFbnFoivbkGo2XjN5xVX6g07
-         o8/4fhJMNmMUeatblP2+DoaAt5kd/A46jDfu/YN6lGHSeA5czAnAnZTABnlNVxegP/8O
-         oS0/ZrZBvEBtGq7s9oyQMc2/P7N9QvR3YPI2rtMdX91e7Mp8rrx2xIMqIiZ9wH1iuIB3
-         YQ5QvN2uOI03h96G15Vs/xouBlaWxcedU7qx0kt2RuBB61dXR4T9IvDfS2lbd32f1fcV
-         pFar0iqcz1TowmlrW0p+oawG/BAzpNMBcw/j+JXVksyRyaDsuYIwKgaWflat09mwF7To
-         oRNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793241773; x=1793846573;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=li6JwHU0iWRxuOXLh3ZiIpZVFgZFIl6/9VTBe15UUWc=;
-        b=V+tboreUYMaSo8+S52rN1DiwL4nF/sznufmRx1CZPHfvud5RsO/tvj3WPXPQ4sWKOF
-         P7ecK9fNQuoy2piAb0FlQcqjedhFJiA5XMLKNb9YJXYziHzvadg1I4b95wEyEjrkvkJ5
-         gqwP0hCl5isKkD0ebVuA7xaN6SbAEVsPblf/OsrTZ1oUiDOD/PHUAxdGYJsLvmju6X/h
-         yBOw68n77nkD2nw0N1LlDrbhb7HdNigZCvySMGqsSYYLGC38+KTGEwddq5K9QNOn7PL8
-         j0+k4PEQfhrqJwEjQzpNiKPcG0XNC/TaC1FYhl45HKXaf+CpZt0JJfCNmXL7njktqu9+
-         I5+A==
-X-Forwarded-Encrypted: i=1; AKwUvByEWsGZtEbHWfD4UR5jOrPKqaikph0uKRb5ZRaLQz7gQQ0fE6hbXAACfenOYocge7TPir65XQrYFzafcgE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIK4ECN9mgQGKlL7ZoeWeVQtGRC5g4aHvxOaF0PJXkmWeaxrvRj
-	rrnkqUJN4sIuijSwQPfbr9j1lIynyayF1NLw31OlT9hoSWs70Umqafls
-X-Gm-Gg: AYBFou2rzqekMZN+5ebu3LtYTtlWYsUwzXLsn/7cmaJpISdzgmZBD9kOyb3JarGmN/T
-	5dWwixHKaSg8VbO3Ko4kxKBb4Sg/n2Xp0A6brd8IAtY+5JrU56XvAnldPUfiN4GEN/acvWfGLOT
-	c6tlL0475UcoEcRFNZEiHe3S6MZZ5xRRTCXwb8VWgF5dwrNd1JQgRUXf7tPglCQmcMMQLCyNjdp
-	RReLmjhcSmz2bD2YOg8XjsyErxUEFeVxijJBbIEgYymo8z4/0eqtKHU8IB6puXoJdRywesQEa5k
-	HZcRruSVplZSgCusU9NbrnL5WqiNPV4tK/kM6CI4QVsnZ/kuS1p77Z+h63r0iv//NaI6oB50brH
-	txuS2e69PuFOi3FQZqfa31EEubnHoukIrxrPSEdbU6IV4mSyA4BihcTzZt7Z9yrSyKJAkz2zKOz
-	i8g99OsJTo/6ObpP9v9e4/lDF+ehlZzZdZ1nY5vhhOTuHNdjZadBJbk5/uM+JjjXt3W1vPe9OKX
-	y2t0lexSDGq05p2Ytq8X4XkXDBxBOnOu67DfaREeGrFp+f7XmFNPWY/KPRq/4IJpkPJj0TlpyjH
-	cU7MsgYobvTlfWwSDH+igtMWoRx5QoDXh3FKeGU1i62x+NpqbKHvrz7JGLqS3ER/PrWFRq4EO1W
-	Qpwh6SZbNmTrVRUEGfW1AoQD1jF0u
-X-Received: by 2002:a05:6122:e20c:b0:5ea:9218:eac1 with SMTP id 71dfb90a1353d-5ec4cccdb04mr1920518e0c.20.1793241772644;
-        Wed, 28 Oct 2026 19:42:52 -0700 (PDT)
-Received: from macbook-pro-de-joas.local ([2804:7f0:b101:c5e8:7d75:cb37:7054:6d4b])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec57fa451csm1790680e0c.13.2026.10.28.19.42.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 19:42:50 -0700 (PDT)
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>
-Cc: David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Hongbo Li <lihongbo22@huawei.com>,
- syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] hugetlbfs: emit hugetlbfs_free_inode from ->destroy_inode()
-Date: Wed, 28 Oct 2026 23:42:45 -0300
-Message-ID: <179324176522.32673.7602596908234555806@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bhixhxxO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ys
+	Wn4SWNcYb+OJyqmSR/cAEl8CGGrsLe7qipdFVd7F4=; b=bhixhxxO1aEsMBsO2t
+	u1b/u67C22ZNuDQh7OnXxLQBlpeaNAEQNeAf0PMf5bKIxa/ijt2hKp4hUwgy9gem
+	BO+ZhTFDFghxgSLf6WqdpsvmRPtzOHck1iYk9yhVCaxnw6XOA8dvxOatGqL6IarN
+	hJkJ5qdmSqLCND3X1dfCqQHMc=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3_9fEsuJq8Xs9DQ--.47973S3;
+	Thu, 29 Oct 2026 10:43:18 +0800 (CST)
+From: Xia Yan <yana06070@163.com>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	horms@kernel.org,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	pabeni@redhat.com,
+	shuah@kernel.org,
+	hangbin.liu@linux.dev,
+	yana06070@163.com
+Subject: [PATCH net v5 2/2] selftests: net: check veth carrier after changing channel counts
+Date: Thu, 29 Oct 2026 10:42:59 +0800
+Message-Id: <20261029024259.3700-2-yana06070@163.com>
+X-Mailer: git-send-email 2.33.0
+In-Reply-To: <20261029024259.3700-1-yana06070@163.com>
+References: <20261029024259.3700-1-yana06070@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,82 +71,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wD3_9fEsuJq8Xs9DQ--.47973S3
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Aw1UWF4rAw4DAryrXF1fWFg_yoW7Wr4UpF
+	Z7CFy3Gr48XFy3Gw4Ikr42yr45W3WkXw47Xr9rtr4UZFy5GFnIvr1ft3yjvF4DKrZagw1F
+	vayvvrWkCa1qva7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zETKZJUUUUU=
+X-CM-SenderInfo: p1dqtiawqxiqqrwthudrp/xtbC3wYxt2rissYi0gAA3T
 
-hugetlbfs_free_inode() calls trace_hugetlbfs_free_inode(), and the
-hugetlbfs__inode event class records inode->i_sb->s_dev.  ->free_inode()
-runs from an RCU callback (destroy_inode() queues i_callback() with
-call_rcu()), and Documentation/filesystems/porting.rst says that this
-callback "is *NOT* ordered wrt superblock destruction; as the matter of
-fact, the superblock and all associated structures might be already
-gone".  put_super() frees the superblock with call_rcu() followed by a
-workqueue item (destroy_super_rcu() -> destroy_super_work()).  syzbot
-hit this with the event enabled:
+Extend veth.sh to check that changing channel counts preserves carrier
+state. When only one end is up, the running end must not report LOWER_UP.
 
-  BUG: KASAN: slab-use-after-free in trace_event_raw_event_hugetlbfs__inode+0x45b/0x4c0 include/trace/events/hugetlbfs.h:36
-  Read of size 4 at addr ffff888038850010 by task syz-executor952/6134
-   hugetlbfs_free_inode+0x15e/0x1f0 fs/hugetlbfs/inode.c:1182
-   i_callback+0x46/0x80 fs/inode.c:317
-   rcu_do_batch kernel/rcu/tree.c:2650 [inline]
-   rcu_core+0x5f0/0x1220 kernel/rcu/tree.c:2919
-  Allocated by task 6134:
-   alloc_super fs/super.c:326 [inline]
-   sget_fc+0x1ba/0x1f60 fs/super.c:874
-   hugetlbfs_get_tree+0x1e7/0x2b0 fs/hugetlbfs/inode.c:1431
-  Freed by task 855:
-   kfree+0x22b/0x6d0 mm/slub.c:6923
-   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+Cover up/up and both mixed up/down combinations. Resize RX and TX queues
+in both directions on each endpoint, and check carrier after a rejected
+out-of-range request as well. Create the pair with two queues explicitly
+so the carrier cases also run on single-CPU systems.
 
-Emit the event from hugetlbfs_destroy_inode() instead.  destroy_inode()
-calls ->destroy_inode() synchronously, before it queues the RCU
-callback, while the superblock is still alive; hugetlbfs_destroy_inode()
-already dereferences inode->i_sb there.  ->free_inode() is left with
-only the kmem_cache_free().
+Reuse the existing namespace setup and cleanup. Run each carrier case
+in a subshell to keep its variables separate from the other tests, and
+accumulate failures in the caller. Only check LOWER_UP on running
+interfaces, where the flag exposes carrier state.
 
-Fixes: 014ad7c42a69 ("hugetlbfs: use tracepoints in hugetlbfs functions.")
-Reported-by: syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6ae27525.5451848c.f7707.0001.GAE@google.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
+Tested-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Assisted-by: LLM
+Signed-off-by: Xia Yan <yana06070@163.com>
 ---
-Tested on net/main 94cea342e891 (arm64, QEMU, generic KASAN, tracing
-enabled) with the syzbot C reproducer, which enables
-events/hugetlbfs/hugetlbfs_free_inode and races hugetlbfs mounts and
-lazy unmounts with open + unlink.  Without this patch KASAN reports the
-slab-use-after-free in trace_event_raw_event_hugetlbfs__inode() from
-hugetlbfs_free_inode() <- i_callback() during the first 10 second run,
-on 3 of 3 boots.  With it, 12 runs over 2 boots are clean, and the trace
-buffer still holds the hugetlbfs_free_inode events (about 46k per boot)
-with valid dev numbers.  fs/hugetlbfs/inode.o builds cleanly with W=1.
+Changes in v5:
+- Drop unnecessary quotes around literal up, as suggested by Hangbin.
+- Clarify that the v4 quoting change concerned variable expansions.
+- Add Hangbin's Tested-by and Reviewed-by tags.
 
-The event now fires when the inode is destroyed instead of when its
-memory goes back to the slab cache, one RCU grace period earlier; the
-recorded fields are the same.
+v4: https://lore.kernel.org/netdev/20261024093007.12981-1-yana06070@163.com/
 
- fs/hugetlbfs/inode.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Changes in v4:
+- Drop the extra GRO on/off runs, as discussed with Hangbin.
+  Keep up/up and both mixed up/down states.
+- Use subshells for the new helpers and accumulate failures in the
+  caller. Quote variable expansions and wrap long lines.
+- Driver code is unchanged.
 
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 6656807..27a3937 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -1179,12 +1179,16 @@ static struct inode *hugetlbfs_alloc_inode(struct super_block *sb)
+v3: https://lore.kernel.org/netdev/20261022085842.2527-1-yana06070@163.com/
+
+Runtime testing of v4 on 513444cc62e2, x86_64 QEMU/KVM with three vCPUs:
+- Complete default veth.sh:
+  before: 56 checks pass, two mixed up/down carrier checks fail;
+  after: all 58 checks pass. The 55 existing checks pass on both.
+- Script exit status: 1 before, 0 after. No checks were skipped.
+- Both guests powered down normally.
+- The runtime results above are from v4. The only v5 script change
+  removes quotes around a literal argument.
+
+The repeated-word warning on chk_channels_carrier is for the two
+endpoint state arguments.
+
+ tools/testing/selftests/net/veth.sh | 81 ++++++++++++++++++++++++++++-
+ 1 file changed, 80 insertions(+), 1 deletion(-)
+
+diff --git a/tools/testing/selftests/net/veth.sh b/tools/testing/selftests/net/veth.sh
+index 8b867e0675a7c1eea300468c26f2a9528ddc1194..5fb4b8c199b906785ab09cae35cf1e70a042bbce 100755
+--- a/tools/testing/selftests/net/veth.sh
++++ b/tools/testing/selftests/net/veth.sh
+@@ -41,13 +41,16 @@ create_ns() {
+ 		ip -n $ns link set dev lo up
+ 	done
  
- static void hugetlbfs_free_inode(struct inode *inode)
- {
--	trace_hugetlbfs_free_inode(inode);
- 	kmem_cache_free(hugetlbfs_inode_cachep, HUGETLBFS_I(inode));
+-	ip link add name veth$SRC type veth peer name veth$DST
++	ip link add name "veth$SRC" "$@" type veth \
++		peer name "veth$DST" "$@" || return 1
+ 
+ 	for ns in $SRC $DST; do
+ 		ip link set dev veth$ns netns $BASE$ns up
+ 		ip -n $BASE$ns addr add dev veth$ns $BM_NET_V4$ns/24
+ 		ip -n $BASE$ns addr add dev veth$ns $BM_NET_V6$ns/64 nodad
+ 	done
++
++	return 0
  }
  
- static void hugetlbfs_destroy_inode(struct inode *inode)
- {
-+	/*
-+	 * Not in ->free_inode(): that runs from an RCU callback, when the
-+	 * superblock the event reads may already be freed.
-+	 */
-+	trace_hugetlbfs_free_inode(inode);
- 	hugetlbfs_inc_free_inodes(HUGETLBFS_SB(inode->i_sb));
+ __chk_flag() {
+@@ -130,6 +133,78 @@ chk_channels() {
+ 	fi
  }
  
++chk_carrier() (
++	target=$1
++	state=$2
++	expected=$3
++	carrier=0
++
++	# IFF_LOWER_UP is reported only for running interfaces.
++	[ "$state" = up ] || return 0
++
++	if ! link=$(ip -n "$BASE$target" -o link show dev "veth$target"); then
++		echo " fail - cannot read veth$target link state"
++		return 1
++	fi
++	case "$link" in
++		*LOWER_UP*) carrier=1 ;;
++	esac
++	if [ "$carrier" -ne "$expected" ]; then
++		printf ' fail - veth%s carrier is %s, expected %s\n' \
++			"$target" "$carrier" "$expected"
++		return 1
++	fi
++)
++
++# Keep per-case variables separate from the other tests.
++chk_channels_carrier() (
++	src_state=$1
++	dst_state=$2
++	expected=0
++	err=0
++	msg="carrier after channel change ($src_state/$dst_state)"
++
++	if ! create_ns numtxqueues 2 numrxqueues 2; then
++		printf "%-60s" "$msg"
++		echo " skip - cannot create veth pair"
++		cleanup
++		return 0
++	fi
++
++	ip -n "$NS_SRC" link set dev "veth$SRC" "$src_state" || err=1
++	ip -n "$NS_DST" link set dev "veth$DST" "$dst_state" || err=1
++	[ "$src_state" = up ] && [ "$dst_state" = up ] && expected=1
++	chk_carrier "$SRC" "$src_state" "$expected" || err=1
++	chk_carrier "$DST" "$dst_state" "$expected" || err=1
++
++	for target in "$SRC" "$DST"; do
++		for count in 1 2; do
++			ip netns exec "$BASE$target" ethtool -L "veth$target" \
++				rx "$count" tx "$count" || err=1
++			chk_carrier "$SRC" "$src_state" "$expected" || err=1
++			chk_carrier "$DST" "$dst_state" "$expected" || err=1
++		done
++
++		if ip netns exec "$BASE$target" ethtool -L "veth$target" \
++			rx 3 tx 3 \
++			>/dev/null 2>&1; then
++			echo " fail - out-of-range channel counts were accepted"
++			err=1
++		fi
++		chk_carrier "$SRC" "$src_state" "$expected" || err=1
++		chk_carrier "$DST" "$dst_state" "$expected" || err=1
++	done
++
++	cleanup
++	printf "%-60s" "$msg"
++	if [ "$err" -eq 0 ]; then
++		echo " ok "
++	else
++		echo " fail "
++	fi
++	return "$err"
++)
++
+ chk_gro() {
+ 	local msg="$1"
+ 	local expected=$2
+@@ -257,6 +332,10 @@ fi
+ [ $STRESS -gt 0 -a $CPUS -lt 3 ] && echo " stress test will be skipped, too"
+ [ ! -f "$YNL" ] && echo "ynl cli not found, ndo-xmit tests will be skipped"
+ 
++chk_channels_carrier up up || ret=1
++chk_channels_carrier up down || ret=1
++chk_channels_carrier down up || ret=1
++
+ create_ns
+ chk_gro_flag "default - gro flag" $SRC off
+ chk_gro_flag "        - peer gro flag" $DST off
+
 -- 
-2.39.5
+2.39.0.windows.2
+
