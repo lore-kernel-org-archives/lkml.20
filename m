@@ -1,64 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306753;
-	b=0ooOMy/S4Z3SlLcZYoajGGCeyCDwjGqOTSRuQqrBH0UfNTmOJFAettPKXDSbMUDLl/cQ
-	 KfDFBgMDMRwx+9+k6zK+G4LXfBGsfmHoSSEo/pm4FxkQrpM+o8RbSzIhNf9G8lYrwVb4q
-	 d/c59Sk4/MQWzUZo3YDofRVkkN36t+L1g9jmYHWBYobX+LHlptholj2SpbFzgkgUr9NZq
-	 6WeqPjKN8bL9pQIC4c60bZOyT63Gu7t5jtBA+7C9+WnCg5/wIOQ8TtaQpYBV4ga9xSaWt
-	 GvsXOHOsr0GvCKLvtDrf/ynYWOBjCXAIgLyjFJ+yt1+D9vGjBy0U/GS+547V2qjfX4w==
+	t=1793306645;
+	b=QC7BUm9XKeHRlQ41XsPweDo/Q8MLYWJCJokVvR8ryysxM8ZNXD7Ks2qHoKdPFjYOII7P
+	 p0fGjJvsx2ovF7ecju3I8ezjlFOYJYd3aFg3I4jEW3n5maPtWiOkvf1kmv3Ofol8AoFTt
+	 +DieQdOy7+PB6D+8LpuBhE82izPtlW2phxTZdK5kSQ2u1+f/FlIALv9fqGfFLSRYJs1yV
+	 NfTzxfw29qkIWh2EYuJh74VMCQx/nNOWVuuC4k8lnwP54bOi/n+b9xyolNAhCPcPKNP7O
+	 mrhqdQiWdSXp9GH0lWcPT+4Wm7gpAH/cUDnV56QjVEryocTljlQzJIie29WtTwibN8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306753;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=QKQNsEollpyNwBzBoAQphHlX3teAI5VImT9uIGC+KFQ=;
-	b=z/CsjGSgC8naUyvWsneC2E3hm1VcBCbIsunGN43h2zcMhI/vrPtOCvfilNTd8/v1CkHc
-	 0iRO5/epK8cQc8gePjKA/oUeKIMmZrIk0NJJfaIF2FDpuzIAqy8hnKcNGgbAYun9GwfOC
-	 NXekW4Cr17d6DcTOU55p8YSbyQ9dQcdunyHm9NGY9IGsaWNCsi3EFoeGbm88Frmuzx2ZI
-	 ugKr5WUZvubIiaD5UQTeZZSnSgQ8z/o/TqtkBiOXubVsBxHwYwEuFVx2sd838+bEPMr4b
-	 6oov0ULGYU2Ln2g5Mkkv8+L1OJXahwwc6dZEwR4Op0hW0ercqrNospRSHzLXhG2q6JQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306645;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=PI8EmdBn37j7qc/hvMAGTDVDDo5VBf2eU5QEycECV2k=;
+	b=E00Np4NgV11zgSmHIb+ogzKPqVLl6zMjQl6JIrtbjYG5/eAbs7SFc/b6PJ4eg7fztTqm
+	 TiC84aP/vRFqSfIg5lo3QBlYPUqrlK1hBGhkOhLRZBUGqfucZwXfjew8rNjMjK7zukPhx
+	 f6XwtjNCcFXeVzRJkroNIRv+ZIKmXHD3Z7O/NJcc66w8lgNcxHubegR0alWgBPqIMIMHY
+	 OaF4TC3gQoOygNEpQZmfahTxY9ZhoDAZXYWKDoDF/QZNxbrYc9cEYoX09Hdu34l57vxt1
+	 ZCUHlb/OplgTMsUGUQTypzyXBSB5qBhcru04tMre+ZbjUU7r1FgBdb5hgK107NmwRJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eau6p76X;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3wM2Fp2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C790606A322;
-	Thu, 29 Oct 2026 20:45:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E7B606A31F;
+	Thu, 29 Oct 2026 20:44:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eau6p76X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D2141F01824;
-	Thu, 29 Oct 2026 20:45:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I3wM2Fp2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ABD81F01826;
+	Thu, 29 Oct 2026 20:43:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306752;
-	bh=QKQNsEollpyNwBzBoAQphHlX3teAI5VImT9uIGC+KFQ=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=Eau6p76XxgG8TSQLIRKcIwiJyPGN9KzurbABCukQ54WpVG6Up8SB17U+UppdNziUP
-	 0TLFNE4KZs3IV+XYuOErkIqP+NHSH7n/0FUBoPZ9WBCKkqHiwn/DlxSC0TDrbCwcHr
-	 fWVqbm+H/rYWTg6lQo0a+sWRW4f9M+9xzUnzFNGKhOdjNrkmshEyuo4dOwkpF1oN+M
-	 tvyKTttZYQCRGa/Yx7noQeq4RJ8wG4Rw7UY4M5dhi332XkRYKFLVYnUh/x47GLE/r/
-	 0z9WXIWdcO626+8U6rQ2CF+fVcNzNzUenKy5+0ElWdeZPC03/ygQER3H45CpTAh5pW
-	 olHzgcZnFlOWQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D4A0380823C;
-	Thu, 29 Oct 2026 20:45:52 +0000 (UTC)
-Subject: Re: [GIT PULL] Rust fixes for 7.4
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261029180116.49074-1-ojeda@kernel.org>
-References: <20261029180116.49074-1-ojeda@kernel.org>
-X-PR-Tracked-List-Id: <rust-for-linux.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261029180116.49074-1-ojeda@kernel.org>
-X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/ojeda/linux.git tags/rust-fixes-7.4
-X-PR-Tracked-Commit-Id: 7d109178cd644268326cd31702ed46c7ac8bb300
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: fb7bd3a2aad70a76232a7168a505386d0a1396af
-Message-Id: <179330675112.683852.3819619373663092542.pr-tracker-bot@kernel.org>
-Date: Thu, 29 Oct 2026 20:45:51 +0000
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+	s=k20260515; t=1793306645;
+	bh=PI8EmdBn37j7qc/hvMAGTDVDDo5VBf2eU5QEycECV2k=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=I3wM2Fp2M/mnFZOoLQjrOOGcJn2Tv+0zUzVbgWBHluank6O6Jj1/hRTD8bqfwKQr4
+	 zHGg1evLbpkE+EIITtj8IU/8h5sV5/cwswPhYhl58K+pNMq7yafhM/3QJ/6tSZvjtc
+	 EIkF69eSqkz5J1NC2rlbPl+flcQ/bjkq88b6bJXNhOBiP8sgZRILnp8rnBww98GwHz
+	 WXdmRGcnvgjlqG7d/lH2c1NXRCKkWqDCNw2Js2U532SmcF2gBH4YHMWqG1WEOaK84E
+	 XQRunhZ8gsVpvKbm8t04i7F4xsicZijv9ybjklw+5K7P0vn1r3nGM9fxxNtquFNu1P
+	 xH52ZIz0oh+VA==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Thu, 29 Oct 2026 21:33:38 +0100
+Subject: [PATCH v2 43/47] mm/huge_memory: split huge PUDs when adjusting
+ VMA boundaries
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +52,175 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-fixes_core-v2-43-a64ce7f83abb@kernel.org>
+References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
+In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3933; i=david@kernel.org;
+ h=from:subject:message-id; bh=QffgpAOB3agwHlZzTMqGo5KOI/hFG36iruKivYKWL2Q=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer+303vND6POzBp0C/l2WzFfevlivUbNg/4TeZ/vCm
+ T3+ZP1b0FHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEZnozMkwLOl5Wk5Bj1Thd
+ SFvk4Twt9r1svrlLZnWGliUJ23L9vMbwV86BzahUqf7TnN3Gc6RW/hTcvvzy1FTBp8v2vL6/5VD
+ ZYz4A
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-The pull request you sent on Thu, 29 Oct 2026 19:01:16 +0100:
+PFN mappings such as VFIO PCI BAR mappings can use PUD leaves while
+allowing VMA splits at page granularity. However, vma_adjust_trans_huge()
+only handles PMDs.
 
-> https://git.kernel.org/pub/scm/linux/kernel/git/ojeda/linux.git tags/rust-fixes-7.4
+After faulting a writable PUD-sized VFIO BAR mapping, changing its first
+page to read-only with mprotect() makes the PMD walk treat the PUD leaf
+as a PMD table. Applying MADV_DONTFORK to the first PMD-sized chunk leaves
+the PUD spanning two VMAs: the PMD-aligned boundary skips splitting.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/fb7bd3a2aad70a76232a7168a505386d0a1396af
+Walk the page tables once at each adjusted boundary and split a huge
+PUD or PMD leaf as needed. Handle PUD leaves even when the boundary is
+PMD-aligned.
 
-Thank you!
+Fixes: f9e54c3a2f5b7 ("vfio/pci: implement huge_fault support")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+ mm/huge_memory.c | 70 ++++++++++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 60 insertions(+), 10 deletions(-)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index f1b3f744c630..6ff3faa200f9 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3504,16 +3504,66 @@ void split_huge_pmd_address(struct vm_area_struct *vma, unsigned long address,
+ 	__split_huge_pmd(vma, pmd, address, freeze);
+ }
+ 
+-static inline void split_huge_pmd_if_needed(struct vm_area_struct *vma, unsigned long address)
++static bool pud_split_required(const struct vm_area_struct *vma,
++		unsigned long address)
+ {
++	if (!IS_ENABLED(CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD))
++		return false;
++	if (IS_ALIGNED(address, HPAGE_PUD_SIZE))
++		return false;
+ 	/*
+-	 * If the new address isn't hpage aligned and it could previously
+-	 * contain an hugepage: check if we need to split an huge pmd.
++	 * Only selected VMAs support mapping PUDs for now. Lift the
++	 * restriction once this changes.
+ 	 */
+-	if (!IS_ALIGNED(address, HPAGE_PMD_SIZE) &&
+-	    range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
+-			 ALIGN(address, HPAGE_PMD_SIZE)))
+-		split_huge_pmd_address(vma, address, false);
++	if (!vma_is_dax(vma) && !vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT))
++		return false;
++	return range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PUD_SIZE),
++			    ALIGN(address, HPAGE_PUD_SIZE));
++}
++
++static bool pmd_split_required(const struct vm_area_struct *vma,
++		unsigned long address)
++{
++	if (IS_ALIGNED(address, HPAGE_PMD_SIZE))
++		return false;
++
++	return range_in_vma(vma, ALIGN_DOWN(address, HPAGE_PMD_SIZE),
++			    ALIGN(address, HPAGE_PMD_SIZE));
++}
++
++static void split_huge_leaf(struct vm_area_struct *vma,
++		unsigned long address)
++{
++	const bool split_pud = pud_split_required(vma, address);
++	const bool split_pmd = pmd_split_required(vma, address);
++	pgd_t *pgd;
++	p4d_t *p4d;
++	pud_t *pud;
++	pmd_t *pmd;
++
++	/*
++	 * mmap, VMA and rmap write locks protect the walk; the split helpers
++	 * take the page table locks.
++	 */
++	if (!split_pud && !split_pmd)
++		return;
++
++	pgd = pgd_offset(vma->vm_mm, address);
++	if (!pgd_present(*pgd))
++		return;
++
++	p4d = p4d_offset(pgd, address);
++	if (!p4d_present(*p4d))
++		return;
++
++	pud = pud_offset(p4d, address);
++	if (pud_leaf(*pud))
++		__split_huge_pud(vma, pud, address);
++	if (!split_pmd || !pud_present(*pud))
++		return;
++
++	pmd = pmd_offset(pud, address);
++	__split_huge_pmd(vma, pmd, address, false);
+ }
+ 
+ void vma_adjust_trans_huge(struct vm_area_struct *vma,
+@@ -3522,14 +3572,14 @@ void vma_adjust_trans_huge(struct vm_area_struct *vma,
+ 			   struct vm_area_struct *next)
+ {
+ 	/* Check if we need to split start first. */
+-	split_huge_pmd_if_needed(vma, start);
++	split_huge_leaf(vma, start);
+ 
+ 	/* Check if we need to split end next. */
+-	split_huge_pmd_if_needed(vma, end);
++	split_huge_leaf(vma, end);
+ 
+ 	/* If we're incrementing next->vm_start, we might need to split it. */
+ 	if (next)
+-		split_huge_pmd_if_needed(next, end);
++		split_huge_leaf(next, end);
+ }
+ 
+ /*
 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+2.43.0
+
