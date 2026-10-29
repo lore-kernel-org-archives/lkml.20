@@ -1,17 +1,18 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.43
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.37
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793250868;
-	b=mIJy0hc8amaErZ/41vNVmVFzUiV9ZuQyctpGZhHEt1BC9dMFCs6SV8GuDDn45sDflGXV
-	 rHzwaQQ48NN8n/W9sGBhBPMemifDFbDaChnZOP3AOLS1klzR7g8ZPw/8s1+EXzepLARiW
-	 maQmdRu09VFuYZnYv8cQCcgHHCNFEEarZC0ipAzwIOQQvr62VeX0oqy4gFXjViHVY9Hl+
-	 yPEAVcesIY8N3uZqpU0lCZC+jwGfPX1wBGy22hT+6y9fGmQ++gumRMavKllZpc9/Fo5Uv
-	 j6rkIpsrrBVX6f9A79FZTdcoazIfECVB5coySpbJ1Rxlm9itxWK8cCqFwBTj5dheDyQ==
+	t=1793250871;
+	b=yWgJMQP96v6Xqe+ncWHBQNeV410gytI0FRkmGhEZgVU+LX2xGjHklbjM368v89mvYbRs
+	 2SkbgpVYWLc4VuIZ6p/hFSWmgPDiiEZRv6HC3DWAElT5MJGkV7aEDK2typ1aCV+SMor3M
+	 6cLRrZqzWllsjtjes+EE3YZq6VCzVg7aEszklO7WNlsEUIeb7+RMU52o+arS69fw1daHt
+	 LrQqxKKRerm49mnpGSNYLSA5KxTwM8E3k0/DnBkZWxZT76qIirIHsJ2NgiLr3wbb3IbBg
+	 lLwIv4BHR7jvuqaeMLX4DyHl7PgM9fyQ9tHouABE1LupWlLkozSB32X6lqdBMtahIGw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793250868;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793250871;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-AtpMessageProperties:X-MS-Exchange-SenderADCheck:
 	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
 	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
@@ -24,54 +25,54 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=yjHlK/d9/hQurhRPuRio6hXFXp/BRZzuDv1UxsyAaXM=;
-	b=5cM0rkU8AFlypR0CBDmJF1VC7Wz33VKcda9IkcNLI83/4KuaR0DjwLkf8ugbmF5IYIOD
-	 q0Ci0VVmcRqjILsyrwzx4ptdt0gmU+ne7BGBImdpvkxllk4QeoweJ3mgbB/1yto3Yi0N/
-	 KqmJtJRQJpPE4zQ5jTwUe3U+QG7GMgJBLM86JxRS/DIuhCH9HmPS0SeS6a7kIt7vKOmYZ
-	 3gdlOCI/c1CdT30k0I8Rvt1qVZlHuuDRIRnx+R9wm5p5fathm9wE5pyhsxDizJ1Vyl2+h
-	 g2EQUec4FS2QRKLyMqxge8XpojcfgSaI80o00JlOc/S02N1arFRX8FGk/z75FQM2j2w==
+	bh=Y/occHS/qxiEV5iyQbJWhUR6oX0snGm/bUlcQ5fwlLs=;
+	b=IQI2eblcRgwzmU3M4rhqcLjV4fCUss76TtD1gd92cZ5IvpiuputVlGOdYJ/umrqJ9G87
+	 nPbN5nOd/gXsekV/Gg0JDrRUcPzjErT1tVFqYrroqzhmOojEPG8WExiytRAHQ0MdCPfHR
+	 XxOudlEKNhw1G/Sg2G4W7xbeXcs3eF/v0F0Ek39HQljwHubY7hFN/cO1WOC4oFDN3MawA
+	 kJ8kyCinLkGr0tAmx8+NIo/J8hhdCXYVlX/B3TdRP3aBgP9EWWE5uLuChr0ewAqw5Q3Os
+	 pXdRg64Hp2AWgTYgAE3Qtzwb91tPrlKQwisP05zWZTzpN/Hb1wgoB0/SDUE7eYA2EtQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=altera.com;
 	spf=pass smtp.mailfrom=altera.com;
-	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=E3dnd85f;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.43
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010043.outbound.protection.outlook.com [52.101.85.43])
+	dkim=pass header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=CsyxuNhG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.37
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012037.outbound.protection.outlook.com [52.101.48.37])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1428606A31A;
-	Thu, 29 Oct 2026 05:14:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1428606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996B8606A327;
+	Thu, 29 Oct 2026 05:14:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 996B8606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=E3dnd85f
+	dkim=pass (2048-bit key, unprotected) header.d=altera.com header.i=@altera.com header.a=rsa-sha256 header.s=selector2 header.b=CsyxuNhG
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w0Ynog8x+fzQpKSUn8Sd8Zk9qso8GZfPKTlQBKqj6wU/29S9FoqfUvumUWJ1IZrZBF9tHLs4AkpIdD3I5hBOG+avgBZgdqTigF6kBqgPOgFCAO+Z+fIFHPuhYxXQ4yLKplULeNJ1t4/PzY1R8wWhlxJjQ8N+9kGdgjsSZuRWa6RotgFyDDeAxH4VwOP5GelsTqBWQ9URxunvYRHgwFZlnQI9BsDZOCUUd5p8hNYrUgQPwt02J+plw6nOqHxIgqYhig7AAdw/2f6YepyhcLeakF8mwmm9KB09MwwXJ1Zzp+HsbrMaKK2xeGeUgz4FA0GwwDSTBkNfTBdZKR1UK9P3oQ==
+ b=NHXhDHDx970eWFH60u8gxqmGXpS07qcVH/8QnjA+87MeZCgPFg26q7ANutRXVTlG9JQy6BKixEQ/n9rCJDZl7/ZHXgYssf5vNg3n5X8vOGCx/mKhHj8bF+2/6kBxNEEztTyTYcxt9cCLl4OChED9r43rhLzDhLzYnvGbtD1cBBnFpQmkXxZgR+GueTEj41OwJBWefB8UgJh5U2u8faREX4/QhYJBeO49/mASv0qXosCvQfs27mMF5qBh1lO1FeFmXxZPHEQwFbeJFagt1QKaTp0Is0COqMlqs7m0pyWu6WPc+nmoOcabqhbYkzayQ9a67JZOSVlvA0oQJUKEgvZbzQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yjHlK/d9/hQurhRPuRio6hXFXp/BRZzuDv1UxsyAaXM=;
- b=OQBHGHGwIkCXdW7rOPPNNONePDa2A1yLGyjQs6S44L8FC7M/vx+Lup7omfo5pgLnx9WQaIKsXRJEvvwkxmN279fdZ+nwTS017HcCwNYgTDrFoqtg9yORkvBhS4YEdXO0u5cZcZOgr4+8od8YaamTe9x62FF2NyoIiCAQILkIuOgUgAk7Zgawx5soHVA6YazaJ5dilSJ40vafLhiyp2Y+abqwnpca1iX9r1RHrZDJFc9HuptF1YntGhSr0DIeU3y/ny8NFsyWkbFfrOP+i9pABPulRlBFZIk7/w5gYVB71tT31d1BQw8N5wGymsE8J+1Go3mDr2zJZJpY5GWKa1MruA==
+ bh=Y/occHS/qxiEV5iyQbJWhUR6oX0snGm/bUlcQ5fwlLs=;
+ b=ZCXt999ouCT9qwaaaNXs7FcN0BVf3UA8aDkZsCyfYsWAXgq7HkwoSHWmlpq6Lr5ne6Q7VjAmOycQF2HALBE3Nx66xNfzc5a5FyWslifHXXUon5O/Y/18/qbDWbFkfdy+d1CWNTKmfIF7KJsTHh3GeAUPP+EJK2nya1ok/KkpsPnDj4J8kMXfjjP8v5ipsn0IvRLuDwc+fqDB9hZcqt8gah6DY7BOnEGIyYDji5fTuRMtVED5JlE83To5zpsvdnha0PFZ11LGf+ojK80o4pJ8JeiJhLm18tojRQVuB0gNMhr99XuW9bIEfhaGIeJgoRaSyUaecjcw86/tXxKZKP2ShQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
  dkim=pass header.d=altera.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yjHlK/d9/hQurhRPuRio6hXFXp/BRZzuDv1UxsyAaXM=;
- b=E3dnd85f6pkoskhbFbxj61QnL8UeBAAxma53By7zzvEer9FxA2R03BmGzfU1A+19d0PdTHaMd/gGoWX4fJ71w/EKpLlFQEyU6rfVnVVd7gFTXrf4aZbar4Minw+64G2I/OhxTNuOZOKrE+CuqPa4oIbTvZgahNtjhKCZBNaMPmjqHhN71XocyejrGbKv3mnEDpI6cLXZuPpNGMKaAQpeUNvb5fvxk6fd2zCcktaZ7ZAUFKrWNEzXs4nl2v71j2rNHa8QlO2wlMC8vWGBkFsMagDDYPxaObJk8ODwdeh6st7B+szpjsBJ6EKZXlkAXGLrljI9YANFdLuKnu5/H7/hGA==
+ bh=Y/occHS/qxiEV5iyQbJWhUR6oX0snGm/bUlcQ5fwlLs=;
+ b=CsyxuNhGS6mcAzpNt6H3qdZvt+QZZRzQ72YnpLt8IrJxRQplnEnz0818VVwjNFBBGpYu6fhl91n0ytFvFD8Hc0frQAdFZPoHF2UrGSV2Cz38fw3OBPBIuIJYGHyRh1v2+UpbBBzmxNeVzqqPs94Tad8ndpoUTZtnN211tPMJE4jeBbbABFTGiYHZy9ybkUz/XJpff/QFw+csuuZiIXzshTU7D0/hGaSxRasB2FUtt8J9+hjsW2adOaoQ3K7JCQSiAr2s8bfKO4Ojv2RgRwAdJ0YDNjrzaO/puIaRLKWPM5UdEHbJMlAiQuxvBUIPvcerHkAzsJXwkEtZ0IeC6tthOg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=altera.com;
 Received: from DS3PR03MB097838.namprd03.prod.outlook.com (2603:10b6:8:546::7)
  by DSSPR03MB989214.namprd03.prod.outlook.com (2603:10b6:8:374::24) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 05:14:25 +0000
+ 2026 05:14:29 +0000
 Received: from DS3PR03MB097838.namprd03.prod.outlook.com
  ([fe80::fa39:2c18:c265:1d59]) by DS3PR03MB097838.namprd03.prod.outlook.com
  ([fe80::fa39:2c18:c265:1d59%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
- 05:14:25 +0000
+ 05:14:29 +0000
 From: hang.suan.wang@altera.com
 To: Dinh Nguyen <dinguyen@kernel.org>,
 	linux-kernel@vger.kernel.org,
@@ -101,10 +102,12 @@ Cc: muhammad.nazim.amirul.nazle.asmade@altera.com,
 	chee.nouk.phoon@altera.com,
 	genevieve.chan@altera.com,
 	adrian.ho.yin.ng@altera.com
-Subject: [PATCH v8 0/3] Add Altera SoCFPGA Crypto Service (FCS) driver
-Date: Wed, 28 Oct 2026 22:14:18 -0700
-Message-ID: <cover.1793197438.git.hang.suan.wang@altera.com>
+Subject: [PATCH v8 2/3] firmware: stratix10-svc: add FCS crypto-service commands for Agilex 5
+Date: Wed, 28 Oct 2026 22:14:20 -0700
+Message-ID: <0a4c0b71ec076cb467dd409249e3a7466b541084.1793197438.git.hang.suan.wang@altera.com>
 X-Mailer: git-send-email 2.43.7
+In-Reply-To: <cover.1793197438.git.hang.suan.wang@altera.com>
+References: <cover.1793197438.git.hang.suan.wang@altera.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: SJ0PR05CA0016.namprd05.prod.outlook.com
@@ -121,314 +124,550 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS3PR03MB097838:EE_|DSSPR03MB989214:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3c98c846-25b1-4468-d988-08df357b7ff2
+X-MS-Office365-Filtering-Correlation-Id: 23b53490-b5b5-4244-3ce5-08df357b821f
 X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|921020|261028144727099003|5023799004|56012099006|11063799006|261009223027099003|261022075727099003|261022115727099003|261022105027099003|261021121427099003|261021123027099003|261026140227099003|10067099003|261026121527099003|18002099003|55112099003|7136999003|6133799003|3023799007;
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|921020|261028144727099003|56012099006|11063799006|261009223027099003|261022105027099003|261021121427099003|261021123027099003|261026140227099003|261021135927099003|10067099003|261026121527099003|18002099003|55112099003|22082099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	72rHVyF4aEYPNV0Mn88t9CBp2Da44OelFQqYdA04CQdAINzAjFCyABejUCak8Cpejv5ZBC2G8cpZ8pM3PnJ/hXny74WVdteA/O1A/M0qUxJKyanssB8JJU5AjXB3SQOqpwrfRs30jA262Jeha5hKJEEAYQVzoa4AkqVoNr8eopMm+cFE9hws6F/uQPmgzawOfu44u4ksJWyxOs9iPV+YtYs6alpSLX2Y5zjOUrbncpK+vknDrgHOIZk00aRaAp7NiTW4bFCa5l32732C0b2tqF+arS7xAvTzsNkYi53q4q8xC97Dosv1erfEDtg+8p+2HI7NLqXd5kyJWOHobXYkvq3vrCoM+w+ns37LZ271EnIwphAyGnUs9ZP5H7pxZ5hgeMmyKPmjrNVTnwn4gHEUSAjO+5I8AzddDJ5L6ONT5NdGCvRDYNFhSCdy181yp3xJt0OAuTCFq854V6Cr/TJn3LCJWjOmwtVTWld+5pWXK0uZ2Ij95gmOWM5QDPl+iWZ25Cn3/DqV83lq9uH1oCOkiwzCPQ7AdcsejVaMZihUNUmVQ/A2sNVXh6ap+W2r84Hb+BeZMalbzapDAJWvziYJ+BRDL9/BZcBUeA39Jd5S1/XsmMlOkEFH+EdL1LlCKEY+ptzpLyiJLfrq3ONq+dgotVTAf+FwW7DDxcKDlI7pc6FSej1paWyIzqCMkT6R9GTEHRp5OXpxsCzQbmHh6JKisA==
+	pv9sb3pP+TACXqHpSORhZ/uDEtYOb/vJLhDTcsp3ZP4U0YjxgtITqjDuL79/6h5unlG5chSxCFX1u/w06oXjj+hmoDE8g91EdowmH8frjZQ9miKsMnb3A6qVRBWZvHGgUDPwBqSsPzOlMlaT7OGl3cxz0lxxItEHPCyZJpjudOnM42BRgeS0SPqZLi7w8mcZlijEO7BGac4OT0jhtfSew8hb0fUaUq1/arTnnUV7viNTOyFRlGZ7f7WBw6TbwSRFqK3emjhiBLCIUx+xgQuwW5BnCsyn60rMZYGsvGzPxEyc+5qvk76Y7t61vnCF/I7Facbm39exRpKnCYqpimyr+5by69kxIJbQxVWTF65qPyb3uVYkzMsBHUHrVczcazil4shYzwJT2QYkAPF1YfrI7QFUCYFRKbdGtKBkkU0gfQOmbM7A7Ml6Bx7xCvdaE1aLMeY3ZpuANkffyvSKewJScIPIY1tyRtLTbXgbPHcBANUvKlz/Y06OCR715A9SpzH8kvMtDreLZadQq8ELBiuIhrVDsxp42Ik5CV+GTCujk+V/e7RqF+Gw055yQYXfJC2EBc7FETHwAl+RwAPd/radOBZqF1/LPbXjNb5eooQT+NEaevM2srRmNTcd2CvmQ0h1pBItJ184xB07aXE01DZJsnkYJ5ePqw7WTjDoN+/MtUluLm6XoS+6WyVp36ydTugneuQ0IAB2bst1AmQu1P+fmQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS3PR03MB097838.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(921020)(261028144727099003)(5023799004)(56012099006)(11063799006)(261009223027099003)(261022075727099003)(261022115727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261026140227099003)(10067099003)(261026121527099003)(18002099003)(55112099003)(7136999003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS3PR03MB097838.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(921020)(261028144727099003)(56012099006)(11063799006)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(261026140227099003)(261021135927099003)(10067099003)(261026121527099003)(18002099003)(55112099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?EgNINE3v5gmjMXeQRxU9OtYstTROioBhcEJAfDWNhsOdgbICfIq2VenJnl9W?=
- =?us-ascii?Q?7ayTzYma+53CNpGKeCY+8YG0HVB6gFsvavr4tEOm7dyWp8rzTUhfZjWCzh7J?=
- =?us-ascii?Q?f8FgDqyRjzDUmylYZz4X9kxfva7zXG5qbGvRkH1J/cidTD8exo9fSq7yRBJz?=
- =?us-ascii?Q?M0SFt15WsKscFNqlgn6V38QqrpDeMAOc0TCHfoKvckthmxj5B3y/aLq6NNvE?=
- =?us-ascii?Q?ceeZODb9h+xoGwI4XUPI3/MDvMiIBvNxHieH/S7ReqTlyicnBN0KbaRwPqug?=
- =?us-ascii?Q?AoaXq9f0WOP5Rdlx5oWw/kOG7YxvRUhI/GgijOh7vwLMNX7FQ8LGKqCcno2B?=
- =?us-ascii?Q?xnpdSs6ylsJQYfbpgjcD62toSKM3KjOg7VDfWaUzrgokrckfpOeU029/pobR?=
- =?us-ascii?Q?k7pgdir2mNpDMd/foBg11oSVmOWO0kTUNYIhmawpB4Sp9SPpcLai7G7B43Ha?=
- =?us-ascii?Q?6QJIoB5FdsrRRMCfeSmheUUL8JM0a54+CBFzniNPx00JprCU6+r3XUCZ1NRr?=
- =?us-ascii?Q?L5HTQZth5SMUZSd/NF308sNEvEcRgep74/IHktREOqg0oFRBGZ03OVq3bHl1?=
- =?us-ascii?Q?cPeQheYiLErXiFsLPb4NumCwR8UPUhon/jyE1MBd76SrLenbGyDk8TdAfcK1?=
- =?us-ascii?Q?3JC6Np1gPEkvvLmIHguXDPTyZyY7MEE348hNHhV9mtLm9o8rtjIWHpj1uCeL?=
- =?us-ascii?Q?QC7f6ElRKfN5H3dACjHY8BPPcC9xMJQiSPkZfbzeLRAOn07lP8oSJXFgfUmB?=
- =?us-ascii?Q?CzZ+WkNA+19l5NY2dytx/LYyRZxEmppz78C5f6MYuk75YEQIHNrzulOqAi0Y?=
- =?us-ascii?Q?GD/EabtKJUtOz8LgXHWkwR+57nea5FJ3NVOz+ORPoQLa6GP6LFzXDLUgB7ix?=
- =?us-ascii?Q?iN49422cbLnSzeoFj3QxZ5Hsldz1MyoChUUwELGGX/NGpH9dExnXsTxxLqi/?=
- =?us-ascii?Q?ZHp0qNCHAbLlgNfXMTCePH3+Dm7nJQJgKOxJOPUL6RFDdIUGhVjm+dNkjYUm?=
- =?us-ascii?Q?FyZOJIBV91kTxc5pekv2rh8LYFRVRbM84A0pd/9vbuoB7K646omOF+fXPCfK?=
- =?us-ascii?Q?LM4uRJL/bUIkouUecFSLgpGm66n6S+cY/eEH4wSq9f75EMnUa2NYIdWZ0+AX?=
- =?us-ascii?Q?BVms4jMsHKbtOx+zzg19nc7j0vYGbQdEFb2dS1fGBpntELwBUymHkkN1QuJ0?=
- =?us-ascii?Q?j+AqK9jRxhN0qLYOpI/bvaDyiOCFPouGW9tUnNyjqPXUj6v1HCWXzmosI4L9?=
- =?us-ascii?Q?sqvaACL7BkIKFOehllm8/5vswUpxIZg2VSrZN/67clZ8Xk9pqjGGLwVlQXhK?=
- =?us-ascii?Q?JH+XJHQrmI+MD0xaGB30FQw7tNy+Cx/LTUBMP4kpk5PjR2//suYAth7PwRDV?=
- =?us-ascii?Q?J0KDIRsGnF4z36s8ykYpHiYUX8Cq2mHh8C+uxz7biUAP9ruumz+l0zjSMKJr?=
- =?us-ascii?Q?db+uCpJvtBdogHeYtTCdGjciFuzwGsdDK/shqP/um4gdF9vpX/Ixju6vtVkP?=
- =?us-ascii?Q?PoCPgMNP3IzB0eEq85zwdZiMzpRjluPyV6QA/xzCyzvnsbzE/T1LfwWP/aXy?=
- =?us-ascii?Q?QKhD/NoI7SrqXnBqltByvYwmnwFjcA662Yyq436t8/5+B01U63BxcwTvUCyx?=
- =?us-ascii?Q?7xXUCwtatYnRxKf4ILDWfLZP/X6hLsq8bM7054HoZeFytS8/vwyobcsJ0YHc?=
- =?us-ascii?Q?U9Z9tNJsXG9ZgDFaDvm61VRNoA2pFgMd0+I2BKhYuwNdCBvo0FDecWxdXciT?=
- =?us-ascii?Q?3A/RRTL9k3sVD+hpHgi2hoESYBOKyAM=3D?=
+	=?us-ascii?Q?gqSMI79mgFurV9EuexjYceAMUmudVUn7hyrtGcu9WgKD6y5KVovWWto+/szm?=
+ =?us-ascii?Q?tADjqXV4DHv64vNZAWGBVC/5/YIjYFrSipv0efNOjYvH0peagMxy3kePM1wp?=
+ =?us-ascii?Q?PR88fyCyearbyv9PI8qeMyVtCMeJmBNGBG/Du69h/rGwzqHiE7bfBbLANlph?=
+ =?us-ascii?Q?rbcKykAj3FaZQzkMz5CJkcwAbSlUxPCARvrlRniYJkxuQ1VDmYBnGwSoFNki?=
+ =?us-ascii?Q?ONRqs8cOxcNy1nzWHlqwl/IiIBukNJNKLG/glnkvB5NVJJkivT33ifvk4Fxm?=
+ =?us-ascii?Q?smog1xkPAPykfLwft4ZGx99XIQ8HQQEW9i25mxmKCQ1pg6TORzNutCx+KRY8?=
+ =?us-ascii?Q?qyJ6M6+Mi+5AFGL+lQq0gBrl03wvOAiXyWCzc6t9BvdIcwXVqa9Mge6ycMeK?=
+ =?us-ascii?Q?0carGdKB6jPfi1lfX/4IKAZ8NFiKuJkr59BdFIJ5AeTr48hA2lap9ax+1AtK?=
+ =?us-ascii?Q?4lIz09DWX/qu1wVONEJENTYAfCmJMkkS/GdrfHvHCj6oyFgBnBGVz5mPpGxQ?=
+ =?us-ascii?Q?mJCmToZWgqi1mbVGz/IexKMog+Pul9lUe38x0qM2RR45xzX8ubRTF5PTMrT0?=
+ =?us-ascii?Q?3ph5s9Cy5wjwkfvJZg3Aglkr/fspL2z6WC/UT3iSkwxtF54uzpqHk2xD2HJ2?=
+ =?us-ascii?Q?e7cfPSwu69OWblSuopx9FyB7nZo0crLZvIOdUY93+wYpMxCZBcwBbzhSa+gg?=
+ =?us-ascii?Q?bEnD4tGAuD4Y0A+lr3LGBue1C+AJOr3hfN7JxgYDceUGZUvfqu2A+2qSCCFx?=
+ =?us-ascii?Q?dWCq8f2aDe7b8DmByw8UBLNDRIKeSVoPQblqWl0AiadYhF0BIDo3J8gsR2yA?=
+ =?us-ascii?Q?KjeGCDFbzuMLeuRIac+KdX92SEqrFcvP4MUFd8eJl2AmXZqQXxPA8YXoAUZn?=
+ =?us-ascii?Q?gG8AQnTctfCVfwTWax/pM5D9G/JEWWy3LyxE2eBBR9MOiVFFuGnQCMQ79BT3?=
+ =?us-ascii?Q?At/n1bSNl2XKlWClRmg5f4HkzSshT9OgkltUdeTH6RDls9oA6ZdxlchdUkXc?=
+ =?us-ascii?Q?Yu/ZDt0FsBvi0J2AIEhlUN9YDHxa5kU1AQbcpmBHVjznNhjlTR29UiO56t1A?=
+ =?us-ascii?Q?4FmX53mDZbCkCMab3kHxat/Z6SII3YFoXrj1lF9x2T4Yrcw+BZI8Mydi/fRZ?=
+ =?us-ascii?Q?E35k44GaJUsYG6aTGEBC58AWKawVVK9KCMEHJnjZBoMN+mD0NtlcC5RhR33X?=
+ =?us-ascii?Q?wE4wQ/05J3YMeiDx7O2fw7kWmvwU8i9cFI8I3asJY2OVJAKWn559YV3sR6mG?=
+ =?us-ascii?Q?rnY6oWKA6u+KS0+J4aGQuEFBitht05hmvYKfETUFrbuWgbeJVstNQhOMlKMu?=
+ =?us-ascii?Q?XVYXT7qGW+B4ME9B1BDy+9A/nnPU7L1GRLvzTmM2x314ErFM1PS0HFwaeiIm?=
+ =?us-ascii?Q?krA8JcXPHeL/svyY5CzNs5jtBe3MRVbi80txef5D4/y3yNB0DJXh0fKOeNLj?=
+ =?us-ascii?Q?dKVmOlo8Rhr1n5fLNFe/F8WUP9eo5f2dRZFuxzln1lSZzSFCGhJGyCMV3y6G?=
+ =?us-ascii?Q?dcdxMgJihhtsCPFAQOJLnzy3eVN8AyPD1yFVhbMHR3qIjKcL45pX2A96M1fs?=
+ =?us-ascii?Q?PWN5Jk+VbRb27I86jKUHWuSTGwVCwmn5y2JvtAcNAblAbzasp/9xTM+IdG6x?=
+ =?us-ascii?Q?hkUf3kQLwDgy3nUkDgB2Y7gPAd7hT0DCf2r1W9lyX0vPmmhZiI1ulNfzDruZ?=
+ =?us-ascii?Q?o0bkehDp11tJQIlyRk6qYS02eAogpDGL+YAti6yS9+Yt4mNjAJs6Ao7nMoIw?=
+ =?us-ascii?Q?lVfSqIKoAQ=3D=3D?=
 X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c98c846-25b1-4468-d988-08df357b7ff2
+X-MS-Exchange-CrossTenant-Network-Message-Id: 23b53490-b5b5-4244-3ce5-08df357b821f
 X-MS-Exchange-CrossTenant-AuthSource: DS3PR03MB097838.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 05:14:25.4829
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 05:14:29.1184
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XeJ7S9xqzDETzJP4DdxZ3VH59QJzF4wKE56tuZOfvL7Lr6KZXZNbj3GoXdKP65a9hmizM+AVyhW63pbJp79wKelRCPv14vkN9Re7mzgUniM=
+X-MS-Exchange-CrossTenant-UserPrincipalName: PxLQFkaCb0vs1f+M1/qRuNtiofaAzy/V9kuVCct1IfRQKWbBs71zYMBjZZ0wmMPdvMBMLD35a3dUaXspCiOvn8/46ZLeLQos+twRzfGYXFM=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSSPR03MB989214
 
 From: Hang Suan Wang <hang.suan.wang@altera.com>
 
-This series adds Linux support for one of the Altera SoCFPGA Crypto Service
-(FCS): Secure Data Object Service (SDOS). SDOS is an Altera-proprietary
-service that seals and unseals arbitrary application data. FCS is a
-runtime cryptographic interface provided by the Secure Device Manager
-(SDM).
+The Agilex 5 Secure Device Manager (SDM 1.5) exposes an FPGA Crypto
+Service (FCS) over the existing SIP SMC mailbox: a session-based
+interface for crypto primitives such as SDOS (Secure Data Object
+Service) encrypt/decrypt. The service layer has no command to drive it
+yet.
 
-The SDM is the hardware security controller in Altera SoCFPGA devices. Host
-software reaches it through the existing stratix10-svc mailbox, which uses
-Arm Trusted Firmware SIP SMC calls. This series does not expose the rest of
-FCS (RNG, AES, SHA, key management, and so on).
+Configure stratix10-svc about this interface so an in-kernel FCS client
+can use it:
 
-SDOS protects data at rest. The SDM encrypts and decrypts using a key
-derived from a device-unique SDOS root key that never leaves the secure
-boundary. The host supplies plaintext (or an authenticated object) and
-never handles raw key material.
+  - add the client command codes COMMAND_FCS_CRYPTO_OPEN_SESSION,
+    COMMAND_FCS_CRYPTO_CLOSE_SESSION and COMMAND_FCS_SDOS_DATA_EXT (all
+    asynchronous)
 
-SDOS requests use the stratix10-svc asynchronous SIP SMC path. Source and
-destination buffers are allocated from the service-layer memory pool, and
-their physical addresses and SMMU IOVAs are passed to the SDM.
+  - add the matching asynchronous SIP SMC function IDs
+    (INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION,
+    INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION and
+    INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT) with their register-usage
+    documentation;
 
-The caller opens one SDM crypto session with FCS_IOC_OPEN_SESSION and
-closes it with FCS_IOC_CLOSE_SESSION. SDOS commands use that session and
-do not open or close it. The session belongs to the file that opened it:
-another file cannot use it or close it. Closing that file, including when
-the process exits, closes the session in the driver's release path. The
-SDM allows one session at a time. Each command takes the device lock, so
-only one request is in flight, and the kernel gives each command a new
-context ID. That ID is not part of the user ABI.
+  - match "intel,agilex5-svc" and register a "stratix10-fcs" child
+    platform device, mirroring the existing RSU child, so an FCS client
+    driver can bind without a dedicated device-tree node;
 
-This is the session model later FCS commands will use, so a key imported
-in a future series stays alive until the caller closes the session. Those
-commands are not in this series. The ioctls are usable on their own. This
-series does not add a daemon in the kernel or require one in userspace.
+The transport is unchanged: Agilex 5 reuses the SIP SMC calling
+convention and async mailbox ABI the driver already implements, so no
+new transport mechanism is required.
 
-The obvious question is why this is not a trusted-keys backend or a
-crypto API transform. There are four reasons this feature cannot fit:
+The command COMMAND_FCS_SDOS_DATA_EXT takes 2 types of buffer which are
+the physical address of the source and destination, and SMMU remapped
+address. Like other device in the market, Agilex 5 drives the SDM through
+an SMMU. The remapped address carry the IOVA returned by the DMA allocator,
+and the physical slots carry the address backing it, resolved with
+iommu_iova_to_phys().
 
- - No key handle. The key is derived inside the SDM from a device-unique
-   root key and is never set, imported or named by the host, so there is
-   nothing for setkey() to bind to.
+The SDM can only reach 32-bit physical addresses, but dma_alloc_coherent()
+has no way to ask for that directly. Once an IOMMU is involved, it drops
+the __GFP_DMA and __GFP_DMA32 flags and adds __GFP_HIGHMEM instead. It
+assumes the IOMMU can map any page, so address range no longer matters to
+it. The only attribute that skips this behavior is
+DMA_ATTR_FORCE_CONTIGUOUS, which pulls memory from CMA instead. On arm64,
+CMA happens to be reserved below the DMA zone limit, so it ends up
+32-bit-reachable. The contiguous part is not actually what we need it's
+just a side effect of using CMA. Apply this attribute only to channels
+whose commands carry a physical address, and track which attributes each
+buffer was allocated with so it's freed the same way.
 
- - Object format. The SDM emits a firmware-defined container: a 40-byte
-   header, the payload, and a 48-byte HMAC, with the owner ID carried
-   inside the header. That is not a generic AEAD output.
+This is a prerequisite for the SoCFPGA FCS driver, the first in-tree
+consumer of these commands.
 
- - Size. SDOS seals arbitrary application data, from 72 up to 32,760 bytes.
-   Trusted keys exist to wrap key material and their payloads are
-   bounded far below that, so the keyring model does not fit a
-   data-at-rest service.
-
- - Status reporting. SDM statuses 0x102 and 0x103 mean "decryption
-   succeeded, but the key is outdated or should be reprovisioned". They are
-   successes carrying a warning, and the warning has to reach the caller
-   together with valid plaintext. Neither keyctl nor AF_ALG carries a
-   firmware status alongside a successful result.
-
-
-The series is organized as follows:
- - Patch 1 (prerequisite) enlarges the stratix10-svc SMC argument array so
-   the asynchronous FCS SDOS command can pass its full set of parameters.
-
- - Patch 2 (prerequisite) extends the stratix10-svc service layer with the 
-   FCS command codes and matching SIP SMC function IDs, adds the Agilex 5
-   (intel,agilex5-svc) match, and registers a "stratix10-fcs" platform
-   device that an FCS client driver binds to.
-
- - Patch 3 adds the FCS driver. It is a misc device (/dev/socfpga-fcs).
-   FCS_IOC_OPEN_SESSION and FCS_IOC_CLOSE_SESSION manage the SDM crypto
-   session. FCS_IOC_SDOS encrypts or decrypts on that session.
-
-Testing:
- - Built for arm64 (defconfig + CONFIG_ALTERA_SOCFPGA_FCS=m).
- - Tested on an Agilex 5 SoC FPGA board (SDOS root key provisioned).
-   SDOS encrypt/decrypt round-trip; the decrypted output matches the
-   original 32-byte plaintext:
-
-   root@agilex5e:~# hexdump secret.bin
-	0000000 cf4d f649 0053 eec5 7fa6 c864 6eee 2335
-	0000010 c8c5 e960 94cd d20b c12f 6228 b236 ad9c
-	0000020 1209 71b1 7dc3 f7bc dd18 a2a0 ae87 c6a2
-	0000030 3eae fdeb ccf0 5e57 e8fd b385 205a 60c1
-
-   root@agilex5e:~# ./fcs_client -e
-   root@agilex5e:~# ./fcs_client -E -i secret.bin -o enc.bin -d 0x1234 -r
-                    0xabcd
-   root@agilex5e:~# ./fcs_client -D -i enc.bin -o sdos_decrypt.bin
-   root@agilex5e:~# ./fcs_client -l
-
-   root@agilex5e:~# hexdump -v -e '/1 "%02x "' sdos_decrypt.bin
-   4d cf 49 f6 53 00 c5 ee  a6 7f 64 c8 ee 6e 35 23  |M.I.S.....d..n5#|
-   c5 c8 60 e9 cd 94 0b d2  2f c1 28 62 36 b2 9c ad  |..`...../.(b6...|
-   09 12 b1 71 c3 7d bc f7  18 dd a0 a2 87 ae a2 c6  |...q.}..........|
-   ae 3e eb fd f0 cc 57 5e  fd e8 85 b3 5a 20 c1 60  |.>....W^....Z .`|
-
+Signed-off-by: Hang Suan Wang <hang.suan.wang@altera.com>
 ---
-Changes since v7:
- - Give the caller the session lifecycle. FCS_IOC_OPEN_SESSION opens one
-   SDM crypto session. FCS_IOC_CLOSE_SESSION closes it. SDOS no longer
-   opens or closes the session, including when a request fails.
- - Bind the session to the file that opened it. Another open returns
-   -EBUSY. Use or close from another file returns -EPERM.
- - Close the session from the file release path, so process exit still
-   tears it down.
- - Generate a new context ID for each command. It remains internal to
-   the kernel.
- - Document the session lifecycle, and split EBUSY and EPERM in the
-   ioctl and ABI docs.
+ drivers/firmware/stratix10-svc.c              | 178 +++++++++++++++++-
+ include/linux/firmware/intel/stratix10-smc.h  |  64 +++++++
+ .../firmware/intel/stratix10-svc-client.h     |  14 ++
+ 3 files changed, 247 insertions(+), 9 deletions(-)
 
-Changes since v6:
- - Add proper support for the two SDOS address forms required by the SDM:
-   pass the physical address backing each buffer separately from its
-   SMMU-remapped IOVA.
- - Resolve DMA IOVAs through the device IOMMU domain with
-   iommu_iova_to_phys(), and reject physical addresses outside the SDM's
-   32-bit addressable range.
- - Allocate FCS service buffers with DMA_ATTR_FORCE_CONTIGUOUS on the SMMU
-   path so their backing memory is reachable by the SDM; track allocation
-   attributes and use matching dma_free_attrs().
- - Mark only the FCS service channel as requiring physically reachable
-   contiguous allocations.
- - Rebase onto the current upstream stratix10-svc implementation and update
-   FCS child-device registration and cleanup.
- - Convert FCS core logging to device-scoped dev_*() messages.
- - Update the MAINTAINERS mailing list and Makefile placement.
-
-Changes since v5:
- - Drop the exported fcs_alloc_buf()/fcs_free_buf() helpers. fcs_sdos_crypt()
-   now allocates and releases the service-layer pool buffers itself, both
-   under priv->lock, so a pool buffer can no longer be leaked when the device
-   is unbound while a request is in flight.
- - Stage user data through kvmalloc() buffers in fcs_sdos() so
-   copy_from_user()/copy_to_user() run outside priv->lock. A faulting user
-   page can no longer pin the lock and block device removal.
- - Read the remaining 32-bit mailbox results with lower_32_bits(): the SDOS
-   payload size and the ATF version error status. Both still cast an
-   arm_smccc unsigned long through a 32-bit pointer.
- - Document struct fcs_ioc_sdos and FCS_IOC_SDOS with kernel-doc in
-   include/uapi/misc/socfpga-fcs-crypto.h. The structure layout and the
-   ioctl number are unchanged.
- - Add Documentation/misc-devices/socfpga-fcs.rst: the device node, the
-   ioctl, the size ranges per direction, the errno table, and the
-   0x102/0x103 success-with-warning statuses.
- - Explain in this cover letter why SDOS is a dedicated ioctl rather than a
-   trusted-keys backend or a crypto API transform.
-
-Changes since v4:
- - Read ATF version words with lower_32_bits() so a 32-bit value in an
-   arm_smccc unsigned long is correct on 64-bit big-endian.
- - Keep the SDOS payload size when SDM returns 0x102/0x103 (decrypt OK,
-   outdated key). Those are success-with-warning; still return the
-   plaintext.
- - Release the svc channel in driver remove, not on last close, so unbind
-   cannot free parent channel memory while an fd is still open.
- - Guard fcs_alloc_buf()/fcs_free_buf() with the lock and a NULL channel
-   check so they do not use the channel after unbind.
- - Always call stratix10_svc_done() after the ATF version query, including
-   send failure, so the sync svc kthread is stopped safely.
-
-Changes since v3:
- - Rebase onto current linux-upstream; register stratix10-fcs beside the
-   existing socfpga-hwmon child device.
- - Drop context_id from the ioctl UAPI; the kernel owns session and context
- - Make FCS state per-device and kref-counted so an open fd can outlive
-   driver remove (-ENODEV after unbind).
- - Copy user buffers in the front-end; the core uses kernel pointers only.
- - Use kzalloc_obj() and shorten comments.
-
-Changes since v2:
-socfpga-fcs (front-end):
- - Replace the sysfs store interface with an ioctl character device
-   (/dev/socfpga_fcs) using a fixed-width UAPI struct and
-   compat_ptr_ioctl(), fixing the KASAN out-of-bounds read and the
-   32-bit incompatibility of casting the sysfs buffer as a pointer.
- - Add include/uapi/misc/socfpga-fcs-crypto.h and register the ioctl
-   magic in Documentation/userspace-api/ioctl/ioctl-number.rst.
- - Add a .release handler so a session is torn down if the owning fd
-   is closed (including on crash).
-socfpga-fcs (core):
- - Manage the crypto session internally: SDOS opens and closes its own
-   session; reject a concurrent open with -EBUSY. Removes the
-   user-visible open/close-session interface and session UUID, fixing
-   the session-exhaustion/DoS concern.
- - Harden the async poll loop: keep polling until the deadline and
-   always call stratix10_svc_async_done(), fixing the teardown
-   use-after-free from the previous -EINPROGRESS early-return and the
-   needless full-timeout block.
- - Clear receive_cb only on the synchronous send-error path so a late
-   firmware response cannot deref a NULL callback.
- - Set priv = NULL on all fcs_init() error paths so a later probe is
-   not permanently rejected with -EBUSY.
- - Read the SDOS owner ID with get_unaligned_le64() for correct
-   little-endian handling on big-endian hosts.
-stratix10-svc:
- - Enlarge the SMC arguments array so the async SDOS command can
-   pass its full parameter set (through a11).
- - In remove(), unregister the child devices before
-   stratix10_svc_async_exit() so async_poll() cannot race a freed
-   handle.
-
-Changes since v1:
-stratix10-svc:
- - Forward result registers (kaddr1) for OPEN_SESSION and SDOS_DATA_EXT
-   so session ID / output length reach the client.
-socfpga-fcs (front-end):
- - Publish sysfs via driver.dev_groups on the platform device instead of
-   a raw kobject under /sys/kernel; callbacks now get a struct device.
-socfpga-fcs (core):
- - Convert completion timeouts with msecs_to_jiffies(); drop TIMEOUT.
- - On SDM-busy timeout (-EAGAIN), abort without async_done() (no id
-   reuse) and return -EINPROGRESS.
- - SDOS: on in-flight abort, leak s_buf/d_buf instead of freeing to
-   avoid corruption from late firmware DMA.
- - Validate the caller UUID early in fcs_sdos_crypt().
- - Enforce single instance: -EBUSY in fcs_init() and priv NULL-guard in
-   fcs_acquire_cmd_ctx().
- - Drop the always-zero platform attribute and fcs_get_platform().
- - Set/clear receive_cb only around the synchronous send.
- - Use device-lifetime priv->completion for the async path (was on-stack).
- - Use the local ctx snapshot consistently in fcs_sdos_crypt() and
-   fcs_session_close().
- - Point sdos.dst_size at priv->sdos_output_size, not a stack variable.
-socfpga-fcs.h:
- - Drop platform/AGILEX5_PLAT; add sdos_output_size.
----
-
-Hang Suan Wang (3):
-  firmware: stratix10-svc: increase args array
-  firmware: stratix10-svc: add FCS crypto-service commands for Agilex 5
-  firmware: socfpga-fcs: add Altera SoCFPGA FCS driver with SDOS feature
-
- .../sysfs-devices-platform-stratix10-fcs      |  22 +
- Documentation/misc-devices/index.rst          |   1 +
- Documentation/misc-devices/socfpga-fcs.rst    | 171 ++++
- .../userspace-api/ioctl/ioctl-number.rst      |   1 +
- MAINTAINERS                                   |  11 +
- drivers/firmware/Kconfig                      |  17 +
- drivers/firmware/Makefile                     |   2 +
- drivers/firmware/socfpga-fcs-core.c           | 760 ++++++++++++++++++
- drivers/firmware/socfpga-fcs.c                | 304 +++++++
- drivers/firmware/stratix10-svc.c              | 184 ++++-
- include/linux/firmware/intel/socfpga-fcs.h    | 148 ++++
- include/linux/firmware/intel/stratix10-smc.h  |  64 ++
- .../firmware/intel/stratix10-svc-client.h     |  16 +-
- include/uapi/misc/socfpga-fcs-crypto.h        | 118 +++
- 14 files changed, 1807 insertions(+), 12 deletions(-)
- create mode 100644 Documentation/ABI/testing/sysfs-devices-platform-stratix10-fcs
- create mode 100644 Documentation/misc-devices/socfpga-fcs.rst
- create mode 100644 drivers/firmware/socfpga-fcs-core.c
- create mode 100644 drivers/firmware/socfpga-fcs.c
- create mode 100644 include/linux/firmware/intel/socfpga-fcs.h
- create mode 100644 include/uapi/misc/socfpga-fcs-crypto.h
-
+diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
+index 8f07b945392a..15af21203c8f 100644
+--- a/drivers/firmware/stratix10-svc.c
++++ b/drivers/firmware/stratix10-svc.c
+@@ -72,6 +72,7 @@
+ 
+ /* stratix10 service layer clients */
+ #define STRATIX10_RSU				"stratix10-rsu"
++#define STRATIX10_FCS				"stratix10-fcs"
+ #define SOCFPGA_HWMON				"socfpga-hwmon"
+ 
+ /* Maximum number of SDM client IDs. */
+@@ -145,10 +146,12 @@ struct stratix10_svc_chan;
+ /**
+  * struct stratix10_svc - svc private data
+  * @stratix10_svc_rsu: pointer to stratix10 RSU device
++ * @stratix10_svc_fcs: pointer to stratix10 FCS device
+  * @stratix10_svc_hwmon: pointer to stratix10 HWMON device
+  */
+ struct stratix10_svc {
+ 	struct platform_device *stratix10_svc_rsu;
++	struct platform_device *stratix10_svc_fcs;
+ 	struct platform_device *stratix10_svc_hwmon;
+ };
+ 
+@@ -181,8 +184,10 @@ struct stratix10_svc_sh_memory {
+  *         On the SMMU path this is (IOVA + %SVC_SDM_DMA_ADDR_OFFSET);
+  *         on the gen_pool path this equals the raw physical address.
+  * @size: size of memory
+- * @dma_addr: IOVA returned by dma_alloc_coherent(); used to free the
+- *            mapping via dma_free_coherent() on the SMMU path.
++ * @dma_addr: IOVA returned by the DMA allocator; used to release the
++ *            mapping again on the SMMU path.
++ * @attrs: DMA attributes the buffer was allocated with, passed back to
++ *         dma_free_attrs() so that the release matches the allocation.
+  * @node: link list head node
+  *
+  * This struct is used in a list that keeps track of buffers which have
+@@ -195,6 +200,7 @@ struct stratix10_svc_data_mem {
+ 	phys_addr_t paddr;
+ 	size_t size;
+ 	dma_addr_t dma_addr;
++	unsigned long attrs;
+ 	struct list_head node;
+ };
+ 
+@@ -306,6 +312,10 @@ struct stratix10_async_ctrl {
+  * @svc_fifo_lock: protect access to service message data queue (locking pending fifo)
+  * @lock: protect access to the channel
+  * @async_chan: reference to asynchronous channel object for this channel
++ * @mem_contiguous: when true, buffers for this channel are allocated so that
++ *                  their physical address is reachable by the SDM, which is
++ *                  required by commands passing a physical address rather
++ *                  than an IOVA.
+  *
+  * This struct is used by service client to communicate with service layer.
+  * Each service client has its own channel created by service controller.
+@@ -319,6 +329,7 @@ struct stratix10_svc_chan {
+ 	spinlock_t svc_fifo_lock;
+ 	spinlock_t lock;
+ 	struct stratix10_async_chan *async_chan;
++	bool mem_contiguous;
+ };
+ 
+ /**
+@@ -336,6 +347,8 @@ struct stratix10_svc_chan {
+  * @psci_reboot_nb: reboot notifier for PSCI secondary CPU offlining
+  * @use_dma_mem: when true, buffers are allocated via dma_alloc_coherent()
+  *               instead of the ATF reserved-memory gen_pool.
++ * @domain: IOMMU domain the SDM-visible buffers are mapped into; used to
++ *          resolve a buffer's IOVA back to the physical address ATF expects.
+  * @dma_addr_offset: value added to the DMA address (IOVA) before passing it
+  *                   to ATF via SMC. ATF uses this offset to distinguish
+  *                   SMMU-mapped buffers from direct physical addresses; it
+@@ -361,6 +374,7 @@ struct stratix10_svc_controller {
+ 	struct stratix10_async_ctrl actrl;
+ 	struct notifier_block psci_reboot_nb;
+ 	bool use_dma_mem;
++	struct iommu_domain *domain;
+ 	unsigned long dma_addr_offset;
+ 	struct stratix10_svc_chan chans[] __counted_by(num_chans);
+ };
+@@ -396,6 +410,88 @@ static void *svc_pa_to_va(unsigned long addr)
+ 	return NULL;
+ }
+ 
++/**
++ * svc_va_to_pa() - translate virtual address to physical address
++ * @ctrl: pointer to service layer controller
++ * @vaddr: buffer returned by stratix10_svc_allocate_memory()
++ *
++ * Provides the physical address arguments of an SMC call. On the SMMU path
++ * ATF expects the address backing the buffer's IOVA here, with the IOVA
++ * itself supplied separately by svc_va_to_iova(). The backing address is
++ * resolved through the device's IOMMU domain, since dma_alloc_coherent()
++ * returns a remapped virtual address that virt_to_phys() cannot translate.
++ * On the gen_pool path the stored address is already a physical address.
++ *
++ * The SDM can only reach a 32-bit physical address, so reject anything
++ * beyond that rather than letting the SDM fail the command later.
++ *
++ * Return: physical address of the buffer, or 0 if the provided virtual
++ * address doesn't exist or is not reachable by the SDM.
++ */
++static unsigned long svc_va_to_pa(struct stratix10_svc_controller *ctrl,
++				  void *vaddr)
++{
++	struct stratix10_svc_data_mem *pmem;
++	phys_addr_t pa;
++
++	if (!vaddr)
++		return 0;
++
++	guard(mutex)(&svc_mem_lock);
++	list_for_each_entry(pmem, &svc_data_mem, node) {
++		if (pmem->vaddr != vaddr)
++			continue;
++
++		if (!ctrl->use_dma_mem)
++			return pmem->paddr;
++
++		pa = iommu_iova_to_phys(ctrl->domain, pmem->dma_addr);
++		if (!pa || pa > U32_MAX) {
++			dev_err(ctrl->dev,
++				"payload %p resolved to %pa, which the SDM cannot reach\n",
++				vaddr, &pa);
++			return 0;
++		}
++
++		return pa;
++	}
++
++	dev_err(ctrl->dev, "payload %p is not a service layer buffer\n", vaddr);
++	return 0;
++}
++
++/**
++ * svc_va_to_iova() - translate virtual address to SMMU remapped address
++ * @ctrl: pointer to service layer controller
++ * @vaddr: buffer returned by stratix10_svc_allocate_memory()
++ *
++ * Provides the SMMU remapped address arguments of an SMC call. Without an
++ * SMMU there is no separate remapped address, and ATF expects these
++ * arguments to repeat the physical address.
++ *
++ * Return: IOVA of the buffer on the SMMU path, its physical address on the
++ * gen_pool path, or 0 if the provided virtual address doesn't exist.
++ */
++static unsigned long svc_va_to_iova(struct stratix10_svc_controller *ctrl,
++				    void *vaddr)
++{
++	struct stratix10_svc_data_mem *pmem;
++
++	if (!vaddr)
++		return 0;
++
++	guard(mutex)(&svc_mem_lock);
++	list_for_each_entry(pmem, &svc_data_mem, node) {
++		if (pmem->vaddr != vaddr)
++			continue;
++
++		return ctrl->use_dma_mem ? pmem->dma_addr : pmem->paddr;
++	}
++
++	dev_err(ctrl->dev, "payload %p is not a service layer buffer\n", vaddr);
++	return 0;
++}
++
+ /**
+  * svc_thread_cmd_data_claim() - claim back buffer from the secure world
+  * @ctrl: pointer to service layer controller
+@@ -1492,6 +1588,26 @@ int stratix10_svc_async_send(struct stratix10_svc_chan *chan, void *msg,
+ 		STRATIX10_SIP_SMC_SET_TRANSACTIONID_X1(handle->transaction_id);
+ 
+ 	switch (p_msg->command) {
++	case COMMAND_FCS_CRYPTO_OPEN_SESSION:
++		args.a0 = INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION;
++		break;
++	case COMMAND_FCS_CRYPTO_CLOSE_SESSION:
++		args.a0 = INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION;
++		args.a2 = p_msg->arg[0];
++		break;
++	case COMMAND_FCS_SDOS_DATA_EXT:
++		args.a0 = INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT;
++		args.a2 = p_msg->arg[0];
++		args.a3 = p_msg->arg[1];
++		args.a4 = p_msg->arg[2];
++		args.a5 = svc_va_to_pa(ctrl, p_msg->payload);
++		args.a6 = p_msg->payload_length;
++		args.a7 = svc_va_to_pa(ctrl, p_msg->payload_output);
++		args.a8 = p_msg->payload_length_output;
++		args.a9 = p_msg->arg[3];
++		args.a10 = svc_va_to_iova(ctrl, p_msg->payload);
++		args.a11 = svc_va_to_iova(ctrl, p_msg->payload_output);
++		break;
+ 	case COMMAND_RSU_GET_SPT_TABLE:
+ 		args.a0 = INTEL_SIP_SMC_ASYNC_RSU_GET_SPT;
+ 		break;
+@@ -1589,8 +1705,13 @@ static int stratix10_svc_async_prepare_response(struct stratix10_svc_chan *chan,
+ 	data->status = STRATIX10_GET_SDM_STATUS_CODE(handle->res.a1);
+ 
+ 	switch (p_msg->command) {
++	case COMMAND_FCS_CRYPTO_CLOSE_SESSION:
+ 	case COMMAND_RSU_NOTIFY:
+ 		break;
++	case COMMAND_FCS_CRYPTO_OPEN_SESSION:
++	case COMMAND_FCS_SDOS_DATA_EXT:
++		data->kaddr1 = (void *)&handle->res.a2;
++		break;
+ 	case COMMAND_RSU_GET_SPT_TABLE:
+ 		data->kaddr1 = (void *)&handle->res.a2;
+ 		data->kaddr2 = (void *)&handle->res.a3;
+@@ -2157,7 +2278,25 @@ void *stratix10_svc_allocate_memory(struct stratix10_svc_chan *chan,
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	if (ctrl->use_dma_mem) {
+-		va = dma_alloc_coherent(ctrl->dev, size, &dma_addr, GFP_KERNEL);
++		pmem->attrs = 0;
++		if (chan->mem_contiguous) {
++			/*
++			 * Some SMC calls take a buffer's physical address and
++			 * its SMMU remapped address in separate arguments, and
++			 * the SDM has to reach the physical one (see
++			 * INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT). The default
++			 * allocator path adds __GFP_HIGHMEM, so route the
++			 * allocation through CMA instead, which arm64 reserves
++			 * below the DMA zone limit.
++			 */
++			if (size <= PAGE_SIZE)
++				size = PAGE_SIZE * 2;
++			pmem->attrs = DMA_ATTR_FORCE_CONTIGUOUS;
++			va = dma_alloc_attrs(ctrl->dev, size, &dma_addr, GFP_KERNEL,
++					     pmem->attrs);
++		} else {
++			va = dma_alloc_coherent(ctrl->dev, size, &dma_addr, GFP_KERNEL);
++		}
+ 		if (!va) {
+ 			kfree(pmem);
+ 			return ERR_PTR(-ENOMEM);
+@@ -2211,8 +2350,8 @@ void stratix10_svc_free_memory(struct stratix10_svc_chan *chan, void *kaddr)
+ 			continue;
+ 
+ 		if (ctrl->use_dma_mem) {
+-			dma_free_coherent(ctrl->dev, pmem->size,
+-					  pmem->vaddr, pmem->dma_addr);
++			dma_free_attrs(ctrl->dev, pmem->size, pmem->vaddr,
++				       pmem->dma_addr, pmem->attrs);
+ 		} else {
+ 			gen_pool_free(ctrl->genpool,
+ 				      (unsigned long)kaddr, pmem->size);
+@@ -2303,8 +2442,8 @@ static void svc_data_mem_cleanup(void *data)
+ 		dev_warn(ctrl->dev, "leaked svc buffer %p, freeing on unbind\n",
+ 			 pmem->vaddr);
+ 		if (ctrl->use_dma_mem) {
+-			dma_free_coherent(ctrl->dev, pmem->size,
+-					  pmem->vaddr, pmem->dma_addr);
++			dma_free_attrs(ctrl->dev, pmem->size, pmem->vaddr,
++				       pmem->dma_addr, pmem->attrs);
+ 		} else {
+ 			gen_pool_free(ctrl->genpool,
+ 				      (unsigned long)pmem->vaddr, pmem->size);
+@@ -2386,6 +2525,8 @@ static int stratix10_svc_drv_probe(struct platform_device *pdev)
+ 	init_completion(&controller->complete_status);
+ 
+ 	if (use_dma_mem) {
++		controller->domain = iommu_get_domain_for_dev(dev);
++
+ 		ret = devm_add_action_or_reset(dev, svc_data_mem_cleanup, controller);
+ 		if (ret)
+ 			goto err_destroy_pool;
+@@ -2421,6 +2562,8 @@ static int stratix10_svc_drv_probe(struct platform_device *pdev)
+ 		controller->chans[i].scl = NULL;
+ 		controller->chans[i].ctrl = controller;
+ 		controller->chans[i].name = (char *)chan_names[i];
++		controller->chans[i].mem_contiguous =
++			!strcmp(controller->chans[i].name, SVC_CLIENT_FCS);
+ 		spin_lock_init(&controller->chans[i].lock);
+ 		ret = kfifo_alloc(&controller->chans[i].svc_fifo, fifo_size, GFP_KERNEL);
+ 		if (ret) {
+@@ -2448,9 +2591,20 @@ static int stratix10_svc_drv_probe(struct platform_device *pdev)
+ 		goto err_free_fifos;
+ 	}
+ 
++	svc->stratix10_svc_fcs = platform_device_alloc(STRATIX10_FCS, 0);
++	if (!svc->stratix10_svc_fcs) {
++		dev_err(dev, "failed to allocate %s device\n", STRATIX10_FCS);
++		ret = -ENOMEM;
++		goto err_unregister_clients;
++	}
++
+ 	ret = platform_device_add(svc->stratix10_svc_rsu);
+ 	if (ret)
+-		goto err_put_device;
++		goto err_put_rsu;
++
++	ret = platform_device_add(svc->stratix10_svc_fcs);
++	if (ret)
++		goto err_put_fcs;
+ 
+ 	if (IS_ENABLED(CONFIG_SENSORS_ALTERA_SOCFPGA_HWMON)) {
+ 		svc->stratix10_svc_hwmon =
+@@ -2484,9 +2638,13 @@ static int stratix10_svc_drv_probe(struct platform_device *pdev)
+ 		platform_device_unregister(svc->stratix10_svc_hwmon);
+ 	if (svc->stratix10_svc_rsu)
+ 		platform_device_unregister(svc->stratix10_svc_rsu);
++	if (svc->stratix10_svc_fcs)
++		platform_device_unregister(svc->stratix10_svc_fcs);
+ 	goto err_free_fifos;
+-err_put_device:
++err_put_rsu:
+ 	platform_device_put(svc->stratix10_svc_rsu);
++err_put_fcs:
++	platform_device_put(svc->stratix10_svc_fcs);
+ err_free_fifos:
+ 	/* only remove from list if list_add_tail() was reached */
+ 	if (!list_empty(&controller->node))
+@@ -2513,6 +2671,8 @@ static void stratix10_svc_drv_remove(struct platform_device *pdev)
+ 	platform_device_unregister(svc->stratix10_svc_rsu);
+ 	if (svc->stratix10_svc_hwmon)
+ 		platform_device_unregister(svc->stratix10_svc_hwmon);
++	if (svc->stratix10_svc_fcs)
++		platform_device_unregister(svc->stratix10_svc_fcs);
+ 
+ 	psci_cpu_off_teardown(ctrl);
+ 
+diff --git a/include/linux/firmware/intel/stratix10-smc.h b/include/linux/firmware/intel/stratix10-smc.h
+index 6a6fa51ad39e..fb01116c1cb9 100644
+--- a/include/linux/firmware/intel/stratix10-smc.h
++++ b/include/linux/firmware/intel/stratix10-smc.h
+@@ -669,6 +669,70 @@ INTEL_SIP_SMC_FAST_CALL_VAL(INTEL_SIP_SMC_FUNCID_FPGA_CONFIG_COMPLETED_WRITE)
+ #define INTEL_SIP_SMC_FCS_GET_PROVISION_DATA \
+ 	INTEL_SIP_SMC_STD_CALL_VAL(INTEL_SIP_SMC_FUNCID_FCS_GET_PROVISION_DATA)
+ 
++/**
++ * Request INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT
++ * Async call to perform encryption/decryption
++ *
++ * Call register usage:
++ * a0 INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT
++ * a1 transaction job id
++ * a2 session ID
++ * a3 context ID
++ * a4 cryption operating mode (1 for encryption and 0 for decryption)
++ * a5 physical address of source
++ * a6 size of source
++ * a7 physical address of destination
++ * a8 size of destination
++ * a9 sdos ownership
++ * a10 smmu remapped address of source
++ * a11 smmu remapped address of destination
++ * a12-a17 not used
++ *
++ * Return status:
++ * a0 INTEL_SIP_SMC_STATUS_OK or INTEL_SIP_SMC_STATUS_ERROR
++ * a1-a17 not used
++ */
++#define INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_CRYPTION_EXT (0x12F)
++#define INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT \
++	INTEL_SIP_SMC_ASYNC_VAL(INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_CRYPTION_EXT)
++
++/**
++ * Request INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION
++ * Async call to open and establish a crypto service session with firmware
++ *
++ * Call register usage:
++ * a0 INTEL_SIP_SMC_FCS_OPEN_CRYPTO_SERVICE_SESSION
++ * a1 transaction job id
++ * a2-a17 not used
++ *
++ * Return status:
++ * a0 INTEL_SIP_SMC_STATUS_OK ,INTEL_SIP_SMC_STATUS_REJECTED
++ * or INTEL_SIP_SMC_STATUS_BUSY
++ * a1-a17 not used
++ */
++#define INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_OPEN_CS_SESSION (0x13A)
++#define INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION \
++	INTEL_SIP_SMC_ASYNC_VAL(INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_OPEN_CS_SESSION)
++
++/**
++ * Request INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION
++ * Async call to close a service session
++ *
++ * Call register usage:
++ * a0 INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION
++ * a1 transaction job id
++ * a2 session ID
++ * a3-a17 not used
++ *
++ * Return status:
++ * a0 INTEL_SIP_SMC_STATUS_OK ,INTEL_SIP_SMC_STATUS_REJECTED
++ * or INTEL_SIP_SMC_STATUS_BUSY
++ * a1-a17 not used
++ */
++#define INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_CLOSE_CS_SESSION (0x13B)
++#define INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION \
++	INTEL_SIP_SMC_ASYNC_VAL(INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_CLOSE_CS_SESSION)
++
+ /**
+  * Request INTEL_SIP_SMC_HWMON_READTEMP
+  * Sync call to request temperature
+diff --git a/include/linux/firmware/intel/stratix10-svc-client.h b/include/linux/firmware/intel/stratix10-svc-client.h
+index 9bb46c3cb0f8..edd7953d5d08 100644
+--- a/include/linux/firmware/intel/stratix10-svc-client.h
++++ b/include/linux/firmware/intel/stratix10-svc-client.h
+@@ -122,6 +122,15 @@ struct stratix10_svc_chan;
+  * @COMMAND_SMC_SVC_VERSION: Non-mailbox SMC SVC API Version,
+  * return status is SVC_STATUS_OK
+  *
++ * @COMMAND_FCS_CRYPTO_OPEN_SESSION: open the crypto service session(s),
++ * return status is SVC_STATUS_OK or SVC_STATUS_ERROR
++ *
++ * @COMMAND_FCS_CRYPTO_CLOSE_SESSION: close the crypto service session(s),
++ * return status is SVC_STATUS_OK or SVC_STATUS_ERROR
++ *
++ * @COMMAND_FCS_SDOS_DATA_EXT: extend SDOS data encryption & decryption,
++ * return status is SVC_STATUS_OK or SVC_STATUS_ERROR
++ *
+  * @COMMAND_MBOX_SEND_CMD: send generic mailbox command, return status is
+  * SVC_STATUS_OK or SVC_STATUS_ERROR
+  *
+@@ -190,6 +199,11 @@ enum stratix10_svc_command_code {
+ 	COMMAND_FCS_RANDOM_NUMBER_GEN,
+ 	/* for general status poll */
+ 	COMMAND_POLL_SERVICE_STATUS = 40,
++	/* for crypto service */
++	COMMAND_FCS_CRYPTO_OPEN_SESSION = 50,
++	COMMAND_FCS_CRYPTO_CLOSE_SESSION,
++	/* for extended SDOS encrypt/decrypt */
++	COMMAND_FCS_SDOS_DATA_EXT = 82,
+ 	/* for generic mailbox send command */
+ 	COMMAND_MBOX_SEND_CMD = 100,
+ 	/* Non-mailbox SMC Call */
 -- 
 2.43.7
 
