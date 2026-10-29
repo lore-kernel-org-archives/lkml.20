@@ -1,54 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793289039;
-	b=q+Wz42o+pHexGAkWC5p1aAZ6/igocKITh6P2iZiBaC0pE791m7aJd9PFqb8XwFpQ9gCs
-	 FRSSnaHyjvFS2V8y4ZNHA1opGw0Z2DIC63yZPCOkq2jXiaFQnxMMfx33Dg2HM1EmuorhN
-	 fFe9LSUVG6x6CHDfBT3PHQzabC9kYr2yxM/Z2mbDhQn1aEDj1o0YIPefXYbxJVNXEkWC8
-	 jim1Qd/ierLWVD4385qCVs20fSNsIsyRJl0thhrXeJ3DpccbzPAnq+1YudhuUUfoF4FWV
-	 kDcYr4EDk3G4frwkZMiWKXEoDg2JeRPj6Jsr4qC4ZwfBRiZFxSa3608HQYKd29lOvdw==
+	t=1793289044;
+	b=e1kVrEHhOp8fncUtRLSuWAT/wW5pokYsNf6RpVckP/fehhMcDmKBozznlXSWbEBAdh7m
+	 KPOUcdxEoZgBI4asyeBfEkqV+cF1Mz1kzjIyJxlHmLuX5IrqdLCmngoVWA5UxJd+hSM0J
+	 +iv6kgrZZZoOgGQmPvx9JSgUBNBzsKE6un6+DSz0yIEBwcO9OXUvaPWj2aMeTD/kbnRyH
+	 W8nzVEMNW6zfZKo6UfPY4Ad/vQuKS8oBmJ8+QAEuWtmIDaOiinK9tLr819otoHAaJ4Q2h
+	 Xs4tG7XIWtrC16gVb9euqJD0JpvT2A2xz30blDouwhRsc7GWbqxqZcOKxNr3ZxJYLsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289039;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=XTXAk3xXPUgSSlYSBEKFxO0EtkwpuyrpEnArRai3PhQ=;
-	b=zrZvgTIBthE+ic9rIJBKr0E3R52MitPw+mKr44kvLLd9P1+360InMSHkhSJM7X4U6Hck
-	 vX8oYbewEQfN/zb7LHUzwhw5Rt4lSxXbt4R7nHlGGxm0g8Z3q1hxXw5uqUqDT3+lEl8WQ
-	 YeXSnfHiNf/eVJWPDLRHyr80r4tG1ppBil03axmvHQ+rwMyFG5FscgiQ/19n5G4fVTQUu
-	 mfhREXGbdQFZcXvT0OFRmqtYHiw/bvNp29UFNHB1jgi6YHe487MEtSU3Tm/uyL8o3NJNc
-	 B/qRrB+f9quRLS7wkj9nz4/7X662YCsRMxs5HCnZCDftqMmXsYWbQQtOlm2VGIhQLzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793289044;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=iQbVa0edXFDC7cRO+byx8KLZb9+VOYhs4XsToamxi9I=;
+	b=XqAhgD8AJ01idOGc8dS/K8HUyRTe6lRulkudyFn9k61DgnbY5AHD8xKEZ3qtjD6/5Px/
+	 ig+orJdU9P9umuufVTA+7fLcQhuIDFaPT+3HkjsncZB87TnYW3pO+9/TD4D+lAJhuIpoN
+	 FjPpauXmSXZqnujJZVbVxlksLnzjc5g+djNqYyUg1HShJvh5B/L0CgaV2eDT9QS6XutmQ
+	 Hcv3MlAld19oMeRXqKz2d4VEFHliCyZQJtEC7kktbaDXsUw/LIpEUgZe81f0mCPZFBjmf
+	 cijODJo65WMAyagDVVRtj6eAiAkczFyZM4LrgDDUMEBXS0OiqaBOkrQzwXag4mywbxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c6ShX5G1;
-	arc=none smtp.remote-ip=91.218.175.176
-Received: from mta0.migadu.com (out-176.mta0.migadu.com [91.218.175.176])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZBOVepov;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB93D606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:50:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB93D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADE2606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:50:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CADE2606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=c6ShX5G1
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=B9FHC8KG/+vE+zt6AKqt5Y1CXop9kLlRG+4oSR7pzX4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793289037; v=1; x=1793893837;
- b=c6ShX5G12BHdk4iC+1Q8QmcPf9oJqbJSJDKyV5CbMmsgHQGjOzHc+mqwVSuYFbbeStQbmcyK
- IhH6VHnoEUG5xvF+8qdGtjEss9H6L+cZ4Xr7bD9bHFtA8euD/SHoQNWJ5WZypU9KpMw9P3/u/Wd
- wwVjKVzc9nDBuebRosBXu4rc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 112fd546f967c449;
-	Thu, 29 Oct 2026 15:50:28 +0000
-X-Mizu-Trace-ID: 112fd546f967c449
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <174fe1ca-7b5a-466c-b20f-fccbccff6eff@linux.dev>
-Date: Thu, 29 Oct 2026 23:50:24 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZBOVepov
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so21147825e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:50:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793289042; x=1793893842; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iQbVa0edXFDC7cRO+byx8KLZb9+VOYhs4XsToamxi9I=;
+        b=ZBOVepovpHxtlwrUJgLpP3LiPvb7Y2olbHRZqrdIpfeYeMRp+8TpeZwfSuTArqDo+c
+         pBuvqrXtniKngQzQfQOQnrxhxGDvI8n3DrQql0cSOABSSFxb6un1DaDmnPZsuoDKL+9K
+         n9imh6qWeT3XwDYQ7HHQwKxwiUSXmzwxgCFfvap4unWUnNR5lIyjZbG1ZfCgGG14OI/Q
+         tUMqUJQJZ1bI0gtVP+qNAL+s9kdZb3Zntv815bMuny0MWur0raOTS2VGs2EFjgtUh9dH
+         GFFWflmVAQL3UwSlzwGzwa0W1O5U1tjDKR5PwiiaKL2R6FxXiDU4YCmbP+706PZ9WEKO
+         CJ8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793289042; x=1793893842;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iQbVa0edXFDC7cRO+byx8KLZb9+VOYhs4XsToamxi9I=;
+        b=PpQ1rB5Alrk7L/yvTA+moPeLSu9wpskqIIWCp8RUO7uDn8/+jQl1wNoo/Wsk9TKHiC
+         t26ZwqHo394adkRxFujTY9fjecB/5vOcaRAXSqy158O002QNn9qVRzRA5vBB9fQxwbmB
+         rLc/x1RQa8mjdowHNPCU/yRlF69EvbSgEcGKLX03mZKAB8tq9u3EOi8KwTGq9xqtDh6g
+         UcwENxdqWkgcn0UPWlZmmd8NOTCImDckgXff8cS0dpfLDzegmfAMimZMRX+wAUNceodR
+         LT68XHDXATYDTt9Lw3xPHqjko2pmNcoIvhfW9M4RbZrQq3wOGSMVqnQAKEp6t8NtPCTq
+         7lFg==
+X-Forwarded-Encrypted: i=1; AKwUvBxzBWtKiscByfLdGg1gwJ4KIBBB6HErYt+48WWfYhEoU2zWH6q2oxPIUze/Hdnen3l1WK4NcdPH77J4Hfs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKjRm75FD4StyTVTVK+UT01FTXbHnLIh67Od/2q4TcgEj+lPMPg
+	dsfR6KzD7UR8P58x2US+9cM5mxFOPsOecQQE0rc2n8ZQs41c+uYrBOmJ
+X-Gm-Gg: AYBFou25YJ0KNI/gEdHI1yftIurT/HKr2XJhl/e0RGQagQZtrepTL+r6grb0FiQVe+h
+	7cjezq4JArmDR1V+07GRM8hBGJWNfz8HWsBaCCO4N7lZWa04CMQHItoFSdZtLam2Siw2oTGCvoC
+	kZHys/xNJAzkoLv7AVUQBFn2yYpBiwJTKz8bZuUmtOQepikDv0356THXGTLR8IRCt2EaynamP0D
+	LTwxOzVQ00ysf9QnjSvPu4B+IMZof+UNsADsMAtW4XvKZ4Kh0nPGZWLCkXSwBiepG90JKixBXs4
+	RKWsmMUcX5q55i8wr9Hv9CvIsNjKv415WPmRaruLu29Kjhc9h+3g8nEuEr0Mdqkh1wXhzFUaFk0
+	8dGEyn5IqX24pZh3XSVMUQNeUYrxmRNjaVisFiatgUfc6n8djgyPq7w7J1VkLpA0jZ/CmO0/6Rb
+	0/oYkVoqqKQmiYAZ1kUW52rynKjqN69l2Nr0XePM0JK049cfnmPktPwBqWy2QR6n9iY7uAoN4Ag
+	8E0pk6AeN03z1lEvFnVJ5eWXveO/VESAT5kitofE2czGAUvPz015e9CJVgFpvQL5j9LGQRNx3a4
+	yjwdv7544Z5wP0tfOTK/vvu+RbZ78EmDahl0GMtmlW80iyfQY6VqWyBKDd/cZ/+yz0OlugfdoCW
+	N7iMDnfkconglxN2OYe5ZiDVvsZ51mIqXqGW1Ma8dNJALa48M543UZyo=
+X-Received: by 2002:a05:600c:c106:b0:4a1:9078:911 with SMTP id 5b1f17b1804b1-4a9674e80c8mr103774075e9.31.1793289041762;
+        Thu, 29 Oct 2026 08:50:41 -0700 (PDT)
+Received: from ernest.hoecke-nb (static-2a02-1368-6200-2fbc-d3e8-e0a5-7e8a-a15c.cust.swissbackbone.net. [2a02:1368:6200:2fbc:d3e8:e0a5:7e8a:a15c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd37f4sm42419806f8f.44.2026.10.29.08.50.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 08:50:40 -0700 (PDT)
+Date: Thu, 29 Oct 2026 16:50:39 +0100
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, tessolveupstream@gmail.com, 
+	andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
+	Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, 
+	simona@ffwll.ch, marex@denx.de, valentin@compulab.co.il, 
+	philippe.schenker@toradex.com, alexander.stein@ew.tq-group.com, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/1] drm: bridge: ti-sn65dsi83: Fix DSI mode flags for
+ stable LVDS output
+Message-ID: <sqilixoei4yw4z52r52vbwfggyjnhdzz62vz3vshrx6wbppa2v@izyujkfcrb6q>
+References: <7056b23b-ed81-4d79-b782-5cfcb0102ef7@gmail.com>
+ <60a24977-b181-40e4-bcf6-38b65af293e2@gmail.com>
+ <DI18PL73UQKR.2YZVZ21V69H7O@bootlin.com>
+ <e88af0b7-388d-4b0a-8eb2-a367e24e84fb@gmail.com>
+ <DIMMKNT9RHYM.1BRF1S1V5SIKI@bootlin.com>
+ <1716be56-ac43-440b-a5df-58cbf571ba95@gmail.com>
+ <DINH3J2SM26P.3KE6GE9VPB1OC@bootlin.com>
+ <3hfae2i2i2toxbo7hg2if6pztaswgnfj65xfm2c4ofljc6jhua@slaqoewn4mxq>
+ <DLATMIFKDMHV.24XNMCRI2ZKBI@bootlin.com>
+ <20261024095405.GA5692@francesco-nb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,30 +112,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 4/4] ksmbd: send READ payloads with MSG_SPLICE_PAGES
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: linux-cifs@vger.kernel.org, senozhatsky@chromium.org, tom@talpey.com,
- chenxiaosong@chenxiaosong.com, tj@kernel.org, linux-kernel@vger.kernel.org
-References: <20261022092514.2590010-1-huiwen.he@linux.dev>
- <20261022092514.2590010-5-huiwen.he@linux.dev>
- <CAKYAXd9SW_D1gwMhD8gVjVJAcPoxiXvHB0TvDLqnjw8TpGCKRw@mail.gmail.com>
-Content-Language: en-US
-From: hehuiwen <huiwen.he@linux.dev>
-In-Reply-To: <CAKYAXd9SW_D1gwMhD8gVjVJAcPoxiXvHB0TvDLqnjw8TpGCKRw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261024095405.GA5692@francesco-nb>
 
+Hi Francesco,
+Hi Luca,
 
-在 2026/10/24 12:44, Namjae Jeon 写道:
-> Order-8 and order-10 allocations can easily fail when memory is
-> fragmented. Since MSG_SPLICE_PAGES does not require physically
-> contiguous pages, could we allocate individual pages and use a bvec
-> iterator instead? Please see drivers/nvme/host/tcp.c as an example.
+On Sat, Oct 24, 2026 at 11:54:05AM +0200, Francesco Dolcini wrote:
+> Hello Luca, Ernest,
+> 
+> On Wed, Sep 09, 2026 at 03:30:53PM +0200, Luca Ceresoli wrote:
+> > On Fri Sep 4, 2026 at 2:02 PM CEST, Ernest Van Hoecke wrote:
+> > >> > Also, from our testing, when using:
+> > >> >
+> > >> > dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+> > >> >           MIPI_DSI_MODE_VIDEO_NO_HSA | MIPI_DSI_MODE_NO_EOT_PACKET;
+> > >> >
+> > >> > we are not able to get display output.
+> > >>
+> > >> This is the case for the panel I worked on as well. In the practice we both
+> > >> observe that non-burst mode is what fixes the panel, but there is no clear
+> > >> explanation of the reason in the docs (that's what I hope to discover from
+> > >> TI).
+> > >>
+> > > I am testing a DSI panel on our Verdin iMX8MP module, and noticed that
+> > > this caused a regression.
+> 
+> [...]
+> 
+> > > I think we'll need to either revert this and later apply both together
+> > > when ready, or apply the second patch now as well. Right now, it broke
+> > > the DSI panel behind a TI sn65dsi83 bridge on v7.3-rc1.
+> > 
+> > Reverting is surely the last resort. If you can answer the above questions
+> > it would be good, maybe we find out reverting is not necessary, and worst
+> > case we'll revert with better understanding on what went wrong, and maybe
+> > come up with a new fix that doesn't regress.
+> 
+> What's the status of this regression?
+> 
+> Francesco
+> 
 
-Yeah, I agree with this. But I tried individual pages with a bvec 
-iterator. It was about 9% slower than the high-order page version.
-Anyway, it still faster than the original copy-based implementation.
+I still need to test and look into this, that will happen either in
+December as I'm off in November, or by someone else in the team. Sorry
+for the delay.
 
-Thanks,
-Huiwen
+Kind regards,
+Ernest
+ 
