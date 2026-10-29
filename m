@@ -1,49 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271607;
-	b=BpFHybAXwu5fiHcq1xeVDKEH10xgQ4l1RwN+vrc1v7c4sCHPzmJg91yYoE8t2aBJbBOh
-	 OV/ARtg3qHQ6ALDBO3HqLwNXkdKZzTujRru2rdnd7iECrIIfVbyue8WtvKTXmBgxMBqjR
-	 Ao/eEZ5g+TxywvN6nkBi6q3gZ0rno7XinQcyREAfON5bcjCptgzk+G7dSLixq2YrHco2x
-	 HR0uAJ6dAgjzuZ9uqs+531LcmSY0SM/tp+nVS5sKxITXbGxNcqxaw2plL66K7Wdwel76U
-	 9elzZUSBuSOr8NZpomuntyWOpZ2vsdch9gT00ah8JquAe4reasQq1BJ01wtgjCUjjpw==
+	t=1793271660;
+	b=37o8wqKnCWVZrrTZYdx0/GAYcte/BCHBaKDoMZaQRH0y6JGjZB083Oic780yK1MA1bo5
+	 FrO+wOYmkWNTJIPVAcRJWstrmd7Zn2zrkpGCBqIaySDI2v6RQusGMhYaYaGtGdA7DDCAm
+	 OkaILvWWRUMg2zOcw2oyVJ3iLpNjtWpc9LhhJemPui7/O6qPm1B2RugCx2+yGRNkpszU4
+	 4TMekLTzVc3WfNR/Zso4uW9WZXZA+wtikfq4GJ7KvV5BL40I1jPqRDt/qdA4HQPjr4gih
+	 ChvnCcZ4ya5+Hw6KedDy/CQPIHajOkX+jMl99SEUableTGkGShVLgQ7W1ltFPWB20ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271607;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=ll9zN0Wy1PEA6OGnDGFZM6iVLnvbuI/K0NUCUF8GsKE=;
-	b=cpQiB+Qsg9TKDJZhob5SnxWuoiPTprNWSeABVdiTd8duVVlj0/3Udwu+hOxmNMFZRLzs
-	 oEn6s+G9SNVQhOnpA5WRvUeyhByqdmdFC5E8LzORSuNXuzbO0AlBRBh9VNHIKNKeg5rnR
-	 F01jAKJXpF+oEEqZfMpZubHWOrpornok/pnWLTroZZdRbWKPnGq9Sw7kCbBbQPUX5KL4R
-	 8qT7ajqEoLQDFsCkxcA9dbudIDtO3pP+3VSZ/1D7BCEad0LRNzrHE123YALv7lNkTpfAi
-	 lLuqh1pYN66gj+FUabIlYCg1SJ+W3jJu+MIjTWeh67Gs2PmZ+I/5yT2AMCBvKdolKng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793271660;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=LJlC80NBpBVZnve18vtWH9YMaEY/Vp6Z6lhxrIHLHCA=;
+	b=NUwELDjKkhNfhT6ye7VEZq82iubY004EO+sRo+j7nlB3sgGG0mjSkzHjbaXds2I/psKX
+	 agQ53eT6Y+wvh8arP759sSgJyd9m6rQlpyc5Fsxy8oWE1DvfM/M9bN6jEyT+9xbfPH01r
+	 wv0dAvoN+IIlljEa8rCpk2vicwZTGRmXmWriNIZPwLREFIdMI+RvzJCR1SGBozNIXN16C
+	 5BIvL8IuM0KD8Wkd9MUMQKL35y0gVi7wuVR9b1Duepmr79iw6mm2s3zIhUE8SnBh3juve
+	 SBfnZGifuYVE/rwTkVa3/eqrwzRD3mGlRSUkI7BtcyJKhHdA3NiExd9e+Dp7NbH257A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCRhEWfI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=PX3jKVDE;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB654606A31C;
-	Thu, 29 Oct 2026 11:00:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7C5606A322;
+	Thu, 29 Oct 2026 11:00:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F7C5606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TCRhEWfI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5923E1F01825;
-	Thu, 29 Oct 2026 11:00:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793271606;
-	bh=ll9zN0Wy1PEA6OGnDGFZM6iVLnvbuI/K0NUCUF8GsKE=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=TCRhEWfIXRkxK4wiHcoOAI4lL4q3+G/xlM+Hm6Aj81pJz+qGzemcJ8+4maym+Ucro
-	 2HVh8oFLbYvJE6fAkPjUGQy6E9t3sfgyPIOWlC1a9jy0LHBQxvdncKNRjBlbHi8RQr
-	 r0d/A/gXeQkeccfF51/DjTiLGCw/PnKIWf+PjZb4G7+ebFo+RasuGOmk39dlhvSfiz
-	 rZw6lRGkpZ0QIVUJYEFR2R5rhvi0S7UvatR/6aCna8HHmLQ+zP+/+gl07Sa6tTBMll
-	 HO+SobBl0da6qRuDzpRXgnKrrAFTGGOtmWpR4W0DfGbft0kZm9PyD1kqCC9RO6jV/l
-	 e+u3oupeVLP/A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 445073ABD290;
-	Thu, 29 Oct 2026 11:00:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=PX3jKVDE
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=LJlC80NBpBVZnve18vtWH9YMaEY/Vp6Z6lhxrIHLHCA=; b=PX3jKVDEA9Z6ADrk4RKY2hhbtd
+	nLSlStROcI38rppJJ5H62ICYJsvlfB7R7cbxjBIMR3fWlSlkub/U3QnLCpCDJSX8loGV90Qx5iv57
+	jUv9lKeazBJIqrdCtrwGxQ7B8W2E4ZPnNj2eaYvik9C7IPCOdaQd9x0ojVOJ3H2gUfi9h7wpXyMfY
+	ebbZroAAar5tUYvNoKSxUEgbrBCkxESf3UuMjCpniAkwYzCz5ESMEsMn9TqWfJ4+aJ9SGRrJ3Bwnz
+	ZWuYDYOo3usIWuUlZF/1VKcnUEtY0s5O/PCY8PpXkSKBSqzoMizyqdbh+N4PMvOb3qJbd1q40SUr9
+	kylcUfZw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMNsF-0000000EXBg-1uBy;
+	Thu, 29 Oct 2026 11:00:47 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 6655A300312; Thu, 29 Oct 2026 12:00:46 +0100 (CET)
+Date: Thu, 29 Oct 2026 12:00:46 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>,
+	Sandipan Das <sandipan.das@amd.com>,
+	Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>,
+	Ravi Bangoria <ravi.bangoria@amd.com>,
+	Ananth Narayan <ananth.narayan@amd.com>,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	bpf@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>
+Subject: Re: [Patch v5 13/18] perf/x86/intel: Refresh LBR stack for non-PEBS
+ LBR events if needed
+Message-ID: <20261029110046.GO1779021@noisy.programming.kicks-ass.net>
+References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
+ <20261029043914.1395147-14-dapeng1.mi@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,46 +82,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3] octeontx2-pf: fix skb use-after-free with ipsec
- crypto offload
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179327160481.1758306.11637453865545839129.git-patchwork-notify@kernel.org>
-Date: Thu, 29 Oct 2026 11:00:04 +0000
-References: <20261027-nb-otx2-xfrm-unshare-net-v3-1-31dc9d79d11d@tipi-net.de>
-In-Reply-To: <20261027-nb-otx2-xfrm-unshare-net-v3-1-31dc9d79d11d@tipi-net.de>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: sgoutham@marvell.com, gakula@marvell.com, rkannoth@marvell.com,
- sbhatta@marvell.com, bbhushan2@marvell.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029043914.1395147-14-dapeng1.mi@linux.intel.com>
 
-Hello:
-
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Tue, 27 Oct 2026 19:44:09 +0100 you wrote:
-> otx2_dma_map_skb_frag() calls skb_unclone_full() on its own copy of the
-> skb pointer. For a cloned skb, for example with tcpdump running on the
-> interface, this frees the skb and the new copy is lost on return. The
-> transmit path then uses the freed skb and the copy leaks.
+On Thu, Oct 29, 2026 at 12:39:09PM +0800, Dapeng Mi wrote:
+> PEBS and non-PEBS events currently share the same LBR stack,
+> cpuc->lbr_stack. In the PMI handler, the non-PEBS path refreshes the
+> LBR state before the PEBS buffer is drained.
 > 
-> Make the skb writable in place in otx2_sq_append_skb() instead, so the
-> pointer stays valid. Also do this for nonlinear skbs, as the hardware
-> writes the encrypted data back into the frags, which may be shared,
-> for example with the TCP retransmit queue.
+> When PEBS and non-PEBS LBR events overflow in the same PMI, draining the
+> PEBS buffer can overwrite the shared LBR stack with the PEBS snapshot.
+> This leaves stale LBR data from the PEBS record in place, and userspace
+> may observe the wrong branch stack instead of the live LBR state at PMI
+> entry.
 > 
-> [...]
+> Add a lbr_need_update flag to indicate when the LBR state must be
+> refreshed. If PEBS events and non-PEBS LBR events overflow in the same
+> PMI, set this flag so the non-PEBS LBR event refreshes the live LBR
+> state. Since the LBR state is frozen for the duration of PMI handling, it
+> only needs to be read once even when multiple non-PEBS LBR events
+> overflow in the same PMI.
+> 
+> Fixes: c22497f5838c ("perf/x86/intel: Support adaptive PEBS v4")
+> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> ---
+>  arch/x86/events/intel/core.c | 23 ++++++++++++++++++++---
+>  1 file changed, 20 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+> index 110fff65bd50..37f304a1b48c 100644
+> --- a/arch/x86/events/intel/core.c
+> +++ b/arch/x86/events/intel/core.c
+> @@ -3863,8 +3863,9 @@ static int handle_pmi_common(struct pt_regs *regs, u64 status)
+>  {
+>  	struct perf_sample_data data;
+>  	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
+> -	int bit;
+> +	bool lbr_need_update = false;
+>  	int handled = 0;
+> +	int bit;
+>  
+>  	inc_perf_irq_stat();
+>  
+> @@ -3929,6 +3930,8 @@ static int handle_pmi_common(struct pt_regs *regs, u64 status)
+>  		if (cpuc->events[INTEL_PMC_IDX_FIXED_SLOTS] &&
+>  		    is_pebs_counter_event_group(cpuc->events[INTEL_PMC_IDX_FIXED_SLOTS]))
+>  			status &= ~GLOBAL_STATUS_PERF_METRICS_OVF_BIT;
+> +
+> +		lbr_need_update = true;
+>  	}
+>  
+>  	/*
+> @@ -3944,6 +3947,8 @@ static int handle_pmi_common(struct pt_regs *regs, u64 status)
+>  		if (cpuc->events[INTEL_PMC_IDX_FIXED_SLOTS] &&
+>  		    is_pebs_counter_event_group(cpuc->events[INTEL_PMC_IDX_FIXED_SLOTS]))
+>  			status &= ~GLOBAL_STATUS_PERF_METRICS_OVF_BIT;
+> +
+> +		lbr_need_update = true;
+>  	}
+>  
+>  	/*
+> @@ -4002,8 +4007,14 @@ static int handle_pmi_common(struct pt_regs *regs, u64 status)
+>  		 *
+>  		 * The PEBS buffer has to be drained before handling the A-PMI
+>  		 */
+> -		if (is_pebs_counter_event_group(event))
+> +		if (is_pebs_counter_event_group(event)) {
+>  			static_call(x86_pmu_drain_pebs)(regs, &data);
+> +			/*
+> +			 * Draining the PEBS buffer can overwrite the shared
+> +			 * LBR stack, so mark lbr_need_update as true.
+> +			 */
+> +			lbr_need_update = true;
+> +		}
+>  
+>  		last_period = event->hw.last_period;
+>  
+> @@ -4012,8 +4023,14 @@ static int handle_pmi_common(struct pt_regs *regs, u64 status)
+>  
+>  		perf_sample_data_init(&data, 0, last_period);
+>  
+> -		if (has_branch_stack(event))
+> +		if (has_branch_stack(event)) {
+> +			if (lbr_need_update) {
+> +				intel_pmu_lbr_read(&cpuc->lbr_stack,
+> +					cpuc->lbr_entries, cpuc->lbr_counters);
+> +				lbr_need_update = false;
+> +			}
+>  			intel_pmu_lbr_save_brstack(&data, cpuc, event);
+> +		}
+>  
+>  		x86_pmu_clear_perf_regs(regs);
+>  		x86_pmu_update_perf_regs(event, &data, regs, false);
 
-Here is the summary with links:
-  - [net,v3] octeontx2-pf: fix skb use-after-free with ipsec crypto offload
-    https://git.kernel.org/netdev/net/c/829a09df899d
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Or... you move intel_pmu_lbr_read() from handle_irq() into pmi_common()
+after we done the PEBS things?
