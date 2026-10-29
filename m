@@ -1,92 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793275126;
-	b=3stkfPiEv3NQQO0gFuoh8kD9/NgdTp/yfQp40cdbBeWLfEcGUW2GFfMF2ZfOA9+RWU0b
-	 ZIPx2uED1bWorCSEAMAj50fRqK69Ly/uMI6Lehgo6K804TnjJGY5wRU/RhmORalveFx1G
-	 OBx5ET86w2Bifw8YK8z7bgNVoXCx8ISW/BVbU5GgtRBcCEB4IHGHqsQRc/j6RvlGF4HdW
-	 Wsh86aISk4ynLjK0OFiUm5qfpHT5rS6fStw6rBIBOpYfaY1ldtCYzY7QLgcDmPa3WtoWL
-	 msUz1HAiiiSrWaxHTxeE216MrodTeQgVJtPipAOn+VzO7NGUdQQa9etaUUS59g8aMSw==
+	t=1793275164;
+	b=4Btwg7d0TQ0Zn+m0V0R2qYcT7PeWreiZY1hEahC36psIw5jAlmm2Hz4cxwb9HhNWgidW
+	 2wzI7c0V3bvM09KWv0oK7Lz4P3T2CMZs3la6z7ryxUrYuBGl1GhTS1virrxO9M5YWNoBz
+	 tt6DRdOnnlJEYP2a8xz8NCoC3UqxpTLR5BcdPG9xFeYk2sDb8Ov683C90u0OcyrXEj0Wq
+	 2IeIo4YiUlsaYWZIolhy7Wy6X75KmxzDfBfDmuDpz9713xH42iyS4Xoi7BfS7QwxZSl2U
+	 +nttGbh+i6IF0AAJBdZIjQRTZp/ngxOhuFAkmqoggbio4ENpxV7vd7SDf/TdoFSJKtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793275126;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793275164;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=bFtWXG8m5JKsyn/qeOedunaPNpqgZZez15iz91neCTQ=;
-	b=CUwHJXysU7xaHXCwUdXKOfnWa1/kxbqQHXBQCyJT0aJOwCKQ5hYSSug6DL7cdn1lo39y
-	 mx1039BQmvrc9FjaAcrDvmaNdvAB4fByl/DJbZeirsrfA3K5PeCLFuTb3YS9FYJV/HU/r
-	 nR3MdViWo+jT3whoFCSvF5OJLE8gZFHNE8i5qzUaIVBSJicP3QmN6HfX6bMyETrNo8h1L
-	 pnNshluAXDHQgUNt+KScElSBZL/7H0dbs+oqmJMQNyaJAgkzjcZHtBoZ+uFwj9507f6E9
-	 pG1oYJiacw0aDc+o6ESjuVgTYeH7QoP06Q5x3IwwvSPvbz5vK3sb4QQDbn83yECTWTQ==
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=kH1Xo/SnGjpQuH8XqpM89LlNx1dcWwl3irWSPbUu4NA=;
+	b=LhlV5ySZodAyggBaG6QVsOGvKbu8mZtL4ARqqFoxq6vzDmjjo13wc+hDni3PuYJZc6XJ
+	 si5IeSO07bjZ5zSLR3o6g96KN6d4spy6RH+Et4i/El8I7koIBsdWlCKXZzGenRb3WGx6J
+	 IxtA+drhlrDH/+eef3xt2nPVKnUiU6cxU4muCBOqCFKvvNomGhPsqxmTtA4+liBAlWQcB
+	 eCu3mJYikSFi/u6eXV7F2uvZPsHz6UsuEtUs3kyAUsi7ekijzSZJPF5LkNc/mvh3hEXpc
+	 89MYZ9v66J6ntRMg15oXTiYBo+1iMlEkKijXQzydvJJFJPjFNEDUpZX1+SS9f8rwgEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="hCEgCh/B";
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jvZBANT6;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62BB5606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:58:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62BB5606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CCBD606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:59:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CCBD606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hCEgCh/B
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=jvZBANT6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793275125; x=1824811125;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=i2ey7uKnBTF2PqloNxgHfVH5I2ULdNgzLR4UomlVJVE=;
-  b=hCEgCh/BTa/Qzgmp+4HLQioOq5WHwB5VWc3hQ0aXHp3L7kbbr10u6jYH
-   GnH9fCIp3T3nNhuncYyXqjaITEMpHcRldCDGwLzI1V6fJPW/fJgBNMzuv
-   6IxniOigI2OVzv96VJG40Tgs5qtI7cUSnvlmHSAsGcddQS651DnimrYYR
-   s/dJdfVXpMzQpCNB3MmgtZBbwmCyDg107BZXI6i/a7Pv75ifGWeui+jve
-   daZ7Lck+LldP8LBtktbd4WqK99HhxJYhgrbQL/2t4+nDknQAUkxhgN2jJ
-   E4wFxDWL7bs+hUce2OMBxvGLr3n1Ry/S/iYpo1FBDAeMHaDmMaIj9BUux
+  t=1793275164; x=1824811164;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ZKUiOkswja6CWcjrOUGsG1g1zWrRguXO4q/84j3b2j8=;
+  b=jvZBANT6eacdz+x4eJjj73dtM0nKcYbYE7WJnPnlS6UhfsNAOUZJeCIh
+   zHf6Cxh0CJMK5tZ8lqaVVODxsz04zXtItoku/JOuUrxXPSnemMJEFQXHj
+   V6egEZfPhjVrj572fMLrSSbeKSAvobWqRHhWcfMSZYv6SdhWZhbi0YJkJ
+   urASpTRdbnNGZO+DI3oMd+vJ6pWoON7MT19htCyEN0baUfMYhyuECcSlw
+   R5GVEhcRHYuWmeniARjonZCuzq32qtQo8gL6QYf803vcOdNRaETM+Uylz
+   IOS+Nlb/8NaFqOy+6xjcKzcs+sPNwT9OYj1O+/ubkJEEfrY34m8ECs4x4
    A==;
-X-CSE-ConnectionGUID: zwFmdZriRKWYBEedRq7rSw==
-X-CSE-MsgGUID: MQFxtwHRQ+etF4FlcH+lXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1908637"
+X-CSE-ConnectionGUID: kRl7NKgsTpyF/G8KLq2Dlw==
+X-CSE-MsgGUID: QeUq/LJkTz2a4+ldiCFHqA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1892708"
 X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1908637"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:58:44 -0700
-X-CSE-ConnectionGUID: c3VOsTDBQBC2683iNWsTgg==
-X-CSE-MsgGUID: NQ3qXX8fTMilynHkhUiSEQ==
+   d="scan'208";a="1892708"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:59:23 -0700
+X-CSE-ConnectionGUID: mKxjnXd+RVmdccZt9eNNzw==
+X-CSE-MsgGUID: 6yTqOMJOR0uqdSzzf3TJNw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5462784"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.145])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:58:39 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>,
- dri-devel@lists.freedesktop.org
-Cc: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Maarten
- Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Patrik Jakobsson
- <patrik.r.jakobsson@gmail.com>, Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dmytro
- Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: Re: [PATCH v2 2/5] drm/bridge: cdns-mhdp8546: Use
- drm_dp_enhanced_frame_cap()
-In-Reply-To: <20261029101826.72773-3-dmitrymalovanyy@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
- <20261029101826.72773-3-dmitrymalovanyy@gmail.com>
-Date: Thu, 29 Oct 2026 13:58:36 +0200
-Message-ID: <3d8c0987e3f9e4e099372475b2e0584963b6b71d@intel.com>
+   d="scan'208";a="5260185"
+Received: from gklab-096-123.igk.intel.com ([10.91.96.123])
+  by fmviesa005.fm.intel.com with ESMTP; 29 Oct 2026 04:59:21 -0700
+From: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
+To: Lu Baolu <baolu.lu@linux.intel.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ning Sun <ning.sun@intel.com>
+Cc: Michal Camacho Romero <michal.camacho.romero@intel.com>,
+	x86@kernel.org,
+	iommu@lists.linux.dev,
+	tboot-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Mateusz Mowka <mateusz.mowka@intel.com>,
+	Adam Pawlicki <adamx.pawlicki@intel.com>,
+	Pawel Randzio <pawel.randzio@intel.com>,
+	Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
+Subject: [PATCH v7 0/2] x86/tboot: Add Intel TXT Protection Regions (TPR) support
+Date: Thu, 29 Oct 2026 12:57:25 +0100
+Message-ID: <cover.1793273244.git.michal.camacho.romero@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,39 +86,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Thu, 29 Oct 2026, Dmytro Malovanyi <dmitrymalovanyy@gmail.com> wrote:
-> Use the helper instead of checking DP_ENHANCED_FRAME_CAP directly, so
-> enhanced framing is used for all DPCD r1.2+ sinks as the spec requires.
->
-> Compile tested only.
->
-> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+This series adds support for parsing the Intel TXT DMA Protection Ranges
+(DTPR) table and tearing down the SINIT ACM-established TXT Protection
+Regions (TPRs) during early kernel boot.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Background
+==========
+When a measured launch is performed, the SINIT ACM programs TXT
+Protection Regions (TPRs) that block all inbound DMA requests.
+These ranges also cover the Intel IOMMU's own queued
+invalidation (QI) ring. If the TPRs are still active when QI is first
+enabled, the very first invalidation faults with an Invalidation Queue
+Error (IQE) and the boot hangs. The kernel must earlier locate and disable
+the TPRs, before any QI is enabled, after which the IOMMU is the sole runtime
+DMA protection.
 
-> ---
->  drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> index f47717bd1..8cab9a3e6 100644
-> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> @@ -1375,7 +1375,7 @@ static int cdns_mhdp_link_up(struct cdns_mhdp_device *mhdp)
->  	mhdp->link.rate = drm_dp_bw_code_to_link_rate(dpcd[1]);
->  	mhdp->link.num_lanes = dpcd[2] & DP_MAX_LANE_COUNT_MASK;
->  
-> -	if (dpcd[2] & DP_ENHANCED_FRAME_CAP)
-> +	if (drm_dp_enhanced_frame_cap(dpcd))
->  		mhdp->link.capabilities |= DP_LINK_CAP_ENHANCED_FRAMING;
+Patch 1 adds the tboot-internal DTPR parsing and TPR teardown helpers.
+Patch 2 wires them into the Intel VT-d driver, disabling TPRs in
+parse_dmar_table() (which runs before every dmar_enable_qi() call site)
+once DMAR parsing has succeeded.
 
-I note that the driver should probably also switch to
-drm_dp_read_dpcd_caps(), but that's beyond the patch at hand.
+Changes since v6
+================
+- Patch 2 retitled "iommu/vt-d: Disable PMRs and skip force-IOMMU when
+  TXT TPRs are active" -> "iommu/vt-d: Disable TXT TPRs before enabling
+  queued invalidation", reflecting a substantially reworked approach:
+  * TPRs are now torn down early in parse_dmar_table(), before any
+    dmar_enable_qi() (the real fix for the IQE boot hang on IR/x2apic
+    systems), instead of in intel_iommu_init() after translation is
+    enabled.
+  * The tboot_force_iommu() is no longer modified. The IOMMU is forced on
+    exactly as before, so booting intel_iommu=off on a TPR-capable
+    platform behaves as upstream.
+  * All TPR/DTPR/txt_heap states are kept internal to tboot.c. The IOMMU
+    driver now uses only parameterless helpers (tboot_check_tprs(),
+    tboot_teardown_tprs(), tboot_is_tpr_protection_enabled(),
+    tboot_free_txt_heap_mem()). All TBOOT state leaks into the driver have been
+    eliminated.
+  * TPRs teardown runs only on a successful DMAR Table parse.
+  * Using intel_iommu=tboot_noforce now suppresses the TPR-related panic
+- Patch 1 is functionally unchanged; it only picks up checkpatch --strict
+  cleanups: statics are no longer explicitly initialised, the TPR count is
+  now signed (s64), and tab indentation, pointer/cast style,
+  NULL-comparison and brace style, and unsplit log strings were fixed.
 
->  
->  	dev_dbg(mhdp->dev, "Set sink device power state via DPCD\n");
+Michal Camacho Romero (2):
+  x86/tboot: Add support for parsing DTPR table and disabling TPRs
+  iommu/vt-d: Disable TXT TPRs before enabling queued invalidation
+
+ arch/x86/kernel/tboot.c     | 515 ++++++++++++++++++++++++++++++++++--
+ drivers/iommu/intel/dmar.c  |  19 ++
+ drivers/iommu/intel/iommu.c |  18 ++
+ include/linux/tboot.h       |  28 +-
+ 4 files changed, 560 insertions(+), 20 deletions(-)
 
 -- 
-Jani Nikula, Intel
+2.43.0
+
