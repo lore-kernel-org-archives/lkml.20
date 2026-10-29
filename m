@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.181
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793280771;
-	b=k6XOn5GEIc6rPngQlEubXUxpg/tQxOi8PeHRBwMSDH4MvDQ/rfaAoslAfV3XC45HiY/8
-	 349A9yPQXV1OGPsHSiIoXQI/XsI9ek0GDCaqL8yetNAecw5PwIMQ1lF0q4BtwQ9HEyHZu
-	 LcfLX8m09UY5LQRL5BscrIZSKwvoeQzBG768jjM0JlglMJww1YDd0gVJFQ4Rk0gnCHak3
-	 Xbbx9WhQ6KEnSJ4ZFpiX/Z7njf+Px7MDzBQz/NHbvCVT+2iU7rWHdk2AzqZLVxKNF3b3z
-	 Z9pmVLGivgfoIGUPhDdqgGsfqJqRo2nsx7ovVFiq+7kFmt5Gox7U+/u87iTnc7NyXIA==
+	t=1793280799;
+	b=3kSJ23mF5LK/fSdJYD2ywNYL0Fwcn5XakyOiBRXyhYpu///3EwyFuyHcSfpXOGQTEKzP
+	 j7UY/0+TFfpQbbJcBMAG4Rdf1i9XNo1/HUhc5Jc5rejRqMYsSNYUAi+KL6yPu0WqFSmXE
+	 qpWSC/g/jTv99xK7MOlxujl6KGjz8aMe1L1W+IxrGXFjqz0mOXYUG0ds0ju5bc2AhIBYA
+	 jBrDy2r02X9Wxog16FWNX0Fo3UsSZsXHf6RXzh3MwlnCyokPM2X5fJ/zhYualCmj0iKUr
+	 77UOtaEgoCN6KXeFDl1i2amwbrQwhtUriMTcJIFuUmrMvI+Gdf/s0el/qCyd9lzUd9w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280771;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793280799;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Vg2B31cd/hTXKCM5yDVSJOCgmQGwulQy1RtYoOwjjyI=;
-	b=hx/SYtGl+y0bkBWnJgp3X6SJFTi5DMS7zz5DBQbmqO2yEeIKE4TacGAsKgnBa4RmSi4p
-	 vciUrnyElItLpwTF34g7HxTeSbDnLGnJdPatXlA4505RnhjKzyZoi/D1hFxXxZvtfIrvz
-	 ipx6BQUoZtGfA5q2XEIeMklLorX6229oIbo+0NYSbxJIHX50k0nDXjvixivj42sPRP8Vj
-	 rph70EfnJEAEMWrZUkEOWNB68bID5PQ5yhV1TBgHMBC9jCZ68/9haK6FBO1iypDptGYmb
-	 30lD6/l9zK/VtDMvD23zUkKqXHuDegxGdbiRZ2UenRLOf8xD5aNJu11A0yIiQPdBsaA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2i3HYlB+GbvhTKq0vS61Mj8mgAms2UmILds9Leq0HNQ=;
+	b=yt93RvT5NXdpSyN+tm/Ie7sTYS2JklWv2UjGr309oRvsx1hNqiJl12Oa1LLTgm/Eqie+
+	 Gl8pnpLSfUVf1LwTI8SSqZZR9mFVNkd6DNUycyEv7Ym08eBRlh4PyLecmqtrmM9wU9xuS
+	 4cLhCHXLltXiNXjY67zymEy6d6l+ZLBc94NfoDbrwQ7ur5mR5VJyPmeee1W9HrE3FuEaj
+	 pieU/qrzh76YIA/5ij7iXozjURNo2FiS1xTKFBEr0ezLyrxspeGtCZTG7L8SA437ijK+h
+	 abYoO5yE/TGH+rcNweXSZs0NGvFifGPfchN35jwHfnDFE5R9MgGmU4/TERCEz6EMdNQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Srb3liYE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.53
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rBk1Rza3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.181
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A28606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:32:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71A28606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BAC606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:33:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31BAC606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Srb3liYE
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91c79f306e9so22403096d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:32:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793280770; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rBk1Rza3
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93e4c00d71aso193547085a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:33:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793280797; cv=none;
         d=google.com; s=arc-20260327;
-        b=bPKdJRu8xFA8rTNyacrg99EiqYqO7T1jOEKe805BXkInGnQgCAab1EpPVSJLuOi8CZ
-         J7d/lV54czfsD+Iyj9xD8v9a8GsxE+1nV27LgxKNfijyPt5Jw1Mhc2PsEyDyRmeGzjsM
-         8UwrISgDB0heLXQWszwslv4Rszff89PP1vknbCrNGq1B7RcC4GR4Z0Z04WqV1nUCgIs9
-         FwikZe4hKTkNLIbuDoZsvmsEnNwR/E2R9XW9Auikk00RP2suJq3d+8W9sR/KKKUcPBMI
-         tOMHZU9d7vGSrW9yXPC18OHWZiS5z8fiOySfT2gb8XlHZAUDpRGOGP2dYvKiDBJU0hoS
-         mw5g==
+        b=UHM4Xz2IIrBigMX+Kud2zB8Qv74zgageXaMJFGHq3mW86qsnDhicgJQZfjsZM0iPki
+         ICtuLC+/7GSMLs806M86yJzXLeDx7Wa8pDZEiglOZ/e8eIqBZ33zoqVbDO963KIBAXUH
+         Blt+kKgYdDF+OJyHLAYjDx0cfzikWbXGGxhExokVAm7uC8Abj6rDKZu4sXqgyhD4+M8A
+         q6f2Bzcg67tVwO1CNlMEkiTMRs/gw3nY7eLqYSqzUEuVkApBzVNLlzV7Tqo1w4S3LXWY
+         1W7tgkBUk2x6TRvNQTfVmxNK/qUuTmhlPEfxuE3dY0MK663tBoo96SHcDCIXWlwyIhAa
+         rQnQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Vg2B31cd/hTXKCM5yDVSJOCgmQGwulQy1RtYoOwjjyI=;
-        fh=37qyNa0bSQ2j57F7qEzUbFEN5jXqn/bF0Ndezxl8id4=;
-        b=Yo+QwLd2XfqLil0k3v7n97z+8G4zDcoQnnfO80At1NumJAvSZLy6jmPuGlt+M1oBju
-         9cVKwhQP/eYxREH65dJluUEv0/Vpn4iA1Dqn/h+KAfCznC57RqmBpmMi2Fw7kY48WKrH
-         lSzoxxK64kmZK2uSuXe04nJ+Mf92a9J8lF6GABo23tY2E4srzjdkkP7XSLQNLThVvMvD
-         osHkvncNdd3Rkh15J4iWxI5/3s1FSsgcH31QNLg4HJuX2HgMUyMksK3DDx+TFfU5OC5E
-         AgugkL6034E9H8io6pj2Q3C2o4ak7YvVJLeNypac7CdU1QSfDMV+i3x4llskI1YDIUZD
-         /C3g==;
+        bh=2i3HYlB+GbvhTKq0vS61Mj8mgAms2UmILds9Leq0HNQ=;
+        fh=RsXRCTz2wqFNfEHrpUGMPAOggENKrxrZZlGpAy5BRU4=;
+        b=OKt5dxolBQjLRmCiCuVZ6SC/d2PHS15Jh+yzbkJElKXlgWtg2Klju3S34aOlbv4zZ2
+         SGjBtfp56wi4juHHK0xzGg3OfGB9K5BBz/KKmUn8DSwnCrBK269KL9iHHc9H262qZu6p
+         zvv+1JgwjSHN6fwj3jD+mNk8jECQav5PRg1KWzqcgFNPUwKdQR706PjlvsyXcbrAdjJ+
+         zldfE4tbgxbklRYrqxE+ty3JCLsqNTbPVx8wah59j6SjLhrvK5oRdDsUDfbK8h/V44+q
+         KVRJW8xXgE/Wm2APm6Vsj30j1HpydxIfxXFTLsUV8lxia/7dkZgPCRwPK2JPE2nugPbN
+         1lwg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793280770; x=1793885570; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793280797; x=1793885597; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Vg2B31cd/hTXKCM5yDVSJOCgmQGwulQy1RtYoOwjjyI=;
-        b=Srb3liYElFHkYRqKVWbEuMwxViG99JwI03Un5lq/mUw5A+b6LkBHdE74VDLbToywRZ
-         MWKsDrJaES1Kkv9gwi/SmpxXnKMLNmmhI3h/153V34Qw6qWz63zmzvvkQdWypliUFAVn
-         zocflyr+2DooMgDyIBJmnJtTEtT/unIkuW5L0tyjEcJa0+V0ipX1ycubIdnMCfTLv+5w
-         lMR4NHhMAId1WRtp8Gp2xdrGP3S86o5cKdGFm5jZTU8hkAIbufizJ2Aber13UXQJYcTu
-         RxvrI6Y/mSFkTp1OnzkQHIcIyrxsLe7c8pPBIRU7plA5qMp43mHbLtovsOajOK9NDtwF
-         kYYg==
+        bh=2i3HYlB+GbvhTKq0vS61Mj8mgAms2UmILds9Leq0HNQ=;
+        b=rBk1Rza3nDUnh651/Pwns2HNDnuy/0lby1QjU9+b3t9q5BL07PwHCmGSDtDQ4PIZug
+         Kx42Hs6ZrSeflD/Dq7B3pRfWwQ/ZEc8oMkPyGE8kwCz9NqTt3KtSHDgR0eNz3xdzFpTv
+         B02ZVtutkAoPAQ70c0A4NLpq0i6Jp4e1Kf3f90oAPLWsCrr5XpX2TjxqLXoTVkwWRBe/
+         fDxnPtQLgDBGvnYCOP/LRKhA8EmyIxEbQ7+9RGZ+nZmsE2FF7HEgK9DFNIm6XvCs/Ph1
+         DqFipXqM3CYZ6xkNqoTWAZZ9klLdvKP2ch05kyi4hmVOTNeMQrqc2/4eKXOLfrKdGevR
+         fxEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793280770; x=1793885570;
+        d=1e100.net; s=20260707; t=1793280797; x=1793885597;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Vg2B31cd/hTXKCM5yDVSJOCgmQGwulQy1RtYoOwjjyI=;
-        b=Wmdoki9vrvJl2xg7b61k+GFHlOpxISclNum3faU6oFdaZWSNZsn6L+bW0/wlMqzkD7
-         BYB94gFvltc4OHTf57aIzEnjjaLF9siqrLABTXQE9ivjb5/2/JBE4vKRKe20LW0VHAdF
-         f3kHcntNiH30HWDC0LOWY1NFvdQtQvSrt7crSZlnqMM4DrLMngHVAdk25McLmGUpbJ0/
-         4B6ma6/STaWZ4QE4bB1oEI0wi5zMCw9ZVip9euypLisB1SZghyOXkXqjVFguK21qvOar
-         7YsWtKvJy6FFQ6SEl88KtpgoMyXg/N0BMi9fCt/hh8rCO2EoTHjhVFHXe8OxWTdcD4Qc
-         8cIA==
-X-Gm-Message-State: AFq9FYJqTIajall0l2x76QopXy5Ax66FdylL1nfK5Y/BkHeupN/9sCfl
-	JuUN/FBiKjribUSy2ey2NdiujtidmxAQ4RCnottIKEkv7hx1nxcQIUnJJFfHczbbqaCDj5NTYQy
-	ltSuZvcIVYzEoMem8Ol893WSDyeyKdLg=
-X-Gm-Gg: AYBFou0PEifYXM0sp2ct+xlO+O/o6CDjxeLdID8kEYu9QGwE+GrxJ+oX41Bjv9mq6g9
-	MUHfGOg1/TwN6ZW2KKiN3Yhz0lpkHVBJQRdDKcJIIIPHj7bWrnRf7S0eq7J58jKGtf7hlnlsT9p
-	iTMcGyrZqNT67gVe0OMXQZIp0+NBXzphRpsUZ62Ww9aSodtAsPO13rsQ1sG7PNoZg4Qdk+yrngI
-	J/X70LCd680nuz0BCVvIL4cEOXBnIltE7hJYz7w/gPp/mYP8gw52RFoCkevMlYknwHs0SGFOzhy
-	OEx5PR3ne/vDwT8enKrlZsmXDebA7jJMejbO504j8Bmq2yt6DML+1DskdCpfK0j7p3CofiSFWNb
-	CG0eCNOPBio2ZykB6iUUyPqNm/926NO3DCRJzqg==
-X-Received: by 2002:a05:6214:21e9:b0:912:517b:844 with SMTP id
- 6a1803df08f44-91c7d1e7b9amr85298716d6.40.1793280770237; Thu, 29 Oct 2026
- 06:32:50 -0700 (PDT)
+        bh=2i3HYlB+GbvhTKq0vS61Mj8mgAms2UmILds9Leq0HNQ=;
+        b=EeaOdKNY+Prq9zBHR7H2fIoRY1C2pKTT+udnxXP+9IckumPgCCXZQ10ERzOU6jDpXj
+         wIqAeI0DTMT3QFK7leKVXOPmV2y6Ap+6Q1Gl4Jo0mb0pkhTESxDPIGiJ/KQBAYCrJqxW
+         LjYmBxeUaDZOj1h0trCvJr8HgG+w3R5EDEcDHWeDSWAugYKiSd6rUyjfd7xSoN75+prM
+         9Ifx7B8h/yC874sPLVuz58tz85SQL9mDjdlZ8uR5N6kebCHd4uItVljmep6SjoFE3ZLb
+         AIWH4WLfjVNo0exE8ac7bH3U6l118kfEp9ykH2bIPNoBf2Vu84hxoe+nKP+d5lgt2Y1p
+         2GTw==
+X-Forwarded-Encrypted: i=1; AKwUvBy9rk64ZvOzA7VflgvZT5Kb9Dh0shQpvUIykdYLHpTKvtqCP0J6PQWwUTCMT0Vr1acD80ydpVReKT/ugrA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgDkTTWHybDxyXOyBqdAg1aoJK31OEO70BvVF0volCbP1EzP9i
+	5fh4qowygxMXACvCdo2y5NXDO8JYE2EF3jBi1zptXf9/Rznk7msr/P+Ok/XS7CbTgWAvJSmVx7a
+	KyKwDLsmJZW5TDFr7wrIrEBQvDNYTu/31EjfB6WI=
+X-Gm-Gg: AYBFou2sE5ulE4h1/acNaeGfxMDNVVYsKCHDv/Bi06+misyWEHCv55ZPtfJ9jKHMdoG
+	4sOPRFB6G9ZiTV3t351dUmf5ltxpyvHkg1zmTkwwYR9c0zg2HltKWZEI+y4B28YrWVpl2mvSxpE
+	Zt9KZBrLsU4ZQ/BA6+roF5DIHKTOhKJL+FxqoKiPe2qRwURxsth8v6TRH9hTOPXyVZcAoQ5IfWZ
+	CXJlTUHwE8ubKWzu+Th0nfczNRFuE79/CrXMUB6Df8/wve1p22QbjgJwIVwuMur68oYXWWRYknN
+	eBuHTOYsY0csu5xWO81chRtkaEHS5XQchZhCf+XDf0OrcpzK/TJbswGXQfZHHBR/xXHKClo+CsC
+	EYEm1XjjkQUhC549Yp6KE0pPdDPaJglGU3MSC
+X-Received: by 2002:a05:620a:4628:b0:93f:1cd7:734b with SMTP id
+ af79cd13be357-94408cf970amr830248485a.34.1793280796965; Thu, 29 Oct 2026
+ 06:33:16 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,15 +104,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028074946.12728-1-mbkchelofficialdev@gmail.com>
-In-Reply-To: <20261028074946.12728-1-mbkchelofficialdev@gmail.com>
+References: <20261028155005.174417-1-mbkchelofficialdev@gmail.com>
+In-Reply-To: <20261028155005.174417-1-mbkchelofficialdev@gmail.com>
 From: MBKCHEL <mbkchelofficialdev@gmail.com>
-Date: Thu, 29 Oct 2026 15:32:38 +0200
-X-Gm-Features: AclHuK9IYKidWvC4mXwsbb5Jri0C59sT2rp2wR1GLRuJjUbsYEIhucnxykJmH7Y
-Message-ID: <CA+YDrKAaU1EXGhCtJ_yqBrVxKRs0ykyAibvtevVhRwWyU-BLLQ@mail.gmail.com>
-Subject: Re: [PATCH] staging: sm750fb: make g_fbmode array const
-To: gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org
+Date: Thu, 29 Oct 2026 15:33:05 +0200
+X-Gm-Features: AclHuK9wwROn4TU15KaNzEXIRId3eBxRzEJjMKpQJVL7IKBQ3GuCcnxcaYqj24A
+Message-ID: <CA+YDrKBAPZ9MHB46wVSsD4Vd-R8L1Kkz=Vp-F32+WyfJ5FDaoQ@mail.gmail.com>
+Subject: Re: [PATCH] rust: macros: document emit_base in ModInfoBuilder
+To: Luis Chamberlain <mcgrof@kernel.org>, Miguel Ojeda <ojeda@kernel.org>
+Cc: Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, rust-for-linux@vger.kernel.org, 
+	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -126,31 +129,47 @@ If the patch is accepted, could you please apply it with the corrected name=
 Thanks,
 Ivan
 
-=D1=81=D1=80, 28 =D0=BE=D0=BA=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 09:49, Iva=
+=D1=81=D1=80, 28 =D0=BE=D0=BA=D1=82. 2026=E2=80=AF=D0=B3. =D0=B2 17:50, Iva=
 n Tverdohleb <mbkchelofficialdev@gmail.com>:
 >
-> Make g_fbmode array const as it is not modified after initialization.
-> This fixes a checkpatch.pl warning.
+> Add documentation for the emit_base method within the ModInfoBuilder
+> struct. Explain its role in formatting metadata strings, handling the
+> differentiation between built-in and loadable modules, and managing
+> linker sections and conditional compilation.
 >
 > Signed-off-by: Ivan Tverdohleb <mbkchelofficialdev@gmail.com>
 > ---
->  drivers/staging/sm750fb/sm750.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  rust/macros/module.rs | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 >
-> diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm=
-750.c
-> index 21e310274..47d2917cc 100644
-> --- a/drivers/staging/sm750fb/sm750.c
-> +++ b/drivers/staging/sm750fb/sm750.c
-> @@ -12,7 +12,7 @@
->  static int g_hwcursor =3D 1;
->  static int g_noaccel __ro_after_init;
->  static int g_nomtrr __ro_after_init;
-> -static const char *g_fbmode[] =3D {NULL, NULL};
-> +static const char * const g_fbmode[] =3D {NULL, NULL};
->  static const char * const g_def_fbmode =3D "1024x768-32@60";
->  static char *g_settings;
->  static int g_dualview __ro_after_init;
+> diff --git a/rust/macros/module.rs b/rust/macros/module.rs
+> index 0a7b9e24c..6f361013f 100644
+> --- a/rust/macros/module.rs
+> +++ b/rust/macros/module.rs
+> @@ -49,6 +49,16 @@ fn new(module: &'a str) -> Self {
+>          }
+>      }
+>
+> +    /// Emits a single metadata entry into the module information table.
+> +    ///
+> +    /// This method formats a `field=3Dcontent\0` byte string and places=
+ it into the
+> +    /// `.modinfo` linker section. For built-in modules (`builtin =3D=3D=
+ true`), the string
+> +    /// is prefixed with the module name (`module.field=3Dcontent\0`) to=
+ avoid naming
+> +    /// collisions in the final monolithic kernel binary.
+> +    ///
+> +    /// It automatically generates a unique static identifier using an i=
+nternal counter
+> +    /// and applies appropriate conditional compilation attributes (`#[c=
+fg(MODULE)]` or
+> +    /// `#[cfg(not(MODULE))]`) based on the target type.
+>      fn emit_base(&mut self, field: &str, content: &str, builtin: bool, p=
+aram: bool) {
+>          let string =3D if builtin {
+>              // Built-in modules prefix their modinfo strings by `module.=
+`.
 > --
 > 2.56.0
 >
