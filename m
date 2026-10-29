@@ -1,100 +1,150 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793267921;
-	b=uxUavLrq+wueBD903+sI5U5AdzvZ8P1Pe4KW9fLv2/GK7M+FdJSlz4Xy3bcbp0+RiXmW
-	 qY97yxFV7bD+MWQE08jKb9/RhHt484dVdKJjMa4iQkf021B1Cxz+kWIFUcI+qS4HrFQyM
-	 Onvl2FG1kP59IIrobYKHrXOoQOpPp46i+jqolKSWXRFMmmIVVjw+jhuBwf/3o4yUq6Gs9
-	 DY2LYopnTrYhD39Cu9rdlt3UlYkITtjI+tGpGH4nJRVGhMUX/mGPGbLEi1m2Jc/0egT3B
-	 EnsruJrIW89rrtbC3UBZYilvrl56s0OehmQ4kClxlcQFqGdxvjCY1HzkIMMDkJM3wtw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267921;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Yc7WBDeLmx1ji0neslzEETIhjNOOqtjOzqoUjWpHAsA=;
-	b=THrGuV0Iadben+ArFTeRwjfmV13X8QfNlwx4eivJeftEiacBtFCN8xcGO9W8CLtmbYtJ
-	 HQ/QWFIeLo4XcjMsfBzSALE1O2Kzas8BYIwpflbJCy1Dc45fNiNhccXLTzcKQ6Ac3YgK+
-	 h606+3lYgHyj0Vs/FE0S0qg0Q1xJKE3hVcooiNrnAx1C9aNXE+9Ke/Z+PzxjqkzpaoRup
-	 nqD9VlUU9730ywqSxahSrlRTVAb0AWo7GltHcGiBk3FOI35daCAfnvLWUTyHXhP9nHPBJ
-	 ucLXTA0gwv72PBFfUmLZQxzbUqhGds6Ntv3UVk4vBaDlEtSR3V4uEzigx2Tx0h+VBeg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KmLH3ecd;
-	arc=fail smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793267936;
+	b=gDB/4PqMonbGaAO+Jry69pkhK6GzDWy9Z9S9eropVAgRFt4ZTW6taLJbPwCzSObHuRzf
+	 L4L0BwtM/t4dFd04eop6u1f981PzdrpRp/izU2IfB5pTyarJcWcymUKPNNKElulVvImSR
+	 1OGKMhnpSerKHGYCODVU47ISOv1XmU1Y9bG1GMP4WxM7SkjTONNrJDzEwQ+GQiVHPSuBq
+	 Y9G61SWunQRj/bQPYeeYkleQHbr5Latei2rA10NaRRncuQGUbWY5pRQ1B02z5kjTtJlLl
+	 M09HuE8ASftqdg7/3v/NqG5yvK/002B7e5Na96FmyHjJl7qOHQevNkPnYTZozVjg7SQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267936;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=UBJtRYcB2rayneQPKDvl5U7pRcWbuyDs8UAbOyrbCS8=;
+	b=YfNFOb6jVE/ez5Z1ZbiD2CbH8C8QhrcQbYhMzuEbwpyXu1Q+eJFGcOfUj+T2xMoF0cNb
+	 zxWeIvb8/fHzapqctifiixk6WtBNo4qscI072rvCi1jJEfoTwxC6kf8mjE6hFsFbi9sUe
+	 zhV+wlSXugSlPbj5XR2lxICw4BYoXFdaBSR01+bv5sCo7T7rRQEZZfnvcnBUQE8D/2YRr
+	 Ha4mwtq+Dd7AJ2sAcMQ3YPMb1vI3iOV7yFuo7pWPGl63J5AuFLnPENqrbdWqZVx23xbvd
+	 p/4r4bvQLvnSV0plyAopdv0HH0W5tQsiMsZ+46JmEwMKYaFom219nOKKj3D4u1RqnKw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYcEIjBe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FAC606A325
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:58:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29FAC606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 043D3606A31C;
+	Thu, 29 Oct 2026 09:58:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KmLH3ecd
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2d6cf958bso10731095e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:58:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793267919; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YBhEK/O9iijJ+KpebSC0kRQbK3bt8eSY+PoOo5lkruGCrJu+T5koes2NMso1SMUTE3
-         fUtiLdys0Ae9Rdr3DQICJRAbU4yISpMoCvlmdOgxaxuXALYXQTqIRvQmOR5MCNjf8JN/
-         T13ZuAI6cMlkHL9706ZBc3mByt/hcdLumQn1F7rwO11ggOLaQlYOl+pUQ4FVSLfscqIx
-         pqT5iNoWjxiVM/1TBifhpfQGP5tvGRvgh6h1K+jyONB8e8a7hZxSm4IVKKMuJJgqJ6Ij
-         7kiuQ716t/O4XRgnoOpiUF6vX8Y4OJyZwyTjObcqb9GkhN3BJnplqRk1uALA8CPFm2np
-         Aq3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Yc7WBDeLmx1ji0neslzEETIhjNOOqtjOzqoUjWpHAsA=;
-        fh=fwm1ld6vZkOj194SyB7KmsE8SDS26OCMszoHBpPOB3g=;
-        b=WgbOjJ/fEV+XYAGiUYKzSFhIkfZf2dziqfECVqggPcXxtbrH8pOQmSv03qB9rS5R5A
-         SDOTI7DEmcrO4UcQdj4ou1a1bBA9+pLTtCIYjetV0JLi7yjG7VAbm0dxcGlnH0peATyF
-         SKsdLxDfmUGtG+i8+6ag6MNVxWXNNDyCSTRREhTynWAD6oXuY/R/jcpCqqGUSEguvkGn
-         SPyFIEAkce9DnBOFEfVEWPHnV6SFpT8TLK9TEKMMpJ2PG9HzFScI/0D43VfBaKF2Xq5W
-         qKKQLYUeTF9itjSxXUwkep7NYEEvtcBxbI79aVsDtm0XV3S/7eY+oBM8NxpK3Nt1b/oH
-         LAsA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793267919; x=1793872719; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Yc7WBDeLmx1ji0neslzEETIhjNOOqtjOzqoUjWpHAsA=;
-        b=KmLH3ecdsMA0FV9WSna7IrJggs/oMBbI0RXE7j/puUJUTtpgiG5IDBjca+s4vOHPnr
-         kvx869iJiE2LVmA6UYSGhuGvnRfOQQnfg/sq9B/RtW7ccLaZboZM4cAaVLTzhaHt60Dj
-         IE8lVgypJmRoDx2dCQI04ERcHnieV4aC83BsTOm3FIULqhHt0VmaSHd0e97SRf3ObA/D
-         zik5mqCmO6uRmlsC0/R5taodK8l4x0+dJBPJM5JRDFjh2s9ZqD1d0gNe+dgddpyFhvRH
-         s5VOQSAaCN81fctaLNX3sRG6DGOJcsaEGxQM06ZYmO/IlIUXws4BDBf/Dj93AYo90HQK
-         cMbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793267919; x=1793872719;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Yc7WBDeLmx1ji0neslzEETIhjNOOqtjOzqoUjWpHAsA=;
-        b=GrZglxd6GQCwrvawD0S/H2YJVO2Jeq2iO80aUs7QtLKmIeDU2O1sIJifOoy4z8DQgY
-         +i4eYrHgDnQW+idG2s37xx5jG2+NAqwMaEwxbdHYGEGkFHYn9IFUk8LD/hdahNx7oSNl
-         4SRuVjDNv+/1vvEEoGaW5qUakUd7U08gr8c8c6j8+Bqy3Tef8GILwyoQ7ae7zigacDt+
-         JLaCLx9lbKV5qBAwdbOzFMHXvU5xVKxxoRApuvQ0MRduQ85pV7qq0SENe6K1zsTRhd0z
-         bg7vVwRSMrXsKk2hBp+D4OShkboxX+OdGnE705x5mEaWyFaxwupRaNTpDe7N8lBCwGwi
-         EJvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwuKJLPZ7Dum5zplsqpbXIT6zhIbmndv/X/Ozi6qXDLAfQK0imBEYRXqgpCpf6fzkKL8n3OIOXm5YcgKzw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFQePaTQi6UlDhFqDrexrZH+cUTcZawnwHjW+1y5N/Qk4R3OO7
-	HMWVcw3Uwx2DvDBvvfmCBuMZP6x6ELJHAj1Yk5agUlcYdkMnGNptaU8HXbNefKJ+h7WN9OjH420
-	ZBWSf7kTyKITyriZiJm9ZgHqSDtSlceY=
-X-Gm-Gg: AYBFou3XRORZBteDBpJnJz8powQ9IEogjbiFvMukRR2djmLVE763VK0RtR5KtqYvHRm
-	ox0o0lj4kW45KohgEsdX+YPGB+DoPbKqessruMrqkVBSYKyuEKwEEY3twk0lWZjqWRsH0B9zIZK
-	lzaWlOKUYWmM2WeThe78xVAx7jys1vQnYgYgIvlmLQ9Tlyf5DLWOrsmoVyeV9ANcEwpWA5vfybr
-	CcSoyPHNosznzOTG05m7EozRXOV3NugGikZ3JMqjpQetk5AmqnCIeKwbRhJM9XiZBq0zJFtmwUH
-	Ga5tOlhDl4CXocHFjXDfHoOWgz6iyV8tkPgdI54+MimfTEu/M3tU+LsKsd5T21BRAf/D70FPj2f
-	JwgvDIg0/QARpn0KCBA6XTGiq2yae/RmyTpD9O/vuHZyOAUoCGdXAIqrjchpxB3iq5C7XVK8=
-X-Received: by 2002:a05:600c:a103:b0:4a3:5d5d:48d9 with SMTP id
- 5b1f17b1804b1-4a967ab127emr88000115e9.35.1793267918857; Thu, 29 Oct 2026
- 02:58:38 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYcEIjBe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9792A1F01828;
+	Thu, 29 Oct 2026 09:58:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793267935;
+	bh=UBJtRYcB2rayneQPKDvl5U7pRcWbuyDs8UAbOyrbCS8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WYcEIjBebaqW1tblQs1B+s4SynZg0aNF0WlbcoAbbXiq9rKpq98mRIsjC78N2qq5z
+	 o+2Eqpr2uydZSNIvPUGia9OtFHEzojK4FIy3siyXJyWSiAgbSxX6f3Fjszl2H+0xsq
+	 B9I/9NJfvCq/umJDAVbhJJ0zJXcw+EmvnlIS44IYpMkajTesyvOCvpGwlwyuC0koDi
+	 h57P0O0ESTtPgZxDVAGR6QiyCsne70OSjqyxhXGoQ7XhZX1zcmEUk/qL5nOoS4YAxz
+	 E8Ik4lvwVvcfrnaBCWY0Irw1uYvOiUnBsMed4VnVwhwkcitKH9yA3dcUuVbfsb3gyo
+	 we4uMRPvriIqA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Min Ma <mamin506@gmail.com>,
+	Lizhi Hou <lizhi.hou@amd.com>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Karol Wachowski <karol.wachowski@linux.intel.com>,
+	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Felix Kuehling <Felix.Kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Russell King <linux+etnaviv@armlinux.org.uk>,
+	Christian Gmeiner <christian.gmeiner@gmail.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Alessio Belle <alessio.belle@imgtec.com>,
+	Luigi Santivetti <luigi.santivetti@imgtec.com>,
+	Qiang Yu <yuq825@gmail.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	=?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Dave Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Natalie Vock <nat@pixelcluster.dev>,
+	Arun Pravin <arunpravin.paneerselvam@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Melissa Wen <mwen@igalia.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Zack Rusin <zack.rusin@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sunil Khatri <sunil.khatri@amd.com>,
+	Kees Cook <kees@kernel.org>,
+	Jesse Zhang <jesse.zhang@amd.com>,
+	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+	Kexin Sun <kexinsun@smail.nju.edu.cn>,
+	Prike Liang <Prike.Liang@amd.com>,
+	David Rosca <david.rosca@amd.com>,
+	Krzysztof Karas <krzysztof.karas@intel.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Shixiong Ou <oushixiong@kylinos.cn>,
+	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Neill Kapron <nkapron@google.com>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	Sam Day <me@samcday.com>,
+	Gabriel Prostitis <prostitisgabriel@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org,
+	etnaviv@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	imagination@lists.freedesktop.org,
+	lima@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: [RFC PATCH 1/6] dma-buf: dma-fence: Add flags parameter to dma_fence_init()
+Date: Thu, 29 Oct 2026 10:55:38 +0100
+Message-ID: <20261029095542.1526750-4-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261029095542.1526750-3-phasta@kernel.org>
+References: <20261029095542.1526750-3-phasta@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,173 +154,746 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027163811.2470569-1-parri.andrea@gmail.com>
-In-Reply-To: <20261027163811.2470569-1-parri.andrea@gmail.com>
-From: KunWu Chan <kunwu.chan@gmail.com>
-Date: Thu, 29 Oct 2026 17:58:27 +0800
-X-Gm-Features: AclHuK-PyU47NuYgIA0zE-mZxiBBfVoQmUb043GP6GTroV1D35cedFeNfUB49NM
-Message-ID: <CAN_Opa8OyyuveYo7VyfQb4rDtUmw_m-25OSXSqwpzfOnGqwEpQ@mail.gmail.com>
-Subject: Re: [PATCH -rcu/dev 0/4] hazptrtorture: Fix shutdown hang and catch
- slot owner race
-To: Andrea Parri <parri.andrea@gmail.com>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, Josh Triplett <josh@joshtriplett.org>, 
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Zqiang <qiang.zhang@linux.dev>, Gary Guo <gary@garyguo.net>, 
-	Bradley Morgan <brads@mainlining.org>, rcu@vger.kernel.org, lkmm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-I ran into both issues independently while developing new shared-scan
-hazptr series and its torture-test scenarios.
+Currently, there are two init functions for dma_fence, dma_fence_init()
+and dma_fence_init64().
 
-For patch 1, I reproduced a shutdown hang on 16-CPU ARM64 KVM with
-`CONFIG_HAZPTR_ACQUIRE_FORCE_SLOWPATH=3Dy`, `nreaders=3D16`,
-and `defer_modulus=3D4000`. The readers remained in D state, with
-deferred-context stall reports reaching 147 seconds.
+Since more future user options for dma_fence initialization would
+require distinct init functions, too, it is better to do this in a
+unified way.
 
-My prototype uses the same all-CPU drain operation, but keeps the writer
-ahead of the readers in the cleanup order. With that change, the same test
-unloaded in seconds. The upstream configuration was harder to trigger; I di=
-d
-not reproduce the hang in a 3-minute run on the unmodified `origin/dev`
-baseline with `defer_modulus=3D100`.
+To prepare for that, add a flags field to dma_fence_init(). Adjust all
+affected drivers, preserving the old behavior.
 
-Paul's concern about `torture_must_stop()` is valid: `fullstop` can make th=
-e
-drainer exit before the readers have stopped, so its exit-time flush is not
-necessarily final. The reader-exit approach looks worth testing against bot=
-h
-the forced-slowpath case and the PREEMPT scenario Andrea reported.
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+ drivers/accel/amdxdna/amdxdna_ctx.c           |  2 +-
+ drivers/accel/ethosu/ethosu_job.c             |  2 +-
+ drivers/accel/ivpu/ivpu_job.c                 |  2 +-
+ drivers/accel/rocket/rocket_job.c             |  2 +-
+ drivers/dma-buf/dma-fence-array.c             |  2 +-
+ drivers/dma-buf/dma-fence.c                   |  9 ++++----
+ drivers/dma-buf/st-dma-fence-chain.c          |  2 +-
+ drivers/dma-buf/st-dma-fence-unwrap.c         |  2 +-
+ drivers/dma-buf/st-dma-fence.c                |  2 +-
+ drivers/dma-buf/st-dma-resv.c                 |  2 +-
+ drivers/dma-buf/sw_sync.c                     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  2 +-
+ drivers/gpu/drm/drm_crtc.c                    |  2 +-
+ drivers/gpu/drm/drm_writeback.c               |  2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
+ drivers/gpu/drm/i915/i915_request.c           |  2 +-
+ drivers/gpu/drm/i915/i915_sw_fence_work.c     |  2 +-
+ drivers/gpu/drm/i915/i915_vma_resource.c      |  2 +-
+ .../gpu/drm/i915/selftests/i915_sw_fence.c    |  2 +-
+ drivers/gpu/drm/imagination/pvr_ccb.c         |  2 +-
+ drivers/gpu/drm/imagination/pvr_queue.c       |  2 +-
+ drivers/gpu/drm/lima/lima_sched.c             |  2 +-
+ drivers/gpu/drm/msm/msm_fence.c               |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_fence.c       |  4 ++--
+ drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
+ drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
+ drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
+ drivers/gpu/drm/radeon/radeon_fence.c         |  2 +-
+ drivers/gpu/drm/scheduler/sched_fence.c       |  4 ++--
+ .../gpu/drm/scheduler/tests/mock_scheduler.c  |  2 +-
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+ drivers/gpu/drm/v3d/v3d_fence.c               |  2 +-
+ drivers/gpu/drm/vc4/vc4_gem.c                 |  2 +-
+ drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_fence.c        |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
+ drivers/gpu/drm/xe/xe_oa.c                    |  2 +-
+ drivers/gpu/drm/xe/xe_preempt_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_tlb_inval.c             |  2 +-
+ drivers/gpu/host1x/fence.c                    |  2 +-
+ drivers/iio/industrialio-buffer.c             |  2 +-
+ drivers/usb/gadget/function/f_fs.c            |  2 +-
+ include/linux/dma-fence.h                     | 22 ++++++++++++++++---
+ 47 files changed, 71 insertions(+), 54 deletions(-)
 
-I also saw the patch-3 warning during ARM64 `PROVE_LOCKING` testing,
-although I have not reproduced it consistently. The warning count dropped
-from 3 to 0 when the relevant fixes were applied together, so I cannot attr=
-ibute
- that change to patch 3 alone.
+diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+index f4004630dc1b..f2245541f1ee 100644
+--- a/drivers/accel/amdxdna/amdxdna_ctx.c
++++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+@@ -53,7 +53,7 @@ static struct dma_fence *amdxdna_fence_create(struct amdxdna_hwctx *hwctx)
+ 
+ 	spin_lock_init(&fence->lock);
+ 	/* Unique timeline context prevents eviction from shared BO reservation. */
+-	dma_fence_init(&fence->base, &fence_ops, &fence->lock, dma_fence_context_alloc(1), 0);
++	dma_fence_init(&fence->base, &fence_ops, &fence->lock, dma_fence_context_alloc(1), 0, 0);
+ 	return &fence->base;
+ }
+ 
+diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
+index d656b3ec670e..d4fc71436cae 100644
+--- a/drivers/accel/ethosu/ethosu_job.c
++++ b/drivers/accel/ethosu/ethosu_job.c
+@@ -219,7 +219,7 @@ static struct dma_fence *ethosu_job_run(struct drm_sched_job *sched_job)
+ 		return NULL;
+ 
+ 	dma_fence_init(fence, &ethosu_fence_ops, &dev->fence_lock,
+-		       dev->fence_context, ++dev->emit_seqno);
++		       dev->fence_context, ++dev->emit_seqno, 0);
+ 	dma_fence_get(fence);
+ 
+ 	ethosu_switch_perfmon(dev, job);
+diff --git a/drivers/accel/ivpu/ivpu_job.c b/drivers/accel/ivpu/ivpu_job.c
+index 6a1307ee2e19..ca24e84a2ed9 100644
+--- a/drivers/accel/ivpu/ivpu_job.c
++++ b/drivers/accel/ivpu/ivpu_job.c
+@@ -519,7 +519,7 @@ static struct dma_fence *ivpu_fence_create(struct ivpu_device *vdev)
+ 
+ 	fence->vdev = vdev;
+ 	spin_lock_init(&fence->lock);
+-	dma_fence_init(&fence->base, &ivpu_fence_ops, &fence->lock, dma_fence_context_alloc(1), 1);
++	dma_fence_init(&fence->base, &ivpu_fence_ops, &fence->lock, dma_fence_context_alloc(1), 1, 0);
+ 
+ 	return &fence->base;
+ }
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index ce994748dd5d..4526c28326bb 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -61,7 +61,7 @@ static struct dma_fence *rocket_fence_create(struct rocket_core *core)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	dma_fence_init(fence, &rocket_fence_ops, &core->fence_lock,
+-		       core->fence_context, ++core->emit_seqno);
++		       core->fence_context, ++core->emit_seqno, 0);
+ 
+ 	return fence;
+ }
+diff --git a/drivers/dma-buf/dma-fence-array.c b/drivers/dma-buf/dma-fence-array.c
+index 5e10e8df372f..e2dddbfddea2 100644
+--- a/drivers/dma-buf/dma-fence-array.c
++++ b/drivers/dma-buf/dma-fence-array.c
+@@ -205,7 +205,7 @@ void dma_fence_array_init(struct dma_fence_array *array,
+ 	array->num_fences = num_fences;
+ 
+ 	dma_fence_init(&array->base, &dma_fence_array_ops, NULL, context,
+-		       seqno);
++		       seqno, 0);
+ 	init_irq_work(&array->work, irq_dma_fence_array_work);
+ 
+ 	/*
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index bd58688b81a7..a640fb99f942 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -122,7 +122,7 @@ static const struct dma_fence_ops dma_fence_stub_ops = {
+ 
+ static int __init dma_fence_init_stub(void)
+ {
+-	dma_fence_init(&dma_fence_stub, &dma_fence_stub_ops, NULL, 0, 0);
++	dma_fence_init(&dma_fence_stub, &dma_fence_stub_ops, NULL, 0, 0, 0);
+ 	set_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
+ 		&dma_fence_stub.flags);
+ 	dma_fence_signal(&dma_fence_stub);
+@@ -156,7 +156,7 @@ struct dma_fence *dma_fence_allocate_private_stub(ktime_t timestamp)
+ 	if (fence == NULL)
+ 		return NULL;
+ 
+-	dma_fence_init(fence, &dma_fence_stub_ops, NULL, 0, 0);
++	dma_fence_init(fence, &dma_fence_stub_ops, NULL, 0, 0, 0);
+ 	set_bit(DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
+ 		&fence->flags);
+ 
+@@ -1111,9 +1111,10 @@ __dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+  */
+ void
+ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+-	       spinlock_t *lock, u64 context, u64 seqno)
++	       spinlock_t *lock, u64 context, u64 seqno,
++	       unsigned long init_flags)
+ {
+-	__dma_fence_init(fence, ops, lock, context, seqno, 0UL);
++	__dma_fence_init(fence, ops, lock, context, seqno, 0);
+ }
+ EXPORT_SYMBOL(dma_fence_init);
+ 
+diff --git a/drivers/dma-buf/st-dma-fence-chain.c b/drivers/dma-buf/st-dma-fence-chain.c
+index e0d9b69bfa76..b9610df3ff19 100644
+--- a/drivers/dma-buf/st-dma-fence-chain.c
++++ b/drivers/dma-buf/st-dma-fence-chain.c
+@@ -52,7 +52,7 @@ static struct dma_fence *mock_fence(void)
+ 		return NULL;
+ 
+ 	spin_lock_init(&f->lock);
+-	dma_fence_init(&f->base, &mock_ops, &f->lock, 0, 0);
++	dma_fence_init(&f->base, &mock_ops, &f->lock, 0, 0, 0);
+ 
+ 	return &f->base;
+ }
+diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-dma-fence-unwrap.c
+index c5353b36f0e4..dbebc3046d42 100644
+--- a/drivers/dma-buf/st-dma-fence-unwrap.c
++++ b/drivers/dma-buf/st-dma-fence-unwrap.c
+@@ -36,7 +36,7 @@ static struct dma_fence *__mock_fence(u64 context, u64 seqno)
+ 		return NULL;
+ 
+ 	spin_lock_init(&f->lock);
+-	dma_fence_init(&f->base, &mock_ops, &f->lock, context, seqno);
++	dma_fence_init(&f->base, &mock_ops, &f->lock, context, seqno, 0);
+ 
+ 	return &f->base;
+ }
+diff --git a/drivers/dma-buf/st-dma-fence.c b/drivers/dma-buf/st-dma-fence.c
+index cb62e606d0a2..b3f88e89cc44 100644
+--- a/drivers/dma-buf/st-dma-fence.c
++++ b/drivers/dma-buf/st-dma-fence.c
+@@ -31,7 +31,7 @@ static struct dma_fence *mock_fence(void)
+ 	if (!f)
+ 		return NULL;
+ 
+-	dma_fence_init(f, &mock_ops, NULL, 0, 0);
++	dma_fence_init(f, &mock_ops, NULL, 0, 0, 0);
+ 	return f;
+ }
+ 
+diff --git a/drivers/dma-buf/st-dma-resv.c b/drivers/dma-buf/st-dma-resv.c
+index 0b96136bbd54..c3a920ab3fcf 100644
+--- a/drivers/dma-buf/st-dma-resv.c
++++ b/drivers/dma-buf/st-dma-resv.c
+@@ -35,7 +35,7 @@ static struct dma_fence *alloc_fence(void)
+ 	if (!f)
+ 		return NULL;
+ 
+-	dma_fence_init(f, &fence_ops, &fence_lock, 0, 0);
++	dma_fence_init(f, &fence_ops, &fence_lock, 0, 0, 0);
+ 	return f;
+ }
+ 
+diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+index 8df20b0218a9..ce43af7e735e 100644
+--- a/drivers/dma-buf/sw_sync.c
++++ b/drivers/dma-buf/sw_sync.c
+@@ -258,7 +258,7 @@ static struct sync_pt *sync_pt_create(struct sync_timeline *obj,
+ 
+ 	sync_timeline_get(obj);
+ 	dma_fence_init(&pt->base, &timeline_fence_ops, &obj->lock,
+-		       obj->context, value);
++		       obj->context, value, 0);
+ 	INIT_LIST_HEAD(&pt->link);
+ 
+ 	spin_lock_irq(&obj->lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+index 9b10d015671c..30ccdb3e0b47 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+@@ -77,7 +77,7 @@ struct amdgpu_amdkfd_fence *amdgpu_amdkfd_fence_create(u64 context,
+ 	spin_lock_init(&fence->lock);
+ 	fence->context_id = context_id;
+ 	dma_fence_init(&fence->base, &amdkfd_fence_ops, &fence->lock,
+-		   context, atomic_inc_return(&fence_seq));
++		   context, atomic_inc_return(&fence_seq), 0);
+ 
+ 	return fence;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 3043ad041bb4..e635884a218b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -112,7 +112,7 @@ void amdgpu_fence_emit(struct amdgpu_ring *ring, struct amdgpu_fence *af,
+ 	seq = ++ring->fence_drv.sync_seq;
+ 	dma_fence_init(fence, &amdgpu_fence_ops,
+ 		       &ring->fence_drv.lock,
+-		       adev->fence_context + ring->idx, seq);
++		       adev->fence_context + ring->idx, seq, 0);
+ 
+ 	amdgpu_ring_emit_fence(ring, ring->fence_drv.gpu_addr,
+ 			       seq, flags | AMDGPU_FENCE_FLAG_INT);
+diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
+index 63ead8ba6756..92641bc0a378 100644
+--- a/drivers/gpu/drm/drm_crtc.c
++++ b/drivers/gpu/drm/drm_crtc.c
+@@ -190,7 +190,7 @@ struct dma_fence *drm_crtc_create_fence(struct drm_crtc *crtc)
+ 		return NULL;
+ 
+ 	dma_fence_init(fence, &drm_crtc_fence_ops, &crtc->fence_lock,
+-		       crtc->fence_context, ++crtc->fence_seqno);
++		       crtc->fence_context, ++crtc->fence_seqno, 0);
+ 
+ 	return fence;
+ }
+diff --git a/drivers/gpu/drm/drm_writeback.c b/drivers/gpu/drm/drm_writeback.c
+index b4a002e6d043..64b06b890f19 100644
+--- a/drivers/gpu/drm/drm_writeback.c
++++ b/drivers/gpu/drm/drm_writeback.c
+@@ -592,7 +592,7 @@ drm_writeback_get_out_fence(struct drm_writeback_connector *wb_connector)
+ 
+ 	dma_fence_init(fence, &drm_writeback_fence_ops,
+ 		       &wb_connector->fence_lock, wb_connector->fence_context,
+-		       ++wb_connector->fence_seqno);
++		       ++wb_connector->fence_seqno, 0);
+ 
+ 	return fence;
+ }
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+index 5c23182f4d33..36f88e0a2063 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+@@ -1207,7 +1207,7 @@ static struct dma_fence *etnaviv_gpu_fence_alloc(struct etnaviv_gpu *gpu)
+ 	f->gpu = gpu;
+ 
+ 	dma_fence_init(&f->base, &etnaviv_fence_ops, &gpu->fence_spinlock,
+-		       gpu->fence_context, ++gpu->next_fence);
++		       gpu->fence_context, ++gpu->next_fence, 0);
+ 
+ 	return &f->base;
+ }
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+index 56489cc127d6..ffaa70191f27 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c
+@@ -437,7 +437,7 @@ i915_ttm_memcpy_work_arm(struct i915_ttm_memcpy_work *work,
+ 	int ret;
+ 
+ 	spin_lock_init(&work->lock);
+-	dma_fence_init(&work->fence, &dma_fence_memcpy_ops, &work->lock, 0, 0);
++	dma_fence_init(&work->fence, &dma_fence_memcpy_ops, &work->lock, 0, 0, 0);
+ 	dma_fence_get(&work->fence);
+ 	ret = dma_fence_add_callback(dep, &work->cb, __memcpy_cb);
+ 	if (ret) {
+diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
+index d2c7b1090df0..640f83615726 100644
+--- a/drivers/gpu/drm/i915/i915_request.c
++++ b/drivers/gpu/drm/i915/i915_request.c
+@@ -955,7 +955,7 @@ __i915_request_create(struct intel_context *ce, gfp_t gfp)
+ 		goto err_free;
+ 
+ 	dma_fence_init(&rq->fence, &i915_fence_ops, &rq->lock,
+-		       tl->fence_context, seqno);
++		       tl->fence_context, seqno, 0);
+ 
+ 	RCU_INIT_POINTER(rq->timeline, tl);
+ 	rq->hwsp_seqno = tl->hwsp_seqno;
+diff --git a/drivers/gpu/drm/i915/i915_sw_fence_work.c b/drivers/gpu/drm/i915/i915_sw_fence_work.c
+index 366418108f78..4cd44dd26e35 100644
+--- a/drivers/gpu/drm/i915/i915_sw_fence_work.c
++++ b/drivers/gpu/drm/i915/i915_sw_fence_work.c
+@@ -85,7 +85,7 @@ void dma_fence_work_init(struct dma_fence_work *f,
+ {
+ 	f->ops = ops;
+ 	spin_lock_init(&f->lock);
+-	dma_fence_init(&f->dma, &fence_ops, &f->lock, 0, 0);
++	dma_fence_init(&f->dma, &fence_ops, &f->lock, 0, 0, 0);
+ 	i915_sw_fence_init(&f->chain, fence_notify);
+ 	INIT_WORK(&f->work, fence_work);
+ }
+diff --git a/drivers/gpu/drm/i915/i915_vma_resource.c b/drivers/gpu/drm/i915/i915_vma_resource.c
+index a8f2112ce81f..19596410e32f 100644
+--- a/drivers/gpu/drm/i915/i915_vma_resource.c
++++ b/drivers/gpu/drm/i915/i915_vma_resource.c
+@@ -263,7 +263,7 @@ void __i915_vma_resource_init(struct i915_vma_resource *vma_res)
+ {
+ 	spin_lock_init(&vma_res->lock);
+ 	dma_fence_init(&vma_res->unbind_fence, &unbind_fence_ops,
+-		       &vma_res->lock, 0, 0);
++		       &vma_res->lock, 0, 0, 0);
+ 	refcount_set(&vma_res->hold_count, 1);
+ 	i915_sw_fence_init(&vma_res->chain, i915_vma_resource_fence_notify);
+ }
+diff --git a/drivers/gpu/drm/i915/selftests/i915_sw_fence.c b/drivers/gpu/drm/i915/selftests/i915_sw_fence.c
+index 6a305322e30d..ca1f3dbe59f7 100644
+--- a/drivers/gpu/drm/i915/selftests/i915_sw_fence.c
++++ b/drivers/gpu/drm/i915/selftests/i915_sw_fence.c
+@@ -641,7 +641,7 @@ static struct dma_fence *alloc_dma_fence(void)
+ 
+ 	dma = kmalloc_obj(*dma);
+ 	if (dma)
+-		dma_fence_init(dma, &mock_fence_ops, &mock_fence_lock, 0, 0);
++		dma_fence_init(dma, &mock_fence_ops, &mock_fence_lock, 0, 0, 0);
+ 
+ 	return dma;
+ }
+diff --git a/drivers/gpu/drm/imagination/pvr_ccb.c b/drivers/gpu/drm/imagination/pvr_ccb.c
+index e408df74853d..7043b491fe54 100644
+--- a/drivers/gpu/drm/imagination/pvr_ccb.c
++++ b/drivers/gpu/drm/imagination/pvr_ccb.c
+@@ -645,7 +645,7 @@ pvr_kccb_reserve_slot(struct pvr_device *pvr_dev, struct dma_fence *f)
+ 		dma_fence_init(&fence->base, &pvr_kccb_fence_ops,
+ 			       &pvr_dev->kccb.fence_ctx.lock,
+ 			       pvr_dev->kccb.fence_ctx.id,
+-			       atomic_inc_return(&pvr_dev->kccb.fence_ctx.seqno));
++			       atomic_inc_return(&pvr_dev->kccb.fence_ctx.seqno), 0);
+ 		out_fence = dma_fence_get(&fence->base);
+ 		list_add_tail(&fence->node, &pvr_dev->kccb.waiters);
+ 	} else {
+diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
+index 24a8645aa913..34b826381aa2 100644
+--- a/drivers/gpu/drm/imagination/pvr_queue.c
++++ b/drivers/gpu/drm/imagination/pvr_queue.c
+@@ -305,7 +305,7 @@ pvr_queue_fence_init(struct dma_fence *f,
+ 	INIT_WORK(&fence->release_work, pvr_queue_fence_release_work);
+ 	dma_fence_init(&fence->base, fence_ops,
+ 		       &fence_ctx->lock, fence_ctx->id,
+-		       atomic_inc_return(&fence_ctx->seqno));
++		       atomic_inc_return(&fence_ctx->seqno), 0);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+index 9a1e6b9ecbe5..fee595b9629a 100644
+--- a/drivers/gpu/drm/lima/lima_sched.c
++++ b/drivers/gpu/drm/lima/lima_sched.c
+@@ -97,7 +97,7 @@ static struct lima_fence *lima_fence_create(struct lima_sched_pipe *pipe)
+ 
+ 	fence->pipe = pipe;
+ 	dma_fence_init(&fence->base, &lima_fence_ops, &pipe->fence_lock,
+-		       pipe->fence_context, ++pipe->fence_seqno);
++		       pipe->fence_context, ++pipe->fence_seqno, 0);
+ 
+ 	return fence;
+ }
+diff --git a/drivers/gpu/drm/msm/msm_fence.c b/drivers/gpu/drm/msm/msm_fence.c
+index 3dca8e09c192..1ec59919c32e 100644
+--- a/drivers/gpu/drm/msm/msm_fence.c
++++ b/drivers/gpu/drm/msm/msm_fence.c
+@@ -197,5 +197,5 @@ msm_fence_init(struct dma_fence *fence, struct msm_fence_context *fctx)
+ 	WARN_ON(kref_read(&fence->refcount));
+ 
+ 	dma_fence_init(&f->base, &msm_fence_ops, &fctx->spinlock,
+-		       fctx->context, ++fctx->last_fence);
++		       fctx->context, ++fctx->last_fence, 0);
+ }
+diff --git a/drivers/gpu/drm/nouveau/nouveau_fence.c b/drivers/gpu/drm/nouveau/nouveau_fence.c
+index 11e95c37ce50..97e20954c71b 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_fence.c
++++ b/drivers/gpu/drm/nouveau/nouveau_fence.c
+@@ -216,10 +216,10 @@ nouveau_fence_emit(struct nouveau_fence *fence)
+ 
+ 	if (priv->uevent)
+ 		dma_fence_init(&fence->base, &nouveau_fence_ops_uevent,
+-			       &fctx->lock, fctx->context, ++fctx->sequence);
++			       &fctx->lock, fctx->context, ++fctx->sequence, 0);
+ 	else
+ 		dma_fence_init(&fence->base, &nouveau_fence_ops_legacy,
+-			       &fctx->lock, fctx->context, ++fctx->sequence);
++			       &fctx->lock, fctx->context, ++fctx->sequence, 0);
+ 	kref_get(&fctx->fence_ref);
+ 
+ 	ret = fctx->emit(fence);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 4ddf4b722ddf..de242d275978 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -105,7 +105,7 @@ static struct dma_fence *panfrost_fence_create(struct panfrost_device *pfdev, in
+ 	fence->queue = js_num;
+ 	fence->seqno = ++js->queue[js_num].emit_seqno;
+ 	dma_fence_init(&fence->base, &panfrost_fence_ops, &js->job_lock,
+-		       js->queue[js_num].fence_context, fence->seqno);
++		       js->queue[js_num].fence_context, fence->seqno, 0);
+ 
+ 	return &fence->base;
+ }
+diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+index a343c5180e01..c46f69ade7a0 100644
+--- a/drivers/gpu/drm/panthor/panthor_sched.c
++++ b/drivers/gpu/drm/panthor/panthor_sched.c
+@@ -3322,7 +3322,7 @@ queue_run_job(struct drm_sched_job *sched_job)
+ 		       &panthor_queue_fence_ops,
+ 		       &queue->fence_ctx.lock,
+ 		       queue->fence_ctx.id,
+-		       atomic64_inc_return(&queue->fence_ctx.seqno));
++		       atomic64_inc_return(&queue->fence_ctx.seqno), 0);
+ 
+ 	job->profiling.slot = queue->profiling.seqno++;
+ 	if (queue->profiling.seqno == queue->profiling.slot_count)
+diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+index 06979d0e8a9f..2608d82f7370 100644
+--- a/drivers/gpu/drm/qxl/qxl_release.c
++++ b/drivers/gpu/drm/qxl/qxl_release.c
+@@ -430,7 +430,7 @@ void qxl_release_fence_buffer_objects(struct qxl_release *release)
+ 	 * set the highest bits. This will break if we really allow exporting of dma-bufs.
+ 	 */
+ 	dma_fence_init(&release->base, &qxl_fence_ops, &qdev->release_lock,
+-		       release->id | 0xf0000000, release->base.seqno);
++		       release->id | 0xf0000000, release->base.seqno, 0);
+ 	trace_dma_fence_emit(&release->base);
+ 
+ 	list_for_each_entry(entry, &release->bos, list) {
+diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/radeon/radeon_fence.c
+index 8e9402b8811b..1360b5215f5e 100644
+--- a/drivers/gpu/drm/radeon/radeon_fence.c
++++ b/drivers/gpu/drm/radeon/radeon_fence.c
+@@ -148,7 +148,7 @@ int radeon_fence_emit(struct radeon_device *rdev,
+ 	dma_fence_init(&(*fence)->base, &radeon_fence_ops,
+ 		       &rdev->fence_queue.lock,
+ 		       rdev->fence_context + ring,
+-		       seq);
++		       seq, 0);
+ 	radeon_fence_ring_emit(rdev, ring, *fence);
+ 	trace_radeon_fence_emit(rdev_to_drm(rdev), ring, (*fence)->seq);
+ 	radeon_fence_schedule_check(rdev, ring);
+diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
+index b7a4cb921234..94ba0cf4fe02 100644
+--- a/drivers/gpu/drm/scheduler/sched_fence.c
++++ b/drivers/gpu/drm/scheduler/sched_fence.c
+@@ -229,9 +229,9 @@ void drm_sched_fence_init(struct drm_sched_fence *fence,
+ 	fence->sched = entity->rq->sched;
+ 	seq = atomic_inc_return(&entity->fence_seq);
+ 	dma_fence_init(&fence->scheduled, &drm_sched_fence_ops_scheduled,
+-		       &fence->lock, entity->fence_context, seq);
++		       &fence->lock, entity->fence_context, seq, 0);
+ 	dma_fence_init(&fence->finished, &drm_sched_fence_ops_finished,
+-		       &fence->lock, entity->fence_context + 1, seq);
++		       &fence->lock, entity->fence_context + 1, seq, 0);
+ }
+ 
+ module_init(drm_sched_fence_slab_init);
+diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+index 2dfa3efef210..169792a4b329 100644
+--- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
++++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+@@ -173,7 +173,7 @@ static struct dma_fence *mock_sched_run_job(struct drm_sched_job *sched_job)
+ 		       &drm_mock_sched_hw_fence_ops,
+ 		       &sched->lock,
+ 		       sched->hw_timeline.context,
+-		       atomic_inc_return(&sched->hw_timeline.next_seqno));
++		       atomic_inc_return(&sched->hw_timeline.next_seqno), 0);
+ 
+ 	dma_fence_get(&job->hw_fence); /* Reference for the job_list */
+ 
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+index f3103307b5df..633cc7458505 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
+@@ -450,7 +450,7 @@ static void ttm_bo_fini_shared_resv(struct kunit *test)
+ 	KUNIT_ASSERT_NOT_NULL(test, fence);
+ 
+ 	spin_lock_init(&fence_lock);
+-	dma_fence_init(fence, &mock_fence_ops, &fence_lock, 0, 0);
++	dma_fence_init(fence, &mock_fence_ops, &fence_lock, 0, 0, 0);
+ 
+ 	dma_resv_lock(external_resv, NULL);
+ 	dma_resv_reserve_fences(external_resv, 1);
+diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+index 56ad8ef32584..e22a1335f166 100644
+--- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
++++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
+@@ -57,7 +57,7 @@ static struct dma_fence *alloc_mock_fence(struct kunit *test)
+ 	fence = kunit_kzalloc(test, sizeof(*fence), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, fence);
+ 
+-	dma_fence_init(fence, &fence_ops, &fence_lock, 0, 0);
++	dma_fence_init(fence, &fence_ops, &fence_lock, 0, 0, 0);
+ 
+ 	return fence;
+ }
+diff --git a/drivers/gpu/drm/v3d/v3d_fence.c b/drivers/gpu/drm/v3d/v3d_fence.c
+index c500136d0455..1fdba5a21580 100644
+--- a/drivers/gpu/drm/v3d/v3d_fence.c
++++ b/drivers/gpu/drm/v3d/v3d_fence.c
+@@ -16,7 +16,7 @@ struct dma_fence *v3d_fence_create(struct v3d_dev *v3d, enum v3d_queue q)
+ 	fence->queue = q;
+ 	fence->seqno = ++queue->emit_seqno;
+ 	dma_fence_init(&fence->base, &v3d_fence_ops, &queue->queue_lock,
+-		       queue->fence_context, fence->seqno);
++		       queue->fence_context, fence->seqno, 0);
+ 
+ 	return &fence->base;
+ }
+diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+index 0ea921bab906..d2ddafe6f87a 100644
+--- a/drivers/gpu/drm/vc4/vc4_gem.c
++++ b/drivers/gpu/drm/vc4/vc4_gem.c
+@@ -648,7 +648,7 @@ vc4_queue_submit(struct drm_device *dev, struct vc4_exec_info *exec,
+ 	exec->seqno = seqno;
+ 
+ 	dma_fence_init(&fence->base, &vc4_fence_ops, &vc4->job_lock,
+-		       vc4->dma_fence_context, exec->seqno);
++		       vc4->dma_fence_context, exec->seqno, 0);
+ 	fence->seqno = exec->seqno;
+ 	exec->fence = &fence->base;
+ 
+diff --git a/drivers/gpu/drm/vgem/vgem_fence.c b/drivers/gpu/drm/vgem/vgem_fence.c
+index 0e53ba7db629..18700e5f9167 100644
+--- a/drivers/gpu/drm/vgem/vgem_fence.c
++++ b/drivers/gpu/drm/vgem/vgem_fence.c
+@@ -77,7 +77,7 @@ static struct dma_fence *vgem_fence_create(struct vgem_file *vfile,
+ 
+ 	spin_lock_init(&fence->lock);
+ 	dma_fence_init(&fence->base, &vgem_fence_ops, &fence->lock,
+-		       dma_fence_context_alloc(1), 1);
++		       dma_fence_context_alloc(1), 1, 0);
+ 
+ 	timer_setup(&fence->timer, vgem_fence_timeout, TIMER_IRQSAFE);
+ 
+diff --git a/drivers/gpu/drm/virtio/virtgpu_fence.c b/drivers/gpu/drm/virtio/virtgpu_fence.c
+index c3e66ef2133a..8e469391d2e4 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_fence.c
++++ b/drivers/gpu/drm/virtio/virtgpu_fence.c
+@@ -76,7 +76,7 @@ struct virtio_gpu_fence *virtio_gpu_fence_alloc(struct virtio_gpu_device *vgdev,
+ 	 */
+ 
+ 	dma_fence_init(&fence->f, &virtio_gpu_fence_ops, &drv->lock,
+-		       fence_context, 0);
++		       fence_context, 0, 0);
+ 
+ 	return fence;
+ }
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
+index 384c6736cf6b..15f355dc6881 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_fence.c
+@@ -163,7 +163,7 @@ static int vmw_fence_obj_init(struct vmw_fence_manager *fman,
+ 	int ret = 0;
+ 
+ 	dma_fence_init(&fence->base, &vmw_fence_ops, &fman->lock,
+-		       fman->ctx, seqno);
++		       fman->ctx, seqno, 0);
+ 	fence->destroy = destroy;
+ 
+ 	spin_lock(&fman->lock);
+diff --git a/drivers/gpu/drm/xe/xe_hw_fence.c b/drivers/gpu/drm/xe/xe_hw_fence.c
+index 14720623ad00..30bfc42972e0 100644
+--- a/drivers/gpu/drm/xe/xe_hw_fence.c
++++ b/drivers/gpu/drm/xe/xe_hw_fence.c
+@@ -243,7 +243,7 @@ void xe_hw_fence_init(struct dma_fence *fence, struct xe_hw_fence_ctx *ctx,
+ 	INIT_LIST_HEAD(&hw_fence->irq_link);
+ 
+ 	dma_fence_init(fence, &xe_hw_fence_ops, &ctx->irq->lock,
+-		       ctx->dma_fence_ctx, ctx->next_seqno++);
++		       ctx->dma_fence_ctx, ctx->next_seqno++, 0);
+ 
+ 	trace_xe_hw_fence_create(hw_fence);
+ }
+diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
+index a3484e943c55..2860fe73971f 100644
+--- a/drivers/gpu/drm/xe/xe_oa.c
++++ b/drivers/gpu/drm/xe/xe_oa.c
+@@ -1045,7 +1045,7 @@ static int xe_oa_emit_oa_config(struct xe_oa_stream *stream, struct xe_oa_config
+ 
+ 	/* Point of no return: initialize and set fence to signal */
+ 	spin_lock_init(&ofence->lock);
+-	dma_fence_init(&ofence->base, &xe_oa_fence_ops, &ofence->lock, 0, 0);
++	dma_fence_init(&ofence->base, &xe_oa_fence_ops, &ofence->lock, 0, 0, 0);
+ 
+ 	for (i = 0; i < stream->num_syncs; i++) {
+ 		if (stream->syncs[i].flags & DRM_XE_SYNC_FLAG_SIGNAL)
+diff --git a/drivers/gpu/drm/xe/xe_preempt_fence.c b/drivers/gpu/drm/xe/xe_preempt_fence.c
+index 4aa570fe745d..343f1ba1e1cd 100644
+--- a/drivers/gpu/drm/xe/xe_preempt_fence.c
++++ b/drivers/gpu/drm/xe/xe_preempt_fence.c
+@@ -154,7 +154,7 @@ xe_preempt_fence_arm(struct xe_preempt_fence *pfence, struct xe_exec_queue *q,
+ 	pfence->q = xe_exec_queue_get(q);
+ 	spin_lock_init(&pfence->lock);
+ 	dma_fence_init(&pfence->base, &preempt_fence_ops,
+-		      &pfence->lock, context, seqno);
++		      &pfence->lock, context, seqno, 0);
+ 
+ 	return &pfence->base;
+ }
+diff --git a/drivers/gpu/drm/xe/xe_tlb_inval.c b/drivers/gpu/drm/xe/xe_tlb_inval.c
+index dd1030de9ab6..8edf64337196 100644
+--- a/drivers/gpu/drm/xe/xe_tlb_inval.c
++++ b/drivers/gpu/drm/xe/xe_tlb_inval.c
+@@ -490,7 +490,7 @@ void xe_tlb_inval_fence_init(struct xe_tlb_inval *tlb_inval,
+ 
+ 	spin_lock_irq(&tlb_inval->lock);
+ 	dma_fence_init(&fence->base, &inval_fence_ops, &tlb_inval->lock,
+-		       dma_fence_context_alloc(1), 1);
++		       dma_fence_context_alloc(1), 1, 0);
+ 	spin_unlock_irq(&tlb_inval->lock);
+ 	INIT_LIST_HEAD(&fence->link);
+ 	if (stack)
+diff --git a/drivers/gpu/host1x/fence.c b/drivers/gpu/host1x/fence.c
+index 1acf579c562b..7e074e72a055 100644
+--- a/drivers/gpu/host1x/fence.c
++++ b/drivers/gpu/host1x/fence.c
+@@ -136,7 +136,7 @@ struct dma_fence *host1x_fence_create(struct host1x_syncpt *sp, u32 threshold,
+ 	fence->timeout = timeout;
+ 
+ 	dma_fence_init(&fence->base, &host1x_syncpt_fence_ops, &sp->fences.lock,
+-		       dma_fence_context_alloc(1), 0);
++		       dma_fence_context_alloc(1), 0, 0);
+ 
+ 	INIT_DELAYED_WORK(&fence->timeout_work, do_fence_timeout);
+ 
+diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio-buffer.c
+index 2c9ec93dff47..57d8a61e5054 100644
+--- a/drivers/iio/industrialio-buffer.c
++++ b/drivers/iio/industrialio-buffer.c
+@@ -1900,7 +1900,7 @@ static int iio_buffer_enqueue_dmabuf(struct iio_dev_buffer_pair *ib,
+ 	 * the dma_fence.
+ 	 */
+ 	dma_fence_init(&fence->base, &iio_buffer_dma_fence_ops,
+-		       &fence->lock, priv->context, seqno);
++		       &fence->lock, priv->context, seqno, 0);
+ 
+ 	ret = iio_dma_resv_lock(dmabuf, nonblock);
+ 	if (ret)
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index 43962e05eacf..dd09f71d2069 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -1733,7 +1733,7 @@ static int ffs_dmabuf_transfer(struct file *file,
+ 	seqno = atomic_add_return(1, &epfile->seqno);
+ 
+ 	dma_fence_init(&fence->base, &ffs_dmabuf_fence_ops,
+-		       &priv->lock, priv->context, seqno);
++		       &priv->lock, priv->context, seqno, 0);
+ 
+ 	resv_dir = epfile->in ? DMA_RESV_USAGE_READ : DMA_RESV_USAGE_WRITE;
+ 
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..0cb425f7d5e9 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -103,6 +103,11 @@ struct dma_fence {
+ 	int error;
+ };
+ 
++/** enum dma_fence_flag_bits - internal dma_fence flags
++ *
++ * These flags are all only for internal usage, with the exception of the
++ * remaining free bits beginning at DMA_FENCE_FLAG_USER_BITS.
++ */
+ enum dma_fence_flag_bits {
+ 	DMA_FENCE_FLAG_INITIALIZED_BIT,
+ 	DMA_FENCE_FLAG_INLINE_LOCK_BIT,
+@@ -110,9 +115,21 @@ enum dma_fence_flag_bits {
+ 	DMA_FENCE_FLAG_SIGNALED_BIT,
+ 	DMA_FENCE_FLAG_TIMESTAMP_BIT,
+ 	DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
++
+ 	DMA_FENCE_FLAG_USER_BITS, /* must always be last member */
+ };
+ 
++/** enum dma_fence_init_flag_bits - flags the user can specify for new fences
++ *
++ * These flags can be passed in dma_fence_init().
++ *
++ * DMA_FENCE_FLAG_SEQNO64_BIT - use 64-bit sequence numbers
++ */
++enum dma_fence_init_flags {
++	/* Must always be last member. */
++	DMA_FENCE_INIT_FLAG_NR_OF_FLAGs,
++};
++
+ typedef void (*dma_fence_func_t)(struct dma_fence *fence,
+ 				 struct dma_fence_cb *cb);
+ 
+@@ -279,11 +296,10 @@ struct dma_fence_ops {
+ };
+ 
+ void dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+-		    spinlock_t *lock, u64 context, u64 seqno);
+-
++		    spinlock_t *lock, u64 context, u64 seqno,
++		    unsigned long flags);
+ void dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
+ 		      spinlock_t *lock, u64 context, u64 seqno);
+-
+ void dma_fence_release(struct kref *kref);
+ void dma_fence_free(struct dma_fence *fence);
+ void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq);
+-- 
+2.56.0
 
-These tests independently reproduced both issues in my setup. I'll check th=
-e
-final cleanup approach against the forced-slowpath scenario as the
-series settles.
-
-Thanks,
-Kunwu
-
-On Wed, Oct 28, 2026 at 12:38=E2=80=AFAM Andrea Parri <parri.andrea@gmail.c=
-om> wrote:
->
-> Patch 1 fixes a shutdown hang in hazptrtorture with deferral enabled, as
-> in the PREEMPT scenario: hazptr_torture_cleanup() stops the kthread that
-> releases deferred hazard pointers before the writer, which can then
-> wait in ->sync() forever.  It now stops the readers before that
-> kthread, which releases what is left once the readers have stopped, and
-> that kthread before the writer.
->
-> Patches 2 and 4 make hazptrtorture catch the race fixed by "hazptr:
-> Record per-CPU slot owner after claiming the slot" (now on -rcu/dev)
-> should it come back, as Paul asked [1] and agreed to [2].  Patch 2
-> adds two CONFIG_HAZPTR_DEBUG checks of the recorded slot owner, in
-> hazptr_release_debug() and hazptr_note_context_switch().  Patch 4 adds
-> the nest_acquire module parameter, which makes readers take a second,
-> nested hazard pointer that goes through __hazptr_acquire() while the
-> first is in slot 0.
->
-> Patch 3 fixes a false positive of an existing CONFIG_HAZPTR_DEBUG
-> check, which the nesting of patch 4 exposes with CPU hotplug: a hazard
-> pointer that __hazptr_acquire() puts directly in the backup slot warns
-> if the task migrates before releasing it.  It comes before patch 4,
-> which would otherwise make runs with CPU hotplug warn.
->
-> The series applies on -rcu/dev.  30-minute hazptrtorture runs of the
-> PREEMPT and NOPREEMPT scenarios pass on x86_64 with 8 CPUs, as do a
-> 30-minute NOPREEMPT run with torture_type=3Dhazptr and three 10-minute
-> PREEMPT runs: one with irq_acquire=3D100 and nest_acquire=3D1, one with
-> CONFIG_HAZPTR_DEBUG=3Dn, and one with torture_type=3Dhazptr-stack.  The
-> 30-minute PREEMPT run ends with as many hazard pointers released from
-> the pending lists as were deferred (reldefer: 650385 relundefer
-> 650385).  With kthread_do_pending_ms=3D10000, two 3-minute PREEMPT runs
-> shut down in 100 and 130ms, well within one period.
->
-> Without patch 4, hazptrtorture passes even without the slot-owner fix:
-> its readers hold one hazard pointer each, so they reach the slow path
-> only when the ptr_eq() check fails or the pointer is NULL.  With
-> patches 2 and 4 but without the fix, PREEMPT and NOPREEMPT report the
-> race 6.3 and 6.0 seconds after boot, and with nest_acquire=3D0 both run
-> 10 minutes without a report.
->
-> The nesting costs about a third of the outer reader iterations at the
-> default nest_acquire=3D2.  If that is too much for every run, it could
-> default to zero and be enabled from the scenario files instead.
->
-> Patches 2 and 4 stand in for the KUnit reproducer mentioned in the RFC
-> notes of the fix, which needs a test-only hook in
-> __hazptr_try_acquire().  The checks can miss one case that the KUnit
-> test covers: an interrupt handler that acquires and releases the slot
-> instead of detaching it, then a context switch before the task's
-> release, when no other hazard pointer claims the slot in between.
-> hazptrtorture does not produce that case either, as
-> hazptr_torture_acquire() always detaches.
->
-> Patch 2's release check also warns about a second hazptr_release() of
-> a ctx whose per-CPU slot another hazard pointer has claimed since.  The
-> hazptr_release() kernel-doc permits that second release, but it clears
-> the other hazard pointer, and a second release of a backup slot oopses
-> even without this series.  Nothing in-tree releases a hazard pointer
-> twice.  I will follow up separately on the kernel-doc.
->
-> An LLM found the hang fixed by patch 1, the crash shown in patch 2 and
-> the false positive fixed by patch 3.  It also helped write all four
-> patches and their changelogs, and ran the tests above.
->
-> ---
-> Changes since RFC:
-> - Patch 1: stop the readers, then do_pending, then the writer, and
->   release all deferred hazard pointers after torture_kthread_stopping(),
->   instead of keeping do_pending in its loop until it is stopped (Paul).
->   Paul suggested changing the "while (!torture_must_stop())" condition
->   to "while (!kthread_should_stop())"; this keeps it, for the reason in
->   [3].  The changelog also says when kthread_stop() can still delay the
->   exit of do_pending by a full kthread_do_pending_ms sleep (Paul).
->   Bradley's Acked-by is not carried over, as the patch changed.
-> - Post patch 1 in a series (Bradley), now with patches 2 and 4, so
->   that hazptrtorture catches the race fixed by the slot-owner RFC patch
->   (Paul).
-> - Patch 3: new, for the false positive that patch 4 exposes.
-> - Do not repost the slot-owner RFC patch, which Paul has queued.
-> - Drop the Assisted-by tags, following mainline commit 1e035297ffda
->   ("docs: remove Assisted-by references"), and describe the LLM use
->   in the changelogs and above instead.
->
-> [1] https://lore.kernel.org/r/fa16d2b1-594e-494b-8cfc-9b8c13f2c223@paulmc=
-k-laptop/
-> [2] https://lore.kernel.org/r/e0145c14-9d6a-4c91-816c-57dabd98879b@paulmc=
-k-laptop/
-> [3] https://lore.kernel.org/r/20261023120755.2463384-1-parri.andrea@gmail=
-.com/
->
-> RFC patch 1: https://lore.kernel.org/r/20261019162005.12888-1-parri.andre=
-a@gmail.com/
-> RFC slot-owner fix: https://lore.kernel.org/r/20261019161852.12783-1-parr=
-i.andrea@gmail.com/
->
-> Andrea Parri (4):
->   hazptrtorture: Release all deferred hazard pointers before stopping
->   hazptr: Check per-CPU slot owner with CONFIG_HAZPTR_DEBUG
->   hazptr: Do not warn when a backup slot is released on another CPU
->   hazptrtorture: Nest a second hazard pointer in readers
->
->  .../admin-guide/kernel-parameters.txt         |  6 +++
->  include/linux/hazptr.h                        | 13 ++++++
->  kernel/hazptr.c                               |  4 ++
->  kernel/rcu/hazptrtorture.c                    | 40 ++++++++++++++++++-
->  4 files changed, 61 insertions(+), 2 deletions(-)
->
->
-> base-commit: 633f91e3408cc65a5237752a3265b031c389e43e
-> --
-> 2.53.0
->
