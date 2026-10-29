@@ -1,94 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306130;
-	b=gBjkGPue3sI/oi3uJnVvONVcROy9D2ZDNv45njHIG8rGkeZd8qGxLFwOPMyiQeXpzvNl
-	 JkRFbHtPHJyUwi7LYWHc8RMhY/BOQjOsq15LJJes6kPJD1bhDvT9UOPTp0e2aKPTzGA0Z
-	 E/pTTS31u3NW+Z/jrDufw0qGILldWzZTGNtb9fugOtE/spg+o4+eXhA5sVJA9SOg9J+Ai
-	 xXAs7DFa184kCdvkGX3Qi0S+3yuO8yTYgSQ/pPxLb8rEtBQ9EuYiaZeUOvL2aifAP5zft
-	 s7lmYo/fA5ulh+uowwNTmX9cEWGQsT9LEnxlifcGPUc6EiqrmGOfbrZMpNNzA5EDzMQ==
+	t=1793306129;
+	b=ooeda9ddoOm/+3HzqAn7elRzBqol2bCNwMF79Bd/riYjPQ+9GtayxQPnxCu8Jp0KuKU/
+	 3AxutKg/G9su80W1vUvf0ge09DmyYtSeTOv1I/AK1sSqRfBDZ2+dnfDRQAxVAeGyae5wj
+	 flkTEtx1CEVtYmw5jmyw41ljJWQAQ0SG00jk6MORlm3dJdhTXsu4bmXZcdYJ0lgVI+x09
+	 nIEyZYJvHHgtRh7QZ/jLFtnjL7UG7qLwvO4aX845z9G79ghDAMEKBnDfkc+uzxQj6MAgr
+	 BvO9adS2gwRcgiyFmwX0G2U9I/Dd/RVAl/KqI5abFCGWsB0Og2KDl1vEwKgd4vfqr+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306130;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QcJgrIbiHATKK/40hSI/RITxVRqGHCvmwYIWBjFMRA4=;
-	b=b5spdt9FHLziRf09Ft3tGVg9tbf0/RwLekBqO2idA39pVbqWqCk82Tqc8QNJw7JbzevP
-	 zk8agBZjMw7tC26Lrr5ZO9yFfx7rGcMjH7zDs9UukwMEMVjxccorAaydEb6v71VE2ZpbG
-	 AxDP5KVwfkVTAUs7T1v6U1XO1aS2TDBNjEqWY2xwQNedHyN/2GAYofIZmMVHkVpEofLW+
-	 6NL1NYVVKTc9PFFyylgfIqwBsb33+OwivIGu2gOY60gzwVdxwMrFXzW3jzq5lbf40QKB/
-	 i6UYjlIhu+4DXIX98Xzj1mY+scU3DaRMxd9S9tJKxOL7Uk+ITG4G8vJhbZwDoeHkzzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306129;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=JIqz6J3TwNkGVPVANkFEl6jPQa+Zivkvvh5bXw83jC0=;
+	b=3YHt0z4X29s+o+6E9ZSF9yrI3hUQnvNARxIwTOzzFqylXsAviL6kDOs/0AJJcpc4oQ0K
+	 C8Vvh4dhmxzCkR3fU5xxcjdGWqvYTFHMaRZt60VJtgdu1h/BQtcsyGKlfHRlvrErJELtd
+	 fIffcjSkjEudhEam7ZFL1f8Jyvu28lSCI0gr4aPaPhYP6e7FaEWXcD6KiZswXaxT+Icz1
+	 Aa56H9KT7giRoRSsn13mIkZpNQKMr6EfTeTFks1S1FR5J/On9BjxeIp0/3KqTjyyz812Z
+	 bKWF0eP+1vCBDiVdPYQEI+mStBYwkV5CfbKHGvtPCHxT5lbJvga+Fc5hOFhxj2DM3yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zfElnprs;
-	arc=none smtp.remote-ip=74.125.229.7
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TnPvwTVd;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3B860A2616
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:35:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB3B860A2616
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AC5606A33E;
+	Thu, 29 Oct 2026 20:35:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zfElnprs
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e5ae86ff2so37012eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:35:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793306129; x=1793910929; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QcJgrIbiHATKK/40hSI/RITxVRqGHCvmwYIWBjFMRA4=;
-        b=zfElnprs3bd8FJhhaiq9y++DLA1RQ7UXviuuuoo6gneNaTe5X1ECba6IhjI91/y9fr
-         SI5F/bLYM6xs/u+ranyBHtEL/Y02GuyqZ1NDX5DnozaJmIKv8u0OBMtjIKq4sRLkfYqf
-         12iei9PUsCF9KpCjXoM1ATY94bdG5xBns6Zi4673UvqnJBCPZQUnkKRbQaVcecqQSPM3
-         WkDN3m8FI2Wn8+LwOdMhpeUup8rnMzTMBAe0+27yRNKgQV13RS0bSmPW1MZCFKmbSz3f
-         nNNHBiy9eus2WfiQrWNdeyu9Vy6IyRrhr79ZAGLxtD/3MtAdd5oI+YQCkPajibZNocIz
-         EwNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793306129; x=1793910929;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QcJgrIbiHATKK/40hSI/RITxVRqGHCvmwYIWBjFMRA4=;
-        b=zaT9QlV4+QdNldaxkRfWToX8VpEfopVB2+Fh5z8DYtFI2eZk95PoRDn8o5hZY7TfNl
-         iV/k4QSzpTFhXyVjA8ULombruVGz6FvuwBftemeX9M2l4AE6m5toDpUqAbfLKPSmGs2a
-         jOGvFfQsXHiVFjkVciTA3HlX/1G0CMRhOlv3Q8u23kOaWNq2sadQGVK6rYddTJqI/MwL
-         mRZBQ6Zi7VZuSpzqi1L1LkclT57S+PN+T6MCC6VvevjVNUNwOl5FrjAS/fYrTKLZa0Ql
-         /e/r8qu1yY6mkcYXkFzNRcZy+VbnTjajIZ5qF0WnWi5pZ2AKx1DhDdyRLu5TA3zFDxqa
-         0gOw==
-X-Forwarded-Encrypted: i=1; AKwUvBw3d8sU4WjdANa5OYpUjY/jFerDeTjXqZ3C2dRsNi/9RMYKfkozjv1vnHpRo26vHSJ8c52pdZuLLnFkgGU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoiahm/DvBIa8FlD/LuigadOxBEsCTYZFZMSgdLPY//KbjqbBR
-	O5SWgPAX5czHlkyaR5VLXZe8on6WLqxmT149Ei8xt/trFWbpsJMYtZqO
-X-Gm-Gg: AYBFou1aNqRj8+BpFJqJEy6MCqKCuptdd0nUr5VFV6AQ6OyKuJCQGfE576ITN1tFbRo
-	YpLtzjMNTZ7DEsBLESXpIPBjEOJq5MxkXUpv2/j28XBIKALGoGQ6sbeCFs1RtahpEFYglwAP5Kc
-	eIn3oxgnILUn/UAui3RcA8WawOd3XxpvYI9FtfOSjbXTwBlw+8YaRcu83byT8SU89B+7al/OWjR
-	kj/pB0+VBv4gO8lVdQLQy1foWGxm+MxhLAUK7Ohq8/VddDcGbDwg6N0Im5NydwuDgYtIuC/q933
-	mGH2Or3UAhPz7CBqJ58Fp2xu4cbTdL9zlcXAUNpxqllhTWh67SZt7EukmmjlqraHxFfI2eb+WM0
-	1GMOefxbjGigBmSCMZWXBWm8k3VWUOHKb07btFgRfnzoLLnR5P/6E/otdcczaLAshrB5Ut8Qoai
-	Ndms84357zkh0aPH5rM2SS8NkZY+NXmc6zw3n66ywmTASf+K07usACxIbql4xS4ImEN3RSdnN4a
-	y04rbPM1WvMr5zIOsGQjEP2uDGakzX/w/AHxnLon2Qis/pndXxsTqtYRyV0s1vP2qPZSRjzh5Fc
-	7kL0Nr2AKenJXEpmmDTO+1vmDQrK55QW8v6s7aO4gYGrU+pc0wH7x3vIcUG7ZGJNIGhKc+gvCvU
-	lag==
-X-Received: by 2002:a05:693c:41c9:20b0:36a:15ee:c20e with SMTP id 5a478bee46e88-36a42430362mr654438eec.33.1793306128640;
-        Thu, 29 Oct 2026 13:35:28 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4294419dsm982137eec.18.2026.10.29.13.35.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 13:35:28 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] fs/ntfs3: preserve colons in symlink targets
-Date: Thu, 29 Oct 2026 20:34:57 +0000
-Message-ID: <20261029203457.59990-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TnPvwTVd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 655ED1F01825;
+	Thu, 29 Oct 2026 20:35:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793306128;
+	bh=JIqz6J3TwNkGVPVANkFEl6jPQa+Zivkvvh5bXw83jC0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=TnPvwTVdhfq5HQD+vvFOcn8G/MzS9HbLRPmKgokJVWGtdm6ivj0/dhyWASnhrcLiL
+	 ZN4i+CpGa5N9kOSCQrMCXDeUbAKZd7alG2BxvMvzAOROCgMDr/lTJTYYaKeE3rrAUR
+	 6KzV1RVU74/NaDc3KZ+6vyUfDSmZIp6PCUP6k4Jo4eTEpk+00SbIdCuq90C0L/1uww
+	 5wrHFXdgPxr05IDgusi0rT9Q93tvtbt4aVHs+6j/ScZMe6mP/IC9VohQbhhalkgC0q
+	 lQY7qrUH+AxPdMcuMBp/OivDUp8Joxs/UCz+baxOhtfhMGCpnjd+RB2zjjKYEyxKVa
+	 7Fspe6PVIpRvw==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Thu, 29 Oct 2026 21:33:03 +0100
+Subject: [PATCH v2 08/47] mm/filemap: finish fault cleanup before dropping
+ the fault lock
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,147 +53,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-fixes_core-v2-8-a64ce7f83abb@kernel.org>
+References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
+In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4079; i=david@kernel.org;
+ h=from:subject:message-id; bh=8upppjNvZx+R13jPGAHHeYmNd3f41Ow9JcPqILGtH6s=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer201VjohpJtZeHGJz9T8Nfl1gi+zM/Y0Vf9e1M5z6
+ 8v/jZZ+HaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEwk3ZThf3KrZ4le176Zx1k2
+ WFlwPoxvjXyys75Zl/v+LDPZu7qBLIwMDUqqbtfWHb9bzv588VNBExGh21FTHmb++uVxMNa+4tw
+ eHgA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-ntfs_nls_to_utf16() parses colon-delimited ADS names when the ads mount
-option is enabled. ntfs_create_reparse_buffer() also uses it to convert
-the complete symlink target, so "ln -s foo:bar link" succeeds but stores
-"foo" as the target. Following a link to a named data stream can then
-access the unnamed stream instead.
+On a retried fault, a fatal signal interrupting the folio lock wait
+makes lock_folio_maybe_drop_mmap() drop the fault lock without pinning
+the file. However, filemap_fault() may still need to release
+mapping->invalidate_lock. A concurrent munmap() can release the last
+file reference and free the mapping before that unlock.
 
-Add a parse_ads argument and disable parsing when converting symlink
-targets. Keep parsing enabled for the other callers to preserve their
-existing behavior.
+Defer dropping the fault lock to filemap_fault()'s retry cleanup, after
+releasing invalidate_lock. If the fault lock was already dropped for
+I/O, release the existing file reference instead. Keep the fault lock
+held for FAULT_FLAG_RETRY_NOWAIT as before.
 
-Fixes: be310476e886 ("fs/ntfs3: Add basic support for alternative data streams")
+Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+Reported-by: Chris Mason <mason@kernel.org>
+Reviewed-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- fs/ntfs3/dir.c     |  5 +++--
- fs/ntfs3/fsntfs.c  |  2 +-
- fs/ntfs3/inode.c   |  2 +-
- fs/ntfs3/namei.c   | 10 +++++-----
- fs/ntfs3/ntfs_fs.h |  2 +-
- 5 files changed, 11 insertions(+), 10 deletions(-)
+ mm/filemap.c | 37 +++++++++++++------------------------
+ 1 file changed, 13 insertions(+), 24 deletions(-)
 
-diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
-index 14ca54e54578..be3c6a7fc57a 100644
---- a/fs/ntfs3/dir.c
-+++ b/fs/ntfs3/dir.c
-@@ -173,6 +173,7 @@ static int _utf8s_to_utf16s(const u8 *s, int inlen, enum utf16_endian endian,
-  * @uni:	Destination memory.
-  * @max_ulen:	Destination memory.
-  * @endian:	Endian of target UTF-16 string.
-+ * @parse_ads:	Whether to parse an ADS delimiter.
+diff --git a/mm/filemap.c b/mm/filemap.c
+index 6b5e1d866a9e..b04be64a5069 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -3308,11 +3308,11 @@ loff_t mapping_seek_hole_data(struct address_space *mapping, loff_t start,
+  * @folio - the folio to lock.
+  * @fpin - the pointer to the file we may pin (or is already pinned).
   *
-  * This function is called:
-  * - to create NTFS name
-@@ -182,7 +183,7 @@ static int _utf8s_to_utf16s(const u8 *s, int inlen, enum utf16_endian endian,
+- * This works similar to lock_folio_or_retry in that it can drop the
+- * mmap_lock.  It differs in that it actually returns the folio locked
+- * if it returns 1 and 0 if it couldn't lock the folio.  If we did have
+- * to drop the mmap_lock then fpin will point to the pinned file and
+- * needs to be fput()'ed at a later point.
++ * Returns 1 with the folio locked, or 0 if locking failed.
++ *
++ * On both entry and return, a non-NULL *fpin means the fault lock has
++ * already been dropped and the caller must eventually fput() the file.
++ * Otherwise the fault lock is still held, including on failure.
   */
- int ntfs_nls_to_utf16(struct ntfs_sb_info *sbi, const u8 *name, u32 name_len,
- 		      struct cpu_str *uni, u32 max_ulen,
--		      enum utf16_endian endian)
-+		      enum utf16_endian endian, bool parse_ads)
- {
- 	int ret, slen, i;
- 	const u8 *end;
-@@ -239,7 +240,7 @@ int ntfs_nls_to_utf16(struct ntfs_sb_info *sbi, const u8 *name, u32 name_len,
+ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
+ 				     struct file **fpin)
+@@ -3329,21 +3329,9 @@ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
+ 		return 0;
  
- 	uni->len = ret;
- 	uni->ads_len = 0;
--	if (ret > 0 && ads) {
-+	if (ret > 0 && ads && parse_ads) {
- 		uname = uni->name;
- 		/* Find delimiter in range [1 : ret-2). */
- 		for (i = 1; i + 1 < ret; i++) {
-diff --git a/fs/ntfs3/fsntfs.c b/fs/ntfs3/fsntfs.c
-index 97c04ab2763a..b06de8566a72 100644
---- a/fs/ntfs3/fsntfs.c
-+++ b/fs/ntfs3/fsntfs.c
-@@ -2668,7 +2668,7 @@ int ntfs_set_label(struct ntfs_sb_info *sbi, u8 *label, int len)
- 		return -ENOMEM;
+ 	*fpin = maybe_unlock_mmap_for_io(vmf, *fpin);
+-	if (vmf->flags & FAULT_FLAG_KILLABLE) {
+-		if (__folio_lock_killable(folio)) {
+-			/*
+-			 * We didn't have the right flags to drop the
+-			 * fault lock, but all fault_handlers only check
+-			 * for fatal signals if we return VM_FAULT_RETRY,
+-			 * so we need to drop the fault lock here and
+-			 * return 0 if we don't have a fpin.
+-			 */
+-			if (*fpin == NULL)
+-				release_fault_lock(vmf);
+-			return 0;
+-		}
+-	} else
+-		__folio_lock(folio);
++	if (vmf->flags & FAULT_FLAG_KILLABLE)
++		return !__folio_lock_killable(folio);
++	__folio_lock(folio);
  
- 	err = ntfs_nls_to_utf16(sbi, label, len, uni, (PATH_MAX - 2) / 2,
--				UTF16_LITTLE_ENDIAN);
-+				UTF16_LITTLE_ENDIAN, true);
- 	if (err < 0)
- 		goto out;
+ 	return 1;
+ }
+@@ -3572,7 +3560,7 @@ static vm_fault_t filemap_fault_recheck_pte_none(struct vm_fault *vmf)
+  * vma->vm_mm->mmap_lock must be held on entry.
+  *
+  * If our return value has VM_FAULT_RETRY set, it's because the mmap_lock
+- * may be dropped before doing I/O or by lock_folio_maybe_drop_mmap().
++ * may be dropped before doing I/O or when aborting an interrupted wait.
+  *
+  * If our return value does not have VM_FAULT_RETRY set, the mmap_lock
+  * has not been released.
+@@ -3728,9 +3716,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
  
-diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
-index 5a8d362155ac..d883c4b47e83 100644
---- a/fs/ntfs3/inode.c
-+++ b/fs/ntfs3/inode.c
-@@ -1315,7 +1315,7 @@ ntfs_create_reparse_buffer(struct ntfs_sb_info *sbi, const char *symname,
- 	/* Convert link name to UTF-16. */
- 	err = ntfs_nls_to_utf16(sbi, symname, size,
- 				(struct cpu_str *)(rp_name - 1), 2 * size,
--				UTF16_LITTLE_ENDIAN);
-+				UTF16_LITTLE_ENDIAN, false);
- 	if (err < 0)
- 		goto out;
- 
-diff --git a/fs/ntfs3/namei.c b/fs/ntfs3/namei.c
-index ae88cb66fb7e..ab9da0faa104 100644
---- a/fs/ntfs3/namei.c
-+++ b/fs/ntfs3/namei.c
-@@ -45,7 +45,7 @@ int fill_name_de(struct ntfs_sb_info *sbi, void *buf, const struct qstr *name,
- 		/* Convert input string to unicode. */
- 		err = ntfs_nls_to_utf16(sbi, name->name, name->len,
- 					(struct cpu_str *)&fname->name_len,
--					NTFS_NAME_LEN, UTF16_LITTLE_ENDIAN);
-+					NTFS_NAME_LEN, UTF16_LITTLE_ENDIAN, true);
- 		if (err < 0)
- 			return err;
- 	}
-@@ -82,7 +82,7 @@ static struct dentry *ntfs_lookup(struct inode *dir, struct dentry *dentry,
- 
- 	err = ntfs_nls_to_utf16(ni->mi.sbi, dentry->d_name.name,
- 				dentry->d_name.len, uni, NTFS_NAME_LEN,
--				UTF16_HOST_ENDIAN);
-+				UTF16_HOST_ENDIAN, true);
- 
- 	if (err < 0) {
- 		kfree(uni);
-@@ -437,7 +437,7 @@ static int ntfs_d_hash(const struct dentry *dentry, struct qstr *name)
- 	sbi = dentry->d_sb->s_fs_info;
- 
- 	err = ntfs_nls_to_utf16(sbi, name->name, name->len, uni, NTFS_NAME_LEN,
--				UTF16_HOST_ENDIAN);
-+				UTF16_HOST_ENDIAN, true);
- 	if (err < 0)
- 		goto out;
- 
-@@ -496,7 +496,7 @@ static int ntfs_d_compare(const struct dentry *dentry, unsigned int len1,
- 		return -ENOMEM;
- 
- 	ret = ntfs_nls_to_utf16(sbi, str, len1, uni1, NTFS_NAME_LEN,
--				UTF16_HOST_ENDIAN);
-+				UTF16_HOST_ENDIAN, true);
- 	if (ret < 0)
- 		goto out;
- 
-@@ -509,7 +509,7 @@ static int ntfs_d_compare(const struct dentry *dentry, unsigned int len1,
- 
- 	ret = ntfs_nls_to_utf16(sbi, name->name, name->len,
- 				(struct cpu_str *)uni2, NTFS_NAME_LEN,
--				UTF16_LITTLE_ENDIAN);
-+				UTF16_LITTLE_ENDIAN, true);
- 	if (ret < 0)
- 		goto out;
- 
-diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
-index 689151fcf993..5475eaeb49fe 100644
---- a/fs/ntfs3/ntfs_fs.h
-+++ b/fs/ntfs3/ntfs_fs.h
-@@ -540,7 +540,7 @@ int ntfs_utf16_to_nls(struct ntfs_sb_info *sbi, const __le16 *name, u32 len,
- 		      u8 *buf, int buf_len);
- int ntfs_nls_to_utf16(struct ntfs_sb_info *sbi, const u8 *name, u32 name_len,
- 		      struct cpu_str *uni, u32 max_ulen,
--		      enum utf16_endian endian);
-+		      enum utf16_endian endian, bool parse_ads);
- struct inode *dir_search_flags(struct inode *dir, const struct cpu_str *uni,
- 			       struct ntfs_fnd *fnd, u32 flags);
- static inline struct inode *dir_search(struct inode *dir,
+ out_retry:
+ 	/*
+-	 * We dropped the mmap_lock, we need to return to the fault handler to
+-	 * re-find the vma and come back and find our hopefully still populated
+-	 * page.
++	 * With fpin set, the fault lock was already dropped. Otherwise it is
++	 * still held. Release invalidate_lock before dropping either protection.
+ 	 */
+ 	if (!IS_ERR(folio))
+ 		folio_put(folio);
+@@ -3738,6 +3725,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
+ 		filemap_invalidate_unlock_shared(mapping);
+ 	if (fpin)
+ 		fput(fpin);
++	else if (!(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
++		release_fault_lock(vmf);
+ 	return ret | VM_FAULT_RETRY;
+ }
+ EXPORT_SYMBOL(filemap_fault);
+
 -- 
 2.43.0
 
