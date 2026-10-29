@@ -1,55 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793286667;
-	b=3WeqSy2iAXr5tQXt+3B2HlzZbZU/7ylY08/MvkJrUeqDmpFUDDf/uzXrwVyKwCfLZUeE
-	 MwPDHfPkTYjNineMW94mlcrPrnHdBJyHmxb9gBhRoyYzCrQD4G60NohCkjI6Kn57iVH/E
-	 XVLc3R9GKFCkLnD4Wo0S1ipnTMGn6DQRj4M7d08L5DaKFQ6zpkryMTk4P2jRFMMNWSNIK
-	 JPBatGzige8i9GsHjy+JgYuxuTXRmorjFsKJW7lGBufT+JPP5Pev2fhIn2LJrHOJWGfeM
-	 QQtr4/t7qatuHwYU9F2YQvXBZ7IS/7AQWDi69rTZQbV9r9kgrvH2liACH6OPW0GsHRw==
+	t=1793286720;
+	b=YBN/NZ8J13jerzKLoz2tiCgnFdgZ66E6X+BOn8kIumb/wVlZnNOdinX2fySMaLlHBQ6g
+	 SUF8M9hNMeIrMo5WLVgMHjFTBE+msYnDQifnGamyfKCKzbMScSfKk2xou/svVpyNQv10E
+	 l+oVF7l62o8o84FZI/2sAayfAqOB411edPfIDf62d2y+4VZU6+IwDjvzcx5gt4M3ds0oj
+	 S+D897UeZ6Yz3myu2JdYrB4B/99fw06FzbOxbS0bickpdHB/2nTTOnJG5CbaQavBc+77s
+	 f3dtzgC/bfiaENQHjtONLYSbGXnxKSX0oKCBg8cmOKUnyEjD54kzhETe0Yyv8uDHNbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793286667;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZqTgnnNUxdGiYEW6DlaEOJ5z5Gde7KefjLv+VuU08fk=;
-	b=xP9SdZGYTyFGhgGRketRzG3Rd+TyIOjHWJ3PLLlsJdcz9V39egOwehjm8hXqBakex4tH
-	 +7EqIzIxtoDUThBn24WwgBynw0S22B0r5hm8R/a63gja7CVqlIuQhxX0eJ2SxWFt/SB0s
-	 sPQ2eK88lCyMQ00D62jTAzM4mQg+M+7KbSWd60tnklcvQzr5U5gfGioaCs1rpqrzYyMv1
-	 ZTgsy6Lyr/Noz/A++vPBUyIQicZErlsSrMgBxUzydJPEzY322GbYW0axKgjdjUicV0L9B
-	 YrAdwFwHS2rvo8wgkWIDiBsdj8sGzHhoq4jpudYc0jYinJadZHXCNLOjVXkVD4pABZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286720;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=6OivFj7eK/2o7S42fglb8hJK44S7C9v5KM3KhCAq8U0=;
+	b=gZOb1azpnthM0xIeKvOrhGhGxIlMeysUIHoSYAFW7xlW6qWYfMe646OTV0omefNxDBAE
+	 Cpe3kJkpPkwNm51NBvSSU0qAvCaBDSSgCQ4aaHaZ1i/vc9rcL4HZtkBPecByuSlZ/EPUn
+	 8Uq4XG2I61FUJfgo2Rle8FulKOGf9vtzWXF1V5Ke1F8pQbYUGylaKQMXONKUPIMj7da44
+	 gc+/9rO/TVGF77SAPakkVZJLctFUbnYSQWJZnZhxtF5/Ch4Uit9LNN9xs6qhfzSogIdH9
+	 50wqlj9nHJ/p7hyflCsMxrex2HRudEB+WhUY0SfGLF6QS+7QOEVfZoNMUyENSzszEOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X5+uycy4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=kjyUxfdf;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB66606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:11:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0A1606A31A;
+	Thu, 29 Oct 2026 15:11:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B0A1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X5+uycy4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ED511F031E4
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:11:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793286667;
-	bh=ZqTgnnNUxdGiYEW6DlaEOJ5z5Gde7KefjLv+VuU08fk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=X5+uycy40K8tl/gLvfiZzMF1U+BC+VSnRxUxnhz6FhJqS/ennwlndEwlRsdbqUQER
-	 cBSNUAtaVWdNLYPKla2hL1ddgwSq7pxoaNCsdHwfKLtAOgnsfjVfDWvwe1zn8PeUjy
-	 HqxzURiLHvu1Rm/OvszEI1w/ykjLQgtiAkxIyp+1WgFoFnJlSrvkQxWKCPULGrkFoX
-	 bC9FAR3UjOx3DoHXjjkDjuffC1bvftXCs0kL2kP8NOeqQ5dn7ubTrn+BwEGBAM+1hI
-	 yPB1whMxyvE4eZjWtwGgM7dLA5aDXiYUrpiNCN1/s/om20pQejrD2tGGCXwnxm4Rma
-	 Xyzhnlu+sUY0w==
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c46bd7a7345so166827066b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:11:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx8eDbIyFisDzhiSj8qtSgkyboVEAi+i08toGEFRqCHKBlwSnkIrFE8PvnJWX8fp86Ut1JW9L3vZ0VFJJE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9FJNLyhju3lbR4w483B7NZX5Gx7yiHh2orjlgnDhhJkl+FBe0
-	cSqEA9f2Rnw3Gi76bF6dsMSrs1kzTtE596Pmqk2H01i9rRxyh6nk3PliMbLBbLPU4OE/sp5BgCX
-	0DVu6RtofhO5v6ZjpmHnLotVzpVUd3k8=
-X-Received: by 2002:a17:907:6d0a:b0:c42:6632:a369 with SMTP id
- a640c23a62f3a-c49d1298d10mr274706866b.21.1793286666112; Thu, 29 Oct 2026
- 08:11:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=kjyUxfdf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1793286708;
+	bh=8Oepbe9O9yB6V1/MpLPmhshtyjQFBga0hDC5FctDDeI=;
+	h=From:To:Cc:Subject:Date:From;
+	b=kjyUxfdfrR0wq3hxAnOaHGgsa5WnkMO4Ko3UUBrKB3GkZ9ssZJ3Ae7eRD2vOw54vw
+	 nnszICRL9jLkk56uEquTGnPIc+HbSMzHvh0Q8SBarqjGaGNiCywhM7PXR0oSpBtkd5
+	 VGXi04CbPRzmVo9ExQZZN1+oI5DledTcv0506gTge3rzCWxghLnYGd4phd9D0IzO42
+	 /aIPghJ7/wep61G1QyMA8+vMqm/LD9dLU53iJiElxawmZzVTGkums6rIva+FpxLoD/
+	 a8MX3Opx0MdM/DwnIvSLuXZVdy28zQrmz7qRgr5sg9fERl/WoODI+YU3rDIFtuaiME
+	 MxtsXKb8yO3ZQ==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 99B0A25C98;
+	Thu, 29 Oct 2026 18:11:48 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Thu, 29 Oct 2026 18:11:47 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.28.100])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jFnkq2dccz1NyJ;
+	Thu, 29 Oct 2026 18:11:47 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	David Sterba <dsterba@suse.com>,
+	Sasha Levin <sashal@kernel.org>,
+	Chris Mason <mason@kernel.org>,
+	David Lee <david.lee@trailofbits.com>,
+	Qu Wenruo <wqu@suse.com>,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10/5.15] btrfs: lzo: reject inline extents without valid headers
+Date: Thu, 29 Oct 2026 18:10:26 +0300
+Message-ID: <20261029151028.780-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,87 +85,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028113619.38752-1-kaitao.cheng@linux.dev>
- <CAO9r8zP15iW3ECW2Bs0rfyZrifeisDunLa6qJC43M1RcE16wWQ@mail.gmail.com>
- <auJkvb-Lq0M5Enkz@cmpxchg.org> <2bd4f0df-80c7-4d32-ab50-1225681ff6be@linux.dev>
-In-Reply-To: <2bd4f0df-80c7-4d32-ab50-1225681ff6be@linux.dev>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 29 Oct 2026 08:10:54 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zPuDtn1S0g8rDnXNfSdZ6uuH1geXALDN5-X_SZpM_W+wg@mail.gmail.com>
-X-Gm-Features: AclHuK9UiJ3AeOpD0_o7obusrkhCcVmC8X2efUUrguVLj8iQz-lYuV7lcHEm0Q0
-Message-ID: <CAO9r8zPuDtn1S0g8rDnXNfSdZ6uuH1geXALDN5-X_SZpM_W+wg@mail.gmail.com>
-Subject: Re: [PATCH] mm/zswap: fix double decrement of the LRU node count on writeback
-To: Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Dave Chinner <david@fromorbit.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Kaitao Cheng <chengkaitao@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207109 [Oct 29 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/29 07:40:00 #28758333
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-On Wed, Oct 28, 2026 at 9:23=E2=80=AFPM Kaitao Cheng <kaitao.cheng@linux.de=
-v> wrote:
->
->
->
-> =E5=9C=A8 2026/10/29 05:10, Johannes Weiner =E5=86=99=E9=81=93:
-> > On Wed, Oct 28, 2026 at 12:22:43PM -0700, Yosry Ahmed wrote:
-> >> On Wed, Oct 28, 2026 at 4:36=E2=80=AFAM Kaitao Cheng <kaitao.cheng@lin=
-ux.dev> wrote:
-> >>>
-> >>> From: Kaitao Cheng <chengkaitao@kylinos.cn>
-> >>>
-> >>> Successful writeback calls zswap_entry_free(), which removes the entr=
-y
-> >>> from the LRU and decrements both the sublist and node item counts.
-> >>> shrink_memcg_cb() then returns LRU_REMOVED_RETRY, causing the LRU wal=
-ker
-> >>> to decrement the node count again.
-> >>
-> >> I wonder if we have a valid use case for adding LRU_REMOVED_COUNTED or
-> >> LRU_DELETED instead to simply avoid the decrement.
-> >
-> > It bugs me that it's the walker, not the callback, that adjusts the
-> > count. That composes poorly with the normal list manipulation API.
-> >
-> > How about pushing the accounting into the isolation callback, which
-> > can then simply use __list_lru_del()?
-> >
-> > The tradeoff is that more things need to be passed into the isolation
-> > callback, but that seems reasonable. It does make the change noisy,
-> > however, and we might want something like Kaitao's change as a
-> > backportable fix first regardless.
->
-> I tried three approaches.
->
-> The first was "pushing the accounting into the isolation callback", as
-> Johannes Weiner suggested. However, as Johannes's example below also show=
-s,
-> this would require extensive changes across multiple subsystems. I doubte=
-d
-> that such a broad change would be accepted, so I dropped this approach.
->
-> The second was to add a new flag to enum lru_status, as Yosry Ahmed sugge=
-sted,
-> to handle cases like zswap where the callback has already decremented the
-> count. However, the incorrect lru->node[nid].nr_items value in zswap is o=
-nly
-> an accounting issue: I could not find any code that reads this counter fo=
-r
-> zswap. Changing a generic interface to fix an accounting error with no
-> apparent functional impact did not seem worthwhile.
->
-> The third approach is the one implemented in this patch. It keeps the cha=
-nges
-> within zswap and fixes the accounting issue, so I think it is appropriate=
-.
+From: David Lee <david.lee@trailofbits.com>
 
-I honestly think it's a problem with the list_lru API, as Johannes
-said, walkers compose poorly with the API. So I prefer we either take
-Johannes's suggestion or add LRU_DELETED, unless there's strong
-objection to both ideas.
+commit 0fa78ef637deb5dbe341582f88553a4bce496de0 upstream.
 
-FWIW, we don't need a minimal fix for backports, I don't think this
-needs to be backported at all. As Kaitao said, I don't think the wrong
-list_lru count is being used anywhere for zswap.
+[BUG]
+For a crafted btrfs image, the following KASAN can be triggered when
+reading an inline lzo compressed file extent:
+
+  BUG: KASAN: slab-out-of-bounds in lzo_decompress+0x57d/0x700
+  Read of size 4 at addr ffff888006f2e644 by task btrfs_lzo_inlin/77
+
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x5b/0x70
+   print_report+0xd1/0x610
+   kasan_report+0xe0/0x110
+   __asan_report_load_n_noabort+0x13/0x20
+   lzo_decompress+0x57d/0x700
+   btrfs_decompress+0x140/0x1c0
+   uncompress_inline+0x147/0x1b0
+   btrfs_get_extent+0xb23/0x10a0
+   btrfs_do_readpage.constprop.0+0x538/0x1ac0
+   btrfs_readahead+0x32f/0x5f0
+   read_pages+0x16f/0x850
+   page_cache_ra_unbounded+0x296/0x490
+   do_page_cache_ra+0xd9/0x130
+   page_cache_sync_ra+0x3ee/0x6f0
+   filemap_get_pages+0x306/0x15c0
+   filemap_read+0x329/0xd00
+   btrfs_file_read_iter+0x1f8/0x2b0
+   vfs_read+0x4ef/0x720
+   ksys_read+0xf8/0x1d0
+   __x64_sys_read+0x71/0xb0
+   x64_sys_call+0x1ab0/0x1b70
+   do_syscall_64+0x61/0x470
+   entry_SYSCALL_64_after_hwframe+0x4b/0x53
+   </TASK>
+
+[CAUSE]
+For an inline lzo compressed file extent, there should always be one lzo
+header, recording the total length of the compressed data, followed by
+one segment header, recording the compressed lzo payload.
+
+But if a crafted inline lzo compressed file extent contains only an lzo
+header, without the segment header or payload, lzo_decompress() will
+still try to read the segment header, causing a read beyond the item
+boundary.
+
+Furthermore if the inline lzo compressed file extent is the first item
+of the leaf, it will be at the extent buffer boundary. The above
+out-of-boundary read will go beyond the extent buffer boundary,
+triggering the above KASAN report.
+
+[FIX]
+Validate the total length of the inlined lzo compressed file extent, to
+make sure there is at least one LZO header and one segment header, and a
+non-zero payload.
+
+Fixes: a6fa6fae40ec ("btrfs: Add lzo compression support")
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: David Lee <david.lee@trailofbits.com>
+[ Rework the commit message to remove slop ]
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+[ mdmitrichenko: Update the existing srclen check, which returns
+  -EUCLEAN directly in this version of lzo_decompress(). ]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-74723
+
+ fs/btrfs/lzo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/btrfs/lzo.c b/fs/btrfs/lzo.c
+index aa9cd11f4b78..40647a5cab6b 100644
+--- a/fs/btrfs/lzo.c
++++ b/fs/btrfs/lzo.c
+@@ -432,7 +432,7 @@ int lzo_decompress(struct list_head *ws, unsigned char *data_in,
+ 	char *kaddr;
+ 	unsigned long bytes;
+ 
+-	if (srclen < LZO_LEN || srclen > max_segment_len + LZO_LEN * 2)
++	if (srclen <= LZO_LEN * 2 || srclen > max_segment_len + LZO_LEN * 2)
+ 		return -EUCLEAN;
+ 
+ 	in_len = read_compress_length(data_in);
+-- 
+2.43.0
+
