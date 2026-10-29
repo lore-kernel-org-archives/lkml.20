@@ -1,102 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297755;
-	b=W5V/c8H0T51uVVp8OVjU2RENCyePs5Xzuo3AMK+Bp/TwmZdvrt8B3fBx47hjsuvhsjLP
-	 aUSzsP/mcKR4KBdmWbqVeVxIvz6H2wSJ5S19vZ8C/4f5SrirhzJq4NLRg+tlRD9Ti1m/T
-	 kEfZZi8QJ3mP3dRSDcEDIoOpNGPl7yXmWocm8odHLXpo9Rcq8MYaVo0/QOUVzFvgRkihW
-	 i9QNS1DXhxRftTgjYBsPXiCCeyzSALjw5qiZtI+CHxXfSJghrtBFN4NV3bDCQo66Vg91+
-	 uRyB+BYTRMl/FbuN+2Ty7v8t6rOn9X3HFxPsEzGy+XtRmZ5Oy6PmQx/+qbWML2CUqww==
+	t=1793297762;
+	b=n22sW/kBbEj0kTDYxtN2bgSmLA6EAu2p9sA3csT9IiG25JYDmOXXD1Q64FrWaDVNjrt3
+	 YJbBGL3UqoA/VW0XdXuGzVrkwriBuBVAlScWBPICga2XITlImwP+yZ9h3c8qhPeB5gaxf
+	 Q5jOT72lEBftGuajI0PHHZ35ao5TtAU2w9VGbdX3pDYezJLTJENg36RidK+VRGwime+AE
+	 SeSkzxRP5iAhgf/mWcyo91nGZDlQ6YOqr/QyutNgvXx0X4Y69EOZo6S1hWyAaVPm8rqdr
+	 2CQ/NXoAr+Vp8IsNmuddMJipSY/PhvfPSETSllIuW1gJpKg3B66ZvY1Bp0/GEdv8cbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297755;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297762;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:Content-Type:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=nm3DyYmQwwN8ivVQeFLvPuaFwX0wAYrPypwdIL897m8=;
-	b=enFPPYWf8JMd2kgkQSMBBwV+uKY/7XaooJrTbdS21V6NCedkYV+woNYUDOELzfzMqAXq
-	 6Hpz/dQoPCQoX/qpNfbCtv3p39yOla+7hXyBq8hn4ZsVT0pPN/1A5ljofrOqbMwL86yH9
-	 dmGEpzj0EBinxEldQTN1Py9AijDW2a37IPNQZ+KHtG6fZUW2tfHONWtrNvTJV3GLbxFnj
-	 0CetJKeTPoa29GTHPSH93nm/Xb9MawcArsWQ0jJ7Kx5itGU6dSpwmiJHjcTRdLYXUFMFv
-	 k9dp0J/hJNq2eRAw23ahpya9QzNk/FlIopA37EA+SSsrzZQaxlxWHO73phpLv9w9b7w==
+	bh=UtHIiSkqX2bxSTjandVXhxVopv7WL1ebZlXZPqH7xYU=;
+	b=iV8hGV3Tj95PTW0VgPsfApOotakPIvCWZFTp1bMu26W6fgXlToNUPStz8AZb4E0adgiR
+	 zTqzaUO43H/SNviifyLUKzJiTpImrZIteDxSIhXb2FIdNgXgmeGsiP9HRI4v8hDcr+q/d
+	 6A8k8ZoHr7OuVmjNwB6BBZEtXkf7k5fsIakZDU9bxigpsjfmBE3lHunD+s5KE0lb+b45z
+	 s9+Mbbeuk0gHd1ElhQErkeKGs24yNk94/xLkW2n+wY206WJ8xV+qnakbtnLEN+sRhXFxu
+	 X7UEtFhdOvoJhoFo1HKqF1yISy/WKa6km/M76OuOw/wToAO5/vsvTzhTNWvHGc6SqdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ayd1Ybew;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=e3aHGZMu;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="W/EGHJta";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ZQdqC4u6;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92002606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:15:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92002606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC66606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:16:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FC66606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ayd1Ybew;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=e3aHGZMu
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=W/EGHJta;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ZQdqC4u6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793297753;
+	s=mimecast20190719; t=1793297761;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=nm3DyYmQwwN8ivVQeFLvPuaFwX0wAYrPypwdIL897m8=;
-	b=ayd1YbewfmFCYJwG/zuJWlTC6F1wwTlluCsCsvByfiODH3dBCpzBkCWLD6ddWeSzfZJLw6
-	fP1OrkZccmIh0AF7wdrvdCHRCRCa/pgzRrBj1IGVWLJ0URPOFiJJi11oRQaznGmNro6e8d
-	gwnO7pwrSyBn2Zt3qMtu3km0yO7wiD8=
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com
- [74.125.82.198]) by relay.mimecast.com with ESMTP with STARTTLS
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UtHIiSkqX2bxSTjandVXhxVopv7WL1ebZlXZPqH7xYU=;
+	b=W/EGHJtaM4sl4ONXG4Nl8T6OkWalxagH3geSZDqlV1Svo9kgTWzJlM2SdJMemkWcLXnSui
+	PBJb4Aeg2OoSfJYZyjbgYncUJEBUzvQ8MfhyZZJaDXJDJmDhsoJXovUlremLFVdorOKMAO
+	Gq90tIjsTBs4/WmSV96yU9xrGybTn4U=
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-584-NQ3e_bTeOey_ZVLD7fziFg-1; Thu, 29 Oct 2026 14:15:50 -0400
-X-MC-Unique: NQ3e_bTeOey_ZVLD7fziFg-1
-X-Mimecast-MFC-AGG-ID: NQ3e_bTeOey_ZVLD7fziFg_1793297750
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36a26fe9521so979483eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:15:50 -0700 (PDT)
+ us-mta-153-xCKQ_7zIP2GN884P3qxjRA-1; Thu, 29 Oct 2026 14:15:56 -0400
+X-MC-Unique: xCKQ_7zIP2GN884P3qxjRA-1
+X-Mimecast-MFC-AGG-ID: xCKQ_7zIP2GN884P3qxjRA_1793297755
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-359b81ad4e8so3116968eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:15:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793297750; x=1793902550; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nm3DyYmQwwN8ivVQeFLvPuaFwX0wAYrPypwdIL897m8=;
-        b=e3aHGZMuFBYsLWALbK2afwadqK22umr0GncxNAs5pKEs2kv/+jYtF9NLwKn6fv3gxE
-         BuFaFe53Bt9CxNGbDZriSgnJEXz6Q8C78TPR9va8QzXPD4PZf7bVHoh0pJs8TJWqGJBG
-         7EGmBClfeu2ibH/frUXTCiE1N19LPCGJa5dvOr6+ZafBTwKEortjxkspXN4ZTpLgwW7H
-         MTrGwK7c9p30LB9qTUAoT7Qj1dIX7naVvvQ9xPfG9/WiJaLDvrcooBSgSb2y8jWc1yrO
-         ZRNb1jTQCTy6Jc4WV8n2AlAq7tF+/zVm1slDaEKTMS3p8tY8nnQP9mV2Fgk8dmeaJk0g
-         W+Cw==
+        d=redhat.com; s=google; t=1793297755; x=1793902555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UtHIiSkqX2bxSTjandVXhxVopv7WL1ebZlXZPqH7xYU=;
+        b=ZQdqC4u66b8CtI3GKrk6PVPDK2rL6BB1LCqVoiPmxEvEqTXlNYbfwsVyz767qKVbML
+         m/8PxY8x0uTR/JF8AsgpLWlUviGCQ8m4iWj9uuUJJlrM376hOAqxFRtwB7nEo1ANNNB2
+         KFAlyd50GZjYw3uSjutjuRAqkPdcE8khsL8hJ08Vo5vKReK4Upa4mV3ugpSK1/DwxEdM
+         g+nxOD7EPfP4nTsh/BBicknM8LLMT8M1D0RQ7c55uxhNu7B0jOmCdSH+8VnvxSIRsXf1
+         sZnSmg0DbkQq3w6QRUHRuRAq8tjrjBHSHuQ0Hu+p0jevVNydhVPcTDkhqttWnixFaxp9
+         pseQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793297750; x=1793902550;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nm3DyYmQwwN8ivVQeFLvPuaFwX0wAYrPypwdIL897m8=;
-        b=UwXdoj0Ofy2Yq6c09oRz3uVbx0sP8wEXDPYqO77B31ZbIgdKRToqYtZCWzsWnm63PZ
-         4KquInsfO6W2//e+HgHsGHJA5HOMajJ3GgjkUl7iUSfM/C4CYdvs0AZGVTii/s38SoYn
-         J/IGJmPjjWnpHs4DgTHjURtfjEqXF3Y+8EPfPF+T8dFV6pcD/8eskXY5DByvuJqMF3BJ
-         WyG6bEPtsuRyfAPnR9f9wJ46rM2nmfzjmttyPuJVV13B+AaZM3wOyDeBphgwIuiENYI4
-         8XfjCbuqOeNfd4oKfkltWBS6WiDgjZAD+8hUhb03rgpHmXeYvVcBvC2DIqhnCoYqJo/R
-         3AXg==
-X-Gm-Message-State: AFq9FYLBfnvtoTirYHkc4GH3DhJBPVzJtmfsdqBBilpoKmbWBdakg7pw
-	5fMYRcair3Yo0y6KMb9NbM56cKf44DUF34vVMQRH0FIZYWP4o6psNog5a/Bb5aZD+yW3BtnM9of
-	bQ+oyvAUSEL2SWW/B8BtdF5yV7ItGLdHj3K8RM00vm7OuESFEgF3oz5PmhzaDVR8cY0q8mRCojE
-	gX8DXnbQygFmz5zqQh5aZutVWZLkWOnCUigjEgFCqlwGOrkkwl
-X-Gm-Gg: AYBFou1FOqRH+IYy416FlDzag+yDQwj9AHI8luUKV2aCcIbkFlXRQij7V6eqysm8uW1
-	+FW8ho0PrCm+qCEYfqPgkvAKdlE5nyeRGTnrXa0lTRDiiKEToDpteays/jaMMhO3rLsN/rj0m5m
-	fTtIV4Dwnv7fx5G3OnVxG2/TT2M3vHgIA9hCiqQoFy+N2USdeqxMIn49s3EVraXcS0P1Ar0EQ0W
-	amNQSwtcfmtJb4E41QLTTd8WcsiEV4BEt14Qv596er203czYxDJE7gdwpnH5asdvpK+20gwSwTV
-	ZiX7HsBCbb/gMkZuKqLB8A6SuYEkCjCyLpZoxwP5aqhfpVoWDHjGwwjzF2QjpRZKynsB+hNEB8Y
-	mjWetLZVncjotLqm7nEobDhxHUy/w8mBx/i83eNZyb9Z1RE8cQY5b2gzMKoMcI3oGkW6LBCYOgh
-	nT9TtLdQiaEmgtOg==
-X-Received: by 2002:a05:7022:f907:b0:145:ac96:3917 with SMTP id a92af1059eb24-1a94a3408aamr3771867c88.21.1793297749346;
-        Thu, 29 Oct 2026 11:15:49 -0700 (PDT)
-X-Received: by 2002:a05:7022:f907:b0:145:ac96:3917 with SMTP id a92af1059eb24-1a94a3408aamr3771818c88.21.1793297748355;
-        Thu, 29 Oct 2026 11:15:48 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793297755; x=1793902555;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UtHIiSkqX2bxSTjandVXhxVopv7WL1ebZlXZPqH7xYU=;
+        b=DqGt2TJFxq8vRSFJ6s41BmiU4DvJjOm/mR0IC9/6GjLVN04TlbmeE9zKhBET1x10Zl
+         j4yeqriiibD7nERMhLeHvLhDN2+3651k6y93YdWJmdKf2/mUD3iFXZa7c8fmo8rShz+o
+         HLQ6RHFmoOqC5Kt5oDOUf3gNyYRn3CNkgJq5bTZbkIK/dYZ4SWyNpsK534oEDF5RugZw
+         TXujsV/3kHLjJlAsdrNqSZeFNp4OkUPKzlXzTEv/MJgV3Q2dKk4QNtE3+xy3jkxX78TL
+         mdDLD2WmOoEp7d85VrBmDZRYLJfHU/Ux0ip7aBRFhiQYmPb/CTf6K3VHo5fB8RWGx7ap
+         UlkA==
+X-Gm-Message-State: AFq9FYLxdrah3cNfP65f3pnmmsecuqncehvHK2vCZHIjAdkt/Eldh6MJ
+	aUcuRoeJznOvrgeslDW3J7mtE3UQ8nCuMH6IIE0UiEDoYZiMkFfoy97WQM48BNfFyK9RyQExLcx
+	90Vhdm68uAeUTlK/0iOfsWseQ/D3fmR+tx4c7bS9a2gZX56RjNF0pvCyw2Wo3lVRhCPG7brIT4z
+	gcQd2mW1X1bDI/Rg+wrJJQOZpH6mdWSDPM+1nXZc3QrBiPkpKE
+X-Gm-Gg: AYBFou02eBjTHM9kaihOShuTo5cY4chFdJnOrHidTXEBzsYS2kJh2VzSzvD1UD/W+iA
+	w6per4+N43a1gvYcbcfBkXQ35pe36e9FzZZa1E/wjbTSFX+3V+FxFFgho03kyVqjwY36vfXZZSz
+	rbukbjGSjjBgV/4ULSisX7T03FPhrRj5jWtau6qmPjdWPlcWtefdLeuZqrvl0o1OUlxDBzSHVdP
+	a4PZgPlmlNfhtnBGaobZzSjf0IhZs6C2Fl1q0kLxnIgHFsBtrf81jUp5+wZsxh8Ef7BxGM21N4r
+	u6NY2dsrxYfI1wyM5v+Nnk0sFp4V4OKmQe6gCEPX0JZBEIyFxMqSQbHYjTZH9zrxX9vmOTQOly0
+	xEZ3d++zBkQhvU7R5bu0Z/ghq+7S20F+kvR82Ormrr+RjR5xqfVGcScovm+icCVLYlYGOQhDQVt
+	DI8Al2n0bDEknh4g==
+X-Received: by 2002:a05:693c:6211:b0:36a:1cbc:1093 with SMTP id 5a478bee46e88-36a42417707mr205744eec.30.1793297755062;
+        Thu, 29 Oct 2026 11:15:55 -0700 (PDT)
+X-Received: by 2002:a05:693c:6211:b0:36a:1cbc:1093 with SMTP id 5a478bee46e88-36a42417707mr205705eec.30.1793297754300;
+        Thu, 29 Oct 2026 11:15:54 -0700 (PDT)
 Received: from fedora.armenon-thinkpadp16vgen1.bengluru.csb ([49.47.195.13])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm259163eec.4.2026.10.29.11.15.45
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm259163eec.4.2026.10.29.11.15.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:15:47 -0700 (PDT)
+        Thu, 29 Oct 2026 11:15:51 -0700 (PDT)
 From: Arun Menon <armenon@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: Jarkko Sakkinen <jarkko@kernel.org>,
@@ -104,11 +105,12 @@ Cc: Jarkko Sakkinen <jarkko@kernel.org>,
 	Peter Huewe <peterhuewe@gmx.de>,
 	linux-integrity@vger.kernel.org,
 	Arun Menon <armenon@redhat.com>
-Subject: [PATCH v5 0/7] tpm_crb: Add command and response buffer chunking support
-Date: Thu, 29 Oct 2026 23:45:34 +0530
-Message-ID: <20261029181541.99505-1-armenon@redhat.com>
+Subject: [PATCH v5 1/7] tpm_crb: Add register definitions of TPM CRB chunking fields
+Date: Thu, 29 Oct 2026 23:45:35 +0530
+Message-ID: <20261029181541.99505-2-armenon@redhat.com>
 X-Mailer: git-send-email 2.56.0
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20261029181541.99505-1-armenon@redhat.com>
+References: <20261029181541.99505-1-armenon@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,84 +122,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The new version of TCG TPM v185 [1] supports sending data/commands in
-chunks for the CRB (Command Response Buffer) interface. This is in line
-with the initiative to support PQC algorithms.
+From: Arun Menon <armenon@redhat.com>
 
-This series implements the logic to send and receive larger TPM
-cmd/rsp between the linux guest and the TPM backend in chunks.
-Currently, the TPM CRB driver is limited by the physical size of the
-MMIO window. When userspace attempts to send a payload that exceeds this
-size, the driver rejects it.
+Post-quantum cryptographic (PQC) algorithms can require buffer sizes that
+exceed the physical capacity of the TPM's Command/Response Buffer (CRB).
+To support these larger payloads, the TPM 2.0 CRB specification [1]
+allows for data chunking when the physical MMIO window is smaller than
+the required buffer size.
 
-This series introduces chunking support. The driver now checks the CRB
-interface capability for CRB_INTF_CAP_CRB_CHUNK. If supported by the
-backend, the driver will slice oversized commands into MMIO-sized
-chunks, signalling the backend via CRB_START_NEXT_CHUNK, and finalizing
-with CRB_START_INVOKE. Responses are also read back in a similar chunked
-manner.
+To support this protocol, the TPM driver must be able to detect the
+chunking capability, and signal the backend using specific start
+method flags, also known as the control area start register bits.
 
-If the backend does not support chunking, the driver retains its legacy
-behaviour and enforces the standard size limits.
+As per sections 6.4.2.2 and 6.5.3.9 of the specification document [1]
+Add 2 new bit flags to the existing enum crb_start and add the
+capability bit.
+- CRB_INTF_CAP_CRB_CHUNK: A capability bit used to detect if the backend
+  supports chunking.
+- CRB_START_NEXT_CHUNK: A control bit to signal the TPM to consume the
+  current command buffer, or to get the next chunk from the response
+  buffer.
+- CRB_START_RESP_RETRY: A control bit to signal retransmission of a
+  response buffer.
 
-This feature also requires the QEMU to interpret the data in chunks and
-forward it to the TPM backend and subsequently dispatch the TPM response
-in chunks back to the linux guest. This is implemented in [2] and
-already merged into the mainline.
+[1] https://trustedcomputinggroup.org/wp-content/uploads/PC-Client-Specific-Platform-TPM-Profile-for-TPM-2p0-v1p07_rc1_121225.pdf
 
-The whole series applied on top of for-next-tpm (including prerequisite)
-can be found here:
-https://github.com/armenon-rh/linux/tree/tpm-crb-linux
+Signed-off-by: Arun Menon <armenon@redhat.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ drivers/char/tpm/tpm_crb.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-[1] https://trustedcomputinggroup.org/wp-content/uploads/PC-Client-Specific-Platform-TPM-Profile-for-TPM-2p0-v1p07_Pub.pdf
-[2] https://lore.kernel.org/qemu-devel/20260601215410.517009-1-stefanb@linux.ibm.com/
-
-v5
---
-- Split [PATCH v4 06/06] into 2. The preparation patch separates the
-  no-chunking send() and recv() from chunking.
-- Fixed block comments to respect kernel's preferred multi-line style.
-- Added citations to the TCG TPM and NIST FIPS documentations. Explained
-  the logic and newly introduced registers in brief in the git commit
-  message.
-
-v4
---
-- Rebased on master (or for-next-tpm, both point to the same commit).
-- Resolved one conflict in PATCH v3 05/06, as TPM_BUFSIZE is declared in
-  include/linux/tpm_command.h.
-
-v3
---
-- Split patch 2, so that the code is cleaner.
-- Re-order the buffer size adjustment patch.
-- Rename crb_trigger_tpm to tpm_crb_start.
-- Add dispatching logic in send and recv functions. Chunking is
-  separated from no-chunking for clarity.
-- Increase TPM_BUFSIZE in the common file include/linux/tpm.h following,
-  [PATCH v9 11/11] tpm-buf: Implement managed allocations
-  https://lore.kernel.org/linux-integrity/20260125192526.782202-12-jarkko@kernel.org/
-
-v2
---
-- Add size checks before copying memory.
-- Update TPM_BUFSIZE to 8KB.
-- Commit messages updated to indicate motivation and logic of the change.
-
-Arun Menon (7):
-  tpm_crb: Add register definitions of TPM CRB chunking fields
-  tpm_crb: Split start method into a separate header
-  tpm_crb: Add start_cmd parameter to tpm_crb_start wrapper
-  tpm: tis_i2c: Use local 4KB buffer to limit memory usage
-  tpm: Increase TPM_BUFSIZE to 8KB for chunking support
-  tpm_crb: Factor crb_send()/crb_recv() bodies into helpers
-  tpm_crb: Implement command and response chunking logic
-
- drivers/char/tpm/tpm_crb.c     | 226 +++++++++++++++++++++++++++------
- drivers/char/tpm/tpm_tis_i2c.c |   6 +-
- include/linux/tpm_command.h    |   2 +-
- 3 files changed, 189 insertions(+), 45 deletions(-)
-
+diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
+index ceb4100ba400..d76f9e30f036 100644
+--- a/drivers/char/tpm/tpm_crb.c
++++ b/drivers/char/tpm/tpm_crb.c
+@@ -57,12 +57,18 @@ enum crb_ctrl_sts {
+ 
+ enum crb_start {
+ 	CRB_START_INVOKE	= BIT(0),
++	CRB_START_RESP_RETRY = BIT(1),
++	CRB_START_NEXT_CHUNK = BIT(2),
+ };
+ 
+ enum crb_cancel {
+ 	CRB_CANCEL_INVOKE	= BIT(0),
+ };
+ 
++enum crb_intf {
++	CRB_INTF_CAP_CRB_CHUNK = BIT(10),
++};
++
+ struct crb_regs_head {
+ 	u32 loc_state;
+ 	u32 reserved1;
 -- 
 2.56.0
 
