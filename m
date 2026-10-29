@@ -1,96 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.94.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258128;
-	b=sr9yHzmKMcJ1bAfqb0oo5pAe7LoEQx1dDkzV0vFVOzU+H0M0EObTgQZCJyuIve8VtIve
-	 NIHqzH99l5s3kB0c7sXa/KsX9aocPZyEH1pWdUzWY6zBLo+5GgGwJwWuP08H0WYSVBXwx
-	 d3Y9SokzCxkqWhhtj9ontpwUpp3Dzmov5WBcDP3aSUsgx39+W2DBKtfYWRknr7azrmDfu
-	 JeL32HkLGko6ixMms+kas/fgpQiUfTBGhRzD748+E/DWkj01RUx0XL2uX1r0FgAGuTXzi
-	 xNELj0fB9OXpLt01w0y8i0sakJA7GA9Og+L8ytL9reMzBf2sE2sQwA5rua+GnEm5q5Q==
+	t=1793258131;
+	b=mcX+Gmn+A268TtEkS3yGzSkhhg8cjeAJinvB3sdatbAwnCaPijkMV4k9G/ZpvikSVuh/
+	 aAe3o3yAQz0O/ytKewHr8WvoymxEplmr3tbsfrpQlHIgpAFoFVyHnt77ZB7juzGEtQW40
+	 pkA/mDeLdkKVJwCWMaLHAPsvQMBYaJjQRRLFrLrQrB7JVqodQKUFg81XrS/878rCJn54i
+	 VIjjl5FCCPkXAyLLhdBYa3+rtG+sY+eCnsXGYkN0J1UqhMH59QDpJBv/KaNOQy5g5xc85
+	 0WulzrpT/V5Cxc8sc4+G7y9nQyknwuuZVKW5WH5cY3/yo2CdqDvzv28352aNVCp7mcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258128;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=L1zaDsbgSjNpdoGtxbVOr2Y8p3X+7tAd8dPf+yYSu2Y=;
-	b=p21+yUoPbFmfre0ch7TfDJilxo0XKNfB/S/EGTpq04CBWqwrFoKyEJS+4EZ+gkx69IP9
-	 StTdF+20YCBRYQlLRLZQLvUDuJBN1mYunEsF0fwKVnEYGdzNAKHfBbsGJhrWwqIhZVUId
-	 uaf0UIyfuFwl0Sc5sT+u6F1X4Or+kr3D+U+0eTpa1jcBT5F9FZjdhnUT11e7QNApYlA1p
-	 rBMCcDk2rRbwBPMCrufmJH88r52pvPrbvOK1NlQP318MffwaXTvmb5wb4DkhlEE3pMbtM
-	 nHov0iF1byxsDWuGpSMt3a59NIA2lqAsj0ng2NIL6FFW1LEsuK+BnFAp7JEKFRKPdrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258131;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=i1yhE13PCUGATnwhT2+T7QHgUCbjLY1crWmjP7UMPFU=;
+	b=GhANo7Mhe7oCArjTKBVmRqk8eHcrJ4+Daz0ulAceK+WZCk6WRhtC4axmx4MmTUlZblHE
+	 DAAFF9/fUf191PbdQZjLjv75wxvqtVyIEU+ytBcmjymy21eEM8t8cNR8BOMr+F9paqLEu
+	 Nr1vIy3sXLEa7Eemzs4Unt1i4HoyP+odE0tjIoNI07rU9qp3o0EZ7qazfdabJm67GF16h
+	 0xCtt7eIZmsSyAlTzDSPmECgl+EO3Sf+ILIKyj9NW4QL7rdCZDZ+FpmQKR9XtsYv6EZ0v
+	 5bps2EOEAQ2KpF7DH6ihiBh139qQZtrnxgl75TZB9tT/TURpkiysaHBdxRfCe5eilVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=LVjMswA0;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.94.104
+Received: from dggmsgout13.his.huawei.com (dggmsgout13.his.huawei.com [124.71.94.104])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC793606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:15:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC793606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=LVjMswA0
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cd69954c755so1283866a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:15:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793258127; x=1793862927; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=L1zaDsbgSjNpdoGtxbVOr2Y8p3X+7tAd8dPf+yYSu2Y=;
-        b=LVjMswA0QWYALeKUNhXOEx5pGjU+fhsJOtnA9PWYeRYvoe5m2On881kg1JyOxja/Dv
-         64HSRu3QXd3IttEx04MWtftWEBKEuffLR3zNVntOLLBS182C2p3J1DCTxeb8/S46Hgfa
-         2mXwrqCwNeIWWP4OBa+OAZBdli5NeoRWI478w=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793258127; x=1793862927;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L1zaDsbgSjNpdoGtxbVOr2Y8p3X+7tAd8dPf+yYSu2Y=;
-        b=l7VhTGTbj4Pt6sEeRjG/PE/KTeNMnj9f81CSmrj7zLr4oHXUDXxfykK3J0hxXgiK24
-         eAaDhNp2T4ueZgdEbGvEo5XkdYXF78tK3QBEaEyxRq+5TiUCaFfl3Dg+j08SefAwqRO4
-         foG0wjBjZpBT5lNvIuz/9dJ0AEFb+oXc8loHmamNDctkF3lY283A9Vhg5LHINFKUbJ4O
-         /Vf2ejXcfB1a07Omz2qpCW/BHIsmke5gE9J56n6qWcfF8ORDaV93e6cZ5rzTLIuLFc09
-         P8PFap+/TePZ59SULi7pqUcOn9AKP9HwZh+ox/Je/psllCXtEPS8JFVEspsfvXxHRmqg
-         FqKw==
-X-Forwarded-Encrypted: i=1; AKwUvBystZCf4QnhIpSx9jrQJ1Tktz8lOP+ySyhbczTFV2FBnXWTdRtNHsbdED9hX1stx2gd9cSpuATGzUPqV18=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0kZpAA5mqn4SJSwSTJIwkIfmqb3mkEZc6GyHQxaUjiTeAeuKu
-	Er4P/rciDep0cJWLdZdolwJO1PGzmPjYJbFXZd06fHk1Kh02g4BRF1WHDCT3ljWd4LA=
-X-Gm-Gg: AYBFou15M3sj8KCeVXIxTChSou118uojCqWc2WN7Fwu6p04ElateGlekwI8DapzP6hT
-	TYrT3pxz41XGHBnTk5phUFjLrrKGwus0JLDbH0KsJ5tH+jzBXx6we9WYLNlRgJA6Ev5tupYQGZ0
-	8UmZ9JU73NawEOQ4Q19K5rj9VN+Q2RAJm3Hhu3Lc1kBHLZOuC8smIxd72lWM9h7Tz1R6nfbjJha
-	vBjq5zwLFsql+rG1DpDfsIyjvdaAll6J9MUEnBv/xudOQiFJKIa2X0VbEa/O0C53EMeelXXZAfj
-	u/FJ36M+gkPdszlyf5tg9fxDmXhJ1XuPH2Rm/Lrtf1p4tohtoCtEiex4ZWail1AA5vVnWpgihE/
-	WKjIS4wq3bn8YW5SlZbNPGMPdGdc6u/rUdHjSKIl87bMv6G9gdiY7qFXj+e6SL5yFzDbzpCsjxO
-	6VO7FCY+fW8isXgjCem1mGiD+e4MWTKfLjGjZwtIDmXRRGxJUIOsq8QDhpopvOyld5mHU6PXb0o
-	hsCoOZwN5Lq/ZRPK4xoh52hx+2KXNFzTgGGVoABqQKNfXww93weECLuqCWlSvz0TVqgwA5dHqEy
-	9IcLQoeJqM8wHJpHu9TEj0/cNfVz758NsQKIRGa3kQ6Op0+98t05G8r1XquYbZ5GfZ9q51frbii
-	sLBQu+6Ef5Y+pFl19+0+noiYzxS4Bd28vL+q0/O4oSnaK6vHGNrCA+j9H5HhdC6njVDRQthgf
-X-Received: by 2002:a05:6a20:6a0a:b0:3e0:f9da:3952 with SMTP id adf61e73a8af0-3e9025d050fmr4630714637.67.1793258127238;
-        Thu, 29 Oct 2026 00:15:27 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a6cfc785sm1883413b3a.38.2026.10.29.00.15.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 00:15:26 -0700 (PDT)
-Date: Thu, 29 Oct 2026 15:15:21 +0800
-From: Chris Down <chris@chrisdown.name>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v5 11/16] console/braille: Lock console->setup() call
- during the registration
-Message-ID: <auLyiUrOsr7W8tuo@chrisdown.name>
-References: <20260929120546.328616-1-pmladek@suse.com>
- <20260929120546.328616-12-pmladek@suse.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C31E606A32D;
+	Thu, 29 Oct 2026 07:15:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C31E606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggmsgout13.his.huawei.com (SkyGuard) with ESMTP id 4jFb8m4tJPz1rqlk;
+	Thu, 29 Oct 2026 15:15:04 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 9827440576;
+	Thu, 29 Oct 2026 15:15:19 +0800 (CST)
+Received: from huawei.com (unknown [10.67.174.45])
+	by APP1 (Coremail) with UTF8SMTPA id cCh0CgA3i9CA8uJqfGTrCA--.58022S2;
+	Thu, 29 Oct 2026 15:15:19 +0800 (CST)
+From: Tengda Wu <wutengda@huaweicloud.com>
+To: Namhyung Kim <namhyung@kernel.org>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: james.clark@linaro.org,
+	xueshuai@linux.alibaba.com,
+	Peter Zijlstra <peterz@infradead.org>,
+	leo.yan@linux.dev,
+	Li Huafei <lihuafei1@huawei.com>,
+	Ian Rogers <irogers@google.com>,
+	Kim Phillips <kim.phillips@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Bill Wendling <morbo@google.com>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Zecheng Li <zli94@ncsu.edu>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev,
+	Tengda Wu <wutengda@huaweicloud.com>
+Subject: [PATCH] perf annotate-data: Show event name in the data-type title
+Date: Thu, 29 Oct 2026 07:15:10 +0000
+Message-Id: <20261029071510.460873-1-wutengda@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,28 +73,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929120546.328616-12-pmladek@suse.com>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:cCh0CgA3i9CA8uJqfGTrCA--.58022S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXr15XFWruFWDJr1rAFyrZwb_yoW7JryDpF
+	1DGryxJr45Jryaqw13Jr4UWFyFqw1xJ3WUGr4ktryjvF42gr1kJF17Xw1FyrWrGr1DCr1a
+	qrn8Kr1UK3ykGw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBKb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7
+	CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8C
+	rVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4
+	IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxG
+	xcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc7CjxVAKzI0EY4vE52x082
+	I5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
+	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
+	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRNksq3UUUUU=
+	=
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-Petr Mladek writes:
->In braille_register_console(), the console->setup() callback must be
->called while holding the console_lock. This prevents a race condition
->with a possible active boot console that might be using the same hardware
->registers.
+The same data type can be annotated for multiple sampling events, in
+which case the data-type header is printed once per event.  But the
+header only shows the type name and the sample count, so several
+identical-looking headers are emitted and the user cannot tell which
+event each of them corresponds to. E.g.
 
-Acked-by: Chris Down <chris@chrisdown.name>
+  $ perf annotate --data-type=page --stdio --itrace=f
+  Annotate type: 'struct page' in [kernel.kallsyms] (59208 samples):
+  ============================================================================
+   Percent     offset       size  field
+    100.00          0       0x40  struct page      {
+      9.95          0        0x8      long unsigned int   flags;
 
->index d780f6de303a..11d6b854ee63 100644
->--- a/include/linux/console.h
->+++ b/include/linux/console.h
->@@ -699,6 +699,7 @@ enum con_flush_mode {
-> };
-> 
-> extern int add_preferred_console(const char *name, const short idx, char *options);
->+extern int console_call_setup(struct console *newcon, char *options);
+  Annotate type: 'struct page' in [kernel.kallsyms] (59480 samples):
+  ============================================================================
+   Percent     offset       size  field
+    100.00          0       0x40  struct page      {
+     10.15          0        0x8      long unsigned int   flags;
 
-Hmm, now that console_call_setup() is global, a short comment saying it is only 
-meant for the Braille driver might discourage other users if you want. But not 
-a big deal either way.
+Add the event name to the data-type title in both the TUI browser and
+the stdio output, so each header can be attributed to its event.  For
+group events, use evsel__group_desc() to print the group description
+instead of the leader's name, so the whole group is identified.
+
+While at it, size the underline in the stdio output dynamically based
+on the length of the header line instead of using a fixed-width string,
+so it keeps matching the header as the text grows.
+
+Result:
+
+  $ perf annotate --data-type=page --stdio --itrace=f
+  Annotate type: 'struct page' in [kernel.kallsyms] for l1d-miss (59208 samples):
+  ===============================================================================
+   Percent     offset       size  field
+    100.00          0       0x40  struct page      {
+      9.95          0        0x8      long unsigned int   flags;
+
+  Annotate type: 'struct page' in [kernel.kallsyms] for l1d-access (59480 samples):
+  =================================================================================
+   Percent     offset       size  field
+    100.00          0       0x40  struct page      {
+     10.15          0        0x8      long unsigned int   flags;
+
+Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+---
+ tools/perf/ui/browsers/annotate-data.c | 14 +++++++++++---
+ tools/perf/util/annotate-data.c        | 15 ++++++++++++---
+ 2 files changed, 23 insertions(+), 6 deletions(-)
+
+diff --git a/tools/perf/ui/browsers/annotate-data.c b/tools/perf/ui/browsers/annotate-data.c
+index a15608f6ee53..0f778788df4a 100644
+--- a/tools/perf/ui/browsers/annotate-data.c
++++ b/tools/perf/ui/browsers/annotate-data.c
+@@ -340,11 +340,19 @@ static int browser__show(struct ui_browser *uib)
+ 	struct hist_entry *he = uib->priv;
+ 	struct annotated_data_type *adt = he->mem_type;
+ 	struct annotated_data_browser *browser = get_browser(uib);
++	struct evsel *evsel = hists_to_evsel(he->hists);
+ 	const char *help = "Press 'h' for help on key bindings";
+-	char title[256];
++	const char *evsel_name = evsel__name(evsel);
++	char buf[512];
++	char title[sizeof(buf) + 256];
++
++	if (evsel__is_group_event(evsel)) {
++		evsel__group_desc(evsel, buf, sizeof(buf));
++		evsel_name = buf;
++	}
+ 
+-	snprintf(title, sizeof(title), "Annotate type: '%s' (%d samples)",
+-		 adt->self.type_name, he->stat.nr_events);
++	snprintf(title, sizeof(title), "Annotate type: '%s' for %s (%d samples)",
++		 adt->self.type_name, evsel_name, he->stat.nr_events);
+ 
+ 	if (ui_browser__show(uib, title, help) < 0)
+ 		return -1;
+diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
+index b3de1ca688a2..25e3169ea8ad 100644
+--- a/tools/perf/util/annotate-data.c
++++ b/tools/perf/util/annotate-data.c
+@@ -2149,16 +2149,23 @@ static void print_annotated_data_header(struct hist_entry *he, struct evsel *evs
+ 	int nr_samples = he->stat.nr_events;
+ 	int width = 7;
+ 	const char *val_hdr = "Percent";
++	const char *evsel_name = evsel__name(evsel);
++	char buf[512];
++	int len;
+ 
+ 	if (evsel__is_group_event(evsel)) {
+ 		struct hist_entry *pair;
+ 
+ 		list_for_each_entry(pair, &he->pairs.head, pairs.node)
+ 			nr_samples += pair->stat.nr_events;
++
++		evsel__group_desc(evsel, buf, sizeof(buf));
++		evsel_name = buf;
+ 	}
+ 
+-	printf("Annotate type: '%s' in %s (%d samples):\n",
+-	       he->mem_type->self.type_name, dso__name(dso), nr_samples);
++	len = printf("Annotate type: '%s' in %s for %s (%d samples):\n",
++		     he->mem_type->self.type_name, dso__name(dso), evsel_name,
++		     nr_samples);
+ 
+ 	if (evsel__is_group_event(evsel)) {
+ 		struct evsel *pos;
+@@ -2183,7 +2190,9 @@ static void print_annotated_data_header(struct hist_entry *he, struct evsel *evs
+ 		val_hdr = "Samples";
+ 	}
+ 
+-	printf("============================================================================\n");
++	while (len-- > 1)
++		putchar('=');
++	putchar('\n');
+ 	printf("%*s %10s %10s  %s\n", (width + 1) * nr_members, val_hdr,
+ 	       "offset", "size", "field");
+ }
+
+base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
+-- 
+2.34.1
+
