@@ -1,88 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793294639;
-	b=Uz0+FQUeoc0CwCgpMWTdFlVN2avHcM9yqP98BVQP0rXMzdeCPhsyYF2DzasRQsd5OlWM
-	 T4s4oewnOr2UGmi3zJQQvMGA2ClZelg5SUmlRETg45uBBC+4zOtjOBnqECN8FkVwIeiPW
-	 mJswK3Lxmnrtp+EQM8xUfGhvHZ/hUApRBcGC9sD8YWo46Lc+BN+CgKuQsYNI6VwsrPRCm
-	 GDGacXtHMaCGz6GDc6Umxce2xuhnrR2daDjmEq/X2zqKjkeZKaqrskgTZrA6iTyffETng
-	 +u47r9Pjkxjq6lKuZu1HXGmuBpO3EKDHWo3vW1+g1O0YYviWvTtwPS3ffZ/je5Kck3g==
+	t=1793294641;
+	b=JdIgLMlI7GJGKTf4u1P7R/6Iis3ERJPy7lgzV6JqT6kpeJiQ2fI6WIE1CDnFurYIDor4
+	 rI7/WBSv40/NRnD7g9KcT3Uig6U7PfwqewlU64a3bQ2Fqo+ledlaRjQ6Ps1UGPSFHV1P2
+	 4Z8Nk+7wTkAHAjOuPSCdj5GchR9twmpK/8pxkaDDPKhnR7aO8/UbbbXoQNL6jdVb7ITbE
+	 A1I1WbGbfqZe6FfCCye14nppeSv2OFdmzSb2uCUo8b+fWCDyh2Fkrt34FhmMI+L8X55kZ
+	 AYp74KzKesH7BonsnOsnRzi6pVprMl39mJXK1u+x75EXPa0AgCj5Wpxet4uI1gG5JDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793294639;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793294641;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kDOYEDypZwZQvak6poIdRizAekLUNGBFX3LN2eRVDcU=;
-	b=NRkyWWxrje2uSsGKklD73gE8ER6cR/C+GqPILDFauzjQqZoFU6Ry49HMXE4OXRCxu+ma
-	 PXoF7xTNBQkZk34L4ixqyKJH4UGY4qR4KMa7v/O3aUraD5qXaH9ejmim1oAZfUxEgt7iR
-	 oplKm1i/yEKf2A/CeP4OQp2R/RiW0bWPw8bAmYKAbsr7/pj3ZodAPtwZLe7Lzma3nETUg
-	 KbLRw3MVEZDSCMKkhSXqZz9OtCA0P8nFbyozEU/Toiwu2NDdDchaO4gvtaeMC/2Q+XXYz
-	 ng9Um/bduqBLd9JwImBWzsfoRpFEPY/47rTGK1oi9JIGyhwpZ0X3C5IzkITP3So6YYQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Vlmh38oDhVKFUzUtt9cRV3aHc0FM1WeWFLP0ZtSzi/k=;
+	b=1K8Z2ZuhxiEEaAtY+zIJvsrKajkHFB9TGHTTpUbvi4x+lrV/l3gTnXZzoYh6NXT57rKX
+	 +jGCQc+mT/kc68QC6Iq+s98WI+mRz0QVeNMMrA2FLgnenlefJB/Q5a6aYI69HirfVtIR2
+	 Nbdvs8UyCrDWv8Y0HUdT9EQ2DXFj/0bbctRmrDcntCtLOGB+cNLIS+ZSiCp0tZI/Vm51/
+	 q2SQCiNasEzZjBxBR1rLSX6y9xXSosYdTYu3hcjVM47DRIH0xoNn/8JYbkvhS1QleTdDx
+	 nWrm1LL3KvIVrCkpWSS9vG9Qr2zBaV4RmwKGTbrZSOrApjKdv4ycGk0HapfIZ2WquZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XUrrV0Xg;
-	arc=none smtp.remote-ip=209.85.216.52
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v4ii2gjJ;
+	arc=none smtp.remote-ip=209.85.217.44
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8756606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:23:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8756606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 420B4606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:24:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 420B4606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XUrrV0Xg
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ae691283ecso596446a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:23:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v4ii2gjJ
+Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7cc0892f92cso853150137.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:24:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793294638; x=1793899438; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kDOYEDypZwZQvak6poIdRizAekLUNGBFX3LN2eRVDcU=;
-        b=XUrrV0XgCwb6DIMhoQZ1+DIjsS5tP74/bl3g3LFluCRlh1hmrBW3QmxOjEPrmqEmvP
-         RrVkqDp0aixBRtdtQZkGDMTryt5cXGLViw+OC6ckWhBStpeT44up24n0KEyi9W4LXZO4
-         lzJBGqSV8MsKcczDJoPmtEJC47YglRWYwt45QXDmfjoDQABQ9ZA96NDwRRvoNF2H4uFs
-         oRmJE92Mi3EuRIUFmug1Dppv3plLfRqvCmbrMZaZBeowoD5G0cOpBR6wQBoYmz70AUMk
-         CdzhmGfdzROHHtb1Rtr+0LfK2L93TZHwH6Cu8LHimLeIxSheK+KvlBA55029G/3dq0yW
-         ct8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793294638; x=1793899438;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793294640; x=1793899440; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kDOYEDypZwZQvak6poIdRizAekLUNGBFX3LN2eRVDcU=;
-        b=MUjaOnOLVg2pwOgMKFlXjxxyrPp24RiukjZ+AS6oBJn9jc1sOgNTKG8SKzFqAP1ueZ
-         fOIOB/XDjChdKwYZlxUBxHEfxrdU5tMisFLOwX8uA6z6lCz69hVFED3jEoW1Vopdricy
-         FuKgmuaZNidFkF9sFt1Kime2GwQ8fFwVf28nIXVQNGHu0ExQDXwW/xkmiwbgmFkefsAD
-         I2FEFqODeLrwBNqhMCmk6IIuLd6rDeTfAZN5Qp1ygQaTeb6eVJg9GdOaftTouRvng2Ua
-         9j6+UfZXDXdwRJQhp1z9yhqA3vQ9cElGvaoniTkAfFjvkD9ByIVNwpem3VZYtoplZPOV
-         pk7A==
-X-Forwarded-Encrypted: i=1; AKwUvBzM5baSsBJuzvptMHgGUnvf/nxNTmBFE4H5ecU6UN1nYjpM3B36bQ6u3Ow67Y3TxAj1PAwpwMjzqnx8wo4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFPQ6vJxiQd9NR93UROlcWQgcBLJDH5Jfb7qvSRd3tUhV4+ZxD
-	T8xZGhyR9NGUY26d5/kJ6N5Y1C4HUtjSFz6Tvm3PgJ8slQh+wVhzAIbF
-X-Gm-Gg: AYBFou1RIPcQJDEiAxVvo1wRjJoFLppAL2bFZ5TBr0/WsSSTtboor4ISNTUlfAW+6/O
-	VrftLGMU5qpDbt3TGFukwrlyTZ1wPRj+kbQOLZHM46MU4u+PQxFguggP/00XaUp9qK7e7kXd6go
-	O1xuqEtEYhRq/aKuNZDWYL7CjAtVZMoV40TBPTOtvGi1kFUwovUnOhQYa11dAKVXJUs+aLoxRrH
-	pdWz4fuzL0mFHVoI+OkQWFdarqB4SSvOGzw5xjtHz7xM0x0aqQ3Hek+s7HKvQZ0RLJqr4tjimIF
-	ktV2JBZ+GFU3uHhTQzqitXrSzuThoH6gPJ1JQBP91H8BPG+/vdGThcL5mE33hHNyT/R+ZQkCMDy
-	meYvxobalNzg4rgU1rY9B+sEUZhetyY6eLAX9xyLDH7niNST33AbFv8lZbkoG3ZqWtbHKvQXEIJ
-	gj9ye5hGgROpTfa+reIAMgyacQ02eC8YVHRm+yc8mm3soqJGCEhcCfmBx1yLu8/vPubLxEpHxks
-	SYvPD1oJ6oevGA/G3RfHXRxdBm/FqOj5Vt7oxB0vkm/CEKIPWcH1PMlU9tX4k6JIMdk5eeLE1Xa
-	W4X5BJThKRQcYNAZi8hK1Nx1dpcCt9ivHjmJrRBAPPgje1m0YK9Si7tGAw==
-X-Received: by 2002:a17:90b:2585:b0:3a7:9ec3:ea0e with SMTP id 98e67ed59e1d1-3ae6ed455e9mr2153404a91.22.1793294638096;
-        Thu, 29 Oct 2026 10:23:58 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e98f888sm5003173a91.13.2026.10.29.10.23.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 10:23:56 -0700 (PDT)
-Message-ID: <b15c85ea-85b4-4900-b422-07fd629c0b6e@gmail.com>
-Date: Thu, 29 Oct 2026 10:23:52 -0700
+        bh=Vlmh38oDhVKFUzUtt9cRV3aHc0FM1WeWFLP0ZtSzi/k=;
+        b=v4ii2gjJH99nKNb/HaMMkH+Ab3FjrlDa1CFtLJRW9e0Se9pOc2wFGonNc2Faum+SMp
+         eIcd68o6vrUtcLMs61oUuKKjThNI81IfZhqFu0BaKpDqw1xPHUJtGMfQNfN+ePh+3O2v
+         CdkLsigaDLCVlc+P/Ht9MXNM5X9f5P2jfsn91rjSNk9wbx3hDewwydES8bbQM6T/TJYW
+         DhItesTX+/goikD55EgVtIfoEKcZC/NvGSBtoXPCyhqEjkG8lTaf9x9bh4yDdGb3jykk
+         67LUGRlg//02wbc14hVKIh0//Ww5uom5zBTmXy1JD5iti4cg8e60MxuLHg14LqT6pDwz
+         HqNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793294640; x=1793899440;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vlmh38oDhVKFUzUtt9cRV3aHc0FM1WeWFLP0ZtSzi/k=;
+        b=cIOosR7xMej2FKBGce1layDOHn0EfFa+Fjc/hZJcwN8pauKoZ8K2Zw5uIIE9EkKlgG
+         zOPpg1HjRTGlYGKCMtm4Z0n8gFi7qcPvK/EbHLJ5BSyCkykAWnJERsvZrHxq1INcB1QH
+         XNN+jRBXb0UFm3NBpPWBpXyAHecYNnExnKBvRw3zjSLKWVQU1v4/5C+jxao/0JunCXQJ
+         b1VB4htg7YiCFR8RNKcd5hDTWA2CI8OYzJFBVxhxklVqjj/FRK1K9hxzMtyJp6pqowu6
+         fmnETIEWdKGCvmqu9SSu9YJfcGvkJo88AK76v86rsjr+9IuQT+C9wfD/L4Ev/Q/F5ELu
+         /MLw==
+X-Forwarded-Encrypted: i=1; AKwUvBxDQjhMsuwX4iW4EweBvBQhnGrKKK/zoY2pkt3yIQqdqZk1hT7FO8En7CHAenuf7YtYCJAEgLRtp3Jj9TM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/GRoCwrNnHGVGsKOM6sXs4ce5gg4LvANReyDVoWw+fxYevuUA
+	3N4ZJk+wwkR+4qRUj1sj7wS4WhCjLlZL/z3RxQXMAOJ/mZr9GEcW+w3k
+X-Gm-Gg: AYBFou0bABQq7E93ACZgfaP7cSXaPiHVARqltikZXM4F7ovgWTjYBNmSeTalfLkznmR
+	U9hnZmknGboJp98tlpHy0D2BvmWEvhvZ9aoGU0N7EWIQoBR6bFMmFPdneJpTRGjvzZo0NJdrMe9
+	DaCM7RNR+k6CmyJokKZYs1/5X2tjWWTapRALTMOs1dF1so2rgdpySBdqiVb4swxhXVEdVd0Y4ER
+	MhKvPHvmT3ECYrNVnTwtTvfER6HpODUSpbiQPUiN0/Y9Tq6G2fQGeGaR1rGPyiSwqbc54LPGqbQ
+	xXKpEpq8dARmDpVCJ+XaKEhZTbUiv0tX6EDCBfUO0XaJsLufYPmzV2fIrH7qRw1m7dHUQdP+l5C
+	Nob00nFHPZbL8pLXIVY12SyU26N285Agwz9X+c9K2FroDKfl+UpTwg7B2NVj02k2SduRMcSzI52
+	hj85tmpYvREpZXy+fQDir1dXitvJHzgrJBAZdoWU1REvp819D1LUxQxtPnQhqfxFgWthC66D//h
+	7fKrC5z2mjNvc/gnt/Nl/EyNWXFIH2Oe9jWR9Y4YpAPEC2/4BIctxvce3abY3qONCi7A2BblNds
+	ta9i4mSpruehOrM/biPZrcV0QRkWr2JoROmoRNoRtKcDnOw+TivMifokSXrUa/YUpEYQnQiKFFo
+	L0LBl5Puz/D3AtUgWP8bYpeYrpexZv3E4+iLp
+X-Received: by 2002:a05:6102:3e8d:b0:7a5:7282:1994 with SMTP id ada2fe7eead31-7d03a50a85cmr2383203137.7.1793294640169;
+        Thu, 29 Oct 2026 10:24:00 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.238.247])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cea3d32a48sm9907357137.9.2026.10.29.10.23.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 10:23:59 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Xu Rao <raoxu@uniontech.com>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 2/2] phy: sun4i-usb: clear SIDDQ before the PHY reset on A733
+Date: Thu, 29 Oct 2026 14:23:25 -0300
+Message-ID: <20261029172325.3425046-3-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261029172325.3425046-1-vinicius.eduardo.pedrosa@gmail.com>
+References: <20261029172325.3425046-1-vinicius.eduardo.pedrosa@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,148 +111,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net 03/11] net: au1000: disconnect the PHY before freeing
- the MDIO bus
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- hkallweit1@gmail.com, linux@armlinux.org.uk, shaojijie@huawei.com,
- horms@kernel.org, runyu.xiao@seu.edu.cn, mmyangfl@gmail.com, hvr@gnu.org,
- jeff@garzik.org, danny.kukawka@bisect.de, mugunthanvnm@ti.com,
- sebastian.hesselbarth@gmail.com, linux-kernel@vger.kernel.org,
- manuel.lauss@gmail.com
-References: <20261027223140.3774570-4-f.fainelli@gmail.com>
- <179329051062.3134.8683202411485629333@kernel.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <179329051062.3134.8683202411485629333@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 10/29/26 09:15, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 0 (1)
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] In drivers/net/ethernet/amd/au1000_eth.c, au1000_remove() now
->    calls phy_disconnect() after unregister_netdev().
-> 
-> Pre-existing issues:
-> - [Low] The two new phy_disconnect() calls (au1000_remove() after
->    unregister_netdev(), and the au1000_probe() err_out path) run without…
-> 
-> --
-> 
-> net: au1000: disconnect the PHY before freeing the MDIO bus
-> 
-> This patch adds phy_disconnect() calls to the au1000_probe() error path
-> and to au1000_remove(). This balances the phy_connect() done in
-> au1000_mii_probe(). In both paths the disconnect runs before the MDIO bus
-> is unregistered.
-> 
->> diff --git a/drivers/net/ethernet/amd/au1000_eth.c b/drivers/net/ethernet/amd/au1000_eth.c
->> index 58bc8e1b539d5..70319b432182f 100644
->> --- a/drivers/net/ethernet/amd/au1000_eth.c
->> +++ b/drivers/net/ethernet/amd/au1000_eth.c
->> @@ -1287,6 +1287,8 @@ static int au1000_probe(struct platform_device *pdev)
->>   	return 0;
->>   
->>   err_out:
->> +	if (dev->phydev)
->> +		phy_disconnect(dev->phydev);
->>   	if (aup->mii_bus)
->>   		mdiobus_unregister(aup->mii_bus);
->>   
-> 
-> [ ... ]
-> 
->> @@ -1334,6 +1336,8 @@ static void au1000_remove(struct platform_device *pdev)
->>   	struct resource *base, *macen;
->>   
->>   	unregister_netdev(dev);
->> +	if (dev->phydev)
->> +		phy_disconnect(dev->phydev);
-> 
-> [Severity: Medium]
-> Can this leave the MAC clocked and out of reset after the driver unbinds?
-> 
-> By the time au1000_remove() reaches this point, the MAC is already in
-> reset with its clock gated, and aup->mac_enabled is 0. If the interface
-> was never opened, au1000_probe() did this by calling au1000_reset_mac()
-> just before register_netdev(). If the interface was opened,
-> au1000_close() did it.
-> 
-> If the interface was never opened, phydev->suspended is still false,
-> because phy_attach_direct() resumed the PHY. In that case phy_disconnect()
-> does MDIO accesses:
-> 
-> phy_disconnect()
->    phy_detach()
->      phy_detach_internal()
->        phy_suspend()
->          genphy_suspend()
->            phy_set_bits(phydev, MII_BMCR, BMCR_PDOWN)
-> 
-> Each of these accesses goes through au1000_mdiobus_read() or
-> au1000_mdiobus_write(). Both call au1000_enable_mac(dev, 0) first:
-> 
-> 	if (force_reset || (!aup->mac_enabled)) {
-> 		writel(MAC_EN_CLOCK_ENABLE, aup->enable);
-> 		...
-> 		writel((MAC_EN_RESET0 | MAC_EN_RESET1 | MAC_EN_RESET2
-> 				| MAC_EN_CLOCK_ENABLE), aup->enable);
-> 		...
-> 		aup->mac_enabled = 1;
-> 	}
-> 
-> Nothing later in au1000_remove() calls au1000_reset_mac() again before
-> the registers are unmapped and the netdev is freed. Before this patch,
-> remove left the MAC in reset with its clock gated.
-> 
-> The err_out path in au1000_probe() does call au1000_reset_mac(dev) after
-> phy_disconnect() and mdiobus_unregister(). Should au1000_remove() also
-> call au1000_reset_mac(dev) after phy_disconnect(), to match it?
-> 
-> [Severity: Low]
-> This is a pre-existing issue, not one introduced by this patch, but both
-> new phy_disconnect() calls run without RTNL held. In au1000_remove(),
-> unregister_netdev() has already dropped RTNL. au1000_probe() never takes
-> it.
-> 
-> phy_disconnect()->phy_detach()->phy_detach_internal() does:
-> 
-> 		hwprov = rtnl_dereference(dev->hwprov);
-> 
-> With CONFIG_PROVE_RCU enabled, could this emit a one-time "suspicious
-> rcu_dereference_protected() usage" warning? The read itself looks
-> harmless, since au1000 never installs a hwtstamp provider.
-> 
-> Other drivers already call phy_disconnect() after unregister_netdev()
-> without RTNL, for example r6040_remove_one(), et131x_pci_remove(),
-> bgmac_enet_remove(), mlxbf_gige_remove(), hisi_femac_drv_remove() and
-> ixp4xx_eth_remove(). So this looks like a problem with the phylib
-> annotation, not with this driver.
-> 
->>   	mdiobus_unregister(aup->mii_bus);
->>   	mdiobus_free(aup->mii_bus);
->>
-> 
+sun4i_usb_phy_init() deasserts the PHY reset first and clears SIDDQ in
+the PMU HCI_PHY_CTL register afterwards. The order comes from the H3
+support and the reason for it isn't documented.
 
-Agreed. PHY teardown can re-enable the MAC through MDIO accesses. I’ll 
-update patch #3 to call au1000_reset_mac() after MDIO bus teardown, 
-matching the probe error path.
+On a Cubie A7Z (A733), the Wi-Fi module on USB1 sometimes came up
+at full speed on the OHCI companion and failed enumeration with -62.
+This happened in 3 of 40 warm boots with a separate local PHY tuning
+change applied.
 
-The RTNL annotation concern appears to be a separate phylib issue shared 
-by other drivers.
+With that tuning disabled, the current order failed once in 31 warm
+boots. Clearing SIDDQ before releasing reset had no failures in 60
+warm boots in the same interleaved run, or in 10 cold boots.
+Why the order matters is not understood.
 
-pw-bot: cr
+The vendor BSP clears SIDDQ while the PHY is still in reset, in its
+common host path.
+
+Add a config flag for the early clear and set it only for the A733,
+whose config is otherwise the D1 one. The other SoCs keep the current
+order: the manuals don't specify one and they weren't tested.
+
+Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+---
+ drivers/phy/allwinner/phy-sun4i-usb.c | 35 +++++++++++++++++++++++----
+ 1 file changed, 30 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/phy/allwinner/phy-sun4i-usb.c b/drivers/phy/allwinner/phy-sun4i-usb.c
+index 839856c09e30..4d067d97c5a6 100644
+--- a/drivers/phy/allwinner/phy-sun4i-usb.c
++++ b/drivers/phy/allwinner/phy-sun4i-usb.c
+@@ -105,6 +105,7 @@ struct sun4i_usb_phy_cfg {
+ 	bool phy0_dual_route;
+ 	bool needs_phy2_siddq;
+ 	bool siddq_in_base;
++	bool siddq_before_reset;
+ 	bool poll_vbusen;
+ 	int missing_phys;
+ };
+@@ -253,6 +254,19 @@ static void sun4i_usb_phy_passby(struct sun4i_usb_phy *phy, int enable)
+ 	writel(reg_value, phy->pmu);
+ }
+ 
++static void sun4i_usb_phy_clear_hci_phy_ctl(struct sun4i_usb_phy *phy)
++{
++	struct sun4i_usb_phy_data *data = to_sun4i_usb_phy_data(phy);
++	u32 val;
++
++	if (!phy->pmu || !data->cfg->hci_phy_ctl_clear)
++		return;
++
++	val = readl(phy->pmu + REG_HCI_PHY_CTL);
++	val &= ~data->cfg->hci_phy_ctl_clear;
++	writel(val, phy->pmu + REG_HCI_PHY_CTL);
++}
++
+ static int sun4i_usb_phy_init(struct phy *_phy)
+ {
+ 	struct sun4i_usb_phy *phy = phy_get_drvdata(_phy);
+@@ -270,6 +284,10 @@ static int sun4i_usb_phy_init(struct phy *_phy)
+ 		return ret;
+ 	}
+ 
++	/* Some SoCs want SIDDQ cleared while the PHY is still in reset. */
++	if (data->cfg->siddq_before_reset)
++		sun4i_usb_phy_clear_hci_phy_ctl(phy);
++
+ 	ret = reset_control_deassert(phy->reset);
+ 	if (ret) {
+ 		clk_disable_unprepare(phy->clk2);
+@@ -321,11 +339,8 @@ static int sun4i_usb_phy_init(struct phy *_phy)
+ 		clk_disable_unprepare(phy2->clk2);
+ 	}
+ 
+-	if (phy->pmu && data->cfg->hci_phy_ctl_clear) {
+-		val = readl(phy->pmu + REG_HCI_PHY_CTL);
+-		val &= ~data->cfg->hci_phy_ctl_clear;
+-		writel(val, phy->pmu + REG_HCI_PHY_CTL);
+-	}
++	if (!data->cfg->siddq_before_reset)
++		sun4i_usb_phy_clear_hci_phy_ctl(phy);
+ 
+ 	if (data->cfg->siddq_in_base) {
+ 		if (phy->index == 0) {
+@@ -1013,6 +1028,15 @@ static const struct sun4i_usb_phy_cfg sun50i_h616_cfg = {
+ 	.siddq_in_base = true,
+ };
+ 
++static const struct sun4i_usb_phy_cfg sun60i_a733_cfg = {
++	.phyctl_offset = REG_PHYCTL_A33,
++	.dedicated_clocks = true,
++	.hci_phy_ctl_clear = PHY_CTL_SIDDQ,
++	.phy0_dual_route = true,
++	.siddq_in_base = true,
++	.siddq_before_reset = true,
++};
++
+ static const struct of_device_id sun4i_usb_phy_of_match[] = {
+ 	{ .compatible = "allwinner,sun4i-a10-usb-phy", .data = &sun4i_a10_cfg },
+ 	{ .compatible = "allwinner,sun5i-a13-usb-phy", .data = &sun5i_a13_cfg },
+@@ -1029,6 +1053,7 @@ static const struct of_device_id sun4i_usb_phy_of_match[] = {
+ 	  .data = &sun50i_a64_cfg},
+ 	{ .compatible = "allwinner,sun50i-h6-usb-phy", .data = &sun50i_h6_cfg },
+ 	{ .compatible = "allwinner,sun50i-h616-usb-phy", .data = &sun50i_h616_cfg },
++	{ .compatible = "allwinner,sun60i-a733-usb-phy", .data = &sun60i_a733_cfg },
+ 	{ .compatible = "allwinner,suniv-f1c100s-usb-phy",
+ 	  .data = &suniv_f1c100s_cfg },
+ 	{ },
 -- 
-Florian
+2.43.0
+
