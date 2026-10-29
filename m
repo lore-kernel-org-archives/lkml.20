@@ -1,101 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.14
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793308018;
-	b=5kwtZW+VEYl7mufjq/hfwBxa1HHTG5Ikv2YUO3lwwFOSH4mU7JqaPu9oA+31cTLnAO6L
-	 /XgoYvwQjnIOjp9OKStvIRvohMjbLiZEWdw9BJmiDRISR0IL9g8AWqTxx6EtXZfBAZbDy
-	 pHCBjJAmNrjGkw1mnC/7XdnQTPhU1iuVEWxYx+UD/cifxdvNAmLrC9DWiitQBwtZf9FE+
-	 Cw1rj8N62dTWg8t9Aw/U2hHwwr78Nj3bbbQDXdBYzNAfFVfcz9pLOqdKjjPz6tQwgCiig
-	 TqMDpX44SVCS3fMqoZrugCT4usilJWii6CWYCUbyrNX3xX8Q8/dTgp7ih0AZSa2GXVw==
+	t=1793308024;
+	b=Wclb0sjtoAxJlki52QE5Sm29JVZrJMZm2kzLjRcOLg5phQzhg6FexHVtvnkUcuLlu64c
+	 msk2Wb+mz0jK/io3NLdj9ZdXLcByrBjAJkdXTy5Oc9zPFH4C5Rp6RenjphS4u2K6Ca+Dy
+	 xSA8oBHLO4HY0IkQ1SscMm+C0z5NdGIUAQXTVRJCI1B1q7kE8h5i0RhkrYHjs5usuqnF9
+	 VEarK+UQsCFf+AFXhy3RpVWU2Ot6frDYEsXUu9W8p6Ud2G1bqkFs465EkYx9K7RYTTT8o
+	 KggqxdtS5Op0vTaR4ISRmKdM4bk2UFg6+OHN31/new9hWNEdy+NVdDg2MVuMREFepvw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793308018;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=fb8kDJR3/eqMuwVk4mGcY8ktqHU/PCk1HgPlmWV1nBs=;
-	b=A7UGa0fIRcvQjN5G7tN1p+8UJr4LRgnPVaKBvOHD3v4jF2cXXyOcAy+iTU+4TNuKc7OE
-	 RU9VtYe34OhBxe/TZYYUtiRgV4EwjS7ksDVwl+Y/TrJD9C5Acaaj59lGoBnhzsGnASJqL
-	 GUap1rliLp/GzFFY8EvOCQmkkhKh8XQhliLLtLocmmeMTlGLPy/Xi/i8xrSGEvsEAYy3y
-	 gXS91osZLCDG72PkKyCBfCllx7/CFWg4EJhi7USnBKfTon0bdylQ7d/IAwd555bhyTuss
-	 HbAb2Q0roVlgpgax1ZPok/I2HA8HVtbXnIj2guZ9KVQVlXx0NLqlJLjc8qsTab69omQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793308024;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=BA19MkknKHlwmK/pkrg+bh9QKov5Bs/Vn/UrvuF8BS0=;
+	b=N0z0/XWTRQ7+rT9RLb3wyqK9xjNLaoWkhbByq1nhI4RS89Q52ioxsHHodBcJlmHV6BhQ
+	 DcgmdCW6QxGsa7cRMavrPCPzSJuwcqTeukbg3emseetjDKcPPyje0s/r7WXI9xpo2XZnN
+	 cCIwVyUA4PBeKdFm900Q8bTtXFneS3bkDpGg4HIkRsAozmxQVqa888F1wMOGwoU3ZyLkO
+	 sKruYhr4Nyiq6NtLvzfge1frhuEA/3DmMpR0RSvHwh+zPNWfzhA4KfFMct8RWjcnt/DUz
+	 z89A+FcPMiaNrO1hzl8GCgmPLCpIhkTl6JPR0slwyyIXef6an6i/Q0ela9nubUYaMRw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gVnsFrct;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="PhbvR/Gw";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.14
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013014.outbound.protection.outlook.com [40.93.201.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686E2606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:06:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 686E2606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349DD606A31C;
+	Thu, 29 Oct 2026 21:07:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 349DD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gVnsFrct
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e00eee27dso33498f8f.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:06:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793308017; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rvJWCyviYFE2fUUqoS9a1BkeZ0GJakrB5nvxep54CofQ/EnHMiPSCoKjgHFxxv6njL
-         hIWCa2lqNxAZrN9gTnCNRnxh6c2jWwBGpcQtZvim1rGxyn/sCXmYfC2/eug3JkHttOpw
-         +Y0YddpGaXstiavMAb918+vqTDo+gzroRBFAywWLpQ7w/0GIPbXfCOM7pifNgEevFgTP
-         Qv6XxciSGRsmZtq5jZ3Erbnm/zbNk5vY/aPFSXMbcNjtvRVz15BtV8RrgF7HaZHKtZpf
-         8k0dLxsISnnI4LVI9UFNbFTEoOnKjxsd95JDZa+8ImF6uaVtm2wymWHCxI/ZLbtmUmeo
-         0yJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fb8kDJR3/eqMuwVk4mGcY8ktqHU/PCk1HgPlmWV1nBs=;
-        fh=A25ZdUh7Du1RxYOHcbQnTEX8zUdCeYltfyNn6VqVpVc=;
-        b=aVzyGeuRqw0A4ZDa8dq3r/bh7ztqNAYkfYG4CN8Jow0Tkjjb5VYrb6BveqyBXxwkTx
-         EGGfogKEknieihkeu++7cXEsFKHDfS8aCW5MG9s7coTu/rrm8JZwhYrfo+LScfDbAD9H
-         PntA8n1yeu/rkM+ThR6WOmcNRbstj1qs1DkImEbOkPe9tlDb0TXbMlRqIUdaGklA0lE3
-         MmhXAegMSAENMb3WiQdra+1VxJfTwl3LubER9FegFPiQWda0myCRUP3wHspTuFyWL3Qw
-         ny0fX5UwDykqjrAUKo7vqWrfax/eY2cJkRJsagfGKaMOT2JX6hI95z2W/WcIZCJNKNjv
-         4rHw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793308017; x=1793912817; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fb8kDJR3/eqMuwVk4mGcY8ktqHU/PCk1HgPlmWV1nBs=;
-        b=gVnsFrct4ag32Tfd0wM6BzECVlaMPUl7QlKyvnZFQLzgLo2y+RIKRdlB6hHI/B21lh
-         FWKGmAsmQIdiep13arb6kjNrtTtU9TqmXsw62d2qtaIaKt5deOFZ8bZBJ6Tz7utT4PB+
-         ajnp7e6INqXwKe3MDpMZUlV40KK482LSDVhpShkMhWiHdp1XLLuBdqEc/e+TyQ7WXLlg
-         W6/q85L0HxAeNTjHsbYUn7xKPS/9PDxF7/bUsOcAXqlaXONqboLv6v/RsG1smha9ZSI/
-         97rK0sXDrQcEFDzZp10lpiJKtaApjAce+ozMcxooujHHAIg16obCz4sWaS7i3rTCJs3r
-         GC9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793308017; x=1793912817;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fb8kDJR3/eqMuwVk4mGcY8ktqHU/PCk1HgPlmWV1nBs=;
-        b=S8hK9fIMxFA0N7fiNe1qJWii6jnS3XwxGBEZ3gNT5aYTJcn7b72JP38yj9MHyPZcyH
-         WYyYJ8hz3Vagr5XkIg31AdqF4jQ2YPD5m8Fy3X4WGeQQ2TqO5xtz/dRTIPGHDULSBhJA
-         PA8y+OwH8OYrqjlmq0aHvlmypu9sLJML4Ly3Iv9bVK/J4/I3lLt7IZhxmFe/a+kXeTcU
-         nCgXKQRESleWbtxNb19n+TYdjCh3fFsYBub8QYl84CY1pOrP3ArBRuk1azPh+J4rETjV
-         hrQc1IsCOBdBOEKd/2oy46GeaSH9V9D7zEooVI3U3/klxmB5PpaoisibsjTP99tn+tnv
-         c1Qw==
-X-Forwarded-Encrypted: i=1; AKwUvBy8zTT4ClPnPyLxDfp/UZWcZB3u9uz75pP76Va+fQbFL80EoMxrfd6E+Bzpx+lwQeBJ1dw41NBVW7sT8B4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAVDrC9TGLGc1qgZd/mk6HzRy86KrfDS4KDwIJZ5bTa4F+NYwZ
-	AFq4hLelOcc0z+gDdvIOJ1Wohzn5n902rQM09srKton+4TfCw8iGBWgNNsfWsSGU7OQ4hUbDCCV
-	IeSDbwaDRWAxOyW6tQiymvrw2acFj/HQ=
-X-Gm-Gg: AYBFou1WZOLtM0ch8LTelUlPIfiLJBgct8LTzsMBxrDK2RrUOoYGMhMYHjDQ8KJYz+S
-	p5x1lp+0uytkyoTVRL6LzGrog3FarU0yh4LrK5rws/yMmks21EyKVImrhRjckSqqEp9BbDgWBNK
-	7XDhcYyHJtf+jT/8rZ6ER71FaNIxqFTFXNpbs8CuAUlt03uQNLVR8sGWnE2Re6JaLnYRfxqHVkW
-	r6iT6YbykUIzmuP6soV4xXbTDeTq3ChiCpPyf4G0Cho4v7UA/D6/GaN/IJkMPxKoAvtf0fa9N7w
-	nHewi9v7rQFMoXFii0b51YCJDe/+WKdLtCzfvPY1xJ4g2/xpoOpWPQQTyFEIWEMH3VoS9F1H9sz
-	NPWGpsPF2xKGf3fpIX9cbGlISBhBDtfNGUTdzPX6t7ULrLrRqr+WiezS/CP7VhobDoVjUjfUiNQ
-	BglR4JsZvm2NnfS5BqZGlIomIcesEJyjCVHsYSYrH0tuihg4oaRzF6
-X-Received: by 2002:a05:6000:4b18:b0:48e:6092:deb9 with SMTP id
- ffacd0b85a97d-48e6e2fa4e1mr1121429f8f.14.1793308016538; Thu, 29 Oct 2026
- 14:06:56 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=PhbvR/Gw
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TWcYCsWnEJ3gcCBMCWgS1pwArUKJ7cPZtyTIzL2NvnhaDuAKD1P/Jo5re2d6qgt/99tqFtdg1ck+xwybSesakpgq6vIWhA6yGyL8LsitN7+6QDLjQ8iGqbYHDK3xlsKDOlOSzXlI+YliQZgPVh81yfdctehMj4vQ+Jw24D4WVDyOmpxebTPuxURetq32+Il7bNz6F5kmjNWmYqiDDPf+2zBYe2j0prNh9WYx3gnVjLFXYXlD/d/xDyYFzXHkmaxTv/pF143+VKgdobYq/rTRrVRWkMvkcYRM60SxZCR2un+a44Pavmv20IJAHUuXfaCdaDvKdtnhdkrVgNS5m9SvdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BA19MkknKHlwmK/pkrg+bh9QKov5Bs/Vn/UrvuF8BS0=;
+ b=VZW9bNnwDoKYSS+3ldaDAgyVafJFr6K6ALGOmfhNDxyNmuVqCaDpJTRUxxzgL+l/EsZFCTr3JQffl+a+K2HQfLeGv38LeiBZuEkIhPE7e/jL96UGVoSAK0n7kcM4RS4uyLhNn0TnxdbjP4Gp9/gCKK1aUMXm/TuX2o19jN7u5YHDdILfLKPTKjcc+2Ip57+0VftUvHQcRhVCuhUIpwd1LCQncy+HeNPDg+TimAfoI93p4fQyIhr3I7vvmLeMdkEnwEh8sdM2/oD9mWvtqgHZFj0O953CxfmTjevlheqXhjN6i2qnVqLZRr6KB0MuPaRfShrd/W4z3+TNXAUSSV4g7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BA19MkknKHlwmK/pkrg+bh9QKov5Bs/Vn/UrvuF8BS0=;
+ b=PhbvR/GwNc2GkhIzpNqhqL34udgwZtJJIXa6BRWhRKEnxC0hCHWMNRpn3eLQrYlnW1EO2j8IXUQ8arZUUM0tBtZgLmghBnxsUIoHN3ynGJ7tr2dgbPGsKaAoLJlLZD8P5urfBZr3/9ilhtXuBx20Spih7JVVYGpNkK7Px/cEv7NoL61hKzPazCx/WSUTEGMzJ7pZbfg9lflT/VNoWt+VYRJj7DS10CFbkcrwDCD6Ue/+1y8Rc/nd87TPJ4E/k0H54F3doS8OE/pkQE7ZzqJi5dl2vYd5SeU3PEy/dBSB7QitabhBO+7UE2kIJZxAEoYQUJ4ppG0oJqGXIkBp/7CIrQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by DS0PR12MB8574.namprd12.prod.outlook.com (2603:10b6:8:166::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 21:06:57 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0569.008; Thu, 29 Oct 2026
+ 21:06:56 +0000
+Date: Thu, 29 Oct 2026 23:06:48 +0200
+From: Ido Schimmel <idosch@nvidia.com>
+To: Cheng Yongkang <teel4res@gmail.com>
+Cc: Nikolay Aleksandrov <razor@blackwall.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, bridge@lists.linux.dev,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: bridge: mcast: validate the source limit before
+ replace
+Message-ID: <20261029210648.GA1492006@shredder>
+References: <179328314075.648427.9644307795980106759@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179328314075.648427.9644307795980106759@gmail.com>
+X-ClientProxiedBy: FR2P281CA0177.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::13) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,72 +100,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030-swap-fixes-v1-0-73f73a59f2fc@tencent.com> <20261030-swap-fixes-v1-1-73f73a59f2fc@tencent.com>
-In-Reply-To: <20261030-swap-fixes-v1-1-73f73a59f2fc@tencent.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Thu, 29 Oct 2026 14:06:43 -0700
-X-Gm-Features: AclHuK92wLeJ9w3J3At4Pw7sJv5ao2rkIqVVn5ak-RXKnx5xxdpjvkaqxTwN9aw
-Message-ID: <CAKEwX=O+j5d874gW=ENZc7s4y2CGVKheQSK8VrfD1_eVK=6U=g@mail.gmail.com>
-Subject: Re: [PATCH 1/3] mm/zswap: drop the stale zswap entry of a zero folio
-To: kasong@tencent.com
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Yosry Ahmed <yosry@kernel.org>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Usama Arif <usamaarif642@gmail.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Mani Tofigh <mt4022@columbia.edu>, linux-kernel@vger.kernel.org, 
-	Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|DS0PR12MB8574:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9ee638b-cd5b-4cfa-5953-08df360090c4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|11063799006|261009223027099003|56012099006|261026121527099003|261021123027099003|261026140227099003|261022105027099003|261021121427099003|261028144727099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	N9RirD+kEz+9PD6ueVmVF3FQdu5jvT1/Cz1rAnyqIyozX3gj1Qllztf9Y8xrmZnMe8vUmw9j20EzUwVcrI3AYnIBYF5pef396eHQz7W8eJPWoVrG0TPrGypDJ+Z4BMqzmnyqs2pij21CwOpA96JFQWJcY87hKi8xNFVBMjMW4EE5CZkIGx3YRl04XJEkcdf1r2P4892oZ7T98GkDLfyqUCUgZodCakuNZTMZXjJAa1krbKT2ijlYRmwla/TROEKcZYDY31Urctv6pnJAv3NXVxFmDusl22LXbjy0yYv5YE2bixG9VVanR5U17RaLeA0LTAzd5P9s/tDZFpH/XxIBqwyvfTjBD54w2tMMGPFmB9dt8b15YRvnVT9MC49/9MxbrJ72bbArjMytnjxnuFi0f8VUDXCPLAP9QA2Com9CR0ju6Aw/ThzkIrIvsVtAe7x3g6fdfgsmRUkazVmwOdVsPU1kTIZkgCiiOFMzfh8Safl95NybZ4hh87qC/PnBERheHCI94Sny6EpPRaP8t/5KX078wQLoxRiR0Lbv0MFI/MDBGJzRIq4VCkaK+p4kom1Yr0x/wNP4kUvdKz1FjyjZSRYMU7Fz0GiK9XJL56nwcfGEkrqSTvWd9UocLwROFlpuKCg1CZhlAJYnP+LlwX6B5FZ69nsfFtliMFWv/N/k92U=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(11063799006)(261009223027099003)(56012099006)(261026121527099003)(261021123027099003)(261026140227099003)(261022105027099003)(261021121427099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?d1SWfHLvpYycC2ZKLaUtaHSLu7ZO/g5j8avKB/REzqD0gXTgemcY6vfpkoeS?=
+ =?us-ascii?Q?WWI4O6A7/uLGvnBBrkkqdK9t1fJY2UF8Wttys+NX0JPzZAmMsIjiz2P7Rd1y?=
+ =?us-ascii?Q?mmGTHem/HDFeChnqoCOqD6gDTYQ2GqEf5WLemUAw30zSWXhqZ80q2+X+zSLD?=
+ =?us-ascii?Q?YkzjacN4SZprRHV81RGOznpoPUZF9nIJmuaxSBBnGL9fFdBP9CJWvsKjBuku?=
+ =?us-ascii?Q?GKS+UjQiLUdlmtusZkKb8WSP2Z5t2yIvO1SBYMYgMpNSS7YBrZixkg3Tkmwc?=
+ =?us-ascii?Q?TkPmbsdMjuBzTQ/zRtDDLOx9pUcCPYodgjcmVr4NVs/IhVhUsa+Pg1/fMxdE?=
+ =?us-ascii?Q?zHi13b+d2nAeJXtcfQmDghF7mvY15STBbg//tyoNApIKRCIA5xgM3l5qEKCy?=
+ =?us-ascii?Q?g4ZtDpnplDlh0iV9jCwxRY6ymzo1Z2wOCvdq80120iKdwIBFnhX1FwzTSPf6?=
+ =?us-ascii?Q?vhgiGnjxc4GudasKtf0Yv7j7KCzTI5KvQemq5cuPeiX8oDIheM1AYIEFdC13?=
+ =?us-ascii?Q?OqJZRM+OisciRZcCBasHlyUz1N4QbXfxy4ddFQQdUTUlIC9j+HTYbi+0yV9N?=
+ =?us-ascii?Q?4fKzq3UuW93zTXxCWo7dQD3w39prwWTiZjDDgNTL+9WDJNlTWFjBkLTxzGV1?=
+ =?us-ascii?Q?dIQgYUW4slCZgpz3g7jZK5Z2f59AYrIbBZUr1VjM4H84g+U28y+z6IT+V8mf?=
+ =?us-ascii?Q?Rrz8j4umKQDCXDhTznx8GYOdhiM/VIobcTfeO6kCR0vcnftG6LPjXu8m9uWl?=
+ =?us-ascii?Q?4WpDmc4W3OeLt4RTHfZkSKFOAW57k+8nh0km5mxi/8wrULKOEKoFWsE17j5Q?=
+ =?us-ascii?Q?bAXFTBGbTXpeSNBlizscmR9N8Mpvq9K4MExfvx3jtSViRVv/l5EYU+8g7Gd0?=
+ =?us-ascii?Q?nmUcPxes5G3gjKKpeFb8oou9YFpf2aU/4RygbZXDC+fl2eoXGuT1cuukH+Ko?=
+ =?us-ascii?Q?kRqVdBG0045T8sLL9nGfWoGOZPwFtP84UpVhxHj5+FdAmMUwuTLINqdHc0Da?=
+ =?us-ascii?Q?AZ3PKcFU6sgk2ywUjx2gtDJ/a4cYf59NkI2xpLPSV9AW2oJ4zFd+y9NVmWu9?=
+ =?us-ascii?Q?jYtN7NG90X/i2TrMa36jRBt2cluQ8IUsPP2cA3k2iGZIy2dpgVkdIecSlqhe?=
+ =?us-ascii?Q?6Pm4hM0XyKs7FSVt/UMCcA6A5+PTW9DZDQW7M9k0x6DeCtoyhVkN7vxSBDzd?=
+ =?us-ascii?Q?yXGiDE+F67oYgk807+ZCZobqTio8W9xgYb7QLZDyhN/kBHgJjl8q00dVmgip?=
+ =?us-ascii?Q?vTQD6JHbe9Fsr8QVRpcw1X+ONlbybO2wdlCRe76PWTenmZJK/IDTrXahv5Fy?=
+ =?us-ascii?Q?bGjv0ohCa65A88yi2AB53LGKBHG1m0m4Gyj1YQcXOlFdyMeB80Whoe/8TNx8?=
+ =?us-ascii?Q?Q1PTn53LvxVnSIT1Ags/oJvXFeJO3gNQAEW1Y5arTj4GBzcSjEGWcnwGMUah?=
+ =?us-ascii?Q?S7kYucAIgnd5FP7q7+2EQaTA2wFo+r+UYnC6mB4hMs9B8KjMr2mYZb2QRCAe?=
+ =?us-ascii?Q?Ogfk5LsS6+NgRKqy1yMRA4Hp/O1w+aNcsPiAxAUs3jjFE8P4cuNrUlk8qOvY?=
+ =?us-ascii?Q?4efmW+rCmb52SYem50lN0AtE0UZ/pXV6OFpj1ckctmu5bm+6l6QjCrkWySri?=
+ =?us-ascii?Q?sPl9JxuWFiFtW4TLBD6ti4e838smgK45NHPmAaSZ6UzZ7nKo1Nn2vHjHscrJ?=
+ =?us-ascii?Q?FKwDRn0ALYVNw6Nv2p9qAi7z2G1zRNd6CAM7ei+O8CNCKLz5?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9ee638b-cd5b-4cfa-5953-08df360090c4
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 21:06:56.9125
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: D8l9RpSkC35eIoZ4jDXAIHZ3W7wbwjyv43CganrcrNj2UoElu+tTDgxahqUC2mkZyi/XEaYaKyPjX2hgBfi/Jw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8574
 
-On Thu, Oct 29, 2026 at 11:32=E2=80=AFAM Kairui Song via B4 Relay
-<devnull+kasong.tencent.com@kernel.org> wrote:
->
-> From: Josef Bacik <josef@toxicpanda.com>
->
-> A folio can stay in the swap cache after zswap_store() has stored it,
-> when a swapin fault gets a reference on it before reclaim can remove it.
-> do_swap_page() maps an exclusive folio writable and, for a read fault,
-> keeps it in the swap cache, so it can be modified and swapped out again
-> to the same slot. zswap_store() handles this, it replaces the old entry,
-> or drops it if the store fails or zswap got disabled, "otherwise,
-> writeback could overwrite the new data in the swapfile".
->
-> swap_writeout() does not get as far as zswap_store() if the folio is
-> zero-filled now. It only sets the zero flag of the slot, and the zswap
-> entry with the previous contents stays in the tree and on the LRU:
->
->   reclaim            fault              zswap shrinker
->   zswap_store(D1)
->                      swap cache hit,
->                      map, write zeroes
->   swap_writeout()
->     zero flag set
->   folio reclaimed
->                                         zswap_writeback_entry()
->                                           swap_cache_alloc_folio()
->                                           decompress D1, uptodate
->                      swap cache hit:
->                      maps D1
->
-> Swapin looks at the zero flag first, but only when it has to read the
-> folio. The folio that zswap writeback leaves in the swap cache is up to
-> date as far as anybody can tell, so the process gets its old data back
-> instead of the zeroes it has written, until that folio is reclaimed.
->
-> Invalidate the zswap entries in the zero-filled case as well. The folio
-> is locked and in the swap cache, which keeps zswap writeback away.
->
-> Fixes: 0ca0c24e3211 ("mm: store zero pages to be swapped out in a bitmap"=
-)
+On Thu, Oct 29, 2026 at 07:12:20AM -0700, Cheng Yongkang wrote:
+> br_mdb_replace_group_srcs() marks every existing source for deletion and
+> then re-adds the sources named by the NLM_F_REPLACE request.  The add loop
+> checks PG_SRC_ENT_LIMIT before allocating each new source; if the
+> transient source count reaches the limit, br_mdb_add_group_srcs() unwinds
+> by deleting every source it processed, including the pre-existing sources
+> it just refreshed.  The error path only clears BR_SGRP_F_DELETE and
+> cannot restore those sources or their (S,G) entries.
+> 
+> A replace with E existing sources and N distinct request sources not
+> already in the group fails at the limit if and only if E + N exceeds
+> PG_SRC_ENT_LIMIT.  The rejected request currently leaves the group with
+> one fewer source and removes that source's (S,G) entry:
+> 
+>   before: (*,G) star_srcs=31, S present, (S,G) present
+>   after rejected replace: star_srcs=30, S and (S,G) removed
+> 
+> Count those new sources and reject the request with -ENOSPC before any
+> source is marked deleted or added, so a rejected replace changes no
+> state.  Valid replaces, including ones that transiently reach the limit,
+> keep the same behavior.  Other add-loop failure paths are unchanged.
+> 
+> Fixes: 61f2183512a7 ("bridge: mcast: Support replacement of MDB port group entries")
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> [kasong@tencent.com: fix zswap_invalidate() arguments]
-> Signed-off-by: Kairui Song <kasong@tencent.com>
+> Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+> ---
+>  net/bridge/br_mdb.c | 51 ++++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 50 insertions(+), 1 deletion(-)
 
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+I'm not going to review this. You already sent a bridge patch [1], which
+I reviewed, asked for changes and you didn't follow up. I can only
+assume that the same will happen here. I'm reacting this way because
+this pattern is not unique to you (see my reply in [1], for example) and
+I'm tired of it. Get a patch merged, then continue to the next one.
+
+Also, AFAICT, this patch doesn't fix a regression (never worked) or a
+security issue, so should be targeted at net-next which is currently
+closed [2].
+
+[1] https://lore.kernel.org/netdev/179268538303.70821.8213834342995341232@gmail.com/
+[2] https://netdev.bots.linux.dev/net-next.html
