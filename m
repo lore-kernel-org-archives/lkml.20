@@ -1,79 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793262820;
-	b=FeyHLBL5TsLKTDXejmqpRh0O0+eHOIZESNvmE01fwqnEm+FZktUeDeR/hr/2/Z8y6idn
-	 EBKhBCf254kEZsbYfZc0mufbG14QvPTbPuyJEGg65gZWe0wWDQ1UOz46lLD18f+TprH16
-	 eXaa6fpHGnwIX/Tg7JkUnni/4rSh+SsoniN+IXEPuirw2Uy71pGvazk4s894QRriAOA64
-	 c2WSc7gv5kB80BGn3uhlvdcX09hM/mTLE/kGGBjs2BY5GnLl/g3oPcjKPypyVBbwD1c/Z
-	 Hy/IQSrmY8r/fadivJSE2eNgw7pqFsQcJ4mJBYbskkhwMT7wyYoOK+EX8U2pXXgwAjw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793262820;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=BzARfS5/7dLSqXJF9f5MKXR4suI8wxogQ9p/0F1+hbM=;
-	b=k0nH50Fh3TqHgrMwO0rwO9KN3nXFgtPfdMTzoVOoRNa7WwkxWTuzSCL2coGGqBz8xUjB
-	 rvKgrxjIlOuZU926kkp8SegD+wZNGV2jUEfNQUeBipCojaboEHnbXWBFHEYNpPV7xfHDh
-	 Lu9HlnfsG3dZvEmZMZmISFaMQeHIoIpnflM1k0JqfFtim/8QAd41x5t8aTxwZAiT8TH7y
-	 g5J328DlPcDZLaCap6AqlJ082kaElA7j5AwxS9spk8eTHiYg/ILOeGqDW/09ePLlXD/GK
-	 ymOhFafg31ghavuhfXvyWFaPjrHYPmPGzzO8RUfIqX3O4sfmcIl9aedLWxPtg9MfO/A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AuGsWiB5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43A9606A31C;
-	Thu, 29 Oct 2026 08:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AuGsWiB5
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793262819;
-	b=MCXJEh20S6YOdrZwvpZEmgZU11tQTpcbEObVqIqN2t8IiT0M+/fq/okcIH7dqsVM5xmB
-	 HRJ6g12L2FqdZiYcXJtwKzDBovTzqSefUuGbzako5jVzSNW4b6N08KjVSFzeEoY//7SIf
-	 M0mnE0jd4aQtoXdAVzIBN+F+Dhc5swxACnX5R5HkCNkZs1Ho3JHCinX4VSOvfVFGI8uM/
-	 l0p34sfEYQSgdpfgd/ur3CgjtF7tiqPuOuhxj6SLyQNRfxmahH/SxoTBCDHPrl/OCMuR4
-	 BGWy3pVMvV4LIlPMdHJZENjGAY+RFev/Br8GOV1826rk2HUYLw7sl9u1m/1SRK/3a5A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793262819;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=BzARfS5/7dLSqXJF9f5MKXR4suI8wxogQ9p/0F1+hbM=;
-	b=gMYh4oK4ES0N9bXoOoW4Tj1mWpE9qIfXk6etBJRmZfGt+5y9fr+Tn4e17Gm6LnUXAA44
-	 dftSDfkvdLaab3SvI4H38x118ll1q1eqmyv1qArG2cvu97sGu4GLrAEWiUT4j5c6sfjdP
-	 XbY8iQ3zqgOVpnZhot/O6+MMB5kxkuVpO1tZ7HyOCEMG/xbvBQFMovVRxFEkB8v7fKpIo
-	 EY+DFMDYyqERyJqPrQ3HyO4nyndFfbkrvhST34Ul+123nQc8HHlntOAK8pNIgv8bJsH+W
-	 wJMz84+w3N74TuK9+RR1V1aYLoDT5NhE814sYME2rhmx0SKYNCeCW+oH4pbRfc1YXZQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	b=TFqttRSIg4ujc2cgcQJIWLReeTcfHWqpudmrKVyvprMdHCI7gaaf90Uo48qSj+OpV/JH
+	 0erIJnCDju2U7Snc6N+zWBTgOC4ruX6JG66lIMKVx3iV7XcDPM7djZAf/iAOtn8u9hLfz
+	 ppCp1brmPm9M8nucsgfIQCeBcmkd60jjWokQbRLU087QOT1u4CibbL/DFNUon1bRKnU+K
+	 D5M+ewBLmHKXEg3RM9IzywSK5I732ZvLr/x2vz1wiUV4i4CtTEgpwHx4D3Q/TlSJwws6I
+	 45Ny6sFCXAGCDFvx4UQH9wDeENSK339RnTGIimgagsI6VBaKBX1n3J6t8u4wuUJysew==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262819;
+	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
+	 Date:Message-ID:User-Agent;
+	bh=A5PJVAbWpxbZoD5wzRR3B/q33/96P8Z7eWKDkrRAWug=;
+	b=4qFez1bp3L9GbzjKe9PLNHAIe1xdyk6+9O0sdCvSmd2O+8w5RdJpGlQFrODDoi3/Xgnq
+	 1i+SvgBiLU1JMp0WtuznKeWVfrFTn2LeM/ycp2CgnE5iZD9lpmkVKn3UiPZZLN+vtzTjA
+	 H47WDYpmAko4jkoQd54Pol3KFbhPNToSS/eXMDIx+G0m0juJbDaC+/Qpek2WnsWLH+gRo
+	 KJ1cNj68sT2HxDV+XQKGJ8fuhVIVV+OLfVWDRTnZzBC09xb+ZEZMqbCdzc+Zvm0pzJ82o
+	 wMA+tJCG5FD5qzQcuPZPNCqH0xl8wL7ov6+5iV3iMJ8kt4JiL23pPJm/9zqHOc/1wmw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ilR4iNLO;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B803B1F01829;
-	Thu, 29 Oct 2026 08:33:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793262819;
-	bh=BzARfS5/7dLSqXJF9f5MKXR4suI8wxogQ9p/0F1+hbM=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=AuGsWiB5bRI1ncZL5tGug+tgBNrP208cBdoWTqBXkem/LEWcK1FH2yn92JqBCS2nl
-	 YsuEQlBqkNw1g4uUtsIYeABf/xcUL+LZbZyRNGSIdvtBUm9PwrDSUsv0M8MDIf3IKx
-	 NKXRcw7e1aP2UoJNcwBdRNuw/phz8QtSIJrc7NZvfRusQ6/hAoZisZIiEnGtOBbGo3
-	 3/0ooFFNlNyLgTd7hqmF3JKpTxQg1Dt3nVEdLUH8cNei+RWtMfs2m6OGSsmjAhlS1b
-	 TI4Bq1XUMWZPFXmAvbgdGqMJFYVKoiMrhfRbElJqH89GxoKhUlUGajCWvL9jCa4E5M
-	 Fjzyp53eJUcVA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 18FEB4579B;
-	Thu, 29 Oct 2026 08:33:38 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Subject: [PATCH v3 0/2] i2c: Add driver support Amlogic A9 I2C
-Date: Thu, 29 Oct 2026 08:33:30 +0000
-Message-Id: <20261029-a9-i2c-v3-0-7b30ccc00533@amlogic.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A75A606A31A;
+	Thu, 29 Oct 2026 08:33:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A75A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ilR4iNLO
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:cdf:7464:6c04:36e4:ee87])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C1789BE;
+	Thu, 29 Oct 2026 09:31:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793262681;
+	bh=81jOwX+yqVIy7Vh/+w4HRjDXxQYCNkpXYFAZ5hraABc=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=ilR4iNLO43M2xWL/zCKetRrMn9gK5lLL9JcOnc1gc9V6febV3r/lUWedUb3vsC98g
+	 LS/p/eHs42Jd1DwB2eUyF+vq/WQuNci8Dd1Wz+Tcm7H/TRCcW3Xu/b2WzjvVS6S6qA
+	 tLVNUoX2VdIlgfWqvRNXbXvCrvV+V1oFlZkJMVcY=
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,69 +53,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANsE42oC/1WNwQ6DIBAFf8VwLq2sqNhT/6PpAXBRkooNGGNj/
- PeCaU16fMsMs5KA3mIg12wlHmcb7OjiKE4Z0b10HVLbxk0ghypvGKOyoRY0Bc5rgQBYiYJEWMm
- AVHnpdJ/wiFwS5nCZ0vPLo7HL3rk/4u5tmEb/3rMzS9dvAfivMDOaUyVk2yheGS7FTQ7PsbP6r
- MeBpE9mOESWAxwiRJGXWGg0rC6V+Re3bfsA4HZeDPYAAAA=
-X-Change-ID: 20260911-a9-i2c-24478e22e683
-To: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Xianwei Zhao <xianwei.zhaol@amlogic.com>
-Cc: Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org, 
- linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793262816; l=1553;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=kkji73amQnq/o1U1e1LnkN9YbZJt+h7urd8kw2klnlM=;
- b=sdgJZWmkoNDUdFU37ska6hHqgSroWpJqdJP7CwvquZDnoSuEOtJ+JHnvI8tt18KjrxbGC4riL
- zy3S4uoc8XiClZwNiCggHZj7xmNILDpBED5zvCcWhyrl72+ZmMGNIG4
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261029050002.3880-3-lachlan.michael@sony.com>
+References: <20261029050002.3880-1-lachlan.michael@sony.com> <20261029050002.3880-3-lachlan.michael@sony.com>
+Subject: Re: [PATCH v6 2/2] media: i2c: Add Sony IMX908 image sensor driver
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, kieran.bingham@ideasonboard.com, Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com, Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org, Lachlan Michael <lachlan.michael@sony.com>
+To: Lachlan Michael <lachlan.michael@sony.com>, devicetree@vger.kernel.org, hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com, linux-media@vger.kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com
+Date: Thu, 29 Oct 2026 14:03:28 +0530
+Message-ID: <179326280897.506110.417578504765133305@freya>
+User-Agent: alot/0.13.dev39+gd90228221
 
-Add a Device Tree binding and driver for the I2C controller found on the
-Amlogic A9 SoC.
+Hi Lachlan,
 
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
-Changes in v3:
-- Based on the questions raised by the robot, the data flow was reorganized.
-- Some processing was optimized according to Andi's and Markus's suggestions.
-- Link to v2: https://lore.kernel.org/r/20261022-a9-i2c-v2-0-45e3cef175bf@amlogic.com
+Thank you for the patch.
 
-Changes in v2:
-- dtbinding: make some minor modifications, suggestted by Conor and robot.
-- driver: Make some adjustments, including macro definitions, format adjustments,
-          adding quirks, process optimization, and so on. According to Andi and robot's suggestion
-- Give up MAINTAINERS file the separate submission, make it together with the driver.
-- Link to v1: https://lore.kernel.org/r/20260924-a9-i2c-v1-0-b8ad9b46f4a8@amlogic.com
+Quoting Lachlan Michael (2026-10-29 10:30:02)
+> The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
+> output interface. The driver supports RAW10 and RAW12 output formats,
+> exposure and analogue gain controls, image flipping, blanking controls
+> and test pattern generation.
+>=20
+> HDR modes and RAW16 output are not currently supported.
+>=20
+> Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
 
----
-Junyi Zhao (1):
-      i2c: amlogic: Add Amlogic A9 I2C controller driver
+Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
 
-Xianwei Zhao (1):
-      dt-bindings: i2c: add Amlogic A9 I2C controller
+> ---
+> Changes in v6:
+> - Simplify runtime PM handling by removing the CONFIG_PM conditionals.
+> - Rework probe power sequencing to power the sensor explicitly before
+>   identification and enable runtime PM after initialization.
+> - Parse the firmware node earlier in probe, before hardware resource
+>   acquisition and sensor initialization.
+> - Minor whitespace cleanups.
 
- .../devicetree/bindings/i2c/amlogic,a9-i2c.yaml    |  56 +++
- MAINTAINERS                                        |   9 +
- drivers/i2c/busses/Kconfig                         |   8 +
- drivers/i2c/busses/Makefile                        |   1 +
- drivers/i2c/busses/i2c-amlogic-a9.c                | 445 +++++++++++++++++++++
- 5 files changed, 519 insertions(+)
----
-base-commit: 4ec2365c08de306f52650d8736aef5862baedb8d
-change-id: 20260911-a9-i2c-24478e22e683
+[...]
 
-Best regards,
--- 
-Xianwei Zhao <xianwei.zhao@amlogic.com>
-
-
+Thanks,
+  Jai
