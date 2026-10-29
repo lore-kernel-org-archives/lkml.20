@@ -1,74 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793277413;
-	b=fe3Y/hNi2TMggg0saA1+rwOkgz+pxldCB7TCShZDKNteeLi5C7oAKLF+YjyrXiyUXBzD
-	 YReRiV6vHlONmG3/TUwwgSrPJfp8O8qJ3hPFvL9NXyAqHnDuHjZIkuxpC+yLYM3du+Ezz
-	 8CBLFLG64wrrkmERQbofLBTgzfGLnNpLVu3xqleBZZ4apSTYRFhOzWCq20xBrsB+YWOK1
-	 0ZgQGWS4+pclICGvCC8HzMzf6m7egv6TcvZszbqxjOJRJMtW08YyUsVt6eYh8xUrfVW+c
-	 XqgiHFf6exUaVjMJsed4SjorscY/e9S+2IY5NzSQ63OquRIZse0FR1LTu2y9WmOAHEQ==
+	t=1793277412;
+	b=kAOEEHylzCBqWPb5yYtlApsj8JKZIvqfE+M87YzF69eo1fKBReUvuMqOsKEBh+GrHBDt
+	 GSvFHIMVPglbRsjhWf6Fk3xvcNL8i+tmT3o3kZrYeaI2nkZJrMCFYKZfJOIddNqNbVdMa
+	 /XGf0MAxRtebfe9yhIjhfqsE6juNfiH2WaxGIuA8STVfgDX5ZxMe/5oQ261lQBr6296ZB
+	 QB9PKapEGI7AYLG6zsneqZFuSnI65aoGdVDtw7RFlWUTT+Viiy5T0sAYc8jW/WZ2egucV
+	 /B8h4B15dIc8TNH/IR2qroJvSYBwYnhnQ2jpcnvkCuWHPEWWniQ581W3bt0oNd2j6fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277413;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=Agob3mxTkSGaZEZx4j5S6+DBpuThzoNSaaqrk8jqMB0=;
-	b=E5+DIztngdyOxVmPo1LHrvPUj/KtkrbIlIop2lTa50X3g0QakzD+1dlGTdsWlTgLFy6y
-	 x3psQ38/xcHFy9UMlsR56NHJbu7/hvmYkpvoryO6AGiHDsZcLk09EFfwrd25CoG6dc8QC
-	 N2Kdje6hxbJVwa7Xb8eUK7TCS3QE2mSnmlFbOncIwcCWa5fZV0pspEbI9MpKJM2tvzqUG
-	 tk3uYhdlXDJ2Jrgi2EPuYWkfscBTf7UJwbNAidJhP3KkcaRdYDit7LVjm0/7IxdH3Uoba
-	 zYSdjFqoCziOLICXBoBcVBzmHDFvj81fLEjoikG7n6gyUjBtZLTM9K5QxzuqTW3/Szw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793277412;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=hmc/RolTYy7SeBRxKLMjWzilnvA83GevNb7ysMoswG4=;
+	b=frBVnDHknxAjt7EyVD5D/7MknXCC5VcO9h45vp1Q9ukRLT9ueH+33pSQj6gSO5IlWo4O
+	 e1vSVm71pmV1DUhAme9QdMMtfwmZ3OxWktBf4i/G1H0ZiWBEyEqKDIdmFctyI714JcgSq
+	 0PsT0Bv0D37EaZjJ7HwDXH1kgfqfRLhY1VQMOvicP42HayxbPeq15yo9pooMD2nO+wfI8
+	 J3ADn7Iyh8Gr+K4S8JfECqADFP7kfijhXSmFRVRzENl/9UFeJUgNR/eRsr04YB+fPNwRF
+	 4L8MLCR4wvSeQ+GGJdCruPfoI4Js60NcM18EeaxBaurzXsOd9NOlNJapE2kVtL8gmoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=k67Btizv;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=py2QzJFY;
+	arc=none smtp.remote-ip=209.85.215.176
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511C7606A31E;
-	Thu, 29 Oct 2026 12:36:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 511C7606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C68460A260F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:36:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C68460A260F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=k67Btizv
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Agob3mxTkSGaZEZx4j5S6+DBpuThzoNSaaqrk8jqMB0=;
-	b=k67Btizv1fAQItPylmcBlD0pIsexbpL9ZSdTgZyatxhSmAEaEiWO/67ei17si3r2oeut3cxfJ
-	Zld1/NcXkOpWSd4DssLH8oWXlRCceQTA61vsE0sWLEzqazlLI2UkhjwjTonVqR15JzQ6baPph+t
-	AYactcV8YYmWKgIGyRnPKQk=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jFkHs3wycz1cyNp;
-	Thu, 29 Oct 2026 20:36:41 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 00A1140578;
-	Thu, 29 Oct 2026 20:36:49 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 29 Oct
- 2026 20:36:48 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <reinette.chatre@intel.com>, <james.morse@arm.com>, <ben.horgan@arm.com>,
-	<fenghuay@nvidia.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
-	<mark.rutland@arm.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<rdunlap@infradead.org>, <tony.luck@intel.com>, <Dave.Martin@arm.com>,
-	<babu.moger@amd.com>, <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>,
-	<tan.shaopeng@jp.fujitsu.com>, <jic23@kernel.org>, <zengheng4@huawei.com>,
-	<gshan@redhat.com>, <x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-riscv@lists.infradead.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH v2 14/19] fs/resctrl: Manage assignable counters for every monitor resource
-Date: Thu, 29 Oct 2026 20:36:06 +0800
-Message-ID: <20261029123611.1108424-15-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261029123611.1108424-1-ruanjinjie@huawei.com>
-References: <20261029123611.1108424-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=py2QzJFY
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cd6a7e1f4e4so869662a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:36:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793277412; x=1793882212; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hmc/RolTYy7SeBRxKLMjWzilnvA83GevNb7ysMoswG4=;
+        b=py2QzJFYgzOL03zGd3mHO2Bdili8XEZjmTBrfP3m4bXJAzbCdzUnE14wPgfXIR/hKe
+         zAtdXpeTk/pgITkJricxOBeRqKkncsIhziwOUNdrF4Nqw//AZxy2uVu7JyYGMeJN48FI
+         trZb0Im4c61Mqbor7x1XbyPT/JT2OH8M5BqYP2ShvyUEiWtu4h1h61NvSmb2oPk3XWUd
+         KqfWHqesgeqXa/Qhksfi1BxV9idSCShFWKVwLAy8e2qHEm31JHs9zkkyVIImFi5Wd/Im
+         UdHQmnMvZb/drJfythss4ld8cwQ/Q9/+VxqcJUUWbduiCALdGR9aa08Psyv3dV11sL4J
+         uoOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793277412; x=1793882212;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hmc/RolTYy7SeBRxKLMjWzilnvA83GevNb7ysMoswG4=;
+        b=c1FWzbrcCDBW2BhDlCPvBODzUy0dbYkn73tFm4p0ouIh6HOo3QIId57l0Zu1GkhegS
+         AiPMpljET4s+DM6fPDWamcYX5PI7GmECq+SiQfjjo/3v4CPLYBs1U8gDxQO1vEVg+X+z
+         mX+ePz+PW77MTkFVtYaCtiAM+B/kVMvPnf7w0Q2mOFHRajrsdB1I0Cy4sFDw8idWJmWF
+         Emc6epXlHtXB+Rt2StBaL3gMw7BI2cmQGQvTe7wTgPR7pm/Vs0jg3haOeMceIZz+RQRG
+         mhf/thT69YW6h5fx/I6ywjTQaMEZpHG8Wg4DMmP/k7uETMGuUb0vXu+GV4FGR6g6bEJJ
+         Qb8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwSNt2zAOfeeCi8zGhE9Ucxc+cDab35Gi9nGedUh9n2rJn2C/vc77LdEvV2ZnCH2urNUJln7+4V/iNEoos=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKJEvReNvH0Q3WhITV1Q5MVh+AWrSE7OsbmfIFhnW1D2XXOtkuU
+	x2lrbqVZc1XuqL7FoTeajEk6HQc8Biww1jEJc7JU6oD5kd9ezok4Nrvn
+X-Gm-Gg: AYBFou3iw/Y09Sa6463CV0sp3nL1zASqhTT1C8PQFdpTkxIE7bVR2HxgrR6Zgk2cIT3
+	lwhAc67VfeuPoiZohs8EZCAGLySo82Fwh1KfCRCQf2gjPu2jzdvm40LmsqtNRNuvAI0t1z9TMHV
+	ijsviUK4R33x+WjqS1HRufkb3x0MWSwnTAtOmKLMmRZBIJN93g+RIs1mXuiW0d7oYhzAWTNoH+Q
+	ywlSmdKjJmajUSLASMj5lICAyC5pRHOzzmoio00VY40J98EfRwDEBitfZurFMxAEYOnW9ELVlo1
+	/FeFhvRpeqJkTO9+h0pUeRmy7Xp1xKtMykHf9XOXyBV4N9Urygg41RjaI5tH3ma31z0sGpqTwNU
+	RCEtMrNxrxESooQ5A6PM8PrSPrg372EMdz2PE/ovH3DnYIFxapJPRanPESWdFcT9Xv5jXlpCBKJ
+	A7R9hEJh543pKmhqR5wmrC2viDVz5MdUSXwLyITGE+Er2DKltOU2w8m34rXE4+I+fPDt52/x+uc
+	ekbe6eiOir18W2EpHIzHYIWEN6/EieReFUY0l6d8ex5stcat+id6mZ/y0RQQ2AkKO0VSuEAoX2/
+	rutHGFQlzFd5Nkz887vo7N8mVViPo9COPEU/dRoRrE6bB3+3PyCKymLLA6ykzg+CQHE=
+X-Received: by 2002:a05:6a21:8804:b0:3e2:97ac:274e with SMTP id adf61e73a8af0-3e9023ed955mr3933798637.65.1793277411671;
+        Thu, 29 Oct 2026 05:36:51 -0700 (PDT)
+Received: from smtpclient.apple (v133-18-180-162.vir.kagoya.net. [133.18.180.162])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc46482sm5225375a12.11.2026.10.29.05.36.46
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 29 Oct 2026 05:36:51 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,305 +89,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH net 2/2] Revert "net: advertise TCP MSS from the
+ configured MTU, not the learned PMTU"
+From: Esko Mobius <echoowall@gmail.com>
+In-Reply-To: <20261029112045.5e7d4317@pumpkin>
+Date: Thu, 29 Oct 2026 20:36:33 +0800
+Cc: netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Simon Horman <horms@kernel.org>,
+ David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>,
+ Jiayuan Chen <jiayuan.chen@linux.dev>,
+ Shuah Khan <shuah@kernel.org>,
+ Thorsten Leemhuis <regressions@leemhuis.info>,
+ regressions@lists.linux.dev,
+ linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ Eric Dumazet <edumazet@kernel.org>
+Content-Transfer-Encoding: 7bit
+Message-Id: <40993B2C-6390-4BC6-B4AD-967518B0CBE9@gmail.com>
+References: <20261026-advmss-revert-v1-0-272fa4b7ecb6@gmail.com>
+ <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
+ <20261029101859.6893f1a0@pumpkin>
+ <22077B76-12B0-4DD6-813E-A3968003575F@gmail.com>
+ <20261029112045.5e7d4317@pumpkin>
+To: David Laight <david.laight.linux@gmail.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-Creating or removing a monitor group only assigns or frees counters for
-the L3 MBM events. Walk every resource that has assignable counters and
-handle each of its MBM events.
+On Thu, 29 Oct 2026, David Laight wrote:
+> But that relies on something having gone the other way first.
+> In general that won't be true.
 
-Set the default event filter for each such resource, build the BMEC file
-names from the event names, and register the shared info files once.
-resctrl_l3_mon_resource_init() now covers more than the L3, so drop L3
-from its name. mbm_L3_assignments keeps its name and stays L3 only.
+Agreed, that is the same point Jiayuan made.
 
-No functional change as only the L3 can have assignable counters.
+> It is almost worth implement something that retries with the shorter mtu
+> to detect the PPPoE mtu blackhole at the sending end.
 
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- fs/resctrl/internal.h |  4 +-
- fs/resctrl/monitor.c  | 94 ++++++++++++++++++++++++++-----------------
- fs/resctrl/rdtgroup.c | 28 +++++++------
- 3 files changed, 74 insertions(+), 52 deletions(-)
+Linux already has this: net.ipv4.tcp_mtu_probing (RFC 4821). With it
+set to 1, once the retransmission timeouts reach tcp_retries1 the
+connection drops to tcp_base_mss and probes up from there. It is off
+by default, and the same goes for Windows (EnablePMTUBHDetect); macOS
+turns it on by default.
 
-diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
-index f84152734fd1..32bc6bda31b7 100644
---- a/fs/resctrl/internal.h
-+++ b/fs/resctrl/internal.h
-@@ -381,9 +381,9 @@ int alloc_rmid(u32 closid);
- 
- void free_rmid(u32 closid, u32 rmid);
- 
--int resctrl_l3_mon_resource_init(void);
-+int resctrl_mon_resource_init(void);
- 
--void resctrl_l3_mon_resource_exit(void);
-+void resctrl_mon_resource_exit(void);
- 
- void mon_event_count(void *info);
- 
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index 739134e2ff77..9032456ad7c9 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -1356,19 +1356,20 @@ static int rdtgroup_assign_cntr_event(struct rdt_l3_mon_domain *d, struct rdtgro
-  */
- void rdtgroup_assign_cntrs(struct rdtgroup *rdtgrp)
- {
--	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
--
--	if (!r->mon_capable || !resctrl_arch_mbm_cntr_assign_enabled(r) ||
--	    !r->mon.mbm_assign_on_mkdir)
--		return;
-+	struct mon_evt *mevt;
-+	struct rdt_resource *r;
- 
--	if (resctrl_is_mon_event_enabled(r, QOS_MBM_TOTAL_EVENT_ID))
--		rdtgroup_assign_cntr_event(NULL, rdtgrp,
--					   &mon_event_all[r->rid][QOS_MBM_TOTAL_EVENT_ID]);
-+	for_each_mon_capable_rdt_resource(r) {
-+		if (!resctrl_arch_mbm_cntr_assign_enabled(r) ||
-+		    !r->mon.mbm_assign_on_mkdir)
-+			continue;
- 
--	if (resctrl_is_mon_event_enabled(r, QOS_MBM_LOCAL_EVENT_ID))
--		rdtgroup_assign_cntr_event(NULL, rdtgrp,
--					   &mon_event_all[r->rid][QOS_MBM_LOCAL_EVENT_ID]);
-+		for_each_mon_event(r, mevt) {
-+			if (!mevt->enabled || !resctrl_is_mbm_event(mevt->evtid))
-+				continue;
-+			rdtgroup_assign_cntr_event(NULL, rdtgrp, mevt);
-+		}
-+	}
- }
- 
- /*
-@@ -1415,18 +1416,19 @@ static void rdtgroup_unassign_cntr_event(struct rdt_l3_mon_domain *d, struct rdt
-  */
- void rdtgroup_unassign_cntrs(struct rdtgroup *rdtgrp)
- {
--	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
--
--	if (!r->mon_capable || !resctrl_arch_mbm_cntr_assign_enabled(r))
--		return;
-+	struct mon_evt *mevt;
-+	struct rdt_resource *r;
- 
--	if (resctrl_is_mon_event_enabled(r, QOS_MBM_TOTAL_EVENT_ID))
--		rdtgroup_unassign_cntr_event(NULL, rdtgrp,
--					     &mon_event_all[r->rid][QOS_MBM_TOTAL_EVENT_ID]);
-+	for_each_mon_capable_rdt_resource(r) {
-+		if (!resctrl_arch_mbm_cntr_assign_enabled(r))
-+			continue;
- 
--	if (resctrl_is_mon_event_enabled(r, QOS_MBM_LOCAL_EVENT_ID))
--		rdtgroup_unassign_cntr_event(NULL, rdtgrp,
--					     &mon_event_all[r->rid][QOS_MBM_LOCAL_EVENT_ID]);
-+		for_each_mon_event(r, mevt) {
-+			if (!mevt->enabled || !resctrl_is_mbm_event(mevt->evtid))
-+				continue;
-+			rdtgroup_unassign_cntr_event(NULL, rdtgrp, mevt);
-+		}
-+	}
- }
- 
- static int resctrl_parse_mem_transactions(char *tok, u32 *val)
-@@ -1954,7 +1956,7 @@ static void closid_num_dirty_rmid_free(void)
- }
- 
- /**
-- * resctrl_l3_mon_resource_init() - Initialise global monitoring structures.
-+ * resctrl_mon_resource_init() - Initialise global monitoring structures.
-  *
-  * Allocate and initialise global monitor resources that do not belong to a
-  * specific domain. i.e. the closid_num_dirty_rmid[] used to find the CLOSID
-@@ -1964,37 +1966,49 @@ static void closid_num_dirty_rmid_free(void)
-  * Resctrl's cpuhp callbacks may be called before this point to bring a domain
-  * online.
-  *
-+ * The L3 events remain the backing for the MBA software controller and for the
-+ * event configuration files, which are named after the L3 events.
-+ *
-  * Return: 0 for success, or -ENOMEM.
-  */
--int resctrl_l3_mon_resource_init(void)
-+int resctrl_mon_resource_init(void)
- {
--	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
-+	struct rdt_resource *l3 = resctrl_arch_get_resource(RDT_RESOURCE_L3);
-+	bool assignable = false, configurable = false;
-+	struct rdt_resource *r;
- 	int ret;
- 
--	if (!r->mon_capable)
-+	if (!resctrl_arch_mon_capable())
- 		return 0;
- 
--	ret = closid_num_dirty_rmid_alloc(r);
-+	ret = closid_num_dirty_rmid_alloc(l3);
- 	if (ret)
- 		return ret;
- 
-+	/*
-+	 * BMEC is L3 only: resctrl_arch_is_evt_configurable() has no resource
-+	 * argument. The L2 events are not configurable.
-+	 */
- 	if (resctrl_arch_is_evt_configurable(QOS_MBM_TOTAL_EVENT_ID)) {
--		mon_event_all[r->rid][QOS_MBM_TOTAL_EVENT_ID].configurable = true;
-+		mon_event_all[l3->rid][QOS_MBM_TOTAL_EVENT_ID].configurable = true;
- 		resctrl_file_fflags_init("mbm_total_bytes_config",
- 					 RFTYPE_MON_INFO | RFTYPE_RES_CACHE);
- 	}
- 	if (resctrl_arch_is_evt_configurable(QOS_MBM_LOCAL_EVENT_ID)) {
--		mon_event_all[r->rid][QOS_MBM_LOCAL_EVENT_ID].configurable = true;
-+		mon_event_all[l3->rid][QOS_MBM_LOCAL_EVENT_ID].configurable = true;
- 		resctrl_file_fflags_init("mbm_local_bytes_config",
- 					 RFTYPE_MON_INFO | RFTYPE_RES_CACHE);
- 	}
- 
--	if (resctrl_is_mon_event_enabled(r, QOS_MBM_LOCAL_EVENT_ID))
-+	if (resctrl_is_mon_event_enabled(l3, QOS_MBM_LOCAL_EVENT_ID))
- 		mba_mbps_default_event = QOS_MBM_LOCAL_EVENT_ID;
--	else if (resctrl_is_mon_event_enabled(r, QOS_MBM_TOTAL_EVENT_ID))
-+	else if (resctrl_is_mon_event_enabled(l3, QOS_MBM_TOTAL_EVENT_ID))
- 		mba_mbps_default_event = QOS_MBM_TOTAL_EVENT_ID;
- 
--	if (r->mon.mbm_cntr_assignable) {
-+	for_each_mon_capable_rdt_resource(r) {
-+		if (!r->mon.mbm_cntr_assignable)
-+			continue;
-+
- 		if (resctrl_is_mon_event_enabled(r, QOS_MBM_TOTAL_EVENT_ID))
- 			mon_event_all[r->rid][QOS_MBM_TOTAL_EVENT_ID].evt_cfg = r->mon.mbm_cfg_mask;
- 		if (resctrl_is_mon_event_enabled(r, QOS_MBM_LOCAL_EVENT_ID))
-@@ -2003,26 +2017,32 @@ int resctrl_l3_mon_resource_init(void)
- 									    READS_TO_LOCAL_S_MEM |
- 									    NON_TEMP_WRITE_TO_LOCAL_MEM);
- 		r->mon.mbm_assign_on_mkdir = true;
-+		assignable = true;
-+		configurable |= r->mon.mbm_cntr_configurable;
-+	}
-+
-+	if (assignable) {
- 		resctrl_file_fflags_init("num_mbm_cntrs",
- 					 RFTYPE_MON_INFO | RFTYPE_RES_CACHE);
- 		resctrl_file_fflags_init("available_mbm_cntrs",
- 					 RFTYPE_MON_INFO | RFTYPE_RES_CACHE);
- 		resctrl_file_fflags_init("event_filter", RFTYPE_ASSIGN_CONFIG);
--		if (r->mon.mbm_cntr_configurable)
-+		if (configurable)
- 			resctrl_file_mode_init("event_filter", 0644);
- 		resctrl_file_fflags_init("mbm_assign_on_mkdir", RFTYPE_MON_INFO |
- 					 RFTYPE_RES_CACHE);
--		resctrl_file_fflags_init("mbm_L3_assignments", RFTYPE_MON_BASE);
- 	}
- 
-+	/* The counter assignment interface is named after the L3 events. */
-+	if (l3->mon.mbm_cntr_assignable)
-+		resctrl_file_fflags_init("mbm_L3_assignments", RFTYPE_MON_BASE);
-+
- 	return 0;
- }
- 
--void resctrl_l3_mon_resource_exit(void)
-+void resctrl_mon_resource_exit(void)
- {
--	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
--
--	if (!r->mon_capable)
-+	if (!resctrl_arch_mon_capable())
- 		return;
- 
- 	closid_num_dirty_rmid_free();
-diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-index b992f4b5270f..ba36b6b0c085 100644
---- a/fs/resctrl/rdtgroup.c
-+++ b/fs/resctrl/rdtgroup.c
-@@ -1927,6 +1927,7 @@ void resctrl_bmec_files_show(struct rdt_resource *r, struct kernfs_node *l3_mon_
- 			     bool show)
- {
- 	struct kernfs_node *kn_config, *mon_kn = NULL;
-+	struct mon_evt *mevt;
- 	char name[32];
- 
- 	if (!l3_mon_kn) {
-@@ -1937,14 +1938,15 @@ void resctrl_bmec_files_show(struct rdt_resource *r, struct kernfs_node *l3_mon_
- 		l3_mon_kn = mon_kn;
- 	}
- 
--	kn_config = kernfs_find_and_get(l3_mon_kn, "mbm_total_bytes_config");
--	if (kn_config) {
--		kernfs_show(kn_config, show);
--		kernfs_put(kn_config);
--	}
-+	for_each_mon_event(r, mevt) {
-+		if (!mevt->configurable)
-+			continue;
-+
-+		sprintf(name, "%s_config", mevt->name);
-+		kn_config = kernfs_find_and_get(l3_mon_kn, name);
-+		if (!kn_config)
-+			continue;
- 
--	kn_config = kernfs_find_and_get(l3_mon_kn, "mbm_local_bytes_config");
--	if (kn_config) {
- 		kernfs_show(kn_config, show);
- 		kernfs_put(kn_config);
- 	}
-@@ -4613,7 +4615,7 @@ void resctrl_offline_mon_domain(struct rdt_resource *r, struct rdt_domain_hdr *h
-  * Called when the first CPU of a domain comes online, regardless of whether
-  * the filesystem is mounted.
-  * During boot this may be called before global allocations have been made by
-- * resctrl_l3_mon_resource_init().
-+ * resctrl_mon_resource_init().
-  *
-  * Called during CPU online that may run as soon as CPU online callbacks
-  * are set up during resctrl initialization. The number of supported RMIDs
-@@ -4812,13 +4814,13 @@ int resctrl_init(void)
- 
- 	io_alloc_init();
- 
--	ret = resctrl_l3_mon_resource_init();
-+	ret = resctrl_mon_resource_init();
- 	if (ret)
- 		return ret;
- 
- 	ret = sysfs_create_mount_point(fs_kobj, "resctrl");
- 	if (ret) {
--		resctrl_l3_mon_resource_exit();
-+		resctrl_mon_resource_exit();
- 		return ret;
- 	}
- 
-@@ -4853,7 +4855,7 @@ int resctrl_init(void)
- 
- cleanup_mountpoint:
- 	sysfs_remove_mount_point(fs_kobj, "resctrl");
--	resctrl_l3_mon_resource_exit();
-+	resctrl_mon_resource_exit();
- 
- 	return ret;
- }
-@@ -4889,7 +4891,7 @@ static bool resctrl_online_domains_exist(void)
-  * When called by the architecture code, all CPUs and resctrl domains must be
-  * offline. This ensures the limbo and overflow handlers are not scheduled to
-  * run, meaning the data structures they access can be freed by
-- * resctrl_l3_mon_resource_exit().
-+ * resctrl_mon_resource_exit().
-  *
-  * After resctrl_exit() returns, the architecture code should return an
-  * error from all resctrl_arch_ functions that can do this.
-@@ -4916,6 +4918,6 @@ void resctrl_exit(void)
- 	 * it can be used to umount resctrl.
- 	 */
- 
--	resctrl_l3_mon_resource_exit();
-+	resctrl_mon_resource_exit();
- 	free_rmid_lru_list();
- }
--- 
-2.34.1
+> Or even just use the shorter mtu for long RTT connections.
 
+Both of these have to happen at the sending end, which in my case is
+the client (it is an upload), so the server can't help. The only lever
+the server has is the MSS it advertises in the SYN-ACK, and it has no
+RTT sample at that point. For now the MSS is clamped on the path.
+
+While reading this code I noticed there are no selftests for the black
+hole detection or for MTU probing. I'd like to add packetdrill tests
+for both once net-next reopens.
+
+Thanks,
+Yongjian
