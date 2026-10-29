@@ -1,81 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793303164;
-	b=DuQwZViyI1fsWPZBStYvVv3EItsGMihwWk0krLQJC/q/rovDT2wfFI3vKUzQmoGf8/+H
-	 x64VHODODiWleJjcj5WE5shFjfDxQfDiejXmoEsBWDvn97ZURJNo+w1ZgQ9hLCR22Oi+K
-	 /vhS5UWxD1/QJqhgqICqJVWRK3Fu7MSNCf/O8bjwN9VYbne9uUIQS9p57xVARnIZEc0sP
-	 CFkwiqsARF5rdlggxNZAI7t95Zr0SLmkfHcxxGn1SHR1RaHhBE6Pp6tswAOFotKNfM3cm
-	 dCiSkpdL9WPVsCFELNMhyfxyReBAqeBFWiyMLfPqs1JBfQQlkO5fd1cy1VWJp2qiiqA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793303164;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=T//p5dzd+nUs6RGkT9FOPq6XfHPBSykpDW6FOc0lNR4=;
-	b=r00pEz/gUfYNWhm7yXw/8rFxhfLccIteoGjI4+8KBK0XuvVQTYUfo2yviOrWEtJg9Mlc
-	 pc+m7jFkFxr5Ndmzj2yTd9f/C7TqAdqtS/oXyGmW957bUHdMUnsRTrfQqBoAqw2ie6s02
-	 oC69hfzAiF2kGGqwz9TBQnbHuM2QP8tOMESAQ7odkHhPLsdQifReDMg862SAMvrzgV5wf
-	 6d9VA7Myfat4KBjjsfBKK4QZJ5n1iFK76C68OMVi6Mx5HsOc5vwmurFny2VsjovwHbgBT
-	 TbuuDemjOl2q2RqkYbUUnAIm2p65QSBcKlKa4tsn3VuSsZCHmvxDf9UvIQxBW/beZLQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GulK2+NY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793303199;
+	b=hNs1fP6T+WmrAa0RUr8mGxPqRn4tICl7jTjekVgUnM6yGE1UErK6lYzj6m1FMwv/uzmd
+	 VsnRmZ9tnAhUoeAvs5VFa7YgiTHSVQqnfTsuKDS8aVv0lyjJBalmk1prFNMtGpWqC62fg
+	 D29e5B8l/z7l5gpqB4kI4OchtaG4XYMSPRgT6H6xxkG1dI5pTpOnCghUpixIzmKXtKMn8
+	 4WqaoYSdot6gqjzPipt3FZ0RqjZsdA2IOfAP3IwVf62TxWWVHyyN/m72Q/3RSSmLF2RNf
+	 h6JZwr1anCYzxbh/LmqBxqjzariSO0VzTxt/RRKMxlRVVBNkrvawXcEmpG/RoGcQ0VA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793303199;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=RosLk8H/Wtqi+HeZmA1Dvq0kWL+1/+UBruPWo3aRSCU=;
+	b=QczSJoWlzidUh20Px4+yJHvRg1R4Ql5NyCqZlz/H1fPeIEXNMml/COOUhhlNdw5rHorD
+	 zj1fCkV5z0ep0/EDL3giDzubBCaEyMN2t4Aw41eB+/K2rL5yK7tgvetvu4TC0Y7Msn/3R
+	 gmCe9xCN4G+jY+ClGPhiwev42dtDfXNPGDdAvtxXNZFVsdWciMoDulnMkYCL+yTyZkbT4
+	 gwykbRX4YK/awYsSqhfH0UG9J5etX5QLtphN/TEuKKp5RLOGe5BxOKilBxnzHnVw1q1NX
+	 TimroSXdrZx6Cq3h24KQFr4PwGGAYxTd4SGAli9xeUQDTvvgPajDf4VAJrSoGV22wMw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=uber.com;
+	spf=fail smtp.mailfrom=uber.com;
+	dkim=pass header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=pqtnUAhH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.49
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565E1606A31A;
-	Thu, 29 Oct 2026 19:46:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B043606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:46:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B043606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GulK2+NY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0821F01816;
-	Thu, 29 Oct 2026 19:45:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793303163;
-	bh=T//p5dzd+nUs6RGkT9FOPq6XfHPBSykpDW6FOc0lNR4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GulK2+NYu6OXLKnYDvVei/xi4VxfmAbmwxCtDEiTHb/8vs+0OVId/fFcGBEFATnow
-	 yZA/8vcNf3pTFb+2lLOJgTW4husYkV8NNGxrDLFYQGZTIHXRYHSoJDYVHWBfYyGAnj
-	 yHWsqZz2XQH0dzK+2GEaeLyQ/NdaEWgjXPSvd+zjoL2axQbey7kZ7wf++0Ol0AxRLG
-	 lqgzq4bJMekgaEw03n7nUU7HO8awdq6P7W3olyFZW12dk4Rm0we+anS7RWK3absPDR
-	 zR5l4M8hdWhcGbFHKpc7hoOeAzFh/tjCpFrYk//Shd3e+DjTBjeSr0pTjkC9WSKhnu
-	 H/ZA3qzeh1SPw==
-Date: Thu, 29 Oct 2026 19:45:54 +0000
-From: Conor Dooley <conor@kernel.org>
-To: gaohan@iscas.ac.cn
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>, linux-clk@vger.kernel.org,
-	linux-serial@vger.kernel.org
-Subject: Re: [PATCH RFC 11/18] dt-bindings: firmware: add A210 SCMI clock and
- reset IDs
-Message-ID: <20261029-lazy-salami-cabba2657632@spud>
-References: <20261027-a210-scmi-v1-0-74d58ce85bd8@iscas.ac.cn>
- <20261027-a210-scmi-v1-11-74d58ce85bd8@iscas.ac.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=pqtnUAhH
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-6768403e9bbso2570097d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:46:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793303198; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jtfb8T5gwoDCoYBsKQ+myv/KFNNePtBScY132nVU7QxzNAH94zFWMGlLObVGOric32
+         q7UHrUbWeSEB6XegIRvt78OsZzMyXY4njwcUsj+QAtulcZh9vYo8KDkPS0L3Q2mIFKXA
+         P8sKAaprQUYXPiWy5aCsY9Z+ueEix1DAX1AM43BZDb2BtmVQURyoSXO9L2cIQQ33zjmZ
+         gOLyX/RFI4iPObOU9mUBq0coovnez0q0l6vlQifdspofWuQS+wjftGG/3NZ+TDHn+OjY
+         9/nmpjnawt4lR5092Xod5a9BsnuhjcsdelbmxYjw29UU0LqPkR220Jlu7zBpj6VcEnes
+         jHLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=RosLk8H/Wtqi+HeZmA1Dvq0kWL+1/+UBruPWo3aRSCU=;
+        fh=f68rk1AZLJOrfkyynutOzAVAe6XjAZjq9n1CsiJcY4I=;
+        b=PbVAZCTeE2qnpnf59iGxhlAcNt/h0q+O1PHmHB1g+SL84KPvaQWRw1VtTxaaPNUMUZ
+         vZPrXBrDfeQV40PcHqKtxDrcQJO7HX/TKFj27PKC+vrcVaWxe7Qvt6wOc6gveAL+k6v3
+         1UUgFhhtDtfAEMKBHlfKy/0Y5RftpHh1amH8dJLYayDvm6yzzuuhC/a2AeJAx3zHokcB
+         XLRYYZ7EiBFX5N8F9rXMG7tc60vbdYtJYX25myNqG6wxNmwc1QzrqrU9Aft7LzMCmgI4
+         BP7kTd9Xo8eLh5hym2+n63LM6KL0cVPrNqgwQUauXWAkqz3LAqYW1+iTinraNA/pTBAk
+         U1nA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=uber.com; s=google; t=1793303198; x=1793907998; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RosLk8H/Wtqi+HeZmA1Dvq0kWL+1/+UBruPWo3aRSCU=;
+        b=pqtnUAhH3QL7W5nLxIO6oVdjIinrMb2PWiADufT/QTa1q90AvOAuMST1DzB3zvELPd
+         la5emX6XPXwF/e5Tb4PYHwFy03+NsQiFBiZagHJdxGukcQgGvZUW++wKZAkuYrIsT8yC
+         /ha39aYY6LYJHV3x5q3f//cQDa8EYxRQrAWiQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793303198; x=1793907998;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RosLk8H/Wtqi+HeZmA1Dvq0kWL+1/+UBruPWo3aRSCU=;
+        b=2UYEkd6SzMT2UIdjeZ2s+i0kbdEgAWbg7e6+Tjgt6n7kT+T/n3l/E65H1tRhIDgQAY
+         P/uAl6s05ptWsV6ZX7DoWW2orF7Q9Mi5RYBZ/XP3u/LLt6wFividl3JoQCEUfNAUhYhS
+         JgH9Z+Avsq44S2NHOQtyCkpqExnu6Wr9S5dXCgGeFHfav1LUwiJeZOlpqHXUoWw234uG
+         PlPC4P3AczsoFBgNTgkPxk7NjSooV4WbweYO3IpYlIXYv1K5hhMTnuF83kyAwTtvofXR
+         f8S8WlT7KjcaFxpL5z9BnLPXIIvJHz/RRGoWxb+lbyLv+HmGnIIXda/8aB7qtaybhKCT
+         OL0A==
+X-Forwarded-Encrypted: i=1; AKwUvBw+KsvvxnsKrhRI+ybcmfhVE/yX7frH+g1pTVnT8pvlfUJ7YbTIwUwiA/wfmUOB4J/XgDhJQpczATnFgVU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLctdbOgF0XDgNGKsI3IcnsTlEGPIPwDljpLulGprjeiCFZbZgI
+	R99T+55imCFAPKazJBbF3yqYCV8kK06+gHAbaCWgvnTWbgTJ+q73kcyoUP58VQnO/U3GN17foM7
+	COv80LGLv85XCzrncwW7sZvWdsijPeefYvSpzm9SPOA==
+X-Gm-Gg: AYBFou3D21AMH/nm5vsDzX6tiUSn6lky+o8cjWR6FFGLnbLxXvP24QEmFD79rR/gaGe
+	N82MZztUYFVLbMQnM3Fgw2WfFzoE8fimloSnDm9aEq21UAo2kGwvEekg71PVXJ+NRfsKy/elby+
+	sqS0eFqmCNg9skZz5on+67ZSqjHcgdeZTQyafBJkr8Mx3CNEAW/4QdV1cFPjDUlYqTTYM3sANz8
+	KtDvmdkXspKU+/5KrlwFolqvauiqR0Ef3TUuZIT9bSs1BluJuc0y1YsqvWoHT7/FAhv8bhMiFRu
+	80zwfjLTlu1FzxD1L67RJ+DGDz9CIAWSfvGqHH663GTh7pFhJNbJLU4GAiJEXO7eQB7/dPRF52Q
+	TfD8XDh4oCOq+WJO7ZHo1wqMezc4fMXvnjJFJSLrd/jr4uaQDj16LP6IIG0fjbGmtSm+odg==
+X-Received: by 2002:a05:690e:400f:b0:679:98af:494d with SMTP id
+ 956f58d0204a3-67ba5030e1bmr110412d50.84.1793303197162; Thu, 29 Oct 2026
+ 12:46:37 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,93 +100,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="j1YaT5ntQHv0iC48"
-Content-Disposition: inline
-In-Reply-To: <20261027-a210-scmi-v1-11-74d58ce85bd8@iscas.ac.cn>
+References: <20260928075237.3055101-1-irogers@google.com> <20261027231513.816148-1-irogers@google.com>
+ <20261027231513.816148-2-irogers@google.com>
+In-Reply-To: <20261027231513.816148-2-irogers@google.com>
+From: Alireza Haghdoost <haghdoost@uber.com>
+Date: Thu, 29 Oct 2026 12:46:21 -0700
+X-Gm-Features: AclHuK_6NIIUx9h5hPScQIIEWDk-5P3kziaP-6o6H7veLJVOSuF2GiQo2oAQCQw
+Message-ID: <CA+w=M=SWCd5zBURRERBsxA5xTDS6GoXXgL6rzSQFCfvxGC=HDg@mail.gmail.com>
+Subject: Re: [PATCH v2 01/18] perf bench internals: Add symbols and maps benchmarks
+To: Ian Rogers <irogers@google.com>
+Cc: acme@kernel.org, namhyung@kernel.org, adrian.hunter@intel.com, 
+	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
---j1YaT5ntQHv0iC48
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Oct 27, 2026 at 11:37:02PM +0800, Han Gao via B4 Relay wrote:
-> From: Han Gao <gaohan@iscas.ac.cn>
->=20
-> Define the SCMI clock and reset IDs for the A210 UARTs, pad controllers
-> and AON I2C1. Each UART has separate serial and APB reset lines, so
-> they get separate reset IDs, numbered like the matching clocks.
-
-Drivers will never use these, it's all just passthrough - is it actually
-a binding at all or should it be in the dts directory as a header there?
-
-Given this can change with firmware versions, and isn't fixed, I don't
-think it is actually a binding.
-
->=20
-> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> ---
->  include/dt-bindings/clock/zhihe,a210-scmi.h | 15 +++++++++++++++
->  include/dt-bindings/reset/zhihe,a210-scmi.h | 13 +++++++++++++
->  2 files changed, 28 insertions(+)
->=20
-> diff --git a/include/dt-bindings/clock/zhihe,a210-scmi.h b/include/dt-bin=
-dings/clock/zhihe,a210-scmi.h
-> new file mode 100644
-> index 000000000000..b8f6441ac650
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/zhihe,a210-scmi.h
-> @@ -0,0 +1,15 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +#ifndef _DT_BINDINGS_CLOCK_ZHIHE_A210_SCMI_H_
-> +#define _DT_BINDINGS_CLOCK_ZHIHE_A210_SCMI_H_
-> +
-> +/* SCMI clock IDs; existing entries must not be renumbered. */
-> +#define A210_CLK_UART_SCLK(n) (n)
-> +#define A210_CLK_UART_PCLK(n) (10 + (n))
-> +#define A210_CLK_PERI1_PAD 20
-> +#define A210_CLK_PERI2_PAD 21
-> +#define A210_CLK_PERI3_PAD 22
-> +#define A210_CLK_AON_SYS 23
-> +#define A210_CLK_AON_I2C1_IC 24
-> +#define A210_CLK_AON_I2C1_PCLK 25
-> +
+On Tue, Oct 27, 2026 at 4:14 PM Ian Rogers <irogers@google.com> wrote:
+> +#if defined(__GLIBC__) && __GLIBC_PREREQ(2, 33)
+> + struct stats mem_stats;
 > +#endif
-> diff --git a/include/dt-bindings/reset/zhihe,a210-scmi.h b/include/dt-bin=
-dings/reset/zhihe,a210-scmi.h
-> new file mode 100644
-> index 000000000000..53e108c15407
-> --- /dev/null
-> +++ b/include/dt-bindings/reset/zhihe,a210-scmi.h
-> @@ -0,0 +1,13 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +#ifndef _DT_BINDINGS_RESET_ZHIHE_A210_SCMI_H_
-> +#define _DT_BINDINGS_RESET_ZHIHE_A210_SCMI_H_
-> +
-> +/* SCMI reset IDs; existing entries must not be renumbered. */
-> +#define A210_RESET_UART_SRST(n) (n)
-> +#define A210_RESET_UART_PRST(n) (10 + (n))
-> +#define A210_RESET_PERI1_PAD 20
-> +#define A210_RESET_PERI2_PAD 21
-> +#define A210_RESET_PERI3_PAD 22
-> +#define A210_RESET_AON_I2C1 23
-> +
-> +#endif
->=20
-> --=20
-> 2.55.0
->=20
->=20
 
---j1YaT5ntQHv0iC48
-Content-Type: application/pgp-signature; name=signature.asc
+Does this build on a libc without __GLIBC_PREREQ, such as musl ?
+How about nesting it:
 
------BEGIN PGP SIGNATURE-----
+#if defined(__GLIBC__)
+#if __GLIBC_PREREQ(2, 33)
+#define HAVE_MALLINFO2
+#endif
+#endif
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauOicgAKCRB4tDGHoIJi
-0nRKAQCSAL2ueiPMHjMObm/56vK9Z9iz6fiHz92RtC5Jf8QRIwD/YIsAtrtE4TAM
-quUITnSpm7b/sphBMJW2Zw6RLTkZmAQ=
-=RNBV
------END PGP SIGNATURE-----
+and then #ifdef HAVE_MALLINFO2 at the five uses.
 
---j1YaT5ntQHv0iC48--
+Two smaller things: 'perf bench internals symbols' exits with an error
+when the binary has no defined symbols (a stripped executable), even
+though the synthetic insert and lookup phases don't need the binary.
+And symbol__init() has no matching symbol__exit().
