@@ -1,93 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793278864;
-	b=OTNn0wB7aanYBa6QtFj0YWMubTUlDOMG9gHcv4wAHJx97O/xKsyoFQUmUvr8J5MnsPJQ
-	 wcxjlICTSxmoU/fwEEdesHghYeSX7wn4I5+sURA5BQOlJggEUWVIdCQVH4REQZMjI9OZc
-	 egKJo1dOg7YDCITniAi4u80X1pF74cR70JEXcqs1hkf3DI2Z2d3TDRvFLIosmfemvxDCD
-	 5YgUq1FjuhhzMmCHhnvpguSFUh23jrUxM48+YuTW+IeSmGrpPQg7SrR3Pd95ATLpkcX/v
-	 OqO5LTajvXsJ1UZJu++matddhfGMFNxYAw6E+zig+m4kNUKLzpzMO8CinccVqiOALZg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793278864;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=pqAIggo/SjoAGnKs8jyczcI2Ycl4/WyDK4uIxzW2XA0=;
-	b=Cp9ZH+YJEarTVeOOoagye5ciTdojVogxju1CIc2IzdBSjiE0kPQ8WGA8UCrA14WIha62
-	 cQwiPHDIVVB5Amax3X9dTJrnxroJaLcirhzuzmfvamSeIMIuDh+ypHpi+4Z2ab1Ml9E3k
-	 mYXLPM3BtNHBXYPldqBocih0RWSuHESWwWLbSQSSTdtnZrVNz+RHJujGMcfY02l3h/DLv
-	 ZGv6UsoomvXk2+j+vgnt19kMVDd9Jv+onvjh8gbZOGBYjJbx58NucODkfJinh5K/djRbj
-	 +O1olpf8JeJ7nNj9xuTKVaHuP23nZg1xnwp6UaewrTjOf/2QTLpwIl7zWu19mpRzpfQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qsl+kL3q;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793278881;
+	b=wcUWT3UZseLGXOin98b68lHRsOmWEw1fupWnF1yz0j9G7VB3KncpsKYmJNPsKMZFqDot
+	 id7JWE5rd4IvpLsb9P8INgAlMKJlfqy4xgG3KJQ24YsaIm+72KkEk2dLnqLdpK2wrp8lM
+	 PRgiAMPb9CoWA5in6tnAh/96y/g8JxqD1f3UOezuUJH1gF4lENT744vdsu/X1GMQ9w1rl
+	 Sj70+QqKkFROWoXdgJlGmvQe8jG/Dr4pTfNhJqcknsoUbp8oGbj2PL1MJuWXRZWFadR5I
+	 yojf1xw1AsgeI4kmvciH0wAdoLwpYxAX6ofx5Gy073al4ONEq7KA4xJzvz+1Md1Sf2g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793278881;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=sCqBj1P3O29v2Iuw4QofabghHgJM2zebox9CahTqtSY=;
+	b=pvuQN8KMaDf/tDXqyL6zgtj5JJieiiAYKLIgcsUbJ2SR3ho3Jw7hYYMX8g/GybVPJs1s
+	 ibSvZuZuPAbifCujYQpZib1bydwk6XNFAQqntEwopB+SoTie3YfvcvyRya9vVFF/NCVJp
+	 k52xwRsu3ZnqjQgO3yYCDs/aYfwiJs5KQFmddqJ9/Kj4mLpuSmOwzrUl04LwZI3XzGCHF
+	 bKZWiPkDlNYF9e/U6t98MklXO1MGDE+U0bvsIh8eXfZt/UjEkUUeS5VSq70rwBSMkJ8YL
+	 zgkN3SUe7APNQFp4jtmDRg28G34Xs0wPddYiVTLEvO0J7wh1XZJ3PSOBtGB78Nqq6dQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ns1FYDU2;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CkwGn0z0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C215560A2616
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:01:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C215560A2616
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15EB3606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:01:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15EB3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qsl+kL3q
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-89ff475a152so945515b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:01:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ns1FYDU2;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CkwGn0z0
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TCe1tw3943774
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:01:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sCqBj1P3O29v2Iuw4QofabghHgJM2zebox9CahTqtSY=; b=ns1FYDU279IfpQgI
+	5Xn4h2MdKmuH+/u47439F3pYrN9ZIfaGfINpAuaShNOCWkF4Bc0lRzVXnUlIyHYL
+	E2xPmefscZQNq2QupAGPPTw1/XQDMLZQgN00sIkzhP6/cEbKOwFoYwCYCTIwcNfL
+	17hidvGCkZFvFOWUF7ZkuhXzVLNW4x3g84gAJIyArxWiz0czk4S4WucifBOn3qZU
+	65SZY7arYllhpmon8p1Fh90/PzWxPNUv1QyG/nRo/DRCgbzNFf76+88UV5G6JNPc
+	+eYi3U4KNCe+BOtxD+8+jCxgjp8OHbrpwVkpsNbyidoqq0TYmRJgO1GEB0r/WMBQ
+	h+bOFQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hm42fgk0m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:01:19 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93909014c85so371983785a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:01:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793278879; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QZ9ZfKNSnKDE7zsGfSZp+mSeG4nxbGv212+kb1O8L6sFFhK6rw/UFU9ONlqLsGbQ5g
+         GjfWN3OkoiF5FhQRUhUhbQHg3DDng/+qD/qycumsYof+WJM5GzFKsyAzVKzRPeIgJ383
+         rr+OeoSHQWXO5i1q1mARz6p3qJYEiE7zd70A29JGZyDqKBq1Kjz9tmCOJI3ftqBAu9Q+
+         Isx1AV1WxYSsVosSn1vQsn9J4ABtvsIwim8Cdq4YfKIsLLrwI7YhqOfFhf0K+CafzZMX
+         Y/1m/DT5afxYIeKsxyBrYRO/CauceDMS1jj8ZjkqzC+RdYUkpN5BgxGKzEDtaa+LbTiZ
+         j0ew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sCqBj1P3O29v2Iuw4QofabghHgJM2zebox9CahTqtSY=;
+        fh=BsDCbL+5taVzE+IKiKdmFn8kMo0QwAx2a48yXVu54gM=;
+        b=gwvJl6fk0ro2tFgfGz4tkrKZ/h4xOCt6Ft18l1brvaCnTQRnWu810k9VyngwnRzBVQ
+         5eTzvbsLONkY++nex1gXXPxdYOXt6LS/ps6472luLBcr6wqx/WQGdqxM2N/TER+QsDmm
+         +nGaiR4tcW+FID9XQmSWzsJsu3Js2TFvpuRSMQ3rxPW/tXFktliPfLb1PxmAcPWL6TQ5
+         dfCtIVmcecfi+nv36oBkCFibNHaQAyNHzsvrLeECVhjI6pRqvmkbodS4tM3H1qWEe10E
+         Y5lLyjVvUvo54oXh76PlrrL278jlMRPFkDSFX7Dpe7yQX8wnEV/YkVAZQ4nYwdY8oVpP
+         H7ww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793278863; x=1793883663; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pqAIggo/SjoAGnKs8jyczcI2Ycl4/WyDK4uIxzW2XA0=;
-        b=Qsl+kL3q8L45e98ETndHKZz15pZIvpRiin4sqLdWC+Ifb5HgzaFfwJP6r87ZGkrC1C
-         vq7uUP3Criz/zcp0CKJArxhRZdpD2BE2ZrZHaUUmXa/Y+UmPze9A6eb8WLGLsWeS/BCo
-         EOEMulabXdbVMzeVNEIhlEx1HB0xYFoe9JeIObHIXPY7rZkP+ARiLGoxOfwCdayUExoS
-         Ivv+TACeCBti0Fz6Krtu+PFcto5HFXb2JLyxrajdMlDx0tYT67aIB5QLjVMlLEY9xqPO
-         0QGOdLMWVxonDKerJCZgrB5vtIrR/eC9w+9etW0jprBsb50EReIhIHoqY5saVP44QMSo
-         am3w==
+        d=oss.qualcomm.com; s=google; t=1793278879; x=1793883679; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sCqBj1P3O29v2Iuw4QofabghHgJM2zebox9CahTqtSY=;
+        b=CkwGn0z0gTGQf0rYI3I0ZqNYBhs2le2eBDUjSnYWTxj0RY93vcT4hlucRb/MQJHmmM
+         gA7eRJF78LPDo2McYA/TujJrCobCa4KpvbSaXXNvlZ9qpBZoyYdx3lMqM8XV5B0EniHp
+         Y2vNn68tu59hZZ1jHoxtzJlodjpS+7EX2qqb/t+3FpOYXhnWgnTjiqKlrAb3e76ahNKm
+         DDqznOPfcPmI2OUnn4G0WhUa0YwYhAuGMekr7iCiOTyc457J7wm2SP14bf4puEM3WWHV
+         iIaMpZNhpairsMyyzXRoSpYixjI0bSdL5ag7OWYKrhk0Vl2uvjrSfgesb0+2jtKuoZKD
+         oYnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793278863; x=1793883663;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pqAIggo/SjoAGnKs8jyczcI2Ycl4/WyDK4uIxzW2XA0=;
-        b=DrCS4V17eZO+k9rtiHZtCh2s6voPA16QgabTFrzHlzx9u4mi2/1cv7zE6Kqpg6lOfQ
-         5b2CdZ/StAVFzZFJUSy96//jDaAAAlqB1gr14aDg3wlM/lk5s/F6hnhp8zjPjbZY+dRT
-         80dtDtv4tPoDsyvXMWbgvoxea8lRmFVb7b+oL5sKObL/wRQ/YYPgpTNr7RhI1o0NQBE0
-         E56vjiJ2CM7uqNTADy2epA4Zse6KQMl5XY2wszOgSG5n8sSERLoz5fqtKFMme3noK8Gk
-         gnf8gW1T0sF3pHQik5KtZAO2Gb03X5O/I5kBrcZJA6fhzxC48putUb+a5a0uMTJo13CG
-         704w==
-X-Forwarded-Encrypted: i=1; AKwUvBxrouoc83n5gcveOMIFgWRWR6shdLgSdqnb/uFWjxPGNCViuRENW2ILmIoQ7qE/jo51XXzwUi+mtmXnbZs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBJZZv//Vga0vwdIbkSsuV4WZBXXAU4wG6OnW7WhenoA7xhlEh
-	lM9bwm+8Dj3Zm6nOFCJOtgBkdWOB75XIL0vlazHdTLo59bpNCaTFXuD8
-X-Gm-Gg: AYBFou1H0kW35mPlupRPQhZca1Jt9ZYwNQuZjicyxXHlEkCRG8oG/1kZMHEoEoWeovh
-	J5OgopxDOgQTJbnuzaTLeWiVB+JPzDc8HvSz1uIF5J90kP9u2qLOt0pFsuJrQ81YXeoPnEq2wF0
-	i0UyzyJiWOuR1vvbGKc2ZbuzXG495yYvTUNUwma5k7AYSY0/k75p7ttilu6gCvB/QQtBmh6iyr/
-	nfXbNWog7bUcKUF4WqlyH8bvH1hiASVrs4ISVVj5L1Z1hOoAmk2gs7siKpGPd0d2DxNlnHqBBmu
-	gaizpzovh4FDlvmddeifuIZPhNO8KsMJifXA63/ksVWAspnHnJf5fMdXtZlT+WFk52Ox8hHEdmY
-	mcjDd4esfgLPVhTAAY4ujJS6H6e+quhfY1VY5f0f7RjO4v5wi6/hv9wI2iGgOAGa1WbB7axEfU6
-	iCh4rvpFcrsWF/HnQF8tt1oqUaOvcUot31+SzaSw4Jj3QZnvu3iiuqN0TQsYuYDjxYrupk3XUgZ
-	JqP72pnDgveMNluS2iDNmW8e58pecTRv+AwRf2N0uJYyyjCZCjn2+fgZXWOJWTXCWcLVJ/3jXts
-	9Zcev5+5A12s6P1hpbZRfoatHUZHkE50T2LYwPxKwL0VPwir+w9qMZvc0mtmG+QeDJDAwu0OajP
-	yYiSk0t31l6w=
-X-Received: by 2002:a05:6a00:3918:b0:89f:c71e:abb3 with SMTP id d2e1a72fcca58-8a6e80ba876mr4394429b3a.50.1793278862696;
-        Thu, 29 Oct 2026 06:01:02 -0700 (PDT)
-Received: from localhost.localdomain ([2400:d802:dd7:8000:180b:d22a:69f7:ac40])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a662d96asm2290764b3a.26.2026.10.29.06.01.00
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 06:01:02 -0700 (PDT)
-From: Yuqiang Sun <izaiahsun@gmail.com>
-To: andersson@kernel.org,
-	mathieu.poirier@linaro.org
-Cc: linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] remoteproc: core: Do not put the device when device_add() fails
-Date: Thu, 29 Oct 2026 21:00:37 +0800
-Message-ID: <20261029130037.5505-1-izaiahsun@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20260707; t=1793278879; x=1793883679;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sCqBj1P3O29v2Iuw4QofabghHgJM2zebox9CahTqtSY=;
+        b=alDP/ZTFPcQPVvJiQpjfGQJPZEKcFz40d90k6o6iJ4vm76YYdJOGXSwCUBHjJhe5Z1
+         CHyuvYnXxju2/HkFSQUcYj61AEAv88QdkreFdA3acQl+MuSrIENUtqerm2sZSyZSwv5C
+         7Zi2Tc8/DIAeo9DeCSjrlWh7dE3zCZ7gNq5hNxNQz1HWwAItN8qSMuVJRP2dq5anj+SD
+         FcS2jlMcAtPG5swWXuJ8g+yYkVBjwJg2PTSI1TlRyuhzMi+YALReAzZFEG3U6z2YtigC
+         Mcprq/b9K4VLp+K3pgpttiRpb4lXe3tTIVpvIFCXdwovR3E+zv+zZVvwyCvuAPcm1MPT
+         MEWQ==
+X-Forwarded-Encrypted: i=1; AKwUvByzOSIgP9ncueZKHwgnb9JU3jNELdT8IJbz8A/CgWAPTMm1lH7/E0ecpvB1ixddZKYEU2IXDu8q1MMgUp8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLedsRwqSbBcaFDyHegzfyl7Joe3XhS/YUMTTIsUCr5957ecIEq
+	ak95z14fxaAqe/FfpneLnfbcroqXL8pZ55+7027za3a5VvJdXZejHlUW9EsWgswjBGQQBtdBXmU
+	86nUbm4JF7bkZrhmMcM9IiVYh8VkJfV5BvqxW5MXvEwImR3ehXoUyYGWNBu/twt9b9pL9Edw1K6
+	f3/MaSzfucliLVrrj7H4q4omvreRXHG4SmyTanDNQyRg==
+X-Gm-Gg: AYBFou386Y2Is1faeHipOni90Q4D4NTkV1YyPUv9gSkArJperkqwnMIeP32ZNEwRZ9B
+	idxzD4c3xESlWoU3NXOtAxflWLQw3n8hxuLgxXDQAc8hxT9MxFuKYiP1C+rR8xeOA2pLcCLGsq3
+	Djlyqodzo46GFZ0EzBQ8PwTKvPjwh17kl7FfivwG9/K1t1lhIZ9S27BfIetCzIFMtmWtzSqSwYo
+	9NGPrQRSXbdK5gZIiARxFWpLF+THWj+k2h1Mq0rQLXulT9BdthrUpr+ivrhSrYKGLNNZlY5LyWi
+X-Received: by 2002:a05:620a:1725:b0:93e:fb96:68f5 with SMTP id af79cd13be357-94408a8c3b1mr790977185a.32.1793278878832;
+        Thu, 29 Oct 2026 06:01:18 -0700 (PDT)
+X-Received: by 2002:a05:620a:1725:b0:93e:fb96:68f5 with SMTP id
+ af79cd13be357-94408a8c3b1mr790970785a.32.1793278878266; Thu, 29 Oct 2026
+ 06:01:18 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,90 +128,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261029123107.28705-1-xiaqinghuan@mail.ustc.edu.cn> <20261029123107.28705-3-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261029123107.28705-3-xiaqinghuan@mail.ustc.edu.cn>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 29 Oct 2026 14:01:07 +0100
+X-Gm-Features: AclHuK9HHjKdAV_87O7vafl7ryiBF0S_hg2q2SY-cNvI08xHiOvoE__qojfybps
+Message-ID: <CAFEp6-0sLQfiNP8e+3+ZEXnjPG4GzJSPtiyEGfG2tXt-DuptGw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] media: camss: video: check that a buffer is DMA
+ contiguous and add a prepare hook
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA1MCBTYWx0ZWRfXz5DdpN+FlDBq
+ SDMsl87lbxhAGbjlq3FF0YS7jBZUrCg8187ZVge39B23aGPw5KBHB9UDpewBM29jLVUeNTLfkV5
+ khyG8KtkSQMrgiPQBTXkD4UNa6hBbK/jNxFByxAVLTtzM5e9/7zU+9H24De4GZalp9yrsnGUXQL
+ mklOGH7soLphgwJjGNRtnsQdWz4efNQZxcJe78to72mfWe6K/d3txwCxFiZei5tAP9jyLMteBDv
+ ARJe3UdzxhsFs/12uYY0Ws9KyjC6OEW/lGMY77qwcLLD5LvjRlquFCM/90WzE/gic4mstHHJZWq
+ f/wCx33uJWMcnGhC3ASyKTzKDmV0fgsLP/gLAe+csDGJ93GYrLoVdMElxjjZ4oaw+9KVEq8jDPF
+ Q9Gn95WsnJFl4m51E6O1ulvSSYHIzobS+idoXU+V5vmoDuQI90LzQJmMr8GLLh2kN3G6Joyz43M
+ Zo299xC5dXMsNHuR0jw==
+X-Proofpoint-GUID: NjZ8CoN84e4zvsQ29fBki6vcD_A54_5Y
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA1MCBTYWx0ZWRfX+vVoNGXkdB7C
+ aPIWv+eOUHFUKBbvnkzuAlIP9Od/dCaJ3pmdKMMNWPv9zTfSb2a6lOXgY4q4UahwYOBHwlSjAIy
+ gn97FU5BmtlAhA86qyRTKVgNZBAGlUc=
+X-Authority-Analysis: v=2.4 cv=UN9Ijyfy c=1 sm=1 tr=0 ts=6ae3439f cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=5jp7TkJpA6SZ9Z3lt2IA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: NjZ8CoN84e4zvsQ29fBki6vcD_A54_5Y
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 spamscore=0 suspectscore=0 clxscore=1015
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610290050
 
-When device_add() fails, rproc_add() calls put_device() and then
-removes the character device.  The reference it drops is the one
-rproc_alloc() took with device_initialize(), which belongs to the
-caller: after a failed rproc_add(), every driver frees the rproc,
-either with rproc_free() or through devm_rproc_alloc(), and both drop
-that reference again.
+On Thu, Oct 29, 2026 at 1:31=E2=80=AFPM Qianhui Xu <xiaqinghuan@mail.ustc.e=
+du.cn> wrote:
+>
+> The write master of the newer VFE generations can only be programmed with
+> a buffer whose payload is physically contiguous, because the frame
+> increment registers describe one linear address range.  Check that the DM=
+A
+> mapping of every plane is contiguous for at least sizeimage bytes and
+> reject the buffer otherwise, instead of silently writing past the end of
+> the first scatterlist entry.
 
-So the rproc is freed inside rproc_add(): by the put_device() itself,
-or, with CONFIG_REMOTEPROC_CDEV, by the cdev_del() that follows, when
-the character device drops its reference on the parent device.  The
-caller then uses the freed rproc and puts it a second time.
+Have you tested the non-contiguous case? It=E2=80=99s a bit surprising to m=
+e,
+since the device-visible IOVA is still contiguous.
 
-With one allocation failure injected into device_add() (failslab
-restricted to rproc_add) while st_fdma probes, KASAN reports:
+Perhaps this is related to frame subsampling, in which case the frame
+buffers themselves would need to remain contiguous to take advantage
+of the hardware frame-increment mechanism. But even then, the relevant
+address space from the hardware's perspective should still be the
+IOVA.
 
-  BUG: KASAN: slab-use-after-free in slim_clk_disable+0x38/0xf4 [st_slim_rproc]
-  Read of size 8 by task insmod/69
-  Call trace:
-   slim_clk_disable
-   st_slim_rproc_alloc
-   st_fdma_probe
-  Freed by task 69:
-   kfree
-   rproc_type_release
-   device_release
-   kobject_put
-   cdev_default_release
-   kobject_put
-   cdev_del
-   rproc_char_device_remove
-   rproc_add
-   st_slim_rproc_alloc
+Regards,
+Loic
 
-followed by use-after-free reports in kobject_put() and
-refcount_warn_saturate() from the rproc_free() in
-st_slim_rproc_alloc().
-
-Remove the put_device(): the caller's rproc_free() drops the reference
-and releases the rproc, as it does for the other failures in
-rproc_add().
-
-The problem was found with kbound, a static analysis prototype that
-checks whether callers rely on an object after a callee returns a value
-for which the callee may have released it, on v7.2.12; it is present
-in rproc-next.
-
-Build-tested with x86_64 and arm64 allmodconfig (W=1, sparse): no new
-warnings.  Run-tested on QEMU's arm64 virt machine (TCG) with KASAN,
-using a device tree node for an ST FDMA with a SLIM core, so that
-st_fdma_probe() reaches rproc_add() without the hardware (no clocks,
-MMIO windows only mapped), and failing each allocation in rproc_add()
-in turn with failslab: before this patch every failure in device_add()
-(9 of 9) gives the reports above; with it nothing is reported, and the
-rproc is released once, by rproc_free().  Not tested on remoteproc
-hardware.
-
-Fixes: 7dbdb8bd7c02 ("remoteproc: core: Cleanup device in case of failure")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5 kbound
-Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
----
- drivers/remoteproc/remoteproc_core.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
-index b88bf179507d..e4f44a3c8b4d 100644
---- a/drivers/remoteproc/remoteproc_core.c
-+++ b/drivers/remoteproc/remoteproc_core.c
-@@ -2309,10 +2309,8 @@ int rproc_add(struct rproc *rproc)
- 		return ret;
- 
- 	ret = device_add(dev);
--	if (ret < 0) {
--		put_device(dev);
-+	if (ret < 0)
- 		goto rproc_remove_cdev;
--	}
- 
- 	dev_info(dev, "%s is available\n", rproc->name);
- 
-
-base-commit: 82d0bbd67c42a44f0e18b0b7b0da0f3ace0c9527
--- 
-2.53.0
-
+>
+> Also let the SoC code add its own alignment requirements to a queued
+> buffer through a new prepare_buffer() video operation, which runs after
+> the generic checks.
+>
+> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+> ---
+>  .../media/platform/qcom/camss/camss-video.c    | 18 +++++++++++++++++-
+>  .../media/platform/qcom/camss/camss-video.h    |  1 +
+>  2 files changed, 18 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/me=
+dia/platform/qcom/camss/camss-video.c
+> index 0852eb6f13..027cf024f9 100644
+> --- a/drivers/media/platform/qcom/camss/camss-video.c
+> +++ b/drivers/media/platform/qcom/camss/camss-video.c
+> @@ -155,7 +155,10 @@ static int video_buf_init(struct vb2_buffer *vb)
+>         const struct v4l2_pix_format_mplane *format =3D
+>                                                 &video->active_fmt.fmt.pi=
+x_mp;
+>         struct sg_table *sgt;
+> -       unsigned int i;
+> +       struct scatterlist *sg;
+> +       dma_addr_t end;
+> +       unsigned int i, j;
+> +       size_t contiguous;
+>
+>         for (i =3D 0; i < format->num_planes; i++) {
+>                 sgt =3D vb2_dma_sg_plane_desc(vb, i);
+> @@ -163,6 +166,16 @@ static int video_buf_init(struct vb2_buffer *vb)
+>                         return -EFAULT;
+>
+>                 buffer->addr[i] =3D sg_dma_address(sgt->sgl);
+> +               end =3D buffer->addr[i];
+> +               contiguous =3D 0;
+> +               for_each_sgtable_dma_sg(sgt, sg, j) {
+> +                       if (sg_dma_address(sg) !=3D end)
+> +                               break;
+> +                       contiguous +=3D sg_dma_len(sg);
+> +                       end +=3D sg_dma_len(sg);
+> +               }
+> +               if (contiguous < format->plane_fmt[i].sizeimage)
+> +                       return -EINVAL;
+>         }
+>
+>         if (format->pixelformat =3D=3D V4L2_PIX_FMT_NV12 ||
+> @@ -193,6 +206,9 @@ static int video_buf_prepare(struct vb2_buffer *vb)
+>
+>         vbuf->field =3D V4L2_FIELD_NONE;
+>
+> +       if (video->ops->prepare_buffer)
+> +               return video->ops->prepare_buffer(video, vb);
+> +
+>         return 0;
+>  }
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-video.h b/drivers/me=
+dia/platform/qcom/camss/camss-video.h
+> index d3e56e240a..af046ecb7f 100644
+> --- a/drivers/media/platform/qcom/camss/camss-video.h
+> +++ b/drivers/media/platform/qcom/camss/camss-video.h
+> @@ -28,6 +28,7 @@ struct camss_buffer {
+>  struct camss_video;
+>
+>  struct camss_video_ops {
+> +       int (*prepare_buffer)(struct camss_video *vid, struct vb2_buffer =
+*vb);
+>         int (*queue_buffer)(struct camss_video *vid, struct camss_buffer =
+*buf);
+>         int (*flush_buffers)(struct camss_video *vid,
+>                              enum vb2_buffer_state state);
+>
