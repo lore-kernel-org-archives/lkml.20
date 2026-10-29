@@ -1,105 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297429;
-	b=pTdwi4kTfzHteLkK2m15nj00COi333FfQroi6Yyy+CUMogRdnU01tyKqp/GZJbvgLsF8
-	 96Micf+TffhlYhJpO1+8Nvuj8mNrQLfUyzcJKsI1QiwLTpXjSw0qJihWPwtu/r0a0u0UP
-	 TU+fOzwDHwbKFrydF57xXk3KaYQnZ43UWh9Q3g6Es66jS1Z98jB8LUfG61zFH/Uf/rL5D
-	 O9nZua7twopIBGKU53yS33Jx1lvON2F1nj2Y4ETdKZ+uxaU0+9OWvsLLyC8SX3TTSPYQN
-	 54J1CDzJwOUGXqx6R9k52MJ2mGOqTwfrMEbb95ts+XwZnXHWKdTEExCi322PtKJ7LhA==
+	t=1793297426;
+	b=5slQhSaEHzrED5QWduhjB3bVtnzAlVzLm/B4CUoOiTab5NWLJKC2KtjY/4rE65BOKXBk
+	 dsaww3Fxc0N1TKjP2/lMdolfmp/A1Ehu5T9TuGglc46meBi54TMb00tNPWu9occXAjj5c
+	 dYH/1b0QfeO2ZkgbNMbVOYFzUtHTKYWKZjrjKngegdphCm3JqvzfYyT50i7RNSG6YquKi
+	 lINLI6bMS7A4KjOqNaX0dQ+MRv8ChC+Y5GaNdgzkJmf2xLy1iNcjZChg9nYXvWhKZEcNg
+	 CNLMI5n/W2g3s2Ts8labKDRuvlCKeIoPc5aiilTyjW8sIh8iwLdYuwVf51bCX28gKUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297429;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=h/Q9DLGqoDPx/XvjFFuDFe37sX7w21EVwh1yv9Pf91Y=;
-	b=kkePHz5ssofF0ORPRnJsM+3kHCDJbjNNB41T/EV9cQvqO6T4j801TqwR6dDlyqg3CRcJ
-	 0gEc4y7mpJTGV+93Y3zyM8XyiyTG1qz0h/qNGPxYpT4Mi2gxP4jz3D4wa65t0eK86XBLt
-	 6xEnYtOjMkF0UeZ1bw7npByiTZNYWvcJUwdgYuLY8IMkxGAUy9d/60XMKmWC3DIGOHn53
-	 RQd4I2Gk6iVzcipD3BdSHAjMy6FYMQtsry7sWn0PZS+c0xc6JbdZfn5nRRMw+Xjp/s24V
-	 a8q2gkuX/W7/n9Yr5XvQTyInTgnurEWSyW6WudEelY5+vhiGqmQN2xPrr8lNa8QmCXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297426;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YhtoC8abtd12mu+rBuvcv/XkTwddyXJZrrtv2/voX0Y=;
+	b=ur6KMa7QZbV2j0KZ/Efj13V4PxUjVupW8FCNeyQaMWa2yNw4A6H9YXEeEOFi7lBkCoko
+	 7XQt4lFV20FDTG0ktiF0mdt4PGTQKindHlY/TLucZ71wxKFqKgAdcNqJgWO4Ll/DbAN4v
+	 v3assSQVmu9NRw6XVClm+oHS4vnmw1APLzKgckdn6uzNzw6VnNuKvXGU7sJOUepiD9pGl
+	 aCZJXNJu6JXu0FbjJESpd/SCXNJuT0SNqNG4dOIMhUIbjkFnq++56x3/EjALWfINVWWHc
+	 AMEFQ2XfyQvlLPeKFbThWJQBdnxqIi/XP83cMxB2S4Xs/95xls+MjYZK0GhBq9qRBRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hammerspace.com;
-	spf=pass smtp.mailfrom=hammerspace.com;
-	dkim=pass header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=K9KYxWzC;
-	arc=none smtp.remote-ip=209.85.210.49
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtievZEi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B58560A383C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:10:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B58560A383C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hammerspace.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hammerspace.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CEF60A380E;
+	Thu, 29 Oct 2026 18:10:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=K9KYxWzC
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-823e4047037so1733335a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:10:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=hammerspace.com; s=google; t=1793297428; x=1793902228; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h/Q9DLGqoDPx/XvjFFuDFe37sX7w21EVwh1yv9Pf91Y=;
-        b=K9KYxWzCPyBeEIuu0xpic15O7tkqjAgj1nlmkbsQeMWvTEey5aLgbok8m4unZflqLY
-         rs5fGM87nV69qB8wilEMbeXeAE88KP9x+lNfrUrKwQArfvUXNC2uV/OQZrUUapzQoqms
-         vl6mrG6fe9r5iM3347P0w9f4+fd3IuhyxmhGFebTjl8VZR43FAFyIgmRZSZ33LjLmsS4
-         OP3WuXl2s/15UqqSNeOKc0PXcccomgQi8PL12E1a2styv3LRLiireJIzjhCmd38KLQC1
-         0y1fJALNITtpO1nxWvBnGQDumgMFnQjGS7ppjXFe2g4UxkNjTRViIV9I8CyqKY0Y5IdR
-         ZV5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793297428; x=1793902228;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h/Q9DLGqoDPx/XvjFFuDFe37sX7w21EVwh1yv9Pf91Y=;
-        b=dcMmzEt7h8ZLrgKrLZ96a9rjHFbl+ThQKC3HeJ5k9Z9v0T/60XcgibhTc7s+6YltZj
-         J7H1xoqptqLAcoXEKNkbfDMGOrXZ2afxi/ZtWmS4+gPfCB726cd7r0JP+N/1K4CwkILC
-         IsI2MX/+Edj6TTuDTi/s6f6P78tsMdO8RnwKfYX9TzH3VygR53S8nfrl6xPhyAR37VOO
-         l0aad6wRhkh7ew4SuenQxlmTwajuUYEFa/1KIezUx0bD/FFjh742/5OVU7iWF2iWtFjs
-         UpvG2XtLmwgv32dZalL0/my4yo6ZpDjeWa/B33K/9uHeEiSRbSRket0vhCJ1QXL3+VkT
-         XMRg==
-X-Forwarded-Encrypted: i=1; AKwUvBwLPtnOof94stVFp/fXM9eSYF+oIa1a5D3ronirdkNJiuTwdpL0hz+U+EjXhPEq+Pwb38cPJalGSzxMk4w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJkVsILvCGfjZrgiVStkW6TgFvkwl+mClLtThK/CvYM6vQJ/Co0
-	eizDFvzPLT6CD27sb8ICw/muWQfmhSy5MlKbscHV7cG71QPhB7IEymAdGWdrL2e9Xcs=
-X-Gm-Gg: AYBFou2LOOo1LicmPNFQ+EkMhzNmx5o2ixG24ObZDpQfVA3TBkcLQMkKgtOQEllXcll
-	jDIXwZBKQTKt0V6oZyjMaDrB0+xYTFMdi8ZOTnkfDg6L1DzuYqzIzx8tCYcoqklHePKqkqYR6Pe
-	d35G61ggpkqOcSLpj+JcUI/HwVEMrKbNH0DbEwFD1tKv+lWGjNX0EGKlU7/b6RX00y6lX9RijKF
-	wy61OQe2XK2AjYrKStdFGrdUd3m4iAkqKGIYyHc7OBKJWeN7uxWsgbFerW0RxK9ait6wjq/BKl5
-	zGCOUdJJv4/OSF/V0gX+1Vd8vXCXRb4QsG3o2ENzYPt8/yBCBovqVMllHRVfzx6NQsBeBWFbw4y
-	O+BJZ0evwhyfP0GqTKbyDKqoD/GvueTY53jpow7NgNGXMITS4vTpBBPrVgnx0j4NRErXkizyXN2
-	cGE1yZCRxOMwH2XzpqvgaIrNx6MMg5Jr3a8L5Q/n/KMFesuLmcRh9sV0+nY8kBbsQp5WDegDVwS
-	mp0yh/lgWo084hClHiEFPMutZ+g5cSuDEW+iHRp6UAONU6+GLs2G/+co2mOJjcLM9856xWQ2kKC
-	a/wVtH4dVkQKExTyM1iGfN8Lvve5Smb9a/nmjYmM+8OVJVCK1m6+fwbsmOucRt3XcsWNos+pGw=
-	=
-X-Received: by 2002:a05:6808:181f:b0:54c:7bef:90d6 with SMTP id 5614622812f47-5640dbd679bmr1506b6e.4.1793297427868;
-        Thu, 29 Oct 2026 11:10:27 -0700 (PDT)
-Received: from localhost (75-163-200-235.clsp.qwest.net. [75.163.200.235])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-563c5437cfcsm4755474b6e.4.2026.10.29.11.10.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:10:26 -0700 (PDT)
-From: Jonathan Flynn <jonathan.flynn@hammerspace.com>
-To: NeilBrown <neil@brown.name>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC 12/12] nfs: remove files with the parent directory locked shared on NFSv4
-Date: Thu, 29 Oct 2026 12:09:57 -0600
-Message-ID: <20261029180957.387138-13-jonathan.flynn@hammerspace.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029180957.387138-1-jonathan.flynn@hammerspace.com>
-References: <20261028041023.3738553-1-neilb@ownmail.net>
- <20261029180957.387138-1-jonathan.flynn@hammerspace.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VtievZEi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 565281F01176;
+	Thu, 29 Oct 2026 18:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793297425;
+	bh=YhtoC8abtd12mu+rBuvcv/XkTwddyXJZrrtv2/voX0Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VtievZEidSVJKJ8wgbiTyLqG2cFPhE5Pkzw8ITYYjhGHuopw91uKJ9JtJJdRSMp7F
+	 M2UqZkhfBFg1lLeA8FWkN2BhW/bw5tRWjEgKb5mCzZHqQhOKiRyb5dBXGRNKduN/C/
+	 HdJX54ceYFkIb/lIpcSEH7JL9BNLd2+wXtYeqxBfrzz35lBQkZFDs2sMw+rNalIzlZ
+	 H/Yz0Rg0YFmSD1A+4EfXPNMfRbhHRh9eLrQyrr6++JrV5sREhUgg9l3wqbVMCRXPBU
+	 116/V5xj5GH0fxIc/woLjEPZOKHPaBaWmzSg1SSYfwsx5cyHxvemiTdvhRWAnXNXkI
+	 z1GGNTHz/rJGg==
+Message-ID: <7a1807d0-4f3b-4094-b73b-b6950040e3ab@kernel.org>
+Date: Thu, 29 Oct 2026 19:10:19 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,42 +51,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 7/8] mm/page_alloc: retry alloc_contig_pages() when the
+ zonelist is rebuilt
+Content-Language: en-US
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+ akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com,
+ rakie.kim@sk.com, ying.huang@linux.alibaba.com, ljs@kernel.org,
+ liam@infradead.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+ brendan.jackman@linux.dev, hannes@cmpxchg.org, mgorman@techsingularity.net,
+ anshuman.khandual@arm.com, stable@vger.kernel.org
+References: <20261028211930.3504634-1-gourry@gourry.net>
+ <20261028211930.3504634-8-gourry@gourry.net>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261028211930.3504634-8-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Let removals of different files in one NFSv4 directory proceed at the
-same time, instead of queuing one behind another on the directory's
-lock.  The server orders removals of different names.  The client
-orders a removal against lookups and opens of the same name through its
-cached entry for that name, and against listings through that entry and
-a count of such removals kept per directory, as set out in the changes
-before this one.  A removal it cannot order that way is done with the
-directory locked exclusive, as before.  On a server that reports itself
-case-insensitive or not case-preserving, every removal is done that way
-from the start.  A server that treats names differing in other ways as
-one, as Unicode normalization does, is not detected, and there a
-removal is not ordered against a lookup or open of another spelling.
+On 10/28/26 22:19, Gregory Price (Meta) wrote:
+> Onlining the first block of a zone rebuilds every zonelist in place,
+> shifting the slots after the new zone.
+> alloc_contig_frozen_pages_noprof() approves a slot by the caller's gfp
+> and nodemask, then loads the zone from it:
+> 
+>   CPU 0                             CPU 1
+>   alloc_contig_frozen_pages_noprof(GFP_HIGHUSER | __GFP_THISNODE)
+>     slot 0 (NORMAL1) approved
+>                                     online_pages()
+>                                       build_all_zonelists()
+>                                         [NORMAL1]
+>                                         -> [MOVABLE1, NORMAL1]
+>     zone = zonelist_zone(slot 0)    /* MOVABLE1 */
+>     alloc_contig_frozen_range(MOVABLE1 pfns)
+> 
+> A gigantic hugetlb page can then land in ZONE_MOVABLE, and a nodemask
+> caller can get a range from another node.  Gigantic pages are kept out
+> of ZONE_MOVABLE since commit 79b63f12abcb ("mm, hugetlb: do not allocate
+> non-migrateable gigantic pages from movable zones").
+> 
+> Check zonelist_update_seq before using each zone, and restart the walk
+> if it changed, as the hugetlb pool walk does.  Check again before
+> escalating to the pass that may migrate hugetlb pages, so a pass a
+> rebuild cut short is redone rather than escalated.
+> 
+> With kprobes holding the walk across the online, the base kernel put the
+> 1G page in ZONE_MOVABLE in 3 of 3 runs, and this change put it in
+> ZONE_NORMAL in 3 of 3.  Direct GFP_KERNEL calls with nodemask {1} and
+> {2} got a ZONE_MOVABLE range and a node 1 range on base, 3 of 3 each,
+> and neither with this change.
+> 
+> Fixes: 5e27a2df03b8 ("mm/page_alloc: add alloc_contig_pages()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 
-This covers every NFSv4 minor version, NFSv4.0 included: nothing here
-depends on sessions.  NFSv2 and NFSv3 are unchanged.
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Signed-off-by: Jonathan Flynn <jonathan.flynn@hammerspace.com>
----
- fs/nfs/nfs4proc.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index fbf9e97815..0acc03dfe6 100644
---- a/fs/nfs/nfs4proc.c
-+++ b/fs/nfs/nfs4proc.c
-@@ -10860,6 +10860,8 @@ static const struct inode_operations nfs4_dir_inode_operations = {
- 	.atomic_open	= nfs_atomic_open,
- 	.link		= nfs_link,
- 	.unlink		= nfs_unlink,
-+	.unlink_shared	= nfs_unlink_shared,
-+	.unlink_shared_done = nfs_unlink_shared_done,
- 	.symlink	= nfs_symlink,
- 	.mkdir		= nfs_mkdir,
- 	.rmdir		= nfs_rmdir,
--- 
-2.43.0
+> ---
+>  mm/page_alloc.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 70830689048a..7d06c6c4011a 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -7593,6 +7593,7 @@ struct page *alloc_contig_frozen_pages_noprof(unsigned long nr_pages,
+>  		gfp_t gfp_mask, int nid, nodemask_t *nodemask)
+>  {
+>  	unsigned long ret, pfn, flags;
+> +	unsigned int zonelist_cookie;
+>  	struct zonelist *zonelist;
+>  	struct zone *zone;
+>  	struct zoneref *z;
+> @@ -7601,8 +7602,13 @@ struct page *alloc_contig_frozen_pages_noprof(unsigned long nr_pages,
+>  
+>  retry:
+>  	zonelist = node_zonelist(nid, gfp_mask);
+> +	zonelist_cookie = zonelist_iter_begin();
+>  	for_each_zone_zonelist_nodemask(zone, z, zonelist,
+>  					gfp_zone(gfp_mask), nodemask) {
+> +		/* A rebuild may have shifted an ineligible zone into this slot. */
+> +		if (unlikely(check_retry_zonelist(zonelist_cookie)))
+> +			goto retry;
+> +
+>  		spin_lock_irqsave(&zone->lock, flags);
+>  
+>  		pfn = ALIGN(zone->zone_start_pfn, nr_pages);
+> @@ -7637,6 +7643,9 @@ struct page *alloc_contig_frozen_pages_noprof(unsigned long nr_pages,
+>  	 * second pass, we will try moving HugeTLB pages when those pages are
+>  	 * smaller than the requested contiguous region size.
+>  	 */
+> +	/* Redo a pass that a rebuild cut short before escalating. */
+> +	if (unlikely(check_retry_zonelist(zonelist_cookie)))
+> +		goto retry;
+>  	if (skip_hugetlb && skipped_hugetlb) {
+>  		skip_hugetlb = false;
+>  		goto retry;
 
