@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.208
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793266958;
-	b=oZE65PPUoK14arwA09QovB/4ixhoixwOqGYpo6SJdBwTV4IcT4WyNwYozg7THrxvJ41n
-	 rwpltfJ01FixDglsRRQkAd9946yQdWNdOYMZbfS3KNYOZTr3xQROPLoe+vNXaevXWOzfF
-	 PU0oRFFNb8OCgzqrULQCa4UsH+gytzu+5ptGjUHDMkUXZlSPwDMIHrIGYaqrN6g7+RSUx
-	 6WAGbY6aRCOO2UtDYDvlK0+qmDfg79k5j7uWPxSJZXH3lcoqL0zBSp0VVMWP7EC9FgC2L
-	 m/cmLpOPPCB6gWpshIonYwCMf0x/LbI6g6Q4XSoYLqbiu9DlDaH0l9QrBe7huyyltKA==
+	t=1793266981;
+	b=qGqGp4T487yrch+4LSK7qhSd3HGXh0whBZ0HEi+XCJ9Ijvaoe8w5oILADHd0WS0PqHL8
+	 Wj9/bsqZjlNkonI2wuqPid0XgQJADngxWpdj/AHC6I9hG+GRqVX2T7ryt4sqHgAbn47Nj
+	 8ppFlTGN8LXbkbc4u2vwaePbs+7dG1SwXBXtDFA1MGqCUJ2sUeLQThsL82IBeow4Bvl9o
+	 RrmIaDGDE0kuoaUF1Q+aOOpSlx/F9SiLMYVKvBBCZ+eRJrA1zA3QnugykedN+Q8W9+hqB
+	 KiXJZylvs/rb9Eh/+aQaqv7jST88A4cHUj+i9V1fEHaOo/M7MhZQQ7wWH6v9ErjLsEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266958;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Jhw6qeNQo9llRqUs7kr3ZQLpkz6zlG1jOAOvfJ8myBg=;
-	b=inP6l0EjI1cBC7Fwvj8yqEsz9ZUVu/CCcqPcHrPlcoJ+AlPEFG/ZWk1xglmxrx/42GmF
-	 Iy8QVQQvxRsBvmRX98TsnJIKnAdaJ2/AVRIeDJruPfVo2+1e8h13NoQax/PqrGS8L+Eic
-	 v0T/J47qL1gLi8ALZMdXGhw46sX4DjpKbFQm2VuI3UN/zY/4hMb6v4nxjQOyrxRRK3RMu
-	 o57JQtWIRTfswLQU+XxveuQQ64ELXfQ/LAtmMtKISuQGS67laIYF3qh22x3Y1nAumWJC0
-	 LUGBTKp6+bk4wubg0hEvxymwngeJW2bSTU3tUX13xGMcBJhbwdiuhj6wsmp1bq+gxNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266981;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=UP6gHQkhKRJUMAuDqFnPe45vLrw8ei1MhRg8EtXJDb8=;
+	b=oFvn17MoUNdkKKsfkoiJjj9j3OG5uEsLurk0scrRTTe+mi6j9Isly0D6c/YMxXZerMyH
+	 p/FVVKSOSFPgLLNIAAX86G81/PEiqGm9xDADg2mX28+8C+tdzx3HdBJKGFqu9SJzM7xSb
+	 lY5bjxUBGHMTO2lXAZfDePv7Z4QFfqXnBfwO1UPSw/2ct3rJ8Xij2Dm1KsZyeN7HSunGq
+	 GyfB4431/Iu0Liy7Gp9IelFRjcDxXPbwHmYEXExLhO8sfzx9+WGjLzQ/ONmPC+7TZzqhs
+	 v9QaUK23VECU39bQKiQzgH+buePLXz/IJh812aXqu9hsOppjnAsT25hWeAnXN1r3GAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ecK4ptG6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=enYnEgW9;
+	arc=none smtp.remote-ip=95.215.58.208
+Received: from mta1.migadu.com (out-208.mta1.migadu.com [95.215.58.208])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14FA1606A31A;
-	Thu, 29 Oct 2026 09:42:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D393606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:42:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D393606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ecK4ptG6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3E71F01825;
-	Thu, 29 Oct 2026 09:42:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793266957;
-	bh=Jhw6qeNQo9llRqUs7kr3ZQLpkz6zlG1jOAOvfJ8myBg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ecK4ptG6cU1iihlyIk0k3HU/ttbCUkob64T7zZ1vmbFepugqvHugPZha3anx6GRfV
-	 CwC6q4RykI8IFAxezm6KOvxJq9hE3wC6X/xLAhb+JSP6qbJK34iypsE+dk+0+93IkC
-	 QEeQxen7J5+aqorvXCmMHJKpGXljPFtfkiLf3yzo=
-Date: Thu, 29 Oct 2026 10:42:35 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: IgorpetinDev <igorpetindev@gmail.com>
-Cc: Michal Pecio <michal.pecio@gmail.com>,
-	Alan Stern <stern@rowland.harvard.edu>, Tejun Heo <tj@kernel.org>,
-	Oliver Neukum <oneukum@suse.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	syzbot+a5b220cacb0618384d5a@syzkaller.appspotmail.com
-Subject: Re: [PATCH v3] usb: core: hcd: flush giveback work on stop
-Message-ID: <2026102924-flashily-myspace-60a8@gregkh>
-References: <20261023174015.54793-1-igorpetindev@gmail.com>
- <20261024155614.2732-1-igorpetindev@gmail.com>
- <20261025000643.425c57ca.michal.pecio@gmail.com>
- <CAG21Q83f_Oj5+-OPjFdxzmLWnFkjfYhY9ordyO0zoGtxkWEW3w@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=enYnEgW9
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=iS3D+aJiyxzfc6b48kGp2uoaVhzDYrJGX0S/tMkSCok=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793266977; v=1; x=1793871777;
+ b=enYnEgW92EmhxTm+hGdhj/hwFz7ZdeQWB3O8UUhPgAq/EuwAR4LDMQTd2yfNENk8iGM+L7O2
+ q+DD8yx42bk0Lc8zamCJeYqQiJ0fe8ADVQ6FyYgmuLW+0/tSlS61Sgn/yeZ1xiLzQZPTHVEILSA
+ MTWAH/CFZtdesbifkBnWP2U0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cbe5db6c4e60f0d6;
+	Thu, 29 Oct 2026 09:42:57 +0000
+X-Mizu-Trace-ID: cbe5db6c4e60f0d6
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <661486ab-4879-47cd-8035-ae0d7a7d7462@linux.dev>
+Date: Thu, 29 Oct 2026 17:42:52 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,23 +58,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAG21Q83f_Oj5+-OPjFdxzmLWnFkjfYhY9ordyO0zoGtxkWEW3w@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next] cgroup/cpuset: Fix incorrect CPU accounting with
+ parent's effective_xcpus expansion
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20261028152608.648427-1-longman@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261028152608.648427-1-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 25, 2026 at 10:54:57AM +0300, IgorpetinDev wrote:
-> Hi Michal,
+
+
+在 2026/10/28 23:26, Waiman Long 写道:
+> Commit ec0254b9eb49 ("cgroup/cpuset: Release invalid isolated CPUs with
+> a shrunk root partition parent") fixes incorrect isolated_cpus accounting
+> when contraction of a parent's effective_xcpus can cause a child partition
+> to lose isolated CPUs. Expansion of parent's effective_cpus can also allow
+> a child partition to gain more effective_xcpus. However, the current code
+> doesn't handle this case correctly leading to incorrect effective_cpus
+> and isolated_cpus accounting. Fix that by looking for this possible
+> expansion of effective_xcpus and perform the proper accounting action.
 > 
-> > No such domain?
-> > Looks like you trusted an LLM ;)
+> New test cases are added to test this effective_xcpus expansion scenarios.
 > 
-> good catch, that was just a clumsy typo on my part: I accidentally typed
-> appspotmail.com instead of appspot.com in the closes tag, anyway - the syzbot ID
-> itself is valid. If Greg or Alan prefer a v4 to fix the URL typo, I'll
-> gladly resend it, or it can be fixed up when applying.
+> Reported-by: Guopeng Zhang <guopeng.zhang@linux.dev>
+> Link: https://lore.kernel.org/lkml/20261027123837.100909-1-guopeng.zhang@linux.dev
+> Signed-off-by: Waiman Long <longman@redhat.com>
 
-Please fix up and send a new version.
+I have tested this patch. In the scenarios I tested, the double grant
+and the isolated_cpus accounting after the expansion are now correct.
 
-thanks,
+> ---
+>  kernel/cgroup/cpuset.c                            | 12 ++++++++++++
+>  tools/testing/selftests/cgroup/test_cpuset_prs.sh | 15 +++++++++++++++
+>  2 files changed, 27 insertions(+)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 3219f927c35e..39c81a0a8ab9 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -2097,6 +2097,7 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  							     parent->effective_xcpus);
+>  			if (!cpumask_empty(tmp->addmask))
+>  				isolated_cpus_release(cs, tmp->addmask);
+> +			/* Expansion of parent's effective_xcpus is handled below */
+>  		}
+>  		if (nocpu) {
+>  			part_error = PERR_NOCPUS;
+> @@ -2106,11 +2107,22 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>  						     parent->effective_xcpus);
+>  		} else if ((parent_prs == PRS_ISOLATED) &&
+>  			   ((old_prs == PRS_ROOT) || (old_prs == -PRS_ROOT))) {
+> +			/* Parent partition state changed to PRS_ISOLATED */
+>  			part_error = PERR_ISOPARENT;
+>  			if (old_prs == PRS_ROOT) {
+>  				cpumask_copy(tmp->addmask, cs->effective_xcpus);
+>  				adding = true;
+>  			}
+> +		} else if (is_partition_valid(cs) &&
+> +			   !cpumask_equal(tmp->delmask, cs->effective_xcpus)) {
 
-greg k-h
+The branch is also entered when the freshly computed effective xcpus
+shrink, e.g. after a parent contraction. The cpumask_andnot() then
+computes an empty delta and it doesn't seem to cause any harm. Do we
+need to tighten the condition?
+
+> +			/*
+> +			 * If there is an expansion of parent's effective_xcpus,
+> +			 * we may take more xcpus from parent. The parent's
+> +			 * effective_cpus should still have active CPUs or nocpu
+> +			 * should have been set.
+> +			 */
+> +			deleting = cpumask_andnot(tmp->delmask, tmp->delmask,
+> +						  cs->effective_xcpus);
+>  		} else if (is_partition_invalid(cs)) {
+>  			struct cgroup_subsys_state *css;
+>  			struct cpuset *child;
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index 83ef6c781af3..844efdf029cd 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -531,6 +531,21 @@ TEST_MATRIX=(
+>  	" C1-4:P1 C3-4:P2   .      .    T:C4-6   .      .      .     0 A1:5-6|A2:4 A1:P1|A2:P2 4"
+>  	" C1-4:P1 C1-2:P2   .      .    T:C4-6   .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
+>  
+> +	# The extra CPUs gained by a child partition when its parent expands the
+> +	# exclusive CPUs have to be taken away from the parent.
+> +	" C2-6:X2-5:P1 CX3-6:P1 \
+> +	                    .      .    X2-6     .      .      .     0 A1:2|A2:3-6|XA2:3-6 A1:P1|A2:P1 ."
+> +	" C2-6:X2-5:P1 CX3-6:P2 \
+> +	                    .      .    X2-6     .      .      .     0 A1:2|A2:3-6|XA2:3-6 A1:P1|A2:P2 3-6"
+> +
+> +	# Both expansion and contraction of parent's effective_xcpus will be
+> +	# correctly handled in child partition and the child can be invalidated
+> +	# if a populated parent could lose all its effective_cpus.
+> +	" C2-6:X2-5:P1 CX3,5-6:P2 \
+> +	                    .      .    X4-6     .      .      .     0 A1:4|A2:5-6|XA2:5-6 A1:P1|A2:P2 5-6"
+> +	" C2-6:X2-5:P1 CX3-6:P2 \
+> +	                    .      .   T:X4-6    .      .      .     0 A1:4-6|A2:4-6 A1:P1|A2:P-2 ."
+> +
+>  	#
+>  	#  old-A1 old-A2 old-A3 old-B1 new-A1 new-A2 new-A3 new-B1 fail ECPUs Pstate ISOLCPUS
+>  	#  ------ ------ ------ ------ ------ ------ ------ ------ ---- ----- ------ --------
+
+BTW, about the housekeeping check issue from my previous email.
+I verified it with the session below on a nohz_full=8-31 boot where
+CPUs 0-7 are the housekeeping CPUs:
+
+  # cat /sys/devices/system/cpu/nohz_full
+  8-31
+  # cd /sys/fs/cgroup
+  # echo +cpuset > cgroup.subtree_control
+  # mkdir -p A/B
+  # echo 0-7 > A/cpuset.cpus
+  # echo 1-7 > A/cpuset.cpus.exclusive
+  # echo root > A/cpuset.cpus.partition
+  # echo +cpuset > A/cgroup.subtree_control
+  # echo 0-7 > A/B/cpuset.cpus
+  # echo 0-7 > A/B/cpuset.cpus.exclusive
+  # echo isolated > A/B/cpuset.cpus.partition
+  # cat /sys/fs/cgroup/cpuset.cpus.isolated
+  1-7
+  # cat A/B/cpuset.cpus.exclusive.effective
+  1-7
+  # echo 0-7 > A/cpuset.cpus.exclusive
+  # cat A/B/cpuset.cpus.partition
+  isolated
+  # cat /sys/fs/cgroup/cpuset.cpus.isolated
+  0-7
+
+B stays a valid isolated partition holding all the housekeeping CPUs
+and there is no warning at all.
+
+If the housekeeping issue is going to be addressed in this series, is
+a test case like the one below worth adding?
+
++	# An isolated child partition cannot grow to take over the last
++	# housekeeping CPU when its parent expands the exclusive CPUs.
++	" C0-7:X1-7:P1 C0-7:X0-7:P2 .      .      X0-7     .      .      .     0 A1:0-7 A1:P1|A2:P-2 ."
+
+Thanks,
+Guopeng
