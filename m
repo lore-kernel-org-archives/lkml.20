@@ -1,66 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793239387;
-	b=iHB9RPOqVQxRqtJ5KIM3VsdXzPwvEstAcxvV3KRbo6tdFiLPfpkFJz9EgPxxSOJpufJj
-	 wcHf7BgxhwseGlqc6diKDwLmW5o4eiZxUaq+mDa9b3vDNNH7EfclIto4NmbLUtm8izsYz
-	 gaEJDkzHx/LbdMPvKNl2D1L+cV2Gue1EeyyA3sqlNLzyPx1z2M44hN+sefyjBKsnjpHUD
-	 e3NCR4NWb1KYSMGV+gQ3To35J6k56mG8T2ZP3fAg0andxIw24IqcAPq4oP8w0R2w4pxPd
-	 kqSpDywov+fyUcogVnEUHZ91v3Imiy3BB9/UxdkLd3bVzqqM1blRrmbcGN1vi5O6R/A==
+	t=1793239394;
+	b=T/+Ov8qOll8epBLtzJO+z668akYyl/tzlV6/M9loQ6wWkLgSAoSPlLi0mTmtwDtuvXDp
+	 Oqj5WttbLZOSTPuwGAM5PqVPMq2NP2sFtHNr6qy7kiVQa+cMvnLf0oEPpgmRRN8RC7fZy
+	 wkNSp5QBscGBH1pZKSJNOIMCWb+mhsu8aKrIKEZEWMPWNcP6PY/QDu6u7asxrMuhCNL6S
+	 PggPbldyCCrodxlq4ih+CVFayZ2k64cbaGmjRkI5gUdYhyjJ+MFH3JQElWRKsIfhSwyJc
+	 Yz+HncQOlZXuKNV9+MXrVRIaMTYZyjznmy8/DRy0gEdoFG7uwzN8T51TGZ4p4h9MSKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793239387;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793239394;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=82EWEmTBFTHlp3Xbk9DdfBWQDqYO1PeqHpfQuSaH6o8=;
-	b=Q5yMS6XwOdl1bHzg9TkNR3cbyPDenwPyTZJ5CfjdE94HXyB1UsJf29XI8D/jsX1zIQfl
-	 xCydqEevisakWn8/8tyUicIBXzV+eMpWlYBbPJfoabWLdf2Up2WMJonOmS26e7A5suh9m
-	 iIcn9wQXv90v5XhSy+N4/sYkC976iYZ+UFfUPo0ly0wihHUjngWflVnMbIcf70e/JJXir
-	 G3/75usJkK92X0fIOwm57+S77OPL8QBy+vipXC/eol90x8B9ak5vkr+ZMTzm3kGULfvKw
-	 KlH5FyusCvsWkkg6/g3V2OdycuPScpirVMKZ9BFmfbRaSbDBb2jDA3RvKMHnA8oGYmA==
+	bh=fQa0eja15vhLF1dR81uMAkBZdgojQ41rPu6DLnChidU=;
+	b=So8DNZNl0mgY9OalDHNYM0t78RWhxvkBDGHsev50Sa0XUd2bGeaRcP8Il84MXTl9I1CJ
+	 /ajF8ZdAzU6EnPWRHrboX0X8zvyow3o5gpM0e19sfMKTzQCzATPdXFCktLiypcgULHxdU
+	 OR89EAXL+0b7zqM1DXrOBAucREnDSDyy78kHWRHcoZj87p8DKLLTcX1vkKHgTowVOjVoz
+	 TldUwkR8xGYVKQBtNYHOCbhBP2MIzP272PgukpXv3FTPiYu/XPV28k8+eg0RORjXQAQSJ
+	 T3C92qGxZrFBWXMc9ZDsxk0w/9L4ttWw+KIJf7tZtdD4LqwHGYNwOZfohYQWV4cl16Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCXGBdls;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZqScKzq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B6E606A31C;
-	Thu, 29 Oct 2026 02:03:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CB7760A2601;
+	Thu, 29 Oct 2026 02:03:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCXGBdls
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5937F1F01829;
-	Thu, 29 Oct 2026 02:03:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZqScKzq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71DFC1F01828;
+	Thu, 29 Oct 2026 02:03:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793239386;
-	bh=82EWEmTBFTHlp3Xbk9DdfBWQDqYO1PeqHpfQuSaH6o8=;
+	s=k20260515; t=1793239394;
+	bh=fQa0eja15vhLF1dR81uMAkBZdgojQ41rPu6DLnChidU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DCXGBdls4rNx+a5PDTFNAov6fZxMx8gV51xcRKLX9ieFKyMYjnNT/p5N973wDwERG
-	 wYTe8o4yQynY7q6ihffPul38/8wj3TuDPWHCTmP9kmHnok7yjaO/stXmzPNTSn3JVG
-	 6fKCfZBXMgj585GRyek361zkvugL6eHkW0arf5qYr2NuZPptsvrCi58a5rcrFVRyJK
-	 Lw/6HFqXxyxRDDXt3zI8kYIjkHcEEceO/tAWtY7wvTvy4FqmyEB+YWQI+VdYrDgszf
-	 Mu8cThzts2uR7cwbE8FFhQ9lRg0tUsepaswmp0i4gJMYa3Bmx+0EZDNbBOjPA6aho1
-	 8L/svisLTTUIQ==
+	b=hZqScKzqWByNxigq0hWDfqnnxX0RxqcjRIy7jYL5PGdNXJdyS2GGAsNB0L0/jxblz
+	 z5zYF5p7wvVOOBaJRlQkf5quVF0m/tTBpNJzGzoiUAMZ1EKm/bWiPl5VmIniNCzOi4
+	 dZLlRSTjIQfSCeCIr4D2eo+Y/AfxuREPZjzAceTNn38FMjexOFE5DKtRVh5kbnSxQh
+	 RsWaQHkH9TjmjfNhmphc2GUw4GXhqLT8ez92+/q14A10Q4suAUW1VkXtkXBxkIgGfq
+	 sSLKMkP2aHQed/TQLG1HAFXkPTVBcUeJPO+f5ICLnjc3aYCcL3HcuN4rjmNziyyr8Y
+	 SqgEMlHM/7uXw==
 From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: James.Bottomley@HansenPartnership.com,
-	Joonhoe Kim <26rote@gmail.com>
+To: sebaddel@cisco.com,
+	Karan Tilak Kumar <kartilak@cisco.com>
 Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	alim.akhtar@samsung.com,
-	bvanassche@acm.org,
-	beanhuo@micron.com,
-	stanleyjhu@google.com,
-	peter.wang@mediatek.com,
-	can.guo@oss.qualcomm.com,
-	mani@kernel.org,
+	arulponn@cisco.com,
+	djhawar@cisco.com,
+	gcboffa@cisco.com,
+	mkai2@cisco.com,
+	satishkh@cisco.com,
+	aeasi@cisco.com,
+	jejb@linux.ibm.com,
 	linux-scsi@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: ufs: core: Fix a deadlock between clock scaling and device commands
-Date: Wed, 28 Oct 2026 22:02:44 -0400
-Message-ID: <179323465378.491807.15412315305334194970.b4-ty@b4>
+	jmeneghi@redhat.com,
+	revers@redhat.com,
+	adakopou@redhat.com,
+	lduncan@suse.com
+Subject: Re: [PATCH] scsi: fnic: Update module authors
+Date: Wed, 28 Oct 2026 22:02:50 -0400
+Message-ID: <179323465397.491807.6385663707673208726.b4-ty@b4>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261016124608.46-1-26rote@gmail.com>
-References: <20261016124608.46-1-26rote@gmail.com>
+In-Reply-To: <20261020210043.5279-1-kartilak@cisco.com>
+References: <20261020210043.5279-1-kartilak@cisco.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,27 +75,15 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Fri, 16 Oct 2026 21:46:08 +0900, Joonhoe Kim wrote:
+On Tue, 20 Oct 2026 14:00:43 -0700, Karan Tilak Kumar wrote:
 
-> Since commit 08b12cda6c44 ("scsi: ufs: core: Switch to
-> scsi_get_internal_cmd()"), device management commands go through
-> blk_execute_rq() on the pseudo SCSI device, which shares the tagset
-> with the logical units, while ufshcd_dev_man_lock() holds
-> clk_scaling_lock for reading.
-> 
-> ufshcd_clock_scaling_prepare() and ufshcd_pause_command_processing()
-> quiesce the tagset before taking clk_scaling_lock for writing. A device
-> management command holding the lock for reading at that point is never
-> dispatched and never times out, so the writer waits forever with all
-> logical units quiesced. On a Lenovo Legion Tab Y700 Gen 5 this ended in
-> a hung task panic.
-> 
-> [...]
+> Update the FNIC module author list and bump the driver version
+> to 1.9.0.2.
 
 Applied to 7.4/scsi-queue, thanks!
 
-[1/1] scsi: ufs: core: Fix a deadlock between clock scaling and device commands
-      https://git.kernel.org/mkp/scsi/c/2327df6d2a29
+[1/1] scsi: fnic: Update module authors
+      https://git.kernel.org/mkp/scsi/c/c2c645243dba
 
 -- 
 Martin K. Petersen
