@@ -1,54 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793295670;
-	b=sdcawdrlAfOs+4KIkl9YRNy3BOC/Tdmmq/hFJtEI1y/xMzHi5HHmTKh1kfiRzPNHdeow
-	 qhKyio3E/Fc3o3SiU3d0jCPiTVY0W7LhWiwe2a0Igv0qmbh58k838UsngLboPg5uKh2+5
-	 L6tl4/xG4GkyPH1C0fVa/4hPOE8PWAtek/Rep2L1zt+JU6tFcxBP0njgfeAeRXFg+qc30
-	 8oDKmBiol5jk2dR9eSXDWe7R0PLHUwHCAKhmt4VTn472WVqWAbwFOMkOV5wtIPYeAuaZW
-	 mY5XNdZwETtqxXf9uXuWludRHVuiSwygU1AdvW/vcS1fKtx9n786MJKaMyh8wOEe+QQ==
+	t=1793295681;
+	b=E9TEe86DZ5Man7xtn43JBfonznuu20yIeXodeW+U5B8eaoSEcSpbWRkonKK4Y8r2w9aC
+	 Kk8eLqEqBzIQ1fbmHvt4dYoe1BggBqhmK0xzcBpfrXBBWOxKC2QGgDr6A+VjvOK0PuZZ/
+	 lGxqlLKJ+Faq2iiYQ+klvhMhpCrArOTizdfEU3wweNXAB8ThpJgzmmPtAKr8sT70XBkSl
+	 ut89J19y+AbTr13JrjvAK9UyWHPtOeOEzb86re5VZ1Vg7hYhINlTeoKsIdpksZDDAUDbP
+	 JYqhiV3uauVZrfZhlKGHKIIgSyxIW5K8SyBXHZezZp/EYVXSQqyzMOCCIB5Sbf5rBpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793295670;
-	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=w4MDwkoXI1zATkJgHvVo1zXWArUgOESYKVJ2mYTk7qI=;
-	b=jb1dnRmB1N4VRfcoxu3lNoDCWp30brYocLlHqJEwBUV1DFmAv9antlmw3ZcrnEXCTDJK
-	 /xmrVUbXGPlK1lJ9SmbmcxwiCDCr2Rmy9A1kyopZpqUaZXAX6K3cqTOdfQrDxaCAW5ETr
-	 G14By94f2HKyI5aIKxzOecL3lqOKL/fZy7b4Tqb+cVUa6kzcSLebwhfOE31XJ+9AeOpMt
-	 i0tDRnqsh/C77NAxsQl9eqt9THJhHXu/QgNHpAf3ywwV3Q671nwo8jbH7xS8NF4B+rRJw
-	 iLvngJNUsZ7Dv7aLIZ3RtteVWf0clNE4DRtmfN1XtXpQCXVzAs4pxWwdkkNtIXQED4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793295681;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=JJWiOAmxy65xzOnIzkKiZHs547R//LqHsI7/Rc5J/Mc=;
+	b=FHE1CeWR7wR5mdmCAAW8+Qn9uzqnBVz/PBzZSKo12XgS33DNvlfEpLVdAcAu/Afh7cWT
+	 sW20sej8e//fZwdnmu0LtEI9KIFwyboguTXSsjeeYKl1xKo8JGIHwGoHe+5eN7JqjgkCG
+	 aI689vA8EV03iQklOEuvQWXrgGfbo0Tw5oVtmv2n8Y5Dt0WClYQMh8MOszyHyQKYjzez2
+	 xE/wW9y5HnlPqLTOW37lhVM7ekHcIy7zAYmCaSCm0pS/UB64vc2bqklg1tNLATP2xsfm8
+	 uDBpoKC7x3SgrsqrcRRKhMEeROP6FsS02wsOGHCGOFkA7RqK6zDlAJnPGoP9giqRCXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A4KQ/1qL";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD78606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:41:09 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OpX1LeaD;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 11813606A31C;
+	Thu, 29 Oct 2026 17:41:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11813606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A4KQ/1qL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA7701F01816
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793295669;
-	bh=w4MDwkoXI1zATkJgHvVo1zXWArUgOESYKVJ2mYTk7qI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=A4KQ/1qL7mHlTs+aFc0e345VDHgTW/F2b8hoyvsBnB9B0xv8Wdjyt0sDuDGxxfmrQ
-	 iHz/N6MwvneetlwuyEmsaU7gBxiV+xr4iJWavIv0QLZ8Ux+adpp7YQu5NNjcoXOt+H
-	 ePND6EnvGAc3bgYj8GXWGK95G8rpiEp7M+Kcv/Z6zRC2xsRd5M/Sy4ijTwMEcsBeZZ
-	 J9TqASsM8NQNxIMdqrJLJoKDa64AagErSpnBITiUuVxMYLWzAYqAmXptg7zxsS9u6r
-	 Sr6phKZRLYRtwvJKmn/dX6Eo1LEg1MODNP9jbVFPK7a9TkrIeNzA1JDd9X1WwpSx2v
-	 oJeZQXy6aD7cA==
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93f2f2edb19so217547685a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:41:09 -0700 (PDT)
-X-Gm-Message-State: AFq9FYK3NtxSodciZUqDfhKcxGNVhIehj4bv7kfGwNYM0Sz24Ng9m8MO
-	mgi28RsTmzaiyjfEp2EB6M4yN2YOyjfXV1F54TWNEGExJh3elCAVOZEmdbXBEMPIz6Kvg3LJI3j
-	1jeF+dGLNWMewycTEMN7W7jClwxCsNis=
-X-Received: by 2002:a05:620a:1729:b0:93c:2726:77ec with SMTP id
- af79cd13be357-94408930698mr938682285a.5.1793295669104; Thu, 29 Oct 2026
- 10:41:09 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OpX1LeaD
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C3421682;
+	Thu, 29 Oct 2026 10:41:17 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B39BF3F59E;
+	Thu, 29 Oct 2026 10:41:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793295680; bh=GrLXrVxy0qLGUj63FcOKiSL+aGileL5U0QJtN0lpGjY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OpX1LeaDGd5qmg1b/GecPwfvsij4QQBlMterRUW7DW2dgl6Rc3ZH4ZPupZSb9LimB
+	 3izdwbPMZjn16r9O0DOrXshgNp7fhFXT091I41e35b4ioOmF0SjQl5Q7dRIuhpehd8
+	 ewYB2RmQbvzBn6Z9P+0r0bTgS/dGGz7C0mYN9e/Y=
+Date: Thu, 29 Oct 2026 17:41:17 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Mike Leach <mike.leach@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
+Subject: Re: [PATCH v2 09/14] perf cs-etm: Classify exception calls using the
+ exception packet
+Message-ID: <20261029174117.GC9176@e132581.arm.com>
+References: <20260923-perf_cs_etm_fix_non_taken-v2-0-6ab8c07a5455@arm.com>
+ <20260923-perf_cs_etm_fix_non_taken-v2-9-6ab8c07a5455@arm.com>
+ <7bed4275-0b97-46d7-b250-5039aa95eccf@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,52 +70,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023011049.1164625-1-song@kernel.org> <20261023011049.1164625-8-song@kernel.org>
- <20261023093256.20d3e300@gandalf.local.home> <CAPhsuW78w86tV3gwRWQMOdWUK7Rcc8dSsp==XypKdB5BMP6QiQ@mail.gmail.com>
- <20261028210844.105c431f@fedora>
-In-Reply-To: <20261028210844.105c431f@fedora>
-From: Song Liu <song@kernel.org>
-Date: Thu, 29 Oct 2026 10:40:57 -0700
-X-Gmail-Original-Message-ID: <CAPhsuW54Tco1Y_khWHeomq_ZTxvDoHFuX77w9cqojuXCrhGKWg@mail.gmail.com>
-X-Gm-Features: AclHuK9fjwvJ3Xp1aqzF-DTK4K8-TXgRFJbKPS9ckUc2Nj-YxqUVgClutpWoo-0
-Message-ID: <CAPhsuW54Tco1Y_khWHeomq_ZTxvDoHFuX77w9cqojuXCrhGKWg@mail.gmail.com>
-Subject: Re: [PATCH v2 07/16] tracepoint: Mark __do_trace_##name() notrace
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	live-patching@vger.kernel.org, mhiramat@kernel.org, mark.rutland@arm.com, 
-	kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7bed4275-0b97-46d7-b250-5039aa95eccf@linaro.org>
 
-Hi Steven,
+On Tue, Sep 29, 2026 at 03:08:42PM +0100, James Clark wrote:
 
-On Wed, Oct 28, 2026 at 6:08=E2=80=AFPM Steven Rostedt <rostedt@goodmis.org=
-> wrote:
->
-> On Wed, 28 Oct 2026 15:20:37 -0700
-> Song Liu <song@kernel.org> wrote:
->
-> > Do you plan to apply this set to the trace tree (after the merge window=
-,
-> > I guess)? If not, how should we proceed?
->
-> I can take it if we get all the necessary acks, or it can go through
-> the BPF tree. Either way is fine with me.
+[...]
 
-> If you prefer me to take it (as I do have a lot of ftrace specific
-> tests), I'll do it. But I'd like acks from maintainers of all the code
-> this touches.
+> > @@ -174,6 +174,7 @@ struct cs_etm_packet {
+> >   	enum cs_etm_sample_type sample_type;
+> >   	enum cs_etm_isa isa;
+> >   	u64 start_addr;
+> > +	/* For exceptions: preferred return address, or CS_ETM_INVAL_ADDR. */
+> >   	u64 end_addr;
+> 
+> Minor nit, but you could use a union. I don't know how clear re-using
+> "end_addr" id for exception packets is when reading the code.
+> 
+>        union {
+>            u64 end_addr; // Range packets
+>            u64 pref_ret_addr; // Exception packets
 
-I think this should go through the ftrace tree. It has very little to do wi=
-th
-BPF. We discovered the need for this change when building live patches.
-
-Regarding ACKs, it is a bit tricky. For the code we touched in this set,
-there is actually no behavior change at all. OTOH, the real change
-happens to "inline"s that we didn't touch in this set. If such a function
-was left out-of-line by the compiler, it was not traceable before, but is
-traceable after this set. How should we approach this? Maybe we can
-just ask ACKs from the maintainers of all the code touched here.
-
-Thanks,
-Song
+Will do.
