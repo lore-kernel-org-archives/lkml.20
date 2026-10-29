@@ -1,63 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793274849;
-	b=M8ttUT/LjkkqwJdznJY/h1SZg4xY7FkWEHTp5FMKbYfH+yoXwiQ77z2oPVNUpd3uJsQT
-	 OVSLKm7VUzw0tzaGHY4+KQyYDkGeg8UHQTqZ0KlfhC+b0pfDZx+COkecyAUEMKCz18rH5
-	 tUwhf0wkAd66vOzyUJfd3Pr/QV1DozH6AR2yX7vvvzgyCcn0wk0INEXEOcInp8AQScHJs
-	 f8nQLsW6VzlnumFVBXD2Tv504R4HUDVvoVkT92CjDw5NQdhPjlFadbiUI2AJWRjzk51Ty
-	 8mcRO4bhWBfMVDxzMx3hqISCLhjvyRLs+BBLq+I9OcyLLejG43K3qCK/2YbHpeCFuqA==
+	t=1793274864;
+	b=Mq3xEiqpNChAJvHdn9V54wAM69880shKDpPADelTi/z4x728Pwwif/bphZH5mM6/vS6Z
+	 KdoJx++3M7nGn9kndROISpa2zLXmf68pDB4XjTwjJsUwpzBZp3qVLavLJJ+WlEoiCrz7u
+	 0SwKAU4+ez7rXWtfd2LCBFZh/Yq8lpJQKldWlgQR3MyEKpmREm0N5un0f5stlhwJEzvCA
+	 RDhYqyBbm0MSBSy+MxArzSSWSZthI0vi8MnWUfJOrWP7uL5w+9++SlwYUtp+VxkSW/A0G
+	 SIBX8YMRGwu5AaYvPK6L+I0yjsegxH2XFH5bzbKubM16QM3IcKjrO1C/T37QbrDAPgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274849;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=eJDyqgU9FOsXJcH6m0AcGWyo+0VHAJgC1XncPyxjCcw=;
-	b=CjO1PfbFKspa5Kt3Ne+Dkp4OPYg8UGILdMrFkLEC3GQ/WWEVLr9RQ8hfDgCBrNy7ZZrJ
-	 Ogo5/gIK+C5dK3sbTYpk7zMj4uoWrl0HvkIqd+OK0+Zooqjo9zP+hcWKZPbtota5i3e+1
-	 Q6GfyUlEP10QyH/JsVMOauspedVMeCl9WT3JUeDeK+NCiiJfRxULLSVclUM6f30eNj5FV
-	 BGUWQd7BdER/7VlFirk2yt8v1j/t+BEFgUhvIj7dtyQkbFPXLPQVukJx699JIFnJkNzUP
-	 C6dwpyRn12KA7qAM/jWsWt1fFF1aMbsYChY9Z54l9jQvbM1TlZOu1KWIKupdrNt/dlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274864;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	bh=YBi8xDJGx/6F9wWTOGSs2iQ/3D1cw/PX4gpZHk4mGeQ=;
+	b=pQHkC8kX+hyGZOsGjTgnLRg0hwsL4aaXrS2XzbGT5CJ9ylsgRb/b33lWitYN9KSPwbKx
+	 0mXNQTHaF4hMfJ8BGMu9Wh8+3Su0sfMHMRKvMruqF6pblBqL8mnBsFRW2663kkDXxYUL5
+	 az3XdIouaUAIrJDxQEhjgGg9amYa93xvytq+KXKyQBEb7YVOfaxTgvCM61F0wBZ5prfvz
+	 Oi0KlggtE6roYunJUknxovesh6d/osR5CGXr5xAX1m2dLm0lvv8bIy4hS6xuFEmPOIkTk
+	 Kz6nuxofhCDYH6iF+ipMOWFBxWXVm9KfbXLPIC1ZimIv9EcyQiq7NDCUPS+Rrpq6pLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=AN8EVe5N;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b="uIEu7m/w";
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SxzGwxCT;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65869606A31C;
-	Thu, 29 Oct 2026 11:54:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65869606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12812606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:54:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12812606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=AN8EVe5N;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=uIEu7m/w
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793274845; bh=eJDyqgU9FOsXJcH6m0AcGWy
-	o+0VHAJgC1XncPyxjCcw=; b=AN8EVe5NPQN7vQpsrS5yN7cxtD1l5eBZ8a3+PGsfyP0KqYQFLo
-	g991kAC9h5B2gRgZ8LvLGVxq5GZhJMcpi8peAg/1kBdq8sRJTGCJ+urC/2DpZXyr63jhDUwZRul
-	zfW1j3YjpAYHh2UvXbgn9wM5ZbHWyJbZPsVx6M25Fd89RC6cXS7QCa8hG6dUH54u9FiFSY+EokQ
-	IQYRTjgyZCIQ4jS9dqMAVdLn9cinBDd3DZDhtomqoCJWyiuZ7tENPpJDC3sLCmtGXqrSlEMJJHa
-	6lLavuZrjdTV40OUQKIkW8n4HrAqL4TuhFyYjFEEqbqLYKdqzWUZyff3S9YtB2uBKwA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793274845; bh=eJDyqgU9FOsXJcH6m0AcGWy
-	o+0VHAJgC1XncPyxjCcw=; b=uIEu7m/wZjWxEVNzMmW1Qv4BU2EnwCRWe1Y21b/cONryQZXwvV
-	KRz7W9qiGb6mbrDmdKLPiSkrdOEQfV22TRCw==;
-Date: Thu, 29 Oct 2026 11:54:05 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: Zhiyu Zhang <zhiyuzhang999@gmail.com>, Jarkko Sakkinen <jarkko@kernel.org>,
- Christian Brauner <brauner@kernel.org>
-CC: David Howells <dhowells@redhat.com>, Cen Zhang <cenzhang@linux.microsoft.com>,
- Davidlohr Bueso <dave@stgolabs.net>, linux-kernel@vger.kernel.org,
- keyrings@vger.kernel.org, Tong Liu <lyutoon@gmail.com>,
- Qi Tang <tpluszz77@gmail.com>
-Subject: Re: [PATCH] watch_queue: keep info_id separate from rcu_head
-In-Reply-To: <20261029054136.1174216-1-zhiyuzhang999@gmail.com>
-References: <20261029054136.1174216-1-zhiyuzhang999@gmail.com>
-Message-ID: <ED50AF35-3C50-4298-BC99-6DC06A7E14E0@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SxzGwxCT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793274862; x=1824810862;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=JWrFGNTUYl9evw/cUDq4OqTIxZXe9cF0vyFHTZm8iS8=;
+  b=SxzGwxCTU84+5kcDIPqej9/kQkXmcPIvfJnap2hnITMUM6RRVlB60rGF
+   x/HgVyMK5v4+QljOZFEgaX7ecmP3ScQ+/DKZZjN98X0pKDLH7gPIHWK5V
+   JEnbZsVjLxg77lCBH0HkkMnNTYDI9aOSr0zmPz3o86d+7Ge7OtSR1fy5y
+   ht+vaV031GQzm/yprwDpL5nSR9R9FiP6+r11Y+jWCdRSHnPTbJZ3Y13uq
+   FCDPl2l8vr/c/GJiQtWBQ9RGldEbMPkOdWxRbIDcBar1HTu0DCscDTFdu
+   KhlNCC7OMpwS/PX1ADBIPoGECvrWkTSGP6xB/hSYwOl4sDlV7sWpr4FR7
+   Q==;
+X-CSE-ConnectionGUID: S5nDR3OOSuWeHu+jFByU/Q==
+X-CSE-MsgGUID: vkfqZihkQvy1x48qdtPRLA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1898024"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1898024"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:54:21 -0700
+X-CSE-ConnectionGUID: +A58QkJcTMik+42R32X5Cw==
+X-CSE-MsgGUID: RDmo4aLCReW6b8SBGQAJbQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5218611"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.145])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:54:12 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Maarten
+ Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Patrik Jakobsson
+ <patrik.r.jakobsson@gmail.com>, Lyude Paul <lyude@redhat.com>, Danilo
+ Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dmytro
+ Malovanyi <dmitrymalovanyy@gmail.com>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
+Subject: Re: [PATCH v2 1/5] drm/dp: Always use enhanced framing for DPCD r1.2+
+In-Reply-To: <20261029101826.72773-2-dmitrymalovanyy@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+ <20261029101826.72773-2-dmitrymalovanyy@gmail.com>
+Date: Thu, 29 Oct 2026 13:54:09 +0200
+Message-ID: <5c241fa804e1e4ea4518854a96097252f7a5317a@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,88 +96,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 29 October 2026 05:41:36 GMT, Zhiyu Zhang <zhiyuzhang999@gmail.com>
-wrote:
->struct watch overlays info_id with rcu_head. A notification poster reads
->info_id under rcu_read_lock(), but a concurrent final put can enqueue the
->watch with call_rcu(). Enqueueing the callback writes rcu_head before the
->grace period has elapsed, so it can corrupt info_id while the object
->remains legally visible to the reader.
+On Thu, 29 Oct 2026, Dmytro Malovanyi <dmitrymalovanyy@gmail.com> wrote:
+> DP 1.2 section 2.2.1.1 says "An upstream device interoperating with a
+> downstream device with DPCD Revision of 1.2 or higher must enable
+> Enhanced Framing Mode". So for r1.2+ the DPCD revision is enough, the
+> DP_ENHANCED_FRAME_CAP bit does not need to be checked.
 >
->__post_watch_notification() then merges that value into the notification
->info word without masking it. Pointer bits can corrupt WATCH_INFO_LENGTH
->and make post_one_notification() copy beyond the posting task's stack
->record.
+> Some sinks get this bit wrong. The Xiaomi Monitor A24i (P24FBA-RAGL)
+> sets it in the base receiver caps, but clears it in the extended
+> receiver caps at 0x2200, which are the ones we use:
 >
->Give info_id storage separate from rcu_head so RCU enqueueing cannot
->modify
->it. Place it after the kref, which uses existing tail padding on x86-64.
->Mask info_id with WATCH_INFO_ID at the point of use as an additional
->invariant check.
+>   base:     12 0a c4 01 01 00 01 80 02 00 06 00 00 00 81
+>   extended: 14 0a 44 00 01 00 01 80 02 02 06 00 00 00 81
 >
->An unprivileged shell and keyctl reproducer was run for 30 seconds in
->QEMU.
->The vulnerable baseline produced malformed notification lengths, while
->this
->change completed with 288631 key notifications and no malformed record.
+> Through a USB4 dock (CalDigit Element 5) the link trains without
+> enhanced framing (0x202-0x204: 77 77 81), but the sink never syncs to
+> the stream (SINK_STATUS 0x205: 00) and shows "No signal". Forcing RBR
+> does not change it. Connected directly to the laptop the same sink
+> syncs without enhanced framing, at RBR, HBR and HBR2.
 >
->Fixes: c73be61cede5 ("pipe: Add general notification queue support")
->Reported-by: Tong Liu <lyutoon@gmail.com>
->Reported-by: Qi Tang <tpluszz77@gmail.com>
+> Make drm_dp_enhanced_frame_cap() return true for DPCD r1.2+. This
+> changes behaviour for every driver using the helper, but only for sinks
+> which already violate the spec by not setting the bit.
+>
+> Tested on i915 (Arrow Lake-U), with the dock the link now uses enhanced
+> framing (0x101: 84) and the sink syncs (0x205: 03).
+>
+> Fixes: a1d926527b79 ("drm/i915: implement EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT")
+> Cc: stable@vger.kernel.org
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17719
+> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
+> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
->Reported-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
->Closes: https://lore.kernel.org/lkml/CALf2hKveij_sHgANY9Aktm1dPa4wfKjKNkHyp9yPbjORWFXagA@mail.gmail.com/
->Link: https://lore.kernel.org/netdev/CALf2hKvp0NPVLwr=a3+jUHtPohxbra8gox+aYAfWathJnn-J+Q@mail.gmail.com/
->Signed-off-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
->---
-> include/linux/watch_queue.h | 6 ++----
-> kernel/watch_queue.c        | 2 +-
-> 2 files changed, 3 insertions(+), 5 deletions(-)
+I've bounced the series to intel-gfx and intel-xe to get CI results,
+though I don't really expect any regressions.
+
+I'd appreciate acks from other driver vendors too.
+
+> ---
+>  include/drm/display/drm_dp_helper.h | 4 ++++
+>  1 file changed, 4 insertions(+)
 >
->diff --git a/include/linux/watch_queue.h b/include/linux/watch_queue.h
->index 429c7b6afead..b87e1babb5f0 100644
->--- a/include/linux/watch_queue.h
->+++ b/include/linux/watch_queue.h
->@@ -52,10 +52,7 @@ struct watch_queue {
->  * Representation of a watch on an object.
->  */
-> struct watch {
->-	union {
->-		struct rcu_head	rcu;
->-		u32		info_id;	/* ID to be OR'd in to info field */
->-	};
->+	struct rcu_head		rcu;
-> 	struct watch_queue __rcu *queue;	/* Queue to post events to */
-> 	struct hlist_node	queue_node;	/* Link in queue->watches */
-> 	struct watch_list __rcu	*watch_list;
->@@ -64,6 +61,7 @@ struct watch {
-> 	void			*private;	/* Private data for the watched object */
-> 	u64			id;		/* Internal identifier */
-> 	struct kref		usage;		/* Object usage count */
->+	u32			info_id;	/* ID to be OR'd in to info field */
-> };
-> 
-> /*
->diff --git a/kernel/watch_queue.c b/kernel/watch_queue.c
->index 932a88ac1f39..453dcf613205 100644
->--- a/kernel/watch_queue.c
->+++ b/kernel/watch_queue.c
->@@ -212,7 +212,7 @@ void __post_watch_notification(struct watch_list *wlist,
-> 		if (watch->id != id)
-> 			continue;
-> 		n->info &= ~WATCH_INFO_ID;
->-		n->info |= watch->info_id;
->+		n->info |= watch->info_id & WATCH_INFO_ID;
-> 
-> 		wqueue = rcu_dereference(watch->queue);
-> 		wf = rcu_dereference(wqueue->filter);
->
+> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> index 5b05a7fbe..4f20f60db 100644
+> --- a/include/drm/display/drm_dp_helper.h
+> +++ b/include/drm/display/drm_dp_helper.h
+> @@ -160,6 +160,10 @@ drm_dp_max_lane_count(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+>  static inline bool
+>  drm_dp_enhanced_frame_cap(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+>  {
+> +	/* DP 1.2 2.2.1.1: enhanced framing is mandatory for DPCD r1.2+ */
+> +	if (dpcd[DP_DPCD_REV] >= 0x12)
+> +		return true;
+> +
+>  	return dpcd[DP_DPCD_REV] >= 0x11 &&
+>  		(dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP);
+>  }
 
-
---- Thanks!
+-- 
+Jani Nikula, Intel
