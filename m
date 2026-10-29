@@ -1,82 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793270516;
-	b=nihAacdSBBSnMuptrqQqKyv+EWHQNBwl8DZMRlAWNewm2TumySPqXfdqjj4RFRRhLNbB
-	 atIEUkgqLEJKDgzBox5eQ9Um+nPL2/PHSxEaVn1psoeHdEDgvpRVIcpkUwMSGb+/K3uW3
-	 n0b1AwbR5/vqYYSBbxvVf6KbBWcfRPIVxi6JHrdOxFEoVxiaqWi2xsX8Q7yuajtsZrWE4
-	 c/2Mb9dU/e+quq5EQp2JasjEdYKL+9jGs++HT4TRD+ObpVOPGqaKdgm9euTJxEqW+OTyK
-	 c/NPcnKxB1cJtoczuGUajNZShAjEogq0B3H6SYx2NxFqN9qlVk1+jDXUvkRCka5fgmg==
+	t=1793270628;
+	b=2rSmEda94JxiuzZX5IV3r3QSUR8NNLIfPTYDEw3iTKyh8FOfezitagIT5xsi+WSSoo1W
+	 j23gGwsJ0pb/jk5Z4uoIjEmtN72iUfAmn4qOHIF8pGEH70L4JN2qq4U9ic61h5dvifcR9
+	 ANSYarjCtEugubVSrwlWiIlDN6julaPXueeZdpLumeI/HXnxg2KAY34kjgCJC7GIU1b/h
+	 zW7pCAJkc1VnX4Sza8GvE/q1w4XrBkHkXEQJZh59uk+8TVQpRGMjO+GAUTRIK/807uV7n
+	 h+ihuLbBczfqH1MbZgEImrkIRbLG8aLqWVWYztVynZyvxGpTCCSKpbKV5zMsuCpRHbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793270516;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=d8x5uWHxtG/xXNuHXD0smUyEyyZkUS1PZfI9e9L/g9c=;
-	b=UXidPMbtDLOag8kTWUb+QqDoAcBDJJy1Bw4ZBpfHTkIdjPuIKOlOVnRFC0iQ3SrZOeUI
-	 DOqcVGvwNmK1RgRroCZuEazRx/G8x3EBBQhhxqKoYvEUoIvrEE6c9Xz0UJHGpa9ZQe+hq
-	 bS3/TEGXoPYtDH+VVZr5rNlYnoM3dqEVfD5F97R15+y5Gg3fadA5oSBbHTzhxByJ3KN7S
-	 jHb8+MeyveYYp5tVpLHynzO2WTkhRCT25aVblRoR+4SgPwGqerbZZZ3PGwf9iCG02jS//
-	 ifzJqMOlcvPrkZ2XsRlDfVPyZKUjfJH++iJa4FONH0ADgo1n0YH66W0HXYb14xmCoGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793270628;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=v7bl5mathvEsQc0NewEfiW9buRzfycGDuVIoRi3XbeE=;
+	b=utIXjPB4RRadYN4Ssk8m59yGER6i4mazYN6gG6o2QEvqzRx9Vuxc/zNkNGEl+hDNkxve
+	 EEnav/rx3vMYcFhwpyR1wbsQWC6UNWc7WFDSAMhAR8njVjKveITsvT9HEOZ5IJkXZsA1j
+	 ehs9n0+V1Q60eDnpk8Q04aFMFFF03GZ9ev/STcnJ4W7549J/D/ey5x7sWZ6cNOgvoGLM7
+	 2DXKCksaKJcqf8qsEkJOu+LiBxNB4QZcbyaJVv8e7+iUOXET2WtyYTlp4NLczOUxvgo88
+	 kuTMM0yOYNJNj1eA+VgOCWK4gcuS46AvbgywfE0EtRlq0mtV4bN9bKC3ipyu4WDJFPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZtBlPnJY;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6M7nzpp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50508606A31A;
-	Thu, 29 Oct 2026 10:41:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50508606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DAAB606A31C;
+	Thu, 29 Oct 2026 10:43:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZtBlPnJY
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T9EB713962747;
-	Thu, 29 Oct 2026 10:41:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=d8x5uW
-	HxtG/xXNuHXD0smUyEyyZkUS1PZfI9e9L/g9c=; b=ZtBlPnJYdJThAQad3dOlR4
-	VnN15Av5gIDm4YaCoEDpxx07GGc6m3+dX2ExU/C7uFWB/O/IdQd9M0vumoRGOhdf
-	KggsKXnHS290SQVfB9atBh6fcQIQ6Rdc08/+624tVa3FDE0rSspmaVzWTI3Xngag
-	Rc6kzujNoxuKM0HsQFT0Me6Pt1EyrPMOdIkL7XKYhVvTtFyZ5Z0FAYNdghv0Uw5L
-	gwQvNd+kUZRp+bCFvcb/Y1eNPubJcFEAvDHfzb4plNWkI4k+ZpRsS3hdpvJy6WY1
-	SlcMOxV/Jtt6Dlbzepc3zINVcuOst+i4HAGe71743qvdcNRzCHihGW5acJY4ahVw
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm649jy7-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 29 Oct 2026 10:41:39 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69T952rO1711831;
-	Thu, 29 Oct 2026 10:41:39 GMT
-Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hk010qkv8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 29 Oct 2026 10:41:39 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
-	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69TAfcVc5177888
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 29 Oct 2026 10:41:38 GMT
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1221F58055;
-	Thu, 29 Oct 2026 10:41:38 +0000 (GMT)
-Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C6F8458043;
-	Thu, 29 Oct 2026 10:41:34 +0000 (GMT)
-Received: from [9.123.7.57] (unknown [9.123.7.57])
-	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 29 Oct 2026 10:41:34 +0000 (GMT)
-Message-ID: <ef07a928-7f28-4fcd-a1d6-4b566d000374@linux.ibm.com>
-Date: Thu, 29 Oct 2026 16:11:33 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6M7nzpp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBFD41F01825;
+	Thu, 29 Oct 2026 10:43:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793270627;
+	bh=v7bl5mathvEsQc0NewEfiW9buRzfycGDuVIoRi3XbeE=;
+	h=From:Subject:Date:To:Cc;
+	b=h6M7nzppxu1MNzAHPW3TFoBhyXbSLLzhmYpxIyCkGQKBFJp/jQiCQVj6ypCqs2jUf
+	 do9Uqc9YlgVQ6ZinxNyg+cRiQAk/D/tbkyY1hYWnQkutwOIaM2Ox6terGh28H0/lbT
+	 h8cqIeuqP5iCMfPYOD+q6wMzbo4FEGewrVGHsEZNoGl4SYrTmOIFvQeKhczP2vaaJ4
+	 DUevwX44epbNvvIl9Pc9YFfHaHzrj2MJWgfPQcW15LGQlyx/Ubsi9scnM5oMfKe4RR
+	 JhPc9ioRgpvSa2YVBOQoQgWeM5PsBmwqL5jjyCaZgxjZGLY+8CUs7MyrnY4jacM2Ik
+	 r3qFz5ix7MkyQ==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH v4 00/15] mm/shmem: various (urgent?) fixes
+Date: Thu, 29 Oct 2026 11:43:21 +0100
+Message-Id: <20261029-fixes_shmem-v4-0-392fc715d8f6@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,68 +53,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvme-rdma: fix NULL queue->ctrl dereference on reconnect
-To: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
-        linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
-        sgogte@purestorage.com, hare@kernel.org, wagi@kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261029060521.1690223-1-christian.aurichzm@gmail.com>
-Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20261029060521.1690223-1-christian.aurichzm@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzOSBTYWx0ZWRfXwc9RbBdFEHUg
- YY+gUpbuxLyJinBYj3RIrrcInpKrpSamFqJ1j5pWhijUpybpgdr0JtG+4mVfi5ADqUGjTSuOtva
- AQwoZ+eColIvqmrJWYgQ2xbwHT5vQGc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzOSBTYWx0ZWRfX97KZH7TYjAHA
- NacqSrkaIw1c0mTpOI358FLU8zlAxZMBybhmW2dLcKnUyCY6uMQ/a6mCcFYEddaEghLrNbV0QYe
- VfQsChEf8OdK5stos46u+0M5jK/Gyubh0mdOOt7pMG1FmTl1jH2FK0vayKCOSJxQBWv2ScjUPx1
- u5dwbM97vQAPWFehdBTh8URmhwxbFEYXdmPZeSCBzD0bLdr9ZHIk2CQ2yQ+x9MFGgYDOXAmg/xH
- LC8Vi1XuFprrXqUcxZl6ZjUoh/P8FpyzS0IYO6sRRanSnIc3PtO3lXjAc7OO5DzdmOHpznPEq4A
- 8cnSiDpYaumaa8tjLMahYpNRnhJZ34r2ncj4XL8trpTaEwut2Sd0uay2zYc/IVMf1LfgpXw/+Mi
- WR3u8OfBIN6UflmOpwGdvH23nv0s/lvQ4t6pMnx5LC3QPPMJDwhcDDEP7lNZtImnxsrM846PkEy
- bE8YvmUiBeB5LjqrtWQ==
-X-Proofpoint-ORIG-GUID: _OirM0llKTWG2z9m8TdgZrBllCJp1yQo
-X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae322e4 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=sM3CkMq7cFP6RC6SvF8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: uzYT1M35y3EhHlzBttAm8xPKbDxE950W
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290039
+X-B4-Tracking: v=1; b=H4sIAEoj42oC/2XNTQ6CMBAF4KuQrq2ZTvl15T2MMW0ZoCpgWiUaw
+ 90tGBOIy5d535s38+QsebaL3szRYL3tuxDiTcRMo7qauC1DZgiYCsCEV/ZJ/uSbllqOWY6ZKLS
+ QQCyIm6P5HMDh+M3+oc9k7tPE1Gisv/fuNb8bxNT7Laer5UFw4BlIhLRMKgVmfyHX0XXbu5pN0
+ wMucbbGGHCeKoAiQWV08YflEudrLAOODUmtKix1rFd4HMcPnTe3mDMBAAA=
+X-Change-ID: 20261025-fixes_shmem-2782719b130e
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Gregory Price <gourry@gourry.net>, Zi Yan <ziy@nvidia.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, 
+ Vladimir Davydov <vdavydov.dev@gmail.com>, Michal Hocko <mhocko@suse.com>, 
+ Hugh Dickins <hughd@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Lukas Czerner <lczerner@redhat.com>, Carlos Maiolino <cmaiolino@redhat.com>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Daniel Verkamp <dverkamp@chromium.org>, Jeff Xu <jeffxu@google.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Stevens <stevensd@chromium.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+ William Kucharski <william.kucharski@oracle.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, 
+ Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
+ Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
+ Balbir Singh <balbirs@nvidia.com>, Josef Bacik <josef@toxicpanda.com>, 
+ "Pratyush Yadav (Google)" <pratyush@kernel.org>, 
+ Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3095; i=david@kernel.org;
+ h=from:subject:message-id; bh=GpKtRlaQ06LBkExuSjLz4XHKAw3/ZQRf15rGlWX8NMs=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeK/uv2d2YXLnL7kzy5YiS1ytZdVzuujJ0zZe5Xxib5
+ 2cgeVOso5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgIm0bWZk6PDafmXB4leuGoeW
+ xm4QbkmL151XfTx0so7M1qoZaauDnjP8z5kx5avo28t29nG7uFK219W7KSS+n9V/3+FmW8Vk629
+ SHAA=
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-On 10/29/26 11:35 AM, Christian Aurich Zanettini Martins wrote:
-> Since commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue allocation
-> and startup"), a reconnect that gets more I/O queues than before grows
-> the tag set before the new queues are set up. queue->ctrl is only set
-> by nvme_rdma_setup_io_queues(), so I/O submitted in between reaches
-> nvme_rdma_queue_rq() on a queue that was never allocated and
-> dereferences a NULL queue->ctrl:
-> 
->    BUG: kernel NULL pointer dereference, address: 000000000000034c
->    RIP: 0010:nvme_rdma_queue_rq+0x52/0xb90
-> 
-> Add nvme_rdma_init_queue() for the queue fields that do not depend on
-> the connection and call it for every queue when allocating the
-> controller. Such requests are then requeued like on any other queue
-> that is not live. queue_lock moves there as well, and
-> nvme_rdma_exit_queue() destroys it when the controller is freed.
-> 
-> Fixes: 2a8513091d2f ("nvme-rdma: parallelize I/O queue allocation and startup")
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Christian Aurich Zanettini Martins<christian.aurichzm@gmail.com>
+Hi,
 
-Looks good to me.
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
+Thanks everyone for the fast review and tests!
+
+I'm planning on picking these myself and routing them through mm-core.
+
+This is a handful of fixes for shmem/tmpfs. I sneaked in a related
+hugetlb fix that stalled upstream.
+
+Some of the stuff is more urgent (patch #1, F_SEAL_EXEC, truncation
+hangs), others are less urgent but still rather unpleasant.
+
+The majority are fixes from Anthropic that I cleaned up or reworked.
+While doing that, I found a bunch of other issues and tried to fix them
+somewhat cleanly.
+
+Mote details, including other issues not fixed by this series can be
+found in the cover letter of v1.
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+---
+Changes in v4:
+- "mm/shmem: honour F_SEAL_EXEC when an ACL is set"
+ - #define shmem_set_acl simple_set_acl
+- Document remaining race in "mm/shmem: hold off eviction in shmem_writeout()"
+- Link to v3: https://patch.msgid.link/20261028-fixes_shmem-v3-0-4ce3baf2db4b@kernel.org
+
+Changes in v3:
+- Rebased on mm-stable
+ - Fixup for shmem_set_acl() no longer required
+- Re-include the commit I dropped by accident
+- Apply tags
+- Link to v2: https://patch.msgid.link/20261027-fixes_shmem-v2-0-86a00952acb9@kernel.org
+
+Changes in v2:
+- Rebased on mm-stable
+ - Fixup shmem_set_acl() compilation issue after rebase
+ - Dropped: "mm/shmem: avoid moving the truncation start backwards"
+ - Fixed up: "mm/shmem: stop retrying folios that cannot be split"
+- In "hugetlbfs: enforce F_SEAL_EXEC in setattr", check for S_ISREG
+- Smaller patch description fixups
+- Picked up tags
+- Link to v1: https://patch.msgid.link/20261026-fixes_shmem-v1-0-703206d5fa0c@kernel.org
+
+---
+
+Chris Mason (4):
+      mm/mempolicy: charge shared policy nodes
+      mm/shmem: honour F_SEAL_EXEC when an ACL is set
+      mm/shmem: stop retrying folios that cannot be split
+      mm/shmem: preserve data in clean folios when splitting fails
+
+David Hildenbrand (Arm) (7):
+      mm/shmem: discard whole new large folios on fallocate rollback
+      mm/shmem: rescan after nonuniform folio splitting
+      mm/shmem: fix truncate hang in large swap entry
+      mm/shmem: preserve allocation errors when swapping in large entries
+      mm/shmem: fix truncate loop after boundary swapin failure
+      mm/shmem: fix accounting of swapin-error markers
+      mm/shmem: fix truncation of files containing only swapin-error markers
+
+Eva Kurchatova (1):
+      hugetlbfs: enforce F_SEAL_EXEC in setattr
+
+Josef Bacik (3):
+      tmpfs: keep the quota soft limits of an unused id
+      tmpfs: preserve explicitly disabled quota limits
+      mm/shmem: hold off eviction in shmem_writeout()
+
+ fs/hugetlbfs/inode.c  |   8 +++
+ include/linux/memfd.h |   9 +++
+ mm/mempolicy.c        |   4 +-
+ mm/shmem.c            | 168 ++++++++++++++++++++++++++++++++++----------------
+ mm/shmem_quota.c      |  28 +++++----
+ 5 files changed, 149 insertions(+), 68 deletions(-)
+
+---
+
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+
+change-id: 20261025-fixes_shmem-2782719b130e
+
+--
+
+Cheers,
+
+David
+
