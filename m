@@ -1,80 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793266665;
-	b=Eq9lzaH1zC3y6qPmVFHH8N7pTUyvYr4QEi3e97VpAudYAmfXtBLG2mQFLJKtk7zTxSNF
-	 MqhskGvUVXYazeq5chbY6BBSDqLvbqCX9q3KqIxgqysFEpLor1AtWJ7pIlGswUlMf6we9
-	 d532RcBkbMjni4yuG2AXmFPRAnZ3xel9AYvViSNAGQGPt297eZlTicIdczIHodXA4ry3x
-	 vzHrOhq8CYB2aHv4uwBQmS46WQiuQNa2EzfJLsEuubm4kFXUjmy20rXwfFaIxO81/QKoE
-	 t0WJXcztOSM03vDHBV75HzKVQnRNExsSlawgxzkq0v9vOmbRCdXHOEKCFsXB3+2s85g==
+	t=1793266715;
+	b=sdcAaGLk4cL7ERjJ8wreb4j2CiF5NojGTU02B+IhfaAvw4JNmV9A6p+wzIchXODEnlsB
+	 5M4lrnbLac+C0cbcvIYWgYWveTQUxt32JM9U14z2BWYKKywtzLKAmX+foF5Lbd3UF8ZCk
+	 Yrqo1ykCltv7zwQLYG5V7DoOmcupzbMRafne4H4DIrambPKIfnrHyLAnVcluBU2xuuK5B
+	 nEOee294EPvN7xhheVMz7LxAyIe8BxNX7BNrYxjO6n9IZAaKv6jUMFdczdRcZPeXq4GVt
+	 ZJFIJ+u1L4UOzQ8w/1fKvS8dC2sKON4d+6JkV8SrVP+XEIBN1jw5Z5lg0Rzh8DxG+Sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266665;
-	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=b1L/YgA0unso+/Lv8s9MhtgPB5X7wkfHZu4ut24TmCk=;
-	b=YGULWsnAegFdkuZ+MwhXT0AtaXSrXoYLBV13KypWv2uehQo3SCZ3ZgHkTT3DtbuBrP3+
-	 FNAUefGK6G8DrrracbGIADNxIW0h5G93A9mMENlQo0khnH5cp7Y8gqUfR3qTL4B8nTwh0
-	 jd4NgGXhxhcQ5JVrCb4RY6wnpLqhrMGgjWU0D/+22qUGrhWEoJf+HT7os9iRKyMWwn5X4
-	 uCHuzOmWonaboU0J9nHe1mqBrowNdQuxHk+ywsKcEKvApN3gMCZ1kGZTpChkmHXd42jx9
-	 ir9XDXU3j4/dDpoVwFmul9E/2v5NWjImf0Yw+J4vaFh0F+vbFufytLK9MLFGLCwqalQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266715;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Infomaniak-Routing;
+	bh=wYFb2KtssvV1UrVJuVQzQnQHX/owbjyH0m18a3WIZzc=;
+	b=X7tXfBbTkZ4a1+CZ53UgQTenjcyV4JT3U0DoD63bPppPP8GWaciOzrRR0Fe4MklHjZG3
+	 J0jQiQjhdnfHSyJ44az5Qa0nGRfijSjGIaBnNhzB18WyeW5su20evx++HiFI0EcBZxAVv
+	 FRrfUnt3J330D8nqk45P3wlybkylEiDET6zk0T5rcxK05tf0lcb47ccSzjHlT7v+Rua3B
+	 /8IV6czXy46y+OhmG50x387CslNt05CkWZHLTUbhxXVsUx/830imMx8IYDU3JcDYvlata
+	 LL4qfRU/KWYJwrutkcQC03bu/D0UYnmolCQFRelRrxDC+FHkFce15++Z4SdZwMbZIuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYVH+Mm9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=0leil.net;
+	spf=pass smtp.mailfrom=0leil.net;
+	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=jobzWXkm;
+	arc=none smtp.remote-ip=45.157.188.14
+Received: from smtp-bc0e.mail.infomaniak.ch (smtp-bc0e.mail.infomaniak.ch [45.157.188.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAA160A2609;
-	Thu, 29 Oct 2026 09:37:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9524606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:38:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9524606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GYVH+Mm9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31D2D1F01829;
-	Thu, 29 Oct 2026 09:37:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793266665;
-	bh=b1L/YgA0unso+/Lv8s9MhtgPB5X7wkfHZu4ut24TmCk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=GYVH+Mm9omq5BAsPPLcumqvOBUW7yKv6qRkJyIck5tFwfRa1tUfjtE1geDCpsmBEP
-	 2RwHK9Cy8sS2rBXuKXJvctC4Bq6C2jK6S/gBMA9x1sxt6ydKYVAFfAqpCKD+Lbm+RW
-	 CTkFLp+EHxcq2Q+0N+MiEyq8LgEaRZKBHMQZslmLTNkQz52CiV4VANY5UuxTSJYiXc
-	 HSEiViC0iMwJEQOI2/cy1vL8wqYF36gfQSfNXAqFM2CsYJ00Xwib/fXPCJXdfkBwli
-	 uFbEJD7BvWk6qn89ZMam6ipKB0JOazajL/SM6VxCjG3IQq3Hghn8AUsKjF5s6ntxKr
-	 WS9/dwDL4KSwQ==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: iommu@lists.linux.dev, Alex Williamson <alex@shazbot.org>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Steven Price <steven.price@arm.com>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>, kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v7 10/16] iommufd: Add the vdevice TSM request ioctl
-In-Reply-To: <179321444123.2412245.6955528563980811144.b4-review@b4>
-References: <20261008055955.4014342-1-aneesh.kumar@kernel.org>
- <20261008055955.4014342-11-aneesh.kumar@kernel.org>
- <179321444123.2412245.6955528563980811144.b4-review@b4>
-Date: Thu, 29 Oct 2026 15:07:34 +0530
-Message-ID: <yq5a1p98c0f5.fsf@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=jobzWXkm
+Received: from smtp-4-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jFfL96K3Rz45b;
+	Thu, 29 Oct 2026 10:38:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
+	s=20231125; t=1793266705;
+	bh=wYFb2KtssvV1UrVJuVQzQnQHX/owbjyH0m18a3WIZzc=;
+	h=From:Date:Subject:To:Cc:From;
+	b=jobzWXkmoXRBEyxQtoXEgoxvUgk8S1c+aiehwCrq90gQyyf9FBPWTHcNCdW31UyKc
+	 0mIPQNmVMw5W2cY9b2wZ9CRMVeTu7P8d5L4sbsHyHp0+eV9JUAm+zb24PV+mbpeOtT
+	 TYxMvgndryFeK0ZNqj7e4vznVwVtKj+2awcMPVSvOZR4BYZq4LVdnBB9ZMPZcOsxxL
+	 tJegYsCpp3rQyrlcoWhJSk0/OyZcXpNEJB1wFY3Mn3M1yu8QKHnBbZCgVvFIa2tDvd
+	 1nxxGetgVSpp3ygCG69Z4KZYG1MyUWVfZAxywl5pSDMolB4jj5fdOhm95hcgMfR/iP
+	 t2Z0am4kRrLaw==
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4jFfL76C1LznDb;
+	Thu, 29 Oct 2026 10:38:23 +0100 (CET)
+From: Quentin Schulz <foss+kernel@0leil.net>
+Date: Thu, 29 Oct 2026 10:38:15 +0100
+Subject: [PATCH] arm64: dts: turris-mox: replace denx.de links with
+ official location
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,186 +61,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-denx-de-links-migration-v1-1-4ffff7db7d98@cherry.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDMBAAvyJ7diGJWqxfkR6Mrrq2jSWrIoh/7
+ 9ZeBuYwc4BQZBKokgMibSw8BxWbJtCOTRgIuVMHZ9zNGnfHjsKuwBeHp+Cbh9gs2mCflaXxPjd
+ UWND6E6nn/TrXj7/L6idql98OzvMLXVEAH3sAAAA=
+X-Change-ID: 20261029-denx-de-links-migration-f3880bb40e51
+To: Andrew Lunn <andrew@lunn.ch>, 
+ Gregory Clement <gregory.clement@bootlin.com>, 
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Quentin Schulz <quentin.schulz@cherry.de>
+X-Mailer: b4 0.17-dev
+X-Infomaniak-Routing: alpha
 
-Jason Gunthorpe <jgg@nvidia.com> writes:
+From: Quentin Schulz <quentin.schulz@cherry.de>
 
->> [ ... 300 lines skipped ... ]
->> +/**
->> + * enum iommu_vdevice_tsm_guest_req_op - Guest TSM request operations
->> + * @TSM_REQ_VALIDATE_MMIO: Validate and map a guest MMIO range for the trusted
->> + *                         device.
->> + * @TSM_REQ_SET_TDI_STATE: Transition the trusted device to the unlocked,
->> + *                         locked, or running state.
->> + * @TSM_REQ_SEV_ENABLE_DMA: Enable DMA for an SEV device.
->> + * @TSM_REQ_SEV_DISABLE_DMA: Disable DMA for an SEV device.
->> + * @TSM_REQ_READ_OBJECT: Read bytes from a device object, such as a certificate,
->> + *                       measurement, or interface report.
->> + * @TSM_REQ_REGEN_OBJECT: Regenerate a device object, such as a measurement or
->> + *                        interface report.
->> + * @TSM_REQ_OBJECT_INFO: Query the size of a device object.
->> + * @TSM_REQ_MAX: One past the last request operation; not a command.
->> + *
->> + * The request payload and response format depend on the TVM architecture.
->> + */
->> +enum iommu_vdevice_tsm_guest_req_op {
->> +	TSM_REQ_VALIDATE_MMIO = 1,
->> +	TSM_REQ_SET_TDI_STATE,
->> +	TSM_REQ_SEV_ENABLE_DMA,
->> +	TSM_REQ_SEV_DISABLE_DMA,
->> +	TSM_REQ_READ_OBJECT,
->> +	TSM_REQ_REGEN_OBJECT,
->> +	TSM_REQ_OBJECT_INFO,
->> +	TSM_REQ_MAX,
->> +};
->
-> This is still no where close to being well defined enough.
->
-> Everything here must tie back to defined spec references, listed in
-> the comments.
->
-> I cannot guess what data is passed over any of these APIs, how things
-> like "REGEN_OBJECT" select which object to regen, or what the format
-> of those objects even is. The formats of req/resp are never specified.
->
+The U-Boot project doesn't own the denx.de domain and we don't know for
+how long it'll redirect to the official location (it currently
+redirects). Update the links to point at the official GitLab instance of
+the project so we're future proof.
 
-The request and response payload formats are specific to each CoCo
-backend. Since iommufd treats the payloads as opaque and does not
-validate their contents, what would documenting those formats here
-achieve?
+Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+---
+Found when hunting denx.de leftover links in U-Boot where we import the
+kernel device trees verbatim.
+---
+ arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-The limited validation is intended to prevent this from becoming a
-general-purpose multiplexer ioctl. It restricts the ioctl to a defined
-set of guest-initiated operations that the host forwards to the
-firmware. The path is essentially:
+diff --git a/arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts b/arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts
+index bd00e7df87c67..159515f95ef33 100644
+--- a/arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts
++++ b/arch/arm64/boot/dts/marvell/armada-3720-turris-mox.dts
+@@ -151,12 +151,12 @@ &pcie0 {
+ 	 * for IO and the rest 112 MB (64+32+16) for MEM, despite that maximal IO size is just 64 kB.
+ 	 * This bug is not present in U-Boot ports for other Armada 3700 devices and is fixed in
+ 	 * U-Boot version 2021.07. See relevant U-Boot commits (the last one contains fix):
+-	 * https://source.denx.de/u-boot/u-boot/-/commit/cb2ddb291ee6fcbddd6d8f4ff49089dfe580f5d7
+-	 * https://source.denx.de/u-boot/u-boot/-/commit/c64ac3b3185aeb3846297ad7391fc6df8ecd73bf
+-	 * https://source.denx.de/u-boot/u-boot/-/commit/4a82fca8e330157081fc132a591ebd99ba02ee33
++	 * https://git.u-boot-project.org/u-boot/u-boot/-/commit/cb2ddb291ee6fcbddd6d8f4ff49089dfe580f5d7
++	 * https://git.u-boot-project.org/u-boot/u-boot/-/commit/c64ac3b3185aeb3846297ad7391fc6df8ecd73bf
++	 * https://git.u-boot-project.org/u-boot/u-boot/-/commit/4a82fca8e330157081fc132a591ebd99ba02ee33
+ 	 * Bug related to requirement of same child and parent addresses for first range is fixed
+ 	 * in U-Boot version 2022.04 by following commit:
+-	 * https://source.denx.de/u-boot/u-boot/-/commit/1fd54253bca7d43d046bba4853fe5fafd034bc17
++	 * https://git.u-boot-project.org/u-boot/u-boot/-/commit/1fd54253bca7d43d046bba4853fe5fafd034bc17
+ 	 */
+ 	#address-cells = <3>;
+ 	#size-cells = <2>;
 
-guest -> vmexit -> VMM -> iommufd ioctl -> TSM backend -> firmware 
+---
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+change-id: 20261029-denx-de-links-migration-f3880bb40e51
 
-> The comment for this should probably be *enormous*. Every arch should
-> explain what they do on every one of these ops, and it should be
-> identical if it is structured like this.
->
+Best regards,
+--  
+Quentin Schulz <quentin.schulz@cherry.de>
 
-That would require documenting a significant amount of backend-specific
-detail in iommufd. Could we instead require each TSM backend's
-guest_request callback to document its request and response formats?
-
-
-> I have a strong guess almost none of this is actually general, but
-> lets find out.
->
-> You can also put enum kdocs directly before each enum which helps alot
-> when they get as big as this stuff has to get.
->
-> My guesses with no information
-> 1) VALIDATE_MMIO why would the hypervisor ever need this? Guest
->    validates MMIO through secure communication to the secure world.
->
-
-With VFIO PCI BARs backed by guest_memfd, the VMM can validate that the
-IPA and PA values provided by the guest belong to the VFIO device. We
-previously also used this operation to ask the CoCo TSM backend to map
-the device memory (the BAR regions). I have removed this operation from
-the latest series because that responsibility is now split between the
-VMM and guest_memfd. TDX and SNP still need to be updated accordingly.
-
-> 2) TDI_STATE I thought at least RMM did this with an RSI?
->
-
-CCA uses RHI. The RHI reaches the VMM, which issues the ioctl to
-complete the request.
-
-> 3) ENABLE/DISABLE DMA, see #1, must not be done by hypervisor
->    See my reply to Alexey:
->    https://lore.kernel.org/linux-iommu/20261022123058.GC3008132@nvidia.com/
->
-> 4) READ/REGEN/INFO, what are the objects? What format are they in? How
->    do you select them?
->
-
-These objects are cached by the hypervisor. For CCA, they include the
-certificate, measurement, interface report, and VCA. They are read in
-response to guest requests. The requests reach the VMM through an
-RHI, and the VMM issues the ioctl to read the requested object. REGEN
-refreshes the objects/evidence at the guest's request.
-
->    Does this overlap with attestation subsystem? Should attestation
->    subsystem be used to access the SPDM related data?
->
-
-
-I had hoped we could use it, but I could not find an easy way to
-integrate the two. We need a simple way to read these evidence objects
-into userspace. I am not yet sure whether evidence-get can be used for
-that, since it does more than simply read the objects; it also updates
-evidence.generation, among other things.
-
->
-> Update the comment to explain all this, don't need to answer here.
->
-> We really need to do these defines along with implementations, that
-> probably will settle alot of the questions above.
->
->> +
->> +/**
->> + * struct iommu_vdevice_tsm_req - ioctl(IOMMU_VDEVICE_TSM_REQ)
->> + * @size: sizeof(struct iommu_vdevice_tsm_req)
->> + * @vdevice_id: vDevice ID the guest request is for
->> + * @op: One of enum iommu_vdevice_tsm_guest_req_op, excluding TSM_REQ_MAX
->> + * @tvm_arch: One of enum iommu_vdevice_tsm_guest_tvm_arch
->> + * @req_len: Size in bytes of the input payload at @req_uptr, at most INT_MAX
->> + * @resp_len: Size in bytes of the output buffer at @resp_uptr, at most INT_MAX
->> + * @req_uptr: Userspace pointer to the guest-provided request payload
->> + * @resp_uptr: Userspace pointer to the guest response buffer
->> + * @out_tsm_code: TSM-specific result code returned by the TSM implementation
->> + *
->> + * Forward a TSM request to the TSM bound vDevice. This is intended for
->> + * guest TSM/TDISP message transport where the host kernel only marshals
->> + * bytes between userspace and the TSM implementation.
->> + *
->> + * The request operation is guest initiated. The vDEVICE implementation
->> + * declares the TVM architecture and operations it accepts; iommufd checks
->> + * both before forwarding the request.
->> + *
->> + * The request payload is read from @req_uptr/@req_len. If a response is
->> + * expected, userspace provides @resp_uptr/@resp_len as writable storage for
->> + * response bytes returned by the TSM path.
->> + *
->> + * The ioctl is only suitable for commands and results that the host kernel
->> + * has no use, the host is only facilitating guest to TSM communication.
->> + */
->> +struct iommu_vdevice_tsm_req {
->> +	__u32 size;
->> +	__u32 vdevice_id;
->> +	__u32 op;
->> +	__u32 tvm_arch;
->> +	__u32 req_len;
->> +	__u32 resp_len;
->> +	__aligned_u64 req_uptr;
->> +	__aligned_u64 resp_uptr;
->> +	__aligned_u64 out_tsm_code;
->> +};
->
-> Should the viommu_id be passed in as well, or we know it implicitly
-> from the vdevice_id?
->
-
-We get final callback via
-
-vdev->viommu->ops->vdevice_tsm_req
-
->
-> I think this is probably a fine generic API, it should probably not be
-> "TSM request" so that the other viommu people can reuse the transport.
->
-> I would probably try to stick to exactly like the other APIs do with a
-> single enum. Two enums for op/arch is saying already that the ops are
-> not well defined.
->
-> So maybe strip this patch out to have no tsm stuff, define no ops and
-> just give a command transport into the viommu driver?
->
-
-Are you suggesting one ioctl per each guest request ops?
-
--aneesh
