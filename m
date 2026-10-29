@@ -1,102 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269147;
-	b=G8T800KASxoR2rx66W1JDIX80AtmON9aS+daCB7KxZNKPAChqphAIRplFlO/X53hOzc3
-	 pWH7cbZk2eyPKTrQ1ypizUPKZVvK0M65R6Mgu2HyUflxJQYfRjRPMMQNJgFU1bgnb7Llx
-	 rv165YQoSlroIfus54sU9GPWo7AOHX64yItXOKJgCUqKqw6xjrU1qVLvtY7ro3XFhxyjV
-	 LSIjRk9swqEgVsq34yO9GtvOkq5lbHcIWqjCeshQtW3sJdl+xsS9n0b8NPaxnwEBxNE1a
-	 3xMsL0DaotVYvWxJsUdAM/Zo48vlu0HUTC8vT0iaYM7yxApUYpA7O0q4Aor1b1cwJwQ==
+	t=1793269152;
+	b=PXqm3RdXIjg82ZkNwqQItfTIoIT7wNmM+X7MtciULEZfVHQh7V5BCQQYkmRdxdMwgCpM
+	 H/z4ay0dnDN2Fyx0uFZ0309CI2Pv3USRsmJQJNNRztFQR324HvX95KLV4p5Z3A0WWTCUd
+	 0e1O00qyz5IloFsXpWJbsdXDZlzcmA3Kh50DTli998RWOASeQ4RCZ8jA27S6JbN8LzpkF
+	 Ja2Dm/l+Be9Ahu7ytXpU+nASxwTj92Jv85U9H+SyrA+R3d1eWbSGoBK68nWctX6k9r6o/
+	 U6mt3Qbd34OJqxNPETdOLWi1Nam9nq5MF+UUCZQ4Xf6tUySqv7nKbWvgQoaJPa62XdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269147;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=Vc0r3JbZbwBvUVapNGhL09kDmaTErdcaYY3i2MzSoa4=;
-	b=PlmStOPEyYJRr8ez/K9Zf2unQeRA41TAHDhgvIriS1ddlM1jqRil+/f7RAraBaR+73ll
-	 WTHayRekXQj0MDJgtGWRP6ANSiaRhJ4iPLJakZ75Ma9c7zawt05oYyKPKwX52AEilUoTh
-	 TM5QzZgi2Gb0jit/cKCm+CzXhsWVzJ8+lAFXV+W10wt4jUHt6zhWwzp2WfSdsZZtufRev
-	 mNJ721v3yJoBrZemZN+Q47judGC2wCT1SPj/yG044pvCNQPM9KpVmpu4Olb9BcG/Y5ixl
-	 acsY0ULk06V34/0VXn/VDM4GclrDA3yQXYcmahccTDLSB5DvW2eBf/4neidn8l/U6ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269152;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=HB1+khf4W7ieUXsIe0qQgtyklax0j9dwfQ8Wri2lxaY=;
+	b=h58acD7ZxwW1N9ueGvF5XSvWxoxdf/aRbrslETFIgVj26Tb9oLnXxag8n73ETHy23wlX
+	 XjDKELRbjEzr/FijeQJb2cxnMBMdmz72xK7qS5BqshW+070iUs7CbdJWzQlHLapiuAgHr
+	 /0R25Bis6PRcmv7vmUO0Jl6TD4CMH3ZzP0WYwHMkkrS5DL9d94AYMM/WdGe66dxYHwaao
+	 FVmXvDlB15ppzisMgweM5mKXQRf9mh4gRZm5/5GcoKlx37ZzfMddzKHyWRJkh0QX5Z7io
+	 P3YkUX/3oc6XxirJMmoCQ2qrbNdGPK6JC9zkDjgWwccR37GiJJWVz57Po+zSPvcvTwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zH9z4kbb;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=R9DnLh+m;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE79A606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:19:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE79A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C41606A31F;
+	Thu, 29 Oct 2026 10:19:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3C41606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zH9z4kbb
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso17568635e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:19:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793269145; x=1793873945; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Vc0r3JbZbwBvUVapNGhL09kDmaTErdcaYY3i2MzSoa4=;
-        b=zH9z4kbbMg0lkkb/HqgCLaFR9vONpMS7UnrW2ezQXaMot4yuVlvx8b5AsRhSxwcAbi
-         Q4V4plM0s/t0NDmjNPggc0m3ZhTaJqh16rAqpGi9MHj+RiOCp8gednbCJjh+al/OBh3J
-         k7dr5f93QI3uvgi5N70JgAPgUqm5BbmDSTg4+7OuWMyvYgfA37I5zYTduwmKcfRgttzJ
-         kjcY4e0V4EKRJbYh1+4WRLNTrxvUqyF0Wh6n+2CKqJa9D29js7cu4+6Z8dPMKadEGaoD
-         kMgHq+0nvRzb+a+PbaN9D/ZrUsU0nRFfB6YPncLGLwQk91Qn1/Z4TSQbNgEhroKs+9x9
-         ox+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793269145; x=1793873945;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vc0r3JbZbwBvUVapNGhL09kDmaTErdcaYY3i2MzSoa4=;
-        b=kcSPNzb/F0RYhyIcG173ZYNcUha8AYT0QFXiwAx9P4MV/E9U01MAlxehkI5VQZEAGF
-         rqhTOP1uaj9EkJwB9mTJSH4gCl73Duc+VWzykaRp9FI9ogREKmcjFqw6JXB7E0cJCA6y
-         XBWxydIRgQWXi2cogUCSgwTAV6b4nwu6eescVbgPeSOPcu9tKXUyaHc8Zq/BkwWDa2kF
-         KVIThmdAKHgInnyR/hVAvBUz4jrd4LpnxK3wIj3S5GpPwe56eUS1lo3VgFoM574EuB7f
-         adBDBfK6v0DJKa8AKuTcRlxLo8UXP3A+u5qzGN3iwsAtD9QKQrqkP5REnMUlbwUFTC8Q
-         GTUg==
-X-Forwarded-Encrypted: i=1; AKwUvBxbF3qu2KwFLcxbb78HV0Z2nGHe+ONuU5fVruzSoL1mZ6EdAmX9Pq3V9qI0/EU9mrfzahdixvhDvFptgmk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILCLGJdTdJ0GhIuNzO5mxZECsC812g8yd4CqyRPHxyTFRvobzF
-	4bACNSIRhAZ8z5h83HGpKVGLnikcYYVueMQBwKE+JPB0S4xldeZMBRpZ
-X-Gm-Gg: AYBFou1vHnqGIivTnaKAii2WljXwemZxFkMIfYad2MBf/ebV6f7FKl74DtifS6DA40P
-	oGmntxSURMWK9EsMHWDdVP+/xbqKpP0tVbgPKfXLdo053iIa4mWFx39DXtQZ7LvbK5/VaQJQ6wp
-	nF86DPeRWyuEgLuRUTcHuxzZT35x2QWAxcrX4oNig+kfRw7BjlbFBi3fZyNDxwWBGIXLu7AL9d1
-	qjThB1cx7fptkI5KYsozd9/vKzPNU+k8Pudz+Ue3Re08Fi6+ll0NVFF/toQvv1QwEhiG6SVAbxR
-	6bRSwW0qJ4DJw6x40umGT4Wibj+67zTI6qVbt+lK3ZZSrgxVzAwTnQbsO3sGMNCuM7IG48R0zQb
-	7/2adHiYNUG9ug2wJVQpmML7Oq01fC7dwtkoIOFJIl3L8+O/7ncMTZrDldOHA5v7PfVQ49tESx9
-	GasxxCk5XLRiFBdJmrMlBe67LRNaTGzvo0CgFzu0xPYML2ZN4nu+whi2AKDPrg19nvnS08twACz
-	rZMm254rGsGl5Qb+blIk9/4Pbg+TgLACbs6Yed8ChFICx784ZwSzJFvMytttxjEu5GrW+2p6jvO
-	uRfPb1edxREEww0mompkdeOHh2PQN+vjeEVCIr0hrHIMWonhfvFnMckORv1g4T6X+w==
-X-Received: by 2002:a05:600c:6088:b0:4a1:742e:3 with SMTP id 5b1f17b1804b1-4a9677ca203mr118445565e9.27.1793269145060;
-        Thu, 29 Oct 2026 03:19:05 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd354asm31946023f8f.43.2026.10.29.03.19.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 03:19:04 -0700 (PDT)
-Date: Thu, 29 Oct 2026 10:18:59 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Esko Mobius via B4 Relay <devnull+echoowall.gmail.com@kernel.org>
-Cc: echoowall@gmail.com, netdev@vger.kernel.org, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "David S. Miller"
- <davem@davemloft.net>, Simon Horman <horms@kernel.org>, David Ahern
- <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, Jiayuan Chen
- <jiayuan.chen@linux.dev>, Shuah Khan <shuah@kernel.org>, Thorsten Leemhuis
- <regressions@leemhuis.info>, regressions@lists.linux.dev,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>
-Subject: Re: [PATCH net 2/2] Revert "net: advertise TCP MSS from the
- configured MTU, not the learned PMTU"
-Message-ID: <20261029101859.6893f1a0@pumpkin>
-In-Reply-To: <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
-References: <20261026-advmss-revert-v1-0-272fa4b7ecb6@gmail.com>
-	<20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=R9DnLh+m
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 467566DC;
+	Thu, 29 Oct 2026 11:16:55 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793269016;
+	bh=aFTh2isL80rpjArw0pBCwb8jHtiH87EGszWWiIa4lhw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=R9DnLh+mG+hYS3MdxySsJ/27GD6OyihS1Iaq7eu32TuhI308wfInUPBs9GZKLJLan
+	 NNZkTTYRtIb02dYrPw3QXsxJuWo6MaYbyA+ZHYFoMidbWLo4vK2LQTM8wqNbAw3UH8
+	 QFKvKZsa8y0vm4xk5v3lQl41JXWNuQ3KIKNtBMtY=
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Date: Thu, 29 Oct 2026 12:18:47 +0200
+Subject: [PATCH v4 01/14] dt-bindings: display: ti,am65x-dss: Add AM62P DSS
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,38 +55,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-beagley-ai-display-v4-1-dc7f2b532478@ideasonboard.com>
+References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
+In-Reply-To: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>, 
+ Devarsh Thakkar <devarsht@ti.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3512;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=aFTh2isL80rpjArw0pBCwb8jHtiH87EGszWWiIa4lhw=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2VXLALbFjY8SqWaRTVz/iQg7GNH89sdNmMV
+ bHXtrSQ+JCJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdlQAKCRD6PaqMvJYe
+ 9YpWD/4vh6Z6ZFLe0UQinSN2gRnsOMQ+HvfoiCjocyFM7lpSOZXOoKfATmEDVR2sX8RY6jM2Fgh
+ r3kGpbw9wvnribWvw1zZvyx/OhZD/0FCmggwmnt0NeaA4CDmVVqqvHEUdCm+3JBoMWtC/N8LB5s
+ g3Sg547NoR+6pOv0vB5l0CbFeucJD98cgHUFKeGNCWWZgBMDfYBzzPWYz7Si0SLoQEezFdoMe5Y
+ wirPDa6s4mm1xL6ZicIL/t/bMf3G+S6pWg95BU15pKQjzMXYWH2MOAHMJYdAroMdu73JkwBmhkt
+ 80wTaRbLQ40x8x05OgFwYCyBj0Snv+zPxYMO9+MeJgOW1GeFCXH6s1OMnGqtGfJ8hYU6//cx8Wn
+ Rv/ZV+rf+J1cFPCPNuaNIYnDa2qTVPMtyBF+SSu293osW1PmtMGLm2x4786a6+agSKOfB/t1X7Q
+ ZGmB2DTiJLMys61OGH2muksQzf+D7r2dPJztYQWsSeAOUkjHjpV4ysJ0ZOlNDkQM+GggQw4/dvv
+ f5blo1ChtiSmcnNAj9NKH4CzA/l0vK9J3D1mNC+B0nOzx1l8v4Ixa3GrVgjleH9MhZ8rR8CX4X0
+ aG+sbQ1bBYsPxeBEK2PjrYRfn32JZKA5luhWHxQleNhmucjbOtPnHrFdQI1iVOeGHuYKCb73MNU
+ 2TWrlLmYMexoU9w==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-On Mon, 26 Oct 2026 15:23:09 +0800
-Esko Mobius via B4 Relay <devnull+echoowall.gmail.com@kernel.org> wrote:
+TI's AM62P, J722S and AM67A SoCs contain same implementation of the
+display subsystem (DSS). There are two instances of the DSS (DSS0 and
+DSS1), each with two video ports (VP) and two video planes.
+Additionally the SoCs contain two OLDI TXes (OLDI0 and OLDI1), a MIPI
+DSI TX and a MIPI DPI output path.
 
-> From: Esko Mobius <echoowall@gmail.com>
-> 
-> This reverts commit 2640e6419594 ("net: advertise TCP MSS from the
-> configured MTU, not the learned PMTU").
-> 
-> That commit stopped the learned PMTU from lowering the MSS we advertise
-> in SYN and SYN-ACK. For symmetric paths it argued that "the peer runs
-> its own PMTU discovery and usually already knows the real path MTU".
-> That only holds if ICMP "fragmentation needed" can reach the peer. When
-> the peer sits behind a firewall that drops inbound ICMP, its PMTU
-> discovery is a black hole (RFC 2923, section 2.1), and the smaller MSS
-> we advertised was the only thing keeping its full-size segments off the
-> narrow hop.
-> 
-> Inbound ICMP filtering is very common in enterprise and carrier
-> networks, and it is pervasive in mainland China. We hit this in
-> production after the commit was backported to 6.12.111: TCP connections
-> that reach a server through a relay with a smaller-MTU hop complete the
-> handshake, then stall as soon as the client sends full-size segments.
-> Clients on networks that let ICMP through, and connections that bypass
-> the relay, are unaffected, which made it hard to trace back to the
-> kernel.
+DSS0 supports:
+- VP0: OLDI0 in single-link mode, or OLDI0 and OLDI1 in dual-link or
+  clone mode.
+- VP1: DPI
 
-If it isn't a silly question, how to connections in the other direction
-work?
+DSS1 supports:
+- VP0: OLDI1 in single-link mode, or DPI
+- VP1: DPI or DSI
 
-I'd have thought they'd need that ICMP message to get through.
+The DSI is only connected to VP1 of DSS1, but OLDI and DPI are shared
+between the DSS instances. Thus only a single VP can output to DPI, and
+a single VP can use an OLDI block. Note that in single-link
+configuration OLDI0 can be used by DSS0, and at the same time OLDI1 can
+be used by DSS1.
 
-David
+The DSS IP itself is compatible with older SoCs. While we could use
+"ti,am625-dss" compatible string, we add a new one "ti,am62p-dss" to be
+on the safe side in case the driver needs to do something special for
+the dual-DSS case in the future.
+
+Original patch by Swamil Jain <s-jain1@ti.com>
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+---
+ .../bindings/display/ti/ti,am65x-dss.yaml          | 27 ++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+index db7d3d216b64..5ddee18b4982 100644
+--- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
++++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+@@ -28,11 +28,38 @@ description: |
+   On AM62A7, the first VP is tied off in the SoC, and the second VP is routed to
+   external MIPI DPI pins.
+ 
++  AM62P SoC contains two instances of the DSS:
++  On AM62P DSS0, the first VP is connected to two OLDI TX instances (the second
++  TX shared with DSS1), the second VP to external MIPI DPI pins (shared with
++  DSS1).
++  On AM62P DSS1, the first VP is connected either to the second OLDI TX, or
++  external MIPI DPI pins. The second VP is connected to either the external MIPI
++  DPI pins or a Cadence DSI TX.
++
++  An important note about OLDIs on AM62P:
++
++  There are two OLDI hardware blocks. Each OLDI has certain configuration that
++  has to be done before it can be used. The OLDI blocks get this configuration
++  directly from the DSS block, via DSS registers. However, as a single OLDI
++  block can be used either with DSS0 or DSS1, the source for the configuration
++  changes according to a mux. This mux is set according to the OLDI
++  configuration registers in DSS0. Thus the OLDI control paths change at
++  runtime, and it is not obvious how to structure this in the DT bindings.
++
++  The solution used here is that each DSS node contains the OLDI nodes that can
++  be used with that DSS. Thus the DSS0 node has two OLDI child nodes, OLDI0 and
++  OLDI1, and the DSS1 node has one OLDI child node, OLDI1, so three OLDI DT
++  nodes in total. The two OLDI1 nodes thus refer to the same piece of hardware,
++  and they cannot be used at the same time. The selection which OLDI nodes to
++  use are chosen in the board dts files, so assuming the dts files are correct,
++  no resource conflict can happen.
++
+ properties:
+   compatible:
+     enum:
+       - ti,am625-dss
+       - ti,am62a7-dss
++      - ti,am62p-dss
+       - ti,am65x-dss
+ 
+   reg:
+
+-- 
+2.43.0
+
