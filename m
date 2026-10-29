@@ -1,77 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.205
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793266588;
-	b=QHSheevFQqaOckO6XgjlRDU/47jhsKRJh5MQs0tW/+Ey1pgsr9OLql1oSvq11jZ+Eb7l
-	 mSa0NRk+5Whej3QpS/BBV5t5MhauXXRI5gWNnB944zqACSB59l+gsBiSJp6VAOroonlAT
-	 fNrfIqouVtNY23idG8knTE8xS2M4QqQaeCcIwMkG0RosbEaHJGu9x55TIO30xJc/NELdJ
-	 +sig4JgnQA4/G3fCqoer4ZXsfGryUUp3MknfvyeJnGd6k24HCV17fd6KBZz9XCVITz9iq
-	 i1yxQZN+3VD7cpdcb2I5f2zkW9KCjQTnh/wxnbB2VQ5zE/ey4Dqp14+0Sc1JSNtF4Ag==
+	t=1793266664;
+	b=HURyHvO4J4FlOat31G88k8/4B9mvO6cIyQkViZ+/ux9X4uhix4Nstv1E8A7EHzecSP8F
+	 rGr7H0XECcm10RjSJ3ZuCbqsHpfo/MS6uoIrWpySjwLIqCdK/gRxE5PLlfCjBVjgyciCo
+	 CKmicmsiZIMUtKGIUKsM+y9JxllVD4/xwDKD6nZYPKaNwuM0F8fKUKF8h3tKTWk7V2H9N
+	 TGTKliIoTKAG9YfaZvYmUbU+d+dxFdvFBs+AdSDJExOW7/97dKHJEg4M1MKi5Jreo/oQk
+	 HO0T/ADQITbcXRc1ggCwsKnzDkrkRm9QZMjPOzQEYzJTyYNgCmlFikkdraZ47NZUy/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266588;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=QbA0yKmP1tqlBqk0XBzSCkNF2nGhAJ8D22bj1XP53Cw=;
-	b=idwD8vlOp3L7LyD021UK5nNp7D1k8fZrhoL9r+KZaVdbzxSoMkO7zfsQV0ntB7SPherq
-	 7UBBkR5HZCKzHyodqLHlqBb+HTbo+tgGnqIbuPOjUX5Aak8AGBnUQe8cKdO9c7RGtHshK
-	 wbKOVwX+e6HQjmeZHGfmx6mQ/c+fIIGyE2UYb7DJC4UeOJXwmMtFJYBg4Xxma6f67LoYg
-	 30S7DfBUAAQbDRjQdM+XAgR7fUud/nX7X2xV17+KNXIOGFpa0yPnxgX3JEzIvaf8m/phS
-	 kAYlqpoKONougm89H3LMG2UTt22e+hVKEQfUu4E4Im0dSJSWa/Yx8puQOdxPGxdldrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266664;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=DM2Q/kSYWYqLMCbF8lnJCCCQdVX+uPwPiquxROWwhc0=;
+	b=4xH2FDmwd+2/sV62qJUyVee/A3LwsB8HP5eD+qFgopSG3zV32XNOvd2bwAlZBxrLfe+H
+	 aag5G+GiBbo1f0FY4DC03xWRVyCsRNOUAVNhEpKR6CieozDwd2+n5Tc1HFdEU4VDgPBrd
+	 tTQnqDD6QA9JolFSHdJ25/+6v29J+a4wxUXeuAS1C3Sr4g6YnKtSePeHNMa5aBHKe39No
+	 2HyvGGJrcm2XyHYUaBN7xS4wuKetwfYhthaQmqbPj1shBgOvZtIcta5JiIXglc+/N8MS0
+	 VQWhBH/0pWASQVTN1dD4lel4LlqLuheWVomCQspFrCnDbWMBhjW2aBbE4F3BpjS9DAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=PGgBTEDI;
-	arc=none smtp.remote-ip=203.205.221.205
-Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Tvlfi9kk;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB67606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:36:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FB67606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9AF606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:37:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A9AF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=PGgBTEDI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793266584; bh=QbA0yKmP1tqlBqk0XBzSCkNF2nGhAJ8D22bj1XP53Cw=;
-	h=From:To:Cc:Subject:Date;
-	b=PGgBTEDIDNOZ/VFluDkAckBsho8ULubxskIr6n3Els+o0aHyGGh9T81DhK+ca6Ci8
-	 lPHzDpB+wYKGBF3DRZiboceNVAE/CmW3rEHDYaFiJgHRZGUAdboAhAAn86YzenoDBb
-	 oQ/y3QCcLRA4NT81bswJ9RsB+iE15Nv8eu8X8h/o=
-Received: from shuai-VMware-Virtual-Platform.. ([171.8.225.58])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 91620CBE; Thu, 29 Oct 2026 17:36:22 +0800
-X-QQ-mid: xmsmtpt1793266582tlfqundro
-Message-ID: <tencent_B7C43D503A8965459EB1690D174EEC604205@qq.com>
-X-QQ-XMAILINFO: MllZffuBkEb5boKhaSNR/rZUOKK1Y7onsMxuQ/UyWk3DK8LolyXwmRPNEPA01c
-	 ag5fh9X19epMPLFmR5ffz7KDTvDVrfN+M74wPSF51KSIOHgnxwFrFZqHkghEBuGJXK4ddHH5BzJY
-	 JREsbDwupMmSgx7atnGQUyh/ii0Z63Zq+qvaWkQGOTaXCOSBHxrw5+kn0adRA8c8tz8b5nPeKiZT
-	 XUWxd83gZkUmmhpwnGhp4qn3QoHZp/hJ34inParppM33zDw7QXQyoUquB9B1Zfc0Tf8PloCtW41U
-	 q0+lp4NxK93sRiRxBsJ7ghfvWWHz/DTS4q24JU3yhoZGONm2qPOfrQBqMxNS/7xTXk+yv9G1Iuz7
-	 fwJp1HXuK2+DAcaLNyzeKx6D/X7DctVF7nxPFAiNC43yRg/Q7HQyLQyQPQVJ9CKlggzKzm8O9RyF
-	 Xs0dtNk6fQxVsuLq7ubI2eg/jYsi1A7Z321KYL5bwOLs8bYE9/dQxn4CUX7nYnQ3q03znMfz/Kg6
-	 h4w3Kh+SPmERsj3oHpsB51rbm5wN5SZPwPdyT11LdrgmdhH6r9klg1mGQRXZ6IG/qZaGdYcqN0L3
-	 ClK3UlUF8ojcosddKfYY1Mnzm1OLsjn0EzQuBjF8pGYvNCDhKb9ejhjLksdExhdcy69ECyp59IFd
-	 oGrRPcS5NsJH9rLXy37MyGYwujDVLvhoKjIdXCvRmKBh3UxwrgJu+Hh5OqoGajuVh+SGT2eou0k1
-	 zQw3pzM8fTEwjXzXbXzKyD2XjM3mgE3Be2952e3QzssuX9+ad8sd0JNTtnuRUt8PL6gqwsVoSxFf
-	 hZURfnoYwFlgsapOcxhqf7BgSHSnKDIP+CwdRux5+HBH5tQ3kXABeQouUWmoWof/R5SBoMegjbAh
-	 5db0uZShXi8V05rnQsWZmkSDfQnvXfvUgNwvvIf4+50uDNX42kHniQ5OlYSmBrUKkJWJztje6yMK
-	 ofjITAhQwD2z0q4rAIRggV6e6Z4cefEC2DOp2ac3B2BLQEty/MxFL8ebXXwl6Q9Avp2Xn+skklsr
-	 MnNHztaglmax0wvCS14qIPUvZ064ioN7uWH42mr9iGkGnR4xzE2BenLrJwL5a/FV+1K2Zj7OVs7p
-	 Ksd0L3T+Cm2IqLEh4=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-mtd@lists.infradead.org
-Cc: dwmw2@infradead.org,
-	richard@nod.at,
-	chengzhihao1@huawei.com,
-	syzbot+fdfd8fdf716c90baef0f@syzkaller.appspotmail.com,
-	linux-kernel@vger.kernel.org,
-	Shuai Liu <847807867@qq.com>
-Subject: [PATCH] jffs2: prevent xattr_sem -> fs_reclaim deadlock
-Date: Thu, 29 Oct 2026 17:36:22 +0800
-X-OQ-MSGID: <20261029093622.3152309-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Tvlfi9kk
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso16648295e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:37:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793266662; x=1793871462; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DM2Q/kSYWYqLMCbF8lnJCCCQdVX+uPwPiquxROWwhc0=;
+        b=Tvlfi9kkVZdSPhIzlLydhHuDpvCbtkpigMXcPJSx/VgUJ3csemwFPH3EtWdV6Etp+P
+         NbA66dOQOQlfNFxvQLgA9rBK2HoBeYyqhpjO0SbDlVPDOrALYrUSrno76UJXo9pW1MtN
+         GXMHERCWzFSHDCvPpVUfyp11hY5p9q9zI8gWDawSaayo1Q6ztGlGglgWXUN6gbuF2xa4
+         Bfh8q3hoAvJ8jPs7HKaplnHqDmF5d+EdmhP0mzlcJdQ+/ddbPkZoNoxdb28lC7EeIBoU
+         /xjeUhZnu9Sq8QYLDi9HwKGYgp7EqJfa8ogCGSD01XRIv1RxASB9WH2WSeJht6btVfxT
+         TPYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793266662; x=1793871462;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DM2Q/kSYWYqLMCbF8lnJCCCQdVX+uPwPiquxROWwhc0=;
+        b=G2XGneJ37JMKc9HB4cMKgnKsKwl36SUOhaMSa2vfyl0aRxOK4uxYEF10EW7xVTFQJ7
+         lyzH97BP9joebcr1ESAld7j4D41zlDuHLKhGlC+OARSoRTTrmNCQA7BGy+w+5OhOeTDU
+         xf8a6iUhHs5TAzeMNhouUaFwZUtkqZLjorBmHYC88zsRUSDTrau8C6pt+bSrcduHG3Y8
+         ENrvxUOa0fMi1WPxUaNUc+F+dNiI5TM6gqvGIdkda4oYofKPJSBC8iv+AMCDdnDPebF2
+         /Cq+gTz7I7n6fWHXKraWMTb1Ma/eZAM1VPAKZRuZOgwBl4aaeA5JPYXILPdMrMqPbd9V
+         4jMA==
+X-Forwarded-Encrypted: i=1; AKwUvByUW4OY3TSVx4w3ozXQR3U+v6aiUiwFGLKw9qKShX1QG8wkS3EYM7u/JXBppoSimFVeKnLjzyyZYNLh/RQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEhcjeaXRTwyrRqWXcTET6YdRMaumQ3NGw6L/a+aBLwZtqQ9fe
+	4+kPBHl1E05DAh7fyQWgNquJepKxMdMSMFE9M6IwAKZzrtfbKIrMjxVnNtXVKbvdJ0c=
+X-Gm-Gg: AYBFou20/D9p10H7AVogihmJiJw5oYGJBEuN8n5N5J0Zy8bAwzL+9Va8/NNjlk6swjt
+	9xONkkkCflUQH1jQp1r3G2bedI+1UhXAhG62Ki0StFX6hL+yVB7dcFkfwJO25w0DlbdTOV6aHyE
+	5UrGZtNJghdWJghEF02V8iR/ge0prRxyCwjuHVqtZ04FcoZZuTVtG1ZEV36nsjzKzIZ0OqEkj9/
+	VFWPa+rjXxQeTgBdH1/atXqUBd7DuhfqMcAdsfqWDLN50ubmmzn4IikRcPokVfr/BemK/BJRXWX
+	9+J5TVIaz25KOXpxtxPMwOLRvwQ5YFlNQFJcU5OhT4uA/z3vEZDUG8HdmU9LvTU5yLJxhmLCImb
+	tOQnQuU2IrQugLnBzjaF4W5iKllwoi0H2XhdkG5BIAguH4h9WCNAl3UcXO3OEQ12NubE21DZDqq
+	gebSxOtSEEcRrWxxgSMneO+Bep172ylPjpN+QiLVtDsLi9wHI2hlWvt/QiPBNzb/J2MBpcu+ti3
+	JAzDuvSwqlnypBMHgIQQfFC5expLI6+2sJKPv3J8s2msczFD0ZLNwavCvm9LnNCYbD7huJo1YU1
+	mxn8VFKqFX2oOwJ6sj7GgNOhG0mswCdi2HxJEHiO
+X-Received: by 2002:a05:600c:4455:b0:4a3:59c7:f226 with SMTP id 5b1f17b1804b1-4a965ec950amr104208525e9.6.1793266662424;
+        Thu, 29 Oct 2026 02:37:42 -0700 (PDT)
+Received: from [192.168.0.167] ([64.43.45.156])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f7f4cdbsm59460365e9.7.2026.10.29.02.37.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 02:37:41 -0700 (PDT)
+Message-ID: <f3a1ad00-5c74-4922-9c65-dd7a56c72582@linaro.org>
+Date: Thu, 29 Oct 2026 09:37:40 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,274 +90,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/9] media: camss: add SM8750 support
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-do_jffs2_setxattr() and several other xattr paths allocate memory
-(e.g. jffs2_alloc_xattr_datum() via kmem_cache_alloc() inside
-create_xattr_datum()) and write to flash while holding
-c->xattr_sem, using GFP_KERNEL.  Such allocations may enter direct
-reclaim and take fs_reclaim, establishing the
-xattr_sem -> fs_reclaim dependency.
+Hi.
 
-kswapd, on the other hand, holds fs_reclaim while shrinking
-dcaches and inodes: shrink_slab() -> prune_dcache_sb() ->
-dentry_kill() -> evict() -> jffs2_do_clear_inode() ->
-jffs2_xattr_delete_inode() takes down_write(&c->xattr_sem),
-giving the reverse fs_reclaim -> xattr_sem dependency.  The
-resulting lock cycle can deadlock:
+Thanks for your series but, I'd like to proceed with Hanxiang's 
+contribution.
 
-    CPU0                    CPU1
-    ----                    ----
-    lock(xattr_sem)         lock(fs_reclaim)
-    lock(fs_reclaim)        lock(xattr_sem)
+If there are further fixes you'd like to submit on top of that enabling 
+series, please feel free to do so.
 
-syzbot reports exactly this circular dependency with lockdep [1]:
-kswapd0 acquiring xattr_sem in jffs2_xattr_delete_inode() while
-holding fs_reclaim, with the recorded chain showing
-do_jffs2_setxattr() allocating (jffs2_alloc_xattr_datum() ->
-kmem_cache_alloc() -> fs_reclaim_acquire) while holding
-xattr_sem.
-
-Fix it by wrapping every critical section that holds c->xattr_sem
-and can allocate memory or write flash with
-memalloc_nofs_save()/memalloc_nofs_restore(), so allocations made
-under xattr_sem never enter direct reclaim.  This cuts the
-xattr_sem -> fs_reclaim edge; reclaim contexts taking xattr_sem
-remain harmless.  The covered paths are:
-
-  - jffs2_xattr_delete_inode(): delete_xattr_ref() writes flash
-  - check_xattr_ref_inode(): load_xattr_datum() allocates,
-    delete_xattr_ref() writes flash
-  - the write-lock upgrade sections of jffs2_listxattr() and
-    do_jffs2_getxattr(): load_xattr_datum() allocates
-  - do_jffs2_setxattr(): create_xattr_datum() allocates,
-    save_xattr_ref() writes flash (both lock sections)
-  - jffs2_garbage_collect_xattr_datum() /
-    jffs2_garbage_collect_xattr_ref(): jffs2_reserve_space_gc()
-    may trigger GC, save_xattr_datum()/save_xattr_ref() write
-    flash
-  - jffs2_verify_xattr(): do_verify_xattr_datum() reads flash
-
-jffs2_xattr_free_inode() is deliberately left alone: it only
-frees memory and cannot allocate.
-
-A related but distinct cycle between fs_reclaim and &f->sem
-(jffs2_do_read_inode() allocates while holding f->sem during
-iget) also exists; it is a separate issue not addressed here.
-
-Verified with the syzbot reproducer under QEMU (mtdram + JFFS2 +
-OverlayFS, CONFIG_PROVE_LOCKING=y): without this patch lockdep
-reports the xattr_sem <-> fs_reclaim cycle reproduced above;
-with this patch that warning no longer appears.
-
-[1] https://syzkaller.appspot.com/bug?id=eefefd759ef3b48ddad4da086ff8f4b9194576f9
-
-Reported-by: syzbot+fdfd8fdf716c90baef0f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=fdfd8fdf716c90baef0f
-Signed-off-by: Shuai Liu <847807867@qq.com>
 ---
- fs/jffs2/xattr.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
-
-diff --git a/fs/jffs2/xattr.c b/fs/jffs2/xattr.c
-index 6b4f68593c29..7b873fe2e08d 100644
---- a/fs/jffs2/xattr.c
-+++ b/fs/jffs2/xattr.c
-@@ -15,6 +15,7 @@
- 
- #include <linux/kernel.h>
- #include <linux/slab.h>
-+#include <linux/sched/mm.h>
- #include <linux/fs.h>
- #include <linux/time.h>
- #include <linux/pagemap.h>
-@@ -598,10 +599,20 @@ void jffs2_xattr_delete_inode(struct jffs2_sb_info *c, struct jffs2_inode_cache
- 	/* It's called from jffs2_evict_inode() on inode removing.
- 	   When an inode with XATTR is removed, those XATTRs must be removed. */
- 	struct jffs2_xattr_ref *ref, *_ref;
-+	unsigned int nofs;
- 
- 	if (!ic || ic->pino_nlink > 0)
- 		return;
- 
-+	/*
-+	 * delete_xattr_ref() below writes flash nodes.  This function runs
-+	 * from inode eviction, i.e. memory reclaim may be waiting for this
-+	 * lock.  Keep allocations under xattr_sem out of direct reclaim so
-+	 * that holders of xattr_sem never wait on fs_reclaim -- otherwise
-+	 * reclaim contexts taking xattr_sem while holding fs_reclaim can
-+	 * deadlock with the setxattr() paths doing the reverse.
-+	 */
-+	nofs = memalloc_nofs_save();
- 	down_write(&c->xattr_sem);
- 	for (ref = ic->xref; ref; ref = _ref) {
- 		_ref = ref->next;
-@@ -609,6 +620,7 @@ void jffs2_xattr_delete_inode(struct jffs2_sb_info *c, struct jffs2_inode_cache
- 	}
- 	ic->xref = NULL;
- 	up_write(&c->xattr_sem);
-+	memalloc_nofs_restore(nofs);
- }
- 
- void jffs2_xattr_free_inode(struct jffs2_sb_info *c, struct jffs2_inode_cache *ic)
-@@ -638,10 +650,12 @@ static int check_xattr_ref_inode(struct jffs2_sb_info *c, struct jffs2_inode_cac
- 	 * one will be removed.
- 	 */
- 	struct jffs2_xattr_ref *ref, *cmp, **pref, **pcmp;
-+	unsigned int nofs;
- 	int rc = 0;
- 
- 	if (likely(ic->flags & INO_FLAGS_XATTR_CHECKED))
- 		return 0;
-+	nofs = memalloc_nofs_save();
- 	down_write(&c->xattr_sem);
-  retry:
- 	rc = 0;
-@@ -683,6 +697,7 @@ static int check_xattr_ref_inode(struct jffs2_sb_info *c, struct jffs2_inode_cac
- 	ic->flags |= INO_FLAGS_XATTR_CHECKED;
-  out:
- 	up_write(&c->xattr_sem);
-+	memalloc_nofs_restore(nofs);
- 
- 	return rc;
- }
-@@ -973,6 +988,7 @@ ssize_t jffs2_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 	const char *prefix;
- 	ssize_t prefix_len, len, rc;
- 	int retry = 0;
-+	unsigned int nofs = 0;
- 
- 	rc = check_xattr_ref_inode(c, ic);
- 	if (unlikely(rc))
-@@ -990,6 +1006,7 @@ ssize_t jffs2_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 				retry = 1;
- 				up_read(&c->xattr_sem);
- 				down_write(&c->xattr_sem);
-+				nofs = memalloc_nofs_save();
- 				goto retry;
- 			} else {
- 				rc = load_xattr_datum(c, xd);
-@@ -1027,6 +1044,7 @@ ssize_t jffs2_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 		up_read(&c->xattr_sem);
- 	} else {
- 		up_write(&c->xattr_sem);
-+		memalloc_nofs_restore(nofs);
- 	}
- 	return rc;
- }
-@@ -1040,6 +1058,7 @@ int do_jffs2_getxattr(struct inode *inode, int xprefix, const char *xname,
- 	struct jffs2_xattr_datum *xd;
- 	struct jffs2_xattr_ref *ref, **pref;
- 	int rc, retry = 0;
-+	unsigned int nofs = 0;
- 
- 	rc = check_xattr_ref_inode(c, ic);
- 	if (unlikely(rc))
-@@ -1059,6 +1078,7 @@ int do_jffs2_getxattr(struct inode *inode, int xprefix, const char *xname,
- 				retry = 1;
- 				up_read(&c->xattr_sem);
- 				down_write(&c->xattr_sem);
-+				nofs = memalloc_nofs_save();
- 				goto retry;
- 			} else {
- 				rc = load_xattr_datum(c, xd);
-@@ -1089,6 +1109,7 @@ int do_jffs2_getxattr(struct inode *inode, int xprefix, const char *xname,
- 		up_read(&c->xattr_sem);
- 	} else {
- 		up_write(&c->xattr_sem);
-+		memalloc_nofs_restore(nofs);
- 	}
- 	return rc;
- }
-@@ -1102,6 +1123,7 @@ int do_jffs2_setxattr(struct inode *inode, int xprefix, const char *xname,
- 	struct jffs2_xattr_datum *xd;
- 	struct jffs2_xattr_ref *ref, *newref, **pref;
- 	uint32_t length, request;
-+	unsigned int nofs;
- 	int rc;
- 
- 	rc = check_xattr_ref_inode(c, ic);
-@@ -1120,6 +1142,7 @@ int do_jffs2_setxattr(struct inode *inode, int xprefix, const char *xname,
- 	}
- 
- 	/* Find existing xattr */
-+	nofs = memalloc_nofs_save();
- 	down_write(&c->xattr_sem);
-  retry:
- 	for (ref=ic->xref, pref=&ic->xref; ref; pref=&ref->next, ref=ref->next) {
-@@ -1189,6 +1212,7 @@ int do_jffs2_setxattr(struct inode *inode, int xprefix, const char *xname,
- 		JFFS2_WARNING("jffs2_reserve_space()=%d, request=%u\n", rc, request);
- 		unrefer_xattr_datum(c, xd);
- 		up_write(&c->xattr_sem);
-+		memalloc_nofs_restore(nofs);
- 		return rc;
- 	}
- 	if (ref)
-@@ -1206,6 +1230,7 @@ int do_jffs2_setxattr(struct inode *inode, int xprefix, const char *xname,
- 	}
-  out:
- 	up_write(&c->xattr_sem);
-+	memalloc_nofs_restore(nofs);
- 	jffs2_complete_reservation(c);
- 	return rc;
- }
-@@ -1226,8 +1251,10 @@ int jffs2_garbage_collect_xattr_datum(struct jffs2_sb_info *c, struct jffs2_xatt
- 				      struct jffs2_raw_node_ref *raw)
- {
- 	uint32_t totlen, length, old_ofs;
-+	unsigned int nofs;
- 	int rc = 0;
- 
-+	nofs = memalloc_nofs_save();
- 	down_write(&c->xattr_sem);
- 	if (xd->node != raw)
- 		goto out;
-@@ -1255,6 +1282,7 @@ int jffs2_garbage_collect_xattr_datum(struct jffs2_sb_info *c, struct jffs2_xatt
- 	if (!rc)
- 		jffs2_mark_node_obsolete(c, raw);
- 	up_write(&c->xattr_sem);
-+	memalloc_nofs_restore(nofs);
- 	return rc;
- }
- 
-@@ -1262,8 +1290,10 @@ int jffs2_garbage_collect_xattr_ref(struct jffs2_sb_info *c, struct jffs2_xattr_
- 				    struct jffs2_raw_node_ref *raw)
- {
- 	uint32_t totlen, length, old_ofs;
-+	unsigned int nofs;
- 	int rc = 0;
- 
-+	nofs = memalloc_nofs_save();
- 	down_write(&c->xattr_sem);
- 	BUG_ON(!ref->node);
- 
-@@ -1289,6 +1319,7 @@ int jffs2_garbage_collect_xattr_ref(struct jffs2_sb_info *c, struct jffs2_xattr_
- 	if (!rc)
- 		jffs2_mark_node_obsolete(c, raw);
- 	up_write(&c->xattr_sem);
-+	memalloc_nofs_restore(nofs);
- 	return rc;
- }
- 
-@@ -1298,8 +1329,10 @@ int jffs2_verify_xattr(struct jffs2_sb_info *c)
- 	struct jffs2_eraseblock *jeb;
- 	struct jffs2_raw_node_ref *raw;
- 	uint32_t totlen;
-+	unsigned int nofs;
- 	int rc;
- 
-+	nofs = memalloc_nofs_save();
- 	down_write(&c->xattr_sem);
- 	list_for_each_entry_safe(xd, _xd, &c->xattr_unchecked, xindex) {
- 		rc = do_verify_xattr_datum(c, xd);
-@@ -1322,6 +1355,7 @@ int jffs2_verify_xattr(struct jffs2_sb_info *c)
- 		spin_unlock(&c->erase_completion_lock);
- 	}
- 	up_write(&c->xattr_sem);
-+	memalloc_nofs_restore(nofs);
- 	return list_empty(&c->xattr_unchecked) ? 1 : 0;
- }
- 
--- 
-2.43.0
-
+bod
