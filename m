@@ -1,80 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283114;
-	b=RnPVmyBGj2TxNNpC29+9wx3jHmXHnSarnW27Tt8lFw733tOvsmjw3ogboH/A/epWRDI8
-	 bUdhUeo3nJlkwMRJXHLYCMTsJMTrFt2q+w2g2ad9PFs2Gxyt5s7BtB37FS6pxK0YhSGk8
-	 3KQwYAWK4sBptwDmSF97dDdF7IjnxFrMrhk+OTEbIY8MZtRLZ7s8QsljSZT6pW/l4ytnh
-	 5NmNtYiMWTYbdUixDbGT25gdFWK67yQhmxdcWvWDGhmsE/Ua7aoAgCLECq9X0U9J1fGQV
-	 u/wk1ASD9kcFqPq2hU2Tm7TCjdwu7BfqR0lTkLzpAXpNBXG8CFLWh+/N06oFBgvrxQQ==
+	t=1793283143;
+	b=IID//AZjW3cde2Q1tpikcrbA1PXgzgxlPvDjnRxK0cxKKwrCy98jR2ZR0gxKPmWBsvrU
+	 1hWzcHCbDnk9/AscSWaiRlBPv4goVpBQ5t4YEz0xChFKMb8eTe0hx7dDkHCh4QUM00U0V
+	 0XLGy4cIKll4YVuYuF/ZNLEDL4304y5avOAm0l3pkPJmTey0RVxs/2OfsDubRpW7Z2xyo
+	 /KQKrujxcYhnOGPOqkwL0kL8IrM2+Nt6YgKauA8QR6IBZgc7n8UXlq/9YIR5/jtDPSVcY
+	 cCAtE4I0dN5NhgB3A7MM+LBv1HDBhBlMhPImi6wT6Ou+eOgFwVyzeAtJLJOyBItrXpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283114;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=OzKnLRYb2RHjO5vpLJyGvVckIFjS3eGZhvq3T7EZubc=;
-	b=Tu08MJ7C8iqE/R6bFOqel7SDzPa70BbTXKx4GXKwaxpu7K3LOGXL15o5C0JQJqpkSDnx
-	 AxSpVtg7aZLrwyUVjP9hg34PUNrven1O9MwrSiFEFz1p/QAZYa2CaxtPRHFEK5VYWqKaV
-	 D/dINz8UHSUQbRp8fSsSdSKIjEmOKbdRI2/8bl9WIphBhadsh2TbKyhdZkfGtTSEHidiB
-	 BnFRfiioyfQm5qkXbR/oFhC1jKMFrslcOV5mqjIGGznVhEjgHQdmoXCweA+1/oL4YReRT
-	 NpxpHZ9ofmilS4xdIdMr5pkNGoL2F9XRkCJcQAKnGA6GaFOyRoh67RygxyY+zNFBAww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283143;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=CUu4JKG/T0VbWw91uFo3a8pQJkxWXhnnzdDiZtsSrPE=;
+	b=c0bTWkabT8bwd6yFFxpCS7RHL/k3/ewLL9oMi1QcyYOBYOP8d3vk+LgUgQQcbjdv+pef
+	 WTkhgQwNuQ7zJlE3SoPK5pNrjHAbwCQfpB/awI1Etj+P9Ry8GkHi4yQ91VqWztltb78km
+	 1jotSZ3SixutPYot/BnqyS0NUItBD9nlEy3jAfvyHhIIy7gUPAVXNgf6y3ieu1FFG81Yk
+	 G43NikutBSfsnzHjMi6AbxeZuv2q4KrtjorFdM0LSw+wN+OzvBbkdPjO1YnjVoWbOP/x3
+	 D1T4f9NRRhkXMe3XyZQ/g1JLBKO48JLXwnuuabxNSd7n5Odz43scw7IiAzbYjRnZiUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fDYnTqh3;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	dmarc=none header.from=w6rz.net;
+	spf=pass smtp.mailfrom=w6rz.net;
+	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=hYTwS7w1;
+	arc=none smtp.remote-ip=44.202.169.39
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67432606A31C;
-	Thu, 29 Oct 2026 14:11:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67432606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2001606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:12:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2001606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fDYnTqh3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793283113; x=1824819113;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IGMKDb/7ZPZl5Y96TrIzG3Ewn1xwYH/zIgJht6qrTJ0=;
-  b=fDYnTqh3F8xuKC47a9Tz6thYrEq018NyAv7hFiix94oZbCqJgAWDuKL7
-   ESr1XE7oSmrO78RoPkADJLWNEorogILaM0xF8LYeTgEuIKREW6+SLZ6RP
-   zSRxplTAte8x1Tg8JdfHCuKvFxAe5jgmOWdZg30rSrONaDMRZgrKxJk+h
-   gtDNv2d9q4cqvFzE2Ow2KrUaQMwVFrAWPX+rTcUBQjyBqQAjVZLg2NPJ6
-   sjtoW9ltK5g+33kuPZM9f/5aocGISGNnsfB7jHNn28wwpjcdrlvlUlyMX
-   ZNlHQtmsyvX1Hvry75YATOg8IdslyLf/U0eTQ5NPXZYHVfjhqZO8ggEeH
-   A==;
-X-CSE-ConnectionGUID: ERafY8wWT/aYNReuhvW4CA==
-X-CSE-MsgGUID: +n46ajfjRsyynT1owP65Ag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1903513"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1903513"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:11:52 -0700
-X-CSE-ConnectionGUID: uyNBvJHcSg+cXeZLEedqOg==
-X-CSE-MsgGUID: 6UbarMXGSZOTtgWO97tlQw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5524691"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:11:49 -0700
-Date: Thu, 29 Oct 2026 16:11:47 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Marius Cristea <marius.cristea@microchip.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: Re: [PATCH v3] iio: adc: pac1934: validate ACPI _DSM return type and
- bounds
-Message-ID: <auNUI4rbGHjbwuzs@ashevche-desk.local>
-References: <20261029001447.1114691-1-tristmd@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=hYTwS7w1
+Received: from eig-obgw-6003b.ext.cloudfilter.net ([10.0.30.175])
+	by cmsmtp with ESMTPS
+	id MPRYxAQXlMylkMQrYxVqG6; Thu, 29 Oct 2026 14:12:16 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id MQrXxmZCW1fkWMQrYxY6rV; Thu, 29 Oct 2026 14:12:16 +0000
+X-Authority-Analysis: v=2.4 cv=CLMqXQrD c=1 sm=1 tr=0 ts=6ae35440
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=GxnsrCybi4LwF3y-YhAA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=CUu4JKG/T0VbWw91uFo3a8pQJkxWXhnnzdDiZtsSrPE=; b=hYTwS7w1HWTtmwdAsUQCzG8Hy5
+	fTX4LXitEA2jlOVQdrlilV5UozyshTvfw/l7ljcwZJMO7PYOjSMH6hejr2fcRVCFsa9f0sRFyYGpE
+	eVGPxW5MgGuQIbpiJcSstU/o8mmm5l2kOkONWlt7fI/iAvq2itpj8L6KP+7EPGPbehrZW/X+oTtqd
+	tgdJ0Sxz6/hnUnzo9Mh2SHtcuEmlfjCAW8JyXH+UhAXXlL5PV4qYtTwoNbr658SX17WWSzaqUbFkD
+	wpW412wH3/Voa55zYTIYlvYq4pW403M1VDQgGvT1JLiNHzv48l1cMP2e4r97FONbx4IDopoxhhw33
+	6FbTKi5Q==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:51934 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xMQrX-00000003vJe-1B8e;
+	Thu, 29 Oct 2026 08:12:15 -0600
+Message-ID: <96b99a72-219e-40a9-bc88-5d21571fa5f7@w6rz.net>
+Date: Thu, 29 Oct 2026 07:12:13 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,61 +76,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029001447.1114691-1-tristmd@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 00/38] 7.3.1-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261028165940.394092994@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261028165940.394092994@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xMQrX-00000003vJe-1B8e
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:51934
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 17
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfHJTi8jt9lOkseMQ8+BtWbDrIaGuCnjO5rj9ifw8YGiUHfoHo45GGWFmn3df2p1lsSttmOhV4d9Ww2zdY20m+ToELdgtZyVHjjY+n2X7QXWOVdIU15tp
+ PFiHMnpwft50N7tPU80rryW+lc+KKeypStTXFdI75VRrazCCvc+w2y8/5c2Nnc73Bm9HXaIvpcr8JtrBCCy/XTmgeUaoooUyoQU=
 
-On Thu, Oct 29, 2026 at 12:14:47AM +0000, Tristan Madani wrote:
-> 
-> pac1934_acpi_parse_channel_config() calls acpi_evaluate_dsm() four
-> times to read channel configuration but does not validate the returned
-> object type or array bounds:
-> 
->   1. No check that the returned object is ACPI_TYPE_PACKAGE.  If
->      firmware returns a different type, accessing rez->package.count
->      and rez->package.elements on a non-package object produces
->      unpredictable values.
-> 
->   2. The loop bounds use rez->package.count directly without capping
->      to PAC1934_MAX_NUM_CHANNELS (4).  A package with more elements
->      than expected causes writes past the fixed-size labels[],
->      shunts[], and active_channels[] arrays.
-> 
->   3. The bipolar and sample rate DSM calls access elements[0] without
->      verifying package.count >= 1.
-> 
-> Use acpi_evaluate_dsm_typed() with ACPI_TYPE_PACKAGE to validate the
-> return type at evaluation time.  Cap loop iterations to
-> PAC1934_MAX_NUM_CHANNELS, and verify package count >= 1 before
-> accessing elements[0].
+On 10/28/26 09:59, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.1 release.
+> There are 38 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.1-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-...
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-> static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
-
->  	struct device *dev = &client->dev;
->  	unsigned short bi_dir_mask;
->  	int idx, i;
-> +	unsigned int count;
->  	guid_t guid;
-
-Preserve reversed xmas tree order.
-
-
-> +	count = min(rez->package.count & ~1u,
-> +		    (unsigned int)(PAC1934_MAX_NUM_CHANNELS * 2));
-
-No, you are not supposed to cast parameters for min(). It should work for int
-as small positive predefined number.
-
-...
-
-Ditto for the other case of min().
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Tested-by: Ron Economos <re@w6rz.net>
 
