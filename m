@@ -1,52 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793252449;
-	b=NVkY8mGYu/lIizfjiwgcY0SjZAwKYte1bzpcR8AV5CJ4iV+a8C2yKE4NqkBgtuy+KJQC
-	 /rl6U8HCooojHL/B2N5zceFOKHopxr7GLTOwltfConBq2VofC8tgfOP5rxV9UB75n7NdY
-	 YI3tSYPrFW7cH6DjSscg59EDoAlLC1rvX182cXvhTPwzvkzYtMc0BU29C7y+GfdXi+BtB
-	 8IMoZjKcz5mEwVuRA8nkFHiUBXzcNiEShvVmlistU+WmxDyzYjwx70scVr0GuQXN8GlRf
-	 igHE7cg5cyaQskc6Oc7rFPQ0K7gS2ShJ762WhI2MIvDIAlmuu2qVXdljFoM5RD3pF1g==
+	t=1793252465;
+	b=yAwTYJq/Uz2cLV5zk1vq2LX8t1lyBULieR4vm3JEg36BmeY0GHFf4zwulr2Bf9YFyN1i
+	 MsWrCS9NI3w0zmVVUpgbFnZnTSDmvtk2N0YOM1boIZTy2zpGaIv8/LPS3CTlMZFaAaTc0
+	 nP3ZFWtEEPawwWtCJMTaPzwkOYCbKRfycp5yAb+7z6xJfR22a1MYCmIQL9aA0omHSjUpc
+	 j0H0wbo+VTNIbgbp2lP+Bk+WNC4VFX9BPPlSgGe7+0U9V5POn0F14+n7LqkitnCvJR/UR
+	 ZLMd4VWfPbX+OFgOsW5CS4VWpJFDo+RaEaGLjY14dT3HLFIPZRjmCt+Sl0gcn68j4vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793252449;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=bC8+Xr/oJf/T5cIuTvXutc2g7ns43TmGmQIa8da+Epo=;
-	b=jIkkhIMcJtLZJnOsfJbsDZVquUW3pejaKq+AXkiSiNeo9m5/XCuiQDSSpmvpSJJKVyUB
-	 rF6J/HYu0SxiaIXng20ICfmo1+Z7BYcUnte6JHKdMkHl1mRVnTCgc/a8S6HJCVxX/4Z8K
-	 Mxh2d2vcYQrKp9saTwlD3DlO1KTF/GS4MJlrE+H8QZN+/Z0wuaLXe1Dh9QFLH84lObgCV
-	 z0ai9S6dVx3W3cZaW/B6nhmlL72DQmdnCDTeRnzOa0lXwxkyz09oyej60bu9vfxYt1KY/
-	 vXskaPmczkdCI2J6ImfBHsF+A4smyFAVLnYrh7tSQzuwietdY5/2TVEO5+3qEbjx6Nw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793252465;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=rpIwuWJI4mUU+Vr37pPxQ2ayfurlJBPbC17PVqfWTR8=;
+	b=qnl6hsIl7GWnvLpfhD1zCHL8+FSQ34JzJSItevX+aAGxqVGB+Fzo5H/Lt0so7Wul5zzA
+	 lA4P4TMRov2VWrGYONfgyl357lAvQbuqYAdT3cgGoc4pa6FXCYQBZm8cgl4JtPnqXDavq
+	 ND33daBfSt41ZE59IaH+gnN8IDEFtZ0wFE1hLpDfwa8cWOUDrxGAq81GBEH7/dGouOsfm
+	 9lmWPNPFDOUEQaXFYK1QVLqIKedUGIQW716IxXSb6oTv8JoO72wK4HkEkjAEwrXpfg5ir
+	 bEyRjKzir51EjNQAYP5120SuFT0+qRbkwU0V6/OJ5xL2vfzHh+Ro8n1rJVwrhWuqW7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=VRbDEQiJ;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CbV3qZXR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAFD606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:40:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBAFD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46778606A31A;
+	Thu, 29 Oct 2026 05:41:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=VRbDEQiJ
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3BFAA10BD4C;
-	Thu, 29 Oct 2026 06:40:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1793252446;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=bC8+Xr/oJf/T5cIuTvXutc2g7ns43TmGmQIa8da+Epo=;
-	b=VRbDEQiJcvIdFsAcMI+tCeU3ljrr5uXe9ansYnw14gaUjmrjAOgD69vS6eVZPtvuvgnM0q
-	BxtyYx+EXZfYEc5zDvLMGY+XQHcK8sv80UC3sQxMD/U3FeUtwIV3sYOzbbdIiewpbQtkB5
-	ISbYxGZ0L7IHa5ZeIfeSjQaoWwU2NA+JMjUSHtJ/VPeDEobg73rMKu5sFVBPwjdLzRwcBW
-	0CbCIqpcrlQXvhWq6hEl2NBF4cKN0POx8q8HYDhaCY16IF9dn6YH9jJUrftE551BZmSXT5
-	IVOaJRjba79PW4i2nR3n/m4atXjnRsFJlEdV63VASYb9WuzX+cY7FR7FZMs8Fw==
-Message-ID: <5c3ab7fc-2b99-4f8c-b625-1402d1f67067@nabladev.com>
-Date: Thu, 29 Oct 2026 02:06:50 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CbV3qZXR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C0891F01825;
+	Thu, 29 Oct 2026 05:41:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793252464;
+	bh=rpIwuWJI4mUU+Vr37pPxQ2ayfurlJBPbC17PVqfWTR8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CbV3qZXRHW3XrkXfTLQp+OWG5tdJOGe8xgMJynVAToS+xNDnpzB6+H0zYgNbeP2RV
+	 etXdFuzqFhCBSPLXXaBmh2quQCJFuvTYhqIkpowRdvVdt/OTbeA1qhdC5mDBg5KcmG
+	 2cDDGQyDbG5HSlK4OcBc77lzQaGh355eyFEf9vPl/WcnE588DgdQimD8l+oMQNDzio
+	 sQu0UwdkYkggy9GOYcdPbBz6+u8rm8sJ5yg9NS06J6t0cW0+y7nt5gvyhQurR7Y0Io
+	 M4UcD8ijZtH5/8bfz1Qj3l38ux3WVYqjZAKFhURKJoxyQYW9uGuLy25MQeghW2Cha0
+	 OBBKblNLvpSJQ==
+Date: Wed, 28 Oct 2026 22:41:03 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Thorsten Leemhuis <linux@leemhuis.info>
+Cc: Wei Liu <wei.liu@kernel.org>,
+	Magnus Kulke <magnuskulke@linux.microsoft.com>,
+	Wei Liu <liuwe@microsoft.com>, Arnd Bergmann <arnd@arndb.de>,
+	Magnus Kulke <magnuskulke@microsoft.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Dexuan Cui <decui@microsoft.com>, linux-hyperv@vger.kernel.org,
+	Long Li <longli@microsoft.com>, linux-arch@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Anirudh Rayabharam <Anirudh.Rayabharam@microsoft.com>
+Subject: Re: [PATCH v4] drivers/hv: remove deposited pages from direct map
+Message-ID: <20261029054103.GB3595008@liuwe-devbox-debian-v2.local>
+References: <20260930121047.19993-1-magnuskulke@linux.microsoft.com>
+ <07246cb1-1154-4b66-9a05-209f04a2b427@leemhuis.info>
+ <20261028183157.GA3595008@liuwe-devbox-debian-v2.local>
+ <879b3af5-3853-4f9d-8dea-c90c338a4369@leemhuis.info>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,81 +70,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mtd: spi-nor: Describe locking support for MX25L51245G
-To: Cheng Ming Lin <linchengming884@gmail.com>
-Cc: Michael Walle <mwalle@kernel.org>, Pratyush Yadav <pratyush@kernel.org>,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Takahiro Kuwano <takahiro.kuwano@infineon.com>,
- Maarten Zanders <maarten@zanders.be>,
- Cheng Ming Lin <chengminglin@mxic.com.tw>, linux-mtd@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261024001658.222147-1-marex@nabladev.com>
- <8ee5b312-80bc-4584-ac35-cc76c2812c5d@nabladev.com>
- <20261028081534.945416-1-linchengming884@gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20261028081534.945416-1-linchengming884@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <879b3af5-3853-4f9d-8dea-c90c338a4369@leemhuis.info>
 
-On 10/28/26 9:15 AM, Cheng Ming Lin wrote:
-
-Hello Cheng Ming,
-
-> On 10/24/26 2:18 AM, Marek Vasut wrote:
->> Cheng Ming , can you (or someone from Macronix) please have a look at
->> this patch and confirm that it is OK ?
+On Wed, Oct 28, 2026 at 07:44:14PM +0100, Thorsten Leemhuis wrote:
+> On 10/28/26 19:31, Wei Liu wrote:
+> > On Wed, Oct 28, 2026 at 07:28:15PM +0100, Thorsten Leemhuis wrote:
+> >> On 9/30/26 14:10, Magnus Kulke wrote:
+> >>> hv_call_deposit_pages() donates pages (deposit) to hypervisor for L2
+> >>> guest on L1VH systems via HVCALL_DEPOSIT_MEMORY. The hypervisor takes
+> >>> ownership of those pages and per contract revokes root partition
+> >>> access to them, raising a #GP on access from the L1VH root partition.
+> >>>
+> >>> However, the pages remain mapped in the kernel direct map, so kernel
+> >>> code may still access them even though the hypervisor has revoked
+> >>> access.
+> >>
+> >> Wei, Magnus, this patch showed up in -next today and broke my daily
+> >> Fedora builds on x86_64 and arm64 which use the rawhide config as base.
+> >> Reverting it made the build succeed.
+> > 
+> > Can you share the kconfig?
 > 
-> I checked the patch against the MX25L51245G datasheet. RDCR (0x15),
-> CR bit 3 as TB, the TB bit being OTP, and the 4-BP locking scheme all
-> match the datasheet, so the description is correct from our side.
+> Sadly can't access it directly, but it should be the attached one after
+> running it through "make olddefconfig".
 > 
-> One concern, in line with the sashiko-bot comment: since locking is
-> an optional feature, I think failing to read CR should not fail the
-> probe. Controllers with a restricted opcode set (e.g. spi-intel) will
-> return -EOPNOTSUPP for 0x15, and this part probes fine on them today
-> with macronix_qpp4b_fixups. Rather than special-casing -EOPNOTSUPP,
-> how about just leaving locking disabled on any CR read error, e.g.:
+> Ciao, Thorsten
 > 
-> 	/*
-> 	 * Locking is optional. If CR cannot be read (e.g. the controller
-> 	 * does not support RDCR), leave locking disabled instead of
-> 	 * failing the probe.
-> 	 */
-> 	if (mx25l51245_read_cr(nor, nor->bouncebuf))
-> 		return 0;
+> >> """
+> >>> drivers/hv/hv_proc.c: In function ‘hv_deposit_update_direct_map’:
+> >>> drivers/hv/hv_proc.c:32:23: error: implicit declaration of function ‘set_direct_map_valid_noflush’; did you mean ‘set_direct_map_invalid_noflush’? [-Wimplicit-function-declaration]
+> >>>    32 |                 err = set_direct_map_valid_noflush(pfn_to_page(pfns[i]),
+> >>>       |                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >>>       |                       set_direct_map_invalid_noflush
 
-I can add an explicit check, if (ret == -EOPNOTSUPP) return 0; , that is 
-probably better than blanked ignore of all errors ?
+I didn't end up building the kernel. I see why by purely inspecting the
+linux-next tree.
 
-> Michael, a related question for you. Maarten posted a series last
-> year to make the RDCR opcode configurable in the core and use 0x15
-> for Macronix:
-> 
-> https://lore.kernel.org/linux-mtd/20250922155635.749975-1-maarten@zanders.be/
-> 
-> It stalled because setting 0x15 for all Macronix parts is wrong (e.g.
-> MX25L12805D has no RDCR), and because there was no user of RDCR at the
-> time. This patch is now such a user.
-> 
-> I have gone through the flashes currently in the Macronix ID table
-> and checked which ones do not have a CR / do not support RDCR. If it
-> helps, I can add this information per flash entry, so that 0x15 is
-> only used for the parts that actually support it. For IDs that are
-> shared by several parts, RDCR would only be enabled if all of them
-> support it. That should address the concern on Maarten's series, and
-> this patch could then simply use spi_nor_read_cr() instead of
-> implementing its own RDCR helper in macronix.c.
-> 
-> Would that be an acceptable direction?
+That function was removed by Mike Rapoport in 37fb25b34cd92.
 
-I'll wait for input from Michael .
+I will rework this in my branch -- we should follow what MM tree does.
+Hopefully it will be a straightforward change.
 
-Thank you for your help !
+Thanks for your report.
 
--- 
-Best regards,
-Marek Vasut
+Wei
+
+======
+
+commit 37fb25b34cd9273cb987b80a46a13a1e3f0a534f
+Author:     Mike Rapoport (Microsoft) <rppt@kernel.org>
+AuthorDate: Thu Sep 3 12:28:32 2026 +0300
+Commit:     Andrew Morton <akpm@linux-foundation.org>
+CommitDate: Thu Sep 10 20:20:09 2026 -0700
+
+    Revert "arch: introduce set_direct_map_valid_noflush()"
+
+    Commit 0c6378a71574 ("arch: introduce set_direct_map_valid_noflush()")
+    added set_direct_map_valid_noflush() to allow updating the direct map for
+    a physically contiguous range in execmem.
+
+    As Brendan recently pointed out [1], this API is confusing because on
+    arm64 it means that is sets VALID bit in ptes, while on other
+    architectures it is an analog of set_direct_map_default_noflush().
+
+    The only user of set_direct_map_valid_noflush() was execmem's ROX cache
+    freeing path and it was switched to utilize VM_FLUSH_RESET_PERMS for
+    resetting permissions of the direct map alias.
+
+    With the last user gone and with
+    set_direct_map_{invalid,default}_noflush() accepting number of pages as a
+    parameter, set_direct_map_valid_noflush() become a copy of
+    set_memory_valid() on arm64 and a duplicate of
+    set_direct_map_{invalid,default}_noflush() on other architecture, it is
+    safe to remove set_direct_map_valid_noflush().
+
+    Also drop a stale comment in arm64::__kernel_map_pages() that Linus
+    bothered to add when merging changes containing
+    set_direct_map_valid_noflush() to his tree.
+
+    This reverts commit 0c6378a71574daa6cd1534ad42a956e3262756c7.
