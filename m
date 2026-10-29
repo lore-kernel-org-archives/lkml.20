@@ -1,65 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793254270;
-	b=23iAcAggaWuqk5ksRgtFJPAoVWFolNeaaNzoiMofj2gw+3ZlPIFGbYFWpMLmt4kUcPAk
-	 +IYCJXdYE3kAELwAAUm44MiZ+GQxj52oZec4OAdO0tu8P+tgNQA0U4EWDCJ+U8VKksNb2
-	 X8Td7yWBu+cpP4rZ26k9hROnCU2GUhQOhSnkpmXa3Xh4TmqIjrAlGD41Khc+UGW/AH2IR
-	 ilPyiYMbpZG2SnWI+peyXfmYS7ZLb64+QPN/n5HXbSkZDYRhK+0AcVT6h5gESDGdjf0yD
-	 cglGuc7hl11cMYvbrDpIKSBobJD+RllrC7JlxDfPOrVyrkPEx8UV1pSOdBsy8qXQZug==
+	t=1793254272;
+	b=atp9WyqwJ0LNeXC9tu/HqQHfswYfRRLDMZw+xMQ2saAz+5oTNo9Ik/dYF2YfD5EpaCUd
+	 TMWdWV48e267cri8kxY/FI33cPGkIO0A9E2H5gEfpzmeoyfoSxX+mQPlSQ2YlKE/dbs+O
+	 e0eZVQy2hHIP3fuQ5AMIW2U8zLE74ZehXB01sKGlVrc6TkSo2KnKNTtIIgC8R3N6xVbJ2
+	 LRue41ELIwYBQKATDXxCeWokeezDkyWtiGW7mgsPW9GTLswiprbEWim3s/Ru2gXrHdHdH
+	 gRz/Tn7sj10Fahfv4TJvlAYh7d+xJLR/0F8haGt/3d1hmO1HNqFP3u/qlOQ4rZV8hwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793254270;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Subject:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Originating-IP:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info;
-	bh=skr222lx5y9b/nfDvYW96T8hrnWFf4QPQl8CDYkFwS0=;
-	b=3Qn109sXMgrj4VV3CW8JTPeFbw4fOqCSYvQoqdxf9uyCHdcumk1iU1Mf8nZ51BEkvVDc
-	 OXYxOCdQjdq1AmCeh8Hj1UR0lavcx6bSSHmdtBwuqPKoTly/v2NxF2kVIzoiA/rFT3iE0
-	 hSKsTZ+EnLsxnt5+7qEsMP28xa/dbSYSU8s85MOcliar9JkSnLGAS/8nIoyBa4DZs/9GD
-	 jSsKJpBmVx5zDxR2jLAbAGc4q03oqG+pYO26LrZz/OQfUW2cMwq26Qec3XXP+Sm3GJ9HP
-	 jXKNV2wjT89gS7o2Mo51MkD7JhnFojh4ttfHJ7YXcw4t3kS2UCsK0AaaJsfObFdwhsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793254272;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info;
+	bh=N1sCnUJZes2nWUPirOY9b0XhMayPBpKTCwjYpoDAMUg=;
+	b=nYjaU52VMAeWADWqYnaU+yuZHMAHsvSoYqmw94LBzMHPDVaYm7uEuDoth1c1Qq5NhQpN
+	 yfccZDtZq/fKYUV1d6H8il6fjHv6PrJ+fhxVOh+/5SS4dhZoes1Rlbi+RE2YT+20R6iKX
+	 cheHTGEIsKxvrF4n5fUrGrM+pc4LrlCxYdnUsv+Hluk+r3fpYqtdnQI3EM6hSMupGRqbV
+	 Md+/hHxHN3xZ9qMyKtK3hM4rmlSToKb1gPUkZePij/gRwR9RhW2eYFcS2+xIQSFZNSNQx
+	 heWO41YgT9Yto9NXiY54CfUKHLKs3qIaf6wwU+P0qkx9K6hpnYmnt6R1SdkRg+rSGjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=imgtec.com;
 	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=Vi2S0iv4;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=xJv0Bii3;
 	arc=none smtp.remote-ip=91.207.212.86
 Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E821D606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:11:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E821D606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851FB606A325
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:11:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 851FB606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=Vi2S0iv4
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=xJv0Bii3
 Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T652WU3047993;
-	Thu, 29 Oct 2026 06:10:47 GMT
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5HQa52962943;
+	Thu, 29 Oct 2026 06:10:51 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=dk201812; bh=skr222lx5y9b/nfDvYW96T8
-	hrnWFf4QPQl8CDYkFwS0=; b=Vi2S0iv4tRdjKQi4Xy04UPhBFwaYnmuFpZJ87o5
-	NVSlztk8x4ReyBGoi6KlTcPlRJJQYW/ITM2RB2vcGYENIdjasdSHZEEqKHXzDVeU
-	HwRJAw7/tSJ16x12r5Gj1QZkYGl4F3g/sQUeQMKfafLDn0fPkG56SglIPGkbWNQa
-	K1flGfeliB2Rvcez/hU5Hft2z5kMlnQCWQzb9qfdfpfUPOCBg61uGyh31u7piKmH
-	7Ii/v0kvFJT9o5B+0remWVgj+nEL3Hz7f+J2AOOET9ga95aJa8bjWaDyoxx8JT8E
-	dYQj3PWvH+NKs1er+V/WfNTA6K58TVUOGwokE+ZGML+bM8w==
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=N
+	1sCnUJZes2nWUPirOY9b0XhMayPBpKTCwjYpoDAMUg=; b=xJv0Bii3tzviEGXF+
+	SRYvKREwD3/lj5mP33Lo59IKz4E7KEMsIgngWy0CA0XNTiVKAM3Ru2G9Bmh1dPgz
+	rZaX0mmUZTmJpuBt4ky405wQ1s1bheR1p6h5gBb2lXdk0TL/PKDHDFeAO1kdmARZ
+	YCfQNJqo9tg8Q9PZoKtHNSDUbqSaaoiiJEeHUW5NMRJSTc5DARTL3KbHOLXIKzO1
+	NxZiYizNLb6F5lzDsrNpD+tdQWYnN9AQbt5plxTD0XEUNbU9/OtPuKF4yusU3JZf
+	FtBA5gagghP1CqJOuypYK/4SPd754iV22W6ggRb5DrtHnIcN2xgT5JQcnkOCfIc2
+	0CLxA==
 Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hkvd1048d-1
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hkvd1048k-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 29 Oct 2026 06:10:47 +0000 (GMT)
+	Thu, 29 Oct 2026 06:10:51 +0000 (GMT)
 Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 29 Oct
- 2026 06:10:45 +0000
+ 2026 06:10:49 +0000
 From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Subject: [PATCH v4 0/4] drm/imagination: Clean up MIPS firmware interfaces
-Date: Thu, 29 Oct 2026 08:10:11 +0200
-Message-ID: <20261029-b4-simplify-mips-pte-defs-v4-0-9656041e040b@imgtec.com>
+Date: Thu, 29 Oct 2026 08:10:14 +0200
+Subject: [PATCH v4 3/4] drm/imagination: Improve some logging in error
+ paths
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,11 +72,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAEPj4moC/43NTQ6CMBAF4KuQrq1phwqNK+9hXNB2gDHyE4pEQ
- ri7BTcYE+LyZd58b2IeO0LPztHEOhzIU1OHoA4Rs2VWF8jJhcxAQCKFVNwo7qlqH5SPvKLW87Z
- H7jD3HMGgzBMZO6lY+G87zOm12tfbJ/unuaPtF3BplOT7phvX8UEuvX92BslFOGcuNSbRCHChq
- ujRHm1TsWVogA0FsEdBoBBBCbAizpT5oeItlexRcaBOOhU6dToDrb6oeZ7fERaD3WsBAAA=
-X-Change-ID: 20261014-b4-simplify-mips-pte-defs-e2be1f613d14
+Message-ID: <20261029-b4-simplify-mips-pte-defs-v4-3-9656041e040b@imgtec.com>
+References: <20261029-b4-simplify-mips-pte-defs-v4-0-9656041e040b@imgtec.com>
+In-Reply-To: <20261029-b4-simplify-mips-pte-defs-v4-0-9656041e040b@imgtec.com>
 To: Alessio Belle <alessio.belle@imgtec.com>,
         Luigi Santivetti
 	<luigi.santivetti@imgtec.com>,
@@ -94,99 +93,98 @@ CC: <linux-kernel@vger.kernel.org>, <imagination@lists.freedesktop.org>,
 	<alexandru.dadu@imgtec.com>,
         Matt Coster <opensource@mtcoster.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793254245; l=2906;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793254245; l=2557;
  i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=EQXnezp83QvFn/h1J2Q0UeVY8jzdKMxbrdTfddfJYKA=;
- b=G00SPfx+8iBU64Fl5ilmP53lWfBhbxlVjvUYZqZygshF4QdmGmh5kR1yp7XlKtmNIOalJ9baP
- KpnNL0ndqA3AvCK+6rx4PuIG5gQdqZ/SMxi0M8hymTDBnPvtusAWzGC
+ bh=RojfA0ofXUa2gTm6g8B+3070zBumv7LmENgITU3pSG8=;
+ b=z1V38gomUtlekJc4ZZgv63j3WGFXTqF0XcFLIVIEXNqFWbhh4EZEhdZeBaTMm9douRiNtfC8c
+ ldsDPpzwv0LCsOE+2Ck1zkoKcRmx3xo60YuHq8EGY8K1ybpag5qVUHM
 X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
  pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAyMyBTYWx0ZWRfX5GuO4tuiYm6X
- wasAUgJDVgxW4abN3UFdUvbz9qpxNgXZHZCk5gser41n09OkRMN/yDEg2GSrihPYhoUJchmL9X/
- I98yxyDoweLoiTcoZ2pH2cL4DkNGSR8rQM42D1u2I8g2cx63ylc1k72OhwJosyMoOBJR3Ytpy3I
- oHHzxFibyJuNlZnrQxv+wZNwzkoeagT6uClg/q9tWfN/9yXYKiC7+1v5NNFTsGQsoR7FepnNKwo
- 6AQuXhXj1a03uJzSSZM6YEIJ1POtymUPQJRd9yM5Pltr/EVUklmPiJE9cH9HSDNzFDRv0Gee9Vn
- GeXZSN5mZQvgmpaZ5a7X6VJi5tyK094C0ggS+ss9L8d85ca8ZmOnxJjyYP/unN40tNf4UqSG0mB
- uynphvruhWf3EW6Q10Jzz4EEPupVKObJp3y7dRCQSE/QMHl5MuOQqsf1GxgqVUrMpxiLbSbxWz7
- b0S+YghuFqrpV2grjqA==
-X-Proofpoint-ORIG-GUID: nORf-4Qwieee6_x3WRlDZPJ-Ic0H1t79
-X-Authority-Analysis: v=2.4 cv=RdgFmFtv c=1 sm=1 tr=0 ts=6ae2e367 cx=c_pps
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAyMyBTYWx0ZWRfX0AHLi59tTIq4
+ VO3WCofQG/6SPgNOa3yxbfKaLrfjB8tMK8B+CnnhLg+uww0eE4JAE62WB0QEqKCU0DVnrkjim53
+ 3/ZW/Mm6fb5jH6knMtUtnhC+pdet5VokaRomlFQC1/8YYz1llSW17OQ9XCEFjwtoUwhxcARqv80
+ kzjaZC+ZlhXfEe26zcEwj28YwOt7GqihU7RfdpV6Od8snrvEb35th7Tcvb74qMMvpqbhwm7zjhX
+ ER57hpYqNNOuIJq/5d73owiNiK7daTmJQpzbTbKdVZHHZEO2ooJJK8+r1XfWjLGekNsfA/u+N7V
+ hdU1T86qV7HEoa2a1XiTu+nX1s58UWAjN9FRz0uSrhHZWerCMwRrf8yvgWjqfgKig0rzB0rYjAM
+ tf684IsHQEqRMqBRVZ2uEODAFDcozfIETNjv9TYjBV6xzgSiqpETs3B431g5TkUnPz7WL9FDQFZ
+ MdNFVAVcnZmUWV1TAhg==
+X-Proofpoint-ORIG-GUID: 2B0NlaT8JvooA5394nb7Zqdnjx1hHDwl
+X-Authority-Analysis: v=2.4 cv=RdgFmFtv c=1 sm=1 tr=0 ts=6ae2e36b cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=_O3DOGVWAAAA:8 a=e5mUnYsNAAAA:8 a=gXtLJ4WPg2CJrXxS_-4A:9
- a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22
- a=2TKV-7w1aU1AVAwN0oqT:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: nORf-4Qwieee6_x3WRlDZPJ-Ic0H1t79
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAyMyBTYWx0ZWRfX8MQxro7r6RAr
- agYWprone4CD8JMZmS+liJjxHxGxq8qjNzWE38dGRBIB7EnVAyd4Y195q9gngf5tub7PaVXezuC
- FhtszlpCpSmaMZ6JkRERP0bzgBiICyw=
+ a=r_1tXGB3AAAA:8 a=CNbiELROydHnTOGMemMA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-GUID: 2B0NlaT8JvooA5394nb7Zqdnjx1hHDwl
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAyMyBTYWx0ZWRfX8KidHEG1M391
+ h+YOUYQO19LU/daqev1ZFBoxW1RXvwR2pBrHFMksdlDjFX3v8LJ3pkXYg4ePxdif0bgWMl2pIGI
+ UqOF9I+R96ucMEmvvC3MWZeE6KVurzc=
 
-1. Limits access to the MIPS firmware interface, keeping its state
-   within the relevant implementation.
-2. Align MIPS firmware headers with the other processor headers and add
-   "_fw_" component to the headers filename.
-3. Improved logging in error paths.
-4. Simplify MIPS PTE definitions.
+From: Matt Coster <matt.coster@imgtec.com>
 
+Add error messages for attempts to map an already mapped firmware
+object, unmap an already unmapped firmware object, and provide too few
+DMA address slots for the firmware page table.
+
+Signed-off-by: Matt Coster <matt.coster@imgtec.com>
 Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
 ---
-Changes in v4:
-- EDITME: describe what is new in this series revision.
-- EDITME: use bulletpoints and terse descriptions.
-- Link to v3: https://patch.msgid.link/20261026-b4-simplify-mips-pte-defs-v3-0-587087d8a284@imgtec.com
+ drivers/gpu/drm/imagination/pvr_fw.c      | 6 ++++--
+ drivers/gpu/drm/imagination/pvr_vm_mips.c | 7 ++++++-
+ 2 files changed, 10 insertions(+), 3 deletions(-)
 
-Changes in v3:
-- Squash a commit that ads "_fw_" component to the MIPS firmware headers filename. 
-- Link to v2: https://patch.msgid.link/20261022-b4-simplify-mips-pte-defs-v2-0-ee2402c03a4b@imgtec.com
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index c6c77b152342..4f2b5c4df600 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -1165,8 +1165,9 @@ pvr_fw_object_fw_map(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj, u
+ 	spin_lock(&fw_dev->fw_mm_lock);
+ 
+ 	if (drm_mm_node_allocated(&fw_obj->fw_mm_node)) {
+-		err = -EINVAL;
+-		goto err_unlock;
++		spin_unlock(&fw_dev->fw_mm_lock);
++		drm_err(from_pvr_device(pvr_dev), "FW object is already mapped!\n");
++		return -EINVAL;
+ 	}
+ 
+ 	if (!dev_addr) {
+@@ -1232,6 +1233,7 @@ pvr_fw_object_fw_unmap(struct pvr_fw_object *fw_obj)
+ 
+ 	if (!drm_mm_node_allocated(&fw_obj->fw_mm_node)) {
+ 		spin_unlock(&fw_dev->fw_mm_lock);
++		drm_err(from_pvr_device(pvr_dev), "FW object is already unmapped!\n");
+ 		return -EINVAL;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/imagination/pvr_vm_mips.c b/drivers/gpu/drm/imagination/pvr_vm_mips.c
+index 726f900d3582..b74386032e6a 100644
+--- a/drivers/gpu/drm/imagination/pvr_vm_mips.c
++++ b/drivers/gpu/drm/imagination/pvr_vm_mips.c
+@@ -11,6 +11,7 @@
+ #include "pvr_vm_mips.h"
+ 
+ #include <drm/drm_managed.h>
++#include <drm/drm_print.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/err.h>
+ #include <linux/slab.h>
+@@ -278,8 +279,12 @@ pvr_vm_get_pt_phys_addrs(struct pvr_device *pvr_dev, u64 *phys_addrs, int max_nu
+ 	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
+ 	struct pvr_vm_mips_data *vm_data = fw_dev->processor_data.mips_data.vm_data;
+ 
+-	if (ARRAY_SIZE(vm_data->pt_pages) > max_num_addrs)
++	if (ARRAY_SIZE(vm_data->pt_pages) > max_num_addrs) {
++		drm_err(from_pvr_device(pvr_dev),
++			"Minimum %zu pages required for FW PT, but only %d DMA address slots were provided\n",
++			ARRAY_SIZE(vm_data->pt_pages), max_num_addrs);
+ 		return -EINVAL;
++	}
+ 
+ 	for (u32 page_nr = 0; page_nr < max_num_addrs; page_nr++) {
+ 		/* Firmware expects 4k pages, but host page size might be different. */
 
-Changes in v2:
-- propagate the commit update to PVR_MIPSFW_TLB_GET_PA().
-- removed the RISC-V group from the target group of this update.
-- Link to v1: https://patch.msgid.link/20261014-b4-simplify-mips-pte-defs-v1-0-b4ad7bb68e22@imgtec.com
-
-To: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Paul Walmsley <pjw@kernel.org>
-To: Palmer Dabbelt <palmer@dabbelt.com>
-To: Albert Ou <aou@eecs.berkeley.edu>
-To: Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-kernel@vger.kernel.org
-Cc: imagination@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-
----
-Alessio Belle (2):
-      drm/imagination: Limit access to the MIPS firmware interface
-      drm/imagination: Make the MIPS firmware headers arch-independent
-
-Matt Coster (2):
-      drm/imagination: Improve some logging in error paths
-      drm/imagination: Simplify MIPS PTE definitions
-
- drivers/gpu/drm/imagination/pvr_fw.c               |   6 +-
- drivers/gpu/drm/imagination/pvr_fw.h               |  11 +-
- drivers/gpu/drm/imagination/pvr_fw_mips.c          |  79 +++--
- drivers/gpu/drm/imagination/pvr_fw_mips.h          |  49 ---
- drivers/gpu/drm/imagination/pvr_fw_mips_internal.h | 309 +++++++++++++++++++
- .../drm/imagination/pvr_fw_mips_internal_check.h   |  35 +++
- drivers/gpu/drm/imagination/pvr_fw_riscv.c         |   1 -
- drivers/gpu/drm/imagination/pvr_rogue_mips.h       | 335 ---------------------
- drivers/gpu/drm/imagination/pvr_rogue_mips_check.h |  35 ---
- drivers/gpu/drm/imagination/pvr_vm_mips.c          | 162 +++++++---
- drivers/gpu/drm/imagination/pvr_vm_mips.h          |   2 +
- 11 files changed, 519 insertions(+), 505 deletions(-)
----
-base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
-change-id: 20261014-b4-simplify-mips-pte-defs-e2be1f613d14
-
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
+-- 
+2.43.0
 
