@@ -1,105 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=81.169.146.166
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793265514;
-	b=SnuRoZokXUqsNiqJlDq54Os961YVKl4a3OMQkz0VtPAvyWImnPFf+qHTvwDKkx7sUkrg
-	 FEJqY2WHblKldGvtVQ7qxOpZKAfotxUKaQuLTps9Y6uP/fDUFKCMtReWrOW4ipVEA0ZOY
-	 1l+g9no9JCt01p/bI8f6mPU/ggSrpWiF3ha+rZ22T3jG4HkdCUcjo7Q3ZqDdjnw1gpxrB
-	 sErJogiZJkCWSbH61uJmySU3AvhUbg7tPoYX3epD+u2Q8FfSaMQqSptS48eqwxeEatppy
-	 RFnDlUKZCtrvyYzmUzJsdtw0Bz2qyX7PN9sBixvmj/RQG0bKyRssxqCIoApK86/f9Kw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793265514;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=UUMdZ3ie3jcl+J5Wy3XGELZjy7F67Xdh83pBlOCHFc8=;
-	b=zWSAAiEhTm4kbIzyBpB8JPwjkGQwZYvM5f1N/ILMi2twtaSy1Ow4X0UmeurTGqSmTJru
-	 6dn13bKPPwAC3drxd2jmnBVyosx6qnTrML2Hco4wkUiwy6h+Oyq4y4GM8Y6dKqaBrc9++
-	 kFAnpa1O2vDKiEb0AfQXh/UtwV9YdNUzk0fVc9E1Ak/UyAYDhGCapbQ4pN0py6Q17lKgo
-	 9e67VoIYdrcm0Su/IjhOfrhkclljBRSCP3XK3YGtNuSP8l/iaV68FBGpljGGPT7lOGEQQ
-	 Bb6QrGPqaFE5GX3oytFlm1GzmSuVcZN03cM8HVmN3iJyXI46gkyJc3enUI2Vp0zptAQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outer-limits.org;
-	spf=pass smtp.mailfrom=outer-limits.org;
-	dkim=pass header.d=outer-limits.org header.i=@outer-limits.org header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=R2QaMxkB;
-	dkim=pass header.d=outer-limits.org header.i=@outer-limits.org header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=B98FBW9b;
-	arc=fail smtp.remote-ip=81.169.146.166
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.166])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.20
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793265568;
+	b=B/6aRM4RCuZi1h+xYrYKX/khOidxbDeULHW3yKaUbetWVA8wzwx5+vofokfstvLI234b
+	 H2NNuseUSURHNTkez8/vRmMmU5d+5LzT8CcRqxFZsPsKi5Sz0afQOts+39oAwcW3StDoM
+	 2V/ILJssuStiBFdYoabG2PhZpEXfp1eld+UQQqCsAVJA5soxECcVuRS4D/+Xh2xVwU9wk
+	 73eqNIqyVA314zTb8vSoez4wXP/GUJIwthoScsnJSKXnzuMka5kSvJxda56R4MQ2XZUH5
+	 MRaU0gsi3zLDwbjTvo0HL7W40sbUe3vn9RoLR84/tNsVfujH8ciZYEfl1H194Akt0sA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793265568;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer;
+	bh=wc1cCegTsF419DOZKQ+etFEgEn2COXujDpdlOtNxm70=;
+	b=OCKU8APP1UUNlugq0SFjZZksABotjoJoPWtSp1MQbJXFFJ4C6Ep3s/xAdRRnH4eJ7vqs
+	 aQavyB/w/L//lmxWntVfS2nQZqTpDqb5UCF21JB+uPpbjswLImObSDTAUZTDDffgjACm6
+	 GJSUhZQbkQi53XPoZNEqTKrpNkGfkIsK7KYAcEBw4DRLIOsuJ/XinJjDynpfSonfUCOJo
+	 3RvQli7VPSDiHaQRInxgP7swcAQsw8ca581YpK43wGdi1vvcNTsa2iu12c4WwjjAnoxB1
+	 l5AV3dJmI6xdnIyj3Xe1DRNtBpQwyhQZIr0j9NO2AF8pcHEaZa2ngETSV/I4wKzlo2w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Feb8Y+6Y;
+	arc=none smtp.remote-ip=91.218.175.20
+Received: from mta0.migadu.com (out-20.mta0.migadu.com [91.218.175.20])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6914A606A326;
-	Thu, 29 Oct 2026 09:18:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6914A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=outer-limits.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outer-limits.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D696D606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:19:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D696D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outer-limits.org header.i=@outer-limits.org header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=R2QaMxkB;
-	dkim=pass header.d=outer-limits.org header.i=@outer-limits.org header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=B98FBW9b
-ARC-Seal: i=1; a=rsa-sha256; t=1793265498; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=pKRAs49xWHKCr6jPSeuSpIPuNRJGxLUu2+eZ5F/EeJs04oMU4XNpWxQ+3mju83dsru
-    V8tdUyU4QMw8fUiOxMFYD3uk0Bir3bqu8MH/WzYxZGCtIjUt+3pgBDSPrmGhkwkR/Lmv
-    cLfqFjXOo/RnzqGXx7H61tm/gBTGzOTTl1AVFZ+H0tMF/wnemZHLaORmVho67wUtZsW6
-    C2VjoPylbuRDCv/6rolyNkxtBtDNpz1+MGdU9u6NvBlIPYOmKW3WG+BiXjtvwgJml/CZ
-    lsa/w2hdD/NeSWiofcAQ6xCdLqEYwTZfN74ll1BiWbf2CqZ9ZQDglQRU3Na8zvepIfLy
-    JUtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793265498;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=UUMdZ3ie3jcl+J5Wy3XGELZjy7F67Xdh83pBlOCHFc8=;
-    b=m0Y2kghUUTUcUwcPUwzLrK6K1sJA7a73vg6GtaQq70PlOcjn3aO1Fjb5Ihjc1IXzAN
-    dgerUU0fwy7UGDQQgHPdFAUAsrKNdHh/gFtr4vvhGFInQDXwOJ6OZJIeV1eiUCVSSYh0
-    jZF6OB+FUDnkY2apiv6tI4nxfLDByJUk9myqBL6OmURqDvWTF2Hhtm55w259CnCmuekf
-    FM/X6U3IC01FLw7/k5x/pj/stlAVpy8F6moQn22KNmN0HkUc9OPHe5E+VNJEmT4JsiOu
-    OacLHdvo2YjUhzZhlp4Cn8GimGHJmQ1GBV4BzxbOvyfzaoKnD0ztcxdYnzcU3MiyFMtO
-    b7sw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793265498;
-    s=strato-dkim-0002; d=outer-limits.org;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=UUMdZ3ie3jcl+J5Wy3XGELZjy7F67Xdh83pBlOCHFc8=;
-    b=R2QaMxkB1l2N4WnpCeQhMuLl+1jSMcXeWhDG1i9ufk/DHJi47MDSRHWEjOCIH3ObSi
-    3/en8Z5eS3ZI3GFbBVmdOf1ocnV7dPDLz2mHi2Dt8r2vPeq01mtKbx56xNPfQYUAHOX5
-    9/UeUN5TjlObFlpekHmz+rkyIKn8WshMTtS+qZ9DS9b53sLnwFKctMEoV71UMJ3CjAFH
-    cdVZjXFXJuPB35B2d2fhTg0OcNj8l1dMzPUKFK43kzd+1v56vxS7oaHmbaPZypN4secG
-    kLEEciABSz7osnN2sGSnH22+E8SgSecxmD9OridAuXGGmFm8e0T9KS2mVgd2EMGjcsTF
-    D8Kg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793265498;
-    s=strato-dkim-0003; d=outer-limits.org;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=UUMdZ3ie3jcl+J5Wy3XGELZjy7F67Xdh83pBlOCHFc8=;
-    b=B98FBW9brfrZby+WrOusqmcTbr+sq1jZEXsK1z9BHwhxt1WaZ6Xg4QuEv+qocJcRvM
-    KJsQ7wuxOGZPWgw6CdCQ==
-X-RZG-AUTH: ":JnkIfEGmW/AMJS6HttH4FbRVwc4dHlPLCp4e/IoHo8zEMMHAgwTfqBFXdk1Z5IDmIqDY7xpnOs6mGD64frXxHtrE3e66udIGwZnWwLgga9o="
-Received: from julian.home
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id J82cde29T9IHvXL
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Thu, 29 Oct 2026 10:18:17 +0100 (CET)
-From: Julian Vetter <julian@outer-limits.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Julian Vetter <julian@outer-limits.org>
-Subject: [PATCH v2 0/2] Remove remaining __get_unaligned_cpu32
-Date: Thu, 29 Oct 2026 10:17:34 +0100
-Message-ID: <20261029091736.28742-1-julian@outer-limits.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Feb8Y+6Y
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Afj/DxHItcSs+lti4Qv2oWzmWeorYwqYqELX8olihxw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793265560; v=1; x=1793870360;
+ b=Feb8Y+6YWSTPiNXbfR9zgxSHIK2u9HO9kpPPqQ9klyeAYytpYUOSUcuJBW6vMvI3qncwvmCp
+ olZchMsQwEAG1taCYCV5pjQgvg/WOp1JApmuduEEG3fVjd4Zgr3Vns/C+77FHIgZiOt2LzPkN0l
+ gPKmnynPAXSWWQLM8eYiq+JI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ee0a28769bc6ca81;
+	Thu, 29 Oct 2026 09:19:20 +0000
+X-Mizu-Trace-ID: ee0a28769bc6ca81
+X-Migadu-Flow: FLOW_OUT
+From: Ye Liu <ye.liu@linux.dev>
+Subject: [PATCH v2 0/2] mm/vmalloc: harden remap_vmalloc_range_partial
+ against NULL pages
+Date: Thu, 29 Oct 2026 17:19:06 +0800
+Message-Id: <20261029-vmalloc_remap-v2-0-c4705cbf26c2@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,49 +61,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIoP42oC/3WNQQqDMBREryJ/3ZQkSI1d9R4iJcZv/UWNJBos4
+ t2b2HUXs3gw82YHj47Qwz3bwWEgT3aKIC8ZmF5PL2TURgbJ5U3EsDDqYbDm6XDUM+NCmi4Xyki
+ tIG5mhx1tp6+qf+zX5o1mSZLU6Mkv1n3OwyBS7587CMZZU+iSF0rkWPLHQNO6XVsMUB/H8QXiG
+ qFavAAAAA==
+X-Change-ID: 20261026-vmalloc_remap-012cf418c2a8
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Uladzislau Rezki <urezki@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Ye Liu <liuye@kylinos.cn>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+X-Mailer: b4 0.17-dev-39d60
 
-This is the remainder of my series removing the deprecated
-__get_unaligned_cpuX() helpers. Patch 1/5 of the previous version was
-already applied as commit 50b4233a22b1 ("include/linux/jhash.h: replace
-__get_unaligned_cpu32 in jhash function"), so this version only contains
-the remaining patches, rebased onto current master.
+remap_vmalloc_range_partial() passes vmalloc_to_page()'s result to
+vm_insert_page() unchecked, oopsing via page_folio() if the page is
+NULL. The NULL case never happens today because VM_USERMAP areas keep
+every page mapped, but that assumption is nowhere checked.
 
-There are no users of the helpers left in the tree, so patch 1 removes
-include/linux/unaligned/packed_struct.h. Patch 2 does the same for the
-tools copy.
+Patch 1 drops VM_DMA_COHERENT from the allow-list -- a dead entry (no
+caller maps a DMA-coherent area through this path).
 
-Signed-off-by: Julian Vetter <julian@outer-limits.org>
+Patch 2 fails the mapping with -EINVAL instead of oopsing if
+vmalloc_to_page() ever returns NULL, with a WARN to mark the broken
+invariant.
+
+Patch 1 is a behavior change (no in-tree caller affected)
+Patch 2 only changes a failure path that cannot be reached today. 
+The two are independent.
+
+Signed-off-by: Ye Liu <liuye@kylinos.cn>
 ---
 Changes in v2:
-- Drop patch 1/5 -> already applied
-- Squash the three tools patches (3/5, 4/5, 5/5) into one
-- Include linux/kernel.h explicitly. It was previously pulled in through
-  packed_struct.h
-- Also drop the "#pragma GCC diagnostic" in check-headers.sh. The
-  pragmas were removed in commit 10a62a0611f5 ("tools headers: Remove
-  unneeded ignoring of warnings in unaligned.h")
+- patch 1: drop the vrealloc-shrink justification. 
+- patch 2: fail with -EINVAL rather than oopsing.
+- Link to v1: https://patch.msgid.link/20261026-vmalloc_remap-v1-0-b7a907814e90@linux.dev
 
-v1 (RESEND): https://lore.kernel.org/lkml/20250707122500.724699-1-julian@outer-limits.org/
 ---
-Julian Vetter (2):
-  include/linux/unaligned.h: remove deprecated __get_unaligned_cpuX()
-    helpers
-  tools/include/linux/jhash.h: replace __get_unaligned_cpu32 in jhash
-    function
+Ye Liu (2):
+      mm/vmalloc: drop VM_DMA_COHERENT from remap_vmalloc_range_partial
+      mm/vmalloc: reject NULL pages in remap_vmalloc_range_partial
 
- include/linux/unaligned.h                     |  1 -
- include/linux/unaligned/packed_struct.h       | 46 ------------------
- tools/include/linux/jhash.h                   |  9 ++--
- tools/include/linux/unaligned/packed_struct.h | 47 -------------------
- tools/perf/check-headers.sh                   |  2 +-
- 5 files changed, 6 insertions(+), 99 deletions(-)
- delete mode 100644 include/linux/unaligned/packed_struct.h
- delete mode 100644 tools/include/linux/unaligned/packed_struct.h
+ mm/vmalloc.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261026-vmalloc_remap-012cf418c2a8
 
-
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
--- 
-2.53.0
+Best regards,
+--  
+Ye Liu <ye.liu@linux.dev>
 
