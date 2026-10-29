@@ -1,97 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793263745;
-	b=mQU5H1dPPRazCX3aLI4ikm8+Hi6vtrPrlP/8Ne0Mt3igWy7N4GbvYY1P/NIL6aAC1zxY
-	 KSmaINdmZDSjkiuEJZ4M62ImGBO3fIX01foSnEV5u1GgWzzTkBYVT38DiInc8eVwU6HCM
-	 KCD0cE6POj52WewrWBFa0u0gpA3Sky7J8WTk54cAXvbPAMxijGUMSObKtPyU4l+7R+gAp
-	 kajiQOi6Vq9m9pWh1hRmzei+YpfcMEQj0x6swUrD4/X/rPKHUg0EPirQkVetat69QnWU+
-	 9tLvx2ZaPtF4N+0qHO8u65W7cKrV5AnaC7xdrsDRiAwljlhGx9HZUqkMfMOQea3LAbg==
+	t=1793263839;
+	b=1sbnnal7x3fJeaD4+2GnFpI8/hNUj+PQ/g9scRb+fRo9F/cZE7AJpPmTeHQWUFxx/HbX
+	 9Sf9QOL/sS+3cs6ePIrYBTqvtSVjH15x3JUdGGpMOIMYuFmDFEbrn48dkZMDxqFnwbGOV
+	 1uiQUVGBy70OCVopThf2vhuh6j6iw2moNjo8dnSaQlAj79kEEBXPBps2tbUAd/2gvXprc
+	 IjRqF8905BEqwK3S2tWmqZvKBGtYsp6519tFBSdD3hEkt6yX8jZOXbEfda/YYPLAf9SDT
+	 h593gy2o/aIqtX60o5w974aeA10AOh9Wpj4L2Occ0WWSJP8kb9meRztymBKxRKigttA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793263745;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793263839;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZVSBDtL7OhsiZj116ks6zPwmky9iXriM5zcraojnfhM=;
-	b=ormQIX1EoCTiRGe7krz9eC2PvbG6tRL7ktYxbAkJCO+sQhdIB5WR8DMjIJ/Y1qDG45DQ
-	 LfmP1PeQ+pyM5di16xxLfK3a5zpOmzP4ajwsraL8PkbKburfZh/ukkE5qpwbSJy6t/UX7
-	 T0u8edc2Yu7wrvhcffYWbNMkRR4Vu7xmqWqe28YcCeEj4k7ZXzv8GMrxEPvPOAUJ3532T
-	 rYmxx4oiS0IbFZBRyCvjZLfdPqs5jeYN2UCIf8OHGU3ADg6iialSqWB+oO0WmdSKPIBU4
-	 FlFUsg2r7LSzab/puD2up8Y4BvaKjiPDR1Cjp1mQWGKa6pQ1kGfbHQMHS+1UG82Guxg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rK3sC4K0zeBWZNuCTD+FoSNFp2fytta2s77PkmNPweo=;
+	b=boPBFsnaCY/RXOhHBsjrd2IbvNSNzo9WE8Bxg26GWi9RMl+kToNloHgdoLM7KYiKT2HC
+	 lE2Sr+omUhFuqz85+NJM8DJpDbkkLOBJbR3LK6EAWF8MHLwyz85QpMunkxYTMOH489ogQ
+	 meB8sBNVuE+MY8e34ismxiDwpOTvhz4hOZtHoMD1OknNfkJojdA7H50pBA4VSbZ48nNYU
+	 +Zdrt09RBs2+ZmMvaLootuAmRZWe9NVYjQraWs4+fZZRKIoxAq0DGXPgtLn9v/nJXUWzv
+	 armYA8KjSPffNVVAIrOm7SopImQ7+aT+55NunUBE5cTjanQet48OeSe2dwbgZ5JpMeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=czjBm7tY;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fJ5xarKs;
+	arc=none smtp.remote-ip=209.85.214.171
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C458E606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:49:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C458E606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B253606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:50:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B253606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=czjBm7tY
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e10a70540so1180634f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:49:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fJ5xarKs
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e812e2b31bso11101055ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:50:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793263743; x=1793868543; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZVSBDtL7OhsiZj116ks6zPwmky9iXriM5zcraojnfhM=;
-        b=czjBm7tY8bV2SNCL4VVRPaMFNIJp7XUbxELNfMqCtYf20R/Q9VDJ+q2Av/xu/uBTY+
-         NetaS8UTOWLazdQNFQ66paQpbkSbFv8/f5f5IYfb8yQSOnQp/b1VEBMNTVN/077fRZ/7
-         +ZVajgaMKl10XyBXsbfDSm3I1bn8Sw0kigpyuRgwlFI8U9xuOlKi+htKr36Xsmm9MFDD
-         2X4smHzPKtSvSbgf3MmSCWOAAdaBx/hmKKCiYc2iTCcsQP09gh/gQzVSJKKvXhz3m0Ca
-         a3sSHXhP9YFI49CTeF/OLLIlgouHqrucIBGpXTLcGufwydC3qGJRaIKofOMELwAK8rtv
-         8D+Q==
+        d=gmail.com; s=20260707; t=1793263838; x=1793868638; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rK3sC4K0zeBWZNuCTD+FoSNFp2fytta2s77PkmNPweo=;
+        b=fJ5xarKsXqNq6C5hHG6IpwtTVa3tx/PGiPE7zpISJak6MoHGqyMatMKBWP6I7DH13h
+         SJFNuWLrlOLpM/3QHTXqtu4NN6wWJgtev5AWI8mOUE6AMrO6WXp2gYGaEK95/ZQ/d5r9
+         6jQjX8zgbBI+/RKP2BTWM4Gm5YsDixP0gGXupkzuX0ClGmutm72uLQm5IvZ0lYMOg0Mz
+         d9zlv6FatHNc8bRPM7pBHH2Dv0njte2YBijomaF2SbJ02rsP2ZRlPJYUqUVy+ltheYnk
+         Lp5pMmKQAAXC3yV0Li4W46V7kWMDJgvLgo2mpKQE987XRTbP5hDNSvduVlx+lPZD7e3o
+         zXqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793263743; x=1793868543;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZVSBDtL7OhsiZj116ks6zPwmky9iXriM5zcraojnfhM=;
-        b=Z4Jd5RsXKrvLjPui08+FA9GQv8LCdp6XCB1DVQAAbgbUyLIeohkeKr9YB5kER25W7D
-         e0qm8dmqsNUBhh1S3PWswASM3ytVAZc4Zcq2VKOIG4kIrxv4lEqK4OJd6HO5VSod9o3N
-         YbN99DK0YdrNKT3YwzU48dKSGHO54gRn32I8fEVKHiCRjufYS4yO1Pmt9nmYjKblXOvh
-         WzEdvt/ET68rQEx47lCyvHnz8FFCPpV4/42kc22WlRDrV4C59YVM4CRjBaKmHoYRUUMP
-         PQciCQD3L7OrH6SOvGw1PUQTG5AX0WYiB8rKykJi5Ttznq3JngpJzijoMt2T/6lvc1yu
-         +U1w==
-X-Forwarded-Encrypted: i=1; AKwUvBzM01lwStEbYXVHBdvaVyu4LOCKxB4haQ/YaXQwI1DU+kZSsIENXrw/a1JpInzlItUZd9spkDabkXBEfCA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgMZi79VQ53PiwcdFHncAg8jldT7B4ocJnxcTH7jq7O99SiGkZ
-	yWUot1PLOTjBDOAeB9+yz9qigLM8iLWE7BhuLom1YYMVktEf/ZmoDdVh
-X-Gm-Gg: AYBFou1pgrYVka1vHr6equTnGmel6mhgmgs5nlagKsR7rZB8dEWrO61g2v6pxhZHjOD
-	Ho7AmekusB1bUu5n84GW9putLAS31Gz2bjAr/It+HiJQpAvJMLMjbywl1iqPtGIuzR342iDJBtI
-	UcqfRUbj/1XIzgm70xpzBv4rRf4eSVltbGDc2xkNDFv7pPtbNLD3nKt8uVXDcgIMYkujU2ltvnQ
-	YD/HmV7DRfoq0yhg+J+RrVxwV6Q97qCe0q3GYv1Pjm94iTBrBX0qJsKanp14jFclbwuDACgEWDB
-	SzspfsUbsR8r1Bbxnj8S8P/+Geqi+6bieVXs4kxWmVbD0pECRuzN2lG3P1UqYk1EGhgR1L62R3o
-	dRxRicg9dcwp79lPo0R4IM0ZgE1cv6MQCYpaN8b/plkS+/N0kQtqjJ9zW4cqzlauo7S1wmtmCUl
-	2iJG4FYx+la1gdU4k+/0IoKN+cVi5qFiAIcjEWS4wiWWWXo839p+ePxpCIQet0uN6RKlQ301ZPS
-	fl3K+OA/mQMqkgj7v81OvWlkjmWERK674EAMGLxMg49iFzwpm0f1LxFt63o7VcSCiObDr1ppfBZ
-	CjCo6/GQjqEn/g2nEVB/Mlzru97rx2hPIcH/QEeI5QaVa97T6JoQ3mPfdUwf
-X-Received: by 2002:a05:6000:b85:b0:48c:43a3:6a74 with SMTP id ffacd0b85a97d-48e5d5c3a6amr8761707f8f.12.1793263742917;
-        Thu, 29 Oct 2026 01:49:02 -0700 (PDT)
-Received: from SurfaceArch.localdomain ([207.188.128.229])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd37f4sm40025617f8f.44.2026.10.29.01.49.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 01:49:02 -0700 (PDT)
-From: =?UTF-8?q?Antonio=20V=C3=A1zquez=20Blanco?= <antoniovazquezblanco@gmail.com>
-To: Alexander Usyskin <alexander.usyskin@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Dorian Stoll <dorian.stoll@tmsp.io>,
-	Tomas Winkler <tomas.winkler@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] mei: me: add ice lake point LP iTouch DID
-Date: Thu, 29 Oct 2026 09:48:59 +0100
-Message-ID: <20261029084859.4537-1-antoniovazquezblanco@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028221017.54426-1-antoniovazquezblanco@gmail.com>
-References: <20261028221017.54426-1-antoniovazquezblanco@gmail.com>
+        d=1e100.net; s=20260707; t=1793263838; x=1793868638;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rK3sC4K0zeBWZNuCTD+FoSNFp2fytta2s77PkmNPweo=;
+        b=ZuyiAOXl2O1s7t4C50MSShPdlIIBob2EVXsJ3n/a4adXI8bUt1VV496E0BW+KnG4fp
+         InX7leNxIWLnl8UbqYFohXEtwqTRpf1/In0zzrFjsPegkKnaSElVyczINKUP+mwebdGr
+         FkSBedApojRtapgY83VXdgh6wpzpZfb5DCHeYt9hXaB2hGAq/EZ4e9gKezDvxDLGxWRs
+         MyVArdbKWwX/KKJVBQ2Ubhcv+b28bgtdgplOwUq+P1ZWay+EBxFFksyjL+6eI5dyNpJ3
+         H/j/JngIQ7o+GlKi235WQSnfzJ/Y9LtwfU1gUIHTzef5ULQRnNPqswHUaV6UuP2/0NdS
+         L6cw==
+X-Forwarded-Encrypted: i=1; AKwUvByA9Ws4+htj0D5mhvNusXSgQ6PbwZZ4jmZG1RiJM3HpRYTC3ebkjaSO5tbO6QG97g3PmENuMAjKD7ww41o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8xvJ0JxP7lG7MrwZNJZ3x6Lwa83zWEu3zOZ3C/nSUoFaODyc0
+	jRuKYEcZSXZyT1Mo7jWIRvHn3R5/pHPJeGO3Irq/AZfflAUKPKKnw8PK
+X-Gm-Gg: AYBFou2taFZL6sXv/p+2PVSYL5Z6Q+rShKaGYWnigYaP8WB/DABg7xkuOLxMeiiSJi/
+	7VRjmdnhZa6cOVyQMCUr1zMeTHHiUtmfJB0iq5RyeA/69VagZDXLDLyWI5jFAarTGTQrlDZazgc
+	p3LGZlny/ZpDzPyNAztPRKhZphW9R10EahNPkJe2QCZ5SoVYcKHbprMbIp9OjvWXlFIU3bD3O/h
+	cD1Yn4DFDZLdRiGLFDESTwVluiKEmvQwmWcg7AkhZu+DfQ7SCM/Nj6eTeELroitmCWIvAqp08v8
+	dfNfHx0Lsvg1Bw8iaGW0HnW0762amAN3HYv4bU2AcQTJKuy9oJ2n5Yw2LxiUD74834V2oRoFm8h
+	ZSgIhjGa8tbYIjQmW5w/TM+Dtxp8jY0m62DVU2XhRpfGRhaeGeg8DThp89S8rzvg8gJaptxRRfA
+	kGDLAjGKmW5elwa/8qPjuXcfWCOyE219x0F4/wAE2QOBi/rFa88QIcustQJ6hl9BnmMxZazCFiN
+	2gYK0d4fH1Y9h3NW+bRoKeEJhkufLTGBoyFh5eGAneqKud1KEdHgDc8G+loysc4PfF8f47oWpTd
+	0kB51wnjJJ7gtvNW7beFeaEpHOigChrniZ1scw08t9xI+btj60BIb5iGkE5V/bk8sKlP3jfsHDN
+	axTCxWdno8DLcwlHVUHF/QdGl96WRTyjIGW1bYkg/Ng==
+X-Received: by 2002:a17:903:1ae4:b0:2eb:162e:37 with SMTP id d9443c01a7336-2eb162e0241mr27242695ad.16.1793263838410;
+        Thu, 29 Oct 2026 01:50:38 -0700 (PDT)
+Received: from localhost.localdomain ([183.96.175.225])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6bddae0sm29991205ad.35.2026.10.29.01.50.35
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 29 Oct 2026 01:50:37 -0700 (PDT)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.de,
+	perex@perex.cz,
+	anton.yakovlev@opensynergy.com,
+	mst@redhat.com,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v9 00/14] ALSA: virtio: staged capture recovery and PCM RESET synchronization
+Date: Thu, 29 Oct 2026 17:50:18 +0900
+Message-ID: <20261029085032.70689-1-mynameisjune111@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,93 +103,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add the device ID for the Intel Precise Touch & Stylus (iTouch) function
-on Ice Lake Point LP. It appears as PCI device 8086:34e4, next to the
-regular MEI function at 8086:34e0, on Microsoft Surface Pro 7 and
-Surface Laptop 3.
+Hi Takashi,
 
-Without this entry mei_me does not bind, the touch controller is
-unreachable, and neither the touchscreen nor the pen work. Users
-currently work around this by binding the device by hand at boot:
+This revision supersedes v8 and includes its unmerged prerequisites.
+It applies directly to sound.git for-next at
+ a4311e9447bbb219044db38897f95be112f46a8a.
+Please apply it to that base. Targeting 7.5 or later still works for me.
 
-  echo "8086 34e4 ffffffff ffffffff 0 0 9" > \
-          /sys/bus/pci/drivers/mei_me/new_id
+Previous revision:
+https://lore.kernel.org/all/20261029054354.2931-1-mynameisjune111@gmail.com/T/
 
-where the trailing 9 is the mei_me_cfgs[] index of MEI_ME_PCH12_CFG.
-That is fragile by construction, since the index is positional and any
-reordering of the config array silently changes which config the device
-gets.
+The series adds staged capture accounting for shared capture users such
+as dsnoop, with lifecycle recovery and synchronized RESET accounting.
+The capture compatibility options remain opt-in and disabled by default.
 
-This ID was first reported in June 2020, together with Sunrise Point's
-0x9d3e, in "mei: me: Add itouch device IDs for SPT / ICP" [1]. That
-submission was declined over the server platform ID conflict, and the
-Sunrise Point half was subsequently added in commit 372a829862e5 ("mei:
-me: add MEI device for SPT with ITPS capability"). Ice Lake Point was
-never added.
+Changes since v8
 
-Use MEI_ME_PCH12_SPS_ITOUCH_CFG, so that the device is reported with the
-correct kind and the SPS firmware exclusion applies. Note this is not the
-config the manual new_id workaround above selects: it reports kind
-"itouch" rather than "mei", and it does not set up a DMA ring.
+I removed the generic PAUSED-to-STOP change. Existing ALSA drivers retain
+the upstream STOP condition; virtio-snd now tracks its device running
+state and RELEASE obligation independently from runtime readiness.
+A successful RELEASE clears that obligation before the RX wait, allowing
+a wait timeout to resume cleanup without sending RELEASE twice. A known
+STOP rejection can be retried before RELEASE. An uncertain control result
+requires device reset before the transition can be trusted again.
 
-Link: https://lore.kernel.org/all/20200601155954.764558-1-dorian.stoll@tmsp.io/ [1]
-Signed-off-by: Antonio Vázquez Blanco <antoniovazquezblanco@gmail.com>
----
-v2: use MEI_ME_PCH12_SPS_ITOUCH_CFG instead of MEI_ME_PCH12_CFG, as
-    requested by Alexander Usyskin. Commit message updated to say why, and
-    to spell out that this is deliberately not the config the new_id
-    workaround selects.
+The control requests keep their originating PCM epoch through enqueue,
+where the queue and PCM locks protect the final generation check. Period
+geometry and message ranges are checked before transfer construction.
+The aligned control response allocation now appears in patch 5, where
+INTEGER64 values first need it.
 
-v1: https://lore.kernel.org/all/20261028221017.54426-1-antoniovazquezblanco@gmail.com/
+Patch 8 adds snd_pcm_progress_under_stream_lock() as a separate ALSA core
+change. Partial capture progress needs a reader wakeup before a complete
+period is available. A delayed notification through the period-interrupt
+path can infer a false wrap. The helper uses the ordinary pointer update
+and reader/fasync notification without ticking the PCM timer. The caller
+holds the stream lock and releases driver pointer and trigger locks.
+Synthetic tests in both locking modes reproduced the missing-wakeup and
+false-wrap alternatives and passed with the helper. Its API shape still
+needs ALSA maintainer review.
 
-Notes for review:
+The staged RESET path reclaims RX space at the common pointer observation
+and updates its notified-period position there. Completions arriving
+after that observation remain available. Ordinary capture also completes
+the core rebase after a late refill failure, including paused streams.
 
-Built on char-misc-next (x86_64 defconfig + CONFIG_INTEL_MEI_ME=m); mei and
-mei-me compile clean with no new warnings, and checkpatch --strict is clean.
-The emitted table entry in pci-me.o is vendor=0x8086 device=0x34e4
-subvendor/subdevice=PCI_ANY_ID driver_data=12, which is
-MEI_ME_PCH12_SPS_ITOUCH_CFG as intended.
+Layout and dependencies
 
-I still do not have Ice Lake hardware, so this is NOT tested on a real device.
+  1-6: ACK errors, START/RELEASE recovery and request/DMA lifetime.
+       Patch 2 tracks RELEASE completion; patch 4 checks period ranges.
+  7:   Mark core stop-threshold accesses used by capture policy sampling.
+  8:   ALSA partial-progress notification under the stream lock.
+  9:   Staged capture, dsnoop policy and lifecycle recovery; uses 1-8.
+  10:  Staged capture period-work priority; uses 9.
+  11:  Capture compatibility option documentation.
+  12:  Optional PCM reset operation under the stream lock.
+  13:  Staged capture RESET accounting; uses 9 and 12.
+  14:  Ordinary indirect capture RESET accounting; follows 12-13.
 
-One thing worth flagging explicitly: unlike v1, this is a behavioural change
-for people currently using the new_id workaround, since that selects
-MEI_ME_PCH12_CFG and so gives them a DMA ring where this patch will not. I am
-following your call on the hardware, but it is a real difference rather than a
-relabelling, so a Tested-by on a Surface Pro 7 or Laptop 3 would be more useful
-here than it was for v1.
+The RELEASE completion bookkeeping is included from patch 2 onward.
+Whole-byte period geometry and message bounds checks are included from
+patch 4 onward, so these fixes also cover partial application.
 
- drivers/misc/mei/hw-me-regs.h | 1 +
- drivers/misc/mei/pci-me.c     | 1 +
- 2 files changed, 2 insertions(+)
+The previous v8 patch 8 is dropped and replaced by the new helper patch.
+The RESET core interface, staged application and ordinary capture fix
+remain separate. The ACK and work-priority changes remain separate too.
 
-diff --git a/drivers/misc/mei/hw-me-regs.h b/drivers/misc/mei/hw-me-regs.h
-index b9a67629496b..3972f9504f12 100644
---- a/drivers/misc/mei/hw-me-regs.h
-+++ b/drivers/misc/mei/hw-me-regs.h
-@@ -94,6 +94,7 @@
- #define PCI_DEVICE_ID_INTEL_MEI_CDF        0x18D3  /* Cedar Fork */
- 
- #define PCI_DEVICE_ID_INTEL_MEI_ICP_LP     0x34E0  /* Ice Lake Point LP */
-+#define PCI_DEVICE_ID_INTEL_MEI_ICP_LP_3   0x34E4  /* Ice Lake Point LP 3 (iTouch) */
- #define PCI_DEVICE_ID_INTEL_MEI_ICP_N      0x38E0  /* Ice Lake Point N */
- 
- #define PCI_DEVICE_ID_INTEL_MEI_JSP_N      0x4DE0  /* Jasper Lake Point N */
-diff --git a/drivers/misc/mei/pci-me.c b/drivers/misc/mei/pci-me.c
-index 790a4647811b..cfdef9531ab1 100644
---- a/drivers/misc/mei/pci-me.c
-+++ b/drivers/misc/mei/pci-me.c
-@@ -98,6 +98,7 @@ static const struct pci_device_id mei_me_pci_tbl[] = {
- 	{ PCI_DEVICE_DATA(INTEL, MEI_CMP_H_3, MEI_ME_PCH8_ITOUCH_CFG) },
- 
- 	{ PCI_DEVICE_DATA(INTEL, MEI_ICP_LP, MEI_ME_PCH12_CFG) },
-+	{ PCI_DEVICE_DATA(INTEL, MEI_ICP_LP_3, MEI_ME_PCH12_SPS_ITOUCH_CFG) },
- 	{ PCI_DEVICE_DATA(INTEL, MEI_ICP_N, MEI_ME_PCH12_CFG) },
- 
- 	{ PCI_DEVICE_DATA(INTEL, MEI_TGP_LP, MEI_ME_PCH15_CFG) },
--- 
-2.56.0
+RESET error policy
 
+The optional callback runs with the member's stream lock held and retains
+the common pointer and time handling through snd_pcm_lib_reset(). Zero
+allows the core to finish the position and appl_ptr rebase before unlock.
+It does not guarantee recovery from XRUN. A negative result skips core
+completion, so the callback must leave coherent pointers after any
+partial work. Drivers without the callback retain their existing path.
+The callback also runs after a successful prepare.
+
+After virtio-snd has performed the common pointer mutation, a late refill
+failure latches XRUN and permits core completion. RESET returns zero.
+With the notification worker delayed, a nonblocking read can first return
+-EAGAIN and later -EPIPE; a paused stream's resume can return -EPIPE.
+Applications need prepare or reopen recovery. This changes the observable
+late-failure behavior from v8's immediate refill error, which could leave
+the rebase incomplete. No new userspace ioctl or structure is introduced.
+The internal snd_pcm_ops addition requires out-of-tree modules to rebuild.
+
+Linked RESET and prepare stop on the first error without rollback.
+Earlier callback members may already have completed; mixed legacy members
+retain their existing post_action policy. An error does not imply the
+group is unchanged. Applications must recover the group before relying
+on its positions. The callback contract makes this partial failure clear.
+
+Validation and remaining limits
+
+The candidate's runtime code was built as an ARM64 Image and modules with
+W=1, KASAN and lockdep. ARM32 LLVM object builds also passed. The final
+API-contract refinement only changes comments. Packaging checks apply
+every patch in order and compare the result with the validated candidate.
+
+The QEMU regressions cover native and restart lifecycle handling, rejected
+STOP and PAUSE, successful RELEASE followed by an RX wait timeout, stale
+reset epochs, failed prepare, suspend, delayed replies and virtqueue reset.
+The fault matrix passed 14 cases. The linked RESET/prepare fixtures passed
+40 cases across atomic and nonatomic locking. Four delayed-worker cases
+covered RUNNING/PAUSED and managed/free-running capture, then recovery and
+reopen. The partial-progress alternatives were compared in both locking
+modes. KASAN and lockdep reported no diagnostics in these targeted runs.
+
+A forced 90 ms interval after the RESET pointer observation reproduced
+-EPIPE with the earlier staged accounting. The corrected path matched
+48,000 subsequent deterministic frames and passed reopen. Deterministic
+ordinary MMAP capture and a 70-second recording also passed. These tests
+use synthetic sources; they do not establish physical-device acceptance.
+
+The reordered prerequisites were also boot-tested independently. An
+injected RX wait failure after successful RELEASE reproduced two RELEASE
+attempts with the earlier patch-2 stage. Each corrected stage from 2
+through 8 made one attempt and passed prepare, capture and reopen.
+Stages 4 through 8 passed eight direct message-boundary checks. An
+additional stage-4 run rejected three malformed hw_params cases before
+any SET_PARAMS request, including a fractional-byte period. These nine
+QEMU runs passed their expected outcomes with no KASAN or lockdep reports.
+Fault hooks are isolated from the submitted patches. The malformed-format
+case tests validation logic and does not claim ADPCM hardware support.
+
+High-load TCG capture still fails. In an alternating A-B-B-A comparison
+using submitted v8 and this candidate with the same guest configuration,
+two vCPUs, two busy loops and four dsnoop clients, both versions failed
+both 70-second runs. Reopen passed once in two v8 runs and zero times in
+two candidate runs. Observed reader gaps reached 165-283 ms against
+160 ms client buffers. All failures remain in the test evidence.
+
+In separate instrumented 20-second runs, both versions failed. All four
+candidate errors reached dsnoop's client_threshold check. The v8 run also
+reached direct_check, where a later RUNNING snapshot cannot exclude an
+earlier slave XRUN. Host scheduling and load varied between runs. This
+comparison does not establish performance equivalence or rule out a
+performance regression. Buffers, priorities and expected outcomes were
+not changed to turn these failures into passes. The work-priority patch
+provides no hard real-time guarantee.
+
+This revision has no VZ/MOTU physical-input acceptance yet. ADPCM hardware
+negotiation, other MMAP layouts and formats, multichannel capture, ARM32
+runtime and all physical ALSA drivers remain outside these tests. The
+partial-progress API and linked RESET contract still need maintainer
+review. The current revision has not received a Sashiko service review.
+
+Thanks,
+Joonho
+
+base-commit: a4311e9447bbb219044db38897f95be112f46a8a
