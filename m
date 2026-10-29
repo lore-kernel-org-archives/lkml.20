@@ -1,107 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793274912;
-	b=xq2Flv+08qmb5IF5XBaBhJTCMvT6XbaHIQbNNZ+BQW6WpMvkuI5mLRtiSAbaHxFmSrQM
-	 wALJzS4mwTVKUgHYhwI8exCCq9kvYpA0/RpNjDBCiPCpGjfSIV9Npe/4hXB9V/UZDEyhZ
-	 Dp/1NUwYut4MIYg6T/TDYawPc4fQEBrlaApk8AGazJKttd8y4n3RVVa4rU0+Vah61wENx
-	 LAc8NDUzKESlgH/y6Kcz1tGnTIbki6Aau4ZugQ+rTkAM45X1CitnXK5LfRKNQxRojC6+s
-	 XPmz9DY1x7pCMhO/OG/gJVQOc97seS2/NWTBr2Xxi6Qj82s7+IDb3ZN5k3XY6kZhOXQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274912;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Original-From:References:In-Reply-To:From:Mime-Version:
-	 User-Agent:Date:X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=3VY7aUW6rjKEecWzoHgMRcesnfYCNorLy5OBPK7xTbg=;
-	b=0Xz1jYUfog7RKzVuFJpu1ju88GB9yTiMwwo3Z0SyKM3RfXYkXXSNYfNa9j3KxbKFv9U0
-	 wkC4SFMZubHMDjgskWYFoC0F3X1xohSRNj5MUCjanVN/CqhHYkaOdfD6OY1UV7VF6teGY
-	 xoHQrr+cQoY0trKS1TXMxRqetK8mRK6vsLUNzKjypxS3n5O3g2SUarUH02odENNMH9igu
-	 n4pEa/M4NjePb6RoMcHzTrvVGLC0vrKBxp0ESUj0DiWJ70jRcfeRFddh2Mmpel5tjCbYC
-	 r/e63Ou2b7n5iQedw+ZKUxgeXMaN3pB6Kr7J+3L9WI2sNafvxCVt0tcX6gQM5WP1BwA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=CuuMj9g2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.52
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793274944;
+	b=uG+drtaPe98LTFwt2kXcBI2AinEe0jf7Zro6XpVfZjLB7chA5/0HlfCZmHG+h3O+SfDC
+	 dtK05sWd9oCa8k8BMH5bT1WGP6y1RqbI7MlAferV3c7RdUgPj2Qx3AuMV/u6+8WCKsIeV
+	 AEYVJMdynB2hrE9YRWo6aqbNHToyLmftC8KOIEZPME9Pp8I4IgD6rzF42pM4csBEGOf2Y
+	 lU6yhmNM29yqUXvtyFZbyH9QD6993aF/DKXmS4hb31sxuU/bSIdnuqEtCYnTtBfW9QZD5
+	 g67018kTw82x1RiRygWeds8f2Kcb/KNW31dSuonYtGZUzRfeQ9gZVUc2zhbj+H9KojA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274944;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
+	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
+	 Content-Type;
+	bh=KTQVFO6lzA96PIqvJ8pV9UqSzjjQB2hOeeMYeqx+0tA=;
+	b=oyn5+35HNSmSGsYMpEJiEII5MalAlXl+HPObfjkchIW9UiVr/w+ZX8h0ra/+q8bNyTJa
+	 BNGobEpjKQ1QCgWbBysf2uraQmRw15UQ6CwWG4U+Pp4TAomo+9IGhK0pvBaZ4BAMWfwXh
+	 8vvUOk0poron6Y/LXwyIRJrp9XxD0wLiglxPScFvjjWFTjaaNnZYadlYG2quhFtBE/SHU
+	 FjBWlbxTEgWkDAVzt7Itt7LcS4VqH5KCGzjLY1A5kfhid6lXyQYQogQ88eITWOevtX/dS
+	 H5HNaTeNkSeybKy0XYx83j7c7+JdVCna6tIJV4AS6F7nfYGwubBbmpKZqLjADvM5t0g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ssi.bg;
+	spf=pass smtp.mailfrom=ssi.bg;
+	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=ACSa9OZQ;
+	arc=none smtp.remote-ip=193.238.174.39
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36E1606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:55:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A36E1606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D706F606A31A;
+	Thu, 29 Oct 2026 11:55:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D706F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=CuuMj9g2
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bccb867d6fso2514715e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:55:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793274910; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dTCqFWZGQ4T+/P9gcXAj1iX+cN/iyJW2zH2IsDkFaUMXy8i9PVrV3s18A7LltwAF0t
-         DsMVueoegH3fy8HZjqyhbvIPZTq5b0Eu2aNGhLzTGUiMk89CUIhnV8+OIm6Z+CFFtEfI
-         4+0kxJetQnT5QUAalyO5GlgJm6qRBrysneeUuaGvjYs/1zt8q8dhD4qc5ojNOqD5bFKS
-         nHFmNEx2enda0AjITQRTqlWaw5+2UsQduzR/jFS5rgyCO4BSJZHALg65mWyxkNGZJMlp
-         Vic/I73WrffzMmfuK+OZFsZVrWqBwNqZ4K4PrRNiJz+h+b3tARQ+jnf7KxuiwUyv85vb
-         eIjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:user-agent:mime-version:from
-         :in-reply-to:references:dkim-signature;
-        bh=3VY7aUW6rjKEecWzoHgMRcesnfYCNorLy5OBPK7xTbg=;
-        fh=cfDr2Fi2OFczueWkiG932931SlrIeevY2gfAP8pqOSw=;
-        b=mOoOWKigvqdlXKkIwNm9LqeasKN7gLryI+owBwlz1awZFS8lKwuc1rYwS4zL9gn4vo
-         5zPj20Q52j2ub0Sg0aFVKBxzIDWxGD12gbq9tIVRcMAcy+a/HppmEkce29a8lI8/rnCg
-         9GlKRBp/iLL3i5RFMYx9Pcn40RLLELRSJAXMynx8KFT4+/B6ogIB3Dncf5gm0RvELHKg
-         Y/gFcC4JJtvsGtPfBqQzWmMlRBhEuOtvW5lQfEy925HGKa1qhB/oL54Hyc3u4PEHfICl
-         3IUL/KhMt8P8zIh2lzCHLod7Qx6mFGnecufi3YoPCSd9+XlhkzTWuvNA5o2pVmzjIk/I
-         9g2g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1793274910; x=1793879710; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:user-agent:mime-version
-         :from:in-reply-to:references:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3VY7aUW6rjKEecWzoHgMRcesnfYCNorLy5OBPK7xTbg=;
-        b=CuuMj9g2Ph+v1MKWI7x/Ma1dHL0Yr4KokjmTvuzJuVaafCQww2WgpuyLSHPlgWCcD/
-         +Gk+X8VA79TI3jaY6nC6/lgeOAgqapOhP0c8xZPuPpkSYomeOdNEBwQni95Grcwd84fk
-         0zgQpy67pQE35kAeiaEWruBgLx52yWqsp3rGJqwcEiJRwTDz4zDYRzRbxk9SEsvxX5lS
-         7m8CGcZU0pOzrhooYnyOmP3atBJQ+M78Uk59VVZtrrTUdGOndQtrAHVOH2KcLXppmQaf
-         8uTqekRKs9XNH/7t1+8VISE0bfe3CZPTREigA+N8q68VSTgdF5IN3ggNxT9g9ztZTP0H
-         pojQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793274910; x=1793879710;
-        h=content-type:cc:to:subject:message-id:date:user-agent:mime-version
-         :from:in-reply-to:references:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3VY7aUW6rjKEecWzoHgMRcesnfYCNorLy5OBPK7xTbg=;
-        b=ESDqLlbQoFdq43ROMImR5zYa+IKVMfc0eaD1oOVbIw9LmhZgVnxDV4Lig8lO5evf1W
-         9l++CvYqbWS+izf601Ap7KBpEyRoQk28bnr2qRNqUv7ZuQ6X8pMPJrJisNZ5O185r81S
-         MICcCHHxUGvvR7iP46j6KGSdRxUgQdncovdx1eB2WQR/fJt1bS6+7X91cZFbsX8kINt/
-         rADraVk5yZJWCCBnJodqpKA3WhNB0P1m8YzdR55gv1MauIYGGjEpETrNB0F6HoxT8HRu
-         ugZb4vqL4injBnUqAJJWwP9lPAcQS8CSRdVrQq7pMmS7kBL32Pxh71WXL1fKwrW22htp
-         vi7w==
-X-Forwarded-Encrypted: i=1; AKwUvBzwjeyjlnT4ARKXFWo9gMan5/+hOma/EZtbkG7p8xNk00NxHZWglIsnHcMDLjOq6av2qNrWoKoyBOMlKmE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIDIGXzPTzJdjSEMl7UHFJHfXl4idKMYJdUmDgAr8lfmGQnpOE
-	aH5PO3JuyL7ogp6n0FX3qQhqCQv1NV0nl1DcInirF4l8XX8RpUFYvX8VAL1XEmfkSeoAj7Bur1h
-	KC1hM4QfGjACLG/XzC21w6nCqNeynotqiIlfE1WKvKg==
-X-Gm-Gg: AYBFou0SRjwyMgdarcycvBwcXXZE7pjjwWjs0Vjb3goS1FBUb1Sw22Lj0CQ+JLa1TJU
-	k3tg2hgivnwHPgBdjqDG1grFkmklsW776WKuRbZniBlftv7RGb/NqtIQJv4dGpFQnRSb7Aaz09m
-	1DwhYNYAszvxoxAKPVdrn2Hc3luJQSzAJo3Kp4wijgRaLZJ/v6ELMQugekqkmTUa04L1OmvYVJP
-	pnxLtedjXMHnhKiKd4RzQTXfAhHyjImU8HrmDXoWcAKNOjfb+9n5Gx8LKaY2OQeIaOtybqoqaU9
-	QBd4eSAR3Dx8kC+R2smqojnHLos6esohVGJl543H0EnRCjVMgDzaZ/gw7JxNVYTGWj+IteGaCh2
-	Mv0Sx+5azbNN4PMb47YGrDBJzfd3+UdBaUp6P4g==
-X-Received: by 2002:a05:6512:1592:b0:5bf:a209:f81f with SMTP id
- 2adb3069b0e04-5bfcad27d03mr1811204e87.37.1793274909843; Thu, 29 Oct 2026
- 04:55:09 -0700 (PDT)
-Received: from 44278815321 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 29 Oct 2026 06:55:08 -0500
-Received: from 44278815321 named unknown by gmailapi.google.com with HTTPREST;
- Thu, 29 Oct 2026 06:55:08 -0500
-X-Original-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-References: <20261029074853.35467-1-zhangzhanpeng.jasper@bytedance.com> <CA+Ht8=YtrKJxr7YLO2z1389NPDnws8hSppAzVnYYJp5K1duvOw@mail.gmail.com>
-In-Reply-To: <CA+Ht8=YtrKJxr7YLO2z1389NPDnws8hSppAzVnYYJp5K1duvOw@mail.gmail.com>
-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=ACSa9OZQ
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id C82ED21F6D;
+	Thu, 29 Oct 2026 13:55:38 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=KTQVFO6lzA96PIqvJ8pV9UqSzjjQB2hOeeMYeqx+0tA=; b=ACSa9OZQh9B+
+	LAp8VRdwAqHwOR2Px2EB24IG9wkcUZzO2qCihGkGemEj6o/KdD6WfeOgrhbPtzNi
+	NM6PmVipshH1D2DpyxZxITRocvyZtVsdaYDpPg+ZLOh4egb52aOmJbTMEoQ1Mnkt
+	WmK1EM13CoeR114C+ged3t8hBQ24BQMLulwX0vcCEX95GoneF+IVETdRuBb7slmI
+	6gQvThBfupm/lmJCy/2YwtXZyjHmGiYmGalPmbHcL1ape56DRzBb/flBS1I3skCv
+	7jTQ/Xnj6bSjnCrd68D80XbK01tkmcD+MaxlPcgnPT0hd4q6OwkGmfAjLSy8Wuw1
+	cRMjRpbgVmVWfJ8zEHnju/CdwkiFzEfnJWdBR7wFKb0x/X1dV2JmVW+Ja7DjHLdg
+	LRNo24A+w/HvC4lx4avRctelUOvyaMVJ81lCNi4sjPLrh1mPSB+oFVeK92n8Jl53
+	tkyD5TjHqxHGKTeSVOays7c2eW0h5ub8RqMQJV5h9Es2Cqny9cj+JKfLEOghqR7L
+	53fi6b3q7W84bQUaVSJGr4VWe5ntyhygjG2N8iwQFiw4iAzNy6BkBLQcWgDo3EUY
+	PsxctM++wP2k1khWszkzmkZLLrB7zmWsVunAGCoUByEMUsgSbZzSgcnSXPa/7yJl
+	9hbSIJ8Zo/5fvA3NCyl2U3RLFD3YP6g=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Thu, 29 Oct 2026 13:55:38 +0200 (EET)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id 6121160A0E;
+	Thu, 29 Oct 2026 13:55:38 +0200 (EET)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 69TBtWKA036805;
+	Thu, 29 Oct 2026 13:55:33 +0200
+Date: Thu, 29 Oct 2026 13:55:32 +0200 (EET)
+From: Julian Anastasov <ja@ssi.bg>
+To: Linkui Xiao <xiaolinkui@126.com>
+cc: horms@verge.net.au, dsahern@kernel.org, idosch@nvidia.com,
+        davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+        pabeni@redhat.com, netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>
+Subject: Re: [PATCH net-next] ipvs: annotate the lockless read of
+ sysctl_sync_threshold[0]
+In-Reply-To: <ede3104a-7e14-40ac-b16c-9750d5b2a8a7@126.com>
+Message-ID: <7bcb4225-b6d8-3815-a6f8-61b5f885f929@ssi.bg>
+References: <20261026083708.617278-1-xiaolinkui@126.com> <45d598e6-3625-0879-59b0-51f649ebe509@ssi.bg> <ede3104a-7e14-40ac-b16c-9750d5b2a8a7@126.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,40 +80,75 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Date: Thu, 29 Oct 2026 06:55:08 -0500
-X-Gm-Features: AclHuK9_AGd24eF3VOAo28szXNgJA0RFlLmIywua3jpx-rZ6jgflVyqTuZQeovM
-Message-ID: <CACnXVncN5yT7Dmqom6m1SaFO0_MjXeoScTRfGUZ4RVdZKhAnHw@mail.gmail.com>
-Subject: Re: [External] Re: [PATCH v12 00/11] riscv: add SBI Supervisor
- Software Events support
-To: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Conor Dooley <conor@kernel.org>, 
-	Anup Patel <anup.patel@oss.qualcomm.com>, =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <cleger@rivosinc.com>, 
-	Yunhui Cui <cuiyunhui@bytedance.com>, Atish Patra <atish.patra@linux.dev>, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Will Deacon <will@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
-	Shuah Khan <shuah@kernel.org>, yuanzhu@bytedance.com, yang.yicong@picoheart.com, 
-	yang.susheng@zte.com.cn, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 
-Hi Himanshu,
 
-On 10/29/26 7:38 PM, Himanshu Chauhan wrote:
-> Hi Zhanpeng,
->
->> [PATCH v12 00/11] riscv: add SBI Supervisor Software Events support
->
-> I See only 8 patches out of 11.
-Oops, I ran into a Gmail smtp system error. I've resent the last 3 patches.
+	Hello,
 
-Thanks,
-Zhanpeng
+On Thu, 29 Oct 2026, Linkui Xiao wrote:
+
+> Hi Julian, Simon,
+> 
+> Thanks for the reviews.
+> 
+> On Wed, Oct 28, 2026 at 07:15:34PM +0300, Julian Anastasov wrote:
+> > Yes, ACCESS_ONCE was used to solve possible division-by-zero problem,
+> > not to solve the data race. Even if memcpy is converted to 2 int copies
+> > on some archs (eg. x86) may be it is time to use 2 WRITE_ONCE instead of
+> > the last memcpy. Can you include this change in v2. Post it when net-next
+> > opens again by using nf-next tag.
+> 
+> Agreed. v2 replaces the last memcpy() in proc_do_sync_threshold() with
+> two WRITE_ONCE() stores, one per element. The if/else branches gained
+> braces to keep checkpatch --strict happy about the now multi-statement
+> else.
+> 
+> net-next is currently closed and is scheduled to reopen on November 9th
+> (https://netdev.bots.linux.dev/net-next.html). I will post it as
+> [PATCH nf-next v2] then.
+> 
+> On Tue, Oct 28, 2026 at 12:49:35PM +0000, Simon Horman wrote:
+> > I wonder if it would also be appropriate to call
+> > sysctl_sync_threshold() only once (per-packet) in
+> > ip_vs_sync_conn_needed(). Stashing the value in a local variable if
+> > appropriate.
+> 
+> Agreed, and thank you. v2 reads the value once into a local variable,
+> sync_threshold, before the branch and uses it in either branch.
+> 
+> One precision while re-checking the code: the two call sites are on
+> mutually exclusive branches of the same if/else, so a single packet
+> never reads the value twice at runtime. My v1 commit message overstated
+> this ("the two comparisons ... can observe different values for one and
+> the same packet"); v2 rewords that paragraph and notes the rewording in
+> Changes in v2. Stashing a single snapshot is still the cleaner shape, so
+> the change is worthwhile regardless.
+
+	IMHO, ip_vs_sync_conn_needed() should not be changed, 
+sysctl_sync_threshold() is not called twice in same flow. OTOH,
+sysctl_sync_period() is properly stored in sync_period because
+it is used twice. 
+
+	But there is still little gap where proc_do_sync_threshold()
+changes the two values one after another while ip_vs_sync_conn_needed()
+can not take snapshot without using some common lock, eg. some
+seqcount should be more appropriate for this. Writers are already
+synchronized with the mutex, so ip_vs_sync_conn_needed() can read the two
+values into temp vars under read_seqcount_begin()+read_seqcount_retry().
+And later to use the temp vars. proc_do_sync_threshold() can use 
+write_seqcount_begin() and write_seqcount_end():
+
+	local_bh_disable();
+	preempt_disable_nested();
+	write_seqcount_begin();
+	2 WRITE_ONCE
+	write_seqcount_end();
+	preempt_enable_nested();
+	local_bh_enable();
+
+Regards
+
+--
+Julian Anastasov <ja@ssi.bg>
+
