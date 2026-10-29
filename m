@@ -1,62 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793272690;
-	b=Tgi7VfBDSFBqqBcmA1g2uyobpEVOR2Ph0hu3nl6i12kUiGVYZLnbRqx5Ze+K8AyCFDXu
-	 8nb8hbvJvhaDYlOTI+2hSMLVIJ0pkxjoQlULlhADNcc5KMcgTnwn/JcUIak0nJdbHGrYw
-	 Eg8SJbUQcTTJp9lwQ9l2akbakfJW04/WPrK2rOkR4l2NsIQKsJWRpiUa8LRPgVOehNCVC
-	 6De92YMpcTMODLFkQ4ljaGQx6wg5JN6MlC0U/7gjd0kvLxsiXm1XtjBTG60/8ZDXu/PqV
-	 TDBKIq8nsmrxWeyCWPnUy6Fpf+gvkaxqwYUPMSyNHDxlGh2IeXC0tQkQN1B4bD6k4fg==
+	t=1793272722;
+	b=t6EBtCp6HhFlqYTTtZDWuZWi9mTWawV7PU3Aqgg+3quPWEhPZ8Td2QB+Phi9u2sPpUWn
+	 +uj1LARlmzumnJuFtDKhb+WBJQkmrWkYa8FwxL3sRatmUH7jbUGxrfcN39WuwK7DQFE81
+	 JcZogpr5PDyZ7f1JkwjvxNNviNUecgllLT2VLbZtSZGAw8lfWRs+J0mOWOBBTcp6whYK2
+	 HJ5FGIS11rG+byRz3OezoPfeMVMb4h+MlVAXvWAPVsvafEP/BYxxGlwNQRqmJJKlI6nia
+	 5Vz5Dl/l0yjY90/9HhB781TfY4WfkqdeM0lZzjeCjZ/kJnOYJaeRPzJTKLLXdqG7P5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793272690;
-	h=DMARC-Filter:Received:Received:Received:Received:Date:From:To:CC:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Originating-IP:X-ClientProxiedBy;
-	bh=CEW/fWCiUClFFtwtQpIhXXX6ntd+4T1TpmWHmmUsuZI=;
-	b=hproxDvYRKBI2QItr+as6O8/pdpAo6iyumhtnCNomvuXu1ERuk+U7sOEMKw/C76cvLhn
-	 vNzmcPUR6eDfhLPNYEN7yyMZsZtBYB9SQr5K5D9c7LB//S6xzEpnxcv1/bcpF2ZL6I63F
-	 bllQAt35gGyyrcu5qQgVqgPtx4pBI1i1EcBE9yXOET3PX9p8h1SEWl8I4ZBfof/bR7Mug
-	 an0T0AfMOqxqOf9XI/2mrzCfm5hFEhRM3WKG7TR/YF3xWCLz+EHje11eswOONCgKLSVNe
-	 RhBT8ovhcHb9cFFRe2YoCRcF0a2RPMSfrPY7PiOZ1UohEmcrT1os8w4RignCJUihnoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793272722;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=oRzZK2TV472kZHxDJFt7NKBBHWBp2CpJHIed8kBiKzw=;
+	b=vhD80Her69TN2KwiaKsGtF0wqId1PUVpYQOVfIQOK1Gl9ptLIdGdSQTh2kF2CkWJP3fa
+	 GBSkKRc0J+C5KL5OcemG9D4cbRTwJEjGu1j/G2WRBN8FuddEI7geQqCw53vEg8y/Vl/wC
+	 /iziTy52+HOrb1EJS6XR/M+gtSWjrNkWAEJauUIjBZzAlcSKJJYGukcvCn9lO17+SUhww
+	 zttRZZRCGTJifwpVfLOjnirffcYX0Vjet1+IggpPPUCew2yyAgPQhBBmFuU2WV00zhvKC
+	 A3vcYhfjnECEQ6SmnNWmWCPqIzo/S8CQLNH6oflbljQLcxg7sskLE1i4btKImej3CiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hygon.cn;
-	spf=pass smtp.mailfrom=hygon.cn;
-	arc=none smtp.remote-ip=101.204.27.37
-Received: from spam01.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5C2D3606A31A;
-	Thu, 29 Oct 2026 11:17:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C2D3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jFhXn61Rfz171Yk;
-	Thu, 29 Oct 2026 19:17:45 +0800 (CST)
-Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jFhXl07wXz171Yk;
-	Thu, 29 Oct 2026 19:17:43 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id 081E930004DE;
-	Thu, 29 Oct 2026 19:17:18 +0800 (CST)
-Received: from hsj-2U-Workstation (172.19.24.226) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 29 Oct
- 2026 19:17:39 +0800
-Date: Thu, 29 Oct 2026 19:17:37 +0800
-From: Huang Shijie <huangsj@hygon.cn>
-To: <peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>,
-	<namhyung@kernel.org>, <ravi.bangoria@amd.com>
-CC: <zhongyuan@hygon.cn>, <fangbaoshun@hygon.cn>, <yingzhiwei@hygon.cn>,
-	<mark.rutland@arm.com>, <alexander.shishkin@linux.intel.com>,
-	<jolsa@kernel.org>, <irogers@google.com>, <adrian.hunter@intel.com>,
-	<james.clark@linaro.org>, <tglx@kernel.org>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
-	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<liuqi@hygon.cn>, <lijing@hygon.cn>, <wangfengyu@hygon.cn>,
-	<wujianyong@hygon.cn>, <shijie8@gmail.com>, <1537577747@qq.com>,
-	<huangsj@hygon.cn>
-Subject: Re: [PATCH] perf/amd/ibs: add phy_addr_only software filter for
- ibs_op
-Message-ID: <auMrUXp42Djz3zu9@hsj-2U-Workstation>
-References: <20260902085251.4046240-1-huangsj@hygon.cn>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY68Gxyg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF7E606A31A;
+	Thu, 29 Oct 2026 11:18:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY68Gxyg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8C561F01825;
+	Thu, 29 Oct 2026 11:18:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793272722;
+	bh=oRzZK2TV472kZHxDJFt7NKBBHWBp2CpJHIed8kBiKzw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IY68GxygSLUt+GAqqR5oqUaK5quHUhxyMViLgDu58VfNFFBHH0J4bpp6Io9yoouTy
+	 uqdfeJGUVnwpbFzI8HJ/jJXwaV9sHQnflXzCDU3Bim7HAMXFVRlph8FXnHAvmHqXhz
+	 A3FkSnrANIOsBRX4g9bFh/ZHVutwl/vQ0QAT3fLHIgkqRk64ka/QUUgYNdI0vPlDGE
+	 2+tDYlTVde8B5HFbsW5bK1g7soB2RQJ2Lr0dlx1XWW3hcGCu3CKT8FD0tzoTJrnWzN
+	 HKKWAOn04g/Lx15U2In1IxkcYhgNkjuJzvytsBPxzTCskBevAKCQPiqNN89qeqfUP0
+	 NRxbd+bg+Okvw==
+Date: Thu, 29 Oct 2026 11:18:37 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: Re: [PATCH v10] ASoC: wm8994: drain delayed works on remove and
+ probe error
+Message-ID: <58d8942a-16a1-46c5-87d5-486ae4e756e5@sirena.org.uk>
+References: <20261029102515.3417777-1-tristmd@gmail.com>
+ <20261029105749.3732334-1-tristmd@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,53 +62,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DGKWooc7RhOjjnxM"
 Content-Disposition: inline
-In-Reply-To: <20260902085251.4046240-1-huangsj@hygon.cn>
-X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
- (172.23.18.114)
+In-Reply-To: <20261029105749.3732334-1-tristmd@gmail.com>
+X-Cookie: I have a TINY BOWL in my HEAD
 
-Hi Ravi,
 
-> Can you please confirm if those additional samples are genuinely valid.
+--DGKWooc7RhOjjnxM
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Yes.  
-To answer this properly I re-ran the mysql test,
-and verified the physical address of every captured sample against
-the System RAM ranges in /proc/iomem.
+On Thu, Oct 29, 2026 at 10:57:49AM +0000, Tristan Madani wrote:
+> From: Tristan Madani <tristan@talencesecurity.com>
+>=20
+> wm8994_component_probe() schedules several delayed works to handle jack
+> detection and microphone status polling.  If the component is removed or
+> probe fails after these works are scheduled, they can execute after
+> resources are freed.
 
-Setup: 384-CPU Hygon box, v7.3-based kernel, MySQL 8 under sysbench
-oltp_read_only, 400 threads.  Each round is a fresh 60s
-sysbench run; after 15s of warmup, perf records ibs_op for 3s:
+Please don't send new patches in reply to old patches or serieses, this
+makes it harder for both people and tools to understand what is going
+on - it can bury things in mailboxes and make it difficult to keep track
+of what current patches are, both for the new patches and the old ones.
 
-  $ perf record -e ibs_op/phy_addr_only=1/ -c 100000 --phys-data \
-        -p <mysqld>                    # my patch
-  $ perf record -e ibs_op// --phys-data --filter 'phys_addr != 0' \
-        -c 100000 -p <mysqld>          # your suggestion
+--DGKWooc7RhOjjnxM
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Rounds alternate p1 -> b1 -> p2 -> b2 -> p3 -> b3 so both methods see
-the same load conditions.  Each record's phys_addr is then dumped with
-"perf script -F pid,tid,phys_addr" and bisect-checked against the
-System RAM ranges (read from /proc/iomem as root).
+-----BEGIN PGP SIGNATURE-----
 
-                     samples    phys_addr==0    non-zero in
-    round  filter    captured   (valid=1,MSR=0)  System RAM
-    -----  --------  ---------  ---------------  -----------
-     p1    phy_only  15710042        0.10 %          98.61 %
-     b1    bpf       14041851        0.00 %          98.55 %
-     p2    phy_only  15580497        0.10 %          98.56 %
-     b2    bpf       15416187        0.00 %          98.58 %
-     p3    phy_only  15732582        0.10 %          98.59 %
-     b3    bpf       15447397        0.00 %          98.58 %
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrjK4wACgkQJNaLcl1U
+h9Df9Qf9EAczEeBJjK/kzZxvH6thCAVJENf6HuUVW4uilNUrApgiqav9st/SQU08
+3/bDkzNO11+tUJV8qTVjyoxQI0zNmTf+/d2i4xnNSxY1FbXx59AybbQRVJX0w8aO
+H+Sr192DgJQ55HQ/jNw2ZmF8dA28AJIi82w6pTr1txNWAVQK1gPKF8Wm7aADxvyG
+I3YfxyU6MD4mzU4dggcARzR3KlnufBSPJpV/Fa2xJ+vA1YgPyF9yNW8W2uUtPPv+
+LTCDqpC6b8ATjdpLtikSqxWzeMtW4cSSdgaEuVjDvsqeW7+ZndroFJL8eaKGfmka
+QwKgIJAGg8U632Gm5NnQwR/68amUng==
+=7xco
+-----END PGP SIGNATURE-----
 
-Two observations:
-1. The validity ratio is identical for both methods.  Of the non-zero
-   addresses phy_addr_only delivers, 98.6 % fall inside System RAM --
-   the same ratio the BPF-filtered set shows. 
-
-2. The only set-level difference is 0.10 % of samples where
-   dc_phy_addr_valid is set but IBSDCPHYSAD reads 0. 
-
-Thanks,
-Huang Shijie
-
+--DGKWooc7RhOjjnxM--
