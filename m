@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793298084;
-	b=waUife1y1T5VcrD13eST+LWQ/gQWvvlal4P77WNTk0IDCrPDUSKojnoqCb8RUFaj1Lev
-	 VPsWyytgD9QpCMdiy8RNWs44zqS1xHfv9P4aK1T4H+HjBilYFZ4t6VhubTE1gF43C2T//
-	 kcqDXjElYRQRNq2zOIXe/Y3/Q9tKHlMEw8x+FOE6v2lxDACyBsCiKZ+TTImKNU38HB+Bk
-	 5oh0Ze8atByRiWMz1UsLgMCgmbHujJP6g1lx3gF2JEWT3kXup0DJTyH6DuTgEpl1A9HGG
-	 aTxANbHktnCMtIlHCU7w8V77Y4FryEfD/p9Bxtco1rlEAh1cuDckJbS0+z7skyvv1Dg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793298084;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QbHi+525zRunXNfIuuoUlB/V5+/jcI7PNq6aGsnXADY=;
-	b=HL+4VeXj6xUkpLihGmuMgtWrBvlmmveqrt77QVNumallWXL9eELM1tkA641hNWKSHrxB
-	 qEqbWaerGS2UPs5fJ7PxCmbLBbuLLtEL7ezDgFIs0jUwGIvTl9iVyr/K/UlgLgzRzAUo5
-	 2RaJ/SjUEqgSV1Lw6emRg+rZsmv2QmsAV1EarGythaBfI0ffjg9/n9QERopDKAIeA9iKs
-	 372hNQJacDtrm7WNfsGJls0ibKpGRDXg5enTYFG20E1xqAkeCheSJBJ50rvR4IXHuOaqy
-	 W8r4DMfv++uz0T9j4vwN7lQiEBtlpLSOmSv7Y5BY6rnxlep0jPuZC6w2VsiveZT8HkA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Er3BCzOW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C1D606A31A;
-	Thu, 29 Oct 2026 18:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Er3BCzOW
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793298084;
-	b=hPNgZOwrA3dYiXGnF3tV6CYZy6cusEZ+g4jvj3UPuWtPzdyYqq/sQ5uoLJiY+tC2c0iN
-	 sEnAb/ye+5cuyztmRKXKniGdziMwF7f2oGFcAVAjW7rg9hc+3Z6/0PYw9hAY0UN150vSa
-	 KY24HNAUCuu+8AVplz9EGP7pDZoKVx4xbm0Cep81GRBvYCTqqxW49B4FblQ6VqRHeP3zw
-	 aialVMfDD/VqaJ0kwHztCwNQdeW2nyRbr+KNbIYsTQGLUootLK02McVFOKlC1emuyszsP
-	 RffiS/1DfG4aXpG4yYBdOq6hoocVjHFkCJzl4QeBHUu0+9WV5pZpXHfUHDTukHffEOQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793298084;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QbHi+525zRunXNfIuuoUlB/V5+/jcI7PNq6aGsnXADY=;
-	b=tzyN9na+DoCAL4Ll2ZKaYt4Jo/HuN2zL6GHdO21+ubpQJkNT83vjdaZEPhDr5Up56dGA
-	 pYecM0d2m08CqI80Y2p8sLp+tsVtpo8xcmf5QqDCx3OiqKGuVpvLccJJkUiqX4tZNPSz6
-	 IQ95iS64/haqK+By+JLiSvIB12pXVoIhkzEFpPv8BnR+fmJCrHaxGP/qNIq/QRJrcpycf
-	 TfJGxL5Y8qceqB2aZyQ6vhUZpBczbGDRg/UC4kbaGFp6lou7I4UFYUEIwm58ll5/RHwvX
-	 6vIdy0j80oRxWjh3hpKvmhkynkhyRmJXzkNdG2oLOpYEMiFGHl997W4IIkW6SjBEHAA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793298142;
+	b=WIGU92TEPL992HMvTM0pBW1vcolPsLrIJs0oudIXTZqpmuJiX79Fi/n7a4I2WxDM5w1i
+	 dyLOdDSYqeI+iF99AADMMX3LfG/8UIoKKEnV5Mc25r81YUyd/KKxuRdf3+X8qdmBGmZlD
+	 Q+rWRw6I/lzCSh14FUFgE4HxC+nu7wJgURYRo/cIIPd5Onxl0+YS0hZyCP4a18nuhdEin
+	 5B+TFd7+LG2dzWZYh8vBHykweHPH5DCXziJVI/BysZEF24V+ZxYh+XwP/dSQ4X5rOOPGT
+	 dz779iQ3L6D7HgLwpxRjfVeJ9JjfyNVCgdKFL+jQbSMg1nGPCP2NNjMwLO+P+alDbTg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793298142;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=j0lfMVo3cPVAp5JDNDwKQqogdYL+QezhiKu+RrquQQQ=;
+	b=bNfsItObPvbnVUan9G1I/ckPh1ykH+56COcpOg/7c/9x6Trhcjy10rTVhFHgnGw2x5uT
+	 TN+rEmgGqtCjNFtmN6O540OoKpzTtDB0Z/RMoK//uc+v4Ju+AFA3FGDeZip7a9EJTeJzr
+	 aIhohYgL4FQs9wD4dVACiMvHtQ92Xnr6QhmtY7uBhAO3QJXs7n97TmyBsulCVnVCi+H3k
+	 uVH3ZOdBQxpBtpPrtZw9K+oci0Y36zZPA0MvTLNUrr3kc4xZxY7Z8SHOP8AhixbSWJRKk
+	 63WMzjopoC4Em59Xjh1yv3zZw7rWj9Sv+FvagFb9XX6M5Lmb3X4zLMHKqOmodDTYTrg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f7lsMgPq;
+	arc=none smtp.remote-ip=209.85.222.42
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 4F79D1F01824;
-	Thu, 29 Oct 2026 18:21:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793298083;
-	bh=QbHi+525zRunXNfIuuoUlB/V5+/jcI7PNq6aGsnXADY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Er3BCzOWButVvcFN63yPEHZNVjejiLfpQyKnax4dPbRAfPRBzS/WEvc1Yzd6x9GY8
-	 k07WpzqLp07k0bDrHVysd2n8ntFBpff5jRDdkU0keouA3OKtCFhrKPmZexG05ygHmJ
-	 QRU1+RyViPZ5gZAoKw4H101HOgODTl+T4Illr0PkK8lbWd3tn3EYnOAcnY3lwHeL7y
-	 ebBJJbuS0S9UKUKWGMKXEWWAit7HKki55MNE1fDBFvEmvBRNC4f7il7j7Jxra0feDW
-	 c4TurQqcWQFLET2DGgphzJrks7viEcdRoAKl66maZTkHgTDjYsifhAEgj0Y8JJ6kNz
-	 46us+OY/1gnhw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id ACDDB4593E;
-	Thu, 29 Oct 2026 18:21:22 +0000 (UTC)
-From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
-Date: Thu, 29 Oct 2026 13:21:22 -0500
-Subject: [PATCH net v8 1/4] net/smc: bound the wire-controlled producer
- cursor to the RMB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571B5606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:22:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 571B5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f7lsMgPq
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-988c7371716so790740241.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:22:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793298141; x=1793902941; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=j0lfMVo3cPVAp5JDNDwKQqogdYL+QezhiKu+RrquQQQ=;
+        b=f7lsMgPqYoGXQVEXNwMQ6Se0zCFaTo4CiLFLZOkTxV5lrJrY14JP2c+QceQzTgb2xN
+         1RopzC3NFFSqYeFMehsKj1mxByOw9CGw5Nos19+N5QFLf0Bt06/8q/hDlJbGt51Br+JY
+         THG7oZp5RNfPmaX8d5WQyjkjncjyUE+TN/E0xpmkdnHgf3HW9x2+XMX+RGnPS+B83Z6V
+         A395mbYQQS/adBoslcZWVvlRjzRW/ZTWH1FzQHgVOy9CBJbDebqkVfNpCOPmT6sHWqNs
+         atNJRg7LwA1VoKT8ee1nFLpLVAr1uEJ90eY6YsxzwQCj7W8aKCrrZRM2qMIkgAmyGcWG
+         0ShQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793298141; x=1793902941;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j0lfMVo3cPVAp5JDNDwKQqogdYL+QezhiKu+RrquQQQ=;
+        b=FThIejCVM6Bqi7vqN5hHCjTmTzCDqFga+YNT2oldqFi+Mt9dQuXZxfZjP/aqEa+X0A
+         Mk161W+4MI+FXTNt9J1EKa4dA/lY3YWJQcfit7nEO9DFLsSeKH7fPYLXxN6Ua1fKmNDo
+         LViPLy1c3Jo6p5FyF94SIfoM2CV1VZH4Q1BbLJXSTwWBCurKOtHreeOJNz9qQas11WHl
+         5jWiN75TiYJMPEG2RPwSYjNYpKfZZTEiXXQf0fBQfCrLZzn8CITUy/a1H+/oAnULTxak
+         kXuHj+zJlz+WV0xTBMwFacNkWlICbO97FoQ8lo8ED9FqCUDcwR0GkayEVovyL/NjryjI
+         lA6w==
+X-Forwarded-Encrypted: i=1; AKwUvByDhDArEknbLaQw3wCDqw1KSwn/2UJgx0MN0UXV6CxizEt53tFBJNhFjpyy+OAR9r34vabYedia+3f3+jw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIl7l2dGDBDHoeDTiWuOonq/vzTiM7H5Dm/s8X82S6dNuxO6UNx
+	Z3orqjIy9v3DlQM+pjg3kQqPxwRp0pfEcWrFLr7WC33KRjPj3vPejtvG
+X-Gm-Gg: AYBFou0Cmxwivd9aBlHngNSrC0+JDLE+V37ksT4mNA3wnf6XhahiKXIXWSsvkOgKjWX
+	GlTq3hvGuimFCX09nD/QLv6Z+JGUFww9qh+62+QOTzu3h9MWsimx8uI/jypR1qprGcikSBjQ5Eh
+	imoBrnqLouFBUWImsxyEx0KDHCd7c+HuTQ5SwP+SOOkW061qqOOrh1geuyOndH37eG9kJ2JGlDs
+	ocLsFJ5KNWdrv5BYhYA+lio0t7ju/FQeSlxrVp9dShn4J+8MWKOkkrLzqfSKjsY3fpRvW9uzcfh
+	I1zplT+/Tv72n5hQTeihOsHzDGod4jqHjCeturPhq2mnexABuDoOAiYbCWy/QPO4fEM8Xb6jZpu
+	xS2HqkckQX4t1xrjIamyOewFUgz7IkitFWc7CqHsk+jFyv39LfJrVoznVdscKGw2gpAGZBoRrZy
+	fSw64ieAiOBFlRvXkSrFiohmZmM6ZRmHbNsDVT6ddicAKkUbLB6+MPz0UK73dHYMF4TMzYQDwOt
+	eLkFGXcRwU/SjOtEfahpYItLv5r79YK2Zw7sdXrEPv0sLs/dhhCb3MviAPr3VLt2NFqoBt+Cwis
+	ciTSfdmXekPu6Kau4g1W6BHRa3BAPoqGs6LXEN1RQVjuXnR11uKVFKNaPyaZgW3Xus4YyFRfdIv
+	QMh+okzVpOTMNKfjsqWMMAqgW0kYlzSgXDB9g
+X-Received: by 2002:a05:6102:6058:b0:7cc:95ed:30c9 with SMTP id ada2fe7eead31-7d0726402e2mr64503137.29.1793298141176;
+        Thu, 29 Oct 2026 11:22:21 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.238.247])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-992452cf638sm590014241.1.2026.10.29.11.22.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 11:22:20 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: James Hilliard <james.hilliard1@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	ilpo.jarvinen@linux.intel.com,
+	Raul E Rangel <rrangel@chromium.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] serial: 8250_dw: preserve BUSY-safe fractional divisor programming
+Date: Thu, 29 Oct 2026 15:22:05 -0300
+Message-ID: <20261029182205.3453032-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261027-submit-serial-8250-dw-divisor-v1-v4-1-41714a75e15a@gmail.com>
+References: <20261027-submit-serial-8250-dw-divisor-v1-v4-1-41714a75e15a@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,111 +105,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-b4-disp-33001ace-v8-1-f9bb96e17827@proton.me>
-References: <20261029-b4-disp-33001ace-v8-0-f9bb96e17827@proton.me>
-In-Reply-To: <20261029-b4-disp-33001ace-v8-0-f9bb96e17827@proton.me>
-To: Sidraya Jayagond <sidraya@linux.ibm.com>, 
- Jakub Kicinski <kuba@kernel.org>, Mahanta Jambigi <mjambigi@linux.ibm.com>, 
- Paolo Abeni <pabeni@redhat.com>, "D. Wythe" <alibuda@linux.alibaba.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Dust Li <dust.li@linux.alibaba.com>, Eric Dumazet <edumazet@kernel.org>
-Cc: Guangguan Wang <guangguan.wang@linux.alibaba.com>, 
- Ursula Braun <ubraun@linux.ibm.com>, Stefan Raspl <raspl@linux.ibm.com>, 
- linux-s390@vger.kernel.org, Wen Gu <guwen@linux.alibaba.com>, 
- linux-kernel@vger.kernel.org, Hidayath Khan <hidayath@linux.ibm.com>, 
- Simon Horman <horms@kernel.org>, Wenjia Zhang <wenjia@linux.ibm.com>, 
- Tony Lu <tonylu@linux.alibaba.com>, linux-rdma@vger.kernel.org, 
- netdev@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793298082; l=3046;
- i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
- bh=9ja5JoT+O2VUsGXhvlsOd1Bx55l6YLeZkBRApwlhPSc=;
- b=tmPpqdp1479Q7JwlNqfE2rUFso9Yl1TQhJQwyiTQV0bniSMiS5GLLpJ7Xdugel5nWEAgczlOT
- EJJmBNc/4eKAxegnQv6wRiqyL729iCWaU5OonKJnJ4t6UIRt0WX3Cv6
-X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
- pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
-X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
- auth_id=893
-X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
-Reply-To: hexlabsecurity@proton.me
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+Hi Andy,
 
-smcr_cdc_msg_to_host() and smcd_cdc_msg_to_host() import the peer's
-producer cursor from the wire into conn->local_rx_ctrl.prod without
-bounding it to the RMB. smc_cdc_handle_urg_data_arrival() then uses its
-count as a raw index into the RMB, so a producer cursor past
-rmb_desc->len makes the receive tasklet read past the RMB, and
-recv(MSG_OOB) hands that byte to the application.
+With James's BUSY-safe fix reviewed, would you still be interested in a
+follow-up series moving the idle handling to callbacks in
+dw8250_port_data, including the LPSS conversion?
 
-Bound the producer cursor count to rmb_desc->len when it comes off the
-wire, for SMC-R and SMC-D. Leave the consumer cursor alone: it indexes
-the peer's RMB, which can be larger than ours, so clamping it to our
-RMB would under-credit peer_rmbe_space and could stall sending to that
-peer. Conforming peers are unaffected.
+I have the refactoring ready locally and tested it on an A733 board on
+top of tty-next, but haven't rebased it on James's patch yet. I haven't
+tested the LPSS part on hardware.
 
-Fixes: de8474eb9d50 ("net/smc: urgent data support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
-Reviewed-by: Sidraya Jayagond <sidraya@linux.ibm.com>
----
- net/smc/smc_cdc.h | 17 ++++++++++++++---
- 1 file changed, 14 insertions(+), 3 deletions(-)
-
-diff --git a/net/smc/smc_cdc.h b/net/smc/smc_cdc.h
-index 696cc11f2303..4d630a305118 100644
---- a/net/smc/smc_cdc.h
-+++ b/net/smc/smc_cdc.h
-@@ -221,7 +221,8 @@ static inline void smc_host_msg_to_cdc(struct smc_cdc_msg *peer,
- 
- static inline void smc_cdc_cursor_to_host(union smc_host_cursor *local,
- 					  union smc_cdc_cursor *peer,
--					  struct smc_connection *conn)
-+					  struct smc_connection *conn,
-+					  int max_count)
- {
- 	union smc_host_cursor temp, old;
- 	union smc_cdc_cursor net;
-@@ -235,6 +236,12 @@ static inline void smc_cdc_cursor_to_host(union smc_host_cursor *local,
- 	if ((old.wrap == temp.wrap) &&
- 	    (old.count > temp.count))
- 		return;
-+	/* The urgent path uses the producer count as a raw index into our
-+	 * RMB, so bound it. max_count == 0 leaves the consumer cursor alone:
-+	 * it indexes the peer's RMB, which can be larger than ours.
-+	 */
-+	if (max_count && temp.count > max_count)
-+		temp.count = max_count;
- 	smc_curs_copy(local, &temp, conn);
- }
- 
-@@ -246,8 +253,9 @@ static inline void smcr_cdc_msg_to_host(struct smc_host_cdc_msg *local,
- 	local->len = peer->len;
- 	local->seqno = ntohs(peer->seqno);
- 	local->token = ntohl(peer->token);
--	smc_cdc_cursor_to_host(&local->prod, &peer->prod, conn);
--	smc_cdc_cursor_to_host(&local->cons, &peer->cons, conn);
-+	smc_cdc_cursor_to_host(&local->prod, &peer->prod, conn,
-+			       conn->rmb_desc->len);
-+	smc_cdc_cursor_to_host(&local->cons, &peer->cons, conn, 0);
- 	local->prod_flags = peer->prod_flags;
- 	local->conn_state_flags = peer->conn_state_flags;
- }
-@@ -260,6 +268,9 @@ static inline void smcd_cdc_msg_to_host(struct smc_host_cdc_msg *local,
- 
- 	temp.wrap = peer->prod.wrap;
- 	temp.count = peer->prod.count;
-+	/* as in smc_cdc_cursor_to_host(): bound prod, not cons */
-+	if (temp.count > conn->rmb_desc->len)
-+		temp.count = conn->rmb_desc->len;
- 	smc_curs_copy(&local->prod, &temp, conn);
- 
- 	temp.wrap = peer->cons.wrap;
-
--- 
-2.56.0
-
-
+Thanks,
+Vinicius
