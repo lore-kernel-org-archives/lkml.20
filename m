@@ -1,103 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.70
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793287253;
-	b=vh7ioTPWrc2GJHtsh+zRiC3OlTzmde2Qdd4+YqaYy35o33k+qq5gvZpo+mfdwARiJ1KP
-	 lWpstpw9sH6I+zvRbYL9F06OBTgTmSUDPbgl9A8LA69sRTAjOgEsuEP1yFjSp2+7s0YS9
-	 D+kbvjxcnrC5hA2nE+XUdyUf6CDqXzpxFr8C/6OTksqCgvN/BmM7vil1BoKCwTIH0O9rD
-	 TMqVxyCyu7Eso1HWlV3cKwGHajf+aVrmY1pesYyybZDBmez7hZ7h4w43QnGLYmjqnn1Ts
-	 55kZaaMLSFUm4J578RUMr+z3L686K8FZMlm24d89yj2ketTjeNe9uIIw4ye589RBzCg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287253;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=bHRbE7ItIBkQovWEVou3Lt/A2H1i5Z/uZE2k7Z2f4PY=;
-	b=zWMhT1bv60WxMxHNIASspY1nlsbIJCbsAEi+bLDWijKDmfsVUGDje4w/Tc5wnnBpVQRq
-	 sKgn++IMKOx9VhBqOi+RflNI9FrLE/MlHVStshI+NMGFH1E8q0O8x1w5Lqm2BMH6K0mj1
-	 zrH62vIe3mX71K2IbCDMC/7r+FZ2Ulxq3sGVCIVxkgwRgnbzjLMRtgMhRfNYZOF3Ewfqs
-	 2y6qpBfM9O79Vj1fbsRlqmmdTkYd+0ALuBGDOfWqVQDbN3+xGc1GjzJuaxyDismnz/H9v
-	 SNh9OQAl0H8Ydu6RUemmP/BLFXvDM8C5hrdMFBaU7cIjZ0rLeEuilFdmuq65BtF2ZBQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=IBkvroz8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.70
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010070.outbound.protection.outlook.com [52.101.61.70])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793287252;
+	b=TUAg8KMpTeGtsLiInTSuHDxj1WvEwcAFvZ/CId1P8bErw24Xl8NC9OIav0IFjKe7bsGE
+	 qsGDw9qjZST/sxLvt5HFEgZc20ZtAbTaIlzBcYSQ5kt+hws9JuxoiKhlicgpTvGNLG+CA
+	 2oERM5cUEPXQaxUMIQ/jzl5Hc48MP30aEffnFn0tTwGJ5w2nWAVbc4ZUo+9rAkc61NTto
+	 QE0NArwa3ZSaAhu7Y7B0hnFBwdrVIV6yiwKWIMQ6mWxwmXzhR043w2WgNFeYDnssAHSCQ
+	 KrJBdAFG+arnrMfFhsGHSphv9vdOywRxqBQs2ri7BkThy7TzNLpU4HCjc6w5Nd6r6Tg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287252;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=zDXaXId2QMZQGGH0ZkoNgmI6zhuM3ACKFfQoGGvgzc0=;
+	b=YyDOrX4Sw5dTslc9VRP9EfxoXwBTye5cdCcXcKMyCeepcAIGPkj2o/QHzU9AIW0zhkht
+	 FNkbQR2BZHb5eM31gmdpeLJUmuM3NrG7BQAnpdguY0Z6jjl3p+cBGx06CFbeMHzrKYdjN
+	 2k6+P0NVcQWfLuFLe/LkDLgkQ4QxvWh7Rmm0ig6DWlzoG5hoMbwJLyfGQiDBTFTw+bvD3
+	 4eWF3VgM/VTZ+GsPCcdS6fwS2z0Nf/813RaP5jNIi6DmmriIzBiYA9OHLSYhkIyBun9yO
+	 9lz1+vfrZFGhG1tjvbLsZXlb+6MGcr/H3QEKG3weptIn74Iut8uRnEt0pu4SgRfVMyQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=16Vbpycg;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7402606A333
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:20:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7402606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96237606A31A;
+	Thu, 29 Oct 2026 15:20:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96237606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=IBkvroz8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pUhGKXgIZv8C/A9DmxGBY/xm+CKPyREvO7qZitILwbVo0kl0WXvc9bhS/XyL/QPsoxAL39qttV812gMPBsHfJqO8eY+ZnTkY3tYRNG+/9qBrgoKYD2kRtEfLS3DK0K9vu/Jv6usS7dXfD/Zxa0ViHrC4X3MoTKOarYFwcr3f2gr3KGWiJPa6FJNqw7THZCuhqXUkVNECZZSrc17l5udhOvKJNelDB7wpRn9GAaKwaZEJMgP55fxyXyY0W96igO80GG0LriYd3kNmMBzLMQqCxBYldlLe9PBn4xXUmxhX0maHXH4lBLe/OkcoljdIMuilzvtMnmhX6IesmpatDQS/YQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bHRbE7ItIBkQovWEVou3Lt/A2H1i5Z/uZE2k7Z2f4PY=;
- b=iqpAKNelWKLTp4am0Y9xsMFIMHOZDzcai8JUbcGOdWjp3gVzYxSVbI+aVX20mF3U3ybNK7zDLGxR/ivxJfw60nQHikDeacdFa96nD5slQHu37QowhkGYb2/rRW9cLkYqY4wjKKG30+9To/dT5mBymZx2NI8Ur4WKYkKJS99qBVrTVYTLZ8tDhvf0oNIocytR/NzpQla/IwDjWB1nvDkuJgW1fys/D/Jo9rp3mCTr3c5uaXoKbRFJ3SsiDAFDLDloXSdfczbqW/OIoNZGn6FHGPYTJQATn64M7KgkmeM1scii0TWXp+fctglSuSp/sYOmfEqN0+Lxje/6BvVB7AeHQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bHRbE7ItIBkQovWEVou3Lt/A2H1i5Z/uZE2k7Z2f4PY=;
- b=IBkvroz8lBynWp7cH6u1vgN9xP29SC7f0QuFY/WfGULsV5iAC6f493z1kuG6VUzse1q+b6umuQaSIjeUpth4i9AY9m6GN+zZ6BgSiOPLz276uIgyZOD3djzUr3gt8q2J6xKNxI7NS6sfnSkDUYTv06PWO28g2j8zWAebqeKNSwA=
-Received: from CH0PR03CA0446.namprd03.prod.outlook.com (2603:10b6:610:10e::35)
- by PH7PR12MB7425.namprd12.prod.outlook.com (2603:10b6:510:200::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Thu, 29 Oct
- 2026 15:20:41 +0000
-Received: from CH1PEPF0000A34B.namprd04.prod.outlook.com
- (2603:10b6:610:10e:cafe::98) by CH0PR03CA0446.outlook.office365.com
- (2603:10b6:610:10e::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.8 via Frontend Transport; Thu, 29
- Oct 2026 15:20:39 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000A34B.mail.protection.outlook.com (10.167.244.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 15:20:39 +0000
-Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53; Thu, 29 Oct 2026 10:20:36 -0500
-From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
-	<amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 1/5] drm/amdgpu: fix NULL deref in error path
-Date: Thu, 29 Oct 2026 16:19:48 +0100
-Message-ID: <20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=16Vbpycg
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id B930E4E41394;
+	Thu, 29 Oct 2026 15:20:48 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6035460360;
+	Thu, 29 Oct 2026 15:20:48 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7A63910329108;
+	Thu, 29 Oct 2026 16:20:44 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793287247; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=zDXaXId2QMZQGGH0ZkoNgmI6zhuM3ACKFfQoGGvgzc0=;
+	b=16VbpycgoGK+Bueo3Fxkz/Q35JqsNP5tV2hWIwDWhcLwgp8NkOOkwGhPp1MbQ2QYG/ygPF
+	DV1w/R0AU0yrE1vtbn4ta5J+AKFvjeOQNjlL7XHAuo1LHvCalbwB0NLu1/3AqWFQRveILg
+	tIaVwq9LI8hNHb719+KcfM9x6VJ6JhWaXFtZhiiNKbzjKJNBNcSP5mSejyPHMG9mklfdHm
+	89s8/0bWGr54x6edPik3VTQIlzXQYMN5V9WDPLSd790LDd9enfTuPRH66RB4B8j6YioU1G
+	BwwcB7Ztty22BcfDSskDeOQqXE5tyTa79Qg5aJJBO28Kx2J0O3+7+4WIi9mSQg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Yige Jiang <yigejiang86@gmail.com>
+Cc: linux-mtd@lists.infradead.org,  Vignesh Raghavendra <vigneshr@ti.com>,
+  Tudor Ambarus <tudor.ambarus@linaro.org>,  Richard Weinberger
+ <richard@nod.at>,  linux-kernel@vger.kernel.org,  Geert Uytterhoeven
+ <geert+renesas@glider.be>,  linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH] mtd: hyperbus: rpc-if: fix an OF node reference leak
+In-Reply-To: <rc-review-20261023-ai33-33-fd231771d138@gmail.com> (Yige Jiang's
+	message of "Thu, 29 Oct 2026 00:47:40 +0800")
+References: <rc-review-20261023-ai33-33-fd231771d138@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 29 Oct 2026 16:20:43 +0100
+Message-ID: <87se1oedo4.fsf@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,62 +73,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34B:EE_|PH7PR12MB7425:EE_
-X-MS-Office365-Filtering-Correlation-Id: efc5d708-5466-456b-c338-08df35d030b1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|1800799024|82310400026|376014|11063799006|56012099006|261021123027099003|261021121427099003|261009223027099003|260925022911599003|260925021311599003|10067099003|260925021911599003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	Uh0XYkbVbIq9zd65r5tL5U2XUecOfDyyPrB/Y0xh4MPi055rwa1I9QdVZc13H4DH8eEU4hNNQhbUFBOItEXJWWauBNCku4ZDpO4YrX5bhBGavHUAXR7098pZmMhhKn/aAO/vtILUSlTDe8qnk/59D2wQ75vMXeJc+2qJ1gWIDk6kP5Kpt3iCrAsQ4Kji6LIesTsM5CToqHumBW17zoKYxWOWdLYdvf83h4S3xscLwkP6Ir97YTsf7Iq/MLAvZNGX15bLGQAyAntIxv63X11u3KpVyFYA51jj3o0nPzU1j7nwXZpqiEseXuKSFxZk7LUSmQUfMcEXmrvlnXHVtBk3r1TfnNF7of63kXh2pCzS54n1GYQRehjZ09NgmtvGa/7sNoTLY31avlKY+5llGWvJ0I8f3iQ00/3pzj3zARA6YlNtfSysH78kItCkjqBio/WAq5u8I7fhh0V9n/xpYUKJsw+autBn9Hcb70n/YpOZiepBF+DoqSTypCUSR8rVLfiRrK+Be0CT5Zvk3Y7dTipY+N2ec99nsrMtepaR9g2+qVUokdU01cDi2T3f8Q97RkiB5YAfXipBPq0DLbsNGBnc0a4tFv5DDdtzvTRUwIdpcyFn50GFEnq1ApR+cjDxaiOfGhgQpOIg4ZWYJyEBbp+23vurAv0hzZx8TVUvfUU7yy8eewPQxLJlzlkaXOY6R9R+8jadecNIsOGjL42b7Fe5xQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(1800799024)(82310400026)(376014)(11063799006)(56012099006)(261021123027099003)(261021121427099003)(261009223027099003)(260925022911599003)(260925021311599003)(10067099003)(260925021911599003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	DA6hvJ2nt6o+cMzi7DjRS//ZZkXINFGSDno04pO843VsZm/n5CLSsdki20nkTcood+K1vyLTAchXOsMTQ4OcXuOdqLQ/UAtzxlz2UycY1ztXzunIUMyxGqTI1M7fw5yjhp4FJXqBcqAcg0a03N5ocdH7Oj0/MiMZZ2/NMSPqqwNjJ5J7nZmeOxHvSGbj+tVN9CgK6yaN6a/FwkLYCAwwZ0/nODets4XD25RLbzVqbHQHwgS4TNp4ax2n8lPXSkkfDD9QP0X+O5tAAsnOhnri3NmtmQ1di92wOtk+aFH3OnGnm6FAXEEveItwCmhNOL3w9dDH4+0C5wotwcRbauXMxRjE2J6jvQ9B/UoGnIq65VC+9I4WiErk7dXSAP5r/kV9bKjv7Jb7Y30xdeX+Er/Ur2Lka9R1e8C+gZER6AM5mQsHkQFD+wX2spWHPefnoV1L
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 15:20:39.5790
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: efc5d708-5466-456b-c338-08df35d030b1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000A34B.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7425
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-IF we hit the "error_free_root" error path, amdgpu_vm_pt_free_root
-is called which will clear vm->root.bo so calling amdgpu_bo_unreserve
-will crash.
-Since root_bo is a reference to the BO previously installed as
-vm->root.bo, use it.
+On 29/10/2026 at 00:47:40 +08, Yige Jiang <yigejiang86@gmail.com> wrote:
 
-Fixes: 8473bfdcb5b1 ("drm/amdgpu: fix error handling in amdgpu_vm_init")
-Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> rpcif_hb_probe() gets a child-node reference with of_get_next_child().
+> The HyperBus core does not consume it, so the driver leaks the
+> reference on registration failure and remove.
+>
+> Put the node on registration failure and after unregistering the
+> HyperBus device on remove. Leave hardware initialization failures on
+> out_disable_rpm, since no node reference has been acquired there.
+>
+> Fixes: 5de15b610f78 ("mtd: hyperbus: add Renesas RPC-IF driver")
+> Assisted-by: LLM
+> Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+> ---
+> Based on linux-next next-20261016 (2efb7a11f1aa).
+> Compile-tested: arm64, GCC 14.2.0, W=3D1, CONFIG_OF_DYNAMIC=3Dy.
+> COMPILE_TEST=3Dy.
+> The object was built from this exact base with the patch applied.
+> No full kernel or module-link, hardware or runtime test was performed.
+>
+>  drivers/mtd/hyperbus/rpc-if.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/mtd/hyperbus/rpc-if.c b/drivers/mtd/hyperbus/rpc-if.c
+> index f448e23f9260f10abe17842849b312365dcd8294..aa69abe6d6bc674bb8cdb531b=
+badfb7b356e3123 100644
+> --- a/drivers/mtd/hyperbus/rpc-if.c
+> +++ b/drivers/mtd/hyperbus/rpc-if.c
+> @@ -145,10 +145,12 @@ static int rpcif_hb_probe(struct platform_device *p=
+dev)
+>  	hyperbus->hbdev.np =3D of_get_next_child(pdev->dev.parent->of_node, NUL=
+L);
+>  	error =3D hyperbus_register_device(&hyperbus->hbdev);
+>  	if (error)
+> -		goto out_disable_rpm;
+> +		goto out_put_node;
+>=20=20
+>  	return 0;
+>=20=20
+> +out_put_node:
+> +	of_node_put(hyperbus->hbdev.np);
+>  out_disable_rpm:
+>  	pm_runtime_disable(hyperbus->rpc.dev);
+>  	return error;
+> @@ -161,6 +163,7 @@ static void rpcif_hb_remove(struct platform_device *p=
+dev)
+>  	hyperbus_unregister_device(&hyperbus->hbdev);
+>=20=20
+>  	pm_runtime_disable(hyperbus->rpc.dev);
+> +	of_node_put(hyperbus->hbdev.np);
+>  }
+>=20=20
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 000c982816a7..ea8688061237 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2716,7 +2716,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 
- error_free_root:
- 	amdgpu_vm_pt_free_root(adev, vm);
--	amdgpu_bo_unreserve(vm->root.bo);
-+	amdgpu_bo_unreserve(root_bo);
- 	amdgpu_bo_unref(&root_bo);
- 
- error_free_delayed:
--- 
-2.43.0
+In general we always apply the same order in the probe error path and in
+the remove path. This is not respected here?
 
+Thanks,
+Miqu=C3=A8l
