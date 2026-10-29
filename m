@@ -1,144 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264212;
-	b=WycuK0+y7oNiuzr/lVhcuKWQk4zv8JvnxpQ9XmcypOaSyFdvyAoXSz0CbPhqhW53NzqF
-	 6RtpQHxDOfub/BZkROFIK7Eliy5B+lHUpP8FOXbeLNRXuty0bO8ywHjHB5oVhe303sndx
-	 2PidEn0Ab9pryPArjTGDPU8gni0XmtumN/PFZnm1DM8g99yZIn8D3iIqjSuM+NpANNHMx
-	 kBBjd+RTMpXpls8MQYz5lR/uUFF5xty+xqNt39ayv/CE//vuXQk5iv9k0LV9GE/4h5mci
-	 kIqzJsWAlFaQBuoVl2QzgDmgzIQs4/Esz7cgIpPaYZ2RrkQ7b3KZOUVzSfzaJlsiWHQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264212;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793264229;
+	b=tYiQ8WKhFGMosuNE72fvzdm/oSxvIerRAbw7vXAe5QE6VvZirpsCTKi2xQYFojfar1PE
+	 68Jvu1quJmFjQv5dSproopbi08rrA3Y7LCtZvQkgnma2EeO+UZMuhtpfc9d2E5YHiaR+s
+	 M5Wt4HpulzYk6u3h0LA7RJXXQEjOIZ5be//lC9X2TLFq+5Dmd9p4tN+HC+z5dlhOePWuD
+	 +6KRJdkpmoA8WBX3e/Q4JJ2psDqX2YhmyJtYumfha2MjZVjnwfk16FefsPxbM+1J0X3pk
+	 MpWIKaN5QBz7C4JasLVm7zHFUekYvBsdziS2LVnfDRvPP63eZsauSP67Rbt/v8eULng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793264229;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=8fcT8idEfR8PBU/3VTMJzFtb5vi4SP2MCLYE2KeHNSU=;
-	b=tI5vStmgPY/2g500VyyUUNaTGWWWcrw0y542S7l8MJ1OWubFkE1WA1MGUgPgfxp+ghEl
-	 zvXtPZPhmyO3tucVIwIAPLM7Yz9JNxzDhCn/xhFuXtLhgmx54QVB0qF0s8cYBHveBkBwn
-	 TqmYjnUELdwXPKoE400tHaAXS/sT2jatE6Oqjc/VAvTAbfefpieHjoMTp4205Msyip9/M
-	 i5a6TrPfhteQ/MI5+CHcpf3l3SSP/Fs0qB0VpN8MVyGX0MEPsk73U4yE/Ctq8rwG452ht
-	 xjdJYi9Xu5AND+EKehYxIYQu6+SCNBzG+Q2zAO6OcR/H5XuLAXJ7d4+PmF5LpSNb6Yw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=YEYkGOiLXKcBsMHHVyvIodqXJbKVYymQHbB/udibFPE=;
+	b=tW/cWnHuBKnsPUbS3AEc0fn4Y0L560FG577dkXJbvIHAdqD5vjvKB7nn+Fg0+Hi94IQf
+	 tMPl+xxEKe21gi5N/4tX/xllAQ5mdVJwvlbXTr/52Pk7+2kmChVJSnOgP7xqu/w3McHLJ
+	 rJX5fqSWQ5fXssB5swm5nNGfij/bmXVM7AZitmTkXEUEOGDPj9zYqmqCyxgUjbvvYdpzK
+	 rayfHKtXSWXJxczRtqkwqXPuYfZbjOw3lQsLcaUmplN5KT3AHb/aRx8q88a0RHRALBSXs
+	 nHVuCehqpvaRHUECxFP0/wOn/vhaDahYsOESmd2S8zAI6qiL0KED2Jt58w98xnNJqsA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AGeU8mK6;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zxeEC98O;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.51
+Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DB3606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:56:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43DB3606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AB7606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:57:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5AB7606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AGeU8mK6
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-369f3e9e431so440532eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:56:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zxeEC98O
+Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-679a2297c55so2140459d50.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:57:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793264228; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KWHBpdeYyrNLjiOq2ZbyE8JKvRpfCCX+SwCkCiKTm3CTyaPItHys11Vu84UBlcJ2eZ
+         QzM6HbzS69BMmQ+fqn/8kD8NEKSUOb3ECaRqT/cDGHZwPu74YF0SLftLHpHBfqzA0/UM
+         yzF5uJaggQleezrDoDwu6xcldVUakbVFrmr3qautR8XafcnJJsgyIFCi4n0GIRECj4UC
+         mZ5vO8L4j9LJnZVarbTBhMxN2QXiWNbfK8g9Pk5gbgCOL8nqUcqkbbR4upa9zuoDAmQI
+         Jw59wQ+RoVY7e17GdUgpQg57u9dmld6Ak9as3Q6mbDHVrist1Govl5jE23mvlImOWakY
+         5Yew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YEYkGOiLXKcBsMHHVyvIodqXJbKVYymQHbB/udibFPE=;
+        fh=dv7UMMwJcy+seMe59mnsiB65j4lIx+skonZW43GV5KI=;
+        b=d89Jk2R1oKcoFZFPMf2shNQatKzXPPchU2Mcd0yoPFAHYg85mDPcPIMR713IEL41wz
+         iNv+ybDCoPaIWVpB97cu6qp7n6Yb84aGI3bsz7k+m/0BnxjUT2nPMIeXh9D+fI1LJiH4
+         a4C2D54akyqBVsnQRxq9mlDl6jin6kPGPIjR5LHqCDnJEjzpkuCj3t6DqbPMT2CIQw7o
+         u0UBd0qNq6EANwnHGQ0r/vuxbCxWQpv7qu1KSUUPmrMkQ0E7ClhnIGirRxXvjvz+sAVY
+         jgai5LL2qbl8e8/yVW1cOXRkpIe+qAVb/21rOBHI71taAMkB9Or7xEzJS+4TE7G/UfAc
+         6yMA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793264211; x=1793869011; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8fcT8idEfR8PBU/3VTMJzFtb5vi4SP2MCLYE2KeHNSU=;
-        b=AGeU8mK6RvBPVWvgYqco1acIC+qDLNZpe3usE15CZSJGldQiLa2wUWw694D+1Yum/P
-         2WkDYCVJy1EBI56rGo0x97JyX3zGahptgMOcQigklypmawch7hqVNizb9bGlueHrPvxX
-         4+LQlzxZjyCVWoDpHDPoUjJgeCw/qv/LkiKBhbUxTCLxfsosntsyVXUeQriSNxgIj7N2
-         CL9IF2RJ9f8ZtxVwj+Rr032uB2fxVi9gx2kZuhI5Wx0m+flCAKQ7pG00QJ5KeFqtx/6M
-         vIDEASrWYT3pav90gloGcTFZjzSghNKdZ0kSrGOHTi8I0UTopRqPf80dsm65qYlOvxK2
-         mV7g==
+        d=gmail.com; s=20260707; t=1793264228; x=1793869028; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YEYkGOiLXKcBsMHHVyvIodqXJbKVYymQHbB/udibFPE=;
+        b=zxeEC98Oj4WpoX7QGt/z5YsgJg6CbDNf4qMkQ9/rF0REgVGR53j2mhJHHM97pKWpAB
+         AaaK6XcbbkFMAQc6XYT0Kt4wH8R5DY1npn2aceWlpQsraeczif1nCT3RPKgxdvprcwHe
+         Cyo6mMzXxO+9Y5cDKy2e66+cfYqXUlW+F7vFUY6WAduaoXwWurO1BTc2kBUU4Bv1j62W
+         WzahFWBT7JRIUIoCs+VZO5HIJeznNKqkQigdHtaxGpvTCy8UcjhNUMoA3g8bJPs+l2JY
+         iMGsBETftAKuShuwSnJSDAtRk/7ynrcHMb4VHwGjTSNL8iJHkvRHTsNygOMISZNMz+pr
+         7XMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793264211; x=1793869011;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8fcT8idEfR8PBU/3VTMJzFtb5vi4SP2MCLYE2KeHNSU=;
-        b=GEehmuPpEbOry2e2vBdWPUw5bIWpNNa4Xf+mabpS8zrsHiaJ0fBHc2v61ew0GubKcs
-         FXx7xYolbs3rih6DqjKDLth52WNdlYpIvPfsveadpH432GMv1Q91UuGezJ0Cia5Z9Iki
-         440dj9yFxJanqiUNNuWG20BqXSjqjWRg8VcVW78vf1zuRfA89Ecse7Ynv3iICOkoofSt
-         0SsGG86U5amMc7xaOrz65exfr76SEk0svAq72uYdSeqAm5yAz+34XUEUtkpn+J9NZ5q/
-         oFWIsAtOnJDKgnAliMrlrcMzIo/ZOW3wW/LwoyQzeFBeiA0o8j29HRCSrObLKFE6Idny
-         3IGg==
-X-Forwarded-Encrypted: i=1; AKwUvBytpuE+3Y90JB3eMy7PCR56IEHLsY4zLwfEMrBQF1+fsENZHwISZoEc2/AH2JCDCpuAcMOta9eu1ziY7JA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3FzaMN+0KptibF6CXwJ/1F/IjaigvfTn+Xga2yr2MarXan/db
-	tEyvlpF7vEI2k7aVUPFfFQ0fos9hTRkDKGmEEauna6jx2YDyV7fShAk=
-X-Gm-Gg: AYBFou0oV+8j7wecncjEp+ONmu1uDBGu74Rw2k0NGifI5b3JoxYSbMZ1YO0LH7hsyEd
-	09oJiY8ZwvfsRT2opGdlVyai6lM7+1R7TVTF52GL2LUwmeBFcdDULb6Ae+3FC9KZU8MUUTHa9QT
-	gYy2gLA5r+HUOg9ef7yGhAltH7/pIAQQp0QeWToaH8M0UMSKfP8VdFTtFzAq4WXegVwzT7DfbTi
-	Wi7jgBQbzSujRNO3a1tKT/RVoLQwh0Dc9SnjBCTYynZFHacMJXKCmciMEbXLPrJHJMg6tBiXlFY
-	lRkEhvR81u6N8yrLAejoPCuxG1pG2VYjxETbmSQSxMI4nT0/gfZQiYqfshUT8lyeRYDL/t8HVpa
-	dVfPFryleepCP27CiuOG057SuOejLsngqyFP2bq9APtb/j+rKpskUX54hUCCJymKU0j8mCLqoLZ
-	3KbHSdxhPHdE5I3HbLYfI8xCtbmvZZ4EXWcNyfwzETOvRknOBgZocKIeW2a4v9HmglAEUL09igB
-	1tXpxCmqYmH+zK/rTvnDXHuHafBELNxFyTicPcxTqqKse7rqAsjxIpWu83/aB9LydygqjkthG2T
-	x0+uL3qUuqjv7HsY3it2WVr1hYx3TT2EOuscjV9F1hYZfSHTeyhGgUjVLcRPAA==
-X-Received: by 2002:a05:693c:20cb:10b0:36a:15ba:43ea with SMTP id 5a478bee46e88-36a2fd51c3emr2774135eec.5.1793264211026;
-        Thu, 29 Oct 2026 01:56:51 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([27.60.20.232])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23641e78sm16497937eec.0.2026.10.29.01.56.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 01:56:50 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: 
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-hwmon@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	mfd@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	linux-integrity@vger.kernel.org,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: [RFC PATCH 02/14] platform/x86: add backend for macsmc in intel macs
-Date: Thu, 29 Oct 2026 04:51:59 -0400
-Message-ID: <20261029085504.3547-3-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
-References: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
+        d=1e100.net; s=20260707; t=1793264228; x=1793869028;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YEYkGOiLXKcBsMHHVyvIodqXJbKVYymQHbB/udibFPE=;
+        b=mWMDv9jBqOWq5mCBUO0FIO/645jPVOd7OIvXZM7AYLJ1/c/A9z0rTTG3xM1A+u60RV
+         yMaaDa2RP4Ad6kF1WTskkXyU8ohkq2e0QboZo87VJhxQGf0U0AqP+grjoP16tGuzGZqn
+         WqY3XbZzt+4D+GMdyCH1YPllkzAmSg82om8KCP6kGsDHQYdkMb6C5LO6JvsHdVcRcxvK
+         W/JL2LQPDhobsQiZ72uZgyrbRcKqCx+I2yCcMuGYTnYMb9pUE9OPnLFAOt2YcAk/l7A9
+         +36Ql72J3C9JhmNI1r1FNhRdeviU9k77bmH3Q9kUDkAZh3R3n5kYdF2gxf1R1CFp7F1v
+         nF5A==
+X-Forwarded-Encrypted: i=1; AKwUvByXFwdVIA4diTtca1i/rTGqpTC+pVeCupQn3px6VZEXzcEocFGJdQ/zpF09Hh5px3fBNPl69YZ7FMI/Dxc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqhnCaOje7RXHG4RQFW0jzC0zoQmoIplykFz0V+7M69VZ14EN9
+	BlcDIRniCcsHkz+K0JxCOnrSOQEhvlv1u+/MUjTrVzhXJgPytuV2DqwkHU1tHa7QOUWTlemg5vk
+	wrbXQWUgsIXkP1DJqgeB1C7pbfvL4tiQ=
+X-Gm-Gg: AYBFou02apP5FNJOmYk7b7W0hG+qUuakcQHS3+GR11Z1d2hgXSdEj2Hx9BO2ZbPFo7u
+	fpAveC3jLa1C2U6u4sYTsAIa29YXKsN08gOBe91FInd9rjclZkrly8lwxgcgjzRXpDY26cW3/vH
+	Ep7PE2swa5nxY5e5ZTi9kKCmSjM8JLKHSLcs7CWgMrwbh/l0WqNXdFUEsjGKw6AOHUu7rVEupZl
+	n+dEcwTfei8PmA3D+1ZAgHgw8+iconjtkJ+r+15xbq125hfTzvsepuyDoZufj+CYi8vO9+uhqZY
+	X6V2NqmASY9ngA8GL+uE6PEfwUkj2SBB+yH1w5v+VWKMHexMF1oNEB8x+dsE+1e2JCxwCVKiKF2
+	cpRMERsDrBhs2oP2ExIAzHxQbYRE9yue9AMMA
+X-Received: by 2002:a05:690e:1a66:b0:679:a79c:95a4 with SMTP id
+ 956f58d0204a3-67a7bd15ffamr3128571d50.103.1793264227822; Thu, 29 Oct 2026
+ 01:57:07 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -148,705 +104,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261028-b4-btrfs-fitrim-interruption-v1-0-bf5c53738b3a@gmail.com>
+ <20261028-b4-btrfs-fitrim-interruption-v1-2-bf5c53738b3a@gmail.com> <b00f8fc5-89f1-4483-8986-947392837a6b@gmx.com>
+In-Reply-To: <b00f8fc5-89f1-4483-8986-947392837a6b@gmx.com>
+From: Luca Stefani <luca.stefani.ge1@gmail.com>
+Date: Thu, 29 Oct 2026 09:56:55 +0100
+X-Gm-Features: AclHuK-Johsu-yxO4ADp4C3k1kpagtbBq9W5ex9Eh00g4fIknrHdSnalBZsHWbc
+Message-ID: <CAO0HQ0VfHczGkTb0OOxXf38Cnu3sOufi24652UR0AJ5a7wzoSw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] btrfs: don't report failure when trim is interrupted
+To: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Robbie Ko <robbieko@synology.com>, Filipe Manana <fdmanana@suse.com>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Zhiwei Liang <zhiwei.liang@zliang.me>, 
+	Qu Wenruo <wqu@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a backend that talks to the SMC on Intel Macs over ACPI.
-It supports the old I/O port interface, and also MMIO and
-interrupt-driven completion, which applesmc doesn't have.
-If an interrupt is missed it falls back to polling.
-
-This is the base that lets the macsmc drivers replace
-applesmc.
-
-Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
----
- drivers/platform/x86/Kconfig       |  10 +
- drivers/platform/x86/Makefile      |   1 +
- drivers/platform/x86/macsmc-acpi.c | 642 +++++++++++++++++++++++++++++
- 3 files changed, 653 insertions(+)
- create mode 100644 drivers/platform/x86/macsmc-acpi.c
-
-diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
-index 4851bf451..448aa2db6 100644
---- a/drivers/platform/x86/Kconfig
-+++ b/drivers/platform/x86/Kconfig
-@@ -202,6 +202,16 @@ config ADV_SWBUTTON
- 	  To compile this driver as a module, choose M here. The module will
- 	  be called adv_swbutton.
- 
-+config MACSMC_ACPI
-+	tristate "Apple SMC (System Management Controller) ACPI Backend"
-+	depends on MFD_MACSMC_CORE && ACPI && !SENSORS_APPLESMC
-+	help
-+	  This driver allows communication with the SMC (System Management Controller)
-+	  on Intel-Macs. It is used to control fans, control battery, and more.
-+
-+	  To compile this driver as a module, choose M here. The module will
-+	  be called macsmc_acpi.
-+
- config APPLE_GMUX
- 	tristate "Apple Gmux Driver"
- 	depends on ACPI && PCI
-diff --git a/drivers/platform/x86/Makefile b/drivers/platform/x86/Makefile
-index cab20a414..933aed4a8 100644
---- a/drivers/platform/x86/Makefile
-+++ b/drivers/platform/x86/Makefile
-@@ -28,6 +28,7 @@ obj-y				+= amd/
- obj-$(CONFIG_ADV_SWBUTTON)	+= adv_swbutton.o
- 
- # Apple
-+obj-$(CONFIG_MACSMC_ACPI)	+= macsmc-acpi.o
- obj-$(CONFIG_APPLE_GMUX)	+= apple-gmux.o
- 
- # ASUS
-diff --git a/drivers/platform/x86/macsmc-acpi.c b/drivers/platform/x86/macsmc-acpi.c
-new file mode 100644
-index 000000000..a06ec921a
---- /dev/null
-+++ b/drivers/platform/x86/macsmc-acpi.c
-@@ -0,0 +1,642 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Apple SMC ACPI backend
-+ * Copyright (C) 2026 Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-+ *
-+ * PIO code taken from drivers/hwmon/applesmc.c:
-+ * Copyright (C) 2007 Nicolas Boichat <nicolas@boichat.ch>
-+ * Copyright (C) 2010 Henrik Rydberg <rydberg@euromail.se>
-+ */
-+
-+#include <linux/acpi.h>
-+#include <linux/byteorder/generic.h>
-+#include <linux/completion.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/kfifo.h>
-+#include <linux/mfd/macsmc.h>
-+#include <linux/platform_device.h>
-+#include <linux/reboot.h>
-+#include <linux/spinlock.h>
-+#include <linux/unaligned.h>
-+#include <linux/workqueue.h>
-+
-+#define SMC_IO_DATA_PORT	0
-+#define SMC_IO_CMD_PORT		4
-+#define SMC_IO_NR_PORTS		32
-+
-+#define SMC_IO_STATUS_AWAITING_DATA	BIT(0)
-+#define SMC_IO_STATUS_IB_CLOSED		BIT(1)
-+#define SMC_IO_STATUS_BUSY		BIT(2)
-+
-+#define SMC_MMIO_KEY_DATA		0
-+#define SMC_MMIO_KEY_INTERRUPT_STATUS	0x4000
-+#define SMC_MMIO_KEY_STATUS		0x4005
-+#define SMC_MMIO_KEY_NAME		0x78
-+#define SMC_MMIO_KEY_DATA_LEN		0x7D
-+#define SMC_MMIO_KEY_SMC_ID		0x7E
-+#define SMC_MMIO_KEY_CMD		0x7F
-+#define SMC_MMIO_MIN_SIZE		0x4006
-+
-+#define SMC_TIMEOUT_MS			1000
-+
-+struct apple_smc_acpi {
-+	struct device *dev;
-+
-+	u8 __iomem *iomem_base;
-+	u32 iomem_base_addr, iomem_base_size;
-+	bool is_mmio;
-+
-+	u16 port_base;
-+	bool has_port;
-+
-+	bool has_interrupt;
-+	bool interrupt_enabled;
-+	struct completion cmd_done;
-+
-+	struct blocking_notifier_head event_handlers;
-+	struct work_struct shutdown_work;
-+	struct work_struct notifier_work;
-+
-+	DECLARE_KFIFO(event_fifo, u8, 64);
-+	spinlock_t event_lock;
-+};
-+
-+
-+static int apple_smc_acpi_port_wait(struct apple_smc_acpi *smc, u8 val, u8 mask)
-+{
-+	int ms;
-+
-+	for (ms = SMC_TIMEOUT_MS; ms != 0; ms--) {
-+		if ((inb(smc->port_base + SMC_IO_CMD_PORT) & mask) == val)
-+			return 0;
-+
-+		fsleep(1000);
-+	}
-+	dev_dbg(smc->dev, "port/wait: timeout value:%u, mask:%u\n", val, mask);
-+	return -ETIMEDOUT;
-+}
-+
-+static int apple_smc_acpi_port_write_byte(struct apple_smc_acpi *smc, u8 buf)
-+{
-+	int ret;
-+
-+	ret = apple_smc_acpi_port_wait(smc, 0, SMC_IO_STATUS_IB_CLOSED) ? :
-+		apple_smc_acpi_port_wait(smc, SMC_IO_STATUS_BUSY, SMC_IO_STATUS_BUSY);
-+	if (ret)
-+		return ret;
-+
-+	outb(buf, smc->port_base + SMC_IO_DATA_PORT);
-+	return 0;
-+}
-+
-+static int apple_smc_acpi_port_write_cmd(struct apple_smc_acpi *smc, u8 buf)
-+{
-+	int ret;
-+
-+	ret = apple_smc_acpi_port_wait(smc, 0, SMC_IO_STATUS_IB_CLOSED);
-+	if (ret)
-+		return ret;
-+
-+	outb(buf, smc->port_base + SMC_IO_CMD_PORT);
-+	return 0;
-+}
-+
-+static int apple_smc_acpi_port_write_key(struct apple_smc_acpi *smc, smc_key key)
-+{
-+	int i;
-+
-+	for (i = 3; i >= 0; i--) {
-+		if (apple_smc_acpi_port_write_byte(smc, (u8)(key >> (i * 8))))
-+			return -EIO;
-+	}
-+	return 0;
-+}
-+
-+static int apple_smc_acpi_port_valid(struct apple_smc_acpi *smc)
-+{
-+	int ret;
-+
-+	ret = apple_smc_acpi_port_wait(smc, 0, SMC_IO_STATUS_BUSY);
-+	if (!ret)
-+		return ret;
-+
-+	ret = apple_smc_acpi_port_write_cmd(smc, SMC_MSG_READ_KEY);
-+	if (ret)
-+		return ret;
-+
-+	return apple_smc_acpi_port_wait(smc, 0, SMC_IO_STATUS_BUSY);
-+}
-+
-+static int apple_smc_acpi_port_read(struct apple_smc_acpi *smc, u8 cmd, smc_key key,
-+				void *buffer, size_t len)
-+{
-+	int ret;
-+
-+	ret = apple_smc_acpi_port_valid(smc);
-+	if (ret)
-+		return ret;
-+
-+	if (apple_smc_acpi_port_write_cmd(smc, cmd) || apple_smc_acpi_port_write_key(smc, key)) {
-+		dev_dbg(smc->dev, "port/read: read argument failed, key: 0x%X, cmd: 0x%X\n",
-+				key, cmd);
-+		return -EIO;
-+	}
-+
-+	if (apple_smc_acpi_port_write_byte(smc, len)) {
-+		dev_dbg(smc->dev, "port/read: read len failed, key: 0x%X, len: 0x%lX\n", key, len);
-+		return -EIO;
-+	}
-+
-+	for (ret = 0; ret < len; ret++) {
-+		if (apple_smc_acpi_port_wait(smc,
-+				SMC_IO_STATUS_AWAITING_DATA | SMC_IO_STATUS_BUSY,
-+				SMC_IO_STATUS_AWAITING_DATA | SMC_IO_STATUS_BUSY)) {
-+			dev_dbg(smc->dev, "port/read: read failed, key: 0x%X\n", key);
-+			return -EIO;
-+		}
-+		((u8 *)buffer)[ret] = inb(smc->port_base + SMC_IO_DATA_PORT);
-+	}
-+
-+	return apple_smc_acpi_port_wait(smc, 0, SMC_IO_STATUS_BUSY);
-+}
-+
-+static int apple_smc_acpi_port_write(struct apple_smc_acpi *smc, smc_key key, const void *buffer,
-+		size_t len)
-+{
-+	int ret;
-+
-+	ret = apple_smc_acpi_port_valid(smc);
-+	if (ret)
-+		return ret;
-+
-+	if (apple_smc_acpi_port_write_cmd(smc, SMC_MSG_WRITE_KEY) ||
-+			apple_smc_acpi_port_write_key(smc, key)) {
-+		dev_dbg(smc->dev, "port/write: write argument failed, key: 0x%X\n", key);
-+		return -EIO;
-+	}
-+
-+	if (apple_smc_acpi_port_write_byte(smc, len)) {
-+		dev_dbg(smc->dev, "port/write: write len failed, key: 0x%X, len: 0x%lX\n",
-+				key, len);
-+		return -EIO;
-+	}
-+
-+	for (ret = 0; ret < len; ret++) {
-+		if (apple_smc_acpi_port_write_byte(smc, ((const u8 *)buffer)[ret])) {
-+			dev_dbg(smc->dev, "port/write: write failed, key: 0x%X\n", key);
-+			return -EIO;
-+		}
-+	}
-+	return apple_smc_acpi_port_wait(smc, 0, SMC_IO_STATUS_BUSY);
-+}
-+
-+static int apple_smc_acpi_port_get_key_info(struct apple_smc_acpi *smc,
-+			smc_key key, struct apple_smc_key_info *info)
-+{
-+	u8 buf[6];
-+
-+	if (apple_smc_acpi_port_read(smc, SMC_MSG_GET_KEY_INFO, key, buf, 6))
-+		return -EIO;
-+
-+	if (!info)
-+		return 0;
-+
-+	info->size = buf[0];
-+	info->type_code = get_unaligned_be32(&buf[1]);
-+	info->flags = buf[5];
-+
-+	return 0;
-+}
-+
-+static void apple_smc_acpi_mmio_clear(struct apple_smc_acpi *smc)
-+{
-+	if (ioread8(smc->iomem_base + SMC_MMIO_KEY_STATUS))
-+		return iowrite8(0, smc->iomem_base + SMC_MMIO_KEY_STATUS);
-+}
-+
-+static int apple_smc_acpi_mmio_wait(struct apple_smc_acpi *smc)
-+{
-+	int ms = SMC_TIMEOUT_MS;
-+
-+	if (smc->interrupt_enabled) {
-+		if (wait_for_completion_timeout(&smc->cmd_done,
-+					msecs_to_jiffies(SMC_TIMEOUT_MS)) > 0)
-+			return 0;
-+
-+		smc->interrupt_enabled = 0;
-+		dev_dbg(smc->dev, "mmio/wait: interrupt missed, reverting to polling\n");
-+	}
-+
-+	for (ms = SMC_TIMEOUT_MS; ms != 0; ms--) {
-+		if (ioread8(smc->iomem_base + SMC_MMIO_KEY_STATUS) & 0x20)
-+			return 0;
-+
-+		fsleep(1000);
-+	}
-+	dev_dbg(smc->dev, "mmio/wait: timeout");
-+	return -ETIMEDOUT;
-+}
-+
-+static int apple_smc_acpi_mmio_read(struct apple_smc_acpi *smc, u8 cmd, smc_key key,
-+		void *buffer, size_t len)
-+{
-+	u8 ret;
-+
-+	reinit_completion(&smc->cmd_done);
-+	apple_smc_acpi_mmio_clear(smc);
-+	iowrite32be(key, smc->iomem_base + SMC_MMIO_KEY_NAME);
-+	iowrite8(0, smc->iomem_base + SMC_MMIO_KEY_SMC_ID);
-+	iowrite8(cmd, smc->iomem_base + SMC_MMIO_KEY_CMD);
-+
-+	if (apple_smc_acpi_mmio_wait(smc))
-+		return -EIO;
-+
-+	ret = ioread8(smc->iomem_base + SMC_MMIO_KEY_CMD);
-+	if (ret) {
-+		dev_dbg(smc->dev, "mmio/read: read failed, ret: 0x%X, key: 0x%X\n", ret, key);
-+		return -ret;
-+	}
-+
-+	memcpy_fromio(buffer, smc->iomem_base + SMC_MMIO_KEY_DATA, len);
-+	return 0;
-+}
-+
-+static int apple_smc_acpi_mmio_write(struct apple_smc_acpi *smc, smc_key key, const void *buffer,
-+		size_t len)
-+{
-+	u8 ret;
-+
-+	reinit_completion(&smc->cmd_done);
-+	apple_smc_acpi_mmio_clear(smc);
-+	iowrite32be(key, smc->iomem_base + SMC_MMIO_KEY_NAME);
-+	memcpy_toio(smc->iomem_base + SMC_MMIO_KEY_DATA, buffer, len);
-+	iowrite8(len, smc->iomem_base + SMC_MMIO_KEY_DATA_LEN);
-+	iowrite8(0, smc->iomem_base + SMC_MMIO_KEY_SMC_ID);
-+	iowrite8(SMC_MSG_WRITE_KEY, smc->iomem_base + SMC_MMIO_KEY_CMD);
-+
-+	if (apple_smc_acpi_mmio_wait(smc))
-+		return -EIO;
-+
-+	ret = ioread8(smc->iomem_base + SMC_MMIO_KEY_CMD);
-+	if (ret) {
-+		dev_dbg(smc->dev, "mmio/write: write failed, ret: 0x%X, key: 0x%X\n", ret, key);
-+		return -ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int apple_smc_acpi_mmio_get_key_info(struct apple_smc_acpi *smc, smc_key key,
-+					struct apple_smc_key_info *info)
-+{
-+	u8 ret;
-+
-+	reinit_completion(&smc->cmd_done);
-+	apple_smc_acpi_mmio_clear(smc);
-+	iowrite32be(key, smc->iomem_base + SMC_MMIO_KEY_NAME);
-+	iowrite8(0, smc->iomem_base + SMC_MMIO_KEY_SMC_ID);
-+	iowrite8(SMC_MSG_GET_KEY_INFO, smc->iomem_base + SMC_MMIO_KEY_CMD);
-+
-+	if (apple_smc_acpi_mmio_wait(smc))
-+		return -EIO;
-+
-+	ret = ioread8(smc->iomem_base + SMC_MMIO_KEY_CMD);
-+	if (ret) {
-+		dev_dbg(smc->dev, "mmio/get_key_info failed, ret: 0x%X, key: 0x%X\n", ret, key);
-+		return -ret;
-+	}
-+
-+
-+	if (!info)
-+		return 0;
-+	info->type_code = cpu_to_be32(ioread32(smc->iomem_base + SMC_MMIO_KEY_DATA));
-+	info->size = ioread8(smc->iomem_base + 5);
-+	info->flags = ioread8(smc->iomem_base + 6);
-+
-+	return 0;
-+}
-+
-+static void apple_smc_acpi_shutdown_work(struct work_struct *work)
-+{
-+	orderly_poweroff(true);
-+}
-+
-+static void apple_smc_acpi_notifier_work(struct work_struct *work)
-+{
-+	struct apple_smc_acpi *smc =
-+		container_of(work, struct apple_smc_acpi, notifier_work);
-+
-+	unsigned long flags;
-+	uint8_t event;
-+
-+	for (;;) {
-+		spin_lock_irqsave(&smc->event_lock, flags);
-+
-+		if (!kfifo_get(&smc->event_fifo, &event)) {
-+			spin_unlock_irqrestore(&smc->event_lock, flags);
-+			break;
-+		}
-+		spin_unlock_irqrestore(&smc->event_lock, flags);
-+
-+		blocking_notifier_call_chain(&smc->event_handlers, event, NULL);
-+	}
-+}
-+
-+static irqreturn_t apple_smc_acpi_irq(int irq, void *data)
-+{
-+	struct apple_smc_acpi *smc = data;
-+	uint8_t status = 0, int_id = 0;
-+	unsigned long flags;
-+
-+	if (smc->is_mmio) {
-+		status = ioread8(smc->iomem_base + SMC_MMIO_KEY_INTERRUPT_STATUS);
-+		if ((status & 0x20) == 0 && status != 0)
-+			return IRQ_HANDLED;
-+	} else {
-+		status = inb(smc->port_base + SMC_IO_CMD_PORT);
-+		if ((status & 0x40) == 0 && status != 0)
-+			return IRQ_HANDLED;
-+	}
-+
-+	int_id = inb(smc->port_base + 0x1F);
-+	switch (int_id) {
-+	case 0x4B: // SMC Command done
-+		complete(&smc->cmd_done);
-+		break;
-+	case 0x40: // Shutdown Imminet
-+		schedule_work(&smc->shutdown_work);
-+		break;
-+	case 0x41: // bridgeOS Crash
-+		dev_crit(smc->dev, "BridgeOS Crashed!!!\n");
-+		break;
-+	case 0x2A: // ALS Change
-+	case 0x54: // Thermal Level Changed
-+	case 0x55: // PlatformFuntion
-+	case 0x60: // SMS Drop
-+	case 0x69: // SMS Orientation
-+	case 0x6F: // SMS Shock
-+	case 0x80: // PLimit Changed
-+		spin_lock_irqsave(&smc->event_lock, flags);
-+		if (!kfifo_put(&smc->event_fifo, int_id))
-+			dev_warn_ratelimited(smc->dev, "Notification lost: %u\n", int_id);
-+
-+		spin_unlock_irqrestore(&smc->event_lock, flags);
-+
-+		schedule_work(&smc->notifier_work);
-+		break;
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static acpi_status apple_smc_acpi_walk_resources(struct acpi_resource *res,
-+	void *data)
-+{
-+	struct apple_smc_acpi *smc = data;
-+	int ret = 0;
-+
-+	switch (res->type) {
-+	case ACPI_RESOURCE_TYPE_IO:
-+		if (!smc->has_port) {
-+			if (res->data.io.address_length < SMC_IO_NR_PORTS)
-+				return AE_ERROR;
-+			smc->port_base = res->data.io.minimum;
-+			smc->has_port = true;
-+		}
-+		return AE_OK;
-+
-+	case ACPI_RESOURCE_TYPE_FIXED_MEMORY32:
-+		if (!smc->is_mmio) {
-+			if (res->data.fixed_memory32.address_length < SMC_MMIO_MIN_SIZE) {
-+				dev_dbg(smc->dev, "found mmio support but its too small: %u\n",
-+					res->data.fixed_memory32.address_length);
-+				return AE_OK;
-+			}
-+			smc->iomem_base_addr = res->data.fixed_memory32.address;
-+			smc->iomem_base_size = res->data.fixed_memory32.address_length;
-+			smc->is_mmio = true;
-+		}
-+		return AE_OK;
-+
-+	case ACPI_RESOURCE_TYPE_IRQ:
-+		ret = devm_request_irq(smc->dev, res->data.irq.interrupts[0],
-+					apple_smc_acpi_irq,
-+					0, "macsmc-acpi", smc);
-+		if (ret < 0) {
-+			dev_dbg(smc->dev, "Unable to register interrupts\n");
-+			smc->has_interrupt = false;
-+			return AE_OK;
-+		}
-+		smc->has_interrupt = true;
-+		return AE_OK;
-+
-+	case ACPI_RESOURCE_TYPE_END_TAG:
-+		if (smc->has_port)
-+			return AE_OK;
-+		else
-+			return AE_NOT_FOUND;
-+
-+	default:
-+		return AE_OK;
-+	}
-+}
-+
-+static void apple_smc_acpi_try_enable_mmio(struct apple_smc_acpi *smc)
-+{
-+	if (!smc->is_mmio)
-+		return;
-+
-+	u8 ldkn;
-+
-+	smc->iomem_base = ioremap(smc->iomem_base_addr, smc->iomem_base_size);
-+	if (!smc->iomem_base)
-+		goto out;
-+
-+	if (ioread8(smc->iomem_base + SMC_MMIO_KEY_STATUS) == 0xFF) {
-+		dev_dbg(smc->dev, "mmio enable failed: init status is 0xff\n");
-+		goto out_iomem;
-+	}
-+
-+	if (apple_smc_acpi_mmio_read(smc, SMC_MSG_READ_KEY, SMC_KEY(LDKN), &ldkn, 1)) {
-+		dev_dbg(smc->dev, "mmio enable failed: ldkn read failed\n");
-+		goto out_iomem;
-+	}
-+
-+	if (ldkn < 2) {
-+		dev_dbg(smc->dev, "mmio enable failed: ldkn version less than 2\n");
-+		goto out_iomem;
-+	}
-+	return;
-+
-+out_iomem:
-+	iounmap(smc->iomem_base);
-+out:
-+	smc->is_mmio = false;
-+}
-+
-+static void apple_smc_acpi_try_enable_interrupts(struct apple_smc_acpi *smc)
-+{
-+	if (!smc->has_interrupt)
-+		return;
-+
-+	const u8 enable = 1;
-+	int ret;
-+
-+	if (smc->is_mmio)
-+		ret = apple_smc_acpi_mmio_write(smc, SMC_KEY(NTOK), &enable, 1);
-+	else
-+		ret = apple_smc_acpi_port_write(smc, SMC_KEY(NTOK), &enable, 1);
-+
-+	if (ret < 0) {
-+		dev_dbg(smc->dev, "Unable to enable interrupts\n");
-+		smc->interrupt_enabled = 0;
-+		return;
-+	}
-+
-+	smc->interrupt_enabled = 1;
-+}
-+
-+static int apple_smc_acpi_read(void *cookie, smc_key key, void *buf, size_t size)
-+{
-+	struct apple_smc_acpi *smc = cookie;
-+	int ret;
-+
-+	if (smc->is_mmio)
-+		ret = apple_smc_acpi_mmio_read(smc, SMC_MSG_READ_KEY,
-+			key, buf, size);
-+	else
-+		ret = apple_smc_acpi_port_read(smc, SMC_MSG_READ_KEY,
-+			key, buf, size);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	return size;
-+
-+}
-+
-+static int apple_smc_acpi_write(void *cookie, smc_key key, const void *buf, size_t size)
-+{
-+	struct apple_smc_acpi *smc = cookie;
-+	int ret;
-+
-+	if (smc->is_mmio)
-+		ret = apple_smc_acpi_mmio_write(smc, key, buf, size);
-+	else
-+		ret = apple_smc_acpi_port_write(smc, key, buf, size);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	return size;
-+}
-+
-+static int apple_smc_acpi_get_key_by_index(void *cookie, int index, smc_key *key)
-+{
-+	struct apple_smc_acpi *smc = cookie;
-+
-+	if (smc->is_mmio)
-+		return apple_smc_acpi_mmio_read(smc, SMC_MSG_GET_KEY_BY_INDEX, (smc_key) index,
-+				key, 4);
-+	else
-+		return apple_smc_acpi_port_read(smc, SMC_MSG_GET_KEY_BY_INDEX, (smc_key) index,
-+				key, 4);
-+
-+}
-+
-+static int apple_smc_acpi_get_key_info(void *cookie, smc_key key,
-+		struct apple_smc_key_info *info)
-+{
-+	struct apple_smc_acpi *smc = cookie;
-+
-+	if (smc->is_mmio)
-+		return apple_smc_acpi_mmio_get_key_info(smc, key, info);
-+	else
-+		return apple_smc_acpi_port_get_key_info(smc, key, info);
-+
-+}
-+
-+static void apple_smc_acpi_notifications(void *cookie)
-+{
-+	const u8 buf = 0;
-+
-+	apple_smc_acpi_write(cookie, SMC_KEY(NTOK), &buf, 1);
-+}
-+
-+static const struct apple_smc_backend_ops apple_smc_acpi_be_ops = {
-+	.read = apple_smc_acpi_read,
-+	.write = apple_smc_acpi_write,
-+	.get_key_by_index = apple_smc_acpi_get_key_by_index,
-+	.get_key_info = apple_smc_acpi_get_key_info,
-+	.disable_notifications = apple_smc_acpi_notifications,
-+};
-+
-+static int apple_smc_acpi_probe(struct platform_device *pdev)
-+{
-+	struct acpi_device *adev = ACPI_COMPANION(&pdev->dev);
-+	struct apple_smc_acpi *smc;
-+	acpi_status status;
-+
-+	smc = devm_kzalloc(&pdev->dev, sizeof(*smc), GFP_KERNEL);
-+	if (!smc)
-+		return -ENOMEM;
-+
-+	smc->dev = &pdev->dev;
-+	init_completion(&smc->cmd_done);
-+	status = acpi_walk_resources(adev->handle, METHOD_NAME__CRS,
-+				apple_smc_acpi_walk_resources, smc);
-+
-+	if (ACPI_FAILURE(status))
-+		return -ENODEV;
-+
-+	apple_smc_acpi_try_enable_mmio(smc);
-+	BLOCKING_INIT_NOTIFIER_HEAD(&smc->event_handlers);
-+	INIT_WORK(&smc->shutdown_work, apple_smc_acpi_shutdown_work);
-+	INIT_WORK(&smc->notifier_work, apple_smc_acpi_notifier_work);
-+	spin_lock_init(&smc->event_lock);
-+	INIT_KFIFO(smc->event_fifo);
-+	apple_smc_acpi_try_enable_interrupts(smc);
-+
-+	return apple_smc_probe(smc->dev, &apple_smc_acpi_be_ops, smc, &smc->event_handlers, true);
-+}
-+
-+static int apple_smc_acpi_resume(struct device *dev)
-+{
-+	struct apple_smc *smc = dev_get_drvdata(dev);
-+	struct apple_smc_acpi *smc_acpi = smc->be_cookie;
-+
-+	/* NTOK may be set to 0 on resume */
-+	if (smc_acpi->interrupt_enabled) {
-+		smc_acpi->interrupt_enabled = 0;
-+		apple_smc_acpi_try_enable_interrupts(smc_acpi);
-+	}
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops apple_smc_acpi_ops = {
-+	.resume = apple_smc_acpi_resume,
-+};
-+
-+static const struct acpi_device_id apple_smc_acpi_ids[] = {
-+	{"APP0001", 0},
-+	{"", 0},
-+};
-+MODULE_DEVICE_TABLE(acpi, apple_smc_acpi_ids);
-+
-+static struct platform_driver apple_smc_acpi_driver = {
-+	.probe = apple_smc_acpi_probe,
-+	.driver = {
-+		.name = "macsmc-acpi",
-+		.acpi_match_table = apple_smc_acpi_ids,
-+		.pm = &apple_smc_acpi_ops,
-+	},
-+};
-+module_platform_driver(apple_smc_acpi_driver);
-+
-+MODULE_AUTHOR("Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>");
-+MODULE_LICENSE("Dual MIT/GPL");
-+MODULE_DESCRIPTION("Apple SMC ACPI backend");
-+MODULE_DEVICE_TABLE(acpi, apple_smc_acpi_ids);
--- 
-2.55.0
-
+On Wed, 28 Oct 2026 at 22:07, Qu Wenruo <quwenruo.btrfs@gmx.com> wrote:
+>
+>
+>
+> =E5=9C=A8 2026/10/29 04:25, Luca Stefani via B4 Relay =E5=86=99=E9=81=93:
+> > From: Luca Stefani <luca.stefani.ge1@gmail.com>
+> >
+> > Treat cancellation as a successful partial trim as ext4 and XFS do.
+> >
+> > Reported-by: Zhiwei Liang <zhiwei.liang@zliang.me>
+> > Closes: https://lore.kernel.org/20261028-btrfs-fitrim-freezer-v1-1-0ad1=
+d58aa94d@zliang.me/
+>
+> In fact you should use Link tag here, for the original patch as a
+> report. Not Closes tag.
+I think that was my original intention, but I mixed up the patches.
+>
+> Otherwise looks good to me.
+>
+> I can change the tags at merge time, so you don't need to resend the
+> series, unless there are other reviews that requires code changes.
+Thanks! Will fix them up in case.
+>
+> Thanks,
+> Qu
+>
+> > Suggested-by: Qu Wenruo <wqu@suse.com>
+> > Signed-off-by: Luca Stefani <luca.stefani.ge1@gmail.com>
+> > ---
+> >   fs/btrfs/extent-tree.c | 5 ++---
+> >   1 file changed, 2 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+> > index 242db255cf1c..90e581c29609 100644
+> > --- a/fs/btrfs/extent-tree.c
+> > +++ b/fs/btrfs/extent-tree.c
+> > @@ -6926,7 +6926,7 @@ int btrfs_trim_fs(struct btrfs_fs_info *fs_info, =
+struct fstrim_range *range)
+> >                       bg_failed, ERR_PTR(bg_ret));
+> >
+> >       if (ret =3D=3D -ERESTARTSYS || ret =3D=3D -EINTR)
+> > -             return ret;
+> > +             goto out;
+> >
+> >       ret =3D btrfs_trim_free_extents(fs_info, &group_trimmed, &dev_fai=
+led, &dev_ret);
+> >       trimmed +=3D group_trimmed;
+> > @@ -6935,9 +6935,8 @@ int btrfs_trim_fs(struct btrfs_fs_info *fs_info, =
+struct fstrim_range *range)
+> >               btrfs_warn(fs_info,
+> >                       "failed to trim %llu device(s), first error %pe",
+> >                       dev_failed, ERR_PTR(dev_ret));
+> > +out:
+> >       range->len =3D trimmed;
+> > -     if (ret =3D=3D -ERESTARTSYS || ret =3D=3D -EINTR)
+> > -             return ret;
+> >       if (bg_ret)
+> >               return bg_ret;
+> >       return dev_ret;
+> >
+>
