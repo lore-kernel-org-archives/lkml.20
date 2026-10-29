@@ -1,144 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264241;
-	b=b0CI3peGyWS5NtIaWsYrlVqEzyGkk7AK5lurgQQHsUewOJSvVdvy77k1hxNjjTdztHT1
-	 Us2vBmKeqbX3tS8r3I8eA5UxrBpv6kBfSOtlhZV/sgEpQWP53xMwDnQFbyUtn4Qm19UCi
-	 08fYb9mRvaXc3OOsu/tGlK1r45f8lMMS9Wt678WGgeyIpGeDkgtUboi9i8+jGBsSvc6D4
-	 YX/qjw7npEYKwYdrhB4YzJR2fPh2hLiAMH2hieVKyFgvIY09ktXqHf1RAPPuKU3D2CwLa
-	 wqTT67HsNcOqvIQb2KThVz18pZrnX6TUYd49P44g5qHa3Bu/ucOV3U1EhGaDX4KPJpg==
+	t=1793264250;
+	b=TtyOXt3jke5JIBAbtyZmun1UqDoROq3oGULV9ly0AF3De7cMmUbEf/RYsXQYCcxhiVlr
+	 oKuW1e1Nn1Y/6+DJn8YCDCZbLSyS5Fvt1apx0CLwq1vWx9TDklKMRY+eAl2u00x5KiG07
+	 1Yg+c+Y1FYdyPCkoE4IiCYiQaUC8F6kc7t4uslOpt9niv4nWBd4WLkC5mQRdnEc4+ckTI
+	 gG1+kCrps1G95pJHfVOrpRS/CqGSk1oupmy07pwRKqqcdvm7gxlitYvEe/8bvK0SxVk3L
+	 J/3EZK6c72gJmfPn9OUXeM0s3o65z9Wo61npfmaAJxnc6UdQ+Miih9Q7QdtJ1JDDKxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264241;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=l2H0bFieZXxd5jJJlL+lwbMkDWOOduyv3s8IOA4GnsU=;
-	b=qnRNIpuOU/GsGqRZyhzdxjHXjB+61Exwhl0KLkzeWgSjyMsVbsvJ0GmbzMVjexg6VbL6
-	 aVJYEg3c5VLfJZ93MGj+LQuWcKYdhPTqrTSV7ejTdkmWanANQIApvFOhK/HruH2LZECne
-	 Wqsz94VWmbqThGON9pUj2hWUNd+tkMrMPLdZ5/1d+e6HCNiYftlApM2sxvEwDkmSat5k/
-	 BN+1JpVcBY8u8zE/e5PteIhHopXwRaMUyQNZyEpONu0cVg5Cp8UkbYovYeK2PQ2In2SNG
-	 XeRogcepYPxbNGSDZbpFObX9mSGLAjm51KDU9h13Lx6DtFpG8vgF352u/FeLM+Pvf4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793264250;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=D4dVdmSFeRE0JHF6scWJ75ZgmMOz+dO8pL/chYBEZxM=;
+	b=a5rzcmkb1ule6YFgAGCg7DXqAQkLgs8glh0yVTcK6IvvehVipTciZJP0geuKQmK5bK+k
+	 70jAM7975VQvdsYzs6bHN5taiige2NY2KXa/0VnqTKIl2iCRgB5vBMBbiNR2SefW7v6Mt
+	 F9nEMhnMDxQ84IHsnKpx6bgmq89SiUFrctG8+HAVNByyF11smE9o8UfaRRrompk4Y7En0
+	 vsCVQytwSGLNSXU7ZIkHaPSpa5GYAFagCkUQ66czHfSIkBImlGp61pCTgEd/FKIjR8SsY
+	 BxVnlUxmKvocMMQQtlVBChAyoDmjEMnv2hzq61Bi4xYm+KCFJJODJPzbHAX9qhJexmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hVOk1ChT;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Xb8nWuEx;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="H2a/IXw8";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C90606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:57:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1C90606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904A2606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:57:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 904A2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hVOk1ChT
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3550c917fd3so2693742eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:57:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Xb8nWuEx;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H2a/IXw8
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T8vSMZ3457774
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:57:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=D4dVdmSFeRE0JHF6scWJ75Zg
+	mMOz+dO8pL/chYBEZxM=; b=Xb8nWuExxWSsNj80Iw+7Nh/Boe4LnjrQEuyP3n1I
+	ACXVL1hHFjtBaWzhpRF6mdpk8jZN00otuJSZhzYqTzym7bnm/FtJExLruETBp+ZH
+	82YhFZaO5355ftSGa7ENqbvZhlRP2C5abtjiGadzH8ofz0TzGzB2qhr4uEuKopoy
+	CAPVvZ8L/o0EMa31lWheJd6gtoupEwabFFMnCGxO2hJF/btFpbxkHK3sZtFIcQnm
+	JJxYvtaDTrkd/AdJ5Yia6cJKuYxnfjKjHEBEOXWTLcHaAJFrXlc5UHFsuKd6yX5B
+	Zb2whAvbiTxt4Jigx5tkIMfFiI/82NzdnkDl577Z60yI5w==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hknkpb1mn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:57:25 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ecdc701a2so216776585a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:57:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793264240; x=1793869040; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l2H0bFieZXxd5jJJlL+lwbMkDWOOduyv3s8IOA4GnsU=;
-        b=hVOk1ChTsyDShJ56FOp8o/9+3MQFLB0HW1Ei0A0/oEO++7zL1B6B1eZnTpmrIYtipJ
-         St7BvbStGgaYM8FI+pgxJwnqYzTBIDCI6RH48ISInnwbjSoJWTaKWHcj+dxy2IwnDz5z
-         pPZy5M3Wrv3Zc6ZjmIe8kbynI/RK51T2vfk++Lawt8B9M6KGNcOdFk4Ym3l59f6IadYQ
-         gjX1nIvb4LAzRV//gMrTJGuNZ3TLl989iUwDvOtrQQd87WYuuKl7nTHM2ggKsKxL1cY2
-         ALXOzhV1gXysgRz6wxfNsk0WlxN8WBguWpiasJJmzs8wVmwCVrLFNHpWYNkpCkcJexd/
-         FhMA==
+        d=oss.qualcomm.com; s=google; t=1793264230; x=1793869030; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=D4dVdmSFeRE0JHF6scWJ75ZgmMOz+dO8pL/chYBEZxM=;
+        b=H2a/IXw8jtsUIgqoZC1MrJqTqTUsZB1FMUV0dDOex3EXft7ctiBgg58QSg0wi32AlG
+         TMvZRk0c7PkMAsoAfR0/DVu//B+YLyqrY1vSi6LlRYM46Rz7xeOjzXWW0hZ/NrYJ5Mlu
+         jbC//lLHwUyKL0v49Y03hlTn9i4/0ZQJH9BkeyImYsywOsQOCkXBGOU6cT0BiILX8/6d
+         OtEka9ZS68lEUp8XJeCnsLDkcyr4S2d4iNf3deqAFSjK2cudSr10vN+b0hjnspFQAzZt
+         tHgRqQH14DsCYqyoRKO/OgNGjdpN5kXHKZhTPR+q6XNM/5FHw2BiYVjmZQhbcOAC05oy
+         quhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793264240; x=1793869040;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l2H0bFieZXxd5jJJlL+lwbMkDWOOduyv3s8IOA4GnsU=;
-        b=N1T67ATlm09fq1JtNX/JoA48PLFXbeo1y0Vj3AqmjYUZCvcq91mjHoxHg+Lvc3iOfA
-         Fg/zfbS1+c1jQDwCfgfWyyuB0h2qXbTmfjn5jxwLGhkyBNM6O+TtMyCCqGUnBr1522SM
-         u/8gP9IRVhPmz7wqrxqHuf5aqj1Y0XCUURHLKkrubKsu3kgmrUZEq++SZjIsPlWwVv+i
-         Ut4Wo9apEiuztY9zEP+gJ1BODC00e+EJQKSYIg9eX47Yl3BUThRwvqSuryAJIQ/OUF+l
-         MNzLMX3W3g6RHby4YkhNiZXhS0736ISwHtthdkknVDRbhKnBAyfRCQd1eB2Fit3KYCdl
-         beCw==
-X-Forwarded-Encrypted: i=1; AKwUvBx04Q8yZsgQUUzMRRTWmUM4ubwhOkq+PUNHjnbBxuL9deddlOpQd1f/jIzWwQdcn4ZZi4UIZ0Q73SYMfGg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJq1ujoS8oF+X+cni7DIoYwsAO7ooo5Vw6bC0ybPirHcXj+71WB
-	CR50a6eijfbpfU5se0fnVX14pkkCAvgQca02oyz+WggLm+rcYZzT5/M=
-X-Gm-Gg: AYBFou3GrBbVSC1ifQnICpDSSFSpe4yzcC9Enuq4p2tzrXy6S3z//XsYKptqqVy6ZaX
-	soluydFpiWueO5eo7WlOuYMZhgJfKdL6mc35mttc0Qr9ove3a2E3WaNwA9Qn6aFHwc4HV+ZvyT/
-	pHofmLVLGcKPF+5uw/CkOPxZ+I2PUrgh7aqZEe2LkJGrhAkCWtQYXcU1HtMWdzc3C8EXl+evVS3
-	+V8jWomMIOq1DPxtR2VrtBpUtGzSYSTG1wVeu3rZxwjnPESGuNaWwFZ81n2+IPxeQdOHqTh6S3f
-	xYRC43o2962A9SRI368B1JdXE4+PvLmcjSxvFiWiDWMjOUr2MTBnpl7sKPXwyioay02VNf2DG9w
-	ocW2Cpm0F1kvaIp8x2G6ZLBcw9MlMozqZ+oGl9SCRzojebyboKxUfztbgtGloaWGEWjBke/Ee5f
-	s9O7Nc3UJL/x+UqUZS+fqJRMt/mD6mXczV8emGkH50T4flkgZ52HEBugAPPyvCzbuCrATGtJZ8Q
-	o2egdbmQ1jNEZ3QTBSa4r/6IDlcrq4umWFazUWCSB5HpHzJAVExQIh/vt0KQ2EqT15wU2lKwrL3
-	sRJJnwXgc/9hJBkPolapDkbbdOirQxxl57o3elccg/eRLu1LVq46U1RWoiMZ/Q==
-X-Received: by 2002:a05:7300:e9c4:20b0:36a:13e1:c889 with SMTP id 5a478bee46e88-36a20427d57mr7840856eec.36.1793264239420;
-        Thu, 29 Oct 2026 01:57:19 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([27.60.20.232])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23641e78sm16497937eec.0.2026.10.29.01.57.01
+        d=1e100.net; s=20260707; t=1793264230; x=1793869030;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D4dVdmSFeRE0JHF6scWJ75ZgmMOz+dO8pL/chYBEZxM=;
+        b=ISC8aVJ/W2qF/2W/P6y1PhgdLUba2V+Ret8U70wSwaJxMRSWWZxBGsogzBzks/TBFD
+         QsdPXW9icrUI2sphPKbb485a8gOF4wNwcIz94w2e3UajrTpPUKrye8RTm+2tvp25DfXm
+         gQvvRfVTRWsIcqD4zwcIIk9Q7bLFEP8uh0fmXVV/yv2v5XLbTkFP4+f6fzau13z6nEDj
+         btk8rQdwbjD4g3u77WzHUYBCdOPT4MtG6wWYr/A6gumo6/6yeFDQQLrWlG7nFoc9aGEm
+         o+MQ1GYQRw+xdcUCyQuoNmjtbAkjm+eSmgSOzgfP5dZikBBWKzDqkx/N+SIzMVtOkDHG
+         306w==
+X-Forwarded-Encrypted: i=1; AKwUvBz/TkQ3oKgTNckgX8Uj/wB127x/ULnUH4AR7JnNutQLIwAAMQmG2UHCGo9+JG5gky8Xq83eqU6ZwgEzYLw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJgdqyDFZ5wOgNc46Lj/ySL8ecSaz99I1ZZ2mU4ZL8JTfs/DLht
+	Zx4o/dnXBnD5TpmbuHMBoZP7EF5U5HEvD6YChSB+rP/qwOYULyElKV6NKF/jg54O7qlcHVkrdfh
+	l+KfCM18B2cwPgMVQ4KEFVxAjAdvUPxPAkeJf0XPEa0/cUKii1d7aSn5SlZnF34yZdeU=
+X-Gm-Gg: AYBFou0OiDbpZbDC63ywDRDOyF2ZB3RKieTdez7QZchSJ0Rg3WCjXxYq1lxFaPwHRvO
+	rkYmYkncqlv046qWRnpqmIIBycUtr8DKZ6Z7rqVc8Z7po7+jhKV/VcGEBjKX+12WcHNmjbMdQpU
+	8jaGhuPH4t4ljiKEEeLi+XGBU+B4EI0qxst8QBsex5RD6H7p2RTGcZN/lBfIcybEB6Ayr84p20d
+	9knwUMnP6+LtdLA0asGgArzK3moWgw4M2mFS1X8K8sfVZXw7DgZw0/24cLwNqMEJd8ovRnuOYwO
+	q2sTw0ghwXUVeIn4j6PLj/xWQ8ydJQXpjYCi8o1Tz61vCq78Bh0eLSetBe9jFX6u/bGTnUO6Ri3
+	ECVHCMZMCSSduhI7gZjy2DFmn1IiGW9nb3XqBtDsRfT63Lz0TKjxtokh/ONMrbi0r
+X-Received: by 2002:a05:620a:17a3:b0:93f:34c9:9259 with SMTP id af79cd13be357-94408cde210mr707301285a.50.1793264229733;
+        Thu, 29 Oct 2026 01:57:09 -0700 (PDT)
+X-Received: by 2002:a05:620a:17a3:b0:93f:34c9:9259 with SMTP id af79cd13be357-94408cde210mr707299085a.50.1793264229125;
+        Thu, 29 Oct 2026 01:57:09 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.77])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb902sm34947181f8f.24.2026.10.29.01.57.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 01:57:19 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: 
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-hwmon@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	mfd@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	linux-integrity@vger.kernel.org,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: [RFC PATCH 03/14] watchdog: add driver for apple smc
-Date: Thu, 29 Oct 2026 04:52:00 -0400
-Message-ID: <20261029085504.3547-4-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
-References: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
+        Thu, 29 Oct 2026 01:57:08 -0700 (PDT)
+Date: Thu, 29 Oct 2026 10:57:07 +0200
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Xilin Wu <sophon@radxa.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dragon@radxa.com, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v3] arm64: dts: qcom: sc8280xp: add missing QUP pinctrl
+ states
+Message-ID: <m2sh6dfakwhndlpxsq5kpg5nywk634vicyf3n2c6hcx4az3q7n@27cl3z3whwxb>
+References: <20261029-sc8280xp-qup-pinctrl-v3-1-48c4ef292dfc@radxa.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -148,231 +123,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-sc8280xp-qup-pinctrl-v3-1-48c4ef292dfc@radxa.com>
+X-Authority-Analysis: v=2.4 cv=Ju9kP84C c=1 sm=1 tr=0 ts=6ae30a75 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=ksxQWNrZAAAA:8 a=__UjJjYY8bcpKF5Zf8YA:9 a=CjuIK1q_8ugA:10
+ a=ZXulRonScM0A:10 a=PEH46H7Ffwr30OY-TuGO:22 a=l7WU34MJF0Z5EO9KEJC3:22
+X-Proofpoint-ORIG-GUID: ZLscQ08vm5RDoAxnmSeDyMtjjoc0At2M
+X-Proofpoint-GUID: ZLscQ08vm5RDoAxnmSeDyMtjjoc0At2M
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzNCBTYWx0ZWRfX/TH1kRzKHmU7
+ Dg8B+j+LFr5OMMCaxSmUPxFD/OAwetNRXh+bSP5CFjdeN5g5IzFBRVTMTY/cxaghUEsw8/IIs+V
+ MGPRT8hVgsP+UPpjImzVnBb8Sy6zufA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzNCBTYWx0ZWRfX/Y+v97edL3UT
+ tcBpFvGFb2aUktqO9ULfpfFxIgRv4Ma3iukccHeNMV+YTnEY4LAj+kSUv7pC0XDLRWip6LEN2QC
+ QIclACStPCmOTaRO12bCy+w1mkjjXhQxevKewjC+VZ1W2PcyFXrDXXqmQPVkm/fIguT5wlmEgsI
+ tZiHAAGVrSv6c6SoP4+CecB9R5TFy0dXDwOVlBtCNDy9TG/gVODeG8c2Pt7GglsfW72lUK594S7
+ z748TDVjo+SD744YJy/R3qHWOKfXVZ1oGIRkE9piffMiJZH1fYQHgeeDHN1hX42+9Z0p5hASLT0
+ zn+Ry1+72YuJhXjfaBZnLIxhYl5hSIXVZRxf/zdbr8jM3dcluUURAr8u3joNe8a4a4MBDhBsEip
+ fZSfGDl2YWrEJlxw1/Sv9v/BJuQq1ir/1isb99kV8uVvuBSAkAOMpv74r1I8ee4z4YhRqwSByWT
+ /Oca765UHG2AFaL2s9w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610290034
 
-Add a watchdog driver for the SMC on Intel Macs. It can
-reset the machine if the system stops responding. It works
-on both newer and older SMC versions.
+On 26-10-29 15:52:32, Xilin Wu wrote:
+> Add the missing tlmm pinctrl states for the SC8280XP QUP engines so common
+> I2C, SPI and UART pinmux definitions are available from the SoC dtsi.
+> Populate all 24 engines using the SC8280XP lane-to-GPIO mapping, including
+> the non-linear QUP instances, and keep the mux function names aligned with
+> the driver-supported qup0..qup23 names.
+> 
+> Define common four-wire UART electrical defaults in the SoC dtsi: CTS uses
+> bus hold, RX uses a pull-up, and RTS/TX use 2 mA drive with no bias. This
+> matches the Bluetooth UART configuration used by the existing boards, lets
+> them reference the shared QUP state directly, and removes duplicated
+> board-local pinctrl definitions.
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Xilin Wu <sophon@radxa.com>
 
-Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
----
- drivers/mfd/macsmc-core.c     |  11 +++
- drivers/watchdog/Kconfig      |  11 +++
- drivers/watchdog/Makefile     |   2 +-
- drivers/watchdog/macsmc_wdt.c | 140 ++++++++++++++++++++++++++++++++++
- 4 files changed, 163 insertions(+), 1 deletion(-)
- create mode 100644 drivers/watchdog/macsmc_wdt.c
-
-diff --git a/drivers/mfd/macsmc-core.c b/drivers/mfd/macsmc-core.c
-index b8905c834..1c1469828 100644
---- a/drivers/mfd/macsmc-core.c
-+++ b/drivers/mfd/macsmc-core.c
-@@ -33,6 +33,10 @@ static const struct mfd_cell apple_smc_acpi_rtc[] = {
- 	MFD_CELL_NAME("macsmc-rtc"),
- };
- 
-+static const struct mfd_cell apple_smc_acpi_wdt[] = {
-+	MFD_CELL_NAME("macsmc-wdt"),
-+};
-+
- int apple_smc_read(struct apple_smc *smc, smc_key key, void *buf, size_t size)
- {
- 	guard(mutex)(&smc->mutex);
-@@ -147,6 +151,13 @@ int apple_smc_probe(struct device *dev, const struct apple_smc_backend_ops *ops,
- 				return ret;
- 		}
- 
-+		if (apple_smc_key_exists(smc, SMC_KEY(NATJ))) {
-+			ret = devm_mfd_add_devices(dev, -1, apple_smc_acpi_wdt,
-+				ARRAY_SIZE(apple_smc_acpi_wdt), NULL, 0, NULL);
-+			if (ret < 0)
-+				return ret;
-+		}
-+
- 	} else
- 		ret = devm_mfd_add_devices(dev, -1, apple_smc_rtkit_devs,
- 			ARRAY_SIZE(apple_smc_rtkit_devs), NULL, 0, NULL);
-diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-index f7d0a0c2c..854ab772f 100644
---- a/drivers/watchdog/Kconfig
-+++ b/drivers/watchdog/Kconfig
-@@ -1810,6 +1810,17 @@ config SIEMENS_SIMATIC_IPC_WDT
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called simatic-ipc-wdt.
- 
-+config MACSMC_WDT
-+	tristate "Apple SMC Watchdog"
-+	depends on X86 && MACSMC_ACPI
-+	select WATCHDOG_CORE
-+	help
-+	  This driver adds support for Watchdogs in Intel macs Using
-+	  Apple SMC.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called macsmc_wdt.
-+
- # M68K Architecture
- 
- config M54xx_WATCHDOG
-diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
-index 9ac406677..f142a5d8d 100644
---- a/drivers/watchdog/Makefile
-+++ b/drivers/watchdog/Makefile
-@@ -158,7 +158,7 @@ obj-$(CONFIG_NIC7018_WDT) += nic7018_wdt.o
- obj-$(CONFIG_MLX_WDT) += mlx_wdt.o
- obj-$(CONFIG_KEEMBAY_WATCHDOG) += keembay_wdt.o
- obj-$(CONFIG_SIEMENS_SIMATIC_IPC_WDT) += simatic-ipc-wdt.o
--
-+obj-$(CONFIG_MACSMC_WDT) += macsmc_wdt.o
- # M68K Architecture
- obj-$(CONFIG_M54xx_WATCHDOG) += m54xx_wdt.o
- 
-diff --git a/drivers/watchdog/macsmc_wdt.c b/drivers/watchdog/macsmc_wdt.c
-new file mode 100644
-index 000000000..38f68d0d8
---- /dev/null
-+++ b/drivers/watchdog/macsmc_wdt.c
-@@ -0,0 +1,140 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+/*
-+ * Apple SMC Watchdog Driver
-+ *
-+ * Copyright (C) 2026 Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-+ */
-+
-+#include <linux/mfd/macsmc.h>
-+#include <linux/platform_device.h>
-+#include <linux/watchdog.h>
-+
-+#define WATCHDOG_TIMEOUT 60 /* 60 sec default timeout */
-+
-+static bool nowayout = WATCHDOG_NOWAYOUT;
-+module_param(nowayout, bool, 0);
-+MODULE_PARM_DESC(nowayout, "Watchdog cannot be stopped once started default="
-+		 __MODULE_STRING(WATCHDOG_NOWAYOUT) ")");
-+
-+static int timeout = WATCHDOG_TIMEOUT; /* in secounds */
-+module_param(timeout, int, 0);
-+MODULE_PARM_DESC(timeout,
-+		 "Watchdog timeout in seconds. 1 <= timeout <= 255, default="
-+		 __MODULE_STRING(WATCHDOG_TIMEOUT) ".");
-+
-+struct macsmc_wdt {
-+	struct apple_smc *smc;
-+	bool has_oswd; /* Newer version of watchdogs in macsmc */
-+	struct watchdog_device wdd;
-+};
-+
-+static int macsmc_wdt_set_timeout(struct watchdog_device *wdd, unsigned int timeout)
-+{
-+	struct macsmc_wdt *drv = watchdog_get_drvdata(wdd);
-+	int ret;
-+
-+	if (timeout)
-+		wdd->timeout = timeout;
-+
-+	if (drv->has_oswd) {
-+		ret = apple_smc_write_u16(drv->smc, SMC_KEY(OSWD), (u16)(timeout << 8));
-+		if (ret < 0)
-+			return ret;
-+	} else {
-+		/*
-+		 * NATJ = 2, makes the watchdog do force restart if NATi == 0
-+		 * NATJ = 0, makes the watchdog do nothing if NATi == 0
-+		 */
-+		if (timeout == 0) {
-+			ret = apple_smc_write_u16(drv->smc, SMC_KEY(NATJ), 0);
-+			if (ret < 0)
-+				return ret;
-+		}
-+		ret = apple_smc_write_u16(drv->smc, SMC_KEY(NATi), (u16)(timeout << 8));
-+		if (ret < 0)
-+			return ret;
-+
-+		if (timeout != 0) {
-+			ret = apple_smc_write_u16(drv->smc, SMC_KEY(NATJ), 2);
-+			if (ret < 0)
-+				return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+static int macsmc_wdt_start(struct watchdog_device *wdd)
-+{
-+	return macsmc_wdt_set_timeout(wdd, wdd->timeout);
-+}
-+static int macsmc_wdt_stop(struct watchdog_device *wdd)
-+{
-+	return macsmc_wdt_set_timeout(wdd, 0);
-+}
-+
-+static int macsmc_wdt_ping(struct watchdog_device *wdd)
-+{
-+	struct macsmc_wdt *drv = watchdog_get_drvdata(wdd);
-+	int ret;
-+
-+	if (drv->has_oswd)
-+		ret = apple_smc_write_u16(drv->smc, SMC_KEY(OSWD), (u16)(wdd->timeout << 8));
-+	else
-+		ret = apple_smc_write_u16(drv->smc, SMC_KEY(NATi), (u16)(wdd->timeout << 8));
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static const struct watchdog_ops macsmc_wdt_ops = {
-+	.owner =	THIS_MODULE,
-+	.start =	macsmc_wdt_start,
-+	.stop  =	macsmc_wdt_stop,
-+	.set_timeout =	macsmc_wdt_set_timeout,
-+	.ping =	macsmc_wdt_ping,
-+};
-+
-+static const struct watchdog_info macsmc_wdt_info = {
-+	.options = WDIOF_SETTIMEOUT | WDIOF_KEEPALIVEPING,
-+	.identity = "Macsmc Watchdog timer",
-+};
-+
-+static int macsmc_wdt_probe(struct platform_device *pdev)
-+{
-+	struct macsmc_wdt *drv;
-+
-+	drv = devm_kzalloc(&pdev->dev, sizeof(struct macsmc_wdt), GFP_KERNEL);
-+	if (!drv)
-+		return -ENOMEM;
-+
-+	drv->smc = dev_get_drvdata(pdev->dev.parent);
-+	if (apple_smc_key_exists(drv->smc, SMC_KEY(OSWD)))
-+		drv->has_oswd = true;
-+	else
-+		drv->has_oswd = false;
-+
-+	drv->wdd.ops = &macsmc_wdt_ops;
-+	drv->wdd.info = &macsmc_wdt_info;
-+	drv->wdd.min_timeout = 1;
-+	drv->wdd.max_timeout = 255;
-+	watchdog_init_timeout(&drv->wdd, timeout, &pdev->dev);
-+	watchdog_set_nowayout(&drv->wdd, nowayout);
-+	watchdog_set_drvdata(&drv->wdd, drv);
-+
-+	return devm_watchdog_register_device(&pdev->dev, &drv->wdd);
-+}
-+
-+static struct platform_driver macsmc_wdt_driver = {
-+	.probe = macsmc_wdt_probe,
-+	.driver = {
-+		.name = "macsmc-wdt"
-+	},
-+};
-+module_platform_driver(macsmc_wdt_driver);
-+
-+MODULE_AUTHOR("Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>");
-+MODULE_LICENSE("Dual MIT/GPL");
-+MODULE_DESCRIPTION("Apple SMC Watchdog Driver");
-+MODULE_ALIAS("platform:macsmc-wdt");
--- 
-2.55.0
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
