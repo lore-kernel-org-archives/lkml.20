@@ -1,67 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793311340;
-	b=rMVUMaqlOMCQkuPZXYinkXIV1p3wq3G+ya/n6LnldHB31zT5GitxX+++O54viz0ofKap
-	 OI8uVRE5DtFVmie6bj+mouGiE1pHvrz6UCrfLH9BBktX6bUWy9mDYWw+uL3pcxRjawsOX
-	 YPdQZS0Tu6KJ4jP1Wpo/byGqDF6PaV4XluJX3yMTiy4zUqE197HhEJELE2Pq8B7vajj9p
-	 LJvOFZxBhFbBG/vtk4xY/HKPmy2LKZVdCFiy+HXZkSDr1Te01S5E7FxVSrWQWqBhUO7Qj
-	 AswIXrlXQTaEZkOJsmoEpfvTFxadHVUnmy2vDN5rhVWL/JxslZhAvDa5Qw5+YE1Pjhw==
+	t=1793311355;
+	b=0W8cAkN3BJOfvbnkQ2Ksp+sPL4DcvcmnJFwwCRrPGIaqVIMxmVxpdxGmsKKTnzQGeZEu
+	 1BQGT+xCfVdJnIqoCF9tF/laWGBtLod8Mrvhpzhc/dOudi2TofSBzyczt76M24a8KFTxY
+	 VHDDjywgfXB4vbI2JnppCuprf/baw5qGcHf1UizQpw1q7fOBuySuVOjYJgFqaviya/GG4
+	 CFC2A4vE5ulKi7MpjhxacW93hLPVc6xzC5sZ6i/sGGgli1BuTqBvquxJfK6H6w2BEwfD1
+	 sE+lGJjjYJUqpSZJZjsEpNwTicFyRD43WfWVU/0bTrbqykQQMonWRiVL+1sQjUfAAag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793311340;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793311355;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FY9iXHfyXaaVg/92Tb3VUJlWn6Qi4Smqbz6v6O2hb0w=;
-	b=wWinhr9qhuXmmOnXUXVYMnMPzZ0vlxttXhx4Ef+ZA0PKcgUw470RF4puxkoaMJImBVgb
-	 UbuCem9l1iEVjNeAg+571ewXv6J9mzxYgQL3zIROPzh0jA1KLhNKuO+sRVaDIWIsrO9vI
-	 zolM+repnWAH7XuGA3pHLFPwhCwz2AiqXRb+ReYqthDkQ367SOCkIlmbD0f5+Hrd/8S8R
-	 Aj2IwX62BULk33nfnWgxf8gxqF3CG+eVSWJO8RiCNy5Asg3fKqjbj448TSDKXBliLzPcy
-	 9GaDjV2FgbrL9jLu8cl4czYbuFCnEWRFYtjV1WO7rhtXoQmXXvdgPB7ILH9NdwEmRKw==
+	bh=Tqi07G2NK5B5Re2GQGo+ZSlYw+c4Yb95iVdRzLGMPO4=;
+	b=UtaoGuordrn4vm7WVRYSfC/fwceeJHpx9CcICd+EV1lGVulOrGgxWT49JfwhehCuJVcT
+	 Das3oENrsOIJSnCJZ0nMiWI+bk/bBd8pdqK8PCsqTdEyT5dzndH76FXjE9HQZS2EvYxiX
+	 /K852aajodL0X9h0XKrIqJpbLs+d9hNs4slL26sGs7HlBv7FTnGSk4JUBLMcT+xG2jT5K
+	 O/3RJPfQpxagHfLt27A/rO0DKMsjb6N1yTXE8Ck4kFZtI7dwocKGl0eYCRsGWGM0hFKPK
+	 oTUjiaVZVaZesFkCIKwM5+gw/AUgwE8BR7SaJg8REcG4YXUNRhMz20PGkaNNZXjCH4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gaxFKizM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EZAcwi7c;
+	arc=none smtp.remote-ip=74.125.229.137
+Received: from mail-dl2-f9.google.com (mail-dl2-f9.google.com [74.125.229.137])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D320606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:02:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00B9606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:02:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B00B9606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gaxFKizM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4CB41F01816;
-	Thu, 29 Oct 2026 22:02:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793311340;
-	bh=FY9iXHfyXaaVg/92Tb3VUJlWn6Qi4Smqbz6v6O2hb0w=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=gaxFKizMfxH7zMrGMF7mrksWh+Jso41v96TvUdmzY8/Gxj8v+1cUy0mdRAVgZhZ2m
-	 c0DUzveJ8ljnve2nPSeHultxhWhbSjQyLl6s8BnTzT7aPoXW26xzZvkBa9kVs8JHmd
-	 pbkwZmzy7JiqgrDq/u3lVuy4iyNvWJ+3rlTeZUn/QJUGnY0Yvh1xw2Chbl+1havW0Z
-	 GvYPYDsVj1LYebovQMvWR6enCNgswIi2hv+pMwXqLMhu4JFhhwJ9iyVAdpY9M4pGQj
-	 UhBGph7/08yAgQnEy9Xp70L0GszlVePkxj5cMx4/royKsXrIvjVd/SNLyucq5465mV
-	 kxe8aJhwi1yNg==
-Date: Thu, 29 Oct 2026 12:02:19 -1000
-Message-ID: <cc76808cadf384b5ce9441f21b65a9e9@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: John Stultz <jstultz@google.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, David Stevens <stevensd@google.com>,
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
-	Valentin Schneider <vschneid@redhat.com>, Suleiman Souhlal <suleiman@google.com>,
-	Andrea Righi <arighi@nvidia.com>, Metin Kaya <Metin.Kaya@arm.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>,
-	Zimuzo Ezeozue <zezeozue@google.com>, Waiman Long <longman@redhat.com>,
-	Boqun Feng <boqun.feng@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>, Qais Yousef <qyousef@layalina.io>,
-	Xuewen Yan <xuewen.yan94@gmail.com>, kuyo chang <kuyo.chang@mediatek.com>,
-	hupu <hupu.gm@gmail.com>, Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	"zhidao su (Xiaomi)" <soolaugust@gmail.com>, Hui Su <sh_def@163.com>,
-	"Shubhang Kaushik (Ampere)" <sh@gentwo.org>, kernel-team@android.com,
-	Johannes Weiner <hannes@cmpxchg.org>, Suren Baghdasaryan <surenb@google.com>
-Subject: Re: [PATCH v33 1/7] sched/psi: Preserve sleep-persistent PSI flags on off-CPU sleeping dequeues
-In-Reply-To: <20261023220431.1106611-2-jstultz@google.com>
-References: <20261023220431.1106611-1-jstultz@google.com> <20261023220431.1106611-2-jstultz@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EZAcwi7c
+Received: by mail-dl2-f9.google.com with SMTP id a92af1059eb24-1397ad3d891so9881c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:02:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793311354; x=1793916154; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Tqi07G2NK5B5Re2GQGo+ZSlYw+c4Yb95iVdRzLGMPO4=;
+        b=EZAcwi7cNjE8Z3elHqVYyVHf5F58mrbaRpdJuodzcKIs2zIDyzeNU7YF3fJi+rKU11
+         ZFYQ7deGZRP3GtgLfcUnCE1CozHJud+8cYl5XZJbOTrvDbBTqaeRPT9CIr0DuNKCx3zg
+         /fs75bFXju9fm5gr1oxoKpUWPXU5Y1wlETogtVrKhpEPT0Q3UWo71bmzoqdk50zxUZIn
+         vI7xgGXQXCjvU7fbasOg6X0JyzcXXaNkvlS3H75K6dApI3GpGDFUzK9V44C/omMh4NzH
+         wulFqIBY9jJ+0xb4Guooql37u+WPUsBrLZ1c/6G2ARHXZk8BWFQZ/Zrq8V6zhaAyTx0T
+         nepA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793311354; x=1793916154;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Tqi07G2NK5B5Re2GQGo+ZSlYw+c4Yb95iVdRzLGMPO4=;
+        b=IqSMuJQNl1OtHHMarTQdKd7iK73FCQQ2aq9jtLZL0nicf/qniNBD87NL8bShMhU6B6
+         0xaSO+ad6hA0LLLDyefgyLE9L3Fms1vXsctCSZPwy2urIsl6LBCB0L6WvcVutL1Ub9IL
+         QRvUXDTgtaJo1gaD68+N44p2gLw6N7/JDttAyP3tnkNSLN4LtVe3xmKPKiypH0c8yrMA
+         J5jlQcGr2nXtmBFN5aulkEwMkNgye28SY6iBWT8lZXA0tzWqN5DygrrsuUGmkYltdiIR
+         FUQbtIQ2rwb5I7shP15NSbeXhdohf06UiHdre8Iw77NAjZj4OXhFZAt3P8nB1FjVi9oq
+         P76A==
+X-Forwarded-Encrypted: i=1; AKwUvBx0D47Tzicv8Cl1P1wjdg4XqXd3IwI0yQVilyGWqnz/zEpHY6CpFDNOHFgfF6emzmst4Gy4wewWnqr5k0M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPmHF5/tK9XLiLPpwfjqeoDVdVuUVd5K2e0LkMO9txFrPaUgHd
+	iegUMdmFoMh8KfbZOOZnLBRVhFFErHQpNR1SaUI8N2ueXIxu6ROoy0uN
+X-Gm-Gg: AYBFou2ALqy6KZDlI5gwieBPkrVd1FEPTa8c1oT6pgl2aoV08UPhrxyO6bhDwjVAvIv
+	0Hibe2dRw6XmRDi3kigJTb3qDWupEZmq6X7q6TaUHnqxDYo6yNh389qk5DBHJT2AI/lfrDPW810
+	C//puy2aYtCVxIodpHx2Sf5bc7OX8NY2OqKyeQcP0OSFaznXNef26tGCWDBEwbnVQHW5zACMenX
+	/NGH5oNuilj2+WeUr42xF1CJMPoamqSEcDPjRXOEWF8zQFwmlZ8/ug2n+9usMMpvoXGLSNp569T
+	wD1IKkDEAjKB9HR4x3vzmEM/q6PX4Tm4QdoyzDknQhR+ZbJHurOLE+29NxsQJTjFDLxg//KOaFt
+	p62ZzXY9z4jL0XA60YJKi7B9dW2sItt9d5ewPULNVK/sOB1tXZUu24Py8C7OnrdewxT8rmqp7I/
+	IqX3n45wCnzqs3Rm0zsYio9hrqrI0tobFRktoJIzyiDBVRw49aLrjip+4ApYy9HsDGsYXiuisO+
+	Wlgrj1gvupDSj2dIppG/8/COuy9ssLVPFbG+IW7ZayQPCqZuZoC3OUoIsGU+JKAJrgvVxiGfBLH
+	wKVrMgkfhPGxEYSXvzi9rtV1b87MfyxXhQFM9fCUauS5Px9wT4QDIbbg
+X-Received: by 2002:a05:701b:4354:b0:1a2:6b9f:f7e1 with SMTP id a92af1059eb24-1ac5cb1a31bmr472033c88.14.1793311353726;
+        Thu, 29 Oct 2026 15:02:33 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1abcd6f1sm1316007c88.20.2026.10.29.15.02.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 15:02:32 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] fs/ntfs3: accept unchanged read-only fileattr flags
+Date: Thu, 29 Oct 2026 22:02:03 +0000
+Message-ID: <20261029220203.80532-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,65 +97,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hello, John.
+ntfs_fileattr_get() reports casefold, compression and encryption flags,
+while ntfs_fileattr_set() only accepts immutable, append and nodump.
+chattr preserves the reported flags when adding or removing nodump, so
+chattr +d and -d fail with EOPNOTSUPP on nocase mounts and compressed
+files even though neither command requests a change to those properties.
 
-This patch also fixes a trigger without proxy execution, through
-switching_from_fair(). A fair task sleeps in iowait and is delay-dequeued.
-sched_setscheduler() then moves it to SCHED_FIFO, and switching_from_fair()
-dequeues it with DEQUEUE_SLEEP | DEQUEUE_DELAYED. TSK_ONCPU is clear, so
-since c2ae8b0df2d1 ("sched/core: Fix psi_dequeue() for Proxy Execution")
-psi_dequeue() clears all of its psi flags, TSK_IOWAIT included. The wakeup's
-psi_enqueue() trips the check:
+Read the current attributes and allow reported flags to be passed back.
+Continue rejecting unsupported bits that are not already present, and
+keep applying only the existing mutable flags. Requests that omit
+read-only flags, such as chattr =d, retain their existing behavior.
 
-  psi: inconsistent task state! task=1318:python3 cpu=3 psi_flags=0 clear=1 set=4
+Fixes: 33f29fc7c67e ("fs/ntfs3: add fileattr support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ fs/ntfs3/file.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-Tested on mainline 4dd16e31135e with CONFIG_SCHED_PROXY_EXEC disabled, each
-run a fresh boot. Without the patch, the reproducer below hit the warning on
-10 of 10 boots within about a second. With only 1/7 applied, 0 of 10
-sixty-second boots hit it, while switching_from_fair() dequeued a delayed
-iowait task about 3,500 to 16,000 times per boot.
-
-Tested-by: Tejun Heo <tj@kernel.org>
-
-The reproducer needs root and a block device for O_DIRECT reads, and takes
-[secs [cpu [blockdev]]].
-
-  #!/bin/bash
-  # psi-delayed.sh [secs [cpu [blockdev]]]
-  SECS=${1:-60} CPU=${2:-3} DEV=${3:-/dev/sda}
-  PY=$(mktemp --suffix=.py)
-  trap 'kill -9 $(jobs -p) 2>/dev/null; rm -f "$PY"' EXIT
-  cat > "$PY" <<'EOF'
-  import mmap, os, random, sys, time
-  if sys.argv[1] == "io":
-  	# spin ~3ms so the entity runs past its share, then a 4K O_DIRECT read
-  	fd = os.open(sys.argv[2], os.O_RDONLY | os.O_DIRECT)
-  	nblk = os.lseek(fd, 0, os.SEEK_END) // 4096
-  	buf = mmap.mmap(-1, 4096)
-  	while True:
-  		t = time.perf_counter() + 0.003
-  		while time.perf_counter() < t:
-  			pass
-  		os.preadv(fd, [buf], random.randrange(nblk) * 4096)
-  else:
-  	# flip the I/O task between SCHED_FIFO and SCHED_OTHER
-  	pid, end = int(sys.argv[2]), time.time() + float(sys.argv[3])
-  	while time.time() < end:
-  		os.sched_setscheduler(pid, os.SCHED_FIFO, os.sched_param(1))
-  		os.sched_setscheduler(pid, os.SCHED_OTHER, os.sched_param(0))
-  EOF
-  for i in 1 2; do taskset -c "$CPU" bash -c 'while :; do :; done' & done
-  taskset -c "$CPU" python3 -I "$PY" io "$DEV" &
-  IOPID=$!
-  sleep 1
-  taskset -c $(( (CPU + 2) % $(nproc) )) python3 -I "$PY" switch "$IOPID" "$SECS"
-  echo "io task pid $IOPID"
-  dmesg | grep 'psi: inconsistent' || echo "not reproduced"
-
-Thanks.
-
---
-tejun
+diff --git a/fs/ntfs3/file.c b/fs/ntfs3/file.c
+index 52e1cd969e06..af6fb438eaa8 100644
+--- a/fs/ntfs3/file.c
++++ b/fs/ntfs3/file.c
+@@ -134,17 +134,21 @@ int ntfs_fileattr_set(const struct mnt_idmap *idmap, struct dentry *dentry,
+ {
+ 	struct inode *inode = d_inode(dentry);
+ 	struct ntfs_inode *ni = ntfs_i(inode);
++	struct file_kattr old_fa = {};
+ 	u32 flags = fa->flags;
+ 	unsigned int new_fl = 0;
++	int err;
+ 
+-	/* Avoid any operation if inode is bad. */
+-	if (unlikely(is_bad_ni(ni)))
+-		return -EINVAL;
++	err = ntfs_fileattr_get(dentry, &old_fa);
++	if (err)
++		return err;
+ 
+ 	if (fileattr_has_fsx(fa))
+ 		return -EOPNOTSUPP;
+ 
+-	if (flags & ~(FS_IMMUTABLE_FL | FS_APPEND_FL | FS_NODUMP_FL))
++	/* Accept unchanged read-only flags. */
++	if (flags & ~(FS_IMMUTABLE_FL | FS_APPEND_FL | FS_NODUMP_FL |
++		      old_fa.flags))
+ 		return -EOPNOTSUPP;
+ 
+ 	if (flags & FS_IMMUTABLE_FL)
