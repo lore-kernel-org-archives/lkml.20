@@ -1,44 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=47.251.158.133
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793234417;
-	b=yiUByfyF78RWUJd9SmLHbiwnrE+9IDW2kptgVbHh/t5aMO2rkPZNayc+GJrwAmXntBBS
-	 qRLhCZAbH43tqqfAwPK54UxwqzxdmZeMHNOCAU2uj6tyd/S6OLP9N8lAQP5athNRpXfg7
-	 9e5ss88ecL2uxb30jETt4+lEnGp/id9xlpv0JGoVAznDTmUgZGbjIAPCoCYsDXOFlAtbx
-	 wJkxs+MjV1iirp6zggNDaJ5+Vx4En0wwjZ1UBgvJn6DeJTDkpfPx+A4i/pXr/DTB9Fgre
-	 1Fq/LSFx7kQZeNSndfMeFZzBgn9YgcrRdfXaCaKfgGbT2ZMAANDl5rDLsutlgilYYvg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793234417;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=uBkoYVVkTY7EAIi/mmiI2JHj5K3iCMaezc8HVdReC/E=;
-	b=fuLEYV/OPPKSuqrLGmo918sme+5YWEsn/3S2qOutDVVQO4sKso1ZUVFcybazJrm6VCtY
-	 BQ5yuFtoqTUbTzgndWoF/UgtPfXQ9SikXJeEp694mi/9L5bS0/XBc1d3EyQQ7z70s7e4a
-	 TrF67d1mGCJ68zfuPgdn7BOYgH9KDIA73M5cey5vFNXzVtbcratFN+3H1JwvPMxbT7D10
-	 k0mH9gYI/Rq7p2exfGRHmnYsXczMxByIwc7vJFau7bHcsD7kCa9f4ERUw2KLCczM0PQWt
-	 CUEvURl5pa69YxWYBISSVtei71baa0Q0U1d7U4OF3wb9UPx/iIesXK1rC3eW5F+eFoQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=HCG9R6E+;
-	arc=none smtp.remote-ip=47.251.158.133
-Received: from mail-m158133.netease.com (mail-m158133.netease.com [47.251.158.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.68
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793234734;
+	b=OgUutV0urwtC4Wm0qxqKd0JZkBMxMxvBJpNOLcAURzaE8DUT53UKUSsca/8A7LkCMtKZ
+	 CCnAw+yYG5xXAoAWECexSOIqEAItmZ8YvDMRFtKyvbvobmW+M7jV0mS3pQFP6MGic2/AZ
+	 9Jp4ZKmC5StEUB6EnFoR5jraVkm17EEzdMx8brOyxKaJK72pSEq7K0ElebiehViRAgG6Y
+	 EYe8UiARKiyfZBtyvJyPLk+w6PXe/NFwzRKbkxGlQ5gH+1Ki4Pf9SHtlkn808HU18Fkll
+	 DzXYeMrDqPB7sZfpWk673T70iBfgP9E1oXyJyhNTJEQeZ9ArDd4+eB9xpuMTXv0WJDQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793234734;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=IX66bHE1Qh/sWHYMzKZGzmSLPQlS8Qn4BjuO8xpQVSw=;
+	b=AQkSFN0dcwS0lWUWQ6WRZd+mX7m8mNObc4/CWeLGONn6+6p60Wzclw/g3y0OcGLtj5Q1
+	 GB6askJZB9+njBKWB6IhL9ZfhyIluf9TKolcttzaQ+i85hNt1PptD4mdCLOpXIgHLF2Qw
+	 kzVjcpV8NzSX5Npux+0bKeExuL7tIU8pQ+V2BvbCq46epFAi+gGAfvmIdKQaQa/HxHMPt
+	 NstLL4MpwEHAEai6uaTYKvhGFZuUrOqNswsP1hgdJnqTRUEsfq21FbcuKxu6BavgUF7wp
+	 QVulbBtmzeYYSNf+GY1+0KLco6bGxfrAp2eNTBDNnE5kyPcw++TkT5ENlh3FUy9jyeA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0uUyOHE3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.68
+Received: from mail-lr2-f4.google.com (mail-lr2-f4.google.com [74.125.230.68])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA002606A325;
-	Thu, 29 Oct 2026 00:40:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA002606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F02606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:45:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36F02606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=HCG9R6E+
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 52b624e00;
-	Thu, 29 Oct 2026 08:40:03 +0800 (GMT+08:00)
-Message-ID: <9d52d66f-7eaf-4fcc-b445-751e555707d7@rock-chips.com>
-Date: Thu, 29 Oct 2026 08:39:59 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0uUyOHE3
+Received: by mail-lr2-f4.google.com with SMTP id 38308e7fff4ca-3ac4f373d3bso2058351fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:45:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793234732; cv=none;
+        d=google.com; s=arc-20260327;
+        b=i/JW5HgROEaeDDPGEvZsebVhFfuqKLaERHh8Qk7hAglwsbb2fd962qj4lhZPXHu/Fj
+         ZW+w1rZXeJ4DHND+RERuAhTXbjXjGjaGlfFaJbEcsC7BLq/uqCPcKGlkEs7GFD/0Exr4
+         ZFWd6d//kcZI6MSvrl50lWT66SXY8dvTKfSU4eAKPIOzml8iDjg1Kbxn7HXq3lCypDl/
+         uUAkeMGmad8nGLPP0lnPn21D82dEhQ5QiHDlC90JNnbrZGkATKquUlsrStrB30K8p9Yg
+         AbGSQWASVpMisoz9oBTDcndUO331X4wIGy6SRMiBQuxX2/ftHqdggXg9F1jBujaWqeIz
+         eV4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IX66bHE1Qh/sWHYMzKZGzmSLPQlS8Qn4BjuO8xpQVSw=;
+        fh=WWxz+6SPuVeuwcFdDALYVK13p2B9fxGlQQIsVFKn/rg=;
+        b=KK4XTpSEfd1wdhYKOxz9rlQ3n9ACEfidnmHnsJGV2v9r999DZr7cm9BiczyC6i3BM/
+         vZ4sbbJWzW+95lL/E8tovgDgkOp1S37njccSxPzJ59US6Xn2eRQskppy6sYRB5UW8crT
+         jUoAQxFhJVN3pbY+Vw0vbSwRKDvyY/yumXfwC74kWIIaNQo6ZbWMHZfw65xfWAu/sxm3
+         +E+ICjMvEqXADimE/UBvGKWlIAZQYJjksltLiTAQW74Fq4DJ+Q2CVEranAzOjnl8FQPF
+         IPaO0lph6gqqUbB+BfeSvo+OJKZ4Jnf+wb320jLyz00VXpzhEDuCK7kiNQr+S0dg28BI
+         ejOg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793234732; x=1793839532; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IX66bHE1Qh/sWHYMzKZGzmSLPQlS8Qn4BjuO8xpQVSw=;
+        b=0uUyOHE3f8jNsMWp8FK0asGRw9EbEY1CXKry67A2oKasSy2HG2zwirNGL+3eeHeCiF
+         fICA8MshW9HlWQFQqeApWcIVaE6cFsDUgpN1Gf2FtjWg6t9W8tppgEfIOHVpucFW/hMg
+         1h0/u2xIm2bWfHTAlbDFvqVkttTyQHL/IhzdaLhWEC2Mcdy86MkQ/2NvXVazb4Pbwk0o
+         dW/vFeRaMnTV0A1e3ZjT5vX4zastObB82nkwqY7TEhnLOFwT/QQrMPcLj5gtrSCuG58Y
+         DrqBy4w8+kAblPZb2vNJzaZewRbknNeqQ1AZaEtijvIeldQtr+m07a/mqpm/3AlnWpZp
+         ZY4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793234732; x=1793839532;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IX66bHE1Qh/sWHYMzKZGzmSLPQlS8Qn4BjuO8xpQVSw=;
+        b=KIaQl44ZRPdD8uejjcDBqN2w5MvyaDqjGa4dtA4wgBqEgIMRP8VPUTHcqfJf4TUKFb
+         EgsBnzXAPhSSyvJKUJHArP+XrBeNd08RyhXt8inAThEY3wXP7FNX7NsPldwhHOfOpNMT
+         t3iCQ6AMSmIzN54TKjLgQGQQ0pSQIgeseo2v6InKE4as/FwrcbveGA1jUdo+f23WO0QG
+         O5Eli8ZGez2d9d6mGWoSKkK+xdWrmHZH52JV0M279NqDzD81Wu6MGv8JlXJ2VbpmH33d
+         D+EFUwKKwtMq9iFL2TI5SHh5JyBSBByeWzOvCmNLwjy35nxt8wafVOCZg1yIThRp/IF4
+         VgoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwrFBeyvBm9AGkWGHd26mv9Nx3O+rFq9Hxicnpl+xL/5cHRaJAgWKAVPWlpmFxlOkPkZJwOs11sZeX/3Kc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0SVkt+9OzqHN0A86uIyUoizzBaNgW6X22wA9TXXzRUsCL86jM
+	REl/Ksc+Fyx++qXZiIsSjeZnng1deTdcMq1HmxkWPCxsmg6ou1yZuXjpzXGeKdX5X6n/L/o7+s/
+	vvWl2gojYjCbGOzHJSugvPhYOQ1iWVCp+OB1eioFYE4Q0A+hTxA==
+X-Gm-Gg: AYBFou2WWNv7MePZYToYnvqwO9Ym2b3aHIKromgWZhTDlV51poH9eMrt9rDiw6dMRlC
+	QUdH8kPkY6Sk5dKjQZj7ZBXmRtj15BCNb/5Y0JYRmvjSH6rdhGe/5w+G6Xmf99MDl1qz22w8BpI
+	jzdhiBB6ToJ9ysghfEp0fem/D7RfF5mxefcfTicxWxtsX9Ce587UojyL5SLC/DTlsOOKzuo4Xdo
+	RiCsitHNUJRsyNRkwb7mXSCjExk6zKTkhhcunV5gybAGo2Ovusml6ExJ+L6PdkSgf2kznveES7P
+	3iV5C0cLA/0+iUvIbacS9HbIX+jzaLRKa1z0Kd5ZGTNdPHenC2oND7pePoxse3qIgmLD3pmPtUV
+	WO06PIWOv3oEFMSB6CY9PficYyJtGV3vboQ6ffFaG2Ux+h0xeISYzFkOo
+X-Received: by 2002:a05:6512:10c2:b0:5bf:a2ce:1a21 with SMTP id
+ 2adb3069b0e04-5bfcad39f9bmr1447564e87.12.1793234732196; Wed, 28 Oct 2026
+ 17:45:32 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,82 +104,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
- mani@kernel.org, manivannan.sadhasivam@oss.qualcomm.com,
- bhelgaas@google.com, robh@kernel.org, heiko@sntech.de, dlemoal@kernel.org,
- linux-pci@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- iav@iav.lv
-Subject: Re: [PATCH v3] PCI: rockchip: Don't lengthen PERST# when power is
- already valid
-To: =?UTF-8?Q?Enrique_Hern=C3=A1ndez_Bello?= <ehbello@gmail.com>
-References: <20261028005603.2399220-1-ehbello@gmail.com>
- <cf541723-eb4c-4ba6-92c5-33baafc20e7c@rock-chips.com>
- <20261028015923.2436122-1-ehbello@gmail.com>
- <95aeecc0-2794-4cc6-a635-5c042afc1405@rock-chips.com>
- <20261028171122.3422629-1-ehbello@gmail.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261028171122.3422629-1-ehbello@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa18519806403a4kunm9f3b40bdfe8d1
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHR9OVhpNThodSx5CSxlJS1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=HCG9R6E+IaJm1bNyBjRQaYBRGMVM3yRbMJQQx+50D1clXehcLwi6007xiUERJWtuPkNhcUBQsOv+CFjqhyrLLf8bsEKukzuUpiNFhtpZ+yu9vjatBpjX16bWUlkWx9pKR/m6EZHhybj/K61IhWICAPvfZM3vk4i3hKoH6DypNxA=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=uBkoYVVkTY7EAIi/mmiI2JHj5K3iCMaezc8HVdReC/E=;
-	h=date:mime-version:subject:message-id:from;
+References: <CAO-4RZ25PZ5BM+83Vk8t5NUY3ksLGz5nzONrncipu2_MZhFSsg@mail.gmail.com>
+ <auJYmq07gDhTkJfe@dread>
+In-Reply-To: <auJYmq07gDhTkJfe@dread>
+From: =?UTF-8?B?6ZOu?= <fengaojigui88@gmail.com>
+Date: Thu, 29 Oct 2026 08:45:20 +0800
+X-Gm-Features: AclHuK8bMR8xx8cfMsFzPtwhX3EUD4u5xaeiHNGfFd4E3fzBEuOQaMNxkXZrHCY
+Message-ID: <CAO-4RZ1noJO3fFYZdnVLk7K=YS5uT7+=CS2PrA5XuNeZ+cxBLA@mail.gmail.com>
+Subject: Re: [BUG] xfs: undersized log triggers assertion in xfs_log_mount()
+To: Dave Chinner <dgc@kernel.org>
+Cc: cem@kernel.org, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-在 2026/10/29 星期四 1:11, Enrique Hernández Bello 写道:
-> On Wed, 28 Oct 2026 02:21:14 +0000, Shawn Lin wrote:
-> 
->> Was it possible to add a DT property for configurable delay? I came
->> across several EPs need quite a longer wait time, so add it in the
->> vendor tree for dwc-based IP[1]. That could be applied here to slove
->> your cases and others', and might avoid regression.
->>
->> [1]
->> https://github.com/rockchip-linux/kernel/blob/develop-6.12/drivers/pci/controller/dwc/pcie-dw-rockchip.c#L865
-> 
-> Thanks -- that is a better shape than mine, and I will do it.
-> 
-> I will mirror the vendor driver: rockchip,perst-inactive-ms for the pulse, and
-> rockchip,s2r-perst-inactive-ms for the resume path, since the two paths want
-> different values here as well.
-> 
-> One thing I would rather ask than guess: should the default stay at
-> PCIE_T_PVPERL_MS, with affected boards setting the property, or should the
-> default be the spec minimum, with the property there for endpoints that need
-> longer?
-> 
+Hi Dave,
 
-  I'd suggest the affected boards to set it via DT.
+Thank you for the clarification, and I apologize for not checking the
+relevant code more carefully before sending the report.
 
-> What makes me ask is where T_PVPERL is measured from. It runs from power
-> stable to PERST# inactive, so on a board whose slot rails are regulator-
-> always-on it is already satisfied seconds before the driver touches the
-> GPIO, and the 100 ms then only widens the pulse. The one pulse-width floor
-> the spec gives is T_PERST, 100 us.
-> 
-> On my board that difference decides whether the JMB585 answers config reads at
-> all: 0 of 5 boots with a 100 ms pulse, 5 of 5 with a short one, with the
-> power-settling time held constant across both.
-> 
-> Keeping the current default is the safer change and I am happy to do that. I
-> would just rather we did it knowingly, instead of carrying a number that was
-> only ever right for boards which power the slot at the moment they assert
-> PERST#.
-> 
-> Secondary question: do you want the vendor-prefixed names, or would the DT
-> binding maintainers prefer something generic, given the timing comes from the
-> CEM spec rather than from Rockchip?
-> 
+I'll be more thorough in my analysis before submitting future reports.
 
-I think this kind of settings should keep vendor prefix, documented in
-vendor driver's dt-binding, unless other drivers would like to share
-this which I'm not sure now.
+Thanks again for your time.
 
+Best regards,
+Zheng
+
+On Thu, Oct 29, 2026 at 4:18=E2=80=AFAM Dave Chinner <dgc@kernel.org> wrote=
+:
+>
+> On Wed, Oct 28, 2026 at 01:00:54AM +0800, =E9=93=AE wrote:
+> > Hi Carlos,
+> >
+> > Executing the stored syzkaller testcases on Linux 7.3.0 ultimately trig=
+gers
+> > an assertion in xfs_log_mount():
+> >
+> >   XFS (loop0): AAIEEE! Log failed size checks. Abort!
+> >   XFS: Assertion failed: 0, file: fs/xfs/xfs_log.c, line: 597
+> >   kernel BUG at fs/xfs/xfs_message.c:102!
+> >   ...
+> >   xfs_log_mount+0x4e3/0x590
+> >   xfs_mountfs+0x10b9/0x2270
+> >   xfs_fs_fill_super+0x15cc/0x20b0
+> >   ...
+> >   Kernel panic - not syncing: Fatal exception
+> >
+> > The log size check reports 516 blocks, below the required minimum of
+> > 636 blocks.
+> >
+> > Is this an expected assertion with my XFS debug configuration, or shoul=
+d
+> > this malformed image be rejected without triggering a kernel BUG?
+>
+> A brief look at the code the error message points at answers your
+> question:
+>
+>                 /*
+>                  * Log check errors are always fatal on v5; or whenever b=
+ad
+>                  * metadata leads to a crash.
+>                  */
+>                 if (xfs_has_crc(mp)) {
+>                         xfs_crit(mp, "AAIEEE! Log failed size checks. Abo=
+rt!");
+> >>>>>>                  ASSERT(0);
+>                         error =3D -EINVAL;
+>                         goto out_free_log;
+>                 }
+>                 xfs_crit(mp, "Log size out of supported range.");
+>                 xfs_crit(mp,
+> "Continuing onwards, but if log hangs are experienced then please report =
+this message in the bug report.");
+>
+>
+> If you turn off CONFIG_XFS_DEBUG=3Dy, then what happens to that
+> ASSERT(0)?
+>
+> That's right, the ASSERT(0) goes away, and then an undersized log
+> causes the mount to fail with -EINVAL as it should.
+>
+> > I am reporting an observable assertion from a syzkaller reproduction. I=
+ am
+> > not claiming a new vulnerability or a specific root cause.
+>
+> Please do a cursory code inspection next time, because the code
+> often makes it pretty clear what the answer to your question is....
+>
+> -Dave.
+>
+> --
+> Dave Chinner
+> dgc@kernel.org
