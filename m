@@ -1,101 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793311082;
-	b=BInc6vbGnwpsifll7udTHxdnrRAnZoSCPMCZ5WG21tWa7z/eV4JbebVHmSbtR8l1zwpj
-	 VdpDrG7QwhCODpJZJ6bR8XaERAlcTZIieiQi7aaozrsQVIxX/WyPZjjlJmGL9B49jUrtU
-	 4UGh7I241uPKat0Walv+PdBaF6DwDk8rgM0ZtuI9bSO72TqddmzUEjx7rF0JQedSemlia
-	 GPX/iy1NBUprZrwlxywmYW5lt7CAK6UpXcA+OFj8J+SHLpkPozUkW9zUD/r9Sf2H8LMBs
-	 d9hUqwKLBGsDluVRiLJiqvxGDMGIKhHAlo7BM/D9nkcPjzRSIOC6LdyoSeSuuFqHmpw==
+	t=1793311118;
+	b=jsnP/4QxVL/0sdnbZTD5Oys87jEkoE88A0qHARQuW39a2bCGWxOjRMOLnMrhu+I4F3+M
+	 /TwI6pJ0UTg96Jv5oh6YkNZKy6rjUTJ6WnrHdzD0ysH8Gul1KpmOkvHSDOF9kS5uopiqk
+	 j3cZby+wOFvLTmrtfWYDh4VLIamZwiAOH4odRJ0VMNh5auEOoY/eaIEnPZNl6fnggaZcj
+	 1j0D0qH87LDelR12dBW+cOEJZynWTETILXFRSCQw1XLgsJta5h8usTUkf/RBxrjCk+a9R
+	 FqSS7Z56OHUWKMy/g87HxgEQknFQPDwZoV2TZPcPVK/4JGI+0vCncKlz9bF9b1gJZmA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793311082;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793311118;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
-	b=OXIJ/ChB4/K/myaWzl/AL78X9Yp1jgD60Qj+NswtYT1SCW0Q9I4lggRLA92avv3/x44j
-	 CcibmOsgI4WZ5Qre7Xj1BfRdNyph5yTYvG15yfK2Tqw7FwBKo50POa5318afznXrOJdgU
-	 R956vjoxKLIHkPfvoi3hWAzyzNaRzv0Zu83v9AfyiNQFTBUdj9AdL4p4Y5MlmVyl8mNYu
-	 4lXQl6h7rws8NaSR7N0T0kpJkjtsSUVM2+NRVksxUNJ6YR/fLJRwPQuEpuc9sWZyVIixR
-	 e5UbjzG5apnVZYybEtXlR3M/T8qPVDuiSQnv+GnNH2Ui/6zAcu551Snr3rqCO1Z4RyQ==
+	bh=B9+gAB8Cjyl4VLckQC54VBSrUBYtxpoBl30X97BtI60=;
+	b=kKAXrIOf7MEs02enkt/jHm6Atb9ZCBzmjHaYUnTemHUnip/V7PxHnhYYp8SXgDVXxzw7
+	 FN4wDSs4GX6KDXrqkQIUZXMBKqPH0ir+4QFYKd5xjAoQedEC0Yr5kKeimquaVte/Q1tx6
+	 IjfImhPcmT7z6FsTmvsHV6/7LzN+UBabj0HIK2U1SPYicpQuPYv9psz8tMURJ9V/fQai3
+	 ak/+azU35NB32FiQel6lwHlnyGIeik6T9SdGfCYL2pX9mFNQM72HrAR2v9AUyEEqNCWKE
+	 Csch/DLYZCqW5nFbsS0QUnry9NeN9rvAwS5wZqxy1JhaNXgxiBvjvAVfXB+29KoPMxA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PcABkNTH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VjfWL3MC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6C4606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:58:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F6C4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F1F606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:58:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40F1F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PcABkNTH
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-1430eec0070so1192c88.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:58:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793311081; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VjfWL3MC
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c414e5d282eso2703766b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:58:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793311116; cv=none;
         d=google.com; s=arc-20260327;
-        b=qoh4VA50A5E5b7yJZX2nTOPCrK4tobuMcy9WdupPacLuMKLSLFYLGSZUrBnaCDv8zF
-         om6C1JFiW436Sdb4R4Ku/jmSamoTfD+thIPw+CP03suKUO3X5BnLmEVEwTcvS4rnkfhK
-         ikREFWL0iGXTB5rPCLOuGjKFqeOQjMwxLxx4wHMG940Vv0Jjs6bE7Sz7hp1/EdSNJF/q
-         50nr+mdnPeFW08qZ2IkzU2fDM3+14EH9ySV567ixKF9S2WEpjn9LlFK5VeOJCd2AFx2M
-         yCPx7o+G5W3ko270JfAJ3CFEh6YfsPw9iDRwlu+qJEQTKLbnUnXgDGom9kwEKh1DoFDT
-         I4hw==
+        b=sNSWy2ng/DHMqAchahYNZmXofkgCyD/igz5Vr26Hu7lfqACDf5O7CQieefUWSYHEX+
+         CW3wR+SkuVdRitBaHLYyH0Bjb+Rvk0i5nPyE0h7RXjfZXbsTTAmFRpTw5GIdb7gi37Gg
+         +K30GfM5pT6nqeYzyLMmB6ljm+sg+0Bg9b/U7tuODogyUZKu6KNKcT/0l+GRuaTXntOm
+         Dsdi9EzncrCu+uxk+bLb7MyrNBtxkgj5/QK2gH+9N0BENKNRDqPnj/MZ6SoJLpxXVgDJ
+         PXDpUtEzyTpdHQRVFThil1Ic3P7ziBZbyBxOl4U3g6Bbpwdm2H0cfvy+oGRU8OJeC2Df
+         Q7pQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
-        fh=sKg4abTYRRXlayRNpmeWPaRZN2tuP9FQnQpRgyAEbjw=;
-        b=K1CRGX2Xe2d2OlZsdKNGSygusuf7YBPSIbVDWWOaDCmUY5viYrjQYMEIxM8ELsQV2m
-         MmpRWJQ+vmJUkL3pKp5MtejRmHcA2gFq6DV8vcamJTl25lUcj04OZ+FJTfK6Zezo1cOX
-         XNCdp4+hslNZ5qO6sm+XOlzj5npEjol3SM4/rR7fyU8svwCDp5D/l6IKR1OukAVKErLq
-         m9uGrSbnhmde3TwOaclA7Fe0oNLVHnm3x4p70RHkDFX8i2cXqEsnkyTmfsoI3orpFVT3
-         wNTnb17dttqWluevSp8Ii5JFdqCNTW8XwO4Hpc6IXdlNN5zJH2ba1SVxsZuQynTuIWmq
-         wkTg==;
+        bh=B9+gAB8Cjyl4VLckQC54VBSrUBYtxpoBl30X97BtI60=;
+        fh=TaPkLqQ0hICxxnXEvre7o75ouifAcWHF9D2A+tVzY00=;
+        b=SXJdV5BIl7iEQMqIUhxVOaLhvj9kYqf19RukKfsZOp1QNGC/hj9rZ0x2PYRGoE3OXA
+         1VMcZxtimrSAJ/FrQibcfquTnRARi0GMpDbTjTdyUCMbcjqxSOSmFAwdPX4yl39xCIfB
+         r1IWmoU83WHJcD7a9bl1dMXEMbNSbG0qtAZw41F98dfocGSAgVUSddV6Hc2X1eodu+fR
+         ebLzIRjMFiy85YhktV9C0XYEN2Q55snyPzni8VHGJU8leLhLt1V7eedCNZTYEht2gOza
+         tFGE+NyMBijdNhIcplnwU8TUvx3NJq588JqtahmgRnj7fdE5PxYI5HKl+XizZDIX5JuF
+         saLg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793311081; x=1793915881; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793311116; x=1793915916; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
-        b=PcABkNTHlHzUgqh9sPJ00L86DKPfF+hLxdxvlRj8qZ4keol4UDakew9Rwff5j4gnt5
-         OqWOQ+6JP3xJqinP3faD7NjVIWXY5KWpKFcb7o0m1JF6CzMgcGeXIgDWpd6MxS2ZgV3r
-         4PAGf5K6lMJBJWLPnr3ASWZmT7MVYEFX05rdIzOUU0eYJta6J5E+AHdH9mj+4+2Z9Fm6
-         Nn2rlI2aTWbIL19Q0u+X+GMpqxAwlop+6cRPYFQRmpSfrD8n7efjJvSCHK3Vgren2oBF
-         /5AAczjG7uuQRAiH+jmShFu/Qg1RV3IMnvZuE56sB00P5EvsVA4oKIhTOJY05W5WgS7v
-         U4CQ==
+        bh=B9+gAB8Cjyl4VLckQC54VBSrUBYtxpoBl30X97BtI60=;
+        b=VjfWL3MCQHgmtdTsMUdVT/rqpu68psBenh5+JCuYyGF3lPR5M/yQZLl90WV2OoCDZg
+         Jg42rc7B+OFHBpm1AepennXZtjf8i5xyUVe72eqbT5Uoa5DfgMGcHMG919fY8s/L1YJH
+         d8ieC/BLo2m/7P5tfU/fRwBYGYrOa62tA5lKxIARqRT51xhdEcgmoTI5Lz4OGEGpL7F+
+         g3zPnmHucBga0p4sKNpSyCbxBZCeAdC4A4pdcgpxZpwT2EaB/qoU86h0nL3YtWblL4p6
+         W2jO7v2BhxlrAuor2HisrNjrTQVSsvS8eksa0Oy1J/AcgTs/RL+ZJtGzUhHTOL4a1pfB
+         mc6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793311081; x=1793915881;
+        d=1e100.net; s=20260707; t=1793311116; x=1793915916;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vVmdWIfDqgQ57zGphQvuVSmIneDtL7GjZgKyHckL4FM=;
-        b=snaVL+QEn+DDtwdvs3US0oxkqVLZOKplzh6963V1zgLJbSruBTeWVvrZYTKEYBL6kf
-         51mbGOv1t4tPo6NK1vNIZe1mKc/uei8AxkNeTEGjLRDjGVV5/Ix/z8ocFBXVwx0qYR4x
-         YunbqmBF3YD50neprux/3hi8iCFZy5v+OcmS3WMRXd4LeUlYbu4FL+N5YEzBYJ6L410y
-         yYgJBOOf71lOPKgYhv3CWD9vnFhblJSO+iguhwkOdmNtDUuur6KVO0xjTC/oi5VClmBJ
-         wPgMIQkF3DSOraC3+ohvPHWd8hSXA5IaNtg9ssR8K1PX1/zY5LZt89vWYPktapUCRPp2
-         vDVw==
-X-Forwarded-Encrypted: i=1; AKwUvByc1rMCMGNDaStx3+m0B5aUAQaf/hFI/CPRsIrMChXdWC2jjwFDTvvJuN9sGJJJ9NIkblg1vpgd7Z8pPh0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKQeNkkOOO6Xt50FS7tgBHsaydftU00C6JPMUyY3JPqV8Ye3NIi
-	HcWJO1K05hszhnBsB/Lw31s8MfZgQaXYs4mMPbKvI31lGfdHXJaU0Cdz1GmKTzEJlv+w6PnEO/h
-	qhdiEFwlPqdhWkjBMV6PC0Xr2Jy5nQJs=
-X-Gm-Gg: AYBFou2vWgJFD4qFFDGlWri9UzGKenoKSSD54qxztZds9/4RTIoRmcGu3Q6VwRG6cT+
-	uA1jjxEsejEeXtmULjBfMSbk0rvGtvBIbd4onaCAYz0Gg8ddFe9wXbFMe3G776+FOsrPBREYFLr
-	DXeqrXyHogFcn6vCBOAwNWL2obIN9pDZPyROEpU/4ZWDgmp95f5TWRXbihwcjCVX+qujgcqO/YA
-	0pgE0vzCqIJ8vxtX+pkgQptYzTSyfhUiKpMg1KQRAdjNtWVmxK8sQbRdW6LA96OIQ/f2NwFyVtY
-	4FhswuzIPMMuDZykidYueMf79kMH9RsJoLxBRQvjULPe1gCUTDypAH4v4toiX05WnfdHrXF+xed
-	yx0jSatpb/6Sl0+l8b2zZRHxN93pqqhFY9AXtnCAlZKAa6ZitvrJw6aZSQF9uDtIStnf3Z3qp8h
-	vrENAxWH2eIhKYjcM6sXigVuY=
-X-Received: by 2002:a05:7022:c46:b0:1a1:9106:cfff with SMTP id
- a92af1059eb24-1ac5c45fd28mr645027c88.2.1793311081015; Thu, 29 Oct 2026
- 14:58:01 -0700 (PDT)
+        bh=B9+gAB8Cjyl4VLckQC54VBSrUBYtxpoBl30X97BtI60=;
+        b=eKYkBCAmO+rdXsNiI2z6XU9zd9g5PxHuI1ocyZexILkMOKk8xVNHJJpKkavvS7g3ow
+         YSbAtEJaPGnLdnOJ2qGuLgFfKYgPo0drvNO5IxnCvb2l00yz737F6cQQG+flYac5U+cA
+         tQi+tym+m8vYgixK/yGsCnomFPUvqFwtq4txAx6GdCnSKduoRpaOPwLX0NNONB1r7Ane
+         Uh/k3ZWO9qfTJETCLGHwsIA9Yx0P+XsT71gRL2fkL25Kl9IiTwUuA5m6U0LLWUTWGbfr
+         bONYesyt/lQXJpaUtJGEu7Fmoa3NmSiuJtM9qIKREEwmyLq28//Q2o70+JS3hYn5/lpj
+         f2QQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzn2CMOWdzuouyk1PYhSsmVd6H9Ga2zz/lpCuzhlA6HrO/nJviOZWlau+lfI59EfCUknsYcJfPqBM29Jes=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLF8WfXUgQcrN1HE5310iN1Fp8oTizPRS3szhj0xTRLo2YxW7ds
+	+3a70n+Or75jnX3732DG8m8i9yCYX7S2Bb1IJ0N1jhNLJodsr5H6A7ExuZeeOm2aerh/4e7StXb
+	2oVQ7xmoCVhtt8KTXHc4ki8rFvCuTd1doTsL+w3h6
+X-Gm-Gg: AYBFou0frsGS3rsWGg0KJ/sw7pIJjbDiRKBNl0+XhLWh5hEF51H3Hxv7n07Y6QRlZQC
+	b0JDUwtBdZU2/AYy6NV+++6PshW3niO3qPHWizf37OEDaI9Uk3TKqpp+J8eAoC90UeJ8VGWUQrW
+	1s2M9fZ4ksMBjpQmtqS8eoL3XntffCCvOKHewtUgiUZQDzwqOTwyLtAcT+Gssv3EcO3CAReLnrT
+	WPXKW1lbeBhPNBsxSsi3oAE5XhFImr1CmYfqP49VATLxo8RE8UnMiPLt6jIuy1ZJSSpDVPwIs5E
+	157LUUZnwwpeM99dnzVm+fBbSUCiu2xuERKjTnaytwR+D3Zkxt8IYzsnqvCc2olAOM1BuflBQFX
+	wk9iNMjdn/63XCAZOt/9Du6j20trRRY7dNAc5l8EJoSDSsls++8zCfDRjOa3spQa10XaXhJI=
+X-Received: by 2002:a17:907:18c3:b0:c26:22ae:b66b with SMTP id
+ a640c23a62f3a-c4ca7aee966mr31602566b.15.1793311115078; Thu, 29 Oct 2026
+ 14:58:35 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,317 +104,320 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260916144014.879355-1-ed@aicharmers.com>
-In-Reply-To: <20260916144014.879355-1-ed@aicharmers.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 29 Oct 2026 17:57:49 -0400
-X-Gm-Features: AclHuK9xVl7f8hieJPy2X3wLzEpfApxWnh2cKeKmKYYgIZ_iAsxEqlD0F7kalKA
-Message-ID: <CADnq5_MsaUDm8rcxr3_0wuEAXywxziAofOO9w-dUxYS9PUoasw@mail.gmail.com>
-Subject: Re: [PATCH v4] drm/amd/pm: defer UCLK DPM on selected Apple Navi GPUs
-To: Ed Schofield <ed@aicharmers.com>, Andre Eikmeyer <dev@deq.rocks>
-Cc: amd-gfx@lists.freedesktop.org, Kenneth Feng <kenneth.feng@amd.com>, 
-	Alex Deucher <alexander.deucher@amd.com>, 
-	Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
+References: <20261023001603.560210-8-wusamuel@google.com> <20261023001603.560210-9-wusamuel@google.com>
+ <CAEf4Bzb--Jzz696u057G9_CgQN7zf6ksvoL80KJacKO2CorsnQ@mail.gmail.com>
+In-Reply-To: <CAEf4Bzb--Jzz696u057G9_CgQN7zf6ksvoL80KJacKO2CorsnQ@mail.gmail.com>
+From: Samuel Wu <wusamuel@google.com>
+Date: Thu, 29 Oct 2026 14:58:23 -0700
+X-Gm-Features: AclHuK8Skd5aK1mpj2aYhCa7McUFcLlkjExMScvtTmOLJycjBhAcAzm-z_wLwRU
+Message-ID: <CAG2Kctojb7xiOqTmwWqoAKFaNUECjOzXVc_t6KbG13Pqm2dbng@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-+ Andre
-
-On Wed, Sep 16, 2026 at 10:51=E2=80=AFAM Ed Schofield <ed@aicharmers.com> w=
+On Tue, Oct 27, 2026 at 3:25=E2=80=AFPM Andrii Nakryiko
+<andrii.nakryiko@gmail.com> wrote:
+>
+> On Thu, Oct 22, 2026 at 5:17=E2=80=AFPM Samuel Wu <wusamuel@google.com> w=
 rote:
+> >
+> > Add an extensible KALLSYMS_QUERY ioctl() interface to /proc/kallsyms
+> > to support fast point queries without scanning the entire text file.
+> > Exactly one query mode must be set in query_flags.
+> >
+> > When KALLSYMS_QUERY_BY_SYMBOL is set in query_flags, KALLSYMS_QUERY
+> > resolves a NUL-terminated symbol name in vmlinux or loaded modules and
+> > then populates sym_addr:
+> > - Searches vmlinux first via kallsyms_lookup_names() (binary search),
+> >   which takes precedence over loaded modules, and falls back to
+> >   module_kallsyms_on_each_symbol() under module_mutex for module
+> >   symbols
+> > - Matches names exactly, like kallsyms_lookup_name(), disregarding the
+> >   .llvm.<hash> matching, following precedent set by commit fb6a421fb615
+> >   ("kallsyms: Match symbols exactly with CONFIG_LTO_CLANG")
+> > - Resolves 0x0 symbol addresses in both vmlinux and modules
+> > - Rejects ambiguous symbols (multiple entries with the same name at
+> >   different addresses within vmlinux, or across loaded modules) with
+> >   -EADDRNOTAVAIL, while allowing same-address aliases
+> >
+> > Userspace symbolizers resolve kernel addresses to symbol names with
+> > /proc/kallsyms. This is typically done by reading the entire
+> > /proc/kallsyms text file, and keeping a compressed sorted copy of it in
+> > order to resolve addresses at runtime.
+> >
+> > When KALLSYMS_QUERY_BY_ADDR is set in query_flags, KALLSYMS_QUERY
+> > resolves one address to the symbol that contains it:
+> > - sym_addr holds the address to resolve on input.
+> > - sym_name_addr must point to a user buffer of sym_name_size bytes
+> >   that receives the NUL-terminated symbol name. On output,
+> >   sym_name_size holds the number of bytes written (including the
+> >   terminating NUL). -ENAMETOOLONG is returned if the buffer is too
+> >   small; a buffer of KSYM_NAME_LEN (512 at the time of writing) bytes
+> >   is always large enough.
+> > - Symbols are resolved via kallsyms_lookup(), the same lookup as %pS,
+> >   covering vmlinux, loaded modules, BPF JIT images, and freed module
+> >   init functions still tracked by ftrace.
+> >
+> > On an 8 CPU Cuttlefish (x86-64 VM), using this patchseries to load a BP=
+F
+> > program with 11 typeless ksyms has ~220x speedup (157ms -> 0.7ms).
+> >
+> > On an 8 CPU x86-64 VM with a 175k line kallsyms, there are broad
+> > performance and memory savings for the symbolization and callstack
+> > sampling tool, Perfetto:
+> > - Init time: ~350x speedup (155.7ms -> 0.44ms)
+> > - 50k symbolizations: ~12x speedup (25.2ms -> 2.2ms)
+> > - VmRSS: -68% (15.1MB -> 4.8MB)
+> >
+> > Suggested-by: Andrii Nakryiko <andrii@kernel.org>
+> > Signed-off-by: Samuel Wu <wusamuel@google.com>
+> > ---
+> >  include/uapi/linux/fs.h |  41 +++++++++++++
+> >  kernel/kallsyms.c       | 132 ++++++++++++++++++++++++++++++++++++++++
+> >  2 files changed, 173 insertions(+)
+> >
+> > diff --git a/include/uapi/linux/fs.h b/include/uapi/linux/fs.h
+> > index 34c6f219462a..b43f227dad0e 100644
+> > --- a/include/uapi/linux/fs.h
+> > +++ b/include/uapi/linux/fs.h
+> > @@ -674,6 +674,47 @@ struct procmap_query {
+> >         __u64 build_id_addr;            /* in */
+> >  };
+> >
+> > +/* /proc/kallsyms ioctl */
+> > +#define KALLSYMS_QUERY _IOWR(PROCFS_IOCTL_MAGIC, 18, struct kallsyms_q=
+uery)
+> > +
+> > +/* Exactly one query mode must be set in query_flags. */
+> > +enum kallsyms_query_flags {
+> > +       /*
+> > +        * Look up a symbol in vmlinux or loaded modules (vmlinux first=
+; BPF
+> > +        * and ftrace symbols are not searched) by exact NUL-terminated=
+ name
+> > +        * at sym_name_addr and return sym_addr. sym_addr and sym_name_=
+size
+> > +        * must be 0 on input.
+> > +        */
+> > +       KALLSYMS_QUERY_BY_SYMBOL =3D 0x01,
+> > +       /*
+> > +        * Look up the symbol covering sym_addr and write its NUL-termi=
+nated
+> > +        * name to the sym_name_addr buffer of sym_name_size bytes. The=
+ same
+> > +        * symbols as %pS are searched: vmlinux, loaded modules, BPF JI=
+T
+> > +        * images, and freed module init functions still tracked by ftr=
+ace.
+> > +        * A buffer of KSYM_NAME_LEN (512 at the time of writing) bytes=
+ is
+> > +        * always enough. On success, sym_name_size is set to the numbe=
+r of
+> > +        * bytes written (including the terminating NUL).
+> > +        */
+> > +       KALLSYMS_QUERY_BY_ADDR =3D 0x02,
+> > +};
+> > +
+> > +/*
+> > + * Returns -ENOENT if no symbol matches, -EADDRNOTAVAIL if the name ma=
+ps to
+> > + * more than one address, -ENAMETOOLONG if the name does not fit in
+> > + * KSYM_NAME_LEN (512 at the time of writing) or sym_name_size bytes, =
+and
+> > + * -EPERM if kallsyms addresses are hidden from the opener of /proc/ka=
+llsyms
+> > + * (e.g. kptr_restrict).
+> > + */
+> > +struct kallsyms_query {
+> > +       __u64 size;             /* in - struct size for compatibility *=
+/
+> > +       __u64 query_flags;      /* in - query mode (enum kallsyms_query=
+_flags) */
+> > +       __u64 sym_name_addr;    /* in - address of symbol name buffer *=
+/
+> > +       __u64 sym_addr;         /* out (BY_SYMBOL) / in (BY_ADDR) */
+> > +       __u64 sym_name_size;    /* in/out - name buffer size / bytes wr=
+itten */
+> > +};
 >
-> From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+> it might be smart to have QUERY_BY_ADDR and QUERY_BY_NAME to be two
+> separate ioctl commands with its own query in/out struct. This would
+> remove addr vs name ambiguity in sym_name_addr field, and will allow
+> us to evolve APIs independently, if necessary. They should still
+> probably reuse the same type to represent symbol information, and have
+> kallsyms_query struct provide a pointer to that struct (and its
+> maximum size), which the kernel will fill out and set the size it
+> actually knows about.
 >
-> Some Apple Navi GPUs intermittently time out during SMU initialization
-> when EnableAllSmuFeatures includes UCLK DPM. Leave UCLK out of that early
-> request and enable it from Navi post-init, after display hardware init
-> and before the UMC workaround and UMD clock setup.
+> struct kallsyms_query_by_addr {
+>     __u64 size;
+>     __u64 query_flags;
+>     __u64 sym_addr; /* in */
+>     struct kallsyms_sym *sym; /* out */
+>     __u64 sym_len;
+> };
 >
-> Read back the enabled features before rebuilding the memory clock table
-> and sustainable clock limits. Also check the PPT memory states used by
-> display initialization before late enablement. Keep memory-voltage DPM
-> and respect the user's memory-DPM setting and the secure Navi 10 exclusio=
-n.
+> struct kallsyms_sym {
+>     __u64 sym_addr;
+>     __u64 sym_name;
+>     __u64 sym_name_len;
+>     __u64 sym_module;
+>     __u64 sym_module_len; /* if zero, no module requested/available */
+> };
 >
-> Limit this workaround to Apple 7340/0218 revision 41, 7340/0219, and
-> 731b/021a revision 40. Revisions and PCI IDs here are hexadecimal. The
-> underlying initialization dependency behind the timing sensitivity is
-> still unknown.
+> e.g. for symbol you'd want to return its name, address, but also
+> module name. and we should leave a way to extend it further with more
+> optional information (that's the kallsyms extensibility bit I was
+> talking about).
 
-@Andre Eikmeyer I think this patch should fix your system as well.
-@Atharva Tiwari are you ok with this patch?
+Agree, two ioctls with a shared symbol type is cleaner. v3 plan is to
+have QUERY_BY_NAME and QUERY_BY_ADDR both fill a shared struct
+kallsyms_sym (address, size, name, module), passed by pointer so it
+can grow later.
 
-Thanks,
+> aslo, we should think about adding ways to paginate (or at least leave
+> a possibility of that in the future) if there are multiple matches
+> (e.g., for static functions with the same name resolving to multiple
+> addresses); not sure how it should look like API wise, but it would be
+> good to still return "any" or "first" match, but let user know there
+> are multiple, so user can decide how to proceed...
 
-Alex
+Makes sense, but I'm thinking v3 doesn't need pagination or batching.
+I didn't see any performance wins when profiling libbpf, and it can be
+added later without breaking UAPI.
 
+> on input I'd also add module name as optional input argument, with
+> "vmlinux" limiting to just vmlinux, set module name to just that name,
+> and NULL/zero meaning "we don't care"
+
+Makes sense, so here is a possible plan for QUERY_BY_NAME:
+- Optional module filter: NULL =3D any, "vmlinux", or a module name
+- Returns the first match by default (vmlinux first, then modules). An
+ALL_MATCHES flag searches everything and reports the number of matches
+
+And an open question I'm unsure about: Should libbpf keep the light
+skeleton semantics (take the first match, no ambiguity check), or set
+ALL_MATCHES to keep today's check that fails on names with multiple
+addresses?
+
+> for QUERY_BY_ADDR we should have a flag saying whether an exact match
+> by address is requested or we should find a symbol that covers the
+> address (that's most useful for symbolization). maybe even "at or
+> after" address mode, so you can paginate (though probably explicitly
+> designed batch API would be even more useful later)
+
+For v3 I think we can keep BY_ADDR to the covering lookup only. The
+result can fill in the covering symbol's (start address, size, name,
+module), and callers can check for an exact match themselves by
+comparing the start address with the queried address. A batch API can
+be added later when there is a user for it.
+
+> tl;dr, this is the right direction, but I think we should polish API a
+> bit more to be more universally useful and extensible
+> > +
+> > +#define KALLSYMS_QUERY_SIZE_VER0       40 /* sizeof first published st=
+ruct */
+> > +
+> >  /*
+> >   * Shutdown the filesystem.
+> >   */
+> > diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
+> > index aec2f06858af..7caaf3e421c7 100644
+> > --- a/kernel/kallsyms.c
+> > +++ b/kernel/kallsyms.c
+> > @@ -31,6 +31,7 @@
+> >  #include <linux/kernel.h>
+> >  #include <linux/bsearch.h>
+> >  #include <linux/btf_ids.h>
+> > +#include <linux/uaccess.h>
+> >
+> >  #include "kallsyms_internal.h"
+> >
+> > @@ -922,11 +923,142 @@ const char *kdb_walk_kallsyms(loff_t *pos)
+> >  }
+> >  #endif /* CONFIG_KGDB_KDB */
+> >
+> > +struct kallsyms_mod_find_ctx {
+> > +       const char *name;
+> > +       unsigned long addr;
+> > +       bool found;
+> > +};
+> > +
+> > +static int kallsyms_mod_find_cb(void *data, const char *name, unsigned=
+ long addr)
+> > +{
+> > +       struct kallsyms_mod_find_ctx *ctx =3D data;
+> > +
+> > +       if (strcmp(name, ctx->name) !=3D 0)
+> > +               return 0;
+> > +       if (ctx->found && ctx->addr !=3D addr)
+> > +               return -EADDRNOTAVAIL;
+> > +       ctx->found =3D true;
+> > +       ctx->addr =3D addr;
+> > +       return 0;
+> > +}
+> > +
+> > +static int do_kallsyms_query(struct kallsym_iter *iter, void __user *u=
+arg)
+> > +{
+> > +       char namebuf[KSYM_NAME_LEN];
+> > +       struct kallsyms_query karg;
+> > +       unsigned long addr;
+> > +       unsigned int start;
+> > +       unsigned int end;
+> > +       unsigned int i;
+> > +       __u64 usize;
+> > +       long len;
+> > +       int err;
+> > +
+> > +       BUILD_BUG_ON(sizeof(struct kallsyms_query) !=3D KALLSYMS_QUERY_=
+SIZE_VER0);
+> > +
+> > +       /*
+> > +        * The text interface shows zero addresses to openers without p=
+ermission.
+> > +        * A zeroed point query result is useless (and an address-to-sy=
+mbol query
+> > +        * would leak KASLR), so fail instead.
+> > +        */
+> > +       if (!iter->show_value)
+> > +               return -EPERM;
+> > +       if (copy_from_user(&usize, uarg, sizeof(usize)))
+> > +               return -EFAULT;
+> > +       if (usize > PAGE_SIZE)
+> > +               return -E2BIG;
+> > +       if (usize < KALLSYMS_QUERY_SIZE_VER0)
 >
-> This builds on Atharva Tiwari's submitted 0219 delayed-UCLK patch
-> and Guna's diagnosis. Ed Schofield moved the enable point into the
-> Navi callback, added state validation and clock-table refresh, and
-> extended the board matching.
-> Independent tests of the related T2 implementation support improved boot
-> reliability on 0219 and 021a; those are not tests of this exact AMD patch=
-.
+> PROCMAP_QUERY uses offsetofend() for the last defined field, any
+> reason to have this #define and BUILD_BUG_ON here?
+
+David pointed out that the size field in struct kallsyms_query is
+redundant. In v3, I can drop the size field and use _IOC_SIZE(cmd),
+keep the *_SIZE_VER0 define (since we need minimum size). Perfectly
+fine to switch to the PROCMAP_QUERY style though if preferred.
+
+Thanks Andrii for all the thoughtful feedback!
+
+> > +               return -EINVAL;
+> > +
+> > +       err =3D copy_struct_from_user(&karg, sizeof(karg), uarg, usize)=
+;
+> > +       if (err)
+> > +               return err;
+> > +
 >
-> Link: https://lore.kernel.org/amd-gfx/20260824190409.1724-1-atharvatiwari=
-linuxdev@gmail.com/
-> Link: https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-56=
-37976466
-> Link: https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-56=
-45652752
-> Assisted-by: Codex:GPT-6
-> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-> Co-developed-by: Ed Schofield <ed@aicharmers.com>
-> Signed-off-by: Ed Schofield <ed@aicharmers.com>
-> ---
-> Hi Alex, hi Atharva,
->
-> Here is v4 of the delayed-UCLK workaround. Atharva is credited as the
-> author in `From:`, with my rework credited through `Co-developed-by:`.
-> The local development history starts from Atharva's original 0219
-> submission [1], followed by my move to the Navi post-init callback,
-> state validation, clock-table refresh and additional board support. This
-> export is a single replacement patch against AMD staging at `8a4e96cf2`;
-> it is not an incremental patch to apply on top of v2 or Atharva's
-> original patch. (V3 was a local revision that I didn't submit to this
-> list.)
->
-> Atharva, I agree that display initialization may explain the timing
-> dependency. This patch already enables UCLK after display hardware
-> initialization on the normal probe path. It is intended as a targeted
-> workaround for the reported boot failures; it does not establish the
-> underlying cause or address native 5K support. Could you share the exact
-> initialization-ordering diff, kernel version and GPU IDs from your
-> experiment? In the AMD staging tree used for this patch,
-> `dce_v10_0_early_init()` handles Tonga/Fiji, while these Navi boards use
-> the DCN path.
->
-> My goal is to stop the intermittent boot failures on my iMac (0218) and
-> other affected machines. Testing of my related T2 candidate in PR 61
-> [2], which was based on my local v3, is encouraging:
->
-> - Matt Olney's report on 021a [3] records internal-display boot success
->   improving from 2/10 to 10/10, with mixed restart types.
->   External-display results were 4/10 versus 4/5, with uncertain kernel
->   selection on the failed candidate attempt.
-> - Vivek Chauhan's report on 0219 [4] records boot success improving from
->   1/5 to 3/3.
->
-> These results are from the T2 implementation, not this exact AMD v4
-> export. The T2 patch stack also includes a separate correction to its
-> existing fixed allowed-feature mask on 0219, which clean AMD does not
-> need and this patch does not contain. The results support improved boot
-> reliability on these machines, but do not establish full performance or
-> reliability across all display configurations.
->
-> Compared with public v2, v4 adds 731b/021a revision 40, preserves the
-> existing secure-Navi-10 exclusion and generalizes the helper names. It
-> retains 7340/0218 revision 41 and 7340/0219. All IDs and revisions here
-> are hexadecimal.
->
-> Compared with my local v3 / T2 Linux PR #61, v4 excludes 020f: 3v3nFloW
-> reported that initialization completed but the machine subsequently hung
-> under load [5]. Their follow-up testing with a fixed memory-clock level
-> [6] suggests that memory-clock changes cause the hang, but doesn't
-> establish whether GPU load or display activity triggers it. I've also
-> excluded 021b from this version, which we don't yet have testing results
-> for.
->
-> Local build and host checks pass. I am currently travelling without my
-> iMac and have no new v4 hardware results, but I am submitting this
-> version for merging, with the workaround limited to the three board
-> matches supported by the existing evidence from the volunteer testers
-> mentioned above.
->
-> Alex, this patch replaces v2 and applies directly to the AMD staging
-> commit identified above.
->
-> Thanks,
-> Ed
->
-> [1] https://lore.kernel.org/amd-gfx/20260824190409.1724-1-atharvatiwarili=
-nuxdev@gmail.com/
-> [2] https://github.com/t2linux/linux-t2-patches/pull/61
-> [3] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5637=
-976466
-> [4] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5645=
-652752
-> [5] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
-139127
-> [6] https://github.com/t2linux/linux-t2-patches/pull/61#issuecomment-5646=
-438512
->
-> v3 was local, not submitted. Since public v2: add the tested 021a/40
-> match, retain the secure-Navi-10 exclusion, and generalize helper names.
-> Since local v3: remove 020f (load hangs) and 021b (no testing evidence).
-> Base: 8a4e96cf2acd1e0340581df100b559f77ad7d855 (AMD staging).
-> This is a full replacement, not a patch to apply on top of v2.
->
->  .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 100 ++++++++++++++++++
->  1 file changed, 100 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gp=
-u/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> index f8ca5eb9a..3ac2a074c 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-> @@ -60,6 +60,37 @@
->
->  static int navi10_init_ppt_limits(struct smu_context *smu);
->
-> +static bool is_asic_secure(struct smu_context *smu);
-> +
-> +static bool navi10_apple_needs_late_uclk(struct smu_context *smu)
-> +{
-> +       struct amdgpu_device *adev =3D smu->adev;
-> +       struct pci_dev *pdev =3D adev->pdev;
-> +
-> +       if (pdev->vendor !=3D PCI_VENDOR_ID_ATI ||
-> +           pdev->subsystem_vendor !=3D PCI_VENDOR_ID_APPLE ||
-> +           !(adev->pm.pp_feature & PP_MCLK_DPM_MASK))
-> +               return false;
-> +
-> +       /* Preserve the existing secure Navi 10 memory-DPM exclusion. */
-> +       if (is_asic_secure(smu) &&
-> +           amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0,=
- 0) &&
-> +           adev->rev_id =3D=3D 0)
-> +               return false;
-> +
-> +       switch (pdev->device) {
-> +       case 0x7340:
-> +               return (pdev->subsystem_device =3D=3D 0x0218 &&
-> +                       pdev->revision =3D=3D 0x41) ||
-> +                      pdev->subsystem_device =3D=3D 0x0219;
-> +       case 0x731b:
-> +               return pdev->subsystem_device =3D=3D 0x021a &&
-> +                      pdev->revision =3D=3D 0x40;
-> +       default:
-> +               return false;
-> +       }
-> +}
-> +
->  static const struct smu_feature_bits navi10_dpm_features =3D {
->         .bits =3D {
->                 SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
-> @@ -356,6 +387,11 @@ navi10_init_allowed_features(struct smu_context *smu=
-)
->                 smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, F=
-EATURE_MEM_MVDD_SCALING_BIT);
->         }
->
-> +       /* Defer UCLK on the selected Apple boards until IP late init. */
-> +       if (navi10_apple_needs_late_uclk(smu))
-> +               smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
-> +                                          FEATURE_DPM_UCLK_BIT);
-> +
->         if (is_asic_secure(smu) &&
->             (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(11, 0=
-, 0)) &&
->             (adev->rev_id =3D=3D 0))
-> @@ -470,6 +506,25 @@ static int navi10_store_powerplay_table(struct smu_c=
-ontext *smu)
->         return 0;
->  }
->
-> +/* DCN20 consumes these PPT states before the post-init UCLK enable. */
-> +static int navi10_apple_check_uclk_states(struct smu_context *smu)
-> +{
-> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
-> +       unsigned int count, i;
-> +
-> +       if (!navi10_apple_needs_late_uclk(smu))
-> +               return 0;
-> +
-> +       count =3D ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
-> +       if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
-> +               return -EINVAL;
-> +       for (i =3D 0; i < count; i++) {
-> +               if (!ppt->FreqTableUclk[i])
-> +                       return -EINVAL;
-> +       }
-> +       return 0;
-> +}
-> +
->  static int navi10_setup_pptable(struct smu_context *smu)
->  {
->         int ret =3D 0;
-> @@ -490,6 +545,10 @@ static int navi10_setup_pptable(struct smu_context *=
-smu)
->         if (ret)
->                 return ret;
->
-> +       ret =3D navi10_apple_check_uclk_states(smu);
-> +       if (ret)
-> +               return ret;
-> +
->         return navi10_init_ppt_limits(smu);
->  }
->
-> @@ -3219,6 +3278,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu=
-_context *smu)
->                                                NULL);
->  }
->
-> +/* IP late init follows display hw_init; refresh clocks before UMC/UMD s=
-etup. */
-> +static int navi10_apple_late_uclk_enable(struct smu_context *smu)
-> +{
-> +       struct smu_11_0_dpm_context *dpm =3D smu->smu_dpm.dpm_context;
-> +       struct smu_dpm_table *table =3D &dpm->dpm_tables.uclk_table;
-> +       PPTable_t *ppt =3D smu->smu_table.driver_pptable;
-> +       struct smu_feature_bits enabled;
-> +       int ret;
-> +
-> +       if (!navi10_apple_needs_late_uclk(smu))
-> +               return 0;
-> +
-> +       ret =3D smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT=
-, true);
-> +       if (ret)
-> +               return ret;
-> +       ret =3D smu_cmn_get_enabled_mask(smu, &enabled);
-> +       if (ret)
-> +               return ret;
-> +       if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
-> +               return -EIO;
-> +
-> +       smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
-> +                                FEATURE_DPM_UCLK_BIT);
-> +       table->clk_type =3D SMU_UCLK;
-> +       ret =3D smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
-> +       if (ret)
-> +               return ret;
-> +       if (!table->count)
-> +               return -EINVAL;
-> +       if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
-> +               table->flags |=3D SMU_DPM_TABLE_FINE_GRAINED;
-> +
-> +       return smu_v11_0_init_max_sustainable_clocks(smu);
-> +}
-> +
->  static int navi10_post_smu_init(struct smu_context *smu)
->  {
->         struct amdgpu_device *adev =3D smu->adev;
-> @@ -3227,6 +3321,12 @@ static int navi10_post_smu_init(struct smu_context=
- *smu)
->         if (amdgpu_sriov_vf(adev))
->                 return 0;
->
-> +       ret =3D navi10_apple_late_uclk_enable(smu);
-> +       if (ret) {
-> +               dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n"=
-, ret);
-> +               return ret;
-> +       }
-> +
->         ret =3D navi10_run_umc_cdr_workaround(smu);
->         if (ret)
->                 dev_err(adev->dev, "Failed to apply umc cdr workaround!\n=
-");
-> --
-> 2.43.0
+> [...]
