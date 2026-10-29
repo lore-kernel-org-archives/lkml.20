@@ -1,88 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297804;
-	b=XZq2g4hFwfvNa1uLGqv6ZUqlZYCmSTDsFVaaUemIWZsu6Mie/wsEo/7/4kEeDWI7C2JO
-	 I8/yQBFL+wSYtnd7yA1AOHqVKmfSja94zwGhSu3LxTINEIJNjq20VZezOHhQpVT83TUyi
-	 4WoZ0aJ31YJ22fsTRp+nwTUuNsLV5kI/YVWBri8KZhth3CVyQQ+sJG6Uv0/XqoMypOu7X
-	 1m6NArrvxoQl1JSGma3ZE1yk4Jd2lN+XlyFa2rLXxQV3ebh4B7FrzOKpnO8WaSo8dlI7F
-	 huBt4sncUQyFL1I9FG38iAXZ9GPMSvptqy7HvsHTOq6hJT2BfznwUlHt+7AayvowuYw==
+	t=1793297816;
+	b=Z3OtAtSOF8GV+KL1F4t/p2usOPZNclt/cMAP4OUlbcreA7pKEixjqNottJ3q2d3Pb8dC
+	 1bVcBLqKi1pOG2o0zvHHYxvvaNhkoUPuKir9AJQlg0FS4KnyIp0BMkoczHsZC70GWoq34
+	 Lm3ks1OKbnRyQs5ifCJn5WQJ58Vokh4KSPW4tVl1LpURkwYsz27SfaJiE/MY6tX0OCiIS
+	 pvclKHt7qrlI0V+WTK3jajx/hUpRxeOFzPar7yv1uPJJ077ZGY450Xawy1Rw3b3ryVVs7
+	 tghm0f2/tj22eRDGwImVyq7HsKfNp9+RoHVXe5rslXUcr9eMPD8jpY5j7fZlGXXZBcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297804;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297816;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=99z/FjcazCZQi4D66B/SibaBChuRIkU7h/mfNRp/Qdw=;
-	b=vhTtj7dyiaOqvmMODpntEC+mEG16i0NkadwhnxhRCSUW49ZS/E6bYtIaalvVpWEfbn9Z
-	 SVAnh5ZmvCfTZ+Cm7syGKDHTdLO40Z0YIVkvG9a8PhGtw5vvl6/ZpYVuyJKgxk094a1Le
-	 dR73hn7TUGhLOXwZazAQgmAcUXABMNpHqSn38U0ivg7XVeQThNhKyxxGp04EPmNixnzvs
-	 pPjmwlY84M8TsmhMtvPtosJRK96ewgYUaAWyQ1Rik+Xi87SRTD8yaio2Os1K9w4bQvjjj
-	 Dqp+b+/zABW2RlNAw7JaLM3Afsu+a1sPdBz08jSuSx7zxgh5OpON7YVA5nD3GXXrm9g==
+	bh=SbGRSkF9pUn2CydJkzRh5tNHBjPKK+0FwPmwEY8AU7g=;
+	b=bIvcpbrIeX8NR/tevWSK0JXe83hog/vfZ6txFkOK4Sa4l5E3NQGs4gp6ANuYeiHh33P6
+	 U9oMuBI3I1PZDs22+2HTAF7xeGC6dWkwmiN475gsmeI63VGiUJ1ot9pTSxjbuFfG/v0B+
+	 UE1R9E8c8y5vTmT69VR5VloQN6RGkiHtDLcrbifS6M5xveVHYBDZTuQB+YJhLolEZrROn
+	 s1DpQ0CUUg9hb/4QBLgiK9xc5C+l8zwzp6U3jOJxqcnlW7wZro8gxLV73Ppihaocw/ENP
+	 3eeGgZb2DE3feZ3FHTx9igW2/fFo/v+S7enxNcnXl76qlEJwQXeCGlQow1VcdWotkjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VrYzhrJ0;
-	arc=none smtp.remote-ip=209.85.215.169
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Nfuy/y0G";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tjPXf4c4;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6983560A380B
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:16:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6983560A380B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF76606A329
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:16:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDF76606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VrYzhrJ0
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd5d2dafeccso1436584a12.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:16:44 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Nfuy/y0G;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tjPXf4c4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793297803;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SbGRSkF9pUn2CydJkzRh5tNHBjPKK+0FwPmwEY8AU7g=;
+	b=Nfuy/y0GUiqd1SUTqkrG3nDAwn1rDG2V0mI+NQ84DAPlOxwCqKLxYKFORd434+4AMt0+jo
+	tFs22qUtTSxZ97UVHNFIsnEcBG8nzAmCkJMuOq3xWxLnphT9X3Dh1CxspHQAEtaldJ5j0/
+	0lOYnjQxL1nJTas8OPQCmfx3HXXPuIk=
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
+ [74.125.82.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-539-IlZicZ5oM7KJdbjVgmxgEQ-1; Thu, 29 Oct 2026 14:16:25 -0400
+X-MC-Unique: IlZicZ5oM7KJdbjVgmxgEQ-1
+X-Mimecast-MFC-AGG-ID: IlZicZ5oM7KJdbjVgmxgEQ_1793297773
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36637676140so3402720eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:16:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793297804; x=1793902604; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=99z/FjcazCZQi4D66B/SibaBChuRIkU7h/mfNRp/Qdw=;
-        b=VrYzhrJ0pOifKYg/rQ42XohWgLtymI0J3+G2RhlXh7enIkiCM6k7YxfLvUBxT7AnDZ
-         aAPpwAHi8PRDK4jJozJOfvwofoG3X4IFvMZHHrsSRva2sviTsNi4nvGHGb14LuJhjlGN
-         nfvsdfYg6TvM1P7i244m9nQ4PyiQ68Yt/WYK7WAROj36PqO/CMeHsDSyFofgiaUXy40J
-         jJcewKtkafTVl5kD1Z7s5qSzV926t3bMmiAmjJB00M/rhCFwA+onIKZVT6/H5Iw1saXl
-         lJGTT0E3DXKvbnu5N6WSDS8TUcfFEHJFYvc7D6zfWvkCCxFQkaaeSROIP3htdPQWJAUt
-         6K2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793297804; x=1793902604;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=redhat.com; s=google; t=1793297773; x=1793902573; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=99z/FjcazCZQi4D66B/SibaBChuRIkU7h/mfNRp/Qdw=;
-        b=diNUOkgStyknDx+lL+dVmKuESDZxuDmWrWkj9KBHHZfFEFy2YfCBdghwUY7WA2gx0j
-         doPR6KTzsVNY15hyig3rgQYIo/DrUQirKBs9zvmFXAAt/AlcI9aP5J24oXmCiLs+mooX
-         x/NCPrqZvlzvAScBEMoCZGofSEdvoKIcs5WunGo4cCR129ICmM1qYbyYWvKysaQNp5iq
-         A2CdQo7r2pER23pfvyKYe9+wCslPRRibMUmeyFRmDTekrkjThiTTscH56DgEvhi34upF
-         DpINmgmRGa0jhdDM6TztdXlAK90cTD8qIGvXM188LpH7yxmksr5lT99ymutDXO4VYmTh
-         DMXw==
-X-Forwarded-Encrypted: i=1; AKwUvBxGFYnOQQlQERBNWNYQ67jl91TJYmvol2ffWA86J8yrv4tAQ+hExYJBf12QzJgE0ZqIQHyYYBd24xeXIrE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXJQX4hO/WO1plEi69GlvLde4fTGTG73XI0aFerOLysg4jdtap
-	xsNj5InnqQcVwUU7g2AiFj3isgOvZ9BuqeCsnAVjfC0xvAagIp6C21XL
-X-Gm-Gg: AYBFou2qxEB4NW0zHQWTNyrcvJmR4WWO1l8MdWYptjOutn97xWkregQhEsp3ZwSV3se
-	dw+Mmc5eIgjRAgRlxsT7wTrr8DMai3Ae9z90UN6rckfK3+0SDdp3oBHi2j579PqvEE/c1nKdC05
-	us6f9Q9Q9jGDBZETUE3+Mi7UF/P1QiW3pNsGhbABhGDZgtvED3Ao3UhXLB8axDxbOb2egOp1DOA
-	E6pM5ZW5+wG5+NpHMqhyg4cHoAphPg8z1eag/MCrOjgYUYc95brOScAiiqkQssyiQdePgcOV1pk
-	KBH7gRrkNQGqSgo64zA+VUjy3WRA6YInUNAsUNIHUY9a9hCoRsVLnQCdZHEH0KChPsm26re0PrQ
-	4DSym5m4u48c3kf9AR/HsQu3JFFgxe8lfeBUoLbHbCjCId3kyO9fHtr4GgC/PmS/erZgDkctn87
-	6PvcfBMwqmWSrKSlhnk5e0yooE+CG4QT3WlZDn3vPS9Ipt+NPO77keMKMJmj/NpJz6gh3x4l1k0
-	etkcmldaD4aWL5A9xCAGfVts/ze5u9XQfifHpjMD0nDgWwdKE24prO8b/MCv1TcOVao83KDvDst
-	JFVd1byKVnT5mlkk8SLmheNsbyc3fkGnr1aLha3/CZa0B5T5gD6oyyiy
-X-Received: by 2002:a05:6300:8044:b0:3de:5302:e92a with SMTP id adf61e73a8af0-3e928953719mr74781637.17.1793297803762;
-        Thu, 29 Oct 2026 11:16:43 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a98a0bd09fsm192069b3a.51.2026.10.29.11.16.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 11:16:43 -0700 (PDT)
-Message-ID: <654c7978-3771-4c09-89f8-c5d23bba42de@gmail.com>
-Date: Thu, 29 Oct 2026 11:16:41 -0700
+        bh=SbGRSkF9pUn2CydJkzRh5tNHBjPKK+0FwPmwEY8AU7g=;
+        b=tjPXf4c4E/N0wwi7tZzaSxj6KmCN2cQIVeWEZuY8sd4bIDaAKBaki+KGcCiRMlDyLM
+         gC3nvrtDW8KuT9Pxjv/UvCbvfT3+Tn3RG7CF9BUpJ1kCR8Llhe3p38q7evPtP3KZr09C
+         fmIRQehjQajeg4ZA66V54248exrpSOtHpNGK4jqDLvqrQIc2U3IdMfS4HfPYWX64Jq5i
+         QB8UpPVbPaYf78rM6oa9C5v41540NVLHIVsDW2xrWtzkUoymwkAsB41U2WYB08/FCLg1
+         iqe0pvrUHuvUfHCzXbufA48g5EtD63fjEhLh0TJRSx1dgk5TaTyqS+KjQNAoN4+tEiKD
+         M9bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793297773; x=1793902573;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SbGRSkF9pUn2CydJkzRh5tNHBjPKK+0FwPmwEY8AU7g=;
+        b=Za6hDz82ClVr032rbLnoaDsUI7FdUrZSwoTnf5n2U2B+U7QhZF0JQYxLohJENq3UOc
+         g6bOsRHypIdygupNIfgzaYF4nSO1Sna9shv+CdJXF+weR8EGVNatsRLdD30unLTbBwQk
+         BSNARxGpppTqaa8tFfM6eD41ZpMX8NWB/59lZIU3nVdM7H5TPvbma60Jd6GO7DcXnSvk
+         tbfNZVtWvIBNeo6Pv/0UENCzA8yCFXqZTTQTR0CcUomFw/tfYCl7xEBCi9H1HF2zb1bQ
+         J7n14voWvTpQ55s1VZYb1yY1ADkgukO715HoX1yj51nXzZNBbC8PcOHe6jCAiLPJBOWd
+         hY8A==
+X-Gm-Message-State: AFq9FYKrUSa90ffcCOqt30w8Cguwr9bvSvimIAq58rOFNoEkZBusPSjw
+	8LsL0uHL16GyIxPOvqdXQcIJJsMhQDN+nL4ihvwSibg6bgFt7XvrnJ4zVMGrlxuPEMy18xROdjm
+	KRpYEAyCc73bBuRpPIlq5IdHOVaEuBDlLvwDe57nKQV3WYJ0muHLe/5zG9IPUi0DC1ewtls0zSH
+	hOnPaKVlSMIONMhH8nGqng6CG8u8rJGxfs6okNvjVbEcmfq3EL
+X-Gm-Gg: AYBFou3Mra5d4lkMJvg8Qr4BENCF0iKu3U6ALG6KAUHX6tqv5ui6Ae5bhqL8dgIAp7H
+	8Rdfnkp/+WS6En4o+C9NPNAZaIuVrHNTz3BMKAvlPftMbbe0GWeKspEBqNS4mLuvYNoKH8BDpzs
+	dCbHE76HwF2mXh5KLEg0CNhmFGoSeUdyc7VPd9mEq/9u4g/pCFusFJGf1MSp6Jp6do+YlEaaGNX
+	s9DAFaKPYC34VeNmHH+xB6n14Mv0j87meZUg/gJXlm5PhLagoCu7r3V79YP2xdCX+KUnIrfnHrP
+	WAPak1TsB8XusABs3oqfSK11hGHJ5WjVd1HOlVJxVQhjzkftADqqFnGj0diJPbDc0kixAU6SOpG
+	wBkDs/uwLOnJC96VObELfA5RdtYNsn4/MaOrBeRVffrGn9Qay0qeT2cGqrrbCOBnDw+3weBn8yE
+	HcfpAr50oJomu7Pg==
+X-Received: by 2002:a05:7301:716:b0:36a:31b2:8643 with SMTP id 5a478bee46e88-36a42453282mr173707eec.38.1793297773087;
+        Thu, 29 Oct 2026 11:16:13 -0700 (PDT)
+X-Received: by 2002:a05:7301:716:b0:36a:31b2:8643 with SMTP id 5a478bee46e88-36a42453282mr173659eec.38.1793297772238;
+        Thu, 29 Oct 2026 11:16:12 -0700 (PDT)
+Received: from fedora.armenon-thinkpadp16vgen1.bengluru.csb ([49.47.195.13])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm259163eec.4.2026.10.29.11.16.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 11:16:11 -0700 (PDT)
+From: Arun Menon <armenon@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Jarkko Sakkinen <jarkko@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	linux-integrity@vger.kernel.org,
+	Arun Menon <armenon@redhat.com>
+Subject: [PATCH v5 4/7] tpm: tis_i2c: Use local 4KB buffer to limit memory usage
+Date: Thu, 29 Oct 2026 23:45:38 +0530
+Message-ID: <20261029181541.99505-5-armenon@redhat.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261029181541.99505-1-armenon@redhat.com>
+References: <20261029181541.99505-1-armenon@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,51 +120,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261029073135.159947193@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261029073135.159947193@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 10/29/26 00:33, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.191 release.
-> There are 1879 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 31 Oct 2026 07:28:30 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.191-rc2.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+From: Arun Menon <armenon@redhat.com>
 
-There is a problem with the SCMI fixes that have been back ported: 
-scmi_device_request_notifier()'s REQUEST/UNREQUEST cases are empty and 
-scmi_probe() never calls scmi_device_create() for DT protocol nodes, so 
-no SCMI protocol devices get created and clock consumers defer forever.
+The global increase of TPM_BUFSIZE to 8KB is necessary to support
+Post-Quantum Cryptography (PQC) payloads. However, applying this increase
+to the tpm_tis_i2c driver is unnecessary and wasteful due to physical
+transport limitations as pointed out in [1]
 
-We are missing ee5dcedaf72d ("firmware: arm_scmi: Introduce a new 
-lifecycle for protocol devices"), with that one cherry picking cleanly, 
-the boards work as expected.
+This commit introduces a local buffer limit that is used in the i2c
+driver.
 
-Thanks!
+[1] https://sashiko.dev/#/patchset/20260324071803.324774-1-armenon%40redhat.com?patch=8319
+
+Signed-off-by: Arun Menon <armenon@redhat.com>
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+---
+ drivers/char/tpm/tpm_tis_i2c.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/char/tpm/tpm_tis_i2c.c b/drivers/char/tpm/tpm_tis_i2c.c
+index cde0b093ed58..4667eef15ff1 100644
+--- a/drivers/char/tpm/tpm_tis_i2c.c
++++ b/drivers/char/tpm/tpm_tis_i2c.c
+@@ -55,6 +55,8 @@
+ #define TPM_INTF_CAPABILITY_ZERO 0x0FFFF000
+ #define TPM_I2C_INTERFACE_CAPABILITY_ZERO 0x80000000
+ 
++#define TPM_I2C_BUFSIZE 4096
++
+ struct tpm_tis_i2c_phy {
+ 	struct tpm_tis_data priv;
+ 	struct i2c_client *i2c_client;
+@@ -233,7 +235,7 @@ static int tpm_tis_i2c_write_bytes(struct tpm_tis_data *data, u32 addr, u16 len,
+ 	int ret;
+ 	u16 wrote = 0;
+ 
+-	if (len > TPM_BUFSIZE - 1)
++	if (len > TPM_I2C_BUFSIZE - 1)
+ 		return -EIO;
+ 
+ 	phy->io_buf[0] = reg;
+@@ -341,7 +343,7 @@ static int tpm_tis_i2c_probe(struct i2c_client *dev)
+ 	if (!phy)
+ 		return -ENOMEM;
+ 
+-	phy->io_buf = devm_kzalloc(&dev->dev, TPM_BUFSIZE, GFP_KERNEL);
++	phy->io_buf = devm_kzalloc(&dev->dev, TPM_I2C_BUFSIZE, GFP_KERNEL);
+ 	if (!phy->io_buf)
+ 		return -ENOMEM;
+ 
 -- 
-Florian
+2.56.0
+
