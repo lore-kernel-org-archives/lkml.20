@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281715;
-	b=x557FgnDNbs/X4RaAiVV1nHfeLTGaoytnUaWg5+X6flLIRDu/rMRn9Fvg7yXXkVU/M9/
-	 JFW0vFqo3IVWx1Bqzo/XFLBBdmJl8OTO4V+yMfOZi1e6Tg9wfJN0/Gi/6IgaB26nKdaIC
-	 fb+XMB/UjhXunwRcJpuj7joOPM3tl1I0aTgleEuurv2pysZZcU4k/voiGfn2wpdutnBc2
-	 iL5KjkJFFuUz+uv1nzJ8QXNhjIN6+R7VkmVuMZEcI6GoS0mvWj9h3yI9hvHKrVMRA9l7x
-	 Xmshjg0uNp6eDGbJP2M7wIaScpOIWMajUQ0+Aqjh9nZM83HqJoFcnuNJKq2lJmYTb8A==
+	t=1793281717;
+	b=w6AlMJvNlzRjEAC9z99QmvpCE9REiWJiYEIJlxCWMU+PZqE4bxLby1MQt7nqjPEy2NjJ
+	 +ULLEicvhT3lnzdAFY6gOKwAPwoZPhLc1P16RfKnlk0NJPjuYwV4oOxzlAYsxpo/VGGkD
+	 OxB7PhvqE+/aguj8nqYXnW/08PVksTHEYUUWu/tfBS/mEaixTNh8fnqXIEnqo9zBFNuCr
+	 mTVdxMhd5Nv4cKMstWLkp+uLJJUAK9IP9pcdrF/+Q8dxv19w4ZqRRVdz/9cCXhbSdeLuM
+	 7OJZCc4RTUspKCwD8rmM8N+05DlEgdU94rNHKBEY+3IuI9pK02tOW/wA9lWrMtVCLnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281715;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281717;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=6FAsT6Nlkq5SUXzwLZ4CbonJEIj4q+1xkqhKuzZAeQY=;
-	b=5d0QibL0rBdVAooamGsxX0OgnbQN1Cr7In8rdLHgD/BdwjUmeqq8wPvtMzpYDz7UgAq2
-	 Jw2uB/j/hL1rQ7pWj391FbUKaRW2IBJvPQYVNvO3ueN4T1MNZvvSq+oL6DiJHkCNjRb9A
-	 0HqyDR+xS4Y5lWSDvkWmlcdviPZv1iS9RJaXFzXM5ioF0t9IClVwn2fvQWFb1hc0heEHL
-	 6TXxnT5bT4p8vOjO8Zi8o52EPCt4s4UD10gFtzXE9bVs6F42pMJBsnHa8S0R/eCYZ93gd
-	 dKk/nDAOB9S2+fFLHND5Jf+AJfURn4mZtm4n9bgsCg4BH21p6cACbbeiDl9XC1uzhUA==
+	bh=lTNzjj5RXp4oZpl4oAxMzOJeDQHpmOcQuGYre6iPlX8=;
+	b=2/t9c8uP002HBRcpC5Grmfgafh2bxWY9N3Sp/AtxeEMraHbQVQ+EJIdR8tPMmMMd+8Un
+	 k3+YGPO1sz89iyiD1ZReU9aD04s07jNI9QdOzcjVXu7dkAvCQRQM8PsCMYC1B42LS+6OW
+	 9t32hUZEvtQkU8RajQe8rbliAl343PF8cZmfHp43PcDMBj1WTyKEOf2ain1L7HO2v8RDv
+	 9hgu5zu1Icv0OHzyPas70BYw5fwdWunpyeJaWTbsljl4/S8Os8RYnFahXT3JqiZupC83m
+	 +M7ENRmZMvwbsvucdyILe1reVNxhEE1+mazAilAeuYNBGYR5mFcPqn8yQkF9ln4MYMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vNlZcfKi;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XHU10XTY;
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E1160A2634
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:48:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3E1160A2634
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A898606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:48:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A898606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vNlZcfKi
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-89d6bd67045so404756b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:48:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XHU10XTY
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a06210b29fso1103885b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:48:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793281714; x=1793886514; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793281717; x=1793886517; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6FAsT6Nlkq5SUXzwLZ4CbonJEIj4q+1xkqhKuzZAeQY=;
-        b=vNlZcfKiFrbQWMDu8AtkAr0fe8dfBLX67ScNnCxoD7c5ltOQQh5auiFl+Xw3ioGBdD
-         KPNqTVbjBhuUF6bOY0v5XquFBKifXPBzinDIdyhXLWxKyZzJ+dJ7goCKn3jVmN9c3xCN
-         +g1doY10A3A6JuL/5FPEW4Joqok0zTfa4T750ZJWbAuXRZBZ1QJJMEU6SDrTfUb2nod2
-         NShddLvb/Gi8qIYVctWei4cAxh3xW+WwpRFVBgx6wgp3f8SsB6d0JaM+3z5WLTtvUYvp
-         s1PnH10J6HLpl23vzemaRprMHNV5XYal6uZ0lRXY0O2dfXnebVaY/+kOPMsy2Ww7UBZN
-         W9GA==
+        bh=lTNzjj5RXp4oZpl4oAxMzOJeDQHpmOcQuGYre6iPlX8=;
+        b=XHU10XTYOELX7RDqGgN+sEsm81rhvRClEAGzhxP6NgcUjO91e0vUXDaAEhrTSdHVbC
+         QAahsvwFDV0Ga/bWysK9toNAzPv+05T5MNFinUS1pRsEXLu9UH0/x7ITjFVSSuHhzsS4
+         RIjhCu4jACBALzT5iaBXfbC+vpUL45V9ahl4VeoRPRHZTywM+xzM7+mUkTt+3FpNeuBz
+         tvkEC5t3Wyg4cQB53HVGzMjgDy1CGUSEZvDXWOOfmHqnpqwX1/nuJ5VQHed/5AZndNOG
+         DQW1iaOkeEJ79/c4eLi/QIdXN9owq2FvJ92BT7i3b1njuM9jZik2zwrIzPyF/TxMkcDo
+         NULQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793281714; x=1793886514;
+        d=1e100.net; s=20260707; t=1793281717; x=1793886517;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6FAsT6Nlkq5SUXzwLZ4CbonJEIj4q+1xkqhKuzZAeQY=;
-        b=dsIliOTfw+wOfOxRUV4Yorb79SjwJfoqnNtDbCUy8PM+waazIszhb34gfx+b3epKUf
-         ZJgtyXWWau/Mgv59kfHYHQoEEDFowtCnkRzrGTgrn+LL9g029nKsQP+tcTtKKlcoFEK3
-         swyAoJaZ1DYqR4toDsnQlVMrWLd0KVj1To+zaghbbdhQ0v7WdgtQKwqEbU7AqvELNvvh
-         X7ziwBe4/h/ccKCR9cN1fSaI9rSfmgoi4LG/hkN4EnmUEpInTCbwQl22UY4bax3xy+cC
-         zhazBR9JU2e5GJitCX0k8XLdjcgEYMAdmPzR1w1cn5RhYSTlQ8zl/nMA7vCR10U3dR7y
-         hXBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzyUGKeMsZD8MjvBZ4OlkZ4w5iSYcDc6AD/FTgWaSIVo11tafY7lZSDh3KuzLVm16Q4CIjZuQ3H0FYNaow=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXc2ebwF+ggF6tfuqKs6S2gbXDokQ+ZLbc4Fve0yTEpCo4/EIH
-	nzwuZFj1fT7NPsHZjfrDvx9ryCMisI+0fyxC7ojUnzPN1MfysgRtLosG0EQKTHYQ
-X-Gm-Gg: AYBFou08t4QXMBUhK2NnXUHPO8Mty0dp/n/7pKYnIdxqzvcVIIhfshm1cUARNPdIt4Z
-	3uSPstdqmKs17gxqyWGKtKmkm+Bqt417PpJtzBH7uh8Qy77DKWna9HYejOFVNstXx71a/dooZ4B
-	1zAi3P9kSTTETijAJDF9hvHdrpMj2AgWIPR+QSQNxSc1BMD0dCyycVmGtvj919JtxQ4zaawpenf
-	3ISJVL52qtzuWxXhGG1j9Nvn2CZvB2lqH+H1VGLOOdVDi+pe6qAkomY/MLuYb5K0S+v/Rp6vof/
-	thhvncxxeLwB+nOb78O5ooya7n6A06sdNMqoGe+YV4T57I0QbocCv6J8Fiphey5z5fF5VccmaKA
-	bVjnek2njQO90IKRt6UR598NSP1oJytIPM3EZS2vptmI34QienVRn9BjVIPdkEwRDOLwCULyMyD
-	GStPnYdX+SClWPjhNG8sr/Wxn9hcF1FvzXBGMy7FgLoggR1TJbUUM2OPtV9vUFk2fFiVoHuzvqS
-	brvvpTvlA4BCbywbJZ+uIqhKmIQ5CCkiSKkZCbf9UvhZMhm05sWsQVvgPqkpNrjtUDotm76XhVP
-	3xX6x8y2j2f9J5QFlzeMUNsmnG0Ufb+dVhcX3+SD3ij/JleIMT7xAmgGfWdwHYOv8ASyaqnGQhq
-	o61o/PGka
-X-Received: by 2002:aa7:8613:0:b0:89e:37b1:b820 with SMTP id d2e1a72fcca58-8a82e90b2a2mr1414879b3a.2.1793281714328;
-        Thu, 29 Oct 2026 06:48:34 -0700 (PDT)
+        bh=lTNzjj5RXp4oZpl4oAxMzOJeDQHpmOcQuGYre6iPlX8=;
+        b=NNHdFaf2A2It2grJsZG4+H4pv73Dv5s2D+qr/f7NqUyST9MKcXqRFGbTlOsulh+MmX
+         NrKCYZwy5MkWRg7WsM2HIjEu9CV8pZOw20wK5ifq0N5Ht+0XUtOQa+JDxGmi7gdQQugQ
+         w2V54x0J3WWdrW3lQyRPc0EfcIcIz5q/O/wUEgtpEkEsvzQacyHbW2d0QfyeMGrC8O3R
+         VCmBDK9eeOdVSgug24HGBSyqLYF0MFNwgzumikbHZ8FP0fw6rJe7KAv1aLOU2lWocuQQ
+         eygVUlgI6oOc3+312c9dV3EbX5Pt/JUHlFBqvcsRX19ixw54VQUZyAQHIXuPE5oZ86I0
+         hWpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxME9W8LvX0dZg50uv8jwP4rob13B0vm85u2mrLirn9Y2xXs+m8uyGEG7459RzGpTNjtagLnRwCEBMK+yk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaXRNp0LcGvXoe+9aAbFYjIy19n2L5imMXa//i17waRuQHGUjm
+	ZUMYuWQFwiSmcgcd6rdrHCOk1FaKBXPrSJLUasLJjbbV0/cUSeepG4KZxchK+87D
+X-Gm-Gg: AYBFou3SblE63aeQUTqSSh2yLM0e5hTkFVPH72HMJRrbDZeXRWYTmrLUziUNGrxizHM
+	68GBiSQ6778GOu8iebjCId+vGHal6jswT0cERlEhotK4AzUP5c78bc3b0ZE8uftAAg9XKyMdcJi
+	YHQwVjNFsftj/4ZmbQ2DgEgOP/kxMLCn4HqxbZhP1x+UILcjTO579ZpVLt852Tt2YgJEdrCqdXD
+	Nq8nrJmYMq9zhr09QVY5BXuAEAZHY9OraswLYcZ14fs63bD44ygZaNP8OGeSwxI33o7QF/zSr06
+	wkMbo1ape+vSzhfbSD+5aESEfN74s3amWmhyCsAK4e8NTpGSlemHFv9B5Yf+eeRxc4D1u6yK0TR
+	4JHfFlhhBUXYRPxE04Ai7YN0Eyu2HMuCQKnunSE7VEbGzSYcVhh6lUncLgfSlgAZpsyzNNsKeBh
+	rPhr5IwGsxMYQLuZ3ZiP/pGRMfMP2A9HRmgvbiHlmYmjgofufLELqVqVvK+UANtEB+DIgDx+OWS
+	wu9VcxmjEXYg2ZXrW4M5oU6sE0dTz0DDWRImMpteN3Xw8TQDCNeRqSYUhb+tYU+PVbCP03odrqa
+	ZZpp9TnbQ4Yp/8yi5e08e8HE2DIF4Oeq8SB0l52vqmSGD78CFMyhrIlg+nJ0bVydQ/RC0VaKcUI
+	BIGHcS13Kuh6bz8A6RqV5ihQgTBnthw==
+X-Received: by 2002:a05:6a00:b56:b0:899:394d:2976 with SMTP id d2e1a72fcca58-8a6e78d158bmr4556674b3a.39.1793281716645;
+        Thu, 29 Oct 2026 06:48:36 -0700 (PDT)
 Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:ab4c:c3be:c4b6:67cd])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a3d5baf4sm2455023b3a.1.2026.10.29.06.48.32
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a3d5baf4sm2455023b3a.1.2026.10.29.06.48.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 06:48:34 -0700 (PDT)
+        Thu, 29 Oct 2026 06:48:36 -0700 (PDT)
 From: Ho Jie Feng <hjf3108@gmail.com>
 To: Stanislaw Gruszka <stf_xl@wp.pl>
 Cc: linux-wireless@vger.kernel.org,
 	Ho Jie Feng <hjf3108@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless-next 5/8] wifi: rt2800: don't report an A-MPDU length to minstrel_ht
-Date: Thu, 29 Oct 2026 21:47:46 +0800
-Message-ID: <20261029134752.1299130-6-hjf3108@gmail.com>
+Subject: [PATCH wireless-next 6/8] wifi: rt2800: set the mac80211 fast-xmit and aggregation flags
+Date: Thu, 29 Oct 2026 21:47:47 +0800
+Message-ID: <20261029134752.1299130-7-hjf3108@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261029134752.1299130-1-hjf3108@gmail.com>
 References: <20261029134752.1299130-1-hjf3108@gmail.com>
@@ -101,41 +101,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Set IEEE80211_HW_TX_STATUS_NO_AMPDU_LEN, which was added for drivers
-that can't report the proper AMPDU length and record this workaround
-below the TODO comment.
+Enable AMSDU TX/RX support for this driver, which can increase
+throughput.
 
 Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
 ---
- drivers/net/wireless/ralink/rt2x00/rt2800lib.c | 1 +
- drivers/net/wireless/ralink/rt2x00/rt2x00dev.c | 2 ++
- 2 files changed, 3 insertions(+)
+ drivers/net/wireless/ralink/rt2x00/rt2800lib.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-index de234bcc7a065..032cd6ac345f0 100644
+index 032cd6ac345f0..8b4458a74d33d 100644
 --- a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
 +++ b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-@@ -11860,6 +11860,7 @@ static int rt2800_probe_hw_mode(struct rt2x00_dev *rt2x00dev)
- 	ieee80211_hw_set(rt2x00dev->hw, PS_NULLFUNC_STACK);
+@@ -11861,6 +11861,9 @@ static int rt2800_probe_hw_mode(struct rt2x00_dev *rt2x00dev)
  	ieee80211_hw_set(rt2x00dev->hw, SIGNAL_DBM);
  	ieee80211_hw_set(rt2x00dev->hw, SUPPORTS_PS);
-+	ieee80211_hw_set(rt2x00dev->hw, TX_STATUS_NO_AMPDU_LEN);
+ 	ieee80211_hw_set(rt2x00dev->hw, TX_STATUS_NO_AMPDU_LEN);
++	ieee80211_hw_set(rt2x00dev->hw, SUPPORT_FAST_XMIT);
++	ieee80211_hw_set(rt2x00dev->hw, TX_AMSDU);
++	ieee80211_hw_set(rt2x00dev->hw, SUPPORTS_AMSDU_IN_AMPDU);
  
  	/*
  	 * Don't set IEEE80211_HW_HOST_BROADCAST_PS_BUFFERING for USB devices
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
-index 823785088a308..66094da07325f 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
-@@ -373,6 +373,8 @@ static void rt2x00lib_fill_tx_status(struct rt2x00_dev *rt2x00dev,
- 	 * by the hw we could provide the real ampdu_len to mac80211
- 	 * which would allow the rc algorithm to better decide on
- 	 * which rates are suitable.
-+	 *
-+	 * Currently, we work around this by setting TX_STATUS_NO_AMPDU_LEN.
- 	 */
- 	if (test_bit(TXDONE_AMPDU, &txdesc->flags) ||
- 	    tx_info->flags & IEEE80211_TX_CTL_AMPDU) {
 -- 
 2.53.0
 
