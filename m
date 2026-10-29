@@ -1,99 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281035;
-	b=AR+hAXDnHciGDTDX0wZ7kNH7Xjk8edVSKUZKZdUANMGGhUfh7pxDnK7+Beg82jCJuLz5
-	 HRXFAaC9y7djW29Ro1qQUaGj6lrU1Vw2z1qeyEUyZ+LqWGDj+HN4+B9JKIcQqSKAnBJlj
-	 +SKaMBVBwdeiiXmYrNYidCWbo4cWWNlPzEq/sJrEIZHSGDtJc0/0ekxR0LYiptO09lzJb
-	 jom4+8+uv/eGJ98/BBkLOSqdKjuvr5J3Gaeb21Fbfx7H7FyULNwW/9ASvUx0PrKS/FYaY
-	 s7+6Ovxoc1pnXw/KHWeLH/zgwqWOnrKX6uZdVlvEL8LUxG675gc9rBL670ontZZ+IkA==
+	t=1793281090;
+	b=Q2UD9GwQwDU0RnBvk2f95EcZ1QIC4dcWcqD/PJV5O85vRTD/rA7+SWCUtcF2+hhV3NsM
+	 +R3nOjgsh8Utdri5ZfnkA49riGo36EuWez7vgjxSTZxC81dNtSdXDyV0NO+migx1rh6ZB
+	 lhd3W03yHquzHvxFilDbbOzVtmBxdkMlzOMpGwXbjIct9MforG0CASv+Mj6kS4kZm7BL3
+	 fLb9ozTuBxTQ+p5ju5Y2wYWIZKdr65fJ/PC3AJasG3+ezeQ6FnXGzizAZHCAEuK2Z9h2r
+	 44hUjM38n+Ns9Qs0AQ+a2o/y3IR8ANjD2rHTG2borUDS0tbSyrqRQU798S53OnxKN3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281035;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=swEU0gDnT+Ur08Y/4gcNOqhZccm16g7AYsEas7N5VRQ=;
-	b=XTvkmtsOpeE3WpgD4e/65/jW7vB2Stk1fmDPBUfuOs7JHr2oa0irT8QJMufGHTWR0+p7
-	 xn4QJUayaMs3JapytzD4E/naTS7EakRBeOMm7ScwUgy/l6JBqC82oaPn/oHnONmXiGaLF
-	 R8cr0/+LDCCa5IyvisD0K42SVwFYRsZAY+zPMhkBg1SbYhp6TbScMOzMzLEC/AG4aEkjt
-	 9AtbP0d6GXmx3XfrglduanhOfE0WDPbBtX5Np2cT/MOqrtnOTWHaidWqedNgHpxZq9Y+T
-	 KqAA/vqaHduI7jeV9kdEKDRwzYrO1t55FZx/9HsYv0pQwBS0gLyxuxaUdXHDa9vqnEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281090;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pyqAO/uWU5yVFQr+UTpxevk8bBFR60Op4CruyZ1Yw1c=;
+	b=QBJuyVv5IlYpZDBxe9vHBrLjG/TCEPbwvUpBG/vRNyLRI5885C5ov/eCWSCjRuUwJK7G
+	 6IPoetE1Fye2/35UTLHoDbUoasVszEOuIdaLT47mq+p5LUIKyuHW3X6xdrhb8wN4ROuO6
+	 8ecfIGs4hE/0Uo2DtPEPhQDcuwDbKlpKxako0jnxZMAj3hGd6WYdnYbbgEj+OfmiJ+dpP
+	 tSMn91C+jQD7xuZyyVmqW8/Obxsus4h1NcPxQL3SFmTI2koXDgKGZpGSA+/p5S1MuKeyi
+	 2mrrn1aMPx0GwqWIB2F57dSvPBnGGXU9jfOTwvs3S7yMyinauedfCBl8XLUrhOCjDlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r5oLrkws;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AcnqFvq6;
+	arc=none smtp.remote-ip=95.215.58.111
+Received: from mta1.migadu.com (out-111.mta1.migadu.com [95.215.58.111])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C434E606DA63
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:37:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C434E606DA63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40151606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:38:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40151606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r5oLrkws
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1846bc43c28so2450957c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:37:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793281034; x=1793885834; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=swEU0gDnT+Ur08Y/4gcNOqhZccm16g7AYsEas7N5VRQ=;
-        b=r5oLrkwsBBfgVRu+clc7J/4z+MzrJ+IO3jDMn/HO5S6EwD3wkPMG2SDgQH4U/jpQU0
-         MGteoPtDNjn6z5q49UiYyeo82qS79WTzHiaStkgmEnF1EOhWDKSIGGeo0BuiXaCiCis3
-         ntp3PBm2XOVBv8wx+nnYD5QV/LjugGnnFEt0/NKtrKCYn2pe8Hvp5osnT8MbCzslJS/8
-         Cy0qJ6gOhFCltfdAw/Z/E1IYuRnWE47+F2FM5c5+cB8iK5ws7caX6PJe7dinSZKIpxYx
-         4ie18HD27IEwrPQOfyMm9RrSKX/ZHto/QLjyH89t7q4OmRpQGtTw8sCRGCdPYbgs4+FQ
-         bnFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793281034; x=1793885834;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=swEU0gDnT+Ur08Y/4gcNOqhZccm16g7AYsEas7N5VRQ=;
-        b=PRZsbTtTGdlS6DrC6q+EPOZdQ6z6yMxSSzY+1su7SEAeaBi2TzcuWaowwbWjpYJpRN
-         bxVe+7WHvO9ag3aiUPZwCC7bsE+vRyVw+xoKMpQRNyY+POnlC+1mXZcBuvi37INdQepJ
-         XWuZ35MIB3HIermMkxL6rQgO3HNjqQkFjEFu2juuw9R0wkng7viqNKFuQyU10ZvWih3v
-         S5EhY7KxJc1j+3V6ket5GUdRbpEENmFV6/ke8V7SBn8HxO7QG3m626nLBEaAH0736p/I
-         DUud3uzLkBUzyb1HsnV8w9mvR6jsGch65i0AnFMfEMh2lMLAg1OsBOv5J/hqUqVInY8z
-         ZCLA==
-X-Forwarded-Encrypted: i=1; AKwUvBzGhyZNF7kK3F0SEBC6SToPfccxQAOqrmbQEsY7EOlpgiFCMQodeyzPqJKtIJeDwJZo3b57TXEsmHsB1tw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8qAYnGs5ePMay5+cb6K4t8pqhu261JDf4lRLBNzaD4SXSL6L4
-	/7VWQTlyLOGtcJInYJDmsBX0MpHfd1luAk3tjCyTmlxHu7oDVqEHhRTV
-X-Gm-Gg: AYBFou0RSaDl95RCxuWEs2G9jsCKXIrXs0RvVCRmY6JfxTj1TTe4jTt8YY0fa19kisd
-	80+NM8SWwVR8EA3bejMTuxZ5az9JrNJQJQVZ5yvRppOk6+la2a8E+Q/aHJVnr+xtWFt98NsfRtF
-	chRi3g48pUcLVyPZM7j0bdQJzUafK7LNLPNpj3YfRlLYvjOiwWmdNfhffkOv1VWvffmXEX44A2g
-	SvEewVcHRG1xM8A0DhmYTc1aA3gA8lyY3OHXDZsdQlPFvmo5IlkaGpfH4xeVI4Nh8gkqWR3TgRg
-	WjbtHkar7+BR65W/x6HFM2tML2A45D57M5iH3tFMSHMKkH9/DTgTJx5rM3d+YgmwN7NDKT/Q8C7
-	xCdD0vRbwlRvlfJuKXQWTAMEDHnohDO85M+4Z/01fuksNUmhrpYCV88MheEOFsEqk4DlvmOVvGJ
-	yXTi0rSqNgaM3bAFKU3qlc/zjZsNbgGA22Mob3Ktfe0jgOzvKA5jSEvb7v4hSZUkFl991ekTXzx
-	sucr8huRIv9UY5Kk/E8DPla8T2o75rw/doO4mcCwx74T2PE+MQtO0uf0ffxit/qpGP1/iuj89uH
-	9Z1AmlEQ3GL55HEOT/rqltwr43XULoe+s3nHulKwWdLrwpbDiPFYXg==
-X-Received: by 2002:a05:7022:c43:b0:188:e51:e86a with SMTP id a92af1059eb24-1a6c7d2be09mr5492426c88.2.1793281033511;
-        Thu, 29 Oct 2026 06:37:13 -0700 (PDT)
-Received: from 192.168.1.130 ([2402:a00:163:2ce9:cd0f:5122:d067:9a24])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75f51bdebsm17046239c88.17.2026.10.29.06.37.09
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 06:37:12 -0700 (PDT)
-From: Ajit Singh <blfizzyy@gmail.com>
-To: andersson@kernel.org
-Cc: konradybcio@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ajit Singh <blfizzyy@gmail.com>
-Subject: [PATCH v1 1/2] dt-bindings: arm: qcom: Add Vicharak Axon Pro
-Date: Thu, 29 Oct 2026 19:06:53 +0530
-Message-ID: <20261029133654.6585-2-blfizzyy@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261029133654.6585-1-blfizzyy@gmail.com>
-References: <20261029133654.6585-1-blfizzyy@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=AcnqFvq6
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=UkLfq2AiCr37WjjegzJiymqxIyI9DVtkKBDdhIlx4rA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793281087; v=1; x=1793885887;
+ b=AcnqFvq6grjWGiixwLNrFUbCAe3FMNFxYBXdET61Ks57+qWvMENKyvD9y6ste8M2nPu38g9g
+ LBfbtJjVGg93vAO0no6Xy7d59rpMOLEH2vkNMt7tzB2L18IDKL6VkaoMc+O5/eYk62y5aijwxpv
+ f7tBWziYdLKrJBirq30IQAeI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 909f986a67bd46f8;
+	Thu, 29 Oct 2026 13:38:07 +0000
+X-Mizu-Trace-ID: 909f986a67bd46f8
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2162e5c9-58f4-427f-984d-0099d9b515fc@linux.dev>
+Date: Thu, 29 Oct 2026 21:37:58 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,28 +58,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/mm: fix uffd move-pmd test crash on 64K base
+ page systems
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ akpm@linux-foundation.org, rppt@kernel.org, peterx@redhat.com,
+ ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, surenb@google.com,
+ mhocko@suse.com
+References: <20261011163527.95988-1-zenghui.yu@linux.dev>
+ <67c30e4c-3576-4ded-a71f-b49075ed42e3@kernel.org>
+Content-Language: en-US
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <67c30e4c-3576-4ded-a71f-b49075ed42e3@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add the compatible string for the Vicharak Axon Pro SBC based on
-the Qualcomm QCS9075 platform.
+Hi David,
 
-Signed-off-by: Ajit Singh <blfizzyy@gmail.com>
----
- Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+On 10/13/26 3:39 PM, David Hildenbrand (Arm) wrote:
+> On 10/11/26 18:35, Zenghui Yu wrote:
+> > From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+> >
+> > uffd_move_pmd_test()/uffd_move_test_common() splits the test area into
+> > chunks of chunk_size and moves them one by one.  On arm64 with 64K base
+> > pages the chunk_size (read_pmd_pagesize()) is 512MB, which is larger than
+> > the whole 32MB (UFFD_TEST_MEM_SIZE) test area:
+> >
+> >   step_count = nr_pages / (chunk_size / page_size) == 0
+> >
+> > Because chunk_size > page_size, the test then aligns both areas up to
+> > 512MB, which points far outside of the 32MB mappings, and decrements
+> > step_count, which underflows to ULONG_MAX.  The verification loop then
+> > runs away and the first dereference of area_src faults with a SIGSEGV.
+> >
+> > Skip the test when a single chunk cannot fit into the test area.
+> 
+> That leaves 64k untested, though? Why not adjust the chunk size accordingly?
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index ff8a35df7862..02c0ebc3668e 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -472,6 +472,7 @@ properties:
-               - qcom,lemans-evk
-               - qcom,qcs9100-ride
-               - qcom,qcs9100-ride-r3
-+              - vicharak,axon-pro
-           - const: qcom,qcs9100
-           - const: qcom,sa8775p
- 
--- 
-2.50.1 (Apple Git-155)
+Right. Apparently this has never been tested on 64k :)
 
+I agree that scaling the chunk size is the better approach -- it gives us
+actual test coverage on such configuration, instead of bailing out early.
+
+If anyone is interested in it, please feel free to send a patch. Otherwise
+I'll work on it when I get some spare time.
+
+Thanks,
+Zenghui
