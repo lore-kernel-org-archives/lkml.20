@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.160.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793298232;
-	b=gWqdV3rIAgcb8iefTnFONKtCFcHYimxGaIiUek3lQGnMNNb/8yvnCJ9q3kmpfhxVPMoS
-	 DPo0vNobJKmzoiSK9Abvvz7cUvhbd8ah38KLyZDaYoblcCBHFTxDxm6PcakSruUEJSViY
-	 L3eLrgpC3xcw6FqzgAYUUj81N1hNoDzEEG2L5W94c+cNJ4ym3cgoHFIlCX2j6Z2P+P2AP
-	 TrF4CwiyYFDSySwq14bk40b23y14LWfuwm0pq6HwvrIVaKHtyds0Kx4qw3PQ74L94gzyT
-	 RHVt/xeoZwN29ajm5WljlzWhy9jPec4fWsNlFsdjP9Qp0jXHCaZvVShEWxtRbgFURIA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793298232;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=0kPogFiW6B5fuv9DVpnabZaqR2Qn/IyW3R9/wzN8wTc=;
-	b=XLCeQIw1tgC47bC8AcKvFlB5sXssL1zdlGfNT7DjWQSyyFOHaB11THafTiuX8if5jaXa
-	 f67dSzArSIkkg2sHmjonPBunLqcizhUSEjnZ8/Wmtv+I3rQGaY06MSimMs0DB33OM1MgH
-	 W6rb1WiWOGZFAa1ZYpQwR5EaWxl4ERQpE1pR5r17Nm1RWz1U/ivzTXqXdpZF60iy+g3EH
-	 htaPcue1Gczr405f/s+BWyYjN8QbP8LOsKiBzllAFcp4DEtaXPPPKELN7ObiGTP5qQnig
-	 MCXTtmP/g1HqdOngf4dQk/j9rhxRYRTFLTnglASHRaW2r3DI6/V68cz8KDq9c0UgnLA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DxY9NYue;
-	arc=fail smtp.remote-ip=209.85.160.180
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.30
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793298359;
+	b=zyluBoaXIUSHelP7+ZRb7HZaQ0MucvMOGLjNYXXlnbX9tM+oupcl9Xp99qCFkQxXI9Kh
+	 C6HVQfSVPzgOsWgXQF7OchNfVXQD4j71l9+aqWmFkqxDVZbeg9G1PJObJn8toX4lPQDWq
+	 4drERMfati5Ly5g+x3AmSGw0IPmu0yZxQ7TQFX8YJfGtf/UKcwRhsT8z6uYpXt4V0gICR
+	 TVm+kbcBIS9EGwnLHtuj+OkTIr3B4p53dCgs8pS7Xl6+JK8h58cDIraMJ9Z1FJlu2B430
+	 r05J9lJpYfHlgIQcPATFSz8xwYJ9ljiKR/u1K8SVvJJz/9dvmrZ9i97+wYhUZznJ8OA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793298359;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=GZ24PPCTQ7Ukom2m+ryN0pWtEtnjWNba4bT5xx6ZYow=;
+	b=nFKMgrcMhmkDoTB+6U0GWXjYTYX0aLK6bQH9aZn/pLPeEgoz9BHi47d+QIfaBbVqGLH8
+	 9+gVbXs2+xh7ZC6w83y7qG1oPPE0mXn7YOfz62bBV3p9Su4FwSLWOZ6FWOtFS9nruiyw5
+	 hXUf8kJI1Xo1W2PE4WNYTo1ijlpcZGWggC2JxcvSJhAWt16NUptukuXwcXOFjw8WvrTKO
+	 48cjnD4hrNTQ0dPTHMIeLH+huTtEdgNavqA6YAmwk4USt9X3jKD8YxPyw1zTMMhWO/4aR
+	 FGPweMKVJGJCFHzUCZ+23pEvQEp7Y3rniQmhqUNbbiXn7djJvhe64QpjsNf5f9fFbnQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=Nizaum6V;
+	arc=none smtp.remote-ip=79.135.106.30
+Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 709E5606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:23:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 709E5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1308E606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:25:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1308E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DxY9NYue
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-533202fe429so46251cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:23:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793298231; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SN2QXri9QyHenvlsHaL6ZCsPzndFQ8kudwofHzeKqwzy5oSs2WiyJTvF5apLfR0DuR
-         xHQMvH8k87XF1llHMs+X5scy/CsiFZcbAyM/kI9nQLKIu0dreZRKn+S6eXzxDyrIRyv/
-         24UqKeCAjqn37QCL3tBW3Nm2N+SflcqEw2aKTjcs8hTkzZu4xGuxVE6NEFnYdINteFPN
-         2rGQNrFUa/AlvThgn5F/bCbcEUh2DuDOfHC8yaQYj9Gdr+KEvyVuB92TsyaltlvqofvJ
-         nQ3Vwo6XuJJ2uwSX+7KafobLq4P+mhpwXMx1MQe31gqU2Y7ZaJKGJd71mpBIpcdgbaPU
-         9GJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0kPogFiW6B5fuv9DVpnabZaqR2Qn/IyW3R9/wzN8wTc=;
-        fh=7rOAGtGcYS5rcrghehw4v6gweNoBMhBtmN1PXg1eTSA=;
-        b=etQC9TvoIo1823p7lTgKx7a5kAw8+EhXnlLvdYqDqEhTzhzpBnsmgJrwDlOEdBk1I7
-         NJ5TZ7KOzwBx2gT0M8/2heRv+YvXIBR19wXizRrNmCwwA05lctAO3U7fp3jNLGdnOQKT
-         n+qVtZpcc3wYlTGdrFxbFTGFixqEGObfbQUzzqVp7795tAQgPQQwSK+KKG8Wo8tRljoK
-         FF7pS+dN037IaFaeTPl+dC4rC5NHP/VHXXXfUjsIUaN7tdsKeZZEAJY010BejG05IWO0
-         M1HHwVAnGwEnqa4I169T+bBFtDXV5wZdv8s/Y2hJKKQl4+q0HUIhWrR2A5d0Z49VWPIc
-         iMSw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793298231; x=1793903031; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0kPogFiW6B5fuv9DVpnabZaqR2Qn/IyW3R9/wzN8wTc=;
-        b=DxY9NYueYpPUw54/1LuKABfDp60AROnzubbbXy7OzS6fWMrILGyAPx+k/TBUzTDoQf
-         0+estVcf3DGr+NqskgZltpKjiTwBj0vHxfiZlAv1hdCBqEV+qUGB+fKraqRqaZGJI9Ad
-         aHuqa1XDAyOvsrzYt4e2fwVCkmevUnXplUQksj+fp6M1ZkXl+zkUCRvmoFsMOA3v0kwz
-         Qz991YYvpNKWfDlgqHmAUX1bJTSVeq5mbReuEAT3YssNt+yd0jN+OmcLTEbZqe3twO31
-         DfUU2J0jeNSxbzemGGGlU75TQqjY6sTlc87Wxa++VyWhSCCSHud20YoCA1co6FakOgHn
-         lsdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793298231; x=1793903031;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0kPogFiW6B5fuv9DVpnabZaqR2Qn/IyW3R9/wzN8wTc=;
-        b=YYCqH0hKv4oOML21Rg7JEfWevblHYsf1W9rjxN6FYq8V1IaO+hcP/+kWbLvh5fs7qz
-         J8GgqJ3uM9CGqhN8m239R8PO7TynFJr/S3ZSHVKMZB6qPIaTnjNh8sypJmBqNseckPzK
-         LGLrVPtW721L0KHpdvmXyW23xwNt0HTCWHKozV1NhNZG25DOQrxqEPzghtH3xEVwaWJ7
-         kB+EuSDM3469Qpx0CGPrIty6AVZhs488NQ78L6WV9q8R/6w03N2lQQ/YNk2X26dK1kN5
-         Bvfb3kBfHhNwsUNXg9aNvEatu5MI0UBv7hEJhrqtj2525MrtqgtwxuWY3z/rRRE8Gnxl
-         a5Tw==
-X-Forwarded-Encrypted: i=1; AKwUvByF/6TrkCVKlxlsEX04y/0VFC079T7roWCrRyIeq4pNpN2RGj9vY6MqKAJwgp5sd51FbTdYE/tvo6augG8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQgrYwFCIS+LaM3y5Nd1iF7U0qaxGij1EhouHLK1DbfvlxEZge
-	B+y9gZoTDewf+EdKA7mGbDqYAblbOSHndf/PhU6Qps0h24Z17wlFQu4Y91vli/CwRh/TPlF6RS2
-	lf44KMyRnZxd5YzZY0ZbZ/ayO24KeoEKG21BX/dR0
-X-Gm-Gg: AYBFou3NYV18XZOWZnkM94D619LGftCRjuLJ9F2dupbi1nrFLJtkZ0DcDL/iHIzk2TX
-	JjDJ+qN+Y0rfAoJWSTCSgq4cKVIEAzmX5PdWlHjcHgIFyjQC2lx32GWaqI6D62iZMLMkuPFSx6R
-	zTRhbcGKu8rphDfgjNZmOJRyCYHgJO+TbiH4nJxsLdwEHOVn6Df3VYzeDRccTKsIeLy9Yjjmnrt
-	wWM3IDbjCqp33Cpdc7CR9cRCQrahvvM6b5zKWq4n3O87iG31ewUEHp1+Le5NJDGLCRiKn0nZBqd
-	Vh0hpl42OBm9mafIeT07y45MPuaKKORloUlsL/jpzIQqLH3i6eLFlMl7gmogxsASTJfW3hw+IHn
-	T8CGdPQ7pUEsFaR/HAAe3FcWakDO3kUZ6Rbq+YIvgiIB0M3GrSy1yZIsblDG5DsMIDA==
-X-Received: by 2002:a05:622a:2b45:b0:532:eff8:3491 with SMTP id
- d75a77b69052e-5414ebdf590mr23748491cf.14.1793298230692; Thu, 29 Oct 2026
- 11:23:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=Nizaum6V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1793298350; x=1793557550;
+	bh=GZ24PPCTQ7Ukom2m+ryN0pWtEtnjWNba4bT5xx6ZYow=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Nizaum6VZiMQ+8HUpUEuM4Qfo/btAs8SaChdE+YAPcxxrsKDJ6yalc5d6Z1zPHfZ3
+	 gX1KL5AL3D5dRBppqXDZ4qtrzjY2UBjjI31FJCFmSCI1V1ORizxSiQoZXiZ2bImZiV
+	 Z2sy8kqygRMQf5pvZosgm+N/0nsluoKkuJicO0FsLDx9bAodGy8Sq7sW9v2HjJOAFV
+	 bGcn+FxcALgqPvtzZGcOPkJ1hEzTZDhWG+mgc/5wiHIvGTOy47Bw5GK+dPve1OFady
+	 +Ap3RrDUtKFAnIpJ6shZPCPCdOVCw3tmf1BXWQ5sZnpV6rgWYaFC/LTrwGi+ZBHgF4
+	 qOcamhIrdiURQ==
+Date: Thu, 29 Oct 2026 18:25:42 +0000
+To: netdev-bot+sashiko@kernel.org, "D . Wythe" <alibuda@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>, Sidraya Jayagond <sidraya@linux.ibm.com>, Mahanta Jambigi <mjambigi@linux.ibm.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>, "David S . Miller" <davem@davemloft.net>
+From: Bryam Vargas <hexlabsecurity@proton.me>
+Cc: Simon Horman <horms@kernel.org>, Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>, Wenjia Zhang <wenjia@linux.ibm.com>, Hidayath Khan <hidayath@linux.ibm.com>, Guangguan Wang <guangguan.wang@linux.alibaba.com>, Ursula Braun <ubraun@linux.ibm.com>, Stefan Raspl <raspl@linux.ibm.com>, linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v7 2/4] net/smc: bound the receive length to the RMB
+Message-ID: <20261029182533.1726376-1-hexlabsecurity@proton.me>
+In-Reply-To: <179209532096.434549.4189685148052558990@kernel.org>
+References: <20261013-b4-disp-f345196c-v7-2-ef3dddfbfa68@proton.me> <179209532096.434549.4189685148052558990@kernel.org>
+Feedback-ID: 199661219:user:proton
+X-Pm-Message-ID: a134c1ba6117cd4c114d544b8dfbd61e6f0a167b
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,88 +64,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029162958.3224280-1-irogers@google.com> <CANiq72nrhqK0NP5q8_G=936++gZR3=zrES+cK96T95-ThVTpbg@mail.gmail.com>
-In-Reply-To: <CANiq72nrhqK0NP5q8_G=936++gZR3=zrES+cK96T95-ThVTpbg@mail.gmail.com>
-From: Ian Rogers <irogers@google.com>
-Date: Thu, 29 Oct 2026 11:23:39 -0700
-X-Gm-Features: AclHuK8I2R6ZBL0M8gpXX54gY1Y2jQq5EjXVV3xSH1Vs5_u0FZ2MTRQeP10WsJs
-Message-ID: <CAP-5=fU8K4as51_Vi2vKAC-kGMVEFn1LDjCg1WvP8R0Y=8SbcQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v1 0/3] tools: Add Rust library build infrastructure
- and prefer zlib-rs
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Quentin Monnet <qmo@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, linux-perf-users@vger.kernel.org, 
-	bpf@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 10:32=E2=80=AFAM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
->
-> On Thu, Oct 29, 2026 at 5:30=E2=80=AFPM Ian Rogers <irogers@google.com> w=
-rote:
-> >
-> > 1. **tools build: Add Rust library build infrastructure and zlib-rs fea=
-ture test**:
-> >    - Adds `tools/build/Makefile.rust` with helpers to locate Cargo crat=
-e
-> >      sources in distro (`/usr/share/cargo/registry`) or local Cargo
-> >      registries (`CARGO_HOME` / `~/.cargo`), map `.rlib` prerequisites =
-to
->
-> When we were discussing whether to vendor crates for the normal build
-> or whether to fetch them locally from the registry a couple years ago,
-> we discussed approaches like this one, i.e. picking a version from the
-> registry by folder name etc.
->
-> But that doesn't work too well. For instance, the graph of
-> dependencies may change, there may be several versions available (and
-> the highest may not be the proper one to pick), there may be different
-> major versions available (i.e. not backwards compatible), they may
-> change the build scripts, etc. Even picking the highest major wouldn't
-> always be correct, from what I recall.
->
-> I also asked a few distributions how they felt about it, and they
-> indeed said that it wasn't a great idea without querying properly the
-> registry.
->
-> So one should really ask Cargo for the right information about the
-> local registry (i.e. offline). It has been a while, so Cargo (or maybe
-> `pkg-config` or whatever) may have better support for querying it
-> nowadays too -- I would suggest checking that first (e.g. `cargo
-> metadata`).
->
-> I think depending on Cargo for this, especially nowadays and for
-> `tools/`, should be fine (we were considering even back then and for
-> the normal build).
->
-> By the way, checking Cargo's cache sounds very strange to me: that
-> means the version that gets picked is even more "uncontrolled".
->
-> I hope that helps!
->
-> [ In the end, for normal kernel crates, we decided to vendor for other
-> reasons, e.g. we wanted to pin the versions, to customize sometimes,
-> and most importantly to avoid any possible user misconfiguration that
-> could lead to a subtly incorrect kernel. But for `tools/` it makes way
-> more sense, of course. ]
+On Thu, 15 Oct 2026 20:15:20 +0000, netdev-bot+sashiko@kernel.org wrote:
+> [Severity: High]
+> Can spliced bytes still be counted twice through the error path in
+> smc_rx_recvmsg()? A read that wraps the RMB end is copied in two chunks.
 
-Hi Miguel,
+Yes, and this patch doesn't change it. When chunk 1 fails after chunk 0
+went into the pipe, the goto out skips the bytes_to_rcv update for chunk
+0, so the count stays high by that much while the pipe release moves
+cons past it; the next read is off by chunk 0's length. Same before and
+after 2/4. The reorder in 2/4 is for the other double count, a reader
+that takes the lock between the cursor update and the splice_pending
+drop. Hidayath Khan's v2, announced in [1], will account the first chunk
+instead of taking that goto, on both the splice and the memcpy paths,
+and would close this one.
 
-This is great feedback, and it's why I thought this was an RFC series,
-rather than a full blown series intended for immediate merging. I
-think the other obvious point of contention is preferring zlib-rs over
-zlib. I'll incorporate your feedback into v2 along with addressing the
-large amount of feedback Sashiko has given, which may become
-irrelevant if we trust in Cargo more.
+> [Severity: High]
+> This is a pre-existing issue, not one introduced by this patch. Does
+> smc_rx_recvmsg() handle a short positive return from smc_rx_splice()?
 
-Thanks,
-Ian
+It doesn't. The bytes that didn't reach the pipe stay in the RMB and
+the next read returns them first; the count is what goes wrong, low by
+the difference for the rest of the connection, so the tail is lost at
+EOF. Measured with a vmalloc RMB over SMC-R, the cursor 100 bytes into
+a page and a full 65536-byte RMB spliced into a 16-slot pipe: splice()
+returns 65536, FIONREAD on the pipe shows 65436. Hidayath's patch [2]
+covers it; not this series.
 
-> Cheers,
-> Miguel
+> [Severity: Medium]
+> Now that this helper is bounded, should the other readiness checks use it
+> too? Several sites still read the raw counter:
+
+They should; v8 does it. (The raw reads left -- the stats in
+smc_rx_recvmsg(), the write_blocked tests in smc_tx.c, the unread-data
+test in smc_close.c -- size nothing and gate no reader.) With the count
+driven negative (forged wrap bumps, 2^31/len of them) v7's poll()
+reports POLLIN while recv() gives -EAGAIN, so a level-triggered reader
+spins: 1,887,464 wakeups and 1000 ms of CPU in 1 s; SIOCINQ returns the
+negative count; a deferred accept returns at once with nothing to read.
+With smc_poll(), SIOCINQ and the accept precheck reading through
+smc_rx_data_available(), the same run: 0 wakeups, SIOCINQ 0, accept()
+waits out its timeout; with the count at 6x the RMB, SIOCINQ returns the
+RMB (v7: 6x). Conforming traffic is unchanged: bytes_to_rcv +
+splice_pending does not exceed the RMB there (short of the goto-out
+double count above), so the min() is a no-op. The two "guarantee 0 <=3D
+bytes_to_rcv <=3D rmb_desc->len" comments from your Low item say "can be
+out of range" now.
+
+> [Severity: Medium]
+> This is a pre-existing issue, not one introduced by this patch. The clamp
+> keeps the MSG_PEEK|MSG_WAITALL case inside the RMB, but the peeked data c=
+an
+> still have a gap in it.
+
+It can: with a peek asleep at 8192 bytes while a second recv() takes
+4096, the peek resumes 8192 bytes past the new cursor, so the peek never
+shows the 4096 between what it had and that point (by inspection; the
+measured run ends with the peek returning the 8192 it had and nothing
+more arriving). 2/4 keeps that read inside the RMB, nothing more; a
+peek_seq/copied_seq resync like TCP's is outside this series.
+
+> [Severity: High]
+> This is a pre-existing issue, not one introduced by this patch. Can recv(=
+)
+> loop in the kernel indefinitely when unread data and unreleased spliced
+> bytes coexist?
+
+Yes; that is the spin [3] fixes, which 2/4 doesn't touch.
+
+[1] https://lore.kernel.org/all/7a174d1f-80d8-4294-ae66-829c9dacd662@linux.=
+ibm.com/
+[2] https://lore.kernel.org/all/20260820085543.967490-1-hidayath@linux.ibm.=
+com/
+[3] https://lore.kernel.org/all/20261029-b4-disp-da7f8e6a-v2-1-9052904adf72=
+@proton.me/
+
+pw-bot: cr
+
