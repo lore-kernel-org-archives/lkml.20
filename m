@@ -1,97 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793301642;
-	b=RFBz4dvnpjcVsD5HHLfU+kegqVnmOmo6yZNNhpph0MHDBjAa3N8UGDQZHRhM4kUtc5nP
-	 CHHBR4/tJ3cWDNkWrLwxwdRbRl0pGAoNwO/vRczTb+NbYMMu2nGRZDfHKpKg1HJZJ1r0n
-	 lONr5TUTgxB20SfKzEq5VsrtzvTgz3Tsn8I/b84jF1OFn6KA2YEplj6+aSO36mSCG6q5M
-	 i0jUARNtxNcPOLm0T/PbX6bG7SX3A68wYFSOtnG8V7l3+AbWkK/TjNUTbGTthqO822vcW
-	 v1Nxzr5Tg7BwqDPBfJx23veeYVorQ8BNnmvKeGVDg5jWPyoidpJEAR7mGWfMi5XdVMA==
+	t=1793301657;
+	b=nX0fb7qPxQTDQIoUvsw7ufDcWnsDFioXMgRLqcZtM48SR1M7gq2n+U0TPkbR7PsUCq+K
+	 6Tl2B0M74XSPrCys/KrB2b9Tf4N3fUBLlL1Y3qjGGR5EEtXRKBjkdXJNQpg+TVxAjGtiq
+	 S/EVZxKobc8Dd0Ug83bm9/J+r/Ezav+avSXpBZvEntt4MJBMaR6PlHSUu8qEK1uuuh5y1
+	 L1YTHuh6mBhz6BpYEihDvqez5mizlCZyZtmhpFKEeKLWKbb8JjSH+divuYZPrlefM3m+3
+	 ofTR2OFMJaL6WNqAHrOkjjlhjOe08dA8+kmQLI4ptiHlh8yADxBSJNM14mphdF33XdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793301642;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=uJqHWAWYs20QmlFZO2Jbc5pcUFuSp3a25Mlpnz8BX2E=;
-	b=KNgrmGjGFikesWRappVUernI/OiUF5M/lT4jVxL7X6QjXC+tAyWUxdpG36ElFT3Q4/bw
-	 anVZu+sRxCLyl8J9ljHYGJVqI0QROxoUcPN9KDpCE7os8zro0UOyrJjxP+hJpuZ+A8TzL
-	 AH4YDns5L5dD6sLL/u0w15QUwwrLByk9bxrDoPuqt8ZJEqZsmJzi7URxJNewsXI/rCAaZ
-	 YEVOD87xgpwY+HXpRIpWIacLpbddH1COZqIgFCEsCWhLlC6Ngeu7Z3wspk07rZKV1aEod
-	 PkfbgNriCTjy8nb/PIyRyVHsO/be63AvTcVP7ju8ximqXG1n1oIGGqis3XSdVYcuBLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793301657;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=6cRbs5oqkT6KWm1ocQa4weQvb7ZtTfs7ITLdAIDLxX8=;
+	b=u2r0Ew+hA73hKXg7i0Jn/5jJ2IJ/C0m1ltvglTvC/kMekyG6GDAmkVqWHR4IVPJurJIR
+	 D7lf++8JBeFqPvZkTt7t7dkjtW0fGNmVzRDpm6i8NPIEPA0aBuiRtF8X4XprDW+X/WZwv
+	 VJYvNJhswbFVCmDldjTfUPDhlfcCmS7FP9rio70BEE9l22zzUNAVE3VYKcHLlHQDH6N6D
+	 s5aqmY6dxVNnO+jml8XPoD23FXJqVR6noei5jVrw1MiioDKw52SNISuKqjlwf35jmZGYd
+	 zw3nOFFFD6J+r0DhMqq3mPnnExJzYBBmwfDNnlWB5azPsTZS5KqpIfRopu5DPGYQjJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TEgQ5Ebs;
-	arc=none smtp.remote-ip=74.125.224.51
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com [74.125.224.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dn26AmIH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A32606A333
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:20:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6A32606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778ED606A33C;
+	Thu, 29 Oct 2026 19:20:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TEgQ5Ebs
-Received: by mail-yx1-f51.google.com with SMTP id 956f58d0204a3-67989a2f9bfso1907915d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:20:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793301641; x=1793906441; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uJqHWAWYs20QmlFZO2Jbc5pcUFuSp3a25Mlpnz8BX2E=;
-        b=TEgQ5Ebs2QXPP4igGJnoTaxhZKp07UcjkF2eZiy6XE3wWw6gnMngFPJuvVcQbDAH8V
-         P/DE71rVaQBQa1D5LUEGpq2+WFKZQ6M0M2q1fXBbwi7XVU3pzNLeZHS67nixJOwETAZu
-         oj0tIY4zS8iyWTRnsksxo9pe+SWWpQ31JINLG+WHMqYOq3z0l1O8GYpbG8rD79B24m8i
-         NqrLRlnbtTZIMRuwogmOsUAtq07CId2qcqO5dt8VqLF4NrAF+4usXpLBN1UGVc44BVpn
-         gOpOg98yIOQFo4I4fhxj/zZM6JGaIRN8x4UMhs31Derlm1NTDINN/eAgWTj1qrovOoV+
-         z0fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793301641; x=1793906441;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uJqHWAWYs20QmlFZO2Jbc5pcUFuSp3a25Mlpnz8BX2E=;
-        b=TbBa5JGkpnRZwjUaTsyKPge8kQxzH2YTPGUTYOPQUzi810WYQr0UwVAclaVJoLWfzY
-         KnQwWNOHxFmeivRRx9PTR/QMvRTiFzJcO/npADtBXHjeVRThJY76nH0jYLqLjAjQuDyU
-         EtFNDp78eJ3VGbarXafvsLqCoJ42d6mLCbWH2qHNqebVUXnkclXW7f7kyUO63SCuaVM3
-         F3zy+Q3SZAv/xXAEGPE4XvFSoo/Ekqu42n4nFX5KXQQyS1bfwi7XACP7/wbhFYOJbbIo
-         gZcwgarZuyjTOiFu+ratNuJRVlJx55HKXSBLah463dJQVKP1UFBIxBcAP1Xh4FvqEsj2
-         QwEg==
-X-Forwarded-Encrypted: i=1; AKwUvBzad+dKPhPdFyoFQpRNKZ48523P1QYkveZO0+N/J/Y3iexYbX1Cigr4Ge5atfXpWEfipKJ/L23HcAeRb4U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0EDGP8TXyH1h54xkL7bxWWiBR4LCfQMInVBtkG0ONR8pLFvDC
-	psD24hxMzrIq0sqXRpqY5j3Kerm04FTzGZVsOfX+iapSVwLzX5bRE9Yh
-X-Gm-Gg: AYBFou3VSDugM/PZunbH98r15m2DjvsQrExxvizK0+sGkbwuSvnroAxiHeeN5arXujK
-	pt62DHsi55z9gvD30FtWRu3el4NtwWv4wLJt+cbl0CAkfMIdKe+/oZcWM+RhZFJdoTHguoisoIT
-	oBb0LpES8OCRTAlqFCh7hJ6MNKKZ1NTjipGrHfkDiZKgG66jcsOJ0tiqxP7gleoKiOdl0AZdr4l
-	0W/7NimjX4FfW3C2jIvnl2bwkunu3t6dVbYXIUicupSZjPDZNgG/ijK4Rx2eRhA8+Gfd/5EbJt0
-	lpKZ9pN/CvvSAIpo1LvVwizGRyn5LOJ5hz7juORgBN/p23ZfyDKjL0gx6nbLtP9ATSuF0t/SKgD
-	JhC5NJybtWPDH7Mtf5lBJL78J241OSuE3xih3MV54whtRSamACOWtc78ACIWPKic8ZgzzMW1SPs
-	ns+dhFEXeSyHV+XlifqMajppcq3u7m7aNSRKivU8NlBguQFca7e4aXaEkAAghVhUIBM1Q2JewxB
-	3buThKdoQPvxVMPx1uhhQd48hj8J6T0Rj0zt1TCUeVnGaPkAJuiOdYUgrtQtFefeCrO9fGXjrhi
-	XPMufCRO5+13LfsmOxT5Wb+Fqvst
-X-Received: by 2002:a05:690c:6602:b0:8b0:a957:80a2 with SMTP id 00721157ae682-8b1b5cc61f9mr38215067b3.41.1793301640787;
-        Thu, 29 Oct 2026 12:20:40 -0700 (PDT)
-Received: from gmail.com ([2a03:2880:1fff:43::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b4ab040asm750707b3.14.2026.10.29.12.20.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 12:20:40 -0700 (PDT)
-From: Matthew Wood <thepacketgeek@gmail.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kbusch@kernel.org,
-	Alex Williamson <alex@shazbot.org>,
-	kvm@vger.kernel.org,
-	Nikita Vetoshkin <nikita.vetoshkin@gmail.com>
-Subject: [PATCH v2 3/5] PCI: Add pcie_capability_user_read_{word,dword}()
-Date: Thu, 29 Oct 2026 12:20:27 -0700
-Message-ID: <20261029192032.1325629-4-thepacketgeek@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261029192032.1325629-1-thepacketgeek@gmail.com>
-References: <20261029192032.1325629-1-thepacketgeek@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dn26AmIH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32A211F01824;
+	Thu, 29 Oct 2026 19:20:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793301649;
+	bh=6cRbs5oqkT6KWm1ocQa4weQvb7ZtTfs7ITLdAIDLxX8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Dn26AmIHNql4k0vIhoTKyGSjVJ4cgpmGwE2pX2CE4VKQsm6Aexk95CuLDLOIYVU0F
+	 dG8fIXm2p+2PJFCUzbUmZr5GOw8cxUaUmNM23yD2hphNspemteyEWIW/MC4Sy9KDE3
+	 SexvEyi1ceDvbO+PdJ1eiePZ1xsHiGMc3+rH8c5x3NB5CXsBj4+KT3cHsM8+QqvFWn
+	 n1l65j/tMmv2hvUkghE7K8NY9edNcBbAz9AnLDeq0cEXSWI3z5TwslHlT+sQbbJ4K8
+	 nWprPv/+kXp+D0rD60DtBZxyT3Bp70dJ+EK7ZFm7SF0RNJbQintERb8KV5No3StC9G
+	 1vSTaxHQy7IMQ==
+Date: Thu, 29 Oct 2026 19:20:41 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Kwanghoon Son <asdfkwang@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 12/12] MAINTAINERS: Add Bouffalo Lab BL808 support
+Message-ID: <20261029-amuser-savior-6a6ab062f471@spud>
+References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
+ <20261029-rust-bl808-console-v1-12-b736ee920078@gmail.com>
+ <20261029-spyglass-evasion-772697094cb9@spud>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,102 +80,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="FP9ChwAHSeteGPVI"
+Content-Disposition: inline
+In-Reply-To: <20261029-spyglass-evasion-772697094cb9@spud>
 
-pcie_capability_read_word() and pcie_capability_read_dword() use the
-kernel config accessors which don't check block_cfg_access, so they
-can't be used for reads on behalf of userspace that should wait for a
-reset (or other pci_cfg_access_lock() holder) to finish.
+--FP9ChwAHSeteGPVI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Add pcie_capability_user_read_word() and
-pcie_capability_user_read_dword() helpers, which provide the same function
-using the user config accessors.
+On Thu, Oct 29, 2026 at 07:08:56PM +0000, Conor Dooley wrote:
+> On Thu, Oct 29, 2026 at 01:05:53AM -0400, Kwanghoon Son wrote:
+> > Add a MAINTAINERS entry for the Bouffalo Lab BL808 platform, device tre=
+es
+> > and Rust serial driver and abstractions.
+> >=20
+> > Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
+> > ---
+> >  MAINTAINERS | 13 +++++++++++++
+> >  1 file changed, 13 insertions(+)
+> >=20
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 801f964899ba790a8f71fe61f9b3777a494dabd5..b76d3e168468bf6139c958a=
+81b626c73b422c0d4 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -4926,6 +4926,19 @@ S:	Maintained
+> >  F:	Documentation/devicetree/bindings/iio/imu/bosch,bmi323.yaml
+> >  F:	drivers/iio/imu/bmi323/
+> > =20
+> > +BOUFFALO LAB BL808 SUPPORT
+> > +M:	Kwanghoon Son <asdfkwang@gmail.com>
+> > +L:	linux-riscv@lists.infradead.org
+> > +L:	linux-serial@vger.kernel.org
+> > +S:	Maintained
+>=20
+> Missing git tree, unless you're expecting me to apply patches for the
+> platform for you?
 
-These are for use within the PCI core, so they are declared in
-drivers/pci/pci.h and not exported.
+Additionally, are you actually going to add wider scale support for this
+device? Like a clock-controller driver and the various other
+peripherals, or is this really just a vehicle to support your rust
+serial driver work?
 
-Signed-off-by: Matthew Wood <thepacketgeek@gmail.com>
-Tested-by: Nikita Vetoshkin <nikita.vetoshkin@gmail.com>
-Reviewed-by: Keith Busch <kbusch@kernel.org>
----
- drivers/pci/access.c | 50 ++++++++++++++++++++++++++++++++++++++++++++
- drivers/pci/pci.h    |  2 ++
- 2 files changed, 52 insertions(+)
+>=20
+> > +F:	Documentation/devicetree/bindings/riscv/bflb.yaml
+> > +F:	Documentation/devicetree/bindings/serial/bflb,uart.yaml
+> > +F:	arch/riscv/boot/dts/bouffalolab/
+> > +F:	drivers/tty/serial/bflb_uart.rs
+>=20
+> > +F:	rust/helpers/serial.c
+> > +F:	rust/kernel/serial.rs
+> > +F:	rust/kernel/serial/
+>=20
+> These should probably not be maintained under the arch support since
+> they're not platform specific.
+>=20
+> > +
+> >  BPF JIT for ARC
+> >  M:	Shahab Vahedi <list+bpf@vahedi.org>
+> >  L:	bpf@vger.kernel.org
+> >=20
+> > --=20
+> > 2.47.3
+> >=20
 
-diff --git a/drivers/pci/access.c b/drivers/pci/access.c
-index 18a206bb2a94..ff5a16236758 100644
---- a/drivers/pci/access.c
-+++ b/drivers/pci/access.c
-@@ -490,6 +490,56 @@ int pcie_capability_read_dword(struct pci_dev *dev, int pos, u32 *val)
- }
- EXPORT_SYMBOL(pcie_capability_read_dword);
- 
-+/*
-+ * Same as pcie_capability_read_{word,dword}(), but using the user config
-+ * accessors.  Returns 0 on success, negative values indicate error.
-+ */
-+int pcie_capability_user_read_word(struct pci_dev *dev, int pos, u16 *val)
-+{
-+	int ret;
-+
-+	*val = 0;
-+	if (pos & 1)
-+		return -EINVAL;
-+
-+	if (pcie_capability_reg_implemented(dev, pos)) {
-+		ret = pci_user_read_config_word(dev, pci_pcie_cap(dev) + pos,
-+						val);
-+		if (ret)
-+			*val = 0;
-+		return ret;
-+	}
-+
-+	if (pci_is_pcie(dev) && pcie_downstream_port(dev) &&
-+	    pos == PCI_EXP_SLTSTA)
-+		*val = PCI_EXP_SLTSTA_PDS;
-+
-+	return 0;
-+}
-+
-+int pcie_capability_user_read_dword(struct pci_dev *dev, int pos, u32 *val)
-+{
-+	int ret;
-+
-+	*val = 0;
-+	if (pos & 3)
-+		return -EINVAL;
-+
-+	if (pcie_capability_reg_implemented(dev, pos)) {
-+		ret = pci_user_read_config_dword(dev, pci_pcie_cap(dev) + pos,
-+						 val);
-+		if (ret)
-+			*val = 0;
-+		return ret;
-+	}
-+
-+	if (pci_is_pcie(dev) && pcie_downstream_port(dev) &&
-+	    pos == PCI_EXP_SLTSTA)
-+		*val = PCI_EXP_SLTSTA_PDS;
-+
-+	return 0;
-+}
-+
- int pcie_capability_write_word(struct pci_dev *dev, int pos, u16 val)
- {
- 	if (pos & 1)
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 77efa4c5c960..7c5a2ebc5706 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -128,6 +128,8 @@ extern struct mutex pci_rescan_remove_lock;
- bool pcie_cap_has_lnkctl(const struct pci_dev *dev);
- bool pcie_cap_has_lnkctl2(const struct pci_dev *dev);
- bool pcie_cap_has_rtctl(const struct pci_dev *dev);
-+int pcie_capability_user_read_word(struct pci_dev *dev, int pos, u16 *val);
-+int pcie_capability_user_read_dword(struct pci_dev *dev, int pos, u32 *val);
- 
- /* Standard Capability finder */
- /**
--- 
-2.53.0-Meta
 
+
+--FP9ChwAHSeteGPVI
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauOciQAKCRB4tDGHoIJi
+0kaYAQDe/U5aSNMnBN+gfEYMXHcowI6WsE/iqPlFmGa663zB1gEA7nC4tnTPdBIy
+gnEMK9pC2q6MB8djjcDHvekkukxybgc=
+=vdAX
+-----END PGP SIGNATURE-----
+
+--FP9ChwAHSeteGPVI--
