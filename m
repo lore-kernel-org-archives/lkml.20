@@ -1,110 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793252871;
-	b=o0oG58cenG6ew65hm8AT9J88q+baGu8bvSC10GcLiQ+r7Cl2tdULpzlEWcyQlyTb5xud
-	 5l1We7H8v7kPKW5BOa7tLiY2Y/cRrKeIrWCUUrCoHx6Awb634fYaz6CBrIBKuINTxArU/
-	 dSb8PqZ8t4LkNZ6ZgdWZANVYONq7ynS7PUHpV4WEnuCWkDAAdJc8/Llc3uQJQmVadZ+AV
-	 566rh5TTLjKdlNvT2tcLCUgmmbkI2LQNJiRq1VrltWCTCRHTeglZbWA4egFE27xEcrM3z
-	 cMjupDdXEkVmtOgw+CRF5fadgTsXzbf4ejNiYg+1Za3HiJj39/9Tjpe9ddky7OF2UPA==
+	t=1793252987;
+	b=gnh0yfDgWy1kFjp1yJ/B00SIaWE+w1OgW3JcTfQkWSRya/PTLzUDDJugWRk5veQyOSvC
+	 JiMS01Uj6rjylCQBn2gLRusatYm4DD83RESnkZ+5ovXEhWnENU+L5qtdqe+epMe/zu8G1
+	 3FLQIHFbz4d979QOzBWx452MaT4bhia0yVg+AWydu90ydvLRdVA0DiYty1IkroKZq4tVY
+	 UZZNOfrP50D76ZpNt9D+vNswkxA4VKle7RXFl8Y5uhHpNqTCTvst1Pc6y25OX6rGOdodh
+	 viDDC2tLrIPIrFJB7rVuIjWneEAh6q9REPaLme0jOL19TwBZg0KGutumCmriOhRDa0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793252871;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=aQL4EicGq6alzodv4b1ZZDnu/EvQ8TEvCv3eygcBvA0=;
-	b=bvp/C75n6m8KaMgF31cfLHO8ct1PLioRu2dDrLTJgAJponBI5D71XggLr/8Aja7p03pc
-	 1DF73o3KDjPDd6vsfGe5NiuA7YKHnJ5IB9GcQ/XOs1PhIvYyd5JHwFEv7YdTZtEmE3uzi
-	 139EwxGq01z3DO3NoNHvuZln4pS/2EZRW3RYf2vjvmePLfZfORNV9nTCbzw5PNW3fAEjk
-	 jnYs0S66rfEZb3TsjPRa7m5eL0vcASeO0x6slAnsWLEY3L8Sci1WvXpaqhV9pdm1Tvyrt
-	 GjXt2DFxzVJnJg3ImukeNdorva/UH0vmOJvgfX3lio+ETP/XCBwjS7sOHzaH1x2mQOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793252987;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=D1ac/wkjmqQ2BHhV67erTJFRXbNfNgVPH+OMTmkt05M=;
+	b=GXi2oynCJnu4ld9x8Si+6Yh2Lhjxosr8++kvdSxR8SjzZ4RIuLrds2h3mhmLmrFUhjfR
+	 FoOfhDlavjxqGkI5QNGKmGHHdHE+0oTQsTUjcx8yn0U7duLmbfd1KSQBcn1A/BCKjWbT0
+	 6QWAhr7pofqZl+LjpnEhlSpmvmy+qaRBJ4jp7j0XVAf/k+CvSFjnuLgCpCQkS9UZbrMdz
+	 Ids50MQmNFDDYL34EA51P1szFOum0JaqSIJCwKFEoQzoMrH7Nnfj2ivkBMuRyt69rvarX
+	 SeavibMNFbzGL4nG1G7TPZO1TPskd/oziiRZhZFUEkdEBU+T3iecSrOYS/herK1j52Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GfTmYG+N;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XTJBZpQc;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=none header.from=wolber.net;
+	spf=pass smtp.mailfrom=wolber.net;
+	dkim=pass header.d=wolber.net header.i=@wolber.net header.a=rsa-sha256 header.s=fm1 header.b=GXaTKQn2;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Eq7lzYFQ;
+	arc=none smtp.remote-ip=103.168.172.158
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB0A606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:47:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AB0A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABE9606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:49:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8ABE9606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wolber.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wolber.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GfTmYG+N;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XTJBZpQc
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5Gu9Z3829018
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:47:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=aQL4EicGq6alzodv4b1ZZD
-	nu/EvQ8TEvCv3eygcBvA0=; b=GfTmYG+NrkeYIclWf6ilLtiCfVN9vn4+RM1wGK
-	6N6ulbua5F06dW36LVJgA+1o8CzUHH65TdmzC5PRttJyv3i7n2rqTf6iD0ZETW57
-	Xx3U5vzTS8PGN1m26JinJBh1K0MzZzcFb0tmpMdN2HCmcnSEr2/WkWub/3ihAY4t
-	Mq7lmQAwVru8rUTRxHOwR0+IuvUN/4tHgD7pG/X1nRA3CPdOfNcA8uH+5XM/+G11
-	0U/vLFAJcrBt+9JO5gZIuYtEgR1kZSROcJK8fHTF3pxq8psvHZ1UCSr45nlz8wvP
-	YGQZ6XzxeU+Wu4U6tGb9DoqW4W4TTXdbXvsF7wAa8KjMFbJQ==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hktmp94ba-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:47:49 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ad30487d55so2575985a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:47:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793252868; x=1793857668; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=aQL4EicGq6alzodv4b1ZZDnu/EvQ8TEvCv3eygcBvA0=;
-        b=XTJBZpQc+CRnlhiRy8UDtNoIQ09+ZH/OG8MD9YzdOrGdUVUY6xUQoCcYhX93b8tKET
-         WJe9Vr6228SmMYpTmOmSe89f4IsOV+9zKo+9w97zp7SpwfcvmNfPDL6oyX2em2c45VIz
-         yjQtCJLJKsIbvuXlaVoJpgcMK/VU/yWrUZ42FssnxnYJiJjPXllABMXDExeBxGxovsKO
-         hacrNB6Vyo+4XlY0KaHW2jwbJxtNVVup2PV+9sfkECvnbOZYj+LlHDY6g6nUKHmIB94w
-         seyQ+o3qvA30VpofbG0/VpT6RGjLBRk/aonkgNx1CNrOyuQNLpxaMO2E6jTYP8vqmvVL
-         8bnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793252868; x=1793857668;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=aQL4EicGq6alzodv4b1ZZDnu/EvQ8TEvCv3eygcBvA0=;
-        b=XQ7/ajR/aM4FFoS0TFPQNhPlR5BIBgLBv7wMnQRqAelQHik7wbvRHGZBAnrCreI7un
-         pDj+RuqfKcsgJok1BvT6nOh+13631/Sq/TQmu2sI4pafMa6ENGDTlnq/HdNV7NzGdm0q
-         bJTXev0sqytJsV5KG+sTAMYyXY+2+H/upcuIPdxxsrV7Af791U6+B09JPb1wwOPBrzYO
-         jG5RmyZDuHqpHagBhmyCj2uvIu1b2JCHNulMKRCP8UGal/ozze/Pzq5AUtCxAdL9Vvd6
-         WM86m3V91FnGsicVB7f+zhJh54siv6lcF8PsUUe46xvExlX6SR7SxUzBVpEY2kzoI60r
-         t42Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxaDYvqMasSYcm8X4ijY3TvSx3aiXzCC4OOLAyZ0JeDjbVBJpyDtVTBtcTeasx271N4Gc6Ja/3O+bZ5LOM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIu2qB/0Wf6DF8eTFHoM5hHs+Bd1NLruCTNP3D1yCRavZCcjDKz
-	pZXQTnp8CGEaG6aTVNN1iV13QaXlZi9a9LPYNcnmUBcGg8KA+UpHMk8WFZm+TyYl2/by+7JmHv6
-	cXpVQOjLD9nV9dQk+zoxes8itE4bnA6QfF0Pb5TPbqOXvtDuOoBnqW+zf7InJCMKSQ4c=
-X-Gm-Gg: AYBFou3S68rCdVja9sL4b4Aq9YPEIyWnT4jUh154Hm7iBfEG4lECUtZLHE4ke/4EOwe
-	KWkJ0VZN6Vrq8OqHL5QTcOiwD8DzpEmtAj4QPOxWTV31rYttu9hNrkWhDYIBRb+P2HrSTdo/ZqW
-	NvjHmt9Qru1vBxmK8uCQNpGcp78xJNaSINCw/4FcW2qvDjYBpqt1wuWlbOAbQZz336aaUoIL1xY
-	KI6uru1dqTH2kJuj/95Fp0hCqSfS4HZIQiLNhmw6mSznezObytSKTndt24GiH/MkY79RAulhUhO
-	nUIT9kiG4lnYSfzlGm5rwV8zLurRvmpQurxy3suoENBQseCFeM90yIwslXuF3p0lAlf90njoA5k
-	m3IskpJ6aIpupw7DjQWNlV0rBdwwh+N7aqsrbBhW+zezP8Pm7xvsXEvEdKNejdzzzkdrzCrCOiL
-	c/BtQ0V6zZa9qRSIhhc84XG1C7Eg5Ybhqt
-X-Received: by 2002:a17:90b:3c8f:b0:39e:6c68:c787 with SMTP id 98e67ed59e1d1-3ae5832091bmr3853154a91.61.1793252868297;
-        Wed, 28 Oct 2026 22:47:48 -0700 (PDT)
-X-Received: by 2002:a17:90b:3c8f:b0:39e:6c68:c787 with SMTP id 98e67ed59e1d1-3ae5832091bmr3853140a91.61.1793252867822;
-        Wed, 28 Oct 2026 22:47:47 -0700 (PDT)
-Received: from alfred-sh01-lnx.ap.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e7ac746sm2419141a91.1.2026.10.28.22.47.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 22:47:47 -0700 (PDT)
-From: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-Date: Thu, 29 Oct 2026 13:47:41 +0800
-Subject: [PATCH net-next v3] net: phy: aquantia: Add support for 5GbaseR
+	dkim=pass (2048-bit key, unprotected) header.d=wolber.net header.i=@wolber.net header.a=rsa-sha256 header.s=fm1 header.b=GXaTKQn2;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Eq7lzYFQ
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id A82631400146
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:49:45 -0400 (EDT)
+Received: from phl-imap-03 ([10.202.2.93])
+  by phl-compute-03.internal (MEProxy); Thu, 29 Oct 2026 01:49:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wolber.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1793252985;
+	 x=1793339385; bh=D1ac/wkjmqQ2BHhV67erTJFRXbNfNgVPH+OMTmkt05M=; b=
+	GXaTKQn2JzEuUeJoPT/zSEzlcOtMhx+akHwrWHTeWrkSRpV7CPrgW2wbOZUiuKOb
+	L7VIBuHb1fwHLYEo1Eya6g3fG2Ply9k25eKX2kf5s7JhEisaKKUobazk/a1f4iFR
+	U0nUYgS/mzQHtZD5E0Jf4Gn1WI3xkxS53HWGhHkys/MUss0GHYjs8rsUSf/zYs1J
+	fqwlnKg4JCbzRSncY32fswg1ojL1J7kByWi6tcnEhTd/7bwV7NpAUmrMOZMrapsH
+	NDG5EVDdxLYDHauRulrTBqzaXwnfsSlNL1agN0JODevx/aveAGW3Ee59/QVZ5CPN
+	x46WcfSoPk0FANNv4DTUmw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793252985; x=
+	1793339385; bh=D1ac/wkjmqQ2BHhV67erTJFRXbNfNgVPH+OMTmkt05M=; b=E
+	q7lzYFQBgXaHVv0RKJUZCfhLvKhzRJmrp2gpMQbLjOwdtj8qO1f2OuWTeXUa17Bs
+	mnFL+y3unmwSjRbyHGZsLYM9+DLqvZJABI8cqSmZdtc0BFkZNBI5J/M7URO3n8eO
+	6AB8hQox9+ZgKPfTCVZbOxPg+HEkpUGgXs3Gd7bulJaILwQLo4YXoM8jQGwqlvK4
+	PJ33ZS5KMZHvHe/y3ojiUOICLXnvXmUse0KV/N7v+gA3tLDUWje9BU1eLzWnv5DW
+	UglI/Bd3x7WLlDbC1LuBdgvXunadtrfRKifR7iawe6HrT6L70BywN1BINqIndrzG
+	i+w1iFeAVWOIv15Co2z3A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=wolber.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793252985; d=wolber.net;
+	mf=PGNodWNrQHdvbGJlci5uZXQ+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:Ubt3hRLzwQbH1EOGjE2bQCyOhOjF5Zxsx310lDGxnzop3kf
+	0s0tnZ+RswsIuE0E7vbayrzusqdaBMeGM8EaqyCVdLfrqOMqKyaS6G7IO+/SxO7F
+	IrIZSbzkG7r13TdEPcCFhm+R1ZTOEeLdYGsQ0vTgY3WtgnLcTHTW48g8o4vlH+Fc
+	nKkcLg0IMIk1nnBqEp/MCQPbsouts5E7fsCuD/ZAOBWIYAPwXRdvmUxOXny2GMCm
+	eYxygsIrQTbeLahIMf1eEwMn+yqTwnPTqU3Upx1xJv19S8th/L01PxRJTGP/GaM6
+	qKNkSlHuZXvYQzRtYGGm5OMtAx1BiK80HUJj1zg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:PDCQrjEtRcrM4lcNqKDQDN9385PHH5uGr7FrVZcz+FU=:D1ac/wkjmqQ2BHhV67erTJFRXbNfNgVPH+OMTmkt05M=;
+X-ME-Sender: <xms:ed7iaj_lbutMFJJkR8aGD-2uDHsJBEseQqbZ0r3kbObgTtrJYuEYaA>
+    <xme:ed7iaqgJ0bNSwRXld3RRvgEIRoz4afpxsa7GQ35jnsp95SRB6OiEVPnSFeWGjL4VG
+    IavfBFOqLnOypa9YUgzTfFaXcBV_CpY6vrDTxXZXNq-fC3KsNfWg2Be>
+X-ME-Proxy-Cause: dmFkZTFi47UfBS3qtin2EOCAnLXWgDTgYqNWZh2+4k0MPu07+mRUMRnWVqjM07Gy9aqxen
+    sbcbfFAmwAoBnCxPB34CZcdieECYJIs/fOGcJEFx0bWy62+lF6VHtvLdyav0DePRL7QZG2
+    68t4tUbRn0qEtwBU1NUdMwWkQ07k/VJvfNuyH61UExn69DfFlh0jgzZh57oKFzwDUeNuN7
+    /BjlGMr63RTgfE4tUKe1cewV0prry6id2fPJsbWCky2R62Tcc9pZCfQlnH2OKvwN7Ti+2R
+    qNlRdLDYBki8Ms9zYvaNyf2FKgAad74wtx8OW7gHTayxwJku9z9uLuZyQYVfwkKTDKZ8AM
+    YdmiPF08dZwWgy+CXZCCLqbSDN8eNC2gSkNB4de9e7XCsmMUREzgzJqpyPfQdon+Fev0S5
+    JBZUUDl+FbO3aJDS65ekV1NOaksjonLr0wOU6UDz1zI1kRSIV0AjNG12loBO+0fj5t/Cvm
+    ppFwqUCOw49/nfA+tX6watX6qteQL+5lT/SKa/lGo4Ocx+aYMNNg64AB+30iAdqr2XjXhI
+    f98dUSrhDqaBUqHHQQZu2D2Rr04jIrr+g9OZt/IOHC9yXxrgMX7lUldryUgzUF9WPO2s1R
+    vShRQSjtHD0W5lb8/KDZVV6uzzQvJX9kVOmem0RNdTYUzgy3lRyBMTncnkoA
+X-ME-Proxy: <xmx:ed7iaviR-_6OYCH3WUTV6NvxqSwl5V88ab9dCo2ECWY3IpSOem7q3w>
+    <xmx:ed7iasdpjGp9fY3ySQxo5Lc3rAxhGNZOP0kMEaFHFKKxEwZ5Vk90kQ>
+    <xmx:ed7iau1DKfumNrRyv7Bf2mm_oqdMN-Phgip7zg9lcg0pOndsOytWFg>
+    <xmx:ed7iaoqppn5_63varWgnIvXWJY4J5KoWj7fMSrnQRN5ljj8MI_45yQ>
+    <xmx:ed7iavA_QMSps5FP5hyZgjr7rdzQdKLl6MK1yYAa5cycyXq656O6rm4b>
+Feedback-ID: i5cf64821:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 1358518E006C; Thu, 29 Oct 2026 01:49:45 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,143 +115,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: ADl5zPqKnVsk
+Date: Thu, 29 Oct 2026 05:49:24 +0000
+From: "Chuck Wolber" <chuck@wolber.net>
+To: "Sasha Levin" <sashal@kernel.org>, "Peter Zijlstra" <peterz@infradead.org>
+Cc: linux-kernel@vger.kernel.org, "Bill Wendling" <morbo@google.com>,
+ "Justin Stitt" <justinstitt@google.com>, llvm@lists.linux.dev,
+ "Marco Elver" <elver@google.com>, "Masami Hiramatsu" <mhiramat@kernel.org>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor" <nathan@kernel.org>,
+ "Nick Desaulniers" <ndesaulniers@google.com>,
+ "Thomas Gleixner" <tglx@kernel.org>, wentaoz5@illinois.edu,
+ chuck.wolber@boeing.com, "Josh Poimboeuf" <jpoimboe@redhat.com>
+Message-Id: <1f0ca403-551f-48c5-8e5b-1e07d3227f34@app.fastmail.com>
+In-Reply-To: <20261028164556.1610305-1-sashal@kernel.org>
+References: <20261028120034.871983-1-sashal@kernel.org>
+ <20261028120034.871983-5-sashal@kernel.org>
+ <20261028135140.GR2668564@noisy.programming.kicks-ass.net>
+ <20261028140118.GB2669272@noisy.programming.kicks-ass.net>
+ <20261028164556.1610305-1-sashal@kernel.org>
+Subject: Re: [RFC PATCH 04/20] compiler_types.h: Don't instrument __always_inline
+ functions for coverage
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-aquantia-support-5gbaser-v3-1-f1f9346553d0@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAPzd4moC/42OzQ6CMBCEX4X0bAltQagn38N46M8CNdpiWwiG8
- O4WvJroZZPJznwzCwrgDQR0yhbkYTLBOJsEO2RI9cJ2gI1OGtGCHgtOGRbPUdhoBA7jMDgfcdV
- JkSAYaloTqYG3DUcpPnhozbyjL8hCxBbmiK6fTxjlDVTcyJu3NyE6/9pXTGRP/C6cCCa4YrVmX
- MpGsersQsiT+67c45Gns7dN9F8eTbxS1w3XipKSNF9467q+ATEww9wzAQAA
-X-Change-ID: 20260923-aquantia-support-5gbaser-e7271bde9f89
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>,
-        Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793252864; l=3752;
- i=hongmei.xu@oss.qualcomm.com; s=20260917; h=from:subject:message-id;
- bh=oSCOzNQKtZlS/9NWiCfaP2XeMMAzavYIrT1WQCBspgw=;
- b=LR3/PRYXfTU5BpG4rw4s1uMi52naf05m04Rqw5kV8/sYUVFN/B/b7xRQgFO57xQJgqji5N++2
- moD76OgCzT0D3qBaasYfyU0y/qJsY9+D7zw8O+wqyk84P/IydZfr2Gl
-X-Developer-Key: i=hongmei.xu@oss.qualcomm.com; a=ed25519;
- pk=8J3IzbyuOOHSwLvktng8AEQIdStEQDAGNCSOlkASmk4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAyMSBTYWx0ZWRfXwiUs5iM2ES/F
- IA4cUkxQwhSw53uozXCsWpF9TBH4F12loS4I8VjoLGemJjk+nvtO2WpZre4cyI9RvOQBgIOtSHk
- R4nvz5utb8wHENhHwrOw8OpDbCKzJMJOPKUqepYO/Y/XDVYsdu/RcTu3kmq4Fy7S9gcHYqi+DQ4
- PHrB6WiNLWPxLM5NNo6QTYfcHjjjiK/jFphfy+7elCwvyl7pAXpgpOLfRgC3tFHnPCT+yV7X/yN
- RFRoBgRv3HTdwLaXI5LcMhNSWyzxKNnz67oE/y4MBV/u6WkW97bcNLiKVNOdKhJ/lfdem+bNgyb
- nkvpu4YnJUeY+uivUZZXW7cxI2oPUerDwMYkaK9FweCrjheq/g5F8aEF3mB+PLj3HZ2SJylfNAJ
- 1KVE2ax9Tb9hjrG/t0GOSP2qMj5gUOT3QZTRkl2cwbJe1bpQlGvcmx6arQc9266dXd347X+Hp2w
- Ft4Ir6kzdAfl91dvpHw==
-X-Authority-Analysis: v=2.4 cv=crYOAF4i c=1 sm=1 tr=0 ts=6ae2de05 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=bEtV3SpGoilhSLS3K0MA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAyMSBTYWx0ZWRfXxu3Wp45lQaCV
- sz42kJnau/n190DJsEVFdZi0gVzXHRz0XfQsOFKBPXHaxjQVHjGnuw3WFGXDnP/KDmBv9FHvFLH
- xsz9mC1QJrw5Nw+H9It6HmT/OMwuC9o=
-X-Proofpoint-GUID: 9cgP0075j2TTVA7yoKYZwu9vCP0TOHL6
-X-Proofpoint-ORIG-GUID: 9cgP0075j2TTVA7yoKYZwu9vCP0TOHL6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
- adultscore=0 suspectscore=0 priorityscore=1501 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290021
 
-Aquantia PHYs can operate with a 5G USX interface between the PHY
-and MAC, reported as interface type 12 in the PHYXS vendor interface
-status register (MDIO_PHYXS_VEND_IF_STATUS_TYPE_USX_5G).
+On Wed, Oct 28, 2026, at 4:45 PM, Sasha Levin wrote:
+> On Wed, Oct 28, 2026 at 02:51:40PM +0100, Peter Zijlstra wrote:
+>>This is pretty vile. But also, since people were trying to use MC/DC
+>>for validation efforts and the like, how does this impact them? If I
+>>understand correctly their previous emails on the topic, this means
+>>they have to go manually audit every single __always_inline function.
+>
+> Yes, the __always_inline helpers join noinstr code as something that
+> has to be justified separately rather than covered by tests. Steve's
+> answer to your noinstr question in 2024 [1] was that this is workable
+> as long as the number of distinct categories stays small, and this
+> adds one (556 functions and 445 MC/DC conditions for the config in the
+> changelog).
+>
+> Chuck, Steve, does that match what you'd expect on your side?
 
-Without this change, aqr_gen1_read_status() falls through to the
-default case and sets phydev->link = false when the interface type
-is USX 5G, preventing 5G links from coming up.
+Yes, this is correct.
 
-Add the missing PHY_INTERFACE_MODE_5GBASER handling in three places:
+And "small" is a relative term that should not be a factor that holds
+back this patchset. Perfect is the enemy of good and we can always
+improve on the level of coverage over time.
 
-- aqr_gen1_read_status(): map USX 5G interface type to
-  PHY_INTERFACE_MODE_5GBASER so the link is correctly reported
-- aqr_gen1_config_init(): accept PHY_INTERFACE_MODE_5GBASER as a
-  valid interface mode, otherwise the PHY is rejected with -ENODEV
-- aqr_gen2_get_rate_matching(): return RATE_MATCH_PAUSE for
-  PHY_INTERFACE_MODE_5GBASER, consistent with 10GBASER and 2500BASEX,
-  since the MAC-side interface runs at a fixed rate and the PHY handles
-  rate adaptation via pause frames
 
-Co-developed-by: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
-Signed-off-by: Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
-Signed-off-by: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
----
-Changes in v3:
-- Add git tree name net-next to the subject line. [PATCH net-next]
-- Add Co-developer
-- Link to v2: https://patch.msgid.link/20260923-aquantia-support-5gbaser-v2-1-4d789dc21418@oss.qualcomm.com
+>>Still, I'm left wondering if these tools should be fixed. For
+>>instance, while the front-end emits this instrumentation, the backend
+>>could easily remove it again when it finds itself in the context of a
+>>noinstr function after inlining.
+>
+> Yup, we should do that. Both GCC and Clang add the counters before
+> inlining and let always_inline win over the attribute mismatch, so
+> neither can do it today. We can look at improving them, but it's
+> probably outside of what this series can do.
 
-Changes in v2:
-- Fix the local variable assignment error in API: aqr_gen1_read_status,
-  should use interface rather than phydev->interface,
-  interface = PHY_INTERFACE_MODE_5GBASER.
-- Link to v1: https://patch.msgid.link/20260923-aquantia-support-5gbaser-v1-1-537d39bb8c35@oss.qualcomm.com
----
- drivers/net/phy/aquantia/aquantia_main.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+Agreed. This is a good example of how the level of coverage can be
+improved.
 
-diff --git a/drivers/net/phy/aquantia/aquantia_main.c b/drivers/net/phy/aquantia/aquantia_main.c
-index e95d391a6dc2..1e3df47365e4 100644
---- a/drivers/net/phy/aquantia/aquantia_main.c
-+++ b/drivers/net/phy/aquantia/aquantia_main.c
-@@ -49,6 +49,7 @@
- #define MDIO_PHYXS_VEND_IF_STATUS_TYPE_RXAUI	7
- #define MDIO_PHYXS_VEND_IF_STATUS_TYPE_OFF	9
- #define MDIO_PHYXS_VEND_IF_STATUS_TYPE_OCSGMII	10
-+#define MDIO_PHYXS_VEND_IF_STATUS_TYPE_USX_5G	12
- 
- #define MDIO_AN_VEND_PROV			0xc400
- #define MDIO_AN_VEND_PROV_1000BASET_FULL	BIT(15)
-@@ -585,6 +586,9 @@ static int aqr_gen1_read_status(struct phy_device *phydev)
- 	case MDIO_PHYXS_VEND_IF_STATUS_TYPE_OCSGMII:
- 		interface = PHY_INTERFACE_MODE_2500BASEX;
- 		break;
-+	case MDIO_PHYXS_VEND_IF_STATUS_TYPE_USX_5G:
-+		interface = PHY_INTERFACE_MODE_5GBASER;
-+		break;
- 	case MDIO_PHYXS_VEND_IF_STATUS_TYPE_OFF:
- 	default:
- 		phydev->link = false;
-@@ -786,7 +790,8 @@ static int aqr_gen1_config_init(struct phy_device *phydev)
- 	    phydev->interface != PHY_INTERFACE_MODE_10GKR &&
- 	    phydev->interface != PHY_INTERFACE_MODE_10GBASER &&
- 	    phydev->interface != PHY_INTERFACE_MODE_XAUI &&
--	    phydev->interface != PHY_INTERFACE_MODE_RXAUI)
-+	    phydev->interface != PHY_INTERFACE_MODE_RXAUI &&
-+	    phydev->interface != PHY_INTERFACE_MODE_5GBASER)
- 		return -ENODEV;
- 
- 	WARN(phydev->interface == PHY_INTERFACE_MODE_XGMII,
-@@ -1040,7 +1045,8 @@ static int aqr_gen2_get_rate_matching(struct phy_device *phydev,
- 				      phy_interface_t iface)
- {
- 	if (iface == PHY_INTERFACE_MODE_10GBASER ||
--	    iface == PHY_INTERFACE_MODE_2500BASEX)
-+	    iface == PHY_INTERFACE_MODE_2500BASEX ||
-+	    iface == PHY_INTERFACE_MODE_5GBASER)
- 		return RATE_MATCH_PAUSE;
- 	return RATE_MATCH_NONE;
- }
 
----
-base-commit: 944ae66642b726bd6b25ae71b1e9ff88a0e0bdb0
-change-id: 20260923-aquantia-support-5gbaser-e7271bde9f89
-
-Best regards,
---  
-Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-
+..Ch:W..
