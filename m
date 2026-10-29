@@ -1,106 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793311903;
-	b=IeLtfjr4MxD5g15W+4sjtmKFJEppkGoQG6qgjFFJYNVJyD+zSBQ4x5U5bzwfaTlDHRF5
-	 P4WWtqTW6mi3uPOQjeCWn9JzOIODUboLI9E7dpQiuc6Jc/3PyWLqDbsisOLBUwJ5riyir
-	 kQx3CbVBVexPURy8v05H3khEUAL7+Aug1JcYPWPB6SiBT6bd7evAvlpwMz5CfgGUDrT8n
-	 5l4iMhSV3tYrKw2ry38ZMQYs2ynHtIROmFAYiPV5yCKLzFI0MErN9+LQgJRf7aFxnDzfw
-	 VfwaiWjIdsE4hd/59nJ5r/K58Ynmn4xQAECYDtV0GUwdvOrWSt9QtC2mrAwtdaSqxug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793311903;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793311912;
+	b=lTPyLFb6wiieum3Rb0igNtMzlTyshw5HXFh45mYJLQ69DILtos+7hCsdn3W87+ikiXM8
+	 7WSkc7IlnZvaYUAr/Xaw0EW7xCFmDEI48bL2jZBLG+Nsk6YPEUliZxDMvo6YSfs83b//z
+	 jtsFSxKxuSSs1jDPNauPQCj0LRezLiMXgm8jNqgp7LtSR665xSylUhH437kbJ7RjsE2LJ
+	 0FitTzwXpeYl+F6btGGoChz6PTv+Vi/0UVyaUMLYNQqS+TQ0sR3MG4HODm0JUQ/aV0ill
+	 XwCmQ7aF0oKceg57XtQLdFm5qRr2H8bHi79usz0qcDYc0/Vn/RykXbNF6USuo4yh6OQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793311912;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ItLu3zI4jj0VkRO3F8vNU1JfE+9qdeT+xzrqd6vWApU=;
-	b=BOtdKyDnx8K1VZZ0s/TYzBigV9osDVUKPmb1fFNEMfcnyHGcidr42GfetrmkFZQZJZtq
-	 j1o2d2lFcY8HG+LsdM3Xz9vz1fMZXMcG38GWCbmJYcnhy+h1b4an4FPdyqair58A4U4ml
-	 FnGH+1ZctovdMDeAlQ5og7vFi2JyEw9NXCBgHeigLCYQKgzRqxlmBDvl/GShb0n4KrPgD
-	 kPbbYBHMSfvFYPeVW2plSYHf9Sq39Sds+MFMlPZSKQT5OMQkijknhYQBrGJFm6RtSPGgY
-	 1YDJn+F8lFjazhYPpaynu6O9VoFxVDGKKYK1yiBYkvKEZyA58ujxmCSGCWeOwjoGZNA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=PBEIkypNFy3duETPul/tihmqsCZnLnP2we6NZrIEQZU=;
+	b=4QOsyli5trgZSY3wq53B9TBLY23L0vJNKEs9Q+RwWPNQzqAiQmMVIaslrPX1AVNn5kzL
+	 Sl1RoFu04i2PjLL705Ur7XPQ5y3Z9yU0q6G2oOii/O7I+At3iXeffkxYxC8vZhI5efJEM
+	 xykdPpjEJp7yME7t1ytGMSuAV1aToD45c/WrLQJlvO7w5IabQ3wzkm4kw9biRSBaIuqd1
+	 eI4vd+GsikyL0/sjHpyUt/v3z9feohcWyD52p8Z/BqsdjLGxiNUzTXmnu8QfN1po4MSXt
+	 ZW6Ucr5TPvnjLxHnUiGInRGFd6Vdq12SYzaaIniUOSnWdyUa2CLC/0W0+DlH3HkEgRw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Po27IPM8;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lWVOqp+n;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED92606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:11:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ED92606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6BD606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:11:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B6BD606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Po27IPM8
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a4dc547987so217535e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:11:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lWVOqp+n
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-363cd582f45so15563eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:11:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793311911; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m0MmSxsD54pG4sfYMqH7J/ic4Bb+46WJ7N4381/PYcQpVLFskRDn3dqAWmWwu0avYh
+         MqO5oNrtjOMUINaUqUXcu7UHWTH7dCiDHxbrVMgxzPXJPTI/qxZclBuMANq9mW+QsAmY
+         e0+fLKQXpgeOwPsup/VsZkop5Bpmmr85Z0MD103kGvdDS/HYS2mh5a2lbzZi9bKHI6W+
+         xFqRaS3ZFLQPP7Z3NikltzmahNGMjDIW7hGEIUVEJwHOS+NkSoX61DWXPOViqZ8EH91S
+         PRMZSenYJlroELqBvo2LgrF8v31k5lOKPeZuLnhFrpiTjSu1rw4WbVCLpc7X1DzqUNaD
+         ewtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PBEIkypNFy3duETPul/tihmqsCZnLnP2we6NZrIEQZU=;
+        fh=JsTXZ6lfSjPd8GZ0UaZtg4JRT8FjrxviLSa+TvE+ez8=;
+        b=TSdBGK+zS0SOp1MiLiOZffS+o2kpMum9i0GpRJDhrGVZBy0gJKNFLtygiwW+Dt6n3p
+         ytCofkp7HibYd7cphOE8csItvvLBd5LxpdKED0nG6/f5KwWNotGgLbZB4g+JvdzD37Z0
+         O54YEUXwtm39S4O23DeY7+izfto3zooaUP/t0VpN8Lz4hRMypJaFG0+ezSJBTafhEHOF
+         jOcehGSd1ZMXq1MVihx7eG5uaHvKPV6SO/OcvwbnM+DqmPEt+dMc61mG29glZjWdzSbC
+         ORU0U7lZtbD5KllCW9Thbw4pbrRaZYLM1e+PlrzPElBzfuYpdFi+xw1YdmY9fdJNO6Ym
+         3Jqw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793311901; x=1793916701; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ItLu3zI4jj0VkRO3F8vNU1JfE+9qdeT+xzrqd6vWApU=;
-        b=Po27IPM8ae5DI9c2BMy860P6VUqQXfN7mzaM4V18jJfF7UgZosgdaJOsGP68429PZM
-         ja/PD64vFtplj6hRsecSFWucascqMcpNkVK3XNZtqDJGNmUX85zFkWz3Cdh7CYi2r2rK
-         mhDM83LR71kOP+NMJaDzO2Cm8OLEfmrEvUry8KG8H/+9tnpUyCx0FA8UaT5Iz9VEJwko
-         u+MhB24FYHMO5pFpgLtVVm+9Up2/M43a9h/geTBUOdhnGYlBXCM1XP2XYrgNpUUhTnP1
-         9NGd+6EKGq5cE6wlsvkmiqbJlzBNQWBllyailUP/1bg0XUp0hVkAvw787nIUCrwG4Kvs
-         cQPg==
+        d=gmail.com; s=20260707; t=1793311911; x=1793916711; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PBEIkypNFy3duETPul/tihmqsCZnLnP2we6NZrIEQZU=;
+        b=lWVOqp+nrOjtwADvcecmYbdBOnch5TANTq3rLgKXbcpc7UaYbeDE7unSHDs2e1EbUY
+         7uF6RXAFEE/N9cqvP5psVZo6lBrzGlYWp+xNbVtSC6V7DpkuG2KEOqdlS3zEHgm99ciM
+         36jquz6LJEFvCEZxzjkkEYkXaKbTyoGibFNUP3Gt2Kju9K+yrsMW2PmhkW/q+vf1LR8o
+         1iK/qAVkMMvG4PF29t0jbRyd7RjlHd/X+n6qGlGy095ddWucbWr621z/u7yfeJGd58dJ
+         F3orHs1miCj+VNXocABcSr2dtetVYnweWqoGBkNv0GLyWfMMqUJ3DBJjmk6lglb7cqY6
+         5Thg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793311901; x=1793916701;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ItLu3zI4jj0VkRO3F8vNU1JfE+9qdeT+xzrqd6vWApU=;
-        b=aQreb2DTkJu5A7atpjrII67rBm+N6t0RbXcGv6//JbdtHb/ncihowFrTMbQRC5lfpA
-         VoqT2k/NJLYrleHMTkYnFkQ2hQMgC967CpmOLI9IsSvvSLl8N2EKsm8i838Wnsza8vp1
-         ydD2uFf4PlpN/v7m139LHtAUlPotrW+hpaHy6bDuBL2gx0bKXdsJFrD3Vp9ulNxcw5nY
-         xcrdn3klZGEn6E5siBZ8N5pQW5O8VZptZN6ebyMRS8gKGgGRXmYMjC/GCj77auMK+Deu
-         0+5fbYR+c3KG7umKbh8ee6rjOXr5CqweTDP7rpe+EnYxQoglHua92wcy2Wna2yZ2eMF+
-         Mu3w==
-X-Forwarded-Encrypted: i=1; AKwUvBxwDpsL46+4MNIJfRbCPSspZN7LCHCXZL8et7j+fKIBebmO1oZyCcICL1+WPtsVsPHwSk4gGBLSie//r10=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtuirgnNxR7I4JK4JWt8zferwtCdJWCDgWjTo4WV0D77KD41LP
-	E7ll0sGFGISlKn0lj17XiOrJi+U77nWuL8oD5dcvRgtzcnjluTjCIr9O
-X-Gm-Gg: AYBFou2cihw2YpealopNAxTVpfkq9FR6pgLvBEmwH+7gCxh0ZGJRp8OCQxG32GoBaLu
-	0hWpb7Lcm83YGwhsS3mIXY23bBmZqZI7u7W0u06Bj1ATtdNA6BjwPlYYSbzGqIP2ptz6hfb2AM1
-	HMIu+5T/cqtt9CBplpHVTeBscX133otjCAlhrXWcNcJy1qy8ZenNNKV7lKrsdf31FtLx7TcN2Mg
-	7eT23eCBxeec6sZD4/a3xPcHzVEO1qrw0r9ihumJS6g3za7CFVwS0lwmcKvTRLCJp+7FzrHdzd4
-	1wVxPZuD6dItfi53K1e1tchYgvqo3CcbAOe1UrrUlogwNdBDkPrlk5T+hs0u8EoykEfHjgsN/gY
-	rbAaJElZkncZ0m5R6crwsPUJXW56r2cez78cVqNpAHaZAXKiWFAfkzOh6WnW69QhoJrKsbxzeam
-	Ni17Y63FoXcFLhbZOoIKequ/7utMENTS9OJSyz7xtPtd0D09gcrpVN+DtpOnqkV+/s74oLgalan
-	ohMcCg+IEAygQlzN2Rxxggbui/RWSVSrCQNfzBBqfnpRkjvulwv6p0x2/QF8gv5GgFChCEuijzA
-	tsRSiivZ8tm3lA==
-X-Received: by 2002:a05:600c:468c:b0:4a3:59c9:a750 with SMTP id 5b1f17b1804b1-4ac17d168bcmr7131775e9.9.1793311901449;
-        Thu, 29 Oct 2026 15:11:41 -0700 (PDT)
-Received: from nobara ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm104011305e9.10.2026.10.29.15.11.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 15:11:41 -0700 (PDT)
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Peter Xu <peterx@redhat.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: [PATCH 2/2] selftests/mm: add a uffd test for re-registering during UFFDIO_COPY
-Date: Thu, 29 Oct 2026 23:11:02 +0100
-Message-ID: <20261029221129.89068-3-azpijr@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261029221129.89068-1-azpijr@gmail.com>
-References: <20261029221129.89068-1-azpijr@gmail.com>
+        d=1e100.net; s=20260707; t=1793311911; x=1793916711;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PBEIkypNFy3duETPul/tihmqsCZnLnP2we6NZrIEQZU=;
+        b=dTAcL7lAKvlAQtqMw5YY/QmLYDtEX8c6eWtDqvCzDN+DC267ZsZrO39s6KdaUg22aX
+         4C4fz4GIFKEQxwS0khEHhTRFnSEBK7ErUVnycvQvDBxBRjz9UzuU8psKjHobnZvUo5GI
+         q30KJbGXTVVGiXBLiAXCdaGmkqboW97xujMyanwrq4Colp6AY97W0eFd5y+bznd2S0Tt
+         CSZ0bpNKJsPgmjuJlz77sGDKUI6nL/TUks/8FepaRxJAcQ7MKHFSCwSRsGENRQrIbzju
+         QFVcGFOGGdy6Ohn9tjv75uGnyDMUGaoUG3aOT7MLPCh3wffF14dUy+fWWhLSB/TnkX1L
+         kOSQ==
+X-Forwarded-Encrypted: i=1; AKwUvByojQtZpWsGAwLZ/Z+XNSZYvCyNDNPDyhjKAqzzAo86G0dV2YdHQOG/iNYr/XRLRtpI6VqP9Y7ZmDYw7ps=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMhpokMwC3KJeYz4WSuRhayr9jVl3qjtz3Aoa9r/rKmbJASvEY
+	gTzKBSAHaqckinMaOW5mZtGq9huEa2ANWSOzzhxitz2tRD2aNEKhyAtmcmfZVsSQWqr23aJ2zWw
+	coDQQuY0gpWt8/kGeyDX9h553D5EAVdc=
+X-Gm-Gg: AYBFou2cnvm46QIAmCE33KQV3AyzhQn9zimdoYGC+ZKz+jEOUy1Hp8bN1GRD6fyaq3S
+	OpIfNAZ/OMHoMJ/yxarHZBMpU0EUQljBsYi3wmOqcPoieoBWzIZ4vEMDARxtPQF4jSEB+YCS/O3
+	aLr24sHahNxwowvNPKLxSYEcQM0MV4pZ/0ENJaMG/9FohSHOXNOaGFB/iXIDHGpFQB1dUJ0r9iT
+	cKwbAsccI6f1NRa0AI/m8QQVtq3VgJr9X7Y8vcolkoNr1k+m7GYswA5YIO5TU1/Kpkda3UYvjz/
+	Rt0wzfmq18D0x85WhA1DqfpMXzoLoGR+vWmLjiZtyAciW7z8e2/n/cDbc3VmlK/nS/7DtVubLIK
+	LmYgyZ3fB2bOxQvbnVZBMDinZVXs1JTCWFYkCYiKhpmxhwXPomygWoQlusi4eUsAu57HyPG2GuY
+	HJbQwrG/nPe1ZfZGx5YMyWdjs=
+X-Received: by 2002:a05:701b:418d:10b0:190:e602:c769 with SMTP id
+ a92af1059eb24-1ac59143aeamr818406c88.1.1793311911532; Thu, 29 Oct 2026
+ 15:11:51 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,141 +105,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261027193559.28474-1-amade@asmblr.net>
+In-Reply-To: <20261027193559.28474-1-amade@asmblr.net>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 29 Oct 2026 18:11:38 -0400
+X-Gm-Features: AclHuK85g9fztoaVrlp_rJWPJHWRSqCOuLati5XqcOXZS0zoPwKNpaJFJhjLezI
+Message-ID: <CADnq5_NOVHSLnxwmY5gsq4vMxbJP6QQPnPiAJt_uwkDtegpYkA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Prevent debugfs nullptr dereference
+To: =?UTF-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?= <amade@asmblr.net>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+	Rodrigo Siqueira <siqueira@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Re-register the destination without WP while a UFFDIO_COPY_MODE_WP copy
-waits for its source page, then check that the copy fails with -EINVAL
-and leaves no uffd-wp bit behind. This covers both the hugetlb and the
-non-hugetlb UFFDIO_COPY retry.
+Reviewed and applied the series.
 
-Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
----
- tools/testing/selftests/mm/uffd-unit-tests.c | 105 +++++++++++++++++++
- 1 file changed, 105 insertions(+)
+Thanks!
 
-diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing/selftests/mm/uffd-unit-tests.c
-index 2a97ba1d6feb..8a7efaa7b3ac 100644
---- a/tools/testing/selftests/mm/uffd-unit-tests.c
-+++ b/tools/testing/selftests/mm/uffd-unit-tests.c
-@@ -375,6 +375,104 @@ static void uffd_wp_unpopulated_test(uffd_global_test_opts_t *gopts, uffd_test_a
- 	uffd_test_pass();
- }
- 
-+struct wp_copy_args {
-+	uffd_global_test_opts_t *gopts;
-+	char *src;
-+	__s64 copy;
-+};
-+
-+static void *wp_copy_thread(void *data)
-+{
-+	struct wp_copy_args *args = data;
-+	struct uffdio_copy copy = {
-+		.dst = (unsigned long)args->gopts->area_dst,
-+		.src = (unsigned long)args->src,
-+		.len = args->gopts->page_size,
-+		.mode = UFFDIO_COPY_MODE_WP,
-+	};
-+
-+	ioctl(args->gopts->uffd, UFFDIO_COPY, &copy);
-+	args->copy = copy.copy;
-+
-+	return NULL;
-+}
-+
-+/*
-+ * UFFDIO_COPY drops its locks to fault in the source page.  Re-register the
-+ * destination without WP while it waits there: the MODE_WP copy must then
-+ * fail instead of leaving a uffd-wp bit in a VMA that no longer has WP.
-+ */
-+static void uffd_wp_copy_reregister_test(uffd_global_test_opts_t *gopts,
-+					 uffd_test_args_t *args)
-+{
-+	struct uffdio_api api = { .api = UFFD_API };
-+	struct wp_copy_args copy_args = { .gopts = gopts };
-+	unsigned long len = gopts->page_size;
-+	struct uffdio_zeropage zeropage;
-+	struct uffd_msg msg;
-+	struct pollfd pfd;
-+	pthread_t thread;
-+	uint64_t value;
-+	int pagemap_fd;
-+	int src_uffd;
-+
-+	/* The source fault comes from the kernel, so no UFFD_USER_MODE_ONLY */
-+	src_uffd = uffd_open(O_CLOEXEC);
-+	if (src_uffd < 0) {
-+		uffd_test_skip("cannot open a kernel-mode userfaultfd");
-+		return;
-+	}
-+	if (ioctl(src_uffd, UFFDIO_API, &api))
-+		err("UFFDIO_API failed");
-+
-+	copy_args.src = mmap(NULL, len, PROT_READ | PROT_WRITE,
-+			     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (copy_args.src == MAP_FAILED)
-+		err("mmap() failed");
-+
-+	if (uffd_register(src_uffd, copy_args.src, len, true, false, false))
-+		err("register src failed");
-+	if (uffd_register(gopts->uffd, gopts->area_dst, len, true, true, false))
-+		err("register dst failed");
-+
-+	if (pthread_create(&thread, NULL, wp_copy_thread, &copy_args))
-+		err("pthread_create() failed");
-+
-+	/* Wait until UFFDIO_COPY blocks on the source page */
-+	pfd = (struct pollfd){ .fd = src_uffd, .events = POLLIN };
-+	if (poll(&pfd, 1, 10000) != 1)
-+		err("no fault on the source page");
-+	if (read(src_uffd, &msg, sizeof(msg)) != sizeof(msg))
-+		err("read() failed");
-+
-+	if (uffd_unregister(gopts->uffd, gopts->area_dst, len))
-+		err("unregister dst failed");
-+	if (uffd_register(gopts->uffd, gopts->area_dst, len, true, false, false))
-+		err("re-register dst failed");
-+
-+	zeropage.range.start = (unsigned long)copy_args.src;
-+	zeropage.range.len = len;
-+	zeropage.mode = 0;
-+	if (ioctl(src_uffd, UFFDIO_ZEROPAGE, &zeropage))
-+		err("UFFDIO_ZEROPAGE failed");
-+
-+	if (pthread_join(thread, NULL))
-+		err("pthread_join() failed");
-+
-+	if (copy_args.copy != -EINVAL)
-+		err("UFFDIO_COPY returned %lld, expected %d",
-+		    (long long)copy_args.copy, -EINVAL);
-+
-+	pagemap_fd = pagemap_open();
-+	value = pagemap_get_entry(pagemap_fd, gopts->area_dst);
-+	pagemap_check_wp(value, false);
-+	close(pagemap_fd);
-+
-+	munmap(copy_args.src, len);
-+	close(src_uffd);
-+	uffd_test_pass();
-+}
-+
- static void uffd_wp_fork_test_common(uffd_global_test_opts_t *gopts, uffd_test_args_t *args,
- 				     bool with_event)
- {
-@@ -2403,6 +2501,13 @@ uffd_test_case_t uffd_tests[] = {
- 		.uffd_feature_required =
- 		UFFD_FEATURE_PAGEFAULT_FLAG_WP | UFFD_FEATURE_WP_UNPOPULATED,
- 	},
-+	{
-+		.name = "wp-copy-reregister",
-+		.uffd_fn = uffd_wp_copy_reregister_test,
-+		.mem_targets = MEM_ALL,
-+		.uffd_feature_required = UFFD_FEATURE_PAGEFAULT_FLAG_WP |
-+		UFFD_FEATURE_WP_HUGETLBFS_SHMEM,
-+	},
- 	{
- 		.name = "minor",
- 		.uffd_fn = uffd_minor_test,
--- 
-2.55.0
+Alex
 
+On Wed, Oct 28, 2026 at 9:06=E2=80=AFAM Amadeusz S=C5=82awi=C5=84ski <amade=
+@asmblr.net> wrote:
+>
+> Running
+> cat /sys/kernel/debug/dri/0/psp_spirom_dump
+> with amdgpu card that doesn't support it leads to nullptr dereference.
+> Add checks to prevent that.
+>
+> Signed-off-by: Amadeusz S=C5=82awi=C5=84ski <amade@asmblr.net>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 2 +-
+>  2 files changed, 7 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_psp.c
+> index 82a2684dbd2e..627c74f16914 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -5381,6 +5381,9 @@ static int psp_read_spirom_debugfs_open(struct inod=
+e *inode, struct file *filp)
+>         struct spirom_bo *bo_triplet;
+>         int ret;
+>
+> +       if (!adev->psp.funcs || !adev->psp.funcs->dump_spirom)
+> +               return -EOPNOTSUPP;
+> +
+>         /* serialize the open() file calling */
+>         if (!mutex_trylock(&adev->psp.mutex))
+>                 return -EBUSY;
+> @@ -5473,6 +5476,9 @@ void amdgpu_psp_debugfs_init(struct amdgpu_device *=
+adev)
+>  #if defined(CONFIG_DEBUG_FS)
+>         struct drm_minor *minor =3D adev_to_drm(adev)->primary;
+>
+> +       if (!adev->psp.funcs || !adev->psp.funcs->dump_spirom)
+> +               return;
+> +
+>         debugfs_create_file_size("psp_spirom_dump", 0444, minor->debugfs_=
+root,
+>                                  adev, &psp_dump_spirom_debugfs_ops, AMD_=
+VBIOS_FILE_MAX_SIZE_B * 2);
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_psp.h
+> index a4ec60f6c317..975d12359358 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> @@ -574,7 +574,7 @@ struct amdgpu_psp_funcs {
+>         (psp)->funcs->update_spirom((psp), fw_pri_mc_addr) : -EINVAL)
+>
+>  #define psp_dump_spirom(psp, fw_pri_mc_addr) \
+> -       ((psp)->funcs->dump_spirom ? \
+> +       (((psp)->funcs && (psp)->funcs->dump_spirom) ? \
+>         (psp)->funcs->dump_spirom((psp), fw_pri_mc_addr) : -EINVAL)
+>
+>  #define psp_vbflash_status(psp) \
+>
+> base-commit: 83f32c773255720a661aa45d83e36278135f23f5
+> --
+> 2.56.0
+>
