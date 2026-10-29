@@ -1,49 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793273120;
-	b=wTvH8ckpXw2rsx3hluUbsFFkctiG0BUQUIf0p0m+eOgot8VVLawo7GwfoSK7Htpk0E6j
-	 cefgAwKZQoeY/K1wAh7x7d87o3e3PVdErD774Gq4fCf3qjPonqCpjvxSYGMr4iUh67kvQ
-	 vq7OJbrTSPHhRTR4RVbqw0C8IMnuQNgRtOV4/E5npl4JoVWwNHMvHGBqjVDzHu0ZicZ/n
-	 jUNSEuCaqUIIs/cNTPIIboA9/B+GSBDgX5TAkJJHIUOYcJYCKqe9S9clysi9/LWDqakni
-	 Y1az0dEADY78Gpx4chU5dFsI52vkhtK6psYTXhNjXb4c/4n1habaGYp7x7tleGIMMBw==
+	t=1793273272;
+	b=UjrkP0f5RbxExk8aq6pqhmb/P3Ej5/QId/Vi7jvFOYS8iOlk2Hu/fEdmI4rESTiAQgrN
+	 Sjj/cuL3/MrjS85S2sYt4ldMpsGeQcXUT2PE/DOvq4Cq2Hk+OK6czzw6DABApLlev71B1
+	 nnd+4l1s+/8kNTO/cvkSQ3nRAqwKynW5W8BdMmnxhiCTryr8uJ8j3imDSiFH8dLAaYvOQ
+	 eAB0xUx0gB34lZ9cKsH2sbjIokse4n54OF/Tr9y52fqkj8YUlyQrngDHPlNbbojliygId
+	 bHefgZtyEyOjzfeZq9vgNoaAUkqBBADRApSB/wQJ/oLzHzznYPg4XAn6s/RbM+k5SEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793273120;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=nAU4owEjk36lEPSSaeh5evdiPLASncBlT4PAdLhvFAs=;
-	b=gVlCQ/s/CM7J4v1aQfXJgJaT0Ac+85/ADI14SN6GDLqmQ9z3+geD30OinB1Oy6GZft3n
-	 a/zWWUVQQpH4unbtkHHUN6zw/+7w1RkV96aGz94e09q4XQs0UYYSaIdClSY2zcbBwf1Nj
-	 gp1/0E66WQVfFkANOyuzh3VTYx9dRW8creuxwnbhUmqlaPGclCg2OpQkBV9TSzqvegxH9
-	 WobByqJhvEBvbnbThbUAjTpcyCVBQ6qQNp+fsW7yLnX5+fmhkaRr8CbRLg/2KogQBK0xt
-	 xvgYdeqS4ipce0X+RWtiAR1VpwrWJf5m1066ZKW/1A8h2sL+PX3O0Uf6K3c/iGplu6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793273272;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=risrBQtG8qA+1se5uHVK1FVnhNZdOgvrDeWq26wHG48=;
+	b=rbIBpvz5ec2Zn0dgqByVbip0AaESN5G1/56Yck0jRPcVosskBCIqnyjzKd8yUVKqa0y1
+	 jqd/ZmTeNs7NVXG+cTiPLW9FbRoYnP31BQnOmoZUmT9vjJPZr8h45a6Ej9wZcxD9QpgxP
+	 sbx4GxKxVxHe2iVQA4CxY2Y0XWndo8lbE+wWly2iMdjuiRo6azqHeQr8Q2L9jPKEBjmcW
+	 Z4jk1PQqVyiFLHmvZAUJMcyWYGCiBK7VDXmKbkqvqb2qBW9czC58J6m/hc13SwbQdbDE9
+	 QoWd8n7/iswSQiffGjOjXvhL6T72tvH/aWhK8R76GAKdbmz68DXz9JfLABb0nXaaGtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=QvGpD1z2;
-	arc=none smtp.remote-ip=115.124.30.131
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="M/at3/6P";
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED88606A31A;
-	Thu, 29 Oct 2026 11:25:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2ED88606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAF3606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:27:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AAF3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=QvGpD1z2
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793273114; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=nAU4owEjk36lEPSSaeh5evdiPLASncBlT4PAdLhvFAs=;
-	b=QvGpD1z2gTd4/bP8jyO3RGWlCKE0dsIEjecwX8TBPFAiA2KDZ1RXDjIBTHvABHMCCE7mrGbRimq4eKc3aVxXW4BHmcyeZJEjzr92YuUYbY+z6cJkEKYr43Z5UBXn/nOGL4vIrheQfyxlvSiwuU1033pDoorcHEHTDzKOi7Iv1f8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDjKhwY_1793273112;
-Received: from 30.221.129.93(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDjKhwY_1793273112 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 29 Oct 2026 19:25:13 +0800
-Message-ID: <76775188-2010-48ae-b92f-ed1ae819a021@linux.alibaba.com>
-Date: Thu, 29 Oct 2026 19:25:12 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M/at3/6P
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a214af2076so16660935e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:27:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793273270; x=1793878070; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=risrBQtG8qA+1se5uHVK1FVnhNZdOgvrDeWq26wHG48=;
+        b=M/at3/6PpkWBvMlWU6rsZo/hFRpEVaNhsnSrH2XzqbpYC8GemmY7F/BJbi/TvDD71z
+         7mI5as9vrkOmQ7JIyFdgnlJLPqyvDZky0Mpblnywt3vlQXKJcvhxUAyh+9MiZLDsPE9v
+         40eq1H86kWVc256fL7VuDZNmBAxNTqaS9yUVh/3fvabwer36rQXAWh+WREfpG4o8W/MZ
+         s1LeGsTCLZtuYG+tkPKh9hjt3vLmq9h556jwRttMK69gw1BbA4Bskkc+IkLdvPyHU34b
+         MiVXfHLgz8INEVbEy8aGXRQ8Zj8586vf5viJY4XPyiGGbM/Eqw53BrAmniJaauX+pBQW
+         EqNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793273270; x=1793878070;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=risrBQtG8qA+1se5uHVK1FVnhNZdOgvrDeWq26wHG48=;
+        b=iUa6ftPHTQ6mZ2P1/PYkChqOX/CxVKzUWp4y9XlbPJ3B+txktNh1D+6KrSdUE7cp0R
+         Ldb19hkJZccO3TzATmKJzk9YvZnmoOozEqVKy0BC/c6+FPk8qfbfSoPj7JzP3AOHbnPK
+         Y2jXHRIerwskl1pZAt0phfwE3DBHAAZOTcuzQXf+R/R+Y/WUGdok0kJ2ol4E1cgbo5Vc
+         rKYDd8S/KYRB8vdYE7Hyngq0bv3w0yP2+pGtU/6hBx65Tb23Q9wiI2lhMor1arBe7fUH
+         u77jPOkm/wm41GLnhL5zKCqTBoMRvQHjF9m7/nDH8bPejtVxicEvfRX18u1TtCYHPiMV
+         syfQ==
+X-Forwarded-Encrypted: i=1; AKwUvByZEDC9E6nxjZd7et43LNfgk61GyN9tkdXAtRgD7NsK//sJgN3RDv0p3I6tHhOld0CIvHlSe1k8R/XoeG0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7UydebYZb0aNxhSnySdxYUOd4Np0PYBm482QZdvpXgMF5ikJc
+	oPi05RFOoZtxiyc2F5x4IaZeGAgd93OQLG7ZreUXIb2xDfmE+n+Pg5bj
+X-Gm-Gg: AYBFou3XR1LfbaJ3w9c/B2cbiwcrza8a594D6+s67MunOjHJXQiIVUC47WdcqkZapM/
+	D74PyQXSeIvxobfwy9dBKhTDDCCYYgtzLhAb21bU1tp4zSXENsLCj9lH4+mgUv7GZEvPH0qqX/n
+	tUjynwFyrfYFwBnIxhvg7ccVaw7cXVrBOjE9L0tpvNQ1PR61otVXUaejYetNlmIVw4Nxg3kK2mh
+	zvxxK6lqOWTuM+LaMnN73YEhNr6R2eQP55sjK8i/W//qPwBYzpDoTrGtbhhfrWohiQiwFtczig3
+	S+w0ojpew1b1HeqAgi0+nwmxDC5epGv23C+ivBcIbZkjgh/ZYd/3y/kkd+zFqhrKbm9DC/PGLjw
+	kpX9kaguWbnzljPVUgsGwUFl+bhUy/lL/rqnqIgMAR+oxnnEPQ0ScsSVJDojrle5dMxb55pgBfL
+	wEA/lKfNQkfZqdxPuKfq/4qUjkXDdeY7xemn1+ia90RMfaBG7EAmMjf6GfVR9Zyk+Ioh1itgHCx
+	8I5Cv5gLAfHFQeH79v1cNv9UqX7p6HPRZmek//GW1Uxtc/A+Bj80b0VOIA24TRcrVWgKblU1L38
+	6LPWmBOFzXPzSfqCsGxkqvX0hTr5ZeKrC3a0oTAA1Ht/WX3UGROHS3ttrEPs4a9Hw9INbZZw2hJ
+	/yybBgnVe8CVuT5HgHKXUOygh62xnLRMf54J0XzcTCRc0uB4YSqtQSxfdHQt+0ntJSeJipjUelF
+	EZrSs3aK+JPF/qsZg=
+X-Received: by 2002:a05:600c:3b24:b0:4a0:2391:6540 with SMTP id 5b1f17b1804b1-4a966e2b4damr109547985e9.25.1793273270398;
+        Thu, 29 Oct 2026 04:27:50 -0700 (PDT)
+Received: from kali (adsl-101.109.242.200.tellas.gr. [109.242.200.101])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f7f52e2sm69571215e9.9.2026.10.29.04.27.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 04:27:49 -0700 (PDT)
+From: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+To: krzk@kernel.org
+Cc: linuxppc-dev@lists.ozlabs.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	maddy@linux.ibm.com,
+	robh@kernel.org,
+	conor+dt@kernel.org,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	chleroy@kernel.org,
+	ritesh.list@gmail.com,
+	sshegde@linux.ibm.com,
+	sashiko-bot@kernel.org,
+	Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+Subject: [PATCH v2] powerpc: dts: Add support for WatchGuard Firebox T30
+Date: Thu, 29 Oct 2026 07:27:41 -0400
+Message-ID: <20261029112742.10238-1-lefteris.koutrakis@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,312 +107,432 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ocfs2/cluster: quiesce peer slots before destroying
- the o2net workqueue
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
-References: <pm-ocfs2-objects-candidate-0090-v7-06712049fb73524bb8d3@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <pm-ocfs2-objects-candidate-0090-v7-06712049fb73524bb8d3@gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Add initial device tree support for the WatchGuard Firebox T30 board.
+Enable building firebox-t30.dtb under CONFIG_MPC85xx_RDB in the
+arch/powerpc/boot/dts/fsl/Makefile. Document the watchguard vendor
+prefix in vendor-prefixes.yaml.
 
+Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+---
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/powerpc/boot/dts/fsl/Makefile            |   1 +
+ arch/powerpc/boot/dts/fsl/firebox-t30.dts     | 386 ++++++++++++++++++
+ 3 files changed, 389 insertions(+)
+ create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
 
-On 10/27/26 12:32 PM, Cen Zhang wrote:
-> Listener shutdown must leave no peer work behind before it destroys the
-> o2net workqueue. destroy_workqueue() drains the work that is queued, but
-> delayed work whose timer has not expired is invisible to it and is
-> queued onto the freed workqueue when the timer fires.
-> 
-> o2net_stop_listening() only disconnects peers that are still in the node
-> table, and o2net_disconnect_node() cancels the delayed work without
-> waiting for a running instance. Several paths rearm it afterwards.
-> 
-> Node removal disconnects a peer before taking it out of the table. A
-> heartbeat-up callback in between sees the persistent error and queues
-> the connect and expiry work again, and the listener shutdown then skips
-> the peer because it is no longer in the table:
-> 
->   Peer removal                       Heartbeat / listener shutdown
->   ------------                       -----------------------------
->   disconnect peer; cancel work
->                                      heartbeat-up: rearm delayed work
->   remove peer from node table
->                                      stop listener
->                                        synchronize heartbeat callbacks
->                                        skip peer absent from node table
->                                        destroy o2net workqueue
->                                      delayed-work timer expires
->                                        queue on freed workqueue
-> 
-> o2net_connect_expired() may be running while the disconnect cancels;
-> once the disconnect drops nn_lock it queues itself and the connect work
-> again, and the flush does not wait for those timers.
-> 
-> o2net_start_connect() decides under nn_lock whether to connect, drops
-> the lock to create the socket, and attaches the socket without looking
-> again. A disconnect in between is undone: the socket stays attached
-> with its callbacks armed, and o2net_set_nn_state() rearms the expiry
-> work after it has been cancelled.
-> 
-> Set o2net_shutting_down for the duration of the shutdown. While it is
-> set, o2net_set_nn_state() rearms no work, the connect worker repeats its
-> check under nn_lock before attaching the socket and backs off, and the
-> accept path refuses a new socket. With no rearm left, cancel the
-> connect-expiry, connect and still-up work of every peer slot
-> synchronously after the disconnect; expiry queues connect work, so it
-> is cancelled first.
-> 
-> Those cancellations can remove the only pending connection attempt of a
-> slot whose persistent error a rearm has already cleared. Leave every
-> slot the way a disconnect does, with nn_timeout reset and -ENOTCONN as
-> the persistent error, so that the next heartbeat-up after a restart
-> reconnects and senders fail instead of waiting for a connection that
-> nothing will establish.
-> 
-> KASAN report, only the relevant frames are kept:
-> 
-> BUG: KASAN: slab-use-after-free in __queue_work+0x1189/0x1600
-> Read of size 4 at addr ffff8881169069c0 by task swapper/2/0
-> 
-> Call Trace:
->  <IRQ>
->  __queue_work+0x1189/0x1600
->  call_timer_fn+0x176/0x540
->  </IRQ>
-> 
-> Allocated by task 486:
->  __kmalloc_noprof+0x2de/0x780
->  __alloc_workqueue+0x61/0x17a0
->  alloc_workqueue_noprof+0xcc/0x130
->  o2net_start_listening+0x139/0x7c0
->  o2nm_node_local_store+0x4c0/0x810
->  configfs_write_iter+0x2f9/0x4f0
->  vfs_write+0x639/0x1010
->  ksys_write+0x111/0x200
-> 
-> Freed by task 485:
->  kfree+0x308/0x580
->  rcu_core+0x6be/0x1ed0
-> 
-> Last potentially related work creation:
->  __call_rcu_common.constprop.0+0x80/0x280
->  pwq_release_workfn+0x740/0xe10
-> 
-> The buggy address belongs to the object at ffff888116906800
->  which belongs to the cache kmalloc-1k of size 1024
-> The buggy address is located 448 bytes inside of
->  freed 1024-byte region [ffff888116906800, ffff888116906c00)
-> 
-> Fixes: 98211489d414 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-> ---
-> Changes in v2:
-> - Add o2net_shutting_down: o2net_set_nn_state() rearms nothing while it is
->   set, the connect worker rechecks under nn_lock before attaching its socket
->   and the accept path refuses a new socket, so an in-flight connect or
->   expiry can no longer rearm the timers after the synchronous cancellations
->   (Sashiko review).
-> - Leave every slot with nn_timeout reset and -ENOTCONN after the
->   cancellations, so a later heartbeat-up reconnects and senders fail instead
->   of waiting on a slot whose persistent error a rearm had cleared (Sashiko
->   review).
-> - Subject changed accordingly.
-> 
-> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0090-v6-127847d463212a41b773@gmail.com
-> 
->  fs/ocfs2/cluster/tcp.c | 86 +++++++++++++++++++++++++++++++++---------
->  1 file changed, 69 insertions(+), 17 deletions(-)
-> 
-> diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
-> index 8b3830b601ba..eb4628839eef 100644
-> --- a/fs/ocfs2/cluster/tcp.c
-> +++ b/fs/ocfs2/cluster/tcp.c
-> @@ -114,6 +114,8 @@ static DEFINE_MUTEX(o2net_wq_mutex);
->  static DECLARE_COMPLETION(o2net_wq_destroyed);
->  /* Heartbeat callbacks stay registered across local-node off/on. */
->  static bool o2net_listening;
-> +/* set while o2net_stop_listening() quiesces the peer slots */
-> +static bool o2net_shutting_down;
->  static struct work_struct o2net_listen_work;
->  
->  static struct o2hb_callback_func o2net_hb_up, o2net_hb_down;
-> @@ -553,11 +555,14 @@ static void o2net_set_nn_state(struct o2net_node *nn,
->  		       SC_NODEF_ARGS(sc));
->  	}
->  
-> -	/* trigger the connecting worker func as long as we're not valid,
-> +	/*
-> +	 * trigger the connecting worker func as long as we're not valid,
->  	 * it will back off if it shouldn't connect.  This can be called
->  	 * from node config teardown and so needs to be careful about
-> -	 * the work queue actually being up. */
-> -	if (!valid && o2net_wq) {
-> +	 * the work queue actually being up.  Once the listener shutdown
-> +	 * has started cancelling, nothing may be rearmed.
-> +	 */
-> +	if (!valid && o2net_wq && !READ_ONCE(o2net_shutting_down)) {
->  		unsigned long delay;
->  		/* delay if we're within a RECONNECT_DELAY of the
->  		 * last attempt */
-> @@ -1578,6 +1583,23 @@ static void o2net_sc_postpone_idle(struct o2net_sock_container *sc)
->   * having a connect attempt fail, etc. This centralizes the logic which decides
->   * if a connect attempt should be made or if we should give up and all future
->   * transmit attempts should fail */
-> +/*
-> + * Called with nn->nn_lock held.  See if we already have one pending or
-> + * have given up.  For nn_timeout, it is set when we close the connection
-> + * because of the idle time out.  So it means that we have at least
-> + * connected to that node successfully once, now try to connect to it
-> + * again.  Nothing may connect once the listener shutdown has started.
-> + */
-> +static bool o2net_nn_should_connect(struct o2net_node *nn)
-> +{
-> +	unsigned int timeout = atomic_read(&nn->nn_timeout);
-> +
-> +	if (READ_ONCE(o2net_shutting_down) || nn->nn_sc)
-> +		return false;
-> +	return !nn->nn_persistent_error ||
-> +	       (nn->nn_persistent_error == -ENOTCONN && timeout != 0);
-> +}
-> +
->  static void o2net_start_connect(struct work_struct *work)
->  {
->  	struct o2net_node *nn =
-> @@ -1587,7 +1609,6 @@ static void o2net_start_connect(struct work_struct *work)
->  	struct socket *sock = NULL;
->  	struct sockaddr_in myaddr = {0, }, remoteaddr = {0, };
->  	int ret = 0, stop;
-> -	unsigned int timeout;
->  	unsigned int nofs_flag;
->  
->  	/*
-> @@ -1609,17 +1630,7 @@ static void o2net_start_connect(struct work_struct *work)
->  		goto out;
->  
->  	spin_lock(&nn->nn_lock);
-> -	/*
-> -	 * see if we already have one pending or have given up.
-> -	 * For nn_timeout, it is set when we close the connection
-> -	 * because of the idle time out. So it means that we have
-> -	 * at least connected to that node successfully once,
-> -	 * now try to connect to it again.
-> -	 */
-> -	timeout = atomic_read(&nn->nn_timeout);
-> -	stop = (nn->nn_sc ||
-> -		(nn->nn_persistent_error &&
-> -		(nn->nn_persistent_error != -ENOTCONN || timeout == 0)));
-> +	stop = !o2net_nn_should_connect(nn);
->  	spin_unlock(&nn->nn_lock);
->  	if (stop)
->  		goto out;
-> @@ -1658,9 +1669,16 @@ static void o2net_start_connect(struct work_struct *work)
->  	tcp_sock_set_nodelay(sc->sc_sock->sk);
->  	tcp_sock_set_user_timeout(sock->sk, O2NET_TCP_USER_TIMEOUT);
->  
-> -	o2net_register_callbacks(sc->sc_sock->sk, sc);
-> -
->  	spin_lock(&nn->nn_lock);
-> +	/*
-> +	 * nn_lock was dropped while the socket was created.  A disconnect
-> +	 * or the listener shutdown in between must not gain this socket.
-> +	 */
-> +	if (!o2net_nn_should_connect(nn)) {
-> +		spin_unlock(&nn->nn_lock);
-> +		goto out;
-> +	}
-> +	o2net_register_callbacks(sc->sc_sock->sk, sc);
->  	/* handshake completion will set nn->nn_sc_valid */
->  	o2net_set_nn_state(nn, sc, 0, 0);
->  	spin_unlock(&nn->nn_lock);
-> @@ -1954,6 +1972,12 @@ static int o2net_accept_one(struct socket *sock, int *more)
->  	new_sock = NULL;
->  
->  	spin_lock(&nn->nn_lock);
-> +	/* a slot that is being quiesced takes no new socket */
-> +	if (READ_ONCE(o2net_shutting_down)) {
-> +		spin_unlock(&nn->nn_lock);
-> +		ret = -ESHUTDOWN;
-> +		goto out;
-> +	}
->  	atomic_set(&nn->nn_timeout, 0);
->  	o2net_set_nn_state(nn, sc, 0, 0);
->  	spin_unlock(&nn->nn_lock);
-> @@ -2179,6 +2203,30 @@ int o2net_start_listening(struct o2nm_node *node)
->  	return ret;
->  }
->  
-> +/*
-> + * Called with o2net_shutting_down set.  Cancel the delayed work of a peer
-> + * slot synchronously: work waiting on its timer is invisible to a flush
-> + * and would be queued on the destroyed workqueue.  Then leave the slot
-> + * the way a disconnect does, so that the next heartbeat-up after a
-> + * restart reconnects and senders fail instead of waiting.
-> + */
-> +static void o2net_quiesce_nn(struct o2net_node *nn)
-> +{
-> +	/* whoever takes nn_lock from now on sees o2net_shutting_down */
-> +	spin_lock(&nn->nn_lock);
-> +	spin_unlock(&nn->nn_lock);
-> +
-> +	/* expiry queues connect work, so cancel it first */
-> +	cancel_delayed_work_sync(&nn->nn_connect_expired);
-> +	cancel_delayed_work_sync(&nn->nn_connect_work);
-> +	cancel_delayed_work_sync(&nn->nn_still_up);
-> +
-> +	spin_lock(&nn->nn_lock);
-> +	atomic_set(&nn->nn_timeout, 0);
-> +	o2net_set_nn_state(nn, NULL, 0, -ENOTCONN);
-> +	spin_unlock(&nn->nn_lock);
-> +}
-
-o2net_set_nn_state() still has a queue_delayed_work() that the new flag
-doesn't gate. So o2net_quiesce_nn() cancels nn_still_up and afterwards
-calls o2net_set_nn_state(), which queues it again.
-
-> +
->  /* again, o2nm_this_node() doesn't work here as we're involved in
->   * tearing it down */
->  void o2net_stop_listening(struct o2nm_node *node)
-> @@ -2190,6 +2238,7 @@ void o2net_stop_listening(struct o2nm_node *node)
->  	BUG_ON(o2net_listen_sock == NULL);
->  
->  	WRITE_ONCE(o2net_listening, false);
-> +	WRITE_ONCE(o2net_shutting_down, true);
->  	o2hb_synchronize_callbacks();
->  
->  	/* stop the listening socket from generating work */
-> @@ -2200,15 +2249,18 @@ void o2net_stop_listening(struct o2nm_node *node)
->  
->  	for (i = 0; i < ARRAY_SIZE(o2net_nodes); i++) {
->  		struct o2nm_node *node = o2nm_get_node_by_num(i);
-> +
->  		if (node) {
->  			o2net_disconnect_node(node);
->  			o2nm_node_put(node);
->  		}
-> +		o2net_quiesce_nn(o2net_nn_from_num(i));
-
-o2net_idle_timer() queues the same work from softirq with no nn_lock and no
-flag check, sets nn_timeout back to 1, and re-arms sc_idle_timeout — which
-quiesce never deletes.
-
-Thanks,
-Joseph
-
->  	}
->  
->  	/* finish all work and tear down the work queue */
->  	mlog(ML_KTHREAD, "waiting for o2net thread to exit....\n");
->  	o2net_destroy_wq();
-> +	WRITE_ONCE(o2net_shutting_down, false);
->  
->  	sock_release(o2net_listen_sock);
->  	o2net_listen_sock = NULL;
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 5471a06f93f1..75fe4bcbe5f9 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -2017,3 +2017,5 @@ patternProperties:
+ additionalProperties: false
+ 
+ ...
++  "watchguard,":
++    description: WatchGuard Technologies, Inc.
+diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
+index d2cc8e1f007e..8b5d0ac0ebad 100644
+--- a/arch/powerpc/boot/dts/fsl/Makefile
++++ b/arch/powerpc/boot/dts/fsl/Makefile
+@@ -44,3 +44,4 @@ dtb-$(CONFIG_GEF_SBC310) += gef_sbc310.dtb
+ dtb-$(CONFIG_GEF_SBC610) += gef_sbc610.dtb
+ dtb-$(CONFIG_GEF_PPC9A) += gef_ppc9a.dtb
+ dtb-$(CONFIG_MVME7100) += mvme7100.dtb
++dtb-$(CONFIG_MPC85xx_RDB) += firebox-t30.dtb
+diff --git a/arch/powerpc/boot/dts/fsl/firebox-t30.dts b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+new file mode 100644
+index 000000000000..ec6cf911c66f
+--- /dev/null
++++ b/arch/powerpc/boot/dts/fsl/firebox-t30.dts
+@@ -0,0 +1,386 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Device Tree for WatchGuard Firebox T30
++ * Author: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
++ */
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
++
++/include/ "p1020si-pre.dtsi"
++
++/ {
++	model = "Watchguard Firebox T30";
++	compatible = "watchguard,firebox-t30", "fsl,P1020RDB";
++
++	memory {
++		device_type = "memory";
++	};
++
++	cpus {
++		/delete-node/ PowerPC,P1020@1;
++	};
++
++	lbc: localbus@ffe05000 {
++		reg = <0 0xffe05000 0 0x1000>;
++		ranges = <0x0 0x0 0x0 0xefc00000 0x400000>;
++
++		nor@0 {
++			compatible = "cfi-flash";
++			reg = <0x0 0x0 0x400000>;
++			bank-width = <2>;
++			device-width = <1>;
++
++			partitions {
++				compatible = "fixed-partitions";
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				partition@0 {
++					reg = <0x0 0x20000>;
++					label = "nor-cfg0";
++
++					nvmem-layout {
++						compatible = "fixed-layout";
++						#address-cells = <1>;
++						#size-cells = <1>;
++
++						macaddr_nor_cfg0_1830: mac-address@1830 {
++							compatible = "mac-base";
++							reg = <0x1830 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1844: mac-address@1844 {
++							compatible = "mac-base";
++							reg = <0x1844 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1858: mac-address@1858 {
++							compatible = "mac-base";
++							reg = <0x1858 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_186c: mac-address@186c {
++							compatible = "mac-base";
++							reg = <0x186c 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1880: mac-address@1880 {
++							compatible = "mac-base";
++							reg = <0x1880 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++
++						macaddr_nor_cfg0_1894: mac-address@1894 {
++							compatible = "mac-base";
++							reg = <0x1894 0x11>;
++							#nvmem-cell-cells = <1>;
++						};
++					};
++				};
++
++				partition@20000 {
++					reg = <0x20000 0x10000>;
++					label = "nor-cfg1";
++				};
++
++				partition@30000 {
++					reg = <0x30000 0x20000>;
++					label = "nor-mfg";
++				};
++
++				partition@50000 {
++					reg = <0x50000 0xc0000>;
++					label = "nor-bootopt";
++				};
++
++				partition@110000 {
++					reg = <0x110000 0xc0000>;
++					label = "nor-extra1";
++				};
++
++				partition@1d0000 {
++					reg = <0x1d0000 0xc0000>;
++					label = "nor-extra2";
++				};
++
++				partition@290000 {
++					reg = <0x290000 0xe0000>;
++					label = "nor-backup";
++				};
++
++				partition@370000 {
++					reg = <0x370000 0x10000>;
++					label = "nor-ubootenv";
++				};
++
++				partition@380000 {
++					reg = <0x380000 0x80000>;
++					label = "nor-uboot";
++				};
++			};
++		};
++	};
++
++	soc: soc@ffe00000 {
++		ranges = <0x0 0x0 0xffe00000 0x100000>;
++
++		gpio0: gpio-controller@fc00 {
++			#gpio-cells = <2>;
++			compatible = "fsl,pq3-gpio";
++			reg = <0xfc00 0x100>;
++			interrupts = <47 0x2 0 0>;
++			gpio-controller;
++		};
++
++		i2c@3000 {
++			rtc@30 {
++				compatible = "sii,s35390a";
++				reg = <0x30>;
++			};
++		};
++
++		i2c@3100 {
++			tpm@29 {
++				compatible = "atmel,at97sc3204t";
++				reg = <0x29>;
++			};
++		};
++
++		spi0: spi@7000 {
++			flash@0 {
++				compatible = "everspin,mr25h256", "jedec,spi-nor";
++				reg = <0>;
++				spi-max-frequency = <40000000>;
++				m25p,fast-read;
++
++				partitions {
++					compatible = "fixed-partitions";
++					#address-cells = <1>;
++					#size-cells = <1>;
++
++					partition@0 {
++						reg = <0x0 0x8000>;
++						label = "spi_mtd_0";
++					};
++				};
++			};
++
++			slic@1 {
++				compatible = "zarlink,le88266";
++				reg = <1>;
++				spi-max-frequency = <500000>;
++			};
++		};
++
++		usb@22000 {
++			phy_type = "ulpi";
++			dr_mode = "host";
++		};
++
++		mdio@24000 {
++			switch0: switch@10 {
++				compatible = "marvell,mv88e6085";
++				reg = <0x10>;
++
++				mdio {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					switch0phy0: ethernet-phy@0 {
++						reg = <0>;
++					};
++
++					switch0phy1: ethernet-phy@1 {
++						reg = <1>;
++					};
++
++					switch0phy2: ethernet-phy@2 {
++						reg = <2>;
++					};
++
++					switch0phy3: ethernet-phy@3 {
++						reg = <3>;
++					};
++
++					switch0phy4: ethernet-phy@4 {
++						reg = <4>;
++					};
++				};
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						label = "wan";
++						phy-handle = <&switch0phy0>;
++						nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@1 {
++						reg = <1>;
++						label = "lan1";
++						phy-handle = <&switch0phy1>;
++						nvmem-cells = <&macaddr_nor_cfg0_1844 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@2 {
++						reg = <2>;
++						label = "lan2";
++						phy-handle = <&switch0phy2>;
++						nvmem-cells = <&macaddr_nor_cfg0_1858 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@3 {
++						reg = <3>;
++						label = "lan3";
++						phy-handle = <&switch0phy3>;
++						nvmem-cells = <&macaddr_nor_cfg0_186c 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@4 {
++						reg = <4>;
++						label = "lan4";
++						phy-handle = <&switch0phy4>;
++						nvmem-cells = <&macaddr_nor_cfg0_1880 0>;
++						nvmem-cell-names = "mac-address";
++					};
++
++					port@6 {
++						reg = <6>;
++						label = "cpu";
++						ethernet = <&enet0>;
++						phy-mode = "rgmii-id";
++
++						fixed-link {
++							speed = <1000>;
++							full-duplex;
++						};
++					};
++				};
++			};
++		};
++
++		mdio@25000 {
++			status = "disabled";
++		};
++
++		mdio@26000 {
++			status = "disabled";
++		};
++
++		enet0: ethernet@b0000 {
++			phy-connection-type = "rgmii-id";
++			nvmem-cells = <&macaddr_nor_cfg0_1830 0>;
++			nvmem-cell-names = "mac-address";
++
++			fixed-link {
++				speed = <1000>;
++				full-duplex;
++			};
++		};
++
++		enet1: ethernet@b1000 {
++			status = "disabled";
++		};
++
++		enet2: ethernet@b2000 {
++			status = "disabled";
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		led0: led-0 {
++			gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led1: led-1 {
++			gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_STATUS;
++		};
++
++		led2: led-2 {
++			gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_USB;
++		};
++
++		led3: led-3 {
++			gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_WLAN_5GHZ;
++			default-state = "keep";
++		};
++
++		led4: led-4 {
++			gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
++			color = <LED_COLOR_ID_ORANGE>;
++			function = LED_FUNCTION_WLAN_2GHZ;
++			default-state = "keep";
++		};
++
++		led5: led-5 {
++			gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
++			color = <LED_COLOR_ID_GREEN>;
++			function = LED_FUNCTION_POWER;
++			default-state = "on";
++		};
++	};
++
++	pci0: pcie@ffe09000 {
++		reg = <0 0xffe09000 0 0x1000>;
++		ranges = <0x2000000 0x0 0xa0000000 0 0xa0000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc10000 0x0 0x10000>;
++		status = "disabled";
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0xa0000000
++				  0x2000000 0x0 0xa0000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++		};
++	};
++
++	pci1: pcie@ffe0a000 {
++		reg = <0 0xffe0a000 0 0x1000>;
++		ranges = <0x2000000 0x0 0x80000000 0 0x80000000 0x0 0x20000000
++			  0x1000000 0x0 0x00000000 0 0xffc00000 0x0 0x10000>;
++
++		pcie@0 {
++			ranges = <0x2000000 0x0 0x80000000
++				  0x2000000 0x0 0x80000000
++				  0x0 0x20000000
++
++				  0x1000000 0x0 0x0
++				  0x1000000 0x0 0x0
++				  0x0 0x100000>;
++
++			ath10k: wifi@0,0 {
++				reg = <0x0000 0 0 0 0>;
++				nvmem-cells = <&macaddr_nor_cfg0_1894 0>;
++				nvmem-cell-names = "mac-address";
++			};
++		};
++	};
++};
++
++/include/ "p1020si-post.dtsi"
+-- 
+2.53.0
 
