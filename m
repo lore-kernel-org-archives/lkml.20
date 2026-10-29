@@ -1,79 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793316279;
-	b=ZdpyoycXg3dBYDg24MLt7+PxeBUQ2avwbY/izvUirPZWlHuoQKnfEXHHuROR89rY3fPW
-	 0lZNKs0Zu5qvC7kjmJYyIlh7BpTtDW7bSJpeEoOQ9mdKgLH+PmQvx3Abz3b6pnEWuyeN+
-	 kL74NUpaAjhP4Zrb3psEo8m65KbBTy2V8M62C2xRpi5Xi3r4LT0n/dkNXMZZJB2HYjn5s
-	 mFuGB8Xt8CaF6/BvNr/q0qHuimlPhj57LK5eW07vxjuqPKjAcOI8YmRWQbWl+xlN9YuZ4
-	 wXIiv8s+5E0tORMdP0xIoUM5GnGY4oAcqlvFq1FpX/RC0we7MaxeHIBr69pfaf/9BaA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793316279;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=J1giJhP2jlFAJ+odKsTYY7ZsUc1xklep2OEBj9NwwwY=;
-	b=r+Z2UUkpwe3K6IKodmajI0QE5zTRAFFSDgikxeX4dRIrMM3034XpBN1XAU8ez0/51Rq/
-	 QCpVM1WERBWGjq7o/ApXAbHBgPe8Rwje//sM7uFqYM99JpTbjLn8myeZXQwzUlMLVJ17t
-	 KSt65JrWflG1Ci/FBf2iQE0MjvnrX1b1EIyD3Trm0JjwELdsof7uUEDosspFz03ce0k+0
-	 cM8JjdWDHL+1k0LPG7kca5xbU4kiMGCfM2LOiMb0haVr7Mhath/MoKmwmCutxTqV/aaTW
-	 O8mHeb8MwgmMRpAGSX3NETQ17w62Wfr33bmaslNbWnnson5AqJ9CRdYPC2gJBSYRjzw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFTMEgNd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793316293;
+	b=i3IlScKU/URd8mx7r34XH7n5txxx2QE8/xn+u9iZajI4KlKExIhK1B61ibRJOcFvXrot
+	 kG+Z4p5fsuy/Qgzfy62QzYwZifHz6nOzDI5ddD/9FEpu4GzeG5IbEzd2AN2UlA/BO8X/i
+	 myIvbFt4gZRAiHgVMbahSMh0CRhfAqvh1JnD2KElEUlhiskB5Ubaqgw7MUuUf9l6QseiR
+	 adgtDNJcj1OE14DXkrRNwhEFclOABoTAZFaDKLlxBfBG8hwyXrl1R8wUtRiegpW0J5qp3
+	 saDPJO/PY3ZQgqyQNylXkhVeo2xJcAM717qPRXYq7cjKYwv7rrORDeMGMRb1mf/7l3A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793316293;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=T4tAZftUJD+d2YSvM7rMpcgvS5AUl5bH4MhnH2rAVZs=;
+	b=R4hWAxT/Ru0AZu4fg08ymm1tc481dZLLbEgRk7TwattnGe5Z59UrFyM9CymsR3u6Ss3X
+	 NioU8xv4NAfpmgtKdZGWZe5AD6NZ5GCkZGuNeBej2E+17OLhN4p6JW9i1pTrYQ3p36ePU
+	 vVDYFWwqu7yq5AZV7xtvMrVO4cateFMlXyEM5nFK8LCGP2+LSvVmeEo0c9vOFkY0DEHdS
+	 4s8uChGr8mS/6OOsZ8umCRlLpJCdFgFJtd9wXFupw32u0Dlh1QEmAZpBNeTMOnrzHPsk3
+	 zfho0+PMUP/oKROyYaotd8U5m0nkJRKnmHKAGXHjGur6Vc4H8FPd+lvhoonuZk39gRA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0yLEDyt;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65010606A31A;
-	Thu, 29 Oct 2026 23:24:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 559A5606A31A;
+	Thu, 29 Oct 2026 23:24:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JFTMEgNd
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793316278;
-	b=0U8gIyjjTedpQOMZ4kZPEEwMgjngHh1pd3gaXJVtcZKq7+GcJEp+3bZGn/iqvEJMHsAt
-	 e7qM1KHMA8O7aI4K2dkxP6/68jI/IlyDl6NBkkeNw7hhN/IciAULBaTl1GitL/eGdeqcp
-	 8s1KcNRhXk3eUADvdnOmuaPsA51/7SmM9V1v0fJZAHG8voiUHmdfgWjeX9+SYaP4NHTSy
-	 7NPiwmfI5yZjGkSFYOlKkJfcQMwNAXYptCnxw9iyD6P7WokQxdN2/30uFRA2GnSVgQTlT
-	 ZnUKOw080flseTJbkwI9ePmFl0TGWF2NbdQtUex8GbQvEjq5cFI6svYVAHhtNnE+rIw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793316278;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=J1giJhP2jlFAJ+odKsTYY7ZsUc1xklep2OEBj9NwwwY=;
-	b=0/lzAieQJytLpPJgnPX6bzSI487jSnrPGyXQ/R5kbR/5ufakV6pw+mnUwW5teN/ac8fP
-	 ULk8O+nYuG07dNI40q/hXv0iXr4ERJWmxAK4SzdygedSMR5AZKKOJc0WsVJP2Xh+9Ew/C
-	 lSFSJWU/lUtBeAzj+bHiumM0lIQ7RuHxBaYM/n3lOP/j7LuvpdV9VGwZjUhonxJhM8x9d
-	 IdcO72BHAHMKrvavhBOmbY9zHQww7A8P54ns0YglA8AO01q/8Fd1d9qNioLebvfKpeskB
-	 8hD+4x2xvx6Ni76igBSg/ZUPI88YKFHVNpSlXCs2cYttrBkmyPjH67HkXjo1VWY4v9w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 597741F000C1;
-	Thu, 29 Oct 2026 23:24:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P0yLEDyt
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 544ED1F00A15;
+	Thu, 29 Oct 2026 23:24:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793316278;
-	bh=J1giJhP2jlFAJ+odKsTYY7ZsUc1xklep2OEBj9NwwwY=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=JFTMEgNdI9uCRWGJH0o8YP9RExqLz6tlWW95eYKZDFbiA1QYOyPw2ZBJwGbmfpM7Q
-	 A7WXTHgUItk4plC3cES00+YM0vhQL5VMF9l1XvfBuSuPoV+J0aT15i8g90UoYvw55/
-	 8PKQ7+72SZepGN2zpKCF0pL68E1sX7WqZD00DHVtkdOVA6Feo/H1oAGW9Y7DqQ5dds
-	 R+Z5RF/Dl7cGvaBB0FX+TVap524ZQ3u67y4alxhlQXB+foEhsrCtImmq7z9B5aVjrp
-	 83xgAuI12DOmQF9Esf+RnR+jjiCiz6TaaF59xeC/wkU1LXtjZI+b01K4DY2HVAg0FB
-	 9Pj1AnSJ7gL4g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id DE9F445A1F;
-	Thu, 29 Oct 2026 23:24:37 +0000 (UTC)
-From: Carlos Baiget Orts via B4 Relay <devnull+asinfreedom.gmail.com@kernel.org>
-Date: Fri, 30 Oct 2026 00:24:33 +0100
-Subject: [PATCH] platform/x86/amd/pmc: Add LG Ultra PC 16U70Q to quirks
- list
+	s=k20260515; t=1793316292;
+	bh=T4tAZftUJD+d2YSvM7rMpcgvS5AUl5bH4MhnH2rAVZs=;
+	h=From:To:Cc:Subject:Date;
+	b=P0yLEDytLCB5JBaRXK0Bj5B678m6YrW9DCGxJ5LkdJ5GC1tGzZX8feuiXn2dHoOcC
+	 6GBqZYAUhPyHPFCkyoBD3RwjP1i5djqLBBb58vq9I6UHxlorlbV1i1GkkaKy6ZZjDj
+	 w8iMhHXMXYDrPASggqpZmiClYYOIN/L/qNEkx7uvB73/HUsrBVHrVErD3LPVznWjjE
+	 ayE1z6oWHPFDIO+8P4HPtaJHlXe389E0PkXeGxhHUfrM7uVA7EHGBS25Z7u/5bhXeH
+	 q7S6ukmUbPAbTncLMXpqCgaEcB1m9FSQD/SLYnMtqXj0/gc6N+wdFnpPQLg+ECskxD
+	 CxCSpbQk/lY0g==
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org,
+	Eric Biggers <ebiggers@kernel.org>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Lukas Wunner <lukas@wunner.de>,
+	Ignat Korchagin <ignat@linux.win>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org (open list:ASYMMETRIC KEYS),
+	linux-kernel@vger.kernel.org (open list),
+	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_))
+Subject: [PATCH v4 0/3] KEYS: Replace assoc_array with rhashtable
+Date: Fri, 30 Oct 2026 01:24:08 +0200
+Message-ID: <20261029232437.2581640-1-jarkko@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,82 +64,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-lg-16u70q-quirk-v1-1-946f25fea731@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyNL3Zx0XUOzUnODQt3C0syibN20xFQLM5OUJBMDUxMloK6CotS0zAq
- widGxtbUAe9FBKGEAAAA=
-X-Change-ID: 20261029-lg-16u70q-quirk-fae864db4054
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mario Limonciello <mario.limonciello@amd.com>, 
- Carlos Baiget Orts <asinfreedom@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793316277; l=1794;
- i=asinfreedom@gmail.com; s=20261029; h=from:subject:message-id;
- bh=2scvI5X0yKGdqQL9IjH/N2UwRjmOVAOBN1ZYC7tkAKQ=;
- b=3OXXkpx5QIs0LOCthtkmrsEfTnOQv1xwWaAlTW+w0xglQw1x5LgxRtli1vgJa5FesMFhDd70W
- ngTCrZuBp1ND6QIBtNuqwJhFjT+BOc4so4i7/3eKuDbrGEA1J0nSP4W
-X-Developer-Key: i=asinfreedom@gmail.com; a=ed25519;
- pk=aOfyH/lp+7onSrl00TdpSmziKWxCLG6uwG7m69lGXHI=
-X-Endpoint-Received: by B4 Relay for asinfreedom@gmail.com/20261029 with
- auth_id=1359
-X-Original-From: Carlos Baiget Orts <asinfreedom@gmail.com>
-Reply-To: asinfreedom@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Carlos Baiget Orts <asinfreedom@gmail.com>
+The keyring subsystem depends on assoc_array for searching keys by their
+description, type and domain. It is the sole user of this data structure,
+which has during the age of LLMs transformed into a maintenance nightmare.
 
-The LG Ultra PC 16U70Q (Ryzen 7 5825U) spends ~5 seconds in the noirq
-resume phase on every s2idle resume. This is the same NVMe SMI handler
-issue seen on other Cezanne systems. Skipping it with s2idle_bug_mmio
-brings it down to ~32 ms.
+assoc_array needs to be replaced with a data structure meeting the
+following criteria:
 
-As on the other Cezanne systems, the entry must also keep the spurious
-IRQ1 (8042) wakeup workaround. Otherwise the system wakes up immediately
-from s2idle, so use quirk_s2idle_spurious_8042.
+1. Must be suitable for a sparse key-value store.
+2. Must have multiple in-kernel users.
+3. Would be nice if it had dedicated maintainers.
 
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/6021
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Carlos Baiget Orts <asinfreedom@gmail.com>
----
-Tested on the 16U70Q (BIOS L2UG0160) with a locally built amd_pmc
-carrying this entry: noirq resume drops from ~5.2 s to ~32 ms, and
-s2idle no longer wakes up immediately from spurious IRQ1 events.
----
- drivers/platform/x86/amd/pmc/pmc-quirks.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+rhashtable is likely the best pick from the available options as it is
+designed for a sparse key space, has dedicated maintainers, and multiple
+in-kernel users.
 
-diff --git a/drivers/platform/x86/amd/pmc/pmc-quirks.c b/drivers/platform/x86/amd/pmc/pmc-quirks.c
-index fed6c51879..ca188d815c 100644
---- a/drivers/platform/x86/amd/pmc/pmc-quirks.c
-+++ b/drivers/platform/x86/amd/pmc/pmc-quirks.c
-@@ -386,6 +386,15 @@ static const struct dmi_system_id fwbug_list[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "WUJIE Series-X5SP4NAG"),
- 		}
- 	},
-+	/* https://gitlab.freedesktop.org/drm/amd/-/issues/6021 */
-+	{
-+		.ident = "LG Ultra PC 16U70Q",
-+		.driver_data = &quirk_s2idle_spurious_8042,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "16U70Q"),
-+		}
-+	},
- 	{}
- };
- 
+CHANGES
+=======
 
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261029-lg-16u70q-quirk-fae864db4054
+v4:
+- Eric Biggers: Correct the kerneldoc summary for keyring_is_empty().
+- Eric Biggers: Truncate keyring_index_key hash to u32 and drop index_id.
+- Eric Biggers, David Howells: Use a proper struct instead of a two-element
+  array to pass the edits.
+- Eric Biggers: __keyring_link(): Call key_put() in the rollback of
+  rhashtable_replace_fast().
+- Eric Biggers: Retract from using __free(kfree) in keyring_get_index().
+- Eric Biggers: Reuse keyring_link_key() in keyring_obj_cmpfn().
+- Eric Biggers: Document why keyring_index_free() uses queue_rcu_work().
+- Eric Biggers: Fix the commit message for "KEYS: Replace assoc_array with
+  rhashtable commit message".
 
-Best regards,
--- 
-Carlos Baiget Orts <asinfreedom@gmail.com>
+v3:
+- Since David is away for the next week I decided to address the
+  low hanging fruit that I reported myself.
+- Unified and sanitized function and variable naming and removed
+  unnecessary asymmetry e.g., by renaming keyring_remove_all_links
+  as keyring_index_free, 'links' as 'index' and '_edit' as 'edit'.
+- Flattened the implementation by refactoring out some useless
+  wrappers and other constructs.
+- Addressed continuation after triggered WARN_ON() on at the three
+  sites that I've described in my email response to the previous
+  patch set version.
+- Reworked keyring_read() so that it triggers the scheduler between
+  the iterations.
+- Dropped "Assisted-by: LLM" tag because checkpatch.pl told me so.
 
+v2:
+- Tried to address all the issues pointed out by David and Eric. Tell me
+  if something was ignored, as that would be an unintentional mishap.
+- Updated and trimmed the source code comments.
+- For assoc_array_edit I decided to go with two-element pointer array,
+  which shifts a bit what David suggested.
+- Dropped is_keyring flag. It was so obvious call so I mention it here
+  just in case because too obvious maxes out my self-doubt ;-)
+- Used cleanup.h primitives where I possibly could especially in order
+  to make fallible initializations more bug-resistant.
+- The already-ack'd bug fixes are included but will be dropped as soon
+  as I've sent them over to Linus.
+
+VERSIONS
+========
+
+- v3: https://lore.kernel.org/keyrings/20261025001105.1824178-1-jarkko@kernel.org/
+- v2: https://lore.kernel.org/keyrings/20261023120953.1206778-1-jarkko@kernel.org/
+- v1: https://lore.kernel.org/keyrings/20261016215326.4110064-1-jarkko@kernel.org/
+
+Jarkko Sakkinen (3):
+  KEYS: Introduce keyring_is_empty()
+  KEYS: Replace assoc_array with rhashtable
+  lib: Remove assoc_array
+
+ Documentation/core-api/assoc_array.rst        |  564 ------
+ Documentation/core-api/index.rst              |    1 -
+ .../zh_CN/core-api/assoc_array.rst            |  473 -----
+ .../translations/zh_CN/core-api/index.rst     |    1 -
+ drivers/md/dm-verity-verify-sig.c             |    2 +-
+ fs/verity/signature.c                         |    2 +-
+ include/keys/keyring-type.h                   |    1 -
+ include/linux/assoc_array.h                   |   88 -
+ include/linux/assoc_array_priv.h              |  178 --
+ include/linux/key-type.h                      |    1 -
+ include/linux/key.h                           |   29 +-
+ kernel/bpf/keys.c                             |    2 +-
+ lib/Kconfig                                   |   14 -
+ lib/Makefile                                  |    1 -
+ lib/assoc_array.c                             | 1724 -----------------
+ security/keys/Kconfig                         |    1 -
+ security/keys/internal.h                      |   14 +-
+ security/keys/key.c                           |   22 +-
+ security/keys/keyring.c                       |  977 ++++------
+ security/keys/request_key.c                   |    8 +-
+ .../dm-verity/test-dm-verity-keyring.sh       |    2 +-
+ 21 files changed, 462 insertions(+), 3643 deletions(-)
+ delete mode 100644 Documentation/core-api/assoc_array.rst
+ delete mode 100644 Documentation/translations/zh_CN/core-api/assoc_array.rst
+ delete mode 100644 include/linux/assoc_array.h
+ delete mode 100644 include/linux/assoc_array_priv.h
+ delete mode 100644 lib/assoc_array.c
+
+--
+2.47.3
 
