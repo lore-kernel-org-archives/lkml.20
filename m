@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269111;
-	b=Ar4UwkEXCRQJ2gJVsMc3d5JVyuEv1uViIV64gSz5r0z8yua+SAyN2EDzuZf8fPAuEtIC
-	 xBdedTeNWRiFgKlDYqGEfPd+OUiNS7y+aBbuUC9W+90n9Rh+KlWKE1SamNMJ1Ol2lTfLR
-	 KFpsyTA//kX1XP3HI7rVyebHdMyb0CvNulf75VpiQUoYFcjXyI1zv5aseF+VrynJbas2p
-	 kJj0SbM0dKMW2Z1uM5lcBivGLzcDLPBHYOwsty6OeLsZ5E46TdErzgIu6i4MjHSfdI+DI
-	 juphOOUeJjNxb0jB4bdiHGBrg8+IgdNjEVxZD+Gim+PlL1zFx3Ona66bEMCL7q74zbQ==
+	t=1793269112;
+	b=efPlNYINl3kz8IuLxeyuICG0UaQ+JYQQHaCJeF36uajcUsBqr5FJUojNmZlm5bxI6NKW
+	 l5lbx26xOIzOxGPtYffRPMiJbjm4aVtWh7zJtQy5TNQzwwhIT7F06y76EQKG/MD0YH8Vd
+	 E8JzCDGvUmQQ+ECQwNg3TPhAe6Wyyl8m3LEnLYfnGvdXrBcugdXjoP3zBBwKb9f2m1RWy
+	 kYntx/JyuFXW0QU7dl+lZ7yU1oYWOQ5P921kb4Y7XZpECyQ8Ky72A5d7QRUQ3LLGl+EqL
+	 q9Y42DzZY7H+dDli5oQGAWlUu9PaZq6RZbw0g10cP6I3OQ9OAw+70p1+llQmGqjLWUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269111;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269112;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hPXRAqx03CWF4KTxZfjeshWKEYqjwFf9UJcm90FGUJk=;
-	b=PLOwoQqx7a/3DL2fA3tqAHE8uoGtmwa2u5aLkkRZkpONfTH3zcIl4KrYb50Jq/dOVSxG
-	 2+Dgv55utIZSgx20+p1omv2sYYnDh72eXAebnM1Q9+p3CgUEEel/at8S+aN/2Iwl9DiXW
-	 CO0lUqxXwcaBfg9m2V8nuu9YA14ZHFBai3mBCS1ST3tHrQb3HcAQQRIROsvHbMFJVbZnO
-	 AwISuYKjkIhsG+WBxJVKWEtshAZyhhPBTE7K6pKaNj0xEoqkx5bdbkHM65/6Ya1zoG2ii
-	 vCrnR0pXRWKbvk1SfHTxeXdehjUPP2RH6JaiTWqIlHjFrV4HKpIb1I9eojHgZOt8TkA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=dOEmoLrkij3HmYBFR+Syf3gWz1S3EKgtiAPD6c4+pN8=;
+	b=yJxsTXGPhMY48AiTqLWWx62bCE1S5h5Fzg7tnDgIXrNyInvuV9kxqDKr/CNNVV+GyC6p
+	 LcPoVxrzjv2I5zUEJxT9+cT1TmbMz1dpjkmNjt2xagEpw2tmRkgGupxDV/x8kFcyhV+x3
+	 j1Rg64vLNfS+EcmziTm+dFEDjXZTTGWNKesZ3wsqtTAOnIpw+hHqd6PvlPdkYXSCAArgV
+	 SP42PPpIN3c1+a4u6GN9dNUTWCS64Hy0iqBbSbEbv2+uIyi6XX9+A7hmMlJtUjAsLgFHk
+	 P8l9wHxzX8vRbLuuhDVbIhYRtkTQ0TwI23VuIclI6jPfQcXRvHqwnd5x52kuMgi/G9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g+wWjgYF;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=alJU0dY5;
+	arc=none smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98FAD606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:18:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98FAD606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5A5606A329
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:18:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C5A5606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g+wWjgYF
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c450ab1483cso306111666b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:18:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=alJU0dY5
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c40e02b2ebaso305365466b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:18:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793269109; x=1793873909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hPXRAqx03CWF4KTxZfjeshWKEYqjwFf9UJcm90FGUJk=;
-        b=g+wWjgYFrXu7uWr+ib0KPN60R46KlHADQzU7vwIhA566zrx5ORLw+w8+7YsBDV88ds
-         3REIXGF3AbqDgYQLSR94m+U7X+Bl7W909iaL7FukBFUdlgyICyufjCskoBczTgAKkW43
-         9h+1Mx88VmQD6SW5mPA6NlMw1OatOTlyp5akBFskWhE1eJFWtYX9EKtNz2EPk6yW3yOh
-         PtpZ7vZ3oyJyVm0knAWPea5rCaXJIKcid90WuWvJuG1gFLiy09y+q38awghUeQNESpzK
-         17BTntQA9yhqTePIaeD6woSHGnAwE9DbX5jKOxYiV4G5XxxzjwgkpafedcLZN6TnCdMz
-         5RRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793269109; x=1793873909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793269111; x=1793873911; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hPXRAqx03CWF4KTxZfjeshWKEYqjwFf9UJcm90FGUJk=;
-        b=knILZkYepZ3tF/HmXDaP+ZKI8kKXpAK2qjeUWaremMt14LqomieSMdul84A65aw/Gt
-         c7kHrht+/XVxYK4eTq0sFBYXOsVkiZEqKy+NCVDFdCGVTB+z0AHvmJ2RyHr0adeCC4Ut
-         RvEwXDY8Vep7wdOue9/JDrptaLAIXUWZvTX06bRTsEEoTNb0Zw17SGgGh/t4WHT0bhqz
-         Mm3ZUORmdJ5wsaZfF/wouNebXkkv8egzRgJj4Q2Lknm0o4L8QO6g6qvk+mRWe89aTiQ2
-         lwdIJEDnEwlanaRVxds2HvkMEw7olwK91tK8ES3icsStLMgaqsKTEL5Uss3+zWGPnCc9
-         O9Cw==
-X-Forwarded-Encrypted: i=1; AKwUvBxVnVzhVZikKzFCK5LDeWqKCsFaXpGzdcCkPkbxEtGL5lSzL4OJYj9+Zawea0s/M0GNQtqAqCpH8yNR8FI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJt87xEHAQTPP7UT/zv9rTnqTmbw2dT2xCIC5D9Y7cW58X1YSqs
-	NTvX8h3oz39I1JoupD83hO0p7bQVznT3AAU1k0KMoD40HaOfKSzzV/dN
-X-Gm-Gg: AYBFou0PXJEi5M00ZbFxkNec03u5Kd6BSDuNoqeX8c+s8T8Z1FtZc1cqk427QtXIp9h
-	uWwcR6igNNfWSjrSOUwhN67tYIm6TcseTkf1guEcuA00THc0vNVBe361kAj5fAWYbRUKnPpCfNk
-	XcYgqoJh9nZasW+klOH6zR9eV/0MlmfpJF1BQZZVa5cGd0Sqw0iZS3+ubWz2WbEixtrkP1BBIWU
-	IbTl2Nw9iwTk5cR/k/d9rqtSs3Ergs/bWCy1Fby357a4utMh4heIhjPp25qr+MeAVj+I5R5dlsR
-	Sx6MVgPXRhjWQvwiGshwkIEogZwwT7eV37dhRb2bgRFnCcOOSSLZ2IrNhcN3n6KoZP4rnQBt4Bf
-	aiBqH59Hp81b0bwq/kHVWkmxwZWmF/ECmPzFIRYfICjhsdLmDZOTFr9mt1dZkIYNxlhkEFM/ZYa
-	b7ybz2mUbJNoWZZ5ZXDOo7zMK0fz5h7h7CJNOBhAgPGCrR0nPog6rTqQx0262fUFtwiRt+xt1OO
-	YmjjFAIIs78QL6dtIHPrEoXrEfxvXvBveX3bThKjlniQH3qGLhLDOJTI3tg0tWraDuLlzxwltRz
-	QW3lfhfzggVdCbv3RiEEajF/WlYdMgzTqWSjAoCk+eeB5Ob7o4HsC+0pX3PnbJ0=
-X-Received: by 2002:a17:906:730e:b0:c40:231:6eab with SMTP id a640c23a62f3a-c49bdf393b4mr415116466b.16.1793269108982;
-        Thu, 29 Oct 2026 03:18:28 -0700 (PDT)
+        bh=dOEmoLrkij3HmYBFR+Syf3gWz1S3EKgtiAPD6c4+pN8=;
+        b=alJU0dY5Up8q33aAiFmliFZ394iZjePCOI4oeMOgfSlICfOsSeWeutUa8xzrlvTgbk
+         UUN0LgE5XH/qi18S+NHpbhWLPfBvA/qZ8ziatluePe7lrIXo3liI4xOKVRZRLLOw0Mk4
+         Ru6QVSCSko7JMevFqhvFeAlltR2wDjUzcp+ScvUyDt7yJmky8dA7tiSopOeKRXxz2B/1
+         PLDMRaLBtktIY0PhcbycDppHusd2OKFZrzzKOtIpf7/le83rv4A74CSuV5Pf48DsSeJR
+         6/VMJMJP/golCJQlnsM1PADkGmybfSpCPL0EHtx1jUFfaX/mF429w+lwdFElSdkYy00e
+         E5HQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793269111; x=1793873911;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dOEmoLrkij3HmYBFR+Syf3gWz1S3EKgtiAPD6c4+pN8=;
+        b=QSCRVzumCqkVCanMG35NNn3cTGntsWSN+BKLmBupv2c0q5WpsWL9DM+4niRKFA79X3
+         qAqOytYceq9q3TPb13FlY4X4vug4CWOXTV2OiSO+3CCblo1nYJqPnP2pprbXzCuXcX6i
+         71n/oXOELxLKMxd0z9TfczwHX71gS2C9xSAAvF2lE0MROsDFj55GQbC7H0GOtD9N4DUl
+         w2hmGQbieDePChAuDbPvMKVioNtQVTI3NXAjXli/ytgmjax7G/0S4NHVxFgRSM2kgNfX
+         iceclN1RVeyZ+vCHzpPBLNEc/UFmm6raIgH+kTMz3Z4VHox4LdUwXk9E61E7sU2k6USc
+         gJjQ==
+X-Forwarded-Encrypted: i=1; AKwUvByKjHKCB1NRgFw0Qu4IXO+k6F+dW1wX21VBrsll1kQJa+Op1owuBW9t+MMdsrqb5esE2HrX13XYtbgBZd0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCHhgqE8TOpauLXhg9RPLQJcsOiVbjVjl2Wme3DyYG8TRtLvEL
+	J1JRVVIkXcY27lqRz1MqcNX3N8Fw+o8SuTPYn+xXBCBpZa2D2MviQdV9
+X-Gm-Gg: AYBFou26RUe027s2JD6Cu2Db7dueVv1oI7gKTQLhl9m9Mmfp+knL/Pf7wp/728Mjqeo
+	OCnsPXTlOrk+Q91nUGzPJ5JUHPsHQ0xWUVL1CvocOWkBxbGH/F9ZHCey/zg889OCAYv3AjO1BUP
+	qtBGaMwAlPBZ5ur1pMrJnEVdjdMhZqmfHcySA7QBW/0IsoRUhUPVjSpUYlqVBTLuhVXCK2mzKAp
+	4zWQwUAj2SNmz+eonbrC17UmZMCNF0ubl3xsJL7dfmEH98A1XPNPpVD9Ivo9bt6EhNeViOA1mme
+	68i9crebKZzB3aMOWMcUg8Lf0+cHyuRzK71YRZ9VY5uHZ5oNGh/PyRzllsx26at2zeCpOoRKMkM
+	IyiopVQJGFjqYRjD8OcRoCuoYng1qTXEhqOPpYz+/cfTy6Zg2iqFuvdRsZvkm951gtormMm0Y39
+	BurGBpk7ocv6GVVFVM64A4d2tWJ8n0PVGxsYYlqNO7JGnAWPCaOzTaxZaa9SBS8/JLPohtrUhht
+	0TsdxaQ3KoV9SxZ9fiXDJV544Fov9tnral2hNx3zqemXZ/d7OMrCdCQtKIijtjKwBqrmEuBHVjz
+	bEhsIQ6xtuXtsBRwyqQMDVI+1n16vLE8W7O2TV2JgTxbdbtiyWEqxl9pLkQ9+8I=
+X-Received: by 2002:a17:907:930a:b0:c46:a5bb:5740 with SMTP id a640c23a62f3a-c49bdb64c4dmr397674666b.5.1793269110523;
+        Thu, 29 Oct 2026 03:18:30 -0700 (PDT)
 Received: from localhost.localdomain ([46.205.195.0])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd66c6dbsm712145966b.59.2026.10.29.03.18.27
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd66c6dbsm712145966b.59.2026.10.29.03.18.29
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 03:18:28 -0700 (PDT)
+        Thu, 29 Oct 2026 03:18:30 -0700 (PDT)
 From: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -101,10 +102,12 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
 	intel-gfx@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: [PATCH v2 0/5] drm/dp: Always use enhanced framing for DPCD r1.2+
-Date: Thu, 29 Oct 2026 11:18:21 +0100
-Message-ID: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+Subject: [PATCH v2 1/5] drm/dp: Always use enhanced framing for DPCD r1.2+
+Date: Thu, 29 Oct 2026 11:18:22 +0100
+Message-ID: <20261029101826.72773-2-dmitrymalovanyy@gmail.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,58 +119,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Xiaomi Monitor A24i clears DP_ENHANCED_FRAME_CAP in its extended
-receiver caps, and through a USB4 dock it does not sync without
-enhanced framing. v1 kept the bit from the base caps. As Jani pointed
-out, the spec says to enable enhanced framing for DPCD r1.2+ without
-looking at the bit, so v2 does that in drm_dp_enhanced_frame_cap() and
-converts the remaining direct users of DP_ENHANCED_FRAME_CAP.
+DP 1.2 section 2.2.1.1 says "An upstream device interoperating with a
+downstream device with DPCD Revision of 1.2 or higher must enable
+Enhanced Framing Mode". So for r1.2+ the DPCD revision is enough, the
+DP_ENHANCED_FRAME_CAP bit does not need to be checked.
 
-amdgpu DC, mediatek and hibmc already enable enhanced framing always,
-without checking the bit.
+Some sinks get this bit wrong. The Xiaomi Monitor A24i (P24FBA-RAGL)
+sets it in the base receiver caps, but clears it in the extended
+receiver caps at 0x2200, which are the ones we use:
 
-drm_dp_get_phy_test_pattern() still uses DP_ENHANCED_FRAME_CAP, but
-there it is a bit in DP_TEST_LANE_COUNT, so it is left alone.
+  base:     12 0a c4 01 01 00 01 80 02 00 06 00 00 00 81
+  extended: 14 0a 44 00 01 00 01 80 02 02 06 00 00 00 81
 
-analogix_dp has its own copy of the check (DPCD_ENHANCED_FRAME_CAP()),
-I left it out, can do it as a follow up.
+Through a USB4 dock (CalDigit Element 5) the link trains without
+enhanced framing (0x202-0x204: 77 77 81), but the sink never syncs to
+the stream (SINK_STATUS 0x205: 00) and shows "No signal". Forcing RBR
+does not change it. Connected directly to the laptop the same sink
+syncs without enhanced framing, at RBR, HBR and HBR2.
 
-Patch 1 is tested on i915 with the affected monitor, the rest is
-compile tested only.
+Make drm_dp_enhanced_frame_cap() return true for DPCD r1.2+. This
+changes behaviour for every driver using the helper, but only for sinks
+which already violate the spec by not setting the bit.
 
-For nouveau I converted both dispnv50 and nvkm in one patch, so the
-watermark calculation and the enable stay in sync. Happy to change it
-if you prefer another way.
+Tested on i915 (Arrow Lake-U), with the dock the link now uses enhanced
+framing (0x101: 84) and the sink syncs (0x205: 03).
 
-v2:
-- Do it in drm_dp_enhanced_frame_cap() instead of patching the
-  extended caps (Jani)
-- Convert cdns-mhdp8546, it6505, gma500 and nouveau
-- Commit message: the sink only fails through the dock, directly
-  connected it works without enhanced framing
+Fixes: a1d926527b79 ("drm/i915: implement EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT")
+Cc: stable@vger.kernel.org
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17719
+Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
+Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+---
+ include/drm/display/drm_dp_helper.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-v1: https://lore.kernel.org/all/20261028162941.62762-1-dmitrymalovanyy@gmail.com/
-
-Dmytro Malovanyi (5):
-  drm/dp: Always use enhanced framing for DPCD r1.2+
-  drm/bridge: cdns-mhdp8546: Use drm_dp_enhanced_frame_cap()
-  drm/bridge: it6505: Use drm_dp_enhanced_frame_cap()
-  drm/gma500: Use drm_dp_enhanced_frame_cap()
-  drm/nouveau: Use enhanced framing for DPCD r1.2+
-
- drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c   |  2 +-
- drivers/gpu/drm/bridge/ite-it6505.c                   |  2 +-
- drivers/gpu/drm/gma500/cdv_intel_dp.c                 |  8 ++------
- drivers/gpu/drm/nouveau/dispnv50/disp.c               |  2 +-
- drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.c         |  2 +-
- drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.h         | 11 +++++++++++
- drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c      |  2 +-
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c    |  2 +-
- include/drm/display/drm_dp_helper.h                   |  4 ++++
- 9 files changed, 23 insertions(+), 12 deletions(-)
-
-
-base-commit: feaa32dc98090b2f45f7b6f179711a6640169c1a
+diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+index 5b05a7fbe..4f20f60db 100644
+--- a/include/drm/display/drm_dp_helper.h
++++ b/include/drm/display/drm_dp_helper.h
+@@ -160,6 +160,10 @@ drm_dp_max_lane_count(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+ static inline bool
+ drm_dp_enhanced_frame_cap(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+ {
++	/* DP 1.2 2.2.1.1: enhanced framing is mandatory for DPCD r1.2+ */
++	if (dpcd[DP_DPCD_REV] >= 0x12)
++		return true;
++
+ 	return dpcd[DP_DPCD_REV] >= 0x11 &&
+ 		(dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP);
+ }
 -- 
 2.50.1 (Apple Git-155)
 
