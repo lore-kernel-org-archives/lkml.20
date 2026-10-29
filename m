@@ -1,47 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281388;
-	b=L4nZsw/eI1I9lqaPRwhgZzql2pp7I0+hTyGJ7py03Zmr6ZJVY1VFo4Kk1NMRoH/H+Bvb
-	 wYyUrC8aJwKy7/e+t5nq/a87UNBXNDnT8TkElvwTVnnwxqM1IBTKxLrE7cnjWaU6OvzIs
-	 x3gQIc3aoV1bfZr6xnAgRu4xxTC/e/k2SxL8M4o9wwGuKi7ptVw0R4zPFWghlJfOrKA45
-	 ZUyHIP3qON4TyNrdg+av8PMr0DD4z0eCgyabujsZMNmJ/fcQKdPqJId9yFERRzd2/T81d
-	 69KLiofk4LuDRrZaDpbSfh/1ux2fOXOvYN8C5bqxMNmjMYgFLNw97l/pcPUFKtgDocg==
+	t=1793281427;
+	b=YybJ3spvuJTiRUA+sGwoNKN1Yf0QFTk7zOFZmWTcCHUGxm6Q6raLOYddtcg4MUqanr4r
+	 U1Voffzvc3OenTscEcsJnerUKVIwSIAY5gXbMbxB2+Yf3u0bNyQ+FlCJ33kyYhre0Lb26
+	 xt0cfh/MkWqxno7yaFHF0fyPNX1GXi8TO4z3d1ZXLhC+799LzZZ15W+HDC0fhOeJQxMgU
+	 +FyQ+j8qookcHnccsBCy4G1t6ngKC5/y9eC+PJC0WONmpBnbjgMCpsJyK1FpWqf2xuJ4j
+	 66ZAzJ+6PShsruH9Zebxa8AYtSxvM2qLipBf823luvnAP1wEGUGjjeHeQ8wUJRZmmRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281388;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281427;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=xATGJU8orEB3btiUpSvOnkxKiYXSG1l2AR3PY8Sea8o=;
-	b=C7Y5ofa/tc5v/vKRS1qacfxX7bl6H1cLsPVl3XcWjfhjjf5+qJ2HJ4FPm7RRf3/5b/ZL
-	 Khf9hCaj9uFgo2J4svzTwOSd0SeH46z9uUgJLJox1mJhBXJIrmqWUTs73rCbNjEqjvIy8
-	 TYm5d4wCYo+zgalVm8my5uYMYBh902VQ2VYtxuvSUlvcOdeM58YiOf627UfbY2acYe6UZ
-	 DR5w/s+Q272U/aQwe+Nn0uwyW4fkG3MVyAxG3embjnR5mSOE+wN5EMo/zJ+Icrssgfvy6
-	 uq88ITJVBHq5vVFph2x2kYUd93a+371BIj+hv9i3IuNdH5/+j9XXAN9p2D5M56KYcIA==
+	bh=MJn0jfefkcjE8a3q5VwEl1+DWK/Z06yd9iQxNjsHeT0=;
+	b=YmB5Z/5hS0W7tO6q1up3qpNoht+QadCat68eMnX/g6FTf6Zbkdlse7wOjMUXhErv1Y4a
+	 RKI+/zlNiW2e63bp0buZHPtJkkwsetXX1Z5e2fNQbsRolzwMAsgfcCiqsmfl33Ny7TP8d
+	 /IgkGwm3VPU0tJvgcpW0HTgxMxFjfvPXaxmhBKBDUb4a0FAQbtTWOUGc5pmF3/y8ZkSbP
+	 CHjvm0bsFx4GKaZSjsF8J3Zxj8Lekg2RorFStVtYpaild7328QCVyXyjrB2nGpiYua4s0
+	 oAD/vEXek2Ji6c5mWiSljv6dLzqrv7ynCWo3DbBB21GqKbwueO0kvx5wiNElI9Z2o2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yy46oPby;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Q//xnx6C";
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98222606A31A;
-	Thu, 29 Oct 2026 13:43:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE8E606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:43:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BE8E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yy46oPby
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5E11F01825;
-	Thu, 29 Oct 2026 13:43:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793281388;
-	bh=xATGJU8orEB3btiUpSvOnkxKiYXSG1l2AR3PY8Sea8o=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Yy46oPbyE0/giBOW/6my1xYZR2iOUtaGf6dpMwaYrB9o2fVeSMEF/upiQUUKx7/Fi
-	 V9m4jE42hUGa7wYKWydRdN02XnKsn7rcpmnHhjJLM6yca/WrmzJ38ZEEFslaK5oMe5
-	 HsPF6zrDzDTIKcLnYdPOLY6grBNPrsv69mk7sM9NP0pnHu3C6D/wBCYz6xbOZwvvWj
-	 IMebv15TZdTZ1aZ1Ormj3qdgL6Y4Oac72HLMgLTFapnntQOjz9yAToFZ9zPQGXI4OR
-	 mAfWHuT1ynTe+Vw0AmyYf7uFizDnLho1d7z42V03g2PWWLGi9rtWLNjdwvG3k8039A
-	 NdGhzC1Aud0hg==
-Message-ID: <c78efbed-e91b-484c-b2a8-4e44383bbc30@kernel.org>
-Date: Thu, 29 Oct 2026 14:43:01 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q//xnx6C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793281427; x=1824817427;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=zFZt8PgITT+BpaBniFh8F+LtZH9LpS21POyhExpYbzI=;
+  b=Q//xnx6CPNFDKf3befvtC6ep6vYj87P6Ce1RnCn8eyVNPixl3gbaFGpe
+   lOTnLPw6USpEg16KK/PNaj0m+Tli3Yov+xHG4QxtArskm/XOz4wSFnkjh
+   MB3YzdtJf/KcIE6LdyPYmVk8De6kVO4XNuaXiotc8HLMlbMLnSuM2kKb6
+   LOMzcSGpREWp91aPhCbPBEXosdUShNSGSJ0QHRCOmBiBz1f52Z9SDORtM
+   Wle25zEh9Rcr54h4ftFv6D4btIXaobHx0kZjYMwFSiJWOXIOnUdiB3JkD
+   yll96v8B/YjWy/vTKp9itqjQrxXa9rSx2jHUArx8UzUgtxwUoIOHhQNFb
+   g==;
+X-CSE-ConnectionGUID: i+uT3X30SfCfy84dQu4T6Q==
+X-CSE-MsgGUID: YQ1N6hnqSCeS4pe/cWXVSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2058291"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="2058291"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:43:46 -0700
+X-CSE-ConnectionGUID: W4dphpgISpy646ilS2SgmA==
+X-CSE-MsgGUID: azdHLBbSTVu7n+GAonnHtg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5489030"
+Received: from gklab-096-123.igk.intel.com ([10.91.96.123])
+  by fmviesa008.fm.intel.com with ESMTP; 29 Oct 2026 06:43:44 -0700
+From: Michal Camacho Romero <michal.camacho.romero@intel.com>
+To: Lu Baolu <baolu.lu@linux.intel.com>
+Cc: Ning Sun <ning.sun@intel.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Michal Camacho Romero <michal.camacho.romero@intel.com>,
+	x86@kernel.org,
+	iommu@lists.linux.dev,
+	tboot-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Mateusz Mowka <mateusz.mowka@intel.com>,
+	Adam Pawlicki <adamx.pawlicki@intel.com>,
+	Pawel Randzio <pawel.randzio@intel.com>,
+	Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
+Subject: [PATCH v7 2/2] iommu/vt-d: Disable TXT TPRs before enabling queued invalidation
+Date: Thu, 29 Oct 2026 14:41:49 +0100
+Message-ID: <20261029134149.3498677-1-michal.camacho.romero@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <3a78df93-845a-4432-8aa1-fc4939f4f400@linux.intel.com>
+References: <3a78df93-845a-4432-8aa1-fc4939f4f400@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,77 +89,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 05/16] ARM: dts: aspeed: anacapa: Add eeprom device
- node for NFC adaptor board
-To: Colin Huang <u8813345@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- colin.huang2@amd.com, Carl Lee <carl.lee@amd.com>
-References: <20261029-anacapa-devlop-phase-devicetree-v10-0-26ee3cf9d9d0@gmail.com>
- <20261029-anacapa-devlop-phase-devicetree-v10-5-26ee3cf9d9d0@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261029-anacapa-devlop-phase-devicetree-v10-5-26ee3cf9d9d0@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 29/10/2026 14:38, Colin Huang wrote:
-> From: Carl Lee <carl.lee@amd.com>
-> 
-> Add eeprom device node for NFC adaptor board FRU.
-> 
-> Signed-off-by: Carl Lee <carl.lee@amd.com>
+From: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
 
-DCO mismatch / missing SoB. Please read submitting patches document for
-further explanation.
+When the SINIT ACM establishes TXT Protection Regions (TPRs), they block
+all inbound DMA to their protected range, including the IOMMU's own
+queued invalidation (QI) ring. If the TPRs are still active when QI is
+first enabled, the first invalidation faults with an Invalidation Queue
+Error and the boot hangs. On systems with interrupt remapping enabled
+this happens very early, in intel_setup_irq_remapping() ->
+dmar_enable_qi(), well before init_dmars().
 
-Best regards,
-Krzysztof
+Link: https://uefi.org/sites/default/files/resources/633933_Intel_TXT_DMA_Protection_Ranges_rev_0p73.pdf
+Link: https://cdrdv2-public.intel.com/315168/315168_TXT_MLE_DG_rev_017_7.pdf
+
+Tested-by: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
+Signed-off-by: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
+---
+Changes since v6:
+- Retitled from "iommu/vt-d: Disable PMRs and skip force-IOMMU when TXT
+  TPRs are active", reflecting a substantially reworked approach:
+  * TPRs are now torn down early in parse_dmar_table(), before any
+    dmar_enable_qi() (the real fix for the IQE boot hang on IR/x2apic
+    systems), instead of in intel_iommu_init() after translation is
+    enabled.
+  * tboot_force_iommu() is no longer modified. The IOMMU is forced on
+    exactly as before, so booting intel_iommu=off on a TPR-capable
+    platform behaves as upstream.
+  * All TPR/DTPR/txt_heap states are kept internal to tboot.c. The IOMMU
+    driver now uses only parameterless helpers (tboot_check_tprs(),
+    tboot_teardown_tprs(), tboot_is_tpr_protection_enabled(),
+    tboot_free_txt_heap_mem()). All TBOOT state leaks into the driver
+    have been eliminated.
+  * TPR teardown runs only on a successful DMAR table parse.
+  * Using intel_iommu=tboot_noforce now suppresses the TPR-related panic.
+
+ drivers/iommu/intel/dmar.c  | 19 +++++++++++++++++++
+ drivers/iommu/intel/iommu.c | 18 ++++++++++++++++++
+ 2 files changed, 37 insertions(+)
+
+diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
+index ba675b08cd208..5e59aa46721e6 100644
+--- a/drivers/iommu/intel/dmar.c
++++ b/drivers/iommu/intel/dmar.c
+@@ -675,6 +675,25 @@ parse_dmar_table(void)
+ 	if (ret == 0 && drhd_count == 0)
+ 		pr_warn(FW_BUG "No DRHD structure found in DMAR table\n");
+ 
++	/*
++	 * Only on a successful DMAR parse: if SINIT programmed TXT TPRs for DMA
++	 * protection, disable them here, before any queued invalidation (QI) is
++	 * enabled. TPRs block all inbound DMA to their protected range, including
++	 * the IOMMU's own QI ring, so leaving them active makes the first queued
++	 * invalidation fault (Invalidation Queue Error) and hangs the boot on any
++	 * system with interrupt remapping enabled.
++	 *
++	 * If parsing failed, dmar_table_init() propagates the error and both the
++	 * IOMMU and IRQ remmaping preparation will be aborted, before QI will
++	 * be enabled, so the TPRs are left in place and SINIT's DMA protection
++	 * will be retained.
++	 */
++	if (ret == 0 && tboot_enabled()) {
++		tboot_check_tprs();
++		if (tboot_teardown_tprs() != 0)
++			pr_warn("tboot: Failed to disable TPRs. DMA is still blocked.\n");
++	}
++
+ 	return ret;
+ }
+ 
+diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+index 2e3b3ab216f8f..8cb9096b8d732 100644
+--- a/drivers/iommu/intel/iommu.c
++++ b/drivers/iommu/intel/iommu.c
+@@ -2648,6 +2648,15 @@ int __init intel_iommu_init(void)
+ 
+ 	init_no_remapping_devices();
+ 
++	/*
++	 * SINIT TPRs (if any were active) should be already torn down during DMAR
++	 * Table parsing process. If the teardown failed, DMA (including the IOMMU's
++	 * own QI ring) is still blocked, so refuse to continue a forced launch
++	 * rather than hang mid-init.
++	 */
++	if (tboot_is_tpr_protection_enabled() && !intel_iommu_tboot_noforce)
++		panic("tboot: Failed to disable TPRs. DMA is still blocked.\n");
++
+ 	ret = init_dmars();
+ 	if (ret) {
+ 		if (dmar_policy_force_on())
+@@ -2698,6 +2707,14 @@ int __init intel_iommu_init(void)
+ 
+ 		iommu_disable_protect_mem_regions(iommu);
+ 	}
++
++	/*
++	 * Release the TXT heap mapping if it is still held. TPRs (and the
++	 * heap) are normally torn down in parse_dmar_table(); this is a
++	 * safety net for paths where no TPRs were active.
++	 */
++	tboot_free_txt_heap_mem();
++
+ 	up_read(&dmar_global_lock);
+ 
+ 	pr_info("Intel(R) Virtualization Technology for Directed I/O\n");
+@@ -2707,6 +2724,7 @@ int __init intel_iommu_init(void)
+ 	return 0;
+ 
+ out_free_dmar:
++	tboot_free_txt_heap_mem();
+ 	intel_iommu_free_dmars();
+ 	up_write(&dmar_global_lock);
+ 	return ret;
+-- 
+2.43.0
+
+---------------------------------------------------------------------
+Intel Technology Poland sp. z o.o.
+ul. Slowackiego 173 | 80-298 Gdansk | Sad Rejonowy Gdansk Polnoc | VII Wydzial Gospodarczy Krajowego Rejestru Sadowego - KRS 101882 | NIP 957-07-52-316 | Kapital zakladowy 200.000 PLN.
+Spolka oswiadcza, ze posiada status duzego przedsiebiorcy w rozumieniu ustawy z dnia 8 marca 2013 r. o przeciwdzialaniu nadmiernym opoznieniom w transakcjach handlowych.
+
+Ta wiadomosc wraz z zalacznikami jest przeznaczona dla okreslonego adresata i moze zawierac informacje poufne. W razie przypadkowego otrzymania tej wiadomosci, prosimy o powiadomienie nadawcy oraz trwale jej usuniecie; jakiekolwiek przegladanie lub rozpowszechnianie jest zabronione.
+This e-mail and any attachments may contain confidential material for the sole use of the intended recipient(s). If you are not the intended recipient, please contact the sender and delete all copies; any review or distribution by others is strictly prohibited.
+
