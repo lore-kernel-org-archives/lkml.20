@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.235
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793238292;
-	b=zng8oTBmb3ZXhV5lf75dQnDPkuf6t+Zftd4mYQo8WpdlR20BQxd+vQsJt6Sz93Ga+dx6
-	 w8poMwxE9y2UPdtnxCgEH+94Zm9QUsk/qn8FPGEli9V76aY4q4xDfoTnrFFo3VQn/pVGu
-	 VzLdk6Jv6t0Zohn6IK/SIUP+TgyR/7ggUcijpIIZFo5CEj+6A5NdI/9wJQ9r1EDMlYal/
-	 wn7za4mkLa03YuJYqWsRIxM4lBppATMPlrxxzEdNHpMvdxmGWL80go/sI2f7HxV2HEpIz
-	 u9IpaZWHhqVVI8to/u6DeZVldOUFmYucTBUapBdJQdbLbHxt1/mlOZRP/RtBXMPa35Q==
+	t=1793238431;
+	b=4L9ZARuOBl4z9XkLZfnmCQ4xsRhyOD6dcsqiwaIjN1qCr6hfwthKv0wTwquXPxnwXUuB
+	 47fnoL9UJ41F8fG02Rz/fzWoYSB3EjfUTX0eWhYevXzzhTSP/r23KnSjPjKZJHgXW9/9g
+	 k5tGg5M46ZR+4cSu962BHZbuGnLWnMDja/x2fERSQfE1yNpLIewLs58CmjoirhqNTLlHQ
+	 z1HyijV03HMBGQPVJRfhKgRqLiT2E0UGup+p3rj1D+SWjtatCNzNMz9McQ0MfHzL/+B5q
+	 rZYRv2Nzy/MiiPwOPoPDUFfUBtwXssqtRqWE1BMJR6efaSEnJ30zOZfFLznVTufBBrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793238292;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=fsImNdWrr83N8+F7M3ohrBELj1nHC3un4eFEu4YBSFs=;
-	b=hwbesOBt3PBjcHY4+O5MJK1AqPIgeP5K9DWn7IbLAoRbSkz/gwZaqSBJ3JljwjtGXfJw
-	 jk+OvZaoQTAywEES9ZeXgEaFmGy1nHTYQw51XfXaOpdS4pURWvLRJN8JRHlWxuXwo3HzN
-	 6KWpn49SRNQtf3TDqq+97CF38gKFMTn8HPVkgnuHJW5mgHoaoabCjWrmx0huzuTsQ9TM4
-	 jfrXioBkbuIyaPoM8GL8NbENV5y1x7tyWsvwXkR69Ky1Be6G8kOPIVyvMiENBIIqpVwmU
-	 CZtP/nwi17goWYOfQbGglUGgTbFt7keNVIJxU3/W3ZS7r6wkW6Yq1JwF1UEGAgVitjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793238431;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=PFzIqZjHVXD411j1Xcb58DKmChpls4qJYNm7u9vlcyc=;
+	b=jAPzpiEef8DY4m+HinQ/zaVXCtmxBTiKuKwbxfE/EPhpLk75eMfaU2JYeKvFDcy50M3o
+	 Q52AvOCsJIAImaSdZLEbtndfBMs7IuarnN4AtqZ+7nKozVoN5+lCZ3XunH3nx97AQl36W
+	 Mc9gJ6rk/El1c+jQlKlveAvLh00ersiqAlXfvsjoQ0EVbHnEyVuXikBwGPabHHa8is13v
+	 Lm2ST1TOhI8ZYVFOPaZrSCnt8lkcah+IhDG5nfvzVcB5pv7Wjomb4x99BpRq2hrvSO/TJ
+	 f5UL+560GeFMDvBZeKIK/NbVuwL7iP4+GE/iGd7yTmG5TrnIoJtz4CpCrt4aIvjuqBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PMTWrmvq;
+	arc=none smtp.remote-ip=91.218.175.235
+Received: from mta0.migadu.com (out-235.mta0.migadu.com [91.218.175.235])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F97606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:44:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4F97606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 51742f00d33a11f19a56ed5b684f684d-20261029
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:7c6f379b-36a0-4ef1-9455-98e168291740,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:ea4b5ef0005654da332220e8719846a7,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|52|99,
-	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 51742f00d33a11f19a56ed5b684f684d-20261029
-X-User: wangxuewen@kylinos.cn
-Received: from [172.30.70.102] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <wangxuewen@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1064201557; Thu, 29 Oct 2026 09:44:45 +0800
-Message-ID: <b9a48416-8052-4bc4-b002-d7766895121b@kylinos.cn>
-Date: Thu, 29 Oct 2026 09:44:41 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EE9606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:47:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55EE9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=PMTWrmvq
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=aL4JAUADBNDogSZrrKOi77qTC3m8cP+9/JJH38fu0Ds=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793238424; v=1; x=1793843224;
+ b=PMTWrmvqpQFUK4IYXqwED6DcXkNtmsGZgBtM5IEcoedv8CWOgp9SUgm/IvZhlw2dgZF5scX8
+ HXh1KOyyglGj6ecDSiNSK8zX8BWtPJGfpBXlgv/U5MkMLzHJxXPNnQ20Yrwnc6i9vPwmyOJrZQ5
+ 9uqbyF4IoyeL8XY9Fa0EsLBg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 714350141f370ecb;
+	Thu, 29 Oct 2026 01:47:03 +0000
+X-Mizu-Trace-ID: 714350141f370ecb
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <eb85d54b-778e-403e-a5a5-56805b23b560@linux.dev>
+Date: Thu, 29 Oct 2026 09:46:53 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,77 +59,127 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/5] ntfs: preserve timestamps when creating hard links
-To: Hyunchul Lee <hyc.lee@gmail.com>, Baolin Liu <liubaolin12138@163.com>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20261027093515.344799-1-liubaolin12138@163.com>
- <20261027093515.344799-3-liubaolin12138@163.com>
- <auKQCM-vwM5RPYDc@hyunchul-PC02>
-From: wangxuewen <wangxuewen@kylinos.cn>
-In-Reply-To: <auKQCM-vwM5RPYDc@hyunchul-PC02>
+Subject: Re: [PATCH net v2 1/5] ipv6: restrict gc_elasticity to 31
+To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org,
+ Fernando Fernandez Mancera <fmancera@suse.de>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, David Ahern <dsahern@kernel.org>,
+ Ido Schimmel <idosch@nvidia.com>, Joel Granados <joel.granados@kernel.org>,
+ Thomas Gleixner <tglx@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Willem de Bruijn <willemb@google.com>, Maoyi Xie <maoyi.xie@ntu.edu.sg>,
+ Jiri Wiesner <jwiesner@suse.de>, Gerd Rausch <gerd.rausch@oracle.com>,
+ Zhan Xusheng <zhanxusheng1024@gmail.com>, Oleg Nesterov <oleg@redhat.com>,
+ Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
+ Yung Chih Su <yuuchihsu@gmail.com>, Wyatt Feng
+ <bronzed_45_vested@icloud.com>,
+ Hannes Frederic Sowa <hannes@stressinduktion.org>,
+ Flavio Leitner <fbl@redhat.com>, "Paul E. McKenney" <paulmck@kernel.org>,
+ Petr Mladek <pmladek@suse.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261027104701.296240-1-jiayuan.chen@linux.dev>
+ <20261027104701.296240-2-jiayuan.chen@linux.dev>
+ <CAAVpQUCBBaVmaZUv+D+a4anSbGSR_pKukYVXvRJRzSGVnjb2kw@mail.gmail.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <CAAVpQUCBBaVmaZUv+D+a4anSbGSR_pKukYVXvRJRzSGVnjb2kw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
-
-在 2026/10/29 08:15, Hyunchul Lee 写道:
-> Hi Baolin,
-> 
-> On Tue, Oct 27, 2026 at 05:35:12PM +0800, Baolin Liu wrote:
->> From: Xuewen Wang <wangxuewen@kylinos.cn>
+On 10/29/26 7:58 AM, Kuniyuki Iwashima wrote:
+> On Tue, Oct 27, 2026 at 3:48 AM Jiayuan Chen <jiayuan.chen@linux.dev> wrote:
+>> Every counted IPv6 dst allocation runs ip6_dst_gc() once the number of
+>> live dst goes over gc_thresh (1024 by default). ip6_dst_gc() decays
+>> ip6_rt_gc_expire by gc_elasticity: the smaller gc_elasticity is, the
+>> smaller ip6_rt_gc_expire gets, i.e. the more aggressive the gc.
 >>
->> ntfs_link() resets atime, mtime and ctime on both the source file and
->> the destination directory after creating a hard link. This overwrites
->> the source file's atime and mtime and the directory's atime.
+>> ip6_dst_gc() reads ip6_rt_gc_expire into a u32, but gc_elasticity has no
+>> bounds at all, so writing >= 32 shifts a 32-bit value by >= 32 bits, and
+>> a negative value gives a negative shift count. Both are UB:
 >>
->> Update only the source ctime and the destination directory mtime/ctime.
->> Mark both inodes dirty so these changes are queued for writeback instead
->> of relying on the earlier FILE_NAME write.
+>>          val = atomic_read(&net->ipv6.ip6_rt_gc_expire);
+>>          atomic_set(&net->ipv6.ip6_rt_gc_expire, val - (val >> rt_elasticity));
 >>
->> Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+>>    UBSAN: shift-out-of-bounds in net/ipv6/route.c:3369:53
+>>    shift exponent 32 is too large for 32-bit type 'unsigned int'
+>>    CPU: 2 UID: 0 PID: 615 Comm: ping6 Not tainted 7.3.0-rc7+ #364 PREEMPT
+>>    Call Trace:
+>>     <IRQ>
+>>     dump_stack_lvl+0xc1/0xf0
+>>     dump_stack+0x10/0x20
+>>     __ubsan_handle_shift_out_of_bounds+0x1d1/0x390
+>>     ip6_dst_gc.cold+0x15/0x1a
+>>     dst_alloc+0x4e0/0x620
+>>     ip6_rt_cache_alloc+0x189/0x7e0
+>>     __ip6_rt_update_pmtu+0x68e/0x1160
+>>     ip6_update_pmtu+0x30c/0x3a0
+>>     icmpv6_err+0x1fa/0x330
+>>     icmpv6_notify+0x303/0x770
+>>     icmpv6_rcv+0xc12/0x1670
+>>     ip6_protocol_deliver_rcu+0xb4a/0x1520
+>>     ip6_input_finish+0x19c/0x400
+>>     ip6_input+0xd4/0x240
+>>     ipv6_rcv+0x1fd/0x330
+>>     __netif_receive_skb_one_core+0x118/0x1c0
+>>     __netif_receive_skb+0x21/0x150
+>>     process_backlog+0x37e/0x1200
+>>     __napi_poll.constprop.0+0xa5/0x5e0
+>>     net_rx_action+0x4c0/0xf70
+>>     handle_softirqs+0x204/0x9b0
+>>     __do_softirq+0x10/0x18
+>>
+>> Make it a u8 and reject writes outside 0..31 with proc_dou8vec_minmax().
+>>
+>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+>> Cc: stable@vger.kernel.org
+>> Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+>> Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+>> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 >> ---
->> Tested with the complete five-patch series in QEMU. Explicitly assigned
->> atime and mtime are preserved across ordinary hard-link creation and
->> O_TMPFILE publication. A separate persistence check set and synced
->> atime/mtime on the published file, then verified those values after
->> cache eviction, remount and a fresh boot.
+>> v2: switched to u8 and proc_dou8vec_minmax(), as suggested by Kuniyuki
+>> Iwashima.
+>> ---
+>>   include/net/netns/ipv6.h | 2 +-
+>>   net/ipv6/route.c         | 7 +++++--
+>>   2 files changed, 6 insertions(+), 3 deletions(-)
 >>
->>   fs/ntfs/namei.c | 7 ++++---
->>   1 file changed, 4 insertions(+), 3 deletions(-)
+>> diff --git a/include/net/netns/ipv6.h b/include/net/netns/ipv6.h
+>> index ffda15318be59..aefce37c04a4f 100644
+>> --- a/include/net/netns/ipv6.h
+>> +++ b/include/net/netns/ipv6.h
+>> @@ -25,11 +25,11 @@ struct netns_sysctl_ipv6 {
+>>          int ip6_rt_gc_min_interval;
+>>          int ip6_rt_gc_timeout;
+>>          int ip6_rt_gc_interval;
+>> -       int ip6_rt_gc_elasticity;
+>>          int ip6_rt_mtu_expires;
+>>          int ip6_rt_min_advmss;
+>>          u32 multipath_hash_fields;
+>>          u8 multipath_hash_policy;
+>> +       u8 ip6_rt_gc_elasticity;
 >>
->> diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
->> index 0c84a5c..4442e1d 100644
->> --- a/fs/ntfs/namei.c
->> +++ b/fs/ntfs/namei.c
->> @@ -1663,12 +1663,13 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
->>   	}
->>   
->>   	inode_inc_iversion(dir);
->> -	simple_inode_init_ts(dir);
->> +	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
->> +	mark_inode_dirty(dir);
->>   
->>   	inode_inc_iversion(vi);
->> -	simple_inode_init_ts(vi);
->> +	inode_set_ctime_current(vi);
->> +	mark_inode_dirty(vi);
-> 
-> Could you also update the last_mft_change_time of $FILE_NAME? it still
-> appears to retains the old ctime.
-> 
-> Additionaly, could you run run xfstests generic/004 and generic/389?
-Hi Hyunchul,
+>>          __cacheline_group_begin(sysctl_ipv6_flowlabel);
+>>          u8 flowlabel_consistency;
+>> diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+>> index 94e5ef1c4f83e..abc8b811cd423 100644
+>> --- a/net/ipv6/route.c
+>> +++ b/net/ipv6/route.c
+>> @@ -6579,6 +6579,8 @@ static int ipv6_sysctl_rtcache_flush(const struct ctl_table *ctl, int write,
+>>          return 0;
+>>   }
+>>
+>> +static int ip6_rt_gc_elasticity_max = 31;
+> as you need v3, s/int/u8/
+>
 
-Thanks for your review. Baolin and I will make modifications and run 
-tests per your comments, and submit the v2 patch afterwards.
+Hi Kuniyuki,
 
-Regards,
-Xuewen>
->>   
->> -	/* timestamp is already written, so mark_inode_dirty() is unneeded. */
->>   	d_instantiate(dentry, vi);
->>   	mutex_unlock(&dir_ni->mrec_lock);
->>   	mutex_unlock(&ni->mrec_lock);
->>
-> 
+proc_dou8vec_minmax() put extra1/extra2 into proc_uint_conv(), which
+reads them as unsigned int, so the max has to stay an int like
+tcp_syn_retries_max and friends; a u8 there would read
+three bytes past the variable.
+
 
