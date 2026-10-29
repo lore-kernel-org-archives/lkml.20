@@ -1,85 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793275810;
-	b=4PXfykCZZ6tAklxxBv1aF+mUHHFYBV69QutfGFZ6dyGYJcMPQk1OPR5dOCZeYSHhLLFx
-	 pSlEdBIcQJn2m/zTaIfPXeVNI98VhJKJ/cEkIK6vuhbMk3wPAtJZ+smMvXxAp9laWnr1L
-	 BKJMHiMWKlqn0hFvoUpEedqj6Qlf6eoEaEN0JbmkHaVIHT8U2jCsS8kvhrfxYMN17RTRd
-	 saazSkgeCwkjP31/vo7bgM3A+LgU2bC0WCcMJCMvDm0ZYqm7K0kDycPCeyYupjfLYD87+
-	 LAbVF/dSlUhLYlrLT4OqVYdlJXjHCUTylMAXYlj/H5gF+ais98gTd6GG+FmJxRQbLug==
+	t=1793275869;
+	b=r3Hvlo1pajTZc73erMmyQQV72ncsJfhUduymoyKn3BKfQInPuHx1VPLwTZo9I0UHCmtY
+	 ObERaZ3EY3tFgx6D/t/3iJbPsdiRmSVR4uFeLYwZyLs2nCNHQAPyafxinlOX5H2wpSNBd
+	 Sdi7Z6FcEvGkwi/GZZL0AYvf7Ao/LS+JnU0aiqIUMu8kvfh6syIU2JEktmjls0b1SX8dK
+	 SlNG2qUIJcDGX/28j4xQ7UHXCmEDz0mXxtZZrnP3+6jEd9IzAshW2oe+eP9gnCYpMU8wg
+	 2g0Ugm3MUhOYVyUkNcDxY36fFUkqOZi2EzG4S9kM9ugZlnrsOsbWfI+S1nif7sY1fqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793275810;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=U/GLzhO+8Tu2q9rpniCo3uEIbsbNdFc1r0M6YD8YoCg=;
-	b=kCzwNl84gJaIp7uzOpWSolbTelKZ4BdpMO1g97bK9jiRgTTTURyvz0IRF/2fDkztfv1Y
-	 +c6SLhJujrWFRowir6ALk32LsnlYMyg+zBwVjq5zWRwVWOI0KC1tgj4goR6n2DQDmFTy3
-	 QtmWOnQRl6pnr1lzErNVjBdr0d+b2yxpZVOwXDcr2WVXPEtrPy0taRMRkdYuZ8shjEMzi
-	 i6gOiI0pY4J66jJuEqDTLoq1k++5Fm7+xZ3HbqLtRuMViAEjy+VwgfJQY2kzL3kSXif/o
-	 MxGCu0ngb94elkgmYOpQoCNG9iHpwXoOQcEkye1ANBY2bDYk9vKDUD/m/Heegu968xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793275869;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=8Jb0QjN+ngY6etMxQOZMOoIlhB+546T+PND1NORcPzA=;
+	b=F8NLIJ9eeOEe83t4MLGgUfHy/U00ArZgIOjYl4DecWydtUmYPBsYeq846GKqek4zBSKg
+	 Qc/5OXiWUhzp0p+W7tnBq60uS99wCDFwBrx3jJymw7A0cEezk+YOOUyUXjJnPnoQWPQ8d
+	 RBrdLlJ1fBO90hYvq15Hh5s1xktRyJooWByH5XDS6kYiQLHmc1iEaKw04NIWdlePOdIum
+	 rM17xyKdGmn2zCoYt4zfZAVh31DwJy1Qz0V3SlYLlm+zVxfrrnNL7GwLhnKVLLOUKCLl7
+	 Mg1Ro4p0H/CVRS5hVLTwpxg+4SebIonu8QlLvz0kiIqnLTOmQ6iO+6JanOC+URS8kZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czlPgh+f;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--halg.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="Jlnl/QUT";
+	arc=none smtp.remote-ip=209.85.218.70
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D8C606A31A;
-	Thu, 29 Oct 2026 12:10:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D65606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:11:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98D65606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--halg.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=czlPgh+f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B0781F031E0;
-	Thu, 29 Oct 2026 12:10:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793275810;
-	bh=U/GLzhO+8Tu2q9rpniCo3uEIbsbNdFc1r0M6YD8YoCg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=czlPgh+fMpcy9TuAFGsdkERT2El2sGBs/ucRkvPo4+3587dSYTprGRRYB4qR6oA9B
-	 G4njPNZ27ndenSmHL3scOCo3aDKg2XlZK86YC0ecGP+EBp8H/zcxLRx2xL02gMjeps
-	 lCsT5fyDK/0vbbIQZOMDvx5RWwGZgpy/Xd4q9u7z/8HMoIZ71T7RwqNHXm6ygc+smP
-	 LJwuKh277g71y3psshYzmoCYpoz0TWvDO7ac9cqW2+hyqZItXi18JK8eaKKZNo1wJU
-	 80tPBmmFMuv8tXkcVoUqTpkYy5nLQh0lB87f6HoSln4AjvQOHKwbA2ifdo/8thgy+b
-	 opgNxx00goXsA==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 4D0C0198003A;
-	Thu, 29 Oct 2026 08:10:06 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Thu, 29 Oct 2026 08:10:07 -0400
-X-ME-Sender: <xms:nTfjagLOU6BoivDMc2GLgDM1wkcq_oHdukaRL66sr8VWOqUeRCQ_qw>
-    <xme:nTfjaglKCVAahrMP49k5B3wzDrEx7IZaKaa1DUXuCQWy41Q_1aIITfjFbfm2PKxUn
-    dMbMZVTv9gokVm4RgX5MyJJl1ERU9bKX7mNtV9EXZy0dscbczK9-eU>
-X-ME-Received: <xmr:nTfjamLfgk8sfmC3O2wjfcyjD9XM5rVKfMbxTVmSDFDoTsVJgDgryDIQqzs>
-X-ME-Proxy-Cause: dmFkZTFyUOsv9zEwE14IcG4IXkaDraA3LYs+kVmkCd6BEWjS3bK5dNIHo8qFdbsq4nnFaR
-    jNsLlK0yJkYI3ptekwEDEuw9UADrC83DWwTgWYMpMEHXvbfZicpBYdOs7QoVnAIFRHuoZy
-    kkCH/EdfBs5e8UWcH58AJczdDAazoF2Yq3rHLXXHN71EABRfGNlqAxYMkeUndhWwKgP8nl
-    SjB2QPnrZV50fTaurVRszgIdZSAq58bAVTbYeCGJA6fz6aAN03AvAWCkl3aiXGZ0cfcj2W
-    WMxVAOSCPiAEwCALuXiqVgAK08Ya/RkQ6VwglsFoNkIjLv5F/3grdn3CsjIVgW2XDfU0t1
-    w24tBm74Atv6bYuLOoEB06NfHyaZOJPljuZ5WaILR5KcTPxKV/4K+S9NppejIjRQnYg3CV
-    13qkvKmqBfUzhF817W4WlFyG5+Dt4H8/wk2oyg3AWLn0wJKfGv1O6KWnQ7NbB1PzD+D4DP
-    J1NVeSaxdNgXukAIN/YGjtWHUVPxMQpw7TIZdSv5Aakets5LP++3STh9Q4iuoqYi96EIrf
-    OTGCjtwEI7w6WvDSK0WOE9IJjoK5DL4F5Ac3LDmEZgmy3B711tj3DpyvABSbNqttehDjjk
-    /wCkyOlw5bGRcusMtl/TMBzW8yLCIFUsR+Y7S5murCZildnRBomiCinX+e2A
-X-ME-Proxy: <xmx:nTfjarV_-28KYu5uy5Q4cp4gOxYMSgMHLdqq6uXOJfXP2jZMyRCH0g>
-    <xmx:nTfjarN2ZUuH1eIRvy_4lYAJIFvEAb1BZggKGV77qaOZcOtCUEqvVQ>
-    <xmx:nTfjanljpf9TOX-XyD5I694ym5tQxh52SF_iZ_MrzsXgOknlXWG1-g>
-    <xmx:nTfjauX1F3nRaV0zP7d-AAV91VXx1YRqH8o0wMo95npCQI8DVifD9A>
-    <xmx:nTfjamIXTSENBf4e29CPVi179ndD1cOz6O8X_JvqH9nuOYu7rxH9Amnu>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 08:10:05 -0400 (EDT)
-Date: Thu, 29 Oct 2026 12:10:03 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Challvy Tee <challvy.tee@gmail.com>
-Cc: x86@kernel.org, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, regressions@lists.linux.dev, dave.hansen@linux.intel.com, 
-	rick.p.edgecombe@intel.com, vishal.l.verma@intel.com, kai.huang@intel.com, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] x86/virt/tdx: Skip TDH.SYS.DISABLE if the TDX module
- is not initialized
-Message-ID: <auM3KKutfutAqgWG@thinkstation>
-References: <20261029080731.890996-1-challvy.tee@gmail.com>
- <20261029094705.896693-1-challvy.tee@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Jlnl/QUT
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c42888c50c4so180496866b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:11:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793275867; x=1793880667; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8Jb0QjN+ngY6etMxQOZMOoIlhB+546T+PND1NORcPzA=;
+        b=Jlnl/QUTtPccNXi+ZNNtbAqFpxXTju7rbaudqoEAepuOGdczXzyFQiuTlvKV9TRJFk
+         Fp6YrBzWkmYN3bqS/G8vDFtnVhiAlhRXvYxV7V3Wg4R2R56JN4EzGTkxQscvA2DHXocH
+         xqv3pRmejhrrxLL6D1jiPl6quIY++yph2+5UyvcgdWP33jRH+zU9UlGvQGFJZw9M4vFC
+         ah2J/703hoBaTXZRxbDhVBoL5SfyHkCEuaYbCEzb9LGTWdPAX6cLywrWb24VDZrVPpED
+         i84/UyEbcaXba0ha2kGdCV6YnJ0ZZq2iJ/jvKqL+jER6wtiVUy1Jw/OVcWsxlFH9UdV/
+         cpoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793275867; x=1793880667;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8Jb0QjN+ngY6etMxQOZMOoIlhB+546T+PND1NORcPzA=;
+        b=dO+ry2AMCGqvMR4Y8HBxZEpUf/0yFD/rphcIxyBa+xSLzQctZAQHXx+oV4NU9ehZLA
+         t+N/i7h8qylX+cYEacH7Z8rWZK8RXcIf92JufUVW1uv5kN+GWTCK+jZwdQ1L82Y7dOyV
+         AKbxWuOQGyhCCISH4I75nsUnz4gKIRvzTwVhsbbc9etlc/w82oEcug57PlJYvx8nRvZe
+         qFFbm4PYD4y3i0I/aFtGGtxZ2T/Jgl9k/nWttiAq2M8Lnb7nkBAIMc1HGZOvFpKYX2LV
+         +k0o7k5UXToalKN0OpdufduXuqzm/6NvxcDu5zQewZXV6J7S+Y+u+qYMOkx8C0Qv6xxs
+         YivQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxfZmPDjj1YO1HTjpd4rYo0nsaA+jpi7p+OYT4P/q5uFLnR4dXTW2l6idZMIHAmHwzPZn2w0KUhB/KUQxc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJni1FQMHtnp0J7nK37dNOKy7vjc9VHZiigQbwp7MX+dO3Hm1jW
+	eGXoSfZhSaeNfKVyHS0qymPJfEgTvKdlgYOxZjX+GEZymOFqVfZxNZDR4+ZjBay+XQTsbQCL1w=
+	=
+X-Received: from ejoy1.prod.google.com ([2002:a17:906:4481:b0:c49:cd3a:2b6e])
+ (user=halg job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:ecc5:b0:c49:d058:6901
+ with SMTP id a640c23a62f3a-c49d05873a3mr206311266b.38.1793275866775; Thu, 29
+ Oct 2026 05:11:06 -0700 (PDT)
+Date: Thu, 29 Oct 2026 12:11:06 +0000
+In-Reply-To: <CALCETrW9ygriu54gxiHFLEd5+hJminQo0r8Jwd63wR69Dj4W7w@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,79 +79,156 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029094705.896693-1-challvy.tee@gmail.com>
+Mime-Version: 1.0
+References: <20261028221705.3915340-1-halg@google.com> <CALCETrW9ygriu54gxiHFLEd5+hJminQo0r8Jwd63wR69Dj4W7w@mail.gmail.com>
+Message-ID: <auM32mOlBLu6ZUlt@google.com>
+Subject: Re: [PATCH 0/8] userns: per-namespace capability bounding set and
+ opt-in netns loopback
+From: "Hallgrimur H. Gunnarsson" <halg@google.com>
+To: Andy Lutomirski <luto@amacapital.net>
+Cc: Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jan Kara <jack@suse.cz>, 
+	James Morris <jmorris@namei.org>, Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Jann Horn <jannh@google.com>, "=?utf-8?Q?G=C3=BCnther?= Noack" <gnoack@google.com>, KP Singh <kpsingh@kernel.org>, 
+	Jonathan Calmels <jcalmels@3xx0.net>, Casey Schaufler <casey@schaufler-ca.com>, 
+	linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	linux-api@vger.kernel.org, containers@lists.linux.dev, netdev@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 05:47:05PM +0800, Challvy Tee wrote:
-> Commit 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and
-> kdump") made native_machine_crash_shutdown() call tdx_sys_disable(), but
-> tdx_sys_disable() has no runtime gate: its only guard is compile time
-> (CONFIG_INTEL_TDX_HOST), which is enabled in most kernel configs.  On a
-> system where the TDX module was never initialized, kdump now issues a
-> TDH.SYS.DISABLE SEAMCALL that it did not issue before, and the crash
-> path never reaches machine_kexec().  The capture kernel is never entered
-> and no vmcore is written, so kdump is completely non-functional.
-> 
-> Having the TDX module uninitialized is an ordinary state rather than an
-> error.  tdx_enable() returns -ENODEV early when
-> X86_FEATURE_TDX_HOST_PLATFORM is absent, and it also bails out if
-> init_tdx_module() fails.  Any guest whose host does not expose TDX is in
-> this state and logs:
-> 
->   virt/tdx: TDX not supported by the host platform
-> 
-> The syscore path is implicitly protected: register_syscore() only runs
-> after init_tdx_module() succeeds, so tdx_shutdown() cannot be reached on
-> an uninitialized system.  That is why plain kexec still works and only
-> kdump regressed.
-> 
-> The crash path calls tdx_sys_disable() directly and bypasses that
-> protection.
-> 
-> Reproduced with 'echo c > /proc/sysrq-trigger' in VM guests on Intel
-> Sapphire Rapids, Emerald Rapids and Granite Rapids platforms, in every
-> case on a kernel that already contains the change described above: the
-> capture kernel is never entered and no vmcore is produced.  With this
-> patch applied kdump completes normally on all of them.
-> 
-> Three negative controls, all of which produce a vmcore as expected: the
-> same guests on kernels without that change, guests on platforms without
-> SEAM support, and plain kexec on every platform tested.
-> 
-> On a host where the module did initialize the new gate is a no-op and
-> TDH.SYS.DISABLE is still issued, so the poison clearing that the above
-> commit was added for is unaffected.  We do not have a TDX host to test
-> on, so this part is reasoned from the code rather than measured.
-> 
-> Gate the SEAMCALL on tdx_module_state.initialized, the same predicate
-> tdx_get_sysinfo() already uses in this file.  Putting the check inside
-> tdx_sys_disable() rather than at the crash.c call site also covers the
-> syscore caller and any future caller.
-> 
-> Fixes: 5b25f249be32 ("x86/tdx: Disable the TDX module during kexec and kdump")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Challvy Tee <challvy.tee@gmail.com>
+On Wed, Oct 28, 2026 at 03:56:11PM -0700, Andy Lutomirski wrote:
+> On Wed, Oct 28, 2026 at 3:18=E2=80=AFPM Hallgrimur H. Gunnarsson
+> <halg@google.com> wrote:
+> >
+> > When an unprivileged process creates a new user namespace, it is grante=
+d
+> > a full set of capabilities (CAP_FULL_SET) scoped to that namespace.
+> > While these capabilities are isolated to the namespace, they allow
+> > unprivileged local users to reach deep kernel subsystems (most notably
+> > networking configuration and raw sockets via CAP_NET_ADMIN and
+> > CAP_NET_RAW) that historically assumed a trusted caller and have
+> > accounted for a large share of local privilege escalation
+> > vulnerabilities.
+> >
+> > Many workloads and sandboxes use unprivileged user namespaces strictly
+> > for basic UID/GID, mount, PID, or network isolation and never need
+> > high-risk capabilities like CAP_NET_ADMIN or CAP_NET_RAW. Likewise,
+> > system administrators often want a host-wide policy ceiling restricting
+> > which capabilities unprivileged user namespaces may acquire, without
+> > disabling unprivileged user namespaces altogether.
+> >
+> > Prior work by Jonathan Calmels [1] proposed addressing this via a sixth
+> > per-thread capability set (cap_userns) alongside a global sysctl mask.
+> > During that discussion [1, 2], feedback (e.g. from Casey Schaufler)
+> > suggested that rather than adding another per-thread capability set and
+> > prctl() interface, capability restrictions could be integrated directly
+> > into struct user_namespace and configured via clone3(). At the same
+> > time, as noted in [1], a clone3() flag alone is not sufficient for
+> > administrators who need to enforce a host-wide ceiling on unprivileged
+> > user namespaces without modifying every userspace callsite.
+> >
+> > This series combines both pieces of feedback: it embeds a capability
+> > bounding set (cap_bset) directly into struct user_namespace, reusing
+> > the existing task cap_bset, cap_permitted, and cap_effective sets on
+> > namespace entry, and provides both a system-wide sysctl ceiling for
+> > unprivileged user namespaces and a CLONE_NEWUSER_BSET flag for
+> > voluntary per-namespace restriction via clone3().
+>=20
+> Why should the task's cap masks affect this?  *Maybe* cap_bset makes
+> sense, but I'm struggling a bit to see why cap_permitted and
+> cap_effective should matter.
 
-The changelog is long for a three-line check, and it doesn't say why
-the crash path stops. It takes time to understand what you try to fix.
+Sorry, the phrasing here may have been misleading. Just to clarify:
+none of the creating task's capability sets (cap_bset, cap_permitted
+or cap_effective) are used to restrict the new user namespace.
 
-A SEAMCALL that hits #UD is caught by the fixup in tdxcall.S and returns
-TDX_SEAMCALL_UD; tdx_sys_disable() then leaves the loop without printing
-anything. That is your no-SEAM control, and kdump works there.
+When I wrote "reusing the existing task cap_bset, cap_permitted and
+cap_effective sets on namespace entry", I was contrasting this with
+the prior series from 2024 [1], which proposed adding a 6th per-thread
+capability set to struct cred.
 
-On SPR and later, SEAMCALL in VMX non-root causes a VM exit instead, and
-what happens next is up to the hypervisor. KVM injects #UD only since
-9d7dfb95da2c ("KVM: VMX: Inject #UD if guest tries to execute SEAMCALL
-or TDCALL"); before that it is an unexpected exit reason and the VMM
-gets KVM_EXIT_INTERNAL_ERROR. What hypervisor are your guests running
-on? Does the host log "unexpected exit reason 0x4c"?
+In this series, when a task creates or enters a user namespace, we
+simply initialize its new cred->cap_{bset,permitted,effective} in
+that namespace to user_ns->cap_bset instead of CAP_FULL_SET.
 
-If that is it, kdump is broken only in guests on SEAM-capable hosts
-whose hypervisor doesn't handle the exit.
+> Also, I think that Docker in non-userns mode restricts cap_bset, and
+> the purpose of that restriction is rather at odds with interpreting it
+> as a restriction on newly created user namespaces for purposes of
+> vulnerability mitigation.
 
-The changelog should say so in a couple of paragraphs.
+When computing the new user namespace's user_ns->cap_bset in
+create_user_ns():
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+1. The creating task's cred->cap_bset and cred->cap_permitted are not
+   consulted at all. The base ceiling is inherited from
+   parent_ns->cap_bset (which is CAP_FULL_SET in init_user_ns), not from
+   the task's cred->cap_bset. So a non-userns Docker container that
+   drops bits from its task cap_bset does not restrict newly created
+   user namespaces.
+
+2. The creating task's cred->cap_effective never restricts the new
+   user namespace, but it is used as an additive exception to the
+   unprivileged sysctl ceiling.
+
+   The rationale is that if an admin restricts e.g. CAP_NET_ADMIN in the
+   unprivileged sysctl, an unprivileged daemon that already holds
+   effective CAP_NET_ADMIN in the parent namespace is allowed to keep
+   it when creating a new user namespace. There is no added attack
+   surface if the user already had the capability in the parent ns.
+
+> > In addition, because restricting CAP_NET_ADMIN at user namespace
+> > creation time prevents userspace from bringing up the loopback
+> > interface in new network namespaces, the series first introduces
+> > an opt-in flag to automatically enable loopback on network namespace
+> > creation:
+> >
+> > 1. Opt-in loopback activation on netns creation (Patch 1)
+> >
+> >   New network namespaces start with the loopback interface (lo) DOWN by
+> >   default, requiring CAP_NET_ADMIN over the owning user namespace to
+> >   bring it up. To block external network access while preserving
+> >   localhost networking, sandboxes commonly create an isolated network
+> >   namespace with only the loopback interface enabled.
+> >
+>=20
+> The whole unshare/clone flag situation is getting out of hand, IMO.
+> And this new thing makes logical sense but is really about reducing
+> exposure.
+>=20
+> Perhaps we should instead have a small list associated with a userns
+> (extensible in the future) of things that the ns's admin (i.e. whoever
+> has CAP_SYS_ADMIN relative to the ns) may do.  That list could
+> include:
+>=20
+> - Create loopback with sensible defaults for ipv4 and/or ipv6 (i see
+> no obvious reason to separate them)
+> - Create tun/tap interfaces in that ns (and attach them, etc)
+>=20
+> And add a very simple new API to do these things.  Actually, the
+> tun/tap could just use the normal mechanism.
+>=20
+> Thoughts?
+
+I'm not particularly attached to CLONE_NEWNET_LOOPBACK. I'd be happy
+with whatever mechanism allows bringing up loopback in a new netns
+without granting all of CAP_NET_ADMIN.
+
+The main reason I went for a creation-time flag is that it avoids
+needing a separate userspace API call after namespace creation and makes
+it simple to get working loopback for sandboxes that want to drop all
+capabilities in the new userns from the start, e.g. CLONE_NEWUSER_BSET
+with cap_bset =3D 0.
+
+That said, if maintainers prefer not to spend clone/unshare flags on
+this, I'm completely open to an alternative mechanism.
+
+Also worth noting that Patch 1 is orthogonal to the rest of the series.
+The capability bounding set changes in Patches 2-4 stand on their own
+and Patch 1 just makes restricting CAP_NET_ADMIN more practical for
+common sandboxing use cases that rely on localhost networking.
+
