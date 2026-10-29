@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793263932;
-	b=Em9ir9C9lvg4Hv2s/EDKvCJ8T+PlcYqqYZMXqnAro77kz8PKgk2N/o+Dr5xsx/E9AGmj
-	 NqsP4VNSBEHMy9OSAcgq6UElSO+iji3nm+fxyat17+O9XlyrcmL16vGFOunZ22O4Oze9+
-	 cMPHjUJaUorr/YZpKUzTY/2PynWwc/uodHmT8XcoWWMCzmmld3aes+MedRC4ZzMVJqPf5
-	 bBl/UpY1BFHr16jqqy02Q301kkRdDL1xoYVQoQqobIODO/IaHEz7hEerZBYY4WmSswNb2
-	 cppNE2DgYAAHiuqcnNxpgRrZk0x4Fl8TF/GLjyzBp+JRDSTn9I7W6bWPQaDDisbKJbw==
+	t=1793263949;
+	b=fyHOKs5MKoVU2p9WvlxN59O/CgLG77J2mftN7jLW+jVYTWLUH4vnRUHxcjRWaPEdx6XB
+	 n2JBMg+h0S713r31XuJvxUK0Jfc334PV7LTnp8sPgWGOtM1u3Wtbpu110wpZFVHkk1Fu9
+	 54lKbL7NnbMzLoQYE7NZUs9kqlRvVOpalS+OsNyha9L7nhcGP1cIPGc+sk7UR9NyoJ6JL
+	 tVq3/AVHRnwEayWJvWrkkDL03LkkBQ+jE/p7A3JkA12rOaKmwkOXQBFwCi4/isAIVplas
+	 y42/+0du8i2qhOZUh9w0o3IYkJC+/wTg8aH0m/R9cS77DG8TF+oL8n0kBHHC0wqbwRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793263932;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Ypsz/sPgTiFRwWNK/VexZWZyAZZy8PadU15pG/sRIZQ=;
-	b=LyfkT6yDMhfV/nI0gvQrkcHCAZ0YlX6wtlwGDoBPc8HNHDti6eitvfp+arPbNxkKlm1C
-	 AbqVdXAVtPCC1SoBPpH12FPEBXVOEh2JVDAztsdUOXUqlCH6fTA4S7XDEmI3XLQ6ewVgP
-	 mw22vxF4Pi2eYOQ2g2XRVMiPolM3R/tIV5ghdYDgDAPSRdVcgpymPGTpva56h+0GN+Vwx
-	 5OzC/Xt85I9PwcvyL3E1vorJ0N198mkPw4YKTUuD8Mb34eyPd0/1A82uMRZrnGXt50LJ+
-	 BDs403NeICHNfn4lE8U+OfhTHP+dZNTz5wa6j1jM28MC1dhUV/hOBcWQ+W0rIdRICTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793263949;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=YLnVFyFONr6IZ0qWnzE2VmACyWLMzOH0CpLjhaa0LKw=;
+	b=Nuo/Q8XuKnPbqMZfwW5lKZHN5x1QrHFM0tEpj6LLX2r4ZmQZIvJczmGbm0eoddGgiBBT
+	 2GTmwcrRfCGHPs4iHH/uqd9eKL1P5HFd1B0hUgraH08w0QlxN3WzDDf377KLmDZBqKGfp
+	 +HopHIhVzWiCn4dwY3BftKBiXONDWPTfRkt1wR1s8wrF+62kyaeC+uENHi8KuzDfB7p/Y
+	 Zsh3Vfxtyrzz33ZIvkfFdypfnIitbA4bJ1PaPVy9fN2oznTZKIOsL6pVu7EpUMqco1OSw
+	 oTxYSTPg8PW2sc1CqK+CGlej9tdu+F2l/SSyMRq0ehcfko356bgtJr4aEybf1Xibiqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T4Pm7pI4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZpBudgLJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285E4606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:52:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703E4606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:52:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T4Pm7pI4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A32E1F01825;
-	Thu, 29 Oct 2026 08:52:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZpBudgLJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2041F01828
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:52:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793263931;
-	bh=Ypsz/sPgTiFRwWNK/VexZWZyAZZy8PadU15pG/sRIZQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=T4Pm7pI4GJAQ3ZydAHSI3T3oxrqmvJ7OuI13RnTZNRgMyFKnNsWcFStKqL3xWHT+N
-	 nE0GsdRnCMyNmNM7rVz7LGLfHOVTJ09piHhF2zL/4tU4kechuYBepeLvdvlFBKSC84
-	 nqb2GVfJ5Lhgzj4k7hUcYNMMsYcEGBT2+HmMTIaZKSlg27Cjoe2xWpONzORpM+KOCv
-	 zsq0AOaAk3dg6yMa+iC5gviydILFU1B4OhnzSYQXPfD8dZSloVZT+MBTntXKku/ZrR
-	 xOBvh6RoqIgKNcIAHd2Tjd/8UBFmnaINCcwe9+RfqJSrxMW2uKdcVExrgYZg8AyBbF
-	 jioS0PPkyzQjQ==
-Date: Thu, 29 Oct 2026 09:52:08 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: yaolu@kylinos.cn, jani.nikula@linux.intel.com, rodrigo.vivi@intel.com, 
-	tursulin@ursulin.net, simona@ffwll.ch, chris@chris-wilson.co.uk, 
-	lionel.g.landwerlin@intel.com, intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/gem: Reset err for each fence entry
-Message-ID: <auMIzDFYibxlsFcv@zenone.zhora.eu>
-References: <20261027072832.726435-1-yaolu@kylinos.cn>
- <auHeqGZ-hm2lS7Nk@zenone.zhora.eu>
- <179325911095.16507.8295053984620715316@jlahtine-mobl>
- <auMDxbKZ-XmRbaUH@zenone.zhora.eu>
+	s=k20260515; t=1793263949;
+	bh=YLnVFyFONr6IZ0qWnzE2VmACyWLMzOH0CpLjhaa0LKw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZpBudgLJKXWv7IjZEBVZnlYK1e81SDSBgKFVE3jfVrlNMMZmTdo9uKOMDnXP2FGRV
+	 llg6ZZgC7thyIwFE2agOQOBAxbxwA7uM1lSQWB+ucOcdMUvieFH4fqSstJbddzg322
+	 WG0jNgC0T6C843mRcCQzq5fMuWTfs8D5ggfDYbuTop6/VJLmjpxWBrXjIzzwQUcGfP
+	 qtNb8ZeF7rHVjZpbI1Igp3c28AsFP4DUr/Byhgg5E94Qm8AfSoybIt0dLJZJNNLoQm
+	 Sf/jSBsfF8LlkjAAkZFKAoDMDGPD8fIfNWBmXbV31PnXV/foSdTTbrj4Z3PD5p9DxQ
+	 FqO9BGWDWIQqA==
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c37b612635bso253641366b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:52:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz9jelNeLh8nFg02Auy9y/JX0KkPulIMsRDlSfkGvjpORZILhycNKi/oxVq9jFJaIjymGazh202AaJUPQY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLlHtOxOr8EQmxWxpEEHSpmqI3TH9WxAmZk68sMJIIdmZB1wCrL
+	T2HXg1RSMr3yDEprr/7XLhRYDdWxWek/Otamk32Qj/xortNJo/HJ3Gzkz/2XdgEPbKkbUdCXyvR
+	vytNMloP9dXh4UJcdfxMWnDw2wCVzgsM=
+X-Received: by 2002:a17:907:e0c4:20b0:c49:cdc8:10cf with SMTP id
+ a640c23a62f3a-c49cdc81499mr178546666b.40.1793263947788; Thu, 29 Oct 2026
+ 01:52:27 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,47 +59,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auMDxbKZ-XmRbaUH@zenone.zhora.eu>
+References: <20261028080656.1027283-1-zenghongling@kylinos.cn>
+In-Reply-To: <20261028080656.1027283-1-zenghongling@kylinos.cn>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 29 Oct 2026 17:52:15 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8F3vbDWJXQPpj_oBU-OhnUCEvtmfXPHAFL5V-J49hJtw@mail.gmail.com>
+X-Gm-Features: AclHuK-VCELxn05ltUOsNiLGpudT_YW_HimgIUoBT1WVRj4F9xgQqRgf2Bbe040
+Message-ID: <CAKYAXd8F3vbDWJXQPpj_oBU-OhnUCEvtmfXPHAFL5V-J49hJtw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ntfs: keep the file size on a failed initialized-size extension
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	zhongling0719@126.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Joonas,
-
-On Thu, Oct 29, 2026 at 09:36:05AM +0100, Andi Shyti wrote:
-> Hi Joonas,
-> 
-> On Thu, Oct 29, 2026 at 09:31:50AM +0200, Joonas Lahtinen wrote:
-> > Quoting Andi Shyti (2026-10-28 13:39:14)
-> > > Hi Lu,
-> > > 
-> > > On Tue, Oct 27, 2026 at 03:28:32PM +0800, yaolu@kylinos.cn wrote:
-> > > > From: Lu Yao <yaolu@kylinos.cn>
-> > > > 
-> > > > If dma_fence_chain_find_seqno() failed once, 'err' will store val in
-> > > > the following loop. May causing returns '-EINVAL' even though that
-> > > > entry never called dma_fence_chain_find_seqno() at all.
-> > > > 
-> > > > Fixes: 13149e8bafc4 ("drm/i915: add syncobj timeline support")
-> > > > Signed-off-by: Lu Yao <yaolu@kylinos.cn>
-> > > 
-> > > pushed to drm-intel-gt-next.
-> > 
-> > This was pushed without any R-b, DIM should have given you a warning
-> > when applying the patch.
-> 
-> I forgot to add it, or rather, I remembered it too late. Since
-> it's a simple and straightforward patch (most likely LLM
-> generated), I didn't want to make a fuss about it.
-> 
-> > I've reverted it for now, please use DIM and check the warnings before
-> > merging stuff.
-> 
-> I used dim and apparently dim is not enforcing it.
-> 
-> I'll push it again with my r-b.
-
-Now it's pushed with my r-b.
-
-Thanks, Joonas for looking into this.
-
-Andi
+On Wed, Oct 28, 2026 at 5:07=E2=80=AFPM Hongling Zeng <zenghongling@kylinos=
+.cn> wrote:
+>
+> ntfs_extend_initialized_size() only extends the initialized size and
+> never changes the data size, but on a failure it calls
+> truncate_setsize() with the old initialized size, which shrinks the
+> VFS size down to it and drops the page cache beyond that point.
+>
+> None of the callers rolls the shrunk size back.  A buffered write
+> into a hole has nothing to roll back - the data size never changed -
+> so the file keeps the shrunk size even though the data size on disk
+> is intact.  The mmap and named stream callers return without any
+> rollback either.
+>
+> The sizes did not change, so nothing needs the shrink.  Remove it.
+>
+> Fixes: af0db57d4293 ("ntfs: update inode operations")
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Applied it to #ntfs-next.
+Thanks!
