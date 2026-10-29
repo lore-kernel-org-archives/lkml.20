@@ -1,123 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.50
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793273524;
-	b=WmrAhGjn1X1c0tP35e8UqHxBYypOlPLfOYlVvpKDQWsMRBzsCL1lTwtd8o58xHulUeyz
-	 oqGe0zLO2gfmFrzmneFApyK596/+uHjnSA7yhPp+QOYfnmVpw4Wr/6c/5jOadSl4rk0hW
-	 +yC60Qit6LIsd29ynICTQW/t5lxAmxeQzzxrcVdFKRMDKLIr8dTkLYIVYfvL4NMUZt6VQ
-	 Sf3SrlQOYKhQG/UTQXYstoZQmSMRfZBi4bjR7t6pHU1j2pBWrYHCf2KyRPbB2iNZE/6K2
-	 D4rNeZmObZR7WrAHCj3G1iOYNwB2k+2jjOKL02NTN68ZCAPXi8XOhmjPjKF9hDu58KA==
+	t=1793273582;
+	b=WvQpxu6oIONA6J7Zi3H0ha2r4GkGFlIaILLMYtZx8/iVtbMud0LH199J6YgPHqgW+OyA
+	 JPFs6cq1u6/lU4FecWLFv0QgTxPOJKw4oun26XIv3JBWec9cSDEmYk0TWnQo+jqgT9n3c
+	 EP0MJISB830KWaQHm9RMYBhijXkbBzwUKfw5tjDYU5jSUFOLLw+FeL4KY3K7BigE31Flc
+	 07MxjYxA8ge0gAY/wgB0wXIL1137L9UYiQynVR0Sn5xwqnKIu+zuRRow4BWrH+yO5F4N/
+	 PCQvDzRKuLoks44K8G8u4WpmmiWNVFGXsZVb1266hLdG+CSA9eB2EAMw7TqX3Mb6v1g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793273524;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=SmeG8eDrUww7PbplsIcYx6wyVdH7rGxQXJYVetL1ZLk=;
-	b=X7VIgiJBIaJmXZ2SLJ1PYdxG/mI7D4mAA+qk+R0KIuxIrlazUZWJIEGqX1i2KKHiH56o
-	 w5ZJa7fsH3M1/TQlurjmzCX2b2F370Oy3IQhIkXdoeIzGilMfqUBdWmDeIcVqM6j/srxd
-	 ViisfqqcLj98eYkGFYdEnLGqwGbNjxKKPG7i6lgsMCfr3IrlYZvbUMkfrvAJPupQskkGP
-	 /166xuWhFzSiOrnT5ZZHyMemfvxYuU5P/zt9nJ1HSIziryvWfxEiDMPRrLRn/UewWSxyv
-	 t0w5mBkfG8xmQGmbY+jp2lPEFseT1mO64KYck0EDoWKg8vuNhAawVYGT8duFXQj4kcg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793273582;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=SEsAp8eo59mWI4USMvrk2DfJuqFK7nYytkvtGnfb6o0=;
+	b=sAx5DyuWuprV6MdgTcvROubVD1VIttbVIPAIinLhm1gf7aDxYChY2ly1vJCRxBxzVxMV
+	 10gs2jkMAbssMzeGM8ldHsZZcQbRXzk6GkigIzbxnPu+4FnDnVHP+1D498EEyFIMnYZx4
+	 cgi5hcAo4RMJVwooirzzT6bmn2hpJyGNqUcaasxW3kFhhmA1UIy7hqLeipq1CM6ofogrl
+	 l8B8oBdVVbFYhismWui6R3Qs1KgwLJDDnnw/5QyNc1Quu2AwLrmbhbF/7GVld8KIw4CsR
+	 5xOFud2xuzCbYPeNIvnjjyBTkCW32HzfYamIE3u9CxNt31afrS/YQnQwedMHxqsmpSA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=N2ulyUq2;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d7DpF0c0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=KFEbraKV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.50
+Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A8F6606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:32:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A8F6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD17606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:33:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDD17606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=N2ulyUq2;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d7DpF0c0
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T8vsTF3279691
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:32:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	SmeG8eDrUww7PbplsIcYx6wyVdH7rGxQXJYVetL1ZLk=; b=N2ulyUq2zQlxC4vG
-	5LBSt97dCkUvPpTIWLM9QzF/oTONOlYpjFHqdGTYm/5FjOqreU8Gj34ek14PzYb3
-	Lj5hkgh+a5XBCPXxUFpDwKi/Buwkja1XEMgaBUkL1PLDXzrjBpzGpSFXTLYcI9SL
-	FLAlPCIIebAXBDGkAamNdvf/gzgnSGXkxCLP7c9hrypgtAZ8mhpWlQHZLibDjNTX
-	JltAweSlnEZVoEdeXkk8y5rsNAO9r6uq3XvLNJetGafOJymdV093csowGjjv0qkw
-	cTn/3wHGsmafNGn96owgFSRCsQCsIT2cm5aCoCS7Gre5eibWb3xznWMQh1oX3JPb
-	xtXJ8w==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hks3narsu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:32:02 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd67466211bso1152084a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:32:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793273522; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=KFEbraKV
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6e560e00a86so1519566eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:33:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793273581; cv=none;
         d=google.com; s=arc-20260327;
-        b=PrxsXIggJM7STTGIji6qgqiO25fRoE9sxxmCsOOupGuJiAOTaC2oVjUzxVI6CPHhug
-         5sAQgyf5+HtNn1j81LN4mG4WGutFTkM7XZX/HYg26bVDziEAUsHFoF97XQh9Y8vZAvcR
-         87Ypr2CIV795kuNQAfRQPSrukeI5y0dDNdvYMn9+PI3lX/m4ehkPZAZiqfoo9f4Yg+Fz
-         lMlGky0QcXrh/oMpZwryoJjKsu6WXOXLourOiuVihmJBvw0h1w9NKugJjnMEh2PvRC/0
-         DTj1SEtPOKoIaE6gabiz/4/NZ47FkuasneGZ7zU0LiF36KA64WUL+iusW/fkLE7DeZHw
-         VzKw==
+        b=C0TXJbPuDjxkXdIw8kRb8PZb88P/M1eVJZhCZMTTeh9f9EtIFFOUUp6DSbILjNo9eo
+         xRB61WIatNrFDg7ntp/J7zb3Vl+CtkmRwmPrSIQn4zx7g2UNCaN+S1lzPdqVTpgGTWF1
+         zT28brzXhmKcMmt2K9adLNQZ3w1qrJVuQWHpiwQWIVZ/0n08qJCB8cz37xN9Qic9npMU
+         KeYOtgKb1pH6K85+gmqRIz4Mly2am2TzPGwWMM4+RRb6yj9C2QJEclRuiA0RqytTUT14
+         oCBmNuc5YVAHkrKOBCXHt/5J6uHUeLRqtBHJGaB+iDitDN0s5mWi4b6dQQaQ3aEtxzu/
+         LuAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=SmeG8eDrUww7PbplsIcYx6wyVdH7rGxQXJYVetL1ZLk=;
-        fh=Ar15Wwo8hqvNutSwOK8/KmSqwfMTYI8xPDkxO+bIn+U=;
-        b=an7He6FOymRgrZd7xFuZjBRgkGt37CU7iaSJzDRH/+F9I7SD7TUuH9hjEmcfyBVnML
-         xeu3CJLGWAXlPQVNc+QeS7cT21IMYOfaSuWYtyrFvZsSS6UEU3CrJMQmHtiszhKtQqzy
-         KD+HWFTixDhsBSUbeID653gW0fCx7WAyjvnSvS1QfKdOXtYLaY1bhhz5HS4B3uFlVVCE
-         BXjMRCrVnqXOa0PSIqxCy5G/Qg4o15oZ187fXUAi6LhJv0+PmIzbx84oJOyb1Rwt8HjF
-         M10r28fjDc7W4Sq9bTKEvT1Cl1WdehyRINbD+cbVx4zb8xhQsVkr5eq1xUpn+u7EawA2
-         Ed0A==;
+        bh=SEsAp8eo59mWI4USMvrk2DfJuqFK7nYytkvtGnfb6o0=;
+        fh=dC9VnWj7iZ9f1j4CnFoIi8eh7vW+BJmvN9nXeljPzlg=;
+        b=Fi4A/EojgkNiRkX5Bt1+Z5XpMPjVK/jmfxp14PyHckQdkFsFYOKGCU7frXSoaevfm5
+         raTsrpaRE+0IfLYOctDAnUNGBa/et54749jJEyWQlbQUnWaat0kWH0dQ104G0IpP3l5F
+         VvdA8nPH+YYwIEIp6Yy++Q5Ymuo9KNucleWUsCc41raPC5Ov9GNM39LTLk9atO4zH0HK
+         Jzi9b6/BCVWUtKbIPaDmryMGpWO52ep4rlsVHDitiyDSSBgu0zguV8rUY572p64EYURf
+         RdF7I8lwguDQC5fX6bzG4LPKlPu9+z0U1HFIAhyg8rg1z2vvcSnv4nToWlyjS86+5stn
+         B+jw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793273522; x=1793878322; darn=vger.kernel.org;
+        d=bytedance.com; s=google; t=1793273581; x=1793878381; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=SmeG8eDrUww7PbplsIcYx6wyVdH7rGxQXJYVetL1ZLk=;
-        b=d7DpF0c0rs9IOOvUsK93M+q5cZ/FiFC7hJiVDVPTt4Dvtzo+hL6S6kbayP3n5+BGhN
-         X7ObYWDpHTq6Ss3Z2ybt6SpkkS6+dilCZ5FE16u7wplabp85zUdNqClZ3aMG/a0xVYiv
-         pOHFI9O5aMqYHr5kRjbtUFzyc2SpPh61oKBVDvEbCLq7UXeATinAtz6sQPEc8q4aux5e
-         FU9wl2VuSymXNOHWAtDv3JN4LDG27juyeIJ4cDluBUPwDaRAm3t3vhd1g9/7CxzKAIan
-         xj8LqUxNoiGHlwvdQu6yuN2Lmt1OQMbzw8M7PrN157v5oFYUvM69u5Vcs4/Oqvi5qKpg
-         39/A==
+        bh=SEsAp8eo59mWI4USMvrk2DfJuqFK7nYytkvtGnfb6o0=;
+        b=KFEbraKVW7fUuXQBFvZ81tX96XlEJi0iIFiLju8j9dPNKY1JXR0eLkVvhemyA1zkj9
+         mGQ4qzIQPPXAilrHQd8MqBvXNLA0KxA5V7rKjQcVuhuOXLzjxHGR5HBUKPSJNTp5lyCJ
+         Npz89BtdA+dipigKTToxV/R0/XuDWsAnAc+wkmviz41aJlIPrXyZ6rTcEWdHgdNq9X0x
+         +sDrXbnfovYgwzIgtzaXiBPEiPs3MCOOkbXXKlLW181JY1lpLRNGxJYr0f+1qt6wMO3d
+         HL3RU3zn/o8aLyJuC8pHDhosV3DSZB68aOotBR3N8oXTc3NfrERtm9nFVAXugK6ILtu/
+         vPqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793273522; x=1793878322;
+        d=1e100.net; s=20260707; t=1793273581; x=1793878381;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SmeG8eDrUww7PbplsIcYx6wyVdH7rGxQXJYVetL1ZLk=;
-        b=Tu937rDIw2To9SIlOXR59lSfjJ3Rwu4Oe8UhBaGounSGY9dJGpF4u9KIsBHhyTbETg
-         v+oValc1/3YLSMBgmcD/JPRRMIyzQdGhIPedyWLxBlxeHM2AdNivdyQWfjAjyo6ExMHV
-         V9LAwWFvBcRfrRUIJZSXVnd21GDXZDw4/PYGUgxUqfUIBJWSVtm5K9wVLr3GLkFArvaK
-         80wPtV+hjfnSEDGu1tOBBvo1Tf7Vd1A3wVKaNPV5bb2GsSXPzqEk53x7M5GD+bGThlha
-         gPcOj+wW7Q0eCpekFfmiw8wbkJBMBDMWHKaCDGveG2OFZGoafhLwV7tBGJIw6k/Y0iAW
-         vGyA==
-X-Forwarded-Encrypted: i=1; AKwUvBzOthyLfzy2HgAJjkJItywAd4DFuH4/37UfD8ByDqUyKoFoMHSYC9mtN4EypIO+JBbrhK8UHWOLvrlBv1M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0odrBs5ZTpiO3tx+GleS+/RJFb2BUtFQTpwfNH77cgG5KOazl
-	miwkfqJJ5yEgpA8zp5ZpaYmsVF/k6O2VZgRrWJO+7vMAMZhCbHKsACvDZ6svBSdyRAvlgZVeSqa
-	dRHWNCFRplSy9YdU0MbWPaJpYLvXnwL/gxyqrfaKcikKwrqFPFb0k8PxWaoKTRboQ9Pf0cVYT9N
-	3WQRKZR9sAFGSlx8VpOCTMTUKi43HtP20Uh+jYOaj7oQ==
-X-Gm-Gg: AYBFou3ZPYlFJpoR+se6FrobXVyy6im6HqTRDe4F2IIDHqdX943rQzESF6xmdpP4nVE
-	b+Dh4RtiL29jsdTIhx8eA117RAwIeJNhc7Zh6NYTmLfeSwDddMy2a6cPEQsSgHsFme2Wr0Sy3b1
-	YlJ4x1MiJkx29ctCb4tnqV60iUcGEeM03ITR5CRNX2Iq3egZ9kpVhqg/GliQ==
-X-Received: by 2002:a17:902:ec8b:b0:2e9:69ef:ff38 with SMTP id d9443c01a7336-2eb0046897cmr53687905ad.55.1793273521910;
-        Thu, 29 Oct 2026 04:32:01 -0700 (PDT)
-X-Received: by 2002:a17:902:ec8b:b0:2e9:69ef:ff38 with SMTP id
- d9443c01a7336-2eb0046897cmr53687425ad.55.1793273521275; Thu, 29 Oct 2026
- 04:32:01 -0700 (PDT)
+        bh=SEsAp8eo59mWI4USMvrk2DfJuqFK7nYytkvtGnfb6o0=;
+        b=cBdwRKU/iUibD0GlklTeNfryvr7EgMi0fvBRmbNRMLLNWhzMrh6tvWvuw98SPfAIeG
+         vmMJinLJnNCXD6vlw4/DqzS0ZpuRj6UNL92dtRYuy9K37iFpznUJxSe9+seNe/FQYi1K
+         Jun0H8ZQ3Eyt59ZGC1/7vtSNuW37YYLKc1VWbhzD9nhAWzsepP3qvn/h7kFM0qXwQyIc
+         TGq9fpgKWC+LbnB4CTa2jpe5tH80IfkubzYswbfwtoSdSjWOla/PuSHPZb92gAW9fD3E
+         ehoAoh7lEZ2jM2qbE8nqDGyWe9w6FXhGutGpWoyDCLirznOuTGcvFK4P3T2cRDz6t1iJ
+         4HfA==
+X-Forwarded-Encrypted: i=1; AKwUvBzcAt3l4ivGBjKY8iCf2qU8ptorAvaD8WVY1tNxa2tKW8tEes/vJVcJR4uPI8R9JCfKyvMe10ChcKD+hI8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJEfrWEA3UeIjuDhrXzmSuImSpVEiUr1vbO5KNWemr5V1Xum4i/
+	5SObTBED0BBN6heCDwyPoS3XmKwNOLHcBgLgjZ11WNhAscQF0Ski7CpRtEvHS9XmMXhz3hJolx6
+	USquD5uEpguLXO2FN6aluuXN7mA8m9lIJ3xHeF+bI8A==
+X-Gm-Gg: AYBFou0UYqru/ZeEKJsKoM3gqbLl0ZUbn85+OnrzX/AQnpCYvKZcYf+V8ZM1O7hXH4D
+	788sIJVtWV2RmHBE1jIyBvpBOnziemZznsEFhEsBEwXk4c3XqHUW47r/rCQXz3IwuNeLiJneZ8d
+	p2GxLdexsJsap4gu+Gakl1JmFR93kDVHXQIzNqwdDTdbTNAHe7Uj9nK6nmdTsgTcPqAy3NVYCBP
+	pD6j9WEnw4DbhWLP2Okl9MSWZCgk3LqlspdWO3nqzTiAmY8Blz89xRZihtec8UGZZyeL1vVB/8B
+	coqHe/zhoMcqcjStolade53zyy00x/NPlDzdUMKoF88VqsnsJVSZS5Z6maQSOOo4uEA+u/YeOzI
+	hwCH7347Ec1GtcqSs+mASvB2qgejRp0BkHbMQx39NDvbi1AqyPPEOVLG5hboUgFoXBD/PYwk=
+X-Received: by 2002:a05:6820:a514:10b0:70e:2d38:4b70 with SMTP id
+ 006d021491bc7-713eef43a73mr2044037eaf.7.1793273580795; Thu, 29 Oct 2026
+ 04:33:00 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,219 +104,219 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014202619.715573-1-aubin.constans@microchip.com>
-In-Reply-To: <20261014202619.715573-1-aubin.constans@microchip.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Thu, 29 Oct 2026 12:31:49 +0100
-X-Gm-Features: AclHuK8ocQ4ZyIc2NMN2E2foJvz0KUaZfpo5I8Tv2CJSYssB2wGKDJkhP3QujAQ
-Message-ID: <CAPx+jO-fyYy9ZX_O9UQ-tSnOG7LCd0rZ8SNn307hFWLbUAqBRw@mail.gmail.com>
-Subject: Re: [PATCH v2] mmc: sdhci-of-at91: disable selectively clocks on pm runtime
-To: Aubin Constans <aubin.constans@microchip.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
-        Eugen Hristev <ehristev@kernel.org>,
-        Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-        Romain Sioen <romain.sioen@microchip.com>,
-        Nicolas Ferre <nicolas.ferre@microchip.com>,
-        Ludovic Desroches <ludovic.desroches@microchip.com>,
-        Robert Marko <robert.marko@sartura.hr>,
-        Alexandre Belloni <alexandre.belloni@bootlin.com>,
-        Ryan Wanner <ryan.wanner@microchip.com>, linux-mmc@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260806055501.56761-1-cuiyunhui@bytedance.com>
+ <anQyoZgi5Urnvvjw@lucifer> <919b804b-6f1d-417e-9c0c-d06f50d765d8@kernel.org>
+ <anSar_i8UjniSbML@lucifer> <a6a9e0cc-e6cf-4f83-b6be-7d64058b8fa6@kernel.org>
+ <anSqbW1w2bDDHpAx@lucifer> <CAEEQ3wmJoUF5TDQDfMU_dUHnY+gg7MYG=OmmdB3Ynpdu9gJ7-g@mail.gmail.com>
+ <3882e553-4be3-4b2d-b884-4443032e7853@kernel.org>
+In-Reply-To: <3882e553-4be3-4b2d-b884-4443032e7853@kernel.org>
+From: yunhui cui <cuiyunhui@bytedance.com>
+Date: Thu, 29 Oct 2026 19:32:49 +0800
+X-Gm-Features: AclHuK-NsCthzCzymfm9IrdjWCbL02wiGiuXLxLhRNRDCgpTPiA9M8Ic3D1KQcI
+Message-ID: <CAEEQ3w=t4fCXZSqDUZ+XQCJ7UhtrKz+TSM=H8y=JvdAoJG9NXQ@mail.gmail.com>
+Subject: Re: [External] Re: [PATCH v2] mm/madvise: avoid skipping pages after
+ splitting large folios
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, akpm@linux-foundation.org, liam@infradead.org, 
+	vbabka@kernel.org, jannh@google.com, 00moses.alexander00@gmail.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-ORIG-GUID: 3HPQ1StisDfsxFwOIZvNH-M-9kDP8RA3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA0NCBTYWx0ZWRfX/2fy8K7TqXyh
- K+GeCxwucMuNnAa5mCDIrePns8lFiqmR9VsFBnfZNTbGtBP93Y1ngUqqsgqxoenaB8U/FsKe/XQ
- oyA4svx9xGRgrRIiI1/qi9zCo/DucN7qdIZbqnQrwWfocDVOX5O4ubhPnoqqvSVhsteJj88dqE8
- 3ILWlKyqedirLSQM3hIDseokQtxmwjWocOypx8kTKd1++bXjGxQVvlSsGHktRTgJF48MrpD4Lk4
- ZGBdPUkUNAfzWrQyqTZRED3BTr/ka14m+HgrZRYgr/fow8iz6ITTKYf7BDkMYKrQxsnpRudCqB1
- ORQ3kuAi2AYfbtfAfSQIwjD6tXiWsayJq3jfvQ4MBUDKffDdCm2dkyThOZ99G9Vg8jLV61g1kTi
- A/5Y1FKFwJ3DltaVp+3Fu4U8JftWp3G/8tIkNdGs7MJjub/LNfSQmdz+uaQzRrYIXD3lMa2TB3A
- /zIAVFj8zFQhQQ5654A==
-X-Proofpoint-GUID: 3HPQ1StisDfsxFwOIZvNH-M-9kDP8RA3
-X-Authority-Analysis: v=2.4 cv=XZEcX455 c=1 sm=1 tr=0 ts=6ae32eb2 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8 a=XYAwZIGsAAAA:8
- a=Newhmvhl9Q1cYdYltlgA:9 a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
- a=E8ToXWR_bxluHZ7gmE-Z:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA0NCBTYWx0ZWRfX9LQxU3i4Ue0R
- mPWYhp+5m6R0ugG9uVEgcFKfZkrUKs1AaWMdbNDIUNXaAQRp44C4Csvg7eKSuHJHX3gBCwDLIJ+
- lGfU6u/M5YlxqHXqssOuVgvvGpMjwQI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0
- suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290044
 
-On Wed, Oct 14, 2026 at 10:28=E2=80=AFPM Aubin Constans
-<aubin.constans@microchip.com> wrote:
+Hi David,
+
+On Tue, Aug 11, 2026 at 10:49=E2=80=AFPM David Hildenbrand (Arm)
+<david@kernel.org> wrote:
 >
-> From: Claudiu Beznea <claudiu.beznea@microchip.com>
->
-> SDMMC run-time clock disabling is not supported in newer SoCs, including
-> SAMA7G54, SAMA7D65 and LAN969x.
-
-That sounds a bit vague to me. Exactly why can't the clocks be
-disabled? It seems like the clocks are still being used on these newer
-SoCs.
-
->
-> Make the clock disabling scenario conditional:
-> - still enabled for the sama5d2 and sam9x60 compatibles (which are all
->   those implemented at present),
-> - otherwise avoided by default, for subsequent SoC families.
->
-> Signed-off-by: Claudiu Beznea <claudiu.beznea@microchip.com>
-> [Romain: Fix unbalanced clock activation/deactivation]
-> Co-developed-by: Romain Sioen <romain.sioen@microchip.com>
-> Signed-off-by: Romain Sioen <romain.sioen@microchip.com>
-> [Aubin: Rebase before sama7g5 support and edit the commit msg]
-> Signed-off-by: Aubin Constans <aubin.constans@microchip.com>
-> Tested-by: Robert Marko <robert.marko@sartura.hr>
-
-Kind regards
-Uffe
-
-> ---
-> Changes in v2:
-> - Edit the commit msg to say the patch prepares SAMA7G54/SAMA7D65/LAN969x
->   SoC support w/o immediate change.
->   Also, move and summarize Romain's own commit msg close to its sign-off.
-> - Restore Claudiu's author and sign-off email to the microchip.com addres=
+> On 8/11/26 04:31, yunhui cui wrote:
+> > Hi Andrew, David, Lorenzo,
+> >
+> > On Thu, Aug 6, 2026 at 11:40=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kern=
+el.org> wrote:
+> >>
+> >> On Thu, Aug 06, 2026 at 04:46:10PM +0200, David Hildenbrand (Arm) wrot=
+e:
+> >>>
+> >>> We GUP'ed a single page and now try to be smart about which other pag=
+es we'd GUP
+> >>> next.
+> >>>
+> >>> That's just wrong, and hugetlb special-casing is just ugly.
+> >>>
+> >>> The problem here is that, if we GUP'ed a page and poisoned it, the GU=
+P'ing the
+> >>> next page might fail and we'd return an error.
+> >>>
+> >>> But maybe that error can simply be handled? We have FOLL_HWPOISON.
+> >>>
+> >>> So maybe we can just use FOLL_HWPOISON and skip over the entries that=
+ already
+> >>> return -EHWPOISON?
+> >>
+> >> Yup this is ugly debug code so that works for me.
+> >
+> > Thank you for the review. Based on your feedback, I went back through t=
+he
+> > madvise, GUP, soft-offline, and memory-failure paths and outlined the
+> > changes I plan to make for the next revision.
+> >
+> > The issue is that using a page obtained for one address to infer how fa=
+r
+> > the range walker can advance is the wrong abstraction.
+> >
+> > For an anonymous large folio, soft_offline_page() splits the folio to
+> > order-0 and handles only the supplied base-page PFN. Advancing by the
+> > pre-split folio size can therefore skip the remaining base pages while
+> > madvise() still returns success.
+> >
+> > Lorenzo also raised the semantics of a range that covers only part of a
+> > hugetlb page. Looking at a range that crosses a hugetlb boundary expose=
 s
->   he had upon writing the patch.
-> - Link to v1: https://lore.kernel.org/r/20260918153414.909333-1-aubin.con=
-stans@microchip.com
->
->  drivers/mmc/host/sdhci-of-at91.c | 36 ++++++++++++++++++++++++--------
->  1 file changed, 27 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-of=
--at91.c
-> index 7c4ac65f247d..399856643e57 100644
-> --- a/drivers/mmc/host/sdhci-of-at91.c
-> +++ b/drivers/mmc/host/sdhci-of-at91.c
-> @@ -39,6 +39,7 @@ struct sdhci_at91_soc_data {
->         const struct sdhci_pltfm_data *pdata;
->         bool baseclk_is_generated_internally;
->         unsigned int divider_for_baseclk;
-> +       bool pm_runtime_disable_clks;
->  };
->
->  struct sdhci_at91_priv {
-> @@ -149,12 +150,14 @@ static const struct sdhci_pltfm_data sdhci_sama5d2_=
-pdata =3D {
->  static const struct sdhci_at91_soc_data soc_data_sama5d2 =3D {
->         .pdata =3D &sdhci_sama5d2_pdata,
->         .baseclk_is_generated_internally =3D false,
-> +       .pm_runtime_disable_clks =3D true,
->  };
->
->  static const struct sdhci_at91_soc_data soc_data_sam9x60 =3D {
->         .pdata =3D &sdhci_sama5d2_pdata,
->         .baseclk_is_generated_internally =3D true,
->         .divider_for_baseclk =3D 2,
-> +       .pm_runtime_disable_clks =3D true,
->  };
->
->  static const struct of_device_id sdhci_at91_dt_match[] =3D {
-> @@ -164,7 +167,7 @@ static const struct of_device_id sdhci_at91_dt_match[=
-] =3D {
->  };
->  MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
->
-> -static int sdhci_at91_set_clks_presets(struct device *dev)
-> +static int sdhci_at91_set_clks_presets(struct device *dev, bool start_cl=
-ks)
->  {
->         struct sdhci_host *host =3D dev_get_drvdata(dev);
->         struct sdhci_pltfm_host *pltfm_host =3D sdhci_priv(host);
-> @@ -174,7 +177,14 @@ static int sdhci_at91_set_clks_presets(struct device=
- *dev)
->         unsigned int                    gck_rate, clk_base_rate;
->         unsigned int                    preset_div;
->
-> -       clk_prepare_enable(priv->hclock);
-> +       /*
-> +        * Manage clock prepare/enable procedure depending on if the boar=
+> > another problem. For example, with two 2 MiB hugepages:
+> >
+> > hugepage A: [0, 2 MiB)
+> > hugepage B: [2 MiB, 4 MiB)
+> > requested range: [2 MiB - 4 KiB, 2 MiB + 4 KiB)
+> >
+> > The first GUP resolves the last base page in hugepage A. Adding the ful=
+l
+> > 2 MiB hugepage size to that unaligned address produces the next address
+> > at 4 MiB - 4 KiB. That is already beyond the requested end at
+> > 2 MiB + 4 KiB, so the loop terminates without ever visiting hugepage B.
+> >
+> > For MADV_SOFT_OFFLINE:
+> >
+> > - ordinary pages and large folios advance by PAGE_SIZE because
+> >   soft_offline_page() handles the supplied base-page PFN after any spli=
+t;
+> >
+> > - hugetlb advances to the end of the current hugepage because successfu=
+l
+> >   soft-offline migrates the complete hugepage and leaves a healthy
+> >   replacement mapped. If the walker advanced by PAGE_SIZE, its next GUP
+> >   would resolve that healthy replacement and soft-offline the same virt=
+ual
+> >   hugepage again;
+> >
+> > - ZONE_DEVICE does not need a stride case because soft_offline_page()
+> >   rejects it.
+> >
+> > Advancing to the current hugepage boundary, rather than adding the huge=
+page
+> > size to the original unaligned address, lets the next iteration start
+> > exactly at hugepage B.
+> >
+> > For MADV_HWPOISON, I plan to follow David's suggestion and walk at
+> > PAGE_SIZE using:
+> >
+> > get_user_pages_unlocked(start, 1, &page,
+> > FOLL_GET | FOLL_HWPOISON)
+> >
+> > get_user_pages_unlocked() is the appropriate interface here because the
+> > current gup_fast_fallback() flag mask rejects FOLL_HWPOISON, while the
+> > memory-failure madvise path enters madvise_inject_error() without
+> > mmap_lock held. get_user_pages_unlocked() acquires and releases mmap_lo=
+ck
+> > internally, handles fault retries, and propagates -EHWPOISON from the
+> > fault path. FOLL_GET makes the page-reference ownership consumed by
+> > MF_COUNT_INCREASED explicit.
+> >
+> > A successful GUP is followed by memory_failure(). If GUP returns
+> > -EHWPOISON, the address was already covered by an earlier larger-granul=
+arity
+> > injection, so the walker continues with the next base-page address. Oth=
+er
+> > errors are returned. This avoids hugetlb, DAX, and folio-size inference=
+ in
+> > the MADV_HWPOISON caller.
+> >
+> > Device DAX is relevant only to MADV_HWPOISON because
+> > MADV_SOFT_OFFLINE rejects ZONE_DEVICE pages. Since the proposed
+> > MADV_HWPOISON walker advances by PAGE_SIZE and uses each GUP result as
+> > feedback rather than inferring the handled range from folio_size(), it
+> > should also avoid the same granularity problem for Device DAX. A
+> > successful GUP is passed to memory_failure(), while -EHWPOISON indicate=
+s
+> > that the address was already covered by an earlier injection. Advancing
+> > by PAGE_SIZE should therefore also work for Device DAX in principle. I =
+do
+> > not currently have a suitable Device DAX setup, so this remains unteste=
 d
-> +        * support runtime clock disabling and if we come from the probin=
-g
-> +        * or restoring procedure (for backup+self refresh).
-> +        */
-> +       if (start_clks)
-> +               clk_prepare_enable(priv->hclock);
-> +
->         caps0 =3D readl(host->ioaddr + SDHCI_CAPABILITIES);
->         caps1 =3D readl(host->ioaddr + SDHCI_CAPABILITIES_1);
+> > at runtime.
+> >
+> > Because MADV_SOFT_OFFLINE must advance past a hugetlb replacement while
+> > MADV_HWPOISON can use FOLL_HWPOISON feedback during a PAGE_SIZE walk, I
+> > plan to use separate walking models for the two operations.
+> >
+> > Before posting another revision, I plan to split the work into:
+> >
+> > 1. the MADV_SOFT_OFFLINE range-walk fix;
+> > 2. MADV_SOFT_OFFLINE large-folio and hugetlb selftests;
+> > 3. the PAGE_SIZE + FOLL_HWPOISON MADV_HWPOISON walker;
+> > 4. MADV_HWPOISON large-folio and hugetlb selftests.
+> >
+> > Does this separation of the SOFT_OFFLINE and HWPOISON walking models lo=
+ok
+> > reasonable?
+> As Lorenzo says, this reads AI generated.
 >
-> @@ -223,8 +233,11 @@ static int sdhci_at91_set_clks_presets(struct device=
- *dev)
->         writew(SDHCI_AT91_PRESET_COMMON_CONF | preset_div,
->                host->ioaddr + SDHCI_PRESET_FOR_DDR50);
+> I assume what you mean is:
 >
-> -       clk_prepare_enable(priv->mainck);
-> -       clk_prepare_enable(priv->gck);
-> +       /* Same clock management as for hclock */
-> +       if (start_clks) {
-> +               clk_prepare_enable(priv->mainck);
-> +               clk_prepare_enable(priv->gck);
-> +       }
+> MADV_HWPOISON will actually hwpoison the pages. We can just use FOLL_HWPO=
+ISON +
+> -EHWPOISON and should be good. So far the theory.
 >
->         return 0;
->  }
-> @@ -254,9 +267,11 @@ static int sdhci_at91_runtime_suspend(struct device =
-*dev)
->         if (host->tuning_mode !=3D SDHCI_TUNING_MODE_3)
->                 mmc_retune_needed(host->mmc);
+> MADV_SOFT_OFFLINE will migrate pages instead. So if we don't skip multipl=
+e
+> pages, we could end up migrating multiple times (and setting hwpoison mul=
+tiple
+> times).
 >
-> -       clk_disable_unprepare(priv->gck);
-> -       clk_disable_unprepare(priv->hclock);
-> -       clk_disable_unprepare(priv->mainck);
-> +       if (priv->soc_data->pm_runtime_disable_clks) {
-> +               clk_disable_unprepare(priv->gck);
-> +               clk_disable_unprepare(priv->hclock);
-> +               clk_disable_unprepare(priv->mainck);
-> +       }
+> Well, for large folios (except hugetlb) that's not a problem, because we =
+try
+> splitting to order-0 either way, and if that fails, we bail out.
 >
->         return 0;
->  }
-> @@ -269,7 +284,7 @@ static int sdhci_at91_runtime_resume(struct device *d=
-ev)
->         int ret;
+> So what remains is hugetlb, which is nasty.
 >
->         if (priv->restore_needed) {
-> -               ret =3D sdhci_at91_set_clks_presets(dev);
-> +               ret =3D sdhci_at91_set_clks_presets(dev, priv->soc_data->=
-pm_runtime_disable_clks);
->                 if (ret)
->                         return ret;
+> I don't really enjoy having any special-casing here, because the moment w=
+e e.g.,
+> change how soft-offlining deals with splitting, we would be in trouble.
 >
-> @@ -277,6 +292,9 @@ static int sdhci_at91_runtime_resume(struct device *d=
-ev)
->                 goto out;
->         }
+> Assume we start support splitting to min-order at some point, we'd also w=
+ant o
+> skip over min-order. Gah.
 >
-> +       if (!priv->soc_data->pm_runtime_disable_clks)
-> +               goto out;
-> +
->         ret =3D clk_prepare_enable(priv->mainck);
->         if (ret) {
->                 dev_err(dev, "can't enable mainck\n");
-> @@ -344,7 +362,7 @@ static int sdhci_at91_probe(struct platform_device *p=
-dev)
->                 return dev_err_probe(&pdev->dev, PTR_ERR(priv->gck),
->                                      "failed to get multclk\n");
 >
-> -       ret =3D sdhci_at91_set_clks_presets(&pdev->dev);
-> +       ret =3D sdhci_at91_set_clks_presets(&pdev->dev, true);
->         if (ret)
->                 return ret;
+> Can we just make our life easier and disallow specifying ranges for
+> MADV_HWPOISON/MADV_SOFT_OFFLINE?
+>
+> It's a pure testing interface IIRC. tools/testing/selftests/mm/memory-fai=
+lure.c
+> seems to always call it with PAGE_SIZE. Similarly
+> tools/testing/selftests/mm/hugetlb-read-hwpoison.c
+>
+> There is one catch I think: an existing LTP test case issues MADV_SOFT_OF=
+FLINE
+> on a larger range. But it respects -EINVAL at least :)
+>
+> So we could return -EINVAL and fixup the test case to issue multiple madv=
+ise().
+>
+> [1]
+> https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/sy=
+scalls/move_pages/move_pages12.c
+
+Sorry for the late reply, and thanks for the feedback.
+
+This turned out to be more involved than I expected. I am not an
+expert in the memory-failure/hugetlb area, so if someone is interested in
+taking it over, that would be appreciated.
+
+Thanks,
+Yunhui
+
 >
 > --
-> 2.43.0
+> Cheers,
 >
+> David
