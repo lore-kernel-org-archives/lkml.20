@@ -1,60 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793296413;
-	b=BTpPEyjJcyFaCkF+oi0Ce/H3P8Y6YJT8PfYBmVM1svXnvcu0S4hS8JaWim2FcAFb7CqK
-	 QQWkWXhkZUmZaXt2o612X/vrFfD7ZXEKeRwsFcZDPAqhL+id6vytfJ1L6r1agv0SW0Z42
-	 Imxe2/Fp06lnIYKaFfTOGTha+N9jRbvofaET6+D0+ImSqdQhWb59jE/+HVG974GIpDV68
-	 /BJS2bZHqkn7IXmJGhv/j1bp7vaNO6ZMbzGjWnkRaeJxi4Myos1fGY64W3ak/1Sk6yeg/
-	 JSr/7cCXhVsN9UyQyO5M8Zf703woWpZiOy8g7VNERQZtKenmNwPgEbLSPMUwL+ZwEXQ==
+	t=1793296539;
+	b=SZqyEKlrNCCEWfcMAxpsJxoYb6Wq80gzm5Vp9trd06DzPNOv9BzPKwFQqxvh24KHl3FW
+	 Eu/W8Lv2cJNlSyBDhzVyU6HxlHfaRVbO+c6kL3k8dVYzLXtWRXBGL7opJlnO7sEu00L6g
+	 typfXiIqvsGPEUjwLXHNLbZmhvhUcPFZ3iBmB81ZtxjdMhAy3un5dhjh5jvXjnMslwXzn
+	 5izHmrdPMR+YuZ+VAnH/riqhkUEfrvRl1ym59DEPb9485xupU/BkXU1DhJLarTf5xj+M/
+	 NZHwVVoDSNztwR1GJRkAvjMMz/xDXXSgSVMMnvQj6En/gJL1uF9JDuZr7A82c9pSCFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793296413;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=EVH99uGrBjV1LXCPbiOuybiSxiADyCk5jOCu0FgStEE=;
-	b=U80fJiOWkBEjpBKMTHb4VTP4gABeQjKIoJ48WuTmodAdh0t4BN70G9rjAkuwU/i5zqsv
-	 Dvo7ektQnmkrGrIal6Wd5RPlIQ9k9jE/14h1sAefL6+M5CelCE7o1hQNU4YamUGwOYcUJ
-	 GP71y1Smynq6/jxG1MbvMp/3z5dqavnkfGPs9InlY2eaausBeXrM39msxGo6nioj22a8Q
-	 0T9UNZQqx1OZ6HbcOr8Lr9x7GMLqgKPsmBgMY+bXaVjanbEfuGAvV8M1hQ+s5FBtQjYru
-	 GKKKsBmVp9+PqnHqnffa/w8Ecie5XUC5uA0APwake0lRSIwkZa2zPm1etdiz4IzEMtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793296539;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=W3HdUc2svh2jzPREwBXmGjOMOZkB12N8HCTpy3OSw+g=;
+	b=IMuiJOfRojx7TOVqFvtbX+BkhJnlH+iIdc5p9Z3qTwXvGahIg/uCnkjGJi9w45zcjFxG
+	 ur2djFFBVNrf5+iuBCvm6chV4vm3/FRW6DJQaXuSavHkm+OKyUVhNRuWlJTj17yJ4QUVp
+	 NEqNeZWV7MVzoqerSWDiH0Xc+se0LMNIaaenCQ3lFJVVFKG7D9RTV4VT6PxomQlCfwrEt
+	 6qrZv+Fm54VfqJdsqr0zWCmwm2UUbKq9ppq/KH0IiUq2uZO1oMIOs3GJEsdfsjdysLDzb
+	 lRyo+ceeP3W48QiHpspQQh9bh+pJayCMhUZGye587D9JisJuQyydvp1a39CTtGxgtdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=YdoWYHPw;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ieee.org;
+	spf=pass smtp.mailfrom=ieee.org;
+	dkim=pass header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=Y3L2EI6X;
+	arc=none smtp.remote-ip=209.85.210.43
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02471606A31C;
-	Thu, 29 Oct 2026 17:53:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02471606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F58606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:55:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7F58606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=YdoWYHPw
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261029175328euoutp0160d85dd29c36cd0c8e7d870a148e9be2~jEZUo7_mo2181221812euoutp01L;
-	Thu, 29 Oct 2026 17:53:28 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261029175328euoutp0160d85dd29c36cd0c8e7d870a148e9be2~jEZUo7_mo2181221812euoutp01L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793296409;
-	bh=EVH99uGrBjV1LXCPbiOuybiSxiADyCk5jOCu0FgStEE=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=YdoWYHPwmJN/KFk1TlDkNYhFdqmZj/+KS3IoG8aUG8OuAgV1ZKqmChA8RwrBrtk63
-	 2EJ8N/oXBcYm8Rwj8dyL2ZcdLI4kx5PA50P7t8b4ByliK/9E9X0wVJGo4OfCo34HTT
-	 H6cNO/1oBoDGGt1dGhGX7IqLdqiGAWce09a+/23o=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261029175328eucas1p2ceead9bf1d2040fb65ca9ac941f6b6fa~jEZUAr23j0643406434eucas1p2V;
-	Thu, 29 Oct 2026 17:53:28 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261029175326eusmtip1da81d3d531e57fbb55db47bb699094a6~jEZR9_Q1X3030430304eusmtip1N;
-	Thu, 29 Oct 2026 17:53:26 +0000 (GMT)
-Message-ID: <777c7a8c-de7c-4f0c-9c9c-d5b78a5595d8@samsung.com>
-Date: Thu, 29 Oct 2026 18:53:25 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=Y3L2EI6X
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-823e4047037so1722838a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:55:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ieee.org; s=google; t=1793296536; x=1793901336; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W3HdUc2svh2jzPREwBXmGjOMOZkB12N8HCTpy3OSw+g=;
+        b=Y3L2EI6XCTJlfv6Um30k1lylo5s5ob0sd1SCNIKTegObqMf0wEvS4A9IGz4HNMAkb8
+         FXjRUmOvEYTY5V9fgH75wQ+nqsG6VdEY+XNmbN0/79f1QSutJa9rAqLEnxGfYUSZkWnx
+         uHO0/wi0l48alNRz5c7BkH5cB2k1cNbPvsuI4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793296536; x=1793901336;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W3HdUc2svh2jzPREwBXmGjOMOZkB12N8HCTpy3OSw+g=;
+        b=n/E37xaH5rqgvLVQPxV52sUUxK4dFs+Lxap4qXvA5ol3tF1ALnpZlChUSg2t3R6eLJ
+         yCMIOSG9bI6JF7C/N8slK2vMBz2WgJ1G2PL0uezeN3ibs9is/JO0EqWfX5HlKK+zntvv
+         RtJ1K6b2vM4lXwwnPFsx6saWAGDE3fh0K81W/yKPMDQIsb0ZUg0m1wZ9AE9LbB7jo3Ih
+         qpkwR+Xn2jCXg6qw4F0M4Jd/6HHG5OnTDnO7BgV6Ht1REI1/8KV/gyPIby70SRXLJmat
+         1kLH281XIzCxMfLS+vNiyCzK2ow55n40T3ossERBaS5zoQVMPZRlahgwhK4Xjj//ayLl
+         kCrg==
+X-Forwarded-Encrypted: i=1; AKwUvBwFbbuUOTT7idL9Q/K1NIWbEY8MO7mUPZXRbK2pYQe2uRwBCc9FGIB7FXbVo4TS3SiuEibQyKENHCs54ww=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKwZ3SAIGYYzB/02YxreglVzzew7N/qyAROlwaEMU9M4mgj/enz
+	zeNzCZFicheduUj5p1zgCHw3tmrbl7JQp/iAgLKh0uXJBlVZLn1BmR21WGWra4+dwg==
+X-Gm-Gg: AYBFou2V61UfcbSkh3CWAljjXTepgfT1VtZ2PPf7FX1XVWbBcIC2drD3uB5MDGTmNvM
+	8CN6l4wYNur54gA1OtFZVfWus4Iqp7g78/zJfJIcYYZcL+hOJb4QVwiG6dgcWIA27tIX8Ta2XKQ
+	T2FSt5vfcM7tt5MoSWvnC5gyD9zUqEAHrJTb4C7rJ91Xkatd/4mKRFGeqriFxAlooVAJhc25MfM
+	GocL0r+99XrXot5vCWqiT0qhviQDNjggX1BNgVR/n4/fYLkLeVrtgoGd18IHZMesSTl8qExnW9t
+	XtLTcwdE2VhgslSXj+dp/2wfIjmrFUVhc5+xaCGL6HUopty0/EkLlq6vYCiCAG4HoPfAonbYgbb
+	h/O38mH78h8OB4lqaBQI4knvcLi6LFVi1KyrIPZc/Pa8NQ6kFMF1YyKVf6nJZCeltQls9tEwOQX
+	V/A0JWz6Xo+EBvNDhwl5yM719gpo0/mktdIDrQnH73urR+skZwReoWD/DfTMatyyTCs5NFi5unN
+	WxxmnwqnPKOKi/i+hC6CwgIi9CXvN/X2nSVjjW9ATUGZU7mvwrdQ9b1515gPhhol7bGR+NSY/5h
+	/qlumA3DQNF+xqdpTGfqrJ5M
+X-Received: by 2002:a05:6808:1694:b0:4f4:3790:6615 with SMTP id 5614622812f47-563a205d732mr3898135b6e.11.1793296536211;
+        Thu, 29 Oct 2026 10:55:36 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.googlemail.com with ESMTPSA id 5614622812f47-563c5437a58sm4414879b6e.5.2026.10.29.10.55.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 10:55:35 -0700 (PDT)
+Message-ID: <9879e94a-6fbe-4158-a21e-64b147a580bc@ieee.org>
+Date: Thu, 29 Oct 2026 12:55:33 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,92 +90,94 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 04/18] dt-bindings: soc: starfive: Add
- starfive,jh7110-hdmi-subsystem
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-rockchip@lists.infradead.org, Simona Vetter <simona@ffwll.ch>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, William Qiu
-	<william.qiu@starfivetech.com>, Thomas Zimmermann <tzimmermann@suse.de>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	devicetree@vger.kernel.org, Andy Yan <andyshrk@163.com>, Philipp Zabel
-	<p.zabel@pengutronix.de>, Dominique Belhachemi <db@domibel.de>, Maud
-	Spierings <maud_spierings@murena.io>, Joshua Peisach <jpeisach@ubuntu.com>,
-	David Airlie <airlied@gmail.com>, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Robert Foss <rfoss@kernel.org>, Sandy Huang
-	<hjc@rock-chips.com>, Paul Walmsley <pjw@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, Heiko
-	Stuebner <heiko@sntech.de>, Neil Armstrong <neil.armstrong@linaro.org>,
-	Chaoyi Chen <chaoyi.chen@rock-chips.com>, Alexandre Ghiti <alex@ghiti.fr>,
-	Conor Dooley <conor@kernel.org>, Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>, Yakir Yang <kuankuan.y@gmail.com>, Emil
-	Renner Berthing <kernel@esmil.dk>, Manivannan Sadhasivam <mani@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>, Hal Feng <hal.feng@starfivetech.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
-	<u.kleine-koenig@baylibre.com>, Palmer Dabbelt <palmer@dabbelt.com>,
-	dri-devel@lists.freedesktop.org, Xingyu Wu <xingyu.wu@starfivetech.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Jonas Karlman <jonas@kwiboo.se>, Graham
-	Markall <hello@big-grey.co.uk>, Andrzej Hajda <andrzej.hajda@intel.com>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>, linux-riscv@lists.infradead.org,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>
+Subject: Re: [PATCH net,v2] net: ipa: Fix double free of the interrupt
+ structure on config error
+To: Thomas Fourier <fourier.thomas@gmail.com>
+Cc: Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "open list:QCOM IPA DRIVER" <netdev@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20261029082100.17722-2-fourier.thomas@gmail.com>
 Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <179329528881.3539981.14637229355908751610.robh@kernel.org>
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <20261029082100.17722-2-fourier.thomas@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261029175328eucas1p2ceead9bf1d2040fb65ca9ac941f6b6fa
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261029075358eucas1p111293c602fc3aac9c6a044fc41488919
-X-EPHeader: CA
-X-CMS-RootMailID: 20261029075358eucas1p111293c602fc3aac9c6a044fc41488919
-References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
-	<CGME20261029075358eucas1p111293c602fc3aac9c6a044fc41488919@eucas1p1.samsung.com>
-	<20261029-jh7110-clean-send-v6-4-759594e43acf@samsung.com>
-	<179329528881.3539981.14637229355908751610.robh@kernel.org>
 
-
-
-On 10/29/26 18:38, Rob Herring (Arm) wrote:
+On 10/29/26 3:20 AM, Thomas Fourier wrote:
+> Since ipa_interrupt_init() allocates struct ipa_interrupt in ipa_probe(),
+> the structure is owned by ipa_probe() and released with
+> ipa_interrupt_exit() on its error paths and in ipa_remove().  The error
+> path of ipa_interrupt_config() still frees it with kfree().  If
+> ipa_interrupt_config() fails (called from ipa_config() via ipa_setup()),
+> ipa_probe() unwinds through err_interrupt_exit, which frees the same
+> structure again.
 > 
-> On Thu, 29 Oct 2026 08:53:38 +0100, Michal Wilczynski wrote:
->> Add the dt-binding for the StarFive JH7110 HDMI subsystem.
->>
->> The JH7110 HDMI IP is a monolithic block containing both the digital
->> controller and analog PHY in a single register space. This binding
->> defines the parent device, which holds the shared register map, and its
->> two children: the PHY and the controller.
->>
->> The two have separate resources. The PHY takes the 24 MHz reference
->> clock and provides both the pixel clock, which the VOUT clock generator
->> routes on to the display controller, and the phy the controller uses.
->> The controller takes its clocks from the VOUT clock generator. What
->> they share is the register space, which the parent maps.
->>
->> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  .../starfive/starfive,jh7110-hdmi-subsystem.yaml   | 95 ++++++++++++++++++++++
->>  1 file changed, 95 insertions(+)
->>
+> Drop the kfree() from ipa_interrupt_config(); it should only undo what it
+> set up itself. Drop the leftover initialization and cleanup of
+> ipa->interrupt now managed in ipa_proble() and ipa_remove() of ipa_main.c.
 > 
-> My bot found errors running 'make dt_binding_check' on your patch:
+> Fixes: ad1be80d7582 ("net: ipa: introduce ipa_interrupt_init()")
+> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
+
+You should respond to the netdev-bot message asking for a better
+explanation of how this was found and whether it was observed or
+just found by inspection.
+
+However I think this version does look good.
+
+Reviewed-by: Alex Elder <elder@riscstar.com>
+
+> ---
+> v1->v2:
+>    - Drop ipa->interrupt initialization and cleanup.
 > 
-> yamllint warnings/errors:
+>   drivers/net/ipa/ipa_interrupt.c | 12 ++----------
+>   1 file changed, 2 insertions(+), 10 deletions(-)
 > 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/linux-dt-review/Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.yaml: Unresolvable reference: /schemas/phy/starfive,jh7110-inno-hdmi-phy.yaml#
-> Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.example.dtb: hdmi@29590000 (starfive,jh7110-hdmi-subsystem): phy: False schema does not allow {'compatible': ['starfive,jh7110-inno-hdmi-phy'], '#clock-cells': 0, 'clocks': [[4294967295]], '#phy-cells': 0, 'phandle': 2}
-> 	from schema $id: https://protect2.fireeye.com/v1/url?k=e93a78e1-88b16dd1-e93bf3ae-000babffaa23-e7f80dd3ed8ff65f&q=1&e=27d4095f-5012-49f1-94e3-a63fd9693348&u=http%3A%2F%2Fdevicetree.org%2Fschemas%2Fsoc%2Fstarfive%2Fstarfive%2Cjh7110-hdmi-subsystem.yaml
-> Documentation/devicetree/bindings/soc/starfive/starfive,jh7110-hdmi-subsystem.example.dtb: /example-0/soc/hdmi@29590000/phy: failed to match any schema with compatible: ['starfive,jh7110-inno-hdmi-phy']
-> 
+> diff --git a/drivers/net/ipa/ipa_interrupt.c b/drivers/net/ipa/ipa_interrupt.c
+> index 131b9cc94201..766b094eb069 100644
+> --- a/drivers/net/ipa/ipa_interrupt.c
+> +++ b/drivers/net/ipa/ipa_interrupt.c
+> @@ -260,10 +260,8 @@ int ipa_interrupt_config(struct ipa *ipa)
+>   	interrupt->enabled = 0;
+>   	interrupt->suspend_enabled = bitmap_zalloc(ipa->endpoint_count,
+>   						   GFP_KERNEL);
+> -	if (!interrupt->suspend_enabled) {
+> -		ret = -ENOMEM;
+> -		goto err_kfree;
+> -	}
+> +	if (!interrupt->suspend_enabled)
+> +		return -ENOMEM;
+>   
+>   	/* Disable IPA interrupt types */
+>   	reg = ipa_reg(ipa, IPA_IRQ_EN);
+> @@ -289,8 +287,6 @@ int ipa_interrupt_config(struct ipa *ipa)
+>   		goto err_disable_wakeup;
+>   	}
+>   
+> -	ipa->interrupt = interrupt;
+> -
+>   	return 0;
+>   
+>   err_disable_wakeup:
+> @@ -299,8 +295,6 @@ int ipa_interrupt_config(struct ipa *ipa)
+>   	free_irq(interrupt->irq, interrupt);
+>   err_free_bitmap:
+>   	bitmap_free(interrupt->suspend_enabled);
+> -err_kfree:
+> -	kfree(interrupt);
+>   
+>   	return ret;
+>   }
+> @@ -311,8 +305,6 @@ void ipa_interrupt_deconfig(struct ipa *ipa)
+>   	struct ipa_interrupt *interrupt = ipa->interrupt;
+>   	struct device *dev = ipa->dev;
+>   
+> -	ipa->interrupt = NULL;
+> -
+>   	dev_pm_clear_wake_irq(dev);
+>   	(void)device_init_wakeup(dev, false);
+>   	free_irq(interrupt->irq, interrupt);
 
-This patch depends on the JH7110 HDMI PHY series which adds
-starfive,jh7110-inno-hdmi-phy.yaml [1].
-
-With that series applied dt_binding_check is clean.
-
-[1] - https://lore.kernel.org/all/20261028-jh7110-inno-hdmi-phy-v6-0-f3379684d97e@samsung.com/
-
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
