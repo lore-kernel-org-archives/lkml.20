@@ -1,60 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793318139;
-	b=Hx8TTbMYRKzPNI8uvvM2fZIx7GtxS6g4iPGco4YXPOCElank/zY0tdPx4LngjKWtSD1N
-	 ANS1Pz2cm7eiQqtd00Y24bZycIfv3WHlpra8G7o2I2e6y2o3KVzQzGtUoI6FviCncNfLb
-	 iROT6QTE0L6nGX325RRp9qmayp+o092nad5/P9Bkrl9whWhFN0rnLetwbMenBnYsqnYNI
-	 3VHwjzyKKDIuQIwjam33igohrSYPF2BnN1dTTJNpjoOnguBVD/EE9ZtlafMrjuti3ndyp
-	 AfxkDQNahp3Hjoxc6uwva8mSpanksl6thr41sPH7n+7GiuLoshvW89BmcEJXPJhBUDA==
+	t=1793318352;
+	b=NPXYFzg7aEi2tF1VyQKhcEniJMuQ0yatkE+shhAQe6TyiTxI6qcMlxJuqHKPnEIq8xCg
+	 YkWoPdLhkj5nDK2YE13oBJ5yjTPOOx2CJhiOfEb4etXLJ9kBpCS1yDpcIppXqO6WP8lhm
+	 16tXToJuxvgCGbF57bnh9vJseNyp7wafPGjtlRatUOjjmaHdTs8Op7tjDrUQYWeg0uA6q
+	 iWtkiO2E8D9g4HRApZ4fbR/kqJNfKGpdBKANi34hQ/xPOUgcYbZEVhWypkQoGzsoQlveV
+	 tHkCLalNwpkhNsS+iaOgKZ4fr55hgD1dw02A65hdoBRJssDXG+w2gy0t9R+J1mWmyJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793318139;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=AMezWfxj83Cg3T8Y7h4Dr+n4iaXJKaZeceRX/U320L4=;
-	b=H1JtRvYBeFJdDNK9AhGcjBpIekwcUUWDHbvY3rEppIgR6mvfok+YTCDZsm53HZKq7bCe
-	 WSoNyEZ6MWOP8dAp06Oa48nY0orokc0aKWKx7rwQYCIWLQFpfcfnU+QE29WAGgHugSO6C
-	 /se61VmFhWC5CKgpL/jqcFVwTfzD4HLiovhHB/TgyS/k7uf89Q0RJBeRmNd1MBDsrQ4Ud
-	 vkE/3+Eb9s9TpLFtEmrjwdl2jMDb80xo0vqQ4sy/L0/33RBxcz7ePN6MN/IIvf0de1Gyj
-	 ztTVgWPoASPiKKZFmaKJt0hXfDLvQt7+uKaMq8Ya3w1Q7a7YjxquLz18Dk+w5ZXA4VA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793318352;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=VGMJLST0LGZUFVPZmCbPA5PwvaGlJCqBZDRorhKs8Vs=;
+	b=YjTlmva0U8HfZluD/wKWnd2jKInswMNOF65rUrOyLFs/PBZR3CMFdTDcDcjzCCZYVU6e
+	 bOoLvXMFdbhOpf+i7ziczUuMqbLfQuel11Rr6gbqAmGJ5gMSbP8Ck28woLKAze/JnTNCQ
+	 +cKMG8MC8q5L1pQDxuRRt1JsRWoU8rPfVvmrvixYn/CNxQOylD//gGo8EQEK271T0K6yo
+	 YsNnGRBfInmu87SHZvwhsdzlZi5Jr29+4TU+nJPSzFnm731XJhkCFWVy9kQmW7uu9zfHD
+	 PN3iGDK4mXVK2TqFIHOrj5OIr+etjraiUlWAbGZJDE0VCpRdBktilxhRXjwQwm4ejfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b="n7/w25w8";
-	arc=none smtp.remote-ip=185.70.43.97
-Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WoX69Q4N;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAA5606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:55:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BAA5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F4E606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:59:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61F4E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=n7/w25w8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1793318135; x=1793577335;
-	bh=AMezWfxj83Cg3T8Y7h4Dr+n4iaXJKaZeceRX/U320L4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=n7/w25w8HxG78XAKHv0ACwy8aeETiSKZ8GeC/hUWJ2XoWG10IGxCEsK+l8ejTKF3C
-	 ECrHpm9lGF8WDSY4EAyeP7Fl0fbma/BaGoiQUZnOQpPNZlj6+CfGFZsIR9Yos30Euo
-	 0vBACplCg+burAmtMAUMD7GDR+RFYe5twsy8bdIiNTYBwPL8cDqaRbnbJMYN/vJ2U2
-	 /5lYlOfEqUAz2dbj5bnSjaU3IxBpz2YhOulpacOCZxoKeKGIjdIZoVlDf0QEvgPIgc
-	 q3XS47UppJ2GWYMW5s0Kb8iIc9RREGcmFwTwXjyoh3dDITE2jicASlruyelJd4maGH
-	 xuwwEodmY+ugw==
-Date: Thu, 29 Oct 2026 23:55:27 +0000
-To: linux-perf-users@vger.kernel.org, acme@kernel.org, namhyung@kernel.org
-From: Paul Moses <p@1g4.org>
-Cc: peterz@infradead.org, mingo@redhat.com, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org, kan.liang@intel.com, linux-kernel@vger.kernel.org, Paul Moses <p@1g4.org>
-Subject: Re: [PATCH 1/2] perf mmap: Use the head selected by read_init
-Message-ID: <BC1sJClSvdQkAftuo53KsidGZTTOLHrxfa6XDLqGWykGCWsPr4V8WdVFE7rk-cVf-BEduiokioSSsvODnpnpbSndeOiQCOTPIi1C35t3DaU=@1g4.org>
-In-Reply-To: <20261020171946.3593127-2-p@1g4.org>
-References: <20261020171946.3593127-1-p@1g4.org> <20261020171946.3593127-2-p@1g4.org>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: d7020e91c59fa4837ae853d9cf19d115a86e42dd
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WoX69Q4N
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-33fb4680717so430355eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:59:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793318350; x=1793923150; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=VGMJLST0LGZUFVPZmCbPA5PwvaGlJCqBZDRorhKs8Vs=;
+        b=WoX69Q4NNcPPhzbrlswGDlRi84VBL+LUZxxmp6vje32C9kac72+/Fup88MGeOvah2B
+         uTgFaECD/M9bPN1r18IQsGSn4eQj7IehJOsJ3vpYnH9CpRD+7sJG40dVA/yeHKYJKPLs
+         /tmug1prlcb0boHZFSu8Wf3xCuIh2/QPn+QvglnwwlqjMXtOijYKwsN5BRR0iob6abpr
+         DAFHKbHuC9/Ir8MkhiYpGF8gHZSHkcx4sq0H1jktw8J08TIh0PkIPo3vpyn0N72cDi5/
+         bpr/jl+gv/rY5P7w6JEF5EEG7h/2freoUlOXuBoFoCm6x0h77IMRCAlVnCPhHfqDl+r+
+         MJ2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793318350; x=1793923150;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VGMJLST0LGZUFVPZmCbPA5PwvaGlJCqBZDRorhKs8Vs=;
+        b=EXQrDyJLKoFVbu7eqNoRwDCCQizUrGDz0aQCHrFCCqYaqcYT6Xvi+le0Id0Sz0Ih1q
+         qqCwOHTqatvgWq6bzeC08ketREhb52kYeES3qj3P11aMTBK6RSuaRpHjJ8x7PH+g8ARC
+         tZSY80vZwKDlYfNZHNQ0q5FnNaMV05p7e2aNBhk12VKBWLlAxxICmOTSzfmXN2Peb1uW
+         n+XCN3iBKLtVKVlS6GYOo6QmEW+fGgiy+Ty9Cq+iah6WBV0vB+awRIOZUKDCtcX+C8ou
+         ivDAcPYGBfA5ZsVY1vhASKMmPLsxchh20QYxXyDbSYcL+cr+cSGbO9VWmB0ami9cZ9kl
+         p9hw==
+X-Forwarded-Encrypted: i=1; AKwUvByTjrcKgBmZi3LDbFkrcdYgUKRn0zjlXEB7WkpfQg9M35PBk62rCz1PDo4QcIyq1l7NnYEOOE+0MIqGZX4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJmH3oa9oRd3+CTDpaKmTARv7D1oLbgYhmBJwIDt8xAeqp+1ZRL
+	MJE630cmrPIN0gppMDNWICH7YxwXNUA9NeUFNRKqrtarNdHaybMxkPfn
+X-Gm-Gg: AYBFou1pFN1xrn2tkcVnTtF+nAZUfMtAfIiJpCBGgWLFtZM7ka/yTF6H1+BNe8oc/zI
+	UYsjo1acjRNXJ+HMYwYnzAFfxlrUORwBLqzcL7ljAsntkYppZABaK6uIc+1or3oBriWbfyw3BwH
+	VLnAOU2j+wHdnYVNedaD1vnzfG+dgbw1HLRWv487d4xPodPmEoS/vhsFo1ECwmb52BK7xegbSWJ
+	NH74LTS7RVNKfFjEqHHzrexthUPP//qTdl1k7m0GLXCaO2/4U6QyhsbPqhgzmEpcIHPCM1fs6Mi
+	GgeQeT88oRv9JgzPMxztrDS31coJNzD5C5STYevt6oJL90mOOVrCk7xNKo98PCSAtQRqkPUtgpP
+	lnM0cj6OM8qITil1LWelx3yUX3mhBUDmfT1K6D70j0BvELJGXJ3LRIdTybk0m39kSLR5uFvWiEj
+	FQKk6wgG8VSVY2ev4ZDXiYjynFmPg2u2TqyhAkR2+9df/d6XCUEe65FrxkgY/suEQmp+9FoD7Ba
+	uhnecrGToYimagWOv0cjAMeptUR+XxAW5TzuzaTPh+WB6fS7jhzKot6AkayBNk/k6dTUuyw9uYo
+	Py0Fw8QHgm16SOLhCtO/sL4F4SZ7n+vU7XetDhEDVxVTWMqZ+voMj0OYefSbRJ6Qs3gLEdh5P2b
+	07ati/Cg+jEQU
+X-Received: by 2002:a05:7301:619b:10b0:36a:1d6f:917c with SMTP id 5a478bee46e88-36a423c3380mr1319780eec.22.1793318350137;
+        Thu, 29 Oct 2026 16:59:10 -0700 (PDT)
+Received: from ?IPv6:2a03:83e0:115c:1:cb2e:96f2:5ce4:2074? ([2620:10d:c090:500::4:5b14])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4293b651sm1680245eec.17.2026.10.29.16.59.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 16:59:09 -0700 (PDT)
+Message-ID: <bbe940d654ddbc9b099f578fd54137eecb79dd4c.camel@gmail.com>
+Subject: Re: [PATCH bpf-next v3 04/12] bpf: Track low-32 scalar equality
+ across zero-extending movs
+From: Eduard Zingerman <eddyz87@gmail.com>
+To: Vineet Gupta <vineet.gupta@linux.dev>, ast@kernel.org,
+ daniel@iogearbox.net, 	andrii@kernel.org, memxor@gmail.com
+Cc: martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
+	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
+	john.fastabend@gmail.com, shuah@kernel.org, bpf@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Date: Thu, 29 Oct 2026 16:59:07 -0700
+In-Reply-To: <20261020161907.2115379-5-vineet.gupta@linux.dev>
+References: <20261020161907.2115379-1-vineet.gupta@linux.dev>
+	 <20261020161907.2115379-5-vineet.gupta@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,607 +106,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On Tuesday, October 20th, 2026 at 12:20 PM, Paul Moses <p@1g4.org> wrote:
-
-> perf_mmap__push() reads the producer head before calling
-> perf_mmap__read_init(), which reads it again to select the range to copy.
+On Tue, 2026-10-20 at 09:18 -0700, Vineet Gupta wrote:
+> Linked-scalar equality is full-64-bit only, so a 32-bit mov from a source
+> with unknown high bits drops the relationship:
 >=20
-> If the producer advances between those reads, push() copies through the
-> newer head but stores the earlier head in prev. The next drain starts at
-> that earlier position and can write the same records to perf.data again.
+>   r6 =3D ...              /* full 64-bit unknown */
+>   w7 =3D w6               /* 32-bit zero-extending mov */
+>   if w6 !=3D 0 goto ...   /* not taken: r6's low 32 bits are 0 */
+>   if w7 =3D=3D 0 goto ...   /* not deduced today */
 >=20
-> Use the head selected by read_init(): end for forward buffers and start
-> for overwrite buffers. Save it before the copy loop advances start so
-> prev matches the range that was copied.
+> Record it with the kind the previous patch already provides.
+> BPF_REG_LINK_ZEXT, which is what BPF_ADD_CONST32 became, says exactly
+> what the mov did:
 >=20
-> Fixes: 8872481bd048 ("perf mmap: Introduce perf_mmap__read_init()")
-> Signed-off-by: Paul Moses <p@1g4.org>
+> 	dst =3D=3D (u32)(src + 0)
+>=20
+> However this changes the pre-existing semantics slightly:
+>=20
+> 	today    reg =3D=3D base + delta, base known to fit u32
+> 	here     reg =3D=3D (u32)(base + delta), for any base width
+>=20
+> Every link that forms today is over a narrow base, where the two
+> readings coincide, so nothing reachable now behaves differently; what is
+> new is that a wide base forms a link where it was previously refused
+> outright.
+>=20
+> This is done by dropping the guard:
+>=20
+> 	if (alu32 && (dst_umax > U32_MAX))
+> 		goto clear_id;
+>=20
+> What the wide base costs is invertibility of the high half: dst pins
+> src's low 32 bits and says nothing about the rest. So sync_linked_regs()
+> drives such a link forwards only.
+>=20
+> That also changes how a member is updated. Where the old code replaced
+> it with the base plus the delta difference, it now intersects the two: a
+> one-directional link leaves the member free to know more about itself
+> than the base does, and overwriting would discard that.
+>=20
+> Intersecting can come out empty, when the two sides contradict -- the
+> link pins only the low 32 bits, so the verifier can walk a branch where
+> they disagree about the rest. Empty is the correct answer, and a bad
+> shape to leave behind: reg_bounds_sync() declines to touch an empty
+> range and the next reg_bounds_sanity_check() reports a verifier bug that
+> is not one. Keep the pre-intersect state instead. Without that,
+>=20
+> 	w7 =3D w6;		/* r7 =3D=3D (u32)r6 */
+> 	if w7 !=3D 5 goto out;	/* r7 =3D=3D 5 */
+> 	if r6 !=3D 7 goto out;	/* explored: r6 is wide and unknown */
+> 	r9 =3D 0;
+> 	r7 %=3D r9;		/* validates r7 without recomputing it */
+>=20
+> prints a REG INVARIANTS VIOLATION and a WARNING from an ordinary socket
+> filter. zext_contradiction_keeps_range_sane covers it, and discriminates
+> only here: the later reverse-direction patch makes "if r6 !=3D 7"
+> statically false, so the branch is never walked at the tip.
+>=20
+> The patch also allows delta composition, once. "w3 =3D w0; w3 -=3D 1" is
+> ordinary codegen, and until now the subtract threw the link away: the
+> mov gives every zero-extending link a kind, and the test that refuses a
+> second delta could not tell a link that has one from a link that merely
+> has a kind. Let the zero-extending link, and only it, compose a single
+> 32-bit delta onto a delta of zero. The updated sub32_partial_overflow
+> dump is this case, its register now rendering as id=3DN-1.
+>=20
+> Composing any further is refused deliberately. Deltas are compared for
+> equality, so a link that keeps accumulating them turns every value a
+> loop reaches into a state of its own: on arena_strsearch allowing a
+> second delta costs 1176 -> 1751 insns and 102 -> 133 states, and
+> allowing it onto a zero delta that an add produced rather than the mov
+> still costs 1176 -> 1196. Neither buys a verdict.
+>=20
+> Forming a link re-bases a wide source, since
+> assign_scalar_id_before_mov() drops whatever link it carried; that costs
+> precision only.
+>=20
+> verifier_reg_equal's subreg_equality_2 becomes __success. It is the same
+> link with a 64-bit compare on the member: "w2 < 9" bounds r3 over all 64
+> bits, not just its low half, because the zero-extending mov leaves
+> nothing above them.
+>=20
+> Signed-off-by: Vineet Gupta <vineet.gupta@linux.dev>
 > ---
->  tools/perf/util/mmap.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/tools/perf/util/mmap.c b/tools/perf/util/mmap.c
-> index 358e70c4f3edd077c9752115329f29040f1c2a76..6dcc4a9304b926c4a8d4f401e=
-40bfd79d18dd199 100644
-> --- a/tools/perf/util/mmap.c
-> +++ b/tools/perf/util/mmap.c
-> @@ -330,7 +330,7 @@ int mmap__mmap(struct mmap *map, struct mmap_params *=
-mp, int fd, struct perf_cpu
->  int perf_mmap__push(struct mmap *md, void *to,
->  =09=09    int push(struct mmap *map, void *to, void *buf, size_t size))
->  {
-> -=09u64 head =3D perf_mmap__read_head(&md->core);
-> +=09u64 head;
->  =09unsigned char *data =3D md->core.base + page_size;
->  =09unsigned long size;
->  =09void *buf;
-> @@ -340,6 +340,7 @@ int perf_mmap__push(struct mmap *md, void *to,
->  =09if (rc < 0)
->  =09=09return (rc =3D=3D -EAGAIN) ? 1 : -1;
-> =20
-> +=09head =3D md->core.overwrite ? md->core.start : md->core.end;
->  =09size =3D md->core.end - md->core.start;
-> =20
->  =09if ((md->core.start & md->core.mask) + size !=3D (md->core.end & md->=
-core.mask)) {
-> --=20
-> 2.56.GIT
->=20
->=20
 
-This originally occurred while profiling packet flows and a duplicate
-marker was "luckily" detected by validation. It might be statistically=20
-insignificant to most workloads, but when looking at sequences, it is=20
-a real pain.
-
-Below is a more standardized reproduction of the bug than originally=20
-used.
-
-Let me know if anything else is needed.
-
-results:
-
-  unpatched=20
-  BUG: push=3D17274 copied=3D[120,144) saved_prev=3D120 replay_bytes=3D24
-  replay: records=3D64548 unique=3D49974 duplicates=3D14574 cursor_mismatch=
-es=3D14574 capture_bytes=3D1549152
-  replay: result=3DFAIL
-
-  patched=20
-  replay: records=3D49994 unique=3D49994 duplicates=3D0 cursor_mismatches=
-=3D0 capture_bytes=3D1199856
-  replay: result=3DPASS
-
-  Under GDB, two unpatched runs both reported the first push as:
-
-  BUG: push=3D0 copied=3D[0,48816) saved_prev=3D0 replay_bytes=3D48816
-
-
-# Force the two producer-head reads in perf_mmap__push() to straddle
-# producer progress. In the parent, the first read happens in
-# perf_mmap__push() and the second in perf_mmap__read_init(). The child is
-# detached and keeps sampling while GDB sleeps in the parent.
-#
-#   gdb -q -batch -x replay.gdb ./replay
-#
-# The breakpoint is disabled after its first hit so only the first push is
-# delayed.
-
-set pagination off
-set confirm off
-set follow-fork-mode parent
-set detach-on-fork on
-
-break perf_mmap__read_init
-commands
-  silent
-  disable
-  shell sleep 0.2
-  continue
-end
-
-run
-
-# Preserve the PASS/FAIL status as GDB's exit status.
-if $_exitcode !=3D 0
-  quit 1
-end
-quit
-
-
-
-/*
- * perf_mmap__push() saves a head older than the range it
- * copies, so the next push copies the same records again.
- *
- * A child runs a busy loop for five seconds. The parent samples it with
- * PERF_COUNT_SW_CPU_CLOCK, maps the real perf ring, and calls perf_mmap__p=
-ush()
- * while the child runs.
- *
- * Each successful forward push that copies data must leave
- * core.prev =3D=3D core.end.  The capture loop checks that invariant direc=
-tly.
- * Every copied segment is tagged with its push number, so duplicate record=
-s
- * identify the two pushes that copied them; the record hash includes the P=
-ID,
- * TID, and perf timestamp.
- *
- * replay.gdb widens the window between the two producer-head reads without
- * changing the implementation.
- *
- * Build:
- *   K=3D/usr/src/linux-7.x
- *   cc -O2 -g -ffunction-sections -fdata-sections -Wl,--gc-sections \
- *      -D_GNU_SOURCE \
- *      -I$K/tools/lib/perf/include -I$K/tools/lib/perf -I$K/tools/lib \
- *      -I$K/tools/include -I$K/tools/arch/x86/include \
- *      -I$K/tools/arch/x86/include/uapi -I$K/tools/include/uapi \
- *      -I$K/tools/perf -I$K/tools/perf/util \
- *      replay.c $K/tools/perf/util/mmap.c $K/tools/lib/perf/mmap.c \
- *      $K/tools/lib/perf/core.c $K/tools/lib/perf/lib.c \
- *      $K/tools/lib/zalloc.c -o replay
- */
-
-#include <errno.h>
-#include <inttypes.h>
-#include <linux/perf_event.h>
-#include <poll.h>
-#include <signal.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <sys/mman.h>
-#include <sys/syscall.h>
-#include <sys/wait.h>
-#include <time.h>
-#include <unistd.h>
-
-#include <perf/core.h>
-#include <perf/event.h>
-#include <perf/mmap.h>
-#include <internal/lib.h>
-#include <internal/mmap.h>
-#include "mmap.h"
-
-#define RING_PAGES=09128
-#define WORKLOAD_MS=095000
-#define SAMPLE_PERIOD_NS=09100000
-#define CAPTURE_TIMEOUT_MS 30000
-
-static volatile sig_atomic_t interrupted;
-
-static void interrupt_handler(int sig)
-{
-=09(void)sig;
-=09interrupted =3D 1;
-}
-
-struct push_seg {
-=09size_t=09=09off;
-=09unsigned long=09push;
-};
-
-struct capture {
-=09unsigned char=09*buf;
-=09size_t=09=09len;
-=09size_t=09=09cap;
-=09struct push_seg=09*segs;
-=09size_t=09=09nsegs;
-=09size_t=09=09segcap;
-=09unsigned long=09push;
-};
-
-struct rec {
-=09uint64_t=09hash;
-=09size_t=09=09off;
-=09uint32_t=09size;
-=09unsigned long=09push;
-};
-
-/* PERF_SAMPLE_TID | PERF_SAMPLE_TIME, in ABI order. */
-struct clock_sample {
-=09struct perf_event_header header;
-=09uint32_t pid, tid;
-=09uint64_t time;
-};
-
-static void die(const char *what)
-{
-=09fprintf(stderr, "%s: %s\n", what, strerror(errno));
-=09exit(1);
-}
-
-static int64_t now_ms(void)
-{
-=09struct timespec ts;
-
-=09if (clock_gettime(CLOCK_MONOTONIC, &ts) < 0)
-=09=09return -1;
-=09return (int64_t)ts.tv_sec * 1000 + ts.tv_nsec / 1000000;
-}
-
-static int worker_main(int ready_fd, int go_fd)
-{
-=09volatile uint64_t work =3D 0;
-=09int64_t now, deadline;
-=09char byte;
-
-=09if (write(ready_fd, "R", 1) !=3D 1)
-=09=09die("write ready");
-=09if (read(go_fd, &byte, 1) !=3D 1 || byte !=3D 'G') {
-=09=09fprintf(stderr, "worker did not receive start command\n");
-=09=09return 1;
-=09}
-
-=09now =3D now_ms();
-=09if (now < 0)
-=09=09die("clock_gettime");
-=09deadline =3D now + WORKLOAD_MS;
-=09do {
-=09=09unsigned int i;
-
-=09=09for (i =3D 0; i < 65536; i++)
-=09=09=09work++;
-=09=09now =3D now_ms();
-=09=09if (now < 0)
-=09=09=09die("clock_gettime");
-=09} while (!interrupted && now < deadline);
-=09return interrupted ? 1 : 0;
-}
-
-static int open_cpu_clock(pid_t pid)
-{
-=09struct perf_event_attr attr;
-=09int fd;
-
-=09memset(&attr, 0, sizeof(attr));
-=09attr.type =3D PERF_TYPE_SOFTWARE;
-=09attr.size =3D sizeof(attr);
-=09attr.config =3D PERF_COUNT_SW_CPU_CLOCK;
-=09attr.sample_period =3D SAMPLE_PERIOD_NS;
-=09attr.sample_type =3D PERF_SAMPLE_TID | PERF_SAMPLE_TIME;
-=09attr.disabled =3D 1;
-=09attr.exclude_kernel =3D 1;
-=09attr.exclude_hv =3D 1;
-
-=09fd =3D syscall(__NR_perf_event_open, &attr, pid, -1, -1, 0);
-=09if (fd < 0) {
-=09=09fprintf(stderr, "perf_event_open(%d): %s\n", pid, strerror(errno));
-=09=09return -1;
-=09}
-
-=09return fd;
-}
-
-static int map_ring(int fd, struct perf_mmap *map)
-{
-=09struct perf_mmap_param mp =3D {
-=09=09.prot =3D PROT_READ | PROT_WRITE,
-=09=09.mask =3D RING_PAGES * page_size - 1,
-=09};
-
-=09perf_mmap__init(map, NULL, false, NULL);
-=09if (perf_mmap__mmap(map, &mp, fd, (struct perf_cpu){ .cpu =3D 0 })) {
-=09=09fprintf(stderr, "perf_mmap__mmap: %s\n", strerror(errno));
-=09=09return -1;
-=09}
-=09refcount_set(&map->refcnt, 2);
-=09return 0;
-}
-
-static int capture_push(struct mmap *map, void *to, void *buf, size_t size)
-{
-=09struct capture *c =3D to;
-=09size_t cap;
-=09void *p;
-
-=09(void)map;
-=09if (!size)
-=09=09return 0;
-=09if (c->len + size < c->len)
-=09=09return -1;
-=09if (c->len + size > c->cap) {
-=09=09cap =3D c->cap ? c->cap : 65536;
-=09=09while (cap < c->len + size)
-=09=09=09cap *=3D 2;
-=09=09p =3D realloc(c->buf, cap);
-=09=09if (!p)
-=09=09=09return -1;
-=09=09c->buf =3D p;
-=09=09c->cap =3D cap;
-=09}
-=09if (c->nsegs =3D=3D c->segcap) {
-=09=09size_t segcap =3D c->segcap ? c->segcap * 2 : 4096;
-=09=09struct push_seg *segs;
-
-=09=09segs =3D realloc(c->segs, segcap * sizeof(*segs));
-=09=09if (!segs)
-=09=09=09return -1;
-=09=09c->segs =3D segs;
-=09=09c->segcap =3D segcap;
-=09}
-=09memcpy(c->buf + c->len, buf, size);
-=09c->segs[c->nsegs].off =3D c->len;
-=09c->segs[c->nsegs].push =3D c->push;
-=09c->nsegs++;
-=09c->len +=3D size;
-=09return 0;
-}
-
-static uint64_t hash_record(const unsigned char *p, size_t len)
-{
-=09uint64_t h =3D 1469598103934665603ULL;
-=09size_t i;
-
-=09for (i =3D 0; i < len; i++) {
-=09=09h ^=3D p[i];
-=09=09h *=3D 1099511628211ULL;
-=09}
-=09return h;
-}
-
-static int rec_cmp(const void *a, const void *b, void *arg)
-{
-=09const struct rec *ra =3D a, *rb =3D b;
-=09const unsigned char *buf =3D arg;
-
-=09if (ra->hash < rb->hash)
-=09=09return -1;
-=09if (ra->hash > rb->hash)
-=09=09return 1;
-=09if (ra->size < rb->size)
-=09=09return -1;
-=09if (ra->size > rb->size)
-=09=09return 1;
-=09return memcmp(buf + ra->off, buf + rb->off, ra->size);
-}
-
-static unsigned long push_for_offset(const struct capture *c, size_t off)
-{
-=09size_t lo =3D 0, hi =3D c->nsegs;
-
-=09while (lo < hi) {
-=09=09size_t mid =3D lo + (hi - lo) / 2;
-
-=09=09if (c->segs[mid].off <=3D off)
-=09=09=09lo =3D mid + 1;
-=09=09else
-=09=09=09hi =3D mid;
-=09}
-=09return lo ? c->segs[lo - 1].push : 0;
-}
-
-static uint64_t time_of(const unsigned char *rec)
-{
-=09struct clock_sample sample;
-
-=09memcpy(&sample, rec, sizeof(sample));
-=09return sample.time;
-}
-
-static int report(const struct capture *c, unsigned long cursor_mismatches)
-{
-=09struct rec *recs =3D NULL;
-=09size_t nrec =3D 0, cap =3D 0, off =3D 0;
-=09unsigned long total =3D 0, unique =3D 0, duplicates =3D 0;
-=09int shown =3D 0;
-=09size_t i;
-
-=09while (off + sizeof(struct perf_event_header) <=3D c->len) {
-=09=09struct perf_event_header hdr;
-
-=09=09memcpy(&hdr, c->buf + off, sizeof(hdr));
-=09=09if (hdr.size < sizeof(hdr) || hdr.size > c->len - off)
-=09=09=09break;
-=09=09if (hdr.type =3D=3D PERF_RECORD_SAMPLE) {
-=09=09=09if (hdr.size !=3D sizeof(struct clock_sample))
-=09=09=09=09break;
-=09=09=09total++;
-=09=09=09if (nrec =3D=3D cap) {
-=09=09=09=09cap =3D cap ? cap * 2 : 4096;
-=09=09=09=09recs =3D realloc(recs, cap * sizeof(*recs));
-=09=09=09=09if (!recs)
-=09=09=09=09=09die("realloc records");
-=09=09=09}
-=09=09=09recs[nrec].hash =3D hash_record(c->buf + off, hdr.size);
-=09=09=09recs[nrec].off =3D off;
-=09=09=09recs[nrec].size =3D hdr.size;
-=09=09=09recs[nrec].push =3D push_for_offset(c, off);
-=09=09=09nrec++;
-=09=09}
-=09=09off +=3D hdr.size;
-=09}
-
-=09if (off !=3D c->len) {
-=09=09fprintf(stderr, "invalid or truncated perf record at byte %zu\n", off=
-);
-=09=09free(recs);
-=09=09return 1;
-=09}
-=09if (!total) {
-=09=09fprintf(stderr, "no cpu-clock samples captured\n");
-=09=09free(recs);
-=09=09return 1;
-=09}
-
-=09qsort_r(recs, nrec, sizeof(*recs), rec_cmp, c->buf);
-
-=09for (i =3D 0; i < nrec; i++) {
-=09=09if (!i || rec_cmp(&recs[i - 1], &recs[i], c->buf)) {
-=09=09=09unique++;
-=09=09=09continue;
-=09=09}
-=09=09duplicates++;
-=09=09if (!shown) {
-=09=09=09struct rec *a =3D &recs[i - 1], *b =3D &recs[i];
-
-=09=09=09printf("replay: identical record at %zu (push %lu) and "
-=09=09=09       "%zu (push %lu), size=3D%u time=3D%" PRIu64 " memcmp=3D0\n"=
-,
-=09=09=09       a->off, a->push, b->off, b->push, a->size,
-=09=09=09       time_of(c->buf + a->off));
-=09=09=09shown =3D 1;
-=09=09}
-=09}
-
-=09printf("replay: records=3D%lu unique=3D%lu duplicates=3D%lu "
-=09       "cursor_mismatches=3D%lu capture_bytes=3D%zu\n",
-=09       total, unique, duplicates, cursor_mismatches, c->len);
-=09printf("replay: result=3D%s\n",
-=09       duplicates || cursor_mismatches ? "FAIL" : "PASS");
-=09free(recs);
-=09if (fflush(stdout) =3D=3D EOF || ferror(stdout)) {
-=09=09fprintf(stderr, "failed to write replay report\n");
-=09=09return 1;
-=09}
-=09return duplicates || cursor_mismatches ? 1 : 0;
-}
-
-int main(void)
-{
-=09struct capture c =3D { 0 };
-=09struct mmap md =3D { 0 };
-=09int ready[2], go[2];
-=09pid_t worker;
-=09int fd =3D -1, status, worker_done =3D 0, empty =3D 0, result =3D 1;
-=09size_t last =3D 0;
-=09unsigned long pushes, cursor_mismatches =3D 0, mismatch_prints =3D 0;
-=09int64_t deadline;
-=09struct sigaction sa =3D { .sa_handler =3D interrupt_handler };
-
-=09libperf_init(NULL);
-=09sigemptyset(&sa.sa_mask);
-=09sigaction(SIGINT, &sa, NULL);
-=09sigaction(SIGTERM, &sa, NULL);
-=09signal(SIGPIPE, SIG_IGN);
-
-=09if (pipe(ready) || pipe(go))
-=09=09die("pipe");
-
-=09worker =3D fork();
-=09if (worker < 0)
-=09=09die("fork");
-=09if (!worker) {
-=09=09close(ready[0]);
-=09=09close(go[1]);
-=09=09_exit(worker_main(ready[1], go[0]));
-=09}
-
-=09close(ready[1]);
-=09close(go[0]);
-=09{
-=09=09struct pollfd pfd =3D { .fd =3D ready[0], .events =3D POLLIN };
-=09=09char byte;
-
-=09=09if (poll(&pfd, 1, 10000) <=3D 0 ||
-=09=09    read(ready[0], &byte, 1) !=3D 1 || byte !=3D 'R') {
-=09=09=09fprintf(stderr, "worker did not become ready\n");
-=09=09=09goto out;
-=09=09}
-=09}
-
-=09fd =3D open_cpu_clock(worker);
-=09if (fd < 0)
-=09=09goto out;
-=09if (map_ring(fd, &md.core))
-=09=09goto out;
-=09if (ioctl(fd, PERF_EVENT_IOC_ENABLE, 0) < 0) {
-=09=09perror("ENABLE");
-=09=09goto out;
-=09}
-
-=09if (write(go[1], "G", 1) !=3D 1) {
-=09=09perror("write go");
-=09=09goto out;
-=09}
-
-=09deadline =3D now_ms() + CAPTURE_TIMEOUT_MS;
-=09for (pushes =3D 0; ; pushes++) {
-=09=09size_t before =3D c.len;
-=09=09uint64_t old_prev =3D md.core.prev;
-=09=09int ret;
-
-=09=09c.push =3D pushes;
-=09=09ret =3D perf_mmap__push(&md, &c, capture_push);
-
-=09=09if (interrupted) {
-=09=09=09fprintf(stderr, "capture interrupted\n");
-=09=09=09goto out;
-=09=09}
-=09=09if (ret < 0) {
-=09=09=09fprintf(stderr, "push failed: %d\n", ret);
-=09=09=09goto out;
-=09=09}
-=09=09if (ret =3D=3D 0 && c.len > before && md.core.prev !=3D md.core.end) =
-{
-=09=09=09cursor_mismatches++;
-=09=09=09if (mismatch_prints++ < 5)
-=09=09=09=09fprintf(stderr,
-=09=09=09=09=09"BUG: push=3D%lu copied=3D[%" PRIu64 ",%" PRIu64
-=09=09=09=09=09") saved_prev=3D%" PRIu64
-=09=09=09=09=09" replay_bytes=3D%" PRIu64 "\n",
-=09=09=09=09=09pushes, old_prev, (uint64_t)md.core.end,
-=09=09=09=09=09(uint64_t)md.core.prev,
-=09=09=09=09=09(uint64_t)(md.core.end - md.core.prev));
-=09=09}
-=09=09if ((pushes & 0x3ff) =3D=3D 0) {
-=09=09=09int64_t now =3D now_ms();
-=09=09=09pid_t pid =3D 0;
-
-=09=09=09if (now < 0 || now >=3D deadline) {
-=09=09=09=09fprintf(stderr, "capture timed out\n");
-=09=09=09=09goto out;
-=09=09=09}
-=09=09=09if (!worker_done)
-=09=09=09=09pid =3D waitpid(worker, &status, WNOHANG);
-=09=09=09if (pid =3D=3D worker) {
-=09=09=09=09worker_done =3D 1;
-=09=09=09=09if (!WIFEXITED(status) || WEXITSTATUS(status)) {
-=09=09=09=09=09fprintf(stderr, "worker failed: %d\n", status);
-=09=09=09=09=09goto out;
-=09=09=09=09}
-=09=09=09} else if (pid < 0 && errno !=3D EINTR) {
-=09=09=09=09perror("waitpid worker");
-=09=09=09=09goto out;
-=09=09=09}
-=09=09}
-=09=09if (worker_done) {
-=09=09=09if (c.len =3D=3D last) {
-=09=09=09=09if (++empty > 1000)
-=09=09=09=09=09break;
-=09=09=09} else {
-=09=09=09=09empty =3D 0;
-=09=09=09}
-=09=09=09last =3D c.len;
-=09=09}
-=09}
-
-=09if (ioctl(fd, PERF_EVENT_IOC_DISABLE, 0) < 0) {
-=09=09perror("DISABLE");
-=09=09goto out;
-=09}
-=09result =3D report(&c, cursor_mismatches);
-out:
-=09if (!worker_done) {
-=09=09kill(worker, SIGKILL);
-=09=09while (waitpid(worker, &status, 0) < 0 && errno =3D=3D EINTR)
-=09=09=09;
-=09}
-=09if (md.core.base)
-=09=09perf_mmap__munmap(&md.core);
-=09if (fd >=3D 0)
-=09=09close(fd);
-=09close(ready[0]);
-=09close(go[1]);
-=09free(c.buf);
-=09free(c.segs);
-=09return result;
-}
-
+Please revisit comments in this patch, maybe as a follow-up.
+They are too wordy and, at times, hard to comprehend.
+
+Acked-by: Eduard Zingerman <eddyz87@gmail.com>
+
+...
+
+> @@ -18485,6 +18534,27 @@ static void sync_linked_regs(struct bpf_verifier=
+_env *env, struct bpf_verifier_s
+>  			if (reg->link_kind =3D=3D BPF_REG_LINK_ZEXT ||
+>  			    known_reg->link_kind =3D=3D BPF_REG_LINK_ZEXT)
+>  				zext_32_to_64(reg);
+> +			/*
+> +			 * Intersect rather than overwrite. A BPF_REG_LINK_ZEXT
+> +			 * link over a wide base does not propagate back, so the
+> +			 * base can be wider than what @reg has already proved
+> +			 * about itself; replacing it would lose that.
+> +			 */
+> +			cnum64_intersect_with(&reg->r64, prev.r64);
+> +			cnum32_intersect_with(&reg->r32, prev.r32);
+> +			reg->var_off =3D tnum_intersect(reg->var_off, prev.var_off);
+> +			/*
+> +			 * An empty intersection means the two sides contradict,
+> +			 * so this path is unreachable. Say nothing rather than
+> +			 * say it with an empty range: reg_bounds_sync() below
+> +			 * refuses to touch one, and the first later
+> +			 * reg_bounds_sanity_check() would report it as a
+> +			 * verifier bug, which it is not. Keeping the wider
+> +			 * pre-intersect state only costs precision on a path
+> +			 * that cannot be taken.
+> +			 */
+> +			if (range_bounds_violation(reg))
+> +				*reg =3D prev;
+
+I'm not a fan, tbh.
+As a followup, I'd suggest a wider refactoring:
+- get rid of is_scalar_branch_taken() (or most of it?)
+- branch unconditionally;
+- apply regs_refine_cond_op() for every branch;
+- apply sync_linked_regs() for every branch;
+- check if one of the branches is has registers with empty ranges and
+  avoid exploring it.
+
+>  			reg_bounds_sync(reg);
+>  		}
+>  		if (e->is_reg)
+
+...
