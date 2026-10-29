@@ -1,103 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.60
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793266267;
-	b=ivAjcab/4ntow9AGErBbne+W+wJ+p/zlDvfbrOZVPOXpYlHnQGE1w5s1p6HQPOmMawzt
-	 lmg6XcumpbMZ61lrkV/HCw3E57+o9jTHi9epV1VXNl38XlKVQhxQ+z8cAsFMvrNqP0qw4
-	 LVpAhhcGzNiNXZsgTcgT/7NqAkwQ8dCxNB38+0svPQdTOYrPZlRG4a9wa8SI7Iable7/0
-	 Jp1QbXX2SK6apvtFaozzMt+IY9w194BVaF8QbRggS4XKPjWDDIetxjBnbZllvf53PbSC+
-	 pspP1TnlKVIJIz6/H3COn6gnjtJuorKaVQyeRIvpaAgtNDUlo53wyWZnoEiolU/bprw==
+	t=1793266271;
+	b=JQ2CfFyRsYX+3trnGPB2AeLLXQAfUqGeurzYFIPyfK28SgzGFDkdC3cRCTuamO/WLppo
+	 6HptSd+82dNZA6RkRWq6tLFaEOXjMnpHS/n5Df+9KXpvfd8pVirqdsTvle3BtDOUBW0QE
+	 omL1EiATZqAlNKvL7AjELhQx274B5oSapGjFxfbiB15I6FIw9Hxrjy5XlIiM/SpLVVNoj
+	 P+bMAunJZE7QB6v4/FZm7fj04VGwhXDErUK/ZmSppg8dxvoA3YqedvtR7BbCiO9Rd15te
+	 /6enC/x4XhCkpPXciRqcwAYDpbnOI9xZPnFXJiXh7E8TAMJ4Ywe+XCnePURmOTsxHgA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266267;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=I3f4JlL/Lq4UVK+KUuf9gsC2xhpreisQLjDZzyrloJ4=;
-	b=kC6N8KarRHo1hiQ5OwplJZlUlO07w/gksk2rHqcV64NlfMdwrBqGuiDD7HbZSdPxUTkg
-	 gu8Y5CW0pw2u2dCxwTDyqq8xyW0BdBkGUSvBhEGEyxci89psfi9gTh8uuAyz6m7RAfQFE
-	 O9UG6IkoCzhNjGxzUhtFEuQlVM4oTIYKBRS1fHAzvTL3SngDiDBSNxbbYNYIziuOov+Qy
-	 KA72gxV99oiLOV/5H7QrQm9qhI38ZVlAbqRq+GE+SWDF8jpI7P46eiAqRtJZC3w865kpY
-	 d4lHCo94xMQIu6YUqEhu6RSKh1h/ijqd7GkBti/OqtLwOCX3HBj45KrdZDfPTjMLKiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266271;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=WKoIHNQScpy/6jyYcISkmFBovpn5jhX4t3E1zsauVh0=;
+	b=eCA8NZc67Nfs1zcwBEV44OqE2YIbyfxvsdsfkmmuX3pqLFkydIm4hbQZ2Iy/fDa/QdOH
+	 V6DkmfG2o1DIWu8Xah+DBa6bL2ZSGENE+OHhtQNyW5+5QdLrLGWfVMDycVlEDsYBUS96F
+	 9VPhHZu5aVAiyEMqi1Ow626/ic/QdJ1qAzZj1FKR3HzujaUEwPynbyt8bcGJs0dqFQ0q4
+	 bjwfkDb0R1xSw9ka1hxLOkjQ9wcW+aTwSJ6d6gg6FEUKV4wbvhQezDrSMAS8kLKdQFrF7
+	 ET/OjNB/e+1IdhV2XIiJ6ukK+hR8vUilrcAcevZM+TW5t3lfTp+j5oQjdKZswh84mfw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="t7K6/Lh1";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.60
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011060.outbound.protection.outlook.com [52.101.65.60])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=km4EiAhP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6FC606A321;
-	Thu, 29 Oct 2026 09:31:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D6FC606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7F4606A31F;
+	Thu, 29 Oct 2026 09:31:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=t7K6/Lh1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jb8o202vnRpao99yvaCDz+LGP3N0wc7078OOHcn0z/xxhjkqGOAFDkR/Xds8lVoz11DF84Mx6LEgaNC+jtT4AvWA34shM12xF6EvA3ozQ9LXpSel9xloi/Y7dRmWjXRbo8YgWdzvfBhaG0Z7v2nYq3ceEDGsgEKo+MU8H+WFQbAoxV5lnCcGKIgCRUnvocNM73YELfdhhduZBlmMWRg7UPFFzvOYStPjA36p73AaWcLZ792j88DWeF33gqR1TdA9nttifkSFoJYkC3iuCcEIgiRCVlYiBfgC/54jsa6Kd3kfF+movGUFSUocSi4Rv98wbWpKnauhyWVTWj7oAR1V/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I3f4JlL/Lq4UVK+KUuf9gsC2xhpreisQLjDZzyrloJ4=;
- b=IUS/vTfLbv38r24Y1AI5ujgkJui/n5MWwtEwPGCUfch9wdEA4leFEYLm9jsvvlHQOm+5EpFrTLo4q6JkMMd6VunrPu5YJbLtdqSKup6qqNtRE4LSgqmkHxTDOTvsxnhB+KXT78P+iERo/dw5R6egamOXPYjTauTh7d3r+WJbPnjQFanklZT/oP+MMJpAY2cB+YII1JMSmK0Dn20xtGewDbiuUBrAw8wMsCQPPWBl6bSju0LKJbfL2g8rXu/+59rud/FCzeUmRS+x51068A6sSaS3EW2MaJqgBNAGiU+ew7Lh50u1MDjfHENilLSHeDAm0unhwWAWgSXEdgFXF6v1RQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I3f4JlL/Lq4UVK+KUuf9gsC2xhpreisQLjDZzyrloJ4=;
- b=t7K6/Lh1fRu0TEM2q0WNKqG6IjQyabJrbqXSjEabPfRhMAUba/nheA3jHuq7my2GUn26VFeeOnHgAPzJeK7XQcYVLURBOfGqkJLxl4CeoB603kfNIImqp8UaWjAd9DQCpquYmVSSKUwveIh8nDhHg5dgyeGhnMACxDeOkBVGeXaPf21QWOo58yA3xeVNsaFdqupAfn4P65aC0AwYbkfXUUq6aXHmU1QmpUaxFbI/iDab6BGikE2C/as2/etWzwDnVjuXm0iqG02a3p9bnHJKshsQOqyzCrtDXmSxBGW2qzvjatrCuU/vZsvzisfGIkrxdEAYdkrAXZEIfiV16A5n6Q==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by GVXPR04MB10681.eurprd04.prod.outlook.com
- (2603:10a6:150:226::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 09:31:01 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
- 09:31:01 +0000
-Date: Thu, 29 Oct 2026 11:30:55 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v7 07/15] drm/imx: dc: Add PRG support
-Message-ID: <auMIsiZ5ARIl-6N6@vm>
-References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
- <20261026-imx8-dc-prefetch-v7-7-a0b50cc4fc65@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-imx8-dc-prefetch-v7-7-a0b50cc4fc65@nxp.com>
-X-ClientProxiedBy: AM8P191CA0008.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:20b:21a::13) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=km4EiAhP
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793266271;
+	b=TXyNMuaCNeNaO8Qucc7LjDBuY7zMelV+v8QgpClXxeJns+SF9YdMl91uxMK/hXoO/PiG
+	 I4Bwt25+59bbIX95YJDyrYbqQFOBGuR3f2jnH2VNui8c3MnuFkTwZgCqJ9A1IvwMPWV9x
+	 0kKMVp9gjqZkfkHhjBdZKo3s4RwzhZxaGQKKK2MgtOEReiYfm4eybSKNHSX6jlaqU/h2y
+	 TeAhMH+44zp8P8SMfumZnCQQPRIacNwgAB5OPzdGlGPTWxmw8Tp1FgH1Ddu37L5dREome
+	 9srnce/LforvBidzZjQmDJdvrDIUlorDO8Gtp/iWmTKC/92o9DJ6Ba5bpryINPCThbg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793266271;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=WKoIHNQScpy/6jyYcISkmFBovpn5jhX4t3E1zsauVh0=;
+	b=M+mMdog7vJZC6BXpCtNAXbPKW2DuncWbmDdDTN2k9QV/KXLVBzjGtrhmEXWNXq05UBsl
+	 c/q4dr5eJGFegYC6vimv3DrE6tLK6NjPORXe188OLXkwkaIYmXpzAhF/7f+F2t9580wod
+	 qelInBhl5IUMKwLiVYm+Yrd2JrgZDmoWHvC4NN7+lyS2ddKRwHP1aKQHga58Enk3uq07C
+	 xabeNCi5CbvxiPvwaMH5C/VsR15XI0kMILiChkhHh52jr3LdAxjBKjE6Dd5OVDrqFBPGh
+	 gANSx0yWDTi8lorTF5U/6eZ2jK7USvAdpovUd8nIREEJWkWXO41GsOOuxiqY38+L6iw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 944F91F031E6;
+	Thu, 29 Oct 2026 09:31:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793266271;
+	bh=WKoIHNQScpy/6jyYcISkmFBovpn5jhX4t3E1zsauVh0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=km4EiAhPzDgplHhs85Mbi1mEkL5f9DckOs5PV9ke8Obtgb7nilljYsYdFSRK1gRvH
+	 JJO78ZM5GeEvCGJ4dLz2BU62LzYuxxZez3uOLhxDp/TxkMYWb/wyJR0BVGmqxAueW1
+	 YfUc8jy8wCtv8DBFegzAYQyDrhdDZM0cG93fPoJRLZbS4zriMZVkXLlioFrX5Pj74Y
+	 /NsDeAABzxqaQ4I6yC6HPW2ufqEp5+hKhMM4bq2FpCvIa3CJXIAE/ZkLbxKF8TfrXb
+	 xuiIYIrDDaPC/OVt41Uo9YcS8CNIXBYYm8Kz6YHAXTMzZ4BxSSVTydEDG84PPpXiOz
+	 qJ8ydD9HmdcFw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 27799457A7;
+	Thu, 29 Oct 2026 09:31:09 +0000 (UTC)
+From: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
+Date: Thu, 29 Oct 2026 17:30:52 +0800
+Subject: [PATCH RFC RFT v2 1/3] dt-bindings: clock: amlogic: Add PLL
+ pre-divider clock IDs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,271 +83,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|GVXPR04MB10681:EE_
-X-MS-Office365-Filtering-Correlation-Id: f47da405-a5ea-425a-2ffc-08df359f588d
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|19092799006|11063799006|4143699003|56012099006|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	iZn+lFjfmRuP3W461T1zBwQ2xfj3hPwXKyeusrNBGsIRhy15Hn8cVADBdGH/AQhBre7m696r5RVhROSQThg+daGVntjGgKHwvhDYoAdbp5i/7KRhniyB0pKMuxQGJBkEO3bcElIGZpyK/GOEtd1GNMalMUAZmj5MQp1ARvIBmKNEVmXYYQV/oAFCZTpxqDJyj6d/a26NnRqpRLGDOE5m8fiOLkPOoXM89J9w6MXYUBHA0QlEUKtnIO0qbEtPhDrW1xg8a7r2hr+jovR3rxy7fOJ9h8+sDdW5eJeYqiJjqkFxgWvCsi9ZgVYTFTsnf+jVGVPV9awRxa7sz2uh9/5hAwIyDYRQrZ5LBBEB7BfQhijIkUBWAL9c2aueLYAdD+w8BeEdH1rDyrK7k62G3g76Asq47fjqP+AhWEcRIKKcRwfq5X3WXCw+5Jctw4y7j2GG3FCtlGSGLwDBYSDjSopAOVbeb5koiNPBo80JOamkYAYVG9l17pDnuq/9ykq35eyIyxYFRI9K681dnPl9HpMfCZJ9Zg8KSNLozZ00990XlLfYzhohIYwNeTH1PUSJlF/pBtyPCVmJXP+VYNkPr6CM+un7oBNcjNVgFJc0VPTrfCayK7db8ZwZSDQ0y8IoucKSBxO8eRh7nUjCbAanGrDCOy+eQo/yZjmGATy0GwHvCGs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(19092799006)(11063799006)(4143699003)(56012099006)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NV0eyPMUt28vYbrnt5JhAsuNP9ErThw3XEctk31ut0kMEfjYh2WPNsFpMT8R?=
- =?us-ascii?Q?tD1BKcCufYi1fs9vJWF8fPSnhLU4Lp0b3C7UtSdARXAqLKM6QjUp7gkWTCq8?=
- =?us-ascii?Q?DSB3/Wc0hMWeICMRMVColfnC6k1l/6F2pxhMnjus294WzE/u3mM6WBHFLJLa?=
- =?us-ascii?Q?LemBxvKua475P3/oBnhqYTgF8DWQeHBHOyj1rQRHsqxBvWR2AH6Fv9k8TtKD?=
- =?us-ascii?Q?rD1nNRxP+cEXgYmW6PLCx8SRl4HQy+KvwRn5u2MFShdpwzqam/cPlfQdIO0O?=
- =?us-ascii?Q?3zqIpJjjCMifRyNJCyYEa1a2taLBi+rZeWBb0KVD/qbGP5xWT114K0tT70OP?=
- =?us-ascii?Q?bT96sWDo9428eDr0GuLJUJCyMoBIzuBmtqMswRiS6S8YHOXkmtHabbs8ISC2?=
- =?us-ascii?Q?zKNtJm55cWJ6rGseu4e7stHqIeYW/nAvk9K2yaKuydQFr+ir2nwjplFWw1t3?=
- =?us-ascii?Q?kUEYgEtA984cKlkTb+OKD3E9yGBuURSefZKNcdFjGiZNmAaOGKvmixYTBu7B?=
- =?us-ascii?Q?PfGRp0K8GMG87jWhKaGXFu7S/RAkTSWyrUBm5pGdNWFLuJMd31hk4FMdFzte?=
- =?us-ascii?Q?cpkJxDS4pb9aH7eEkF7Kxr9RFOWEzr4GEZs2nZVJpdZ8KlK0xxg0SRq/5FtA?=
- =?us-ascii?Q?4y0FiEmtRgaGLhWxENvbkb2Vo1cRHltGDQrjELvNy0vxK7ZaG07NQdwnM3KP?=
- =?us-ascii?Q?jbMqAZne/FXAZr8+U+j4AMynIhEbbxsj2neLCkDPa04jwFMLfFiPjR7c1rW1?=
- =?us-ascii?Q?7iw9teTeYyteQynM3/gu02CamfHvbqApQvCO7TF/ri2ttZBtm0octF8I9esd?=
- =?us-ascii?Q?+sulHKINi4b4M+lG5yVJUVvKNimtWFRsTX8iBV1+OtXaxraNnqg8P25CiI5w?=
- =?us-ascii?Q?jpAtD69pZNr05qiiUM+x6R1M4cQkDHo3F+yYmkLPqhziivBxWHRbBALqPSSP?=
- =?us-ascii?Q?Cmdu5UpqqD2qbn/Qbvrwwtssr5VVaO6F0BJFcVp9N1Yeyp8Lqa/yj8uN6kx6?=
- =?us-ascii?Q?NURKZtLsxSfVkSGwY+ZH34RHPLI7tI+NpRUCKhKqUfquwR8mItSemLpbYO4k?=
- =?us-ascii?Q?v6xDGIDLAu+PimILcTFru/oPpfNIHiSU7FnBU+ZjTpe0roEvmO+Lf3leoyII?=
- =?us-ascii?Q?SuqWu5BJfU8N+GS2QbEgn9Q/iJiIsliEyhG0sMm+uTWfb9gNygUT5j3Fj5GC?=
- =?us-ascii?Q?bk9pUX9hHAInXuojVPhT/6uCZuVyDSoPYq+vKqi7jH0zRzkr5soHev94Q5q7?=
- =?us-ascii?Q?ExDtNluyAPGYCQP3dbMJVY8o8ZuAoR0l2nig15XMemFnnzi6CBYSKpvfjhf+?=
- =?us-ascii?Q?dERcphMYlaImxO5YJHFnTpr27bLUvXVNskxMugOJmQpV3Ib3+1X+sAOX1GAX?=
- =?us-ascii?Q?q9wgo6muWyiEmNIillzyng9Gz6GLqiIDXyefTt/rQyMFJyAYY7rNW1F1BhSq?=
- =?us-ascii?Q?HIGtj0+owlC/6kEj1s+6bAUDBBE9Z5wRwC5Ah/INvgYc7rJyVXrDfLf9WTU1?=
- =?us-ascii?Q?vSNPBLG7Jdp0sXubKW3TT9Xu79bMCNPVsaIraMj4UzJn/c0e1CRqzxtVZHaU?=
- =?us-ascii?Q?XDMMIQ691QsJa67KMfmFkPZSWpiTHCisdyt/feiF4te4uyvFJ73BmYSwm2Fx?=
- =?us-ascii?Q?jNfisaOAiITlp4CTLNe/BPbo+/iNwWvPps+UczswwHRZ29UG+LjFQ+MMTsdT?=
- =?us-ascii?Q?JxQi4q+ccSohbCmqtVhW2hK1zjgFUowOw2htmqwapoqDXeVTkZgeFfdIV/3n?=
- =?us-ascii?Q?ah6TOCnQDZ49aTeK5WSd/iJqcgs6v7M=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f47da405-a5ea-425a-2ffc-08df359f588d
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 09:31:01.3345
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X3bQPzMVrhJSjHaKwSCL7jOOKVM/vadAkpnYFDmPBaFB2kiz5fJYr3/BHEQar+fZeAhjmqZVxYP5hFvhn15nug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10681
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261029-meson_refactor_n-v2-1-ff4ac74e527b@amlogic.com>
+References: <20261029-meson_refactor_n-v2-0-ff4ac74e527b@amlogic.com>
+In-Reply-To: <20261029-meson_refactor_n-v2-0-ff4ac74e527b@amlogic.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Jian Hu <jian.hu@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793266267; l=6174;
+ i=jian.hu@amlogic.com; s=20260415; h=from:subject:message-id;
+ bh=NhD9+CXL9tRSS4fVfLHNmQWwe4J418AMvGpnb3FP5WA=;
+ b=qAdesZJO1XCIOuoxCthYPtYVCo//JFzOXPg6eLoiDq5SqM4tdOsTBeMKe903dUHAe45fXUDQH
+ wR++V2WYoz3AzsI7KyeaGUYvUXtaJ43E210hr1gczcj0HSFwSrE6UXk
+X-Developer-Key: i=jian.hu@amlogic.com; a=ed25519;
+ pk=zHUE+rNtH9z+Sb8au1/elWknjFQmy5QDVkBoxleuOIA=
+X-Endpoint-Received: by B4 Relay for jian.hu@amlogic.com/20260415 with
+ auth_id=735
+X-Original-From: Jian Hu <jian.hu@amlogic.com>
+Reply-To: jian.hu@amlogic.com
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 06:05:12PM +0800, Liu Ying wrote:
-> Display Prefetch Resolve Gasket(PRG) is a part of a FetchUnit's
-> prefetch engine.  It sits between a Display Prefetch Resolve
-> Channel(DPRC) and a FetchUnit.  Add a platform driver to support
-> the PRG.
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Acked-by: Maxime Ripard <mripard@kernel.org>
-> Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> ---
-> v7:
-> - Collect Maxime's A-b tag.
-> - Return 128B burst size from dc_prg_burst_size_fixup() when baddr == 0.
->   This avoids undefined behavior of __ffs(0).  (Sashiko AI bot)
-> - Initialize and declare prg_node at the same time.  (Sashiko AI bot)
-> - Add device link between PRG's consumer and PRG.  (Sashiko AI bot)
-> 
-> v6:
-> - Include "dc-drv.h" to avoid build warning with C=1.
-> - Fix PRG BYPASS programming.
-> 
-> v4:
-> - Sort bits and bitfields in descending order for register PRG_CTRL.
-> 
-> v2:
-> - Manage clocks with bulk interfaces.  (Frank)
-> - Collect Frank's R-b tag.
-> ---
->  drivers/gpu/drm/imx/dc/Makefile |   2 +-
->  drivers/gpu/drm/imx/dc/dc-drv.c |   1 +
->  drivers/gpu/drm/imx/dc/dc-drv.h |   1 +
->  drivers/gpu/drm/imx/dc/dc-prg.c | 314 ++++++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/imx/dc/dc-prg.h |  35 +++++
->  5 files changed, 352 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/imx/dc/Makefile b/drivers/gpu/drm/imx/dc/Makefile
-> index b9d33c074984..e3a06ee3ce1a 100644
-> --- a/drivers/gpu/drm/imx/dc/Makefile
-> +++ b/drivers/gpu/drm/imx/dc/Makefile
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0
->  
->  imx8-dc-drm-objs := dc-cf.o dc-crtc.o dc-de.o dc-drv.o dc-ed.o dc-fg.o dc-fl.o \
-> -		    dc-fu.o dc-fw.o dc-ic.o dc-kms.o dc-lb.o dc-pe.o \
-> +		    dc-fu.o dc-fw.o dc-ic.o dc-kms.o dc-lb.o dc-pe.o dc-prg.o  \
->  		    dc-plane.o dc-tc.o
->  
->  obj-$(CONFIG_DRM_IMX8_DC) += imx8-dc-drm.o
-> diff --git a/drivers/gpu/drm/imx/dc/dc-drv.c b/drivers/gpu/drm/imx/dc/dc-drv.c
-> index 09387d62cc0b..1d01f896e427 100644
-> --- a/drivers/gpu/drm/imx/dc/dc-drv.c
-> +++ b/drivers/gpu/drm/imx/dc/dc-drv.c
-> @@ -351,6 +351,7 @@ static struct platform_driver * const dc_drivers[] = {
->  	&dc_ic_driver,
->  	&dc_lb_driver,
->  	&dc_pe_driver,
-> +	&dc_prg_driver,
->  	&dc_tc_driver,
->  	&dc_driver,
->  };
-> diff --git a/drivers/gpu/drm/imx/dc/dc-drv.h b/drivers/gpu/drm/imx/dc/dc-drv.h
-> index 1ec9304329eb..27ef2c552549 100644
-> --- a/drivers/gpu/drm/imx/dc/dc-drv.h
-> +++ b/drivers/gpu/drm/imx/dc/dc-drv.h
-> @@ -81,6 +81,7 @@ extern struct platform_driver dc_fw_driver;
->  extern struct platform_driver dc_ic_driver;
->  extern struct platform_driver dc_lb_driver;
->  extern struct platform_driver dc_pe_driver;
-> +extern struct platform_driver dc_prg_driver;
->  extern struct platform_driver dc_tc_driver;
->  
->  static inline int dc_subdev_get_id(const struct dc_subdev_info *info,
-> diff --git a/drivers/gpu/drm/imx/dc/dc-prg.c b/drivers/gpu/drm/imx/dc/dc-prg.c
-> new file mode 100644
-> index 000000000000..43df5683b24d
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dc/dc-prg.c
-> @@ -0,0 +1,314 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Copyright 2025 NXP
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/bitops.h>
+From: Jian Hu <jian.hu@amlogic.com>
 
-This header can be removed.
+Add clock IDs for the PLL pre-divider clocks. These IDs are
+required for the subsequent conversion of the PLL pre-divider
+into a standalone divider clock following the PLL framework refactoring.
 
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/list.h>
-> +#include <linux/module.h>
+Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+---
+ include/dt-bindings/clock/amlogic,a1-pll-clkc.h | 3 +++
+ include/dt-bindings/clock/amlogic,c3-pll-clkc.h | 3 +++
+ include/dt-bindings/clock/amlogic,s4-pll-clkc.h | 4 ++++
+ include/dt-bindings/clock/amlogic,t7-pll-clkc.h | 6 ++++++
+ include/dt-bindings/clock/axg-clkc.h            | 5 +++++
+ include/dt-bindings/clock/g12a-clkc.h           | 8 ++++++++
+ include/dt-bindings/clock/gxbb-clkc.h           | 4 ++++
+ include/dt-bindings/clock/meson8-ddr-clkc.h     | 1 +
+ include/dt-bindings/clock/meson8b-clkc.h        | 4 ++++
+ 9 files changed, 38 insertions(+)
 
-This one too.
-
-[...]
-
-> +
-> +void dc_prg_disable(struct dc_prg *prg)
-> +{
-> +	regmap_write(prg->reg, PRG_CTRL, BYPASS);
-> +
-> +	pm_runtime_put(prg->dev);
-
-I have a question about this. I see Sashiko also flagged an issue regarding the
-unconditional put when the pm_runtime_resume_and_get() fails in
-dc_prg_configure(). The resume is, probably, unlikely to fail. But, I see a
-situation where the dc_prg_configure() is never called: when the plane is
-invisible. The dc_prg_disable() would still be called in flush() when the plane
-is disabled, would it not?
-
-> +}
-> +
-> +void dc_prg_disable_at_boot(struct dc_prg *prg)
-> +{
-> +	regmap_write(prg->reg, PRG_CTRL, BYPASS);
-> +
-> +	clk_bulk_disable_unprepare(prg->num_clks, prg->clks);
-> +}
-> +
-> +static unsigned int dc_prg_burst_size_fixup(dma_addr_t baddr)
-> +{
-> +	unsigned int burst_size;
-> +
-> +	if (baddr == 0)
-> +		return 128U;
-> +
-> +	burst_size = 1 << __ffs(baddr);
-> +	burst_size = round_up(burst_size, 8);
-> +	burst_size = min(burst_size, 128U);
-> +
-> +	return burst_size;
-> +}
-> +
-> +static unsigned int
-> +dc_prg_stride_fixup(unsigned int stride, unsigned int burst_size)
-> +{
-> +	return round_up(stride, burst_size);
-> +}
-> +
-> +void dc_prg_configure(struct dc_prg *prg,
-> +		      unsigned int width, unsigned int height,
-> +		      unsigned int stride, unsigned int bits_per_pixel,
-> +		      dma_addr_t baddr, bool start)
-> +{
-> +	struct device *dev = prg->dev;
-> +	unsigned int burst_size;
-> +	u32 val;
-> +	int ret;
-> +
-> +	if (start) {
-> +		ret = pm_runtime_resume_and_get(dev);
-> +		if (ret < 0) {
-> +			dev_err(dev, "failed to get RPM: %d\n", ret);
-> +			return;
-> +		}
-> +	}
-> +
-> +	burst_size = dc_prg_burst_size_fixup(baddr);
-> +
-> +	stride = dc_prg_stride_fixup(stride, burst_size);
-> +
-> +	regmap_write(prg->reg, PRG_STRIDE, STRIDE(stride));
-> +	regmap_write(prg->reg, PRG_WIDTH, WIDTH(width));
-> +	regmap_write(prg->reg, PRG_HEIGHT, HEIGHT(height));
-> +	regmap_write(prg->reg, PRG_OFFSET, 0);
-> +	regmap_write(prg->reg, PRG_BADDR, baddr);
-> +
-> +	val = SHADOW_LOAD_MODE | SC_DATA_TYPE_8BIT | HANDSHAKE_MODE_4LINES;
-> +
-> +	switch (bits_per_pixel) {
-> +	case 32:
-> +		val |= DES_DATA_TYPE_32BPP;
-> +		break;
-> +	case 24:
-> +		val |= DES_DATA_TYPE_24BPP;
-> +		break;
-> +	case 16:
-> +		val |= DES_DATA_TYPE_16BPP;
-> +		break;
-> +	case 8:
-> +		val |= DES_DATA_TYPE_8BPP;
-> +		break;
-> +	}
-> +
-> +	/* no shadow for the first frame */
-> +	val |= start ? BYPASS : SHADOW_EN;
-> +
-> +	regmap_write(prg->reg, PRG_CTRL, val);
-> +}
-> +
-> +void dc_prg_reg_update(struct dc_prg *prg)
-> +{
-> +	regmap_write(prg->reg, PRG_REG_UPDATE, REG_UPDATE);
-> +}
-> +
-> +void dc_prg_shadow_enable(struct dc_prg *prg)
-> +{
-> +	regmap_write(prg->reg, PRG_CTRL + SET, SHADOW_EN);
-> +}
-> +
-> +bool dc_prg_stride_supported(struct dc_prg *prg,
-
-It looks like you're not using prg. Can it be removed?
+diff --git a/include/dt-bindings/clock/amlogic,a1-pll-clkc.h b/include/dt-bindings/clock/amlogic,a1-pll-clkc.h
+index 0dfc5e78a2d5..c09f215bf75b 100644
+--- a/include/dt-bindings/clock/amlogic,a1-pll-clkc.h
++++ b/include/dt-bindings/clock/amlogic,a1-pll-clkc.h
+@@ -22,5 +22,8 @@
+ #define CLKID_FCLK_DIV7		9
+ #define CLKID_HIFI_PLL		10
+ #define CLKID_SYS_PLL		11
++#define CLKID_FIXED_PREDIV	12
++#define CLKID_HIFI_PREDIV	13
++#define CLKID_SYS_PREDIV	14
+ 
+ #endif /* __A1_PLL_CLKC_H */
+diff --git a/include/dt-bindings/clock/amlogic,c3-pll-clkc.h b/include/dt-bindings/clock/amlogic,c3-pll-clkc.h
+index fcdc558715e8..771be7d53bc0 100644
+--- a/include/dt-bindings/clock/amlogic,c3-pll-clkc.h
++++ b/include/dt-bindings/clock/amlogic,c3-pll-clkc.h
+@@ -36,5 +36,8 @@
+ #define CLKID_MCLK1_SEL_EN			26
+ #define CLKID_MCLK1_DIV				27
+ #define CLKID_MCLK1				28
++#define CLKID_GP0_PREDIV			29
++#define CLKID_HIFI_PREDIV			30
++#define CLKID_MCLK_PREDIV			31
+ 
+ #endif  /* _DT_BINDINGS_CLOCK_AMLOGIC_C3_PLL_CLKC_H */
+diff --git a/include/dt-bindings/clock/amlogic,s4-pll-clkc.h b/include/dt-bindings/clock/amlogic,s4-pll-clkc.h
+index af9f110f8b62..e194185f5be8 100644
+--- a/include/dt-bindings/clock/amlogic,s4-pll-clkc.h
++++ b/include/dt-bindings/clock/amlogic,s4-pll-clkc.h
+@@ -39,5 +39,9 @@
+ #define CLKID_MPLL2			29
+ #define CLKID_MPLL3_DIV			30
+ #define CLKID_MPLL3			31
++#define CLKID_FIXED_PREDIV		32
++#define CLKID_GP0_PREDIV		33
++#define CLKID_HIFI_PREDIV		34
++#define CLKID_HDMI_PREDIV		35
+ 
+ #endif /* _DT_BINDINGS_CLOCK_AMLOGIC_S4_PLL_CLKC_H */
+diff --git a/include/dt-bindings/clock/amlogic,t7-pll-clkc.h b/include/dt-bindings/clock/amlogic,t7-pll-clkc.h
+index e2481f2f1163..69c90bc0be0a 100644
+--- a/include/dt-bindings/clock/amlogic,t7-pll-clkc.h
++++ b/include/dt-bindings/clock/amlogic,t7-pll-clkc.h
+@@ -9,20 +9,24 @@
+ /* GP0 */
+ #define CLKID_GP0_PLL_DCO	0
+ #define CLKID_GP0_PLL		1
++#define CLKID_GP0_PREDIV	2
+ 
+ /* GP1 */
+ #define CLKID_GP1_PLL_DCO	0
+ #define CLKID_GP1_PLL		1
++#define CLKID_GP1_PREDIV	2
+ 
+ /* HIFI */
+ #define CLKID_HIFI_PLL_DCO	0
+ #define CLKID_HIFI_PLL		1
++#define CLKID_HIFI_PREDIV	2
+ 
+ /* PCIE */
+ #define CLKID_PCIE_PLL_DCO	0
+ #define CLKID_PCIE_PLL_DCO_DIV2	1
+ #define CLKID_PCIE_PLL_OD	2
+ #define CLKID_PCIE_PLL		3
++#define CLKID_PCIE_PREDIV	4
+ 
+ /* MPLL */
+ #define CLKID_MPLL_PREDIV	0
+@@ -39,6 +43,7 @@
+ #define CLKID_HDMI_PLL_DCO	0
+ #define CLKID_HDMI_PLL_OD	1
+ #define CLKID_HDMI_PLL		2
++#define CLKID_HDMI_PREDIV	3
+ 
+ /* MCLK */
+ #define CLKID_MCLK_PLL_DCO	0
+@@ -52,5 +57,6 @@
+ #define CLKID_MCLK_1_DIV2	8
+ #define CLKID_MCLK_1_PRE	9
+ #define CLKID_MCLK_1		10
++#define CLKID_MCLK_PREDIV	11
+ 
+ #endif /* __T7_PLL_CLKC_H */
+diff --git a/include/dt-bindings/clock/axg-clkc.h b/include/dt-bindings/clock/axg-clkc.h
+index 442162822b88..798b92919f60 100644
+--- a/include/dt-bindings/clock/axg-clkc.h
++++ b/include/dt-bindings/clock/axg-clkc.h
+@@ -144,5 +144,10 @@
+ #define CLKID_VDIN_MEAS_SEL			134
+ #define CLKID_VDIN_MEAS_DIV			135
+ #define CLKID_VDIN_MEAS				136
++#define CLKID_FIXED_PREDIV			137
++#define CLKID_SYS_PREDIV			138
++#define CLKID_GP0_PREDIV			139
++#define CLKID_HIFI_PREDIV			140
++#define CLKID_PCIE_PREDIV			141
+ 
+ #endif /* __AXG_CLKC_H */
+diff --git a/include/dt-bindings/clock/g12a-clkc.h b/include/dt-bindings/clock/g12a-clkc.h
+index fd09819da2ec..d2aa3df14149 100644
+--- a/include/dt-bindings/clock/g12a-clkc.h
++++ b/include/dt-bindings/clock/g12a-clkc.h
+@@ -287,5 +287,13 @@
+ #define CLKID_MIPI_ISP_GATE			276
+ #define CLKID_MIPI_ISP_CSI_PHY0			277
+ #define CLKID_MIPI_ISP_CSI_PHY1			278
++#define CLKID_FIXED_PREDIV			279
++#define CLKID_SYS_PREDIV			280
++#define CLKID_GP0_PREDIV			281
++#define CLKID_HIFI_PREDIV			282
++#define CLKID_HDMI_PREDIV			283
++#define CLKID_PCIE_PREDIV			284
++#define CLKID_SYS1_PREDIV			285
++#define CLKID_GP1_PREDIV			286
+ 
+ #endif /* __G12A_CLKC_H */
+diff --git a/include/dt-bindings/clock/gxbb-clkc.h b/include/dt-bindings/clock/gxbb-clkc.h
+index c0ce5e9c4151..e2e1ec60285d 100644
+--- a/include/dt-bindings/clock/gxbb-clkc.h
++++ b/include/dt-bindings/clock/gxbb-clkc.h
+@@ -212,5 +212,9 @@
+ #define CLKID_HDMI_DIV		204
+ #define CLKID_HDMI		205
+ #define CLKID_ACODEC		206
++#define CLKID_FIXED_PREDIV	207
++#define CLKID_HDMI_PREDIV	208
++#define CLKID_SYS_PREDIV	209
++#define CLKID_GP0_PREDIV	210
+ 
+ #endif /* __GXBB_CLKC_H */
+diff --git a/include/dt-bindings/clock/meson8-ddr-clkc.h b/include/dt-bindings/clock/meson8-ddr-clkc.h
+index a8e0fa2987ab..ce97a15c28a9 100644
+--- a/include/dt-bindings/clock/meson8-ddr-clkc.h
++++ b/include/dt-bindings/clock/meson8-ddr-clkc.h
+@@ -2,3 +2,4 @@
+ 
+ #define DDR_CLKID_DDR_PLL_DCO			0
+ #define DDR_CLKID_DDR_PLL			1
++#define DDR_CLKID_DDR_PREDIV			2
+diff --git a/include/dt-bindings/clock/meson8b-clkc.h b/include/dt-bindings/clock/meson8b-clkc.h
+index 385bf243c56c..c4fd127dca1e 100644
+--- a/include/dt-bindings/clock/meson8b-clkc.h
++++ b/include/dt-bindings/clock/meson8b-clkc.h
+@@ -221,5 +221,9 @@
+ #define CLKID_VCLK2_EN		215
+ #define CLKID_VID_PLL_LVDS_EN	216
+ #define CLKID_HDMI_PLL_DCO_IN   217
++#define CLKID_PLL_FIXED_PREDIV	218
++#define CLKID_PLL_SYS_PREDIV	219
++#define CLKID_HDMI_PREDIV	220
++#define CLKID_GP_PREDIV		221
+ 
+ #endif /* __MESON8B_CLKC_H */
 
 -- 
-Thanks,
-Laurentiu
+2.47.1
+
+
