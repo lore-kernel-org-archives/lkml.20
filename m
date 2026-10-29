@@ -1,61 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793246019;
-	b=ytJmeKadmmuIFEfn9qhHNfibDNX2eA2PGW0bB4aSjUB68yOa+vCLu51CPeDcRntiZmXH
-	 ijpkdpQ/ihjcEoSVMuT285sCyQX+DSVVbattw2utPugsochU0/apBFORaQoOR2sgjt/LA
-	 natYrgnTslCZCxxb0Chfexup/qytB3RSdXuexJscnD7p8Yyn6J7eUTwNAeN0E1OXmwx+F
-	 oqDFa5N399aQ5O+3EbYu3vgoSXEiS8iKr3mYWxEuK5yTUfpQXfb9E6I2cYN/SI9bRFzYn
-	 FqzVn34PhwVBxMVDcVqB2IfbUZGCm8mQwGPDX00sQl3olHotchz7kKp4mTxt2ZhmjiA==
+	t=1793246032;
+	b=hOMFEQORd521hj5l6R19vbO3BnspLOtFjk3ItgZGf/uYuS8UvxtOw2bk+ium2XU7NYUg
+	 RTwcmlquBHppJQMCy4vQND8/wD0Uv33oZBxTirAd9X2P9ZquWCO7Tf381+jNPtaLqkBZL
+	 Rnyk3eENfVSzs1V5wG5r6lDVkBXBjfeLzTE413UIK+dANwr/0lFvUzutzg5YwcwPwg7gD
+	 g1rhFdWNhQmq0oqZmmnW0tzAuF9aPiDueyYCuxC6FSPeEpto/ZEpkhxZJZr4XiNuN5r07
+	 Vi2qeAf8kNtcbeemw5oEsxrVC3VgLOdNwl0rmhaUYlhRaiiBXN98IbKHiGlIb4JCeZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793246019;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793246032;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=WtpjjH3vtE/54r/970fSiN4Comd2TOvSsRScFTJeCcM=;
-	b=mvU16GsMY7G6H4w484FiI5I33fkdlkvS5KY1v8GiCuDYt2CkFqnjAyT7EnTHm7GBFWHJ
-	 ip8R/LPEqgIQwrYuY0kKnccitd9cg3Hq8iG7Z0zSP2e35EAWAfHUIiYJnuqrQWDrfkD8W
-	 xtpN7uEnxufMHpSnLkFZSZ8YMha7D90NasbayGelQOJWoru6wGrTQCbHcCNg1SG1wGfwA
-	 tyZwFP9PGcF8paLXnmwvC4ksiOuRTRTwLx/XqZHKH7eKgDxvvzovnSr5R+pIXlzO4uyBn
-	 yEoass3LXImGcyfKuvMY9YgWODgpQHmgw2Gaaa1uZH8+3ojEHU02PDMvH6b/KM8pBdw==
+	bh=4EvimmkLbEENi9mMSmhBHB4VvqJZ5Y7K64ru9liOtoY=;
+	b=zghfiG0nIsKjp0jdYEstKy3HzjcVtNIcj/Go8MlZN1G8/LEJlePMmvrlL944UKlarV/b
+	 +gh/Dju7er+cfqs5PcxJZ6veOpwF1OXgURSrFkGbXzUyOfRwvnH2wEUJWtr0OWfxd6hU0
+	 PPIHZE6QYiDG3YK7eKxkkq9VIJGuebdbsKGjjmBSnxAEBD4F7u8ovnjl2MioBGTW4lboq
+	 LbPym7v/t32tT/8vcqDi6062eopIO8TAcEmxNkNShXMueuSBaAnnWct+HJRuBSd5/xfw+
+	 qyIAhiph4ZfHAurQ3BjCovZk9AmDf2yIg3Thiy19CvD17E5gYzJSxoKUcgRAEl4Z+Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Z4E54OUs;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=fkeqOZpE;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FA4606A338;
-	Thu, 29 Oct 2026 03:53:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79FA4606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803CC606A322;
+	Thu, 29 Oct 2026 03:53:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 803CC606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Z4E54OUs
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=fkeqOZpE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Wt
-	pjjH3vtE/54r/970fSiN4Comd2TOvSsRScFTJeCcM=; b=Z4E54OUs9YrrYCP/L4
-	dO3qGwmLGFBt2CHcZPQ7VNPBYOID/2/M07BE1PiZHPCEzpYJMI4fRv8ryTbRsITF
-	3OsXfBFPEuG0PGBAgP1PO/13mc0psy/QQ346WCZNOOSz1eREn8MSVzVLiT1QcWHe
-	UjAJD34aluVWqpaNFqko+qw84=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=4E
+	vimmkLbEENi9mMSmhBHB4VvqJZ5Y7K64ru9liOtoY=; b=fkeqOZpER4SizIoayk
+	P7iZxjXd/+qUXdzCF0VAcUkOHJZHUzuCcUaBEKOXtf1hOSklIyftwboWY0FZeIpR
+	izJAY+9XLmoPDz/jT5D5tCUAE++8b1OSLb06xlTtFpwM30P5qP7cZZbGcbq+o6N6
+	5duH1wYS4uzCwbdfWdfG5W3DU=
 Received: from pc.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgCnsSkVw+JqTWv_Cg--.16381S12;
-	Thu, 29 Oct 2026 11:53:07 +0800 (CST)
+	by gzsmtp3 (Coremail) with SMTP id PigvCgCnsSkVw+JqTWv_Cg--.16381S11;
+	Thu, 29 Oct 2026 11:53:06 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
 	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
+	Sunil V L <sunilvl@ventanamicro.com>,
+	Andrew Jones <andrew.jones@linux.dev>,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 10/20] irqchip/gic-v5-irs: validate MADT GICC entries
-Date: Thu, 29 Oct 2026 11:52:41 +0800
-Message-Id: <20261029035253.2333852-11-yaojiale02@163.com>
+Subject: [PATCH v2 09/20] riscv: acpi: validate RINTC entries before use
+Date: Thu, 29 Oct 2026 11:52:40 +0800
+Message-Id: <20261029035253.2333852-10-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261029035253.2333852-1-yaojiale02@163.com>
 References: <20261029035253.2333852-1-yaojiale02@163.com>
@@ -69,36 +70,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgCnsSkVw+JqTWv_Cg--.16381S12
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKF17Gr13CrWrZrW8Ary3CFg_yoWDWrc_Cr
-	yvvanrJFy8uF48Kr1xKr15ZrWUtFWkurn5uF4IqFn5GrW8Zw4fZFsxZFZ3Aa18GF4SvFn3
-	AFZ0vrsa9r1akjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbyEEUUUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQNMhmriwyPkGQAA3R
+X-CM-TRANSID:PigvCgCnsSkVw+JqTWv_Cg--.16381S11
+X-Coremail-Antispam: 1Uf129KBjvdXoWrZFWxKF1xAryfCr1UGr1rZwb_yoWDCrg_C3
+	Z7Z34rWr9akFW0qr18J34rurW5Kw1fAF95Cr1avrWUGFn5J34aqrZxAr95AryvkrnYgan3
+	Awn0k39F9r42vjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbgyCJUUUUU==
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQJMhmriwyLj-wAA3w
 
-The IAFFID parser reads fields from a typed GICC record without checking
-that the MADT entry contains the fields it accesses. Reject truncated
-entries before reading them.
+The RINTC callback reads flags and other fields from a typed MADT record
+without checking that the complete record is present. A truncated
+firmware entry can therefore cause out-of-bounds reads during CPU map
+initialization.
 
-Fixes: 35866efa52fe ("irqchip/gic-v5: Add ACPI IRS probing")
+Reject incomplete RINTC entries before accessing typed fields.
+
+Fixes: f99561199470 ("RISC-V: ACPI: Cache and retrieve the RINTC structure")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/irqchip/irq-gic-v5-irs.c | 3 +++
+ arch/riscv/kernel/acpi.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
-index 9d60f474aa4f..4e60a1caaba5 100644
---- a/drivers/irqchip/irq-gic-v5-irs.c
-+++ b/drivers/irqchip/irq-gic-v5-irs.c
-@@ -891,6 +891,9 @@ static int __init gic_acpi_parse_iaffid(union acpi_subtable_headers *header,
- 	struct acpi_madt_generic_interrupt *gicc = (struct acpi_madt_generic_interrupt *)header;
- 	int cpu;
+diff --git a/arch/riscv/kernel/acpi.c b/arch/riscv/kernel/acpi.c
+index efd52a5d05b5..9e0658c6a869 100644
+--- a/arch/riscv/kernel/acpi.c
++++ b/arch/riscv/kernel/acpi.c
+@@ -171,6 +171,9 @@ static int acpi_parse_madt_rintc(union acpi_subtable_headers *header, const unsi
+ 	struct acpi_madt_rintc *rintc = (struct acpi_madt_rintc *)header;
+ 	int cpuid;
  
-+	if (BAD_MADT_GICC_ENTRY(gicc, end))
++	if (BAD_MADT_ENTRY(rintc, end))
 +		return -EINVAL;
 +
- 	if (!(gicc->flags & (ACPI_MADT_ENABLED | ACPI_MADT_GICC_ONLINE_CAPABLE)))
+ 	if (!(rintc->flags & ACPI_MADT_ENABLED))
  		return 0;
  
 -- 
