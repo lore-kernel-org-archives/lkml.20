@@ -1,106 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.6
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.135
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793287430;
-	b=uibdjnHVqm/lYzEdYvuQNMGD4i7Ofnsyd+5dJUHpjJdYQG8w7XuYb4FDs0WrKQPjAfkT
-	 Cq+opy7aOucnZaqngQOinZidZTIerDcHyUq1fa6WxERTeDcz54SMXH0ugCY1ZHiUhCvaX
-	 XybPE3+GpQ+CSH2Q98/EtdpoB8fl09HTJl3nElM9OqDbzqqINKoA/7amgbtOKxJz/pXCv
-	 gFPCjVrhZbZ+IUHRf/9/33XrbNBpEk/TGpECT1UNFbXDnf+0X4wXi8ndCrNPMu5SCMze1
-	 BklIaj6QZ9CdcdfU3t4OBMKy6Mcgi4u2Rm9PqYzNKX0UpysccUc5XypF+UeeXupOwwg==
+	t=1793287446;
+	b=J/xooQ3Wd1BuzMbEGYiOiXg0ah/XZFSgnGhmyUK8qA4xxG+NLDD56mblfpCAC33x7Mt3
+	 WtkuTYHg2AC9+NJl6KsBZuB/tiXIeLzS01W/MMb0LsMO+dq3zrvzhDvvlCJUQrASuqgDY
+	 l2wqpZKE/rX4fQaYyZtC2frFR2jGjw7dipIZhtws+nT+8YU8zdDRBjgvU/Xfl5JpC5HeB
+	 1mN8cYmrro5az+e2q6TuHdd0wH1FmmZJ1l7FDMdiLhcUxY33zKO58YdDk2iwtyPNd9GTy
+	 J4SYqSLgqyCBCbQgAKyAlI//B3Ss9WmTRv4kgwS8f8jTNY+iIioj/vuSgHPz8CwFWYw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287430;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287446;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
 	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
 	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=S5qE6TRuHz/u1s+UcxpXs9MW7ypeH7ShXkwAjQP66gY=;
-	b=vOqlKnnhJ3HLCVBxJ9KIyML8rI0nlZZ6WAQT7WL5cJD7KkjV7ZrSSAhJYpu5BjIz1w5c
-	 ex+UkD0LZcYItsDDtrJi/YX4Vi+iY3+R51ykhzWV68SyO9frpG/GlqZC5yfxPBiPblHE8
-	 bOYCo8LSVvoruyZJstetEBjaysUVuYUV3kloZlrBuk6hwUfnrSkik+nFNNGWOGWHxjw5h
-	 yxXNNX8hDes7+2QFIbwRHhZcRC1vNjTZd63C6Fok9HKLejqqFew88GaM1/Ux9Rj41aQuv
-	 M7TOBZHUh/sY9k37RCfQg/8CVZI0eM8gcpp4DaAsEPMMpkP7/yiHujJRQSngbRHQe7g==
+	bh=B+Iy9KXGVfe34/z+yC7f7aH0Fb/hxUEycmQZPPzS/Kw=;
+	b=gjx6FvsNqWgS1flW+/rW2E6eH+NjoNY2R4ExIQsDclde2kY4U9r1lGxeHau0PcNcgIW+
+	 BPJsT2kMoRpEDhU8nTKZ4eWGiqHBcYw//tmUyFtrZLrI0617UdrVlrDkCXAEml+xTcT4u
+	 0xXT5YdPMxZuLlTTXTFaA5nO3+SsRZLdg7yKsQnJfdYHGmry5/0MUzQj5EA9UbHe4xJwV
+	 Z4Ey1FFPlp7h7JCJOccPTJWU0FatFylgVy1/RPD6nqsRfPNtlK2Z5hPn5gUymW2/vYlfQ
+	 w6UWdFv/jDXIXsvPEZ430ZDRSlKTJ1WSdWK7xuaX4Osba8kNS9eogmH9lYW2E/K21Qg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ska39Kk4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.6
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011006.outbound.protection.outlook.com [40.93.194.6])
+	dmarc=none header.from=atomlin.com;
+	spf=pass smtp.mailfrom=atomlin.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.135
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022135.outbound.protection.outlook.com [52.101.101.135])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF6A606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:23:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFF6A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ska39Kk4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2AF606A31D;
+	Thu, 29 Oct 2026 15:24:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C2AF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rQ+mAaIF7tR2qhLmT1Rz5/oGW741ZqeVAaUgZJOBu95PFJdjGH6yscgRAdIIYQaSC+8k1g2Lzpz2xBFu8z1weC7WZlygEUGY6ubQTDulLOjKHe4iWf4ZJkkgkOdfGkES1uqFse+jRui7MComjVPp9/hQgU0YEakMHhY7hpKSZmtW18WNjUcTf41IZAyVvAElNu4jybxVQeZUWGD/maqHxp44oMRKkEexXiSyxUm+LX8J6qmgZu9ExR7e5/QizcSaVllNJYMaSjfFuWX/1N8qaPasSO5Tz9ODoWTP+1qLlyp9KyV9t7xRVBI+/oEIrb0PSt6cMpulcdfvYAMCIu7RcQ==
+ b=c2wkj8W8oG0YiTWDB30gkcUTy3/ijTy3f0zS/mq/chOaBFGuQl8dQp/nRMhTHRpLUhnz/k6K0mkAo+jW3IApsJT/xsXcPrbbIBZ02o1V0Cxir2aWvOgkku2WlmjW3Jfxtk5L8fD+BYZHK2s7SFfs2YQvMr5zqvgViqolhH4Tr7yfhXByRLfXfZY7HoZ3LIoUT2yjW31bvtjZyMElT0s1PQtbAHLOIKrSqUgNga4uJ/+AQTiVTODRYHWbHlJYbxlXxqlsvXONAZA9F2p5IsDiGcdDD8NPDJEZAz0yxjjpdN5n+/E97hEtym/iSrusGlws3UlIoBBCDIOxaYoGEAJC/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S5qE6TRuHz/u1s+UcxpXs9MW7ypeH7ShXkwAjQP66gY=;
- b=eWi5PMoEMzGgM9xGrczgXmfnz3QDp0jis4gvGH8OonnZsh5o/xXCBbkEqX9dFcH49l/Vay9hMdojjSY+cNlVX9DcD/kNHOmEFkAB/Q5/VBqbot8SqnhyM0BRz6hltD5uIy1pULTjKb9c3eW/e9WNnHcoLLYfxQtBorcNMJ8o2hnEvLzBoceUrRNKr+XLdHd5UgCrdP2/D3XxLb6qoDb4z/V0gLzsOQTMjgV8ERnMBdQlr1eekAQ9xG68edPTj2LcnepXVVyvFchcaEKVC+bsKmti21EIeNKOffTbEMoxqBxmeO92jc3/1hQMr+fEmCG3NYMtbiqMk7NBbf3yoD/Lag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S5qE6TRuHz/u1s+UcxpXs9MW7ypeH7ShXkwAjQP66gY=;
- b=Ska39Kk4Y+BViuR+0jIk7l+NuBsvjXWxORos1zJA8qO8D4Hix0TVVLjyYG+AajCJLMv/EBriu+Z0s3SKvbq0eatfYBUnc8qJwTt+kRwwcrK/MWefIAoki2Psq0qvQreUsdKDcQD79nQMGUYFKcHzViOPOE3Z938KEpS0NZMI0B0=
-Received: from SJ0PR05CA0030.namprd05.prod.outlook.com (2603:10b6:a03:33b::35)
- by SN7PR12MB6931.namprd12.prod.outlook.com (2603:10b6:806:261::21) with
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=B+Iy9KXGVfe34/z+yC7f7aH0Fb/hxUEycmQZPPzS/Kw=;
+ b=TV0wrxqKNhOda2p2/GsXiYt+qLgF2G0xPPjvcm+1zb8sohhmOIqxVGNcAC3phPfvJMPD3WOlV8TTzrYlPqTjYjhexKwDcew3iRMI4GTzlk9LUdjJ5i6UI3muyo4VELv4dVOCJ4qNj38Kqw2LvE7GhGHZLf0XxE1ZbgQWVErvrRKtN68oShjPYtfeOllHA+lc4bfZh9+PKCgdtcsQd9TIQNXacju4OyWm+F/tiJFz/B2bjXyLeNCLZoXKJj2mHivkAVJusWFO2ztBQQ893nXJtutMK25GWESywHmla9j8gv2tiW3xDU/U6xSLuzLexOFxFr5VntaBjutaLqny1i976w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
+ dkim=pass header.d=atomlin.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=atomlin.com;
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
+ by LOAP123MB8912.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:497::13) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 15:21:41 +0000
-Received: from BY1PEPF00026956.namprd05.prod.outlook.com
- (2603:10b6:a03:33b:cafe::8c) by SJ0PR05CA0030.outlook.office365.com
- (2603:10b6:a03:33b::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.4 via Frontend Transport; Thu, 29
- Oct 2026 15:21:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF00026956.mail.protection.outlook.com (10.167.244.164) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 15:21:41 +0000
-Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53; Thu, 29 Oct 2026 10:21:39 -0500
-From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Felix Kuehling
-	<Felix.Kuehling@amd.com>
-CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
-	<amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 4/5] drm/amdgpu: add wedge event implementation
-Date: Thu, 29 Oct 2026 16:19:51 +0100
-Message-ID: <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com>
-References: <20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
+ 2026 15:24:02 +0000
+Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 15:24:02 +0000
+Date: Thu, 29 Oct 2026 11:23:54 -0400
+From: Aaron Tomlin <atomlin@atomlin.com>
+To: Petr Pavlu <petr.pavlu@suse.com>
+Cc: mcgrof@kernel.org, da.gomez@kernel.org, samitolvanen@google.com, 
+	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] module: Fix use-after-free in module_put() tracepoint
+Message-ID: <an3o4dzjwt6p3wt45twtqsv2t3x527srauhcqv6u7uxtt7zz3k@22ye3vb5tf4e>
+References: <20261019034857.654569-1-atomlin@atomlin.com>
+ <a5e66dc8-155d-4eb1-add5-8c182879cefb@suse.com>
+ <4ex7fuogdtmtxil4i2bzx3yqnkqgb2x5wxysqpwapauohmcok7@jvaytjn5fo62>
+ <f7fe0439-d123-416d-b6fa-27a6dcf25d39@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <f7fe0439-d123-416d-b6fa-27a6dcf25d39@suse.com>
+X-ClientProxiedBy: RO2PR80CA0006.lamprd80.prod.outlook.com
+ (2603:10d6:10:2a::11) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:400:183::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,314 +89,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF00026956:EE_|SN7PR12MB6931:EE_
-X-MS-Office365-Filtering-Correlation-Id: dbb93e31-7c94-42f0-616e-08df35d055cb
+X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LOAP123MB8912:EE_
+X-MS-Office365-Filtering-Correlation-Id: a93bf2d5-6876-4bec-9ffb-08df35d0a9a5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|260925022911599003|260925021911599003|260925021311599003|11063799006|56012099006|261009223027099003|261009221227099003|261026121527099003|261026140227099003|261028144727099003|261021121427099003|261022075727099003|261022105027099003|261021123027099003|10067099003|22082099003|18002099003|6133799003;
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|5023799004|4143699003|56012099006|261009223027099003|261026121527099003|261026140227099003|261028144727099003|261022075727099003|261021121427099003|261022105027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
 X-Microsoft-Antispam-Message-Info:
-	2au5ktVxFleNPq0ZkMce7xCcI+8U0G/jmXHqVOAzBSRtGpYElB/13CklzqxWZ0TYCI84AT8yITTXUKHoLvPpikZNEZQZ/9dlOuQNsuBrIOE3lzGKqLBOBRA/sOmJunDNrdKhcr2t8ZeRAut+lc4BOOOtzCAfqNEeaveY2XhVobWgoE22shLx8Txr3UrXbQMQTGDQyvUMhVA8AyMzyvvyDe7I3l2PSiOokyvi5Vkf586yfX/weQwRbd76KdQmAyev4WfhgC7BKgnCuM6ZmzTUcLDbyN50nPsbCedRp/m7u8aa4uIIF9dWlBsSWL07jDsANklPQRQFwzPNFoQ6eSr98af/aiCtMoVFe+B7C2mNnWgiXxWkoc7mMsT72/EgbsAybDpai6Ccl6eE6ir+QjVFx3L5GPECWCSn2dg8eiGEurCWsi2eEIZqJZpPR5+x6s3TfrMr3/O+49V2PZTAXl5QsFKOBfW3JGU92lPPvc6q5KS+WTvK9R+W3w0BcJb8RdXnOOW/y6wWpkX0iA7Kj8AaFnWRumF/1d21CkwNmAOmQF6j/qknBmENgr5j0FMxPhUQHHzzyxe3oWxDy4md1lOYHnk/bFhf2yrHKkg/kZWtzgRKQUj/K31EnGr1yACPSKXtaPbvrQsi4oJT7gBu6VVV+NRxCsMq1h1kV+mYz0Yelt0xaGH2TqGc0Hl62BjyO/jhFHWc/l5GVdMa/ApFkXyBzQ==
+	7UEnVUNb85LGPBLkeYUxVSBSTrKxi3HwzwMUH/671UgADUI9xCEEbkU+DsAquQ6PaZM+7Lqi/jAlf2KRdZoP54h9n9kBQ0Bl9rJ4sniBgHR+2m86nNKGS3L+Fe/+FfSGZ0Er7ZYC6zPzR6W1e142VhEAnLiKcnbb/FsZ7CauE7nrQnLRLHF7d4LrcJY4tcb01DlcRII4vAb7+3ZDmuER5EHXUmAxhh1p8bxjSS8Cy/bqdr1K72La9lEwf1roNWlDNxuqvR3+H0HAloUqU7d4A6XbgXRRgeI1mMmc2NWaoFcUCaFDUEBnHjtGVxi9Ep1DKVA+fxjSCyLvdZn3OmquFKCuvZRWI4nHIhDHU8MOb3Hkw4NQSDJ6QHLBmCthkEfheyrgyq4z5PolkQh+8gBcpAtTYsVYp64qA2EP+ZHelOJleN8N3tVkURzDLoDCdtYNa2UDe65F4KMLKeFw3WrlpbcyDEcRm21uHq0zZ0Tlr0fknpYRP/yYrSsbBfGTqN4N8cF/fGeRflov0wpi2wwQaRHytpBowPdllQfXEewDu/P0uSCFjZ4UHN9Jsxuus1in8IgLCk7opeUEmL6vyCagecRdgG72m/ha/YeiAuyB9VfWVnqU2K6Jzk5TcMzs0Wg6iaoBo/Y4mhXm1n3oaPKudWrqrqiuQt2VfGGaUzARURk=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(260925022911599003)(260925021911599003)(260925021311599003)(11063799006)(56012099006)(261009223027099003)(261009221227099003)(261026121527099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022075727099003)(261022105027099003)(261021123027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(5023799004)(4143699003)(56012099006)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261022075727099003)(261021121427099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	lYiTNA+7eRB355C8Br3Q6mKS520FwAQR0BORC/HZ4FlfeQDL9HbsKriC2cOolgokd3S6QByol3AdLTRQ1cHNjRxpn42iqhVN5xukfrBBiHYRIRIHeQu9FWg+SnLmdZA1vAT7su/3H3R+WLFpn5vjJHKplW+pHca8jDnLYrZ8UH2eqtj8JrxpcvtVkHiUEmuHmLd26uyo5y9B1p3Dlhy5elMhbLFql7d28GVBSw4hd0x8BwJcdrR1mVC6jcVvnpe33mK1BG5prpGSC2XLWPP/Ske1pXsiEFGMeAU+jLD/bnvCzpBdTeY+rDu/euSOb/PgcO2LLn0Qabwd4D1enPwuRLtz7MEctwkSlaLren2tFJ9VWWWgFiAvXbfZYxx1IV43TSdh8nXuj/LNgVogjjD6Q4+F8NOWHr0aviVmbFNmqbP6E6X5cvVHk0aT5vARxZ7M
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 15:21:41.7488
+	=?utf-8?B?TXpIU0hXc0xnaHZ6VEdoUXliRFlEM2dKclhiTnZmc04xZWt6cjBvUER0YnVa?=
+ =?utf-8?B?MnBvZ0RUcmFWTWljUWExUHc2anRwTU9jT2RUM2dDTWVJelh1VjBOV1R1bzNI?=
+ =?utf-8?B?aEN1VWVuQzQzZXFLdXBVeXMyVm5Wb0ZiK0ttSjAxMjdxcEZCeDBpUkNZUU5y?=
+ =?utf-8?B?SzJaYkNTVVNIMnpxbldrQStoNUhzUjBUa2JPZnJjcy9aZE4waEtFaU5uSHZP?=
+ =?utf-8?B?UDlzR1kzNHlaRXNuT0JEcFhkZ0EwSnlwNnNTVlVVY2s5bDZOY3ZWeW0yMDlR?=
+ =?utf-8?B?NHpjbFprMTkyeHF0OXBLVkJoVjhleG1XOWROaGtBY0JvRFE0UE5OK1kxcFQ3?=
+ =?utf-8?B?RmJ2TW92enJ6UmJpMnBKWXUxUUFyczRBOUI0UXlvVlloZ0pqYW5MN0wxSTJC?=
+ =?utf-8?B?c0ZkT05WNWpkYlkrNzBKZlhOVVg5SFcwOVdJMS9zR01oMHZJSDNrbEhGaWZT?=
+ =?utf-8?B?bEc5eVRESkJ3UEZqME9obThvcjN6bHN6cVpJd1gvOS8vbnExRElqd2ZmRXIw?=
+ =?utf-8?B?Q1pJNUkrRjFrS1E1V3FoaEZ2ZmhKcFdhYjVJcmw4TU55VW5oOHpyaFNJM1M1?=
+ =?utf-8?B?RDNJRU9nWXNkN2Jpb1l4czdGaW5Dc0psSjFJRHhwbGp4TEhjdy93UXVPdjRC?=
+ =?utf-8?B?SDh6WjFLWEJFOUZTNVRMeDVRbC93bkY3aFJvU3ptNlIyN2lxbC9BMEF6WmhL?=
+ =?utf-8?B?L3czcGdLamVKU3NFQnVKbWlKdTF6Zkd4S28yaXYyNThMRHM1MVk1cXVmMU9p?=
+ =?utf-8?B?cklwVVh0OFVuV2MxVGFZZDBYUXVReVMyN090dGphNWJ3Z0plMVlXMTBCVkpw?=
+ =?utf-8?B?MzlHcTlUeHBuWTZlWCtBWFkxTndlQ3g2WUhwVFlNN3A0cDBHVkpwaWNDQitN?=
+ =?utf-8?B?cWRaUnVRWmJrL0QzRm1LWmdNUUpvK3NOSGkvbU4xQlQ5UUR6NjF0TlBzV2N0?=
+ =?utf-8?B?UDMxNm9RV2llcUNRdFF4VGZuZXNZWVkweHdaY2E2WTRveS80emM0Um12SFJU?=
+ =?utf-8?B?bVVhWlB5N0ZlR3QyZUw1MlkxbmhDZ2QxK2lWbTlYNjdNT3E1RGR0dFZWT3U0?=
+ =?utf-8?B?TGxzQ3BwY2FkZ2NXL29qNUNrK2FpSiszeHAyMDV5T2NLSXZudDFKTjkxSk12?=
+ =?utf-8?B?NWtueHB4N1ZtUXl6bmtEaThDQmNEVFdQWkVMYlFnblVnZkZsQ3ZYdDBHNExG?=
+ =?utf-8?B?cDVhc1hoUm50VjhjNkpRVGZDQ1Yzc2dybkxsTnBxei9RT2RPdVhObUlXczI0?=
+ =?utf-8?B?Wi9CbnB0RUlxbk5kaXlGUnhqMitaOTRkOXdHWjE1ZDhURHFIamJRRkhLN2Fl?=
+ =?utf-8?B?TUpqTittaG15ZGpra2tRcnc3ODZtZ0N3RjhMSS9qZzRkVHhMcklHNkluZzZT?=
+ =?utf-8?B?aVVSUElMSUNXQ1RZUkhFNko1YWQ2eHhWU296Z0NLOW5wazN4N3lDNmhHWm96?=
+ =?utf-8?B?V2pRdUQ0VVVLOWgxUGJFRHoxT2h0TURTSk81bWR5VzlDd1gyRnd6Q0tUb2hz?=
+ =?utf-8?B?VmhyVG1jMXZTcUhHeG4rSFJyL09KQUtmd3g5c3I2MERsY2R3dzJvYW5icy9r?=
+ =?utf-8?B?bUpyMjlML2dwMkFVTWdFdGtHUUdyR0xRK09KNDNFT01YSXdJaDR5NXZiSlJp?=
+ =?utf-8?B?V3dDUUJSU2FpbVZoUDZwWUszNlRwT0EwYlcwdnFpTHdKTUFOQlI5Zm80bkV5?=
+ =?utf-8?B?MjVmSUl0RmRRWjJLVGNya0JDNTdRYmZZN1JRWmVnZTJiL1VuVHd4KzRxSE8v?=
+ =?utf-8?B?bmN6a1BpcUZKZlRsZklDam9QUmhqUVdXUlhJYkczNC96ckRxWElqSXg5WmdZ?=
+ =?utf-8?B?TmZpMUZFQWpqMkd2dzJST0hRMVVzK3o2Z3NSd0gwTGt5Tkw2cVdBR1ZFS1Vx?=
+ =?utf-8?B?SytZaDlsVFh1ei9JMjhWN3lIOG43b1lnQXFDZU9XelQ5bVJnSzJLRk5mWTVy?=
+ =?utf-8?B?ckcrR2xBN3RIT05SL2QrdnNDNWVTaDcwRGRYaTJ1UXNSVzNBbFFXbFlZbmE2?=
+ =?utf-8?B?M0JlZnZKNUZXSzdMUDU1VVhwMkVpME51WVphVmw0WEtIVzFOZ0wvTnlQdVd5?=
+ =?utf-8?B?RXNSeG9NRXVpTURDVHN5cnA3bkFYMVo0MWo4eWxmUFY2OHV6WXlHWkNoOC9m?=
+ =?utf-8?B?MjlRVjRLRjZJeDJGYkxyaHhWTHFHaXM2Zjk5Qk9zcG1tOXZ6ajhtbE1CdEhM?=
+ =?utf-8?B?Qjg2UVd2NkZPeGdRMDBWSGt2endyaGcxT1ltQ2VnN3pBTDNmdm9UQ2ZUTlFa?=
+ =?utf-8?B?d0tsRkN6S0llQytPSGwzb2cvQnRvTG81akFoWTgrR3VneEF2ZmJsd2krblFV?=
+ =?utf-8?B?WmhyVys3SlNEa3hmZzBncytJZ0FSL2dxdU1oYkxSSlBBVzhrK1ZhUT09?=
+X-OriginatorOrg: atomlin.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a93bf2d5-6876-4bec-9ffb-08df35d0a9a5
+X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 15:24:02.6535
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbb93e31-7c94-42f0-616e-08df35d055cb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF00026956.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6931
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ExSZbi+/c/yCoM1VPmbOsGLd+8QvzQ5L43reIxr4I/bV9w+NguKkC2QndpK7sf4oAYGq3Wt9O9BUUeoYQOZtEw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOAP123MB8912
 
-When a job times out the kernel tries to reset the GPU to get
-the system back to a normal state.
-Sometimes it's useful to disable this process - for instance to
-be able to inspect the hardware state at the time of the hang.
-Since leaving fence unsignalled might affect the system's
-stability, this commit enables the drm wedge framework for amdgpu.
+On Tue, Oct 20, 2026 at 05:22:18PM +0200, Petr Pavlu wrote:
+> The trace_module_put() tracepoint is used only for debugging. What
+> tooling are you referring to that could be confused by changing the
+> recorded refcnt value?
 
-When a hang condition is detected, the GPU isn't reset but all
-the pending fences are signalled and the hung GPU cannot receive
-new work. For KFD it's implemented by making
-kfd_process_device_data_by_id return NULL if the requested GPU
-is wedged.
+Fair point. Please ignore. I have another idea to avoid a reference count
+that is off by one.
 
-When the user is done, it's possible to trigger a GPU
-reset.
+> Normally, module_put() is not invoked concurrently with free_module()
+> and doesn't need to synchronize with it, so an RCU read-side critical
+> section only adds overhead.
+> 
+> The preempt_disable() call in module_put() was previously needed because
+> of the complex module_ref scheme, but that was replaced in commit
+> 2f35c41f58a9 ("module: Replace module_ref with atomic_t refcnt"). Commit
+> cb0b50b813f6 ("module: Remove preempt_disable() from module reference
+> counting.") subsequently removed the no longer needed synchronization.
 
-The auto-recovery is still enabled by default, and to use this
-feature one has to either:
-* boot with amdgpu.gpu_recovery=0: not recommended as it disables
-  recovery for all GPUs
-* write 0 to /sys/kernel/debug/dri/X/amdgpu_gpu_recover to disable
-  auto-recovery for one GPU only
+Agreed.
 
-Runtime power management is disabled when the device is wedged
-(because we can't submit any work to the GPU).
+> The fix is valid, but I don't see a strong argument to introduce an RCU
+> read-side critical section in module_put(), especially just for
+> a tracepoint that will be disabled 99% of the time.
 
-Assisted-by: LLM
-Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 13 +++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     |  3 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  8 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  8 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  3 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 34 ++++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 12 ++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_process.c   |  6 +++-
- 8 files changed, 83 insertions(+), 4 deletions(-)
+How about the following to ensure the fast path incurs zero RCU overhead
+when tracing is disabled, gate the RCU critical section behind
+trace_module_put_enabled():
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 34bbb30b6f0c..cd4959486c94 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -989,6 +989,13 @@ struct amdgpu_device {
- 	 */
- 	bool gpu_recovery_enabled;
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index 34e0204ea37c..14bad822e18f 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -960,15 +960,27 @@ bool try_module_get(struct module *module)
+ }
+ EXPORT_SYMBOL(try_module_get);
  
-+	/* Set to 1 when the device has been declared wedged following a
-+	 * hang: it no longer accepts new work and pending fences have been
-+	 * force-signalled. Reset to 0 once the device is reset back to a
-+	 * working state.
-+	 */
-+	atomic_t wedge_status;
-+
- 	/* KFD
- 	 * Must be last --ends in a flexible-array member.
- 	 */
-@@ -1374,4 +1381,10 @@ void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
- 			   uint64_t uid);
- uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
- 			       enum amdgpu_uid_type type, uint8_t inst);
-+
-+static inline bool amdgpu_device_is_wedged(struct amdgpu_device *adev)
-+{
-+	return atomic_read(&adev->wedge_status);
+-void module_put(struct module *module)
++static __always_inline void __module_put(struct module *module)
+ {
+ 	int ret;
+ 
+-	if (module) {
+-		ret = atomic_dec_if_positive(&module->refcnt);
+-		WARN_ON(ret < 0);	/* Failed to put refcount */
++	ret = atomic_dec_if_positive(&module->refcnt);
++	WARN_ON(ret < 0);    /* Failed to put refcount */
 +}
 +
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index fa301c71b782..d119de477284 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1465,6 +1465,9 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 	if (!adev->accel_working)
- 		return -EBUSY;
- 
-+	if (amdgpu_device_is_wedged(adev))
-+		return -ENODEV;
-+
- 	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
- 
- 	r = PM_RUNTIME_ACQUIRE_ERR(&lock);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index ec2514079919..641b7fe24951 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4110,6 +4110,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	}
- 
- 	adev->gpu_recovery_enabled = true;
-+	atomic_set(&adev->wedge_status, 0);
- 
- fence_driver_init:
- 	/* Fence driver */
-@@ -4362,6 +4363,9 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- 		amdgpu_sync_free(&adev->isolation[i].prev);
- 	}
- 
-+	if (atomic_xchg(&adev->wedge_status, 0))
-+		pm_runtime_put_autosuspend(adev->dev);
-+
- 	amdgpu_reset_fini(adev);
- 
- 	/* free i2c buses */
-@@ -5155,6 +5159,10 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
- 	r = 0;
- 	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
- 		amdgpu_set_init_level(tmp_adev, init_level);
-+
-+		if (atomic_xchg(&tmp_adev->wedge_status, 0))
-+			pm_runtime_put_autosuspend(tmp_adev->dev);
-+
- 		if (full_reset) {
- 			/* post card */
- 			amdgpu_reset_set_dpc_status(tmp_adev, false);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index fb60a99f43c1..617d4eec4e26 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -459,6 +459,9 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 	uint32_t handle, initial_domain;
- 	int r;
- 
-+	if (amdgpu_device_is_wedged(adev))
-+		return -ENODEV;
-+
- 	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
- 
- 	r = PM_RUNTIME_ACQUIRE_ERR(&lock);
-@@ -961,6 +964,11 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 		abo = NULL;
- 	}
- 
-+	if (amdgpu_device_is_wedged(adev)) {
-+		r = -ENODEV;
-+		goto error_put_gobj;
-+	}
-+
- 	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
- 
- 	r = PM_RUNTIME_ACQUIRE_ERR(&lock);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 4204c3c750a8..53fa9fa83ae7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -730,6 +730,9 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 	struct amdgpu_job *job;
- 	int r;
- 
-+	if (amdgpu_device_is_wedged(adev))
++void module_put(struct module *module)
++{
++	if (!module)
 +		return;
 +
- 	ring = to_amdgpu_ring(adev->mman.buffer_funcs_scheds[0]);
- 
- 	if (!hub->sdma_invalidation_workaround || vmid ||
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 0b8d0a79dd45..f72c9c690c3b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -24,6 +24,7 @@
- #include <linux/kthread.h>
- #include <linux/wait.h>
- #include <linux/sched.h>
-+#include <linux/pm_runtime.h>
- 
- #include <drm/drm_drv.h>
- 
-@@ -185,9 +186,35 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 		if (r)
- 			dev_err(adev->dev, "GPU Recovery Failed: %d\n", r);
- 	} else {
--		drm_sched_suspend_timeout(&ring->sched);
--		if (amdgpu_sriov_vf(adev))
-+		if (amdgpu_sriov_vf(adev)) {
-+			drm_sched_suspend_timeout(&ring->sched);
- 			adev->virt.tdr_debug = true;
-+		} else {
-+			struct drm_gpu_scheduler *sched;
-+			struct amdgpu_fence *guilty_fence;
-+
-+			/* Declare the device as wedged if it's not already. */
-+			if (!atomic_xchg(&adev->wedge_status, 1)) {
-+				/* This ref will be dropped in amdgpu_device_reinit_after_reset. */
-+				pm_runtime_get_noresume(adev->dev);
-+
-+				pci_clear_master(adev->pdev);
-+
-+				drm_dev_wedged_event(&adev->ddev, DRM_WEDGE_RECOVERY_REBIND, info);
-+			}
-+
-+			guilty_fence = to_amdgpu_job(s_job)->hw_fence;
-+
-+			sched = &ring->sched;
-+
-+			/* Prevent anybody else from touching the ring buffer. */
-+			drm_sched_wqueue_stop(sched);
-+
-+			amdgpu_fence_driver_force_completion(ring, &guilty_fence->base);
-+
-+			/* Start the scheduler again */
-+			drm_sched_wqueue_start(sched);
-+		}
++	if (trace_module_put_enabled()) {
++		guard(rcu)();
++		__module_put(module);
+ 		trace_module_put(module, _RET_IP_);
++		return;
  	}
- 
- exit:
-@@ -439,7 +466,8 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
- 
- 	/* Skip job if VRAM is lost and never resubmit gangs */
- 	if (job->generation != amdgpu_vm_generation(adev, job->vm) ||
--	    (job->job_run_counter && job->gang_submit))
-+	    (job->job_run_counter && job->gang_submit) ||
-+	    amdgpu_device_is_wedged(adev))
- 		dma_fence_set_error(finished, -ECANCELED);
- 
- 	if (finished->error < 0) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 14a72a406d37..2393cad36ac0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -781,6 +781,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT : 0;
- 	}
- 	case AMDGPU_INFO_TIMESTAMP: {
-+		if (amdgpu_device_is_wedged(adev))
-+			return -ENODEV;
 +
- 		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
++	__module_put(module);
+ }
+ EXPORT_SYMBOL(module_put);
  
- 		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-@@ -913,6 +916,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		if (info->read_mmr_reg.count > 128)
- 			return -EINVAL;
- 
-+		if (amdgpu_device_is_wedged(adev))
-+			return -ENODEV;
-+
- 		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
- 
- 		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-@@ -953,6 +959,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		uint64_t vm_size;
- 		uint32_t pcie_gen_mask, pcie_width_mask;
- 
-+		if (amdgpu_device_is_wedged(adev))
-+			return -ENODEV;
-+
- 		/* The clock limits are only available while the SMU is up. */
- 		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
- 
-@@ -1187,6 +1196,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
- 		}
- 	}
- 	case AMDGPU_INFO_SENSOR: {
-+		if (amdgpu_device_is_wedged(adev))
-+			return -ENODEV;
-+
- 		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
- 
- 		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index ac18c2be6ecb..b95dddeaccc5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -2424,8 +2424,12 @@ struct kfd_process_device *kfd_process_device_data_by_id(struct kfd_process *p,
- 		for (i = 0; i < p->n_pdds; i++) {
- 			struct kfd_process_device *pdd = p->pdds[i];
- 
--			if (pdd->user_gpu_id == gpu_id)
-+			if (pdd->user_gpu_id == gpu_id) {
-+				if (amdgpu_device_is_wedged(pdd->dev->adev))
-+					return NULL;
-+
- 				return pdd;
-+			}
- 		}
- 	}
- 	return NULL;
--- 
-2.43.0
 
+-- 
+Aaron Tomlin
