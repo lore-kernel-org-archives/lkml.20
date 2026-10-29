@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=157.90.84.7
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793268748;
-	b=KpGWAymPDXDeBW1u+yc/ALncEErw4oqi00wjuBZmMSGNSV/wCZesJmcHdil63q3e4Vgh
-	 TQEg86F1mmm/pFjT/zXilzYHsnE0Ckc/kycJlXT7UffbMB/uJSne2pDiFhkYXIwTocCUx
-	 YsYkpUDumvq7SvcLX9UIMj1r29zA9jMjq4ZnB+8SOR1d7buvRgsqS7Bs+u2gnBWylrpND
-	 NmffsjjcLqQmq3bCbdxBscZy9CLfQU67TQw0LKgdgvigjBfp7y1JWfbNXfJ3vy6wudghL
-	 IymjfZNbAGP6x9X7sEaX+AaPJ3ex5uCl3YJLLzSZEahI0TiT1ShmsMRMUZl1KIpGVLw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268748;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=7aStgNueysf+zBhxSzPxBFCgGCYSRMy/ej1Gb+SJRo4=;
-	b=lKUblqmY8+EnlLzVg1saDhTna70aY98TBYCUQ3h2MfjExdzOCyqQld06iTYodbHemvPc
-	 eE1hLZboGzpQHmrimXlDfMipfqOSa090Pb7F6k2riuMBpcf+BnMtquZNu1qSuEdQrjzX0
-	 1ZoSNRVCzQ2fY0nwi1yDCeyjilnFB9vxDuiaKlgnbaorC3Ink/LKhRrV3Nb9qqkSIJw/t
-	 NbAX7vJm6YK/SdO7W9yE+OHRS2Cbs8vblZ+21+uYmir7Rv7HE6cuDdWGCyt9rlukhxfHf
-	 2MhDnmRiC5s/WyTfmZKu/XouoJ28hvpnMonzADeh3HkDCrmBWwi5H/5sRhLE0/H7wRw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tuxedocomputers.com;
-	spf=pass smtp.mailfrom=tuxedocomputers.com;
-	dkim=pass header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.a=rsa-sha256 header.s=default header.b=SetW6jE3;
-	arc=none smtp.remote-ip=157.90.84.7
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com [157.90.84.7])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793268767;
+	b=WPWZHaO3MfZVyp71LFEa76bUPJIo8pXISfbiW1HExoCXTBiasQ0LIIfgRsh1KSMaLfyw
+	 JK8LNQ6039zrsS0Eygl6Z2q0mhjDOeOwsoI7FmIeiqS+JRN4p2SfEin//ryAnx/3vxG+P
+	 yMCr0VdQYCeDm+2NsuNB9s42WIY7sMx4vEg5kulFnPkbW9a2sOXHLOahU60QVviZd9/qs
+	 YMjCMaIV13n9v43x9cCyFlk/OJ5GE+NlZtjW11TAMt+c8RwI/W2DnyZ8bNeH+F6hE6ynF
+	 swYWD1/wLom94rkZaU73Phl4sfqmyh1TuKgmQYEJgdbd2C/6131Zroxz0IPeA8EhQeg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268767;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=IVuF2oN/r39OxHk9NHOVV2HH2o8ZKe62/0ZAOyxxOmc=;
+	b=NM3xb7OalLT+4uU4/iFpAChb0lRLmYfThwl8R7dl4weoqxrJIZSe4CGMaJesIYS8kwGa
+	 AKdKLNV+92UrLVTwl9CepSvcagk3Loj2O6LNWM2qZPU8hO4HHlRe4U4DfwJJ/IvUk97NP
+	 O9HgAf2Oqf4suUDWCEHNlf0d4NHvoLYjCoOVXvBeRAbjgVk1GGuc8CqIUbA5mPa/I0M/c
+	 YPpi/N9T2gPH+xVhFn2rX2nFBznkVrxbbZgkJNNCeur37Z93fHs2MRD2diUXFXTON3+hk
+	 W34EuEPdDaORLLOl4bgq96wpZj3Ravyp0c2pETMyf7eRg9+xgL6qZ6X0fuiUTiSZiZw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=euhgcILv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336CA606A31D;
+	Thu, 29 Oct 2026 10:12:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=euhgcILv
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793268767;
+	b=rGQ0goCapDTfH8Haii1ElvwwyaTdexGpzSdYTyM5YDdNzMDxd/dLWN6WgJJlKZBG+f6V
+	 7LoH79KY8gHKio4hhDDGRvC4TEW90VSUwzrBJRk3ygwfNcAFRF3XIHeNd7zpyMkkp/n3B
+	 ERjaVAsJ9C0HEyXmC+hWtimyDZ+V+a4OeRRvce1lsIziGZ02XXi+3N+D4NTW+GXNSzq0b
+	 MO+3PL31mFq/WhHnDnsLQH+c+Hq/Bini17piBk4i8RXHmI75X24zYtjxxfk2/fanS1hpi
+	 R4b1DXbVeqiH6xnWgePBR4hC8igi6xzwr9Kymaq2KXCbzJsxxky53s8TWBJTK9TqiGA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793268767;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=IVuF2oN/r39OxHk9NHOVV2HH2o8ZKe62/0ZAOyxxOmc=;
+	b=U8wKkgr9XdDlkoFpdi17E01HIedb6gomYk0KDMkllfyzcIJ1adtd+GPZz1UhUPjXs88J
+	 RDpP1bfy3Flgu3+XQoSft2y0VIe8GkR8pZ9b17uAq1MqFBhL0a4Dzq+VSgbRXAOAlr2g3
+	 mVdHvnTgv3J70YqpZDt7QTn+adsl6BNy9uexq6aNbg3l8Rr+qBBmUt4qYtKX/wqVBF/q2
+	 Ou2V+iSkkjs9OzznUlwlUgFUY4LKIyzpgX7BqyE/PF/KlywcZNAnPWMNfOOEL2VnLWv8w
+	 sEY7TZFzS5g4MrOmwav+D6JRqWUCVRF63Xzu+wRG7X8fhdD0u/rahi1I/BARiEjoScQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89613606A31C;
-	Thu, 29 Oct 2026 10:12:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89613606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tuxedocomputers.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tuxedocomputers.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.a=rsa-sha256 header.s=default header.b=SetW6jE3
-Received: from [127.0.1.1] (business-024-134-105-141.24.134.pools.vodafone-ip.de [24.134.105.141])
-	(Authenticated sender: a.erhardt@tuxedocomputers.com)
-	by mail.tuxedocomputers.com (Postfix) with ESMTPSA id 741082FC005B;
-	Thu, 29 Oct 2026 11:12:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
-	s=default; t=1793268738;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=7aStgNueysf+zBhxSzPxBFCgGCYSRMy/ej1Gb+SJRo4=;
-	b=SetW6jE3gjaa9BspuDZccxhLga/uxdpwtrxNJSPZoXNGEffnfPUjsild2YCT7pLMb4/B4y
-	QZW9PuIBnL3kZThtj7DBgzrfvWFHxt44pWZ50gQMw8H/8dtWFyEWnbn9zCqXUv+i3B8Sxx
-	6bCtfvhIKELCVjT0Qz014HRTgpOMCdg=
-Authentication-Results: mail.tuxedocomputers.com;
-	auth=pass smtp.auth=a.erhardt@tuxedocomputers.com smtp.mailfrom=aer@tuxedocomputers.com
-From: Aaron Erhardt <aer@tuxedocomputers.com>
-Date: Thu, 29 Oct 2026 11:11:51 +0100
-Subject: [PATCH] platform/x86/tuxedo: Handle LampUpdateFlags in
- LampRangeUpdateReport
+	by smtp.kernel.org (Postfix) with ESMTPS id 16DCB1F01825;
+	Thu, 29 Oct 2026 10:12:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793268766;
+	bh=IVuF2oN/r39OxHk9NHOVV2HH2o8ZKe62/0ZAOyxxOmc=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=euhgcILvEgkmtdh2gbzdamosIfydabEEZd3wHU+SKyPFVhyLYPcYRizSxwZ1r+7w0
+	 GhOVXEnKZ0HAC/K1yYs6GGLkXVIN84c7nE3UvEtmqvPc4+ngLv9EB+nrR740hzmLVJ
+	 I9XIl3MSrwQ6gqnP7OY1NtV9USR8kJm4X0fQVruCqtifNcjGtOLb6UWmHTaqTYNaGj
+	 w096xJo5lNKrMVvQDoR6Hnik/TQpZN8GFIfO2XFmYUBmqcqC2jHSanSm2++Wrk0dFV
+	 y/5YJo2zHKDTaGSt5Ukmzt6QHADPO9Y+4IhlXkgCR4S/MLfgjjnBgAu6DOLQaO4TYf
+	 d63eE0W3cliqA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6B8CE457ED;
+	Thu, 29 Oct 2026 10:12:45 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Subject: [PATCH v5 0/2] Add ITE IT6162 MIPI DSI to HDMI bridge driver
+Date: Thu, 29 Oct 2026 18:12:29 +0800
+Message-Id: <20261029-upstream-6162-v5-0-8369f9e5afe6@ite.com.tw>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,65 +85,219 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-nb04-fixes-v1-1-614da83bd60f@tuxedocomputers.com>
-X-B4-Tracking: v=1; b=H4sIAOYb42oC/y2Nyw6CMBBFf6Xp2lJeNsKvGBZtGbEKBWcGY2L8d
- 4u4vHPO3PuWBBiAZCveEuEZKMwxheIgpL/aOIAKfcqyzEtT5OVJRZfX6hJeQMr0x94605waa2V
- 6WBB+IPnnbs+0uht43hr+BsJjTSu8a9JZAsUI0Ior80Kt1kPg7A4YYcxmHPSyOk1+0mOI60vvY
- HM0z/i0Y087ydJJTJYYcFv69fp5mgK3whfGOPBNVVdedp/PF0lE7VX2AAAA
-X-Change-ID: 20261028-nb04-fixes-6d5dab6989aa
-To: Werner Sembach <wse@tuxedocomputers.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Aaron Erhardt <aer@tuxedocomputers.com>
-X-Mailer: b4 0.16.0
+X-B4-Tracking: v=1; b=H4sIAA0c42oC/3XNyw7CIBAF0F9pWIvhJaAr/8O4KMNgWWgbwKox/
+ XfRjY/G5Z3MufdOMqaImWyaO0k4xhz7Uw2rRUOga08HpNHXTAQTmgkh6XnIJWF7pJprQaVZcTT
+ WB2g9qWZIGOL11bfb19zFXPp0e9WP/Hn91zRyyig6AK0BHA+4jQWX0B+X5UKeVaN4c8nWv1xU7
+ tF5p8Ha+jDj8oPz2bqs3Kq1Cc6AUkzPuPrks3VVuRHaKisxMOm/+DRNDyZnrXxoAQAA
+X-Change-ID: 20260223-upstream-6162-3751e78dfcad
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Pet.Weng@ite.com.tw, Kenneth.Hung@ite.com.tw, 
+ Hermes Wu <Hermes.Wu@ite.com.tw>, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793268764; l=9031;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=yJH7FtZvNZDml9iZjLPMB66iKpCXjr37vKQnfvmPxm0=;
+ b=cEFrgiTBsiD4urhm7tMVF2pJWZY/84/LmAsL+GrmMUQiea9wZoU3LXFqMPj+HLiffxkMuG1kD
+ 4EqewlACKUMDaixfZj2Qx9FgveHaKw6eMnqXhObybtff8RSnjSrP/GA
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-According to HID Usage Tables v1.7 "Lighting And Illumination Page", the
-LampUpdateComplete flag marks an update report as the last of a batch. A
-device must apply all prior changes at once when it receives a report
-with this flag set.
+This patch series adds support for the ITE IT6162 MIPI DSI to HDMI
+bridge chip. The IT6162 is an I2C-controlled bridge that receives MIPI
+DSI input and outputs HDMI signals.
 
-The handler for LampMultiUpdateReport already honors LampUpdateFlags,
-but the handler for LampRangeUpdateReport did not. It always set
-LampUpdateComplete on the final chunk, so every range update flushed the
-internal color state regardless of what the host requested. This reduced
-efficiency and caused unwanted intermediate states for software that
-batches updates using the flag.
+The device supports the following configurations:
+  - Single MIPI DSI input: up to 4K @ 30Hz
+  - Dual MIPI DSI input (combined): up to 4K @ 60Hz
 
-While splitting the update into several LampMultiUpdateReports, forward
-the flags from the range report on the final chunk. Intermediate chunks
-continue to carry no flags.
+This series introduces:
+  - dt-bindings: Add YAML binding document for ITE IT6162
+  - drm/bridge: Add ITE IT6162 MIPI DSI to HDMI bridge driver
 
-Fixes: cfd84b3f419b ("platform/x86/tuxedo: Add virtual LampArray for TUXEDO NB04 devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aaron Erhardt <aer@tuxedocomputers.com>
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
-Tested userspace software:
-- OpenRGB (aac7e55114)
-- lampctl (https://github.com/tuxedo-aer/lampctl 5da2aff)
----
- drivers/platform/x86/tuxedo/nb04/wmi_ab.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v5:
+- Move per-patch changelogs into the cover letter
 
-diff --git a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
-index 3e5ba524fe58..300af12e5f8a 100644
---- a/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
-+++ b/drivers/platform/x86/tuxedo/nb04/wmi_ab.c
-@@ -724,7 +724,7 @@ static int handle_lamp_range_update_report(struct hid_device *hdev,
- 		lamp_multi_update_report.lamp_update_flags =
- 			i + LAMP_MULTI_UPDATE_REPORT_LAMP_COUNT_MAX >=
- 			rep->lamp_id_end + 1 ?
--				LAMP_UPDATE_FLAGS_LAMP_UPDATE_COMPLETE : 0;
-+				rep->lamp_update_flags : 0;
- 
- 		for (unsigned int j = 0; j < lamp_multi_update_report.lamp_count; ++j) {
- 			lamp_multi_update_report.lamp_id[j] = i + j;
+- Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml:
+  * Use 1-based data-lanes numbering as lane 0 is the D-PHY clock lane,
+    revert example to <1 2 3 4>
+  * Constrain data-lanes to in-order lanes or full reversal <4 3 2 1>
+  * Document port@1 as the preferred port for a single MIPI DSI input
+  * Keep port@0 and port@3 optional: a single MIPI DSI input uses port@1,
+    and the HDMI connector is created for the bridge without a port@3
+    link
+  * Keep a single endpoint node per MIPI DSI port, as other bridge
+    bindings based on port-base do
+  * Drop Reviewed-by tag due to above changes
+
+- drivers/gpu/drm/bridge/ite-it6162.c:
+  * Detect lane reversal from 1-based data-lanes (data_lanes[0] == 4)
+  * Rebase on drm-misc-next: use struct drm_atomic_commit in
+    atomic_enable/atomic_disable, replace .atomic_reset with
+    .atomic_create_state, pass DRM_OUTPUT_COLOR_FORMAT_RGB444 to
+    drm_hdmi_compute_mode_clock()
+  * Take the colorspace sent to firmware from the AVI infoframe instead of
+    conn_state->hdmi.output_format, which is no longer enum hdmi_colorspace
+  * Enable the supplies once, while detecting the chip, and disable them
+    through devres on removal and on every probe failure; unwind a
+    partially failed enable in the power-down order; propagate
+    it6162_poweron() errors and drop the unused it6162_poweroff()
+  * Power up ivdd, wait at least 1 ms, then ovdd1833 and ovdd, and power
+    down in the reverse order with the same wait before ivdd
+  * Rename it6162_poweron() to it6162_hw_start() and the power_on flag to
+    hw_ready, as the function no longer enables the supplies: it resets
+    and configures the chip, then enables the interrupt and connector
+    status reporting
+  * Order teardown with devres: initialise the (devm managed) mutex, wait
+    queue and HDCP work first, and register the bridge before the HDCP
+    work cancel action and the IRQ, so the IRQ is freed and the work
+    cancelled before the bridge is removed; drop .remove()
+  * Hold it6162->lock while writing or clearing an infoframe through the
+    data buffer
+  * Update the HDCP content protection property from a dedicated work
+    holding connection_mutex, and drop updates for an HDCP session that
+    has already ended
+  * Zero-initialise the video settings and set the HSync/VSync polarity
+    and scan mode bits as the programming guide defines them, which also
+    fixes the inverted VSync polarity
+  * Check regmap read results before using the data read
+  * Name the chip ID and version register offsets as in the programming
+    guide (register 0x00 is the most significant ID byte); the ID check
+    is unchanged
+  * Document that the firmware is given the HDMI output timing from the
+    requested mode, not the MIPI input timing in adjusted_mode
+  * Drop the endpoint node reference on the data-lanes error path
+  * Get the chip info with i2c_get_match_data(), add it to the I2C ID
+    table and fail probe if it is missing
+  * Honour the requested length when reading an EDID block
+  * Leave the cached HPD state to the IRQ thread instead of updating it
+    from detect
+  * Drop Reviewed-by tag due to above changes
+
+- Link to v4: https://lore.kernel.org/r/20260319-upstream-6162-v4-0-7268483ef03d@ite.com.tw
+
+Changes in v4:
+- Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml:
+  * Drop ite,support-hdcp
+  * Drop endpoint properties already in video-interfaces.yaml
+  * Fix data-lanes in example with <0 1 2 3>
+  * Add blanking line in example before endpoint subnode starts
+  * Add reset-gpio and power controls to required
+
+- drivers/gpu/drm/bridge/ite-it6162.c:
+  * Drop struc it6162_audio
+  * Add HDCP_AUTO in enum hdcp_ver{}, FW enable HDCP by sink capability.
+  * Call drm_atomic_helper_connector_hdmi_clear_audio_infoframe()
+    in it6162_bridge_hdmi_audio_shutdown()
+  * Drop it6162_bridge_hdmi_audio_startup()
+  * Add hdmi_clear_hdmi_infoframe and hdmi_write_hdmi_infoframe
+  * Drop it6162_parse_dt() due to "ite,support-hdcp" is removed from DT.
+  * add DRM_BRIDGE_OP_HDMI to it6162->bridge.ops
+
+- Link to v3: https://lore.kernel.org/r/20260313-upstream-6162-v3-0-8497fb7c4406@ite.com.tw
+
+Changes in v3:
+- Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml:
+  * Fix lane-polarities: remove $ref redefinition, allow via video-interfaces.yaml
+  * Improve ite,support-hdcp description to clarify FW-based HDCP behavior
+  * Remove descriptions repeating schema constraints
+  * Remove stray comment in ports required section
+  * Fix data-lanes spacing in example: <1 2 3 4>
+  * Add missing newline at end of file
+  * Add missing change log  that Reviewed-by tag was removed when V1->V2
+
+- drivers/gpu/drm/bridge/ite-it6162.c:
+  * Fix OFFSET_VERSION_H register offset from 0x03 to 0x05
+  * Add MIPI_PORT_EN_MASK macro combining MIPI_PORT1_EN_MASK and MIPI_PORT0_EN_MASK
+  * Rename HDCP enums: NO_HDCP -> HDCP_DISABLE, NO_HDCP_STATE -> HDCP_STATE_IDLE,
+    AUTH_DONE -> HDCP_STATE_AUTH_DONE, AUTH_FAIL -> HDCP_STATE_AUTH_FAIL
+  * Rename it6162_infoblock_complete() to it6162_wait_command_complete()
+  * Rename it6162_infoblock_host_set() to it6162_infoblock_trigger()
+  * Remove it6162_infoblock_mipi_config() and it6162_infoblock_write_msg()
+    wrappers, inline into it6162_reset_init() and
+    it6162_mipi_set_video_timing() respectively
+  * Remove it6162_set_default_config() wrapper, inline into
+    it6162_reset_init()
+  * Fix typo: hdcp_encyption -> hdcp_encryption
+  * Fix typo: it6162_hdcp_read_infomation -> it6162_hdcp_read_information
+  * Remove dev_err_probe() usage outside of probe path
+  * Remove verbose success-path dev_info/dev_dbg logging throughout
+  * Replace __func__ usage in error messages with descriptive strings
+  * Fix double error printing in probe for it6162_init_pdata failure path
+  * Fix uninitialized variable warning: initialize cp_status to
+    DRM_MODE_CONTENT_PROTECTION_DESIRED at declaration; move
+    drm_hdcp_update_content_protection() inside the state-change block
+  * Fix audio sample width mapping: case 20 now maps to WORD_LENGTH_20BIT,
+    case 24 to WORD_LENGTH_24BIT
+  * Remove stray drm_dbg("it6162_bridge_atomic_disable") call
+  * Remove drm_dbg() calls from it6162_display_mode_to_settings()
+  * Drop unused struct it6162 * parameter from it6162_avi_to_video_setting()
+    and it6162_display_mode_to_settings()
+  * Fold it6162_set_default_config() body directly into it6162_reset_init(),
+    removing the wrapper
+  * it6162_infoblock_request_data(): split command complete polling and
+    buffer status check into two steps; use wait_event_timeout() for
+    data_buf_sts since it is updated asynchronously by the interrupt
+    handler; add wait_queue_head_t data_buf_wait to struct it6162 and
+    wake_up() in interrupt handler
+
+- Link to v2: https://lore.kernel.org/r/20260309-upstream-6162-v2-0-debdb6c88030@ite.com.tw
+
+Changes in v2:
+- dt-bindings:
+  * Drop Reviewed-by tag due to below changes
+  * Add property "ite,spport-hdcp" to enable HDCP
+  * Add property "lane-polarities" and "clock-noncontinuous" for DSI
+    setting
+
+- drm/bridge:
+  * Drop unused element in struct it6162
+  * Remove regmap wrappers
+  * Use FIELD_PREP for bitfield operations
+  * Update HDCP status with drm_hdcp_update_content_protection()
+  * Add AVI, AUDIO, and SPD infoframe control
+  * Remove conversion from drm_display_mode to videomode
+  * Fix regulator/gpio error handling in it6162_init_pdata() to return proper error codes
+
+- MAINTAINERS
+  * squash to driver patch
+
+- Link to v1: https://lore.kernel.org/r/20260223-upstream-6162-v1-0-ebcc66ccb1fe@ite.com.tw
 
 ---
-base-commit: c166bec9343c8b50e4c2acb78b1424c23d98841f
-change-id: 20261028-nb04-fixes-6d5dab6989aa
+Hermes Wu (2):
+      dt-bindings: display: bridge: Add ITE IT6162 MIPI DSI to HDMI bridge
+      drm/bridge: Add ITE IT6162 MIPI DSI to HDMI bridge driver
+
+ .../bindings/display/bridge/ite,it6162.yaml        |  205 +++
+ MAINTAINERS                                        |    7 +
+ drivers/gpu/drm/bridge/Kconfig                     |   17 +
+ drivers/gpu/drm/bridge/Makefile                    |    1 +
+ drivers/gpu/drm/bridge/ite-it6162.c                | 1764 ++++++++++++++++++++
+ 5 files changed, 1994 insertions(+)
+---
+base-commit: 33ed26235db93162935d1719bc6f538c384a2fd8
+change-id: 20260223-upstream-6162-3751e78dfcad
 
 Best regards,
---  
-Aaron Erhardt <aer@tuxedocomputers.com>
+-- 
+Hermes Wu <Hermes.wu@ite.com.tw>
+
 
