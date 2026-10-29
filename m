@@ -1,63 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283462;
-	b=JQcYfS98bGmkIov1/9mZGAScfyxSBa2SmukA2ufJPKPLa7pe87ubiag7MajwOBrVh5Vm
-	 UdmCqXIaaco3Gc6u8qZK4cBHVhOMvaLOg3ltyfj4vCuifB0dk2OhU3t7s4o7p+0WMEceo
-	 PLuYhP/kzxeQ2+AAo3dU1KHKxgm/GeBfUz6xzFv6BFb9jsCgcpamEgrr/ZwWDoPZ12U9L
-	 t6gb8lkIWiIBK8G8Sse22iQXZEVzLaF71CFgcbuGLoPoBrO4jtbHB4z0kTTNNe46kMb8l
-	 s/4AnR/DW8oDX8VgV9uWYDG3+t40h19Nb6jg3fn9UlmU3i1KAqcUPdQa8WzQ85lZJGg==
+	t=1793283466;
+	b=ui7CghlarSQv+S+ebmOCeT/Gmp0UMiX8A+Zx/al5zQQiEI7PgbBiTlFyiM8Vkx5pQaRf
+	 xj+asBsTzpSH76OSjeNtiPD5F3s/tY7Yg/+2zjyu6VhoK8BnNN7ZM+79rcv9gVUd5nBkC
+	 Bc9D9jM637pb8iibiud4nBYIbU/uqrR5A4pzyihgw2i2SUoQCgsjrDV3GYNV0WKVzmL5U
+	 FPRBmCEG2LmiAfqZkKDEFz88dZ1NsTC4Co4w0yDD7lPadHCbhGQpDspMmp/w1XjZI/uMd
+	 RjQJpsa/ygCDXeGFvgd7yv+AqCTcnPLB8MtoMNiZvLkRrzhB4VSMBtkTwVjnf7lbF4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283462;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=zkRLZSrkFzza37z+oDzwz7XZv9jNqGLfFd+6mYZO/7Q=;
-	b=nnu8wbGlwyfPlNgMOTLrKV9RHC7PCbYVmnS5yeTWJw+g0Jl523c9Cp+U0fq88m7O/p57
-	 jZeFOaSdFlWrPeT+8nep9wlJYdOda4zFtxJTFtH0m0+9Kc+wyh6YLXImniSNs9CnI/OUm
-	 aaKk40srfhap3kj5vJdUVNIjAf5n2bK+PebKo7byiAsUQy+jChysTrx77QAt7JBiuGUme
-	 YQhSZeLY8bYHWI40Pfg3aTWe7xdIu90SO6t+W+yNZAVtj/1pBRlb9xnslxFCsncJ7hFaD
-	 4vnCEkONl6r5+JTTLZ3BPzBf9siod4bYSuo0zqK05qsHVCyKIGfGl3vDK840mP3el8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283466;
+	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
+	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
+	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
+	bh=j6tezR2bbFOEa7WomVMs7rpcLRiBTmUY1XcdPftvFZo=;
+	b=mA8551gZrOVOUtJwTXvbq3C2qd5v7WCIootGyZuX/GU9vsgvyZYDJ7u4KWIXj6DZVMSX
+	 lWWi1PkR3LNzE+XRoqWVixo0Z31ONqP8i8iBdzkdrkmbGwg7Oc3wSyHyTmbq+1e6pTY8v
+	 kKgirgD2Ih5KtA8WW/74fyGYDzhzs/0opNUAIjdLZpiPdUnC3pS0C3zHEE0hjE0DtWHvN
+	 Gut5ywM1JBPnu1xYcLsxrDbBdPT3UOI/jutIkGjjUyW5Po6TAj7kaKkKpCqonqXAGYExq
+	 X15+b6+eUqVwh/WPoCiCdJZc+l+pdVTzLY105UFjyYct5p+S7NtRVmCuta5WvUMT2jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m374tBJW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=w6rz.net;
+	spf=pass smtp.mailfrom=w6rz.net;
+	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=R8h8nS2F;
+	arc=none smtp.remote-ip=44.202.169.35
+Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECBDF606A32D;
-	Thu, 29 Oct 2026 14:17:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C807F606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:17:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C807F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m374tBJW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DB871F01828;
-	Thu, 29 Oct 2026 14:17:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793283461;
-	bh=zkRLZSrkFzza37z+oDzwz7XZv9jNqGLfFd+6mYZO/7Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m374tBJWyheDa8gFxeoa8Ck+nrY4CWbf4odLf4LVpbhyp9/B1WqNEs1cdbGRN864v
-	 G0kQ2Z5IcAFd6h4AOxFce7WQXh5PPrIMyQKokfxX0WIDg0y8dTHSS2V7DSfuFbMP9W
-	 3dPW8qu1HwIQe63SqO/6UIvcmUBvduER48Y+7AF4ALnjXNbUjHRrqHbFVVdkZi8gQ0
-	 c8goHyjmppzGmWsQjk8pEl5LttPuMBK2Ip+TScTfkZ3VRzlb16Ct88n9sfWwfn7nMN
-	 P8DtLthpGeuHav0xdEcbxvCtEdyQBZZoqPa74EKZr0cdJ/rI3Tf2lkqCZsRYYvTLH6
-	 fhJ18rcAYbw7Q==
-Date: Thu, 29 Oct 2026 14:17:36 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Paul Louvel <paul.louvel@bootlin.com>,
-	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH v2 1/4] regulator: dt-bindings: Add TI LM51772 support
-Message-ID: <c927a734-10b3-4ebd-85aa-c170a138aac6@sirena.org.uk>
-References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
- <20261027-paul-lm51772-v2-1-b2a767e34722@bootlin.com>
- <20261029-indefinable-bustard-of-ampleness-44abaf@quoll>
- <DMH7AO649J2M.2XFQNV3VXL6UP@bootlin.com>
- <a4a57e41-4e1c-4c94-8b92-6b50f8321ee9@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=R8h8nS2F
+Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
+	by cmsmtp with ESMTPS
+	id MMDVxHhSILvgbMQwlxFZac; Thu, 29 Oct 2026 14:17:39 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id MQwkx0odusTgvMQwkxb6XA; Thu, 29 Oct 2026 14:17:38 +0000
+X-Authority-Analysis: v=2.4 cv=DPiP4zNb c=1 sm=1 tr=0 ts=6ae35582
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=GxnsrCybi4LwF3y-YhAA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=j6tezR2bbFOEa7WomVMs7rpcLRiBTmUY1XcdPftvFZo=; b=R8h8nS2FLrx4IergPvlH4ydsmb
+	YwI98F3OoBGBVhZ2MB4pLEW350dXqbVaN/lGRh4QihNxIi6uX7crSB558yDT05DQ14vzkXYPN2xE+
+	tNEESuqTII08BEdES5bjRWME5n1Y6NtsvQ7HJXRJkekSRQuss+oIRnqpq7PVpRV+x2dr0doZC2tsC
+	PAU2HCfn90ps8YKls/X3QqCuS5KUHMLXDd7r0yych1nUs5dqUk4JQpakRzG43OPWanottPsxSt8K1
+	8iFBL5zQ3OXqGT6lipUgYiEhiMrgW/aupbAsOxEG0IlWfVrnoVTLTqe4TBmpm64ER2UNJ+IpvImi9
+	4BV1sX5Q==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:52240 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100.1)
+	(envelope-from <re@w6rz.net>)
+	id 1xMQwj-00000003wiX-3R7j;
+	Thu, 29 Oct 2026 08:17:37 -0600
+Message-ID: <4169401d-5dcb-46ee-ad65-3c14569c84aa@w6rz.net>
+Date: Thu, 29 Oct 2026 07:17:36 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,47 +76,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="m2OnoWSAlcU9cCzL"
-Content-Disposition: inline
-In-Reply-To: <a4a57e41-4e1c-4c94-8b92-6b50f8321ee9@kernel.org>
-X-Cookie: I have a TINY BOWL in my HEAD
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 00/88] 7.2.14-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261028165942.107695352@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20261028165942.107695352@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1xMQwj-00000003wiX-3R7j
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:52240
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 37
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfLKNHxMCRUQVVQzHxYjHUik15KXhGEUgh48cioK3PC2fCglAAJzJJv3jupbAxvWtZbJEUnAExSMjTEERoE/etZtqF1vuyfjO49HxAfE++q4s1yZA9bIb
+ PqZGZ3qJwitU4zcxhRJjBvaw8c+c2lPek1g74sfXpEX9wvvl4lONS6S85dW6jS2yo1+SSseL1Bjb8ic9tMzr1SvcvYDkUYzAPwA=
 
+On 10/28/26 09:59, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.14 release.
+> There are 88 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.14-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
---m2OnoWSAlcU9cCzL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-On Thu, Oct 29, 2026 at 01:42:43PM +0100, Krzysztof Kozlowski wrote:
-> On 29/10/2026 10:05, Paul Louvel wrote:
+Tested-by: Ron Economos <re@w6rz.net>
 
-> >> Use either existing over-voltage-threshold-microvolt from battery schema
-> >> or ti,ovp-microvolt from the other TI binding.
-
-> > IVP is not the same as OVP.
-
-> ... because? OVP is overv-oltage protection, so ivp is not input
-> over-voltage protection?
-
-At a hardware level for regulators they're doing different things with
-different downstream consequences, over voltage notifiations from a
-regulator indicate a failure to regulate the output voltage which
-wouldn't automatically follow from an excessive input voltage - the
-output might still be clean.
-
---m2OnoWSAlcU9cCzL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrjVX8ACgkQJNaLcl1U
-h9CyHAf+IPb00dfDmN/vx46E36V1FJx7AWnsP0lZ8ab/yBQqSXD2P3scUILSrvBc
-chpwF3fLEiKfEc5QtNnTKx5SbnGq6ax5fYkvzme+RlbLE3x6RoUf7ps75bHYCZCv
-dUgAI9AY/ob9781bCXHcpIHoKTtMDZzG6fFESAW0WxhJnQdEktWD7ef4sDTK/BMf
-5N3j31JsjWNCuCtVaQeu6l9uveM0hmyYlROHJNjihTKoDaEzeVPl00jG5CVDD5Rz
-2X9rRKMEadM4oERZ5vhJRHItRwuQJm1/WvrafiIqxkcJi0wYZxZEjW2kZVsoOT/M
-og0rnA4FzfV3GjIieRtkEZrPI6zwfA==
-=qqbp
------END PGP SIGNATURE-----
-
---m2OnoWSAlcU9cCzL--
