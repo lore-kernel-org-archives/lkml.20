@@ -1,58 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793261581;
-	b=WKu2TlfxGsyoy7ev4kdpZecwWo4YrBzIkRUgPL1i49FEQE2b2nnWVH/oHhByrECrK0T5
-	 h67TP8hBxSGcyIt+TUV0VDOVeOVhMBnWH/XwXd/poQMtFkuS+yCQaOBZ7OnqoazZYnqdf
-	 xgSbeC3+jpXpPxbeCX4EmCuP3WhzQ2+lFqoY85XAY+6wwor8ueAejGLIgVga7uIjFSj1I
-	 2zmEoh8qzaM6RnSQnzs+9fc1FMN4jsw7cWiSrc1+husv+BzKgZJ6hqe80OjjLLxnE2Zq+
-	 hv/o2thPTW0oQXq8dLqbSR9FF5K+VVwwWFNrIphjqPuY/33q4gwux07bzShFR3aof7g==
+	t=1793261610;
+	b=1GrbVFqivAPhNKqk4YAxv/EkEBgcgoQ1Aqf1FlU8OT2T1Gs6x28F2iWBHT9UMKTZKsH6
+	 Uu2hNKtHFpYtXkam0RFKWHkkM2N93gDtXw+L+DB8fsFD7MAXTm367MdWkiZpzqxmndUFt
+	 D1+g27b+IWJk6/3NP0hOAvQZWgQ60JDCQD/g7nW4SUNyuMt/Q+nh5KtSZeQlOdr2eoNxM
+	 ZR095gbr8kHNDi1AZHVK2zHyuJeJkvP1Z4TGiIVMryS9lboES5X1TQElENTvh0ReED/bL
+	 o50EoGArGS35VhX3gvHSiE0J1EhbKiXCgVHtGf/Y43D9y6fWpoWq/zl/9ntMr97unqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793261581;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=sLX0dAXJtQCVkv3TbihTh8YXNXMoEZpgRUeoWcPA1mU=;
-	b=QshAhXtR7V98MmH/C4qUPCyoOKONmZWpgx2TG0iHONWKero6+1rnakCJ+iJikdAGnpLi
-	 XLvcVDLJ0BJn0prNPuVPSoMAUisDjKE5RGa8mSSgDBMU2jWhiXBHMIlhD37uG7cg9Gt98
-	 CMN/k3IYfT/FJdaQydya9Pok7amXghe/BujuCODmNeN/jOx9lGL1cMxpCi3dpDY/UcwuF
-	 06zk7sUwNw32NoDMzc4oOO7rnvfZJ7IQiY/a0tJ3mmSjlB8Tt6bShdQFUF27YWsRgrKCr
-	 gOcrWdfVsJ8TymjEmynwKa/oKJSJcqSMORVc8rRzUYrqJ0uUVwQOzwLYnJ05BnSprew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793261610;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=4zjN8dXrEcZKqqWzHgZ+S8UFEEw6yVLTfn/k2Q+2E8I=;
+	b=IOlOZ0rqbMo2GsY8lICg6BdPbMjdFpqZ4sZhAyDiE1KEam/T1/rApDwp22uU6FTH8TJN
+	 gDzBUbZM9fti5gXwkno3ARQU6fZ+lrDePjSQ/7nM1Sl66RcIxspNlaQ1omxbgxuTpMGFU
+	 4Uml0+cGLApUy2cpDC2M4Pkrbo34LizzwBZp7cGSmY7UjmImHchOgElhjJ+BcpgykmfFa
+	 lHv6XFYozNPOWyeS+jXCvH/C8QbHiFuFtkCkklWe9XYoXhDV3AgaYKfnwOXT8O7lnzAze
+	 JtjYiVAYwAxGx0UuXA8WEHC+Kq2PI3qym2WgGycqOISanTvsgcpGZfbHiyGdLnNcTRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=k6m0K6oh;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a6wIindQ;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CCF606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:12:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66CCF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F3A606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:13:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12F3A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=k6m0K6oh
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=sLX0dAXJtQCVkv3TbihTh8YXNXMoEZpgRUeoWcPA1mU=;
-	b=k6m0K6ohzROjiXTPxRaJoJPL5oH2Hj3XemhqYiI4XA4SQU1NV72L/nAHes80uhboCtMGZgHWQ
-	smdX+5iu+6YQFynGMcWDbNcA0opjC8eYlohw0BjI/jzGN1BvdNh/GUqmmvR33VzPeG9DaYzaHWL
-	plub0paio/oyi+lflNRVV+8=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jFcRK2hS3z1T4JY
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:12:45 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 68EA640537
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:12:56 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 29 Oct
- 2026 16:12:56 +0800
-Message-ID: <38134f28-557b-4f04-ad0f-b3c1290b187d@huawei.com>
-Date: Thu, 29 Oct 2026 16:12:55 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a6wIindQ
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a7a5bcd929so1954575e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:13:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793261608; x=1793866408; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4zjN8dXrEcZKqqWzHgZ+S8UFEEw6yVLTfn/k2Q+2E8I=;
+        b=a6wIindQ3TaYlMrHTlDWbXVYO1DmRQQ5/7gxNcAgU/MgXpAAeKA6ZcAtyZ2o7B0CUX
+         bG9X4HkEPHAKAVxsq1DzokNJnKEFM8NYk541lPD+3i7BGVoSMcyPOio2FY1GQmocO1+i
+         baXiwyimueigSbkVE6A9u46oJ7IXYAI4fOVwkCV4OWYLHwQTdGjKTUnevEvYUhKLA3fV
+         MzCazJl5aGrGL9nEPO3DxhVkIe22ggD81EkLmJaRwTh+6o6eaTQ0RO06diAQtOZRq0vp
+         keDKfYWpOL+2eBDpE+F6AQenSlb1qgJSqJBqENoGdJWebZZ82r68y9PpKOgxdOTKo4rd
+         F0IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793261608; x=1793866408;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4zjN8dXrEcZKqqWzHgZ+S8UFEEw6yVLTfn/k2Q+2E8I=;
+        b=n+W/PVFZBgAOlwy+TiZkHhPAT4U9VPLX3CcDpDXWpzLr+X//FlX/tyZ4JgGHe2+nqV
+         Kn0UiqpeYrLLQhf8j1Bk7vmHQKLVW10V9/RMLIKYM4lpVquS+kBs9qTVzzZ2InfMEs+u
+         x6/Aeq6C5uI85OBizUIv9Q+5Mw1sasOCtZbnfqisyMZurSSVqOrOjGT5kztLBcDTZi04
+         WIxQXrsEY45Dg1ALhqUXlUiOSydKh/wv52rUhxrpEb+nfhGClYOLY9MqmwX9R70NCKv7
+         V/Ytpk50Yb7edhU5/RGKmrlpdcRK03JRGjPZe07+oxnaEw1t9Z+rYu0piMPKNIV0tBMq
+         pk8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxQ/CvTIVK51Lp2tANwfMya2+wbvaBGIVxwzfRN+lmW0cac6oaOxgyLlFOeLKwBtVVwebQowh/A/D8k0Lc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpRutSKtLlcRYM8iiaL3Rc3vyDXBnpnURCffInMCmAAG62/Tbj
+	2jqV/lFyF8LnlLvMoChjGJoikfVzRP+yyLyfaWiuoV5MWX0amjketXvz
+X-Gm-Gg: AYBFou1y/vYN23YFbOeSJ0JlWWtCQ5G5w5mfPkKLxooKMJAix2tuD0BefkQX0bZ+hzc
+	6SHVEl5xCKuPIYN61Pnp4btPesUWgkduYHT4uvpW2ohKuqDgKUqiu+i9HH1rvz3UBt9dp3U7Hu+
+	Mv9WZJ6Yh0ak5Lwy2pPGbok+RWxmwP6chsVfIDFuZv1QZJc4bsVDvM3hQL67mQWlE1apQx8rTzf
+	px6GLWnMZvLpACDaD3A5hPwXvKh+Gy+ij3zvXCWIUORsfUf4bLOmZfnIL4/B6aHB4p23bxuvHA3
+	smWmgzcXh1HOYs/RPLoAO9teJEQXDvaEsE6XWybl6c+ZPv+tygaMzNlA3FJ1FSRw+oE9vKbzsDY
+	ncZj1hluZezneWiI+8TXS2MxgdRZrspWhEkdtxdGzyBOA2EY/WN2irXwUi4KBvbZc4PMAY3xPVi
+	uUrnvKVbti+7C3SDC/5WEmbTgaseMkJuZO4YDHOSJr+oHQpeBkXcY+o0Wnxv401iT4KJ92JR/uL
+	kIJy7chCdio5QRXrG3To0qBQCQujrWc2C6JIi9Flv3ufVjnsiU6p0lIBb4Wvk1YMvxtkLG5bUXG
+	EydfaYvxgIR52j7KMHFdyxuS9aI7sFD/yDPeUQIe9pHeUzk8lbS7LZ+0
+X-Received: by 2002:a05:600d:849c:20b0:4a1:f57c:3803 with SMTP id 5b1f17b1804b1-4a965fbffe7mr74753855e9.2.1793261608237;
+        Thu, 29 Oct 2026 01:13:28 -0700 (PDT)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94eb8a60fsm83424305e9.3.2026.10.29.01.13.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 01:13:27 -0700 (PDT)
+Date: Thu, 29 Oct 2026 11:13:19 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: peterz@infradead.org, mingo@redhat.com, tim.c.chen@linux.intel.com, 
+	yu.c.chen@intel.com, kprateek.nayak@amd.com, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
+Subject: Re: [PATCH] sched/cache: Check reduced capacity before
+ alb_break_llc()
+Message-ID: <auL_-u5bHv-Tp6hh@scheduler.schedules>
+References: <auLs7xeL9FsHcf-h@scheduler.schedules>
+ <20261029075043.4013667-1-zhanxusheng1024@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,65 +101,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/6] arm_mpam: Fix MSC MMIO window size off-by-one with
- resource_size()
-To: <linux-kernel@vger.kernel.org>
-References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
- <20261028-mpam-resctrl-dt-knp-support-v4-2-bdda1e445cba@oss.qualcomm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20261028-mpam-resctrl-dt-knp-support-v4-2-bdda1e445cba@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261029075043.4013667-1-zhanxusheng1024@gmail.com>
 
-
-
-在 2026/10/28 19:45, Yin Li 写道:
-> struct resource uses an inclusive end address, so the window size is
-> end - start + 1. do_mpam_msc_drv_probe() computed it as end - start,
-> which is one byte too small.
+On Thu, Oct 29, 2026 at 03:50:43PM +0800, Zhan Xusheng wrote:
+> Hi Kayra,
 > 
-> mapped_hwpage_sz is used by the register access bounds checks, which
-> have the form "offset + width > mapped_hwpage_sz". With the size one
-> byte too small, an access to the last register in the window is
-> incorrectly flagged as out of bounds: for a 0x1000 window, a 4-byte
-> access at offset 0xFFC (bytes 0xFFC..0xFFF, legal) computes
-> 0xFFC + 4 = 0x1000 > 0xFFF and falsely warns.
+> On Thu, Oct 29, 2026 at 10:13:10AM +0300, Kayra Cizmeci wrote:
+> > Well yeah. alb_break_llc() just returns true in the nr_running <= 1
+> > case. FWIW, on my tip tree this just creates a conflict. On me
+> > alb_break_llc() is first, then asym_active_balance() and then
+> > imbalanced_active_balance(). I think in that case moving all three
+> > functions would be better? (below this other block that's for this case)
 > 
-> Use resource_size() so the size is correct. The ">" bounds checks are
-> correct as-is once the size is accurate and are left unchanged.
+> That's sched/core, which doesn't have ee92b7ef4c1e ("sched/cache: Honor
+> asym packing over cache aware scheduling on hybrid systems") yet.  The
+> patch is on top of it and applies to tip/master.
 > 
-> Fixes: f04046f2577a ("arm_mpam: Add probe/remove for mpam msc driver and kbuild boiler plate")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202609030809.ObirDhR3-lkp@intel.com/
-> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
-> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-> ---
->  drivers/resctrl/mpam_devices.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Only alb_break_llc() needs to go below the capacity check, as it is the
+> only one that returns 0.  The other two only return 1, so where they
+> sit relative to the capacity check doesn't matter.
+> imbalanced_active_balance() moves only to stay behind alb_break_llc().
+
+Ah, my bad :-).
+
+
+Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+
 > 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index 347a5a6d6a1d..0f984fcbcae9 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -2508,7 +2508,7 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
->  			dev_err_once(dev, "Failed to map MSC base address\n");
->  			return ERR_CAST(io);
->  		}
-> -		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
-> +		msc->mapped_hwpage_sz = resource_size(msc_res);
+> Thanks,
+> Zhan Xusheng
 
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Thanks,
 
->  		msc->mapped_hwpage = io;
->  	} else if (msc->iface == MPAM_IFACE_PCC) {
->  		u32 mpam_fb_msc_id;
-> 
-
--- 
-Best regards,
-Jinjie
-
+Kayra
