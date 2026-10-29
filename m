@@ -1,95 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.3
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793293610;
-	b=MmvVS6IXdvqu6Q20VFn5h+QSHuqj14wAD+cnuP169cF3D/yfliFMsEyxv/kwPHPmBPy1
-	 ZXvZOGyjZnfBYA6M5Aboz+FQRUsSEKEVU/l/6UGbUlr5xTcCXIlIcryNIuNwmUY6Dw0Mq
-	 PZnuqfY+FlfUw/Ds8q5WevMbQoLzT+w4vE98DXQpW5LIWkz0UJfLrDJICyTHGMn7xkbBw
-	 qF9H179zxBnidwzOGLeIHY5W5g136/yzb7qcj62Gwcna1M9g4S8GevfKlVOT8mErnXX1e
-	 C21WKzpvv5TWeXvP0ebf8tV/TfyUoXKXMNzkB7OY2ZMTvz2jWui/Os8n6Z+sSE2Yi1w==
+	t=1793293675;
+	b=neB0jYvfhct5DfY2TKMb3INgqDqbtRIaPDur2jVRvlP5ub6q6ecV9baxy+zTjZRIim4X
+	 eM+c5F4qzVP3mijatYN1wMKmT44qD+y4MTUDsfkTf8EyQ9c3Hy1oan5Ats3Gy7fTh8at2
+	 P/ff4mxK9Z43gRt5C90CGBnIr8HxmQzh7D6krQ+r4XZEdG4qzBJxXsa0WZOj6PSkvaY5a
+	 zTgyR4ITy96PwaJPOuKlS4YYE6AP4RY+wdNazLAWsqAu2Jg0FyOKlLdk071vwJB7+Z3I7
+	 LNbSzIkhJZh/aK65ur/PnohbK1805NupT+FTBJC+LamRVClxyb6uHeHyDGq/uUYs9fw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793293610;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=L/RZCIG6rAWJGd8WSVDRzKldLRL4Vua47wkutkhdp+A=;
-	b=h1J021jeb26SMcs8/gSycGETzsQACsR4oCp8mELXGkgFfMjtAkkDCrQybv7Iyfo2S+s/
-	 QysoqCk8NzxSCnr9rOAkI5jYtSBUOBGwPWb+CgrrlhxYUx9LdeIrFHlGiIXuSRYXieW00
-	 978k43SWwZ0j7UTqguZvao9D/n9JDHeo2s02QKmOgzxZ3X8aytEQyS+M2v/MqyYo/ab5q
-	 byi2Do2NRdsNvglvi/bI6TxKlk1k7r5jeyHMVmwpFiXP3vyVBkDA6a+sqaGBxFAoLhmwd
-	 gMejbqN0fKj4NCrIf7TTFjRcqA3vZXbxcgG0OAB1oqexMGdULcd5Iy61BoWTw0Ab2JQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793293675;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0YjGbXSGdFWqGTw7iXBWdHWj/MRYXXZreyMjEGvCLmY=;
+	b=zlaKEdeEkqEBPikrSaLQCvY+94aEDT8NGtT6YNHKkOo564zvAdxnp9GUMjOKxX8djmkv
+	 bfNVZ5utqIGhCEu0CuWNO+oOX/yHR8cj0CfvUDgvNmD6qeI57QAjhyel+wbwn/TylKJeH
+	 xoW1VkiL6TS3j/dd+XHS/2NhI5Z8qvsZvmgnNYkWYc1PK0pG6UbLN0ABMCPSF2DPbxpOn
+	 HEIdMmQLEFbydZcdw2XdE5qcJAJFw+HgQ4GINtU087wAH3uVipT9dRZtHtv6yV0wT4KDl
+	 pPSWzhu7mANPgj/SfPd1zbUWrUcyeaxgMhTcAvTStl1AJd7fQvCSZEO2T88Y+Vsev3g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="1Ke6N5/M";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.3
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011003.outbound.protection.outlook.com [52.101.62.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MuWAqUZR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC96606A31C;
-	Thu, 29 Oct 2026 17:06:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AC96606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39372606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:07:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39372606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1Ke6N5/M
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yQlNVhRTzT4HnQYmV1VWQBcG5wWwYC9G1jYlINV94dFE2S6ysmsxABsohmuMAO0r7Wq/Y4InK8AeNHcOkrpohy3eCdyiy6XBZt+0bwtBwnK3ftnrbRmqA4ZjnxWrbwIoDycgSJYbjx4M/l5obYiPYp6+cOPVJvEiYbMkTXiuAWU9iuusjR2RDXr3pKUkwCjTTpC3eJrQIaeHjP4i/oKhO+b7zM3wiQ5pFL6xccIHeorw6QUEy5lPwcbCZs7w2+flxRaytb7/yENf9+gKmE+cin1ankDCk2JeGYC+SLhD3pkl5ckfTDyolaG4lhhyb+PBegIBhypJJVAHncj2h2fG1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L/RZCIG6rAWJGd8WSVDRzKldLRL4Vua47wkutkhdp+A=;
- b=a+UuTKsdcHjLsNrMTjrVY7nboph3yHl5fluTSOiTV6m0r3eQIlgr1rvvyDSQoMd6qPXXlfF+KWQuDdDW0+6JU5uBlPPGwMeWyjgWUCLU8gZmdF9rfSmqf502NjPU0flBgvq7uox0k2nsuUBhymRQsGRyUtzT8WU+gBoDpDNaygumjMj8zdUQkCxX0MRtQvaqeDFRPaj2aEvALNCDmjCyXuISERTcGvXsUYZN9l//vEN5HLjEuvIE80O0lDesdrMuJwjJjGr3kXdUhP5C+aC5ZaC/SbMxlU5VA2QD94xlG8MRxs6GqCwyD4kkelr+o+3mCStYel/wyzVWJcnpAwKibA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kylinos.cn smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L/RZCIG6rAWJGd8WSVDRzKldLRL4Vua47wkutkhdp+A=;
- b=1Ke6N5/MD0ih37BuUhYt5nyjEEPoELvBSUbOpD8j0+sYOg4oCuP2E1Q16v3JWvOWEzbHEsSyCi4p+ttstAtBoHWnIOG0FBWn9FRbwncRhT3cHBsrq2p5EkfDbutMLOUkyMmHaDlvw/jv4saAsm1kPeaXMy6ayayRWu7xI1xesh8=
-Received: from BLAPR03CA0021.namprd03.prod.outlook.com (2603:10b6:208:32b::26)
- by MW6PR12MB8707.namprd12.prod.outlook.com (2603:10b6:303:241::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Thu, 29 Oct
- 2026 17:06:44 +0000
-Received: from BN7PEPF000000A1.namprd04.prod.outlook.com
- (2603:10b6:208:32b:cafe::23) by BLAPR03CA0021.outlook.office365.com
- (2603:10b6:208:32b::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 29
- Oct 2026 17:06:42 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN7PEPF000000A1.mail.protection.outlook.com (10.167.248.153) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 17:06:41 +0000
-Received: from [10.236.178.151] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
- 2026 12:06:40 -0500
-Message-ID: <7a22cc6a-deba-40e6-8033-97d1234420ba@amd.com>
-Date: Thu, 29 Oct 2026 12:06:40 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MuWAqUZR
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso432269966b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:07:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793293672; cv=none;
+        d=google.com; s=arc-20260327;
+        b=U6CnA3Rsl1d1AYgLnW3+qoknzS1YxyibmY6G0L7IYcjRQYYi2lkycEM+OQ7I1V6QQg
+         jun8CpaN4npaVXTHTCAOhKH1emnsG0dEH48zLr9wt5397WrRS5mIAbRqKXyknqkmjJm2
+         YKodCZ1BkLyQPoRaKwaIjxzaqk3jFuecakXE1DHk8zBuUTf2CS5kvkYeYz72u1Ju853V
+         MGumKANr4oCAY9M5VT8i+ntkiVotvRRHx1fVX0utXUeWiO0kw/lyBrRCPaEqGHTG7nwq
+         Kfy//2DP7wugIEzmZ6OBIVCR0TjkE9fGIshH9x2fC/kG1s7fQmw1Rm/y28DCn43MS7Rv
+         LkHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0YjGbXSGdFWqGTw7iXBWdHWj/MRYXXZreyMjEGvCLmY=;
+        fh=X2puaV+E12vv6gi9KR+v/aT/8Vl8kqFupjKuP4XageM=;
+        b=HhBzFMfJc6n+yQlPiUYMGdoGYDIAMiPJU7x8aMJOAevOjVgG9aVNbsnj1jsOZiEOhq
+         Cw28ugnMBizLpCcemTgjLiaBAHIneFIoFP/I3j1Cx83EQfrKu5VOZEwxO9UJFyENgXDs
+         oCMipi+/a0qOCuqupJCRRcdDWhc0ZhPmZcGud1PM7kpI4a0DyN6pcpv5B+sLmpl/dNwR
+         FoSR3fkSDD3eX2kOPmmCb6pfmiqXEMU+GE0QAxdwqZmXUyfnI6y594Gf1dFChIi+JMo2
+         mBFtJSTWlg4jHHq44h87CxtwFD/A8PeMbCZpEjK9mKE4bdVCb1agC2Fn0XKT+dRB6SDE
+         ahsQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793293672; x=1793898472; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0YjGbXSGdFWqGTw7iXBWdHWj/MRYXXZreyMjEGvCLmY=;
+        b=MuWAqUZRlat6aJ6f8GSESPnGQrfK9syg40aZf1Ngw4XasvhbbIUdsMyG95RGl30Qzz
+         9Yxe0i/egPCaT2iDSP9o+SPOXxQDDHkvTy3Tmbsi7gHFPDFfNRdbgAMu2ri/XRuLOU4P
+         w/N5pfbyO9+Mpyr56qJnr5Sli9u08T7aPzZBRGkJDhg+UkYzIxyUfOXZhvpgOXisSD+b
+         zn44DE015kKSRc0VnLzrd7UMO1HCWL8nTrMaQf75CEoS8svAUUSwo8/rKdYyb+ti+XeW
+         +ALiAdTd1CasSqLpNDr1GyAgjW6d36Qz7JKGCZD44Z9QbmaWAcCAiRBe1yPTRf3qPA3x
+         QBqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793293672; x=1793898472;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0YjGbXSGdFWqGTw7iXBWdHWj/MRYXXZreyMjEGvCLmY=;
+        b=tRjhtOCEzmkaoiQWuQWV/NjRli8reZ1FAfqBTMxyERytoWDBxo3UxZXBl/n6zO2kun
+         xQ/OvWX24civu0qK6QpJefVoZGlvfobBnSRi8RwKWMsNQQrPchHiMJjTrh/+g6ycll0I
+         XJWTiW8Uhq3o3wF4+TiuErxcupMqZD88mXInZ/nEHrbaDgPfkcpsEZZMbK5II/CmyuV9
+         FXwbKLrVDvj38lknwFdHXOmd8EVelfyPAgx74TqfaGQNCKvFXxC3fFdE2Fxot+YlA6Kd
+         oVKFZM1JkvghqMftlXmJ8EkEA8HP2pDNyXrOjdt1xYLdV41llyCLswRTpLDTBlMweVtd
+         9A5g==
+X-Forwarded-Encrypted: i=1; AKwUvBx3/90PfltY1NfeN2s+nNXIZ2KsJR8cmlNnPEe17C0Cyus8B9gY9MzGmch4DnG81ZorDyTUtJduO/jbSlI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIT4UVC41h8tnI8vwA5QIBgmzLQIjicS0Rmx1w7gAT8OcCo4aj2
+	elrUErk6xHA3LYZ/Et7u88hcXGe2LD+pg8bcNmMSQPDADjogMvVUtQNEz8TeZ8BtYXQCLrYm8fW
+	/MhGFKYy4OlbfIgtQFP6V5OVAXS4vap8=
+X-Gm-Gg: AYBFou2gE+rjOX/fZMr46TmBzSFMf7+IyGBRIVBW1gR2T0fpqxV5Qd3eCR9Rir9aA+n
+	uFcwocjlBwI92czWBE6nLQmNO7+79gVM2GDupwqXSkJFqp2bdLAQfCjE2WYdAdpOAx3OvM4PPMb
+	ilfAVdfc/LgqgyZOIreS8BLU4pxgXV0S1qY3aCW2PzBQSXlg3ZGi7kW6cMP4u6O2RKWuAXaAA1O
+	Uzxi8uJVXexyknWy6EH6ykF3C2rbc0pC5Sn4q8Kjrpbha/drQ1cboT870GQHE9NF8gv508wLL6c
+	gaSPmvJ3UE7J8RukBXk6S63+61PkxR9pdClAjbw7C1Y5IqjCg8L6x1HtqHxw1kA1F31gxnGmcG3
+	Z5oreXQJ+rJvh5gq5EhJnSdiJVJKdGfbb9GCTYnk9DvWo3jxY+/PkEtrmOnAW3AdNZ4mdV5+51Q
+	ERRiNvjDkZ78191Zo=
+X-Received: by 2002:a17:906:7313:b0:c45:c030:732c with SMTP id
+ a640c23a62f3a-c49be03a73amr610119866b.41.1793293672256; Thu, 29 Oct 2026
+ 10:07:52 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,148 +105,294 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] cxl/core: Create einj_types when EINJ becomes
- available
-To: Yongxin Yang <yangyongxin@kylinos.cn>, Davidlohr Bueso
-	<dave@stgolabs.net>, Jonathan Cameron <jonathan.cameron@huawei.com>, Dave
- Jiang <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>, Dan
- Williams <dan.j.williams@intel.com>
-CC: <linux-cxl@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20261028084934.1735010-1-yangyongxin@kylinos.cn>
- <20261029065629.333949-1-yangyongxin@kylinos.cn>
-Content-Language: en-US
-From: "Cheatham, Benjamin" <benjamin.cheatham@amd.com>
-In-Reply-To: <20261029065629.333949-1-yangyongxin@kylinos.cn>
+References: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com>
+ <20261027154649.91571-1-griffoul@gmail.com> <20261027154649.91571-2-griffoul@gmail.com>
+ <CAEvNRgGvxtgT=x3sLcasLZzCrtX+qEkHjPgs2yFRY0HRJvodag@mail.gmail.com>
+In-Reply-To: <CAEvNRgGvxtgT=x3sLcasLZzCrtX+qEkHjPgs2yFRY0HRJvodag@mail.gmail.com>
+From: Frederic Griffoul <griffoul@gmail.com>
+Date: Thu, 29 Oct 2026 17:07:41 +0000
+X-Gm-Features: AclHuK-XOTTZ577Y9tlQyUF1DU-1w6QS3FSXEW1jGcpzGvSeAxBjghFI3p-6WVU
+Message-ID: <CAF2vKzP7mKAsbDFfj-ndoYSxxZYbNzVO7uysb-XtKytR4zuC7w@mail.gmail.com>
+Subject: Re: [RFC PATCH 01/14] KVM: guest_memfd: Clamp the order of PFN mode
+ blocks to what KVM can map
+To: Ackerley Tng <ackerleytng@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>, 
+	Alexander Graf <graf@amazon.de>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Alexey Kardashevskiy <aik@amd.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, Ashish Kalra <ashish.kalra@amd.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Baolu Lu <baolu.lu@linux.intel.com>, 
+	Bill Wendling <morbo@google.com>, Borislav Petkov <bp@alien8.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Christian Brauner <brauner@kernel.org>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Connor Williamson <connordw@amazon.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Dave Jiang <dave.jiang@intel.com>, David Hildenbrand <david@kernel.org>, 
+	David Rientjes <rientjes@google.com>, David Woodhouse <dwmw2@infradead.org>, 
+	Erdem Aktas <erdemaktas@google.com>, Frank van der Linden <fvdl@google.com>, 
+	Gregory Price <gourry@gourry.net>, "H . Peter Anvin" <hpa@zytor.com>, Hugh Dickins <hughd@google.com>, 
+	Ingo Molnar <mingo@redhat.com>, Jacob Pan <jacob.pan@linux.microsoft.com>, 
+	James Houghton <jthoughton@google.com>, Jan Kara <jack@suse.cz>, Jianxiong Gao <jxgao@google.com>, 
+	Joerg Roedel <joro@8bytes.org>, Joey Gouly <joey.gouly@arm.com>, 
+	John Starks <John.Starks@microsoft.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Justin Stitt <justinstitt@google.com>, Lorenzo Stoakes <ljs@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+	Michael Roth <michael.roth@amd.com>, Mike Rapoport <rppt@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Nicolin Chen <nicolinc@nvidia.com>, Oliver Upton <oupton@kernel.org>, 
+	Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Samiullah Khawaja <skhawaja@google.com>, 
+	Shuah Khan <shuah@kernel.org>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Steven Price <steven.price@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Tarun Sahu <tarunsahu@google.com>, Thomas Gleixner <tglx@kernel.org>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Tycho Andersen <tycho@kernel.org>, 
+	Vishal Annapurve <vannapurve@google.com>, Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, 
+	Xu Yilun <yilun.xu@linux.intel.com>, Yan Zhao <yan.y.zhao@intel.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, x86@kernel.org, 
+	Shuah Khan <skhan@linuxfoundation.org>, Fuad Tabba <fuad.tabba@linux.dev>, kvm@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, llvm@lists.linux.dev, iommu@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PEPF000000A1:EE_|MW6PR12MB8707:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6a8a6a1-1d13-401a-aeff-08df35df00c2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|82310400026|36860700016|11063799006|261026121527099003|4143699003|56012099006|261021123027099003|261009223027099003|261022105027099003|261022075727099003|261021121427099003|10067099003|22082099003|18002099003|261028144727099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	wNXLHHZn/1VIBC2DZEF9FjupGzIB2gNq2NZYguLHK+zUO9SoppqA9VMJRjRyLot8n7gg3CjfDymg61XutSswhweppQgXeTsoAHCA/VTpK5ugTBuP9hp/kK00U33CBmJ459+oj+ictXCo/ZaU3DDlrcgh5H5rzsvHQ1jW43rMTvbunV39DAgCOYhKwmV0TwygcRdqIhmQihUpyGcmxcSp2nP3wTwDbmXMoKxbYMO17FsyYaZ7x03Wkj1DJgyTure5ycjLyo3uADZmLdV4aJzCze6AtqSyE4RQ4cpE36VU+i6teOoLE+HFzZ7y5Y2Ki3npEFpjWyYqbrnoUHmk4RBr9m4eSyA2M/MBgMfdu2MKbHPuQYiJyeCoC+AFAPezqowHKhYMczzY0T52ltQEYORaPY5BppRJhNOBIAyJVXv4kl/rlBl9s9jHcqLFq85WcslwXF4WQNuvMbi6V8ICwqRTX5bLhdk63BFPpQFQVTgOp4oSFSqVgsBOZYH8NzLekZzZK8/WcnMLjULC/YmL9sx2lWIXjZgs69/7E/HvtdxRD87UI7FfHbreMA1VaCqZpsz7lM7T79DmG6DOVJ/Z3/HHWWY+1ekTt8LdI3T0Ngf2zLqD5q/8PBSZ97ngTK+nucdtxECG57Wcw53X1eov+mbXefxm6vkVKaq9Q/LBxb1G/D8=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(82310400026)(36860700016)(11063799006)(261026121527099003)(4143699003)(56012099006)(261021123027099003)(261009223027099003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	w4JHNCUkla17pDAzWjHUZcZrYJiQyatLG1j6+qNE+L0laxMLk2Npw8popixP2jZId7dXj6MjjxMg8P76Z5iLmXkIA8mFqW7a61Nj7YZqBD003O1cseBqsSnSx7ZqtmcxXG7MrqoJlDAD+wZ1+JXIboa6hzjoBzqUPjkX1v3LMKaS1MdXb6jNca5F3rMxEi+KaGyZR0RtpSlv1I+5QoNPR03dvqJAR4L2tbwDqG0J5kD1nmE0e3dOqHIwFzFrpeZGaUeY+DlvnoGFSeAd+vQUIVTUVYs00zNj8TwHm7QQmLheqVLmM0mclqVEs0uTkrMgX1vZAq1bYulE6Q2bGf9idGNrYmUVg6LArxr69DT+Jttlk7r1tU6euMKoppAgCzqdL8hbszzab7RwRE2fp76nd1lKAQei3Ajk72IzUrS7tKSWE6lXl6Y8YkYYw5CAqKLo
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 17:06:41.6205
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6a8a6a1-1d13-401a-aeff-08df35df00c2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN7PEPF000000A1.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8707
+Content-Transfer-Encoding: quoted-printable
 
-Hi Yang, thanks for walking through your reasoning in the last revision. It made looking through
-the changes here much easier!
+On Thu, Oct 29, 2026 at 06:25:49AM -0700, Ackerley Tng wrote:
+> Fred Griffoul <griffoul@gmail.com> writes:
+>
+> > +        kvm_mmu_invalidate_range_add(kvm,
+> > +                         round_down(gfn_range.start, blk),
+> > +                         round_up(gfn_range.end, blk));
+> > +
+>
+> Yes, we want to make the invalidation range larger, but not the range
+> being zapped. We can't over-zap for CoCo VMs.
+>
+> Would it be better to refactor kvm_mmu_unmap_gfn_range() instead of
+> doing kvm_mmu_invalidate_range_add() twice?
 
-Nit-picky comments in line :)
+Good point. As far as I can see, kvm_mmu_unmap_gfn_range() is only
+kvm_mmu_invalidate_range_add() plus kvm_unmap_gfn_range(), so
+guest_memfd could do the two steps itself: add the blocks around the
+range, then unmap the exact range. The zap stays exact and the range is
+added once. Or am I missing something about kvm_mmu_unmap_gfn_range()
+that a refactor would need to keep?
 
-On 10/29/2026 1:56 AM, Yongxin Yang wrote:
-> [You don't often get email from yangyongxin@kylinos.cn. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> From: Yang Yongxin <yangyongxin@kylinos.cn>
-> 
-> The einj_types file under the CXL debugfs directory is never created.
-> 
+> So I think we should follow the same model:
+>
+> + The provider reports the max_order based on it's contiguity
+>   information, which is the actual contiguity of memory and
+>   read-only attributes
+> + guest_memfd further reduces max_order due to shared/private contiguity
+> + After handing it to KVM, KVM further reduces the max order based on
+>   the above.
+>
+> I think mappings for all other page tables (userspace and IOMMU) should
+> also follow this approach.
 
-I think this should be "The einj_types file under the CXL debugfs directory
-is never created when cxl_core is built-in", but I haven't looked in a while.
+Agreed. guest_memfd should then only reduce the order for shared and
+private pages, and drop the gfn alignment and the rounding to a
+page-table size, which KVM does. For the provider, "contiguity" would
+mean a naturally aligned block of contiguous frames with the same
+attributes, the frames aligned to the block too, so a mapping of that
+size is valid as is.
 
-I remember you saying something about subsys_initcall() being downgraded to a
-module_init() when cxl_core is built-in, and it looks like that's the case
-after a quick look at the macro definition. So module dependencies should
-cause the file creation to happen post EINJ init when both cxl_core and einj_cxl
-are modules, in which case the file will be there.
+One gap: KVM does not cover a memslot whose gfn and guest_memfd offset
+are not aligned to each other. On x86, kvm_alloc_memslot_metadata()
+disallows large pages when base_gfn and userspace_addr are misaligned,
+but nothing compares base_gfn with gmem.pgoff, and kvm_gmem_bind()
+takes any page-aligned offset. A gmem.pgoff check next to the
+userspace_addr one would keep that in KVM too.
 
-That's probably why I never noticed this either, I (like most people) almost always
-set everything CXL related to 'm' when compiling a kernel...
-> cxl_core_init() runs at subsys_initcall level, while EINJ registers itself
-> from einj_init() at device_initcall level. When cxl_core_init() evaluates
-> einj_cxl_is_initialized() the built-in EINJ driver has not been initialized
-> yet, so the value is always false and the debugfs_create_file("einj_types")
-> call below it is never reached. Users have no way to discover which CXL
-> error types the platform supports from debugfs.
-> 
-> Create the file from every point that can tell EINJ is up: cxl_core_init()
-> covers cxl_core being a module loaded after EINJ has been initialized;
-> cxl_acpi_probe() covers the same case for cxl_acpi and also systems where
-> the CEDT is parsed but no dport is ever added; and the dport probe path
+The export lookup in the series already works this way: it reports the
+provider's block, reduced for shared and private pages. iommufd maps
+PAGE_SIZE IOPTEs in this series, and will pick larger IOPTEs from that
+block later.
 
-I would rather this not mention the case where no dport is ever added and
-instead talk about the RCH/RCD case. If there's no dport ever added then
-error injection isn't possible and this file is useless, so there's not
-really a point in bringing it up.
-> covers the built-in case, where the dport added from the memdev probe is
-> the only hook reached after einj_init().
-> 
-> The dport probe path can run concurrently for different parent ports, each
-> holding only its own device lock, so serialize the check and the create to
-> avoid a duplicate debugfs_create_file() attempt that would only fail with
-> -EEXIST. Reset the cached dentry in cxl_core_exit() so that reloading
-> cxl_core starts from a clean state.
-> 
-> Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
-> Cc: <stable@vger.kernel.org>
-> Link: https://lore.kernel.org/all/de14c4ef-e3d8-432f-9ce8-87c468d6d2ad@amd.com/
-> Signed-off-by: Yang Yongxin <yangyongxin@kylinos.cn>
-> ---
+> I guess the kvm_gmem_fault_user_mapping() equivalent of this max_order
+> tuning is missing from this series. :) I think we should defer order >
+> 0 to a later series though. I think read-only-ness should be part of
+> the first PFN mode series.
 
-The contents of the patch look good to me, so with the changes to the description
-and comment below:
+Right, userspace mappings are PAGE_SIZE for now.
 
-Reviewed-by: Ben Cheatham <benjamin.cheatham@amd.com>
+Deferring order > 0 for KVM and userspace is fine with me. I'd like to
+keep the order in the export lookup, though: large IOPTEs matter for
+device performance, and I'm preparing iommupt changes to split and merge
+them in place.
 
-> Changes in v3:
-> - Take the review from Ben: the helper is now cxl_debugfs_einj_add_types(),
->   non-static, declared in cxl.h and exported to cxl_acpi only, so that the
->   cxl_acpi hook can call it.
-> - Add the cxl_acpi_probe() hook, before cxl_bus_rescan(), so the file is
->   created once the CXL topology exists instead of waiting for a dport.
-> - Keep the dport path as a retry point. With EINJ built in, cxl_core_init()
->   and cxl_acpi_probe() both run before einj_init(), so dropping it would
->   still leave the file uncreated there.
-> - Drop the "RCH is out of scope" paragraph. RCH does add a dport, from
->   add_host_bridge_dport(); the file is still not created there when EINJ is
->   built in, so do not claim the acpi hook fixes RCH.
-> - Reset einj_types_dentry and cxl_debugfs in cxl_core_exit(), so that a
->   reloaded cxl_core does not keep a stale pointer and lose the file.
-> - Use guard(mutex) instead of mutex_lock()/mutex_unlock().
-> 
->  drivers/cxl/acpi.c      |  9 +++++++++
->  drivers/cxl/core/port.c | 41 +++++++++++++++++++++++++++++++++++------
->  drivers/cxl/cxl.h       |  2 ++
->  3 files changed, 46 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
-> index 3b818adbd38b..0584245b30f2 100644
-> --- a/drivers/cxl/acpi.c
-> +++ b/drivers/cxl/acpi.c
-> @@ -958,6 +958,15 @@ static int cxl_acpi_probe(struct platform_device *pdev)
->         if (rc < 0)
->                 return rc;
-> 
-> +       /*
-> +        * Create einj_types from here as well, so the file also shows up when
-> +        * cxl_acpi is a module loaded after EINJ, and on systems where the
-> +        * CEDT is parsed but no dport is ever added (no CHBS for the host
-> +        * bridge, or a CHBS without a valid component register base), which
+Fred
 
-Same thing as in the commit description, just mention the RCH/RCD case here instead.
-
-Thanks,
-Ben
+On Thu, Oct 29, 2026 at 1:25=E2=80=AFPM Ackerley Tng <ackerleytng@google.co=
+m> wrote:
+>
+> Fred Griffoul <griffoul@gmail.com> writes:
+>
+> > From: Fred Griffoul <fgriffo@amazon.co.uk>
+> >
+> > KVM maps guest memory in 4K, 2M or 1G blocks, and uses guest_memfd's
+> > max_order to choose. A folio of order N is physically aligned and never
+> > mixes shared and private pages, so the order needs no check. A PFN mode
+> > provider's frames need not be aligned
+>
+> I'll need to think about max_order > 0 more for PFNs. I put it out of my
+> mind because my frame of mind is that only order-0 folios are supported
+> today. Perhaps with PFNs it's actually a lot easier to support order >
+> 0.
+>
+> > and the provider does not know
+> > which pages are private, yet kvm_gmem_get_pfn() passes its order to KVM
+> > unchanged. KVM can then map a block over the wrong frames, or with one
+> > attribute over shared and private pages.
+> >
+>
+> Yes, makes sense that private/shared contiguity needs to be taken into
+> account. I didn't consider this because order-0 is always safe to
+> map. Thank you!
+>
+> >
+> > [...snip...]
+> >
+> > -static void __kvm_gmem_invalidate_start(struct gmem_file *f, pgoff_t s=
+tart,
+> > +static void __kvm_gmem_invalidate_start(struct inode *inode,
+> > +                                     struct gmem_file *f, pgoff_t star=
+t,
+> >                                       pgoff_t end,
+> >                                       enum kvm_gfn_range_filter attr_fi=
+lter)
+> >  {
+> > +     const gfn_t blk =3D kvm_gmem_is_pfn_mode(GMEM_I(inode)) ?
+> > +                       1UL << PUD_ORDER : 1;
+> >       bool flush =3D false, found_memslot =3D false;
+> >       struct kvm_memory_slot *slot;
+> >       struct kvm *kvm =3D f->kvm;
+> > @@ -355,6 +360,16 @@ static void __kvm_gmem_invalidate_start(struct gme=
+m_file *f, pgoff_t start,
+> >
+> >               flush |=3D kvm_mmu_unmap_gfn_range(kvm, &gfn_range);
+> >
+> > +             /*
+> > +              * In PFN mode, a fault may map a block of up to PUD_ORDE=
+R
+> > +              * pages, sized before this invalidation (see
+> > +              * kvm_gmem_pfn_map_order()): make faults anywhere in the
+> > +              * blocks around the range retry.
+> > +              */
+> > +             kvm_mmu_invalidate_range_add(kvm,
+> > +                                          round_down(gfn_range.start, =
+blk),
+> > +                                          round_up(gfn_range.end, blk)=
+);
+> > +
+>
+> Yes, we want to make the invalidation range larger, but not the range
+> being zapped. We can't over-zap for CoCo VMs.
+>
+> Would it be better to refactor kvm_mmu_unmap_gfn_range() instead of
+> doing kvm_mmu_invalidate_range_add() twice?
+>
+> >  #ifdef CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE
+> >               kvm_arch_gmem_invalidate_range(kvm, &gfn_range);
+> >  #endif
+> > @@ -374,7 +389,7 @@ static void kvm_gmem_invalidate_start(struct inode =
+*inode, pgoff_t start,
+> >       struct gmem_file *f;
+> >
+> >       kvm_gmem_for_each_file(f, inode)
+> > -             __kvm_gmem_invalidate_start(f, start, end, filter);
+> > +             __kvm_gmem_invalidate_start(inode, f, start, end, filter)=
+;
+> >  }
+> >
+> >  static void __kvm_gmem_invalidate_end(struct gmem_file *f, pgoff_t sta=
+rt,
+> > @@ -670,7 +685,7 @@ static int kvm_gmem_release(struct inode *inode, st=
+ruct file *file)
+> >        * Zap all SPTEs pointed at by this file.  Do not free the backin=
+g
+> >        * memory, as its lifetime is associated with the inode, not the =
+file.
+> >        */
+> > -     __kvm_gmem_invalidate_start(f, 0, -1ul,
+> > +     __kvm_gmem_invalidate_start(inode, f, 0, -1ul,
+> >                                   kvm_gmem_get_all_gfns_filter(inode));
+> >       __kvm_gmem_invalidate_end(f, 0, -1ul);
+> >
+> > @@ -1535,6 +1550,44 @@ static struct folio *__kvm_gmem_get_pfn(struct f=
+ile *file,
+> >       return folio;
+> >  }
+> >
+> > +/*
+> > + * The order a PFN mode block can be mapped at: the provider's order, =
+no
+> > + * larger than the alignment of @gfn and @pfn to @index allows, rounde=
+d down to
+> > + * a page-table size, and never over pages that are not all shared or =
+all
+> > + * private, since KVM maps a block with a single attribute.  Called wi=
+th the
+> > + * invalidate lock held; an invalidation of any page of the block make=
+s the
+> > + * fault retry (see __kvm_gmem_invalidate_start()).
+> > + */
+> > +static int kvm_gmem_pfn_map_order(struct inode *inode, pgoff_t index,
+> > +                               gfn_t gfn, kvm_pfn_t pfn, int order)
+> > +{
+> > +     u64 misalign =3D (gfn ^ index) | (pfn ^ index);
+> > +     u64 attrs;
+> > +
+> > +     if (WARN_ON_ONCE(order < 0))
+> > +             return 0;
+> > +
+> > +     order =3D min(order, PUD_ORDER);
+> > +     if (misalign)
+> > +             order =3D min_t(int, order, __ffs64(misalign));
+> > +
+> > +     if (order >=3D PUD_ORDER)
+> > +             order =3D PUD_ORDER;
+> > +     else if (order >=3D PMD_ORDER)
+> > +             order =3D PMD_ORDER;
+> > +     else
+> > +             return 0;
+> > +
+> > +     attrs =3D kvm_gmem_get_attributes(inode,
+> > +                                     mtree_load(&GMEM_I(inode)->attrib=
+utes, index));
+> > +     while (order &&
+> > +            !kvm_gmem_range_has_attributes(inode,
+> > +                                           ALIGN_DOWN(index, 1UL << or=
+der),
+> > +                                           1UL << order, attrs))
+> > +             order =3D order =3D=3D PUD_ORDER ? PMD_ORDER : 0;
+> > +     return order;
+> > +}
+> > +
+>
+> I'll review this function more closely again. I think the mapping order
+> should fit into how KVM does it. After taking guest_memfd's input on
+> max_order, KVM then lets these parties possibly tune the max order down:
+>
+> 1. lpage_info contains information about highest order due to memslot
+>    alignment and alignment due to VM-level memory attributes
+> 2. CoCo platform can impose a max order
+> 3. Userspace mappings can impose a max order too.
+>
+> So I think we should follow the same model:
+>
+> + The provider reports the max_order based on it's contiguity
+>   information, which is the actual contiguity of memory and
+>   read-only attributes
+> + guest_memfd further reduces max_order due to shared/private contiguity
+> + After handing it to KVM, KVM further reduces the max order based on
+>   the above.
+>
+> I think mappings for all other page tables (userspace and IOMMU) should
+> also follow this approach.
+>
+> I guess the kvm_gmem_fault_user_mapping() equivalent of this max_order
+> tuning is missing from this series. :) I think we should defer order > 0
+> to a later series though. I think read-only-ness should be part of the
+> first PFN mode series.
+>
+> >
+> > [...snip...]
+> >
