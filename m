@@ -1,82 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793262109;
-	b=uL+YNe1GhY0ChXjHnEeMWrXPW1/YmHFwppKZpsCpmR5Tw8qe2Y9KMGwJAMf3eKzVWn9T
-	 AZA0rntMjYaZ8o0NqTNetp43JvBC3UVAhY3iR25KCKFvmyA2S4Uixd8ej0kBt92HEknwO
-	 Nye19Cmxpviaso+xfaTgJAzQrdgIdBT9SVN7GvJBAqBglJoZujyVGTpquIXgrpv+Cst4c
-	 NzhXd35chv8PoCFeV6mruNqk6yvCBvoZSy0rL69NTJo45v62bOUBhY64lMgYDU0Mq4Tg/
-	 mF8m3QIXSRz7zNFsSG30/QmhcXbmOWZU2+pErFbx8zLeicY2IN5K2GL0Sv6Ovh4ha/g==
+	t=1793262124;
+	b=Z8EXXVPW1jtsG4w7wIVGq0f9zlqWFzzkDm9YCZ2iuTo7lh+ologNY3xmlhmemy809Vgq
+	 hH+MH2CMJ5T3aDRhPbM/C8bIXyA1XU1tqjiMkINXxNApu+Db0R5H7rKyHhFKa4LlqV17W
+	 gmGLLPpUo8eIcovYRS8xJWWA6DoogaqopsAFBXkcwjN9Yp0FmkKuAu/lZj6Sie/UdABvg
+	 jRDhYtWnzwwTKY1HbF8ihgRDk7tKbAByB1U1pEiML14Iet38cQYwHd9zppiDAE98ACDsT
+	 tw2vHNpOMCG4C4Zcp8pcT6LGv8ARZ5FBqn1LoC3gkHoUyWICqghIutPYxyh8gC7t4rQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793262109;
-	h=Received:DKIM-Signature:X-Mailer:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=xPmA0pkfhdgm8CaJDGdf7BEDZGYIBrL6KWwLvFembQY=;
-	b=dAwHK1Z6FphkKqtk2qt8Mn32Bk3Hbp6VAeS6BzQz2ft1AVt9MEqxESb0bPxrfAM+I356
-	 zXrI8UU9/n/Am/fVxcjRthx+ahmyHn+tnOvcBj2Q9QqOFLIOCbbl2hykDd8kva2pVyunI
-	 5nWOoiHWaALOa7CQV3nSggf9DqNhe6zVTe3WfkskUk4+BjscykzHcY26i6ejdjZQWB8M7
-	 P0DdVq1LPKVg7RRd+ggJVVmAgNMnO4zI1yVewy4vc+o+n8IA1Xh77m7nsGnwYLyivk9oM
-	 QyeAm+Peu8OSohwdZn67+0wIVNnfp3S4Ih8RPoOTVHna//UMleZT3WYdAhCXWVcgJjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262124;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=80L/74JJpPjW2XTYPhSHYPvDLWJV+C0FOX8YWdWl3VY=;
+	b=QXUDpEtQkTYetpx3UybLgMn0UZ2Oq/flYcfpeur5La4+Z1Had7Uda9NdQSM3pP5WZ7Pr
+	 sMOxtfmoUOglY7ddUFVxKVyjQQvN1a9yas97vYVs6VGiGgeC15wNH9oJf6KdL4yrrUQ8J
+	 70IklNFxUKIX32mux+W85Ed63AAQq9CbmCiz3M32tEYp+nmUuRn2LlEg9jjZbXp3PACUe
+	 gnqMYkOByoHqBDAwKApM3ebTj4ci2ewJ+yeyAMqwB1zAhcBkmxVwO5ePARhAfMzQDfM97
+	 PEsqaelK05b8hM8CKzJrL9j1Z5U5HC0uwRn/yCqyOI23hkv6JlLyL4vGl2ylah4gkyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+VpPybF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgg6EkpC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E574606A32C;
-	Thu, 29 Oct 2026 08:21:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6DAC606A31E;
+	Thu, 29 Oct 2026 08:22:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+VpPybF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026C61F01825;
-	Thu, 29 Oct 2026 08:21:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgg6EkpC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A66A1F01825;
+	Thu, 29 Oct 2026 08:22:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793262109;
-	bh=xPmA0pkfhdgm8CaJDGdf7BEDZGYIBrL6KWwLvFembQY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=j+VpPybF6IZFS02jOwPLDCU/oqxnF36kGt/r+uuygcDVDakU+jtz7x6bM47p1LBbB
-	 A5DkDZENUbYysQ/lFizuVu9Jakcxi+LatcRtyxMktaYn959Xd+jSu1xzh4Rp3ldkxj
-	 0jCC1apEtCbQ36cK51x6ekx5Wo0w+S5PmzaPF8liLzSuNORTHrw6cWAgnVidD/keCF
-	 FCXGBZqw8jA/6Ea+//8GN+Qh/ttyFLzrNrOPiNntT4aDom9QwKVkPs1pzNdWRumSjR
-	 WBqj5BQVS7ec/2NdB5VXi7EpvUmfgTm+GtkQwFSADEIhzS9z94STGRqVROt2AYgnCb
-	 mE3Omf6VbU3Dg==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@nvidia.com>,
-	Alexey Kardashevskiy <aik@amd.com>
-Cc: iommu@lists.linux.dev, Alex Williamson <alex@shazbot.org>,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jacob Pan <jacob.pan@linux.microsoft.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Krishna Reddy <vdumpa@nvidia.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Shameer Kolothum <shameerali.kolothum.thodi@huawei.com>,
-	Steven Price <steven.price@arm.com>,
-	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Vasant Hegde <vasant.hegde@amd.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>, kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v7 13/16] iommufd/viommu: Select vIOMMU operations
- before allocation
-In-Reply-To: <179321444125.2412245.13201160469751061592.b4-review@b4>
-References: <20261008055955.4014342-1-aneesh.kumar@kernel.org>
- <20261008055955.4014342-14-aneesh.kumar@kernel.org>
- <179321444125.2412245.13201160469751061592.b4-review@b4>
-Date: Thu, 29 Oct 2026 13:51:37 +0530
-Message-ID: <yq5a7bj0c3xq.fsf@kernel.org>
+	s=k20260515; t=1793262123;
+	bh=80L/74JJpPjW2XTYPhSHYPvDLWJV+C0FOX8YWdWl3VY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kgg6EkpCOw1a0M5b1a4gnTAoNqkEBhSPHrJkWnEE31zB+qbdnRJUPGqPU2IHclOYs
+	 /iKnDpozrVErI0BtUvTv+5wdEBo3QDHNdcr93K2cH8ywWIBr5Z6E/KLfrG4+FLN9Kd
+	 iT7QgZQGKucikrZadiklQm2y0PBrHtZeS1Pv9yf2mRf4+WvwRZAMS6RK28oHMvIAWL
+	 6qfaZRci8S2vQL3elRejIZG8N6sZB37U9Bfblv4mkS6PiJ1C51OQJUOn4kCt/aQotp
+	 TYQWpp55gdvKs5E0YGdZIbppDtNy8J0E8hH+DMyGoxZseeuyyr61q4u+P5b8FYbzlm
+	 mdLcsWPpHToKw==
+Date: Thu, 29 Oct 2026 09:21:59 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Francesco Valla <francesco@valla.it>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>, 
+	Jason Wang <jasowangio@gmail.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev
+Subject: Re: [PATCH v2 0/2] Add devicetree bindings for spi-virtio
+Message-ID: <20261029-tactful-able-moose-e61a2d@quoll>
+References: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
+ <20261027065001-mutt-send-email-mst@kernel.org>
+ <auCb8_ROuyXdTkQ4@bywater>
+ <20261027090324-mutt-send-email-mst@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,55 +64,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027090324-mutt-send-email-mst@kernel.org>
 
-Jason Gunthorpe <jgg@nvidia.com> writes:
+On Tue, Oct 27, 2026 at 09:07:47AM -0400, Michael S. Tsirkin wrote:
+> On Tue, Oct 27, 2026 at 01:46:35PM +0100, Francesco Valla wrote:
+> > Hello Michael,
+> > 
+> > On Tue, Oct 27, 2026 at 06:50:51AM -0400, Michael S. Tsirkin wrote:
+> > > On Tue, Oct 27, 2026 at 08:26:32AM +0100, Francesco Valla wrote:
+> > > > When a virtio transport exposes a non-discoverable bus, the devicetree
+> > > > can be used to declare its child devices (if any) and/or other
+> > > > properties. To allow for that, the virtio framework searches for a node
+> > > > with a suitable compatible in virtio_device_of_init() when registering
+> > > > a device [1]; such compatible takes the form "virtio,deviceXX", where
+> > > > XX is the hexadecimal representation of the virtio device ID as defined
+> > > > by the virtio specification.
+> > > > 
+> > > > This patchset thus does not introduce a new functionality, but allows
+> > > > proper validation of nodes tied to spi-virtio devices, aligning SPI to
+> > > > what is already being done for e.g. I2C and GPIO virtio devices.
+> > > > It was sent initially as part of a different patchset [2], but since it
+> > > > complements a functionality that is de-facto already there and is useful
+> > > > beyond that specific use case it was sent separately (also following the
+> > > > maintainer's feedback there to separate it from remoteproc-specific
+> > > > changes).
+> > > > 
+> > > > This was tested both with virtio-mmio using qemu-system-aarch64 and with
+> > > > remoteproc-virtio with a Zephyr backend (with relevant remoteproc-virtio
+> > > > parts still not not upstreamed - see [2]).
+> > > > 
+> > > > I added myself as reviewer for the spi-virtio driver to be CC'd on any
+> > > > patch involving the new bindings.
+> > > > 
+> > > > Thank you!
+> > > > 
+> > > > Regards,
+> > > > Francesco
+> > > > 
+> > > > [1] https://elixir.bootlin.com/linux/v7.2.8/source/drivers/virtio/virtio.c#L488
+> > > > [2] https://lore.kernel.org/linux-remoteproc/20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it/
+> > > > 
+> > > > Signed-off-by: Francesco Valla <francesco@valla.it>
+> > > > ---
+> > > 
+> > > I hope this can be merged through the devicetree maintainers,
+> > > I have no idea.
+> > > MAINTAINERS changes needs an ack from existing maintainers, of
+> > > course.
+> > > 
+> > 
+> > This might prove... difficult. My e-mails to the maintainer (Haixu Cui
+> > @quicinc.com) continue to be bounced back by the Qualcomm postmaster
+> > with a RecipientNotFound error. Maybe someone from Qualcomm can give me
+> > a lead on how to contact them?
+> 
+> Indeed, so it did for me.  Oh that's no good at all.
+> 
+> Mark, what's your take? The maintainer is MIA but we have a volunteer
+> maintainer here.
+> 
+> As far as I'm concerned
+> 
+> Acked-by: Michael S. Tsirkin <mst@redhat.com>
 
->> [ ... 62 lines skipped ... ]
->> --- a/drivers/iommu/amd/iommufd.c
->> +++ b/drivers/iommu/amd/iommufd.c
->> @@ -32,13 +32,21 @@ void *amd_iommufd_hw_info(struct device *dev, u32 *length, enum iommu_hw_info_ty
->>  	return hwinfo;
->>  }
->>  
->> -size_t amd_iommufd_get_viommu_size(struct device *dev, enum iommu_viommu_type viommu_type)
->> +static size_t amd_iommufd_get_viommu_size(struct device *dev,
->> +		enum iommu_viommu_type viommu_type)
->>  {
->>  	return VIOMMU_STRUCT_SIZE(struct amd_iommu_viommu, core);
->>  }
->>  
->> -int amd_iommufd_viommu_init(struct iommufd_viommu *viommu, struct iommu_domain *parent,
->> -			    const struct iommu_user_data *user_data)
->> +const struct iommufd_viommu_ops *
->> +amd_iommufd_get_viommu_ops(struct device *dev, enum iommu_viommu_type viommu_type)
->> +{
->> +	return &amd_viommu_ops;
->> +}
->
-> This needs to fail not retain the broken behavior if this is getting
-> touched..
->
+All @quicinc.com emails stopped working long time ago and Qualcomm
+engineers were asked to update their emails. Most did the update, so if
+nothing happened here, let's make it orphaned and then Francesco can
+take it over.
 
-Do you mean return NULL until we add an AMD-specific type equivalent to
-IOMMU_VIOMMU_TYPE_ARM_SMMUV3?
+Best regards,
+Krzysztof
 
-modified    drivers/iommu/amd/iommufd.c
-@@ -41,7 +41,7 @@ static size_t amd_iommufd_get_viommu_size(struct device *dev,
- const struct iommufd_viommu_ops *
- amd_iommufd_get_viommu_ops(struct device *dev, enum iommu_viommu_type viommu_type)
- {
--	return &amd_viommu_ops;
-+	return NULL:
- }
- 
- int amd_iommufd_viommu_init(struct iommufd_viommu *viommu,
-
-
-Alexey,
-
-Could you look at this and suggest the AMD equivalent of
-arm_smmu_get_viommu_ops()? We could add it as part of this patch.
-
-
--aneesh
