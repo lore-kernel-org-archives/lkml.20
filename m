@@ -1,100 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.218.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793293179;
-	b=FbqAqctR3SUrJRt9CWp39lEPo91QQDSpGbDtxrq1lrwRl3BeFEiH1hQHCPbKrP9AsD1u
-	 4svSUv483XUCA8TrA4rkk6OzSwmUXPsq5hatrt0hakD2YCpDT9+h09FTeDyac7thV/nO6
-	 nvo0gNAaYp/mU6hZC0yIW2wO7PB8Jkg+V0QOS86iu7qcHu1a78bDD70aXEdE2dH4xiRqM
-	 FHq1SE04dodR4slSQWA5XjYKpiz+3eVA8Szdap9hmIxocW543hEq12XFEKiK1pg9Rn7gU
-	 KBnjUCsEmwoDH+Hn3CE35d0pLQb95G6HfybPNosu1jnCWGIbP/rpmEyTPMK8Uab5g2w==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793293193;
+	b=3ld14AO76VrDRZc+klWBaW+t06VuuJMhLfy58mcNw7D7oVIhwsCRvJaR37Q4hyXfqiSV
+	 M+JV+bqRJw9Dd6670TAyiy7lllNlRkiPc4WNb6nKS50oeLji+y49nCnn3p2SGTdgF1m8v
+	 enEBJskgZ0Z48rcGHH/V6ltewFym/onjdCJFBE6XtzF0ns9pLoCUtFBqaoX3SqcKMg2Lk
+	 MIt1yXLpbZLfSImbm9iVKG2tVOOim/KOrcrT7Fw3BRTfIauO55slf+l7bLb4Z9nktUr8i
+	 lyNdaEeqNPTIUkIskvIzMhZvziW7fhOWRwjnNP1MBmkjy9SHTOIhiXp+nF0p8AblHKQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793293179;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=TMKRLZBe9Zxx6OkgvRZd/gzaOpd1SutD5pCKyyI0lvo=;
-	b=3VV401JoSnzHz+D7AkxSxD3UsLWtFBXLbP1lB9n4wrne9nO3i/yIifNW8GMKra1gw6d5
-	 5vOZehvz1G9bArmHDgXGU+pDSzuQgKd8Gb0sOp/oqngUgGoOrU6RPMyT9iKZWC6ZS3x/i
-	 FzgpuZCkffkrsXMopSWpB48jrS9owGjSasGu7p4anXDg3eSJI1LklJBUAGCOdP0jXYfA9
-	 HY9t4s0AArF/r15lYlhfA+GdSWNPVxKlYGw2uO/vb6X4dP20nt2UmjQc3xLA5KOaBUt6B
-	 j8gPyl3/HLMTESEiHo9NK2LDd9tP03KdfE8ZjnNSoKDIK8xxdBdwbStT1xpiqtTygLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793293193;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=6BsZBuRbj63kaEY++Tn404jm/YX5TaOM/1MYBxHWA2A=;
+	b=rf2rfhkUAOGj/xDkx0NPieyGd6tuoaZwPv6r/wEBz7IuKSINebG/gqWCG06hDnwxShWM
+	 ZvUB9WsdfZTHHGIGRJnHHGoZOmFupLiYiEr5B30CWEQ4u+XqfN0vsiBc2pm0CRfAI3YsG
+	 LPj7JsFX0jTjDHSDOHOeDxjioWItZRaVlvy19CB62kjIEwy/MuN5fqwz9/qMAXMlfr+1J
+	 cpsCcP4JlokVcGzZuFch59hxDMZWpPL7/VmULv95XvRFIJln1FfHWRmUwtSzzBxD9QD/P
+	 vUsK4kEZrzhpv4qfHgRrNYQCKdNNJl4PIpUX4cZqWiLEzp1yFQfuRtDAq2wZjD9WlRg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="w/W3r7N/";
-	arc=fail smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXne+rQ3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C58A606A33D;
+	Thu, 29 Oct 2026 16:59:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXne+rQ3
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793293193;
+	b=EXaQErGub2zJEHkSUJFIl2oY3OQ+rag7hroKYUCjzuCOCw1yYCbq3V2N9Ft3W9qDgt7T
+	 Eke2zgcQNkZ4nzT2ulIXDtxLLmWRW+QGaS6x0C9bveIkHFlAvQWJm2d5Tnqhi7OzfPBIJ
+	 HxSo5NjzddJsGqvoWJW+FpA1hTUiHlsjemUe/MUymUlUvaOc27wHJMNNyssjWooQgPhIT
+	 dxqNNDDEtFr38aYpmcjKvjpEsQaljHrKqBxlzQrY1D+hxmXgj9vKtbWsVO//h2fo5Dtg5
+	 nHigYGUjEaCf++LffBM4IWTEQdFrs9ogtSWm7KU5YhNFaf2geQp4e10dI3oETHtBJbA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793293193;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=6BsZBuRbj63kaEY++Tn404jm/YX5TaOM/1MYBxHWA2A=;
+	b=Hhm/g/X7TvYW3Dp1v8Tdpp9esPIJ73GSrVYhpuNGd9Aw6QkIpdA2AzG+K614COE4ZDw7
+	 P4apnM0BrZIxpjbdwfFT4mzMeP6GDgWKbSrslgnQN0H0y73HpT13y3sNlnjHzJCAAiUMU
+	 azfjde3vId30Ll//bz66r6P5bBLPwh3hsyG5Oonr29KAFnlanwSDFe3VXXIuaQSsfFz+n
+	 g2YGmH9CplB/zs5aokZJzvv7O7f8koKLNjx8R17VIcS1xHH6iXvoWh8o5sQNwzcb/VDJK
+	 pcJZIuiiKjZu2KL7NqHw7SBua04DOKlGzAjb8RgNJUxHGyIAt+qVORSiWeXON63VsQA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B710606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:59:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B710606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w/W3r7N/
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c38ac26cc5dso406834466b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:59:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793293177; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bhx7NRWqcacj8tcWemVj4WqRicuRJMXow7LheJ3TsgJxgsT0oQIF+tNso2TF1nKeb8
-         1BMhNarQcy4jSYclU2/agGYAOXHVC1h/BzhCYMP2dNr7qftCglxClsq9E49f6BzIe3bi
-         M1LlwYaWC7b7fkZ5EeK/58gNMFLm7Lz7/jyqRlxM4dfXcD0Nhp9iEz+P9L0tfZPknePP
-         1VVCSVPrVjT4W98BbtMIHRz7119BGPzfWq4rLdK3oKlDCqnaefVnu2hbQRnsRHeM85VV
-         T8DjUCvpqBhyHfLcTSkfYIjFpZ8TB+e1OR6oWxLHkbBJVSsU3+EtfeZYcDAUCd23Yexa
-         s3XA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TMKRLZBe9Zxx6OkgvRZd/gzaOpd1SutD5pCKyyI0lvo=;
-        fh=FBjp1oH9fdPOQAhap+gTXGLzQLlBFFQ5eDIBBSLIaSQ=;
-        b=olSk4rInMDidhbFIvU+PO2ikbAEFn5QJ8i/P8G2fGmVc/2rg22usRAxsN4vvys04xP
-         cB9TLGxv3k+ku3gktjOP9yyengX6hObRsyPtmg5hFSzMbdaBG/wHgjO7tmT7Z73M4MvV
-         BwEQTjdDnhtbNN8iH6/uBEEkwwg8bGUZa4q/eJEIz2qXGShZey18TAMAS8pTrOfu3WEc
-         gPS7rHW5i2R96Cdnb1+U2Bsu/D3QJbIJJXIBHa3DYQnEiWazrI54RTMhnob9fNdpJr8u
-         tELRtLXw0hNT24zzb7z3XBGdP0TImzl1oudRdfB+YHAVU0w0b4eMBZ6YDPIDGX4mgY3I
-         H6tQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793293177; x=1793897977; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TMKRLZBe9Zxx6OkgvRZd/gzaOpd1SutD5pCKyyI0lvo=;
-        b=w/W3r7N/SJr54wDY1L/oCQ1C9mPzgXlh6wwRdJP0grwX/zuDPX9RiSp0M6F/kkt2PK
-         ukEw0OavBDLUyYCHnzvmXZBeG7wvOtNnJsJmWLQyOb4iT/5dcOJl1TWC/WgG83/ZnzLk
-         VhvPuu/Czm7XtDeSuHHTO+evFYN25LJlce7P1QJasKKOmay66IPleODyV/HSj0JH8J3P
-         KvJJztkfPFVN07G+lw8LWo9rU/OKLBjQih8q/XKA3GgD1OQcQSI2sA/E2vCMwzLaEKQ9
-         Hsr6sC9RlMZrKQ7+40zq+ah6k4NuGer5STNrkqm8FbbaYqoK8KnhESxA7aoN7hK6tH90
-         YOBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793293177; x=1793897977;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TMKRLZBe9Zxx6OkgvRZd/gzaOpd1SutD5pCKyyI0lvo=;
-        b=Tkc8BSOKE6tjm+m5Im9gBGNUubAzomL1yIq+zEoSN33lK88ZpsehGFAcOQtPBfay/N
-         N1mccnmdt+dz0wEKD9Se1bzA2qtGvKz248Y1XO04rf9Rw8AxerWCcnKUfV87r4kMPXej
-         xqaOqhKne/077Oi7lOU0PBSlZJA3pIIeya4OanQ98fBaHyEpfW9mLGsRg+1tTOasUPqc
-         NEb9uJYy5B9YWyyeuocWI9GXVLhIo0qbaVSpWKTNtHhOuwIU+E9vn/P7pH53tzxPdcU3
-         v9ML1t2Bbm1kExhCSx0EDeQCyQPf4kUhYA8FANp4CKkxWHZCQmZ1lSwBUx4IzBt70fus
-         zRLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFN1GLVl/2FxGQKIAXutPpb9YVKA02shebU5MSK2GAMejELc6K9vXULSC2NSfr7ySNVrAECmyc1qDRXyA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKhWugsBkMoXT8NEBr4wRjvxWco3EeqhJCktPrhbP4+sF9twV9
-	vK8QFoZ8A5n0iYh/q1R8VV0K0LRQtvkmSJnQkjiHevL9ZK/nJKJYX5rCTR5h4nQK5qQm2p1mk5R
-	u7XdeeIxnO43pYWP5aCXAmgTb7xgxmss=
-X-Gm-Gg: AYBFou2gyw5xETstVbyULTwoA3p+Sawr60dz2U4/0Ilj9l7NmvX+PgOpPAM1FzlEJdi
-	rrisBgggpKo4CswQPHqLbzhK0BJzVJ7YfnfUnwqrME88I7TtuRRxKYFbZOZs3FogyoPo52pP8Iz
-	J7ukyRXZrK9lCfdltSJsHr1lKZ1mHUPR25vdnkupsrjvZ0WU5zLKewYcixBPuCkH8abX/sKgzx1
-	39oBtrkx6g/e2ltCdB7b1X1hFHNzfAKg3QIFeWqkOL5jk0rYyC79LIRXoqDoazIxR6yGhzPdw1C
-	HuwsLQgrui9m4m4HZjrP1FXzPXHtRP9u1tcZdPDf5h15vvye1uOtqJyF7E7I5ux0Yf8pFXdL3PU
-	Zsegz9UFOCCHqi9QIfNlU+42hJss4GdA3Vq3ZVJ/jZMsUkpqoVex+laP0wZShSfPTq0Fe
-X-Received: by 2002:a17:907:5c1:b0:c34:e9fe:82ed with SMTP id
- a640c23a62f3a-c49bdfb8a28mr524419866b.28.1793293177297; Thu, 29 Oct 2026
- 09:59:37 -0700 (PDT)
+	by smtp.kernel.org (Postfix) with ESMTPS id B96EA1F031E7;
+	Thu, 29 Oct 2026 16:59:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793293193;
+	bh=6BsZBuRbj63kaEY++Tn404jm/YX5TaOM/1MYBxHWA2A=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=RXne+rQ34//Hob7B675cfTORA1aRLUcqUR6U2dtggj+PqwL1VJOb2ut3vor7iWtQp
+	 nTMGbUhYkvfjDudgUcqGOxkwcBqesSvWw7zH8307MUmJhKhzU5FdTX1rgtX97/cXSt
+	 OWYsRi7CDWl3Y+Ezc9Tnn8NubUeOW+QhCO5TtxX8Bp2piN+ZE7VsbS+H5ykWcP8U5I
+	 qUt9S3FBJ4b7VBkMiPPaMIr4Ny9vMMBkYsYB6X/R5BggHvGJNKC+JbiQMg4QtJJxzG
+	 bZ8VslFCQ+lWxQGxfceMboQRn1mPaehc6YZdYF2TGi30cewPQfYkIWOlQavVdv6Y4j
+	 ZZH3ZKCxmz93A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 23D03458F6;
+	Thu, 29 Oct 2026 16:59:51 +0000 (UTC)
+From: =?utf-8?q?Nicol=C3=A1s_Antinori_via_B4_Relay?= <devnull+nico.antinori.7.gmail.com@kernel.org>
+Date: Thu, 29 Oct 2026 13:59:01 -0300
+Subject: [PATCH v2 1/3] rust: kunit: add #[should_panic] support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,39 +82,410 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026125751.1700779-1-stjepan.poljak@gmail.com>
- <87pkwv385p.wl-tiwai@suse.de> <CAKVkeTxg4LWANUmqa4rzC-w8Ai62vcxeSU1FCAWSyA76iyK8yg@mail.gmail.com>
-In-Reply-To: <CAKVkeTxg4LWANUmqa4rzC-w8Ai62vcxeSU1FCAWSyA76iyK8yg@mail.gmail.com>
-From: Stjepan Poljak <stjepan.poljak@gmail.com>
-Date: Thu, 29 Oct 2026 17:59:25 +0100
-X-Gm-Features: AclHuK98Zm30j0tBYNImXihCxI3zMiNZFSiJRCGdpYIM09guBTiISqkFn91_MFY
-Message-ID: <CAKVkeTypfVTfrJtEz6O-umJR8hUWqi+bKQCkD_uCihSTq=5gzA@mail.gmail.com>
-Subject: Re: [PATCH] ALSA: usb-audio: reset a MIDI device whose input is stuck
-To: Takashi Iwai <tiwai@suse.de>
-Cc: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>, Clemens Ladisch <clemens@ladisch.de>, 
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261029-rust_kunit_v6_send-v2-1-5ce551efc48e@gmail.com>
+References: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com>
+In-Reply-To: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com>
+To: Alice Ryhl <aliceryhl@google.com>, Benno Lossin <lossin@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Brendan Higgins <brendan.higgins@linux.dev>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Danilo Krummrich <dakr@kernel.org>, David Gow <david@davidgow.net>, 
+ Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: Alexandre Courbot <acourbot@nvidia.com>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Burak Emir <burak.emir@gmail.com>, Rae Moar <raemoar63@gmail.com>, 
+ Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Yury Norov <yury.norov@gmail.com>, kunit-dev@googlegroups.com, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, 
+ =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=14052;
+ i=nico.antinori.7@gmail.com; h=from:subject:message-id;
+ bh=sbpLybwVB7Ofd+oehlVpwBPiQ4LnQa6JfCug/U1Ccsc=;
+ b=owGbwMvMwCV2QdXfwqNJ1YjxtFoSQ9bj6ubjNzz6it+nlCetunps9aStMzpV2uf4HeErYpjJI
+ 73ewvBdRykLgxgXg6yYIstczvefjW3NK8qlNwXBzGFlAhnCwMUpABMJDGX4p83/1GuXd4VuithH
+ 7SQOl29MIt+4+hYK/kn0W+Qn6fh0EiNDyww5T+mK29FlN5/PzE4qsm25wcC1wv/jhY+70+v8vEU
+ 5AA==
+X-Developer-Key: i=nico.antinori.7@gmail.com; a=openpgp;
+ fpr=9D09EFF3333D3778771BB252D0254F3848822532
+X-Endpoint-Received: by B4 Relay for nico.antinori.7@gmail.com/default with
+ auth_id=1086
+X-Original-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+Reply-To: nico.antinori.7@gmail.com
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 11:38=E2=80=AFAM Stjepan Poljak
-<stjepan.poljak@gmail.com> wrote:
-> Hi Takashi,
->
-> Thanks for your time, and agreed. The host should have seen the
-> disconnect and on xHCI it does. The Pi uses the downstream dwc_otg
-> host driver, so I'll first check whether mainline dwc2 has the same
-> problem and take it to the Raspberry Pi kernel or to linux-usb
-> depending on that.
->
-> Sorry for the noise: I sent a v2 yesterday, fixing the review bot's
-> findings, before I had seen your reply. Please disregard it.
+From: Nicolás Antinori <nico.antinori.7@gmail.com>
 
-Please drop this patch. Takashi was right that resetting the device is
-the wrong fix. The cause is in snd_usbmidi_urb_error(): -EPIPE falls
-into the default case, so every stalled URB is logged and resubmitted at
-once, and on the Pi that loop keeps the hub's disconnect from being
-processed. I've sent a one-line fix for that instead:
-https://lore.kernel.org/linux-sound/20261029165701.2004391-1-stjepan.poljak=
-@gmail.com/
+KUnit tests in Rust are written using user-space like syntax. This patch
+adds support for the `#[should_panic]` attribute, enabling the user to
+test conditions that are expected to cause a panic and report the test
+as successful.
 
-Stjepan
+Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
+---
+ include/kunit/test.h       |  1 +
+ include/kunit/try-catch.h  |  3 +++
+ lib/kunit/attributes.c     | 18 ++++++++++++++++
+ lib/kunit/kunit-test.c     |  3 +++
+ lib/kunit/test.c           |  2 ++
+ lib/kunit/try-catch-impl.h |  2 ++
+ lib/kunit/try-catch.c      | 14 ++++++++-----
+ rust/kernel/kunit.rs       | 51 +++++++++++++++++++++++++++++++++++++++++++---
+ rust/macros/kunit.rs       | 35 ++++++++++++++++++++++++-------
+ 9 files changed, 114 insertions(+), 15 deletions(-)
+
+diff --git a/include/kunit/test.h b/include/kunit/test.h
+index 31d549578f8ec113bef9b5d72bc9355c07fce3c0..15bd020d83722163bfc3899f64247afb2c4cefa4 100644
+--- a/include/kunit/test.h
++++ b/include/kunit/test.h
+@@ -83,6 +83,7 @@ enum kunit_speed {
+ /* Holds attributes for each test case and suite */
+ struct kunit_attributes {
+ 	enum kunit_speed speed;
++	bool rust_should_panic;
+ };
+ 
+ /**
+diff --git a/include/kunit/try-catch.h b/include/kunit/try-catch.h
+index d4e1a5b98ed67e4f71ff1bcc71422d5bada54b75..197029e19d759dfeb2700af13cfc8fc246768bb9 100644
+--- a/include/kunit/try-catch.h
++++ b/include/kunit/try-catch.h
+@@ -22,6 +22,8 @@ struct kunit;
+  * @try_result: Contains any errno obtained while running test case.
+  * @try: The function, the test case, to attempt to run.
+  * @catch: The function called if @try bails out.
++ * @rust_should_panic: Flag used to avoid printing spurious error logs when a
++ *	Rust test is annotated with #[should_panic].
+  * @context: used to pass user data to the try and catch functions.
+  *
+  * kunit_try_catch provides a generic, architecture independent way to execute
+@@ -48,6 +50,7 @@ struct kunit_try_catch {
+ 	kunit_try_catch_func_t try;
+ 	kunit_try_catch_func_t catch;
+ 	unsigned long timeout;
++	bool rust_should_panic;
+ 	void *context;
+ };
+ 
+diff --git a/lib/kunit/attributes.c b/lib/kunit/attributes.c
+index 6d7a53af94a9acf3cf336409462059b972efeb22..8a9dc526b3cb2d363d42087f8666a03e9bc2bc4b 100644
+--- a/lib/kunit/attributes.c
++++ b/lib/kunit/attributes.c
+@@ -246,6 +246,16 @@ static void *attr_is_init_get(void *test_or_suite, bool is_test)
+ 		return ((void *) suite->is_init);
+ }
+ 
++static void *attr_rust_should_panic_get(void *test_or_suite, bool is_test)
++{
++	struct kunit_case *test = is_test ? test_or_suite : NULL;
++
++	if (test)
++		return ((void *) test->attr.rust_should_panic);
++	else
++		return ((void *) NULL);
++}
++
+ /* List of all Test Attributes */
+ 
+ static struct kunit_attr kunit_attr_list[] = {
+@@ -272,6 +282,14 @@ static struct kunit_attr kunit_attr_list[] = {
+ 		.filter = attr_bool_filter,
+ 		.attr_default = (void *)false,
+ 		.print = PRINT_SUITE,
++	},
++	{
++		.name = "rust_should_panic",
++		.get_attr = attr_rust_should_panic_get,
++		.to_string = attr_bool_to_string,
++		.filter = attr_bool_filter,
++		.attr_default = (void *)false,
++		.print = PRINT_NEVER,
+ 	}
+ };
+ 
+diff --git a/lib/kunit/kunit-test.c b/lib/kunit/kunit-test.c
+index 126e30879dad652d5b236aeb13d4406a4ddbab00..7cca586767cc711f7a829cc4c3bdec17bd8c7d9c 100644
+--- a/lib/kunit/kunit-test.c
++++ b/lib/kunit/kunit-test.c
+@@ -45,6 +45,7 @@ static void kunit_test_try_catch_successful_try_no_catch(struct kunit *test)
+ 			     test,
+ 			     kunit_test_successful_try,
+ 			     kunit_test_no_catch,
++			     false,
+ 			     300 * msecs_to_jiffies(MSEC_PER_SEC));
+ 	kunit_try_catch_run(try_catch, test);
+ 
+@@ -78,6 +79,7 @@ static void kunit_test_try_catch_unsuccessful_try_does_catch(struct kunit *test)
+ 			     test,
+ 			     kunit_test_unsuccessful_try,
+ 			     kunit_test_catch,
++			     false,
+ 			     300 * msecs_to_jiffies(MSEC_PER_SEC));
+ 	kunit_try_catch_run(try_catch, test);
+ 
+@@ -133,6 +135,7 @@ static void kunit_test_fault_null_dereference(struct kunit *test)
+ 			     test,
+ 			     kunit_test_null_dereference,
+ 			     kunit_test_catch,
++			     false,
+ 			     300 * msecs_to_jiffies(MSEC_PER_SEC));
+ 	kunit_try_catch_run(try_catch, test);
+ 
+diff --git a/lib/kunit/test.c b/lib/kunit/test.c
+index 09e3dabfac0c945b2608feb88c1b1d46fb807edc..8b0072c66e1710c7faa7de2df7ff8c4bf48b8e88 100644
+--- a/lib/kunit/test.c
++++ b/lib/kunit/test.c
+@@ -584,6 +584,7 @@ static void kunit_run_case_catch_errors(struct kunit_suite *suite,
+ 			     test,
+ 			     kunit_try_run_case,
+ 			     kunit_catch_run_case,
++			     test_case->attr.rust_should_panic,
+ 			     kunit_test_timeout(suite, test_case));
+ 	context.test = test;
+ 	context.suite = suite;
+@@ -595,6 +596,7 @@ static void kunit_run_case_catch_errors(struct kunit_suite *suite,
+ 			     test,
+ 			     kunit_try_run_case_cleanup,
+ 			     kunit_catch_run_case_cleanup,
++			     false,
+ 			     kunit_test_timeout(suite, test_case));
+ 	kunit_try_catch_run(try_catch, &context);
+ 
+diff --git a/lib/kunit/try-catch-impl.h b/lib/kunit/try-catch-impl.h
+index 6f401b97cd0b9842e7533f1b828f72f884450f74..9abe69bb8b396185afb77cb11ca651ba4c9b6a59 100644
+--- a/lib/kunit/try-catch-impl.h
++++ b/lib/kunit/try-catch-impl.h
+@@ -18,11 +18,13 @@ static inline void kunit_try_catch_init(struct kunit_try_catch *try_catch,
+ 					struct kunit *test,
+ 					kunit_try_catch_func_t try,
+ 					kunit_try_catch_func_t catch,
++					bool rust_should_panic,
+ 					unsigned long timeout)
+ {
+ 	try_catch->test = test;
+ 	try_catch->try = try;
+ 	try_catch->catch = catch;
++	try_catch->rust_should_panic = rust_should_panic;
+ 	try_catch->timeout = timeout;
+ }
+ 
+diff --git a/lib/kunit/try-catch.c b/lib/kunit/try-catch.c
+index d84a879f0a789f3625538735644910c84ac80e56..b9e29d4e7dd52d8d82d71a3f138f0313c772ee76 100644
+--- a/lib/kunit/try-catch.c
++++ b/lib/kunit/try-catch.c
+@@ -76,11 +76,15 @@ void kunit_try_catch_run(struct kunit_try_catch *try_catch, void *context)
+ 	if (exit_code == -EFAULT)
+ 		try_catch->try_result = 0;
+ 	else if (exit_code == -EINTR) {
+-		if (test->last_seen.file)
+-			kunit_err(test, "try faulted: last line seen %s:%d\n",
+-				  test->last_seen.file, test->last_seen.line);
+-		else
+-			kunit_err(test, "try faulted\n");
++		if (try_catch->rust_should_panic) {
++			try_catch->try_result = 0;
++		} else {
++			if (test->last_seen.file)
++				kunit_err(test, "try faulted: last line seen %s:%d\n",
++					  test->last_seen.file, test->last_seen.line);
++			else
++				kunit_err(test, "try faulted\n");
++		}
+ 	} else if (exit_code == -ETIMEDOUT)
+ 		kunit_err(test, "try timed out\n");
+ 	else if (exit_code)
+diff --git a/rust/kernel/kunit.rs b/rust/kernel/kunit.rs
+index 25ff272d29b2b3f192a3968481c1d5417df4335b..5e688b743ee2152867e2f99c7f18b86e1b7fbe3d 100644
+--- a/rust/kernel/kunit.rs
++++ b/rust/kernel/kunit.rs
+@@ -58,7 +58,7 @@ pub fn info(args: fmt::Arguments<'_>) {
+ #[doc(hidden)]
+ #[macro_export]
+ macro_rules! kunit_assert {
+-    ($name:literal, $condition:expr $(,)?) => {
++    ($name:literal, $test_should_panic:expr, $condition:expr $(,)?) => {
+         'out: {
+             // Do nothing if the condition is `true`.
+             if $condition {
+@@ -93,6 +93,14 @@ macro_rules! kunit_assert {
+                 ));
+                 break 'out;
+             }
++            // If condition fails but the test should panic, then we just abort.
++            else if $test_should_panic {
++                // SAFETY: FFI call. The `kunit_test` pointer is valid because we got it from
++                // `kunit_get_current_test()` and it was not null.
++                unsafe {
++                    $crate::bindings::__kunit_abort(kunit_test);
++                }
++            }
+ 
+             #[repr(transparent)]
+             struct Location($crate::bindings::kunit_loc);
+@@ -166,10 +174,10 @@ unsafe impl Sync for UnaryAssert {}
+ #[doc(hidden)]
+ #[macro_export]
+ macro_rules! kunit_assert_eq {
+-    ($name:literal, $left:expr, $right:expr $(,)?) => {{
++    ($name:literal, $test_should_panic:expr, $left:expr, $right:expr $(,)?) => {{
+         // For the moment, we just forward to the expression assert because, for binary asserts,
+         // KUnit supports only a few types (e.g. integers).
+-        $crate::kunit_assert!($name, $left == $right);
++        $crate::kunit_assert!($name, $test_should_panic, $left == $right);
+     }};
+ }
+ 
+@@ -209,6 +217,7 @@ pub const fn kunit_case(
+         name: kernel::str::as_char_ptr_in_const_context(name),
+         attr: kernel::bindings::kunit_attributes {
+             speed: kernel::bindings::kunit_speed_KUNIT_SPEED_NORMAL,
++            rust_should_panic: false,
+         },
+         generate_params: None,
+         status: kernel::bindings::kunit_status_KUNIT_SUCCESS,
+@@ -284,6 +293,7 @@ macro_rules! kunit_unsafe_test_suite {
+                     exit: None,
+                     attr: ::kernel::bindings::kunit_attributes {
+                         speed: ::kernel::bindings::kunit_speed_KUNIT_SPEED_NORMAL,
++                        rust_should_panic: false,
+                     },
+                     status_comment: [0; 256usize],
+                     debugfs: ::core::ptr::null_mut(),
+@@ -337,6 +347,16 @@ pub fn in_kunit_test() -> bool {
+ mod tests {
+     use super::*;
+ 
++    struct TestStruct;
++
++    impl TestStruct {
++        // This assert does not get replaced with kunit_assert, since this is not a #[test]
++        // function.
++        pub(crate) fn escaped_assert() {
++            assert!(false);
++        }
++    }
++
+     #[test]
+     fn rust_test_kunit_example_test() {
+         assert_eq!(1 + 1, 2);
+@@ -347,6 +367,31 @@ fn rust_test_kunit_in_kunit_test() {
+         assert!(in_kunit_test());
+     }
+ 
++    #[test]
++    #[should_panic]
++    fn rust_test_kunit_panic_in_kunit_test() {
++        panic!("This test should panic and pass");
++    }
++
++    #[test]
++    #[should_panic]
++    fn rust_test_kunit_panic_in_kunit_test_bug() {
++        // The panic is produced in a C call. This should succeed.
++        unsafe { bindings::BUG() };
++    }
++
++    #[test]
++    #[should_panic]
++    fn rust_test_assert_false_success_with_should_panic() {
++        assert!(false)
++    }
++
++    #[test]
++    #[should_panic]
++    fn rust_test_should_panic_with_escaped_assert() {
++        TestStruct::escaped_assert();
++    }
++
+     #[test]
+     #[cfg(not(all()))]
+     fn rust_test_kunit_always_disabled_test() {
+diff --git a/rust/macros/kunit.rs b/rust/macros/kunit.rs
+index e9152b9d51f9450b7e549e2e1629b5fc5f485a28..288b53d21c4e7c8d9b5148d50c1a833f73e53015 100644
+--- a/rust/macros/kunit.rs
++++ b/rust/macros/kunit.rs
+@@ -106,6 +106,11 @@ pub(crate) fn kunit_tests(test_suite: Ident, mut module: ItemMod) -> Result<Toke
+             .cloned()
+             .collect();
+ 
++        let should_panic = f
++            .attrs
++            .iter()
++            .any(|attr| attr.path().is_ident("should_panic"));
++
+         // Before the test, override usual `assert!` and `assert_eq!` macros with ones that call
+         // KUnit instead.
+         let test_str = test.to_string();
+@@ -113,7 +118,7 @@ pub(crate) fn kunit_tests(test_suite: Ident, mut module: ItemMod) -> Result<Toke
+             #[allow(unused)]
+             macro_rules! assert {
+                 ($cond:expr $(,)?) => {{
+-                    kernel::kunit_assert!(#test_str, $cond);
++                    kernel::kunit_assert!(#test_str, #should_panic, $cond);
+                 }}
+             }
+         });
+@@ -121,7 +126,7 @@ macro_rules! assert {
+             #[allow(unused)]
+             macro_rules! assert_eq {
+                 ($left:expr, $right:expr $(,)?) => {{
+-                    kernel::kunit_assert_eq!(#test_str, $left, $right);
++                    kernel::kunit_assert_eq!(#test_str, #should_panic, $left, $right);
+                 }}
+             }
+         });
+@@ -134,25 +139,41 @@ macro_rules! assert_eq {
+             &CString::new(test_str.as_str()).expect("identifier cannot contain NUL"),
+             test.span(),
+         );
++        let assertion = if should_panic {
++            quote!(
++                let _ = #test();
++                ::kernel::kunit::err(::kernel::prelude::fmt!(
++                    "    Expected {} to panic\n", #test_str
++                ));
++                (*_test).status = ::kernel::bindings::kunit_status_KUNIT_FAILURE;
++            )
++        } else {
++            quote!(
++                use ::kernel::kunit::is_test_result_ok;
++                assert!(is_test_result_ok(#test()));
++            )
++        };
+         processed_items.push(parse_quote! {
+             unsafe extern "C" fn #kunit_wrapper_fn_name(_test: *mut ::kernel::bindings::kunit) {
+                 (*_test).status = ::kernel::bindings::kunit_status_KUNIT_SKIPPED;
+ 
++
+                 // Append any `cfg` attributes the user might have written on their tests so we
+                 // don't attempt to call them when they are `cfg`'d out. An extra `use` is used
+                 // here to reduce the length of the assert message.
+                 #(#cfg_attrs)*
+                 {
+                     (*_test).status = ::kernel::bindings::kunit_status_KUNIT_SUCCESS;
+-                    use ::kernel::kunit::is_test_result_ok;
+-                    assert!(is_test_result_ok(#test()));
++                    #assertion
+                 }
+             }
+         });
+ 
+-        test_cases.push(quote!(
+-            ::kernel::kunit::kunit_case(#test_cstr, #kunit_wrapper_fn_name)
+-        ));
++        test_cases.push(quote!({
++            let mut case = ::kernel::kunit::kunit_case(#test_cstr, #kunit_wrapper_fn_name);
++            case.attr.rust_should_panic = #should_panic;
++            case
++        }));
+     }
+ 
+     let num_tests_plus_1 = test_cases.len() + 1;
+
+-- 
+2.47.3
+
+
