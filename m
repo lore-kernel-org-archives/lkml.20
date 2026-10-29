@@ -1,94 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793289842;
-	b=R9ft6wEd69SrMhWnGYi5z87PpCgtM22HvICqG3jPmAnSal9ouYOEo9l0iHreRnBZRtac
-	 bEh0sr/HGIsr0vvyfSzym7eYd8/HD8beLUVRfuBoJbYWrFa/uDdmv1gEVvTAZLK/qbhKj
-	 ovAEsw52bIkdXrOMfN++Xg9cMQ5R5knMsr8v7qaZKdqWdUk5eGOF4wrSsYuM6FMdSMy0v
-	 eSXjYZSQkTdVnYXlYTTYnLU4hPvjWiXBgGgBg5BL6VGwqjW0q613D7Dtm7KfgXHe0hYpw
-	 yiOxLYPIh5qGamWJwE+g4i3ESQB7rS0MVzKrky0YkZVTqyeCJBvIgBjvEUFNI+trT9Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289842;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=nIgp6vL1AC4inpBW23GiubnUudX86vJkUim+knVvdvo=;
-	b=Wjt5yHAhwQbWr6T56EZ8vNxflcpKdhNlxf1rya+27xlp4BQcnKqV5sJjr8tIx1dub9K8
-	 EUpPHY/n7GGdYEUT9ywtLvfq427yGIbf6LmA5VN8iCATeCNRm7P0QXEfhylYMW3e9Sjzj
-	 KDDzSyk238bMpFiz7vibzCgzbfgV7BMXj5p+7Bhh/LHo+4nNGdmHUkdVwWlvd3IboHwnt
-	 jQ/B2qnLK6Jru3CuKNMXI3cVw/jgJRp1ab+b4y4qrLtbmvBdbgsPaktdh/CifS+v7hESk
-	 YRk59qApB6SZGXRL7DqYoulzF66eQQDJ5MAnQeuFQdOjznh10ulob0tFz0JLLOLRQBg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Sh1X1IeX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.47
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011047.outbound.protection.outlook.com [52.101.65.47])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793289851;
+	b=hn4hDv48NsJPCR2U4JMPatxgrJseE+hE7Eu1TgQgyj4YjgGPwlZygIloXD3pxVG/mVkH
+	 ndN5weBCBHW18zIZ7UlNqd12+EGPR/vYTKC3CrX35uWEqRNX8apSU6PbNwqc7l8ZuJdRt
+	 OtwWxRFZL1PIoMkcHK3FKtEFSBo4vyGFmZan4IP2Iaft2kgzbsXtkZ6ziScZEuqPr5Mw+
+	 KXvY3ajkukjpNIsyqE2yHhQlypBaP5UZ+TlPslmrA0JU9gDWLRJYIGVjstgUKw8IDz/Nh
+	 alrC5YglYl81IyRfjxiXukTXZxlM4UFBX0KP+2fjT5IynhBH8OLei9Tm6zRroBbAMfA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793289851;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=ZEImV1bsETTOjzgBZOnqxSCBynlGZZgQGJAOsTFWdvs=;
+	b=PK01/5ZHWmXL95tGimJKaQ+dnk9b1JZDoKqpuIiRyzdfC2WYQcuazhqkCtqflGvGQV5n
+	 781qFZaQ/ps+uaxG1cS+/4ZEAkgc9a9CRDy5MqwUqUp6QD9ZPt2RmhcrEsrz1THbi9yoO
+	 9UeJjswX+q9Cn83CXVmqFlAQVv405z5OY5qpDE27NSp7P6sH0rxmPM6Dzv7ou4F/aJJDd
+	 fFg6epbDxswfAMffjr3u00l29ZljabIbQhKHzUrxmAvEKSIwTT+VOrIODefJhWJenxpuy
+	 3bbnJ2i9d+5Ealu2Biotku5thFsUzzV/4LbwQ359dQDb2WE9k2D1hSOAqcljE8SLZzg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnxrPTFL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C441606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:04:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C441606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C3A606A31A;
+	Thu, 29 Oct 2026 16:04:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Sh1X1IeX
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o826O3Zcwo27fzoZWaH0+aeymXkC/OqObYg+qO9h+6MmqjfcTRj3uH+Xa6unjVxVoOnNEwctg7qtNgRe/vXhfNHz+gY6WB2p9AloCHDJyIi9scBj0z4jGUhQawc51XsKWusrwH0NiuATqUnJQmZqROtJtF/JJJDjqLVsYi/RGAB4LjZzL1DCNZB9pyzp91jQKzrmbB2mZu2ZuoNl1qs4xbzXSeDpRTpSI1j70YXjYLvIYl/BjDJqK/N6tCQgkwnmiXcPvRxFNRMAJQF3BsxlDgw2pTnhMgmxrZhO5Dl1pc9KSOjOquLjd4QMizfQceQ6CS8jf3UCEfu0fXEtA/Dzew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nIgp6vL1AC4inpBW23GiubnUudX86vJkUim+knVvdvo=;
- b=OsYm+47DdPxGqeRr9H4EtW7l5XqGh/8mxddFytwIcpaOJJ9jcMWWmocJOQqFCD1+7U1AlZr/xlXaIUIXwkoJJya3+ggNacJWp4ukQajs9gOYeYfdsQOsEyyK5JGd+uDoxV5oGlQ+1DfXvOZT3032OMTuoCrPPHI3NJsqVRm3NwWRhEhrSphTutZ7jHRwkHYJT6IfcLUCmk96oFSSvFQC8qbGnEcH6Uy5BRV5A/GiNMo1nfJDjMgdVgTkQ9j8rp3iEVb2vIvYo5aobdCMg49PXP8XyDdIP7+GWDTDxf4uC32lBKUBVEmsy8lZLrBwZ3Z0XNHh1A/Go5ZS3KFsrDht8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nIgp6vL1AC4inpBW23GiubnUudX86vJkUim+knVvdvo=;
- b=Sh1X1IeX7vM79emAdM/pbxws6Ygejaxiz+mALmsBsy4zUkBTjbXJudZkvJWGGTjLAUmMH2ath8kDH2d070GO7errZ1t5ECZScK6h/nu6KFajLGbqH8TapUjlJT5QgSBrZVoTj8Gb96DHxpS3vrqIMwycH2el8Lt6IyfrVGctjT+n+LfZoVAD1lMLZZTSDI/UemgSUOZIAo56zzV7v77FZDnkmlp3TdYrt7bLs81Ho+cPCyG7VoT6GjF7orzrpHwucI33rPE7lNaGoHeyS2fRCd7iiXA3qNVqqzsbTA5rfCVWNmxcoCXx2wYWv3A6KPHbiRXlpVyikro2agtiO2QZkg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PA1PR04MB10889.eurprd04.prod.outlook.com (2603:10a6:102:491::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 16:03:58 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
- 16:03:58 +0000
-Date: Thu, 29 Oct 2026 12:03:51 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 06/31] accel: ethosu: Fix runtime PM get error handling
-Message-ID: <auNuZw7mIM2gXfi5@lizhi-Precision-Tower-5810>
-References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
- <20261029-ethosu-fixes-v4-6-4aa25e22578e@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-ethosu-fixes-v4-6-4aa25e22578e@kernel.org>
-X-ClientProxiedBy: CYZPR20CA0010.namprd20.prod.outlook.com
- (2603:10b6:930:a2::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnxrPTFL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F661F01825;
+	Thu, 29 Oct 2026 16:04:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793289850;
+	bh=ZEImV1bsETTOjzgBZOnqxSCBynlGZZgQGJAOsTFWdvs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jnxrPTFLrMh7lS0axSQZJeIw1zTZvkrB4+S47jC9dT5x4umfdVJ3i2j1TvejMOR6x
+	 BJFAR5YKZQTHT3iLU2Tu5VK1VvJqRcy843wlOLG3Z1fBBUbb+Sb8OMOJ+sy17ax7qM
+	 NltRB2210GdZxxK0PGcyACJf8fhMJz8/pycGtt04vTFUb3zOAGoHRlL2YNYLZjat8o
+	 RQUIJrXMYd9hIkqrD0WWaKEMa4sLwnU2MY8440CDdUO06TgWx+Z/Zb40mTeygYUuB7
+	 NPOO2yTNeL9ft5Z4lwHjTq9qykadh8pqrJ2e11rfB5l5aNCofsTVrL4FvwZVVsdt8S
+	 vJsiCYCtj++fA==
+Date: Thu, 29 Oct 2026 16:04:06 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: Matthew Wilcox <willy@infradead.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] xarray: clear the new head's parent before freeing
+ the old head
+Message-ID: <auNtjKLHZOo1awG1@gremlin>
+References: <attzI4sj2Pagmvkd@casper.infradead.org>
+ <20261027192014.844878-1-nickolai@csail.mit.edu>
+ <auNdNjH4zo7OYbe-@gremlin>
+ <CADGQE7EtDGs=g7p5=_m2LieLcEj-k4LyupOFWt96Aw9py-gYaw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,112 +62,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA1PR04MB10889:EE_
-X-MS-Office365-Filtering-Correlation-Id: db7f3bcd-973e-4906-b14f-08df35d63dcf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|23010399003|1800799024|376014|18002099003|22082099003|56012099006|261009223027099003|11063799006|4143699003|261021123027099003|10067099003|261021121427099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	/TLmimP2APHEvSTW9YWt1f89jW/gRZAqXJYz+J9c+zKfMy+LfG0tQ3sM7mYe/yyS/b4MAQwbPGGTMbh7XDUK9UtTKuWAYF4vnTGHuiOw75+2N93xdnwZCgTEyRTCB36hIKnr6IRzMal3ciLXc83+n4qT5XuIXP/xGTsEEyLWAvzN6yrIOq9dQ3kxhWkhZxjEjlRETAcKPtsRngPh2krxBTRDkUFxvEuCgy0tQegUFbV8fnS9fYA+AR2VqeTjveqdUR0TSWlGPY2ZOYn/ugVypwFU5xEMwM6eEAM2V4kt4CXQW07bdXno7M/OiK5ap3uK3Pq4lGbY29+1s/kp1EhTIHujH6vzLTR95B8MluaQhqsr9jc+wgZfyYTekYnyxTsz0iFC0lI25yDLNghSQSdqNgzGTsUVhuyIz6DIS/o/l58pfcMF/9btQMsLL8C3dtIcLk2U3HbgVGBjWNnNhMDKV4/zKnI3hKxmp29JgkQhFx9L/hW/8F4IS51Tnc/od1Ag81FBJ/ykgubFh3VzasB/GD7TDBOJht9ZBuCWu/87tSaaiP1BzDZHLO+EWRCigs+rmXHrYnNyTVyMg3IgJuK8jF/fktoDzqpyQpEbKzDg5ESKbF57wm6eToF46fYGyyZDW0azAdrd0xubkiKKZLrAmwcWTNUawxpgnsQcDRMUjRc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(261009223027099003)(11063799006)(4143699003)(261021123027099003)(10067099003)(261021121427099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NwvG4yLD5S96Xf0Fj4irURu8hKPQ5nkpZzHUYMgGhrqHB6FpNTxba92h1PBp?=
- =?us-ascii?Q?IXsNDG7UQIrLnmbXraQjeRRbjs0q/VFqXI23xAzQTIkk10+SZqd1FkeUl07S?=
- =?us-ascii?Q?pkXHszmApU7MqiWVMHmuTmG6kMMF7nHnT79/CByCWm0hvpG+Exhe+3OLbzgR?=
- =?us-ascii?Q?Pw+rwte51f3UN5/yoi8ynPV08ap7p4E3VCKu4cFMfsTh7qNTLsWxH/2E9UZK?=
- =?us-ascii?Q?/zKsjXRgsIF4+YOebxqAF+Dey78UUCugBAfMPkPtmceCq/FtwI5QK5QiwtKw?=
- =?us-ascii?Q?EVLRGcq46XdDIXIJi8MOJozCs9RoA6OE16tmygms3JlK90Hm/Tu1YJP3EnL9?=
- =?us-ascii?Q?XYfFQEDhD5TL8tBWL4q3G0O9sNGDUXmMAoDO3OYrpS3QA5eVOhR0kWG7vwSu?=
- =?us-ascii?Q?7ryA8Pm09jMJG8WnKlQBWq8+IL1y2/PLdGnUQKmEljefpRFeEFyEp6Jx3Lnj?=
- =?us-ascii?Q?/F/9UHYyI8zilQQqlgSl2oujlyZq2z2I8pdVjLxi/gufAxFZ9qypXLWD171d?=
- =?us-ascii?Q?cMBQzf0NVQA0LDZdzzH1imI2mBrHKSZOZnsRIJYHWkZ8tLx8z62Wtdwyx9ZL?=
- =?us-ascii?Q?lQ9Z3T+3HZUrDUEYlrPXRvekKCi6DCE2abTmCTyPzws3cUDm2HCGbfRFGk/L?=
- =?us-ascii?Q?pKEahehhwVJgSVX7sNXsmhQbBCgq70rhl8LFSYlTSblJXYr9yS4KhPFtr7K7?=
- =?us-ascii?Q?Ruo0HvPViTYjcT/8e1Nh/h0o5ZKMMc+grymoxVhHD8ORpe/4HwHWtIqpOpwt?=
- =?us-ascii?Q?vfKHCckq5L/cvWuTYAB9KydSmFxV4oNeqkcd05IjlOvcVS8MVzBxm7pk0Tvj?=
- =?us-ascii?Q?sOD8wR1+v7jesVz33xJGMtTz7CP8i9kqnC+e/LbETan7fyf5KkhtbWs6VPmT?=
- =?us-ascii?Q?tlXjhlIQuBOk1j0LZBdJ7JlQoMBZJa+KYxDP/mogUfKF2a21uhZxjYEFvJqw?=
- =?us-ascii?Q?pD120uHQ8g992m41WUjptkEWOV9ZKjuzMkJo6i4eOsLjPwy8kRaExwl5IsJu?=
- =?us-ascii?Q?ok4EhSkVNhwWYzrZpudi51jgEbmjeqCcXWnJ+OR2OeNFfsk0l46gmcSoAZPt?=
- =?us-ascii?Q?RdcBR28i2xGTYpCOKlqcYkhFosDD7M+n9u1zE87djnYKE7rzRaC3TwSAezuY?=
- =?us-ascii?Q?hPl/MpTLNfd+vUrr6920L3m8eoxrpSbJj6nqwTDSM1SUQLNtUHBig3D3JWq5?=
- =?us-ascii?Q?nHiwD0Frck3e5MolURALej67MrZENJkMMjQDLuWnWGHp3iBSnasTxk6gbrqj?=
- =?us-ascii?Q?J6Etef7f/lSITtZop0FhL1d5XZBDKdvUdgBfKQgdBvP2Mmigvk0bSHKj5kTh?=
- =?us-ascii?Q?StllSWIPTspvjRvYbvWv5Si6yI3RkPjKNixIod5YVTJQE9i0GnmJrgCSbQDL?=
- =?us-ascii?Q?oOzyx4r1AP3SZtTdxo9oNzSA1FwPAhlY4xxM1VXouxX5jMlmhew0CEnxWB6a?=
- =?us-ascii?Q?Jr7F8svrZao8ODWEZtZ3QI6SwYMBxaPSVS9yrePZ3A1Dk81eBDh2lgUYRZUr?=
- =?us-ascii?Q?Sx8sShtMhm8SkZ3WJiJErq9SxpS8El2Fz9X3sYqL1knNuSqGKbrQPunK00Md?=
- =?us-ascii?Q?iJSWLoN77f+vSR1rzv+t519sT3RR3CW9S9oBOLl2AWz9XnGnDhWoxELjZqrv?=
- =?us-ascii?Q?6P1duhRmoZ9o8SsIcguAKmWuUBf2dz1XpxtVxTFUp5SquhVaCBtppfNxlcpW?=
- =?us-ascii?Q?DXcVkQEBNkAsEqh2Sa5pJOvdAALe5k7kwosw4EFS/iCuyTDHr7fJZWTNVgZG?=
- =?us-ascii?Q?c5UhGS6IILstDQSLIz4obYx96CYIKQv/XBJdyTEV9e+eWcBYQvRu?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: db7f3bcd-973e-4906-b14f-08df35d63dcf
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:03:58.7202
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e6j69Jmlo2k0z3ataNWR3cKBngqRmtHtk0b3oKes1Adh9hChEH9z4DWI1zyBRkJvOpJ0OhX12gVenUAci8IGsG2LZYBntQEKwd2s8NRwjmCDvlBkII3d5GqyLU5/jU6h
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10889
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADGQE7EtDGs=g7p5=_m2LieLcEj-k4LyupOFWt96Aw9py-gYaw@mail.gmail.com>
 
-On Thu, Oct 29, 2026 at 08:35:53AM -0500, Rob Herring (Arm) wrote:
-> pm_runtime_get_if_active() can return an error including for !CONFIG_PM.
-> Do not treat that as an active runtime-PM reference.
+On Thu, Oct 29, 2026 at 11:50:37AM -0400, Nickolai Zeldovich wrote:
+> Hi Lorenzo,
 >
-> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-> v4:
->  - new patch
-> ---
->  drivers/accel/ethosu/ethosu_perfmon.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> On Thu, Oct 29, 2026 at 11:03 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> > It's pretty 101, but please don't send new revisions in-reply-to older
+> > revisions or feedback [0].
 >
-> diff --git a/drivers/accel/ethosu/ethosu_perfmon.c b/drivers/accel/ethosu/ethosu_perfmon.c
-> index 26f625374f9d..0ae2df3ceac8 100644
-> --- a/drivers/accel/ethosu/ethosu_perfmon.c
-> +++ b/drivers/accel/ethosu/ethosu_perfmon.c
-> @@ -71,7 +71,8 @@ void ethosu_perfmon_stop_locked(struct ethosu_device *ethosu, struct ethosu_perf
+> Understood, will do.  (I was thinking that applied more to
+> multi-series patches, which indeed gets unwieldy.)
+
+In general in mm and mm-adjacent we prefer not. I think this might vary by
+subsystem, but it gets buried easily in even single patches, so best to default
+to not I think.
+
 >
->  	ncounters = perfmon->ncounters - 1;
+> > Also, if somebody replies to you, reply back. You, not your LLM.
 >
-> -	if (!pm_runtime_get_if_active(ethosu->base.dev)) {
+> Indeed, I've been replying personally, though in a few cases I sent
+> the response in the notes of the v2 patch, in an attempt to send less
+> mail to lkml.
 
-pm_runtime_get_if_active() return 1 when active
-			   return 0 when suspend
-			   return -EINVAL when !CONFIG_PM
+OK appreciated!
 
-!pm_runtime_get_if_active() shoud be correct if !CONFIG_PM. when !CONFIG_PM
-we treat all devices is actived.
-
-I think stub pm_runtime_get_if_active() for !CONFIG_PM return -EINVAL is
-wrong.
-
-It should be similar with stub
-
-static inline int __pm_runtime_resume(struct device *dev, int rpmflags)
-{
-	return 1;
-}
-
-I will create patch change -EINVAL to 1.
-
-Frank
-
-> +	if (IS_ENABLED(CONFIG_PM) &&
-> +	    pm_runtime_get_if_active(ethosu->base.dev) <= 0) {
->  		ethosu->perfmon_state.active = NULL;
->  		return;
->  	}
 >
-> --
-> 2.53.0
+> For context, I use an LLM to write Lean proofs of correctness, which
+> seems useful for cases where the patch is non-trivial (e.g., [2]).
+
+Ack, this seems to be a trend. And obviously we're not against LLM usage, as I'm
+sure you're aware, this is about rate-limiting that's all.
+
+Also use of lean seems like a nice way of bounding LLMs in a way that makes them
+less likely to go awry, I didn't know people were already using that for the
+kernel, so that's interesting!
+
 >
+> > Also, you are flooding the kernel with patches, 5 series across 5
+> > subsystems over 2 hrs:
+> >
+> > https://lore.kernel.org/all/?q=f%3Anickolai%40csail.mit.edu
+> >
+> > I already asked you once to stop doing this [1]. You've carried on.
+> > [...]
+> > I'm sure you're acting in good faith, so can I please ask you to engage
+> > with maintainers instead of ignoring us and treating our time as valueless?
+>
+> Sorry about that.  I'm happy to send bug reports with clear userspace
+> reproducers, instead of patches, for any bugs that seem particularly
+> significant.  I'll also get in touch with the relevant maintainers to
+> see what, if anything, might be useful to them, rather than sending
+> individual issues/patches.
+
+In general the bug reports are welcome, just space them out a bit, or if you
+have a bunch for a subsystem, contact maintainers ahead of time.
+
+I know you've generally only sent a few-per-subsystem, but in general this is
+about managing workload.
+
+Right now the biggest issue with AI submissions is volume-of-submission
+vs. review resource. The former can grow exponentially, the latter very much not
+:)
+
+>
+> Nickolai.
+>
+> [2] https://lore.kernel.org/lkml/20261027125210.843589-1-nickolai@csail.mit.edu/
+
+--
+Cheers, Lorenzo
