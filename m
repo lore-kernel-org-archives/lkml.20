@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793286167;
-	b=i4RbFOtZlxI+uumlPMJ/6WJrRc+dFj1VK2yd2b2tPRX/t/pOcs/4mK7l15nJoiVAYBGs
-	 Sd6ATXU6WXHU3jviAr1kpsY4Mnpoj1TNt7Ft093KxHrAw75FKYYDww4ROeTtAwDQWBhYB
-	 FO/gCwxVTPpVrgH7fM51C2gZdl+AGNX45VBsi5oDPxX9u2SHvptHUUomJyp39dXUwQHGx
-	 8m6lrvZKsN34lsYjx1oUJlCVSbDKg0gnwn4N7wo8LuChmq40pedGx88mlCqeLBJ0i6Iy7
-	 oCrW4YeCl4tNpz0FLIybTn05seFiy+r9wNshj+2Z+kixGhGeXYYAk5NSJ9m1M87IVeQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793286167;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=VBauCSbAO1bslF2MHSEVL1Kj61L1QueFoV/lHBHEYSQ=;
-	b=Gh9hXWgyf5DThs1ajsFHyRFrT5bSpmFSLO/eruApIyxRFaoBc2473MTW7RkvLKMiF4C9
-	 7jxUfZXdp5hgl2m80ohc5BVtyKUUr4ilRmmRB/s6A9EzzcAbIG2QHEFdHELorialRiVab
-	 j2zjjv3tKsu44WB0+IEFE0RdDew3bCkg5colzIEsocCuBUo0j1DSPMYYw9Xe68SDIErzt
-	 BvYELVjCRYSCwyaOzHZ3RbtIf8BbvQJi42Rug8kfVSOHERovrJqBuTzaKKWDNu0ndINZP
-	 AEaC+WdrvPrJc6ggtztj3kpFAo3PfHdoA/0wZr7yFmgoMeMrxBi+vnMRX95jYMje1EQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=kUptFaBE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.41
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793286178;
+	b=Os6GoHlyHQarL0pdGIVIOVLtK49dpMYvCiMgViPPEKTzHAOnFgCtE4m8+PCn4Ct6282L
+	 9xPdy57KO1752+TYgIg4khSmvSHajS9MbFd92ZThLkqpWb5sTGD54HkyGcoz48uOgrYHr
+	 CJXuCTgt2jaypw6eRh3PWUsgO1U6x+ccsDMQdppD/5IEDNXT2Ipjk4a+WRjD7+i+hEKYL
+	 SwOvpo/TmqQvDwdmmGzShLv/G6rlwUxipHxBopOhCGbSZ2H78ooBOq9KU2YaMAPj+7ls+
+	 6HUftdCWFERGVoU3qLxrcBg9KejIVXlxWJWossM2jLZA12imuCYvE9v4S0KdLqdD2nA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286178;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Bu/CWKPDCcsa9kOSXMtobSt/utwZ/evlDx4NIEJ/cvE=;
+	b=RAbWwHcKs9ujRf3CchR1+lVao6pP1J0h+nLLkjU5kdQE9jOkmCJrCt4sTJm9K+NNAZFO
+	 I/1JWjOIK84/A8GJD7JlWVl/bUvRmUHZ8fB2i9fA98lxm87EqUszaa+WCmaRqPPQMpw3+
+	 fqdMBLWNkzpylWrD5M0AQhcxBKN5AhRoYqaEgJYQ7reQNIrsmvClYbGsuNC1hK3vO9sqR
+	 G1bg9Dfa0MuVF3OspFxavy9DEDXJD0tYdsnwZwSpgCIVLg6yP7kB1fIiynN6hKXZg/wGR
+	 Xi3B8L4tediu/ts3+mbxPQ58q/6V/cX1Ybr3iekOemjIQXGtL1Q/4ZUezxFoOfUOZbw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IrqAVrc/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E57D606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:02:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E57D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8514C606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:02:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=kUptFaBE
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-43bf9548df4so1986683fac.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:02:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793286165; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jJGaFwSmopIb6S4XHLTu80vCIUToME7ldYcQWw51pxLZIu62qKxydYxbKcetmRwuig
-         5/w4xPLcTqKwCm148uRFvqEU2Dplkj3fJ0yqi3VXPPz3GegXyee6A/xlJz6y9jXANiH6
-         DY8ubk85SfGKrVMbRcT7tjZM+Z5wk1ZVpl32psNZZm33mFuaRTqSVWznVVAyWOt2nxsG
-         fKVqO4yy6qugoxZkRk3JkaVa/yFayRofs07bgBdHBKqY+q1vfuqsAQCv5bKVarmjMWfN
-         mzhuoc6Bj9Fuj0lk2PtN+l6GiHwZiiGYTnPo3YxmI1cE+rbjq5+8QfrGFEjVCE9YZbx7
-         UiRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=VBauCSbAO1bslF2MHSEVL1Kj61L1QueFoV/lHBHEYSQ=;
-        fh=rWf9VQF2S3oFJJ/ZoVGTvvGwqJcwpQtpSyswgLwEaZI=;
-        b=Lv9Dt+nbnut7Fi2hFD5pgiBYvR0yRpOQsm80s2kk22kP9XVZLf7fj86g91OG0hHd1Q
-         +rtSjtZ+An2oL8/vE/tj/r5iJUYlCXCq6cH4gztFBtREZ2dMuPa1vf5rg2J4Cjxicm9X
-         csvkFxSU/6vOl+n7Fq9WpVnlECZi9caKkSvgej9NYupvLp5FFkm3rlNHSkd3l8sVIFHa
-         Xd8w4NE5zsKR1MxprKpmkEsNJY3uBq0Chk44FgecobHq2n7YgZFoWRqLcBM6Y9kD6V86
-         qf5gN9vdY3gHjYywwNnvBkJ4A6gMdFE2HIOdXuvdQUXlAOUeVNcgdbUF58LhkisiJrxi
-         gjnQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793286165; x=1793890965; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VBauCSbAO1bslF2MHSEVL1Kj61L1QueFoV/lHBHEYSQ=;
-        b=kUptFaBExjtmignbdxt1LEDnztQBGVfbv/M45YWor7b4iidSbjXJeQadLYQ+Rs6f13
-         UahaoMLT+piO8QQ+ypRM1Tr3MsYpi6glJ5p9YaSaFON4VaZRkpObl4vmnv7sns98U3rp
-         XdolxfrwbkCywumJd+8B6mnNC5KkPOG4uNPhMCtxZF9yuFsQ0J32qEtj2PgmKqO9/Ydk
-         osv5fWFDUjfHsooz1uYRX8gTTGCqePBInTcQk+peDAOWkvkjz8S2Xig+lZK0SNdFIEQs
-         Zwdt9xNANFYfHMyYnK50RyMfvkGUj9bdJLJdu0KgD2KcY+D5SBI7hxUT6p2xUkZo0Y4S
-         bo8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793286165; x=1793890965;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VBauCSbAO1bslF2MHSEVL1Kj61L1QueFoV/lHBHEYSQ=;
-        b=F+LxwHrEGgm08idxLWxvfC0RBnDL2SvhDrOeXGxvx+QfiSTkhA+ex3/CIxU4Yt4Op3
-         dcllbXh/BIqG0spooON7Rz/6by50Bxpw5jmxQ/4GHGftXgh8cdOIxWIc9ndPnUs3DmVY
-         3L+JIO3rBHw4AcGwMMxBOneJCFEzaJP8mvfMx3hZijFTdfO151e1RZX1TQDXtnlJixz8
-         Z8QtsGCv+Zbmxcv4/bgL8QPnoUA3OiQRb3Q+GdkR6yZuos/vOfEYTXM+olHfO8yfzKou
-         LwtVywREv8ua5c26/GTCjijqZoM3kOTM1bYP6fjAHjfx8Ucw7TQuGeb6elYvBp4ad8sA
-         SRjg==
-X-Forwarded-Encrypted: i=1; AKwUvBwfx6FTH8+D1hm4IzD4uVIgokryPn+FARkY3SeogM2SPYmW6ChUr4yBCKUT8ASYCLARr47F6PU2jI0Otkc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1fjVbUZCKxyaB+P4BksIRyixwlY8+DNs5KimX7TWKfQRGu+Ct
-	0e7N/OO3OYLKuAYIDV552GX+MHGXizn6qpA4upGNLbfDrnRplBT9MWI/So1tTC5wrZYS438xRrX
-	2B4Krb1Ah6G9/ULky0ejs0mzwjNx4P/mldb+uNcF/dA==
-X-Gm-Gg: AYBFou1DtTNzJK/kbo5OgHfLNYNgsxRRr6OkSE1hcx2KFZ/+Ys1mlHQ4mglt8NCa56R
-	I026/M2r+JGrckl4sfFWakgrXMYfAMYWQhxR44OB8uwxwgs+LkcS52EADh5Lfps3+VY495k4chs
-	nUPKvI+uieG2/jclpAhtd/7czpcD9GJkDVGyODwylITnMgsu7cyzg4fIVjeWIgAxGIEb/1rdn4q
-	MTYgDQLFZQqRduXaexlp3RLAWtPNHCEmPmcffAyzzQoMSFATygeBqfzMA/Gt0KHsRgD9NWDQWAu
-	Agk9nUPowLlx5QJCkRzRvxtbweu1RcvxXh1516AojHstmC/I9ia8YOrHBpmB6Tdao0MraMHAM8S
-	ykamjmS5hDCdIcUwsshe6uXMMxVAAOMnXd/ZNYwBmK4NsFVFiCTulVC8BCsxLxa8fKUwpf/JmIi
-	CsaFkt5JL8jYmX2eBd/gsneJKJJRl1K/kbjcNocK22ubuKwqI1TK4fP3pGKnmzqMoHNT7JUF83P
-	o4=
-X-Received: by 2002:a05:6871:2102:b0:486:a82a:a204 with SMTP id
- 586e51a60fabf-4a8bb21dc71mr4339383fac.5.1793286164997; Thu, 29 Oct 2026
- 08:02:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IrqAVrc/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 224F01F031E5
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:02:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793286178;
+	bh=Bu/CWKPDCcsa9kOSXMtobSt/utwZ/evlDx4NIEJ/cvE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IrqAVrc/3yeH5FEpEO724htUWgSvkDudxC4qcPzM03VjfvOnCABLjhSLcO0/2IhQa
+	 8jKOPp+/cQhezq7XUUHDljkZ5yDky1S07TMTVTNcr9VEf+kWV8o+T5+0/5R8XnQ0pi
+	 ac0A3hYjAQA2GFwc4hu/2+3cAsVIsplqvh4FG/7jV44dxcAGiyeMDyRBmhTcpLaLDI
+	 qeB1mQM7YKWqlNuT9no/tlMJg/3y2ickke5NB2Jm+LkR97g9hFYlNjruBceZ1HnW10
+	 5eeoedBZtBYJSALrQDyPeuyCL1sOtUqdPcxfXHm5nN0kEq7NN6giVuV1DRrqMlIADG
+	 QuBUBZmbcbfbw==
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c49df71182dso111697666b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:02:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByjYi7ThBgMqkjfZv9QtOS5uLco76r8SwpDMJts1WEPX4wwtwrro3/JJip+AWj/EP3uYAqxZ1y4ruHkUWU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9o7BnL6Bv0vGgRQTmvv5dYUlFLm+of8/NJNB4JEWLb0cuA07K
+	q+FpZWb1B42nG/ze4YLEQHwhXiKIJOOKJ1pI6O0L1VkTMke8cFHT48FzRrZ5hK1N2jbVCmJuK3y
+	ljGCyEpXhuQooZcqwx141l4ERkh3SYQ0=
+X-Received: by 2002:a17:906:ee8b:b0:c29:659e:2fd2 with SMTP id
+ a640c23a62f3a-c49bdf309a0mr458971366b.27.1793286176883; Thu, 29 Oct 2026
+ 08:02:56 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,117 +59,216 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev> <20261014-ov9282-fixes-v2-5-3bb376d8b1a9@linux.dev>
-In-Reply-To: <20261014-ov9282-fixes-v2-5-3bb376d8b1a9@linux.dev>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 29 Oct 2026 15:02:28 +0000
-X-Gm-Features: AclHuK8voSOcP2Yc93--NhJD3VRIP_1eHNKLU2iJ4Kl10Q7R5Gjav4eSoB_tiWQ
-Message-ID: <CAPY8ntDPj06a_fa+fJRUmn_8z2jxBXgFtf-PyHw7n34Qy9zeig@mail.gmail.com>
-Subject: Re: [PATCH v2 5/8] media: i2c: ov9282: add refresh of additional
- ranges on a mode change
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
-	Jacopo Mondi <jacopo@jmondi.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <CAHCio2jc9++n2Qoa0-sNkObZsWOybSwK1X2aBjFirchjRTBZsQ@mail.gmail.com>
+ <CAHCio2hpL+Y0iYdGXs5zKA-81+w_9pHs+tZPe2uaYKs8yOCz_w@mail.gmail.com>
+ <CAO9r8zMBcU_s3Dpc99jse=n7Njhy8Ly-daf6--YXVD+Cw_ed1w@mail.gmail.com>
+ <CAO9r8zOmH6yzcNbUOF3FoNsac8rtx47rp5wByOFfGgaBPaLxug@mail.gmail.com> <CAHCio2hTSuTf4HcJ=+wb=_EQvi2as9QMwfRMG5tUkdCmex=yJg@mail.gmail.com>
+In-Reply-To: <CAHCio2hTSuTf4HcJ=+wb=_EQvi2as9QMwfRMG5tUkdCmex=yJg@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 29 Oct 2026 08:02:45 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zNohnNE66PVMyE-RAnKYGEfvPpzupLgCO+s0OtAdNPCyw@mail.gmail.com>
+X-Gm-Features: AclHuK_9AtQI9Cq9L71bVvMpHX8tQ3tsB8oPsV8KkVS99aJp2maiwZdom2yxf3U
+Message-ID: <CAO9r8zNohnNE66PVMyE-RAnKYGEfvPpzupLgCO+s0OtAdNPCyw@mail.gmail.com>
+Subject: Re: Some options abort RFC: KVM: SVM: Rework ASID management
+To: Jackie Yu <ufo19890607@gmail.com>
+Cc: jmattson@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	mlevitsk@redhat.com, pbonzini@redhat.com, seanjc@google.com, 
+	thomas.lendacky@amd.com, vkuznets@redhat.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 14 Oct 2026 at 07:49, Richard Leitner <richard.leitner@linux.dev> wrote:
+On Thu, Oct 29, 2026 at 3:57=E2=80=AFAM Jackie Yu <ufo19890607@gmail.com> w=
+rote:
 >
-> ov9282_update_controls() updates the pixel rate, hblank and vblank, but
-> currently misses the exposure range and flash_duration, which are
-> dependent on the frame height and therefore vblank.
+> Subject: Re: [PATCH v2 00/29] KVM: nSVM: Optimize nSVM TLB flushes
+>
+> Hi Yosry,
+>
+> Thank you for the quick response. Two clarifications from our side:
+>
+> 1. About the boot failures: no emulation is involved in our experiment. O=
+ur out-of-tree changes enable direct guest INVLPGB/TLBSYNC execution by cle=
+aring the KVM intercepts, without any software emulation of the instruction=
+. The failures occur with this unintercepted passthrough combined with stat=
+ic per-vCPU ASIDs, so they are not missing cases in an emulation path. Unde=
+r the per-vCPU design we did not attempt to intercept and emulate INVLPGB a=
+t all.
 
-This ends up being the opposite of my comment on v1 which claimed
-"Both are dependent on the line time and therefore the pixel format."
+That's what I meant, the missing emulation of INVLPGB needed with
+different per-vCPU ASIDs.
 
-exposure control range is dependent on height and vblank.
-flash_duration control range is dependent on width and hblank.
+>
+> 2. We do not use nested virtualization in our deployments. L1 guests in o=
+ur production scenarios run without nested guests. Therefore, the ASID-repl=
+acement behavior you quoted from the APM does not affect our current use ca=
+se: with one shared ASID per non-nested VM, an unintercepted guest INVLPGB =
+would be scoped to that VM's ASID, which matches what our per-VM configurat=
+ion relies on today.
+>
+> Regarding the direction: we understand that with per-vCPU ASIDs, correct =
+handling would require intercepting INVLPGB and re-issuing a flush for ever=
+y ASID in use by the VM, which you note is unlikely to perform well on larg=
+e VMs. We also note your point that as long as any vCPU uses nested, KVM mu=
+st intercept INVLPGB anyway because the hardware replaces the requested ASI=
+D with the current ASID.
+>
+> If we read the situation correctly, the practical options seem to be eith=
+er (a) a per-VM shared ASID mode restricted to non-nested VMs, with uninter=
+cepted guest INVLPGB, plus mandatory interception whenever nested is in use=
+, or (b) always intercepting and virtualizing INVLPGB under per-vCPU ASIDs.=
+ Either way, direct passthrough would at most cover the non-nested case. We=
+ would appreciate Sean's and Paolo's input on which direction upstream pref=
+ers; we are glad to provide more details of our configuration or run tests =
+that would help decide between these options.
 
-Just omit the dependency comment.
+I don't think (b) makes a lot of sense, but if we do (a) we should
+always use per-VM ASIDs, supporting both implementations based on
+nested vs. non-nested would be a huge pain. I think what KVM can do is
+disable INVLPGB intercepts until one vCPU sets EFER.SVME (or maybe on
+first VMRUN, because with enable_virt_at_load KVM will always set
+EFER.SVME on once it's loaded).
 
-With that:
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-
-> Refresh both, and commit cur_mode and code in ov9282_set_pad_format()
-> before the call so the refresh and any nested s_ctrl see the incoming
-> format.
 >
-> Fixes: 14ea315bbeb75 ("media: i2c: Add ov9282 camera sensor driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
-> ---
->  drivers/media/i2c/ov9282.c | 36 +++++++++++++++++++++++++++++++-----
->  1 file changed, 31 insertions(+), 5 deletions(-)
+> Thanks,
 >
-> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> index e6920e18b7818..b48c959b9c908 100644
-> --- a/drivers/media/i2c/ov9282.c
-> +++ b/drivers/media/i2c/ov9282.c
-> @@ -548,6 +548,7 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
->  {
->         u32 hblank_min;
->         s64 pixel_rate;
-> +       u32 lpfr;
->         int ret;
->
->         ret = __v4l2_ctrl_s_ctrl(ov9282->link_freq_ctrl, mode->link_freq_idx);
-> @@ -568,8 +569,20 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
->         if (ret)
->                 return ret;
->
-> -       return __v4l2_ctrl_modify_range(ov9282->vblank_ctrl, mode->vblank_min,
-> -                                       mode->vblank_max, 1, mode->vblank);
-> +       ret = __v4l2_ctrl_modify_range(ov9282->vblank_ctrl, mode->vblank_min,
-> +                                      mode->vblank_max, 1, mode->vblank);
-> +       if (ret)
-> +               return ret;
-> +
-> +       lpfr = ov9282->vblank_ctrl->val + mode->height;
-> +       ret = __v4l2_ctrl_modify_range(ov9282->exp_ctrl, OV9282_EXPOSURE_MIN,
-> +                                      lpfr - OV9282_EXPOSURE_OFFSET,
-> +                                      OV9282_EXPOSURE_STEP,
-> +                                      OV9282_EXPOSURE_DEFAULT);
-> +       if (ret)
-> +               return ret;
-> +
-> +       return ov9282_update_ctrl_flash_duration(ov9282);
->  }
->
->  /**
-> @@ -832,10 +845,23 @@ static int ov9282_set_pad_format(struct v4l2_subdev *sd,
->                 framefmt = v4l2_subdev_state_get_format(sd_state, fmt->pad);
->                 *framefmt = fmt->format;
->         } else {
-> +               const struct ov9282_mode *old_mode = ov9282->cur_mode;
-> +               u32 old_code = ov9282->code;
-> +
-> +               /*
-> +                * Commit before refreshing the ranges. ov9282_update_controls()
-> +                * and the nested ov9282_set_ctrl() calls it triggers derive the
-> +                * frame length and the line time from cur_mode and code, so
-> +                * they have to describe the incoming format, not the outgoing
-> +                * one.
-> +                */
-> +               ov9282->cur_mode = mode;
-> +               ov9282->code = code;
-> +
->                 ret = ov9282_update_controls(ov9282, mode, fmt);
-> -               if (!ret) {
-> -                       ov9282->cur_mode = mode;
-> -                       ov9282->code = code;
-> +               if (ret) {
-> +                       ov9282->cur_mode = old_mode;
-> +                       ov9282->code = old_code;
->                 }
->         }
+> Jackie
 >
 >
-> --
-> 2.53.0
->
->
+> Yosry Ahmed <yosry@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8829=E6=97=
+=A5=E5=91=A8=E5=9B=9B 14:08=E5=86=99=E9=81=93=EF=BC=9A
+>>
+>> On Wed, Oct 28, 2026 at 1:15=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> w=
+rote:
+>> >
+>> > On Wed, Oct 28, 2026 at 6:37=E2=80=AFAM Jackie Yu <ufo19890607@gmail.c=
+om> wrote:
+>> > >
+>> > > Hi, guys!
+>> > >
+>> > > Jackie Yu <ufo19890607@gmail.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=882=
+8=E6=97=A5=E5=91=A8=E4=B8=89 21:36=E5=86=99=E9=81=93=EF=BC=9A
+>> > >>
+>> > >> Hi Yosry and KVM folks,
+>> > >>
+>> > >> We would appreciate your guidance on supporting INVLPGB in ordinary=
+ (non-SEV)
+>> > >> L1 guests alongside the proposed static per-vCPU ASIDs.
+>> > >>
+>> > >> The 2025 ASID rework RFC proposed one static ASID per L1 VM and lis=
+ted
+>> > >> "enabling INVLPGB virtualization" among its motivations [1]. The Ju=
+ne
+>> > >> 2026 RFC v2 changed the design from per-VM to per-vCPU ASIDs [2]. I=
+n
+>> > >> the October v2 series, patches 2-11 establish static per-vCPU ASIDs=
+,
+>> > >> while the remaining patches primarily address nested TLB flushes [3=
+].
+>> > >> Our question is how guest INVLPGB should be supported under the
+>> > >> per-vCPU design.
+>> > >>
+>> > >> Some of our workloads frequently discard and repopulate memory usin=
+g
+>> > >> patterns involving madvise() and memset(). Broadcast IPI-based TLB
+>> > >> shootdowns are expensive for these workloads, so we are interested =
+in
+>> > >> making AMD INVLPGB available to guests. We use a small benchmark to
+>> > >> approximate the resulting shared-address-space pressure:
+>> > >>
+>> > >>     region =3D mmap(256 MiB, MAP_SHARED | MAP_ANONYMOUS);
+>> > >>     memset(region, 0xab, 256 MiB);       // Initial population
+>> > >>     start N workers, pinned across 64 allowed CPUs;
+>> > >>     each worker repeatedly reads pages in its own slice of region;
+>> > >>
+>> > >>     repeat 500 warmup + 2,000 measured iterations:
+>> > >>         start =3D clock_gettime(CLOCK_MONOTONIC);
+>> > >>         madvise(region, 256 MiB, MADV_DONTNEED);
+>> > >>         record elapsed madvise() time;
+>> > >>         write one page in every 64 pages to repopulate part of regi=
+on;
+>> > >>
+>> > >>     stop and join the workers;
+>> > >>
+>> > >> The benchmark uses memset() for initial population; subsequent
+>> > >> iterations re-touch pages rather than repeatedly calling memset().
+>> > >> The numbers below measure the advisor thread's madvise() syscall
+>> > >> latency, not worker throughput.
+>> > >>
+>> > >> In our experimental KVM4 configuration with a VM-shared ASID and ou=
+r
+>> > >> separate guest INVLPGB passthrough changes, we observed:
+>> > >>
+>> > >>                          INVLPGB off     INVLPGB on    Difference
+>> > >>     64 workers  mean       21.624 ms       12.505 ms     -42.17%
+>> > >>                 P99        32.760 ms       21.518 ms     -34.32%
+>> > >>     128 workers mean       29.553 ms       20.459 ms     -30.77%
+>> > >>                 P99        39.628 ms       28.160 ms     -28.94%
+>> > >>
+>> > >> These are single, sequential A/B runs for each worker count, with
+>> > >> 500 warmup and 2,000 measured calls per run. The process had 64
+>> > >> allowed CPUs, so the 128-worker case was oversubscribed. The
+>> > >> measurements show a useful latency difference, but do not by
+>> > >> themselves establish INVLPGB instruction counts or IPI reductions.
+>> > >>
+>> > >> We then experimentally combined the October per-vCPU ASID changes f=
+or
+>> > >> ordinary guests with our existing, out-of-tree L1 INVLPGB/TLBSYNC
+>> > >> passthrough. With guest INVLPGB enabled, a one-vCPU guest boots, bu=
+t
+>> > >> otherwise comparable two-vCPU and 64-vCPU guests fail early during
+>> > >> boot. Keeping QEMU's +invlpgb setting while adding clearcpuid=3D419
+>> > >> to the same guest kernel allows the multi-vCPU guest to boot; the
+>> > >> guest logs "Clearing CPUID bits: invlpgb".
+>> >
+>> > I imagine for INVLPGB to work correctly with per-vCPU ASIDs, you need
+>> > to intercept INVLPGB and basically issue an INVLPGB for each ASID used
+>> > by this VM (nr_vcpus or 2 * nr_vcpus with nested). I can't imagine
+>> > this would perform well on large VMs, not sure if virtualizing INVLPGB
+>> > would still make sense.
+>> >
+>> > Regarding the boot failure, I would guess there are some missing cases
+>> > due to the complexity of emulating INVLPGB without a shared per-VM
+>> > ASID.
+>> >
+>> > >> These controlled boot comparisons identify a problem with combining
+>> > >> static per-vCPU ASIDs and direct guest INVLPGB/TLBSYNC passthrough:
+>> > >> the multi-vCPU guest fails to boot when it uses INVLPGB, but boots
+>> > >> when its INVLPGB CPUID bit is cleared. A one-vCPU guest also boots
+>> > >> with INVLPGB enabled.
+>> > >>
+>> > >> In this configuration, an unintercepted guest INVLPGB targets the
+>> > >> invoking vCPU's hardware ASID, while sibling vCPUs have distinct
+>> > >> ASIDs.
+>> >
+>> > It's neat that INVLPGB will automatically use the current ASID and not
+>> > ASID=3D0 for guest usage.
+>>
+>> Hmm, actually, how is this supposed to work with nested
+>> virtualization? The APM says:
+>>
+>>     A guest that executes a legal INVLPGB that is not intercepted will h=
+ave
+>>     the requested ASID field replaced by the current ASID and the valid
+>>     ASID bit set before doing the broadcast invalidation.
+>>
+>> If any ASID passed by an L1 guest is replaced by its own ASID, then if
+>> L1 is flushing L2's ASID (i.e. a non-zero ASID), passing through
+>> INVLPGB would do the wrong thing and flush L1's ASID instead, right?
+>>
+>> Seems like if the VM is using nested (on any vCPU), KVM must intercept
+>> INVLPGB anyway to correctly handle the ASID?
+>>
+>> The APM also says:
+>>
+>>     Two forms of INVLPGB intercepts, conditional and unconditional, are
+>>     available to the hypervisor. The unconditional intercept traps all g=
+uest
+>>     usage of INVLPGB. The conditional intercept traps only
+>>     illegally-specified INVLPGB instructions.
+>>
+>> When I read "conditional", I was really hoping it was conditional on
+>> the ASID being zero or non-zero, as KVM really only needs to intercept
+>> INVLPGB with non-zero ASIDs (assuming the ASID is shared to begin
+>> with).
+>>
+>> Am I missing something?
