@@ -1,78 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281799;
-	b=5MQFpwRA5cgbCeds4TixfjSmvKiW0oj4LEf/2+dmSF4DzpS2a1JhdgZLH6GVL2e0c7vt
-	 UIO85SoOhyNbeiA90gFsgB3XjEZMqH7HmSB9tnClKMeedRwGiC7BL5ZhLd6XsJ5/pqc/v
-	 pRq/iR5umn1w4uIJ31wQ21RvH/41a++LHBRzBXnyxHjiuk8GYRnyty+i7PEZY/JMJNDjv
-	 PMs1P3ziCK09h0N2kugcdXTVtcKVOVfysm9QX/DdDoMU5TNLY6uFDNwNH4XceSre3u7Hx
-	 1sqa5SqzoIibUtRB0IjKEYhMpAsmmF5Mf7cIkegIJl2wpkG/7aQA7dO9RJfUfAxCdNQ==
+	t=1793281804;
+	b=uVT7fOp+22ARN+brphSw+/2b7zPlhhHNBruTXy1DJqYHzNEZSNWECzm0rzGqT5KVxuM4
+	 qj5SEIXwTHLIuA8+dDavRuqqSWH+y+F55oj1BqyBabAXw8o5076YSvsNDuLnpogg7W4AA
+	 gN/+bCXLLEjb6NRH8GSKMu3WMbq9E9kvt47V1V1VN9TYZ2D8cbQmzsir/azn837sKb32K
+	 A9OJrDShnJ3Wq7vx712YwIBV+6IvnstOCV26LSE9DC2dYsPwd4kkPtOH8U48fA/8xhBmH
+	 EhZ4SmyUhQlhMNT+Ca+cTP3giNu/PzAVvNGjHHgIUOzlmf0a+tmw0/CsFL7ZUbnn+rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281799;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
-	 X-MBO-RS-ID;
-	bh=axwW0A/5PYCIOuQ7ZqJPwr1VhkoJypT5+8pks0+szpM=;
-	b=Jt4v4XFEQORuHk8amKNZsJeGX049hI3unu4GlD7RxNHHHBnyaoCGJrnI/OPrJUE2B2Ig
-	 Q/8xpTFmXaF+5arzz6BUOWjQI/yyPX09E6/IzFWJh2250SGu3vZ3MEzMaOVM+bpzhahZQ
-	 8Mc56gwcljqxgDWhxhm6dJuX10dkTrFJDHw8NtVIZC4t8D95DDizngDj8lYShpf4Qqm82
-	 iftBdKurcOZ4/1ZQJEAU+lfB7SFS1vyZJ2mLhX5IxtmrT7stjCnDVJQRvDGQWblx0jd58
-	 VLE1iAzczG796FtruDfJXiLE4LwmnXFveq6bhN7b26/RiglzG51yS6Ia5OBZGJLXqSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281804;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=eVQoUYkvGYDjfff+tOxxhz0fkEYj1xQD620TYS9hUB4=;
+	b=ZW3hqvBrI76WbX2Ags+GvWjDVSbt9MOE1mllAR4yAn88Tr9WOB73UDQor0H6PQJ8JLCv
+	 TeGn4KQsNNLBSQzNJkEk2u+it/zQocBdblnx5MSEBy1ZrKe86/oWQazDNAWpbjbXuU3ia
+	 psudisnqXo0hOc0SgtjDC9eqzscLmI2wVvmzh2kLIrKJme9Fdt/Q9FVXX4mCurjMrkhJp
+	 kdDYACaDs9TaD00iZShjDD+LqVnvgB6wLVA2tXRkD7VAhwg/YbANCroPzbTei4HzQuMUt
+	 jrvtgQn4E2AhN+7nMRs1JSntgilgjUcIDp/zy76MUUcuHT+PeB8ESKCrG0cmmPIeBkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=gmdlD1wN;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	dmarc=pass header.from=kumba.dev;
+	spf=pass smtp.mailfrom=kumba.dev;
+	dkim=pass header.d=kumba.dev header.i=@kumba.dev header.a=rsa-sha256 header.s=fm3 header.b=CadEP7sI;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jJU0Rr06;
+	arc=none smtp.remote-ip=103.168.172.149
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E4D606A323;
-	Thu, 29 Oct 2026 13:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2E4D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0641D606A335
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:50:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0641D606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kumba.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kumba.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=gmdlD1wN
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jFlwL0qV8zMlfS;
-	Thu, 29 Oct 2026 14:49:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793281794; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=axwW0A/5PYCIOuQ7ZqJPwr1VhkoJypT5+8pks0+szpM=;
-	b=gmdlD1wN7AGG6nQfxtq23dGCuMxmNrkZ+NrXKYNfVEL0xlliMv+IdjSR2N1Cm3L0ebA7Ex
-	a49o2Ord2frm0n5vrPCmgzzrEY6tcsO7HruzWv8gsdxI/I2DLI5s0RRiI6dNaGMCLZNk3g
-	v4BRv4gw0phbhr2SMiHJZbEfB85nvC0imGNuKGAQyU13rVb5Wys8EhLIXm4FMIrKfS9N1D
-	l/HB6KFi4v910J0tjwXRRHiPDCkEjMb4AjI7G9gozZ6rdiTzShW82Notr6YNkkMZgIhFl+
-	1bbQwKh9uDQLkWCu279NGWJikwm8R1A1ENlTml5UpT4wyPy/ekFyOgMKeyUkNw==
-Message-ID: <e30a0a03cb7d393cbd88565bf81e156d2f38b293.camel@mailbox.org>
-Subject: Re: [PATCH] usb: gadget: f_fs: Remove deprecated dma_fence->ops
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Paul Cercueil <paul@crapouillou.net>, Philipp Stanner
- <phasta@kernel.org>,  Neill Kapron <nkapron@google.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Sumit Semwal	 <sumit.semwal@linaro.org>,
- Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Al Viro
- <viro@zeniv.linux.org.uk>, Nuno =?ISO-8859-1?Q?S=E1?=	
- <nuno.sa@analog.com>, Sam Day <me@samcday.com>, Michael Bommarito	
- <michael.bommarito@gmail.com>, Gabriel Prostitis
- <prostitisgabriel@gmail.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Date: Thu, 29 Oct 2026 14:49:49 +0100
-In-Reply-To: <7fd62daa875e4a3772e980127d368704a849caee.camel@crapouillou.net>
-References: <20261029125143.1744481-2-phasta@kernel.org>
-	 <7fd62daa875e4a3772e980127d368704a849caee.camel@crapouillou.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=kumba.dev header.i=@kumba.dev header.a=rsa-sha256 header.s=fm3 header.b=CadEP7sI;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jJU0Rr06
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id 22A24EC0323
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:50:03 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Thu, 29 Oct 2026 09:50:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kumba.dev; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1793281803;
+	 x=1793368203; bh=eVQoUYkvGYDjfff+tOxxhz0fkEYj1xQD620TYS9hUB4=; b=
+	CadEP7sItSZKo62jD62pV24Eyju7XUlE8fUJJqjR1y4lIfIvq55x+e0AhF+1o9gw
+	eII6YEfAXOc2yHtMMHVQWUEPdQvQ+Z0lkuN2bLo3cyCkaASsTi1bWwcq3PeurSji
+	+XAYO8/995NmqJJZOIKKJAVuqJS++oXBH+mgAjHsFw9AzkUGfljEDSr+a22Ap/z0
+	X9PvVhmk1+uHHDAJwd3Qn3LAUZfauiPYU0GddkgY4ErMShRx2bjSEwJebmqlAihU
+	JRUcQOHPh3ue/p4iF60DaFYKubaQU4b1rRYacYl7O1+O+eUWqmbyO3roK7yiU3Ef
+	UvxbVxpLGQdZa0yRJAhmOA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793281803; x=
+	1793368203; bh=eVQoUYkvGYDjfff+tOxxhz0fkEYj1xQD620TYS9hUB4=; b=j
+	JU0Rr06gcY54HDgiz5nihCbd2AuQXcL+JmZiqQzEr/IpwY9LUqWVKsbBZSfvGTGP
+	ivuChXR9+IwHdl6F1HCsnjtuU3R5EFBN2lPMs9frL55SvW9DyiM++fwCAsOsKUZ5
+	dIwitt+XH8iVGYBCi0OUQ7JMZP8tqwdA3QQZIYGuS+BbeFuQLhRG/ANFuc6PeRUh
+	+EST13QtRo6JcPqQwmOGYfS29m1HWrZGkVLyR4BhKzgVmIcc0dIGnQCuJ++t4yxK
+	A6eDr6xyDBkIDKzz+a6cPtsUk4b9bWaKgpX7ATMR0Zm3PDyKWuHRxWRQyIo+R0DW
+	882U1fdhS5rUe9iA5UyMQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=kumba.dev a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793281803; d=kumba.dev;
+	mf=PGxpbnV4QGt1bWJhLmRldj4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:nB4R1hgI+v7P1JAKw0zxR9ccanjMxfcDzm4/G+ifidvlZoQ
+	DehF5DPq+25Ip+TAgV7saibA8buVdZ1JH2nSfx4TzLX962XYk7w8RT3xRKkinNl9
+	jGQaMfYImEjSurVNQDx27RpIA746YNkmgGVv9ws5tKnq+JTpX0rVClNr/qRZt63w
+	HuI6j/A5E/S6ZDzUAi6EOl597fgVerpKW6krODxUU7RxAgAGlIjlSxRqA2NIFjCO
+	aqeEzct2Cxy2ij1TrAT7v1CQkJKAlzKguUcRR/pg+/qtRWKL8U3fdWBgKNPzgNlH
+	kspHND8le8MMoL2XiOAkm9t2LaHcFH5rTpiDP5Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:vI6qlQzBl+GTvVPBRgsmO2IJJENyKhLbipEFDZwD5SE=:lL9PBvvwMS9xs8eXtNx38+AREKQmoiWBzQomeHrfdAE=;
+X-ME-Sender: <xms:Ck_jave8BM8NpGD7iFmOhJME1o5cTG0RZNLl9Srpb-Hoz-nYfKP14g>
+    <xme:Ck_jas_iSLV8B39gCbFih0FLd51Xlsc0KE-mON2Q-sExnCZb8opysTS-0-XUX4IpN
+    GwgfVWtMH8497Jlvm6QEOKZu1udjQ3xmBN7ApSicgC3tkpqxy9fum4>
+X-ME-Received: <xmr:Ck_jarkHBK9IA4qFItVehNrDMPdEkT0nmwlkNJRncF4jCjlTJ-hwlEqRhoWFr6NF2cx2GCYnXEQ7AixrG_uC03MrStGMfTo9gVBZjSSuSGqNN285Rw>
+X-ME-Proxy-Cause: dmFkZTGCckvdbmJSrwT/0nMfGBTG3ucAJFscvqUupw1+PIdf9k85QpSvIakmALPkITSkBn
+    OqWFT29uRp3qXLwvOSYMU68AYInSwGDonE3aOzU2oH8Lh15MBvG20ALFEBZqwDIG7U9eDQ
+    ogsEG9S8TPZByQyjFGgRNsW0qQ0MyNZUoEBf5oVIplSKLon44SBl/35GXBRaPmlP1grLf0
+    1KIupexiHba9aukIGulUsFvEXwIsN3QqUIkJHkxbARsiEh+12aaVWbNgdmbYR4flZrt4ck
+    7RPMyakRmRw57PNO7VCC68NFPymo8G4ufakBiXXGN2MgOwzXi4TMKkkkOos7WKXxLesFBr
+    Oxkvx3ynNbLpQN4EYLCCR7bg9BWOabx2bQLx0k9veOSOGRRoF/MDTCRmT9pG3GyXQ/YBFA
+    cPXUC6i7Q6a7w15ZKFjgxxMYwTHkRb8kFKX8RBJ748dRCQW3+2iAXiX8aNgYJwMwe1ySJ+
+    ShWkJsdj88IiNGhYyuEZqnc5xymxcEzBIC2pUjpHGXCod5MvGPmkJ/K+hImBNs6lszQdMv
+    5oQImApVOUIjJ4dda81oZoza/ZTcEWQr3DtMeJRDxqSPrqqRoc4hLZ5Tas/qD1xhIrqxSe
+    o8odDWg8bzE60aI/fnS6wAoNjuXmsaySuCpXg9sNqJ22P56ZH2OtL7PfRVoA
+X-ME-Proxy: <xmx:Ck_jau8AxboZPS-aVfBFC1ZXDTaQ8NTFxzqYbYhWSuH0Atj-g1ExkQ>
+    <xmx:Ck_japkp3xBbCGQVpNrbC2CGw-_D9j-YPJcIUOrwG4gxgHwC0v4qpg>
+    <xmx:Ck_jar3snhh5RNc6zjhvIdfdkAZ-8gEzQajf6nSI4MVc_rzVm4-ZNQ>
+    <xmx:Ck_jakqogtatBdjqADszrRDdEe8zm2-MI1X5k1p-22h3FhgXylcDzw>
+    <xmx:C0_japhw9vU7zVDe_0AQinRYNGntEA10Em-jhjDaSddr1OjJpH-_EkJR>
+Feedback-ID: if8114916:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 29 Oct 2026 09:50:02 -0400 (EDT)
+Message-ID: <cd2a54f7-89f2-4683-b6da-cf14e62fffe0@kumba.dev>
+Date: Thu, 29 Oct 2026 09:49:18 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,42 +119,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-META: fsoima31pgmrfkhcj7aypxgy1bshnaqn
-X-MBO-RS-ID: 80be9851aa58a305405
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 09/12] rtc: ds1685: use sysfs_emit() instead of sprintf()
+To: alexandre.belloni@bootlin.com
+Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261029132339.925021-1-alexandre.belloni@bootlin.com>
+ <20261029132339.925021-9-alexandre.belloni@bootlin.com>
+Content-Language: en-US
+From: Joshua Kinard <linux@kumba.dev>
+In-Reply-To: <20261029132339.925021-9-alexandre.belloni@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On 10/29/2026 09:23, alexandre.belloni@bootlin.com wrote:
+> From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> 
+> Use sysfs_emit() instead of sprintf() in sysfs show callbacks
+> (ds1685_rtc_sysfs_battery_show, ds1685_rtc_sysfs_auxbatt_show and
+> ds1685_rtc_sysfs_serial_show) to conform to the recommended sysfs
+> attribute formatting guidelines in
+> Documentation/filesystems/sysfs.rst.
+> 
+> Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> ---
+>   drivers/rtc/rtc-ds1685.c | 10 +++++-----
+>   1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/rtc/rtc-ds1685.c b/drivers/rtc/rtc-ds1685.c
+> index 284815e5f478..323fc9c17106 100644
+> --- a/drivers/rtc/rtc-ds1685.c
+> +++ b/drivers/rtc/rtc-ds1685.c
+> @@ -988,8 +988,8 @@ ds1685_rtc_sysfs_battery_show(struct device *dev,
+>   
+>   	ctrld = rtc->read(rtc, RTC_CTRL_D);
+>   
+> -	return sprintf(buf, "%s\n",
+> -			(ctrld & RTC_CTRL_D_VRT) ? "ok" : "not ok or N/A");
+> +	return sysfs_emit(buf, "%s\n",
+> +			  (ctrld & RTC_CTRL_D_VRT) ? "ok" : "not ok or N/A");
+>   }
+>   static DEVICE_ATTR(battery, S_IRUGO, ds1685_rtc_sysfs_battery_show, NULL);
+>   
+> @@ -1010,8 +1010,8 @@ ds1685_rtc_sysfs_auxbatt_show(struct device *dev,
+>   	ctrl4a = rtc->read(rtc, RTC_EXT_CTRL_4A);
+>   	ds1685_rtc_switch_to_bank0(rtc);
+>   
+> -	return sprintf(buf, "%s\n",
+> -			(ctrl4a & RTC_CTRL_4A_VRT2) ? "ok" : "not ok or N/A");
+> +	return sysfs_emit(buf, "%s\n",
+> +			  (ctrl4a & RTC_CTRL_4A_VRT2) ? "ok" : "not ok or N/A");
+>   }
+>   static DEVICE_ATTR(auxbatt, S_IRUGO, ds1685_rtc_sysfs_auxbatt_show, NULL);
+>   
+> @@ -1032,7 +1032,7 @@ ds1685_rtc_sysfs_serial_show(struct device *dev,
+>   	ds1685_rtc_get_ssn(rtc, ssn);
+>   	ds1685_rtc_switch_to_bank0(rtc);
+>   
+> -	return sprintf(buf, "%8phC\n", ssn);
+> +	return sysfs_emit(buf, "%8phC\n", ssn);
+>   }
+>   static DEVICE_ATTR(serial, S_IRUGO, ds1685_rtc_sysfs_serial_show, NULL);
+>   
 
-On Thu, 2026-10-29 at 14:19 +0100, Paul Cercueil wrote:
-> Hi Philipp,
->=20
-> For context, this .release() callback was added to avoid the implicit fre=
-e of
-> the base class, which IIRC was a request I got during the review process =
-of this
-> change set.
-
-Can't say anything about the request you got, but fences are reference-
-counted and the ability to free itself exists since at least
-3c3b177a9369 (2014).
-
-From dma_fence's perspective it's certainly the desired canonical
-pattern since the release() ops prevents fences from the important
-feature of decoupling fence producer and consumer.
-
->=20
-> I'm personally fine with the change, but do we need a "keep this field at=
- the
-> top" comment for the base class in the ffs_dma_fence struct? Or what's th=
-e
-> policy here?
-
-When I got into the kernel I was told that it's common practice to
-always have the base class as the first element. That also allows for
-obtaining the parent class by a mere pointer-cast instead of
-container_of.
-
-But the reality is also that some users are not aware of this rule. I
-can document it in a v2 if you like.
-
-Regards,
-Philipp
+Acked-by: Joshua Kinard <linux@kumba.dev>
