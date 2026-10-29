@@ -1,68 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793262525;
-	b=OudI6O1GWbJQL3qJ6OEALoGbaE/Pp+zJaRfrZIY/ErSIcscDggggOCMUu2HnpAyMyzcw
-	 RfGIizaXrwiV1wcsXQFGj3aJZ6oIhg5zjW5fza6gH1mA4sMx3jqxaT/ibLBNfWHK3Z6Lo
-	 +eJYKc2M2B0wWGi5RGZgEHKzprNVOquwB9Y/pO6+JoZ1VEkHfc6hbkMhE9ElgCog/Q537
-	 2ciAUd4FgMxJvG1FF93ZG0Ipmawzvt0KV1Xc+UqWfio+Siyq7zMOpifEed2tTd2nJ7lPH
-	 4ZDNQoJKfuQrDzL/h2Oxk4H7MV+07/bm4HlICuvTAiWoNr9Jh/SvW8mjq/JLFVHY3cg==
+	t=1793262570;
+	b=b90IS2ZHJu5LZyGJsrTwMQ6mrFV4NsuSZLftEWveHGYGWdrOdGG3ObGfz9HtIIIodN/S
+	 E+iV/xKXU+iNINCquepOumY1ACGEGQITSdX4Q8B9Tr3Cksm+8WxGOVikujf9JzJLLILER
+	 Y3ABJgZV13k0ggC8bic+w45KdXTP7xDhZB/46a7bmqbv+34ZGm9/7wYSxH+8PcUZEAC2O
+	 asNzZgnjvDJByrFDLapg2c1eyKB5peQcLOXaCmfBvsDtS/ftw6Dp1G6hD95+StRvxYVXl
+	 GDS7Bp35tHnAbidhvQ1LcgAbwKWo6C9UbMeHDA1KCw6dDUcMCRYyhG4lJs1SSQvQzgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793262525;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=+O06dij/E4AszSh3h8D/A3AN8Cmq/N471sJmbDo5SdM=;
-	b=ul4MaLkhgpluSfOxYG22W9vCptHl76+F1mxRmcu9ZRsoNq6p7z6s1uSFrPm7wQdmj1re
-	 BpnG4XP/LV0bwz2OXsYwktgCui1h5Wb6/Zd3KdFtWV8zz43oAC7qLlj+uINoYt+RgPqR7
-	 XwIuGmvYqVRsLqB9R2KL/hKtKgP9zpDJ4w3omxG+WejfydQ4cMBzawWY/jLZbPYOUvgGo
-	 XK/T2tPhW6aS5WJV6fqr+Z6Kqi0FnshZ1FXo6Ewr8ll9NnqyFnO0Bbs+sAGV99mStRluM
-	 OqcEcygfmZvsdjc6rVQtTekNHKKwECZWd5nR4hEvKNU5ztZdtUPziRtNi8BzTb6jw7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262570;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=UK+T1fUrffefWQeeypNT3V5Xlc8CqTGPzUVGW2Qr1Bw=;
+	b=ApyhKWWao0IRhvLs2w+iq4YLYfxRRv3v/l55Yg1BDcBmAKZg6YW7PUIT08BI2xcf3q7i
+	 yaACZ3Sbrdm5XdZCmaNuxL8jhgqSxKwQSb9/qEbedxorS+l0RJ/W/FE4JdN+KQ1TxMeLN
+	 G388ZSAkFiJHjfLwZj3Gb1sURfZ+27ocxdMaRXAUy1Zc53CeXGRPOvVCBaaylqXv8yk13
+	 hd4EsuvGjFzZq76nx3v+RtG5Lj5Ttb1/N7ljeqiYDf5o8lsy6pf/GmSpwQmcJ0QRzim9t
+	 oRyz73vA8wI6T00YIcUX/brxwz8Ai/WHgi02aZtNhE5CIJAsvZrmrL/gChJitWgUn5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bWpRZVuv;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=qvaGOTUI;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42AA1606A31D;
-	Thu, 29 Oct 2026 08:28:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42AA1606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E124606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:29:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E124606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bWpRZVuv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793262524; x=1824798524;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=mLZ17SLVuKJOfZG+q8nNSv4+tuB7DXBX7DQa1UdgEHc=;
-  b=bWpRZVuvblQ/WevSIn6OUYmzRxgMjk8sX29BKrjtLb0Nn6k8VWUnfeHs
-   Qf197JRwVfGB2IepaoVnxnDdA89jC82TwpBw73busQ/BxogT4tic7AGuN
-   pUzeyXw0dhnkSs/A5vGzQ4RwPzG+NYCXDWph7hL0zh+OYG1Nq0A5ZxAST
-   E5vf05WSPA41hO+k83xzrDWtcLBOAcPd8jSocDGXc09jGlKIhgtBal6BZ
-   /60XRNGHw4a7nNIQYNr4D1oMR+GAmeEYspeB6rvHAA6/qs466FC4WIibZ
-   sgxoF9AVtbLfKVCd+LgYPQyUIjOup6GtNDu3NBfFl9i0zNXFLiMoeeAL1
-   w==;
-X-CSE-ConnectionGUID: bizze6wBTW+yZhdGMaFYJw==
-X-CSE-MsgGUID: ghnlzgS7QUGQ3H8iTMBPaA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1881220"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1881220"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 01:28:38 -0700
-X-CSE-ConnectionGUID: YEZk7yxMTfyll+nI6HZ4hQ==
-X-CSE-MsgGUID: O5OSDsujS+qaCtgj7dGapg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5170576"
-Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 01:28:33 -0700
-Message-ID: <faeedd16-a271-4ced-be1a-7bd70860bcdc@linux.intel.com>
-Date: Thu, 29 Oct 2026 16:28:30 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=qvaGOTUI
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261029082927euoutp02fcdd41b89312f6a5e6534af13843f8eb~i8s3KGcNF2650126501euoutp02L
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:29:27 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261029082927euoutp02fcdd41b89312f6a5e6534af13843f8eb~i8s3KGcNF2650126501euoutp02L
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793262567;
+	bh=UK+T1fUrffefWQeeypNT3V5Xlc8CqTGPzUVGW2Qr1Bw=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=qvaGOTUIZnX5CO/DlLrEbFU2ZPcOTW3HfwPalpaWMkSUEDnwRXtbW0uSetDAS+kJo
+	 4oCJKXE6baZePb7Goxfgwa26zu5ugszNEOZ3chUuhvFFDWfufcIvhlH0/PmuboJIf4
+	 cqSURW/KVicS4+qYavd4nIG5CI0pGHPlMbvIdzLQ=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261029082926eucas1p1d72f8c3eacdad4b2659d50037784a936~i8s2gTNIg0466204662eucas1p1R;
+	Thu, 29 Oct 2026 08:29:26 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261029082925eusmtip152f2de6fc696f5bab67a247ac0d81d4e~i8s1UCGH50120401204eusmtip1x;
+	Thu, 29 Oct 2026 08:29:25 +0000 (GMT)
+Message-ID: <c451af42-2e79-43fd-b66e-08a2b01283c6@samsung.com>
+Date: Thu, 29 Oct 2026 09:29:24 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,345 +64,243 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, Robin Murphy <robin.murphy@arm.com>,
- Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
- Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
- John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v6 13/18] iommu/vt-d: Handle reattach of the restored
- domain
-To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- David Woodhouse <dwmw2@infradead.org>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-14-skhawaja@google.com>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v5 00/18] Add HPD support for Rockchip Analogix DP
+To: Damon Ding <damon.ding@rock-chips.com>, Andrzej Hajda
+	<andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Jingoo Han <jingoohan1@gmail.com>, Inki Dae
+	<inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, Kyungmin
+	Park <kyungmin.park@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar
+	<alim.akhtar@samsung.com>, Heiko Stuebner <heiko@sntech.de>, Sandy Huang
+	<hjc@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+	<luca.ceresoli@bootlin.com>, Dmitry Baryshkov
+	<dmitry.baryshkov@oss.qualcomm.com>, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org
 Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20261025021930.674647-14-skhawaja@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261027132810.1746118-1-damon.ding@rock-chips.com>
+Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20261029082926eucas1p1d72f8c3eacdad4b2659d50037784a936
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261027133735eucas1p217fbce1514e5d83c14e64d8d0b1ae867
+X-EPHeader: CA
+X-CMS-RootMailID: 20261027133735eucas1p217fbce1514e5d83c14e64d8d0b1ae867
+References: <CGME20261027133735eucas1p217fbce1514e5d83c14e64d8d0b1ae867@eucas1p2.samsung.com>
+	<20261027132810.1746118-1-damon.ding@rock-chips.com>
 
-On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
-> Reattach the restored domain to the preserved device using restored
-> domain ID. While reattaching do not setup the context and PASID entries
-> as those are preserved during liveupdate.
-> 
-> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+On 27.10.2026 14:27, Damon Ding wrote:
+> This series improves the HPD (Hotplug Detect) interrupt handling in
+> the Analogix DP driver to enable reliable native HPD pin detection on
+> Rockchip platforms, and introduces platform-specific HPD detection
+> schemes with fine-grained interrupt control.
+>
+> On Rockchip platforms, the Analogix DP native HPD pin IRQ requires the
+> DP controller to remain powered, clocked and initialized to generate
+> plug/unplug interrupts. The previous driver enabled/disabled IRQ during
+> bridge enable/disable, which left no HPD detection when the display
+> pipeline was inactive. Additionally, the interrupt mute/unmute/clear
+> routines operated on all HPD interrupt bits unconditionally, lacking
+> the granularity needed for per-event control.
+>
+> The series reorganizes IRQ and pm_runtime management into bind/unbind,
+> adds IRQF_ONESHOT to eliminate read-modify-write races on interrupt
+> mask registers between hardirq and threaded handlers, converts the
+> interrupt type detection to a bitmask-based scheme for fine-grained
+> mute/unmute/clear operations, and configures Rockchip platforms to use
+> the HOTPLUG_CHG interrupt with a 2ms HPD deglitch setting for better
+> stability.
+>
+> Furthermore, the next bridge is now resolved into bridge->next_bridge
+> instead of the platform data field, the forced connected-status logic
+> is restricted to panel endpoints based on the bridge chain, and HPD
+> events from downstream bridges (e.g. display-connector with hpd-gpios)
+> are handled through the .hpd_notify callback.
+>
+> Tested on RK3576 with both native HPD pin and GPIO HPD configurations.
+>
+> Native HPD pin mode:
+>
+>   &edp {
+>       status = "okay";
+>       pinctrl-names = "default";
+>       pinctrl-0 = <&edp_txm0_pins>;
+>   };
+>
+> GPIO HPD mode:
+>
+>   &edp {
+>       status = "okay";
+>       pinctrl-names = "default";
+>       pinctrl-0 = <&edp0_hpd>;
+>       hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+>   };
+>
+>   &pinctrl {
+>       edp {
+>           edp0_hpd: edp0-hpd {
+>               rockchip,pins = <4 RK_PC1 0 &pcfg_pull_none>;
+>           };
+>       };
+>   };
+>
+> Display-connector mode (DP connector without HPD GPIO):
+>
+>   &edp_out_conn {
+>       remote-endpoint = <&dp_con_in>;
+>   };
+>
+>   dp-con {
+>       compatible = "dp-connector";
+>       label = "DP OUT";
+>       type = "full-size";
+>
+>       port {
+>           dp_con_in: endpoint {
+>               remote-endpoint = <&edp_out_conn>;
+>           };
+>       };
+>   };
+>
+> Display-connector mode (DP connector with HPD GPIO):
+>
+>   dp-con {
+>       compatible = "dp-connector";
+>       label = "DP OUT";
+>       type = "full-size";
+>       pinctrl-0 = <&edp0_hpd>;
+>       pinctrl-names = "default";
+>       hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+>
+>       port {
+>           dp_con_in: endpoint {
+>               remote-endpoint = <&edp_out_conn>;
+>           };
+>       };
+>   };
+>
+> All four configurations detect cable plug/unplug events correctly.
+
+Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+
+Snow, Peach-Pit and Peach-Pi Chromebooks still work fine with this patchset.
+
+
+> Damon Ding (18):
+>   drm/bridge: Select VIDEOMODE_HELPERS for DRM_OF_DISPLAY_MODE_BRIDGE
+>   drm/bridge: analogix_dp: Use bridge->next_bridge instead of plat_data
+>     field
+>   drm/bridge: analogix_dp: Restrict forced connected status to panel
+>     endpoints
+>   drm/bridge: analogix_dp: Return bitmask from
+>     analogix_dp_get_irq_type()
+>   drm/bridge: analogix_dp: Check all negative return values for
+>     &analogix_dp_device.irq
+>   drm/bridge: analogix_dp: Add IRQF_ONESHOT and simplify IRQ handling
+>   drm/bridge: analogix_dp: Extend clear_hotplug_interrupts to accept IRQ
+>     bitmask
+>   drm/bridge: analogix_dp: Extend mute/unmute HPD interrupts to accept
+>     irq bitmask
+>   drm/bridge: analogix_dp: Simplify analogix_dp_config_interrupt()
+>   drm/bridge: analogix_dp: Use platform-specific HPD detection scheme
+>   drm/bridge: analogix_dp: Skip native HPD interrupt ops for GPIO HPD
+>   drm/rockchip: analogix_dp: Unbind bridge when connector init fails
+>   drm/exynos: exynos_dp: Unbind bridge when connector init fails
+>   drm/bridge: analogix_dp: Move IRQ enable/disable to bind/unbind
+>   drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD pin
+>     detection
+>   drm/bridge: analogix_dp: Declare DRM_BRIDGE_OP_HPD for hotplug
+>     reporting
+>   drm/bridge: analogix_dp: Handle HPD notification from downstream
+>     bridge
+>   MAINTAINERS: Add entry for Analogix DP controller bridge
+>
+>  MAINTAINERS                                   |  11 +
+>  drivers/gpu/drm/bridge/Kconfig                |   1 +
+>  drivers/gpu/drm/bridge/analogix/Kconfig       |   1 +
+>  .../drm/bridge/analogix/analogix_dp_core.c    | 221 +++++++++++++-----
+>  .../drm/bridge/analogix/analogix_dp_core.h    |  15 +-
+>  .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 153 +++++++-----
+>  drivers/gpu/drm/exynos/Kconfig                |   1 -
+>  drivers/gpu/drm/exynos/exynos_dp.c            |  16 +-
+>  .../gpu/drm/rockchip/analogix_dp-rockchip.c   |   1 +
+>  include/drm/bridge/analogix_dp.h              |   1 -
+>  10 files changed, 291 insertions(+), 130 deletions(-)
+>
 > ---
->   drivers/iommu/intel/iommu.c      |  34 ++++++--
->   drivers/iommu/intel/iommu.h      |  14 ++++
->   drivers/iommu/intel/liveupdate.c | 131 +++++++++++++++++++++++++++++++
->   3 files changed, 171 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-> index ecec057f78dd..4f01aa34ccb5 100644
-> --- a/drivers/iommu/intel/iommu.c
-> +++ b/drivers/iommu/intel/iommu.c
-> @@ -2926,6 +2926,9 @@ static int blocking_domain_attach_dev(struct iommu_domain *domain,
->   				      struct device *dev,
->   				      struct iommu_domain *old)
->   {
-> +	if (dev_iommu_restored_state(dev))
-> +		return -EBUSY;
-> +
+>
+> Changes in v2:
+> - Split IRQ enable/disable logic, handle native HPD pin and
+>   GPIO/force-HPD modes separately to avoid unbalanced enable_irq()
+>   calls. (Sashiko)
+> - Add separate patch for IRQF_ONESHOT to resolve interrupt mask issues
+>   triggered by interrupt preemption. (Sashiko)
+> - Update commit messages to align with newly added IRQF_ONESHOT related
+>   commit.
+> - Move ANALOGIX_DP_HPD_DEGLITCH_L/ANALOGIX_DP_HPD_DEGLITCH_H configs to
+>   analogix_dp_reset().
+> - Add new patch to restrict the forced connected-status shortcut to
+>   panel endpoints only, allowing DP connector bridges to rely on HPD
+>   detection. (Reported by Heiko Stuebner)
+> - Add new patch to handle HPD notification from downstream bridges
+>   (e.g., display-connector with hpd-gpios).
+>
+> Changes in v3:
+> - Reorder the series: convert the IRQ handling to a bitmask and add
+>   IRQF_ONESHOT before moving IRQ enable/disable to bind/unbind.
+> - Add new patch to check all negative return values for
+>   &analogix_dp_device.irq and propagate the actual error code. (Sashiko)
+> - Rename macro HPD_IRQ to HPD_IRQ_ALL to avoid confusion with the
+>   DP specification IRQ_HPD, extract the irq_type-to-register bit
+>   mapping into a shared helper, and drop the unused
+>   COMMON_INT_4_HPD_IRQ macro.
+> - Simplify commit messages across the series.
+> - Add new patch to use bridge->next_bridge instead of the plat_data
+>   field, resolving the next bridge in
+>   analogix_dp_aux_done_probing(). (Suggested by Heiko Stuebner)
+> - Report panel endpoints as always connected from
+>   analogix_dp_get_plug_in_status() via force_connected_mode, computed
+>   from the bridge chain at attach time.
+> - Determine the hpd notify mode from DRM_BRIDGE_OP_HPD on downstream
+>   bridges that lack DRM_BRIDGE_OP_DETECT.
+> - Add a MAINTAINERS entry for the Analogix DP controller bridge.
+>
+> Changes in v4:
+> - Add Tested-by tag from Heiko.
+> - Rebase onto latest tree, picking up the two related patch series [0][1].
+>
+> [0] https://lore.kernel.org/all/20260915-drm-bridge-drm_panel-cleanup-v4-0-30401d9406f3@bootlin.com/
+> [1] https://lore.kernel.org/all/20260916-drm-bridge-every-panel-v3-0-83afb4f1a707@bootlin.com/
+>
+> Changes in v5:
+> - Add four new patches:
+>   - Select VIDEOMODE_HELPERS for DRM_OF_DISPLAY_MODE_BRIDGE to fix
+>     the undefined references for non-Exynos users.
+>   - Unbind the bridge when drm_bridge_connector_init() fails on the
+>     Rockchip and Exynos platforms.
+>   - Declare DRM_BRIDGE_OP_HPD on the Analogix DP bridge and report
+>     the hotplug events via drm_bridge_hpd_notify().
+> - Move the next_bridge resolving patch and the forced connected
+>   status restriction to the front of the series.
+> - Use a pure threaded IRQ handler and hold runtime PM references in
+>   the IRQ thread and the detect paths. (Sashiko)
+> - Limit the runtime PM holding to the RK3576/RK3588 platforms and
+>   exclude the boards with a fixed panel. (Sashiko)
+> - Fix the display timings leak in analogix_dp_aux_done_probing().
+>   (Sashiko)
+> - Change the type of &analogix_dp_device.irq to int to fix the dead
+>   dp->irq < 0 check. (Sashiko)
+> - Rebase onto the latest drm-misc-next.
+>
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
-There is a contract between the iommu core and iommu drivers that
-attaching a blocking domain must always succeed. Otherwise, some
-existing code paths will break.
-
-My understanding is that "block DMA" is always a legitimate request, but
-we don't expect it while the device is in the restored state. So perhaps
-we could trigger a WARN here and continue tearing down the preserved
-entry?
-
->   	iopf_for_domain_remove(old, dev);
->   	device_block_translation(dev);
->   	return 0;
-> @@ -3294,6 +3297,9 @@ static int intel_iommu_attach_device(struct iommu_domain *domain,
->   {
->   	int ret;
->   
-> +	if (dev_iommu_restored_state(dev))
-> +		return intel_iommu_attach_restored_device(domain, dev);
-> +
->   	device_block_translation(dev);
->   
->   	ret = paging_domain_compatible(domain, dev);
-> @@ -3424,7 +3430,8 @@ static struct iommu_device *intel_iommu_probe_device(struct device *dev)
->   	info->iommu = iommu;
->   	RB_CLEAR_NODE(&info->node);
->   	if (dev_is_pci(dev)) {
-> -		if (ecap_dev_iotlb_support(iommu->ecap) &&
-> +		if (!dev_iommu_restored_state(dev) &&
-> +		    ecap_dev_iotlb_support(iommu->ecap) &&
->   		    pci_ats_supported(pdev) &&
->   		    dmar_ats_supported(pdev, iommu)) {
->   			info->ats_supported = 1;
-> @@ -3529,12 +3536,16 @@ static void intel_iommu_release_device(struct device *dev)
->   	struct device_domain_info *info = dev_iommu_priv_get(dev);
->   	struct intel_iommu *iommu = info->iommu;
->   
-> -	iommu_disable_pci_pri(info);
-> -	iommu_disable_pci_ats(info);
-> +	if (!dev_iommu_restored_state(dev)) {
-> +		iommu_disable_pci_pri(info);
-> +		iommu_disable_pci_ats(info);
->   
-> -	if (info->pasid_enabled) {
-> -		pci_disable_pasid(to_pci_dev(dev));
-> -		info->pasid_enabled = 0;
-> +		if (info->pasid_enabled) {
-> +			pci_disable_pasid(to_pci_dev(dev));
-> +			info->pasid_enabled = 0;
-> +		}
-> +	} else {
-> +		intel_iommu_detach_restored_device(dev);
->   	}
->   
->   	mutex_lock(&iommu->iopf_lock);
-> @@ -3542,11 +3553,15 @@ static void intel_iommu_release_device(struct device *dev)
->   		device_rbtree_remove(info);
->   	mutex_unlock(&iommu->iopf_lock);
->   
-> -	if (sm_supported(iommu) && !dev_is_real_dma_subdevice(dev) &&
-> +	if (!dev_iommu_restored_state(dev) && sm_supported(iommu) &&
-> +	    !dev_is_real_dma_subdevice(dev) &&
->   	    !context_copied(iommu, info->bus, info->devfn))
->   		intel_pasid_teardown_sm_context(dev);
->   
-> -	intel_pasid_free_table(dev);
-> +	if (!dev_iommu_restored_state(dev))
-> +		intel_pasid_free_table(dev);
-> +	else
-> +		kfree(info->pasid_table);
->   	intel_iommu_debugfs_remove_dev(info);
->   	kfree(info);
->   }
-> @@ -4003,6 +4018,9 @@ static int identity_domain_attach_dev(struct iommu_domain *domain,
->   	struct intel_iommu *iommu = info->iommu;
->   	int ret;
->   
-> +	if (dev_iommu_restored_state(dev))
-> +		return -EBUSY;
-> +
->   	device_block_translation(dev);
->   
->   	if (dev_is_real_dma_subdevice(dev))
-> diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
-> index 260c7a5b1240..f910e5383e12 100644
-> --- a/drivers/iommu/intel/iommu.h
-> +++ b/drivers/iommu/intel/iommu.h
-> @@ -1322,6 +1322,9 @@ void clear_unpreserved_context_entries(struct intel_iommu *iommu);
->   void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
->   					       struct iommu_hw_ser *iommu_ser);
->   void intel_iommu_handle_drhd_restore_failure(struct intel_iommu *iommu);
-> +int intel_iommu_attach_restored_device(struct iommu_domain *domain,
-> +				       struct device *dev);
-> +int intel_iommu_detach_restored_device(struct device *dev);
->   #else
->   static inline void clear_unpreserved_context_entries(struct intel_iommu *iommu)
->   {
-> @@ -1335,6 +1338,17 @@ static inline void intel_iommu_liveupdate_restore_root_table(struct intel_iommu
->   static inline void intel_iommu_handle_drhd_restore_failure(struct intel_iommu *iommu)
->   {
->   }
-> +
-> +static inline int intel_iommu_attach_restored_device(struct iommu_domain *domain,
-> +						     struct device *dev)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +
-> +static inline int intel_iommu_detach_restored_device(struct device *dev)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
->   #endif
->   
->   #ifdef CONFIG_INTEL_IOMMU_SVM
-
-It appears that there is no way to replace the restored domain, because
-nothing ever clears IOMMU_SER_FLAG_INCOMING or dev->iommu->device_ser.
-As a result, if iommufd later tries to move the device to a new hwpt,
-the attempt will always fail.
-
-I assume this is intended for this phase, and that the actual
-replacement will be handled in a later phase. If so, please mention this
-in the commit message.
-
-> diff --git a/drivers/iommu/intel/liveupdate.c b/drivers/iommu/intel/liveupdate.c
-> index 36816d3651e6..665ebb81bd61 100644
-> --- a/drivers/iommu/intel/liveupdate.c
-> +++ b/drivers/iommu/intel/liveupdate.c
-> @@ -394,6 +394,137 @@ void intel_iommu_handle_drhd_restore_failure(struct intel_iommu *iommu)
->   		      iommu->name);
->   }
->   
-> +static void domain_detach_restored_iommu(struct dmar_domain *domain,
-> +					 struct intel_iommu *iommu)
-> +{
-> +	struct iommu_domain_info *info;
-> +
-> +	guard(mutex)(&iommu->did_lock);
-> +	info = xa_load(&domain->iommu_array, iommu->seq_id);
-> +	if (--info->refcnt == 0) {
-> +		xa_erase(&domain->iommu_array, iommu->seq_id);
-> +		kfree(info);
-> +	}
-
-This seems to be different from normal domain_detach_iommu(), which
-looks like this,
-
-         if (--info->refcnt == 0) {
-                 ida_free(&iommu->domain_ida, info->did);
-                 xa_erase(&domain->iommu_array, iommu->seq_id);
-                 kfree(info);
-         }
-
-why ida_free() is skipped in the restored path?
-
-> +}
-> +
-> +static int domain_attach_restored_iommu(struct dmar_domain *domain,
-> +					struct intel_iommu *iommu,
-> +					struct iommu_device_ser *device_ser)
-> +{
-> +	struct iommu_domain_info *info, *curr;
-> +	struct iommu_domain_ser *domain_ser;
-> +	struct iommu_hw_ser *iommu_hw_ser;
-> +	int restored_did;
-> +	int ret;
-> +
-> +	if (!iommu_domain_restored_state(&domain->domain))
-> +		return -EINVAL;
-> +
-> +	if (!device_ser->attachment.domain_phys ||
-> +	    !device_ser->iommu_phys)
-> +		return -EINVAL;
-> +
-> +	domain_ser = phys_to_virt(device_ser->attachment.domain_phys);
-> +	if (domain_ser->restored_domain != &domain->domain)
-> +		return -EINVAL;
-> +
-> +	iommu_hw_ser = phys_to_virt(device_ser->iommu_phys);
-> +	if (iommu_hw_ser->type != IOMMU_SER_TYPE_INTEL ||
-> +	    iommu_hw_ser->intel.phys_addr != iommu->reg_phys)
-> +		return -EINVAL;
-> +
-> +	restored_did = device_ser->attachment.attachment_id;
-> +	if (!ida_exists(&iommu->domain_ida, restored_did))
-> +		return -EINVAL;
-> +
-> +	info = kzalloc_obj(*info);
-> +	if (!info)
-> +		return -ENOMEM;
-> +
-> +	guard(mutex)(&iommu->did_lock);
-> +	curr = xa_load(&domain->iommu_array, iommu->seq_id);
-> +	if (curr) {
-
-		if (WARN_ON(curr->did != restored_did))
-			return -EINVAL;
-
-> +		curr->refcnt++;
-> +		kfree(info);
-> +		return 0;
-> +	}
-> +
-> +	info->refcnt	= 1;
-> +	info->did	= restored_did;
-> +	info->iommu	= iommu;
-> +	curr = xa_cmpxchg(&domain->iommu_array, iommu->seq_id,
-> +			  NULL, info, GFP_KERNEL);
-> +	if (curr) {
-> +		ret = xa_err(curr) ? : -EBUSY;
-> +		goto err_unlock;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_unlock:
-> +	kfree(info);
-> +	return ret;
-> +}
-> +
-> +/**
-> + * intel_iommu_attach_restored_device() - Restore device domain attachment after live update
-> + * @domain: Restored domain
-> + * @dev: Restored device
-> + *
-> + * Return: 0 on success, or negative error code.
-> + */
-> +int intel_iommu_attach_restored_device(struct iommu_domain *domain,
-> +				       struct device *dev)
-> +{
-> +	struct iommu_device_ser *device_ser = dev_iommu_restored_state(dev);
-> +	struct device_domain_info *info = dev_iommu_priv_get(dev);
-> +	struct dmar_domain *dmar_domain = to_dmar_domain(domain);
-> +	struct intel_iommu *iommu = info->iommu;
-> +	unsigned long flags;
-> +	int ret;
-> +
-> +	if (!device_ser)
-> +		return -EINVAL;
-> +
-
-The context and PASID table entries are not touched in the restore path.
-That's fine, but it would be better to check that the hardware
-configuration matches the restored domain before trusting it, at least
-the physical address of the page table and the domain ID. With that
-check in place, it would be reasonable to skip
-paging_domain_compatible().
-
-> +	ret = domain_attach_restored_iommu(dmar_domain, iommu, device_ser);
-> +	if (ret)
-> +		return ret;
-> +
-> +	info->domain = dmar_domain;
-> +	info->domain_attached = true;
-> +	spin_lock_irqsave(&dmar_domain->lock, flags);
-> +	list_add(&info->link, &dmar_domain->devices);
-> +	spin_unlock_irqrestore(&dmar_domain->lock, flags);
-> +
-> +	return 0;
-> +}
-> +
-> +int intel_iommu_detach_restored_device(struct device *dev)
-> +{
-> +	struct device_domain_info *info = dev_iommu_priv_get(dev);
-> +	struct intel_iommu *iommu = info->iommu;
-> +	struct iommu_domain *domain;
-> +	unsigned long flags;
-> +
-> +	if (!info->domain_attached || !info->domain)
-> +		return -EINVAL;
-> +
-> +	domain = &info->domain->domain;
-> +	if (!iommu_domain_restored_state(domain))
-> +		return -EINVAL;
-> +
-> +	info->domain_attached = false;
-> +
-> +	spin_lock_irqsave(&info->domain->lock, flags);
-> +	list_del(&info->link);
-> +	spin_unlock_irqrestore(&info->domain->lock, flags);
-> +
-> +	domain_detach_restored_iommu(info->domain, iommu);
-> +	info->domain = NULL;
-> +
-> +	return 0;
-> +}
-> +
->   enum pasid_lu_op {
->   	PASID_LU_OP_PRESERVE = 1,
->   	PASID_LU_OP_UNPRESERVE,
-
-Thanks,
-baolu
