@@ -1,55 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793274432;
-	b=4igkiBpI5vaMGqEQ9lU1wx/SM+ecJPQGJ+wuewOnPWIKVFIiRT/sMpybTUmTw3o2nsA0
-	 SgxxR8cCXLyxgTbFJv3jlsA0eo7SvxgmZK/smHJm1N/tV45wQBMawVD9j5K1540+1KqkO
-	 wJBWp19L1QhLTI9h9pNiT9VFlF06mWC6ZrAXe85kUNts4tUJty0HxO+VdOdiecHktjo7M
-	 JJgs2hJ6bhC1QKKoe/LQ2fcPjA6aLtdlMVf2meSk8gOX7lNHMyhIb/zVbweSU+OEnKCYB
-	 w3cm74/HpJCuJTpKqeK/gUWJIj+Q7M62mNmFWBlnSIQ0FnGGJwsGKhRg1oAs1yxKtxg==
+	t=1793274460;
+	b=1Rc4rzOruX8SYnZCh1yc7vHkxs4l3dzXhS43b7/mSW99uWIFfK8hqINw3jGZkNYZKsde
+	 uw8wr6SRQRq5hghDyqXSVFnc5RXg5YveqxrB8FHH0qiwBKWrs1teM3LQpw51gAmqaluvD
+	 GTBGg6joyNM0VsTOooc0A4Mghnjghg7PfscjT9EGZMH9fkt+ZFVU5ahXUKwx8JdqBrggO
+	 R3uB2vJSSW/Oko/D5WvCGJPZysWwrLWVkMzwkA7d+9KMCaAagmUhQjDrt6N9/+06dNuOh
+	 nZD7+Wsn7haeVvs2/WKpn4WggCH97jLTowcnfWMHre1bcsounY6AJrGS4AAJE9LdmLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274432;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KfNw/lmlklBZ+l9YvMzac5jotwi5TZidREpCwaf9h7w=;
-	b=KIhgxqysvYcRDYvkyEr0iGye0Cl2ZvX7zKWGMen+zj7Q/1fUWYrujf+rW0sacgI1T+ff
-	 CCxFcZsQNm1SIGhRv7YiMsPY+pQZzK1zkmL56+TePvRsnrsgSIKgZPuVcv3Uoxjzzcxfn
-	 DtzTaDMlwRihf8YKROU+xoQhX4ZL+qye/+P2K1ZTEc/h9GHgJO7peDCpHHH/068tR1Uyl
-	 i8FbVEuPPfWsWSbk/Ot+WJj7AxEedw+nC5CdqKfGsW6UTtG8KQ3I8LOm6dz3tJKahgFMe
-	 AiCjFF7CVKumz4cJD3y9+yPB5r8xVMGLqOj/Djx94aYuncMmI0ezEW+GftUmMUr0z+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274460;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
+	bh=C00EHIZ1CDh5ShQ8Yw8kqsywXTekDWMtUV8SESTMzJU=;
+	b=pECw+V+fOAlTKdUwtY0gR0WPdEfyVlAgMy17DpaAP/hkFHSUjn0IB/o5yHPrsl18cj6B
+	 EYJx984adXjvscdgwFDu6WM5XSxHA62QHJsLOFTbPZSGk1XrQyhGv6IPMAMqMaDfV+bzK
+	 lsDX4/ggvCwbIQNt+zSAbNvSyTnDfdp3L8VD8a0PmRe/h4HGRbUDvWOq2vsTrQj5WU82x
+	 o75QeaG91a4ijK23oKbQF7RgKurNlH7sgyByLLT9dv5v8aDEU817m66We0t0+dLkJYfRb
+	 zEQgBnyck2jNBTm2ejMZa+P58kcYSNrohGyu7euqlxPkomIT7vgiYUaYPaau3VMxlbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QhaNEMLT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=YyACqit+;
+	arc=none smtp.remote-ip=68.232.153.233
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DC6606A31C;
-	Thu, 29 Oct 2026 11:47:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817E7606A31A;
+	Thu, 29 Oct 2026 11:47:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 817E7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QhaNEMLT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76FF1F01825;
-	Thu, 29 Oct 2026 11:47:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793274431;
-	bh=KfNw/lmlklBZ+l9YvMzac5jotwi5TZidREpCwaf9h7w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QhaNEMLTZLMaGDYqEGbrSSA+5fW1E/Uu7pX4zzWmdhR/qxYB0qIHYniMuh6JUHWZL
-	 JEtgEowjXFO2TGyKh5kCwpdlnWeVeWYvPpOD32AsboQpfHIqfw20YIvE6eiQrMy6T2
-	 JSeNaJ/wadGewkUH7h+rWxWL/bTH1m8iL/aG1PdKVl4SZMK/9MezGq114Ay/K73Cuu
-	 fQEaL7qYJcVXTMMmQTzEgIlc9rEQKUO6vCfNK/AAvdgmD6G1JxvbaubONQRxDPue+/
-	 3faytAkM4ZUdVB1PT5YY9G6HiKxkpYSaXmvEPG5g5BgEt7TOSF/5LsJzT0AyQmEn3I
-	 wHYFcPfK0/Lhw==
-Date: Thu, 29 Oct 2026 12:47:04 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Bill Wendling <morbo@google.com>, Petr Mladek <pmladek@suse.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Shuvam Pandey <shuvampandey1@gmail.com>, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] seq_buf: Mark a seq_buf overflowed when terminating it
- loses a byte
-Message-ID: <auMwo_T_FsZp5UsB@devuan>
-References: <20261029053250.i.220-kees@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=YyACqit+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1793274458; x=1824810458;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=nx29DMuQUiHHnh5RPaqd96ft0Fo4lC2P/JFa50Bq190=;
+  b=YyACqit+xVfB3kxbTqk3R/kSMlx4Rqn2XVK8S5ppBx0X/KFYaQzdGRLd
+   NpSoacKg8dKpmEPmUbuiALwbSNxN6aQZ2Z0s3/oU3REBc4INrXMoMtJqF
+   kYHD/yaY9EGW5KrBwVlxrYIKVyhq1VyOiPpNof0unLp3ZpmDOhD85AZs9
+   hpzMIuZWoPrfClCRh4pMz71bJl6yJ4RcdK4rJYMCddbcD7f4C3a+DtYQ0
+   rd1U4FIrcSR5DpfRejUkb6nkk7QtYURhrzYXLaHemZd2jPrt4uZbPGN9d
+   jGsRaSMNJIrZAO4Ocmt2/dybviQITzeJmvew04Ppo4ceXI3EDwajWZyTa
+   Q==;
+X-CSE-ConnectionGUID: pSqz9MD3T8OoFe0b7L1Xsw==
+X-CSE-MsgGUID: CygL1EdST7Cu9jBPt1rFng==
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="76265637"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:47:32 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Thu, 29 Oct 2026 04:47:32 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Thu, 29 Oct 2026 04:47:30 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Date: Thu, 29 Oct 2026 12:47:21 +0100
+Subject: [PATCH net] net: lan966x: save the RX state after quiescing the
+ NAPI in a reload
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,277 +74,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zuxyigp5g75cr537"
-Content-Disposition: inline
-In-Reply-To: <20261029053250.i.220-kees@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261029-lan966x-fdma-reload-quiesce-v1-1-daaeda5ca3aa@microchip.com>
+X-B4-Tracking: v=1; b=H4sIAEgy42oC/x3MQQ6CMBAF0KuQWTsJTLQUrmJc1PZXJoGirRoSw
+ t1tXL7N26kgKwqNzU4ZXy26poru1JCfXHqANVSTtGK6VizPLg3GbBzD4jhjXl3g16cWHmzj/eK
+ l7yH2THV4ZkTd/vuVEt50O44fEbaTHXIAAAA=
+X-Change-ID: 20261028-lan966x-fdma-reload-quiesce-8fb5c277e284
+To: Horatiu Vultur <horatiu.vultur@microchip.com>,
+	<UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, David Carlier
+	<devnexen@gmail.com>
+CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: b4 0.14.3
 
+lan966x_fdma_reload() replaces the RX ring when the MTU or the XDP
+program changes. It copies rx->page[] and the RX FDMA state, allocates
+the new ring, and on success returns the old pages to the old page pool.
+If the allocation fails, it restores the old state instead.
 
---zuxyigp5g75cr537
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Kees Cook <kees@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Bill Wendling <morbo@google.com>, Petr Mladek <pmladek@suse.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Shuvam Pandey <shuvampandey1@gmail.com>, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] seq_buf: Mark a seq_buf overflowed when terminating it
- loses a byte
-Message-ID: <auMwo_T_FsZp5UsB@devuan>
-References: <20261029053250.i.220-kees@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <20261029053250.i.220-kees@kernel.org>
+Before this patch, the copies are taken before the NAPI is disabled. A
+poll still running at that point refills the ring and advances the DCB
+index and the last DCB pointer after the copy. The success path then
+returns a page that the stack still owns to the old pool and never
+returns the page that replaced it, and the restore path puts back a
+stale DCB index and last DCB pointer.
 
-Hi Kees, Steve,
+Disable the NAPI and stop the queues before taking the copies. The copy
+of rx->page[] is still allocated first, so a failed allocation returns
+before anything has to be undone.
 
-> Date: 2026-10-28 22:32:54-0700
-> From: Kees Cook <kees@kernel.org>
->
-> When there is no room after the data for a NUL, __seq_buf_terminate()
-> writes it over the last byte of the buffer. An overflowed seq_buf has
-> already lost data, but one that is exactly full, as seq_buf_putc(),
-> seq_buf_putmem(), and seq_buf_commit() can leave it, has not: the NUL
-> replaces the last byte written, and the seq_buf still does not report
-> an overflow. seq_buf_str(), seq_buf_strlen(), and seq_buf_terminate()
-> all go through it, so each of them can silently truncate what was
-> written, and seq_buf_pop() then returns the NUL in place of the byte it
-> replaced.
->=20
-> Mark the seq_buf overflowed in that case with seq_buf_set_overflow(),
-> as suggested in review. Nothing is left between "len" and "size" for it
-> to clear there, and seq_buf_used() still counts the lost byte.
->=20
-> No current caller checks for overflow after terminating a seq_buf that
-> can be left exactly full, so none of them behaves differently.
+Found by an AI code review agent. The race was not reproduced, as its
+window is narrow. The reworked reload was tested on a lan9668 board with
+repeated MTU and XDP program changes under RX traffic, with no page pool
+or UAF splat.
 
-This fix in theory solves the issue.  However, I wonder if this is maybe
-too late to report the overflow.  Callers normally expect the overflow
-to happen while they're performing their writes, and maybe they don't
-expect the overflow to happen at this point, so they might forget to
-test, and keep going with truncated data.
+Fixes: 59c3d55a946c ("net: lan966x: fix use-after-free and leak in lan966x_fdma_reload()")
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+---
+ drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-How about not allowing a full buffer without a NUL terminator in the
-first place?  That is, we could report a _putmem or _putc operation that
-writes a non-zero byte to the last element in the buffer as being
-overflowed.
+diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+index 21668bbcc9063..2dbc25c098fec 100644
+--- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
++++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
+@@ -819,21 +819,21 @@ static int lan966x_fdma_reload(struct lan966x *lan966x, int new_mtu)
+ 	int page_order, max_mtu;
+ 	int err, i, j;
+ 
+-	old_pages = kmemdup(lan966x->rx.page, sizeof(lan966x->rx.page),
+-			   GFP_KERNEL);
++	old_pages = kmalloc_objs(*lan966x->rx.page, FDMA_DCB_MAX);
+ 	if (!old_pages)
+ 		return -ENOMEM;
+ 
++	napi_synchronize(&lan966x->napi);
++	napi_disable(&lan966x->napi);
++	lan966x_fdma_stop_netdev(lan966x);
++
+ 	/* Store these for later to free them */
++	memcpy(old_pages, lan966x->rx.page, sizeof(lan966x->rx.page));
+ 	memcpy(&fdma_rx_old, &lan966x->rx.fdma, sizeof(struct fdma));
+ 	page_pool = lan966x->rx.page_pool;
+ 	page_order = lan966x->rx.page_order;
+ 	max_mtu = lan966x->rx.max_mtu;
+ 
+-	napi_synchronize(&lan966x->napi);
+-	napi_disable(&lan966x->napi);
+-	lan966x_fdma_stop_netdev(lan966x);
+-
+ 	lan966x_fdma_rx_disable(&lan966x->rx);
+ 	lan966x->rx.page_order = round_up(new_mtu, PAGE_SIZE) / PAGE_SIZE - 1;
+ 	lan966x->rx.max_mtu = new_mtu;
 
-This would waste one byte, but would prevent users from having to expect
-a possible overflow when reading a buffer.
+---
+base-commit: 829a09df899dcce860dcf5f70e09c1b2d7d425ab
+change-id: 20261028-lan966x-fdma-reload-quiesce-8fb5c277e284
 
+Best regards,
+-- 
+Daniel Machon <daniel.machon@microchip.com>
 
-Have a lovely day!
-Alex
-
->=20
-> Add a test that fills a seq_buf exactly and checks that each of the
-> three accessors marks it overflowed, that seq_buf_pop() then returns
-> -1, and that a seq_buf with room for the NUL is not marked. Update the
-> existing tests that terminate an exactly full seq_buf to expect it, and
-> move the length check in the seq_buf_do_printk() test after the run,
-> so that the buffer still reaches seq_buf_do_printk() exactly full.
->=20
-> Tests passed under qemu on ARCH=3Dx86_64 with GCC 16.2.0 and CONFIG_KASAN=
-=3Dy,
-> and on big-endian ARCH=3Ds390 with GCC s390x-linux-gnu 16.2.0, and the new
-> test fails with the fix reverted.
->=20
-> Reported-by: Steven Rostedt <rostedt@goodmis.org>
-> Closes: https://lore.kernel.org/all/20261016145928.16eddc9a@gandalf.local=
-=2Ehome/
-> Fixes: 8d1478bfd63be ("seq_buf: Add seq_buf_strlen()")
-> Signed-off-by: Kees Cook <kees@kernel.org>
-> ---
->  include/linux/seq_buf.h   | 19 ++++++++++-----
->  lib/tests/seq_buf_kunit.c | 49 +++++++++++++++++++++++++++++++++++++--
->  2 files changed, 60 insertions(+), 8 deletions(-)
->=20
-> diff --git a/include/linux/seq_buf.h b/include/linux/seq_buf.h
-> index f006f2654e4c..c38b5eccc212 100644
-> --- a/include/linux/seq_buf.h
-> +++ b/include/linux/seq_buf.h
-> @@ -128,8 +128,8 @@ static inline unsigned int seq_buf_used(struct seq_bu=
-f *s)
-> =20
->  /*
->   * NUL-terminate the buffer in @s: directly after the data when there is
-> - * room for it, otherwise in the last byte of the buffer. @s->size must =
-not
-> - * be zero.
-> + * room for it, otherwise in the last byte of the buffer, which marks @s=
- as
-> + * overflowed. @s->size must not be zero.
->   *
->   * Returns: the offset of the NUL.
->   */
-> @@ -137,10 +137,16 @@ static inline size_t __seq_buf_terminate(struct seq=
-_buf *s)
->  {
->  	size_t end;
-> =20
-> -	if (seq_buf_buffer_left(s))
-> +	if (seq_buf_buffer_left(s)) {
->  		end =3D s->len;
-> -	else
-> +	} else {
->  		end =3D s->size - 1;
-> +		/*
-> +		 * About to overwrite a written byte in the last position
-> +		 * in the buffer, so it must be considered overflowed now.
-> +		 */
-> +		seq_buf_set_overflow(s);
-> +	}
-> =20
->  	s->buffer[end] =3D 0;
-> =20
-> @@ -158,7 +164,8 @@ static inline size_t __seq_buf_terminate(struct seq_b=
-uf *s)
->   * the last byte of the buffer is zeroed, and the len will still
->   * point passed it. The same happens when the buffer is exactly
->   * full: the NUL takes the place of the last byte written, which is
-> - * lost, though seq_buf_used() still counts it.
-> + * lost, so @s is marked as overflowed, though seq_buf_used() still
-> + * counts that byte.
->   *
->   * A zero-sized seq_buf has nowhere to put a NUL, so the empty string
->   * is returned instead of writing to @s->buffer. Any other seq_buf
-> @@ -189,7 +196,7 @@ static inline const char *seq_buf_str(struct seq_buf =
-*s)
->   * without walking it. Unlike seq_buf_used(), this does not count the by=
-te
->   * given up to the NUL when the buffer is full or has overflowed. When t=
-he
->   * buffer is exactly full, that byte is the last one written, and calling
-> - * either function loses it.
-> + * either function loses it and marks @s as overflowed.
->   *
->   * A zero-sized seq_buf holds no string, so 0 is returned without writing
->   * to @s->buffer, matching what seq_buf_str() returns for one.
-> diff --git a/lib/tests/seq_buf_kunit.c b/lib/tests/seq_buf_kunit.c
-> index fc53e9ef844c..a67ed6d7b517 100644
-> --- a/lib/tests/seq_buf_kunit.c
-> +++ b/lib/tests/seq_buf_kunit.c
-> @@ -504,13 +504,13 @@ static void seq_buf_do_printk_test(struct kunit *te=
-st)
->  	seq_buf_putc(&s, '!');
->  	KUNIT_ASSERT_FALSE(test, seq_buf_has_overflowed(&s));
->  	KUNIT_ASSERT_EQ(test, seq_buf_used(&s), 8);
-> -	KUNIT_ASSERT_EQ(test, strlen(seq_buf_str(&s)), 7);
-> =20
->  	seq_buf_printk_run(&capture, &s);
-> =20
->  	/* The one line that was written, and nothing after it. */
->  	KUNIT_EXPECT_EQ(test, seq_buf_printk_marked, 1);
->  	KUNIT_EXPECT_EQ(test, seq_buf_printk_empty, 0);
-> +	KUNIT_EXPECT_EQ(test, strlen(seq_buf_str(&s)), 7);
-> =20
->  	/* Check that lines without a trailing newline are shown. */
->  	seq_buf_puts(&t, SEQ_BUF_PRINTK_MARKER "\n" SEQ_BUF_PRINTK_MARKER);
-> @@ -630,7 +630,8 @@ static void seq_buf_strlen_full_test(struct kunit *te=
-st)
->  	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&s));
->  	KUNIT_EXPECT_EQ(test, seq_buf_used(&s), 4);
->  	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&s), 3);
-> -	/* seq_buf_strlen() terminates the buffer by itself. */
-> +	/* seq_buf_strlen() terminates the buffer by itself, losing the 'd'. */
-> +	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&s));
->  	KUNIT_EXPECT_EQ(test, s.buffer[3], '\0');
->  	KUNIT_EXPECT_EQ(test, strnlen(s.buffer, s.size), 3);
->  	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "abc");
-> @@ -649,6 +650,7 @@ static void seq_buf_strlen_full_test(struct kunit *te=
-st)
->  	seq_buf_commit(&t, len);
->  	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&t));
->  	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&t), 7);
-> +	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&t));
->  	KUNIT_EXPECT_EQ(test, t.buffer[7], '\0');
->  	KUNIT_EXPECT_EQ(test, strnlen(t.buffer, t.size), 7);
->  	KUNIT_EXPECT_STREQ(test, seq_buf_str(&t), "zzzzzzz");
-> @@ -735,6 +737,48 @@ static void seq_buf_terminate_test(struct kunit *tes=
-t)
->  	KUNIT_EXPECT_STREQ(test, buf, "untouched");
->  }
-> =20
-> +static void seq_buf_terminate_full_test(struct kunit *test)
-> +{
-> +	DECLARE_SEQ_BUF(s, 4);
-> +	DECLARE_SEQ_BUF(t, 4);
-> +	DECLARE_SEQ_BUF(u, 4);
-> +	DECLARE_SEQ_BUF(v, 4);
-> +
-> +	/*
-> +	 * Terminating a buffer that is exactly full puts the NUL over the
-> +	 * last byte written, so what it holds is truncated, and each of
-> +	 * seq_buf_str(), seq_buf_strlen() and seq_buf_terminate() must mark
-> +	 * it overflowed.
-> +	 */
-> +	seq_buf_putmem(&s, "abcd", 4);
-> +	KUNIT_ASSERT_FALSE(test, seq_buf_has_overflowed(&s));
-> +	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "abc");
-> +	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&s));
-> +	KUNIT_EXPECT_EQ(test, seq_buf_used(&s), 4);
-> +	/* The NUL must not be popped in place of the 'd' it replaced. */
-> +	KUNIT_EXPECT_EQ(test, seq_buf_pop(&s), -1);
-> +	KUNIT_EXPECT_STREQ(test, seq_buf_str(&s), "abc");
-> +
-> +	seq_buf_putmem(&t, "abcd", 4);
-> +	KUNIT_ASSERT_FALSE(test, seq_buf_has_overflowed(&t));
-> +	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&t), 3);
-> +	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&t));
-> +
-> +	seq_buf_putmem(&u, "abcd", 4);
-> +	KUNIT_ASSERT_FALSE(test, seq_buf_has_overflowed(&u));
-> +	seq_buf_terminate(&u);
-> +	KUNIT_EXPECT_TRUE(test, seq_buf_has_overflowed(&u));
-> +	KUNIT_EXPECT_STREQ(test, u.buffer, "abc");
-> +
-> +	/* With room left for the NUL, nothing is lost. */
-> +	seq_buf_putmem(&v, "abc", 3);
-> +	KUNIT_EXPECT_STREQ(test, seq_buf_str(&v), "abc");
-> +	KUNIT_EXPECT_EQ(test, seq_buf_strlen(&v), 3);
-> +	seq_buf_terminate(&v);
-> +	KUNIT_EXPECT_FALSE(test, seq_buf_has_overflowed(&v));
-> +	KUNIT_EXPECT_EQ(test, seq_buf_pop(&v), 'c');
-> +}
-> +
->  static struct kunit_case seq_buf_test_cases[] =3D {
->  	KUNIT_CASE(seq_buf_init_test),
->  	KUNIT_CASE(seq_buf_init_append_test),
-> @@ -760,6 +804,7 @@ static struct kunit_case seq_buf_test_cases[] =3D {
->  	KUNIT_CASE(seq_buf_strlen_embedded_nul_test),
->  	KUNIT_CASE(seq_buf_strlen_zero_size_test),
->  	KUNIT_CASE(seq_buf_terminate_test),
-> +	KUNIT_CASE(seq_buf_terminate_full_test),
->  	KUNIT_CASE(seq_buf_do_printk_test),
->  	{}
->  };
-> --=20
-> 2.55.0
->=20
->=20
-
---=20
-<https://www.alejandro-colomar.es>
-
---zuxyigp5g75cr537
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrjMjMACgkQ64mZXMKQ
-wqnDWQ/8DVIVKbIT/J6NXxDLQWA6+Y2aCXLaK6vBUh9pMsld7FKgULh/0gKpNZMt
-JvSyMbygSt3xDwORZu6kgjzMX0qAi79ZlcnDCk+8OKZQl6oOb7RECmAuqq6qW6sM
-ti1HorqMAcw/rVYokghBlY2MSpf4Afwacmznr9Me6/qZTdD1gkBymWurfnw7PjFb
-o+AJ6bPczA89lnFcP3wyEqmgSHwCATVxKTqM5jGZElOOfZZoOFeVMk58lrKo7uRU
-0F0nAxKpR3aPlp9CuQwPpTrY4L3ra+jH/ksGLWxqeRHUKWaQc/Eie5XWZMQ5+KKy
-cwfuPIhm8ZDrFgshfTU+k8nGRxulRgRb7a1YXeicCHzU3J0yGKm4cbvTLTGWezFP
-bE63ezQqg10jejxYncZuZC7lWBw40usWoBBqhXdc1+H8ugzXtoDJTfIUvydE7oeb
-QsS79GEzNAsFsWjLX0lLol/AHxiYt1dS3eCYo1ohq+iyoj61cuEUUULH5oD0ad90
-GOPrCLp9Djyjo+HBi2da+m7PAQeFS9nyznck0nyYNGfW493JXlO+BAM+esgWX4QZ
-VadBbxdHnCwIYoBEcG5qD3l33t/8QUXLvcanP2B3gvkzOXJ5RYxC8aRi30CPonDN
-k0BliTgQNnzHZwln4zIayl+I4HqdO1XGrJVZVDttz+3d2zd5hQg=
-=2Zmt
------END PGP SIGNATURE-----
-
---zuxyigp5g75cr537--
