@@ -1,80 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793261814;
-	b=aoZ9L3o2ZwzSk36+cIXwMXjGp80YVp90hTT3djVUOyW/NZ2sSfiNh5vNjjOeB7zRCJET
-	 rrYdyCJRyLSJ4YY6TmfRGCL0qSXQ81FALcsoOoUf0qN3x3ET9y1UGNrU5fnLo83eaoVf2
-	 AaemZ3f8/mXQ9J7ssfoyuTkGma7t71I0u13XMyJNDrRv5ng3Lfq5eMDpR85uZA/OXqGbb
-	 IPbgYG9ENVJdb03/nXuf2gkLvDeYssLXFkETyZ49+YYZXXnW59e7Cfcpf21sM7yS587UN
-	 o4cUSkebkjMSgslt66qSFRtRXnybAaxUOLeX/yASlGKA3MV9y4bqi84SnZ6Va5K8kGQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793261814;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=DJPE/bZgmH1tQU2JT0g1HEnfFvzx8RaLlje+mahqmNM=;
-	b=eDUGBkONAZhjtphBcxNqOeAED0VnxhHYWYzwYz7Q3cACGPkOiWKnGGJ9d4VB44LKe7sq
-	 34+q/0bXU48XhVhGu3DWlANFja1UXfSHdMxM4t5nwbgkXkboSl9kde0ewyXDTS94+e1Fe
-	 09lCFscdZuQywFS8p16bLJPJEHxYCKLpSQvOKBNVSEbHMEtPKH3GOUAu6uhpXs5x6KQpz
-	 0MYSc5iDGDcUA6iRsF0XvmmVfrXWrJeSRPWxDKpDAvbdqCUjvEEClLTega+Yk+zOSNZmh
-	 fXlAmTXiJ8DlXsuNyzJVxu3YasX9sz7sAmeGp8COAEKHIR/c2+D+KHVJRwWkxZpP4uA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfIhWwGv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008ED606A31E;
-	Thu, 29 Oct 2026 08:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfIhWwGv
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793261813;
-	b=Mvuz9dmBMhxY5fr2etLYfDlVqRE/ivh8TaAku3mNFgDpNQnywVFENYIzTBsKV+vzCusM
-	 f8hMXVbi3aWfAcJ8x4YDuK0qhApB6qlbgTOJrZK3VW0JubO7V9+OkzvVqWEgjGfRaA3nY
-	 b9j8b+GmEN3LpoxPd238IsFlREOKlKxO3mDmhWRiYOmmrukNGDLOXe3HR3jNxsBud0ZBy
-	 maY/WHv+1JdgPpqF/fWnvwkgRCtMI0YNtsYh243/xrO9a2AC1wL8rrJjq0FABr1bJ8aUU
-	 8lM8jsDtQ2cFIN97SkZ3rOQKK5ur/VmDJwL+bksSx6saDDF824nNz4qJQjYZkjZcQLw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793261813;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=DJPE/bZgmH1tQU2JT0g1HEnfFvzx8RaLlje+mahqmNM=;
-	b=cV/YUjsHysrGT0TfV9mnhx6uVxAV3dux1hDaQDhAHIJG3hNVpOyiX8UNuZZ9kZIP57gZ
-	 MIpshlaoXpsbYJtVjbawqmTwL0/+8TxmyUUPYfLeT0xw5rHAdH1MxqACt5NAh8NsMb/Nv
-	 AJzvxcPiTDNduNQxaGLDI/mXTIFAbKOcirixAcbUXhtduZtuOhLKo1rTnl4UnxhXPGdpF
-	 0dZ8uuRdQE7PZzfwbq5LnzGRN1AfqjtJHzmmzHFPquD6A9c274/FnwajIS/T716j7wZHO
-	 J3YkbItLgUbhkNKSNWoSdzB32u0ySincbIeirfPOuSfvm7Wqw3X1pwWcZrQORm5pN7w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.115
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793261849;
+	b=HH6Hq6K6VK7+SS6wTyIwB7quVpKvCgg6zA3SEv8ccDC3q5Q2gNCAdTdcDviP6zgOG9hI
+	 taObKpRDpceDPp9dqoapNwEwCwQMvZxFT8cjnsatEesK8lhqqRJBvI7SOoqkeXNCAO7kZ
+	 ddXd55Boq+aQOeBnFaofPM4JQx5r2RJi5IAS25yTjdw+jR9ECifjQ9ye1fQzkqrdX1wzM
+	 G1Y5F8dU2Z4yKZW2pnJC7vIX6KRgU4sQoPcXEjQiAmFPijOLQsgkKbDfTpK4yq0f9DCIT
+	 IUzx4ftaO7rLbHwjGk/JjsKQQ1SJvoNgBcOuH56067nl001iy4V+CRnTKwDZK1hD4kA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793261849;
+	h=DMARC-Filter:DKIM-Signature:Message-Id:References:To:Subject:
+	 In-Reply-To:Cc:X-Lms-Return-Path:Date:Mime-Version:Content-Type:
+	 X-Original-From:User-Agent:Content-Transfer-Encoding:From;
+	bh=+a0pwiupnElVC4iJq7ApJkfigClnpAXCdq3Fy64eUq4=;
+	b=w2IwuNDzEeKNhO1pcGrtncNblrWEOIw43qFMjBrGh8ScyqFNdErRpUEv4IQmy7Ad1lRw
+	 KZDdD1IuF3NilIcoS16nmHIySNLzAyqQtDJX04DYhMVpDazxC3a5InYtH4JTMzVymXj6L
+	 nhCdlmw/EMHR8er4m0FPrANvpo+d0WOrV0hlFSs8ALlDjKDgHF/VzdiqPb5AfRCl7jp7Y
+	 Spepln1049xCVM/gvrqWjR8tE/cx5MVydXmlG3zGz+5Z9DUGt6ivMJ5D3HQdqnRPNg9iL
+	 6HU6TPQgx9KAnt8W/fqpQkNPzHfD9RCi3tK2AhUF4uX2Gesf1LuLS0TtcLseZfetwEA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=XeN680I7;
+	arc=none smtp.remote-ip=209.127.230.115
+Received: from va-1-115.ptr.blmpb.com (va-1-115.ptr.blmpb.com [209.127.230.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 079D21F01829;
-	Thu, 29 Oct 2026 08:16:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793261813;
-	bh=DJPE/bZgmH1tQU2JT0g1HEnfFvzx8RaLlje+mahqmNM=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=kfIhWwGvN5DHaOqmvvwI9OmPoH8DoivexHt+l56pzITCLdkWmZ7d/G15HanYUrC6N
-	 7pEozi7AXdqR0G1ENpImZ2NYn+IPrmc0RaI46dLVX1mtPD/LGoe3PiRrahLEXDo52J
-	 mZcVKvCEZL9sswlfEHKbEu3n4OO6bSESSq5fmB899qR0Xnc4R031j9sIqF3QwzkR+8
-	 TN2GVEuW8kwIz2U+WamkRGYE8Zxb8IadYgG8z+c0nUEnUd9xfoF/TnI0iytENYSw8a
-	 FMi3m7Hq8zTcYufKBBV/wnkk7DN6MFQ2GR9mWxHz8J/Zpd4lNtLnihWBXV2AY34dG7
-	 BVHHIJFmRX0ZA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5EF124578C;
-	Thu, 29 Oct 2026 08:16:52 +0000 (UTC)
-From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
-Subject: [PATCH 0/2] btrfs: zoned: fix silent data loss from leaked active
- zone reservation
-Date: Thu, 29 Oct 2026 13:16:43 +0500
-Message-Id: <20261029-btrfs-zoned-active-zone-leak-v1-0-777dd01ff914@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B24606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:17:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66B24606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=XeN680I7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793261842; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=+a0pwiupnElVC4iJq7ApJkfigClnpAXCdq3Fy64eUq4=;
+ b=XeN680I7IJlNMjMU87dIzNsxFTBBTj3N5w3g0gCwl1fJHn5Rw1SF4eOneUkqJxa/YwNwJz
+ 4+f8RvjasCmqzwtsuwTZZRC9OMWc7dIhcHPsbSp8/TIAJB5foGuei9CreWol+vyR+wy8Ue
+ l3ESXeSgyAmWo8VZ+mK1DwmD8Xse74pPKf4vh2xt1rVEAwadtbH0A2/1hlKNqn7aYEpCGV
+ jWJpN3qN6JQmUIg/eLFTNGzUe5N2RiO9xhfm8P8S+u/gyaIJIBfU+mFR0qhrhe5oq03tlr
+ C+Z8B7anBTTCgC2MKqUO/dEseibVvg61SVujbN11KZ9n4hnkTnUC/bJSHksJdg==
+Message-Id: <b17f7fcf-0c7e-49b8-a7be-779f3c5e97d2@bytedance.com>
+References: <20261028041253.74839-1-lizhe.67@bytedance.com> <20261028041253.74839-4-lizhe.67@bytedance.com> <de52b5f1-97eb-4404-b7f1-53f0aab17fae@amd.com>
+To: "Bharata B Rao" <bharata@amd.com>, <akpm@linux-foundation.org>, 
+	<bsegall@google.com>, <david@kernel.org>, <dietmar.eggemann@arm.com>, 
+	<gourry@gourry.net>, <joshua.hahnjy@gmail.com>, <juri.lelli@redhat.com>, 
+	<kprateek.nayak@amd.com>, <ljs@kernel.org>, <mgorman@suse.de>, 
+	<mingo@redhat.com>, <peterz@infradead.org>, <riel@redhat.com>, 
+	<rostedt@goodmis.org>, <vincent.guittot@linaro.org>, 
+	<vschneid@redhat.com>, <ziy@nvidia.com>, <riel@surriel.com>
+Subject: Re: [PATCH v2 3/3] sched/numa: fix scan-period adjustment for tiering-only mode
+In-Reply-To: <de52b5f1-97eb-4404-b7f1-53f0aab17fae@amd.com>
+Cc: <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-mm@kvack.org>
+X-Lms-Return-Path: <lba+26ae30110+12b493+vger.kernel.org+lizhe.67@bytedance.com>
+Date: Thu, 29 Oct 2026 16:16:55 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,204 +66,240 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQ5AMBAAwK/Inm2iJYKviMO2XWxISSsixN81j
- nOZByIH4Qhd9kDgU6JsPkHlGdiZ/MQoLhl0oWtV6BbNEcaI9+bZIdlDTv6BK9OCxpQVkXZtoyy
- kYg88yvX3/fC+HxCOXHRuAAAA
-X-Change-ID: 20261029-btrfs-zoned-active-zone-leak-bb34aa2d981c
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
- Naohiro Aota <naohiro.aota@wdc.com>
-Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Mark Korenberg <socketpair@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793261811; l=8424;
- i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
- bh=wHYWPALtrSPUdIYEayA4D8xOo2QJYw+fdvMJ1u+NcPk=;
- b=zT6ML6VF3iW1aQzH+i3Hbsn3F/rQQch1fFdoc8VjdILIGnV7gvtihz/ri1Tej5eZYPBl0EfxZ
- LEiaz0lp1wzCkYaHx9zJwbkPndVd1OQgxQULn6mBBLRZqdBUn2tqVtF
-X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
- pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
-X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
- auth_id=806
-X-Original-From: Mark Korenberg <socketpair@gmail.com>
-Reply-To: socketpair@gmail.com
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+User-Agent: Mozilla Thunderbird
+Content-Transfer-Encoding: quoted-printable
+From: "Li Zhe" <lizhe.67@bytedance.com>
 
-On zoned btrfs, buffered writeback can fail with -ENOSPC on a device with
-plenty of free space, and the data is lost without any error reaching the
-writer:
+On 10/29/26 2:21 PM, Bharata B Rao wrote:
+> On 28-Oct-26 9:42 AM, Li Zhe wrote:
+>> When automatic NUMA balancing runs in memory-tiering-only mode, NUMA hin=
+t
+>> faults identify slow-memory pages that are worth promoting. They are not
+>> normal task-placement feedback.
+>>
+>> Without separate tiering feedback, successful tiering promotions are fed
+>> to update_task_scan_period() as private remote faults. That leaves
+>> local =3D=3D 0 and shared =3D=3D 0, so the function hits its early slow-=
+down path
+>> and doubles p->numa_scan_period. Repeated promotion feedback can therefo=
+re
+>> drive the scan period towards the maximum.
+>>
+>> Track memory-tiering feedback separately from normal task-placement stat=
+s.
+>> Successful free-space bypass promotions are not counted as tiering scan
+>> feedback because they did not pass the hotness and rate-limit checks. Co=
+ld,
+>> hot, and throttled feedback is generated only by the hotness/rate-limit
+>> path, while migration failures slow scanning like the normal placement
+>> heuristic does.
+>>
+>> Use the same 70% threshold style as the normal scan-period heuristic. A
+>> hot-dominated window speeds scanning up, a cold-dominated window slows i=
+t
+>> down, and a throttled ratio of at least 30% also slows it down. If a
+>> window has no tiering feedback, for example because promotions used the
+>> free-space bypass, double the scan period, following the same
+>> no-useful-signal slow-down direction as normal scan-period adjustment.
+>>
+>> Evaluate the tiering window when a scan sequence completes as well as wh=
+en
+>> tiering faults are reported. This lets an empty window back off the scan
+>> period after qualifying tiering feedback stops.
+>>
+>> On a CXL system with node0 as DRAM and node3 as slow-tier memory, a
+>> STREAM Triad-derived OpenMP workload was used to model a
+>> bandwidth-sensitive working-set shift. It first accessed one 100G range,
+>> then switched to another 100G range. The workload was first-touch placed
+>> on node3 and then run from node0 with memory-tiering-only mode enabled.
+>>
+>> With the free-space bypass disabled, so that promotions have to pass the
+>> hotness and rate-limit checks, a kernel with only the bypass control was
+>> used as the no-feedback baseline. Tiering scan-period feedback improved
+>> the transition window after the active range switch:
+>>
+>>                                no feedback       tiering feedback
+>>    first 80s after switch       122.4 GB/s             129.3 GB/s  (+5.7=
+%)
+>>    200-240s after switch        139.9 GB/s             140.6 GB/s  (+0.5=
+%)
+>>
+>> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+>> ---
+>>   include/linux/sched.h                |  17 ++++
+>>   include/linux/sched/numa_balancing.h |   9 +++
+>>   kernel/sched/fair.c                  | 113 ++++++++++++++++++++++++++-
+>>   3 files changed, 137 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/include/linux/sched.h b/include/linux/sched.h
+>> index 1c93da75226e..c4959747374b 100644
+>> --- a/include/linux/sched.h
+>> +++ b/include/linux/sched.h
+>> @@ -833,6 +833,16 @@ struct task_ipi_mask {
+>>   struct task_ipi_mask { };
+>>   #endif
+>>  =20
+>> +#ifdef CONFIG_NUMA_BALANCING
+>> +enum numa_tiering_fault_stats {
+>> +	NUMA_TIERING_FAULT_COLD,
+>> +	NUMA_TIERING_FAULT_HOT,
+>> +	NUMA_TIERING_FAULT_THROTTLED,
+>> +	NUMA_TIERING_FAULT_MIGRATE_FAIL,
+>> +	NR_NUMA_TIERING_FAULT_STATS
+>> +};
+>> +#endif
+>> +
+>>   struct task_struct {
+>>   #ifdef CONFIG_THREAD_INFO_IN_TASK
+>>   	/*
+>> @@ -1433,6 +1443,13 @@ struct task_struct {
+>>   	 */
+>>   	unsigned long			numa_faults_locality[3];
+>>  =20
+>> +	/*
+>> +	 * Memory tiering faults are tracked separately from normal NUMA
+>> +	 * placement statistics. In tiering-only mode, slow-memory hint faults
+>> +	 * are used to decide promotion, not task placement.
+>> +	 */
+>> +	unsigned long			numa_tiering_faults[NR_NUMA_TIERING_FAULT_STATS];
+>> +
+>>   	unsigned long			numa_pages_migrated;
+>>   #endif /* CONFIG_NUMA_BALANCING */
+>>  =20
+>> diff --git a/include/linux/sched/numa_balancing.h b/include/linux/sched/=
+numa_balancing.h
+>> index 200f50075d5c..12f31ed56d66 100644
+>> --- a/include/linux/sched/numa_balancing.h
+>> +++ b/include/linux/sched/numa_balancing.h
+>> @@ -8,6 +8,7 @@
+>>    */
+>>  =20
+>>   #include <linux/sched.h>
+>> +#include <linux/sched/sysctl.h>
+>>  =20
+>>   #define TNF_MIGRATED	0x01
+>>   #define TNF_NO_GROUP	0x02
+>> @@ -16,6 +17,14 @@
+>>   #define TNF_MIGRATE_FAIL 0x10
+>>   #define TNF_ACCESS_TIME	0x20
+>>  =20
+>> +static inline bool numa_balancing_tiering_only(void)
+>> +{
+>> +	int mode =3D sysctl_numa_balancing_mode;
+>> +
+>> +	return (mode & NUMA_BALANCING_MEMORY_TIERING) &&
+>> +	       !(mode & NUMA_BALANCING_NORMAL);
+>> +}
+>> +
+>>   enum numa_vmaskip_reason {
+>>   	NUMAB_SKIP_UNSUITABLE,
+>>   	NUMAB_SKIP_SHARED_RO,
+>> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+>> index 136207b62d87..1d9efc2b7427 100644
+>> --- a/kernel/sched/fair.c
+>> +++ b/kernel/sched/fair.c
+>> @@ -2760,6 +2760,32 @@ static inline bool cpupid_valid(int cpupid)
+>>   	return cpupid_to_cpu(cpupid) < nr_cpu_ids;
+>>   }
+>>  =20
+>> +static void task_numa_tiering_placement(struct task_struct *p);
+>> +
+>> +static bool task_numa_tiering_update(struct task_struct *p)
+>> +{
+>> +	if (!numa_balancing_tiering_only() || !p->mm)
+>> +		return false;
+>> +
+>> +	task_numa_tiering_placement(p);
+>> +	return true;
+>> +}
+>> +
+>> +static void task_numa_tiering_no_feedback(struct task_struct *p)
+>> +{
+>> +	task_numa_tiering_update(p);
+>> +}
+>> +
+>> +static void task_numa_tiering_fault(struct task_struct *p,
+>> +				    enum numa_tiering_fault_stats stat,
+>> +				    unsigned long pages)
+>> +{
+>> +	if (!task_numa_tiering_update(p))
+>> +		return;
+>> +
+>> +	p->numa_tiering_faults[stat] +=3D pages;
+>> +}
+>> +
+>>   /*
+>>    * For memory tiering mode, if the target fast memory node has enough =
+free
+>>    * pages, recently accessed slow memory pages can bypass the normal ho=
+tness
+>> @@ -2887,6 +2913,7 @@ bool should_numa_migrate_memory(struct task_struct=
+ *p, struct folio *folio,
+>>   		pgdat =3D NODE_DATA(dst_nid);
+>>   		if (numa_balancing_promote_free_space_bypass &&
+>>   		    pgdat_free_space_enough(pgdat)) {
+>> +			task_numa_tiering_no_feedback(p);
+>>   			/* workload changed, reset hot threshold */
+>>   			pgdat->nbp_threshold =3D 0;
+>>   			mod_node_page_state(pgdat, PGPROMOTE_CANDIDATE_NRL, nr);
+>> @@ -2899,10 +2926,18 @@ bool should_numa_migrate_memory(struct task_stru=
+ct *p, struct folio *folio,
+>>  =20
+>>   		th =3D pgdat->nbp_threshold ? : def_th;
+>>   		latency =3D numa_hint_fault_latency(folio);
+>> -		if (latency >=3D th)
+>> +		if (latency >=3D th) {
+>> +			task_numa_tiering_fault(p, NUMA_TIERING_FAULT_COLD, nr);
+>> +			return false;
+>> +		}
+>> +
+>> +		if (numa_promotion_rate_limit(pgdat, rate_limit, nr)) {
+>> +			task_numa_tiering_fault(p, NUMA_TIERING_FAULT_THROTTLED, nr);
+>>   			return false;
+>> +		}
+>>  =20
+>> -		return !numa_promotion_rate_limit(pgdat, rate_limit, nr);
+>> +		task_numa_tiering_fault(p, NUMA_TIERING_FAULT_HOT, nr);
+>> +		return true;
+>>   	}
+> I like the separation of scan-period updation of tiering mode from the re=
+gular
+> mode as the existing update scheme was dependent on private/shared faults=
+ which
+> made little sense in tiering mode.
+>
+> However I am not sure if you should drive the scan period updates from
+> should_numa_migrate_memory(). The scan period belongs to the hint fault
+> scanner. I am pulling the promotion heuristic out of
+> should_numa_migrate_memory() in the pghot series. The hint fault path
+> only reports an access and shared engine does the classification and
+> migration for every source. The other sources may not have numa_scan_peri=
+od,
+> so this feedback has to stay with the hint fault path.
+>
+> pghot supporting multiple sources may not see the light of the day in
+> near future but it is still good to keep the source specific
+> aspects and promotion engine separate.
 
-  BTRFS error (device ublkb0): cow_file_range failed, root=5 inode=...
-    start=... len=16777216 cur_offset=... cur_alloc_size=0: -28
-  BTRFS error (device ublkb0): failed to run delalloc range, ...: -28
 
-cow_file_range() ends the writeback of the range without writing it and
-only sets an error on the mapping. write() and close() succeed, rsync and
-cp exit with 0, the first syncfs() returns -ENOSPC and the second one 0.
-The pages stay in the page cache, so reading the files back right away
-does not necessarily show it. In the original report a 3.7 GB git pack
-file copied with rsync lost 37 ranges of 16 MiB.
+Agreed, that layering makes sense.
 
-It was seen on a 100 GiB zoned device (ublk, 16 MiB zones, 128 open
-zones, no active zone limit, single profiles, commit=300) on 7.2.11 while
-copying a kernel tree onto a filesystem that had been filled, emptied and
-balanced with -dusage=0 -musage=0 before. The code involved is the same
-in current master.
+I am wondering whether that separation is better handled together with
+the larger promotion-engine rework, though.=C2=A0 Without the shared engine=
+ in
+place, moving the outcome reporting out of should_numa_migrate_memory()
+would add interface changes mainly for a future direction.
 
-Cause
------
+For this series, my goal was narrower: keep tiering-only scan-period
+feedback separate from normal task-placement stats while staying close
+to the current numabalance implementation.
 
-1. btrfs_relocate_block_group() finishes the zones of the block group
-   before relocating it and ignores -EAGAIN. For a metadata or system
-   block group with allocated but not yet written tree blocks
-   (alloc_offset > meta_write_pointer) and for the data relocation block
-   group, do_zone_finish() returns -EAGAIN. The block group is then
-   relocated and removed with its zones still active: it stays on
-   fs_info->zone_active_bgs, and reserved_active_zones is never given
-   back. Caught with bpftrace on the reporter's machine:
+Thanks,
+Zhe
 
-     zone_finish failed ret=-11 bg 43419435008 flags 0x2
-       alloc_offset 10420224 meta_written 10403840 used 16384 reserved 16384
-       btrfs_relocate_block_group <- btrfs_relocate_chunk <- __btrfs_balance
-     remove bg 43419435008 type 0x2 <- btrfs_remove_chunk
-
-   reserved_active_zones went from 1 to 0 at that moment and stayed
-   there. Before a remount the same filesystem had four such block
-   groups (removed from the chunk tree, still listed as active in
-   mountstats with used, reserved and unusable all 0) and, read from the
-   kernel, max_active_zones 128, active_zones_left 117,
-   reserved_active_zones -3.
-
-2. reserved_active_zones is 3 (6 with DUP) minus the active metadata,
-   tree-log and system zones, so it can be negative, legitimately too:
-   it dropped by 3 for a few seconds during an rm -rf, independently of
-   the leak.
-   btrfs_can_activate_zone() checks active_zones_left >= 1 + reserved for
-   data, which is always true with a negative reservation. So when the
-   active zones run out, can_allocate_chunk_zoned() neither finishes a
-   block group nor makes the caller wait: a chunk is allocated, its zone
-   cannot be activated, and find_free_extent() returns -ENOSPC. On the
-   reporter's machine btrfs_can_activate_zone() returned true 45 times,
-   each followed by a failed allocation, and btrfs_zone_finish_one_bg()
-   was never called.
-
-Patch 1 finishes the zones again before the relocated block group is
-removed: the block group is read-only and empty by then, and the commit
-at the end of relocate_block_group() has written its tree blocks. With
-debug output in a test kernel, the first btrfs_zone_finish() got -EAGAIN
-27 times over 6 test runs, and all 1143 calls of the new
-btrfs_zone_finish_relocated() succeeded at once. Patch 2 treats a
-negative reservation as zero for data. Patch 1 has to come first: with
-patch 2 alone the leaked reservation leaves no active zone for a new
-system block group, which runs into the deadlock described at the end.
-
-Reproducer
-----------
-
-zoned null_blk, 16 MiB zones, 16 open zones, commit=300. Each forced
-metadata+system balance after new chunks were allocated leaves one block
-group behind; then several writers lose their data:
-
-  mount -t configfs none /sys/kernel/config
-  d=/sys/kernel/config/nullb/zdev; mkdir $d
-  echo 4096 > $d/blocksize; echo 1 > $d/memory_backed; echo 1 > $d/zoned
-  echo 16 > $d/zone_size; echo 8192 > $d/size; echo 16 > $d/zone_max_open
-  echo 1 > $d/power
-  mkfs.btrfs -f -O zoned -d single -m single /dev/zdev
-  mount -o commit=300 /dev/zdev /mnt
-  for r in 1 2 3 4 5 6; do
-          dd if=/dev/urandom of=/mnt/pre$r bs=1M count=64
-          btrfs balance start --force -m -s /mnt
-  done
-  for i in 1 2 3 4 5 6 7 8; do
-          dd if=/dev/urandom of=/tmp/src$i bs=1M count=512
-  done
-  for i in 1 2 3 4 5 6 7 8; do cp /tmp/src$i /mnt/data$i & done; wait
-  sync -f /mnt; sync -f /mnt
-  echo 3 > /proc/sys/vm/drop_caches
-  for i in 1 2 3 4 5 6 7 8; do cmp /tmp/src$i /mnt/data$i; done
-
-"Zombies" are active metadata/system block groups in mountstats with a
-write pointer but used, reserved and unusable all 0; the reservation is
-3 minus the active metadata and system block groups.
-
-                    zombies  reservation  cow_file_range  syncfs  files
-                                          failures                differ
-  master                  3           -2           29714  fail x2    8/8
-  patch 1 only            0            1               0  0, 0       0/8
-  patch 2 only     deadlock in balance (see below)
-  both                    0            1               0  0, 0       0/8
-
-Testing
--------
-
-virtme-ng VM, CONFIG_PROVE_LOCKING, hung task detector at 60 s, zoned
-null_blk with 16 MiB zones and commit=300, data checked on disk after
-dropping caches:
-
-- 8 x 512 MiB buffered writers, 16 and 128 open zones: no errors
-- 4 x 4000 small files, 16 open zones: no errors
-- 8 x 256 MiB O_DIRECT writers, 16 open zones: no errors
-- rsync of a 6 GB kernel tree with vm.dirty_bytes of 5 GB, 16 open
-  zones: no errors
-- filling the filesystem: dd still gets ENOSPC, no hang or retry loop
-- the reproducer's balance step on the same kind of ublk device as in
-  the original report (100 GiB, 16 MiB zones, 128 open zones), then
-  rsync of a kernel tree: master left 3 zombies
-  (reservation -2), logged 28 cow_file_range failures, the first
-  syncfs() returned -ENOSPC and the second 0, and the same 3.7 GB pack
-  file as in the original report differed on disk; patched: no zombies,
-  no errors, no differences
-- the reproducer above: see the table
-- 8 writers with --full-balance in a loop, 16 and 128 open zones, four
-  runs each on master and patched: no data loss on either; the issue
-  below aborts the transaction in 3 of 4 runs on both, and master also
-  deadlocked once
-
-Not fixed here
---------------
-
-These show up with balance while writing on master as well; I did not
-want to grow this series:
-
-- Recursive ro_block_group_mutex: btrfs_inc_block_group_ro() ->
-  reserve_chunk_space() -> btrfs_zoned_activate_one_bg(info, true) ->
-  btrfs_zone_finish_one_bg() -> do_zone_finish() ->
-  btrfs_inc_block_group_ro(), with chunk_mutex held, so writeback hangs
-  in btrfs_can_activate_zone(). lockdep reports "possible recursive
-  locking detected". Seen on master with 8 writers and --full-balance in
-  a loop, 16 open zones, and with patch 2 alone in the reproducer.
-
-- "error while writing out transaction: -EAGAIN" from
-  btrfs_check_meta_write_pointer() during the commit in
-  relocate_block_group(), which aborts the transaction and forces the
-  filesystem read-only, in the same balance-while-writing test.
-
-- call_zone_finish() returns before reserved_active_zones++ and
-  btrfs_dev_clear_active_zone() when REQ_OP_ZONE_FINISH fails, and
-  do_zone_finish() still takes the block group off the active list, so
-  an I/O error there leaks the reservation and the active zone.
-
-I used an AI assistant (Claude) for the investigation, the reproducer
-and drafting the patches and this mail; the result was reviewed and
-tested as described above.
-
----
-Mark Korenberg (2):
-      btrfs: zoned: finish the zones of a relocated block group
-      btrfs: zoned: don't treat a negative zone reservation as free zones
-
- fs/btrfs/volumes.c |  3 +++
- fs/btrfs/zoned.c   | 51 +++++++++++++++++++++++++++++++++++++++++++++++----
- fs/btrfs/zoned.h   | 11 ++++++++++-
- 3 files changed, 60 insertions(+), 5 deletions(-)
----
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-change-id: 20261029-btrfs-zoned-active-zone-leak-bb34aa2d981c
-
-Best regards,
--- 
-Mark Korenberg <socketpair@gmail.com>
-
-
+>
+> Regards,
+> Bharata.
