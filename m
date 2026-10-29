@@ -1,94 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.31
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793288552;
-	b=ZtQImJxrJBcJutqpAetT0cOlRigZlcrr5qSb5AxZk7htPXliC8z4M5Zkvqsi9gcWaCNn
-	 jkRO3FBIqhoWZespnRFVLUfj0EJiz4JHfIBk1Wx9vKsoYsUwtbsAdFuHbaYwLy8XaNmqv
-	 1rMjLtktx3FatOQMBffCR7YASEd8wAGcHLSDRhJODA9NWWsdkrIdV0lB+0ZxiW2Xf6CbT
-	 kAGfZwCZw3P+IBS70wW5oeB1fo1OA2EuIiWHO0BdWYpWwNKBBMJ6FNSW+sZra3tG+w+a+
-	 bMLj7wiGGuqXRPMBiGs5NJcGbnSFdBOtpRYkUykAAST9auhkqdCosM+sOpFk3LibpwQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793288552;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=vM7dRLsF47Q2IpYGKtZy5xFISzX8e2vEP3w/em2MyAw=;
-	b=s1Qkm4bOvdTweHjtPbLfL2AWOVrcgAf5OvU7aG6aUJHjBPEbqaaye3c87l4kyz7uz+X1
-	 VZfaM6cMTKK7zjNN/L9yJwjcutxAhYV3vcdtVed88twytAgDGUI5vnWcOvgoZ++uJzHdO
-	 Jknoz+m73PcxvKI4zRRmqqys9T/KfqHDpx/qdkx1FW2mu61KTg6nVlVAtxK98ztEkICzW
-	 v8BUdjt41h9ul8l3ppFCkTKW5jfWsbHyQrJ2ILZVWAmGYsw4rDHigkXEuD40RpGo+NuU5
-	 hAv+0hFXqd+EizBe5InoOooHwRBUv9XxlngAIRLbMjfYhNXBlJR5a1ZZ0Kh/xJ7zclA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=paP0fjVJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.31
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011031.outbound.protection.outlook.com [52.101.65.31])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793288576;
+	b=b64kPyXhVL7XgfXJCQDTGYAGj2qFEcOoCZb9JNfIaNPXYCvfNxN00XnihWhlRzn3tT2+
+	 J4fbMsasTfNEMmaq0dbsYRkai865tqJ66vFd8CgjyynBfqeP1Bnxiuu4KCMvL1aSOb7CB
+	 OmimTYrP6TDUj8AW8GjS6twOv+y7zA6Ox8iotERYTNMnLV/1JspoECaaRmmnr0iMolVgY
+	 iZNIHtuFrLPK6dnh3itROH3IXfL0l/QtfHWBR92YwSSPwslfUGFTyZ18fqotjwKSMgNUY
+	 S8/dgMhzYOnDgVyCTTqL4ZB+U3rx8nIIvUw+ToSG63bnW6XxCStsmkL+pZcVY6QBhMw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288576;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=L5D86BXNnNkH5tFHqH3VjPCbsL8RXaLh8X9LuOfrSFk=;
+	b=B7eHRT3rle0qmic/tkYeHrsJkHzQG+1yXF8ZSX5JtboSMCdtjtn35jVUdCH0r/h9EWAN
+	 /nCvfCcIaIGZymUHWkAPN1nnS5Z9PcGy6+J15UEOW85mfCDC2R6EICqzK3UBLaiDHPBnJ
+	 K/vwmWbyaW27g/i5rC2d6gy0JpgNTuFjduERGXg+r465NtQ2Yt3G8cR7K7Hnv+dPVCxP5
+	 KfGfT4JnfebY+T/mwVDIc2Y6aWJsqnvYtVMNjW7nVhhmj+1x1cdaFfsHrObGCmzUZd+xw
+	 snUAmVObXzDyhYVz5VPsWAeEMzv/07obc8AOI956bMpUxXbXl88+TlxN9N9dAfWM4tQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="1mI/KKbJ";
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9wAXUyVG;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF34606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:42:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FF34606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C06606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:42:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3C06606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=paP0fjVJ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YTsZ1DqrfXXVLnJyGER/4kJduwYbK570OzSkln3pFwx/YcN6laxzasev9CuKF/NrB/ae4ZAdfwZKtIZBUgFkVGTkz/5Sx8/eECaFWpn8ECQ0wG3CGxvXNw1W1OQeGz/V0c4Che3HuQ6lfRKYTx8nQ7hLKTwP5DczwUiAs8v3KRT3YrOSD9p5zf9SIXproBF+QaS0+iCZC5nBcOdccQRcF5VtKGnjot6U+5Ca3j33ems4hEFuYqMJwyBOQIaNobD/C0voQHGWzfU1rNwtBR6qsMTEebEmCoVunCwnGMtoIkYv8ybxLqOWUGDDbyZFf+h+0ALWNzhDbX1dQ34HsQADLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vM7dRLsF47Q2IpYGKtZy5xFISzX8e2vEP3w/em2MyAw=;
- b=gqrggNNDo6wh/oxdqw0QSiXSS2qYbpevdff00TdakKYkt+1WMrVvYMbRfBRWbVtlVW2qPswvW0xGhXiYiZzTksie7lGzN+wqFWGxlx8riczTLcafHLh+u493NyP+FGib1rCmeb8NWD0YwsJPcIRx3/5eIchaJlDJrZs53ftZ4Rkc/RUw+f96wHrwKllelXulRCUGoXCkl/ouK55JZy10V67hVQTea4mvU+0K5HRJdh8Y3lfgmGxbHeTKFNS6jmLxxaHqLfIqo0cahYbZd9Dy6arZz7IjdlU69AYYEA5nZGYw6MzuVBVWUmZmu5EEm0mGOgCRHtIjI2PHLWF5tBEJag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vM7dRLsF47Q2IpYGKtZy5xFISzX8e2vEP3w/em2MyAw=;
- b=paP0fjVJPCmFbRiRE9uVVl0AJMj7GO+G5MjtNkm5JHjqwrAN+rTFI08bg8B/sl7jEOjmODowbjkIidHQmLkp8TjixkSuUt4vlaTCLGMnN3f8yHObUudAPsAIVCTVZJRd4IKwh8ZeSaAlypP+RId98Aom22D2n2sw7lWj/t/haKO37KcLYVmEwoTe5PPCClH1azDnbj3dMY+5PCg6d8q3d7+LyVl3m3oKWQ4ANY5EMJobDdazuTXocX2M1+vHCVXNg7qMSqZxMPKy3s7+9tQ/LVH1jFjNoV/Sm7DBod724mfShQ4/h/H7KwuTa/Sl1SoiBwYRZ2R/+K+/FNupEFEpaw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by VI1PR04MB7023.eurprd04.prod.outlook.com (2603:10a6:800:12f::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 15:42:28 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
- 15:42:28 +0000
-Date: Thu, 29 Oct 2026 11:42:19 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 01/31] accel: ethosu: Suspend after initialization
-Message-ID: <auNpW5PRWjWPm8My@lizhi-Precision-Tower-5810>
-References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
- <20261029-ethosu-fixes-v4-1-4aa25e22578e@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-ethosu-fixes-v4-1-4aa25e22578e@kernel.org>
-X-ClientProxiedBy: PH7P223CA0014.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:510:338::24) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=1mI/KKbJ;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9wAXUyVG
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793288573;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L5D86BXNnNkH5tFHqH3VjPCbsL8RXaLh8X9LuOfrSFk=;
+	b=1mI/KKbJifBl0xlBKIAJQI5uhaZN8dMQjYjmpybz0Hs+oTnviJ/TbplPRsxaQPtNHKYWjn
+	Dr2ntFgMmAwHvKY9YHBIvrSX7RAPHF9Jup7Q/M7wDba5u4N8E1t2+4R1o1/wkWbjlnRI9l
+	NiRLsga938a3UTCo62NJ7YUZ72Qm69KLMGOYqrYNudGadaYU+ESXVsFaaOuq/rxLGu96rn
+	sKbt7UPliR6n8/rfOTbpegPn62L+3sgK/InfSW160zm63yE9ywTOAROxNAX54RvqZn8EHr
+	sH0RrqKYclePkmERALeKF3o3TnMv62pTJeySd8QVZSdxRTedFBlg78vh+rn85g==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793288573;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=L5D86BXNnNkH5tFHqH3VjPCbsL8RXaLh8X9LuOfrSFk=;
+	b=9wAXUyVGxrwz9T1YeevfYK4dIfmJb0V0hUFOvHAOoIkphgQV4b7u6m6Gzy3VaQ7oc6aAMd
+	RSFkcorc/oIJIVCA==
+To: Petr Mladek <pmladek@suse.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
+ <rostedt@goodmis.org>, Derek Barbosa <debarbos@redhat.com>,
+ printk@lists.linux.dev, linux-kernel@vger.kernel.org, Sashiko
+ <sashiko-bot@kernel.org>
+Subject: Re: [PATCH printk] printk: Avoid multiple unregistration in
+ unregister_console_locked()
+In-Reply-To: <20261029152454.638952-1-john.ogness@linutronix.de>
+References: <20261029152454.638952-1-john.ogness@linutronix.de>
+Date: Thu, 29 Oct 2026 16:48:53 +0106
+Message-ID: <87y0bgwm0y.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,105 +74,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI1PR04MB7023:EE_
-X-MS-Office365-Filtering-Correlation-Id: 587379a8-fda6-41e5-32ac-08df35d33c79
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|19092799006|4143699003|56012099006|261009221227099003|261009223027099003|261026121527099003|11063799006|261021121427099003|261021123027099003|261022075727099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	kJsanzG5oO5KYTZF+NfqSyz4qHIpe4GEj5xwBGZQMNfLXAMxcWI/ZkP2ElU7lnx8YUhK21OVGLLzpkuK9gSEgNui5RERT/xGS71iD+xDijJ7n8EDkcRgaVOaVWliU+yv6Qa4LA8nnugJrDDFATnPikEkqiDY0Mp3/pWahpC1T6AJRj8BeG1O7ghdcq6Z7S4L5ygyAR1+7CHc6vWBhdHyY/R3sJ1FJMH/N27BU+etUK1bv5gqm4vypZzujKF1LN7xumdN4Q5CxK7LJdc0EcT4uN71yewbA9B4Wi5isEgdZBlKo66NSnZ+BeZHxgF6lrHfZhbmTg8BxOPyQIFoGyxI41ZG4GyCmoM933gePdPQRTRYRgZJ7xTkIo+bBeCvndvr1xNVE9SOGbZxHteG30YBNdGhaxDNnB9td0a6hgZ7iQl0csOd/b1Iq1Kf+wOUGzrN+GuR9c5Rd1mjhjx5Shre9tsYLivu/6Cjj8X4fvSxBSnzNoxCcxpHpOLseF9suL8SNkxMMlcFHga1um2LPqeveTIWhv0dxsuZuTa+CydF4QDGehFWSnyrK468+C+iNuEJ74Vka3W3MlOnBYWkJv/8iaREszhSZ/xSfXwRSPUWhF2tkHztr5fTu/zvSLasv9viNsRSoqSy2omGzLAISNeeYCwHg3EZ1QNQp+lzMFgqLC0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(19092799006)(4143699003)(56012099006)(261009221227099003)(261009223027099003)(261026121527099003)(11063799006)(261021121427099003)(261021123027099003)(261022075727099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?PB+OwRN0eG3ki69M8Bcg8Yo4AL6MZf7p1KPr9bi+b+zzyYTTZovQ5v3QP0/z?=
- =?us-ascii?Q?dM/8q15RgbF2dj3GuQ3eaeH/10rCfVU9esPexMBAVr1sUgqXkZm67Cqt3CFz?=
- =?us-ascii?Q?tTMJ9EsHTOvSUCy6Uqft1RGS45WYabh19lCjK1a01G9O81lPiW1MpNmKJnur?=
- =?us-ascii?Q?YzHi8S+1j9TTRrwFFsRc+E1WTGCMlFgtO7cuGFa9ojIWaRirIAZPCF9+W+yx?=
- =?us-ascii?Q?k3QNNXuO5akIcCKKv/Lv23jR6DoMoh3WifkZet9ymamqOfTEVXkw+Vt19Tlq?=
- =?us-ascii?Q?ZNN8okfdI3P5u2t0tEffw1uWkkUw2uaReYHyQnawzMI/4tPaYu/Tc36IKACZ?=
- =?us-ascii?Q?xGFGdclitHxLkVtglEfzWUvuENeQJCkUx8NGLPsO2TGz+UARmoWuDquBMOR7?=
- =?us-ascii?Q?LA5+ZPKj7fPeaL/fhkfu2O2hRBGb53ZexIZn1cIdRPK8ApjEYGfa7dmE1LEY?=
- =?us-ascii?Q?DOyu4makJ4lK/SenUjxHPjV9j2rM8MxrXyX1hzXRZ3xftrRi0R7Lw0Du5ekw?=
- =?us-ascii?Q?I5Dgs2yAWqyO/2DWlIAzTODjz8w3Ax+7OiM4xv62/xaDHTvVMpNmwhSpMUaL?=
- =?us-ascii?Q?ceq9FWVdKfmKv9t0FvrNpyKeIcpYCSfeGWOn3ikbQo8vlFkvqRF7tMeE3U5Q?=
- =?us-ascii?Q?XgGSVCx9T8uEJ4ianqz4V9Eb1MNAnVoduZfZApK8rtQdhsfLSTxUQHnZ1Gi2?=
- =?us-ascii?Q?AlyVGXVqRJZwXCxVMBY8Sl3v9M+L++urLC3tIJIWVoD4mFL1I4lf/X85fdZU?=
- =?us-ascii?Q?Y/YMaz/y0TwSTW3nkBCj3ongt13e4ehCh29WrV4PcV6tNT2Lv7uJw+c15WFD?=
- =?us-ascii?Q?S5fozZKjaHv7UMkMjn06ZKAuq0F0s6jzkHAga+ER6G6nw6xLaJq8LofO8MLD?=
- =?us-ascii?Q?/3JpZRHz01TAMgx2OfS37NGDM93EHhicqYCjYg+yMNM3FI9xKuUR2xtiaWMk?=
- =?us-ascii?Q?93gL0ZSwB7z1PDQZPB1H+78FC6LHyTGQzHwVjzgKbcMeOSePrWYyaftilycL?=
- =?us-ascii?Q?zJ1aIZE2mQ4YDXLrtMMilTjjjCoPc0FQPFfh12oSUpgy6XcvI1HqXA1VMbRO?=
- =?us-ascii?Q?FVAWL0EDhd3SS32AyXgy+xJwpPkFgwPpZNM/liSVS9H5DA1IJRzD3oqu7esK?=
- =?us-ascii?Q?zkwVXLY3iOfUb4Z6goPJy6mQ3qQOAlid5P5AJ5ovSDCChLRprJnOeJB5/s5N?=
- =?us-ascii?Q?1vxzLf9MGwGEI0La5v+g2QeXwZ8aWiLAadX2jjbNPbv9ThXd3bX3astsf+z1?=
- =?us-ascii?Q?WLNG0eRkXXrG2FtC7Na5DAZLRrUc/eTlCKU6Lv5T350x/oPnnBxJ3pOti1RY?=
- =?us-ascii?Q?ObsSN9xLVum7rEaHO2FDoKf5BXwXXJ4/NzqwKjvsW48Uq1trLDhl5HVHr/J7?=
- =?us-ascii?Q?MiQblpGuM3ZyililA2VbHAvTZ9ng/FZw51/R2116IWUl+DsLzWLqa/hsXDGG?=
- =?us-ascii?Q?lsOZH60WEk07HV+1D2qYyMdY6o3HYI9D4N325D9nE8SDIoahHdexC/dpO1vL?=
- =?us-ascii?Q?bCSlIKCh939gOlRRaP31/TXg87A2eaC9W0WsARDd0PYN+InwXxYIMxV/2vA/?=
- =?us-ascii?Q?+eJjw0xHs+Dj4/MEwsjqYwfDx0lACiDXALzWZkfVM0zqBT3lqt+PlakV4IdI?=
- =?us-ascii?Q?7HW3jk1avt3LjQ/IRkjRaIAdiJ1vGWC17DuZjQeAHv3ljtYXSEYmbc3toqUb?=
- =?us-ascii?Q?8qzq0ukUo3BSdc/dL1fbFIWGTMKOM6PxXILOXEsYi1IWk/aZ1GAU/d4iGByZ?=
- =?us-ascii?Q?nX9Uu9Dn9HCBuktkFNL4Re+Wb0ho7fE=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 587379a8-fda6-41e5-32ac-08df35d33c79
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 15:42:28.0834
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: njRpOmS7vpYx5HiwHjdHBEZeNy1Ot33Y9r0BtNsIbVX1hdKiYKEaRwOBCqieG57ZT0l/0uRTz6Sfkzb1JbXkFwkiZT7csIV7EnTcmUgfEEgmZpuzPcVHcM/JOLOubqJT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7023
+Content-Type: text/plain
 
-On Thu, Oct 29, 2026 at 08:35:48AM -0500, Rob Herring (Arm) wrote:
-> The initial runtime-PM reference is held only while initializing the
-> NPU. Release it synchronously from ethosu_init() after the final
-> hardware access, before registering the DRM device.
+On 2026-10-29, Sashiko wrote:
+>> @@ -4471,6 +4493,9 @@ static int __init printk_late_init(void)
+>>  		}
+>>  
+>>  		unregister_console_locked(con);
+>> +
+>> +		/* Changed console list, may require printer threads to start/stop. */
+>> +		printk_kthreads_check_locked();
+>>  	}
 >
-> This keeps the runtime-PM setup and initial reference handling together
-> and leaves the autosuspend configuration in place for subsequent jobs.
+> Should printk_kthreads_check_locked() be called after the
+> hlist_for_each_entry_safe(con, tmp, &console_list, node) loop in
+> printk_late_init() rather than inside the loop body?
 >
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
+> In kernel/printk/printk.c:printk_late_init():
+>
+>	hlist_for_each_entry_safe(con, tmp, &console_list, node) {
+>		if (!(con->flags & CON_BOOT))
+>			continue;
+>		...
+>		unregister_console_locked(con);
+>
+>		/* Changed console list, may require printer threads to start/stop. */
+>		printk_kthreads_check_locked();
+>	}
+>	console_list_unlock();
+>
+> Because printk_kthreads_check_locked() is placed inside the loop,
+> unregistering the last boot console sets have_boot_console to false and
+> immediately attempts to start printer kthreads while the loop is still
+> iterating over console_list.
+>
+> If kthread creation in legacy_kthread_create() or nbcon_kthread_create()
+> fails for the console stored in tmp, printk_kthreads_check_locked() calls
+> unregister_console_locked() on that console, removing it with
+> hlist_del_init_rcu(), freeing nbcon resources, and invoking console->exit().
+> On the next iteration of printk_late_init(), con is set to tmp, accessing the
+> already-unregistered console and terminating the walk early because
+> hlist_del_init_rcu() cleared tmp->next.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Geez, sorry. Obviously printk_kthreads_check_locked() needs to be
+outside of the hlist_for_each_entry_safe(console_list) loop. That was
+the whole point of the series!
 
-> v2:
->  - new patch
-> ---
->  drivers/accel/ethosu/ethosu_drv.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-> index 4a24bbd2bb61..38af57807cee 100644
-> --- a/drivers/accel/ethosu/ethosu_drv.c
-> +++ b/drivers/accel/ethosu/ethosu_drv.c
-> @@ -338,6 +338,8 @@ static int ethosu_init(struct ethosu_device *ethosudev)
->  		 ethosudev->npu_info.sram_size / 1024,
->  		 ethosudev->npu_info.pmu_counters);
->
-> +	pm_runtime_put_sync_suspend(ethosudev->base.dev);
-> +
->  	return 0;
->  }
->
-> @@ -376,10 +378,6 @@ static int ethosu_probe(struct platform_device *pdev)
->  		return ret;
->
->  	ret = drm_dev_register(&ethosudev->base, 0);
-> -	if (ret)
-> -		pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
-> -
-> -	pm_runtime_put_autosuspend(ethosudev->base.dev);
->  	return ret;
->  }
->
->
-> --
-> 2.53.0
->
+I will wait a day for v2 in case there is any feedback regarding my
+comments (or lack thereof).
+
+John
