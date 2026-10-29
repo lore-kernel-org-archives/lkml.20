@@ -1,121 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793285087;
-	b=pE1I16N0CZIlUY0vzdmZPcX0JyVuZFRGybyE5dx5+3ouD9zj3wQ1npcTm7z3C70ftjQM
-	 rZL1S2F3K/oPsykFurApBv/aZ12SC4fOSNcVl6L5WbAzo3c796fPuKKwe2vuUxZk6ReU1
-	 zwaEDQQFVW++5RXXjpsE5LmS9Wzhqf+Sx0YwWHLrDPgPCM/0S0u38sX4pBoMOQEjdpnw9
-	 jqFvusSZPrAb/VK+e4WAA09ee3w7ojzKK2tN12NPBga9tpNkF2MZagLFRNdhryIB9NaGV
-	 8oMAvHV/TxYUz9m5k7ggDhID7aIYvXE5kSJwjZpD8KlkDs4yRxwU5ZHiLM1aampctBw==
+	t=1793285119;
+	b=1dZwOXCioAPVzWJ1LfYp7+84vGExfa96GD1Z7a7dKOAHHUHBtcBt3tTim9Tl343MMW6S
+	 upVjiUGeRLVkL705J6HqP0oEA9h9VEal3I5G4oQqV2xU+lNrM/JlY2MGEEGlzPie9dMQe
+	 hvP10cDNFDBjGDmNUGiDdPjJqNhT/HJlollHFAsUNLR6KRdBy4ju2nsS0GPuutqPr5ZLo
+	 NeHqRK2jHlHLC4JeQXgQFM7Sh8kyF+2pALyWesmox7aq77reI7Dofm2dKpJcyxtFaRmz/
+	 7++UPDi40OtEk6EmUXP5IJSsR8pL3gLKcDqD91+OYQ9SImWfeeW3sSKJZFci0ql0ESw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793285087;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=On/WzBslNRdooO2nM6+KcAg+UNarkQsFuaUhWqaMpyc=;
-	b=lpnZnKIaMFh6J8zzB81Hd1xm23Xiz9gW90vL+ZkaslNZJiQJKtB6QILXwyUb3kE3DUBc
-	 8q5mGx0KYIZJLE/NUeRobJkVCt9xju7aQM0qMHYRgnO0gVTsHFcJMupJJb0uy4FRRKg2M
-	 TvtGPcm4x6Y1fa3CZVlTyd8/gMB2Ux3PS/NBFkFERc5MqqKZjVxWbjXB2UXe6WIdkIKgl
-	 ti44630LjVrDlGvQhnPDNV44FlteBYf0KE30IdsBMOvNxBoQs1sMVuk3WZm9QE8CgQyAa
-	 8gMuyJ8LxfwPw15LKiV4dqGX9i/jAOXjUkkgPoTDY2FC2SKxu6zDyUZyKYdYF4a4Tqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793285119;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=CNoBY2EeWHEFgt1yeg9PBZ6U1Amx+8f8ooHrQN3OmPo=;
+	b=J/5kqxSMr+QhzPrnEPVl5QIRy11t1COu0IsNWX1yoGWTTuX2xJyFOVgWNk49wmZG4TNI
+	 uHNm9R68mqOEtD7GT4IFR8J1hirUGcRmd550y4InoHp9dwDSgJhdFd+xQIDPYbHpDhOjU
+	 VkJiZckalYoflfQmIf7n/8//O7959mUppwYfy2K0jPCV+z99zTEEM8KBAuC8gARzjyYJ4
+	 IP4EhMy5abVcHYfNmOcDq2InUfCqnfl9kQlncZiv2kkUk5MRFdkMYlqGcknjtkKNEuumc
+	 2MJnGQ9zTrODHmBwzIvDuGHqp1rCrGSq79wdPsAvQiVm2NPOH2rcduVlJXLJHMyxHVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UrdyCeEM;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GWyd71jI;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UrdyCeEM;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GWyd71jI;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=UiYNZX81;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF2D606A33C;
-	Thu, 29 Oct 2026 14:44:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BF2D606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CB7606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:45:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8CB7606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UrdyCeEM;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GWyd71jI;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UrdyCeEM;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GWyd71jI
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B54C22210D;
-	Thu, 29 Oct 2026 14:44:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793285085; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=On/WzBslNRdooO2nM6+KcAg+UNarkQsFuaUhWqaMpyc=;
-	b=UrdyCeEMKHhopqmzqB8HSWFgIEcKTFU4pSYcOCLxn3f/ee6De+XpoEYELmPbxsMduW0d3a
-	596LYkT6TmeSIL8H/20MEj37EoRurGIvmzIGn+C7tiHkb9FRgi3NS1/YJIcCio8Xnl0i2D
-	pRhue5Oo8xf5WTkSNWH5zZ+V+BQ3HvA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793285085;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=On/WzBslNRdooO2nM6+KcAg+UNarkQsFuaUhWqaMpyc=;
-	b=GWyd71jI75LiMrHVSGXVpQz70/7L7+unh/faDaAFEJ33aAcmosuQKzFL6yk0+RBTU3mlPx
-	hi/UyO4w4CAHTyCQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793285085; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=On/WzBslNRdooO2nM6+KcAg+UNarkQsFuaUhWqaMpyc=;
-	b=UrdyCeEMKHhopqmzqB8HSWFgIEcKTFU4pSYcOCLxn3f/ee6De+XpoEYELmPbxsMduW0d3a
-	596LYkT6TmeSIL8H/20MEj37EoRurGIvmzIGn+C7tiHkb9FRgi3NS1/YJIcCio8Xnl0i2D
-	pRhue5Oo8xf5WTkSNWH5zZ+V+BQ3HvA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793285085;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=On/WzBslNRdooO2nM6+KcAg+UNarkQsFuaUhWqaMpyc=;
-	b=GWyd71jI75LiMrHVSGXVpQz70/7L7+unh/faDaAFEJ33aAcmosuQKzFL6yk0+RBTU3mlPx
-	hi/UyO4w4CAHTyCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C9C7C1339F;
-	Thu, 29 Oct 2026 14:44:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id iNqFENhb42qRUwAAD6G6ig:T5
-	(envelope-from <clopez@suse.de>); Thu, 29 Oct 2026 14:44:44 +0000
-From: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>
-To: kvm@vger.kernel.org,
-	linux-mm@kvack.org,
-	seanjc@google.com,
-	pbonzini@redhat.com
-Cc: linux-s390@vger.kernel.org,
-	imbrenda@linux.ibm.com,
-	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org (maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	"H. Peter Anvin" <hpa@zytor.com>,
-	linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT))
-Subject: [RFC PATCH 4/4] KVM: x86/mmu: don't zap the secondary MMU on permission upgrade
-Date: Thu, 29 Oct 2026 15:33:37 +0100
-Message-ID: <20261029143336.390231-7-clopez@suse.de>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261029143336.390231-3-clopez@suse.de>
-References: <20261029143336.390231-3-clopez@suse.de>
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=UiYNZX81
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=CNoBY2EeWHEFgt1yeg9PBZ6U1Amx+8f8ooHrQN3OmPo=; b=UiYNZX81AcqsZWotAhrPdUoKhY
+	zccdHdWmq6cLFmiQQigs/25ytDI/uU9o2H6rFTfICtQ12PjfYnS3XdAfPbHyxRTyjH4hVKTLKMW1V
+	QeHd6i0IZqh3/6hc44wc/8N9fgyAnPdkqzFJmhSvKm9cN9FOabisxgboOAwHIONBx5w+pdM13pvwR
+	n/35wZCVKRUCK00bA0qDgWwV7Znfui/8tPwj008E8clkL4mO0sj/UCQcvIMda5faqLgjbiW9aF1TC
+	k5OMngvHbl224cQMw7dslDxZdDa8UE2QNlqganGTla+pjc3o/ikRMoJgoyG8JYOEMijefv3JV90Wk
+	0TyQjc+w==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xMRNQ-0035zm-1q;
+	Thu, 29 Oct 2026 14:45:12 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Thu, 29 Oct 2026 07:45:03 -0700
+Subject: [PATCH] x86/bugs: Keep BHI mitigation when only user->kernel is
+ mitigated
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,69 +63,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-16.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -16.30
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-bhi-attack-vector-v1-1-29cfa697efb6@debian.org>
+X-B4-Tracking: v=1; b=H4sIAO5b42oC/x3MQQqAIBBA0avIrBtQK6muEi3MphoCDZUIorsnL
+ d/i/wcSRaYEg3gg0sWJgy9QlQC3W78R8lIMWmqjpO5x3hltztYdeJHLIaKrDVnTtU0vGyjdGWn
+ l+3+O0/t+sQzZGGMAAAA=
+X-Change-ID: 20261029-bhi-attack-vector-c36ea6854904
+To: Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
+ Peter Zijlstra <peterz@infradead.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+ Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, 
+ Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ David Kaplan <david.kaplan@amd.com>
+Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+ Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2158; i=leitao@debian.org;
+ h=from:subject:message-id; bh=M5UzdlFygEbmSIkRv8ha5naqQM0957EzufBscASNrY4=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq41v0niI7uhmlNC0kar19lYqcVDLzaR3ekRhp3
+ a/Qfbku4RuJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauNb9AAKCRA1o5Of/Hh3
+ bStHD/9Ov6zMXiDrMiOtVedSarmYLCzOmkNEqNFCQDb+P6Z54EXigXTpp94at58ofXgajTSKjMv
+ ot3Po+2eb3qIN7i4au//K4oO+U1ABaaIcEOYuAwLyX1STkJncwHzzW8KAIGabEZ638fkOTcJ1y2
+ Re6o0JWDumfQ98xWuGS06U0SmMHgEuk/7Wre2AnX4GooN9KrvM3O7CLIABfOnoDZ0/4qY76al6A
+ idaQWVw1KQNRv60bN0g2U15kzajBVfI9FIFTEGzvyzFYQ9rQyZ2wi4BQppcwPUo7O7mI2BjrUEK
+ n/ZGp5xJ1njTiv2cz+NELIbl0ykaaAbTpdZyp5Svym/1VoDZ+dta3ZfYFgJXd9ppolgX6CS2c/Z
+ Xfks3JI8W+t0ZoXc6R1ZwjaRBzfzSKyjQLEoON0xzo1TpbuNyduGjVepflXeWjK7rT3WeKJlbbK
+ JYRrRfTzZ/Q1aCtOQ6WFPGmlhQF30IMZJDEoLzHkrvo/S7PJzisU2uf1lWLk/XjNS2kwWnDk6p9
+ LhVJ/c0JSjT/J7WQoyee26a8HF3ADhJj1qCM8xvLC5+aFLW1VRhVauyQhxuvCgVEfcJq+sKKsSc
+ RzNTQwA1U/CtqQ55CtH3PtAiWa8tiAlVWaEVycn5O36bpveavGzAOLarGuaXxgwSpbA+CuLuewQ
+ qyV5fWjDsvRdDcw==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-When an mmu_notifier invalidation only upgrades permissions
-(MMU_NOTIFIER_RANGE_PERM_UPGRADE), keep the existing SPTEs instead of
-zapping them. The PFN is unchanged and no access is revoked, so a held
-SPTE is at most as permissive as before. Permissions for the SPTE are
-updated on the next fault, so dropping them early gains nothing.
+The BHI mitigation selection is inconsistent with the documentation
+(attack_vector_controls.rst), which lists BHI under both the
+user->kernel and guest->host attack vectors. bhi_select_mitigation()
+only enables it when CPU_MITIGATE_GUEST_HOST is set; otherwise it
+selects BHI_MITIGATION_OFF, even if CPU_MITIGATE_USER_KERNEL is set.
 
-The motivating case is a userfaultfd-wp dirty tracker such as QEMU's
-background snapshot, which unprotects every guest page as it saves it.
-Zapping on each unprotect makes the guest refault its whole working
-set. On a 64GB guest under a background snapshot, a read-mostly workload
-drops secondary-MMU refaults from ~1M/s to ~2.5K/s and cross-vCPU TLB
-shootdowns from ~1400/s to near zero. Uses of mprotect() that only add
-access benefit likewise.
+As a result, a kernel compiled with KVM disabled gets BHI automatically
+disabled, since CPU_MITIGATE_GUEST_HOST defaults to off without KVM.
+This is a bug, given that CPU_MITIGATE_USER_KERNEL still needs it: on
+affected Intel CPUs these kernels lose BHI_DIS_S or the BHB clearing
+loop by default. Booting with mitigations=auto,no_guest_host has the
+same effect.
 
-Signed-off-by: Carlos López <clopez@suse.de>
+Select BHI_MITIGATION_ON whenever user->kernel is mitigated, and keep
+BHI_MITIGATION_VMEXIT_ONLY for the guest->host-only case.
+
+Fixes: ddcd4d3cb37c ("x86/bugs: Add attack vector controls for BHI")
+Cc: David Kaplan <david.kaplan@amd.com>
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
- arch/x86/kvm/mmu/mmu.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ arch/x86/kernel/cpu/bugs.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index dc2aef72ffdd..a4258a8c0c89 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -1719,6 +1719,13 @@ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range)
- 	lockdep_assert_once(kvm->mmu_invalidate_in_progress ||
- 			    lockdep_is_held(&kvm->slots_lock));
+diff --git a/arch/x86/kernel/cpu/bugs.c b/arch/x86/kernel/cpu/bugs.c
+index 000ebee2d247b1..4ced10c6ba0db9 100644
+--- a/arch/x86/kernel/cpu/bugs.c
++++ b/arch/x86/kernel/cpu/bugs.c
+@@ -2088,14 +2088,12 @@ static void __init bhi_select_mitigation(void)
+ 	if (bhi_mitigation != BHI_MITIGATION_AUTO)
+ 		return;
  
-+	/*
-+	 * Do not bother zapping SPTEs if this is only a protection upgrade.
-+	 * Permissions will be faulted-in on demand.
-+	 */
-+	if (range->perm_upgrade)
-+		return false;
-+
- 	if (kvm_memslots_have_rmaps(kvm))
- 		flush = __kvm_rmap_zap_gfn_range(kvm, range->slot,
- 						 range->start, range->end,
--- 
-2.51.0
+-	if (cpu_attack_vector_mitigated(CPU_MITIGATE_GUEST_HOST)) {
+-		if (cpu_attack_vector_mitigated(CPU_MITIGATE_USER_KERNEL))
+-			bhi_mitigation = BHI_MITIGATION_ON;
+-		else
+-			bhi_mitigation = BHI_MITIGATION_VMEXIT_ONLY;
+-	} else {
++	if (cpu_attack_vector_mitigated(CPU_MITIGATE_USER_KERNEL))
++		bhi_mitigation = BHI_MITIGATION_ON;
++	else if (cpu_attack_vector_mitigated(CPU_MITIGATE_GUEST_HOST))
++		bhi_mitigation = BHI_MITIGATION_VMEXIT_ONLY;
++	else
+ 		bhi_mitigation = BHI_MITIGATION_OFF;
+-	}
+ }
+ 
+ static void __init bhi_update_mitigation(void)
+
+---
+base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
+change-id: 20261029-bhi-attack-vector-c36ea6854904
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
