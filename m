@@ -1,61 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793284390;
-	b=rYwjf+LxOBO4lgWyb6HJqK2HmrECyUTC3TAPeo3036G5uWhKe3V4SEMy9T5XMTVOSIRj
-	 9wTI4iJiC71Rf34h9BUM+6BhqEkYKK/TwNmg5ix+WwAE5n8chJGald+t2Mg32eHpNdxEH
-	 yvxa/Cby6K+kHVAuWAM80RNiVvyV1s79V2rOKjMvOfG6vBgC8nfdRB8i0lsAzUExEXboq
-	 0rqKuPSj3+F3noGtejBrqF/RIUjcoQGfJVXK9Yk81h/NIgROu7W6K9rYiOo8cHwBCUMpI
-	 uN41eqRR0D/PQOPc4QUpkRkleMkKFBx/AgtrnPTvFWDZYpg6qVPRvbNPNJWz7PVcTGg==
+	t=1793284490;
+	b=vfUSqEBEwSd6UqoKgVk7jWMYHtwKtLgC6c9jQ6PnwIhi2h73uKzdyqNys9uhy/dVSwKU
+	 TQEJFfzG4u19QxqVnjBJAAKcPSow8W0gl92yWAs/1QM9dvrbiuOyBylhiOagU6Fwa+il+
+	 qSQ5y6UMZcGzukucicAYEsXJtQR6/igqF5Ez0fhwsUZuU+nANE2UsBAFDwUCYfddnmW1z
+	 QI65gBvfAQSGHiKt405jA2th7eoBXubKf3y1XgmenwgA0Let7lcJz3czLn6e4JLCROeWL
+	 Ope0rSGzhqS2a8r8PY2DdOPgMe2qYiz7+Yw0bPM+2RpCyi/YyQAVAjB2WQbCuiWRrdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793284390;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=PI6XV6wRBKnwx25utlIFilIARw4g6CWAbZMbWDcIpcQ=;
-	b=G5OvUlr9JSTGKjO6O0W4JOHlPsYIZn71RF/QUx5FAEuYTHnxP1aG31qDqiGMhFIJHu45
-	 bYjhQFqz3MXEwhObbqqjujWAMFSE4uDdI/fpBRw5F84qu39RSvQYVZM5itfbKDkGck1VH
-	 6W+KIx72Zb46VQHzDZyr9uCPsOVS2yy3u/Lmu60Iu/dHU+4gAxp5BjtdKF36CdB4w0v2k
-	 xU5K3z9hhbQEsaQIXjbno1Wd2GsCPHO0+/GLb5nzmPQynNUZHKjpt/5H+nRg5D4PP42Xf
-	 GmJZSkOyaMPNe+MIO+4kXhzKqk+kNS3V4GV8/M3lTCwGQe2Z1lr4xO8MUyWimt7d/4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793284490;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	b=RsqzZTXcYMDYwVoggfYDPtqvNd2tgjMCZqRA2hX75zm5+QlhModRoZ10uo2j7SdcGEsv
+	 ZAz1JNBpoZpxdITXJTJOAjZk17ENHA74RtxVP6gI7Hatut1RPTY/v2s1BZAZT47tuUG+5
+	 cV7sQMv00RdHlMhiBSxIwPEcCMGxtX6lDvE229ERF56Wh/9od0KbRKMvv24+9gjqxQgeX
+	 zg5Jm/TaQHMM+zuDDdcq8sSNedRTq7fTW4XL7VLHR/56WLAKQ9gvqd5V04OVWeOxeJduo
+	 OldigMPLJDsfKjZwjfsvrwiH8SmsV4ktvIotOtH4zkWvcYoUbsw34XDp6n+EkJCc7UQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYNGdT+r;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrUdwT+f;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 20680606A31A;
-	Thu, 29 Oct 2026 14:33:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B66B606A31A;
+	Thu, 29 Oct 2026 14:34:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WYNGdT+r
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2ED241F01825;
-	Thu, 29 Oct 2026 14:33:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JrUdwT+f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF1191F01825;
+	Thu, 29 Oct 2026 14:34:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793284389;
-	bh=PI6XV6wRBKnwx25utlIFilIARw4g6CWAbZMbWDcIpcQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WYNGdT+rZn4iYkTdtrdt3yuFvlGqH5uylT98HcZQ3aJNXPlAvgkHO1ioTcugnRfIy
-	 XmIrucKme8qfrUAL7hzh2Q54kdl6bciwVvpW6aM9ObAgOvrd8tN1ovtGCyslVsk30H
-	 Yk0FQtK/OLbXZFW/feOMlCAijzixxNn8zpUnO6NHpzHD843UAlgZOMHvtqbCsdePtz
-	 RFoqmX3AJWuBGJatHpNa9ArDNmDRK4uF5IRckWsthtwAaXt89x5Hie04fUvL7oiGec
-	 H0GJEicq/SXsLHQlsB7ttycEVWzf9by0RKBotVPwPomh+6oqtkGeOgA1KwRBTWwPZv
-	 wiNYp+4z03TPA==
-Date: Thu, 29 Oct 2026 16:33:06 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Eric Biggers <ebiggers@kernel.org>, linux-integrity@vger.kernel.org,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:KEYS/KEYRINGS" <keyrings@vger.kernel.org>
-Subject: Re: [PATCH v4] KEYS: key_garbage_collector(): process in chunks
-Message-ID: <auNZIm0meBH7zHQX@kernel.org>
-References: <20261029140707.2010100-1-jarkko@kernel.org>
+	s=k20260515; t=1793284490;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JrUdwT+fQ+FiuS9C0tJRviDtwdzlfgxHDH8zyWazZyDYseMfaET4ClKbiMAFRn/0Q
+	 NGcP0wM5b5oFMeI4YRQMvtC2feK90NfPqzG68AETX5S8CY+euhndE18JQ0q0QVBohQ
+	 ZXsGpXD00C11bDCWB8UlJqs2IRjxsBcVzCHOh/fmRM7ciwnwRCdygL5tkdHj+HXR9d
+	 8CcyPUgFFOPe/dsN7IGJ48Qi7igv36/SrTR1UVQ7SympFEqn7TvYGRFnZXY28fF2R2
+	 WaA+VkEWYTlRprFfs+VG7H/L9QZkIHxFz41SHCi3S6P41LYGn5arNMkXHJkkamwxeB
+	 rzW2UodHEdshg==
+From: netdev-bot+sinfo@kernel.org
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "dsahern@kernel.org" <dsahern@kernel.org>,
+ "idosch@nvidia.com" <idosch@nvidia.com>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "edumazet@kernel.org" <edumazet@kernel.org>,
+ "kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+ "horms@kernel.org" <horms@kernel.org>,
+ "herbert@gondor.apana.org.au" <herbert@gondor.apana.org.au>,
+ "shuah@kernel.org" <shuah@kernel.org>,
+ "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: 
+ Re: [PATCH net 0/2] ipv4: preserve devinet inheritance after unparsed writes
+Date: Thu, 29 Oct 2026 14:34:49 +0000
+Message-ID: <179328448925.3327.4759543539154555091@kernel.org>
+In-Reply-To: <cover.1793283257.git.x-professor@outlook.com>
+References: <cover.1793283257.git.x-professor@outlook.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,34 +71,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029140707.2010100-1-jarkko@kernel.org>
 
-On Thu, Oct 29, 2026 at 04:07:05PM +0200, Jarkko Sakkinen wrote:
-> keygcbench results without the patch:
-> 
-> unused:   min=3016.754 avg=11859.097 max=28667.645 var=141391574.712
-> expired:  min=0.015 avg=12758.165 max=21516.237 var=85158284.646
-> combined: min=0.015 avg=12308.631 max=28667.645 var=113477010.596
-> 
-> keygcbench results with the patch:
-> 
-> unused:   min=0.225 avg=13.991 max=853.100 var=858.700
-> expired:  min=0.016 avg=30.442 max=2791.695 var=14187.539
-> combined: min=0.016 avg=19.249 max=2791.695 var=5177.436
+Hi!
 
-I personally would optimize all-in for variance because:
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-1. It is insignificant drawback for any practical keyring workload
-   if the total time increases slightly.
-2. Latency peaks are a signifiant drawback for any possible latency
-   sensitive workload running in the system.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-What I'm doing now is to find sweet spot chunk size below 1024 where
-variances reaches its lowest value.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-The latency part makes this change more valuable than focusing on
-only on the regression itself.
-
-Br, Jarkko
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
