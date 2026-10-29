@@ -1,56 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793247552;
-	b=APunUTvRVcvgSWx3ZI1tTUlE426uu9AwCGsCvvxZj4JyDz3lppsKeFuv+Kov5gjuTjow
-	 U9dZ9ZlgMeSYL9lkPj1yPXfItwanPja/uY5tqoHld4Hj29cA5i8OLu3TdXrjLbM4HPWDK
-	 pR8PseubiBgmuAUMKJBmvZxiI2uJ8al6jJXKf3gnRKZ1zez7KjrtGqShMjDZliI6dbCP2
-	 /K2ze8Pz+qxSdbr7fmSN7jyulGbkVib/y5l+hxKTRgp1PJILkAF6aMbPd154pp6i9VHbU
-	 v0OENkJq+06HlvS3WB7cGLVLJnAjEpSAB0VfRlzqD1R0MPrZWmOoOOvPTULxc22KcCg==
+	t=1793247585;
+	b=4k6L/RyPEPOA9BFaZ7SQOuSKVoaR7+rJ5CUPbkvtvHnJfcoMo0gfvhaFnBBfByeCkAth
+	 P4WRBAtXchULOolpyMFGHdwhg/IZaJVDc+QPT9hM0Wzw+9kSWoWqKw3EDfkvHPDzWGQTC
+	 tdqTb9bT+y0lXE0nsYSA7ORdiNlI8wQ1nFjtJyhDdEjY68INDpX988rqgdzEjbARdg3py
+	 pwl685PR9RwzvCrRQptMVvOSuuBhcLCewG78u4M5wXQj9LScl1J+fMFcEiuGvqpzbkiL3
+	 4/ygdymq2wHNfPRKtXzmpLhFNPLNrx+x1u5ezxuyEPjgXwSLIh9LDOR5zsE1lezXSdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793247552;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8UvwvqqL+8oX9fG1K/HLjaNLBYaNBspxDrTwv0Kk+KY=;
-	b=dpsaM4S2IWkeq1VycGVS3p1KAyI3Y4KMV7q80aCX6weESECUJBzpAO1gVGiF6sQymi/1
-	 bRT30VlArIP9ryVtwkyI4IKxyWgzgYzn5WOdBtzNhGLp4e2tdgpScwidhOFNni9lfX0Z6
-	 kh945Ky5Xq/RL5Y6Dh+udsUZQ80iQzS90J1HFvOvu6hIEghZB0pjsFXOhdAVRcEmqoACe
-	 OtM4rI3rEYG5kWZhO3W1bYn4jdO2EJuahfTvA0W6OaHc3Xek5zQBoR6v8CfcvHnaXzynN
-	 5LxiTPb7RSOFA1lEBSjhuRJpcebJ3ibCQ2+Zvxrtnl7+47JUFxSwNWM6rtp5aLoXuSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793247585;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=vtdbgHkkmkI6BxWyVf0K70f1fLFUUYjVeM62+DS5GOg=;
+	b=Mha+4xgzq94da7tCx8KpsOq8U+tBicwHQktetkZU+pW2zm14uIeVyymAAgnMdExpYBAB
+	 BbWSf2BQaq0bPmzLbLa/jeAiTk04HY2WbvnV5ljUJGK0NNjIsrnvI/T7cvL+gSV8iiup9
+	 rgNDWUgpB/tyTRFZ7VYk1Re2Yq9tKZuST5IVYcRYSQwV2X5WhTPpk7hP2W3kxW5eFZoXF
+	 c9SLgGlGHWJQwJDyO4xA5lSyqQrb7/xo169Uw7VBDiBLkVbQYn6gwwRpwaQOxueAOjaBs
+	 fkYAUaYDcxHIRYrTg3ui1FE5WHwIOGNbWa+ueZLvZrvWae189VY1Pt6SlWrTe/sFbKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oTjZBT2t;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mEUXBQkD;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VR2KOB7V;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D1A606A31C;
-	Thu, 29 Oct 2026 04:19:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8EC606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:19:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A8EC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oTjZBT2t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2566D1F01825;
-	Thu, 29 Oct 2026 04:19:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793247551;
-	bh=8UvwvqqL+8oX9fG1K/HLjaNLBYaNBspxDrTwv0Kk+KY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oTjZBT2tT4cqbYkRiJvYGBqLDYKd+opw3aDn2oyfSj3eLWQyUYQ0Qx3G6ljqdC6Gz
-	 snIfa5z5zNwyabrVAlHg+jfv4cNZfZZ8xjFtPJEz9iwPtoiGPym/30tmhsy+X5jJxE
-	 ksUziWQjDtgjInv8pHeVlKCNk/m8XoSfJODy38LK7ZG4bg1NEInyTIOqoN0pD5u8vH
-	 1XGJiUtYMNdP47B7Sh83lGqO+l3YLVfxTSw9+0c0Z8DJ3idR/MFw0rh0GTQnx1njVU
-	 emBdeg1q+setfQ5kxeb4Ub8bmwg78tNy+kd3UNoFHXUqR+Pir4+6+XDMz/2OqOGyqJ
-	 1DDejcLT9nnRw==
-Date: Thu, 29 Oct 2026 04:19:08 +0000
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Andrei Kuchynski <akuchynski@chromium.org>
-Cc: Jameson Thies <jthies@google.com>, Benson Leung <bleung@chromium.org>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] platform/chrome: cros_ec_typec: Enforce
- priority-based mode selection
-Message-ID: <auLJPLArIkwFHtRj@google.com>
-References: <20261028090932.27053-1-akuchynski@chromium.org>
- <20261028090932.27053-2-akuchynski@chromium.org>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mEUXBQkD;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VR2KOB7V
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T1jbqi1340156
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:19:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=vtdbgHkkmkI6BxWyVf0K70
+	f1fLFUUYjVeM62+DS5GOg=; b=mEUXBQkDv5KiiyBa0l7FgDNzMwMOkxu7jm4hNV
+	zmH9MtAgHJUehtYtDndR9U1GOlRq9Uer4DRUXIDIMhOf0CfpO6u3Qt8RlfMdf36r
+	RqCbigf3o7XI4XYIPqkSojGSx2pafuqMHs9WZAfgdI/DYoatkuOk7r05BI7NfGNI
+	Y0VubZuonix+l2sisQGPvS9QQAcGZaiItC/wLDkCd+L+I/2lcfrlfRoYAxH9KKq/
+	zSRO/XEwV/oFnbfUygLrDGiPYdASFiWJN79eMoA+kwYUYUhvrcu0VkLnwbCZjMdQ
+	Op54ukTbUUJGjxkQ/S1rmdJfygy10SGvW4jZ4H1abeMyX96g==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkhtnk8yu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:19:43 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3662e7a9299so6835798eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:19:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793247583; x=1793852383; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vtdbgHkkmkI6BxWyVf0K70f1fLFUUYjVeM62+DS5GOg=;
+        b=VR2KOB7Vfgi/TF/D23xxnroeZuiKG8PnDdXMR3a9iC84ni1MJnUbxEZTyeAhN2Tvc+
+         lQhDR41+Lwfzd8KHdGruQ6F0IqkdIpFoAz60u+71v+Vkf6x8u/22rBrLhDoRrghBwHPi
+         ZiLceK6uxyfFcJbmOOyiswa13FFOKpbrtxvzEQItPZj0h15qe4U7P4EyrP3jI78zySfd
+         gHOW9TtwlGHlvaqllarC93IakK8LEom4q+oMxGQT5BEA8yfLIWuV+sIA2hK8souGLAgp
+         C+dm1SJLlJTNeDCva/qmfpWNTKPFAxnAOWrWKuq7ZWURsALZ79f9/XgRwdJmqnQrqkfj
+         jQtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793247583; x=1793852383;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vtdbgHkkmkI6BxWyVf0K70f1fLFUUYjVeM62+DS5GOg=;
+        b=Do3w6hxxSVX2xCGRoZF05sxq2ZjYxCT09r/DwMQ3zslm90iCGO7PkyCMBoI22GoE3h
+         0kO2Orz2R3xu79DXe7DcQe5pNZvqi3ZKrvPEcx32Jbalm81lJ/KaRD8Kx9tVHVNgz5E3
+         cBvBxH/g0ea5CdDH/xIPptOyyqnAXe5e+c9G5pyUm679vlDEL2XFb5Nx9k2U8Sk8ZtvK
+         F3dRKRDE3S1zIkzpVsoaOAok15jmmPEy9dbLHDUMEvrvtBb/t+e8DKecuMG8CvfYVQ0+
+         xP4e1nbkCh+Du9TmcEjQy7JBhqkkg3/RbbZCd4CCx1AOpZnT+yRIsgZFFbGxEbrkZZE6
+         uS5w==
+X-Forwarded-Encrypted: i=1; AKwUvBzbgE19blQV8+uSadomNwjAYEgtx47240QS1/Zusb5Ihe7bTW2mxdi8uh+BcsvtqTWAyLShX9U223hSixo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5dTSWWdHhgCWFEnmGpnQrAfqB2uU9BE+7koWaKyE1FQLu5PDe
+	QM2eRL1xcdH/ggqg2j5YthMi2xUZfuPOgvlDJS+dQGulLpf2O0tx0ekilvMS+jYMOOLG8gzNV3x
+	Ypjm9VVST1yXUveGxGGy4YA2qxgrcicol3uvlzsdIOGfFdFX8eW1FIjh8SPB9OzBSwAg=
+X-Gm-Gg: AYBFou1w2pyen8rX6fXl9Sg6mgMsVpboAxqM7S0g0NzXfr25Eb4sbO7javnWyVEzUZH
+	alfRQ2QrhtEM5m3PVu2t2XW36cNSgcMqGkm+HQoQK2Ew5vTFuh4CUq6CfiV47ASN4pgX9UBBLBm
+	wIQsRVtidE0zihAS/kzg40xOemHniUZ5hr3t5Jg07Rb2YsQ7iscnHvMBiF0OZJGGlVGhuyty5tR
+	4IbZQRP8NnbdIso1pTqFkIR9RYb10zupEAADv/Gwv4GZIVgIWWBqQodhqYPMb737j184mjlfKMC
+	ghslPEu3Zko/nZDgA7Hf5qRQ75xCPeOCMIwUloYU1DmNigVElomA9KFA56xeqHPiG4UrgGmKCtS
+	KnCMiy0e1D6JNY/jBtF5BMc/NWdxMSoq0dgLWXFWhmwFD8gQj8mibPekiEaQgtZlTONYnv/q68p
+	LcdVrYQqg=
+X-Received: by 2002:a05:7300:56a7:b0:343:fb75:a5f2 with SMTP id 5a478bee46e88-36a203ac526mr5213831eec.9.1793247582910;
+        Wed, 28 Oct 2026 21:19:42 -0700 (PDT)
+X-Received: by 2002:a05:7300:56a7:b0:343:fb75:a5f2 with SMTP id 5a478bee46e88-36a203ac526mr5213789eec.9.1793247582229;
+        Wed, 28 Oct 2026 21:19:42 -0700 (PDT)
+Received: from hu-krichai-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a237be80csm27504539eec.2.2026.10.28.21.19.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 21:19:41 -0700 (PDT)
+From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+Subject: [PATCH v7 0/3] PCI: qcom: Implement shutdown() to avoid SMMU/NoC
+ errors on reboot
+Date: Thu, 29 Oct 2026 09:49:26 +0530
+Message-Id: <20261029-shutdown-v7-0-3fd7a76a6991@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,26 +116,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028090932.27053-2-akuchynski@chromium.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAE7J4moC/3XQy27DIBAF0F+JWIcIhoftrvofVRc8hpoqMa2x3
+ UaR/z04XZRFvEG60j13JG4k4xgxk5fDjYy4xBzTUEJzPBDXm+EDafQlE2CgWQtAcz9PPv0MNGD
+ LRedDANuQUv8aMcTfx9Tb+1/Os/1EN21+a/QxT2m8Pm4tsPWezC5AGVXAjG4Dt9Ko15Tz6Xs2Z
+ 5cul1N5yLa+iNrLyoviW+64tLYx3IQdL2uvKy+LR6sCdl4qaXDHq3/fMVV5VXxgTlsTDPdy776
+ ufVd5Xbwuf2o9BwFCP/Hrut4B3NOQGrkBAAA=
+X-Change-ID: 20260822-shutdown-fe8139dff2b7
+To: Jingoo Han <jingoohan1@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: konrad.dybcio@oss.qualcomm.com, linux-pci@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793247578; l=3648;
+ i=krishna.chundru@oss.qualcomm.com; s=20230907; h=from:subject:message-id;
+ bh=uRZgPWgYEoLVldUGAfakdjG4uT/MDZgecW4/9yDGcBM=;
+ b=bT6Xaze3KWenOsMaOUYwqHiFc5Uldsm9VDZ/llFDDG26Dim9BVoTN1ogdB/wsgayULB0ji9rH
+ LDk8DNaQcMKB1Zt12jvzGZozXuCW1GjY+IbSvsEf3hIfW1M5cYvwBX9
+X-Developer-Key: i=krishna.chundru@oss.qualcomm.com; a=ed25519;
+ pk=10CL2pdAKFyzyOHbfSWHCD0X0my7CXxj8gJScmn1FAg=
+X-Proofpoint-GUID: ExaeHOeB4UA49JHFqaeE3_wMYzodW6EU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAxNSBTYWx0ZWRfX07bEP+2P3spj
+ wu3uO7x5QrRbkwZx9Rjgu4d/CDI0Bv+aiqAZ/n+5ANwe/PzT4OleGDpJq5OjVVE7JLXjYW+GD9A
+ s1Jk4BNMmEGSqWFln7rLMMnMTW6M8ZitlkgR6WwCTcR+gf0kYzuH5rMGsivCW28dApbS+jdu+kP
+ 1jjceQQsMi2kArBa98y6jFIzGSo3NkRREodF6hzRV/OPmv+0aRK9FOFAfNxN56euD2oonSGqHiI
+ LZCChRIZNpYaBa3tVh7rT+g42KdCBIcec++jSUwtceN6/68djAQvHfNhuokkobVJXj4fC3nmc7f
+ 4X1iUqHQBP9QTn5HLMIebnYzX16c2COlscvM/foSyA4Fb0Z768IG16xfZ3Crf9PUYMfvGMkXARD
+ Y0pC/bR79pxwNzZKOe/2h3agSK62On4kuxsH6ESGbiYMcQfhNb8O7tS28ItTpkD/sdEUDp0qy2D
+ 2ZHDaVdtsJxDQuxbA/w==
+X-Authority-Analysis: v=2.4 cv=c/A+0h9l c=1 sm=1 tr=0 ts=6ae2c95f cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=7FPx-eIICnbx9kjoaAIA:9
+ a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: ExaeHOeB4UA49JHFqaeE3_wMYzodW6EU
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAxNSBTYWx0ZWRfX7f3BitPj8nD1
+ PmmcPipgthZlIFcNYQUwTkEKNdpKOnGa0aCY6/6R9Kb0XqDwRr6g+fT/ZfQTcPZVOS7U4I7cPc6
+ ZtQVLMDZedzjtW+aDJ/8jvNdhkvISbc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0 lowpriorityscore=0
+ phishscore=0 adultscore=0 clxscore=1015 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290015
 
-On Wed, Oct 28, 2026 at 09:09:31AM +0000, Andrei Kuchynski wrote:
-> The driver sets mode_selection bit for each Alternate mode, thereby
-> preventing individual altmode drivers from activating their respective
-> modes.
-> Once the registration of all Alternate Modes is complete, the driver
-> verifies if USB4 mode is supported by both the port and the partner and
-> activates USB4 mode. In cases where USB4 is not supported, the driver
-> invokes typec_mode_selection_start to initiate the mode selection process
-> based on mode priorities.
-> The driver communicates the current Type-C mode to the mode selection
-> process via typec_altmode_state_update.
+During system shutdown/reboot, power/clocks to the PCIe controller get
+removed regardless of link state. If the link is still up when that
+happens, it can trigger SMMU or NoC errors.
 
-Hi Andrei,
+This series adds a shutdown() callback to the Qualcomm PCIe host driver
+that forces the link into L2/D3cold before shutdown proceeds, reusing
+the existing suspend_noirq() path.
 
-I'm less familiar with the details of cros_ec_typec and its friend drivers.
-Could you double-check the Sashiko review [1] to see if any of the findings
-need to be addressed as they look real?
+Patch 1 fixes pci_host_common_d3cold_possible()'s underlying bus walk,
+which aborts as soon as it finds a device outside D3hot and can
+therefore miss a later PME-capable device -- something that becomes
+common once patch 3 starts forcing D3cold entry during shutdown while
+endpoints may still be in D0.
 
-[1] https://sashiko.dev/#/patchset/20261028090932.27053-1-akuchynski%40chromium.org
+Patch 2 adds a force parameter to  dw_pcie_suspend_noirq() so that callers can
+set to make dw_pcie_suspend_noirq() force L2 entry during shutdown/
+reboot, skipping the D3cold capability check that can otherwise leave
+the link up if any endpoint hasn't suspended yet.
+
+Patch 3 adds qcom_pcie_shutdown() and wires it up as .shutdown.
+
+Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+---
+Changes in v7:
+- rebased on pci.
+- Link to v6: https://patch.msgid.link/20260909-shutdown-v6-0-62b7bd123236@oss.qualcomm.com
+
+Changes in v6:
+- remove return 0 in d3cold_possible() (konrad)
+- use force as a paramter instead of the element (Mani)
+- couple of nits (Konrad)
+- call pm_runtime calls for firmware managed one also as we are enabling
+  pm_runtime_enable and get for that also.
+- Link to v5: https://patch.msgid.link/20260905-shutdown-v5-0-f0c6bafa1d4f@oss.qualcomm.com
+
+Changes in v5:
+- use a flag/parameter Instead of poking the system states (Mani)
+- Fix pme_wakeup issue by walking through entire bus (Sashiko)
+- Fix Irq free issue by using dwc free msi API (Sashiko)
+- Link to v4: https://patch.msgid.link/20260826-shutdown-v4-0-eb5fe9d454ae@oss.qualcomm.com
+
+Changes in v4:
+- removed goto d3cold, (Konrad & Sashiko for PME error)
+- Disabling MSI IRQ's (Sashiko)
+- Link to v3: https://patch.msgid.link/20260824-shutdown-v3-0-81c14bb7a1af@oss.qualcomm.com
+
+Changes in v3:
+- Added null point check and use pm_runtime_put_sync (Sashiko).
+- Link to v2: https://patch.msgid.link/20260822-shutdown-v2-0-520a68f1b4a5@oss.qualcomm.com
+
+Changes in v2:
+1) don't remove the endpoint pci dev's only keep link in D3cold.
+Link to v1: https://lore.kernel.org/all/20250401-shutdown-v1-1-f699859403ae@oss.qualcomm.com/
+
+---
+Krishna Chaitanya Chundru (2):
+      PCI: host-common: Fix early bus-walk exit in d3cold_possible()
+      PCI: dwc: Force L2 link entry on shutdown/reboot without D3cold check
+
+Manivannan Sadhasivam (1):
+      PCI: qcom: Implement shutdown() callback
+
+ drivers/pci/controller/dwc/pci-imx6.c             |  2 +-
+ drivers/pci/controller/dwc/pci-layerscape.c       |  2 +-
+ drivers/pci/controller/dwc/pcie-designware-host.c |  9 +++---
+ drivers/pci/controller/dwc/pcie-designware.h      |  4 +--
+ drivers/pci/controller/dwc/pcie-eswin.c           |  2 +-
+ drivers/pci/controller/dwc/pcie-nxp-s32g.c        |  2 +-
+ drivers/pci/controller/dwc/pcie-qcom.c            | 37 ++++++++++++++++++++++-
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c       |  2 +-
+ drivers/pci/controller/dwc/pcie-stm32.c           |  2 +-
+ drivers/pci/controller/dwc/pcie-ultrarisc.c       |  2 +-
+ drivers/pci/controller/pci-host-common.c          | 13 +++-----
+ 11 files changed, 53 insertions(+), 24 deletions(-)
+---
+base-commit: 17bb0e2f6c8043f70a693a5f3797471cbed354c8
+change-id: 20260822-shutdown-fe8139dff2b7
+
+Best regards,
+--  
+Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+
