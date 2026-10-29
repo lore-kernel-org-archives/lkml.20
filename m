@@ -1,61 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793261918;
-	b=tHTG90LYuH9vvmL09rgR1Uot8Ga+0i8Ae8V4d9WZvNzokoKfmModd6AxI9R3UcON04Hp
-	 Xbr+7bkhKd3rizU6DZmCq1fDb9wBJiMW6rIReBsRw9ZdD3Pi1fEVsy3/Qk37GdMcH4j7S
-	 mrUK4ywi3JdiOkxHi0Vgs6/GBOkGZjGsomlT5nTIsIwkJPgdXg7PQrq0yXgVEgH2SHlhS
-	 8hKgIVKgF5YrEjMW3CW589MTxCbyIS2FcMUngAevMhTuB4Au3tJIhBw04dOxYn+HMJ7CF
-	 iChMoVF+UDk11lpxYy2QhRurmUoROQG3ySIz7n1mxpwl7jw/vG40mdqGSDLarcNUdng==
+	t=1793261971;
+	b=USeztI3XsX0v1gyhIug1RltxbqL0zCmlZ9hpZi4My/AVAcWQqDwjTvBD0vuc6YGPWIsj
+	 bcm8IIcseD1nfDaT6LFIVGKE1jGjWv+lZ73GqwmyJo2u9F+UvOscleeXdW2E2PlzWRRpL
+	 qqBoUHioMg8lDazCyHY4Fuw9Dh/Ags6ExKgcucndo5mPJD1qxLpsKncng8m1ihDLIOr0+
+	 rmEaUvMO93QVsj7kI/OSBzfiqMHeg5OEGThTmiPDzJvrCEByZ1QyEmRzEf3BExHjDSSG7
+	 IvGhp1zMo/MWhdSwzfZNFP9MibsuMGYXr6SyT2Wsk39ZBE16dx8v+P834BNB+vzWvfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793261918;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:
-	 X-EPHeader:X-CMS-RootMailID:References;
-	bh=0lgHRoa196DEU+2U1lk70FoFCFplkDsDz1Bz0nF6vpc=;
-	b=gjFyb6ugKKRikwJmaXFqNTK7abI7KwxeQZDMh8EIr8CbFrGrR40BkAIXCY7KWi7kVF7k
-	 KV49gcCDSYIGKS4682KccfgTnUWOb7PA1tzbGDLwhY+X2BM0z8sg/zKZgX/q5E43BgHtO
-	 JN3u97NUl3depGOhQi50DsiJN+fV/4+nlKajpCn178hmJSo/FzgDQXgCsV2I+ow6baACs
-	 mQ7cXbvSqZsruH6nmocVx+csqxEdY91aTh5Q/+DrTgEdajKIYPCthW+ltmya1506O9zjw
-	 D+AMNHyiHyswvrRrGd9wBGMnzJrA2DbEH31UfFef7EOCn2Bo53p9UPVGyusSL7lG1PQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793261971;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=FeXIiIhrvwIbQYpkMBfVZTtFWwz8pmkJmpDbtGyoWCM=;
+	b=tWz5uWvLEG4XvomjjEGdMioE4GhdIUnJNeqseiTZN6wn80E8dTDGuLSB8V9Kj8zxTCoQ
+	 WnpYWnussQ0YSp63hTN1hbuIiKPZ3gBj9nBjdJ8YwORP7elwSkvo06YVeKTB+47D/7QXE
+	 eE8gl5VlaV+MPYLNFvRSK4rAdH5h+0s0DTKUxs5tUyMHsagbVG+8KuqpYV/jSCnVk4FGG
+	 LvqgeCZYJUtwyVMh7pe3OEOVEzDZs35kAMuPJ3+MSTRFmANyyQ7xpqxkg1D7SUjPQssxN
+	 OICwWLVc9SMyJeVVtAGUTs17yyn+e9NxCM4+t8Xh5Rz4zs25brvZfXruVjP04+i8QoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=VAObjPjS;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SaS1trDJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FB8606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:18:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83FB8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A87F606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:19:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=VAObjPjS
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261029081835euoutp01843d7a8b21cf087248effdc749ea277d~i8jYOzK2b0996509965euoutp01K
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:18:35 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261029081835euoutp01843d7a8b21cf087248effdc749ea277d~i8jYOzK2b0996509965euoutp01K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793261915;
-	bh=0lgHRoa196DEU+2U1lk70FoFCFplkDsDz1Bz0nF6vpc=;
-	h=From:Date:Subject:To:Cc:References:From;
-	b=VAObjPjS2TY/SX4X40nIReHrB6Gf9/nC4Ty+LHPFAbmqtDo9dIAStoadIx1rX4WhM
-	 2A+ZGkSpSIRYFfwvj2S6DG3xjde1aUoSqXQg+hflKlB3R2zcTLgqRudotEaNqj0IKQ
-	 Ny6015+uRrXUr9ZjvVV5KVEe2dlUnJAadAz89DLI=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261029081835eucas1p290190c4899f87b740d022b9db9bc361f~i8jX9Cv7L2606526065eucas1p2e;
-	Thu, 29 Oct 2026 08:18:35 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
-	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261029081834eusmtip19ac2ae38f3972126e7d077eeb848237a~i8jW-rEcn2949629496eusmtip1h;
-	Thu, 29 Oct 2026 08:18:34 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Thu, 29 Oct 2026 09:17:18 +0100
-Subject: [PATCH v4] drm/imagination: Align rogue_fwif_hwrtdata to 64 bytes
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SaS1trDJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F86F1F01828
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:19:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793261970;
+	bh=FeXIiIhrvwIbQYpkMBfVZTtFWwz8pmkJmpDbtGyoWCM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=SaS1trDJ1gzpH2U0IGvtIQG3LLppT2u2ZK7Xc53HihvkiYLkdwb9aAzBz3yolfStB
+	 C+qdRJMnj+8s/u5mu7VKoZajBeywc20wIPRj4qHjp6aC7Aejh9PfZ0o3xV3DQnzeQO
+	 5uHcAErIy90MHIduVX6vVyt+oe/pDa9TeRhdevpt2X7IriDBvfVOQQNwMLDokKQT2i
+	 hQy2qAhWWYGTDFa6Rghl9T6RcB13GdA0r9rQRM5XjcNKSBc07rzL2eacqUyUGAFmG4
+	 L/OhGuk7kHzuizwgqX15M2B+2gwt+BdnywdgLJnUOAkZbaBwG0ZN8nDrSwEZQtYeyA
+	 kdSIF6XEs71kQ==
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4697404c2bso251640266b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:19:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwvDZP8Wl2o1F9BmXrFYG8p7j6fxdKSt/rumELj4XLsSqPn4AeudHZMlCvh2bJToaWCrLjThFSc/phmbn0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOSl4/P89XBg1EIEX8zEm8EPLVDPqR7IR9G2cnzBZnHaKhJJVD
+	KP+o3z1dptlBan+xG/KAgIhNnhzDQPqbXC3EgsJTMOq51MBIpqAErM0jReIk908QoJzn2m0OWHx
+	CVRE38U+OZ68jaNjv53olBYx/FuI/vSg=
+X-Received: by 2002:a17:907:d78a:b0:c49:8fa6:f585 with SMTP id
+ a640c23a62f3a-c49be05b2f0mr389440166b.38.1793261968871; Thu, 29 Oct 2026
+ 01:19:28 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,105 +59,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fix_imagination-v4-1-689745dd52ef@samsung.com>
-X-B4-Tracking: v=1; b=H4sIAA0B42oC/3XOSwrCMBAG4KuUrI1kJq1NXXkPEQkxabNoKkkNS
-	undnRYEpbj85/HNTCzZ6G1ix2Ji0Waf/BAolLuCmU6H1nJ/o8xQYAWIyJ1/Xn2vWx/0SLNcWSd
-	MU1LPlIy27tHSyCqeL5Q7n8YhvtYDGZbqfysDBy60UUKjcxLqU9J9eoR2b4aeLVrGj3AQSlRbA
-	UmoZQMapFENuK0gvwQQW0GSYOk/WTU1ojO/wjzPb4VZ0LQ0AQAA
-X-Change-ID: 20251222-fix_imagination-8ef0c94122c4
-To: Frank Binns <frank.binns@imgtec.com>,  Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,  Donald Robson <donald.robson@imgtec.com>, 
-	Sarah Walker <sarah.walker@imgtec.com>,  Alessio Belle
-	<Alessio.Belle@imgtec.com>,  Matt Coster <opensource@mtcoster.net>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,  kernel
-	test robot <lkp@intel.com>,  Luigi Santivetti <luigi.santivetti@imgtec.com>,
-	Michal Wilczynski <m.wilczynski@samsung.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2756;
-	i=m.wilczynski@samsung.com; h=from:subject:message-id;
-	bh=JvFUP7flyqTbe0DcKzZ1qgU/tpsVC6tlbD1knLD9FIs=;
-	b=owGbwMvMwCGWumv6zndzRCIZT6slMWQ9ZowKeise9Fucc5e+ZeNaDomt8jlzd/wV3bmP1Tdui
-	49gyDWFjlIWBjEOBlkxRZazG6ONJP8xPC0//vgXzBxWJpAhDFycAjCRx0sYGc6sSep53XNNnGdN
-	6yqRnZY2DkVZM+ycdW3jxPU/J8Rq72ZkeNVZGVvwTa232VHkYMXZ55bL9v8rubFMYUb6pY8Pvin
-	28wIA
-X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
-	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261029081835eucas1p290190c4899f87b740d022b9db9bc361f
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261029081835eucas1p290190c4899f87b740d022b9db9bc361f
-X-EPHeader: CA
-X-CMS-RootMailID: 20261029081835eucas1p290190c4899f87b740d022b9db9bc361f
-References: <CGME20261029081835eucas1p290190c4899f87b740d022b9db9bc361f@eucas1p2.samsung.com>
+References: <20261029012532.222013-1-icb@fastmail.org>
+In-Reply-To: <20261029012532.222013-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 29 Oct 2026 17:19:16 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9ne0aJudrs2GEqOfTAzquTRN5Q4qfafCFgAo9baqH8OA@mail.gmail.com>
+X-Gm-Features: AclHuK8ji3dmaGQDuALVjPa9jyjsHAG8Ln84jsSSYMUvBfi-wh1jPoXMHUmzyQA
+Message-ID: <CAKYAXd9ne0aJudrs2GEqOfTAzquTRN5Q4qfafCFgAo9baqH8OA@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: enforce the read-only share flag when creating a stream
+To: Ian Bridges <icb@fastmail.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, Gael Blivet <gael.blivet@gmail.com>, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Sparse (W=1) builds fail because `SIZE_CHECK(struct rogue_fwif_hwrtdata,
-384)` expects 384 bytes, but the compiler generates a 336-byte
-structure.
-
-This is due to an alignment conflict: the inner member `cleanup_state`
-requires 64-byte alignment, but the outer struct is explicitly marked
-`__aligned(8)`.
-
-While a non-sparse build implicitly pads the size to a multiple of 64, a
-sparse build strictly respects the 8-byte outer alignment, resulting in
-a size mismatch.
-
-Fix this by aligning the entire structure to 64 bytes, which resolves
-the contradiction and forces the correct 384 byte size on all builds.
-
-Fixes: a26f067feac1 ("drm/imagination: Add FWIF headers")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202512131851.1WNXk3BC-lkp@intel.com/
-Reviewed-by: Matt Coster <matt.coster@imgtec.com>
-Reviewed-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
----
-Changes in v4:
-- Reworded the commit message to state that the size mismatch is reported
-  by sparse (W=1) builds, not by regular GCC builds on RISC-V, as
-  requested in v3 review. The commit message rework announced for v2 was
-  never actually applied, so v2 and v3 went out with the v1 message.
-- Picked up Matt's Reviewed-by from v1.
-- No changes to the code.
-- Rebased on latest master.
-- Link to v3: https://lore.kernel.org/r/20260810-fix_imagination-v3-1-e512359722fc@samsung.com
-
-Changes in v3:
-- Cleaned up the changelog section by removing the accidental b4
-  "EDITME" template from v2.
-- No changes to the code or commit message.
-- Rebased patch on latest master.
-
-Changes in v2:
-- Expanded the commit message to properly explain the root cause of the
-  GCC alignment conflict on RISC-V vs ARM64, based on v1 feedback.
-- No changes to the code.
----
- drivers/gpu/drm/imagination/pvr_rogue_fwif.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_rogue_fwif.h b/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
-index 5d590c4c25663e431601dd26944465b62c31526b..2f8daa93c9e6832bbeec7460275c4b803792cb02 100644
---- a/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
-+++ b/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
-@@ -2174,7 +2174,7 @@ struct rogue_fwif_hwrtdata {
- 	bool geom_caches_need_zeroing __aligned(4);
- 
- 	struct rogue_fwif_cleanup_ctl cleanup_state __aligned(64);
--} __aligned(8);
-+} __aligned(64);
- 
- /*
-  ******************************************************************************
-
----
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-change-id: 20251222-fix_imagination-8ef0c94122c4
-
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
-
+On Thu, Oct 29, 2026 at 10:25=E2=80=AFAM Ian Bridges <icb@fastmail.org> wro=
+te:
+>
+> When a share is read-only, smb2_open() rejects opens that would create
+> or truncate a file. Creating a named stream on an existing file with
+> streams_xattr sets neither O_CREAT nor O_TRUNC, so it passes this check,
+> and smb2_set_stream_name_xattr() then creates the stream. On a Time
+> Machine share, opening a missing AFP_AfpInfo stream also writes one. A
+> user who can write a file at the filesystem level can therefore add
+> streams to it through a read-only share.
+>
+> Do not create a stream or synthesize AFP_AfpInfo when the share is not
+> writable. Existing streams still open normally, and a missing stream
+> opened with FILE_OPEN still returns STATUS_OBJECT_NAME_NOT_FOUND.
+>
+> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+> Fixes: eaff8e924f60 ("ksmbd: synthesize empty AFP_AfpInfo xattr on first =
+probe")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ian Bridges <icb@fastmail.org>
+Applied it to #ksmbd-for-next.
+Thanks!
