@@ -1,84 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283235;
-	b=mMcjXjvv7DUvnh8rHk7MGgSfDFHYrRHneVFddQ+Ld8JKPs7sNo4o6NgU1irJuIYTeYs8
-	 +wVpYfh8bSGUa1e7S+fBOuMcrV/ZJQmQImwvRAZqbyP5kLY3dz5PlZJEc+zCs4rIOCpA3
-	 8vOOGcRbiiuLn3AnQ+C0/O+YPdQX2ZQlMPNsTvStEIzQsWIu3g0+KNzsxYPh4eGnvNupm
-	 xQxQu9cPTzVZdsYUO0/Oaye6SgthMuC+iHZLPKJFRbXC+hEHjLbW/QnAQzT/jEi1mGAys
-	 2gxtizWR/0t+NKopqx8TDg9cWijJLOELZ9Dlo42IGiJZAcVQU9JmjcoeiUt50A3pzJg==
+	t=1793283236;
+	b=oV4q+QpcizOJ5YekpvqLxJGxDDSxYDdYABNFz3uhinhhIuKBN+TxNyvIVYKhS3kn+MaR
+	 3Qz6UXcJQqO2PJGxZlXkkxHHI/642uNSMqakxLHjiuDYEgmd3Tq/GVJ1Ah1PyY7vYVW86
+	 WzGJVjBdkYcdhpdaEBsQaTye58KGFmF8MNARU2bWx/r2V+1AINi32UfrgX+8T/TdMw6+D
+	 UQLKuESS4oI8jWhqNCoo125l/Ux3aaROQgSeLptY2hkCdSTix8zNJsbGE8v9miq7w/Bb+
+	 9ovpWMyIxpbJElz1Kghx1KrLgw6iYPjrOli3E7koI+YQLcGs78qQuX4TsQB4nuof/2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283235;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283236;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=VHQCBBokr9ANF1mnkSximMg4YC5imaFH/YUHtOF7V4U=;
-	b=LK6abEiIxLqPLdAgqclDJiuSQ3KegBz18Wic1jY3gL8NMiEmBwHBYqmbJ5cQc6sFNK+E
-	 XUzuczLAQCvPZB8Y06MljPiFRJgN0KtZjPmF8a0ZWVIMbDuPudTIN+pBbzgV/MTIkDrkh
-	 a+Fm1HFBzx+Bk9qvS0xoIVFgC5MvveTZ8n2hBhOv4F0BvRyBV5PgMBlE195DpvS/HWc31
-	 kQ9RyzuQggTk/x5AwvC9YStwvLwoqzM2MmErQkUddmAyRpJTOLkL0/01DHs26zzgjJzTX
-	 wo1L6DxkeXV19beeMkJzrMN1eNIS17/zVbW+enUtI4+9IMF6cCuEAZozEEh/EL/aWPQ==
+	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3r+oUtLtuj/VEdpEb4bPGrKTCpCHtCaw4EjdujKT3MA=;
+	b=WGwafKfArMXwD6X/srBDyltoByeOx39oa60H/ecsbIOnHjVZwb5St8tmIcqhbPSaObis
+	 1fqHt3QNokrooRF2QTfO2t/qYgRGjiWgPdp6cqh06RnXrVw8t6mpRwjakyfVljj2PlEKz
+	 cvuWaLIQ61yrQFnHrCVYDMu8PbKBCfvoUw0ZczrLCWqifU+G8ZOjGX5zCUhtpRjCJ8XIg
+	 Ejvr9L5C9VxSZ19yB786B0ib5RQgJ90iCvcsdz14BTe1UV10vbL6XZcsZbJKN6sH7rw0n
+	 +4JbXj7ZGHw1MYt7eOIlaOpEtEe97UvkxGRQnp2r3KdrCDiGADuc4ymQHa5yyAlxKRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b="e5/0LFuu";
-	arc=none smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f4tltNeF;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B644606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:13:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B644606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1202606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:13:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1202606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=e5/0LFuu
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c43fbcb4393so345596466b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:13:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f4tltNeF
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-156cbe59524so2427131c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:13:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793283233; x=1793888033; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VHQCBBokr9ANF1mnkSximMg4YC5imaFH/YUHtOF7V4U=;
-        b=e5/0LFuukNHW7lzYuFosRJh+HCYXR9pyFNiQxvyIIBVipBFBgPFdS4+6o0e/VLtSHP
-         D2NV+uWECYwfjgApOljWOGHKCse0y1GozqH0FgOpVe2BGPs5fNsPIa/znV1SPRUcfRzC
-         S2HvVwG+whXsWeX2XViUnh1wbiyPOAgZYzqXUt26yduzQ4O2OmGCssgjZkXAmf+1GtpK
-         qCiL3bvCUG1uU/sMo60Z4jhr+nRw7l3FkT58U3zkvqVemdPsgtw1581thB5KWAkrpUg5
-         ZQXV5QFXWQJRc25kncj0f/n/AZy335nPp8YBto+psFG1ofitw09eWSoKIi34kVGWTlCu
-         Ewrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793283233; x=1793888033;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793283235; x=1793888035; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VHQCBBokr9ANF1mnkSximMg4YC5imaFH/YUHtOF7V4U=;
-        b=uQiadAUBYAAmHG/4cZulhlTOEJXhP6ONTUqYC2B5GrWu7BtvVqO+lSn93wyoRHczZi
-         aaBefc2iuAYBuOtsDk8RvHc2QoEQqVOf9teuO8DuvDpglQurn0aV+Aeo1ubfGvCkHLtv
-         55m7oCZIJykbJYkx12zFeXQi4fFuSJ2ga259gEbGWFgRa0wiV48tMAS11gNNtLUu4ufe
-         gzNQiqkWomCaWsUyDDWUOtcc8XfusyWMIvOU2EsMrwcN0pxSLWgHgeVaeeDRscgFXbl3
-         63ebfkGeBD9nF/wdqz77Qf9AjyTvAlFYUr1akE70RaB/T60pLJFxYGExgJBuwiQD2dP5
-         +g2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxFq2+QAyJi5XoLX+DQ3VYSoVuQaFl7Dq3waPeJrtUEFBaoZOG7ZaPSyWkw9//xqumYsR3x07AXOm8uTLc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLF2vmsazLFzMjvAeNXEXBlSqUrRg2KytU4VcBAKpqJKnvB+cnx
-	mFp2Mo7QSaMOCyDR+oR9DQ017utxOxvFpHO94D1uMkJTuMaATicuNBvBFmjgJp4R68E=
-X-Gm-Gg: AYBFou04h+nW75y8Cp/Px61yc4CA6q75rkan1iLYVzEKz73/AklA4X8DO1riAM6cgk1
-	cRpBMdzBCh260FE/DIxkwfYsk1zxOvdskuZ9fbCztM5WcWwfAAlb94M91Or52rCMuipVqr42XWD
-	Tm0Jacl1W8E62a8RplL5GnVX6/G41WPs8QOGRZFwPLAs0YEJNQBkQTJBBm2aWURUWxiNu+E7J/J
-	6gHLKH9QEnwn1PNzl4NioSAsJ6nUOdUhe6JHtH661DduY71+u5q4VYWtQoieUZQjpOUNHCIRGbp
-	K4A1fiICcefu8H4qc3Krg3p1ECr54iKj6SeW4JumaYQReHXUgNmYHv/cs4Kj1OomZ+N+KWWjGY4
-	YLgQ4i1Dacs5YvDGhn31GJwasTBn7yPpNSQgyZPbDMxfWVWXJ632OqWyP1xiA0bYCsYLSPvX8jR
-	xXnvKISSPjo84jC5pG1kQmdzipzy451B9kLTM+BRPeQC39qSFqLQboH+zds+77j0oXM5rO2tlR6
-	1FKT10QcGX1z/JebzxZ1NGXX6Y2ET9kSbJdmJJYbwNPpm/YHK8sx4rIQ52IiCtp5dFPvFk7Ww0c
-	eDBuYW9vrk9H3o8AKUs=
-X-Received: by 2002:a17:906:7313:b0:c45:c030:732c with SMTP id a640c23a62f3a-c49be03a73amr545832866b.41.1793283232717;
-        Thu, 29 Oct 2026 07:13:52 -0700 (PDT)
-Received: from localhost ([2a03:2880:32ff:4::])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4992141068sm521507866b.60.2026.10.29.07.13.51
+        bh=3r+oUtLtuj/VEdpEb4bPGrKTCpCHtCaw4EjdujKT3MA=;
+        b=f4tltNeFTKLnbUz5fjFCsuUFaUTE4hef8VkRvpIXiFKDI+Q+4y4RSyo2uDZaO4cFqS
+         hsX2K4LGItbsDAeTgBApvLi7AwGt4HD6ojALeFIrXlX0nSvztfjEyqHA2IH89+Ky2F9p
+         3tdARLW2Y/G2DTpZmFgXa2rTTRzRmZxzUl+1rFgB8sPVOHwlsCbm6jgfq0H2qb6c6R2d
+         isdQ9G/JcfhnYNrIkmftITH3EeFMIqEdIxtTFBeuDq1KcowgrZMxo7fNCZ836RU/iIjO
+         LOkkKQE7j4QvBAiK3GAFXIJF0cGfkHwvJRVTcZQD261r/+cI6bCH3IeFhnSTOwWtGpAo
+         K8cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793283235; x=1793888035;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3r+oUtLtuj/VEdpEb4bPGrKTCpCHtCaw4EjdujKT3MA=;
+        b=cBSPRxXppSrnMk6nwaJaI/18O0OlLLEUbj/Wc8Vlay4zK+/w6widhx9UcrDsdz8Gq7
+         Dk63PEniJMU3leZiExvTSIQwufTRUhKUUbU+4u2RaYprBKjsn2QPiL7x2TS9TPMXkHED
+         atcXCqNYzunRRb9tzx7hJ7BqtNzb/dleeIECur4/kXlcG5eyYE9ZgzBbhopVm+8jAtNd
+         kKJxWJ7CQ237OQJA9aDgg6kdgurK1ZFnjtBf6d09EAqtyjgM6nQdoLQiOxeDV/aq5cv4
+         oSE8A9eayIiI5byWN4RL7USBYXRFvgje2perT8doZB/DL2rMReQcrn34j5WO/F1CDeLw
+         Tfig==
+X-Forwarded-Encrypted: i=1; AKwUvBw6QKW9CfGf9yHqXDuIl+o2quWQj0nG7BCe871kHY2wlIKSmQ7wcolhfOI3Tisn20Lp0lWFEohV+TiTYdc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIm5undOjvlQo1Zsd/M0+vikU+kvV5Qpm2WJDBbMnhQXr3nwTii
+	ijJHVOHVU2e/sYTvUWwwkHLVkxfFA49i4BIoq4gguPDX/iMYGU+I0oEjJtsvHl97
+X-Gm-Gg: AYBFou3/0D4GtpUzO/i1vEBv99bZD1AbafLBBVSa8JMkSmgBZvpOeJKqsn7JH5/PDZh
+	clV5XEieJ6blbZdT7C1fI0FJVHKKJJkyVejjyPTxTxsZtEk4ngcv04nAagZgD+MvnT4MAa84OlX
+	SgrHISbvszAeRM0MASdjGQMAdz2/vNDGLremCpXmEiWrH3Rpsp4ZjJxsY9Gl4RgJU7jK2SrSDxp
+	5Z2BV/D0Q0VC6YFkuktnT0hCyj4ORjO5GR2Aj0FHnRmtTovklMUrEbu/qmxTpHCvWFHVj6ljEY8
+	z3mjiaqcS4/33F3T4pvFw+q41d13wN2GPsms1Derc9s/8TTZnD6G58R30sM6/0Zkng+LBk+u3Mw
+	kKb+xzyWMHqSMzc19yJ+rxVZ62ldCUKEjY3ToMo9aM4bmx7LAMKhQeVhdU02We4I5d6bbjoBy5b
+	az56jttjLdOVJpbZbbA7JhVF+PtvlNFTkfL5Axipq/ZgYnfUkzBQeJLeXCvGntD9U1h7AFv6N9k
+	7ym3JMBWMTLsMlkgUijKjxPPEfhKrjLR6x91GNhicDUHwiCXiqSumfeAwU8Ifo9c7e4j79x4pQT
+	k3lWwZGJDTUAdNig+cr8WpV58V45lZGF2o7TdcXCMTLHeiuC6mQY+g==
+X-Received: by 2002:a05:7022:6b96:b0:19a:51da:f54f with SMTP id a92af1059eb24-1a6cd498fffmr10891624c88.14.1793283219708;
+        Thu, 29 Oct 2026 07:13:39 -0700 (PDT)
+Received: from [127.0.1.1] (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d76814bsm15197319c88.10.2026.10.29.07.13.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 07:13:52 -0700 (PDT)
+        Thu, 29 Oct 2026 07:13:38 -0700 (PDT)
+From: Cheng Yongkang <teel4res@gmail.com>
+To:
+ Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject:
+ [PATCH net] net: bridge: mcast: validate the source limit before replace
+Date: Thu, 29 Oct 2026 07:12:20 -0700
+Message-ID: <179328314075.648427.9644307795980106759@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,75 +99,106 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 18/46] mm/khugepaged: check if PTE table is empty in
- try_collapse_pte_mapped_thp()
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Gregory Price <gourry@gourry.net>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-cxl@vger.kernel.org
-In-Reply-To: <f9067f65-fcdc-4ebb-bbf8-84db9e22af0d@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-18-6f74bec9a5bb@kernel.org>
- <179323853182.453251.8510731747954180380.b4-reply@b4>
- <f9067f65-fcdc-4ebb-bbf8-84db9e22af0d@kernel.org>
-Date: Thu, 29 Oct 2026 07:13:51 -0700
-Message-Id: <179328323124.453251.12177231963891458248.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-29 12:01 +0100, David Hildenbrand (Arm) wrote:
-> On 10/29/26 02:48, Gregory Price wrote:
-> > On 2026-10-27 00:17 +0100, David Hildenbrand (Arm) wrote:
-> > 
-> > I get that you want to avoid taking both locks while zapping, but
-> > wouldn't it be simpler?  I suppose we don't know what kind of
-> > regressions might pop up with that though, bah.
-> 
-> Exactly, that's the spirit of the original code. We would just block a 1GiB
-> range of va space for the entire operation.
-> 
-> If you think there is a more elegant way of doing it (while minimizing holding
-> the pmd lock), please shoot :)
-> 
+br_mdb_replace_group_srcs() marks every existing source for deletion and
+then re-adds the sources named by the NLM_F_REPLACE request.  The add loop
+checks PG_SRC_ENT_LIMIT before allocating each new source; if the
+transient source count reaches the limit, br_mdb_add_group_srcs() unwinds
+by deleting every source it processed, including the pre-existing sources
+it just refreshed.  The error path only clears BR_SGRP_F_DELETE and
+cannot restore those sources or their (S,G) entries.
 
-Elegant and this code do not appear to be compatible.
+A replace with E existing sources and N distinct request sources not
+already in the group fails at the limit if and only if E + N exceeds
+PG_SRC_ENT_LIMIT.  The rejected request currently leaves the group with
+one fewer source and removes that source's (S,G) entry:
 
-Another look, i think this is the preferred route.
+  before: (*,G) star_srcs=31, S present, (S,G) present
+  after rejected replace: star_srcs=30, S and (S,G) removed
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Count those new sources and reject the request with -ENOSPC before any
+source is marked deleted or added, so a rejected replace changes no
+state.  Valid replaces, including ones that transiently reach the limit,
+keep the same behavior.  Other add-loop failure paths are unchanged.
 
+Fixes: 61f2183512a7 ("bridge: mcast: Support replacement of MDB port group entries")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+---
+ net/bridge/br_mdb.c | 51 ++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 50 insertions(+), 1 deletion(-)
+
+diff --git a/net/bridge/br_mdb.c b/net/bridge/br_mdb.c
+index 0adcd15..f5b9df4 100644
+--- a/net/bridge/br_mdb.c
++++ b/net/bridge/br_mdb.c
+@@ -925,6 +925,24 @@ err_del_group_srcs:
+ 	return err;
+ }
+ 
++static bool br_mdb_src_addr_is_same(const struct br_ip *a,
++				    const struct br_ip *b)
++{
++	if (a->proto != b->proto)
++		return false;
++
++	switch (a->proto) {
++	case htons(ETH_P_IP):
++		return a->src.ip4 == b->src.ip4;
++#if IS_ENABLED(CONFIG_IPV6)
++	case htons(ETH_P_IPV6):
++		return ipv6_addr_equal(&a->src.ip6, &b->src.ip6);
++#endif
++	}
++
++	return false;
++}
++
+ static int br_mdb_replace_group_srcs(const struct br_mdb_config *cfg,
+ 				     struct net_bridge_port_group *pg,
+ 				     struct net_bridge_mcast *brmctx,
+@@ -932,7 +950,38 @@ static int br_mdb_replace_group_srcs(const struct br_mdb_config *cfg,
+ {
+ 	struct net_bridge_group_src *ent;
+ 	struct hlist_node *tmp;
+-	int err;
++	unsigned int num_new = 0;
++	int i, j, err;
++
++	/* Sources that already exist in the port group are refreshed, not
++	 * added, so only the request sources that are not in the group yet
++	 * consume a new entry.  All request sources are added before the
++	 * sources that are not part of the request are pruned, so the
++	 * transient source count can exceed PG_SRC_ENT_LIMIT even when the
++	 * resulting source list fits in it.  br_mdb_add_group_srcs() would
++	 * then fail with -ENOSPC and its unwind would delete every source it
++	 * processed, including the pre-existing ones it just refreshed,
++	 * which the error path below cannot restore.  Detect this case
++	 * upfront so that a rejected NLM_F_REPLACE changes no state.
++	 */
++	for (i = 0; i < cfg->num_src_entries; i++) {
++		struct br_ip *addr = &cfg->src_entries[i].addr;
++
++		if (br_multicast_find_group_src(pg, addr))
++			continue;
++
++		for (j = 0; j < i; j++)
++			if (br_mdb_src_addr_is_same(addr,
++						    &cfg->src_entries[j].addr))
++				break;
++		if (j == i)
++			num_new++;
++	}
++
++	if (pg->src_ents + num_new > PG_SRC_ENT_LIMIT) {
++		NL_SET_ERR_MSG_MOD(extack, "Failed to add new source entry");
++		return -ENOSPC;
++	}
+ 
+ 	hlist_for_each_entry(ent, &pg->src_list, node)
+ 		ent->flags |= BR_SGRP_F_DELETE;
 -- 
-Gregory Price (Meta) <gourry@gourry.net>
+2.34.1
+
