@@ -1,87 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793279833;
-	b=expX1xqVTKM66T0Fzy6ttJKv+lFn2CJSxn1lGNB8s1QJ1Si+WR/Vqh19giZ26Oo2lZOp
-	 01t4pz9dLR3KKQngaI9i/3RfrFYBaTzbQKRmi12VpCogKfdFTSLMvB7UVwKd3js0i6PJZ
-	 rad8yrWaWJHj4vRF8ktEMCdGZdWd6uVxB6MnkaKjRRyFo8v3aBZ49AuCNAtg4GVJs+iFA
-	 7OVXaDufI4YmyJsCYK7TA3/bfsqtBbcZzuxGh0bFzh8wXbVN5z8Wr1YKe8zKCA44G6XU3
-	 qkESuOAP/5Jnjk8FGanZ/do8DhblVzueern3TEI4r+a9Fspq0O83M0o0MWGWl+8J2gA==
+	t=1793279932;
+	b=UnwLIiofcTMscYNexnmpba6vVMr4KO0fmAV41j2GRU6+XlXfKlPUubfYBpQ4xyyMC0Y9
+	 FohIa0Y3pwS6JSpd9Zg9vS19+nKr7BsEcONg9wBRuDOzCKrXg1io8n2/M6u4SFRg25vmP
+	 GyJa6dVGR/DaCwDUv4onUXI2IZxPZHPKO8/JF5tDwYbN5XRTK7mqqmZnJp/Xu6JniISYf
+	 vBGCB3qFojQleX2c5x9dpZ8Zv4jydyWtH6bSYX5057BZaj2xT69uFZZvLrSvnhIdZIxx0
+	 XB19vjRCFzLB1H0g2AKdL66LqKjwd+97Sfq6cBTi+UmQa1ubCaA0Pf3KYMsfUKTs4Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793279833;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=JRA+EBscIjB3Wf85Kdsp3ZllP4NjhEMks6pJspoVgFI=;
-	b=RJx87mx+TbSaVoatdMOTSAjnLJd6S/WT8zk/+OVDQRZaAbkJtAyMoearycKQwf338TTJ
-	 InX7X95sGuMquuoN3ePuPMZbRw0Qj7ZxDwCdctc3xYbibcsPJmSUrV50qUiPGTMKwELSL
-	 esT7PV+naodId2O5jNZ+EjsOsCXRW9DULyBIzBm5+bE2+2nEJcpVw/SsyRAg+CpBRY1/X
-	 9SGBwkSdeWQ2uFETeS4GVMmYPtD2YvT+OcTiLrmfMay0ZWuQssNM9B8qFFKlool9oe7F6
-	 x86ThTNEWC/MuAyK6YTLvhVpYdyP28I2Wum1q+fft9IGPJ/ZO6xjYvJ/gUWmYacu3mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793279932;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=+9XYDfCRrvUivoiUz7z3TeuDRVY7Fxr93i1TYt+3ZnM=;
+	b=gXUR65qwIZyWbNqfvjO19hj5nO47hOsZsWfr1vQTCZtB4LBJKSTPLeZUfaAz6x/rVMzl
+	 72LZAGqrZjODPMJLnruxxCUmWJij8P2axAiGL8m8RyJoJN/1C/hqdycyuQ4oRdckfBDQp
+	 dM2go6XlbY61ANk+YZw7ykPL0nv/4X7nPorUiPAoZSUpWJmgFmGf+yIelVBJq7IYYkPmI
+	 FIT2DMXDVj3wyWig2pbPOMsee53pWdL7WYU0Pvq2tfP1E2ltIhzUlE7ahbLP1bGmU5oaD
+	 LSwKM56OwBC9VLIhEIRYeILcFiBqiHWWlXxiFqOU831RuEqfxYp9C0UCZk+MYRBASlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExxhoTgL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=PLMQDWbO;
+	arc=none smtp.remote-ip=216.40.44.12
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865B4606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:17:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA012606A31D;
+	Thu, 29 Oct 2026 13:18:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA012606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExxhoTgL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B59C1F01825;
-	Thu, 29 Oct 2026 13:17:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793279833;
-	bh=JRA+EBscIjB3Wf85Kdsp3ZllP4NjhEMks6pJspoVgFI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ExxhoTgLpmardw03fYqQ5Z99pOOg/9EAf9OCNy5IikWuNrxOwziwwMHkyQVfLkB8e
-	 sMzz0mutTiCjvLQoDVRf098zOXBcYIFzKeEtegeOIRrRxv5orNNGPegzkhjdfoZJC1
-	 /gAMFi2JSfCWG2LXfQ5EAHCGJY1yfFPmHsKvuHaE0Y/CUHe2z6j1Mz6L0cKItab5S7
-	 ZwqCTD2Qy9UrXj7q1MjE9mdA8HFWbcFJZn9h3xdU8PHdI8qH/53okMpOnQuPVgNCu8
-	 besGbjfbWqJvlZMND2HOyHx+USOJ/tUzdAyH4SLjOp9EN2Ydz3dU82NTDCzxsGS9ci
-	 hcfDaDdOB+LSw==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 4A423198003A;
-	Thu, 29 Oct 2026 09:17:09 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Thu, 29 Oct 2026 09:17:11 -0400
-X-ME-Sender: <xms:VEfjaiBdtk8eSqQZZC_siWUNjp2XkmnUYdgaj_pO0fwEO7m7hQs9cw>
-    <xme:VEfjas8tPX1HCuciZcBjCntcbHreNpgolp2GChr-f4BKtzxEk8d1FBsFUejZbGQkA
-    OuR06tY5PjhdvrZ0XjtW24VnSOn5h004S36m3veDe3entpZ2FSRV8IM>
-X-ME-Received: <xmr:VEfjarC-xtsABZe4qugdnyGgA8JROjkZxr1Liqcf_I5F6ZpseHmNL6d-zj4>
-X-ME-Proxy-Cause: dmFkZTG2EVxsiXqZOd32Nkq2kAun5pY6dWfNhhCiR95p6LBReaqvq03sPl8TN9erfkk0z1
-    KTntpfrqVGeL9x1bmG/wkYLrULDdbe73UgZsxUYteqXu1qb0r7PB55VdGOox5cUZ8co7/u
-    dZbZ+V6ErfeNzekxowVgsvUXTTLpyn1piwccOyRtMMzxlCZuo0WPOsQWlntSkDidJIMQOv
-    M6pCN+bMHlsgaa39ZsrwapEieXGuHAHcOWGc5Xhy0nxxCCPOwgRQYpCME/wA2YaTZmhDqi
-    4EI4t32GKL0L2I+7TH+Z4hmIQymqAMCSwo/Eo6zjbX7Z0/2jj2hpmJ+TCsn8bdUzJkaNMO
-    NCOMRe0lPsiH+E7VCC1pn/jknH5q21qyXXvkMF8BvXyNlwqi8BXYHqrbSYz/p+kTM8ppnc
-    Glxuv07CuB9+LYt8gGuoZ8+RyNP+ugGlrw8bUKCJxfD1iA+n/nbk0fl84/DHo7JF7OJSL/
-    azpUfXoZIrzopbX6exR9zJfgSx/M+Pmb9BdzqThL04B/Me6eoaNpqmsqarnS1hSCcvP4Ko
-    dWs8Swn0FcYhOmmn7GISdaF5jIHXSOukDmxJyK2yDIP4JnbymtkEZAMjs1EMZZIIFZieew
-    GOaKtvWvMdRwmDdQ2BrXWWW3bcgwJxHRQ8J1XCaToGBh8UV/zjIuwFKJ6DrA
-X-ME-Proxy: <xmx:VEfjauunaaMeRiuKnHXbsJmtOYDrSpyOKPD_sZ91W3zgIVDdz9W_GA>
-    <xmx:VEfjarEZNQ-xtc-qWG5wZA7FreBVZRVlal7OLQ2HM6ZcNhqEY7Gb9A>
-    <xmx:VEfjap_9pXFINOd-m61pulQfv17tnFFdF-8FxB6GVj0zSQFmfG9cNg>
-    <xmx:VEfjahO835ydd3R2iOG1LVa_p0gwkiasQ3O0Wqv_cXxfCxMiJnTn-A>
-    <xmx:VEfjavjM0W98gr5mnFSzoc1pt3ZiuXwUD3I6pRrj-E6pcUAlkgjqXSB3>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 09:17:07 -0400 (EDT)
-Date: Thu, 29 Oct 2026 13:17:06 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] mm/cma: accept memory of CMA areas reserved with
- memblock_reserve()
-Message-ID: <auNE2XEGreHRKoPO@thinkstation>
-References: <20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org>
- <auM6lKGAeUI26jCj@thinkstation>
- <auM-tYrdV4TJgJ6K@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=PLMQDWbO
+Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id 2FF93A03E6;
+	Thu, 29 Oct 2026 13:18:49 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id 0213F2002D;
+	Thu, 29 Oct 2026 13:18:46 +0000 (UTC)
+Date: Thu, 29 Oct 2026 09:18:45 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Bill Wendling <morbo@google.com>, Petr
+ Mladek <pmladek@suse.com>, Randy Dunlap <rdunlap@infradead.org>, Shuvam
+ Pandey <shuvampandey1@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+Subject: Re: [PATCH] seq_buf: Mark a seq_buf overflowed when terminating it
+ loses a byte
+Message-ID: <20261029091845.21464a1a@gandalf.local.home>
+In-Reply-To: <auMwo_T_FsZp5UsB@devuan>
+References: <20261029053250.i.220-kees@kernel.org>
+	<auMwo_T_FsZp5UsB@devuan>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,41 +64,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auM-tYrdV4TJgJ6K@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: 0213F2002D
+X-Stat-Signature: ii7jx3yqhuo5tentuhpkydyjj3ugs18y
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+Ggy7flGuT3pJl4pfAFY5kwIdBw233O1A=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=+9XYDfCRrvUivoiUz7z3TeuDRVY7Fxr93i1TYt+3ZnM=; b=PLMQDWbODAmt/quoHI6B3iDL39mXPgDCkjUwVSajdMkc3Nffvr+xsqTlIcaXuPQ9UnPKlcZn9NGbNbBd6v8OLxppf5gekjVObTiKF5R+rganE48CbCgaJtu3rqmSWGYP125LfrJUB1nrm8PiafoajZe/2/pP7UE41lPdt6/3Nuo=
+X-HE-Tag: 1793279926-234888
+X-HE-Meta: U2FsdGVkX1+kSgXyut/GEd14B1877Ubg7n1dE2PJkiUImxISYpua7RqK8Fivkp2umWdON2LVrdfM7NXACAyuNbwUi07mjcrTgDpTcZegLwpmmaRtRRyjcGMX+82Ovou4fIg8l7kEOa58f4a4PmuIbagOvQiXJOCZ9OTa3eP2RSMJ0WP0u9j9hIHw0ZUoMJ+0acXAHldHA9wjtgJHc8qOoEGKqetGylZfY4jR5nnXh+GDnmTE1LgJqRLOAnbmiNy7FCtduxMUFjXTuha26rMPxSoVvw3+2nX5JCNDlhtXDMY5Lt8BAkpAG0rB0bJCrHvdwbSnsieale42Uahj8aGr3dMQlZvLCm4o
 
-On Thu, Oct 29, 2026 at 02:40:21PM +0200, Mike Rapoport wrote:
-> On Thu, Oct 29, 2026 at 12:27:23PM +0000, Kiryl Shutsemau wrote:
-> > On Thu, Oct 29, 2026 at 12:18:36PM +0200, Mike Rapoport (Microsoft) wrote:
-> > > Pages of allocated CMA areas are released to the buddy allocator with
-> > > __free_pages(), which does not check for unaccepted memory.
-> > > 
-> > > This usually works because memblock accepts the memory it allocates.
-> > > 
-> > > However, multi-range CMA areas, used by hugetlb_cma, and fixed CMA areas
-> > > requested with cma=<size>@<base> are reserved with memblock_reserve() and
-> > > their memory is never accepted.
-> > 
-> > It feels like memblock_reserve() abuse, no?
-> > 
-> > crashkernel=size@base already uses memblock_phys_alloc_range() for this.
-> > Should the fixed and multi-range CMA paths go through the allocation API
-> > as well.
+On Thu, 29 Oct 2026 12:47:04 +0100
+Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
+
 > 
-> Fixed path already has the range, why would it use allocation APIs?
+> This fix in theory solves the issue.  However, I wonder if this is maybe
+> too late to report the overflow.  Callers normally expect the overflow
+> to happen while they're performing their writes, and maybe they don't
+> expect the overflow to happen at this point, so they might forget to
+> test, and keep going with truncated data.
 
-Having the range doesn't make it a reservation. Both paths take free
-memory for the kernel's use, which is an allocation, and an allocation
-has to be accepted. memblock_reserve() is for memory that is already in
-use: kernel image, initrd, firmware tables. Using it for allocations
-leaves acceptance to every caller, and both CMA paths missed it.
+No, the overflow should be checked when they are done with the seq_buf.
+Which means after they do either seq_buf_str() or seq_buf_terimnate().
 
-If memblock_phys_alloc_range() is the wrong tool, let's add a
-memblock_*alloc*() helper that takes the exact range and does the reserve
-plus memblock_prep_allocation(), the way memblock_alloc_hugetlb() finishes
-its own search. There is no search, so the multi-range path doesn't get
-slower, and accept_memory() stays inside memblock.
+> 
+> How about not allowing a full buffer without a NUL terminator in the
+> first place?  That is, we could report a _putmem or _putc operation that
+> writes a non-zero byte to the last element in the buffer as being
+> overflowed.
+> 
+> This would waste one byte, but would prevent users from having to expect
+> a possible overflow when reading a buffer.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+This only happens when the user expects the string to have a nul
+terminating byte. Don't think too much into this.
+
+
+> > @@ -137,10 +137,16 @@ static inline size_t __seq_buf_terminate(struct seq_buf *s)
+> >  {
+> >  	size_t end;
+> >  
+
+Hmm, I was thinking that this should first check if the string is already
+terminated with a nul byte. Why add another one if it is?
+
+> > -	if (seq_buf_buffer_left(s))
+> > +	if (seq_buf_buffer_left(s)) {
+
+		if (s->len && !s->buffer[s->len - 1])
+			return;
+
+> >  		end = s->len;
+> > -	else
+> > +	} else {
+> >  		end = s->size - 1;
+
+		if (!s->buffer[end])
+			return;
+
+Otherwise this overflows the buffer even when it is already terminated.
+
+-- Steve
+
+
+> > +		/*
+> > +		 * About to overwrite a written byte in the last position
+> > +		 * in the buffer, so it must be considered overflowed now.
+> > +		 */
+> > +		seq_buf_set_overflow(s);
+> > +	}
+> >  
+> >  	s->buffer[end] = 0;
+> >  
