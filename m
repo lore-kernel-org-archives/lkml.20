@@ -1,67 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793296886;
-	b=Xlz90HHzs4p7YlQbXBoDSwRntQA0zNqkZAe2CW3jf85CKqJZ/p/XZraur/7ztqdoj+L/
-	 hpB6t7+GDaEiFUsK5q0gDYnBm16kSm11ZuXMyph+PmrHmjD/bNYIRScER+r/kFq4xQq47
-	 Du9pGM0LYx02w2o/LFHblTR4ZPFgqvxxOpBWeIAyCBKW46/9kFstihalfVAC1Fc8+Dl3U
-	 GpfyRKqvT77k7Ccsg00ya3FkK5nSNVnRveXuYw94idABWVa7IJhhF7gQtB6aHK6tS2d4c
-	 l+dABy/GhdVomFXUxvlFCzB8+Q8Mogpewud/NuFMRaYzFRy0P+Oz80vQvKx/fWpub3w==
+	b=QYgIuByj0S6V1UTdmKrhqopYaOIAf9LswHKxIXoAjE/kOpGQp51SxYEwe9UcPpITRyTx
+	 0FEwRQlZhGC/TwJyvUyvWIDHOAF32clkr754gN2XFLpklqhW1/s8sXNICrhGMun68moWp
+	 iR/RNw/VOdIcluM+SDdYbLw5L5rmVIRQYwCGqKGYnFJOHBYwFnc9MJ5iQPDd38PUF1VJl
+	 bArhjoiWp2qXm6u2eajl+9n0Fj3fmyNk9GdWKvBfeihMr/QxnSKTJkPCFJe9a+/B10amy
+	 BkemxNcwlbuhcJ5U601LDUWOKz3zzT8avhJKRrWnOOqEq+T+dB7gXS8PlneMVBj3pGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793296886;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=vDJylRa+BEz9FX1boW3lxDX7Nctsiexo7u0jpFX8B3Q=;
-	b=M2wIt75P3bqGtV+n6dEO2ofs16ayqehNS3a+s0KsT2QMw1fC5Dy+gTn4l73JVaR77WHk
-	 sCDGPQ6mQqzssTwolmIeaxxG8SBhwZFOWLmYyuqX37YdTC7SwiuPUv8EDxmYm+2na7ViG
-	 u8m8+hpUp8OQ+5MzJ77ORt3A4bloX9dsgZ1CR07rjyau/OF8aOEzp72dVwoi2zGlgDu+C
-	 E7ztddgGFEmaTU7K8Kds85eHn6l249JbSMWOmQULWXN1HwoH0tc4rWOjZp5z7rdm3WQyw
-	 rHAB4fAo0fdQFwhE6WKaXVzqU2XRVdfRTEZqoPIPLCmIlDolifGRa6lQK1JyA6uwZBw==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=A/g9z/XctHfO8WXiglIzsuOpbKuFQLfAJ8l3zMGOhsw=;
+	b=K3UUdTcmvdUIJqXnpFYQuFQN/qGkDFWHVbMZiJZ3h00UausBxJD2N+u9dVvVxlOKT9AY
+	 ze4kt6keKrBOuDmEAHcMSGLvxVfHwy0znRQrauESHz6r7mRxQgqzdifwHB7hsNKf8JzZ5
+	 XPYtmLuJ3khWSoSYdTarRUKtYmKA/cZXW90OPe1llBM8mYrdnW/xCeEBZ69uXXZHPNMxe
+	 A0AtlftKFqjK7Zwcia09XCgFp9d+BwihQZwXtW6isIbKA66tG1cLjRvS/Rr9LHnJcgH0j
+	 iGbOzwmRZ1fRKDNbQ/C9QIwoMgWAggy6RH/yUbWORN9DGX+PplydxLWKbdCFG0Wd8DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HoEdUSKt;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JMjplqzE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F202606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:01:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F202606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E738B606A31F;
+	Thu, 29 Oct 2026 18:01:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HoEdUSKt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793296884;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vDJylRa+BEz9FX1boW3lxDX7Nctsiexo7u0jpFX8B3Q=;
-	b=HoEdUSKtxZUllxFMblTf8EqB2tyVH6zPelBNj1VaZWeh5+ubCWekbMrV70ztCMIg1aXGQ3
-	uozheHPn7Tyh0a61v+9FIQIEUS3oPX6QYOECP6z4mh8JvVoWhpzNH9R46GHFzNPKamvdaw
-	v4/QA4Mzs4qvBi72ggqPO8BOdLSD6l4=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-650-hJ2iShZ8ODyePXj78tYXHg-1; Thu,
- 29 Oct 2026 14:01:20 -0400
-X-MC-Unique: hJ2iShZ8ODyePXj78tYXHg-1
-X-Mimecast-MFC-AGG-ID: hJ2iShZ8ODyePXj78tYXHg_1793296878
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2A51E1805A17;
-	Thu, 29 Oct 2026 18:01:18 +0000 (UTC)
-Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A86B318001CA;
-	Thu, 29 Oct 2026 18:01:15 +0000 (UTC)
-Message-ID: <4d9a1530-6212-4952-addb-fbd6299f0c4b@redhat.com>
-Date: Thu, 29 Oct 2026 14:01:14 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JMjplqzE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 237C71F01824;
+	Thu, 29 Oct 2026 18:01:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793296885;
+	bh=A/g9z/XctHfO8WXiglIzsuOpbKuFQLfAJ8l3zMGOhsw=;
+	h=From:To:Cc:Subject:Date;
+	b=JMjplqzEBVMowXa2Z1I6OH6Gr7jUmYEq1rbScgrTo+q60p4ccpczt/SGDc+SpYcOW
+	 LhiWwwp0nUWyya/fQqI6pNI+lxejjrqQ2FXDzzW5q62L9Hfsubut//skks0mvLG6yd
+	 A57nhnQ9mzkThBBSNLtegdUeUG01SocE2ubaOTka9HH4tltmJ/85PsA6t/8TY0JMHY
+	 xd0thaTidSLz+JZfi/YnjpwJKwJ/PCoYTbkCeV3XqoYcFdq64inmLdY/2fbomBJubT
+	 SDxn7JmnukZNlwnoXmY+StZ9McK6lB+7axIlA700s3haH2VCLno4jw3HOQn0s3NP8p
+	 UTGqfKdLz7IVQ==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [GIT PULL] Rust fixes for 7.4
+Date: Thu, 29 Oct 2026 19:01:16 +0100
+Message-ID: <20261029180116.49074-1-ojeda@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,100 +68,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/cpuset: Fix missing effective_xcpus accounting of
- child partitions
-To: Guopeng Zhang <guopeng.zhang@linux.dev>
-Cc: ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
- mkoutny@suse.com, shuah@kernel.org, cgroups@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20261027123837.100909-1-guopeng.zhang@linux.dev>
- <c00f13e5-d048-4d5d-98ea-984ea7ebc13b@redhat.com>
- <ed6fecb4-38e9-4a73-8c1a-7bdd80175a69@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <ed6fecb4-38e9-4a73-8c1a-7bdd80175a69@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On 10/28/26 9:52 PM, Guopeng Zhang wrote:
->
-> 在 2026/10/28 23:30, Waiman Long 写道:
->> On 10/27/26 8:38 AM, Guopeng Zhang wrote:
->>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>>
->>> When a partition root expands its exclusive CPUs, a valid child
->>> partition will be able to claim more CPUs from its parent. As
->>> update_cpumasks_hier() always updates a cpuset before its descendants,
->>> the parent has already been committed when the child partition is
->>> reached. Its effective_cpus is computed with the child's old
->>> effective_xcpus subtracted and no further adjustment is made
->>> after the child commits its new effective_xcpus.
->>>
->>> The additional CPUs are thus granted to both the parent and the child
->>> partitions. generate_sched_domains() then emits the warning below
->>> about the overlapping sched domains:
->>>
->>>     WARNING: kernel/cgroup/cpuset.c:919 at rebuild_sched_domains_locked+0x1ec/0x2e0, CPU#21: bash/1225
->>>
->>> Fix that by taking the CPUs newly added to a valid child partition
->>> away from its parent at the commit point of update_cpumasks_hier()
->>> right before the new effective_xcpus is committed. The tasks in the
->>> parent cpuset as well as its other children will be updated if its
->>> effective_cpus is changed.
->>>
->>> A new test case is added to test_cpuset_prs.sh to test this patch.
->>>
->>> Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
->>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
->> Thanks for reporting this bug. Yes, the current code doesn't handle expansion of parent effective_xcpus correctly. I would prefer to handle it inside update_parent_effective_cpumask() and try to minimize partition related changes in update_cpumasks_hier(). I have posted an alternative patch for your review. Let me know how you think about it.
->>
-> Thanks for the alternative patch.
->
-> Well, I am still learning how you approach this whole series of
-> problems.
->
-> One more thing I found yesterday: neither the current code nor my
-> patch runs the housekeeping check when a valid child partition gains
-> CPUs from its parent, e.g. when its parent expands the exclusive
-> CPUs. With nohz_full, an isolated child partition can take over the
-> last housekeeping CPU. I verified this on a nohz_full=1-7 boot.
+Hi Linus,
 
-This is a problem reported by sashiko as well. I am going to send 
-additional patch to address this as well.
+Please pull these fixes for Rust.
+
+They have been in linux-next for a week.
+
+There is a trivial conflict -- the resolution in linux-next is good.
+
+Thanks!
 
 Cheers,
-Longman
+Miguel
 
->
-> I handled it roughly like the diff below. Please take a look and see
-> if it is worth handling together in this series.
->
-> @@ -2142,12 +2142,28 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->   				deleting = !cpumask_empty(tmp->delmask);
->   			else
->   				part_error = PERR_NOTEXCL;
-> +		} else if (cpumask_andnot(tmp->addmask, tmp->delmask,
-> +					  cs->effective_xcpus) &&
-> +			   prstate_housekeeping_conflict(cs->partition_root_state,
-> +							parent_prs,
-> +							tmp->delmask, NULL)) {
-> +			/*
-> +			 * A valid partition may be able to claim more CPUs
-> +			 * from its parent, e.g. when its parent expands the
-> +			 * exclusive CPUs. The newly computed effective xcpus
-> +			 * may not have been housekeeping checked before.
-> +			 */
-> +			part_error = PERR_HKEEPING;
-> +			adding = cpumask_and(tmp->addmask,
-> +				       cs->effective_xcpus,
-> +				       parent->effective_xcpus);
->   		}
->
-> I have something urgent at hand today, so I will get to your patch a
-> bit later and run it through the test cases I have, including the
-> isolated_cpus accounting case I mentioned in my previous reply.
->
+The following changes since commit c03c1a14507dfaf8b856c2608f9ac216021fc222:
 
+  Linux 7.3 (2026-10-18 13:14:58 -1000)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/ojeda/linux.git tags/rust-fixes-7.4
+
+for you to fetch changes up to 7d109178cd644268326cd31702ed46c7ac8bb300:
+
+  rust: dma: declare cfi_encoding for dma_data_direction (2026-10-22 15:36:01 +0200)
+
+----------------------------------------------------------------
+Rust fixes for v7.4
+
+Toolchain and infrastructure:
+
+ - Fix 'objtool' warnings for the upcoming Rust 1.101.0 (expected
+   2026-12-24) by adding one more 'noreturn' function.
+
+'kernel' crate:
+
+ - Fix KCFI failures on every call from C to Rust IRQ handlers and
+   'hrtimer' callbacks by giving the C enum bindings the correct
+   'cfi_encoding'. Also prevent the same issue for DMA callbacks
+   taking 'dma_data_direction'.
+
+ - 'workqueue' module: fix a runtime warning when queueing work on the
+   deprecated 'system_wq' by switching to 'system_{percpu,dfl}_wq'.
+
+----------------------------------------------------------------
+Danilo Krummrich (1):
+      rust: workqueue: replace deprecated system_wq with system_{percpu,dfl}_wq
+
+Miguel Ojeda (1):
+      objtool/rust: add one more `noreturn` Rust function for Rust 1.101.0
+
+Sami Tolvanen (3):
+      rust: irq: declare cfi_encoding for irqreturn
+      rust: hrtimer: declare cfi_encoding for hrtimer_restart
+      rust: dma: declare cfi_encoding for dma_data_direction
+
+ Documentation/rust/testing.rst                    |  2 +-
+ Documentation/translations/zh_CN/rust/testing.rst |  2 +-
+ drivers/android/binder/process.rs                 |  4 +-
+ rust/bindgen_parameters                           |  6 +++
+ rust/kernel/dma.rs                                | 21 ++++-----
+ rust/kernel/irq/request.rs                        | 28 +++++++-----
+ rust/kernel/sync/completion.rs                    |  2 +-
+ rust/kernel/sync/lock/spinlock.rs                 |  2 +-
+ rust/kernel/time/hrtimer.rs                       |  6 +--
+ rust/kernel/workqueue.rs                          | 52 ++++++++++++-----------
+ tools/objtool/check.c                             |  1 +
+ 11 files changed, 71 insertions(+), 55 deletions(-)
