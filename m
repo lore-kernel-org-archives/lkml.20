@@ -1,104 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297427;
-	b=l36sjpJmXMNAGWVFmp7f06JtqF/GKmJkZHJBBXWL+4CgRisHBwIZpbGfgstZEQgnCYjY
-	 wx9bC3Qkql0/uOGhUaVaiTkSAqWnFJpEWKg1rjHBIHyLytx9/IdmTuCKTZ/PhO/qgB9O3
-	 S5olHv6Smmf+zYMEWXArGXggoH3ty7vRPyczcEVI4YyEsTOP+Nd1PpdwtFQK5GenVvuSn
-	 bfAnx1MaOTZwOOAq6c6p1TmwtW7n7KbYa7ym6kWsL2M9Po/hwaSjW0j3HPDCQunsRIgsx
-	 dxWOCzQq25tfXBFS3ILsucjtBwafON1GeMaFahW91SdefOBJK+YwNregOUY3wcJyZUA==
+	t=1793297483;
+	b=befk7S8RSW1fHroP6CMz9di+nl5DI8e8mjxEFXJPxLVK+4PyxKi23oZm1sqC5/YYCknz
+	 5CHsGDU/7tbu0s4sNDltoymVmOyyAOk3bcnKWS8mcvDmlhlZ0ZpKsHOFh0KriJxwP3gaR
+	 Wtvrfq8xvPDdxHgSrxM45C+WIoVV2p6gWPcnYXKnUG3bWaEaXVPSv9Ne/Mw2Z7Kwa9SIZ
+	 Qo/0DS7LieAXSnbaVjGHCc+SkIQBXzQYXNcdyQPOSFqHVoHaJuOjJoEQI0wN369c9iZPQ
+	 qvQmq1SRJeidpvDFmFyVbZinM2arBvnEP9Mnue2YZWWKx10d0htlxZvZUxPgx0ZafwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297427;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297483;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SzS3inKuIzObQRIJP0XLNfoskd/GgXHCSXyF9Wdht4c=;
-	b=qe42HFs7+JXOypZg+ioJ7wrCRGwOsv3JFladL1eMUHWxNYDyhshESwchN6J9dQ0ceazk
-	 ulV5JjXo8PG24bkCdwUOVrnmPYIqXlakStssYbMXdt5LKyuHptcJ8yRdV2pn8Hen57ZVM
-	 ZVKH0Ewpmn6+TjDsc90OZTB2Jj6m5JCtorET73B2E7CfE6b9fCzzn7Mu/b05fhj6oALOD
-	 Y24hL/fe5YN/NX1f08QPszj10omiDhWLw+hsWFVS8O/ZYHhb4+09n4xckpuJ3ddogFtQS
-	 Hek2sirmD0MD+v6Rzer3YCBYgfnDD/neO9sP+InC+vl2sdiYKQdvhioDk7W+ETrcFQQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+z2btZkpJ+TluBaKBtaVuSDSAiYPrkTDeeGPI5tssnY=;
+	b=wX5WFoW3Rsec2wY4/DDnsAJ0E3SZWN7bUFsE74w79lFa+yTCG2/6/DtVAWXq7zIv96/5
+	 mmdHV2IXSnUduSCkSIQndKswtJ/j1VcQHzqUlveVm0KUhVKAanx9s+w8w9uOQ0DGlDiDR
+	 EdjqX5aMomnh1u/VADKUmBWaGwd3TMnW2pneZ92r8mtiWCIQ4hHW5IzBbn7DD+UQ0JDlC
+	 uxkcxe8b21NSNga6LCfCUylvYgTxbL9cNa5DdyA4gcLhIXL1TWKhAe4FuOgvo5Pfrh8uT
+	 jzbdqWP3GbNLc3IKBIMZwgqEOYluK8DCozpgDjDOLnWuSkOq7OPRgAuE5Ne+q4bmusA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hammerspace.com;
-	spf=pass smtp.mailfrom=hammerspace.com;
-	dkim=pass header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b="DyAzo/rG";
-	arc=none smtp.remote-ip=209.85.210.51
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kA8DGoIW;
+	arc=none smtp.remote-ip=209.85.210.171
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F8C60A3828
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:10:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0F8C60A3828
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hammerspace.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hammerspace.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4796C606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:11:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4796C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=DyAzo/rG
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-843b6f8e2c7so2733245a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:10:26 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kA8DGoIW
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a06454116eso1349113b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:11:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=hammerspace.com; s=google; t=1793297426; x=1793902226; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SzS3inKuIzObQRIJP0XLNfoskd/GgXHCSXyF9Wdht4c=;
-        b=DyAzo/rGD/vFUITc9/4gw2bFRBgt5KXT1g30QzxnVONT/H2KhMonuYBeRqnM/el3vD
-         hvE4q+FjQvLdyiOrqdppQkq+aJaAvZ+UALTT0jy/M/hvfvPlpR14HI0/5UK93k7aSN4E
-         hLD0KJ3kyFSdexlsmEsiOCB2TiiVevp4Pvod/HW+VnjpIEpCOr2wvksKVFupK21TqJnm
-         5tP6IjiU6N+Ci2bjmFSgPSN0iiLhu6hF7mRiMDD6PH1KT/R/kNV6giiTxo4AyFJ1Rv4B
-         LR62UxCQHrlJhdES678JEL1ASaXffA6fAaToDWFihOrtdJckbYyRaF20lpalzE6l3K5O
-         I8SQ==
+        d=gmail.com; s=20260707; t=1793297482; x=1793902282; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+z2btZkpJ+TluBaKBtaVuSDSAiYPrkTDeeGPI5tssnY=;
+        b=kA8DGoIWJVfUg2+8TEAlcr02qRAas1WamLEw9se1oDuyAL6mB0+SBqZ2Nhf1/Oi7P5
+         jFugVvRpoyquphZi3pDahK3ndHBy/oE5v06JdRDwkay2AeKYOORoFPjvce4cv7PaMp1X
+         gUrvj1xqKfMRUsf18jwuv9+Vue98Z73xAIF9CN8thmdFPVOdmtWcGh1MsXhOhZMUqjz3
+         6leC0g094Fei3bu+gg08o+MdYiksIjlO1V5ixDt4V88mcg52fpP7nk7f72jq6tXFylV0
+         r3blh61v2dWDbXvIUUlR8qEBGQYnA0rwpXClq0YGbejOjFGkRjzzaMOaL1qHt8DYmcw2
+         Kc9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793297426; x=1793902226;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SzS3inKuIzObQRIJP0XLNfoskd/GgXHCSXyF9Wdht4c=;
-        b=LZT1eL3tzo2TxEZK5TYN3ZOdFDkbXgog4uB2f3xMokEdJXNVxm4SNpfdWqHWbmN2o9
-         dcIqlVBWaKteFafveyurQtpAnFU0vZbydcpVH8XTkTlEasELQah+PTPAPOPDgsHr/1Bp
-         TrH/j9wW5z+myuzTunPkbPWffsbUu27SLQq9YmG7r0cRMWGjvOf/0HDmIzoUC73hFnaN
-         9N9W404Q5N5vGAePd2ZiqImrKpIp4fXRfa0HtC1gh4pvgZ/m/GHfLcFn/1ooha9l9vBQ
-         DMvZEK9pofLZ0uq4quIvSy7gEskJMgWaLqKVG2AxBJwfIL5VjqCPrwxfkrnXxb1iYV96
-         lEqg==
-X-Forwarded-Encrypted: i=1; AKwUvBx1/JS95GXstapm1GkKIHOKK4OLg14fts7wYVy2HEVUExtPtU+TJbvj9TdcqfXJ3AJ6vNLxx5oUBgsBfVg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBIQoFo3q/Wm/yfnAweAW0emqysja34OiJNwQzeMDO6wRzzd4d
-	HoD95kJKwk2zfyzUOxWBdZVaCeh0zeFqg6Fu4iVhtt+hcJ+V4BOo2B1ml/MNllr2CoM=
-X-Gm-Gg: AYBFou0mLLoGwr0+JaBtPuPHEutFaR0pHaB63q5PGZkxUfD+5u4not+/Vjk5WfXlJx/
-	Mnx/di5cpAVV1cKOtZzbibhHY9vbk94xNGMxKthIuCh5rWWts9HbTue+oRtvTBP7SVNF4h5wUhW
-	GkBDfzRDSz0WyynyuqMWQp6fh5PaAe/oian80OgH+MkOLFh/gwnik7UDvMAyx0tTpDd4cPviQMv
-	oLvJrJVzhBkLST08EwlzzPlmGbhJoIxb/q/Wi2SIl3Nn/JBOMimiUzF89YGVCP7I9Zj6B28iTJH
-	h6sLQepMWiOgXL9ui2TiVFxl4yhZHlOJFYOp+nL7SdgQcozmqZ2sMX3qvBHgMp8bVANHvNgBjYf
-	V8miehAYR6TQjI6mX45jUi0RipauCZ5YhTl9DiLOd7heRWCYtZlXghWRL/fDYQwtlNcq0iQcoIN
-	NSjOxF/0cY4MknmOKuPxTOx1PAqW78PXK/SBt4rZM656lx7U9zMU5blz4DZYJteyFitwfnHwMfL
-	jgWFYwbjlsZ0xWNYQy7vTPB6BkJUpSAEx0hO/Jzyy4NcqVz6ozM0NXPN7ObkxdvjVwwuTr2IaLR
-	kP1fdvNXhUKF4MBxBKoz/RFS3W6oT+WOADWZML56XHL3iAPvGH9VPHT6O2x9tLfEHRFb4QO6
-X-Received: by 2002:a05:6830:4120:b0:826:1ccc:8bb9 with SMTP id 46e09a7af769-85ab7040645mr5227606a34.6.1793297425401;
-        Thu, 29 Oct 2026 11:10:25 -0700 (PDT)
-Received: from localhost (75-163-200-235.clsp.qwest.net. [75.163.200.235])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d351e9684sm187806a34.3.2026.10.29.11.10.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:10:24 -0700 (PDT)
-From: Jonathan Flynn <jonathan.flynn@hammerspace.com>
-To: NeilBrown <neil@brown.name>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC 11/12] nfs: look a name up again once its removal has unhashed it
-Date: Thu, 29 Oct 2026 12:09:56 -0600
-Message-ID: <20261029180957.387138-12-jonathan.flynn@hammerspace.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029180957.387138-1-jonathan.flynn@hammerspace.com>
-References: <20261028041023.3738553-1-neilb@ownmail.net>
- <20261029180957.387138-1-jonathan.flynn@hammerspace.com>
+        d=1e100.net; s=20260707; t=1793297482; x=1793902282;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+z2btZkpJ+TluBaKBtaVuSDSAiYPrkTDeeGPI5tssnY=;
+        b=K/MTSt8Jo0/oQ+UP+fsv2HElN0vPcFtzD2Wc3dBum0Tao06pjRALBlNstgWgNBy4tf
+         b74CNLj7xVuIPYSJjQCdVnkt9gF/+/u6FfO5ryXJa0QTpx4pW3hE8WbHma6Oidk5Ic1N
+         GRbV6/XSTpLTBx8UGl9dCsMb41ZYKAs7/9nLbklZCKJUMbBIWHfPyQX+dc+TF8hKbymf
+         kVRRNvcEXcDBlym/wGbFx6juhc97k7hhVkT8XNmMAmk4QPsrYwmKzw4jNZZVMhY6i37U
+         9h8mvuyDGuZPSuDi18Ew/gzfud7jTmO5wwKpxxHpL1/xxYFEcB2dTu379Pif73k8psan
+         +eBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzY8pwsDZ/gRV9lDR+x7e8IPpuU2VTgWHxDDlARvEeEGi+g+QpKMpoHFd1bjL/eJhE/FA2gtkMcJ6nVKhU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/1zw+qaAoK27veDF5p6GWnUDWdE7R1XF5n7klma3GLUi4KlY2
+	NTv7ZB3zaSnkL6BuBl5pEbK7gP6GG4spPTD93/ypN5Dg1ZSqL1VveS4=
+X-Gm-Gg: AYBFou2R3BzRXB8UYmYa1U7pF3loVDg0+jlXn+0RCKy5JrAxbA05mO06u7CYVhfqBet
+	8cIGxh5XNKcqu5x89q8sH2t3uwaCNMHtd1nE7+fhmXDDJ0G0YM2H34VRsLFctyIDc/eI5CPczzX
+	yP8a7HySAYXQrESJqUcTMQHHId6DRUobMdJ2GK1LfkkDcWL0Y6sm159SdCofHJL1tPbJNKlUAPc
+	3UzhKb2vM0WyD2elyZuo2cl2xgKQjy6yIPBCh2Fh4hOFmZxXTnvFutcPkFypmfbJ74enxe+CzgX
+	J7T5hal3yYNXJ+tYXggjlPJAMXn8o3GqTrHShw4VZ+ni2GCxf1Wzlk+YNw0JOC0AkKcOPlumM4Z
+	1j37pZXUcOy/zRESfVnTx4jIvHb/uokcni3pV8+ABLNTb9/D8t6TT9it8iX+NIRoiTqDEbgmmwz
+	+lhWAS2rYkRXt5F3n4K7IUCifqxQspWrsSIWe83nxm/cBCZMxKYDg7Y3TeSLZH5OmYvCx9uhMkz
+	jimJCGNVTewcl4zWc/XC3Rj+7sL1XL8sHQG18uqgzjNDdzvwWQlZDGaHxSsUz5f5+4W5S/5lhdc
+	lnt+kjfpz/hEAW1fnyR+CpArIeEJHkb9JIIWk/MQgKp/cgCmdo2x2uFRzfu4XLaswV57
+X-Received: by 2002:a05:6a00:22d3:b0:8a0:7573:4f20 with SMTP id d2e1a72fcca58-8a6e471283cmr5172733b3a.4.1793297482533;
+        Thu, 29 Oct 2026 11:11:22 -0700 (PDT)
+Received: from localhost.localdomain ([2406:3003:2002:639c:61c8:985e:fbe6:4d1e])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a98643466esm200114b3a.2.2026.10.29.11.11.19
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 29 Oct 2026 11:11:21 -0700 (PDT)
+From: Yige Jiang <yigejiang86@gmail.com>
+To: linux-mtd@lists.infradead.org
+Cc: Yige Jiang <yigejiang86@gmail.com>,
+	vigneshr@ti.com,
+	tudor.ambarus@linaro.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	linux-kernel@vger.kernel.org,
+	geert+renesas@glider.be,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2] mtd: hyperbus: rpc-if: fix an OF node reference leak
+Date: Fri, 30 Oct 2026 02:11:13 +0800
+Message-ID: <20261029181114.78137-1-yigejiang86@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,131 +102,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An open or lookup of a name can wait for a removal of the same name made
-with the directory locked shared, and is then ordered after it.  When
-that removal succeeds while the waiter still holds the name's cache
-entry, the entry is only taken out of the cache, not emptied, so the
-waiter is left holding an entry for a name that no longer exists.
-Revalidation can then accept it: an open without O_EXCL is sent to the
-server for the removed file, and if the client holds a delegation for
-the directory, an exclusive create of the name fails with "file exists".
+rpcif_hb_probe() gets a child-node reference with of_get_next_child().
+The HyperBus core does not consume it, so the driver leaks the
+reference on registration failure and remove.
 
-When NFSv4's revalidation has waited for such a removal and finds the
-entry out of the cache once the wait ends, have it answer that the entry
-is invalid, so that the name is looked up again;
-__nfs_lookup_revalidate() now reports whether the mark it waited for was
-the shared one.  Without such a wait, an entry out of the cache goes
-through the usual checks, as before.  Its holder may be unable to look
-the name up again: overlayfs revalidates the entries of its lower layers
-itself, and an answer of "invalid" for one that a transient error took
-out of the cache would leave the overlay reporting it stale until it
-dropped its own entry.  A lookup that took the entry while the removal
-was in flight but finds the mark already clear is not covered either;
-it overlapped the removal, so the old entry is still an answer it may
-be given.
+Put the node on registration failure and after unregistering the
+HyperBus device on remove. Leave hardware initialization failures on
+out_disable_rpm, since no node reference has been acquired there.
 
-This relies on the VFS taking the entry out of the cache before it calls
-->unlink_shared_done(), which clears the mark, and on the wait reading
-the mark with acquire ordering, which pairs with the release in the
-clear: a lookup that finds the mark clear, whether it slept or not, then
-also sees the entry out of the cache.  A removal made with the directory
-locked exclusive, and a rename onto the name, can clear the mark before
-the entry is taken out of the cache; say so at the wait.
-
-Signed-off-by: Jonathan Flynn <jonathan.flynn@hammerspace.com>
+Fixes: 5de15b610f78 ("mtd: hyperbus: add Renesas RPC-IF driver")
+Assisted-by: LLM
+Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
 ---
- fs/nfs/dir.c | 50 +++++++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 43 insertions(+), 7 deletions(-)
+Changes in v2:
+- Move of_node_put() before pm_runtime_disable() in the remove path
+  to match the probe error path, as suggested by Miquel Raynal.
 
-diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
-index 0b6de87030..1f255001a1 100644
---- a/fs/nfs/dir.c
-+++ b/fs/nfs/dir.c
-@@ -1889,6 +1889,11 @@ nfs_do_lookup_revalidate(struct inode *dir, const struct qstr *name,
- 	return nfs_lookup_revalidate_done(dir, dentry, inode, error);
- }
+v1: https://patchwork.ozlabs.org/project/linux-mtd/patch/rc-review-20261023-ai33-33-fd231771d138@gmail.com/
+
+Based on linux-next next-20261016 (2efb7a11f1aa).
+Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_OF_DYNAMIC=y.
+CONFIG_COMPILE_TEST=y.
+The object was rebuilt from this exact base with v2 applied.
+No full kernel or module-link, hardware or runtime test was performed.
+
+ drivers/mtd/hyperbus/rpc-if.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mtd/hyperbus/rpc-if.c b/drivers/mtd/hyperbus/rpc-if.c
+index f448e23f9260f10abe17842849b312365dcd8294..ffa6578b5d399d19d3cac27d7769cccfceb0be92 100644
+--- a/drivers/mtd/hyperbus/rpc-if.c
++++ b/drivers/mtd/hyperbus/rpc-if.c
+@@ -145,10 +145,12 @@ static int rpcif_hb_probe(struct platform_device *pdev)
+ 	hyperbus->hbdev.np = of_get_next_child(pdev->dev.parent->of_node, NULL);
+ 	error = hyperbus_register_device(&hyperbus->hbdev);
+ 	if (error)
+-		goto out_disable_rpm;
++		goto out_put_node;
  
-+/*
-+ * Answers -ECHILD under LOOKUP_RCU while a removal of the name is in
-+ * flight.  Otherwise waits for any such removal to end, and answers 1 if
-+ * the one it found was made with the parent held shared, else 0.
-+ */
- static int
- __nfs_lookup_revalidate(struct dentry *dentry, unsigned int flags)
- {
-@@ -1898,15 +1903,28 @@ __nfs_lookup_revalidate(struct dentry *dentry, unsigned int flags)
- 			return -ECHILD;
- 	} else {
- 		void **fsdata = &dentry->d_fsdata;
-+		void *mark;
- 
--		/* Wait for unlink to complete - see unblock_revalidate().
--		 * smp_load_acquire() ensures ->d_fsdata is read after
--		 * ->d_seq was read, matching block_revalidate() which
--		 * sets ->d_fsdata before ->d_seq.
-+		/*
-+		 * Wait for unlink to complete - see unblock_revalidate().  One
-+		 * load, as there are two values to test.  smp_load_acquire()
-+		 * ensures ->d_fsdata is read after ->d_seq was read, matching
-+		 * __block_revalidate(), which sets ->d_fsdata before ->d_seq.
-+		 * The acquire in the wait pairs with the release in
-+		 * unblock_revalidate(): a waiter that finds the mark clear
-+		 * sees what the remover did before clearing it.  For a removal
-+		 * made with the parent held shared, that includes the unhash of
-+		 * a dentry it took away, as the VFS calls d_delete() before
-+		 * ->unlink_shared_done(); nfs_unlink() and nfs_rename() may
-+		 * clear the mark first and unhash after.
- 		 */
-+		mark = smp_load_acquire(fsdata);
-+		if (!nfs_fsdata_blocked(mark))
-+			return 0;
- 		wait_var_event(fsdata,
--			       /* one load: there are two values to test */
-+			       /* acquire: pairs with unblock_revalidate() */
- 			       !nfs_fsdata_blocked(smp_load_acquire(fsdata)));
-+		return nfs_fsdata_blocked_shared(mark);
- 	}
  	return 0;
+ 
++out_put_node:
++	of_node_put(hyperbus->hbdev.np);
+ out_disable_rpm:
+ 	pm_runtime_disable(hyperbus->rpc.dev);
+ 	return error;
+@@ -159,6 +161,7 @@ static void rpcif_hb_remove(struct platform_device *pdev)
+ 	struct rpcif_hyperbus *hyperbus = platform_get_drvdata(pdev);
+ 
+ 	hyperbus_unregister_device(&hyperbus->hbdev);
++	of_node_put(hyperbus->hbdev.np);
+ 
+ 	pm_runtime_disable(hyperbus->rpc.dev);
  }
-@@ -1914,7 +1932,7 @@ __nfs_lookup_revalidate(struct dentry *dentry, unsigned int flags)
- static int nfs_lookup_revalidate(struct inode *dir, const struct qstr *name,
- 				 struct dentry *dentry, unsigned int flags)
- {
--	if (__nfs_lookup_revalidate(dentry, flags))
-+	if (__nfs_lookup_revalidate(dentry, flags) < 0)
- 		return -ECHILD;
- 	return nfs_do_lookup_revalidate(dir, name, dentry, flags);
- }
-@@ -2329,10 +2347,28 @@ nfs4_lookup_revalidate(struct inode *dir, const struct qstr *name,
- 		       struct dentry *dentry, unsigned int flags)
- {
- 	struct inode *inode;
-+	int ret;
- 
--	if (__nfs_lookup_revalidate(dentry, flags))
-+	ret = __nfs_lookup_revalidate(dentry, flags);
-+	if (ret < 0)
- 		return -ECHILD;
- 
-+	/*
-+	 * A removal made with the parent held shared that succeeded while
-+	 * this lookup waited for it, holding the dentry, has left the dentry
-+	 * positive but unhashed: d_delete() empties a dentry only for its last
-+	 * user.  The dentry no longer stands for its name, so have the caller
-+	 * look the name up again; the checks below could accept it, since
-+	 * with a directory delegation the removal stamped it delegated.  Only
-+	 * ref-walk waits, so this never answers 0 under LOOKUP_RCU.  A dentry
-+	 * found unhashed without such a wait is left to the checks below, as
-+	 * before: its holder may be unable to look the name up again, as
-+	 * overlayfs is for the dentries of its lower layers, which it
-+	 * revalidates itself.
-+	 */
-+	if (ret && d_unhashed(dentry))
-+		return 0;
-+
- 	trace_nfs_lookup_revalidate_enter(dir, dentry, flags);
- 
- 	if (!(flags & LOOKUP_OPEN) || (flags & LOOKUP_DIRECTORY))
+
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
