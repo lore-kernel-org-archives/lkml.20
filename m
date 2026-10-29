@@ -1,93 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793251343;
-	b=bA7InwunbWFiH7JE4N1wtrvKjDQx6yhuDEuNrPNXufPKZoAWaz7HwmKpej/aR3kfr+mQ
-	 AkH1SnFJM3uWZui1GfdJA6VJhYuGxGdyL5ajdafqOgUIWneoAPIkkfldTkxpBkBBoEqJq
-	 OfJJnqSN6dFA3PklBpxBhsSg9ni0Sk/X2ZBTzETSqIVmPEU/+zyNbcDp6chVQnUKQxKZ+
-	 p0NWOBVd5lZwfEu/oMu45x2WYCNxE4sjdY8OWelH8V152pM1WLnFba50gD8pDDm8lTUdV
-	 3xofs4hYEpIPQvcQldby6Wdb0EFOCaUP791tQgmmTAGe6wTDvUNB2ceiGnMFfKEnC0g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793251343;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793251406;
+	b=LZ0FNzAOV8GGlmCW3RZXRXIGRhrOry6Ap8jAt9Pc46wLSy6NlRvIXo22R8W4I5vO/eGQ
+	 4zZp03d9OUpXSoue6E9a0m+XdM/wWYg4lL9IYBJikpLZfffDW7g8UbolYzkSoJLlvbaJM
+	 V3KlhA1WrcXssHAJxf9P4+pg9EmgH2TcNCZr+W28TnX9ML/EAR+Wgms1MygpD3zvYAMn1
+	 D4ismIzCCuAOxcgflsKjJ7C5mtWRXA+YwWCAjqXihQj5dScBCFlBGdNsiYecRMNBO23E1
+	 kR+2Lpspt1CtkF3mnZJHZ+fmQzF6Dk3WLzl0JkfX2lpsZ16PKZ9bA2px3ofwaJN7XWQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793251406;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=DtBdbryVCQZJwqxQX+yRKPENpGCAPSn/JZly+yP2sLk=;
-	b=sQoVdEK07nNPtAYqvcfmLZn2FFsE2wB6k6+f3PPPUV8ScyCCw8Uwbc7kbQkrp9pMs02v
-	 S7HPVucmWQ0ygIIMky2uMMe+Wh+l1PPqUrZS6QyvB0NqP2fZa2G7RtG2uq2AujVlUyfnh
-	 CB+NJL1Mj05fTMUhSJxlRTbsM+GkwQBz1AlxuPqfJK66Vto/A1oojVVvS7DIPpOJ1g/0u
-	 /xs8ozCcNxylad4wVzvETsKXWv9XnltlIuvWsRVmsar0iFnIPaGb65EebuC0O+Lrq4X/r
-	 LiYkgx5oP4bg5dYG2ebOO2zOWlSrfr+YEOBMECLzrqLGehktygNalZdp0nvpRSbmXfA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FEP1BhMG;
-	arc=none smtp.remote-ip=209.85.221.181
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	 Received:MIME-Version:Received:Received:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=3Lg+FgJV09tVnv78E8W4PKyxu20xSS1d1mIdbRMTE4Q=;
+	b=tSI4Fq6xtB54ZrWnBAfLZ1OgYCY+zcq6jHxdV2p/AkFhyc3rl/Xn1QoZuN0NLPKDN+nM
+	 krBzaoT9DTEXDRz6t4jAhXhTxAEX/1deYzjAgW/QiQ/cPZOjNtV9NrAuiXC1ahQp19/Xa
+	 tb7M1MQz5mre7jLk5nmhddD/mjr2+Eltd8W+8KaMtZxU7jiUnHdMAuWKS+a1awJjbDHkZ
+	 RNkYIX2Pt4E76MiHIV1QslSzrcrVvpifg0lk3xt49yNEwuxr5FZ+72lCwF11LbWqiW2pg
+	 7Fc00jUwJeo+HJMXUsI+lk9juVjCF4awiHNV1IremFZIB7bqiDjuLbmB4DqtLHCBmFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=comlore.com;
+	spf=none smtp.mailfrom=comlore.com;
+	dkim=pass header.d=comlore-com.20260707.gappssmtp.com header.i=@comlore-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=UaicBMbV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.42
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC62C606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:22:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC62C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D44606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:23:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3D44606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=comlore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=comlore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FEP1BhMG
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eadadf23e5so1575492e0c.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:22:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=comlore-com.20260707.gappssmtp.com header.i=@comlore-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=UaicBMbV
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91c79f306e9so18441706d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:23:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793251403; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TfbNjGm99hU103KyngcUQStgkvERJuGuGSKdn2K997x7bUvI68z5oM3jiM9Oo6RzCH
+         nvIkExclMV6cprP4mjdtLF2Ac/tkedBTyXGlEkvuxFkevLiVq+BCvrP72zBGB2AVVUnC
+         jzwlyLcMbqjYFsk0ME2mQeK0GPe8b1zqJugy58llkQSt/h/3F1vfAI0gWmz0///Manio
+         30LJrtohvOA54M+5B/C0HcamFMA15b8AVUtbcqORakHBfp/zhubmbTpDqbIgcJW9ZQ6u
+         xrmuJkVkDPXz/vM8GAPZA6w+XL+x4L0Q3kBIHdAmF8z61cx2tLRdLkqE90zC+8lzZdCj
+         dX/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=3Lg+FgJV09tVnv78E8W4PKyxu20xSS1d1mIdbRMTE4Q=;
+        fh=/gEvHn5QkoJA3kho6yrKIb4q3zkpBUkNNV5mFjJcEbk=;
+        b=ohoHiE23Y9/Z2BJjf00ZZxFQzFXPZHpsLQn3sYEq17nENkscrsbhYTF6I8qpkNkYoc
+         gF85zIlkVxA4qIDpkpINyL3Mgk1tf799nfNco9DJBlz8tRzAvNenvgJuu6zPE9kVj36h
+         71kGkXqJbGuKKVgeUMHSODs1wr8H3ao4BHQFUNMhLvGR139errGeI6UZ1wvbURi4IPnz
+         VUFXY7PuIhRyvXC+VWsEV7usiR1e/HzbrUq8qFcl+lC/i7FKOxzCfBEoCxEpF6JdEHqY
+         Zb9SG4xI8MW0tPIGRT2fCtYRHOi6nB+s2fKoyolu/+DzkeOHI3lTaRnblLjWMgEME9ml
+         sD2w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793251342; x=1793856142; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DtBdbryVCQZJwqxQX+yRKPENpGCAPSn/JZly+yP2sLk=;
-        b=FEP1BhMGQvm8+cq0tXbO5ZsLgPAvjefHmmnbKcA/rAMzbbB5cozIryqkFxBXnvXESE
-         KC6/As5v2mKzg0zxPuZeWK5Paog6FebQ3DplF43EQdIuE3yB+64WU/2SSK8bas5Dh1Cw
-         atTp04SDAbFQCtgN5aKMRbfa5vTfcnzkGddkl0UfvgrRep6lLVF+vB4ll2g0ZqGysij1
-         bcUOuuMf8+Ry9qQB30m8X7HTl/DFfbCIsuxVZYjUSQLGe49OSvpEn5wht/IclEcLI6sH
-         grPWKJxzkSrHQKJ1qT+gNxpIJbIGZHMLpSlrNKXEa5A+uhbwiDOzM1CwRIYMTm0J+dRx
-         DoFw==
+        d=comlore-com.20260707.gappssmtp.com; s=20260707; t=1793251403; x=1793856203; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3Lg+FgJV09tVnv78E8W4PKyxu20xSS1d1mIdbRMTE4Q=;
+        b=UaicBMbV0EubpHtn37WWWv5TXo6Wv++xAzEvkN1YhxtdJz70Evg5Pv0Z7+IWc8RSOD
+         u6F5hAWybeA3/xtJIBzMpUKiR803HNfQDigSQ81/iRPhRrN0bv+pNUQvaetrdIPRrR1O
+         e85Wenq7AMShyUamuJ4oAuY8xU1/aBraz7I4vwrRKJuC8m6yNwM4P2eJ9b46g2lYKlk3
+         EXqw/e/IVPbZuzVBbb0W/GVpCfBXNJhtGk4AaJFkONBf/38m+DIVO3usErwC9GbYOSct
+         O8DKBXWehz6bZxC4uxhNVZnBe9HPNcLafboRASYDcG+x8XEuep01CisxfV3r8Pj9lbyD
+         0s/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793251342; x=1793856142;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DtBdbryVCQZJwqxQX+yRKPENpGCAPSn/JZly+yP2sLk=;
-        b=LSoMavac+09zLnCuGNR1Tx6Zj/fyCUFnDj0ExCJVgG2emrxTZUpE0CBQWHd3ZliZXK
-         4sjOKIuw++L0llKikl6dhHDxoGns5EaHb5s+c3EPhtHOUCsrUqPxIoQ4NtkY3XxfYrd3
-         8NKPb81OtIRL3YTGWKeO4FeTywYzunO8KQBCNzK/eCsTTqJ6j6Enb28jhZikSvAB4MtY
-         hDSKziLDxURncvdQX0XRUqjauA2a5d6FzwpaFPyBAI1u45EMvekPRmXYj0s+HgdU6XPc
-         mX56RktH4YTg9A7H9veyCre+f3RynIB/69yC7jYnW5Tfwb+IRWTxaf1b4Bv2EHfb4BMX
-         9Mpw==
-X-Forwarded-Encrypted: i=1; AKwUvBxaLbf5LKjin0x1Px/ex4SfN6owP/VUKZplPHvuk3gdhWzmNTg3XVzJ6vmqCGx7Uz9CWuefUhW7fb89kXY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/+YJYhFXqtp5B+xy5hygVbWkhLKa/sA2XCsi6EkFajDH/kLMn
-	FchlXFHvpA/jFHIze3q1boWiK/s13YYOAhZkdlXOGtGwnAelnrSzO0og6yiZsev68ws=
-X-Gm-Gg: AYBFou0hv4pUEvHYd62QFdcUck7m9E0NNGCDDEruOJvXRb2dIcP8LBWa2KzLStO2Snd
-	W3m6E/jKmkXDgNZ6qiIPqaqJsjFohopcYwWYspbGEYgXKmI/tmXqKgld9+U2MjQJcGDlA1TjK1e
-	TpvIKvyzK5jkBhC/DjC57eKK6mqycJNZD2X33yP0Tz1bXC3RGrEYmD1koNkBKnevfztMafoVHmI
-	XL8r6OfG8silEQkr5l4xu7+2NHlC2C46mWSpczHVdwgG5/DgvcMKlLsppk1CC9JRz3CSGy0ecB5
-	1mRYSszUoBe/MV8Dpy7tyNIoDocQuq85LQkFi2W9tWsfI30osa9ygpJU3wXjfRJPXgQ3r8nyvXS
-	CWDcLDQ7aT+vVBoXMljgT+ovlKl07D8pxO7vYQpUAl/JxkjLn8BZzfjgpK5Rbcg8qftswuXbfB2
-	rIu2HagJrjos6D3RzE5yCQ83swXQJ7I4TNtj300lFvw3IkXb7b9ZwSJdlfGBebiYg/L7zGtVGRg
-	LVZKERaL2iqmHhS2bwZe5wsG8VbGxZecrZohxarkf+CuXWDEHvt/nQfD1WRx9ecGRCCLZMRhRlk
-	0E7JZqkW/ACRcVpqvjKQCneUyuWVXgp6SzlDejCIFCVHqPVZ7MC/ZugwiRJY
-X-Received: by 2002:a05:6122:1b0a:b0:5ea:9ec6:72b1 with SMTP id 71dfb90a1353d-5ec4ccbce65mr2347697e0c.23.1793251341793;
-        Wed, 28 Oct 2026 22:22:21 -0700 (PDT)
-Received: from bridge.. ([2804:14d:ba6b:8339:8b5e:397a:cdcb:e1d9])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec4f5cebbbsm4360066e0c.0.2026.10.28.22.22.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 22:22:20 -0700 (PDT)
-From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-To: almaz.alexandrovich@paragon-software.com
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	yun.zhou@windriver.com,
-	syzbot+5c0ed4f2974a8b100ed4@syzkaller.appspotmail.com,
-	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-Subject: [PATCH v2] fs/ntfs3: fix double ni_unlock() in ntfs_readdir()
-Date: Thu, 29 Oct 2026 02:21:02 -0300
-Message-ID: <20261029052102.1585462-1-christian.aurichzm@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793251403; x=1793856203;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3Lg+FgJV09tVnv78E8W4PKyxu20xSS1d1mIdbRMTE4Q=;
+        b=JlMQJ609TcVItqzOlKV9pUe+ztZsvqr3EsBfU+EqmxoMumHJKZD+tHf0H33IQwIOoZ
+         rh8QyD3tZrH/F2cOsMrOh+G3YBq0uB1NS7ZlC6DKJC+ouyrkymbqUII4H1+L82a+ZVZr
+         e7qKF7vATlfTZmlCVrkq0YhbWjYPsgdbEZyLOpnfxAanKzUqtUatvFI5w7Zg9kCSu5je
+         JpDg8PGeZjqbVK2vsZKEOMyZ9E28ytxjLi+YVccl7GOqqLDC+pfVFpr9/QU/r+yga3gN
+         GcIDvUWhBB+c4VVsVu0jIIaDgRK37uoNXA2VnfgtKZEQ5njiYnsEzmA3bCXft8kxn44L
+         0LkA==
+X-Forwarded-Encrypted: i=1; AKwUvBybtTsWD8pwdD5kWjSDUdAEA2SgkZ8gBdtFWfrjZgL4Io8LoJFTGOs+Cvs1YSQw+xHX/8HxY+hVe7jtMxk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0EXydLMwtV5siEA5wYlx2APQcUbEyutMuRRRSDCPRzi0+L4+O
+	/p2adG8NDJ8JZiju39tTfAywN1wZL4JD+USbsNejymRfxmfNQMIC3nVrPLFLikYhWxKdCQ8D1YD
+	yu/RpBSbQ8mXg1Nfj50CTNkYyGmI+t+a/c+B/oMEy
+X-Gm-Gg: AYBFou2O3xJP7CQcvDX8BmCH0Og8vXgFiTUwUaJ99UdOCgtcuSwYwRLuSOorw7z22yp
+	JFW+vTBY0EItLfTavdnqDauAgq+kYJ+bUDfe79+Rb20MEzXUcsN3kjVcWPhQc9QawU07T5BGztY
+	VRQSerrxI2KD5Z5hyrC2elWr+1TULGoYqzdttTDPH2UkVr6LVuQjmK2c2dE25TQA0nYp17re1Lq
+	AcH+UaZcg8KceaRqEkPs1Xa5JLNQq8XZvA7AlwGjM9tDQegVcFD3YMeAHzhWgocJdYC7sNii5bP
+	aaX86AaCC8e4MgROhsgcaBxcPz3TuAa6DO2iGaJh/DiKOIunKEBFAXpF+WA0czL5XRrngHq3vbx
+	CXtn2Wti6jtbw4OvLO2o+wMvZGG2n5nivvSz9k21xXFDAHsyvdG7nTziU
+X-Received: by 2002:a05:6214:238d:b0:914:47db:4640 with SMTP id
+ 6a1803df08f44-91c7cf96bb5mr75175836d6.19.1793251403564; Wed, 28 Oct 2026
+ 22:23:23 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Thu, 29 Oct 2026 00:23:22 -0500
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Wed, 28 Oct 2026 22:23:06 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,76 +105,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Wed, 28 Oct 2026 22:20:28 -0700
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Wed, 28 Oct 2026 22:14:21 -0700
+From: Ted Bullock <tbullock@comlore.com>
+Date: Thu, 29 Oct 2026 00:23:22 -0500
+X-Gm-Features: AclHuK_tNNj08QVgFsStypVC3FMQXg1t9_UmaQA8dmxpz6COnH-A2PgFV31jkL4
+Message-ID: <CAMwFX_CpeF-K1-9R38Fscu7EghETOOV5FmJvd=8No7YhapvL1w@mail.gmail.com>
+Subject: [RFC PATCH] drm/radeon: UVD GTT corruption and RV6xx coverage
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
+	dri-devel@lists.freedesktop.org, airlied@gmail.com, simona@ffwll.ch, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-ntfs_readdir() drops ni_lock before each ntfs_read_hdr() call and jumps
-to out if the call returns non-zero. As posted, the patch that became
-commit 7a5aa6c45072 ("ntfs3: release ni_lock before dir_emit in
-ntfs_readdir to fix deadlocks") used out as the label after ni_unlock().
-It was applied on top of commit fb058ccff579 ("fs/ntfs3: take ni_lock()
-once in ntfs_readdir()"), which renamed out_unlock to out, so these
-jumps now unlock a lock that is no longer held.
+I investigated video corruption on my older iMac7,1 (RV610/M74,
+device ID 1002:94c8).
 
-This also happens when getdents64() fills the supplied buffer,
-triggering a lockdep "bad unlock balance" warning.
+When the decoder was reading compressed video from system memory while
+the GPU was drawing, it would corrupt video frames. Moving the input
+to VRAM allowed frames to decode correctly. Disabling graphics draws
+also stopped the corruption.
 
-Jump to out_free instead to avoid unlocking an already released lock.
+Here is a proposal to keep UVD buffers in VRAM for this family of
+devices, as the driver already does for some other chips. The patch
+covers RV610, RV620, RV630, RV635 and RV670. These chips share the
+RV6xx decoder path and legacy R600 firmware, so I think they are
+likely to have the same hardware requirements. Someone with the
+other hardware would need to verify that.
 
-Reported-by: syzbot+5c0ed4f2974a8b100ed4@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=5c0ed4f2974a8b100ed4
-Fixes: 7a5aa6c45072 ("ntfs3: release ni_lock before dir_emit in ntfs_readdir to fix deadlocks")
-Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+I tested this on Debian.
+
+I used Codex to help with the investigation, testing and patch.
+
+Signed-off-by: Ted Bullock <tbullock@comlore.com>
 ---
+ drivers/gpu/drm/radeon/radeon_cs.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Notes:
-    Changes in v2:
-    - Explain that the bug comes from 7a5aa6c45072 being applied on top
-      of fb058ccff579 (Yun Zhou). No code change.
-    - Rebase on ntfs3 master (da4391c496fe is now 7a5aa6c45072).
-    - v1: https://lore.kernel.org/all/20261023223533.686085-1-christian.aurichzm@gmail.com/
-    
-    Based on Paragon's ntfs3 master (ee1cb3443cff), also in next-20261028.
-    
-    Tested in QEMU with lockdep. A 128-byte getdents64() buffer
-    reproduced the warning before the fix. After the fix, no warning
-    occurred when reading root-only and 700-entry directories,
-    including four concurrent readers and a writer.
+diff --git a/drivers/gpu/drm/radeon/radeon_cs.c
+b/drivers/gpu/drm/radeon/radeon_cs.c
+index 2db819a..9bfd3ea 100644
+--- a/drivers/gpu/drm/radeon/radeon_cs.c
++++ b/drivers/gpu/drm/radeon/radeon_cs.c
+@@ -125,11 +125,16 @@ static int radeon_cs_parser_relocs(struct
+radeon_cs_parser *p)
 
- fs/ntfs3/dir.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
-index b54828735d55..45d6a41a7222 100644
---- a/fs/ntfs3/dir.c
-+++ b/fs/ntfs3/dir.c
-@@ -563,7 +563,7 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
+ 		/* The first reloc of an UVD job is the msg and that must be in
+ 		 * VRAM, the second reloc is the DPB and for WMV that must be in
+-		 * VRAM as well. Also put everything into VRAM on AGP cards and older
+-		 * IGP chips to avoid image corruptions
++		 * VRAM as well. Also put everything into VRAM on RV6xx, AGP cards
++		 * and older IGP chips to avoid image corruptions
  		 */
- 		err = ntfs_read_hdr(sbi, ni, &root->ihdr, 0, pos, name, ctx);
- 		if (err)
--			goto out;
-+			goto out_free;
- 
- 		ni_lock(ni);
- 		bit = 0;
-@@ -607,7 +607,7 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
- 				    ((u64)bit << index_bits) + sbi->record_size,
- 				    pos, name, ctx);
- 		if (err)
--			goto out;
-+			goto out_free;
- 
- 		ni_lock(ni);
- 	}
-@@ -615,6 +615,7 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
- out:
- 	ni_unlock(ni);
- 
-+out_free:
- 	kfree(name);
- 	put_indx_node(node);
- 
-
-base-commit: ee1cb3443cff5a800948b662756f75b17ca63fe2
--- 
-2.43.0
-
+ 		if (p->ring == R600_RING_TYPE_UVD_INDEX &&
+ 		    (i <= 0 || pci_find_capability(p->rdev->pdev, PCI_CAP_ID_AGP) ||
++		     p->rdev->family == CHIP_RV610 ||
++		     p->rdev->family == CHIP_RV620 ||
++		     p->rdev->family == CHIP_RV630 ||
++		     p->rdev->family == CHIP_RV635 ||
++		     p->rdev->family == CHIP_RV670 ||
+ 		     p->rdev->family == CHIP_RS780 ||
+ 		     p->rdev->family == CHIP_RS880)) {
