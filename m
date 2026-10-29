@@ -1,102 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793241418;
-	b=O1WHWnssThadoEOxGuNLTNSbdKHHKgsuwxcCrUIMljhnegohTAgty64PXhvHJtmvTGy2
-	 GpSj9qMm6iKeHIy4W1DNirV25IZ1okI97eoN7vHuAhYU5Mq4L9KEspAgOtHNzDlGVAw6p
-	 DNU41R4GsmJtI1HbP0+llcWhiVTt/gl6WXaNFrivFnsEwW+t3xWnYiMMA0u9QcUSbCNcB
-	 2+Nhsy54Ru1oxkmrdyokRs9kf3l+tO7e5ol1itzRKxQn8oG5MJc5PQD89Q0Ek9pfCPKFI
-	 +iMgUxt/lnuoIMhjcy2MJCn8rhMElFi8AP3DxrM3u8N3ORGZvA5eqUQ29nXEuigMJWQ==
+	t=1793241420;
+	b=RORnR3hGehet5Q7z+GgXXlNR3aAkSbTQ5bumGlS99CDg+N0YRwqJb4NzFuFWfdnyRLsf
+	 lPzlgMmoXF92lpdQu+GopPZJD+qbhb8Q3zEMy0k3qfN3nvBUDmWkYAyUjdkaO3dWv+Z00
+	 DWEPC8cuBUIvwFI4JCuRtwKz08l6PtT4mL8XxZFmvVQaSluJZOsENeKEGIFNn0c0xDPvv
+	 66/9+rCtXSqsnipWeZB1f85K9tG5AwEo8m99jwQVjSqP4yCQI8iow77UdLYrKcq3jqs5S
+	 ySECUnTNx2DaQ/aO/1KIYSUK19Wi+tPInxOiJg1jj4/Y9bLZ9bgRqX3A3bXteHXpYEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793241418;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6MwRSY6bnwtZaheS//l1SzdFB6X3vt6g8Gfnj0RCoX4=;
-	b=m/pT68+snsmou/O+cTIa+QQDOrD7BsboL1yCLGakslLMb/ykTrquO26zrnhnJsof2Ln1
-	 WcEMJFciO2pKRcaTEhYylN9mtlReHAdDeCofSRl8RImj4YA5D5GgHw7IvYhcpjLTOSkby
-	 9Dw6S6D8zuBWobTA5BG67c1V4/UvJ6v72xRYYJl5fz9QXyfqdGVvJwA+NiyT24iLclIdi
-	 5nfo2GVWNZNgqFOIEXuo/1RmL/dbpyViQDSG+hTx49dLSFQz/HYCoGGTtScWsllrWT2P6
-	 Tj5oTy1SSD1NXVrNuQb/a9s0/EfqSRqwissaBZg5/DtJzhy9i+JwNTaN2PDbz7zzCSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793241420;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=TP/koneTdP9q99/N08kg5asZHhb7aicfFrLtli1TTdA=;
+	b=F4XglfVOn/4ywppLewsdBYGWiSYHUpI93chR+NjrCxE/6uqthM1twmI1eUfCguf1hO5e
+	 e7BMQGs7yXPuZHT6SCScJv1E/2cbmb6ASPGtYJSsuSKIX5AAY6aW4NcNdPYpl5A759V2s
+	 2NXWak/t6BCDKIdNcabUUHf9r/Slp9nV1BEK0GG7k3qS4ucffa5oN9wuk89/Ab80zIg8Z
+	 Q1M9mUHQfZPRemYR+ttFGUz4KpSmI06An52uZQPFjo7zxVlh4JOCjKRHvoAcsTPsTCWvD
+	 cNjeWI/GVrA6D9M5aUkA4caOx8RH7gyP1UlkEAgRHaGhLtxFBoqY9sfiLUtzmiIqW5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oD2WrMlL;
-	arc=none smtp.remote-ip=209.85.215.182
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=iSELxFai;
+	arc=none smtp.remote-ip=79.135.106.121
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784BD606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:36:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 784BD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D8D606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:36:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24D8D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oD2WrMlL
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdac6d19ddaso787695a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 19:36:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793241418; x=1793846218; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6MwRSY6bnwtZaheS//l1SzdFB6X3vt6g8Gfnj0RCoX4=;
-        b=oD2WrMlLgmRdvHZcH7tlMsqnvwCJW+xzcK02xu2nSHjfW1ffR2Cuhccgf+ZLkT3/ap
-         Wal6uiDl/vF2o3rv0gcE9BK0f2JwnPQYu2wMzSv0ugMh4fkps1mHReEAjeep8vrpxbmE
-         lS8XbKawxjgW6TdKFBagmi8DZd8Mz+X7BSfQdSXO5x2eVbxlVIChKFSO/EgaJyrEWuSh
-         pN7Dfzm2aC3vgo5/uhJs6sUiemZUvjIYRJ9Cy/+7PIVOSTEGRc2v7uNRt1Xt/ml/THxN
-         LgM7lR684/Hz0jFpSPwFVOUn1Zo3azidWgCB05yw4CWw2GPRuwYDjzncDiljAwW7kH6+
-         Wj9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793241418; x=1793846218;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6MwRSY6bnwtZaheS//l1SzdFB6X3vt6g8Gfnj0RCoX4=;
-        b=RxHPpNic2cYSnUnJ0NL7gJz16qoTunTcK6KkKu6gxV7dqqYngtxeTDIzKR6s7juAO6
-         ygqU/cB9KdPL4FhAijG40GK0DJPZ8DoJfjzqg1lXVpvx4N1SVeHYUE/iFuhQNliniTFC
-         I7vjvYYCJex3RoxtZy8qpCljccDOBBnlymo1HEME2tnBJJ57AU3G9SONDghxhvF1IRqz
-         vTI9pnOVCbQf+W+6ODHzgseaO5023UMZSgZ4X+X0G1iw0/oIEzB11RkxGsouO1g8cS5c
-         B68JabkzPkGyn70gdTuuGiQO8gMjPN/u5qkgBmUJuZ+5KgTwl6D3S99HrmKBe8OSZk0e
-         KUfA==
-X-Forwarded-Encrypted: i=1; AKwUvBxlqZ+4cxqeF2KiL3kKT0h9MrQYOwXNzpL7d8Qoq6XLFH3BtusU1IW1zMqmLfvX5IOLrFt/A3mTfqzV1bQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjvt9uJRG78SbVZ/hATvfu0LcB79m7NXM3uvJYHltN4NUWFCoq
-	zTTfIfuelNKvEOrflvEQKmeFX5N5d8lVXjRz4IS2dQItkgzVW/xXPnLL
-X-Gm-Gg: AYBFou0AR+uZeQ6jdTecmKmcyYcW25G6Hem9lEQb3cteWA7Vp2/kweRm8RyRQv6BvrO
-	ppYI191ssF303r8LdHNXQgJSugu/15YEPZ4ahCaM1sEdpswFJB09tEui4OHdrAw9FD9Cw6sHUnp
-	eih7GgCc5hKrtfO+48RkBC5jY0sofeAIzKEa7SZtAhtVnWHyJSVWVBJ2gk0oYj+2KQ4XgHXlkHz
-	0KCFC+mlPBJcAu9ca5+GnhSHGSd78GOgVuHblLCl/Q3pI55zOWLT8gkm4hLik7dMYso4RcDnYoU
-	daPe/gY+e9kZ52g4atgnUGE/ee3fPSGpsKbBc/eR1QGU+UFFRDvI4lLIP65ptIBQvFkmcEPEO2c
-	/nAG7I9u3ZOUQMPgy6+DrlJwe4IQlawxGpOxDmMVuScfD6esUxK6CtuO6CdSMVqwDu6xxOt7yQg
-	4rb6vrg0xvPikwNsY0Fntc9KqxPNNdWAgbgA0857fCiZa2lQEPq0SNc9I+9vYzwaV5XrYH2ueaf
-	6C4zp1NLPYpWB6OOot9CADe9zPfTvB41UwfRJ5OgFCqcxjI23mNxPnj3V5xeVCd0eQtpdTbAF3/
-	ZYHm/8eOI57HVkUo8ixjYWpfKA4p0JZumUx7DS3itlumlA==
-X-Received: by 2002:a17:90a:d603:b0:3ae:3f20:7056 with SMTP id 98e67ed59e1d1-3ae581d39c6mr3152541a91.31.1793241417716;
-        Wed, 28 Oct 2026 19:36:57 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5797f6aasm2762010a91.2.2026.10.28.19.36.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 19:36:57 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: peterz@infradead.org,
-	mingo@redhat.com
-Cc: tim.c.chen@linux.intel.com,
-	yu.c.chen@intel.com,
-	kayracizmeci@gmail.com,
-	kprateek.nayak@amd.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	linux-kernel@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: [PATCH] sched/cache: Check reduced capacity before alb_break_llc()
-Date: Thu, 29 Oct 2026 10:36:50 +0800
-Message-ID: <20261029023650.3404429-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=iSELxFai
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1793241415; x=1793500615;
+	bh=TP/koneTdP9q99/N08kg5asZHhb7aicfFrLtli1TTdA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=iSELxFaiGE2bxcneYK0VnG/0eFSWoVXHGDL+86bPl9TzxXjwcmUgb8rxr3PcIdh56
+	 iPgjUEZ3iRMBF59b2kz8972UdnGWDCb3OgEUXa+chQ8cjx5plwkTo2nIaJrBUx1v+a
+	 GX8Ohhl83HjPMJQHbKduvZi0VJ2x6QjIwx4dnvQ9K20JsM8FdA4yz2tvtmSW256bf7
+	 fvKIUoAgB7xz1ukd6yamCDYAuapZ10lSi5jI+rg55FYSKir2UtdpH0xtG1bFAmSZuo
+	 Wv7LsOhnOPzCPHxd5hRBhxuDRmbAp69GpyZekizlDvPYmoXDRfKoiQA3uiJoRWFZ1z
+	 s85MdfvcYsRPA==
+Date: Thu, 29 Oct 2026 02:36:50 +0000
+To: linux-bluetooth@vger.kernel.org
+From: cochcoder <cochcoder@proton.me>
+Cc: linux-kernel@vger.kernel.org, luiz.dentz@gmail.com, marcel@holtmann.org
+Subject: Re: [RFC PATCH v3 1/1] Bluetooth: btusb: test reported maximum LE length on TP-Link UB500
+Message-ID: <mHG0oCxCI78VykqUdjQxfal8LQM9K0VX759HNPN8KH51ERQWLh38Bys9SSI0NUSCY8KE32SZa97O-9hsNqTanUn-n2x-EUopaBEEK20avn0=@proton.me>
+In-Reply-To: <20261029023235.1280321-2-cochcoder@proton.me>
+References: <20261013032742.497402-1-cochcoder@proton.me> <20261029023235.1280321-1-cochcoder@proton.me> <20261029023235.1280321-2-cochcoder@proton.me>
+Feedback-ID: 97716137:user:proton
+X-Pm-Message-ID: 1e56263b990b34ea99103c3a31b4eb96d62ef335
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,62 +64,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Accidentally left in the last comment to keep it as a test only RFC, I've t=
+ested the changes and haven't noticed any regressions. Please ignore that.=
+=20
 
-need_active_balance() moves the only CFS task off a CPU whose capacity
-is reduced, for example by IRQ load, to an idle CPU with more.
-alb_break_llc() runs first and refuses to move a lone task off its
-preferred LLC, so if no other CPU in that LLC is idle the task stays on
-the reduced CPU.  Like asym packing, which was moved ahead of
-alb_break_llc() for the same reason, this is a performance case that
-cache locality should not override.
 
-With two LLCs of two CPUs, the other CPU of the task's LLC busy and 60%
-of the task's CPU spent in a hardirq, a CPU-bound two-thread process
-stayed there for 20 seconds at 38% of its normal throughput.  With this
-change it moves to the idle LLC within a second, as it does with cache
-aware scheduling disabled.
 
-Fixes: 714059f79ff0 ("sched/cache: Handle moving single tasks to/from their preferred LLC")
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
- kernel/sched/fair.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+On Wednesday, October 28th, 2026 at 10:32 PM, Kyle Pepper <cochcoder@proton=
+.me> wrote:
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index cfc982205b98..e313c6d212c6 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -13585,12 +13585,6 @@ static int need_active_balance(struct lb_env *env)
- 	if (asym_active_balance(env))
- 		return 1;
- 
--	if (alb_break_llc(env))
--		return 0;
--
--	if (imbalanced_active_balance(env))
--		return 1;
--
- 	/*
- 	 * The dst_cpu is idle and the src_cpu CPU has only 1 CFS task.
- 	 * It's worth migrating the task if the src_cpu's capacity is reduced
-@@ -13604,6 +13598,12 @@ static int need_active_balance(struct lb_env *env)
- 			return 1;
- 	}
- 
-+	if (alb_break_llc(env))
-+		return 0;
-+
-+	if (imbalanced_active_balance(env))
-+		return 1;
-+
- 	if (env->migration_type == migrate_misfit ||
- 	    env->migration_type == migrate_llc_task)
- 		return 1;
-
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
--- 
-2.43.0
-
+> The tested TP-Link UB500 (2357:0604, RTL8761BU firmware 0xdfc6d922)
+> reports maximum TX and RX data lengths of 251 octets through LE Read
+> Maximum Data Length, while LE Read Buffer Size reports 27 octets and
+> eight packets. The previous RFC demonstrated 167-byte HCI packets
+> with unchanged LE credits during ASHA playback.
+>=20
+> Use the reported maximum TX data length as the next experimental host
+> LE ACL length instead of an ASHA-specific 167-byte constant. Require
+> the observed 251-byte maximum and 27/eight buffer reply; preserve LE
+> credits and BR/EDR fields. The maximum-data-length value describes
+> Link Layer capability and is an indication to test, not proof of the
+> physical HCI buffer size or pool layout.
+>=20
+> A direct HCI user-channel experiment sends sixteen whole packets at
+> each HCI payload length of 27, 167 and 251 octets from UB500 to a
+> MediaTek receiver. All 48 payloads are received byte-for-byte intact
+> and all 48 HCI packets complete, with zero pending. This establishes
+> 251-byte HCI acceptance separately from the reported Link Layer limit.
+> Only one packet is outstanding at a time; the experiment neither
+> installs the revised callback nor streams audio.
+>=20
+> Keep this a TEST ONLY RFC. Eight simultaneous large packets, larger
+> HCI limits, mixed BR/EDR capacity, other firmware and sustained audio
+> with the revised callback have not been established.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+> ---
+>  drivers/bluetooth/btusb_main.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+>=20
+> diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_mai=
+n.c
+> index 92a78a7e6..b654cf5be 100644
+> --- a/drivers/bluetooth/btusb_main.c
+> +++ b/drivers/bluetooth/btusb_main.c
+> @@ -2972,6 +2972,19 @@ static int btusb_setup_realtek(struct hci_dev *hde=
+v)
+>  =09return ret;
+>  }
+> =20
+> +/* Private diagnostic: test the reported Link Layer maximum as an HCI si=
+ze. */
+> +static int btusb_ub500_test_post_init(struct hci_dev *hdev)
+> +{
+> +=09if (hdev->le_mtu !=3D 27 || hdev->le_pkts !=3D 8 ||
+> +=09    hdev->le_max_tx_len !=3D 251)
+> +=09=09return -EINVAL;
+> +
+> +=09bt_dev_info(hdev, "UB500 TEST ONLY: LE ACL MTU 27 -> %u; LE packets %=
+u unchanged",
+> +=09=09    hdev->le_max_tx_len, hdev->le_pkts);
+> +=09hdev->le_mtu =3D hdev->le_max_tx_len;
+> +=09return 0;
+> +}
+> +
+>  static int btusb_recv_event_realtek(struct hci_dev *hdev, struct sk_buff=
+ *skb)
+>  {
+>  =09if (skb->len >=3D HCI_EVENT_HDR_SIZE + 1 &&
+> @@ -4715,6 +4728,9 @@ static int btusb_probe(struct usb_interface *intf,
+>  =09    (id->driver_info & BTUSB_REALTEK)) {
+>  =09=09btrtl_set_driver_name(hdev, btusb_driver.name);
+>  =09=09hdev->setup =3D btusb_setup_realtek;
+> +=09=09if (le16_to_cpu(data->udev->descriptor.idVendor) =3D=3D 0x2357 &&
+> +=09=09    le16_to_cpu(data->udev->descriptor.idProduct) =3D=3D 0x0604)
+> +=09=09=09hdev->post_init =3D btusb_ub500_test_post_init;
+>  =09=09hdev->shutdown =3D btrtl_shutdown_realtek;
+>  =09=09hdev->reset =3D btusb_rtl_reset;
+>  =09=09hdev->hw_error =3D btusb_rtl_hw_error;
+> --=20
+> 2.56.0
+>=20
+> 
