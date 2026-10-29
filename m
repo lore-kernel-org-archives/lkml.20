@@ -1,72 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793291033;
-	b=OBCiTvL6achdagjH5wgX+1CONbwVONnb4sFLFt67yjJCXpqajDIWFxrbGVAfKU0DPH1b
-	 FNJZ6v2OT7Vpl0RgZ7l9JMAKItV61QVqa1TozrzJ4Hm0eQqGy4xjmgTYT5AIR/5z86E7Y
-	 EUcWfzlmUvCtkB21Imz1b+dEyrPdshG22GHtZc54lya4MeshuSd2hA/OLYQ0nN2Djf/xp
-	 zqjxFO8SoM2sIolI/jke6ULXBFigWgNus9TxFnwYvZLmOswGbk4AQXHe7Y9ZngP8J/2ms
-	 gxCGGo1q1+HgdGkrrAd4dHkCPXo0z+2s+UAzJiuwZE+ItPxq8MnA8wuShn94tp+uaww==
+	t=1793291038;
+	b=2vBApOYcpow7JStraFcuYppFEBFUzs2AjK1umT11JNM9uU0qg3d8ZiVS7NVXLqtH4epr
+	 WIS+CRC6ZxDIP2GZS3Q2+F5CkLrhgmhtzVIlVbmG8nppJ8rNJcEmmOSu7Ghb+RSxnWuTN
+	 wABpOr0zFuDUrwnyLjas8UX9SNiuZ9my2Z23PPzOgFSayIr7KSWlFc9u5LQHFSuuwll9y
+	 5hfBlrGKaWR03V5MGQg8IHpS/KGC2SLUsiHh6zP7lHW3ax47vmdt+sC5LFy/jYGVQlpPh
+	 1CmxbmZy+ivS72qyq1RQjYu312bfoO7bJ7emkRy+6Fp70RfHXZBI6HkkoyXIof9Ukig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793291033;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=GrjYMuCu97pt9D7XBnSRs/Scq9x71JYjhZL+BdFU+Sk=;
-	b=r1cLm4UK01QALj1A2diitb5ZtF/y1tePCNbUmM1ZOPfiG4IPmD+tcojygqq1OwIkc9yH
-	 5eWT35VWLU++RsXvYcnvtAJ7H2VV2ORMnZNos+f1AmHLsFeYMHyJEAJmWht2BQ3u8YDGg
-	 rnbrxWkG+ooRe05Q0XFpqn6DuFid6SJyh6VFPQvoD7IYa/ISacRx7Y5Bn2xkzUnJIZmTs
-	 am0yc/qYeEXeKEm0OYcZ72/0+mxo5XWFMGVJ3Abezw4t0/zGOJWnLjoaIeBLsb+Q1tZR2
-	 V8KaxuGW56LmwubbWJEHHXLjQZf0Ge6AZYcnBig1iOt34EelIGl1cTCdPJd0UVpfF8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793291038;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=p7BExmyMwiDR5UEEieV2XRoxDfKEo1NhnCavqA/tY9Y=;
+	b=E8XhTQvMnxR1fnvwTBdmcZUyOT6qZHja3WlCnxNjsBgJ1Hh44rYI7zMglPnln3M8+Q3S
+	 OrJfTCuE16dlHc7SA7f/i3KrDhPXoRYrNXyKSW+WR20mvalX0Vq7aHqJQyrwSik9YNknW
+	 Hm6UobhzV7eRMBx5f+hNWvXJvqXCj5bFfWjEe98KqqS4SI9u12dhaiO4+x9Lc4Qi/MjPZ
+	 E9uAAMMZSKvlDVc7DgJIxjLf0+AWS8HIvFuz+AUgVGMRvEGva5PkQuuILctUftkB0cTpJ
+	 ziyQQKvYAU9i4ZyS0zSipTDpvkdQJjjqlkWlxuCVXjMAWXPG9sSoSzPakV67wGf6GCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=oLFC1ae5;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=RV1j4Do2;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=I5v0dbac;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B39606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:23:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29B39606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1E24606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:23:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1E24606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=oLFC1ae5;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=RV1j4Do2
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793291031;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GrjYMuCu97pt9D7XBnSRs/Scq9x71JYjhZL+BdFU+Sk=;
-	b=oLFC1ae5NvTqqYiUKNFepYIVHKBzuw1r1bdB1dRmYFB4IXzEKCyDk/VTblfjejOU2t7l5E
-	BCP6svGdqWHG0LHzp+PtCGs/3sSMWdf3TmddPJPZOgIzvyI4FdPAWN/IZqWBwcWrmAuaAy
-	0XIkMmKKdD8yviTPFqvOr3yH7u20aWgpTC+NrqcU+aAeRW/V7TTkSytx3gB+l+pZVHrna7
-	ljEc30r6e9IwOMLmhZ9vXvLE+sd7KiK411lw6VJ80XPGyM+KKBmINeVvdsHCDPlVap2a47
-	Y1/g/+VeeT68/Af1MwYeWjFBTh/YdWv8c7/I/pHD/3Oqoa1RAnQuPHDgETrGlA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793291031;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GrjYMuCu97pt9D7XBnSRs/Scq9x71JYjhZL+BdFU+Sk=;
-	b=RV1j4Do2BcJz4ZuYw9jjv+UP0Y98GG9WGbNmrQjhKPC6L6SGZHLp1G8eS+jg/g3QJ7SPqQ
-	mMXh60QGfY+3IjAw==
-To: Petr Mladek <pmladek@suse.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
- <rostedt@goodmis.org>, Marcos Paulo de Souza <mpdesouza@suse.com>, Chris
- Down <chris@chrisdown.name>, Naveen Kumar Chaudhary
- <naveen.osdev@gmail.com>, linux-kernel@vger.kernel.org, Petr Mladek
- <pmladek@suse.com>
-Subject: Re: [PATCH v5 08/16] printk: Do not quietly ignore adding entry for
- a preferred console when there is no space
-In-Reply-To: <20260929120546.328616-9-pmladek@suse.com>
-References: <20260929120546.328616-1-pmladek@suse.com>
- <20260929120546.328616-9-pmladek@suse.com>
-Date: Thu, 29 Oct 2026 17:29:51 +0106
-Message-ID: <87v76kwk4o.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=I5v0dbac
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so19943175e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:23:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1793291036; x=1793895836; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=p7BExmyMwiDR5UEEieV2XRoxDfKEo1NhnCavqA/tY9Y=;
+        b=I5v0dbacQ4WP0S/nvP67diDEkx+Vv6y4Vjt08cxXyOXPUgCwobUt63/XJTKiQCkeWk
+         tNluPM75qr/BN9xemD4XGZO2jsPx1WVjuYnfdUtrK3NsxN8PPZI5MpFNWjEKcF8n3shg
+         0pVhoqq1m3uk/bsX5bpmUoeBd/ey5Ixjnxvb1K/MpUjTM5LLGhw96k9A0d8zjCcRqBrQ
+         oAznT5mDL+wan+lDbK+hPt0BeO7CVqKDr7yFPUdCzozcckXOqKegEPLmSNI2PQ8bbiWk
+         dMMUiyPg2vwginbUlo2u08eK+9QNSL7/hACAdzJibVqS/AbeQYPUktcNujs5tzy6Nf6q
+         8KPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793291036; x=1793895836;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p7BExmyMwiDR5UEEieV2XRoxDfKEo1NhnCavqA/tY9Y=;
+        b=tZCfvUQ+lAS8y4S1aFdaU0/DTkOYbSqmpeCSSSrmI+zQ5BIXGhmLETNBymqqyHmh7D
+         R+OfaeVbgBcmY9qtCRQ8ls9tJ0NTKWL5W6agz1nJ5fB5UrAy30MsleXydLlvKu+ud55/
+         USjC8bE68zYNQVlEBgl6858Le7TP3Wln60yby2q/lvx4yK1ojb0ABUhYUwAXLIqeIhF/
+         AInHWL5eHWTPEIdY1UPeyEN7npj6SbmIABBmxwc6KdwG/kcuC8SJCu786gtZa6u6NW7B
+         ZfaziOTK2PkY3YuHMQ+LfFD2eeNAJAQtifofI6r3SInCH5CTG7Cr2sbZ4TiqVl5oB6ET
+         dsnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwPR6js6gj3DUwXS0zfPyGTGHQaJy+65wWJHBafPLOBzNzoRxpplljxDwU8LS3sVYwkAfBM5qIx8IUy/6o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSXgN94SPsvSTqZpc2Gn3AnrAwyro6IM1SeYkHMzjANS5Es9Nh
+	pNeB/BSfjUyFY/yKML2e8R9EeypwuWEHhy8uhTIdI8dWiLVEMpSWetz+ZtQ6RsZWi8U=
+X-Gm-Gg: AYBFou2bt2tkIMpPUQIr5+jiUsy0pT4quxFZHFNXyIbr1Gj3jL26gdpmRaj1fI6+y1z
+	cb87JiVjZvvXjP2zAqeLRHiOwbjvuOuVVZ8evLbYAKzrye9g7kMG0pZFHpN4MjIS3qZtKP5R7R6
+	jSqEKNdSUAbOHE7g7FUzmfa3trlkOrdtoNAkaG+IbkOwITj21DYgcgfUXfct/2z3eL4z/W6KB5l
+	E+mwjPY0jsi+mC9EkN04taJrxco+z5h9D/V0yW78/2DXJSdW6cB6DwZ26CZ1hdPJIR5x5Uyt6+D
+	OIxp/mCqTQiqFyWnf+nB2NFIDPDjIhIP10UkwstSdeELZj3HvgiTBClaix5W+puc8GaK1mU+VTe
+	LYauHXBTRYjTsBLEeXO31jf1d4YtkBb+ZrFuYQn7G2RKrWFsoINtmZsUmS5ibiidwigs9HRYs+O
+	OQaKozk6qx4em+IVS6cizQfQGbNK/cGbVA8iCsZgSFpdn+Z/RLU+rHcklTdU4hl+DemSylK/joU
+	IjWdnXmn5ZqKYAv7zLoZN4SxfeYb80UeJtGB4DUQi6kuJifJsiyc2CAHigd3AwHVmNZ0UnFXgwf
+	SBccMl+kjsdfrik1F3J5BuuxliQq22xtHEG8hdxmlfE=
+X-Received: by 2002:a05:600c:34d3:b0:4a1:e0db:8cf8 with SMTP id 5b1f17b1804b1-4a9643d37f7mr138287835e9.3.1793291036011;
+        Thu, 29 Oct 2026 09:23:56 -0700 (PDT)
+Received: from localhost (109-81-92-234.rct.o2.cz. [109.81.92.234])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7ee575e2sm75886455e9.1.2026.10.29.09.23.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 09:23:55 -0700 (PDT)
+Date: Thu, 29 Oct 2026 17:23:54 +0100
+From: Michal Hocko <mhocko@suse.com>
+To: "Liam R. Howlett (Google)" <liam@infradead.org>
+Cc: Uladzislau Rezki <urezki@gmail.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Baoquan He <bhe@redhat.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Marco Elver <elver@google.com>,
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+Message-ID: <auNzGgj3OqLTG0Cl@tiehlicka>
+References: <20261028154218.1668182-1-liam@infradead.org>
+ <20261028154218.1668182-5-liam@infradead.org>
+ <auKshDXKQXt1kvjy@gondor.apana.org.au>
+ <auMbCuecFeRmBFSK@pc636>
+ <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,12 +112,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
 
-On 2026-09-29, Petr Mladek <pmladek@suse.com> wrote:
-> It is hard to imagine that anyone would want to add more than 8 preferred
-> consoles. But never say never. And do not ignore new entries quietly.
->
-> Signed-off-by: Petr Mladek <pmladek@suse.com>
+On Thu 29-10-26 10:53:56, Liam R. Howlett (Google) wrote:
+> 
+> Sorry for missing the ML in my initial email, I missed it from
+> get_maintainers.  I should have really clued in with such a small cc
+> list ;)
+> 
+> On 26/10/29 11:08AM, Uladzislau Rezki wrote:
+> > On Thu, Oct 29, 2026 at 10:16:36AM +0800, Herbert Xu wrote:
+> > > On Wed, Oct 28, 2026 at 11:42:18AM -0400, Liam R. Howlett (Google) wrote:
+> > > >
+> > > > Below, one CPU adds an FDB entry for an RTM_NEWNEIGH netlink request,
+> > > > while another CPU is inside vmalloc() or vfree():
+> > > > 
+> > > >     RTM_NEWNEIGH                      vmalloc() or vfree()
+> > > >     ============                      ====================
+> > > >     spin_lock_bh(&br->hash_lock)
+> > > >                                       spin_lock(&vn->busy.lock)
+> > > >     rhashtable_insert_rehash()
+> > > >       kvmalloc(GFP_ATOMIC)
+> > > >         vmalloc()
+> > > >           spin_lock(&vn->busy.lock)
+> > > >             waits for the other CPU
+> > > >                                       softirq: a frame for the bridge
+> > > >                                         spin_lock(&br->hash_lock)
+> > > >                                           waits for RTM_NEWNEIGH
+> > > 
+> > > I think this is a fundamental bug in the kvmalloc non-blocking
+> > > support patch.  How can it be used at all if it is susceptible
+> > > to such dead-locks?
+> > > 
+> > > And if you can't use it safely why don't we just get rid of the
+> > > broken kvmalloc non-block path and have it always go to kmalloc
+> > > like it did before?
+> > >  
+> > If we have a look at this as we did not have vmalloc() here:
+> > 
+> > 
+> >      RTM_NEWNEIGH                      foo() or ...
+> >      ============                      ====================
+> >      lock_bh(&br->hash_lock)
+> >                                        foo()
+> >                                         lock(B)
+> >      rhashtable_insert_rehash()
+> >          foo()
+> >            lock(B)
+> >              waits for the other CPU
+> >                                        softirq: a frame for the bridge
+> >                                          lock(&br->hash_lock)
+> >                                            waits for RTM_NEWNEIGH
+> > 
+> > Same issue?
+> 
+> Looks like it to me.
+> 
+> > 
+> > I have a question:
+> > 
+> > GFP_ATOMIC/GFP_NOWAIT guarantee they do not sleep. Do they guarantee
+> > not hitting ABBA dead-locks or they are not interrupted?
+> 
+> GFP_ATOMIC and GFP_NOWAIT can be interrupted.  It's more about not
+> waiting for reclaim (kswapd might still run) and GFP_ATOMIC might dip
+> into reserves.
+> 
+> The issue is that kvmalloc() now falls back to vmalloc() for
+> non-blocking flags (I am restating this to make sure I'm not missing
+> something here, please correct me).
 
-Reviewed-by: John Ogness <john.ogness@linutronix.de>
+Isn't the real problem that vmalloc should use irqsave version of the
+spinlock to preserve the locking constrains of the caller?
+-- 
+Michal Hocko
+SUSE Labs
