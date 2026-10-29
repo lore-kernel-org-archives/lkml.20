@@ -1,105 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260161;
-	b=Wll9u/RuKVGuyYRZe57fGU1c80yos0jnntjvtS/rWJWFT2wPXbUBJM/qM+VzoNQE0UA/
-	 YU7xAIN333nPWMNSir5GHncvkXHa8NsqmoBJ61SSFVbzPKHuW48TNK65ltf5KgOGKefwy
-	 I3+qD8dNZZF1wN+wbsKa0/ghZES83adkDi4PRvqBEz1mvXqQ8tcBoC7XqToVCFpoP6IEP
-	 XEf2f+QvSGTj9j5Zhd5nW0X82fjuDoI3a0AGc+5VN9gp4KADGLp2bI+b/iluzx7xNjz0l
-	 imPkOVbwKehUco5fIgZ91UHnBEGk03xXEVCMnZ7RZNoWQyg1XVcY3PEd9kr8YESDS/Q==
+	t=1793260165;
+	b=G/Y+yE0W7VwKhcDCPDWcy4spGWJTfhfZntX2VVEmJYE3l4NjhiCKg1sgcPZFGwjvhbZ0
+	 jEchPDOTxD/8pVKyk2P2RMCe1fxZx2E2uJFVmTm62RkzZSm3mp9NYGdT+BmQPKBw78eiL
+	 8Zme++gSp6DL7NmPXtDp2THwXFTW44ME7AdYIbeR3GErVkpcSI8+Q5zDcgxs2koCSZGAU
+	 bgcRZhzZ5ZnFYcuPdZ0Z3V018PAXW00AK0qNCoILkmpLtt/o62neZvIcD1ovvGlgsQQIE
+	 Yn9lKdD/ME4gMAkzSC36AeITrKWwZyXaAkakE+4xHERLXq+hJvUB7dzzdiJZMr1Oq1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260161;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260165;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=WhxFxUI7KubkrTTp5RdfzvpBaLW8DuXGebAFr0mra2Y=;
-	b=UP6gXyBnt86P5xkb+m4kutl8YVLY5lJdF5OUQ3pQKdZYzSJ3dFt1ar/TJzrnAWsWhFp9
-	 B6CQ1qRFGo+ZYjxw+8ukG+4eS1VpLR8KkBmoHk8kYFK2bZ3Q0I5qsRhoDN8fmIUIH2U1i
-	 vdBx/O7eG9nEtFKK00j2TfhJFyJPWXDzmu79vY39z2RzWd0TGg58R6fJ+OmVUl7s3sZ0W
-	 wAuPmycyxBvUlzJKNbpiKVtQRyXK83cdNmQa+6xYUyNB5mBztbH0uFSIgsQgSPw62MsnL
-	 PMR6veE831GyIu1KcNxkAJWgrM0/NcfMk1daA8GDfozvIDS6n53GhEH9GupOXuccZ2g==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=A3A4KroQ7g5mtKyNwDKv1PbMO1uQ0igFufvmY/wg4ak=;
+	b=cwxzyeUqOEZIfD6/70fRIE3CRFhDHoEwrp4dd5OuaXFkcXxB5A0zxFsxphhkq0oObaG9
+	 yxWrcuo+p8EPqsjJv/OyhzrKZqQH0X3Nh1JFkKR3gVhuaIoQsbBxO8j97G8nV6uv18E8w
+	 e5J0m+RuZ3HscJzvFa+1QAX+6KNpm8Kp1FnQPY2aIezPhIWbfcay+zRceR9ePK2ooCgYB
+	 X5pQEAlilnpUwVp7qm+MxdjwNe76gHD/HTUpJqhr3nybhxCfg/JuPbpBU30Q43Q8drJE1
+	 dJCaPRwyQQ+59NGF+Ag1c2Uk443b2Rfa8ofS2HHrceN08YdRfXi/bYM0YbtgS+Hrbww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xCHNQnn6;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=i5Y8broD;
+	arc=none smtp.remote-ip=74.125.227.133
+Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBDE606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EBDE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4654A606A325
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:49:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4654A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xCHNQnn6
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so2804825eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:49:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=i5Y8broD
+Received: by mail-pj2-f5.google.com with SMTP id d9443c01a7336-2e7c8213b09so5736765ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:49:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793260160; x=1793864960; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WhxFxUI7KubkrTTp5RdfzvpBaLW8DuXGebAFr0mra2Y=;
-        b=xCHNQnn6d0sFeQdewQXCVbEf5KovWJ91pDb+1XqdkQCsCV+HRTW6W5CCm/rFXvyoLT
-         ArmzLFtTxCHAkrbqRloepoOnc/TVJC9Csv6zAJJcrP7GVy5Xu5WuJdkZIUTAT1fWTaoz
-         qcKQB6FHfgpdH1fBvAE6pg9GdY9k55Kjw3986igx6IbfbN78zkin6RPfQ1v9OKw87C1a
-         nFjR09qiUfP3trsSZ2SlwICWoJHAUdosYRn6YSMGZ8KaFXYHKp2ZNNFKnb6UHqM0o+EE
-         MzaaPVytrhnqt8sEEU8NvWiaASVMiN1inQcf8RhC1jXk18L5ZTaqOrU0R40PbaeAfhKA
-         qKbQ==
+        d=bytedance.com; s=google; t=1793260164; x=1793864964; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=A3A4KroQ7g5mtKyNwDKv1PbMO1uQ0igFufvmY/wg4ak=;
+        b=i5Y8broDdhc1sWt/yv6W4AyfzrqfJ2Nz3oXdHTbPrfTIxqWTzUZHOv2wS/HznzWbme
+         Q7/8uIcYVg37o+BKniiJJb1oBTTOv3BXcDwTLYiPeVmahx10mWj/Glod8sTyWfq5GU9t
+         CMhsM/I8c7kPpFTduGXTmkwfBXhRFaNdIy0kQrOnPY+rruz5O7QX2rqvqe+uvseLYsMC
+         gpg8zf2Vz5wvIbqMR0zOG9s9BWnitSdXtuRi+ujR7CMzTqmsuct91+u7Kpl5fjczVYNT
+         o3+71983zabWkzFRefGgxzsfoXjE+Tp9KtivRk+3ikEv5CZDpA1+NVsu86ZBuBpweYfy
+         nKEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793260160; x=1793864960;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WhxFxUI7KubkrTTp5RdfzvpBaLW8DuXGebAFr0mra2Y=;
-        b=RalICRd3bnAKYZl3O4mwILvm4+Z6oPwoClzNZWY5ewcNjjvJfamZRLLOSP90jpcaZM
-         aI2vJnxINuSRD+Z98OwNPAFvsEFc5EzW39zc4R0X4J3pRF176K/U/PWwphNVq3qmiVZJ
-         hDD3ZFP26v0YblkBveHxDjE99AgWKkTdvEdODH1rO9NCHKQX2ctAEYrwN7UoBW7PMcRU
-         mOaaERclutlbduQfvMof5Jso6cMPlcAtSFWkrrOd9pYx+pHeSTYAESvjn0q0W8OmojiT
-         tbvHxcsJmWW9FrJMDv2feD6Qp6H/CVxNW6gCOKVr+BTVjKRkA37R1BKnnvw71a2N9rAT
-         Jzeg==
-X-Forwarded-Encrypted: i=1; AKwUvBy2PiDSXUiuEGMsTA0fpYS+GZyFTlCmcuWqhbVC+72nYpXB30zSj23gAkdXzMhi9+qyxfB9llJigteiZWs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7X2S43QLWhcHqQSL42jYSBSrVLEwSIiNboxrkS8rOl6EKWbSp
-	slCRn4Oz8Glem70GoSsqJF/gYitZiZrjyUhAVFUn04VGyVJyVcAkCsWs
-X-Gm-Gg: AYBFou0oazMbZWhPhyeIsrNYxf05161NaDBEdymGBSKLTTsLUfWLnH2t3BDrhkdo0wL
-	bzXTZ2eB13ZGPmeGx/6wYLqcUdrwRkq9KknIOXcvEfln/8E7kS8SBcqNGH6UxLioUniOidyqCii
-	Ow1AFQ+JdF9sxbCWUDxNFEEWffp74Xmyj8eVqUFup7zxn6Ulxk1JR/X6AeH/8+FeWHWtvp0efhs
-	6yT8IQ2/vZmMLAk90QuiSN8G7r6ncHB17Lp73NYzua9hzgI+f6rLo0xMPj6sCWHRqmeMUoRCxXO
-	8gCeagM1FEQnYzPg5PsupDJb/n0MfAqopIE4dpOfLClO5tDb+RAihuNFei/C5gVL+/Hi1b80Z0V
-	AGzFwqteWyIYeaJ6ZaFTey4rKsBDVRG7iepLjijei9qaPvYkEd26X6ae7rMCn/rV3/EBK5dhAFb
-	yshVa2y06/h1QN+ooyo2ISWLS5g1tmFEyRucKmntiA6JJ34PjYYyoVM9D+lV6Y1bs0B6d2aC+wL
-	8utFBv5AvYqU2gQ8MyNiwnCKk44G4a3cyodwF6QCJB18DWSQ9PLfn4RidoM+DlwsbM2cEmq6/xH
-	NzRyCG4dImtigbX1aN9ST0vtDHIq
-X-Received: by 2002:a05:693c:41c8:20b0:351:5cb5:53f7 with SMTP id 5a478bee46e88-36a2027e717mr7519666eec.3.1793260159995;
-        Thu, 29 Oct 2026 00:49:19 -0700 (PDT)
-Received: from localhost ([149.28.89.224])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a238dc80dsm16081493eec.9.2026.10.29.00.49.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 00:49:19 -0700 (PDT)
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Chang Yu <marcus.yu.56@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1793260164; x=1793864964;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A3A4KroQ7g5mtKyNwDKv1PbMO1uQ0igFufvmY/wg4ak=;
+        b=iIdScjmppLVgi3nzh7XuPuBctkMcbzqCIJHVNH+y/LoqSqBXgHd6rCb08Xl0Uzh3dX
+         H5alXP/2BM6mtuLU/crFx8V4f6M306e0icr5wxElZz7swJ9ENJymvkwjD1pTFFUDvPYk
+         RlJUuU5oinve3djXixs3pw9TYOH2130zpexT4W7svczDAlByDjh3h/fq/rbbAinyEke0
+         iOX02YZ/YWi85cHNHGXW+2KlTuPW/FdUBAHkMUMblnvVhuOAsfAG2WjEiod5n+j3kIKF
+         jpXUJllNrEjTBvS9Tz8ArrowXmZzoz7oab+Jjnqk5IMfx4Gr2E3UH7TOyj/tsZk88n6z
+         vE2A==
+X-Forwarded-Encrypted: i=1; AKwUvByAuzUS7Dr8OYWjDnuU1N1QPS3n/pmP1nC8tqQjhDZLovsSWzPypEJkwP+PB7aUbFy6F7+8PInhb5EVnVQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKO73x96F5zL09GTamrUl655nWliHKPAiye1U2D2NCnU12uHa0H
+	UuYmmWvXOdMv3VcOs/CKTP4aoCNaknK3+9s5KuMPL2ONzPG6h4Ow8rXcHQyUjVuDeL0=
+X-Gm-Gg: AYBFou2Tz2fDBj3Zy8OT+JAxusSngqI7ALmCPo7xiJmN/dcD2LgaZq8X/WFQJYeiUiL
+	QRu/JKuXKAltrBWb8YWUdKalAi78YembLJmPLHa0FEpAAflgbRg4synKe+WXXdglAMiOG6zMdQo
+	CqFTvbY68S3b+Iy0J0SqFTHeDzjnyT5QtAA1M2GW1Y2NpyFhCkmkBoDUuLD6s7B03uDN3MSR4Pe
+	WOcHoc+N33CbR2UMtGs/X3rlgdfuWXiH2fgHtZLRJKpiUzVFZGkBcIhKrfj/pbIcuKEDJYvHbjN
+	4ptuzohxM8YkJum5WDMRTHavTlZ7ISo25SaAaCxoU/1BiWGOPc0DvUK7CnncAIL3ldhXL1F3Ekd
+	pqwCMx5lu4BbiP2ARKw96/m1uuSgNklp9kumEXK00Roj6195x+6Nr3QQY5C8UlhqiM8TUiMOkX+
+	AJoIbqMUugm5Nzuk6AJdZURYku37cD6czHHyV8qw2T2o6TvY9WxRWPE8/4qsfoT/7BfuxNvTBzO
+	DXLlU+4Of7ifp4CRiIXTJm+r3iF3YdyZfRnayYF3d1P4Z4NSvCcver76q4B666ZioCRD/he0C4M
+	FFnXhunegcrdvCDYT0O4SpjHsuZv3fDFCtZPWk0KdzTOu0pWXK1P0htVJKmGdelHvkbq560sQzR
+	jR7tMHBCAfVjJzCl5NNEwf9htVFav
+X-Received: by 2002:a17:903:46c7:b0:2e5:e1de:9c3c with SMTP id d9443c01a7336-2eb00590642mr37850705ad.47.1793260163496;
+        Thu, 29 Oct 2026 00:49:23 -0700 (PDT)
+Received: from FJ7FR2JRQ3.bytedance.net ([186.240.245.239])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6bd60desm30598915ad.29.2026.10.29.00.49.10
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 29 Oct 2026 00:49:22 -0700 (PDT)
+From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
+	Conor Dooley <conor@kernel.org>,
+	Anup Patel <anup.patel@oss.qualcomm.com>
+Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
+	Yunhui Cui <cuiyunhui@bytedance.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Will Deacon <will@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <shuah@kernel.org>,
+	yuanzhu@bytedance.com,
+	yang.yicong@picoheart.com,
+	yang.susheng@zte.com.cn,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Andy Shevchenko <andriy.shevchenko@intel.com>
-Subject: [PATCH v7 2/2] iio: light: add AS7343 multi-spectral sensor driver
-Date: Thu, 29 Oct 2026 15:48:51 +0800
-Message-ID: <20261029074851.216029-3-marcus.yu.56@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261029074851.216029-1-marcus.yu.56@gmail.com>
-References: <20261029074851.216029-1-marcus.yu.56@gmail.com>
+	linux-perf-users@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+Subject: [PATCH v12 01/11] riscv: add SBI SSE extension definitions
+Date: Thu, 29 Oct 2026 15:48:43 +0800
+Message-ID: <20261029074853.35467-2-zhangzhanpeng.jasper@bytedance.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261029074853.35467-1-zhangzhanpeng.jasper@bytedance.com>
+References: <20261029074853.35467-1-zhangzhanpeng.jasper@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,614 +130,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add a driver for the AMS AS7343 14-channel multi-spectral sensor.
+From: Clément Léger <cleger@rivosinc.com>
 
-The AS7343 is a 14-channel spectral sensor featuring 11 visible
-channels, 1 near-infrared channel, 1 clear channel (VIS), and 1
-flicker detection channel.
+Add definitions for the SBI Supervisor Software Events extension [1].
+This extension enables the SBI to inject events into supervisor software
+much like ARM SDEI.
 
-The driver exposes 12 spectral channels (11 visible light and 1
-near-infrared) via sysfs. Runtime PM is implemented to stop
-measurements and enter SLEEP state when the device is suspended
-or torn down.
+[1] https://lists.riscv.org/g/tech-prs/message/515
 
-Future patches will add configurable gain and integration time,
-interrupt support, buffered reads, VIS channel, and flicker
-detection.
-
-Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+Signed-off-by: Clément Léger <cleger@rivosinc.com>
+Co-developed-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+Signed-off-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+Co-developed-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
 ---
-Changes in v7:
- - Clear/set PON during suspend/resume.
- - Check for digital saturation before reading spectral data.
- - Reduce gain from x256 to x64 to avoid frequent saturation.
+ arch/riscv/include/asm/sbi.h | 63 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 63 insertions(+)
 
-Changes in v6:
- - Convert ASTEP and ATIME range checks to runtime checks.
- - Move adding suspend action to before setting autosuspend delay.
-
-Changes in v5:
- - Add autosuspend support.
- - Start measurements before configuring runtime PM.
- - Add functions for computing ASTEP and ATIME.
- - Sort registers by addresses.
-
-Changes in v4:
- - Use REGCACHE_MAPLE and add volatile register table.
- - Use PM_RUNTIME_ACQUIRE* when resuming.
- - Use a static array for labels.
- - Various code style fixes.
-
-Changes in v3:
- - Hold a mutex before reading measurements.
- - Add pm_runtime_resume_and_get before reading measurements.
- - Only start measurements after suspend action has been successfully
-   registered
- - Check the return value of regmap_read when verifying device ID.
-
-Changes in v2:
- - Adjust the default gain to x256 and integration time to 50.1ms as
-   recommended by the datasheet.
- - Use read_label instead of .extend
- - Remove all unused scan_index related constants.
- - Add missing calls to pm_runtime_* methods in probe.
- - Fix various code style issues
-
- MAINTAINERS                |   1 +
- drivers/iio/light/Kconfig  |  11 +
- drivers/iio/light/Makefile |   1 +
- drivers/iio/light/as7343.c | 491 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 504 insertions(+)
- create mode 100644 drivers/iio/light/as7343.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8cf4e1635053..236102b3c28e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1435,6 +1435,7 @@ M:	Chang Yu <marcus.yu.56@gmail.com>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-+F:	drivers/iio/light/as7343.c
+diff --git a/arch/riscv/include/asm/sbi.h b/arch/riscv/include/asm/sbi.h
+index fd6266a7b33..eb22d79cea6 100644
+--- a/arch/riscv/include/asm/sbi.h
++++ b/arch/riscv/include/asm/sbi.h
+@@ -40,6 +40,7 @@ enum sbi_ext_id {
+ 	SBI_EXT_FWFT = 0x46574654,
+ 	SBI_EXT_MPXY = 0x4D505859,
+ 	SBI_EXT_DBTR = 0x44425452,
++	SBI_EXT_SSE = 0x535345,
  
- AMT (Automatic Multicast Tunneling)
- M:	Taehee Yoo <ap420073@gmail.com>
-diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
-index ef36824f312f..edbeeba9d873 100644
---- a/drivers/iio/light/Kconfig
-+++ b/drivers/iio/light/Kconfig
-@@ -149,6 +149,17 @@ config AS73211
- 	 This driver can also be built as a module.  If so, the module
- 	 will be called as73211.
+ 	/* Experimentals extensions must lie within this range */
+ 	SBI_EXT_EXPERIMENTAL_START = 0x08000000,
+@@ -508,6 +509,68 @@ enum sbi_mpxy_rpmi_attribute_id {
+ #define SBI_MPXY_CHAN_CAP_SEND_WITHOUT_RESP	BIT(4)
+ #define SBI_MPXY_CHAN_CAP_GET_NOTIFICATIONS	BIT(5)
  
-+config AS7343
-+	tristate "AMS AS7343 14-Channel Multi-Spectral Sensor"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	 Say Y here to build support for the AMS AS7343 14-channel
-+	 multi-spectral sensor.
-+
-+	 To compile this driver as a module, choose M here: the module will
-+	 be called as7343.
-+
- config BH1745
- 	tristate "ROHM BH1745 colour sensor"
- 	depends on I2C
-diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
-index 64e354c49ed8..5d0d33802519 100644
---- a/drivers/iio/light/Makefile
-+++ b/drivers/iio/light/Makefile
-@@ -16,6 +16,7 @@ obj-$(CONFIG_APDS9306)		+= apds9306.o
- obj-$(CONFIG_APDS9960)		+= apds9960.o
- obj-$(CONFIG_APDS9999)		+= apds9999.o
- obj-$(CONFIG_AS73211)		+= as73211.o
-+obj-$(CONFIG_AS7343)		+= as7343.o
- obj-$(CONFIG_BH1745)		+= bh1745.o
- obj-$(CONFIG_BH1750)		+= bh1750.o
- obj-$(CONFIG_BH1780)		+= bh1780.o
-diff --git a/drivers/iio/light/as7343.c b/drivers/iio/light/as7343.c
-new file mode 100644
-index 000000000000..a26f2cd571f9
---- /dev/null
-+++ b/drivers/iio/light/as7343.c
-@@ -0,0 +1,491 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Support for AMS AS7343 14-channel multi-spectral sensor.
-+ * (7-bit I2C slave address 0x39)
-+ *
-+ * Based on the work of:
-+ *   Christian Eggers <ceggers@arri.de> (AS73211 driver)
-+ *
-+ * Copyright (c) 2026 Chang Yu <marcus.yu.56@gmail.com>
-+ *
-+ * Datasheet:
-+ *   https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-+ *
-+ * TODO:
-+ *   - Support for configurable gain and integration time
-+ *   - Interrupt support
-+ *   - Add support for reading the VIS channel
-+ *   - Flicker detection
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/delay.h>
-+#include <linux/dev_printk.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/minmax.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/sysfs.h>
-+#include <linux/types.h>
-+
-+#include <asm/byteorder.h>
-+
-+#include <linux/iio/iio.h>
-+
-+#define AS7343_ID_REG				0x5a
-+
-+#define AS7343_ENABLE_REG			0x80
-+#define AS7343_ENABLE_PON			BIT(0)
-+#define AS7343_ENABLE_SP_EN			BIT(1)
-+
-+#define AS7343_ATIME_REG			0x81
-+#define AS7343_STATUS2_REG			0x90
-+#define AS7343_STATUS3_REG			0x91
-+#define AS7343_STATUS_REG			0x93
-+
-+#define AS7343_ASTATUS_REG			0x94
-+#define AS7343_ASTATUS_ASAT_STATUS		BIT(7)
-+
-+#define AS7343_DATA_FZ_REG			0x95
-+#define AS7343_DATA_FY_REG			0x97
-+#define AS7343_DATA_FXL_REG			0x99
-+#define AS7343_DATA_NIR_REG			0x9b
-+#define AS7343_DATA_F2_REG			0xa1
-+#define AS7343_DATA_F3_REG			0xa3
-+#define AS7343_DATA_F4_REG			0xa5
-+#define AS7343_DATA_F6_REG			0xa7
-+#define AS7343_DATA_F1_REG			0xad
-+#define AS7343_DATA_F7_REG			0xaf
-+#define AS7343_DATA_F8_REG			0xb1
-+#define AS7343_DATA_F5_REG			0xb3
-+#define AS7343_DATA_FD_L_REG			0xb7
-+#define AS7343_DATA_FD_H_REG			0xb8
-+
-+#define AS7343_STATUS5_REG			0xbb
-+#define AS7343_STATUS4_REG			0xbc
-+
-+#define AS7343_CFG0_REG				0xbf
-+#define AS7343_CFG0_REG_BANK			BIT(4)
-+
-+#define AS7343_CFG1_REG				0xc6
-+#define AS7343_CFG1_AGAIN			GENMASK(4, 0)
-+#define AS7343_CFG1_AGAIN_X0_5			0
-+#define AS7343_CFG1_AGAIN_X1			1
-+#define AS7343_CFG1_AGAIN_X2			2
-+#define AS7343_CFG1_AGAIN_X4			3
-+#define AS7343_CFG1_AGAIN_X8			4
-+#define AS7343_CFG1_AGAIN_X16			5
-+#define AS7343_CFG1_AGAIN_X32			6
-+#define AS7343_CFG1_AGAIN_X64			7
-+#define AS7343_CFG1_AGAIN_X128			8
-+#define AS7343_CFG1_AGAIN_X256			9
-+#define AS7343_CFG1_AGAIN_X512			10
-+#define AS7343_CFG1_AGAIN_X1024			11
-+#define AS7343_CFG1_AGAIN_X2048			12
-+
-+#define AS7343_ASTEP_REG			0xd4
-+
-+#define AS7343_CFG20_REG			0xd6
-+#define AS7343_CFG20_AUTO_SMUX			GENMASK(6, 5)
-+#define AS7343_CFG20_AUTO_SMUX_READOUT_ALL	3 /* all-channel readout */
-+
-+#define AS7343_FD_STATUS_REG			0xe3
-+#define AS7343_CONTROL_REG			0xfa
-+#define AS7343_FIFO_LVL_REG			0xfd
-+#define AS7343_FDATA_L_REG			0xfe
-+#define AS7343_FDATA_H_REG			0xff
-+
-+/* AS7343 channel indices. Follow data register order for AUTO_SMUX = 3  */
-+#define AS7343_CHAN_IDX_FZ	0
-+#define AS7343_CHAN_IDX_FY	1
-+#define AS7343_CHAN_IDX_FXL	2
-+#define AS7343_CHAN_IDX_NIR	3
-+#define AS7343_CHAN_IDX_F2	4
-+#define AS7343_CHAN_IDX_F3	5
-+#define AS7343_CHAN_IDX_F4	6
-+#define AS7343_CHAN_IDX_F6	7
-+#define AS7343_CHAN_IDX_F1	8
-+#define AS7343_CHAN_IDX_F7	9
-+#define AS7343_CHAN_IDX_F8	10
-+#define AS7343_CHAN_IDX_F5	11
-+
-+#define AS7343_CHAN(_chan)					\
-+	{							\
-+		.type = IIO_INTENSITY,				\
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),	\
-+		.address = AS7343_DATA_##_chan##_REG,		\
-+		.indexed = 1,					\
-+		.channel = AS7343_CHAN_IDX_##_chan,		\
-+	}
-+
-+static const struct iio_chan_spec as7343_channels[] = {
-+	AS7343_CHAN(FZ), AS7343_CHAN(FY), AS7343_CHAN(FXL), AS7343_CHAN(NIR),
-+	AS7343_CHAN(F2), AS7343_CHAN(F3), AS7343_CHAN(F4),  AS7343_CHAN(F6),
-+	AS7343_CHAN(F1), AS7343_CHAN(F7), AS7343_CHAN(F8),  AS7343_CHAN(F5),
++enum sbi_ext_sse_fid {
++	SBI_SSE_EVENT_ATTR_READ = 0,
++	SBI_SSE_EVENT_ATTR_WRITE,
++	SBI_SSE_EVENT_REGISTER,
++	SBI_SSE_EVENT_UNREGISTER,
++	SBI_SSE_EVENT_ENABLE,
++	SBI_SSE_EVENT_DISABLE,
++	SBI_SSE_EVENT_COMPLETE,
++	SBI_SSE_EVENT_INJECT,
++	SBI_SSE_HART_UNMASK,
++	SBI_SSE_HART_MASK,
 +};
 +
-+/*
-+ * Integration time is calculated as (ATIME + 1) * ((ASTEP + 1) * 2.78us).
-+ * ATIME must be between 0 and 255, inclusive
-+ * ASTEP must be between 0 and 65534, inclusive
-+ * Per the datasheet, do not use 65535 for ASTEP.
-+ */
-+static int as7343_atime_steps(unsigned int step, u8 *atime)
-+{
-+	if (step < 1 || step > 256)
-+		return -EINVAL;
-+
-+	*atime = step - 1;
-+	return 0;
-+}
-+
-+static int as7343_astep_x2780ns(unsigned int n, __le16 *astep)
-+{
-+	u16 val;
-+
-+	if (n < 1 || n > 65535)
-+		return -EINVAL;
-+
-+	val = n - 1;
-+	*astep = cpu_to_le16(val);
-+	return 0;
-+}
-+
-+struct as7343_data {
-+	struct regmap *regmap;
-+	/* Ensures reads don't stomp on each other */
-+	struct mutex mutex;
++enum sbi_sse_state {
++	SBI_SSE_STATE_UNUSED     = 0,
++	SBI_SSE_STATE_REGISTERED = 1,
++	SBI_SSE_STATE_ENABLED    = 2,
++	SBI_SSE_STATE_RUNNING    = 3,
 +};
 +
-+static int as7343_read_raw(struct iio_dev *indio_dev,
-+			   struct iio_chan_spec const *chan,
-+			   int *val, int *val2, long mask)
-+{
-+	struct as7343_data *data = iio_priv(indio_dev);
-+	struct regmap *map = data->regmap;
-+	struct device *dev = regmap_get_device(map);
-+	unsigned int status;
-+	__le16 result;
-+	int ret;
++/* SBI SSE Event Attributes. */
++enum sbi_sse_attr_id {
++	SBI_SSE_ATTR_STATUS		= 0x00000000,
++	SBI_SSE_ATTR_PRIO		= 0x00000001,
++	SBI_SSE_ATTR_CONFIG		= 0x00000002,
++	SBI_SSE_ATTR_PREFERRED_HART	= 0x00000003,
++	SBI_SSE_ATTR_ENTRY_PC		= 0x00000004,
++	SBI_SSE_ATTR_ENTRY_ARG		= 0x00000005,
++	SBI_SSE_ATTR_INTERRUPTED_SEPC	= 0x00000006,
++	SBI_SSE_ATTR_INTERRUPTED_FLAGS	= 0x00000007,
++	SBI_SSE_ATTR_INTERRUPTED_A6	= 0x00000008,
++	SBI_SSE_ATTR_INTERRUPTED_A7	= 0x00000009,
 +
-+	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-+	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-+	if (ret)
-+		return ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW: {
-+		/*
-+		 * Wait until integration time passes for all 3 cycles, plus
-+		 * some margins.
-+		 */
-+		msleep(3 * 50 + 10);
-+
-+		/* Reading ASTATUS latches all data registers to this read. */
-+		guard(mutex)(&data->mutex);
-+
-+		ret = regmap_read(map, AS7343_ASTATUS_REG, &status);
-+		if (ret)
-+			return ret;
-+
-+		/* Check for digital saturation. */
-+		if (status & AS7343_ASTATUS_ASAT_STATUS) {
-+			/*
-+			 * Per the datasheet, ASTATUS is self-clearing: writing
-+			 * the value back clears the entire register.
-+			 */
-+			ret = regmap_write(map, AS7343_ASTATUS_REG, status);
-+			return ret ? ret : -EIO;
-+		}
-+
-+		ret = regmap_bulk_read(map, chan->address,
-+				       &result, sizeof(result));
-+		if (ret)
-+			return ret;
-+
-+		*val = le16_to_cpu(result);
-+		return IIO_VAL_INT;
-+	}
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+/*
-+ * Channel names and wavelength ranges as defined in the datasheet
-+ * (Figure 7, "AS7343 Optical Channel Summary"). Values are the
-+ * minimum and maximum peak wavelength in nanometers.
-+ *
-+ * F1:  395-415 nm
-+ * F2:  415-435 nm
-+ * FZ:  440-460 nm
-+ * F3:  465-485 nm
-+ * F4:  505-525 nm
-+ * FY:  545-565 nm
-+ * F5:  540-560 nm
-+ * FXL: 590-610 nm
-+ * F6:  630-650 nm
-+ * F7:  680-700 nm
-+ * F8:  735-755 nm
-+ * NIR: 845-865 nm
-+ */
-+static const char * const as7343_channel_labels[] = {
-+	[AS7343_CHAN_IDX_F1] = "F1: 395-415 nm",
-+	[AS7343_CHAN_IDX_F2] = "F2: 415-435 nm",
-+	[AS7343_CHAN_IDX_FZ] = "FZ: 440-460 nm",
-+	[AS7343_CHAN_IDX_F3] = "F3: 465-485 nm",
-+	[AS7343_CHAN_IDX_F4] = "F4: 505-525 nm",
-+	[AS7343_CHAN_IDX_FY] = "FY: 545-565 nm",
-+	[AS7343_CHAN_IDX_F5] = "F5: 540-560 nm",
-+	[AS7343_CHAN_IDX_FXL] = "FXL: 590-610 nm",
-+	[AS7343_CHAN_IDX_F6] = "F6: 630-650 nm",
-+	[AS7343_CHAN_IDX_F7] = "F7: 680-700 nm",
-+	[AS7343_CHAN_IDX_F8] = "F8: 735-755 nm",
-+	[AS7343_CHAN_IDX_NIR] = "NIR: 845-865 nm",
++	SBI_SSE_ATTR_MAX		= 0x0000000A
 +};
 +
-+static int as7343_read_label(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan, char *label)
-+{
-+	unsigned int num_labels;
-+	int channel;
++#define SBI_SSE_ATTR_STATUS_STATE_OFFSET	0
++#define SBI_SSE_ATTR_STATUS_STATE_MASK		0x3
++#define SBI_SSE_ATTR_STATUS_PENDING_OFFSET	2
++#define SBI_SSE_ATTR_STATUS_INJECT_OFFSET	3
 +
-+	channel = chan->channel;
-+	num_labels = ARRAY_SIZE(as7343_channel_labels);
-+	if (!in_range(channel, 0, num_labels))
-+		return -ECHRNG;
++#define SBI_SSE_ATTR_CONFIG_ONESHOT	BIT(0)
 +
-+	return sysfs_emit(label, "%s\n", as7343_channel_labels[channel]);
-+}
++#define SBI_SSE_ATTR_INTERRUPTED_FLAGS_SSTATUS_SPP	BIT(0)
++#define SBI_SSE_ATTR_INTERRUPTED_FLAGS_SSTATUS_SPIE	BIT(1)
++#define SBI_SSE_ATTR_INTERRUPTED_FLAGS_HSTATUS_SPV	BIT(2)
++#define SBI_SSE_ATTR_INTERRUPTED_FLAGS_HSTATUS_SPVP	BIT(3)
++#define SBI_SSE_ATTR_INTERRUPTED_FLAGS_SSTATUS_SPELP	BIT(4)
++#define SBI_SSE_ATTR_INTERRUPTED_FLAGS_SSTATUS_SDT	BIT(5)
 +
-+static const struct iio_info as7343_info = {
-+	.read_raw = as7343_read_raw,
-+	.read_label = as7343_read_label,
-+};
++#define SBI_SSE_EVENT_LOCAL_HIGH_PRIO_RAS	0x00000000
++#define SBI_SSE_EVENT_LOCAL_DOUBLE_TRAP		0x00000001
++#define SBI_SSE_EVENT_GLOBAL_HIGH_PRIO_RAS	0x00008000
++#define SBI_SSE_EVENT_LOCAL_PMU_OVERFLOW	0x00010000
++#define SBI_SSE_EVENT_LOCAL_LOW_PRIO_RAS	0x00100000
++#define SBI_SSE_EVENT_GLOBAL_LOW_PRIO_RAS	0x00108000
++#define SBI_SSE_EVENT_LOCAL_SOFTWARE_INJECTED	0xffff0000
++#define SBI_SSE_EVENT_GLOBAL_SOFTWARE_INJECTED	0xffff8000
 +
-+static const struct regmap_range as7343_volatile_ranges[] = {
-+	regmap_reg_range(AS7343_ENABLE_REG, AS7343_ENABLE_REG),
-+	regmap_reg_range(AS7343_STATUS2_REG, AS7343_DATA_FD_H_REG),
-+	regmap_reg_range(AS7343_STATUS5_REG, AS7343_STATUS4_REG),
-+	regmap_reg_range(AS7343_FD_STATUS_REG, AS7343_FD_STATUS_REG),
-+	regmap_reg_range(AS7343_CONTROL_REG, AS7343_CONTROL_REG),
-+	regmap_reg_range(AS7343_FIFO_LVL_REG, AS7343_FDATA_H_REG),
-+};
++#define SBI_SSE_EVENT_PLATFORM		BIT(14)
++#define SBI_SSE_EVENT_GLOBAL		BIT(15)
 +
-+static const struct regmap_access_table as7343_volatile_table = {
-+	.yes_ranges = as7343_volatile_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(as7343_volatile_ranges),
-+};
-+
-+static const struct regmap_config as7343_regmap_config = {
-+	.name = "as7343",
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = AS7343_FDATA_H_REG,
-+	.reg_format_endian = REGMAP_ENDIAN_LITTLE,
-+	.val_format_endian = REGMAP_ENDIAN_LITTLE,
-+	.cache_type = REGCACHE_MAPLE,
-+	.volatile_table = &as7343_volatile_table,
-+};
-+
-+static int as7343_setup_device(struct device *dev, struct as7343_data *data)
-+{
-+	struct regmap *map = data->regmap;
-+	unsigned int val;
-+	__le16 astep;
-+	u8 atime;
-+	int ret;
-+
-+	/* Need to set REG_BANK to 0 before we can set PON */
-+	ret = regmap_update_bits(map, AS7343_CFG0_REG, AS7343_CFG0_REG_BANK,
-+				 FIELD_PREP(AS7343_CFG0_REG_BANK, 0));
-+	if (ret)
-+		return ret;
-+
-+	/* Set PON and enter IDLE state */
-+	ret = regmap_set_bits(map, AS7343_ENABLE_REG, AS7343_ENABLE_PON);
-+	if (ret)
-+		return ret;
-+
-+	/* Need to set REG_BANK to 1 before we can access ID */
-+	ret = regmap_update_bits(map, AS7343_CFG0_REG, AS7343_CFG0_REG_BANK,
-+				 FIELD_PREP(AS7343_CFG0_REG_BANK, 1));
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(map, AS7343_ID_REG, &val);
-+	if (ret)
-+		return ret;
-+
-+	if (val != 0x81)
-+		dev_info(dev, "Unknown device ID: %x\n", val);
-+
-+	ret = regmap_update_bits(map, AS7343_CFG0_REG, AS7343_CFG0_REG_BANK,
-+				 FIELD_PREP(AS7343_CFG0_REG_BANK, 0));
-+	if (ret)
-+		return ret;
-+
-+	/* Configure the SMUX to readout all channels */
-+	ret = regmap_update_bits(map, AS7343_CFG20_REG, AS7343_CFG20_AUTO_SMUX,
-+				 FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
-+					    AS7343_CFG20_AUTO_SMUX_READOUT_ALL));
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Setting a 600 * 2.78us * 30 = 50ms integration time as the default,
-+	 * as recommended by Figure 10 of the datasheet ("Typical integration
-+	 * time": ASTEP=599, ATIME=29). The helpers take the number of steps,
-+	 * so pass 600 and 30 respectively.
-+	 */
-+	ret = as7343_astep_x2780ns(600, &astep);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_bulk_write(map, AS7343_ASTEP_REG, &astep, sizeof(astep));
-+	if (ret)
-+		return ret;
-+
-+	ret = as7343_atime_steps(30, &atime);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(map, AS7343_ATIME_REG, atime);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(map, AS7343_CFG1_REG, AS7343_CFG1_AGAIN,
-+				  FIELD_PREP(AS7343_CFG1_AGAIN,
-+					     AS7343_CFG1_AGAIN_X64));
-+}
-+
-+static int as7343_suspend(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct as7343_data *data = iio_priv(indio_dev);
-+	struct regmap *map = data->regmap;
-+	int ret;
-+
-+	ret = regmap_clear_bits(map, AS7343_ENABLE_REG, AS7343_ENABLE_SP_EN);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_clear_bits(map, AS7343_ENABLE_REG, AS7343_ENABLE_PON);
-+}
-+
-+static int as7343_resume(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct as7343_data *data = iio_priv(indio_dev);
-+	struct regmap *map = data->regmap;
-+	int ret;
-+
-+	ret = regmap_set_bits(map, AS7343_ENABLE_REG, AS7343_ENABLE_PON);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_set_bits(map, AS7343_ENABLE_REG, AS7343_ENABLE_SP_EN);
-+}
-+
-+static void as7343_suspend_action(void *dev)
-+{
-+	as7343_suspend(dev);
-+}
-+
-+static int as7343_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct iio_dev *indio_dev;
-+	struct as7343_data *data;
-+	struct regmap *regmap;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	i2c_set_clientdata(client, indio_dev);
-+
-+	regmap = devm_regmap_init_i2c(client, &as7343_regmap_config);
-+	if (IS_ERR(regmap))
-+		return PTR_ERR(regmap);
-+
-+	data = iio_priv(indio_dev);
-+	data->regmap = regmap;
-+
-+	ret = devm_mutex_init(dev, &data->mutex);
-+	if (ret)
-+		return ret;
-+
-+	indio_dev->name = "as7343";
-+	indio_dev->info = &as7343_info;
-+	indio_dev->channels = as7343_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(as7343_channels);
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	ret = devm_regulator_get_enable(dev, "vdd");
-+	if (ret)
-+		return ret;
-+
-+	ret = as7343_setup_device(dev, data);
-+	if (ret)
-+		return ret;
-+
-+	/* Enter ACTIVE statet and start measurements */
-+	ret = regmap_set_bits(regmap, AS7343_ENABLE_REG, AS7343_ENABLE_SP_EN);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_add_action_or_reset(dev, as7343_suspend_action, dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to add suspend action\n");
-+
-+	pm_runtime_set_autosuspend_delay(dev, 3000);
-+	pm_runtime_use_autosuspend(dev);
-+
-+	ret = devm_pm_runtime_set_active_enabled(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to activate PM runtime\n");
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(as7343_pm_ops,
-+				 as7343_suspend, as7343_resume, NULL);
-+
-+static const struct of_device_id as7343_of_match[] = {
-+	{ .compatible = "ams,as7343" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, as7343_of_match);
-+
-+static const struct i2c_device_id as7343_id[] = {
-+	{ .name = "as7343" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, as7343_id);
-+
-+static struct i2c_driver as7343_driver = {
-+	.driver = {
-+		.name = "as7343",
-+		.of_match_table = as7343_of_match,
-+		.pm = pm_ptr(&as7343_pm_ops),
-+	},
-+	.probe = as7343_probe,
-+	.id_table = as7343_id,
-+};
-+module_i2c_driver(as7343_driver);
-+
-+MODULE_AUTHOR("Chang Yu <marcus.yu.56@gmail.com>");
-+MODULE_DESCRIPTION("AS7343 14 Channel Multi-Spectral Sensor driver");
-+MODULE_LICENSE("GPL");
+ /* SBI debug triggers function IDs */
+ enum sbi_ext_dbtr_fid {
+ 	SBI_EXT_DBTR_NUM_TRIGGERS = 0,
 -- 
-2.56.0
+2.50.1 (Apple Git-155)
 
