@@ -1,104 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297421;
-	b=5N+3BPGlmxeUQ9UoEUZp8qOMnVlQIjJ+LwDxSWcOt3VUJLesQFxD++ssONYx11X/jw5a
-	 c5DoQ8miB2B/9jgcRm0IiwVWduiEpGWAyS9KnxQDmP/EXN9Wd15cTJywDBfe1VEfWV2xF
-	 m+6pO3Oezc3duy+t0pfAy3WdlgmmEjcnU5ykOQzvm1108lw6DL1HkHgDxRupNyr6ibmVV
-	 dvLJ4lCBocj65d8ahr6xol482TlNYmxruA0NACm2YBDnhdW3rkEwcnN8c+jy7idwVmx46
-	 Z5HO7uNYUpFDraQ70tR+vq6Csv6bpnD5QTpDehhCR5RxpKVkFl7m1xKGLI3inaBt+cg==
+	t=1793297422;
+	b=XtPvEFEilBgSSvMV5apuwH9/R6qvS9SKbcD3Wt+tVYaFtnaBa1ijrabEbS91e1CbBapE
+	 5r8k/azNJ/ay9lkig/yMO7QKTYaIh1iUmYPm2YVyopY5cv9JiGsvEJHIUUbnI4gT23JeR
+	 5y5ZD+q7YvpzO4ACn5q1QCJ4XYAii+VqOMNhYz1JDoQbxV7IywNLXhZUgGZeef2veU6YS
+	 ZSvg6RSiXfwkXc5sL1CyzVMcQsAqSwbEvNu53bUMsKXikALtnU1pbyg9ly/HOO7VZJGm2
+	 diYfuo3a9t4PN3o/CPr9KrKsf40ZmJke116K2KKWScx3kqGPlWjy8u6SSGMuU4hF5Cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297421;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297422;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=dgDYcOW/jCAQEvwY8NBNP2pASb7BMmxqcS2FbIf9bZo=;
-	b=pvp2DRn9X6UPFBMBfi9oLunExpAePKetkapUl0/OneSnC6zKndh2gHvdpvvKqNWiaFkC
-	 loPlHrCDw15hR+K64x/3IBk9P2i6G2XjQ7unm4r4Q1m4cNc+nxBgCjAq9L3ANz8M3KmrT
-	 X45+37GeVs0k7Qs8YiB5MwIR7sHI3gxT/T3r/2gFZLqrek3a5yOXLSa5jTKjWNaay3+Dv
-	 lvo5bH2duWR/eUT685uM8TWyX7SjATfFyG0SQDa+EQawKIFo7hmdAk0raC47GkfG/lG/u
-	 4DnwtlLlaHXnSyEiZHwB9tvcA2JRMp0fgv8aNSo9hqIXhwD3EXTidtdkJ9N8wa8WNFg==
+	bh=EGTY/uQ+UTmLe+oR99zarlRNM/ZZQqy4vu68uMqnYps=;
+	b=By1YmRB4Jx3wSL9qc6zr9nqRzzKtRMvtENCddDSIVKl5Oz9DTzGdEn68AOjmRmbvRClH
+	 KZ6Pz123X/mDEQKvljF7IQuFlHkRXSzD+tm5H/tC88QR3xf6iS1acDSfwX/frWD0y188m
+	 EjDT5JXb9rxOMHg5GNkR1/d8nLmw/q/kGiQaYX1d5kn9nAGREEnrB7hEdYwsswvbuJCqc
+	 ONOsH+u/CbAwPq/5/I99JMCUyxrErziLl55wjFlKRw34r2j6WZLaRhDtHAiWkKtWymn1S
+	 S03o79pz+0awvgsGZ75kJXc6yzvGmoS3xs21yGMZH03yJD8sTuQ8vToYZBHbTTuqe2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hammerspace.com;
-	spf=pass smtp.mailfrom=hammerspace.com;
-	dkim=pass header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b="CcSXs2/C";
-	arc=none smtp.remote-ip=209.85.161.44
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HEyzv5yK;
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9891A606AB4B
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:10:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9891A606AB4B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hammerspace.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hammerspace.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFE5606AB5F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:10:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEFE5606AB5F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=CcSXs2/C
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6fe4372c5f3so1631383eaf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:10:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HEyzv5yK
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91b52ba422cso31550996d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:10:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=hammerspace.com; s=google; t=1793297419; x=1793902219; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793297421; x=1793902221; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dgDYcOW/jCAQEvwY8NBNP2pASb7BMmxqcS2FbIf9bZo=;
-        b=CcSXs2/CdY20xLskbaPf8rK3AAKMR/0eWui6qXDzZu3US6WYaryFwEcLQYs6w3EHc5
-         aQV2hg4EO7/oHZLZRTUzkCwsByA6WPvxdzbdTjjbu7dUB5tdFSyVPOkcH82WUL9v62XV
-         dNr+Ihu2MFj/tCwFYwva7jQeryv652SENP8M2wIAHq2sSLnAi7+tG3pE5TGEM0BxW7JX
-         1BymjPgWtDDvOYORSnckg9ANPD0FEH2LHuYgRd72IR1dXnjK1SfQlsZs5UsFxVDas8rt
-         iFK/CmHuZpwy8EjPXMC74RIi54uA/1aOJA/Py/tAB9lzIVOnO5EVuGlwK05LCHGFd7Sp
-         dlMA==
+        bh=EGTY/uQ+UTmLe+oR99zarlRNM/ZZQqy4vu68uMqnYps=;
+        b=HEyzv5yKUc+ILSupxzbFPXWI0K0JGjBSo21KDgxT33fJKSQHZCPzVyYksLSTP81YHL
+         7sdyBlhCkN0yNt+7zRGjklaq7bn8Hmca4w+ynjGlnG051d7a7YqkX222TPb80hTI6gNT
+         Nx6Miy9BMFxw1b/yOEII62+mlbPE9uuz9cBo+79MNeOkG/duCE80Ztxcw341G5k1muBm
+         8Z4lM5L7HVtf8vP6QqvCKhk7NeuH+Cs0aIFOyyk+OnwqpUW/2HFzgNg/9fbzpRjz6NUT
+         uplwc+8OwTTyYLHUOWxlFjWwlDIkvjNvfsykkyNf1tUIvBWncMVRT7qIYlVzWagew2xl
+         dx9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793297419; x=1793902219;
+        d=1e100.net; s=20260707; t=1793297421; x=1793902221;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dgDYcOW/jCAQEvwY8NBNP2pASb7BMmxqcS2FbIf9bZo=;
-        b=e49KLRGA6cTuIbr96mWTGG/0mVPEgrAjhJ8Kr+DdsUgNZ//kGq2tx7piaI7vIqaIfb
-         7xwiL8woa2FQKCE4I0qxg6rOsbllrQDSO19CGLFXdslISBp4Deb3T0f+H28EY64HPhmZ
-         MbQ50MkAhQzOungnnpv6tMVC4YAvvS/DS/s4dMfF1YQFJyXYn39WPZiMBpmouw09J9cL
-         +U0/1ud+jW7oko2XRYOIiaWSOb3PIW7o6FJIK2OMrFCzbuXSc9Ynj+j5iJgomKivOeNv
-         JWsVbFO1FpU6vsI2AHerX5N6NpkqaG/5GzbvXABOAKyh09K5+h09J5XKC7QV09eibS5w
-         GUcg==
-X-Forwarded-Encrypted: i=1; AKwUvBy1RXQOZRHwaRLRVmIxnG946kEXFgKs+DBm09+HUnvr31I9cTpSQja7ZtqcmkJF7yEG/yjgWII/4/vF0Cg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKreEFOMqSQgb9HKbCQcuDx2aArKKNH7vVKyMF4kIgZr5cUWZfv
-	gsnKQ/o3OqJvRq9CieUNtY2gao/Nepzujr/6fuc0vyJncD5OGOC4I5USLGJywdhgUX0=
-X-Gm-Gg: AYBFou2ARKCDXxF+xrFGpjhSfi+ICkfRSBLOhAC4orBcvz0p9liJb3muI9ejKuDeRlE
-	C+30f/ekl0i584/7L2Myct2yXd0Ut9MnZE3zYLn+1Md3n+heyLr6T3+eS8jM84kpCIfi3s4ecgS
-	fum5PngXS7VgSieRZmayDgsXVbFbKTqk42KkKqfO+XeAh3gjWqr/dcwhxc3DK8xsPF1Ffwn12Kx
-	BWaFjZQZoHwOieTSYEhDes7SDWzEpgZQlUyxdkVDJovAbPfeKt3FLM75AoEBgaQUUYgdZpNbqRA
-	hGGKKEZ7iAsZPAw/lY5cK5EgTABcW8HcNpKYlyD1F09qFL1xxqLwk/dZCUmLWiZdvKzh5bEhXjA
-	mhziDnHkYW4dUMuK8CEyv22hyKNOQYJav662Glsu4h9Xsk4KgFwhVLuPV4vB/bZlJ90YilAIb8C
-	iRDEO0VRWlfxnvgwXcDzUU4NJqLAQFQKwztGLvnupn1CcVlvK3hrTIHhcJveWSK7sig/kdlC53M
-	8M6lHPdMydH/c9Y04smhA3JPlJWUai122LzYlCAGTvQ/4BFZr7v8n5O8fyhHnDMej40UL8mH88O
-	UsqrTUQVohThgN10UxeT4KanZX6e31Ej9nsOqOfoDjjOS/BkCYe0WKnJWtcddo4kiPp/OVjb
-X-Received: by 2002:a05:6820:a504:20b0:6dc:6e90:f650 with SMTP id 006d021491bc7-714f2947ed7mr33452eaf.15.1793297419439;
-        Thu, 29 Oct 2026 11:10:19 -0700 (PDT)
-Received: from localhost (75-163-200-235.clsp.qwest.net. [75.163.200.235])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d3545b89asm189856a34.6.2026.10.29.11.10.16
+        bh=EGTY/uQ+UTmLe+oR99zarlRNM/ZZQqy4vu68uMqnYps=;
+        b=aqFCsxnyutG0MRCR4cAFSf6c+odWL5jsNkPC0xxD5p1es8mKQ36t9uTxC9WEwRp47K
+         hhXHOoBwZCd05JJKzA2knOE2aBDrcW2Xuds18krLtjinAdMdPzk8GAmCxKdtulod/iKt
+         61yPDyvnnCk9VI1jy731IP8ezlqvwqyHGCiO5vjDrkllwUXIRVsCKk8ttzouSsxGC8gq
+         V34Wkyf4K9BmIjyAq/mWMTivB68DBeqJeWCkcTFOpZt//gdUSqOXERbqhin+6Ho1DYq1
+         4+r69M/f8gFUtjQkjzvFeQiGhUhtWei2vaSVjldqp/T+iZxlwsOlh6RKGRemWaF8P8ZJ
+         P0CQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwaRK1nKb9ML3j+r7+Lu4jrRWLqqhLvonb/xzZSBZMvy6WJDFApcJRFBIz1KT0ECz9A3ZU4pFQqOZblYUE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKg/qDUHF/btfP8xAYKmdlBw75J1avvVI0JTXOrTzP9TF/KtjkO
+	ati4s4o3W2Ou7RFSfggDDjwifqIYSPhsdvqi6lEktu0RAN9GujhHBr++
+X-Gm-Gg: AYBFou3II3fb+HMjQi9AVznPvuHA6WvWC/Ex4WGRTGOwKk09XHU2Kn6KIGK2mLWQM3h
+	/qRRoAuLWpmwRJ2eRawT1o/zWCz9reL+q7m2cIp0jLH//UrABus5jdwjPSSCy+AiC8zY6+kEDMF
+	5akizbjOWqpIPVRDvdVTSJn1tNRH5LOONjcwsuBMwXzY/zL+QdnHA4QoxMEEao+ZncRoiXut3m0
+	TInlI/mfAwmVeDE6aGS15Zgk7ISYJCbOagV0YKC6K0EMnM95togJL0PDd6SipDfA/wPIJruHlH/
+	hiwD1/oqvyNLFi1ck03K/CvbvBWNWlrcYVrN8iYdkN0NBzBCPPNkrNMGpFAxjn+lWOqKdI0uYpr
+	tVXGbWToL8o8F8b4encLbR6avfUUldAmz7wypzM29s/mM0BLeRH9/9HNh6g8Hyj/4pgIrfAmPV3
+	76bFjI5y7hBHMu9rhoaD4C0dwJx5LT8tqMa/2ZkDC2ggg+M3BHJjd8JoU+IEXlO2T+1qcitBK7c
+	bx8ozP64FSEEG0YO9a7YZONf/Rt6+gZYiOjrhWC70xVbCx7m0AjoNOdCH0pPxt+wJLDVDRwxLD2
+	4/fiQwfxXmi/aG1zbfIGrusdmU+hrCnel4DGkUbZPt+LRSgSZusp6Smf+zI=
+X-Received: by 2002:a05:620a:6886:b0:93e:60e8:c9ad with SMTP id af79cd13be357-94421588089mr2508085a.12.1793297420516;
+        Thu, 29 Oct 2026 11:10:20 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94421252364sm6295285a.28.2026.10.29.11.10.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:10:16 -0700 (PDT)
-From: Jonathan Flynn <jonathan.flynn@hammerspace.com>
-To: NeilBrown <neil@brown.name>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org,
+        Thu, 29 Oct 2026 11:10:19 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>
+Cc: NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
 	linux-nfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC 09/12] nfs: do not cache a name from a listing that a removal overlapped
-Date: Thu, 29 Oct 2026 12:09:54 -0600
-Message-ID: <20261029180957.387138-10-jonathan.flynn@hammerspace.com>
+	linux-kernel@vger.kernel.org,
+	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] nfsd: pin the module while a server exists
+Date: Thu, 29 Oct 2026 14:10:05 -0400
+Message-ID: <20261029181006.1305530-1-shuangpeng.kernel@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029180957.387138-1-jonathan.flynn@hammerspace.com>
-References: <20261028041023.3738553-1-neilb@ownmail.net>
- <20261029180957.387138-1-jonathan.flynn@hammerspace.com>
+In-Reply-To: <20261026235626.649844-1-shuangpeng.kernel@gmail.com>
+References: <20261026235626.649844-1-shuangpeng.kernel@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,193 +107,151 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With a removal holding the directory lock shared, a directory listing,
-which holds it shared too, can run beside it, and the server can build
-the listing before the removal while the client reads it after.  The
-client would then put the removed name back in its cache as a valid
-entry, and keep it for as long as it trusts its cached view of the
-directory.
+Since commit 924f4fb003ba ("NFSD: convert write_threads to netlink
+command") the server can be started over netlink without mounting the
+nfsd filesystem. But that mount was the only thing pinning the module
+while a server exists (commit f49169c97fce ("NFSD: Remove
+svc_serv_ops::svo_module") removed the per-thread reference).
 
-Count, per directory, the removals made with the directory locked shared:
-those waiting for the server's answer, and those that have had it.  A
-listing notes the second count before it is requested, and adds no new
-name to the cache while a removal is waiting or once one has been
-answered since.  Positive entries already in the cache are covered by
-"nfs: keep the dentry of a shared-parent removal hashed".
+So when the server has been started via netlink, a plain "rmmod nfsd"
+succeeds while the threads are still running. exit_nfsd() then frees
+struct nfsd_net in unregister_pernet_subsys(), destroys the DRC slab
+and finally unmaps the module text underneath the running threads:
 
-Nothing counts a removal yet, so nothing changes.  NFSv2 and NFSv3
-listings note the count too, and NFSv3 listings that return attributes
-make the same check; the behavior of both is unchanged.
+  BUG: KASAN: slab-use-after-free in nfsd_file_net_dispose (fs/nfsd/filecache.c:483) nfsd
+  Read of size 8 at addr ffff888109fe92d0 by task nfsd/300
+  Call Trace:
+   nfsd_file_net_dispose (fs/nfsd/filecache.c:483) nfsd
+   nfsd (fs/nfsd/nfssvc.c:957) nfsd
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+  Freed by task 311:
+   kfree (mm/slub.c:6802)
+   ops_undo_list (net/core/net_namespace.c:257)
+   unregister_pernet_operations (net/core/net_namespace.c:1412)
+   unregister_pernet_subsys (net/core/net_namespace.c:1459)
+   cleanup_module nfsd
+   __se_sys_delete_module (kernel/module/main.c:804)
 
-Signed-off-by: Jonathan Flynn <jonathan.flynn@hammerspace.com>
+followed by a general protection fault in nfsd_cache_lookup() as soon
+as a thread allocates from the destroyed drc_slab.
+
+Take a module reference in nfsd_create_serv() and drop it in
+nfsd_destroy_serv(), so that "rmmod nfsd" fails with EBUSY while a
+server exists, just as it does while the nfsd filesystem is mounted.
+
+Use try_module_get() rather than __module_get(): a netlink command
+runs without a reference on the nfsd module, and exit_nfsd() only
+waits for it in genl_unregister_family(). A THREADS_SET or
+LISTENER_SET request that is already running when "rmmod nfsd" starts
+would otherwise still create a server after module unload has begun.
+With try_module_get() that request fails with ENODEV instead.
+
+Pinning the module also keeps the assumption behind the
+__module_get() calls in fs/locks.c (via lm_mod_owner) and in
+nfs_common/nfslocalio.c valid: they rely on an active server keeping
+the module alive.
+
+To reproduce: start the server with nfsdctl (or any other netlink
+client) without mounting the nfsd filesystem, then run "rmmod nfsd".
+
+Fixes: 924f4fb003ba ("NFSD: convert write_threads to netlink command")
+Cc: stable@vger.kernel.org # v6.10+
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 ---
- fs/nfs/dir.c           | 16 +++++++++--
- fs/nfs/inode.c         |  2 ++
- fs/nfs/internal.h      | 63 ++++++++++++++++++++++++++++++++++++++++++
- include/linux/nfs_fs.h |  8 ++++++
- 4 files changed, 87 insertions(+), 2 deletions(-)
+Changes since v1:
+- Pin the module while a server exists instead of shutting the server
+  down in nfsd_net_exit(). As the sashiko review pointed out, shutting
+  it down from exit_nfsd() still lets every __module_get(THIS_MODULE)
+  taken during module exit (fs/locks.c via lm_mod_owner, nfslocalio)
+  outlive free_module(). With the reference held, exit_nfsd() never
+  runs while a server exists, so the laundry_wq / cld notifier ordering
+  changes from v1 are not needed either.
+- Take the reference with try_module_get(). A netlink command holds no
+  reference on nfsd, so with __module_get() a LISTENER_SET/THREADS_SET
+  that was already running when "rmmod nfsd" started could still bring
+  up a server, and its threads then ran on the freed module text.
+- Not changed: an exiting nfsd thread still executes a few instructions
+  of module code after svc_stop_kthreads() has been woken up. That
+  window exists on the umount path as well and is independent of this
+  fix.
 
-diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
-index 2a4c059064..d9ba3cb1d7 100644
---- a/fs/nfs/dir.c
-+++ b/fs/nfs/dir.c
-@@ -165,6 +165,7 @@ struct nfs_readdir_descriptor {
+v1: https://lore.kernel.org/linux-nfs/20261026235626.649844-1-shuangpeng.kernel@gmail.com/
+
+Tested on top of 7.3-rc7 with KASAN: with the server started over
+netlink, "rmmod nfsd" now fails with EBUSY, also while a request is in
+flight and with only a listener configured; after setting the thread
+count to 0 the module unloads cleanly; starting and stopping the server
+through the nfsd filesystem is unchanged. With a delay injected at the
+top of nfsd_create_serv() to hold a netlink start open across "rmmod
+nfsd", the start now fails with ENODEV and the module unloads cleanly
+(with __module_get() the threads came up and oopsed in freed module
+text).
+ fs/nfsd/nfssvc.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
+
+diff --git a/fs/nfsd/nfssvc.c b/fs/nfsd/nfssvc.c
+index 067543da3ca0..6ae040c50987 100644
+--- a/fs/nfsd/nfssvc.c
++++ b/fs/nfsd/nfssvc.c
+@@ -579,6 +579,7 @@ void nfsd_destroy_serv(struct net *net)
+ 	svc_xprt_destroy_all(serv, net, true);
+ 	nfsd_shutdown_net(net);
+ 	svc_destroy(&serv);
++	module_put(THIS_MODULE);
+ }
  
- 	__be32		verf[NFS_DIR_VERIFIER_SIZE];
- 	unsigned long	dir_verifier;
-+	unsigned long	shared_removal_seq;
- 	unsigned long	timestamp;
- 	unsigned long	gencount;
- 	unsigned long	attr_gencount;
-@@ -603,6 +604,7 @@ static int nfs_readdir_xdr_filler(struct nfs_readdir_descriptor *desc,
- 	timestamp = jiffies;
- 	gencount = nfs_inc_attr_generation_counter();
- 	desc->dir_verifier = nfs_save_change_attribute(inode);
-+	desc->shared_removal_seq = nfs_dir_shared_removal_seq(inode);
- 	error = NFS_PROTO(inode)->readdir(&arg, &res);
- 	if (error < 0) {
- 		/* We requested READDIRPLUS, but the server doesn't grok it */
-@@ -723,7 +725,7 @@ static void nfs_lookup_advise_force_readdirplus(struct inode *dir,
+ void nfsd_reset_versions(struct nfsd_net *nn)
+@@ -662,10 +663,18 @@ int nfsd_create_serv(struct net *net, bool no_rpcbind)
+ 	if (nn->nfsd_serv)
+ 		return 0;
  
- static
- void nfs_prime_dcache(struct dentry *parent, struct nfs_entry *entry,
--		unsigned long dir_verifier)
-+		      unsigned long dir_verifier, unsigned long removal_seq)
- {
- 	struct qstr filename = QSTR_INIT(entry->name, entry->len);
- 	struct dentry *dentry;
-@@ -825,6 +827,15 @@ void nfs_prime_dcache(struct dentry *parent, struct nfs_entry *entry,
- 		d_lookup_done(dentry);
- 		goto out;
- 	}
 +	/*
-+	 * Make no dentry for a name that a removal under a shared parent may
-+	 * have taken away after the server built this listing; see
-+	 * nfs_dir_shared_removal_since().
++	 * Keep the module loaded while the server exists, as a mounted
++	 * nfsd filesystem does. A netlink caller holds no module
++	 * reference, so this fails if module unload has already begun.
 +	 */
-+	if (nfs_dir_shared_removal_since(d_inode(parent), removal_seq)) {
-+		d_lookup_done(dentry);
-+		goto out;
-+	}
++	if (!try_module_get(THIS_MODULE))
++		return -ENODEV;
++
+ 	error = percpu_ref_init(&nn->nfsd_net_ref, nfsd_net_free,
+ 				0, GFP_KERNEL);
+ 	if (error)
+-		return error;
++		goto out_put;
+ 	init_completion(&nn->nfsd_net_free_done);
+ 	init_completion(&nn->nfsd_net_confirm_done);
  
- 	nfs_set_verifier(dentry, dir_verifier);
- 	inode = nfs_fhget(dentry->d_sb, entry->fh, entry->fattr);
-@@ -853,7 +864,8 @@ static int nfs_readdir_entry_decode(struct nfs_readdir_descriptor *desc,
- 	ret = xdr_decode(desc, entry, stream);
- 	if (ret || !desc->plus)
- 		return ret;
--	nfs_prime_dcache(file_dentry(desc->file), entry, desc->dir_verifier);
-+	nfs_prime_dcache(file_dentry(desc->file), entry, desc->dir_verifier,
-+			 desc->shared_removal_seq);
+@@ -677,7 +686,8 @@ int nfsd_create_serv(struct net *net, bool no_rpcbind)
+ 				 nn->max_blksize, nfsd);
+ 	if (serv == NULL) {
+ 		percpu_ref_exit(&nn->nfsd_net_ref);
+-		return -ENOMEM;
++		error = -ENOMEM;
++		goto out_put;
+ 	}
+ 	serv->sv_tls = true;
+ 
+@@ -688,7 +698,7 @@ int nfsd_create_serv(struct net *net, bool no_rpcbind)
+ 	if (error < 0) {
+ 		svc_destroy(&serv);
+ 		percpu_ref_exit(&nn->nfsd_net_ref);
+-		return error;
++		goto out_put;
+ 	}
+ 	/*
+ 	 * Register before publishing nn->nfsd_serv.  Namespaces are only
+@@ -704,6 +714,10 @@ int nfsd_create_serv(struct net *net, bool no_rpcbind)
+ 
+ 	nfsd_reset_write_verifier(nn);
  	return 0;
++
++out_put:
++	module_put(THIS_MODULE);
++	return error;
  }
  
-diff --git a/fs/nfs/inode.c b/fs/nfs/inode.c
-index e0a2e92952..7885216a48 100644
---- a/fs/nfs/inode.c
-+++ b/fs/nfs/inode.c
-@@ -426,6 +426,8 @@ static void nfs_inode_init_dir(struct nfs_inode *nfsi)
- 	nfsi->cache_change_attribute = 0;
- 	memset(nfsi->cookieverf, 0, sizeof(nfsi->cookieverf));
- 	init_rwsem(&nfsi->rmdir_sem);
-+	nfsi->shared_removal_seq = 0;
-+	nfsi->shared_removals = 0;
- }
- 
- /*
-diff --git a/fs/nfs/internal.h b/fs/nfs/internal.h
-index 907ea27ea2..9cd8e5e808 100644
---- a/fs/nfs/internal.h
-+++ b/fs/nfs/internal.h
-@@ -152,6 +152,69 @@ static inline void nfs_d_drop_unless_anchored(struct dentry *dentry)
- 	spin_unlock(&dentry->d_lock);
- }
- 
-+/*
-+ * readdir holds the directory shared, so a listing can run beside a removal
-+ * made under a shared parent, and the server can build the listing before
-+ * the REMOVE while the client decodes it after.  Once the removal is done
-+ * its anchor no longer stands in the way - the remover's d_delete() leaves
-+ * the dentry unhashed or negative - and priming the dcache from such a
-+ * listing would put the removed name back, as a positive dentry with a
-+ * valid verifier.
-+ *
-+ * So a remover counts itself in ->shared_removals from before it sends its
-+ * REMOVE until the reply is in, and then advances ->shared_removal_seq,
-+ * before anything it does can unhash the anchor.  readdir samples the
-+ * sequence before it sends the READDIR, and makes no new dentry from the
-+ * listing while a removal is counted or once the sequence has moved.  A
-+ * listing whose sample is the advanced value was sent after the server had
-+ * answered the REMOVE.  The count makes priming stand aside even if the
-+ * anchor were to be lost while the REMOVE is in flight.  A dentry that
-+ * priming finds hashed is left to the test in nfs_prime_dcache(), which
-+ * leaves it alone while it is anchored and once it has been unhashed;
-+ * one that the removal left negative is dropped there, and its name
-+ * then gets no new dentry from such a listing either.
-+ *
-+ * Both fields change under the directory's ->i_lock, and the test reads
-+ * them under it.  The sample is taken without the lock.
-+ */
-+static inline unsigned long nfs_dir_shared_removal_seq(struct inode *dir)
-+{
-+	return READ_ONCE(NFS_I(dir)->shared_removal_seq);
-+}
-+
-+/*
-+ * Has a removal under a shared parent been in flight in @dir since @seq was
-+ * sampled, or is one in flight now?
-+ */
-+static inline bool nfs_dir_shared_removal_since(struct inode *dir,
-+						unsigned long seq)
-+{
-+	struct nfs_inode *nfsi = NFS_I(dir);
-+	bool since;
-+
-+	spin_lock(&dir->i_lock);
-+	since = nfsi->shared_removals || nfsi->shared_removal_seq != seq;
-+	spin_unlock(&dir->i_lock);
-+	return since;
-+}
-+
-+static inline void nfs_dir_start_shared_removal(struct inode *dir)
-+{
-+	spin_lock(&dir->i_lock);
-+	NFS_I(dir)->shared_removals++;
-+	spin_unlock(&dir->i_lock);
-+}
-+
-+static inline void nfs_dir_end_shared_removal(struct inode *dir)
-+{
-+	struct nfs_inode *nfsi = NFS_I(dir);
-+
-+	spin_lock(&dir->i_lock);
-+	nfsi->shared_removals--;
-+	WRITE_ONCE(nfsi->shared_removal_seq, nfsi->shared_removal_seq + 1);
-+	spin_unlock(&dir->i_lock);
-+}
-+
- static inline fmode_t flags_to_mode(int flags)
- {
- 	fmode_t res = (__force fmode_t)flags & FMODE_EXEC;
-diff --git a/include/linux/nfs_fs.h b/include/linux/nfs_fs.h
-index b45952727c..3e86449485 100644
---- a/include/linux/nfs_fs.h
-+++ b/include/linux/nfs_fs.h
-@@ -205,6 +205,14 @@ struct nfs_inode {
- 			/* Readers: in-flight sillydelete RPC calls */
- 			/* Writers: rmdir */
- 			struct rw_semaphore	rmdir_sem;
-+			/*
-+			 * Removals made with i_rwsem held shared: how many
-+			 * have finished, and how many are waiting for the
-+			 * reply to their REMOVE.  Both change under
-+			 * ->i_lock; see fs/nfs/internal.h.
-+			 */
-+			unsigned long	shared_removal_seq;
-+			unsigned int	shared_removals;
- 		};
- 		/* Regular file */
- 		struct {
+ int nfsd_nrpools(struct net *net)
 -- 
 2.43.0
 
