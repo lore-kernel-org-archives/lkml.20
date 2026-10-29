@@ -1,100 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793287068;
-	b=vt9M6DOqnHTzZIeulbxcg5sb7dLcfBqIiUeOEY+s3G2XvVwqKVcA2HDwyaTaU30gnY1Y
-	 6iYBlANG2dE0ozuQaII/Fpud62C44fegQBJq028LbZSpWlJ2NBEEPU1MomBNN9bSCNDUV
-	 mqDpqWWVJkysm131P2xoplcUwDe1mEy9hriIiZfOHz8X7IHMC5EFkNGG7tr3ViJf9Oo1f
-	 AOGJHX/fNiH+gK7qY/q2lgf8twl5llMdkBXXQDTJM8spfE6tnl7cvv8bOGeSfZOIATZcp
-	 GSsFJoZz4zE5WTq9oucDUk27tpwRKk2V1nwQ9V3ZoXGSj8aC0z4w+8RGt762JOhllQA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287068;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=AbTJQnBlN+pvqKG1klAFs8PHaT7iP4av50nNUNBWkKw=;
-	b=LwUHqNah0631YF8uDF708L5rZis0fu9AnCzT07k+99o5A+sFvHf7803R7I6P0yH9InOo
-	 TJDDAHqUCykUco4IXiVFFejYcSuMpqLZ1eIegypTOlWrw/xX0SjHQSvbJrD6xaSOloZuA
-	 /uxk3UDZah/mo1TyXMraHAd6gqHo+1RQB9ne9ra218VCNZGklconxDq9eouGhrj2By20o
-	 RGRx6oFqXSu6Kq1w2YxBBvok8brRbJ3rednn4yqqechfhHhC5SzYPv9NDhRp+5Ajv6KnH
-	 e2yFlHX0t58ERuxYlrsYqslMW3J8m6mbWDBWuoXrB7+mHvHmbQpHmkfQ2BYI4lMNwVw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pdkgTWm7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793287076;
+	b=LKRvJxXQG2zXYdONrN8WrHjDY1noXy4+hQpXtaAS4RWZ/t3ssImPlYMDxstdrhwytch3
+	 p77esThYohQ0deDSnAmA34AuEwrvIYj38xWanhLmDbtsBelfREhoKT0pI9p/6+F2oNSpt
+	 54XrupDfXpYbwCoXO0qPhnFQuUgLDF5vYfQF+5eUkPQCF3dG9Eqsp+NjqHW0ocYKdHWT+
+	 Fv14UfKPfBrPFAO1gVyRj80mINAKSCSeu+CMzmcnlARXlEVFNq/O9gBmZyXpsWyKOcnlB
+	 B5BwnylfzUujK71hkhl7lJmskOUnVFasPCYDUgeWcrCSlzyUTaTD1YyUR6XVcZXVVKA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287076;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Ge93C1RewWf+EmgQPjq99nIgRg5xPU6pKnukx22zcKc=;
+	b=cTpEeHOpiKiNnrFOIDIH6mkbvJA1G15AIjDZ2e6UsRoDTAyPc3KBalkzFYpfrT/6D2jO
+	 9HW+MKvHoCzDZRLys8I6hR/Tx8wxG4/3qz23tVQv2IhXMx8WCu+oh+s3rAH6HrWXxliq3
+	 m7Ph0xwg1eT8P+E4Owah/lGnF3tCO2W7ew4ZFsSTOe6aGjZOb5pn43r7Unobyr8xf630n
+	 jBXFAQqYKyYYAPhKKIH1sEucH9vmOr5jQYLhDjmpYAqSeEUUouZe4VHayfAsOfg1Dnnh/
+	 OxMK9XMxJKiWbeV69M6GAgoE59ZK9/p3cvmB7fdGWMwKF72ToMpoSZV500Gq8k2/nNg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MuoJ1K9f;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70020606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:17:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70020606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E22606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:17:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pdkgTWm7
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so13309a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:17:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793287067; cv=none;
-        d=google.com; s=arc-20260327;
-        b=o4Gt2YMMY1VdvNG4qYbjHwtfM6Bk3PXafQusMDKxDg4+lt2C3YHoQJsu1YaXP0Gkwm
-         8icO+Tq5jYAt6GIVXlmrH/rG19fHWxcHb9qSxGlIvCvmKtKw/EmdpbXstiHRuxBXmwge
-         XWLDLaO29e5C8KP2Aa9NOskj7vEGlHMfoWAvhJJFQtoTYjgWQRK+L0aTnMwHXnN0Ngy3
-         wHcXnr+6EVvWsGIgyjcZnBEdQsBD+uPt+4Ijz649gIq2zXvAdJbdZWIAnrkprvpBq/dD
-         aMOam7O2TsOVSet8aY5jOSe3hphuUk/dsTByKkrjBqeMB9uGFU9DXDEsqmQ+ph34EfF5
-         JawA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AbTJQnBlN+pvqKG1klAFs8PHaT7iP4av50nNUNBWkKw=;
-        fh=2FuVTbEgRjv6EJwwQy8jBJUBD51Q3susap8WthWHIaY=;
-        b=NRtKnvk4N4BVEXSM79y0QV5hWEO3veh91Qkx9ABuLEgErp1A32/M6SmKhM3CISJt+w
-         pTNDImw0092OKNdPKE1kpUJb3M8cEQbe85WxVaf8HU58lDNwx6qwukzVYjuyPAztt1S5
-         sB2zjCKVxIZ/x3derVJ74nJUIGCIpzsqqM0pOMm2L/S+dc0WW3JQxSw8ljNSoeu0SS98
-         UFpYf9Ywy0E3d4/wcnjFlbIJ5EcFlbY5tXZobgL8OKxNF6bQAZEErRfN1p13HfFpbGG1
-         eiKJeb4ejhHge9aYA1eAi2O8r6uIA5f6ljqzUe+m3uS4Y/Fu23EeT5nK/d7nWfqnB856
-         fZGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793287067; x=1793891867; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AbTJQnBlN+pvqKG1klAFs8PHaT7iP4av50nNUNBWkKw=;
-        b=pdkgTWm7tofy1O2oXfWkE6Y6P9fz0F3R+LY9mPxymq4mh3t9QTc+C85u42unFHOkgP
-         1nJrysrqvWDmImETri83vopaH2eAaWAYDmkD662fqjMriP6igDBB66tnFswHkOj2kSUp
-         FmEB2l9BSB7fnGylR03Isbbpa3HbHG+d2gNFBDI2XQohDomQ6XrQs2xeD9DyzMQNb77y
-         tE6QK85CCp8SCPmCFShGCgVxR+e4dJvt6fR4p2+IJbn0OYwnq8bDxo2t3iIoyIO7WmfF
-         WSXcFRJHq61aV0GkPrzwKaRcQNMRjzj0bkfjZ1EP5v0Xfuc3UOGd+owErnAT8Qlhkwr9
-         FfqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793287067; x=1793891867;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AbTJQnBlN+pvqKG1klAFs8PHaT7iP4av50nNUNBWkKw=;
-        b=CzSpDTsGD6I6awr6bKMV5LlXSmHZcyrmF6T2vuLrGiz69ODl/tfYZxwxtSnpf49DwT
-         g9hG/9S3s7aYRIrSoYzPzv1b8a2XWloVTeVeNNqnk+4LM+FkTnaMxE9iqPfYs+p84+8R
-         +h8cb/hDaXrVxqp7LvmDJBZil4Pr4uA9nPsOeCY2/WN3M3VG0HHAn2D85ZqFH2/b6bN2
-         qCBvonV63Jcweo/rfXV5yItkZ5ZC4RIWQvJ1vCYnsIvgOf97L3XY8m22nD4XXRMmIZM8
-         cGM6/skflwg7RbLd8KGz+dnODVKhMG5OjlhfIPwtQWAjT/gyna3VZp/hwm601agqPxHZ
-         gFOQ==
-X-Forwarded-Encrypted: i=1; AKwUvByT7VYX0oXGTrlxL9xvl31KAbPurao3v7K7HL+hWVJZPmw53fCmm4Kl5EcKkwsFTgI0sI8zr6ZgJFFypzI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLv3VNcWZSR83xMBWM4FZh4wLVzClSIa5v/LqXxETItGxYQG5ws
-	uxRlW9fa3chIfP6RXfnMJ+RwkSpu2zQGedpPpz3E/Fs9jWCFGRUYhzIkqv+4JMkYCOSob+Jf5fb
-	WLNPlIE0YqEMP5siMNqK3mExysf56gyGB5QiMkXa+
-X-Gm-Gg: AYBFou2knByahll8yiCXrUM8S3Znc44ayBlZhQbBNcRMaeM9GshygXCGsiahCJBowNb
-	nOpge1CBvYwXd2cwpjRb3VeocThuRP796w02KT9rYMGJvTeF0101dJPO0K+JYFxrfrnYM7cVqcW
-	hqou6ZIQS5S6yJeXrHoV5HiLe0pA/W27+4f82Bs/GWVhD9o21W8M52ls26dvkVKin5McqUzyS9y
-	YZ5OEgdbOGW47o6O2GhHw1Jk4OIzcKDPVjYgEh9B/eHNEojPK2n5DvLZyKqdZBaj22KuojW8V1R
-	rLoiaSaRAXZoU2W+Fi9D2Bj0RrvM8m2qlxbfmjOsb8F4a+cAXFynjT0zKSptjpS1fi6j7eX+jaa
-	GcrL1hCynOzVfT++6spSL9WTl0ki+zDDdjU/t
-X-Received: by 2002:a05:6402:305b:20b0:6ae:188e:e119 with SMTP id
- 4fb4d7f45d1cf-6b4b38e71bamr62668a12.9.1793287066191; Thu, 29 Oct 2026
- 08:17:46 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MuoJ1K9f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7A31F01825;
+	Thu, 29 Oct 2026 15:17:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793287075;
+	bh=Ge93C1RewWf+EmgQPjq99nIgRg5xPU6pKnukx22zcKc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MuoJ1K9f8LXP1eAxsLkwtMSGbYRUXNgpQqPqnYTKEJCsIWYVARl+4YvAcYiGfX0ND
+	 T2ulwsD10UnQaj3xsocr5Qw5QbCpBU97BvAreu7rrwdNl1f5M+v6akalZvwEyfgCDs
+	 qOpF+uHRk63eIi4bPcBzn+zqEGWqQKRq/ySh6/5RtRSXUluYFbdjwgANmnPengykA2
+	 34wmrvQ8bCU/p27bhINFpSk/cz2dvXcBVGJxOjSZJLbzCgAwLC/IqAIACw7XvBlxGx
+	 aQDszx2Az76Qnq8LKDHq+kIAmyckLwCGXwMAAddbczkCJsvtDsWPzRnWBrkk9snH8g
+	 U+tqLhukqAEqg==
+Date: Thu, 29 Oct 2026 15:17:53 +0000
+From: Jaegeuk Kim <jaegeuk@kernel.org>
+To: Chao Yu <chao@kernel.org>
+Cc: Nanzhe Zhao <nzzhao.sigma@gmail.com>,
+	linux-f2fs-devel@lists.sourceforge.net,
+	Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
+	Daeho Jeong <daehojeong@google.com>, linux-kernel@vger.kernel.org,
+	Dev Jain <Dev.Jain@arm.com>,
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	Pengfei Li <lipengfei28@xiaomi.com>,
+	Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>, Nanzhe Zhao <nzzhao@126.com>,
+	Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
+	Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [f2fs-dev] [PATCH v8 15/15] f2fs: make compressed files
+ compatible with large folio
+Message-ID: <auNjoREIU-cHswyw@google.com>
+References: <20261028154407.1601430-1-nzzhao.sigma@gmail.com>
+ <20261028154407.1601430-16-nzzhao.sigma@gmail.com>
+ <54cbfb8a-c87e-4fea-9448-175706e22ac2@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,111 +68,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029024005.575065-1-chengkev@google.com>
-In-Reply-To: <20261029024005.575065-1-chengkev@google.com>
-From: Jim Mattson <jmattson@google.com>
-Date: Thu, 29 Oct 2026 08:17:34 -0700
-X-Gm-Features: AclHuK-ibUT22cMMhhMbZ12t_iaUe3kZdk_OoF1b8jtJuWxJeYHY-_Y434LwOJ8
-Message-ID: <CALMp9eSvG5Kfur_3JfmrBjwAGi0+oJqCnFk4LqADCJfeh+0k6g@mail.gmail.com>
-Subject: Re: [PATCH] KVM: nVMX: Synthesize advanced VM-Exit info for emulated
- EPT Violations
-To: Kevin Cheng <chengkev@google.com>
-Cc: seanjc@google.com, pbonzini@redhat.com, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, yosry@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <54cbfb8a-c87e-4fea-9448-175706e22ac2@kernel.org>
 
-On Wed, Oct 28, 2026 at 7:40=E2=80=AFPM Kevin Cheng <chengkev@google.com> w=
-rote:
->
-> When synthesizing an EPT Violation to inject into L1 in response to a
-> fault detected while emulating an L2 GVA access, populate bits 11:9 of
-> EXIT_QUALIFICATION, i.e. the "advanced VM-Exit information", with the U/S=
-,
-> R/W, and X/NX attributes of the L2 linear address' translation.
->
-> KVM has advertised VMX_EPT_ADVANCED_VMEXIT_INFO_BIT to L1 since
-> commit a0efd8cb221f ("KVM: nVMX: pass advanced EPT violation vmexit info
-> to guest"), but has never correctly populated bits 11:9 for synthesized
-> faults.  Originally the bits were pulled from vmcs02.EXIT_QUALIFICATION,
-> which is stale and/or holds unrelated data when the fault didn't come
-> from an EPT Violation VM-Exit.  Commit 96b067b59ad9 ("KVM: VMX:
-> Synthesize nested EPT violation GVA_IS_VALID/GVA_TRANSLATED bits")
-> correctly stopped consuming the stale vmcs02 data for synthesized faults,
-> but nothing in the synthesized path sets bits 11:9, and so L1 now always
-> observes a supervisor, read-only, executable translation for every
-> synthesized EPT Violation.  Per the SDM, bits 11:9 are valid whenever
-> bits 7 and 8 (GVA_IS_VALID and GVA_TRANSLATED) are set and advanced
-> VM-Exit information is supported.
->
-> Fill in the bits from vmx_translate_nested_gpa(), which already receives
-> the effective L2 pte_access (for MBEC), rather than from the EPT walker
-> in paging_tmpl.h: the L2 page attributes are not EPT properties and so
-> are not visible to the EPT walker, and the nonpaging L2 case (CR0.PG=3D0,
-> where every linear address is architecturally user-mode, writable, and
-> executable) is handled for free as nonpaging_gva_to_gpa() passes ACC_ALL.
->
-> Skip the synthesis for EPT Misconfigs, as the walker doesn't initialize
-> exit_qualification for misconfigs and the injection path ignores it, and
-> leave bits 11:9 clear when GVA_TRANSLATED is clear, as the bits are
-> architecturally undefined in that case.
->
-> Explicitly strip bits 11:9 from the synthesized fault's exit qualificatio=
-n
-> in nested_ept_inject_page_fault() when L1 isn't advertised advanced
-> VM-Exit information. Previously that was implicitly guaranteed because
-> nothing set the bits in the synthesized fault, but now that
-> vmx_translate_nested_gpa() does, relying on the bits being outside the
-> "take from the fault" mask would leak them to L1.
->
-> Fixes: a0efd8cb221f ("KVM: nVMX: pass advanced EPT violation vmexit info =
-to guest")
-> Signed-off-by: Kevin Cheng <chengkev@google.com>
-> Assisted-by: LLM
-> ---
-> Tested on hardware with advanced VM-Exit information support by running
-> the vmx kvm-unit-tests, including a new ept_access_test_adv_info test
-> (will be sent separately) that exercises bits 11:9 for both native
-> accesses, where the bits are propagated from vmcs02, and emulated accesse=
-s
-> (string I/O), where KVM must synthesize the bits.  The emulated cases fai=
-l
-> without this patch and pass with it.
+Ok, I applied all including the below change in dev-test. Please take a look.
 
-Doesn't this break tools/testing/selftests/kvm/x86/nested_tdp_fault_test.c
-on hardware that supports VMX_EPT_ADVANCED_VMEXIT_INFO_BIT?
-
-In that test, l2_test_page is mapped writable in L2's page tables via
-vm_alloc(), and l1_vmx_code() asserts exact equality on EXIT_QUALIFICATION
-without expecting EPT_VIOLATION_GVA_WRITABLE in TEST_FINAL_PAGE_UNMAPPED
-and TEST_FINAL_PAGE_WRITE_PROTECTED.
-
-Also, rather than only adding a test to kvm-unit-tests, please update and
-extend nested_tdp_fault_test.c to cover the advanced VM-Exit information
-bits.
-
-[ ... ]
-
-> -                       exit_qualification =3D fault->exit_qualification =
-& ~mask;
-> +                       /*
-> +                        * Always drop the advanced VM-Exit information b=
-its from
-> +                        * the synthesized fault, as they are undefined u=
-nless L1
-> +                        * is advertised support, in which case they'll b=
-e filled
-> +                        * in below from the appropriate source.
-> +                        */
-> +                       exit_qualification =3D fault->exit_qualification =
-& ~(mask | adv_info);
-
-Why set these bits in vmx_translate_nested_gpa() when
-VMX_EPT_ADVANCED_VMEXIT_INFO_BIT isn't set in vmx->nested.msrs.ept_caps,
-only to strip them out here?
-
-If you gate the synthesis in vmx_translate_nested_gpa() on
-VMX_EPT_ADVANCED_VMEXIT_INFO_BIT, then nested_ept_inject_page_fault()
-doesn't need to be touched at all (or better yet, the mask dance in
-nested_ept_inject_page_fault() can be confined to the 'if (from_hardware)'
-block.
+On 10/29, Chao Yu via Linux-f2fs-devel wrote:
+> On 10/28/26 23:44, Nanzhe Zhao wrote:
+> > From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> > 
+> > The compression flag is the hint indicates that the inode can be
+> > compressed, when the inode is using large folio, we expected it keeps
+> > using the large folio read/write paths and its data stays uncompressed
+> > on disk until the inode is evicted and re-read
+> > 
+> > Let f2fs_write_begin() skip the compression overwrite preparation for
+> > such inodes and remove the compressed-file gate in
+> > f2fs_read_data_large_folio() so the data is simply read/written as
+> > regular blocks.
+> > 
+> > For the same reason, reject F2FS_IOC_COMPRESS_FILE with -EOPNOTSUPP
+> > once the inode mapping is switched to large folios.
+> > 
+> > Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+> > ---
+> >  Documentation/filesystems/f2fs.rst | 10 ++++++++
+> >  fs/f2fs/compress.c                 |  2 ++
+> >  fs/f2fs/data.c                     |  9 ++-----
+> >  fs/f2fs/file.c                     | 38 ++++++++++++++++++++++++++++++
+> >  4 files changed, 52 insertions(+), 7 deletions(-)
+> > 
+> > diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
+> > index 55798421f2c4..b79bb67ee78e 100644
+> > --- a/Documentation/filesystems/f2fs.rst
+> > +++ b/Documentation/filesystems/f2fs.rst
+> > @@ -942,6 +942,16 @@ Compression implementation
+> >    reserved via ioctl(F2FS_IOC_RESERVE_COMPRESS_BLOCKS) or the file size is
+> >    truncated to zero.
+> >  
+> > +- Compression and large folios are not effective at the same time on a file:
+> > +  a compressed inode does not use large folios, while an inode which is
+> > +  using large folios keeps its data uncompressed on disk.  If the compression
+> > +  flag is set on an inode that is already using large folios, the flag works
+> > +  as a hint until the inode is evicted: the inode keeps using the large folio
+> > +  read/write paths, f2fs_write_begin() skips the compression overwrite
+> > +  preparation, and ioctl(F2FS_IOC_COMPRESS_FILE) fails with -EOPNOTSUPP.
+> > +  Once the inode is evicted and read back, it uses order-0 folios again and
+> > +  compression is applied as usual.
+> > +
+> >  Compress metadata layout::
+> >  
+> >  				[Dnode Structure]
+> > diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
+> > index 162bd8ef822a..721b01dd0d24 100644
+> > --- a/fs/f2fs/compress.c
+> > +++ b/fs/f2fs/compress.c
+> > @@ -78,6 +78,8 @@ bool f2fs_is_compressed_page(struct folio *folio)
+> >  		return false;
+> >  	if (folio_test_f2fs_nonpointer(folio))
+> >  		return false;
+> > +	if (f2fs_folio_has_ffs(folio))
+> > +		return false;
+> >  
+> >  	f2fs_bug_on(F2FS_F_SB(folio),
+> >  		*((u32 *)folio->private) != F2FS_COMPRESSED_PAGE_MAGIC);
+> > diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
+> > index cc3c9e51db9c..ab8f5b44d63a 100644
+> > --- a/fs/f2fs/data.c
+> > +++ b/fs/f2fs/data.c
+> > @@ -3288,12 +3288,6 @@ static int f2fs_read_data_large_folio(struct inode *inode,
+> >  	int ret = 0;
+> >  	bool folio_in_bio = false;
+> >  
+> > -	if (f2fs_compressed_file(inode)) {
+> > -		if (folio)
+> > -			folio_unlock(folio);
+> > -		return -EOPNOTSUPP;
+> > -	}
+> > -
+> >  	map.m_seg_type = NO_CHECK_TYPE;
+> >  
+> >  	if (rac)
+> > @@ -5331,7 +5325,8 @@ static int f2fs_write_begin(const struct kiocb *iocb,
+> >  	}
+> >  
+> >  #ifdef CONFIG_F2FS_FS_COMPRESSION
+> > -	if (f2fs_compressed_file(inode)) {
+> > +	if (f2fs_compressed_file(inode) &&
+> > +	    !mapping_large_folio_support(inode->i_mapping)) {
+> >  		int ret;
+> >  		struct page *page;
+> >  
+> > diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> > index 15bea642e986..cb7a9d4227f4 100644
+> > --- a/fs/f2fs/file.c
+> > +++ b/fs/f2fs/file.c
+> > @@ -4907,6 +4907,7 @@ static int redirty_blocks(struct inode *inode, pgoff_t page_idx, int len)
+> >  	struct address_space *mapping = inode->i_mapping;
+> >  	struct folio *folio;
+> >  	pgoff_t redirty_idx = page_idx;
+> > +	pgoff_t end_idx = page_idx + len;
+> >  	int page_len = 0, ret = 0;
+> >  
+> >  	filemap_invalidate_lock_shared(mapping);
+> > @@ -4924,6 +4925,9 @@ static int redirty_blocks(struct inode *inode, pgoff_t page_idx, int len)
+> >  	} while (page_len < len);
+> >  
+> >  	while (redirty_idx < page_idx) {
+> > +		pgoff_t next_idx;
+> > +		size_t off, dlen;
+> > +
+> >  		folio = filemap_lock_folio(mapping, redirty_idx);
+> >  
+> >  		/* It will never fail, when folio has pinned above */
+> > @@ -4931,6 +4935,33 @@ static int redirty_blocks(struct inode *inode, pgoff_t page_idx, int len)
+> >  
+> >  		f2fs_folio_wait_writeback(folio, true, true);
+> >  
+> > +		/*
+> > +		 * Only this cluster is rewritten, while a large folio can
+> > +		 * cover more than one cluster, so mark the intersection of
+> > +		 * the folio and [redirty_idx, end_idx).
+> > +		 */
+> > +		next_idx = min_t(pgoff_t, folio_next_index(folio), end_idx);
+> > +		off = offset_in_folio(folio, (loff_t)redirty_idx << PAGE_SHIFT);
+> > +		dlen = (size_t)(next_idx - redirty_idx) << PAGE_SHIFT;
+> > +
+> > +		if (folio_test_large(folio)) {
+> > +			/*
+> > +			 * A compressed inode can keep using large folios, in
+> > +			 * which case the compression flag only works as a hint
+> > +			 * until the inode is evicted.  Update the subpage dirty
+> > +			 * bitmap as well, otherwise f2fs_write_cache_folios()
+> > +			 * finds no dirty range and skips the whole folio.
+> > +			 */
+> > +			if (!f2fs_ffs_find_or_alloc(folio)) {
+> > +				ret = -ENOMEM;
+> > +				folio_unlock(folio);
+> > +				folio_put_refs(folio, 2);
+> > +				redirty_idx = folio_next_index(folio);
+> 
+> Jaegeuk, Nanzhe,
+> 
+> I missed this potential UAF, please fix this.
+> 
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index 162b7f7aa6d4..3de67522beef 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -4941,16 +4941,14 @@ static int redirty_blocks(struct inode *inode, pgoff_t page_idx, int len)
+>                          */
+>                         if (!f2fs_ffs_find_or_alloc(folio)) {
+>                                 ret = -ENOMEM;
+> -                               folio_unlock(folio);
+> -                               folio_put_refs(folio, 2);
+> -                               redirty_idx = folio_next_index(folio);
+> -                               continue;
+> +                               goto next;
+>                         }
+>                         f2fs_ffs_mark_subrange_dirty(folio, off, dlen);
+>                 }
+> 
+>                 folio_mark_dirty(folio);
+>                 folio_set_f2fs_gcing(folio);
+> +next:
+>                 redirty_idx = folio_next_index(folio);
+>                 folio_unlock(folio);
+>                 folio_put_refs(folio, 2);
+> 
+> Thanks,
+> 
+> > +				continue;
+> > +			}
+> > +			f2fs_ffs_mark_subrange_dirty(folio, off, dlen);
+> > +		}
+> > +
+> >  		folio_mark_dirty(folio);
+> >  		folio_set_f2fs_gcing(folio);
+> >  		redirty_idx = folio_next_index(folio);
+> > @@ -5037,6 +5068,13 @@ static int f2fs_ioc_compress_file(struct file *filp)
+> >  	if (!(filp->f_mode & FMODE_WRITE))
+> >  		return -EBADF;
+> >  
+> > +	/*
+> > +	 * The mapping is already using large folios, where the data is kept
+> > +	 * uncompressed, so refuse to start compressing the file.
+> > +	 */
+> > +	if (mapping_large_folio_support(inode->i_mapping))
+> > +		return -EOPNOTSUPP;
+> > +
+> >  	f2fs_balance_fs(sbi, true);
+> >  
+> >  	ret = mnt_want_write_file(filp);
+> 
+> 
+> 
+> _______________________________________________
+> Linux-f2fs-devel mailing list
+> Linux-f2fs-devel@lists.sourceforge.net
+> https://lists.sourceforge.net/lists/listinfo/linux-f2fs-devel
