@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793305342;
-	b=Jyr20JNlDPnxbd+g7FEwmi+K8rhKaH7JVzPkVjQSGsWIGFdlCJe/6A20fXgBUt9qRiiG
-	 TN8Osus0DN21BYUhQXJQMo6d7fduTu3pXAdT8gm8Z/nomjOgyplYDEqGeIFSYzKhhzWdC
-	 VHcXiljrTahy+HzS8BFgT2uW5goPfjfArZs4Fb0dkGeXgsWvvPhtOKzO0lsZ8ofzmlCz3
-	 t5mvu8agRhY3TN7mCgkby43udcXmUqa253N/KdfPAQU4JigXWvQ061pRRxjzt9bKzfPhs
-	 78xEx3cFw7qtYHQf9QA5w+5HWT2+UJNMLC3CtpHB1+MgLfQR44Zmxy6ApJOKFb87+Xw==
+	t=1793305346;
+	b=w5rdcZ42NtZpQ7I4Wt6F2foMkxY6eCVd1LIf5n47J0bzuNufeqq6IALB4Z9oBZlQwVnj
+	 nFK1NlYKgm8F8jx1qSOsxgdGwvH6CvKFDWnHgk8ovwKOaAx/oR9270HsLVxaZFhJttM0g
+	 HdyrAASBmEGlGWW3UNqedLfgawmS1Xz/1FMJn8gotSK5TwOXJViKDiSVbnBQdkEGDXans
+	 ZiPuWvGPuKJtANRdz//DX9OD7zodj5buLuNdgZ1QlMhyDdewJp6Bgyhbhzo5g4a0xaW10
+	 PBoxWyD9Ni/cC0Qh9pFBADQdsrQLS7POLTtY5NbtqPQhMwQBAba9S7bsvIQcrajSprg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793305342;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793305346;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=+alK+kLJ7amoIBUyXbsYxnMkr961PG7p4vFJ8+VXAFw=;
-	b=k+82tNmTTC+KHu2k+dnQehS4b9OvwYA8EXbvdr84UeCipLSzJVnPuGHNCQ5GBgO0zeBN
-	 YPlkBIkZRwQenzLwBTLgOh8TqskbdySxkwmjPLn4bToxIC1avcLstDojh7q3RYr+qoVS4
-	 lYbKiKPOYgSys97SE4aGSs0J4MhPzdylQEBU8vmVxOAifXRFWP+vEd/vyb+OfvsUuzrnu
-	 oGy+7Og8fo7/6UP17zdAk47HbDSFg43tNJ33BofE0x0qVTdZV7meu14MIUVoS/CKQnzbm
-	 yIMZpRfSJ9gjeTskbU4o+DuTf26R91BaWsXOkWZHi7JO40oKXBvAiYixxWFnQB3hHJA==
+	bh=d5xdLg9rAjWYh0/cl+k2oxrUt58t/79pNohrY47ReRQ=;
+	b=sWnJtCsGBUMnPEIWUfZq1PRt9v6pgEVmeG86dGyfdZ91l7xpMGz/mf/82VexR9hBwbTE
+	 xsbxC0/r0rFDapzJIDWkRTkXydz2vD8GMlALSaanhjSMRVc5Iv/mu5Hne6mGdZie/9JlJ
+	 XWG/gDwYc80FQJ6dr+CQsECLXW7Y+Vpd/yk+7EGz1NiPIveT+8V0VBbA35iHR3tsuFf3O
+	 iAVnXgRvK9Qd7L4Tkg04LFyF6YXJOxxAB5uJ3IyNrNrVp1L6TnjoeAPhtNc5XKPqFcNyN
+	 WqHpXiiH0aOid6zM0Wy11M9yM8LyDcN/A+M4X1G/PG5Zta04uB+AclC/9WViQl1QnIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zZwAeLoP;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HEonZHni;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A05606A337
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:22:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7A05606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43F9606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:22:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E43F9606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zZwAeLoP
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso18467895e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:22:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HEonZHni
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48afbd2c386so10791f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:22:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793305340; x=1793910140; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793305344; x=1793910144; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+alK+kLJ7amoIBUyXbsYxnMkr961PG7p4vFJ8+VXAFw=;
-        b=zZwAeLoPIcpyLuKkZr8FqzwEUCgJ2THkqWg/AibXfpeOFFC0uZFMGwcNKY0pxxX5M2
-         gEDvQKQEBDIx+WJ/ISRAarAP80bmXP6IslqeM+WjRFlXucm0TU/ad/iceLVg676SKoMQ
-         yv0vdxE76efT/RAtzwv8x26DOszTYu/RACCHnOE9m7UtDCS5xfYKtHqoYLUAfkrfNSlQ
-         JtUilijpf9MI48GX8pKMmHH3dImgnYtgYrLhPgn+6zO9Im0UkwY+ygelER20mIEmgE9G
-         kwjjKwQ2fu4/jFv9vNraPYWJ3smbxDS8z71YAI2PgRDoHVU8WqVQeaPZbum1LBR2FSEW
-         2mxQ==
+        bh=d5xdLg9rAjWYh0/cl+k2oxrUt58t/79pNohrY47ReRQ=;
+        b=HEonZHniVL1vHgK6XVvwEa0vy47NPTvTBWzdrkMvmDrh3PrF7h5dZg6qak8DwRk3ni
+         KGLZC/SDzhkEbbF9E5cpkEfoTKwSdH5nKUpz8ly/mcP4a80k8lxNgg0D8jeTs1j0ACv6
+         2NNV1gqzG0JpmGZZUAb5YlqbEQVyzRdaE2r1HoLiLe+Vaes+C0Q0NCYKDL5IO9+diqkR
+         PPd8YE9DAY/nkDJ882kx+KWbrgQnjyy+OWfN5p+N+yhxDyEciPd+pGIVwdKsQs2D80wo
+         OA1aZnOCzF2mxeBEGSVW0Mj7E4tS9UeUIzMQNlkK7hFbPfRNKnf3GCRbdgynvWZ+PBkk
+         4DXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793305340; x=1793910140;
+        d=1e100.net; s=20260707; t=1793305344; x=1793910144;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+alK+kLJ7amoIBUyXbsYxnMkr961PG7p4vFJ8+VXAFw=;
-        b=E7q12EP0g0yGnzu+joW6tKsoZPSXAQPfeQ63J6dR5BAgKtZlKEdD4B5LMtwtiLKGZb
-         3c5oyAUwehroVA4QRoVYxUBpEMskomvQnT6kCElj+x6yDyGSOi2LhJ22UiyyF4qXc0N8
-         7N8IcC1dJZMJftESHCkfybM1bqSPtPFMnXIg/ELF107X336YiaeN0RnRFCoYUYZHkuoW
-         SMQ85Lodzjava8ISCM71jd9JMBT5JO4BVFXBc+kE5bV/dq38aD26kwk1LnGCGX9X/8Tp
-         zdQgAzB5oCdXxaQEpsMNLXjn2KlYDz+4AAPBzlYmhCQz9c/PSLGEfZasQL4ntSDoAPBM
-         BB0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxujQccTHZH9xBDLx4b1VcvgjrWAob8RYrg5TyIrVPVYOPN0a9/EntHvYWEXwJuQtxT82s2T9kEODXwsmk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQ3vVzBaxaZ3BBs4oZwnX5za6afcwcyirRTyCuf8vQB7dizxKh
-	P3wX/Vn+LKg2a90VPvIBYD3cqvQWBDhuijS8iuSgBMPnteKYmil2VRJi
-X-Gm-Gg: AYBFou0lG5+ylrA2S9VDb3Mw5QGkGsGVh26oDjCL7bXsIHmQM7y0UYpHak5f5zvg709
-	grfmprjXvYx34H/U1nNRn8I+rdl14c+uQVxsrhI3Ai+40G5iGMEmzT43bUBCWgZDb9NF1JsUIl9
-	paVJEMaPfvv4CcxvyblS7xTgCcGU4Gc9kHFZ3c6jfSsug250y+e8z4bUDcEErSVRvC/xLnN57c8
-	1BLU0/Em2rmnJskCbTwFi5x9e1Sj6F0jShQl8d37FxxNUBePSSgdHncRDuEdJWUdHjmldC4nk1A
-	C+nXWa/nakRZINGYk6MBJgvEx+zBWBp9Mv9mTOfdZuAWTJi4g8uhesqix9bAIfVOtnU+FvdMY9F
-	PcSscb9LEhjYhFzL6GIH23myVkz8j8TrP2qCieaBXRp8oJv7asE/iRukguYpjPZ+RfducgoA9oq
-	wmz+6QyTMCcUPohWWoGyIORIAMDoKuTRYGMUYOcxILWnXJKpx/gB6HGW9EfzI/geOqKT53zkioi
-	A/6jgvUxuBp+7JsEYrnWA1adEzIGpUI6i7U/jOiJkuWhd7VwuomHiyb5QeCl/1jDHoqsCTX9Npk
-	3qK3B5kpsjNvf/TWFkQc3rOiJekDVKUfEjDfyaDVQk3huDB3FTfIgBgveTiameXRcqnRsQtdrrQ
-	wHYXoTxHUkIWHMSYEfFhyh24=
-X-Received: by 2002:a05:600c:8b0a:b0:4a1:742e:3 with SMTP id 5b1f17b1804b1-4ac185bc4a1mr1887535e9.27.1793305340269;
-        Thu, 29 Oct 2026 13:22:20 -0700 (PDT)
+        bh=d5xdLg9rAjWYh0/cl+k2oxrUt58t/79pNohrY47ReRQ=;
+        b=S8x6VkxabRlTnes2/rgjPCbSRKVjI1YhroJ5yic304oIyTdqKQAq7mm07CLaQ1JfDj
+         UUWFgEkUxdsj15FudMJUKbuhMvdWiBaRZ7Uct/4m98F+mBwkQJ8ro1ODuFzWdhuM7UWz
+         VmX1T037T1epThbNNga2orEZirMpJuavwJ67v3X/MQH9rN7pIpGI2+EWpjE3B5zKWQTP
+         B9o19BFfh1zVq/cxs+QM/fOznXZZ7WtUTsvY10v1hNUzEA4UzdyyIaqUJG1mIRREMkq7
+         Q6ufzGUNt6ogW5DiI0ZR9+Hi5Nw+xnFiKT4j5/s3/Bvs6GgNlV8VdyMH0PDaWKPdUxfE
+         JWYQ==
+X-Forwarded-Encrypted: i=1; AKwUvByNvtl+L4KrX1z7GGMbbBrzMMvgZz+UiSzIW9I50U8JLjg9Q7hLoztZwKJKs3+JB0uYy78oyUqs5RofWC4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJw3M0YQhszOTVePAnWsrTtnzfN6dTGIIE2l3xy2uhSDl8KtWi7
+	RKM963L48DA65j3FPFXV3VZZxFxKkTQyzU6IACn7t+TzQcYFtoMM5RBE
+X-Gm-Gg: AYBFou3cg0xZWy/9bmrK/jfAkLlGfCRcphLUbQvF3M432tc8q6bLA7WlOYSGCRAsnbR
+	YIpbrGFD8BO1a5bSjZCus34JJTA5CrRTTKjmhzuQYTNf2BLwTiOSDYZIHKyglZ/Lbp8QDdpe6JU
+	CO3nVueB4G7UoofK6r9UMoiP1L7mE0cbQ9+cEly1kUCHAHzBW1LIUc1ixsY0Hc2mxmmwWHMdJtG
+	INp/ow0mGx6xXKtLC3NQm/w54pcmajoxswP6BHuQ2/jFmOnt/8yJ5aG0orXtx57uCrG3bsP0Vdg
+	hbbPBXyUiwkrJfvWRmjcHJiuTupKWlvuqYvHRhAHwLOOhNaCb/TBS+7DtcMakggmDIjbbHHxJDJ
+	3j8CwwE1BMC2i4a2rKEXG41qbF1MNJ5XDeBL31vDigiyByzRoCA12sfwrNxUGVFU+ApfpJ086nP
+	67F253oYG1jAiuCBmBdPHk+yB7XchlbOMih2EanCcJLBLIH5zfG2XN+CFHX/IFfAh2EXjGjonUd
+	EFY9Vnjz6n5zhzw4qy+pfxHXCIw/7QJfKqBoR38P3m65Jb7vJg7ZxhUznp92lMVZACfqOTerI6T
+	Lngev2qFf5vsUi68GJksdsMMzhT2iS/ZvWiHXr30uBbV+vbKolOhJvh0rOpP+7buFfu/BZbb1Eo
+	V55U=
+X-Received: by 2002:a05:600c:4ece:b0:4a2:40:8d2c with SMTP id 5b1f17b1804b1-4ac17b2c396mr1900095e9.26.1793305344259;
+        Thu, 29 Oct 2026 13:22:24 -0700 (PDT)
 Received: from env.. (dynamic-176-003-098-140.176.3.pool.telefonica.de. [176.3.98.140])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf7146621sm9424335e9.13.2026.10.29.13.22.19
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf7146621sm9424335e9.13.2026.10.29.13.22.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 13:22:19 -0700 (PDT)
+        Thu, 29 Oct 2026 13:22:23 -0700 (PDT)
 From: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
 To: song@kernel.org,
 	yukuai@fygo.io,
@@ -88,9 +88,9 @@ To: song@kernel.org,
 Cc: linux-raid@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
-Subject: [RFC PATCH v5 1/4] md: add uapi definitions for the md control device
-Date: Thu, 29 Oct 2026 20:22:05 +0000
-Message-ID: <20261029202209.1422567-2-abd.masalkhi@gmail.com>
+Subject: [RFC PATCH v5 2/4] md: pass struct mdu_disk_info64 to md_add_new_disk()
+Date: Thu, 29 Oct 2026 20:22:06 +0000
+Message-ID: <20261029202209.1422567-3-abd.masalkhi@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261029202209.1422567-1-abd.masalkhi@gmail.com>
 References: <20261029202209.1422567-1-abd.masalkhi@gmail.com>
@@ -105,190 +105,119 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the ioctl commands and structures for /dev/md-control, a misc device
-that manages md arrays without opening the md block device. The device
-itself is added in the next patch.
+The md control device passes disk information as struct mdu_disk_info64.
+Make md_add_new_disk() take this structure, so that the control device
+and the old ADD_NEW_DISK ioctl can share it.
 
-Every command except MD_CTL_RAID_VERSION takes a struct mdu_ioctl, which
-names the array by name, UUID (it is only available for arrays with
-native metadata) or device number, carries a flags field, and points to
-the command's payload .
+The ADD_NEW_DISK ioctl converts its mdu_disk_info_t with the new helper
+disk_info_to64(), and md_setup_drive() uses a struct mdu_disk_info64
+directly.
 
-The commands mirror the existing block device ioctls. They use the
-MD_MAJOR ioctl type, with numbers starting at 0x40, grouped like the
-old ones: status at 0x40, configuration at 0x50 and usage at 0x60.
-
-STOP_ARRAY_RO has no separate command: MD_CTL_STOP_ARRAY with
-MD_CTL_RO_FLAG set switches the array to read-only mode instead of
-stopping it.
-
-MD_CTL_LOOKUP_ARRAY has no equivalent among the legacy ioctls. Given
-the kernel name, device number, or UUID of an array, it returns all
-three identifiers. It also indicates whether the array exists, even
-if it has not yet been configured. It returns ENODEV only if no such
-MD device exists. For arrays using external metadata or having no
-superblock, the UUID is returned as all zeros.
-
-The payload structures are new versions of the old ones with fixed-size
-types and explicit padding, so they have the same layout on 32-bit and
-64-bit systems. Fields that overflow in the old structures are 64-bit
-now: size, ctime and utime in struct mdu_array_info64.
-struct mdu_array_info64 also reports the number of journal disks.
+No functional change.
 
 Signed-off-by: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
 ---
- include/uapi/linux/raid/md_u.h | 119 +++++++++++++++++++++++++++++++++
- 1 file changed, 119 insertions(+)
+ drivers/md/md-autodetect.c |  2 +-
+ drivers/md/md.c            | 25 ++++++++++++++++++++-----
+ drivers/md/md.h            |  4 ++--
+ 3 files changed, 23 insertions(+), 8 deletions(-)
 
-diff --git a/include/uapi/linux/raid/md_u.h b/include/uapi/linux/raid/md_u.h
-index a893010735fb..3616127eacea 100644
---- a/include/uapi/linux/raid/md_u.h
-+++ b/include/uapi/linux/raid/md_u.h
-@@ -12,6 +12,8 @@
- #ifndef _UAPI_MD_U_H
- #define _UAPI_MD_U_H
+diff --git a/drivers/md/md-autodetect.c b/drivers/md/md-autodetect.c
+index 4b80165afd23..9ba061f1a628 100644
+--- a/drivers/md/md-autodetect.c
++++ b/drivers/md/md-autodetect.c
+@@ -201,7 +201,7 @@ static void __init md_setup_drive(struct md_setup_args *args)
+ 	err = md_set_array_info(mddev, &ainfo);
  
-+#include <linux/types.h>
-+
- /*
-  * Different major versions are not compatible.
-  * Different minor versions are only downward compatible.
-@@ -30,6 +32,10 @@
-  */
- #define MD_PATCHLEVEL_VERSION           3
+ 	for (i = 0; i <= MD_SB_DISKS && devices[i]; i++) {
+-		struct mdu_disk_info_s dinfo = {
++		struct mdu_disk_info64 dinfo = {
+ 			.major	= MAJOR(devices[i]),
+ 			.minor	= MINOR(devices[i]),
+ 		};
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 154ee5a65cb7..ae893c6296ba 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -7486,7 +7486,7 @@ static int get_disk_info(struct mddev *mddev, void __user * arg)
+ 	return 0;
+ }
  
-+#define MD_NAME_LEN                     32
-+#define MD_UUID_LEN                     16
-+#define MD_CTL_NODE                     "md-control"
-+
- /* ioctls */
+-int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info)
++int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info64 *info)
+ {
+ 	struct md_rdev *rdev;
+ 	dev_t dev = MKDEV(info->major,info->minor);
+@@ -8305,6 +8305,15 @@ static bool md_ioctl_need_suspend(unsigned int cmd)
+ 	}
+ }
  
- /* status */
-@@ -61,6 +67,28 @@
- #define RESTART_ARRAY_RW	_IO (MD_MAJOR, 0x34)
- #define CLUSTERED_DISK_NACK	_IO (MD_MAJOR, 0x35)
++static void disk_info_to64(struct mdu_disk_info64 *info64, mdu_disk_info_t *info)
++{
++	info64->number = info->number;
++	info64->major = info->major;
++	info64->minor = info->minor;
++	info64->raid_disk = info->raid_disk;
++	info64->state = info->state;
++}
++
+ static int __md_set_array_info(struct mddev *mddev, void __user *argp)
+ {
+ 	mdu_array_info_t info;
+@@ -8452,13 +8461,16 @@ static int md_ioctl(struct block_device *bdev, blk_mode_t mode,
+ 		 */
+ 		if (mddev->pers) {
+ 			mdu_disk_info_t info;
++			struct mdu_disk_info64 info64 = {0};
+ 			if (copy_from_user(&info, argp, sizeof(info)))
+ 				err = -EFAULT;
+ 			else if (!(info.state & (1<<MD_DISK_SYNC)))
+ 				/* Need to clear read-only for this */
+ 				break;
+-			else
+-				err = md_add_new_disk(mddev, &info);
++			else {
++				disk_info_to64(&info64, &info);
++				err = md_add_new_disk(mddev, &info64);
++			}
+ 			goto unlock;
+ 		}
+ 		break;
+@@ -8493,10 +8505,13 @@ static int md_ioctl(struct block_device *bdev, blk_mode_t mode,
+ 	case ADD_NEW_DISK:
+ 	{
+ 		mdu_disk_info_t info;
++		struct mdu_disk_info64 info64 = {0};
+ 		if (copy_from_user(&info, argp, sizeof(info)))
+ 			err = -EFAULT;
+-		else
+-			err = md_add_new_disk(mddev, &info);
++		else {
++			disk_info_to64(&info64, &info);
++			err = md_add_new_disk(mddev, &info64);
++		}
+ 		goto unlock;
+ 	}
  
-+/* ioctl commands for the MD misc control driver */
-+/* status */
-+#define MD_CTL_RAID_VERSION          _IOR(MD_MAJOR, 0x40, struct mdu_version64)
-+#define MD_CTL_LOOKUP_ARRAY          _IOWR(MD_MAJOR, 0x41, struct mdu_ioctl)
-+#define MD_CTL_GET_ARRAY_INFO	     _IOWR(MD_MAJOR, 0x42, struct mdu_ioctl)
-+#define MD_CTL_GET_DISK_INFO	     _IOWR(MD_MAJOR, 0x43, struct mdu_ioctl)
-+#define MD_CTL_GET_BITMAP_FILE	     _IOWR(MD_MAJOR, 0x44, struct mdu_ioctl)
-+
-+/* configuration */
-+#define MD_CTL_SET_ARRAY_INFO        _IOWR(MD_MAJOR, 0x50, struct mdu_ioctl)
-+#define MD_CTL_ADD_NEW_DISK	     _IOWR(MD_MAJOR, 0x51, struct mdu_ioctl)
-+#define MD_CTL_HOT_ADD_DISK	     _IOWR(MD_MAJOR, 0x52, struct mdu_ioctl)
-+#define MD_CTL_HOT_REMOVE_DISK	     _IOWR(MD_MAJOR, 0x53, struct mdu_ioctl)
-+#define MD_CTL_SET_DISK_FAULTY	     _IOWR(MD_MAJOR, 0x54, struct mdu_ioctl)
-+#define MD_CTL_SET_BITMAP_FILE	     _IOWR(MD_MAJOR, 0x55, struct mdu_ioctl)
-+
-+/* usage */
-+#define MD_CTL_RUN_ARRAY	     _IOWR(MD_MAJOR, 0x60, struct mdu_ioctl)
-+#define MD_CTL_STOP_ARRAY	     _IOWR(MD_MAJOR, 0x61, struct mdu_ioctl)
-+#define MD_CTL_RESTART_ARRAY_RW	     _IOWR(MD_MAJOR, 0x62, struct mdu_ioctl)
-+#define MD_CTL_CLUSTERED_DISK_NACK   _IOWR(MD_MAJOR, 0x63, struct mdu_ioctl)
-+
- /* 63 partitions with the alternate major number (mdp) */
- #define MdpMinorShift 6
+diff --git a/drivers/md/md.h b/drivers/md/md.h
+index 6440da292105..a84c8b97fa2c 100644
+--- a/drivers/md/md.h
++++ b/drivers/md/md.h
+@@ -1043,12 +1043,12 @@ static inline void mddev_unlock_and_resume(struct mddev *mddev)
+ }
  
-@@ -146,4 +174,95 @@ typedef struct mdu_param_s
- 	int			max_fault;	/* unused for now */
- } mdu_param_t;
+ struct mdu_array_info_s;
+-struct mdu_disk_info_s;
++struct mdu_disk_info64;
  
-+/* structures for the MD misc control driver */
-+struct mdu_version64 {
-+	__u32 major;
-+	__u32 minor;
-+	__u32 patchlevel;
-+	__u32 padding;
-+};
-+
-+struct mdu_array_info64 {
-+	/*
-+	 * Generic constant information
-+	 */
-+	__u32 major_version;
-+	__u32 minor_version;
-+	__u32 patch_version;
-+	__s32 level;
-+
-+	__u64 ctime;
-+	__s64 size;
-+
-+	__u32 nr_disks;
-+	__u32 raid_disks;
-+	__u32 md_minor;
-+	__u32 not_persistent;
-+
-+	/*
-+	 * Generic state information
-+	 */
-+	__u64 utime;		/*  0 Superblock update time		      */
-+
-+	__u32 state;		/*  1 State bits (clean, ...)		      */
-+	__u32 active_disks;	/*  2 Number of currently active disks	      */
-+	__u32 working_disks;	/*  3 Number of working disks		      */
-+	__u32 failed_disks;	/*  4 Number of failed disks		      */
-+	__u32 spare_disks;	/*  5 Number of spare disks		      */
-+	__u32 journal_disks;    /*  6 Number of disks used for journaling     */
-+
-+	/*
-+	 * Personality information
-+	 */
-+	__s32 layout;		/*  0 the array's physical layout	      */
-+	__u32 chunk_size;	/*  1 chunk size in bytes		      */
-+
-+};
-+
-+struct mdu_disk_info64 {
-+	/*
-+	 * configuration/status of one particular disk
-+	 */
-+	__u32 state;
-+	__u32 major;
-+	__u32 minor;
-+	__u32 padding;
-+
-+	__s32 number;
-+	__s32 raid_disk;
-+};
-+
-+struct mdu_param64 {
-+	__s32 personality;	/* 1,2,3,4 */
-+	__u32 max_fault;	/* unused for now */
-+	__u32 chunk_size;	/* in bytes */
-+	__u32 padding;
-+};
-+
-+struct mdu_ioctl {
-+	char md_name[MD_NAME_LEN];
-+	char md_uuid[MD_UUID_LEN];
-+	__u64 md_dev;               /* md array device number              */
-+	__u32 flags;                /* Flags for the ioctl operation       */
-+	__u32 padding;
-+	union {
-+		__u64 array;        /* Pointer to struct mdu_array_info64  */
-+		__u64 disk;         /* Pointer to struct mdu_disk_info64   */
-+		__u64 param;        /* Pointer to struct mdu_param64       */
-+
-+		/* GET_BITMAP_FILE: pointer to struct mdu_bitmap_file_s
-+		 * SET_BITMAP_FILE: file descriptor.
-+		 */
-+		__u64 bitmap_file;
-+		__u64 disk_dev;     /* Disk device number                  */
-+		__u64 arg;          /* Generic argument                    */
-+	};
-+};
-+
-+/*
-+ * If set, MD_STOP_ARRAY will switch the array to read-only mode instead
-+ * of fully stopping it.
-+ */
-+#define MD_CTL_RO_FLAG              (1u << 0)
-+
- #endif /* _UAPI_MD_U_H */
+ extern int mdp_major;
+ void md_autostart_arrays(int part);
+ int md_set_array_info(struct mddev *mddev, struct mdu_array_info_s *info);
+-int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info_s *info);
++int md_add_new_disk(struct mddev *mddev, struct mdu_disk_info64 *info);
+ int do_md_run(struct mddev *mddev);
+ #define MDDEV_STACK_INTEGRITY	(1u << 0)
+ int mddev_stack_rdev_limits(struct mddev *mddev, struct queue_limits *lim,
 -- 
 2.43.0
 
