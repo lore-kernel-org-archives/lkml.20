@@ -1,79 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793287850;
-	b=YEOCdVhZwjCjo0kIfxgMfn+FceDaJLeT0pM8+Yi/KTbxDbvgFr+q/JDriuJzW0CEUWD9
-	 7PkhYWppt3AQXOeuQGpbY41WVJnH8f5kOrf3aUsehF4LifLOAS2MmjuIVf4G96eJTS5cB
-	 CXps/dCnfYMcDvuR9uk9LuqjJmFjUmftWrZC+NZKbab74SODqT44SRyXw7scKXaB3nz/0
-	 XLN3i/Omvbyu8GtBAXMxfrC0E87K26Yz7inP2gZXFNSiOAXwtr4CBujtujtxm+lZht7sL
-	 FnqDVXOb0XqJ2dX1NLLpwwU9o59KYxSYX4OiqkhFrViRWFim9/JOcMc0m/rn2PyK/aA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287850;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jZCPT6n7N0kR/yox4krjMHcmGVLKx8L9Aa9+jbCUVqU=;
-	b=WoxCiewhr9HsALandNzEw1V4u1T97/tRZGshji7uoKmq67T5rPE6e0RKJk8mDX4w+c6m
-	 LWRfah76WpfKBlOhYJdfPDAJw2IoQQX7uDGhxEgP7t7CiTG2PCs1lze6hNPNNgW/QKm9R
-	 H8DU3JYARHWbriUcUupwLm2ccNTzZ6kndoMpi5xxYL4pCPMc8vkt5gJtA7bp7R/4Ax5Hy
-	 dgRyhp7vx+GANlYyL7qEoTrotPcilWh/phh1g5jI7zUXHmqx03TSghytuk8jByuckYIAC
-	 e72x5IoFJPSHKNI+JjT0ekfJUNJHEjHd4bv+sgxEBmQQtgaHY558bcblokhj+rVOSiQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=URS0W4AE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41678606A31E;
-	Thu, 29 Oct 2026 15:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=URS0W4AE
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793287848;
-	b=K37wZQIU1wYfI4aeyMHZXjiCNQdlXqgVew09+rUXIAhfR6aQkZjbU2ndEPk/cmxkl5Fy
-	 1jCnBHwvUiolgN0h5Qc8UZU6pJzJF8kN79f1FME0Ef49IC24PmivrcR6zdeDrc7Bu5Da6
-	 phR+wHGGm+Yp+qlD1/r2Ur6eFw3DmwHQPFrVZLk2XpFfnJ7PJ/ykkm2sf4Psj6d2GMseB
-	 jlBU9p+woGaZ/35iTDEhBRLh9Ehw+3nGV++/aaw9UsAVvXlEX1ZBimAR9mbE6yBHGag0O
-	 hQ7gHHCYCCRdu25Ro+R1XTgYhymr9veQYnvUnJZ10Jkm+WVGzvLjsCM63B8gZNFHF4w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793287848;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jZCPT6n7N0kR/yox4krjMHcmGVLKx8L9Aa9+jbCUVqU=;
-	b=mZetYta2Y4iZp8qvn+/t2gSOdsbeK0xoUoFl58a5aKpCb4sH7NkcNZ8AzD/rLBAM88qs
-	 0nZf/qxpB6We6wfDSQjFfkJUkz0QTDYLzaSWVTpqHa9vkCtmCFAqbdQWWEaZWsvtJ8Ors
-	 jd06MKfvkaDASSuftnEqTrBWrFZ4yYvwVC/MDOqqI7+jhqlHaL1hFSO+wdXTzbaq6l0Zy
-	 hOmDQct0XI5njRVLHed6QgaLaVr/PltK0ChUPcPoKlDqFnKAAD+t/ojqHnKvXv3YPajy3
-	 JpWOhPItP9k4csovNJFR+N1/mNvgI29zyFwZjUy/9hYJCUrVQsiSeWZhHHKhvNxAY8Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793287853;
+	b=oU/hxhKdc8Mi1YhU8439psL4uhyjxHxPXGXrXwBqAhYD0duh0aff3MJVkf/dtoJj822G
+	 Eqr5NuBQSw92tnsEg0FHSuma9lxYvnw4HeN2DcnSK8G2qj7w79vLPwlgySmpw43ur41Qc
+	 7c2LU4gAQVNz0hNRunbAYfi+NWqnOd+sy+9ZIgZ7Ginj/QTwlV5zDErDv01u3d9sof4F4
+	 2kAT0FU1aQHT/D09Ycp/hqohPBKfNf1iCOPGJrH4i7b0VHGUPr0z2xnDujzqXKQO8w1S5
+	 WpVvgzJH0Xw5ypwnEWDmWS1eYTtMctnISRNnMvbVLhjHTOrcrNwKSN/quwjUWByWGUw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287853;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=nm/Tq4tl6M+K2+5VH0t5Vll5Oio38rGSWzhIMsbcvKs=;
+	b=pQ0Ggd1SIqukw/MqLtHM2mQIV4pnwyrXQTDKfFQQuR3808l4blLa4nKYkfeo5GMz93yp
+	 kMyJAsityBEwhegN2875E7MJg/0aBO92/Ycq4HV7XR74NdgfhD6FLaiPKKmqFp/SoM/e8
+	 a1jz3y1ZxmOztmRxzHLqZbOwljGRiU1K13NdDxHKqhiAiWakIin76RDAMpWkCqvM5/WbJ
+	 grgsBCzHFsPAtlKqaQEIVUkmWcyUpMEsyqciJdNIbdSgh2Yft+kIUOxdY9Hqok9Y7zSKZ
+	 /x0FaSU0JADjdjiRD//+pCdWRnzAialj7XfJfWsvtmS3RCf4s2iKXKYT/Mh3b1kdPkw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Gn9w3nc7;
+	arc=none smtp.remote-ip=209.85.160.199
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DF0471F01816;
-	Thu, 29 Oct 2026 15:30:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793287848;
-	bh=jZCPT6n7N0kR/yox4krjMHcmGVLKx8L9Aa9+jbCUVqU=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=URS0W4AE2AXWA19JCds/C6X4zuy/iuQ7Ojubz2ZlQ0B4Oa467qIE/diu8sZq1YTeI
-	 eRkGPJU46+8h+E/rWQFZn+noraT3bJL64m9G5kseYbUcKexUHu+QafJDIGvasJenLI
-	 OQIWr8zR8Z+tTtyWI46o0lahC4eBfJ1YL/Z+I5N2zW6+wWON1W3vVCAzNdnKbD/ylz
-	 VALvXm47gLPb2JphZGtTWou6rpIghlTR++VOawT7XUUdUdfdHk5f+1NNWRe5jDr5X1
-	 z43WQdf3OwxE7JDGb8em0rZ01aidPPNod3herPNnRYx3/+hyVmK5UQ/RUCLkCi/MSL
-	 KTigrd9qAlA9A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3C411458DE;
-	Thu, 29 Oct 2026 15:30:47 +0000 (UTC)
-From: Francesco Boccola via B4 Relay <devnull+francesco.boccola.unina.it@kernel.org>
-Date: Thu, 29 Oct 2026 16:30:46 +0100
-Subject: [PATCH RFC] KVM: arm64: nVHE: Flush all TLBs when freeing a VM's
- stage-2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 536C9606A32C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:30:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 536C9606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Gn9w3nc7
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5351f1b26e6so36844011cf.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:30:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793287851; x=1793892651; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nm/Tq4tl6M+K2+5VH0t5Vll5Oio38rGSWzhIMsbcvKs=;
+        b=Gn9w3nc79ju7V+bBknTkzTgiMyIOYKFctk4mLhbWLDs8/+OFVelwZPCCguOh1/FR/8
+         IM2iG1AKofu8rRz1UmfMkPiLUIQSTv4alrzWTaFs8O/4TgIjsNLKxJXovIVvWHtnCmey
+         9pZeFsdDZoXCXjLKmwcHfNylluDP6xN9Q22PbCgptWoiLaFthak/1+QR9X1eZfz6xncx
+         mTfS73eZVs8wtdM3jWheO9EHwdJ6UI75W7LMOgKumfRn3V7cO7ZMNqQwzfnqNYzmhmo9
+         izPlMgrN+PoWuzJgq9u0yLAyNQEog3azJ9u9cJf11TPM5gkLKjG2ocYPh6wmEWWMDbiH
+         sGpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793287851; x=1793892651;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nm/Tq4tl6M+K2+5VH0t5Vll5Oio38rGSWzhIMsbcvKs=;
+        b=Wsmo01yxygzx+a+J9312qgM90LzTQhGB0DRLeQUsVRDltVgH8E212AmocQqiKAlog9
+         Nsyc+PGD7qY3fcn7Pqxd5PzTR+O08QvfUZiP2oHAwS/YK9n58P79iHAfRq85Rr9KvgI0
+         5NVt3f5TAFiflYfeuV3zBuNGkKQfrA9ohR7n6pvG+rSTQDgbdOrFDml8VKgNZ0jgQBZJ
+         YAOVEQJ46LaN8hPGrvIChAwojK58Nl11ylnR+30w1FN1XZFUolYpcE3XUlwyjiIQWxCG
+         Bh5fDnJbY+eZpf0GppSGeKzD4IwAOmAG70Vial0NG7+XEGJ/99EHcHM+nliD3SZwVeNv
+         7kdw==
+X-Forwarded-Encrypted: i=1; AKwUvBy9WW/F1SVllIZMFN3295uSMHzzzdyoojM/1b8298THj3ZZmT8dNM6PlWtPotQOMJLxxnBRZ940RUvQbVA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPNf0tKYZBHOpgUoxwWeYr23KjzuHba4Z5lUKMrylTQcSfDWhP
+	LO4MlDmsdEV0E1V0NUq9llYU88dNYAq4d6iwjur3rVr5OJaoEUIxeocAJKqfXq5ptl693HbyUQ6
+	20KlWPNYE2S1PGkW+agTjuEeQiqM1
+X-Received: from qtbk11-n2.prod.google.com ([2002:a05:622b:4b:20b0:536:64c6:beb2])
+ (user=briandaniels job=prod-delivery.src-stubby-dispatcher) by
+ 2002:ac8:598c:0:b0:536:9980:9a66 with SMTP id d75a77b69052e-53fcc5cb41dmr92559961cf.41.1793287850125;
+ Thu, 29 Oct 2026 08:30:50 -0700 (PDT)
+Date: Thu, 29 Oct 2026 11:30:34 -0400
+In-Reply-To: <20261029153038.3800747-1-briandaniels@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,362 +78,923 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-nvhe-stage2-flush-v1-1-a87c7aaa91e1@unina.it>
-X-B4-Tracking: v=1; b=H4sIAKVm42oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyNL3byyjFTd4pLE9FQj3bSc0uIMXcPUVItE4xSTVGNjQyWgvoKi1LT
- MCrCZ0UpBbs5KsRDB4tKkrNTkEpBpSrW1AEhTPUV6AAAA
-X-Change-ID: 20261029-nvhe-stage2-flush-1ee8a3d4e331
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
- Steffen Eiden <seiden@linux.ibm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
- linux-kernel@vger.kernel.org, 
- Francesco Boccola <francesco.boccola@unina.it>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793287846; l=12631;
- i=francesco.boccola@unina.it; s=20261029; h=from:subject:message-id;
- bh=UtI/YN5wADN8DnQ5jfEuOThcGftUiTaFauT7BPsh/+c=;
- b=xD7lyU3fZXM7phDidQjIcuDpjTj0ug9pOGdesW5XxmQsjm6gA4EZp5Tg4qPvz6Zw5Oh677DFk
- +NkzmlBsQEqAcePLdpBEeJyLW13tKrB0WeZkC91UHbl4TXk2ZxcbjBH
-X-Developer-Key: i=francesco.boccola@unina.it; a=ed25519;
- pk=82q3OTrtEAajk43b58WBO5I1Hj8Gg8DU6k0GngJr9rA=
-X-Endpoint-Received: by B4 Relay for francesco.boccola@unina.it/20261029
- with auth_id=1353
-X-Original-From: Francesco Boccola <francesco.boccola@unina.it>
-Reply-To: francesco.boccola@unina.it
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261029153038.3800747-1-briandaniels@google.com>
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261029153038.3800747-2-briandaniels@google.com>
+Subject: [PATCH v10 1/5] media: virtio: Add core driver and session management
+From: Brian Daniels <briandaniels@google.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: adelva@google.com, aesteve@redhat.com, changyeon@google.com, 
+	daniel.almeida@collabora.com, eperezma@redhat.com, gnurou@gmail.com, 
+	gurchetansingh@google.com, hverkuil@xs4all.nl, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mst@redhat.com, nicolas.dufresne@collabora.com, 
+	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com, 
+	dbassey@redhat.com, laurent.pinchart@ideasonboard.com, 
+	Brian Daniels <briandaniels@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Francesco Boccola <francesco.boccola@unina.it>
+From: Alexandre Courbot <gnurou@gmail.com>
 
-kvm_free_stage2_pgd() frees a VM's stage-2 page tables without invalidating
-the TLBs. That is correct: the VM's VMID is not reused before the next VMID
-rollover, and flush_context() then invalidates the entries of all VMIDs on
-all CPUs (TLBI ALLE1IS).
+Add the initial virtio-media driver core, build system integration,
+MAINTAINERS entry, and V4L2 session lifecycle management.
 
-In nVHE mode, however, a CPU that ran a guest makes the host's broadcast
-TLB invalidations more expensive for the whole system until then, which
-with 16-bit VMIDs usually means until the host reboots. With stress-ng
---tlb-shootdown on three CPUs of a cluster, the cyclictest maximum on a
-fourth, isolated CPU goes, before and after one guest:
-- Cortex-A53 (Zynq UltraScale+ KV260, no VHE, 6.1.70-rt): 53-72 us ->
-  83-164 us;
-- Cortex-A55 (RK3588, kvm-arm.mode=nvhe, kvmarm/next): 18-23 -> 78-97 us;
-- Cortex-A76 (RK3588, kvm-arm.mode=nvhe, kvmarm/next): 16-30 -> 74-80 us.
-It crosses clusters: after a guest on an A55, an isolated A76 goes from
-14-18 us to 129-154 us. The same happens on kernel 6.12.113 (20-24 -> 44-49
-us on the A55) and on 7.1.9 with and without PREEMPT_RT.
+The driver binds to VIRTIO_ID_MEDIA devices, reads device capabilities
+and device node type from the virtio configuration space, sets up the
+command virtqueue for synchronous host requests, and registers the V4L2
+and video devices. Opening and closing the video device creates and
+destroys a host-backed session via VIRTIO_MEDIA_CMD_OPEN and
+VIRTIO_MEDIA_CMD_CLOSE.
 
-One guest that turns its stage-1 MMU on, even for a few microseconds, is
-enough; a guest that keeps its MMU off is not. With VHE nothing changes.
+Protocol structures in the UAPI header include explicit __reserved
+fields solely to guarantee 64-bit alignment rather than for future
+protocol expansion. Because the UAPI header includes linux/videodev2.h,
+which is currently excluded from standalone UAPI header compilation
+checks (CONFIG_UAPI_HEADER_TEST=y), add linux/virtio_media.h to the same
+exception list in usr/include/Makefile.
 
-The state is in the CPU that ran the guest: a local TLBI ALLE1 on that CPU
-at teardown removes the effect on every CPU, the same on all the other CPUs
-does not. Invalidating the dead VM's VMID (TLBI VMALLS12E1IS, as pKVM does
-at teardown) does not remove it either, whether stage 2 is disabled while
-it is issued (as __kvm_tlb_flush_vmid() does from the host's context) or
-enabled; nor does invalidating VMID 0 or the host's stage 1 (A53).
-
-So do the rollover's invalidation when the stage 2 of a VM that has run is
-freed, in nVHE mode. That costs one TLB refill on every CPU per VM
-teardown; 500 VMs created, run and torn down one after the other take 32.1
-ms each with it and 33.4 ms without, and an isolated CPU meanwhile sees no
-change in latency (15 us against 13 us).
-
-Signed-off-by: Francesco Boccola <francesco.boccola@unina.it>
+Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
+Assisted-by: LLM
+Co-developed-by: Brian Daniels <briandaniels@google.com>
+Signed-off-by: Brian Daniels <briandaniels@google.com>
 ---
-On Cortex-A53, A55 and A76 hosts in nVHE mode, a CPU that has run a guest
-with its stage-1 MMU on makes the host's broadcast TLB invalidations more
-expensive for the whole system until the next VMID rollover, which usually
-means until the host reboots. The patch does the rollover's invalidation
-(TLBI ALLE1IS) when the stage 2 of a VM that has run is freed; its commit
-message has the measurements.
+ MAINTAINERS                                |   8 +
+ drivers/media/Kconfig                      |  13 +
+ drivers/media/Makefile                     |   2 +
+ drivers/media/virtio/Makefile              |   7 +
+ drivers/media/virtio/session.h             |  58 +++
+ drivers/media/virtio/virtio_media.h        |  70 +++
+ drivers/media/virtio/virtio_media_driver.c | 503 +++++++++++++++++++++
+ include/uapi/linux/virtio_media.h          | 118 +++++
+ usr/include/Makefile                       |   1 +
+ 9 files changed, 780 insertions(+)
+ create mode 100644 drivers/media/virtio/Makefile
+ create mode 100644 drivers/media/virtio/session.h
+ create mode 100644 drivers/media/virtio/virtio_media.h
+ create mode 100644 drivers/media/virtio/virtio_media_driver.c
+ create mode 100644 include/uapi/linux/virtio_media.h
 
-RFC because we can only describe what these cores do, not explain it. Which
-per-CPU state survives the invalidation of the VM's VMID, and why it slows
-the broadcast invalidations of other CPUs, is microarchitectural; an
-explanation from someone who knows these TLBs would be welcome.
-Questions:
-- Is this known behaviour of these cores in nVHE mode (A53, A55 and A76
-  here)?
-- ALLE1IS also drops the host's own EL1&0 entries on every CPU. A local
-  TLBI ALLE1 on the CPUs the VM ran on (mmu->last_vcpu_ran) is enough in
-  our tests, but needs IPIs; would you prefer that?
-- In protected mode, the host itself runs with stage 2, and the same test
-  gives 112-153 us from boot, guest or not (18-23 us in nVHE mode before
-  any guest). Is that expected?
-- Should VHE hosts also invalidate (we see no effect there)?
-
-Reproducer (below): tinyvm.c, a ~110-line KVM VMM running a guest (guest.S)
-that turns its MMU on and powers off, and run.sh: stress-ng --tlb-shootdown
-and cyclictest (SCHED_FIFO 99) on a freshly booted host, 3 x 20 s before
-and after one such guest. Controls: a guest that keeps its MMU off (no
-change), the same kernel in VHE mode (no change), this patch on kvmarm/next
-(A55 19-22 -> 20-32 us, A76 14-24 -> 13-15 us).
-
-To run it: make (or make CROSS_COMPILE=aarch64-linux-gnu- LDFLAGS=-static),
-then, as root on a freshly booted host with stress-ng and cyclictest,
-./run.sh -v <cyclictest CPU> -c <three other CPUs of its cluster> -g <guest
-CPU>. The defaults (-v 3 -c 0-2 -g 2) fit a 4-CPU cluster; -m 0 runs the
-control guest (MMU off). In our tests the cyclictest CPU was isolated
-(isolcpus, nohz_full, rcu_nocbs).
-
-Found while measuring containers run as KVM guests against plain containers
-on these boards.
-
-==> Makefile <==
-
-CC = $(CROSS_COMPILE)gcc
-OBJCOPY = $(CROSS_COMPILE)objcopy
-CFLAGS = -O2 -Wall
-
-SPIN = 0
-all: tinyvm guest-mmu0.bin guest-mmu1.bin
-
-tinyvm: %: %.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $<
-
-guest-mmu%.bin: guest.S
-	$(CC) -nostdlib -static -Wl,-Ttext=0x40000000 -Wl,--build-id=none -DMMU=$* -DSPIN=$(SPIN) -o guest-mmu$*.elf $<
-	$(OBJCOPY) -O binary guest-mmu$*.elf $@
-
-clean:
-	rm -f tinyvm guest-mmu*.elf guest-mmu*.bin
-
-==> guest.S <==
-/*
- * guest.S - the guest of tinyvm: with MMU=1 it turns its stage-1 MMU and
- * caches on (identity map of its RAM), writes a marker through the MMU, spins
- * for SPIN seconds (virtual counter) and powers the VM off (PSCI SYSTEM_OFF);
- * with MMU=0 it does the same with the MMU off.
- * Linked at the start of the guest RAM (0x40000000):
- *   gcc -nostdlib -static -Wl,-Ttext=0x40000000 -Wl,--build-id=none -DMMU=1 \
- *       -o guest-mmu.elf guest.S && objcopy -O binary guest-mmu.elf guest-mmu.bin
- */
-
-	.text
-	.globl	_start
-_start:
-
-	movz	x0, #0xff00		/* MAIR: attr0 Device-nGnRnE, attr1 Normal WB */
-	msr	mair_el1, x0
-	movz	x0, #0x3519		/* TCR: T0SZ 25, WBWA inner shareable walks, */
-	movk	x0, #0x0080, lsl #16	/* 4 KB granule, no TTBR1 walks, */
-	movk	x0, #0x0002, lsl #32	/* 40-bit PA */
-	msr	tcr_el1, x0
-	adr	x0, pgtable
-	msr	ttbr0_el1, x0
-	isb
-	tlbi	vmalle1
-	dsb	ish
-	isb
-	mrs	x0, sctlr_el1
-	movz	x1, #0x1005		/* I, C, M */
-	orr	x0, x0, x1
-	msr	sctlr_el1, x0
-	isb
-
-	movz	x1, #(MARKER_ADDR >> 16), lsl #16
-	movz	w2, #0x4d4d		/* "MM" */
-	movk	w2, #(0x55 + MMU), lsl #16
-	str	w2, [x1]
-	dsb	sy
-
-	mrs	x3, cntfrq_el0		/* spin SPIN seconds */
-	mov	x4, #SPIN
-	mul	x3, x3, x4
-	mrs	x4, cntvct_el0
-	add	x3, x3, x4
-2:	mrs	x4, cntvct_el0
-	cmp	x4, x3
-	b.lo	2b
-
-	movz	w0, #0x0008
-	movk	w0, #0x8400, lsl #16	/* PSCI SYSTEM_OFF */
-	hvc	#0
-1:	wfi
-	b	1b
-
-	.balign	4096
-pgtable:	/* level 1, 1 GB blocks: 0-1 GB Device, 1-2 GB Normal WB (the RAM) */
-	.quad	0x0060000000000401
-	.quad	0x0000000040000705
-	.fill	510, 8, 0
-
-==> tinyvm.c <==
-/*
- * tinyvm <guest.bin> [cpu] - the smallest KVM VMM: one vCPU, 16 MB of RAM at
- * 0x40000000, no interrupt controller and no devices. It loads <guest.bin> at
- * the start of the RAM, runs the vCPU (pinned to [cpu]) until the guest powers
- * the VM off through PSCI, checks the marker the guest wrote and exits 0.
- * Build: gcc -O2 -o tinyvm tinyvm.c
- */
-
-		     (offsetof(struct kvm_regs, x) / sizeof(uint32_t)))
-
-static void die(const char *what)
-{
-	perror(what);
-	exit(2);
-}
-
-int main(int argc, char **argv)
-{
-	struct kvm_userspace_memory_region region;
-	struct kvm_vcpu_init init;
-	struct kvm_one_reg reg;
-	struct kvm_run *run;
-	uint64_t pc = RAM_BASE;
-	int kvm, vm, vcpu, fd, size;
-	uint8_t *ram;
-	struct stat st;
-	uint32_t marker;
-
-	if (argc < 2) {
-		fprintf(stderr, "usage: %s <guest.bin> [cpu]\n", argv[0]);
-		return 2;
-	}
-	alarm(120);	/* a guest that faults spins forever: give up */
-	if (argc > 2) {
-		cpu_set_t set;
-
-		CPU_ZERO(&set);
-		CPU_SET(atoi(argv[2]), &set);
-		if (sched_setaffinity(0, sizeof(set), &set))
-			die("sched_setaffinity");
-	}
-	kvm = open("/dev/kvm", O_RDWR | O_CLOEXEC);
-	if (kvm < 0)
-		die("/dev/kvm");
-	vm = ioctl(kvm, KVM_CREATE_VM, 0);
-	if (vm < 0)
-		die("KVM_CREATE_VM");
-	ram = mmap(NULL, RAM_SIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-	if (ram == MAP_FAILED)
-		die("mmap");
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0 || fstat(fd, &st) || st.st_size > (off_t)MARKER_OFF ||
-	    read(fd, ram, st.st_size) != st.st_size)
-		die(argv[1]);
-	close(fd);
-	region = (struct kvm_userspace_memory_region){
-		.slot = 0, .guest_phys_addr = RAM_BASE, .memory_size = RAM_SIZE,
-		.userspace_addr = (uintptr_t)ram,
-	};
-	if (ioctl(vm, KVM_SET_USER_MEMORY_REGION, &region))
-		die("KVM_SET_USER_MEMORY_REGION");
-	vcpu = ioctl(vm, KVM_CREATE_VCPU, 0);
-	if (vcpu < 0)
-		die("KVM_CREATE_VCPU");
-	if (ioctl(vm, KVM_ARM_PREFERRED_TARGET, &init))
-		die("KVM_ARM_PREFERRED_TARGET");
-	init.features[0] |= 1 << KVM_ARM_VCPU_PSCI_0_2;
-	if (ioctl(vcpu, KVM_ARM_VCPU_INIT, &init))
-		die("KVM_ARM_VCPU_INIT");
-	reg = (struct kvm_one_reg){ .id = CORE_REG(regs.pc), .addr = (uintptr_t)&pc };
-	if (ioctl(vcpu, KVM_SET_ONE_REG, &reg))
-		die("KVM_SET_ONE_REG pc");
-	size = ioctl(kvm, KVM_GET_VCPU_MMAP_SIZE, 0);
-	run = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, vcpu, 0);
-	if (run == MAP_FAILED)
-		die("mmap kvm_run");
-	for (;;) {
-		if (ioctl(vcpu, KVM_RUN, 0) && errno != EINTR)
-			die("KVM_RUN");
-		if (run->exit_reason == KVM_EXIT_SYSTEM_EVENT)
-			break;
-		fprintf(stderr, "unexpected exit %u\n", run->exit_reason);
-		return 2;
-	}
-	memcpy(&marker, ram + MARKER_OFF, sizeof(marker));
-	printf("guest done: system event %u, marker %#x (%s)\n", run->system_event.type, marker,
-	       marker == 0x564d4d ? "MMU on" : marker == 0x554d4d ? "MMU off" : "BAD");
-	close(vcpu);
-	close(vm);
-	close(kvm);
-	return marker == 0x564d4d || marker == 0x554d4d ? 0 : 1;
-}
-
-==> run.sh <==
-
-set -e
-V=3 C=0-2 G=2 T=20 N=3 M=1
-while getopts v:c:g:t:r:m: o; do
-	case $o in
-	v) V=$OPTARG ;; c) C=$OPTARG ;; g) G=$OPTARG ;; t) T=$OPTARG ;; r) N=$OPTARG ;;
-	m) M=$OPTARG ;; *) exit 2 ;;
-	esac
-done
-SNG=${STRESS_NG:-stress-ng}
-CT=${CYCLICTEST:-cyclictest}
-W=$(echo "$C" | awk -F, '{n = 0; for (i = 1; i <= NF; i++) { split($i, r, "-"); n += (r[2] == "" ? 1 : r[2] - r[1] + 1) } print n}')
-part() { awk -v c="$1" '/^processor/ {p = $3} /^CPU part/ && p == c {print $4; exit}' /proc/cpuinfo; }
-mode=$(dmesg 2>/dev/null | grep -o "kvm \[1\]: [A-Za-z ]*mode initialized" | sed 's/kvm \[1\]: //' | head -1)
-echo "kernel $(uname -r) $(uname -v | grep -o PREEMPT_RT), ${mode:-KVM mode unknown (dmesg)}, up $(cut -d. -f1 /proc/uptime) s"
-echo "cyclictest on CPU $V (part $(part $V)), stress-ng tlb-shootdown x$W on CPUs $C, guest on CPU $G (part $(part $G)), MMU=$M"
-[ -r /sys/module/kvm/parameters/stage2_free_flush ] &&
-	echo "stage2_free_flush $(cat /sys/module/kvm/parameters/stage2_free_flush)"
-
-measure() { # <phase> <run>
-	$SNG --tlb-shootdown "$W" --taskset "$C" -t $((T + 3)) --metrics-brief > sng.out 2>&1 &
-	sp=$!
-	sleep 1
-	set -- "$1" "$2" $($CT -m -a "$V" -p 99 -i 1000 -l $((T * 1000)) -q 2>/dev/null |
-		awk '/Avg:/ { for (i = 1; i < NF; i++) { if ($i == "Avg:") a = $(i + 1); if ($i == "Max:") m = $(i + 1) } } END { print a, m }')
-	wait $sp
-	ops=$(awk '/tlb-shootdown +[0-9]/ { print $(NF - 1) }' sng.out | tail -1)
-	printf '%-6s %d  cyclictest avg %4s us  max %5s us   stress-ng %8s bogo-ops/s\n' "$1" "$2" "$3" "$4" "$ops"
-	echo "$1 $3 $4 $ops" >> results.txt
-}
-
-rm -f results.txt
-i=1; while [ $i -le $N ]; do measure before $i; i=$((i + 1)); done
-./tinyvm guest-mmu$M.bin "$G"
-i=1; while [ $i -le $N ]; do measure after $i; i=$((i + 1)); done
-awk '{ a[$1] += $2; m[$1] += $3; o[$1] += $4; n[$1]++ }
-END { printf "after/before (means): cyclictest avg x%.2f, max x%.2f; stress-ng throughput x%.2f\n",
-	(a["after"] / n["after"]) / (a["before"] / n["before"]),
-	(m["after"] / n["after"]) / (m["before"] / n["before"]),
-	(o["after"] / n["after"]) / (o["before"] / n["before"]) }' results.txt
-rm -f sng.out results.txt
----
- arch/arm64/kvm/mmu.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index a48f3f531..baeea69e7 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1216,6 +1216,17 @@ void kvm_free_stage2_pgd(struct kvm_s2_mmu *mmu)
- 	write_lock(&kvm->mmu_lock);
- 	pgt = mmu->pgt;
- 	if (pgt) {
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 760791e36..30c565537 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28973,6 +28973,7 @@ F:	Documentation/devicetree/bindings/virtio/
+ F:	Documentation/driver-api/virtio/
+ F:	drivers/block/virtio_blk.c
+ F:	drivers/crypto/virtio/
++F:	drivers/media/virtio/
+ F:	drivers/vdpa/
+ F:	drivers/virtio/
+ F:	include/linux/vdpa.h
+@@ -29085,6 +29086,13 @@ S:	Maintained
+ F:	drivers/iommu/virtio-iommu.c
+ F:	include/uapi/linux/virtio_iommu.h
+ 
++VIRTIO MEDIA DRIVER
++M:	Brian Daniels <briandaniels@google.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	drivers/media/virtio/
++F:	include/uapi/linux/virtio_media.h
++
+ VIRTIO MEM DRIVER
+ M:	David Hildenbrand <david@kernel.org>
+ L:	virtualization@lists.linux.dev
+diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
+index 6abc9302c..ce7d088e7 100644
+--- a/drivers/media/Kconfig
++++ b/drivers/media/Kconfig
+@@ -136,6 +136,19 @@ config MEDIA_PLATFORM_SUPPORT
+ 
+ 	  Say Y when you want to be able to see such devices.
+ 
++config MEDIA_VIRTIO
++	tristate "Virtio-media Driver"
++	depends on VIRTIO && VIDEO_DEV && 64BIT && (X86 || CPU_LITTLE_ENDIAN)
++	select VIDEOBUF2_CORE
++	select VIDEOBUF2_MEMOPS
++	help
++	  Enables the virtio-media driver.
++
++	  This driver is used to virtualize media devices such as cameras or
++	  decoders from a host into a guest using the V4L2 protocol.
++
++	  If unsure, say N.
++
+ config MEDIA_TEST_SUPPORT
+ 	bool
+ 	prompt "Test drivers" if MEDIA_SUPPORT_FILTER
+diff --git a/drivers/media/Makefile b/drivers/media/Makefile
+index 20fac24e4..357e786cc 100644
+--- a/drivers/media/Makefile
++++ b/drivers/media/Makefile
+@@ -23,6 +23,8 @@ obj-$(CONFIG_DVB_CORE) += dvb-core/
+ # There are both core and drivers at RC subtree - merge before drivers
+ obj-y += rc/
+ 
++obj-$(CONFIG_MEDIA_VIRTIO) += virtio/
++
+ obj-$(CONFIG_CEC_CORE) += cec/
+ 
+ #
+diff --git a/drivers/media/virtio/Makefile b/drivers/media/virtio/Makefile
+new file mode 100644
+index 000000000..09d9834da
+--- /dev/null
++++ b/drivers/media/virtio/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0
++#
++# Makefile for the virtio-media device driver.
++
++virtio-media-objs := virtio_media_driver.o
++
++obj-$(CONFIG_MEDIA_VIRTIO) += virtio-media.o
+diff --git a/drivers/media/virtio/session.h b/drivers/media/virtio/session.h
+new file mode 100644
+index 000000000..4ade7fb9c
+--- /dev/null
++++ b/drivers/media/virtio/session.h
+@@ -0,0 +1,58 @@
++/* SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+ */
++
++/*
++ * Definitions of virtio-media session related structures.
++ *
++ * Copyright (c) 2024-2026 Google LLC.
++ */
++
++#ifndef __VIRTIO_MEDIA_SESSION_H
++#define __VIRTIO_MEDIA_SESSION_H
++
++#include <media/v4l2-fh.h>
++
++#include "uapi/linux/virtio_media.h"
++
++/**
++ * struct virtio_media_session - A session on a virtio_media device.
++ * @fh: file handler for the session.
++ * @file: file pointer associated with the session's file handler.
++ * @id: session ID used to communicate with the device.
++ * @cmd: union of session-level commands. A session can have one command
++ *       currently running.
++ * @list: link into the list of sessions for the device.
++ */
++struct virtio_media_session {
++	struct v4l2_fh fh;
++	struct file *file;
++	u32 id;
++
++	__dma_from_device_group_begin();
++	union {
++		struct virtio_media_cmd_close close;
++	} cmd;
++	__dma_from_device_group_end();
++
++	struct list_head list;
++};
++
++static inline struct virtio_media_session *fh_to_session(struct v4l2_fh *fh)
++{
++	return container_of(fh, struct virtio_media_session, fh);
++}
++
++static inline void
++virtio_media_session_fh_add(struct virtio_media_session *session,
++			    struct file *file)
++{
++	v4l2_fh_add(&session->fh, file);
++	session->file = file;
++}
++
++static inline void
++virtio_media_session_fh_del(struct virtio_media_session *session)
++{
++	v4l2_fh_del(&session->fh, session->file);
++}
++
++#endif // __VIRTIO_MEDIA_SESSION_H
+diff --git a/drivers/media/virtio/virtio_media.h b/drivers/media/virtio/virtio_media.h
+new file mode 100644
+index 000000000..68299377a
+--- /dev/null
++++ b/drivers/media/virtio/virtio_media.h
+@@ -0,0 +1,70 @@
++/* SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+ */
++
++/*
++ * Virtio-media structures & functions declarations.
++ *
++ * Copyright (c) 2024-2026 Google LLC.
++ */
++
++#ifndef __VIRTIO_MEDIA_H
++#define __VIRTIO_MEDIA_H
++
++#include <linux/virtio_config.h>
++#include <media/v4l2-device.h>
++
++#include "uapi/linux/virtio_media.h"
++
++#define VIRTIO_MEDIA_DEFAULT_DRIVER_NAME "virtio-media"
++
++/**
++ * struct virtio_media - Virtio-media device.
++ * @v4l2_dev: v4l2_device for the media device.
++ * @video_dev: video_device for the media device.
++ * @virtio_dev: virtio device for the media device.
++ * @commandq: virtio command queue.
++ * @sessions: list of active sessions on the device.
++ * @sessions_lock: protects @sessions and &struct virtio_media_session.list.
++ * @cmd: union of device-level commands. Session commands are handled by
++ *       &struct virtio_media_session.
++ * @resp: union of responses to device-level commands. Session responses are
++ *        handled by &struct virtio_media_session.
++ * @vlock: serializes access to the command queue.
++ * @wq: waitqueue for host responses on the command queue.
++ */
++struct virtio_media {
++	struct v4l2_device v4l2_dev;
++	struct video_device video_dev;
++
++	struct virtio_device *virtio_dev;
++	struct virtqueue *commandq;
++
++	struct list_head sessions;
++	struct mutex sessions_lock; /* protects sessions list */
++
++	__dma_from_device_group_begin();
++	union {
++		struct virtio_media_cmd_open open;
++	} cmd;
++
++	union {
++		struct virtio_media_resp_open open;
++	} resp;
++	__dma_from_device_group_end();
++
++	struct mutex vlock; /* serializes command queue access */
++	wait_queue_head_t wq;
++};
++
++static inline struct virtio_media *
++to_virtio_media(struct video_device *video_dev)
++{
++	return container_of(video_dev, struct virtio_media, video_dev);
++}
++
++/* virtio_media_driver.c */
++
++int virtio_media_send_command(struct virtio_media *vv, struct scatterlist **sgs,
++			      const size_t out_sgs, const size_t in_sgs,
++			      size_t minimum_resp_len, size_t *resp_len);
++#endif // __VIRTIO_MEDIA_H
++
+diff --git a/drivers/media/virtio/virtio_media_driver.c b/drivers/media/virtio/virtio_media_driver.c
+new file mode 100644
+index 000000000..10073d863
+--- /dev/null
++++ b/drivers/media/virtio/virtio_media_driver.c
+@@ -0,0 +1,503 @@
++// SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+
++
++/*
++ * Virtio-media driver.
++ *
++ * Copyright (c) 2024-2026 Google LLC.
++ */
++
++#include <linux/device.h>
++#include <linux/dev_printk.h>
++#include <linux/mutex.h>
++#include <linux/types.h>
++#include <linux/module.h>
++#include <linux/virtio.h>
++#include <linux/virtio_config.h>
++#include <linux/virtio_ids.h>
++#include <linux/slab.h>
++#include <linux/scatterlist.h>
++
++#include <media/v4l2-dev.h>
++#include <media/v4l2-device.h>
++#include <media/v4l2-fh.h>
++
++#include "uapi/linux/virtio_media.h"
++#include "session.h"
++#include "virtio_media.h"
++
++/**
++ * virtio_media_session_alloc() - Allocate a new session.
++ * @vv: virtio-media device the session belongs to.
++ * @file: file associated with the session.
++ *
++ * The caller must initialize the ``id`` field before calling
++ * virtio_media_session_add().
++ */
++static struct virtio_media_session *
++virtio_media_session_alloc(struct virtio_media *vv, struct file *file)
++{
++	struct virtio_media_session *session;
++
++	session = kzalloc_obj(*session, GFP_KERNEL);
++	if (!session)
++		return ERR_PTR(-ENOMEM);
++
++	// The caller is expected to set the ID once the host assigns a value.
++	session->id = 0;
++
++	INIT_LIST_HEAD(&session->list);
++	v4l2_fh_init(&session->fh, &vv->video_dev);
++	virtio_media_session_fh_add(session, file);
++
++	return session;
++}
++
++/**
++ * virtio_media_session_add() - Add a session to a device.
++ * @vv: virtio-media device the session belongs to.
++ * @session: session to add to the device.
++ */
++static void virtio_media_session_add(struct virtio_media *vv,
++				     struct virtio_media_session *session)
++{
++	mutex_lock(&vv->sessions_lock);
++	list_add_tail(&session->list, &vv->sessions);
++	mutex_unlock(&vv->sessions_lock);
++}
++
++/**
++ * virtio_media_session_free() - Free all resources of a session.
++ * @session: session to destroy.
++ *
++ * All the resources of @session, as well as the backing memory of @session
++ * itself, are freed.
++ */
++static void virtio_media_session_free(struct virtio_media_session *session)
++{
++	virtio_media_session_fh_del(session);
++	v4l2_fh_exit(&session->fh);
++
++	kfree(session);
++}
++
++/**
++ * virtio_media_session_remove() - Remove a session from the device.
++ * @vv: virtio-media device the session belongs to.
++ * @session: session to remove.
++ *
++ * This only removes the session from the device. To free it, call
++ * virtio_media_session_free().
++ */
++static void virtio_media_session_remove(struct virtio_media *vv,
++					struct virtio_media_session *session)
++{
++	mutex_lock(&vv->sessions_lock);
++	list_del(&session->list);
++	mutex_unlock(&vv->sessions_lock);
++}
++
++/**
++ * virtio_media_session_close() - Close a session.
++ * @vv: virtio-media device the session belongs to.
++ * @session: session to close.
++ *
++ * This sends the ``VIRTIO_MEDIA_CMD_CLOSE`` command to the device. If @session
++ * is no longer used, it should be first removed by calling
++ * virtio_media_session_remove(), then freed by calling
++ * virtio_media_session_free().
++ */
++static int virtio_media_session_close(struct virtio_media *vv,
++				      struct virtio_media_session *session)
++{
++	struct virtio_media_cmd_close *cmd_close = &session->cmd.close;
++	struct scatterlist cmd_sg = {};
++	struct scatterlist *sgs[1] = { &cmd_sg };
++	int ret;
++
++	mutex_lock(&vv->vlock);
++
++	cmd_close->hdr.cmd = VIRTIO_MEDIA_CMD_CLOSE;
++	cmd_close->hdr.__reserved = 0;
++	cmd_close->session_id = session->id;
++	cmd_close->__reserved = 0;
++
++	sg_set_buf(&cmd_sg, cmd_close, sizeof(*cmd_close));
++	sg_mark_end(&cmd_sg);
++
++	ret = virtio_media_send_command(vv, sgs, 1, 0, 0, NULL);
++	mutex_unlock(&vv->vlock);
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++
++/**
++ * struct virtio_media_cmd_callback_param - Callback parameters to the virtio
++ *                                          command queue.
++ * @vv: virtio-media device in use.
++ * @done: flag to be switched once the command is completed.
++ * @resp_len: length of the received response from the command. Only valid
++ *            after @done flag has switched to %true.
++ */
++struct virtio_media_cmd_callback_param {
++	struct virtio_media *vv;
++	bool done;
++	size_t resp_len;
++};
++
++/**
++ * commandq_callback() - Callback for the command queue.
++ * @queue: command virtqueue.
++ *
++ * This just wakes up the thread that was waiting on the command to complete.
++ */
++static void commandq_callback(struct virtqueue *queue)
++{
++	unsigned int len;
++	struct virtio_media_cmd_callback_param *param;
++
++process_bufs:
++	while ((param = virtqueue_get_buf(queue, &len))) {
++		param->resp_len = len;
++		param->done = true;
++		wake_up(&param->vv->wq);
++	}
++
++	if (!virtqueue_enable_cb(queue)) {
++		virtqueue_disable_cb(queue);
++		goto process_bufs;
++	}
++}
++
++/**
++ * virtio_media_kick_command() - send a command to the commandq.
++ * @vv: virtio-media device in use.
++ * @sgs: descriptor chain to send.
++ * @out_sgs: number of device-readable descriptors in @sgs.
++ * @in_sgs: number of device-writable descriptors in @sgs.
++ * @resp_len: output parameter. Upon success, contains the size of the response
++ *            in bytes.
++ */
++static int virtio_media_kick_command(struct virtio_media *vv,
++				     struct scatterlist **sgs,
++				     const size_t out_sgs, const size_t in_sgs,
++				     size_t *resp_len)
++{
++	struct virtio_media_cmd_callback_param cb_param = {
++		.vv = vv,
++		.done = false,
++		.resp_len = 0,
++	};
++	struct virtio_media_resp_header *resp_header;
++	int ret = virtqueue_add_sgs(vv->commandq, sgs, out_sgs, in_sgs,
++		  &cb_param, GFP_ATOMIC);
++	if (ret) {
++		v4l2_err(&vv->v4l2_dev,
++			 "failed to add sgs to command virtqueue\n");
++		return ret;
++	}
++
++	if (!virtqueue_kick(vv->commandq)) {
++		v4l2_err(&vv->v4l2_dev, "failed to kick command virtqueue\n");
++		return -EINVAL;
++	}
++
++	/* Wait for the response. */
++	wait_event(vv->wq, cb_param.done);
++
++	if (resp_len)
++		*resp_len = cb_param.resp_len;
++
++	if (in_sgs > 0) {
 +		/*
-+		 * The VM's VMID is not reused before the next rollover, which
-+		 * invalidates all VMIDs, so its TLB entries can stay until then.
-+		 * In nVHE mode, however, a CPU that ran a guest with its stage-1
-+		 * MMU on makes the host's broadcast TLB invalidations more
-+		 * expensive for all CPUs, and invalidating the VM's VMID does not
-+		 * stop it: do the rollover's invalidation now. A VM that never
-+		 * ran has no VMID (0).
++		 * If we expect a response, make sure we have at least a
++		 * response header - anything shorter is invalid.
 +		 */
-+		if (!has_vhe() && atomic64_read(&mmu->vmid.id))
-+			kvm_call_hyp(__kvm_flush_vm_context);
- 		mmu->pgd_phys = 0;
- 		mmu->pgt = NULL;
- 		free_percpu(mmu->last_vcpu_ran);
-
----
-base-commit: dd0bc00e3e9201fd49b62ff9cc07890c89003afe
-change-id: 20261029-nvhe-stage2-flush-1ee8a3d4e331
-
-Best regards,
---  
-Francesco Boccola <francesco.boccola@unina.it>
-
++		if (cb_param.resp_len < sizeof(*resp_header)) {
++			v4l2_err(&vv->v4l2_dev,
++				 "received response header is too short\n");
++			return -EINVAL;
++		}
++
++		resp_header = sg_virt(sgs[out_sgs]);
++		if (resp_header->status)
++			/* Host returns a positive error code. */
++			return -resp_header->status;
++	}
++
++	return 0;
++}
++
++/**
++ * virtio_media_send_command() - Send a command to the device and wait for its
++ * response.
++ * @vv: virtio-media device in use.
++ * @sgs: descriptor chain to send.
++ * @out_sgs: number of device-readable descriptors in @sgs.
++ * @in_sgs: number of device-writable descriptors in @sgs.
++ * @minimum_resp_len: minimum length of the response expected by the caller
++ *                    when the command is successful. Anything shorter than
++ *                    that will result in %-EINVAL being returned.
++ * @resp_len: output parameter. Upon success, contains the size of the response
++ *            in bytes.
++ */
++int virtio_media_send_command(struct virtio_media *vv, struct scatterlist **sgs,
++			      const size_t out_sgs, const size_t in_sgs,
++			      size_t minimum_resp_len, size_t *resp_len)
++{
++	size_t local_resp_len = resp_len ? *resp_len : 0;
++	int ret = virtio_media_kick_command(vv, sgs, out_sgs, in_sgs,
++					    &local_resp_len);
++	if (resp_len)
++		*resp_len = local_resp_len;
++
++	/*
++	 * If the host could not process the command, there is no valid
++	 * response.
++	 */
++	if (ret < 0)
++		return ret;
++
++	/* Make sure the host wrote a complete reply. */
++	if (local_resp_len < minimum_resp_len) {
++		v4l2_err(&vv->v4l2_dev,
++			 "received response is too short: received %zu, expected at least %zu\n",
++			 local_resp_len, minimum_resp_len);
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++/**
++ * virtio_media_device_open() - Create a new session from an opened file.
++ * @file: opened file for the session.
++ */
++static int virtio_media_device_open(struct file *file)
++{
++	struct video_device *video_dev = video_devdata(file);
++	struct virtio_media *vv = to_virtio_media(video_dev);
++	struct virtio_media_cmd_open *cmd_open = &vv->cmd.open;
++	struct virtio_media_resp_open *resp_open = &vv->resp.open;
++	struct scatterlist cmd_sg = {}, resp_sg = {};
++	struct scatterlist *sgs[2] = { &cmd_sg, &resp_sg };
++	struct virtio_media_session *session;
++	int ret;
++
++	session = virtio_media_session_alloc(vv, file);
++	if (IS_ERR(session))
++		return PTR_ERR(session);
++
++	mutex_lock(&vv->vlock);
++
++	sg_set_buf(&cmd_sg, cmd_open, sizeof(*cmd_open));
++	sg_mark_end(&cmd_sg);
++
++	sg_set_buf(&resp_sg, resp_open, sizeof(*resp_open));
++	sg_mark_end(&resp_sg);
++
++	cmd_open->hdr.cmd = VIRTIO_MEDIA_CMD_OPEN;
++	cmd_open->hdr.__reserved = 0;
++	ret = virtio_media_send_command(vv, sgs, 1, 1, sizeof(*resp_open),
++					NULL);
++	session->id = resp_open->session_id;
++
++	mutex_unlock(&vv->vlock);
++
++	if (ret < 0) {
++		virtio_media_session_free(session);
++		return ret;
++	}
++
++	virtio_media_session_add(vv, session);
++	file->private_data = &session->fh;
++
++	return 0;
++}
++
++/**
++ * virtio_media_device_close() - Close a previously opened session.
++ * @file: file of the session to close.
++ *
++ * This sends the ``VIRTIO_MEDIA_CMD_CLOSE`` command to the device, closes the
++ * session on the driver side, and frees the session.
++ */
++static int virtio_media_device_close(struct file *file)
++{
++	struct video_device *video_dev = video_devdata(file);
++	struct virtio_media *vv = to_virtio_media(video_dev);
++	struct virtio_media_session *session =
++		fh_to_session(file->private_data);
++
++	int ret = virtio_media_session_close(vv, session);
++
++	virtio_media_session_remove(vv, session);
++	virtio_media_session_free(session);
++
++	return ret;
++}
++
++static const struct v4l2_file_operations virtio_media_fops = {
++	.owner = THIS_MODULE,
++	.open = virtio_media_device_open,
++	.release = virtio_media_device_close,
++};
++
++static void virtio_media_release(struct v4l2_device *v4l2_dev)
++{
++	struct virtio_media *vv =
++		container_of(v4l2_dev, struct virtio_media, v4l2_dev);
++
++	v4l2_device_unregister(&vv->v4l2_dev);
++	kfree(vv);
++}
++
++static int virtio_media_probe(struct virtio_device *virtio_dev)
++{
++	struct device *dev = &virtio_dev->dev;
++	struct virtqueue *vqs[1];
++	static struct virtqueue_info vq_info[1] = {
++		{
++			.name = "command",
++			.callback = commandq_callback,
++		},
++	};
++	struct virtio_media *vv;
++	struct video_device *vd;
++	int ret;
++
++	vv = kzalloc_obj(struct virtio_media);
++	if (!vv)
++		return -ENOMEM;
++
++	INIT_LIST_HEAD(&vv->sessions);
++	mutex_init(&vv->sessions_lock);
++	mutex_init(&vv->vlock);
++
++	vv->virtio_dev = virtio_dev;
++	virtio_dev->priv = vv;
++
++	init_waitqueue_head(&vv->wq);
++
++	ret = v4l2_device_register(dev, &vv->v4l2_dev);
++	if (ret)
++		goto err_free_virtio_media;
++
++	vv->v4l2_dev.release = virtio_media_release;
++
++	ret = virtio_find_vqs(virtio_dev, 1, vqs, vq_info, NULL);
++	if (ret)
++		goto err_v4l2_device_unregister;
++
++	vv->commandq = vqs[0];
++
++	vd = &vv->video_dev;
++	vd->v4l2_dev = &vv->v4l2_dev;
++	vd->fops = &virtio_media_fops;
++	vd->release = video_device_release_empty;
++	strscpy(vd->name, "virtio-media", sizeof(vd->name));
++
++	video_set_drvdata(vd, vv);
++
++	virtio_cread_le(virtio_dev, struct virtio_media_config, device_caps,
++			&vd->device_caps);
++	if (vd->device_caps & (V4L2_CAP_VIDEO_M2M | V4L2_CAP_VIDEO_M2M_MPLANE))
++		vd->vfl_dir = VFL_DIR_M2M;
++	else if (vd->device_caps &
++		 (V4L2_CAP_VIDEO_OUTPUT | V4L2_CAP_VIDEO_OUTPUT_MPLANE))
++		vd->vfl_dir = VFL_DIR_TX;
++	else
++		vd->vfl_dir = VFL_DIR_RX;
++
++	virtio_device_ready(virtio_dev);
++
++	__u32 device_type;
++
++	virtio_cread_le(virtio_dev, struct virtio_media_config, device_type,
++			&device_type);
++	if (device_type >= VFL_TYPE_MAX) {
++		dev_err(&virtio_dev->dev, "Invalid device_type: %u",
++			device_type);
++		ret = -EINVAL;
++		goto err_del_vqs;
++	}
++
++	ret = video_register_device(vd, device_type, -1);
++	if (ret)
++		goto err_del_vqs;
++
++	return 0;
++
++err_del_vqs:
++	virtio_dev->config->del_vqs(virtio_dev);
++err_v4l2_device_unregister:
++	v4l2_device_unregister(&vv->v4l2_dev);
++err_free_virtio_media:
++	kfree(vv);
++	return ret;
++}
++
++static void virtio_media_remove(struct virtio_device *virtio_dev)
++{
++	struct virtio_media *vv = virtio_dev->priv;
++	struct list_head *p, *n;
++
++	/* Remove the video device to stop accessing the commandq virtqueue */
++	video_unregister_device(&vv->video_dev);
++
++	/*
++	 * Acquire vlock to ensure no concurrent accesses to the commandq
++	 * virtqueue
++	 */
++	mutex_lock(&vv->vlock);
++
++	/* Stop all virtqueue callbacks */
++	virtio_reset_device(virtio_dev);
++
++	/*
++	 * Only detach the unused buffers to allow internal virtqueue clean up.
++	 * The actual buffers are freed in virtio_media_release()
++	 */
++	while (virtqueue_detach_unused_buf(vv->commandq))
++		;
++
++	/* Delete the virtqueues */
++	virtio_dev->config->del_vqs(virtio_dev);
++
++	mutex_unlock(&vv->vlock);
++
++	list_for_each_safe(p, n, &vv->sessions) {
++		struct virtio_media_session *s =
++			list_entry(p, struct virtio_media_session, list);
++
++		virtio_media_session_remove(vv, s);
++		virtio_media_session_free(s);
++	}
++
++	v4l2_device_put(&vv->v4l2_dev);
++}
++
++static struct virtio_device_id id_table[] = {
++	{ VIRTIO_ID_MEDIA, VIRTIO_DEV_ANY_ID },
++	{ 0 },
++};
++
++static unsigned int features[] = {};
++
++static struct virtio_driver virtio_media_driver = {
++	.feature_table = features,
++	.feature_table_size = ARRAY_SIZE(features),
++	.driver.name = VIRTIO_MEDIA_DEFAULT_DRIVER_NAME,
++	.driver.owner = THIS_MODULE,
++	.id_table = id_table,
++	.probe = virtio_media_probe,
++	.remove = virtio_media_remove,
++};
++
++module_virtio_driver(virtio_media_driver);
++
++MODULE_DEVICE_TABLE(virtio, id_table);
++MODULE_DESCRIPTION("virtio media driver");
++MODULE_AUTHOR("Alexandre Courbot <gnurou@gmail.com>");
++MODULE_LICENSE("Dual BSD/GPL");
+diff --git a/include/uapi/linux/virtio_media.h b/include/uapi/linux/virtio_media.h
+new file mode 100644
+index 000000000..ad05d7421
+--- /dev/null
++++ b/include/uapi/linux/virtio_media.h
+@@ -0,0 +1,118 @@
++/* SPDX-License-Identifier: ((GPL-2.0+ WITH Linux-syscall-note) OR BSD-3-Clause) */
++
++/*
++ * Definitions of virtio-media protocol structures.
++ *
++ * Copyright (c) 2024-2026 Google LLC.
++ */
++
++#ifndef _UAPI__LINUX_VIRTIO_MEDIA_H
++#define _UAPI__LINUX_VIRTIO_MEDIA_H
++
++#include <linux/types.h>
++#include <linux/videodev2.h>
++
++/*
++ * Virtio protocol definition.
++ */
++
++/**
++ * struct virtio_media_config - Video device configuration space.
++ * @device_caps: flags representing the device capabilities as used in &struct
++ *               v4l2_capability. It corresponds with the device_caps field in
++ *               the &struct video_device
++ * @ device_type: informs the driver of the type of the video device. It
++ *                corresponds to with the ``vfl_devnod_type`` field of the
++ *                device.
++ * @card: name of the device, a NUL-terminated UTF-8 string. It corresponds
++ *        with the card field of the struct v4l2_capability. If all the
++ *        characters of the field are used, it does not need to be
++ *        NUL-terminated.
++ */
++struct virtio_media_config {
++	__le32 device_caps;
++	__le32 device_type;
++	__u8 card[32];
++};
++
++/**
++ * struct virtio_media_cmd_header - Header for all virtio-media commands.
++ * @cmd: one of VIRTIO_MEDIA_CMD_*.
++ * @__reserved: must be set to zero by the driver.
++ *
++ * This header starts all commands from the driver to the device on the
++ * commandq.
++ */
++struct virtio_media_cmd_header {
++	__le32 cmd;
++	__le32 __reserved;
++};
++
++/**
++ * struct virtio_media_resp_header - Header for all virtio-media responses.
++ * @status: 0 if the command was successful, or one of the standard Linux error
++ *          codes as a positive integer.
++ * @__reserved: must be set to zero by the device.
++ *
++ * This header starts all responses from the device to the driver on the
++ * commandq.
++ */
++struct virtio_media_resp_header {
++	__le32 status;
++	__le32 __reserved;
++};
++
++/**
++ * VIRTIO_MEDIA_CMD_OPEN - Command for creating a new session.
++ *
++ * This is the equivalent of calling ``open`` on a V4L2 device node. Upon
++ * success, a session id is returned which can be used to perform other
++ * commands on the session, notably ioctls.
++ */
++#define VIRTIO_MEDIA_CMD_OPEN 1
++
++/**
++ * struct virtio_media_cmd_open - Driver command for VIRTIO_MEDIA_CMD_OPEN.
++ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_OPEN.
++ */
++struct virtio_media_cmd_open {
++	struct virtio_media_cmd_header hdr;
++};
++
++/**
++ * struct virtio_media_resp_open - Device response for VIRTIO_MEDIA_CMD_OPEN.
++ * @hdr: header containing the status of the command.
++ * @session_id: if &struct virtio_media_resp_header.status == 0, contains the
++ *              id of the newly created session.
++ * @__reserved: must be set to zero by the device.
++ */
++struct virtio_media_resp_open {
++	struct virtio_media_resp_header hdr;
++	__le32 session_id;
++	__le32 __reserved;
++};
++
++/**
++ * VIRTIO_MEDIA_CMD_CLOSE - Command for closing an active session.
++ *
++ * This is the equivalent of calling ``close`` on a previously opened V4L2
++ * session. All resources associated with this session will be freed and the
++ * session ID shall not be used again after queueing this command.
++ *
++ * This command does not require a response from the device.
++ */
++#define VIRTIO_MEDIA_CMD_CLOSE 2
++
++/**
++ * struct virtio_media_cmd_close - Driver command for VIRTIO_MEDIA_CMD_CLOSE.
++ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_CLOSE.
++ * @session_id: id of the session to close.
++ * @__reserved: must be set to zero by the driver.
++ */
++struct virtio_media_cmd_close {
++	struct virtio_media_cmd_header hdr;
++	__le32 session_id;
++	__le32 __reserved;
++};
++
++#endif // _UAPI__LINUX_VIRTIO_MEDIA_H
+diff --git a/usr/include/Makefile b/usr/include/Makefile
+index ee69dd9d9..df106b5d9 100644
+--- a/usr/include/Makefile
++++ b/usr/include/Makefile
+@@ -37,6 +37,7 @@ no-header-test += linux/usb/audio.h
+ no-header-test += linux/v4l2-mediabus.h
+ no-header-test += linux/v4l2-subdev.h
+ no-header-test += linux/videodev2.h
++no-header-test += linux/virtio_media.h
+ no-header-test += linux/vm_sockets.h
+ no-header-test += sound/asequencer.h
+ no-header-test += sound/asoc.h
+-- 
+2.56.0.317.g454f8302e1-goog
 
