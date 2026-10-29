@@ -1,54 +1,130 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793263103;
-	b=nRp5TMuoPNzeLMbMWe6YHjPHu+zu3Qw4MicvYMjihIRnyikFmVuiL3Y3fNDYRLgZHqXt
-	 z7FY5HmWGaGXlHm1tDZeNBcJ2o8pXXOoG9TkoUJtfNQF9Yn+HlR8wQA7ODmv4wHXV9bb6
-	 nEjhkGd7nc24icje2LYaVpKKDcmyi5MscDxVm38ZhSGCroNrJI+M26eo14K0IfuW741dh
-	 b8AowXtqJ1lwAoBip2vkumY7Q70gqZ+G+sM+6wUv/nby2tvyGlFPN4imkbpbA0yx+P9sv
-	 Zp2gCtlSRLkITks02H5BWo7xWx2Wq3kYZFSRze8R1Rvm/rkCP3vPrl4Ocw9X8ynvp4w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793263103;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=ScDNiRu1LhhAqGnssz6v8Goe18dHxFftj2LJPSqODSs=;
-	b=RwmqKgo36nR6b09VNr951Ciq9ZkjKGMB9eC3xm2CPxBK1v1E6WzM7TWL18XH4+SlDSzA
-	 BkX5Sd1QbsyOKDhTes0abrtKb7hyFTAX9SNV4qA6vpPWQk4jfNNS98KPyHNLuBan2Kih8
-	 QMfNT8pbjjDWOnvYmZnhnH0QYew+LNFlj8lAoG+psXJ0J3N8oaLKYbjt7rimJQQFyZUL0
-	 52lceOQJO7kggPJZIpWI18qgP7Vvupae4fdOLM7/mII+AkA2gU2jRvqAMCE5DTvFauk/p
-	 zRHEapg1wZGeYXjoxeqGGf29LjxSqLKa9expSZRuf9I4+qIxJEC/mZhGs06o9Lijp9A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.72
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793263119;
+	b=d8tpDZVbS3NN7edak2IwoujlfefUskQ/p3Evvat5nwihORi5C+EpyZjqvgAUXnQXfxux
+	 h7cO+OE3wxKj1MA23RHKP3Yu87KfF1UN31K77tcc8/e+RH4njZMGGFaJrzPRDcTLSDRA1
+	 IyVhCXeuIrww0vuMz8uyDCy3HJm6Wse2HW4n8OdKuemY3+i173DYD4i4Z4FGrZRg1QEMv
+	 UHE3t8KfsDLbX8TMbMhUC8hOAvhEYKu5CKd+5G6CN/7KlKIoR5Mag6rPWfqQYzFsw6Wrf
+	 DUnZMNzF3cVOALlvAopPiSu3yGHdHsoCCUJ+hm7aWl1MWWonKDE4c6Xg2Q8Y8Ljpt1Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793263119;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
+	 Received:Received:Received:Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:CC:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Vw2ckCt3GHwZny8GdU0sTEOpRaBt8I/4H7yJwCtGdS0=;
+	b=y3hfAeYRjqD53jgmZWFqd9MLBl5znqPvkKUS/i4w1E8hZ4foyEKao6GpwcVpIvT+W4k6
+	 llAZklYSBqEaMYGMp4uVu/I5alZBZ0hMTIrjGyviGAeBF7ri9iQFw5C89qMkFIkkwTf00
+	 GEv6Vq76zY2sVf1y/ZHTwHniJ4SRymVCJHequX2fHueWPWacMZTYAwwAiY/wP5E07J0zM
+	 T1qj5Ml07VUyl9pjupsYWV531C+Q7sEpEkE48BdjTIbhKtd1o5L6pP9UOhq/b8c3c0HEU
+	 tS4gxTYZBkIaMtSe2eGPZNCmA1ZpLhW9cWCxRoHXzXDnvtZlYEmBOXtnclePydrKUlg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ti.com;
+	spf=pass smtp.mailfrom=ti.com;
+	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=pw3RvogP;
+	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=sgwiefoM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.154.28
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD91606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:38:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFD91606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-821de0b7baaso2518253a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:38:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793263102; x=1793867902;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ScDNiRu1LhhAqGnssz6v8Goe18dHxFftj2LJPSqODSs=;
-        b=xN81RkYOEFByTPCPvitGqtU97o4rh9YukFs2RAlLXi01eAUrZBL6IATWP0qui6/nCS
-         OhwDOn/z4xhV8XxP2mPsj5aRvjRRv+KXYNm3Dkc/1xRFksdUggI07N4GeoZJw0ybm4gs
-         bGsL2n2f7sgfaaYy/ZkdnF8wnt6+HteC4SzcDOutz9gLuciY9xXyqlQ/NjYm49T0cCzc
-         GsNlPlzXp4Doky9DlMc44pXXnHd+MotTDOlZpZiv7/Cczva0eNHY7U35giWWFV0KTAU+
-         z/lt9OyIcztUEtBmyPp91R3hdhvHdANb4pELyydNyEYRdwD2E8obkfEjV8yCojjbVF/K
-         kjQw==
-X-Forwarded-Encrypted: i=1; AKwUvBwAw8BOfsuOAY+KGESPUOOCt8aHHdw9JmMSwrLV8vpm5phIMne+gg/JWJTA6A+IP0MjYPuLlQxFHIKAbIo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeVytTTp3alVXehJoqAPwFLcYeU4kN1nzBDFn5tJaFie+wLCA4
-	C0FrvQdfTxz1GI/lYmxzWYJkyk/5Qcgudzeafu2SWvbUFXqOAzdbquLTTqi7OIPstQ7h2J3k/m9
-	LijXPHZS2QOUvgXC0QlGik+EpoVybaSjdU3Z360PbYePyqK4WhOfJTb5l2WM=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94642606A31A;
+	Thu, 29 Oct 2026 08:38:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94642606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=pw3RvogP;
+	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=sgwiefoM
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5I5S91916817;
+	Thu, 29 Oct 2026 03:38:34 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=Vw2ckCt3GHwZny8GdU0sTEOpRaBt8I/4H7yJwCtGd
+	S0=; b=pw3RvogPBv9RspPuLIeQNQe27epgIuN3uHwUPVfA8C7/m6q6TUT5Bl6Ne
+	i11jg+GLTORVSTm2UymplvJvf8Nwpz/9xqZ1ihUEjy5qVjhwkv3ZnS4ZAsqKXyfE
+	TCYojdrLWg1Q6RqNiLibEMJ2VjK5tJ9HroWIqb9Ptw43mp2/BO3Bvf0x9oxDeQep
+	ABe0RsFo7cmFhnfJba7I2hAhLsRxb49SkA+skUguS9LvyT2NkgQoqIG2lW+mdHoU
+	euGVfDFV5fqGS6egoezuvYhXZ4liFQm8yvOxqSaX75eiNiKMJAJws+1Q2iVE4FTG
+	LYh9DMU16wPuOCirTbK+WjP8J59sg==
+Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011019.outbound.protection.outlook.com [40.93.194.19])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4hkr263wpe-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 29 Oct 2026 03:38:33 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ItVis/b1KjY5xSB9yFQliDVKAvbIEYFsYmk8iWJhLZE7ajnyvaDOeo1YsYGdSoM2MZlzonk4SHfBb7r+Odrtq/qN/73zT+H74NuqsOVxlxbq4OBuatFCfpNCAfLl22guB78PwNu2weKcc6pEtdsUHDYW4NYamzWc8J3pswUGE2z9wm2cc8BhPA8ptjzUD+A/d2pSRmGQD57o0EtzpHGOlWZwaeRqA1ZzofnrHWVg0+OHvHPlP+WKHlXseufZLUmHmOhSnooxmo71VXSuLXGO1nZxb3IazRJKsJQYmUg7rZp780vbSITovX8rxY8+J7HOdGQ+fmo8yOJjYfJoru1jVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Vw2ckCt3GHwZny8GdU0sTEOpRaBt8I/4H7yJwCtGdS0=;
+ b=hKG5q1NdyYCiZBVdAyLJ5E2XJgUpBG8B5omNVxGsM5HLX6e3fPbHVT6DpKW0bI0j6Ks4j+V9dwZ6+YBZY8kdrBBj9KB3x56Pb4za5kbaGqq4A2HkAruVfKihB9nP1IyRwvafpdXpY2uy+oe7t2TTzrQUEPUohIZvbODi9/QIDGEB9aLfTn1CNmfGNZhNwcKsPDIvq2rSWz+yvivTW86cC43tHaIcqndKXgkaFySMlGs1dBHDwzLJNLHPQ8ygMoGENEaqiNb0rNlfGueqie9f8fY51e/l4FATDGUtr8aAJsKn3DXXPx3AlhE9/w5KqJoki5EeFDBf8kxuk3UOjcM3xA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Vw2ckCt3GHwZny8GdU0sTEOpRaBt8I/4H7yJwCtGdS0=;
+ b=sgwiefoMYxishaqbDjhkXf6J6XBEghTnQ+d542YIwJu3A/V73qmmhFEIooU0R1suCa2tjh+36k9FqYfRKqUR6zPEH6I1rvjXzvhtex4DAhgkcWOSyaHE93Sg7HA7jKFxN2DXrqtYr8fUzwjDoqzieXVT4sUg3nKJG4XCC6cylT4=
+Received: from CY5PR20CA0015.namprd20.prod.outlook.com (2603:10b6:930:3::18)
+ by SJ0PR10MB5787.namprd10.prod.outlook.com (2603:10b6:a03:3dd::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 08:38:25 +0000
+Received: from CO1PEPF00012E64.namprd05.prod.outlook.com
+ (2603:10b6:930:3:cafe::30) by CY5PR20CA0015.outlook.office365.com
+ (2603:10b6:930:3::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Thu, 29
+ Oct 2026 08:38:24 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.194) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ CO1PEPF00012E64.mail.protection.outlook.com (10.167.249.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 08:38:23 +0000
+Received: from DFLE209.ent.ti.com (10.64.6.67) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 29 Oct
+ 2026 03:37:41 -0500
+Received: from DFLE209.ent.ti.com (10.64.6.67) by DFLE209.ent.ti.com
+ (10.64.6.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 29 Oct
+ 2026 03:37:41 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE209.ent.ti.com
+ (10.64.6.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Thu, 29 Oct 2026 03:37:41 -0500
+Received: from [172.24.21.238] (ltpw09g66v.dhcp.ti.com [172.24.21.238])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69T8bcmA2551663;
+	Thu, 29 Oct 2026 03:37:39 -0500
+Message-ID: <da17b402-613c-44fe-8cef-314f350d474a@ti.com>
+Date: Thu, 29 Oct 2026 14:07:38 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,234 +134,508 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:83c5:20b0:70e:78ba:1192 with SMTP id
- 006d021491bc7-713ed7bcb3emr1972000eaf.27.1793263101856; Thu, 29 Oct 2026
- 01:38:21 -0700 (PDT)
-Date: Thu, 29 Oct 2026 01:38:21 -0700
-In-Reply-To: <20261028141751.6728-1-enderaoelyther@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae305fd.5451848c.f7707.0008.GAE@google.com>
-Subject: [syzbot ci] Re: wifi: mac80211_hwsim: fix netlink release and radio
- removal races
-From: syzbot ci <syzbot+ciaa26a4b0500f613c@syzkaller.appspotmail.com>
-To: enderaoelyther@gmail.com, jlopex@gmail.com, johannes@sipsolutions.net, 
-	jukka.rissanen@linux.intel.com, linux-kernel@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, linville@tuxdriver.com, 
-	stable@vger.kernel.org
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-
-syzbot ci has tested the following series
-
-[v1] wifi: mac80211_hwsim: fix netlink release and radio removal races
-https://lore.kernel.org/all/20261028141751.6728-1-enderaoelyther@gmail.com
-* [PATCH 1/2] wifi: mac80211_hwsim: ignore non-generic netlink releases
-* [PATCH 2/2] wifi: mac80211_hwsim: serialize radio removal with frame commands
-
-and found the following issue:
-INFO: task hung in mac80211_hwsim_netlink_notify
-
-Full report is available here:
-https://ci.syzbot.org/series/fe9cfff2-ef52-45eb-993c-ea84c287686d
-
-***
-
-INFO: task hung in mac80211_hwsim_netlink_notify
-
-tree:      wireless-next
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/wireless/wireless-next.git
-base:      864c07de0c7dcbca58b61625dfa2e461ae63b242
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/ffa94119-c540-48f2-b244-f5fa2d9531b2/config
-
-INFO: task syz-executor:21314 blocked for more than 143 seconds.
-      Not tainted syzkaller #0
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:syz-executor    state:D stack:22184 pid:21314 tgid:21314 ppid:1      task_flags:0x400140 flags:0x00080002
-Call Trace:
- <TASK>
- __schedule+0x17dd/0x5820
- schedule+0x164/0x2b0
- schedule_preempt_disabled+0x13/0x30
- __mutex_lock+0x7c4/0x15a0
- mac80211_hwsim_netlink_notify+0x193/0x1140
- notifier_call_chain+0x1a5/0x3d0
- blocking_notifier_call_chain+0x6a/0x90
- netlink_release+0x1211/0x1a90
- __sock_release+0xa0/0x1f0
- sock_close+0x1c/0x30
- __fput+0x408/0xa40
- fput_close_sync+0x11f/0x240
- __se_sys_close+0xa2/0x160
- do_syscall_64+0x166/0x520
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fed3715fd8e
-RSP: 002b:00007fffadf594c8 EFLAGS: 00000246 ORIG_RAX: 0000000000000003
-RAX: ffffffffffffffda RBX: 000055557b013500 RCX: 00007fed3715fd8e
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000005
-RBP: 0000000000000005 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007fed37f54670
-R13: 0000000000000014 R14: 00007fed37f54864 R15: 00000000000001f4
- </TASK>
-
-Showing all locks held in the system:
-locks held by kworker/u8:1/13: 3, on CPU#0:
- #0: ffff888111e50148 ((wq_completion)ipv6_addrconf){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #1: ffffc90000127c40 ((work_completion)(&(&ifa->dad_work)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #2: ffffffff9125a680 (rtnl_mutex){+.+.}-{4:4}, at: addrconf_dad_work+0x116/0x15c0
-locks held by khungtaskd/35: 1, last CPU#1:
- #0: ffffffff8fd59ca0 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x2e/0x180
-locks held by getty/5413: 2, on CPU#1:
- #0: ffff88811659a0a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x25/0x70
- #1: ffffc9000348b2e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x45a/0x1360
-locks held by kworker/u8:2/5484: 3, last CPU#0:
- #0: ffff88810b983148 ((wq_completion)krds_cp_wq#3/0){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #1: ffffc90004407c40 ((work_completion)(&(&cp->cp_conn_w)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #2: ffff88811a039280 (&tc->t_conn_path_lock){+.+.}-{4:4}, at: rds_tcp_conn_path_connect+0x1cc/0x920
-locks held by kworker/u9:17/30931: 3, last CPU#1:
- #0: ffff8881000ac148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #1: ffffc90006befc40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #2: ffff888054278258 (&devlink->lock_key#13){+.+.}-{4:4}, at: nsim_dev_trap_report_work+0x57/0xb30
-locks held by kworker/u9:38/30947: 3, last CPU#1:
- #0: ffff8881000ac148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #1: ffffc9000765fc40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #2: ffff888075278258 (&devlink->lock_key#12){+.+.}-{4:4}, at: nsim_dev_trap_report_work+0x57/0xb30
-locks held by kworker/u9:39/30948: 3, last CPU#1:
- #0: ffff8881000ac148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #1: ffffc9000768fc40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #2: ffff88806cffd258 (&devlink->lock_key#5){+.+.}-{4:4}, at: nsim_dev_trap_report_work+0x57/0xb30
-locks held by kworker/u8:7/20795: 7, on CPU#0:
- #0: ffff8881012dd948 ((wq_completion)netns){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #1: ffffc9000791fc40 (net_cleanup_work){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #2: ffffffff9124be48 (pernet_ops_rwsem){++++}-{4:4}, at: cleanup_net+0xf5/0x810
- #3: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: hwsim_exit_net+0xc9/0xf70
- #4: ffffffff9125a680 (rtnl_mutex){+.+.}-{4:4}, at: wiphy_unregister+0x26f/0xb20
- #5: ffff888068390800 (&rdev->wiphy.mtx){+.+.}-{4:4}, at: wiphy_unregister+0x279/0xb20
- #6: ffffffff8fd60328 (rcu_state.exp_mutex){+.+.}-{4:4}, at: synchronize_rcu_expedited+0x2cb/0x760
-locks held by kworker/u8:8/20796: 2, last CPU#0:
- #0: ffff888113926148 ((wq_completion)bat_events){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #1: ffffc9000793fc40 ((work_completion)(&(&bat_priv->dat.work)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
-locks held by syz-executor/21314: 3, on CPU#0:
- #0: ffff8881bfaa2640 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
- #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
- #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
-locks held by kworker/0:5/21344: 3, on CPU#0:
- #0: ffff88810006ad48 ((wq_completion)events){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #1: ffffc90003ed7c40 (netdev_work){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #2: ffffffff9125a680 (rtnl_mutex){+.+.}-{4:4}, at: netdev_work_proc+0x6f/0x770
-locks held by syz-executor/21396: 3, on CPU#0:
- #0: ffff888112f5c440 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
- #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
- #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
-locks held by syz-executor/21403: 3, on CPU#1:
- #0: ffff888013e16240 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
- #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
- #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
-locks held by syz-executor/21473: 3, on CPU#0:
- #0: ffff8881a662e240 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
- #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
- #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
-locks held by syz-executor/21500: 3, on CPU#0:
- #0: ffff88816a9b4440 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
- #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
- #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
-locks held by syz-executor/21503: 3, on CPU#1:
- #0: ffff8881a652ee40 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
- #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
- #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
-locks held by syz-executor/21537: 3, on CPU#1:
- #0: ffff8881bfaa5040 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
- #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
- #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
-locks held by syz-executor/21559: 7, on CPU#0:
- #0: ffff888117068460 (sb_writers#7){.+.+}-{0:0}, at: vfs_write+0x22b/0xba0
- #1: ffff888120412c80 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x1d8/0x540
- #2: ffff88816bbcf4b8 (kn->active#49){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x22b/0x540
- #3: ffffffff90ad1400 (nsim_bus_dev_list_lock){+.+.}-{4:4}, at: new_device_store+0x13c/0x6d0
- #4: ffff8881c71ac128 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450
- #5: ffff8881c71a9258 (&devlink->lock_key#14){+.+.}-{4:4}, at: nsim_drv_probe+0xfb/0xbb0
- #6: ffffffff9125a680 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_net_dev_lock+0x257/0x2f0
-locks held by syz-executor/21566: 3, last CPU#1:
- #0: ffff88819720ac40 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
- #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
- #2: ffffffff8fd59ca0 (rcu_read_lock){....}-{1:3}, at: nl80211_netlink_notify+0x75/0x860
-locks held by kworker/u9:0/21570: 3, last CPU#1:
- #0: ffff8881000ac148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #1: ffffc90003e87c40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
- #2: ffff8881bbf09258 (&devlink->lock_key){+.+.}-{4:4}, at: nsim_dev_trap_report_work+0x57/0xb30
-locks held by syz-executor/21598: 2, on CPU#0:
- #0: ffffffff909c0ba8 (&ops->srcu#2){.+.+}-{0:0}, at: rtnl_link_ops_get+0x23/0x250
- #1: ffffffff9125a680 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_newlink+0xc10/0x1c30
-
-=============================================
-
-NMI backtrace for cpu 1
-CPU: 1 UID: 0 PID: 35 Comm: khungtaskd Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150
- nmi_cpu_backtrace+0x274/0x2d0
- nmi_trigger_cpumask_backtrace+0x17d/0x390
- sys_info+0x135/0x170
- watchdog+0xfd2/0x1030
- kthread+0x38b/0x480
- ret_from_fork+0x514/0xb70
- ret_from_fork_asm+0x1a/0x30
- </TASK>
-Sending NMI from CPU 1 to CPUs 0:
-NMI backtrace for cpu 0
-CPU: 0 UID: 0 PID: 20796 Comm: kworker/u8:8 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-Workqueue: bat_events batadv_dat_purge
-RIP: 0010:native_apic_msr_write+0x39/0x50
-Code: 74 2a 83 ff 30 74 25 eb 10 81 ff d0 00 00 00 74 1b 81 ff e0 00 00 00 74 13 c1 ef 04 81 c7 00 08 00 00 89 f9 89 f0 31 d2 0f 30 <66> 90 c3 cc cc cc cc cc 89 f6 31 d2 e9 e6 17 aa 03 66 0f 1f 44 00
-RSP: 0018:ffffc90000007e50 EFLAGS: 00000046
-RAX: 000000000000000f RBX: ffff888120e23f40 RCX: 0000000000000838
-RDX: 0000000000000000 RSI: 000000000000000f RDI: 0000000000000838
-RBP: ffffc90000007f10 R08: 0000000000000100 R09: 0000000000000001
-R10: 0000000000000003 R11: ffffffff81758510 R12: ffffffff81758510
-R13: 1ffff110241c47f1 R14: 0000000000000000 R15: ffff888120e23f8c
-FS:  0000000000000000(0000) GS:ffff88818c4a4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f85c76b3866 CR3: 0000000169088000 CR4: 00000000000006f0
-Call Trace:
- <IRQ>
- lapic_next_event+0x11/0x20
- clockevents_program_event+0x44e/0x630
- hrtimer_run_softirq+0x255/0x2e0
- handle_softirqs+0x265/0x8d0
- do_softirq+0x77/0xd0
- </IRQ>
- <TASK>
- __local_bh_enable_ip+0x100/0x140
- batadv_dat_purge+0x2d7/0x3c0
- process_scheduled_works+0xc3d/0x1630
- worker_thread+0xa47/0xfb0
- kthread+0x38b/0x480
- ret_from_fork+0x514/0xb70
- ret_from_fork_asm+0x1a/0x30
- </TASK>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] remoteproc: Add ti_sci_dev_ops abstraction
+To: Siddharth Karanam <sid9.karanam@gmail.com>, <andersson@kernel.org>,
+        <mathieu.poirier@linaro.org>
+CC: <linux-kernel@vger.kernel.org>, <linux-remoteproc@vger.kernel.org>
+References: <20261014103241.3847-1-sid9.karanam@gmail.com>
+ <20261014103241.3847-2-sid9.karanam@gmail.com>
+Content-Language: en-US
+From: "Padhi, Beleswar" <b-padhi@ti.com>
+In-Reply-To: <20261014103241.3847-2-sid9.karanam@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E64:EE_|SJ0PR10MB5787:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9090eef9-2ce0-417b-90f1-08df3597fe98
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|261028144727099003|4143699003|56012099006|261009223027099003|261022113327099003|261026121527099003|261021121427099003|261021123027099003|261026140227099003|261022105027099003|10067099003|261022075727099003|22082099003|18002099003|6133799003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	c5s2bkwD5JG9LrC+1JTaeKJJWQKL2dXtooYs6MPcxhi2rSxbqMBzYCruXphvAJn+tv/CxvS5IhURiN0hoq7MpsPxqnYOrh1Ai4+A8T3y4YHko3BybWpJ8YVd+xfGnN6BiC2hBs+CSySLA7+HRdLwBYep3q9tyMMAWi6YYUsLMpFBsGKoW3rUcr21rmIAR/8Y/vKUgc2HbSdzH5mRr4rMJpE+wlibQYNRMxzm2omhookarqbRxEhLpTwIZ7vbHiAmVwSvpUWFwXrDzovb1MfR8NPIdJnA3jg+hBd0RtufkFdHS12WuRXstQj0PukZsLBOyTosvVZ/Pr5+ZR4uAOeVE7g55M3FNrZjYd/pIP2flfAxca0hc4arjRQe0kul4aHWLFTygojGwW0giDvH6PD20G+WfolyMMQQdtAjS5sZU8H5aM2gPZ+MuESZ+yGCJPhXpn1rTTdSxSvin8GZPfXIrKTI3erExIsIqKeFANQF4k4mvAtjJQHNxkTLlDlEdvOUzfw9QJj4pHrvUU7OqorqXgrjQJRwXxJUNHrofS+3prtU/BA+0tc2H7pnDo+yJ/VKJowhCsMOmPaOpy+WYLK72UE+bk/L7LEEK9Fqk2Zd3LLkH4q9uMTtVuYdFZrHJ6jV3JFUQb0rXIZW+C6ZjpSPUg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(261028144727099003)(4143699003)(56012099006)(261009223027099003)(261022113327099003)(261026121527099003)(261021121427099003)(261021123027099003)(261026140227099003)(261022105027099003)(10067099003)(261022075727099003)(22082099003)(18002099003)(6133799003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Oj0i8Ut1KySz+wECm59tV3yhEGfB4krEUEm7Gaogz+sYwFi3z5KIlGCAs82rJdxCYnaZ4hTo97HjPQ7QIL9YugiAXk04tOxgEpnbyZyJTTxr/sU82LY8ENEjrZdEhHGTPESTzF2Ip9huhFi01RkJ8hbM68PWy7/7n4oyvSa/JFEkGq5KzQXFD+Ok71vaKTHa8LeatFFoAE8dOH1oC8avenuamfwpoQpk1ppv/V0pqIiSQ0URaUqp5Dmr+3wyHvxTUBKGdQzL4qVXL14NaJEWMEsNP2bkrBKDzjwqb7Xue2U5kxS7mj5MMsVdGHhzEL1qSwtp5obP69Ml9QPKlw1Tp9sryy0b2P1pcPi9TC+hiJErXovdxbRYcYGcMrbiW8OLWQKttn3OdofWKD4UX0QnPaBm5+A7kTRiHt8dCp5+J1XqR+lFziFlASvoxxkxlEcn
+X-Exchange-RoutingPolicyChecked:
+	5L5uCUN4hX8gBXw26Wi7BETMUQo8o4iEj/gD5C7y7AIPpaXx1cNu25ejZGK9E7AEdI7swFHVQ2epSZOUuLkUcZ4fZfURufaIwsp04Rln6za8DPqxzkzF08j+0Zr+3wfKKMzB3feU82OAkVSzCWJtyUkzR7+dcJUziQFwysOpWN9Pyw5O6PFRA7uML+3hkSATvf+Wt7a+UrwIkeqy0uXjfA9Cdjat6GlVLzMzszeQC8CJFK9hSSNSNsD5Rs8MsbX2wepVcQ2zw6Ugt5Xl1tQ0yLoKeRArGkyr/4zjiubjCEsRNZvr81wjPVOeQrON670yHX9nT0eEFv/RvPNckYqMEw==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 08:38:23.6305
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9090eef9-2ce0-417b-90f1-08df3597fe98
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E64.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB5787
+X-Authority-Analysis: v=2.4 cv=PImaavqC c=1 sm=1 tr=0 ts=6ae30609 cx=c_pps
+ a=FOw1GTnNYXmOwZ/eduxC4w==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=fPAWb5peG099m5CrUpKH:22 a=sozttTNsAAAA:8 a=pGLkceISAAAA:8
+ a=9xkm5mRPVq_RN2qXlsEA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: TO_DFOa2eT6tWmZR10fRGBUacGuUkYCX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzMyBTYWx0ZWRfXxG1lKYwB8Yz9
+ NDA6cU9yHFUKqEV1NWsjMH6d0x5UUh+QngrAet/6SVQ5x9zS/LB1FnZr6I1hvhky/n1vN6FiPuV
+ 45Q+FEjdJc8oQ4ZeTpxyo+lLe3QHIyg7AmDqAN7y73/u3h7x5UX1MmzhQUQ5ov5OZxHCHoI6AQm
+ ms40ALJUpnFBC1tXUq1Hgr7da53ZTo5mXnikPOiN38HcFcVyOHb/tU1+Kho5tWiGfGtaV38WsFW
+ gSJk3GJllk53wMyLt9tDrG2DLqkm8Ys8v8CwoSqRlHPLqsX8ulA2BqOyM1TFFK4UOXZ47982lFt
+ Dmz00JnSaZVE0Ijf3Dwm8x64MN1EM82++a0i2RvpzExacMsJOLqNCTw0gt3w1zEosoI5f0TsmEx
+ NM+h6IRKbaWEpt2MDnqc3h0oeLXO5wrNQnRn08qjHK2XAls8icQkw3IOA3h6o5eadct4flMIGm7
+ RVdsSA2vrfre+V/ny7w==
+X-Proofpoint-GUID: TO_DFOa2eT6tWmZR10fRGBUacGuUkYCX
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzMyBTYWx0ZWRfXyFwTCVd2Ke54
+ 9K9jJYx7YjN2fOqhcs3h8UYkNf2AtvPqOXWxVh8hETd6eIe2eLZTR80wZQ0JINvWs4kC2wflUdw
+ OP/dW2bmEDuZoLZMksioN0Ii+36OpeM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 suspectscore=0 spamscore=0 bulkscore=0
+ lowpriorityscore=0 clxscore=1015 adultscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290033
 
 
-***
+On 10/14/2026 4:02 PM, Siddharth Karanam wrote:
+> Instead of invoking ti_sci_handle's ti_sci_dev_ops member directly
+> in the driver code, this abstracts the property read of
+> "ti,sci-dev-id" and the function pointers supported by
+> ti_sci_dev_ops such as is_on, get_device and put_device.
+>
+> The goal of the patch is to maintain a single source
+> of origin for all ti_sci_dev_ops call sites. Any stray calls
+> to any dev_ops function pointer members in driver code should
+> eventually be abstracted through this header.
+>
+> Signed-off-by: Siddharth Karanam <sid9.karanam@gmail.com>
+> ---
+>   drivers/remoteproc/ti_k3_common.c         | 16 ++---
+>   drivers/remoteproc/ti_k3_common.h         |  4 +-
+>   drivers/remoteproc/ti_k3_dsp_remoteproc.c | 14 ++--
+>   drivers/remoteproc/ti_k3_m4_remoteproc.c  | 13 ++--
+>   drivers/remoteproc/ti_k3_r5_remoteproc.c  | 40 +++++------
+>   drivers/remoteproc/ti_sci_dev.h           | 82 +++++++++++++++++++++++
+>   6 files changed, 120 insertions(+), 49 deletions(-)
+>   create mode 100644 drivers/remoteproc/ti_sci_dev.h
+>
+> diff --git a/drivers/remoteproc/ti_k3_common.c b/drivers/remoteproc/ti_k3_common.c
+> index 3cb8ae5d72f6..befa9a9bea3a 100644
+> --- a/drivers/remoteproc/ti_k3_common.c
+> +++ b/drivers/remoteproc/ti_k3_common.c
+> @@ -32,6 +32,7 @@
+>   
+>   #include "omap_remoteproc.h"
+>   #include "remoteproc_internal.h"
+> +#include "ti_sci_dev.h"
+>   #include "ti_sci_proc.h"
+>   #include "ti_k3_common.h"
+>   
+> @@ -120,8 +121,7 @@ int k3_rproc_reset(struct k3_rproc *kproc)
+>   		if (ret)
+>   			dev_err(dev, "local-reset assert failed (%pe)\n", ERR_PTR(ret));
+>   	} else {
+> -		ret = kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -							    kproc->ti_sci_id);
+> +		ret = ti_sci_dev_put_device(kproc->tsd);
+>   		if (ret)
+>   			dev_err(dev, "module-reset assert failed (%pe)\n", ERR_PTR(ret));
+>   	}
+> @@ -140,13 +140,11 @@ int k3_rproc_release(struct k3_rproc *kproc)
+>   		ret = reset_control_deassert(kproc->reset);
+>   		if (ret) {
+>   			dev_err(dev, "local-reset deassert failed, (%pe)\n", ERR_PTR(ret));
+> -			if (kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -								  kproc->ti_sci_id))
+> +			if (ti_sci_dev_put_device(kproc->tsd))
+>   				dev_warn(dev, "module-reset assert back failed\n");
+>   		}
+>   	} else {
+> -		ret = kproc->ti_sci->ops.dev_ops.get_device(kproc->ti_sci,
+> -							    kproc->ti_sci_id);
+> +		ret = ti_sci_dev_get_device(kproc->tsd);
+>   		if (ret)
+>   			dev_err(dev, "module-reset deassert failed (%pe)\n", ERR_PTR(ret));
+>   	}
+> @@ -223,8 +221,7 @@ int k3_rproc_prepare(struct rproc *rproc)
+>   		}
+>   	}
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.get_device(kproc->ti_sci,
+> -						    kproc->ti_sci_id);
+> +	ret = ti_sci_dev_get_device(kproc->tsd);
+>   	if (ret) {
+>   		dev_err(dev, "could not deassert module-reset for internal RAM loading\n");
+>   		return ret;
+> @@ -253,8 +250,7 @@ int k3_rproc_unprepare(struct rproc *rproc)
+>   	if (rproc->state == RPROC_DETACHED)
+>   		return 0;
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -						    kproc->ti_sci_id);
+> +	ret = ti_sci_dev_put_device(kproc->tsd);
+>   	if (ret) {
+>   		dev_err(dev, "module-reset assert failed\n");
+>   		return ret;
+> diff --git a/drivers/remoteproc/ti_k3_common.h b/drivers/remoteproc/ti_k3_common.h
+> index aee3c28dbe51..7ba0903ebe0a 100644
+> --- a/drivers/remoteproc/ti_k3_common.h
+> +++ b/drivers/remoteproc/ti_k3_common.h
+> @@ -72,8 +72,8 @@ struct k3_rproc_dev_data {
+>    * @reset: reset control handle
+>    * @data: pointer to DSP-specific device data
+>    * @tsp: TI-SCI processor control handle
+> + * @tsd: TI-SCI device control handle
+>    * @ti_sci: TI-SCI handle
+> - * @ti_sci_id: TI-SCI device identifier
+>    * @mbox: mailbox channel handle
+>    * @client: mailbox client to request the mailbox channel
+>    * @priv: void pointer to carry any private data
+> @@ -88,8 +88,8 @@ struct k3_rproc {
+>   	struct reset_control *reset;
+>   	const struct k3_rproc_dev_data *data;
+>   	struct ti_sci_proc *tsp;
+> +	struct ti_sci_dev *tsd;
+>   	const struct ti_sci_handle *ti_sci;
+> -	u32 ti_sci_id;
+>   	struct mbox_chan *mbox;
+>   	struct mbox_client client;
+>   	void *priv;
+> diff --git a/drivers/remoteproc/ti_k3_dsp_remoteproc.c b/drivers/remoteproc/ti_k3_dsp_remoteproc.c
+> index d6ceea6dc920..b6042fe7bae7 100644
+> --- a/drivers/remoteproc/ti_k3_dsp_remoteproc.c
+> +++ b/drivers/remoteproc/ti_k3_dsp_remoteproc.c
+> @@ -19,6 +19,7 @@
+>   
+>   #include "omap_remoteproc.h"
+>   #include "remoteproc_internal.h"
+> +#include "ti_sci_dev.h"
+>   #include "ti_sci_proc.h"
+>   #include "ti_k3_common.h"
+>   
+> @@ -69,7 +70,6 @@ static const struct rproc_ops k3_dsp_rproc_ops = {
+>   static int k3_dsp_rproc_probe(struct platform_device *pdev)
+>   {
+>   	struct device *dev = &pdev->dev;
+> -	struct device_node *np = dev->of_node;
+>   	const struct k3_rproc_dev_data *data;
+>   	struct k3_rproc *kproc;
+>   	struct rproc *rproc;
+> @@ -110,10 +110,6 @@ static int k3_dsp_rproc_probe(struct platform_device *pdev)
+>   		return dev_err_probe(dev, PTR_ERR(kproc->ti_sci),
+>   				     "failed to get ti-sci handle\n");
+>   
+> -	ret = of_property_read_u32(np, "ti,sci-dev-id", &kproc->ti_sci_id);
+> -	if (ret)
+> -		return dev_err_probe(dev, ret, "missing 'ti,sci-dev-id' property\n");
+> -
+>   	kproc->reset = devm_reset_control_get_exclusive(dev, NULL);
+>   	if (IS_ERR(kproc->reset))
+>   		return dev_err_probe(dev, PTR_ERR(kproc->reset),
+> @@ -124,6 +120,11 @@ static int k3_dsp_rproc_probe(struct platform_device *pdev)
+>   		return dev_err_probe(dev, PTR_ERR(kproc->tsp),
+>   				     "failed to construct ti-sci proc control\n");
+>   
+> +	kproc->tsd = ti_sci_dev_of_get_tsd(dev, kproc->ti_sci);
+> +	if (IS_ERR(kproc->tsd))
+> +		return dev_err_probe(dev, PTR_ERR(kproc->tsd),
+> +				     "failed to construct ti-sci dev control\n");
+> +
+>   	ret = ti_sci_proc_request(kproc->tsp);
+>   	if (ret < 0) {
+>   		dev_err_probe(dev, ret, "ti_sci_proc_request failed\n");
+> @@ -141,8 +142,7 @@ static int k3_dsp_rproc_probe(struct platform_device *pdev)
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "reserved memory init failed\n");
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.is_on(kproc->ti_sci, kproc->ti_sci_id,
+> -					       NULL, &p_state);
+> +	ret = ti_sci_dev_is_on(kproc->tsd, NULL, &p_state);
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "failed to get initial state, mode cannot be determined\n");
+>   
+> diff --git a/drivers/remoteproc/ti_k3_m4_remoteproc.c b/drivers/remoteproc/ti_k3_m4_remoteproc.c
+> index 3a11fd24eb52..ddf8cb9974ca 100644
+> --- a/drivers/remoteproc/ti_k3_m4_remoteproc.c
+> +++ b/drivers/remoteproc/ti_k3_m4_remoteproc.c
+> @@ -18,6 +18,7 @@
+>   
+>   #include "omap_remoteproc.h"
+>   #include "remoteproc_internal.h"
+> +#include "ti_sci_dev.h"
+>   #include "ti_sci_proc.h"
+>   #include "ti_k3_common.h"
+>   
+> @@ -70,10 +71,6 @@ static int k3_m4_rproc_probe(struct platform_device *pdev)
+>   		return dev_err_probe(dev, PTR_ERR(kproc->ti_sci),
+>   				     "failed to get ti-sci handle\n");
+>   
+> -	ret = of_property_read_u32(dev->of_node, "ti,sci-dev-id", &kproc->ti_sci_id);
+> -	if (ret)
+> -		return dev_err_probe(dev, ret, "missing 'ti,sci-dev-id' property\n");
+> -
+>   	kproc->reset = devm_reset_control_get_exclusive(dev, NULL);
+>   	if (IS_ERR(kproc->reset))
+>   		return dev_err_probe(dev, PTR_ERR(kproc->reset), "failed to get reset\n");
+> @@ -83,6 +80,11 @@ static int k3_m4_rproc_probe(struct platform_device *pdev)
+>   		return dev_err_probe(dev, PTR_ERR(kproc->tsp),
+>   				     "failed to construct ti-sci proc control\n");
+>   
+> +	kproc->tsd = ti_sci_dev_of_get_tsd(dev, kproc->ti_sci);
+> +	if (IS_ERR(kproc->tsd))
+> +		return dev_err_probe(dev, PTR_ERR(kproc->tsd),
+> +				     "failed to construct ti-sci dev control\n");
+> +
+>   	ret = ti_sci_proc_request(kproc->tsp);
+>   	if (ret < 0)
+>   		return dev_err_probe(dev, ret, "ti_sci_proc_request failed\n");
+> @@ -98,8 +100,7 @@ static int k3_m4_rproc_probe(struct platform_device *pdev)
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "reserved memory init failed\n");
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.is_on(kproc->ti_sci, kproc->ti_sci_id,
+> -					       &r_state, &p_state);
+> +	ret = ti_sci_dev_is_on(kproc->tsd, &r_state, &p_state);
+>   	if (ret)
+>   		return dev_err_probe(dev, ret,
+>   				     "failed to get initial state, mode cannot be determined\n");
+> diff --git a/drivers/remoteproc/ti_k3_r5_remoteproc.c b/drivers/remoteproc/ti_k3_r5_remoteproc.c
+> index b1d04d082e44..a387848ac400 100644
+> --- a/drivers/remoteproc/ti_k3_r5_remoteproc.c
+> +++ b/drivers/remoteproc/ti_k3_r5_remoteproc.c
+> @@ -25,6 +25,7 @@
+>   
+>   #include "omap_remoteproc.h"
+>   #include "remoteproc_internal.h"
+> +#include "ti_sci_dev.h"
+>   #include "ti_sci_proc.h"
+>   #include "ti_k3_common.h"
+>   
+> @@ -140,8 +141,7 @@ static int k3_r5_split_reset(struct k3_rproc *kproc)
+>   		return ret;
+>   	}
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -						    kproc->ti_sci_id);
+> +	ret = ti_sci_dev_put_device(kproc->tsd);
+>   	if (ret) {
+>   		dev_err(kproc->dev, "module-reset assert failed, ret = %d\n",
+>   			ret);
+> @@ -156,8 +156,7 @@ static int k3_r5_split_release(struct k3_rproc *kproc)
+>   {
+>   	int ret;
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.get_device(kproc->ti_sci,
+> -						    kproc->ti_sci_id);
+> +	ret = ti_sci_dev_get_device(kproc->tsd);
+>   	if (ret) {
+>   		dev_err(kproc->dev, "module-reset deassert failed, ret = %d\n",
+>   			ret);
+> @@ -168,8 +167,7 @@ static int k3_r5_split_release(struct k3_rproc *kproc)
+>   	if (ret) {
+>   		dev_err(kproc->dev, "local-reset deassert failed, ret = %d\n",
+>   			ret);
+> -		if (kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -							  kproc->ti_sci_id))
+> +		if (ti_sci_dev_put_device(kproc->tsd))
+>   			dev_warn(kproc->dev, "module-reset assert back failed\n");
+>   	}
+>   
+> @@ -196,8 +194,7 @@ static int k3_r5_lockstep_reset(struct k3_r5_cluster *cluster)
+>   	/* disable PSC modules on all applicable cores */
+>   	list_for_each_entry(core, &cluster->cores, elem) {
+>   		kproc = core->kproc;
+> -		ret = kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -							    kproc->ti_sci_id);
+> +		ret = ti_sci_dev_put_device(kproc->tsd);
+>   		if (ret) {
+>   			dev_err(core->dev, "module-reset assert failed, ret = %d\n",
+>   				ret);
+> @@ -210,8 +207,7 @@ static int k3_r5_lockstep_reset(struct k3_r5_cluster *cluster)
+>   unroll_module_reset:
+>   	list_for_each_entry_continue_reverse(core, &cluster->cores, elem) {
+>   		kproc = core->kproc;
+> -		if (kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -							  kproc->ti_sci_id))
+> +		if (ti_sci_dev_put_device(kproc->tsd))
+>   			dev_warn(core->dev, "module-reset assert back failed\n");
+>   	}
+>   	core = list_last_entry(&cluster->cores, struct k3_r5_core, elem);
+> @@ -233,8 +229,7 @@ static int k3_r5_lockstep_release(struct k3_r5_cluster *cluster)
+>   	/* enable PSC modules on all applicable cores */
+>   	list_for_each_entry_reverse(core, &cluster->cores, elem) {
+>   		kproc = core->kproc;
+> -		ret = kproc->ti_sci->ops.dev_ops.get_device(kproc->ti_sci,
+> -							    kproc->ti_sci_id);
+> +		ret = ti_sci_dev_get_device(kproc->tsd);
+>   		if (ret) {
+>   			dev_err(core->dev, "module-reset deassert failed, ret = %d\n",
+>   				ret);
+> @@ -264,8 +259,7 @@ static int k3_r5_lockstep_release(struct k3_r5_cluster *cluster)
+>   unroll_module_reset:
+>   	list_for_each_entry_from(core, &cluster->cores, elem) {
+>   		kproc = core->kproc;
+> -		if (kproc->ti_sci->ops.dev_ops.put_device(kproc->ti_sci,
+> -							  kproc->ti_sci_id))
+> +		if (ti_sci_dev_put_device(kproc->tsd))
+>   			dev_warn(core->dev, "module-reset assert back failed\n");
+>   	}
+>   
+> @@ -827,8 +821,7 @@ static int k3_r5_rproc_configure_mode(struct k3_rproc *kproc)
+>   
+>   	core0 = list_first_entry(&cluster->cores, struct k3_r5_core, elem);
+>   
+> -	ret = kproc->ti_sci->ops.dev_ops.is_on(kproc->ti_sci, kproc->ti_sci_id,
+> -					       &r_state, &c_state);
+> +	ret = ti_sci_dev_is_on(kproc->tsd, &r_state, &c_state);
+>   	if (ret) {
+>   		dev_err(cdev, "failed to get initial state, mode cannot be determined, ret = %d\n",
+>   			ret);
+> @@ -1023,7 +1016,6 @@ static int k3_r5_cluster_rproc_init(struct platform_device *pdev)
+>   	struct device *dev = &pdev->dev;
+>   	struct k3_rproc *kproc;
+>   	struct k3_r5_core *core, *core1;
+> -	struct device_node *np;
+>   	struct device *cdev;
+>   	const char *fw_name;
+>   	struct rproc *rproc;
+> @@ -1032,7 +1024,6 @@ static int k3_r5_cluster_rproc_init(struct platform_device *pdev)
+>   	core1 = list_last_entry(&cluster->cores, struct k3_r5_core, elem);
+>   	list_for_each_entry(core, &cluster->cores, elem) {
+>   		cdev = core->dev;
+> -		np = dev_of_node(cdev);
+>   		ret = rproc_of_parse_firmware(cdev, 0, &fw_name);
+>   		if (ret) {
+>   			dev_err(dev, "failed to parse firmware-name property, ret = %d\n",
+> @@ -1067,12 +1058,6 @@ static int k3_r5_cluster_rproc_init(struct platform_device *pdev)
+>   			goto out;
+>   		}
+>   
+> -		ret = of_property_read_u32(np, "ti,sci-dev-id", &kproc->ti_sci_id);
+> -		if (ret) {
+> -			dev_err(cdev, "missing 'ti,sci-dev-id' property\n");
+> -			goto out;
+> -		}
+> -
+>   		kproc->reset = devm_reset_control_get_exclusive(cdev, NULL);
+>   		if (IS_ERR(kproc->reset)) {
+>   			ret = dev_err_probe(cdev, PTR_ERR(kproc->reset),
+> @@ -1087,6 +1072,13 @@ static int k3_r5_cluster_rproc_init(struct platform_device *pdev)
+>   			goto out;
+>   		}
+>   
+> +		kproc->tsd = ti_sci_dev_of_get_tsd(cdev, kproc->ti_sci);
+> +		if (IS_ERR(kproc->tsd)) {
+> +			ret = dev_err_probe(cdev, PTR_ERR(kproc->tsd),
+> +					    "failed to construct ti-sci dev control\n");
+> +			goto out;
+> +		}
+> +
+>   		ret = k3_r5_core_of_get_internal_memories(to_platform_device(cdev), kproc);
+>   		if (ret) {
+>   			dev_err(cdev, "failed to get internal memories, ret = %d\n",
+> diff --git a/drivers/remoteproc/ti_sci_dev.h b/drivers/remoteproc/ti_sci_dev.h
+> new file mode 100644
+> index 000000000000..897998a97d7f
+> --- /dev/null
+> +++ b/drivers/remoteproc/ti_sci_dev.h
+> @@ -0,0 +1,82 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Texas Instruments TI-SCI Device Controller Helper Functions
+> + *
+> + * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
+> + */
+> +
+> +#ifndef REMOTEPROC_TI_SCI_DEV_H
+> +#define REMOTEPROC_TI_SCI_DEV_H
+> +
+> +#include <linux/soc/ti/ti_sci_protocol.h>
+> +#include <linux/pm_runtime.h>
 
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
 
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+Unnecessary header.
 
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
+> +
+> +/**
+> + * struct ti_sci_dev - structure representing a device control client
+> + * @sci: cached TI-SCI protocol handle
+> + * @ops: cached TI-SCI device ops
+> + * @dev: cached client device pointer
+> + * @dev_id: TI-SCI device id for the consumer remoteproc device
+> + */
+> +struct ti_sci_dev {
+> +	const struct ti_sci_handle *sci;
+> +	const struct ti_sci_dev_ops *ops;
+> +	struct device *dev;
+> +	u32 dev_id;
+> +};
+> +
+> +static inline
+> +struct ti_sci_dev *ti_sci_dev_of_get_tsd(struct device *dev,
+> +					 const struct ti_sci_handle *sci)
+> +{
+> +	struct ti_sci_dev *tsd;
+> +	int ret;
+> +
+> +	tsd = devm_kzalloc(dev, sizeof(*tsd), GFP_KERNEL);
+> +	if (!tsd)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	ret = of_property_read_u32(dev_of_node(dev), "ti,sci-dev-id",
+> +				   &tsd->dev_id);
+> +	if (ret < 0)
+> +		return ERR_PTR(ret);
+> +
+> +	tsd->dev = dev;
+> +	tsd->sci = sci;
+> +	tsd->ops = &sci->ops.dev_ops;
+> +
+> +	return tsd;
+> +}
+> +
+> +static inline int ti_sci_dev_is_on(struct ti_sci_dev *tsd, bool *r_state,
+> +				   bool *c_state)
+> +{
+> +	int ret;
+> +
+> +	ret = tsd->ops->is_on(tsd->sci, tsd->dev_id, r_state, c_state);
+> +	if (ret)
+> +		dev_err(tsd->dev, "ti-sci device is_on failed: %d\n", ret);
 
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
+
+New line before return statement.
+
+Thanks,
+Beleswar
+
+> +	return ret;
+> +}
+> +
+> +static inline int ti_sci_dev_get_device(struct ti_sci_dev *tsd)
+> +{
+> +	int ret;
+> +
+> +	ret = tsd->ops->get_device(tsd->sci, tsd->dev_id);
+> +	if (ret)
+> +		dev_err(tsd->dev, "ti-sci device get failed: %d\n", ret);
+> +	return ret;
+> +}
+> +
+> +static inline int ti_sci_dev_put_device(struct ti_sci_dev *tsd)
+> +{
+> +	int ret;
+> +
+> +	ret = tsd->ops->put_device(tsd->sci, tsd->dev_id);
+> +	if (ret)
+> +		dev_err(tsd->dev, "ti-sci device put failed: %d\n", ret);
+> +	return ret;
+> +}
+> +
+> +#endif /* REMOTEPROC_TI_SCI_DEV_H */
