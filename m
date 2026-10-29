@@ -1,55 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283196;
-	b=ygdVnt3e4HgW+9eAaAVSpLCjK8Aaw+m69BuY6CvRtDBKnaZkF6LwjH+o9I9pe1dRu/B2
-	 Bvb0sWBkRbu34fsyynrDpbaPQ+J6URn2EFZpq2FwXPwqn/mPKwUdqHRS9EwENXeaWDfDK
-	 cS7rOzfzId/AQwRyDI767+3cYO+qh8uKtsJDn1xk8U5gFeBP+9kuaJ+/c9h7afV+RJnh+
-	 ZdTvbf/eV2xAwidsHQzaPUOAA82X2Qct2wjdusXk65k9arWuoi6eRN6MD0q3uT8dd7rvo
-	 YKua9qVE3UTT/Mne7DXU6bOyd7UtUobKaUh9y3bAl2S+shfKf+3i+RGChnF/VNUT6Qw==
+	t=1793283217;
+	b=ODBwyl96tVaArXAmLrxFD0Aw3APa3Mtb5YsloYoPm6cjtwVT6WBT5IsuwAGqtg0jELMs
+	 MhWltcv/giROJAT7bW5vxctiBwNhhF4GSnOvgjq3+X1zC4qzeTAymM8UxHQGqZvtPb/zM
+	 6ZZvC2kYOhGGur97x50p1SaYSmtCNsmGDYRWcmlljj0gSMDIuP1iufZJou74flbT1/cf2
+	 FeNP+v/CDQJjsQcOSuV+mOCEe7Hb0ZTtJJNUo/eoI5f0w1zaO5Dvi9P/pLJn5wt7yDc9V
+	 Qk58ZsPN8MnXlypIiHiwueNzkH0IfVJb5/RjJLtBQZD9JaANsJm8TJVTsrslxfXvCHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283196;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=iKi9fa1Klsxc3H4mM5m3XWdHRLpBfiA/5YAAlNBmJo4=;
-	b=0ZI5e32GAezd4sL7URZ3Iflyev+IMo4z9JSli0zhYSK9whlTPxQBcfWwuTQg3ognJKxQ
-	 Dn/k5n5D7owo/IsbbJ8efgRZ9FL8lZHZ7T6BsiATXFY8IEj/tDDBS8tOtdEn+fqC2/eVn
-	 bxauDN371ssZfw3x/gUI3IZKq2zdAYOgzcWOAxXMIMtz0DBTU+wRhejBQDtpJoNPVtCZL
-	 5KrdF1MQyDIhUxO4rGBO1qTIbNvMk2EPfM6i14th959HnBAlxaQqyaCwBkDg5/AwR173E
-	 KRRrfqVDBoaJQcM5hRh/9iqddejArepzX5sRmH1QUeMqU+EriZ4Z1OBe8oKDG1NiW0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283217;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=s1W0bgqQx0WQwVtzmLATVwimU38bihjww459vZ9xeOE=;
+	b=aHwiv5HUYDUpbrR/BBHdSDy+N6wwBcG/eXHP8zaTL+QotrSDFgNz+EVapQkOwDJEKmnU
+	 tkzInUIxeyZ9NJKgZ447KZiVeTV9jpXuTdf3PAFDKRHJa0RCMqLDcMeksM2HTt9Ez4QEL
+	 sc2xhpUkwjPDgRw56Jz3lvQGNCPPl4MCMvykkam1ypu8tByg3uWbEfgSt++/h2axJsS5g
+	 CXAYxAgQZsVEe7HTNsEfdfe198cEyOqDHOis4H5PIZbhOJoY/Q8NJ0rieYAbuLwsT70qe
+	 KvU6S3b7+8CxCM4HhftLR5QlAF5R6+PFRep4e307Za6+jTCwVPVhxh3A0wqw5jb8mFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=AihZAXH9;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QJy4hGDu;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F401B606A325
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:13:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F401B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17179606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:13:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17179606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=AihZAXH9
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 867C51A139E;
-	Thu, 29 Oct 2026 14:13:14 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 46C5C60360;
-	Thu, 29 Oct 2026 14:13:14 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4C8C1103287D5;
-	Thu, 29 Oct 2026 15:13:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793283193; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=iKi9fa1Klsxc3H4mM5m3XWdHRLpBfiA/5YAAlNBmJo4=;
-	b=AihZAXH9+98sBSigsaRLjEm2rl2KxNsvqwbAyAnd17LltXefyuQSlUU69Mgb2/Hpw5Fkan
-	Vt/EufyJcGdmT5wH3gVFrOn7mlh1NJOvc0RgrVQOtnXZ4CX+WF+nnFGh/BKwi/BDMpLGli
-	1u9cRnhl5xY/S0QFABSjPHPwtnDwSHTN/f9c82pbqaGdM+48Fy8C/7gKEY4vqLujg0wS1B
-	tPlh0kBbP4vhO6MVBRNRbF6ywgJSgYZaRdUFhqMVNUplzcvFGKb4CAM3klz/sgz0q7UsoK
-	2NHMuWuMaTul4hqOo4xvlp1UMpGJmFmEXjQhNnaPiBJjEZGkfxHrKPBE8m/RhA==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QJy4hGDu
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1a3c08d6928so2904574c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:13:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793283216; x=1793888016; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=s1W0bgqQx0WQwVtzmLATVwimU38bihjww459vZ9xeOE=;
+        b=QJy4hGDuXO2PawLQQXFFmJ93aYZkWvYOQ8fcPwvENINg6flF6a+GBzGLrf5GyjVGSN
+         QmMdeD4B6xnw7nOcTkhukMfNFmx0FCCZylaXoDqGJ2jI+75tLbje9wTN8yym+qelQhNi
+         XMiM+N5DVSH+ow9SBFOEDprXxDGxWr0quDHjCqVYfWDZM9amqNd2ygxcayuqls0cn404
+         6iZW/OxVYwF0yUDItaxTXz1Ztpg5xWQ2QbvDqxb9Ivw5jE38mDTi7maJzWbRdXrWL895
+         Lh1p0kMaDVWLj7al+DhppkZHmK0ztjqYpqpN0gbz3FIDlc/m81m2l+23DkKhQkemokqg
+         W9ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793283216; x=1793888016;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=s1W0bgqQx0WQwVtzmLATVwimU38bihjww459vZ9xeOE=;
+        b=ysivnWrdqf3jVmkoFdR3brVvUaoTt+mRNK8TsGL4V2ftdh2jtI4k07ZqxfxJffKSsJ
+         lYk8oQNPwPO5QnZoPsXiUdxPN2dE/kZTs0m//yev/ZekMyzsEc29W1cFPM2vLLcAHaN0
+         gi/e523oM+cPztnFV3h9RtRkqbwENNHD9lq3EUWMVPKxOZ8DkieQJhFw3Dbce0bXZGZS
+         LyYN1iAOPobPZopf4Kvj7Bi1IEbAF40AwOrVhwUYrshPU+T00NHS7tKolLAIZO5pFDuW
+         jgVvIBorjIp6k8Yc79Cj09COdiykExMQobe7l36/dQHrwWM+7IN+iDgCqc9OcQ5dufjf
+         YRrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzpwRv6uUFVJoq5tmb5MPfNJm/7GPO5c2oz2fOlwcfJOqLrez/s8Gw10SLIVzCIRPnraUBKGNbeIRFCW2E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLa0AZaLicXx5NnDc4SpyqJRcQMw1kWYKskWMkuxnqtzD9IaB3F
+	hT2L88MK+uWukwXV54EQlkd7yNM0p5QgBRi/ueNnbembhNvS5T+sez6i
+X-Gm-Gg: AYBFou33yF/g2vBy1570Wi0QocGttSCPB9wGFlBGOQUyvqbPAou77/k1+fbrvPv+f+1
+	KGiea8L6/gu5BvN48OkCM630Caj7o1D1O83lHhQ04yVnoqz1a1n1ahcnW3BkKANi0DlyUYd5Ocy
+	TwTZlENaSUORxAvfsm3CS93phIFakn4p6tg50j/V8TM+ZMW2Bc8KvgmP5///l2F58mF8R5Qsy/k
+	QZ3WIrn4qrEFJCinVkAIds0fPDB7/Bl8pzQ1tARlz7TEzrvnhsLAm5PL0sf8btCRqeOHssyicjN
+	rzC3vnN2ENUx0dthBcURJRAh+V0zZY5s/dQ6sYcTr2xzCu+aIf4lDASKfDN+RvmshUAvZFlEZ1I
+	QBQYLEWzaPr3cPPT1VQKz7eNkgCdq2/rZnHq1OGVKl+TU/SQ8E2o9Kj7hERLoiOmsW4KbqecxSB
+	TaK9Aj1LzKrqKuSJEOJ0lis+Jir1qMLJh6l6njg69a7c+LO9YrGkZlgiihNOS3qMH/7rIR4852R
+	1tNt+q20U55aNzntBD/J8I3je3yQ1wRkPPMcMvHL+LSQ2ARiLBx4xEYDGSjt41W+brj7jKelQX5
+	ag1U0OphJ7AwggmE0ML/Vu76se0EQeOeE35AJFpVwzkyb7RHqGguLtxiZyp4rdxnE4eKDyHgJxQ
+	=
+X-Received: by 2002:a05:701b:455b:10b0:15e:3a65:5b97 with SMTP id a92af1059eb24-1a6cd77efe7mr6916673c88.16.1793283168700;
+        Thu, 29 Oct 2026 07:12:48 -0700 (PDT)
+Received: from [127.0.1.1] (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d76814bsm15197319c88.10.2026.10.29.07.12.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 07:12:47 -0700 (PDT)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan <shuah@kernel.org>
+Cc: Hongren Zheng <i@zenithal.me>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] usb: fix over-reported actual_length in usbip/usbfs
+Date: Thu, 29 Oct 2026 07:12:20 -0700
+Message-ID: <179328314073.648427.8311262845412746237@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,129 +95,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 29 Oct 2026 15:13:09 +0100
-Message-Id: <DMHDU487Z307.JDRRJ5K8E53A@bootlin.com>
-Subject: Re: [PATCH v2 1/4] regulator: dt-bindings: Add TI LM51772 support
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
- <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
- <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
- <20261027-paul-lm51772-v2-1-b2a767e34722@bootlin.com>
- <20261029-indefinable-bustard-of-ampleness-44abaf@quoll>
- <DMH7AO649J2M.2XFQNV3VXL6UP@bootlin.com>
- <a4a57e41-4e1c-4c94-8b92-6b50f8321ee9@kernel.org>
-In-Reply-To: <a4a57e41-4e1c-4c94-8b92-6b50f8321ee9@kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu Oct 29, 2026 at 1:42 PM CET, Krzysztof Kozlowski wrote:
-> On 29/10/2026 10:05, Paul Louvel wrote:
->> Hi Krzysztof,
->>=20
->> On Thu Oct 29, 2026 at 9:41 AM CET, Krzysztof Kozlowski wrote:
->>> On Tue, Oct 27, 2026 at 10:39:23AM +0100, Paul Louvel wrote:
->>>> +          regulator-temp-warn-kelvin:
->>>> +            enum: [0, 1, 368, 383, 398, 413]
->>>> +
->>>> +          regulator-ramp-delay:
->>>> +            enum: [40000, 20000, 1000, 500]
->>>> +
->>>> +          regulator-min-microvolt:
->>>> +            minimum: 1000000
->>>> +            maximum: 48000000
->>>> +
->>>> +          regulator-max-microvolt:
->>>> +            minimum: 1000000
->>>> +            maximum: 48000000
->>>> +
->>>> +          regulator-min-microamp:
->>>> +            minimum: 500000
->>>> +            maximum: 7000000
->>>> +
->>>> +          regulator-max-microamp:
->>>> +            minimum: 500000
->>>> +            maximum: 7000000
->>>> +
->>>> +        unevaluatedProperties: false
->>>
->>> Place this line after description, that's the convention for child node=
-s
->>> for readability.
->>>
->>>> +
->>>> +      vcc1:
->>>> +        type: object
->>>> +        $ref: regulator.yaml#
->>>> +        description: |
->>>> +          LDO regulator for auxiliary use.
->>>> +          It can used to power, for example, a PD controller that wil=
-l drive this PMIC.
->>>> +
->>>> +        properties:
->>>> +          regulator-min-microvolt:
->>>> +            minimum: 5000000
->>>> +            maximum: 5000000
->>>> +
->>>> +          regulator-max-microvolt:
->>>> +            minimum: 5000000
->>>> +            maximum: 5000000
->>>> +
->>>> +        unevaluatedProperties: false
->>>
->>> Place this line after description, that's the convention for child node=
-s
->>> for readability.
->>>
->>>> +
->>>> +    additionalProperties: false
->>>
->>> Place this line after description (for relevant block), that's the
->>> convention for child nodes for readability.
->>>
->>>> +
->>>> +  ti,sync-pin:
->>>> +    description: |
->>>> +      Selects the function of the SYNC pin, used when several convert=
-ers
->>>> +      operate in parallel.
->>>> +    $ref: /schemas/types.yaml#/definitions/string
->>>> +    enum: [input-rising, input-falling, output-rising, output-falling=
-]
->>>> +    default: input-rising
->>>> +
->>>> +  ti,ivp-thres-microvolt:
->>>
->>> Use either existing over-voltage-threshold-microvolt from battery schem=
-a
->>> or ti,ovp-microvolt from the other TI binding.
->>=20
->> IVP is not the same as OVP.
->
-> ... because? OVP is overv-oltage protection, so ivp is not input
-> over-voltage protection?
+The usbip vhci receive error path gives a failed URB back with the
+peer-supplied actual_length, and usbfs copy_urb_data_to_user() trusts
+that length for non-isochronous URBs.  A malicious usbip peer can make
+usbfs read past the transfer buffer.
 
-Sorry, for me, OVP in this context was output voltage protection, and IVP i=
-nput
-voltage protection. I prefer 'ti,ovp-microvolt' but it does not really stat=
-e
-that this protection is for input voltage.
+Patch 1 clears actual_length on the vhci receive failure path.  Patch 2
+clamps the copied length to transfer_buffer_length in usbfs as a
+defense-in-depth measure for any HCD that violates the actual_length
+contract.
 
->
-> Best regards,
-> Krzysztof
+Cheng Yongkang (2):
+  usbip: clear actual_length after a failed receive
+  usb: usbfs: clamp the copied length to transfer_buffer_length
 
-Best regards,
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+ drivers/usb/core/devio.c    | 7 +++++--
+ drivers/usb/usbip/vhci_rx.c | 1 +
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+-- 
+2.34.1
 
