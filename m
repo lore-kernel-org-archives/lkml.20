@@ -1,55 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.77.81
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793257397;
-	b=BvP6u2D56pDyGM6dHV0hOAMISc2EcmNSXMXi8ZSinvWtnLEQp3k5q3VrjszDFxm135+4
-	 1WF7AiZr5SsenTxaJmvU1ZBmLeNFggzobs9/xDjPSpFehaSCNUaXZR5Gb7u/qNUhEgL92
-	 SbsQvGA1fAVghRrIiLB+ElLWZv3DnlziUqpUDsRzFyo5h34rjy5NmhxXRkunrQm0oiNKZ
-	 CowGAgeXpfJSA57W6VUddSOi3JslHqPXUnDjbA3OjtVgTVY1cTFuM9Ne2PmXbYEpH2eiB
-	 Gcdx++Yjreo8XyBOmX7blQ4VOFcAF4hU9KAaItu3q7SM8lJDembDsBHwVeAax96v0iQ==
+	t=1793257395;
+	b=UVrphedBR54IPTZFS9Zhg/2vQ4102bYnI0XtMaH6cSiT2GaoTNTEgcL6JZIqWBq5lbSX
+	 URKZ9j5TikO/8SdDEDKojVVNcf8Kb0E4ebtw5wt6SdydmQkCiQtK2m8KjfYvfHCuW69TR
+	 aWy6foXcYhssDuqoSldXEiBhL84BX2ZR4q4EtYiMcVxp9SaCHp6HoUACXyLuK+GP+3XQd
+	 S8uR/heFISHVGn9Ymcd+ngjpIziNdlh0eEGRrWtKCEXMbVtj2TiTBoUoZF+HGVB5YylC+
+	 bNC841qmYA5TrO9+3mH9nPUroSsDTm+CqVy1sFGH2QfwhR+13w/zUutbnvnAmot5hlQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257397;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:Feedback-ID:X-Zoho-CM-AccountID:
-	 X-ZohoMailClient;
-	bh=siAtoA3LmwM66cto6wEnaQCAaHagsf4O0rPv61+/NIY=;
-	b=oqb7I7y5Tx5mG4bfjb3FtutTmYRgCDUPxwdiPoByUEy6r1kNfqz42OScQti4NkSdEoMR
-	 1tecYpkzKoZvz2I5Ev6LCbM0gxl1AabNh6CSt+gor86RUQW/VQ2vcp4KcaWVnuDGYg0KR
-	 hOYk10OBss+ZTn6mfwIyANH+RvUhExJvghg30c0ELnj9qKys6PmyMGfubMvetipq5IKGq
-	 sBiG8IsqBDLFwPVbvbbNCfj55MEMZsMAHJX6BdTStmwlVi3f4JREZxhG4dvBDWLw8JOD6
-	 hrNzzvLDw5otqwYD2XgOLTJr1+XWo5GZF2iOX4E8v9EuMwQYARmSLdDOWDaQXobwTPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257395;
+	h=DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=L4qlYw2Ti0xieIbsUiL39i8/aWrBA3ON0FEjWC5kppc=;
+	b=fon0JP+8WZjaMTdQOrY22ArBz+oZ/ysP5G+NTFDYPVbAIerna9ad8eYH0WlD2WLSIdVR
+	 ZzkpNm2m8jTcM0/yNw1cytn+1jfW8vpb5d5jTV79ydwOWQnrC5trbmPQ4reshlgFKjyUj
+	 NO16oy3gwaMufLzKlwSUHhTSnF2dgfVLTVL9SxEIgQ/0sO18/WiZX3q4hQXzlQuFDtaV5
+	 fXU5cXHNRlNQ9SCTc4Xe6pyg03j7F+aZT3aJ8wDHcDlsx2Juewk8fgFSWXmWnBlY5N1bN
+	 kh03AbTMdveBjicIFkHDJmwViYFTb6+IMQvahGC9nYkao3jFR9MPnMaaGyHBUztaImA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zohomail.com;
-	spf=pass smtp.mailfrom=zohomail.com;
-	dkim=pass header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=QOzAm7gt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.94
-Received: from sender6-pp-o94.zoho.com (sender6-pp-o94.zoho.com [165.173.180.94])
+	dmarc=permerror header.from=gaisler.com;
+	spf=pass smtp.mailfrom=gaisler.com;
+	dkim=pass header.d=gaisler.com header.i=@gaisler.com header.a=rsa-sha256 header.s=selector1 header.b=YlwVzHRz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.77.81
+Received: from MM0P280CU010.outbound.protection.outlook.com (mail-swedensouthazon11022081.outbound.protection.outlook.com [52.101.77.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9471606A31E;
-	Thu, 29 Oct 2026 07:03:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9471606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BE0606A31A;
+	Thu, 29 Oct 2026 07:03:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=gaisler.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gaisler.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zohomail.com header.i=@zohomail.com header.a=rsa-sha256 header.s=zm2022 header.b=QOzAm7gt
-ARC-Seal: i=1; a=rsa-sha256; t=1793257384; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=bDX0ikBnqRfvx0lJHIydfPHNQCLV9MSPR12BgbmRBOirqQesxNVKu1mJsZRtjlhqTpySEe7Z3sZc2IjTyXTFfAItRDPAUCQ1eSZ9981/bIKryFW4tUMy5UmAQYGwlnD9mGJZK8RBs/s+5tPJsPBau3TilVqx4xSV2qVxJ5AuKnE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793257384; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=siAtoA3LmwM66cto6wEnaQCAaHagsf4O0rPv61+/NIY=; 
-	b=jiH3gRfJfHAw88YOTuYlK4bfOkfZmlFb1O+LBUNf9k2T/Ptk4UXNCUWJVV5ubUcoU+J40I2hyfyEdJPchfUS7eaIXLvmKdS0WeMiGY/fYYOawrFkdDSMKPZpgnBtOe11+yVLAhniMXNBf0nZx2NbVGg4f0tWCjA1/tCpiVDfjOw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=zohomail.com;
-	spf=pass  smtp.mailfrom=ming.li@zohomail.com;
-	dmarc=pass header.from=<ming.li@zohomail.com>
-DKIM-Signature: a=rsa-sha256; b=QOzAm7gtHmJvMP6qJpIhb4y52Te/5xkhHQnMnilgtXh2fl37Zagu9d6sCwEoGhP9LCYBYZyjIn3qzxGh1qinU/4SnJm0nUzjO6OL5YH7VNPXEKrr4JAneH0KA0iwPz280eM+sPVrUPNKDeeUZDGoD8pyLXPlPAe+718406ZPc4Q=; c=relaxed/relaxed; s=zm2022; d=zohomail.com; v=1; bh=siAtoA3LmwM66cto6wEnaQCAaHagsf4O0rPv61+/NIY=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793257383109417.86376047976523;
-	Thu, 29 Oct 2026 00:03:03 -0700 (PDT)
-Message-ID: <d80771e0-29c5-4a32-9887-72a56190c9b9@zohomail.com>
-Date: Thu, 29 Oct 2026 15:02:55 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gaisler.com header.i=@gaisler.com header.a=rsa-sha256 header.s=selector1 header.b=YlwVzHRz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tdO9EgM+1XQYi7py0xkzoSqgawtR5BfnJHu6odcYIJFHzm/pOYyLPWsDBwQj2uPbUPT2H0o6whSCLP9Y/ZErsZrQOJPujN7DCM3QgN4a73tEcUMw2BoTWj7O2wwXgEPbJtoZlzqbIGUpVKQc6spTlUwVENxLcgIjiYnOPBk9PQtKE1QoklsHnWxHi7R/IkVI0s7VRwhIUubaQvgJuNAmKFlzcLZRv2ViH8DShw3uAyoivHyWrA4Utg3VGng1jvBi0uwFjXSa7f7f21m4Q5jIVqxUF7Qxvv8jM6Eva9MfahgXCRaBr3maYWbWDtrPR4ZZvrwVeyBTqtU1XW7BV7RVgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L4qlYw2Ti0xieIbsUiL39i8/aWrBA3ON0FEjWC5kppc=;
+ b=tvYFz17aO2cqUW4QR2KvRA+dQWzFEZ9sxQS78m9OMPDyP0uZBbDbmLPR8lk4oUD+xtpta/HY3oNiqVu4FOG0T8Kchi1Ehpz+C/3w1DfN22thx2bxCN1n0aybIHLmB++IffKz07pLkwoqje4w6hAXbMqczg/3nIRKl0DgP1OxXd/DKDDrP4tP5DEZu3uRUmp4dHZNFw6Sd451qijCSOFW92ag5y7punYZNdJVT1bH+LZwcfTCTZY8lsTdK4SBIs6Jbhj+/8sKAPSYedh0NGu10jAKLpNadkrNB7LY+1iw5kmPP24cI1Mn2bnavDbpvJTrfFYNfG6YFz3MEVDiNm9nfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=gaisler.com; dmarc=pass action=none header.from=gaisler.com;
+ dkim=pass header.d=gaisler.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gaisler.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L4qlYw2Ti0xieIbsUiL39i8/aWrBA3ON0FEjWC5kppc=;
+ b=YlwVzHRzp6svJ56Y8i5E67ZGTfPSh9GzjCYMI+hRjfoGrxaVeQ8vO3681j0JA8gSbUHjztxscJA0XrbNtjyRtA+IkDgIMXrCBiw2llzkqx4rhjjB+K+OZD734flT+gt36DWBYCxwzn2P/ZOPyC3a/TuelpQDl8139qtwyMqRbXv9tUv7OaQZRsPfZi3F6rjR2KU5kjKUGga8XewJgEY5cK16t7eDZp/HxOZlyz9Pm3WnksBS6poIJrSom4SKwtyUf7OVCMxYuBaFIYYzduH8jlB0J5hfJ4RGKNnAvqRq2u8pPKKiQfCCgeM26z31AF7Nt0VMcLGsgzmAtpFBVvSNLg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=gaisler.com;
+Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:2f::5)
+ by GVYP280MB0126.SWEP280.PROD.OUTLOOK.COM (2603:10a6:150:1b::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 07:03:08 +0000
+Received: from MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::1f13:f10:e16b:7939]) by MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+ ([fe80::1f13:f10:e16b:7939%4]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 07:03:07 +0000
+Message-ID: <2c9bc34c-f0e0-4b71-a1d8-bc2881d1a7d2@gaisler.com>
+Date: Thu, 29 Oct 2026 08:03:06 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [GIT PULL] sparc updates for v7.4
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: David Miller <davem@davemloft.net>, sparclinux@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <5df90753-163f-44d3-ae93-c6be6ca8647c@gaisler.com>
+ <CAHk-=wgrPOQTFxy-mV2EaWLj9RvHY151sQTQ8jc7e0FiorhvDA@mail.gmail.com>
+Content-Language: en-US
+From: Andreas Larsson <andreas@gaisler.com>
+In-Reply-To: <CAHk-=wgrPOQTFxy-mV2EaWLj9RvHY151sQTQ8jc7e0FiorhvDA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BE0P281CA0030.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:14::17) To MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:190:2f::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,524 +97,219 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 09/16] PCI/CXL: Cache endpoint HDM state during PCI
- enumeration
-To: Srirangan Madhavan <smadhavan@nvidia.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
- Jonathan Cameron <jic23@kernel.org>, Vishal Verma
- <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20261011021422.3428136-1-smadhavan@nvidia.com>
- <20261011021422.3428136-10-smadhavan@nvidia.com>
-From: Li Ming <ming.li@zohomail.com>
-In-Reply-To: <20261011021422.3428136-10-smadhavan@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Feedback-ID: zu08011227403eb141366044df6aa1131e00003495e3f25ea589af0f55595944b9af85efbb9220a397eda728:ZohoMail
-X-Zoho-CM-AccountID: abd763e7b9fa23acf4f42a44f9876d2d993e05abdb9290f9ccb1008c977bf7f0
-X-ZohoMailClient: External
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MM0P280MB495062:EE_|GVYP280MB0126:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35a0d842-2251-4556-0bc3-08df358aaf85
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|261028144727099003|11063799006|4143699003|56012099006|261009223027099003|261022115727099003|261026121527099003|261021121427099003|261021123027099003|261026140227099003|261022105027099003|10067099003|261022075727099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	yqaqou2WaeHkpSOCfrhNxbfa1FKJFUvi8fsT/EBoVLV6+ck21MOZw/II7So44YOTKDwqW3yahpHyTPYTNQMOyHV71+4s9taDs7pNXbsFbD5k6MLMpCDRtHuZQKqJAlFQFJ3widroX7quhUew8xJyq4xGrWGuDnayKsyGbE77PedzxbODq5RUHfqgU04IHeq1a7I1pjmSteJYl1ztEcTVjQ3i4oQDinhBgl/0KeD7Epq9h9Ee6zizTCA/NSxPkougS77Ac/+9nUFFuIw/0NqH2gnophkj1fTciDC0TLaiHleI0yjCcEBOQclEe1M2A2r68NNAM4aUVRBFTxFABXbKiHoTw4AG8vnJcJ6nVZp2IDXBPUHBd3YIzbVvbMzr2+Qu3NznNFIr1nV1N54z+xNLfdppcz7nRC9MqUDxzO0/0+GcY0EkeXVPzomqoFC01/IF7W+K6U2GOyJwbzGPR+d/sqA2tfEDwuJxEk/02YphSQKs/jXxnCVA8y6QSXJ3/RkqD/PZAQu7SM/qQGbkJRRrVAmzpPrrYRzdKiCb/NH0mT5LST0wPWlOZVc+GIL0ZKU2V7ku8Sv7is387HTtpqMenLXp13r0SyAXe+W9ihsQ+AYA1x1uf9axvpryTfYbzdsSPXY10iSaGpSVdRbzblY5vmTbZgn4zG80vbrmp+Pek1k=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(261028144727099003)(11063799006)(4143699003)(56012099006)(261009223027099003)(261022115727099003)(261026121527099003)(261021121427099003)(261021123027099003)(261026140227099003)(261022105027099003)(10067099003)(261022075727099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SGh4VHVwc0Z0UmIzRnd3SDBRSEd2TlZzVC9aYzVnUHB5MXo5aTN5dHpyaDdB?=
+ =?utf-8?B?VW1abWFONjQwd3pkdkhSV1ZUOVZqSDY4amYxdVFUZU1QUzl0WlM4MHE3dXl0?=
+ =?utf-8?B?SUlGa1NIZFNQdERBdU1EeXdUajYzVlZJVllvTGJVNUVjeEJOTEovSjhoZzdh?=
+ =?utf-8?B?OWhOUG5PaXN5aU5BSTMycWNIcHhqR1diS3VPNU5OSklySEJ4VG0zakl3RUdK?=
+ =?utf-8?B?aFEyYUgwdVZkWEZkMEErK2pLYy9oZEVkZ01rNFY4a3A1NWVYaXFSQTdQSGNY?=
+ =?utf-8?B?dGcvdk5nN2FLVlQ1Zzd6VEYxamg1cGNTbEhaR0VlcVFPS3lEd0lDOG44aDhO?=
+ =?utf-8?B?YkQvQkJTV2laK1F6TXRQaWY4RmJ4UW0vZFcwWUJvVlYrbTN6aWFCcnF5NFdz?=
+ =?utf-8?B?VDhVUXdvZjRaRHhWeHdoQ0xkdVdiV3gxdHpqVEFoVlZoWU5lUmRpS2t5ekJQ?=
+ =?utf-8?B?NlNzR2hXdGNkZDJaUXEyZThXZktGbTRLVDJrK3pLdDlxZk4ycXpZc1B2cXd1?=
+ =?utf-8?B?MFNHWEE1bHdCbG4rVU11ZW9zcmpOVHpFZ21abWtiTHJiS1MxV2hsZ1VvZDgx?=
+ =?utf-8?B?QVpFSC9BL2wzTWoyNHFTTXlteEJnU1l0UWVvRG9COGhBbzNaMHhDVjR5a2xp?=
+ =?utf-8?B?R2dXdnd5djZnOGZFaVhWNU1VcElkUmFqSVN0dHIzb1dBQ2NEdlNXNGZPYW5a?=
+ =?utf-8?B?U3ZOd1p0VU45ZXJyaWQ0QWcxc2g3OVlaSlRvVm9Jdlk5T1JMOC9Qdk1tNHov?=
+ =?utf-8?B?S29JU3c0bVYrNGNVM0tWb250MmUvQUtMR3dQc3ZSWU5INHZGeDZQazFLdjd6?=
+ =?utf-8?B?eWRkOEFGZ2VyaDRJSnJSb1BZNjFhUDZ1KzltMU1sbFAzOHVtVGpCZi83STAw?=
+ =?utf-8?B?MUs1MjI5bnV6aDFwUXBzbUVFU1FIWUJCVGk2OTlSREtDc1dzMmtyTzFzdWlS?=
+ =?utf-8?B?UXVaZnV3NVpQVFljQUhtRzdiTExZTXIrYU5OSlJDbDQ3eDd0WWs1bzVGQlht?=
+ =?utf-8?B?NDk1SW1GV1EwTGVjWGZ2SjhNR0l3S0VSb2piVFhEVW9Vb3p5N3NHMzJnd2Y0?=
+ =?utf-8?B?Y20zdDBxc21IMmMvRjRSenFEaGFNb2JJNXdlbk9HY1IxSDZuaXhCR0JFdm1P?=
+ =?utf-8?B?dDVYSTV1MlRuUmZKb0s4cGhFWmlpcVBnWWc3RUdHYSsyS050dWtXUTZ6NHFR?=
+ =?utf-8?B?WDN0dlUyS1Q5dlYybjhneHVIV01XaU90bkFqU0RtZHc2TUpMV1ljYzlvZThN?=
+ =?utf-8?B?dHdQVVNSRUNFZ0lqSnhWbUdVa1VXbmJhR1h2SGNYT1ZtZ1YwSm82bEoxVzJm?=
+ =?utf-8?B?MTQ2cGE0VU5hdG14cUhVU2FaOG9vOFl2anFSbzBydUoxKzRVUG9yWENBajR1?=
+ =?utf-8?B?dFdNKzVqaWVmaTVzQnE3Ump6aVREc3FqK3NsQjF5V3dZaHVRSXZWQWZtYUEy?=
+ =?utf-8?B?SGJ2dks4Z2tnOTQ3aGhpSEs1MHljM1k3M045a0NneE5JNTRTVzhycTI3L2VK?=
+ =?utf-8?B?SUwwbUNtWXFMa1FMUkVjY1daSDJYY3VGZG5RbnVzYWVCVnF6T1E0QkNNNGlG?=
+ =?utf-8?B?QW1jdktBUDRYaXBlZHd4R04wTWIrc24zSmhDdEhXMkk1d1g3d1FhdmFqNzJN?=
+ =?utf-8?B?cG40eHVFUGtVQ3lxRlhNT09CWXAzNzJ4VDlEQUhPTkFsbTd3SmNJUi80NEwz?=
+ =?utf-8?B?TVRtZmFmZWd4Z3MwNnN0V1JHMXFHODU1MS83ZS9KMkVTY2lzSkkzdU83OXdT?=
+ =?utf-8?B?dUphN1dLdXdlbTFvcVU2ZmlKYUFkUTBja1lCQStsWGl0RUNmQmFNOFRVVzY5?=
+ =?utf-8?B?MnBvQk9qRUhzN29US3NPOXpsb3ZiK3JZNGVMUEQvdExUd09TSUVjM0tFY0Ni?=
+ =?utf-8?B?dmd2Y3pBSytLemVHbkZVeEw1dWtaNXNKdjNpdzMyTUdiQXJReS8xYkRzb2py?=
+ =?utf-8?B?THVEVFNIaGVPNkFycFNKSXdRNzlGS1FaS1ZyODh0M3hEUnZDUFJGK2dYL3pq?=
+ =?utf-8?B?dzVJbWZFZVdmRWpudG5USnB5WTBxczhhTE9wQmlobmdkUUs2T2VFZ1VyV05k?=
+ =?utf-8?B?ZmZWT0d1a2c1aEViUnBZNmN4SnlBQjZwa05JaTNVam9rUnYyVU9MaE9URHRa?=
+ =?utf-8?B?K0VSMzlDcEg4ZWxaRzBKQi9JUE1yTUZjQTFJSWJRZXM0YWxmeC9MbytRWG9m?=
+ =?utf-8?B?NEcxMGRQVFJ0ZE1GN01IdG43bE5xemVMMkh3TEVrNmdxdFovUWFEMk81eEY3?=
+ =?utf-8?B?QytpWFN1ZTdOVkxYS0hUdTVSZmZHWG9NL281djF0a0w2Rjd3SGtkTExYbVM3?=
+ =?utf-8?B?bk54Y1pQTmMxZUNOMWVleFplQ2QxS1VzRUQ5bzB0Y3E1UGVSUlIxSWN5NW1I?=
+ =?utf-8?Q?HxH5PZ5mRrvndQAI=3D?=
+X-OriginatorOrg: gaisler.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35a0d842-2251-4556-0bc3-08df358aaf85
+X-MS-Exchange-CrossTenant-AuthSource: MM0P280MB495062.SWEP280.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 07:03:07.7943
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 91fa4a59-2167-458a-8318-e45d80469d7e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8vWsMCwsiw3CmzoLBp1EfBnjZ+jrnyxKzYcj19xR1h8rIeHErk2OEk7B3mPb0A+/IHZxf1cJ8VJh0nRU8ToPHFKwgpw2pMC8gnSBFSOIJQA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVYP280MB0126
+
+On 2026-10-28 18:03, Linus Torvalds wrote:
+> On Wed, 28 Oct 2026 at 03:44, Andreas Larsson <andreas@gaisler.com> wrote:
+>>
+>> This includes the following changes related to sparc for v7.4:
+> 
+> Send them for 7.5
+> 
+> This is the second week, and the commits are all apparently basically
+> just a couple of hours before your pull request.
+> 
+> The merge window is for things that were ready before the merge
+> window, not for hurried last-minute updates.
+Hi Linus,
+
+I got a late Tested-by for one of the patches, "sparc64: increase kernel
+thread stack size to 32K" that I picked up already 2026-09-27, that I
+inserted just before preparing the pull request. Sorry about that. Apart
+from that added Tested-by, all changes has been on my for-next since
+2026-10-23, and most much longer than that, and with that included in
+linux-next.
+
+Below follows a pull request for my original for-next before the added
+Tested-by. I hope you can take either my original pull request with my
+explanation of the one below if you rather want to have commit dates
+that better represents when they were picked up.
 
 
-在 2026/10/11 10:14, Srirangan Madhavan 写道:
-> Cache HDM state in pci_dev->hdm after BAR resource setup and before driver
-> binding, so reset can restore it without a bound CXL driver.
->
-> Save the HDM register location, decoder settings, and Device DVSEC state.
-> Validate capability reads and decoder counts, and restore PCI_COMMAND
-> after temporary MMIO access, reporting restoration failures.
->
-> Keep PCI discovery separate from shared HDM helpers. Move cxl_rwsem into
-> built-in state code and protect cache publication with its DPA lock, so
-> the cache remains usable when cxl_core is modular.
->
-> Link: https://git.kernel.org/pub/scm/linux/kernel/git/djiang/linux.git/commit/?id=b12baa1105f33cc1a10f9c9c0c6376194397d9f3
-> Suggested-by: Dave Jiang <dave.jiang@intel.com>
-> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> Assisted-by: LLM
-> ---
->   MAINTAINERS                  |   1 +
->   drivers/cxl/core/Makefile    |   3 +-
->   drivers/cxl/core/hdm.c       |   5 -
->   drivers/cxl/core/hdm_regs.c  |  99 ++++++++++++++++
->   drivers/cxl/core/hdm_state.c |  64 ++++++++++
->   drivers/cxl/core/pci.c       |  17 ++-
->   drivers/cxl/core/regs.c      |   9 ++
->   drivers/cxl/cxl.h            |   3 -
->   drivers/pci/Makefile         |   1 +
->   drivers/pci/bus.c            |   1 +
->   drivers/pci/cxl.c            | 223 +++++++++++++++++++++++++++++++++++
->   drivers/pci/pci.h            |   8 ++
->   drivers/pci/probe.c          |   1 +
->   include/cxl/cxl.h            |   6 +
->   include/cxl/hdm.h            |  12 ++
->   include/cxl/pci.h            |  13 ++
->   tools/testing/cxl/Kbuild     |   1 -
->   17 files changed, 454 insertions(+), 13 deletions(-)
->   create mode 100644 drivers/cxl/core/hdm_state.c
->   create mode 100644 drivers/pci/cxl.c
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c2414447892c..b874340b0265 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -6572,6 +6572,7 @@ S:	Maintained
->   F:	Documentation/driver-api/cxl
->   F:	Documentation/userspace-api/fwctl/fwctl-cxl.rst
->   F:	drivers/cxl/
-> +F:	drivers/pci/cxl.c
->   F:	include/cxl/
->   F:	include/uapi/linux/cxl_mem.h
->   F:	tools/testing/cxl/
-> diff --git a/drivers/cxl/core/Makefile b/drivers/cxl/core/Makefile
-> index 6703c1729396..9a77e68d44ce 100644
-> --- a/drivers/cxl/core/Makefile
-> +++ b/drivers/cxl/core/Makefile
-> @@ -1,6 +1,6 @@
->   # SPDX-License-Identifier: GPL-2.0
->   obj-$(CONFIG_CXL_BUS) += cxl_core.o
-> -obj-$(subst m,y,$(CONFIG_CXL_BUS)) += hdm_regs.o
-> +obj-$(subst m,y,$(CONFIG_CXL_BUS)) += hdm_regs.o hdm_state.o regs.o
->   obj-$(CONFIG_CXL_SUSPEND) += suspend.o
->   
->   ccflags-y += -I$(srctree)/drivers/cxl
-> @@ -8,7 +8,6 @@ CFLAGS_trace.o = -DTRACE_INCLUDE_PATH=. -I$(src)
->   
->   cxl_core-y := port.o
->   cxl_core-y += pmem.o
-> -cxl_core-y += regs.o
->   cxl_core-y += memdev.o
->   cxl_core-y += mbox.o
->   cxl_core-y += pci.o
-> diff --git a/drivers/cxl/core/hdm.c b/drivers/cxl/core/hdm.c
-> index b57257efbf4e..a0d8f6a66810 100644
-> --- a/drivers/cxl/core/hdm.c
-> +++ b/drivers/cxl/core/hdm.c
-> @@ -17,11 +17,6 @@
->    * for enumerating these registers and capabilities.
->    */
->   
-> -struct cxl_rwsem cxl_rwsem = {
-> -	.region = __RWSEM_INITIALIZER(cxl_rwsem.region),
-> -	.dpa = __RWSEM_INITIALIZER(cxl_rwsem.dpa),
-> -};
-> -
->   static int add_hdm_decoder(struct cxl_port *port, struct cxl_decoder *cxld)
->   {
->   	int rc;
-> diff --git a/drivers/cxl/core/hdm_regs.c b/drivers/cxl/core/hdm_regs.c
-> index b6ee4becde8d..f0b360867655 100644
-> --- a/drivers/cxl/core/hdm_regs.c
-> +++ b/drivers/cxl/core/hdm_regs.c
-> @@ -2,6 +2,7 @@
->   /* Copyright (c) 2026 NVIDIA Corporation & Affiliates */
->   #include <linux/delay.h>
->   #include <linux/bug.h>
-> +#include <linux/device.h>
->   #include <linux/errno.h>
->   #include <linux/export.h>
->   #include <linux/kernel.h>
-> @@ -174,3 +175,101 @@ int cxl_hdm_unpack_decoder(struct cxl_decoder_config *config, int id,
->   	return 0;
->   }
->   EXPORT_SYMBOL_FOR_MODULES(cxl_hdm_unpack_decoder, "cxl_core");
-> +
-> +/**
-> + * cxl_hdm_decoder_count_mapped() - read the decoder count of a mapped block
-> + * @dev: device for error reporting
-> + * @hdm: mapped HDM decoder capability
-> + * @size: size of the mapping
-> + *
-> + * Return: the decoder count, or a negative errno if the count is reserved or
-> + * the mapping cannot hold every decoder.
-> + */
-> +int cxl_hdm_decoder_count_mapped(struct device *dev, void __iomem *hdm,
-> +				 resource_size_t size)
-> +{
-> +	int count;
-> +
-> +	count = cxl_hdm_decoder_count(readl(hdm + CXL_HDM_DECODER_CAP_OFFSET));
-> +	if (count < 0)
-> +		return count;
-> +
-> +	/* The last decoder's target-list high register must fit in the mapping. */
-> +	if (CXL_HDM_DECODER0_TL_HIGH(count - 1) + sizeof(u32) > size) {
-> +		dev_err(dev, "CXL HDM decoder count exceeds mapped register block\n");
-> +		return -ENXIO;
-> +	}
-> +
-> +	return count;
-> +}
-> +
-> +/* Read one endpoint decoder; a disabled decoder keeps only its id. */
-> +static int cxl_hdm_read_decoder_settings(struct device *dev,
-> +					 struct cxl_endpoint_decoder_settings *settings,
-> +					 void __iomem *hdm, int id)
-> +{
-> +	u64 base, size;
-> +	u32 ctrl;
-> +	int rc;
-> +
-> +	ctrl = readl(hdm + CXL_HDM_DECODER0_CTRL_OFFSET(id));
-> +	base = ((u64)readl(hdm + CXL_HDM_DECODER0_BASE_HIGH_OFFSET(id)) << 32) |
-> +	       readl(hdm + CXL_HDM_DECODER0_BASE_LOW_OFFSET(id));
-> +	size = ((u64)readl(hdm + CXL_HDM_DECODER0_SIZE_HIGH_OFFSET(id)) << 32) |
-> +	       readl(hdm + CXL_HDM_DECODER0_SIZE_LOW_OFFSET(id));
-> +	rc = cxl_hdm_unpack_decoder(&settings->config, id, ctrl, base, size);
-> +	if (rc) {
-> +		dev_err(dev,
-> +			"CXL HDM decoder %d has invalid configuration: %d\n",
-> +			id, rc);
-> +		return rc;
-> +	}
-> +
-> +	if (!(settings->config.flags & CXL_DECODER_F_ENABLE))
-> +		*settings = (struct cxl_endpoint_decoder_settings) {
-> +			.config.id = id,
-> +		};
-> +	else
-> +		settings->skip =
-> +			((u64)readl(hdm + CXL_HDM_DECODER0_SKIP_HIGH(id)) << 32) |
-> +			readl(hdm + CXL_HDM_DECODER0_SKIP_LOW(id));
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * cxl_hdm_read_state() - read endpoint HDM decoder state
-> + * @dev: device for error messages
-> + * @hdm: mapped HDM decoder capability
-> + * @info: state to fill; @info->decoder_count must be set
-> + *
-> + * Return: 0 on success, or a negative errno if a decoder holds an invalid
-> + * configuration or the decoder count changed while reading.
-> + */
-> +int cxl_hdm_read_state(struct device *dev, void __iomem *hdm,
-> +		       struct cxl_hdm_info *info)
-> +{
-> +	int count;
-> +	int rc;
-> +
-> +	info->global_ctrl = readl(hdm + CXL_HDM_DECODER_CTRL_OFFSET);
-> +	for (int i = 0; i < info->decoder_count; i++) {
-> +		rc = cxl_hdm_read_decoder_settings(dev, &info->settings[i],
-> +						    hdm, i);
-> +		if (rc)
-> +			return rc;
-> +	}
-> +
-> +	/*
-> +	 * A changed decoder count means the snapshot no longer describes the
-> +	 * complete hardware state. Reject it rather than publish a partial cache.
-> +	 */
-> +	count = cxl_hdm_decoder_count(readl(hdm + CXL_HDM_DECODER_CAP_OFFSET));
-> +	if (count != info->decoder_count) {
-> +		dev_err(dev, "CXL HDM decoder count changed from %d to %d\n",
-> +			info->decoder_count, count);
-> +		return -ENXIO;
-> +	}
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/cxl/core/hdm_state.c b/drivers/cxl/core/hdm_state.c
-> new file mode 100644
-> index 000000000000..9a31f5996c74
-> --- /dev/null
-> +++ b/drivers/cxl/core/hdm_state.c
-> @@ -0,0 +1,64 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/* Copyright (c) 2026 NVIDIA Corporation & Affiliates */
-> +#include <linux/cleanup.h>
-> +#include <linux/export.h>
-> +#include <linux/slab.h>
-> +
-> +#include <cxl/hdm.h>
-> +#include "cxl.h"
-> +#include "core.h"
-> +
-> +/*
-> + * CXL state that must stay available while no CXL driver is bound: the CXL
-> + * locks and the per-device HDM cache filled during PCI enumeration.
-> + */
-> +struct cxl_rwsem cxl_rwsem = {
-> +	.region = __RWSEM_INITIALIZER(cxl_rwsem.region),
-> +	.dpa = __RWSEM_INITIALIZER(cxl_rwsem.dpa),
-> +};
-> +EXPORT_SYMBOL_FOR_MODULES(cxl_rwsem, "cxl_core");
-> +
-> +/* A published cache is usable only if its HDM register block was mapped. */
-> +bool cxl_hdm_cache_present(struct cxl_hdm_info *const *slot)
-> +{
-> +	guard(rwsem_read)(&cxl_rwsem.dpa);
-> +	return *slot && (*slot)->hdm_size;
-> +}
-> +
-> +/**
-> + * cxl_hdm_cache_publish() - publish HDM state read during enumeration
-> + * @slot: cache pointer owned by the device, for example &pci_dev->hdm
-> + * @info: state to publish
-> + *
-> + * Ownership of @info passes to @slot, or @info is freed if another caller
-> + * published first.
-> + */
-> +void cxl_hdm_cache_publish(struct cxl_hdm_info **slot,
-> +			   struct cxl_hdm_info *info)
-> +{
-> +	struct cxl_hdm_info *new __free(kfree) = info;
-> +
-> +	guard(rwsem_write)(&cxl_rwsem.dpa);
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-Why we need to holding cxl_rwsem.dpa in cxl_hdm_cache_publish() and 
-cxl_hdm_cache_present()? I guess the lock is used to protect the struct 
-cxl_hdm_info of a pci device assignment. But struct cxl_hdm_info 
-allocation only happens during pci_bus_add_device()-> 
-pci_cxl_hdm_cache_init(). If I understand correctly, holding pci_dev 
-lock is enough.
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-snip
+are available in the Git repository at:
 
-> +static struct cxl_hdm_info *cxl_pci_hdm_read_info(struct pci_dev *pdev,
-> +						  struct cxl_register_map *map,
-> +						  int dvsec)
-> +{
-> +	struct cxl_hdm_info *info;
-> +	u16 command;
-> +	int rc;
-> +
-> +	guard(pci_dev)(pdev);
-> +
-> +	rc = pci_read_config_word(pdev, PCI_COMMAND, &command);
-> +	if (rc)
-> +		return ERR_PTR(pcibios_err_to_errno(rc));
-> +
-> +	if (command & PCI_COMMAND_MEMORY)
-> +		return __cxl_pci_hdm_read_info(pdev, map, dvsec);
-> +
-> +	rc = pci_write_config_word(pdev, PCI_COMMAND,
-> +				   command | PCI_COMMAND_MEMORY);
-> +	if (rc)
-> +		return ERR_PTR(pcibios_err_to_errno(rc));
-> +
-> +	info = __cxl_pci_hdm_read_info(pdev, map, dvsec);
-> +	rc = pci_write_config_word(pdev, PCI_COMMAND, command);
-> +	if (!rc)
-> +		return info;
-> +
-> +	pci_err(pdev,
-> +		"failed to restore PCI_COMMAND after CXL HDM cache init: %d\n",
-> +		pcibios_err_to_errno(rc));
-> +	if (IS_ERR(info))
-> +		return info;
-> +
-> +	kfree(info);
-> +	return ERR_PTR(pcibios_err_to_errno(rc));
-> +}
-> +
-> +static int __pci_cxl_hdm_cache_init(struct pci_dev *pdev)
-> +{
-> +	struct cxl_register_map map = { };
-> +	u16 dvsec, cap;
-> +	int rc;
-> +
-> +	/* Avoid duplicate MMIO reads when the cache is already present. */
-> +	if (cxl_hdm_cache_present(&pdev->hdm))
-> +		return 0;
-> +
-> +	rc = cxl_pci_device_dvsec(pdev, &dvsec, &cap);
-> +	if (rc == -ENOTTY)
-> +		return 0;
-> +	if (rc)
-> +		return rc;
-> +	if (!(cap & PCI_DVSEC_CXL_MEM_CAPABLE) ||
-> +	    !cxl_dvsec_hdm_count_valid(FIELD_GET(PCI_DVSEC_CXL_HDM_COUNT, cap)))
-> +		return 0;
-> +
-> +	rc = cxl_find_regblock(pdev, CXL_REGLOC_RBI_COMPONENT, &map);
-> +	if (rc)
-> +		return rc;
-> +	if (map.bar < 0 || map.bar >= PCI_STD_NUM_BARS ||
-> +	    !cxl_pci_bar_assigned(pdev, map.bar))
-> +		return -ENODEV;
-> +
-> +	struct cxl_hdm_info *read_info =
-> +		cxl_pci_hdm_read_info(pdev, &map, dvsec);
-Should move read_info definition to the top of the function if we don't 
-need scope-based cleanup helper for the variable.
-> +	if (IS_ERR(read_info))
-> +		return PTR_ERR(read_info);
-> +
-> +	/* Another initializer may have published while we read MMIO. */
-> +	cxl_hdm_cache_publish(&pdev->hdm, read_info);
-> +
-> +	return 0;
-> +}
-Like what I said above, if we can use pci_dev lock in 
-cxl_hdm_cache_present(), since cxl_pci_hdm_read_info() also needs to 
-hold pci_dev lock, I think we can hold pci_dev lock at the beginning of 
-this function, then you don't need cxl_hdm_cache_publish() anymore. 
-Assigning read_info to pdev->hdm directly is enough.
-> +
-> +void pci_cxl_hdm_cache_init(struct pci_dev *pdev)
-> +{
-> +	int rc;
-> +
-> +	rc = __pci_cxl_hdm_cache_init(pdev);
-> +	if (rc)
-> +		pci_dbg(pdev, "CXL HDM cache init failed: %d\n", rc);
-> +}
-> +
-> +void pci_cxl_hdm_cache_release(struct pci_dev *pdev)
-> +{
-> +	cxl_hdm_cache_release(&pdev->hdm);
-> +}
-> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-> index ba3c3fddddc2..9e218f236e66 100644
-> --- a/drivers/pci/pci.h
-> +++ b/drivers/pci/pci.h
-> @@ -730,6 +730,14 @@ static inline void pci_doe_destroy(struct pci_dev *pdev) { }
->   static inline void pci_doe_disconnected(struct pci_dev *pdev) { }
->   #endif
->   
-> +#ifdef CONFIG_CXL_RESET
-> +void pci_cxl_hdm_cache_init(struct pci_dev *pdev);
-> +void pci_cxl_hdm_cache_release(struct pci_dev *pdev);
-> +#else
-> +static inline void pci_cxl_hdm_cache_init(struct pci_dev *pdev) { }
-> +static inline void pci_cxl_hdm_cache_release(struct pci_dev *pdev) { }
-> +#endif
-> +
->   #ifdef CONFIG_PCI_NPEM
->   void pci_npem_create(struct pci_dev *dev);
->   void pci_npem_remove(struct pci_dev *dev);
-> diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-> index 27008e2ea5af..cb52357344ed 100644
-> --- a/drivers/pci/probe.c
-> +++ b/drivers/pci/probe.c
-> @@ -2484,6 +2484,7 @@ static void pci_release_dev(struct device *dev)
->   	struct pci_dev *pci_dev;
->   
->   	pci_dev = to_pci_dev(dev);
-> +	pci_cxl_hdm_cache_release(pci_dev);
->   	pci_release_capabilities(pci_dev);
->   	pci_release_of_node(pci_dev);
->   	pcibios_release_device(pci_dev);
-> diff --git a/include/cxl/cxl.h b/include/cxl/cxl.h
-> index b29374b34cfa..3e70f74685b6 100644
-> --- a/include/cxl/cxl.h
-> +++ b/include/cxl/cxl.h
-> @@ -27,6 +27,7 @@ enum cxl_devtype {
->   
->   struct cxl_region;
->   struct cxl_hdm_info;
-> +struct pci_dev;
->   
->   enum cxl_decoder_type {
->   	CXL_DECODER_DEVMEM = 2,
-> @@ -149,6 +150,8 @@ struct cxl_pmu_reg_map {
->    * @base: virtual base of the register-block-BAR + @block_offset
->    * @resource: physical resource base of the register block
->    * @max_size: maximum mapping size to perform register search
-> + * @bar: PCI BAR containing the register block
-> + * @bar_offset: register block offset relative to @bar
->    * @reg_type: see enum cxl_regloc_type
->    * @component_map: cxl_reg_map for component registers
->    * @device_map: cxl_reg_maps for device registers
-> @@ -159,6 +162,8 @@ struct cxl_register_map {
->   	void __iomem *base;
->   	resource_size_t resource;
->   	resource_size_t max_size;
-> +	int bar;
-> +	resource_size_t bar_offset;
->   	u8 reg_type;
->   	union {
->   		struct cxl_component_reg_map component_map;
-> @@ -167,6 +172,7 @@ struct cxl_register_map {
->   	};
->   };
->   
-> +
->   /**
->    * struct cxl_dpa_perf - DPA performance property entry
->    * @dpa_range: range for DPA address
-> diff --git a/include/cxl/hdm.h b/include/cxl/hdm.h
-> index d5e7efd2ffc0..af7cef649446 100644
-> --- a/include/cxl/hdm.h
-> +++ b/include/cxl/hdm.h
-> @@ -23,6 +23,7 @@ struct cxl_endpoint_decoder_settings {
->    * @hdm_offset: offset of the HDM decoder capability in @hdm_bar
->    * @hdm_size: size of the HDM decoder register block
->    * @global_ctrl: HDM decoder global control register
-> + * @dvsec: config space offset of the CXL Device DVSEC
->    * @dvsec_ctrl: CXL DVSEC control register
->    * @dvsec_ctrl_valid: whether @dvsec_ctrl contains valid state
->    * @settings: per-endpoint-decoder programming state
-> @@ -36,9 +37,20 @@ struct cxl_hdm_info {
->   	resource_size_t hdm_offset;
->   	resource_size_t hdm_size;
->   	u32 global_ctrl;
-> +	u16 dvsec;
->   	u16 dvsec_ctrl;
->   	bool dvsec_ctrl_valid;
->   	struct cxl_endpoint_decoder_settings settings[] __counted_by(decoder_count);
->   };
-> +struct device;
-> +
-> +int cxl_hdm_decoder_count_mapped(struct device *dev, void __iomem *hdm,
-> +				 resource_size_t size);
-> +int cxl_hdm_read_state(struct device *dev, void __iomem *hdm,
-> +		       struct cxl_hdm_info *info);
-> +bool cxl_hdm_cache_present(struct cxl_hdm_info *const *slot);
-> +void cxl_hdm_cache_publish(struct cxl_hdm_info **slot,
-> +			   struct cxl_hdm_info *info);
-> +void cxl_hdm_cache_release(struct cxl_hdm_info **slot);
->   
->   #endif /* __CXL_HDM_H__ */
-> diff --git a/include/cxl/pci.h b/include/cxl/pci.h
-> index 3e0000015871..b15d7e415e27 100644
-> --- a/include/cxl/pci.h
-> +++ b/include/cxl/pci.h
-> @@ -4,6 +4,8 @@
->   #ifndef __CXL_CXL_PCI_H__
->   #define __CXL_CXL_PCI_H__
->   
-> +#include <linux/types.h>
-> +
->   /* Register Block Identifier (RBI) */
->   enum cxl_regloc_type {
->   	CXL_REGLOC_RBI_EMPTY = 0,
-> @@ -19,4 +21,15 @@ struct pci_dev;
->   
->   int cxl_pci_setup_regs(struct pci_dev *pdev, enum cxl_regloc_type type,
->   		       struct cxl_register_map *map);
-> +int cxl_find_regblock(struct pci_dev *pdev, enum cxl_regloc_type type,
-> +		      struct cxl_register_map *map);
-> +int cxl_setup_regs(struct cxl_register_map *map);
-> +/*
-> + * CXL r4.0 sec 8.1.3.1: a CXL.mem capable device reports one or two HDM
-> + * ranges. 00b is illegal when Mem_Capable is set and 11b is reserved.
-> + */
-> +static inline bool cxl_dvsec_hdm_count_valid(unsigned int hdm_count)
-> +{
-> +	return hdm_count == 1 || hdm_count == 2;
-> +}
->   #endif
-> diff --git a/tools/testing/cxl/Kbuild b/tools/testing/cxl/Kbuild
-> index 2be1df80fcc9..e80500f457a9 100644
-> --- a/tools/testing/cxl/Kbuild
-> +++ b/tools/testing/cxl/Kbuild
-> @@ -55,7 +55,6 @@ obj-m += cxl_core.o
->   
->   cxl_core-y := $(CXL_CORE_SRC)/port.o
->   cxl_core-y += $(CXL_CORE_SRC)/pmem.o
-> -cxl_core-y += $(CXL_CORE_SRC)/regs.o
->   cxl_core-y += $(CXL_CORE_SRC)/memdev.o
->   cxl_core-y += $(CXL_CORE_SRC)/mbox.o
->   cxl_core-y += $(CXL_CORE_SRC)/pci.o
+  git://git.kernel.org/pub/scm/linux/kernel/git/alarsson/linux-sparc.git tags/sparc-for-7.4-tag2
+
+for you to fetch changes up to d957b367d560c4a74637d400ca4e0e63bbdfbcd1:
+
+  sparc64: flush vmalloc ranges from the D-cache on map and unmap (2026-10-23 11:40:02 +0200)
+
+----------------------------------------------------------------
+This includes the following changes related to sparc for v7.4:
+
+- Allow loading sparc32 kernels on Sun machines away from start of RAM
+
+- Fix timer comparator problem for sparc64 resulting in RCU stalls
+
+- Increase kernel thread stack size for sparc64
+
+- Fix bug in fault handling during window fill for sparc64
+
+- Fix bug in vmalloc fault handling for sparc32
+
+- Fix fault address reporting bugs for both sparc32 and sparc64
+
+- Use membanks for early memory setup, removing legacy sp_banks construction for
+  sparc32
+
+- Add seccomp filter support for sparc64 and seccomp support for sparc32
+
+- Fix problem with nested tick interrupts and IPIs leading to stack overflow for
+  sparc32
+
+- Fix missing cache flushes as well as optimise away redundant cache flushes for
+  sparc64
+
+- Clean up dead/unnecessary code and obsolete comments
+
+----------------------------------------------------------------
+Imre Kaloz (4):
+      sparc32: keep PIL raised on the SMP ticker and LEON IPI exit paths
+      sparc64: skip the trap block in xcall_deliver() when there is no target
+      sparc64: flush only the aliased page, not its whole folio
+      sparc64: flush vmalloc ranges from the D-cache on map and unmap
+
+Ludwig Rydberg (5):
+      sparc32: Split common syscall_trace() to syscall_trace_{enter|leave}()
+      sparc32: add seccomp filter support
+      selftests/seccomp: add sparc32 support
+      sparc32: Avoid NULL pointer dereference in fault handler
+      sparc32: Fix pgd lookup in vmalloc fault handling
+
+Magnus Lindholm (9):
+      sparc32: honour phys_base in the viking cache flush routines
+      sparc32: derive phys_base from the PAGE_OFFSET mapping
+      sparc32: advertise relocatable kernel with HdrS 0x0300
+      sparc32: use memblock when mapping the kernel
+      sparc32: use memblock to find available system memory
+      sparc32: populate memblock from the PROM memory map
+      sparc32: drop unused valid address bitmap
+      sparc32: move early memory setup to setup_arch
+      sparc32: drop sp_banks
+
+Manuel Ebner (1):
+      sparc: NMI: Remove obsolete comment
+
+Sang-Heon Jeon (1):
+      sparc32: remove redundant memset in srmmu_nocache_init()
+
+Stian Halseth (6):
+      sparc64: remove dead THREAD_SIZE branches for non-8K pages
+      sparc64: restore %asi in user_rtt_fill_fixup_common
+      sparc64: use the fault address for si_addr on window fixup faults
+      sparc64: decide the TSB huge-page window fixup before the bank switch
+      sparc64: add seccomp filter support
+      selftests/seccomp: add sparc64 support
+
+Tony Rodriguez (2):
+      sparc64: Fix comparator problem with timer interrupts
+      sparc64: increase kernel thread stack size to 32K
+
+ arch/sparc/Kconfig                            |   2 +-
+ arch/sparc/include/asm/cacheflush_64.h        |   9 +-
+ arch/sparc/include/asm/highmem.h              |   3 -
+ arch/sparc/include/asm/leon.h                 |   2 +-
+ arch/sparc/include/asm/page_32.h              |  16 ---
+ arch/sparc/include/asm/pgtable_32.h           |   3 +-
+ arch/sparc/include/asm/pgtable_64.h           |   8 +-
+ arch/sparc/include/asm/pgtsrmmu.h             |   1 -
+ arch/sparc/include/asm/seccomp.h              |  15 +++
+ arch/sparc/include/asm/syscall.h              |  11 +-
+ arch/sparc/include/asm/thread_info_32.h       |   2 +
+ arch/sparc/include/asm/thread_info_64.h       |  15 +--
+ arch/sparc/kernel/entry.S                     |  42 ++++---
+ arch/sparc/kernel/entry.h                     |   2 +-
+ arch/sparc/kernel/head_32.S                   |   2 +-
+ arch/sparc/kernel/kernel.h                    |   3 +-
+ arch/sparc/kernel/nmi.c                       |   2 +-
+ arch/sparc/kernel/ptrace_32.c                 |  26 ++--
+ arch/sparc/kernel/ptrace_64.c                 |  28 +++--
+ arch/sparc/kernel/setup_32.c                  |  91 +++++++++++---
+ arch/sparc/kernel/smp_64.c                    |  51 ++++++--
+ arch/sparc/kernel/syscalls.S                  |  28 ++++-
+ arch/sparc/kernel/time_64.c                   |   6 +-
+ arch/sparc/kernel/tsb.S                       |  24 +++-
+ arch/sparc/kernel/urtt_fill.S                 |  10 ++
+ arch/sparc/mm/fault_32.c                      |  32 ++---
+ arch/sparc/mm/fault_64.c                      |   9 ++
+ arch/sparc/mm/init_32.c                       | 167 +-------------------------
+ arch/sparc/mm/init_64.c                       |  65 ++++++++++
+ arch/sparc/mm/leon_mm.c                       |   1 +
+ arch/sparc/mm/srmmu.c                         |  70 ++++-------
+ arch/sparc/mm/tlb.c                           |   2 +-
+ arch/sparc/mm/ultra.S                         |  25 ++++
+ arch/sparc/mm/viking.S                        |   6 +
+ arch/sparc/prom/memory.c                      |  51 ++------
+ tools/testing/selftests/seccomp/seccomp_bpf.c |  52 ++++++++
+ 36 files changed, 481 insertions(+), 401 deletions(-)
+
+Thanks,
+Andreas
+
