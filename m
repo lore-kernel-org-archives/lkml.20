@@ -1,91 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793286125;
-	b=0JexSJ14rao5wTOv3sxUUQpJKdG6+TRkxUMQSXCMKh3uPIFbvgkgILJtpU2+lnMq9ome
-	 x98dPrlBtVvIWgYD9pYUjaod+cBEaIdfJGGOtFjND6qSjLUrj+v73aznUWmE4n/d9Bi2W
-	 CpxJCB5iX7m4UxMJKIkijYLYw4csl+/QZGXiq5INvZQfn2A3p1LwuYbRPDIuUpjLaTRzP
-	 aXE+cw47cj1rMPqVattfabJG4xYv67Qnzbp9IzOzJNBHM/bUQfJMBjuGvrTW7ousk1GQQ
-	 P1PBncwmssIpL81hS+Umaz6IqjpffkRwPY9K13Chm7YziWOXikgqzZYDRQu7DSI1q7A==
+	t=1793286121;
+	b=Zm2ZK+em/kzcTZwjQDxzIpk44d1DKBFdvEaqupXmejBDdntrtZM4Ld2gi/VT77SRhPQG
+	 3O+tyRoYM/PMYxYgBBnXQ61FtBPd4SsS9Gbb3l0f9d1XXjxfONTrSAu1S7LIufonnKJKy
+	 I9XPq840417moL1fk5spjfy/gW6aHWLdjD3EVnNC/sm7wxNyZhrZ8HYIWNu+YaosX/hCI
+	 qArt1f3XKYJJygIWaoeROaOZ55B1BGfUhfSvhKyZYUugdcCa71taec4jKKMSkR+0O/ofY
+	 tQhwwVJOJSTC+Zvj1Y5jIYQyOMILP2/6Jzz1/ev3dWRUhhDf7+98T9f/ZtBYTNKK/bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793286125;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=2dzY1VlFFnKOfznTWW/4WF7kG0zTG9oXRoGUydpsGfY=;
-	b=YimLkp8Fs3CLaWntwFSdZtctF7CYc9H9nZNGYKqL9Zy7evQK95Oq7+3ajmljNiWF/olp
-	 qCtQ8jC7t2tKep7CvnCTEk3FGBXOykH6/MKavcvKLfwoqyWVmxg1/XwBnAIIi/cgmr1gS
-	 ywz4QlbQUPdrfIeWAezs9EOwyLs4V7xboPf929mSR6JB0lRsyhO7KU9d0I2eRPST+A+bE
-	 W2OWB8niaspFAL0/erqVXHq4UewJD79voEF8wYwT6IaO7SglhKRRg7F4Mn6bXquOBAsFA
-	 T3pVedRzVNh0iJAOak0nkyuZwz6FOFLiV78J1CW4DYhrOMKYPdp5lg1U+Oql+47pcCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286121;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=tlm0i/X00g3mnPKVrqb6Nd424jvsp5LSqDun6WcTekQ=;
+	b=1z/SyxL6cenUMcA6bFuiI5ybBL3JWWpBTY3rKpXs4Zawz+JcL8EhSiGQA6HTIJ/fqj6W
+	 AN40cCyEC5OJLZo3dLEMVYjdSPgqzt6lXQwdqls11EU1b0n3w4qW3VGuuw/914R/hLANd
+	 JQg15A3LPlx3l/9p4afO3MtdNHNpPhTrAqUPpEmAnVopg2sW56qsAoAy640O8TnfKQwr/
+	 oZrIcJHoxv53FkH4X9/CcbnRfWmodkpM8L0nMeb5z5Xt6kG5I3rYKI4xAVAGtcR+yfR0r
+	 uP27j4Ey/e5jU5SeHGgIsEH++nloa/V/Ly1zJ3HJNvbVpzc2jNA3KMKeZhyiY+HOCzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eqMw4KqB;
-	arc=none smtp.remote-ip=209.85.167.41
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36325606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:02:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36325606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eqMw4KqB
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso2272212e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:02:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793286122; x=1793890922; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2dzY1VlFFnKOfznTWW/4WF7kG0zTG9oXRoGUydpsGfY=;
-        b=eqMw4KqBocIxMJmGei4723yesql9KLte9N+AZ5pOiWjjIoGut3mKmKnbPvGwi22AkV
-         UAn/zbJKsOcsfwdI7CFbvJJFVxzDV6kdFq8JZHXhaXb/CUicufWgb4qScQdW0gJ56or8
-         1/RyvFydhPtEwlYa6eBroZSDoPDOc1PtkJ8URie8mM6GBHZ6GK6e1zsw3hZuav8evHc5
-         0hkqcU+SHvQ4BeTuyTy4Fm9/hmbG/hK6NuhuKvH6tPhUjAuztA7AmtM2ZbAdYN42uXkQ
-         Iwzc9Eh6l3piRuonxFgDcVe/4aiWSOO/rbaP1Rdpa/6VwaFvs2mCH/XiXnXUTOQx5eNx
-         MdHg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7617A606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:02:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7617A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b2d1eb484aso2839024b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:02:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793286122; x=1793890922;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2dzY1VlFFnKOfznTWW/4WF7kG0zTG9oXRoGUydpsGfY=;
-        b=MzgmMg4f2SBT3MEcIpTLScDUP0PGwc6DRzt68BNCR56s9WrYNdIu1eEcEEbzU3EtaE
-         YQ0jyYK1QvQJdfs58IJNIvI97QpMa2qnNhIUe6qRx4tMFlLYfqkuKpkAmcFARCw8/T6A
-         FnZLVzgeiES6f8lRG/1xS4EZekJymsFliZXqqE4hVwljACjJoDao3yOW8prTfrH9YhsK
-         /Z1BF1qJ3JfBclLaFJPfbf5AU+XW5zS5XoNYl/vAck4k6cFOpgX0YbJomK/oYm+fdINZ
-         mijPMJbW0EmaszfQ4xF07SerEOIAWygGE4eks7ATuRZnHrvkhCIeunymIEJx2y67gT5N
-         rhqQ==
-X-Forwarded-Encrypted: i=1; AKwUvByXrcxDg9Gr62b9iVFh65rKGAmiF9qtZXa2M59c/0Jum8YxZ6h40sSw2aGYdTPVWCqo5Tl3tuTg5PRZMuc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPtKezvrbR9nLGwiYZMq+QSuV75aDynRAV4dxWrizH2QewRlFL
-	GdLW581Xc8/79VqMO8idPo8XEoEU9Xrt3P1/PNEs1OON06VYkA0Gvx4wDeUeSrn2c0Q=
-X-Gm-Gg: AYBFou2ZAo4QcGxN6ebm2trzo+YY8FcG7NZnNWgWZn/cN1eIVPeSHHiQG1C9yemzqYc
-	ZyJTx2cNC3fMPqAshvi30Mam6XhJJk+6FoJ1t5ZbdgynagCugRxN4jGXhV32eSBt7fgwPEfbFDu
-	eEWL4Fclv7ma0j0DA04lAD6Lv3JNUjMn3xUsYXPOiAIDGfanNU07ceP3/nSpxb2NQDi8QnL/ePC
-	vRqT0PsPc93mcmR1oxP54VNAn+4ILqZybX6uVWncaVLbl9AytkpMSpPQ2CIEE0xpXyvjuTZGtdn
-	H8GsmwZSJH63Hcb2UYh1UrNmLlUsFMlXODvK25kOcV6sevDU0Lj8pHage5v4rXzY8VnqtUpeh6/
-	+nkZ27wwHz/AHji/3Y1s9iJ5v5j64LV3bzc0rODa6zILDDl8aH7pPM3/YqmIs/JZQYxMy80zyeE
-	OuRkdMBi1DynG85pe2XkmoRH1HWzWhDdd8euEJbZwPh0lIZuwSpJVzs089J5dQHmFL1RPRIf+Hz
-	NWLCXxn2cZ0oboK6bgXaFVmSOTLXTtII3VzCIt+FiJg7e7Wer2XB6m+FHAMkibOB1VBVvsBpnPr
-	Jvtl2lFzafERz2p85MJc9tT+upON9eCXkG7Eu08=
-X-Received: by 2002:a05:6512:3a93:b0:5bf:a193:7a5b with SMTP id 2adb3069b0e04-5bfcad4618bmr2446673e87.34.1793286122095;
-        Thu, 29 Oct 2026 08:02:02 -0700 (PDT)
-Received: from archlinux ([194.28.181.64])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfca5a485csm1306117e87.57.2026.10.29.08.01.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 08:01:59 -0700 (PDT)
-From: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
-Subject: [PATCH] rust: macros: add descriptive doc-comment to internal fmt function
-Date: Thu, 29 Oct 2026 17:01:47 +0200
-Message-ID: <20261029150147.11989-1-mbkchelofficialdev@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1793286120; x=1793890920;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tlm0i/X00g3mnPKVrqb6Nd424jvsp5LSqDun6WcTekQ=;
+        b=QqHNv6lj42qJ6wQ2jzZFHcogxNaWZmjReqI5qeTUgmoe/pP0Vcl8dX674kh7anF6Vx
+         5VBVhptiJ8FlAQVH/FFAiwfTi8XHX0XTVG0WaE3TtgNSCGDNX2Xj55L7iRe2LuYTvTJd
+         h8xRvK9naI0+tQwQBSTIOhEdWh61Ah9ZlMvHnF4edk7EWJUJb/GALACdG/udZvOPKhO/
+         bKCfw5uFJzBdXjfmoBCNtvfJcb00KXNjmziYlnBgH2MKKIR1bbUBX06+LytzHNzkug1n
+         ktxDFpKXa3F5ROtWz1hMwgGqilGr6HHZjyI47aTfTjPmWHOSfuh/tdwFbgp9U8tZgj6T
+         dFWg==
+X-Forwarded-Encrypted: i=1; AKwUvByzMqhKoXomHu7xLzrRohmipi4SDOo326FTAGO9p5rxVrC0ZECGu+4ka2t5nYe0X5XeeKnThuirA8Tg1dE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIEHBRLzBMhjmHKODJwZ2M6sRrxl2vzMkQDI4av7UNn1x0uJk98
+	unZVfBK/3tA5h+NT9TxmRhN9o9NgI+cMbvyuqrxoStVdmAIK+JaZWIl89zq6rg9DNKRRWqHJ3ba
+	7MeSrhUXGjESzFMbK2qlamiog2O2legh6wZM+PesThY0a2SF6wV5ZjOvMnBA=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,33 +58,236 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:6408:b0:4b3:3e1:4a25 with SMTP id
+ 5614622812f47-56385c45dc6mr3774403b6e.11.1793286120516; Thu, 29 Oct 2026
+ 08:02:00 -0700 (PDT)
+Date: Thu, 29 Oct 2026 08:02:00 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae35fe8.ca891901.26044a.014c.GAE@google.com>
+Subject: [syzbot] [dm?] KASAN: slab-use-after-free Read in dm_put_device
+From: syzbot <syzbot+9519233e6d144970bbc2@syzkaller.appspotmail.com>
+To: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, mpatocka@redhat.com, snitzer@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Add descriptive documentation comments to the internal formatting function,
+Hello,
 
-explaining its role in parsing format strings and wrapping arguments into
+syzbot found the following issue on:
 
-the Adapter helper.
+HEAD commit:    330517c63aa9 Merge tag 'char-misc-7.4-rc1' of git://git.ke..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13608531580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b03c85f3988bfcd5
+dashboard link: https://syzkaller.appspot.com/bug?extid=9519233e6d144970bbc2
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11bd638e580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15bd638e580000
 
-Signed-off-by: Ivan Tverdokhleb <mbkchelofficialdev@gmail.com>
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-330517c6.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/ecb230491807/vmlinux-330517c6.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/ace3132a7acc/bzImage-330517c6.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+9519233e6d144970bbc2@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: slab-use-after-free in string_nocheck lib/vsprintf.c:650 [inline]
+BUG: KASAN: slab-use-after-free in string+0x471/0x4d0 lib/vsprintf.c:732
+Read of size 1 at addr ffff888030bb3db4 by task syz.0.17/6012
+
+CPU: 0 UID: 0 PID: 6012 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ string_nocheck lib/vsprintf.c:650 [inline]
+ string+0x471/0x4d0 lib/vsprintf.c:732
+ vsnprintf+0x422/0x1300 lib/vsprintf.c:2948
+ vprintk_store+0x3b3/0xbe0 kernel/printk/printk.c:2307
+ vprintk_emit+0x139/0x6b0 kernel/printk/printk.c:2455
+ _printk+0xcf/0x110 kernel/printk/printk.c:2504
+ dm_put_device+0x2fa/0x3a0 drivers/md/dm-table.c:467
+ pool_ctr+0x3b8/0x2380 drivers/md/dm-thin.c:3431
+ dm_table_add_target+0x58b/0xee0 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x3b9/0x7b0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl+0x4d2/0xcc0 drivers/md/dm-ioctl.c:2221
+ dm_ctl_ioctl+0x22/0x30 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fcd6159f559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffcc68ce338 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007fcd61825fa0 RCX: 00007fcd6159f559
+RDX: 00002000000004c0 RSI: 00000000c138fd09 RDI: 0000000000000003
+RBP: 00007fcd61636b20 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fcd61825fac R14: 00007fcd61825fa0 R15: 00007fcd61825fa0
+ </TASK>
+
+Allocated by task 6012:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_node_noprof+0x30c/0x710 mm/slub.c:5699
+ _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
+ open_table_device drivers/md/dm.c:733 [inline]
+ dm_get_table_device+0x2fc/0x820 drivers/md/dm.c:821
+ dm_get_device+0x525/0x7e0 drivers/md/dm-table.c:388
+ pool_ctr+0x2a8/0x2380 drivers/md/dm-thin.c:3329
+ dm_table_add_target+0x58b/0xee0 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x3b9/0x7b0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl+0x4d2/0xcc0 drivers/md/dm-ioctl.c:2221
+ dm_ctl_ioctl+0x22/0x30 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 6012:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:264 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:296
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2780 [inline]
+ slab_free mm/slub.c:6630 [inline]
+ kfree+0x22b/0x6d0 mm/slub.c:6923
+ close_table_device drivers/md/dm.c:798 [inline]
+ dm_put_table_device+0x2bf/0x380 drivers/md/dm.c:841
+ upgrade_mode drivers/md/dm-table.c:326 [inline]
+ dm_get_device+0x3f1/0x7e0 drivers/md/dm-table.c:399
+ pool_ctr+0x362/0x2380 drivers/md/dm-thin.c:3336
+ dm_table_add_target+0x58b/0xee0 drivers/md/dm-table.c:749
+ populate_table drivers/md/dm-ioctl.c:1602 [inline]
+ table_load+0x3b9/0x7b0 drivers/md/dm-ioctl.c:1645
+ ctl_ioctl+0x4d2/0xcc0 drivers/md/dm-ioctl.c:2221
+ dm_ctl_ioctl+0x22/0x30 drivers/md/dm-ioctl.c:2243
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff888030bb3d80
+ which belongs to the cache kmalloc-96 of size 96
+The buggy address is located 52 bytes inside of
+ freed 96-byte region [ffff888030bb3d80, ffff888030bb3de0)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888030bb3c80 pfn:0x30bb3
+flags: 0xfff00000000200(workingset|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000200 ffff88801d442280 ffffea00008fef50 ffffea0000ba1e50
+raw: ffff888030bb3c80 0000000000200016 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 446, tgid 446 (kworker/u33:10), ts 8752841003
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1854
+ prep_new_page mm/page_alloc.c:1862 [inline]
+ get_page_from_freelist+0x1113/0x35e0 mm/page_alloc.c:3933
+ __alloc_frozen_pages_noprof+0x2f6/0x3190 mm/page_alloc.c:5429
+ alloc_slab_page mm/slub.c:3384 [inline]
+ allocate_slab mm/slub.c:3499 [inline]
+ new_slab+0xb1/0x6d0 mm/slub.c:3550
+ refill_objects+0xe3/0x410 mm/slub.c:7539
+ refill_sheaf mm/slub.c:2917 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4811
+ alloc_from_pcs mm/slub.c:4887 [inline]
+ slab_alloc_node mm/slub.c:5021 [inline]
+ __kmalloc_cache_node_noprof+0x517/0x710 mm/slub.c:5695
+ _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
+ __get_vm_area_node+0x124/0x350 mm/vmalloc.c:3237
+ __vmalloc_node_range_noprof+0x2ad/0x1440 mm/vmalloc.c:4079
+ __vmalloc_node_noprof+0xad/0xf0 mm/vmalloc.c:4180
+ alloc_thread_stack_node kernel/fork.c:359 [inline]
+ dup_task_struct kernel/fork.c:930 [inline]
+ copy_process+0x80b/0x84c0 kernel/fork.c:2141
+ kernel_clone+0x176/0x9d0 kernel/fork.c:2783
+ user_mode_thread+0xd1/0x120 kernel/fork.c:2860
+ call_usermodehelper_exec_work kernel/umh.c:169 [inline]
+ call_usermodehelper_exec_work+0xcb/0x180 kernel/umh.c:155
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+ process_scheduled_works kernel/workqueue.c:3578 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
+page last free pid 446 tgid 446 ts 8752713246 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1401 [inline]
+ __free_frozen_pages+0x7b4/0x1110 mm/page_alloc.c:2952
+ __kasan_populate_vmalloc_do mm/kasan/shadow.c:393 [inline]
+ __kasan_populate_vmalloc+0x1ea/0x210 mm/kasan/shadow.c:424
+ kasan_populate_vmalloc include/linux/kasan.h:580 [inline]
+ alloc_vmap_area+0x963/0x2bc0 mm/vmalloc.c:2145
+ __get_vm_area_node+0x1ed/0x350 mm/vmalloc.c:3248
+ __vmalloc_node_range_noprof+0x2ad/0x1440 mm/vmalloc.c:4079
+ __vmalloc_node_noprof+0xad/0xf0 mm/vmalloc.c:4180
+ alloc_thread_stack_node kernel/fork.c:359 [inline]
+ dup_task_struct kernel/fork.c:930 [inline]
+ copy_process+0x80b/0x84c0 kernel/fork.c:2141
+ kernel_clone+0x176/0x9d0 kernel/fork.c:2783
+ user_mode_thread+0xd1/0x120 kernel/fork.c:2860
+ call_usermodehelper_exec_work kernel/umh.c:169 [inline]
+ call_usermodehelper_exec_work+0xcb/0x180 kernel/umh.c:155
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+ process_scheduled_works kernel/workqueue.c:3578 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Memory state around the buggy address:
+ ffff888030bb3c80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+ ffff888030bb3d00: 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc
+>ffff888030bb3d80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+                                     ^
+ ffff888030bb3e00: 00 00 00 00 00 00 00 00 00 03 fc fc fc fc fc fc
+ ffff888030bb3e80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
+==================================================================
+
+
 ---
- rust/macros/fmt.rs | 3 +++
- 1 file changed, 3 insertions(+)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/rust/macros/fmt.rs b/rust/macros/fmt.rs
-index ce6c72493..676156dc9 100644
---- a/rust/macros/fmt.rs
-+++ b/rust/macros/fmt.rs
-@@ -6,6 +6,9 @@
- use quote::quote_spanned;
- 
- /// Please see [`crate::fmt`] for documentation.
-+///
-+/// This function parses the format string, extracts named arguments from curly braces,
-+/// and wraps arguments into the `Adapter` helper.
- pub(crate) fn fmt(input: TokenStream) -> TokenStream {
-     let mut input = input.into_iter();
- 
--- 
-2.56.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
