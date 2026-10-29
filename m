@@ -1,105 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793287284;
-	b=0NTe6gy3w/wl8yp/tlkbBXkRj/GIRK+ThpPaBgYKmRuMActAwo6hPDEW6UROWEjz02we
-	 Lk844sA9znY9WMFYHBdlZAcTTRZdIjw1/RygFg65R05BWHyzanLSLFHqH5S9StPGsjH0K
-	 tx0DfcbKH8kk/W2u6xz+49FrYeV72lsyfwUSrKb2V8nh0P0Hdl283uGw27P68GcMWbjct
-	 +xG8zH1LBHmygCH1GXfJTQy3REw6g3gzjLvj1Q4z44+48hyOoZMnEMcFuzOjcg3GQ/erb
-	 qbRtu/TdiOg6a9QVxeRniLCNfoRmh2Up+2M2RgDRR5pmtU6cCeX+a0x9+FpjrS64wIg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287284;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=or9sGx34sYEbQVoqZBdzu8Fruwqd0WZOcGf5k4z815A=;
-	b=OBFPWHoy6g/k7c1iZNKgZQR2jP4gs87ekNQ6E3hSliSnS+GeAQzmMTJ/gthSGtOehfzC
-	 M++0NPGusojGYFUljSuMVIuOzzyS1XOMgds/RFBTVPwo5jSL2grfwWoH9EhbAUGTBMvVs
-	 JbWMD3rf0eYWlc2mBHx1UJXs2cdtusKq95Gw60UsUq5v5poQMfkqzTPxso9+YKLv3wqot
-	 wwdckcJtIi+4E6+FZ8blcNOr8vNB2sjaVDRamJeLBF5KLD0I413Xkiz//7A8ygd/ZVZwT
-	 MekLXP9cfEd5oiAsYw8XDhKwHq7AaSRSngFqv/8PiKXUZ6i+EdPePBKEaRCqTBGXfnQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YtwdMDPi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.15
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010015.outbound.protection.outlook.com [52.101.193.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793287288;
+	b=fGHSkoF0SGF1hl6l+N0IGV9rj6lcJHkTbhJV4hn8/N2GbWMUaVlmMp2jhr+dri86BD+A
+	 ePCXOwASQrZDtC14ftEuHxWfrb4Hhct5NgNzkFe8nJ9tZUQyeRbXJAZnTfy5tR594hDhU
+	 PjvXeiGTFmnrWHSUb6+gESlMMXkw7sBf4fu4VH1phtj1T1Fclp5oUEG2+ohLkHGssp88G
+	 Or/I2mlpcnHe++xGg2r8M+aVqJjlRtGfPUuMqtwG/EynZEHARy4PlifdfFZrGfz/hyn84
+	 4oRjRBpxweUDk6+Ic0zAZ2g/X+Gdfnx+RtBtvXNfzAIMv8PFt+i4pedwJ2qUL1QbwHg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287288;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6BGV7yfySv9YIO2Ud9WZxlpBcZd34hv06GQf4K+p8/M=;
+	b=GtKah6zUbEYXHkiQQMhnFgxYnmeV2YM/9h7l+b7B3w0i0L6ulrtlxv4OoqcG2hL2FL26
+	 0imyFJ0Z2ebdSlfaf72E/G4vjSN5Cobz+8L7EqqI33AlfL7I93NWoLq8HWElHvAK89BAt
+	 Vwqaj4pCF7WKvHDHADAsKbzzm/UlPwTh8DSXzVLwcKXP3p21tPVTOf4qUMi6Ac/8SgWDP
+	 JKjvRUvv0P+R+SjpnCtRVl7FIlYjPjhymtv0Z2Iz7dHgsDk9m8TMR+auz2QBQqPb2eZU+
+	 4nughdm7z3NKSKRaIiUOFyUttcEwMNVgRFof8LjONVYntRUJhmK1Pd27whum3np1T6g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=A1S7+qRt;
+	arc=none smtp.remote-ip=209.85.160.52
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B52B606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:21:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B52B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4EB0606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:21:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4EB0606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YtwdMDPi
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e4YP4/lwePS1rEYyE3liD4arJj2hXsuBw/zBkT8yUYeZzSrWsn/a1yKHAP/05W/NZI842PK7GmJLHRR0U45vZU+/35KvB6+1C1xO4MZD5kIiffxHSdwbzgNJWzLNCGTssPTXSCw1UYiqL9sr9bDdz28lpCNrvCWp67s2c1Wsf7l6arWRHqjXeGUuKO0MQ/zznUcZG1q4VCkZBWyu1AAswqhGty4i69GfK3vFAoNtol41VxeFJP3eW+XLtWw0z/30Pzo0U8bNCSG4RMNJRrudMm211WhRTovAM+ul8ZBSTsDCKa4mczbPR9zUz09GxPqIz/9aLuGotSbyNMQXmHCEew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=or9sGx34sYEbQVoqZBdzu8Fruwqd0WZOcGf5k4z815A=;
- b=vsrg/V/DppB95muiRIu7Ow6bE9A8AXQTQOoEOBUSeVzJ6zikrRqZf8+K5VrZaI0J3U1f4Kq8KmhiMYl5OPeq4CWaCkyDYOZznN1qqJ2DgPb7YFfrL7psZ6BaM3D7j1NI2dWYToCjxP4AYTiI7sH0y1QKX+ZTEIDVV8uRrK2xCvX+Xh8ExhOWWdQgidH3wnGgNXr6w5rIjXNOz8YRDoG2bvDE2emRgyjgYaHk+nVw3s0jFXeQ+5ayBib+dDce3S98MFZlXrV85rxRzA5exZGWhLnF1j1yAqwf4aA5dS2g8cmvd4jQpZx2ph4DA8LpoWPFQlbHQAsMGmufaU3pxhhcfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=or9sGx34sYEbQVoqZBdzu8Fruwqd0WZOcGf5k4z815A=;
- b=YtwdMDPiUL1QCFeqzwyPtSlIU9LxIQRbwXlETlNzJXt2j2AxMeVUU9fViWCeVSikYyT//C7mnHiTK1eLZ1Geuu7eO2wFir0bEH3J9PadWQ38mNDA1sr2tlXu3SuxYjp1ad3N/Mkg2yDKNdXxXAb3+VIX6uqv+JofAW6qE+0NZOI=
-Received: from CH0PR03CA0236.namprd03.prod.outlook.com (2603:10b6:610:e7::31)
- by SJ5PPF28EF61683.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::98e) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Thu, 29 Oct
- 2026 15:21:16 +0000
-Received: from CH1PEPF0000A34B.namprd04.prod.outlook.com
- (2603:10b6:610:e7:cafe::35) by CH0PR03CA0236.outlook.office365.com
- (2603:10b6:610:e7::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.8 via Frontend Transport; Thu, 29
- Oct 2026 15:21:15 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000A34B.mail.protection.outlook.com (10.167.244.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 15:21:15 +0000
-Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53; Thu, 29 Oct 2026 10:21:13 -0500
-From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
-	<amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 3/5] drm/amdgpu: honor gpu_recovery_enabled in amdgpu_job_timedout
-Date: Thu, 29 Oct 2026 16:19:50 +0100
-Message-ID: <20261029152000.22001-3-pierre-eric.pelloux-prayer@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com>
-References: <20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=A1S7+qRt
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4911df1e196so1333858fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:21:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1793287286; x=1793892086; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6BGV7yfySv9YIO2Ud9WZxlpBcZd34hv06GQf4K+p8/M=;
+        b=A1S7+qRtnIsdQvEP1VI/2eKRAeBOJCsndrd/ICGYTejBeWEHhztjEAtqmgXkk5LDM8
+         HYhQwoadq1Rq7zby1ycJswsNJ9xreM8MQj9uoo/o75LX4U9EZFqYXDNZ29978lz+kZTY
+         O+vXwcwJedpWNsOO1TjEPjR2X7KbhZyy8et2A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793287286; x=1793892086;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6BGV7yfySv9YIO2Ud9WZxlpBcZd34hv06GQf4K+p8/M=;
+        b=bxAXTBRMfnT/rRxzIx2lGWy8ug9qwyHzOPCk3wXwrQ1It6+isgm/6Ln1jnCOs6kMTg
+         qmbF9d/00QYG9wcjm7s2fEs0QMnSNfVVolUGVv4rbk/jwE1CwARvySB+9HNwkUxcfvk3
+         GoeReUWP1OwXBvYE27PMTCDhgOJVd/WHzrSl0DLpfaygp2Bsp7YwhgpWI3GcQBcBwWdO
+         0tKvd/eF/0cgfNIzXOIgkvIAO9aXfatj6pHfnoWqZqx2zFJ1/ICNnsrMVGiaD3h+IEfy
+         9w5TJRHbt1yVu+iQjS1VkGYU9SaC3jWdmNnCchrIKWPPVQk/Hmt4xybikasvgluy/8qH
+         kYHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwk54vcvFBvkFxNG7E9eobTD5NB9e9KVl+A2McnfGT2d4heV3VeRzkzQdiRAoNf8OWHBNrK5ZEFkfO4XwQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjAXILoTH8vand3KjwtqeC9u0JRlUwRTQDyrlPecQn1oYQ56wf
+	Y8vPs9TvJO5Ch9xDZDQN9dKCIVQzQyR8jVD8DdqxkJn6DR/7gEQM4O7knLZm12vAC1A=
+X-Gm-Gg: AYBFou1uXeRuPQCvuP7tiXhZlOR56M36LUXG02DKdqW26/REja4wRTrMKjTq1M8PlJe
+	wuJVyKSs95k4Xw17TpCINUEajKD62alZKYNnztIRu3yI5ZP8tX1OuoyZ5xEHjFa18kVqIrQkz0w
+	DeHtDs1+Oo3gvZtuuKG3ePVOhLzhqhhilgKrpWcO14MdnUButFcd1ymy8W8elAIDUXkdvHr26oR
+	AmgzWZRYScbvGsfwcU1dJd6xr6MOyEB6/pEUEwEolUs6fqYA0/G8m3gj9qNGt2/Y9ngkhTyseVw
+	rDp8jtyXnKx1TrnQ9AQfPwOHgKNTcUuDhaRddDiGRed1Djpt82LXEwpolfcjuGhs5OFOPvobVC8
+	RP4FTfkEK4o450dvgVSsBrmzVJtfbBwbfs/autGS+MxE9gzbAB/zjwfGNh1Nzw5xCDjDi1w8+L1
+	LL1vWSoL2UU6NU6Phdzs4R9/KsyP47QfdJZCjPSWeZYK3/Etrf7bNxDgpjAm+dwEvrhKnGaxzOw
+	PdC8t4VJH3gViRUdXbFOM+hmrnDUfMJAGpzDMeA1E/0HQ5ym2KicdLSTWYbBSif4HLjZPWtDVrd
+	PwiZTw025DC0rtbBjbf4dvsHbfBGRBlFWDiLXEg=
+X-Received: by 2002:a05:6870:314:b0:47d:b8a7:40f5 with SMTP id 586e51a60fabf-4a8bb9f0b69mr3976866fac.22.1793287285561;
+        Thu, 29 Oct 2026 08:21:25 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a901ff3779sm1006fac.4.2026.10.29.08.21.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 08:21:24 -0700 (PDT)
+Message-ID: <111e33a2-72a8-43a9-8a10-a065339c3ca0@linuxfoundation.org>
+Date: Thu, 29 Oct 2026 09:21:21 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,89 +89,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34B:EE_|SJ5PPF28EF61683:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c6ca2a1-20de-422a-9065-08df35d04621
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|23010399003|36860700016|56012099006|11063799006|261021121427099003|261009223027099003|261021123027099003|261022075727099003|261026121527099003|18002099003|22082099003|6133799003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	a2fRw+rk1BKERzu84FCyER/atqtgMysk826ptUwuKU522EaMGf2w3f/AnvCvV1EACev0NW3Kf1JbMeCp1WOpOTG1QX6VkNvw9+SkVgo6r16dL7oHyIJPbNeWDYEEJlbaMRTRieRm246CVkhYtidh3bzXLsMgu25jo8/Lf6am8uVyabkF3IewyZcNCsVYHqLqU9kjtP11/gBHqdht7WZzzgm27daq5L0vuomdhfayFF5Sf9kQ/wD2S3VlTvMAn9Zi7mW1MDI1/BrIQRwwgtt+D4o7qzPmIE9b4yKgKcTbZdqLGLj3na/i9NlB+t30H1kN/kMzItYfzB+bJtmEWMrs/2zSOff7NVw10LmfcBQI5Vwn7BYEzsj3NHaCfJNfVv2un5MVXtEKplKSa0Fck5KQz2G2uI1bhXJOlgh2M1fY7dKH3twUN3FgbFdjboQOIDxdeGN5tZsn3gm3aiYFJQfJqu5dyeDWXJW7/NZBwexNX51B+GJG3RMfAlOnvD+f6tmvwc4eve12+O0qn0Ocdo7O4532zpgBF64q4zK4ex3TgQHpCPY90vritqCBZd8vOzkPK9OWVsbn0YJUHaFjyY0a2SUvmTPOic9ByBtJvMbS8obihJixllZcKhuB37v9U+lxT3/mZhlkmaXDnoKhbIrdK/QQJ8f7UZ2M6WT9amFBrSjZe+9zcszIpgONYkFhip3fSSKP2R1/NO/aVK49r5vyzw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(56012099006)(11063799006)(261021121427099003)(261009223027099003)(261021123027099003)(261022075727099003)(261026121527099003)(18002099003)(22082099003)(6133799003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	BZrJZnf6bhevxS18eMor+qg9FLywdfpAo7FOXdG0F8x7LwHBY0wXYv5buvwBTPpv1xIm0AEGJlU2BmL43aUktHQ5gWLkerkVRa0wS1jOtlOiHfcNHZowr775hNEK5LoT3QiYW3WRv9IBunrHQSc2tp2FijrMf6PBGj6O/o3kDT3SrlvTQ+NuawVZEHf1kQwOqnytQCEuGTTgNj2/J7egEGb9TeYN9XpLDcn5DWaCDxr51OGbLm7Xotah7HtMVg/FukxurlssPwHBFqxLrnJ/97OqB83o4zbwTssTJOqvNc3pbZUwWRAg+W+ddJe4JBYmEmRgra1PK9fOtzJWhPxWB975dnfvGhqZkM70z0Ga+5BzDcBp+thxnJtmcEYHcabgL1ltEVKzOdO0MJY0iPtXdUMHITucHRILPqbH5VNJiSZfdacaAigb2CcQOvxGEU7I
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 15:21:15.5650
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c6ca2a1-20de-422a-9065-08df35d04621
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH1PEPF0000A34B.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF28EF61683
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 000/109] 6.18.60-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261028165942.357251485@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261028165942.357251485@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The soft-recovery, per-ring-reset and IP-block-reset attempts in
-amdgpu_job_timedout() were only gated on the global amdgpu_gpu_recovery
-module parameter. Introduce a single can_reset variable that also
-takes the per-device adev->gpu_recovery_enabled flag into account, and
-use it for all three attempts instead of reading amdgpu_gpu_recovery
-directly.
+On 10/28/26 10:59, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.60 release.
+> There are 109 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.60-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-Assisted-by: LLM
-Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+Compiled and booted on my test system. No dmesg regressions.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 4d363bcfb6a5..0b8d0a79dd45 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -92,6 +92,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 	struct drm_wedge_task_info *info = NULL;
- 	struct amdgpu_task_info *ti = NULL;
- 	struct amdgpu_device *adev = ring->adev;
-+	bool can_reset = amdgpu_gpu_recovery && adev->gpu_recovery_enabled;
- 	int idx, r;
- 
- 	if (!drm_dev_enter(adev_to_drm(adev), &idx)) {
-@@ -111,7 +112,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 	if (!amdgpu_sriov_vf(adev))
- 		amdgpu_job_core_dump(adev, job);
- 
--	if (amdgpu_gpu_recovery &&
-+	if (can_reset &&
- 	    amdgpu_ring_is_reset_type_supported(ring, AMDGPU_RESET_TYPE_SOFT_RECOVERY) &&
- 	    amdgpu_ring_soft_recovery(ring, job->vmid, s_job->s_fence->parent)) {
- 		dev_err(adev->dev, "ring %s timeout, but soft recovered\n",
-@@ -130,7 +131,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 	}
- 
- 	/* attempt a per ring reset */
--	if (amdgpu_gpu_recovery &&
-+	if (can_reset &&
- 	    amdgpu_ring_is_reset_type_supported(ring, AMDGPU_RESET_TYPE_PER_QUEUE) &&
- 	    ring->funcs->reset) {
- 		dev_err(adev->dev, "Starting %s ring reset\n",
-@@ -152,7 +153,7 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
- 	}
- 
- 	/* Attempt an IP block soft reset, if supported. */
--	if (amdgpu_gpu_recovery &&
-+	if (can_reset &&
- 	    amdgpu_ring_is_reset_type_supported(ring, AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET)) {
- 		r = amdgpu_device_ip_soft_reset(ring, job->hw_fence);
- 		if (!r) {
--- 
-2.43.0
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
+thanks,
+-- Shuah
