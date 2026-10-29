@@ -1,49 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306615;
-	b=Z3gerjrBXQ+hCCQSItdBAJ4+0C8w52QYFO71YqDzhYbIyEPwqiBP3AGG6KHsaaQ8UOZj
-	 bohMTNQ0lKqw4Qr7t/zVs48iUCJ6XxfJXPdkp0czR9kxNDOmx4O8q1xWbRkrRTZsk7RgZ
-	 XnQhxezcO0ZoJqHQS0Y+vZQQzkCklr4Y4ockCiMSh0UnsVjSb27rfykQsw2xgSNsXERd7
-	 nVkASdGRHXigmcwg5WEmpRQOxZ5H5jnnQic047LD5FEKEOTIGSamVqcpxFPn0kEVh+Lse
-	 iYVBuPwV5xxBuo5VTvSKoRnRi0sWJqq0hQb9e7SK5ic4RTsbjizWKTuR4DNICxMfzrA==
+	t=1793306636;
+	b=oZxRY2XwEdutKrY1wm5e17NSYKx4Qyz9FIoO8VoCc3R4nrb6Bd9qGqxx3eZP3p0eAz2g
+	 h3NrX0m8tuhHNxbGoPq5GQtMep2/kMkzTp0NKfyAxO+lUrf+oN5FvGY3EQo7mdX8jco8I
+	 uPDkxh9qMoUZKPFppXOGaT/1MChop3envdTu9CfwLTZO5GfPaMkf7nEBYwWY4uSeY3h1B
+	 kxuRGm9KaWk0LErndMRJ+TneWL/2SFBnw//X/4j9is2dVtug0JQwZyTfeu9nO75yjIKV4
+	 vanig7ikeb08hiOTCtr1E5Gc3GsiJSCVZmUGBfrXIZnZc2/vK5qHq2VO2mAlkaUcdxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306615;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=JCGDeBNuzR12866Js92jwOMlnJeTWdD3ulZ1D1a102s=;
-	b=dvhKewe/hYDFxuN1pnwF+LtLI/mcOkIXAaIrsGliZ7DSAI4IZFkCeQQmZGvt8hp5LW96
-	 hUdkgLDimLFdLZEcoqbV3/dRhq50Ui972pSPRey59OIXgstD0uElEd2Jrz+fRSuZTa4u1
-	 2oiVn5XsSatpK+9O0JHuYzNeF6pyaA/L/PfLYaE4EtCiuvfODNu2RolLRYSeabH3vqhJQ
-	 gvmqVdP2q9QiePJPi9eCh4hF7zCNnf5X6TotGIrR9ZRcWm1lNMcjy153AXJlv/Wd5EYqB
-	 sP6kxJTsUuTOy/2pH555IPGbqJX6Aoj6amT8sSHQ497r/88QnyEflfOQoorooLfYPaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306636;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=UbmFjhL1Yr1IGodMB6f7gL/eg0MWJVKXYMJM5sJ6SX0=;
+	b=woLgEoiR7z8+JfTCmhyEHURDr+oblK+dkpH2JSKHDU4t7uk8DFrap5uQDq7J8UHFcpaB
+	 JmSRHC3kr2CP9ZmZH0mGUmIh7nP3GSDaTV6PR94QjjT5W/+S1jEAY2ziSgwbvCAWw4DcN
+	 rv2SNgpVT/KZd8pTFxqfGiJHJD8SS1SvQnMBn7rlEPdhXZbwGFy+H5I7G9MSeuFtDWbsg
+	 B0mpsrEdEkZTJmf76+2+apoPC8KPzBIA1aKHfy0jMi+N3VemQ/hjntbu1dZNMZeJHAKph
+	 zjLYyuCs3lX5AJZLZAepuAJVqo3KnVPh0cbHPRpIVWB84ylATzRgMD9Fy/pHv8qiH3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEPz6EZy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=EzloVelJ;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED726606A31F;
-	Thu, 29 Oct 2026 20:43:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95404606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:43:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95404606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEPz6EZy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02E291F01824;
-	Thu, 29 Oct 2026 20:43:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306614;
-	bh=JCGDeBNuzR12866Js92jwOMlnJeTWdD3ulZ1D1a102s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=lEPz6EZyPvflT7DSH8GG2dOmnZWSALDbGJEfW9oIQ0Ja1whAgdew/+Flp07TBzswS
-	 aTxzf7ZIJXBdhN5o4JY2owZeoTmxrPJC//nEIdFF/LaYSjJI7ND0BTH/kTLvwE5ndg
-	 ijmZrHFv5CST1RhXa/UxR/KGhTDHZcJgF0G73sisjJg6UwDjgBy1gKzgwChEHWR2Qn
-	 9m8/Boa8fgXAnzMeIqCsoXa5qGL+PmbC9GaKcAxUU6Ed2X0HM9L23XfZBAGNV0qNkT
-	 6DAXo4j2+y1qkCST4xGODzSUdp8ILrRBenThllhaK2yb1QaIbzrPuHjNprhtcSohcD
-	 aKYpIC9+HOBQQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:36 +0100
-Subject: [PATCH v2 41/47] mm/ksm: check large swap-cache folios before
- mapping them
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=EzloVelJ
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c45551fa84eso328150766b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:43:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1793306628; x=1793911428; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UbmFjhL1Yr1IGodMB6f7gL/eg0MWJVKXYMJM5sJ6SX0=;
+        b=EzloVelJMpFvlgCSyB3rzHG1wJohLuxYC7EDLh8Moda+0MKiJRmOAcyVC6uAV/Mng3
+         T3350d42T8eqefdtCVVwTj1GNdqOitmDib1LjHnzhuvJlZh+lyYTB6nKZra/aAVSf2ZM
+         m04RxrUr8K09nypIknQfqGQhUzkVeu4jvYkvs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793306628; x=1793911428;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UbmFjhL1Yr1IGodMB6f7gL/eg0MWJVKXYMJM5sJ6SX0=;
+        b=CHhoQfZ8phTYUSN0d718TT52+dbwz0iYAK/jkIcgjhMeALUSIw5rEGd4BmKoXxpmkG
+         QgpDBZpve5spTJ1PRm1rkrtq+xLUECJSpWPQWAGpeB1I8Y0uT/EOK80feiist0e5ufPN
+         aVAA4wL1T0XFYIgpvEsb58BBFHFrj2PLRXVhdaocFYnYKFWuSXpXuRbSqqbfRp/hFkt3
+         gjb0+VVrtGem+bq28R7zNlsTPUAsKFX8Iwgv8Ogrc5afhsm16su1ry5B95rlo51/3zlE
+         nR53OOY01FAnieac+U4VFFDrQDncUcOrdnOgbtmH7vhh0PjF4TWBaTok9gKNPZgsjyRG
+         4Uaw==
+X-Forwarded-Encrypted: i=1; AKwUvBwxW+MDFix18XkUomzaDUQHnsx20+lXZ4RPS+wdUzNBf78Pdp1HMCeaCUrVcnSytGjMlpZM8If9c6LFwCw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1FezjSCUMITSEcG+jDnEjqUJc+mJSCPobzQ234gbjWMQsM4fu
+	NxH4EvoxzsqTZJcSBV7+wbDNosv2gloEjLlk5xGWNeKJ5ITtiF8gT90sIMr28P9W8bafqjuqILP
+	w3GKYyAE=
+X-Gm-Gg: AYBFou18LrWkmirnJssutP61UNUqrd51FWo0NVw/CMPscNHeVvibY52Ibmq2A+Qgw08
+	nVJRltWFFbIJfPDQwfh9kK5fjI5mdMdTKFGOksn+h4evmcjeLUN3byYspDP+HZD7RBVLuMK2SR2
+	sE/dBzZmeAMjc3RmuZz84HrAu2oItOd1BBnazUaUHyu1qp8eaRAayW4YPBSb8vL/GPndLVbK2YY
+	eIEWQUJYOtdwWaLj6f7o/XEEU7TOj7NAqxHPXYtouW9cm07GuZnWvju1d8jPTD4yJvpTrMWOywt
+	/qdkEY8dKhXkraZIRSLNlraCc5iJBaAbO1L0T5YRJVHULCl4t+sJwjXewIExEbU4Xij8bm2wQ/n
+	jMoElna/3Z+C+MCU+553U0mSOy3E/XjZcD6cz1ySFutLupalzbCqNLIHiXWzIP4UjMcSbU9hr/S
+	sOOGuOPG/FKHHIqI6JFI9alZOy/kGfvT5CNpQ/11dg+vVyuOCboz+kpY59FkMSDL75mV4aXkg1N
+	NJAbN8qcO+VJvRRevBLvQKLgMDqF6nklA2ijDVZ3Tijhnm97AgBD1WTJu7XiA2CUSanZXn7rRu4
+	rSD8PhWmnxNXYMZ40nCBeM3dmhU4QQgogUX8UmIDpNHo4/v69rXnZr9lrC97fYarHO2UlB04Moa
+	qMKc=
+X-Received: by 2002:a17:906:c142:b0:c46:8063:220c with SMTP id a640c23a62f3a-c4ca7a09d81mr22700866b.11.1793306628054;
+        Thu, 29 Oct 2026 13:43:48 -0700 (PDT)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com. [209.85.208.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4ca322f64esm19782366b.84.2026.10.29.13.43.47
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 13:43:47 -0700 (PDT)
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1d8944cb0so4442394a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:43:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw/NETBGNZ8BDzk57MyAdAN9ogjlZSfE86FPzwDM2awXY/AZq4VvnFeY0+wEpAetbJ2DWXm+ZqYpq6BZX0=@vger.kernel.org
+X-Received: by 2002:a17:907:96a9:b0:c46:2a05:b257 with SMTP id
+ a640c23a62f3a-c4ca7a4066emr23266366b.23.1793306627099; Thu, 29 Oct 2026
+ 13:43:47 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,204 +94,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-41-a64ce7f83abb@kernel.org>
-References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5751; i=david@kernel.org;
- h=from:subject:message-id; bh=fs7fiwhPYFrwtM3uOP0Y88aK1IYwtFxH3G5oC54R2BM=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer+1UX8SRonjcV+LD1LNtqxbVqIZMD8pbrDbFoaGvM
- U949xaLjlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACZy3pmRoXvCt13CJkq/Xxmm
- 1Ais6J864ZOk+NM5BYGxDXdcF3zr+szwP+jKw2N7VW6+EhL4pHjx/OK0ffwzO+QPOh0+cZbnqfv
- JO0wA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+References: <20261029180116.49074-1-ojeda@kernel.org>
+In-Reply-To: <20261029180116.49074-1-ojeda@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Thu, 29 Oct 2026 10:43:30 -1000
+X-Gmail-Original-Message-ID: <CAHk-=wjt_ahzkGAwnExc85O5RArzFiAV-SiFzY8eP7RCXqWM1w@mail.gmail.com>
+X-Gm-Features: AclHuK_WekUyoZUl-q3rSVga5UWQQ_ZOCnmNxHq579Z3ukDBrM2pBi2mbGQaVpI
+Message-ID: <CAHk-=wjt_ahzkGAwnExc85O5RArzFiAV-SiFzY8eP7RCXqWM1w@mail.gmail.com>
+Subject: Re: [GIT PULL] Rust fixes for 7.4
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Chris Mason <mason@kernel.org>
+On Thu, 29 Oct 2026 at 08:01, Miguel Ojeda <ojeda@kernel.org> wrote:
+>
+>  - Fix KCFI failures on every call from C to Rust IRQ handlers and
+>    'hrtimer' callbacks by giving the C enum bindings the correct
+>    'cfi_encoding'. Also prevent the same issue for DMA callbacks
+>    taking 'dma_data_direction'.
 
-KSM folios are always small, but their shared swap slots can be read
-back as part of a large folio in the swap cache. ksm_might_need_to_copy()
-skips large folios, so another process can map a page with an incompatible
-anon_vma or page index. Reverse mapping then cannot find the new
-mapping, preventing migration or reclaim.
+Bah. Is there no way to just get bindgen to do this automatically for
+all enums? Would that break something else?
 
-Apply the same compatibility checks to large folios as to small ones.
-Pass the page corresponding to the swap entry and copy only that page
-when necessary. In do_swap_page()'s copy path, decrement only that slot's
-swap count, because the source swap-cache folio can now be large.
-
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: f1879e8a0c60 ("mm, swap: never bypass the swap cache even for SWP_SYNCHRONOUS_IO")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- include/linux/ksm.h |  6 +++---
- mm/ksm.c            | 22 ++++++++++++----------
- mm/memory.c         |  5 +++--
- mm/swapfile.c       |  3 ++-
- 4 files changed, 20 insertions(+), 16 deletions(-)
-
-diff --git a/include/linux/ksm.h b/include/linux/ksm.h
-index d39d0d5483a2..a0d358a1feb6 100644
---- a/include/linux/ksm.h
-+++ b/include/linux/ksm.h
-@@ -91,8 +91,8 @@ static inline void ksm_exit(struct mm_struct *mm)
-  * We'd like to make this conditional on vma->vm_flags & VM_MERGEABLE,
-  * but what if the vma was unmerged while the page was swapped out?
-  */
--struct folio *ksm_might_need_to_copy(struct folio *folio,
--			struct vm_area_struct *vma, unsigned long addr);
-+struct folio *ksm_might_need_to_copy(struct folio *folio, struct page *page,
-+		struct vm_area_struct *vma, unsigned long addr);
- 
- void rmap_walk_ksm(struct folio *folio, struct rmap_walk_control *rwc);
- void folio_migrate_ksm(struct folio *newfolio, struct folio *folio);
-@@ -145,7 +145,7 @@ static inline int ksm_madvise(struct vm_area_struct *vma, unsigned long start,
- }
- 
- static inline struct folio *ksm_might_need_to_copy(struct folio *folio,
--			struct vm_area_struct *vma, unsigned long addr)
-+		struct page *page, struct vm_area_struct *vma, unsigned long addr)
- {
- 	return folio;
- }
-diff --git a/mm/ksm.c b/mm/ksm.c
-index e050b1bdf810..e95f6b672360 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -3138,19 +3138,20 @@ void __ksm_exit(struct mm_struct *mm)
- }
- 
- static bool folio_anon_rmap_compatible(const struct folio *folio,
--		struct vm_area_struct *vma, unsigned long addr)
-+		const struct page *page, struct vm_area_struct *vma,
-+		unsigned long addr)
- {
- 	const struct anon_vma *anon_vma = folio_anon_vma(folio);
- 	struct anon_vma_chain *avc;
- 
- 	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
--	VM_WARN_ON_ONCE_FOLIO(folio_test_large(folio), folio);
-+	VM_WARN_ON_ONCE_FOLIO(page_folio(page) != folio, folio);
- 	VM_WARN_ON_ONCE_FOLIO(folio_test_ksm(folio), folio);
- 	vma_assert_stabilised(vma);
- 
- 	if (!anon_vma)
- 		return true;
--	if (folio->index != linear_anon_page_index(vma, addr))
-+	if (page_pgoff(folio, page) != linear_anon_page_index(vma, addr))
- 		return false;
- 
- 	/*
-@@ -3167,20 +3168,21 @@ static bool folio_anon_rmap_compatible(const struct folio *folio,
- 	return false;
- }
- 
--struct folio *ksm_might_need_to_copy(struct folio *folio,
--			struct vm_area_struct *vma, unsigned long addr)
-+struct folio *ksm_might_need_to_copy(struct folio *folio, struct page *page,
-+		struct vm_area_struct *vma, unsigned long addr)
- {
--	struct page *page = folio_page(folio, 0);
- 	struct folio *new_folio;
- 
--	if (folio_test_large(folio))
--		return folio;
--
-+	/*
-+	 * A KSM folio is small, but the slot that it left behind can be swapped
-+	 * in as a part of a large folio by one of the processes that shared it.
-+	 * So test, and copy, the page of the slot.
-+	 */
- 	if (folio_test_ksm(folio)) {
- 		if (folio_stable_node(folio) &&
- 		    !(ksm_run & KSM_RUN_UNMERGE))
- 			return folio;	/* no need to copy it */
--	} else if (folio_anon_rmap_compatible(folio, vma, addr)) {
-+	} else if (folio_anon_rmap_compatible(folio, page, vma, addr)) {
- 		return folio;		/* still no need to copy it */
- 	}
- 	if (PageHWPoison(page))
-diff --git a/mm/memory.c b/mm/memory.c
-index 77d4bbf444bc..91836d217d25 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5096,7 +5096,7 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
- 	 * folio->index of non-ksm folios would be nonlinear inside the
- 	 * anon VMA -- the ksm flag is lost on actual swapout.
- 	 */
--	folio = ksm_might_need_to_copy(folio, vma, vmf->address);
-+	folio = ksm_might_need_to_copy(folio, page, vma, vmf->address);
- 	if (unlikely(!folio)) {
- 		ret = VM_FAULT_OOM;
- 		folio = swapcache;
-@@ -5278,7 +5278,8 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
- 	if (unlikely(folio != swapcache)) {
- 		folio_add_new_anon_rmap(folio, vma, address, RMAP_EXCLUSIVE);
- 		folio_add_lru_vma(folio, vma);
--		folio_put_swap(swapcache, NULL);
-+		folio_put_swap(swapcache,
-+			       folio_file_page(swapcache, swp_offset(entry)));
- 	} else if (!folio_test_anon(folio)) {
- 		/*
- 		 * We currently only expect !anon folios that are fully
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 254ce86fa923..71ef9e2efb3a 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -2514,7 +2514,8 @@ static int unuse_pte(struct vm_area_struct *vma, pmd_t *pmd,
- 		return 0;
- 
- 	swapcache = folio;
--	folio = ksm_might_need_to_copy(folio, vma, addr);
-+	folio = ksm_might_need_to_copy(folio,
-+				       folio_file_page(folio, swp_offset(entry)), vma, addr);
- 	if (unlikely(!folio))
- 		return -ENOMEM;
- 	else if (unlikely(folio == ERR_PTR(-EHWPOISON))) {
-
--- 
-2.43.0
-
+                Linus
