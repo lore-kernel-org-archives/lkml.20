@@ -1,49 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269210;
-	b=mkT5SHW7rpHX2pZCzEvvpcFvMnQ4OzRDQgsba9It4g6PyoHjFIZoB1ItOGjCFgGagryL
-	 zg4PKOwbai1jnOVHRQFVwBapHKHRWaNrt7wKfbzK/v2YIwzO/ZDS+RoHMwuRabOy+P9u+
-	 zofyGCfByFeFg2sW7TygkvVfMtpmWqEpp4ZVF3ZtiVYOyTy9A0/lLndxbpT/FFvOS9sZD
-	 e7yth/IcvLjf6nqim4clXPrw9Ve6siSAv0bzElYzUqUDUJeB8BXc51sGZNciF5tXp32Oz
-	 PYZmDvWikViHlhqnvhOF2afLVHFhwqibXT8TI8UB4R83GGeC8D1UJbS5GJM2pNTyNLQ==
+	t=1793269276;
+	b=lOlCGR5RgYZp84tNlsG2qOHnhZ0gjwkzs2aY5etdwzRgWQbjsCCMGS4fc274HW2S9FM+
+	 AMnAMYsEOUjwlRWU87XxavOUSKHDS6gAsrPRCVm9+Y2mZLQ/z9mTd3n0OzVryPg6U+jBb
+	 wprWRc0uEwbtmxJvu+05p6V+k9Imr/Lq6R10eT5Nqn33FAt87+A7wnh4b0vP4kITtP+aJ
+	 0zsCx1GaMzDm8PJQfep+anyXA6Bb2LPUNcy/vmHWiWs3vh6cH9BX/Zb2sQ+tYj98CFbZj
+	 iy+KGvWzWmssJ59lgmOsnrKYPrNwyHBA52/yKWZBvlBPeecDo9xXsXDxC14cL24GYfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269210;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=OF2QB9cgRpekb1TO5KWZK492f7aBogRyKJ8KyPEWbeE=;
-	b=osbpMNrbvCP8o5Rwe/xHEckD32gqe7Edi3fjrHxCb2ohfcXMWj5B0hDt/8szy2ipOSSo
-	 0vpSJo/33d2/W+ZFY3jFJQc2fbsdpfMP6ZJ7FF2nARcoTFJGWbyOn1nMbR0LaRGW+khIE
-	 6uH5GjFoerm3BDmlkcCAIn8UExq1wC0qSyEmI0Idk1koLH/i3DGCH0B5xXCwoh4gEKfft
-	 fUbZBHaoPDgaATwL2VO6zKk/eWMqIKmFpspu8GHi6WG1tRrg5pQLlOLW2UpDVpFuRaWj+
-	 tlwDpCVjZL95YU9AV5vgOXZRHvt3+1W56w9GEzi8ZBO8g+eSi0TJ8bSX76lrcwi23Ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269276;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=+3nAUYBGz2stcktDmPryBjKJjci4h4852ZCrooNiT6c=;
+	b=2wftCPdC/F7bB5ExiZKz40UzWMJVUVkaUYu5SkWnMTsHRlcPAbIYOw8jNiyDSUUpmqqB
+	 gpLe4dV9F86IvyvRL0cP8QnOeSI8KodOVRREyNOQwR9dshn7zbjD20147prK6jYk6GKNv
+	 b3XQjgtqYFFWXxHHUjBI8U/Y8crjRMt4lWRncD9ahFyM8ViFt6ZnAaeqHZrYvbG1YNGtZ
+	 s0YgAiiuBP76LX16V7H/2NnDfu0W80JuYMmHEJlLvwm2WsOvaB/vvbEIurO6xmHNcGB9L
+	 urNfL+33zgrtBnN4QvVsmLeeAro30IbgyvJGh2MekWnl8HcadQ4WACjjbUfJSLi4ENQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K0phUkTR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7354606A31C;
-	Thu, 29 Oct 2026 10:20:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K0phUkTR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD251F01825;
-	Thu, 29 Oct 2026 10:20:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793269209;
-	bh=OF2QB9cgRpekb1TO5KWZK492f7aBogRyKJ8KyPEWbeE=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=K0phUkTRT3DQ6MPEfP9WuRYonjs2BmKz75jIGpzhBsM0ty2cRL9FToxn0CJdqX3Zp
-	 QrCi1RglMLuWc9AviuLqywP0CxBYZY8g0KQsW2gnn3OnaQiW47bI8BnlmYoIGzZRrQ
-	 z3JK2eg6DkvCPjO6x+uTA/CgRQahnofr+4U4I346L9SN5lM3bZ71pJ9pEwWxVMWree
-	 4lqmD8HeySxbJVwhPut3N0xmnI54a4+q+bw0nHHkRPgiA+krQtdEr5ylOFQEjmwkdl
-	 b5gsWszkwsgvU5KAOjWdPGT5WKQsUe2ctNARaKBQDf31FUm1nELZ21HhvL8P926pex
-	 yxKORZlpoYXYg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 815173AB8A8A;
-	Thu, 29 Oct 2026 10:20:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D57B8606A31C;
+	Thu, 29 Oct 2026 10:21:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D57B8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=+3nAUYBGz2
+	stcktDmPryBjKJjci4h4852ZCrooNiT6c=; b=Al66+AjQDZIjJXHujnO6XuEfMu
+	l/PstyfhSArKh5Ow8iDerX0pJQmaZq1q9dKu4YOXPE00PmxqY4/I+yf0hZzClkOg
+	XYyczVRKbJxujDv2vIO9lpaJ2FkdHWOkwIE7z2aQ3I0pRpa613sv69oG6uOBt2eq
+	UEENhncf1wXZ7lKhI=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.47])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBGjgMIHuNq+uD9AA--.65420S2;
+	Thu, 29 Oct 2026 18:20:57 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lei Huang <huanglei@kylinos.cn>,
+	Dean Anderson <dean@sensoray.com>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: s2255: cancel the in-flight firmware URB before reloading
+Date: Thu, 29 Oct 2026 18:20:55 +0800
+Message-Id: <20261029102055.30569-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,47 +61,89 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: mctp: free reassembly head skb when key_add
- fails on
- SOM
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179326920806.1737402.15204469071401829479.git-patchwork-notify@kernel.org>
-Date: Thu, 29 Oct 2026 10:20:08 +0000
-References: <179287946888.17431.11219154409333681184@gmail.com>
-In-Reply-To: <179287946888.17431.11219154409333681184@gmail.com>
-To: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Cc: jk@codeconstruct.com.au, matt@codeconstruct.com.au, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+X-CM-TRANSID:BLQMCkBGjgMIHuNq+uD9AA--.65420S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCryrZw48AF45WFyrAw17GFg_yoW5Wr1DpF
+	W0ga4YkFWDGw1rCF1rCrW7u3Wruan5JFW7GFy7J34qvrn8J34DAFyFq342qFyDJrySka47
+	tryqgFy5CFWUtrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
+	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
+	17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
+	C0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
+	6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
+	73UjIFyTuYvjxU2fMaUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUBD2riD9OnswAAsK
 
-Hello:
+The driver uses a single URB to upload the firmware. s2255_timer() submits
+it one second after s2255_fwload_start() filled in the first chunk, and
+s2255_fwchunk_complete() resubmits it for each following chunk.
 
-This patch was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+When the transfer does not complete within S2255_LOAD_TIMEOUT, s2255_open()
+stops waiting, sets the firmware state to S2255_FW_FAILED and returns
+-EAGAIN. The next open() calls s2255_fwload_start() again, which refills
+the URB and arms the timer while the previous transfer may still be owned
+by the USB core.
 
-On Sat, 24 Oct 2026 19:04:28 -0300 you wrote:
-> When a start-of-message fragment creates a new reassembly key on the
-> broadcast/bind path, mctp_frag_queue() stores the skb as
-> key->reasm_head before the key is made observable with mctp_key_add().
-> 
-> If mctp_key_add() fails (a race with another SOM packet for the same
-> source/dest/tag, or the receiving socket going away), the error path
-> only drops the key reference via mctp_key_unref().  The final key
-> destructor frees the key itself but not key->reasm_head, and since the
-> key was never added to any list, neither the expiry worker nor socket
-> teardown can reach it to release the queued fragment.  The skb is
-> leaked.
-> 
-> [...]
+One second later s2255_timer() submits that URB again:
 
-Here is the summary with links:
-  - [net] net: mctp: free reassembly head skb when key_add fails on SOM
-    https://git.kernel.org/netdev/net/c/d2bfe74a8fe2
+  URB 00000000b9ed398a submitted while active
+  WARNING: drivers/usb/core/urb.c:379 at usb_submit_urb
 
-You are awesome, thank you!
+usb_submit_urb() returns -EBUSY, the firmware state is set to
+S2255_FW_FAILED and the device stays unusable. Rewriting the fields of a
+URB that is still in flight is unsafe as well.
+
+Cancel the outstanding transfer and the pending timer before reusing the
+URB. A killed transfer completes with -ENOENT, so do not report it as a
+transfer error.
+
+Fixes: 38f993ad8b1f ("V4L/DVB (8125): This driver adds support for the Sensoray 2255 devices.")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/usb/s2255/s2255drv.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
+index 15012d73975c..4d5de6930542 100644
+--- a/drivers/media/usb/s2255/s2255drv.c
++++ b/drivers/media/usb/s2255/s2255drv.c
+@@ -490,7 +490,9 @@ static void s2255_fwchunk_complete(struct urb *urb)
+ 	int len;
+ 
+ 	if (urb->status) {
+-		dev_err(&udev->dev, "URB failed with status %d\n", urb->status);
++		if (urb->status != -ENOENT)
++			dev_err(&udev->dev, "URB failed with status %d\n",
++				urb->status);
+ 		atomic_set(&data->fw_state, S2255_FW_FAILED);
+ 		/* wake up anything waiting for the firmware */
+ 		wake_up(&data->wait_fw);
+@@ -2187,6 +2189,14 @@ static void s2255_stop_readpipe(struct s2255_dev *dev)
+ 
+ static void s2255_fwload_start(struct s2255_dev *dev)
+ {
++	/*
++	 * A previous load attempt may still have a transfer in flight, e.g.
++	 * when s2255_open() timed out and the next open() restarts the load.
++	 * Cancel it before rewriting the shared URB.
++	 */
++	timer_delete_sync(&dev->timer);
++	usb_kill_urb(dev->fw_data->fw_urb);
++
+ 	s2255_reset_dsppower(dev);
+ 	dev->fw_data->fw_size = dev->fw_data->fw->size;
+ 	atomic_set(&dev->fw_data->fw_state, S2255_FW_NOTLOADED);
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.34.1
 
