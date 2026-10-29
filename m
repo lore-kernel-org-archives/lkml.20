@@ -1,48 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306365;
-	b=b1xOawpYlqbf7TZ8GAgxE3BZvrbbv2o+xDDULi84NRz/faQg5+Rwt1uMpjKxMjqEZYJq
-	 uamZzr98070C87GxF2oh7RkPI0Im9vMDb0P2/j1Pyc9c4BHQbTh9CZ1UTH/ml6FcY1Vc0
-	 MWhN/tLyJgzncC++hQLCTwUa2FYBi3yP1+rVSPbV71ZFPqkWK0l0cnT8K1eS8fJRumGAl
-	 IAFrugQAw7GWbfO1f2irAah0ADJ27OQihJCbabrfvWxUXy1BAx2Z4Yb7yC5TcoyVhnSlH
-	 0LOgR3HYtNI0fG3qEpog6QW094wPaoaqZgeYFybsrLNFIaJZeQYTW/ueqYBYp95IMxg==
+	t=1793306382;
+	b=u8zOStDGn+DVtT6Ssj3q5U7Nyc18WN562JcBj5AF6POzuauULGPZoV+BpFF0ZNUwRtzr
+	 TiEYZZbsxWd/t20bOIF+r+lurqT692UJQ6rn9hXjzMmC0vcC1X9ds7/LHixcoHIP+rMCm
+	 zTiqq4b0kn3SMMaLBln8vZ7xMX4eUECZTkm8EXECZiZk7+EwWy2QbeVKaKqAbzDzIXP4Q
+	 AHbCLDzLmhTO/1vjjEAe/h3hj5XnESfPFLeo/vgVmMKDB8OGz6zJY+Lsvoz8WHgEcQY5g
+	 P8xrhLvWlAd5Ji0v73pGZLptVSC7T91t3H29L/uAYdOF6U+PZYGtCH+mq84fiT7W5/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306365;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=93rB4MhysMhGYbksem4hKuOQyLx77syArI3hVZIrAK4=;
-	b=z0aRBAQgzfLRsQi1/jWUARSGKrJVmTMEpQhYSRufZ81tC0H3jWIBkYfVn07XFfh6WxTt
-	 fxtTiYyRbslbcno1TYMoF/5kQlHMPhM9VEd/ze5i/aQpxGwa/354KuFdCoEC1UQDkvtMW
-	 yFAmdud/r1+3k82dxaSjoDVhUqG991QHMgteTBmucQ30EPmCir5YYPzAGL291LQ5+UNM5
-	 1PvhbnJ4KLKgkhiaYGFTMEMbczzxJWJBgqNF1ldlCmqfbDJxNGsGeu46/TP7RdqlFQ9TM
-	 yXSUUJ9uL2S/f/aMCCTrjZ6xNWwiLTZb/HPXFuGwFjczcOChe76w1KeWInQ6TVDzHeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306382;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:User-Agent:
+	 MIME-Version:Content-Type;
+	bh=zZ98LDJa1IE/oN6cTPpb0GoN4V76v/7mFaBGKH4x77k=;
+	b=Nh6bsxlZClChNs4+yGWjBcX6aHIvjY8VBIeCXdaxvR3z81Y9vEfjksH927We7bqoJSEU
+	 CHQgchTcUgdzrYrq67DJPFtgCPrwHrmTIfqdetyPQLiJeLlyMZYTwnO9ZzrzSQ9qAZ629
+	 OJEIKk4IGhOT4VSzHLo5flhNOr7mLMxRpi7/NSaT6BvyX72PVKWXnHnY+7i4DBLwCOygE
+	 1kTx7K3JYuUMwr/TzhNIF8JSl/gyXOqOhDTPrwCwwBnLPQoT9HTsyyN8H/bJSl+Bl7y8X
+	 CncTVQdXT7J3eL+CVq9DHeImJuewGe5iSZ/qpn/gMq3FWgPoMVVwzlg9Y5C5Xf0wM8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlKsdyMX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lAkm9XIa;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B7B606A321;
-	Thu, 29 Oct 2026 20:39:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28BAC606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:39:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28BAC606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YlKsdyMX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46BD1F01816;
-	Thu, 29 Oct 2026 20:39:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306365;
-	bh=93rB4MhysMhGYbksem4hKuOQyLx77syArI3hVZIrAK4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=YlKsdyMXMe5uYCu83iB8MjgJNBo9ihA41CeTCek8Yphz+cIivFiF1PQxyAHfKlko2
-	 0QD32dcJV7Ck4q1Js/ZOHyaLk5WAydTF1kdrarTAi71AJ2YwjxMAGMNmEnCtnAQv2X
-	 /S+Ch98lQzbrbvWpHx+QzNZiP2EkyoOo6wYgdlvQ6g5ScFZPceMS3op53bXt/B+Enq
-	 BED4rLyLLGRwSKp0Qq4/93GOyLtpiPv7fa0DrCe1bq0HxIbRnbojjtmW2X4vwKwoCA
-	 6slZ9Mrrp4KHRhq1orGCO3BkyyXd1JC+utuS4SS3T8j4nbPnctubqyoD23R0oW24tJ
-	 liZ86yXMtu6FQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:19 +0100
-Subject: [PATCH v2 24/47] mm/userfaultfd: wake all waiters on unregister
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lAkm9XIa
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso195560eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:39:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793306380; x=1793911180; darn=vger.kernel.org;
+        h=content-type:mime-version:user-agent:message-id:date:references
+         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zZ98LDJa1IE/oN6cTPpb0GoN4V76v/7mFaBGKH4x77k=;
+        b=lAkm9XIafJ32D5jpH3y47xA0Lyt/iZujWDQlydsE1AeX8igESOpEMbvwqu3Pz2HDm4
+         JS+Fc4fMAJrJKoYv4nn4LK8I6YbnYOUN+JP4jJUbhSodrB49sLMdiYFzZ5v50A0Uy3YQ
+         zXNlqOOYIA/13lEvnNVBEq5GZySO9u1YcziG/xRarI3/BU8eBQrnHlrzRUH9iLH5AWCz
+         VYj+3S+vAkeFVUqsyIBzP3W/eTCrxWF7x6gnZf7gkDnin67Fc/1lHDbK/j2WvvuGeqgo
+         BW1yTfthoirf2sGs5V0xGz+T5p7nGZXxnfjgZ/0JztvPMgqZCGuPN4dQfSuGddr3ksSo
+         iJVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793306380; x=1793911180;
+        h=content-type:mime-version:user-agent:message-id:date:references
+         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=zZ98LDJa1IE/oN6cTPpb0GoN4V76v/7mFaBGKH4x77k=;
+        b=zPcAgDuTAkHTWawvn7GrFupcLMPtlyjo6DI95deeK8i4praV0S83UDo0UDjh0f3w4U
+         a+ktjct1G3niOoG3sDQKn8PJzt23ZO6Yd8HrM5AkvGxDEW+8jMoUkwteCds6tvSxNbfw
+         USmvq1W5+JCB2YCCBUXICOfJAzVbhdbZzBlki8/utnodHAadrRr2xi2Yio3WgHXpwgmc
+         gFowaYfhqVzEwv6qvnmiQMuiXZSSiL1ZA6+e9QPlyf++BKIdDdt/phAo4orqj3Ydx1Tx
+         4fZruWP4npKqg4OsrMtl4YGEHV8I15zXorDCEegD/InjKjTvWgsmCrIHRkMX90m1B5vx
+         evKA==
+X-Forwarded-Encrypted: i=1; AKwUvBx/udzPc/a4M/h/X4LBbjviwAZunkGARq55rWP3UL9bEt7qUL2h3SeXvp+qbdfbchmfvgA95tZrU5b6gh4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8F9fajrhDT/6vNp/6H114KoqZNcRtVijxO4zL0mB9cMsSSfoU
+	Gg0yj1ZeGRO55xKTF/4riFo/NdgqxHbgx3bdqmh6FMbo9XfP0Mu/j4jUfZY3ckwZJCtws02fdUH
+	H8dQPsEru
+X-Gm-Gg: AYBFou3SHfHsbeZvkVphW6x1lA6/gtY7aHMS0q/ijYDx8JCOfPuB9TPxALRaPRe2gc5
+	iOU2fItcLeEpg+A2GcS3O61L2hDFuyWD6tvFCs101C/2vUeZ/5MdkVW8FXI2tjKS0oRbFGWCRlg
+	KWaSMuvQNv+JVdjkT+28LhdB/pfkRai39oHXelDXCWZpfIJaH9DxAwE9Kwz7ESTKF8ImD6lDLOD
+	0kqaETx9TbgXQHTZSZ+9YloWPXI9Y/8ZHOxtD17P1deVRZQUa6kdr/khk+XR8II1pswgowR93Hs
+	GMvDVQGBMMAfhjsyAwPJRO05WZkvVqv1HEanDFOgkr68sQTdij1kl2t9bXEjUeqZ2INZimjaH8G
+	Be/eFHwmuTF4jXHpVvPNDjBVDLk9DqHjgIBL1Jh9rfAC9DUKEC/i+h+WdJvWpIqb9NJ2yOfXmXD
+	8Ox64Xwxb7ochboSq3SCetetPNl8c3H5nH3MqzY2P/OEH3p6YUidhh2LXovHyrpw3zMIdVOBjzu
+	5XU1RVpXjLarG2kolj7l2aDSON5t9cWHiCuRZwpvyYKPQadtwpl4I/Q0U32POAICM9LvjIdS9jx
+	3k5n4Y+zLZE/0ckI1I3WdEDcmktrc0uVytyMjTxyRJ2UiFIKcRF3g+DZfme4
+X-Received: by 2002:a05:701b:424f:20b0:149:d501:b990 with SMTP id a92af1059eb24-1ac5eea2ea4mr189708c88.25.1793306379177;
+        Thu, 29 Oct 2026 13:39:39 -0700 (PDT)
+Received: from bsegall27.localhost ([98.45.141.147])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458fa3sm1090743c88.4.2026.10.29.13.39.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 13:39:38 -0700 (PDT)
+From: Benjamin Segall <bsegall@google.com>
+To: "Aaron Lu" <ziqianlu@bytedance.com>
+Cc: "Daehyeon Ko" <4ncienth@gmail.com>,  "Ingo Molnar" <mingo@redhat.com>,
+  "Peter Zijlstra" <peterz@infradead.org>,  "Juri Lelli"
+ <juri.lelli@redhat.com>,  "Vincent Guittot" <vincent.guittot@linaro.org>,
+  "Dietmar Eggemann" <dietmar.eggemann@arm.com>,  "Steven Rostedt"
+ <rostedt@goodmis.org>,  "Mel Gorman" <mgorman@suse.de>,  "Valentin
+ Schneider" <vschneid@redhat.com>,  "K Prateek Nayak"
+ <kprateek.nayak@amd.com>,  "Linux Kernel Mailing List"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] sched/fair: Clear throttle state when leaving the fair
+ class
+In-Reply-To: <20261029032740.GA2901802@bytedance.com> (Aaron Lu's message of
+	"Thu, 29 Oct 2026 11:27:40 +0800")
+References: <20261022235234.150957-1-4ncienth@gmail.com>
+	<xm26ecd9ihv8.fsf@google.com> <20261029032740.GA2901802@bytedance.com>
+Date: Thu, 29 Oct 2026 13:39:37 -0700
+Message-ID: <xm26a4nwi6ly.fsf@google.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,123 +107,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-24-a64ce7f83abb@kernel.org>
-References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2376; i=david@kernel.org;
- h=from:subject:message-id; bh=IeP32edqUnfVhMXgZn9k/7GJXHBVF4YDItB/FrA9iCo=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer21fZssROqlhS+ofnxNzpMU1gq+eX5g3y+T4lOjXX
- xuvrzmU2FHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEbh9m+Kd00U3ugNZCHgbl
- 956f3Nxt3+u73ZzEdEiM7/CD6oz54b8YGbZURRyZ7WzlLbfCpOulgpFegap5/aGGTfnfm7o63Vr
- msQMA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Type: text/plain
 
-From: Josef Bacik <josef@toxicpanda.com>
+"Aaron Lu" <ziqianlu@bytedance.com> writes:
 
-UFFDIO_UNREGISTER only wakes pending faults if VM_UFFD_MISSING is set.
-Threads waiting on write-protect, minor or RWP faults can therefore remain
-asleep after unregistering a range that does not track missing faults.
+> On Wed, Oct 28, 2026 at 03:24:11PM -0700, Benjamin Segall wrote:
+>> Daehyeon Ko <4ncienth@gmail.com> writes:
+>> 
+>> > Task-based CFS bandwidth throttling removes a task's fair sched_entity
+>> > while the scheduler core still considers the task queued. p->throttled
+>> > carries the fair-specific state across dequeue/enqueue operations.
+>> >
+>> > DEQUEUE_CLASS removes the task from cfs_rq->throttled_limbo_list
+>> > but retains the bit. If the last finite CFS quota is disabled while
+>> > the task runs in another class, it is absent from the unthrottle walk and
+>> > the bit survives.
+>> > Returning to fair while cfs_bandwidth_used() is false then performs a real
+>> > fair enqueue with p->throttled still set.
+>> >
+>> > After bandwidth is re-enabled, a class-change dequeue treats the
+>> > stale bit as limbo state and skips __dequeue_task(). p->se.on_rq therefore
+>> > remains set, and put_prev_task_fair() places the entity in the EEVDF tree
+>> > while the task moves to RT. On exit, the fair picker can select the
+>> > TASK_DEAD task. __schedule() then returns to do_task_dead(),
+>> > which hits BUG().
+>> >
+>> > Keep p->throttled across migrations and group moves, but clear it on
+>> > DEQUEUE_CLASS because fair-specific state must not outlive fair-class
+>> > membership. A later return to fair uses the normal enqueue path. That path
+>> > still respects a throttled cfs_rq.
+>> >
+>> > A KASAN, LOCKDEP and DEBUG_LIST v7.3 kernel reproduced the do_task_dead()
+>> > BUG in 3/3 root and 3/3 delegated uid-1000 runs with CapPrm=CapEff=0 and
+>> > RLIMIT_RTPRIO=1. The fix passed both matrices plus a 3/3 class-switch
+>> > control with bandwidth continuously enabled, without a scheduler warning,
+>> > KASAN report, lockdep splat or crash.
+>> >
+>> > An AI coding assistant analyzed the state mismatch and drafted the initial
+>> > reproducer, fix candidate and this changelog. The source paths, trigger,
+>> > controls and results were rechecked against the cited revisions.
+>> >
+>> > Fixes: e1fad12dcb66 ("sched/fair: Switch to task based throttle model")
+>> > Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+>> > Cc: stable@vger.kernel.org
+>> > ---
+>> 
+>> Yep, sched_class switch lets you smuggle ->throttled into
+>> !cfs_bandwidth_used(), and then that check on enqueue_throttled lets you
+>> smuggle it onto actually being enqueued, which leads to corruption.
+>> That's fun.
+>> 
+>> I think we need to use switched_from_fair though - if we are currently
+>> TASK_ON_RQ_MIGRATING, sched_class changes will skip going into
+>> dequeue_task_fair at all, so we will not see the DEQUEUE_CLASS.
+>
+> sched class change serializes with migration I think, with task_rq_lock()
+> which waits for migration to settle, so this should not happen?
 
-Wake pending faults regardless of the registration mode so they can retry
-without an explicit UFFDIO_WAKE or closing the userfaultfd. This matches
-the existing behavior for missing faults, including removing unread fault
-messages for the woken waiters.
+Right, of course, sigh. So then this should indeed be fine.
 
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: rebase; simplify description ]
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/userfaultfd.c | 22 ++++++++++------------
- 1 file changed, 10 insertions(+), 12 deletions(-)
-
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 3ca04b582329..be630674fda9 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -3977,6 +3977,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
- 
- 	ret = 0;
- 	for_each_vma_range(vmi, vma, end) {
-+		struct userfaultfd_wake_range range;
-+
- 		cond_resched();
- 
- 		/* VMA not registered with userfaultfd. */
-@@ -3994,18 +3996,14 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
- 		/* Prevent new userfaults from being queued after the wakeup. */
- 		vma_start_write(vma);
- 
--		if (userfaultfd_missing(vma)) {
--			/*
--			 * Wake any concurrent pending userfault while
--			 * we unregister, so they will not hang
--			 * permanently and it avoids userland to call
--			 * UFFDIO_WAKE explicitly.
--			 */
--			struct userfaultfd_wake_range range;
--			range.start = start;
--			range.len = vma_end - start;
--			wake_userfault(vma->vm_userfaultfd_ctx.ctx, &range);
--		}
-+		/*
-+		 * Wake any concurrent pending userfault while we unregister,
-+		 * so they will not hang permanently and it avoids userland to
-+		 * call UFFDIO_WAKE explicitly.
-+		 */
-+		range.start = start;
-+		range.len = vma_end - start;
-+		wake_userfault(ctx, &range);
- 
- 		vma = userfaultfd_clear_vma(&vmi, prev, vma,
- 					    start, vma_end);
-
--- 
-2.43.0
-
+Reviewed-By: Ben Segall <bsegall@google.com>
