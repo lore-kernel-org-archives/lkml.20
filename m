@@ -1,102 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793311603;
-	b=wGDacsx+ciKcrQdg646DG0I2HqJfsrnbhI7q2qQKmdzLlLP4P7+Xv2LcfNAxOA37yogN
-	 2ZYd/Pw9XkBVMfNeh5IqB3bNmbZ1oNuOm+OElVXgOEtqS9OzhNsFqtLC2KeVQEJRwFDH2
-	 sF6oX7hqSJRuJPxDVGyM7Rg6+3ExGwOMY5Sb0UGtLT0S8SxUiIw0nNTqpOBpy7EylEbQX
-	 kbn9PiUsih0vEYUHwW/jFk0YgRYTOR6Ndfll6IF1daGKexFYcGCciPkiTkWIDCEaPoMCt
-	 fnTEO6Yzx9JKRnY0/mChWDh7Xn9nIQ4kzIdvUz/wQe4tn2261y49ADOWzQejrd4F7WA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793311603;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793311739;
+	b=lr7WGsIgb1HG9+C38JCqeD6SAIPJ0NOPIfrvId9DVQnAKlV/kZ7UHMz9jh4NLfJQjFSD
+	 bFn2XTBBAmVkvQ88U4pGc01vGLECYkrTXljMRMwI8YWHE9lAHD3Ui2JoHLaCQ86cgkaP8
+	 cZOCWnTjsNSNxLDqKPhn5ikEwIBRvglMGVMIkjGDMaCq8EmmjIUcpLL2UKMVBF4lOQkHl
+	 9qaAFxDeEJDgw0o1UBX4nq4L7PHSampqoGdBIB+6CtOuTTN1p0Ea4pDGfkj1xrqW2U7os
+	 4z8Pz831ol5z4B+xfL7pTy1p7HuwtIPL2HP0Kdxc7c9/QSDtA/NjgaZIfaAh6+WGAUA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793311739;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AUotzmCqd9glGddS9PxvEgwMOpXMRn5H2iSsgciQMXU=;
-	b=eCDxpadD1GylelvxvJGcggquUxIww0DBnD1wS6YsFqrrIywTvqh2QmfzJ86uZGfKA1bZ
-	 X7JrgjtkiljwgyXIohW/HsmGkMVjkdZjtKIPPSQmLUpScdbZRirgKawJMnhs1f7zP9pFo
-	 SjrRHlYUZmZ+o7/4GvKncOVw09iY5WK/SPB4bToBTtIZc7PpDL8bVDSU0cqAAkobnWhP0
-	 EqFcNPIHm16deiLi9exSdXge6/HsDzXHwZfQD88FV0DcXjI/rMGlDZksaM0PbzY7F97Wm
-	 Lqnrumtvb5pv8GSOreUiufevRwaqgxAmln6iWvLefvqaeP7KYC0ziQ/2eKVbR/vjtRw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=BNBRkMvcPM5q+NH92pjwUamOJbPLuAm/rYF5XAa5e1c=;
+	b=SLp7W/P8uiRbmreHnHxpCctBzj4HmEqwMFSWbvHyxr3VaVs8QdFGYBVIkBaJUiD1FpeL
+	 3XNJtqHMkBWSVu0Sa946KqAuM3vLrmcjbj+26whmmSlOFIR+Hhe84GHIrOL3D8lh6pvTE
+	 BPspZwcWS1O9kWqXMBomidbrNBncDQx1uewhYv0Y/ihi0tyG7Sx4CKrawrLHAX8ccs8Z0
+	 U8kOgs5tcXW8ImRzodSwEzN/1XZJnLUEPFI9UTvDYV59fc1CWWt9oz3yWU7WamAHIf8pO
+	 XivYYWzXhIyumAZo+4HwoErTmXa7bReCck6xTh18aZxz+ApwQYj45qvRvnzuncFzGhw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NnB0sgLD;
-	arc=none smtp.remote-ip=209.85.167.52
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IO8tJ5lx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1475F606A33E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:06:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1475F606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6606D606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:08:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6606D606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NnB0sgLD
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5ba328513b9so140919e87.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:06:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IO8tJ5lx
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33bb5afa736so24088eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:08:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793311738; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pw6zrnjpZLljubqVQBzCFW8C+gCGkv+tkwO4PqysI1GyuK9zeFXnxsXmpCAAdlFstI
+         Bk/WJCuc1SSqrdM9vGkNXN+mmbT05r0O4O8OQnxwegq9/5c6TIHC71c5WIhq+8SrmLPS
+         OrhyGmCOsi+GHuqJFm24k1NBv/6ywW2BDN1MI66T6bwLko0HxBfcz9nNV1zWW+dKQhGA
+         J2RyrH4f0eTJj+Ad4ixkfAajNN87nghOxuXR9sqyuLpcva08W1QO0Sz5xZ+gD8P7cwVE
+         G+KsqPkcvFrZYwGpmpFfibUOjCtOYgqbpCpYBYv+uDegfrWVbBTO9pjPgVJArrmcRhio
+         RpRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BNBRkMvcPM5q+NH92pjwUamOJbPLuAm/rYF5XAa5e1c=;
+        fh=8y+05wL9cHj0MtiK3Bb9DnJ22UAh6yFAcwvKfcidzrc=;
+        b=AEDGDhhzlCG7rfypMvVFqYDqDJLqhjrl9jPV6qgF4Tuyi0rRhRAzeibU4eR56IyNrJ
+         j9JtskdWlIdplmpBLpHH5J/PNQ787J5X0hh3XICbcQvUl+np+Yp0mf9q4dr8blyRvavY
+         2vZ4EgKLYTDI06NcPtxKl7u4lH4JbheMvHPglApQ7cvceYKl/N6T6v2q3bkE6U/PaXE9
+         XF3+s1fmaTtK5HgaUrJ3/dhXiwgFg5LMQDylqUsre4Fj3l/bV/g+Tv0nZysKVxYCw7AI
+         dwjqKmKFrE3O3z8QkN9z+19PBFhjhFAU5XSyGRcUEW3SEUw5OcqzWZEBWIYmHpRplR+s
+         TfxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793311601; x=1793916401; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AUotzmCqd9glGddS9PxvEgwMOpXMRn5H2iSsgciQMXU=;
-        b=NnB0sgLDS2ZMBmgaEiUGFTcmHWOr7URX6Rw26uk5dFTM7J4ZYxVfLMPiJa9Dn9y2Cb
-         OpbGWJpRFZfupU/+Fv3CufKcyImPGRXL9NRG6E+ayF9ODU/fsLXKDuyLu97dZsa5pUFJ
-         92hc/PMIFUBoy307czLIlTTGden+l93KKWGWBvHphY/8OuXX21gfP05cLhUXjFio7bO2
-         ifNRt2w8+c9To8yVaDcMq1l8SGbOyKgrnHtGqvIk5e0RUmeCw91iaZ07ZqLhtDPeUaAe
-         DJB6SXZyMtP1/+RAuvUcZ4mqoj8YSFJxs5esfyq2XMMcdelq+aiAN/6hG5K+3upiLS7N
-         a/xw==
+        d=gmail.com; s=20260707; t=1793311738; x=1793916538; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BNBRkMvcPM5q+NH92pjwUamOJbPLuAm/rYF5XAa5e1c=;
+        b=IO8tJ5lxB70rtIbO8uqzbf0HgTt2rHzzsGrh4yuPST3h8+Y930eFpXhmYktJ0HfdEF
+         DDFLOav01Xh/FyxELAyoXoIuPH++7401hIvdbB9OilUiSJIVICslrtO3Mi54zarHgo1a
+         3LAkB/bo9X9s6xjbh7EcngQjYsuxDgEieoYI4n5OKSW5AGSs3S83cft8qXnE/zdTqhi6
+         OuASCwvb4nKFa3dV4QBDVi9Qa/RQ2EtkKYgPg8dkJUOC/K+A3dfrX8XK8ZUWPBxjohPz
+         zYWKW/ckGaAthBAq0nYGI5+1Xj+uzjPvTJpexo2jgDMeI8RfMI+pBHEBSPSvPADpVIng
+         O1bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793311601; x=1793916401;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AUotzmCqd9glGddS9PxvEgwMOpXMRn5H2iSsgciQMXU=;
-        b=YdrwoECWtYd8hL0BoL3OoHx2UxZrqb+oYZYr9cpqb2Cx8hEl+MQNp4YTn3kFL1J8fh
-         eXSmAdHWhR+XtdlNDVvFuIZasmhDxAcWPoewqSw5VlMOSWLmur4D9p/BP6KKce0wQDeE
-         /sfIkelUVmjHzpx3x+DF2qlekputSROmefjbk5Tj55HsH/eIFu6UDqBZ2hjgUYlFSrDw
-         jnP4e9dqiKiIIvJJzfGxL4jx/edO87p/3ZfMYPNIQLruYyNR1yM27wi+e+k6IFNX1mGv
-         L2h5JP5vMIWfJ1Fs4Q44O6Npn4Bt2cvWlzVuQGyhL5DQTuXDNvGYe2AsdIjdI+RYdmXo
-         0Zow==
-X-Forwarded-Encrypted: i=1; AKwUvBwJuC0sJygRuQBbta1oTudms20sjOEE04Ehzz8SSwiKlSQFS2YNGgBVMpjcptCwfiSgqU2PS6BvmddZA+c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKg+lwENgG6udHKs5gkAuGWRy5JCCxhidfXKuOtQhKcCAsKBtkU
-	PAUz8BGMfYGqXt/8+KbOGxHJhGPLRUFGmVvFuTSx8gXw4IpvgIH4stXp
-X-Gm-Gg: AYBFou3xUrRi3D4TfgF4KD2znJHjoUrNXBJVuvW/i4mnCpUHZje7i/c7jH1k0tUdbCA
-	6sTTs11rdkzoNyRv/j/rRR0VnVANmRtLLSd92RChtMYQ6KgnUpVRXpCB4yIZzSxR+/Kh02uRx6+
-	Dx8Wd+Z9N7u3MkZWmxxuZ0jMiw/9cXSf9/B15SC0KMMsmP8R1tpRPdJ43ifY4sNlj4aH4SxDqKu
-	w4/5tJEbe9U5AWAsGxB2cQt9L7nVySpkPMnEhTrBQmIVtF+7gzUHoCGERC0byvAv0xe0lcoEbDR
-	IYDGN3rM9TYa1vjCOlGsxGc9M8ICNcpBdYGQ5yWXwMxgqNP8S74xsrV4PA3wKa92nstYwk1a8Kt
-	waetdTzO4QcpclXVtV2mAVKjDE0YuQ675GIrzLDbdgOG2hqGWd6SGm1SA3gV4nbVo3IvL3PZOlU
-	M3hWxIK/TaXtc1XZ4c/ljJHBpIVpFUkfMXZvvoQs+CS9NzH0/ZDnEPsacBUfa1uju9EZQs/Hklx
-	hn4RCyPKVYayN87D32jDiJJKFcN5d1ay0OyX8YwBZO1fpdkj92Ou2c0cjM+YgtQK16bGh3Obz7z
-	v++UTfGDzYm1tIFVQ5oVFjxTIKIZ1tlxnuoJEWFIAmrr63Nyb8uTZgizNhHJZJenRs0ZMyvUp3U
-	maVjR1bVFvQVJ8RYgRF+XkLZ8GZrqTrh2abQLoWgNwx8Aa+fWuADw/1V9iEI=
-X-Received: by 2002:a05:6512:b94:b0:5bf:cabe:23b5 with SMTP id 2adb3069b0e04-5bfd9595416mr56362e87.60.1793311601021;
-        Thu, 29 Oct 2026 15:06:41 -0700 (PDT)
-Received: from yantra.. (nekmmqtmquaao4qwdoc-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:6842:e549:8c95:f73c])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfd9c507adsm9605e87.65.2026.10.29.15.06.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 15:06:40 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Eddie James <eajames@linux.ibm.com>,
-	Joel Stanley <joel@jms.id.au>,
-	Jonathan Cameron <jic23@kernel.org>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Subject: [PATCH 2/3] iio: pressure: dps310: reset the chip at probe
-Date: Fri, 30 Oct 2026 00:06:34 +0200
-Message-ID: <20261029220635.18816-3-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029220635.18816-1-zoone.rupert@gmail.com>
-References: <20261029220635.18816-1-zoone.rupert@gmail.com>
+        d=1e100.net; s=20260707; t=1793311738; x=1793916538;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BNBRkMvcPM5q+NH92pjwUamOJbPLuAm/rYF5XAa5e1c=;
+        b=eMfnZMmg6fo62hbB8VEK4pwww6heZUDycnPDTtdEVkjXtHH3U0dA0lfk8C5a0SCBFk
+         dOF9f8Wan5JfMP9gZ2epziPjrjryBdw368kq7zs2Lq9GJGF54+MrkOumWif+OQ/1tGQ9
+         TEFagY85usW6//Hg2EDVDpwuSVg93Oz7pch39mOoFiq8kwv5dJdROeQnOy5SFrTSY+7P
+         aC/T/NDVnEPn/k2B8GphQ+7Ru8ookHnPqq88rBmofDRujGyS80Mp8zQfGn8IvqtbheNY
+         kT/PD+zsB1MkVFXHy5HZ/Tm8NLH5AB0AI/pFd0bn6fLZdCzPpbRwiPkozfuilqO+i76l
+         ywxg==
+X-Forwarded-Encrypted: i=1; AKwUvBx+j3XCRJSKPhy+8qkxjuOK8jJXl4gMxVBP73DOVAHfJZofssk+kJOzGz15MCHeai9g5xVzEz3q6tD5kAM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILgFJrjaPS7G5xSCDYcdWlKC5s6AES7P5z2knvL4nIRN4FJkr3
+	oYAqVywaIaCT8kWKVcfXLKzU1JfqseTDKRfLP5EyfH2m+OafUhsvETZt/dDeqDKBdsRhHm8M/bx
+	n3CJB/F/6znNV9lv/6jW3Ip9SX8st2iU=
+X-Gm-Gg: AYBFou0Pu4GOG4N3Avp/5UKjaURRx58hVeITCRknQIJcjGG8mOjxxnjmktxn3M36ncF
+	Di16n5qwn7uYkRcjcabOeYVQCTeW7Z0W2fXsK6fJmLqrLgQIqOEZs+tcgs9XKJcaoaSfIKzvJiF
+	cwqcoClhfg827eS2Sbj8/X2BUltYUpfLzbvjGDog80ST50Q+Hv5xRVzz4+IYXzsCQL9UsA8Z7Hf
+	0Kmnt73P9taQ6/OhFISqwEGMBdKYkupaUTBJNhSG3XhGGCHRfphrFXdD2/nYl88IjAjW4vsD0rI
+	dN77ZbCiX8eXjN55msvJLnsOKoPxwEi1Kij4+5GxdE4FMH8uRO7rW9ilEoHqv9eP1u61KOwZ81o
+	YojTSomOpqmrzOPOl7RPMjdPhKmvK9NpZ5iklsISg9MPVjVrPtL/mopQf8OcODHlb6J4XREpno3
+	4cHVJiifdvc/C3bV+epmZTJeM=
+X-Received: by 2002:a05:7022:7e0c:b0:165:be2f:c56e with SMTP id
+ a92af1059eb24-1ac5b7dcb2bmr780931c88.2.1793311738368; Thu, 29 Oct 2026
+ 15:08:58 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,42 +105,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261027133727.748652-2-phasta@kernel.org> <54e6cd9f-57ca-402f-93b6-27fe2b15b29c@amd.com>
+In-Reply-To: <54e6cd9f-57ca-402f-93b6-27fe2b15b29c@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 29 Oct 2026 18:08:46 -0400
+X-Gm-Features: AclHuK-38z0ojG634j8HTvYSqjvHDIGJv5-1HW3Xm4xmKYyn6vnp08A2upfv47I
+Message-ID: <CADnq5_M6s1TFgHgfiPeLS0bQ0iq+iJWzPKPbacyPvBGibUs_HA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: amdgpu_fence: remove ops->release()
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Philipp Stanner <phasta@kernel.org>, Alex Deucher <alexander.deucher@amd.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Jesse Zhang <jesse.zhang@amd.com>, 
+	=?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+	Kexin Sun <kexinsun@smail.nju.edu.cn>, 
+	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The chip keeps its registers across a warm reboot, and probe changes
-only the shift bits in CFG_REG. A reboot during a FIFO capture leaves
-FIFO_EN set, so the ready bits never come and every raw read times
-out. The timeout reset does not clear it either, since the CFG_REG
-update that follows writes FIFO_EN back from the register cache.
+Applied.  thanks!
 
-Reset the chip first, as remove already does.
-
-Fixes: 90f0d1016398 ("iio: pressure: dps310: read buffered samples from the hardware FIFO")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260921183132.233136-1-zoone.rupert%40gmail.com
-Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
----
-Cc: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-
- drivers/iio/pressure/dps310.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index b6aa5dbe2bcd..29778f25bb33 100644
---- a/drivers/iio/pressure/dps310.c
-+++ b/drivers/iio/pressure/dps310.c
-@@ -1445,6 +1445,11 @@ static int dps310_probe(struct i2c_client *client)
- 	if (rc)
- 		return rc;
- 
-+	/* The chip keeps its state across a warm reboot */
-+	rc = dps310_reset_wait(data);
-+	if (rc)
-+		return rc;
-+
- 	rc = dps310_startup(data);
- 	if (rc)
- 		return rc;
--- 
-2.43.0
-
+On Tue, Oct 27, 2026 at 4:16=E2=80=AFPM Christian K=C3=B6nig
+<christian.koenig@amd.com> wrote:
+>
+> On 10/27/26 14:37, Philipp Stanner wrote:
+> > amdgpu's fence implements the deprecated fence_ops->release() callback
+> > which prevents the driver from ever unloading robustly.
+> >
+> > amdgpu's implementation merely uses a call_rcu() that performs a kfree(=
+)
+> > on the fence - this functionality is already centrally implemented by
+> > the dma_fence backend.
+> >
+> > The dma_fence backend invokes a kfree_rcu() on the dma_fence, which is
+> > fine since this is always the first member of a struct amdgpu_fence.
+> > Thus, amdgpu's implementation is redundant.
+> >
+> > Remove fence_ops->release().
+> >
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+>
+> I have exactly the same patch in my pipeline as well.
+>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> > ---
+> > Just saw that this should be unnecessary? Don't have a setup for amdgpu
+> > testing right now, so please take a close look, just compile-tested.
+> >
+> > P.
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 29 -----------------------
+> >  1 file changed, 29 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_fence.c
+> > index 3043ad041bb4..3f8b2571d74a 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+> > @@ -892,39 +892,10 @@ static bool amdgpu_fence_enable_signaling(struct =
+dma_fence *f)
+> >       return true;
+> >  }
+> >
+> > -/**
+> > - * amdgpu_fence_free - free up the fence memory
+> > - *
+> > - * @rcu: RCU callback head
+> > - *
+> > - * Free up the fence memory after the RCU grace period.
+> > - */
+> > -static void amdgpu_fence_free(struct rcu_head *rcu)
+> > -{
+> > -     struct dma_fence *f =3D container_of(rcu, struct dma_fence, rcu);
+> > -
+> > -     /* free fence_slab if it's separated fence*/
+> > -     kfree(to_amdgpu_fence(f));
+> > -}
+> > -
+> > -/**
+> > - * amdgpu_fence_release - callback that fence can be freed
+> > - *
+> > - * @f: fence
+> > - *
+> > - * This function is called when the reference count becomes zero.
+> > - * It just RCU schedules freeing up the fence.
+> > - */
+> > -static void amdgpu_fence_release(struct dma_fence *f)
+> > -{
+> > -     call_rcu(&f->rcu, amdgpu_fence_free);
+> > -}
+> > -
+> >  static const struct dma_fence_ops amdgpu_fence_ops =3D {
+> >       .get_driver_name =3D amdgpu_fence_get_driver_name,
+> >       .get_timeline_name =3D amdgpu_fence_get_timeline_name,
+> >       .enable_signaling =3D amdgpu_fence_enable_signaling,
+> > -     .release =3D amdgpu_fence_release,
+> >  };
+> >
+> >  /*
+> >
+> > base-commit: 731ba09867520c047c7de53f92e384808e0b638e
+>
