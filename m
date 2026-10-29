@@ -1,53 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793253329;
-	b=VNe9fXCIzJw9XhEQ9fl6DZjhaPwgvG0CDWSfo8OFf+OniSRpylrzuAbmc3DXK5bQbrKg
-	 c7CHh17cYnOgFvK4KqtOunuI5udeEcffV3YvqJabdOJX9pvb6EETw/cRjaXYWhN569F2G
-	 PkOYbMW/Lasx6Xd/hCMtlgnqj5gukCJX8qaJ2d3qnidy9BlIgfevlx+t6PqwTucKA6q3d
-	 iId6uoQdca3zmQFeh/GFhLJVG/OVilmihrCfWbN4idmg9afKC3CRwOrk34P6hC2iyhsMS
-	 VLA5Watfuan2hEnGbIM6yLEs/uIbKuyChqvXWuxrMc1PUH3Pb5xBNOJrNyO9kvxKELA==
+	t=1793253475;
+	b=IiLbST5sJ1hbn6bF9H1Q343gI7jmEsm1jLIqmRLdcck5ZQOaDhpHM8qkvCUgWVMTeQAF
+	 30XApzYGOOh24Cy00BjxqSGfMF/2ab+AsnrKiBjakGldtjoF9x0jdHguuLMBCVjyJdmQg
+	 2rvA1BtgbWYjj7Jt2lcnLuAjWneO92b81tzi/wYiKkfjXdA/7ewuD59h6YK9Shh/0/INV
+	 cUdm7gx1Vk6iMV4+NEq8FQU+YO8Dw0I/Vy+LoKIHsxRBg+E9JD7fdBv4+VAN+XhtEXddb
+	 IEPgSu9DAbku92LzvHIzBmqj35fgJhOFI3zTyOAUMsXhARcsnc5RcnKlD5ycxxXBoTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793253329;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=3vNZfiAYI6xKq/0IcrERSHIUn9ezzeWckOVCf4JOl9A=;
-	b=mbNxgFNKb09mqq9ZOV/3tT427l84JwkpIg74GpAFBl2fXZGCYgYCf2Zj6fMkWYEKhdP8
-	 Eu8mrjs0UGcg8K+lLkowNmtimml5h1RvfEbu/ALa1XLGfCTtvv0xC9CwmxSNj0IgWQU3c
-	 QGc8j5Nuo3kfGT6Fo5bolJU7tBMWCucXnMBkXY7QiKXQOn28BUqMRHx17c0AFvVnLDU98
-	 4kQ9zDgMr1MnGBcpe8d1qHy/fqg8arJz6evzIt4b7vh5zehKwE31J/Hb3Y+/M3qOjiZh1
-	 v1ZU46Kc3UNrk0ed5ZsKpdgU2SzQP+olLfR2GYwmvrzRqlQE0hx7RkPEkiQSIhdV34g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793253475;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=ODZizC4DNALp0pG3plEEc33Bl6AIfhxBeOjG9ejqhwY=;
+	b=nUwiMAlO/66IijtlEn2FVISHh7nkTEa1yrSMwZxbUsH6qtVT/iVPABfq73eUtNeI6wMd
+	 2Zz8tQOUESawgvkfM259yJx02FxcT80MFvlekUPTFGInxmiT4fXrJ44AZGSvWfVj+s+e6
+	 v5DQwN3gJd5Xg5bSj9aghdSZjap2yPDs+wBV/ZDepnwkWQQhwmKCYK9DftILpYaIy116n
+	 s7U+v7nox+NrpxBUXe+bQ0XhDqLhh7OkgW315XeLV8wjDHCxFrkuZAkOhKZ4RGdu9Tz9G
+	 KOKmHv1tna/3I7e9AXGHkA4TiRM0ZdjeJ5XlvF2SlgAki6NKsa4vOsseGYowMc/a5Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I5JpeMkX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=mail.parknet.co.jp;
+	spf=pass smtp.mailfrom=parknet.co.jp;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=mtxdL8eH;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b="jSpElDI/";
+	arc=none smtp.remote-ip=210.171.160.6
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048DD606A320;
-	Thu, 29 Oct 2026 05:55:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 191BF606A31A;
+	Thu, 29 Oct 2026 05:57:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 191BF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I5JpeMkX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 820E01F031E1;
-	Thu, 29 Oct 2026 05:55:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793253328;
-	bh=3vNZfiAYI6xKq/0IcrERSHIUn9ezzeWckOVCf4JOl9A=;
-	h=Date:From:To:Cc:Subject;
-	b=I5JpeMkXhCXUzIwzWxVEsKjt2kCNkNpLY9Mwkt1MaHVPidPNeyBb5/UVS9yP3rfA1
-	 YamPqGFVNKiLORxVHqtzRVIScAPUDoodHCujv64HKgt0FfA1wn2HhEfi6wh6g+dROo
-	 78FLdGXGRFod3X3QXp/0rOuBXMvr1cjwczfjwpfYr1TTVJTq1TKXNcTtBzgDHKI+fM
-	 9ZFILr/wamQq+uyEVfAN/KOmk4gB5n3duh5wxPqyd/lzJVveDgdh5mf2xCs0HtF9ad
-	 6y88GvECfAXqGhyagleHybIW0H04tzQqBodCdR9fVtq06Bbs/cra8j/seGsxp66qmN
-	 KJPEsx7OmF+fQ==
-Date: Wed, 28 Oct 2026 22:55:27 -0700
-From: Wei Liu <wei.liu@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Wei Liu <wei.liu@kernel.org>,
-	Linux on Hyper-V List <linux-hyperv@vger.kernel.org>,
-	Linux Kernel List <linux-kernel@vger.kernel.org>,
-	decui@microsoft.com
-Subject: [GIT PULL] Hyper-V next for 7.4
-Message-ID: <20261029055527.GC3595008@liuwe-devbox-debian-v2.local>
+	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=mtxdL8eH;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=jSpElDI/
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id 36A1626F768B;
+	Thu, 29 Oct 2026 14:57:44 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1793253464;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ODZizC4DNALp0pG3plEEc33Bl6AIfhxBeOjG9ejqhwY=;
+	b=mtxdL8eHOTi5aSSYUGn+YlpSoj9CuMSeXBOUl+1xvkGo3OEMxdZrQWle0S5LZcP6oqhYkz
+	29ivcJXvSV+8qULnydxmVQybYwBvh2+PSQz2CxjHEwTcwmSXloWR1Ffrpgw3akI9VZssVO
+	/EMFpi3i6XVB+jAC1+dXF2giRL+uHythNh7g2IdAK3gfYV52mPoNWELDlvEjlubmc1eNI5
+	B7ApB9RG8Dvt7FWlHvotZpbXyNp75hVrQW3tNHaCWP1TNo1Mbap1qKZSrJ4anTyTrrhPSw
+	TjhH4CZ+2xL5RHAZ7HePweUumjeb+NGB075qFXKysAMOu280tEejRNHp20a+Qg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1793253464;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ODZizC4DNALp0pG3plEEc33Bl6AIfhxBeOjG9ejqhwY=;
+	b=jSpElDI/u8QBxyJWIpkqYDuzKH6FGElen7Ij502g2MFxBRzwKu1w/DGXxEpHSOcniHPNQy
+	JqKbXb4necYTx9Aw==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id B5EF9E0077A;
+	Thu, 29 Oct 2026 14:57:43 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id AC5AF22001E2; Thu, 29 Oct 2026 14:57:43 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Hungyu Lin <dennylin0707@gmail.com>, brauner@kernel.org,
+  linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] fat: fix parent link count when replacing a sibling
+ directory
+In-Reply-To: <20261028211626.26103-1-dennylin0707@gmail.com>
+References: <20261028211626.26103-1-dennylin0707@gmail.com>
+Date: Thu, 29 Oct 2026 14:57:43 +0900
+Message-ID: <87fqxpdp60.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,79 +81,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain
 
-Hi Linus,
+Hungyu Lin <dennylin0707@gmail.com> writes:
 
-The following changes since commit c03c1a14507dfaf8b856c2608f9ac216021fc222:
+> vfat_rename() and do_msdos_rename() adjust parent link counts only when
+> updating the dotdot entry for a move between different parents. Replacing
+> an existing empty directory in the same parent also removes a
+> subdirectory, but leaves the parent's link count unchanged.
+>
+> For example, renaming one of two sibling directories over the other
+> leaves the parent with four links instead of three. stat and ls report
+> the stale count, and find -links 3 does not match the parent.
+>
+> Drop the parent's link count for this case after the source entry has
+> been removed successfully. Leave cross-parent renames, regular files
+> and the existing error paths unchanged.
+>
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 
-  Linux 7.3 (2026-10-18 13:14:58 -1000)
+Looks good. Thanks.
 
-are available in the Git repository at:
+Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
 
-  ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/hyperv/linux.git tags/hyperv-next-signed-20261028
+> ---
+>  fs/fat/namei_msdos.c | 2 ++
+>  fs/fat/namei_vfat.c  | 2 ++
+>  2 files changed, 4 insertions(+)
+>
+> diff --git a/fs/fat/namei_msdos.c b/fs/fat/namei_msdos.c
+> index c7500c2859e0..570dd75dd275 100644
+> --- a/fs/fat/namei_msdos.c
+> +++ b/fs/fat/namei_msdos.c
+> @@ -565,6 +565,8 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
+>  		(void)sync_inode_metadata(old_dir, 1);
+>  
+>  	if (new_inode) {
+> +		if (is_dir && old_dir == new_dir)
+> +			drop_nlink(old_dir);
+>  		drop_nlink(new_inode);
+>  		if (is_dir)
+>  			drop_nlink(new_inode);
+> diff --git a/fs/fat/namei_vfat.c b/fs/fat/namei_vfat.c
+> index ff7652bf0410..d7e2df5bf7e5 100644
+> --- a/fs/fat/namei_vfat.c
+> +++ b/fs/fat/namei_vfat.c
+> @@ -1011,6 +1011,8 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
+>  	vfat_update_dir_metadata(old_dir, &ts);
+>  
+>  	if (new_inode) {
+> +		if (is_dir && old_dir == new_dir)
+> +			drop_nlink(old_dir);
+>  		drop_nlink(new_inode);
+>  		if (is_dir)
+>  			drop_nlink(new_inode);
 
-for you to fetch changes up to 33b28f3b313353f11fc939e9a268605e66290d0b:
-
-  Drivers: hv: Remove leftover support for old Hyper-V versions (2026-10-25 15:11:09 -0700)
-
-----------------------------------------------------------------
-hyperv-next for v7.4-rc1
- - Update to documents and code comments (Michael Kelley)
- - Harden Vmbus (Kameron Carr)
- - Rework MSHV driver page deposit logic (Mukesh Rathor)
- - Vmbus kexec bug fix (Shradha Gupta)
- - Miscellaneous bug fixes (Daehyeon Ko, Jiale Yao, Sasha Levin)
-----------------------------------------------------------------
-Daehyeon Ko (2):
-      mshv_vtl: detach poll waiter on POLLFREE
-      mshv_vtl: reject poll files with multiple waitqueues
-
-Jiale Yao (2):
-      Drivers: hv: vmbus: Check ACPI companion before use
-      mshv_vtl: initialize poll file mutex before device registration
-
-Kameron Carr (5):
-      Drivers: hv: vmbus: Bounds check the shared ring buffer indices
-      Drivers: hv: vmbus: Use *_ONCE() to access shared ring buffer indices
-      Drivers: hv: vmbus: Compute ring byte counts from a caller-held snapshot
-      Drivers: hv: vmbus: Keep the ring byte counts sane for a bad index
-      Documentation: hyperv: Describe validation of the ring buffer indices
-
-Michael Kelley (4):
-      Documentation: hyperv: Update documentation for sending VMBus packets
-      Documentation: hyperv: Remove support for guests on Hyper-V 2012/2012R2
-      Documentation: hyperv: Update information on guest CPU offlining
-      Drivers: hv: Remove leftover support for old Hyper-V versions
-
-Mukesh R (3):
-      mshv: Rename memory deposit memory functions to _old
-      mshv: Redesign hypervisor memory deposit logic
-      mshv: Remove unused *_old memory deposit functions
-
-Sasha Levin (1):
-      tools: hv: remove unused rte_smp_mb()
-
-Shradha Gupta (2):
-      kexec: Add helper to report an active kexec reboot
-      Drivers: hv: Run VMBus kexec cleanup from syscore shutdown
-
- .../device_drivers/ethernet/microsoft/netvsc.rst   |  14 +-
- Documentation/virt/hyperv/clocks.rst               |   8 +-
- Documentation/virt/hyperv/coco.rst                 |   5 +-
- Documentation/virt/hyperv/overview.rst             |  28 +--
- Documentation/virt/hyperv/vmbus.rst                |  17 +-
- arch/x86/kernel/cpu/mshyperv.c                     |  27 +--
- drivers/hv/hv_common.c                             |  10 -
- drivers/hv/hv_proc.c                               | 260 ++++++++++++---------
- drivers/hv/mshv_root_hv_call.c                     |  10 +-
- drivers/hv/mshv_vtl_main.c                         |  55 ++++-
- drivers/hv/ring_buffer.c                           | 126 ++++------
- drivers/hv/vmbus_drv.c                             |  30 ++-
- include/asm-generic/mshyperv.h                     |   7 -
- include/linux/hyperv.h                             |  58 +++--
- include/linux/kexec.h                              |   2 +
- kernel/kexec_core.c                                |   7 +
- tools/hv/vmbus_bufring.c                           |   6 -
- 17 files changed, 363 insertions(+), 307 deletions(-)
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
