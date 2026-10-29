@@ -1,111 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793277736;
-	b=xiusjYih4YvsGdVlWlBto4oimxF257pcWYWkVK8QfACvHMWgMcH6jIDA8sbv0KJCCVmF
-	 Gd/EanGI/ULCClSO++RGLRU1g0URU4BtkJx9mwRegt3MSmK/ju3JZPLDF9Nm0ELyBmJbQ
-	 KsSuH1QkxPeE4KtgW/rvX5A5bpii5+JfdfqwBT0UfRI8Hi0cgq3ggyTCcX4sUeHCsAC3Y
-	 B2lPOB9i83IEoLD95VSjlGtY7htBZ2Zoe79aT+do5tgD8fow0wN+4qbdC1OsofuovrIg2
-	 ywLjz+X55bC9rNb/6LktGAfohdxWvT8Lzsj2RM6ooLOpc9WKYBvg6FOAohrTfEO2bhQ==
+	t=1793277770;
+	b=jQg0JyCd8KAOzdGWlRcLy27lPt65P0lY3es704xFpvseiadeJaeuyMyUPnGDgAJDky6w
+	 tlMfb68Fni8mG+r+L075rBjGTrounsReSEPhbE15BmVa87sMlOE63iT8g9nhcnMXaxs8H
+	 ejBw0SWS2LnnGGZms61/uuGaCpLFG2hgeCelro08fJOQ2unl+EWpAmuoYPyji8IBrLf4y
+	 d31f8N0nc0bw0bxngIsejRUHfa5z+DfywxYRaDvqJGPWya7Ea96xE6C+qRzJqJe/em60D
+	 9T1/6vAkRZW1jlzlQwykktVX3Nyj2WiM5wekZpzXZZX7NIo3Yz+T5gYDJr4AtWRzkJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277736;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=d66C6wv4DLzU4mI043VbebszTBlofQJOPgwX8Cd6dwM=;
-	b=qPLJlfqpxArQiLB3BjCRlSVDT63jSAxQ7jgAbAq6cWCuSOFpwRBqxggtMcdo8STzaDU1
-	 KclFC/ilwmtO+s0Egy23lWRYKZ3FkD+elkmWtjfqNBtP+wzDuBPd+sh96W+SaDi9i+ALO
-	 7WOLc0M/T5K3pEuMmchcaqTz3Cqq5GLgxcSzogd9ghIcIRgJTJIPmuN95zvFOyqfsMqRo
-	 S3941QvakQEwYNE9PW5yJhy4JXlYPRE3Ej33GUr9tkPjxCiG8qX1IlR2I2ZWw/+XnkBHq
-	 Age0QlWp5/pXHc5/eVSTuFN1JA/XWq5wYEA+nM6g0Cu3Ez7AR4++k3YkbmspGoH0cjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793277770;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=yFOj634Jz7fYTYLV7GgV7IxF9/v/cUlantY0GP2jAx8=;
+	b=BbG65oGh3krX1PxH/L3ietm7Y2J3orgFlIfqSaA53YPpQY5cF+1zXlO9ugrUUNwuN/Oe
+	 ThvV9wZwjMYL3e2zE6Pg1VO69QI0BVNqmUyQiQZUNIYz2/zr3drqpkXWS1gvo+OExtXZX
+	 hiXC/MxPBUFn0ZEGZOVKy2PoqeVGZAE4gQ3moeXkH74FiHFETkLVk6h8QMYjvtW7oeO3k
+	 fuHnR+RjdRZ4yPNSrD1L4auR6aBOteH0EAxnnQpPxmTALajSSnaW1y6zj2sCJq3RIKYez
+	 5I6FX8PU0aPJDdkOY/xqF5mXapjoKeq5KVpbXrDjVvsHlukAFew07xkyRBMN63GjABQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=mdWwyzmu;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=WuArQmNM;
-	arc=none smtp.remote-ip=202.12.124.147
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F9FHVAlJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A804606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:42:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A804606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55D9606A321;
+	Thu, 29 Oct 2026 12:42:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=mdWwyzmu;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=WuArQmNM
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfout.stl.internal (Postfix) with ESMTP id 859FA1D00052
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:42:15 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Thu, 29 Oct 2026 08:42:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793277726;
-	 x=1793364126; bh=d66C6wv4DLzU4mI043VbebszTBlofQJOPgwX8Cd6dwM=; b=
-	mdWwyzmuwDTzAvUsxCtWbuMCcTKNS4bJzaY2TEeIJrI7yuOx+1wIj7unZryo+WQB
-	XMhpAa1cMaIixs85Y+pZ+n39ksYgSfcGdeTl3QocE/6oFU1GZY+wWZJLzfe5UPrj
-	RlxUCaMP7bE6IEXHdu8grAu0AcWetmyHunksqNFfzkLCI7Mi6CwHhTAwJfKHXDPe
-	e3Z3SzujDe5G9YaWhA5JuHlyJF3CeRwS3L84HJBtOJaKKfJNPa4hQooyxJgcnCYK
-	XcvcxgL6r9Aif9Qgzzu0gvkovzR2Br2DU0YiTbeCmmpo+VlJuyfkkaEsu3ahM2y6
-	ees+Y8fHHDuDkAduUCqpWA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793277726; x=
-	1793364126; bh=d66C6wv4DLzU4mI043VbebszTBlofQJOPgwX8Cd6dwM=; b=W
-	uArQmNM2TdA/7IGGj8PR5oVaLYbgV0+e6zFBBnA/tb2D3vszfX+Wbo1Z+KKtli5l
-	gAJ6+abnCgQPC7ansT10lcjTIsfVjbCLd6NNYM4126zLf3AuuVJLtl7ZdOS2cmPl
-	tQLHLq+QaKTG3B86cdjNS4+1kCjLLctfMiEdEf1qd9PXhFxtY+TUxcNBReuC5T8z
-	mrrh0V/Bq5LBWCuiFzDv3BREQFjfiH6EUL9YojdnM5ViGUn3UGG9TJmIXLQc5ngp
-	pYQOUfQrGIQREYDkjxMVSb1n4QaDPTZQdRs/W4bi/h4C3iYSv+qw9s3et/4JUeYz
-	c+mj6fwLRpDOhjJDAj2Mw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793277726; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:X9u+Wa7Sa5ELlB5yyHfSRhEkDINFerOz4sLP+Yhh5uwkt+p
-	zKmx+Yr8BjvOgHfqSnE1nT+wfgSo8PTJ5I96X8B8UoOAiV+b/D0Ee6cDdmZiVy76
-	+mDhj7zyw51Y6tv3KHOWd04Ie+fAi7qV4KyFlIPg62E1ttXuoJqywmm1/Ykz6QWt
-	vPIHXZjpvZteYs/6F23seR0wsW9WsgnXVGL0A3Xd4rmv/iU+vhbIo8SoCFTUxhXx
-	PlSmKwQWkxlMoOgSo2eKIXQXspGdGl8DLi99mvFqX+NJ3ypoaVw8VLb+OeYqJj3P
-	8rTjSyKYrgUvWvZPbeOGooKlECLF74t1CO+/gbg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:pa8id8lezNHZnkKCJdOaeGBTdvPO8v5XG/p8liF/bjw=:zS2WM14JlEd46YHq+76lHPH8OxosPMsFWFrHE0AZa5U=;
-X-ME-Sender: <xms:GD_jars-SiAZ94GhE4p5hGsN425X319VhlpSOuAvB0LAROqjAyGhDA>
-    <xme:GD_janSL602wCkOQBa2SEr4zFhG4eIMO8EKrbNAwWQFXh8GcwITo-tvIXnuq3t91s
-    2LNX1sux-UXIYBpnlfhlpQplJRFIWpWAEkb5bnqK5fMK67C7I5OS9EI>
-X-ME-Proxy-Cause: dmFkZTF1xeXukoYxtIemiSr7RmgPQKVnIlQT+D5fkGBom82nl7QChx9FOS7mWdlUT9+ErJ
-    kw8oCVFb8WcQicGskO3E4Bh8+FW6iiADuk0vexDdjlt6X6rnIPM/vaAWSAPvg7m32O14hd
-    4D6mdwnuYRucC5ycg1z5ZC0g+33fkdixQJ9HuIlbPD33vvSXXoIUXMZOQMIkhblzBPz2Vn
-    7Ha5MO8EXCdb4tOozCTfzfSXc6MQGpeRgufwg7Qs3KqpNn/Vbvhv7sWjDtPhqOMGV2TXho
-    fhLYxhQuYIqSHePKOBrv13qC0NDIX5Uce4IQBcqlvqWT7EvTBRwO0UPSz2t1/wqZMVf5Cn
-    SeLTQy1cF4VBH0fDdeKaDRkjA/3wX1svU9lp9S8/oBjK8016WKz/aMHS6UQ5HgnaN0bY6t
-    xaibeWvLblU9HiJXGCl4QjQq8Q7Qr1N1Mbuia8GstGHix762UveSr7WaxKt5RQDa94+WKT
-    REql0mFBWF+Zk4InDt1jMYAGzfcfJowE47U6LsU0UVP+dwSwIpxwH0G2GqUD6rwOC1twnu
-    6nOMfTmidcHMDvAxPUsoJqNL/9IqnryByrUiikyPrZUsuxmBlyw/HoV37yo32VLdxhBvep
-    VBZx4EE37nNZMEGfrSEVJvVvvB/Rv5Ojdcee0+nR3b5Z1dC+aT0kKBQp/2Cw
-X-ME-Proxy: <xmx:Gj_jaqSh7hEkubgpWYjB74-ubspQz37C-J7HMabAvLe7G8X6oqIluA>
-    <xmx:Gj_jaj7N-fx7uAIOncAl0IKrd2aD2t_4ZwXY3qeB0UT0gsn4Nj8pzg>
-    <xmx:Gj_jak3WLme5pxtj055C-QzyS0Ylbif5tgmetW7xpsnzy4QLdxNDzA>
-    <xmx:Gj_jagkJWBtj3aPUQBTOXlRTD9KYjJd5p28VQdS-a5WImaSxJDjchg>
-    <xmx:Hj_jauxjz1r3cHXoIDfeJxPTV9VljSckPEplyQ2UGA_vJLqeDvPhijTu>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 014FC32A0099; Thu, 29 Oct 2026 08:41:59 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F9FHVAlJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A5161F01825;
+	Thu, 29 Oct 2026 12:42:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793277769;
+	bh=yFOj634Jz7fYTYLV7GgV7IxF9/v/cUlantY0GP2jAx8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=F9FHVAlJF5W6nQrz5Zp7T+4UqFwy/LnFhZlN4+PCWgBuxBYkUUamYGEOl2KZlJksf
+	 uETpvM/8s1Y+xOl/wArz2bbVp++cEb/NvmywL69cPfQcxhZXNFcWTkyF5ZGNLoLEZx
+	 RfPXAKrMJ8pYVgHvErMYNTyz9ZoMvQol+tFGLVEIPhTffW0dYN4wMno0IVNMwOAoCN
+	 zfJKIvFlJed5cDO47jL6TDFNeeEaZkXHrxjEursWfIyEDK/dMY6v/HlzzvNn0dGeGe
+	 RRGOfZ1mGKaWBMT/55+/JkwqSzLlX0loVQHU5wa/j8EqgavjI08gFhpb5Wyxj1PufG
+	 dEityO+VX/52w==
+Message-ID: <a4a57e41-4e1c-4c94-8b92-6b50f8321ee9@kernel.org>
+Date: Thu, 29 Oct 2026 13:42:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,59 +51,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: Auj5kB-x7wqJ
-Date: Thu, 29 Oct 2026 13:41:36 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Thomas Huth" <thuth@redhat.com>, "Nathan Chancellor" <nathan@kernel.org>,
- "Nicolas Schier" <nsc@kernel.org>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>
-Cc: soc@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
- "Alexandre Ghiti" <alex@ghiti.fr>,
- "Nick Desaulniers" <ndesaulniers@google.com>,
- "Bill Wendling" <morbo@google.com>, "Justin Stitt" <justinstitt@google.com>,
- linux-riscv@lists.infradead.org, llvm@lists.linux.dev
-Message-Id: <f7533c95-8b42-4154-b76b-7d0dfb56148c@app.fastmail.com>
-In-Reply-To: <20261023064908.66707-1-thuth@redhat.com>
-References: <20261023064908.66707-1-thuth@redhat.com>
-Subject: Re: [PATCH v5 00/13] treewide: Replace __ASSEMBLY__ with __ASSEMBLER__ in
- header files
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] regulator: dt-bindings: Add TI LM51772 support
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Herve Codina <herve.codina@bootlin.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>
+References: <20261027-paul-lm51772-v2-0-b2a767e34722@bootlin.com>
+ <20261027-paul-lm51772-v2-1-b2a767e34722@bootlin.com>
+ <20261029-indefinable-bustard-of-ampleness-44abaf@quoll>
+ <DMH7AO649J2M.2XFQNV3VXL6UP@bootlin.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <DMH7AO649J2M.2XFQNV3VXL6UP@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 23, 2026, at 08:48, Thomas Huth wrote:
-> The kernel Makefiles define the __ASSEMBLY__ macro to provide
-> a way to use headers in both, assembly and C source code.
-> However, all the supported versions of the GCC and Clang compilers (and
-> also other compilers like Tiny-C or PCC) define the macro __ASSEMBLER__
-> automatically already when compiling assembly code, too, so some kernel
-> headers are using __ASSEMBLER__ instead. With regards to userspace code,
-> this seems also to be constant source of confusion, see for example these
-> links here:
->
->  https://lore.kernel.org/kvm/20250222014526.2302653-1-seanjc@google.com/
->  
-> https://stackoverflow.com/questions/28924355/gcc-assembler-preprocessor-not-compatible-with-standard-headers
->  https://forums.raspberrypi.com/viewtopic.php?p=1652944#p1653834
->  https://github.com/riscv-software-src/opensbi/issues/199
->
-> To avoid confusion in the future, it makes sense to standardize
-> on the macro that gets defined by the compiler, so this patch series
-> changes all occurrences of __ASSEMBLY__ into __ASSEMBLER__ and
-> finally removes the -D__ASSEMBLY__ from the Makefiles.
->
-> I split the patches per architecture / maintained subsystem to ease
-> the review, and I also split the uapi headers from the normal ones in
-> case we ever decide that uapi needs to be treated differently from the
-> normal headers here and the patches would need to get reverted.
+On 29/10/2026 10:05, Paul Louvel wrote:
+> Hi Krzysztof,
+> 
+> On Thu Oct 29, 2026 at 9:41 AM CET, Krzysztof Kozlowski wrote:
+>> On Tue, Oct 27, 2026 at 10:39:23AM +0100, Paul Louvel wrote:
+>>> +          regulator-temp-warn-kelvin:
+>>> +            enum: [0, 1, 368, 383, 398, 413]
+>>> +
+>>> +          regulator-ramp-delay:
+>>> +            enum: [40000, 20000, 1000, 500]
+>>> +
+>>> +          regulator-min-microvolt:
+>>> +            minimum: 1000000
+>>> +            maximum: 48000000
+>>> +
+>>> +          regulator-max-microvolt:
+>>> +            minimum: 1000000
+>>> +            maximum: 48000000
+>>> +
+>>> +          regulator-min-microamp:
+>>> +            minimum: 500000
+>>> +            maximum: 7000000
+>>> +
+>>> +          regulator-max-microamp:
+>>> +            minimum: 500000
+>>> +            maximum: 7000000
+>>> +
+>>> +        unevaluatedProperties: false
+>>
+>> Place this line after description, that's the convention for child nodes
+>> for readability.
+>>
+>>> +
+>>> +      vcc1:
+>>> +        type: object
+>>> +        $ref: regulator.yaml#
+>>> +        description: |
+>>> +          LDO regulator for auxiliary use.
+>>> +          It can used to power, for example, a PD controller that will drive this PMIC.
+>>> +
+>>> +        properties:
+>>> +          regulator-min-microvolt:
+>>> +            minimum: 5000000
+>>> +            maximum: 5000000
+>>> +
+>>> +          regulator-max-microvolt:
+>>> +            minimum: 5000000
+>>> +            maximum: 5000000
+>>> +
+>>> +        unevaluatedProperties: false
+>>
+>> Place this line after description, that's the convention for child nodes
+>> for readability.
+>>
+>>> +
+>>> +    additionalProperties: false
+>>
+>> Place this line after description (for relevant block), that's the
+>> convention for child nodes for readability.
+>>
+>>> +
+>>> +  ti,sync-pin:
+>>> +    description: |
+>>> +      Selects the function of the SYNC pin, used when several converters
+>>> +      operate in parallel.
+>>> +    $ref: /schemas/types.yaml#/definitions/string
+>>> +    enum: [input-rising, input-falling, output-rising, output-falling]
+>>> +    default: input-rising
+>>> +
+>>> +  ti,ivp-thres-microvolt:
+>>
+>> Use either existing over-voltage-threshold-microvolt from battery schema
+>> or ti,ovp-microvolt from the other TI binding.
+> 
+> IVP is not the same as OVP.
 
-I have started an asm-generic branch[1] for 7.5 based on today's mainline
-snapshot and applied the series. I'll rebase once more after -rc1 is
-out to ensure this can be tested in linux-next.
+... because? OVP is overv-oltage protection, so ivp is not input
+over-voltage protection?
 
-Thanks a lot for getting this finished!
-
-     Arnd
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/arnd/asm-generic.git/log/?h=asm-generic
+Best regards,
+Krzysztof
