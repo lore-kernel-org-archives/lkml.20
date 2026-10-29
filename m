@@ -1,52 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.81.229.115
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793265786;
-	b=xV9DJobInAkt0YGcLdPDUl/zK/e+sroxFy5ZqMfXxehPn68fdLnkRUyJ0J4Yz6f8y5nb
-	 erZHYUArrl+Jez1eVgQxS+8sPYK69Xftj1I9alyTa4rgT80V0Iyrf6e9xEVzUfmrSTcFV
-	 dqIm2iiSDbEpAKlIyC8FiAV7PnCz+Qpyq+ZjN4iaCkfcLBy5Kr/ha7enNBKwQ+Dzjwg1D
-	 g+TJasHJzJL+dtGYP2Oxy7wJ/EdKYUQpl8PNdBP2kugMIhEg6po2B1o5s/ccddKi96QTx
-	 IhLqfJvsLL7N4UD0D6VmloTdtYFh8b5cnsP/Ad+uNSPqTGxah2N/0se3K+VADwn3kJQ==
+	t=1793265799;
+	b=Kkyqfi8e4SFY3bXSLl3Lpr1Kht0fmz7Yequ0RD12k4Wa7fSoInV2DbQUZlSB6YX1HFWz
+	 MtO9LGdq4WlQnckbubu7tdemtSqRB/Nd1x5cinTar9gbQABTRSZAm+6pzZRNIjCYFrzu1
+	 veOLW/6ppY1t2oEmR50evgHDwStdTX4vLO3r1+NTsKRc8Tbn3C2wSeb8y4clWgz7vEuwq
+	 kOEu5hokndjQpbu10mh+chU7fonbqlaeNfx856QM+TLB+5CqV1GtBygKpDrKLg5OmU7Qt
+	 04RI7u2znr93xvbsura7cbSqEiPOyXedRKo9BtP5iWK2Zz/tIPqplVmQmO1vBLdZFiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793265786;
-	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
-	 Subject:From:In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:
-	 References:To;
-	bh=tjfAbDDo8h+t2m7Oll5N9+sjj2zGWKROZ1OXhj5/7js=;
-	b=P9Vfg+WrHPxv0BemSJ+FkQ0gIaHlkeT39HXcq+j8HVbwBKBxwUTgjDQbinuo/BnGPMbt
-	 cQCbVOHjZVirJ4JffioGgBakkGy6LTSx6sLXI0/56a3uLDfuTtpqEsNuiTMCmGJ7fYASI
-	 kBG8auHjL3u63aOYQ8HYzJv6HybbmI2LBDeOdWPprcQscAngEG0ftJJxL58wr9RFBE244
-	 ltbh8Rr2uVqkAqZjDPO1dOPa4jx35lUzu5kbYE+X2bjyXVzb442hJb/P3NI+dqla0lHjb
-	 3qyFTG4RtgqCrfMG9bk04xOEshBTBM/APpN4csYxJFaxnskvejFW+BEJwDYSPqGzXZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793265799;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=068RARPUhpeNt5cdqdcKQHksPIpTlxwfCKWl/O6RHkI=;
+	b=szCxsrTU3gLshW+eihJPdbTpiLWiF7IrbRw38qxZP3T9jojXRVvEmmcjpIczuRSoEFDZ
+	 IH7LnaITE+l1GHjPhM6OMgcYjLdKNCQYGCI/vo88a8eSFzyFi/vHbHjP1Z8xT8pJ1kRrG
+	 395iFgBLI2DjLhwbtnndYQb87PHpfHRI9TpDWLZPyj1IWWbOYN6JrjofZcjThIu4u4vqw
+	 NLd/hf7LpEUuI1lGs0KZCsUs/RFj8dZB/O5O41Jd32e5aZ4vOrHqBXoXwrT35Ic7jrzS5
+	 TW7Ajdh7Wz8yTAQybzlGuQPZGqGpBWHTEKzbmvTntWpAoHMGGBi155AUkMtYMj/rLwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chaosmail.tech;
-	spf=pass smtp.mailfrom=chaosmail.tech;
-	dkim=pass header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=yL2lDRgC;
-	arc=none smtp.remote-ip=77.81.229.115
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hl1arTt9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A7D606A321;
-	Thu, 29 Oct 2026 09:23:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01A7D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 842BD606A337;
+	Thu, 29 Oct 2026 09:23:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=yL2lDRgC
-Received: by chaosmail.tech (Postfix) id 0122E1C87C3;
-	Thu, 29 Oct 2026 09:22:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1793265776;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tjfAbDDo8h+t2m7Oll5N9+sjj2zGWKROZ1OXhj5/7js=;
-	b=yL2lDRgCJDJpaZDz8pZYltehrxUJx2mB+TmBFD943/OHPwTRwWms3JeGoZZCx75H9dN9TB
-	U9YD8Ti7GkEr4GTe1Eao9vIg9GWutDjjVcKfHlF1Me/XLMdJEgAXiDGW7GzXlVJSwMVyYQ
-	9XzUrTModweKsYsUaE6CyFELP3+Mng8=
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hl1arTt9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD8C1F01828;
+	Thu, 29 Oct 2026 09:23:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793265799;
+	bh=068RARPUhpeNt5cdqdcKQHksPIpTlxwfCKWl/O6RHkI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hl1arTt9CLQDGptJengrqjKeO/CbPgOOLiN0GgPZ7OP4SrH7yv69hn2BZ34ibZZwj
+	 riXpYoM6I7ebc+BptLTZeaRG7HPvOiI7ypiF7RnGaJYpob/awILhwuT+sImxbOe6UF
+	 qYoRY4rkNJZwdYscvantXBkx955C6gZRNdUMyFT4mL8drqL/cIU3tKGSL8bSi79ePp
+	 5OY1HcF0rrk+nenDrPIkt8RJtvjagARti6Yb2PcMcCcuPPgzhiMgJ0L+SppbT/MfEd
+	 vdI2ObMITkJLxiG+cvBt6R549iZoEjWaqKaoKDmmVF1xhbTJhAZHJTEt7estahfIiB
+	 JrzzBODm+DPYA==
+Date: Thu, 29 Oct 2026 02:23:17 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: xuheng@cs.columbia.edu, maz@kernel.org, qperret@google.com,
+	will@kernel.org, catalin.marinas@arm.com, mark.rutland@arm.com,
+	joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com,
+	yuzenghui@huawei.com, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	tabba@google.com
+Subject: Re: [PATCH] KVM: arm64: Add an ISB after mapping a hyp fixmap slot
+Message-ID: <auMQhSmxIm5JMftF@kernel.org>
+References: <20261028-fixmap-isb-v1-1-6c9f0f9cb810@cs.columbia.edu>
+ <20261029085414.2279900-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,73 +61,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Subject: Re: [RFC PATCH 14/14] mfd/macsmc: add ioctl to access smc keys
-From: Sasha Finkelstein <k@chaosmail.tech>
-In-Reply-To: <20261029085504.3547-15-atharvatiwarilinuxdev@gmail.com>
-Date: Thu, 29 Oct 2026 10:22:43 +0100
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
- Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Len Brown <lenb@kernel.org>,
- Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Sven Peter <sven@kernel.org>,
- Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>,
- Guenter Roeck <linux@roeck-us.net>,
- Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>,
- Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>,
- Griffin Kroah-Hartman <griffin@kroah.com>,
- Hans de Goede <hansg@kernel.org>,
- =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Sebastian Reichel <sre@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Jarkko Sakkinen <jarkko@kernel.org>,
- Mimi Zohar <zohar@linux.ibm.com>,
- Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
- Eric Snowberg <eric.snowberg@oracle.com>,
- Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>,
- linux-kernel@vger.kernel.org,
- linux-pci@vger.kernel.org,
- linux-acpi@vger.kernel.org,
- linux-gpio@vger.kernel.org,
- asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org,
- linux-hwmon@vger.kernel.org,
- mfd@lists.linux.dev,
- platform-driver-x86@vger.kernel.org,
- linux-pm@vger.kernel.org,
- linux-rtc@vger.kernel.org,
- linux-watchdog@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <525E5B4D-A947-4567-9FCD-5FFF2CA8B161@chaosmail.tech>
-References: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
- <20261029085504.3547-15-atharvatiwarilinuxdev@gmail.com>
-To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029085414.2279900-1-fuad.tabba@linux.dev>
 
-On Oct 29, 2026, at 09:52, Atharva Tiwari =
-<atharvatiwarilinuxdev@gmail.com> wrote:
->=20
-> Add a /dev/smc device so userspace can talk to the SMC
-> directly.=20
+On Thu, Oct 29, 2026 at 08:54:14AM +0000, Fuad Tabba wrote:
+> Hi Xuheng,
+> 
+> On Wed, 28 Oct 2026 23:02:10 +0000, Xuheng Li <xuheng@cs.columbia.edu> wrote:
+> [...]
+> > A litmus test of the same shape (map the slot, DSB ISHST, load through
+> > it) faulted on a Cortex-A72 in 2 out of 100M runs.  Arm's herd7 model
+> > with -variant vmsa also allows the fault, and forbids it once the ISB
+> > is added.
+> 
+> nit: it would help to have the litmus test itself in the commit message,
+> or as a commit note, so the herd7 claim can be checked. Here's the one I
+> ran (herd7 7.58, -variant vmsa): "Sometimes" as below, "Never" with an
+> ISB after the DSB, and "Never" without the ISB under -variant vmsa,ETS2.
 
-This should either be dropped from the series, or be hidden behind a
-`melt_my_mac`-style module flag, or switched to a whitelist approach.
-We do not know what keys will be introduced in new smc firmware
-versions, and there are already keys that should not be randomly poked
-at.
+Maybe I've been conditioned at this point but doing DSB; ISB to consume a
+translation after setting it up seems pretty straightforward. Especially
+since we don't care about ETS in the kernel at this point.
 
+IOW, I'm not sure what additional detail the litmus test buys us.
 
+Anyway:
+
+Reviewed-by: Oliver Upton <oupton@kernel.org>
+
+Thanks,
+Oliver
+
+> 	AArch64 fixmap-noisb
+> 	{
+> 	 [PTE(x)]=(oa:PA(x), valid:0);
+> 	 0:X1=PTE(x); 0:X2=(oa:PA(x)); 0:X3=x;
+> 	}
+> 	 P0           ;
+> 	 STR X2,[X1]  ;
+> 	 DSB ISHST    ;
+> 	 LDR W4,[X3]  ;
+> 	exists (fault(P0,x))
+> 
+> FWIW, the result matches the ARM ARM (B2.3: without FEAT_ETS2, a DSB ST
+> doesn't order an earlier store before a later translation table walk),
+> and emit_pte_barriers() in arch/arm64/include/asm/pgtable.h has the same
+> dsb(ishst) plus isb() after making a kernel pte valid, for the same
+> reason.
+> 
+> [...]
+> 
+> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+> 
+> Tested in protected mode on QEMU, booting a protected and a
+> non-protected guest, and on an Apple M4 (nested virtualization),
+> booting a protected guest. No regressions.
+> 
+> Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
+> 
+> Cheers,
+> /fuad
