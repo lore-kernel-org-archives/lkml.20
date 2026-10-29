@@ -1,67 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793289051;
-	b=3Ut/rWGY5tfZldas4lloo4ZC1Gcj2ovV0GZxJLT7rhuz1bJAwQQmXRUBbeJfwxpMYwWm
-	 DLJlnsUBI314dmTPF93xH35LIzSJ1BKVyyg25nQaS1JvX3dYIRtOlF1NwxysA+YHeOcUL
-	 AREtY/DQWHnpq0gXkrkHbZxiiI32ZaFYCoWfpfr1JMbGkW8d95LTtT5k4z+HltoUXnqjO
-	 A1FmxE4Qc8gkZToJYGG9rHUoDC0ICXgyWm/DX2ETAH7egg3GPvdJSV7uTTZiber+TdTht
-	 ON9QGjUfHS9Ej0xR0VfFDFyCELFBmWjvcwIlmQS9FswlCLW/Tt8iHgh9TzJMUsXj7Lg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289051;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZGVbAria0Qqiedh4pyoA4PlNAYwcnbIuCp+A1N8+bTI=;
-	b=erTwd3ZMPBHtIDEXXsPo4S3ADBgMZ/Q0G9GR4jPjk2ImOft/x6dEW2GjFmkSurjYKapv
-	 btvBCgvjA7+xyZxItmkro/5aHS02gOe2fqHkxpk1kgdKWvEuTWHcWQjGauDNFNfdSG75J
-	 PqT6A2Zfihu/LlvsZQpdisTCr12N53KtCZBVoWWI3w87R4HQMGHsrVeI0X5CEVxLxEQYY
-	 teU8Qnw1SxU3mIfrGhuwVlxPh6t0aKd1cOtxVeHdSiI5TAMJJkQEAh4j/gK3Xr4XLl8SF
-	 wNNZHJZKIfLjYnvzOhJ5sZFubflvZBjYiXNt0jBvVlQgoD2Nj6NzrpHwznT4OwcnEsw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=csail.mit.edu;
-	spf=pass smtp.mailfrom=csail.mit.edu;
-	dkim=pass header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=A9KLBjkV;
-	arc=none smtp.remote-ip=128.30.2.78
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793289059;
+	b=dwhBqUoI4ok2nXicwco2XO0SJHv0+BGpNytKhgWH8HhZjPIqyh2iLyX86vU6mHvlT8r9
+	 G9kM6nPoDCQ8Tt2rW/e4iL/VsG66hOH4UrBtygPaw9Md84myC8o4Ve5HwOhKVnKEBgfuV
+	 tjOzyLIgepHi3AZKxw3hduaePRFaDj+Wj0Iqs1/nO8E7njxZVTYheSEp9TYqoSZmdgq83
+	 UreW04VcPN9ls3EBkuXOYZXsyksFhUpA3zLTnBv4WOKZ72z2n5T+xNYSwSP5PXPr8l2xa
+	 t90GZzXJNz4uCt4rBqWEjdN2O0gU75GX3GpQ4gnIfwFSVnTZ4aoV6bk4qQ/aN9Fbzlw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793289059;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=Luo+iCGFAFHcSDc+DCddHy/s1aw6YXJoZRSJFD58nlw=;
+	b=3GHA9EuOKTKkIqzAa4b1XH7aut+P3tJNqvTLwDoYvhOILLPQjlAuLf4M94KEQsG0MPIt
+	 u7WhjM3j8pmqfuoqCT6poNYsqYcSzGtYMUegN7f+5WPzSUSg3UeePnqbM+QZY1Qrz+Ryn
+	 XI/PBtVrss16LQ/oOZ8SLuDdnpEPKaMU8gamkI9gCtfMtR9XQS1fDvGVGWvwLyEtqEiVk
+	 WQnC8FGCvzb3NRfi98MD9PrLq34p1jRGxvlcPd6wUDSRe6uJtPPAeJ+yEKi/+PvLMLQnW
+	 tTPpHxtNEWhyDRols9iDN166BdGpgAzMXdtXpdoK3VAdPDVPXV5gDEyhFAQprYj3Udw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.175
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E299606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:50:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E299606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=A9KLBjkV
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
-	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
-	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=ZGVbAria0Qqiedh4pyoA4PlNAYwcnbIuCp+A1N8+bTI=; t=1793289050; x=1794153050; 
-	b=A9KLBjkVV18JvImOKBqQB4Zr5RiiS3EpmLVZC7L96H6rdgFoF6ORnrnx7BM1RpgrYNogC7P+tlx
-	cXMeA48etVLIEKea+R4MOVnCXb5nNhVINSRORopBIgfoj0Bu8C82KHb3ej4mS8sE/obVhuvHFpES1
-	Gri4Gh67sV5NMBUnCmJb4AmMebODLHPFqNMM6yxEuyNK7Wq4KJ1D2x4GgPJs+nVpvu0irs22M2woj
-	7fdPdOuiSSDvkwuoTzmhUAbpBv4bxjPe0qemM8f9Uo7HQhnhRUuVtj/YZ3L8zuph40gfReF0DaVki
-	QRGrAqQmm+pgeMIy6Zi2rvFBlHrV6E/LNsGA==;
-Received: from mail-dl1-f41.google.com ([74.125.82.41])
-	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xMSOw-004ZUf-0i
-	for linux-kernel@vger.kernel.org;
-	Thu, 29 Oct 2026 11:50:50 -0400
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-156cbe59524so2573653c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:50:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz4Q+gX7/mN8Yu0LGWEgVPlciIhc5pvxUB8aU1efQLz8JBOhwIfSGwTunO9QnvH/LdwkJLJe7XKnfEWcOU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLsxWNcyC7Uyh5p5xTEp/g31WgJM7e41XtK/iMbREhZ81snPj8u
-	GBWRsKoqLjjWRemZRHoGvlUE46NNzY2kQbLVrAcgiooO6d3AATj3A5Dx1zA3QUHFr0Ccmeh5kM4
-	A5ebzxPN7eEWKbh9rEkuupXLWIhdTEBI=
-X-Received: by 2002:a05:7022:4396:b0:15c:20b8:796e with SMTP id
- a92af1059eb24-1a6ce208ad1mr9947732c88.22.1793289049038; Thu, 29 Oct 2026
- 08:50:49 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9CCA606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:50:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9CCA606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93e64d52949so181441785a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:50:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793289058; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JyeVpdTsojS2q0zPdnilbcBRcFymtDjCavUwppiPTSxczeo1AaUDlkwl1MShtnhsVJ
+         6S1qgGvFJzOXhC/kCZjhO96WW0uVzMPjkxwSX9mhiGNxnLU/9I3xjH0Ti/75AZnpQhPr
+         6aoGUmsIf/jUX0tas06OhrKj2xPxjiQwWJsBAP7V5nON5AcDIyXSe+59cspcxBGqf+ij
+         AbnbQFtDrIZIRBPNP3/ybSYyZfJhCHdT/mRajLgNWqDOLksK3p5wkfuwb5JpYNXY1Yxz
+         xOWEwavsEwNP6KZpgotwuBu69Fu5qkUbv/ywtrYwsVfAOX0m6+ESti8iFKLWD+h/otlj
+         RX+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=Luo+iCGFAFHcSDc+DCddHy/s1aw6YXJoZRSJFD58nlw=;
+        fh=ZWAPf180xjCYKV9df4mjq4l+4M2EUK6Ne58rau/jXmk=;
+        b=e6k+JolrPAdhHn51LgkcDDRtBS4/NnbY6acR6vxlNsdkihziMzAXPjQIjVKanTTjiM
+         VYcsm8pyjbp95CnVm3+YnM4cCDq9/JLJXb8FUMcpBNK7FzUJT6l3Veav40jHaErOyy3O
+         VNyhPrDNlhUkx118TaGOZj0s3OYAptEM9xEoMTLgjysllaiPn4/6b4qaL3qdehNHfcJF
+         41VMtgBVStx42b2EyLKrYo3j7Zr7a2V9HBf408ZQD1Eq1MrQDUQQndEu1BtQeUjU7mOl
+         i73z4am3xbHpJoUZjCKP4hQMFGA6yExzrqbkXX9/OVIHkz9fxy11wWR2qZvz+sb1xFQY
+         JALQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1793289058; x=1793893858; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Luo+iCGFAFHcSDc+DCddHy/s1aw6YXJoZRSJFD58nlw=;
+        b=TfDH6aCpztOXqSOcX7gkZ0PLAMLvVJhyhmUsoCKRVYfD/rFDPjf4SrGT++Wqe4HKu0
+         DiYy68ddP3qYK+8WwoG5X3qmOX6WQr3N1GbfqtX07Spl7qlxILigS9esyLkRIqNGKE3+
+         ChCbDxfH1IMeuDQOcLNqmFUpBROTqgXbUareD3Zge0Tk7E7ZAeSmN1NA5toxLtqlLVve
+         1bm7uiTdGHcK2MdQH2yjkVoGBXkZ5CHXDos3lJlkEMDbGio1DBycamh4QnQqIbUMGrR9
+         0TsI+eEhgX+WVje9Z784hT1Y5qKWtv7GO3XBqXdy7jFmbbKVqko97NqehajzVdWnVfBP
+         wS+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793289058; x=1793893858;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Luo+iCGFAFHcSDc+DCddHy/s1aw6YXJoZRSJFD58nlw=;
+        b=Bbzuw4xPkM4jPPlAnGoppjWC8haL1v/47zO9JbTCOPwMEUyKYrY6aCHoXj4IisU2c/
+         KAxqX9GGQXDkGNdOJ+btRsGV3erxncj6BlrTu54tZUhYgB0YjGMhExRwMBatMF8HLOHn
+         oNmcv20rsiBVsE/YG2Xv/vSY/ab+4mFSGzbrBLlVN/urnpa4awUDO6BBmaWOZpmdieTq
+         HxzsOUy1m/uVBYzwWsvyeBlzpukteq1HOtX39FhNPwal9VwJKQLXjDLrm8tfZNsDZUxF
+         UCNYu9xecocu/qcwwTXi6xQNSXa5gr5lXkZGMOpHYE7h/anz3YDcFzg+IHhcnyLHQxo7
+         gdNQ==
+X-Gm-Message-State: AFq9FYKl41U8s5WCw7aMmxgSXK8d57Esr1oJjrJ8VT8XXxjkIz7XR0bJ
+	LyLBo+C8ThYkhVt/WsNlLKlDxBdCjdvpg+Bp5ZMJRyJ5Y8jJfrclO8uicsrExjVYVM7K7GrHPBb
+	j2vDumAqBwWArcdea81wt7UHbGyuOePXrfySivtv4AHfr+4YgkDbJFVkwug==
+X-Gm-Gg: AYBFou00e9bMsJOn39W+M3/cRibGE9EGB1xr0Zw00m3A+vVvTOEhdvkNhklF+xGHvuP
+	7Qw9aIBTtg+fq2DBwSO/JFTxjE3Ntr/k7JnZL393p3Vq+63iCVbDv6FIEAcbxoX3+E0La00wk6F
+	YUS0B7WZC0v/8lpP0Xq7aqqKnZ/2qBP9wtJWQsT/H0Qv2Er+oRN+jfryBQHjbG5yPhPOJrRh+lb
+	qVlmusMfephiIdmNPh4uvdLxKksTcIUITYYApr/FAfXRzI+pszZ3J5qjwxL6+zSennERMd5XxAO
+	zHTXpCmuJkIBDCYfMhvPr4ly01xAecToygHZk9hZEEwLfEL+P2WvFUcE361j2RN5iblaYJ79YV/
+	mkEMebqRaN9Ofkh7PvF9RRp6nCNjdFIGMKj5+AbwvLw53tl/BzcnXMvKkYUOwHNgPGrehEybHPv
+	+Lb++Zyihh1X6i19HPL8/GbSExws+Q4gD1pJU04hn6uFCKH2iGOXcaKw==
+X-Received: by 2002:a05:620a:2a03:b0:93f:25c7:a4e1 with SMTP id
+ af79cd13be357-94408a5f806mr933381285a.26.1793289057715; Thu, 29 Oct 2026
+ 08:50:57 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,60 +97,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <attzI4sj2Pagmvkd@casper.infradead.org> <20261027192014.844878-1-nickolai@csail.mit.edu>
- <auNdNjH4zo7OYbe-@gremlin>
-In-Reply-To: <auNdNjH4zo7OYbe-@gremlin>
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Date: Thu, 29 Oct 2026 11:50:37 -0400
-X-Gmail-Original-Message-ID: <CADGQE7EtDGs=g7p5=_m2LieLcEj-k4LyupOFWt96Aw9py-gYaw@mail.gmail.com>
-X-Gm-Features: AclHuK8yS5TxpZVU_n3PpHxl-8IBYZs67giAAwk7Tv4-zhBVnjxpmpu0FOC9ZHE
-Message-ID: <CADGQE7EtDGs=g7p5=_m2LieLcEj-k4LyupOFWt96Aw9py-gYaw@mail.gmail.com>
-Subject: Re: [PATCH v2] xarray: clear the new head's parent before freeing the
- old head
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Matthew Wilcox <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 15:50:41 +0000
+X-Gm-Features: AclHuK9N1Sg8EJuZZRy5QhUVld5bqPX0n2NK_IIkQxa9iUUvYvDqObAJQGNKPeg
+Message-ID: <CAPY8ntCh-6-54Tp4c2srp_kAhaCs-gHixEq_=qMPf+rNSWsTtQ@mail.gmail.com>
+Subject: Checkpatch false positive
+To: Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>
+Cc: LKML <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Lorenzo,
+Hi Andy and Joe.
 
-On Thu, Oct 29, 2026 at 11:03=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.=
-org> wrote:
-> It's pretty 101, but please don't send new revisions in-reply-to older
-> revisions or feedback [0].
+Checkpatch is giving the error
 
-Understood, will do.  (I was thinking that applied more to
-multi-series patches, which indeed gets unwieldy.)
+ERROR: missing sentinel in ID array
+#1455: FILE: drivers/media/i2c/sony-starvis2.c:1450:
++static const struct of_device_id starvis2_of_match[] = {
+ { .compatible = "XXXXXXXXXXXXXXXX", .data = &imx678_aamr_info },
+ { .compatible = "XXXXXXXXXXXXXXXX", .data = &imx678_aaqr_info },
 
-> Also, if somebody replies to you, reply back. You, not your LLM.
+on patch https://lore.kernel.org/linux-media/20261022-media-starvis2-v6-1-374343f55fd3@raspberrypi.com/
 
-Indeed, I've been replying personally, though in a few cases I sent
-the response in the notes of the v2 patch, in an attempt to send less
-mail to lkml.
+The sentinel is there, but just not in that hunk that renames the
+struct of_device_id. That counts as a false positive to me, hence I'm
+reporting it to you as requested.
 
-For context, I use an LLM to write Lean proofs of correctness, which
-seems useful for cases where the patch is non-trivial (e.g., [2]).
-
-> Also, you are flooding the kernel with patches, 5 series across 5
-> subsystems over 2 hrs:
->
-> https://lore.kernel.org/all/?q=3Df%3Anickolai%40csail.mit.edu
->
-> I already asked you once to stop doing this [1]. You've carried on.
-> [...]
-> I'm sure you're acting in good faith, so can I please ask you to engage
-> with maintainers instead of ignoring us and treating our time as valueles=
-s?
-
-Sorry about that.  I'm happy to send bug reports with clear userspace
-reproducers, instead of patches, for any bugs that seem particularly
-significant.  I'll also get in touch with the relevant maintainers to
-see what, if anything, might be useful to them, rather than sending
-individual issues/patches.
-
-Nickolai.
-
-[2] https://lore.kernel.org/lkml/20261027125210.843589-1-nickolai@csail.mit=
-.edu/
+Thanks
+  Dave
