@@ -1,82 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793279556;
-	b=0rXPJ9KhS8qMKC7CnJWaBnox+xxEOuXasJvse97CF5NMUTPVtoqM5Ed0Yhza7jp9SXr2
-	 9Y+149a352Geux6Bgb+l2rB7h1pbKCLZFRZWShVor9azDLw2AlTYO70UdJMyqC7UARWHq
-	 O8CVmGj/8F3dV3nLeytI282iSEwTPc+Nm0Lv5FNtKwxYMFuqg3OEkdMen0wVUsl5FEHUt
-	 P59i4f0C9mMsVLXgfjlzW1QzW3QSM6KfbsWGzzzWposm60aDAsIeeGGobg4IlkefSnPnM
-	 MpUJmTZIXL7xeoMcPsSDbUwvbHqARZNO0QA/DMWEEo8zcMQfhrwvBlDr2mckPfXUv6g==
+	t=1793279561;
+	b=KVHVx1UcCLj5/KIh2on93tR7zxCdikl9PQr0g2Wbp0nVAcIRNX01LdtxrrEEyMSg/irK
+	 grvrjd1KOKq+ucPKqu+Q/CysH7gh7YpNpNHkJfT2dU2QNwAbQ9cu58MsJQhcFzmpbSvqo
+	 6xjtPPB+VYB8mBizZuLC0pnWNJVb9oG1Oq5t338eXf3BaZuQ5CdT5I0aZAAv3U42zk9gy
+	 tjCaP3oI6EZWsDgNIPouUWGq9AGctmJfHEHLERlj9SzRKy3WKSkDN9eOTyiblzM7CKvQ2
+	 avSgHigzFZwTR0WcH8Mlq0kozFfvxleUUysG62MYF+ElYQP5oNTBtbalucJKBo71Q1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793279556;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=U/dn1bJxSxiZF4VVcxna9DY8oDDKRyAz/5CgUNCelhU=;
-	b=d93UYrVkdS6PCwWwqHd36ZBabioC+ksh9At8mkZl3IrzMtMUJsb/7j9gAb7x+VlZfeK4
-	 2qrEuQMBcLZGsoInZgN63Oipp3yg0VwxynweW5diD6YX0NkayZAyLLRNMZ2G+4HiShZMU
-	 iSy9G1FEV/Z5h8dUbvCN4RqrT92vI9YkTdCV7sPJY49NS7RsayiSTb1Rtwj9EtaZkSM9a
-	 osI5Ycq+sPEmnwyUx3ccS3pM2SLj7axrT4MJpDCOhpESSOA0hKebFqZqWTjEmBxx7aQe5
-	 wCphu1HtEhUvHmlEz+b1ik6SVT7ac2R5arfz+UE6uZU03uVw5KmS8LLrCslX7uuORtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793279561;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=l2B9NRIaTX0XradvscAus4hmArJXzBaDth1gHEqCJIQ=;
+	b=aeqxtH+EL2IPBOhMiLNe/GAh2wW+lPQZCBka/KKSutlIL4RH7Olb86t1kgmHfsaeJt6C
+	 dYx8uVEOJYsonGpY1M6gUcCAx7WxH1HOVIn2MIIV+LAYtz4ik7fiRRgZsQJu5WNb06fa0
+	 6jTKWNpgxspsxN6Ce8bLcM2HMzB5i9vCwTwYCng4jdIgjA2uIh3muo7CzAbyxEuqKr/19
+	 HemyQKPPqcbHxw6VmTW/gpCN0h8kQQzoi3RyCX+HPksFytWxnMh2ui+Ugqp4zf2+6le8J
+	 c+BooyqjqQPlAp2NTuvi3fC0l4y2Gr0VaRxLxs3KRhgr1iMgDjRS0r0tVgBB28iUaug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BRBUtqwr;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0XRfIo1o;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0FA7606A322;
-	Thu, 29 Oct 2026 13:12:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0FA7606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4B9606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:12:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A4B9606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BRBUtqwr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793279555; x=1824815555;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=rJvdpx6TIzyH5FLjB4rDEtTKuj6RYTQy+iMgZeUQkFY=;
-  b=BRBUtqwrQ5E0a5SvM94BWETm8p4GVykAFzAFOUfyc/y2Z7hVwV4JBzpz
-   SHGmTs9djHhK6OGF4ez79NMRJ4bbe34wRgnbJ0pf1RdazBtuwJVhZP7yH
-   oG3qkNg4XO338zQhaIi9Ao89DD/bukYF7X+k23c8sucyqTQGzf+EdJi0V
-   QdBVriMHc2xRk3IdEpQdw9xlZv3KYf49bIuOMtOm4cz+LqXY1SbT5jJva
-   B/e6AnQpSPuJlSLkwDTF0mgadjGL5whjc8na+tpg2LAkzvgX7zMjExBEp
-   D9K+niKh4GyoCqfstJVkx6M5suRUxPVwl1s6H3DltSm4O03WMGzxdx8nk
-   Q==;
-X-CSE-ConnectionGUID: RtVLjUINS8mrKRW7Bt4qiQ==
-X-CSE-MsgGUID: wz3Yb1gIQwySD/5a706wkA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1899001"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1899001"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:12:35 -0700
-X-CSE-ConnectionGUID: MoGixHUWTIyr70a/Hk0ieQ==
-X-CSE-MsgGUID: nHz/yb5BSSuH+syylIKlbg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5269102"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:12:32 -0700
-Date: Thu, 29 Oct 2026 15:12:29 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/5] media: atomisp: queue: move remote queue handling
- into helpers
-Message-ID: <auNGPTeZWYXKrE9c@ashevche-desk.local>
-References: <20261027230807.2407261-1-vladurares@gmail.com>
- <20261027230807.2407261-3-vladurares@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0XRfIo1o
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cd5d2dafeccso1172556a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:12:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793279560; x=1793884360; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l2B9NRIaTX0XradvscAus4hmArJXzBaDth1gHEqCJIQ=;
+        b=0XRfIo1oMCyUF5im6jlSzlMHoqrpYNNTc8L+WbgH0yFWioryVncN+JvaoVlrHJ/ejq
+         k+K7mCIJL40TG+7OZFpz15WfO1TmDawVL9pyfGqN+q2c7dWvjEYRuqpAIwgfNa1Xs/be
+         OgMiojcSbbK190YIWN0oSn0cUkz/4iVYogmkxjXc1JvF9DrUbyVA0ak1iKipn3UldC3N
+         zGYxQHv2T5ytp4e3tx2g6R3Dy3idRHBg45Tsf+miWIwE4y9XOnaH2aOP51TbSc/OkqXX
+         gSafY486/kQiZW2C6Z43F3XBt/n3wC8lf1JR1Jbl+JcxkwfcXTeSeDfzIPhKX3s1gb+b
+         oUPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793279560; x=1793884360;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l2B9NRIaTX0XradvscAus4hmArJXzBaDth1gHEqCJIQ=;
+        b=nxguHWWpRDITYcH4+t/k0Q6yjpvDP/HeWKvcPqaW9Xd4FiuKTWwThvPr8iePXOBdfh
+         C0E1nkoyXK08/DUCmAC6tPcY5bm9vBOQdpgj9WcXdddaBU58qQ1Ux+HSXTRSefxy7eYP
+         emE55o+XKiSatqi+44t2nBIoSQPQcaidFl6qHWk4WvmLtMgcWvrRdXWKZzvOGAfsisVE
+         VfnMCckrf46XiwL0QhdikNS6AbWvfS3xmCnzWKDipCr1fsOJFRseX/DHcFTiO3GFQXl4
+         bSMyB0+IuXzn+eo3Er5t/L0oeqR3xV07wCHJpFz9rqNBtEgH6MIEWr0G0vpgaJTHD41K
+         T4GQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz1rJu81GG+Odd+oToodbSuP3gnJl/uFEgNrx87IctKs7962Fr463GposrxKWW0V3q8nLKikkOAy7F+jxE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrlkeVzmZ96A5oFqc4ZNUPZuwcoP7uakc5cB/I3hdlevSKyMVh
+	mAR/BF5MDsWttqjhpOaemnnGyC7Ho+7wGLp6jVoGY17Y6NBY74xhRoUH
+X-Gm-Gg: AYBFou0kcwAweQL/lGcHsFbHIn2q+/Pf9h15GRynanmNU2TH7wubw2lA8fc4DhLGACB
+	SNn+uvlsJQK6tSS6SHDitMOybZotSaW6bk1HxQ5xDaQaC/BJ+5qolJdNOkCosTUYN14dRZTzIMI
+	qhUoCzG6biC5h/L+4M1sE457MZU34ZzqpEe8ZRtPQT7PJ0LkuDou+8+gr/ryLmrwT4Y881pOnI+
+	1SBq7VY/qVhs3LPTOC1sUyL268D4cWvKbMZ4pwE71iXUTtehYL7/Y7yK6Dhm3AbAfJtaI4DlpTU
+	yAFjnLTcc5uOzYjBn8SoQcjfW26FKy3AVwrZrrdhxRxNNEA+8tXczX6/q6gpW/y7f4l9Yu9SKRn
+	mMmUkpvA1NPvj4o+2NXRXjMYIG4KPhzIOdJJvw8lE2YLtTG6Grm726A+XiQL6QWtwCuN1/022LS
+	IHXKkEl3RvcbUxBrhg2fE9Ykt5awBQJmJEhFIKUJhHqyPDLpeyOoGj6Fe0lGV2i3Hz7G3ijqOir
+	SoAyu86z4eKhuX0pv716kTt+hcJFMugdy53IhQeFlYmV45kic3cbsy/hwjOyUm05/yshfsCkmhu
+	uz5Se8eOrAEl29DZogcKHrOoUWJ2k/mglIL3QFIzkHhLRg==
+X-Received: by 2002:a17:90b:28d0:b0:3ab:2ad1:f10a with SMTP id 98e67ed59e1d1-3ae57bbdb9bmr3688948a91.0.1793279560351;
+        Thu, 29 Oct 2026 06:12:40 -0700 (PDT)
+Received: from localhost ([111.228.63.84])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae55d555d4sm4090445a91.1.2026.10.29.06.12.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 06:12:40 -0700 (PDT)
+From: Cen Zhang <zzzccc427@gmail.com>
+To: marcel@holtmann.org,
+	luiz.dentz@gmail.com
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com,
+	jjzuming@gmail.com,
+	zzzccc427@gmail.com
+Subject: [PATCH 1/4] Bluetooth: hci_core: Keep link-key filtering inside RCU
+Date: Thu, 29 Oct 2026 21:12:26 +0800
+Message-Id: <pm-bluetooth-objects-candidate-0122-v8-952ad9eb0ef59367ba6a-1@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <pm-bluetooth-objects-candidate-0122-v8-952ad9eb0ef59367ba6a-0@gmail.com>
+References: <pm-bluetooth-objects-candidate-0122-v8-952ad9eb0ef59367ba6a-0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,52 +101,215 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261027230807.2407261-3-vladurares@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Oct 27, 2026 at 11:08:04PM +0000, Rareș-Mihai Vladu wrote:
-> Move the remote queue branch of every queue operation into its own
-> static helper, written the way the function is meant to look once the
-> unused local queue support is gone, and call it from the existing
-> function after the local branch.
-> 
-> While at it, tidy up the moved code: drop the redundant parentheses
-> and '!= 0' comparisons, use !ptr instead of comparing to NULL, and
-> return the result of the final ia_css_queue_store() call directly.
-> 
-> This prepares for removing the local queue support in the next patch
-> and keeps that change easy to review. No functional change intended.
+hci_find_link_key() must keep the matching link key allocated while it
+checks the key against the blocked-key list. It currently leaves the
+key-list RCU read-side section before passing k->val to
+hci_is_blocked_key(). That helper's own RCU section protects the
+blocked-key list, but it cannot keep an unlinked link key from being
+reclaimed.
 
-...
+The SMP receive path calls the finder without hdev->lock: Secure
+Connections key distribution over BR/EDR reaches it through
+smp_distribute_keys() and sc_generate_ltk(). With a stored peer link
+key and a link-key entry in the blocked-key list,
+MGMT_OP_LOAD_LINK_KEYS can free the selected key before the comparison:
 
-> +int ia_css_queue_enqueue(ia_css_queue_t *qhandle, uint32_t item)
+  HCI RX worker (SMP)              Management / RCU reclamation
+  hci_find_link_key()
+    rcu_read_lock()
+    select k
+    rcu_read_unlock()
+                                   load_link_keys()
+                                     hci_dev_lock(hdev)
+                                     hci_link_keys_clear(hdev)
+                                       list_del_rcu(), kfree_rcu()
+                                     hci_dev_unlock(hdev)
+                                   grace period ends, k is freed
+    hci_is_blocked_key(hdev, ..., k->val)
+      memcmp() reads the freed key
 
->  int ia_css_queue_dequeue(ia_css_queue_t *qhandle, uint32_t *item)
+Keep the RCU read-side section active through the blocked-key
+comparison and the warning that prints k->bdaddr, and release it before
+returning on both matched-key paths. hci_find_ltk() already handles its
+blocked-key check this way.
 
->  int ia_css_queue_get_free_space(ia_css_queue_t *qhandle, uint32_t *size)
+KASAN reported this on a test kernel whose scheduling hook paused the
+receive worker after the lookup until the key had been freed.
 
->  int ia_css_queue_get_used_space(ia_css_queue_t *qhandle, uint32_t *size)
+KASAN report as below:
 
->  int ia_css_queue_peek(ia_css_queue_t *qhandle, u32 offset, uint32_t *element)
+    ==================================================================
+    BUG: KASAN: slab-use-after-free in hci_is_blocked_key+0x2db/0x300
+    Read of size 1 at addr ffff88810b5f89a7 by task kworker/u17:0/502
 
->  int ia_css_queue_get_size(ia_css_queue_t *qhandle, uint32_t *size)
+    CPU: 1 UID: 0 PID: 502 Comm: kworker/u17:0 Not tainted 7.2.0-rc6-pmb-bt-functional-v1+ #5 PREEMPT(lazy)
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Workqueue: hci1 hci_rx_work
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? hci_is_blocked_key+0x2db/0x300
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? hci_is_blocked_key+0x2db/0x300
+     kasan_report+0xe0/0x110
+     ? hci_is_blocked_key+0x2db/0x300
+     hci_is_blocked_key+0x2db/0x300
+     hci_find_link_key+0x12e/0x400
+     smp_distribute_keys+0x1830/0x2950
+     ? trace_hardirqs_on+0x18/0x160
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? queue_delayed_work_on+0xb3/0xf0
+     ? __pfx_smp_distribute_keys+0x10/0x10
+     ? __pfx_smp_send_cmd.isra.0+0x10/0x10
+     ? __cancel_work+0x1b0/0x290
+     ? __entry_text_end+0x1020f7/0x1020f9
+     ? lockdep_hardirqs_on_prepare+0xea/0x1a0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __asan_memset+0x23/0x50
+     ? smp_recv_cb+0x12c7/0x8d80
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     smp_recv_cb+0x12c7/0x8d80
+     ? __pfx_smp_recv_cb+0x10/0x10
+     ? __pfx___might_resched+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? stack_depot_save_flags+0x29/0x9a0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __mutex_lock+0x182c/0x2590
+     ? kasan_save_stack+0x42/0x60
+     ? l2cap_recv_frame+0x9ef/0x8830
+     ? __kasan_slab_free+0x5f/0x80
+     ? kmem_cache_free+0x242/0x580
+     ? kfree_skbmem+0x15e/0x1d0
+     ? sk_skb_reason_drop+0x12f/0x490
+     ? hci_event_packet+0x556/0xc70
+     ? hci_rx_work+0x367/0xf00
+     ? process_one_work+0x908/0x19c0
+     ? worker_thread+0x65c/0xe40
+     ? __pfx___mutex_lock+0x10/0x10
+     ? __lock_acquire+0x466/0x2260
+     ? __pfx_l2cap_chan_hold_unless_zero+0x10/0x10
+     ? l2cap_recv_frame+0x13cc/0x8830
+     ? __pfx_smp_recv_cb+0x10/0x10
+     l2cap_recv_frame+0x13cc/0x8830
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __mutex_lock+0x182c/0x2590
+     ? __pfx_l2cap_recv_frame+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? find_held_lock+0x2b/0x80
+     ? l2cap_recv_acldata+0x1eb/0x10e0
+     ? __pfx___mutex_lock+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __mutex_unlock_slowpath+0x147/0x920
+     ? __pfx_l2cap_conn_hold_unless_zero+0x10/0x10
+     ? __pfx_hci_conn_enter_active_mode+0x10/0x10
+     ? l2cap_recv_acldata+0x13d/0x10e0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     l2cap_recv_acldata+0xe9f/0x10e0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     hci_rx_work+0x5a6/0xf00
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     process_one_work+0x908/0x19c0
+     ? __pfx_process_one_work+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? lock_is_held_type+0x8f/0x100
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     worker_thread+0x65c/0xe40
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0x34f/0x460
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x659/0x940
+     ? __pfx_ret_from_fork+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __switch_to+0x74f/0xf80
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
 
-This change is okay, just a comment for further possible cleanup.
+    Allocated by task 504:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_cache_noprof+0x251/0x610
+     hci_add_link_key+0x474/0x840
+     hci_link_key_notify_evt+0x492/0xce0
+     hci_event_packet+0x894/0xc70
+     hci_rx_work+0x367/0xf00
+     process_one_work+0x908/0x19c0
+     worker_thread+0x65c/0xe40
+     kthread+0x34f/0x460
+     ret_from_fork+0x659/0x940
+     ret_from_fork_asm+0x1a/0x30
 
-Please, consider making driver use uXX/sXX types over uintXX_t/intXX_t
-for the kernel-only code and the respective double underscore for ABI
-data types (I'm not sure about firmware protocol, it's strictly speaking
-an ABI, but sometimes we use internal types) — __uXX/__sXX.
+    Freed by task 29:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     __rcu_free_sheaf_prepare+0x65/0x2a0
+     rcu_free_sheaf_nobarn+0x1d/0x50
+     rcu_core+0x661/0x1d10
+     handle_softirqs+0x201/0x930
+     run_ksoftirqd+0x33/0x60
+     smpboot_thread_fn+0x3bd/0x9a0
+     kthread+0x34f/0x460
+     ret_from_fork+0x659/0x940
+     ret_from_fork_asm+0x1a/0x30
 
-Maybe not entire driver at once (can be tons of lines to change), but small
-step first to check if the approach is correct.
+    The buggy address belongs to the object at ffff88810b5f8980
+     which belongs to the cache kmalloc-64 of size 64
+    The buggy address is located 39 bytes inside of
+     freed 64-byte region [ffff88810b5f8980, ffff88810b5f89c0)
 
--- 
-With Best Regards,
-Andy Shevchenko
+    The buggy address belongs to the physical page:
+    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x10b5f8
+    flags: 0x200000000000000(node=0|zone=2)
+    page_type: f5(slab)
+    raw: 0200000000000000 ffff8881000428c0 dead000000000100 dead000000000122
+    raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
+    page dumped because: kasan: bad access detected
 
+    Memory state around the buggy address:
+     ffff88810b5f8880: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+     ffff88810b5f8900: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
+    >ffff88810b5f8980: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+                                   ^
+     ffff88810b5f8a00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+     ffff88810b5f8a80: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+    ==================================================================
 
+Fixes: 600a87490ff9 ("Bluetooth: Implementation of MGMT_OP_SET_BLOCKED_KEYS.")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
+ net/bluetooth/hci_core.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 2a29cfdee9728..70778a4594e31 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -1170,17 +1170,16 @@ struct link_key *hci_find_link_key(struct hci_dev *hdev, bdaddr_t *bdaddr)
+ 	rcu_read_lock();
+ 	list_for_each_entry_rcu(k, &hdev->link_keys, list) {
+ 		if (bacmp(bdaddr, &k->bdaddr) == 0) {
+-			rcu_read_unlock();
+-
+ 			if (hci_is_blocked_key(hdev,
+ 					       HCI_BLOCKED_KEY_TYPE_LINKKEY,
+ 					       k->val)) {
+ 				bt_dev_warn_ratelimited(hdev,
+ 							"Link key blocked for %pMR",
+ 							&k->bdaddr);
+-				return NULL;
++				k = NULL;
+ 			}
+ 
++			rcu_read_unlock();
+ 			return k;
+ 		}
+ 	}
