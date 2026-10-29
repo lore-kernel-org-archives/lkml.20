@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793285664;
-	b=034WDN7d8l5MrTRg8PSdSFPbaNrs+WPzJrnRe5FXMYvMr+TZ/GF6no9GXz//JBw7UB7c
-	 QPakz5Jiw2CTgzfh31uJD2oVdLe+K7cPURYN7/ZPfHmH24yWGa3iLvq7m5hAZFUecs6GL
-	 bLoBJerjwVvTd0NqDSrJgLA+Si0TO8by11qbTBbMpUue6PYdF/k9Ot8mGge022G6fTQTm
-	 J29sMOLDdwsvG8oAKt9H+13dxjHYvAJmC6Q4Y34GGAI181CGHHodchiktFI0RP3vHNVnO
-	 BhF0G4gwveCsXdG7SRk+PavvfjdT0NyvVNaLMQOV+ZdlI724pXTHZholbqSBxHd0uiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793285664;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=syP/xzpkKMLrk7/MFgmjLhbIZbBNnTaGfvGKyHAlvRE=;
-	b=dBxKdOsKDx9lTRbviMye6XNmKAyJJDMOwefMfqGKMg5vj6/djBB3EMTekXZ7RZbJQ1Zx
-	 NX4LEx9OY+VIsC9ExaBjrlFOxKcO8lFyIlaEG+f8VVp3j/MegWWS11nB2AzcwzNtMcp6G
-	 xOGJ9GOnuHpCd0dO87U0yw2TJmgegE47Qg/C+JXln8t70RHAYdywroYIDnizHl9HHMVyL
-	 ngcAz3iobgM7WqAx72G4G2FAHKau7FzN+okJBpJORwP7GY1er3FUYeyyJUU1SpSbeY7uy
-	 iUsZiOUaB8DBMAstf/JyalOrFO8y4R46QqDLL7Xst6Wm7qetgmZ88ai4opcY+BNN29w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CBMm19x7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793285690;
+	b=G5+CxRZ9FKB6LpOshM3Z+KWcFHxKo/0gI/QDJ90UliTB3KatbzIOV5xlIWL0RIykoUpG
+	 UBj3LPKsz63TgUileYk+4MWQaO8PyzTSPT44icHP1JHvRca2dDCJ5L/qFD5I64+d3LR7u
+	 KuY3uiJXDiTY1BEohzpLnGZOK/45To7vU6MjE9qNjMvSW0Hp6prlFXgRXgtPqCrPvcY/4
+	 qap7HE21akvSvrf4pzgnbyEwYvGJbh2Q4mOo1QoYVuBJ5NsHbQ5w/bKWFDIYq6NHYxHGC
+	 bGqBC5DL3ZMDtNBC2j6VaMGCH/d6vrzq4Uoo0lzBCaxPkyuUEJXyouIw6tHRIaMXo4g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793285690;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=jZf3jjTodnM7qc1wo9plUNoH8ssRvL1DxBE038OooOQ=;
+	b=p9fgKzHGYIXiRbkhTMWVWNqTSBb9nuSTMz7PD7XcmdUmgWEbWNse7UxhntnC/tkjaMgv
+	 Re39st/VUgsH/E7r55ZekHgPJTAmIRZ5jb9MihzpVoWEBq+SuTbcYkK8rMjUWoKfJG2tr
+	 CjqbiOGO059e0ternppbwfmte0rs7Br9dlezxKOCWFK2e19KuZzqnFvILj/V9SkGFX9tp
+	 jBU3k2rB+vMCggcbilkSqtx8GcG4aVoe5lw1sWIvveq5SwUtl4H91MgdX1Lf3XhLdhu+1
+	 CWXfLqpOKBPyj11GLt+IPTHdw26vlNiwk7XSZZqZHuj8F5ec+R5Wc67o4v+nRnvnlNA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b="Rlq737/y";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.44
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2545D606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:54:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E952606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:54:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E952606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CBMm19x7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9EA41F01825;
-	Thu, 29 Oct 2026 14:54:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793285663;
-	bh=syP/xzpkKMLrk7/MFgmjLhbIZbBNnTaGfvGKyHAlvRE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CBMm19x7wJGB7/zVcINoepB5utNHeo50QC/Y5p8qQDw01USj5uDd5gqbMXZSgxF2M
-	 QpBtHFsjxwu9NDDbwDaGQDTE5dx1rpdwDX5K8VTVxxCP1UZZ/ETaslRt742zqMGyYL
-	 M6ZtF4ehkIC6pTkpHPpanuap3tRTw1L1YjyHvSODjfx3EUmFcpyp6+T3uaVNx4CUMP
-	 JW3VqWDAyZefvv/DwQP3BTGG3dz9K3PXUD6BazYgS3buF1v35wZux2GWcG1a3N4PV/
-	 w2519gclQp5mHEnNTnsnzzPOgqxKh2KyiCPeRBsoZKDvdoay4hH76V5F/3zbSS3rYo
-	 AtAvQWCddxQjw==
-Message-ID: <d44e0aef-ac50-4048-952b-50a0307a41cb@kernel.org>
-Date: Thu, 29 Oct 2026 15:54:16 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=Rlq737/y
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-48ed0b68895so1275027fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:54:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793285688; cv=none;
+        d=google.com; s=arc-20260327;
+        b=srOrYVKYnp/+QJtkj98yYnhxEpq79Ei9QpFiw3ewkSSpCDgqX8plJ5oVdEiUfxrhJb
+         pkj9GBdzE0zI9Uw/iwLoiVpCZbdbT1BdwlSgW0M5GT+KjySkpX4x6nz5xj7wekk3M2Ca
+         6/FahnX6u8g1Q6ngqqvFelwPXYsVJaAliI1IyRI9BYOHLQ0XxMiwakU63XjQ5aduvJ5r
+         ys06xMNYKm1dSwzbbjvsi6LfGs9EIfCi81LmcHML0HHR0Rsxjjr9EUMX6vjo4q2bGOiK
+         M4CLZNqPP2TqAs1bLzd6LvQ7GSakpKhJep1oMdze2tI3pzvzFNoMW5tD1rv2LLgA240L
+         vRMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=jZf3jjTodnM7qc1wo9plUNoH8ssRvL1DxBE038OooOQ=;
+        fh=tq01M4PYrc3WW0Y8vXz820P9/iBxthPTpc47WwZN4Ug=;
+        b=sWM9M84dhPjUw8dUhEvlXMxlBmafLa8EePZr/IlkeRDU2NjNHtV9ehe9p7zi4Y2gDd
+         If+DZ8uZsAv61TquQeLbumqOs+IU9m3deQjAqrhhhb3XmOe+27rsWd6wGfK2Cm1psRSS
+         h0U7yfM3AxSEwTDZIUDpg9u4lZiXoA/9UgM5Gemxrt10uh+NMthfZa50UCp/Rl9gvLXC
+         Umn4Szn4u4meAbhDAueZCKvqOf6hhCQxTkZy7DFSvcDq2Xd3clNWjyQKNFYc0/zTR4Z8
+         bGaHjHYrG3TaJ2wUuKpqsvckUb68GoAu4bUSkhcBfMc+wppBuNcUEXzwg0yXKS2wPvnp
+         G4jg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1793285688; x=1793890488; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jZf3jjTodnM7qc1wo9plUNoH8ssRvL1DxBE038OooOQ=;
+        b=Rlq737/yw9y59C+5F9yht1LHNkLvTUU8EY9Zv4CqfWn8wkp+QpjKh1HxZwqlMBYdcG
+         oZoJE304EjTAOTyhFCE66H6FE1ocYOxvW6c3bhkpbfg7yREaQVYPxA5IGfD0/NgNPzt+
+         yjj9TB9S10m1ZBC8O+1hXmmGX9+gUCp9Z/xK0/OKxtkJ080+y9RAsBkSV07rvQANnrFg
+         u2FmEnEjzgHLg59clH8eEzy0q5nqYpkkxTMgHSr0gM9uI/8ug+sMt7puTq1cWJNmkleD
+         X/F9UyYNOZBkcUVa88DNEFcIEEknHraT1inWTX1+Yul+mgYNWdpjen+rGq3MOCdmW6ma
+         H43g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793285688; x=1793890488;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jZf3jjTodnM7qc1wo9plUNoH8ssRvL1DxBE038OooOQ=;
+        b=QrAd0ndh0kmAaZvH2Phy2Z5JqR6ai+9i2xADorXwrjbUeRptMUHx+A6L5OJzpstcJ1
+         f3s5GTX5HjRgtM/yqNFoPAouVzkXtzdG1WtSvHogsHHcppLAUx7N6sLfxF/7M/zg1i7f
+         JlKHTRxHRMuhqNx1CQJbgpDGrc7JIpl0bkXhMyRG4xo7NdOhfd669oD1PE/Duw8IPj6H
+         J4o4QYiRwZ2uwhDux/bzCZknNIam7kdFrozAK/kLYAWu6m3JLMzJyNKCs/kSBBEZh0NT
+         9h0Lp1Q8TUlHF9HsEIiUhXVQa1tbO17kq8reMFB6m5Qp+O4z7vAY3X2CEC6W83sDkrBB
+         eQyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwiQwh+pcs3ZAeznhA+148VcoYUPndaVkYOfLJdssR7XmdyyHdUcL++wcJvqO0ORy0/qA063NaVUwao3kY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKB7zO9VEY3PKTHoa5Ig8+J5mIqqt5egOTMmeYTzyILi8+L8w5V
+	JGcL3t9jAjYrM3B8PhLv8hJovSJkwdfViHYttmyqzM6Qrqgc+5llRJDfyj5mBTVRNV2Y3hLTJzm
+	tC7FuMEoUC9LQPDIMB8UFNb4ZypCqrhQSgCn2o2sjDA==
+X-Gm-Gg: AYBFou0sjARkr1IarK+UE/AXnWpUdFELftuosapsx5QUmkfq/cvYLwNwihMet3y/D8s
+	Us36mQX0RUh3RlvLWox3UDku5nGWmFY18tOiQ2ofNE5/711Q+31Qw1rhyHPa48oCrbcefS4FSl2
+	dGavLZ0jcc6R8KnK2DGvbQFupZr3fFMWGzqfcIK4KjL/BLt9w2NbP5LQfg1e3N6ZjupRsawDndd
+	KvHrMKi/S3Pp0MCJCcEaB5gLzeaiqILY+jYTNDVdXdAgc+oxx2H7PcElBjSy558Uj7wQLoVq9od
+	0rs3AtWsz4TxjECzFRjPWiWJdolgxKAI5xUerjPMTzupIq0Rgo+Xc9pTyDbcSoZuahfV7py2eox
+	pzE71pPOiOsiTKcfIM4UGjbGh47bcqO//pD+l4epJELJR/NY4V8DCl9shWQVMtHr3hrHouoHh1n
+	UwcVcjCtdjGKHHWkphVYY6qmQnfb3Jv+m9UPergDHIpRnDA4UtVTNFAQ==
+X-Received: by 2002:a05:6870:8a09:b0:47c:4f69:3f1f with SMTP id
+ 586e51a60fabf-4a8bb4595e8mr4158986fac.14.1793285688482; Thu, 29 Oct 2026
+ 07:54:48 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,100 +104,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: use READ_ONCE() when cloning folio flags
- during split
-To: Zi Yan <ziy@nvidia.com>, Barry Song <baohua@kernel.org>,
- Ye Liu <ye.liu@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Ye Liu <liuye@kylinos.cn>
-References: <20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev>
- <CAGsJ_4wndM+uFwhX+7wdkm2Q8AkgVcw_4wgpObfw0DAZ1w+sVQ@mail.gmail.com>
- <b5dccfe1-3209-471a-a34e-f77fffdee797@kernel.org>
- <DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev> <20261014-ov9282-fixes-v2-4-3bb376d8b1a9@linux.dev>
+In-Reply-To: <20261014-ov9282-fixes-v2-4-3bb376d8b1a9@linux.dev>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 14:54:32 +0000
+X-Gm-Features: AclHuK9PiAlyIOE9H6TgjFTZyWCGr5hpHVaWb1aHCZKckP8QEuz-8cMUmUpjv44
+Message-ID: <CAPY8ntDNa8xuVRS6on=WoVghzJj_An3EydpEb=RwNDE1tmO9Kg@mail.gmail.com>
+Subject: Re: [PATCH v2 4/8] media: i2c: ov9282: fix flash duration range calculation
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
+	Jacopo Mondi <jacopo@jmondi.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/29/26 15:31, Zi Yan wrote:
-> On Thu Oct 29, 2026 at 6:47 AM EDT, David Hildenbrand (Arm) wrote:
->> On 10/29/26 10:08, Barry Song wrote:
->>>
->>> I assume the race is harmless, but silencing KCSAN is still worthwhile.
-> 
-> data_race() would work too.
-> 
->>
->> Isn't there a way we could lose the PG_waiters flag?
-> 
-> The PG_waiters on the original folio/the original head page is not lost,
+On Wed, 14 Oct 2026 at 07:49, Richard Leitner <richard.leitner@linux.dev> wrote:
+>
+> The flash_duration range calculation was broken. The maximum was
+> calculated from the current exposure time. This limited the hardware
+> without a strong reason. The minimum was fixed to 0, although the
+> hardware treats register values 0 and 1 equally for the strobe_duration.
+> The default value was never calculated from the raw register value to
+> actual microseconds.
+>
+> Furthermore the flash_duration range update sat inside
+> ov9282_update_exp_gain(), which ov9282_set_ctrl() only reaches after
+> the pm_runtime_get_if_in_use() early return.
 
-Ah, so it's not on arbitrary tail pages, just the old head.
+only reaches if pm_runtime_get_if_in_use() doesn't return early.
 
-> but there is a chance PG_waiters is lost in the new head, because
-> prep_compound_page() uses __SetPageHead() and can ignore the atomic set
-> of PG_waiters.
+>  So with the sensor idle
+> the range kept whatever value it had when it last streamed.
+>
+> Fix those issues by correctly calculating the values on line time changes
+> (i.e. HBLANK updates) as this is the "time base" for the register value.
+>
+> The maximum is chosen to be S32_MAX microseconds. This was done to keep
+> the code short and avoid additional back-and-forth conversions. As the
+> hardware allows strobe durations from 1 up to U32_MAX line times, S32_MAX
+> microseconds is always in this range. Line times for the supported
+> modes, hblank values and pixel rates may vary between ~7.5 and ~205
+> microseconds.
+>
+> Fixes: b95d8058a2786 ("media: i2c: ov9282: implement try_ctrl for strobe_duration")
+> Fixes: df60764ea5210 ("media: i2c: ov9282: dynamic flash_duration maximum")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> ---
+>  drivers/media/i2c/ov9282.c | 41 +++++++++++++++++++++++++++++++----------
+>  1 file changed, 31 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> index e2a1f875160b9..e6920e18b7818 100644
+> --- a/drivers/media/i2c/ov9282.c
+> +++ b/drivers/media/i2c/ov9282.c
+> @@ -514,6 +514,26 @@ static u32 ov9282_us_to_lines(struct ov9282 *ov9282, u32 duration)
+>                             ov9282_line_time_ns(ov9282));
+>  }
+>
+> +/**
+> + * ov9282_update_ctrl_flash_duration() - Update flash_duration control range
+> + * @ov9282: pointer to ov9282 device
+> + *
+> + * As the actual microseconds value of the flash_duration range (default,
+> + * minimum, maximum) are dependent on the line time recalculate and apply them
+> + * to the v4l2 property in this function.
+> + *
+> + * Return: 0 if successful, error code otherwise.
+> + */
+> +static int ov9282_update_ctrl_flash_duration(struct ov9282 *ov9282)
+> +{
+> +       u32 fd_min_us = ov9282_lines_to_us(ov9282, 1);
+> +       u32 fd_def_us = ov9282_lines_to_us(ov9282,
+> +                                          OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> +
+> +       return __v4l2_ctrl_modify_range(ov9282->flash_duration, fd_min_us,
+> +                                       S32_MAX, 1, fd_def_us);
+> +}
+> +
+>  /**
+>   * ov9282_update_controls() - Update control ranges based on streaming mode
+>   * @ov9282: pointer to ov9282 device
+> @@ -577,12 +597,6 @@ static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u32 gain)
+>                 goto error_release_group_hold;
+>
+>         ret = cci_write(ov9282->regmap, OV9282_REG_AGAIN, gain, NULL);
+> -       if (ret)
+> -               goto error_release_group_hold;
+> -
+> -       ret = __v4l2_ctrl_modify_range(ov9282->flash_duration,
+> -                                      0, exposure_us, 1,
+> -                                      OV9282_STROBE_FRAME_SPAN_DEFAULT);
+>
+>  error_release_group_hold:
+>         ret_hold = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0, NULL);
+> @@ -616,6 +630,11 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+>                 if (ret)
+>                         return ret;
+>                 break;
+> +       case V4L2_CID_HBLANK:
+> +               ret = ov9282_update_ctrl_flash_duration(ov9282);
+> +               if (ret)
+> +                       return ret;
+> +               break;
+>         }
+>
+>         /* Set controls only if sensor is in power on state */
+> @@ -1190,8 +1209,9 @@ static int ov9282_init_controls(struct ov9282 *ov9282)
+>         const struct ov9282_mode *mode = ov9282->cur_mode;
+>         struct v4l2_fwnode_device_properties props;
+>         u32 hblank_min;
+> -       u32 exposure_us;
+>         u32 lpfr;
+> +       u32 fd_min;
+> +       u32 fd_def;
+>         int ret;
+>
+>         ret = v4l2_ctrl_handler_init(ctrl_hdlr, 12);
+> @@ -1260,11 +1280,12 @@ static int ov9282_init_controls(struct ov9282 *ov9282)
+>         v4l2_ctrl_new_std(ctrl_hdlr, &ov9282_ctrl_ops,
+>                           V4L2_CID_FLASH_STROBE_OE, 0, 1, 1, 0);
+>
+> -       exposure_us = ov9282_lines_to_us(ov9282, OV9282_EXPOSURE_DEFAULT);
+> +       fd_min = ov9282_lines_to_us(ov9282, 1);
+> +       fd_def = ov9282_lines_to_us(ov9282, OV9282_STROBE_FRAME_SPAN_DEFAULT);
+>         ov9282->flash_duration =
+>                 v4l2_ctrl_new_std(ctrl_hdlr, &ov9282_ctrl_ops,
+> -                                 V4L2_CID_FLASH_DURATION, 0, exposure_us, 1,
+> -                                 OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> +                                 V4L2_CID_FLASH_DURATION, fd_min, S32_MAX, 1,
+> +                                 fd_def);
 
-Fun.
-...>
-> Solutions can be:
-> 
-> 1. Use atomic SetPageHead() in prep_compound_page().
+Observation that this changes the default from
+OV9282_STROBE_FRAME_SPAN_DEFAULT to ov9282_lines_to_us(ov9282,
+OV9282_STROBE_FRAME_SPAN_DEFAULT);. I won't quibble over that though
+as any sane user will be setting their desired duration.
 
-That sounds like the right thing to do?
+Ideally with the commit text fixed:
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
--- 
-Cheers,
-
-David
+>
+>         ret = v4l2_fwnode_device_parse(ov9282->dev, &props);
+>         if (!ret) {
+>
+> --
+> 2.53.0
+>
+>
