@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793307782;
-	b=tc4wbWW8wjYaIBdXaxvPKBmH+2PHSJX5I8nKAYDG1WpTlHSs0TPf1kBfQcF7FTBIL2Fx
-	 kQlnIMx7bmbaFMWKQYKVqS3sN1UVH0PFCdF4+JMOLR1bK1U/XBcqkyW8CZPskd4rLkn22
-	 LUV2LKzyV/mCQWSZXCBKQuwLiIf66xaM7h2q7AhDBAbXrGq39LRiz66QBVq/xh0dEcUrI
-	 y1Tfe5WpH04UDBnzqIf5DmndgiWqgm7bLK2jMcw/m3AtX4AksLxuO6v1BjyGsYbQazEPv
-	 wkgXPAElVFI0uM4ZEn7WZOp0FgJnStg7Ltvnu6joRSwuXVT3EDkWIsyAde7huJtsNug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793307782;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=pFdMJCwen6N9JrBbr+moXA8rlsyaQPsNKoYeVLEHUfA=;
-	b=n3VdBuVS0naA0hu10eD88wkJx7+8gcWrLZ/F2hHDcylN4LQQ/pn805pzDPeBudmui1GV
-	 A5aRjgDsjX+LORE/lmVxYCEvj9qro2vywt51eixyyKAd8lLc4wBlbOqWekW2Dhr7824Vf
-	 c0+YNc+SjvDJvIKw7LXrSWOeu41Q9OSaUJH6zzwgSaGZ54JmIx1AjWvTqKO5wHYseeMnY
-	 1f01ZkxCbZWgJL+E39WBTG9uQptzd12Uu4pEtKKdsAEjALByGnXIOXVhCLJcTNsBThEsf
-	 5gYkRfs7er9LG9b7ZUNMxKKxPsLZuCHM8hy4rffz1ZWzTKlDkkRkNy6I+ErQH1RI2aw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUxhcSPi;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793307767;
+	b=LvmxhgcYVnSDuhHvtaJulYDNCBTeqMlA62s9i1v8CVVKq0cGukG2pBtpKC8B5e4TEQBs
+	 EfXCRC9ytuxGJz53wc92oFXI7StX8eE03Yss8yFvDs68aoiObsKZkeFhrsNAN3R4Zwxzh
+	 SGaM2t4p7JgV3Sk4FDEgG/x5CbF6CfaNZ/JReFccFwc+ngR7xzfySWeL7OuDZtIweJ2ma
+	 vaWR5kH/TLeFDZL0y3zWJv8OPBxTF08zaCnUiDYGr6S63C8bvmv2OL8y+ovIEkXyKVPFL
+	 cHcoUx6DQ1f3Jnb8aOUJzbWMbE5Tjg5QJZ1s0wf2kilHJKc3fMvYqCZPku11HonIrNg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793307767;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=w41sq28x/ASq4lXyo8/BhZ5wcP8Nly9VwoK1OLW/Pp8=;
+	b=5ZSKgxWJsnkI7jhGQnihxDquCX52XWGTjLz7v3Fw+2uvQLYixYylRnvvPvJnqiwUhJfK
+	 ZMQ7fG/bHv8JabsAJtFN1Z/x+2AmIO+7zt7p5Kxj/DetJ3coIl/tvLA3sshnjB5HUnbWJ
+	 CqAY6oN/T37klTnAyTGPzviX/aDgSqIrjhjveP1Sm1YN+gHPlbm7gwWWodc4XZDXI2hob
+	 Ys4MjGiV3/LTQc37k4PZORephgeDJBeqV4DUxuP6vIt/+xbnF/4nx2paFos2fRDKGqAoT
+	 7GpMKSVAJ65e+K5aYct7OgQ2wREz06MUvzMDqeJBIBG830oN1r8wLtzsMVMFwlx+Vgg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Orrk8FxC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B017360A2604
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:03:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C50D60A260B;
+	Thu, 29 Oct 2026 21:02:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUxhcSPi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DB681F01448
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:03:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Orrk8FxC
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793307762;
+	b=CrEiYe9583yQZ6g8kWuM6h4hLnWw6W6h7FKk+UrKR24EiuHTM+tIAwMoTfHFK9ZkfhQz
+	 xhV6PJvNOkb73MDxoORr/EowHvBAKoHmsZpDGbPYsLxu8hH9F8ZHflnoefMqu+kjblcB4
+	 ICRaq+LQH0fmMlpnaXnlYMJz5j9xZjSIccErlVY9/yzJgs1MaUk0jbw1IBN9ojXwYychx
+	 pJ+6h3AkJcypR3U/+KCRtSygUX5IGxlIqe9icEEVoXVgST3ft5dAKstJdx63u+mjiPluJ
+	 02R9ik8LVs1qkGz33VVZKEsuV3EnuAgAVRV1yO8FC9YgWnJVf5TX+ftEPUnKzGL0b+g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793307762;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=w41sq28x/ASq4lXyo8/BhZ5wcP8Nly9VwoK1OLW/Pp8=;
+	b=uK+gEhU37dZ3t9Q6XSA/Xzw8ZBVYF0P++6rb6iLBBKlDNuwCn2vikPgzLxD7ev/BoS63
+	 WHxjVDpolGeb9mG4+xYkMHAOQ3eRh+cI82EIZQ414AT5k5RguU66JSsgu/bT6H1+0JAqe
+	 R7SNYjyz2f1VHHIk2TI4w/iyk8DVKUd/Hwzfn2njNfTB+T8a04z9TnwKWLkarRCnAhfQl
+	 fLY/vULIv9AMXOFdHFJK+7YPrjXXyEsDQoUVGT7MmMHa7CvQiiD+5EFdglaG1Wp3YZjGV
+	 DiRpRAEESulv9JPku3iLovynnZGyCmGeapys0hHvECOYLeusvTuduS9qYSO+F6xfA5g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 2C06A1F031E2;
+	Thu, 29 Oct 2026 21:02:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793307781;
-	bh=pFdMJCwen6N9JrBbr+moXA8rlsyaQPsNKoYeVLEHUfA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cUxhcSPi/tITdJen6fvOKkVtsXBb2MCcrCpPnkgTOWvdakP0TbT0tYFgdo2A0VH9v
-	 Hhev/qm82oNN/H428O0soZv6TAmZb5OkNu0eTQXCKwgciEzMkLgaeFq2H1hyC9HOEh
-	 zjXUmVuo1pAa6yVNj0RkvexznWCRRO0SiIvY6Ss2TYPlutNrh96KrtdOzQ2o2PjiGU
-	 kWQ8BmBGS80kgIVrug2jckdtW6b1a3J1pwBoVZKEmZPgY0yU9zbR/XyzRYFthrnA6l
-	 DAFHNiyHUJgM0MAvCAqnQ8p4U5hLyvOV0QXmsGvGy1Z2sYlop4zOl0rcwzYd1Nlx0J
-	 oXfMA5s5v6bKw==
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-91c162febb9so545566d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:03:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwXwm5jCstDbr4UfxqOTWRMNzH4AI8RCcPphd9cbEdb5H/Q4N+ySwU3m5OMSryeJG+B5cp9IHLUL1OO1rM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9GwlNF1ljLCgbrheWF5CUTrHB0QJM+b+VV4E8F8IT8y7gHopt
-	eqCjI6ycvac73Ph089Ovd3EYh40ev1E3eBXkTO1G5HodoflKUfeHvvOZHeNAieqDo/qeMT4Uogu
-	VmyMEoFrLvtV8upr2us79wCmb7VN2cwA=
-X-Received: by 2002:a05:620a:439f:b0:939:b099:d52f with SMTP id
- af79cd13be357-9442171b930mr72138385a.20.1793307780343; Thu, 29 Oct 2026
- 14:03:00 -0700 (PDT)
+	s=k20260515; t=1793307762;
+	bh=w41sq28x/ASq4lXyo8/BhZ5wcP8Nly9VwoK1OLW/Pp8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Orrk8FxCJocyKLi8FRsai06fgyaLKlitCXzV0JGryyWT6TuXkz5dgoa5dhKvX8BRG
+	 b7EDSaqIbSfYIcKQuj28bEknENtOwdhZ9iMTyDMYa2M7TK8ACosB129NwY2mJQG5Gj
+	 YGxKKPGWn2r4xWuDJgj539wHN/cJBpnWx5Kb3HcwSIXKisQh79FMKsRoDluwoNLYPg
+	 RlA3jNgMgnFcLUEXeTdbeHHQ3/6zmY+QmC9yqMJpu87QgfmNoovw1g8RMAKBeuWfXz
+	 l+zv8gpUmwH4y8C3Zn1YsleWoRnF55QauqQGUKPkIQ/q7gbfiYNVSwa0I1ln6MQK1L
+	 S052DhEksGIWw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3836E459DE;
+	Thu, 29 Oct 2026 21:02:38 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Fri, 30 Oct 2026 00:02:41 +0300
+Subject: [PATCH v7 10/11] dt-bindings: input: touchscreen: goodix: Add
+ binding for GT970
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,101 +83,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028010611.3929937-1-tjmercier@google.com>
- <20261028010611.3929937-3-tjmercier@google.com> <auHMXBwnwuRwHLmo@KASONG-MC4>
- <CAGsJ_4zuGRjH+=1JxH4BYEC-vJumKjkhXPse0jW_nKEzQXXVmg@mail.gmail.com> <CABdmKX1PvZjnJkqD48_Pb64Je_oZVO3F-oaxMsBYzHmY-GjbDQ@mail.gmail.com>
-In-Reply-To: <CABdmKX1PvZjnJkqD48_Pb64Je_oZVO3F-oaxMsBYzHmY-GjbDQ@mail.gmail.com>
-From: Barry Song <baohua@kernel.org>
-Date: Fri, 30 Oct 2026 05:02:49 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xggGnAhguPkCJ5k08v3QYKUv07_MhF-acXdBczMAEpdA@mail.gmail.com>
-X-Gm-Features: AclHuK9dc7QMnH9xT-OkQ4nOME9fLgwIUxGnHM4PmofBeJVL-x30ExOe2tYWoAE
-Message-ID: <CAGsJ_4xggGnAhguPkCJ5k08v3QYKUv07_MhF-acXdBczMAEpdA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] mm/mglru: stop rotating offlined memcgs to the old generation
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: Kairui Song <ryncsn@gmail.com>, roman.gushchin@linux.dev, muchun.song@linux.dev, 
-	Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Johannes Weiner <hannes@cmpxchg.org>, cgroups@vger.kernel.org, 
-	linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261030-msm8952-initial-support-v7-10-ad748ace375d@mainlining.org>
+References: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
+In-Reply-To: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, 
+ Rajendra Nayak <quic_rjendra@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Krishna Manikandan <quic_mkrishn@quicinc.com>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+ linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793307755; l=1656;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=WcI6NF2jH7/1jsgO/qq/6GfopHH27DV/LBlXLYlg2yo=;
+ b=KaVq6JMZuo3i7wkTjbLJsHd9Jmfne5+q+ucL4Yn9K7uwr8fdG/0pQ6H8NdBv0fDg2nySA2G7s
+ XCRYwH3A72GAEr18ksMnVvsYSFPJtptrjY7nrZRMU5r8xHer6DbMIDY
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2026 at 5:22=E2=80=AFAM T.J. Mercier <tjmercier@google.com>=
- wrote:
-[...]
-> > > > diff --git a/mm/vmscan.c b/mm/vmscan.c
-> > > > index 636152d8c94d..45a2c1021f4f 100644
-> > > > --- a/mm/vmscan.c
-> > > > +++ b/mm/vmscan.c
-> > > > @@ -4538,7 +4538,6 @@ bool lru_gen_look_around(struct page_vma_mapp=
-ed_walk *pvmw, unsigned int nr)
-> > > >  enum {
-> > > >       MEMCG_LRU_NOP,
-> > > >       MEMCG_LRU_TAIL,
-> > > > -     MEMCG_LRU_OLD,
-> > > >       MEMCG_LRU_YOUNG,
-> > > >  };
-> > >
-> > > I think there could be other usage of this LRU_OLD macro, but indeed
-> > > offline is the only user currently, removing it is cleaner.
-> >
-> > I'm imagining an Android use case where, after LMKD or similar
-> > userspace killers implemented by various OEMs kill an application,
-> > we may want to prioritize reclaiming its memory by making it more
-> > likely to be scanned and reclaimed, while the killed application's
-> > memcg still exists - not offlined.
->
-> I think it's an idea worth investigating. I had a similar idea which
-> is proactive instead of depending on reclaim hints. The code is behind
-> a currently inactive flag - it runs memory.reclaim on an application
-> cgroup before offlining it (so no zombie or reparenting), but I
-> haven't had time to properly test it yet.
-> https://cs.android.com/android/platform/superproject/+/android-latest-rel=
-ease:system/core/libprocessgroup/include_platform/processgroup/processgroup=
-_platform.h;drc=3D2ed7b05ab42dd67391ad2819b0ee399d89128ead;l=3D33-34
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Thanks! I know Minchan Kim has explored something
-similar: releasing exclusive file memory when processes exit:
-https://lore.kernel.org/linux-mm/20260421230239.172582-1-minchan@kernel.org=
-/
+GT970 works with GT911 driver, document it to be
+used with GT911 compatible.
 
-The idea probably wasn't well received because Android
-workloads are quite different from typical server and desktop
-workloads.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+ .../bindings/input/touchscreen/goodix.yaml         | 35 ++++++++++++----------
+ 1 file changed, 20 insertions(+), 15 deletions(-)
 
-The fundamental assumption is that a killed app is unlikely
-to be restarted shortly, so its memory is expected to lose
-recency. In practice, this is usually true.
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
+index a26a54d63a1c..4be2c137abd7 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
+@@ -14,21 +14,26 @@ allOf:
+ 
+ properties:
+   compatible:
+-    enum:
+-      - goodix,gt1151
+-      - goodix,gt1158
+-      - goodix,gt5663
+-      - goodix,gt5688
+-      - goodix,gt911
+-      - goodix,gt9110
+-      - goodix,gt912
+-      - goodix,gt9147
+-      - goodix,gt917s
+-      - goodix,gt927
+-      - goodix,gt9271
+-      - goodix,gt928
+-      - goodix,gt9286
+-      - goodix,gt967
++    oneOf:
++      - enum:
++          - goodix,gt1151
++          - goodix,gt1158
++          - goodix,gt5663
++          - goodix,gt5688
++          - goodix,gt911
++          - goodix,gt9110
++          - goodix,gt912
++          - goodix,gt9147
++          - goodix,gt917s
++          - goodix,gt927
++          - goodix,gt9271
++          - goodix,gt928
++          - goodix,gt9286
++          - goodix,gt967
++      - items:
++          - enum:
++              - goodix,gt970
++          - const: goodix,gt911
+ 
+   reg:
+     enum: [ 0x5d, 0x14 ]
 
-There are some exceptions, though. Some badly behaved apps
-have monitors that keep restarting them whenever they are
-killed. We might regress these cases by reclaiming their
-memory, only for them to restart immediately and have to
-read the data back from storage.
+-- 
+2.55.0
 
-That said, this may not be common among apps on Google
-Play.
 
->
-> > Similarly, a foreground application might benefit from a lower
-> > chance of being scanned and reclaimed. This suggests that Android
-> > background-to-foreground transitions, or LMKD itself, could
-> > potentially leverage the reordering of memcg LRUs.
->
-> We are planning to use memory.low/min for foreground protection.
-
-Thanks! I guess the challenge is figuring out what value
-works best for different apps. Should we collect data in the
-lab, learn the appropriate value dynamically on the device,
-or simply hardcode a relatively large value?
-
-Any thoughts on this?
-
-Best,
-Barry
