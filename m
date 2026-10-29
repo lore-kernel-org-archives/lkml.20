@@ -1,54 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793261326;
-	b=Z3wwb1bDHU/CVT3U6SZKR1MXwwFluaEav/ulB/RU+lbSzNhq8UnxIei18cVLkGZZSwqD
-	 IFhqKobs6jeM08J/DfK83BAqX7GytXygKT3C4y3hXjqOIAKJQmXX1lC+HGkElHgpmf7XU
-	 H667keSCziJKxcCXOYjXaV7GLQQDVzCxOnSP54tgVkl1d+UudEt1avoOV81CsOagUqtP5
-	 NF+vDv4ZD3LOpTpzrDQFNRb/wnJ3euwj+yxI/SFmWhKuac1OEtPCBnixW0ZPA50rnP0Kl
-	 C2slDn2tZkryDT5ztYtZzK6foQHnRGPZWsEmhGqV57YWmuH7Sp73nSVPZZ59C6OojlQ==
+	t=1793261377;
+	b=Di3V4HrwzW0OdSk0gATNbrd/gZ0ofKZUHRznbV3ksV2IlIa6U5fYb7xo/6BI+ewYfZB3
+	 hAkSbk4XXsHjx6R/vF5AstyeXtYTosHKi8kniHOdhLZM4Ef2ukk6EaD4jcyZ0bjLH7h9w
+	 14QkIA9oGem6eMDsViILQsFPX6pfQlXIVfyYZNSh9xVrYMaW6wGaxpmgvTzN8mtekQlwg
+	 cyeKwKrqxwBJZMQCy6zJOxvTWmVNUCM3VDwBygy0SLQuX1VMKBbyZbxsrkBsbTz28nDlU
+	 RrJGlh3kZjuXzh2rcpr5M9mqKoARlYasa2iPKAXyA17UyvsNQWi0fKLq+LB0Sq1SMOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793261326;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=uMmXqKOWSDerKoZDexLe6ZA5akl0CdWFfN+grIqz/hM=;
-	b=Tzeh1NNSiOSyyvvDOCWOMFRr918RN/+8GIFk3WeZw6/DHBsKimUP/adIAeN0akHdEyMH
-	 NATP/QPumJzLbdoBJi+Gn7wa+56OlIftfCvQuL+iWtbzxI44C303CDwOLPvBmQ9RM8n0E
-	 RLQROkYIzFOez8nLIcaP1xrdimNYLUS3/VL32isKYlJpJhHlQCCiGUMQY+XnGVHAI4orx
-	 EVi6dW5rGCjxHusrtMrrVtD62lAJQV1GPQjcHwttXntZYHueMBReqgKgZV3+CoMg2qOtt
-	 QAl2UIjWGitFse3+6kQ4vWDwnO/mfoHYLiBB4vbGeekUJG+fcMzRJ+Dfj4jml9jbgyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793261377;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XcnOgGjQGzD2jt2+DxGN1X1zcvzYzq6x9cioPsXKF5A=;
+	b=KjdCJy7bMWDPjROT/WzXSKPwVamYEDUMcOqunM+2ZKZESBPqZXVexIfRJA1pDBT1ok6+
+	 D30fWhe11fge4Pdrp/wV8hvzVLGSeugpaFvN34S7Fc0mI9tPVL14xJjhAm1SUMfSPe8cq
+	 YeQCPmJKLr2/Yb6chjJsNO7bVyzDBnYLjzBvBbj3uJarzjipNczIS1JGS+F8NikTLsfYv
+	 VNfGYu4cTp1uS/9yjspSUp2i7325gOAAexoRO/2sdicU0nN04HVBh1twML3UB9wY0H7o/
+	 t1e5wdzPUUelAJJUkxVEVjnLdOzePHE2HgsVD05bMwkaYHqSIAZVp2SpwnTgzC42UDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=R4OCV9hK;
-	arc=none smtp.remote-ip=91.218.175.124
-Received: from mta0.migadu.com (out-124.mta0.migadu.com [91.218.175.124])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQQUUwqu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85FB6606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:08:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85FB6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E048606A31A;
+	Thu, 29 Oct 2026 08:09:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=R4OCV9hK
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=V2VelVUxdDMx4cPW1WDf+FAp9sAH8Gz07xIdBowp3g0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793261318; v=1; x=1793866118;
- b=R4OCV9hK32Yk1I9oOsFFlaCA6BIunQiDmokZ69V73MATNWepOumw8LgUXFYNxL6dEKopp2w0
- FRFABRNBRK56nBKoLHi/O+d8Q4pgFzBRdXtyfSyNA1OUPbxIRuhQ0cW21mr99sspVlHKZO3WNRV
- 5ystsx6E4PdIU4CmT2k4mamU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a828defffc5abe13;
-	Thu, 29 Oct 2026 08:08:38 +0000
-X-Mizu-Trace-ID: a828defffc5abe13
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <529b2b8a-fc6b-435e-a7ac-e73bf4eec729@linux.dev>
-Date: Thu, 29 Oct 2026 09:07:23 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cQQUUwqu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049331F01825;
+	Thu, 29 Oct 2026 08:09:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793261377;
+	bh=XcnOgGjQGzD2jt2+DxGN1X1zcvzYzq6x9cioPsXKF5A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cQQUUwquaWBlsXDYoTLxTQ94mlF1ENpJUtdHRep3gjTCqt4CcYJmg0orM8Av1MiJn
+	 lijwkBKZ7LYj7PTQlTnAP3Dv0g8kJMnSbSEZVygjKv9nKRvOVDZ/GEjQbuRl+Wyzt1
+	 ZRoA+HU+wX9/MRRSER2kjftPWPbhc0iYqKcjG6ycMATi/mrmHId+n3uVqMJU04qMYB
+	 Sb1rwbVtZUIn8OWeclPDIQd8Mi9whmlxnmfgYFwp3ic1VJHqb84SW2ip8N0JyV4jnW
+	 g1JHXWYGRyDGGJk0i/RzvjG33Yx/2+N1YVFmQmXsQD/ScyocJ0lTlnZzHZ0On9PTmJ
+	 vGmNnfGnH8yYQ==
+Date: Thu, 29 Oct 2026 09:09:33 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: linux-kernel@vger.kernel.org, Damien Le Moal <dlemoal@kernel.org>, 
+	Niklas Cassel <cassel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ray Jui <rjui@broadcom.com>, 
+	Scott Branden <sbranden@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Kishon Vijay Abraham I <kishon@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>, 
+	"open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)" <linux-ide@vger.kernel.org>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
+	"moderated list:BROADCOM IPROC ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
+	"open list:GENERIC PHY FRAMEWORK" <linux-phy@lists.infradead.org>
+Subject: Re: [PATCH v3 2/6] dt-bindings: ata: sata-brcm: Describe the NSP IDM
+ registers
+Message-ID: <20261029-versed-automatic-orangutan-43cfde@quoll>
+References: <20261026191618.3178830-1-florian.fainelli@broadcom.com>
+ <20261026191618.3178830-3-florian.fainelli@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,49 +68,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/13] ASoC: amd: acp: add ACP7.B/7.F SoundWire DAI
- link support
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>, broonie@kernel.org
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, perex@perex.cz,
- tiwai@suse.com, yung-chuan.liao@linux.intel.com,
- Basavaraj.Hiregoudar@amd.com, Sunil-kumar.Dommati@amd.com,
- venkataprasad.potturu@amd.com, Syed.SabaKareem@amd.com,
- Mario.Limonciello@amd.com, Richard.Gong@amd.com, Poojitha.N@amd.com,
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- sound-open-firmware@alsa-project.org
-References: <20261023065216.3473883-1-Vijendar.Mukunda@amd.com>
- <20261023065216.3473883-3-Vijendar.Mukunda@amd.com>
- <f4a337e6-9ba4-4f52-be99-95d0d5ba11ff@linux.dev>
- <a5771999-6521-4d02-868a-5cf5b75b6848@amd.com>
-Content-Language: en-US
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-In-Reply-To: <a5771999-6521-4d02-868a-5cf5b75b6848@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261026191618.3178830-3-florian.fainelli@broadcom.com>
 
-On 10/29/26 05:56, Mukunda,Vijendar wrote:
-> On 26/10/26 02:41, Pierre-Louis Bossart wrote:
->> It'd be useful to comment/explain why this routine only relies on a
->> subset of IDS...
-> On ACP7x, each SoundWire data port has a dedicated DMA channel mapped
-> in hardware. This function selects only the ports required by the
-> currently supported ACP7x machine topologies:
+On Mon, Oct 26, 2026 at 12:16:14PM -0700, Florian Fainelli wrote:
+> Northstar Plus uses the SATA IDM block to enable the interface clock and
+> deassert the core reset before accessing the controller registers.
+
+And which compatible in the binding is "Northstar Plus"? I tried to map
+them to arm/bcm/brcm,nsp.yaml but nothing is there, so it looks like you
+are making changes without having actual compatible documented. In that
+case this is not needed. Make changes WITH documenting new compatible.
+
 > 
->   AUDIO0_TX (0)  - headset/jack playback
->   AUDIO4_TX (4)  - amplifier/speaker playback
->   AUDIO0_RX (11) - headset/jack capture
->   AUDIO4_RX (15) - amplifier/speaker capture (feedback)
->   AUDIO5_RX (16) - DMIC capture
+> Allow an optional third register region named "idm" for the NSP
+> controller. Keep other compatibles limited to their existing two
+> register regions and allow older NSP descriptions without the IDM.
 > 
-> The remaining port IDs are defined for completeness to represent the
-> hardware data port layout, but are not used by the currently supported
-> machine topologies.
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> ---
+>  .../bindings/ata/brcm,sata-brcm.yaml          | 20 ++++++++++++++++++-
+>  1 file changed, 19 insertions(+), 1 deletion(-)
 > 
-> The ID numbering differs from ACP70 due to the hardware differences
-> between ACP70 and ACP7x. ACP7x uses a flat ID space, with TX ports
-> numbered 0-10 and RX ports numbered 11-21.
-> 
-> Will add comments above the define block and the function to clarify
-> this in the next version.
-sounds good, thank you.
+> diff --git a/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml b/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml
+> index fe7f091e744f..98529784b1fa 100644
+> --- a/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml
+> +++ b/Documentation/devicetree/bindings/ata/brcm,sata-brcm.yaml
+> @@ -15,6 +15,21 @@ maintainers:
+>  
+>  allOf:
+>    - $ref: ahci-common.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: brcm,bcm-nsp-ahci
+> +    then:
+> +      properties:
+> +        reg:
+> +          description: AHCI, top control and optional IDM register regions
+> +    else:
+> +      properties:
+> +        reg:
+> +          maxItems: 2
+> +        reg-names:
+> +          maxItems: 2
+
+Please move entire allOf to the bottom, before "unevaluatedProperties"
+line.
+
+Best regards,
+Krzysztof
+
