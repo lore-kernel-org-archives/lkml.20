@@ -1,104 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260473;
-	b=HCI/VX9zi/KJSYhYasLMM2g2T84/C7x/e7pwFRiNNv2FnzTBJsTz4zk5ad7OlUj8grtJ
-	 MlyQpn8H5tD879v/5+EtIaeYDYl4OezeKDyRLq4IlMlDO2HcfV+ewIVn3YWAksAiQu9qP
-	 EYjgcvMvoL00L7ogRa5T3ASb3ZEAJik3q88i2XzdurW8hiuL/tyt3kW4PeX8xI0HOpu2Y
-	 ovrPg5yxVu7+D9R2g4lRNUR3VLlzA3XRsyQyVjWyF1te63IJSnXlfDn3k7mpI/GnNHBAH
-	 4zvBctT8JZzClABMbifdi5j6iLFgYEKRW90fOBTYFMPCqK3Kj+TctU/YgbOeZHrY6uw==
+	t=1793260463;
+	b=3a1rmy+Tatr+HMOhP0nKimhaPOrWk74K3Nh/xpAszCcSK2dR955yfHWj9YfDXmq5dA04
+	 V/XWZ255XceuAGSqu96W9YQ2qaFNimMJ68nrY+UD7fQuNEtrWpamXJNlKhbvlUyf5bVSa
+	 CxVG4Pi5Yt12xcdN8hrWATO2NwncdSnb4r2LLicevpG0+4nKefHFm2dQrcqY3lrknbbNP
+	 ifhAKavnMtt7M6gahsb6FC71Dqbe+NzEaJA/hUOmgvxXEW5sSgXDmXWJCzCKp4/ldexFa
+	 Eb58ryYFodC4Jd/cY6qnQl1lvBCc84Z3drUaxusGjBZJDfDVvusYa8lUw3PQ1TOooyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260473;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
-	 X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=K3XByBiW3+jKyzFXTjaHSqV/fmoFUufh/r9sKM80Yr8=;
-	b=DvhB2sDzU4PJ5vRiHoqV0Igy+CqcZd35bJJ59P5MZvMJtO4lG82FgzKmZvBHUWBS/lxB
-	 hSAdJRH7O0b3sWKkLl06tW+zWyphDWnRn5m/OAjXqzFuHWhBiM18VMwk/3m57IrEzB/R+
-	 34A/EJadiVQ3rs+iz4zGoVJyMicBR7kKRx+snhs3PtKzKEJwf8hQkLDOm/TEH0odpFpx0
-	 Sy8SgbdTrxIA+ri1hlfihvMZP2FsOPGUe156cpb5xz0yMtqdliYVLsmNXqU8/8Voy3dy0
-	 l1Wx09SzKJvT0MdCSUm0lv+FN0Fcj7aD8kGAqGUaYwSNP8+8ZxzQ8Yebow8PJM/UDRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260463;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=2MNtI5LcQWip3dRXcSFWeBcfEKf2OS7roBnjVNO3Ghg=;
+	b=fFJYdOv4mEP53fO9SL/xd+3/rY/HQyK6SD4PaMYB5wErICt9NefBlIi9fN5F6iSABZ9W
+	 +/wuZ/zrs26BdOaNPMxrAnv3JHFPlP9pGeCoQ//K/G+ja+/C+Lx2tT1NntvYgPuG8QyoL
+	 XbTv5LtmWMmNcbDY72HtYrco9On5Gcx/H197XFHtgLPyRDbSIBiWv6vSaUQVi27xc6Itp
+	 WwnBYuN7JHUb+ivUwrsR25lwRpbKVjg3NW6Bs8/rfD0fFefcqO+VdStc4RyR0nxjciBfp
+	 su3ktn+ompPWhHaD+BtTTrivnffA6RfJbwKAMH4/oJ93UOO3ZDXssPjOLi5TCEld3nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rwO5DcRV;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kv8yJ+Q1;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rwO5DcRV;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kv8yJ+Q1;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=N+SKx5Bw;
+	arc=none smtp.remote-ip=210.118.77.12
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87433606AA18;
-	Thu, 29 Oct 2026 07:54:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87433606AA18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501BF60A380C;
+	Thu, 29 Oct 2026 07:54:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 501BF60A380C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rwO5DcRV;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kv8yJ+Q1;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=rwO5DcRV;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=kv8yJ+Q1
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 762F0221D4;
-	Thu, 29 Oct 2026 07:54:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793260470; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=K3XByBiW3+jKyzFXTjaHSqV/fmoFUufh/r9sKM80Yr8=;
-	b=rwO5DcRV1clxIt4F//zc/8Dbdx36/wVWGIoOYssBsvpV2XGU2enca2ExG5PxQ5lvGkCpCA
-	2pcxSP+G3zwhETRkhRjwpz4BMlsIq1L1A0B9DC4hUX76etuUpnM7pI5A+65+r08KoVnKGG
-	mFWKqaY8D92ycw/jD2mLYowkVOuK1JQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793260470;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=K3XByBiW3+jKyzFXTjaHSqV/fmoFUufh/r9sKM80Yr8=;
-	b=kv8yJ+Q12LJcwzYIh+d5Ar9j32GFBtSQQdT+WXdPcVmOyrXKMopi82oZDKzeTQI/P1utQZ
-	9ypvDVpXozv+XtCg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=rwO5DcRV;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=kv8yJ+Q1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793260470; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=K3XByBiW3+jKyzFXTjaHSqV/fmoFUufh/r9sKM80Yr8=;
-	b=rwO5DcRV1clxIt4F//zc/8Dbdx36/wVWGIoOYssBsvpV2XGU2enca2ExG5PxQ5lvGkCpCA
-	2pcxSP+G3zwhETRkhRjwpz4BMlsIq1L1A0B9DC4hUX76etuUpnM7pI5A+65+r08KoVnKGG
-	mFWKqaY8D92ycw/jD2mLYowkVOuK1JQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793260470;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=K3XByBiW3+jKyzFXTjaHSqV/fmoFUufh/r9sKM80Yr8=;
-	b=kv8yJ+Q12LJcwzYIh+d5Ar9j32GFBtSQQdT+WXdPcVmOyrXKMopi82oZDKzeTQI/P1utQZ
-	9ypvDVpXozv+XtCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2077B13419;
-	Thu, 29 Oct 2026 07:54:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 5LGsMLX74mrwIQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 29 Oct 2026 07:54:29 +0000
-Message-ID: <43de9446-a682-46cd-a6da-c9f4362dcb9d@suse.de>
-Date: Thu, 29 Oct 2026 08:54:29 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=N+SKx5Bw
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261029075420euoutp0247b5c5649f2dfd54d1d39e855fd6ad54~i8ONRPs7u1871618716euoutp02z;
+	Thu, 29 Oct 2026 07:54:20 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261029075420euoutp0247b5c5649f2dfd54d1d39e855fd6ad54~i8ONRPs7u1871618716euoutp02z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793260460;
+	bh=2MNtI5LcQWip3dRXcSFWeBcfEKf2OS7roBnjVNO3Ghg=;
+	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
+	b=N+SKx5BwjunrV7kw+IhsfW8ovLcClXj2JNOdD5PyfyWnWpdhXP3I3mguKWsIMXTIU
+	 n4mtJNKsp0yC+wxAWZhUqWakKvquOamPl5LViedj/9EEtc/Kk+iIHdmjGJkr1fdde+
+	 wkTGksPgVIg8mv1A9qavQ6hSi0vb/LiHct8IhEvQ=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433~i8OM3pb5X1652316523eucas1p1e;
+	Thu, 29 Oct 2026 07:54:20 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261029075417eusmtip1d035b14233a285bf044081cf69bb5d35~i8OKCRqt71493914939eusmtip1a;
+	Thu, 29 Oct 2026 07:54:17 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Date: Thu, 29 Oct 2026 08:53:49 +0100
+Subject: [PATCH v6 15/18] soc: starfive: Add jh7110-vout-subsystem driver
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,178 +65,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI/VGA: Fix boot device detection after framebuffer
- relocation
-To: Bjorn Helgaas <helgaas@kernel.org>, wuqianhai@loongson.cn
-Cc: bhelgaas@google.com, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, javierm@redhat.com,
- dri-devel@lists.freedesktop.org
-References: <20261028231514.GA577494@bhelgaas>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261028231514.GA577494@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 762F0221D4
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url,suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Score: -13.50
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-jh7110-clean-send-v6-15-759594e43acf@samsung.com>
+In-Reply-To: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,  Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Andrzej Hajda
+	<andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,  Laurent Pinchart
+	<Laurent.pinchart@ideasonboard.com>,  Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
+	<luca.ceresoli@bootlin.com>,  Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,  Philipp Zabel
+	<p.zabel@pengutronix.de>,  Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
+	<hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>,  Paul
+	Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+	Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,  David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Yakir Yang
+	<kuankuan.y@gmail.com>,  Dmitry Baryshkov
+	<dmitry.baryshkov@oss.qualcomm.com>,  Michal Wilczynski
+	<m.wilczynski@samsung.com>,  Conor Dooley <conor@kernel.org>, William Qiu
+	<william.qiu@starfivetech.com>,  Xingyu Wu <xingyu.wu@starfivetech.com>,
+	Sandy Huang <hjc@rock-chips.com>,  Manivannan Sadhasivam <mani@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
+	Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
+	<maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+	Joshua Peisach <jpeisach@ubuntu.com>,  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>,  Byron Stanoszek <gandalf@winds.org>,
+	OOHehir <oo.hehir@gmail.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5573;
+	i=m.wilczynski@samsung.com; h=from:subject:message-id;
+	bh=DsbatnDU6gGFABaruczZr34WTtjEI8r2rbI74wlszvs=;
+	b=owGbwMvMwCGWumv6zndzRCIZT6slMWQ9+t2jYBB47zev0cz9bVydS6y3Mc549N47QPZXqUuWT
+	P0njj3yHaUsDGIcDLJiiixnN0YbSf5jeFp+/PEvmDmsTCBDGLg4BWAi290ZGbbYLL9kee11WusJ
+	F3+tp3brPxnP3pLKtz7+7ofkc317E6Yz/OFub2rnEWwxbHWu1NjLNMPC4pD3M9dnJ0yLOXce/h8
+	rxwEA
+X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
+	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
+X-CMS-MailID: 20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433
+X-EPHeader: CA
+X-CMS-RootMailID: 20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433
+References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+	<CGME20261029075420eucas1p1fd7d94e680ce387882517681fc6e0433@eucas1p1.samsung.com>
 
-Hi
+Nothing in the video output subsystem can reach its own registers until
+the NoC display bus clock and reset are up and PD_VOUT is powered, and
+those are shared by every device in the region. Leaving them to whichever
+consumer probes first works by accident and stops working as soon as the
+probe order changes.
 
-Am 29.10.26 um 00:15 schrieb Bjorn Helgaas:
-> On Wed, Oct 28, 2026 at 05:46:34PM +0800, wuqianhai@loongson.cn wrote:
->> From: wuqianhai <wuqianhai@loongson.cn>
->>
->> PCI resource assignment can relocate the firmware framebuffer BAR, which
->> leaves the base address in screen_info stale.  The VGA arbiter then calls
->> screen_info_pci_dev() from vga_is_firmware_default(), which fails to match
->> the framebuffer against any PCI device's BARs.  As a result, the boot VGA
->> device is not recognized and the arbiter may select the wrong default
->> device.
->>
->> Fix this by calling screen_info_apply_fixups() in vga_arb_device_init()
->> before adding the VGA devices.  This relocates lfb_base to the assigned
->> BAR address so that vga_is_firmware_default() matches the boot device
->> again.
->>
->> Tested on a LoongArch platform, with vga_is_firmware_default()
->> additionally enabled for CONFIG_LOONGARCH via local changes.
->>
->> Fixes: 337bf13aa9ddab8ae47f2677ab75cf69ae33437b ("PCI/VGA: Replace vga_is_firmware_default() with a screen info check")
->> Signed-off-by: wuqianhai <wuqianhai@loongson.cn>
->> ---
->>   drivers/pci/vgaarb.c | 8 ++++++++
->>   1 file changed, 8 insertions(+)
->>
->> diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
->> index 3e58b2c05c85..aca594651f58 100644
->> --- a/drivers/pci/vgaarb.c
->> +++ b/drivers/pci/vgaarb.c
->> @@ -1527,6 +1527,14 @@ static int __init vga_arb_device_init(void)
->>   	int rc;
->>   	struct pci_dev *pdev;
->>   
->> +	/*
->> +	 * PCI resource assignment may have relocated the firmware
->> +	 * framebuffer BAR. Update screen_info's lfb_base so that
->> +	 * vga_is_firmware_default() can match it against the boot
->> +	 * device's relocated resource.
->> +	 */
->> +	screen_info_apply_fixups();
-> I'm really confused about this.  vga_is_firmware_default() relies on
-> screen_info_pci_dev(&sysfb_primary_display.screen):
->
->    vga_is_firmware_default
->      screen_info_pci_dev(&sysfb_primary_display.screen)
->        numres = screen_info_resources(&sysfb_primary_display.screen, res, ...)
->        for (i = 0; i < numres; ++i)
->          pdev = __screen_info_pci_dev(&res[i])
->
-> screen_info_resources() returns resource structs with PCI bus
-> addresses in them.  These are not valid CPU addresses, so that seems
-> broken on any system where bus addresses are not the same as CPU
-> addresses.
+Add a driver for the subsystem node that takes the bus clock and reset,
+holds a runtime PM reference so genpd keeps PD_VOUT powered, and then
+populates its children. All three are released only once the last child
+is gone.
 
-What we get from the firmware for the framebuffer is a memory range.  
-  If the underlying PCI memory gets relocated during the boot, we need 
-to update the framebuffer data accordingly. This has worked well for the 
-last 20 yrs.
+Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Tested-by: Byron Stanoszek <gandalf@winds.org>
+Tested-by: OOHehir <oo.hehir@gmail.com>
+Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+---
+ drivers/soc/starfive/Kconfig                 | 15 +++++
+ drivers/soc/starfive/Makefile                |  1 +
+ drivers/soc/starfive/jh7110-vout-subsystem.c | 82 ++++++++++++++++++++++++++++
+ 3 files changed, 98 insertions(+)
 
-
->
-> screen_info_fixup_lfb() and screen_info_apply_fixups() may fix the
-> issue you see, but I think the way this happens is questionable.
-
->
-> screen_info_fixup_lfb() captures the framebuffer PCI bus address in
-> screen_info_lfb_res_start.  Then screen_info_apply_fixups() compares
-> that PCI bus address with the CPU address in pdev->resource[].  That's
-> broken on any system where bus addresses are not the same as CPU
-> addresses.  I think it's also broken because screen_info_lfb_res_start
-> may not be at the beginning of the BAR.
->
-> I think screen_info_fixup_lfb() should only capture the pci_dev, the
-> BAR number, and the framebuffer offset into the BAR.  When we need the
-> CPU or bus address, we can always compute it from those values.
-
-This is not sufficient, I think. We did this until a while ago and got 
-problems with relocated bars. IIRC aarch64 had a number of affected 
-systems. See commit 2f29b5c23101 ("video: screen_info: Relocate 
-framebuffers behind PCI bridges") for details.
-
-I'm happy to improve that code though, if we can do something better.
-
-Best regards
-Thomas
-
->
->>   	rc = misc_register(&vga_arb_device);
->>   	if (rc < 0)
->>   		pr_err("error %d registering device\n", rc);
->> -- 
->> 2.34.1
->>
+diff --git a/drivers/soc/starfive/Kconfig b/drivers/soc/starfive/Kconfig
+index 8cdcfc6f7848d2dd40b57afa101edcffc3f263a6..643d384c10b094d5633b5e31c3a67f5b9432c6d1 100644
+--- a/drivers/soc/starfive/Kconfig
++++ b/drivers/soc/starfive/Kconfig
+@@ -6,6 +6,21 @@
+ if ARCH_STARFIVE || COMPILE_TEST
+ menu "Starfive SoC drivers"
+ 
++config SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM
++	tristate "StarFive JH7110 video output subsystem driver"
++	depends on OF
++	select PM
++	help
++	  This option enables the parent driver for the StarFive JH7110
++	  video output subsystem, which the documentation calls dom_vout_top.
++
++	  The subsystem covers the DC8200 display controller, the HDMI
++	  transmitter, the video output clock generator and the video output
++	  system controller. They share one NoC port whose clock and reset
++	  gate access to the whole register region, and the region sits in
++	  the PD_VOUT power domain. This driver owns those resources and
++	  holds them for as long as any of its children exist.
++
+ config SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM
+ 	tristate "StarFive JH7110 HDMI subsystem driver"
+ 	depends on OF
+diff --git a/drivers/soc/starfive/Makefile b/drivers/soc/starfive/Makefile
+index be89d8119212b7a7038817c2f0e8eac1984ada88..6c229020c1e563b37df43f6ac1665465a11333cc 100644
+--- a/drivers/soc/starfive/Makefile
++++ b/drivers/soc/starfive/Makefile
+@@ -1,2 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ obj-$(CONFIG_SOC_STARFIVE_JH7110_HDMI_SUBSYSTEM) += jh7110-hdmi-subsystem.o
++obj-$(CONFIG_SOC_STARFIVE_JH7110_VOUT_SUBSYSTEM) += jh7110-vout-subsystem.o
+diff --git a/drivers/soc/starfive/jh7110-vout-subsystem.c b/drivers/soc/starfive/jh7110-vout-subsystem.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..af632692e2139d9d07edd478a299b170ad1b7104
+--- /dev/null
++++ b/drivers/soc/starfive/jh7110-vout-subsystem.c
+@@ -0,0 +1,82 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Driver for the StarFive JH7110 video output subsystem
++ *
++ * Copyright (c) 2025 Samsung Electronics Co., Ltd.
++ * Author: Michal Wilczynski <m.wilczynski@samsung.com>
++ *
++ * The display hardware sits behind a single NoC port whose clock and reset
++ * gate access to every register in the region, inside the PD_VOUT power
++ * domain. Nothing below this node can reach its own registers until all three
++ * are up, so bring them up here and hold them for as long as any child device
++ * exists, rather than leaving them to whichever consumer happens to probe
++ * first.
++ */
++
++#include <linux/clk.h>
++#include <linux/module.h>
++#include <linux/of_platform.h>
++#include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
++#include <linux/reset.h>
++
++static void jh7110_vout_subsys_pm_put(void *data)
++{
++	pm_runtime_put_sync(data);
++}
++
++static int jh7110_vout_subsys_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct reset_control *bus_rst;
++	struct clk *bus_clk;
++	int ret;
++
++	/*
++	 * Take a runtime PM reference for the lifetime of this device. genpd
++	 * only keeps PD_VOUT powered while something actually holds it, and
++	 * an unclocked or unpowered access to this region wedges the bus.
++	 */
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
++
++	ret = pm_runtime_resume_and_get(dev);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to power on PD_VOUT\n");
++
++	ret = devm_add_action_or_reset(dev, jh7110_vout_subsys_pm_put, dev);
++	if (ret)
++		return ret;
++
++	bus_clk = devm_clk_get_enabled(dev, NULL);
++	if (IS_ERR(bus_clk))
++		return dev_err_probe(dev, PTR_ERR(bus_clk),
++				     "Failed to enable NoC bus clock\n");
++
++	bus_rst = devm_reset_control_get_exclusive_deasserted(dev, NULL);
++	if (IS_ERR(bus_rst))
++		return dev_err_probe(dev, PTR_ERR(bus_rst),
++				     "Failed to deassert NoC bus reset\n");
++
++	return devm_of_platform_populate(dev);
++}
++
++static const struct of_device_id jh7110_vout_subsys_of_match[] = {
++	{ .compatible = "starfive,jh7110-vout-subsystem", },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, jh7110_vout_subsys_of_match);
++
++static struct platform_driver jh7110_vout_subsys_driver = {
++	.probe = jh7110_vout_subsys_probe,
++	.driver = {
++		.name = "jh7110-vout-subsystem",
++		.of_match_table = jh7110_vout_subsys_of_match,
++	},
++};
++module_platform_driver(jh7110_vout_subsys_driver);
++
++MODULE_AUTHOR("Michal Wilczynski <m.wilczynski@samsung.com>");
++MODULE_DESCRIPTION("StarFive JH7110 video output subsystem driver");
++MODULE_LICENSE("GPL");
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
-
+2.34.1
 
