@@ -1,68 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793240194;
-	b=t/HBXZdzGeyRSlRhlzxwlDKoFaM0ObIraTq9nZuOjylhbQ66R6yYNQboCkczCo8gnbGx
-	 hMjBTlmvyEU+KHShS/nfcNa1YAOU4JYP+YUZWn48d8y1Z84a7Jc2S2iTxtkj26Cv7aOxB
-	 6bAw/UBb7GqClcXH7s+r+19diZO0974xps+br6t7uGQtzIJXAItR2H/6aQRXQEZoxp4Df
-	 PKVLc67tSptzeoHSGXM06OX58QOirntbNdghVhJ35Ewv0FvvqeuIJy7e3JJ8D4RSCy7hY
-	 XfZMQ/qzmTyRduGioz5XCovXLuoHJoJMyHlDIsOCrOfrCZ/CmvQoVqa3VeFf+MQkfig==
+	t=1793240227;
+	b=SqD+evpwSIOoFiSdrDDvVgzdtaPT+NdHtespF8wXbkC83zZei51Eq0urwQmqXhCfA33+
+	 eXGoF1fyUMZXBM6mBazX839kcV3YS/uFFSQwB4EvoXR4chA0FiajiYc9dtFLk9z1Xt2M3
+	 B7Fnxljy3PZt2eErE8RCJEteVfvmZzGTHIhwnOk17BFQ0+N9XuWm0VKWrVPQe3ETBHsaB
+	 xyFtr6wbzYZje/3gJkYj3pl7gpEb3C0jYFjAcAbwZVh/UZWlOduMb1oMGbsF3VZbp0jxm
+	 Iya8+Hmo8AScAindc2JhGiXp2ekmWOAFU8RI85krW2Xb6BuNU44SX7XUt9V8n6Ud0Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793240194;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=oM2EQigq5fCJ+6VWipJXpAr20sR1HXyYc88n4HtiBHM=;
-	b=W572CwzW3VcZy0Hh2yueiLVVqt+KGcfjzxfhEcZ3L0qMdHXVORsPrh2FbN90od8/DEGx
-	 Kt3ziyH2q2dpXKYMz1S3rbLriMej3ZcIaxyBzxe/Kv4PkPTTms06dh29Iqv73dpnX9Fyx
-	 g+KJBLeAs2+UxZy80HFUs21Hj7uOzn+tuNDRMbvpNJSwh+QYQJ+PZNWcWX9nwMIFh+zqV
-	 cAJG6mzTVD74Ag3R2H8zMeN4mp8aLe6m7JOcFXVuCXiJJS7EaQOzX+t+eQ51kM4PmXVBO
-	 nWoYLUDW516lTKKMQMVV2mMiM583x3edmU8XmY75iHPOJ+vr7lGg4u81pODcfmQo9CA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793240227;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=m9kc8yIzx2usw0N2+/yj9nIikY372WFees0PGb9Zlj0=;
+	b=RtEf6eN6TaPqgrfR9KC49jpnMkWlYEiLbl/miQBwVXkvqkpaGpK/dkf99tMnY1qZTCwU
+	 iEQ14ewIgHJBeaD+kKIGu4gl/QWyc3o0sYISax6Pfi0eaYc4Jf/bOP4TteA2rGnk/aDDc
+	 bAy25DP1h8cv5qy3MnNha0+hm1AKqKR1wA6OCVgSRlNRVS0nbGXdZz2zlJ+4rJRPp8XLy
+	 1QQ3ARzp+pNWG3SeVd7rc6+djaCggzoc3irfSVILeItvtM4i9ZE1n1mNM5zBHRKiiALj8
+	 ubpw7zXZuIuDK/zGUkp9nImqtiHpunQisHNAopefMEiXQpSD2MT9lJMux0FI54ccx/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GoKxR9B6;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gondor.apana.org.au;
+	spf=pass smtp.mailfrom=gondor.apana.org.au;
+	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=BulVXfD7;
+	arc=none smtp.remote-ip=180.181.231.80
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A98606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:16:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9A98606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85995606A31A;
+	Thu, 29 Oct 2026 02:17:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85995606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GoKxR9B6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793240193; x=1824776193;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=lmmwd1j9i9IdHPd9z6H1dffhhHl+bDQVtlcPUI8AZYU=;
-  b=GoKxR9B6rEPg8qA7FkFnNlqXRxq/n10/1Wu4kucK/7PbYbLtoC7QHQvn
-   +nTo0DoGQJoyGhMidQIuyV1BECTrDQKiGLkrSUMkd6Z9MRRyUuhV7J7sJ
-   RnngyWDbKYu54KySk4WANfkpz7S2SNZHkqB641TL3+6DIOFBxVBEQ1MBv
-   CQk1DO1vW8oc/AqtCvvWj7caoDQUAdTV5XictPnulNfUe6qcZUTCRVBdJ
-   GeGM/4qF/zWV0ZFDvE3CUDCN4WjdbaCdSkA8rI1915jNUg5BSY3vhA6FX
-   yiXeZCIMF7S5PTok0RYdjz/noF5bQb63CESqHBrvCf+WnpP+/+QB7/Jrg
-   Q==;
-X-CSE-ConnectionGUID: 7P1QtbtyTIa5eWtNzaWvOA==
-X-CSE-MsgGUID: GH/qH1KjSy+U1MNq3BxmXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2069267"
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="2069267"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 19:16:32 -0700
-X-CSE-ConnectionGUID: jZGbEqNdRv+56MwFeBXYzA==
-X-CSE-MsgGUID: 5/dD5PnDRtm1n1RYGSIipg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="5345443"
-Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 19:15:54 -0700
-Message-ID: <c144541f-71de-4791-889c-d7c354eca2af@intel.com>
-Date: Thu, 29 Oct 2026 10:15:50 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=BulVXfD7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=m9kc8yIzx2usw0N2+/yj9nIikY372WFees0PGb9Zlj0=; 
+	b=BulVXfD773yLT3qc9u1NANNhJ98Vm6/aRxcwh5PfDZELbo1U/FSB2M/85ZgFhlhiBCV2IvuwAM+
+	RvNJIsDMBW/NCmIYF/xef7aWde69p7ClT0iqQY7Lu0MjujY1pK8DLGdr5YwRbgqIID1pc8tLx/sQC
+	Izh291VahFbHvOu6WEzhVy7BZOfCUnK5ylxT0cAbh9T4j+b6AlTNngiUvXcQvIrA+2rthRivGcZuB
+	NNMsNYkt3FtQEZLRM/nlMsVyeOBmfcEjf2loV3mHj5UYVQ8drR+LgID2bwLDoSLvqe8gUgcburL8P
+	tIjNocrWc2A34HmdV5jrxW9im4x2We6R30RQ==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1xMFgy-00000008bSP-0k3I;
+	Thu, 29 Oct 2026 10:16:37 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Thu, 29 Oct 2026 10:16:36 +0800
+Date: Thu, 29 Oct 2026 10:16:36 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: "Liam R. Howlett (Google)" <liam@infradead.org>,
+	Uladzislau Rezki <urezki@gmail.com>, Michal Hocko <mhocko@suse.com>,
+	Baoquan He <bhe@redhat.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Thomas Graf <tgraf@suug.ch>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	maple-tree@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>,
+	Chris Mason <mason@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
+	"David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
+Message-ID: <auKshDXKQXt1kvjy@gondor.apana.org.au>
+References: <20261028154218.1668182-1-liam@infradead.org>
+ <20261028154218.1668182-5-liam@infradead.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,88 +75,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 02/15] x86/tdx: Add TDCM hypercall wrapper for TDX
- Connect
-To: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
- "x86@kernel.org" <x86@kernel.org>,
- "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
- "bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>,
- "Hansen, Dave" <dave.hansen@intel.com>, "kas@kernel.org" <kas@kernel.org>,
- "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "jgg@nvidia.com" <jgg@nvidia.com>, "nicolinc@nvidia.com"
- <nicolinc@nvidia.com>, "aik@amd.com" <aik@amd.com>,
- "aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
- "seanjc@google.com" <seanjc@google.com>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
- "Gao, Chao" <chao.gao@intel.com>, "Verma, Vishal L"
- <vishal.l.verma@intel.com>, "Tian, Kevin" <kevin.tian@intel.com>,
- "Peng, Chao P" <chao.p.peng@intel.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
- <20260924041032.1096569-3-zhenzhong.duan@intel.com>
- <023f3254-c368-4ef6-89b2-8bbacb42d89d@intel.com>
- <IA3PR11MB913636B33BDBD49DBC87555C92602@IA3PR11MB9136.namprd11.prod.outlook.com>
- <920718ed-16a5-426e-9407-6ed37181615b@intel.com>
- <IA3PR11MB91368EEFC32F4CBF3F3CD16E92602@IA3PR11MB9136.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: Xiaoyao Li <xiaoyao.li@intel.com>
-In-Reply-To: <IA3PR11MB91368EEFC32F4CBF3F3CD16E92602@IA3PR11MB9136.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028154218.1668182-5-liam@infradead.org>
 
-On 10/27/2026 2:08 PM, Duan, Zhenzhong wrote:
+On Wed, Oct 28, 2026 at 11:42:18AM -0400, Liam R. Howlett (Google) wrote:
+>
+> Below, one CPU adds an FDB entry for an RTM_NEWNEIGH netlink request,
+> while another CPU is inside vmalloc() or vfree():
 > 
-> 
->> -----Original Message-----
->> From: Li, Xiaoyao <xiaoyao.li@intel.com>
->> Subject: Re: [RFC PATCH 02/15] x86/tdx: Add TDCM hypercall wrapper for TDX
->> Connect
->>
->> On 10/27/2026 11:28 AM, Duan, Zhenzhong wrote:
->>>>> Abstract the underlying leaf call and pass the shared buffer physical
->>>>> address as a decrypted mapping. Add a runtime page alignment check
->>>>> for the buffer to enforce correct usage.
->>>> This doesn't match the implementation. The code only WARNs instead of
->>>> enforcing
->>>> correct usage.
->>> You mean below code?
->>>
->>> static void tdx_devsec_unlock(struct pci_tsm *tsm)
->>> {
->>>         struct tdx_devsec *tdevsec = to_tdx_devsec(tsm);
->>>         struct device_evidence *evidence = tsm->evidence;
->>>
->>>         if (WARN_ON(tdx_tdi_unbind_dev(tdevsec)))
->>>                 return;
->>>
->>> I think the unlock() callback should be defined with a return value so
->>> userspace could catch the error.
->>
->> No. I meant just the code of tdx_hcall_tdcm()
->>
->> +u64 tdx_hcall_tdcm(u16 devid, void *buf, size_t size, u8 vector)
->> +{
->> +	WARN_ON_ONCE(!PAGE_ALIGNED(buf) || !PAGE_ALIGNED(size));
->> +
->> +	return _tdx_hypercall(TDVMCALL_TDCM, devid,
->> cc_mkdec(virt_to_phys(buf)), size,
->> vector);
->> +}
->>
->> it warns on the unaligned buf and size, but the unaligned data are still
->> consumed.
-> 
-> The caller has guaranteed gpa and size are 4KB aligned. 
+>     RTM_NEWNEIGH                      vmalloc() or vfree()
+>     ============                      ====================
+>     spin_lock_bh(&br->hash_lock)
+>                                       spin_lock(&vn->busy.lock)
+>     rhashtable_insert_rehash()
+>       kvmalloc(GFP_ATOMIC)
+>         vmalloc()
+>           spin_lock(&vn->busy.lock)
+>             waits for the other CPU
+>                                       softirq: a frame for the bridge
+>                                         spin_lock(&br->hash_lock)
+>                                           waits for RTM_NEWNEIGH
 
-So far, no caller yet.
+I think this is a fundamental bug in the kvmalloc non-blocking
+support patch.  How can it be used at all if it is susceptible
+to such dead-locks?
 
-> Meanwhile GHCI spec
-> requires passing 4KB aligned gpa and size, that means if we don't, the
-> hypercall will return failure. So maybe we can drop it?
+And if you can't use it safely why don't we just get rid of the
+broken kvmalloc non-block path and have it always go to kmalloc
+like it did before?
+ 
+> Fixes: c6307674ed82 ("mm: kvmalloc: add non-blocking support for vmalloc")
 
-yeah. It should be OK to drop the WARN_ON_ONCE().
+BTW, rhashtable patches should be sent to linux-crypto.
 
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
