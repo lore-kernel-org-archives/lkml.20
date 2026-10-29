@@ -1,101 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.34.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793290249;
-	b=Yi5BydLcJhjk1+rqtEOrHHMTIpSpLNfMskc3bSqWEw7MJsD3BaG6HopYH6URPJPfYxVK
-	 WvSDSwSEgIkoI/UlZ9AWI6sJfT9toKWU3GtQ0x+nUAqBMgI7uq1vukMwvTm2J0J0/Up9z
-	 G57i4QzTojnbGPYe5W/E1NctkN0N2tKiMm8tkXfSebigeqzpJ43G+bJFgup8bGgNyOCau
-	 Z0KypvyWStH3iLNPruHoE+0Lku17mNulYlyS9Y62s/B8z11IJSJiNaDHcpSsyiI8Uzjbx
-	 AsalOfC08vpdyu/2yMPlr+t3RUJIllc/GiVtDjk9XTZ8mCU4w+uTQSICBPxPkLFsOMg==
+	t=1793290469;
+	b=35I/xsgh2TmD0KfVJaw7yl9Y6O5+YxxR7uD2zlELenjit1BW9Sd/pGBBLyPBJF6B4QRE
+	 aILdfgUnec9uoYjLhlI/IAT2NL1IRMnN4uxWvXGgOM18PBVvUQcoQfE/1SbIIE6YvzcUf
+	 HmGsICl/9rMCqKd49mq/6YiFeQPto/t8iwf/fa77yyA26Ovs+Hz3qWnl3mwf/kAX3rbp6
+	 ZJwtqb3+bWewVNzOfX7R9vY4SBwNLrN3LkBDz7OLzgMLBQh4WPI+Debr/VsAKNLug/JXR
+	 ZXdXVgTpDBbCsuWZPNVEQMdcZYTv0L+AS87a5CRXomCXiC60k71Fc2N1C8sfC5FTCQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793290249;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=wGitExb5ASqG1hEb2tSa+iqDI3pMKELGUtvIGcSLDEQ=;
-	b=qWoMm5pw5PrwiKUUQVSIBlt7vhh1mDJgy43bblZkysXjAhveXnMpfoXm9N4cnGpWvmYj
-	 U2LQdjkFhduvMLzRl0I2DnWy8XzRFP3zkFviDFl4MwJ6UUBP6Qm5YjpxzHCXjomme712F
-	 ZijhSO+n66LRHmKhDdxfBXhfxURD3/k2iczbty65sPkoEkO0mKCCt6rWozxDbC26Yxvh1
-	 V4/ANHPvRrDQ68IxL1bS3rqorCG9nweCZGK3r9vVerTE06BRmUj+H9mbTo39U18YBgRcv
-	 dqIyM1abQfoDN5Ch3k1qbNrIEB1afVSFs+ptrppdZuur1xEtFQrJBj6qenBSMvqzTKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793290469;
+	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
+	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=c+gezYOkb4W+t+RhACqLfvuJiHUnKEHDmWG+/5llnG8=;
+	b=PLBLlDLM6EcR4cSv/Gby9IHFmj7yPnLW8KhQWey2FtK5PMgfh90aeUu1XtSU5Nphctcu
+	 E9T0QBmwqI8jQxpLBgwlXvBkblLPNmBdqmitKXHaUN9l88f1ZXypKJHgkUfOAI7Hxx024
+	 qTbJiih/R7Jcp9gD3a+RhSk6bOstRoSxLDay0iOlWEhTvCvJ0ePAjT3yGwrKmizMb5r/K
+	 UpVVFBXiqasQJRIwpyPUWT32i1HPOM4DNxawqksxOB0TdK5f1X1f2dQCAilg0MGseb5+q
+	 id6+BJgrM1IIu50keEiWS6n0dfz9EkjAwNdjZRKTNQmmYTrpRKH/QdyALwO3m2B94xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BQ1HgAJB;
-	arc=none smtp.remote-ip=209.85.222.46
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=radxa.com;
+	spf=pass smtp.mailfrom=radxa.com;
+	arc=none smtp.remote-ip=54.206.34.216
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C0B606E016
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:10:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45C0B606E016
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BQ1HgAJB
-Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-990fbae94f5so2151133241.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:10:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793290248; x=1793895048; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wGitExb5ASqG1hEb2tSa+iqDI3pMKELGUtvIGcSLDEQ=;
-        b=BQ1HgAJBM52AsbQ7tfdFq3gPd99w/14A03ldC+9zCPotdgmBElhQocOdv+zPBbopv3
-         /sSlGYpgzZKxyUuURLiPcADtZ+/2b/+asX33xRM9nkV7swnjQ1JGfho3PNwvXQaAwdJm
-         OMUAq+L64oXGkKt9nBn83mEEBOjFSMoK8EVw+KnQS0okrCLOFV+xdBozRew+RlguxgDc
-         PBvEba/FY/XCihapa3YmOuVXiCd+JkdghOGo6l5oGUnyWfiPXd8kKr3RimsBeLA5EWSj
-         M1/wrs8KDYq46uodupnIcnbtKpg/EVX9S0WuBAizCBQnHosJN4Go+QXM7K21B12ID/yr
-         o+tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793290248; x=1793895048;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wGitExb5ASqG1hEb2tSa+iqDI3pMKELGUtvIGcSLDEQ=;
-        b=aEd3p/MIkaevaj1T83lpqUiB07R1FOXCdDwe/8rPFlPHpp8L4pdLN55qtseNBczc1P
-         fe44ZWbUl8nEb3BqDLCd5jlinqWTM7fL8ACe6/WiTxEBlEKXpZQfi9YvsP4bCrh8mvU+
-         YQjJKB7Y+/Vr9nmK+2VZYQtNMzlmL/k665XqrPILwFghbH0SdMv4SvLL2bRCuWzXK1Tr
-         XSVhqQJUxrDPGKsrO1vigAzUBXVlmJ4Sg7z1IJJnxSmEV6xwbJrAI1QexfgC47l+gzzM
-         rFGnrR2pQIUyOxCi/Lzrfwu/zYDo2LApQSuxl5QD3G9bEkAq+mMuX992LQVsE0U0cBKX
-         o9mg==
-X-Forwarded-Encrypted: i=1; AKwUvBy/FLj/JX9ljCzueWUpKN8v0HhznKWKLFLxfYAJLYFn0vLyMl/tQbJOkSy7U6Xdof93NzYffw6iVoZswZ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzQ4F/YGOdYDkZFA8VXsDdapD+zz9I0bPFygVA9gwSZIEDdZfg
-	dQ9fm79Yan7uK8Pt2m7c9ly6LJ7w9flVn+v7kfKLjO+yDQDmyJ0o7c29
-X-Gm-Gg: AYBFou1SzxcgNDHRk821E9qnxSsqhzxPhQh28+M78vtOMcIoFgmlKyM1emOYQRP7LUK
-	FLFLuhrfkscXRfyGyjamEpFuysNtqHa9WQQXTwaeux+JKbVcZbN1aZUarzku0in3JnB825e7wy7
-	RW9CVpSwGlopptGRspkumio6m6j+NH/VdoPoriyohPaDOQFrrEF0OFNm9L/s73Y3W6LV6TYRngm
-	3b+w9Q+1gJQrzFm9ax9I5m/y6M2yVopzPHUxTAKjBAtdzGU3HTPSU5dxuE1NRX5HOhfubHSQbly
-	oSiV40q6ETwzYtF4HtgbWRTKA/jJRJ3y7wb3+VcNP7B0EdgvPEjX/ww8KcZLV9XaQAXXJPlta2j
-	hVS1ozNfqq4+quFYQc2ynjsINyGpASJXpF5ZVglsCdlmlN0TYU2i9IQMi2gmeoGGyCl/X2lPlBH
-	mI69d7pT875RafaRO95N2DnF5ye1jkMtONHNTb5hTWevKLGCd6hkYWjZmCzXKom461rddlbyfsQ
-	0P0DPVuIqelCbSLF5NF1HYTUvSYPvMzlN142Va/LGty+yJPTBnWnfR4VgDxS+CS0ZvyexU/EJa/
-	QfNWgkUPw8Wo5G7rBRFqcLRc0tQAtVRhnnskfh0ue/ZaVXfRkpIoFKvtw8h2icr7vyxp04399xk
-	9Uq24nWuJidsNIAuRB+jrye4fgyHGCUX1+IcZuJ7VoUq6jTL4iJzYDxuIiPYp0JWEEEZp
-X-Received: by 2002:a05:6102:6a92:b0:7cb:bda3:27ab with SMTP id ada2fe7eead31-7d03a504ad3mr3020376137.13.1793290248125;
-        Thu, 29 Oct 2026 09:10:48 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec4f8dfbddsm5953842e0c.6.2026.10.29.09.10.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 09:10:41 -0700 (PDT)
-Date: Thu, 29 Oct 2026 12:10:28 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Ahmad AG <ahmadag1001@gmail.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: kuba@kernel.org, 
- davem@davemloft.net, 
- edumazet@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.26e1d6a9b487@gmail.com>
-In-Reply-To: <CAASqGyZ-9hqZGWNJShxnrSiXDO==51SVsQW_x_mk993y1pNO8A@mail.gmail.com>
-References: <CAASqGyZ-9hqZGWNJShxnrSiXDO==51SVsQW_x_mk993y1pNO8A@mail.gmail.com>
-Subject: Re: [PATCH net] net/packet: charge fanout groups to the memory cgroup
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37A91606A31A;
+	Thu, 29 Oct 2026 16:14:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37A91606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip3t1793290452t63a92015
+X-QQ-Originating-IP: a5FdOwHCEsy3qO3Sz5jtPqZ1BlHN5LmsEg4zfBRZMqM=
+Received: from [192.168.30.244] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 30 Oct 2026 00:14:07 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 14806656503456885674
+EX-QQ-RecipientCnt: 11
+From: Xilin Wu <sophon@radxa.com>
+Date: Fri, 30 Oct 2026 00:14:07 +0800
+Subject: [PATCH] arm64: dts: qcom: sc8280xp: add missing Iris IOMMU SID
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,74 +53,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-sc8280xp-iris-iommu-v1-1-1e3fb8562b3d@radxa.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqEMAxA4atI1gZq1bF4FZlFrakTwR8aHQTx7
+ lZdfov3DhAKTAJ1ckCgPwvPU0SWJuB+duoJuYsGrfQnU7lCcUYbtS/IgQV5HscNrfW5b8uqKpy
+ BWC6BPO/Ptfm+lq0dyK33Cs7zApgpNFB3AAAA
+X-Change-ID: 20261030-sc8280xp-iris-iommu-aaf3fb5774c8
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dragon@radxa.com, Xilin Wu <sophon@radxa.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1420; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=mC/ybUWcxUDhCBqok1LEiGW1RFywviqCyzVqxI7oudM=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFmPCy7ohS+98FCowsdr+u4FzlHV0Y/542Y6HH2iuyn+l
+ 9Ql+/jAjlIWBjEuBlkxRRaFeIa57JW5156KlerBzGFlAhnCwMUpABP5voXhf81d55XmP5+1FKX/
+ 5Xgj0SFkYRh1Y7XTVqcTDE9O/klaqcLI0JCYmMmv1jDtd6uf1l/PNMvrmlPuPl7F5fCofBnL5YS
+ J7AA=
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: Nr9+mHXfAFYq+3MqsJplQ8pUuR3PRhZVktNQxyyOb5i3rMak0F6KN+Oe
+	bqUUhmETuE/t3svuBTv4/6fvqdsdMWC8Fee4Y8B6GFNfZC+JIf4DK0yuBwPro0k0sb6qSet
+	L/P8/saOde+5F6YKJOtf7kCN359vsIc9GT2PKz20o6AMWdEVLyuNt0242LXRkgEY0py1nF5
+	Dsjksv8GJoOiLkl0PHpgBME3nk0Sv+bO8bh96bsPjfob3q5aIiHSp4szxU37QpUhH5xGTOV
+	EaM9oTIlqlX7dJhUTX2mVi7XD0QqiYZuDcfkEbYTxk9EP0wxwJFw798+jY2m8J74RXpk4WP
+	od3OCQTPb5RjQTbX8tPp6MClFyAQ6kv5ZqUbmew5GwEmvv7p/Zj4jwviK2Hb12dY7z9Iq2K
+	Yca+o4AhJDjlCongV0ZhkBX9+CfkKg4EBdczeYSzji7wd5sHfj2Tm2ia+fA3Q+CNOzpTvhn
+	uFXIR3WOen7SR25320JLFgHpxxe23idGtNhHLgCDeHZiiFLYCwwGRYzolLqYAmfSRRwvKKT
+	nhApDYyZRpqUHGJ1ga3LgtevRUBSSzYA5V5Lij0FylKw6Pkse2R1MLly6hc+86zBsXsDDl4
+	EGwVQN4wgx76UHf1X4m787rs8laSn4aidkc8hVe4GGh6wozkK3HLSvxKgQOwY/rGd0yWsn3
+	mvjpQa+usU38nI9IeMgg/8R85L8oyqYN7aquGVxHF8lLtGz5bMVhJYpXdA4s5L4N9tsdfPX
+	lXTcpSQrD3jN8M53yNk8WKtYUtGSvyOVGdcNaTzIruvYKfXMqxGmZORiGJa3i9xdSVstxpQ
+	SzMTv3lxC7ouRcsPjwhnXKiUu2bAFYqradzMi5dimb0B5ONRMVFiEdhGCEw1nmqpKKXtDrp
+	riFy+8jcF48aYpGk+oTpvfRxQiwJu6nY1LVnp8DZO4fSEfSK1se2SwXx1JM+xu5IjaDV7xG
+	Dki9ibAsb7AqM8DWia8GGztI7VpubSE4zOpF1ubbKrAav3JTtgOyZ2AGJpcBhVvGZXcYww5
+	c9zzMFSEwoz5ZPA88o
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-Ahmad AG wrote:
-> fanout_add() allocates a new group with room for max_num_members
-> socket pointers. Since commit 9c661b0b8544 ("net/packet: make
-> packet_fanout.arr size configurable up to 64K") that is up to 64K
-> pointers, 512 KB per group, from a single PACKET_FANOUT setsockopt().
-> The allocation uses GFP_KERNEL, so it is not charged to the caller's
-> memory cgroup.
->
-> Each packet socket can create its own group, so a process with
-> CAP_NET_RAW in its own user and network namespace holds about 512 KB
-> of kernel memory per open socket that its memory cgroup never sees.
-> In a cgroup with memory.max set to 16M, 256 sockets each creating a
-> group with max_num_members = 65536 took 264 MB of system memory while
-> memory.current grew by 380 KB.
-> 
-> Allocate the group with GFP_KERNEL_ACCOUNT, as other allocations a
+The Iris VPU on SC8280XP can issue memory transactions using stream ID
+0x2a07. With only the 0x2a00 SID described in the IOMMU list, those
+transactions are not attached to the Iris IOMMU domain and can trigger a
+non-secure SMMU global fault during video decode.
 
-This is not the only such allocation in packet sockets that does not
-account. If addressing that, probably scan all such allocations and
-update them in one go.
+This was observed while decoding H.264, where the faulting address fell
+inside a DPB buffer mapped for the Iris device.
 
-> user can make on demand in the networking stack already do. With the
-> change the same test in the 16M cgroup is stopped by the cgroup's OOM
-> killer, and with memory.max at 512M the 256 groups charge 262656 KB
-> for 264640 KB of system memory used.
-> 
-> The missing charge was found by code inspection of net/packet/ with
-> the help of an LLM and then triggered with a small test program that
-> creates the sockets and groups and reads memory.current; the numbers
-> above are from that run. Tested in a QEMU/KVM guest on this tree
-> (x86_64_defconfig plus kvm_guest.config, KASAN, MEMCG, PACKET),
-> running the test as uid 1000 in a cgroup v2 memory cgroup.
-> tools/testing/selftests/net/psock_fanout passes before and after.
-> 
-> Fixes: 9c661b0b8544 ("net/packet: make packet_fanout.arr size
-> configurable up to 64K")
+Add the missing 0x2a07 stream ID so both Iris access paths are mapped by
+the SMMU.
 
-Your email client corrupted the patch.
+Note that the issue was observed using Gen2 HFI firmware.
 
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude Code
-> Signed-off-by: Ahmad AG <ahmadag1001@gmail.com>
-> ---
->  net/packet/af_packet.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index 823e0911c91..406397acc5c 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-> @@ -1778,7 +1778,8 @@ static int fanout_add(struct sock *sk, struct
-> fanout_args *args)
->   /* legacy PACKET_FANOUT_MAX */
->   args->max_num_members = 256;
->   err = -ENOMEM;
-> - match = kvzalloc_flex(*match, arr, args->max_num_members);
-> + match = kvzalloc_flex(*match, arr, args->max_num_members,
-> +      GFP_KERNEL_ACCOUNT);
->   if (!match)
->   goto out;
->   write_pnet(&match->net, sock_net(sk));
-> 
-> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-> -- 
-> 2.43.0
+Signed-off-by: Xilin Wu <sophon@radxa.com>
+---
+ arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+index d17475c3e66c..4ab01ef9ac05 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
++++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
+@@ -4268,7 +4268,8 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+ 					     "video-mem";
+ 
+ 			operating-points-v2 = <&iris_opp_table>;
+-			iommus = <&apps_smmu 0x2a00 0x400>;
++			iommus = <&apps_smmu 0x2a00 0x400>,
++				 <&apps_smmu 0x2a07 0x400>;
+ 			memory-region = <&pil_video_mem>;
+ 
+ 			status = "disabled";
+
+---
+base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
+change-id: 20261030-sc8280xp-iris-iommu-aaf3fb5774c8
+
+Best regards,
+--  
+Xilin Wu <sophon@radxa.com>
 
