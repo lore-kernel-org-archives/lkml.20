@@ -1,47 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297796;
-	b=UwVrb6FUFOqebrulFwDKN5FKPaZGGFhwwBT0tGyBT5f0nuaXkZrm9Q/5M+c1SGlrRPfO
-	 SM3/3UDMYRxS7JH7qpyMxUn8ImzsSxU4qvYpq7PV8x1IY5wO14iLTktjvAAGmaxJlI0r8
-	 s/IRiQ8lj1P2nFiEm3iMDb8DhFzptW2A2IZ8n5caAkAS5vOZ//wOEcFMn4Rj0uHWyg0q9
-	 ApMij05gJ6t+7fKyCnAbWpNYlWy9ef/+ffHQRDWFVTUt1fQqHFOFU5gT50aJ6g8jCGzKh
-	 AyrNRkAdZ76NNWyJAJdWVMxjPhKa4drphVbv8ZYGu3P5/zskcihOsGqcdSfFeYmz+XQ==
+	t=1793297804;
+	b=XZq2g4hFwfvNa1uLGqv6ZUqlZYCmSTDsFVaaUemIWZsu6Mie/wsEo/7/4kEeDWI7C2JO
+	 I8/yQBFL+wSYtnd7yA1AOHqVKmfSja94zwGhSu3LxTINEIJNjq20VZezOHhQpVT83TUyi
+	 4WoZ0aJ31YJ22fsTRp+nwTUuNsLV5kI/YVWBri8KZhth3CVyQQ+sJG6Uv0/XqoMypOu7X
+	 1m6NArrvxoQl1JSGma3ZE1yk4Jd2lN+XlyFa2rLXxQV3ebh4B7FrzOKpnO8WaSo8dlI7F
+	 huBt4sncUQyFL1I9FG38iAXZ9GPMSvptqy7HvsHTOq6hJT2BfznwUlHt+7AayvowuYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297796;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jSJmMAizkWIdqx4nOphqKfNzkAOik+SUqa6Brtw33O8=;
-	b=BvROBnylKUFvTAfn1E7ljowosrCHMDh7sPr5t7iY7uyMigcN2RyrJpMte66sDRx2eJBV
-	 qA2+0r6QZId7Z7KQEOMUoQ+t1X+KqNPOIzpwxuIeX+2Yi8iSm1npQQIQ14HPwmhy4+TvF
-	 Mf75g48+fDJw0tRj3JJ4AnKHlGziz369Ny5sWzEkZJHbnnk/kXGEaQ/hWoM6L5LV9CuXF
-	 43Wo4lxhWxRYTBwmeM1J5SGKJRnvXLXiV0RLq5r550raTsjplmnaSV+wIweg/aF+Gn1Uh
-	 k9bkcaIxHtGDJ8/CCp+1hSMnrupzpjMVpVw2QxZ6k1rgkjJeWYUz5Yr1J7+a6bZu5jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297804;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=99z/FjcazCZQi4D66B/SibaBChuRIkU7h/mfNRp/Qdw=;
+	b=vhTtj7dyiaOqvmMODpntEC+mEG16i0NkadwhnxhRCSUW49ZS/E6bYtIaalvVpWEfbn9Z
+	 SVAnh5ZmvCfTZ+Cm7syGKDHTdLO40Z0YIVkvG9a8PhGtw5vvl6/ZpYVuyJKgxk094a1Le
+	 dR73hn7TUGhLOXwZazAQgmAcUXABMNpHqSn38U0ivg7XVeQThNhKyxxGp04EPmNixnzvs
+	 pPjmwlY84M8TsmhMtvPtosJRK96ewgYUaAWyQ1Rik+Xi87SRTD8yaio2Os1K9w4bQvjjj
+	 Dqp+b+/zABW2RlNAw7JaLM3Afsu+a1sPdBz08jSuSx7zxgh5OpON7YVA5nD3GXXrm9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUu3iIQD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VrYzhrJ0;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A1160A260B;
-	Thu, 29 Oct 2026 18:16:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6983560A380B
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:16:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6983560A380B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SUu3iIQD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FBA61F01825;
-	Thu, 29 Oct 2026 18:16:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793297795;
-	bh=jSJmMAizkWIdqx4nOphqKfNzkAOik+SUqa6Brtw33O8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SUu3iIQDUCnlc42uKpYCRIOsyH8pXh8w+YvenkQ54IEJ6U8nRtflcGv55VtktxLNc
-	 xhuIaag7IL4kDbTn1DbdNjxX9Ique0UppYkgZpXJGWw4/uo0rcgkDoZYCy0+7aitNS
-	 VqmSXmqcouYbxmQcYviscgkNEUIgnsRokmpm5rNK4mULBQkjRsd2vvtuYi9pu0fxCh
-	 3XEkxV1EdRwbQuwwu5bQ95mYOcuOdQB0h9gVM6N0epQ6R+njMFav9x8NTsQkwGigDt
-	 G1hR6xcnh/ZzWuAYHp9c3+VDkDH+QGmmswez0IvnMuOS4dEuAE6du04U2iyQEX7qci
-	 h0fBrSWgrSejQ==
-Message-ID: <10a6091e-6cf1-45c3-871f-8786ad1358d9@kernel.org>
-Date: Thu, 29 Oct 2026 19:16:29 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VrYzhrJ0
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd5d2dafeccso1436584a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:16:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793297804; x=1793902604; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=99z/FjcazCZQi4D66B/SibaBChuRIkU7h/mfNRp/Qdw=;
+        b=VrYzhrJ0pOifKYg/rQ42XohWgLtymI0J3+G2RhlXh7enIkiCM6k7YxfLvUBxT7AnDZ
+         aAPpwAHi8PRDK4jJozJOfvwofoG3X4IFvMZHHrsSRva2sviTsNi4nvGHGb14LuJhjlGN
+         nfvsdfYg6TvM1P7i244m9nQ4PyiQ68Yt/WYK7WAROj36PqO/CMeHsDSyFofgiaUXy40J
+         jJcewKtkafTVl5kD1Z7s5qSzV926t3bMmiAmjJB00M/rhCFwA+onIKZVT6/H5Iw1saXl
+         lJGTT0E3DXKvbnu5N6WSDS8TUcfFEHJFYvc7D6zfWvkCCxFQkaaeSROIP3htdPQWJAUt
+         6K2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793297804; x=1793902604;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=99z/FjcazCZQi4D66B/SibaBChuRIkU7h/mfNRp/Qdw=;
+        b=diNUOkgStyknDx+lL+dVmKuESDZxuDmWrWkj9KBHHZfFEFy2YfCBdghwUY7WA2gx0j
+         doPR6KTzsVNY15hyig3rgQYIo/DrUQirKBs9zvmFXAAt/AlcI9aP5J24oXmCiLs+mooX
+         x/NCPrqZvlzvAScBEMoCZGofSEdvoKIcs5WunGo4cCR129ICmM1qYbyYWvKysaQNp5iq
+         A2CdQo7r2pER23pfvyKYe9+wCslPRRibMUmeyFRmDTekrkjThiTTscH56DgEvhi34upF
+         DpINmgmRGa0jhdDM6TztdXlAK90cTD8qIGvXM188LpH7yxmksr5lT99ymutDXO4VYmTh
+         DMXw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGFYnOQQlQERBNWNYQ67jl91TJYmvol2ffWA86J8yrv4tAQ+hExYJBf12QzJgE0ZqIQHyYYBd24xeXIrE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXJQX4hO/WO1plEi69GlvLde4fTGTG73XI0aFerOLysg4jdtap
+	xsNj5InnqQcVwUU7g2AiFj3isgOvZ9BuqeCsnAVjfC0xvAagIp6C21XL
+X-Gm-Gg: AYBFou2qxEB4NW0zHQWTNyrcvJmR4WWO1l8MdWYptjOutn97xWkregQhEsp3ZwSV3se
+	dw+Mmc5eIgjRAgRlxsT7wTrr8DMai3Ae9z90UN6rckfK3+0SDdp3oBHi2j579PqvEE/c1nKdC05
+	us6f9Q9Q9jGDBZETUE3+Mi7UF/P1QiW3pNsGhbABhGDZgtvED3Ao3UhXLB8axDxbOb2egOp1DOA
+	E6pM5ZW5+wG5+NpHMqhyg4cHoAphPg8z1eag/MCrOjgYUYc95brOScAiiqkQssyiQdePgcOV1pk
+	KBH7gRrkNQGqSgo64zA+VUjy3WRA6YInUNAsUNIHUY9a9hCoRsVLnQCdZHEH0KChPsm26re0PrQ
+	4DSym5m4u48c3kf9AR/HsQu3JFFgxe8lfeBUoLbHbCjCId3kyO9fHtr4GgC/PmS/erZgDkctn87
+	6PvcfBMwqmWSrKSlhnk5e0yooE+CG4QT3WlZDn3vPS9Ipt+NPO77keMKMJmj/NpJz6gh3x4l1k0
+	etkcmldaD4aWL5A9xCAGfVts/ze5u9XQfifHpjMD0nDgWwdKE24prO8b/MCv1TcOVao83KDvDst
+	JFVd1byKVnT5mlkk8SLmheNsbyc3fkGnr1aLha3/CZa0B5T5gD6oyyiy
+X-Received: by 2002:a05:6300:8044:b0:3de:5302:e92a with SMTP id adf61e73a8af0-3e928953719mr74781637.17.1793297803762;
+        Thu, 29 Oct 2026 11:16:43 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a98a0bd09fsm192069b3a.51.2026.10.29.11.16.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 11:16:43 -0700 (PDT)
+Message-ID: <654c7978-3771-4c09-89f8-c5d23bba42de@gmail.com>
+Date: Thu, 29 Oct 2026 11:16:41 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,125 +93,50 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 8/8] mm/mempolicy: read the zoneref slot once in
- mempolicy_slab_node()
-Content-Language: en-US
-To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
- akpm@linux-foundation.org, ziy@nvidia.com, joshua.hahnjy@gmail.com,
- rakie.kim@sk.com, ying.huang@linux.alibaba.com, ljs@kernel.org,
- liam@infradead.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- brendan.jackman@linux.dev, hannes@cmpxchg.org, mgorman@techsingularity.net,
- anshuman.khandual@arm.com, stable@vger.kernel.org
-References: <20261028211930.3504634-1-gourry@gourry.net>
- <20261028211930.3504634-9-gourry@gourry.net>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20261028211930.3504634-9-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261029073135.159947193@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261029073135.159947193@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/28/26 22:19, Gregory Price (Meta) wrote:
-> For a bind or preferred-many policy, mempolicy_slab_node() tests the
-> first matching slot's zone for NULL, then reads the slot again to look
-> up the zone's node. Offlining a zone's last block rebuilds the
-> zonelists in place, so the second read can return the terminator:
+On 10/29/26 00:33, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.191 release.
+> There are 1879 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
->   CPU 0                             CPU 1
->   mempolicy_slab_node()
->     zonelist_zone(slot 4)
->       = node 2 NORMAL
->                                     offline_pages()
->                                       build_all_zonelists()
->                                         slot 4 = NULL
->     zonelist_node_idx(slot 4)
->       zone_to_nid(NULL)
+> Responses should be made by Sat, 31 Oct 2026 07:28:30 +0000.
+> Anything received after that time might be too late.
 > 
-> Current GCC merges the two reads, but nothing requires it. With
-> mm/mempolicy.o built with -fno-inline -fno-ipa-sra, holding a bound
-> task's slab_strict_numa allocation between the reads while a movable
-> block earlier in the zonelist goes offline oopses every time:
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.191-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
 > 
->   BUG: kernel NULL pointer dereference, address: 0000000000000060
->   RIP: 0010:zone_to_nid+0x0/0x10
->   Call Trace:
->    kmem_cache_alloc_noprof+0x294/0x610
->    do_getname+0x34/0x230
+> thanks,
 > 
-> mempolicy_slab_node() and zonelist_node_idx() are tail calls here, so
-> neither appears in the trace.
-> 
-> Read the slot once and use that zone.
-> 
-> Fixes: 11cd8638c37f ("mm, page_alloc: remove stop_machine from build_all_zonelists")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> greg k-h
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+There is a problem with the SCMI fixes that have been back ported: 
+scmi_device_request_notifier()'s REQUEST/UNREQUEST cases are empty and 
+scmi_probe() never calls scmi_device_create() for DT protocol nodes, so 
+no SCMI protocol devices get created and clock consumers defer forever.
 
-> ---
->  mm/mempolicy.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-> index 0884c629670d..cd63c3e2c029 100644
-> --- a/mm/mempolicy.c
-> +++ b/mm/mempolicy.c
-> @@ -2176,6 +2176,7 @@ unsigned int mempolicy_slab_node(void)
->  	case MPOL_PREFERRED_MANY:
->  	{
->  		struct zoneref *z;
-> +		struct zone *zone;
->  
->  		/*
->  		 * Follow bind policy behavior and start allocation at the
-> @@ -2186,7 +2187,8 @@ unsigned int mempolicy_slab_node(void)
->  		zonelist = &NODE_DATA(node)->node_zonelists[ZONELIST_FALLBACK];
->  		z = first_zones_zonelist(zonelist, highest_zoneidx,
->  							&policy->nodes);
-> -		return zonelist_zone(z) ? zonelist_node_idx(z) : node;
-> +		zone = zonelist_zone(z);
-> +		return zone ? zone_to_nid(zone) : node;
->  	}
->  	case MPOL_LOCAL:
->  		return node;
+We are missing ee5dcedaf72d ("firmware: arm_scmi: Introduce a new 
+lifecycle for protocol devices"), with that one cherry picking cleanly, 
+the boards work as expected.
 
+Thanks!
+-- 
+Florian
