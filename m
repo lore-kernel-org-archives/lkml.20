@@ -1,113 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793286313;
-	b=b38fM/GSUqYqaYK1yi/3mTwvvvRuxdIqFnVLW9uf2kmRWxeUvPXI+aUr9/O7H3fAwkfv
-	 TF5vo7++LLtQQ6Lz9uTNU3SxqCGXSRs0r2QNya0rVek8I8mv6dQeTgscnczREFxcDhXvl
-	 eY56I18igW58bJFPMdcASNCL8PH4YAOsUbFCjqGPNqL/ZHvidt2TAcTVM8vlryidVqvTp
-	 bure3uJ91q2UB/cVs48SJU7I/iFzN+yNlSx70QFtQQaBZWQ9A8HlqVYut+KkNXmTIbUIh
-	 xFrSrjiWSW2SQs1E6eoCUHMvlIBKJsde3+WC7EDmjPlTfNskS1X0U2s8bQp6+KzvYaQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793286313;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=vdl3zVyVjBZWDK1aeLeEcxRGnowINUoX/w7iRIrrcs8=;
-	b=1J0JbEepN7/UwbA/fLJpVWy0f4YzdH8EHKrSOKeOjau9WY3LiROlSm2XTmTeAh3fdsYn
-	 THUp/oO2Yh70DnaiF3mWPNL1xsN5HLKMEiB3SeBuMURzt2Lty/sSW5P252oAMjLysV+b7
-	 /BPmiFgDyRT64RdGOL3mftRHTcAVwonbPo7Cy/pEHhblmo++tOHJmaDiIKVIzg+P9PX7s
-	 b4xHwGBSlt+oIYWYLCbtE+U4dnpkQDSbDzFDcGf4HuX9/W7xGSXbK5xleRYuHte1vYU8t
-	 rSKYGP1Tg/P5Ge21xiiwpu0a77lTKB+6mQDi/vtTQUFpYY7czqKQVpCuiaHeE9RdNYg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=ut6AC4sr;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=KTvkBblp;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793286632;
+	b=w/NJQlCUgSglZNhmLI+c7PRRRukJ4vOMcppL+14ezXN56Lz+SQzCuuJGWY0TZ0LEy4vE
+	 c2lBlVmmvSpg8J0xeN4H/bTm/G5/okWKQQRHmIdx5HbV62ff1jSFYlPfj9u8gyc5Xmv5Y
+	 FhY2R29SAHGLe9gyiWb5nPofcEnLg4nfwmeImfzvSW+CTKMrjOiBc8XNBOIuuOtRLOhIO
+	 KWQOQ+1I78cVcf4769bXRO8dMFcjPO87273fDXbutA1lSbtUBLDWwMBs3Ze6rZWul1NqL
+	 1RUeKLxJYwNJDhzyED4vdcgNsOiofeBsaxsoN8qursqYT90s6oxwvxsruwX35de0Y5A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286632;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
+	b=mgR4ukJl+WrZ4dlXIBs7X3A4L15DKnf0cMI3OAZuT34uLtJY/tBU97WdWv6wxhAEIEku
+	 RNQxo7xLoAG0SxEjg1GMwljWXtvKo2KK60ZwUVKew4g75JL9FTfMYZWqkoDMGpn0ivED9
+	 uAFvdC4HWoIThvFGWYlimLIuHQ4gY7D0Zcu8WoYEODBZKcVBa78trq6+hmRno86l+l/YO
+	 VI8fT8/AecQCumK3+ZQYQE/2TjKPuPBpJd+cMO0h5mmC9ZIn253tUdiwk7i4zQNDg+b4P
+	 wjoe38TCzfNQ4xB4Nv16O52UmtPkVr4HZ1iU0TzsuAmLLY43PaOT44DSsDvBvNKFJWA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=t0HEKi3J;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.51
+Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E7D4606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:05:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E7D4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD75606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:10:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AD75606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=ut6AC4sr;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=KTvkBblp
-Received: from pps.filterd (m0167069.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TEur962153445
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:05:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=vdl3
-	zVyVjBZWDK1aeLeEcxRGnowINUoX/w7iRIrrcs8=; b=ut6AC4srs2Ls6ntSteUU
-	tMeoOU5PB/5JAsOrBCD/1y8thr7bVXPn/20RI2WPzj0O6pD8NyRoAbDtJjuEIvqM
-	hztuZCo3eTFcwdNMYw4C68qn5soZMC4gxRNKfOW7HLwpvmGg6OtjCHRxzsyYePY0
-	BxuEG4DCxmAZ9XMY+ul3ynMCQzxqn60tBRssboT1sVp9DmHM3LS1ygQPJr4DcqfY
-	jjIf4UxOegCQlwFTCP1hIIQ5Tcf9f1le3eNKO45azU0q/fR2orVSKEwl1w86AoJT
-	zyKj/JkEGGZsOZZpuxTpSUuZW2+qi07SapJBkBeGy1pGc3kGHEKUrMdgAzttXrkU
-	1A==
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hm7tt0f18-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:05:05 -0400 (EDT)
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-91b4bf686ceso32310736d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:05:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=t0HEKi3J
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-4a76f63b243so770950fac.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:10:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793286625; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Ny1F6niG+WzTZkXS6YaruO05KisDtBBnddKaCRse36KHtqd2AVcMuUilwdgLIY6ftY
+         7NpTxTOb18INj4jGMWyOtc20Gqm9TKGn7z+wq62ektb19zQfZTTqxXfxw1HDNUrWF6Z2
+         kmaW4C3LsxhUEkzXKC66zXK/W6ufbXNne47dvQBerxkOT606irNTHjfPXFezY30ay8An
+         V8bEgtTpozcqriEQ8cvNQTF0tA3pRxBqCbAVZ3Xu8rsI+iPXhltaEh3Yt/A2zxC5Hjva
+         W6f7PZJUPrbgljqiUbpXtdnJi2JXOiOinUq5Q4uhib1cdN3wPp5cIPUlJO9z5glhWIom
+         Gi8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
+        fh=ct6wuZfxEhYDnsqyMSsGfIMwGrfsyElx25GjJl5MoAE=;
+        b=l2L5T0UGU0Hxw1AV37EEZ8B9VByRoAP18tIhQsIwD0/4jKNkvJDhx5ftsPtC84NKzP
+         sbtcGIZPC/G1IjLM3rgwQqhwdxOrUSwfHv4bsCGlWzwLNxIfSboT4Cfchc7TyXWeFZcL
+         sFfGPFFZw5Wt5DUEAOxtdwrzuHt+a1/cIEByr842fKYPf/46f/gmHAZWfRWC4SVkXnyu
+         MLMXuxIu4QGI7bB7/Qgk7b26STr/Rb+Ab0v2a7G8oB4hxJEqqvn2WEH0ic94oCIbQpgI
+         0jeUWHEKheLzq1Fektap7jxtv5mhfyLq3xeMGK0Bm2voP6M9eS4TzKfY98RE9o5OtltG
+         n6TQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793286304; x=1793891104; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=raspberrypi.com; s=google; t=1793286625; x=1793891425; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vdl3zVyVjBZWDK1aeLeEcxRGnowINUoX/w7iRIrrcs8=;
-        b=KTvkBblpm+DjYOzWPoesGHfRGDc8Y9esTAi6XStHuQwetj3MPH9PNo2E4AIIEFq0aE
-         BWgWzP0WHnQydCwudIvSXOlCn5CeHEJvahMEdLcD5aZiOvL2WIHa/qE7QapGUlMhVnbF
-         Mx+9pLUx6w7WrOhVsEyEiSLKjdEggFbiCIBAn/s2kPz/zdcYJReIn99cRUJRJk9h2t2e
-         t9D3lDV7xxda00mmAlYzxv3SrymE5+cCRHK7QLQWXhIJo6KpNrBJtvFyZNN46uKKumoa
-         5egx7M+XPANaizEZNh+2yryp2XYfTGhLChQ7OVoUWlrYffWCRuFUkazHeisXORXyYw9o
-         pOpg==
+        bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
+        b=t0HEKi3JEuYusOJQ2BlME+lteEzd9dpBkx0PYrvDTF6m0Gk0Q+n2i1EUE9nTUzuobE
+         jgmDRB3BuFqDIcfk3pKSMf2ZVBNUYhnBJi4AQOlRU1v3BE8YfrL4dMUtUtwXzB/LkkKh
+         W7hTXlaauGp2j3cYctzuHfnaObEhfhmydvxsoNvTEELOKG/xAuPZi8zu3cSrRxrthG9T
+         avMlZ8RsvJk4iVIODKrTJFIFU/7bXBHJevI9/zHVtmfcpFhc6TuQMMeYsurZ/VZCOEbo
+         gau2V+U2q/NGCK5o+dlwIHFTFBtIjsuOXnSt/D3Csq8dhKQoq2F4U0glozDN4haqHNSm
+         PwoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793286304; x=1793891104;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vdl3zVyVjBZWDK1aeLeEcxRGnowINUoX/w7iRIrrcs8=;
-        b=slBQS7kM7H8fTOZsHUUxdVxdhu8WOQRdlIgp1+8GBWR+QeNx6Z1j1utAinZKOVDDxo
-         LnhjisrTcVNGGsbH4shHnyc0bhcyHRnyILACq+htaV03dTALWDQp66bieOGC+sFIUhOD
-         LUqTkdpIu17U+9EGQtkyAPGckiuVqdShCIGprxC8aBF9pocio+LPSk0tJxDUgGcbNMTW
-         FoX0o4RL2mGndoGdQRurNjWPP1V4Am2WekWgkn04t/JCu7J4+/8QzlId+HLwuNW0j+ff
-         cHWdUNgWsWYHahfW8pjXNscBCNUw6MexJa9nwb0w4IZEBZDiEi8eWpxGtvm6KlCsS+xz
-         tR0w==
-X-Forwarded-Encrypted: i=1; AKwUvBwls/GYdkw70Yd6sw/vtUELvvIo1RJSt601n/Pvnz14julN5CZER2AycauX7lOEiJm6bAtjYaGJZbLHHB0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhDxHD8Fi0cl21Ltf5JHb3w9cw4MLAknqLfpLP62wrNYXUW1x0
-	tV7bEXoA/OSf6HXzvNQJJu5k8jiTNCePMiErnKIlAIKMtRPVzF9MkhumWevKONHVcpCxCzlMZYI
-	L9fZhxB4O6cHYyZ3YG9kusyH0W13qwEJtLj0u4W3NT98pFBNN3rsL3WYzIlEPcg==
-X-Gm-Gg: AYBFou15wDkGUMuz/Rzlu8lwwl8FCRLwOdhLXXVHqfaIf7crgSyu/4SvoQNu2CLyO4t
-	jVViFLfJQNO0cOCibFx49xVx0ScoexrDCMiDuLQ1CEj7TDU/V/lRJA/22vOwrH8MepLaLfGeihs
-	eJ65Gu3S64QvqKiCiBWEynw9uuNR2ArjQEDZWJMwrrdjISBha0FCkoEgKx/aM4E8rZmvvcNALfe
-	JQvIjvk8EcaymS5ahm6CTGkEtV9zu3AKMOlLGL7A+5LNPeEwgSSsqM69vpb4hXIY9M7SSFp/FL/
-	I3m5bTigeU74o7z6mrBsEBIe6CN3+gPOgt/nRRBoWgZJ4oZU3Xb+zQ+M1sQUnOhsrB86y2mwxhk
-	+cRFAwpvyrUs/3+WpRJZIUDNnKbH+1YsOobV7RTZMD+qFuR1KuOsKzVkG3T3hr+2wD0yVCVvf2M
-	Sr79ro8V3Z+Jjx6Q7kEugjf+k826YjNFKx5mmKSTZspEtYuiFd8SEMSEXpIxaKzf7EfofUmPLEr
-	K3+2DF4y8oHmCUBWHHzp5Q+LLfybUcczfP6VdnCkmMnDaEL3XTnqE5yPCRcDV4Qj8Q=
-X-Received: by 2002:a05:6214:ccf:b0:91c:524:465d with SMTP id 6a1803df08f44-91c7cf468acmr86813306d6.9.1793286304096;
-        Thu, 29 Oct 2026 08:05:04 -0700 (PDT)
-X-Received: by 2002:a05:6214:ccf:b0:91c:524:465d with SMTP id 6a1803df08f44-91c7cf468acmr86812696d6.9.1793286303616;
-        Thu, 29 Oct 2026 08:05:03 -0700 (PDT)
-Received: from [10.206.158.158] ([129.236.230.185])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca29091e0sm22536d6.7.2026.10.29.08.05.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 08:05:03 -0700 (PDT)
-Message-ID: <5537eacc-0884-4b05-9634-16dff0eef69b@columbia.edu>
-Date: Thu, 29 Oct 2026 11:05:02 -0400
+        d=1e100.net; s=20260707; t=1793286625; x=1793891425;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
+        b=fTxkmcwiTRh+CHnMFQS6htWbADHUkXmF0lSN4kRsMhUuwKu12QkMcTDGIIl3B8RxSk
+         dVSGwOYQdKDytTx4tEhU7ZvBAUIhvKHdnAdpucBaSNGMNujPoWmsjj76yGo4CeY0YF0q
+         dR/d3l+lot6v1b+0R5r4NysWrxghrGsPqnkX8Us4qepGE39xuSMivebiCVCYTP5Dmxca
+         TMt8uY/Xp/CelOwxg9GzsUWBFS36Z3W0jd1ghvEqpAqn8cCAxRkF2soZxYWhxVGCbrSd
+         9j7HBMHvZlaGYQOAmHYO5HprEj5DU/T2VULzgxP8dgCOhfmpZA387WPutkqvjXvMKFXt
+         4XqA==
+X-Forwarded-Encrypted: i=1; AKwUvBy8cJ2sDzZyoADsh3dfjnHkW8XXxKmY4dGlc/V1cszlUso2WwboeH9HF/2029ozo19eQ2OrjMDFHJKdh6k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQN93vX/NMGH+WpoUXqyhJhOHnoSsHChxriniDFkrHu9GAa541
+	CIAlFcYRdbZPgHS2dbVm53PJTBF8bT56PUE2H488/N3+Gs5VSAtxfR77G9yV0U/nlqZLNicSTj7
+	/e31EWMxyTWiGrijai6Tr50gco8lhAVmacqFEwHWlwA==
+X-Gm-Gg: AYBFou0xyzXz/83faGcsG/5hqEps6XOI/CzJliMF00lc4svWrSbuYo6vy+Hf7EZbcfY
+	jmAcAvXtd2Hr0GxbNEQ6tXaNhaghiJbmzVyU3oOW+QEGOXfEq8mnxnkMHGq8I5WhcyfChu6xDiE
+	TkDOnrmf+0/FWW11smG7joiQQCX7L5aNonErenMeZ/1liD4oAT2nZx3iyHogwEPqxZWi/6/0xRa
+	iqE9l+nDkykduMcgRMKymH7WSw+OFlD0bfJS2y+Y5AKlE/Flkusndw/NEIOmIoDN6uzHrYpNdM9
+	g8Rs2brMHu/AwzbgzIFW/yT6eanbMxLJj4C3nFHhPfc74VPU6ua/KBWjXDrzoTXAIcTNzfA4YTD
+	LB4+EPGjYqN+pRFbOgBG1Jp15x4s60k7zzsOms2iEaCaPlU6xcdNdjUkGpjnek+yN3pT5/Do/e6
+	yzOWEXiy+mQUfjl7+5L7fqa3E3d1ig3F+Nz4rxx83T6Qva/kXnu8KIfQ==
+X-Received: by 2002:a05:6871:2102:b0:49e:33ff:6bda with SMTP id
+ 586e51a60fabf-4a8e06a7791mr1577014fac.16.1793286625298; Thu, 29 Oct 2026
+ 08:10:25 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,54 +104,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] exit: use READ_ONCE() to read mm->owner
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Oleg Nesterov <oleg@redhat.com>, Christian Brauner <brauner@kernel.org>,
-        linux-mm@kvack.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu
-References: <20261027-kcsan-exit-v1-1-7c0429a29bc0@columbia.edu>
- <20261028235404.2a24aa50c06556eaf77a033b@linux-foundation.org>
-Content-Language: en-US
-From: Mani Tofigh <mt4022@columbia.edu>
-In-Reply-To: <20261028235404.2a24aa50c06556eaf77a033b@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=E6lYNqdl c=1 sm=1 tr=0 ts=6ae360a1 cx=c_pps
- a=oc9J++0uMp73DTRD5QyR2A==:117 a=s68UaERRFoarOrKl7kvqFw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=JR4YdQiviy7OQf72WyZ1:22
- a=VwQbUJbxAAAA:8 a=5dIJZD-rmGDQ5m4RUCsA:9 a=QEXdDO2ut3YA:10
- a=iYH6xdkBrDN1Jqds4HTS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA1OSBTYWx0ZWRfX9oh5+PWCE+9c
- 8MyDXhgMqQahyND2jom7z6D4s6epThm2T1oaPB//SIcTOsgOZ2HpGwBYPNgrL2xggzUXje00GlR
- 54CoJO4A5ptZ0Crthoa0+Tzb/HLv1yP3rTdkf3Cvw4SQvhSgeehJ7xdHtVORkaMBg7Bu4WL0Mcj
- EBRvpTIP84n5F1rEqHzcRVDxRbRNpHSNsOhtTc0lLI8/KKoesGndMAQsupbzU26BwpGZSgJRs4b
- dvAtBQbJwdbRBGY/L3fZVR+ER8WUoR0P7jGXgLqax997bJWiz+j4b23nsUqu1+HM9lqxjTjEdZb
- s8IXafuqt6PhVyfqAwF1iUQ5SBzW/GWtV7LHj5EN4U7GdNaGcdlBWPcAQ5zZV16KGZuc4zyfalv
- KhcABlcvlFbvdbhgIXyFDTpamlGovsdLzUCvbSjmrqF4/toD7fqFBoYMFl1yHw6VEHqXFLtZrkI
- zsEwnp4D5WozJn59oMw==
-X-Proofpoint-ORIG-GUID: yLRIaZokEYaFAvLMvYrBVA23oLVRzggb
-X-Proofpoint-GUID: yLRIaZokEYaFAvLMvYrBVA23oLVRzggb
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA1OSBTYWx0ZWRfXzr8zrk395AYY
- Jb42560BlD/+uCoez2RnYcpmDFlDWN1L3Yn0gOAoNQFdrRq2dedvwEPxvsoGTTZFELqZJgN5yWx
- vyQDhoPxKTgiWRDzDapeGzvNJ+P+kBdmuGzR+Wt8/zUCJf0Notu1
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11949
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 clxscore=1015 lowpriorityscore=10 malwarescore=0
- priorityscore=1501 bulkscore=10 impostorscore=10 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290059
+References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev> <20261014-ov9282-fixes-v2-6-3bb376d8b1a9@linux.dev>
+In-Reply-To: <20261014-ov9282-fixes-v2-6-3bb376d8b1a9@linux.dev>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 15:10:09 +0000
+X-Gm-Features: AclHuK-NCoRP1AFBwcEcpT9lZOpueGQS9GFk1YygW8gcMAFUBjXyhMvfoBBBJz0
+Message-ID: <CAPY8ntC1G0Q=MFGkLNSC+bCq-iJh+estq1FeDgE7aV4UksyuyQ@mail.gmail.com>
+Subject: Re: [PATCH v2 6/8] media: i2c: ov9282: recalculate strobe span on
+ HBLANK change
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
+	Jacopo Mondi <jacopo@jmondi.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Wed, 14 Oct 2026 at 07:49, Richard Leitner <richard.leitner@linux.dev> wrote:
+>
+> When HBLANK changes the line time changes. This means the time base for
+> the strobe duration calculation changed. This results in the v4l2
+> strobe_duration control value and the strobe_span register value being
+> out of sync.
+>
+> Fix this by recalculating the strobe_span register value on HBLANK
+> writes using the currently configured strobe_duration. This results in
+> the strobe_duration configured by userspace being kept, but the
+> underlying register value being changed. To ensure the values are
+> applied on the same frame guard the writes with OV9282_REG_HOLD.
 
+Group hold will do what is intended, but if control updates from
+userspace for eg gain and exposure generally get too widely spread
+then, we've got much bigger problems.
 
-On 10/29/26 2:54 AM, Andrew Morton wrote:
-> We don't want older kernels doing this either, so I suggest
-> 
-> Fixes: cf475ad28ac3 ("cgroups: add an owner to the mm_struct")
-> Cc: <stable$vger.kernel.org>
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-Sounds good to me, thanks. Should I send a v2 with these tags or will
-you add them when you apply it?
-
-Mani
+> Fixes: 84ec7597ae1af ("media: i2c: ov9282: add strobe_duration v4l2 control")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> ---
+>  drivers/media/i2c/ov9282.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> index b48c959b9c908..5114fbf28a26c 100644
+> --- a/drivers/media/i2c/ov9282.c
+> +++ b/drivers/media/i2c/ov9282.c
+> @@ -625,6 +625,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+>         u32 exposure;
+>         u32 lpfr;
+>         int ret;
+> +       int ret_hold;
+>
+>         switch (ctrl->id) {
+>         case V4L2_CID_VBLANK:
+> @@ -677,8 +678,14 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+>                                       OV9282_FLIP_BIT, ctrl->val ? OV9282_FLIP_BIT : 0, NULL);
+>                 break;
+>         case V4L2_CID_HBLANK:
+> -               ret = cci_write(ov9282->regmap, OV9282_REG_TIMING_HTS,
+> -                               (ctrl->val + ov9282->cur_mode->width) >> 1, NULL);
+> +               ret = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0x01, NULL);
+> +               cci_write(ov9282->regmap, OV9282_REG_TIMING_HTS,
+> +                         (ctrl->val + ov9282->cur_mode->width) >> 1, &ret);
+> +               cci_write(ov9282->regmap, OV9282_REG_STROBE_FRAME_SPAN,
+> +                         ov9282_us_to_lines(ov9282, ov9282->flash_duration->cur.val),
+> +                         &ret);
+> +               ret_hold = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0, NULL);
+> +               ret = ret ? ret : ret_hold;
+>                 break;
+>         case V4L2_CID_FLASH_STROBE_OE:
+>                 ret = cci_update_bits(ov9282->regmap, OV9282_REG_OUTPUT_ENABLE6,
+>
+> --
+> 2.53.0
+>
+>
