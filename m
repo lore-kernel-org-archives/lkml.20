@@ -1,83 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.209
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260457;
-	b=2QIpeVwW3wIiWO6+8B2dyG2j1uz7Yj13ZCSifoxhBc4eT1ViREKwbm5FBbNtbLKo3tKG
-	 +eMtf+4Kgvs6wtnJLJFqREUN8uhGGVEvSHqkt8LswLpe7igmtrJ4D5TCqELGz92m79KWB
-	 k6Dx/1R8z/y+Mij2K2xUkANG/2W4Z13oNGdp9Cj/pZECOSRNabKKcmuxArljIMUTu7AT5
-	 tXZm/ug4JOKBHUyuIdCmUuL+eeiIzj2NAwOWuMyRabHLTP8PUJkyaIETDSsjq9E66iVjs
-	 8jBuDWwKoXnLLDWwjcXSwXcsqAN2nemgsKatR3Y/5ki90pn6bcy8jx5nWWkbQsq0OAg==
+	t=1793260454;
+	b=ZAhDOOBAgfjeWSVvsKI4Slbj8u8MqW22SXqwSMBaugI79m9MwPG/N9sub1VUzyjmc5xv
+	 gN1YA4LqoW5gZ7mQw6/RNdcjdEbYDQyCHZowzZWjKYdjKwgz/YVDKz1Pna5/b6u2yF6F/
+	 LpKg/aDPUd3VslOhmjbwNoD/Q/AcktxU5i1Ao4/3q6Ouu5IrdeNVbQYO3p3C+q8SVvfmP
+	 QYqxfmIdDIYlgBL9Bk2EejBkoREbmkgiXE/GxDZFCENND/IEDIh41QmctKO+cIaP96WNb
+	 iKdwse9ZvDYe4Iqi7l99ao2jKme2oTjAT9ueK+Dm614RhZI3NZTVycU+hxinORmMXJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260457;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LrVJrASEPDAnWNObrp4qXrz8WW/eaSb8dl6O3NDVmxg=;
-	b=fCJ1YMUXb3GulejkHb1aKEIg+QHx02SbaWUv70hpDP+r4ii0ylfQLTqRsjDzEUji7ZRg
-	 B5qGEes3mhSpsh5MpnynpEt2GxukW5V3pw1301LzZOjyK5Ra6Kvqi5ywn2eCn78zP7uEF
-	 SCG70R0Ldu0AcVaka8qS99iEV6k/roHiAzXh8r01Oxw8fuI0vfKVqN2jGxOaJf6SKpFR6
-	 GLtyxgcN3TIM0jWeaneuyjWNiZUgnZYJYC4tkV5C7e6tIVaby1kmS5/h5ZdMPtbzTz/KF
-	 rw5n5pqEEQ0dFhrWF8Nyjv/9sJdBsdaSD5ZJNbYRQq2Au8uC+fRDwxOQwVWolVaQG4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260454;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Transfer-Encoding:Message-Id:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
+	 X-CMS-RootMailID:References;
+	bh=F/IgJjIajvkpTnZ9b6Rl2KQ4eIIaQRMHBA2FjQ0aYCY=;
+	b=tYR+4ocJhfUzDpZmcMmxQdOpewK92uhwYvS2U0aHqm6eaVKfP4ZYWykpcsMeD0jm4knZ
+	 77afiArQmTpicaSVHO1HZNZyYCzjotwjj9QGtREqOejOIwLuxemgXI529DdoenyCd76DA
+	 cZXGLIODy0FTRog7FXMg/VBpd9XGeZ5N/gQkt/4OlOFl8XGOS1GkD1O1Ftud6KVfTs0Fz
+	 V24XnhdHNxwqaE0UVzswGuq5DAjlnvMb34MKiJBPHKrrzFvn5PM4xP3CFOGZWAq66c5da
+	 dBUjaNyMsk6uZfne/eqbSrhy77m6+cWT7SsVKBCGX/IyeR3YEt11rUvlaiw5o2yIrww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=W3Z6vY6T;
-	arc=none smtp.remote-ip=203.205.221.209
-Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=XUbFMjbZ;
+	arc=none smtp.remote-ip=210.118.77.11
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3030860A5BCC;
-	Thu, 29 Oct 2026 07:54:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3030860A5BCC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BA8606A323;
+	Thu, 29 Oct 2026 07:54:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95BA8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=W3Z6vY6T
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793260448; bh=LrVJrASEPDAnWNObrp4qXrz8WW/eaSb8dl6O3NDVmxg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W3Z6vY6TZfHAy4Y+vPcSyooBMikEHi52D0m+7YuCYNRgfX6FlWK6muPjrXxx64N+U
-	 A6sc6wJoYN7Q4nUK+ZH10BMkTh7q/UoanX50F6UcqH73jn21/8QlTAeabUpo+4pAio
-	 RkeGaSWY1zAt5bG6AfXcVywiHcGkgREymcxSbXAU=
-Received: from shuai-VMware-Virtual-Platform.. ([171.8.225.58])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id D859381F; Thu, 29 Oct 2026 15:54:05 +0800
-X-QQ-mid: xmsmtpt1793260445teksvypk4
-Message-ID: <tencent_3B08CBAEFC7B931B6E90D8D8C4BF3BB1B406@qq.com>
-X-QQ-XMAILINFO: Nm45YswcjhU8BGGHyu3meqLQYIY8JWZJk2uFMM7hVoKjeFDhPGQ5iaBRydXQlX
-	 6ysxzfp8GF9U0uLGslMwuDHRF8YCzqmyEX6yRa098A90l59tqR69MUJmgLNU2l3HRSFBT4fOLBTV
-	 kL5M8C6qLfPVUwCayo3/PXhtatIymY/WMLyQRHjQBMucJO5A3SoV6RGPcgpYGAIb/37AR95sXZ7R
-	 +fgERJ6QDkMBqBSBbvBawh4aX4JPNC8ovL13Nri6vcDkTwijbDLPYmKoNPHa+1GMceo9bD+lCB/t
-	 99cJP4dItZKTLUOMa3r1D/JbGorFwpe6668ty3iA2jJEYG45ED+ys9/hrzzfsFu28nxZLj0FuKGb
-	 MAEfcIAqG6LBSyaEKsgYV7pmcq2dbaeNDTZJPepVRLcls8FHDQv0p8kb0PvssRJPhS7mD1q2+W9v
-	 8tCuVNkEfuIWMQMr7FUg/hmxQ6vFToQeHMzl59eaLcc3fl6uonguJlDTQOYuMW3jDXCeuPzDPGyE
-	 DhetIZeLXUBDK8OVvTWg5hZoL7IF48UnzcHrTId32ELzKy3EO/bVHyhb3HkNuWCRMYctxyWrJAQx
-	 Z47oP6my2qKajZbGXgePtnctxBeJ+C00h3jhTMlyU/HBMaHTRj/JmTMyvXG/MbNyhYlXV2n74IMx
-	 luI5FcueViqws2SQXx7OgwiViqz/j+n2GaIt2Zp8pN7InI3FP54mmJB9FyASV4INW+ox6K+WMbTF
-	 mkTd+SO27OAjNdrNTgJzZTkkNxKlw7wELSRWSANSDYd6OYy0w2vSHdmUtEmFr/0Lyza2W/8xouaY
-	 p8wjruLLucmoAD1pP4A4PT5N+7dFHz3e9DJcyRjMb9qdM6Gl+JTcAKemc6rUPPCUUknvtA98k8Yv
-	 LpXlD1dhmRwkYSGFu99gwNvIuunT4W7+5RJJfg+8Hb5cN576dtFGY08tUDycD9ov1146p3LcvPyT
-	 kEtHK2S9yOE3qYmVRjpbuXBcImtcRgqi+GXRupr84rKVnYzxm9fDN3F2gkT7J6Tph4aOFo1Z7gOK
-	 p/JNEYxhvBK6e1E0ZyBR1F0EUeF0GRmem5uQOk2KQIAc8kqE9WK69bM4Cxc3GcNQXZ2FmEJGIKai
-	 h6BIb3SVOI5MZjwBcPvze8a4RC8xb5u2fc0RIFbWntUuExUxQ=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Cc: Shuai Liu <847807867@qq.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 8/9] media: camss: vfe: add the gen4 block and SM8750 camera subsystem
-Date: Thu, 29 Oct 2026 15:54:05 +0800
-X-OQ-MSGID: <20261029075405.2907239-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028034105.326535-9-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn> <20261028034105.326535-9-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=XUbFMjbZ
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261029075411euoutp0183d10539c1cf8dad4d0d377831170929~i8OE_cbAb1384813848euoutp01H;
+	Thu, 29 Oct 2026 07:54:11 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261029075411euoutp0183d10539c1cf8dad4d0d377831170929~i8OE_cbAb1384813848euoutp01H
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1793260451;
+	bh=F/IgJjIajvkpTnZ9b6Rl2KQ4eIIaQRMHBA2FjQ0aYCY=;
+	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
+	b=XUbFMjbZnC9bcH5DFvZJArrl8xQ2oEe+PF/7ywa2qFxbulIfzBGky9F8vvOFr+jJ0
+	 LW2kRw51eUkTVE/Z1ozhNtXUeulmZDWbJnyCx5F1eRhXcbqmaJ7Oheq06tkfQNXkvI
+	 Puqvy3FpydrLuIojRvxI0IoA4M8WcJVtVxie9F0k=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261029075411eucas1p2833ecd1e37467796e96a1031ccae27c6~i8OEs-cET2715027150eucas1p2W;
+	Thu, 29 Oct 2026 07:54:11 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261029075409eusmtip172040876ebbaa97f0807514e12ab4dd2~i8ODCiu-Z1494214942eusmtip1q;
+	Thu, 29 Oct 2026 07:54:09 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Date: Thu, 29 Oct 2026 08:53:45 +0100
+Subject: [PATCH v6 11/18] drm/bridge: inno-hdmi: Add .mode_valid platform
+ operation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,60 +66,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-jh7110-clean-send-v6-11-759594e43acf@samsung.com>
+In-Reply-To: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,  Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,  Andrzej Hajda
+	<andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,  Laurent Pinchart
+	<Laurent.pinchart@ideasonboard.com>,  Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
+	<luca.ceresoli@bootlin.com>,  Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,  Philipp Zabel
+	<p.zabel@pengutronix.de>,  Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
+	<hal.feng@starfivetech.com>, Heiko Stuebner <heiko@sntech.de>,  Paul
+	Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+	Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,  David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Yakir Yang
+	<kuankuan.y@gmail.com>,  Dmitry Baryshkov
+	<dmitry.baryshkov@oss.qualcomm.com>,  Michal Wilczynski
+	<m.wilczynski@samsung.com>,  Conor Dooley <conor@kernel.org>, William Qiu
+	<william.qiu@starfivetech.com>,  Xingyu Wu <xingyu.wu@starfivetech.com>,
+	Sandy Huang <hjc@rock-chips.com>,  Manivannan Sadhasivam <mani@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,  Marek
+	Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
+	<maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>,  Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
+	Joshua Peisach <jpeisach@ubuntu.com>,  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>,  Byron Stanoszek <gandalf@winds.org>,
+	OOHehir <oo.hehir@gmail.com>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2972;
+	i=m.wilczynski@samsung.com; h=from:subject:message-id;
+	bh=yG8vYaSuZdmBrNc2UJf/Fj5s1+7TuIROgYoZaftPrns=;
+	b=owGbwMvMwCGWumv6zndzRCIZT6slMWQ9+t0zeeeii90zAmbeu+kg/n1bQt+i9U2BMz1a9O28O
+	4W31hx/2lHKwiDGwSArpshydmO0keQ/hqflxx//gpnDygQyhIGLUwAm4tnE8N+ruLKPd+rzsMsT
+	Pr7YNtFp0sLE71OyRU+3nXFY7bw+vPUbI8Ottb0fcn4H9v5++lcrjfn5kl2/H3qlfYvqOJnw89r
+	ZvN+cAA==
+X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
+	fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
+X-CMS-MailID: 20261029075411eucas1p2833ecd1e37467796e96a1031ccae27c6
+X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+X-RootMTR: 20261029075411eucas1p2833ecd1e37467796e96a1031ccae27c6
+X-EPHeader: CA
+X-CMS-RootMailID: 20261029075411eucas1p2833ecd1e37467796e96a1031ccae27c6
+References: <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
+	<CGME20261029075411eucas1p2833ecd1e37467796e96a1031ccae27c6@eucas1p2.samsung.com>
 
-Hi Qianhui,
+inno_hdmi_bridge_mode_valid() validates the pixel clock against
+hdmi->refclk, but that clock is optional and is only present on
+platforms that describe a "ref" clock. Platforms where the pixel clock
+is produced by a separate device - such as the StarFive JH7110, whose
+PHY is both the clock and the PHY provider - have no "ref" clock, so
+the check is skipped entirely and every mode is reported as valid.
 
-The gen4 write master programming itself matches the gen3 conventions
-(the FRAME_INCR >> 8 formula, the 256-byte unit addressing, RDI_WM()
-offsets), so only three things stand out:
+A mode the platform cannot generate is then advertised to userspace.
+The subsequent modeset appears to succeed, since the atomic enable path
+cannot fail, and the display silently stays blank.
 
-1. The interconnect table does not match the binding
+Add a .mode_valid platform operation so platforms can reject modes they
+are unable to drive. Platforms that do not implement it are unaffected.
 
-The binding in patch 1 and the DT in patch 9 declare four interconnect
-paths for sm8750-camss:
+Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+Tested-by: Byron Stanoszek <gandalf@winds.org>
+Tested-by: OOHehir <oo.hehir@gmail.com>
+Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+---
+ drivers/gpu/drm/bridge/inno-hdmi.c | 9 +++++++++
+ include/drm/bridge/inno_hdmi.h     | 5 ++++-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
 
-  ahb, hf_mnoc, sf_mnoc, sf_icp_mnoc
+diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
+index 708d4c03f8880429f99680abd0c92e150312237b..2684a3cc5667ce133357dccb8d214806db27f863 100644
+--- a/drivers/gpu/drm/bridge/inno-hdmi.c
++++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+@@ -823,6 +823,7 @@ static enum drm_mode_status inno_hdmi_bridge_mode_valid(struct drm_bridge *bridg
+ 							const struct drm_display_mode *mode)
+ {
+ 	struct inno_hdmi *hdmi = bridge_to_inno_hdmi(bridge);
++	const struct inno_hdmi_plat_ops *plat_ops = hdmi->plat_data->ops;
+ 	unsigned long mpixelclk, max_tolerance;
+ 	long rounded_refclk;
+ 
+@@ -838,6 +839,14 @@ static enum drm_mode_status inno_hdmi_bridge_mode_valid(struct drm_bridge *bridg
+ 	if (inno_hdmi_find_phy_config(hdmi, mpixelclk) < 0)
+ 		return MODE_CLOCK_HIGH;
+ 
++	if (plat_ops && plat_ops->mode_valid) {
++		enum drm_mode_status status;
++
++		status = plat_ops->mode_valid(hdmi->dev, mode);
++		if (status != MODE_OK)
++			return status;
++	}
++
+ 	if (hdmi->refclk) {
+ 		rounded_refclk = clk_round_rate(hdmi->refclk, mpixelclk);
+ 		if (rounded_refclk < 0)
+diff --git a/include/drm/bridge/inno_hdmi.h b/include/drm/bridge/inno_hdmi.h
+index 0864f0d8862a4325821a84db6d04f14011d9aa78..790633fcea97a6b9840da7b19a0c0b0d7271fb83 100644
+--- a/include/drm/bridge/inno_hdmi.h
++++ b/include/drm/bridge/inno_hdmi.h
+@@ -8,15 +8,18 @@
+ 
+ #include <linux/types.h>
+ 
++#include <drm/drm_modes.h>
++
+ struct device;
+ struct drm_encoder;
+-struct drm_display_mode;
+ struct inno_hdmi;
+ struct platform_device;
+ 
+ struct inno_hdmi_plat_ops {
+ 	void (*enable)(struct device *pdev, struct drm_display_mode *mode);
+ 	void (*disable)(struct device *pdev);
++	enum drm_mode_status (*mode_valid)(struct device *pdev,
++					   const struct drm_display_mode *mode);
+ };
+ 
+ struct inno_hdmi_phy_config {
 
-but icc_res_sm8750[] only contains two entries (ahb, hf_mnoc), and
-camss requests paths by the names in this table, so the sf_mnoc and
-sf_icp_mnoc paths never receive any bandwidth vote.  For reference,
-sm8650 keeps the binding and the driver in sync: both declare exactly
-ahb and hf_mnoc.
-
-Please either add the missing entries with real bandwidth numbers, or
-reduce the binding and DTS to the two paths the driver actually votes
-on.  As posted, the extra DT paths are dead weight and the bandwidth
-they are supposed to guarantee is never requested.
-
-2. The commit message miscounts the instances
-
-The message says "two full and two lite CSIDs" and "two full and one
-lite VFEs", but the binding, the DTS and this patch's own resource
-tables all describe three full CSIDs (csid0/1/2) plus two lite
-(csid_lite0/1), and three full VFEs (vfe0/1/2) plus two lite
-(vfe_lite0/1).  Patch 1/9's message has the same numbers.  Please fix
-the commit messages.
-
-3. vfe_prepare_buffer() rejects formats at buffer-queue time
-
-The 256-byte alignment of pix->plane_fmt[0].bytesperline * pix->height
-is a property of the negotiated format, not of a particular buffer.
-Format negotiation does not guarantee it: camss_format aligns
-bytesperline per format (5 bytes for RAW10) and height is not aligned
-at all, so plenty of resolutions pass try_fmt/s_fmt and then fail every
-QBUF with -EINVAL and no explanation.
-
-Suggest enforcing the constraint where the format is chosen: either
-round bytesperline up to a 256-byte alignment for gen4 (which makes the
-payload 256-aligned for any height), or reject unaligned formats in
-try_fmt/s_fmt with a clear message, and keep only the per-buffer
-address alignment check in prepare_buffer().
-
-Thanks,
-Shuai Liu
-
-(This review was prepared with the assistance of an AI coding tool;
-all findings were verified against the patched source.)
+-- 
+2.34.1
 
