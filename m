@@ -1,84 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793238537;
-	b=jJyqpoFpL5gX8XzrLtqwsgd/CRAxIgNkiphH0FwBEYYORAX4OR/7Tqu8AOL3v1/VZ1Mq
-	 pZcUGeJGy47Z5sySBO76ukYFcMmyyYADhZqOL55xcFU24cRpkfZLR69Xm/ug8kUyhTDcS
-	 TvOTetlB/f6bgU3ha9TGF9dD6GuhzknpRablft9R2duneSOBAQ61D0TBGtt4FnMVrUS54
-	 fUWSeDRH0CjUe0q88FVtaPXEmo+ZczGFhbLsmetoMUd6gCidAHdO7KnEjmofpd+dp7lCq
-	 s9QyBZ7FaDFGS8GezVHIlRXR+B35QaZL3x8MyHC+jDsCJu79XoYLqSNsfR08UlGmSNg==
+	t=1793238536;
+	b=hqGV5MwjbAh5QH+6rxyxKBWSQGCHGS9P2gzA8X0KtvrodbZAUs9f+bkz1ll0AhsasXpt
+	 NqoZd3iLYOkz0gMWNkaZU04VN6bh2k7w3khw8Z6UALX+fTl2g3iW3NxIa0jOwgcWpJZ5H
+	 6BMCOKRbA6cIPoriJXL8MLmMnMmab4r46Qgm6MlqU0y4jmCXsxYoiAqRpQ9ucodoIh0B/
+	 GoOLLsECDIL0vZRMdAeFfDkXNf0PB858zsdKm9Wm16YpcfDg6rxdKiYHw7FNU1fRBHzIy
+	 SFownFkpUsrJsgxl0ks+Mzne2Bg2bHlYengirJTzgqOsk5gX9PCuGQq9irAAMUVl8xA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793238537;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793238536;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=WpPpjm9qqTzsBHBWliVMSUioS6+fsJ4niawtYuOMrWQ=;
-	b=HBkXiZYtlKKGX6bHEMgOvH9craNqAawsA981fYMUwxp/oK/dqzyUvVgAn48zaeMkUui5
-	 ORlIO4GY7byMBv2PUc3suXRjMJ+VwwMBjm7uDKJVA5RE3WUr5LaewnkCZW3GKNoVr25DZ
-	 tLrhQUisr0vk6HBhgnJ6IyCv8oMArua9VvzFaRlDAutXmHe6bHVTG5x/UqDNTlg3O4nw7
-	 KmtUh+Vvultsp/zC5UYJKu8KPJ8X9ZDJXBC4SG0xvM75g8N42lPnND52EM/dxisB0uEiG
-	 32f3J1vNVlPoITc785UK7v8ziaZYKkJeIlMZgShH1FvUFw2Rysg72Hb63Chh5eEm0HA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=oXOkghG3Xos0XUP5GgF89q+M7BUlh3Lrnn+tFu6rFN4=;
+	b=YdaeGnYjBH57Hay7DBiXlb9uju+Uzgiv5EXoE3m/fuJUwiNvbuvweuqD17MYo/V7DCMP
+	 aC/V39eyGKe5bGpfV7yPU2GjNtEmtpxbSPm/ioJ8c/mggJYWJDPSpgHUypvlJOg34f8Xt
+	 HGjaF9sGYmAeX5s9oCMCjCTEaunbPR11FNFmNIiBqxWQYg0fLSiQoV+ltNJmEIRuPOvp2
+	 BWQn2BP2+aAXx+8vAI/wHhzvF/mamGyQnfUNhKYx+3jdzHZfzvp4koy9p8VLEenWK4+2R
+	 1t2DHu+T5XrBOylf3GOdwQPIL2yTDVUb62IJj0EgDc40V5PA1BbPPhxcYlaEhnwYRNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=BoVyrxHL;
-	arc=none smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="A43rD4/C";
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0056A606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE08606A31A
 	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:48:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0056A606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EE08606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=BoVyrxHL
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso2498786a12.3
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=A43rD4/C
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1a2af4c8d00so123303c88.0
         for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:48:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793238535; x=1793843335; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WpPpjm9qqTzsBHBWliVMSUioS6+fsJ4niawtYuOMrWQ=;
-        b=BoVyrxHL0J/es+BtxA3ZGTbS/DVq4pf4tZK3IXlwuavJCQp9ZgDbhOmfgzjP0Vgo4Q
-         O7nsgVSMAufKHiGA2urFI/8Cpcsz+94tTIkehaDZ0FnZdrXDfElhPbySA2FacNShYf8v
-         e1HeuTTKH3pcl6hHWbzMUReNQps3W7G601tERrUbV5tTsUaWEKIOI2xlTt3+ty752RZq
-         j7YiHOk/V+B+oR38IBlKlNrooIh39EeynSMsGDHUNZcxT8iRUpcuczBRO6GMb2GXwsBW
-         no8UR7YRtSjq6TeU5v3IJW5HkcDJGMQu+1uzT2kCKHIh33Q8oUKAqS9tRbC7LrYfjA9c
-         vC0A==
+        d=chromium.org; s=google; t=1793238535; x=1793843335; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oXOkghG3Xos0XUP5GgF89q+M7BUlh3Lrnn+tFu6rFN4=;
+        b=A43rD4/CFNYoCCpf5Z0cuoTAu7zC32EwM6k1Hx9Of8WbwYq2Mbw9YZF+vXe1QESjC4
+         4Y7kCL75UJaAb3h41np5V5YzTmMkeeBZ7YDfkkE+TRE0bS4pqYNRO3ZUkmfWc3ErwotW
+         hbx6vWek9FnieufsNpWziLbEjs009dWBmmTu4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793238535; x=1793843335;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WpPpjm9qqTzsBHBWliVMSUioS6+fsJ4niawtYuOMrWQ=;
-        b=N6RJwoOsDsLAyeKoIpV0PnRqS1dQueFO8Cd40wu0bSOT8nwsHFaylbm+cWK+XqAaD5
-         IaXD0YSR29EAoCaQGhU0geRaa7Rt1/hfjt+gDsfckkSwSEQoiFI3SYBLT6ofECqpKrjD
-         pnWfyFmr2eAQx7LaVjMk+Sn8CCCSLhrgwonkudsuqbW2mNGGgJgwx4OCE/8ckKrfex5H
-         3ZL5mNnPYyse96bUTzWLKvd/FuOnERdg9KjIig+2FLoTBN3uLanrzpjdw/sAJyHPMhIn
-         wS+jstHo4KKZjOAWnURFYhIECaddt6UAI2Fu5dRA000XU24S+kGTzVrsNJ9N1/YQ0PaD
-         6U7w==
-X-Forwarded-Encrypted: i=1; AKwUvBwlYwFEJaN9ySB5DVAYF30CXMJ9bDI0+hYyIQQttW3FmTThtCWFjs3YighgfVFrfXw5K0HCnxl/NZ8S8f0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOWeSWwaMY9BHsVUXulsvtYQ7p7nFRPXDBP61zyYakKKeN1Wzo
-	5BA82j6VIxMUWFGyyD80i3MFtxfa1clWkNH2NdD+D2oT0sB4ZpPaYlg9GOnd0X6tDQI=
-X-Gm-Gg: AYBFou2WMSNiIWdd8Yl54Pvwbt799kbYM/IXMCrx6lghHW9tg6ZyU269+q+hnxArqHP
-	/8wG4Myz9Kkfqv55KTtUJz8FOYURTBRj53cbk0WexHQrOUBL+nveB4SSej2PHgPf0fEXvJoqcb8
-	VSWRbvAUQDA7zVU2kI3bHlMMAjQbe/RkcDj6orH+YATNApVihnCxmlH8LhCkjbP+zO8Fv767ATh
-	4LLQYfiAoUAcyc5joImh5wq1bqR9UY0qLNXI1fl5UGSVDCRlVqETjd3qYFyrflJ3nuTeoax7wiB
-	mlFP5qlCR50LO9ajFcYIUJU7Da+k9m+7OSGE1/D4CN7T5hrVcdMJFZ6WuJW8rscUAFBsAYKxtMJ
-	16Mt8Gk8GsgqsptWTp7tpVf9eR51O2zr35TsnUypsj42go5TGa9OUkN6KgBgyJ8gBRGZgtANGlM
-	/PGpbI+66I0gTm2TaqN+WWvbj1hkWTDfwXQbfX4FCKHpz7XCWM6OiruF4H2XBuIKR+zoW82xU62
-	LpJepgwGjzywr0FjDvJdjnzQ7shcsT458BA2k4JnwhckGKX10uazH9pwImIbRfqYpjMn/9KxVGo
-	24yoqNtcdwSL7T1hJdS1
-X-Received: by 2002:a17:906:ef0b:b0:c41:b94c:4539 with SMTP id a640c23a62f3a-c49bddac7b0mr353178966b.6.1793238535200;
+        bh=oXOkghG3Xos0XUP5GgF89q+M7BUlh3Lrnn+tFu6rFN4=;
+        b=oRp2pecYUvkG2OXazznwnBhsUhy/Li8FtKDFFYjzrlkPND3ccVzKi17L77j8uWaTvZ
+         0qfki6TNabsEqs6Cl7w1Q+euN08HHiLMeFO6CgAP8tGs7doDBHS97yajiuQJ2StV5jz/
+         Hsp2EZ8dl2meK+eRoNsb1j6qisedDgfAoE0bKuU8iGZrTr8kA/OffRxfYlEqt1VoObJH
+         9bIvCl5zAckkFsG+a9nnDZ0NAFANKwARdLOoIIDazRBoHmyjCm7/TUn3Sw8ws/XU/Z3U
+         PwXJ0mSECR4cTzVu6QVembEdmJS5imIJ9im/K/Yba3Zxbnh3LdkIWRDSBaU0c1cuw5M+
+         t3pQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxjBZZU9VnbuZilLDCEozlJtoMB89EEDx/PuybuBBZC1o1RU8qKpXBOEngq9QsFzol7eR/vIayOMhS7q/Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrZTOM2kODPMYQMkIPaygIY3icGP30Wxq5Eh9qYUnmuUOVV1zZ
+	YZuE4CGUQJigZta8sJf7CqFbVPjt55rZpvWr4Gkoqku6SgOnX+WK8tXLgh3/inz2Hw==
+X-Gm-Gg: AYBFou1i6ooVoqNo0z8VVW0879HvrnAywIdvvk4CqhU3WC1q3VHELAID2RE8u4CqxBn
+	rRSQQHu5Wmv8le/Srs6llWq0aytENACnfdaxn5jejRd8RhvoZA/Hk4z1G6OdRO63EcFaawBdlXO
+	T7IXYkQAqntprLjF9xmD4OW8A3/4bG2X2gLSE0jSDrnDIXtcdLk0tTF3ZXOw/EDjqHaGx8DY/4Z
+	Ci+m2ruBBxWZ8ZUumP7a9iIjReDMLSX7Aza+Fyggu5aCEfgXGsP5fbv35mYW2LCU+3IB6DdAwpO
+	a3UpbXPzr8wcEeplwnLKV65yuvdbNWp/V+fevHTa9lrPsG4k5hYMS7hk2198x1XhtYokGYQXBex
+	XKi5yVP38zAoEO9AcymgVaMW1Zx/at/HQu7C5PXY3I00YOcTQiJBmVujpOtFCUYknXwbMLfINRb
+	k6HjPTo+eU8b3DU3JZfxoVx2vytF/gS1Te7peHKVMs842oG7/o33/RVOPd6DvCqXeRZb3/wOCX+
+	+258u/lAMlVOHdxec79ylqKbSWVS/8b6bQObUHgUMQfceKe67adQH7Tb+qSez/+85nQFP2VLPy0
+	nQof2Si8otRPlIzRNoadCMxpG855uBwB31TUH7+ww1pg9jXJpdDPSCmi7ZE65DscxJSest9sQPy
+	Kkf8h96YvZpB+aBE=
+X-Received: by 2002:a05:7022:eb53:20b0:187:eb7f:bb4 with SMTP id a92af1059eb24-1a6ced8f913mr6113117c88.46.1793238535216;
         Wed, 28 Oct 2026 18:48:55 -0700 (PDT)
-Received: from localhost ([2a03:2880:32ff:4e::])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b495ac454fsm2147232a12.1.2026.10.28.18.48.52
+Received: from google.com ([2a00:79e0:2031:6:f72e:e03e:c64e:b5b3])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d85f23dsm8564749c88.11.2026.10.28.18.48.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 18:48:53 -0700 (PDT)
+        Wed, 28 Oct 2026 18:48:54 -0700 (PDT)
+Date: Thu, 29 Oct 2026 10:48:50 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Xueyuan Chen <xueyuan.chen@vivo.com>, Barry Song <baohua@kernel.org>, 
+	Yosry Ahmed <yosry.ahmed@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Brian Geffon <bgeffon@google.com>, Minchan Kim <minchan@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	xueyuan.chen21@gmail.com, Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: Re: [RFC PATCH 0/2] mm: zsmalloc: make shrinker compaction
+ budget-aware
+Message-ID: <auKlTdFbOZmAuheo@google.com>
+References: <cover.1786003779.git.xueyuan.chen@vivo.com>
+ <anVWZVOt-xeD0dMH@google.com>
+ <47ed45b5-de67-41aa-aa21-a3ba3479a7cc@vivo.com>
+ <anXJ-5_vO7-toSe1@google.com>
+ <CAKEwX=Mm2tXcen-quRXHf1Y2qSHYvpEUe4xiw-mHYaJnRUR-EA@mail.gmail.com>
+ <auKjuiRxQwtsZF_0@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,88 +103,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 18/46] mm/khugepaged: check if PTE table is empty in
- try_collapse_pte_mapped_thp()
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-cxl@vger.kernel.org
-In-Reply-To: <20261027-fixes_core-v1-18-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-18-6f74bec9a5bb@kernel.org>
-Date: Wed, 28 Oct 2026 18:48:51 -0700
-Message-Id: <179323853182.453251.8510731747954180380.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auKjuiRxQwtsZF_0@google.com>
 
-On 2026-10-27 00:17 +0100, David Hildenbrand (Arm) wrote:
-> The existing code is rather horrible and already resulted in bugs in the
-> past: we special-case UFFD inserting anonymous folios by grabbing the PMD
-> lock early, but ignore any other markers (guard, poison through uffd) that
-> could have been inserted into the page table in the meantime, effectively
-> dropping them.
+On (26/10/29 10:43), Sergey Senozhatsky wrote:
+[..]
+> > Hmm we'd need to collect more data in our workloads to determine, but
+> > if we can compute compactable ratio (freeable_pages / total_pages) on
+> > a per size class basis, can we just skip the size class whose ratio is
+> > too bad? Would that at least cut down on the vast majority of
+> > fruitless memcpys and lock acquisitions etc?
+> > 
+> > I'm always a bit hesitant to over-rely on userspace, especially when
+> > kernel has information to do something smart about it. It might not
+> > react in time, and many proactive reclaiming schemes back off under
+> > heavy memory pressure.
 > 
-> Let's just unify and simplify the locking: try to grab the PMD table
-> lock and if that fails, flush the TLB, drop the PTE lock, take PT locks in
-> the right order and check if the page table is still empty.
+> Apologies for the delay.
 > 
-> We still perform the heavy lifting (zapping the folio ptes) under PTE table
-> lock only.
-> 
-> Include <linux/hugetlb.h> for now, as x86's flush_tlb_range() macro
-> depends on hugetlb helpers. This dependency needs a separate cleanup.
-> 
-> Both issues this fixes are rather corner cases. Let's not CC stable for
-> now.
-> 
-> Fixes: f807123d578d ("mm: allow guard regions in file-backed and read-only mappings")
-> Fixes: 1043173eb5eb ("mm/khugepaged: collapse_pte_mapped_thp() with mmap_read_lock()")
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> The thing about shrinker compaction is that it's sort of on the
+> wrong end.  It doesn't trigger compaction when memory is plentiful,
+> no matter the internal fragmentation rate, and start firing compaction
+> scans when memory pressure hits.  The problem with this is that, now
+> compaction moves objects (if can compact zspages) and releases empty
+> zspages, in parallel with potentially heavy swapping out activities,
+> which can simply allocate those released pages back.  Which seems like
+> a useless exercise and needless memcpy-s.  So I was thinking about
+> either putting it under config or just removing it (this might be a
+> harder decision).
 
-This patch is painful. It's taking me a bit to wrap my head around.
-
-I get that you want to avoid taking both locks while zapping, but
-wouldn't it be simpler?  I suppose we don't know what kind of
-regressions might pop up with that though, bah.
-
-I can say that I've reproduced and tested the before/after state,
-and it looks stable.
-
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-
--- 
-Gregory Price (Meta) <gourry@gourry.net>
+In embedded (android/bookOS/etc.) there is a daemon, that triggers
+various zram activities.  We can wire in pool-compaction (once under
+memory pressure), which is a zram sysfs device attribute, instead
+of pondering zsmalloc with scan callbacks.
