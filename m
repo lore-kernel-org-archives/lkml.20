@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793266136;
-	b=scEOObSOd2BieeZRkZbJfMgq+QR+PZZGFisFTOoXJUqW+Yx6Duw2GEl2uSnbOsmR77ci
-	 HrseMvofh6YTugs+9ANNZeXuL6TRQxu0FCnIFVp0oIBxb9Xbqwrh6G3cxqfb1ta9ByT2x
-	 6Cc99B+7N2VtyFrHS7lZHKe+9JPsD8GyZjfUQ+ynZpILoUEERu/nbszt5kH8ZLYx3T7+K
-	 KIl+YoKv4Mnx9sP5C5xdEWn1FH0V5WycnoTdqDPYXoL330hVLBFjMIJakH808FBUJoqUw
-	 1vD8rcROE+yr5IYaSQAemqOV5bTjCcAuKVKdykZTzqwq1nqQ8SLMKtdUBhjsIihyEeQ==
+	t=1793266139;
+	b=e6Po8LTPwd0QlpbH3YT5aqbEjSVPWxd8xywo7Z9fgNHD1uhjRGMaS1utXwrJq66qzUyf
+	 OXVfCeOXCSWBgVp2oGgExVpk0rUr2VnW+gEpiaAsmpnlYXmBRfiiNrmeUehp0KogEuvOP
+	 Kh6iAiwaBku7xfVfMrTqu1WrhqkqaSe2sB+kOB87VENnjSg5dRxvUs+4gOnpSmhatii3B
+	 HK2LXL5Z9Ak8vt6AkjVw5vcMvGV9Lkfq10E4UPqpPvxoUpe/UDvemXz7S/1vbsqN3hqe/
+	 O8tioEd3fW9S5q8jfa6i7mHQ3Ui5IhwdLJ+/9EtfImUcZmY3T94Mj+Ew9t/78X/6rWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266139;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=RnDihmKxpybwQ3lflW2lkaGbP/R8N59IQ6Lqmj7g01A=;
-	b=Fp//G0xOAwmmxXKaxHsYbjBKJihT7Q/EyNa2tE9bdHp4YXIEq5MyrHOmtfwRuIwkKfbc
-	 7TrSJynxu99zx6zse3tLcusdp2MdnAnE3p1/mDCnWjMcNOjrVehgHOjEJ2GE0x6ZiwTKs
-	 WuTTbPRKZ3BQ/VK5N63+vzzFXQx3VXjLgJjxpXT7yv0oRLh98NzfWU7VuH/bh0w3MyZNA
-	 7ukCelQdPci+6LLe96k7VDm/hP03xchaLcLvYWDss39XFe/r9G6ZKhym/ZEA1zG5OWn7/
-	 7XQ0ENIsLS24AIim7l7EHRSi0s56Yh0yIrpRDNR8/SQMdcH8Gi2KlB/PMogN8qYuzQg==
+	bh=DyYlx7RzolSrqUFoSHL9Wz3/RMfVWdxjcPwX2TXBXFE=;
+	b=QeCJslqdDwD0sX0mdNvCBG+IU8LcH0YO4VsmiwUY/5NAavfG6rV+vA/oXVtEhE9nUgzX
+	 akeYv+LRsV78/eWLerPIsVikjqEi2PEDMf9p7z0r3C+Gu1YLz+YdNq9YVHlBsl7hTR2Bk
+	 nyiWpcW64w8g0TKML6yXe3LfmXcm0KuCpiBkpbpV/Ut357tOHNu3Z5MXe3guo61RE0xP/
+	 gBmldem3sXq89yzW6DCYmJ7NlSxc0cJUMcp4qfo2/bHrsrll/LJOjzaL+ByPYlDkIpkoI
+	 B9dfmpwCFTvGE7Nx+e0Yf6XZYP3OPhhB5wHq728fEVNtp4RKHT6LtOejhcwngXveMAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UgQmEjT2;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Fp3jU+ZX;
+	arc=none smtp.remote-ip=209.85.210.197
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86190606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:28:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86190606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC47606A325
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:28:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEC47606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UgQmEjT2
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a05bfa6af5so1596117b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:28:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Fp3jU+ZX
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a05bfa6af5so1596152b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:28:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793266135; x=1793870935; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793266138; x=1793870938; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RnDihmKxpybwQ3lflW2lkaGbP/R8N59IQ6Lqmj7g01A=;
-        b=UgQmEjT2OrctjTEuMQWE+DjBo+siW1st7YIBg2iJCENp7kHeTadLkj7Q4ibO2fEeUg
-         cXbrxPaz5bm/RGx6JqoOtVaLfoWKfCY/ZHLT4t3cQaDG2ih5qef0dk1Mc+pSIZTntlXS
-         SOO7bbOzL+xUgNP1x4eDiOHEpS/TU6RrNIk/rS5HpkA9zn48qsrpKeBhGW+vBkHLBFjb
-         cEiAlA8i2/MV3XSbf5imHuWbuDjaFsVauvkavUPMNLIlNXNGOTEiNolnlbSzhJ2sKYRF
-         iSY25YJ3yRpHLZB90jhh82+apxrlRSHi51m4oVARv6NANMCfu0iFPU08/Z1gDjGScagP
-         QVmw==
+        bh=DyYlx7RzolSrqUFoSHL9Wz3/RMfVWdxjcPwX2TXBXFE=;
+        b=Fp3jU+ZXDe5xQ9gU6Y0878wffA+jwkfzH2VksIjkPgeu58rrapbh3xF3+LqbZ415nt
+         IPLxPILwZuKnQjOfoWrveQHN/uYUdiGWEVoRbVE9mPtQPxYATVCeq+vW3S4vaZ10t+Gt
+         WVxqx51RapwZDZ7KabsME9jo4ngXvoc9G1h8Pviti4D/eaQLk0wsGlxkV9JjK/NyWTt8
+         k/aNVRiT4HcIkAc4bAVSK5WAXUqpmoT/CvBXd+aRr/isSrID85GE1INY3t4ybnBLkU1L
+         kFVb/bj2Dwv209F88QQEFUoKlT9wHoB0w8I/3/Q4u+0U0L+hU/R4x+8CejyG2UMFIC/S
+         0+Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793266135; x=1793870935;
+        d=1e100.net; s=20260707; t=1793266138; x=1793870938;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RnDihmKxpybwQ3lflW2lkaGbP/R8N59IQ6Lqmj7g01A=;
-        b=NWUgfeaxk8AjnUApDmeu6sDO9xUwiCpnxxeAy+QToKTX4OKZZze5i9fpnJYR5zA/N5
-         J7d+huItoM0T7fqUF5w4g22IS3vaPtB39cu2RXkO6xRSB8zSEu+kWGP0OVMctG7+QnrP
-         jXfI/SmjLhIC8frzjJ8+FLCWSiqZXNo9Hpqig+MzhHX7FDxw4vVahGPEEPsklx5k8XQq
-         dtOP6SllX3AJSYmNlyHMYcAT//a/mc1/xbEAv8XuspoKaxsq2u86S9T2b61FjCxOiinA
-         KbHKDGB8Z4X9XddOw61M8RRSRS27+rmo2zfpFCblFZXaE8eWDpzh1GKHRctRVy4Yec49
-         IDog==
-X-Forwarded-Encrypted: i=1; AKwUvBxtm3BV56IuYjQNQyIZgHBxZh0KIi8wZW8bIRU7O8v0VlL/y0zKsb4goJpZXrzqOI3jn46xA8/m1iAE0xo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAwQwaSN2I1pCyYyULxNZT+gFEowvQ8GDuYp/CdZy2VrZCoJpS
-	Fm9aAHXwuTDadNqV2EglrQ4JD+J2DJFWdGXpuurEPbj3FHjdDZRj4v3YYKzCNhBaK6ElAoy0/Iy
-	2+DbQv3Zmt45YmA==
-X-Received: from pfud20.prod.google.com ([2002:a05:6a00:10d4:b0:89f:92b2:3fc9])
+        bh=DyYlx7RzolSrqUFoSHL9Wz3/RMfVWdxjcPwX2TXBXFE=;
+        b=HzpDAiY0i+xJ3zANlmZEqG3KU3XLRCvw5rORgecvfoL6F/9UFhsR+fHXFlymOtMpI4
+         tTKJ/14hERqscmsePIjd/xmLBgLLjUGH4z2lSd7LPXEFPGAz0rQmlGJqyJmL6vOvlhH7
+         mv0AHoCZ5QipMjRbrqaYcsq5luwryNs6wRzAPt1Pi+FwdObnPu8j4EeWul4Aob7d+PGa
+         mO+OFENr4gofpYxLoY3CWzYcLIqCNrbjxdXes8LHmV02XhwyYrlfAT01/fR+ls4u1u5Q
+         GDSb+Z4nxJ8gpUOdkYnpOPgNTT98PPGEFBS8ruoRnMDEWbiVLLp9uGcRRgz1au4oIniU
+         Go8A==
+X-Forwarded-Encrypted: i=1; AKwUvBy6nFgibH6Y+kut5zpgq0/y7pOxaXHEwXaQJPxzGgUIDtueVRfVDUW8h54aF0EpIfDxWu3madJuQy88/wQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYID8Fd4ZLTeFPW+nhMCD4HsRA4CE9VHhEBZT5TqJwIjMeUgz0/f
+	PSPR86hZWNiz54kyPHHcmzfaYaY0rYeabZ7F3y6z0PO+FYwAx2Ib1F59T3pfxt/DFM63iep8qq8
+	4GHPUEI+JSzE1nA==
+X-Received: from pffk11.prod.google.com ([2002:aa7:88cb:0:b0:89e:65fd:e92])
  (user=sgsatyam job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:1d99:b0:886:ead5:6d3b with SMTP id d2e1a72fcca58-8a6e81b6fe8mr3914906b3a.53.1793266134660;
- Thu, 29 Oct 2026 02:28:54 -0700 (PDT)
-Date: Thu, 29 Oct 2026 09:28:40 +0000
+ 2002:a05:6a00:3a0d:b0:882:94ab:20ea with SMTP id d2e1a72fcca58-8a6e78cfe1dmr3662107b3a.39.1793266137875;
+ Thu, 29 Oct 2026 02:28:57 -0700 (PDT)
+Date: Thu, 29 Oct 2026 09:28:41 +0000
 In-Reply-To: <20261029092846.1567475-1-sgsatyam@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261029092846.1567475-1-sgsatyam@google.com>
 X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261029092846.1567475-2-sgsatyam@google.com>
-Subject: [PATCH v6 1/7] platform/chrome: cros_ec_sensorhub: Unwrap sample TS
- relative to FIFO TS
+Message-ID: <20261029092846.1567475-3-sgsatyam@google.com>
+Subject: [PATCH v6 2/7] platform/chrome: cros_ec_sensorhub: Reset TS filter on
+ EC/AP time mismatch
 From: Satyam Gupta <sgsatyam@google.com>
 To: Tzung-Bi Shih <tzungbi@kernel.org>
 Cc: Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
@@ -92,96 +92,41 @@ Cc: Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>,
 	Satyam Gupta <sgsatyam@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-The EC reports the sample timestamp (a) and the FIFO interrupt timestamp
-(b) as 32-bit microsecond counters, which wrap every 71.6 minutes. They
-are unwrapped by cros_ec_sensor_ring_fix_overflow() with separate states,
-assuming that two consecutive values are less than half a period apart.
+The timestamp filter history is only emptied when no interrupt happened
+for TS_HISTORY_BORED_US of EC time. After a long gap without events, for
+instance across suspend, b may be unwrapped to the wrong overflow period
+and appear to have advanced very little, while the AP time advanced by
+the whole gap. The filter then keeps a history that no longer matches
+the offset between the EC and the AP, and predicts timestamps off by up
+to an overflow period until that history is replaced.
 
-After a longer gap without events, for instance across suspend, that
-assumption no longer holds, and as a and b are not taken at the same
-time, one of them may be unwrapped to the next period while the other is
-not. The AP timestamp of a sample is computed from b - a, so the sample
-timestamps are then off by a whole period, about 71.6 minutes, until
-another gap happens to realign them.
-
-Derive a from the unwrapped b and the raw difference b - a instead, so
-that a and b always fall in the same period. A sample can be taken long
-before its FIFO interrupt, when it stays in the FIFO during a suspend,
-but only slightly after it, when it reaches the FIFO before the FIFO is
-read. So treat b - a as unsigned, offset by FIFO_TS_SLACK_US for the
-latter case: a is then unwrapped correctly for samples up to almost a
-whole period older than b.
+Also empty the filter when the EC time and the AP time elapsed between
+two interrupts differ by more than TS_HISTORY_BORED_US.
 
 Signed-off-by: Satyam Gupta <sgsatyam@google.com>
 ---
- .../platform/chrome/cros_ec_sensorhub_ring.c  | 21 ++++++++++++++++---
- .../linux/platform_data/cros_ec_sensorhub.h   |  2 --
- 2 files changed, 18 insertions(+), 5 deletions(-)
+ drivers/platform/chrome/cros_ec_sensorhub_ring.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/platform/chrome/cros_ec_sensorhub_ring.c b/drivers/platform/chrome/cros_ec_sensorhub_ring.c
-index d92b602..7eb8841 100644
+index 7eb8841..076a65a 100644
 --- a/drivers/platform/chrome/cros_ec_sensorhub_ring.c
 +++ b/drivers/platform/chrome/cros_ec_sensorhub_ring.c
-@@ -35,6 +35,13 @@
- /* To measure by how much the filter is overshooting, if it happens. */
- #define FUTURE_TS_ANALYTICS_COUNT_MAX 100
+@@ -294,6 +294,14 @@ cros_ec_sensor_ring_ts_filter_update(struct cros_ec_sensors_ts_filter_state
+ 	if (-dx > TS_HISTORY_BORED_US)
+ 		state->history_len = 0;
  
-+/*
-+ * A sample can reach the FIFO after the FIFO interrupt and before the FIFO
-+ * is read, so its timestamp (a) can be slightly later than the interrupt
-+ * one (b). This is how much later it is allowed to be.
-+ */
-+#define FIFO_TS_SLACK_US (1 * USEC_PER_SEC)
++	/*
++	 * Also empty it if the EC and the AP disagree on the elapsed time
++	 * (dy, in ns), for instance when b was unwrapped to the wrong
++	 * overflow period after a long gap without events.
++	 */
++	if (abs(dy) > TS_HISTORY_BORED_US * NSEC_PER_USEC)
++		state->history_len = 0;
 +
- static inline int
- cros_sensorhub_send_sample(struct cros_ec_sensorhub *sensorhub,
- 			   struct cros_ec_sensors_ring_sample *sample)
-@@ -441,14 +448,22 @@ cros_ec_sensor_ring_process_event(struct cros_ec_sensorhub *sensorhub,
- 		(MOTIONSENSE_SENSOR_FLAG_ODR | MOTIONSENSE_SENSOR_FLAG_FLUSH);
- 
- 	if (in->flags & MOTIONSENSE_SENSOR_FLAG_TIMESTAMP && !async_flags) {
--		s64 a = in->timestamp;
- 		s64 b = fifo_info->timestamp;
- 		s64 c = fifo_timestamp;
-+		s64 a;
- 
--		cros_ec_sensor_ring_fix_overflow(&a, 1LL << 32,
--					  &sensorhub->overflow_a);
- 		cros_ec_sensor_ring_fix_overflow(&b, 1LL << 32,
- 					  &sensorhub->overflow_b);
-+		/*
-+		 * Derive a from b rather than unwrapping it on its own, so
-+		 * that both always fall in the same overflow period. a is at
-+		 * most FIFO_TS_SLACK_US later than b, but can be up to almost
-+		 * a whole period earlier, when the sample stayed in the FIFO
-+		 * while the FIFO interrupt was disabled, e.g. in suspend.
-+		 */
-+		a = b + FIFO_TS_SLACK_US -
-+		    (u32)(fifo_info->timestamp + FIFO_TS_SLACK_US -
-+			  in->timestamp);
- 
- 		if (sensorhub->tight_timestamps) {
- 			cros_ec_sensor_ring_ts_filter_update(
-diff --git a/include/linux/platform_data/cros_ec_sensorhub.h b/include/linux/platform_data/cros_ec_sensorhub.h
-index 0ecce6a..96eaad2 100644
---- a/include/linux/platform_data/cros_ec_sensorhub.h
-+++ b/include/linux/platform_data/cros_ec_sensorhub.h
-@@ -127,7 +127,6 @@ struct cros_ec_sensors_ts_batch_state {
-  * @fifo_info: Copy of FIFO information coming from the EC.
-  * @fifo_size: Size of the ring.
-  * @batch_state: Per sensor information of the last batches received.
-- * @overflow_a: For handling timestamp overflow for a time (sensor events)
-  * @overflow_b: For handling timestamp overflow for b time (ec interrupts)
-  * @filter: Medium fileter structure.
-  * @tight_timestamps: Set to truen when EC support tight timestamping:
-@@ -164,7 +163,6 @@ struct cros_ec_sensorhub {
- 
- 	struct cros_ec_sensors_ts_batch_state *batch_state;
- 
--	struct cros_ec_sensors_ec_overflow_state overflow_a;
- 	struct cros_ec_sensors_ec_overflow_state overflow_b;
- 
- 	struct cros_ec_sensors_ts_filter_state filter;
+ 	/* Move everything over, also update offset to all absolute coords .*/
+ 	for (i = state->history_len - 1; i >= 1; i--) {
+ 		state->x_history[i] = state->x_history[i - 1] + dx;
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
