@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258406;
-	b=XnkOLRfxMGIoOItNGc1ijxzfnTDgdmcJZzn5FUFI9pI0/+uCgRcmqcTNdMMLA2FfhUzR
-	 EtR0SAU7ftRC7Neg+rch+6m6pC11WBhD7scdRo3JxCdubImlnWdNQdNJABqh6rozrtxmr
-	 JOyJaxNhaAyYRqYLasIYACtO5stFThD91z+RikVZ7UklLbpH7FtVDC/Gql31/D77GaaDb
-	 CaAcHukPtPeEcYaMin8g5ADBZMKNO4hRCu2V09OMKJFk7m3JcQU9hbFvEm+cth9TkNwbs
-	 EZccfglARoZdsLhmNGSxuR0LEFaLY+WblWBnz1SNo1drFXzwAkKQsY3Jaqm3AAe6/cg==
+	t=1793258420;
+	b=hqiBiL3dCQhApgLKU9T4ZweiMhU2qRmfXR6uDYg8g7BwCofMKL11jMLNjz+B6SW60FgS
+	 DUCtiFdansbflFkOpEfx/jvBTQ3tAqkSyUZSii4Tt/Fd3DK17z/nvrcYQwvOrGyBznhWo
+	 ucZMOMR7w4hFYM2pvyQwQUdLEH3do6mhqO5jDW4n2s3jjXlWV29uyeZydtxHek9hRBqep
+	 twDpfeMsbx25SYaiSaiK9LhRm4dnD4028ShhGTcwfPpIPOXZcCzEREN9kJ2XqqR+UwVhm
+	 f9Skj0IgJbnofOAU8IRkc8Tj9BgR0zasvPSOBQPqXtT4ay7FBilhcnyXdYeXIIcUkAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258406;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258420;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=8wv7Jn0qLsai9wguILtnSGEOyF8SeWDToT835BgG09A=;
-	b=qXWO9lBbJCk6xtqRAeVCS9plAqvhGiReVm0szQCD58xzra/vi+45c2FI2lIPOXu39fS2
-	 Y9BiTV2C/GjUMIiUxkwgPElK9WE8Y/ZCbxaDNEx6uCB3GrvcpO0fRRphlAKrDZ55lYCyj
-	 CRIT49koLcg4xuD06JrBQSdFRg0YVM9lk/qTKcIM1Koj6onPZjL+b4nhvTPto1DOmI/Lr
-	 R6uCc6tMtjp3ddVKtSz3JUjR4y31MjGVrp2imdIxn0XCZGBGipsIP1ZrY6PrfoSy1PeeA
-	 PJNm2ZwREWnewFEjRg7lPi5QxWDj7D+HdyOqpYXMagtjnIE+LJnf92S/g91+gmVrXgw==
+	bh=msIwo/eMaQA86/KSNqtbAUpHQHSvhDmPlJ4v36muoi0=;
+	b=eNBwh/TRU8nkHKokeijiXUlR6bdVarGkxYl8NnOh0Cz36GFzhWySi9dtzRGanRctJ+I/
+	 fxl65S4DOOHevY3OCeLJI01KRITRBhRW4jH29FAZQV2hvnQ3pk+wkHZG8YElh5b2bpI2o
+	 yYIYEyU8EhkhjapigsQa5w1cnmgkJNDiPZvBEGy+9tEY/8SiH5xOXiY6VBoKM2Cz4gRSR
+	 VgR6Msdl7UyFOZsgdeY6SVEaPUOTj4wYb0sXVtrZ9+AJRluZYTZ8R5bW1XYzj7Qw9afoT
+	 sSirfwrK3HJXFdylMX25x/CJ13y8E00cg+kOcqG2Rwns1gDG0gFTOKHec7NVlIzAUJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chrisdown.name;
 	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=BW2Hg5NJ;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b="ZOF8ZVP/";
+	arc=none smtp.remote-ip=209.85.210.171
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8C5606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:20:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF8C5606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C431606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:20:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C431606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=BW2Hg5NJ
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so1494870a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:20:05 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=ZOF8ZVP/
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso954990b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:20:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793258405; x=1793863205; darn=vger.kernel.org;
+        d=chrisdown.name; s=google; t=1793258419; x=1793863219; darn=vger.kernel.org;
         h=user-agent:in-reply-to:content-disposition:content-type
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=8wv7Jn0qLsai9wguILtnSGEOyF8SeWDToT835BgG09A=;
-        b=BW2Hg5NJ1tlElNAvT50jab68nVpWnl2t8dwRUe8chJVs0BDe1vvP9x62VfMcZGWJX1
-         V2mMuPNcLJ/U+bKErL/WIava+tLjoH6l7iozilaO2nT5Xbg28HGcqJ2cRi0daHB20BTB
-         WYpepYvhTbgkkCEhqun66ij/amoFEG4qBbViY=
+        bh=msIwo/eMaQA86/KSNqtbAUpHQHSvhDmPlJ4v36muoi0=;
+        b=ZOF8ZVP/+ft5G0xbjZvNsEI2Sy7HUSanc2AHIj6gbQfCoTvvXH47Rv2wOXek07mlHS
+         ABxhnKGCt5pSoYdjNSIaZD9DwBKzdjBkMxGVqOWUdNe6+0+XFOwZg+vD5eit2I7o7k+0
+         MGi38YDSSHL9pN2K5czmV6ukBO4pDBWAacGLw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793258405; x=1793863205;
+        d=1e100.net; s=20260707; t=1793258419; x=1793863219;
         h=user-agent:in-reply-to:content-disposition:content-type
          :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8wv7Jn0qLsai9wguILtnSGEOyF8SeWDToT835BgG09A=;
-        b=IBOveH2obl1K3HeHar5RuF1jVWh0DYsadZgKUAEMqP4cJJbZUO3x/l0ncrvhcn7sts
-         jZtvAywrJcC4IzovjfLaolzWGrP7b8kFp2lQmm5SMZZTny9J8ryBOzvQ4qF4HgnnsKNa
-         ORH1ZVqMmAIczmv2bdzs91g38AJMFES5qnXypTOWfalcO8dKS5vo1fRlQ76k7MwiDlmj
-         FGWcJezIIWKDPfUDWr4TOYnzhtDlZyB3YTV64kKqTJmz0uZBiN50yMO9i8AHpm69dtsh
-         0TwnH9XRIz8ZrzzlCqVICRR/cpMHe3+7lb2UMidKOCQ4n6KmVbsqyUBBl1/ozv+sHs4z
-         USvA==
-X-Forwarded-Encrypted: i=1; AKwUvBzywDuY1PTJOpzG8vLiwiwV/ltPG3RVBv3iMkyyNcpygfRni5deMv2VwQ3rVWtbwpZEy3hBpXErlO31Kx8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJTVARONEA+tUkoF2zn6c25ADx8FxayXacOE4tCJ9+CnFimTP/
-	9s9yaHdFRH9tdsToEOJ2Q1ARFl0B8zeuItqckVps0inig1xtlauQugg+bTrZEizU2P8=
-X-Gm-Gg: AYBFou3mn25UhzaJbq6qbv4r1KRnsbKOjWErrWVarTdAeG5QrkJwaKp+97EwtC0lr1i
-	hhwep870YIV0xrdONlr4wPG5+ipMrLQlqs8MimfMZHe2PAKRdLW4luU0b05DZpJ2EdKDf7uppsq
-	97wMOtePpz2k9Ot8flCXR7toCO7W4dMjb/HfiavyKLp3EDlDS2p0j6ec279pwkhqy7ceY/Xuij8
-	dQ7wXCPxgrHrmKsD64tL/1k8VRCoeqHce+HoK9pd/QDoE3ypfMDsh4naLiPRhjEnbAdeNH9M7E6
-	TJGDmN0zJg+33ZSIJmgLWDR5OnFuopNEGbe4lo4Py0dGcJo/NTVIWSFbAUtIDWoTVR+atzHK9tY
-	niks2pRf1F8tPwc8QjT56R2kF8HgHgWGcuAgM+kdvOKcomK6qZLGFuNYeJKWnWsJRyTzYbgGYXz
-	T0+G6Zs+ZEFlfzCblQszT2DDUbwjsjQ0CLDAZ1eG0gzO8EVZys5sud77BOntHY9AI7ZtaQ42lxf
-	3WXQRIfvqFbj0yPAdHVNwZkYWXPIOM9SDOs3cSko5IX5oy5z/5mpKdn2jdg14O5Bz2ug1h/fL7V
-	9HLy5hBBNVKud2fz9pVwKvcgzQBSVawZZcyipNRxv4woSRKKqJwxWaH3D+yqPliNyK9kJwr3JGJ
-	h220h+LpwlIiUGAZLQoHvgFPOkQe1hd3a/UakxFyqmAYTmPti2WaXpuxxn3W2uk6yVt4J3WH2gW
-	mMOiDPQmwVpkJQxBZ+pg==
-X-Received: by 2002:a17:90b:4983:b0:3ab:4f1:4f7e with SMTP id 98e67ed59e1d1-3ae5809fca1mr3333716a91.28.1793258405017;
-        Thu, 29 Oct 2026 00:20:05 -0700 (PDT)
+        bh=msIwo/eMaQA86/KSNqtbAUpHQHSvhDmPlJ4v36muoi0=;
+        b=pDarEAfIvWzpMWBpKZBfjq3ju+stE0fnjdO/k8ZpCDUrB/Vatu+IUZ+xaajV5HX0sd
+         FGD6ccm3cwX1CtiaN7r50zg2PPu2XGFY6q8+xc9rX32Tf68k1guXMFfBGoihc6TC2+IP
+         s6YknaRtZ45E6cQwLsW4wbiNzs8lyU9372NavEi3gJxKdHWqdrMR64lbN5Z2UPH5iCsB
+         VZHOI3u4GR408Cv6fU7sA7Ssjc/NtgJj+z6KLqyG3lUSpSWdHhTxV+y0vF2lGcySKCVK
+         x4ZrGwu41vhr7vI1StFpEWnRCjYXSoOUEWc5+B67whQXFUy2AhdjS7g12TXV9zwvvTVB
+         ZRqA==
+X-Forwarded-Encrypted: i=1; AKwUvBw3LRa8zMAW2cmcibLX6hRrAd1KfR+dhVlP2NAU7bXc/lzgPlYEGW2xVQxJlp2PNP8McZADNJh5NfNllQc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyZEndwQVtcIlIbaiWi/Q9ojUAceaAhsWECzTug3k0taW83XBv
+	4Q4/P/X5VZ+W+2BfadJba2vbdm3YU9e23v8Y4rq2KK41ah1kG01Hh7ZPjU+UO5mVo3ErBD/EdyY
+	0yc+zFqXDjRJR
+X-Gm-Gg: AYBFou2pGzj2shtud3wZGyyWiY3YxJKvylveQamAD4VKBMQPw+LtyL8uOEaWWAzeJkz
+	YmAM7zGZnMBxNe9nWF34uTXoyCGmGQn55dtXro0u7waCHveUdqWJU08O7x5qLx0kKXQYZzas2hH
+	ZWYJ2NwFgIGPbawWiBzawL+yU5O2Hz1tNTW8ctso14HKlmt0HD5sQW5g+NCceB2wtljMaQsWYTr
+	Izlf8ElEI/QHtBLmYAUuMST/nPDRPQf6dyad7yUaXaWMkJB1Qe7TPNpWwTtYvhQjFUKO+Z5IAki
+	acTW328cJvLuKoOFPSPkCKhR0ixwotmx1p33YrPO/qjMvSvPM3YBKJbTSqxNg+zNcAv18jqyHYr
+	tcKNGnhZA20jVrlBb8bCKKUV0grG6l2ccxAKSih6wdOfrNg06fEuMWsFFaFe7wgGbkwetOvsDuJ
+	Vc1lxCTNu07oZdHeeRuft88QSSN5FfyCoqYop0y4Sk3zr3MOmbGslDVnZiUjf1gCPg7EdzBgFRf
+	Ojwx2ZyfWjgCFf+1EZkEXFsbphGPgV3y6uIgYfapDux1uWQg2gHK0zDtKmwADOMdr2DXVUwsH6G
+	8DfjJAAl25OtqvgfAQVikpK6BoCYrRqRw12wJ8SHtcX4sCBZQgfYHqoDIc1PMSmJg3p5oNKvnkH
+	Z70pTSqy0lHOCyL5OeQdk88kw/u/Qcwm5vwBgPX/PK5m3gJYFicRgGT/NriH15Id+tgloPm2+
+X-Received: by 2002:a05:6a00:421b:b0:89e:b12e:7eda with SMTP id d2e1a72fcca58-8a6e3c6d4d6mr3938049b3a.7.1793258419593;
+        Thu, 29 Oct 2026 00:20:19 -0700 (PDT)
 Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e7ac878sm2842003a91.4.2026.10.29.00.20.03
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a662d96asm1913026b3a.26.2026.10.29.00.20.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 00:20:04 -0700 (PDT)
-Date: Thu, 29 Oct 2026 15:19:59 +0800
+        Thu, 29 Oct 2026 00:20:18 -0700 (PDT)
+Date: Thu, 29 Oct 2026 15:20:13 +0800
 From: Chris Down <chris@chrisdown.name>
 To: Petr Mladek <pmladek@suse.com>
 Cc: John Ogness <john.ogness@linutronix.de>,
@@ -87,11 +87,11 @@ Cc: John Ogness <john.ogness@linutronix.de>,
 	Marcos Paulo de Souza <mpdesouza@suse.com>,
 	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 14/16] printk: Do not set Braille console as
- preferred_console
-Message-ID: <auLznwtHktgqlST1@chrisdown.name>
+Subject: Re: [PATCH v5 15/16] printk: Modify try_enable_default_console() to
+ return error/success
+Message-ID: <auLzrR_kDaEtr7Us@chrisdown.name>
 References: <20260929120546.328616-1-pmladek@suse.com>
- <20260929120546.328616-15-pmladek@suse.com>
+ <20260929120546.328616-16-pmladek@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,58 +103,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929120546.328616-15-pmladek@suse.com>
+In-Reply-To: <20260929120546.328616-16-pmladek@suse.com>
 User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-Petr Mladek writes:
->-	if (brl_options)
->+	if (is_new_entry)
->+		INIT_LIST_HEAD(&pc->preferred_dev_node);
-
-is_new_entry is derived from pc->name[0]/pc->devname[0] being empty, and
-console_setup() can store an empty name:
-
-    console=,115200 console=tty1
-
-The first one creates an entry with name "" (and links it). The second one 
-stops the lookup loop at the same slot, sees it as new again, and 
-re-initialises a node which is still linked, followed by list_add(). With 
-DEBUG_LIST + BUG_ON_DATA_CORRUPTION:
-
-    list_add corruption. next->prev should be prev (ffffb010209fc0c0), but was ffffb01023cd1fa0. (next=ffffb01023cd1fa0).
-    kernel BUG at lib/list_debug.c:29!
-    Call trace:
-     __list_add_valid_or_report+0xbc/0x1c0 (P)
-     add_or_update_preferred_console+0x6fc/0x9c0
-     __add_preferred_console+0x11c/0x160
-     console_setup+0x2e4/0x348
-     obsolete_checksetup+0x148/0x190
-     unknown_bootoption+0x150/0x328
-     parse_one+0x108/0x480
-     parse_args+0x158/0x3d0
-     start_kernel+0x134/0x488
-
-"console=,foo:bar" does the same on the first console= when SPCR added an 
-entry, since it matches the SPCR slot via the empty devname (see 7/16).
-
-Rejecting empty name/devname in add_or_update_preferred_console() (see my 
-comment on 7/16) should fix that.
-
->-		preferred_dev_console = i;
->+		if (!list_empty(&pc->preferred_dev_node))
->+			list_del_init(&pc->preferred_dev_node);
->+	} else if (!is_braille_console_preferred(pc)) {
->+		if (list_empty(&pc->preferred_dev_node))
->+			list_add(&pc->preferred_dev_node, &preferred_dev_console);
->+		else
->+			list_move(&pc->preferred_dev_node, &preferred_dev_console);
-
-list_del_init() and list_move() are both fine on an initialised self-linked 
-node (list_move() passes the DEBUG_LIST checks in __list_del_entry_valid()), so 
-the list_empty() checks can go.
-
-With these fixed:
+Thank you!
 
 Acked-by: Chris Down <chris@chrisdown.name>
-
-Thanks!
