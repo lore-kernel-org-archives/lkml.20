@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793280975;
-	b=dcfZBuvf1XNEBM7n5B+Rpdm16gS3vzeyCxBzGfcSzvTmmdZhlj/yBzjpiTi55GT3IaAY
-	 fck6TSPr+1uyJXGuH24RvWTA47749mdFHltIvyhmzMCzmWkA8sSYwQ5x1XuAY8qHmwAXC
-	 Ea0DWKcleJVLxMQeyMcyYX+WokFkId4EvFEAkwJEpZ2OOpTYAQ63TRjz3fiadoGZSOAOB
-	 Y5kQDspCv071xNQvrm1IRexUh15Vbz2itCn+nRSljoJLrH1oVSSe/tcUBi6UmoxmVBif0
-	 Kfxh76+grYtL99DPZulgKNhuZKMnsgiEPeBkrS2U3jNRGDQ02HEC0LCIhV5aZzu6FXQ==
+	t=1793280977;
+	b=yEmWKQXwbBWyuLPINx93uMyKB2q9jzDvZiPPS3NzSXKRn1dMuRGk9oTc8hEFIYf1GQvA
+	 3NmssrNF1MvwwQdXLRe+GNQWaNO3y40GxrYdGHbf+5Wr3FWd5FtgXA8dLDVKbhsRfPEKa
+	 qEY9rLzdEyvqoQc2mbZrMm0MdNbO7W0my/Q4tUDZ9RQYqJxWlRVjNPVAJReERJfRBnIIy
+	 XKaJbbGL91eqRQSuHsT6y9AyCYy4tAEbbxVI6y9qFl+d8bjW309K7Q7sqbxF4zxJvWDiM
+	 19IY+PlrrMjUfDOYUlNWhVFzj5xkwjw/EVkK2GJ93tu2B75+NUK2BI7CNSyvthyZ82g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280975;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793280977;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=fCJZ6PMAFqZi+fp54NLfaievJDlE3aNEkrfemsSw3m8=;
-	b=MKnGHYwQYFzfh0ATdaXdgkEsO2BqoE7ZOwXON5uJf+Q1kKd0LhFHYnvIf+EY4tn1L1Sw
-	 65DkguRsUywwMUBlprQtlcodBv8bKgy08pdACYHD0t6EvODbswfL1J+KY0aBZc/wPYPY2
-	 vYzASDZjme3jPMPzWd5VEb55W/YHsFs5nNkZczkD5/7yJQQwKlyVaY+pLKYDssKlXgMrR
-	 d+t3bin2yZg2sDqzySx1LuS65HIXT12+EhiyjlcLzoX275MzbhsQibSyixBTWuIIWo8mO
-	 UVpZF9FSfRs52VgdY0HMb15SrZAuOZkzXB+qCmxsS3yIcBP3wuKu9ctWeqQpJvUBT1w==
+	bh=bS0iSQJp3OkLpA0zXSDW5fylr9WknYcp8VwPrIX4pYg=;
+	b=HdGCXiDb0QdIyvt1tFdV5qVwETk62kD90MGz5mCN4xPENxtwQ5ek1yuhO/tcKvR1YiG5
+	 djuktldoHjiBxM/Gfi+uEpyo/nHVszxcwNLA3Lu49iiWp0u+TsbHs9w+z3anqNX3Ri6W6
+	 ximVrv0R6cbTxjPys6sz2Nf+SdKFqTIrp7Tvnj+BQCyHetytTrXcxVjYY0HtUfqzYnfLs
+	 QIIxg8Ypnx4GrzEW2w5BncKkyZoWAk59M7UXZsbcuF8MQ6XJFPVNsIpk6QNttn84uA5Zl
+	 lemqcG5KOQh1ddJbD/TXwZENzG7UG+x672vxVYZciBqGVpNeK/RZyXx0yZKTrg9yl/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U0SCucAQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lkme2BFu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A889606A322
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54FC060A2612
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U0SCucAQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83DC61F01825;
-	Thu, 29 Oct 2026 13:36:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lkme2BFu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9CF1F01828;
+	Thu, 29 Oct 2026 13:36:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793280974;
-	bh=fCJZ6PMAFqZi+fp54NLfaievJDlE3aNEkrfemsSw3m8=;
+	s=k20260515; t=1793280976;
+	bh=bS0iSQJp3OkLpA0zXSDW5fylr9WknYcp8VwPrIX4pYg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=U0SCucAQByKC4B4g4SvGyajFjqipdbMfx8v6qGE4E4ZHmcv/X2X+ZCoqOIOyXAKaC
-	 nwdmA/lZ2gyIFjZAd3qpzYEmhB02eyTv7apXJ0rmnT1TeiX80zpObfXoiAKR6hwQZC
-	 sPXqV37j4e3S3PDxIGZW1jBTwkE7T/tMKwC8WwTGwTKdRFunYBaU6YB8uYPM3xKxvI
-	 j8hF/0ffBeZAmT1WeFze8G1Y30Nqh/eiNyshDYvdu1LI4r5PnJ2QiQRq0rCd14B/Jv
-	 ObHoTE5Uz2SsdnlLLZw25EPdXskgPFx15Ev4ljAC46Dhk2eyHy2rJtTDMo0ndVhx0A
-	 6D38brXnPncEw==
+	b=lkme2BFuNhl2thv5wsWX5SRz6Lb06ZGBZu24M3tCwnOQjIJrLlvPR7RxJt26HKNUH
+	 ymC3dBitBj3U8WL8T9xhCuB4wnksPDIxrJ5IVMgQiWlo/tjx+TR/j2vQZhX6vaHkJC
+	 pNsu+KjlWOytlmng2Vx0OQZO8/RKmdO10jwiX4bt7s1yg66GRS7hjBeNuB2QA4+op8
+	 Wp2LEEDEwh3S46Qb56x3NE8SXDIPB2rD51VMOIY2dMnpLuZw8HFac4GZQLM5MsSgtE
+	 TxQ2R+NPbnLAzt5cjFvQ4lIoCHvcL9LN+6X3UYNLVhVRLeY3LyxlvLKyJdSvE2d7XA
+	 m0EGEssgESdkw==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:35:48 -0500
-Subject: [PATCH v4 01/31] accel: ethosu: Suspend after initialization
+Date: Thu, 29 Oct 2026 08:35:49 -0500
+Subject: [PATCH v4 02/31] accel: ethosu: Ensure suspended on removal
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,53 +54,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-1-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-2-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
  Frank Li <Frank.Li@nxp.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ sashiko-bot@kernel.org
 X-Mailer: b4 0.16-dev
 
-The initial runtime-PM reference is held only while initializing the
-NPU. Release it synchronously from ethosu_init() after the final
-hardware access, before registering the DRM device.
+If device removal occurs before an auto-suspend timeout occurs, the
+suspend is cancelled and the device will be left with clocks running.
+Make the remove() callback check this and force a suspend if the device
+is currently active.
 
-This keeps the runtime-PM setup and initial reference handling together
-and leaves the autosuspend configuration in place for subsequent jobs.
-
+Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
+Reported-by: sashiko-bot@kernel.org
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-v2:
- - new patch
+v4:
+ - Use pm_runtime_barrier() and call ethosu_device_suspend() directly.
+   This works in the case of !CONFIG_PM or power/control=on whereas
+   pm_runtime_get_if_active() did not.
+
+v3:
+ - New patch
 ---
- drivers/accel/ethosu/ethosu_drv.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/accel/ethosu/ethosu_drv.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-index 4a24bbd2bb61..38af57807cee 100644
+index 38af57807cee..ae7ebf29cb2f 100644
 --- a/drivers/accel/ethosu/ethosu_drv.c
 +++ b/drivers/accel/ethosu/ethosu_drv.c
-@@ -338,6 +338,8 @@ static int ethosu_init(struct ethosu_device *ethosudev)
- 		 ethosudev->npu_info.sram_size / 1024,
- 		 ethosudev->npu_info.pmu_counters);
+@@ -387,6 +387,11 @@ static void ethosu_remove(struct platform_device *pdev)
  
-+	pm_runtime_put_sync_suspend(ethosudev->base.dev);
+ 	drm_dev_unregister(&ethosudev->base);
+ 	ethosu_job_fini(ethosudev);
 +
- 	return 0;
- }
- 
-@@ -376,10 +378,6 @@ static int ethosu_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	ret = drm_dev_register(&ethosudev->base, 0);
--	if (ret)
--		pm_runtime_dont_use_autosuspend(ethosudev->base.dev);
--
--	pm_runtime_put_autosuspend(ethosudev->base.dev);
- 	return ret;
- }
- 
++	pm_runtime_barrier(&pdev->dev);
++	if (!pm_runtime_status_suspended(&pdev->dev))
++		ethosu_device_suspend(&pdev->dev);
++
+ 	if (ethosudev->sram)
+ 		gen_pool_free(ethosudev->srampool, (unsigned long)ethosudev->sram,
+ 			      ethosudev->npu_info.sram_size);
 
 -- 
 2.53.0
