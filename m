@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793302738;
-	b=Fpt2NKGSqpmleJ70GJp4GXWFxoJaeCtZsr0354ytugD7Qmmgx/HZOn8CsHGrHUrpp+/z
-	 Hh+HpjTs46dKKxPKqQCdStoCPRxFQW+2Xjv6L8qd6qCWKGdfgglDdf8BUKdk+MzRnJT9S
-	 xfp6u26drRZI7ex5HSGYKwaJi+SmE3L0ZAUXomf5X0459CfGYj36Hlkq1x2E4o9mHDkRI
-	 9y7oClPStZWAQRPj5xNQYVnrWJXVcjk0L8hPX/6Lv2KBPcYWKTcDBcUC4r0PlLSoMnwj0
-	 X9qhERWsX1Ttx53xc1dPJquZ7TgNeRz/nS0oxFZuNc6GKsaf8od2/JFEKlt5oup8m1A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793302738;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793302849;
+	b=HK9oggyLArmgti1AViI6E2Jl2jRif326sMXkZ+a2zsPKXWL/4NtnANRd85gpdOpnzDuQ
+	 0RQW6wbN4YigrujFaCjqFsFdrWmDsOs4EBJ9kkrOHIi5vrQaeHYgNGfflMJWVSPZJXPuG
+	 oOebpmDrz0dZxhm3d7D/R4Z4nex8pf/HeLUwYv+Rh0uKSnVHgefuWx8UGXvNhg0VOdsU1
+	 S7Z9qc/snuIQmYttWop8ab6WYaEdSmjJFxHRwDLRMg+QtNqTLKWegERPJvTaddts96MMI
+	 wz33FiA1t6B6O+Z3D+IbDge30B1tfMMT52/tqWrz5c914B9luHBVakxCSaGqEysVYjw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793302849;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=L2bOsI/tPPOv5HbBwJUDpCwYmaK0u+9V6K9ALx35wl4=;
-	b=DUHWlYZ4pr8qEmHo4gLoHM8tggiVHfQbE47Ga6ZN0JbmZV6yR6LvHrziLKf7tSFgovAL
-	 yFaOIJNLsXO2HWoSb4DHxx3silP+8yvOFE2eWsr6fCUJ9SNnMsRdbd7G4zlS04sJNtQPc
-	 mwoRMDFyDuBfteb12qL3XeBLsgrrMnUfIi3lptdb2Jz03vcQYquyj+Kik5BWRD1gQosnU
-	 r6xus7R0JUrPBdyqGTO2l52srRD/7rB/Vu7OS0Sq7WNoDqfD2qPAAgS6ZPUgSHJS8Jv+h
-	 e8JOAsGh7gQgpKswduBNqRS5EKOJOnSk+C9Uc9g44kGUTQ8kb6D7MCE2p/CsKezYK2Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	arc=none smtp.remote-ip=209.85.208.172
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=BI99PD+ATh1Y5+RSlEwKFF3tajPLYbWsXiWu2yRi084=;
+	b=vcgz4cuJ3XDnbCJqbH0Lk6cjA7tpR8449kT0Y4lO0Lo6KnBTV+UpsM37myTGtcSC25Zz
+	 0/LZpOJhaOa06nq2Ybx0zb0oGKEpsAonFBlxZtNH+ChqJfZM3Uro6NA0mOmn9BN673HpC
+	 8/R64URS8jd0Y5vz7okRS75VjOJmYKNiDN5WC854ggJbuQfsSsw5C/e51iOgNUEtPZ2dS
+	 thcySNC4I7sw+idVlmwyNVNZZ/GggeNiGYh3CW79evp5GDUNOyvhhbbSAdpa+kh+wTI7X
+	 4jyoNQFwpRFrCzfSqjWYHRTeIr322s9x5xns+X7ZnE1yOwJXujj0WLYxvD6cb1Hj9HQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oy04HEx4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.43
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39921606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:38:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39921606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a49a022221so231751fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:38:55 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C193606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:40:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C193606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Oy04HEx4
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-843a4ca671eso19595a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:40:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793302848; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OkV2mWdXsmGBUKLslLKVfDiI4h6VHiQNoPj41m2QuJkEhsdKWtFCvwopfpHv7dT8Zr
+         ecvEbGLEPLTkyIlbpzJorIJNvV4tDEPnJLWsKhHkq52UcVB3dXpBmLq/YNXtv3YgCmc/
+         ZYJx+zg1DNBXBzLOs3whx02ewe9s7nnWS83xjNWXWFQx+F5Pu4uUCxYKjrbHEyREafcC
+         FErsdhywvondZNloPajW9N9tETXhPH/0l0ivGECyHtdMTcM/BaWx9oi6y5hxk83tXEZu
+         1kI52xolJDeoL4+h7MeShsCwRQ43Oxna2wGj3SVKSw16txAbCHQPnhJtwyx0hS8spLHK
+         vJTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=BI99PD+ATh1Y5+RSlEwKFF3tajPLYbWsXiWu2yRi084=;
+        fh=bBNmS5u164lok2wQmMnEm13Aboo2MdKY3VRHvpBSUHc=;
+        b=MoOhTLH/HGwZlbsOEgc0M5ePx13faj3xQkirsgpOFuQBdzhcNmDjBCgkA1iRAsUzgU
+         DBUX7R0BieLrvuD36okTpxBfEENqUzUmqLbemPmZljkcCRx45GcPuEpks08ke6MPXqd6
+         qqhntQoSl0iVMK7oFk+IwBMvbGxGPeKpVc5jUMeAGXF3aNa9/faNc/mYskGhbUa5BEi5
+         3uIWpltGAjACNMkfOytazmCM2362+dcPKGMn18mRqdrnlYzIJ0LB9D9guAfSCpSwox9z
+         JWsCY4eZZMHrO1vmLH02L6whFAxXd97e/gsbHHRbQ0iuGz2bA68sPWRbXqi+HmXrU4bs
+         2+OA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1793302734; x=1793907534; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L2bOsI/tPPOv5HbBwJUDpCwYmaK0u+9V6K9ALx35wl4=;
-        b=FNBa56KT/9Dp2z4RqTJX4SmEdUz5QF0XsrQGqBzBDcfvePMHkyjRSZHgA2dL4abyfy
-         Z5mCosjvFkTxPpDmCgqoP7G7lT2FVFFUQ0YpXNjOUhaorkhdgy63Iaj0z/fMjsNDNf/C
-         B7N559oM1aQ463TkFMl4hlBO/WHCqunTmnc/UsMFfppEpnpGG5WUa9uxWJFZXCt4Mw4m
-         rz9/qKuz3+niyjl8T1wW4UCRCMZX5MVtZiU3CO2A9BHdOcdEtVxmOzi+D8+vZa+Jmmo5
-         /rJGHoehxWckvC7h0zyK1y6pn3xGNLKqI4ReeBj7jtQ2yBzeEYj7vSzrelBOMx5CX0az
-         WXnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793302734; x=1793907534;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793302848; x=1793907648; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=L2bOsI/tPPOv5HbBwJUDpCwYmaK0u+9V6K9ALx35wl4=;
-        b=2126uzu+LJ+uh4z3v3UTbkTx2UmAZQ7ok3Pywh7w7asFZCeKckNbX1CR+Rgt3tiMEP
-         q2EMw2BqnbF2G7lMr890+7YfqNPYiJMLhsmhWV87kHUElyOvZYXB/PQRnXfU2jRwS0kQ
-         XO3PRsxpABq/L6T63Fhxdl4h6d5uP5BfyAAWXpgxN+TDX0BuWoWKkpHtrOJ0BheFl03V
-         1FkhVgIThqpskVfcmKk+f3sgc6CWBPGd9B+Ohis3hDvtBfq8QCYv7EXMuCmQBSXkTCuI
-         4Mq6LMWMFF8SNUprvFB4E8bNMOz8KkpyzFt5AYVZxR/pvN5pIvYHJ897t8t0yFc29nZz
-         cI/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy2c9U9TRaaH9aSKiRPF3lJiAiSeyjkImY+mfiogyFImMPuPiU9prgLi21yBlms1PKIo/xphzsUac5D5fI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKP197yArb6ZBK40Rkz0PThnWVjpH2/n/iTEDSTWM582iH3Wigl
-	d9o3Oa6K97wDLsCZSrmODbgw8tuB8fChgarnQCMjpmh5voBhD5k3NabCgNS3TFv5kDU5XyaWBmW
-	iT7zVBMfiXPbj
-X-Gm-Gg: AYBFou3HvmX5+unq244ohta71PXlSwyasH75KIqJxh5/CqJ//egsGNZPDDvj9hzhDS9
-	fHDbX6fckpQnXG5rhpO5cimYBbWg9ML/3GK0mlDqlE4AA7l5x6G0Pt9eb3hZaJfm5p/VJNL8OFP
-	A6HDtR1zADYjpG639qM50jepxTAks13NdghnnV98XpT29MAILZJZ1y9XryaSRJMFPhWKfH3NwIa
-	mO65Ngm45XGKgyflySdEcdbMnfiHDnG/og25yN5myELBJhnsmHMcyG3XpPc0Y40bxYQ8yfwEsdj
-	iJqZxZpxM+s8iSC9vvdy3gSe6Ug4eboS0Ro0huTo/lULTCR98YMwApFJcgp/U1ju2Hx+/JD0mIx
-	545OU6ipw7S2RnmtEtls4FrRi2wX+tfFIG6wdG2G+Oprn+6yYgZYygENDirhuU96wNfmFP5P25o
-	6zE9xr1NPQRY6/BK8FOK4mnLOYh7ezb1N3scWNuQ8SLTKapFDROlG5e5q/i5j0Gc/z92oDy+rYY
-	iWXKpvX4obmK428Q03zIjdV7qQRpuDhRgBepRgxCgDMy+cpeSAlY+9Hu0GVveLEIaWYoEEvIqjB
-	1562fiO/cflj+WkoYQ0JrP5+dwYWhomEK2KXot1rWj0dRws6/kENiCMNkjc=
-X-Received: by 2002:a05:6512:3f03:b0:5be:414b:a84b with SMTP id 2adb3069b0e04-5bfcadda82dmr2380923e87.51.1793302734163;
-        Thu, 29 Oct 2026 12:38:54 -0700 (PDT)
-Received: from localhost ([208.127.45.21])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfd7ef0c2esm69050e87.50.2026.10.29.12.38.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 12:38:53 -0700 (PDT)
-Date: Thu, 29 Oct 2026 20:38:49 +0100
-From: Jiri Pirko <jiri@resnulli.us>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com, 
-	cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 14/20] attestation: Add the base family specification
- and generated files
-Message-ID: <auOgwlGeW-vRGVb0@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-15-jiri@resnulli.us>
- <179302367452.58760.3782556786585774917.b4-review@b4>
- <auMX4kbsflE9kK3Q@FV6GYCPJ69>
- <20261029184324.GE3734323@nvidia.com>
+        bh=BI99PD+ATh1Y5+RSlEwKFF3tajPLYbWsXiWu2yRi084=;
+        b=Oy04HEx4VXsy7bnK+jxK7wLwJKJgZjMD+ok02/ElUmFMcCdqOEpl4CNxdWoxJzIhzn
+         U9RRGRt6Otan88a2NMxx9hAn+vJiyjDSutvbDnQ4fcfybjPlhxmIxNbVjs5s10zwcK92
+         qYY1ODXDGpBmd69+yoWLRWbNxPvInfpeDY8XkeJeCFG0nCIscbu6LhWZlJFfvgNakjJP
+         ggb9DU+L4K0N5slxw86nSUklX444AEIO8JnQXaH1vGuPc4coVKJTwqNt10udSvszwDnM
+         Mh0X5ZLVObaRXY/xgb7VXOmvBk9Hv7hm3jm15v6zxqOE4mkNYW3VpvNXXZHhE1kT1t1/
+         7jsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793302848; x=1793907648;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BI99PD+ATh1Y5+RSlEwKFF3tajPLYbWsXiWu2yRi084=;
+        b=ViTNsSfEyyY+46vXExdd1w0qvTT/7x/ow53/owbWCjA+uZ3GvFAkZgNvIrIIIF4zjh
+         6szJF0UW6+QEav4UNRJucoRCq//y+TqW+BqOOCHJZM/bBmd1wtYEOuG1P1U1ywETOaZT
+         B46tSjMOGy93VJIbLAfBjYl2NiaE46Tc+hXI4oEEJTymizx8mtzEGwrzxLfxu96mjNJB
+         zaN4H1bXwC2sCq7Sj+JBwK8HrCgWkeXzpv1PuD0kkadlaRM/HGU9+LN4/WjYFLfswt4e
+         fS7GJDPNzp7h0nMuPmFbjLZVUYjN1bevaLfmJVUoAqdGm1zFpugjDmfy8b/3iChJrfF3
+         Am4g==
+X-Forwarded-Encrypted: i=1; AKwUvBwhCl/9o2ZBhUbmGUjxVQqH73eoxsh+8ZdmJHY06JrQAM2C9zDoNtZxNotgQBANutIU1F9clmoAmPdoP1M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLGetpFd7JeUcdzrpns2g+P/Ly5k9q8MrOU9ZoRT4A8bZGXJXIN
+	fIB2SUBuedjFEYLegUpuTqNqYglJnlWKVcn9mwqdX1kFcRyMJtb37KaT/vTB+m1CFQxJr7SkVHw
+	hHU9ZrncL7xeAEWOVxWlHutLLlFwCVm8=
+X-Gm-Gg: AYBFou0x3u9N0oH1bpdxv3JTgkhTOqxCJg+6yjdH4p4XY3u27TUviU8nz/4+gPYha9V
+	x3UAgJklx6pcB3AFpOttDLu6eWyRLtP4pAQC6cIDDseLKA9YEkSMKZpRD3bWkTeaxrI4cY9q7a1
+	STQO//Iw+Ty7XoUTCQoe+j4IyaEtWSL4hM7z+dzBb9Ro+r8Ix4R5HHIFIFT5JuruLo3GqBwuqx1
+	URVTEa0mluBPEtWMXztlsbmOm/L/k6jVFE9iTfqwAgmL3tnYsnxNIm3bvhYtI3GNEe3Pl0qgtyl
+	nUw1HLcbmcjyybV42gyjUTjfJXhfVUTl5zC+wcvDrAV6+N+UIbNZoO/woDasLWkpTvHbFCxWuDV
+	3ZESD9/OFw/DBXvLqlLesUurf4qz3WxjtyXdjng==
+X-Received: by 2002:a05:6830:4391:b0:822:95ff:43f3 with SMTP id
+ 46e09a7af769-85d3664ca3dmr142180a34.24.1793302848352; Thu, 29 Oct 2026
+ 12:40:48 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,50 +103,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029184324.GE3734323@nvidia.com>
+References: <20261022163639.2566945-1-andrey.misyrov@gmail.com>
+ <179303675173.3134.11217955296529787762@kernel.org> <CADvbK_dTUCUFn+sLY+zuN5_9+YC-axzM9FVr-yBKJ4jxwebkkg@mail.gmail.com>
+In-Reply-To: <CADvbK_dTUCUFn+sLY+zuN5_9+YC-axzM9FVr-yBKJ4jxwebkkg@mail.gmail.com>
+From: =?UTF-8?B?0JDQvdC00YDQtdC5INCc0LjRgdGO0YDQvtCy?= <andrey.misyrov@gmail.com>
+Date: Thu, 29 Oct 2026 22:40:37 +0300
+X-Gm-Features: AclHuK9ZvCDg2n35I76iYH83HI7jntHSzE-MkCUSpArWzEKyyvJVxDkcplmhCjw
+Message-ID: <CAC=piAqJCtKEn=jLaoaBCr5yAgF5dibhPYcrZGWPytYN=Ct8cQ@mail.gmail.com>
+Subject: Re: [PATCH net] sctp: fix ASCONF address change on single-homed hosts
+To: Xin Long <lucien.xin@gmail.com>
+Cc: netdev-bot+sashiko@kernel.org, marcelo.leitner@gmail.com, 
+	junvyyang@tencent.com, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thu, Oct 29, 2026 at 07:43:24PM +0100, jgg@nvidia.com wrote:
->On Thu, Oct 29, 2026 at 11:04:58AM +0100, Jiri Pirko wrote:
->> Mon, Oct 26, 2026 at 03:07:54PM +0100, jgg@nvidia.com wrote:
->> 
->> [..]
->> 
->> >
->> >=======
->> >
->> >device-get:
->> >  request: {}
->> >  reply:
->> >    caps:
->> >      evidence?:
->> >        min-challenge-length: uint
->> >        max-challenge-length: uint
->> >
->> >Did anyone implement a variable length challenge? That seems a bit
->> >strange. There is also a very important crypto warning here that the
->> 
->> Yes. TPM2_Quote accepts variable-length qualifyingData, represented by
->> TPM2B_DATA with an explicit length. This varies per request on the same
->> TPM:
->> 
->> [1] TPM Library Part 2, section 10.3.3, page 136: TPM2B_DATA.
->> https://medias.cdn.trustedcomputinggroup.org/production/Trusted_Platform_Module_2_0_Library_Part_2_Structures_Version_185_pub_c0a962a931.pdf#page=136
->> 
->> [2] Part 3, section 18.4.2, page 158: TPM2_Quote qualifyingData.
->> https://medias.cdn.trustedcomputinggroup.org/production/Trusted_Platform_Module_2_0_Library_Part_3_Commands_Version_185_pub_87a5c10230.pdf#page=158
->> 
->> The PSA Attestation API, section 4.4, also requires one implementation to
->> support 32-, 48-, and 64-byte challenges:
->> https://arm-software.github.io/psa-api/attestation/1.0/api/api.html
->> 
->> FIRME DEN0149 1.0 ALP2, section 8.12, Table 8.23, page 100, likewise
->> defines an explicit Platform challenge size parameter in x4[31:0].
->> FIRME itself does not mandate the specific 32/48/64-byte set:
->> https://documentation-service.arm.com/static/699c3b70b60ef220b14ec14d?token=#page=100
+On Mon, Oct 27, 2026 at 01:38, Xin Long <lucien.xin@gmail.com> wrote:
+> This looks like a legit issue. Either way above works for me.
 >
->I feel like userspace needs to know the difference between 'any size
->between 0 and 100 and 'exactly one of 32, 64, 128' ?
+> Thanks.
 
-True.
+Thanks, Xin. I've prepared v2 and posted it as a separate thread:
+
+  https://lore.kernel.org/all/20261029193454.1028626-1-andrey.misyrov@gmail.com/
+
+pw-bot: cr
