@@ -1,54 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283483;
-	b=q7DKT1oY4/tAtzND+W6AxMuLEt/itJ5dz8vMLFc8QbL2BXulv9dVyWOlOy43LCtO3is4
-	 EqRssv0Uo+jaAvCnPZvBnbknqaZpQJHoWndImgp6a+gQsNIsFtAS5R4wAopIGOF9LihuE
-	 KdLgDCc5dUCA8qNxEv3842+fE62PrEC6CkzDwctrroqTGiURziw4/P5lG9mK9QGbmoMRE
-	 VyaxRxgoTq032Adbf4aWgStD2g5NEMNMTndSjBhj4ghr7zPSmQivBHfVOg8xNM6A/aAl+
-	 Tx3lqw7yATlWuApptT0/CKu8DO4YTEQeSPIh7iBP6fYZqbA9LQS9cgwcmqjLhb/LTvQ==
+	t=1793283485;
+	b=yFWTz8M6SkKO7WzhhZBydbtEeiE4euWD70s2iAQoIhDhlplXcBt6FU8CEph7NQAZLza4
+	 /bAq3yA/w4pfnvg9wpmDUCO7D4QWOCcN7XxllSoxcJMjuOQnsCRZx/0BH/JOknbg92NoZ
+	 VpDoTl5LnqyJbWLwlwtxkrIOCG+LWkmKGk4xmT8IqcJlUSl+7aXvFyXqCsgM5vwg3yEXK
+	 TwNga0zdhp36LEmU/Dy1dSZiPyfJHTZsprJ4iYkqe5tyADR55yMe5gxXvGmf5MDOziD+g
+	 46xf5mFREkE/puqpvhHRHNGw2XokAm3dveD2eQxhqXkis1cBgksYgT+zm7e+ibKP1dQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283483;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=5wdswlpgIPm73M5NXJltXkhxIeKQQld4e4w2Kkn/Sig=;
-	b=YjYkOYBgDHGuHz55P708OuKcoGPhSgtLxP9wSFhw3RirKO71z1eg2EbLBSflDtKYVpxR
-	 KP7SkxLZbpXUlwb9SKOO/ue8q+DgDyH6FmeAKa5DrvJnTBKWHiW7LOqZT1RXYxExy/Hi6
-	 8VRLyc+g7kImR+hpubbJeiuSV8XzqJFr9imMJOcSEqL4XvPlECfZCOoGvleUijPxidJX9
-	 GGXdWIM3IZyVfoxpM6LPf9o7zEUIzj7sBhJFTTpmhTlWUqJp2LNxkstLD1IVoH5j/Y+9S
-	 sRACTJGgp6A1+wnRHnc7q7UIJoI0QhiTuKLmDZVimUEdHoQCnszynXNx3YW/YcUhJTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283485;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=sIAQApOwnlBHdqOEDUSf5m4YrfU7jMgmgx2VS57GmCE=;
+	b=HpnFu1/yNTy4GPuDQlmglH43JTV2SS97pDbPWVcWltsWEMQ6R834ATiiul6Lnr9MyZCb
+	 5zawpg7RQyj5KpKRka9J3dW9vNGPBNHMpfDlpUNmpr7hM7UAkV9Uj5tLh+JDiH7tLYM23
+	 YyV34QSBOUrFFC38oV1rS35Pmsq/rz1vwIrX1x1qSWfMbmram6i6zL3S7O/hQraPlC8dn
+	 H13KO217c5UpUXCD0st/QPfxXUSM+kR+xPSyO52c85GZIMhIxKU+FUmYHSQCqmGbbGL+P
+	 jVEA1dK36DDrt12icbLfUKHaLw3qaPACUZyAVB68XiidvjZL4c4Fxcwej6BBtDM+R/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MQ6tdmcI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WnwBYyqL;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32AC9606A31C;
-	Thu, 29 Oct 2026 14:18:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79208606A32A;
+	Thu, 29 Oct 2026 14:18:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79208606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MQ6tdmcI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EE731F01825;
-	Thu, 29 Oct 2026 14:18:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793283482;
-	bh=5wdswlpgIPm73M5NXJltXkhxIeKQQld4e4w2Kkn/Sig=;
-	h=Date:From:To:Cc:Subject;
-	b=MQ6tdmcIye0vQt3oquwvQxlOyo4gMfM83g4u7QXgYVkiE6KY+W+qwotRFDSkR5Glv
-	 cu4z7lRGMlrQAv2ME7+50Kimt5GA3OzKVZwzp/gYOccdHauNgNthNeOpQUq7UYQ3q0
-	 4PkuW4mwSLrtk0/DZKxEkC5/MjortjX+jq5ieJ75PaHgqPGFKcYrNJcj+1nRo/qnTN
-	 6BhQ0E4g5+MtIPjDpYKun/TyJauNrgQxMiSk0rP2/+X1XuZKv9adz7MXWMeD+Cjnz9
-	 +guxF9Vc3hAi6I+MX0321QJD+YCdXz3rPnn6HWT9M5ynANVD+6AFuzKjIYEzOyYxfo
-	 5BDrTTSZSq4Hw==
-Date: Thu, 29 Oct 2026 14:17:58 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
-	Kenneth Feng <kenneth.feng@amd.com>,
-	Kevin Wang <kevin.wang@amd.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the amdgpu tree with the origin tree
-Message-ID: <auNVlhF6DGyFYx10@sirena.org.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WnwBYyqL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793283485; x=1824819485;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=iUgkTmbEVGLMzWydqtXX3ASQZZhoDtXfz4hj/j8HhZA=;
+  b=WnwBYyqLX6348L1TkZwaBhMJ+UFGQhAE7O7ry2Pugr4jcd/yMOLGj+W0
+   G8O1dlS7vJOq/0Kk8Z/WCuh5RhXarcD8ywzCvwSVmeMs+9qwsE/YV5faD
+   y5yqGYGDWkfXnX2XoNJzezMOIlgAAK28jMl2bgTIbnkCv6vwJQ3TSf58/
+   cJa0L//kYrk9QER5UcmAmKsHEG9yxIpUZ/PX/bohtFHO49gB10rmrwlwR
+   XngYIwQsm+ioU74E3rnLtHu+G70Rlkuyyd5ocpylI+Ij/J+z6e/ff64E0
+   EnXHUkE7a/MD71qXn4ZA1Midnh6NJN8RHrO8NU+vk/Dpt8fCoSHVqUmfs
+   Q==;
+X-CSE-ConnectionGUID: umr29pHQRHOMMTzVMlxv2Q==
+X-CSE-MsgGUID: Xw04GxDfSFCEXRLktCj7cg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1920059"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1920059"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:18:04 -0700
+X-CSE-ConnectionGUID: T8QAYLthTXiOO95NU/4lBA==
+X-CSE-MsgGUID: hFAuv5gvS4KywM5Cg6kQPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5148330"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:17:57 -0700
+Date: Thu, 29 Oct 2026 16:17:55 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Raul E Rangel <rrangel@chromium.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Tony Lindgren <tony@atomide.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Richard Genoud <richard.genoud@bootlin.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	"Maciej W. Rozycki" <macro@orcam.me.uk>,
+	Timur Tabi <timur@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH v8 2/6] serial: serialize asynchronous write wakeups with
+ the port lock
+Message-ID: <auNVk_Y8iiAXyFa3@ashevche-desk.local>
+References: <20261029-submit-serial-8250-dma-cancel-v1-v8-0-3fd56ba352ed@gmail.com>
+ <20261029-submit-serial-8250-dma-cancel-v1-v8-2-3fd56ba352ed@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,102 +99,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GjmgyIW3sNKLMh+h"
-Content-Disposition: inline
-
-
---GjmgyIW3sNKLMh+h
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261029-submit-serial-8250-dma-cancel-v1-v8-2-3fd56ba352ed@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi all,
+On Thu, Oct 29, 2026 at 01:36:58AM -0600, James Hilliard wrote:
+> uart_write_wakeup() expects the UART port lock to be held. Several worker,
+> DMA completion and interrupt paths call it without that lock, including
+> indirect calls from uart_handle_cts_change() and the transmit helpers.
+> 
+> Take the port lock around these notifications or their transmit helper.
+> Keep sleeping SPI and regmap accesses outside the locked region, and keep
+> the FSL LPUART completion lock held through its wakeup. Acquire the port
+> lock after releasing private channel locks to preserve the ordering used
+> by UART callbacks. In the MUX timer, publish available FIFO space under
+> the port lock and keep the hardware FIFO-drain wait outside it.
+> 
+> Use IRQ-safe locking in the Atmel RX and TX tasklets and SB1250 termios
+> path, since their interrupt handlers now acquire the same port lock.
+> Preserve the caller's interrupt state when releasing those locks.
+> 
+> On SB1250, lock modem-state updates after reading and filtering the change
+> status, and wake modem-status waiters after unlocking. Take the TX lock
+> inside its service routine so RX-only interrupts need no acquisition.
+> Keep that lock across x_char handling, FIFO consumption and the decision
+> to mask TX interrupts: a writer must not enqueue data and enable TX between
+> the empty-FIFO check and the interrupt-mask write. Each TX invocation sends
+> at most one character.
+> 
+> Serialize CLPS711x TX servicing and its interrupt-enable state with the
+> port lock. Disable TX interrupts without waiting in stop_tx(), since a
+> threaded handler may need that same lock. Have an already queued handler
+> leave stopped output untouched, and drain it outside the lock during
+> shutdown before the transmit FIFO can be released.
+> 
+> SCCNXP handles interrupts under a controller lock which its UART callbacks
+> acquire with the port lock already held. Collect the ports needing wakeups
+> in an unsigned long bitmap while servicing the controller, then release
+> that lock before visiting the set bits, taking each port lock and
+> rechecking the wakeup threshold. Removal drains the IRQ or timer before
+> unregistering the ports.
+> 
+> This serializes write notifications with port-locked serial-core state
+> changes, allowing readiness and transmit-storage reservations to gate the
+> notification without a check-versus-shutdown race.
+> 
+> Cover DZ TX servicing and JSM Classic modem notifications as well. On
+> DECstation ZS, acquire the port lock before the SCC lock and notify writers
+> after releasing the SCC lock. Defer normal TX restart after console output
+> to a worker, since console output can already run under the port lock.
+> Check transmitter readiness before consuming another character and drain
+> the restart worker during shutdown and removal. Release Lantiq's hardware
+> lock through the transmit helper's completion hook before notifying the
+> line discipline.
 
-Today's linux-next merge of the amdgpu tree got a conflict in:
+...
 
-  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> static irqreturn_t serial21285_tx_chars(int irq, void *dev_id)
 
-between commits:
+>  	struct uart_port *port = dev_id;
+>  	u8 ch;
+>  
+> +	guard(uart_port_lock_irqsave)(port);
 
-  a2eae9f4fa1b0 ("drm/amd/pm: add zero fan stop temperature support on smu =
-14.0.2")
-  44d0d3031e479 ("drm/amd/pm:restate all customized OD features on every ta=
-ble upload for smu 13.0.0/smu 14.0.2")
-  af52c8fd45fbd ("drm/amd/pm: add zero fan stop temperature support on smu =
-14.0.2")
-  9b0890e72d19b ("drm/amd/pm: preserve committed OD features for SMU 14.0.2=
-")
+Why _irqsave?
 
-=66rom the origin tree and commits:
+>  	uart_port_tx_limited(port, ch, 256,
+>  		!(*CSR_UARTFLG & 0x20),
+>  		*CSR_UARTDR = ch,
 
-  f990c94a2633d ("drm/amd/pm: add zero fan stop temperature support on smu =
-14.0.2")
-  1b63bb397db20 ("drm/amd/pm:restate all customized OD features on every ta=
-ble upload for smu 13.0.0/smu 14.0.2")
-  d2c1e98658b6c ("drm/amd/pm: report smu energy accumulator updates")
-  8d4ce79aff1cd ("drm/amd/pm: preserve committed OD features for SMU 14.0.2=
-")
+...
 
-=66rom the amdgpu tree.
+Same Q everywhere (it might be legit in some cases,
+it might be too strong in others).
 
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-diff --combined drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index dda435f19ca66,62f16d17e22bc..0000000000000
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@@ -2277,8 -2277,11 +2277,11 @@@ static ssize_t smu_v14_0_2_get_gpu_metr
-  					       metrics->Vcn1ActivityPercentage);
- =20
-  	gpu_metrics->average_socket_power =3D metrics->AverageSocketPower;
-- 	if (mp1_ver =3D=3D IP_VERSION(14, 0, 3) && smu->smc_fw_version >=3D 0x00=
-685000)
-- 	    gpu_metrics->energy_accumulator =3D metrics->EnergyAccumulator;
-+ 	if ((mp1_ver =3D=3D IP_VERSION(14, 0, 2) &&
-+ 	     smu->smc_fw_version >=3D 0x00664800) ||
-+ 	    (mp1_ver =3D=3D IP_VERSION(14, 0, 3) &&
-+ 	     smu->smc_fw_version >=3D 0x00685000))
-+ 		gpu_metrics->energy_accumulator =3D metrics->EnergyAccumulator;
- =20
-  	if (metrics->AverageGfxActivity <=3D SMU_14_0_2_BUSY_THRESHOLD)
-  		gpu_metrics->average_gfxclk_frequency =3D metrics->AverageGfxclkFrequen=
-cyPostDs;
-@@@ -2600,14 -2603,9 +2603,10 @@@ static int smu_v14_0_2_od_restore_table
-  		od_table->OverDriveTable.FanZeroRpmEnable =3D
-  					boot_overdrive_table->OverDriveTable.FanZeroRpmEnable;
-  		break;
-- 	case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
-- 		od_table->OverDriveTable.FanZeroRpmStopTemp =3D
-- 					boot_overdrive_table->OverDriveTable.FanZeroRpmStopTemp;
-- 		break;
-  	case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
-  		od_table->OverDriveTable.FanZeroRpmStopTemp =3D
-  					boot_overdrive_table->OverDriveTable.FanZeroRpmStopTemp;
- +		od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_FEATURE_ZERO_FA=
-N_BIT);
-  		break;
-  	case PP_OD_EDIT_ACOUSTIC_LIMIT:
-  		od_table->OverDriveTable.AcousticLimitRpmThreshold =3D
 
---GjmgyIW3sNKLMh+h
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrjVZYACgkQJNaLcl1U
-h9DQNAf/XthvlbgYgg+Kh3fJsNoe1uyNrHhyRfPzHF1kZULNke/Jr2kTzh6ewall
-Wz3ECKhvmbMhuSn/0DKT+E2Ic1+uiNf08JndzzZqK3fGB8nq2xXWGuvsC/AUTUG6
-7TW+NA0yQNnD9evmF4C4RQ084949nUjyLuGwjE9mWqtcYPPEwQyJSAAtQnr9zUdm
-96aJYXFKg+KkUDD+pXOezfFZoJnJGXYPJgUoT9ysg8N2uwAWaMT/4v5un3ZkMJ/G
-wAEJG8B/7jjPKPhbO9+HY7ZCGp15H67Z+hSyQTIwPubOeHzPBSkgwoixe7o4A77g
-SBiKhADDMdphK404EMWy6Px10HIICA==
-=6JAQ
------END PGP SIGNATURE-----
-
---GjmgyIW3sNKLMh+h--
