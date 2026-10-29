@@ -1,78 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793293193;
-	b=3ld14AO76VrDRZc+klWBaW+t06VuuJMhLfy58mcNw7D7oVIhwsCRvJaR37Q4hyXfqiSV
-	 M+JV+bqRJw9Dd6670TAyiy7lllNlRkiPc4WNb6nKS50oeLji+y49nCnn3p2SGTdgF1m8v
-	 enEBJskgZ0Z48rcGHH/V6ltewFym/onjdCJFBE6XtzF0ns9pLoCUtFBqaoX3SqcKMg2Lk
-	 MIt1yXLpbZLfSImbm9iVKG2tVOOim/KOrcrT7Fw3BRTfIauO55slf+l7bLb4Z9nktUr8i
-	 lyNdaEeqNPTIUkIskvIzMhZvziW7fhOWRwjnNP1MBmkjy9SHTOIhiXp+nF0p8AblHKQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793293193;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6BsZBuRbj63kaEY++Tn404jm/YX5TaOM/1MYBxHWA2A=;
-	b=rf2rfhkUAOGj/xDkx0NPieyGd6tuoaZwPv6r/wEBz7IuKSINebG/gqWCG06hDnwxShWM
-	 ZvUB9WsdfZTHHGIGRJnHHGoZOmFupLiYiEr5B30CWEQ4u+XqfN0vsiBc2pm0CRfAI3YsG
-	 LPj7JsFX0jTjDHSDOHOeDxjioWItZRaVlvy19CB62kjIEwy/MuN5fqwz9/qMAXMlfr+1J
-	 cpsCcP4JlokVcGzZuFch59hxDMZWpPL7/VmULv95XvRFIJln1FfHWRmUwtSzzBxD9QD/P
-	 vUsK4kEZrzhpv4qfHgRrNYQCKdNNJl4PIpUX4cZqWiLEzp1yFQfuRtDAq2wZjD9WlRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXne+rQ3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793293170;
+	b=d93NIBw96xVt4h07TmYsTRXweQ3yw7C0MrqmFGY5qPXU0wojPS07qiRQLlCaDlFARr/i
+	 a+mc8WR9fYG7PdwGUvx3yIy9zCnlMg5Ts2BVenyn0SEkLwRaHrRAuIharXHNQ8T3dnGWB
+	 voumMo4PUEfGIO4Ts7QEpKNGn0u9MFQrEyoI6KtcMPiw0lFoCceWvj9rUgyUHc/cZV+do
+	 7a9lXbnGgTNlWaJDAm7LS9F+BqCoYYfuCF1Cz1RaJ2euzDxiOxnbRJWHevJrQscImcx5L
+	 P95FUVfln+7epQv4CmcesTHcmybRW7NepCcCkcwpGwFG8skN6oR36VvxJrAw6bgZ/6Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793293170;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ExDthG7GX5iobRnoo1yTcF17aQF/47k2yLGWN7hAE7w=;
+	b=Oe4PtSuM6fNKaQ2OKTwB9E/by8nK0BDPyuRsESU0RfCNNAplY36ahHCFl8XVSa0Hxwij
+	 8PUb/tQrcswUqL3IYaZcdPHXV6WRcHuLp1UdqqLQP3y4gugjqohoykGD3uwNwOL7G+EFH
+	 +JoacClLo+qHE5Bq+ML5ouVeiAlOeax1XTU6mnz8VU8hmVNzw8GAp6YqYB+HXKp6Y39yd
+	 v4G0j29hq97WHzjvP2KcJ/WQzX4219WrwJXl1Q0PRoQdizlHJ83ON7WoFOL7IQXsgua60
+	 ClOzg7zVhebMXt44gGrzhy3yHBKUsr3z4dFRCGIWDYGlnrdmD98eiQqJ3/IhlQ0E57w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X8mtWech;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C58A606A33D;
-	Thu, 29 Oct 2026 16:59:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5D5606A31A;
+	Thu, 29 Oct 2026 16:59:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RXne+rQ3
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793293193;
-	b=EXaQErGub2zJEHkSUJFIl2oY3OQ+rag7hroKYUCjzuCOCw1yYCbq3V2N9Ft3W9qDgt7T
-	 Eke2zgcQNkZ4nzT2ulIXDtxLLmWRW+QGaS6x0C9bveIkHFlAvQWJm2d5Tnqhi7OzfPBIJ
-	 HxSo5NjzddJsGqvoWJW+FpA1hTUiHlsjemUe/MUymUlUvaOc27wHJMNNyssjWooQgPhIT
-	 dxqNNDDEtFr38aYpmcjKvjpEsQaljHrKqBxlzQrY1D+hxmXgj9vKtbWsVO//h2fo5Dtg5
-	 nHigYGUjEaCf++LffBM4IWTEQdFrs9ogtSWm7KU5YhNFaf2geQp4e10dI3oETHtBJbA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793293193;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=6BsZBuRbj63kaEY++Tn404jm/YX5TaOM/1MYBxHWA2A=;
-	b=Hhm/g/X7TvYW3Dp1v8Tdpp9esPIJ73GSrVYhpuNGd9Aw6QkIpdA2AzG+K614COE4ZDw7
-	 P4apnM0BrZIxpjbdwfFT4mzMeP6GDgWKbSrslgnQN0H0y73HpT13y3sNlnjHzJCAAiUMU
-	 azfjde3vId30Ll//bz66r6P5bBLPwh3hsyG5Oonr29KAFnlanwSDFe3VXXIuaQSsfFz+n
-	 g2YGmH9CplB/zs5aokZJzvv7O7f8koKLNjx8R17VIcS1xHH6iXvoWh8o5sQNwzcb/VDJK
-	 pcJZIuiiKjZu2KL7NqHw7SBua04DOKlGzAjb8RgNJUxHGyIAt+qVORSiWeXON63VsQA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B96EA1F031E7;
-	Thu, 29 Oct 2026 16:59:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X8mtWech
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE85E1F01816;
+	Thu, 29 Oct 2026 16:59:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793293193;
-	bh=6BsZBuRbj63kaEY++Tn404jm/YX5TaOM/1MYBxHWA2A=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=RXne+rQ34//Hob7B675cfTORA1aRLUcqUR6U2dtggj+PqwL1VJOb2ut3vor7iWtQp
-	 nTMGbUhYkvfjDudgUcqGOxkwcBqesSvWw7zH8307MUmJhKhzU5FdTX1rgtX97/cXSt
-	 OWYsRi7CDWl3Y+Ezc9Tnn8NubUeOW+QhCO5TtxX8Bp2piN+ZE7VsbS+H5ykWcP8U5I
-	 qUt9S3FBJ4b7VBkMiPPaMIr4Ny9vMMBkYsYB6X/R5BggHvGJNKC+JbiQMg4QtJJxzG
-	 bZ8VslFCQ+lWxQGxfceMboQRn1mPaehc6YZdYF2TGi30cewPQfYkIWOlQavVdv6Y4j
-	 ZZH3ZKCxmz93A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 23D03458F6;
-	Thu, 29 Oct 2026 16:59:51 +0000 (UTC)
-From: =?utf-8?q?Nicol=C3=A1s_Antinori_via_B4_Relay?= <devnull+nico.antinori.7.gmail.com@kernel.org>
-Date: Thu, 29 Oct 2026 13:59:01 -0300
-Subject: [PATCH v2 1/3] rust: kunit: add #[should_panic] support
+	s=k20260515; t=1793293169;
+	bh=ExDthG7GX5iobRnoo1yTcF17aQF/47k2yLGWN7hAE7w=;
+	h=From:To:Cc:Subject:Date;
+	b=X8mtWechd0jk8IdQxioAQSXB3gFoNA4XFBjo/Z7PQx49HqLK6XqxRf1VoBGI7Gm06
+	 ZK+JBzgt9rB397v8dE6XwK3zlLB4LZYQUD/E+qd9C2I5elhq2U39BjsdrrYKmC7jgI
+	 duGKsTGqBsEOb0+tbZEFmKe0XXWkPIEbvpW9giItKGVRHscNBoxzQ2jZ5ace9RCE5l
+	 /QtOvJ8r+Ls0w8r1mmoHPXG6+E+roFJc1Ci0i5eFlEeMieh9dSs99YcmAy9XVB65Wc
+	 pHudAeCJCzrKCkPd4m7q/r2NNwRphw0bXi7DRxZOPCU8t8JYdjG8O0ntVQocBXnYLZ
+	 zQJ2DPs3Oau0A==
+From: Jakub Kicinski <kuba@kernel.org>
+To: torvalds@linux-foundation.org
+Cc: kuba@kernel.org,
+	davem@davemloft.net,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	pabeni@redhat.com
+Subject: [GIT PULL] Networking for v7.4-rc1
+Date: Thu, 29 Oct 2026 09:59:28 -0700
+Message-ID: <20261029165928.3587812-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,410 +59,516 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-rust_kunit_v6_send-v2-1-5ce551efc48e@gmail.com>
-References: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com>
-In-Reply-To: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com>
-To: Alice Ryhl <aliceryhl@google.com>, Benno Lossin <lossin@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Brendan Higgins <brendan.higgins@linux.dev>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Danilo Krummrich <dakr@kernel.org>, David Gow <david@davidgow.net>, 
- Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, 
- Andreas Hindborg <a.hindborg@kernel.org>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Burak Emir <burak.emir@gmail.com>, Rae Moar <raemoar63@gmail.com>, 
- Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Yury Norov <yury.norov@gmail.com>, kunit-dev@googlegroups.com, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, 
- =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14052;
- i=nico.antinori.7@gmail.com; h=from:subject:message-id;
- bh=sbpLybwVB7Ofd+oehlVpwBPiQ4LnQa6JfCug/U1Ccsc=;
- b=owGbwMvMwCV2QdXfwqNJ1YjxtFoSQ9bj6ubjNzz6it+nlCetunps9aStMzpV2uf4HeErYpjJI
- 73ewvBdRykLgxgXg6yYIstczvefjW3NK8qlNwXBzGFlAhnCwMUpABMJDGX4p83/1GuXd4VuithH
- 7SQOl29MIt+4+hYK/kn0W+Qn6fh0EiNDyww5T+mK29FlN5/PzE4qsm25wcC1wv/jhY+70+v8vEU
- 5AA==
-X-Developer-Key: i=nico.antinori.7@gmail.com; a=openpgp;
- fpr=9D09EFF3333D3778771BB252D0254F3848822532
-X-Endpoint-Received: by B4 Relay for nico.antinori.7@gmail.com/default with
- auth_id=1086
-X-Original-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
-Reply-To: nico.antinori.7@gmail.com
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Nicolás Antinori <nico.antinori.7@gmail.com>
+Hi Linus!
 
-KUnit tests in Rust are written using user-space like syntax. This patch
-adds support for the `#[should_panic]` attribute, enabling the user to
-test conditions that are expected to cause a panic and report the test
-as successful.
+The following changes since commit 734bef548a96e8774d6eef5dfa2026c6edc4e80b:
 
-Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
----
- include/kunit/test.h       |  1 +
- include/kunit/try-catch.h  |  3 +++
- lib/kunit/attributes.c     | 18 ++++++++++++++++
- lib/kunit/kunit-test.c     |  3 +++
- lib/kunit/test.c           |  2 ++
- lib/kunit/try-catch-impl.h |  2 ++
- lib/kunit/try-catch.c      | 14 ++++++++-----
- rust/kernel/kunit.rs       | 51 +++++++++++++++++++++++++++++++++++++++++++---
- rust/macros/kunit.rs       | 35 ++++++++++++++++++++++++-------
- 9 files changed, 114 insertions(+), 15 deletions(-)
+  Merge tag 'net-next-7.4' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next (2026-10-22 15:58:00 -1000)
 
-diff --git a/include/kunit/test.h b/include/kunit/test.h
-index 31d549578f8ec113bef9b5d72bc9355c07fce3c0..15bd020d83722163bfc3899f64247afb2c4cefa4 100644
---- a/include/kunit/test.h
-+++ b/include/kunit/test.h
-@@ -83,6 +83,7 @@ enum kunit_speed {
- /* Holds attributes for each test case and suite */
- struct kunit_attributes {
- 	enum kunit_speed speed;
-+	bool rust_should_panic;
- };
- 
- /**
-diff --git a/include/kunit/try-catch.h b/include/kunit/try-catch.h
-index d4e1a5b98ed67e4f71ff1bcc71422d5bada54b75..197029e19d759dfeb2700af13cfc8fc246768bb9 100644
---- a/include/kunit/try-catch.h
-+++ b/include/kunit/try-catch.h
-@@ -22,6 +22,8 @@ struct kunit;
-  * @try_result: Contains any errno obtained while running test case.
-  * @try: The function, the test case, to attempt to run.
-  * @catch: The function called if @try bails out.
-+ * @rust_should_panic: Flag used to avoid printing spurious error logs when a
-+ *	Rust test is annotated with #[should_panic].
-  * @context: used to pass user data to the try and catch functions.
-  *
-  * kunit_try_catch provides a generic, architecture independent way to execute
-@@ -48,6 +50,7 @@ struct kunit_try_catch {
- 	kunit_try_catch_func_t try;
- 	kunit_try_catch_func_t catch;
- 	unsigned long timeout;
-+	bool rust_should_panic;
- 	void *context;
- };
- 
-diff --git a/lib/kunit/attributes.c b/lib/kunit/attributes.c
-index 6d7a53af94a9acf3cf336409462059b972efeb22..8a9dc526b3cb2d363d42087f8666a03e9bc2bc4b 100644
---- a/lib/kunit/attributes.c
-+++ b/lib/kunit/attributes.c
-@@ -246,6 +246,16 @@ static void *attr_is_init_get(void *test_or_suite, bool is_test)
- 		return ((void *) suite->is_init);
- }
- 
-+static void *attr_rust_should_panic_get(void *test_or_suite, bool is_test)
-+{
-+	struct kunit_case *test = is_test ? test_or_suite : NULL;
-+
-+	if (test)
-+		return ((void *) test->attr.rust_should_panic);
-+	else
-+		return ((void *) NULL);
-+}
-+
- /* List of all Test Attributes */
- 
- static struct kunit_attr kunit_attr_list[] = {
-@@ -272,6 +282,14 @@ static struct kunit_attr kunit_attr_list[] = {
- 		.filter = attr_bool_filter,
- 		.attr_default = (void *)false,
- 		.print = PRINT_SUITE,
-+	},
-+	{
-+		.name = "rust_should_panic",
-+		.get_attr = attr_rust_should_panic_get,
-+		.to_string = attr_bool_to_string,
-+		.filter = attr_bool_filter,
-+		.attr_default = (void *)false,
-+		.print = PRINT_NEVER,
- 	}
- };
- 
-diff --git a/lib/kunit/kunit-test.c b/lib/kunit/kunit-test.c
-index 126e30879dad652d5b236aeb13d4406a4ddbab00..7cca586767cc711f7a829cc4c3bdec17bd8c7d9c 100644
---- a/lib/kunit/kunit-test.c
-+++ b/lib/kunit/kunit-test.c
-@@ -45,6 +45,7 @@ static void kunit_test_try_catch_successful_try_no_catch(struct kunit *test)
- 			     test,
- 			     kunit_test_successful_try,
- 			     kunit_test_no_catch,
-+			     false,
- 			     300 * msecs_to_jiffies(MSEC_PER_SEC));
- 	kunit_try_catch_run(try_catch, test);
- 
-@@ -78,6 +79,7 @@ static void kunit_test_try_catch_unsuccessful_try_does_catch(struct kunit *test)
- 			     test,
- 			     kunit_test_unsuccessful_try,
- 			     kunit_test_catch,
-+			     false,
- 			     300 * msecs_to_jiffies(MSEC_PER_SEC));
- 	kunit_try_catch_run(try_catch, test);
- 
-@@ -133,6 +135,7 @@ static void kunit_test_fault_null_dereference(struct kunit *test)
- 			     test,
- 			     kunit_test_null_dereference,
- 			     kunit_test_catch,
-+			     false,
- 			     300 * msecs_to_jiffies(MSEC_PER_SEC));
- 	kunit_try_catch_run(try_catch, test);
- 
-diff --git a/lib/kunit/test.c b/lib/kunit/test.c
-index 09e3dabfac0c945b2608feb88c1b1d46fb807edc..8b0072c66e1710c7faa7de2df7ff8c4bf48b8e88 100644
---- a/lib/kunit/test.c
-+++ b/lib/kunit/test.c
-@@ -584,6 +584,7 @@ static void kunit_run_case_catch_errors(struct kunit_suite *suite,
- 			     test,
- 			     kunit_try_run_case,
- 			     kunit_catch_run_case,
-+			     test_case->attr.rust_should_panic,
- 			     kunit_test_timeout(suite, test_case));
- 	context.test = test;
- 	context.suite = suite;
-@@ -595,6 +596,7 @@ static void kunit_run_case_catch_errors(struct kunit_suite *suite,
- 			     test,
- 			     kunit_try_run_case_cleanup,
- 			     kunit_catch_run_case_cleanup,
-+			     false,
- 			     kunit_test_timeout(suite, test_case));
- 	kunit_try_catch_run(try_catch, &context);
- 
-diff --git a/lib/kunit/try-catch-impl.h b/lib/kunit/try-catch-impl.h
-index 6f401b97cd0b9842e7533f1b828f72f884450f74..9abe69bb8b396185afb77cb11ca651ba4c9b6a59 100644
---- a/lib/kunit/try-catch-impl.h
-+++ b/lib/kunit/try-catch-impl.h
-@@ -18,11 +18,13 @@ static inline void kunit_try_catch_init(struct kunit_try_catch *try_catch,
- 					struct kunit *test,
- 					kunit_try_catch_func_t try,
- 					kunit_try_catch_func_t catch,
-+					bool rust_should_panic,
- 					unsigned long timeout)
- {
- 	try_catch->test = test;
- 	try_catch->try = try;
- 	try_catch->catch = catch;
-+	try_catch->rust_should_panic = rust_should_panic;
- 	try_catch->timeout = timeout;
- }
- 
-diff --git a/lib/kunit/try-catch.c b/lib/kunit/try-catch.c
-index d84a879f0a789f3625538735644910c84ac80e56..b9e29d4e7dd52d8d82d71a3f138f0313c772ee76 100644
---- a/lib/kunit/try-catch.c
-+++ b/lib/kunit/try-catch.c
-@@ -76,11 +76,15 @@ void kunit_try_catch_run(struct kunit_try_catch *try_catch, void *context)
- 	if (exit_code == -EFAULT)
- 		try_catch->try_result = 0;
- 	else if (exit_code == -EINTR) {
--		if (test->last_seen.file)
--			kunit_err(test, "try faulted: last line seen %s:%d\n",
--				  test->last_seen.file, test->last_seen.line);
--		else
--			kunit_err(test, "try faulted\n");
-+		if (try_catch->rust_should_panic) {
-+			try_catch->try_result = 0;
-+		} else {
-+			if (test->last_seen.file)
-+				kunit_err(test, "try faulted: last line seen %s:%d\n",
-+					  test->last_seen.file, test->last_seen.line);
-+			else
-+				kunit_err(test, "try faulted\n");
-+		}
- 	} else if (exit_code == -ETIMEDOUT)
- 		kunit_err(test, "try timed out\n");
- 	else if (exit_code)
-diff --git a/rust/kernel/kunit.rs b/rust/kernel/kunit.rs
-index 25ff272d29b2b3f192a3968481c1d5417df4335b..5e688b743ee2152867e2f99c7f18b86e1b7fbe3d 100644
---- a/rust/kernel/kunit.rs
-+++ b/rust/kernel/kunit.rs
-@@ -58,7 +58,7 @@ pub fn info(args: fmt::Arguments<'_>) {
- #[doc(hidden)]
- #[macro_export]
- macro_rules! kunit_assert {
--    ($name:literal, $condition:expr $(,)?) => {
-+    ($name:literal, $test_should_panic:expr, $condition:expr $(,)?) => {
-         'out: {
-             // Do nothing if the condition is `true`.
-             if $condition {
-@@ -93,6 +93,14 @@ macro_rules! kunit_assert {
-                 ));
-                 break 'out;
-             }
-+            // If condition fails but the test should panic, then we just abort.
-+            else if $test_should_panic {
-+                // SAFETY: FFI call. The `kunit_test` pointer is valid because we got it from
-+                // `kunit_get_current_test()` and it was not null.
-+                unsafe {
-+                    $crate::bindings::__kunit_abort(kunit_test);
-+                }
-+            }
- 
-             #[repr(transparent)]
-             struct Location($crate::bindings::kunit_loc);
-@@ -166,10 +174,10 @@ unsafe impl Sync for UnaryAssert {}
- #[doc(hidden)]
- #[macro_export]
- macro_rules! kunit_assert_eq {
--    ($name:literal, $left:expr, $right:expr $(,)?) => {{
-+    ($name:literal, $test_should_panic:expr, $left:expr, $right:expr $(,)?) => {{
-         // For the moment, we just forward to the expression assert because, for binary asserts,
-         // KUnit supports only a few types (e.g. integers).
--        $crate::kunit_assert!($name, $left == $right);
-+        $crate::kunit_assert!($name, $test_should_panic, $left == $right);
-     }};
- }
- 
-@@ -209,6 +217,7 @@ pub const fn kunit_case(
-         name: kernel::str::as_char_ptr_in_const_context(name),
-         attr: kernel::bindings::kunit_attributes {
-             speed: kernel::bindings::kunit_speed_KUNIT_SPEED_NORMAL,
-+            rust_should_panic: false,
-         },
-         generate_params: None,
-         status: kernel::bindings::kunit_status_KUNIT_SUCCESS,
-@@ -284,6 +293,7 @@ macro_rules! kunit_unsafe_test_suite {
-                     exit: None,
-                     attr: ::kernel::bindings::kunit_attributes {
-                         speed: ::kernel::bindings::kunit_speed_KUNIT_SPEED_NORMAL,
-+                        rust_should_panic: false,
-                     },
-                     status_comment: [0; 256usize],
-                     debugfs: ::core::ptr::null_mut(),
-@@ -337,6 +347,16 @@ pub fn in_kunit_test() -> bool {
- mod tests {
-     use super::*;
- 
-+    struct TestStruct;
-+
-+    impl TestStruct {
-+        // This assert does not get replaced with kunit_assert, since this is not a #[test]
-+        // function.
-+        pub(crate) fn escaped_assert() {
-+            assert!(false);
-+        }
-+    }
-+
-     #[test]
-     fn rust_test_kunit_example_test() {
-         assert_eq!(1 + 1, 2);
-@@ -347,6 +367,31 @@ fn rust_test_kunit_in_kunit_test() {
-         assert!(in_kunit_test());
-     }
- 
-+    #[test]
-+    #[should_panic]
-+    fn rust_test_kunit_panic_in_kunit_test() {
-+        panic!("This test should panic and pass");
-+    }
-+
-+    #[test]
-+    #[should_panic]
-+    fn rust_test_kunit_panic_in_kunit_test_bug() {
-+        // The panic is produced in a C call. This should succeed.
-+        unsafe { bindings::BUG() };
-+    }
-+
-+    #[test]
-+    #[should_panic]
-+    fn rust_test_assert_false_success_with_should_panic() {
-+        assert!(false)
-+    }
-+
-+    #[test]
-+    #[should_panic]
-+    fn rust_test_should_panic_with_escaped_assert() {
-+        TestStruct::escaped_assert();
-+    }
-+
-     #[test]
-     #[cfg(not(all()))]
-     fn rust_test_kunit_always_disabled_test() {
-diff --git a/rust/macros/kunit.rs b/rust/macros/kunit.rs
-index e9152b9d51f9450b7e549e2e1629b5fc5f485a28..288b53d21c4e7c8d9b5148d50c1a833f73e53015 100644
---- a/rust/macros/kunit.rs
-+++ b/rust/macros/kunit.rs
-@@ -106,6 +106,11 @@ pub(crate) fn kunit_tests(test_suite: Ident, mut module: ItemMod) -> Result<Toke
-             .cloned()
-             .collect();
- 
-+        let should_panic = f
-+            .attrs
-+            .iter()
-+            .any(|attr| attr.path().is_ident("should_panic"));
-+
-         // Before the test, override usual `assert!` and `assert_eq!` macros with ones that call
-         // KUnit instead.
-         let test_str = test.to_string();
-@@ -113,7 +118,7 @@ pub(crate) fn kunit_tests(test_suite: Ident, mut module: ItemMod) -> Result<Toke
-             #[allow(unused)]
-             macro_rules! assert {
-                 ($cond:expr $(,)?) => {{
--                    kernel::kunit_assert!(#test_str, $cond);
-+                    kernel::kunit_assert!(#test_str, #should_panic, $cond);
-                 }}
-             }
-         });
-@@ -121,7 +126,7 @@ macro_rules! assert {
-             #[allow(unused)]
-             macro_rules! assert_eq {
-                 ($left:expr, $right:expr $(,)?) => {{
--                    kernel::kunit_assert_eq!(#test_str, $left, $right);
-+                    kernel::kunit_assert_eq!(#test_str, #should_panic, $left, $right);
-                 }}
-             }
-         });
-@@ -134,25 +139,41 @@ macro_rules! assert_eq {
-             &CString::new(test_str.as_str()).expect("identifier cannot contain NUL"),
-             test.span(),
-         );
-+        let assertion = if should_panic {
-+            quote!(
-+                let _ = #test();
-+                ::kernel::kunit::err(::kernel::prelude::fmt!(
-+                    "    Expected {} to panic\n", #test_str
-+                ));
-+                (*_test).status = ::kernel::bindings::kunit_status_KUNIT_FAILURE;
-+            )
-+        } else {
-+            quote!(
-+                use ::kernel::kunit::is_test_result_ok;
-+                assert!(is_test_result_ok(#test()));
-+            )
-+        };
-         processed_items.push(parse_quote! {
-             unsafe extern "C" fn #kunit_wrapper_fn_name(_test: *mut ::kernel::bindings::kunit) {
-                 (*_test).status = ::kernel::bindings::kunit_status_KUNIT_SKIPPED;
- 
-+
-                 // Append any `cfg` attributes the user might have written on their tests so we
-                 // don't attempt to call them when they are `cfg`'d out. An extra `use` is used
-                 // here to reduce the length of the assert message.
-                 #(#cfg_attrs)*
-                 {
-                     (*_test).status = ::kernel::bindings::kunit_status_KUNIT_SUCCESS;
--                    use ::kernel::kunit::is_test_result_ok;
--                    assert!(is_test_result_ok(#test()));
-+                    #assertion
-                 }
-             }
-         });
- 
--        test_cases.push(quote!(
--            ::kernel::kunit::kunit_case(#test_cstr, #kunit_wrapper_fn_name)
--        ));
-+        test_cases.push(quote!({
-+            let mut case = ::kernel::kunit::kunit_case(#test_cstr, #kunit_wrapper_fn_name);
-+            case.attr.rust_should_panic = #should_panic;
-+            case
-+        }));
-     }
- 
-     let num_tests_plus_1 = test_cases.len() + 1;
+are available in the Git repository at:
 
--- 
-2.47.3
+  git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git tags/net-7.4-rc1
 
+for you to fetch changes up to 8f44631ba02afe9fff2f0a0fb66560ab19df87fd:
 
+  tun: drop batched packets while the device is down (2026-10-29 09:25:58 -0700)
+
+----------------------------------------------------------------
+Current release - new code bugs:
+
+ - mctp: usblib: fix assertion breaking esoteric builds
+
+Previous releases - regressions:
+
+ - eth: ti: am65-cpts: fix support for PTP_EXTTS_REQUEST2 ioctl
+
+ - eth: mlx4: always create the eth and ib auxiliary devices
+
+ - Revert advertising the TCP MSS from the configured MTU
+
+ - eth: tg3: invert restart quirk logic to restrict SNP power-down bypass
+
+ - eth: bnxt: recycle agg buffers when Rx head buffer allocation fails
+
+- netlink: check sk_rcvbuf before charging the dump skb
+
+Previous releases - always broken:
+
+ - net: fix frag_list leak in skb_segment_list() error path
+
+ - sctp: reject forged cookie peer_addr with unknown address family
+
+ - vxlan: keep reserved_bits across changelink
+
+ - net: limit priority VLAN untag depth
+
+ - inet: frags: prevent acceptance of partially authenticated reassembly
+
+ - gro: do not GRO GSO packets with inconsistent payload
+
+ - tcp: avoid double destroy in tcp_abort() of an unaccepted child
+
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+----------------------------------------------------------------
+Aamir Ahmed (1):
+      gve: fix out-of-bounds read in gve_get_flow_rule_entry()
+
+Alexandre Cassen (2):
+      net/sched: act_api: inherit filter offload flags only on new actions
+      selftests: tc-testing: test offload flags of reused matchall actions
+
+Allison Henderson (4):
+      net/rds: include the scope id in the sendmsg connection cache check
+      net/rds: keep the connected peer's scope id apart from the bound one
+      net/rds: do not fail init when CONFIG_SYSCTL=n
+      net/rds: do not initialize transports after rds_init() failed
+
+Anil Kaushik (1):
+      gtp: Require 'CAP_NET_ADMIN' when joining the gtp multicast group
+
+Antonio Quartulli (1):
+      net/sched: fix packet reordering on requeue
+
+Binbin Deng (1):
+      net: atlantic: Unregister before clearing RXNFC rules
+
+Cheng Yongkang (1):
+      net: tun: hold napi_mutex when deleting NAPI in tun_detach_all()
+
+Chuck Lever (2):
+      tls: Honor O_NONBLOCK in tls_sw_splice_read()
+      selftests: tls: Cover splice on a nonblocking socket
+
+Coia Prant (4):
+      net: pcs: xpcs-plat: fix runtime PM initialization
+      net: pcs: xpcs-plat: fix clock lifecycle for !CONFIG_PM builds
+      net: pcs: xpcs-rk: fix cleanup action error message
+      MAINTAINERS: list DW XPCS platform driver and binding under XPCS entry
+
+Cosmin Ratiu (2):
+      net/mlx5e: SHAMPO: Do not merge PSP packets
+      net/mlx5: Only set num_doorbells on a fully initialized SF
+
+Daniel Machon (8):
+      net: sparx5/lan969x: do not read past skb->len when injecting a frame
+      net: sparx5: fix tx DCB index drift in fdma xmit
+      net: lan966x: do not inject uninitialised bytes past skb->len
+      net: lan966x: do not warn on MAC entries that are not port destined
+      net: lan966x: fix the DB dataptr of frames from ndo_xdp_xmit
+      net: lan966x: release the in-flight slot of a stale TX skb
+      net: microchip: fdma: fix DCB corruption under sustained load
+      net: lan966x: don't disable hardirqs in fdma tx clear path
+
+Daniel Palmer (1):
+      net: i825xx: 82596: use MMIO accessors for the MVME16x PORT/CA registers
+
+David Yang (2):
+      net: hisilicon: hisi_femac: Stop the receiver before releasing the RX ring
+      net: dsa: motorcomm: Fix function parameter types
+
+Dharmender Garg (2):
+      bnge: cap RSS contexts and RX rings to the RSS table size
+      bnge: fix RSS table sizing for large RX ring counts
+
+Dimitri Daskalakis (1):
+      eth: fbnic: Correct packet header prefetch
+
+Divyanshu Jha (1):
+      net: usb: cdc_ncm: add Apple Silicon MacBook Air (05ac:1903) device ID
+
+Dong Yibo (1):
+      net: rnpgbe: Accept link-down events without speed magic
+
+Dudu Lu (5):
+      net/sched: etf: initialise the sock_exterr_skb before filling it
+      net/sched: gred: keep the qdisc lock while updating the table
+      net/sched: taprio: unwind the netdevice notifier if register_qdisc() fails
+      net: xps: bound the cleanup loop by the old map's num_tc
+      net-sysfs: reject a one-entry RPS flow table
+
+Eric Dumazet (9):
+      net: fix frag_list leak in skb_segment_list() error path
+      net: harden qdisc_pkt_len_segs_init() against malicious GSO packets
+      ipmr: clear skb->cb[] in reg_vif_xmit()
+      ixgbe: reserve TX timestamp after skb preparation
+      ppp: linearize and segment bridged packets when required
+      net: add eth_type_trans_careful()
+      loopback: use eth_type_trans_careful()
+      net: use eth_type_trans_careful() in __dev_forward_skb2()
+      openvswitch: use eth_type_trans_careful() in internal_dev_recv()
+
+Fang Xieyan (1):
+      net: sched: em_ipt: validate hook value from netlink
+
+Fernando Fernandez Mancera (1):
+      devlink: region: fix snapshot id leak on kernel-allocated ids
+
+Florian Fainelli (2):
+      net: dsa: mv88e6xxx: fix 6351 family statistics snapshot
+      net: dsa: mv88e6xxx: fix 88E6171 statistics type
+
+Gal Pressman (1):
+      net/mlx5e: IPsec, Fix out-of-bounds comparison of neighbour keys
+
+Greg Thelen (1):
+      selftests/net: tcp_mmap: remove unused -k option and keepflag
+
+Hangbin Liu (1):
+      selftests: gro: remove unused variable total_data
+
+Hannes Laimer (2):
+      vxlan: keep reserved_bits across changelink
+      selftests: forwarding: vxlan_reserved: add gbp changelink test
+
+Hanson Wang (1):
+      net: usb: aqc111: fix set_mac_address return value
+
+Henry Martin (1):
+      netlink: fix out-of-bounds bitmap access clearing stale mc groups
+
+Ido Schimmel (2):
+      ipmr: fully initialize the synthetic IP header in ipmr_get_route()
+      ipmr, ip6mr: validate packets injected into the register vif on xmit
+
+Jacob Keller (2):
+      ice: use reference counting and SRCU for PTP port access
+      ice: set in_use only after preparing Tx timestamp index
+
+Jakub Kicinski (21):
+      Merge branch 'net-pse-pd-si3474-two-driver-fixes'
+      Merge branch 'net-rds-scope-aware-sendmsg-connection-cache'
+      Merge branch 'net-usb-pegasus-fix-receive-length-handling'
+      Merge branch 'net-sched-act_api-keep-the-offload-flags-of-shared-actions'
+      Merge branch 'ipmr-ip6mr-fix-several-info-leaks'
+      Merge branch 'net-usb-cdc_ncm-cdc_mbim-fix-netpoll-lockup-in-tx_fixup'
+      Merge branch 'net-dsa-mv88e6xxx-88e6171-stats-fixes'
+      Merge branch 'revert-advertising-the-tcp-mss-from-the-configured-mtu'
+      Merge branch 'net-bcmgenet-fixes-for-a-failed-resume-and-the-ring-rebuild'
+      Merge branch 'tls-honor-o_nonblock-in-tls_sw_splice_read'
+      Merge branch 'net-pcs-xpcs-fix-runtime-pm-and-clock-lifecycle'
+      Merge branch 'bnge-fixes'
+      Merge branch 'ice-e82x-reduced-timestamp-processing-logic-fixes'
+      eth: bnxt: recycle agg buffers when Rx head buffer allocation fails
+      eth: bnxt: resize Rx head buffers when rx-copybreak changes
+      eth: bnxt: don't leak buffers when XDP agg buffer allocation fails
+      eth: bnxt: free XDP frags when xdp_do_redirect() fails
+      eth: bnxt: hand XDP frags over to the copybreak skb
+      Merge branch 'eth-bnxt-fix-rx-buffer-leaks-under-oom'
+      Merge branch 'net-fix-eth_type_trans-crashes-on-skbs-coming-from-the-stack'
+      Merge branch 'netlink-fix-a-dump-livelock-with-a-notification-queued'
+
+Jamal Hadi Salim (2):
+      net/sched: sch_teql: fix slaves_lock IRQ deadlock
+      net/sched: act_ife: do not consume the inner header on egress
+
+James Clark (1):
+      net: ethernet: ti: am65-cpts: fix support for PTP_EXTTS_REQUEST2 ioctl
+
+James Lee (1):
+      net: mctp: usblib: Fix broken assertion
+
+Jamie Nguyen (1):
+      selftests: net: txtimestamp: fix out-of-bounds read in raw UDP checksum
+
+Jhonata Poma-Hansen (2):
+      netlink: check sk_rcvbuf before charging the dump skb
+      selftests: net: netlink-dumps: start a dump with a notification queued
+
+Jiayuan Chen (2):
+      tls: fix the open record check in the max payload size setsockopt
+      bonding: fix out-of-bounds read of arp_ip_target
+
+Jin Li (1):
+      selftests: net: forwarding: bridge_vlan_mcast: Allow default startup query interval to vary by HZ
+
+Joas Antonio dos Santos (2):
+      net: dcb: initialize PFC value before calling getpfccfg
+      net: mctp: free reassembly head skb when key_add fails on SOM
+
+Jérémy Jean (1):
+      inet: frags: prevent acceptance of partially authenticated reassembly
+
+Kaho Jiang (1):
+      net: ipv4: add zero check for snd_cwnd_clamp
+
+Kaifeng Wang (1):
+      tcp: reject devmem tx with fastopen and repair
+
+Kamil Sawicki (1):
+      net: limit priority VLAN untag depth
+
+Karol Kolacinski (1):
+      ice: E822: keep Tx timestamps disabled during offset calibration
+
+Kiran Kumar K (1):
+      octeontx2-af: fix inner LC ltype match for RSS flowkey
+
+Kuniyuki Iwashima (1):
+      ipv6: Protect multiple routes insertion by table lock.
+
+Kyle Zeng (6):
+      net: sched: prevent scheduling deactivated qdiscs
+      net/packet: check TX_RING fragments before memory accounting
+      gro: do not GRO GSO packets with inconsistent payload
+      tcp: avoid double destroy in tcp_abort() of an unaccepted child
+      tcp: fix reordering addition overflow in MTU probing
+      tcp: initialize mapped children before route lookup
+
+Linkui Xiao (1):
+      net: bridge: netlink: do not clear the vlan info dump error
+
+Linmao Li (1):
+      r8152: Use BMSR to detect the link state
+
+Naman Gulati (1):
+      netdev-genl: ignore NETDEV_UNREGISTER rebroadcasts
+
+Nandor Kracser (1):
+      tls: avoid field-spanning write when copying crypto info
+
+Nicolai Buchwitz (7):
+      net: usb: cdc_ncm: don't enable BHs in tx_fixup under netpoll
+      net: usb: cdc_mbim: don't enable BHs in tx_fixup under netpoll
+      net: bcmgenet: recover from a failed resume
+      net: bcmgenet: restore the Tx coalescing setting when the rings are rebuilt
+      octeontx2-pf: fix skb use-after-free on ipsec transmit drop
+      octeontx2-pf: pass the skb to otx2_dma_unmap_skb_frags()
+      octeontx2-pf: fix skb use-after-free with ipsec crypto offload
+
+Noam D. Eliyahu (1):
+      tg3: Invert restart quirk logic to restrict SNP power-down bypass
+
+Paolo Abeni (5):
+      gtp: hold RCU in gtp_genl_send_echo_req()
+      Merge branch 'net-rds-fix-init-failures-leaving-built-in-transports-on-a-dead-core'
+      Merge branch 'vxlan-keep-reserved_bits-on-changelink'
+      Merge branch 'net-sched-sch_teql-fix-transmit-path-regressions'
+      Merge branch 'octeontx2-pf-fix-ipsec-transmit-error-paths'
+
+Paul Moses (1):
+      xsk: restore UMEM flags after failed pool assignment
+
+Peter Morrow (1):
+      net/mlx4: always create the eth and ib auxiliary devices
+
+Piotr Kubik (2):
+      net: pse-pd: si3474: keep detection enabled on the other PIs
+      net: pse-pd: si3474: validate the channels of a PI
+
+Prashant Sengar (1):
+      net: usb: lan78xx: avoid NULL PHY dereference in WoL setup
+
+Qingfang Deng (2):
+      pppoe: drop discovery frames with no MAC header
+      pppoe: wait for RCU readers before reusing a socket
+
+Rishikesh Jethwani (1):
+      tls: keep TX and RX hardware offload on the same device
+
+Rosen Penev (1):
+      net: bgmac: fix TX DMA unmapping and slot cleanup
+
+Sicong Huang (1):
+      nfp: flower: fix use-after-free in neighbour update work
+
+Tao Gong (1):
+      net: dsa: mt7530: trap frames to conduit in MFC on EN7581 and AN7583
+
+Tristan Madani (1):
+      ppp: fix stale pointer access after pskb_may_pull in ppp_ccp_peek
+
+Tung Nguyen (1):
+      tipc: fix refcount panic in tipc_rcv() when receiving shared skb
+
+Wei Jie Law (2):
+      net: usb: pegasus: do not advance rx_skb->data on dropped frames
+      net: usb: pegasus: check rx pkt_len against the received length
+
+Xia Yan (1):
+      macvlan: fix passthru promiscuity accounting while down
+
+Xiao Liang (1):
+      tun: drop batched packets while the device is down
+
+Xingyuan Mo (1):
+      sctp: reject forged cookie peer_addr with unknown address family
+
+Yingjie Wang (1):
+      tcp: limit tcp_tso_rtt_log to a valid shift count
+
+Yongjian Wang (2):
+      Revert "selftests: net: packetdrill: add tests for advertised MSS with PMTU exceptions"
+      Revert "net: advertise TCP MSS from the configured MTU, not the learned PMTU"
+
+Zhewei Yuan (1):
+      tcp: Fix fastreuse cache initialization on first bind
+
+Zhiling Zou (3):
+      ipmr: only copy pktinfo to cache reports
+      ipmr: drop packets with unknown ingress VIF
+      tcp: check congestion control restriction first
+
+Zizhen Liu (1):
+      net: skbuff: propagate shared-frag marker in skb_zerocopy()
+
+alex todadze (1):
+      net: stmmac: fix rx checksum offload with extended descriptors
+
+owen kwan (1):
+      net/sched: sch_teql: fix use-after-free on lower qdisc drop
+
+yanxia (1):
+      veth: fix stale peer max_mtu on XDP program replacement
+
+Ömer Mete Kaya (1):
+      usbnet: fix EVENT_RX_PAUSED race in usbnet_skb_return()
+
+ Documentation/netlink/specs/gtp.yaml               |   1 +
+ Documentation/networking/ip-sysctl.rst             |   2 +
+ Documentation/networking/tls-offload.rst           |  16 +-
+ MAINTAINERS                                        |   2 +
+ drivers/net/bonding/bond_main.c                    |   2 +-
+ drivers/net/dsa/motorcomm/chip.c                   |   4 +-
+ drivers/net/dsa/mt7530.c                           |   7 +-
+ drivers/net/dsa/mv88e6xxx/chip.c                   |  10 +-
+ .../net/ethernet/aquantia/atlantic/aq_pci_func.c   |   2 +-
+ drivers/net/ethernet/broadcom/bgmac.c              |  51 +++---
+ drivers/net/ethernet/broadcom/bnge/bnge_resc.c     |   6 +-
+ drivers/net/ethernet/broadcom/bnge/bnge_resc.h     |   9 +-
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c          |  58 ++++---
+ drivers/net/ethernet/broadcom/bnxt/bnxt_ethtool.c  |   1 +
+ drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c      |   1 +
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c     | 102 ++++++++----
+ drivers/net/ethernet/broadcom/genet/bcmgenet.h     |   1 +
+ drivers/net/ethernet/broadcom/tg3.c                |  48 ++----
+ drivers/net/ethernet/google/gve/gve_flow_rule.c    |   1 +
+ drivers/net/ethernet/hisilicon/hisi_femac.c        |   1 +
+ drivers/net/ethernet/i825xx/82596.c                |  25 +--
+ drivers/net/ethernet/intel/ice/ice_adapter.c       |  17 +-
+ drivers/net/ethernet/intel/ice/ice_adapter.h       |  17 +-
+ drivers/net/ethernet/intel/ice/ice_ptp.c           | 174 +++++++++++++++------
+ drivers/net/ethernet/intel/ice/ice_ptp.h           |  10 +-
+ drivers/net/ethernet/intel/ixgbe/ixgbe_main.c      |  40 +++--
+ .../net/ethernet/marvell/octeontx2/af/rvu_nix.c    |   8 +-
+ .../ethernet/marvell/octeontx2/nic/cn10k_ipsec.c   |   5 +-
+ .../ethernet/marvell/octeontx2/nic/otx2_common.c   |   9 +-
+ .../ethernet/marvell/octeontx2/nic/otx2_common.h   |   3 +-
+ .../net/ethernet/marvell/octeontx2/nic/otx2_txrx.c |  19 ++-
+ drivers/net/ethernet/mellanox/mlx4/intf.c          |  15 +-
+ drivers/net/ethernet/mellanox/mlx5/core/devlink.c  |   6 +
+ .../mellanox/mlx5/core/en_accel/en_accel.h         |   6 +
+ .../ethernet/mellanox/mlx5/core/en_accel/ipsec.c   |   3 +
+ .../mellanox/mlx5/core/en_accel/psp_rxtx.h         |  13 ++
+ drivers/net/ethernet/mellanox/mlx5/core/en_rx.c    |   6 +-
+ drivers/net/ethernet/meta/fbnic/fbnic_txrx.c       |   2 +-
+ drivers/net/ethernet/microchip/fdma/fdma_api.c     |  30 +++-
+ .../net/ethernet/microchip/lan966x/lan966x_fdma.c  |   8 +-
+ .../net/ethernet/microchip/lan966x/lan966x_mac.c   |   4 +-
+ .../net/ethernet/microchip/lan966x/lan966x_main.c  |  19 ++-
+ .../net/ethernet/microchip/lan966x/lan966x_ptp.c   |  10 +-
+ .../net/ethernet/microchip/sparx5/sparx5_fdma.c    |   3 +-
+ .../net/ethernet/microchip/sparx5/sparx5_packet.c  |  15 +-
+ drivers/net/ethernet/mucse/rnpgbe/rnpgbe_mbx_fw.c  |   7 +-
+ drivers/net/ethernet/netronome/nfp/flower/main.h   |   2 +
+ .../ethernet/netronome/nfp/flower/tunnel_conf.c    |  24 ++-
+ drivers/net/ethernet/stmicro/stmmac/descs.h        |   6 +-
+ drivers/net/ethernet/stmicro/stmmac/enh_desc.c     |  25 ++-
+ drivers/net/ethernet/stmicro/stmmac/hwif.h         |   6 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  19 ++-
+ drivers/net/ethernet/ti/am65-cpts.c                |   1 +
+ drivers/net/gtp.c                                  |  47 ++++--
+ drivers/net/loopback.c                             |   8 +-
+ drivers/net/macvlan.c                              |   3 +-
+ drivers/net/mctp/mctp-usblib-test.c                |   4 +-
+ drivers/net/pcs/pcs-xpcs-plat.c                    |  62 ++++++--
+ drivers/net/pcs/pcs-xpcs-rk.c                      |   2 +-
+ drivers/net/ppp/ppp_generic.c                      |  96 +++++++++++-
+ drivers/net/ppp/pppoe.c                            |   8 +
+ drivers/net/pse-pd/si3474.c                        |  23 ++-
+ drivers/net/tun.c                                  |  10 ++
+ drivers/net/usb/aqc111.c                           |   8 +-
+ drivers/net/usb/cdc_mbim.c                         |   5 +-
+ drivers/net/usb/cdc_ncm.c                          |  13 +-
+ drivers/net/usb/lan78xx.c                          |   9 ++
+ drivers/net/usb/pegasus.c                          |  16 +-
+ drivers/net/usb/r8152.c                            |  10 +-
+ drivers/net/usb/usbnet.c                           |  24 ++-
+ drivers/net/veth.c                                 |   5 +-
+ drivers/net/vxlan/vxlan_core.c                     |   2 +-
+ include/linux/etherdevice.h                        |  28 ++++
+ include/linux/ppp_channel.h                        |   1 +
+ include/net/inet_frag.h                            |   1 +
+ include/net/ip.h                                   |  25 ---
+ include/net/ip6_route.h                            |  37 -----
+ include/net/xfrm.h                                 |  17 ++
+ net/bridge/br_netlink.c                            |   2 +-
+ net/core/dev.c                                     |  42 ++++-
+ net/core/gro.c                                     |   5 +-
+ net/core/net-sysfs.c                               |   7 +
+ net/core/netdev-genl.c                             |   6 +
+ net/core/skbuff.c                                  |  11 +-
+ net/dcb/dcbnl.c                                    |   2 +
+ net/devlink/region.c                               |   5 +
+ net/ipv4/inet_connection_sock.c                    |   3 +-
+ net/ipv4/inet_fragment.c                           |   5 +
+ net/ipv4/ip_fragment.c                             |   3 +-
+ net/ipv4/ipmr.c                                    |  27 +++-
+ net/ipv4/metrics.c                                 |   5 +
+ net/ipv4/route.c                                   |   4 +-
+ net/ipv4/sysctl_net_ipv4.c                         |   2 +
+ net/ipv4/tcp.c                                     |  26 ++-
+ net/ipv4/tcp_cong.c                                |   4 +-
+ net/ipv4/tcp_ipv4.c                                |  10 +-
+ net/ipv4/tcp_offload.c                             |  12 +-
+ net/ipv4/tcp_output.c                              |   2 +-
+ net/ipv6/ip6_fib.c                                 |   4 -
+ net/ipv6/ip6mr.c                                   |   5 +-
+ net/ipv6/reassembly.c                              |   3 +-
+ net/ipv6/route.c                                   |  19 ++-
+ net/mctp/route.c                                   |  10 +-
+ net/netlink/af_netlink.c                           |  12 +-
+ net/openvswitch/vport-internal_dev.c               |   8 +-
+ net/packet/af_packet.c                             |  12 +-
+ net/rds/af_rds.c                                   |  29 +++-
+ net/rds/bind.c                                     |   4 +-
+ net/rds/ib_sysctl.c                                |   2 +-
+ net/rds/rdma_transport.c                           |   3 +
+ net/rds/rds.h                                      |   3 +
+ net/rds/recv.c                                     |  11 +-
+ net/rds/send.c                                     |   9 +-
+ net/rds/sysctl.c                                   |   2 +-
+ net/rds/tcp.c                                      |   5 +-
+ net/sched/act_api.c                                |   3 +
+ net/sched/act_ife.c                                |   4 +
+ net/sched/em_ipt.c                                 |   3 +
+ net/sched/sch_etf.c                                |   1 +
+ net/sched/sch_generic.c                            |  14 +-
+ net/sched/sch_gred.c                               |  16 +-
+ net/sched/sch_taprio.c                             |   6 +-
+ net/sched/sch_teql.c                               |  60 ++++---
+ net/sctp/ipv6.c                                    |   6 +-
+ net/sctp/sm_make_chunk.c                           |  24 +--
+ net/sctp/sm_statefuns.c                            |   2 +-
+ net/tipc/bearer.c                                  |   4 +
+ net/tls/tls_device.c                               |  24 +++
+ net/tls/tls_main.c                                 |  26 ++-
+ net/tls/tls_sw.c                                   |   9 +-
+ net/xdp/xsk_buff_pool.c                            |   2 +
+ tools/testing/selftests/bpf/prog_tests/empty_skb.c |  19 ++-
+ .../selftests/net/forwarding/bridge_vlan_mcast.sh  |   3 +-
+ .../selftests/net/forwarding/vxlan_reserved.sh     |  15 ++
+ tools/testing/selftests/net/lib/gro.c              |   2 -
+ tools/testing/selftests/net/netlink-dumps.c        | 102 ++++++++++++
+ .../net/packetdrill/tcp_advmss_pmtu_ipv4.pkt       |  67 --------
+ .../net/packetdrill/tcp_advmss_pmtu_ipv6.pkt       |  67 --------
+ tools/testing/selftests/net/tcp_mmap.c             |   6 +-
+ tools/testing/selftests/net/tls.c                  |  31 ++++
+ tools/testing/selftests/net/txtimestamp.c          |  23 +--
+ .../tc-testing/tc-tests/filters/matchall.json      |  71 +++++++++
+ 142 files changed, 1596 insertions(+), 684 deletions(-)
+ delete mode 100644 tools/testing/selftests/net/packetdrill/tcp_advmss_pmtu_ipv4.pkt
+ delete mode 100644 tools/testing/selftests/net/packetdrill/tcp_advmss_pmtu_ipv6.pkt
