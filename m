@@ -1,70 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793288576;
-	b=b64kPyXhVL7XgfXJCQDTGYAGj2qFEcOoCZb9JNfIaNPXYCvfNxN00XnihWhlRzn3tT2+
-	 J4fbMsasTfNEMmaq0dbsYRkai865tqJ66vFd8CgjyynBfqeP1Bnxiuu4KCMvL1aSOb7CB
-	 OmimTYrP6TDUj8AW8GjS6twOv+y7zA6Ox8iotERYTNMnLV/1JspoECaaRmmnr0iMolVgY
-	 iZNIHtuFrLPK6dnh3itROH3IXfL0l/QtfHWBR92YwSSPwslfUGFTyZ18fqotjwKSMgNUY
-	 S8/dgMhzYOnDgVyCTTqL4ZB+U3rx8nIIvUw+ToSG63bnW6XxCStsmkL+pZcVY6QBhMw==
+	t=1793288577;
+	b=KV5mB1pSdhvUQKZQm07GgS5QihkzvcypTVIxAESUyBHZp8t05Pzk5aj4aJHfzgktAngH
+	 Yp4RRc9+Xsxjj1f9TS536Eb/BxQzTL9lu1nUMKQmz8Piw+6dLnYhwzw+eXhDmaYynqagh
+	 FOMHpwG1ckneZGQ2I7e22zjSppBNARrnU9LIieZGIk/tUOT2E/JrpLSVzTGbxC6Krdu6n
+	 e/LXgfGaLKggBAHfHNq1vhvdhCxhcvrWXrm80vRRIjDwPzz8PlilvlOsL9kxQhXRmpKYF
+	 PiTTV6cEO1bPFd0uR4PIqVgB5o9g0xjcbxAJt6W/Khpd1PoN2NUnS/Nks7RT1lyAg5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793288576;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=L5D86BXNnNkH5tFHqH3VjPCbsL8RXaLh8X9LuOfrSFk=;
-	b=B7eHRT3rle0qmic/tkYeHrsJkHzQG+1yXF8ZSX5JtboSMCdtjtn35jVUdCH0r/h9EWAN
-	 /nCvfCcIaIGZymUHWkAPN1nnS5Z9PcGy6+J15UEOW85mfCDC2R6EICqzK3UBLaiDHPBnJ
-	 K/vwmWbyaW27g/i5rC2d6gy0JpgNTuFjduERGXg+r465NtQ2Yt3G8cR7K7Hnv+dPVCxP5
-	 KfGfT4JnfebY+T/mwVDIc2Y6aWJsqnvYtVMNjW7nVhhmj+1x1cdaFfsHrObGCmzUZd+xw
-	 snUAmVObXzDyhYVz5VPsWAeEMzv/07obc8AOI956bMpUxXbXl88+TlxN9N9dAfWM4tQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288577;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=x05fCxndf1hYykwEJ06qD0sbC4EVKTE/sZRMpUPdEQc=;
+	b=f6yj0LSVW+IUN8KAbkkSz3bFNf/Y5nKd75DEpJcuL8U3hV+e0yU9JP4nfs9lmq45FCUL
+	 rhb2txmC6vIH5whS3mLqxCJ3BLCjKj+z+yRxRFgiS6CzeuD+IMlwAbfCMh7Z28FIc/iVO
+	 s1U6RipoTUQWPdDq+rKMYBLQr+3naDxh98LikbunNlRHOy5qP1IG3BEEculEvaItSJkLW
+	 UjLDIuYmQzi2nIXm1SrSIs9+sV7cC+X+sii+9Dl8EkOl2iuPFT3pnx1Las6caksogVML9
+	 TidU93yrpDrEbzruBNBpHOrnIDxXQmlkTeWEXQtpadl16HmTgIEHCXsv2msefjDlN8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b="1mI/KKbJ";
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9wAXUyVG;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VBWpMU/K";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C06606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:42:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3C06606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF77606A32D;
+	Thu, 29 Oct 2026 15:42:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=1mI/KKbJ;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9wAXUyVG
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1793288573;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L5D86BXNnNkH5tFHqH3VjPCbsL8RXaLh8X9LuOfrSFk=;
-	b=1mI/KKbJifBl0xlBKIAJQI5uhaZN8dMQjYjmpybz0Hs+oTnviJ/TbplPRsxaQPtNHKYWjn
-	Dr2ntFgMmAwHvKY9YHBIvrSX7RAPHF9Jup7Q/M7wDba5u4N8E1t2+4R1o1/wkWbjlnRI9l
-	NiRLsga938a3UTCo62NJ7YUZ72Qm69KLMGOYqrYNudGadaYU+ESXVsFaaOuq/rxLGu96rn
-	sKbt7UPliR6n8/rfOTbpegPn62L+3sgK/InfSW160zm63yE9ywTOAROxNAX54RvqZn8EHr
-	sH0RrqKYclePkmERALeKF3o3TnMv62pTJeySd8QVZSdxRTedFBlg78vh+rn85g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1793288573;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=L5D86BXNnNkH5tFHqH3VjPCbsL8RXaLh8X9LuOfrSFk=;
-	b=9wAXUyVGxrwz9T1YeevfYK4dIfmJb0V0hUFOvHAOoIkphgQV4b7u6m6Gzy3VaQ7oc6aAMd
-	RSFkcorc/oIJIVCA==
-To: Petr Mladek <pmladek@suse.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Steven Rostedt
- <rostedt@goodmis.org>, Derek Barbosa <debarbos@redhat.com>,
- printk@lists.linux.dev, linux-kernel@vger.kernel.org, Sashiko
- <sashiko-bot@kernel.org>
-Subject: Re: [PATCH printk] printk: Avoid multiple unregistration in
- unregister_console_locked()
-In-Reply-To: <20261029152454.638952-1-john.ogness@linutronix.de>
-References: <20261029152454.638952-1-john.ogness@linutronix.de>
-Date: Thu, 29 Oct 2026 16:48:53 +0106
-Message-ID: <87y0bgwm0y.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBWpMU/K
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F621F01825;
+	Thu, 29 Oct 2026 15:42:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793288576;
+	bh=x05fCxndf1hYykwEJ06qD0sbC4EVKTE/sZRMpUPdEQc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VBWpMU/KLAu7f/e/8Noc5/ky4m6uYCqrAnbDe7B1Eiyf3YKYYuSJu9S6rMUBwAHRq
+	 rxdNuSkxQyc4TOUMzaXdWdtkkmG4SSedqSFbH+UiVGUvDBhSbF5ps5Rj1N4WC5Z+1M
+	 nVg6ipTCrheIKd6OSnlqmCHY40aY5JuHQMktjBDTz0bNGDllpKtBpr67h+uTjX/02/
+	 BPVwPJ/jrEhMjy1lbZssZEiGQ47CW+eoOvd7LM9X+gXcm1M/wx1zx2VQ/uyO8q67C5
+	 n6t0zAffCO2JyYnGumXddDp++ELqcS68IiiH0skAk3Y++ZmqpXAGKI8OP//9xNZw14
+	 KXjSab75N39jg==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 55D60198003A;
+	Thu, 29 Oct 2026 11:42:41 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Thu, 29 Oct 2026 11:42:51 -0400
+X-ME-Sender: <xms:cGnjatNYCDeDF49taWGwFnFA6DTBtqFjLkJEWyZ2h7-8tO1hYgeSTw>
+    <xme:cGnjalcGilwgpzywEq5-9_Uax-LoiciY26Hr9Dx2NdLZKDVOeYHxJNoKbsqoyc0HV
+    fMpRhpRtFCi6EkHPOqVKO7Qgcsf8k8JabM2EeZbLZYt0LPRJSrAX1Uy>
+X-ME-Received: <xmr:cGnjam3XDA41P6ZfG4_oZPjd4RhksmXGacPPo4PHNrL9WQIkvxQOdIUOlic>
+X-ME-Proxy-Cause: dmFkZTGrojcwHOYNV1R27yGMmE+sn2SpgiwFqzTWix470caHvIOH90SafujrsKt+HTJD90
+    SN5SPP69uNBPn1MxWH6/eaMHHTJo/SvRT/z0Ju39Z9YfjzvKYsDYrFhgheSCBdJ9b5YIFp
+    cIdIwys365LDAngvB6UcUIm3AGzNccSf4yN/FZLQr8sexIPFzUStpfInmWS9yXmQgvCx5c
+    fmpZ7EbFXEWylssnvmmDQCnrMMUW1jHsUhf/jrVErtMG2Lbffr1bqxM2P6gj7ypN5ZdyZj
+    TgAYvrVjfWikwB2MTrnw3YjFYjeMV0UDDQUTP/dXoAy/YlzoJiJh64//IR8g0ZuUVQCpel
+    PcjjoB9Q6Jx3knI5olrCUi4hirBEGQQT+oSeGTeh25/h09KblyE6Vl7jNLQSnQit4V+35z
+    J17GU/oPzC0n+oCMVsG/dfInPKVCtLZBd5z2d7pFm7kIyajC91WW0fXwTIMOKy3y+R1okp
+    ekcKGTudIOrHnEZRx1GDJKalnfGvVV/PnxC4Qbu/41RL8DRLjWQuiSHsfiURJwHwuxhasY
+    GYMOJsxXNzU8cnNcXtdtzJIfeYba/tJgBPi2qhRcbC1kxMhMglGWVDH8uH+rSsnay/vQnw
+    D3Mh5eiVtNV6r+viH4MNCT1TzsAFldnQpQurl7rb5p9gSfzssla1/AAmhpLw
+X-ME-Proxy: <xmx:cGnjalwWU8W_LTwkSDS4FwlbRvlMAxVh616uhleGcP8DWlPfaYmGzw>
+    <xmx:cGnjaj53Pt7V4Vu7bIXzZKdpvSrEym3BIg-jYhLqD8PxloGEbD1BjA>
+    <xmx:cGnjampN953BOAPY-iT_PyL1bwsUDnSFFEZwFhBzoi8zawrViQ6drg>
+    <xmx:cGnjaqnZb_SLLcbp0PPUsQOS2wLwEGRm-QsuvZlsn1hfIsEUvsIcMQ>
+    <xmx:cGnjaqQ6rvy28ek_52FnLx0f5zjRtsChWHkRCTWZP2DTXANVWLWIhapi>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 29 Oct 2026 11:42:39 -0400 (EDT)
+Date: Thu, 29 Oct 2026 15:42:38 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
+	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+	Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 42/46] mm/huge_memory: split huge PUDs when adjusting VMA
+ boundaries
+Message-ID: <auNpU-7hPtUZeTGs@thinkstation>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-42-6f74bec9a5bb@kernel.org>
+ <auMxQPze5cOvGbCe@thinkstation>
+ <9f4128a4-85fc-4f4b-ac41-b9d348f56e37@kernel.org>
+ <auNYPPlCnLdN88t_@thinkstation>
+ <d5d077fe-4695-453a-a2cd-40ef30abd61d@kernel.org>
+ <e796dace-06c6-43b8-83f0-594e7f1e7380@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,53 +117,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e796dace-06c6-43b8-83f0-594e7f1e7380@kernel.org>
 
-On 2026-10-29, Sashiko wrote:
->> @@ -4471,6 +4493,9 @@ static int __init printk_late_init(void)
->>  		}
->>  
->>  		unregister_console_locked(con);
->> +
->> +		/* Changed console list, may require printer threads to start/stop. */
->> +		printk_kthreads_check_locked();
->>  	}
->
-> Should printk_kthreads_check_locked() be called after the
-> hlist_for_each_entry_safe(con, tmp, &console_list, node) loop in
-> printk_late_init() rather than inside the loop body?
->
-> In kernel/printk/printk.c:printk_late_init():
->
->	hlist_for_each_entry_safe(con, tmp, &console_list, node) {
->		if (!(con->flags & CON_BOOT))
->			continue;
->		...
->		unregister_console_locked(con);
->
->		/* Changed console list, may require printer threads to start/stop. */
->		printk_kthreads_check_locked();
->	}
->	console_list_unlock();
->
-> Because printk_kthreads_check_locked() is placed inside the loop,
-> unregistering the last boot console sets have_boot_console to false and
-> immediately attempts to start printer kthreads while the loop is still
-> iterating over console_list.
->
-> If kthread creation in legacy_kthread_create() or nbcon_kthread_create()
-> fails for the console stored in tmp, printk_kthreads_check_locked() calls
-> unregister_console_locked() on that console, removing it with
-> hlist_del_init_rcu(), freeing nbcon resources, and invoking console->exit().
-> On the next iteration of printk_late_init(), con is set to tmp, accessing the
-> already-unregistered console and terminating the walk early because
-> hlist_del_init_rcu() cleared tmp->next.
+On Thu, Oct 29, 2026 at 04:35:46PM +0100, David Hildenbrand (Arm) wrote:
+> On 10/29/26 15:40, David Hildenbrand (Arm) wrote:
+> > On 10/29/26 15:31, Kiryl Shutsemau wrote:
+> >> On Thu, Oct 29, 2026 at 03:24:29PM +0100, David Hildenbrand (Arm) wrote:
+> >>>
+> >>> __split_huge_pud() must split a leave. Either by zapping it (what we do right
+> >>> now) or by populating page tables (as in Usama's PoC).
+> >>
+> >> No, meant the situation when pud_leaf() is true, but split_pud is false,
+> >> so __split_huge_pud() is never hit. pud_present() is true so we proceed
+> >> to pmd_offset()
+> > 
+> > Oh, yeah, I can add a WARN_ON_ONCE() for that, it would be a bug in the software.
+> 
+> Ah, or I can just drop the split_pud check. Let me do that.
 
-Geez, sorry. Obviously printk_kthreads_check_locked() needs to be
-outside of the hlist_for_each_entry_safe(console_list) loop. That was
-the whole point of the series!
+Yeah, looks good.
 
-I will wait a day for v2 in case there is any feedback regarding my
-comments (or lack thereof).
-
-John
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
