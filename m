@@ -1,109 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793235494;
-	b=Bq/TjFuIfXMtL9Vdv8bChhWoVxjdxSHjZAWLPChFntD3yHTZAP581T6OIv8q5nukohFG
-	 A2DAx4th414CDJmvpD18QPWimrvJ0HcMxaYFAydJC6eWRJd4NsZ0P+Wd4JfxGu86ASqWF
-	 vMFFrX/UqtFmEYuQ+Sor7a4QTGLJwRysrKBQAeJfqhS1yZfRWArCgygZbtFstyPN148MG
-	 b0sWNpkHGDxLAKb5cSewoIKxr3e6K/gA4EgWxZcbUSrjVtq4otquMDXZBY4kkbgqK16nQ
-	 HCBjPw1jib+sSD7vrDJZ6TubXyVOzDjjmnf1BBaquWInYI4Sb2S99ni2gngl716sEOQ==
+	t=1793235597;
+	b=TL8hdaOh2T6nkqp9vhUEVstknBSkKK4CccHrS/xZuNkO8f5uOrmphRLHhTXV0W6o01V3
+	 M8MCGlQBj5K/sa303SxEWq/lvZkYR0zjuz8fGCxJ77ROid1iU1Hr4WMAo8ZfXAsFz/uaA
+	 diXOMT/hcTW9hVKAO+XxcT83rqH3Dvx4BzgQ4mCmTfc90jJUM75YnD22hGaJYBkeCxUFt
+	 piBaCOkgXAO9SlxC0b2363ku1JFZiVwhz4hK9xDngzUwoOieptbxCO3afgODKUlgxcHM/
+	 LHn1HosRqgGhfEmTk+D4rznKyHzfFrP5gig30t8xecDI1oqO7FzTa1s07DBgUVlFuvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793235494;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MGY0Rqt9U0dIYToocgg3kUF7zpT8f/idrVBwF/VTivU=;
-	b=RPMamINIiUD1WeqFHTxsmKZMhRKjIr5MXZ15f209pZwYSWY/488vtn4tXY+HNqABKfq1
-	 yOgtsxYGqrD+FO00PGZLiET60kwliGivnXLeGtYJPQGLokn4phl9zQf3a9EtxvTyRZXi6
-	 1mOzx+SylzSijq+QMBIoZgqvjpn5vjwWFOAcMBh+1lXtMFTVt/FXfZN7L9yM1xBnY5JUc
-	 BTAK5JRI5beKJI9TK3zAffekCNbKRR4UI/vVZWGqDqGWOsTRCKQ9N6zIssZaUmshVMCsE
-	 LvxDQPtP/NDu8WN9Fg94Iuw9v3s4j5f+m2M82XrmS7EoCSJiAiDRn5iwOlTfR80VvAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793235597;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=oS0FmMc7AlJVVVUeRFYj25Bo+BdWrMabkFQ8UmhHdq4=;
+	b=ozmuMYvQuW5g+ZFZXIA3AYIl0vf5IiYm59AgMvANh8++Vf538bFMR3zX1O/a4+U0d4GM
+	 vuT4hrCMqH03bj5lsaayib7p9TVCTm5fnairDAKuH2YoBBAlC+b89BIf08V6wAbLz3QET
+	 RV3je5DfeeQEKbvfKbbdbjtB0jpgXVTtZqaNStlW2uMNFA+ulLYWpY8dd7E5y5mWoD99h
+	 Lly4jgHIg8ytOCN6lkyPXF0DHV7VB6F2G2sYLB8eQMQ2ipl0d5Ioa6u8C5Rr8MIMYEZDS
+	 AS9OPBp7pCwTKKIusG4SWYk8JyVpK2pyYpQql9/ck3DrmLrwXQsMCsGFY3d/bs+S+vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rs8xIkAo;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WVuy9JUJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64CCD606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:58:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64CCD606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51713606A31A;
+	Thu, 29 Oct 2026 00:59:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rs8xIkAo
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c423b145922so224820166b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:58:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793235492; x=1793840292; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MGY0Rqt9U0dIYToocgg3kUF7zpT8f/idrVBwF/VTivU=;
-        b=rs8xIkAouFHDsph5jR746myyk7Bx0+LNv1CR/Wt5X62T+524n9QPun1aakHOpK2TdZ
-         5DmzpUBHkUlXiNI8zoV3Jytk7K2OWDFUQhiOuU78cfX7QMlMKIHxNBXbgZaKhdp49oX8
-         pkp5USBEg0p1Ghwcx97bwqO4oCdxJdXvL3rx+pSMQpObjrsh0L6Lj4/CPHRzcx1k3nxH
-         EbLADyELT7y9w1Bq7jo/QwVDBh6MC4C2l7r18PKZEtpziPOgWjlOc89CK8C/aS85wJWV
-         D4BBWo98f6KzussDciaxsvQAYYxC3a9GZucuChxfUz1pT0Mt6z7rio//7ffN6Li5zHY+
-         WscA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793235492; x=1793840292;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MGY0Rqt9U0dIYToocgg3kUF7zpT8f/idrVBwF/VTivU=;
-        b=UpzK+P+0jUfhYHbcverRGe/3s89L+PZ2aHGc+jwg6g1p7RU2R03DNf5jwh92vMNu6V
-         Umh9lTN/nJtoQONp5Bi8LNVvIGkeYpuvqRx2J/FkIkwICqbEzmc5tWnPOD67Jfc1GMAn
-         hqBPM4jhlrmI1cWl+Km/JJfl8LhcG7/e/BysmHc/8rd4Y+6dUxtDa4oNiNRY7vMK9ZaI
-         3l6gXxr8bCBhMq9uH0gINsPSkKbRZGfZgFLHC6E95QRzVEILvlo8sNKCpE4ybVzXNswf
-         0rpw7Mh6CwkUCa0RrAu3BbDReGAT0UqdKXdPFQQbusFmpAksDQdnDL05bu5fr6VrJYLb
-         oyOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxNTucOEXlXj15TseBr5tB9zdPo0FZ5qHuAMcBSdzPa/eJALGl9ekU2Ut59OOoQxh90IfDwBQZBLXFFLDc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRxmZCjmWAm6O+YmZ8WkrNjFye0zv+i0PXwy3LwEyoodz8BRuZ
-	EnRJYyxobSTblqj//M0IDInNYM4iz1BvAZbU0EVQIe8aYSI0oMnzyMET
-X-Gm-Gg: AYBFou3K6wGs7F/B+o024Q9e6htrkCNSvFBN0vo2+oUp77zH7+Qs4uRdcgYnqPa3Iit
-	5OgvF9hoQvWKfIXeOzjdUZwCtIH0ocmVkZ0I5eUKuPjYB0ZVUR+vZtt8iY1I3dn/HHDKiFZCnnL
-	5X97x8ARtaKIDWIbdV6j7JqtlZeyeSrbbobrMOXstwjoIVyYqH1zcMMA2v3mfegPQdd+ixaIqjc
-	bPOXb2r0+eSeDaaqBLMm+7LU4wMgWvLtgU9rQXmcLyAlht8nqduq9qj9jSbw43erweRk+dpl+WE
-	FzgvvzsNbAZQKG5pcGR/FwIy4sd8k/2qiphyAhFgoK+WARu1I3jQIuNn8GHCEVv2RB58XooTsxy
-	KL3zdyQWZ3tknsfMFbA2v3hUDDGhNZAexNrXacwvZ3a794p+B3XTbTv7QGCfNSTQ5UZH4NmXNQ/
-	HcL2LAWunudJn6ZaH0KS7v2/RgHXidWZzJt1+J32NHaryxffV8TInX/mFw2suBN8AggCs1VGzU8
-	YMui9BCaZGh5PVbfP9nUMuHj1kguDKkFa73M/3Vx2vkn3/Ydei6KkOo3tdumPKS19zx+ASIb7/R
-	OHfobuyQ1XJ+EmPvmnXi/c6k8TIPPA7QI4AZHWvRpJUyZH+52IiZcdDp90+YxnfuOkWcMk1a9G1
-	99Q3I0j+6F4lNK+jx45kl3mHBD3A4Fy0BiAo2Qcw+Vxjrzw7oK3VuQZXh8VbldrVOHe3/bd0y2c
-	dT8VXbbXn8ZDUjRx/UUF2XFdKt5GCmwtWg1QbM
-X-Received: by 2002:a17:907:72c3:b0:c49:b90a:988b with SMTP id a640c23a62f3a-c49bdf89bc9mr328062966b.49.1793235491600;
-        Wed, 28 Oct 2026 17:58:11 -0700 (PDT)
-Received: from localhost.localdomain (249-172-21-31.ftth.glasoperator.nl. [31.21.172.249])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd66bd3asm668971966b.56.2026.10.28.17.58.09
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 17:58:10 -0700 (PDT)
-From: Emir Beganovic <beganovic.emir@gmail.com>
-To: Birger Koblitz <mail@birger-koblitz.de>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jianhui Xu <neuromoments@gmail.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev
-Subject: Re: [PATCH net-next v19 00/13] ax88179_178a: Add support for AX88179A-based chips
-Date: Thu, 29 Oct 2026 01:58:09 +0100
-Message-ID: <20261029005809.19405-1-beganovic.emir@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261010-ax88179a-v19-0-7475173cfb56@birger-koblitz.de>
-References: <20261010-ax88179a-v19-0-7475173cfb56@birger-koblitz.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WVuy9JUJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D8D31F01825;
+	Thu, 29 Oct 2026 00:59:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793235597;
+	bh=oS0FmMc7AlJVVVUeRFYj25Bo+BdWrMabkFQ8UmhHdq4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=WVuy9JUJvVpnxgRolTlrO1MIZj20fkCl0H3mXHHgjQXpD2liErU9VCyFiPf8gewhV
+	 llC0VAnh+/2o13ZitUeepntk7dWSQmy6SHXnGnZ+Mx2N3a+MAhP+TidwG9FZS2CVsi
+	 8zNOIViOZL1WKKL7Mytanwerah70JXEq1PmuVYwgj5czZGj3EBYTFCGQOppEv1QN8p
+	 hAnUtMkfbOvQ5auIukcnf7AfJpGa6dCcUN8jWWfGYIFPgwpo/hx0UPCScJxnsgM24P
+	 E/8y72dp8s85s7iphCPWgVhP1Yw7HK/HiIpU96nhcQynvyTGBShEIzljYkA+HZKIMe
+	 /yky4ATwXN6Ow==
+Subject:
+ Re: [PATCH net v6 3/4] net: ethernet: mtk_wed: free up rings during detach
+From: netdev-bot+sashiko@kernel.org
+To: hujy652@gmail.com
+Cc: nbd@nbd.name, lorenzo@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ sujuan.chen@mediatek.com, rex.lu@mediatek.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, sashiko-bot@kernel.org
+Date: Thu, 29 Oct 2026 00:59:55 +0000
+Message-ID: <179323559576.3134.3581964797425462358@kernel.org>
+In-Reply-To: <20261026-wedfix-v6-3-a52f6b15d2fc@gmail.com>
+References: <20261026-wedfix-v6-3-a52f6b15d2fc@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,48 +66,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Birger,
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-I tested v19 on a Dell DA305 USB-C adapter. It has an AX88179A
-(0b95:1790, bcdDevice 0x0200, FW 1.0.7.131) behind a VIA VL822 hub,
-plugged into a Dell XPS 16 (Panther Lake). The peer is an Intel I225-V
-behind a switch.
+Low priority / nit picks for your consideration:
 
-I built ax88179, libphy, phylink and ax88796b as modules for a 7.2.8
-kernel. v19 needed two things on that base: a4e22e9253e7 and a backport
-of genphy_{read,write}_mmd_c45() from the adin1140 series.
+- [Low] After this patch, mtk_wed_free_rx_rings()
+  (drivers/net/ethernet/mediatek/mtk_wed.c:954-958) calls…
 
-With the current driver in configuration 1 this adapter never gets a
-link ("Failed to read reg index 0x0040: -32"). With v19:
+--
 
-- 1000/full link with flow control
-- download 940-941 Mbit/s in nine runs. Upload was 937-941 in five of
-  nine and lower in the other four, and I couldn't find why. Eight
-  later runs with tracing on all averaged about 932.
-- 1-byte TCP request/response around 190-200 us, against about 1.46 ms
-  with cdc_ncm on the same port (its default 400 us TX timer)
-- switching itself to configuration 1 when the device comes up in the
-  CDC configuration
-- 100M and 10M links
-- VLAN with rx-vlan-offload on and off, and rx-vlan-filter dropping a
-  VID that isn't configured
-- multicast filtering and allmulti
-- suspend/resume (s2idle) and wake-on-LAN with a magic packet
+net: ethernet: mtk_wed: free up rings during detach
 
-Two small things I noticed:
+This commit makes mtk_wed_free_rx_rings() also free the rx_ring[] and
+tx_wdma[] descriptor rings. Before this, __mtk_wed_detach() leaked them.
+The change comes from mtk-openwrt-feeds and was modified to check
+ring->desc instead of an extra flag.
 
-- "Switching to vendor mode" is printed twice, once per CDC interface,
-  and before the netdev is registered, so it shows up as
-  "(unnamed net_device) (uninitialized)".
-- After a WoL wake the link goes down and up twice within about 2.5 s,
-  where a normal resume shows a single link up. It comes back fine
-  either way.
+Link: https://github.com/mediatek/mtk-openwrt-feeds/blob/main/25.12/files/target/linux/mediatek/patches-6.12/999-wed-04-Fix-reinsert-wifi-module-cause-memory-leak-issue.patch
+Link: https://sashiko.dev/#/message/179000700034.2160803.10594281691384015089%40kernel.org
 
-I only have this one adapter, so nothing on the other chips.
+> diff --git a/drivers/net/ethernet/mediatek/mtk_wed.c b/drivers/net/ethernet/mediatek/mtk_wed.c
+> index 3f0be70c3f145..3044a7a8ea03e 100644
+> --- a/drivers/net/ethernet/mediatek/mtk_wed.c
+> +++ b/drivers/net/ethernet/mediatek/mtk_wed.c
+> @@ -949,6 +949,14 @@ mtk_wed_free_ring(struct mtk_wed_device *dev, struct mtk_wed_ring *ring)
+>  static void
+>  mtk_wed_free_rx_rings(struct mtk_wed_device *dev)
+>  {
+> +	int i;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(dev->rx_ring); i++)
+> +		mtk_wed_free_ring(dev, &dev->rx_ring[i]);
+> +
+> +	for (i = 0; i < ARRAY_SIZE(dev->tx_wdma); i++)
+> +		mtk_wed_free_ring(dev, &dev->tx_wdma[i]);
 
-Tested-by: Emir Beganovic <beganovic.emir@gmail.com>
+[Severity: Low]
+Could the WDMA engine still be writing to the tx_wdma[] descriptors when
+they are freed here?
 
-Thanks,
-Emir
+In __mtk_wed_detach(), these rings are freed right after
+mtk_wed_wo_reset(), which returns void:
+
+__mtk_wed_detach()
+    mtk_wed_wo_reset(dev);
+        mtk_wdma_tx_reset(dev);
+    mtk_wed_free_rx_rings(dev);
+        dma_free_coherent(..., tx_wdma[i].desc, ...)
+
+If the TX_DMA_BUSY poll in mtk_wdma_tx_reset() times out, the timeout is
+only logged:
+
+mtk_wdma_tx_reset() {
+    ...
+	wdma_clr(dev, MTK_WDMA_GLO_CFG, MTK_WDMA_GLO_CFG_TX_DMA_EN);
+	if (readx_poll_timeout(mtk_wdma_read_reset, dev, status,
+			       !(status & mask), 0, 10000))
+		dev_err(dev->hw->dev, "tx reset failed\n");
+    ...
+	for (i = 0; i < ARRAY_SIZE(dev->tx_wdma); i++)
+		wdma_w32(dev,
+			 MTK_WDMA_RING_TX(i) + MTK_WED_RING_OFS_CPU_IDX, 0);
+}
+
+mtk_wdma_v3_tx_reset() handles timeouts in its prefetch and writeback
+BUSY polls the same way.
+
+Only the CPU_IDX registers are cleared. The MTK_WDMA_RING_TX(i) BASE
+registers and the WED WDMA_RING_TX BASE registers still point at
+desc_phys.
+
+If the engine has not gone idle, can a late descriptor fetch or
+writeback land in coherent memory that has already gone back to the
+allocator? Before this patch the rings were leaked, so such a write
+could only reach memory that nothing else was using.
+
+This depends on a hardware timeout, and I could not confirm from the
+code that a late writeback really happens. TX_DMA_EN has already been
+cleared in mtk_wed_dma_disable(), and MTK_WED_RESET_WED has been
+asserted.
+
+The same function already frees rx_wdma[] in mtk_wed_free_tx_rings()
+right after mtk_wdma_rx_reset(), whose -ETIMEDOUT return is ignored, so
+this follows an existing pattern in the driver. Would it be worth either
+skipping the free on a reset timeout or clearing the ring BASE registers
+before freeing?
+
+> +
+>  	mtk_wed_free_rx_buffer(dev);
+>  	mtk_wed_free_ring(dev, &dev->rro.ring);
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026-wedfix-v6-0-a52f6b15d2fc%40gmail.com
