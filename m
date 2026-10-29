@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257555;
-	b=m768DebyijclXo1DtBRGBRz2suzqjy8Go/XTdqhPCW99M3IEteUQ0EUJZ7ci8tcDpZYY
-	 tiwFbkARVgK4CmsRHE1mlnGF0rElfhYbRIAClsq/KkexZJViZlfJcOxfT64Pqn3+hi72U
-	 GC+6xhRyzAovL4tugtoMtzs8cEsmUC6ds8UywJVOm96xb9/03a3fFGbQf0SDYO8w/FePV
-	 VndREZZsIGdR/NJ5h05209tgE0X4mWkxuUJsHDsuOMue/EcK1msaC8hgsKeoiqxKnXdHA
-	 S3mF0EyGxRheKQFqEPvVVpIoR5QOse48QJmT+rX8tYAr7mAeMNgfxk+J3m1r2DuvGbw==
+	t=1793257597;
+	b=a4spMqa2TwucgjXSTTNYSv/n7Fyqk649Ykvljb3w2AhapEnzKMeI2+TDbHxNHDsobf6N
+	 UHAlKVupD5NAGWm70lChvFjYHWqpUTmJatQHydtkvlDIVBw9T+Win0VzOPfZxmOfU/hOv
+	 PgqBKsLmsW5ELIlcCH3Ju14efBp6hyL+Snr4VthQfmpAPzUmKMY/1OayIdQzPkeq/SexM
+	 Weju1jGC9zanrYBJbkqam7ZoLxkFSQ7/bHW5URpHHcA16GNH1dHubZT/H7Iag6nHwlxZY
+	 PgHoh2wE7nYKFiHBFfu5teisjmkeSEltVM/bsguyi9ZjpoMLmANzm2IVjCA6LHHzVbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257555;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257597;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=3KB0SiqPdJ76y6D/S6GzPlg+aJIPUV7CyfK0IWMQX4s=;
-	b=ZVTSLh9AKQjhmXsDYvbfsUeGTjCR4//kSAd3cmgqJP2lb7zIJWYIB8g25tFnjtJ/ZxzP
-	 H0mvTS7rz4MQVxSlxIOZNlK1uuwoAAAND+4HInIRfEv3DzPxI81MqEnXT0Q1jTfQX2l+4
-	 x9gkxLI7Sv3Qq4TIvSpgyvWpBL+LMNM+gnj2rlOlcRqfM7wrr+Y9SOiWf6GqkamY85ONG
-	 MZRPjcIVVSI4FkfJEGzJ2ROPx/5xWjASaemHWN2hdnkAEQcV7/vMbvxeehQNSmF/QX8tY
-	 CWyOPhSmEKy/vxeT9/6o0gw805kMYEU80OVOoqteGi//cbQqcKMh3nf/jn3X7DoW7oQ==
+	bh=qw6YtKXqN/uxlBtI78vXXqhwkH6c6ngVlUQPVu/LqUE=;
+	b=uO8uh4QJK2SY+erUmdkznhI5UNYOV8JnlH6TXcvj1B+vL9ZG5Spl2KfdQF+ty56rNBsL
+	 KOMRUDgDSKTdxmc+KC65+WyA3tDsd0uiLdY+3+AZ1zhEqlsRk/RER3oW2oqH7dct1IvnQ
+	 W4Xijp/FGcffIvmGZ2yNjuCnANck/7WXrsGfKwA6oxS8PTOT3XIfFuzJw1kd2jLCkxrW0
+	 qfTLtPu9YpPW90xCY2JHWamzQAsu3Ua+xce8VgeTNdWbCQFGxnU09xliEidhAIPgtPGYM
+	 F1L2OQVQ3wa7qDXDo6e4A2Ohx4pMe9xspKovJ9lPjM6n9tNjWuE61eBytgYy/42CBhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chrisdown.name;
 	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=FphqOMc4;
-	arc=none smtp.remote-ip=209.85.215.182
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b="lbGO/2tV";
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3E7606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:05:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C3E7606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA815606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:06:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA815606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=FphqOMc4
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cd67cc518a6so1305766a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:05:55 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=lbGO/2tV
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-ccce6d9abfeso1315219a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:06:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793257555; x=1793862355; darn=vger.kernel.org;
+        d=chrisdown.name; s=google; t=1793257596; x=1793862396; darn=vger.kernel.org;
         h=user-agent:in-reply-to:content-disposition:content-type
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=3KB0SiqPdJ76y6D/S6GzPlg+aJIPUV7CyfK0IWMQX4s=;
-        b=FphqOMc45SbcUWjud1RHc219clolXR9qAzBWra8p6B4xCG1KlJ4Go3K3xPCJiV/9XE
-         ZujnhxHulC5jUi64ToqvvBICk6rz+xns1DYUYX9iX/jd9zOsnTq3pl4ABOVmYKn84McI
-         38mFH9uXJ27YAsuv1iTDVD+7GgMH1zUTbbYy0=
+        bh=qw6YtKXqN/uxlBtI78vXXqhwkH6c6ngVlUQPVu/LqUE=;
+        b=lbGO/2tVp+6zEq01DdrwbaYi6/VjxBdT9J8E1ER+7P/pgnwAwBFWro0oCvtTUbKA42
+         Z1BJM72TbW3HL+KoQPRGmcl3g2H/mvXaLMofWem8WGRBNuoLZ0b/6dXX/Nr9RvOGEc/c
+         BTGLUt5UB7DlMN1AK8SqlaDsPlkedLj/8MkIk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793257555; x=1793862355;
+        d=1e100.net; s=20260707; t=1793257596; x=1793862396;
         h=user-agent:in-reply-to:content-disposition:content-type
          :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3KB0SiqPdJ76y6D/S6GzPlg+aJIPUV7CyfK0IWMQX4s=;
-        b=0Xd7NsKFYMdW/60T/CLKLyHv7jjxkSPtJQTcBKuZMLZJ8JeqVLpj0S6d/VVuGkFN2X
-         +UHG6rYn+vuXYEVHL00koacofMxyAWSgKMB0jmtGBivkWwz6JzvDZwkYyOg+hzinC1q5
-         ZjI+NErzGtIstE7CplqxDN+fqqRquo9n9XD58Vp7mbRm6iO6HLEiszSoYet1XWjbwWtG
-         As0A4NYLuldwUXKNY0XLMZKLquM2N8xy/fok53e8n+qx8k7FfoZgb1vkNiH3bxqznnAI
-         WJypPs4M13I951XyCgy8isIwzVCUv+g6tTpml+m/pdCDfgWWI/ra+1mkDrpn1Sto0AxQ
-         kSYA==
-X-Forwarded-Encrypted: i=1; AKwUvByaNAkzkNZgRKJR5p0STGBX3wlqdFPKF0ueRCivHESQfnOB/OgU8ZDYG6ft4bmZogqZeuN2bjFHhhz8vik=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzMO2ED7a9XjSsS3yHotgoaH12nXvvAg/Ftpt75tBkekgTr3+M
-	NzhPWa6Bhkn+8mVdjRJ31oBBqUGvqjavHWhZUUMv0wOanAN+KyCHDfdPdxV/WqWsX90=
-X-Gm-Gg: AYBFou064fcnUNCdIVvDBXJSMSDYrSBWNGwfRivK/Qu+aQgUk4ZbZBg1de1bsDWP6QW
-	isDGXaL9AATcBGjyXwIDCpYYiwu1opcBzVntKOSPbCdlxr9aY4ZGLdELuUlW93YcGvtkq0mIyq4
-	MeLSE+W7ZdqXEijX9AnlBrWnN0OsjfTk22g1YVl3FBveTRiPyd0/teT+IjTLL6njJ9c+YM0xa7X
-	4lZFDXtbQG+GYRWIw71YbDqdAEFILMx37ofk34NRo5ONCeqztpwPjSKDTSoLYAo5s7j5sPH3uR7
-	OtcUCEVnFoVVetKFqbhd9I0dS7bsOSLCPTG4INqlcql9pWnfhMjcrdHaBCPz7GMdZ0Hut/RX4O8
-	xrRIGldKf1ie6Kh1T3sygqeeCCpcETrdj41ZTb09uxvYwaZR9wJBJmUyC6EhbtbJDK9gI0X4Y0D
-	JACIC8bUX/a+ccQML6wkv05er6KuQL/K6PqdLbWmFUkXCqRXDnm7Q3s7G6kX5egqNRmm5wIQkAU
-	Esas4/ofMThHer2+PeBiH/FMxG7wMdyZqkE1qPY4CHkPHmudvXTva5NhQDnvr9d/3mMuQwhtcoI
-	bH3JnH8A/if4VgWnBMTx0WbHccdgjmoBT5obJm101BdHhPAc1pCxe8gAehrcW9mSunIGXl76j7d
-	yuR+A3anDlmzS1z3loIvEW896TI681DuFzmOK4hywgG/nc9cb73t+FR+U0sADNQ8NEQTPdydQ
-X-Received: by 2002:a17:90a:ec84:b0:39e:6a80:b799 with SMTP id 98e67ed59e1d1-3ae5829a339mr3971168a91.41.1793257554831;
-        Thu, 29 Oct 2026 00:05:54 -0700 (PDT)
+        bh=qw6YtKXqN/uxlBtI78vXXqhwkH6c6ngVlUQPVu/LqUE=;
+        b=KS8oT+IhU9VuLnQg+6vnXcPGoYjhmSHBCPpjhJTVNWVlaC51p7YvEKAvoUKGzB5Xf6
+         crvaCDtfT3MbNK0jtoRv53KFzls7JoXcXisF9kQ/2K3ALkT3epLWyO/iIyg41syO/7fn
+         Clj6jC+TskHiOaQKkSwXUfYkafd6KkgRe+d7dk6m8hOniimxzP2SROMJjUfmLIj9xvQW
+         C/q8kPrQStGQbjFjE0XbR4DBZ/5kbHGXRiGPWhhZV36RLzeo6yJ8+V4I0U5xt6xpy2jr
+         AqSiu6QdV+PaZrhuDFmUHyjJVnMcDnr1+YxsQA5aUO1KiQZj8sbimg29Hb2hHRmw/JCN
+         OasA==
+X-Forwarded-Encrypted: i=1; AKwUvBzgNGHZ8ywccXPFDqdKDjNDfXRul5KbaDRR7tMvHmKOikWhRBI65ygWMYmiaSWntUu5R+Z+VqmaVxAwEiU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfziwA9v/6OgAPeatULfeNVUNFW1GERupI+3+lSZN35rzmiU3W
+	xqyQS0tnW6Q+Xu7GK5u/6YeP6Yh3o7kW4pB5X2NKSoDSEA2rsBYZQgiIPEDxqSxuzYc=
+X-Gm-Gg: AYBFou0SV30+vaoP7/QI+HDYqWSGoptyas0Zhou7dnyoiqRefiK2ozoCz9QV1eB8WoE
+	s9+mODbTeimZFM7uPEHzyXyqugfCKMmji3NYZDEGCC1VL3fdVRIfGIgY9BQt0DBpHT8LASQ0JJB
+	9rmcagtqdom9lF9j7Vb0JlhKCh8PuO6DgxprLYohzyPNLqX3kRJyJTjQMmf3KJweuX2Tf3aNc5A
+	novlP8OWzMbxTWLJMpDE0RRkKeiR6L4aSBW066vO+NBhotu8bv5y1eaF88CWzzbEvJfsGIGokCw
+	Qbgw6F1RxKYclpbi8AAabthShFFOY4bSS84Zl6qot/zQxANy63EJxpzMmEimu+5dL8BKBYWDxeV
+	XDukFJY5MSrvSQO5/GyoEzMGjQv3kLNBHDpb2DOvCMKKWcGN6jYiUgKNkYr4Z20Iyk+2z292NMk
+	JMKYpuW24emBzrW+AjH21m7RHaEmPZrT/sVj91GZt2rsv0aVIO/V4OF+TMtpA6IRhbLTYcMfLi7
+	fImnxyxpzPc0iO3zZy2WprXtpxUBUU2vISBHLfCpQTKE0fhoxWjdZkyWwWrsP5eQ4/OnTEQiiJY
+	Cd8NRlDKqKMxLnxY9RaviEcjh5kKQD6+b3PiWHsOjvA3S4/BTBmIhHetsj7ggprSq4Xn/MHpLf0
+	XF5jlObyusLW/p/D/aEiFdbhQEUfdyKLVv/qav8CFcLAga8VuqhUumBjs1VTCS/zGTIf/mjxFnA
+	==
+X-Received: by 2002:a17:90b:264d:b0:3ac:9d83:8856 with SMTP id 98e67ed59e1d1-3ae57e3d6c1mr3671027a91.9.1793257596091;
+        Thu, 29 Oct 2026 00:06:36 -0700 (PDT)
 Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e973ac6sm2971762a91.11.2026.10.29.00.05.53
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae55d64c0bsm3543480a91.1.2026.10.29.00.06.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 00:05:54 -0700 (PDT)
-Date: Thu, 29 Oct 2026 15:05:49 +0800
+        Thu, 29 Oct 2026 00:06:35 -0700 (PDT)
+Date: Thu, 29 Oct 2026 15:06:30 +0800
 From: Chris Down <chris@chrisdown.name>
 To: Petr Mladek <pmladek@suse.com>
 Cc: John Ogness <john.ogness@linutronix.de>,
@@ -86,11 +87,11 @@ Cc: John Ogness <john.ogness@linutronix.de>,
 	Marcos Paulo de Souza <mpdesouza@suse.com>,
 	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 04/16] printk: Separate code for adding/updating
- preferred console metadata
-Message-ID: <auLwTYSza9exX3ba@chrisdown.name>
+Subject: Re: [PATCH v5 05/16] printk: Prefer the console either via name or
+ devname exclusively
+Message-ID: <auLwdjSVSNe4N2iR@chrisdown.name>
 References: <20260929120546.328616-1-pmladek@suse.com>
- <20260929120546.328616-5-pmladek@suse.com>
+ <20260929120546.328616-6-pmladek@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,34 +103,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929120546.328616-5-pmladek@suse.com>
+In-Reply-To: <20260929120546.328616-6-pmladek@suse.com>
 User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
 Petr Mladek writes:
->The logic for adding or updating a preferred console is currently
->duplicated within __add_preferred_console(), making the code difficult
->to follow and prone to consistency issues.
+>The commit 7640f1a44eba0cc1a4 ("printk:
+>Add match_devname_and_update_preferred_console()") added the possibility
+>to prefer a console driver via device name. The name of the console driver
+>gets assigned when the device gets initialized and it triers whether
+>it is eligible for a console.
 
-I checked that the split itself has no functional change. Thanks!
+A few commit message nits: s/triers/tries/, s/a non-sense/nonsense/, and the 
+usual form for the reference is:
 
->-}
->-
->-static int __add_preferred_console(const char *name, const short idx,
->-				   const char *devname, char *options,
->-				   char *brl_options, bool user_specified)
->+/** add_or_update_preferred_console - Add or update a given entry in
->+ *	the preferred_consoles[] array.
->+ * @i: index of the entry in @preferred_consoles table which should get updated.
+    commit 7640f1a44eba ("printk: Add match_devname_and_update_preferred_console()")
 
-kernel-doc needs "/**" on its own line, otherwise it silently skips the whole 
-block (`scripts/kernel-doc -none -Wall` reports nothing for this function right 
-now). With that fixed, -Wall then also wants a "Return:" section. 
-"@preferred_consoles" also reads as a parameter, maybe just 
-"preferred_consoles[]".
-
-I agree with John about keeping the comments explaining user_specified and 
-console_set_on_cmdline as well.
-
-With the kernel-doc comment fixed:
+With that:
 
 Acked-by: Chris Down <chris@chrisdown.name>
