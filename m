@@ -1,76 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.60.164
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793296558;
-	b=z3bDFqR8YB3Ny9PbFJaFiQOMf0iO2V4rPlCWnryEzN+eALco36AOMmQHmljTNu6662Kj
-	 udM2TxC/AHTtmGfufI1KD7/nx6sf9wYHJnyxtXNJm/NPIUEhZiEAxbdY/mxUvgncY2PMH
-	 4Sfeg7dBQiunWpJX2LERHYPZQ7DUFV2MSDclK5omhtkd0j2Aaj4rs0DKT+QxSt2t0JjS3
-	 7eB1/D1SVPE4a00uyk37Nj6krxOmH2LBTwPk7oU6/3iP/a9CZNhADuJyZh2dOzh+h9wD8
-	 U8uxrVIE/l2ndN0UtV0ILwCh/HQM7cifzJZpA6qv2a9YJRCU5wUvDxvhj/XdBYZ9upw==
+	t=1793296573;
+	b=1ci69roGo597Yass4E0LvuCgNW5oNkGxC9vyGkL1ZyvNFlY0yu5BL/k1Y57wB71Z+bWL
+	 CaRioR8UpPjoiJI4mTRWB1k3BY/LNIOSAAX6OCZJUh6rFictq8pete/W0k/F+0YDjAcUD
+	 T2+6ngmGrDX3H004b3iMu6dfJW/M3sxD2UnA1QnVhMondts5KN3qCX+e5x2TGGw+BvRrn
+	 6z5mD5v1ccpz1At6BG8YBA7rdP3I4CHvxKP+ev3dv7Y4r9zGJzNKM5xtnfpDFMjAbl0tX
+	 +ffckcKFyuHPCkAJAGyJfnFsnI6iKXeW0BqRDhGiz9jJoWRyxC7NEUBpNHYEMLDSl0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793296558;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=9NRMu8PQ8MICPRBna3Q6ccaLnBShapmY0xbiXLML8iE=;
-	b=YOD92ryVjZn8J7Qe2exl2/BhwpxeMJxXQjK24bFLqMX8wLHA0rabweS/5rh1x3HHVjsw
-	 f8ZojMLrGe6jVmRsfNXmIpgD+5ehxZS6j83BfLcYtDfkUzaVAkTU0TlT0TwywdvS7VMlE
-	 36QTnlybQhC1bRxcnQiVo7aHLoXLcT+V0zaW+zGQkckOSwMq5wF6tZDp1KIeXfn8crFGC
-	 553lX533qu+AVDa2e7l/b/9kCzWuI6vHeesHyqiSD0DUunYbfZ3NmE+rGG5TL3aEWHqbg
-	 IuOe7mNoJY4gVOZPRei94LfBulAH/vl35fs4V7zzWBO9WIMOKpS2Qx5h4YXpBndKOSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793296573;
+	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:From:To:
+	 Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=ByFsVBFGXW7Uh7hGswMOP8zgyfk05mbsoHtbkfCSmjU=;
+	b=n2VtFr4x4bvNAw/FZmJ+d/vE0DOJGb/oS0qWBm1pJFFbqbHtwE5zg0Gdt7Oe9j7NBopm
+	 gmHVFm48N5qLBsvvWHVj2Ye2C3LCtpXYerFLq3iho52iyJm/M15IgWDRtLIMDMVDgr8BT
+	 iBUP9bMX5PsZZzoDRIvgdKM3plC/koWOWws2UZGGYCluOmwDnnz2pcY8y0fZfSgdXi1ez
+	 YOOAMWUpeHBCc0kLZXgTvKuL57nVtJs8yZi9Tiqev9hpL8tgUTrqJpclkb2QOBqMUIHP4
+	 a9Cmm8K4qvAESXblioDpPvayncgrEayp9Q606xoeyRNylQFc48+nzsCTThNGGG2rkww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Mx7Zll0M;
-	arc=none smtp.remote-ip=43.163.128.43
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.43])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=yandex.ru;
+	spf=pass smtp.mailfrom=yandex.ru;
+	dkim=pass header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=Pou2b3it;
+	arc=none smtp.remote-ip=51.250.60.164
+Received: from forward104d.mail.yandex.net (forward104d.mail.yandex.net [51.250.60.164])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 077F4606A31D;
-	Thu, 29 Oct 2026 17:55:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 077F4606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C49606A31A;
+	Thu, 29 Oct 2026 17:56:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08C49606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Mx7Zll0M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793296548; bh=9NRMu8PQ8MICPRBna3Q6ccaLnBShapmY0xbiXLML8iE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mx7Zll0MS8Eyqqdc38ha+mInCElvFEnI0y2zfFUCZwANmF3B88kK/MWL/Azv0y2vw
-	 qmH948HVD+iaO5ERAXYLH5ydrQYLRyFuGbR605uEn5sAEsPfedl2KbCu6sejoML6KK
-	 uIu3urlOiTgEnE7UDwrxiYZwQY6WqaOgl6KkWlKE=
-Received: from [172.18.4.77] ([111.31.227.58])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id DEE93E9D; Fri, 30 Oct 2026 01:55:46 +0800
-X-QQ-mid: xmsmtpt1793296546tryicaagv
-Message-ID: <tencent_5CEFAB1126275DD39A28299FC2A8E954F907@qq.com>
-X-QQ-XMAILINFO: OTIbW6R4UQxK5CTEcKtwW9ljNNlgQ1vg9IOAgxZL26yXbGi8eT8fRK0YgCr1U2
-	 4vAQ43LpZtgpbfUWSTdJ2FMHo7d6pTu6nJvdh5yR3kPOgaWzoZkLvYud2/WLt/doHUk6rY4d8ti6
-	 v3zuUTx6W1Gj3yHM+wbv4UcEowNqdW/17hNETFYDaHvi2I5nOAHSFc4XXmKxBrnzjWQHLI4tHHcU
-	 eLxefXRsMBsBe+BN44htlVNA3pbInEmrqWk2F26EV85wxvvRukacOUUlNYwwVkuWYZvqUmnvoJ9X
-	 eoRXAqeWFmmVI2pkhgzW9G+OSTaB7uS+7vNiVr9wcnP4FSZee36wyWaCVd2JiAgOLknYTotYfbqP
-	 wElhCAhrh9CC0GKOhHsdVKyyrq1aDDR1tIeYKoy4yg98/uAlJLUOQvoNznSJaIXzkD4gv9z+LOg+
-	 +7a3FYtcQqtuFeTw0nb+tl7k3AqyZk62UXS1KIYPKmfBiYTAMlsKAlS6KHNRyJZfqmt1OY/4ybF3
-	 O5tJx9ECu6YKZGyAOefpHdfjsVhaySK7VXIHp9ifnlwDnAUxxY3Ab2wti6hn8pmn/3/aS2GjwKbK
-	 83gJJk+sAtFgYg/Z8KvfWPDuI7pwt2/OSD+tWkWVCstbW4P5QIZbUNyWXYKj5W97LeWlUpR2pZGN
-	 rHX1wZlooJodT0W6XhuV/PdSHh9hRX/1p2HMV7Q9F0GUg1gX3PHIGx64E/b9qNFp3pQmKdBgwksa
-	 1eOhuLSvIcHrBW/5v4EpzoiNPVz0ExMEDRvdvt3K0Qywm1BvEW2C3A4a33wiG2HY14m1aaKlv6to
-	 jnG3Qaf7/NNFzgf0FGNfqCJjAMRYyzVVIgwjxylW9gEnDIl7NwR89BEb+gIllLMNEHEWDA0zu6/o
-	 nMsHT92iU1T4HhUhHpVVft2E+pimH7LZiTCt8Mtnmm8Nx+bQ24jH3G/rl456qqL93YnGvFC5hGLA
-	 WmdIiwKT7bbZNZDUsJm3LXvY8voX8a4u+ELJ4/a24rCdkRUnBzTLuzb0j5qKHb6XYOgGo/SMf5/Q
-	 gnaz627XcZdDNJsLZx6mQq5HOw8SAvqiMD7N5AdaYLq2YWFZoq32ZhzhoOZ5k=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Guikun Yang <yangguikun19@qq.com>
-To: linux-ext4@vger.kernel.org, tytso@mit.edu
-Cc: jack@suse.cz, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] ext4: unvalidated h_refcount on a shared xattr block ->
- double free, detected too late
-Date: Fri, 30 Oct 2026 01:55:45 +0800
-X-OQ-MSGID: <179329654579.60452.6108742348319878589@qq.com>
-In-Reply-To: <tencent_B025D3B328709FF3A8B5D4B3EFED913C2707@qq.com>
-References: <tencent_B025D3B328709FF3A8B5D4B3EFED913C2707@qq.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=Pou2b3it
+Received: from mail-nwsmtp-smtp-production-main-38 (mail-nwsmtp-smtp-production-main-38.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:4d01:0:640:e9ac:0])
+	by forward104d.mail.yandex.net (postfix) with ESMTPS id 3FE7EC0032;
+	Thu, 29 Oct 2026 20:56:02 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-38 with ESMTPSA id itnBq5Sg9Sw0-pdXvF8P8;
+	Thu, 29 Oct 2026 20:56:00 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1793296561; bh=ByFsVBFGXW7Uh7hGswMOP8zgyfk05mbsoHtbkfCSmjU=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=Pou2b3it8KLqKo9UkaIRTDbfqE3BEeO16dEcjjGqqMOySAVyN5zIMA8sgyufBmVVX
+	 OrTCuNi7V/GhEDr7Q2GXF6d++hQhEp2cfCLRuCXolteqVBvNQFV0t95Hklp3Na4vne
+	 ERoMFFdyB7ae5+SQ34C6Hk6iMRSoyOa3Bu+v/p8A=
+Authentication-Results: mail-nwsmtp-smtp-production-main-38; dkim=pass header.i=@yandex.ru
+From: Kupreenko Danila <keckerz@yandex.ru>
+To: Sebastian Reichel <sre@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/3] power: supply: read-only CellWise CW2017 monitor for Redmi Go
+Date: Thu, 29 Oct 2026 20:53:16 +0300
+Message-ID: <179329639684.489944.6322623410181934358.cw2017-first-public-rfc@yandex.ru>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,63 +61,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: CW2017 public RFC via Python smtplib
 
-From: Yang Guikun <yangguikun19@qq.com>
-To: linux-ext4@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>
-Cc: Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] ext4: unvalidated h_refcount on a shared xattr block -> double free, detected too late
-In-Reply-To: <tencent_B025D3B328709FF3A8B5D4B3EFED913C2707@qq.com>
-References: <tencent_B025D3B328709FF3A8B5D4B3EFED913C2707@qq.com>
+Add a read-only power_supply driver for the CellWise CW2017 fuel gauge,
+its Devicetree binding, and the Xiaomi Redmi Go (tiare) I2C node.
 
-Hi,
+Unlike CW2015, CW2017 has a different register map and battery profile
+protocol. The driver requires a gauge already initialized with a valid
+battery profile; it reads voltage, integer SOC and temperature but never
+writes CONFIG, changes the battery profile or resets the chip. Charging
+status is unknown; presence is not inferred.
 
-Friendly ping on this one - it has been quiet for a bit over two weeks, and I
-wanted to add data rather than send a bare ping.
+The CW2017 source is an independent implementation assisted by Codex
+(GPT-6). Firefly was consulted later as a behavioral reference, not as
+a source of copied code. AI assistance is disclosed in commit trailers.
 
-Update: the reproducer still fires on 7.3.0-rc7, 11/11 runs with a 64MB image
-and a 5-thread hammer (the churn count raised from 8 to 64; 3 xattr-churn + 2
-donor-churn threads). The earlier numbers stand too: 6/6 on 7.3.0-rc5 with the
-8MB single-thread config. The release-path code in question is unchanged
-between rc5, rc7 and current master, so this is not a regression and has not
-been fixed in the meantime. The one race-dependent panic from the original
-report has not recurred in the rc7 campaign; the deterministic double free is
-the reproducible part.
+Hardware testing on Xiaomi Redmi Go (tiare), postmarketOS, Linux
+7.1.3-msm89x7 with a module built from the same RFC driver source (R5):
+  - module auto-loaded and bound to I2C device 2-0063;
+  - running srcversion matched the locally built R5 module;
+  - capacity, voltage and temperature appeared in power_supply sysfs;
+  - three consecutive measurements remained accessible;
+  - udevadm monitor observed kernel power_supply change events, including
+    changes in voltage and temperature, with roughly 30-second cadence.
 
-The suggested direction from the original report stands: a
-"freeing already freed block" error raised from the xattr release path means
-a wrong free has already happened, so containing it (fs abort / remount-ro
-rather than error + continue) looks like the sensible hardening point.
+Mainline 7.3 ARM64 build/MODPOST, targeted DT/schema validation, sparse
+and host mock regressions with sanitizers passed. The mainline kernel
+itself has NOT been booted on Redmi Go. Hardware PM/unbind, power cost,
+calibration, temperature-source provenance and induced I2C error recovery
+remain untested. The source operates as a monitor, not a safety controller.
 
-If it helps, a minimal containment would check the block bitmap bit right
-before the ext4_free_blocks() call in ext4_xattr_release_block(): this call is
-the one that clears the bit, so at that point it must still be set. If it is
-already clear, the on-disk h_refcount was wrong and the block has had a
-double lifetime since mount - the state that merits the ERRORS= policy:
+Open review questions include policy for already-initialized gauges,
+3-attempt probe retries, nominal 30-second polling and up to 300-second
+backoff after failures, and event frequency with small voltage changes.
 
---- cut ---
---- a/fs/ext4/xattr.c
-+++ b/fs/ext4/xattr.c
-@@ -1320,6 +1320,12 @@ ext4_xattr_release_block(handle_t *handle, struct inode *inode,
- 		get_bh(bh);
- 		unlock_buffer(bh);
- 
-+		if (!ext4_test_bit(EXT4_B2C(EXT4_SB(inode->i_sb),
-+				   bh->b_blocknr -
-+				   ext4_group_first_block_no(inode->i_sb,
-+				   ext4_inode_to_group(inode))),
-+				   bitmap_bh->b_data))
-+			ext4_error(inode->i_sb,
-+				   "releasing xattr block %lu which is already free; on-disk h_refcount is wrong",
-+				   (unsigned long)bh->b_blocknr);
- 		if (ext4_has_feature_ea_inode(inode->i_sb))
- 			ext4_xattr_inode_dec_ref_all(handle, inode, bh,
---- cut ---
+This is the first PUBLIC RFC; preceding revisions remained local.
 
-(That sketch glosses over fetching the group's bitmap_bh and the cluster
-conversion; I will write it out properly and test it if you think the
-approach is worth pursuing. Any containment shape that makes this state hit
-ERRORS= instead of continuing silently works for me.)
+Kupreenko Danila (3):
+  dt-bindings: power: supply: add CellWise CW2017 fuel gauge
+  power: supply: add read-only CW2017 battery monitor
+  arm64: dts: qcom: tiare: describe CW2017 fuel gauge
 
-Thanks,
-Guikun Yang <yangguikun19@qq.com>
+ .../power/supply/cellwise,cw2017.yaml         |  52 +++
+ MAINTAINERS                                   |   7 +
+ .../boot/dts/qcom/msm8917-xiaomi-tiare.dts    |   9 +
+ drivers/power/supply/Kconfig                  |  14 +
+ drivers/power/supply/Makefile                 |   1 +
+ drivers/power/supply/cw2017_battery.c         | 370 ++++++++++++++++++
+ 6 files changed, 453 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/power/supply/cellwise,cw2017.yaml
+ create mode 100644 drivers/power/supply/cw2017_battery.c
 
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+-- 
+2.56.0
