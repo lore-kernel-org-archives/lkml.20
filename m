@@ -1,94 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793290734;
-	b=0Hlnd6OJvjrFnBPDjh9pu9eZHf/IOlh269y9E0gpXR8Fbiwh5t3hmv/GgsgcN4zpJl+2
-	 K/7XXT91I2yVRHvCfYimonmlrMF8WyPD44egKIjl3k4ea4lUoKxf1KdpZj1ctWzXLfQI5
-	 /s+rRHSzivTuSIgMyoBc2L3AC3RQSaI9qpxvSfTQwtBtb9PCfum8Qu2uOwPpGeVozDfU3
-	 4Pa4gsznIV6UxQVzV6F/fVtINXoD18uVx/JzeWs/EC8Nkmr0KjPJVUs4HnqEz0ljs3fQ+
-	 xgqeCVHMTT/hAKkB4eQ21L681pAu4eO3HJ2rmJSws2hx4df9KddooXu/7BvofGusHLw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793290734;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.218.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793290786;
+	b=3npRst7zxSD+/MNedso/TlH22stqZaykVDApjDARe79fUtkFfhOSHOQMFCSpdmZHkwDf
+	 J/gAVI0EuccU1cn3SUuTXhHGfvrWDmbZnKWSUQ99YmVGlcpdo82/mzMbIx51BgCIjxCq0
+	 1X3Uy4CoZVbi6yW+6sh5PXrJ5rN5c0iy6LwW75x+OFg+Wa5XcQKqEIUEzESfp7wiLhKVf
+	 1reueINerxhpLYGL2pRYHf9UGVeWCe2Qi8DF5BYWyZcLWK/HnognFrGMEF+XFI39zGF7a
+	 v5PYsZgNaqjxc4DfxYvE7OQQli5vTgrDT7aO13/8VvcfSGKTpqAlJBN7aClXRSCt1gA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793290786;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Zq0zjE9ryNr7xW4GezVEPmLmb9C42JNZT1hldeoWSRc=;
-	b=BxTLFK7+gEvKkcQPx+eZtIV/KgKB4tmkyJw7bxFCr5HZQFbj2+GtVgJe4AMZZF4uVk8s
-	 0prjbJTw8j+OpPf4OkewcCnVYVab5M3pqFLm/FqrJuYZ+jaC60wGeX8bXc9x42Z/1xII3
-	 1YJ5vxjp6b7hDm4ZTrbUUeesv8IJt2YDYssER7oJkokPaTHfNVpqNx4/JVPV/k8/PNoih
-	 dW62vLxUkmQfmiscZ6VZdcTp/Ngj1FTAKvNKNpR0c/P254RExH/WiqV4Lez0IYTLF0dnD
-	 TE/ASVWlLjICK/m/SeeaZp4fBlShhqqHyzpjrFPrN+ZZYnJzgLPO03H3vYjBHygsUog==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=ZrLXGPOeZtKb/0Qmj4iU0Alw7tw3rFlIHiedf/XCtcE=;
+	b=XE49XWmihfhL7ziMrQ6nl+4fpV4QIuQusn4tlcnwmT1J9NCoLMZ7Rq+MWol0dvFKObDM
+	 RPoSqBaZ3qZ2CTMbkhga7gsvwkv9rLwh+2wXszgxwMmZhJPrxDbfj2iFeXrbJIwKknx63
+	 TMraffuri+LV9tS5mU6F+nF5XjqpajHOavejc40kpDH9VUAb55kmhnC5BO9HuKqdzMx9+
+	 8TqlfvFUnxj5iLZCW0vhMyBeKL7mHxATfzs0sPxOHdlR+N2W0X18JiYs6XgC45EQUYpjA
+	 T5mvf+eWkAeOkCokFY2AX4ghnip5CO63kDKmEtspy6GAXMCXjco+BSytqY8vWZlP39g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tpke5zmt;
-	arc=none smtp.remote-ip=209.85.210.42
-Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tJCNqvxi;
+	arc=fail smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24E5606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:18:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E24E5606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43EF606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:19:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A43EF606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tpke5zmt
-Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-833e671ee9fso2385234a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:18:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tJCNqvxi
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c434376dbebso210956066b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:19:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793290784; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LX/VTMOSt23hlFf1wM2l72XBLKThFmA436Yr+YYk8vgXoXEb0oAGqpljoeFR/EnC3d
+         bZEXcM/7z2pBGmfHCltuWtQImLYZ6AoMhrgeHFjkEgCTIf8cYxwo/Gg0mrzW+HIHVK1d
+         e4bR79KQzPsZahWWBQeOc1QJHIKdD8GAHpwIgPksp674Whg5EfjATpQbDsAJHTA0902J
+         g0GquhkrvEySBQz/R8jqGzVE78/SxvSd3tgblXaTbj9W/8b+FI71+YaUF23QNZXzp0Th
+         EiLMpMMtibf0n1Zd6sNtF4pas/iVyJQb5hnXXvgCOP6qonD8dYaFDDe7u/H5H6vHB7F8
+         iOcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZrLXGPOeZtKb/0Qmj4iU0Alw7tw3rFlIHiedf/XCtcE=;
+        fh=SQnPP1k1HG6E7vkQpz5xkG5VS84h+GWXMVeyRydZqCk=;
+        b=pbOKhG59Yon+BVebYLWyR8lk0pI/V4fqvgbXPiOP6WrcfAg+7aVt3bdl7gCa13+i6i
+         fvexvCc6BvMcBUJm7uYOgVoH4C9O9fuQBq9HLNDH0OjObwEZ9FQmKxaZXhlbKY6QIs/Z
+         HsusKp1UJ3h/YOg3TUntE6XVHaJEHZ5Q6+OdPukpMK9ZQdCqh8XEXbcYihl+XFGtNk2e
+         JyBPgN/6m0vRT1rfEo4DeZDeOHA6qZWGAgMsKInyLtzTq9aMeicCEtNE0GWx5aIkqWBi
+         VjSu/IMTeqKPRJnC5HrRXTZjh9XhJxXzYGJC0hvm7JqVzNe7P7lAzYe6JK31IJTKlo96
+         U3Ug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793290733; x=1793895533; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Zq0zjE9ryNr7xW4GezVEPmLmb9C42JNZT1hldeoWSRc=;
-        b=tpke5zmtUnJlJkBJwzaPTLP3Zb97N2ZjiAIcZZcbR92Z94redxcxUvmGdukmvVEm+j
-         10zAIHZFqFqr0hD6U4nvqsaARwYDlOkouShO8zSbkjydNSQ8UDkQYOpZPK4uucSYuRHn
-         KtrBvEYaVst5BA/OhZJMWrjVBoa9mGliKZZktLM57yJkdeL+i++LJqkIAkSY+9deIvrs
-         V3cFtRLWMhNrlgrtQcU20M++KQHZTDpx75P9CJYbgRYCJ6HS1ANbQ7LS2mOpxfCSkFBJ
-         Z3etIj53gIuzTB/ewK1fOlYBorpv77w/+KI7mzyV+WFv+YN8RLAIoZhrwwVQf+SvzbVT
-         +LwA==
+        d=gmail.com; s=20260707; t=1793290784; x=1793895584; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZrLXGPOeZtKb/0Qmj4iU0Alw7tw3rFlIHiedf/XCtcE=;
+        b=tJCNqvxiSy3QxAKlEFW90cKUFyyBgpoSeP/Y5ousN6wPGZSrolLGcLaPbCYXA1fxRu
+         hyVsewX0wFmTmBY8TlvUBE4oSRdUuvso9BOhMBlz92LV/gs0YdGdUPu/SeSx7yKSEgae
+         DtK5weghFzRSq07QuSregfqRkrGn/HYN/qGVPOgb0V9un5TOuBcJn+HH3XRz6Qjb5Ymc
+         h0a6dkLjD8hKH+4gxpX/7mtBpFAWTESYYmgPzoV9mN4JS+7JztM2c1PCNt/nj6uvIrHD
+         pmt2E1fEsdla3c4dbYIo+nrE3KwsGfTJXjoEixBJJpLcsOlyR70ckXgO3VHTl+Le1l7x
+         +gmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793290733; x=1793895533;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Zq0zjE9ryNr7xW4GezVEPmLmb9C42JNZT1hldeoWSRc=;
-        b=N+k2m/DJ3dVbSxaPPDH12IVrA3BPG1BqUi1dWYGInjJFnL2mb+DqCnvoeOc439xKXr
-         9YOO65z8FQao3xStNOJaPhtnD0wQf35Es/ws8tTuctUHpX7/U/0oLJdbbhe6kfmmUiDL
-         XiiGKHBCnXPIjW2Xx/tEPbvLI2RMFpb6kl4qariA78WklyezjYbzMjEqsFwzfu69P9jT
-         fy9vUFimC+1OIyKwSoZ65mpbzwWZoEuC7kYAlBWpygyDDq8/TD4vFJYqKhwgKfv7CrB6
-         V5YI3p8wGCWfY1SgguEmmZ7VwrCutxfXwIdq1J7AO1ahtJ9G557Cbnymn3w3ozjzwWU4
-         6mYA==
-X-Forwarded-Encrypted: i=1; AKwUvBzofYZvpipKJmSBTyZbFKTHF5NaGD0TW74Im/VopN4CFkjb32bYHiLTjenRqRr06lLuqJz46ivcSBpvimU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxg1hcsLTM7EXkjCS5TI0/K4Jre2WD51LWmyz2inY6e1Bcw5wp
-	C1rSnzVne/pBoWJnxj7VjgUrfJqmh1+eoS78m/+2juIFqW1xBqglbVeP
-X-Gm-Gg: AYBFou2ui6lRNSfpqqBVfTUQSQ+7hS8dxfMLtLx7nd/xjcxpc3NHN1w3yW5FaBq01mn
-	pVnjZCvWaSG7+hf0rBQfmEsu5SiqvOf4U5/Gqqdzrnmj9124cgkG1Q5EUCTC2BPtlcDbMsHlO8p
-	2Mox3iA0N4YxJPG3msExPN5N2ktJx3afrlkcbcRqXAnkstlQ7SUJM7yXlTpe74Cbft7n+KheXIi
-	ea6LjCYypw00ZOsiV/ZLinQyrUHv+p+qaoe5aLEPSEcq8Km8oUwhxQs4zXcTy3a88bzT9mClkiI
-	Fjt894/UtZbyP4P7Ifyc6Z8oTTGZNJQl9Rd39chYadIPzGkdTvaijLDjw8Z2DzGtHTImptmqr+2
-	TKqcz3zV3Rsb0WaQATaEew/VMURWGdwncOF+7xPelmbtINgtzNnpvsTSuabeUZODgA66lGigHIP
-	uPoEufexcqzCPJHU+VNxnKF3orgE8isGwtRoDR7sTTHnfOMPJoQLnt/QeOdC+VJ1J8GzwJvKBpY
-	Wdh10rLFZlQgF3TxkXt+7IaOXRXkEv5NcXVFIgkvsxWxWls3KOFZrsAAQNiSpm6p2teBzxXbzV5
-	fjDjiP1X7UxS3tz6sk6UvlVFmWCzhu31DnSnHkYqNWOd4lWf4s27Xh9AP+33eRfyrk55QkAoqb4
-	bgXldRykJqAA=
-X-Received: by 2002:a05:6830:25c5:b0:81e:bb4b:2324 with SMTP id 46e09a7af769-85ac11bc5demr5500556a34.26.1793290732657;
-        Thu, 29 Oct 2026 09:18:52 -0700 (PDT)
-Received: from localhost.localdomain ([2400:d802:dd7:8000:180b:d22a:69f7:ac40])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d34045029sm262031a34.25.2026.10.29.09.18.49
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 09:18:52 -0700 (PDT)
-From: Yuqiang Sun <izaiahsun@gmail.com>
-To: rafael@kernel.org,
-	daniel.lezcano@kernel.org
-Cc: yangyingliang@huawei.com,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] powercap: Do not release the zone when device_register() fails
-Date: Fri, 30 Oct 2026 00:18:39 +0800
-Message-ID: <20261029161839.44379-1-izaiahsun@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20260707; t=1793290784; x=1793895584;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZrLXGPOeZtKb/0Qmj4iU0Alw7tw3rFlIHiedf/XCtcE=;
+        b=S9a/DDQbAgjVUCXfR3hD4oGD4VJbVFCPCutzAobfq6DDC/9CIDcDa6K86Xmrho5T3P
+         SiZynqCQPmX+k6fLLvyJEOqnify/ioV/IJkWsg2BML8k9k9hFhH8eX83KMJhHkWtMWGC
+         xIHEs+I3p0Dt30gy8ddxF5JPrjKbJ2kbzFiVALo1P/zidy7A03aePSnasF44uohnM5Sj
+         L4oe6b5/14oiynCn2K920l/zTMOym4kt8uX0u2K9JwtbJZhH7rgDan4SFmwWt8mvUsy1
+         4TCIO6UOXl2jgS4oKxhgtu69VD7AqYQQ1nIy4Of12131OSYv8CsmpjfN5ZLc8nqHFKU2
+         +Rmg==
+X-Forwarded-Encrypted: i=1; AKwUvBz58iI3koErisNPR8uzd909II3S/7ro2PmgX/6MdqE6eN0s0jrPeFv/+Y7bFkpLgdRFn8OtUVEQPvZycAk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMPAL6Y6QfPP5sCXT7sjCs9MRIxfasbmeK7tsJsuBYc8dUj4Qv
+	hX4dzT9WkzT/Q5UV1Tlcql9hjkTe3CMoKqe3KWSfV9usxn6JkcHXR1sf+swkughxwq15SHf0mn9
+	fAbvNjZKiYiUAxxllxGTxCnF7c8IiL30=
+X-Gm-Gg: AYBFou18jzco09znh2PxKEzQ+re6c651MfT9EXt+V/uJBd+aytTLePHn5eqhnSYHhyY
+	XyJXVMjEYuYcnQz0PsiadLpIUz2gaSKKp5ednowhVwJiQwayA0s0L7GPa9+2Y7Kjx4jEEGxLRvI
+	u7Cpw8piLexUUpKAVfT7N4mcyjyY3wdNWflBhzO4JVE0wetlqNs4xBl700rbCM20/sAd4RLzODG
+	0r9kvnWNLyJZ90N/31euDR/PMnxXEhaaDYLT1CkLrdzvVqoWXrbumgJGAliqEk/czQw1rUwK6ew
+	4C0kj2Gy7nqSGsZnXxPtE/pJofO9m76tHriQb5+1ey+uCdPq8q/qJ5woEq5KjlcPacEA9WXPrFs
+	9JCULT4FRjkuaYwFSMdOHX6hYaC+So2bk9JGstDAVsuXD5P+mLWQWLf1Vz8u9pPDV/svC10qFeH
+	2OXXb2+GOFLvpAnXvB
+X-Received: by 2002:a17:907:d489:b0:c41:4512:a3b4 with SMTP id
+ a640c23a62f3a-c49d13b6aa3mr277245466b.20.1793290783798; Thu, 29 Oct 2026
+ 09:19:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,114 +105,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260831151235.64076-1-notmissinge@gmail.com> <20260831232157.27037a5e@systembl0wer>
+ <20260904042215.0e21cf29@jic23-huawei> <0d584595-4479-4116-a52b-710e01f20bb3@gmail.com>
+In-Reply-To: <0d584595-4479-4116-a52b-710e01f20bb3@gmail.com>
+From: Not More <notmissinge@gmail.com>
+Date: Thu, 29 Oct 2026 21:49:30 +0530
+X-Gm-Features: AclHuK-5tg4KowTUoVyHp9syWpuH0yweez4JYRJMVbYb4pI6PQlKfsVZtbaG4Ig
+Message-ID: <CANU2TT4bTZYouZs=WWrYU=g70VcnjiBxBZRTh1fT3bqkbhz=BA@mail.gmail.com>
+Subject: Re: [PATCH] iio: chemical: add SGP41 driver
+To: Lukasz Kulga <lukasz.kulga@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Joshua Crofts <joshua.crofts1@gmail.com>, 
+	linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, linux-kernel@vger.kernel.org, 
+	Andreas Klinger <ak@it-klinger.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-powercap_register_zone() registers a power zone that the caller
-allocated, usually embedded in a larger structure, and on most
-failures returns with the zone untouched, leaving it to the caller.
-Since commit 1b6599f741a4 ("powercap: fix possible name leak in
-powercap_register_zone()"), a failure of device_register() is handled
-with put_device() instead, and the release, powercap_release(), also
-calls the zone's ->release() callback.
+Hi Lukasz,
 
-For DTPM that callback, dtpm_release_zone(), frees the node, either
-directly or through the node's own ->release() for the CPU and devfreq
-backends, and all three callers of dtpm_register() free it again when
-it fails: dtpm_setup_virtual(), __dtpm_cpu_setup() and
-__dtpm_devfreq_setup().
+Thanks for reaching out.
 
-With one allocation failure injected into device_register() (failslab
-restricted to dtpm_register) while rockchip_dtpm builds its hierarchy,
-KASAN reports:
+> I'd like to pick up SGP41 support, taking the approach Jonathan
+> suggested above and extending the sgp40 driver rather than adding
+> a separate one.
 
-  BUG: KASAN: double-free in dtpm_setup_virtual+0x15c/0x19c
-  Call trace:
-   kfree
-   dtpm_setup_virtual
-   dtpm_for_each_child
-   dtpm_create_hierarchy
-  Freed by task 67:
-   kfree
-   dtpm_release_zone
-   powercap_release
-   device_release
-   kobject_put
-   put_device
-   powercap_register_zone
-   dtpm_register
-   dtpm_setup_virtual
+I have a v2 nearly ready (binding as a trivial-devices entry with
+vdd-supply, plus a separate driver). Hardware testing on my SGP41
+board is still remaining, so I expect to post it within the next 2
+weeks.
 
-Keep the put_device(), which frees the device name and what
-powercap_register_zone() allocated, but clear the zone's ops first so
-that the release does not call ->release(): the zone is left to the
-caller, as on the other failures.
+I kept it separate because SGP41 has different commands, CRC-protected
+two-word results, a NOx channel and a 10 s conditioning phase that
+sgp40 lacks. I'll explain this in the cover letter as Jonathan asked,
+and I'm happy to rework it as an sgp40 extension if he prefers.
 
-The problem was found with kbound, a static analysis prototype that
-checks whether callers rely on an object after a callee returns a value
-for which the callee may have released it, on v7.2.12; it is present
-in linux-pm's linux-next branch.
+I'll Cc you on v2. Testing on your boards would be very welcome.
 
-Build-tested with x86_64 and arm64 allmodconfig (W=1, sparse): no new
-warnings.  Run-tested on QEMU's arm64 virt machine (TCG) with KASAN,
-with its device tree's root compatible set to "rockchip,rk3399", so
-that rockchip_dtpm registers its two virtual nodes without the
-hardware, failing each allocation in dtpm_register() in turn with
-failslab: before this patch every failure in device_register() (4 of
-4) gives the report above; with it nothing is reported, and the
-earlier failures still return an error without reports, as before.
-Not tested on Rockchip hardware.
+Thanks,
+Akshat
 
-Fixes: 1b6599f741a4 ("powercap: fix possible name leak in powercap_register_zone()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
----
 
-Notes:
-    The bug was found with kbound, a research static analysis prototype.
-    The patch, the changelog and the test setup were written with the help
-    of an AI coding assistant (Claude); I have reviewed and tested them as
-    described above.
-    
-    With CONFIG_DEBUG_KOBJECT_RELEASE the same injected failures still give
-    use-after-free reports, with and without this patch: the release of
-    the zone's device is delayed, while the caller frees the structure the
-    device is embedded in right away.  Avoiding that would need the callers
-    to free a zone only through its ->release(), which changes what
-    powercap_register_zone() and dtpm_register() mean on failure for all
-    their users.  I kept this patch to the minimal fix and can look into
-    the larger change if you prefer that.
-
- drivers/powercap/powercap_sys.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/powercap/powercap_sys.c b/drivers/powercap/powercap_sys.c
-index 9197fa20d93f..eacbc3c96db1 100644
---- a/drivers/powercap/powercap_sys.c
-+++ b/drivers/powercap/powercap_sys.c
-@@ -398,7 +398,7 @@ static void powercap_release(struct device *dev)
- 		kfree(power_zone->name);
- 		kfree(power_zone->zone_dev_attrs);
- 		kfree(power_zone->constraints);
--		if (power_zone->ops->release)
-+		if (power_zone->ops && power_zone->ops->release)
- 			power_zone->ops->release(power_zone);
- 		if (allocated)
- 			kfree(power_zone);
-@@ -555,6 +555,12 @@ struct powercap_zone *powercap_register_zone(
- 					power_zone->id);
- 	result = device_register(&power_zone->dev);
- 	if (result) {
-+		/*
-+		 * As on the other failures, the zone is left to the caller:
-+		 * the release frees what was allocated here, but must not call
-+		 * ->release(), which may free the zone.
-+		 */
-+		power_zone->ops = NULL;
- 		put_device(&power_zone->dev);
- 		mutex_unlock(&control_type->lock);
- 
-
-base-commit: 4785d7fc44de81f850101df9f8627775a6010c5a
--- 
-2.53.0
-
+On Wed, 28 Oct, 2026, 6:43=E2=80=AFpm Lukasz Kulga, <lukasz.kulga@gmail.com=
+> wrote:
+>
+> On 9/4/26 05:22, Jonathan Cameron wrote:
+> > Whilst it should be a separate patch, the route here to use
+> > trivial-devices might make sense.  Only thing that might be
+> > worth documenting would be vdd-supply.
+> >
+> > I'm would be looking for description in the cover letter of how this
+> > is different from, and not suited to extension of another drive
+> > such as the sgp40 (obviously there are more channels on one than
+> > the other so it isn't trivial!)
+> >
+> > Jonathan
+>
+> Hi Akshat,
+>
+> I'd like to pick up SGP41 support, taking the approach Jonathan
+> suggested above and extending the sgp40 driver rather than adding
+> a separate one. I have SGP40 and SGP41 boards on the way for
+> testing.
+>
+> Unless you already have a v2 close to ready, I plan to post a
+> series in the next few weeks and will Cc you on it. Your review
+> and testing would be very welcome.
+>
+> Thanks,
+> Lukasz Kulga
