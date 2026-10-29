@@ -1,55 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.103
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793313073;
-	b=RCRG/OtXgCuGYF6PwAKjBEsiK3WAe5gnUkA1ItSZFsfP9/isZiaOUo3S3FCuZs0pHs9J
-	 aLb7YDEZY68MuuDYk8jNhNTHqvX2NdAAAbTebiodUdg7Ky+KFVH4alT3wlvoSwE3b/cyO
-	 /9EZKNsv5IeC52MixW4LhQgF29Lm7g+cSF0wnwgDkeQaLt054eJ4Q7qqvdcANed8XFZRq
-	 Or0GruTGYMsRzRQ/RveUwtHjCPi8s0L9OM0xUaYOUfk2sfTiEoSSL/uBszDJPR8VMOHNE
-	 xMTgZYC+kZIFSmkvqtFupUe1Q+6XlLT+msrFjeFgw8Ecnd+pJ5B4hr0l8dfrkKiNEOQ==
+	t=1793313226;
+	b=i530asXJak2ryTeJ6JtLGI0Bzu59Gb/ZcElBsVSpytwB/w7VrJLaIPH2poCvP9HsJNGX
+	 MA4D/KgFjNSJbUFRC/3a0IcTZeZ6dWllOxGLBxCc9p7SRkN8lE4LEpBcwLQpeoPb8RmBt
+	 tMTnSXkd8KMgrhgSxa0h7rsIGzAtcLT4NNCgqc0dGm17Z8zmDsaL/3R8PXuz0hJnpUSez
+	 ePzYkpdOGxt9R7XfVpLCAlJ61NiByJ/lNNnwZbWM740ARownctvMK7BVcgwmsY58lrG9l
+	 1I5EqDYbtwbZ4lrdb8BxW1RcQoHDbW9vD+0vSRr/xYGTnhoj6uu0HaTBwFHdwacCFRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793313073;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=kf6LpxrUPl6mdfAmH/zCqlYs6hvSsVYZyBZpkHm4pBA=;
-	b=MHr8mbKCgr+B6DffmGWBgYd7WYpgSLKRq4ewrR/jkpGEwwUpy+4t8Rd2P1tgaFSIR2Zx
-	 HgTCUWPd6FlEDgK7gGbCtxNMoxFW/4gCjDlc2vPay6BtRU10v1L8oypD5Er2a0pjB5j1z
-	 6zuaWQ7uJwOL3ZEh9KO77SHZiHsc+73v/c0r/fceFxDlYGCEEQLik3DUhUR7FMJ36B/HE
-	 pS9inbDkrO7yYfllFekliev60djJLWyAGpeid2ojd6rngrwxyy1zuuUSKCjAgY1+IhSBv
-	 +6DJWNS6/FvjvS3qYovPDlclK0DKki+ixwY54lGjolKKB162uN2zp3rgPeTt4M9n3Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793313226;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/DDRfMOuTRtg2YLg5xA4AAUbkoVMF1o1B6Hot0iCio8=;
+	b=0wXzymDy40yAOg8mxHnaqQizXofu/BR0iBbfn6zhAaG1zZ1Qf81/hw7YrCGR8VPVeYCO
+	 mau0f6NXYfdpOFbYX3gxfNpGKcL8NS6ZB+YqTluWze4fB8r7eMd0dop6ffm5MNgXn5Zf2
+	 7JvDBYKHFI1ukx6klbqFzv1J3/Pp9WkIa7u07Aylr+pqqgKqyYbfG87kUdeLjPWQaiIRk
+	 px1wGGguV4cSJVDv5jOVDt7Fqd23+SVKa/AV/fHc1u9A0v1/nR0Rg5+96IPgVsKj8cLWO
+	 DyRS/jBRcUiohlHsf8X/lQQJsteTXzs7cPpzQDSJ2dyYfdzE7V6kvfqPvI5rA1Rn/0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NWF/Ngxn";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=X5sbn4ej;
+	arc=none smtp.remote-ip=185.70.43.103
+Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C114606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B18C606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:33:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B18C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NWF/Ngxn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1FB1F01829
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:31:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793313073;
-	bh=kf6LpxrUPl6mdfAmH/zCqlYs6hvSsVYZyBZpkHm4pBA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NWF/NgxndhhWgfgsP0U/oEp9QD10ogeqKJmKCCc5bEnRQ4BuA2ciqvET5cGeGUKTM
-	 8x1JnNppcLWVGRN9Wzn3Ydq+gjBNIBUfb3jx+nxejwPLLhxKgr2X1UlF3X+Nq0JN6M
-	 3Hphuq4TmioFwEW3UcZktZnL2+txazpoFpv8S55ZP/UXBt0Ima93n2lVIkIqI3ORxU
-	 exL3w/hyYkxMcu50mgIGi64UyExj+I/ztIt1nuz34TpDyaJltHiUNprZlGGFJ3rDSa
-	 Qd5vDxMxnF5RpjkfLFXNvi7MVz6rN+GVTKGict+aUy6R2DzdBHUWhmDExvhSx7djgO
-	 H4J9cvjGgSiIA==
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c4682977f9aso4411466b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:31:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxnEMZm2kPBUpLrYoGyhgt9j/0ButmkAOTuAcofkf05SYF2oIEDpRAdQE6wbknzFzSYPsWDMCYJhCBeNtQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItXdt5edWWNRY9rJicDavceF26AbQf5/rCCjZZb1pfcfQlMm2d
-	H3Z+n13nlwHPG2yUUCFVKnEjEB0d1rHu5oYkMAUPDIiSmDFI9NRikw+Fwa+X2nzVWKY8Gmi2PYh
-	q67JT6VFUK3vy4oQSdzhSjLqt86a8am0=
-X-Received: by 2002:a17:907:3f95:b0:c26:1648:a06b with SMTP id
- a640c23a62f3a-c4ca7a96a37mr36969166b.38.1793313071904; Thu, 29 Oct 2026
- 15:31:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=X5sbn4ej
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793313223; x=1793572423;
+	bh=/DDRfMOuTRtg2YLg5xA4AAUbkoVMF1o1B6Hot0iCio8=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=X5sbn4ejMUk4B+gqBfQqaJnCLJ59zkwA49LPVrhAkD77l9ov9Bq+MSaUhHCZAuzdU
+	 jbPyt9p6XNJq3K6GD5UdwrpX+19gOSD+kTUWYMEoGbQXZGOLXt6Fd6VROHlFRPi7qo
+	 Gxo0qyEQJpCXnJwhvYTO0aMZgLyj2nheKC0cuMjcHVkg5lDSM1FntJefpcE2yx9zbG
+	 h+yAmp4TDVZu827ys98cIi9BLdtgDazPnKNd8GLDYfdc+QKumz+0uWIianS7WVLJZH
+	 7W7J8zIolcuY9/r5vc+ZH8qs0YuhBF6vZhn6ZzY+02iOEL0l+yFAb4hGRPFF+6z2fh
+	 lU6rr5cVBWu4w==
+Date: Thu, 29 Oct 2026 22:33:40 +0000
+To: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+From: Alexander Koskovich <akoskovich@pm.me>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
+Subject: [PATCH 0/5] Enable some more hardware on the Nothing Phone (3a)
+Message-ID: <20261029-asteroids-dts-updates-v1-0-79351337d681@pm.me>
+Feedback-ID: 37836894:user:proton
+X-Pm-Message-ID: 1b879897af5045c17c9f979b0612e79e8a687d23
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,57 +61,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028030503.17923-1-kanchanapsridhar2026@gmail.com>
- <auOZBtRqQGzFcbAT@google.com> <CACpmpocqHHa4z9hkZ6YEm-wmzMqSX5WpPLfku7Om=NenRq_05Q@mail.gmail.com>
-In-Reply-To: <CACpmpocqHHa4z9hkZ6YEm-wmzMqSX5WpPLfku7Om=NenRq_05Q@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 29 Oct 2026 15:31:00 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMukKcs8u81O6ibOXd_BzdYKM124=rVyuyp2x9+00EDvA@mail.gmail.com>
-X-Gm-Features: AclHuK9Kyop58VqX76nVFd46J_fFsMna3NEZi8sYQdg_eXsf3y1c_wvVLUO30DM
-Message-ID: <CAO9r8zMukKcs8u81O6ibOXd_BzdYKM124=rVyuyp2x9+00EDvA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/8] Batched zswap_store() framework with compression batching
-To: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
-	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
-	davem@davemloft.net, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
-	senozhatsky@chromium.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-> > As mentioned in the previous version, I cannot reproduce these results,
-> > mainly because the noise is too high. Digging a bit deeper, it's because
-> > the throttling from memory.high varies. Hacking in a change to make
-> > calculate_high_delay() always return 0 (no memory.high stalls) paints a
-> > clearer picture about throughput improvements from the series up to
-> > patch 6 and patch 8. With that, I see 1-2% improvement in throughput
-> > with patch 6, and almost no improvement with patch 8 on top. Similarly,
-> > for zswap store latency for high-order folios, I see a slight (~1-2%)
-> > improvement with patch 6, but almost none with patch 8 on top.
->
-> Thanks Yosry, for sharing this. Let me also see if I can replicate
-> this hack on my end, and its impact on latency.
->
-> >
-> > In order to make meaningful progress, can you send patches 5-6
-> > separately? I assume that 1-4 are prep for 7-8, so 5-6 are standalone. I
-> > also think patch 6 will be simplified if we drop the prep work for
-> > patches 7-8?
->
-> It shouldn't be a problem to send patches 5-6 separately, but I would
-> like to measure the latency impact with the hack and confirm the
-> latency results in my environment, so we can figure out a plan on how
-> to proceed. Patches 5-6 alone only achieve bulk allocation of
-> zswap_entries. It could be possible to bundle in patch 8, which
-> generalizes the store batching framework, but let's revisit on how
-> best to make meaningful progress.
+This series enables UFS, Bluetooth, Wi-Fi, IPA, and the display panel
+for the Nothing Phone (3a).
 
-I am questioning the benefit of the compression batching based on the
-results I am seeing.
+Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+---
+Alexander Koskovich (5):
+      arm64: dts: qcom: milos-nothing-asteroids: Enable UFS
+      arm64: dts: qcom: milos-nothing-asteroids: Enable Bluetooth
+      arm64: dts: qcom: milos-nothing-asteroids: Enable WiFi
+      arm64: dts: qcom: milos-nothing-asteroids: Enable IPA
+      arm64: dts: qcom: milos-nothing-asteroids: Enable panel
 
->
-> Patches 5-6 have a dependency on the batch_size for allocating
-> acomp_ctx resources, which is for the compress batching improvements
-> in patch 7-8.
+ .../boot/dts/qcom/milos-nothing-asteroids.dts      | 314 +++++++++++++++++=
+++++
+ 1 file changed, 314 insertions(+)
+---
+base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
+change-id: 20261029-asteroids-dts-updates-ce3d00b4f844
 
-I assume that this code can be dropped from patch 6 if it will be sent
-with patch 5 as a standalone series.
+Best regards,
+-- =20
+Alexander Koskovich <akoskovich@pm.me>
+
+
