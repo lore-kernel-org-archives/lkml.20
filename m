@@ -1,103 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793313299;
-	b=EexotMU5bSjkovwBEARK6VZRxoZkksq7v6zG612YvTTn890kaTDU7gnSYnzLz8e+XmZL
-	 8dbd2qxkH7mKOCQTLeI3hqQ3kISelJfnVEiYNiievWWOr7yPBFA4s807BHO+hYDA+tEYb
-	 UXCH+xW1ASFymW7QdWoeLucuW2R+l2KGadgAENcKnP1JezSnQiZGbhU855ovWYMH8Sg0x
-	 oyA02AtrjhoP2QSo0AczV1djZYBGsiDtuhcBYgJWyKKlHDyh8XTCNNE6gJV8U8vcMIV5f
-	 lzByS9rf4JKLavRaUZ3MEiiRKG2AIIRIv/8A9fNaQ1iourirqA7SUflwrsZEr9wiuLA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793313299;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793313363;
+	b=DyAeOLwdi7HOng/Pnm2bk+oZwpftNuWZrSyK7iVjoUzur/7Sn0Ng+/yxqizRHQVV99VU
+	 UmVrcHIMljbXQ60pGqQd00vLD8IiYTNBB6PKrLQ+A4PCdE4U/W9uVOBOo0ciIhaZbcsn1
+	 Qg5RItI7s1sbndC+1wFKLlIvYwmjmx3AQB3f7oDKmAWZlzzAtFpL7f/00WkwSD1GjNv2K
+	 JfE0+dCazkN+CaDSVvPaI20B1BlL5kdWS8Mne/xQTMkLxyLdL3E1pAEjga8T5PF8O1Ito
+	 UwL3mIkP1hgueqMqS+UidlORjYWmeIRO/HGo+nDMTZWvORzm95xg6qpZIyqzDDb6ycQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793313363;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Vn+1r0fXkT/Pxt7Z8ODGIrb/O48lJ8IHe/qMz+85vCk=;
-	b=Lb4zzai67pmi15M18jBiYOpww7Hwd7x7JXNwYdXKwf5K0kOHWSzowBICC2pKQZFzuM1g
-	 Re1de9xnfAT3w1qEErCmrsB7W8xB2s3IKZSZlpDmnq7mcRjRkc8O+5sNMd2r4f25PdxXN
-	 XNnK3J440iF+WtrEDJIXaAlZUQ16uYGtDIHL4wws3kp2XHLH0Zv4JuBctdUmmyBe84L+s
-	 9dHIGZ4PtcQ53LgCvm2XDZ9X6WBJrv716ZT0stsX/kJv5KdQTaDbDX4eVqICYu+xaGfgi
-	 +PThGDYFK5xVF2ztCI1YbFo/msM6CC9h2g+RJkdX9FfNvJf9lwDhkx9402C/2qAVLyw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=G8tCHOOGj/+N8fPdGSF2K18fSxDtFgxN/WAC+oLERQA=;
+	b=ct0G7WKXdXA0Oo+NfNim12AGypMuZvIAv3DpwwpuSESDuimrr/JB7PfUG+e6f3FVioIX
+	 4NSron67ac1lPmbwekRGKmMC/7K8zl0UoP8R83LQql6HGXbac7+sWtBIuZABRjkgoN0XM
+	 8adkdgYTqRv3GydeN7fPCMVDUXjkj7YPm3zPU6Oj2s5k96/kmJ8rB98PSwYlsAPSnYOb4
+	 TRMbVN87NEZlD2wNcSiGtIRNfTdP/+iP7Y/9bhuCJCabUEnZw17Eqi2etOj5DM7blVUhD
+	 iFVr+GKVNUb06WmSwQZ9u/0AfJnQDscM7Numzg3mIDSL1OWtxXkEsmlLO3Zk4lAlLLw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=esevf+ew;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CgxFMn1B;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B61606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:34:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9B61606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A4B606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:36:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93A4B606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=esevf+ew
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ea7f9c11e6so27325ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:34:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CgxFMn1B
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c3fd91337baso5211666b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:36:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793313361; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YsL6TmnkAuq8dUJQ0JLVnzwt+6Noi9W2vX5XT6NowmBIGpv1wREsd7hUkQA7HfF/Tr
+         SGZmNjJv/XQsw9taK6DLVw53ZHUQDWgbLcPrJor7oQs/vYvrUvtJm+qsdPsXEqD3M5fQ
+         td9MH6sQxALfj71Vi87JTkU+I5sb5hegn8KHYCdAnoqRMmlDDKzZdzOTSFCyh7C9CMUs
+         UQJjRgAWbQt+BmqbxlrJGfjVToc75T1q3fWXcthkk3mFTjuEOmEgQm2+dM0hTEAlRuT4
+         6gejECxS55p6yovPtW0iQN/Ua/uLODFd8QrLdNuVq08+KW3tCVtCIVSYeDVeLRZzw7vv
+         teXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=G8tCHOOGj/+N8fPdGSF2K18fSxDtFgxN/WAC+oLERQA=;
+        fh=RTI/g1cYitYQPxsTpxIYR1w5VAB+U03ygbnHvInPQzM=;
+        b=bwrxrkpHzYT6vAJw4Ihq6TD2QEycwRfoXbv9usvLdnVQsbW5Onj0pifE+8PK7nZRJx
+         1/ES2S4mfWaGu/1vPH9/ujSOLsB91PIDAyTP8WtGNDTXBLhyferf0flkPLpxaa7eu7k4
+         6r/VK2UEiCCNXDgf4i0Yx3FzcrvcWOfKM77HtBHpmVcmPCC6mNeGWJgQIDeba8wxGJkk
+         kekYwcj7yTesLp+vdZtUBdZLLZy8doKjx0J0kGR9/2+Lp5OxrkVtohuu7Yel9F68GOBA
+         XMu72hTg+yC89rlJoZDj+lN0Ylgf1LBVBTvagt5LoOOqoy+cmYguU7qv4Iin8H+a+LlA
+         qbWw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793313298; x=1793918098; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20260707; t=1793313361; x=1793918161; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Vn+1r0fXkT/Pxt7Z8ODGIrb/O48lJ8IHe/qMz+85vCk=;
-        b=esevf+ewgtSEDL6YbCSCOwjbxaL4hFjnYGhepCidMgeZNm94mX9XMzjwlweuOpTtTD
-         A5zHOd/t8T3PNxlBQ+SJr3G/vGG3m/TW+RE3PqQBXsVgOIjKsowtmX2byWGNusLBHAtw
-         G3NJrcaNFzGFdmkYbQwsfMA6WPM8ZczMhVYUoL3ALVQ4vaZvCuqANv5zPYatMQrmq+/Q
-         YkFRPZzBVXvEx9YRZdmNWjIkVlM/UEhVyREf56b/HMvFAppdCLin9BjPSWwUTm7tKdXo
-         3md647asMJ2xyTP0JSLvS+xwgkfQNpbXXgdGYfUdP/mzQ+v8ZQLO0ZlUXPewEelCQhPn
-         CcLQ==
+        bh=G8tCHOOGj/+N8fPdGSF2K18fSxDtFgxN/WAC+oLERQA=;
+        b=CgxFMn1BYb+w6v/KJidME3BfeZ77AO2XqGKCxWNtdwdXdfSy/qFHPVLhCrrCMuXSKc
+         11CdbME9ji6j4II9lx1iEqnokHT6b+BXGlUb02sJfgLOQ7TfSvtHLj5r6obmN0bkT8If
+         ydEYhv+ibz+/eyDMVEU2wj/BldheN+RJFBSQ3VhkskVe72P5EGytYZ1Q4GUMm5l58Ql2
+         JLrE+k06ADPu60I4xmGS1RLf2qWivYqkd1NR5lZaryoNu1J/5ea14mVl5jFHIin+OmaI
+         ghCclrTA8+Ie9zpNc2hUu1PQqzBQCmdz/O8Jjun1JNwbkxI2c/uhi07lot7+jbhC9KJg
+         dZNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793313298; x=1793918098;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793313361; x=1793918161;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Vn+1r0fXkT/Pxt7Z8ODGIrb/O48lJ8IHe/qMz+85vCk=;
-        b=AB3tWhrV33CR9RlKMbsR5Woj818ZFw+sCSg+n91w62CHxvs+PF9kIOZdUwMPsbzx+z
-         PVBE0+xsx3n+G7BAVj8U7fPubv+l+CmQi5aVI4dNtwRkrJH96J4NaWws2yLghk4IjSsi
-         75dYsGbGx3EE4ttQLi11X+fxXG0uUtoFebOjC/NaeTf/VUYKKoXmZmNIT+epccZfltqE
-         sPr6czRAkGJZT5OCgRrMWEUoUm6v3rCy/N9wLzWli1N9nYE478+dm73Hibq4+sGv4+JP
-         mv2N497QekH43Xw+bt9bthZWZA6xi41G+vlVCAW4i2Yc+LcqtWGQYutKw/dM4QwMV/I5
-         z7tQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwRxUCngAe485tuXrliMRVORE81wFLIKBfgzI/ojxOaQyXs987/saB9OEHwmVDwwqOummYiL4g6eZ45tV8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1keaUHicLo5fS2kYsjOWgGcU2Phlaft+O5Sq2VB2tKPs9ZpVd
-	9od23XWHRO8xl0xTLCw3tJCsyLeVpEHHz/TwSYJkQzTGjic3poLeITKwFMN2/ZMUqQ==
-X-Gm-Gg: AYBFou2eUrhqGQiIqE6s6puDd/zAF0gRoW6kcUStD/U87iRKAsiIVifg9pwbhuwR/CJ
-	k4th1+HUqHIbqP8v+1VF1XCYQQa9Oc7WdglFOLexlgsV3eRRIOINg7oJbsbLhFHquhv556qfgpn
-	wkr8EMy5zsSsVJY0SxApZhvLx7bo/fjVEavvmhBDFqfXhSo5bi5CSbpezqXuT6RglYKELGT5zbs
-	MxA7b6/mf6qpWMz5W3AGiDgrJM5XqsQ7mV3V82TM9lwlsIwUA2FlAil29m4TYBT2XoV4ZkL1N8F
-	CNdkYCgxcIczV7bXvazrZlcNTGcQHIBP4EynEvPeLl/Cwaemq/50ixQX3aJLSnflTyYV1B1FyY9
-	zE4P9t+pHtU/JZXb48ueaD4PXxAM0lWDyCleNKJg7XShrqWYDVz+9FnnxV22Rh9LPI5X7j7Sp/t
-	gDJJf0HVDcnd3sV5g9RKH/qXuDrFJDc/6XptwAtFjbFXldCF/8hbKWsoBqXbcpd1ZSjaKOzoYl9
-	B+ENHeyfghiD5fqDNXRwvjfoMAEQkm4CLtxwmF/D0NhbHdRBmI5eXT2av3fKsHG+lbDMPUOjgp3
-	+mzlx5AWHnB+1g8rzNM9TOZZm/QnxnMVnPq9bIPKqTyRHamOhxfYi+gaR+4GphVJSBgVvA0+nMH
-	fdAtV4u8lL/Ah5dcioTWkUcdaoJrLasQlspJmkx+nKw4=
-X-Received: by 2002:a17:902:ccc2:b0:2d5:db38:8013 with SMTP id d9443c01a7336-2eb1ececd67mr7233115ad.18.1793313297370;
-        Thu, 29 Oct 2026 15:34:57 -0700 (PDT)
-Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3927ff6bsm43495ad.52.2026.10.29.15.34.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 15:34:55 -0700 (PDT)
-Date: Thu, 29 Oct 2026 22:34:51 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Baolu Lu <baolu.lu@linux.intel.com>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>, Ankit Soni <Ankit.Soni@amd.com>, 
-	Nicolin Chen <nicolinc@nvidia.com>, John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v6 13/18] iommu/vt-d: Handle reattach of the restored
- domain
-Message-ID: <auPC2pByvuW5uHyH@google.com>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-14-skhawaja@google.com>
- <faeedd16-a271-4ced-be1a-7bd70860bcdc@linux.intel.com>
+        bh=G8tCHOOGj/+N8fPdGSF2K18fSxDtFgxN/WAC+oLERQA=;
+        b=d1lQmu0uLXkUB3l+ZSdLNtbI/g0mKWGFY1cfJZOIJI96A6GXuX/SO2Xae3SQGLJ6EQ
+         LHTYq1ezHww8mCYg3/jsMC4/B418jRamuMuShYT5lMpi3aXJgoc+DdJ0UBtnsBMy8jBI
+         UHu2Wge0w+jY6LsH/kTtA1rz75QKtEcFNd76L0jlYQ8TQKYWRgL4yES9TO21X8WHf2QA
+         igrkCkgeP4LtVAh0Xle+VmS/xmYUYMLsX3Eo95a+G+94B8128faNLIHebDjrIKrifcJ1
+         ONDlHB6ChrN8IewjLQej/R02wC95HVT1I3L7fdyNT9BrFecYD96hwxZKBuxG+NdcFWB1
+         6DSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxH55ZWQOI2iXe0yM2FUwEqakzDfp9aLANLNa9GmSHChshriUyWdxqsKv9nwzgbx9aa0914fnv/sD6k8kY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFwk86KmNIrwhG1epsd63XZry5ZtrvNAS/uDV+8uLXsdXl8FtA
+	AopK+VGhPf0gk/dTsQNr3oSXP65BgV8kYg9RUyGeDRCQn5VPeAEVPMgpbp+VhqyRoNJfQ6iHtQ7
+	1lL3h2oilvoDUov0685A+7v1x/2RXK/q13dpx6uim
+X-Gm-Gg: AYBFou3P0RkbvzEtsX+uK1EaHDnEHFKdjiAAfTxn8UhDrCmcHXNwCYJeWTZ2hFMtIrh
+	Ih/fQpqjK15txv39vnP5MFg4Nhp9NydBKte/lyjuIc/6bb+BcGPabqVm5xtEPdFaaO3mFV8YBbY
+	GpoU2Mxpe8IeRabcX1OwRXs2T6zJLYYvVgIp6MUaY395rZiYHMzGoEnStsIvnCDHUl+mtYfjRTj
+	H1Fv4kz3r5Nyy/oUsovUkIEnNceiSd1yazkg6+uOEuVpJ926RtKz+FZ3vV+eJVG88gRLteUB7F0
+	/4Xz0kA9gVYa1Uuyn1GvARqdFkLhUQkJyBLkHEJdS8+MxJ9+jFt0GifH5umxN/+qLr3z86Hm5vh
+	vuSZGbf0PJXI2mBei81UXAeBd0/JVMiokuSAWDav1lDpW2jTwnj416ygOgynrqBS7UShjl3E=
+X-Received: by 2002:a17:907:3e1e:b0:c48:a838:c188 with SMTP id
+ a640c23a62f3a-c4ca7a4b3b4mr47123766b.13.1793313360445; Thu, 29 Oct 2026
+ 15:36:00 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,341 +104,319 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <faeedd16-a271-4ced-be1a-7bd70860bcdc@linux.intel.com>
+References: <20261023001603.560210-8-wusamuel@google.com> <20261023001603.560210-9-wusamuel@google.com>
+ <CAEf4Bzb--Jzz696u057G9_CgQN7zf6ksvoL80KJacKO2CorsnQ@mail.gmail.com>
+ <CAG2Kctojb7xiOqTmwWqoAKFaNUECjOzXVc_t6KbG13Pqm2dbng@mail.gmail.com> <CAEf4Bzbs8F1DPBz=WXVTExrrNjzvaFsi4L+HEj+zbUTpPSTX5g@mail.gmail.com>
+In-Reply-To: <CAEf4Bzbs8F1DPBz=WXVTExrrNjzvaFsi4L+HEj+zbUTpPSTX5g@mail.gmail.com>
+From: Samuel Wu <wusamuel@google.com>
+Date: Thu, 29 Oct 2026 15:35:48 -0700
+X-Gm-Features: AclHuK9Q2VdYK7NLuuR_HXG0hWT2XRH1-lodvxt5cVmONXOgPyaKx1O_WXmNwr4
+Message-ID: <CAG2KctpSTCyWQHgJ8GyFEhHPdFawUa6zy0g7rkfCcujJRN6f6w@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 04:28:30PM +0800, Baolu Lu wrote:
->On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
->>Reattach the restored domain to the preserved device using restored
->>domain ID. While reattaching do not setup the context and PASID entries
->>as those are preserved during liveupdate.
->>
->>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
->>---
->>  drivers/iommu/intel/iommu.c      |  34 ++++++--
->>  drivers/iommu/intel/iommu.h      |  14 ++++
->>  drivers/iommu/intel/liveupdate.c | 131 +++++++++++++++++++++++++++++++
->>  3 files changed, 171 insertions(+), 8 deletions(-)
->>
->>diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
->>index ecec057f78dd..4f01aa34ccb5 100644
->>--- a/drivers/iommu/intel/iommu.c
->>+++ b/drivers/iommu/intel/iommu.c
->>@@ -2926,6 +2926,9 @@ static int blocking_domain_attach_dev(struct iommu_domain *domain,
->>  				      struct device *dev,
->>  				      struct iommu_domain *old)
->>  {
->>+	if (dev_iommu_restored_state(dev))
->>+		return -EBUSY;
->>+
+On Thu, Oct 29, 2026 at 3:09=E2=80=AFPM Andrii Nakryiko
+<andrii.nakryiko@gmail.com> wrote:
 >
->There is a contract between the iommu core and iommu drivers that
->attaching a blocking domain must always succeed. Otherwise, some
->existing code paths will break.
+> On Thu, Oct 29, 2026 at 2:58=E2=80=AFPM Samuel Wu <wusamuel@google.com> w=
+rote:
+> >
+> > On Tue, Oct 27, 2026 at 3:25=E2=80=AFPM Andrii Nakryiko
+> > <andrii.nakryiko@gmail.com> wrote:
+> > >
+> > > On Thu, Oct 22, 2026 at 5:17=E2=80=AFPM Samuel Wu <wusamuel@google.co=
+m> wrote:
+> > > >
+> > > > Add an extensible KALLSYMS_QUERY ioctl() interface to /proc/kallsym=
+s
+> > > > to support fast point queries without scanning the entire text file=
+.
+> > > > Exactly one query mode must be set in query_flags.
+> > > >
+> > > > When KALLSYMS_QUERY_BY_SYMBOL is set in query_flags, KALLSYMS_QUERY
+> > > > resolves a NUL-terminated symbol name in vmlinux or loaded modules =
+and
+> > > > then populates sym_addr:
+> > > > - Searches vmlinux first via kallsyms_lookup_names() (binary search=
+),
+> > > >   which takes precedence over loaded modules, and falls back to
+> > > >   module_kallsyms_on_each_symbol() under module_mutex for module
+> > > >   symbols
+> > > > - Matches names exactly, like kallsyms_lookup_name(), disregarding =
+the
+> > > >   .llvm.<hash> matching, following precedent set by commit fb6a421f=
+b615
+> > > >   ("kallsyms: Match symbols exactly with CONFIG_LTO_CLANG")
+> > > > - Resolves 0x0 symbol addresses in both vmlinux and modules
+> > > > - Rejects ambiguous symbols (multiple entries with the same name at
+> > > >   different addresses within vmlinux, or across loaded modules) wit=
+h
+> > > >   -EADDRNOTAVAIL, while allowing same-address aliases
+> > > >
+> > > > Userspace symbolizers resolve kernel addresses to symbol names with
+> > > > /proc/kallsyms. This is typically done by reading the entire
+> > > > /proc/kallsyms text file, and keeping a compressed sorted copy of i=
+t in
+> > > > order to resolve addresses at runtime.
+> > > >
+> > > > When KALLSYMS_QUERY_BY_ADDR is set in query_flags, KALLSYMS_QUERY
+> > > > resolves one address to the symbol that contains it:
+> > > > - sym_addr holds the address to resolve on input.
+> > > > - sym_name_addr must point to a user buffer of sym_name_size bytes
+> > > >   that receives the NUL-terminated symbol name. On output,
+> > > >   sym_name_size holds the number of bytes written (including the
+> > > >   terminating NUL). -ENAMETOOLONG is returned if the buffer is too
+> > > >   small; a buffer of KSYM_NAME_LEN (512 at the time of writing) byt=
+es
+> > > >   is always large enough.
+> > > > - Symbols are resolved via kallsyms_lookup(), the same lookup as %p=
+S,
+> > > >   covering vmlinux, loaded modules, BPF JIT images, and freed modul=
+e
+> > > >   init functions still tracked by ftrace.
+> > > >
+> > > > On an 8 CPU Cuttlefish (x86-64 VM), using this patchseries to load =
+a BPF
+> > > > program with 11 typeless ksyms has ~220x speedup (157ms -> 0.7ms).
+> > > >
+> > > > On an 8 CPU x86-64 VM with a 175k line kallsyms, there are broad
+> > > > performance and memory savings for the symbolization and callstack
+> > > > sampling tool, Perfetto:
+> > > > - Init time: ~350x speedup (155.7ms -> 0.44ms)
+> > > > - 50k symbolizations: ~12x speedup (25.2ms -> 2.2ms)
+> > > > - VmRSS: -68% (15.1MB -> 4.8MB)
+> > > >
+> > > > Suggested-by: Andrii Nakryiko <andrii@kernel.org>
+> > > > Signed-off-by: Samuel Wu <wusamuel@google.com>
+> > > > ---
+> > > >  include/uapi/linux/fs.h |  41 +++++++++++++
+> > > >  kernel/kallsyms.c       | 132 ++++++++++++++++++++++++++++++++++++=
+++++
+> > > >  2 files changed, 173 insertions(+)
+> > > >
+> > > > diff --git a/include/uapi/linux/fs.h b/include/uapi/linux/fs.h
+> > > > index 34c6f219462a..b43f227dad0e 100644
+> > > > --- a/include/uapi/linux/fs.h
+> > > > +++ b/include/uapi/linux/fs.h
+> > > > @@ -674,6 +674,47 @@ struct procmap_query {
+> > > >         __u64 build_id_addr;            /* in */
+> > > >  };
+> > > >
+> > > > +/* /proc/kallsyms ioctl */
+> > > > +#define KALLSYMS_QUERY _IOWR(PROCFS_IOCTL_MAGIC, 18, struct kallsy=
+ms_query)
+> > > > +
+> > > > +/* Exactly one query mode must be set in query_flags. */
+> > > > +enum kallsyms_query_flags {
+> > > > +       /*
+> > > > +        * Look up a symbol in vmlinux or loaded modules (vmlinux f=
+irst; BPF
+> > > > +        * and ftrace symbols are not searched) by exact NUL-termin=
+ated name
+> > > > +        * at sym_name_addr and return sym_addr. sym_addr and sym_n=
+ame_size
+> > > > +        * must be 0 on input.
+> > > > +        */
+> > > > +       KALLSYMS_QUERY_BY_SYMBOL =3D 0x01,
+> > > > +       /*
+> > > > +        * Look up the symbol covering sym_addr and write its NUL-t=
+erminated
+> > > > +        * name to the sym_name_addr buffer of sym_name_size bytes.=
+ The same
+> > > > +        * symbols as %pS are searched: vmlinux, loaded modules, BP=
+F JIT
+> > > > +        * images, and freed module init functions still tracked by=
+ ftrace.
+> > > > +        * A buffer of KSYM_NAME_LEN (512 at the time of writing) b=
+ytes is
+> > > > +        * always enough. On success, sym_name_size is set to the n=
+umber of
+> > > > +        * bytes written (including the terminating NUL).
+> > > > +        */
+> > > > +       KALLSYMS_QUERY_BY_ADDR =3D 0x02,
+> > > > +};
+> > > > +
+> > > > +/*
+> > > > + * Returns -ENOENT if no symbol matches, -EADDRNOTAVAIL if the nam=
+e maps to
+> > > > + * more than one address, -ENAMETOOLONG if the name does not fit i=
+n
+> > > > + * KSYM_NAME_LEN (512 at the time of writing) or sym_name_size byt=
+es, and
+> > > > + * -EPERM if kallsyms addresses are hidden from the opener of /pro=
+c/kallsyms
+> > > > + * (e.g. kptr_restrict).
+> > > > + */
+> > > > +struct kallsyms_query {
+> > > > +       __u64 size;             /* in - struct size for compatibili=
+ty */
+> > > > +       __u64 query_flags;      /* in - query mode (enum kallsyms_q=
+uery_flags) */
+> > > > +       __u64 sym_name_addr;    /* in - address of symbol name buff=
+er */
+> > > > +       __u64 sym_addr;         /* out (BY_SYMBOL) / in (BY_ADDR) *=
+/
+> > > > +       __u64 sym_name_size;    /* in/out - name buffer size / byte=
+s written */
+> > > > +};
+> > >
+> > > it might be smart to have QUERY_BY_ADDR and QUERY_BY_NAME to be two
+> > > separate ioctl commands with its own query in/out struct. This would
+> > > remove addr vs name ambiguity in sym_name_addr field, and will allow
+> > > us to evolve APIs independently, if necessary. They should still
+> > > probably reuse the same type to represent symbol information, and hav=
+e
+> > > kallsyms_query struct provide a pointer to that struct (and its
+> > > maximum size), which the kernel will fill out and set the size it
+> > > actually knows about.
+> > >
+> > > struct kallsyms_query_by_addr {
+> > >     __u64 size;
+> > >     __u64 query_flags;
+> > >     __u64 sym_addr; /* in */
+> > >     struct kallsyms_sym *sym; /* out */
+> > >     __u64 sym_len;
+> > > };
+> > >
+> > > struct kallsyms_sym {
+> > >     __u64 sym_addr;
+> > >     __u64 sym_name;
+> > >     __u64 sym_name_len;
+> > >     __u64 sym_module;
+> > >     __u64 sym_module_len; /* if zero, no module requested/available *=
+/
+> > > };
+> > >
+> > > e.g. for symbol you'd want to return its name, address, but also
+> > > module name. and we should leave a way to extend it further with more
+> > > optional information (that's the kallsyms extensibility bit I was
+> > > talking about).
+> >
+> > Agree, two ioctls with a shared symbol type is cleaner. v3 plan is to
+> > have QUERY_BY_NAME and QUERY_BY_ADDR both fill a shared struct
+> > kallsyms_sym (address, size, name, module), passed by pointer so it
+> > can grow later.
+> >
+> > > aslo, we should think about adding ways to paginate (or at least leav=
+e
+> > > a possibility of that in the future) if there are multiple matches
+> > > (e.g., for static functions with the same name resolving to multiple
+> > > addresses); not sure how it should look like API wise, but it would b=
+e
+> > > good to still return "any" or "first" match, but let user know there
+> > > are multiple, so user can decide how to proceed...
+> >
+> > Makes sense, but I'm thinking v3 doesn't need pagination or batching.
+> > I didn't see any performance wins when profiling libbpf, and it can be
+> > added later without breaking UAPI.
+> >
+> > > on input I'd also add module name as optional input argument, with
+> > > "vmlinux" limiting to just vmlinux, set module name to just that name=
+,
+> > > and NULL/zero meaning "we don't care"
+> >
+> > Makes sense, so here is a possible plan for QUERY_BY_NAME:
+> > - Optional module filter: NULL =3D any, "vmlinux", or a module name
+> > - Returns the first match by default (vmlinux first, then modules). An
+> > ALL_MATCHES flag searches everything and reports the number of matches
 >
->My understanding is that "block DMA" is always a legitimate request, but
->we don't expect it while the device is in the restored state. So perhaps
->we could trigger a WARN here and continue tearing down the preserved
->entry?
+> searches everything as in all modules, or you mean just full linear scan?
 
-For restore device we try to not block the DMA unless the entity that
-preserved in the previous kernel restores it. But you are raising a fair
-point, I will see if we can make sure in the core that this is only
-called from the core when there is a legitimate reason to block DMA in
-case of restored devices. Then we can remove this check from here.
->
->>  	iopf_for_domain_remove(old, dev);
->>  	device_block_translation(dev);
->>  	return 0;
->>@@ -3294,6 +3297,9 @@ static int intel_iommu_attach_device(struct iommu_domain *domain,
->>  {
->>  	int ret;
->>+	if (dev_iommu_restored_state(dev))
->>+		return intel_iommu_attach_restored_device(domain, dev);
->>+
->>  	device_block_translation(dev);
->>  	ret = paging_domain_compatible(domain, dev);
->>@@ -3424,7 +3430,8 @@ static struct iommu_device *intel_iommu_probe_device(struct device *dev)
->>  	info->iommu = iommu;
->>  	RB_CLEAR_NODE(&info->node);
->>  	if (dev_is_pci(dev)) {
->>-		if (ecap_dev_iotlb_support(iommu->ecap) &&
->>+		if (!dev_iommu_restored_state(dev) &&
->>+		    ecap_dev_iotlb_support(iommu->ecap) &&
->>  		    pci_ats_supported(pdev) &&
->>  		    dmar_ats_supported(pdev, iommu)) {
->>  			info->ats_supported = 1;
->>@@ -3529,12 +3536,16 @@ static void intel_iommu_release_device(struct device *dev)
->>  	struct device_domain_info *info = dev_iommu_priv_get(dev);
->>  	struct intel_iommu *iommu = info->iommu;
->>-	iommu_disable_pci_pri(info);
->>-	iommu_disable_pci_ats(info);
->>+	if (!dev_iommu_restored_state(dev)) {
->>+		iommu_disable_pci_pri(info);
->>+		iommu_disable_pci_ats(info);
->>-	if (info->pasid_enabled) {
->>-		pci_disable_pasid(to_pci_dev(dev));
->>-		info->pasid_enabled = 0;
->>+		if (info->pasid_enabled) {
->>+			pci_disable_pasid(to_pci_dev(dev));
->>+			info->pasid_enabled = 0;
->>+		}
->>+	} else {
->>+		intel_iommu_detach_restored_device(dev);
->>  	}
->>  	mutex_lock(&iommu->iopf_lock);
->>@@ -3542,11 +3553,15 @@ static void intel_iommu_release_device(struct device *dev)
->>  		device_rbtree_remove(info);
->>  	mutex_unlock(&iommu->iopf_lock);
->>-	if (sm_supported(iommu) && !dev_is_real_dma_subdevice(dev) &&
->>+	if (!dev_iommu_restored_state(dev) && sm_supported(iommu) &&
->>+	    !dev_is_real_dma_subdevice(dev) &&
->>  	    !context_copied(iommu, info->bus, info->devfn))
->>  		intel_pasid_teardown_sm_context(dev);
->>-	intel_pasid_free_table(dev);
->>+	if (!dev_iommu_restored_state(dev))
->>+		intel_pasid_free_table(dev);
->>+	else
->>+		kfree(info->pasid_table);
->>  	intel_iommu_debugfs_remove_dev(info);
->>  	kfree(info);
->>  }
->>@@ -4003,6 +4018,9 @@ static int identity_domain_attach_dev(struct iommu_domain *domain,
->>  	struct intel_iommu *iommu = info->iommu;
->>  	int ret;
->>+	if (dev_iommu_restored_state(dev))
->>+		return -EBUSY;
->>+
->>  	device_block_translation(dev);
->>  	if (dev_is_real_dma_subdevice(dev))
->>diff --git a/drivers/iommu/intel/iommu.h b/drivers/iommu/intel/iommu.h
->>index 260c7a5b1240..f910e5383e12 100644
->>--- a/drivers/iommu/intel/iommu.h
->>+++ b/drivers/iommu/intel/iommu.h
->>@@ -1322,6 +1322,9 @@ void clear_unpreserved_context_entries(struct intel_iommu *iommu);
->>  void intel_iommu_liveupdate_restore_root_table(struct intel_iommu *iommu,
->>  					       struct iommu_hw_ser *iommu_ser);
->>  void intel_iommu_handle_drhd_restore_failure(struct intel_iommu *iommu);
->>+int intel_iommu_attach_restored_device(struct iommu_domain *domain,
->>+				       struct device *dev);
->>+int intel_iommu_detach_restored_device(struct device *dev);
->>  #else
->>  static inline void clear_unpreserved_context_entries(struct intel_iommu *iommu)
->>  {
->>@@ -1335,6 +1338,17 @@ static inline void intel_iommu_liveupdate_restore_root_table(struct intel_iommu
->>  static inline void intel_iommu_handle_drhd_restore_failure(struct intel_iommu *iommu)
->>  {
->>  }
->>+
->>+static inline int intel_iommu_attach_restored_device(struct iommu_domain *domain,
->>+						     struct device *dev)
->>+{
->>+	return -EOPNOTSUPP;
->>+}
->>+
->>+static inline int intel_iommu_detach_restored_device(struct device *dev)
->>+{
->>+	return -EOPNOTSUPP;
->>+}
->>  #endif
->>  #ifdef CONFIG_INTEL_IOMMU_SVM
->
->It appears that there is no way to replace the restored domain, because
->nothing ever clears IOMMU_SER_FLAG_INCOMING or dev->iommu->device_ser.
->As a result, if iommufd later tries to move the device to a new hwpt,
->the attempt will always fail.
->
->I assume this is intended for this phase, and that the actual
->replacement will be handled in a later phase. If so, please mention this
->in the commit message.
+I envision ALL_MATCHES to do some form of lower_bound() +
+upper_bound() on vmlinux since it's sorted, and then linear scan of
+all modules. Of course, just one of the two or both aforementioned
+things depending on the module filter (any, vmlinux, module).
 
-Yes, this is intentional for this phase. I will add a note about this in
-the commit message also.
+> >
+> > And an open question I'm unsure about: Should libbpf keep the light
+> > skeleton semantics (take the first match, no ambiguity check), or set
+> > ALL_MATCHES to keep today's check that fails on names with multiple
+> > addresses?
 >
->>diff --git a/drivers/iommu/intel/liveupdate.c b/drivers/iommu/intel/liveupdate.c
->>index 36816d3651e6..665ebb81bd61 100644
->>--- a/drivers/iommu/intel/liveupdate.c
->>+++ b/drivers/iommu/intel/liveupdate.c
->>@@ -394,6 +394,137 @@ void intel_iommu_handle_drhd_restore_failure(struct intel_iommu *iommu)
->>  		      iommu->name);
->>  }
->>+static void domain_detach_restored_iommu(struct dmar_domain *domain,
->>+					 struct intel_iommu *iommu)
->>+{
->>+	struct iommu_domain_info *info;
->>+
->>+	guard(mutex)(&iommu->did_lock);
->>+	info = xa_load(&domain->iommu_array, iommu->seq_id);
->>+	if (--info->refcnt == 0) {
->>+		xa_erase(&domain->iommu_array, iommu->seq_id);
->>+		kfree(info);
->>+	}
->
->This seems to be different from normal domain_detach_iommu(), which
->looks like this,
->
->        if (--info->refcnt == 0) {
->                ida_free(&iommu->domain_ida, info->did);
->                xa_erase(&domain->iommu_array, iommu->seq_id);
->                kfree(info);
->        }
->
->why ida_free() is skipped in the restored path?
+> I'd say fail on ambiguity
 
-The restored device can be removed and probed again while the PASID and
-context entries stay intact. So the restored did is not freed in this
-path. Once the domain is reclaimed by the iommufd, then it takes the
-normal detach path.
+Ack
 
+> >
+> > > for QUERY_BY_ADDR we should have a flag saying whether an exact match
+> > > by address is requested or we should find a symbol that covers the
+> > > address (that's most useful for symbolization). maybe even "at or
+> > > after" address mode, so you can paginate (though probably explicitly
+> > > designed batch API would be even more useful later)
+> >
+> > For v3 I think we can keep BY_ADDR to the covering lookup only. The
+> > result can fill in the covering symbol's (start address, size, name,
+> > module), and callers can check for an exact match themselves by
+> > comparing the start address with the queried address. A batch API can
+> > be added later when there is a user for it.
 >
->>+}
->>+
->>+static int domain_attach_restored_iommu(struct dmar_domain *domain,
->>+					struct intel_iommu *iommu,
->>+					struct iommu_device_ser *device_ser)
->>+{
->>+	struct iommu_domain_info *info, *curr;
->>+	struct iommu_domain_ser *domain_ser;
->>+	struct iommu_hw_ser *iommu_hw_ser;
->>+	int restored_did;
->>+	int ret;
->>+
->>+	if (!iommu_domain_restored_state(&domain->domain))
->>+		return -EINVAL;
->>+
->>+	if (!device_ser->attachment.domain_phys ||
->>+	    !device_ser->iommu_phys)
->>+		return -EINVAL;
->>+
->>+	domain_ser = phys_to_virt(device_ser->attachment.domain_phys);
->>+	if (domain_ser->restored_domain != &domain->domain)
->>+		return -EINVAL;
->>+
->>+	iommu_hw_ser = phys_to_virt(device_ser->iommu_phys);
->>+	if (iommu_hw_ser->type != IOMMU_SER_TYPE_INTEL ||
->>+	    iommu_hw_ser->intel.phys_addr != iommu->reg_phys)
->>+		return -EINVAL;
->>+
->>+	restored_did = device_ser->attachment.attachment_id;
->>+	if (!ida_exists(&iommu->domain_ida, restored_did))
->>+		return -EINVAL;
->>+
->>+	info = kzalloc_obj(*info);
->>+	if (!info)
->>+		return -ENOMEM;
->>+
->>+	guard(mutex)(&iommu->did_lock);
->>+	curr = xa_load(&domain->iommu_array, iommu->seq_id);
->>+	if (curr) {
->
->		if (WARN_ON(curr->did != restored_did))
->			return -EINVAL;
+> There is a user for batch API, that's blazesym, wprof, retsnoop and
+> other applications that use kallsyms for symbolization. I didn't
+> insist on adding it from the get go just to reduce the scope, but
+> there is definitely a use case for having fast way to dump all or
+> parts of kallsyms
 
-Agreed. I will add this.
+Ahh, ok, hopefully reducing the scope for v3 is fine.
 
+> >
+> > > tl;dr, this is the right direction, but I think we should polish API =
+a
+> > > bit more to be more universally useful and extensible
+> > > > +
+> > > > +#define KALLSYMS_QUERY_SIZE_VER0       40 /* sizeof first publishe=
+d struct */
+> > > > +
 >
->>+		curr->refcnt++;
->>+		kfree(info);
->>+		return 0;
->>+	}
->>+
->>+	info->refcnt	= 1;
->>+	info->did	= restored_did;
->>+	info->iommu	= iommu;
->>+	curr = xa_cmpxchg(&domain->iommu_array, iommu->seq_id,
->>+			  NULL, info, GFP_KERNEL);
->>+	if (curr) {
->>+		ret = xa_err(curr) ? : -EBUSY;
->>+		goto err_unlock;
->>+	}
->>+
->>+	return 0;
->>+
->>+err_unlock:
->>+	kfree(info);
->>+	return ret;
->>+}
->>+
->>+/**
->>+ * intel_iommu_attach_restored_device() - Restore device domain attachment after live update
->>+ * @domain: Restored domain
->>+ * @dev: Restored device
->>+ *
->>+ * Return: 0 on success, or negative error code.
->>+ */
->>+int intel_iommu_attach_restored_device(struct iommu_domain *domain,
->>+				       struct device *dev)
->>+{
->>+	struct iommu_device_ser *device_ser = dev_iommu_restored_state(dev);
->>+	struct device_domain_info *info = dev_iommu_priv_get(dev);
->>+	struct dmar_domain *dmar_domain = to_dmar_domain(domain);
->>+	struct intel_iommu *iommu = info->iommu;
->>+	unsigned long flags;
->>+	int ret;
->>+
->>+	if (!device_ser)
->>+		return -EINVAL;
->>+
+> [...]
 >
->The context and PASID table entries are not touched in the restore path.
->That's fine, but it would be better to check that the hardware
->configuration matches the restored domain before trusting it, at least
->the physical address of the page table and the domain ID. With that
->check in place, it would be reasonable to skip
->paging_domain_compatible().
+> > >
+> > > PROCMAP_QUERY uses offsetofend() for the last defined field, any
+> > > reason to have this #define and BUILD_BUG_ON here?
+> >
+> > David pointed out that the size field in struct kallsyms_query is
+> > redundant. In v3, I can drop the size field and use _IOC_SIZE(cmd),
+> > keep the *_SIZE_VER0 define (since we need minimum size). Perfectly
+> > fine to switch to the PROCMAP_QUERY style though if preferred.
+>
+> I'm not sure how size is redundant, I don't see ioctl subsystem
+> accepting argument size as a separate parameter, so the size has to
+> come from the user and be embedded in user-provided structure, if we
+> want any sort of backward/forward compatibility. At least looking at
+> PROCMAP_QUERY I don't see how we could have avoided it, so not sure
+> how we can do that here.
 
-Since the page table address and the domain ID are both programmed into
-the context and PASID tables, and both of those are preserved, we can
-rely on the KHO preservation of the memory to assume the correctness
-here. We already rely on the KHO preservation for the page tables
-themselves, including the mappings. Also note that the RTADDR check
-during restore gives a sanity check on the root table being used by the
-live hardware.
+My understanding is that the size is encoded in the ioctl command
+itself: _IOWR() puts sizeof(struct) into the command number when
+userspace is compiled, so _IOC_SIZE(cmd) is the struct size of the
+header the caller was built against.
 
->
->>+	ret = domain_attach_restored_iommu(dmar_domain, iommu, device_ser);
->>+	if (ret)
->>+		return ret;
->>+
->>+	info->domain = dmar_domain;
->>+	info->domain_attached = true;
->>+	spin_lock_irqsave(&dmar_domain->lock, flags);
->>+	list_add(&info->link, &dmar_domain->devices);
->>+	spin_unlock_irqrestore(&dmar_domain->lock, flags);
->>+
->>+	return 0;
->>+}
->>+
->>+int intel_iommu_detach_restored_device(struct device *dev)
->>+{
->>+	struct device_domain_info *info = dev_iommu_priv_get(dev);
->>+	struct intel_iommu *iommu = info->iommu;
->>+	struct iommu_domain *domain;
->>+	unsigned long flags;
->>+
->>+	if (!info->domain_attached || !info->domain)
->>+		return -EINVAL;
->>+
->>+	domain = &info->domain->domain;
->>+	if (!iommu_domain_restored_state(domain))
->>+		return -EINVAL;
->>+
->>+	info->domain_attached = false;
->>+
->>+	spin_lock_irqsave(&info->domain->lock, flags);
->>+	list_del(&info->link);
->>+	spin_unlock_irqrestore(&info->domain->lock, flags);
->>+
->>+	domain_detach_restored_iommu(info->domain, iommu);
->>+	info->domain = NULL;
->>+
->>+	return 0;
->>+}
->>+
->>  enum pasid_lu_op {
->>  	PASID_LU_OP_PRESERVE = 1,
->>  	PASID_LU_OP_UNPRESERVE,
->
->Thanks,
->baolu
+That said, either way is fine. We could mirror PROCMAP_QUERY style for
+consistency.
+
+> >
+> > Thanks Andrii for all the thoughtful feedback!
+> >
+> > > > +               return -EINVAL;
+> > > > +
+> > > > +       err =3D copy_struct_from_user(&karg, sizeof(karg), uarg, us=
+ize);
+> > > > +       if (err)
+> > > > +               return err;
+> > > > +
+> > >
+> > > [...]
