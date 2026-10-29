@@ -1,61 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793232418;
-	b=BID5HFoBZEe9KafvAm3nEFwX78aK3gTPKQnqCZjByyaqMcvKZjSyaUTA6Xl14x3Bhqy2
-	 Oplw7w0iivBneNQ3NOc7aY6Un4wkl1JbCktpcqhqFWhZejDtF/jTlTDMt0805xcubpxTn
-	 JiED7YIAcRhNbiSTIFdZ974ElBXax9oseeKVWeNDLpmqmxVAZh3flAWJEjaigwoRCV/Yc
-	 g4JKHeQJOwVc2t6FvbnoN6hhrjqe/CFDkhLkepSD6ErboRir/FTVREptzrelu5lcMB/t9
-	 /LZfpSBExAtg28rg49h+eCmNGY55FmP3RKrJh3XKJ9SBWkbpQ/+eTlUYmutTI7m2bIA==
+	t=1793232669;
+	b=kGrY0E6VLug5XgTu5xmDz0n8qHFvT7INNDFpDNRLlnVujfzZQKTdnvatM0YkkTEWrSe0
+	 XfVNIJoZ83pyQuTYPC3UskhyZvegPLGXMnVclwe5fqrq7l60Dst4eqImCQKNTpeMyub5b
+	 GhEMeZBuA62iR++zItdfo8ktlUhEu5IMaXXd5ZgOhOl+JjwWEv8MSX/AIOIMMrNrSXt7E
+	 CHfpTpAI0OByUesJO6GxUU/OMpvxRTUn99qN9swRqMKvUgJ3ZMbD4y+YJDWFvMduzIyWH
+	 fqj7FiOqxmVGKxvAu0mm0r7KEchr/3I9+E1N4CTmn9Bod/T38ZTVK8ELsZXorNwqI+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793232418;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3fvI0TM8+FK8rZAgbHGjXojlMkSEHOIDbZUA5VlGZkE=;
-	b=dNP/XvljL+BwhslsvobcybWxT6Gp7cdwO12NKNRlrcqe/mjpI4gRgD5Jv+3JIVRhSR/F
-	 +xu2YRGt2vWzMm7wGV0Jd96bzK8NB4GWUHDEHoDKT5j3LWTK+hIyBKV/58JYQChCyYMME
-	 +MpX2PuETAtnw1KrlVmb98bbQ3oP1EcFiGds433YjfIbXWNd3R0YUinMibEgFDeeCYP0/
-	 nQlxvPfGEzruFKWZg7SsWlgAhcTfWDlIg9pNpfWTWh6ZitwW65ceEtj09ICVcXElz+dJG
-	 p4aJyAjE/mPAd/QqAWyoEEtD6KiziDO7I4h66Wz9OdzcSKtGTHGbMZK9LyEuyreIN1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793232669;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Bj9NjgouKwDuEYr3QVcM5yN+7mpe5oQosQgQsNpRmoM=;
+	b=i/5W+FojdApTDowlS95zXR3SqmBZdhqYPjuuD4ZSTb8bdWFXmGSHSez0D47vbhqpg/Kv
+	 kZcVO98x1/WCGGC1CfKTpGCJ3TTsV7hLFd4PQ7b2hoc/3bL4TwgfdSO217egqNbr2ynq+
+	 +8mdfSGOnKjyvHqt06hNNLzZ2XOOUq7bGdPq9NpG0ID79Z4QaiDKZTFhwGqL807bLVDn6
+	 sphXCFCPobJUAfHjpWL5wWkN0/lTvn46sg/V8PQab40UQHUP8/vOnuX0URxJsNdYNleoP
+	 V7VWLJHk2jXgVMAroFc3mgV11ItJqyUy0rtCp2Sv2ttfXXcvSu63YjJgW8wrUfDTAIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbUz4Ahf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hzZZb87N;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD95606A31A;
-	Thu, 29 Oct 2026 00:06:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BE4606A31A;
+	Thu, 29 Oct 2026 00:11:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbUz4Ahf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFB0D1F01825;
-	Thu, 29 Oct 2026 00:06:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hzZZb87N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21F9A1F01825;
+	Thu, 29 Oct 2026 00:11:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793232417;
-	bh=3fvI0TM8+FK8rZAgbHGjXojlMkSEHOIDbZUA5VlGZkE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AbUz4AhfG/N19UL54LGvXeIdheWyC95cXavm4fWb811lbIpM6QIIodtY804X9Vdu+
-	 fPa5GzS3kJMRqjuVMnKDxroBwScqdAIMpwsDEpj5GH4mhmzngQ6xSJj7yBeoTEsYPJ
-	 UBLO0jKmJgdBnSom18wOgM08938wj4fUpDWwjlD1HlTEpgL8WXYUCFLRYqV8CxHLVE
-	 2fJJ3kVffvero8ipyEtZEq7NNUObOMNlr8kZ0K9N0u+6eHFcIelxsxJ1oBMYwgf6Qu
-	 ZFv9D0mhfeKgWmtxt1cmbLNK2wtU/iy2/SJj5W7PBkapXT+k/pi/epUIUXaQ0wck0x
-	 QUIsgf2fdQdBw==
-Date: Thu, 29 Oct 2026 00:06:52 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Jesper X Nilsson <jesper.x.nilsson@axis.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stefan Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel@axis.com
-Subject: Re: [PATCH v2 1/4] dt-bindings: iio: light: opt4001: add opt4041
-Message-ID: <20261029-urban-grumble-cf73863f17e1@spud>
-References: <20261023-opt4041-v2-0-ee320812804c@axis.com>
- <20261023-opt4041-v2-1-ee320812804c@axis.com>
- <20261023215409.4c4ff7d6@jic23-hlaptop>
+	s=k20260515; t=1793232668;
+	bh=Bj9NjgouKwDuEYr3QVcM5yN+7mpe5oQosQgQsNpRmoM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hzZZb87NFyEVT5KIU/jmaS2dLm0QTiVkZvT0/byuI5faBx7BgYRV+GBj4kc0fC6a2
+	 gvJ31v/fEgtD+IixqVLfURQV9OxdEZj6vd8Bv3OnLCm59tGTICwiixmPdUZYQRPzBR
+	 QkTpQk78iPAjvHzUNxLdCtdNyJrGZBswfdCtspsW6k4t0eeI1mC7IjXR2Mgjdy1Xl1
+	 zhyhK5yXdCLQK9T++xadCO6TIWwt6Ur6QyKDRtC9P/7tkMEYYT3r+RWrewVO1IgP0R
+	 SeT26BdBHZmiL1it2db/Kgbd7N/B2AlXUoWdEGIob66r4SzhZ9nq/Lzyv9ezjOqKWB
+	 EOKC5ydIocZSA==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Jaewon Jung <jaewon8868@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v2] selftests/ftrace: Add missing spaces after ! in probe syntax tests
+Date: Thu, 29 Oct 2026 09:11:05 +0900
+Message-ID: <undine-1793232665820252245-7a2a265d21895a9f@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <9c65a285-9144-494b-b4d8-e3d0deb671c7@linuxfoundation.org>
+References: <20261025075044.1750113-1-jaewon8868@gmail.com> <20261028011923.2050009-1-jaewon8868@gmail.com> <9c65a285-9144-494b-b4d8-e3d0deb671c7@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,99 +58,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DK5ad8uOBVKaADIa"
-Content-Disposition: inline
-In-Reply-To: <20261023215409.4c4ff7d6@jic23-hlaptop>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
---DK5ad8uOBVKaADIa
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Oct 23, 2026 at 09:54:09PM +0100, Jonathan Cameron wrote:
-> On Fri, 23 Oct 2026 14:30:28 +0200
-> Jesper X Nilsson <jesper.x.nilsson@axis.com> wrote:
->=20
-> > Add a new compatible for opt4041. The opt4041 is only available in the
-> > SOT-5X3 package. The device is pin compatible with the opt4001-sot-5x3
-> > and shares the same properties. The opt4041 has one additional channel
-> > compared to opt4001, the extra channel has a wide spectral bandwidth
-> > ranging from 380nm to 1000nm.
-> >=20
-> > Datasheet: https://www.ti.com/lit/gpn/opt4041
-> > Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>
+On Wed, 28 Oct 2026 15:06:26 -0600, Shuah Khan <skhan@linuxfoundation.org> wrote:
+> On 10/27/26 19:18, Jaewon Jung wrote:
+> > Add the missing space between ! and grep. Otherwise, the shell tries
+> > to run !grep and reports "!grep: not found". This always skips the
+> > conditional checks without checking for kernel return probe argument
+> > support.
+> > 
+> > Fixes: 25f00e40ce79 ("tracing/probes: Support $argN in return probe (kprobe and fprobe)")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Jaewon Jung <jaewon8868@gmail.com>
+> > Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 > > ---
-> >  Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml | 9 ++++++=
-+--
-> >  1 file changed, 7 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/iio/light/ti,opt4001.yam=
-l b/Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml
-> > index 12b0c7ed5d72..35e9b0deb944 100644
-> > --- a/Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml
-> > +++ b/Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml
-> > @@ -4,7 +4,7 @@
-> >  $id: http://devicetree.org/schemas/iio/light/ti,opt4001.yaml#
-> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> > =20
-> > -title: Texas Instruments OPT4001 Ambient Light Sensor
-> > +title: Texas Instruments OPT4001/OPT4041 Ambient Light Sensor
-> > =20
-> >  maintainers:
-> >    - Stefan Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>
-> > @@ -13,13 +13,16 @@ description:
-> >    Ambient light sensor with an i2c interface.
-> >    Last part of compatible is for the packaging used.
-> >    Picostar is a 4 pinned SMT and sot-5x3 is a 8 pinned SOT.
-> > +  OPT4041 is only available as sot-5x3 and adds a wide band channel.
->=20
-> I guess we keep the compatible naming because some crazy
-> person might one day release it in a different package.
+> > Changes in v2:
+> > - Add Fixes, Cc stable and Acked-by tags as suggested by Masami.
+> > 
+> 
+> Thank you. I will take this for 7.4-rc2.
 
-Ye it is a bit weird. I did notice it but passed it off cos the
-existing device was like that and there was a behavioural difference in
-the driver between the two packages for the 4001. Maybe this fancy
-picostarTM package is no longer a thing? Would really need to get
-someone from TI to tell us what the plans are.
+Thank you!
 
->=20
-> J
-> >    https://www.ti.com/lit/gpn/opt4001
-> > +  https://www.ti.com/lit/gpn/opt4041
-> > =20
-> >  properties:
-> >    compatible:
-> >      enum:
-> >        - ti,opt4001-picostar
-> >        - ti,opt4001-sot-5x3
-> > +      - ti,opt4041-sot-5x3
-> > =20
-> >    reg:
-> >      maxItems: 1
-> > @@ -39,7 +42,9 @@ allOf:
-> >        properties:
-> >          compatible:
-> >            contains:
-> > -            const: ti,opt4001-sot-5x3
-> > +            enum:
-> > +              - ti,opt4001-sot-5x3
-> > +              - ti,opt4041-sot-5x3
-> >      then:
-> >        properties:
-> >          interrupts:
-> >=20
->=20
-
---DK5ad8uOBVKaADIa
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauKOHAAKCRB4tDGHoIJi
-0nCwAP48Tc61zu/MajdD4L0PWJOHi7czGSAylmDIYXgHGSv8EAD+OewuyIZWrqWp
-7/QCD4sct+JR0AYBf7tNMHS0Ya6pPA4=
-=iE73
------END PGP SIGNATURE-----
-
---DK5ad8uOBVKaADIa--
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
