@@ -1,63 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793280914;
-	b=Hp5lDlQVM8d6P0KeOwSrJlybSPdvJu4IukncmeJycDP0UVFxKZsN8uroPkQrCiR6qa/w
-	 U2xNEjDKfC0HJeZeiHBNPvieMd8pZ7ojNo/6V5fKx8adbY4A5rgqtEsfskBA5GKWWnahq
-	 VXsFt3Jb1g3hXVpuE0+DjQqiZTQZ0TThR0bGzFGb2ZNrXReRyxmF71z6jbyD9R4hrqZwH
-	 482sVDDtLD+uOuE6zh/Ba2PhBFs9a3uW9DvZAi/ESINJG/c5QFi7th9a41WRxc7R0u3SG
-	 IZXaNyHzidEQuG4UBfEU4LhsSHcZ47/iUsZtFbY5VG1/j5CSpZAz+1CCyXzjTQsYbbw==
+	t=1793280936;
+	b=mWxNliTp0wrZ9VzIFZ2oCKKTDB0joe9BH18ACHVfayxD/bgwZjklNG6sJLkg++MEOfOA
+	 5bTSpxxGaGIFuSK2JjwXGmwWi8hpffMjy9jMLWKYTNjz5RP3R9dfAxefrZkMkW5V/Cl73
+	 rq3Bm7mz1oQ0+vGbCEakFxDP1MyZgV3L7moh3lvJqx5sMJcMuhWRRC+mR1fnleSROHwcH
+	 ABwjNuj2XACt3WdX7etZppZ+5wC1Y0XaCnHK665iB0cWhkUEEWfyaTmHLkAv3IhuaDG5b
+	 oM52wTk9LxmTUpWIxhEgz9YRQczMc+7OcShKADgaUxdz19sFgPCp1ps0Jt1HtjsbPsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280914;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=p860bwH6YeFofoBMbDY5HJC01y3g60gjrZpZOZVP8Oo=;
-	b=W+IV9JV4B/4CIg8JOiVAFaiKyN2svmn8ikdGIEAEjn9q4+TFIuBkyKT6NORsP57UIw13
-	 gxekk41XN0BJnKG1LihjmFc2pP9WcBjifS+czfLVa1vRaDiK72HeJ6U801mZuVs+ar/cg
-	 RE4nXCmEJ8RlTYzrGHiu6DH5kvryQyVBj8GWlXixJ3EiN6RwXkj/Dtw0yh2EGpiooYbOS
-	 3CHdWeS8r715rCEuCkGM9RDApbZE/taabaMqKwswADrsev5CiNfAWPm/iT3mQInUobHfb
-	 4RzoBok8VdAJ9MvLCJyvpnYMOpW5qfDG5RFo6DYD7PYYC9UVx8xHUGzxRcJbYiq243w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793280936;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=cpfF8iBPA4nr7a3PiDLkAoIOARyOru5ZKTKo03tTteg=;
+	b=bF8RiYqkWITOjB0j07dAGmHMdIKGuw5niq9ZIRK6jMbev7Hu44ZMWZLMRdpH0lDlqtif
+	 88DE02DY/ixo1R3LvO5mlLKdHfvNyHdd+Jyi4MLTVO4cyKPLPD7B2VQEapNh2029DDjEy
+	 kB2xkaYASsxQEmW807kYyHEYF+Vj0jgkfs1F7Qx8SPCAuohYksH1guNK8uG2eerSTecL5
+	 bwm0LeWYOTqSBGDEQoTg7MDZ45wguOpkrDsjO/mIJVhA9iXTCUPKAxOetu6wP7tUkqEg7
+	 avWSXLIqsMNj9h+Xclhw2DqogpZycjt4sPDQzaHvxdVBMYFygpeB7mVv2uWtDt3UBpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=lzAIydcA;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b="Mk1gkUE/";
+	arc=none smtp.remote-ip=216.40.44.12
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1D9606A324;
-	Thu, 29 Oct 2026 13:35:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E1D9606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70801606A31C;
+	Thu, 29 Oct 2026 13:35:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70801606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=lzAIydcA
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=p860bwH6YeFofoBMbDY5HJC01y3g60gjrZpZOZVP8Oo=; b=lzAIydcAdQTTqpVd36qz+60LIV
-	G40qigAE0laJGX5NqEExCMlBU5UI631Sthnq6zl9R+h3lVn54tBjoY3013UDC2sB/r1LS6lbtpjxG
-	HT96Aiub0i/xeyHZH3rR/3GQrn6JkTlr8/XBgyaWRiQ0p8GtcPkVFdoi+QayCEiLNbaY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xMQHa-00DFWc-1w; Thu, 29 Oct 2026 14:35:06 +0100
-Date: Thu, 29 Oct 2026 14:35:06 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Sagar Cheluvegowda <sagar.cheluvegowda@oss.qualcomm.com>
-Subject: Re: [PATCH net-next] net: phy: aquantia: Poll global status register
- for provision ID
-Message-ID: <12b07a59-c087-4ba2-8d5e-40b2a6d6a72a@lunn.ch>
-References: <20261029-aquantia-poll-global-status-register-v1-1-808089824a3d@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Mk1gkUE/
+Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id 95D15A03FD;
+	Thu, 29 Oct 2026 13:35:33 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf05.hostedemail.com (Postfix) with ESMTPA id 61B7320016;
+	Thu, 29 Oct 2026 13:35:31 +0000 (UTC)
+Date: Thu, 29 Oct 2026 09:35:30 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Anvik Loitongbam <permissiontogallop@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Pavel Begunkov <asml.silence@gmail.com>,
+ Olivier Langlois <olivier@trillion01.com>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] io_uring/napi: fix list use-after-free on PREEMPT_RT
+Message-ID: <20261029093530.78de06dd@gandalf.local.home>
+In-Reply-To: <20261029102244.141621-1-permissiontogallop@gmail.com>
+References: <20261029102244.141621-1-permissiontogallop@gmail.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,28 +62,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-aquantia-poll-global-status-register-v1-1-808089824a3d@oss.qualcomm.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: z3o9sp9xj5pat4efzsx4pkcn6wc7amb8
+X-Rspamd-Server: rspamout08
+X-Rspamd-Queue-Id: 61B7320016
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+tgncKmmzR1u6rusjOetrrCY/NV7JPxUA=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=cpfF8iBPA4nr7a3PiDLkAoIOARyOru5ZKTKo03tTteg=; b=Mk1gkUE/B7a0e7zTlK/5P25Vln+QhIjz3k7tKgwH96qdvgjCT+dqH+wSNxvcPiFKuiEkcHvK8sGNnTsBd1NWKznXeFobHnWk7kY+zgC5rtlMqrIWts1/V2LlvGzawsEJ5nhXHX4qJJhgutwCu1vFkKbuETk8MAhhC7dp2pkz1dU=
+X-HE-Tag: 1793280931-685578
+X-HE-Meta: U2FsdGVkX1/0LCuIv5h0CVc6QDc99JixsO5iV5r8bFdhvFOiaM+YSUt4xiguwAk/1yK0YY5JiTtSR2fnO9YhEITi7P48a9zmv4m3UavIJKv7TLcC4awwaSovBgcQn7w/+iBL4P6P6xKvcIxxi7Rc/I0laSkA5nXJozK/tSUM21EsIj/Qh1QXCE95XjmFUOEKLlouldTJFAgpjDv6MZv3uni2tuqC1laM/c34bEp5jZMIFwd8R+r4QPZvyduaEuI704Qmit9CBKZKX5gifeCwau3mt5Hfi/62gSAOmko9Xyj/ViU1GsCPM4SxkVpNx4eeRXEmwLYBAwTQOGzohSmIknpKjWs2KzfhQu0mFI8cRg4rLCu6iJt72IKmmCbu9k3CtC04Ig3yW17gWou3qwtK00+kXFCpieZp0BkgV51aNz4=
 
-On Thu, Oct 29, 2026 at 05:28:10PM +0800, Hongmei Xu wrote:
-> After the firmware reset sequence completes, the global reserved status
-> register (VEND1_GLOBAL_RSVD_STAT1) may not yet contain a valid provision
-> ID. This can cause subsequent firmware operations to proceed with stale
-> state.
+On Thu, 29 Oct 2026 15:52:44 +0530
+Anvik Loitongbam <permissiontogallop@gmail.com> wrote:
+
+> Commit 45b3941d09d1 ("io_uring/napi: fix io_napi_entry RCU accesses")
+> converted the NAPI list teardown to list_for_each_entry() and
+> kfree_rcu(), with a comment claiming that list_for_each_entry_safe()
+> is not necessary because kfree_rcu() defers the free to the next
+> quiescent state.
+
+Not to mention, depending on the internals of list_del_rcu() and
+kfree_rcu() is just not good design, regardless that it only breaks under
+PREEMPT_RT.
+
 > 
-> Poll VEND1_GLOBAL_RSVD_STAT1 until the provision ID field is non-zero
-> before returning from aqr_wait_reset_complete(). A timeout is treated as
-> a non-fatal warning since the PHY can still function without a valid
-> provision ID.
+> This assumption only holds while the surrounding spinlock section is
+> non-preemptible. On PREEMPT_RT, spinlock_t is an rtmutex and the task
+> can be preempted while holding ctx->napi_lock. The raw lock inside
+> kfree_rcu() only defers the preemption until it is released, and the
+> release still happens before the iterator advances. Once the task is
+> switched out, the context switch is an RCU quiescent state, if the
+> preemption lasts long enough for the batch to be flushed and a grace
+> period to complete, the callback frees the entry, and the iterator
+> then reads e->list.next from freed memory. The same pattern exists
+> in io_napi_free(). I did try to produce a uaf on an rt kernel
+> build, but it did not work.
+> 
+> All list mutators are serialized by ctx->napi_lock, so the entry after
+> the current one cannot be freed before its own iteration. Caching it
+> first with list_for_each_entry_safe() in both loops might be a more
+> safer and correct approach.
+> 
+> Fixes: 45b3941d09d1 ("io_uring/napi: fix io_napi_entry RCU accesses")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Anvik Loitongbam <permissiontogallop@gmail.com>
 
-If it can still work without the provisioning ID, why bother reading
-it?
+Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
 
-Maybe extend the commit message saying what features will be missing
-if there is no ID.
+-- Steve
 
-It looks like USXGMII and 10G-QXGMII might be mixed up? Is such a mix
-up not fatal?
+> ---
+>  io_uring/napi.c | 14 ++++----------
+>  1 file changed, 4 insertions(+), 10 deletions(-)
+> 
+> diff --git a/io_uring/napi.c b/io_uring/napi.c
+> index 7e698720cd51..d299c89cfc3d 100644
+> --- a/io_uring/napi.c
+> +++ b/io_uring/napi.c
+> @@ -110,16 +110,10 @@ static int __io_napi_del_id(struct io_ring_ctx *ctx, unsigned int napi_id)
+>  
+>  static void __io_napi_remove_stale(struct io_ring_ctx *ctx)
+>  {
+> -	struct io_napi_entry *e;
+> +	struct io_napi_entry *e, *next;
+>  
+>  	guard(spinlock)(&ctx->napi_lock);
+> -	/*
+> -	 * list_for_each_entry_safe() is not required as long as:
+> -	 * 1. list_del_rcu() does not reset the deleted node next pointer
+> -	 * 2. kfree_rcu() delays the memory freeing until the next quiescent
+> -	 *    state
+> -	 */
+> -	list_for_each_entry(e, &ctx->napi_list, list) {
+> +	list_for_each_entry_safe(e, next, &ctx->napi_list, list) {
+>  		if (time_after(jiffies, READ_ONCE(e->timeout))) {
+>  			list_del_rcu(&e->list);
+>  			hash_del_rcu(&e->node);
+> @@ -264,10 +258,10 @@ void io_napi_init(struct io_ring_ctx *ctx)
+>   */
+>  void io_napi_free(struct io_ring_ctx *ctx)
+>  {
+> -	struct io_napi_entry *e;
+> +	struct io_napi_entry *e, *next;
+>  
+>  	guard(spinlock)(&ctx->napi_lock);
+> -	list_for_each_entry(e, &ctx->napi_list, list) {
+> +	list_for_each_entry_safe(e, next, &ctx->napi_list, list) {
+>  		hash_del_rcu(&e->node);
+>  		kfree_rcu(e, rcu);
+>  	}
 
-	Andrew
