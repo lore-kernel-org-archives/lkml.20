@@ -1,83 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269198;
-	b=N0eUr2QGhdcMAgKLUnyhXLw0Ys6ufLO6W5NRlU2GRrY2Kif1vYB82cxlPZCM10jVihF7
-	 MbDN7RjdrJfF/21YSN1r5Zg0j+pSYxvCh4te+2Kn6mGc4T4FVrX/UQZxoB286Y8VVRiyF
-	 pCaaXQVO8qwOcsN/EHIh9NCUwQCCEfJQF44qXfzDNnmgVin5VzklonqR53jicw7l3iHEJ
-	 vQWF1jLQMHsPe0y5jmJBhbrnUDHgtm+PZauldzmM/T+FtYHd/D7dzNpzc5FSxb8p+CsNz
-	 ltjxO2V5SK9Hq7QJ9Oa6H9rsqGrLrEOszn+1nL3joR23XVhgPviYKJUdMB/MRdwA4aQ==
+	t=1793269210;
+	b=mkT5SHW7rpHX2pZCzEvvpcFvMnQ4OzRDQgsba9It4g6PyoHjFIZoB1ItOGjCFgGagryL
+	 zg4PKOwbai1jnOVHRQFVwBapHKHRWaNrt7wKfbzK/v2YIwzO/ZDS+RoHMwuRabOy+P9u+
+	 zofyGCfByFeFg2sW7TygkvVfMtpmWqEpp4ZVF3ZtiVYOyTy9A0/lLndxbpT/FFvOS9sZD
+	 e7yth/IcvLjf6nqim4clXPrw9Ve6siSAv0bzElYzUqUDUJeB8BXc51sGZNciF5tXp32Oz
+	 PYZmDvWikViHlhqnvhOF2afLVHFhwqibXT8TI8UB4R83GGeC8D1UJbS5GJM2pNTyNLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269198;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=zfY9oMoIW/0okd9xFFx3UCLsKMsJOADfA+RNZfH9SM0=;
-	b=cyKSQQNIvmiRrmL6FsNJXYwWuYH0/o0EBJuU5+BwvWWUmVlmeneFiG6xlLZh2QM157r5
-	 STxcSxUJ+9YLyIGkhV2avgXBD4SMZDz0hjutuPC1aUIuY4Nb6gJfG0hfV29tqQfE17aut
-	 k+I2bLnXt1qh2U4A3IU5mEVZaMj/LHjHhMJBF9xREiOSLZZ6xRylhFr/cZQcdBA1WKMaj
-	 gf89p1gi+prmX3YsaAnCRBO4Jdl/LYWvlN8kYpdz2NRnuViiLsY5bbkF8KvMS6oa+cam+
-	 C2KQM/Ld6mc5/42GfR/W0SlE3R7WiqwUNS9ZQvyxV2wY5kg9PEtLFjiXEoqcMGJ+4EA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269210;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=OF2QB9cgRpekb1TO5KWZK492f7aBogRyKJ8KyPEWbeE=;
+	b=osbpMNrbvCP8o5Rwe/xHEckD32gqe7Edi3fjrHxCb2ohfcXMWj5B0hDt/8szy2ipOSSo
+	 0vpSJo/33d2/W+ZFY3jFJQc2fbsdpfMP6ZJ7FF2nARcoTFJGWbyOn1nMbR0LaRGW+khIE
+	 6uH5GjFoerm3BDmlkcCAIn8UExq1wC0qSyEmI0Idk1koLH/i3DGCH0B5xXCwoh4gEKfft
+	 fUbZBHaoPDgaATwL2VO6zKk/eWMqIKmFpspu8GHi6WG1tRrg5pQLlOLW2UpDVpFuRaWj+
+	 tlwDpCVjZL95YU9AV5vgOXZRHvt3+1W56w9GEzi8ZBO8g+eSi0TJ8bSX76lrcwi23Ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cM9IhEPC;
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K0phUkTR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 150CE606A326;
-	Thu, 29 Oct 2026 10:19:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 150CE606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7354606A31C;
+	Thu, 29 Oct 2026 10:20:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cM9IhEPC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793269196; x=1824805196;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=Qt6D4YLPwSHv5zAOxXUaLkXyrpRhNSrHIbMspXroy44=;
-  b=cM9IhEPCqBq+zO7PeJUhczV/19F6tI12u0jw53S/+D2fKqJGrpIGVm1z
-   sCeYg5JBVb5AK4SAA2UBqDf9+dqs2t9BqOAnaE30XbY2g6NI2t6qjvFhw
-   /G1ZgmIohvQTQr48h4qNxt2hvWgm/cQHOR/cTqpzAkDEiTpme3Ax8wFdc
-   UsLIBM4g4eTpWHa3SOhjTqzHaTj8T9CYIB8slqBmyjrhrSO8hxmQwx830
-   /2s+mW3PllCCvdZcCtZ5x5VOxEuzR4bz+NrCzVUxCAls5P/Gkyow9gLag
-   o9HcRcPNKA4ePzT4fkiM0GmWCK4xCs7TCfhsbCjQNq/JLinjhRe2tchF3
-   g==;
-X-CSE-ConnectionGUID: egnb8z4LSd2/K1izSh96DQ==
-X-CSE-MsgGUID: XECEAa4RQj+E97eRMg7oMA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2024005"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="2024005"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 03:19:47 -0700
-X-CSE-ConnectionGUID: H6ANZahERZeuR9ZW3Z4ybA==
-X-CSE-MsgGUID: Iq/Jf3wIQGmkAMGQYBYpXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="4986684"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 29 Oct 2026 03:19:45 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xMNEU-00000000ZxU-25rj;
-	Thu, 29 Oct 2026 10:19:42 +0000
-Date: Thu, 29 Oct 2026 18:19:34 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?iso-8859-1?Q?Iv=E1n?= Ezequiel Rodriguez <ivanrwcm25@gmail.com>,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>, netfs@lists.linux.dev
-Cc: oe-kbuild-all@lists.linux.dev, Shyam Prasad N <sprasad@microsoft.com>,
-	Steve French <stfrench@microsoft.com>,
-	linux-fsdevel@vger.kernel.org, linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH netfs v1 2/2] netfs: add KUnit coverage for reissue
- prepare_write errno
-Message-ID: <202610291753.Jr3HECY2-lkp@intel.com>
-References: <20261028181229.1408342-3-ivanrwcm25@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K0phUkTR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BD251F01825;
+	Thu, 29 Oct 2026 10:20:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793269209;
+	bh=OF2QB9cgRpekb1TO5KWZK492f7aBogRyKJ8KyPEWbeE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=K0phUkTRT3DQ6MPEfP9WuRYonjs2BmKz75jIGpzhBsM0ty2cRL9FToxn0CJdqX3Zp
+	 QrCi1RglMLuWc9AviuLqywP0CxBYZY8g0KQsW2gnn3OnaQiW47bI8BnlmYoIGzZRrQ
+	 z3JK2eg6DkvCPjO6x+uTA/CgRQahnofr+4U4I346L9SN5lM3bZ71pJ9pEwWxVMWree
+	 4lqmD8HeySxbJVwhPut3N0xmnI54a4+q+bw0nHHkRPgiA+krQtdEr5ylOFQEjmwkdl
+	 b5gsWszkwsgvU5KAOjWdPGT5WKQsUe2ctNARaKBQDf31FUm1nELZ21HhvL8P926pex
+	 yxKORZlpoYXYg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 815173AB8A8A;
+	Thu, 29 Oct 2026 10:20:09 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,83 +53,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261028181229.1408342-3-ivanrwcm25@gmail.com>
+Subject: Re: [PATCH net] net: mctp: free reassembly head skb when key_add
+ fails on
+ SOM
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179326920806.1737402.15204469071401829479.git-patchwork-notify@kernel.org>
+Date: Thu, 29 Oct 2026 10:20:08 +0000
+References: <179287946888.17431.11219154409333681184@gmail.com>
+In-Reply-To: <179287946888.17431.11219154409333681184@gmail.com>
+To: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Cc: jk@codeconstruct.com.au, matt@codeconstruct.com.au, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hi Iván,
+Hello:
 
-kernel test robot noticed the following build warnings:
+This patch was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-[auto build test WARNING on brauner-vfs/vfs.all]
-[also build test WARNING on linus/master v7.3 next-20261028]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+On Sat, 24 Oct 2026 19:04:28 -0300 you wrote:
+> When a start-of-message fragment creates a new reassembly key on the
+> broadcast/bind path, mctp_frag_queue() stores the skb as
+> key->reasm_head before the key is made observable with mctp_key_add().
+> 
+> If mctp_key_add() fails (a race with another SOM packet for the same
+> source/dest/tag, or the receiving socket going away), the error path
+> only drops the key reference via mctp_key_unref().  The final key
+> destructor frees the key itself but not key->reasm_head, and since the
+> key was never added to any list, neither the expiry worker nor socket
+> teardown can reach it to release the queued fragment.  The skb is
+> leaked.
+> 
+> [...]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Iv-n-Ezequiel-Rodriguez/netfs-preserve-prepare_write-errno-on-reissue/20261028-151228
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git vfs.all
-patch link:    https://lore.kernel.org/r/20261028181229.1408342-3-ivanrwcm25%40gmail.com
-patch subject: [PATCH netfs v1 2/2] netfs: add KUnit coverage for reissue prepare_write errno
-config: arm-allyesconfig (https://download.01.org/0day-ci/archive/20261029/202610291753.Jr3HECY2-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261029/202610291753.Jr3HECY2-lkp@intel.com/reproduce)
+Here is the summary with links:
+  - [net] net: mctp: free reassembly head skb when key_add fails on SOM
+    https://git.kernel.org/netdev/net/c/d2bfe74a8fe2
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610291753.Jr3HECY2-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   fs/netfs/write_reissue_kunit.c: In function 'reissue_preserves_prep_error':
->> fs/netfs/write_reissue_kunit.c:61:1: warning: the frame size of 1400 bytes is larger than 1280 bytes [-Wframe-larger-than=]
-      61 | }
-         | ^
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-vim +61 fs/netfs/write_reissue_kunit.c
-
-    25	
-    26	/*
-    27	 * prepare_write_failed() sets FAILED + errno, then write_retry still calls
-    28	 * reissue_write().  Before the fix, reissue wiped error to 0 so terminated
-    29	 * reported success and mapping_set_error(0) was a no-op.
-    30	 */
-    31	static void reissue_preserves_prep_error(struct kunit *test)
-    32	{
-    33		struct term_capture cap = {};
-    34		struct netfs_io_request wreq = {};
-    35		struct netfs_io_stream stream = {
-    36			.source = NETFS_UPLOAD_TO_SERVER,
-    37		};
-    38		struct netfs_io_subrequest subreq = {
-    39			.rreq = &wreq,
-    40			.len = 1,
-    41			.transferred = 0,
-    42			.error = -EIO,
-    43			.source = NETFS_UPLOAD_TO_SERVER,
-    44		};
-    45		char buf[1] = { 0 };
-    46		struct kvec kvec = { .iov_base = buf, .iov_len = 1 };
-    47		struct iov_iter source;
-    48	
-    49		__set_bit(NETFS_SREQ_FAILED, &subreq.flags);
-    50		iov_iter_kvec(&source, ITER_SOURCE, &kvec, 1, 1);
-    51	
-    52		test->priv = &cap;
-    53		kunit_activate_static_stub(test, netfs_write_subrequest_terminated,
-    54					   capture_terminated);
-    55	
-    56		netfs_reissue_write(&stream, &subreq, &source);
-    57	
-    58		KUNIT_EXPECT_TRUE(test, cap.called);
-    59		KUNIT_EXPECT_EQ(test, cap.transferred_or_error, -EIO);
-    60		KUNIT_EXPECT_EQ(test, subreq.error, -EIO);
-  > 61	}
-    62	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
