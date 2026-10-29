@@ -1,90 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793274692;
-	b=IVmY2mC3Tl2cZS4kJDAgOEzDpymHLlBVIncIG79wJcd7AbFuYoZLm8lr/P+0ywbu9WEq
-	 5cIvgiTNbQD0qVu8kQgpVg701D73T6cCX+W6qajlf1qda0yv5WIFStsQdM1CNP0kM+TXV
-	 fW0ew6QdAZIxgyCY87TkL5ACrjUQgBa9gARKXS5e2ZEYd/9zLPJQNmQenjScLf6x7PP4c
-	 59T2R3LRT9Ncg62/DVwFcDCkvK+D1Hu72wycM1QLX4mVQNYe9tbM9WwWYIJMBvxtg63am
-	 7sDtdQSesdz//164gI9iwgqTPzfCzsfK0teNIVzg2hktZpN7zS8qQnv7sG/M3niGc2w==
+	t=1793274740;
+	b=YIclw190JeFMCX1LFDKdjz/7Ma47qf3wJEWAMUPjPjKutrEPCiGq9wPxFLahQ5MZ8lv/
+	 9Yopyy538orDAxkRrTnfchgMz9cecb9UfLQrZbXu9BIT00ZkWzRkQ2gyL8ZSoLlUmYdiY
+	 U57IzFzE7RNa/Zg1oPY+VqgGAbTGNqX5aiMc//xZKo+upS82QDaTNYBR6/8f8f5g9hK3Y
+	 LwJcnaNohMBXIAQ1ewA4Jk5XKiADK1cYccILPIlPwcwff5Z0I17l6P8N7wx1eXMhJ8XkR
+	 BnmUc+Tm+XMemPBBGRf+lcVguLPiIroYsRCHW1SUycEs9DcsTSRlFenI006vcGBDC8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274692;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274740;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=FK9xnQsk0+KWozuuwP8x71kNiKRFmMpgW9T43Fhprkk=;
-	b=uYgHyP1o2Rt1TC6ZaBUUacL82IYBS2joDkCk6j5O/BZagrj6bWnkkG1L6TDkhzaQf9yX
-	 vyrM+L2FN/MpPn5nP8axaPEo6STrECcpxY9GP+w+xmpkvN6AUZv9DPrBr9LkjZSSTEl0e
-	 aqaHFNcuHh+wExJPg0A1xatTM9QdgLRJtOoWbnr1MQFdOWV6e/YoDABzDTmG43r5bjzJP
-	 MGqOvlVixjWDLt2kq2S2BGlvbAPZibq0xHSh7DWyQfEmB3y3ngGR0CukXlZuCt3BPBX55
-	 yS91aYOnNLK5zBou8WVBshKujC/cLNyARorxh4dg4l4U0vYC711pwJXnNba481u83TQ==
+	bh=Hc905M9q4LEkI5HIdNGySZNyIziGO7ISCoqRtqFWyCE=;
+	b=3ac3E92BS3czrH2gw/OX8W8slu7VtbpoX+e2G5tD95BwVw9/jYZh9bvMauOiGE+UPJjd
+	 obnQGIQ/sHYyBkgCV9tIRgRyRm9aJ/txOmrGLkoNX78fqcoP1pvBfLTzRgs8h+qYGO4Ai
+	 MSvsAMyOY6dCKx4PHavFhVl2GIJfEttqD9ERGFVnkP3fd/S0O7WGVnIF/3KzZBAzARH4c
+	 a5OaWAqDfssxIeRVa7QnGl4aOVUZv1Mw24XWZrdfJGI8m/6FtHGrKvNC9FkBOsGTkYKPx
+	 FBQG8f0rYjDqCV5ys3PvcgKjV8BQyrSdhB0jC9yRid5j+h26y7MVXhXVvlmH3Ehqh5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p9KFT7Yn;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VQ6HLXwt;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=nH9A4HUf;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5828A606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:51:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5828A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219DB606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:52:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 219DB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=p9KFT7Yn
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a214af2076so16893225e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:51:32 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=VQ6HLXwt;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=nH9A4HUf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793274739;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Hc905M9q4LEkI5HIdNGySZNyIziGO7ISCoqRtqFWyCE=;
+	b=VQ6HLXwtnNGWou0kG5Z2UF1UA8o9FFMias2ZOl/hEET5jU3x/E5+SEwNoeX1nka0jhyiWy
+	dBbvqup6fIZrOkCsvgEZvEzHj+olIs88EghojLzV7WpG6mTduV5arW+wyDp/0s2G/YgL87
+	soLbmW5EaKP2lSEu090xtR0lmyw+Jqk=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-500-Gwf27oR-NEyMb9-8xS596g-1; Thu, 29 Oct 2026 07:52:17 -0400
+X-MC-Unique: Gwf27oR-NEyMb9-8xS596g-1
+X-Mimecast-MFC-AGG-ID: Gwf27oR-NEyMb9-8xS596g_1793274736
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48e00f3929bso417089f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:52:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793274691; x=1793879491; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1793274736; x=1793879536; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FK9xnQsk0+KWozuuwP8x71kNiKRFmMpgW9T43Fhprkk=;
-        b=p9KFT7YnaqPSxuIbgTURifQthiDJmRsyZlWBb8zu051M7e5522WXQRxy7V0aWT5qyP
-         VRRLLUIwp6qNXOHjhdajIOZolCj08fY+kWHhAbbexIT6ffXvMFTI6fJEO5hzCWv04vd4
-         LduCO1+t4XaMYF86uxEMvmJ1OtpjboW09KHa8I49zbbMN7fhMNw3nNAKU91wnnAaDy6p
-         zWAfNPS/DZNTT4yeisNpGslRrg7Cp2H2+odFA25e24STpGbldi5/AkvCBqPP17ikw7st
-         8Eer9aARnSKPheDTL8RTJfT/lfZ+u4kMCWIpepKzy0wiggmYsay91QFPvj6HtPvowbwA
-         HthQ==
+        bh=Hc905M9q4LEkI5HIdNGySZNyIziGO7ISCoqRtqFWyCE=;
+        b=nH9A4HUfPNbHXYmr/mskVwAc2jYfk2GWFOZyvt+VdhPZcMomuWJxuR/BJU+LA/N7au
+         0I6wXoIBY8vqenSBfNadJffASNTwtfawEgRvIXyolNXu3XZ4pKY3A8flWvhUllEI92t5
+         KwxeDh0EKH2+3LvrJX1I9tCYzedkGyjm4zvCYmNXyWgTMtya6iPclP54fOh60lqSShb2
+         rfEbHvlSvjpmtfJ4dCvVdWb1MV+oGqB9aEw75wQEC8wg67B7tnCuMnVrpnPHnuFMBMAJ
+         d0yMmBW9lLh6P3D4KDP9aeqHiespHVxLnTikUlQaXUf2e6A7L08bClpJQ7eYOT9aN1wZ
+         yF/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793274691; x=1793879491;
+        d=1e100.net; s=20260707; t=1793274736; x=1793879536;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FK9xnQsk0+KWozuuwP8x71kNiKRFmMpgW9T43Fhprkk=;
-        b=Blbtw1qci4TR5oZMw9Cw1zDP3DvNsvoa40MuGKjMCN3GlZsLBy79tYUjKRacog/mUl
-         RJIYnsf25iJ4D72uOFygsgd6yYoJlbWZiTxe4nw/jGDbiHByAWU4l6iV4+RO55BJohcd
-         XlUxurMV9QA7OiH8VNK2vLtg4a70TEmM9+IgD8HIKkLty7PozTQ/dQyqy0xgtJ9RoJYm
-         khFedRHM+nphMBLDnbOzpF0NmCwg1ZoMjQcqPdpg0fRNxrus+QoO8QV1UzsPXRJNW9ok
-         0l8w2AI8PgCwxsRgSwSQuH2pNtzgmlgy8MZx4nyPkr5ABrwgaCRzCdhAiqV1sOwRjdiM
-         L6hQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzIkpe3+lr26vOUviJfFEGO/vggYWldsN1JMdyoaIY6BN0I+wsd0e1XqnV/QWkyl3WlQm41xnz7F24Zwto=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7AmX8M8VnRDNCzXhp4RCTp35jpu0Thm3TSlk1Jk/5NnsPIYKw
-	ME/Onpjwlhq7ElErwQsKJX9Jslci6RyojdqOeki5KToHrM46QYdhUvgP
-X-Gm-Gg: AYBFou0zdCCYtTKfMmo1b17h20lrhbMhrjKJY30kRFZl4dlg/jDOwE1clHDKmOGPUW4
-	BZTLhMZ/lJXBlAdy5MXxX37NuwuY9iLMK2J9/l/rtuNZQZjMoTZ75MnQ5VHKsUYn8R5fpQwmx1w
-	mqRd8HU2LlkwIJcLdMnSuVdrnzQOZ2vegrBYUY9fR+HDOG3Ymv3cwsS4L1FTdYQDPz++8DosbVg
-	OgEOdxU6mzWaIwmsCSLanU2buoCHDojMQBXdigQ+oSR9DrfmXRDG/RNypWmFDDJexYTK/4+hSlb
-	YXM1IxQ7BOMpUHLcg/VNi705AHRakjWPFdqhB/z11nA4+plICk8Fq+Kj33ThQnNHWUKw6Nt7q95
-	BagF62VLZfyEBtqG3yEfHtjNxP8ZsEAWN7W/cfdm6taKk8P1YDAt2g9AIQrkI3ZinwUOYCkszLO
-	gxRb6TS63XPRhGA8N87BRNuVoR75AASZwKinSnDnh2GWIoBwt8f2NVGIWLMyXSIYRUhzU01yV1i
-	8NdFI5tQkFxufEVQBPfo/1hPu/AL+Fw7rKMl3iA8o8eTJzHgJ4VlXknQDiOlffnVVmEn28UgVmi
-	kXvGX/9b6xp6FsU09f4L1e2hdstuK7SUxNNiuLSFfLb8akcHZ963QAPMcpktsbpGpo5W0PhAYHp
-	2Hid6Y6JaLqR9/gJcG1Ngzxch10wxtx1kslKnqMoGoTjTyE9uzyZIGFw/gUBIK1otV/VToRE6YW
-	wdmw==
-X-Received: by 2002:a05:600c:4692:b0:4a2:167a:c939 with SMTP id 5b1f17b1804b1-4a9667756c9mr115880235e9.21.1793274690699;
-        Thu, 29 Oct 2026 04:51:30 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm59046015e9.11.2026.10.29.04.51.29
+        bh=Hc905M9q4LEkI5HIdNGySZNyIziGO7ISCoqRtqFWyCE=;
+        b=1fNuKG+uq/MIIQXAMI0AcuZiYMF02wsOqBYAKbj83L/u0i0n8fPTauL6wVdu6FnXtv
+         vf7cMxhNKMDmJBvRTaJezsefTD0WQ5EHY2HKPMReI4x24N8K6WHGKHGt0k1asl/zOSZe
+         frCAcEOiZo2SJzxuruapDmwxqFvb9X1uZpQtxA0Jg+z/aw0aW5JYRvhnJVdoUnMVoaX/
+         1hcCk2MlGO24reVSIREutdMUVbz47NZbyT+dIkoEvAHq9b7JPlQ9ughlDbu+xcaWCIhG
+         9+ZKxd0pP8fddpA7pAATr4EAd9WXXvVU0Im+hx2Mju8Nn1q2Q9rSAB/9rPLz1ZX5zuU/
+         YfPA==
+X-Forwarded-Encrypted: i=1; AKwUvBywfmbbBeiRHP3qvefk8kzVvkPn1POpSJTSG3xX6uNa4HwBVYj+U+Vo72KInyMbQyUxIZB/X+spdr9EyeQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIroGFrLsKghWx1wCSdPOmSPCD8K725xyNDA7FUIh6Atum18JYW
+	63VelAjCSCThjDPIJE3Grv+LjPCqq9FwO/pTvG7+gX6Sh59FOv6YD3ACtM/GJkPuqupHwMiQrEP
+	dO2fCaqN13WuZ0gWY5be8b8O/1L28IypsuYzIXkZWZDoL1XtpHb13RtL7kwGO64Y5rg==
+X-Gm-Gg: AYBFou0sdyh59aRUu+toXn5gXusLd51vYztLrQjDJ32l037zaEstdKFjIprpWmvOJ21
+	ovyCkT4K1RXushpHyoRA1mtReDXg/VHTDBaiSRQtix/1nfdoSl2iNPqj5M0YD+zkxRiwqu1XHFP
+	dNQXiB/lDD5VP711xdntVOL3yKGwTtUUPm3L0BZkx/4TK6/GvwXByp4MsUph8w2m0wFmXcQ1QpJ
+	1A1irMYfYKFRWJKdkau2frkUQ9Isvy1ghx4nb4qhZQ5cO1DKATr4cONHuAd+GFuWdJh70aO6DwL
+	Y8V/0jHMVNWh8vpQEYPA/47uv7BLKU0vJmTr4QZHOFJTO9hzTNnwPLmy40ayR5Lv2q34feiHR29
+	PrBNkqxYg1faBnmu4m5tisJtgGhPOT2z+v7jf47CNyarzSnCX8qrm2LnrJycx5gHnog8wFak9Xs
+	skHVdkzoMcpfAoVi3sIae7+IW3p5XLz7Ib/t+AjCmLX7FqXlQ=
+X-Received: by 2002:a5d:540c:0:b0:48a:fad8:52a2 with SMTP id ffacd0b85a97d-48e64ba60d3mr4693980f8f.23.1793274736367;
+        Thu, 29 Oct 2026 04:52:16 -0700 (PDT)
+X-Received: by 2002:a5d:540c:0:b0:48a:fad8:52a2 with SMTP id ffacd0b85a97d-48e64ba60d3mr4693928f8f.23.1793274735834;
+        Thu, 29 Oct 2026 04:52:15 -0700 (PDT)
+Received: from [192.168.188.234] (ip174-129-192-82.pool-bba.aruba.it. [82.192.129.174])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecdfd8dsm32615874f8f.56.2026.10.29.04.52.14
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 04:51:30 -0700 (PDT)
-Message-ID: <134aa376-7441-46e1-8d04-be327747b4a9@gmail.com>
-Date: Thu, 29 Oct 2026 11:51:31 +0000
+        Thu, 29 Oct 2026 04:52:15 -0700 (PDT)
+Message-ID: <bb202893-9fd5-4dad-ad69-9f86dfd91cc3@redhat.com>
+Date: Thu, 29 Oct 2026 12:52:13 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,140 +113,52 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] block: only fail dma-buf bios that need block layer PI
-To: Kyle Bader <kbader@redhat.com>, Jens Axboe <axboe@kernel.dk>
-Cc: Kyle Bader <kbader@ibm.com>, Anuj Gupta <anuj20.g@samsung.com>,
- Kanchan Joshi <joshi.k@samsung.com>, Christoph Hellwig <hch@lst.de>,
- Keith Busch <kbusch@kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Tushar Gohad <tushar.gohad@intel.com>, linux-block@vger.kernel.org,
- io-uring@vger.kernel.org, linux-nvme@lists.infradead.org,
+Subject: Re: [PATCH v2] net/sched: sch_cake: skip redundant cake_mq rate
+ updates
+To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>,
+ =?UTF-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+ Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko <jiri@resnulli.us>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>,
+ =?UTF-8?Q?Jonas_K=C3=B6ppeler?= <j.koeppeler@tu-berlin.de>,
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>,
+ "Christoph Lameter (Ampere)" <cl@gentwo.org>
+Cc: =?UTF-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+ cake@lists.bufferbloat.net, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org
-References: <20261028181412.1919506-1-kbader@redhat.com>
+References: <20261026-net_sched_sch_cake-v2-1-cb1d4e6ed990@gentwo.org>
 Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20261028181412.1919506-1-kbader@redhat.com>
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261026-net_sched_sch_cake-v2-1-cb1d4e6ed990@gentwo.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/28/26 18:14, Kyle Bader wrote:
-> From: Kyle Bader <kbader@ibm.com>
+On 10/27/26 05:32, Shubhang Kaushik (Ampere) wrote:
+> cake_mq periodically counts active child qdiscs in cake_dequeue() and
+> derives an effective per-child shaper rate. cake_dequeue() currently
+> reconfigures every tin after each scan, even when that effective rate
+> is unchanged.
 > 
-> Any dma-buf I/O to a device with a PI checksum fails today.
-> blkdev_init_dma_buf_io_ctx() returns -EOPNOTSUPP at registration, and
-> blk_mq_submit_bio() fails each dma-buf bio with BLK_STS_NOTSUPP. The
-> checks prevent a crash: bi_dmabuf_map shares a union with bi_io_vec,
-> and bio_integrity_generate() and bio_integrity_verify() walk bi_io_vec
-> to compute the guards over the data.
+> The dequeue-time call chain is:
 > 
-> Only the BI_ACT_CHECK action walks the data, and a dma-buf bio does not
-> need it in two cases. In the first case, the submitter attaches its own
-> integrity payload, for example with the io_uring PI attribute
-> (IORING_RW_ATTR_FLAG_PI). Then bio_integrity_action() returns 0, and
-> the device checks the PI as the submitter asked. The block layer only
-> touches the integrity buffer, to remap the ref tags. In the second
-> case, read_verify or write_generate is off. Then the device inserts and
-> strips the PI, or the block layer allocates an integrity buffer without
-> PI in it. This is the same as for any other bio.
+>    cake_dequeue()
+>      -> cake_configure_rates(..., true)
+>        -> cake_config_*()
+>          -> cake_set_rate()
 > 
-> The first case lets an application read data into device memory, for
-> example a GPU buffer or an NVMe CMB. The device checks each block and
-> puts the guards in host memory. The application can then check the
-> data, or combine the guards into a checksum of the whole buffer. The
-> CPU does not read the data.
+> With rate_adjust=true, cake_set_rate() only refreshes rate-derived
+> state. Tin 0 records the unscaled rate argument in every supported
+> CAKE tin mode, so its installed rate identifies whether this call chain
+> would change any state.
 > 
-> If bio_integrity_action() asks for BI_ACT_CHECK, fail the dma-buf bio,
-> and otherwise let it through. Remove the check at registration, because
-> the integrity payload comes with each I/O. With the default integrity
-> settings, a dma-buf I/O without an integrity payload still fails with
-> -EOPNOTSUPP.
+> Skip the reconfiguration when the effective rate is already installed,
+> while continuing to update the activity-sampling timestamp and
+> active-queue statistic.
 > 
-> Link: https://lore.kernel.org/all/bbb87d6b-b7a3-487a-8be4-27f3f9ce4a1b@samsung.com/
-> Assisted-by: LLM
-> Signed-off-by: Kyle Bader <kbader@ibm.com>
-> ---
-> This applies to for-7.4/io_uring-dmabuf (45b716456dd9).
-> 
-> Anuj's check in v10 fixed the crash in blk_integrity_iterate(). This
-> patch keeps that check for the bios that need block layer PI, and lets
-> the other dma-buf bios through.
-> 
-> The sysfs knobs change the integrity flags only with the queue frozen,
-> and blk_mq_submit_bio() holds a queue reference from the new check to
-> bio_integrity_prep(). So the two calls to bio_integrity_action() give
-> the same result for a bio.
-> 
-> I tested in a QEMU 10.2.2 guest, with udmabuf and with an NVMe CMB
-> that a small module exports as a dma-buf. The namespaces have 4 KiB
-> blocks with these metadata formats:
-> 
->   - 16 bytes, PI type 1 with the 64b guard
->   - 64 bytes, PI type 1 with the 64b guard in the last 16 bytes
->   - 8 bytes, PI type 1 with the 16b guard
->   - no metadata
-> 
-> With a user PI buffer, reads and writes pass on all three PI formats,
-> and the data and the PI match. This is also true for a 2 MiB I/O that
-> the block layer splits, and for four commands with one PI slice each.
-> A write with one bad guard fails with -EILSEQ from the device. Without
-> a PI buffer, a dma-buf I/O fails with -EOPNOTSUPP. If read_verify or
-> write_generate is off, that I/O passes. Pavel's rw-dmabuf test from
-> liburing rw-dmabuf-tests-v8 passes on the namespace without metadata.
-> On the PI namespaces it passes with read_verify=0 and write_generate=0,
-> and with the defaults it fails with -EOPNOTSUPP on the first read.
-> The tree builds with CONFIG_BLK_DEV_INTEGRITY=n.
-> 
-> Without this patch, every PI case fails at registration with
-> -EOPNOTSUPP, also with read_verify and write_generate off.
+> Fixes: 1bddd758bac2 ("net/sched: sch_cake: share shaper state across sub-instances of cake_mq")
+> Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+IMHO this is borderline material for 'net'. Was any regression visible on
+top of 1bddd758bac2, e.g. in term of CPU usage?
 
-Thanks, looks good from a quick glance, I'll take another look in
-a bit. It might be nice to somehow support kernel generated PI
-as well later, looks like there will be a good bunch of cases that
-might want to have CPU access.
-
-> If a liburing test helps, I can turn the test program into one.
-> 
->   block/blk-mq.c | 9 ++++++++-
->   block/fops.c   | 2 --
->   2 files changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/block/blk-mq.c b/block/blk-mq.c
-> index 7fff1305b..3fc9fdeb3 100644
-> --- a/block/blk-mq.c
-> +++ b/block/blk-mq.c
-> @@ -3138,8 +3138,15 @@ void blk_mq_submit_bio(struct bio *bio)
->   		goto queue_exit;
->   	}
->   
-> +	/*
-> +	 * The block layer cannot generate or verify PI for a dma-buf bio, as
-> +	 * that walks the data pages.  Only fail the bio if it needs that, not
-> +	 * if the submitter attached its own integrity payload or if PI
-> +	 * generation or verification is turned off for the device.
-> +	 */
->   	if (unlikely(op_is_dmabuf(bio->bi_opf) &&
-> -		     bdev_has_integrity_csum(bio->bi_bdev))) {
-> +		     bdev_has_integrity_csum(bio->bi_bdev) &&
-> +		     (bio_integrity_action(bio) & BI_ACT_CHECK))) {
->   		bio_endio_status(bio, BLK_STS_NOTSUPP);
->   		goto queue_exit;
->   	}
-> diff --git a/block/fops.c b/block/fops.c
-> index 01bc8afe3..5c8024011 100644
-> --- a/block/fops.c
-> +++ b/block/fops.c
-> @@ -947,8 +947,6 @@ static int blkdev_init_dma_buf_io_ctx(struct file *file,
->   		return -EINVAL;
->   	if (!disk->fops->init_dma_buf_io_ctx)
->   		return -EOPNOTSUPP;
-> -	if (bdev_has_integrity_csum(bdev))
-> -		return -EOPNOTSUPP;
->   	return disk->fops->init_dma_buf_io_ctx(bdev, ctx);
->   }
->   
-> 
-> base-commit: 45b716456dd99488a0cef58482120dc0474aa696
-
--- 
-Pavel Begunkov
+/P
 
