@@ -1,57 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.212
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793292946;
-	b=nYzgfK0IOf7Cd8OLNEuSEbCkCEtrWkFGLviJHh5dGVCEmIDmbF50VvoWWFvtn3UPbFO+
-	 SvQLjBZVZMjZmJsY/aS3YndkvMSjgXpn7jRjsK+z6UNMIMKbELL38i78VNKJNLJs+yb9A
-	 kQZXJJuEUaizSUwe8uHOFRGBiZ4a+DNtoGLatSAbDXhXNyPVicEjfcllSUD72CxPTaWHX
-	 48TezF5FhBd9faH335ERd8sOLmEUwvek2lzRiyoVGni9dCr/DgbM9eYsnhpxTeXM1oFjI
-	 ARgMd0fD48Dc5wdBOYNIYT75nUuCQpKFYNm8+PLuqDJwj0qiDT07ZMs2hIArWx3m2gw==
+	t=1793292950;
+	b=5dl45HPpmAAdCFJPluquRjM8Du4bsQEe9I/P8gRLcxHtrbwdyWc6Q3a4ogmlWsovIs9n
+	 q0dLCu2WReYQ4GudZ4lMd3E2dt6QbgbNEzkm0MbOw1k7E/Imw0jZc8uPyjNkQEBj3pGFa
+	 HewTcV/nJPGZmm3tjQ/fgR12SvtRjqjQ6Deq7Io11VQAKoax8uE+64Rben7q4DstPOaSl
+	 lO1ItBKOmxJ7pl/FIJcSkuC0uYvh4mqm3wlhVqgMPl0qaTs5bCCT22011DVO8l4UONpcS
+	 JLWfdLnjpN35uNFIiRO8FNvMn31MbFWd9dxCcJz84lnJMDaR9RJi8q42aTTfheJC1qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793292946;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=JVKbRrmcqF+XZphLx23cX6LZTMbNEx5Jzuveh3sesII=;
-	b=spqjOJYRHeX8FxHBjQ5o5p9cfE5wwpZHiJ2iQuPGJT5svBXCjKYxOzTQFIIBfEUgGy3+
-	 /MaxSmjruo0Esw9EdNnSr7HGhtGAGY4CtW6xrr3mnsfYy9ZElczhzDfYGHsCQ5f/PGgsc
-	 zg079IvVd0ey9kipuwHrxmHfp1lWrAXDSQo9HVrPANSMJMzDbzyS9g2oe+7VgjLXrFqWt
-	 O5y+uJ0hMQqszxr1IYPdFlB2wo9LaSxECwvddBGYq2prFEZLTgc175NCPDUWM0+G3dRP0
-	 sWuCVXWOYXvq/Nfz/DlvhkpPrxIGpJqBd0BRrt3v/L6g7J0CBH7MrDSjdGfXRk4rY2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793292950;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 X-Mailer:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=kJkRWzKTSLUK2/Faj3tcwhme6sF5UGHV5NUdGjAN3AY=;
+	b=SrzAALa8zu+UivnXS6c2KKRCn2LdAcaiiKH8KwfuYDNJwX2vK8zBFX14t6OwG3l7OEm/
+	 68XU7JCNXLqGz09MWyHoRVWeBhYjDJOmMlQxiUVQZk8EbAIeSD0Y7XrsqSt2tNmypqPqs
+	 VXGv2JQlmCGyecqDBty/zh2DIH0uffSaHyWD1ZObdNM9w3S1UDInfoa0I3o6je7afMChU
+	 DsjG2/h3iU0zyjgZnykdF4VAVvLGA5tdHkufr+1Ks0jeLkkiYauoiwd39oBLDySiB9huN
+	 t+OBx51vl5GBVdXX0lJK9o+cN9MukBChXf+pmuVXvBON5OC7IVHgupdmlRfOFUDXB1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=A0vkmO8s;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="fzQx/vyh";
+	arc=none smtp.remote-ip=95.215.58.212
+Received: from mta1.migadu.com (out-212.mta1.migadu.com [95.215.58.212])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAFA1606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:55:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52293606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:55:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52293606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=A0vkmO8s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34FEE1F01826;
-	Thu, 29 Oct 2026 16:55:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793292945;
-	bh=JVKbRrmcqF+XZphLx23cX6LZTMbNEx5Jzuveh3sesII=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=A0vkmO8sB8aqxn9M7dBIoSgBJm8pTe0eQQR/sy0hla2/IJ+Ld2IJ4mt/QmiM61NSO
-	 PHdT9BK9PlDh2ymgueWGYxBO30QD02bw54fi1HgMjGSdMWToik9/mPYf0W0kfLgrnK
-	 cauXBB1XuIod4s4a8Uo3UisuWnARXmFezN8r2yPo=
-Date: Thu, 29 Oct 2026 09:55:44 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Manfred Spraul <manfred@colorfullife.com>,
- Davidlohr Bueso <dave@stgolabs.net>
-Subject: Re: [PATCH 05/44] ipc/msg: Fix saturation of percpu counts in
- msgctl_info()
-Message-Id: <20261029095544.06f396cf1a298d7eba11b557@linux-foundation.org>
-In-Reply-To: <20261029094543.34076789@pumpkin>
-References: <20251119224140.8616-1-david.laight.linux@gmail.com>
-	<20251119224140.8616-6-david.laight.linux@gmail.com>
-	<20261028181502.484379c56878a872899c0f94@linux-foundation.org>
-	<20261028210454.7ff0d43fd57f3546547e0416@linux-foundation.org>
-	<20261029094543.34076789@pumpkin>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fzQx/vyh
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=DcbHqMXm9YywQXQS5isNbN/DF/Ks2LOHcly/ru2g6p8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793292947; v=1; x=1793897747;
+ b=fzQx/vyhDMsNSbH05grz1vVv/dy+61aONHR6Y2tDDyMwJb/K3ZaVBoFEBQ7w8j7qzwF+CqvG
+ QIcxH4CmRuSVSy9wASTv4XvQLtKIHfGWlKeVVvvYppk9RzEfEE6fIOzRO8GPv+MI4NuS7x/nofP
+ v/ooAxUwdsWIQeuXUQCYIgZw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fa999a47ed1d7bdc;
+	Thu, 29 Oct 2026 16:55:23 +0000
+X-Mizu-Trace-ID: fa999a47ed1d7bdc
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 29 Oct 2026 16:55:13 +0000
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Puranjay Mohan <puranjay@kernel.org>, 
+	Ard Biesheuvel <ardb@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: Ben Cressey <ben@cressey.dev>, 
+	Florent Revest <florent.revest@linux.dev>, Bill Wendling <morbo@google.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Subject: [PATCH v3 3/7] arm64: ftrace: Make the CALL_OPS prefix layout
+ configurable
+Message-ID: <20261029-b4-arm64-callops-kcfi-v3-3-1b011ad5ddec@linux.dev>
+X-Mailer: b4 0.15.2
+References: <20261029-b4-arm64-callops-kcfi-v3-0-1b011ad5ddec@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,130 +73,257 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-b4-arm64-callops-kcfi-v3-0-1b011ad5ddec@linux.dev>
 
-On Thu, 29 Oct 2026 09:45:43 +0000 David Laight <david.laight.linux@gmail.com> wrote:
+The arm64 ftrace code assumes two NOPs before every function in
+several places. Replace the hardcoded count with a Kconfig value named
+CONFIG_ARM64_FUNCTION_PREFIX_NOPS that defaults to 2. Compute the ops
+literal address with one formula in both the assembly that reads it
+and the C code that writes it. kCFI kernels with CALL_OPS need three
+NOPs, or five with ThinLTO and BTI, and the reader and the writer stay
+in sync either way.
 
-> On Wed, 28 Oct 2026 21:04:54 -0700
-> Andrew Morton <akpm@linux-foundation.org> wrote:
-> 
-> > On Wed, 28 Oct 2026 18:15:02 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
-> > 
-> > > > diff --git a/ipc/msg.c b/ipc/msg.c
-> > > > index ee6af4fe52bf..34e607add006 100644
-> > > > --- a/ipc/msg.c
-> > > > +++ b/ipc/msg.c
-> > > > @@ -501,11 +501,9 @@ static int msgctl_info(struct ipc_namespace *ns, int msqid,
-> > > >  	max_idx = ipc_get_maxidx(&msg_ids(ns));
-> > > >  	up_read(&msg_ids(ns).rwsem);
-> > > >  	if (cmd == MSG_INFO) {
-> > > > -		msginfo->msgmap = min_t(int,
-> > > > -				     percpu_counter_sum(&ns->percpu_msg_hdrs),
-> > > > +		msginfo->msgmap = min(percpu_counter_sum(&ns->percpu_msg_hdrs),
-> > > >  				     INT_MAX);
-> > > > -		msginfo->msgtql = min_t(int,
-> > > > -		                     percpu_counter_sum(&ns->percpu_msg_bytes),
-> > > > +		msginfo->msgtql = min(percpu_counter_sum(&ns->percpu_msg_bytes),
-> > > >  				     INT_MAX);
-> > > >  	} else {
-> > > >  		msginfo->msgmap = MSGMAP;  
-> > > 
-> > > Added, thanks.
-> > >   
-> > 
-> > LLM found another bug in there.  Please review:
-> 
-> Seems reasonable, if unlikely to ever happen.
-> Description is overlong ...
-> 
-> Might be worth doing a scan of all uses of percpu_counter_sum(),
-> I can imagine it is a common problem.
+Also make ftrace_call_adjust() look at each site's bytes and refuse
+the ones that do not match the expected layout instead of patching
+them. The two instructions to patch must be NOPs and the literal must
+fall within the prefix NOPs. Log a refused site and leave it untraced.
 
-I had LLM do a scan:
+No functional change for the layouts compilers generate today.
 
-: The scan found four similar reporting problems:
-: 
-: - Ceph: metrics_file_show() in fs/ceph/debugfs.c prints the raw
-:   opened-inode count as signed. ceph_mdsc_send_metrics() in
-:   fs/ceph/metric.c converts it to unsigned for the MDS. An open/close
-:   pair on different CPUs can yield -1, appearing as a negative count
-:   in debugfs or U64_MAX in the metric.
-: 
-: - ext4: ext4_attr_show() in fs/ext4/sysfs.c uses the raw dirty-cluster
-:   count for delayed_allocation_blocks. Reserving and then consuming
-:   or releasing a reservation on different CPUs can produce a
-:   negative sample. With one block per cluster, -1 is reported as
-:   U64_MAX blocks.
-: 
-: - BPF: htab_map_mem_usage() in kernel/bpf/hashtab.c converts the raw
-:   entry count to unsigned before calculating memory usage. This
-:   affects nonpreallocated hash maps using per-CPU counters. An
-:   insert/delete pair can yield -1 entries and an incorrect memory
-:   estimate, including less than the empty-map overhead.
-: 
-: - tmpfs: shmem_statfs() in mm/shmem.c subtracts the raw used-block
-:   count from the block limit. An allocation/free pair can yield -1
-:   used blocks, reporting more free blocks than total blocks. Tools
-:   calculating used space as total minus free can consequently
-:   report negative usage.
-: 
-: These are source-level findings, not runtime reproductions.  No
-: corruption or resource-limit bypass was established.
-: 
-: Other callers already floor negative samples, count cumulative events,
-: check accounting after teardown, or use deliberately signed values. 
-: Drain checks and some XFS statistics still need further investigation. 
-: This should not be a blanket conversion, and flooring negative samples
-: does not make the statistics an atomic snapshot.
-
-> Oh and the code could use clamp(per_cpu_counter_sum(...), 0, INT_MAX);
-> which is exactly the same but maybe clearer?
-
-Sounds good.  How does the below look?
-
-
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: ipc/msg: clamp negative MSG_INFO usage counts
-Date: Thu, 29 Oct 2026 01:43:24 +0000
-
-MSG_INFO can report negative usage during ordinary queue traffic.  For
-example, ipcs -q -u prints negative header counts and converts negative
-byte counts into enormous unsigned used-space values.
-
-percpu_counter_sum() can sample the sending CPU before an enqueue and the
-receiving CPU after the matching dequeue, yielding a negative total. 
-Clamp both counts to [0, INT_MAX] before converting to int.  The
-statistics remain an approximate, non-atomic snapshot.
-
-Fixes: 72d1e611082e ("ipc/msg: mitigate the lock contention with percpu counter")
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Laight <david.laight.linux@gmail.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>
-Cc: Manfred Spraul <manfred@colorfullife.com>
-Cc: <stable@vger.kernel.org>
+Reviewed-by: Ben Cressey <ben@cressey.dev>
+Reviewed-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
+Acked-by: Alexei Starovoitov <ast@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
 ---
+ arch/arm64/Kconfig               |   5 ++
+ arch/arm64/include/asm/ftrace.h  |  16 ++++++
+ arch/arm64/kernel/entry-ftrace.S |  16 +++---
+ arch/arm64/kernel/ftrace.c       | 120 ++++++++++++++++++++++-----------------
+ 4 files changed, 98 insertions(+), 59 deletions(-)
 
- ipc/msg.c |    8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index cfef22aee709..aa7d5e1859af 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -271,6 +271,11 @@ config GCC_SUPPORTS_DYNAMIC_FTRACE_WITH_ARGS
+ 	def_bool CC_IS_GCC
+ 	depends on $(cc-option,-fpatchable-function-entry=2)
+ 
++config ARM64_FUNCTION_PREFIX_NOPS
++	int
++	default 2 if DYNAMIC_FTRACE_WITH_CALL_OPS
++	default 0
++
+ config 64BIT
+ 	def_bool y
+ 
+diff --git a/arch/arm64/include/asm/ftrace.h b/arch/arm64/include/asm/ftrace.h
+index 1621c84f44b3..5a7a515bf7cd 100644
+--- a/arch/arm64/include/asm/ftrace.h
++++ b/arch/arm64/include/asm/ftrace.h
+@@ -24,6 +24,22 @@
+ #define FTRACE_PLT_IDX		0
+ #define NR_FTRACE_PLTS		1
+ 
++#ifdef CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS
++/*
++ * ftrace_caller reads the callsite's ftrace_ops literal at
++ * ALIGN_DOWN(LR, 8) - FTRACE_CALL_OPS_BIAS. See ftrace_call_ops_adjust()
++ * for the layouts this serves.
++ */
++#define FTRACE_PREFIX_NOPS	CONFIG_ARM64_FUNCTION_PREFIX_NOPS
++#if FTRACE_PREFIX_NOPS == 2 || FTRACE_PREFIX_NOPS == 3
++#define FTRACE_CALL_OPS_BIAS	16
++#elif FTRACE_PREFIX_NOPS == 5
++#define FTRACE_CALL_OPS_BIAS	24
++#else
++#error "Unsupported number of function prefix NOPs"
++#endif
++#endif /* CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS */
++
+ /*
+  * Currently, gcc tends to save the link register after the local variables
+  * on the stack. This causes the max stack tracer to report the function
+diff --git a/arch/arm64/kernel/entry-ftrace.S b/arch/arm64/kernel/entry-ftrace.S
+index 025140caafe7..95727fee3cc5 100644
+--- a/arch/arm64/kernel/entry-ftrace.S
++++ b/arch/arm64/kernel/entry-ftrace.S
+@@ -39,17 +39,17 @@ SYM_CODE_START(ftrace_caller)
+ #ifdef CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS
+ 	/*
+ 	 * The literal pointer to the ops is at an 8-byte aligned boundary
+-	 * which is either 12 or 16 bytes before the BL instruction in the call
+-	 * site. See ftrace_call_adjust() for details.
++	 * before the BL instruction in the call site. See ftrace_call_adjust()
++	 * and <asm/ftrace.h> for details.
+ 	 *
+-	 * Therefore here the LR points at `literal + 16` or `literal + 20`,
+-	 * and we can find the address of the literal in either case by
+-	 * aligning to an 8-byte boundary and subtracting 16. We do the
+-	 * alignment first as this allows us to fold the subtraction into the
+-	 * LDR.
++	 * Therefore here the LR points at `literal + FTRACE_CALL_OPS_BIAS` or
++	 * `literal + FTRACE_CALL_OPS_BIAS + 4`, and we can find the address of
++	 * the literal in either case by aligning to an 8-byte boundary and
++	 * subtracting FTRACE_CALL_OPS_BIAS. We do the alignment first as this
++	 * allows us to fold the subtraction into the LDR.
+ 	 */
+ 	bic	x11, x30, 0x7
+-	ldr	x11, [x11, #-(4 * AARCH64_INSN_SIZE)]		// op
++	ldr	x11, [x11, #-FTRACE_CALL_OPS_BIAS]		// op
+ 
+ #ifdef CONFIG_DYNAMIC_FTRACE_WITH_DIRECT_CALLS
+ 	/*
+diff --git a/arch/arm64/kernel/ftrace.c b/arch/arm64/kernel/ftrace.c
+index e1a3c0b3a051..0d922fa63f71 100644
+--- a/arch/arm64/kernel/ftrace.c
++++ b/arch/arm64/kernel/ftrace.c
+@@ -60,6 +60,73 @@ int ftrace_regs_query_register_offset(const char *name)
+ }
+ #endif
+ 
++#ifdef CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS
++/*
++ * The address of the ops literal for a callsite whose `BL <caller>` is at
++ * @pc, exactly as ftrace_caller derives it from the return address.
++ */
++static unsigned long ftrace_call_ops_literal(unsigned long pc)
++{
++	return ALIGN_DOWN(pc + AARCH64_INSN_SIZE, 8) - FTRACE_CALL_OPS_BIAS;
++}
++
++/*
++ * addr is the first of the FTRACE_PREFIX_NOPS NOPs before a function:
++ *
++ * addr-04:		.word		// kCFI type hash, address-taken and non-local only
++ * addr+00:		NOP		// FTRACE_PREFIX_NOPS of these, two hold the literal
++ * func+00:	func:	BTI	C	// only if BTI and the function may be called indirectly
++ * func+04:		NOP		// patched to MOV X9, LR
++ * func+08:		NOP		// patched to BL <caller>
++ *
++ * The compiler aligns whatever comes first to 8 bytes. ftrace_caller reads
++ * the literal at ALIGN_DOWN(LR, 8) - FTRACE_CALL_OPS_BIAS, with LR at
++ * func+8, or func+12 after a BTI:
++ *
++ *	NOPs	BIAS	literal at
++ *	2	16	func - 8
++ *	3	16	func - 8, or func - 12 if func % 8 == 4 (no hash, no BTI)
++ *	5	24	func - 16, or func - 12 / func - 20 if func % 8 == 4
++ *
++ * Return the address of the NOP to be patched to BL, or 0 when the two
++ * NOPs are not there or the literal would fall outside the prefix.
++ */
++static unsigned long ftrace_call_ops_adjust(unsigned long addr)
++{
++	unsigned long func = addr + FTRACE_PREFIX_NOPS * AARCH64_INSN_SIZE;
++	unsigned long pc = func + AARCH64_INSN_SIZE;
++	unsigned long literal;
++	u32 nop = aarch64_insn_gen_nop();
++
++	if (IS_ENABLED(CONFIG_ARM64_BTI_KERNEL) &&
++	    aarch64_insn_is_bti(le32_to_cpu(*(__le32 *)func)))
++		pc += AARCH64_INSN_SIZE;
++
++	/* Objects built with only the prefix NOPs have nothing to patch. */
++	if (le32_to_cpu(*(__le32 *)(pc - AARCH64_INSN_SIZE)) != nop ||
++	    le32_to_cpu(*(__le32 *)pc) != nop) {
++		pr_warn_ratelimited("ftrace: no patchable entry at %ps\n",
++				    (void *)func);
++		return 0;
++	}
++
++	/* The literal would overlap the type hash or the entry point. */
++	literal = ftrace_call_ops_literal(pc);
++	if (literal < addr || literal + sizeof(u64) > func) {
++		pr_warn_ratelimited("ftrace: cannot trace %ps: no room for the ops literal\n",
++				    (void *)func);
++		return 0;
++	}
++
++	return pc;
++}
++#else
++static unsigned long ftrace_call_ops_adjust(unsigned long addr)
++{
++	return 0;
++}
++#endif /* CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS */
++
+ unsigned long ftrace_call_adjust(unsigned long addr)
+ {
+ 	/*
+@@ -91,56 +158,7 @@ unsigned long ftrace_call_adjust(unsigned long addr)
+ 	if (!IS_ENABLED(CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS))
+ 		return addr + AARCH64_INSN_SIZE;
+ 
+-	/*
+-	 * When using patchable-function-entry with pre-function NOPs, addr is
+-	 * the address of the first pre-function NOP.
+-	 *
+-	 * Starting from an 8-byte aligned base, the compiler has either
+-	 * generated:
+-	 *
+-	 * addr+00:		NOP		// Literal (first 32 bits)
+-	 * addr+04:		NOP		// Literal (last 32 bits)
+-	 * addr+08:	func:	NOP		// To be patched to MOV X9, LR
+-	 * addr+12:		NOP		// To be patched to BL <caller>
+-	 *
+-	 * Or:
+-	 *
+-	 * addr+00:		NOP		// Literal (first 32 bits)
+-	 * addr+04:		NOP		// Literal (last 32 bits)
+-	 * addr+08:	func:	BTI	C
+-	 * addr+12:		NOP		// To be patched to MOV X9, LR
+-	 * addr+16:		NOP		// To be patched to BL <caller>
+-	 *
+-	 * We must adjust addr to the address of the NOP which will be patched
+-	 * to `BL <caller>`, which is at either addr+12 or addr+16 depending on
+-	 * whether there is a BTI.
+-	 */
+-
+-	if (!IS_ALIGNED(addr, sizeof(unsigned long))) {
+-		WARN_RATELIMIT(1, "Misaligned patch-site %pS\n",
+-			       (void *)(addr + 8));
+-		return 0;
+-	}
+-
+-	/* Skip the NOPs placed before the function entry point */
+-	addr += 2 * AARCH64_INSN_SIZE;
+-
+-	/* Skip any BTI */
+-	if (IS_ENABLED(CONFIG_ARM64_BTI_KERNEL)) {
+-		u32 insn = le32_to_cpu(*(__le32 *)addr);
+-
+-		if (aarch64_insn_is_bti(insn)) {
+-			addr += AARCH64_INSN_SIZE;
+-		} else if (insn != aarch64_insn_gen_nop()) {
+-			WARN_RATELIMIT(1, "unexpected insn in patch-site %pS: 0x%08x\n",
+-				       (void *)addr, insn);
+-		}
+-	}
+-
+-	/* Skip the first NOP after function entry */
+-	addr += AARCH64_INSN_SIZE;
+-
+-	return addr;
++	return ftrace_call_ops_adjust(addr);
+ }
+ 
+ /* Convert fentry_ip to the symbol address without kallsyms */
+@@ -368,7 +386,7 @@ static const struct ftrace_ops *arm64_rec_get_ops(struct dyn_ftrace *rec)
+ static int ftrace_rec_set_ops(const struct dyn_ftrace *rec,
+ 			      const struct ftrace_ops *ops)
+ {
+-	unsigned long literal = ALIGN_DOWN(rec->ip - 12, 8);
++	unsigned long literal = ftrace_call_ops_literal(rec->ip);
+ 	return aarch64_insn_write_literal_u64((void *)literal,
+ 					      (unsigned long)ops);
+ }
 
---- a/ipc/msg.c~ipc-msg-clamp-negative-msg_info-usage-counts
-+++ a/ipc/msg.c
-@@ -501,10 +501,10 @@ static int msgctl_info(struct ipc_namesp
- 	max_idx = ipc_get_maxidx(&msg_ids(ns));
- 	up_read(&msg_ids(ns).rwsem);
- 	if (cmd == MSG_INFO) {
--		msginfo->msgmap = min(percpu_counter_sum(&ns->percpu_msg_hdrs),
--				     INT_MAX);
--		msginfo->msgtql = min(percpu_counter_sum(&ns->percpu_msg_bytes),
--				     INT_MAX);
-+		msginfo->msgmap = clamp(percpu_counter_sum(&ns->percpu_msg_hdrs),
-+					0, INT_MAX);
-+		msginfo->msgtql = clamp(percpu_counter_sum(&ns->percpu_msg_bytes),
-+					0, INT_MAX);
- 	} else {
- 		msginfo->msgmap = MSGMAP;
- 		msginfo->msgpool = MSGPOOL;
-_
+-- 
+2.54.0
 
