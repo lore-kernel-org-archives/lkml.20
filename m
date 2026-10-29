@@ -1,68 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793308534;
-	b=R3KA2uT9FTrbD/2VH/FDstK/rIEak1w1+2gVcwHM1XST8Jc6T2ECwj/Fei9AmUyGgZ/O
-	 jIPBmLbo4imSV3pabauskHYieTd1Ydr2VKk30yzSlapA8Yp7m3jJhWbh6ONHULBPg+eax
-	 hzn1os6jbacKgmop5Pbxkd/0Eb5AHmkg95wqBPnRfqMFIl5HP2g9s+WgBboM08FbZOVAq
-	 cPsWRLAPW69QuB0pmHSB2QGgX3ku1Q/VgdupoHHbJsjOQRFcmVxOi3GYlShvNvyYObnBT
-	 ea67ddN8Vd6jRshX852fs/BX9rrpncHhU/wn6xbjy+c50ht9ScVYoppVDS6x9kj+ZmA==
+	t=1793308570;
+	b=4IY0tVaMCaKw0cc4Q5jAC6IdN5dyFCJQrufQs8BlUA8xBQQj3EhUjDnherh0EU/+KW46
+	 LazeXdNU8xY0Xwq9OmmPk61u6XWIk6fbbKv8tKbmiZ716ALYua0ealBeu6ZfryTiYd481
+	 YD85Sx7MLtunB9Kne9IiR/ehbPqm7Wm4Rx8D1vk4kXk0wPG7x7W4y2e7fjjnRCgDhCCXP
+	 G2cQlMXiRqPUOX0t7+oZy2gqR2Tap2szvdp/EqspS9RFJ0T2txm80xiFB4Vi2wH3ujmpF
+	 hV7h6z1RTBnrr/dah4d6dke5JlD/E70NX5Xu4WJZqT9b2xG/04728bD//P2IBKK2eCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793308534;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:
-	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Scanned-By;
-	bh=rbgA2NhQmBBCynjtJFMb9J9STofHj6wgPgbtpbZIb+k=;
-	b=1TmlnFTXGI+GJFLICW6KRhyLWckgYnfgBL5B3jssoxnePv+Mcnua82am5Hfjq7/iUEFP
-	 XMOuvp+X73KVJWGWTN6pPe8WRKdIbgCBOiU6npDY2TUxrAHsf6+3wLJpcP+9IT9Kecyt8
-	 DWkfA4eUCRXCyi99Wgm+p9/1tYmq3cdQR/ihpmO07r0DLflk6tMPwg8soWA/UNJUiqNt3
-	 V69eS9X0BCMB1QFMlsBn/ssxptPneSxDMDZPFEh99J7Cwlb2itz9pVkE8sICgw1XZGKn3
-	 8K1TMl7HQ7kfuN5/Dz6EdRrhLfnRHA2uoDZTbnBsdPeRYyZpiZMwNMTy/vpDPrAbjqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793308570;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7HPc+rMGPZrFziNDFBiRAZO+y0q2SHxYTSQY6vu6qns=;
+	b=kiotU0yaHWU6NTbUnWpQVd4t/aLoR8l/prHq4y5rcoWqM5GXNIgylYH5anfLj03pcyS/
+	 oS40PAyQwWOQmVkqVnekgs6GCUETRIxcap6QXMZAVrbj1uFTx1/prMGjlQiyWsXVE7OX4
+	 d6Qq3toB9Nw6QfO24uPgYAtMKXV5KM5LzzdCHGNwh6GBSHiRtJjoAx4sUbfJR6KWgiyhI
+	 rTu43ZyZUzaSoaPuzMYJOy49S9tjEww2FnN++3LNmbUwfiZ3rjMZNi6iuoGoyxiDa7sy7
+	 J2RPv2q/ehAFapsnvV+Atisx66Ysey6rRl2SeVBBOcB/41GWDNFgo0GYLHyd7tkJrZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JAk9Xw7v;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjDnZcPZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F2DA606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:15:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F2DA606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6BF606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:16:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JAk9Xw7v
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793308533;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rbgA2NhQmBBCynjtJFMb9J9STofHj6wgPgbtpbZIb+k=;
-	b=JAk9Xw7vPd7zRa+YMjOOjxm8AG9z3YwJ2+IekC+8f5i/zAC7SBNfv+MLmBuzGLIXS0rXRP
-	m/vkY+JbUvvtj8LLw7EPECw5PFa+uga368yIMeCowxJw/0ZQEViCeanicRZZEw3PGFWppB
-	tsn9j7SzIpeLGiEkiKC3twhYaR0gNP8=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-464-dZYdjsAJNVi28d-0caQj-A-1; Thu,
- 29 Oct 2026 17:15:29 -0400
-X-MC-Unique: dZYdjsAJNVi28d-0caQj-A-1
-X-Mimecast-MFC-AGG-ID: dZYdjsAJNVi28d-0caQj-A_1793308527
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 597B51800BEE;
-	Thu, 29 Oct 2026 21:15:27 +0000 (UTC)
-Received: from [100.91.223.109] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7C2821955E7D;
-	Thu, 29 Oct 2026 21:15:25 +0000 (UTC)
-Message-ID: <f79de58b-5a3c-4b78-81d0-0e7e50adca15@redhat.com>
-Date: Thu, 29 Oct 2026 17:15:24 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PjDnZcPZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 996141F031EA
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:16:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793308569;
+	bh=7HPc+rMGPZrFziNDFBiRAZO+y0q2SHxYTSQY6vu6qns=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PjDnZcPZxZwSTafleHkQ33qoE1Iuzoz2P4Lz8aFvP1ktGboBUmwwCpmJod7gkifqi
+	 UPVZRyMr1VAJqQMrSBjmm/PpoYC95+h2DT0sPQseKt9K2skglmTtJIeHDZrDqYsFql
+	 DJi6xLqFr6KOzLghr4zOFoVaTFJw4WKbB5tEiITuISFC5NPqCFMEUZTBWlmzEvTY2L
+	 zOKT9TJS9GCHwlzdz3OQ/FM2PwUfSAPwjB3tMt2V13N7Usm7MWLdriZyz1+KphdaYf
+	 WZ5Y2Q+Dth22arg1Sm1R0bs6PBrf7xW4y2619gL8G46/b6ycZKMSA9b+eZvuqbcRDA
+	 KthZ/+i63KBGg==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c247f6687dcso393778466b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:16:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByPckWGgLrJlK6ZVRU12A979fxGeBqRvHde9o2oXaBdW6My5aLMzi1EUwUha65hKszZ1ZNYocq1vHI0hvY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7sEdYO4EIC/rgtjmsymZgsMa2GmJsuxJQzXkZY276lECpAKZB
+	cKM/FWPbW8oK0hdeHw3dVkA0Nf3l99pRF4htJm/1ZpRSaA35U29lhCshRNgX3gfa6wMkQPVLPtG
+	3X73Ltmc/Vo2WuCUzCWz1xxgVXxFzhTw=
+X-Received: by 2002:a17:907:3d89:b0:c46:645f:cedf with SMTP id
+ a640c23a62f3a-c4ca7a0708amr27430266b.15.1793308568498; Thu, 29 Oct 2026
+ 14:16:08 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,54 +59,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] scsi: qedf: Remove unesseary function call
-To: "Martin K. Petersen" <martin.petersen@oracle.com>,
- Nilesh Javali <njavali@marvell.com>,
- Manish Rangankar <mrangankar@marvell.com>
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Nimal Prabudoss I <nprabudo@redhat.com>,
- GR-ETH-Storage-Upstream@marvell.com, Jesse Taube <jtaubepe@redhat.com>
-References: <20261029160443.904468-1-jtaubepe@redhat.com>
-Content-Language: en-US
-From: John Meneghini <jmeneghi@redhat.com>
-Organization: RHEL Core Storge Team
-In-Reply-To: <20261029160443.904468-1-jtaubepe@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+References: <20261030-swap-fixes-v1-0-73f73a59f2fc@tencent.com> <20261030-swap-fixes-v1-1-73f73a59f2fc@tencent.com>
+In-Reply-To: <20261030-swap-fixes-v1-1-73f73a59f2fc@tencent.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 29 Oct 2026 14:15:56 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zOwqiCzqGP_eh0Po+0cHSCLC-T1xoFqEo9bC0A2z9V-yw@mail.gmail.com>
+X-Gm-Features: AclHuK_UcWeTFbGNfIrkG08As9JrhrqrnG737h-qpITyGjdoPDrLwmIQ1HgUGbk
+Message-ID: <CAO9r8zOwqiCzqGP_eh0Po+0cHSCLC-T1xoFqEo9bC0A2z9V-yw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] mm/zswap: drop the stale zswap entry of a zero folio
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	Usama Arif <usamaarif642@gmail.com>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Chuanhua Han <hanchuanhua@oppo.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Mani Tofigh <mt4022@columbia.edu>, linux-kernel@vger.kernel.org, 
+	Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: John Meneghini <jmeneghi@redhat.com>
+On Thu, Oct 29, 2026 at 11:32=E2=80=AFAM Kairui Song via B4 Relay
+<devnull+kasong.tencent.com@kernel.org> wrote:
+>
+> From: Josef Bacik <josef@toxicpanda.com>
+>
+> A folio can stay in the swap cache after zswap_store() has stored it,
+> when a swapin fault gets a reference on it before reclaim can remove it.
+> do_swap_page() maps an exclusive folio writable and, for a read fault,
+> keeps it in the swap cache, so it can be modified and swapped out again
+> to the same slot. zswap_store() handles this, it replaces the old entry,
+> or drops it if the store fails or zswap got disabled, "otherwise,
+> writeback could overwrite the new data in the swapfile".
+>
+> swap_writeout() does not get as far as zswap_store() if the folio is
+> zero-filled now. It only sets the zero flag of the slot, and the zswap
+> entry with the previous contents stays in the tree and on the LRU:
+>
+>   reclaim            fault              zswap shrinker
+>   zswap_store(D1)
+>                      swap cache hit,
+>                      map, write zeroes
+>   swap_writeout()
+>     zero flag set
+>   folio reclaimed
+>                                         zswap_writeback_entry()
+>                                           swap_cache_alloc_folio()
+>                                           decompress D1, uptodate
+>                      swap cache hit:
+>                      maps D1
+>
+> Swapin looks at the zero flag first, but only when it has to read the
+> folio. The folio that zswap writeback leaves in the swap cache is up to
+> date as far as anybody can tell, so the process gets its old data back
+> instead of the zeroes it has written, until that folio is reclaimed.
+>
+> Invalidate the zswap entries in the zero-filled case as well. The folio
+> is locked and in the swap cache, which keeps zswap writeback away.
+>
+> Fixes: 0ca0c24e3211 ("mm: store zero pages to be swapped out in a bitmap"=
+)
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> [kasong@tencent.com: fix zswap_invalidate() arguments]
+> Signed-off-by: Kairui Song <kasong@tencent.com>
 
-Nilesh or Manish now that you are on the MAINTAINERS list for this file, can we get an ACK from you?
-
-I really want Martin to merge this so we can move forward with some of these bugs, and he needs your ACK.
-
-Thanks,
-
-/John
-
-On 10/29/26 12:04, Jesse Taube wrote:
-> The result of `skb_transport_header` was unused. Calling this function
-> warned when `skb_transport_header_was_set` returned false causing a
-> panic on debug kernels.
-> 
-> Signed-off-by: Jesse Taube <jtaubepe@redhat.com>
-> ---
->   drivers/scsi/qedf/qedf_main.c | 1 -
->   1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/scsi/qedf/qedf_main.c b/drivers/scsi/qedf/qedf_main.c
-> index da429b3a4283..f2bc0ac684e0 100644
-> --- a/drivers/scsi/qedf/qedf_main.c
-> +++ b/drivers/scsi/qedf/qedf_main.c
-> @@ -2496,7 +2496,6 @@ static void qedf_recv_frame(struct qedf_ctx *qedf,
->   
->   	/* Pull the header */
->   	hp = (struct fcoe_hdr *)skb->data;
-> -	fh = (struct fc_frame_header *) skb_transport_header(skb);
->   	skb_pull(skb, sizeof(struct fcoe_hdr));
->   	fr_len = skb->len - sizeof(struct fcoe_crc_eof);
->   
-
+Reviewed-by: Yosry Ahmed <yosry@kernel.org>
