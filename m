@@ -1,60 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793265982;
-	b=VrRYeiLkyblvksGhNbbvriyN7n1bOAIA0ve/wLJ9jCPMIIjzFPrn2FO6OSE3CRr9H3HO
-	 q2oWmAxg5aFp+i5XgeIzFz+nRs3z+nX9lGhaz2lkSAXfTrbiB8gti4aNAhXkfvUMGX2pl
-	 DNas7zefk49YUAtxTCBr/KsRHJPwTj7X7gyJhTh8PYyDoazOwnG75ksiF97YDZtAazC6B
-	 HvtAtpHcxFajzBKWLnIKWdXHKp1t8Rvu/U2r/Bihe9ve7bmJOBIgksktCiQiNFlKFbpkc
-	 0ruiq6YfhnBKthCDQXMDYPwWYir+dvb+qjdh0LRFXJ2QJGbWjXB1zArzug4vhWDAR7g==
+	t=1793265995;
+	b=aREJLwJbtBQ4BhyZEolrREVbrpzKqbeKTVKlEgEpUKsgzQ/9Z6HEWl4zQyZrLRPDaRYG
+	 yAUW299NeMIiEcetlnfUQXlrxX9tvqNM+WeacJ+XOl1YvkREizvkwoRwDElN6JF8xK0hs
+	 sCHBvWqSON0ESid2efHBbFoibLQXa7OPHZGiX5sEIJZWQ8XQtJD+o4c22CPFBL+4j+EE9
+	 gy8bsXBisBdzaVqsGNTmjblnYkqT+qDWtwt+6zz4kldZkBBhe6Vksd0RjRbKQAnIzFZxA
+	 EswaKIeh1jVwWr/9YI1xjvfcmTwIvdlnnvKmT9AgVRO38nA6t4qds83sruxxmTfUsEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793265982;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding;
-	bh=tAQEh4b++pVve/ioXaXSgT5PVOtBYojYtT+jFL5BfII=;
-	b=jKczOhBTcO4kA7qo7FNjINNKREJtmxPfEp84+O4YaGYG8wWvYIP4+g5jIRJkNwSDxT1o
-	 JPpFz64OgwuuswT3jBBNiTy10a0xHw+m98JGi21NLy649SW3t7BZ8sVowaz/5x7m4GzSh
-	 V+Fxm+YZ6vhoHFdEZFk6+6gQK5kiAVOwXr6Yfl/VNpHXgKMEN+3eB+LKOdtFwSuAhchwV
-	 ki4pOZnk7AWmQELHRH+0rTOPxW54UbdNzzx5EM3J7Lp8kNzAHL3q0eCTuF0ZSsGVlbQIs
-	 3J/hLqLjvHfpOW0TgWkmz/QHYqqCszaBYdUlZ16v0DyrVShMuu1yCAdV9SU8vmEJsxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793265995;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=JUlaM9WpYiweHE0HGw2Q5wyJ053Zlh4fRUNiE0Sei2Y=;
+	b=28+F0v8kFsSn6f5PEU9M9feAbUq5crDy8PReXlaJhz8yiLZaaAi6XgxsFz6L/xlcHOKt
+	 3RhMddap6igV4xTmLpjLVRNZFrUDXClbVLUyZ9NiB3dSs4j7dW0AJyVhGtXnoAP6DPNUl
+	 iBzCytJQsCM4hD4OH4qFDrbm1+cP1yBlHrB1TZ1aoxvsM0TXDir/bKI9ZtpfZ1M8OVUdT
+	 Ueyr6lTaUw6oXyEHwrUEw4jFDAS0ErY5PtjCaqE70VdHyohGb3sJ78a3smaSZ7EH3beo6
+	 cUZ9CG72JH3QCh4OWaXKjakrIWFxfGNi8jgmeccsEBKXaTMXhiDz0awhD5R1dN+Ih2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wyuan.org;
-	spf=pass smtp.mailfrom=wyuan.org;
-	arc=none smtp.remote-ip=95.215.58.80
-Received: from mta1.migadu.com (out-80.mta1.migadu.com [95.215.58.80])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=M3HzErsW;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Rcpho1FS;
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2182606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:26:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2182606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1FtM7Migx9dzZdG1vymUR6EU2ZfvoOws1XUBq1EJFgU=;
- c=simple/simple; d=wyuan.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793265978; v=1; x=1793870778;
- b=SkjL1+GtO7rI3G2LWL3DxmeoGrRLUOCOcMWmofzDgEMK2s1DCz5PMtrMz9Pwlx3A4/xdIOvn
- 2f49bHUObuuM095Pkg8maz2XwdVoL5mcUSA4Vl/7r8++6fwT5VRoxKys6U1nCfrKhqSgnxbZ44g
- pnBqdLKoCML8kRdOTtrELts6wSLES/syCfbpYbHnjlbpPcAHKcOHI35CpoFz7fM5FPMieMOhX9I
- wBB8dJpyBivkLlWoPTvGeU7jhHhk7hxWuLv7JOYPdEjhhu0j3kSh5LNFD9rAgUMjTF1uPhCQZYY
- 7s9468U/k/UyyzYb7amuvNwBTgH850StfOcSS219JVKTg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a6f7e260be4e957a;
-	Thu, 29 Oct 2026 09:26:18 +0000
-X-Mizu-Trace-ID: a6f7e260be4e957a
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 29 Oct 2026 17:26:04 +0800
-From: Weijie Yuan <kernel@wyuan.org>
-To: Dongliang Mu <dzm91@hust.edu.cn>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Weijie Yuan <wy@wyuan.org>,
-	Chen-Yu Yeh <chenyou910331@gmail.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] docs/zh_TW: remove top-level labels from process/
-Message-ID: <f851e36f0ca9db7a0f71200964fe97a2efa85c13.1793265072.git.wy@wyuan.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3822A606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:26:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3822A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=M3HzErsW;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Rcpho1FS
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 41302EC0121
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:26:34 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 29 Oct 2026 05:26:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793265989;
+	 x=1793352389; bh=JUlaM9WpYiweHE0HGw2Q5wyJ053Zlh4fRUNiE0Sei2Y=; b=
+	M3HzErsW/g6HECQpY7jEbx00vA3JNOD0kWxX+foi0GfvdjHTK5bvycW/1PYGmTr3
+	HXiMzam2M9yfj7HLx/HjYHLICKqF78o79VaD99UdwPJrgOV5n95dmpl5huX/C41R
+	583nUwoWQn8IOC2VLMbDEyEJjcLMrd/bkySXlAHzAqK26+w0Hxt/Fs3Py67DjSaM
+	hOm2yZbn4g8k5GgzyLEEx2wj30Lw+vLIBFh9cyGpZ08KsfU/BnW2u7qf4cwF8r9F
+	1XKQjsKIuCjqfbGO5AUfeKQFePT7m2GnWadnLy0KCHGzNbviLKQrohuK2OyIJ1Cn
+	dyAltzXnA4159R6LAVzhqA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793265989; x=
+	1793352389; bh=JUlaM9WpYiweHE0HGw2Q5wyJ053Zlh4fRUNiE0Sei2Y=; b=R
+	cpho1FSSUHQJdVWcblRwyKVFWAc1mc/yyvdoPfIvGo5JnIEA1rHPwfS5ah7ZL1S+
+	AXhGsg705BvLISDFkkDYKJEE1ABfvoADIryrlH2Q83rcOZkyK+23DzKguBvnrhMv
+	eq8YFCFVQqz7AL48pvl60jpudi/X7Rbo67eW9N277ekXrKoMxWRsbpZKr6+dLUo/
+	UGA0qnx6xhZ9Ac+kAIBoXJCxI/Z0nlrhIKlLWYsv0JuvY96pBYC6EZSrsgz0qnfi
+	6Oel5RvolyjRAVnkGj8ToUxNvJtdPSo1R7fVS9blbJgHOtwultDUSUHGXh8e3IX4
+	wyfzLLdUtxZOMHE0Gt7Ug==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793265989; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:mw8m8iWhIQZn2LDBOObLF7Ah/f+wQybfmyQ2tlGP6Z+WFuC
+	O2WVEGjQDgTtXXDfFDjgd00nmXctGlu1IzUMlO3yLF6cdYwgB8ApbtUNr8gCPFVs
+	sZ1Q0Nc6RwpJ2tL8RiChRI5H8WRGyg/vcikBo1f6wX3XH0rqUyyrU2qDIQjMU2aq
+	wH1/jXhKGVUabC9bh32St/DfyVwPMXXoAZn0BcvKYXx1J2R8JRzVLrf8Hyditmia
+	EduKEHRUUrlvof5eJYMbxKLukq1DhbcFS1k5jyDy8ZD7syzybgeWIrIYW0wz4mSl
+	VZuiHx1j4rsyqvIrsqtNGZ6WjpDIO03KoeJ5Okg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:gRYhEuLfYPjj84Rlc/L9H4sSFVrF9TV51oEklc5wsJQ=:bt3SsfUt4OeNoUM7vK/Z73nVZvQ599oSq5hQ3F+V9AI=;
+X-ME-Sender: <xms:QRHjaglpHll0wa0l8ETUmtD9fM5hSvvBOWT2MCvZq0yT0h5ZGae5HQ>
+    <xme:QRHjaqqiK8J__Kj3fKPDmRKHEiYduaHxPC4bjINj82iGPD8vb2HbloTQp_gdiorCj
+    ibsLnh2eVw9IlFpRd5y-vsAxC9yWa6CTcEaHeUsZefCmfJZvO-jMh9k>
+X-ME-Proxy-Cause: dmFkZTEydLGx17G3tJGFs8/rLhDDNPytwT57npfrZUsvU4FFkOlqCeshcDsfNw4WRb6bmp
+    nc8bKdNhN2BRlvzUFgKOPR/2G7dfvA7UlOBEAJFiSuSCqWHgqEsEceT7rOvJIy8oZVyOpx
+    p6kS3PcLzBdM3t378p35pFs6p3tjubY1QAzXP/Et/3h1zVQfzgII1sArGBOvcD/6XR8GzZ
+    2WAQsgjJsipmY8ohsl4WNPenetVPsHxKauAu1Qs6hdpE5PJo9vxvBHSxuGj3tlC6EBbFlz
+    S+kuJDxq2+gHyzSK6BwlQ3DmT4N9KJitrVREfXyjBMvc+8tNkmmIZlOWNGWuuYAR4yoFZ9
+    aXfKa0KUApkRfHpIwg2v3AyJ0UMKsjzM2OmNSdWwJt6NrVWk8JiYZB5jLlM36GleMhcWVp
+    P+nQy2CmN1sCiVEfqsNtOo+eMYXEaLyNuDIaLcvCppwG/9qkOkPqWN1CB4kVIeXT+yrIGq
+    rl2pogtbB64T5sFQtscodPHZObWWTnuXyIKsWQ8sMifty4ZjUo507faJg+OqLPm0i21tdS
+    P56oU4Y89ftFskAL8z0X8Wu0PuWnfGM6W8aYzwlbVpWiWC4mNh8YR1+5jlXHq2gP3f2mBr
+    G9dDvOCTfHMl0adVS8sGckH/ecJma8ygW6YzCLG6+1ZzZUGRkosTg75eQ4Og
+X-ME-Proxy: <xmx:QxHjagw_8zbmMxvqDdbuWxyG4Qx3L7KYSqHPCbe_SA3wmIoh2_35Xg>
+    <xmx:QxHjaqQXSVD4itmDLfpAKla35wOOvskshe8BrjBVRa-uDy7GefjC3A>
+    <xmx:QxHjatLRTHH0rmJlT9CX0moceHf8GOVMTmBNWuUrjOGbNcFSb_MW6g>
+    <xmx:QxHjahUTQo5x1QXjcASV2nrIy5VLwHtEYrZk74UWhWPvYuzeY9-sEQ>
+    <xmx:RRHjahM0wXMhwIWa9bdUu7ADKEwwP0GgydMwqRgjldSArJNW2S6Cnch9>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id D347932A0093; Thu, 29 Oct 2026 05:26:25 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,386 +115,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+X-ThreadId: Ax_s3xrhtzps
+Date: Thu, 29 Oct 2026 10:26:05 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Guenter Roeck" <linux@roeck-us.net>,
+ "Dmitry Torokhov" <dmitry.torokhov@gmail.com>
+Cc: "Russell King" <linux@armlinux.org.uk>,
+ "Linus Walleij" <linusw@kernel.org>, "Bartosz Golaszewski" <brgl@kernel.org>,
+ soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>
+Message-Id: <8bc1c573-bd4f-4dfe-9d7b-8b17d386ada7@app.fastmail.com>
+In-Reply-To: <2a561a27-a3bf-4cac-a4dc-bfbc5c859f45@roeck-us.net>
+References: <20260706-sa1100-swnode-v1-0-332759bbd930@gmail.com>
+ <20260706-sa1100-swnode-v1-1-332759bbd930@gmail.com>
+ <2a561a27-a3bf-4cac-a4dc-bfbc5c859f45@roeck-us.net>
+Subject: Re: [PATCH 1/4] gpio: sa1100: register software node for GPIO controller
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-I happened to notice that there was actually an embarrassing label on
-this page [*] that had been rendered in HTML.
+On Thu, Oct 29, 2026, at 05:23, Guenter Roeck wrote:
+> On Mon, Jul 06, 2026 at 08:14:00PM -0700, Dmitry Torokhov wrote:
+>> Define and register a static software node (sa1100_gpiochip_node) for the
+>> SA-1100 GPIO controller during sa1100_init_gpio(). Assign its firmware node
+>> directly to the GPIO chip prior to calling gpiochip_add_data().
+>> 
+>> This allows StrongARM SA-1100 board setup files to reference the SoC GPIO
+>> controller in property entries when converting legacy platform data to
+>> software nodes, resolving pin bindings directly via the attached firmware
+>> node without relying on name matching.
+>> 
+>> Assisted-by: Antigravity:gemini-3.5-flash
+>> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+>
+> With this patch in the tree, the qemu "collie" emulation no longer works.
+> There is no console output.
+>
+> Bisect log is attached for reference.
+>
+> I am not suggesting a revert if that is even possible, but maybe it is time
+> to retire collie support if no one else reported this problem.
 
- * https://docs.kernel.org/translations/zh_TW/process/kernel-enforcement-statement.html
+Thanks for the report. My current plan is to retire all of sa1100 by
+merging my board file removal series for v7.5-rc1, so it should be gone
+from linux-next soon but still be available for the LTS release (whether
+that is 7.3 or 7.4).
 
-Therefore let me drop these labels in process dir but leave the cleanup
-job later.
+Hopefully Dmitry can spot an obvious fix for the regression, otherwise
+a revert is probably best so we can leave collie working in the LTS
+kernel and not spend much work on that.
 
---- >8 ---
-From: Weijie Yuan <wy@wyuan.org>
-
-We can link to these documents by path, so the top-level labels
-do not buy us anything.
-
-Drop these redundant labels from the Traditional Chinese process
-documents.
-
-Signed-off-by: Weijie Yuan <wy@wyuan.org>
----
-
- * Tested with '(make cleandocs && make htmldocs) 2>&1 | grep -F -e zh_CN -e zh_TW'
-   seems work fine. But please leave an eye on this if available.
-
- * Based on these series on top of Alex's docs-next branch..
-   - [v2 0/7] docs/zh_TW: remove duplicated maintainer contact information
-   - [0/4] docs/zh_TW: relocate translations to follow the English layout
-   - [1/1] docs/zh_TW: remove the unreachable plain-text translations
-   - [0/3] docs/zh_TW: mark translations that are not kept in sync
-
-   which are currently queued here for 7.5:
-   https://github.com/kernel-zh/linux-zh_TW.git docs-next
-
- Documentation/translations/zh_TW/process/1.Intro.rst            | 2 --
- Documentation/translations/zh_TW/process/2.Process.rst          | 2 --
- Documentation/translations/zh_TW/process/3.Early-stage.rst      | 2 --
- Documentation/translations/zh_TW/process/4.Coding.rst           | 2 --
- Documentation/translations/zh_TW/process/5.Posting.rst          | 2 --
- Documentation/translations/zh_TW/process/6.Followthrough.rst    | 2 --
- Documentation/translations/zh_TW/process/7.AdvancedTopics.rst   | 2 --
- Documentation/translations/zh_TW/process/8.Conclusion.rst       | 2 --
- .../zh_TW/process/code-of-conduct-interpretation.rst            | 2 --
- Documentation/translations/zh_TW/process/code-of-conduct.rst    | 2 --
- Documentation/translations/zh_TW/process/coding-style.rst       | 2 --
- .../translations/zh_TW/process/development-process.rst          | 2 --
- Documentation/translations/zh_TW/process/email-clients.rst      | 2 --
- Documentation/translations/zh_TW/process/howto.rst              | 2 --
- Documentation/translations/zh_TW/process/index.rst              | 2 --
- .../translations/zh_TW/process/kernel-driver-statement.rst      | 2 --
- .../translations/zh_TW/process/kernel-enforcement-statement.rst | 2 --
- Documentation/translations/zh_TW/process/license-rules.rst      | 2 --
- Documentation/translations/zh_TW/process/management-style.rst   | 2 --
- .../translations/zh_TW/process/programming-language.rst         | 2 --
- .../translations/zh_TW/process/stable-api-nonsense.rst          | 2 --
- .../translations/zh_TW/process/stable-kernel-rules.rst          | 2 --
- Documentation/translations/zh_TW/process/submit-checklist.rst   | 2 --
- Documentation/translations/zh_TW/process/submitting-patches.rst | 2 --
- .../translations/zh_TW/process/volatile-considered-harmful.rst  | 2 --
- 25 files changed, 50 deletions(-)
-
-diff --git a/Documentation/translations/zh_TW/process/1.Intro.rst b/Documentation/translations/zh_TW/process/1.Intro.rst
-index 65c5ae095504..0c1c6709b1cb 100644
---- a/Documentation/translations/zh_TW/process/1.Intro.rst
-+++ b/Documentation/translations/zh_TW/process/1.Intro.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/1.Intro.rst <development_process_intro>`
- 
--.. _tw_development_process_intro:
--
- 引言
- ====
- 
-diff --git a/Documentation/translations/zh_TW/process/2.Process.rst b/Documentation/translations/zh_TW/process/2.Process.rst
-index cf9bd1b1444a..85e1444b3be6 100644
---- a/Documentation/translations/zh_TW/process/2.Process.rst
-+++ b/Documentation/translations/zh_TW/process/2.Process.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/2.Process.rst <development_process>`
- 
--.. _tw_development_process:
--
- 開發流程如何進行
- ================
- 
-diff --git a/Documentation/translations/zh_TW/process/3.Early-stage.rst b/Documentation/translations/zh_TW/process/3.Early-stage.rst
-index 7d7ecf9658e5..be3dadcf1663 100644
---- a/Documentation/translations/zh_TW/process/3.Early-stage.rst
-+++ b/Documentation/translations/zh_TW/process/3.Early-stage.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/3.Early-stage.rst <development_early_stage>`
- 
--.. _tw_development_early_stage:
--
- 早期規劃
- ========
- 
-diff --git a/Documentation/translations/zh_TW/process/4.Coding.rst b/Documentation/translations/zh_TW/process/4.Coding.rst
-index 423d51f4b3de..982735fd6134 100644
---- a/Documentation/translations/zh_TW/process/4.Coding.rst
-+++ b/Documentation/translations/zh_TW/process/4.Coding.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/4.Coding.rst <development_coding>`
- 
--.. _tw_development_coding:
--
- 使代碼正確
- ======================
- 
-diff --git a/Documentation/translations/zh_TW/process/5.Posting.rst b/Documentation/translations/zh_TW/process/5.Posting.rst
-index d54b16364474..ba3b8a79f21a 100644
---- a/Documentation/translations/zh_TW/process/5.Posting.rst
-+++ b/Documentation/translations/zh_TW/process/5.Posting.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/5.Posting.rst <development_posting>`
- 
--.. _tw_development_posting:
--
- 發布補丁
- ========
- 
-diff --git a/Documentation/translations/zh_TW/process/6.Followthrough.rst b/Documentation/translations/zh_TW/process/6.Followthrough.rst
-index 76082a15677f..e9a70eec850c 100644
---- a/Documentation/translations/zh_TW/process/6.Followthrough.rst
-+++ b/Documentation/translations/zh_TW/process/6.Followthrough.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/6.Followthrough.rst <development_followthrough>`
- 
--.. _tw_development_followthrough:
--
- 跟進
- ====
- 
-diff --git a/Documentation/translations/zh_TW/process/7.AdvancedTopics.rst b/Documentation/translations/zh_TW/process/7.AdvancedTopics.rst
-index 392c00213078..fb2e3764802f 100644
---- a/Documentation/translations/zh_TW/process/7.AdvancedTopics.rst
-+++ b/Documentation/translations/zh_TW/process/7.AdvancedTopics.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/7.AdvancedTopics.rst <development_advancedtopics>`
- 
--.. _tw_development_advancedtopics:
--
- 進階主題
- ========
- 
-diff --git a/Documentation/translations/zh_TW/process/8.Conclusion.rst b/Documentation/translations/zh_TW/process/8.Conclusion.rst
-index 2436263c6506..82e89d992964 100644
---- a/Documentation/translations/zh_TW/process/8.Conclusion.rst
-+++ b/Documentation/translations/zh_TW/process/8.Conclusion.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/8.Conclusion.rst <development_conclusion>`
- 
--.. _tw_development_conclusion:
--
- 更多資訊
- ========
- 
-diff --git a/Documentation/translations/zh_TW/process/code-of-conduct-interpretation.rst b/Documentation/translations/zh_TW/process/code-of-conduct-interpretation.rst
-index 4fc568409198..fbb9fb719b19 100644
---- a/Documentation/translations/zh_TW/process/code-of-conduct-interpretation.rst
-+++ b/Documentation/translations/zh_TW/process/code-of-conduct-interpretation.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/code-of-conduct-interpretation.rst <code_of_conduct_interpretation>`
- 
--.. _tw_code_of_conduct_interpretation:
--
- Linux核心貢獻者契約行為準則解釋
- ===============================
- 
-diff --git a/Documentation/translations/zh_TW/process/code-of-conduct.rst b/Documentation/translations/zh_TW/process/code-of-conduct.rst
-index 0266cd74a0b1..4db8ddc71474 100644
---- a/Documentation/translations/zh_TW/process/code-of-conduct.rst
-+++ b/Documentation/translations/zh_TW/process/code-of-conduct.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/code-of-conduct.rst <code_of_conduct>`
- 
--.. _tw_code_of_conduct:
--
- 貢獻者契約行爲準則
- ++++++++++++++++++
- 
-diff --git a/Documentation/translations/zh_TW/process/coding-style.rst b/Documentation/translations/zh_TW/process/coding-style.rst
-index 5778b707503f..166b952cb54e 100644
---- a/Documentation/translations/zh_TW/process/coding-style.rst
-+++ b/Documentation/translations/zh_TW/process/coding-style.rst
-@@ -4,8 +4,6 @@
- 
- :Original: Documentation/process/coding-style.rst
- 
--.. _tw_codingstyle:
--
- Linux 核心程式碼風格
- ====================
- 
-diff --git a/Documentation/translations/zh_TW/process/development-process.rst b/Documentation/translations/zh_TW/process/development-process.rst
-index 1d22aa0d3711..e3e69882d8f6 100644
---- a/Documentation/translations/zh_TW/process/development-process.rst
-+++ b/Documentation/translations/zh_TW/process/development-process.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/development-process.rst <development_process_main>`
- 
--.. _tw_development_process_main:
--
- 內核開發過程指南
- ================
- 
-diff --git a/Documentation/translations/zh_TW/process/email-clients.rst b/Documentation/translations/zh_TW/process/email-clients.rst
-index 272e3073521d..7a5cf79fe4f9 100644
---- a/Documentation/translations/zh_TW/process/email-clients.rst
-+++ b/Documentation/translations/zh_TW/process/email-clients.rst
-@@ -2,8 +2,6 @@
- 
- .. include:: ../disclaimer-zh_TW.rst
- 
--.. _tw_email_clients:
--
- :Original: Documentation/process/email-clients.rst
- 
- Linux郵件客戶端設定資訊
-diff --git a/Documentation/translations/zh_TW/process/howto.rst b/Documentation/translations/zh_TW/process/howto.rst
-index 1ffc076ce26c..46c7a63398f7 100644
---- a/Documentation/translations/zh_TW/process/howto.rst
-+++ b/Documentation/translations/zh_TW/process/howto.rst
-@@ -1,7 +1,5 @@
- .. SPDX-License-Identifier: GPL-2.0
- 
--.. _tw_process_howto:
--
- .. include:: ../disclaimer-zh_TW.rst
- 
- :Original: :ref:`Documentation/process/howto.rst <process_howto>`
-diff --git a/Documentation/translations/zh_TW/process/index.rst b/Documentation/translations/zh_TW/process/index.rst
-index bd638264bbe4..b27af36ce3bb 100644
---- a/Documentation/translations/zh_TW/process/index.rst
-+++ b/Documentation/translations/zh_TW/process/index.rst
-@@ -9,8 +9,6 @@
- 
- :Original: :ref:`Documentation/process/index.rst <process_index>`
- 
--.. _tw_process_index:
--
- ========================
- 與Linux核心社群一起工作
- ========================
-diff --git a/Documentation/translations/zh_TW/process/kernel-driver-statement.rst b/Documentation/translations/zh_TW/process/kernel-driver-statement.rst
-index 34bcb6f164cb..e6ff67f75650 100644
---- a/Documentation/translations/zh_TW/process/kernel-driver-statement.rst
-+++ b/Documentation/translations/zh_TW/process/kernel-driver-statement.rst
-@@ -1,7 +1,5 @@
- .. SPDX-License-Identifier: GPL-2.0
- 
--.. _tw_process_statement_driver:
--
- .. include:: ../disclaimer-zh_TW.rst
- 
- :Original: :ref:`Documentation/process/kernel-driver-statement.rst <process_statement_driver>`
-diff --git a/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst b/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
-index d54d20529294..45bb50fd1e6a 100644
---- a/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
-+++ b/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
-@@ -1,7 +1,5 @@
- .. SPDX-License-Identifier: GPL-2.0
- 
--﻿.. _tw_process_statement_kernel:
--
- .. include:: ../disclaimer-zh_TW.rst
- 
- :Original: :ref:`Documentation/process/kernel-enforcement-statement.rst <process_statement_kernel>`
-diff --git a/Documentation/translations/zh_TW/process/license-rules.rst b/Documentation/translations/zh_TW/process/license-rules.rst
-index 0a4558b7fc76..8f9b57e223a7 100644
---- a/Documentation/translations/zh_TW/process/license-rules.rst
-+++ b/Documentation/translations/zh_TW/process/license-rules.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/license-rules.rst <kernel_licensing>`
- 
--.. _tw_kernel_licensing:
--
- Linux核心許可規則
- =================
- 
-diff --git a/Documentation/translations/zh_TW/process/management-style.rst b/Documentation/translations/zh_TW/process/management-style.rst
-index 2cef0ef25ede..9908724e37a2 100644
---- a/Documentation/translations/zh_TW/process/management-style.rst
-+++ b/Documentation/translations/zh_TW/process/management-style.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/management-style.rst <managementstyle>`
- 
--.. _tw_managementstyle:
--
- Linux內核管理風格
- =================
- 
-diff --git a/Documentation/translations/zh_TW/process/programming-language.rst b/Documentation/translations/zh_TW/process/programming-language.rst
-index 9aac89e2c23b..04ad22a25a4e 100644
---- a/Documentation/translations/zh_TW/process/programming-language.rst
-+++ b/Documentation/translations/zh_TW/process/programming-language.rst
-@@ -4,8 +4,6 @@
- 
- :Original: :ref:`Documentation/process/programming-language.rst <programming_language>`
- 
--.. _tw_programming_language:
--
- 程式語言
- ========
- 
-diff --git a/Documentation/translations/zh_TW/process/stable-api-nonsense.rst b/Documentation/translations/zh_TW/process/stable-api-nonsense.rst
-index 94748429c182..2e82df8544ef 100644
---- a/Documentation/translations/zh_TW/process/stable-api-nonsense.rst
-+++ b/Documentation/translations/zh_TW/process/stable-api-nonsense.rst
-@@ -1,7 +1,5 @@
- .. SPDX-License-Identifier: GPL-2.0
- 
--.. _tw_stable_api_nonsense:
--
- .. include:: ../disclaimer-zh_TW.rst
- 
- :Original: :ref:`Documentation/process/stable-api-nonsense.rst
-diff --git a/Documentation/translations/zh_TW/process/stable-kernel-rules.rst b/Documentation/translations/zh_TW/process/stable-kernel-rules.rst
-index d182d625728d..bd0a1599dbff 100644
---- a/Documentation/translations/zh_TW/process/stable-kernel-rules.rst
-+++ b/Documentation/translations/zh_TW/process/stable-kernel-rules.rst
-@@ -1,7 +1,5 @@
- .. SPDX-License-Identifier: GPL-2.0
- 
--.. _tw_stable_kernel_rules:
--
- .. include:: ../disclaimer-zh_TW.rst
- 
- :Original: :ref:`Documentation/process/stable-kernel-rules.rst <stable_kernel_rules>`
-diff --git a/Documentation/translations/zh_TW/process/submit-checklist.rst b/Documentation/translations/zh_TW/process/submit-checklist.rst
-index 452fecc7c425..f5b2cb56eec4 100644
---- a/Documentation/translations/zh_TW/process/submit-checklist.rst
-+++ b/Documentation/translations/zh_TW/process/submit-checklist.rst
-@@ -4,8 +4,6 @@
- 
- :Original: Documentation/process/submit-checklist.rst
- 
--.. _tw_submitchecklist:
--
- Linux內核補丁提交檢查單
- ~~~~~~~~~~~~~~~~~~~~~~~
- 
-diff --git a/Documentation/translations/zh_TW/process/submitting-patches.rst b/Documentation/translations/zh_TW/process/submitting-patches.rst
-index 514903daae25..967e558350c0 100644
---- a/Documentation/translations/zh_TW/process/submitting-patches.rst
-+++ b/Documentation/translations/zh_TW/process/submitting-patches.rst
-@@ -2,8 +2,6 @@
- 
- .. include:: ../disclaimer-zh_TW.rst
- 
--.. _tw_submittingpatches:
--
- :Original: Documentation/process/submitting-patches.rst
- 
- 提交補丁：如何讓你的改動進入核心
-diff --git a/Documentation/translations/zh_TW/process/volatile-considered-harmful.rst b/Documentation/translations/zh_TW/process/volatile-considered-harmful.rst
-index edfc83f32672..a2384b60b874 100644
---- a/Documentation/translations/zh_TW/process/volatile-considered-harmful.rst
-+++ b/Documentation/translations/zh_TW/process/volatile-considered-harmful.rst
-@@ -1,7 +1,5 @@
- .. SPDX-License-Identifier: GPL-2.0
- 
--.. _tw_volatile_considered_harmful:
--
- .. include:: ../disclaimer-zh_TW.rst
- 
- :Original: :ref:`Documentation/process/volatile-considered-harmful.rst
--- 
+      Arnd
