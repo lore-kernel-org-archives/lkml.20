@@ -1,63 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.136.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=14.137.139.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793284503;
-	b=EFXoeH9y/JumFMkpIcC24dGGlhfz0rZ2gNWBme+58KH9EWVu6QW1GwuJ9JX5KcJ+oAKC
-	 rCfE041FT/V2ASNccYKICsMb3iGCKyPn2befO+Dkym7jekqc+dIP69doa8QQOMVoCeY3T
-	 IgGdErwnP160BIkuaOXYWGG/yP7Gx+atRIIeRmW1o5Sk2vdXcMl/2gsWqXxrV12a0gDjp
-	 cUZjbrnsp4GX0hqdvHPFdJPivBKHMlRtDgTeM5LKtLwFdzP9tGa40zGcmu8o5ieQcXWgw
-	 l30Nr+06IZYHG2Ec4bnoQK16rR6xJExI7/vE0CTIUXB1uEAFOPs4eEeGFkznr3EQ2pQ==
+	t=1793284533;
+	b=LDIWK0ebergaKMTO9Gi/iCbwVo3N0kiKa/xsOqen+7LjQAgDWi20mhxXe8BH/xQn5aGQ
+	 cS5Pue4IKcyBa2ZnmjlcE9Ee38KFS0TEzKU/mHJHlb2IVEilLq6Dww8vpxd7wCRvEkzqK
+	 dsl9R8e87cH+h1Io1t/tHzihJmryTMnoUDl9XIBGeLjI0mBAZ4OtdsAOGKVY4lFUxNHbS
+	 ucduIV2erhROnVJ0U8F3OzNI3gpd7R50GIrACbM0VgzvfCh/dQVjmErcMqCcM2gtR6l/Y
+	 rSt82c5CFhB9Qqj3XP+NUHC2OrYQYQS8v+0gVC2qIIW3Blk9rss0IsTLsTcFO/oZXzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793284503;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=UcsMop639s7djhtUDJ8XkO0CoqAAaqDHDg0ZJlQPuqw=;
-	b=5nIdNvq4kc4QC+lMBOZcjRYSjCL6gjH4ZmU9ib2YLMXy4ySqTW3H8YNJwUJREFRSyU8S
-	 YZGi8GpWITawOf3HTmu8xLOBzImi/55Y2YtcYi8yDiYzax81yykDrOYIWNryJ3OFyk0oK
-	 yt9bADUmDoCzSZDmxPZPCnxCSyjqQeM+y7dP2rNNaMy4w7UZCfBk2GqyEDuVz+ncXQdo4
-	 8rUbsLBFyNr7YF0OO8zApWdfYRs1E2zpMzplPzE4aWScCsN8xp6Es0LkobEKS/vDM8TzW
-	 qJ6OcEgjVldn5bfTMNEb9EEbni5iEvE8DoWEwnpeWQJz/XW9mNAfbdBWeHJGVz+zfqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793284533;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Subject:From:To:
+	 Cc:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=RlbSgNsQRCfMV0zM/9caDPWCGGLPzisKAsD8HsDFG6w=;
+	b=IGz66lQIxRXINDi/722R0u7tNg/L2Z3omL3nPkx8O/oMF29CarLw8cXBjnP0S1xZr752
+	 tRfJF3AwHTbBXWfKQz0z3bfH9P49KkNjcx66q8/SiioIB+watB/AGPIin+8MdL/dros8b
+	 VQRRMVeLu1v6mPQG80sKnNxmgtFY5DseTs1mIJwWKxgqLWwqD2RZeMe0HahbGOaP/CBXp
+	 w0jngreRDbyJrN0x4vvtmAqIm7ObTu14pEt/4aOSkrKYM2WtUUszSBcmKPR7yo9XK9/hQ
+	 lZ3jGRBMYzGicK4JWHtxl8GOVcdhNTTURCSJyISYOQsW2raYTNet0IcQLESNKAtrTJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unibo.it;
-	spf=pass smtp.mailfrom=cs.unibo.it;
-	arc=none smtp.remote-ip=130.136.161.50
-Received: from mail.virtlab.unibo.it (mail.virtlab.unibo.it [130.136.161.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A34E7606A31A;
-	Thu, 29 Oct 2026 14:34:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A34E7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cs.unibo.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unibo.it
-Received: from cs.unibo.it (unknown [94.32.99.206])
-	by mail.virtlab.unibo.it (Postfix) with ESMTPSA id D66421C006E;
-	Thu, 29 Oct 2026 15:34:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=cs.unibo.it;
-	s=virtlab; t=1793284491;
-	bh=OJBr8ktrL05qExyJXBS5Qe8L5jHeJF4KPZCQjWdB0bk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VucilZ4b0ZM05mqPZvjoJUVYvw+5fKoXiD+JpM2NzELfc8wpUQM29JUveNtm6vwyQ
-	 9PMGhX/ZY1ZlFDYfp8fXL0KP07wVKTIiYFxF3VL7IITEiTtUE6AFAYzwkSNnni+172
-	 BBQFgfilaPCwmqQIQALNvTugNz1dNTLA9SPgsFfo=
-Date: Thu, 29 Oct 2026 15:34:48 +0100
-From: Renzo Davoli <renzo@cs.unibo.it>
-To: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-Cc: Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>, linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, Oleg Nesterov <oleg@redhat.com>,
-	"Dmitry V . Levin" <ldv@strace.io>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Andrew Morton <akpm@linux-foundation.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/1] powerpc/syscall: Return the preset value of
- skipped syscalls
-Message-ID: <auNZiOi_tj6ssGZr@cs.unibo.it>
-References: <20261023180735.853655-1-renzo@cs.unibo.it>
- <auB6vjNg3w5LPVwb@kunlun.suse.cz>
- <auLyYd9-6WwwzPgz@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=14.137.139.46
+Received: from frasgout13.his.huawei.com (frasgout13.his.huawei.com [14.137.139.46])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B9F606A31A;
+	Thu, 29 Oct 2026 14:35:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6B9F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.18.224.196])
+	by frasgout13.his.huawei.com (SkyGuard) with ESMTPS id 4jFmwf6SH8zpVCg;
+	Thu, 29 Oct 2026 22:35:14 +0800 (CST)
+Received: from mail02.huawei.com (unknown [7.182.16.157])
+	by mail.maildlp.com (Postfix) with ESMTP id 47F5240006;
+	Thu, 29 Oct 2026 22:35:23 +0800 (CST)
+Received: from [10.204.63.22] (unknown [10.204.63.22])
+	by dep2_app1 (Coremail) with UTF8SMTPA id nRC2B0BmSmCdWeNqIqoGAA--.1400S2;
+	Thu, 29 Oct 2026 15:35:22 +0100 (CET)
+Message-ID: <4ee169f4b99513f3502d72dc2e732c1ad24d7d7e.camel@huaweicloud.com>
+Subject: Re: [PATCH] evm: Bound writes in evm_read_protected_xattrs() to
+ buffer_size
+From: Roberto Sassu <roberto.sassu@huaweicloud.com>
+To: zohar@linux.ibm.com, dmitry.kasatkin@gmail.com,
+ eric.snowberg@oracle.com,  paul@paul-moore.com, jmorris@namei.org,
+ serge@hallyn.com,  fabrice.derepas@canonical.com
+Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Roberto Sassu <roberto.sassu@huawei.com>
+Date: Thu, 29 Oct 2026 15:35:06 +0100
+In-Reply-To: <20261029142707.2602008-1-roberto.sassu@huaweicloud.com>
+References: 
+	<CAD2AHCbuQyKwR27hNcYRhU7njCeigmQoL9x9i25zb0N5-8Kx+A@mail.gmail.com>
+	 <20261029142707.2602008-1-roberto.sassu@huaweicloud.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,267 +66,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <auLyYd9-6WwwzPgz@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+X-CM-TRANSID:nRC2B0BmSmCdWeNqIqoGAA--.1400S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Jr13Jw1fZr1kuF13Jw18Xwb_yoW7XrWxpF
+	ZxKay7Krs8tFyxCr9xAF13Ja4ruFZrXw1UK3ykG34jywnIkrs7Zr4Igry5Wry8urn7Krn5
+	ta90qFn5Crn8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
+	AFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
+	wI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUrs
+	qXDUUUU
+X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAQAHDWriukpwMwAAsw
 
-Hi Mukesh,
+On Thu, 2026-10-29 at 15:27 +0100, Roberto Sassu wrote:
+> From: Roberto Sassu <roberto.sassu@huawei.com>
+>=20
+> ima_eventinodexattrs_init_common() calls evm_read_protected_xattrs()
+> first with a NULL buffer to obtain the required size, allocates a buffer
+> of that size, and then calls it again to fill it. Nothing keeps the
+> result stable between the two calls: a protected xattr may be added to
+> evm_config_xattrnames through the evm_xattrs securityfs file (with
+> CONFIG_EVM_ADD_XATTRS=3Dy), or a protected xattr may be set on, removed
+> from, or changed in the measured file in the meantime.
+>=20
+> However, the 'n' (names) and 'l' (lengths) cases write into the buffer
+> without checking buffer_size, so if the data grew between the two calls,
+> they write past the end of the allocation.
+>=20
+> The 'v' (values) case passes the remaining space to __vfs_getxattr(),
+> so the copy itself is bounded, but advances total_size by the length
+> returned by the earlier probing __vfs_getxattr() call, rather than by
+> the length actually copied. This causes two problems:
+>=20
+> - If the probed size fits in the remaining space, but the value shrinks
+>   before the copy, total_size does not exceed buffer_size, but the
+>   returned size covers bytes of the buffer that were not written.
+>=20
+> - If the probed size exceeds the remaining space, but the value shrinks
+>   enough to fit before the copy, total_size exceeds buffer_size after
+>   adding the probed size.
+>=20
+> In addition, once the buffer is full, any further non-empty xattr (e.g.
+> one added to the list or set on the file after the buffer size was
+> determined) is read with a zero remaining size. Some filesystems, such
+> as XFS and btrfs, take a zero size as a request for the xattr length,
+> return it without copying, and total_size exceeds buffer_size as well.
+>=20
+> When total_size exceeds buffer_size, either the next iteration passes a
+> negative remaining size to __vfs_getxattr(), converted to a huge size_t,
+> causing a write past the end of the buffer, or the caller reads past
+> the end of the buffer.
+>=20
+> Return -ERANGE in the 'n' and 'l' cases when the data no longer fits in
+> the buffer. In the 'v' case, skip the copy if the probed length is zero,
+> return -ERANGE if no space is left, so that __vfs_getxattr() is never
+> called with a zero size, and advance total_size by the number of bytes
+> actually copied. Since __vfs_getxattr() then either copies at most the
+> remaining space or fails with -ERANGE, total_size never exceeds
+> buffer_size. Also document the -ERANGE return in the kernel-doc.
+>=20
+> On -ERANGE, ima_eventinodexattrs_init_common() records an empty template
+> field, as it already does for the other errors.
+>=20
+> Fixes: 8314b6732ae4 ("ima: Define new template fields xattrnames, xattrle=
+ngths and xattrvalues")
+> Reported-by: Fabrice Derepas <fabrice.derepas@canonical.com>
 
-  thanks. I think we agree on the diagnosis: as your comment says,
-the return value has already been stored in regs, so the problem is
-only that system_call_exception() returns syscall_get_error(), which
-is 0 for any non-error value.
+Hi Fabrice
 
-To Michal's point: there is no place setting the value incorrectly;
-r3 holds the right value, it is syscall_get_error() that cannot
-report a successful one.
+can change to Co-developed-by: Fabrice Derepas <fabrice.derepas@canonical.c=
+om>
 
-I like your variant: syscall_get_error() ?: regs->gpr[3] leaves the
-error path exactly as it is today and only changes the success path.
-I retested it with the ptrace set_syscall_info selftest and
-ppc_skip_repro.c (see
-https://lore.kernel.org/lkml/ato6Tq0aKdqqdqyJ@cs.unibo.it/)
-and it behaves the same as my v2.
+if you provide your Signed-off-by.
 
-I will send a v3 rebased on current mainline, split in two:
- 1/2 remove TIF_SYSCALL_RET (Fixes: 69cb2be898be), as suggested by
-     Michal
- 2/2 return the preset value of a skipped syscall (Fixes: 05c033db7e9a)
-     using your expression.
+Thanks
 
-Would you like a Suggested-by for the return expression?
+Roberto
 
-renzo
+> Closes: https://lore.kernel.org/linux-integrity/CAD2AHCbuQyKwR27hNcYRhU7n=
+jCeigmQoL9x9i25zb0N5-8Kx+A@mail.gmail.com/
+> Signed-off-by: Roberto Sassu <roberto.sassu@huawei.com>
+> ---
+>  security/integrity/evm/evm_main.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>=20
+> diff --git a/security/integrity/evm/evm_main.c b/security/integrity/evm/e=
+vm_main.c
+> index 5be9349afcd0..a29b7f80e55d 100644
+> --- a/security/integrity/evm/evm_main.c
+> +++ b/security/integrity/evm/evm_main.c
+> @@ -369,6 +369,10 @@ int evm_protected_xattr_if_enabled(const char *req_x=
+attr_name)
+>   * given dentry and return the total size of copied data. If buffer is N=
+ULL,
+>   * just return the total size.
+>   *
+> + * The set of protected xattrs and their values may change between a cal=
+l with
+> + * a NULL buffer and a subsequent call with a buffer of the returned siz=
+e. If
+> + * the data no longer fits in @buffer_size, -ERANGE is returned.
+> + *
+>   * Returns the total size on success, a negative value on error.
+>   */
+>  int evm_read_protected_xattrs(struct dentry *dentry, u8 *buffer,
+> @@ -389,6 +393,9 @@ int evm_read_protected_xattrs(struct dentry *dentry, =
+u8 *buffer,
+>  		case 'n':
+>  			size =3D strlen(xattr->name) + 1;
+>  			if (buffer) {
+> +				if (size > buffer_size - total_size)
+> +					return -ERANGE;
+> +
+>  				if (total_size)
+>  					*(buffer + total_size - 1) =3D '|';
+> =20
+> @@ -398,6 +405,9 @@ int evm_read_protected_xattrs(struct dentry *dentry, =
+u8 *buffer,
+>  		case 'l':
+>  			size =3D sizeof(u32);
+>  			if (buffer) {
+> +				if (size > buffer_size - total_size)
+> +					return -ERANGE;
+> +
+>  				if (canonical_fmt)
+>  					rc =3D (__force int)cpu_to_le32(rc);
+> =20
+> @@ -407,12 +417,22 @@ int evm_read_protected_xattrs(struct dentry *dentry=
+, u8 *buffer,
+>  		case 'v':
+>  			size =3D rc;
+>  			if (buffer) {
+> +				/* Nothing to copy. */
+> +				if (!size)
+> +					break;
+> +
+> +				/* A zero size would query the length. */
+> +				if (buffer_size - total_size =3D=3D 0)
+> +					return -ERANGE;
+> +
+>  				rc =3D __vfs_getxattr(dentry,
+>  					d_backing_inode(dentry), xattr->name,
+>  					buffer + total_size,
+>  					buffer_size - total_size);
+>  				if (rc < 0)
+>  					return rc;
+> +
+> +				size =3D rc;
+>  			}
+>  			break;
+>  		default:
 
-On Thu, Oct 29, 2026 at 12:48:42PM +0530, Mukesh Kumar Chaurasiya wrote:
-> On Tue, Oct 27, 2026 at 11:19:42AM +0100, Michal Suchánek wrote:
-> > Hello,
-> > 
-> > On Fri, Oct 23, 2026 at 08:07:32PM +0200, Renzo Davoli wrote:
-> > > When ptrace or seccomp skip a system call, the return value they set in
-> > > regs->gpr[3] gets lost or the tracer is affected, since two recent
-> > > changes:
-> > > 
-> > > 1. Commit 05c033db7e9a ("entry, treewide: Make
-> > >    syscall_enter_from_user_mode[_work]() indicate syscall execution")
-> > >    made system_call_exception() return syscall_get_error() for a skipped
-> > >    system call.  syscall_get_error() is 0 for any non-error value, so a
-> > >    success value set by a tracer at a PTRACE_EVENT_SECCOMP stop (e.g.
-> > >    with PTRACE_POKEUSER), or by a SECCOMP_RET_USER_NOTIF listener, is
-> > >    replaced with 0.
-> > > 
-> > > 2. Commit 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for
-> > >    seccomp and ptrace") made syscall_set_return_value() set
-> > >    TIF_SYSCALL_RET with set_thread_flag(), i.e. on current rather than on
-> > >    the task passed in.  When the caller is a tracer, as in
-> > >    PTRACE_SET_SYSCALL_INFO with op == PTRACE_SYSCALL_INFO_EXIT, the flag
-> > >    ends up on the tracer, and the next system call of the tracer is
-> > >    silently not executed.  Setting it on the right task would not be
-> > >    enough either: at a syscall-exit stop the flag would then skip the
-> > >    next system call of the tracee.
-> > > 
-> > > TIF_SYSCALL_RET is not needed anymore: after the change described in 1.
-> > > the generic entry code tells whether ptrace or seccomp skipped the
-> > > system call, and every in-kernel caller of syscall_set_return_value() on
-> > > the syscall entry path (SECCOMP_RET_ERRNO, SECCOMP_RET_TRACE without a
-> > > tracer, SECCOMP_RET_USER_NOTIF) also makes it return false.  A user
-> > > calling syscall(-1) without tracer or seccomp still gets -ENOSYS.
-> > > 
-> > > Remove the flag and return regs->gpr[3] for a skipped system call, as
-> > > done before the conversion to GENERIC_ENTRY.  The syscall exit path
-> > > already converts a negative error value to the "sc" ABI, and
-> > > syscall_set_return_value() keeps CR0.SO in sync for positive error
-> > > values.
-> > > 
-> > > Fixes: 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for seccomp and ptrace")
-> > > Fixes: 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
-> > > Cc: Michal Suchánek <msuchanek@suse.de>
-> > > Cc: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-> > > Cc: Shrikanth Hegde <sshegde@linux.ibm.com>
-> > > Cc: Thomas Gleixner <tglx@kernel.org>
-> > > Cc: stable@vger.kernel.org # v7.3
-> > > Assisted-by: claude-opus-5-5
-> > > Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
-> > > ---
-> > > How this was found and tested: QEMU pseries (TCG, -cpu power9), ppc64le
-> > > guest config, v7.3-rc6 (7b63ef2d55f2), with a small reproducer
-> > > (ppc_skip_repro.c, available on request) which
-> > > 
-> > >  - sets the getpid() return value at a syscall-exit stop with
-> > >    PTRACE_SET_SYSCALL_INFO, then makes a syscall in the tracer;
-> > >  - skips getpid() at a PTRACE_EVENT_SECCOMP stop with PTRACE_POKEUSER
-> > >    (r0 = -1, r3/CR0.SO = return value), with both "sc" and "scv 0".
-> > > 
-> > >                                              v7.3-rc6      with this patch
-> > >   tracer syscall after SET_SYSCALL_INFO      returns 0     correct
-> > >   skipped syscall, success value, sc/scv     returns 0     correct
-> > >   skipped syscall, error value, sc/scv       correct       correct
-> > >   selftests/ptrace set_syscall_info test    FAIL          pass
-> > >   selftests/seccomp/seccomp_bpf              11 failures   all pass (*)
-> > > 
-> > >   failing in v7.3-rc6: user_notification_{basic,child_pid_ns,
-> > >   sibling_pid_ns,fault_recv,addfd,addfd_rlimit,sync,fifo,wait_killable},
-> > >   TRACE_syscall.seccomp.syscall_faked, plus the timing-only one below.
-> > > 
-> > > (*) user_notification_wait_killable_after_reply (100000 notifications
-> > >     with a 1 ms itimer) can hit the 30 s harness timeout under emulation,
-> > >     with and without this patch.
-> > > 
-> > > Build-tested with W=1: ppc64le guest config, ppc64_defconfig (BE),
-> > > pmac32_defconfig.
-> > > 
-> > > Changes in v2:
-> > > - Rebased on current mainline (734bef548a96), which now contains
-> > >   commit 66236558dfac ("powerpc/syscall: Avoid atomic
-> > >   test_and_clear_thread_flag on fast path").  That commit folded the
-> > >   TIF_SYSCALL_RET check into the skip condition, so the v1 hunk in
-> > >   system_call_exception() no longer applied.  The resulting code is the
-> > >   same as with v1.
-> > > - Link to v1:
-> > >   https://lore.kernel.org/lkml/20261018151539.440213-1-renzo@cs.unibo.it
-> > > 
-> > >  arch/powerpc/include/asm/syscall.h     |  6 ------
-> > >  arch/powerpc/include/asm/thread_info.h |  1 -
-> > >  arch/powerpc/kernel/syscall.c          | 13 ++++++++-----
-> > >  3 files changed, 8 insertions(+), 12 deletions(-)
-> > > 
-> > > diff --git a/arch/powerpc/include/asm/syscall.h b/arch/powerpc/include/asm/syscall.h
-> > > index 32be22b995cc..4b3c52ed6e9d 100644
-> > > --- a/arch/powerpc/include/asm/syscall.h
-> > > +++ b/arch/powerpc/include/asm/syscall.h
-> > > @@ -98,12 +98,6 @@ static inline void syscall_set_return_value(struct task_struct *task,
-> > >  			regs->gpr[3] = val;
-> > >  		}
-> > >  	}
-> > > -	/*
-> > > -	 * Mark that a return value has been explicitly set by seccomp or
-> > > -	 * ptrace so that system_call_exception() can skip the syscall
-> > > -	 * unconditionally, even when the user requested syscall(-1).
-> > > -	 */
-> > > -	set_thread_flag(TIF_SYSCALL_RET);
-> > >  }
-> > >  
-> > >  static inline void syscall_get_arguments(struct task_struct *task,
-> > > diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
-> > > index 1e069a2e7ce8..0487e94d3416 100644
-> > > --- a/arch/powerpc/include/asm/thread_info.h
-> > > +++ b/arch/powerpc/include/asm/thread_info.h
-> > > @@ -120,7 +120,6 @@ void arch_setup_new_exec(void);
-> > >  #endif
-> > >  #define TIF_POLLING_NRFLAG	19	/* true if poll_idle() is polling TIF_NEED_RESCHED */
-> > >  #define TIF_32BIT		20	/* 32 bit binary */
-> > > -#define TIF_SYSCALL_RET		21	/* syscall error value set */
-> > >  
-> > >  /* as above, but as bit values */
-> > >  #define _TIF_SYSCALL_TRACE	(1<<TIF_SYSCALL_TRACE)
-> > > diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
-> > > index 8529827d697f..52ceff4ef41b 100644
-> > > --- a/arch/powerpc/kernel/syscall.c
-> > > +++ b/arch/powerpc/kernel/syscall.c
-> > > @@ -18,11 +18,14 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
-> > >  	long ret;
-> > >  	syscall_fn f;
-> > >  
-> > > -	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0) ||
-> > > -			test_thread_flag(TIF_SYSCALL_RET))) {
-> > > -		clear_thread_flag(TIF_SYSCALL_RET);
-> > > -		return syscall_get_error(current, regs);
-> > > -	}
-> > > +	/*
-> > > +	 * If ptrace or seccomp decided to skip the syscall, regs->gpr[3] holds
-> > > +	 * the return value they set (or the unmodified first argument, e.g.
-> > > +	 * for PTRACE_SYSEMU). Return it as is, the exit path takes care of
-> > > +	 * the error encoding for the "sc" ABI.
-> > > +	 */
-> > > +	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0)))
-> > > +		return regs->gpr[3];
-> > >  
-> > >  	if (unlikely(r0 >= NR_syscalls)) {
-> > >  		if (unlikely(trap_is_unsupported_scv(regs))) {
-> > 
-> > This does two things that should be addressed separately:
-> > 
-> >  - eliminating the TIF_SYSCALL_RET flag
-> > 
-> > The previous refactor aimed at removing this flag. If the kernel still
-> > builds when it's removed removing the flag and the branch that tests it
-> > is merely dead code eliminaation unless there is something creative
-> > going on somewhere.
-> > 
-> >  - replacing syscall_get_error() with regs->gpr[3]
-> > 
-> > This is a very dubious change. If this does fix something this is likely
-> > papering over some place that sets the return value incorrectly.
-> > Instead of this change the place where the incorrect setting of the
-> > return value happens should be fixed.
-> > 
-> > Thanks
-> > 
-> > Michal
-> 
-> I agree with Michal here.
-> 
-> what do you think about this diff
-> 
-> diff --git a/arch/powerpc/include/asm/syscall.h b/arch/powerpc/include/asm/syscall.h
-> index 32be22b995cc..4b3c52ed6e9d 100644
-> --- a/arch/powerpc/include/asm/syscall.h
-> +++ b/arch/powerpc/include/asm/syscall.h
-> @@ -98,12 +98,6 @@ static inline void syscall_set_return_value(struct task_struct *task,
->  			regs->gpr[3] = val;
->  		}
->  	}
-> -	/*
-> -	 * Mark that a return value has been explicitly set by seccomp or
-> -	 * ptrace so that system_call_exception() can skip the syscall
-> -	 * unconditionally, even when the user requested syscall(-1).
-> -	 */
-> -	set_thread_flag(TIF_SYSCALL_RET);
->  }
->  
->  static inline void syscall_get_arguments(struct task_struct *task,
-> diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
-> index 4df3f4b5bd56..f4f35314a901 100644
-> --- a/arch/powerpc/include/asm/thread_info.h
-> +++ b/arch/powerpc/include/asm/thread_info.h
-> @@ -110,7 +110,6 @@ void arch_setup_new_exec(void);
->  #endif
->  #define TIF_POLLING_NRFLAG	22	/* true if poll_idle() is polling TIF_NEED_RESCHED */
->  #define TIF_32BIT		23	/* 32 bit binary */
-> -#define TIF_SYSCALL_RET		24	/* syscall error value set */
->  
->  /* as above, but as bit values */
->  #define _TIF_POLLING_NRFLAG	(1<<TIF_POLLING_NRFLAG)
-> diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
-> index fbefe1927b10..ec81046e9eb5 100644
-> --- a/arch/powerpc/kernel/syscall.c
-> +++ b/arch/powerpc/kernel/syscall.c
-> @@ -19,13 +19,17 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
->  	syscall_fn f;
->  
->  	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0))) {
-> -		clear_thread_flag(TIF_SYSCALL_RET);
-> -		return syscall_get_error(current, regs);
-> +		/*
-> +		 * The syscall was skipped by seccomp or ptrace, which have
-> +		 * already stored the result in the user ABI form via
-> +		 * syscall_set_return_value(). Hand it back in the form
-> +		 * syscall_exit_prepare() expects: -errno on failure, else the
-> +		 * value in r3. Using syscall_get_error() alone would drop a
-> +		 * successful value, e.g. from SECCOMP_USER_NOTIF.
-> +		 */
-> +		return syscall_get_error(current, regs) ?: regs->gpr[3];
->  	}
->  
-> -	if (unlikely(test_and_clear_thread_flag(TIF_SYSCALL_RET)))
-> -		return syscall_get_error(current, regs);
-> -
->  	if (unlikely(r0 >= NR_syscalls)) {
->  		if (unlikely(trap_is_unsupported_scv(regs))) {
->  			/* Unsupported scv vector */
-> 
-> 
-> 
-> Regards,
-> Mukesh
