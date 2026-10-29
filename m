@@ -1,87 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793263476;
-	b=DMSR0ar6Ba/Gyn5kDjFFKfMS3vvmMcr1Xw9mLEqtAuhAGTg4gEwS7IXpOiJqvR5/KHzQ
-	 p39uq4xwT3J00sJlRZ9EGrE6hMmB10Q/HF2wOEjWVgL3hXxCWF81D64sBfyNrmaceNkK4
-	 v9c8Kz/lAlW9XhQ/SHPgrmBUlGUgHY14VXQqi76Riw+eC/E9n0q+81aHfusrTN/xG3fdY
-	 TEfHjoayxYiYvcviQnzqg80ijlaPY/TMiuw/kHZoq2PPeDhNvdV0Q7WrkEhfhc4X8cJlp
-	 Kc6n7mJEN5t+Nk0bzGT55BByYUkQ4H18OLLj5nF4BE2/0UqvL/UFHFVCfgEuum2vW+A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793263476;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=/oWraMZQPV6fMMEjMwIgrElFPlULY+ClRBpUMakebME=;
-	b=02GvyR4uN4qTKIkJ0NiO9PdF+s1mfZf12vj0Xx8YlRokuvWcBoKDjFgyodhFkOa+FvC3
-	 PWsmfbgwBPhZGSPuYKdpMaigvgfHgQjNTjJhJpJVbia+5Wy4u5IsCl+BiPtRQGv5+FiUM
-	 Y9r2syk3eAiKlYCyi91vJeNxyOLqkc5XWVr/AQzuHBrboPEZW5XTnOjN3vbQxAbm32J0E
-	 +EUlMi82Q2Kj0YNRjwPP1IVOt/qu2CmDi6YQgbNOkVyr0uQq8kVhsD4/e5BJx/D8Bmwwu
-	 SJJu8vBFJU/i89H/QQrmPUwE1S+XqVl4HGhdbzk2/T2CUP7SZPURoSxpL9K7rvY08+A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="N/YldqI7";
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793263559;
+	b=1/Hnv3hXlzAH33Fd+UjsfzzBDswWHLkomSqOQdVmWIi+RJNtEDaqxK2OFG2v5iGIg2tZ
+	 FDH1EPP7SIUCV9pYEmBKcFE+gIg3+1Xlb7DUVJzQ2T27I1OLx3qrsExB0d2Zsqa15LCZk
+	 V6RN1K1gVJBdsW6/3HqYRTztjfgKYW5SpndEU75fuXcz5pdsF/W6rYjHnIb61ht8UdaD1
+	 bTsOAspGW9lL3Wufz2h0UW/s6XNWZmxglCtvvqB7H1zVA8v60TkLR57+GzvMlH2/gzv/u
+	 MrrStQt4lZm9zV0vFvwoLQTZSklefKxRbg4+O7qZi6cV++xCrql9cQlcs63cDyLB1aA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793263559;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=PAqiTMoWWwPC+iS0a6+A9B2UUx92tJTBgbIRi8GYKxc=;
+	b=h735s2/4G8+QrJ4dqfPs2KbDYWzSWiHTSqcKhxu4Vq7x9coSKE3v/QS4tRGbICqCPXx0
+	 j1vo4FczoiZP6YqXM6zJoF8K8fEPFO4sMu7kmiOUwqBdfWkTrD0LhVHB9CI8fc1UXqdj4
+	 75nkBM1udZitdXguymwFzeqR9G3ZXRSaiISfwGn4drsoyYzS7nA21PzVD6kQHiZ4UukMt
+	 wr57Azm/XOIQtK/smSWnyrGNmsgQ1+7uUZMwnvOo+3u7nzC1c7OUkcEynzh7XvM1B7GZp
+	 C9oHUbVbBZrTEg/iFrgaftBtW+X/CTKjMsKvgzE1xrA4jljmPW9GtVLIFTPb4bOxKdA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=au0UfRoZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.52
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FFA0606A31C;
-	Thu, 29 Oct 2026 08:44:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FFA0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2322F606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:45:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2322F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N/YldqI7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793263475; x=1824799475;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=zP6j9o6F/w03axY+MsD6UxM7gNTFpqrQ1pytm/sRx+k=;
-  b=N/YldqI7ne2V98PNHu6FXMXomdG9cX9o9cei0knZRPnhzS9ANauYcKxs
-   g9Lbc8aXnAGnJGji+3hS5sP5IHfxrVQ7/0eLI9slrjmBxPpIOlfpiWFL4
-   6Tc0DQkrvNBO6ukCp1UvDbEr3DLOYddyqZXT5n61Cwuju1t2nvdwghm5n
-   geUrS+vsgGxR9JDSsZK+8nnNwW1HLEZINriC7usDVTt20B+m7a12Rh7ks
-   bIvlAX7QY8EfVhCmvzt266Z5UstxKvqtmqLd4QQL+bvRa9e/aiw298m3T
-   QMChIara4DR2ODRVRQYnHQjxo1yeW4BblGG11tDLXnYoLP7DzAOv3qsf5
-   w==;
-X-CSE-ConnectionGUID: F9urCpzVSbeJAwhG/kfrYw==
-X-CSE-MsgGUID: kF81pAjhTz6Y7LirktJ+PQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1883081"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1883081"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 01:44:34 -0700
-X-CSE-ConnectionGUID: 4rCsOan0TAGSv25eri71LQ==
-X-CSE-MsgGUID: rzUW03PeSzOCgCTooWn4jw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="4986244"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa005.jf.intel.com with ESMTP; 29 Oct 2026 01:44:31 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xMLkK-00000000Zqq-0ZYA;
-	Thu, 29 Oct 2026 08:44:28 +0000
-Date: Thu, 29 Oct 2026 16:43:48 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>,
-	David Howells <dhowells@redhat.com>
-Cc: oe-kbuild-all@lists.linux.dev, keyrings@vger.kernel.org,
-	Eric Biggers <ebiggers@kernel.org>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Thomas Graf <tgraf@suug.ch>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, linux-kernel@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v3 5/6] KEYS: Replace assoc_array with rhashtable
-Message-ID: <202610291634.MckYHsJq-lkp@intel.com>
-References: <20261025001105.1824178-6-jarkko@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=au0UfRoZ
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-8470d7d430fso849900a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:45:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793263558; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bHN+DKf84DIm+8JFz6jmZMEx8x07SWzcBtgV7cCCoWymeZKlC/AWT3BBZDsjFximp2
+         0J2hZ0GOdCsBh9JSqBauP/Mm5Yi6x4PjQkaxnGKAWzfWyrDZMp5Xe7ZFNnMSeODOk61p
+         U9tFWb3D5uyCOBdrLCHqyS7iR2PaIOZ8Ant5ZVLdA4hftvCjn3i9LYisAlJWrUQmN8le
+         tgKUEc6Qv5XJAY/cDL0kpdK252VSjxLwDsPvuL6W+XNXIkz58OF91Cu4ToeIrA3I1zdu
+         OwV8ui8nZ10WSIk6FeWs3cZBJzYGbAPFOp429fIq7pfvnH2qXqBGZPArluEXCFVJG9yy
+         K13w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=PAqiTMoWWwPC+iS0a6+A9B2UUx92tJTBgbIRi8GYKxc=;
+        fh=ztpYN5f53DNTlQrfPU6SqENMCwbfunfm7haWtlFEmMk=;
+        b=C5sUCq50u0ekhdJVfT1L/2TRRlSgCGmbiVIXZ53hJyUejFcVhFcLKQKHa4YgyHr/tW
+         tQmmDhVNoxm5O6USk30LtNoTUoAIbeCtKs7xbeAA98p3/5P0aeyHDHqkqvjCzxgJO8TV
+         LdKeCiWTvfui82GxDqeuSwCCicooTVbROYC3EAVBDhFwF5zXnJLIAP1YyOMVTC2JMfWp
+         IlSvt/LDjk5o6zhvLsdsbuMNAWPFP1ZbFK756gC8eweT8iwPgyZvfugipl+Tpn1emtcQ
+         HeuErlBYduYTB9lCoBrN4TqlGhYadTepWoSMgKKwa7NISiWgcOeVKpnhkDUIw19mC8tI
+         MvtQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793263558; x=1793868358; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PAqiTMoWWwPC+iS0a6+A9B2UUx92tJTBgbIRi8GYKxc=;
+        b=au0UfRoZT9OZ+PogXKMiA/a4a83jjA29tx9LOXcH9z6NDNHLMfjOwwveXDPGNs2LCK
+         I2hkmGMaPmoMZZnrglEFIFGXRWYhyGowSoMs0ZwlWNWYIJL5VqKo2p67y4Ni5ouO9+xj
+         AUBt/yhhEV0Rjots/ox7C5fw/JvfzQMQ6qLqbbc1nP6ijbLbGUoa4cSyboqDSsCTSSPp
+         SAWcQFZWU2rvqV44Igv+sGf2zpyt/XU5ylZHGjYwPEhK1Gf4rSj6phkcwNpjQSWOUUbg
+         gnB+obPQ1DJMaIcPgS5iQatWb0gpH3K1SP41tpP4rcxE1w22oXLjG0w9tlk+j7Ct0KiG
+         f1dQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793263558; x=1793868358;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PAqiTMoWWwPC+iS0a6+A9B2UUx92tJTBgbIRi8GYKxc=;
+        b=jmYJtD9mOZKzBR8JdyW0AGtYi/k9tnjAjIhLfEY0XGm7Xd5YDmEVOCsJvnQFzoGbmb
+         MFjwKEyWhhBHuaHOs0MqbzJVw8c9SXcV4y7sC1Bi+5U3NT3PX9m37ipqnUFiY/2L4vPa
+         +sNOVv/b98YdMqO0IMOiyp2A4ahkJgrzO3OyxAe1RQUd9tchCoC1aesvN1V151Wh4HP3
+         p9CAVCkhurp82pFhKAbL/STmLeF5/K3QmUe8oQRSHCOBPQDN4lEeBFI/zDf3p4ZwPfwB
+         pisZ8zb7TVCGCTRIb9lZeLJ9zX/uT/i6jVR7Y4nuy/Mei/LZEV7J0sLi38RyQxfHBr8t
+         Ba5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxIYRW3BKMpgzVD020a6y1EqIrVHlcUHUQPMIb3iIhZGZU630W5KFtNbOVlEK6WK/X9TmKakCPePftrf6E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZnvSot/POsDfAwDs1gHQpmonedgLMIP6mGXuOB8Dc0jm8QJJ6
+	zS9iyWW1xK3z7bn0BGT3NxkmnNSq1GiRSqA1gKhGhzEzCS1XVknK2J/ITy1ZXBgHUXxh+pyQ6a5
+	ZPS/Cs+hY+PjOdLfFNQP6t/ALS226Y0YShMfsooc=
+X-Gm-Gg: AYBFou3ySV2jYbaEr3ERx3EFUWjGfTRkyh10i40JSLtL7ob0I4ayvBrs6PzctDB1yfi
+	qXcMVzfiCapEiKLH6ytSMS0LKFnNLHuhTAqbB9TGbaPdPOt1QS0fQPFpXJk+taafDwrHnB7l67c
+	qMjrgktRYAd5McIkbk8oq6XpB7ezwXj5mSBvAS/OqvIjfBJzycSO0lrSDuR0Roi9chOQcCwptKU
+	ipcLNQXxG3CLjqtwytFCiS8+NAXw+f3h5nQZ2/Tg/pgzJKaLOVzXLradpCVwAedQCqitFHKKA6R
+	MgJAso9WAU1ETqTu9y8Tf9vVMCVaEaCCVJx+9LSFAUrCrU4y7+sl00LGNb4bdsZN08j8J7YclaM
+	r4ZaXXStFOxRtYRiRN1cpnZH7qkJIzF3XcxQB1ieFnW2CEn4io10/F2MTLOcxtR+mvxNCwv0=
+X-Received: by 2002:a05:6808:15a4:b0:4f1:5068:b95a with SMTP id
+ 5614622812f47-56382c84c84mr2564899b6e.23.1793263557980; Thu, 29 Oct 2026
+ 01:45:57 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,190 +103,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261025001105.1824178-6-jarkko@kernel.org>
+References: <20261027073719.4010659-2-thnkslprpt@gmail.com> <undine-1793236109048848648-013753fe98f18601@undined.local>
+In-Reply-To: <undine-1793236109048848648-013753fe98f18601@undined.local>
+From: Avi Weiss <thnkslprpt@gmail.com>
+Date: Thu, 29 Oct 2026 10:45:45 +0200
+X-Gm-Features: AclHuK-zrLquvdqJ3SzSpP7uOV6gERwOur8Jmu30wRw3AWJ2QAkVsioGlaIaVTY
+Message-ID: <CAKOB7-ZixMNzdcizYL9Re+zp1HMO1kfr87PHytAmwmBOx7zKEA@mail.gmail.com>
+Subject: Re: [PATCH] init/bootconfig: pass init arguments in documented order
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, linux-trace-kernel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Jarkko,
+Cool no worries. Makes sense.
+Thanks Masami
 
-kernel test robot noticed the following build errors:
-
-[auto build test ERROR on linus/master]
-[cannot apply to akpm-mm/mm-nonmm-unstable manguebit/cifs-next manguebit/cifs-fixes device-mapper-dm/for-next fsverity/for-next fsverity/for-current shuah-kselftest/next shuah-kselftest/fixes dhowells-fs/fscache-next dhowells-fs/keys-next v7.3 next-20261028]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Jarkko-Sakkinen/KEYS-Expand-key-datalen-quotalen-to-unsigned-int/20261025-031009
-base:   linus/master
-patch link:    https://lore.kernel.org/r/20261025001105.1824178-6-jarkko%40kernel.org
-patch subject: [PATCH v3 5/6] KEYS: Replace assoc_array with rhashtable
-config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20261029/202610291634.MckYHsJq-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261029/202610291634.MckYHsJq-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610291634.MckYHsJq-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   In file included from <command-line>:
-   kernel/bpf/keys.c: In function 'bpf_lookup_keyring':
->> kernel/bpf/keys.c:32:35: error: 'struct key' has no member named 'keys'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |                                   ^~
-   include/linux/compiler_types.h:682:23: note: in definition of macro '__compiletime_assert'
-     682 |                 if (!(condition))                                       \
-         |                       ^~~~~~~~~
-   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ^~~~~~~~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:36:9: note: in expansion of macro 'compiletime_assert'
-      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
-         |         ^~~~~~~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:36:28: note: in expansion of macro '__native_word'
-      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
-         |                            ^~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:49:9: note: in expansion of macro 'compiletime_assert_rwonce_type'
-      49 |         compiletime_assert_rwonce_type(x);                              \
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   kernel/bpf/keys.c:32:14: note: in expansion of macro 'READ_ONCE'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |              ^~~~~~~~~
->> kernel/bpf/keys.c:32:35: error: 'struct key' has no member named 'keys'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |                                   ^~
-   include/linux/compiler_types.h:682:23: note: in definition of macro '__compiletime_assert'
-     682 |                 if (!(condition))                                       \
-         |                       ^~~~~~~~~
-   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ^~~~~~~~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:36:9: note: in expansion of macro 'compiletime_assert'
-      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
-         |         ^~~~~~~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:36:28: note: in expansion of macro '__native_word'
-      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
-         |                            ^~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:49:9: note: in expansion of macro 'compiletime_assert_rwonce_type'
-      49 |         compiletime_assert_rwonce_type(x);                              \
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   kernel/bpf/keys.c:32:14: note: in expansion of macro 'READ_ONCE'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |              ^~~~~~~~~
->> kernel/bpf/keys.c:32:35: error: 'struct key' has no member named 'keys'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |                                   ^~
-   include/linux/compiler_types.h:682:23: note: in definition of macro '__compiletime_assert'
-     682 |                 if (!(condition))                                       \
-         |                       ^~~~~~~~~
-   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ^~~~~~~~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:36:9: note: in expansion of macro 'compiletime_assert'
-      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
-         |         ^~~~~~~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:36:28: note: in expansion of macro '__native_word'
-      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
-         |                            ^~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:49:9: note: in expansion of macro 'compiletime_assert_rwonce_type'
-      49 |         compiletime_assert_rwonce_type(x);                              \
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   kernel/bpf/keys.c:32:14: note: in expansion of macro 'READ_ONCE'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |              ^~~~~~~~~
->> kernel/bpf/keys.c:32:35: error: 'struct key' has no member named 'keys'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |                                   ^~
-   include/linux/compiler_types.h:682:23: note: in definition of macro '__compiletime_assert'
-     682 |                 if (!(condition))                                       \
-         |                       ^~~~~~~~~
-   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ^~~~~~~~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:36:9: note: in expansion of macro 'compiletime_assert'
-      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
-         |         ^~~~~~~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:36:28: note: in expansion of macro '__native_word'
-      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
-         |                            ^~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:49:9: note: in expansion of macro 'compiletime_assert_rwonce_type'
-      49 |         compiletime_assert_rwonce_type(x);                              \
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   kernel/bpf/keys.c:32:14: note: in expansion of macro 'READ_ONCE'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |              ^~~~~~~~~
->> kernel/bpf/keys.c:32:35: error: 'struct key' has no member named 'keys'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |                                   ^~
-   include/linux/compiler_types.h:682:23: note: in definition of macro '__compiletime_assert'
-     682 |                 if (!(condition))                                       \
-         |                       ^~~~~~~~~
-   include/linux/compiler_types.h:702:9: note: in expansion of macro '_compiletime_assert'
-     702 |         _compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-         |         ^~~~~~~~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:36:9: note: in expansion of macro 'compiletime_assert'
-      36 |         compiletime_assert(__native_word(t) || sizeof(t) == sizeof(long long),  \
-         |         ^~~~~~~~~~~~~~~~~~
-   include/asm-generic/rwonce.h:49:9: note: in expansion of macro 'compiletime_assert_rwonce_type'
-      49 |         compiletime_assert_rwonce_type(x);                              \
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   kernel/bpf/keys.c:32:14: note: in expansion of macro 'READ_ONCE'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |              ^~~~~~~~~
->> kernel/bpf/keys.c:32:35: error: 'struct key' has no member named 'keys'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |                                   ^~
-   include/linux/compiler_types.h:635:53: note: in definition of macro '__unqual_scalar_typeof'
-     635 | #define __unqual_scalar_typeof(x) __typeof_unqual__(x)
-         |                                                     ^
-   include/asm-generic/rwonce.h:50:9: note: in expansion of macro '__READ_ONCE'
-      50 |         __READ_ONCE(x);                                                 \
-         |         ^~~~~~~~~~~
-   kernel/bpf/keys.c:32:14: note: in expansion of macro 'READ_ONCE'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |              ^~~~~~~~~
-   In file included from ./arch/x86/include/generated/asm/rwonce.h:1,
-                    from include/linux/compiler.h:391,
-                    from include/uapi/linux/filter.h:9,
-                    from include/linux/bpf.h:8,
-                    from kernel/bpf/keys.c:4:
->> kernel/bpf/keys.c:32:35: error: 'struct key' has no member named 'keys'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |                                   ^~
-   include/asm-generic/rwonce.h:44:73: note: in definition of macro '__READ_ONCE'
-      44 | #define __READ_ONCE(x)  (*(const volatile __unqual_scalar_typeof(x) *)&(x))
-         |                                                                         ^
-   kernel/bpf/keys.c:32:14: note: in expansion of macro 'READ_ONCE'
-      32 |         if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-         |              ^~~~~~~~~
-
-
-vim +32 kernel/bpf/keys.c
-
-abaa0835b4f3810 Daniel Borkmann 2026-08-28  25  
-264d8fd2794fabe Daniel Borkmann 2026-08-28  26  struct bpf_key *bpf_lookup_keyring(void)
-264d8fd2794fabe Daniel Borkmann 2026-08-28  27  {
-264d8fd2794fabe Daniel Borkmann 2026-08-28  28  	struct bpf_key *bkey;
-264d8fd2794fabe Daniel Borkmann 2026-08-28  29  
-264d8fd2794fabe Daniel Borkmann 2026-08-28  30  	if (!bpf_keyring)
-264d8fd2794fabe Daniel Borkmann 2026-08-28  31  		return NULL;
-264d8fd2794fabe Daniel Borkmann 2026-08-28 @32  	if (!READ_ONCE(bpf_keyring->keys.nr_leaves_on_tree) ||
-264d8fd2794fabe Daniel Borkmann 2026-08-28  33  	    !READ_ONCE(bpf_keyring->restrict_link))
-264d8fd2794fabe Daniel Borkmann 2026-08-28  34  		return NULL;
-264d8fd2794fabe Daniel Borkmann 2026-08-28  35  
-264d8fd2794fabe Daniel Borkmann 2026-08-28  36  	bkey = kmalloc_obj(*bkey);
-264d8fd2794fabe Daniel Borkmann 2026-08-28  37  	if (!bkey)
-264d8fd2794fabe Daniel Borkmann 2026-08-28  38  		return NULL;
-264d8fd2794fabe Daniel Borkmann 2026-08-28  39  
-264d8fd2794fabe Daniel Borkmann 2026-08-28  40  	bkey->key = bpf_keyring;
-264d8fd2794fabe Daniel Borkmann 2026-08-28  41  	bkey->has_ref = false;
-264d8fd2794fabe Daniel Borkmann 2026-08-28  42  	return bkey;
-264d8fd2794fabe Daniel Borkmann 2026-08-28  43  }
-264d8fd2794fabe Daniel Borkmann 2026-08-28  44  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+On Thu, 29 Oct 2026 at 03:08, Masami Hiramatsu (Google)
+<mhiramat@kernel.org> wrote:
+>
+> On Tue, 27 Oct 2026 09:37:20 +0200, Avi Weiss <thnkslprpt@gmail.com> wrote:
+>
+> Hi Avi,
+>
+> Thanks for fixing this! This looks good to me. Let me pick it.
+>
+> > start_kernel() appends command-line init arguments before
+> > bootconfig init arguments, while setup_command_line()
+> > places them in the opposite order. As a result, the
+> > arguments passed to init do not match the saved command
+> > line, reversing the intended precedence of options.
+> >
+> > Parse extra_init_args before after_dashes so command-line
+> > init arguments are passed last.
+> >
+> > Fixes: 1319916209ce ("bootconfig: init: Allow admin to use bootconfig for init command line")
+>
+> BTW, the Fixes: tag should point to commit b66fbbe8d482 ("init/bootconfig:
+> Reorder init parameter from bootconfig and cmdline").
+>
+> In commit 1319916209ce, both setup_command_line() and start_kernel() placed
+> extra_init_args after command-line args. It was commit b66fbbe8d482 that
+> reordered setup_command_line() so that command-line init arguments come
+> last (to allow cmdline to override bootconfig), but missed reordering
+> start_kernel().
+>
+> Thus I will change the Fixes tag as below.
+>
+> Fixes: b66fbbe8d482 ("init/bootconfig: Reorder init parameter from bootconfig and cmdline")
+>
+> > Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+> > ---
+> >  init/main.c | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+> >
+>
+> Thanks!
+>
+> --
+> Masami Hiramatsu (Google) <mhiramat@kernel.org>
+>
