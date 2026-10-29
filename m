@@ -1,86 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793285085;
-	b=UO7NOrQ4NJwHErOeU6MI81H9qCs2fE+nW3gLPilZcjIkidVusZI9r7pipC9ReeI9AmHj
-	 EjLOU5mlb/dKOTP0GmgYttjTAb+B7OWsNgjF5PPBv8lyiFYocWnKsZKuVCQ+4a1n6Griv
-	 QD3tvaw5jqA9afez04H8dauVKnm6aFWu13rYkZrx8bZ6u8hPWFY9ro4u+gAA5Q4pN+Rp/
-	 DbX1WzsenvbldnmEK7Zkgn3dEw4KL90RJSpJeXM7ij7jpKknOBqKJrFZFz/y1/2SP1qm1
-	 ybzqXogPc8mwwn7G7ASCCebNbr07VL8M3B8WUQ1udTdqyGBqmPMzHNQJUZ+gmKmwSXg==
+	t=1793285086;
+	b=CJiPznIVUYMiR0MtVkr2q8tuk9MVEWdnL9Jy+p8TTIKAjBPNlA1DyLpmEyEanWv5z14E
+	 CJSPdYZK+UKd47ITCngEH6J3eLBQCdCn+s1cftYPHV4xC7hSyUWFJbhFnnEc+LOeyZWgV
+	 aOO7wO0uCSnqcKDrRMW45myLFp1HP/d7JZIp8qlZQyRNpOJ/+W//WGFJVXIUcznYGXkuC
+	 7q9XmxVniXlB6N3ylgHbJBOMfIZvmAGdWeIid5ig3JjRVIpMI20oWfVCR5ciUYkRuuyfR
+	 TFtlfk7RC+GZQGSuY2mZUGX0YsgaiWZX1PdqhtJg4SUY8rsSdUGoqZUvR43HNsXcs+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793285085;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=VXJiIJztfvKEYzgXyd91oDviaSHCAjxYzQPx+8XFimc=;
-	b=O3DfApwIDGHdNJ+fmDf1yoAb9MPC8/MapVSObHkYJjxLMiMa/JMWRk4TsLPafGmQ4J/j
-	 811KQpTY5BYVbI1SSM0pAAcSZKO/ftsPcFe/GxfgnDzcqr2migfvUzlDHr0zXzXvjvuSa
-	 pV2Apa9Ef3X+P5+SwzkvctioC6Whc+AXYVJ7CXdKGk8ExWqAynOzK6j5fJU3iekYwTAso
-	 Dag0Y/gqheYxIRNBRZ/4HOqVxBfkoK37jC0qa5TAMUarH87+y1UuYkhpVrMa248czMAqF
-	 /x6Y77yTeO6s/cTZedKDPBhcxXl23TB7y249z45ygasMFqHl81Qd3y04ffuVvF6ewEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793285086;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Pre-Result:X-Rspamd-Queue-Id:
+	 X-Rspamd-Pre-Result:X-Rspamd-Action:X-Rspamd-Server:X-Spam-Level:
+	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score;
+	bh=46myARG/OGWuh/nw73XrNi2XTON/aEAFXw6IJmuSHJY=;
+	b=Ck8UkT6moreDITh1wd0M7h0f5S++V18nFVNzK6UtkHRezCFwRsRBoJ0vZ0nS5n0ljFc3
+	 zcogdQXsiyCkIzfhKwauCaqU1sgIzib7dQw4/0yRA92nF4PAT1hR0OUIOAE1racYE73og
+	 8hu/qiq/FXq8IwKcgDuc8YzXMiBui2QAUOIUqW/JI8wP2JkFqfc91J0jGdcEv+H/1eeJg
+	 SNDhmzRzXHGwaTAuO6auS3JjUU2Y5pJDh2xXxCfitu11tKIcrNwnrtGfWcC+l+hkzXYJn
+	 z/FYA1qa9XRs4hMLSpFYOtODkuBQzkkRoFzClbmCVXQyzZCWtMAxSHoqydhnHyvmJmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=f35w1GXN;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64BB606A329
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:44:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B64BB606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=f35w1GXN
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so19902275e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:44:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793285083; x=1793889883; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VXJiIJztfvKEYzgXyd91oDviaSHCAjxYzQPx+8XFimc=;
-        b=f35w1GXNb+QP3vb1z/ZT4B9wxGtYH3rCUt78LQMgmP14X/rgFyiKTLepY9jvV7Ntkz
-         rolvC3pUztbkQQFX73wE06y9kP00UY1/mHlLshrZUbGqmUrPAIF1IZZGFFSLHF1HeoaO
-         meNgj5byKe2ntEP7bZOmVVl9z/8qWRTwo8R9XQFOq3brfm0pntzSg2oTHi8YB3XfDabD
-         czmZ2dSvLzi/f3IlDItTAHSkUfm8wnR4HG237kx889Q48ee3Eicf5UJnNVWVTRKD8V2h
-         LsHO9hTjEZa34zvE8owpPVPwNOpKjX/Cd0zF1Ma2MfXcytH+3pirIJFUbvFBF8ekSX05
-         VQMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793285083; x=1793889883;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VXJiIJztfvKEYzgXyd91oDviaSHCAjxYzQPx+8XFimc=;
-        b=REOp18KQWKKJDAf7q0aMw98rfsm1MzvtvyVMzMB+DcUZ+4k1kssqtcX49ZFzedoT0p
-         uZakDloMxzRD2LF7SsFr46dMLRyepOLYbqa1ErrZxDU73MLomwX5yP5Xp9I+qd74Kx8C
-         GepjYRcNK2rmMtzuBp68c+VTgWkou7c815nbtPOfKACAMgd4CItX3s8TUcjz6w8nV/ea
-         gWBAey5LpQ3DphjQnsG5JtfOIgah0xoNiuvdfciXpputiSnA6CUnYHwd2GaOEXikeVrz
-         mzQZQUk0+CckpXiSi5pN54OkGNGLtCBOuSFex9prFmgxs/xwuknTyhL2JpuDoKF1rd85
-         449g==
-X-Forwarded-Encrypted: i=1; AKwUvBx6Y8VKFFGypiRUYoi0T2rOzb43DbKMZTNHYOqPYhFGsGr6mr0nbdEMIsXcz5w/drkJeoxRvoIelFdx04U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBg+K3s5+KsCbPByWdPuE0b26TMAvl+yvtCMgrtR62YIoWaGJQ
-	ii0lUYgPr1DDp/uOngX7plAfdi7DKW8KkK9Eh+U6TPRkJWy+Fp+HWqo9QTsHfyrQg58=
-X-Gm-Gg: AYBFou0suZZLIs/jSvT9P0Xu5jnUNAxojZ1sFe5hKbfWUrOyTDF3bku19Vh84LZU1xO
-	X+cT/6VJNRqQGYrMzhvQK8BczTI77jP6ISJwh9XjumxKKmLskat7kXlYsOQDT6NKd9obAasryz8
-	GkNxOlWBsNAjgesC04p0jfV0xzdl56tBJnGZtZJk/VRA/R+53JkQl8C5X4Z7bf9KWbLfXj8ah1s
-	xGwU7qkAvJMVd2FncbqEOS18HegcaNWZQbPix/QdU6ScNQUSaZOstYuMYuV6sxb8hdE4sQOMTr7
-	hl2Id8oAXu1FVk8btFjdm0BvtWAr0uxbBdTUf/YWvTi4QACsbvdmDvym3B7k0l8ZyEfmBzWZ/y0
-	RiPIj2QRrG4ONJrYKSCdFKO6Fchkm2xg/m/Awajp1QMeDFXs+pc1G771eoSlO3Rg96VcBYSupSj
-	LXkxbhjKKj2m1MTX5tkw14hUftjwg3bQpkgOvzBjB9FpfN1fZRC4P/dH+sNju4Sy1ndHNONfJs2
-	sWvXarUzFHaVsh1gjQXaVi76N+/bKPPXS3JQXU1eeUZdPUQ91ZXda8V6Zv3O5OU64BkghOTU7gP
-	RnxVibxHAv/XwygTD2+StUe7VTUZYKk/CJOmVNKc
-X-Received: by 2002:a05:600c:4445:b0:4a3:5a91:5f64 with SMTP id 5b1f17b1804b1-4a9674e5f2fmr123956765e9.27.1793285082985;
-        Thu, 29 Oct 2026 07:44:42 -0700 (PDT)
-Received: from [192.168.0.167] ([64.43.45.156])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a96a32eef4sm80961585e9.3.2026.10.29.07.44.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 07:44:41 -0700 (PDT)
-Message-ID: <22d2cfcd-045d-48dd-bbde-c1ac2d958737@linaro.org>
-Date: Thu, 29 Oct 2026 14:44:40 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C28606A31F;
+	Thu, 29 Oct 2026 14:44:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29C28606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A3EFC2210B;
+	Thu, 29 Oct 2026 14:44:44 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0F45A1339F;
+	Thu, 29 Oct 2026 14:44:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id iNqFENhb42qRUwAAD6G6ig:T4
+	(envelope-from <clopez@suse.de>); Thu, 29 Oct 2026 14:44:44 +0000
+From: =?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>
+To: kvm@vger.kernel.org,
+	linux-mm@kvack.org,
+	seanjc@google.com,
+	pbonzini@redhat.com
+Cc: linux-s390@vger.kernel.org,
+	imbrenda@linux.ibm.com,
+	=?UTF-8?q?Carlos=20L=C3=B3pez?= <clopez@suse.de>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [RFC PATCH 3/4] KVM: plumb MMU_NOTIFIER_RANGE_PERM_UPGRADE into kvm_gfn_range
+Date: Thu, 29 Oct 2026 15:33:36 +0100
+Message-ID: <20261029143336.390231-6-clopez@suse.de>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261029143336.390231-3-clopez@suse.de>
+References: <20261029143336.390231-3-clopez@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,107 +74,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/14] Add SOF/EOF sequence logic
-To: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
- <05313835-c868-45b1-b246-f98cfb8a1d6a@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <05313835-c868-45b1-b246-f98cfb8a1d6a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Queue-Id: A3EFC2210B
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
 
-On 29/10/2026 13:28, Gjorgji Rosikopulos (Consultant) wrote:
-> Hi Bryan,
-> 
-> On 10/29/2026 11:55 AM,bryan.odonoghue@linaro.org wrote:
->> This series enables SOF AND EOF event tracking making use of both events.
->> Whilst the code is actually very simple the functionality we want to build
->> off of that simple code is not.
->>
->> - SOF
->>    Serves two functions. Firstly. Informing user-space of CSID SOF events.
->>    Standard Linux V4L2_EVENT_FRAME_SYNC is trigger from this event.
->>    User-space wants to capture this trigger because it allows user-space to
->>    better align the time a frame begins to events elsewhere such as IMU
->>    event timestamps.
->>
->>    That functionality is directly applicable in this series.
->>
->>    However we will also build on the SOF event in later patches to allow us
->>    to begin programming of shadow-registers for the next camera frame.
->>
->>    When the EOF event happens, we switch from one shadow bank to the next.
->>    This is only possible if you have the SOF event.
->>
->>    So SOF serves the immediate purpose of timestamp alignment in user-space
->>    as well as the 'evil plan' to trigger off of it programming camera
->>    parameters for the next frame.
->>
->> - EOF
->>    EOF even on its own is useful because it allows us to increment
->>    vb.sequence for each frame as per the spec not just when we have
->>    buffer-data.
->>
-> It is great to finally have V4L2_EVENT_FRAME_SYNC support in CAMSS. 🙂
-> 
-> I would like to share my opinion on tagging vb.sequence at EOF.
-> 
-> The EOF event is received from the CSID decoder when the EOF short packet
-> is decoded. In contrast, buffer completion is reported when the write
-> master has finished writing the corresponding buffer.
-> 
-> Because the processing pipeline includes buffering and line buffers,
-> buf_done on the pixel path may be received after the EOF.
-> Conversely, when cropping is enabled on an output, buf_done may be
-> received before EOF.
-> 
-> That is why using EOF to assign the buffer sequence may result in inconsistent
-> sequence numbers across buffers.
-> 
-> I would propose:
-> 
-> SOF
-> Increment the frame sequence and generate the V4L2_EVENT_FRAME_SYNC event
-> for userspace.
-> 
-> REG_UPDATE
-> Once REG_UPDATE occurs, we have a guarantee that the configuration for the
-> new frame has been latched. At this point, we can iterate over all active
-> buffers being processed and assign them the current sequence number.
-> The bus-write active-status register indicates which address is currently being
-> processed by the bus-write engine and could also be used to detect frame skips,
-> if necessary.
-> 
-> BUSWR_DONE
-> Complete the corresponding buffer as usual. Optionally, we can verify whether its
-> sequence has already been updated. If it has not, we can determine how the buffer
-> should be handled.
-> 
-> This approach ties the buffer sequence to the point at which the frame configuration
-> is latched, rather than to the arrival of EOF, which may not be ordered consistently
-> with buffer completion.
+Propagate the permission upgrade flag from the mmu_notifier range into
+struct kvm_gfn_range, so the unmap handler can react accordingly. The
+value is not consumed yet, so no functional change.
 
-Come to think of it, I'm not entirely sure an EOF or reg-update 
-additional variable is required.
-
-SOF.seq should do.
-
-- Reading SOF.seq @ crop is fine because the SOF.seq always preceds
-- Reading SOF.seq @ buf_done is fine ditto
-- Reading SOF.seq for params return stamping is correct
-- Reading SOF.seq for stats frame correlation is also correct
-
-We want the EOF signal but we don't need a second seqno to accompany. 
-And with one source of seq truth we don't need to change the point at 
-which we latch since pre-frame-drop SOF < everythign else.
-
+Signed-off-by: Carlos López <clopez@suse.de>
 ---
-bod
+ include/linux/kvm_host.h | 1 +
+ virt/kvm/kvm_main.c      | 4 ++++
+ 2 files changed, 5 insertions(+)
+
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index e7fc94e2910a..aa109818cede 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -274,6 +274,7 @@ struct kvm_gfn_range {
+ 	enum kvm_gfn_range_filter attr_filter;
+ 	bool may_block;
+ 	bool lockless;
++	bool perm_upgrade;
+ };
+ bool kvm_unmap_gfn_range(struct kvm *kvm, struct kvm_gfn_range *range);
+ bool kvm_age_gfn(struct kvm *kvm, struct kvm_gfn_range *range);
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index cf4cb586f140..0d0073615fa8 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -532,6 +532,7 @@ struct kvm_mmu_notifier_range {
+ 	bool flush_on_ret;
+ 	bool may_block;
+ 	bool lockless;
++	bool perm_upgrade;
+ };
+ 
+ /*
+@@ -613,6 +614,7 @@ static __always_inline kvm_mn_ret_t kvm_handle_hva_range(struct kvm *kvm,
+ 			 */
+ 			gfn_range.arg = range->arg;
+ 			gfn_range.may_block = range->may_block;
++			gfn_range.perm_upgrade = range->perm_upgrade;
+ 			/*
+ 			 * HVA-based notifications aren't relevant to private
+ 			 * mappings as they don't have a userspace mapping.
+@@ -738,6 +740,7 @@ static int kvm_mmu_notifier_invalidate_range_start(struct mmu_notifier *mn,
+ 		.on_lock	= kvm_mmu_invalidate_start,
+ 		.flush_on_ret	= true,
+ 		.may_block	= mmu_notifier_range_blockable(range),
++		.perm_upgrade = !!(range->flags & MMU_NOTIFIER_RANGE_PERM_UPGRADE),
+ 	};
+ 
+ 	trace_kvm_unmap_hva_range(range->start, range->end);
+@@ -2552,6 +2555,7 @@ static __always_inline void kvm_handle_gfn_range(struct kvm *kvm,
+ 
+ 	gfn_range.arg = range->arg;
+ 	gfn_range.may_block = range->may_block;
++	gfn_range.perm_upgrade = range->perm_upgrade;
+ 
+ 	/*
+ 	 * If/when KVM supports more attributes beyond private .vs shared, this
+-- 
+2.51.0
+
