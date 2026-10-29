@@ -1,100 +1,150 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793268019;
-	b=i8ui8CRQtj069875I118HDXSvz9uje2RKe/q/GEnh65Hek4L39p6/yRE4L/EJruOaOQU
-	 HXAD4JQxqIhoziiuOO9E/JyB3t2scNLBd+zaC7QT9M9M/Qdno3kiW1Rz38KUvKUwTYjgB
-	 Swav1p/DefCLDrwC/BaQBf5GySlEvQWGZNjlgFZqzdWzRV3MVHwAVewG+BNQPCpwhp7OS
-	 O0aLHsIH3Z00gc4yyKIW02kGuC9DSaaOsC0A4WOQ+vADLVfM9hoWdSOM9zwzZD6LSTp3q
-	 c4q888g/MyCKLDHx+3mVZDn/pVOd/SkfslysHcTBDuK8m3xrmG+WM/byzYQ+VzCk89A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268019;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=+KsF8vc4ULWHMDhPgj0bLTj8antp0LHTyec0w+asTec=;
-	b=KgXnQPih8IpdGjhLPgXEHXmTsiHb+tTtfunUiocdfbY1GLBYDzp8EHEeYe2CpYu5x5n/
-	 OeFdGe0/Oj6F08N74pP5stcUs1kqmOFpgCi1xSD4hr6qzYSZdtD0yA5C0DOqyKbiyVXZJ
-	 zctIHW/P6g2vI6/Vpv5NmZuAX6wM3ea6chIe1f2WMgLPOgdac4CqFiPJe4kZmiGhULb5G
-	 bPyUKOU0df4WI0jUQxtuLYoaPCPX8cX4jTA2qYeBuTTkvAGggr8WSDrxzaxRUp6KpMTmB
-	 JxLRG/uWydTomk9lZ+zP534m673pNtazngJA6Yjb+tIG/d1nNYsRYZGvBXne2T5IXKw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ARIrWMoY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793268018;
+	b=pWoPVbKZ85J248TH6KppbjFzH9q8PkOpxl68WraeyGHQEYmFASR13DALC9weqFSBdnNq
+	 5oEbcNLusuiv1EGruWfMVm4ggsLYPkPM/PWZX3WB/w/yCmG59phBGMGZzvPNZK8L+RiIu
+	 BAAp9K7u02N76/M9no+jxB2vTsBA2nYAhWITFcby3gJ5U1dWKhH8UdWXUNqdhgrqgRMUx
+	 eSO6yTreN/PD7AeJM/CTeIZAgnzxkXijwgUZqbCYu5sjcyqhiSHrxyzmCt9yTZAd2SXV6
+	 CZFtno9hA7Mxst2bo/0iY+Dx1Bu78xWkYxsEqfR4ZyjXGFVpvSBI58WbEOiE7te7B9Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268018;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=WKgY4TxM7jCCTLKvPKBg2Os4gMDYJkQWtwa2sp51kDE=;
+	b=WS5EjqiJMKgSJZ0gknNEhKfOMMqjviVA+hXfgCX5iqNunT37x+VLl60ro8I67cflnJOe
+	 MJjl9EVo2oYLGMVm6DMUULnun602JGi6WiHClSWKtj709IpjLdbS/o0dl9diJaw2vrlMj
+	 TGzAY8c93U7pa4Rzn0pFOofLT8nfwfS/BEv2caKMt9P3fmD+XblcKeJSHS+qS42UbjpNN
+	 0EDAvSc0N+6yG3SrBySWiaNXbYlHeXM7muqqf0/LdwKyYmKTKvIdZN7TqkbuzgvDjpBU1
+	 HdOXAAFA7tAM8JfbLUuQR0uGLCRucRh/hDUBZ3/50eL8VMQjBt8nSyYlYPlBi7haNAQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=baiCwMb4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359EC60A2601
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:00:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 359EC60A2601
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2B2606A31F;
+	Thu, 29 Oct 2026 10:00:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ARIrWMoY
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35829219da8so711402eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:00:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793268018; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oEbvZQPnXDP1amgvY3cwlsFWz88pokFTgsUT5XdceuT3+mF+AJ1r7RsQWji1j2ld24
-         VCJQNwQBpU62AYdDPZEF2GQPTLHRNt8AxKNCRpvAgsAQRLUek5aT+NOyDYmlEOeQtfgF
-         Tc/LlS4kFO1NwioO8gavfWXcasJoSV7IItkfYxGX+16FOuTbznC+FwAZiglMMhVW4698
-         l7PnOFfz+kg7C4BneuYqAW+TD7ovciNYmsqwRwI6pdg345Aw3QB9/NGcUv9AUOFgh87X
-         QS5tgRstzjyu8WBmLtz+VNA3gpMOcq6sYnsyAVLPNJg1+4dmKRTHPrXlfW38lTBAVuav
-         mHtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=+KsF8vc4ULWHMDhPgj0bLTj8antp0LHTyec0w+asTec=;
-        fh=rmRkJRcbao+VzTzrqvgz0G4WmHY8EkBtHCrAbL8vEXo=;
-        b=aa6pDqQCkrNmM1jGm7PeOsiX9TWBME8WBn1expb/I2fdaI1RC3c1k8Bk9VvJnIoX/J
-         kmRzmJumkxIpIXUBmKCLgEYQU1lOEReW9bYEYRonNR/J7dO/OFjRGPVgltXhlgqHtsK/
-         YFtyr5sK3bnthWdd2ypW6U8xJUFiqsBGnTwKG7gJR97ljZMYENiqk4NcBmeXaEHrlM2h
-         WQzi2ZZZgWjxaJCpdBeFG8FT5cApX+OxpURRv04/m/QdcGbrB6Vyd8FZIlR0QLZqWwRw
-         KEd7JA2Mc97Ad2TO0rVon03nx03wm7Ba0pA+xsQBM8P5wIJ2iE3Jf+wcvECx+sdWnoJM
-         aWWg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793268018; x=1793872818; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+KsF8vc4ULWHMDhPgj0bLTj8antp0LHTyec0w+asTec=;
-        b=ARIrWMoYuq4mUlEtGnJEbH3JHWCFIB5kUS5V8EFCUAGJviCGuN2oyTz3r202vPu/Ei
-         5ex3nTKudegs0B0S9Oiwf7IC4nQzuVuSgZIfJJtZL/B1xz6LgTdnMHiGFOFAap9ett4l
-         rG94afJIjwx5oKli87BbJLnVLu6YA/y2uTjF7TGlTArcLB4+KQbwL6mcL0yEf+ebpNJ/
-         oI4JSlyw5lYiiFSJBWhK4uWv9YAKqpr3Xb0pY4JBqFPVtu/cIfOd7i5uoVr4IYRjz20O
-         Q+oO15QAmaGvb+H7YTL2BDoScdSLeW7jbtzo4vOKv5SC48Z9nAWErtEum8qbsVBhbfBY
-         c+Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793268018; x=1793872818;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+KsF8vc4ULWHMDhPgj0bLTj8antp0LHTyec0w+asTec=;
-        b=fqkpMNTbyNubTdKOSqT5ueFZuJnh/Ne/XXgCYEjK7qALgOPEE264/TShQUrkbm+jP0
-         DgdKpFup3DuEN32WF85as4iy3vVQcN+jUoeTOd9NjfzmGvGlA/r9hE0OO7DvT6xDHP9S
-         QyOeQL1Ad1y2NfsiAqunM+N/OzagMxtgYI1Gy8OP52H1BKv1phwOUV1rvPRUe8MKl7rY
-         xqDbnlOmjQQn4B9+AyY3WCSsYTf/lhpT6wAjOkORU5HMqbY5qjZ5Lfc8MCQzLWVMmXpO
-         3IoZahIeeJCSkSPF23yvcfvy759pImn8iKobq3HW+sZ5be1xl7Sa8UoyNbtKiwFOSONE
-         Czuw==
-X-Forwarded-Encrypted: i=1; AKwUvBxwDmZKYghES0mJMiGeg0/6wJX8VBdyQ3xp5lsezULlXmoXUboZVIu5HED0xEnYCZz9BfemD80je6jTkbQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIftSpTGpvy9Etw4Zz7r2/A9SCDXMDglUlgWgIeoDK+KkYgjWbD
-	KXd6SrFfI7ZjiDyfOSMAfLABsluUc0ytXmwYRfALWyVNzhhIR2cR2ceOOzYsEsnLNqweiWN376x
-	BVtG77tZB8oTl3HywIgRXbs6bwsQZA4Y=
-X-Gm-Gg: AYBFou2+B5MtYYqCTkQmeDx6sOXkXnHEBEU9RYtdCzickdJqsZfieHY+ZKHTi8eyR/a
-	c4AocGr6eQwXMP+rCUGYntuBOs/58oTiAdpC1zQSmxycp4d+OeVW2qUfCRwhbkhB4QMvWZOV8mB
-	FwKOyrDh6fdEt+LrhJlcbFFD6t3W4EmyhEjqA9eb0mzphE0u/syTmzN/R0yCyl0BEcA/Uo0nj4v
-	SbqStMkkfdpAjUwpaz2iyyQyCAAQTFVlHZTFf4R257tyVnyHd9BPB3axHxopuhS4NifgejRDuwA
-	zrAAKZIYBsfT2yg4654Aw4hrXDw0q2XmLpuo+xKWJD9Znc0faUTbs5/RBuK/KrZcDByZ6zU/yWS
-	9TuuwYbngVwyzXbJeN39notawF6HgBGyI52M+onCVT/Baz2HmvxA1T2lG9pVspP/vxw1uSspurD
-	GRR81Eozi566oVaeD98B12O8CIbB9hzY4Nz9vrzEMZAKfF1w==
-X-Received: by 2002:a05:7300:d58a:b0:35a:3b98:b428 with SMTP id
- 5a478bee46e88-36a2ff7d91fmr3444661eec.12.1793268018117; Thu, 29 Oct 2026
- 03:00:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=baiCwMb4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63621F01828;
+	Thu, 29 Oct 2026 09:59:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793268017;
+	bh=WKgY4TxM7jCCTLKvPKBg2Os4gMDYJkQWtwa2sp51kDE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=baiCwMb4N80s/wYScg8peqquVrnIxU2J0+kSJgvciGEDkhkeSpiwqOGZvHBxsi0LO
+	 83Y8Qdm88haCAL7OoIhGJLG87zWYHs5Dmbw9wTTFSGXelkhBoV2CErv6UzJ7Og4oti
+	 T/BlIXfNAzcPkiRRAdbPcHftzcmxj3jUyJP/Efe8cTASzdYwMmYT7MIowSXb20HqmD
+	 4Eu057SH8gJa+Kr1lyQqyJjo2UVqDPsLEJ9DafJkgX0YOhLBedzCTZdexnprq3eQZf
+	 xE5xJXUonpzifrxiXRXdhKtH7kYZwst6cnR32e28C4D93HOKnOLE0PwAxZQE0kj/Rl
+	 XX8uiGMH5YNBg==
+From: Philipp Stanner <phasta@kernel.org>
+To: Min Ma <mamin506@gmail.com>,
+	Lizhi Hou <lizhi.hou@amd.com>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Karol Wachowski <karol.wachowski@linux.intel.com>,
+	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Felix Kuehling <Felix.Kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Russell King <linux+etnaviv@armlinux.org.uk>,
+	Christian Gmeiner <christian.gmeiner@gmail.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Alessio Belle <alessio.belle@imgtec.com>,
+	Luigi Santivetti <luigi.santivetti@imgtec.com>,
+	Qiang Yu <yuq825@gmail.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	=?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Dave Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Natalie Vock <nat@pixelcluster.dev>,
+	Arun Pravin <arunpravin.paneerselvam@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Melissa Wen <mwen@igalia.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Zack Rusin <zack.rusin@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sunil Khatri <sunil.khatri@amd.com>,
+	Kees Cook <kees@kernel.org>,
+	Jesse Zhang <jesse.zhang@amd.com>,
+	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+	Kexin Sun <kexinsun@smail.nju.edu.cn>,
+	Prike Liang <Prike.Liang@amd.com>,
+	David Rosca <david.rosca@amd.com>,
+	Krzysztof Karas <krzysztof.karas@intel.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Shixiong Ou <oushixiong@kylinos.cn>,
+	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Neill Kapron <nkapron@google.com>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	Sam Day <me@samcday.com>,
+	Gabriel Prostitis <prostitisgabriel@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org,
+	etnaviv@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	imagination@lists.freedesktop.org,
+	lima@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: [RFC PATCH 5/6] dma-buf: dma-fence: Close race in dma_fence_is_signaled() by default
+Date: Thu, 29 Oct 2026 10:55:42 +0100
+Message-ID: <20261029095542.1526750-8-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261029095542.1526750-3-phasta@kernel.org>
+References: <20261029095542.1526750-3-phasta@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,52 +154,105 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029-btrfs-zoned-active-zone-leak-v1-0-777dd01ff914@gmail.com>
-In-Reply-To: <20261029-btrfs-zoned-active-zone-leak-v1-0-777dd01ff914@gmail.com>
-From: =?UTF-8?B?0JzQsNGA0Log0JrQvtGA0LXQvdCx0LXRgNCz?= <socketpair@gmail.com>
-Date: Thu, 29 Oct 2026 15:00:05 +0500
-X-Gm-Features: AclHuK83BlPPV7_H23TeJ2xs5ky4kyB8aLO0AL_l-vZHvRN09V9scQgST6v9LKo
-Message-ID: <CAEmTpZHvmyPWMFztcG4MT4jszwjXYuwogJKrJgvx2vxESjhnKg@mail.gmail.com>
-Subject: Re: [PATCH 0/2] btrfs: zoned: fix silent data loss from leaked active
- zone reservation
-To: socketpair@gmail.com
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
-	Naohiro Aota <naohiro.aota@wdc.com>, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Adding Johannes, as this overlaps with his recent zoned work.
+dma_fence_is_signaled() contains a lockless check of the signaled-bit,
+which is set under lock protection. This is a race condition which makes
+the API fragile and has caused at least two bugs already, addressed in:
 
-A few notes on how this series relates to what is in btrfs for-next and
-on the list:
+	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
 
-- The series is based on master, but it applies cleanly to btrfs
-  for-next as of today (c393445c12fc), only with line offsets.
+It has been argued by some that this race cannot be closed for the
+entire kernel through locking because this would lead to a cache line
+invalidation for all parties reading that fence. While it remains
+unclear why these parties don't simply let themselves be notified about
+the fence being signaled instead of checking this repeatedly manually,
+there is a way to preserve this behavior in any case:
 
-- 0be761ecf1a9 ("btrfs: zoned: only change active zone counter on
-  successful (de)activation") in for-next does not cover the leak fixed
-  by patch 1: the block group removed by relocation gets its active bit
-  cleared by the zone reset in btrfs_relocate_chunk_finish(), but
-  reserved_active_zones is only given back in call_zone_finish(), which
-  never runs for it.
+This patch adds a new flag for dma_fence_init(),
+DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK. If this flag is not set, the
+spinlock is taken and dma_fence_is_signaled() becomes perfectly
+synchronized: it can only return true once signaling of the fence is
+completed.
 
-- Patch 2 makes btrfs_zone_finish_one_bg() the normal path again when
-  buffered writeback runs out of active zones with a negative
-  reservation (cow_file_range() -> btrfs_reserve_extent() ->
-  find_free_extent() -> btrfs_zone_finish_one_bg()). That is the path
-  of the deadlock fixed by "btrfs: zoned: don't wait for ordered extents
-  in do_zone_finish()" (30c6d31da683 in for-next), so for stable patch 2
-  should go together with that one.
+Disable the racy check for everyone by default. Should some parties
+really experience severe performance degredations because of this, they
+can trivially re-enable the race condition for their driver by setting
+the flag in dma_fence_init().
 
-- Patch 1 and "[PATCH v6 21/25] btrfs: zoned: reuse block groups emptied
-  by reclaim as relocation target" both change
-  btrfs_relocate_chunk_finish(). The conflict is trivial, and the two
-  fit together: btrfs_zoned_can_reuse_bg() requires the block group not
-  to be active, which patch 1 makes sure of, so the
-  btrfs_zone_finish_relocated() call has to stay before the reuse check.
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+ drivers/dma-buf/dma-fence.c |  2 ++
+ include/linux/dma-fence.h   | 22 ++++++++++++++++++++++
+ 2 files changed, 24 insertions(+)
 
-I can resend the series on top of for-next, or on top of the generic/747
-series, if that makes it easier to take.
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index f7c084926ae6..1ae8c7aade39 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -1119,6 +1119,8 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
+ 	/* Mapp the init_flags to the fence-internal flags. */
+ 	if (test_bit(DMA_FENCE_INIT_FLAG_SEQNO64, &init_flags))
+ 		set_bit(DMA_FENCE_FLAG_SEQNO64_BIT, &fence_flag_bits);
++	if (test_bit(DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK, &init_flags))
++		set_bit(DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT, &fence_flag_bits);
+ 
+ 	__dma_fence_init(fence, ops, lock, context, seqno, fence_flag_bits);
+ }
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index 52e7ddfd2d06..ee6e8de3ebc6 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -115,6 +115,7 @@ enum dma_fence_flag_bits {
+ 	DMA_FENCE_FLAG_SIGNALED_BIT,
+ 	DMA_FENCE_FLAG_TIMESTAMP_BIT,
+ 	DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
++	DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT,
+ 
+ 	DMA_FENCE_FLAG_USER_BITS, /* must always be last member */
+ };
+@@ -124,9 +125,12 @@ enum dma_fence_flag_bits {
+  * These flags can be passed in dma_fence_init().
+  *
+  * @DMA_FENCE_INIT_FLAG_SEQNO64: Use 64-bit sequence numbers.
++ * @DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK:
++ * Legacy flag. Enables a race condition in dma_fence_is_signaled().
+  */
+ enum dma_fence_init_flags {
+ 	DMA_FENCE_INIT_FLAG_SEQNO64,
++	DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK,
+ 
+ 	/* Must always be last member. */
+ 	DMA_FENCE_INIT_FLAG_NR_OF_FLAGs,
+@@ -568,9 +572,27 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
+ static inline bool
+ dma_fence_is_signaled(struct dma_fence *fence)
+ {
++	const bool racy_check = test_bit(DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT,
++					 &fence->flags);
+ 	const struct dma_fence_ops *ops;
++	bool signaled = false;
++	unsigned long flags;
+ 
++	/*
++	 * For legacy reasons, there is a race window here against parties
++	 * signaling the fence. They might still be doing that right now.
++	 *
++	 * For most users, this window shall be closed, but there are parties
++	 * for whom the cache-line invalidation by taking the lock might be so
++	 * significant that they prefer to accept the race at their own risk.
++	 */
++	if (!racy_check)
++		dma_fence_lock_irqsave(fence, flags);
+ 	if (dma_fence_test_signaled_flag(fence))
++		signaled = true;
++	if (!racy_check)
++		dma_fence_unlock_irqrestore(fence, flags);
++	if (signaled)
+ 		return true;
+ 
+ 	rcu_read_lock();
+-- 
+2.56.0
 
-Thanks,
-Mark
