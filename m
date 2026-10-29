@@ -1,55 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793277892;
-	b=0ZaQIghtgq8iryewLpHXNbewHOe1U0V2D+/XAbhdZug51vI+6B/3fC33JPopzBxPfi4Y
-	 vVQgWEuJZowzOK15rSGZZQgkwwTEoJk4KGNT218LL21EPPf+vxD37k2ct1wfmZoek+BEf
-	 k+nAI1UP+uEgXPTGF8HkU/a3FLl/6Fyt43xK1fMfd/1FdJ2UVBQE+pjATWbfWYCqjAyyh
-	 AOdIMpMeS6NPPS52Xeps+XG4Oq0XMegeC0cf45BjgBAfNE4eYBX9eiPalysy+3vb8BMe/
-	 fUnsyvTfq9QdHCJ1H6swoUEKohexCl/R0yoFZkq8nqqBw5Q1sFlJ1B5aGQ/t6EAjh4A==
+	t=1793277968;
+	b=XOLFAVk/4iGaza7lvEKBJo5qRtSOgBDGf+D0/ku7dzFYz23UWyRcZPHTIO7tT0YnqGQx
+	 PbsSGfMn4wFYLEY6CDjVQfEDzBnkNz044emWJPXltcx/esWn6CDP7UDYExgoxOD/eA5co
+	 T1gYU0IivowgSFBZVQ3Vr/gscQCn13OC5k0v1KNVzzHEvfdS+2hNsuZtrqEp2pUuc/oqu
+	 FRbyhnYn0csWW2O3SSrabrARKihpZ2ZRrc9wZyU+2ij55POyEG4+bQThE9TVF1iEEeDC6
+	 kfhWIwzEXLWkux4d9NBKRe6yjVpKIxmW2N864dWQWVQLGVMV6uVp03fQimpS5vzq2mA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277892;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=MatjeZEfFKIGxElprMJcHWVKdIfLkTyOH54IZYLczYY=;
-	b=W/tpfH4WQp9wSEJiPrTtJTOsYB9cw0EVPNBdwvZS5/OdcTpfdE3o2Da1mOml6Y2gokXc
-	 ipuklu+pFz90y7L7SB/6x50Qk/9cGmDF9W9elIGCLWV3BRFxqIwHMdDO3zmpo2BtbjlIl
-	 1Tx6htUnOEPQUJfvGXqDoQoV6oNTRin0PdMABMpYhr6VeH+pz/+VpHNzryRdHq3hhvwFw
-	 /C03sbz8KTrEgVLVmAOITYSq99PI0MhXHcv4Bg7OMv2ZK7Qhr08JUhFOzyu38PBp28fZ8
-	 0dAYWZwisHPxes08XuZuj2XIYYu2rvDziWYnpyaPXf9Zrjve5GJ7SqjIDtrJgXVAaDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793277968;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pyqfF0vPEy9uP//rnIsCRwzN7gKyNeQUfHgeOSmrvJY=;
+	b=qX+k0artU+PmTSipuw8tMpyj5DA/nmOUSDrPEehN0ZPBGt4JraxPFQNnZFWmiYYDd65C
+	 NOhZ/CWlSP6UoM3vXkhousFgLMD47bJ21CUJrgAbtY5mNSacoxsOo0E4EQPzGNNr3MkBb
+	 qqTxG7uHcd7mCeMva/kmbh3AkgmnEGVVKFM6OLEF5OSVwgY1bfV+6PefH+r3lzlTHsj94
+	 uY5Dp4FghTV+HFHeRGmb27gsL+KQPK+w5ChewmhnaNhJ6z+HRpfHI3mN0ZYmpXk8KXFhM
+	 gNwnwYf/2GLOKLAmDf7AS9uMKhYdou+UU9NBs1tRYPXkz1B+GiAut2bmI40UI8moLFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=hust.edu.cn;
-	spf=pass smtp.mailfrom=hust.edu.cn;
-	arc=none smtp.remote-ip=162.243.161.220
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B59760A2619;
-	Thu, 29 Oct 2026 12:44:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B59760A2619
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.50])
-	by app2 (Coremail) with UTF8SMTP id IQEQrMCmzne8P+NqZkhkAA--.63948S2;
-	Thu, 29 Oct 2026 20:44:44 +0800 (CST)
-Received: from mudongliang-PC.tailb307d0.ts.net (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wDn7zetP+NqnGIEAA--.8789S7;
-	Thu, 29 Oct 2026 20:44:41 +0800 (CST)
-From: Dongliang Mu <dzm91@hust.edu.cn>
-To: Alex Shi <alexs@kernel.org>,
-	Yanteng Si <si.yanteng@linux.dev>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Weijie Yuan <wy@wyuan.org>,
-	Chen-Yu Yeh <chenyou910331@gmail.com>,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 5/9] docs/zh_CN: update magic-number to match upstream
-Date: Thu, 29 Oct 2026 20:44:25 +0800
-Message-ID: <20261029124429.294868-6-dzm91@hust.edu.cn>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261029124429.294868-1-dzm91@hust.edu.cn>
-References: <20261029124429.294868-1-dzm91@hust.edu.cn>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ULCbiumh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4A7606A31C;
+	Thu, 29 Oct 2026 12:46:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ULCbiumh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2CFB1F01825;
+	Thu, 29 Oct 2026 12:46:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793277968;
+	bh=pyqfF0vPEy9uP//rnIsCRwzN7gKyNeQUfHgeOSmrvJY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ULCbiumhSBpvHWfABnOL+qWWXTjf5N0lA/5Ith6C7WGBILoqVTaUf6N2ERWnc6PJn
+	 mPID/jQLcmV4/Xm4aptEUXchkZbYCFJWE8D7f8RT1lXY+VzoBSij8nkqf+VibG2yso
+	 r+U/MDpD+SlRVf5AipnN9Q+6+Pav3UJO49dGl7FzzVJz1b6LopuGCs+Mc8sJI3XR5d
+	 ARbPI4PTuYtKzc/1NrZU/6xh4BzaZCU13h8stp9MwyR/sv+iwY1VmrAVz/IEBGnUc7
+	 1ANZNumOHdFnNnFPdihV/Pl7af6B91QQeFxgf6U4A1JPTjy+3Y+t/o89uww0hfBvyE
+	 cyP+KJfpdD7bg==
+Message-ID: <7c254ab7-579e-4c17-80fb-596e6fdd29a9@kernel.org>
+Date: Thu, 29 Oct 2026 13:46:04 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,157 +51,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: uvcvideo: Add UVC_QUIRK_CTL_MSG_DELAY_1M for HIK
+ camera
+To: Kuangyi Chiang <ki.chiang65@gmail.com>, laurent.pinchart@ideasonboard.com
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261029033106.7374-1-ki.chiang65@gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261029033106.7374-1-ki.chiang65@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IQEQrMCmzne8P+NqZkhkAA--.63948S2
-Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoWxKrykXF1rXF1rCrW5Zw45Awb_yoWxGF45pr
-	92gr97G3WIyryY9ry7Gr17WF1rAF1xG3y7K3W8Aw1ftr1kJF4UJrsrKr90yrnagry8AayU
-	ZF4rKr4Y9F42vw7anT9S1TB71UUUUjDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUHFb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
-	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
-	126r1DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
-	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
-	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
-	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtw
-	CY02Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC2
-	0s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r126r1DMI8I3I0E5I8CrVAFwI0_Jr
-	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
-	wIxGrwCI42IY6xIIjxv20xvE14v26F1j6w1UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJV
-	W8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI
-	42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUVYhFDUUUU
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
+Content-Transfer-Encoding: 7bit
 
-Update the Chinese magic-number guide to match its English source.
-Move it from process to staging and update the staging index.
+Hi,
 
-Synchronize the translation with upstream revision dd8d4bc28ad7.
+On 29-Oct-26 4:31 AM, Kuangyi Chiang wrote:
+> UVC control requests issued when preparing a video stream sometimes
+> time out on the HIK 1080P Camera (2bdf:0280):
+> 
+> [   48.363671] uvcvideo: Found UVC 1.00 device HIK 1080P Camera (2bdf:0280)
+> [   53.465662] uvcvideo: Failed to set UVC probe control : -110 (exp. 26).
+> [   58.585653] uvcvideo: Failed to query (129) UVC probe control : -110 (exp. 26).
+> [   58.592967] uvcvideo: Failed to initialize the device (-5).
+> 
+> Adding a 1ms delay after each control message avoids the issue.
+> 
+> Introduce UVC_QUIRK_CTL_MSG_DELAY_1M for this device.
+> 
+> Signed-off-by: Kuangyi Chiang <ki.chiang65@gmail.com>
 
-Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
----
- .../translations/zh_CN/staging/index.rst      |  6 ++--
- .../{process => staging}/magic-number.rst     | 33 +++++++++----------
- 2 files changed, 17 insertions(+), 22 deletions(-)
- rename Documentation/translations/zh_CN/{process => staging}/magic-number.rst (58%)
+Is this a USB-2.0 camera connected to a XHCI controller ?
 
-diff --git a/Documentation/translations/zh_CN/staging/index.rst b/Documentation/translations/zh_CN/staging/index.rst
-index 6d68fabce175..896734ade5eb 100644
---- a/Documentation/translations/zh_CN/staging/index.rst
-+++ b/Documentation/translations/zh_CN/staging/index.rst
-@@ -1,8 +1,6 @@
- .. SPDX-License-Identifier: GPL-2.0
- .. include:: ../disclaimer-zh_CN.rst
- 
--:Original: Documentation/staging/index.rst
--
- :翻译:
- 
-  李睿 Rui Li <me@lirui.org>
-@@ -13,14 +11,14 @@
- .. toctree::
-    :maxdepth: 2
- 
-+   magic-number
-    speculation
-    xz
- 
--TODOList:
-+Todolist:
- 
- * crc32
- * lzo
- * remoteproc
- * rpmsg
- * static-keys
--* tee
-diff --git a/Documentation/translations/zh_CN/process/magic-number.rst b/Documentation/translations/zh_CN/staging/magic-number.rst
-similarity index 58%
-rename from Documentation/translations/zh_CN/process/magic-number.rst
-rename to Documentation/translations/zh_CN/staging/magic-number.rst
-index 05ee75cf4346..e8fdf9a7fbdd 100644
---- a/Documentation/translations/zh_CN/process/magic-number.rst
-+++ b/Documentation/translations/zh_CN/staging/magic-number.rst
-@@ -1,7 +1,5 @@
- .. include:: ../disclaimer-zh_CN.rst
- 
--:Original: Documentation/staging/magic-number.rst
--
- :翻译:
- 
-  贾威威 Jia Wei Wei <harryxiyou@gmail.com>
-@@ -13,13 +11,13 @@
- Linux 魔术数
- ============
- 
--这个文件是有关当前使用的魔术值注册表。当你给一个结构体添加了一个魔术值，你也
--应该把这个魔术值添加到这个文件，因为我们最好把用于各种结构体的魔术值统一起来。
-+本文档登记当前使用的魔术数。给结构体添加魔术数时，也应将其登记在这里，
-+因为不同结构体使用的魔术数最好互不相同。
- 
--使用魔术值来保护内核数据结构是一个 **非常好的主意** 。这就允许你在运行时检
--查一个结构体(a)是否已经被攻击，或者(b)你已经给一个例程传递了一个错误的结构
--体。最后一种情况特别地有用---特别是当你通过一个空指针指向结构体的时候。例如，
--tty源码经常通过特定驱动使用这种方法用来反复地排列特定方面的结构体。
-+用魔术数保护内核数据结构是一个 **非常好的主意**。这样可以在运行时检查：
-+（a）结构体是否被意外覆盖，或（b）是否向函数传入了错误的结构体。后一种情况
-+尤其常见于通过 ``void *`` 指针传递结构体指针时。例如，tty 代码经常这样
-+在驱动专用结构体和线路规程专用结构体之间传递指针。
- 
- 使用魔术值的方法是在结构体的开头声明它们，如下::
- 
-@@ -28,30 +26,29 @@ tty源码经常通过特定驱动使用这种方法用来反复地排列特定
-         	...
-         };
- 
--当你以后给内核添加增强功能的时候，请遵守这条规则！这样就会节省数不清的调试
--时间，特别是一些古怪的情况，例如，数组超出范围并且覆盖写了超出部分。利用这
--个规则，这些情况可以被快速地，安全地检测到这些案例。
-+今后扩展内核时，请遵循这一做法！它能节省大量调试时间，尤其是在数组越界并
-+覆盖后续结构体等难以排查的情况下。使用魔术数可以快速、安全地发现这些问题。
- 
- 变更日志::
- 
- 					Theodore Ts'o
- 					31 Mar 94
- 
--  给当前的Linux 2.1.55添加魔术表。
-+  此魔术数表已更新至 Linux 2.1.55。
- 
- 					Michael Chastain
- 					<mailto:mec@shout.net>
- 					22 Sep 1997
- 
--  现在应该最新的Linux 2.1.112.因为在特性冻结期间，不能在2.2.x前改变任
--  何东西。这些条目被数域所排序。
-+  此表现在应已更新至 Linux 2.1.112。由于目前处于功能冻结期，在 2.2.x
-+  发布前不太可能再发生变化。条目按数值字段排序。
- 
- 					Krzysztof G.Baranowski
- 					<mailto: kgb@knm.org.pl>
- 					29 Jul 1998
- 
--  更新魔术表到Linux 2.5.45。刚好越过特性冻结，但是有可能还会有一些新的魔
--  术值在2.6.x之前融入到内核中。
-+  将魔术数表更新至 Linux 2.5.45。虽然刚进入功能冻结期，2.6.x 发布前
-+  仍可能有新的魔术数进入内核。
- 
- 					Petr Baudis
- 					<pasky@ucw.cz>
-@@ -66,10 +63,10 @@ tty源码经常通过特定驱动使用这种方法用来反复地排列特定
- ===================== ================ ======================== ==========================================
- 魔术数名              数字             结构                     文件
- ===================== ================ ======================== ==========================================
--PG_MAGIC              'P'              pg_{read,write}_hdr      ``include/linux/pg.h``
-+PG_MAGIC              'P'              pg_{read,write}_hdr      ``include/uapi/linux/pg.h``
- APM_BIOS_MAGIC        0x4101           apm_user                 ``arch/x86/kernel/apm_32.c``
- FASYNC_MAGIC          0x4601           fasync_struct            ``include/linux/fs.h``
--SLIP_MAGIC            0x5302           slip                     ``drivers/net/slip.h``
-+SLIP_MAGIC            0x5302           slip                     ``drivers/net/slip/slip.h``
- KV_MAGIC              0x5f4b565f       kernel_vars_s            ``arch/mips/include/asm/sn/klkernvars.h``
- CODA_MAGIC            0xC0DAC0DA       coda_file_info           ``fs/coda/coda_fs_i.h``
- CCB_MAGIC             0xf2691ad2       ccb                      ``drivers/scsi/ncr53c8xx.c``
--- 
-2.51.0
+And if yes, how old is this camera model ?
+
+The reason why I'm asking this is because the EHCI USB-2.0 controller
+interface causes a natural delay between consecutive ctrl commands queued
+one by one till the start of the next USB frrame, so they get spaced
+1 ms apart.
+
+Where as the modern XHCI controller interface will put these back-to-back
+on the USB bus. We've seen some issues with (older) USB devices before where
+they needed some delay because they were originally only validated with
+EHCI controllers and the hw/ff assumes it will get some "breathing space"
+between control messages.
+
+Regards,
+
+Hans
+
+
+
+> ---
+>  drivers/media/usb/uvc/uvc_driver.c |  9 +++++++++
+>  drivers/media/usb/uvc/uvc_video.c  | 10 ++++++++--
+>  drivers/media/usb/uvc/uvcvideo.h   |  1 +
+>  3 files changed, 18 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index e289cc7..c720d75 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -3162,6 +3162,15 @@ static const struct usb_device_id uvc_ids[] = {
+>  	  .bInterfaceSubClass	= 1,
+>  	  .bInterfaceProtocol	= 0,
+>  	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_FORCE_BPP) },
+> +	/* HIK 1080P Camera */
+> +	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+> +				| USB_DEVICE_ID_MATCH_INT_INFO,
+> +	  .idVendor		= 0x2bdf,
+> +	  .idProduct		= 0x0280,
+> +	  .bInterfaceClass	= USB_CLASS_VIDEO,
+> +	  .bInterfaceSubClass	= 1,
+> +	  .bInterfaceProtocol	= 0,
+> +	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_CTL_MSG_DELAY_1M) },
+>  	/* Insta360 Link */
+>  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+>  				| USB_DEVICE_ID_MATCH_INT_INFO,
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> index fc3536a..4667f86 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -35,13 +35,19 @@ static int __uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
+>  {
+>  	u8 type = USB_TYPE_CLASS | USB_RECIP_INTERFACE;
+>  	unsigned int pipe;
+> +	int ret;
+>  
+>  	pipe = (query & 0x80) ? usb_rcvctrlpipe(dev->udev, 0)
+>  			      : usb_sndctrlpipe(dev->udev, 0);
+>  	type |= (query & 0x80) ? USB_DIR_IN : USB_DIR_OUT;
+>  
+> -	return usb_control_msg(dev->udev, pipe, query, type, cs << 8,
+> -			unit << 8 | intfnum, data, size, timeout);
+> +	ret = usb_control_msg(dev->udev, pipe, query, type, cs << 8,
+> +			      unit << 8 | intfnum, data, size, timeout);
+> +
+> +	if (dev->quirks & UVC_QUIRK_CTL_MSG_DELAY_1M)
+> +		usleep_range(1000, 2000);
+> +
+> +	return ret;
+>  }
+>  
+>  static const char *uvc_query_name(u8 query)
+> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+> index b6bcee4..1426d14 100644
+> --- a/drivers/media/usb/uvc/uvcvideo.h
+> +++ b/drivers/media/usb/uvc/uvcvideo.h
+> @@ -81,6 +81,7 @@
+>  #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
+>  #define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
+>  #define UVC_QUIRK_MSXU_META		0x00040000
+> +#define UVC_QUIRK_CTL_MSG_DELAY_1M	0x00080000
+>  
+>  /* Format flags */
+>  #define UVC_FMT_FLAG_COMPRESSED		0x00000001
 
