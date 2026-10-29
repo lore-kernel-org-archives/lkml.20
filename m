@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793316625;
-	b=BfnyY/diBgU2a2SpMq4rkFoNVL0zwumKORYyrSBIDE+/m43K1zEr6jULkbYWup1ic2+s
-	 iVrj+7EmrzozwcTyOIf9YEHCw8sZ323TBLINhvlwxogA6tfnrTnJ0I62xTjaHCYzABP+k
-	 1hdtquN8ReYQkxLEMg+Jcyzg7d3OSmCziwP2MNK90VOyHKs6Zqn30/qYgEKXGSflLKR2s
-	 pMChuS7oT6559pYSL1KlbgyKfIcrWiyFaZ+V0x01RY5usZYO4m9KX7I2397jEP569S+a9
-	 RqXa0WkirD6shG1Vse08pNKL2+gsMsOxOdRnvWWuLgvbgFcsdzOPiYz3C+l+nqADmwQ==
+	t=1793316767;
+	b=lPBuN91LV7/CrPhIyyRRHdklttoOh5d/IWwx7hJK7EnfYgB1jkxzWpVFBty4+wGoZJYP
+	 SLNlYEgxWASwEs7pOBVIc004TquDLkNvNL5Uva59TXMQ4h3t1/qMwdE9VWyfigerc+p9Y
+	 HDtx9yxbpNCsSU0rBCX/JKtGtyL34mMnn6zKKkU2HNaRQckgh+k/OOL+M+iz0dV+hBdyh
+	 /7Or+0oVXsQ0ixnx9+q2Dvec9nvK3a26LYA/Wvln55l9osKi88Z2q6zG3mHMG1QJ/Dk/G
+	 P+x2yeov/MNBioYQAeJoORBZ0bzGKLlLxZSzMkby+oKSrTE1DhkCRefQYatVOPW9c1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793316625;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=aVdetZY9Do9isKUPb6qz8CWfVwLqoRc2UCiZFRh14fY=;
-	b=5qYauMMfuCkbEZDeefhJJo44U7iH2gdaUhQ9VPtrIKP40WKz5blxOzWUbMZNDxRzJvRU
-	 Jm9wYCYl9EttdT/BqSUIJky3PG4sWPvqbJIQ3RLHJyLIuQhT5U3gjA2TepswmaYy2bWfy
-	 c9f+aJSLhKOHa6A9UqhA+gmwQvpri3vpSsTTNclNEcTYRchGCo9dCqWwcOKAseBZThk1H
-	 WgKJoH/h1gnv8A0EwjOHLKRS3dq2EvUe+GXo42kzwyye7IGeuBMVhiZrkjdtgMoqrHlOM
-	 XYfbSSu3GIqB6qRWfkYnPvyvcRDu+xSzcB8K25cFiy0mHiHBXAGfGM/ICOcVq36egHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793316767;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=WQ+R1Wi6/OkFtKp/Hx8pPIEYSzqwbjd3PW+lXZaX1Uc=;
+	b=hd6iBpLMNwx5yPWJrrlBA3yTUGjinqeu8zcEC4mNn5o84uIaEnVk/5hSBasroROzpAeV
+	 XGWF7pTygl+5bofbXkzExifv2obPE9j9W96clQyTA9Ce+UqhgoZPSOgpOrgHvZpkAzAhr
+	 CWdHEeIyy8dR6SqF9elBREnAlVrGfk0MSSNtTsTtf4KxLjc27MQTBCrIg85XJ3zMB+h4n
+	 vAsNROZKmvw/ynR2uUCAqw3Kodvr2XKmfqhKogJLwSwLmrLRj92KOiG8jzq12FkTlF9tK
+	 BZ4zXcY1TI1vLnvo9c+UHBjtwqNQD19mV8DwgCS0IhRo2oy1kzQ/QogJKqj8DaMrnSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjB+DBzz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aJF2NBSf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C014F60A2610;
-	Thu, 29 Oct 2026 23:30:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B1560A261C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:32:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DjB+DBzz
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DD9101F000C1;
-	Thu, 29 Oct 2026 23:30:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aJF2NBSf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0CC61F00A16
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:32:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793316624;
-	bh=aVdetZY9Do9isKUPb6qz8CWfVwLqoRc2UCiZFRh14fY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DjB+DBzz3w8/CzjvBWnS1I46ATi/RbuQRPJU3RrRrx5/uHro5rHl8Ej9oL/ZcyosV
-	 9+rt4p9LbXTuAMGF6vGsFUGYlEqdsSnPHLspJf22yDR1zjH5YPo74jqnSMXFR2e02U
-	 5ZZ7z0foCNHY+myCoLEeiO/49LWsScEtO4lpO/Om5tESO4kYhMrMr9khL8rPC4P1/F
-	 MjT0uJDSQaieeyni95jp8WGlohonLvPoMTOycF2vaUsOVeza8AgXRR010gr96+e5rI
-	 lfZYa/7bwzBLwV9UlviGUAnk1vrNUktMO8AiSDCPlVwkbs9SLP/YXSUjOjQ/ot6Ku6
-	 rkvf1gNvUttTA==
-Date: Fri, 30 Oct 2026 01:30:21 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Arun Menon <armenon@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
-	Peter Huewe <peterhuewe@gmx.de>, linux-integrity@vger.kernel.org
-Subject: Re: [PATCH v5 0/7] tpm_crb: Add command and response buffer chunking
- support
-Message-ID: <auPXDdXZ8L8KOwUW@kernel.org>
-References: <20261029181541.99505-1-armenon@redhat.com>
+	s=k20260515; t=1793316766;
+	bh=WQ+R1Wi6/OkFtKp/Hx8pPIEYSzqwbjd3PW+lXZaX1Uc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=aJF2NBSfxF8pcWoOL5/L9kWpf9XVTEXDugwJXfNidUxaXuEIOTBIclc4OrZeBoe47
+	 YyPgWp7qGR2aKCbM0vmQaAEFVHYtLZDB6ZH8PaaHKjpTE+qSs+uHZ2lfQ97eLx4/Lu
+	 siapPMGdX/QK1xuEigRbf8dDgZAT9wQRHgYWs8yoakKpmXNJkqgJ1PWyoqsXCqbxgh
+	 tG4onBrMC1TveojI3Sa/oJAM1epEWw6xMPuBvAiw93dXFnxt/+fffnVojEvo+8C8zs
+	 juKcZD9H/d/mCFJljQ6rqyX5St/2qKfi2MspcjU+4ckiJKFNQb/zFwN02lqvB+E9vg
+	 1XjUVE99DCBbg==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1f31c63ebso2104479a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:32:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzuHl2WMfgreGDioAa2koCkU7rwm4nUJ0c4XmGMDZYdczxQn92Q/+zPvtdev1JA7jRbcokfy/a95yVs3e4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAO9XPwWo6CNuXbvQ3qQFLSE5zgmcHD8Ea8KrXT3uPq9yu7e1U
+	JsehgPq1G/PLUjLp/90TIEzeUif1v7OgUZC61kG1pw7Y5hGk55hijRgaa5A8CnEC5HEo02OPk1P
+	UUFltZHxKqylw/qLbzawPAm71hOdV+OA=
+X-Received: by 2002:a17:907:3faa:b0:c2a:ac35:95fb with SMTP id
+ a640c23a62f3a-c49d143133dmr362183566b.24.1793316765640; Thu, 29 Oct 2026
+ 16:32:45 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,93 +59,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029181541.99505-1-armenon@redhat.com>
+References: <20260918193937.569414-1-zide.chen@intel.com> <20260918193937.569414-6-zide.chen@intel.com>
+ <CAO9r8zOY8W6s5U8O_tZ3dERA4h+mnWWjeS2GDgF=gbo+CQDNLg@mail.gmail.com>
+ <e5e719ec-7012-413c-a446-86fd35aca33d@intel.com> <CAO9r8zOLCBhWZ5P1BEU24p8++3jVLTPSOdNreBk3RUC10Z79TQ@mail.gmail.com>
+ <CALMp9eTOvhiLw7L--DQp_0QaFS=O1TaCQ3q0jPh=70273DA+=w@mail.gmail.com>
+In-Reply-To: <CALMp9eTOvhiLw7L--DQp_0QaFS=O1TaCQ3q0jPh=70273DA+=w@mail.gmail.com>
+From: Yosry Ahmed <yosry@kernel.org>
+Date: Thu, 29 Oct 2026 16:32:34 -0700
+X-Gmail-Original-Message-ID: <CAO9r8zM0rTuROCTYdMQhdghDcbYBhfK=ezU_wU2GeM_w7FBPDw@mail.gmail.com>
+X-Gm-Features: AclHuK_CqRlcCxOt3bEGnIs9tv1L0BiKuCxmnqMGOdWdJV47rykw9eUii-wSjC4
+Message-ID: <CAO9r8zM0rTuROCTYdMQhdghDcbYBhfK=ezU_wU2GeM_w7FBPDw@mail.gmail.com>
+Subject: Re: [PATCH v9 05/12] KVM: x86/pmu: Support PERF_METRICS MSR in
+ mediated vPMU
+To: Jim Mattson <jmattson@google.com>
+Cc: "Chen, Zide" <zide.chen@intel.com>, Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
+	Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
+	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
+	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	Xudong Hao <xudong.hao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 11:45:34PM +0530, Arun Menon wrote:
-> The new version of TCG TPM v185 [1] supports sending data/commands in
-> chunks for the CRB (Command Response Buffer) interface. This is in line
-> with the initiative to support PQC algorithms.
-> 
-> This series implements the logic to send and receive larger TPM
-> cmd/rsp between the linux guest and the TPM backend in chunks.
-> Currently, the TPM CRB driver is limited by the physical size of the
-> MMIO window. When userspace attempts to send a payload that exceeds this
-> size, the driver rejects it.
-> 
-> This series introduces chunking support. The driver now checks the CRB
-> interface capability for CRB_INTF_CAP_CRB_CHUNK. If supported by the
-> backend, the driver will slice oversized commands into MMIO-sized
-> chunks, signalling the backend via CRB_START_NEXT_CHUNK, and finalizing
-> with CRB_START_INVOKE. Responses are also read back in a similar chunked
-> manner.
-> 
-> If the backend does not support chunking, the driver retains its legacy
-> behaviour and enforces the standard size limits.
-> 
-> This feature also requires the QEMU to interpret the data in chunks and
-> forward it to the TPM backend and subsequently dispatch the TPM response
-> in chunks back to the linux guest. This is implemented in [2] and
-> already merged into the mainline.
-> 
-> The whole series applied on top of for-next-tpm (including prerequisite)
-> can be found here:
-> https://github.com/armenon-rh/linux/tree/tpm-crb-linux
-> 
-> [1] https://trustedcomputinggroup.org/wp-content/uploads/PC-Client-Specific-Platform-TPM-Profile-for-TPM-2p0-v1p07_Pub.pdf
-> [2] https://lore.kernel.org/qemu-devel/20260601215410.517009-1-stefanb@linux.ibm.com/
-> 
-> v5
-> --
-> - Split [PATCH v4 06/06] into 2. The preparation patch separates the
->   no-chunking send() and recv() from chunking.
-> - Fixed block comments to respect kernel's preferred multi-line style.
-> - Added citations to the TCG TPM and NIST FIPS documentations. Explained
->   the logic and newly introduced registers in brief in the git commit
->   message.
-> 
-> v4
-> --
-> - Rebased on master (or for-next-tpm, both point to the same commit).
-> - Resolved one conflict in PATCH v3 05/06, as TPM_BUFSIZE is declared in
->   include/linux/tpm_command.h.
-> 
-> v3
-> --
-> - Split patch 2, so that the code is cleaner.
-> - Re-order the buffer size adjustment patch.
-> - Rename crb_trigger_tpm to tpm_crb_start.
-> - Add dispatching logic in send and recv functions. Chunking is
->   separated from no-chunking for clarity.
-> - Increase TPM_BUFSIZE in the common file include/linux/tpm.h following,
->   [PATCH v9 11/11] tpm-buf: Implement managed allocations
->   https://lore.kernel.org/linux-integrity/20260125192526.782202-12-jarkko@kernel.org/
-> 
-> v2
-> --
-> - Add size checks before copying memory.
-> - Update TPM_BUFSIZE to 8KB.
-> - Commit messages updated to indicate motivation and logic of the change.
-> 
-> Arun Menon (7):
->   tpm_crb: Add register definitions of TPM CRB chunking fields
->   tpm_crb: Split start method into a separate header
->   tpm_crb: Add start_cmd parameter to tpm_crb_start wrapper
->   tpm: tis_i2c: Use local 4KB buffer to limit memory usage
->   tpm: Increase TPM_BUFSIZE to 8KB for chunking support
->   tpm_crb: Factor crb_send()/crb_recv() bodies into helpers
->   tpm_crb: Implement command and response chunking logic
-> 
->  drivers/char/tpm/tpm_crb.c     | 226 +++++++++++++++++++++++++++------
->  drivers/char/tpm/tpm_tis_i2c.c |   6 +-
->  include/linux/tpm_command.h    |   2 +-
->  3 files changed, 189 insertions(+), 45 deletions(-)
-> 
-> -- 
-> 2.56.0
-> 
+On Thu, Oct 29, 2026 at 4:26=E2=80=AFPM Jim Mattson <jmattson@google.com> w=
+rote:
+>
+> On Thu, Oct 29, 2026 at 4:19=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
+ote:
+> >
+> > On Thu, Oct 29, 2026 at 4:17=E2=80=AFPM Chen, Zide <zide.chen@intel.com=
+> wrote:
+> > >
+> > >
+> > >
+> > > On 10/29/2026 5:06 PM, Yosry Ahmed wrote:
+> > > >> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+> > > >> index 448044a2b121..f4d3801b97bc 100644
+> > > >> --- a/arch/x86/kvm/pmu.c
+> > > >> +++ b/arch/x86/kvm/pmu.c
+> > > >> @@ -806,9 +806,16 @@ static bool kvm_need_any_pmc_intercept(struct=
+ kvm_vcpu *vcpu)
+> > > >>                pmu->nr_arch_fixed_counters !=3D kvm_host_pmu.num_c=
+ounters_fixed;
+> > > >>  }
+> > > >>
+> > > >> +static bool kvm_need_perf_metrics_intercept(struct kvm_vcpu *vcpu=
+)
+> > > >
+> > > > The name is confusing, this doesn't control the intercept of
+> > > > PERF_METRICS (and it wouldn't be correct to use it for that AFAICT)=
+.
+> > >
+> > > Right, these two APIs do not directly determine whether the mentioned
+> > > resources need interception:
+> > >
+> > > kvm_need_any_pmc_intercept()
+> > > kvm_need_perf_metrics_intercept()
+> >
+> > Jim suggested folding kvm_need_perf_metrics_intercept() into
+> > kvm_need_any_pmc_intercept(). The name of kvm_need_any_pmc_intercept()
+> > might be confusing as well, but at least it's one less interface to
+> > worry about?
+> >
+> > >
+> > > This is different from kvm_need_perf_global_ctrl_intercept() and
+> > > kvm_need_rdpmc_intercept().
+> > >
+> > > How about change them to something like these?
+> > >
+> > > kvm_pmu_has_unexposed_pmcs()
+> > > kvm_pmu_has_unexposed_perf_metrics()
+> > >
+> > > Or merge them into one single API? kvm_pmu_has_unexposed_resources()
+> >
+> > I don't like this name any better, but I don't have better
+> > suggestions. Since we already have kvm_need_any_pmc_intercept(), let's
+> > just use it for now?
+>
+> How about kvm_pmu_incomplete_passthrough()?
 
-Applied, thank you.
-
-Br, Jarkko
+Better than kvm_need_any_pmc_intercept() imo.
