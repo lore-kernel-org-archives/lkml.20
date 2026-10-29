@@ -1,102 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793274792;
-	b=uM9VllQBv0rvf4SOEOnIyEN+UjGigvcBxlRtvuW5HgKo9eu+Jwbb2OHoUsdP7mV16ZKh
-	 qBzvrcsZY/DtzGMPraasMneFYy9GKmy7ybEhjcK/1yceLO8IRp9giEU1LdAmbbZsivtYl
-	 KjhX8ENQFR7YPvbYY0FnJx+jgkDAdPf+nldIXqg95BcUi12ZsH2/85DzAxOc4zwRbmc9P
-	 M8aLfbHp8nYL100gTZ2WyuDVZB5lBKQrzTX6gCWYrlLuEEhgh8PocYl8gvIY4o9tz6ik+
-	 C1rkkt1hWzEzcU/OPTWqSA02cKcB7nzTvUbNL83o7msJ/xJHsChSNknT6J60nN0u2vQ==
+	t=1793274849;
+	b=M8ttUT/LjkkqwJdznJY/h1SZg4xY7FkWEHTp5FMKbYfH+yoXwiQ77z2oPVNUpd3uJsQT
+	 OVSLKm7VUzw0tzaGHY4+KQyYDkGeg8UHQTqZ0KlfhC+b0pfDZx+COkecyAUEMKCz18rH5
+	 tUwhf0wkAd66vOzyUJfd3Pr/QV1DozH6AR2yX7vvvzgyCcn0wk0INEXEOcInp8AQScHJs
+	 f8nQLsW6VzlnumFVBXD2Tv504R4HUDVvoVkT92CjDw5NQdhPjlFadbiUI2AJWRjzk51Ty
+	 8mcRO4bhWBfMVDxzMx3hqISCLhjvyRLs+BBLq+I9OcyLLejG43K3qCK/2YbHpeCFuqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274792;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=jUwPwLLs3ItuEGtYWzom9wMw0uBhDScICxqoGDVoPms=;
-	b=wi5ZgkN6kHvqWdRroG8jYjgqkuQhIRx8QD9zqsNOA7z4IaGUPJJ2rlmFpCWNHdyu1aB8
-	 tnRyfayY2+Wji/akSeGexmNrR6HgEglgPx4ijfeuzaUVYvqqED1lr9zAXH+3WMC7dq6NJ
-	 TfvKFwrjyWHJ8T3g5DvnD2J6LrON8lsuA1qkQWOyONKBFEkgtCwpPNmeLoD/CDKf8kRef
-	 dpvOWv3g+0FWWn8FoJbV+Zjq1vaTR505uzPjrWtnsq/R1zbf46oaR5SOLu9wMELu3HL64
-	 DW4shnsX30WzpmdgyOUwAYNFGVqxlgSaPlhmy1jxgnXRdP0nFPGOKyWjgmp7e6lRKkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274849;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=eJDyqgU9FOsXJcH6m0AcGWyo+0VHAJgC1XncPyxjCcw=;
+	b=CjO1PfbFKspa5Kt3Ne+Dkp4OPYg8UGILdMrFkLEC3GQ/WWEVLr9RQ8hfDgCBrNy7ZZrJ
+	 Ogo5/gIK+C5dK3sbTYpk7zMj4uoWrl0HvkIqd+OK0+Zooqjo9zP+hcWKZPbtota5i3e+1
+	 Q6GfyUlEP10QyH/JsVMOauspedVMeCl9WT3JUeDeK+NCiiJfRxULLSVclUM6f30eNj5FV
+	 BGUWQd7BdER/7VlFirk2yt8v1j/t+BEFgUhvIj7dtyQkbFPXLPQVukJx699JIFnJkNzUP
+	 C6dwpyRn12KA7qAM/jWsWt1fFF1aMbsYChY9Z54l9jQvbM1TlZOu1KWIKupdrNt/dlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RYU3cpo9;
-	arc=none smtp.remote-ip=209.85.218.54
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=AN8EVe5N;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b="uIEu7m/w";
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82145606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82145606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65869606A31C;
+	Thu, 29 Oct 2026 11:54:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65869606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RYU3cpo9
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c414e5d282eso271101166b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:53:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793274791; x=1793879591; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jUwPwLLs3ItuEGtYWzom9wMw0uBhDScICxqoGDVoPms=;
-        b=RYU3cpo9DciUFn6VpBMgihzLJDxrpN41WV68WkmYn6mVv/24wdMR5DdenFLdICeb0U
-         rH08VGFDuUTfC+/dga2oBEcjdnuOSLsAWhQ5T2aA7EuIT48ChDX1jsQudCRi1B8quKgW
-         2X8xd6Ugr+sVQ8EKQ6dBGexbbkxWKVXqeHnAWSFg9xCf1JE28o/EZVSyvZ3icSYESfhK
-         YUk0WhiK3akB7KYllTWmbWLmG2RwoU7vmVLUeI4aeW0eSrPGM4Cm16cn9iCAfvKAF9Ci
-         8vgsAL53gRinaQkTmrAyNdPVU7LGBEnWhs/8NrRkwQJGYvs0N+FtHPKUAv8JMuWWUUsn
-         2NFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793274791; x=1793879591;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jUwPwLLs3ItuEGtYWzom9wMw0uBhDScICxqoGDVoPms=;
-        b=Jvlzt0uvC2Ir6BqtQIgchoiFVvG4W/RF6MTA6JtVc3FEDlyZNcFHd3z79AN2DLXvsp
-         cbpkK70YLWblCDDPXvqlTaC7R0Td4nD5UiecwUEt/mazF3hjjzsCKklhlQnOSTXsXpsX
-         3ONXYDxxVhDVg7aRXuDZTa7dle89hs6ncgILY7A9hC8ix56XDXKiff1xyAav85bI3MTe
-         +aYiNWlDhUC+L2QL7+XFDdN6JMEplXnFK4U0FhxqwSV1D8DKlavmVzdWd+w/psiBEOpj
-         Yjk+hSqWmkjVt93tfKyCxoQchPtIsT1ZKL8ENrL/HYK0L6jAcgQIWG7AtQnoPM7DHSTZ
-         StDw==
-X-Forwarded-Encrypted: i=1; AKwUvByeaVxFHcOaDtRYCSDKqD5r7HkBJxC1U8kFmLXRhI8Im5KUk6DtVwmX5ro20cFE1NfIv+GdUHBTOPQKt9w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1rkBMWPY3C9Iy8zGSRMU99IysGGJ9m0KcjgTCRZwSAf+Zcm+X
-	tY+IHcqWNgwAZV2dVcm2QmZbgA4NaR/6jQB4QlUNXXzk92hSgR/ViRuW
-X-Gm-Gg: AYBFou3VUEfpE9y8dIiyzTNFHxyO/WOSYi29psYJx+rAnzCUIxmlqoXUnPPovpsa6iL
-	UH7EE89ejeGgkKvTVI7FcdT9O15Re59K4G/sKWXm9/XCeDESmxhIFuc0jroNKihXD7/Q7wAyZkG
-	KyD0fb791OWjIRactWBm0ZeDBij99WS21TH3iL5naSe2GV6ttNTm65PpGih/bqjR0XR/fILB3IP
-	gGNuYGaEqgaQSP0vUyUGeW+HueZQCNq1UNPkyKG+XZ2Rt9VDnqu1lwMi/oyyZMNP2Jm8KMr6lCY
-	rTgER9WQrynG48LQkz5jDKruuNa1x1IEOXoCqCIrHtW2Rc1jT1fSryVW3qNaNvW3RBu+w+lu268
-	hXCqWlYis1orFw+NSjEx8ytT7NZdXL+K6QX1T0U1a0qvS1C4rWo3ljCCB0MiUYJk34hZRII5JO4
-	LdBxAiCevOelJf9HDTVcq94EAtMwnHTiQ/Jpu5+zHKqgrEfs8CzKxzuzEwA/YGr93MTOpgIM4kh
-	LU/YSe2RxGRMVSdtP6p4ekDTTfaOcshe7LZB6mGSR8bpjUK7UM1OhqMFfIQ03kQKbz9GHsSw5hN
-	1umDDtgpjPTVEB4lhdKqfqTknlj5W6SUof6etzhAkClxNHKEawT4El6BJsdoXAr8NU3u9NBaXwZ
-	3n05oE8iRNEk=
-X-Received: by 2002:a17:906:9f86:b0:c40:80eb:c541 with SMTP id a640c23a62f3a-c49bdd7e2admr460193066b.2.1793274790899;
-        Thu, 29 Oct 2026 04:53:10 -0700 (PDT)
-Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd34f465sm721068766b.8.2026.10.29.04.53.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 04:53:10 -0700 (PDT)
-Date: Thu, 29 Oct 2026 12:53:09 +0100
-From: Amir Goldstein <amir73il@gmail.com>
-To: Pedro Falcato <pfalcato@suse.de>
-Cc: koraynilay <koray.fra@gmail.com>, David Sterba <dsterba@suse.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Chris Mason <mason@kernel.org>, Jan Kara <jack@suse.cz>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Sean Smith <defendthedisabled@gmail.com>,
-	Andrey Albershteyn <aalbersh@kernel.org>,
-	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 1/2] vfs: add provenance time (ptime)
-Message-ID: <auMzpUIEmGCE_x_N@amir-ThinkPad-T480>
-References: <20261028134728.294127-1-koray.fra@gmail.com>
- <20261028134728.294127-2-koray.fra@gmail.com>
- <auILs54TUcWXf3us@pedro-suse.tail5790ac.ts.net>
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=AN8EVe5N;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=uIEu7m/w
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793274845; bh=eJDyqgU9FOsXJcH6m0AcGWy
+	o+0VHAJgC1XncPyxjCcw=; b=AN8EVe5NPQN7vQpsrS5yN7cxtD1l5eBZ8a3+PGsfyP0KqYQFLo
+	g991kAC9h5B2gRgZ8LvLGVxq5GZhJMcpi8peAg/1kBdq8sRJTGCJ+urC/2DpZXyr63jhDUwZRul
+	zfW1j3YjpAYHh2UvXbgn9wM5ZbHWyJbZPsVx6M25Fd89RC6cXS7QCa8hG6dUH54u9FiFSY+EokQ
+	IQYRTjgyZCIQ4jS9dqMAVdLn9cinBDd3DZDhtomqoCJWyiuZ7tENPpJDC3sLCmtGXqrSlEMJJHa
+	6lLavuZrjdTV40OUQKIkW8n4HrAqL4TuhFyYjFEEqbqLYKdqzWUZyff3S9YtB2uBKwA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793274845; bh=eJDyqgU9FOsXJcH6m0AcGWy
+	o+0VHAJgC1XncPyxjCcw=; b=uIEu7m/wZjWxEVNzMmW1Qv4BU2EnwCRWe1Y21b/cONryQZXwvV
+	KRz7W9qiGb6mbrDmdKLPiSkrdOEQfV22TRCw==;
+Date: Thu, 29 Oct 2026 11:54:05 +0000
+From: Bradley Morgan <brads@mainlining.org>
+To: Zhiyu Zhang <zhiyuzhang999@gmail.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Christian Brauner <brauner@kernel.org>
+CC: David Howells <dhowells@redhat.com>, Cen Zhang <cenzhang@linux.microsoft.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, linux-kernel@vger.kernel.org,
+ keyrings@vger.kernel.org, Tong Liu <lyutoon@gmail.com>,
+ Qi Tang <tpluszz77@gmail.com>
+Subject: Re: [PATCH] watch_queue: keep info_id separate from rcu_head
+In-Reply-To: <20261029054136.1174216-1-zhiyuzhang999@gmail.com>
+References: <20261029054136.1174216-1-zhiyuzhang999@gmail.com>
+Message-ID: <ED50AF35-3C50-4298-BC99-6DC06A7E14E0@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,44 +67,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auILs54TUcWXf3us@pedro-suse.tail5790ac.ts.net>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 02:56:39PM +0000, Pedro Falcato wrote:
-> On Wed, Oct 28, 2026 at 02:47:27PM +0100, koraynilay wrote:
-> > Add provenance time (ptime), indicating the time when a file or
-> > directory was created. This is user-settable via file_setattr() and
-> > retrievable via statx(2) (using STATX_PTIME) or file_getattr().
-> > 
-> > The semantics of when to preserve this new timestamp are the same as
-> > mtime, the idea being that there is a correspondence like this:
-> > 
-> > ctime <-> btime
-> > mtime <-> ptime
-> > 
-> > so every operation (copying, moving, ...) that currently preserves mtime
-> > should also preserve ptime.
-> > 
-> > Furthermore, in order to avoid the legacy FS_IOC_FSSETXATTR accepting
-> > FS_XFLAG_PTIME, add an FS_FILE_ATTR_XFLAGS_MASK mask to support new
-> > xflags, and use it in fileattr_to_file_attr()/file_attr_to_fileattr() to
-> > allow ptime to be used with the file_setattr()/file_getattr() syscalls.
+On 29 October 2026 05:41:36 GMT, Zhiyu Zhang <zhiyuzhang999@gmail.com>
+wrote:
+>struct watch overlays info_id with rcu_head. A notification poster reads
+>info_id under rcu_read_lock(), but a concurrent final put can enqueue the
+>watch with call_rcu(). Enqueueing the callback writes rcu_head before the
+>grace period has elapsed, so it can corrupt info_id while the object
+>remains legally visible to the reader.
+>
+>__post_watch_notification() then merges that value into the notification
+>info word without masking it. Pointer bits can corrupt WATCH_INFO_LENGTH
+>and make post_one_notification() copy beyond the posting task's stack
+>record.
+>
+>Give info_id storage separate from rcu_head so RCU enqueueing cannot
+>modify
+>it. Place it after the kref, which uses existing tail padding on x86-64.
+>Mask info_id with WATCH_INFO_ID at the point of use as an additional
+>invariant check.
+>
+>An unprivileged shell and keyctl reproducer was run for 30 seconds in
+>QEMU.
+>The vulnerable baseline produced malformed notification lengths, while
+>this
+>change completed with 288631 key notifications and no malformed record.
+>
+>Fixes: c73be61cede5 ("pipe: Add general notification queue support")
+>Reported-by: Tong Liu <lyutoon@gmail.com>
+>Reported-by: Qi Tang <tpluszz77@gmail.com>
+
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+
+>Reported-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+>Closes: https://lore.kernel.org/lkml/CALf2hKveij_sHgANY9Aktm1dPa4wfKjKNkHyp9yPbjORWFXagA@mail.gmail.com/
+>Link: https://lore.kernel.org/netdev/CALf2hKvp0NPVLwr=a3+jUHtPohxbra8gox+aYAfWathJnn-J+Q@mail.gmail.com/
+>Signed-off-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+>---
+> include/linux/watch_queue.h | 6 ++----
+> kernel/watch_queue.c        | 2 +-
+> 2 files changed, 3 insertions(+), 5 deletions(-)
+>
+>diff --git a/include/linux/watch_queue.h b/include/linux/watch_queue.h
+>index 429c7b6afead..b87e1babb5f0 100644
+>--- a/include/linux/watch_queue.h
+>+++ b/include/linux/watch_queue.h
+>@@ -52,10 +52,7 @@ struct watch_queue {
+>  * Representation of a watch on an object.
+>  */
+> struct watch {
+>-	union {
+>-		struct rcu_head	rcu;
+>-		u32		info_id;	/* ID to be OR'd in to info field */
+>-	};
+>+	struct rcu_head		rcu;
+> 	struct watch_queue __rcu *queue;	/* Queue to post events to */
+> 	struct hlist_node	queue_node;	/* Link in queue->watches */
+> 	struct watch_list __rcu	*watch_list;
+>@@ -64,6 +61,7 @@ struct watch {
+> 	void			*private;	/* Private data for the watched object */
+> 	u64			id;		/* Internal identifier */
+> 	struct kref		usage;		/* Object usage count */
+>+	u32			info_id;	/* ID to be OR'd in to info field */
+> };
 > 
-> Random comment, but: could this be doable with xattrs instead? I'm not sure
-> where I would put the xattrs code (if in userspace exclusively, or if hooking
-> the VFS up with this, or if doing it on the filesystem side), but it would
-> surely be less disruptive than modifying a bunch of filesystems one-by-one.
+> /*
+>diff --git a/kernel/watch_queue.c b/kernel/watch_queue.c
+>index 932a88ac1f39..453dcf613205 100644
+>--- a/kernel/watch_queue.c
+>+++ b/kernel/watch_queue.c
+>@@ -212,7 +212,7 @@ void __post_watch_notification(struct watch_list *wlist,
+> 		if (watch->id != id)
+> 			continue;
+> 		n->info &= ~WATCH_INFO_ID;
+>-		n->info |= watch->info_id;
+>+		n->info |= watch->info_id & WATCH_INFO_ID;
 > 
-> This patch is quite simple, but changing btrfs, then ext4, xfs, etc is a
-> mess, and inevitably you can't get these timestamps until you upgrade your
-> filesystems.
-> 
+> 		wqueue = rcu_dereference(watch->queue);
+> 		wf = rcu_dereference(wqueue->filter);
+>
 
-I disagree.
 
-I think that creation time should be a first class property in
-filesystems that support it.
-
-Thanks,
-Amir.
+--- Thanks!
