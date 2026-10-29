@@ -1,54 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793245193;
-	b=Y+LFY23+9cUHNtDIBB3dR5hdylDEWHgx+KfJQf301SyPLPr7ke7dmz8wWRD5RUBINuha
-	 E5ddASDjk3ump9NLLXNd7fkuv8rs3eMsShIrmIKS26DTYBC8UZw8XJeqlgvtkqvijdM5U
-	 7Q8xWE5c2AlxNUWRIV3zOocfqc39FEF4cTaykmGkhxwir7rGmvBrmWwOB4uBHHK4u8Q5J
-	 u1DyiFAwb+gKbrG2cW1ru466xqNpVGqcssYs3LlGbtvBXQqcrQcNT5THXtNDvBPHIA4ny
-	 DwFz9miU92kgjirdCoLTTrNbXqXDZuwfoml6oZYYTm6SYeE7hQgyaDS/zhcmfox0PeQ==
+	t=1793245218;
+	b=fQRyybotaQ54/pFoNtGJPsV3v13A8J2kDpcJMBmNlECweOEDgMcl/c6KZ5Gr4xryLUxI
+	 bLkS1ejbijSF38FsYnIqtbnsIXSkRl0FqEgkoGkDwOt0DD9OJUecmLRcOmYTTdtUhnEXA
+	 RMoXgsAl1girWaaqYN4WNEiAVmSgI27+3xy7Wp0O65AhTZsk+M8XQp4E8dW0p94YElLDN
+	 zYjW/eaSyNiOunTLVS1DPEtynnbN5NUHixdPjcofaA3dv1hQCu4MFTBDvOkGQpYkeDSKI
+	 BRLhcGyfJyo/Q3DcyjCZER03ykFfayZbgSAiRTWQdk/7pmlmUe5B2o3+Vqh3vKvdKiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793245193;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=nHYJzejo29azPzDNOxZ+tmpvvDu3XTTv89JLTyFVqd4=;
-	b=pMJwPMhQLTWxOHJ49lLDPCfJaG5oaHlKLwesRIL4ILDNjEBEkwo9v9RSMwZTXBLzo2fO
-	 qvjS/NftuJQKt1CmpnDRuRODcN082Dejai1QfpN2pl0RjNnH9kop88BgIsyIrpJhGSiTm
-	 wtKqLfLxRXkuYKqR4uNqJW90vXQRwax3svJbPeYL4xcIUMIjbYoD+rpG+WE85ipqeLx0f
-	 rxtyL3Wvv0h6mZcUJSt/ShtYkN630F2+gwmSdLx/kM9yKkQ0oD++3akrkT1gqeE2gzmsT
-	 Chm2mbgZ3AxJkktft8yU0EKQVoG9flHitexRmugrX97TW+EIHZj83N2r+pPjX9EPZrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793245218;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-CM-SenderInfo:
+	 X-Coremail-Antispam;
+	bh=Q6YeiifV/84lte1fx4gsumMxZCBv00tuDX4EIGhZpJU=;
+	b=ln34bbb5zX5xdaMb7IXIOq3nmrq5yUfw8pbCSKYOam2SI5B/M4ctrHYBHmg5WQN4Ot5q
+	 OxT67RDwxcOu9zdJNTtH4VK0etOmcFDp5ZECoY9UnbnpgSb+iox9mSdzQZqdE5aGeK4LK
+	 ZP3HFXHSZREAR3wih2sDE1QTJdJOBzY3Y0xDuz2vHmpw5QR7jYPooV/wXaT44+QeTTH6N
+	 V+ZgaKa5dTj+kJuGHg3QIOmQZ9OP2QO0sDRGT7BcAmnwcDjEwRttGSz53eMvkcNKGYW21
+	 4rf0S7JdoZRedUj14Z9Or3aF7UEmXEWv3u3SNZZwGnoakDx3D0vp82eQtyAuQjMnVhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JwHCiaU6;
-	arc=none smtp.remote-ip=91.218.175.53
-Received: from mta0.migadu.com (out-53.mta0.migadu.com [91.218.175.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D836606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:39:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D836606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JwHCiaU6
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=R50k7qXAG33bbhagggBhqvchCPQ52saBCXt3awMCb6U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793245189; v=1; x=1793849989;
- b=JwHCiaU6wNlgkZwersY6AMgWtViVtjskMcecd/6+Od2qPv/mWGKr7rlSGPwoiVQjWtSEquTl
- jz8ubRhsB/Dyc/RqHacrPomgc4WK1uts7m7DL8ZDejrhXjpDsM5Zh945kHdyhP94x2zIdgWwum6
- 47kzoRxtALGbiybFTOALoFVw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 5ac0218b5b613cc1;
-	Thu, 29 Oct 2026 03:39:48 +0000
-X-Mizu-Trace-ID: 5ac0218b5b613cc1
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B1401606A31C;
+	Thu, 29 Oct 2026 03:40:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1401606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.172])
+	by gateway (Coremail) with SMTP id _____8AxdvAdwOJqHFQaAA--.10538S3;
+	Thu, 29 Oct 2026 11:40:13 +0800 (CST)
+Received: from ubuntu.loongson.cn (unknown [127.0.0.1])
+	by front1 (Coremail) with SMTP id qMiowJBxrM4bwOJqfRAxAA--.11881S2;
+	Thu, 29 Oct 2026 11:40:11 +0800 (CST)
+From: wuqianhai@loongson.cn
+To: helgaas@kernel.org
+Cc: tzimmermann@suse.de,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] PCI/VGA: Fix boot device detection after framebuffer relocation
+Date: Thu, 29 Oct 2026 11:39:14 +0800
+Message-Id: <20261029033914.978276-1-wuqianhai@loongson.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261028231514.GA577494@bhelgaas>
+References: <20261028231514.GA577494@bhelgaas>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,136 +53,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 02/15] mm/hugetlb: compare against persistent count when
- freeing lowmem folios
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261028-fixes_hugetlb-v1-2-a0a033db180f@kernel.org>
-Date: Thu, 29 Oct 2026 11:39:27 +0800
-Cc: Oscar Salvador <osalvador@suse.de>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Mel Gorman <mgorman@suse.de>,
- Andy Whitcroft <apw@canonical.com>,
- Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@suse.com>,
- Rik van Riel <riel@surriel.com>,
- Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dave Airlie <airlied@redhat.com>,
- Jason Gunthorpe <jgg@ziepe.ca>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Peter Xu <peterx@redhat.com>,
- Breno Leitao <leitao@debian.org>,
- Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Arnd Bergmann <arnd@arndb.de>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- Gerd Hoffmann <kraxel@redhat.com>,
- linux-doc@vger.kernel.org,
- linux-arch@vger.kernel.org,
- linux-s390@vger.kernel.org,
- stable@kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <68EFA1E5-4898-4278-8718-06B1A010DFFD@linux.dev>
-References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
- <20261028-fixes_hugetlb-v1-2-a0a033db180f@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJBxrM4bwOJqfRAxAA--.11881S2
+X-CM-SenderInfo: 5zxtxtpqkdxqxorr0wxvrqhubq/
+X-Coremail-Antispam: 1Uk129KBj9xXoW7XFyUtw1fuFy8XFyxJw1kJFc_yoWkKFb_ua
+	yxAasrGr18Way0ka4kK3WrAw4xu3y0vrWrGan7JrySgFyktFn2g3WSkw1fZr1xG3yUtF4D
+	KFWDtF13Z34fuosvyTuYvTs0mTUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUb4kYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_JrI_Jryl8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lw4CEc2x0rVAKj4
+	xxMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWU
+	JVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
+	AIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU2sXoUUUUU
 
+Hi Bjorn,
 
+Thanks for the detailed analysis.
 
-> On Oct 29, 2026, at 04:13, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> try_to_free_low() gets a target number of persistent folios, but
-> compares it with "nr_huge_pages", which includes surplus folios. As a
-> result, it can free lowmem folios below that target.
->=20
-> For example, with two persistent folios and one surplus folio, a =
-target
-> of two can still end up freeing one persistent folio.
->=20
-> Compare against persistent_huge_pages() instead. Convert the macro to =
-a
-> helper function and place it before try_to_free_low().
->=20
-> Fixes: 7893d1d505d5 ("hugetlb: Try to grow hugetlb pool for =
-MAP_PRIVATE mappings")
-> Cc: stable@kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+You're right that screen_info_fixup_lfb()/screen_info_apply_fixups()
+stores a PCI bus address in screen_info_lfb_res_start and compares it
+with the CPU address in pdev->resource[].start, which is broken on
+systems where bus and CPU addresses differ.
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+On LoongArch, though, bus and CPU addresses are identical: with modern
+firmware, acpi_prepare_root_resources() takes the PCIH path and leaves
+the window offset at 0 (see commit 49f33840dcc9).  So the existing
+screen_info_apply_fixups() works correctly for LoongArch, and the
+address-space confusion you describe does not trigger there.
 
-One nit bellow.
+I've sent a v2 that:
+- enables vga_is_firmware_default() for LoongArch,
+- restricts the screen_info_apply_fixups() call to LoongArch so x86 and
+  other architectures are unaffected,
+- makes VGA_ARB select SYSFB on LoongArch to avoid the undefined
+  reference when CONFIG_SCREEN_INFO is not set.
 
-> ---
-> mm/hugetlb.c | 8 ++++++--
-> 1 file changed, 6 insertions(+), 2 deletions(-)
->=20
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index da5d04edf7c1..3a94ea1c9457 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -1335,6 +1335,11 @@ static unsigned long =
-available_huge_pages(struct hstate *h)
-> 	return h->free_huge_pages - h->resv_huge_pages;
-> }
->=20
-> +static unsigned long persistent_huge_pages(struct hstate *h)
+The general bus != CPU problem in screen_info_pci.c is still worth
+fixing for ARM and friends, but I'd rather keep that separate from this
+LoongArch enablement.  Happy to help with that follow-up if useful.
 
-Better to make *h const?
-
-Thanks.
-
-> +{
-> +	return h->nr_huge_pages - h->surplus_huge_pages;
-> +}
-> +
-> static struct folio *dequeue_hugetlb_folio(struct hstate *h, gfp_t =
-gfp_mask,
-> 					   struct mempolicy_interpreted =
-*mpoli)
-> {
-> @@ -3719,7 +3724,7 @@ static void try_to_free_low(struct hstate *h, =
-unsigned long count,
-> 		struct folio *folio, *next;
-> 		struct list_head *freel =3D &h->hugepage_freelists[i];
-> 		list_for_each_entry_safe(folio, next, freel, lru) {
-> -			if (count >=3D h->nr_huge_pages)
-> +			if (count >=3D persistent_huge_pages(h))
-> 				goto out;
-> 			if (folio_test_highmem(folio))
-> 				continue;
-> @@ -3773,7 +3778,6 @@ static int adjust_pool_surplus(struct hstate *h, =
-nodemask_t *nodes_allowed,
-> 	return 1;
-> }
->=20
-> -#define persistent_huge_pages(h) (h->nr_huge_pages - =
-h->surplus_huge_pages)
-> static int set_max_huge_pages(struct hstate *h, unsigned long count, =
-int nid,
-> 			      nodemask_t *nodes_allowed)
-> {
->=20
-> --=20
-> 2.43.0
->=20
+Regards,
+wuqianhai
 
