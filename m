@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793241420;
-	b=RORnR3hGehet5Q7z+GgXXlNR3aAkSbTQ5bumGlS99CDg+N0YRwqJb4NzFuFWfdnyRLsf
-	 lPzlgMmoXF92lpdQu+GopPZJD+qbhb8Q3zEMy0k3qfN3nvBUDmWkYAyUjdkaO3dWv+Z00
-	 DWEPC8cuBUIvwFI4JCuRtwKz08l6PtT4mL8XxZFmvVQaSluJZOsENeKEGIFNn0c0xDPvv
-	 66/9+rCtXSqsnipWeZB1f85K9tG5AwEo8m99jwQVjSqP4yCQI8iow77UdLYrKcq3jqs5S
-	 ySECUnTNx2DaQ/aO/1KIYSUK19Wi+tPInxOiJg1jj4/Y9bLZ9bgRqX3A3bXteHXpYEw==
+	t=1793241442;
+	b=RkVmXHPSkphjUZ9gohm51vgknrG0tFUBoENj2Uqe+pJsy5jGzf3Ilog6SIxdZ7d0Eu1K
+	 dWt5r2SABrnRF0svrjfAjqYqcXvaQhxDCmRqEbUH4yJn0atgg3JGvx7FDMDrm1z8DGn6c
+	 8ONYVIFboH6jc2kKTopQaFwcM5lQZzsGycVBtZ9rub4edBrafT4ju7egFl8JC/3gF4CsE
+	 bw0u3NgyRPIFD393jU1Capuq0n6UplB5+GDbzrmADyx1Mgg+J8oxt59UZIUXFF+rUXisZ
+	 fLzwRmHTUqHCWx0qTL31R8bfrqiDcuyVptnQn37bqxGsaq/jp6hpr5QM3VT16eeefHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793241420;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=TP/koneTdP9q99/N08kg5asZHhb7aicfFrLtli1TTdA=;
-	b=F4XglfVOn/4ywppLewsdBYGWiSYHUpI93chR+NjrCxE/6uqthM1twmI1eUfCguf1hO5e
-	 e7BMQGs7yXPuZHT6SCScJv1E/2cbmb6ASPGtYJSsuSKIX5AAY6aW4NcNdPYpl5A759V2s
-	 2NXWak/t6BCDKIdNcabUUHf9r/Slp9nV1BEK0GG7k3qS4ucffa5oN9wuk89/Ab80zIg8Z
-	 Q1M9mUHQfZPRemYR+ttFGUz4KpSmI06An52uZQPFjo7zxVlh4JOCjKRHvoAcsTPsTCWvD
-	 cNjeWI/GVrA6D9M5aUkA4caOx8RH7gyP1UlkEAgRHaGhLtxFBoqY9sfiLUtzmiIqW5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793241442;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Rvaxj/9xZzaDwaag2rGM3SvZn2Eugwkdg0lI1SmK/t4=;
+	b=K10/KVXrR2w3dZr0Y8RU8oO5aZL/cvET4sTVFl8QC70DjvL5+xvi6IPnwR615OVCyOLw
+	 nScx10qG2a4Cvwr52T5OOKEhVaabFWhwUzSHIeuq/V4UValKCs+TjQETk9AqvMVZ6vwOn
+	 WaxLPXr/7aYbLZrDZ5acoLeV0AWmPbXQVUcWMbX4TnQceV+5O8ZJwNQzIW2yDc9zz9XAn
+	 YDQ2XXy0u30hTmhbKBIXm5bepnzNkIwnxPRc50VftraDUTObCsoKJ285yViP9j2bReyMv
+	 7aYJfWVcrMnDB6nJY9E57+3LZCPD6mh3p3kKkRlikoANvHZYIOx9LxByCqDPVI4ka5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=iSELxFai;
-	arc=none smtp.remote-ip=79.135.106.121
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MfCEoXZ3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24D8D606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:36:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24D8D606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB801606A31C;
+	Thu, 29 Oct 2026 02:37:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=iSELxFai
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1793241415; x=1793500615;
-	bh=TP/koneTdP9q99/N08kg5asZHhb7aicfFrLtli1TTdA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=iSELxFaiGE2bxcneYK0VnG/0eFSWoVXHGDL+86bPl9TzxXjwcmUgb8rxr3PcIdh56
-	 iPgjUEZ3iRMBF59b2kz8972UdnGWDCb3OgEUXa+chQ8cjx5plwkTo2nIaJrBUx1v+a
-	 GX8Ohhl83HjPMJQHbKduvZi0VJ2x6QjIwx4dnvQ9K20JsM8FdA4yz2tvtmSW256bf7
-	 fvKIUoAgB7xz1ukd6yamCDYAuapZ10lSi5jI+rg55FYSKir2UtdpH0xtG1bFAmSZuo
-	 Wv7LsOhnOPzCPHxd5hRBhxuDRmbAp69GpyZekizlDvPYmoXDRfKoiQA3uiJoRWFZ1z
-	 s85MdfvcYsRPA==
-Date: Thu, 29 Oct 2026 02:36:50 +0000
-To: linux-bluetooth@vger.kernel.org
-From: cochcoder <cochcoder@proton.me>
-Cc: linux-kernel@vger.kernel.org, luiz.dentz@gmail.com, marcel@holtmann.org
-Subject: Re: [RFC PATCH v3 1/1] Bluetooth: btusb: test reported maximum LE length on TP-Link UB500
-Message-ID: <mHG0oCxCI78VykqUdjQxfal8LQM9K0VX759HNPN8KH51ERQWLh38Bys9SSI0NUSCY8KE32SZa97O-9hsNqTanUn-n2x-EUopaBEEK20avn0=@proton.me>
-In-Reply-To: <20261029023235.1280321-2-cochcoder@proton.me>
-References: <20261013032742.497402-1-cochcoder@proton.me> <20261029023235.1280321-1-cochcoder@proton.me> <20261029023235.1280321-2-cochcoder@proton.me>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: 1e56263b990b34ea99103c3a31b4eb96d62ef335
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MfCEoXZ3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39B801F01825;
+	Thu, 29 Oct 2026 02:37:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793241441;
+	bh=Rvaxj/9xZzaDwaag2rGM3SvZn2Eugwkdg0lI1SmK/t4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=MfCEoXZ3II+fxXHYtsr1n18w/J62sgfVBIxUFC8CW/0hvEssvWDFWO3mjd0JRhLbx
+	 dzabngBqraLqbcNd1RAFGa7JrV/7fuCl43CRpG9/DUl9UU1K7p48zKbpiIl4LcA+Wz
+	 nhZ9cNWZQ4ehxGGrAy+73YBzXyD/m3aKunx0603z9cOmoO62TdqAnnSkvg1qSBX/PU
+	 rkOJ5vOnO2TjgsOlVihhSTHKV6Wb0EOurj0bFbTLgIatAV5FRvJwsB9IDtDL0cJuqS
+	 vi/uBJGfDPNksctzE65t4fsDWQk14mf4dsL8bUBV//Mx3amyuIcTKBunImwTGbQpCh
+	 S9zMRuSafdvKw==
+Subject: Re: [PATCH net v2] ice: fix Tx hang dump using stale tx_buf[0].skb
+From: netdev-bot+sashiko@kernel.org
+To: choiniere.vincent@hydroquebec.com
+Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
+ intel-wired-lan@lists.osuosl.org, aleksandr.loktionov@intel.com,
+ michal.kubiak@intel.com, wojciech.drewek@intel.com,
+ mateusz.polchlopek@intel.com, pmenzel@molgen.mpg.de, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 29 Oct 2026 02:37:19 +0000
+Message-ID: <179324143967.3134.13716472134019576369@kernel.org>
+In-Reply-To: <20261026-ice-tx-hang-dump-v2-1-e2136ef2c5dc@hydroquebec.com>
+References: <20261026-ice-tx-hang-dump-v2-1-e2136ef2c5dc@hydroquebec.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,89 +65,239 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Accidentally left in the last comment to keep it as a test only RFC, I've t=
-ested the changes and haven't noticed any regressions. Please ignore that.=
-=20
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
+Critical: 0 · High: 1 (2) · Medium: 0 · Low: 0 (1)
 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-On Wednesday, October 28th, 2026 at 10:32 PM, Kyle Pepper <cochcoder@proton=
-.me> wrote:
+- [High] ice_tx_hang_snapshot()'s safety argument is that PF VSI rings
+  'are only replaced or freed under RTNL or from the service task, so…
 
-> The tested TP-Link UB500 (2357:0604, RTL8761BU firmware 0xdfc6d922)
-> reports maximum TX and RX data lengths of 251 octets through LE Read
-> Maximum Data Length, while LE Read Buffer Size reports 27 octets and
-> eight packets. The previous RFC demonstrated 167-byte HCI packets
-> with unchanged LE credits during ASHA playback.
->=20
-> Use the reported maximum TX data length as the next experimental host
-> LE ACL length instead of an ASHA-specific 167-byte constant. Require
-> the observed 251-byte maximum and 27/eight buffer reply; preserve LE
-> credits and BR/EDR fields. The maximum-data-length value describes
-> Link Layer capability and is an indication to test, not proof of the
-> physical HCI buffer size or pool layout.
->=20
-> A direct HCI user-channel experiment sends sixteen whole packets at
-> each HCI payload length of 27, 167 and 251 octets from UB500 to a
-> MediaTek receiver. All 48 payloads are received byte-for-byte intact
-> and all 48 HCI packets complete, with zero pending. This establishes
-> 251-byte HCI acceptance separately from the reported Link Layer limit.
-> Only one packet is outstanding at a time; the experiment neither
-> installs the revised callback nor streams audio.
->=20
-> Keep this a TEST ONLY RFC. Eight simultaneous large packets, larger
-> HCI limits, mixed BR/EDR capacity, other firmware and sustained audio
-> with the revised callback have not been established.
->=20
-> Assisted-by: LLM
-> Signed-off-by: Kyle Pepper <cochcoder@proton.me>
-> ---
->  drivers/bluetooth/btusb_main.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
->=20
-> diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_mai=
-n.c
-> index 92a78a7e6..b654cf5be 100644
-> --- a/drivers/bluetooth/btusb_main.c
-> +++ b/drivers/bluetooth/btusb_main.c
-> @@ -2972,6 +2972,19 @@ static int btusb_setup_realtek(struct hci_dev *hde=
-v)
->  =09return ret;
->  }
-> =20
-> +/* Private diagnostic: test the reported Link Layer maximum as an HCI si=
-ze. */
-> +static int btusb_ub500_test_post_init(struct hci_dev *hdev)
-> +{
-> +=09if (hdev->le_mtu !=3D 27 || hdev->le_pkts !=3D 8 ||
-> +=09    hdev->le_max_tx_len !=3D 251)
-> +=09=09return -EINVAL;
-> +
-> +=09bt_dev_info(hdev, "UB500 TEST ONLY: LE ACL MTU 27 -> %u; LE packets %=
-u unchanged",
-> +=09=09    hdev->le_max_tx_len, hdev->le_pkts);
-> +=09hdev->le_mtu =3D hdev->le_max_tx_len;
-> +=09return 0;
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the patch's
+  new guard makes it look handled.
+- [High] This problem wasn't introduced by this patch, but it is a
+  deadlock between devlink DRIVER_REINIT reload and the Tx-hang…
+- [Low] tx_hang_buf is published and consumed without synchronization.
+
+--
+
+ice: fix Tx hang dump using stale tx_buf[0].skb
+
+This patch changes the ice Tx hang devlink dump so it no longer
+dereferences tx_buf[0].skb or the saved tx_ring when the dump runs. It
+records the queue and ring indices at timeout time. Under RTNL, it checks
+that the saved ring is still one of the PF VSI Tx rings and that the VSI
+is up, then copies the descriptors and IRQ name. It keeps only the skb
+pointer value and drops RTNL before calling devlink_health_report().
+
+Link: https://lore.kernel.org/all/20260327072332.130320-1-aleksandr.loktionov@intel.com/
+
+> diff --git a/drivers/net/ethernet/intel/ice/devlink/health.c b/drivers/net/ethernet/intel/ice/devlink/health.c
+> index 8e9a8a8178d4..b9493ab4766e 100644
+> --- a/drivers/net/ethernet/intel/ice/devlink/health.c
+> +++ b/drivers/net/ethernet/intel/ice/devlink/health.c
+
+[ ... ]
+
+> @@ -424,24 +429,104 @@ void ice_prep_tx_hang_report(struct ice_pf *pf, struct ice_tx_ring *tx_ring,
+>  	buf->vsi_num = vsi_num;
+>  	buf->head = head;
+>  	buf->intr = intr;
+> +	buf->queue = tx_ring->q_index;
+> +	buf->next_to_clean = tx_ring->next_to_clean;
+> +	buf->next_to_use = tx_ring->next_to_use;
 > +}
 > +
->  static int btusb_recv_event_realtek(struct hci_dev *hdev, struct sk_buff=
- *skb)
+> +/**
+> + * ice_tx_hang_snapshot - copy the hung Tx ring state for the dump
+> + * @pf: PF on which the Tx hang was detected
+> + * @tx_ring: ring saved by ice_tx_timeout(), possibly stale
+> + * @ev: event to fill in
+> + *
+> + * The saved ring may have been freed or replaced since the timeout (e.g. by
+> + * ethtool -G or -L). Use it only if it is still one of the PF VSI Tx rings
+> + * and the VSI is up: those rings are only replaced or freed under RTNL or
+> + * from the service task, so with RTNL held every access below is to live
+> + * memory. ice_clean_tx_irq() may still run and free the skb at
+> + * next_to_clean at any time, so only the pointer value is recorded and the
+> + * skb itself is never dereferenced.
+> + */
+> +static void ice_tx_hang_snapshot(struct ice_pf *pf, struct ice_tx_ring *tx_ring,
+> +				 struct ice_tx_hang_event *ev)
+> +{
+> +	struct ice_vsi *vsi = ice_get_main_vsi(pf);
+
+[ ... ]
+
+> +	ASSERT_RTNL();
+> +
+> +	if (!tx_ring || !vsi || !vsi->tx_rings ||
+> +	    test_bit(ICE_VSI_DOWN, vsi->state))
+> +		return;
+
+[Severity: High]
+Does the lifetime claim in the kernel-doc above hold for the ice_remove()
+path?
+
+In ice_remove(), RTNL is dropped inside ice_unload(). ice_deinit() then
+tears down the VSIs without RTNL. The service work is only cancelled
+later, in ice_deinit_dev():
+
+    ice_remove()
+        ice_unload(pf);        <- unregister_netdev() takes/drops RTNL
+        devl_unlock(...);
+        ice_deinit(pf);
+            set_bit(ICE_SERVICE_DIS, pf->state);
+            set_bit(ICE_DOWN, pf->state);
+            ice_deinit_pf_sw(pf);  <- ice_vsi_release() frees rings,
+                                      tx_rings and the vsi
+            ice_dealloc_vsis(pf);  <- devm_kfree(..., pf->vsi)
+        ...
+        ice_deinit_dev(pf);    <- ice_service_task_stop()
+                                  -> cancel_work_sync(&pf->serv_task)
+
+ICE_SERVICE_DIS stops new scheduling, but it does not stop a work item
+that is already queued or running. ice_vsi_free() holds only
+pf->sw_mutex:
+
+    pf->vsi[vsi->idx] = NULL;
+    ...
+    mutex_unlock(&pf->sw_mutex);
+    devm_kfree(dev, vsi);
+
+Suppose a Tx timeout fires shortly before removal. ice_service_task()
+then sees tx_hang_buf.tx_ring set and calls ice_report_tx_hang() without
+checking ICE_SERVICE_DIS. The work can block in rtnl_lock() while
+unregister_netdev() holds RTNL. It then gets RTNL while ice_deinit() is
+freeing the VSIs.
+
+Could ice_get_main_vsi(pf), vsi->tx_rings and test_bit(ICE_VSI_DOWN,
+vsi->state) then read the freed pf->vsi array or the freed struct ice_vsi?
+
+The ICE_VSI_DOWN check only helps while the vsi itself is still
+allocated. Does the service task need to be stopped or flushed, or
+tx_hang_buf.tx_ring cleared, before the VSI teardown in ice_remove()?
+
+[ ... ]
+
+>  void ice_report_tx_hang(struct ice_pf *pf)
 >  {
->  =09if (skb->len >=3D HCI_EVENT_HDR_SIZE + 1 &&
-> @@ -4715,6 +4728,9 @@ static int btusb_probe(struct usb_interface *intf,
->  =09    (id->driver_info & BTUSB_REALTEK)) {
->  =09=09btrtl_set_driver_name(hdev, btusb_driver.name);
->  =09=09hdev->setup =3D btusb_setup_realtek;
-> +=09=09if (le16_to_cpu(data->udev->descriptor.idVendor) =3D=3D 0x2357 &&
-> +=09=09    le16_to_cpu(data->udev->descriptor.idProduct) =3D=3D 0x0604)
-> +=09=09=09hdev->post_init =3D btusb_ub500_test_post_init;
->  =09=09hdev->shutdown =3D btrtl_shutdown_realtek;
->  =09=09hdev->reset =3D btusb_rtl_reset;
->  =09=09hdev->hw_error =3D btusb_rtl_hw_error;
-> --=20
-> 2.56.0
->=20
-> 
+>  	struct ice_health_tx_hang_buf *buf = &pf->health_reporters.tx_hang_buf;
+> -	struct ice_tx_ring *tx_ring = buf->tx_ring;
+> -
+>  	struct ice_tx_hang_event ev = {
+>  		.head = buf->head,
+>  		.intr = buf->intr,
+>  		.vsi_num = buf->vsi_num,
+> -		.queue = tx_ring->q_index,
+> -		.next_to_clean = tx_ring->next_to_clean,
+> -		.next_to_use = tx_ring->next_to_use,
+> -		.tx_ring = tx_ring,
+> +		.queue = buf->queue,
+> +		.next_to_clean = buf->next_to_clean,
+> +		.next_to_use = buf->next_to_use,
+>  	};
+>  
+> +	if (!pf->health_reporters.tx_hang)
+> +		return;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can this check pass with
+a reporter that has already been freed?
+
+In ice_remove(), the reporter is destroyed before ice_unload() and
+ice_deinit(). The service work is still live at that point:
+
+    ice_remove()
+        ice_deinit_devlink(pf);
+            ice_health_deinit(pf);
+                ice_deinit_devl_reporter(pf->health_reporters.tx_hang);
+                    devl_health_reporter_destroy()  <- kfree(reporter)
+        ice_unload(pf);
+        ...
+        ice_deinit_dev(pf);    <- cancel_work_sync(&pf->serv_task)
+
+ice_health_deinit() never sets pf->health_reporters.tx_hang to NULL, so
+the stale pointer passes this check.
+
+With a Tx timeout just before or during removal, the service task can
+reach ice_devlink_health_report() after the kfree(). devlink_health_report()
+then writes reporter->error_count and reporter->health_state, and it
+dereferences reporter->devlink and reporter->ops.
+
+Waiting in rtnl_lock() while unregister_netdev() holds RTNL also makes
+it more likely that the report runs after the reporter has been freed.
+
+> +
+> +	rtnl_lock();
+> +	ice_tx_hang_snapshot(pf, buf->tx_ring, &ev);
+> +	rtnl_unlock();
+
+[Severity: Low]
+This is a pre-existing issue, and the changelog's limitations section
+already covers it. The window looks wider now, though. ev.head, ev.intr,
+ev.queue and the ring indices are read from tx_hang_buf before
+rtnl_lock(). buf->tx_ring is only read after rtnl_lock() returns.
+
+ice_prep_tx_hang_report() stores buf->tx_ring before the other fields,
+with no ordering. ice_service_task() then clears the pointer with a
+plain store:
+
+    if (pf->health_reporters.tx_hang_buf.tx_ring) {
+        ice_report_tx_hang(pf);
+        pf->health_reporters.tx_hang_buf.tx_ring = NULL;
+    }
+
+Suppose a second timeout arrives while rtnl_lock() is blocked. Could the
+dump then combine the first event's queue/head/intr with the second
+event's ring snapshot? Could the clear above also drop the second event?
+
+>  	ice_devlink_health_report(pf->health_reporters.tx_hang, "Tx hang", &ev);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can this deadlock against
+a devlink driver_reinit reload?
+
+ice_devlink_reinit_down() runs with the devlink instance lock held. It
+ends up in cancel_work_sync() on the service work:
+
+    ice_devlink_reload_down()
+        ice_devlink_reinit_down()   <- devl_lock held by devlink core
+            ice_unload(pf);
+            ...
+            ice_deinit_dev(pf);
+                ice_service_task_stop()
+                    cancel_work_sync(&pf->serv_task);
+
+The tx_hang reporter has a dump op, so auto_dump is set. In that case
+devlink_health_report() takes the same lock from the service work:
+
+    if (reporter->auto_dump) {
+        devl_lock(devlink);
+
+Suppose a Tx timeout fires just before the reload. The service task can
+then be inside ice_report_tx_hang(), possibly waiting for RTNL during
+unregister_netdev(). It returns early from the snapshot because the VSI
+is down and then blocks in devl_lock(). Meanwhile the reload thread waits
+for that same work in cancel_work_sync().
+
+Dropping RTNL before reporting avoids the RTNL/devlink lock ordering
+problem. Does it do anything for this dependency between the reload and
+the service work?
+
+> +
+> +	kvfree(ev.desc);
+>  }
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026-ice-tx-hang-dump-v2-1-e2136ef2c5dc%40hydroquebec.com
