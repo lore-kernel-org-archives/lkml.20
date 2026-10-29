@@ -1,74 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793293512;
-	b=oPMhH81BfY4RS8OQLTRzyfXYW1/HMUN5loU/ryZ6iWuYkx0iIT2VR8tgkDzSz9A4LcfU
-	 vvHOSX+VWcK2TYJ+8B/54FOqDGsvi/kK0WRhWYwMZJKoiKOY0ehgfNQMZnntYpCfL+IYs
-	 gM2eKUtlGiDBVNjPmOxxzxELv8jRa1E4BL+2ifnlrxtukDM8sxgzekkAJih0S9LYCvyMz
-	 LNSxC41B4xBPnygSGiEDFJwqDZtIRXDlpsL+D4W0fn1cWK8jLIaQT+PkYrZjake+NNPYQ
-	 8lofNdlPgineqEFW0MK/0NCMZ/RnuMAMGuN+ejVUJuL+1NjFBS4ppx8pUXTEDtFs16A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793293512;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=LVRxZ24pqtgoa//AHQI5Xv+cMRAGXk2uxfsL1IU6GrI=;
-	b=RZ8eK6XRCVKZWizp3/K+b3CgTD8/+7K1Ltcz1jGNhxpiti1cyZRgkvZRCb4s/KVLLuS1
-	 RV5/BiFs+e0c7m5TCZ4cpq/k+QyiBU9WIZ2C0dSX3aDPoxh2k89SQfwe6MkzKM/nZzwlO
-	 ttVW+P7iIyYarOWPG6NO6TJcW0XRNkcOj+LHiUle4zN8Gbu1doKB9PbPLPGq4t0qBMW+1
-	 KzhxcQChg7gIWC0IWAi9EmpY5mKkK44POeL7qRAdG8b36+LvDZpuKyGAHa2PpenCl8Czh
-	 vR7k0Y5JPgzcq4XvCKvc/c0x9AFhEGJalyYPu5xOqInukXMyVqtE7yPfT0qpvhhWBtA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0ykgAeC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.3
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793293610;
+	b=MmvVS6IXdvqu6Q20VFn5h+QSHuqj14wAD+cnuP169cF3D/yfliFMsEyxv/kwPHPmBPy1
+	 ZXvZOGyjZnfBYA6M5Aboz+FQRUsSEKEVU/l/6UGbUlr5xTcCXIlIcryNIuNwmUY6Dw0Mq
+	 PZnuqfY+FlfUw/Ds8q5WevMbQoLzT+w4vE98DXQpW5LIWkz0UJfLrDJICyTHGMn7xkbBw
+	 qF9H179zxBnidwzOGLeIHY5W5g136/yzb7qcj62Gwcna1M9g4S8GevfKlVOT8mErnXX1e
+	 C21WKzpvv5TWeXvP0ebf8tV/TfyUoXKXMNzkB7OY2ZMTvz2jWui/Os8n6Z+sSE2Yi1w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793293610;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=L/RZCIG6rAWJGd8WSVDRzKldLRL4Vua47wkutkhdp+A=;
+	b=h1J021jeb26SMcs8/gSycGETzsQACsR4oCp8mELXGkgFfMjtAkkDCrQybv7Iyfo2S+s/
+	 QysoqCk8NzxSCnr9rOAkI5jYtSBUOBGwPWb+CgrrlhxYUx9LdeIrFHlGiIXuSRYXieW00
+	 978k43SWwZ0j7UTqguZvao9D/n9JDHeo2s02QKmOgzxZ3X8aytEQyS+M2v/MqyYo/ab5q
+	 byi2Do2NRdsNvglvi/bI6TxKlk1k7r5jeyHMVmwpFiXP3vyVBkDA6a+sqaGBxFAoLhmwd
+	 gMejbqN0fKj4NCrIf7TTFjRcqA3vZXbxcgG0OAB1oqexMGdULcd5Iy61BoWTw0Ab2JQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="1Ke6N5/M";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.3
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011003.outbound.protection.outlook.com [52.101.62.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E31606A31A;
-	Thu, 29 Oct 2026 17:05:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC96606A31C;
+	Thu, 29 Oct 2026 17:06:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AC96606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0ykgAeC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 984731F01816;
-	Thu, 29 Oct 2026 17:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793293511;
-	bh=LVRxZ24pqtgoa//AHQI5Xv+cMRAGXk2uxfsL1IU6GrI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=G0ykgAeC8Jlr/lcfDgv58kfm/oA5Cqf1X+4jYhIrQD3Kou6DYng9U8chgQ0LB3y5M
-	 Yt7cvZBcvOTLO86KBx8YRxUQErNyGF0JFHkOhjzzg5M8+mpey1kQIt0dS07g+9d6HZ
-	 9RepnMfzjxY29/6VHS+wjqy16gp0NNHNg5GeYApljtXKHzbPP+0kpCxrhJhLYjpV/2
-	 uWNecWqCg1+1CE1RslIgmixd81EXgnXQfnR0mLvdEbU8+Q747HGhFQyEVytR/uxWLR
-	 lvjRAxnZlIM5nhArfjEsGxc1XdqRH1n4nA9aQjFBGYgPl08Sky82QepCv814D8njvW
-	 wI4JfCiXXKpCQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xMTYr-00000008dbp-06u5;
-	Thu, 29 Oct 2026 17:05:09 +0000
-Date: Thu, 29 Oct 2026 17:05:08 +0000
-Message-ID: <86ik2kxwsb.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: francesco.boccola@unina.it
-Cc: Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v2] KVM: arm64: nVHE: Flush all TLBs when freeing a VM's stage-2
-In-Reply-To: <20261029-nvhe-stage2-flush-v2-1-096723b28bef@unina.it>
-References: <20261029-nvhe-stage2-flush-v2-1-096723b28bef@unina.it>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=1Ke6N5/M
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yQlNVhRTzT4HnQYmV1VWQBcG5wWwYC9G1jYlINV94dFE2S6ysmsxABsohmuMAO0r7Wq/Y4InK8AeNHcOkrpohy3eCdyiy6XBZt+0bwtBwnK3ftnrbRmqA4ZjnxWrbwIoDycgSJYbjx4M/l5obYiPYp6+cOPVJvEiYbMkTXiuAWU9iuusjR2RDXr3pKUkwCjTTpC3eJrQIaeHjP4i/oKhO+b7zM3wiQ5pFL6xccIHeorw6QUEy5lPwcbCZs7w2+flxRaytb7/yENf9+gKmE+cin1ankDCk2JeGYC+SLhD3pkl5ckfTDyolaG4lhhyb+PBegIBhypJJVAHncj2h2fG1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L/RZCIG6rAWJGd8WSVDRzKldLRL4Vua47wkutkhdp+A=;
+ b=a+UuTKsdcHjLsNrMTjrVY7nboph3yHl5fluTSOiTV6m0r3eQIlgr1rvvyDSQoMd6qPXXlfF+KWQuDdDW0+6JU5uBlPPGwMeWyjgWUCLU8gZmdF9rfSmqf502NjPU0flBgvq7uox0k2nsuUBhymRQsGRyUtzT8WU+gBoDpDNaygumjMj8zdUQkCxX0MRtQvaqeDFRPaj2aEvALNCDmjCyXuISERTcGvXsUYZN9l//vEN5HLjEuvIE80O0lDesdrMuJwjJjGr3kXdUhP5C+aC5ZaC/SbMxlU5VA2QD94xlG8MRxs6GqCwyD4kkelr+o+3mCStYel/wyzVWJcnpAwKibA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kylinos.cn smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L/RZCIG6rAWJGd8WSVDRzKldLRL4Vua47wkutkhdp+A=;
+ b=1Ke6N5/MD0ih37BuUhYt5nyjEEPoELvBSUbOpD8j0+sYOg4oCuP2E1Q16v3JWvOWEzbHEsSyCi4p+ttstAtBoHWnIOG0FBWn9FRbwncRhT3cHBsrq2p5EkfDbutMLOUkyMmHaDlvw/jv4saAsm1kPeaXMy6ayayRWu7xI1xesh8=
+Received: from BLAPR03CA0021.namprd03.prod.outlook.com (2603:10b6:208:32b::26)
+ by MW6PR12MB8707.namprd12.prod.outlook.com (2603:10b6:303:241::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Thu, 29 Oct
+ 2026 17:06:44 +0000
+Received: from BN7PEPF000000A1.namprd04.prod.outlook.com
+ (2603:10b6:208:32b:cafe::23) by BLAPR03CA0021.outlook.office365.com
+ (2603:10b6:208:32b::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Thu, 29
+ Oct 2026 17:06:42 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN7PEPF000000A1.mail.protection.outlook.com (10.167.248.153) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 17:06:41 +0000
+Received: from [10.236.178.151] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
+ 2026 12:06:40 -0500
+Message-ID: <7a22cc6a-deba-40e6-8033-97d1234420ba@amd.com>
+Date: Thu, 29 Oct 2026 12:06:40 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,72 +98,149 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: francesco.boccola@unina.it, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] cxl/core: Create einj_types when EINJ becomes
+ available
+To: Yongxin Yang <yangyongxin@kylinos.cn>, Davidlohr Bueso
+	<dave@stgolabs.net>, Jonathan Cameron <jonathan.cameron@huawei.com>, Dave
+ Jiang <dave.jiang@intel.com>, Alison Schofield <alison.schofield@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>, Ira Weiny <ira.weiny@intel.com>, Dan
+ Williams <dan.j.williams@intel.com>
+CC: <linux-cxl@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20261028084934.1735010-1-yangyongxin@kylinos.cn>
+ <20261029065629.333949-1-yangyongxin@kylinos.cn>
+Content-Language: en-US
+From: "Cheatham, Benjamin" <benjamin.cheatham@amd.com>
+In-Reply-To: <20261029065629.333949-1-yangyongxin@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A1:EE_|MW6PR12MB8707:EE_
+X-MS-Office365-Filtering-Correlation-Id: d6a8a6a1-1d13-401a-aeff-08df35df00c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|82310400026|36860700016|11063799006|261026121527099003|4143699003|56012099006|261021123027099003|261009223027099003|261022105027099003|261022075727099003|261021121427099003|10067099003|22082099003|18002099003|261028144727099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	wNXLHHZn/1VIBC2DZEF9FjupGzIB2gNq2NZYguLHK+zUO9SoppqA9VMJRjRyLot8n7gg3CjfDymg61XutSswhweppQgXeTsoAHCA/VTpK5ugTBuP9hp/kK00U33CBmJ459+oj+ictXCo/ZaU3DDlrcgh5H5rzsvHQ1jW43rMTvbunV39DAgCOYhKwmV0TwygcRdqIhmQihUpyGcmxcSp2nP3wTwDbmXMoKxbYMO17FsyYaZ7x03Wkj1DJgyTure5ycjLyo3uADZmLdV4aJzCze6AtqSyE4RQ4cpE36VU+i6teOoLE+HFzZ7y5Y2Ki3npEFpjWyYqbrnoUHmk4RBr9m4eSyA2M/MBgMfdu2MKbHPuQYiJyeCoC+AFAPezqowHKhYMczzY0T52ltQEYORaPY5BppRJhNOBIAyJVXv4kl/rlBl9s9jHcqLFq85WcslwXF4WQNuvMbi6V8ICwqRTX5bLhdk63BFPpQFQVTgOp4oSFSqVgsBOZYH8NzLekZzZK8/WcnMLjULC/YmL9sx2lWIXjZgs69/7E/HvtdxRD87UI7FfHbreMA1VaCqZpsz7lM7T79DmG6DOVJ/Z3/HHWWY+1ekTt8LdI3T0Ngf2zLqD5q/8PBSZ97ngTK+nucdtxECG57Wcw53X1eov+mbXefxm6vkVKaq9Q/LBxb1G/D8=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(82310400026)(36860700016)(11063799006)(261026121527099003)(4143699003)(56012099006)(261021123027099003)(261009223027099003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(22082099003)(18002099003)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	w4JHNCUkla17pDAzWjHUZcZrYJiQyatLG1j6+qNE+L0laxMLk2Npw8popixP2jZId7dXj6MjjxMg8P76Z5iLmXkIA8mFqW7a61Nj7YZqBD003O1cseBqsSnSx7ZqtmcxXG7MrqoJlDAD+wZ1+JXIboa6hzjoBzqUPjkX1v3LMKaS1MdXb6jNca5F3rMxEi+KaGyZR0RtpSlv1I+5QoNPR03dvqJAR4L2tbwDqG0J5kD1nmE0e3dOqHIwFzFrpeZGaUeY+DlvnoGFSeAd+vQUIVTUVYs00zNj8TwHm7QQmLheqVLmM0mclqVEs0uTkrMgX1vZAq1bYulE6Q2bGf9idGNrYmUVg6LArxr69DT+Jttlk7r1tU6euMKoppAgCzqdL8hbszzab7RwRE2fp76nd1lKAQei3Ajk72IzUrS7tKSWE6lXl6Y8YkYYw5CAqKLo
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 17:06:41.6205
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6a8a6a1-1d13-401a-aeff-08df35df00c2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF000000A1.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8707
 
-On Thu, 29 Oct 2026 15:34:48 +0000,
-Francesco Boccola via B4 Relay <devnull+francesco.boccola.unina.it@kernel.org> wrote:
+Hi Yang, thanks for walking through your reasoning in the last revision. It made looking through
+the changes here much easier!
+
+Nit-picky comments in line :)
+
+On 10/29/2026 1:56 AM, Yongxin Yang wrote:
+> [You don't often get email from yangyongxin@kylinos.cn. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 > 
-> From: Francesco Boccola <francesco.boccola@unina.it>
+> From: Yang Yongxin <yangyongxin@kylinos.cn>
 > 
-> kvm_free_stage2_pgd() frees a VM's stage-2 page tables without invalidating
-> the TLBs. That is correct: the VM's VMID is not reused before the next VMID
-> rollover, and flush_context() then invalidates the entries of all VMIDs on
-> all CPUs (TLBI ALLE1IS).
+> The einj_types file under the CXL debugfs directory is never created.
 > 
-> In nVHE mode, however, a CPU that ran a guest makes the host's broadcast
-> TLB invalidations more expensive for the whole system until then, which
-> with 16-bit VMIDs usually means until the host reboots.
 
-Does it? Why? What permanent state is kept in the CPU TLBs that makes
-invalidation slower?
+I think this should be "The einj_types file under the CXL debugfs directory
+is never created when cxl_core is built-in", but I haven't looked in a while.
 
-> With stress-ng
-> --tlb-shootdown on three CPUs of a cluster, the cyclictest maximum on a
-> fourth, isolated CPU goes, before and after one guest:
-> - Cortex-A53 (Zynq UltraScale+ KV260, no VHE, 6.1.70-rt): 53-72 us ->
->   83-164 us;
-> - Cortex-A55 (RK3588, kvm-arm.mode=nvhe, kvmarm/next): 18-23 -> 78-97 us;
-> - Cortex-A76 (RK3588, kvm-arm.mode=nvhe, kvmarm/next): 16-30 -> 74-80 us.
-> It crosses clusters: after a guest on an A55, an isolated A76 goes from
-> 14-18 us to 129-154 us. The same happens on kernel 6.12.113 (20-24 -> 44-49
-> us on the A55) and on 7.1.9 with and without PREEMPT_RT.
+I remember you saying something about subsys_initcall() being downgraded to a
+module_init() when cxl_core is built-in, and it looks like that's the case
+after a quick look at the macro definition. So module dependencies should
+cause the file creation to happen post EINJ init when both cxl_core and einj_cxl
+are modules, in which case the file will be there.
+
+That's probably why I never noticed this either, I (like most people) almost always
+set everything CXL related to 'm' when compiling a kernel...
+> cxl_core_init() runs at subsys_initcall level, while EINJ registers itself
+> from einj_init() at device_initcall level. When cxl_core_init() evaluates
+> einj_cxl_is_initialized() the built-in EINJ driver has not been initialized
+> yet, so the value is always false and the debugfs_create_file("einj_types")
+> call below it is never reached. Users have no way to discover which CXL
+> error types the platform supports from debugfs.
 > 
-> One guest that turns its stage-1 MMU on, even for a few microseconds, is
-> enough; a guest that keeps its MMU off is not. With VHE nothing changes.
+> Create the file from every point that can tell EINJ is up: cxl_core_init()
+> covers cxl_core being a module loaded after EINJ has been initialized;
+> cxl_acpi_probe() covers the same case for cxl_acpi and also systems where
+> the CEDT is parsed but no dport is ever added; and the dport probe path
+
+I would rather this not mention the case where no dport is ever added and
+instead talk about the RCH/RCD case. If there's no dport ever added then
+error injection isn't possible and this file is useless, so there's not
+really a point in bringing it up.
+> covers the built-in case, where the dport added from the memdev probe is
+> the only hook reached after einj_init().
 > 
-> The state is in the CPU that ran the guest: a local TLBI ALLE1 on that CPU
-> at teardown removes the effect on every CPU, the same on all the other CPUs
-
-I note that the hack you are adding in this patch is a broadcast TLBI,
-not a local one.
-
-> does not. Invalidating the dead VM's VMID (TLBI VMALLS12E1IS, as pKVM does
-> at teardown) does not remove it either, whether stage 2 is disabled while
-> it is issued (as __kvm_tlb_flush_vmid() does from the host's context) or
-> enabled; nor does invalidating VMID 0 or the host's stage 1 (A53).
-
-VMID 0 is not special. This is just a convention, and you could use
-VMID $(RANDOM) as long as you use it consistently everywhere.
-
+> The dport probe path can run concurrently for different parent ports, each
+> holding only its own device lock, so serialize the check and the create to
+> avoid a duplicate debugfs_create_file() attempt that would only fail with
+> -EEXIST. Reset the cached dentry in cxl_core_exit() so that reloading
+> cxl_core starts from a clean state.
 > 
-> So do the rollover's invalidation when the stage 2 of a VM that has run is
-> freed, in nVHE mode. That costs one TLB refill on every CPU per VM
-> teardown; 500 VMs created, run and torn down one after the other take 32.1
-> ms each with it and 33.4 ms without, and an isolated CPU meanwhile sees no
-> change in latency (15 us against 13 us).
+> Fixes: 8039804cfa73 ("cxl/core: Add CXL EINJ debugfs files")
+> Cc: <stable@vger.kernel.org>
+> Link: https://lore.kernel.org/all/de14c4ef-e3d8-432f-9ce8-87c468d6d2ad@amd.com/
+> Signed-off-by: Yang Yongxin <yangyongxin@kylinos.cn>
+> ---
 
-Not a lot in this report makes sense, I'm afraid. I'm not pretending
-that what you are seeing isn't real (I haven't tried it), but without
-a actual description of what the root cause of the problem is, we're
-not going to randomly sprinkle TLB invalidations that are not
-architecturally required.
+The contents of the patch look good to me, so with the changes to the description
+and comment below:
 
-	M.
+Reviewed-by: Ben Cheatham <benjamin.cheatham@amd.com>
 
--- 
-Without deviation from the norm, progress is not possible.
+> Changes in v3:
+> - Take the review from Ben: the helper is now cxl_debugfs_einj_add_types(),
+>   non-static, declared in cxl.h and exported to cxl_acpi only, so that the
+>   cxl_acpi hook can call it.
+> - Add the cxl_acpi_probe() hook, before cxl_bus_rescan(), so the file is
+>   created once the CXL topology exists instead of waiting for a dport.
+> - Keep the dport path as a retry point. With EINJ built in, cxl_core_init()
+>   and cxl_acpi_probe() both run before einj_init(), so dropping it would
+>   still leave the file uncreated there.
+> - Drop the "RCH is out of scope" paragraph. RCH does add a dport, from
+>   add_host_bridge_dport(); the file is still not created there when EINJ is
+>   built in, so do not claim the acpi hook fixes RCH.
+> - Reset einj_types_dentry and cxl_debugfs in cxl_core_exit(), so that a
+>   reloaded cxl_core does not keep a stale pointer and lose the file.
+> - Use guard(mutex) instead of mutex_lock()/mutex_unlock().
+> 
+>  drivers/cxl/acpi.c      |  9 +++++++++
+>  drivers/cxl/core/port.c | 41 +++++++++++++++++++++++++++++++++++------
+>  drivers/cxl/cxl.h       |  2 ++
+>  3 files changed, 46 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/cxl/acpi.c b/drivers/cxl/acpi.c
+> index 3b818adbd38b..0584245b30f2 100644
+> --- a/drivers/cxl/acpi.c
+> +++ b/drivers/cxl/acpi.c
+> @@ -958,6 +958,15 @@ static int cxl_acpi_probe(struct platform_device *pdev)
+>         if (rc < 0)
+>                 return rc;
+> 
+> +       /*
+> +        * Create einj_types from here as well, so the file also shows up when
+> +        * cxl_acpi is a module loaded after EINJ, and on systems where the
+> +        * CEDT is parsed but no dport is ever added (no CHBS for the host
+> +        * bridge, or a CHBS without a valid component register base), which
+
+Same thing as in the commit description, just mention the RCH/RCD case here instead.
+
+Thanks,
+Ben
