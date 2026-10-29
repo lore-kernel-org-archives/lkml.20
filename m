@@ -1,66 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793236924;
-	b=PPhQokTbs/vlIFd++AdZpC44NL2Qm/8PoSZOa0+51fCd7tdkZg8s5YIYIfJCUxC6+Qe6
-	 bUVFvWc1W77myDfA2MzY5ZUnStvQJqISV1beHX4EJ0rzZtqw0BspRHoCXLAfVEs0mbtFf
-	 YSKulM2/pOhAe9sfV21frkEloJK/PjlfJGF0FBbLQHYsUzAUBmw5XvOX0wHvOG5cJ2JX3
-	 /54w5+dBch+kKLXuzf8EA6YBhCnsjyoiAKx9S3pZ8T9dmwl4O5ESClm/NkTFcc2hMSbwX
-	 AghCoD3TfhCosiPX052Lv1aBsURK6ni+5nGb85uZPo4NMKPVNmUQfDenM5SlA+Yp9yQ==
+	t=1793236975;
+	b=dSWwFRkwKLEDF/usYaYdNsP5bAy54Fk8yPJvhk6jqpte8h+7vfjYAGA964nx4I0G6Dl1
+	 mOriyfY3p1pxra5lbMQTctqyMfuQnuJ6p8Ph2Pa1dECdF+sdEKE3NOwhE6xx+qUArKf+8
+	 zBomJWcF63Tw4PSsWLnxp7DaBAhLOAe3KPSUx+EsEHdPsox4Zb0D8toi747KR96uVSmTS
+	 gBfLc4RxDZuLJkPT1l693sEa6RRl7uv32O8a7qq66mqZvEYLnuDEFDbD6NP+k3cGBqEDJ
+	 bbwkyGHgeryFHExlLZ5IJk1z7TGa+J5zgx4HmDBqNWk67RdMW9v5sVZcp7nMbDOA4eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793236924;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=WXaEqoKFJjh2uwmR5UbQG1k/n5O6wB+CyMB0Xm5vS30=;
-	b=pQXqaK5tKJgY1zh/lSqYjNucYaE5lMIA2sbmr2T2TqITJBECNmvx7QkanErtl4HNfHbT
-	 cOX9dxNZxFsoZX3UU4NUYR9iLS1g+wDlB0wVzCEmAh/N5thkobxYDxeeARaMYRHduyUG4
-	 dHYtYSpJ/mrTMR51oNAOsYpP3u8hbMJWN4D2uoaiV9jsBH032pXTw+WxCEVPRu3vTTd+4
-	 xCUUSJDNwYz/Ku6VKldhGdnW4fHNuOm/iJFbxuO8whl0CvIHRlrPHytSWZM5hDKfn7BWq
-	 3hKdL67rdgIYzDUuLPA/upr3+VI5cF420EncBI6HzYs0Py+tImRnUu1n1rSW/zmBs6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793236975;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=hiNiSWDKVgEXNKW9leadRJp3AnUn3mjtErz/XHDUGVQ=;
+	b=esedVxlIlOFdvmiEKLR/Auu6sGpLVNATc5Ty0WcnRtlzjnhSBsPG4A3l60qX8dXuQcpT
+	 lym5dAPAKPiiBaUccRLOCzgdjC67yVUzwTIgZHoc5iKiouuK1LIVLXt1O628LvZ6BydhO
+	 u+Opj+my6RD/nEaiXWKeSr2Bh5RlEprJvsI8SFXYhJRVxHO7Umr+zCMKw7KlHcra0eU4D
+	 wTOyftdGaqhC/efQOXN6DvuQwBqXKe+kY1VeRV2xzXIm5ao+MSnG/bTE0kMNOj6Da/QQ1
+	 FtrU2ymrbFcRvYV8cUGCj2kCK5/KjdBF/9mf3iaWrqTZRJNcjSYFFLAN3Gv2y8dJ9+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=JU6q5406;
-	arc=none smtp.remote-ip=115.124.30.112
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=ARBoLenk;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD07606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:22:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BD07606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C63606A31A;
+	Thu, 29 Oct 2026 01:22:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32C63606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=JU6q5406
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793236914; h=From:To:Subject:Date:Message-Id:MIME-Version:Content-Type;
-	bh=WXaEqoKFJjh2uwmR5UbQG1k/n5O6wB+CyMB0Xm5vS30=;
-	b=JU6q5406klJEn2N6xqAhwQinBLCR1a6ARHUUhn9mjjFdlScAwqx7tKCkoec4OEyeeEAlaxXeMJQ+KzEVGjy6puu2R4Hcctv2cCTEeD+Ij0unCtRh+KMlpHmp5YssOxA1/WbgRmp750BYr0IksyvmcL7cQ9vAfp5eCgj9vsN53wI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R501e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=12;SR=0;TI=SMTPD_---0XDhs5rO_1793236912;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XDhs5rO_1793236912 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 29 Oct 2026 09:21:53 +0800
-From: fangyu.yu@linux.alibaba.com
-To: jgg@nvidia.com
-Cc: Ankit.Soni@amd.com,
-	fangyu.yu@linux.alibaba.com,
-	guoren@kernel.org,
-	iommu@lists.linux.dev,
-	joerg.roedel@amd.com,
-	joro@8bytes.org,
-	kevin.tian@intel.com,
-	linux-kernel@vger.kernel.org,
-	robin.murphy@arm.com,
-	vasant.hegde@amd.com,
-	will@kernel.org
-Subject: Re: [PATCH] iommupt/kunit: Read an exact NR_SECONDARY_PAGETABLE snapshot for the leak check 
-Date: Thu, 29 Oct 2026 09:21:51 +0800
-Message-Id: <20261029012151.78138-1-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <20261028125910.GB3040767@nvidia.com>
-References: <20261028125910.GB3040767@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=ARBoLenk
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69T1McQgA2399462, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1793236959; bh=hiNiSWDKVgEXNKW9leadRJp3AnUn3mjtErz/XHDUGVQ=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=ARBoLenkL4C09lTN2oFMnKPSyrxWioWu7x+Oa1huShx9DUptn/RTJ/8lWLUUhEbaZ
+	 Pxuu1Ol7z8gKMvdS5yXthrXoS4L95MKdBDEs8fGaM68YmulD8NeC1cpOjaT3tqo7oY
+	 HomuRukXKPr0h5fCyhrF/P1CI56P5a4UuRuve6+NQn9hABGqQODkXLYqSKxWnGlu5t
+	 IK312+kMxnhO7X+zccDP6Mg92+ztcEF4HvfiUuav+bfwNm3z4+l0uRXCYMnuvj3sPP
+	 9VTm3vps7n0UbXGdvm7H2uIgaemuaWNdAbVHggeM5RJ8+BiIh/EA7q96D8TaqLD3ta
+	 P+5tWWKVqIllQ==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69T1McQgA2399462
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 29 Oct 2026 09:22:38 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 09:22:37 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Thu, 29 Oct 2026 09:22:37 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Imtiyaz Parvez <reza1234khan1234@gmail.com>, Hungyu Lin
+	<dennylin0707@gmail.com>
+CC: Luka Gejak <luka.gejak@linux.dev>, "linux-wireless@vger.kernel.org"
+	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] wifi: rtw88: allow key removal when the CAM table is full
+Thread-Topic: [PATCH] wifi: rtw88: allow key removal when the CAM table is
+ full
+Thread-Index: AQHdX+uKpKj5AeqD60mYtFtK4iFuvbcFrrNw//+mgICAAJDAYP//rimAgACSRQCAAD/UgIALkuMAgAD+KYCAAM/+wA==
+Date: Thu, 29 Oct 2026 01:22:37 +0000
+Message-ID: <4f88bc4989c444cd885a4784a49a7f95@realtek.com>
+References: <20261019165103.5990-1-dennylin0707@gmail.com>
+ <9bde49a2e7794e4fb6bc3ae104eef87e@realtek.com>
+ <334c6e785a5d242c6f168d57d042d63b777a242a@linux.dev>
+ <4f48c50cab1145fd9dbd6df6d424c877@realtek.com>
+ <CAGEkeHevidTtTNj-qfy6kE_O0wRvqT=F=sG+Hy83BOkRjCUqeA@mail.gmail.com>
+ <CANQ=N_C3+gpQ3O=SXYpRCGTh_MC1y4TEfnxF90SWgUVF_wYPUA@mail.gmail.com>
+ <CAGEkeHdT1-WwJnF1wTkrrRQRzrEYESOoDeAYE+fiV0gROG+6sw@mail.gmail.com>
+ <CAGEkeHf0CLjxhGySt2axf8gXMrCcn=cEHbe1aXRW4FgcbxjyZQ@mail.gmail.com>
+ <DMGRRA9L08L3.1IM2GZHXGLZQ1@gmail.com>
+In-Reply-To: <DMGRRA9L08L3.1IM2GZHXGLZQ1@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,30 +91,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
->> The run fails consistently. In the example above, 14 of 21 tests
->> failed. With the proposed fix, the same command passes with 18
->> passed and 3 skipped.
->>
->> 3) Could you clarify what you meant by "disabling the check on !SMP"?
->
->Just
->
->if (!IS_ENABLED(CONFIG_SMP))
->
->With a comment explaining it
->
-
-Got it, v2 will guard the assertion instead of open-coding the
-vmstat snapshot:
-
-  │ if (!IS_ENABLED(CONFIG_SMP))
-  │    KUNIT_ASSERT_EQ(test, priv->orig_nr_secondary_pagetable,
-  │                    global_node_page_state(NR_SECONDARY_PAGETABLE));
-
-Thanks,
-Fangyu
-
->Jason
+SW10aXlheiBQYXJ2ZXogPHJlemExMjM0a2hhbjEyMzRAZ21haWwuY29tPiB3cm90ZToNCj4gSGkg
+SHVuZ3l1LA0KPiANCj4gPiBIYXZlIHlvdSBoYWQgYSBjaGFuY2UgdG8gdGVzdCB0aGlzIHBhdGNo
+Pw0KPiANCj4gWWVzLCBzb3JyeSBmb3IgdGhlIGRlbGF5LiBJIHRlc3RlZCBpdCBvbiBteSBsYXB0
+b3AuDQo+IA0KPiBIYXJkd2FyZTogUlRMODgyMkNFIDgwMi4xMWFjIHwga2VybmVsIHZlcnNpb246
+IDcuMi4xMS1hcmNoMS0xDQo+IA0KPiBJIGJ1aWx0IG9ubHkgdGhlIHJ0dzg4IG1vZHVsZXMgZnJv
+bSB0aGUgdjcuMi4xMSBzb3VyY2UNCj4gdHJlZSB3aXRoIHRoaXMgcGF0Y2ggYXBwbGllZCwgYW5k
+IGxvYWRlZCB0aGVtLg0KPiANCj4gSSB1c2VkIGl0IGZvciBhcm91bmQgMiBob3VycyB3aXRoIG5v
+cm1hbCBicm93c2luZywgc3VzcGVuZC9yZXN1bWUgYW5kDQo+IHJlY29ubmVjdGluZy4gTm8gbmV3
+IHdhcm5pbmdzIG9yIGVycm9ycyBpbiBkbWVzZy4NCg0KVG8gaGl0IHRoZSBwcm9ibGVtIHRoaXMg
+cGF0Y2ggZml4ZXMsIHdlIG5lZWQgMjggcGFpcndpc2UgZW50cmllcyBhcyANCkx1a2EncyBtZW50
+aW9uIFsxXS4gSSB0aGluayBpdCBpcyBub3QgZWFzeSB0byBwcmVwYXJlIHNvIG1hbnkgc3RhdGlv
+bnMNCmRldmljZXMuIA0KDQpBbnl3YXkuIEFzIHlvdXIgcmVzdWx0LCBpdCBwcm92ZXMgdGhhdCB0
+aGlzIHBhdGNoIGlzIG9rYXkgZm9yIG5vcm1hbCB1c2UuIA0KDQpbMV0gaHR0cHM6Ly9sb3JlLmtl
+cm5lbC5vcmcvbGludXgtd2lyZWxlc3MvMzM0YzZlNzg1YTVkMjQyYzZmMTY4ZDU3ZDA0MmQ2M2I3
+NzdhMjQyYUBsaW51eC5kZXYvDQoNCg0K
