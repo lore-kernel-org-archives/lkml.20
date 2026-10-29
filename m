@@ -1,58 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793272722;
-	b=t6EBtCp6HhFlqYTTtZDWuZWi9mTWawV7PU3Aqgg+3quPWEhPZ8Td2QB+Phi9u2sPpUWn
-	 +uj1LARlmzumnJuFtDKhb+WBJQkmrWkYa8FwxL3sRatmUH7jbUGxrfcN39WuwK7DQFE81
-	 JcZogpr5PDyZ7f1JkwjvxNNviNUecgllLT2VLbZtSZGAw8lfWRs+J0mOWOBBTcp6whYK2
-	 HJ5FGIS11rG+byRz3OezoPfeMVMb4h+MlVAXvWAPVsvafEP/BYxxGlwNQRqmJJKlI6nia
-	 5Vz5Dl/l0yjY90/9HhB781TfY4WfkqdeM0lZzjeCjZ/kJnOYJaeRPzJTKLLXdqG7P5w==
+	t=1793272763;
+	b=OGtS5IvV0ACsA6uu0hJcsn4do1N4o94fK4j0aRc+troP7b0dn83qAzmwLf2YE+pIuqbi
+	 WxfmVwAXRcHTFNpauFhk7NgCF+zxObiD3AU1nTvlZ2YWkuw16zRhhJNWiE9Pbhz2J9AB/
+	 SWVkIrG+AiTVakQcjy+4uq7OZAA72whlg7WvCMFKd8EvbHwfhRoeYfKe5thVO8Mmf6ULb
+	 aHJ5gh79q00dJCBnnvUF4cgyF0TlCC8Xqchaftye7h1tUbHhNY372fc0DpdKqJxW71szm
+	 98NOVWHTtRUM6Zf8qY7CQIFR6TD9jtfUfR3SV3w0beLv0G9MRphloAmEkty3a5/i9Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793272722;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=oRzZK2TV472kZHxDJFt7NKBBHWBp2CpJHIed8kBiKzw=;
-	b=vhD80Her69TN2KwiaKsGtF0wqId1PUVpYQOVfIQOK1Gl9ptLIdGdSQTh2kF2CkWJP3fa
-	 GBSkKRc0J+C5KL5OcemG9D4cbRTwJEjGu1j/G2WRBN8FuddEI7geQqCw53vEg8y/Vl/wC
-	 /iziTy52+HOrb1EJS6XR/M+gtSWjrNkWAEJauUIjBZzAlcSKJJYGukcvCn9lO17+SUhww
-	 zttRZZRCGTJifwpVfLOjnirffcYX0Vjet1+IggpPPUCew2yyAgPQhBBmFuU2WV00zhvKC
-	 A3vcYhfjnECEQ6SmnNWmWCPqIzo/S8CQLNH6oflbljQLcxg7sskLE1i4btKImej3CiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793272763;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=w87Fsky0NgxDuxHBRoTymPJmUy6XO+2+F5+Frr/38EA=;
+	b=e59/UX9rqusAz5izac/JAckumH6yq+Qzb0WrpeLHeSt61eXB0g0wsCskvkevujPwL6qh
+	 5xb8JDvoJdu0DsVIHBbHyfNV6TR7O6UlO1eMrbC4XS4Dohc3uQDEUQLXiiAmkj1O9vs4I
+	 5m/4ZdKXcfFjcu9O17iM3bHgEhIwvG5jv7tXixmCU26L8VlSW9PwqA0UJJlkpIatX6bmg
+	 BOuqTY0yt8C0BltPX1MVchOlyYjsQsZ7bhdhm3vxKOzdL1PKOqQT2gADZPTtXjcmD8Gq7
+	 1SIBMfgd1XBMtrisxgbWRHRCxAdgW1e/nHDfayjia3f7vx3SvI5cejn8x60nkrAdrHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY68Gxyg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF7E606A31A;
-	Thu, 29 Oct 2026 11:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY68Gxyg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8C561F01825;
-	Thu, 29 Oct 2026 11:18:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793272722;
-	bh=oRzZK2TV472kZHxDJFt7NKBBHWBp2CpJHIed8kBiKzw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IY68GxygSLUt+GAqqR5oqUaK5quHUhxyMViLgDu58VfNFFBHH0J4bpp6Io9yoouTy
-	 uqdfeJGUVnwpbFzI8HJ/jJXwaV9sHQnflXzCDU3Bim7HAMXFVRlph8FXnHAvmHqXhz
-	 A3FkSnrANIOsBRX4g9bFh/ZHVutwl/vQ0QAT3fLHIgkqRk64ka/QUUgYNdI0vPlDGE
-	 2+tDYlTVde8B5HFbsW5bK1g7soB2RQJ2Lr0dlx1XWW3hcGCu3CKT8FD0tzoTJrnWzN
-	 HKKWAOn04g/Lx15U2In1IxkcYhgNkjuJzvytsBPxzTCskBevAKCQPiqNN89qeqfUP0
-	 NRxbd+bg+Okvw==
-Date: Thu, 29 Oct 2026 11:18:37 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: Re: [PATCH v10] ASoC: wm8994: drain delayed works on remove and
- probe error
-Message-ID: <58d8942a-16a1-46c5-87d5-486ae4e756e5@sirena.org.uk>
-References: <20261029102515.3417777-1-tristmd@gmail.com>
- <20261029105749.3732334-1-tristmd@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4F9606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:19:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A4F9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4dab94dc3e7so3159550b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:19:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793272762; x=1793877562;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=w87Fsky0NgxDuxHBRoTymPJmUy6XO+2+F5+Frr/38EA=;
+        b=25L8uosBi8Ill69mz9sz6+MgzkpQ1rpHjABG9gCDgcvT3QHL9Iu+TE7d9ULOBPHL98
+         WfDX+SvSb9heJORGfTM3yzG15tjxSatoQQVytQ/gF4cge+GUckKR7fPg4NaTgYT7Vb95
+         KY+jMf30a+PtFkk3KF3h5aq4Ll4sAjNka3V6m5kh6TUYlFb782fPE7L3hwJQNwHLhWHK
+         NImhd73kiexQHKu3j9XYeOq+OA56GCXPfk3PyssZ1hEh+zTUGMCd7gA61vHpHLDnWlQh
+         vZBhyLqc0TpNVuAmJJo49RjOZAYLhUUHsrmb447q5bYMnzTAvpsXVwg6Q8e305jxdshF
+         2NAw==
+X-Gm-Message-State: AFq9FYKDWZdYrH+z3Z09KY2fl2Jb12hDo/loH6KwwB6UnG9kH7U0Ryfx
+	I6zNEot/tVa3PUN+XuwnhH+ByqMsNdNEX82aIRhlxY3z0lHp1XtVOpd3WFqMSKwl/DfA1g3EVNg
+	m2zM37olKAAYsADuU7QDoYN6V+35jMCUp2BUr6rd+bdhhY1iRwmf4JmwN8OE=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,44 +57,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DGKWooc7RhOjjnxM"
-Content-Disposition: inline
-In-Reply-To: <20261029105749.3732334-1-tristmd@gmail.com>
-X-Cookie: I have a TINY BOWL in my HEAD
+X-Received: by 2002:a05:6808:518b:b0:539:df4e:2d25 with SMTP id
+ 5614622812f47-56382681aa0mr3578427b6e.28.1793272762283; Thu, 29 Oct 2026
+ 04:19:22 -0700 (PDT)
+Date: Thu, 29 Oct 2026 04:19:22 -0700
+In-Reply-To: <6a8cdbd6.dbb3a75c.7844.0013.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae32bba.4f340204.2a886f.0072.GAE@google.com>
+Subject: Forwarded: test
+From: syzbot <syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
---DGKWooc7RhOjjnxM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+***
 
-On Thu, Oct 29, 2026 at 10:57:49AM +0000, Tristan Madani wrote:
-> From: Tristan Madani <tristan@talencesecurity.com>
->=20
-> wm8994_component_probe() schedules several delayed works to handle jack
-> detection and microphone status polling.  If the component is removed or
-> probe fails after these works are scheduled, they can execute after
-> resources are freed.
+Subject: test
+Author: gowtham398gs@gmail.com
 
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+master
 
---DGKWooc7RhOjjnxM
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
+index f0646fb24371..d35efa876274 100644
+--- a/drivers/md/raid1.c
++++ b/drivers/md/raid1.c
+@@ -3050,6 +3050,11 @@ static struct r1conf *setup_conf(struct mddev *mddev)
+  struct md_rdev *rdev;
+  size_t r1bio_size;
+  int err = -ENOMEM;
++
++        /* check if mddev->raid_disks is valid before passsing through
+kzalloc */
++
++ if(mddev->raid_disks <= 0 || mddev->raid_disks > MAX_RAID_DISKS)
++ return ERR_PTR(-EINVAL);
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrjK4wACgkQJNaLcl1U
-h9Df9Qf9EAczEeBJjK/kzZxvH6thCAVJENf6HuUVW4uilNUrApgiqav9st/SQU08
-3/bDkzNO11+tUJV8qTVjyoxQI0zNmTf+/d2i4xnNSxY1FbXx59AybbQRVJX0w8aO
-H+Sr192DgJQ55HQ/jNw2ZmF8dA28AJIi82w6pTr1txNWAVQK1gPKF8Wm7aADxvyG
-I3YfxyU6MD4mzU4dggcARzR3KlnufBSPJpV/Fa2xJ+vA1YgPyF9yNW8W2uUtPPv+
-LTCDqpC6b8ATjdpLtikSqxWzeMtW4cSSdgaEuVjDvsqeW7+ZndroFJL8eaKGfmka
-QwKgIJAGg8U632Gm5NnQwR/68amUng==
-=7xco
------END PGP SIGNATURE-----
-
---DGKWooc7RhOjjnxM--
+  conf = kzalloc_obj(struct r1conf);
+  if (!conf)
