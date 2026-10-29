@@ -1,67 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793241264;
-	b=e5OG4jIqacwtVCAgEWgbewR5p/+UN0W9NCtRqKxQL42MViGTNNW/eBCqo8/Zxn7cmOTv
-	 OQbWoLMZ9i/Y63l6hw60cUz2ry8v5Ut/+XhbOUom0ABGW9aKkloZ6BuvloYAUNF6ayce3
-	 mnFeV0J8tr2wXz9G7r1COZg/UxEjq777XuBysS4kLlaSyM/n8omXE77u1o38Z1pMHZPDg
-	 b51BaC8dltXHOeO+Asnb3AUqNinSPMBeo6sSvmzj/xVsDR86Nmc6l7AkiAmuZnuBmjDo9
-	 BGnvTgF1XxbQgXSAAVXJ+X6SkucEG3Qwf1hYDYSwoKoLKOx/gopMfP/9OdY09o6S/1g==
+	t=1793241393;
+	b=MOKSQX9R3xMdXXGqdquVqxsEbKYb7M1PmsaZTf12c6StX2H7fEe++TRvXHwriBag+CHt
+	 FK9Xw7/HMEKo/timRWJoBrGz3Z7tX+8LNd/YTwmrTdXkOrxcUWlWgkE5XTnDG1cFbkhBR
+	 yLB2b5LKH32WpVD3Usr90l9pcdHQ9P+qD0WeF6ejZC7OIzPdesRRmGYb135gQqc8qOX3P
+	 i1+QcXo6R7S3XvwwoA25xhbeRQW5h07U6diN3m8QT1C73zuIwmGluMqRrhHZtniyuAKXV
+	 IBurmJ0CYZohzKAJDsWThBJtVsQkegppN4mrXQh+URZCfhtDTYYFd2dwieMKvPmyAUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793241264;
-	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=o5RHaA6P4mHnMaWoy4pvjSkU8wKQhDbvT54INjVW8fM=;
-	b=vkChkeMjlTBvlunty+AmJlXjTC1ecLon/RAGk6k9+lqF5C/cEn7llqRR9JyVKo2vD1c7
-	 l9zONXYiq9GmF9soYPAQVa/o4dNyiNSAJAtRWwOlr1FOhJbQspk7beaqDeeZ6tBuEv5d9
-	 snzvzrpuARI4MqXdt08ED/Rs3gHmHzaUj7IMgj5qNOD4nUtWvuQuf3pfEvJHNV1hI6tG5
-	 WWMrg/fSn1ZrdGm7s7oDwuiFf2TkTx3C7Skc9xEoRFcb3u6Ai43dHd9ZzTRG9LLTVieSd
-	 3gwTmyj18K1DZYiktwnyNT9Zix+SrUqbxGk70awxUbANrLOtOSpLAjJpocAOWFm+emQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793241393;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=+xhRwd9MYDt0tvkIhIFVmiSdsV4hM76bGb1xq49PgPM=;
+	b=XhpBCbTomlf48BFPbk65UNO4gEinj+oZqH2bgE0w+HQVVCHuDmPWI2SFQ5Loj1tzr1EY
+	 B19i0bgBR4Uq39J8YpsMv5AUzdHEHsWWxXeYFSG1yjSCJQ2K4LbV7NeCbUQSo0PsdURez
+	 SxjaKxSzJzfoJib+4D4EiB7hGhRx5r87sr9oK6USveAH1t165iMwiCzQXg7X7ftjGQxxP
+	 EX8eBUClAmCysyNHmLoSb5DKdPJvTnZdOYzezPyLZv+hzinGdEXUQYffYVyOuj32BBCRE
+	 bUDrjn2cd5WcCyFyGzu/9INZ38h5v6SzlMSqdES2Q54lv7ZhEUrGDXN6vQ6JLlf/6cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hygon.cn;
-	spf=pass smtp.mailfrom=hygon.cn;
-	arc=none smtp.remote-ip=101.204.27.37
-Received: from spam01.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81A6F606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:34:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81A6F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jFSwm0B81z1G81W;
-	Thu, 29 Oct 2026 10:34:16 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jFSwj1TH0z171YV;
-	Thu, 29 Oct 2026 10:34:13 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id 5A93416DE;
-	Thu, 29 Oct 2026 10:34:05 +0800 (CST)
-Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 29 Oct
- 2026 10:34:10 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>, Tim Chen
-	<tim.c.chen@linux.intel.com>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
-	<kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld
-	<pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, David
- Hildenbrand <david@kernel.org>, <maddy@linux.ibm.com>, Michael Ellerman
-	<mpe@ellerman.id.au>, <ljs@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
-	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
-	<yingzhiwei@hygon.cn>
-Subject: [RFC PATCH v3 12/17] sched/cache: Apply multi-LLC aggregation policy to task migration
-Date: Thu, 29 Oct 2026 10:20:30 +0800
-Message-ID: <20261029022036.4002331-13-wujianyong@hygon.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029022036.4002331-1-wujianyong@hygon.cn>
-References: <20261029022036.4002331-1-wujianyong@hygon.cn>
+	dmarc=pass header.from=mit.edu;
+	spf=pass smtp.mailfrom=mit.edu;
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=T+lWHQea;
+	arc=none smtp.remote-ip=18.9.28.11
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C79E606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:36:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C79E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=T+lWHQea
+Received: from macsyma.thunk.org ([12.0.67.227])
+	(authenticated bits=0)
+        (User authenticated as tytso@ATHENA.MIT.EDU)
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 69T2Z4lO004165
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 28 Oct 2026 22:35:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+	t=1793241310; bh=+xhRwd9MYDt0tvkIhIFVmiSdsV4hM76bGb1xq49PgPM=;
+	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+	b=T+lWHQeaP1i9hnr8/s6uca+jUyjj3dYJXNKhCJwzn78rfUH5i2+M8Pbom5196uFpQ
+	 BK0u2a4IBX0n8ozAmgZn7zcNt3oZWLx/o5giEtDseaXQ5Y2viiNQ22+o0IKr518xb5
+	 6neQS2gJFgHFcctSVZxZmYNxN1uITIWTHuRhjzwmDsAiEDDPvAvELLulKtYAt5dy/W
+	 mRPuSs9SeGMSHjVpooDDE1FvBCfic5lx4cJAqLiz3an+ERShuLelFV+uRlMeHfTuVu
+	 4+0R2Fstuup6LAKFbe9TMImzozdmhzHjzq9jXWbhShRDD+z2j4pHGpFr66qzGSBVa7
+	 BIRmhFXCSz3jw==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+	id A253A237A5BD; Wed, 28 Oct 2026 22:35:03 -0400 (EDT)
+Date: Wed, 28 Oct 2026 22:35:03 -0400
+From: "Theodore Tso" <tytso@mit.edu>
+To: Dave Chinner <dgc@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Henry Martin <bsdhenrymartin@gmail.com>,
+        Carlos Maiolino <cem@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        "Darrick J . Wong" <djwong@kernel.org>,
+        Alex Deucher <alexander.deucher@amd.com>,
+        David Hildenbrand <david@kernel.org>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        Kairui Song <kasong@tencent.com>, Myeonghun Pak <mhun512@gmail.com>,
+        Rafal Ostrowski <rafal.ostrowski@amd.com>,
+        Likun Gao <Likun.Gao@amd.com>, James Clark <james.clark@linaro.org>,
+        Anshuman Khandual <anshuman.khandual@arm.com>,
+        Kevin Brodsky <kevin.brodsky@arm.com>, linux-xfs@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: fix out-of-bounds write from crafted btree root
+ numrecs during log recovery
+Message-ID: <auKuGGDHTxhCDJSY@mit.edu>
+References: <20261027151703.973392-1-bsdhenrymartin@gmail.com>
+ <auJ2jgIIh8e_JJwn@dread>
+ <87cxsto38m.fsf@trenco.lwn.net>
+ <auKGlGJwOSZpioMd@dread>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,219 +81,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
- (172.23.18.114)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auKGlGJwOSZpioMd@dread>
 
-The existing task migration checks only apply the cache-aware policy
-when either endpoint is the task's preferred LLC. Moves between other
-LLCs are left unrestricted by that policy.
+On Thu, Oct 29, 2026 at 10:34:44AM -0500, Dave Chinner wrote:
+> These aren't security bugs. Bugs that result from maliciously
+> corrupted filesystem images (i.e. fuzzed) are explicitly stated as
+> not covered by the kernel security threat models. IOWs, they are
+> just -bugs-, and bugs that just don't ever happen in the real world.
 
-Apply the multi-LLC aggregation policy to these moves as well:
-if_to_prefer() decides whether the move raises the task's affinity,
-and can_migrate_llcs() decides whether to block it, based on that
-direction and the load of the LLCs involved. Remove the obsolete
-can_migrate_llc() helper.
+Well, there are people/companies who might be silly/stupid enough to
+think that containers are a real security isolation layer[1], and who
+think that they can let random users mount untrusted file systems in a
+container, and not have to worry about one company gaining access to
+PII belonging to another company because both companies are using a
+particular cloud hosting provider which uses containers and allows
+their customers to mount file systems as (container) root, with
+multiple customers sharing the some physical host.
 
-Active balance has the same limitation. alb_break_llc() assumes
-aggregation into a single LLC: only a task on its preferred LLC counts
-as aggregated, so it restricts active balance only when every runnable
-task on the source runqueue is on its preferred LLC. Once aggregation
-spans multiple LLCs, a task outside its preferred LLC may still be
-within the aggregation range, and pulling it to an LLC later in the
-affinity sequence lowers its affinity.
+As Dave has said, *all* of the file system maintainers have explicitly
+disclaimed this security model; from our perspective the block device
+is inside the trusted computing base (TCB), and if someone wants to
+dedicaste one or more full-time engineers to be file system developers
+who have contributed a large number of improvements to the file
+system, and who understand the context that they can competently drive
+LLM's to create architecturally sound patches, I *might* be willing to
+change my stance for ext4.  But those hosting providers' engineers
+would have do most of the work to try to make this security model work
+--- and it might be that using fuse2fs, and running that fuse server
+in a sandbox (e.g. seccomp-bpf, etc.) might be a much simpler /
+cheaper solution in the end.
 
-When the source runqueue has exactly one task, check that task with
-if_to_prefer() and can_migrate_llcs() wherever its preferred LLC is.
-With more than one task, the task to be moved is not known here, so
-leave the decision to can_migrate_task(). Move its active-balance fast
-path after the cache-aware check so that active balance cannot bypass
-a cache-aware veto when NUMA locality is neutral.
+Cheers,
 
-Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
----
- kernel/sched/fair.c | 111 +++++++++++++-------------------------------
- 1 file changed, 32 insertions(+), 79 deletions(-)
+					- Ted
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 03bb5c85a8b7..c3f9ef8798d6 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -10580,54 +10580,6 @@ enum llc_mig {
- 	mig_unrestricted	/* G: Don't restrict generic load balance migration */
- };
- 
--/*
-- * Check if task can be moved from the source LLC to the
-- * destination LLC without breaking cache aware preferrence.
-- * src_cpu and dst_cpu are arbitrary CPUs within the source
-- * and destination LLCs, respectively.
-- */
--static enum llc_mig can_migrate_llc(int src_cpu, int dst_cpu,
--				    unsigned long tsk_util,
--				    bool to_pref)
--{
--	unsigned long src_util, dst_util, src_cap, dst_cap;
--
--	if (!get_llc_stats(src_cpu, &src_util, &src_cap) ||
--	    !get_llc_stats(dst_cpu, &dst_util, &dst_cap))
--		return mig_unrestricted;
--
--	src_util = src_util < tsk_util ? 0 : src_util - tsk_util;
--	dst_util = dst_util + tsk_util;
--
--	if (!fits_llc_capacity(dst_util, dst_cap, false) &&
--	    !fits_llc_capacity(src_util, src_cap, false))
--		return mig_unrestricted;
--
--	if (to_pref) {
--		/*
--		 * Don't migrate if we will get preferred LLC too
--		 * heavily loaded and if the dest is much busier
--		 * than the src, in which case migration will
--		 * increase the imbalance too much.
--		 */
--		if (!fits_llc_capacity(dst_util, dst_cap, false) &&
--		    util_greater(dst_util, src_util))
--			return mig_forbid;
--	} else {
--		/*
--		 * Don't migrate if we will leave preferred LLC
--		 * too idle, or if this migration leads to the
--		 * non-preferred LLC falls within sysctl_aggr_imb percent
--		 * of preferred LLC, leading to migration again
--		 * back to preferred LLC.
--		 */
--		if (fits_llc_capacity(src_util, src_cap, false) ||
--		    !util_greater(src_util, dst_util))
--			return mig_forbid;
--	}
--	return mig_llc;
--}
--
- /* Accumulate a NUMA node's utilization and capacity at LLC granularity. */
- static bool get_node_stats(int node, unsigned long *util_out,
- 			   unsigned long *cap_out, int *nr_llcs)
-@@ -10768,7 +10720,7 @@ static enum llc_mig can_migrate_llcs(int src_cpu, int dst_cpu,
- }
- 
- /* Decide whether the destination precedes the source in the affinity order. */
--static bool __maybe_unused if_to_prefer(int src_cpu, int dst_cpu, int pref_llc)
-+static bool if_to_prefer(int src_cpu, int dst_cpu, int pref_llc)
- {
- 	int src_rank, dst_rank, src_node, dst_node, pref_node;
- 
-@@ -10827,55 +10779,52 @@ static enum llc_mig can_migrate_llc_task(int src_cpu, int dst_cpu,
- 		return mig_unrestricted;
- 	}
- 
--	if (cpus_share_cache(dst_cpu, cpu))
--		to_pref = true;
--	else if (cpus_share_cache(src_cpu, cpu))
--		to_pref = false;
--	else
--		return mig_unrestricted;
-+	to_pref = if_to_prefer(src_cpu, dst_cpu, llc_id(cpu));
- 
--	return can_migrate_llc(src_cpu, dst_cpu,
--			       task_util(p), to_pref);
-+	return can_migrate_llcs(src_cpu, dst_cpu,
-+			       p, to_pref);
- }
- 
- /*
-  * Check if active load balance breaks LLC locality in
-  * terms of cache aware load balance. The load level and
-  * imbalance do not warrant breaking LLC preference per
-- * the can_migrate_llc() policy. Here, the benefit of
-+ * the can_migrate_llcs() policy. Here, the benefit of
-  * LLC locality outweighs the power efficiency gained from
-  * migrating the only runnable task away.
-  */
- static inline bool
- alb_break_llc(struct lb_env *env)
- {
-+	int pref_llc = -1;
-+	bool to_pref = false;
-+
- 	if (!sched_cache_enabled())
- 		return false;
- 
- 	if (cpus_share_cache(env->src_cpu, env->dst_cpu))
- 		return false;
- 	/*
--	 * All tasks prefer to stay on their current CPU.
--	 * Do not pull a task from its preferred CPU if:
--	 * 1. It is the only task running and does not exceed
--	 *    imbalance allowance; OR
--	 * 2. Migrating it away from its preferred LLC would violate
--	 *    the cache-aware scheduling policy.
-+	 * We need the preferred LLC to decide whether we can perform migration.
-+	 * Therefore, we need to obtain task_struct, which is only meaningful
-+	 * in the case that only one task on the rq.
-+	 * For cases with more than one task on the rq, we need to check
-+	 * this in can_migrate_task().
- 	 */
--	if (env->src_rq->nr_pref_llc_running &&
--	    env->src_rq->nr_pref_llc_running == env->src_rq->cfs.h_nr_runnable) {
--		unsigned long util = 0;
-+	if (env->src_rq->nr_running == 1) {
- 		struct task_struct *cur;
- 
--		if (env->src_rq->nr_running <= 1)
--			return true;
--
- 		cur = rcu_dereference_all(env->src_rq->curr);
--		if (cur && cur->sched_class == &fair_sched_class)
--			util = task_util(cur);
-+		if (!cur || !cur->mm)
-+			return false;
-+
-+		if (cur->sched_class == &fair_sched_class)
-+			pref_llc = llc_id(cur->mm->sc_stat.cpu);
- 
--		if (can_migrate_llc(env->src_cpu, env->dst_cpu,
--				    util, false) == mig_forbid)
-+		to_pref = if_to_prefer(env->src_cpu, env->dst_cpu, pref_llc);
-+
-+		if (can_migrate_llcs(env->src_cpu, env->dst_cpu,
-+				    cur, to_pref) == mig_forbid)
- 			return true;
- 	}
- 
-@@ -11027,14 +10976,11 @@ int can_migrate_task(struct task_struct *p, struct lb_env *env)
- 
- 	/*
- 	 * Aggressive migration if:
--	 * 1) active balance
--	 * 2) destination numa is preferred
-+	 * 1) destination numa is preferred
-+	 * 2) active balance
- 	 * 3) task is cache cold, or
- 	 * 4) too many balance attempts have failed.
- 	 */
--	if (env->flags & LBF_ACTIVE_LB)
--		return 1;
--
- 	degrades = migrate_degrades_locality(p, env);
- 	if (!degrades) {
- 		/*
-@@ -11060,6 +11006,13 @@ int can_migrate_task(struct task_struct *p, struct lb_env *env)
- 		hot = degrades > 0;
- 	}
- 
-+	/*
-+	 * Keep this after the cache-aware check so active balance respects its
-+	 * migration veto when NUMA locality is neutral.
-+	 */
-+	if (env->flags & LBF_ACTIVE_LB)
-+		return 1;
-+
- 	if (!hot || env->sd->nr_balance_failed > env->sd->cache_nice_tries) {
- 		if (hot)
- 			p->sched_task_hot = 1;
--- 
-2.34.1
-
-
+[1] There's a *reason* why Google Kubernetes Engine (GKE) uses VM's
+and not containers as a security isolation layer.  :-)
