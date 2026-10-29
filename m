@@ -1,113 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283003;
-	b=MbDgKaKdc4Kr3eKG1c+yV/ujOVoKhVdhk/bNznmzxl2ZSTq88KURZhsW0nwJsOTJflIK
-	 a83OzTGYQUbg8L61nepdDKqjzFkZ6tzAgb74klifqPzsdFxjXZyPBu2flfO94wFUJE7MJ
-	 Peaqg9zAE5cVd+7ZMLmAla/t8RcO5cSloAiLj/QWmBI6Z+etGJX4G7dLVLoP6Y5kwvKt5
-	 Co5C5f4ZqyaRW7dCHpBpqF0nZhuu8B0CBJslrpPASiMTdr+Dt3ynWYjI4YjBPH6WEFga9
-	 mTuv/PYo3NjzZFjumvAS3h2QDRYtOPGZfczqdwy/d55L9V0w+atPRjrNlspU29ZcQfw==
+	t=1793283049;
+	b=iA2xpzT2E0i8fKNN97N0xI9Qe4uqNFQ6Wc5LPEtUMCpRNNW7rki32BIIkckCaIH77r/L
+	 uiIQV0G9RM8KI8BhvTLe7Z1s2txYGy2jD8l0v5j+2zGHWhE6wJPbfmiYdnHbv6qF7anFR
+	 RS0boys5es+44jl6FYGXcpll3AbFc9jl9/Mo/WGt7quYWywyPS9VKOaIxPXNBcCBJUFXj
+	 TBLXr0K+DR1Wr/QupOvg150Lpgksi2OA0wqYQXDEI8dkREYCbrxfwpssCSNSzdccIZ4Xx
+	 8UCBRryHtm3a5B1JUjR1p35+Eix2ZBjL0prgT2M67c0wXWAKnnKXfo7+rzoO5R7hf5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283003;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=u/mTL+S+jT7oJspNq9ZedMuDxLFktRxLqgiEWs4bjJc=;
-	b=khjQqm4otPYYY0+JuuXgon3h0DnkGlR1dxpgMSCiStwhMUoPKebiUyibZnBMQ4E7rayw
-	 ccqjqsEOHrUNsGuRfi1rivoP1Kgp2gnSMzEZnuhymqtOSxUowsMZOb/it9HtvoZu9bW3/
-	 eNeQhYFzYdCxJxZvERkDj8bug2Q5FroVnIRvVHmyuI3uns5cKtfTyVWxCNyvOUU/gtrX6
-	 RyubeRnRxGXGCaQOtAAuiMaJhFFHPPjMMdtikxzU2vIzddG3A1eQ+Oo0e51K7lbwF/cvT
-	 j7UrVUeFB9pzfQEsZIpTFocpwyzuPeW+MagkEPIDGn1qSzSiQGyzsPTY8FXIM+zztMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283049;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=T6jBwgB0mzd2kWy+BfoLDGgcNGK1100O7enXCOOxA3k=;
+	b=lciZx3YJkg2TX6s0kJR0k/CHUxcRzjUR0fbOZl8iX70s10x6TMgGLkW9pv7esj/1rW5R
+	 xZOEh9jHBqvm/LBrf4aRtK3wtNeyQNWUVfhYZ6CttZmILdvaf3LKxodUH8/mXvHgTlSPt
+	 Z1FkUC/o6X2EFoi173ZDaBTQhL0JQh2tIgjGcQvsTBCedXADRKS4WFurnZnAh9MVIBMk0
+	 JT6ckdAsLH+ocNqtEW+UVdtisHIjmJ2i0Kly/98eFwGMhQ38FRRp/72D21kCLC5QCOT8t
+	 ehkAQyZMmOjCWqJmp1YsG2JpSmj/s+PeQEmyDM4AJnfB0dbzKgrmKLwPxFs3GmuY4/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=oqoCkjVs;
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofbH3Y62;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABCE606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:09:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ABCE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B376F606A31A;
+	Thu, 29 Oct 2026 14:10:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=oqoCkjVs
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93f20c3aaa5so199818885a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:09:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793282997; x=1793887797; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=u/mTL+S+jT7oJspNq9ZedMuDxLFktRxLqgiEWs4bjJc=;
-        b=oqoCkjVszR8u8wCAtEPVJAxDRDmSU97Ltyl0epD2Lt3u2UIIXdVHNDGujjYdwY6WRE
-         SKBt6uYgdBnT6o5KdL7GbgHiWWlXLYlzp8oWVtx/63snb1x0A/98UMN9nSo5V6B5ls/h
-         9u535mipY84FplFJ5MHPeqQly0KmoyExjUBmnPmbZgYUFhtaNmzu1pOR7TqeL6ghQvnJ
-         wb2AWZsJdkzFI9sCrqTqK7UV5M+ZSaa+yHEEkToHs9S+zZdwlj+JO6pofP8F4CYTjz8w
-         BisOYjY7MDZGSlzjpRbTYDWgiYT+BJxMePPhJG1Ck8ZG82Y4PAMfi9RC0ZL1zm8pkkMN
-         jT8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793282997; x=1793887797;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=u/mTL+S+jT7oJspNq9ZedMuDxLFktRxLqgiEWs4bjJc=;
-        b=s7OZ9dBAL6gm26kosOYsQQWdu79Hf/3rVabR88A9TmaNiXgXTw0rKwGa/TUokTETX4
-         vQTJxp6BQPCLR3wPq+dc3Fh7uNHFjEzfQKLG5FMUxtZXlySOBaC5pJGq57YPV1shPuez
-         LR7N4H+NUAAfHy2Sw3ZTS+FUC3n9KZK878otcYJXFeCywgWT1ohH/ZCaNI9Pz976SVDe
-         Sg26c0xYO4ZhiXqRxEu5rEd8DJBe4H2EPEVFjPmeU5QMAqx/2kUKDBsNjSFJsY63pj6/
-         057Zy1jO806EkF30LJPuPCDVGNMcO1XmLyP+PmwuDERQ02p/DndF+ND0KLWMA0ZlBJqj
-         n1jQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxhEe4aMXYHtp22xeDRfi+M3ZrA0Dc+u4NTp3zA1Toqy0MCcRyxDVwMyzzFtyUVfwVInI9QNdfQ7Y4UUXU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXXj5nqqvGmNggJE2q6sp3UFWDdi03iVEfxDZHbZtJpKFKdye/
-	v1kTEsCo+Dx1zvhSZfzpvb3cJf3yGJZnYeF47oCnKMwaCpfTOgyXkK1Bm3zYZcuLZbY=
-X-Gm-Gg: AYBFou3nD1XwKLd3lQEXshDUhq6GDEI+2es5Xaw3YI5XPqKGQX9Yk/L88700m/l7wGY
-	A48thqxHIgjRlzg6wyqg0Jrc93ZZoaTr1ckvPEw7mXcAsfNSoqIOB+1CforwmynHzvUG5ozyFcf
-	o60iViJ1/nlWNLYmNH5D9rPdKo/FXyNhcY31JyiHXB1S2DcsksMf5ea1hVC4LGcKSRmTOudmbWT
-	4MGcsb7WOqDVxV/2wSAp8zvem6XA+poabtCyAn9J9gRn1NgAd3ULZ02XPUoawPw4urWBFRPbDhM
-	8l4bbWYwivYtNKXIi8PXU2HBWA63pSQv0Nbi1wPPFNNNJuQ+ntQGqwocWBfCpw2EgV155kDzbsQ
-	13L7BBdbYEm7l2sju2lPe4J4xKUfs6BEV+q47mQ5GGXgopSTRe1o9J1gp6YkZ8FqFo0fNDS1QoW
-	0pZH+FHzKm7iMe3zixkQL5NyGq730br+LtXR0cpvSZoHIW9yt3X89Ny3QAiYlv4OPGyI0BzpEZX
-	gIf320gsWcz5VbBQUVzR4nP374PlmYpiDBE90tS22AqAYagnIw42/Fyf1tTtlqfwo4AmRy9tbyw
-	f/q9FtJaraiX4IAC+GK+4iQE1xbqC2UBuLOF5r9hf+Pn/PUhiP17vfy4yk4XGFy6dgu/4Ao4aMR
-	0OoAE/+YRT8I=
-X-Received: by 2002:a05:620a:29c5:b0:93f:59b8:e28a with SMTP id af79cd13be357-94408cf4114mr838476185a.28.1793282996749;
-        Thu, 29 Oct 2026 07:09:56 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c47cb4f56sm162421066d6.35.2026.10.29.07.09.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 07:09:56 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xMQpH-0000000FhyS-1U83;
-	Thu, 29 Oct 2026 11:09:55 -0300
-Date: Thu, 29 Oct 2026 11:09:55 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Dave Jiang <dave.jiang@intel.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
-	drdeeglaze@gmail.com, James.Bottomley@hansenpartnership.com,
-	aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com,
-	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com,
-	ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
-	rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
-	dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-Message-ID: <20261029140955.GO1685504@ziepe.ca>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <592d643f-e97d-4de8-9a87-e47d57dc8457@intel.com>
- <20261027193629.GK1685504@ziepe.ca>
- <5f33aeed-a20d-4881-9ccf-a69bc308d348@intel.com>
- <20261027234658.GL1685504@ziepe.ca>
- <c57c45bb-5047-4aa9-9f06-6ac5f36ff3ce@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ofbH3Y62
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C076E1F01825;
+	Thu, 29 Oct 2026 14:10:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793283048;
+	bh=T6jBwgB0mzd2kWy+BfoLDGgcNGK1100O7enXCOOxA3k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ofbH3Y62HqYpuqTQ/c4/VW+V2KrlrU26ac96H/imGeTXuJfi45MHa8Gn0m/qlcJxq
+	 RZ6Md1fc3/YT2PjPoYLfD35mVwuRy+lkSAWBKG1zXteuYW3UuM3kqLcelqnGzuA5pv
+	 sG4eYTJDftBSbgHNjpym1EU92+c4R0z8laWYPHWgnkcWG2B89L5RKZ/vXDTEf5sVR/
+	 DSX687NvGSA3+Hk/hj5wkVCMv3iazPeJXjGGW4Z6WV6paQtY5zx4VC4K/gJtqVrRLI
+	 x4RuXoIvR+N9dgtWWq+zWE9r/mqI4/Dl4WguTRko6rl3FPhuAKPqD+/BEgfszS9+4+
+	 8lIosbATeLo7A==
+From: SJ Park <sj@kernel.org>
+To: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	error27@gmail.com,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/damon/tests/sysfs-kunit: fix leaked pid reference in add_targets test
+Date: Thu, 29 Oct 2026 07:10:40 -0700
+Message-ID: <20261029141040.148392-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261029075609.35661-1-xiaoleiwangxiaolei@gmail.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,94 +70,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c57c45bb-5047-4aa9-9f06-6ac5f36ff3ce@intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 12:16:01PM -0700, Dave Jiang wrote:
+Hello Xiaolei,
+
+On Thu, 29 Oct 2026 15:56:09 +0800 Xiaolei Wang <xiaoleiwangxiaolei@gmail.com> wrote:
+
+> From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
 > 
+> damon_sysfs_test_add_targets() creates its monitoring context with
+> damon_new_ctx(), which leaves ctx->ops zero-initialized.  Since
+> DAMON_OPS_VADDR is zero, damon_target_has_pid() returns true for the
+> context, and damon_sysfs_add_targets() therefore calls
+> damon_set_target_pid() for each target it adds.  That function grabs a
+> reference to the target's struct pid via find_get_pid().
 > 
-> On 10/27/26 4:46 PM, Jason Gunthorpe wrote:
-> > On Tue, Oct 27, 2026 at 04:09:19PM -0700, Dave Jiang wrote:
-> > 
-> >> There are two issues for TDX Connect. One, the device info is collected at
-> >> SPDM connect (TDH.SPDM.CONNECT), not at lock. TDH.TDI.BIND only returns the
-> >> interface report. So the measurements a TD sees at lock can be from well
-> >> before the lock. To get measurements taken after the bind, the TD has to
-> >> ask the VMM for a recollection with its own nonce.
-> > 
-> > IMHO measurements taken before lock must never be made visible through
-> > this interface, it defeats the security property of evidence within
-> > the locked session. I would expect the guest kernel TDX driver to
-> > prevent this.
+> The test then tears the context down with damon_destroy_ctx(), which
+> releases such a reference from ctx->ops.cleanup_target().  For the vaddr
+> operations set that callback is damon_va_cleanup_target(), and it is the
+> only place where the reference is put.  The test never selects an
+> operations set, though, so cleanup_target is NULL and both references --
+> one for each of the two damon_sysfs_add_targets() calls -- are leaked on
+> every run of the test.  Running the test with CONFIG_DEBUG_KMEMLEAK
+> enabled reports the leaked struct pid objects as unreferenced.
 > 
-> Agreed. I'll change the guest driver so the lock asks the VMM for a
-> recollection with a nonce the driver picks. Each lock then costs one
-> recollection.
+> Fix this by selecting the vaddr operations set for the context before
+> adding the targets, mirroring what the sysfs interface does.
+> damon_select_ops() fails if the vaddr operations set is not registered,
+> in which case the test cannot exercise the pid handling and skips
+> itself.
 
-I do not understand why cached evidence exists in the host. What
-reason is there to ever provide a stale signed evidence? None.
+Makes sense.  Thank you for finding and fixing this.
 
-Other things may make more sense to capture once and are not permitted
-to change, but evidence is not one of them.
-
-> >> The empty challenge in my provider means something else though: don't
-> >> recollect, return the evidence collected earlier. So it's less "omit the
-> >> nonce" and more "no new collection". Maybe that's better as an explicit flag
-> >> than an empty challenge?
-> > 
-> > I'm not sure 'no new collection' is an especially useful thing. Since
-> > the kernel won't be validating the signature you still need to pass
-> > the expected nonce from the prior collection back to userspace so it
-> > can check it.
-> > 
-> > Is there some specific use case for this?
 > 
-> Getting the lock event's evidence. With the suggested lock change
-> above, the guest driver collects it during the lock. But the lock is
-> a sysfs write and returns nothing. Userspace still has to read the
-> evidence to appraise it before run. The device was already locked
-> when it was collected, so the read needs no new collection.
+> Fixes: b8ee5575f763 ("mm/damon/sysfs-test: add a unit test for damon_sysfs_set_targets()")
 
-Why collect evidence during lock with a useless kernel made up nonce?
-What is that even for?
+The impact is leak.  I think we should add Cc: stable@.
 
-Signed evidence must always be collected with a userspace provided
-nonce. Any path that doesn't do that is pointless and I wonder why it
-exists at all.
+Cc: <stable@vger.kernel.org> # 6.7.x
 
-I imagine lock should only put the TDI into the locked
-state. Attestation should later collect the evidence with a user
-provide nonce.
+> Cc: Liam R. Howlett <liam@infradead.org>
+> Cc: Michal Hocko <mhocko@suse.com>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Cc: Suren Baghdasaryan <surenb@google.com>
+> Cc: Vlastimil Babka <vbabka@kernel.org>
+> Signed-off-by: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
 
-Do not collect evidence during locked. Do not hold stale signed
-evidence in the kernel for later retrieval.
+Other than Cc: stable@,
 
-Again, we need a flow where we get into locked and know we are
-continuously in the same locked session until we reach run and dma
-enable. That should not be done with evidence or evidence generations,
-it must be some contract inside the TDX driver to provide a locked
-session generation.
+Reviewed-by: SJ Park <sj@kernel.org>
 
-Under these rules it does not matter when we collect the evidence. Any
-time during the session is sufficient, it does not have to be done
-instantly during locked.
+Assuming you agree to Cc stable@, I applied this patch to damon/next [1] tree
+after adding the Cc.  I will repost it next Monday, as an mm.git merge request.
+So, no action from your side is needed for now.
 
-How TDX does this is up to its spec, if TDX has to capture evidence
-and do evidence compares internally thats awful, but has to be hidden
-in TDX and not leak to userspace in any way.
+[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
 
-ARM should do it with the sequence numbers I mentioned earlier.
 
-> The guest driver picks the nonce for the lock's collection and
-> checks it before publishing. If userspace sends a challenge instead,
-> that nonce is its own. The collection's nonce is in the evidence in
-> the GET_MEASUREMENTS request that asked for the signature.
+Thanks,
+SJ
 
-Unless the kernel is decoding the evidence to check the nonce this is
-security broken. I'd rather not have the kernel decode the evidence
-like this, so the nonce should always be known to userspace and
-userspace/verifier should be checking the signature covers the
-expected nonce.
-
-Jason
+[...]
