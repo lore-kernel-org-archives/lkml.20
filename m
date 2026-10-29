@@ -1,77 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793246010;
-	b=SVj0Gqx3rDksFbeOMSfXn5GX0+v4jA+5fPSxg8H27z8k2pcapKkiXeKN7S8SRSG0zhNm
-	 qncAf3QnrfSzMSAfKwT+CWQz/y8usMyN8lint3Hg+9+Ry995YtZO3vkNGus6NCUhzb1yQ
-	 DQJ33Q4cY/b4hb2KTc5IXUrrr7O77iKuXz+u/u6cN9r8uYW9zZQtP+pmVJHlHo++w0xOJ
-	 FgxR6bC5nZdA8ScWfxIpJ0Kra1Hsm9TAvnyA1b71DymBG5h4vHWnGgOTe8MRhkzULU190
-	 7NlkbRFgE6BXxSCIrVSZW17Ug+dv+zQQG/IXuLaQcZbN+KjAcpMq2fGbx72lGhA67hQ==
+	t=1793246012;
+	b=H24sjqk5lPFj640Dzib0iayUqe+GR0QFIR5wducd66+IU8SSGBod47xy2Kk3xLBfItxk
+	 AQZJXZqo91xAsf6sb/eHPEH5BQsjhgHZ5p4wAJPUx5HNQcqjlx2TneJsWuDVZ/ZsrK9Gf
+	 t6n3WGDK2pydiFSivCpubJhSRcL7GWz6O0wbML7ht7VjTIVt1IzAh7BBjfztAWK1vyZrO
+	 OOWHzC3GEq0O0C/NC9LYQnRHLQVqhM/kkTEKXZgxBoT6R+cl/HzhKQ4hiJQA8oz0upim7
+	 Jte302f61i6mfMvM8HmBEedo1fY8Vs67S/9N0G3P8sW4VEbOraQaA97rr7S2ungnU9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793246010;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=UyoRSOjPYG/A73IxTzTbyWdCpIvdHiidP3D772dsd90=;
-	b=B56SmCwr9el3WG406y6akTFGW5FX7ctVXBXqZGSfAysT7/XbEBeBpukNTCWRciHpSo8x
-	 HvnHO8nU4KsgTvP3CzeZCyHMPnoQ7Udg3G4JgqvB6/dcv/RikMbeDGhbocHhcP6jsjOPt
-	 T2HKPZgKZWzabA44osqtyDpnUSrm49hCxkiRXVfx313UW3tv4utR3FQNOMq+ZOtofFroA
-	 4w4Iz0OSmXDenwpCg382IDlNBRoFjliqnIfLI3OpufDbQCpd3+Sfg5r8O1Z3OJsTJ/h/E
-	 /2lhe9JS/okm5YpV7lZZvBTEpHMJW8Hi4P9NmG0ZNaespT0zup6a1E8KcFLFCwR3SHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793246012;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=QHE+UHIk8uhs1bNGgsBBl+NelMRjuvlA6zpwrIo4BCk=;
+	b=mH+Efl4PAvmMl/bJjLFyYxQsWbSnQTqHmiNqCZoxDMASScQFFsd8Ln3pp0mYr819EJtT
+	 4EB+Besi5UPvuTMe9XTiuwoJdokOl+9MDnP+5YZ0oAuAuzIwglLNBBp4BYng2mjqX9L13
+	 LZahOutrgOibv18V10xOB+w0VwbMOjUJt19RgYXkFOvb7QNKhOkzrjoj1sAt9WEXk4/lX
+	 OKwUVLo6OTqnt9c24oq+osQ4CeSBnI+otDsshcEzyFvRubPTLCx7TQSMJgANK15XGU54b
+	 Mh7CEHIDnySERyihhqknDzRrjqm/+8z0QsrGM2mL6XuuJZmQz7lMHn27jOsVVPvKZHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=QOlTjWlo;
-	arc=none smtp.remote-ip=162.62.57.49
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JEJE37r1;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4AE606A31A;
-	Thu, 29 Oct 2026 03:53:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD4AE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44D6D606A31C;
+	Thu, 29 Oct 2026 03:53:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44D6D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=QOlTjWlo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793246003;
-	bh=UyoRSOjPYG/A73IxTzTbyWdCpIvdHiidP3D772dsd90=;
-	h=From:To:Cc:Subject:Date;
-	b=QOlTjWloOw4m8JSzfkNii79DTGu8Lm/52IWitjUo8A5Wo2OurXRetLtHmUZcpGTpF
-	 TBXSqQbVIJ8xcabG62L+UnOFQvGROhKT/9ycb67+xB170SgwqHl4bMpR4ZCS+2Qkn8
-	 gLMEKMzZuL0HearS3gIHnMfkdanp2Ki11u/VaG6E=
-Received: from HAPYCAO-MC1.tencent.com ([61.151.228.151])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id D548E249; Thu, 29 Oct 2026 11:53:20 +0800
-X-QQ-mid: xmsmtpt1793246000tx00o9u6u
-Message-ID: <tencent_C59525D78A2FBCC2425A3CA9EF4C53D56F08@qq.com>
-X-QQ-XMAILINFO: MGhvBmtDPvWEuMbQS5tYTj3TMCbJjBzyxyhZk0kEvVN6aXdP9mrlocGPwYUjJI
-	 gZ3z46fgtYtxBXdccJVcft/D33d1B0fwO+0mp36GFVKWbsWeRek8Bsrhw2JKNcqD7u1shKEisXXp
-	 LcuuS/ReWdUjytbmxyZDZDFikYEosJ1SmR9jubeTXi4OwdRAvJJfqDQuHjqG9D3vwImwk0A1AaLQ
-	 VjL+c5TnRvpx0twjUdyfWQ9p8lT/o3Je+iE5q5wVXy70nUcD5z34OqBOFc/ZKVi1Rt/2AS1Le7Ct
-	 502ZtTu2rAfqD860Da3xZnd/AVMgoLasDAyyY+vOAxaPZ7lrVZUHSgOerOjusyrPv5wQnL6JeYrt
-	 bXOHTO8JxGjUbMPg45TaZoYMQ62dbUY7LmGZnHjGNJBaBg7TDylJTzwKtpsBAkQzM6EtiK1zEGfY
-	 TQLDNdIJcn0k6nOcyF4GjMg4oIy3vA9ZvVD/2NShjcoQm681LC7WN1RZm5Yp94y47h05a4VJT0+H
-	 2nqsGHIvPbRKUMbyOeampJOCMb8li8VYALPaZW7NfJ1gz7q6SH1GiKVf5+4nXVYtotspAhOhi8XW
-	 RJepv+N24AqPzSI3qQpwkH/RwCcRt6b1OfYkqI+gDp5jxPScoSmBnQ3RHT9CCYyP1CYYCHzi99Vd
-	 LyPnBItPGV9vPzdoN0GFHARZ69QGIOlm8fSoPFFOt9ZD03rv0im3n0ftFPqqEUhv34HB/xkiDeDd
-	 VUheXaRRBaj/5ZlqnULtnGcMGKDY1ONwV6NQ0mg3hvJ2yEmH4Yjq3tc2u6pY6/SYroNRHRCawbUv
-	 oO+4wsxDow5WnmyBkJKlLC/TnBuxev1Quv3DOgHghEUSHS3Dk5zjosFjma2d6fSs21FJBTz9g64O
-	 y7ejY9WiG26mu+3wuq9bZ8ad1px4msAt3H7v0QXbcHAgvwgMH3YEty+MUYc4QhyW6R2c6FRXHAG0
-	 t9iqhMRJKLx+HWzH5c2FVI2azULqoSRsfc7bx8IL4u6i+7PaeQcIjudike5wqGZIDJpFtMq9bNRA
-	 BLMwZTAPrr0IALiuP+9uKJPw04e7aUle3mAnpBQ2Ftl5Sz+BPGHgD6Btt4bjJJzIjAWCI2mltSvT
-	 XQUEsadc8Tcm2JHYeV0GPBvhUf8Q==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: bo cao <treebacker@foxmail.com>
-To: linux-fpga@vger.kernel.org
-Cc: yilun.xu@intel.com,
-	trix@redhat.com,
-	mdf@kernel.org,
-	linux-kernel@vger.kernel.org,
-	bo cao <treebacker@foxmail.com>
-Subject: [PATCH] fpga: dfl: afu: prevent read-only region mappings from becoming writable
-Date: Thu, 29 Oct 2026 11:53:17 +0800
-X-OQ-MSGID: <20261029035317.44339-1-treebacker@foxmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JEJE37r1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=QH
+	E+UHIk8uhs1bNGgsBBl+NelMRjuvlA6zpwrIo4BCk=; b=JEJE37r1QVJBjWOjeU
+	HR5h0xcHWWHS/jISAb1AWqqgm/JM8FC/kLTZXgQzKZ8KpQC+R+FyjOfNUmc6fEQt
+	fIqfEJyXxahn+WylahzthI247JFleqMaEoP0kFdlHzQCEGs7Dv1oAXGZezzkJE4g
+	QKb8/tuhOAO2euPZ9r0fHStg0=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgCnsSkVw+JqTWv_Cg--.16381S8;
+	Thu, 29 Oct 2026 11:53:03 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Huacai Chen <chenhuacai@kernel.org>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Marc Zyngier <maz@kernel.org>,
+	Jianmin Lv <lvjianmin@loongson.cn>,
+	linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2 06/20] irqchip/loongson-eiointc: validate MADT BIO-PIC entries
+Date: Thu, 29 Oct 2026 11:52:37 +0800
+Message-Id: <20261029035253.2333852-7-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261029035253.2333852-1-yaojiale02@163.com>
+References: <20261029035253.2333852-1-yaojiale02@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,48 +69,49 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgCnsSkVw+JqTWv_Cg--.16381S8
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Ww18tF15KFWrZryDWF1kAFb_yoW8XFy3pF
+	W5Ca9Iyr4UJrW5Grn2ka1DXFyrZas5Zay7tFWfuayfZwnxXr1UuFyUAFn8Xry0y3y7Ga42
+	vr4FqFWUu3W5AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UP9N3UUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzR9LhWriwx-jkwAA34
 
-afu_mmap() rejects writable mappings of regions without the WRITE
-flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
-read-only and then upgrade the mapping to writable with mprotect().
+The BIO-PIC MADT callback reads the controller address before checking
+that firmware supplied the complete fixed-size record. A truncated entry
+can therefore cause an out-of-bounds read while selecting the parent
+domain.
 
-Clear VM_MAYWRITE for regions without the WRITE flag, as fixed in
-vfio/platform (commit 420bed9131db), drm/vc4 (CVE-2026-68445),
-drm/panthor (CVE-2024-53071) and ptp/vmclock (commit a5edadbae57e).
+Validate the BIO-PIC record before accessing its address or passing it
+to the initialization helper.
 
-Note this is defensive hardening: the in-tree callers of
-afu_mmio_region_add() (port_afu_init() and port_stp_init()) all
-register their regions with DFL_PORT_REGION_WRITE.  The guard costs
-nothing and keeps the mmap() interface honest if a read-only region
-ever appears.
-
-Fixes: 857a26222ff7 ("fpga: dfl: afu: add afu sub feature support")
-Signed-off-by: bo cao <treebacker@foxmail.com>
+Fixes: dd281e1a1a93 ("irqchip: Add Loongson Extended I/O interrupt controller support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
- drivers/fpga/dfl-afu-main.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/irqchip/irq-loongson-eiointc.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/fpga/dfl-afu-main.c b/drivers/fpga/dfl-afu-main.c
-index 097a97eeea66..a802309e0473 100644
---- a/drivers/fpga/dfl-afu-main.c
-+++ b/drivers/fpga/dfl-afu-main.c
-@@ -833,9 +833,13 @@ static int afu_mmap(struct file *filp, struct vm_area_struct *vma)
- 	if ((vma->vm_flags & VM_READ) && !(region.flags & DFL_PORT_REGION_READ))
- 		return -EPERM;
- 
--	if ((vma->vm_flags & VM_WRITE) &&
--	    !(region.flags & DFL_PORT_REGION_WRITE))
--		return -EPERM;
-+	/* Prevent read-only region mappings from being upgraded with mprotect() */
-+	if (!(region.flags & DFL_PORT_REGION_WRITE)) {
-+		if (vma->vm_flags & VM_WRITE)
-+			return -EPERM;
+diff --git a/drivers/irqchip/irq-loongson-eiointc.c b/drivers/irqchip/irq-loongson-eiointc.c
+index ba6e8480e383..1b90edef5a52 100644
+--- a/drivers/irqchip/irq-loongson-eiointc.c
++++ b/drivers/irqchip/irq-loongson-eiointc.c
+@@ -454,8 +454,14 @@ static int __init pch_pic_parse_madt(union acpi_subtable_headers *header,
+ 					const unsigned long end)
+ {
+ 	struct acpi_madt_bio_pic *pchpic_entry = (struct acpi_madt_bio_pic *)header;
+-	unsigned int node = pa_to_nid(pchpic_entry->address) & 0xf;
+-	struct irq_domain *parent = acpi_get_vec_parent(node, pch_group);
++	struct irq_domain *parent;
++	unsigned int node;
 +
-+		vm_flags_clear(vma, VM_MAYWRITE);
-+	}
++	if (BAD_MADT_ENTRY(pchpic_entry, end))
++		return -EINVAL;
++
++	node = pa_to_nid(pchpic_entry->address) & 0xf;
++	parent = acpi_get_vec_parent(node, pch_group);
  
- 	/* Support debug access to the mapping */
- 	vma->vm_ops = &afu_vma_ops;
+ 	if (parent)
+ 		return pch_pic_acpi_init(parent, pchpic_entry);
 -- 
-2.39.5 (Apple Git-154)
+2.34.1
 
