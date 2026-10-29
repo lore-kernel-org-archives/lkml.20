@@ -1,91 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793275665;
-	b=25QK0kb4zNDOkKgsvyDDFFMa2t7SwTG91fT9qyXCQrMxihWYFj2uCEWFw1tOOm6TQO7C
-	 UhMhUssIzEcpcxA4wEBMESQ8Yj9Yu0nI1tumTwsZQ5l3MKEF6Y2RJTx1xwgeiIWYiPcWP
-	 VVgJ5XmyVi071wSzBPd30MrxitTbYHiLO0qbcLI0KUCgFTdDom+XMCJtPeR59s4toYzNp
-	 c6Widmes6IC3YCUDUk4Tbw1niNDF+zQov+uZORBDCJaKdL965iNZQIJo37KEp9krluwWQ
-	 0+KOGyfVp/eJLo9udYnVM9yo2AY+fyI+rac5lIRjLs4Navx56TU7xpZ7MtnSeIqWDWA==
+	t=1793275667;
+	b=5TcwB9XMMz+DE2291OPb5hqLUmJx/qxh81tb0hs+oaGGCNZgHW9bpotNXXQJLzBUQvxr
+	 LDE4rnZ2NZQIIs63+JbpYaxJWG21QZHOlFLn8CKLk7IEWjKebXr34nJ+JG/qgWBbhc0eK
+	 FW/EdMgK6Mta74A5ScH6e72DdpFDLSJy07igx9TaaYXTN9W6OhrlmXqK4yo9H+9YzkIcr
+	 8HIvrvmc3IQiN7N6yNpiUpAzUIYChkmeeuInTYgl0WzbVLoTiSEYoTE5bt3BMRofGPO2y
+	 GfKao3/7kGg7zNBFvoutHMZf3M7EXuqXIQzRajw2OSCcbDjvz6KG606XEZmdw449u9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793275665;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=KovbahL1OolDw3hFQYP954cT0iXw86oK7FjWcAx8ziE=;
-	b=EuEwaInkhZ64syB69mpB45M7iTKsz3BEqzVe4vi5T1CWKeQUPyB3AJm3UN0ukrdsQFQ+
-	 G6GY4rWiUWE8WTs3xq8QNqYFM9nrNbQzj74jJoRb8O05BxVoh96R5mYb3sp7QNHcqhCar
-	 54DUdwhM7l9Vo35aFd6UqS8v8LzLaNSYcGdIKCm85sTukvmQh6wLLjNQ6UW3fndfHDUfv
-	 L498N/4qH8dsyHkwcDyR4RieyR1hBOAWI/evatRBu0OHKfm1b+GNqCca/Fhnsj4cBSraQ
-	 m/aDn74q+hHZFk7Mq21eRDCISkR/mVe+ka7F1rajsoPT+NFXcUjEwWSnBcTkZmFx4aQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793275667;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=inpyt3Rrb7RnvCQP0qSRx5Fwr/dkOoWZ2t8y/zEuWDc=;
+	b=2l8jRTjvaDoG5k1rHUi/to17HNxT8JRRPPPdIq+VB3Ny2u0T1lHWlOqy+CSYr1Tox2yt
+	 Sp1mGzwmEBedYW5CAHKgRpubBtOrLHC/Z6Orc2kxYLvQVAofIWerhADG4RhsVLt9hMIPp
+	 xExsPXGn+8Vyy3EkOsdoOTNh2z/0euaUIiAhBY6eautfjqGge0P5xPynGQDOC0Kex3Xpo
+	 AbjLbxonqKPdAIbS8qUpIa6fe/NzjmNwbe0F53w/69dCfKd5/ENb3Z1RkQpYaPDLwwyGZ
+	 cW5iwpZwyvBxf3oc1OQmRub47+Kyir4kiQdDyAYTH0cdmH3WEshO+GJuAPyV8NcbKfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KZGWNpnM;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bHTtW/Aw";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33F66606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:07:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33F66606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCB6606A326
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:07:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KZGWNpnM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793275663; x=1824811663;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=haNvBN+6I0qZH/hq50Aelh358H+KYj4WGO/+qKvSpSM=;
-  b=KZGWNpnMmzmDbcxDmvpaKhC6MkOOWRUeOSdG27qlJ3lNLA/Hw56tQa4g
-   FKOKvKkRGPoncZ3GaIbRVm/WAnle2bYa2ex1qwUXe59db8ZdrB/2JCu9l
-   XbqVi0Frk3FgrvFpVC6jEbKyTknnQdx+/b2YM6nJL4vEXBYM/JPbr+FZh
-   u7Z3Vs3uSp8NArJerqUG4zFMw5p55Nt/JuVdg3R4ASWsEm7AOXAbsaZOf
-   3gkNn3Qad7BKa/5JqAPE8ubtLllle6epsSL5TIuhUgc7uzgGN3WBO86xa
-   Ox21IzpFX7uWsobeH9g7TgbLqSbcH1hBSxSbsv3ADbne5hN/efHomZYpE
-   w==;
-X-CSE-ConnectionGUID: 8NXjER22SamkrFY/54x9ng==
-X-CSE-MsgGUID: tNXcyC/sSnm4u6YgEW9E/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2040612"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="2040612"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 05:07:43 -0700
-X-CSE-ConnectionGUID: 9dIB48gXSJ+jv+6S2SeEtA==
-X-CSE-MsgGUID: fWa0pj25QlCDM7z+ywO4cA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5060783"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.145])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 05:07:36 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>,
- dri-devel@lists.freedesktop.org
-Cc: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Maarten
- Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Patrik Jakobsson
- <patrik.r.jakobsson@gmail.com>, Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dmytro
- Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: Re: [PATCH v2 5/5] drm/nouveau: Use enhanced framing for DPCD r1.2+
-In-Reply-To: <20261029101826.72773-6-dmitrymalovanyy@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
- <20261029101826.72773-6-dmitrymalovanyy@gmail.com>
-Date: Thu, 29 Oct 2026 14:07:32 +0200
-Message-ID: <566f5d1c9623a86589c2c28cb83434433e0de1d8@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHTtW/Aw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F328D1F031E0;
+	Thu, 29 Oct 2026 12:07:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793275666;
+	bh=inpyt3Rrb7RnvCQP0qSRx5Fwr/dkOoWZ2t8y/zEuWDc=;
+	h=From:Date:Subject:To:Cc;
+	b=bHTtW/AwHG6+/BFJ+L/1jf66oFYksGYaLDFUeWlYTcG3ebpWd0N7xkISM9U+wzFuI
+	 PRg46AV7Abokc4xSwhCusoHAQmjlLhoQrKv44fOCAG2SHgEJMXH3bgK/E9Ba3kOegN
+	 fkHBHE290wcMT37tIN+db4CxQ+WOsNjQJ//K1m/opM7VPG+n5wwrxjwzSh8F4jCgWm
+	 XhYn9cih1wSHQiCFtyR9pg9yLxow3eJ6iPic2mI7fCGYMHkCxTcEB/7TK1alGuunFs
+	 md/ALlZya8X5hgJ3COOFAK4sAggoO8dhqDZycrUqNbNRKcalyQ/e9Wy7uf1/2eXaI4
+	 yy62EUa5u8gMA==
+From: Michael Ellerman <mpe@kernel.org>
+Date: Thu, 29 Oct 2026 23:07:12 +1100
+Subject: [PATCH] riscv: defconfig: Disable COMPAT_BRK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,107 +52,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-compat-brk-v1-1-5b2cf86eb453@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAO8242oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyNL3eT83ILEEt2komxdc3MzI7MUE9OkFJMkJaCGgqLUtMwKsGHRsbW
+ 1AL56+T5cAAAA
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Michael Ellerman <mpe@kernel.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openssh-sha256; t=1793275642; l=1793;
+ i=mpe@kernel.org; h=from:subject:message-id;
+ bh=M6mNXQk4Rnm5+SV8gIzGNpeDCGaYM+xtfU0KRGAdG6s=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgQtFOQ8VZI/Axk0Fks/N12S7JhYPye
+ mYAoMsJQX+ym0QAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QNRGYIVXiRV+Peg96k3unoeKtipr/oFog0mT6Q6xxwSXInD5thnx7G8DfjTcmB3mM5lbtme44y3
+ OKVy5o/Mblgw=
+X-Developer-Key: i=mpe@kernel.org; a=openssh;
+ fpr=SHA256:xCm/G0UENYxMIqGzk+n5LBC6uWXo4GA2D0VGpX86Mrw
 
-On Thu, 29 Oct 2026, Dmytro Malovanyi <dmitrymalovanyy@gmail.com> wrote:
-> nv50_sor_dp_watermark_sst() checks DP_ENHANCED_FRAME_CAP for the
-> watermark calculation, but the actual enhanced framing enable is
-> decided in nvkm, in nvkm_dp_train(), nvkm_uoutp_mthd_dp_sst() and
-> r535_dp_train_target(), with its own copy of the check. Convert all of
-> them so they keep agreeing with each other.
->
-> dispnv50 uses drm_dp_enhanced_frame_cap(). nvkm does not include the
-> drm helpers, so add nvkm_dp_enhanced_frame_cap() with the same rule.
+COMPAT_BRK defaults to y, which disables brk (heap) randomisation by
+default (ie. randomize_va_space=1 by default) for compatibility with
+"ancient" binaries, in particular libc5 based binaries.
 
-Seems reasonable to me, but up to the nouveau maintainers.
+libc5 predates RISC-V, so there can't be any libc5 binaries for RISC-V.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+COMPAT_BRK was introduced in 2008, commit 32a932332c8b
+("brk randomization: introduce CONFIG_COMPAT_BRK"). But even then the
+only non-libc5 binaries mentioned as being broken were ~5 year old
+versions of emacs (see commit c1d171a00294 ("x86: randomize brk")).
 
-> Compile tested only, I don't have nvidia hardware.
->
-> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-> ---
->  drivers/gpu/drm/nouveau/dispnv50/disp.c               |  2 +-
->  drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.c         |  2 +-
->  drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.h         | 11 +++++++++++
->  drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c      |  2 +-
->  .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c    |  2 +-
->  5 files changed, 15 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> index e91130f93..f965d4811 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-> @@ -1607,7 +1607,7 @@ static bool
->  nv50_sor_dp_watermark_sst(struct nouveau_encoder *outp,
->  			  struct nv50_head *head, struct nv50_head_atom *asyh)
->  {
-> -	bool enhancedFraming = outp->dp.dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP;
-> +	bool enhancedFraming = drm_dp_enhanced_frame_cap(outp->dp.dpcd);
->  	u64 minRate = outp->dp.link_bw * 1000;
->  	unsigned tuSize = 64;
->  	unsigned waterMark;
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.c b/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.c
-> index a109348bd..fbd9935f4 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.c
-> @@ -509,7 +509,7 @@ nvkm_dp_train(struct nvkm_outp *outp, bool retrain)
->  	OUTP_DBG(outp, "training");
->  
->  	ior->dp.mst = outp->dp.lt.mst;
-> -	ior->dp.ef = outp->dp.dpcd[DPCD_RC02] & DPCD_RC02_ENHANCED_FRAME_CAP;
-> +	ior->dp.ef = nvkm_dp_enhanced_frame_cap(outp->dp.dpcd);
->  	ior->dp.bw = outp->dp.lt.bw;
->  	ior->dp.nr = outp->dp.lt.nr;
->  
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.h b/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.h
-> index 9a6be4391..e56acc162 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.h
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.h
-> @@ -23,6 +23,17 @@ void nvkm_dp_enable(struct nvkm_outp *, bool auxpwr);
->  #define DPCD_RC10_SUPPORTED_LINK_RATES(i)                               0x00010
->  #define DPCD_RC10_SUPPORTED_LINK_RATES__SIZE                                 16
->  
-> +/* Same rule as drm_dp_enhanced_frame_cap() */
-> +static inline bool
-> +nvkm_dp_enhanced_frame_cap(const u8 *dpcd)
-> +{
-> +	if (dpcd[DPCD_RC00_DPCD_REV] >= 0x12)
-> +		return true;
-> +
-> +	return dpcd[DPCD_RC00_DPCD_REV] >= 0x11 &&
-> +	       (dpcd[DPCD_RC02] & DPCD_RC02_ENHANCED_FRAME_CAP);
-> +}
-> +
->  /* DPCD Link Configuration */
->  #define DPCD_LC00_LINK_BW_SET                                           0x00100
->  #define DPCD_LC01                                                       0x00101
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c b/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
-> index 377d0e0ce..b0158fc30 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
-> @@ -87,7 +87,7 @@ nvkm_uoutp_mthd_dp_sst(struct nvkm_outp *outp, void *argv, u32 argc)
->  		return 0;
->  
->  	return ior->func->dp->sst(ior, args->v0.head,
-> -				  outp->dp.dpcd[DPCD_RC02] & DPCD_RC02_ENHANCED_FRAME_CAP,
-> +				  nvkm_dp_enhanced_frame_cap(outp->dp.dpcd),
->  				  args->v0.watermark, args->v0.hblanksym, args->v0.vblanksym);
->  }
->  
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-> index f5f22173f..c62900320 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-> @@ -972,7 +972,7 @@ r535_dp_train_target(struct nvkm_outp *outp, u8 target, bool mst, u8 link_nr, u8
->  	if (mst)
->  		cmd |= NVDEF(NV0073_CTRL, DP_CMD, SET_FORMAT_MODE, MULTI_STREAM);
->  
-> -	if (outp->dp.dpcd[DPCD_RC02] & DPCD_RC02_ENHANCED_FRAME_CAP)
-> +	if (nvkm_dp_enhanced_frame_cap(outp->dp.dpcd))
->  		cmd |= NVDEF(NV0073_CTRL, DP_CMD, SET_ENHANCED_FRAMING, TRUE);
->  
->  	if (target == 0 &&
+Distro kernels for riscv64 also disable it, including Debian, Fedora,
+openSUSE and Ubuntu. So even if there were riscv binaries out there
+that rely on it, no mainstream distro would support them.
 
+Most other architectures already disable COMPAT_BRK in their primary
+defconfigs, including arm64, x86_64, powerpc, s390, loongarch and
+sparc64, as do the riscv nommu defconfigs. It is also disabled in
+kernel/configs/hardening.config.
+
+So disable COMPAT_BRK in the riscv defconfig so that brk is randomised
+by default, matching distro and other arch configs.
+
+Signed-off-by: Michael Ellerman <mpe@kernel.org>
+---
+ arch/riscv/configs/defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
+index 04ae305d5511..933cbf2735ec 100644
+--- a/arch/riscv/configs/defconfig
++++ b/arch/riscv/configs/defconfig
+@@ -52,6 +52,7 @@ CONFIG_JUMP_LABEL=y
+ CONFIG_MODULES=y
+ CONFIG_MODULE_UNLOAD=y
+ CONFIG_BLK_DEV_THROTTLING=y
++# CONFIG_COMPAT_BRK is not set
+ CONFIG_SPARSEMEM_MANUAL=y
+ CONFIG_NET=y
+ CONFIG_PACKET=y
+
+---
+base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
+change-id: 20261029-compat-brk-77626d45bd4b
+
+Best regards,
 -- 
-Jani Nikula, Intel
+Michael Ellerman <mpe@kernel.org>
+
