@@ -1,85 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793276850;
-	b=HUzfW5v97lSoVuDhR9RI0pv/+NPPzNxUgIg1s7R5mylM1v/kfkLzGQwDdSyV0Lsj5sch
-	 dudFC/0TP2VdzeYjnxgER9CoMlbxM62LzJjV94zgdOempMCAci9alCFDe3j3hb0ES71IH
-	 3nBrpcDhusD0Ng8eqWcn9Wfnc+yHx9SNzAongwAvaKlMsx828bO3XXQUmuulvm8fT4ZmU
-	 19fK7T5t9r1Hgp0C33UxjFDs837ZorvV+u+lvy3gZskxsYX2rH88Ewqwj9WbpKy+f7473
-	 4C3em8x9t4sOQf03x0GUZslwSbJWArclJwXzxhAQ86qZ+81+pBBONo09QGSbxVaJGIA==
+	t=1793276867;
+	b=H7ZX0Aiq70QRPnXVII+A1yfaU9I5gy0qZQOQcq9/PvTT3+5ZZf77kccS9DLohstk9AKm
+	 imLT/w6XBMXeh2vmrHNSi4hKxnU/h8E0CB+Y8kbRXXjLAdRrrB+5Z8wKo2iQCCSq3ZNPp
+	 G1xUOFAaaDm3/2g93+hJneuEEtLz+/o5cp+0ovvdtXCgEABZZk1fzaWvD49zt7w+0Re6J
+	 Ob1X8XnYxrxoJNNstTHx3rJA4fSdM+lzXsgMzr/UE5LrTZD5ChtE55hH6vBBhlDsdQupC
+	 zl/q/CKiCj1z707oKCyCcTbkBoq6YLHe+7MkyWKo47NtXzHPKEaol/bdOVGZloG3ong==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793276850;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=nAi38oDFP76CAkZTKfTnMRaPWxkhX57roj58CzJcb5w=;
-	b=nacfWRmiocuYgTg/U54cwcjJWMIBUXIHMAjKz6BlZyv2mttenOoQwXqxJCUI8iZDS/Mi
-	 bcY1D2xBHxUewmIPq9RK3OR6Qe7PM17HX9ybrUGR9P24fFzMzGEsZAm1nAI7ooAzICgCb
-	 0wRu8RUEeaIOT3G5d19xmFFcZWchBh7wXC5xDbG29x9dB+qhuygASqAKZ4R9SfN1HrPnY
-	 wJWNrtvjKqbxfp22gkccVZrhIYjxljl9fLS+SD1p5EZX+mnLCE4QDemkSS5e8A2nCyU4s
-	 /jYryVQXbZ6jYmDPe3l7Z0pRedZFKrru2Diemq3/y+PXLVYpw14dFyBKTawEjpSrM4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793276867;
+	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=kE/aup/iAkKSyqA1EGcSzojt0yBgl10lJYtlTnXTIYM=;
+	b=Q1+33I6H4cESwI7dEccVKLhLJCSAJyJ4q6iIRAuCf+BCTbo0+L86IjFPdWSKS/11fcBC
+	 TmIk14Sj0x1zpFScSbOvwzHOnubBzJie1b1TGNcm0ERM6B60q60nOhAWDLW8Wy3RfPD92
+	 WDJgBh3SJrxlKCv4g02sNfI+05ZZpg2fxCbwAMYKkRCa4hf2gVilpia81om7ZRb2T98gL
+	 6I8pNNRGay9uhxzBV1NoPADzY4gqWifptFW1D3RkMBv2m/f876Vjz8W9Fk731/vVq9yef
+	 jAE1sP8QK5io1C15FeIKLhisD50+idGiUtcla+F7MJYhMDJ1ecr0PVHHFhzIy+dXGNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFIIHyzx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830C2606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:27:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SFIIHyzx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B471F031E3;
-	Thu, 29 Oct 2026 12:27:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793276850;
-	bh=nAi38oDFP76CAkZTKfTnMRaPWxkhX57roj58CzJcb5w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SFIIHyzxcPwhs42rWmTPn4ykZNkWEkrCoddjCAjOFxs5zLHSidCZgvaP9L4ZngdpQ
-	 GFu2Yd2ZZNq78VHkABoHyg2y7Mq5cQTqtPW1cD+1kubEQN5dHEP+RwWCUqe8Q9S7o3
-	 sFNwaas2hXTCIzQ/3hmjVZGIK/Yh5P/veJ8q8nN3BcWoaveEu9D6M8qULInT3IE3p/
-	 ZzMkdhx6AkLazxKGWBvNz1hWdAwHpspA69LZJeHIgTLWYUpBcxjEfLsPlh08/ic6mA
-	 mDXMSZSmNwWtC2/ko+9JvPAhlA7yBfwpup2nXcHxxTN47KiBfcwTMIzpZEecSrcVfj
-	 HUZWX5uXr50+w==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 13580198003A;
-	Thu, 29 Oct 2026 08:27:25 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Thu, 29 Oct 2026 08:27:27 -0400
-X-ME-Sender: <xms:rTvjarzwywjEjar7Mt_OyMWq6UW3-vjrV-PTwOnk-DHqc7KzFu_6Pg>
-    <xme:rTvjajsv2wlC9eqWjv70wTcXnB743VNGDp9L2F6rQ04jOq6l1oe1uUoKqxAKvlbnb
-    tCT4lZDnF-5dAX8TnsGCsutkPpXhc_aicyLdobpP4pJmEpm-2GproLI>
-X-ME-Received: <xmr:rTvjaqxh5Kc1tu7o5vaw3wgfgB2JBtg5JTCiBU2E1bDWEMdzraQhf9JQgak>
-X-ME-Proxy-Cause: dmFkZTE5B5/2wy/nW1OFB+CZ7Y+pP/zumq35zbaEYOek3IM3be5kjPml9FiEI9wEM1jNQn
-    66RdhojvUW55Dx2BnSMHL3H4cTTa2ZgY3CMeKe9qVIUt96GpJ5DS39An2tyb5y1ezFCMWO
-    C3cIeaP2mUrQT+dMOwdjAJqmarhyTJNtcAWXTZ8q1eZIzwkbX3axu2Dpi3dr+0vbzTJ4KN
-    M9mNGSlVSWIpojb7gtvoOfwvQT/ZVd+omkWUadmGcD349l0GKA3Z8DA+TkTZ8FEuV7xbCO
-    pCC7eJ5pF3UCYpWwrgGCFRh+RcwnRaLmeeWGla4wJozIhGeDLgbdlz5SBorQQr24uYSDa+
-    B9Tm1/m/AT54fyJzVbw193d0xYAPrAsxjWVOuSnXmpvuwcChvrWFcWnIwqPzkyN5DkyWjv
-    4ICYY9JeLOAM98WEMUESsP/OmGilWUW1bILaBYrFN3oBw7J/yopenCGgQLt+dlMK2AFU/E
-    eVbamYEgO1eW62+yllod0lsPs1rKiLcqAZWaaflztHmzgT2TH1Kv5ogg7UCf722w4s2bzS
-    ViAzt1ykhJivLBChtRX47gCkNjaJfEPR6phq2/k0gEI/tUv7k44L6gVKHoGEYYlrsD1eEQ
-    +LCk3lIy1eaYj+nleQIYd+vUmdhJDLkLLgSPeoK+u09Rc9NGUPtiJzsfsENg
-X-ME-Proxy: <xmx:rTvjajd1xvSaopur4XQIHDw42kxaMUcEZlm7-uOZGDSAle0uXEqMnw>
-    <xmx:rTvjag3LOj5FGpB0XKfhVBrffrTwd_fVfU6T8njGy2xnGvdKe08gIQ>
-    <xmx:rTvjasspO909yfCDAsKVYm9rvbGu0aBSJQUUjVsfD0Ub88u_TrWcYQ>
-    <xmx:rTvjas8So1Fg21YsmrhpvnR9l2CfUsleJmX2kPUnNv5C-wZ2Df3XnA>
-    <xmx:rTvjagSjOuRSqet80xz00EZT4UMabbgR1eKzwCGUonWupFdLj3QV6gPA>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 08:27:24 -0400 (EDT)
-Date: Thu, 29 Oct 2026 12:27:23 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] mm/cma: accept memory of CMA areas reserved with
- memblock_reserve()
-Message-ID: <auM6lKGAeUI26jCj@thinkstation>
-References: <20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2528E606A31E;
+	Thu, 29 Oct 2026 12:27:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2528E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 00C3E68D07; Thu, 29 Oct 2026 13:27:41 +0100 (CET)
+Date: Thu, 29 Oct 2026 13:27:41 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Kyle Bader <kbader@redhat.com>, Jens Axboe <axboe@kernel.dk>,
+	Kyle Bader <kbader@ibm.com>, Anuj Gupta <anuj20.g@samsung.com>,
+	Kanchan Joshi <joshi.k@samsung.com>, Christoph Hellwig <hch@lst.de>,
+	Keith Busch <kbusch@kernel.org>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Tushar Gohad <tushar.gohad@intel.com>, linux-block@vger.kernel.org,
+	io-uring@vger.kernel.org, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] block: only fail dma-buf bios that need block layer PI
+Message-ID: <20261029122741.GB25162@lst.de>
+References: <20261028181412.1919506-1-kbader@redhat.com> <134aa376-7441-46e1-8d04-be327747b4a9@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,23 +55,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org>
+In-Reply-To: <134aa376-7441-46e1-8d04-be327747b4a9@gmail.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Thu, Oct 29, 2026 at 12:18:36PM +0200, Mike Rapoport (Microsoft) wrote:
-> Pages of allocated CMA areas are released to the buddy allocator with
-> __free_pages(), which does not check for unaccepted memory.
-> 
-> This usually works because memblock accepts the memory it allocates.
-> 
-> However, multi-range CMA areas, used by hugetlb_cma, and fixed CMA areas
-> requested with cma=<size>@<base> are reserved with memblock_reserve() and
-> their memory is never accepted.
+On Thu, Oct 29, 2026 at 11:51:31AM +0000, Pavel Begunkov wrote:
+> Thanks, looks good from a quick glance, I'll take another look in
+> a bit. It might be nice to somehow support kernel generated PI
+> as well later, looks like there will be a good bunch of cases that
+> might want to have CPU access.
 
-It feels like memblock_reserve() abuse, no?
-
-crashkernel=size@base already uses memblock_phys_alloc_range() for this.
-Should the fixed and multi-range CMA paths go through the allocation API
-as well.
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+I don't think the kernel auto-PI makes sense for P2P.  The data lives
+on a remote device, so generating PI for it would have to transfer
+the data to the host.  Instead we probably should just force PRACT
+for that case.  It would make sense to support PI generation for
+dmabufs using local memory, though.
