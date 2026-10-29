@@ -1,85 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793296025;
-	b=qCPogcgsOsfd2CK2JoNenpzUAAq3nE5WSJJa/YQCAcZ7CrFFrAp0e5RZTbI7vmnraUEU
-	 Gfk/0BatuYz1bxfa6FDlBV5cTF6NbutAIDX5bKwRVc6RzPML7nWXFZRhCYZMOQY+RxIJj
-	 A9qI27nLKz2bSJTSPbgUxrmZ4rOU2GB/MN3pGL8na1khSWWAndZl+yTa639xP6+4D98Oz
-	 UwimiSXvQ0jrpSUOWgeXfWIzvwD/KqNsGrhisH0WSMXQnYv+3NHeLMBN24CUFWnx2JS6/
-	 faJ/bPiXcgFpznv2nD+OHGzw3N7gX2oUi2wzwH8hEofgUQ0UEmcFCMR53uJm7M5I7tA==
+	t=1793296044;
+	b=vD0e8+dYVye7AgO4cLvM21nsOGq4z3xKNOnr5ChgqDnaW1jH+PgwE4+8cVQWCCykI4TG
+	 Oh6jtMdotA9UyqpcgXO3p6EQqAXzESnfZ6ZPMxdW3mMbUPE/XJOIVQXGOOr9Z1824gLy4
+	 3DOELOAuppAzhYg0kTnMYN5TX/F/YpgaEvoKJFF7A/vh7Jbapg32XqMUvxhKbNr7UkE9m
+	 9tg+ogeFC8ExwpymC/8zyKD90dCFsU0Y/NVNq+u7dAIO6gedC+xE2OZ8DNxys4oW+x+lg
+	 +nZSnxlarRyXJIvMXEp+G1aoPTCaAWCtRvxAoPoC6J2DPSEhNM5pD/imi0A0begBAAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793296025;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=k+BTYLfN2+3y4nUtdaNTOtmM48lOtBOQFB+7io0Z1qo=;
-	b=Prshk/UflqR3BDj36/+zPDsFgyLYSSLlRj5GPx21wXh39IWvfQ0dT3yRGY/Vre3pVypj
-	 MOG87XdBhVzRxMrsJeiYUR0/vzvGIanOWrEQuB0nFo3C30Wuycmcqyzd2RIgAJDb4bL2A
-	 tk0Xld1guU5MX1e81yXZTdzDn079bG8Itty/qGeyOQWwPfqyzC7b0PPr0g5xyDa5CoW5z
-	 sUx5AgscgzXqytlO42CSzynMRPqoZFnV0TrQnyQSU4uFacThDwQAbSiObFpPL37EnZNcv
-	 elVm65mOLYlaz7xgS1BFV6imN+zGyS5obhJnzZDmKOgUuSeDCle0Sd7/7Bu77FBhjFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793296044;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=B7HU/d/c7fJMBmO2BgIhxjOClaSBImBXm0iF8RgGUs8=;
+	b=djJWQ5xj2UhmwHcTJN8evMFipSDr6SyaYucx3eb34Mj0+483D6EUIEUD3HD69WeF6GIb
+	 ET9bfMv5bK/qtOtPe3EdVkvI3KDaCTeOZ/Rf+ny1M3fHXxXbNazwqUC/nKPvCS8RA52dM
+	 7DIrQ+BZPXRJJq7dGIZgQa0BJI1cG2/7EferOhkGF+Eobi5NnYiesUWKCtnuR7SNN6Rxw
+	 NXcKvLTr9SY8qbm+Gefr98iPOHF88Cbu8H8QyoPql3K2qScXmmbvk/gIIZkxhJ9clyRr0
+	 Z8Nq3ngtDY4DSqNTKo2YBWQ8LEIYrwAcSYe8L8LM86yvTckwPGEBJUoNQN5vrUoi4KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=RBKboz0u;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=weissschuh.net;
+	spf=pass smtp.mailfrom=weissschuh.net;
+	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=AJ0FuykM;
+	arc=none smtp.remote-ip=159.69.126.157
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7727E606A31A;
-	Thu, 29 Oct 2026 17:47:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7727E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1D4606A31A;
+	Thu, 29 Oct 2026 17:47:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A1D4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=RBKboz0u
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5182640E04D6;
-	Thu, 29 Oct 2026 17:47:02 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id nVX9Z0d0PBPy; Thu, 29 Oct 2026 17:46:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793296018; bh=k+BTYLfN2+3y4nUtdaNTOtmM48lOtBOQFB+7io0Z1qo=;
+	dkim=pass (1024-bit key, unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=AJ0FuykM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1793296041;
+	bh=DkDQzSQz4jR5GRI2OMGyIcAhxKqTvQdQ/xWgFd5/TAI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RBKboz0u/TaqVbrar17f8KcrtSmI2dV5VefbpKLHva9zCY1cCDQcMNt3eJi3h3/ws
-	 rjnbyaubJ5l1mxEfVVB0qT72fwC02QtaS+RiMJjLTOiggdtlA/MJMV9Ruql0USoGGU
-	 SgK9cKOq9VuezuxmuCgU90m37KjktkaSIPAS1eFJ8iyM3ScnVq4mxaVg0WxtpoVHp3
-	 32FCAYsP4WjQRtk5VSBQoqQuhl3lDwYKh52IaDMiBsIa35nbFoxUKHonMiLGGuJ95i
-	 cyfKgn8TW0RMg/qu2ftxMYD7R7vXdS6UlvwgJCzbfP9UIAqQ8zLpE8QniKjc1ptGvZ
-	 MsQI0+cXh9fCuA5oR2X1jjqrs7kvY7Ta3qEfoNtgZOoWEZM0G00XYKIQ8knGQOwWCh
-	 MvB8Fmq2OnkvGHf/vCuL5qXCLU3/kRiZ1yrI8YBRA+AcnsFSyUPnIR5IGiEoW0oXA5
-	 Wlb5J+34zlSKp6kpL0lfaduEY0LHVTjZID6ncU3h8OGI1H7lz49cNBn8y9vuGYfljO
-	 gFDz+rEd80eQKcVJ+3vCCzEZpc7f1wOcheI1c/cbqBzO4IxCfgcAYjmiG9X0rNjqrQ
-	 R6Ti3H3Uqtc8zWHLgcv5fIaWdmWqw3TrKRuy+FbknQuoagmP9HMPUhswg+jZTkClDj
-	 mU1TX729mBdrTZ9j5oSKptgc=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 97A7340E04D1;
-	Thu, 29 Oct 2026 17:46:49 +0000 (UTC)
-Date: Thu, 29 Oct 2026 10:46:46 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Yazen Ghannam <yazen.ghannam@amd.com>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	syzbot <syzbot+74de56995244fe32ffe2@syzkaller.appspotmail.com>,
-	linux-kernel@vger.kernel.org, peterz@infradead.org,
-	syzkaller-bugs@googlegroups.com, Tony Luck <tony.luck@intel.com>,
-	linux-edac@vger.kernel.org
-Subject: Re: [PATCH V2] x86/mce: Serialize sysfs controls against CPU hotplug
-Message-ID: <20261029174646.GDauOGhqHXpndpV5BL@fat_crate.local>
-References: <6a7ec39f.5b0d2c79.2ef4ef.0002.GAE@google.com>
- <87ik58la9w.ffs@fw13>
- <20260817235553.GAaoOfieqJBZTsAn3N@fat_crate.local>
- <20260818001840.GBaoOk4Mz_mmZYK2rK@fat_crate.local>
- <878q63lrqr.ffs@fw13>
- <874iec22sf.ffs@fw13>
- <87y0bhy5h8.ffs@fw13>
- <20261029165636.GA5110@yaz-khff2.amd.com>
+	b=AJ0FuykMgn+tjzw2bwEgWowo23Bc06cTUvHxoESDMm+hJU2H3oaTFCY1KP9efAll2
+	 QctIOVrMIxeKNwPYFYUVr5Mlg2kqWZnDOntvUMDAzNVHG4h/XqkDc+ya1+mO/urF9m
+	 30RD/vbbwkGLFQkW/w8DVY9YEPqq3zfyPOuIPP7A=
+Date: Thu, 29 Oct 2026 18:47:20 +0100
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: Danish Khateeb <danishkhateeb03@gmail.com>
+Cc: Willy Tarreau <w@1wt.eu>, Shuah Khan <shuah@kernel.org>, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] selftests/nolibc: test fopen() errors and update
+ modes
+Message-ID: <e4336d00-2ce7-432f-bac1-0a847fd4957f@t-8ch.de>
+References: <20261028200743.154151-1-danishkhateeb03@gmail.com>
+ <20261028200743.154151-4-danishkhateeb03@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,40 +58,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261029165636.GA5110@yaz-khff2.amd.com>
+In-Reply-To: <20261028200743.154151-4-danishkhateeb03@gmail.com>
 
-On Thu, Oct 29, 2026 at 12:56:36PM -0400, Yazen Ghannam wrote:
-> The diff below fixes both.
+On 2026-10-28 15:07:43-0500, Danish Khateeb wrote:
+> Check that fopen() of a missing file fails with ENOENT, and that a
+> stream opened in "rb+" or "wb+" mode can be both read and written.
+> 
+> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+> ---
+>  tools/testing/selftests/nolibc/nolibc-test.c | 24 ++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
+> diff --git a/tools/testing/selftests/nolibc/nolibc-test.c b/tools/testing/selftests/nolibc/nolibc-test.c
+> index f3d0d27cdbe1..be501b5298d7 100644
+> --- a/tools/testing/selftests/nolibc/nolibc-test.c
+> +++ b/tools/testing/selftests/nolibc/nolibc-test.c
+> @@ -1035,6 +1035,27 @@ int test_file_stream_wsr(void)
+>  	return 0;
+>  }
+>  
+> +/* checks that a stream opened with <mode> is readable and writable */
+> +int test_fopen_rw(const char *mode)
+> +{
+> +	FILE *f;
+> +	char c;
+> +	int r;
+> +
+> +	f = fopen("/dev/null", mode);
+> +	if (!f)
+> +		return -1;
+> +
+> +	/* reading /dev/null hits end-of-file, so a write may follow */
+> +	errno = 0;
+> +	r = fread(&c, 1, 1, f) != 0 || errno || fwrite("x", 1, 1, f) != 1;
 
-No, we've been trying hard to fix this shit and I already told tglx offlist,
-I am that >.< close from simply disabling any hotplug operations as long as
-someone touches those sysfs files.
+That's too funky.
 
-There is no good reason to be toggling those continuously and f*ck around with
-CPU hotplug at the same time. You do those configurations and then done. Not
-whack them all the time.
+I have a series for fcntl() prepared, with which the test could use
+fcntl(F_GETFL). It would be much easier to also test other flag combinations:
 
-So this code needs to be simplified - not made an even crazier and
-unmaintainable mess.
+test_fopen_flags("rb+", O_RDWR);
+test_fopen_flags("r", O_RDONLY);
+...
 
-So, I don't know yet in detail how we are going to query the hotplug core
-whether operations are in progress but once we do, those sysfs helpers should
-simply do:
+> +
+> +	if (fclose(f) == EOF)
+> +		return -1;
+> +
+> +	return r ? -1 : 0;
+> +}
+> +
 
-	if (hotplug_operations_in_progress)
-		return -ECOMEBACKLATER;
-
-And that hotplug_operations_in_progress should include partial hotplug. I.e.,
-has someone done partial hotplug? If so, error too.
-
-And that's it.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+(...)
