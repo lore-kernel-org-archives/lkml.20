@@ -1,82 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793276784;
-	b=pA+ljIoixh++k9y335zGWYduwQ4ZuYMvF3Nlpl99Pk4QqHzTi6SSnAmEfLBFPFZ2C/81
-	 VeN13EYHblM5g79B42u9Xl3fYKZRgQJN4hGC/dbJXvWfOH4UXAKxBleML56rcg3LmZeCo
-	 Yz2pajDpToVvR3qSEkON+/gtcx/jUCMa+jSrfunxJZnHYJWXEHoXT7BFyUJ/rcGYSCwaB
-	 SGUeyf843+QPnE5sJhGgJOCEhqv1lFQ2aKw0kTUtsKqyS4PhT7mZjTXZuVG1Mdj194zyy
-	 cgkaYj2ojF0qlx28gYkZtPCULttB8C/h+uSCrk/JR642zDTEYpOA3hyG9wAOesulgqw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793276784;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=NhZM8bfaMOlAUskRwuZdYFdBouah6ljFuWI4CEHi4OM=;
-	b=Skg8Jt4rpNiISQH+voOpsalkroDtp/FAohCQKHcwOpdEM8GO7JPeiKaSa/fWnU7lPl1y
-	 ZvqXV213f3zupvu5iX+nFa+ALIrqc0ZsxMJNOcXYLeiTKtbCV9CpU9xYH3btwrd/yOwLd
-	 pNZREYtxMwZsRAOsPL7B/rBzBShXsi4oWdJomgSDXxYJJaR5xjgD5L6mLDroNZvOTIs5N
-	 nZxmFfKGUptUR4HvrV5H+9WGp8qZ242tO04zId3nqHwmdmpdrLkLZP79pQjOv1CnXS6HN
-	 klRJ11W7W+DGKh/mHSsbnBFVqqD5hrpkkQHzoFrJzBG/gNxO01llyMCE9iyhEaPRuKg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="YUMSvKh/";
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793276843;
+	b=mlII3PpO9Rbi3NL9FX/Jvn9dBs6J+n6dVS+F5hSZDiFidOd1ChQjZa4sqDPg3XV43Q0W
+	 uCahKMQoYmUlhYZIB9g5baoV2Fl7R4UhiA2Ej73bCM6jT3A+qIYKyJwuMGtTcnfEH40/6
+	 pCEB5iDSxRTrEDZMsyiZy4beJ8HzWrAA7va5RB6UfHQc19WszXxg5001jhuuULE6FAt3S
+	 +uaxaszXf7PIFeBMdXLtnQHBVcBOOpVXUEpP4cmBe0FnBlSctkS6EXFea0Fq4PNdACFyx
+	 E+JINzSajbdBt1fa1wYGou00dufPn56h+3h6FUlLI7cOMfd3bW15/N1NVn1kst5PxxA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793276843;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=0fC8hi/16c2Tuk4TI6xeTYKFbOzyPbvhJgiM6+5Rs4s=;
+	b=UY8+qmM09/nZvcmiXzpkZDhVMluW6rR/YHFZxRW/EEvxcBJChqZ3SI3SyBB1x9SfEsu6
+	 gpYIE1SB+pfvTBONshxFJlk2sFW/3Yu82v36mKW3Gp5OBIyAl6MR9+sLuFOLdhuK/ZYbG
+	 H8TjQv/3kbZDVB8AcSK6+evNpseQw2jK07V04MxtkcqLsQxrIZNyLrZ9cEh3wphrFr7zh
+	 R670ackYJqMsh32XrRjmJ1ZQbKm25fApF8SviLwOaPd/oWEQ57Nn0L/xYuRQt5Ya/9haD
+	 itusoVDLkRzIqpjEqbdOaQc97OLIfN9BGzpwkszKTt9uuoriEi3UTX4lJXIRQ/QvVuA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XCdQFuvA;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LVxsoYMq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33B3606A31A;
-	Thu, 29 Oct 2026 12:26:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D33B3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A6F606A333
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:27:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6A6F606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=YUMSvKh/
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T9Ep8V3777010;
-	Thu, 29 Oct 2026 12:25:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=NhZM8b
-	faMOlAUskRwuZdYFdBouah6ljFuWI4CEHi4OM=; b=YUMSvKh/JCtiZUqTtFZsI0
-	zOYVJron2zNzSyPMNA8prDp/B1LIArQrgQgq7XkD8SFkwFMUfeRqHKtwoxeKKJ9m
-	XTy/aC8y1SSSuHN9Ve/XhAZBa1zc+TZ4fnpBtc1p2NZRjiikAi3FlbWTLwHvEJeV
-	hJ+GXsYKGrmjjhbWVIK4YjPaj9mIV/2wuZvzvMAz4ZV8L5kfSqBadPaqenTbiiCP
-	bHQcBL0KwK2tzIwhJGoJjC6fNNJhoVG2JhRzEyGzSRiXYR4ClkfPqbt4ahosnVgs
-	Zw8Lk1rBLyiE0eHfhUw0nfQ5j2PHbftKHhIIJHvDS94pIcQjcoumgqKZhSv2IV/A
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgmavsj40-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 29 Oct 2026 12:25:55 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69T952Et2945443;
-	Thu, 29 Oct 2026 12:25:54 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hh8ghbsjt-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 29 Oct 2026 12:25:54 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69TCPn9C30605828
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 29 Oct 2026 12:25:50 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D109B20040;
-	Thu, 29 Oct 2026 12:25:49 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E95972004E;
-	Thu, 29 Oct 2026 12:25:44 +0000 (GMT)
-Received: from [9.124.223.8] (unknown [9.124.223.8])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 29 Oct 2026 12:25:44 +0000 (GMT)
-Message-ID: <261148c1-48ba-4ede-bad6-24c18ed9d545@linux.ibm.com>
-Date: Thu, 29 Oct 2026 17:55:43 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=XCdQFuvA;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LVxsoYMq
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TA3jjF3607048
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:27:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0fC8hi/16c2Tuk4TI6xeTYKFbOzyPbvhJgiM6+5Rs4s=; b=XCdQFuvASFXh+8rQ
+	oOalrMlz6pRA93tAckZW4YxX9TE6+WhfnTsmQ7EVc/lNrFsUbVlzKYCOCG3aAqhB
+	qezpYjrJVS2Gkz/FR+4oKosvN1aBSmSM0ya2xQQz42S/WhegH/uB2RqEUn4rdgN8
+	LqgLa2Xz/s1geaIJTxulPAhnIgSZMr5nD1mACiX6FFiRjrSp8Xs+cG3BWmevAjWl
+	c4u3+fjmo/R2Cff5S+hBzl7UU4VXbQfIwVp05CPMlGqP9d6nQExtlpvDjyAvwAPX
+	uEIPHQfXvUArIqZ2OqUknqtqHTlHARY1VkDVbjQxbWJyKHCUNlSdtHRDsAsXHeoY
+	6knizw==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hm42fgfk9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:27:11 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3662e7a9299so8279669eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:27:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793276831; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YwKSpcAcqcQ4e3oJRSSBRzJn3c2WVcuxPzyKZN4qxm7dKV3MxG+DmMw9F+CYDHOXgC
+         vT3BNan0kLwtXaWTwYzqm1bl5WaOIyXR0WO/YhwUfY4jCxWggQ7m8VQUjJy9FfNu119u
+         NVO+VjD8of6qtsrSE19oF8v7f+iGWGdwSzro7k4Bje4ApvvV5HHORmi2xaBB6ixm6El3
+         WER4vPhmKaQ7OnuOmckpqF9mNTZMKF/0X3cmkhsJeQ0wlagrcyeoWjM6sKrSTK94e1uJ
+         YJLJdjzBnz+5IBrip1lsZfyvt6pcIvpB4oV7EVJJtZW/avDPIdbIB9HPu6PyyhAjTbus
+         w29w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0fC8hi/16c2Tuk4TI6xeTYKFbOzyPbvhJgiM6+5Rs4s=;
+        fh=TAgO8VKrchzmV7Jyl2NoWyUvACt24Rq1tC+fASjs9Xs=;
+        b=qLJ+kURtLcRAjqVtLFPywZkLjsbLlk+F4Nd4fs6xJvVcjQIkXTKnKPdDUBplkNzv3i
+         83Mn97BooWxRhxDOgWmneNj3Mvo3Ubu9fIjeTvoVPQllzPh+uxDtqqqo9AgVe7rZLNbE
+         amgqsynrsXslAN+T3qBKRJuxjSDDoJ/K8ogr1ST9gXaE910Pd3m4Q3mAYMg4iUydIICk
+         RwwvfmiF/dwXUOesTh4tNSRi43LL6cQC3yVepccZcQSWkOqjRqQkn8VEGQtiLw0CzWe4
+         Ay6UHH64/8nVkmfUxAiFZJY0yyJwAE+Y2Oh4paRYwy8W8YVW0E4AQRH5V7lNXkYXzXhv
+         ywhg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793276831; x=1793881631; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0fC8hi/16c2Tuk4TI6xeTYKFbOzyPbvhJgiM6+5Rs4s=;
+        b=LVxsoYMqHYDQ6kpnVtFAtmv7+tKGAxgkaYIIvzYm8sbLQIV19Blu+/UZ6MBICMLv3o
+         a4ZSqisTfZL4c2a7yDS58iXx+RqPyriexwX5csRMdSDyn6WfG8Q7atck7pGaVs1OGEVS
+         YiNPxCmt1DU62nAk3sLfLQhuEWBVORrU4r4nmTxW7zVcAtySGLRuTT7bdosc2RCXfnOE
+         yH+Lm817LWV2ES45zA6q5tedUnRsgmPfBQ4MzVEuTrbsVOuHay/WcrOdKWuPgQtrNfj3
+         sLmEco0BY7scuVAjFh8qcWBXXXDT/f9N5qh5p2SvDFntZgN9dQMhHj2h4g8z+tAEDFeH
+         5BQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793276831; x=1793881631;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0fC8hi/16c2Tuk4TI6xeTYKFbOzyPbvhJgiM6+5Rs4s=;
+        b=RDGiyGdcDkK57yps8jN2hcEm89t0/Bk1lZSXrYCrL9j3rkYFPBpRCUoak8oL4uyhBF
+         +GT7TwAvTC6HIoFB+uORe4uj6DnF6SBIlj0pkvLCJZxFAPDwvie1A7vrZbseNTCb95IJ
+         4T+9HTwKjEFeVeWgRkVtYEvaXnPzSpk4rFAOUg1a7dlLBaS1QNQh0bQVsrLtX81g5AuD
+         VvgZTfBMOjJcJFtSUtcPeh8S8Qn92QTzu2sk2L57ovPGloCenDCuQlGKiS2vOw1wUGU1
+         WQwc+Dk5SeOQVXKpQWxzsb7XjOotvRdvYanjJkAdldt51iExCp4xq+EEi74uSP0RluQw
+         02Mg==
+X-Forwarded-Encrypted: i=1; AKwUvBxFe77ihXYK4OB7htAlh9GMyyBIS7Chph21oXD1lBkx90I3vjLH4mNUotF3yl0NUGurX/hI/geOH4XrUBE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxCvYfHX44oHu2Y35l9klSmSO2rzGqBNYGY5K+Iwj4I846JGRP
+	p3k4cdk9xaSFLFPRXLQXHEfG2YCbTXEIz9XbrH9ghSqNiCULnG+gK1Y8D78nIUVK4t/hldsQjQJ
+	WQ1mHE1XLM/i/uxDdKZurYW/JfCdhGMO/Z9n4LVLB6xs6/aDu1vjw8x3B8bZGR8cfUeoHDrqoTW
+	22X0w7nyujFeHmASQYxjkcOO9dwpQo3jTDHbbN/r50HA==
+X-Gm-Gg: AYBFou069Omc7FgHnX6eYVjsK3hznZgaD8Qt0cWVxkJ3DMUgEPF0xCqNYV6q/Aod34x
+	P0vY9BacB0wrA5aIr4MKC3iT1kUsRdDLWgCo8ZrpxViLZI5+djzhV56sLUZ6wEF5eIhZN0IAoCY
+	zpWeD3fUYkpIoJibUZ3XK7yo/gCcvqXxaC8UN3AraQyTyH6BLAmLCFHEtODA==
+X-Received: by 2002:a05:7301:df49:b0:36a:1e0c:e28d with SMTP id 5a478bee46e88-36a202bdba8mr7838943eec.4.1793276830561;
+        Thu, 29 Oct 2026 05:27:10 -0700 (PDT)
+X-Received: by 2002:a05:7301:df49:b0:36a:1e0c:e28d with SMTP id
+ 5a478bee46e88-36a202bdba8mr7838905eec.4.1793276829977; Thu, 29 Oct 2026
+ 05:27:09 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,115 +127,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/2] sched: Introduce idle SMT priority for asymmetric
- capacity systems
-To: Mete Durlu <meted@linux.ibm.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Andrea Righi <arighi@nvidia.com>, Ingo Molnar <mingo@redhat.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Juri Lelli <juri.lelli@redhat.com>,
-        Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
-        Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
-        K Prateek Nayak <kprateek.nayak@amd.com>,
-        Heiko Carstens
- <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>,
-        Tim Chen <tim.c.chen@linux.intel.com>, Chen Yu <yu.c.chen@intel.com>,
-        Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org
-References: <20261008-hiperdispatchfix-v1-0-73fe41081070@linux.ibm.com>
- <aseIPhrDGCYFtJNE@gpd4> <90454932-1d82-450a-ac4c-499acdedb9d7@linux.ibm.com>
- <ffbeae31-0e93-4386-8e0e-dba13960b283@linux.ibm.com>
- <CAKfTPtCianGNWSu0s2J_B_aO_rtKWO17k9guYmwgXXLUHQE+SA@mail.gmail.com>
- <d412d939-4704-4246-a9bd-b49b457099b8@linux.ibm.com>
- <CAKfTPtAGiesy0FZQ3aOny_1QkqaX0P2MCOdkE42ERdihRJL99g@mail.gmail.com>
- <ce85388c-3ea0-4363-8c89-fe2bf71b284a@linux.ibm.com>
- <CAKfTPtC70sx58uiaMEXv=vOk+o-Q_1PcHewiVjGCWMd_kvn=tA@mail.gmail.com>
- <e560fc10-f0f4-4cfe-b86d-4df4e2ba3120@linux.ibm.com>
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <e560fc10-f0f4-4cfe-b86d-4df4e2ba3120@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=P8SvFSAu c=1 sm=1 tr=0 ts=6ae33b53 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=b4NwTnLg8QrBWy7gGLMA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: qPilgbHAXR4fdbQFrM_chj1dNSsLwUpW
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA0NyBTYWx0ZWRfX16fUt37wj3XE
- 4pXnRVwr+VKeaTccfKEn0eHeMcxMxrvcpdnsO9qrhKb5R696jpw82cm70i/KUhPhEROVgwOfWlf
- QlJ037wJ3DpuPdGuN4G2WeTfkrK84OA=
-X-Proofpoint-ORIG-GUID: PKm2xy41HcAiQd2hM2YwRMLd-yz0ZfJZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA0NyBTYWx0ZWRfX4koadrSnndvG
- qJdFq2fda7SOWZXBSKUlm0y94DcBenut/Hy9CsorzxqkUr2FVjzwGrIP1HrtSrbjLzzNH7VatSv
- r6fFU1C8LdOeb76DGAaGNnDTUcG4x3dRI1UptqCLcLUmASwwFAc3qe+F9V9XN/HU+X2LZupWb7e
- v5uK200Qvb2hhO4cUkhOQyoTZNM6p6X0FfHhyKSf77Di6gvwWIy6mmUmK7n9njSzIUgAWetXQL6
- 7ubGWzDtZxnRAuHK2wkuta9XZLGWdqRosBWsGKPA7V2bLjI9OdGvbU5Dabr4p+wV2+k5LWdq0Ef
- cMZx3KIIdFS8Q0Voby8xXDFkUKF/LamZhdbPvzNzwH0nxCZNZkBw+4g59YRpNiFj7AIqLHw4nQN
- lH48Nf+9tE7ejYp6Bjt+ipp0vIv/ANTtZzvAS8TbG3gk5JrRDCBXlK99cc8o84ELB/bx6ZQL2xX
- XfBwki/0GQ65b+ZFC5w==
+References: <20260930150213.799245-1-anup.patel@oss.qualcomm.com>
+ <20260930150213.799245-4-anup.patel@oss.qualcomm.com> <CABb+yY0gLY8VuY0pDKKm4EfS3wp3buLgF=waajaA7JD0UX-VwQ@mail.gmail.com>
+In-Reply-To: <CABb+yY0gLY8VuY0pDKKm4EfS3wp3buLgF=waajaA7JD0UX-VwQ@mail.gmail.com>
+From: Anup Patel <anup.patel@oss.qualcomm.com>
+Date: Thu, 29 Oct 2026 17:56:55 +0530
+X-Gm-Features: AclHuK_K8FAHAaVvZrkLzUN4-2TI6UfFRWFLq4Lv-UCwiDI74MI7EZMWtDjZvCE
+Message-ID: <CABBgwmsU9S2kf+RL53G8Tk4ar3=6f1zMTss_HmE42fxiwxVFpQ@mail.gmail.com>
+Subject: Re: [PATCH 3/4] mailbox: add direct synchronous send support
+To: Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+        Rahul Pathak <rahul@summations.net>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+        Himanshu Chauhan <hchauhan@ventanamicro.com>,
+        Atish Patra <atish.patra@linux.dev>, Anup Patel <anup@brainfault.org>,
+        Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+        linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA0OCBTYWx0ZWRfX6gMd0dLUP0tu
+ rzWV9XbPjl8j3L9gY08g0Qwv+AcksJFjeGzL7ehvgbLPaZUatpB8QwwVRZYGiO8RyVAVwCZogoJ
+ k31doC5sWqr4DzJYLKMdPcULBnZSt+RAu3yyB6cwrAQehX+6t7UyJsGN1uhZI8wmWlZTynZhtDR
+ 98qo2zzlLlD6NoOosPJckAbkn/9OPBw45ayBfzW+5zRIuX/YGENEgewsw8CwTpyA1TFwpo8cYTt
+ gQRprToa/ic7OfVYoqx1ulgQ4TiLEn0TuJSXgrWoMOnWLrAuWKh1zU6SErgjailZ+ko/TUXEaiS
+ ELIRVTGeacfj3u69jwdiebPvw9DeESNYyzQIwL3bySFDqdV4OH1vOqiemwASpZlhl6QiL0+84Nz
+ Rx8xLew6yRte8d1wICAQwB5BTPbv58lENATpS4Vtdl1n+lel/SCxnfNmRcwqQZXFOqDCi0ZDzwO
+ lQTJSiurWzpNEy4gn3w==
+X-Proofpoint-GUID: jh5YbkQX7YaZioT4ko6EYfEqx_rZ2QM3
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA0OCBTYWx0ZWRfXyn3zSSiLqkOs
+ n9QBeEQhWo1hfZTKlRjEij6UTKeGFYBVNEnlQv9KC9ql0FH/+DPm+TT2eNY4GAq1SlLauWbP/Lr
+ Qql9tAdOHUakkVfCOvENv8yDuLQpHp0=
+X-Authority-Analysis: v=2.4 cv=UN9Ijyfy c=1 sm=1 tr=0 ts=6ae33b9f cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8
+ a=B1sphXeUGUYvUChdj8sA:9 a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-ORIG-GUID: jh5YbkQX7YaZioT4ko6EYfEqx_rZ2QM3
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 malwarescore=0 phishscore=0 spamscore=0
- clxscore=1015 bulkscore=0 suspectscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ malwarescore=0 phishscore=0 spamscore=0 suspectscore=0 clxscore=1015
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610290047
+ definitions=main-2610290048
 
-Hi Mete.
+Hi Jassi,
 
-On 10/20/26 2:43 PM, Mete Durlu wrote:
-> Hi again,
-> 
->>>> What you describe really fit into the prefered core that Shrikanth
->>>> Hegde has developped
->>>
->>> I agree, but Shrikanth's solution can not bring some of the
->>> behavior changes required. cpu_preferred_mask can help
->>> direct task placement away from low capacity cores but idle
->>> core first approach still places tasks to fully idle low
->>> capacity cores. This patches proposal tries to move tasks
->>> first to the idle SMT siblings.
->>
->> We have compute capacity to decide which CPU is better than others.
->> The capacity of SMT CPU has also been somewhat random, but we should
->> find a way to fix this instead of adding a threshold to decide whether
->> to pack or spread tasks onto idle cores. With correct per CPU
->> capacity, we can easily decide if an idle low core is better or not
->> than the sibling of an already busy high core.
->>
-> After thinking about this a bit more, I have decided to work
-> on a different approach rather than trying to integrate
-> into Shrikanth's vCPU backoff or trying to expand this series.
-> 
-> I'll come back with another series after I become more familiar
-> with how the SMT capacities are calculated and incorporated in
-> the decision making process. My gut says the real challenge is
-> going to be finding a way to benefit all architectures that
-> configure asymmetric capacities but I'll give it a shot.
+On Mon, Oct 12, 2026 at 5:52=E2=80=AFAM Jassi Brar <jassisinghbrar@gmail.co=
+m> wrote:
+>
+> On Wed, Sep 30, 2026 at 10:06=E2=80=AFAM Anup Patel <anup.patel@oss.qualc=
+omm.com> wrote:
+> >
+> > From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+> >
+> > Some mailbox controllers can complete a transaction entirely within
+> > the calling context, without going through the queued TX state
+> > machine or a TX-done interrupt. Add a synchronous send path so their
+> > clients can request one and wait for the result directly.
+> >
+> > Controllers advertise support via the new send_data_sync() op and
+> > clients opt in by setting tx_sync when requesting the channel.
+> >
+> > Channels bound this way must not call mbox_chan_txdone() or
+> > mbox_client_txdone(), and mbox_send_message() and mbox_flush() now
+> > reject them, since only mbox_send_message_sync() is a valid
+> > transmit path. The client remains responsible for serializing calls
+> > to mbox_send_message_sync() against mbox_free_channel().
+> >
+> Seems like you want to use mbox_client.tx_block.
 >
 
-I think you can split this issues into two.
+Apologies for the delayed response, the past month I was travelling
+followed by the Linux-7.4 merge window.
 
-1. Does choosing idle vertical high SMT CPU is always better than
-    an idle vertical low SMT core. This isn't related to any system pressure
-    or steal time. If yes, you may need something like ASYM_PACKING, or
-    select_idle_capacity etc.
+We had tried mbox_client.tx_block method in the past and we had
+found it to be not suitable because the mbox_send_message() will
+use wait_for_completion_timeout() which crashes when called from
+an atomic (non-sleepable) context. Our existing mailbox clients (such
+as system msi, clock, etc) do mailbox transfers in an atomic context.
+Due to this reason, currently we set mbox_client.tx_block =3D false &
+mbox_client.knows_txdone =3D true in all our mailbox client drivers.
 
-2. If you want to avoid vertical low cores when under high steal time, then
-    using steal governor is probably right direction.
-    We could add arch specific hooks if current logic doesn't achieve it.
-    But this is only under HW pressure, not always.
-  
-> Thanks for the valuable comments and guidance.
-> -Mete
+Using mbox_client.tx_block =3D false & mbox_client.knows_txdone =3D true
+still does not avoid the spinlock serialization enforced by msg_submit()
+function which works fine but adds unnecessary overhead and prevents
+parallel message Tx from multiple CPUs to the same SBI MPXY mailbox
+channel.
 
+The SBI MXPY mailbox controller driver simply sends messages to
+higher privilege firmware upon Tx using SBI calls and when the call
+returns the response data is returned with it. Also, there is no Tx complet=
+e
+interrupt. The higher privilege firmware may forward this message to a
+microcontroller over RPMI queues OR it may context-switch and forward
+this message to a secured domain (e.g. OP-TEE) to process the message.
+The higher privilege firmware takes care of the serialization and also allo=
+ws
+parallel SBI MPXY calls from multiple CPUs.
+
+The MBOX_TXDONE_BY_RETURN and send_data_sync() callback
+allows us to avoid the Tx queuing and "chan->lock" for SBI MPXY mailbox
+channels since this is already taken care of by the higher privilege firmwa=
+re.
+
+Regards,
+Anup
