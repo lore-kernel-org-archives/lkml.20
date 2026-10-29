@@ -1,86 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793314667;
-	b=Gm0GC2OZ7s4QUg90a3KzfhU8N5Cnk6hLs5Nso3KMoOhR3JEvwTjmjsxQZns/s6YnMAiM
-	 iOt8tIn4T0p4INOHLqU4a4GG7swbHCXQFEtXiEmRMavj7T14EFBFbqmJFlH90qadBr9Sx
-	 hWFNUZpcpWSxQhETD5RD8hEPFJ8kP9vD4TRqWsU/56ReFRn2ulhOXe6D+bmMFZPgkzmO1
-	 Dz19yCTAFPQcJoFc9B+kHgayyl+18vbuHNJpCvA8Lfjjqx1nUWMulP2TlulUnPc4aIhVX
-	 sOMa+R4/O0iLE6/cXJWOq/BwvZwz0BFyaKRKiRsTVAkQN1Ig3jML+4FikbWY4PYZENw==
+	t=1793314761;
+	b=Oa1ep+kTC6YiF0Q8jnnDQggdEX6vp7FWk4WOiHNS2jqzcFXa85wRsHWR2EDNZQEBM6O8
+	 /5gqPKPzMXB0z1YiEBv2ctfygDcO1K1dnRymClvswKmUpaFTIWQ4I3KM2ajTkptWT7h8m
+	 X7aD23oE3Kuj3u3HDECJP9AR1s5c3LNrMmqO5lTb6wdjeNK8nJzqObUwGTO0EM9aQpr8s
+	 wzhW4ZEP4WTfFilgcN6whAEcMuSMeZPt2C3ib1cVTZF6o8MeucgKwNun/NGU4GebucqoT
+	 EelGvNf7XLf2mSVj3+hRgDqfEaRSAsZva7BjT0j+RKW5fqnrTIdZLRINPu5idGf99bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793314667;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793314761;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=h5Hpaazv/PJJXvnma3M/buleF7hZLhW/TVfnybhiNnk=;
-	b=o3WdUc65d8wgYmf1oFFwl7+H/uRGyGJj6dRWQnoqGLNKqrhWUX3zjtSrg8VgYbie5vGK
-	 z0g2oZy2IXPHGmTyN7pQ/k9LNP0QHWzKmQUaWxYXWee2JencABdmcMxyxgxtMKGkE79Xn
-	 4EJu9k6RIPEmjv+KcZwSLXgqO10+G9mGdv4e7YVKCVrDrL8GOGbqvYrNBCdMfszvEjZhO
-	 w6W5p+5CGEvBQFEZXFBWVd+MMywwc1AmLd+0n1MwqOtBS76GfRg/O7c3X9PT2UmxBy0rx
-	 odyOVMIHh5DhrLiNIs1QwPtUJSvnRQGHCHxMZLjbhiZNDfr+s3yDy/WbzlKXQnOg8Lg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=LoIbjYHReLG6WDNOTPVhVG9Y8H5GzjW3qhBS6aSgkkg=;
+	b=bnJmKYROrIt1O9QZnkS+D/CIBohW9EYBVkXANfxhGn4/k2M2Zxj7PUTuRX5dxbGAD1XZ
+	 OS8pdBbDEK3mAdP1ErlY7u53406u8vDwoX15lcOvoqE4pYTQb3HUjFMyEl73HmB/OEmRj
+	 gQLe0+zBK0mB9FztN7mX75RnEGdaWCs/5t7/2CEjRpkCJa6lPGxhFiKo12EYG6e2GPOAk
+	 pkI4+hPL/e7UovSu+gL8T5xZ6x70H4oSUp+64dcDfWn+FG3ZdzN62+Sa8c/11N4WS9IiA
+	 +b8TtlgZIxdHBJc34AtoiDKEflG+N0ca+AiB3rGYq/gMupmbj185PdzDS9I/7ttn7/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q4Pk0bGY;
-	arc=none smtp.remote-ip=209.85.160.172
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G7NsA0p5;
+	arc=none smtp.remote-ip=74.125.229.133
+Received: from mail-dl2-f5.google.com (mail-dl2-f5.google.com [74.125.229.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DB4606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:57:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64DB4606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49152606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:59:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49152606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=q4Pk0bGY
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5363c236a2dso134931cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:57:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G7NsA0p5
+Received: by mail-dl2-f5.google.com with SMTP id a92af1059eb24-1ac216daf7dso25107c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:59:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793314666; x=1793919466; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=h5Hpaazv/PJJXvnma3M/buleF7hZLhW/TVfnybhiNnk=;
-        b=q4Pk0bGYejC80Vlg67vDiA4cVoyVezrRwL/1kfbcJktkHfwldceCME3k48jqzEdkVH
-         BIZf3TJ+vT12mmlyXb5TU34cFd1GCX5uM6+LYC6SSZKz4TTNPrreQhoKNz68yjxq5KGv
-         iuG8X0cBW5FiFjH4wK6SY6XQpOsGGIVJbkJiLeGRFq8ny81jQHabr0xmesjdzbUzzCDk
-         nd9lQzo6sBGPzRNeuG6Ua+or8vKb5lX0QBP6GkMcBNVzfEo43rbhlpfLWr0/5AYscHm4
-         9FvWolXD8PRa6YTChCqHvPFIoK8UMbJN7JdAKwi0rm/yjbctju6tyJ0GtpXLkUtB/+nI
-         +agA==
+        d=gmail.com; s=20260707; t=1793314760; x=1793919560; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LoIbjYHReLG6WDNOTPVhVG9Y8H5GzjW3qhBS6aSgkkg=;
+        b=G7NsA0p5fd/KLkSMaNXs1QyoEcDtA7SSuLtzJRGLXleyUbtLCL0K8yUcVeAlGuTf+X
+         6zc9IQMYX5xptgxuLEDlmexa8j4dwiS9UfUsVJYn+Ql0WSpFr9f5zfPE2HGhMC9vcAIw
+         znsrhkQ81XEzh1Fa1VKJEJSH6pfraJ8zeSz1g3O4M4Yogk6ytIIbOqqUIHNpFDJvA6+N
+         xejnIxBz8NgbRRLhV9ZJmadxoCa1o7v+ktEIgOfg+HQdgPEvlNt1Lk0a6Lqaz0Krjq4Q
+         cs8H2bXMD/N+PTImO+AzRLW4/9lxa85vHoL6o8lvJUcvwbwEHX7ggbdaxOdMt2lan3xo
+         z+wA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793314666; x=1793919466;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=h5Hpaazv/PJJXvnma3M/buleF7hZLhW/TVfnybhiNnk=;
-        b=bwnBod57Doy9clncfhorQbbSUBMrszSnRFTBeTe0vBz96UTbN+JudNGUdCwHvMaFHI
-         nPTw0fiBCjKK3FwHId9j5dnGubc7MBiD2v0hicOTCKenu/76+8EgGrFFUyQsb2Ow5BcR
-         BHF6+v7tH+udURS1VaocqTsa45YIz5oz2KzKzB9ArEJIDBX7/zBCoIzUeSLDGGCircIv
-         9dIm1J/MbPFaG0Izy4cTFO/MyalRN7YvouTQop127G79bh4EdKNdgLL/etpczSxHW7cP
-         VDzrjx5jo16CF1Uk+PDwb641SlwORy4s0LfnwnWqAfNgEadaSk9MUju8YnSpvdgC2yxH
-         pg2w==
-X-Forwarded-Encrypted: i=1; AKwUvBzmXLgAMggjcu3ASbBJZgI0P2RxVpM3SQ0EtwZ0Ns+xSYcKx1BAMc5j+moNlm5fzuEHfMuTFL+KfNj8vx8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJDx9pJIpvmUWwxYzt0/dquxXOENwl2Xb+D8igi+kDe3YFCOpfo
-	0L6g8cskFJc45UUv2SY4+WuFTg+gln/1CDonQY/nhyGJQu2etepbr2aV
-X-Gm-Gg: AYBFou38j0qv1Qw8iXvXTOIg5Jx96pBXE6v4wSlCXnuo7N9NwWkR8ueW+vwqe340zw5
-	Wfnl9eMunNP3QDDEPuhjBzmVUYEsxlXT4Kv6MnaQh1zPmpnndMr7GCdoWT5WfrG4F/Y016aVlQG
-	4ZrLLy0c6YVb4alpd0ZJ6Lv9K3LkKYIUkxZVfzZgyvTvTZcAT28txLaBIdHrB/FaaB9OvyvVFD2
-	rddvGfpEvm7n/+wrzxucnBUjIFbupAdIxTEYFG5zgEx9/+HltZd7uYPr5mlAl1uANZ4T/IUDfVg
-	83QdExvGLjHoQE9HQ9yZk25OFuOM3jM/nEpsmmY+s+FyiYjXrRqgtT5KLzwrJzj0FtWgWdnsGab
-	2N2xhWdMmMfqCBfFiQ0GCtgdse0kUc7LeCG2IvuWpU/K+GskgmevV7MskHR4U1CJwd8Hb3ROqim
-	6mHkNs04WRUmhu9sAV5xSwLeV/7Ifw8IZlh9eYAkNhlCwuM/9qChMLhXs2s9LocLOJ91Xz5xbDh
-	cSFxIbTFc//y20QELUhqwoHgZqv+1r6AjBL8ZJkZqDBiRTYdhFhEMOR73nVGY7+nvh6JtZ8I/Zq
-	YrlvkegO1/dDv3pYUV3La1/Hb2Qo5A0lJMgmGI++R8GG/eGf7ZMGj0ywiqmYea9sxQ==
-X-Received: by 2002:ad4:5cc6:0:b0:91c:7b53:8007 with SMTP id 6a1803df08f44-91ca4b3a873mr10249726d6.4.1793314666398;
-        Thu, 29 Oct 2026 15:57:46 -0700 (PDT)
-Received: from [192.168.50.231] ([142.255.23.46])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca68c1578sm928146d6.40.2026.10.29.15.57.44
+        d=1e100.net; s=20260707; t=1793314760; x=1793919560;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LoIbjYHReLG6WDNOTPVhVG9Y8H5GzjW3qhBS6aSgkkg=;
+        b=maIlfFWYIZ40ACCwvpeXhyvhkCJdvA0T4LZn81mRUiwwDmZR2E5HKOTqYMCPKCqRCz
+         DmircnfQxYjGaYxJIK4If9Fy1slDN4mVW4ifBuFPOGHG3YW9ADyZtTK0BI3++33Hgj5G
+         v8+kI+Vx3nX+SKt7SRb91WROhcP+cZ0oQA9JH9gaNCwbz37GhewnWXpmAiNXHV0zP0yu
+         TAMJMeEZL58ARumn6KPARQa8INMi2lgTIGU0AOdNIJJNPxZt4vWoz0/PIQikYwKlvYB/
+         mSDtxFMAY/2x1EAnDMaBjtCDHXMfsuseZmDnEE+p2D1Q2md/xW1NE2t3k5ASJg8MU+Cs
+         nD7g==
+X-Forwarded-Encrypted: i=1; AKwUvBxumytYO41lSGxBFo+rGvIVHtXg0gXz5GQwtCQFSEji68IO0b3eXR6U6hzyu3RUAopoH0e7Sx5Ik2B4Dm8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbCF4bQuq/8mXmXzzPKruIBsLjrI8UtAHZIsc7+apFkK6U+h0v
+	pINcyYMWYwN9QOP5nltP/Ocm1ZypHN8F+2CmKT3Z2BDvRQQXDzHh0xrB
+X-Gm-Gg: AYBFou0c3UQJJqptMBPMbBFr1///NQ9BLVJIvjsDwUvzYhtYIkMpdZMXn7tIV/56XAn
+	S/KYFxVb6cubx2vpf0F61CCOVZPmeg+g4Hvvm6easZ3a/pp0zZbHhQsbOm8+GUlNEEDmhB8PLPs
+	T8ZsAR839fyd4+RacKFCobUkfX4iAE0oIN6D57cjRspKz0La7pmIArK0DgMvRs88EBG7Tbn6ILU
+	sdqIJGbRNRpE20Y3YRi8EupKQegMVtlimG5BpHGSNYXgoNsOf9kpIaQURproe4j2K5MABsylxel
+	djpdVnX7vo8iGmeQh481MvN1ZlFtrRe3wus9nBHtajY8T42qpxNcJbI4IVa7RM+S8G1jth5dXaZ
+	Ok0eyubuvrvqAbWvsM62j9vb82+JIxA/dX1i9rFuCA/7IHRTRSfpKQuyvyVh+wlsrC/PCcFYrsP
+	XtVRmVG/lhvS8YHuhl6sSnCFqikirIdtk1kdJEQfrHReE1N2I3TC5XcPFnp8LaWUD1lwJuqCVwr
+	n9k/OqlW60upMRblqZ3B9OBomHakzUeTLXiSyF/2YXaMvBZ2W7ObzR5wAnuT+ZmN4+25asBu/0f
+	HCj04gbUn1Z71AKuRdmoSu98BY0XHF1QG4ySaAp2B6MT3XXoBexa3cc7
+X-Received: by 2002:a05:7023:a89:b0:1a8:9857:2102 with SMTP id a92af1059eb24-1ac5f183841mr660166c88.30.1793314760261;
+        Thu, 29 Oct 2026 15:59:20 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c27cdsm2009723c88.10.2026.10.29.15.59.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 15:57:46 -0700 (PDT)
-From: Connor Abbott <cwabbott0@gmail.com>
-Date: Thu, 29 Oct 2026 18:57:37 -0400
-Subject: [PATCH] drm/msm: Fix GMEM_BASE on a8xx
+        Thu, 29 Oct 2026 15:59:19 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	xfcyhuang@gmail.com,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] fs/ntfs3: preserve colons in volume labels
+Date: Thu, 29 Oct 2026 22:58:56 +0000
+Message-ID: <20261029225856.1173-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,59 +99,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-drm-msm-gmem-base-fix-v1-1-347642c5670c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2M0QpAQBBFf0XzbGp3k/Ar8rC4mIdBOyUl/27ze
- E6d85AhCYy64qGES0yOPYMvC5q2uK9gmTNTcKH2LrQ8J2U15VWhPEYDL3Iz/Bhc5ZuIuqHcngl
- Z/99+eN8PXlurUmcAAAA=
-X-Change-ID: 20261029-drm-msm-gmem-base-fix-e1b20418ae68
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, Connor Abbott <cwabbott0@gmail.com>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This was missed during initial bringup because GMEM_BASE is not used
-anymore for textures on a8xx. However other things such as mesh shading
-still use the GMEM aperture. Fix it to match the value programmed into
-the registers.
+With the ads mount option enabled, ntfs_nls_to_utf16() replaces an
+interior colon with NUL. ntfs_set_label() restores the full length, but
+does not restore the overwritten character before writing ATTR_LABEL.
 
-Fixes: 288a93200892 ("drm/msm/adreno: Introduce A8x GPU Support")
-Signed-off-by: Connor Abbott <cwabbott0@gmail.com>
+For example, xfs_io -c 'label -s Backup:2026' succeeds on an NTFS3 mount,
+but the label becomes "Backup" after unmounting and mounting it again.
+The same-mount cached label still contains the original input, hiding
+the on-disk corruption.
+
+Disable ADS parsing when converting a volume label and remove the
+incomplete attempt to undo the split. Volume labels are not stream
+pathnames and should retain their complete contents.
+
+Reported-by: 晓风残月 <xfcyhuang@gmail.com>
+Link: https://lore.kernel.org/ntfs3/CAC_Ok8x21q=Fy4n7V5j78G3rn5ByHpLVRiM4FrYGaJnmdFiP_w@mail.gmail.com/
+Fixes: be310476e886 ("fs/ntfs3: Add basic support for alternative data streams")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- drivers/gpu/drm/msm/adreno/adreno_gpu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+This applies on top of:
+  [PATCH] fs/ntfs3: preserve colons in symlink targets
+  https://lore.kernel.org/ntfs3/20261029203457.59990-1-dennylin0707@gmail.com/
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-index 5832dc25d6bf..aba2f0d6934e 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -382,7 +382,9 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
- 		*value = adreno_gpu->info->gmem;
- 		return 0;
- 	case MSM_PARAM_GMEM_BASE:
--		if (adreno_gpu->info->family >= ADRENO_6XX_GEN3)
-+		if (adreno_gpu->info->family >= ADRENO_8XX)
-+			*value = SZ_64M;
-+		else if (adreno_gpu->info->family >= ADRENO_6XX_GEN3)
- 			*value = 0;
- 		else
- 			*value = 0x100000;
+ fs/ntfs3/fsntfs.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
----
-base-commit: 9c31496a57579d0a46e1eabb8f53ec735b72d180
-change-id: 20261029-drm-msm-gmem-base-fix-e1b20418ae68
+diff --git a/fs/ntfs3/fsntfs.c b/fs/ntfs3/fsntfs.c
+index b06de8566a72..df939ee18904 100644
+--- a/fs/ntfs3/fsntfs.c
++++ b/fs/ntfs3/fsntfs.c
+@@ -2668,16 +2668,10 @@ int ntfs_set_label(struct ntfs_sb_info *sbi, u8 *label, int len)
+ 		return -ENOMEM;
+ 
+ 	err = ntfs_nls_to_utf16(sbi, label, len, uni, (PATH_MAX - 2) / 2,
+-				UTF16_LITTLE_ENDIAN, true);
++				UTF16_LITTLE_ENDIAN, false);
+ 	if (err < 0)
+ 		goto out;
+ 
+-	if (uni->ads_len) {
+-		/* Undo delimiter parse */
+-		uni->len += uni->ads_len + 1;
+-		uni->ads_len = 0;
+-	}
+-
+ 	uni_bytes = uni->len * sizeof(u16);
+ 	if (uni_bytes > NTFS_LABEL_MAX_LENGTH * sizeof(u16)) {
+ 		ntfs_warn(sbi->sb, "new label is too long");
 
-Best regards,
+base-commit: 4a77fa820d937fae9fe0bd6a6795c2d749fd4df7
 -- 
-Connor Abbott <cwabbott0@gmail.com>
+2.43.0
 
