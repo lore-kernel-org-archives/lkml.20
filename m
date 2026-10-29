@@ -1,124 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793291790;
-	b=DHp6OAeFyA9MdcZHfOtkan2qc2CQ68RwrJLB7aarh6BH5y3NgwVqeFji5hsWCRZyP2Fe
-	 UrwEO3kYcF1lCpBlmeD1n+rwmGa3+iyhZ9JkG17uHxxc+g3LcFe4v98LhEWIB8E08Ewlr
-	 XsH9pENGI21kIN7JaEu3/GERG1tse5hJAOFFtdPMoUIvE+UaNERAwjXu9ANu5kWjLMg/m
-	 xchV1naRUmlk2ndDcnQdJZt88Ln4Rq1xN2Gpeo6O8DmsViS9lvB1PBRGP7JSyUdD2UPwr
-	 PaRdV7LJKf8SLY0F3ymsQD0sOaJ85v+vzcSjpyKriLMVSpxQQp7sJMptET4LfRnQRuw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793291790;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=kJdI7lgw36TcxKveMl5fMT9rIbHK9w/ZYjtL1gqVF1M=;
-	b=3VMq1vZVzkvk9PXNlV2L/cnuf6PLQYkSX/p1MWK38OD86u3NoTKI/5lVTeXxLj+jaY49
-	 708QWZWj2Y1pCh8n5uJ5aXPo+NiEkyIuNVmX7ygGbcHpIoZ01GeA5YURo8o11JRaroJcT
-	 DFFEcqza730OSTaMzDuFR99U8Z3DFRM5IyfwEwOQgDF4KF0oXHA6UuKa0CqJ+hmhp0Jsj
-	 MfqoJmMD4hbLq3T4yDc6KsH60q6huziGKMcLZBwBQCmetdnXBwMdUGGwxcSgkcca9GVge
-	 ZhwjDvqwD/8/px8uhHb7GCaMKRK16Sam9khHoDuE84N5zGuKtOLtBSIOM9sqyTE7HkQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YJv5fObZ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HvUS+66i;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793291803;
+	b=gdNalJ3QjfxIRnj04SpjDhKanWGyY/UHc5TCvky6Aj0f+PafnztM92XG/hJ2reAEemss
+	 lsI4IKhxqWNspZS407X2EHO8Wna8/fmlA6Bs2SWuyPuH2YDL1RLUB0L6K9nS4+mYIlGto
+	 dbkBt6ZDkREiB0cLe9wfawIpCwSJnAwhyPEjeA47O5BovYSKwSXqPBV+ebLjq5BYY2FVy
+	 y/cZwAX3eXonVSQNfm3/zZ6iO05qE3wHLkfxsow31/vwneWTTDZU/YQaVNS8pisP/1pnG
+	 xVJw6PJa4lp17Ykq5+Hyo+mJTBW6GlDddwgZkA6m7em9GGHB3HblBcmNjB2jR/qHB2w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793291803;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version;
+	bh=Xh5GwzoMNDORSahml54f6zY7X7ZcIcv/dWobqKgZ/mM=;
+	b=dkmTy4rXfqUZBHvw6foUKqHk/TK7TEzX1wIUiTfuIUriqfsGUS2eNBoB1EOwfqBsU12U
+	 SaK5UxqE0n71CvUJZ+Jc3e6X4j0cLlkVVIjp3SN7F7nkYtmXocs8oGbKHjkln66Wy3zDw
+	 mqD+gSymBJRf2NRyP+f2+1AM4lAN+mGFEH/fyPo99gKdAMg+aqtfEukpliS52fdx0iKpJ
+	 5QgWLTdAmNcf/1qtmbXcrfQxmTAwrupldhCdG83XrHMewebwu3TUsZ6bgMk6FFQWd5+ET
+	 thx7xShkalxYcyrkq3lejlxNl8Z/F6eJl9p48kM/iaOQkP9bBXvsp5MLdhkFvBcIfTw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YA6WUPkU;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=B9sXz07p;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70771606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:36:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70771606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AA9606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:36:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98AA9606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YJv5fObZ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HvUS+66i
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TGDHbr542920
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:36:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kJdI7lgw36TcxKveMl5fMT9rIbHK9w/ZYjtL1gqVF1M=; b=YJv5fObZsxXrs5TJ
-	JP2FiRwWcJLzY5Ooe1F/a4kjaCYdASWRjwzbJPuMGDfG0c3vlyjsFq19kXD+kuLC
-	etB+pXh+AXmUftAnGybcVOC60/TpddSjI4OKAU0X1oxm9HQB855J/efC0ZxRMtd7
-	myEoK8Tq1P+B/0m2ER1b4r/lGjnAtFCgQ0DcryuBM+TamOsCLb1fWHn4zjPIulti
-	PsGlwVLHeLm3nxKNwK+zInI8/Zp5YM8NmeEDPgAR/T5xO8sGKo21OsJ2NUASzYED
-	aZ6+/5RE/8lR14LSqSbAtnd2CopMflOF9YgLtPoxGT0xhECZ3Sxgfbb9b5cmiAy2
-	XaOzlA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkxshtvrs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:36:24 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-944101e6367so170617585a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:36:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793291784; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FkLsP+jevM4MuxEHzy8DSKhXGzkl3Iz1IBzQu+zZKTdiJ5uT5YVjvUVIZbS9eGP4L5
-         cVnLJnT0GCLN6bpFwY1qqyb/R0/GcrfYAZw3G997Edm77zh+U+h01fGZnIu4RQk6L4ec
-         u4Xq4KBaQU9jSiTc55ZPUI+QD/2DZutAWWmlbkroI2mDcYipEfXPuVNielY7B7dI6oL3
-         /ip/FYoUAYHxoHj67AbO1RgZbyvfY3gKM/h1eeJmpSe/9TSIj2cC9ep1MfhuKTOVVsls
-         Tmb06x7si6pZ9nZOQe0AlYvHHeEoHK7RNE6SuItZvl3hMCZMxiI3p0JbHwzupDo2eOTe
-         Fq+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kJdI7lgw36TcxKveMl5fMT9rIbHK9w/ZYjtL1gqVF1M=;
-        fh=2ySZhcrMXipn1PZE4jCS32FRHPqeOF/PBR9+No+HzAg=;
-        b=RbwmHgeqD48B6uPiaUfHAVr22GGUSJKlKxgtJHrnoMGeJQLg7n3n4nWh1NTSIkLDL6
-         Hp4rbhi8GO8RC5p3mAFPd9bP8hkTTVYq6kjO6GvshXkLzEB9xBPWpUCMKaCDTjKs2Oyp
-         mVupfyZcxNbnxsB7Zm0yXuMIOjfEVqc0tAg/NdOHQnKgOfnqtp/1ZIO8/P3IZEE4Iy30
-         Ev/ryYlTiKzC5FeBi88vYPrXhv4VgjZqY1KdaBPI5d80YyGZrgNjf90/IdKucZmKQjsK
-         xEBmu7yOFVuDaWl2iDyyCnE/+H5djWNFrX0sTRa+d0HtdAdoCXGeBjjWGCt5fX3YDYpQ
-         CyMg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YA6WUPkU;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=B9sXz07p
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793291801;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Xh5GwzoMNDORSahml54f6zY7X7ZcIcv/dWobqKgZ/mM=;
+	b=YA6WUPkUH2VubiO6dRSVe36456q3Oo2A09tPc+b9F2Vp7t7qp6nqHtiF/FyncMiFfC/jxo
+	37yBMQJejGeg9QkxqDfzS1D1UVlMlpRmovYxmbzYvyws3v//vLQ8UdZtxYM15uOv9lxlfx
+	4KXXJJwrNwXzsCd/IcvuK1H/+Ty5dW0=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-552-4ihGom6gOSuEbkwwSC92-w-1; Thu, 29 Oct 2026 12:36:39 -0400
+X-MC-Unique: 4ihGom6gOSuEbkwwSC92-w-1
+X-Mimecast-MFC-AGG-ID: 4ihGom6gOSuEbkwwSC92-w_1793291799
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-917a7c17166so51338846d6.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:36:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793291784; x=1793896584; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kJdI7lgw36TcxKveMl5fMT9rIbHK9w/ZYjtL1gqVF1M=;
-        b=HvUS+66iBocUOf6Y1f4wvmfEKo4eVByzq1G05DReTOcnZ4PT0yBwqHvLyibsw9xHLB
-         Fn88CxtZsBgUcz4xfaNXyukAjDjwTOIoUt76UWuhA6obvgK/0ODgMoSW4jMTvUoXV2wP
-         dPUxnWOe8TjxP0Fh8RoTzITb/XkCUVe2FL25UqCichmKz+b2fvBX0PaWqyUYJ8vwj9vH
-         FWo4aRrRLAa6s7IP4C6aCM1oQiyACPmk8R7v/zNzq5M0nMcYcBFcLdhB4+8Mi00R0SH9
-         E+Jhqv/ygTdcTgfno0MPXRRoC28jRH3tA6TcyLQ7GhM+QZfJ5dy13rfW70BAqUiKwy4t
-         0m4A==
+        d=redhat.com; s=google; t=1793291799; x=1793896599; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Xh5GwzoMNDORSahml54f6zY7X7ZcIcv/dWobqKgZ/mM=;
+        b=B9sXz07pKESqyGR7JHQOLqWP2l8Hktxn8N9gBhXQGahhdRoB5KWScnd0VlxgmJA5rF
+         b42xRFTZQL2brWPazu2Uw85LcIcTWNEQMcKyXXIT4ZrWAe3e/emdJtQ1Ws5P+Af1xuJE
+         WuY83zjy+vQ1QY7UC4unJqjPDKAHP9KGPAbb3j7zYsHTJJGflfrNoIgZI2du1790Gvu/
+         sJ+HE4uqNlDwahpkfl6rHhtuOiNhxLeow3yeARX7K6+b8pmja5uF7O1fQcDT/Sw5aec3
+         PN7LG5qGl15+qkqeSIP37HVlhChQsG8xBQVwieO3M9W9GqdflAdOdgktLhTsksxPvsOO
+         LLkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793291784; x=1793896584;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793291799; x=1793896599;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kJdI7lgw36TcxKveMl5fMT9rIbHK9w/ZYjtL1gqVF1M=;
-        b=nAz34qiGrsMvbKHTYeRwuMCDZr9HHGfHN/KGT0ADg6AwWlp9COfs7GRIe+rdu6B0gP
-         RmjrSaFEawL0dtJd+ASAaGptJKF/VsD28FJ348fTozf9Z7M7vZTeR8/ZOfouMVxmPyFg
-         zi4OCaBYBIElhXAOgdRL+vKwul0MyybWbK07RuKkZs/w9YA15y7toZ9kv4IYxaOWKSDG
-         SLHqtHpJDZWRvdG4rQF6fhUko3bMb1Il+Wd/RpiNW2r5T7Wv7MPl4kVj+4ycj4RSzAPd
-         aihVOn0MSZ97eE9sUcCmkFLt3vp6WEu8N3F53pIBUFXVBDGqHNmJHyq9rP59KmwBaS18
-         T0Rw==
-X-Forwarded-Encrypted: i=1; AKwUvBwdu3uOOR6cGwyDre4L+ZTAm6uaNdJ+ihJM7U/5CivKVECz4ZRWECKuAO69l81yNhL77N5fxZO6OpdpuE8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL738IzElO3Nlf1Y/ZEmMK/MWV0GdMqeY4hO2e9mqMk0Ohiz28v
-	0dtNW/mdJvoqYZhpyMIMHImwN0dcLDhwBs9lt/fLbWaglBiKZZMCmX9bHU3N8VBuvsNB0zfq3oC
-	A2fSLgIjFQIOL/pXBXukBZiQzLFP8K0T2O7F1zxOxSQ9Ay+BTmH9uRpPD7ENVAo90YNkwFk9q81
-	zx67Mj9fsPakTWwTPnIXel008UI9XkKNAEXht3BRTXG4D/Kc8XOcuT
-X-Gm-Gg: AYBFou0wNeWMXkBhCNCejyBCETTMR3oPlvLOQT0bqze3SMApEcqUXVz8aeGiBp/7jUm
-	kvSayB6mGYdSO2CRSzHcaFxVIgLt/fkp6FVBQDloPl36zAECU5RVleNownd0VwIWn8/VB1DWj+f
-	rCMIF1f3bXeouzCDz3sUKyyvOvwdMA4sh8nNYUsHhmUTpNIwgX96ejw9zOW0bZwE7IO9/jo0nCm
-	CrDwKMn+JbRO2u26bRwnboVqLfP9oaSNQ1jb3vC8/3fVaiAnmiPFbTvPqUxpUYwcnLosnkd91JO
-X-Received: by 2002:a05:620a:410f:b0:93e:53db:d59e with SMTP id af79cd13be357-9441338b4cfmr451652885a.23.1793291783826;
-        Thu, 29 Oct 2026 09:36:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:410f:b0:93e:53db:d59e with SMTP id
- af79cd13be357-9441338b4cfmr451650085a.23.1793291783401; Thu, 29 Oct 2026
- 09:36:23 -0700 (PDT)
+        bh=Xh5GwzoMNDORSahml54f6zY7X7ZcIcv/dWobqKgZ/mM=;
+        b=PHOkoQq/E1saTJNl0F+iMx8u9tiIgp3GcNm4U1y5ddN7YZMDOCsad5KdAH6ZKMQMr9
+         nxRgvS+qQ+OQigxOr04y/DeNBeL0BnNxpUN0x+OKqKwKm7JNzcRradfXDlvHSooIZGET
+         Jj+W0U3PoGnli+nqD+9ug1eqrHYM1rX98pi1TVJIaMAOQTblh3R7XiqWD7jdswS40FfP
+         f27wP4WlQ/JpT9tP2UNfmZa3/+FoE/Nw7b9ejBcLNM4ax+l+W611rUnwTDEHJ5taGABW
+         T+oZZnb6JgStAi1+qWsgGmoFQH78bDxNuwCwYDGPdfFeE0S3IadzQq092uPL/6OXDXrU
+         66JQ==
+X-Forwarded-Encrypted: i=1; AKwUvBynEeeaLrXSP3xXxWCPESxoTx1bdK7BD+tWBH4G87Ygh5bsRhU5AZtXYaL+bV8N7ZITxszULKid0FLkI74=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQyRu7j4XhxvLaDbglKZES6Wav72QWGUIOelThYejLo1Tbl0PB
+	M8g4n4+BcJzcAVy8bBjtd/o7iPI3/bfRwtPIYOkmAgn41UN5qCKPE1dFCxviMbJu8Cm4uA3TlRI
+	6WDCbagZqEja0OLUT15VPZOjimWpmAIyQJKzxGviaayLtEG/Ia2Sj0Y6lv42VYg5clA==
+X-Gm-Gg: AYBFou3HQMXDsJQ5cuzMGDGyztcU21mS/Rs3O/f8qLeWL8MhrMvT47nqU4T9N/9HD2l
+	cuXM2g45rvTTJht7xoSo/ay7QC3LJLO9w8Pm2Bs3y5n10OJMSd1KtrhuM6RxXbu2yq0Wy2GS45T
+	deEZqKTDKgIZqQFZJ+97AqlE53ziR02mRmJTUH6kPXDuTHGhungG2hF9qaeRwPavdDXGWjMNnC3
+	Nlq23nNW95nSayrKZkfReggU17yf5GgrxntdypsIugAfnDbd47qMEVnJ5pgYHHTRpc+EXBLoBfr
+	eMKWyODGXIORym5r1Xd/cIIAClx+hbNdd3uP8910EBqJd3SiXJaOyfoyAGqKWw1f9o1CX33vBPO
+	PJhvcMunTmGUmadps6VH5wH1TgPIjDtv8IeTy5/JQU+M0NIY0KRaPxfi/EMfCirU5urnzPEjl5H
+	ZOq1gAUy0LB8KOpjonJRDuCYw9PBULEUQRGQFU/63d8+plCaF94MEqVKiw9ww3MA+kY80WqUU=
+X-Received: by 2002:a05:6214:4609:b0:91c:7b54:b19f with SMTP id 6a1803df08f44-91c7d1ff57bmr83917696d6.45.1793291799068;
+        Thu, 29 Oct 2026 09:36:39 -0700 (PDT)
+X-Received: by 2002:a05:6214:4609:b0:91c:7b54:b19f with SMTP id 6a1803df08f44-91c7d1ff57bmr83917396d6.45.1793291798472;
+        Thu, 29 Oct 2026 09:36:38 -0700 (PDT)
+Received: from loberman-thinkpadp16gen3.rmtusma.csb ([2600:6c65:2440:d8c:aa2b:ddff:fe88:da74])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca3131f9asm416106d6.26.2026.10.29.09.36.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 09:36:37 -0700 (PDT)
+Message-ID: <8f2bf8761328abfd3ebcda9fd227fc0abff212e8.camel@redhat.com>
+Subject: Re: [PATCH] scsi: qedf: Remove unesseary function call
+From: Laurence Oberman <loberman@redhat.com>
+To: Jesse Taube <jtaubepe@redhat.com>, "Martin K. Petersen"
+	 <martin.petersen@oracle.com>
+Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, "James E.J.
+ Bottomley" <James.Bottomley@HansenPartnership.com>, Nimal Prabudoss I
+ <nprabudo@redhat.com>, 	jmeneghi@redhat.com, Nilesh Javali
+ <njavali@marvell.com>, Manish Rangankar	 <mrangankar@marvell.com>,
+ GR-ETH-Storage-Upstream@marvell.com
+Date: Thu, 29 Oct 2026 12:36:36 -0400
+In-Reply-To: <20261029160443.904468-1-jtaubepe@redhat.com>
+References: <20261029160443.904468-1-jtaubepe@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,82 +125,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
- <20261029-v4l2-frame-sync-v1-5-d37992559c58@kernel.org> <CAFEp6-2ykusk85REekU3mmFw=4g3yjB=doOi=i=1LS5JEe4T3g@mail.gmail.com>
- <CAFEp6-1Y=OyFHPnGER0GvGfTpc4o3_wTvXncvLWM81T9M-7+kA@mail.gmail.com>
- <1371d5b5-d347-4456-963e-8effb4a82f27@linaro.org> <ada94208-4a90-4e3a-9d9c-1ecc87b53d6a@oss.qualcomm.com>
-In-Reply-To: <ada94208-4a90-4e3a-9d9c-1ecc87b53d6a@oss.qualcomm.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 29 Oct 2026 17:36:11 +0100
-X-Gm-Features: AclHuK-WDQCkOQS8rm3sz4w-2NNyFvkqhd1R2IYzL8N9_O99RTw_p5nx2kiOD7I
-Message-ID: <CAFEp6-0xQTOvTHJyYBK_iT+wz=yrHgufi68NJ5vgEn_PMZx5pg@mail.gmail.com>
-Subject: Re: [PATCH 05/14] media: qcom: camss: csid-gen3: Enable RDI SOF driving
-To: "Gjorgji Rosikopulos (Consultant)" <gjorgji.rosikopulos@oss.qualcomm.com>
-Cc: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, "Bryan O'Donoghue" <bod@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: Ahmh3_gHdWKOs4UhOuHnjIsYPQxAa_7F
-X-Authority-Analysis: v=2.4 cv=H6BOUOYi c=1 sm=1 tr=0 ts=6ae37608 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=3Wac3Xa727c3rp011QQA:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA2NSBTYWx0ZWRfX3bE4IbElo1UR
- uIPa/4fststFP08oPDm3veEkeSb0X3nPWoWKferkGxchYlm5LzS/DDLOmsNC4UgOSdYs8UtlOkr
- ijPB6LanVmQrUjfL+Fn8Pzn1OxYOHCo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA2NSBTYWx0ZWRfX201CVR2Bd6F8
- TowQFdt8fSuAyTCmLOXbpcSmY39w10PMaF6QMUYmsqbnG30YEfhiUtxZ0Aa/QBjELquhHl5y7yb
- 9M1dCwz09LT3R1yL+pRPLGtuTE3eD1eTCbvf+P95xz/0y/RESCXHlv9fIIiY9/j8nagbUf2PQ+Q
- eyyiPrUk9PbmBfxB3LPN7cFrLgZ8R26umfCcT28lLRp4bjkiy++lHaQGwf9Y/QS1fnR8lC9GHnq
- l94U7S3GkFed8SSX9YZfQiePSX1/orIRwdeWR+bApSjmKF+o4irYW1ukoNm9/zieUEf/5fKUAyJ
- TTT0wBnGfTG1co+Bcy2KWyCrbnGAu4icznfgcseOy/L1PJLenyq8yhPB+PoHUODragfbyM+GOjz
- nl163eIXUW6cjsX/zeRXSRgL4ikbRQ==
-X-Proofpoint-ORIG-GUID: Ahmh3_gHdWKOs4UhOuHnjIsYPQxAa_7F
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 suspectscore=0
- adultscore=0 phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610290065
 
-On Thu, Oct 29, 2026 at 5:25=E2=80=AFPM Gjorgji Rosikopulos (Consultant)
-<gjorgji.rosikopulos@oss.qualcomm.com> wrote:
->
->
->
-> On 10/29/2026 5:49 PM, Bryan O'Donoghue wrote:
-> > On 29/10/2026 15:46, Loic Poulain wrote:
-> >>> Is this something that should also be tied to frame_sync_en?
-> >>>
-> >>> Also, just thinking out loud, are there cases where we'd want to
-> >>> toggle this dynamically at runtime based on any V4L2 configuration or
-> >>> pipeline path? For example, should it be enabled for the pixel path
-> >>> but disabled for RDI?
-> >> Obviously, if userspace subscribes to the related framesync event, we
-> >> should enable it regardless.
-> >
-> > That's the behaviour already :)
-> >
-> > Again though we want SOF so that we can drive seqno which really
-> > _should_ come from the CSID signal not from buf_done() *
->
-> My opinion is if userspace does not need on SOF events, the buffer
-> sequence may not be  important. However, for use cases that require
-> bundling and matching frames from different outputs such as DOL,
-> it makes sense to tag them with the same sequence number.
->
-> Therefore, if this feature is enabled/disabled if userspace
-> subscribes to the frame sync event, this behavior should be clearly
-> documented.
+On Thu, 2026-10-29 at 12:04 -0400, Jesse Taube wrote:
+> The result of `skb_transport_header` was unused. Calling this
+> function
+> warned when `skb_transport_header_was_set` returned false causing a
+> panic on debug kernels.
+>=20
+> Signed-off-by: Jesse Taube <jtaubepe@redhat.com>
+> ---
+> =C2=A0drivers/scsi/qedf/qedf_main.c | 1 -
+> =C2=A01 file changed, 1 deletion(-)
+>=20
+> diff --git a/drivers/scsi/qedf/qedf_main.c
+> b/drivers/scsi/qedf/qedf_main.c
+> index da429b3a4283..f2bc0ac684e0 100644
+> --- a/drivers/scsi/qedf/qedf_main.c
+> +++ b/drivers/scsi/qedf/qedf_main.c
+> @@ -2496,7 +2496,6 @@ static void qedf_recv_frame(struct qedf_ctx
+> *qedf,
+> =C2=A0
+> =C2=A0	/* Pull the header */
+> =C2=A0	hp =3D (struct fcoe_hdr *)skb->data;
+> -	fh =3D (struct fc_frame_header *) skb_transport_header(skb);
+> =C2=A0	skb_pull(skb, sizeof(struct fcoe_hdr));
+> =C2=A0	fr_len =3D skb->len - sizeof(struct fcoe_crc_eof);
+> =C2=A0
 
-Ok then probably better to have a consistent behavior and always
-leverage the SOF for sequencing when available.
+Looks good
+Reviewed-by: Laurence Oberman <loberman@redhat.com>
 
-Regards,
-Loic
