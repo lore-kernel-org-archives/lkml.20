@@ -1,116 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297816;
-	b=Z3OtAtSOF8GV+KL1F4t/p2usOPZNclt/cMAP4OUlbcreA7pKEixjqNottJ3q2d3Pb8dC
-	 1bVcBLqKi1pOG2o0zvHHYxvvaNhkoUPuKir9AJQlg0FS4KnyIp0BMkoczHsZC70GWoq34
-	 Lm3ks1OKbnRyQs5ifCJn5WQJ58Vokh4KSPW4tVl1LpURkwYsz27SfaJiE/MY6tX0OCiIS
-	 pvclKHt7qrlI0V+WTK3jajx/hUpRxeOFzPar7yv1uPJJ077ZGY450Xawy1Rw3b3ryVVs7
-	 tghm0f2/tj22eRDGwImVyq7HsKfNp9+RoHVXe5rslXUcr9eMPD8jpY5j7fZlGXXZBcA==
+	t=1793297998;
+	b=qPeXT7PpwCI/4AvOPSw0pSiBXWMy83SOAQNzFGQvF08LPWOeltQuu1q3H7COtBi9Boxx
+	 rUXYmzOHxkJ6uM/F9tdAoAPLA3mX+muzCffpNNeY2PYH6n6IS0dpH79osxl9K5CeKFhtc
+	 2ElmaTRZyUiikli+rN6Tqdhr38PqLVS2DtUGigAdRhKEKRZUhIJf0QydwfuQo0uuGxqLM
+	 J8cid2Q/E7dhcThGSNrKvynEaD5/MTxsqaOKNl0lq3+FKtAhYbKPc6CLeE2mqDIOs9+YR
+	 SyXkqwR1nYPYKQiGqdSD2/H6CFW3ByDd2jB2iMLC1tyhe5v3dmTttkKHmt3tV/4kBvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297816;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297998;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=SbGRSkF9pUn2CydJkzRh5tNHBjPKK+0FwPmwEY8AU7g=;
-	b=bIvcpbrIeX8NR/tevWSK0JXe83hog/vfZ6txFkOK4Sa4l5E3NQGs4gp6ANuYeiHh33P6
-	 U9oMuBI3I1PZDs22+2HTAF7xeGC6dWkwmiN475gsmeI63VGiUJ1ot9pTSxjbuFfG/v0B+
-	 UE1R9E8c8y5vTmT69VR5VloQN6RGkiHtDLcrbifS6M5xveVHYBDZTuQB+YJhLolEZrROn
-	 s1DpQ0CUUg9hb/4QBLgiK9xc5C+l8zwzp6U3jOJxqcnlW7wZro8gxLV73Ppihaocw/ENP
-	 3eeGgZb2DE3feZ3FHTx9igW2/fFo/v+S7enxNcnXl76qlEJwQXeCGlQow1VcdWotkjA==
+	bh=iX/5kcgJLHYenTjEkqTynO0b70ye+PYgd2o/7R7g0Oc=;
+	b=Cx6vGJgug5aMIhmr0JVtky6HD17hNbFYtN+6rciKYviYR9ZaEK+s9fEzAPQsP/mWIqOy
+	 qdyleTJ29COJRms9hjDftueZu4eirlW08w1ybvmipbU6m6cYidT9CKdHyGjwzAmZqhxGa
+	 GwyZTxmwEE7ogUAzmKVsOwwG9Cxs5iovAWD2lxI1m0h/nYfcUnSMvyfQj7b2oU9D+ahKl
+	 Muy9hpKRx9Fyqg/2/6tj44Ac6wS7OjIoAotvHCNbi3VUOw/BohtwqGKa5Uy+RprIQCf8X
+	 gEqXUWJqFhEnavXtucS1m19i7ZlmspHOjJmjnbsGgyRSAlluCNWG6rZWlCFjZtpfLtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Nfuy/y0G";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tjPXf4c4;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cYT7YE8M;
+	arc=none smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF76606A329
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:16:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDF76606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09718606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:19:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09718606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Nfuy/y0G;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=tjPXf4c4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793297803;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=SbGRSkF9pUn2CydJkzRh5tNHBjPKK+0FwPmwEY8AU7g=;
-	b=Nfuy/y0GUiqd1SUTqkrG3nDAwn1rDG2V0mI+NQ84DAPlOxwCqKLxYKFORd434+4AMt0+jo
-	tFs22qUtTSxZ97UVHNFIsnEcBG8nzAmCkJMuOq3xWxLnphT9X3Dh1CxspHQAEtaldJ5j0/
-	0lOYnjQxL1nJTas8OPQCmfx3HXXPuIk=
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
- [74.125.82.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-539-IlZicZ5oM7KJdbjVgmxgEQ-1; Thu, 29 Oct 2026 14:16:25 -0400
-X-MC-Unique: IlZicZ5oM7KJdbjVgmxgEQ-1
-X-Mimecast-MFC-AGG-ID: IlZicZ5oM7KJdbjVgmxgEQ_1793297773
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36637676140so3402720eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:16:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cYT7YE8M
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c43fbcb4393so397220466b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:19:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793297773; x=1793902573; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SbGRSkF9pUn2CydJkzRh5tNHBjPKK+0FwPmwEY8AU7g=;
-        b=tjPXf4c4E/N0wwi7tZzaSxj6KmCN2cQIVeWEZuY8sd4bIDaAKBaki+KGcCiRMlDyLM
-         gC3nvrtDW8KuT9Pxjv/UvCbvfT3+Tn3RG7CF9BUpJ1kCR8Llhe3p38q7evPtP3KZr09C
-         fmIRQehjQajeg4ZA66V54248exrpSOtHpNGK4jqDLvqrQIc2U3IdMfS4HfPYWX64Jq5i
-         QB8UpPVbPaYf78rM6oa9C5v41540NVLHIVsDW2xrWtzkUoymwkAsB41U2WYB08/FCLg1
-         iqe0pvrUHuvUfHCzXbufA48g5EtD63fjEhLh0TJRSx1dgk5TaTyqS+KjQNAoN4+tEiKD
-         M9bA==
+        d=gmail.com; s=20260707; t=1793297996; x=1793902796; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iX/5kcgJLHYenTjEkqTynO0b70ye+PYgd2o/7R7g0Oc=;
+        b=cYT7YE8MnjT535XzV/rYW+UyQxEqaI9/EWDmYbvWt7XA2rYcORvDq2FwiZKn68hH3h
+         Hmjg5gt/vNEhjlZk+TFuqMG52UnP6Dg47AHnyvOVjbzL/1mGMD7IdI5MHkxDC0868ExT
+         RisSZK41Ha6Sjy+kXg1sDLKDqx9OgclNdXP8DbnALJFClLd8UeDUxCFwtan7jcvM2KS/
+         WfQivaOuHEEwv171mwo5xwP2KKFwHNKkf1SXIZmwUS997VBfEQdSJk4DDF+3Rr5hHSsC
+         sj+UDlyDkVIlysrw4oy+TIEShGCXblqUBQxX3xRXKfB2PzdATVRxz29WA80sjhYG41hm
+         q2ZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793297773; x=1793902573;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SbGRSkF9pUn2CydJkzRh5tNHBjPKK+0FwPmwEY8AU7g=;
-        b=Za6hDz82ClVr032rbLnoaDsUI7FdUrZSwoTnf5n2U2B+U7QhZF0JQYxLohJENq3UOc
-         g6bOsRHypIdygupNIfgzaYF4nSO1Sna9shv+CdJXF+weR8EGVNatsRLdD30unLTbBwQk
-         BSNARxGpppTqaa8tFfM6eD41ZpMX8NWB/59lZIU3nVdM7H5TPvbma60Jd6GO7DcXnSvk
-         tbfNZVtWvIBNeo6Pv/0UENCzA8yCFXqZTTQTR0CcUomFw/tfYCl7xEBCi9H1HF2zb1bQ
-         J7n14voWvTpQ55s1VZYb1yY1ADkgukO715HoX1yj51nXzZNBbC8PcOHe6jCAiLPJBOWd
-         hY8A==
-X-Gm-Message-State: AFq9FYKrUSa90ffcCOqt30w8Cguwr9bvSvimIAq58rOFNoEkZBusPSjw
-	8LsL0uHL16GyIxPOvqdXQcIJJsMhQDN+nL4ihvwSibg6bgFt7XvrnJ4zVMGrlxuPEMy18xROdjm
-	KRpYEAyCc73bBuRpPIlq5IdHOVaEuBDlLvwDe57nKQV3WYJ0muHLe/5zG9IPUi0DC1ewtls0zSH
-	hOnPaKVlSMIONMhH8nGqng6CG8u8rJGxfs6okNvjVbEcmfq3EL
-X-Gm-Gg: AYBFou3Mra5d4lkMJvg8Qr4BENCF0iKu3U6ALG6KAUHX6tqv5ui6Ae5bhqL8dgIAp7H
-	8Rdfnkp/+WS6En4o+C9NPNAZaIuVrHNTz3BMKAvlPftMbbe0GWeKspEBqNS4mLuvYNoKH8BDpzs
-	dCbHE76HwF2mXh5KLEg0CNhmFGoSeUdyc7VPd9mEq/9u4g/pCFusFJGf1MSp6Jp6do+YlEaaGNX
-	s9DAFaKPYC34VeNmHH+xB6n14Mv0j87meZUg/gJXlm5PhLagoCu7r3V79YP2xdCX+KUnIrfnHrP
-	WAPak1TsB8XusABs3oqfSK11hGHJ5WjVd1HOlVJxVQhjzkftADqqFnGj0diJPbDc0kixAU6SOpG
-	wBkDs/uwLOnJC96VObELfA5RdtYNsn4/MaOrBeRVffrGn9Qay0qeT2cGqrrbCOBnDw+3weBn8yE
-	HcfpAr50oJomu7Pg==
-X-Received: by 2002:a05:7301:716:b0:36a:31b2:8643 with SMTP id 5a478bee46e88-36a42453282mr173707eec.38.1793297773087;
-        Thu, 29 Oct 2026 11:16:13 -0700 (PDT)
-X-Received: by 2002:a05:7301:716:b0:36a:31b2:8643 with SMTP id 5a478bee46e88-36a42453282mr173659eec.38.1793297772238;
-        Thu, 29 Oct 2026 11:16:12 -0700 (PDT)
-Received: from fedora.armenon-thinkpadp16vgen1.bengluru.csb ([49.47.195.13])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm259163eec.4.2026.10.29.11.16.09
+        d=1e100.net; s=20260707; t=1793297996; x=1793902796;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iX/5kcgJLHYenTjEkqTynO0b70ye+PYgd2o/7R7g0Oc=;
+        b=1F8E2k1jJ6rRm2BEgJg/teXGQdA6qTN9MTsuDm61xxYp/5OzC05FJTfFs3jtaTDCR2
+         70d9heAGFq3OiTCDZ2jqhmiHgSNtKNPyAl7QRAXTsW0DiHac7ts0EuNPt7M3lBfNwoq1
+         FvKEclPGVCqLFvTphPSdqnRgzS/YRs9Yd5ybfh9HoTJfrte+fF5rV8x1jBW9nCGzOehT
+         GYI6Okl43ZJvFtOmLjdDfANlaLM1hE1y8445V68RxjQRFTB6qBzhYZ10mlTZWUDvOxMz
+         Tnwo84Js2LaJViSr96HqQf6OCf4EcbSys519TwdvXD7vAMXldyoo/cGlyE+DTt6o4RQs
+         SyYg==
+X-Forwarded-Encrypted: i=1; AKwUvBy00LR+r9sb/qew43/sd2kUyvMukD4U9LVmjup9jjOnpVsFLq3T1c11LQAEF/Ioq6H4CL8/iZi9L3/vScg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxfMHlBXj1Ja0ob8Z0IdtiBPi4hIgCrNU/GO1HIHB7EFozf6bf
+	Cor2ejbUzL7LjtRGzGjTBuRgpWugM889F9rCQoJK7i1kKQ2Rx7jbgLzgN7kXGOvb
+X-Gm-Gg: AYBFou0y0JG8lm7LgH2ncEotnzqkNiACbz2DP3VHmQ7oj7qD6Nt7khDh9xvsHtnJN/u
+	4HGo5dMm8kPwSkCG1aJA+UuX/fi+M+OWtjoKvr3U/rAP6WVTbg9zZp4T7UIDrg0WtDKdP9ALsCi
+	cc61+6ma3ICOwIyQEbX68t9syoTp5cZGNCmPDKd1/ObEMBbYcnnzLoEGdc+F4Ak+3sfyvpD6W1S
+	l1wqqgqekJGig99zlBkCm5qrEXDAGucWJlFhWfWEO5xhQgzhKHO7nXrIC9SgPV5wuZhNJkE5t7o
+	ec3AU3aODfhNL2MThIG0NiFimUHeZ62ZronoWxutJqICEy0iyp6VMN1C/DPfhAYakCnXM+VcIL8
+	6Ss+KUZtITI0wY7iYO4S9Vh8N+R1nFAV1zhZeg1doaj0SpyeliihqTiGVgak6gfALSWCw177hVK
+	CiDzddrXodjjaj1VVYpX8v6yKB6Ib/BDasR1dtKvB4xNUZS4mLECzgTBZ+YyMzfVMEHsWFMb1Dr
+	ae8nbFPcdWwl+1lLXnyDjvKTI2P4ZYeBSc5Hqu0lWVjBa4JuHnI/RZmZxP2o6TeAAfPO5GVHC8s
+	jW/JjWN09TMavYh4oRygP/33Nv+BUJguZIIKrN+9MXMeQrAHvj+u1ioEZ7C2ooQt++tT4VEmpzT
+	8HQ3G5GX4RTGS/K4BFsDgY2ISqW4BxeSr3zcqZZb1rk/+tlAUqvRS0wGDHdWBSGFo
+X-Received: by 2002:a17:906:448:b0:c41:1e13:8896 with SMTP id a640c23a62f3a-c49c635f4b8mr354049166b.28.1793297996159;
+        Thu, 29 Oct 2026 11:19:56 -0700 (PDT)
+Received: from maria-VMware-Virtual-Platform ([182.186.0.95])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4ca2de1b78sm10323466b.2.2026.10.29.11.19.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:16:11 -0700 (PDT)
-From: Arun Menon <armenon@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Jarkko Sakkinen <jarkko@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Peter Huewe <peterhuewe@gmx.de>,
-	linux-integrity@vger.kernel.org,
-	Arun Menon <armenon@redhat.com>
-Subject: [PATCH v5 4/7] tpm: tis_i2c: Use local 4KB buffer to limit memory usage
-Date: Thu, 29 Oct 2026 23:45:38 +0530
-Message-ID: <20261029181541.99505-5-armenon@redhat.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261029181541.99505-1-armenon@redhat.com>
-References: <20261029181541.99505-1-armenon@redhat.com>
+        Thu, 29 Oct 2026 11:19:55 -0700 (PDT)
+From: Maria Sheikh <mariasheikh812@gmail.com>
+To: outreachy@lists.linux.dev,
+	vaibhav.sr@gmail.com,
+	mgreer@animalcreek.com,
+	johan@kernel.org,
+	elder@kernel.org,
+	gregkh@linuxfoundation.org,
+	greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Maria Sheikh <mariasheikh812@gmail.com>
+Subject: [PATCH] staging: greybus: audio_manager: Add newline to sysfs output
+Date: Thu, 29 Oct 2026 23:19:40 +0500
+Message-ID: <20261029181948.13121-1-mariasheikh812@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,55 +104,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arun Menon <armenon@redhat.com>
+Fix checkpatch warning:
 
-The global increase of TPM_BUFSIZE to 8KB is necessary to support
-Post-Quantum Cryptography (PQC) payloads. However, applying this increase
-to the tpm_tis_i2c driver is unnecessary and wasteful due to physical
-transport limitations as pointed out in [1]
+WARNING: return sysfs_emit(. . .) formats should include a terminating
+newline.
 
-This commit introduces a local buffer limit that is used in the i2c
-driver.
+Add "\n" to the sysfs_emit() format strings of the name, vid, pid,
+intf_id, ip_devices and op_devices attributes.
 
-[1] https://sashiko.dev/#/patchset/20260324071803.324774-1-armenon%40redhat.com?patch=8319
-
-Signed-off-by: Arun Menon <armenon@redhat.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Signed-off-by: Maria Sheikh <mariasheikh812@gmail.com>
 ---
- drivers/char/tpm/tpm_tis_i2c.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/char/tpm/tpm_tis_i2c.c b/drivers/char/tpm/tpm_tis_i2c.c
-index cde0b093ed58..4667eef15ff1 100644
---- a/drivers/char/tpm/tpm_tis_i2c.c
-+++ b/drivers/char/tpm/tpm_tis_i2c.c
-@@ -55,6 +55,8 @@
- #define TPM_INTF_CAPABILITY_ZERO 0x0FFFF000
- #define TPM_I2C_INTERFACE_CAPABILITY_ZERO 0x80000000
+diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/staging/greybus/audio_manager_module.c
+index dc90cc2d2308..5737f2a32f5a 100644
+--- a/drivers/staging/greybus/audio_manager_module.c
++++ b/drivers/staging/greybus/audio_manager_module.c
+@@ -75,7 +75,7 @@ static void gb_audio_module_release(struct kobject *kobj)
+ static ssize_t gb_audio_module_name_show(struct gb_audio_manager_module *module,
+ 					 struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sysfs_emit(buf, "%s", module->desc.name);
++	return sysfs_emit(buf, "%s\n", module->desc.name);
+ }
  
-+#define TPM_I2C_BUFSIZE 4096
-+
- struct tpm_tis_i2c_phy {
- 	struct tpm_tis_data priv;
- 	struct i2c_client *i2c_client;
-@@ -233,7 +235,7 @@ static int tpm_tis_i2c_write_bytes(struct tpm_tis_data *data, u32 addr, u16 len,
- 	int ret;
- 	u16 wrote = 0;
+ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
+@@ -84,7 +84,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_name_attribute =
+ static ssize_t gb_audio_module_vid_show(struct gb_audio_manager_module *module,
+ 					struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sysfs_emit(buf, "%d", module->desc.vid);
++	return sysfs_emit(buf, "%d\n", module->desc.vid);
+ }
  
--	if (len > TPM_BUFSIZE - 1)
-+	if (len > TPM_I2C_BUFSIZE - 1)
- 		return -EIO;
+ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
+@@ -93,7 +93,7 @@ static struct gb_audio_manager_module_attribute gb_audio_module_vid_attribute =
+ static ssize_t gb_audio_module_pid_show(struct gb_audio_manager_module *module,
+ 					struct gb_audio_manager_module_attribute *attr, char *buf)
+ {
+-	return sysfs_emit(buf, "%d", module->desc.pid);
++	return sysfs_emit(buf, "%d\n", module->desc.pid);
+ }
  
- 	phy->io_buf[0] = reg;
-@@ -341,7 +343,7 @@ static int tpm_tis_i2c_probe(struct i2c_client *dev)
- 	if (!phy)
- 		return -ENOMEM;
+ static struct gb_audio_manager_module_attribute gb_audio_module_pid_attribute =
+@@ -103,7 +103,7 @@ static ssize_t gb_audio_module_intf_id_show(struct gb_audio_manager_module *modu
+ 					    struct gb_audio_manager_module_attribute *attr,
+ 					    char *buf)
+ {
+-	return sysfs_emit(buf, "%d", module->desc.intf_id);
++	return sysfs_emit(buf, "%d\n", module->desc.intf_id);
+ }
  
--	phy->io_buf = devm_kzalloc(&dev->dev, TPM_BUFSIZE, GFP_KERNEL);
-+	phy->io_buf = devm_kzalloc(&dev->dev, TPM_I2C_BUFSIZE, GFP_KERNEL);
- 	if (!phy->io_buf)
- 		return -ENOMEM;
+ static struct gb_audio_manager_module_attribute
+@@ -114,7 +114,7 @@ static ssize_t gb_audio_module_ip_devices_show(struct gb_audio_manager_module *m
+ 					       struct gb_audio_manager_module_attribute *attr,
+ 					       char *buf)
+ {
+-	return sysfs_emit(buf, "0x%X", module->desc.ip_devices);
++	return sysfs_emit(buf, "0x%X\n", module->desc.ip_devices);
+ }
  
+ static struct gb_audio_manager_module_attribute
+@@ -125,7 +125,7 @@ static ssize_t gb_audio_module_op_devices_show(struct gb_audio_manager_module *m
+ 					       struct gb_audio_manager_module_attribute *attr,
+ 					       char *buf)
+ {
+-	return sysfs_emit(buf, "0x%X", module->desc.op_devices);
++	return sysfs_emit(buf, "0x%X\n", module->desc.op_devices);
+ }
+ 
+ static struct gb_audio_manager_module_attribute
 -- 
-2.56.0
+2.53.0
 
