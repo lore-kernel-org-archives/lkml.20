@@ -1,60 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793248309;
-	b=wPKLKemWQ/F5VEEo7Ek/tvaQBG1s8IM8ytMaJ7wUaFufkKakn5iSHaPAABmqjvKKOob6
-	 WxCymy+MK8/xE9wNejp18D396/sZu4AU9bZ3shE6CU5qOjgrOGuz2TJnEIeBj+11ENIJB
-	 fAPQcp4QFiZjeBYl3TN7ihbu9oaFDD64TsFCFxOHy1SPrdZcBD5jPV/WCCF7e4Pxsu7d6
-	 RYNUs43BZx4xIdKDOSD9n8fq52HO4eBmsIp0MO9FNMKsrije/OvFqY7G/sYKyoYAyyaZg
-	 iiB6KecBdUdCTp69P7N9ZESi0iUeZKQ1eOwgo9kAxm/PKEk0XSX+qBzVbCWFKPimTIQ==
+	t=1793248659;
+	b=hc+ZuRs6Pid2KRtqgqhk5WXxfY4EHyxjUNQXECaWF5EaZ0qSU6rTdBuSrxb0b3mJH4gR
+	 +FeUo3Gdnr1fwKgyWRgCHgg5MEfUX5BhP4Z+KyyZrBggV++nIflq4Lh9edhVk4xffVxK8
+	 U+IvTqh5n7ctwtcvVU3h8hv+h6+fmfzsRqzavIYxnijwPmvYqLEIUZqUODnKZgv2UNOdm
+	 xIZ6Jh7xRNQM0ZlvVaSeJ9GTeG2XmW27JmIIYQ9c+TAAQfxf4pyHK06HteuWNaFpnYMYC
+	 Q0lrOV/EWTRAPGLL7vZ6WB9Mu0IiOvyvAZ5WfDwn+vYYnGWzrC1pK+vah+dJj0g8cWA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793248309;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=RnJha7VVVsZJcHCtg/jczwllaW0KJ4wm5ZbAUagO4eA=;
-	b=ah2Hk4rM0fn+kmOjTcH06xL5YtgSK7njy2b+Xtb2evs8QldbzcOjeji/BA5oFvQS4y1c
-	 tC8wevJ2oKM73B6nvY2UEbEPODYBZmwFz+NGRl/74cDxLk0+V0MwGq3VhIiC1xK8+ayc5
-	 azdq4IM3GjPnU5hOK9JGBQvB69mvnXr8EC2guHMjk7Fg0pYWC/yzTk+XEEWe/EvDwK/g+
-	 0Ee4rkd0Gosa/RorioBayI3+JQ0enEnYE42z/3a0HZazKMQMRoYfywgfNvdHmj31jAJEd
-	 ZfVY4OZQxKINOA4joy86dlRwdUcCchebgjxsC83H+kfrLGWhqoz2yryCc43GBHzeIUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793248659;
+	h=DMARC-Filter:DKIM-Signature:User-Agent:Message-Id:X-Original-From:
+	 Content-Type:X-Lms-Return-Path:Cc:From:Subject:In-Reply-To:To:Date:
+	 References:Mime-Version:Content-Transfer-Encoding;
+	bh=pxx2va2K2g7IdMw0G+rSebc/KMLdkp6PwljQLQMAqII=;
+	b=kEoU7E1TUWaLXNW8LjjLEgeq0rXOwf4iJdRV8xRf8VUMueY2rzBtZLUCTkhGj6NZW0sd
+	 YQJ4Tuv+cSyEWdtpGHoAJ49YoHqg7Nt02zkXE8G7R9S9biij9wgnBiWdAAMo+XjKs/8sx
+	 YU2qUflYhYwuiUNhuqsvdzAl0gRCQ1GAPo4iXvVIHfUrEznQ8Ib7Vy2yp3k6XClbahvbi
+	 0zNM9zcnd61ilqAUAfEFLBTyj6eE7qodRdPfVyZxLsG6FaKNLd5JtavXNVg1oY3JYTg5n
+	 VkSPm035+b6QiCCHH6Fi1kLruY3vNt/K6M6CKUjd/QFNGGL5hY51ZZzdyVoFsw6NaZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=XFTrW0ak;
-	arc=none smtp.remote-ip=185.70.43.16
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b="oT3z1/88";
+	arc=none smtp.remote-ip=209.127.230.112
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A051606A31A;
-	Thu, 29 Oct 2026 04:31:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A051606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F207E606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:37:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F207E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=XFTrW0ak
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1793248305; x=1793507505;
-	bh=RnJha7VVVsZJcHCtg/jczwllaW0KJ4wm5ZbAUagO4eA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=XFTrW0akXxqUibMgoe0BQbfYr+eRRYNNl4VXmtuunSQVWxm6bwmvyb8OcIFgAbK7b
-	 ARm/w0RlTptQLp1fcZAVxZNQ7AoaEzMZuI7ooO2FDP+LGossEzq6nocYCnRBlDSAGB
-	 lDSaUJjVWsoJgWRcb6Oq7tLUiyA9JyaIhPihGB44PviU6BOhwLeG9wRNKsRzw0EU0K
-	 Y2b1tXUMbqa4qFQ7piX718pLcfgypkKpRhRlX1CuGWtS8dcef4/eJ2+UPi9gok+88s
-	 nDgg0EBm/LBbW/GdKbrhSRN7pDt4YRxjX3oGdZsl3LQZanRyNE7LRSGGwhd4+tp+lc
-	 h4jylYx2c1LMg==
-Date: Thu, 29 Oct 2026 04:31:41 +0000
-To: Paolo Abeni <pabeni@redhat.com>
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Cc: Alexandra Winter <wintera@linux.ibm.com>, Thorsten Winkler <twinkler@linux.ibm.com>, "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, Ursula Braun <ursula.braun@de.ibm.com>, Hidayath Khan <hidayath@linux.ibm.com>, linux-s390@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net/iucv: take a private, writable frame before rewriting it in place
-Message-ID: <20261029043134.432738-1-hexlabsecurity@proton.me>
-In-Reply-To: <eb32ba07-0a4c-4bc6-acda-36e6b95af89b@redhat.com>
-References: <20261008-b4-disp-bf46f1ba-v2-1-46ff1ea9c40b@proton.me> <eb32ba07-0a4c-4bc6-acda-36e6b95af89b@redhat.com>
-Feedback-ID: 199661219:user:proton
-X-Pm-Message-ID: b0f95197546e081200a2ba0e10761147fe33e3ba
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=oT3z1/88
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793248652; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=pxx2va2K2g7IdMw0G+rSebc/KMLdkp6PwljQLQMAqII=;
+ b=oT3z1/88/GKVKEFm+hzibl3+panUZQfdrGd2+tnFYXthn4d8TkUDCWK4edOVPCUOch6pKH
+ wTTPdtUJjkcFPYFjaofOe6n6c9m6YMfzYl1SmzWJwCVv6ZnCeyZWmtPIWTj42qGswMGZc1
+ 82hUy8kSTAoueW0mb+teYd6jcQR1JPFMYcvED9qN8okyLOjJraC5p7VzLR+W7UDa1hvzUS
+ I/ORUgLWfkH5Q1O5uTcjwEp35OxiFydoOZVjNLW9L+G4BnWMzg5u9zUsRlgazbfOIqEIIa
+ o9KRqK3i72PbHoNcg5r9uwZ13UoBDlpX0euvznJuDDE1j19wmV4DnFLwPEowPQ==
+User-Agent: Mozilla Thunderbird
+Message-Id: <36648b88-c295-4acb-8b6e-25d742d50946@bytedance.com>
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26ae2cd8a+b99e4a+vger.kernel.org+zhaogongyi@bytedance.com>
+Cc: <linux-ide@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+Subject: Re: [PATCH v2] ata: libata-scsi: reject data-in commands with a data-out buffer
+In-Reply-To: <8ec9e401-4c00-42fe-b997-228e05ed9c2a@kernel.org>
+To: "Damien Le Moal" <dlemoal@kernel.org>, 
+	"Niklas Cassel" <cassel@kernel.org>
+Date: Thu, 29 Oct 2026 12:37:16 +0800
+References: <20261027090809.94126-1-zhaogongyi@bytedance.com> <20261028113903.19569-1-zhaogongyi@bytedance.com> <8ec9e401-4c00-42fe-b997-228e05ed9c2a@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,35 +65,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Tue, 13 Oct 2026 15:05:54 +0200, Paolo Abeni wrote:
-> > +=09if (skb_cow_head(skb, ETH_HLEN)) {
->
-> Sashiko (nipa) noted the above is the wrong helper:
->
-> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261008-b4-disp-bf46=
-f1ba-v2-1-46ff1ea9c40b@proton.me
->
-> you should use skb_ensure_writable() or skb_cow()
+Hi Damien,
 
-Agreed, and sorry for the slow answer. The rewrite is in the data, not
-the headroom, and skb_cow_head() only tests skb_header_cloned(), which
-leaves the data shared with a nohdr holder. No af_iucv frame has one
-today (nohdr is set only on the TCP, SCTP and GRO frag_list paths), so
-the two cases in the commit message still get their copy; it's still
-the wrong contract for a data rewrite.
+Thanks for the review.
 
-v3 uses skb_cow(skb, ETH_HLEN): skb_cloned() for the rewrite, the same
-ETH_HLEN headroom for the push in afiucv_swap_src_dest(). Same s390x
-QEMU A/B as v2, re-run on v3: eight boots, the tap and the
-ETH_P_AF_IUCV socket read every frame as sent, and each of the two
-calls is still needed.
+On 10/28/26 9:59 PM, Damien Le Moal wrote:
+> On 2026/10/28 18:39, Zhao Gongyi wrote:
+> 
+> No they cannot, as long as the kernel is correct for internally issued commands.
+> But t is not clear here if you are still talking about commands passed through
+> SG_IO.
+> 
+
+Yes, by "translated commands" I meant commands submitted through SG_IO
+and subsequently translated by libata, not commands issued internally
+by the kernel. I will make that explicit and narrow the description to
+the affected ZBC IN and GET PHYSICAL ELEMENT STATUS paths.
+
+> 
+> Why is this being checked here and not in the SCSI layer (sg driver and bsg)? It
+> seems sensible to check this there.
+> 
+
+I checked the SG and BSG submission paths. For data-direction purposes,
+they derive the request direction from the SG_IO descriptor and otherwise
+treat the CDB as opaque. I could not find a generic helper that derives
+the transfer direction of arbitrary standard, service-action, ATA
+pass-through, and vendor-specific CDBs.
+
+For simulated commands, libata itself performs the CPU-side write. For
+the ZBC IN and GET PHYSICAL ELEMENT STATUS translation paths, the actual
+ATA data direction is known after xlat_func() has built qc->tf, and their
+completion handlers may modify the receive buffer.
+
+This is why I currently think that checking these paths in libata is the
+smallest fix suitable for stable. A broader SG/BSG direction-validation
+policy may also be useful, but would likely be a separate change.
+
+> 
+> Test details are not needed in the commit message.
+> 
+
+Agreed. I will remove the detailed validation results from the commit
+message and keep them below the --- separator.
+
+> 
+> The CDB may be perfectly correct. The error is in the SG_IO descriptor setup,
+> NOT in the CDB. So returning invalid field in CDB seems very misleading.
+> This is not something that SAT defines as far as I know, so we need to find a
+> sense code that is more informative. Please have a loo at
+> include/scsi/scsi_sense.h to see if something better exist.
+> 
+
+Agreed. INVALID FIELD IN CDB is misleading here. I propose returning
+ABORTED COMMAND / DATA PHASE ERROR (4b/00) instead.
+
+Would this approach be acceptable? If so, I will send a v3 with the
+clarified description, the shorter commit message, and the updated sense
+data.
 
 Thanks,
-Bryam
-
-pw-bot: cr
-
+Gongyi
