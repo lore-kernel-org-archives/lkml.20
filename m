@@ -1,97 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793266507;
-	b=OBslIrj0TstiAYFJtWJ0sVfPF4yyfLLwHLz/OpMLsj7Pgzg8ppY1dXdjiIJsfJUWlvIq
-	 /36X4R9uFevaeCjfY07rthOsDtIICNSiW9d0l2I5ujrHPQp4iV7mtDnJLF/kjPIWjY/9E
-	 wQ1/3Q6Yz8/KJaWf+B3e3aYe8ULSFihitlXoB5sxvAesui5I500cwxPSqOIzon77k6Uh1
-	 Vqp0a+jVPbolT+1mFwSPTsDDEhrg3FAFTtPpq3UYa9zRRIA6tvZjRDYyZgmJ4zVZ428FZ
-	 uJHB6TBZ8Vt2AQKjieWOWLiP9VPcfrwqjiBu5TGUG4iKu8nhF6d2vz3UNnKonS0d9ag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266507;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=oGKNVB69wurMCLPvdqcLe36qhX1WPx65AE96vDluugY=;
-	b=mYdCSIQwlsuS+gRS0WM4CXz99j5aIy1UroHIHZxC1hdG/30m3znNicGgwX5A133b+Qsu
-	 RTvHnqRBuG/hFUsB75y/lD3K70nBewkQoJbA0R389+gLOYbo8r1X6mo9DdJPp3CbpDplV
-	 dQWx3l0f+qTDqUKjRXBm03g6eCGbGsjcezwtR47tLjRkwOtASDNV7np+X8prjI7/Lx5x+
-	 PqZsGWjstzYJ+gSmkKw2HYSmOVBPOwoVIRRmaDAYV0FZ3CvUEKz6VV6nMdsybK/Dr/TJX
-	 Fd7mQmG3bCf+OXMTJt6KhNTmQvWEfc5q/6YzbeuvOMEGkrWDaXhf2T2yHcRlAzUKuzg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="X5QjZb/y";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.48
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013048.outbound.protection.outlook.com [40.93.201.48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793266530;
+	b=IgXO/TikAgHenB+l8pBa6wFZureugetAp+/FT7fafD4Tuu6yY2/Afxv8TOOp9zwAEAAI
+	 KK32BESaSDaQuqChXDYOo7mYYXwR+0ywOFS0R4hf1a/t43wTPjeW4SqQLdXpMo5+OWtx9
+	 f79Sd9NaY5pe7264mw7I7hgl2c9RUvPB8me/EBdLtqSilSM7Wwhzddvev1cRQGebwIND7
+	 iQwHMJokUfGLtfV4PIZvBh7XGPcYbX538jdzmM3tnlFxXflS9iXCHpzTlTlY/hMt72XMv
+	 i8yPhA7rOgOTdzUbOO/Iv1jlqoqhx01wAurHp/KRv33acD0TDcmDCv3wIK0+qGIYQmw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266530;
+	h=DMARC-Filter:DKIM-Signature:Content-Transfer-Encoding:Received:
+	 References:Subject:Message-Id:In-Reply-To:To:X-Lms-Return-Path:
+	 Content-Language:Mime-Version:From:Date:User-Agent:Content-Type:
+	 X-Original-From:Cc;
+	bh=kPR28qORF32opZ2FjX2BjlSFj/du70LVKxJclETRGgU=;
+	b=2UPUx8ZdBuK5pTs/B9inpQEfiwIQ2BKxDTAKKyE7Q8RM/rg1eVrV8kkDXMWmgqrZZpL8
+	 aVb1fxY9Ku5YndZI41YkL3vPaDfz41EoO7CSPRocAlS6Ig7I7XRiEzrokt33XOzyJd6gt
+	 UCuysreF+i6nK8AY1fgwvWjZ3Rv0K8D5suCJLC1efSQ/OdVdpuTaLZntBcStt+czB+ytR
+	 qY9WwkjHJCnve3dfSwqR8aiNuFSDd4qMaG4m9bhs26aMCG5BWRVv9aZG0G1vxpUyPzEcT
+	 /VQqrZ+RqizhEphGB6du03FhPuSW8GqTcYXmjYMYeUzYCiYKA5eQz4kwuqOF+ZKsx5g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=lanxincomputing.com;
+	spf=pass smtp.mailfrom=lanxincomputing.com;
+	dkim=pass header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=zBp2mKEo;
+	arc=none smtp.remote-ip=209.127.231.50
+Received: from va-2-50.ptr.blmpb.com (va-2-50.ptr.blmpb.com [209.127.231.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACCF606A31C;
-	Thu, 29 Oct 2026 09:35:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ACCF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5101606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:35:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5101606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lanxincomputing.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=X5QjZb/y
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s/zHrNlZC1HiiezaKoghqkc0IXt2WSkGIT2YVGeWU8evH0cVfM0ZkqV7y5Ofb5zVcUL3t9DwItck7ERwK2XrcVg5jGa9l9YkevQ+Xa8gkeY+gPHw+DgoFCoFPGUwm40FQ4Z+OTs+Fhr9M66ihUHchgiy+CMFAOQtoMKNRON0SRinP889JBK2QMMXFuSm2fReK4+Nrg4Dnq1A30io83bFgTjV8o5I987dK1DmGEEJ8whPGfVMzcVh9bXmUSgi1rrb11cwKN6lm6iz36A+mbB4Xz0s5V8w6UygOxpQoUOadPZpsSJ5n9vyEvhUUH5oM9gw9A9ZrCeR1fLK1RXfP+4sNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oGKNVB69wurMCLPvdqcLe36qhX1WPx65AE96vDluugY=;
- b=svsqBtItIaCZ09t/oO/XXimjVMF8Q45G4rWN3jx27Aw/t0+Te2YreYX7AIU+7jujnLm+Tbb7d0NkhfIvHN7UBfPLj/8TrMvZz7sfT3NVbJMoT97UeGkMnPDnv/BgT6AIMNBNqDGUxz+PGKMpvzGcwzQpttCtp5vhTUSWQ9YvGM5DvpRlUR2vB8FkJPZGJidneSdQBIpWHHHGNMUAMg97OQ0dXfzUunoy7WFd3a+1qTkAcFZLJDbENgnC8pGs/4ktcZHvo+y+aOJx+PjdV+EHsIXJseibdEl7F96xia00F61I4II47394upWt3lNAKFerZpZNKtw37/ivoEMwmuw3SQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=bytedance.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oGKNVB69wurMCLPvdqcLe36qhX1WPx65AE96vDluugY=;
- b=X5QjZb/y5KJZE6nq1VCw8uNp+OJVneWn85gHbzdN3wW3QvwzXX038olchi9U3SIBPQ3wJCCis4RyUYTkQ+P9XjHS12c/yE4eikFasnFt0qcbLXR3a5eVcRv8ovm3+puqifqvzUdNXEkUX6mM+NIvKuZnD8dNv/dFkXnHDNmZU9Y=
-Received: from BN1PR10CA0011.namprd10.prod.outlook.com (2603:10b6:408:e0::16)
- by SADPR12MB333558.namprd12.prod.outlook.com (2603:10b6:802:101::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 09:35:03 +0000
-Received: from MN1PEPF000793FF.namprd05.prod.outlook.com
- (2603:10b6:408:e0:cafe::84) by BN1PR10CA0011.outlook.office365.com
- (2603:10b6:408:e0::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Thu, 29
- Oct 2026 09:35:03 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF000793FF.mail.protection.outlook.com (10.167.249.201) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 09:35:02 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
- 2026 04:35:02 -0500
-Received: from [192.168.0.152] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 29 Oct 2026 04:34:56 -0500
-Message-ID: <0676993f-c04c-4e4e-9f8d-1650c8fd6d6e@amd.com>
-Date: Thu, 29 Oct 2026 15:04:51 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=zBp2mKEo
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=lanxincomputing-com.20200927.dkim.feishu.cn; t=1793266521;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=kPR28qORF32opZ2FjX2BjlSFj/du70LVKxJclETRGgU=;
+ b=zBp2mKEoXTXTuZOa8PkWeuzgIX1WNnvm4o5bLCptKLJMqUVSgUIL0bSDR0R67lyGsNFLFJ
+ fUghZZW6UwGKmTn+He56aIqB321oJyNj5U0JSySiCvSUdyfZAg4oVdTUD/Pww6/zIdXnkY
+ UVvbgMXOtt9Un6wQH5tGJcwj9sksnncVPI0xM+GVQWAwIHH0+ZPSCYoo6ERGiHaFxvxo1g
+ MrbXfT+gCMkuM7PqrL4IGFkkRInaPFsDJL5Q2y6bwFTglnNA6nGqyXFLVdS5wZz5Y46G0h
+ KlEn1YXrKnGiIMBuIJzCOAvqtQ6fU1e7BZzOEN5Fv4Tnp4DpDCS7kJ/zTycAcw==
+Content-Transfer-Encoding: quoted-printable
+Received: from [127.0.0.1] ([123.120.5.129]) by smtp.feishu.cn with ESMTPS; Thu, 29 Oct 2026 17:35:18 +0800
+References: <20261029082426.706302-1-xiangwencheng@lanxincomputing.com> <TYZPR04MB7491A2FF4DB08B00DD53E315F36E2@TYZPR04MB7491.apcprd04.prod.outlook.com>
+Subject: Re: [PATCH v2] riscv: KVM: Add hart-to-vCPU mapping for faster MSI injection
+Message-Id: <bacc6283-f06e-441b-afa9-c263ced5df3a@lanxincomputing.com>
+In-Reply-To: <TYZPR04MB7491A2FF4DB08B00DD53E315F36E2@TYZPR04MB7491.apcprd04.prod.outlook.com>
+To: "Nutty.Liu" <nutty.liu@hotmail.com>, <anup@brainfault.org>
+X-Lms-Return-Path: <lba+26ae31357+9b5872+vger.kernel.org+xiangwencheng@lanxincomputing.com>
+Content-Language: en-US
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,80 +61,203 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+From: "BillXiang" <xiangwencheng@lanxincomputing.com>
+Date: Thu, 29 Oct 2026 17:35:15 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] sched/numa: make free-space tiering promotion
- bypass configurable
-To: Li Zhe <lizhe.67@bytedance.com>, <akpm@linux-foundation.org>,
-	<bsegall@google.com>, <david@kernel.org>, <dietmar.eggemann@arm.com>,
-	<gourry@gourry.net>, <joshua.hahnjy@gmail.com>, <juri.lelli@redhat.com>,
-	<kprateek.nayak@amd.com>, <ljs@kernel.org>, <mgorman@suse.de>,
-	<mingo@redhat.com>, <peterz@infradead.org>, <riel@redhat.com>,
-	<rostedt@goodmis.org>, <vincent.guittot@linaro.org>, <vschneid@redhat.com>,
-	<ziy@nvidia.com>
-CC: <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>
-References: <20261028041253.74839-1-lizhe.67@bytedance.com>
- <20261028041253.74839-2-lizhe.67@bytedance.com>
-Content-Language: en-US
-From: Bharata B Rao <bharata@amd.com>
-In-Reply-To: <20261028041253.74839-2-lizhe.67@bytedance.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF000793FF:EE_|SADPR12MB333558:EE_
-X-MS-Office365-Filtering-Correlation-Id: d749afd4-4247-4fbb-ed80-08df359fe89a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|82310400026|36860700016|921020|4143699003|11063799006|56012099006|261022075727099003|261028144727099003|261026140227099003|261021121427099003|261022105027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	NN8VyqDq0GbR/y4YMoOxeTzGHJnH8ayYdmHhmXheor/LXGsWOfq6jyc/NHEAYoQSiCoSoYY8X5NkDq8qn/4ekARST1hmS2AhleJiV06DkHwtfp/7wYB2rNjSZNKMwyI7MCbXouHCXK6R3LClhHFS5B6UrGAYigJzp/V9dJHGX9/4DUf2jqAMpLqiXW4R6j20NGIY6CBxvLODklnb1QJX5U9rJ88g52ZVblnpw4DqhEn1sdOVyo/iya4wI07c2s4QT8xnOvm2UrGaizOZTTcchhk7QNf3MqXP/QGAV6oD9zMdiO/2XjwzPUk6nh8acD2vMN/akAtm1gnyQWPvl+cHcuodmxLCMyNgGp8GYFvmQJ35jPQq3OcR2Y0w8EEncR9s5wo+rdFbNSJTzHaHNMJTF6OO5hqLArSBEAQQpiODG5L8+VBJZZK+QIMo43RUAGymEH+bRTywYgro9q0DY2ij/PlFo7SRJOxx8lrfow7psis1o/eX0INuYdzad8D+v6d4WDSM4pO7FVKRNxBrEaPHj3qXCs06CK1zD7dJxt82JyRMi2nvyhJVSfiTHwCa0lv1Ibm33nKXSiol8w7/RPjazuWZC2P3Gn1moNYjuWCloJvu02rnf5EWab3XCj3KUpao6m7zGXm1l6IMUuFE499w+vkx8bh6a47he6v0+JbJz+rdPFE7onNizmtL/jf+k8arhjBfCDcnRKoPRZGoZRlvQZyw1wf5srwu+pK7ElRRYgQiPZOOYvxd5Kr6rHEzt+dF
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(82310400026)(36860700016)(921020)(4143699003)(11063799006)(56012099006)(261022075727099003)(261028144727099003)(261026140227099003)(261021121427099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Lvkzr5Wt4XfUGmn671Wv0A9HntpMjXwRvT/34/40x6jHaYk/nQ8/X05c9QyFbAWwjbOdT69fDA3OK8JEnpiZdIlsOhJJ+wuoJGNCApDW1s9V+GZAEOOu1BdfXCZUEtb1qI4SIC4XLVXVpc/mIVWjOL0aSlRCcAuyBTWNVo925Y8GwqkkzyQiAe49pkKI4VFpPt7O/s/jSV1SNRuDmw7drJ996Gw2F31GHqx3Nn6+PNB/VbLvPlOL3ONwOLnM6E8vamJLpb1r9QxvpRbsvlxEL1+ziu74sgrjHyqOzuqybUeuv1PPvKrAdJw8Bk1wH84kJL1WF7/TzM9RV21MIfqNlSf/meyg2L6hUt0/VdvmKX1o9bkBab6Qkly84X79t2QwmfOu4y6HmsuF/vdkErIPNOCcIK+AP9qmgCprC4XlgLhOlVMd2P1N06Ot7Y5zkS4n
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 09:35:02.7980
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d749afd4-4247-4fbb-ed80-08df359fe89a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF000793FF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SADPR12MB333558
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: BillXiang <xiangwencheng@lanxincomputing.com>
+Cc: <atish.patra@linux.dev>, <pjw@kernel.org>, <palmer@dabbelt.com>, 
+	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <kvm@vger.kernel.org>, 
+	<kvm-riscv@lists.infradead.org>, <linux-riscv@lists.infradead.org>, 
+	<linux-kernel@vger.kernel.org>
 
-On 28-Oct-26 9:42 AM, Li Zhe wrote:
-> Memory tiering normally promotes any recently accessed slow-tier page if
-> the target fast-tier node has enough free space. This preserves the
-> existing policy of filling available fast memory before relying on
-> hotness and rate-limit control.
-> 
-> That is not always the desired policy. Some deployments may intentionally
-> keep part of a workload's memory on CXL-attached memory, for example to
-> preserve a desired DRAM/CXL capacity split or bandwidth distribution. With
-> the free-space bypass, short cold accesses and bursts of hot accesses can
-> refill the fast tier and pull the workload away from that distribution
-> whenever DRAM has free space.
-> 
-> Redis testing exercises this policy issue. On a CXL system with node0 as
-> DRAM and node3 as slow-tier memory, a Redis test was run with
-> memory-tiering-only mode enabled. The test used a Redis dataset with 12
-> million 4KB values. It reclaimed memory until about 85% of Redis
-> anonymous memory was on node3, used a Redis benchmark configuration with
-> a 10% hot-key working set, and then issued a short 256MB access burst to
-> cold keys outside that working set. The cold-key burst mainly touches
-> memory outside the hot working set, which is expected to remain mostly on
-> the slow tier.
+On 10/29/2026 5:15 PM, Nutty.Liu wrote:
+>=20
+> On 10/29/2026 4:24 PM, BillXiang wrote:
+>> Replace linear searches over all vCPUs in MSI injection paths with a
+>> hart_index -> vCPU xarray lookup table. This avoids O(n) scans on
+>> every injected interrupt and improves performance when the number of
+>> vCPUs is large.
+>>
+>> Both kvm_riscv_aia_inject_msi_by_id() and kvm_riscv_aia_inject_msi()
+>> now use the table instead of iterating over the vCPU list.
+>>
+>> Signed-off-by: BillXiang <xiangwencheng@lanxincomputing.com>
+>> Changes in v2:
+> Hi Bill,
+>=20
+> The change log should be under the tear line.
 
-Can you please clarify if 85% of redis memory ended up on lower tier naturally
-due to overflow from toptier? I ask this question because, if it is a natural
-overflow/demotion, then it will be hard to find head room in the toptier to
-allow promotions that bypass hotness or rate limit checks."
+Thanks for the reminder.
 
-Regards,
-Bharata.
+>> - Use xarray instead of normal array to handle incontiguous hart_index.
+>> - Link to v1:
+>> =C2=A0=C2=A0 https://lore.kernel.org/kvm-riscv/20260730093614.983508-1-=
+=20
+>> xiangwencheng@lanxincomputing.com/
+>> ---
+>> =C2=A0 arch/riscv/include/asm/kvm_aia.h |=C2=A0 3 ++
+>> =C2=A0 arch/riscv/kvm/aia_device.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 50 ++=
++++++++++++++++---------------
+>> =C2=A0 2 files changed, 30 insertions(+), 23 deletions(-)
+>>
+>> diff --git a/arch/riscv/include/asm/kvm_aia.h b/arch/riscv/include/=20
+>> asm/kvm_aia.h
+>> index ab03f853e507..3b075f18e1d6 100644
+>> --- a/arch/riscv/include/asm/kvm_aia.h
+>> +++ b/arch/riscv/include/asm/kvm_aia.h
+>> @@ -12,6 +12,7 @@
+>> =C2=A0 #include <linux/jump_label.h>
+>> =C2=A0 #include <linux/kvm_types.h>
+>> +#include <linux/xarray.h>
+>> =C2=A0 #include <asm/csr.h>
+>> =C2=A0 struct kvm_aia {
+>> @@ -47,6 +48,8 @@ struct kvm_aia {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Internal state of APLIC */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 *aplic_state;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 struct xarray hart_to_vcpu;
+>> =C2=A0 };
+>> =C2=A0 struct kvm_vcpu_aia_csr {
+>> diff --git a/arch/riscv/kvm/aia_device.c b/arch/riscv/kvm/aia_device.c
+>> index efc7c0bcfba9..a415a8c10967 100644
+>> --- a/arch/riscv/kvm/aia_device.c
+>> +++ b/arch/riscv/kvm/aia_device.c
+>> @@ -259,6 +259,8 @@ static int aia_init(struct kvm *kvm)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ret)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
+>> +=C2=A0=C2=A0=C2=A0 xa_init(&aia->hart_to_vcpu);
+>> +
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Iterate over each VCPU */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kvm_for_each_vcpu(idx, vcpu, kvm) {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vaia =3D &vcpu->a=
+rch.aia_context;
+>> @@ -280,6 +282,11 @@ static int aia_init(struct kvm *kvm)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Update HART in=
+dex of the IMSIC based on IMSIC base */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vaia->hart_index =
+=3D aia_imsic_hart_index(aia,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 vaia->imsic_addr);
+>> +
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D xa_insert(&aia->hart=
+_to_vcpu, vaia->hart_index, vcpu,=20
+>> GFP_KERNEL);
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ret) {
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto=
+ fail_cleanup_imsics;
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Initialize IMS=
+IC for this VCPU */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D kvm_riscv=
+_vcpu_aia_imsic_init(vcpu);
+>> @@ -299,6 +306,7 @@ static int aia_init(struct kvm *kvm)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 continue;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kvm_riscv_vcpu_ai=
+a_imsic_cleanup(vcpu);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>> +=C2=A0=C2=A0=C2=A0 xa_destroy(&aia->hart_to_vcpu);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kvm_riscv_aia_aplic_cleanup(kvm);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
+>> =C2=A0 }
+>> @@ -557,30 +565,25 @@ void kvm_riscv_vcpu_aia_deinit(struct kvm_vcpu=20
+>> *vcpu)
+>> =C2=A0 int kvm_riscv_aia_inject_msi_by_id(struct kvm *kvm, u32 hart_inde=
+x,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 u32 guest_index, u32 iid)
+>> =C2=A0 {
+>> -=C2=A0=C2=A0=C2=A0 unsigned long idx;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct kvm_vcpu *vcpu;
+>> +=C2=A0=C2=A0=C2=A0 struct kvm_aia *aia =3D &kvm->arch.aia;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Proceed only if AIA was initialized su=
+ccessfully */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!kvm_riscv_aia_initialized(kvm))
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EBUSY;
+>> -=C2=A0=C2=A0=C2=A0 /* Inject MSI to matching VCPU */
+>> -=C2=A0=C2=A0=C2=A0 kvm_for_each_vcpu(idx, vcpu, kvm) {
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (vcpu->arch.aia_context.h=
+art_index =3D=3D hart_index)
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retu=
+rn kvm_riscv_vcpu_aia_imsic_inject(vcpu,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 guest_index,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0, iid);
+>> -=C2=A0=C2=A0=C2=A0 }
+>> -
+>> -=C2=A0=C2=A0=C2=A0 return 0;
+>> +=C2=A0=C2=A0=C2=A0 vcpu =3D xa_load(&aia->hart_to_vcpu, hart_index);
+>> +=C2=A0=C2=A0=C2=A0 if (!vcpu)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 return kvm_riscv_vcpu_aia_imsic_inject(vcpu, guest_i=
+ndex, 0, iid);
+>> =C2=A0 }
+>> =C2=A0 int kvm_riscv_aia_inject_msi(struct kvm *kvm, struct kvm_msi *msi=
+)
+>> =C2=A0 {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gpa_t tppn, ippn;
+>> -=C2=A0=C2=A0=C2=A0 unsigned long idx;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct kvm_vcpu *vcpu;
+>> -=C2=A0=C2=A0=C2=A0 u32 g, toff, iid =3D msi->data;
+>> +=C2=A0=C2=A0=C2=A0 u32 g, toff, iid =3D msi->data, hart_index;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct kvm_aia *aia =3D &kvm->arch.aia;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 gpa_t target =3D (((gpa_t)msi->address_hi=
+) << 32) | msi->address_lo;
+>> @@ -595,18 +598,16 @@ int kvm_riscv_aia_inject_msi(struct kvm *kvm,=20
+>> struct kvm_msi *msi)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 g =3D tppn & (BIT(aia->nr_guest_bits) - 1=
+);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tppn &=3D ~((gpa_t)(BIT(aia->nr_guest_bit=
+s) - 1));
+>> -=C2=A0=C2=A0=C2=A0 /* Inject MSI to matching VCPU */
+>> -=C2=A0=C2=A0=C2=A0 kvm_for_each_vcpu(idx, vcpu, kvm) {
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ippn =3D vcpu->arch.aia_cont=
+ext.imsic_addr >>
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 IMSIC_MMIO_PAGE_SHIFT;
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ippn =3D=3D tppn) {
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 toff=
+ =3D target & (IMSIC_MMIO_PAGE_SZ - 1);
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 retu=
+rn kvm_riscv_vcpu_aia_imsic_inject(vcpu, g,
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 toff, iid);
+>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+>> -=C2=A0=C2=A0=C2=A0 }
+>> +=C2=A0=C2=A0=C2=A0 hart_index =3D aia_imsic_hart_index(aia, target);
+>> +=C2=A0=C2=A0=C2=A0 vcpu =3D xa_load(&aia->hart_to_vcpu, hart_index);
+>> +=C2=A0=C2=A0=C2=A0 if (!vcpu)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+>> -=C2=A0=C2=A0=C2=A0 return 0;
+>> +=C2=A0=C2=A0=C2=A0 ippn =3D vcpu->arch.aia_context.imsic_addr >> IMSIC_=
+MMIO_PAGE_SHIFT;
+>> +=C2=A0=C2=A0=C2=A0 if (ippn !=3D tppn)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return 0;
+>> +=C2=A0=C2=A0=C2=A0 toff =3D target & (IMSIC_MMIO_PAGE_SZ - 1);
+>> +=C2=A0=C2=A0=C2=A0 return kvm_riscv_vcpu_aia_imsic_inject(vcpu, g,=C2=
+=A0=C2=A0=C2=A0 toff, iid);
+>> =C2=A0 }
+>> =C2=A0 int kvm_riscv_aia_inject_irq(struct kvm *kvm, unsigned int irq, b=
+ool=20
+>> level)
+>> @@ -647,9 +648,12 @@ void kvm_riscv_aia_init_vm(struct kvm *kvm)
+>> =C2=A0 void kvm_riscv_aia_destroy_vm(struct kvm *kvm)
+>> =C2=A0 {
+>> +=C2=A0=C2=A0=C2=A0 struct kvm_aia *aia =3D &kvm->arch.aia;
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Proceed only if AIA was initialized su=
+ccessfully */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!kvm_riscv_aia_initialized(kvm))
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 xa_destroy(&aia->hart_to_vcpu);
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Cleanup APLIC context */
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kvm_riscv_aia_aplic_cleanup(kvm);
