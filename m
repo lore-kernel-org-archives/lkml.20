@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793308878;
-	b=4Yh0nbN7W4d5dYD4LNxMqfyioU/vWIIngCS7T5QbekybdQO8dvcVU7zmgFQ52UJlOwt2
-	 IpTIAkwvJ7ILMwwtlhqdkAg1uRRsUiq+ZjNdztZIrXk1bQ0teVMTlR0vIhCC4AQDZ3ebE
-	 hqcaEZlW9if/JsNwNtd17HQwIO9geumt3DQdZt3dLqj2jbHERFWn5lIOj8Ead4RKLRAMn
-	 1OtcIBZXNWUlpo+VecuajnIM6uZx4Ikmmvauvsy77Ndem4KbrPGNTkFmlfDdhKAbro3me
-	 JCudiwhzMIgwxbE9rXoyXDPfAjf3jWthGiUJAjj4xa2mznmeGnnb//65Pkpfjq0vKqg==
+	t=1793308928;
+	b=IO29UYZAeHu7jG4snvjl+uFbxRsAiNi2gVCLfU2XReMMVPnEx6p/T1D8Vw1hMArd/Rdi
+	 m1uoNlEy6Tkvf4X8W7jdDGpGb/c5FGRppfBCCL+bGPVhOBdRnLUyFPVsAklIpMQRCvqzU
+	 uzcxKC9dmRGm/fO9T415OYJHLYZOJWJiU1q/Qb78I9Nxg27kTZUi7pDlQnoURpTQtqG/l
+	 Ek0y4BrNVP1XY8joi1iamfSbyS0MQ3CDIL7wQu0HZp9TQMCFdCEMfE1TnllitTmj5QWd5
+	 4lKwjBu/VdAOHYGyWrgFglbtMXc1FxeFVaC+xbMyA1UJHex3VgdCmAGZDNhcHZfpDiQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793308878;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793308928;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=9+8ns+yvE4djttd03VIoOUqKqYBAUVZpRS1Gm6Ry0jA=;
-	b=DisvfMWAi9lhUT7lJHP91J8elk7kw+CCm0h+RXkJ+lhVzcoNjiioZQ/csu0RuONcAhRk
-	 5DWv7vTvBmiuiTDpucbyQmkWh4eA5XZr/TWaPmm1WXqQAr3gxyIVju+kl4t6EEpno98SQ
-	 qi17xrNTRwAG1NtqWRjlATMJkqckx/tO/QCE7eIuwsIbzk6pxdWi7jE3pZUQ6teIR8OlS
-	 oqZEmUIdpSGkmbHh/Dux2cMm6r2l+++9WUWY26xeBj4qzrLw3Fl9iI8mHr1JDGMyvzugs
-	 5bZ/OfkWzFEGh8g4HAIwAPWFfX6PV4Dq/mBb84LB4x4DKy3nAPidxNxa4bv4fVkQkVA==
+	bh=LoPnVLFU2grju3RATLnVH/Dnn7cdm50tVx8bnt7Z2pc=;
+	b=r9ZIDohq8TD0p3AtOiW/5oZwtW4c4Mg8qSbN/JPwqCzdt4pX++SW8WY4/Pt15SLC4lBh
+	 IcR4p4DuKMwD6DKlabn9SbCx9tXgGj/jNc1OMfRY3rJ26wqwniJ7CTWNkYF5lfVZxH8SV
+	 8CQXUXS3sNcEHBnVz6m91q6Pv24129urjqIL8Bgb+o7frrCxiyuOfyemaAAPR8iOfSOvh
+	 2P4PXqrwHcflgYQNvnaRwu99uAacnRWDPHZaSAUaIU4PUaYpp2UfTlgwgPbcoQNVMQB+i
+	 AL/eQIsn56ildhp0fJqrdHpLpoBvnratZKAQIJMUJgdTX5ZtwNt2CeVN1GYaepOeDCA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b187zlaV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dmarc=pass header.from=nuro.ai;
+	spf=pass smtp.mailfrom=nuro.ai;
+	dkim=pass header.d=nuro.ai header.i=@nuro.ai header.a=rsa-sha256 header.s=google header.b=Re6vMFfK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FBB606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:21:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53FBB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA05606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:22:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEA05606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuro.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuro.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b187zlaV
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49d05d51553so58275e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:21:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793308876; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=nuro.ai header.i=@nuro.ai header.a=rsa-sha256 header.s=google header.b=Re6vMFfK
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a18fc7a38so215923eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:22:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793308922; cv=none;
         d=google.com; s=arc-20260327;
-        b=Q2xfb9mymyttc7gS3IleP7SumB4OJvgLOC2Q1D/jiVHTZgOYYBe5EvMkQTNyccsnJJ
-         EeVGEJKjppNK9tsAAmL/NFS0QwbqKJmZLosUdhimAR29340heqxHkZqvmoHQHijRaomR
-         Nsu6iIYSoFw5zMIkVI/JwpC3HjGamuMg/pg7ok4UkGT59YGLLJAAEcwHpSjK9Kn/MvjN
-         HXkHYC/eV24aNbEpDabCtmmGodNmmQGnPpKAXc3xWAEi4rz3yF7p3gSQbSvy2Z96q9Ts
-         ztrH8d4xF5zGEeIUgog8wgQcY2jtFMbk9xKyy4u+6RmdBy0K7xXezgmabiPBy577DbW2
-         yqWQ==
+        b=AFMcc6NY7Syb1aIyIwsTGCrjZaGs8rXILF49jhCFQRnAaxdSCs4l/f7TZ8KQNXLXx4
+         8+kgZLgmp49wvSqXTSsThhXXW3wSCHcQzGEjNMsxfgu4hs1d7XO5PiXhYJXNPp0RQavb
+         ysVcTY83DYN4k47slD9h18i3a/tiuU57LRHMpki8v6NXAtKmLkTN+eYUzQvGYTyXm6rh
+         A8O1A9AKYQYaTp9lMhS+MN9iJi5ZXsFCGmWHe3Q/spHvmj16upcaPKVkBPGbffr/OiYI
+         2orA2N/uOANDUbj29z17kTH7KwCIBO5nh52hgqu8LxZKZd8Gecje8hh9yEoOAhwHi28F
+         fPmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=9+8ns+yvE4djttd03VIoOUqKqYBAUVZpRS1Gm6Ry0jA=;
-        fh=ZY8HNMdEmZjsDhQFItCRJYKCRLOiY7wgHuXenqGm2YM=;
-        b=o+n/EfXB8HZPdyTOOzy1D3us3KxqW11MqjaOiKFY0BSJ612o8IpgbzX9fpd3/ugkXH
-         ihaWGnzMNBrAe49T8a9RRktq9jp9TmxoIt4Hl7NgPgHkyC2qgbOsvqO1Q1ggegx/YCGC
-         HBKgf+6ty/EwJOI3xxEO9FREqVJE238/LKMCOnk149iC8urKrHRErsS5ZiQAo8uJiM9T
-         DEgMbtazrdyghJ6RdEBjYaGclJOwyU/W57Ju3XCSMZvM1RCmLq9S1iNsX2t+A1vB5F7j
-         VmX4Gz04LT/2NAaX/jYG+0hZHU4MvRhmhHjqLUJyK61DHSbLjiiWwxkTd2SvVCPsY9lX
-         TDRA==;
+        bh=LoPnVLFU2grju3RATLnVH/Dnn7cdm50tVx8bnt7Z2pc=;
+        fh=uSi//J+qTk/JYCJwezKy60JuKpd84yE915NWEJ9zik8=;
+        b=mYKhrDURKkswpuogpuBQeJqaun7sHObZmOfdqZJMju0y6QtXJaG0SKR6CZIXwqkadW
+         oDRxoKNowulsLEZafu7gnPbtbhYjUbxqdFAVO8MCDdAr0q3JfWFyoehN2+ovFW6hRSmM
+         SDFdRZiPeNF3gA8rMP5NWHC7+b5FhTqNRGUtenBMYvYluX3BObOCDUCvDVkfJPZErR6g
+         Ab+WVKl3wQ7ioDCDoyQA+lcMFlMGj4nR6mULV9FAf8n5qFIbEipZeF5Tk7ePoAn7G18n
+         5QarLGB6k50sMskqhG59mIa1LU7H20a+egxcxnjcF3vBLbMcKAt0wSFsCsmxtPV4E7/H
+         SlJQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793308876; x=1793913676; darn=vger.kernel.org;
+        d=nuro.ai; s=google; t=1793308922; x=1793913722; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=9+8ns+yvE4djttd03VIoOUqKqYBAUVZpRS1Gm6Ry0jA=;
-        b=b187zlaVHnz5lzU40qztJ6pRtgry5HkMLZIj05AbLmiUPaDNznWYKFk20cs739b5mO
-         sKBdIdaG+F1j9SokDMS63l/DAQnIUNS/LG+RVmHF+ycrEj8fSzzMPaCj6FfLiBPwcg20
-         KLF/714jYYxoLl0Ot4y3yQLq4W52oW+g0YUwvF/NpgswQ1xazDgrqQwvCUlCTmvQwmwy
-         sTG1DEOWw5gJuqjqt3/DYeSJx9n1MJi+LhDqUufo8t9K9/kAccYEWLwpVUkHpAnS0l20
-         /hOphx2OLVPwByqB5ltoD3uf4kEqxU3W9EkXm3bDpgWTiH3oLYrNXuQthFcSXq4IDCNu
-         mHtg==
+        bh=LoPnVLFU2grju3RATLnVH/Dnn7cdm50tVx8bnt7Z2pc=;
+        b=Re6vMFfK0sToGoINjVob2ahiCOouBs1MFolZogLftA8wIO4kshs+Vy0hn7J/oMf/+/
+         TQvx8AmolIvg08Hx+XsiIwrr0zOKFFCiohx27qaot8re73AwfHaWdb/5pvp0gUoIWdaW
+         ikiIjlhwEn5eoa6hW0oF8m84scPmznyjN0B+e9POn3vjj5YP2N+T+o6Yll0A6nidEdzM
+         hS3KhrbxSIu+8ofoZxFERoP57pIDR5fLK/VmmbtnUbzdfNK2yHpw+uGiv78s6KvTJVse
+         qeoSJkJyo7Rl70OUM4f/wZ3k0nrzOiH6nBNxvwRFw1U10f8qWu12BDP5sF2syXCf9jMn
+         6vYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793308876; x=1793913676;
+        d=1e100.net; s=20260707; t=1793308922; x=1793913722;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9+8ns+yvE4djttd03VIoOUqKqYBAUVZpRS1Gm6Ry0jA=;
-        b=Za1TPS+Lrv8LMDo3msZ4od+0x95qihtpYMz3yLACEbVPQEgRo+XA8eMU2ZE9mIYsjs
-         xuxAuyn0GelviLvO2aeeh8io6IAiJYHWRVqjL4XhmMlgTb3r8oO8WJaEF/3PeWPBS/fF
-         vRJLEWEUGYbOqd+/olVnc2FuJqlVv3t0E04bVPHT5wKUgmVlIqip1mREU6wxTKzidcZz
-         fMpznZPAZp3jKUPelvvR+YyTWOILRzz8MZFWUjiNbZWGKyKrsKurwwai8UyVXEuh6HiP
-         9DbiTQ5XdbaN1Q1dnguHuoBbg4R7PXjF/JIHbiT1MCtoodpipwUnu3VNtvP4EaMhBnEE
-         5asA==
-X-Forwarded-Encrypted: i=1; AKwUvBzV8Fz6kgEVJN6rcCQSBmDiN131ygI0D4PpchKQNHqHqMFXrgxgB1l/n5H+GCeJtHnaRzPQg8I8Y4MhYJU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+U6M+WqXneqPRzZvY10z92wzrgadLjE2gIT/CiVH+ne0LIo0V
-	tSHzmBOhJ9fwKkIuDFVjh+WmbvJMQZfiw7au5NoYkZnlrz7cg7wRx26hNAwSJEtIFZKk9m6omQa
-	0sXtXLG74PsCwOT5KzFXawcu3mrJBH+8=
-X-Gm-Gg: AYBFou2pziejDmrk9KO1mKysFp9yo9H89OD4Aq8pKCJ5jelK9VDmqEMEsuAmpcbz9EP
-	aaLKZd+VaSbL4kge0KDsAskaQKswhoBNyVPrd+FJnUcMie52Jdjodp3Cu6ePmPGAzkFpYfBN0AF
-	pAqT8nWjHDaR/Bh8LCKmXghFABpyqnJPBkbKM/hcc04Lxo6EH4z09KjUSflS6lAo5L9tQ1hzKzo
-	dz+0bTMu+7H7GnkaGBDgZNZq9ddhcwhm6S0er8nTshf1enF84ZV2ffsdcDcJWTGH4F8CJhazIsy
-	cZb7xyvZnY+1eraxG6qBHm6GjtMPWYER6vs4dh+Dg1aD6Tv+mok7viCckaiKAeG0qnRPi74KDVr
-	8p/zWi40lIRXdh+9O/1cdxRowfBbhEO3dg1Qcfg9CoKXS4tbBo6utqF3tCnSypn1Ak/kG0d0GWj
-	IFJvO08zusgVhvG/jLisEn0yyFCgjEIWGHG7oSalL3sqdT76MNiUDfzPip+xrSRbR2GFW/oVk3L
-	Q==
-X-Received: by 2002:a05:600c:8b46:b0:4a0:4a8:d444 with SMTP id
- 5b1f17b1804b1-4ac18c73238mr4750555e9.33.1793308875581; Thu, 29 Oct 2026
- 14:21:15 -0700 (PDT)
+        bh=LoPnVLFU2grju3RATLnVH/Dnn7cdm50tVx8bnt7Z2pc=;
+        b=Y8FNCbAlDsCdOrqbBKBo59gwK3NkkPgJ9Mw5tQzbEqrQj/ecLeolqKn6cBIMJuKoZ3
+         WtRo7GQZay3awMjidH6B0qPpN+biFlI/MiOXUPppfvLdnXpM/vQ99b+N3dGB+iBbF4F2
+         7EOIRbfcWi3/wnnlNafrmmKf9/DupoStpRoeDLzSVSRxm05UAixJo2BgFlsAT1N21QJF
+         vBAxpp9TUElC7AtVIkUKe4BmqagY3xu5FObUWPKm9KvtqPxThFaUHlORnyAk7EIC6i0I
+         xuYi1kY8jkJpVMm9aOlhCwhT+QY+El5iFNC6BjR/jzKYQH6z3DRRjprDiHjR8di4aslp
+         uYdQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxrt3vf4Ah3qbxCr3dymtFnW3WliOn5AuCeNhekEP7utkRrTJUs3Yxxu1aQhjzsRMRQXR1Tr40OwlYeRU0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2PN+K5F7ZAZYGq0gyDIyLnhyRJUrHP7dpJ5TzRNxNZ/Cwuslf
+	Fy9f7FoO5NutLpLilmN2+cCYTk/AhzQYTiPVyEjMTLufW6APm9p7LfIk0I6plv6ai1gihmEPvQJ
+	/0fd0jMcu4HYfO6r809wgicI3W6GGs8ihZiZvP7x99w==
+X-Gm-Gg: AYBFou09S3YEzv2NBlC8fd69zjxeCh7iqxMt/kMPny0PGxrr2nt2Hfyh4cEPmGavn5w
+	k+b6/bhqJBqUoFRusYaQ1ZpmYbqbpowQ0p0fS7NC3TADOkEuT3CaRoRCfcNZVIU6WV4en1YfGXA
+	Nor5L3V8ORLfvURJph0NmzgcXeihW0a36Tc5YspkJeXAPWALJsFPRFBLPg43M1S8+HpahdZljwv
+	Cderjndtvuwf9p58I2vH1rnWwdxudPDvJEazUywMZe3l8v4XFRa72ZggZKrv2AFSjjMo9BBt94z
+	wQvSqw0bJBlbmafv/GlXp3Mc/jkIem6wk2+K+mG8Y3R083ARuSJesiuS3Jk8oSI16eu/ZSOBNf5
+	9erZVZ3tl4hG8Qi2ZyT0thfbudV2WnHPq8Yul
+X-Received: by 2002:a05:693c:65d1:b0:366:bcf9:1807 with SMTP id
+ 5a478bee46e88-36a424410f9mr764924eec.36.1793308921974; Thu, 29 Oct 2026
+ 14:22:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,144 +104,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030-swap-fixes-v1-0-73f73a59f2fc@tencent.com> <20261030-swap-fixes-v1-3-73f73a59f2fc@tencent.com>
-In-Reply-To: <20261030-swap-fixes-v1-3-73f73a59f2fc@tencent.com>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Thu, 29 Oct 2026 14:21:02 -0700
-X-Gm-Features: AclHuK94IG0mhXQQjpw3RIi-A5xAWBQBwS6QINbigt5Lm9tPUmEat0F26KqQrPE
-Message-ID: <CAKEwX=MJcyr1GjKNQ81x+fUS07T=THXGivjebt=W0ayjjZ3fgQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] mm, swap: fix large swap-in across swap file extents
-To: kasong@tencent.com
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, Yosry Ahmed <yosry@kernel.org>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Usama Arif <usamaarif642@gmail.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chuanhua Han <hanchuanhua@oppo.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Mani Tofigh <mt4022@columbia.edu>, linux-kernel@vger.kernel.org, 
-	Chris Mason <mason@kernel.org>, stable@vger.kernel.org
+References: <20261029211101.2089535-1-jkain@nuro.ai> <179330839362.3327.16138152744448390378@kernel.org>
+In-Reply-To: <179330839362.3327.16138152744448390378@kernel.org>
+From: Joseph Kain <jkain@nuro.ai>
+Date: Thu, 29 Oct 2026 14:21:49 -0700
+X-Gm-Features: AclHuK9aYM6-5o4K0Rc9q8lcWnkux26Xrz1XQhSv4oBKVRCqRI0MctPRzTanSlY
+Message-ID: <CA+Y90PhTQ8E9eXrXCNX79sGOu+wczDWA8T1xAmkG7bRMQahjqw@mail.gmail.com>
+Subject: Re: [PATCH net v7] net: stop defer_count outliving the deferred-free list
+To: netdev-bot+sinfo@kernel.org
+Cc: Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org, 
+	Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Stanislav Fomichev <sdf.kernel@gmail.com>, Jason Xing <kerneljasonxing@gmail.com>, 
+	Willem de Bruijn <willemb@google.com>, Mina Almasry <almasrymina@google.com>, 
+	Martin Karsten <mkarsten@uwaterloo.ca>, Jiayuan Chen <jiayuan.chen@linux.dev>, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 11:32=E2=80=AFAM Kairui Song via B4 Relay
-<devnull+kasong.tencent.com@kernel.org> wrote:
+On Thu, Oct 29, 2026 at 2:13=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote=
+:
 >
-> From: Chris Mason <mason@kernel.org>
+> Hi!
 >
-> A page fault can give an unprivileged process blocks of other users'
-> files instead of its own swapped-out data. This affects systems with a
-> swap file on a synchronous block device, such as brd or zram. For an
-> anonymous mapping it also takes a huge page size below the PMD size
-> (mTHP), such as 64 KiB, that is enabled for anonymous memory.
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
 >
-> A swap area is divided into slots of one page each. A swap file is a
-> regular file, so adjacent swap slots can lie in two extents, far apart
-> on disk. A folio is read from swap with a single bio that starts at the
-> sector of the folio's first slot. So all slots of a large folio must be
-> contiguous on disk.
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
 >
-> The swap allocator knows this: it only hands out a run of slots for a
-> large folio if the swap area is a block device (SWP_BLKDEV).
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
 >
-> The swap-in path does not. On a synchronous device (SWP_SYNCHRONOUS_IO),
-> one that always completes I/O in the submitter's context, do_swap_page()
-> can read several swapped-out pages as one large folio (a large swap-in).
-> thp_swapin_suitable_orders() makes that decision, and looks only at the
-> swap offsets (the slot numbers) in the page table.
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
 >
-> Pages that were swapped out one at a time can end up in consecutive,
-> aligned slots, and are then read as one large folio. If the extent of
-> the first slot ends inside that folio, the rest of the folio is filled
-> from the blocks that follow the extent on disk. These blocks can belong
-> to other files.
->
-> Reproduced with a fragmented swap file on brd and 64 KiB folios enabled.
-> After single pages were swapped out, a fault returned blocks of a
-> root-owned file with mode 0600.
->
-> Fix this by allowing a large swap-in only when SWP_BLKDEV is set.
->
-> Known gaps:
-> - A swap file on zram, brd, pmem or btt is now read one page at a time,
->   even where its slots lie in one extent. Its swpin counters in
->   /sys/kernel/mm/transparent_hugepage/hugepages-*/stats stay at 0.
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
 
-I guess we can check for this right? Look for the swap extent of the
-first offset, then get extent's size (swap_extent->nr_pages).
+Thanks, both are fair, and I should have carried this over from v6.
 
-Not sure if these users use swap file here though.
+Found by manual code inspection, LLM-assisted, while backporting
+844c9db7f7f5 ("net: use llist for sd->defer_list") to a 6.1 vendor
+kernel.
 
-> - With the posted "mm, swap: enable THP swapin for xswap entries"
->   applied as well, the large swap-in that it adds never happens. That
->   patch gives its swap device SWP_SYNCHRONOUS_IO but not SWP_BLKDEV, so
->   the new check would have to let that device pass.
+Not triggered in production. The absorbing state is reachable with no
+race at all, and was reproduced deterministically in a VM: set
+net.core.skb_defer_max=3D1, drive cross-CPU receive traffic until
+defer_count climbs past the old limit, then restore it.
 
-Mentioning unmerged patches in changelog? ;)
+There is no crash or splat =E2=80=94 the failure is silent. On an unpatched
+7.3-rc6 kernel defer_count reached 2036497 at the lowered limit and
+3995713 after restoring 128, still climbing, and zero skbs were queued
+over the following 794847 skb_attempt_defer_free() calls: deferred
+freeing was off for that (cpu, node) and cross-CPU frees fell back to
+the page allocator. With this patch the counter peaks at 1, returns to
+0, and 4282 purges were requested over 797687 calls.
 
->
-> Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io device=
-s")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
-> ---
->  mm/memory.c | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
->
-> diff --git a/mm/memory.c b/mm/memory.c
-> index b65b56fe9714..944f57153c89 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -4863,7 +4863,8 @@ static inline unsigned long thp_swap_suitable_order=
-s(pgoff_t swp_offset,
->         return orders;
->  }
->
-> -static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
-> +static unsigned long thp_swapin_suitable_orders(struct swap_info_struct =
-*si,
-> +                                               struct vm_fault *vmf)
->  {
->         struct vm_area_struct *vma =3D vmf->vma;
->         unsigned long orders;
-> @@ -4888,6 +4889,14 @@ static unsigned long thp_swapin_suitable_orders(st=
-ruct vm_fault *vmf)
->         if (!zswap_never_enabled())
->                 return 0;
->
-> +       /*
-> +        * Neighbouring slots of a swap file can lie in two extents, and =
-a folio
-> +        * is read with one bio. The flag is set in swapon() and stays, s=
-o the
-> +        * race is benign.
-> +        */
-> +       if (!data_race(si->flags & SWP_BLKDEV))
-> +               return 0;
-> +
->         entry =3D softleaf_from_pte(vmf->orig_pte);
->         /*
->          * Get a list of all the (large) orders below PMD_ORDER that are =
-enabled
-> @@ -4924,7 +4933,8 @@ static unsigned long thp_swapin_suitable_orders(str=
-uct vm_fault *vmf)
->         return orders;
->  }
->  #else /* !CONFIG_TRANSPARENT_HUGEPAGE */
-> -static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
-> +static unsigned long thp_swapin_suitable_orders(struct swap_info_struct =
-*si,
-> +                                               struct vm_fault *vmf)
-
-Nice, I think Sashiko is complaining about it on one of my vswap
-patches lol, and I was wondering how on earth is correct in non-vswap
-case.
-
-Fix LGTM:
-
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+If another revision is needed for other reasons I will fold this into
+the commit message.
