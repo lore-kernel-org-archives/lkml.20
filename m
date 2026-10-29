@@ -1,71 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282027;
-	b=qG4EIr6Sw7AZXUm64TfIHxYOEQIw5Oogl+Ltl4Q4DhMJkyCpA9kNkr6wtpiH1fg+j6AH
-	 23QbxbG1E0XVaqw/7l7sap+Mj8CJGKG7azA6+G4D5HHmIsAiHeBx7bU9Qm7rAPzwK8exd
-	 XvUdhBdKM3O9ned1u6giOhVZKfLm0fXM/J5VusUT8plneP60C1iT6PUrRGnExS9N31sI0
-	 pSrJHKSAeblzD0DR3pJnvJfsOhSYhsJXG0Jk9QZygyTdM84ppzu5qWMxhqG9ek/UrVlIv
-	 MaI7F/ET/Peyc+anTbRelBEqqxTdSKl5Amd6acjShucRe+NCKw/j0sRYIB2YEvSiPtQ==
+	t=1793282043;
+	b=XlSnfTIAUQBAxNsSY2KOgd6LEPrLch609eHDlg+3p2voil48RY33A7fYBrT3UP3i+awt
+	 gM/YyW8lVNjk9aPtkEn5RBECymC6Lw6PS72rH62c0/mvw5c1XDinWQRulLP/hrIgE0lx8
+	 omuLeB+0ClzmxCvg1b0u36MBCOmwS4sLomLSRjNwQiNLi9sp3GX+1YHtV7cHTC30EvMEC
+	 Iyo6iJaKTHa3cdkuNfFPyNsrZyHllnR8ZCoNmJXuD3Ns2zxqdNd7FGspJyrxjaHDjcrpj
+	 xOhqAAgnF9hXRvhpdYeahPnGh3i3uZqA5lrfbqSY5TK1dTvGV7LP3DstltKRqx+fj2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282027;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=A1JPThoaFRXYN+lhR6CpD36ITWtrzEepS8ewM6gTiKA=;
-	b=VAUJllt+p7wDr19XeixvEPYE4gpK0kSGR1fpu0ZON0uD7fyghDyivcegvHG7dM2OLXPT
-	 yS8t+zSa7Z14g1o39Jrq7lfnVgApErJfwrbDKKABykJwJxYzWnRlF5ut4DUgOQpdGSej3
-	 W6NOkXx8OBRo8w16Tqzl/Yik9obE0JTWSTlk24oG5MYglP7bZV+750H9pMKugQcP4XdDj
-	 4aN2tTNAMQlAcSkZmLe2Moa5bkXVuP265EThdirsQ4edeh2W4VCGL2kypcpbjhK/3rCdw
-	 2Mb/0G7b8WlcKptxGe55XYCZaklDkPYQMWmVuYRh4YG272+iBVDaZXZiG46WXsZlFwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282043;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=TEP0+sGwERtlVBDbdcU0x+UIlqvQ4iYo5/q8vgPFMSo=;
+	b=M6nwNuuC+HEWQy0DsYKm6c07QC7qO5aPatLExXieH6FN4Mk1r5v9rxr/dHvpc117FSiq
+	 4TOE+7wD3ObEBQcrLcVOEDjpGAMZ2yqxpX0M1RBjF0iH9tl+wY6wdxM8G+cBhaZG3Dv/k
+	 6hho4nUIJU5Yq8A6dkkHSvlFfAq5IlAvkcN9rEjY7enyrJhtmYwB0h205lXRa2TtvvBgI
+	 mwZoIrCjdLJTNlFPjuUM4nritYAA+7D1UQOXftjXUIkH756ZGuXtJykBs+0V1CoHq0igz
+	 Pg68ywFV1wzGWjOIsPqi6y9Jo+Z9g/hwUe9LOYTlCqQZ2UbMQlZK00Vh8np+3YIHqFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGlEB+bI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ZUmBbGsh;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=YOvpGrGp;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13DF9606A833;
-	Thu, 29 Oct 2026 13:53:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EE3606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:54:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0EE3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IGlEB+bI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2256E1F0128E;
-	Thu, 29 Oct 2026 13:53:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793282026;
-	bh=A1JPThoaFRXYN+lhR6CpD36ITWtrzEepS8ewM6gTiKA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IGlEB+bInYDNUFZ5BPyYHJwBZk+JnTp3oFH64wis6M9/cAiIcKtXz+fjllv/kWxcj
-	 jratDm0UVC60iNCRtwEeWF4FyR1zYyy/+ebgI3wIWDFzD+vU6TTVkrNveCx/cgBAlS
-	 dGFzq/X66Ce1UVFyfipHy321LZdF6NzhJccCjaqE90CpY5oictsJtoVOqppMUER/bx
-	 g9hDsRvudMFuC99SZZv4nG1bXunBktxy5k90fQb5mJwk7ksXxQlmMV0nsnwoGs6bHG
-	 Uqdfs6Q5kFjSNfuMNJ/+SgJqe/TRXh+/iWio672HxtCs1ZdTc95FdQ00vQtvQwT/H2
-	 cKP3uKf1zSzaQ==
-From: Miguel Ojeda <ojeda@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Miguel Ojeda <ojeda@kernel.org>
-Subject: Re: [PATCH 7.3 00/38] 7.3.1-rc1 review
-Date: Thu, 29 Oct 2026 14:53:36 +0100
-Message-ID: <20261029135336.27808-1-ojeda@kernel.org>
-In-Reply-To: <20261028165940.394092994@linuxfoundation.org>
-References: <20261028165940.394092994@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=ZUmBbGsh;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=YOvpGrGp
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793282040;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TEP0+sGwERtlVBDbdcU0x+UIlqvQ4iYo5/q8vgPFMSo=;
+	b=ZUmBbGshRH9Uu78gzaZ5U0lNDp1fHK6sVU8avMjSz2vAxkolr6B9yOXX9JC3nZgD28GST7
+	SygYC0lkKDx4VCdDpFZJDsTLy4LxvIqVNxQGa0RifZJIRViAfDvrfLyQA9j6zXUe4jyX2v
+	p4fRzn7uY/rTocvydFB7v1TKSXZEk7TudhjjUIyCSpg9kOavyXW7T6DFF6py9UkJcUFHns
+	f5VGtZgYzUwP34svKq0j4Mxl+ZmUv8QOhQLsUvnbv+GrOCKy5UQRlyWTJ9wf1eKQmprltM
+	onfWMiODRiykl8HeAyUol10t0RIUztP/xp2woWceFLhQMnrJG+gVCDLAZXaUHw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793282040;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TEP0+sGwERtlVBDbdcU0x+UIlqvQ4iYo5/q8vgPFMSo=;
+	b=YOvpGrGpp9wnoyP/ynDv84Ymr1c7IysWThTNsGHsFk8wUhPadFDp2sMdYJs+aWTxL/AszJ
+	4KnBXlZN9OLru+BQ==
+To: Breno Leitao <leitao@debian.org>
+Cc: Petr Mladek <pmladek@suse.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Steven Rostedt
+ <rostedt@goodmis.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, Rio
+ <rioo.tsukatsukii@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v1] panic: Flush unsafe consoles before panic reboot
+In-Reply-To: <auMmQjcy1A6E0eUm@gmail.com>
+References: <20260915100140.3631650-1-ryan.roberts@arm.com>
+ <aqqU3I7d9lMAjSvy@pathway.suse.cz> <87bj8kkfwk.fsf@jogness.linutronix.de>
+ <auHNz09oyGFJPTKg@gmail.com> <8733tphow9.fsf@jogness.linutronix.de>
+ <auI40MZlSYO0oAAS@gmail.com> <87a4nwyiaw.fsf@jogness.linutronix.de>
+ <auMmQjcy1A6E0eUm@gmail.com>
+Date: Thu, 29 Oct 2026 14:59:59 +0106
+Message-ID: <874ie4y5mw.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,24 +77,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Wed, 28 Oct 2026 17:59:47 +0100 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+On 2026-10-29, Breno Leitao <leitao@debian.org> wrote:
+> Here is my view right now:
 >
-> This is the start of the stable review cycle for the 7.3.1 release.
-> There are 38 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
+> 1) Converting netconsole to NBCON caused an undesired "regression" for
+>    users who would prefer the messages go out, even if unsafely. (as
+>    Ryan and Meta)
 
-Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
-for loongarch64 and arm32:
+Legacy consoles were never truly synchronous. But, generally speaking,
+they were mostly synchronous in normal situations, which was good enough
+(and certainly more synchronous than the nbcon netconsole implementation
+today).
 
-Tested-by: Miguel Ojeda <ojeda@kernel.org>
+> 2) It seems the proper solution for this will take a few cycles.
 
-Thanks!
+Based on past experience, I agree.
 
-Cheers,
-Miguel
+> 3) I would hate to leave users with this "regression" we have today.
+
+Agreed.
+
+> Do you have any suggestion for something doable in the short term?
+
+It depends on what is deemed acceptable. For example, we could introduce
+a Kconfig to always unsafe-flush when the kernel ends. This would be a
+fairly straight-forward change and require no changes from the user
+environment. Later we could add boottime/runtime configuration for this
+policy and make it per-console.
+
+If Kconfig changes are not acceptable, we could hardwire unsafe flushing
+only for the netconsole (rather than all consoles). This would be a bit
+ugly, but it would still help us to identify all the correct points to
+enforce a later boottime/runtime policy.
+
+I am open to both of these suggestions.
+
+> Would reverting netconsole's NBCON conversion, while we address the
+> dependnecies above, be an option?
+
+That would be unfortunate since the nbcon consoles provide a real
+benefit during runtime (full offloading of console printing). Also, the
+nbcon callbacks allowed the netconsole code to simplify due to the known
+in_task() context.
+
+And I would like to remind that our ultimate goal would be to establish
+safe atomic printing for the netconsole. So any workarounds (such as
+CON_NBCON_ATOMIC_UNSAFE) are only meant to be temporary (even if
+temporary will be measured in years).
+
+John
