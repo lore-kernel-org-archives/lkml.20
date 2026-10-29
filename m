@@ -1,62 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.242
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793305298;
-	b=vga5kq4Olv3rgH2mY4EY9adGU+BiNad8BVZFvq5mBBKxDus+l6lW6Znh5SZJGELyzw3A
-	 YE/o9DgTX7k2iYYvBJ0kphUCagPNH8EJD+NDKXwJFHHZ/JrU7icT2S4ZDDOEmvM8lb5P2
-	 J5smaI11ZBf6Ozcws58qt6ZWH2R94zETXReCB3zu8fbFfyVV8pk/MdnogNCF0p7MkEHEz
-	 5KX4sHdUJ43kYO5ZjBlm1634uFlI5BtZbpgE0zEq4C0g3990IIR9UDyGJTuujy7z2/+42
-	 W/hAMeaKJbYV2MlnTl/isewxlFo2JY4iPbf+X7X/J3NqqYxYYwY5gfKg20Igw9UcjPA==
+	t=1793305339;
+	b=GQWRrKde68SGI1SU2kXbMkPYFGzwwdkXXTCeg0ErFOV2Yx/EuA8AVo3C6Kadc0Xv9+/m
+	 +dFEArxoeeBWjvpDAKC0QOGswdkDZIKMAUewNpq9PUI7diFOulK3VKYJtiV/wF6RElrsF
+	 R/oNh5cr9opevpGeClSXOTsU4NCRUJZgA7lQB+Y2qH3vD842mKqt0uu7471Vh90JfvO07
+	 wR+TkCBdg6jWBUib1OekK4wwWKlMLJUl/Q9Kazh1iTXvH89a9qwAfWOu4GsuHthUouA/E
+	 XHlQwrMwPNJdxq5WH+0Npv7P6/9jYG6PM5BRC67myqTVvXLQtAf3U0S+gv4JEE2KZQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793305298;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=sxeoRDyZbXsp21/9MeO6A2aaiq2+hlIXpRLxI4zLeDQ=;
-	b=kaLTObHEmCgxD8878xl9AXjFqWznhLIjHA3kihXv8kVA1iEShXB1pZSU/B/3eMzJ0T26
-	 XuZwW3Y5QSL10QTxcpRUnamJZpn4loXihAtZxhzlCF3NABQ+6I+ZkWzn09OISC3MJU6gi
-	 pvp04oX+OGq5uhw35ILDCjkoPliOQ/9X5/Oiy/bpsZ5MySRg+Hwu65FRElyQL8q+5g8L2
-	 AaS9qqdMGqhyOzO1sKhUgiggfFn/87T2iynZhz1O+/MyYybpJSAie63MmdXW7SVGJILVH
-	 SJ/Xwnr0OoTEFRN3U53U9ugTuEs3zTieDyAk32K2jr2WJeP8IC2pNKNs7Iusny67nuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793305339;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jtjfIBbhrXcQw07LO7LLkfCOUNpLRHqt1ZTu9/7Vuvw=;
+	b=XAEMiDLK5cLtrt583234+0otsTtf6voSvmXrnj//fqr/LjGfhOqD5fb5Vjau5gfZRSLw
+	 QNq23/5p30iOZlf3Sp8TTTpaTIh9TmI77yrIy9DwABbtn826B1JNZ/gpMtB52AUclHtZq
+	 KqWwRB+l3bS4SSJMBDMkcLMhcfs5T6jbZBaT8Sm80ZdV1DpsUFlEef7sxq/4mfBYPUVp8
+	 LYgQsNkZU9/clDTEf3fqVBb1MqqOGXSqL5ibYsAZfOIL/dEFUjdtubavtZGyGAi4e52mG
+	 KeIO5DpNVATu8r8+KhUKsra0MoF378NIaNejXcK2Bra3IBMATwZPU4JTH0aMg7gQkSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ssV03S9k;
-	arc=none smtp.remote-ip=95.215.58.242
-Received: from mta1.migadu.com (out-242.mta1.migadu.com [95.215.58.242])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n4bDVmpd;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F9C606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:21:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4F9C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F57606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:22:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4F57606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ssV03S9k
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FJhtU1xpH0NBjch92Ltx/yhaAPmDS8a/U1CLjsXM7/s=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793305295; v=1; x=1793910095;
- b=ssV03S9kgAXb1E4HdWgJ7iMY4bFad++jClMYusrwwCiIQZZwu1OZSPegc/+GZFjjT51I99hy
- 5DykCLZbFWFB6zCieW/Tsqa1l0XzkJZdHiBSJvOFFSKA4h8FgRFCCoeFDNehFl5mbDfu3e+WGmC
- ytkXA9qhujcR0xzsY4ZSF4vw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6ce485be16b92af5;
-	Thu, 29 Oct 2026 20:21:34 +0000
-X-Mizu-Trace-ID: 6ce485be16b92af5
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 29 Oct 2026 13:21:32 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
-	muchun.song@linux.dev, zhengqi.arch@bytedance.com, jp.kobryn@linux.dev, 
-	akpm@linux-foundation.org, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm: memcontrol: fix NULL pointer deref and UAF from
- high_work_func() on dying memcg
-Message-ID: <auOqqI6SxvpzUNI7@linux.dev>
-References: <20261029201858.2932905-1-tjmercier@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=n4bDVmpd
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so31022255e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:22:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793305337; x=1793910137; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jtjfIBbhrXcQw07LO7LLkfCOUNpLRHqt1ZTu9/7Vuvw=;
+        b=n4bDVmpdvvREMJFAlhI5coCv63QeUDbnpriBmqF4CAUaOOe7rNO14zOuljEwpKITjH
+         sT7hdK4TztCoxmS7nigjVZlJSF9jIQygyzpwFo6xAg2/n2MA1YXkZ1wxCa5LoKBBjLmH
+         248yTNAj8Nx+XhDt5fteA0CX+TwTDayiAdQcu8xEwl92uWNIKoK1fBRzSmKXVoCZutq2
+         0QETRyfwj5i0fjdQJplXPKgmfBUel73gVuQzE9zjc095bKmDt2NdYFwPAG2yx/JcBsd8
+         IGUQnQkj0IPxHcl2Pq+WKdMH3/Wpen/LJw959uPh2+qriVCb0SI5MN0rt3Zf71dwWrcd
+         apQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793305337; x=1793910137;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jtjfIBbhrXcQw07LO7LLkfCOUNpLRHqt1ZTu9/7Vuvw=;
+        b=o5rBaAt3ZaobZNRl2wSaqHPRETduwuwpkgl0809rS03nTDaunFpoXUpj1k9QB+o/5m
+         2RUMx452GohORBF43jsMjVWVE8hsVMrOC+RxSlry72gaTKUzZD8bf1fglNQM53c1+xgZ
+         e2z7auWBXWcgkV6lmQHk3ejPuIswyxbMmSXJUdKyQuZsLDX18pKKf4IYGocxyyHvmmuU
+         LiH/JUIky6aotR73vpgIJAqKmNkmfBP53lo4r9zYZv+7Fus3i2ovddYK68tjKbrlD1Ub
+         ZypSA4slgs9gtkbWwB9sLfUTVfueh3VR50g00yOISpcBPHv2U7a0wMESrdXOip+LEY8/
+         LXpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzd53CiAIQLgm5YF8azmbatrWqmZPyk7L+rwBPilOtfWhxxgK4w0WRzmsc88g7Jrph8MdDBriY7RgpdFPo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL6tfvAjbiLFSRk5X1jqdshDc10Y2kNkYfrtAEp71c2pumMExCy
+	9//HLOR9a5cnhuJKSMP60NHzE2y7psjpiBjMo3LTrCm4I5UCL3nNNxRe
+X-Gm-Gg: AYBFou3VXEPa+hOvu91+ZS4rRwrxMKP5G87YdKe41Vh8mfCZDUr+LxbVYEze5fSMh4G
+	xK2iL24fqBq5n98e6ElamAQu506XVozj9d4N66tmy7KmFsl9QiJsmD5s+CBznXWIdfknEgca5/Z
+	U7KpM/37RwHnUthH4vtz5ga4RtXeHJDvJK+3oaimBb5miEqZORsmjCpkX0PYVnZSVPrZoFDIhji
+	/SuCLaBUE+tEUDbHvWwab/feN/KsQTf1NETGgopTaXdYKm4eSNaBB9zbbDb4a7sN0Tjr3NGaAO/
+	gPfk6sWXz4Muk9Q6xtoTemYRfowGxGEB0gzaYe8gtE+06iP2oD+fuCZmQQetYp5A1N0pGrKbiOE
+	v3v6FG3/Mu9wPLV/NIS3VFYEBLWLxVwqngRflAabJPn02HfN6Q3GXN/j5Tc+WR+W5egwrDLj76+
+	k0tRX5vCHeKE5VjM0bbmzYZg8I+MmsYwT27JfJKm5qfWxgxQWzVbEuxQ+/87sese2GIfYyFatsX
+	u4ZX5v/9u8XjZi9u5d2w+lLWkj4gzwyBeitB1Gx3kkOh25K7BNO25f8wr7c15eilTNlj+wfZyAw
+	1TxMCLwl+SaayYRfBK1vR6PeIo8gwuzLZkh7+TS1CtIT6LV+AfV1Bo3BH7N8a38t4ldkIvqOHRT
+	Yxw==
+X-Received: by 2002:a05:600c:3510:b0:4a1:dec1:4e1 with SMTP id 5b1f17b1804b1-4ac1765d674mr2101285e9.22.1793305336958;
+        Thu, 29 Oct 2026 13:22:16 -0700 (PDT)
+Received: from env.. (dynamic-176-003-098-140.176.3.pool.telefonica.de. [176.3.98.140])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf7146621sm9424335e9.13.2026.10.29.13.22.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 13:22:16 -0700 (PDT)
+From: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
+To: song@kernel.org,
+	yukuai@fygo.io,
+	mtkaczyk@kernel.org,
+	magiclinan@didiglobal.com,
+	xiao@kernel.org
+Cc: linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>,
+	Zhihao Cheng <chengzhihao1@huawei.com>
+Subject: [RFC PATCH v5 0/4] md: add a control device for array management
+Date: Thu, 29 Oct 2026 20:22:04 +0000
+Message-ID: <20261029202209.1422567-1-abd.masalkhi@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,122 +101,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029201858.2932905-1-tjmercier@google.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 01:18:58PM -0700, T.J. Mercier wrote:
-> When memory.high is exceeded in non-task context, try_charge_memcg()
-> schedules memcg->high_work without taking a reference on the memcg, and
-> high_work_func() invokes reclaim_high() without pinning the memcg.
-> 
-> With obj_cgroup reparenting, introduced in commit bf4f059954dc ("mm:
-> memcg/slab: obj_cgroup API"), objects charged to a child memcg are
-> reparented to its parent in mem_cgroup_css_offline() instead of holding
-> a reference on the child until uncharged. Subsequent uncharges of those
-> objects go to the parent, which can leave the child's memory use
-> permanently above its high limit, so any later charge on the offlined
-> memcg in non-task context schedules high_work. This was later widened
-> from kernel memory to LRU folios when commit f1cf8d2f36dc ("mm:
-> memcontrol: eliminate the problem of dying memory cgroup for LRU
-> folios") converted LRU folios to use obj_cgroup reparenting.
-> 
-> cancel_work_sync(&memcg->high_work) only runs at the end of teardown in
-> mem_cgroup_css_free(), so high_work_func() can start or still be running
-> reclaim_high() after mem_cgroup_css_released() or shrink_many() has
-> called lru_gen_release_memcg() and unhashed lruvec->lrugen.list. If
-> reclaim tries to rotate the memcg, lru_gen_rotate_memcg() dereferences a
-> NULL pprev pointer. This issue is specific to MGLRU and was introduced
-> with the memcg LRU in commit e4dde56cd208 ("mm: multi-gen LRU: per-node
-> lru_gen_folio lists").
-> 
-> With either traditional LRU or MGLRU, css_free_rwork_fn() calls
-> css_rstat_exit() which frees per-CPU rstat data before calling
-> mem_cgroup_css_free(). If reclaim_high() is still running, rstat updates
-> via mod_lruvec_state() -> __css_rstat_updated() cause a use-after-free
-> on the per-CPU rstat data. This was introduced when commit 5da3bfa029d6
-> ("cgroup: use separate rstat trees for each subsystem") moved
-> css_rstat_exit() ahead of ss->css_free().
-> 
-> Fix both problems by acquiring a reference with css_tryget_online() in
-> high_work_func() before calling reclaim_high(), and by resetting
-> memory.high and swap.high to PAGE_COUNTER_MAX in
-> mem_cgroup_css_offline() so that charges via references on an offlined
-> memcg do not trigger high_work on the dead child and skip checking live
-> ancestors in try_charge_memcg().
-> 
-> Acquiring the reference in high_work_func() rather than before
-> scheduling high_work is safe because mem_cgroup_css_free() calls
-> irq_work_sync() and cancel_work_sync() which cancels pending work and
-> waits for an already running high_work_func() to complete before
-> mem_cgroup_free() frees the memcg. css_tryget_online() uses
-> percpu_ref_tryget_live() and is safe to call after percpu_ref_exit()
-> before the cgroup is freed unlike css_tryget().
-> 
-> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
-> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-> CPU: 1 UID: 0 PID: 27 Comm: kworker/1:0 Tainted: G    B   W           7.3.0-rc5-g2bba28e98578 #284 PREEMPT(full)
-> Tainted: [B]=BAD_PAGE, [W]=WARN  <-- Taint from lru_gen_rotate_memcg() VM_WARN_ON_ONCE
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-> Workqueue: events high_work_func
-> RIP: 0010:lru_gen_rotate_memcg+0x1a3/0xe90
-> Call Trace:
->  <TASK>
->  ? read_ctrl_pos+0x22f/0x3f0
->  shrink_lruvec+0x16cb/0x1b80
->  ? ret_from_fork_asm+0x1a/0x30
->  ? lapic_next_event+0x15/0x20
->  ? clockevents_program_event+0x2bb/0x6f0
->  ? lapic_next_event+0x15/0x20
->  ? __pfx_shrink_lruvec+0x10/0x10
->  ? __pfx_clockevents_program_event+0x10/0x10
->  ? _raw_spin_lock+0x84/0xe0
->  ? __pfx__raw_spin_lock+0x10/0x10
->  ? kasan_save_stack+0x30/0x50
->  ? psi_group_change+0x381/0x740
->  ? __pfx_sched_clock_cpu+0x10/0x10
->  ? save_fpregs_to_fpstate+0xc4/0x2c0
->  ? finish_task_switch.isra.0+0x1de/0xac0
->  ? __schedule+0xf62/0x42c0
->  ? __pfx___schedule+0x10/0x10
->  ? __pfx___irq_work_queue_local+0x10/0x10
->  ? shrink_node+0x626/0x31e0
->  shrink_node+0x626/0x31e0
->  ? ring_buffer_unlock_commit+0x11d/0x5c0
->  ? kswapd_clear_hopeless+0xa0/0x150
->  ? __pfx_shrink_node+0x10/0x10
->  ? 0xffffffffc0000095
->  do_try_to_free_pages+0x255/0x13b0
->  ? ring_buffer_unlock_commit+0x11d/0x5c0
->  ? reclaim_high+0x10a/0x1b0
->  try_to_free_mem_cgroup_pages+0x1f9/0x5a0
->  ? __pfx_try_to_free_mem_cgroup_pages+0x10/0x10
->  ? irqentry_exit+0xc6/0x670
->  reclaim_high+0x10a/0x1b0
->  ? __pfx_reclaim_high+0x10/0x10
->  ? process_one_work+0x5ff/0x1030
->  ? __pfx_high_work_func+0x10/0x10
->  process_one_work+0x6e2/0x1030
->  ? __pfx___schedule+0x10/0x10
->  ? __pfx_process_one_work+0x10/0x10
->  worker_thread+0x422/0xbb0
->  ? __pfx_worker_thread+0x10/0x10
->  kthread+0x2cd/0x3a0
->  ? recalc_sigpending+0x15c/0x200
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork+0x368/0x590
->  ? __pfx_ret_from_fork+0x10/0x10
->  ? __switch_to+0x588/0xf50
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork_asm+0x1a/0x30
->  </TASK>
-> 
-> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-> Fixes: 5da3bfa029d6 ("cgroup: use separate rstat trees for each subsystem")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-> Acked-by: Muchun Song <muchun.song@linux.dev>
+Hi,
 
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+This series adds a new /dev/md-control misc character device for
+managing md arrays without opening the corresponding md block device.
+
+Currently, md management ioctls are issued on the md block device
+itself, which requires the caller to hold the array open while
+configuring or stopping it.
+
+This is a problem for STOP_ARRAY and STOP_ARRAY_RO. Before the array is
+stopped, the page cache must be flushed, and no other task may have the
+device open or be writing to it. The issue arises when several tasks
+share the same file descriptor table, as they count as a single opener.
+Consequently, one task may still be writing while another task flushes
+the page cache and stops the array. A write within this window can race
+with the stop operation.
+
+The solution was suggested by Yu Kuai and Zhihao Cheng. See the
+following discussions:
+
+https://lore.kernel.org/linux-raid/856a065c-38ef-08cd-7701-8f579212a1a3@huawei.com/
+https://lore.kernel.org/linux-raid/12b0bc4c-5dfb-4936-8ecd-849137b597d8@fygo.io/
+
+The new control device is not tied to any md array. Each request
+identifies the target array by name, UUID (it is only available for
+arrays with native metadata), or device number, and carries a flags
+field. Unknown flags are rejected with -ENOTTY.
+
+The commands mirror the existing block device ioctls. They use the
+MD_MAJOR ioctl type, with numbers starting at 0x40, grouped like the
+old ones: status at 0x40, configuration at 0x50 and usage at 0x60.
+
+STOP_ARRAY_RO has no separate command: MD_CTL_STOP_ARRAY with
+MD_CTL_RO_FLAG set switches the array to read-only mode instead of
+stopping it.
+
+MD_CTL_LOOKUP_ARRAY has no equivalent among the legacy ioctls. Given
+the kernel name, device number, or UUID of an array, it returns all
+three identifiers. It also indicates whether the array exists, even
+if it has not yet been configured. It returns ENODEV only if no such
+MD device exists. For arrays using external metadata or having no
+superblock, the UUID is returned as all zeros.
+
+New 64-bit structures, including mdu_ioctl, are introduced
+(mdu_array_info64, mdu_disk_info64, mdu_param64, mdu_bitmap_file64,
+and mdu_version64) to resolve padding and overflow issues in fields
+such as size, ctime, and utime.
+
+The existing ioctl on the md block device is unchanged, but a warning
+message will be printed to recommend using the md control node and
+indicate that the per-array MD ioctls will be removed in the future.
+
+This is an RFC because the new UAPI (struct mdu_ioctl, mdu_array_info64,
+mdu_disk_info64, mdu_param64, and mdu_version64 and the new command set).
+
+Testing:
+
+mdadm test suite on qemu-system-aarch64 without KVM (Cortex-A57,
+4 CPUs, Yocto kirkstone), using:
+
+  ./test --keep-going --skip-broken --skip-bigcase
+
+mdadm builds:
+
+  - upstream: commit c940aae94ac5
+  - patched:  https://github.com/masalkhi/mdadm
+
+Test configurations:
+
+  - Linux v7.3-rc2 (5c2f4115051d) + this series:
+      - patched mdadm, using /dev/md-control
+      - patched mdadm with MDADM_NO_CTL_NODE=1 (legacy ioctls)
+      - upstream mdadm (legacy ioctls)
+  - Linux v7.3-rc2 (5c2f4115051d) without this series:
+      - patched mdadm (no control node, so legacy ioctls)
+
+All runs give the same result with upstream mdadm.
+
+Suggested-by: Yu Kuai <yukuai@fygo.io>
+Suggested-by: Zhihao Cheng <chengzhihao1@huawei.com>
+Signed-off-by: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
+
+Changes in v5:
+ - Add MD_CTL_LOOKUP_ARRAY command.
+ - Improve the warning message in md_ioctl()
+ - Rename convert_to_array_info64() to array_info_to_64()
+ - Rename convert_to_disk_info64() to disk_info_to_64()
+ - Documented the fields on mdu_ioctl in md_u.h
+ - Link-v4: https://lore.kernel.org/linux-raid/20261015204640.1184848-1-abd.masalkhi@gatech.edu/
+
+Changes in v4:
+ - Drop struct mdu_bitmap_file64 and keep using mdu_bitmap_file_t.
+ - Remove MD_RAID_AUTORUN, since the kernel has not supported
+   the corresponding RAID_AUTORUN since v5.9
+ - Rename the ioctl commands from MD_* to MD_CTL_*
+ - Fix MD_CTL_CLOSING mutual exclusion in mdctl_ioctl, reported by
+   Sashiko AI: https://sashiko.dev/#/patchset/20261007115104.13884-1-abd.masalkhi@gatech.edu?part=4
+ - Link-v3: https://lore.kernel.org/linux-raid/20261007115104.13884-1-abd.masalkhi@gatech.edu
+
+Changes in v3:
+ - Fix the issues reported by sashiko-bot, Link: https://sashiko.dev/#/patchset/20261001125611.943731-1-abd.masalkhi@gmail.com?part=4
+ - Link-v2: https://lore.kernel.org/linux-raid/20261001125611.943731-1-abd.masalkhi@gmail.com/
+
+Changes in v2:
+ - Move the code from md-ctl.c into md.c and remove md-ctl.c.
+ - Handle the new commands directly in mdctl_ioctl() instead of
+   converting them to the old ioctls.
+ - Use a dynamic misc minor number for /dev/md-control.
+ - Drop the devname module alias, which only works with a fixed minor.
+ - Fix the issues reported by sashiko-bot.
+ - Take disks_mutex around the lookups, so that they never see an
+   mddev that md_alloc() has not finished.
+ - Clear hold_active only when a command succeeds.
+ - Link-v1: https://lore.kernel.org/linux-raid/20260928201224.3602262-1-abd.masalkhi@gmail.com
+
+Abd-Alrhman Masalkhi (4):
+  md: add uapi definitions for the md control device
+  md: pass struct mdu_disk_info64 to md_add_new_disk()
+  md: use struct mdu_array_info64 for SET_ARRAY_INFO
+  md: add a control device for array management
+
+ drivers/md/md-autodetect.c     |   4 +-
+ drivers/md/md.c                | 694 ++++++++++++++++++++++++++++++++-
+ drivers/md/md.h                |  17 +-
+ include/uapi/linux/raid/md_u.h | 119 ++++++
+ 4 files changed, 814 insertions(+), 20 deletions(-)
+
+
+base-commit: 5c2f4115051d064ad79b0b4edac70a2b62528d9d
+-- 
+2.43.0
 
