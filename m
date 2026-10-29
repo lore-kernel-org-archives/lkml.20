@@ -1,104 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793287868;
-	b=uAPLIVB05VwI/Z7R/it3AVoSUxVHdjI9ZvdBidqSGnxFAcg/R7yfHInbp/y2ak7xe7Tn
-	 F5Be56llGagj1RuBnWpKt6LVIAIYNkkuKegJHBi8W5Id5VOrouRttqVq5TOEoDdCyZJ0U
-	 i3L5ees3IuLCQ7OXSJ37L7jwKo48jq9415Yw+jAfmPSFyIPX/+x06AFeqRn7lN4ku+x3p
-	 tdNOhhcsZ6UobNioq5ZVUW1p+VSyf0Mc9YeUv4frmCdBHFfr36Dav7/fA0Pq7vzmpkw5R
-	 VzcB/wLD/+eBkJwelM5DbtJjRaGBoRugdw8yyAgiR3Al3y+5QxhLNQV5SX1J+9S6aTw==
+	b=CXIW/NZu+RAZ1Yxd0YUrCro+AZTitGxJ8CGfD1AFD6JlvE0G9Mxy8AkVyfes3d5mYhIH
+	 7fgv1+WtTYVEhw18HQxMhOhnylf7T10N80xONK+VGFbjmGC6T+3uE6OUV/CDvNw0B7fCV
+	 9iVEHl87XapK6qBWYcHmyhk+CVSOiQv2tyLipDzBIPEzHPda3NiMFgu9Z3Ldg3BTtBEEA
+	 dHGWo6RlQq8gntvnJb4Ev7Qs1zG0q1g3leaAf7r6RrtvOPLQwn+kUVDEI0kS6oMQNdHGr
+	 1RsOSFEG+K3L0ti7G2bKN2WHhcLYI5NkNgSoHtzS6QmXzmBzCadgoPK1lpgeiwBKlrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793287868;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=uT4RO3KROVP6IrSg8gI4+YIiaJyjqMkq+ReK+O8sSOs=;
-	b=2LIT5zdGZ71VE3Q6Eq/OQsTcXWizYI+YAJykSXIpAanY64fS1mRCt8Tpj8yj4fMrrUxp
-	 vAccFYBbNZ+XR+zRJm7UHV4aQ9Y4WOGQ9V6anIKHBsSeLarHMJEjxvpSpfnicCLAlT7Ec
-	 nrgPvYHHGJKRXd6rvmI86U8WIEqlQo+owiQMqhUa4L34Q1ttE3dmxPGSkgSO66nTxbcJG
-	 WoMbvXrhnMOBnYSHcxjAWUpepy785jOhOAnrfMM6E3k7/A5xekfSgJm7ENHYrbe6tzxnn
-	 UNUNOMrfL6x2FHEyIgNmywY8BgSYYIJQDqWEgT/jRM4EqHAMxyYQTm1R5BSQVPltjzQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=ISmQbHJ7E1otoJaW2dt+FlesrUoFsyUjDXvzRtBHdQk=;
+	b=KILCc5lRfXLOC6ZmbQIV1tqAvwzegNim+YC0ym8JoubsfvQUI12mzBJzb4DJCDtSDHIt
+	 x2Z3XwN37bsF8IQXF6rkw4kN/PC8NqAMMymLrbpvmFEdE7BNF9raD1+61IyV5MGJLxw7U
+	 dFNx0txGo+1RdthUo/J3nxGftgkiQ1KlaMIULFffqK6fix9baEbSUTJdXnl3OX13GrTq4
+	 oe780ZypB9LTa72fk3+Eh9r6rX12buk/YeDYdxfG/DgsRuyoGNNEXip5pDVcMD5sE6nns
+	 vG/nZpLz6b8+I9NWHVr3JPk21Jyqw+KHq9o5g5NACjMdCkav/sexTQkI0Bx9V5Yua0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lQK4qRvR;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=H8B+SE4M;
+	arc=none smtp.remote-ip=209.85.219.72
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 025EA606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:31:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 025EA606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D13606A326
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:31:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25D13606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lQK4qRvR
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ac91ac8924so1471788a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:31:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=H8B+SE4M
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-917baea8e5dso40567266d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:31:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793287867; x=1793892667; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793287867; x=1793892667; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uT4RO3KROVP6IrSg8gI4+YIiaJyjqMkq+ReK+O8sSOs=;
-        b=lQK4qRvRegXHQ6ETzw+pLjuRN8ymPz0a17mmnmm+U8cRb5ylAaPsHlboIs++anl4pq
-         u02ROIFLYTMi0Ve/XiT8D158zu57ufgxNfeY56JrRn1hAvS1K9JebfBaKe6XaIr/leme
-         9RYjMVdW+xo7nzmkqQ3faPE7I4ZEn/c/rOJlknQJtIKz/BNxI+DlQvhgMSKNMtTL4AJh
-         ad1SiCbSZEWhbvNKw3Yogg1rmXi2ADtuq7gEnF+bGNN6KnVvhME3JrwZn8JhO8BVDRtD
-         OJ6+DR0rUQP/tozj+LDJ8Ah9cySCWdE4ANxY71j2TWRzOZutWa5Wp9rzUzfX17A4PEj9
-         R++A==
+        bh=ISmQbHJ7E1otoJaW2dt+FlesrUoFsyUjDXvzRtBHdQk=;
+        b=H8B+SE4M2JKWB30KPDCj2L65iFX7wl2Jed38CxMKUJJD3oN5dC9aeYJLGsZkH1NubC
+         pb3P0jBG5CzQL5wK/wwv+BCriT+ABn+VlO4GZmKnRGWPRD2aB74VynUCdEohmRWOLwkK
+         jcg0neZQzrJb4oI/6Ik01hh9Qdryr4MbC+4tHpCP1K43vtiBVScA5CwyY9ah9siVTKB8
+         0JSxcHhJBylwiLB1vEZLJwkdZREkBsZM5FGT7NWy1HJhoUgQmoF1OtTIFkf78hN1zjJn
+         jFBD/1p0+LXsn9Ic7Zk5hf3gcVfjDFunA2kUFmcS0p6GIrHDkCPeleFBbMaDP3qVmGG/
+         N5/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793287867; x=1793892667;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uT4RO3KROVP6IrSg8gI4+YIiaJyjqMkq+ReK+O8sSOs=;
-        b=CD8qZq+/ezg6JsjhRoY9C48yQ3MdPGEja/M+9/t7ICS82vonbOZ1tqny4GR+MfmHzl
-         Q38+qmOrSVxMxk0wt2NyOeK94IJjq8+JALHNlp3bwkUagx22yjOlOzowPBwPz2KGa5U/
-         HuZ4jwDgjshlY4z1JPtw84uT/Xv2Oc3YtWNE0YBdQHQ9pzZkvfTOcEtwzk1RvH9TWlLU
-         aoBE6vI9c7uaUgOB0V2pWORkRRUbZ9hYx/77y5Uog0LR7j6CnlCWBb+nCgxmUUFx5bET
-         Z/phFMyOF8ym+R38ez8izj+lWCGl0TNEH96guiXWUJAn3wQ73Z1CmkQfRFdoSLbq+aMo
-         H4XA==
-X-Forwarded-Encrypted: i=1; AKwUvBxwDKFppZi2PLlB8QzDl9OITkYkSTfIBJny+xs9Bxr3OfFL3iKk2cIxz7nGPolvCO4Li16N+7CQjxocMd4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXxhQYTI1vkibt5CSBBNRS4Wow/3k6Z6XH0F0VESgMSSqp6d7E
-	lZmn2pijMLBgtzMS/TRRet8h8b8jEBCO/LiDiXvWcq4K9hWq/OVAQaeK
-X-Gm-Gg: AYBFou3J5MXfvhGSmOR0hWH8Mbyv5JcU4cuWd+ldH8limIW3P9n35LQ9XHL0CW/KJbz
-	uxD1r8RrdxvIsJtORm77iTYZxXWK95IB7Uj8xczoHTZttj0NrJTAyu6YLgZK8OawG8g7jKhk/Xq
-	mITVDy5RtHmAALlpjZmlYCgB+QhIM13LhyM4Wm+0qCfTP4G6P5SntzHE3D3dMC/0c3XK6N3phU2
-	kSwReJNBnsdTQstw4svSYE+IqURuixdFs1ksyobDRR4YgyPVCnCzgxco7VND3lB82Zeq505hmO5
-	Chq4TEymWi+EzIgxaB/reS6assFc7NsvMLTvdgsNQ7x9+Ko/ds9bIv0rPyh8PMuvlmMtadtC4q4
-	7go7n4fzl127BBL/pv18WqaFzM3ny/mwBGa+Xl2fkO12clg/JUOZmQbwb/EA3U0AWwCL99wOPNP
-	6cDNiP99uZxcb4v5Xrdz4wAlfUTmjhZwr9mbe9YdPwN3SdBrsU7kCeqHW/c7MkK5+6PxxWSwteE
-	9n9F5tSTEdlx0ZAi2papUXGlPSmT8vEqOZpWkIQrkLAygLzPJqwxNViTEfAaPKviq/jGUtGyLO4
-	6cwwA0/iiIsgCOK69BNGcZOb1leUjsna5m4OKhBYOyErVo1jMu7Q0X3HokzBDewyQU+L50uDorI
-	2Itk0BDko7cIqY+z2FYMnXofdykKQ4YvUwANLMZD4HEUd+avpOQp7n8c5
-X-Received: by 2002:a17:90b:4f49:b0:3ac:9e5e:d19c with SMTP id 98e67ed59e1d1-3ae580a9d68mr4812741a91.17.1793287866980;
-        Thu, 29 Oct 2026 08:31:06 -0700 (PDT)
-Received: from yupeng-XPS-15-9520.. (c-73-169-192-12.hsd1.wa.comcast.net. [73.169.192.12])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9db612sm4838707a91.17.2026.10.29.08.31.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 08:31:06 -0700 (PDT)
-From: Peng Yu <yupeng0921@gmail.com>
-To: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Keith Busch <kbusch@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Maurizio Lombardi <mlombard@arkamax.eu>,
-	cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Peng Yu <yupeng0921@gmail.com>
-Subject: [PATCH v11] nvmet: add cgroup_id to charge namespace I/O to a cgroup
-Date: Thu, 29 Oct 2026 08:31:03 -0700
-Message-ID: <20261029153103.13689-1-yupeng0921@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ISmQbHJ7E1otoJaW2dt+FlesrUoFsyUjDXvzRtBHdQk=;
+        b=awFnl7BgOEEVHcGrxdYoUt4zuEAadpdjFiEooTk1vB2nRhRh7ySv8Vn/5lRR5A0WI4
+         Wi6FTotnn509+xuTKKOlQUAZ4gIOYufkVwtva073KeMrDK185XxqBFDeLFXc5wGmotVa
+         w6fKJGtyyAWkgyWrMbMs9M6HKccbaOsXqNDmne7Vz1QuofGuUbQ7fpuLJd0gmc51omOA
+         1x529q0u755HIgKO8SUKQ7YMhEy7EvW0yshNmKT9m3WM6axuGxN/MOw4Qjkthctjvnh8
+         bdaSfjM2aR0LGZugpPhlSNsVp+WCmgnibYaI8tQdpMJPCzrqOQ+sFItq+kaa1tk9Ytra
+         Y/iA==
+X-Forwarded-Encrypted: i=1; AKwUvByiXf5SO72/hMNAiVMcr9/Ez6hJQ2EQRpnWnTYLfMM66+kIMouN0knA9ZRoMWcTC/xnBb51Mw7drIiTUC8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKQCmcwNAXLxj/4HvBa1YyegKQNkh9tS9WlQ9F9iZunguvfDCHh
+	uoKkDOQTohkyJASWT4cai8yFO870UjHcRSbyQ5QF7WjPdI1m5YgXKIImVqE6EIBxPKwfUp6ukz2
+	NOo8lKbmWTrAdsp1kDQQwUCTWkqsD
+X-Received: from qvblx10.prod.google.com ([2002:a05:6214:5f0a:b0:91b:a45d:abd3])
+ (user=briandaniels job=prod-delivery.src-stubby-dispatcher) by
+ 2002:ad4:5aa6:0:b0:91c:15ce:66ce with SMTP id 6a1803df08f44-91c7cf74d8emr88908796d6.11.1793287866204;
+ Thu, 29 Oct 2026 08:31:06 -0700 (PDT)
+Date: Thu, 29 Oct 2026 11:30:38 -0400
+In-Reply-To: <20261029153038.3800747-1-briandaniels@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,478 +78,400 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261029153038.3800747-1-briandaniels@google.com>
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261029153038.3800747-6-briandaniels@google.com>
+Subject: [PATCH v10 5/5] media: virtio: Add MMAP buffer mapping support
+From: Brian Daniels <briandaniels@google.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: adelva@google.com, aesteve@redhat.com, changyeon@google.com, 
+	daniel.almeida@collabora.com, eperezma@redhat.com, gnurou@gmail.com, 
+	gurchetansingh@google.com, hverkuil@xs4all.nl, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mst@redhat.com, nicolas.dufresne@collabora.com, 
+	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com, 
+	dbassey@redhat.com, laurent.pinchart@ideasonboard.com, 
+	Brian Daniels <briandaniels@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-The nvmet issues namespace IOs from kernel threads. So the io.max and
-other cgroup controllers can't apply limits to the namespaces.
-Considering this scenario: The LVM creates multiple logical volumes on
-the same physical disk, the logical volumes are assigned to different
-nvmet subsystems/namespaces. We want to stop a remote noisy user from
-using all the disk iops via nvmet. So add a per namespace css. Each
-namespace could be throttled separately.
+From: Alexandre Courbot <gnurou@gmail.com>
 
-The per namespace css is good enough for the io.max, but is not good
-enough for the io.cost and io.latency. The io.cost and io.latency may
-put a thread to sleep. If the thread is shared by different namespaces,
-all of them will be impacted together. Submit the IOs via a workqueue to
-avoid this impact.
+Support mapping V4L2_MEMORY_MMAP buffers into guest userspace through
+virtio shared memory region 0.
 
-Performance test:
-On a 4 core VM and 4G ramdisk, export tcp-nvmeof targets to 127.0.0.1,
-run fio with below parameters:
-fio --bs=4k --rw=randwrite --iodepth=32 --numjobs=4 --ioengine=libaio --direct=1
+Query the shared memory region during device probe and implement the
+mmap file operation and VMA close callback using VIRTIO_MEDIA_CMD_MMAP
+and VIRTIO_MEDIA_CMD_MUNMAP, remapping the host-provided shared memory
+offset into userspace via io_remap_pfn_range().
 
-file backend result:
-|                            | IOPS   | Mean Latency | p99 latency |
-|without this patch          | 424.4k | 301.4 µs     | 330 µs      |
-|this patch, cgroup_id unset | 425.1k | 300.9 µs     | 330 µs      |
-|this patch, cgroup_id set   | 363.4k | 352.0 µs     | 1171 µs     |
-
-block device backend result:
-|                            | IOPS   | Mean Latency | p99 latency |
-|without this patch          | 446.4k | 286.5 µs     | 313 µs      |
-|this patch, cgroup_id unset | 446.4k | 286.5 µs     | 313 µs      |
-|this patch, cgroup_id set   | 356.7k | 358.6 µs     | 864 µs      |
-
-With this patch and no cgroup_id set, the peformance is almost the same.
-When we set the cgroup_id, we can see a performance decrease but it
-is still very fast.
-
-Signed-off-by: Peng Yu <yupeng0921@gmail.com>
-Assisted-by: Claude:claude-fable-5 [Claude Code]
-Assisted-by: Claude:claude-opus-5-5 [Claude Code]
+Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
+Assisted-by: LLM
+Co-developed-by: Brian Daniels <briandaniels@google.com>
+Signed-off-by: Brian Daniels <briandaniels@google.com>
 ---
-Changes since v10:
-* Run the file backend's Flush, DSM and Write Zeroes and the zoned
-  backend's Zone Management Send directly from the command's work item
-  on the namespace's workqueue instead of queueing a second work item,
-  so the NOIO scope and the dying-queue check of nvmet_blkcg_work()
-  cover them, and drop the backends' own cgroup association (Sashiko's
-  v10 review). Do the same for Zone Management Receive.
-* Rebased on nvme-7.4 (89480d137bf0).
+ drivers/media/virtio/session.h             |  14 +-
+ drivers/media/virtio/virtio_media.h        |  13 +-
+ drivers/media/virtio/virtio_media_driver.c | 152 +++++++++++++++++++++
+ include/uapi/linux/virtio_media.h          |  67 +++++++++
+ 4 files changed, 236 insertions(+), 10 deletions(-)
 
-Sashiko's v10 review: https://lore.kernel.org/all/sashiko-outbox-185466@kernel.org/
-v10: https://lore.kernel.org/all/20261026153020.47791-1-yupeng0921@gmail.com/
-Tejun's v9 comment: https://lore.kernel.org/all/aee729fd53ef9c7c084a443216cfeb39@kernel.org/
-v9: https://lore.kernel.org/all/20261023043423.176002-1-yupeng0921@gmail.com/
-v8: https://lore.kernel.org/all/20261002152821.410591-1-yupeng0921@gmail.com/
-v7 (with test steps): https://lore.kernel.org/all/20260929232411.101087-1-yupeng0921@gmail.com/
-
- Documentation/ABI/stable/configfs-nvmet |  16 +++
- drivers/nvme/target/configfs.c          |  47 ++++++++
- drivers/nvme/target/core.c              | 145 ++++++++++++++++++++++++
- drivers/nvme/target/io-cmd-file.c       |  10 +-
- drivers/nvme/target/nvmet.h             |  40 +++++++
- drivers/nvme/target/zns.c               |   8 +-
- 6 files changed, 256 insertions(+), 10 deletions(-)
-
-diff --git a/Documentation/ABI/stable/configfs-nvmet b/Documentation/ABI/stable/configfs-nvmet
-index 36b587404ee7..ea9c4083c6a0 100644
---- a/Documentation/ABI/stable/configfs-nvmet
-+++ b/Documentation/ABI/stable/configfs-nvmet
-@@ -314,6 +314,22 @@ Description:
- 		attr_subsys_vendor_id: Shows or sets the PCI subsystem
- 		vendor ID. Displayed in "0x%x" format.
+diff --git a/drivers/media/virtio/session.h b/drivers/media/virtio/session.h
+index 16bb86bf4..c074ffc2c 100644
+--- a/drivers/media/virtio/session.h
++++ b/drivers/media/virtio/session.h
+@@ -63,12 +63,12 @@ struct virtio_media_queue_state {
+  * @nonblocking_dequeue: whether dequeue should block or not (nonblocking if
+  *                       file opened with O_NONBLOCK).
+  * @uses_mplane: whether the queues for this session use the MPLANE API or not.
+- * @cmd: union of session commands ``close`` and ``ioctl``. A session can have
+- *       one command currently running. The rest of the commands are handled by
+- *       &struct virtio_media.
+- * @resp: union of responses to session commands. A session can wait on one
+- *        command only. The rest of the responses are handled by
+- *        &struct virtio_media.
++ * @cmd: union of session commands ``close``, ``ioctl``, and ``mmap``. A
++ *       session can have one command currently running. The rest of the
++ *       commands are handled by &struct virtio_media.
++ * @resp: union of responses to session commands ``close``, ``ioctl``, and
++ *        ``mmap``. A session can wait on one command only. The rest of the
++ *        responses are handled by &struct virtio_media.
+  * @shadow_buf: shadow buffer where data to be added to the descriptor chain can
+  *              be staged before being sent to the device.
+  * @command_sgs: SG table gathering descriptors for a given command and its
+@@ -91,10 +91,12 @@ struct virtio_media_session {
+ 	union {
+ 		struct virtio_media_cmd_close close;
+ 		struct virtio_media_cmd_ioctl ioctl;
++		struct virtio_media_cmd_mmap mmap;
+ 	} cmd;
  
-+What:		/config/nvmet/subsystems/NAME/namespaces/NSID/cgroup_id
-+Date:		October 2026
-+KernelVersion:	7.5
-+Contact:	Peng Yu <yupeng0921@gmail.com>
-+Description:
-+		Shows or sets the cgroup2 ID of the cgroup to charge this
-+		namespace's I/O to. Writing 0 clears it. The I/O is
-+		charged to the cgroup's effective io css: the cgroup
-+		itself or its nearest ancestor with the io controller
-+		enabled. The namespace must be disabled before
-+		modification. Enabling the namespace fails if the cgroup
-+		can't be found or if buffered_io is set. A cgroup that is
-+		removed and created again gets a new ID.
+ 	union {
+ 		struct virtio_media_resp_ioctl ioctl;
++		struct virtio_media_resp_mmap mmap;
+ 	} resp;
+ 	__dma_from_device_group_end();
+ 
+diff --git a/drivers/media/virtio/virtio_media.h b/drivers/media/virtio/virtio_media.h
+index 8b21c1941..7acb2b842 100644
+--- a/drivers/media/virtio/virtio_media.h
++++ b/drivers/media/virtio/virtio_media.h
+@@ -26,14 +26,15 @@
+  * @commandq: virtio command queue.
+  * @eventq: virtio event queue.
+  * @eventq_work: work to run when events are received on @eventq.
++ * @mmap_region: region into which MMAP buffers are mapped by the host.
+  * @event_buffer: buffer for event descriptors.
+  * @sessions: list of active sessions on the device.
+  * @sessions_lock: protects @sessions and &struct virtio_media_session.list.
+  * @events_lock: prevents concurrent processing of events.
+- * @cmd: union of device-level commands. Session commands are handled by
+- *       &struct virtio_media_session.
+- * @resp: union of responses to device-level commands. Session responses are
+- *        handled by &struct virtio_media_session.
++ * @cmd: union of the device commands ``open`` and ``munmap``. The other
++ *       commands are handled by &struct virtio_media_session
++ * @resp: union of responses to device commands ``open`` and ``munmap``. The
++ *        other responses are handled by &struct virtio_media_session
+  * @vlock: serializes access to the command queue.
+  * @wq: waitqueue for host responses on the command queue.
+  */
+@@ -46,6 +47,8 @@ struct virtio_media {
+ 	struct virtqueue *eventq;
+ 	struct work_struct eventq_work;
+ 
++	struct virtio_shm_region mmap_region;
 +
-+		Only available when CONFIG_BLK_CGROUP is enabled.
+ 	void *event_buffer;
+ 
+ 	struct list_head sessions;
+@@ -56,10 +59,12 @@ struct virtio_media {
+ 	__dma_from_device_group_begin();
+ 	union {
+ 		struct virtio_media_cmd_open open;
++		struct virtio_media_cmd_munmap munmap;
+ 	} cmd;
+ 
+ 	union {
+ 		struct virtio_media_resp_open open;
++		struct virtio_media_resp_munmap munmap;
+ 	} resp;
+ 	__dma_from_device_group_end();
+ 
+diff --git a/drivers/media/virtio/virtio_media_driver.c b/drivers/media/virtio/virtio_media_driver.c
+index 877ac154b..865b6dfad 100644
+--- a/drivers/media/virtio/virtio_media_driver.c
++++ b/drivers/media/virtio/virtio_media_driver.c
+@@ -6,6 +6,7 @@
+  * Copyright (c) 2024-2026 Google LLC.
+  */
+ 
++#include <linux/bits.h>
+ #include <linux/device.h>
+ #include <linux/dev_printk.h>
+ #include <linux/mutex.h>
+@@ -20,6 +21,7 @@
+ #include <linux/workqueue.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/poll.h>
++#include <linux/mm.h>
+ 
+ #include <media/v4l2-dev.h>
+ #include <media/v4l2-device.h>
+@@ -32,6 +34,12 @@
+ 
+ #define VIRTIO_MEDIA_NUM_EVENT_BUFS 16
+ 
++/* ID of the SHM region into which MMAP buffer will be mapped. */
++#define VIRTIO_MEDIA_SHM_MMAP 0
 +
- What:		/config/nvmet/hosts/HOSTNQN/dhchap_key
- What:		/config/nvmet/hosts/HOSTNQN/dhchap_ctrl_key
- What:		/config/nvmet/hosts/HOSTNQN/dhchap_hash
-diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-index 1d46a2bb40f8..55b57551b50c 100644
---- a/drivers/nvme/target/configfs.c
-+++ b/drivers/nvme/target/configfs.c
-@@ -569,6 +569,50 @@ static ssize_t nvmet_ns_device_path_store(struct config_item *item,
++/* Bit mask for the VIRTIO_MEDIA_MMAP_FLAG_RW flag */
++#define VIRTIO_MEDIA_MMAP_FLAG_RW_MASK BIT(VIRTIO_MEDIA_MMAP_FLAG_RW)
++
+ /**
+  * virtio_media_session_alloc() - Allocate a new session.
+  * @vv: virtio-media device the session belongs to.
+@@ -687,12 +695,148 @@ static __poll_t virtio_media_device_poll(struct file *file, poll_table *wait)
+ 	return rc;
+ }
  
- CONFIGFS_ATTR(nvmet_ns_, device_path);
- 
-+#ifdef CONFIG_BLK_CGROUP
-+static ssize_t nvmet_ns_cgroup_id_show(struct config_item *item, char *page)
++static void virtio_media_vma_close_locked(struct vm_area_struct *vma)
 +{
-+	struct nvmet_ns *ns = to_nvmet_ns(item);
-+	struct nvmet_subsys *subsys = ns->subsys;
-+	ssize_t ret;
-+
-+	mutex_lock(&subsys->lock);
-+	ret = snprintf(page, PAGE_SIZE, "%llu\n", ns->cgroup_id);
-+	mutex_unlock(&subsys->lock);
-+	return ret;
-+}
-+
-+static ssize_t nvmet_ns_cgroup_id_store(struct config_item *item,
-+		const char *page, size_t count)
-+{
-+	struct nvmet_ns *ns = to_nvmet_ns(item);
-+	struct nvmet_subsys *subsys = ns->subsys;
-+	u64 cgroup_id;
++	struct virtio_media *vv = vma->vm_private_data;
++	struct virtio_media_cmd_munmap *cmd_munmap = &vv->cmd.munmap;
++	struct virtio_media_resp_munmap *resp_munmap = &vv->resp.munmap;
++	struct scatterlist cmd_sg = {}, resp_sg = {};
++	struct scatterlist *sgs[2] = { &cmd_sg, &resp_sg };
 +	int ret;
 +
-+	ret = kstrtou64(page, 0, &cgroup_id);
-+	if (ret)
-+		return ret;
++	sg_set_buf(&cmd_sg, cmd_munmap, sizeof(*cmd_munmap));
++	sg_mark_end(&cmd_sg);
 +
-+	mutex_lock(&subsys->lock);
++	sg_set_buf(&resp_sg, resp_munmap, sizeof(*resp_munmap));
++	sg_mark_end(&resp_sg);
 +
-+	if (ns->enabled) {
-+		ret = -EBUSY;
-+		goto out_unlock;
++	cmd_munmap->hdr.cmd = VIRTIO_MEDIA_CMD_MUNMAP;
++	cmd_munmap->hdr.__reserved = 0;
++	cmd_munmap->driver_addr =
++		(vma->vm_pgoff << PAGE_SHIFT) - vv->mmap_region.addr;
++	ret = virtio_media_send_command(vv, sgs, 1, 1, sizeof(*resp_munmap),
++					NULL);
++	if (ret < 0) {
++		v4l2_err(&vv->v4l2_dev, "host failed to unmap buffer: %d\n",
++			 ret);
++	}
++}
++
++/**
++ * virtio_media_vma_close() - Close a MMAP buffer mapping.
++ * @vma: VMA of the mapping to close.
++ *
++ * Inform the host that a previously created MMAP mapping is no longer needed
++ * and can be removed.
++ */
++static void virtio_media_vma_close(struct vm_area_struct *vma)
++{
++	struct virtio_media *vv = vma->vm_private_data;
++
++	mutex_lock(&vv->vlock);
++	virtio_media_vma_close_locked(vma);
++	mutex_unlock(&vv->vlock);
++}
++
++static const struct vm_operations_struct virtio_media_vm_ops = {
++	.close = virtio_media_vma_close,
++};
++
++/**
++ * virtio_media_device_mmap() - Perform a mmap request from userspace.
++ * @file: opened file of the session to map for.
++ * @vma: VM area struct describing the desired mapping.
++ *
++ * This requests the host to map a MMAP buffer for us, so we can then make that
++ * mapping visible into user-space address space.
++ */
++static int virtio_media_device_mmap(struct file *file,
++				    struct vm_area_struct *vma)
++{
++	struct video_device *video_dev = video_devdata(file);
++	struct virtio_media *vv = to_virtio_media(video_dev);
++	struct virtio_media_session *session =
++		fh_to_session(file->private_data);
++	struct virtio_media_cmd_mmap *cmd_mmap = &session->cmd.mmap;
++	struct virtio_media_resp_mmap *resp_mmap = &session->resp.mmap;
++	struct scatterlist cmd_sg = {}, resp_sg = {};
++	struct scatterlist *sgs[2] = { &cmd_sg, &resp_sg };
++	int ret;
++
++	if (!(vma->vm_flags & VM_SHARED))
++		return -EINVAL;
++	if (!(vma->vm_flags & (VM_READ | VM_WRITE)))
++		return -EINVAL;
++
++	mutex_lock(&vv->vlock);
++
++	cmd_mmap->hdr.cmd = VIRTIO_MEDIA_CMD_MMAP;
++	cmd_mmap->hdr.__reserved = 0;
++	cmd_mmap->session_id = session->id;
++	cmd_mmap->flags =
++		(vma->vm_flags & VM_WRITE) ? VIRTIO_MEDIA_MMAP_FLAG_RW_MASK : 0;
++	cmd_mmap->offset = vma->vm_pgoff << PAGE_SHIFT;
++	cmd_mmap->__reserved = 0;
++
++	sg_set_buf(&cmd_sg, cmd_mmap, sizeof(*cmd_mmap));
++	sg_mark_end(&cmd_sg);
++
++	sg_set_buf(&resp_sg, resp_mmap, sizeof(*resp_mmap));
++	sg_mark_end(&resp_sg);
++
++	/*
++	 * The host performs reference counting and is smart enough to return
++	 * the same guest physical address if this is called several times on
++	 * the same
++	 * buffer.
++	 */
++	ret = virtio_media_send_command(vv, sgs, 1, 1, sizeof(*resp_mmap),
++					NULL);
++	if (ret < 0)
++		goto end;
++
++	vma->vm_private_data = vv;
++	/*
++	 * Keep the guest address at which the buffer is mapped since we will
++	 * use that to unmap.
++	 */
++	vma->vm_pgoff = (resp_mmap->driver_addr + vv->mmap_region.addr) >>
++			PAGE_SHIFT;
++
++	/*
++	 * We cannot let the mapping be larger than the buffer.
++	 */
++	if (vma->vm_end - vma->vm_start > PAGE_ALIGN(resp_mmap->len)) {
++		dev_dbg(&video_dev->dev,
++			"invalid MMAP, as it would overflow buffer length\n");
++		ret = -EINVAL;
++		goto cleanup;
 +	}
 +
-+	/* Writing 0 clears the association. */
-+	ns->cgroup_id = cgroup_id;
-+	ret = count;
++	ret = io_remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff,
++				 vma->vm_end - vma->vm_start,
++				 vma->vm_page_prot);
++	if (ret) {
++		dev_dbg(&video_dev->dev, "io_remap_pfn_range() failed\n");
++		goto cleanup;
++	}
 +
-+out_unlock:
-+	mutex_unlock(&subsys->lock);
++	vma->vm_ops = &virtio_media_vm_ops;
++	goto end;
++cleanup:
++	virtio_media_vma_close_locked(vma);
++end:
++	mutex_unlock(&vv->vlock);
 +	return ret;
 +}
 +
-+CONFIGFS_ATTR(nvmet_ns_, cgroup_id);
-+#endif /* CONFIG_BLK_CGROUP */
-+
- #ifdef CONFIG_PCI_P2PDMA
- static ssize_t nvmet_ns_p2pmem_show(struct config_item *item, char *page)
- {
-@@ -841,6 +885,9 @@ static struct configfs_attribute *nvmet_ns_attrs[] = {
- 	&nvmet_ns_attr_buffered_io,
- 	&nvmet_ns_attr_revalidate_size,
- 	&nvmet_ns_attr_resv_enable,
-+#ifdef CONFIG_BLK_CGROUP
-+	&nvmet_ns_attr_cgroup_id,
-+#endif
- #ifdef CONFIG_PCI_P2PDMA
- 	&nvmet_ns_attr_p2pmem,
- #endif
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 956f9a552e70..c94b57f85849 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -4,12 +4,15 @@
-  * Copyright (c) 2015-2016 HGST, a Western Digital Company.
-  */
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+#include <linux/cgroup.h>
- #include <linux/hex.h>
-+#include <linux/kthread.h>
- #include <linux/module.h>
- #include <linux/random.h>
- #include <linux/rculist.h>
- #include <linux/pci-p2pdma.h>
- #include <linux/scatterlist.h>
-+#include <linux/sched/mm.h>
+ static const struct v4l2_file_operations virtio_media_fops = {
+ 	.owner = THIS_MODULE,
+ 	.open = virtio_media_device_open,
+ 	.release = virtio_media_device_close,
+ 	.poll = virtio_media_device_poll,
+ 	.unlocked_ioctl = virtio_media_device_ioctl,
++	.mmap = virtio_media_device_mmap,
+ };
  
- #include <generated/utsrelease.h>
+ static void virtio_media_release(struct v4l2_device *v4l2_dev)
+@@ -763,6 +907,14 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
+ 	vv->eventq = vqs[1];
+ 	INIT_WORK(&vv->eventq_work, virtio_media_event_work);
  
-@@ -476,8 +479,144 @@ void nvmet_put_namespace(struct nvmet_ns *ns)
- 	percpu_ref_put(&ns->ref);
- }
++	/* Get MMAP buffer mapping SHM region */
++	if (!virtio_get_shm_region(virtio_dev, &vv->mmap_region,
++				   VIRTIO_MEDIA_SHM_MMAP)) {
++		dev_err(&virtio_dev->dev, "Failed to get shared memory region");
++		ret = -ENOMEM;
++		goto err_del_vqs;
++	}
++
+ 	vd = &vv->video_dev;
+ 	vd->v4l2_dev = &vv->v4l2_dev;
+ 	vd->ioctl_ops = &virtio_media_ioctl_ops;
+diff --git a/include/uapi/linux/virtio_media.h b/include/uapi/linux/virtio_media.h
+index da5c5baf0..2ea28770e 100644
+--- a/include/uapi/linux/virtio_media.h
++++ b/include/uapi/linux/virtio_media.h
+@@ -171,6 +171,73 @@ struct virtio_media_sg_entry {
+ 	__le32 __reserved;
+ };
  
-+#ifdef CONFIG_BLK_CGROUP
-+static int nvmet_blkcg_ns_enable(struct nvmet_ns *ns)
-+{
-+	struct cgroup *cgrp;
-+
-+	if (!ns->cgroup_id)
-+		return 0;
-+
-+	/*
-+	 * Buffered writes will be handled by a separate thread,
-+	 * these IOs have no namespace/cgroup information at that time,
-+	 * so we don't support buffered io.
-+	 */
-+	if (ns->buffered_io) {
-+		pr_err("cgroup_id is not supported with buffered_io: %s\n",
-+		       ns->device_path);
-+		return -EINVAL;
-+	}
-+
-+	cgrp = cgroup_get_from_id(ns->cgroup_id);
-+	if (IS_ERR(cgrp)) {
-+		pr_err("failed to resolve cgroup id %llu: %ld\n",
-+		       ns->cgroup_id, PTR_ERR(cgrp));
-+		return PTR_ERR(cgrp);
-+	}
-+
-+	ns->blkcg_wq = alloc_workqueue("nvmet-blkcg-%u",
-+			WQ_MEM_RECLAIM | WQ_UNBOUND, num_online_cpus(),
-+			ns->nsid);
-+	if (!ns->blkcg_wq) {
-+		cgroup_put(cgrp);
-+		return -ENOMEM;
-+	}
-+
-+	ns->cgrp = cgrp;
-+	return 0;
-+}
-+
-+static void nvmet_blkcg_ns_disable(struct nvmet_ns *ns)
-+{
-+	if (ns->cgrp) {
-+		/*
-+		 * No command is left, but the work item of a command that
-+		 * completed from inside ->blkcg_execute() may still be
-+		 * returning: destroy_workqueue() waits for it.
-+		 */
-+		destroy_workqueue(ns->blkcg_wq);
-+		ns->blkcg_wq = NULL;
-+		cgroup_put(ns->cgrp);
-+		ns->cgrp = NULL;
-+	}
-+}
-+
-+/*
-+ * Charge the I/O that the current work item submits for @req to the
-+ * effective io css of the namespace's cgroup, looked up for each command.
++/**
++ * VIRTIO_MEDIA_MMAP_FLAG_RW - Bit position of the VIRTIO_MEDIA_MMAP_FLAG_RW
++ *                             flag.
 + */
-+static bool nvmet_blkcg_begin(struct nvmet_req *req)
-+{
-+	struct nvmet_ns *ns = req->ns;
-+	struct cgroup_subsys_state *css;
++#define VIRTIO_MEDIA_MMAP_FLAG_RW 0
 +
-+	/* a disable waits for the command: don't throttle it any more */
-+	if (!ns->cgrp || !READ_ONCE(ns->enabled))
-+		return false;
-+
-+	css = cgroup_get_e_css(ns->cgrp, &io_cgrp_subsys);
-+	kthread_associate_blkcg(css);
-+	css_put(css);
-+	return true;
-+}
-+
-+static void nvmet_blkcg_end(bool associated)
-+{
-+	if (associated)
-+		kthread_associate_blkcg(NULL);
-+}
-+
-+/*
-+ * The io.cost and io.latency enforce their limits by putting the thread to
-+ * sleep. A transport thread may be shared by multiple namespaces. In the
-+ * tcp-nvmeof case, all namespaces in the same subsystem may share a
-+ * thread. So we submit the IOs via the workqueue, thus the current thread
-+ * won't be blocked.
++/**
++ * VIRTIO_MEDIA_CMD_MMAP - Command for mapping a MMAP buffer into the driver's
++ *                         address space.
 + */
-+static void nvmet_blkcg_work(struct work_struct *work)
-+{
-+	struct nvmet_req *req =
-+		container_of(work, struct nvmet_req, blkcg_work);
-+	unsigned int noio_flag;
-+	bool associated;
++#define VIRTIO_MEDIA_CMD_MMAP 4
 +
-+	/* its queue is being deleted: abort it rather than throttle it */
-+	if (unlikely(percpu_ref_is_dying(&req->sq->ref))) {
-+		nvmet_req_complete(req, NVME_SC_ABORT_QUEUE);
-+		return;
-+	}
-+
-+	/* reclaim must not wait for I/O queued on this workqueue */
-+	noio_flag = memalloc_noio_save();
-+	associated = nvmet_blkcg_begin(req);
-+	req->blkcg_execute(req);
-+	nvmet_blkcg_end(associated);
-+	memalloc_noio_restore(noio_flag);
-+}
-+
-+static void nvmet_blkcg_queue_req(struct nvmet_req *req)
-+{
-+	INIT_WORK(&req->blkcg_work, nvmet_blkcg_work);
-+	queue_work(req->ns->blkcg_wq, &req->blkcg_work);
-+}
-+
-+static void nvmet_blkcg_init_req(struct nvmet_req *req)
-+{
-+	if (!req->ns->cgrp)
-+		return;
-+
-+	req->blkcg_execute = req->execute;
-+	req->execute = nvmet_blkcg_queue_req;
-+}
-+#else
-+static inline int nvmet_blkcg_ns_enable(struct nvmet_ns *ns)
-+{
-+	return 0;
-+}
-+
-+static inline void nvmet_blkcg_ns_disable(struct nvmet_ns *ns)
-+{
-+}
-+
-+static inline void nvmet_blkcg_init_req(struct nvmet_req *req)
-+{
-+}
-+#endif /* CONFIG_BLK_CGROUP */
-+
- static void nvmet_ns_dev_disable(struct nvmet_ns *ns)
- {
-+	nvmet_blkcg_ns_disable(ns);
- 	nvmet_bdev_ns_disable(ns);
- 	nvmet_file_ns_disable(ns);
- }
-@@ -604,6 +743,10 @@ int nvmet_ns_enable(struct nvmet_ns *ns)
- 	if (ret)
- 		goto out_unlock;
- 
-+	ret = nvmet_blkcg_ns_enable(ns);
-+	if (ret)
-+		goto out_dev_disable;
-+
- 	ret = nvmet_p2pmem_ns_enable(ns);
- 	if (ret)
- 		goto out_dev_disable;
-@@ -1162,6 +1305,8 @@ static u16 nvmet_parse_io_cmd(struct nvmet_req *req)
- 	if (ret)
- 		return ret;
- 
-+	nvmet_blkcg_init_req(req);
-+
- 	if (req->ns->pr.enable) {
- 		ret = nvmet_pr_check_cmd_access(req);
- 		if (ret)
-diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
-index 695963dd932e..b9d221eeef57 100644
---- a/drivers/nvme/target/io-cmd-file.c
-+++ b/drivers/nvme/target/io-cmd-file.c
-@@ -265,8 +265,7 @@ static void nvmet_file_execute_flush(struct nvmet_req *req)
- {
- 	if (!nvmet_check_transfer_len(req, 0))
- 		return;
--	INIT_WORK(&req->f.work, nvmet_file_flush_work);
--	queue_work(nvmet_wq, &req->f.work);
-+	nvmet_req_run_work(req, nvmet_wq, &req->f.work, nvmet_file_flush_work);
- }
- 
- static void nvmet_file_execute_discard(struct nvmet_req *req)
-@@ -325,8 +324,7 @@ static void nvmet_file_execute_dsm(struct nvmet_req *req)
- {
- 	if (!nvmet_check_data_len_lte(req, nvmet_dsm_len(req)))
- 		return;
--	INIT_WORK(&req->f.work, nvmet_file_dsm_work);
--	queue_work(nvmet_wq, &req->f.work);
-+	nvmet_req_run_work(req, nvmet_wq, &req->f.work, nvmet_file_dsm_work);
- }
- 
- static void nvmet_file_write_zeroes_work(struct work_struct *w)
-@@ -355,8 +353,8 @@ static void nvmet_file_execute_write_zeroes(struct nvmet_req *req)
- {
- 	if (!nvmet_check_transfer_len(req, 0))
- 		return;
--	INIT_WORK(&req->f.work, nvmet_file_write_zeroes_work);
--	queue_work(nvmet_wq, &req->f.work);
-+	nvmet_req_run_work(req, nvmet_wq, &req->f.work,
-+			nvmet_file_write_zeroes_work);
- }
- 
- u16 nvmet_file_parse_io_cmd(struct nvmet_req *req)
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index bd13adc72f67..de590dd07535 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -115,6 +115,22 @@ struct nvmet_ns {
- 	struct nvmet_subsys	*subsys;
- 	const char		*device_path;
- 
-+#ifdef CONFIG_BLK_CGROUP
-+	u64			cgroup_id;
-+	/*
-+	 * Resolved from ->cgroup_id when the namespace is enabled and
-+	 * released when it is disabled, so it has the same lifetime and
-+	 * visibility rules as ->bdev and ->file.
-+	 */
-+	struct cgroup		*cgrp;
-+	/*
-+	 * The I/O commands of a namespace with a cgroup, except Reservation
-+	 * commands, are executed from their own work items on ->blkcg_wq, so
-+	 * the cgroup's throttling doesn't put a transport context to sleep.
-+	 */
-+	struct workqueue_struct	*blkcg_wq;
-+#endif
-+
- 	struct config_group	device_group;
- 	struct config_group	group;
- 
-@@ -507,6 +523,11 @@ struct nvmet_req {
- 
- 	void (*execute)(struct nvmet_req *req);
- 	const struct nvmet_fabrics_ops *ops;
-+#ifdef CONFIG_BLK_CGROUP
-+	/* the backend's ->execute, called from ->blkcg_work */
-+	void (*blkcg_execute)(struct nvmet_req *req);
-+	struct work_struct	blkcg_work;
-+#endif
- 
- 	struct pci_dev		*p2p_dev;
- 	struct device		*p2p_client;
-@@ -746,6 +767,25 @@ void nvmet_bdev_execute_zone_mgmt_recv(struct nvmet_req *req);
- void nvmet_bdev_execute_zone_mgmt_send(struct nvmet_req *req);
- void nvmet_bdev_execute_zone_append(struct nvmet_req *req);
- 
-+/*
-+ * A command of a namespace with a cgroup already runs from its own work
-+ * item on the namespace's workqueue (see nvmet_blkcg_work()), so run the
-+ * backend's work function right there; otherwise queue it on @wq.
++/**
++ * struct virtio_media_cmd_mmap - Driver command for VIRTIO_MEDIA_CMD_MMAP.
++ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_MMAP.
++ * @session_id: ID of the session we are mapping for.
++ * @flags: combination of VIRTIO_MEDIA_MMAP_FLAG_*.
++ * @offset: mem_offset field of the plane to map, as returned by
++ *          VIDIOC_QUERYBUF.
++ * @__reserved: must be set to zero by the driver.
 + */
-+static inline void nvmet_req_run_work(struct nvmet_req *req,
-+		struct workqueue_struct *wq, struct work_struct *work,
-+		work_func_t func)
-+{
-+#ifdef CONFIG_BLK_CGROUP
-+	if (req->ns->blkcg_wq) {
-+		func(work);
-+		return;
-+	}
-+#endif
-+	INIT_WORK(work, func);
-+	queue_work(wq, work);
-+}
++struct virtio_media_cmd_mmap {
++	struct virtio_media_cmd_header hdr;
++	__le32 session_id;
++	__le32 flags;
++	__le32 offset;
++	__le32 __reserved;
++};
 +
- static inline u32 nvmet_rw_data_len(struct nvmet_req *req)
- {
- 	return ((u32)le16_to_cpu(req->cmd->rw.length) + 1) <<
-diff --git a/drivers/nvme/target/zns.c b/drivers/nvme/target/zns.c
-index 92f5c1435582..38455481da24 100644
---- a/drivers/nvme/target/zns.c
-+++ b/drivers/nvme/target/zns.c
-@@ -335,8 +335,8 @@ void nvmet_bdev_execute_zone_mgmt_recv(struct nvmet_req *req)
- 	if (!nvmet_check_transfer_len(req, (numd + 1) << 2))
- 		return;
- 
--	INIT_WORK(&req->z.zmgmt_work, nvmet_bdev_zone_zmgmt_recv_work);
--	queue_work(zbd_wq, &req->z.zmgmt_work);
-+	nvmet_req_run_work(req, zbd_wq, &req->z.zmgmt_work,
-+			   nvmet_bdev_zone_zmgmt_recv_work);
- }
- 
- static inline enum req_op zsa_req_op(u8 zsa)
-@@ -534,8 +534,8 @@ static void nvmet_bdev_zmgmt_send_work(struct work_struct *w)
- 
- void nvmet_bdev_execute_zone_mgmt_send(struct nvmet_req *req)
- {
--	INIT_WORK(&req->z.zmgmt_work, nvmet_bdev_zmgmt_send_work);
--	queue_work(zbd_wq, &req->z.zmgmt_work);
-+	nvmet_req_run_work(req, zbd_wq, &req->z.zmgmt_work,
-+			   nvmet_bdev_zmgmt_send_work);
- }
- 
- static void nvmet_bdev_zone_append_bio_done(struct bio *bio)
-
-base-commit: 89480d137bf0d943a82c64f86ae2407a15276b5e
++/**
++ * struct virtio_media_resp_mmap - Device response for VIRTIO_MEDIA_CMD_MMAP.
++ * @hdr: header containing the status of the command.
++ * @driver_addr: offset into SHM region 0 of the start of the mapping.
++ * @len: length of the mapping.
++ */
++struct virtio_media_resp_mmap {
++	struct virtio_media_resp_header hdr;
++	__le64 driver_addr;
++	__le64 len;
++};
++
++/**
++ * VIRTIO_MEDIA_CMD_MUNMAP - Unmap a MMAP buffer previously mapped using
++ *                           VIRTIO_MEDIA_CMD_MMAP.
++ */
++#define VIRTIO_MEDIA_CMD_MUNMAP 5
++
++/**
++ * struct virtio_media_cmd_munmap - Driver command for VIRTIO_MEDIA_CMD_MUNMAP.
++ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_MUNMAP.
++ * @driver_addr: offset into SHM region 0 at which the buffer has been
++ *               previously mapped.
++ */
++struct virtio_media_cmd_munmap {
++	struct virtio_media_cmd_header hdr;
++	__le64 driver_addr;
++};
++
++/**
++ * struct virtio_media_resp_munmap - Device response for
++ *                                   VIRTIO_MEDIA_CMD_MUNMAP.
++ * @hdr: header containing the status of the command.
++ */
++struct virtio_media_resp_munmap {
++	struct virtio_media_resp_header hdr;
++};
++
+ /* The values for these events are set by the virtio-media specification. */
+ #define VIRTIO_MEDIA_EVT_ERROR 0
+ #define VIRTIO_MEDIA_EVT_DQBUF 1
 -- 
-2.53.0
+2.56.0.317.g454f8302e1-goog
 
