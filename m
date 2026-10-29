@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793286221;
-	b=GjZmTzBoR+dCKdobHoiq4zloImk7L/k0Ryw3ZixdKDKRQpkdDZh4Ora04AHheSC6wcNM
-	 c2neCtzC1/d4yeLtf58nziJaF1JxqitkHpxU+bt6lkCBZFnp+ZaXJea33YxuH9CAnzqtR
-	 88KOwPj34f6E0GKXJP2Z5Lj85HaidCukGAPZCLNqCSNFwgxFegHgviHAmIzFbTXo5tlgH
-	 UueoF/aM+gzxbhEkaOxF08d/HY/StCD6l56BElh1xeKTORLWI5D/1wqAU1emyM1Tzx/fU
-	 pbygHICUFODTcxq/ErG0T6GbmY0YzT2dv4xwItfsCX/vBruUW6y1W2dMltIPqxGWh9A==
+	t=1793286283;
+	b=HJ+ZINIw2RpMfenLY9WMf5ZjqYeLycB5VRood+Lh0ZPv5e29gExGBlu/JN95IOxvTbxD
+	 xj+TnsvtfVKos0VqD4d5CHhdFyC5ndS16io6v6kJw3u4yzwDnkeq8Nx/tqJB0UFnPx/XD
+	 fq+qrZaBiV23+QU/D00qeagurH6Z+nBBPCgo+xnnZUiyc4vNoHpEHihXHDsNJTJfd4gE5
+	 VbuRQL5NG5eIDR2Im40O5Zr3DaEreVR+8/lzVJuO3+8uL7rydj8qQfnbORIMK4V8hCVTW
+	 Cdtx1AasNFJSQ45hUWN30qSxpOo+rbrui2r9rc2CW2hzlMZqaPESRE+H9lxW8wBLLKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793286221;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286283;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=c6CEhYs14U8U+JezWPAfQbVngV7jbZT+JjXbmGtNusc=;
-	b=vk2oKSVV2lDgwd/gych6j62opb/c6SlneEADdDVCgEpiL0liJHARnZB5CRN+05XnqujO
-	 N/+1w6wyEuK/3QFLOp+W+0BeE5moKHChoNMVMmzviQlRdRUHK8kmzdzLg6T7Dz2ljn8nE
-	 rKKEysqSJJa7RKU3WLT0ohsB4KzcM7japg/lY4Nn22i9JQpM+3iq7rLfibUpGztUpvNsZ
-	 aO6U2COWqhmbUaDgNniLAVsfMKB/U2io9tsJ+rWdszF8MJH6zHsRt5cR41U8YF85j+4Zd
-	 n+7yGMCcP8/7EbJgxTT/O8aeBPInLY6FuaUXOAonW6NAODigqo958JecV6jCUpqHPFQ==
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=RuqhMejpCTxUcbY4K+pNGmbpnR6NoV1QS3505981Rmg=;
+	b=BZyKwqvSNK4EJ0uI5a12jEaE7wDVsk68+59CNqjRva75Uv6qjkUatI80x/I5ikwteYqO
+	 GXqlUr2i1XGUr/Q2P1/tVeozdzuMI+8tYeXTOXobM1e+r/zpwtQKvyUx8eoMTlc1Ef6B0
+	 S/RzI/k+L3zUR6K8mlvCxdWvhcFYNJX3rG7QDbhFy68WKlcOMQgcSmf1e7LZ0DfGPIZ6Y
+	 U/f42ynCxOJ75g8uLVGf4dpm3BtHHld0rgpcURE6VP24McyyQgKMh7htPvBISjNgPoZOx
+	 ClTst4kdc5tR84qtBe3hHGo3Ma2IsxSMPEj7NZHdUhCqZRDA4GytKcg8D8C774E/2bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K87jbF3Q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZB54+TM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A04606A31C;
-	Thu, 29 Oct 2026 15:03:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id A95BF606A31C;
+	Thu, 29 Oct 2026 15:04:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K87jbF3Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A3821F01825;
-	Thu, 29 Oct 2026 15:03:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZB54+TM
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B31E31F01825;
+	Thu, 29 Oct 2026 15:04:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793286220;
-	bh=c6CEhYs14U8U+JezWPAfQbVngV7jbZT+JjXbmGtNusc=;
+	s=k20260515; t=1793286282;
+	bh=RuqhMejpCTxUcbY4K+pNGmbpnR6NoV1QS3505981Rmg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K87jbF3QgksMsvFlmThw/QGWsaljNclLuymOMt5wEkDnh8/EuqdfHKvslVlKVhA2S
-	 eoyjkAX5BvgXvitcfznNi5xc/1kfcK8AInIiJfMi7D8i37m66Slhydl8sbMOmNSkcc
-	 LF7jlLR4keBh/OD0Gzc0tBj9s67TsE8uZHxKbFOipg4oNdW4zj35JydofE93ABUEYu
-	 SdGyW9vCE4YDt7jxl+uNCLL/6MQLfZvFOOn2VEv5fqTxq8i9/EJdvcYJmgTA2oJ5EZ
-	 5WRyxneY/AC/P4kdebYsNu3M0BqstmK0vC/WJ5VDmqMbNnhaHHTZvrSbW5bMZZUvwk
-	 8a/Q2Au4OT6Zg==
-Date: Thu, 29 Oct 2026 17:03:33 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] mm/cma: accept memory of CMA areas reserved with
- memblock_reserve()
-Message-ID: <auNgRT19droHmv3Y@kernel.org>
-References: <20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org>
- <auM6lKGAeUI26jCj@thinkstation>
- <auM-tYrdV4TJgJ6K@kernel.org>
- <auNE2XEGreHRKoPO@thinkstation>
+	b=BZB54+TMwWlngBpoZx1TNgTrhLo7EdO6maQVqftGvzh37AhVGicYoOY1qMYa0K0Hq
+	 piRJrj3U5/HNoW38ixTvthgDlAsgtkAJNXxqnSmAs75rIGTScV34yNwxPfKzcb8hgg
+	 HG7A7UloBKKC5APoixn4EtiWhFGHqgZlS9JpwkgT3/e8czf/bpf09Wrd4ZeVARhUER
+	 LLl3XWn44gAjYtAiFo9wWQff/CGSsZ3uBq2zZdQA1Gpzn481IPztpBtSiOSLqyvMCN
+	 xXK5jt9+3EuFkxAYPBHb40gyAt57nS/z8UCACOCfJIUc+c88nHMOxv4s8Gkps/GuAF
+	 V/D6RF1oi2x4g==
+Date: Thu, 29 Oct 2026 17:04:38 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: dhowells@redhat.com, paul@paul-moore.com, jmorris@namei.org,
+	serge@hallyn.com, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	baijiaju1990@gmail.com, jjzuming@gmail.com
+Subject: Re: [PATCH] keys: Protect the update method check against type
+ removal
+Message-ID: <auNghmbNdKLQ2hmH@kernel.org>
+References: <pm-keys-update-type-removal-20261029-v6-3d92b2f9693854230a02@gmail.com>
+ <auNGzJIWFt64IMWY@kernel.org>
+ <CAFRLqsXdUfqvNyzNpnz=dvgtHrVyRhYoZqt-CQUo98HW7BtNJA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,62 +62,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <auNE2XEGreHRKoPO@thinkstation>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFRLqsXdUfqvNyzNpnz=dvgtHrVyRhYoZqt-CQUo98HW7BtNJA@mail.gmail.com>
 
-On Thu, Oct 29, 2026 at 01:17:06PM +0000, Kiryl Shutsemau wrote:
-> On Thu, Oct 29, 2026 at 02:40:21PM +0200, Mike Rapoport wrote:
-> > On Thu, Oct 29, 2026 at 12:27:23PM +0000, Kiryl Shutsemau wrote:
-> > > On Thu, Oct 29, 2026 at 12:18:36PM +0200, Mike Rapoport (Microsoft) wrote:
-> > > > Pages of allocated CMA areas are released to the buddy allocator with
-> > > > __free_pages(), which does not check for unaccepted memory.
-> > > > 
-> > > > This usually works because memblock accepts the memory it allocates.
-> > > > 
-> > > > However, multi-range CMA areas, used by hugetlb_cma, and fixed CMA areas
-> > > > requested with cma=<size>@<base> are reserved with memblock_reserve() and
-> > > > their memory is never accepted.
-> > > 
-> > > It feels like memblock_reserve() abuse, no?
-> > > 
-> > > crashkernel=size@base already uses memblock_phys_alloc_range() for this.
-> > > Should the fixed and multi-range CMA paths go through the allocation API
-> > > as well.
-> > 
-> > Fixed path already has the range, why would it use allocation APIs?
+On Thu, Oct 29, 2026 at 10:04:13PM +0800, Cen Zhang wrote:
+> Hi Jarkko,
 > 
-> Having the range doesn't make it a reservation. Both paths take free
-> memory for the kernel's use, which is an allocation, and an allocation
-> has to be accepted. memblock_reserve() is for memory that is already in
-> use: kernel image, initrd, firmware tables. Using it for allocations
-> leaves acceptance to every caller, and both CMA paths missed it.
+> Jarkko Sakkinen <jarkko@kernel.org> 于2026年10月29日周四 21:14写道：
+> >
+> > On Thu, Oct 29, 2026 at 07:58:06PM +0800, Cen Zhang wrote:
+> > > key_update() reads key->type->update, ->def_datalen and ->preparse
+> > > before it takes key->sem. A reference on the key does not pin the
+> > > module that provides its type, so KEYCTL_UPDATE can race with the
+> > > unloading of that module, for example dns_resolver:
+> > >
+> > >   KEYCTL_UPDATE task                  Module unload and key GC
+> > >   ------------------                  ------------------------
+> > >   keyctl_update_key()
+> > >     key_update()
+> > >       key_permission()
+> > >       load key->type
+> > >                                       exit_dns_resolver()
+> > >                                         unregister_key_type()
+> > >                                           GC: down_write(&key->sem)
+> > >                                           GC: retype to key_type_dead
+> > >                                           GC: up_write(&key->sem)
+> > >                                         unregister_key_type() returns
+> > >                                       free_module()
+> > >       read saved type's update member
+> > >
+> > > The final access reads freed module memory. With the updating task
+> > > held after the key->type load, it faults:
+> > >
+> > >   BUG: unable to handle page fault for address: fffffbfff804107f
+> > >   #PF: supervisor read access in kernel mode
+> > >   RIP: 0010:key_update+0x12d/0x550
+> > >   Call Trace:
+> > >    keyctl_update_key+0x6b/0x110
+> > >    __do_sys_keyctl+0x21d/0x4f0
+> > >
+> > > This is the same problem that commit 925c84e3cc21 ("keys: Protect the
+> > > read method check against type removal") fixed for KEYCTL_READ.
+> >
+> > This is useful bit, thanks.
+> 
+> Thanks for the review.
+> 
+> >
+> > >
+> > > The encrypted and trusted types can be built as modules and have an
+> > > update method. For them there is a second window: the GC can move the
+> >
+> > How is the second window related to the fact that encrypted and trusted
+> > can be built as LKMs and where is "there"?
+> >
+> > > key to key_type_dead after the method check and before key_update()
+> > > takes key->sem. key_update() then calls the NULL update method of
+> > > key_type_dead.
+> >
+> > I don't understand this paragrap overall. Needs a rewrite.
+> 
+> Sorry for that. Perhaps this wording would be better:
+> 
+> For dns_resolver, which has no update method, key_update() returns at
+> the check, so doing the check with key->sem held would be enough. A
+> key type that is built as a module and has an update method, like
+> encrypted or trusted, gets past the check. If its module is unloaded
+> after the check and before key_update() takes key->sem, the GC has
+> already moved the key to key_type_dead, and key_update() calls the
+> update method of key_type_dead, which is NULL. So key->sem has to stay
+> held from the check until the update is done.
+> 
+> > >
+> > > Assisted-by: LLM
+> >
+> > Please run checkpatch.pl --strict for the next version.
+> 
+> Thanks, I see that the Assisted-by tag has been removed from the
+> documentation and checkpatch. I will drop it in v2.
 
-memblock_reserve() predates any allocation APIs and it is used to say "I
-know this memory is free, I'm taking it". So memory acceptance should have
-take it into account.
+Yeah, overall I think this is improving and that's why I'm nitpicking
+stuff. What I would wish that if you could hold with any other fixes up
+until we've got the previous fully addressed.
 
-> If memblock_phys_alloc_range() is the wrong tool, let's add a
-> memblock_*alloc*() helper that takes the exact range and does the reserve
-> plus memblock_prep_allocation(), the way memblock_alloc_hugetlb() finishes
-> its own search. There is no search, so the multi-range path doesn't get
-> slower, and accept_memory() stays inside memblock.
+I mean submitting a fix trial that is not correct is not a problem
+or wrong for that matter. The problem is that if you put stuff out in
+volumes with patches in various phases, the odds that fix will land
+to the mainline tree rise.
 
-A new helper that does reserve and accept makes sense, but let's do it on
-top and also audit other callers of memblock_reserve(). I believe we may
-also hit some curious corner cases with memmap=, although this is less
-likely.
+This is exactly what I got pissed of last time. Just wanted to this
+clear this one up. Also, you can use that on-hold time to re-check
+your unsubmitted patches one more time i.e., do your job better
+;-) At leas for me that is something that I want to continuously
+improve.
 
-These two are really simple and easily backportable and I don't see an
-issue with calling accept_memory in low level cma code.
+Br, Jarkko
 
-cma_declare_contiguous_multi() has other issues and I'm reworking it right
-now. But again, that does not mean a simple addition of accept_memory to
-CMA contradicts it.
- 
-> -- 
->   Kiryl Shutsemau / Kirill A. Shutemov
-
--- 
-Sincerely yours,
-Mike.
