@@ -1,70 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.165.53.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793299832;
-	b=B+KNBs64zfnpovtjRpSHDGJ5vdc8hG77UMUbE4yfzIrGSSZ/MpIhFCaNFygx8w2y8RVj
-	 G5giKV30GmWT1z+lgYWGi3vObTda4VQuHV3n7RyssaSlW3kKdzOiNJqy2xuQnqrnc9OXP
-	 gnEPXHMysAshMiM/t9/wrsxKy6oeQGKsWGNtzwKwpCqhGu7HZCarIMdlRWpS+/5D04MqV
-	 5hi9BIlIE3c0WVhQdDz7SQigdIok/PH4GuhHXpuOvaT5XKTWnFc33MIWac2PBtSqTR38q
-	 7BORb42ojpB/S2/IFUZ0ILDETgH4waDaaqB3tu1dOjtIxOvP4Sc4lGrvYTVBptE7GTg==
+	t=1793299854;
+	b=FNOezK0M1d3SHdgG8B9M1caIgyy2s/YuO8GYmlsOui0tVA3XsGB7Hcx0M9FyAwOGN0mk
+	 Z8zyxP7Jp66HbKTGUrNDZHGdcmq0c0CR1Pakx4xKg9ayAdOKUcRgN4kmDufLRxL8Ozuna
+	 +VycdvmwjmvMmZeVu2ZEAotq4KhzIlmkrGHELEyQAuQ+bZ4BKgJDGxdrNgTNvjCuyr97m
+	 d7OTxCzSqGP1lgzdRHaR5VVoJyPlCnp4Qh4k6DguqDwM3TJoSIxwNMvzRrN0g1vXTPWfM
+	 4Wu68cZubTl7QlWVTJ6iQA0SjHlpS7W+JSdno7KkoO2qLxcCbDSeFqzjooiR1fqx4Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793299832;
-	h=DMARC-Filter:Received:Received:Received:X-OVh-ClientIp:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:x-ovh-tracer-id:X-VR-SPAMSTATE:
-	 X-VR-SPAMSCORE:X-VR-SPAMCAUSE:DKIM-Signature;
-	bh=5IMCEQSW4EddZ7FIT1wbfB/0SX217DwqV013zAOLwEo=;
-	b=Bk2H9psJwPat9w0eypinD+lpB3gyvwunPXmP9TL/rUDAEwVXUVEK7dCR04RA2ZxXYC86
-	 WnmGd6gpXgpjW/Ndxbbxb+mJCcOUeOSe9VwL53RYWciX2NnGxcfE1iYzWfD+obDA0z3SR
-	 6t7+MtCFTmTk2lRcGgVzoC2ssmwfosCwMaMffeL+IRpHH2vMtXiKi9frW0pePRLTbjXKl
-	 9Z1CoOczSa24/JWAdM76M1+zJhWpBijXNCc/9Bz5l+Dk5cngJ2v42H+vNn5JzLvCG9qfL
-	 On+mtQnse/BczqAoc/kRaaqyEvkYUMkXUMSQfWsI0n/z+ThM2PvIKSYBOLixv7uznuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793299854;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Content-Language:To:Cc:From:Subject:Content-Type:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=LX/IchEq0zst/gkv3fV1vQRcm0Go39Qa/xzSrfdyNGM=;
+	b=NfLOV789LwPNJi38iXFihMCcdrA1hDPH8wB4EbGQQzJ0R/fsrG94FWI4a7ImclXZzT4y
+	 /3zLSDQDcKcqoK1QtlXe5K6cdVbv7ipxSlwRvadWFPKiADFW55mid+gJOtSIdkYsn7VS/
+	 o1tPkRNHCX557mC4YYFJutRg7YJvTL9CfKiiKZYuPRsEvj7ZpzCTwgKp8L9zY5J64H3yt
+	 72DH50a28uo2yu+NV8RdVZyIZGPfuwrk9bRVAUml+ZdwrUo/hDnVRl3gZo37hCB8vBvzH
+	 8M4MTzKXK/YWJZwYrzPNKPcr/xLx0oFozhLofPeyD87O195suVm7U2WBfHdblJ5plSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=3mdeb.com;
-	spf=pass smtp.mailfrom=3mdeb.com;
-	dkim=pass header.d=3mdeb.com header.i=@3mdeb.com header.a=rsa-sha256 header.s=ovhmo3617313-selector1 header.b=Im5XjzsV;
-	arc=none smtp.remote-ip=188.165.53.149
-Received: from 2.mo560.mail-out.ovh.net (2.mo560.mail-out.ovh.net [188.165.53.149])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=edstEevJ;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96C7606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:50:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C96C7606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=3mdeb.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=3mdeb.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E17606A31A;
+	Thu, 29 Oct 2026 18:50:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90E17606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=3mdeb.com header.i=@3mdeb.com header.a=rsa-sha256 header.s=ovhmo3617313-selector1 header.b=Im5XjzsV
-Received: from director11.ghost.mail-out.ovh.net (unknown [10.109.231.104])
-	by mo560.mail-out.ovh.net (Postfix) with ESMTP id 4jFtb35nSkzBMTb
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:50:23 +0000 (UTC)
-Received: from ghost-submission-7ccd8bbbb6-vvbcf (unknown [10.108.54.148])
-	by director11.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 5DB45C2910;
-	Thu, 29 Oct 2026 18:50:20 +0000 (UTC)
-Received: from 3mdeb.com ([37.59.142.95])
-	by ghost-submission-7ccd8bbbb6-vvbcf with ESMTPSA
-	id 8HFFAWyV42qTfBwASyHcuw
-	(envelope-from <sergii.dmytruk@3mdeb.com>); Thu, 29 Oct 2026 18:50:20 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-95G0015624ec90-fccb-4a19-869f-137c4fe8d7b2,
-                    80E54DDF43994B3DD4677030DFD12DA1D43C0C90) smtp.auth=sergii.dmytruk@3mdeb.com
-X-OVh-ClientIp:176.111.182.218
-Date: Thu, 29 Oct 2026 20:50:20 +0200
-From: Sergii Dmytruk <sergii.dmytruk@3mdeb.com>
-To: Jiri Pirko <jiri@resnulli.us>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, jgg@ziepe.ca, david.quigley@intel.com,
-	lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com,
-	cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com,
-	James.Bottomley@HansenPartnership.com, aik@amd.com,
-	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
-	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 15/20] attestation: Prepare provider and instance core
-Message-ID: <auOVbGYJjIQTN53z@MjU3Nj>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-16-jiri@resnulli.us>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=edstEevJ
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TGEIZb3505303;
+	Thu, 29 Oct 2026 18:50:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=LX/IchEq0zst/gkv3fV1vQRcm0Go
+	39Qa/xzSrfdyNGM=; b=edstEevJS6d5bdTSudOTp1GFgLCKiQHHEzyuPxbt++hJ
+	tHFN3O3kYtNyoafkA+EXSVWs6nRKXfC5zVF+1c89fXdrKUVi9bL/kn2mtNdUVibi
+	PQLOZTEiLSaX2UFekF4J6kks+nhZNiQ9pAOrtfT7EnBXGOp9Qy1RTkrdnecximMf
+	LXs4RcSw3F6ZcNxziS7MRBVpKRJbbYJVOCfcjbMY1bTrawS4+FOwLjYGeEdDzhyF
+	FX42mOwsdBfBhtuqfSyukNHNo3/TZ9CWfmu2S5d6mut8NaGwhJKNvvZM/QiAVYtY
+	/8qlBOw+lOly7ylqAvtt8YOQV/g0BHbERDPl2URe+A==
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgk3gbwr5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 29 Oct 2026 18:50:48 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69TGJx4R3449875;
+	Thu, 29 Oct 2026 18:50:48 GMT
+Received: from smtprelay03.dal12v.mail.ibm.com ([172.16.1.5])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hm6pb9gqm-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 29 Oct 2026 18:50:48 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com [10.39.53.229])
+	by smtprelay03.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69TIollV20316842
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 29 Oct 2026 18:50:47 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0BFFF58058;
+	Thu, 29 Oct 2026 18:50:47 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 676D35805C;
+	Thu, 29 Oct 2026 18:50:46 +0000 (GMT)
+Received: from [9.61.39.38] (unknown [9.61.39.38])
+	by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 29 Oct 2026 18:50:46 +0000 (GMT)
+Message-ID: <29073ebc-b616-475b-bc05-384da09fbb54@linux.ibm.com>
+Date: Thu, 29 Oct 2026 13:50:45 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,217 +84,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015145053.3664509-16-jiri@resnulli.us>
-x-ovh-tracer-id: 10767825236716430673
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTGhvBlCQfC5JAsSy8X1SQpTlts5ZSHXHH9hWYWnSRvNozacZu18Dq4RTg2Ug2g+sj7V5T4UaNjVJ2Je1KROa4AlE7/8mKFLnVB/hCcY9i2JgZWRcIq5GgXZtNsmH8qDXYW0dTdZ/JfJoLvjRzst4brZZx4PM+ctgHfbS/yPxodZcrtm9v6VQQWir2fGu9HHaOVu5xT4KdJ87I3xFQzQXJD/pg1pIQybsD+AoxOSNwlqb8FxVVSOfEPCWV0UL/pAEwMsfWguvcsXKPfOKrWKXyaFMDi01E1RDNEUkHc0DAyLevWdqpazMn7oP7FyMfMBnvPpTCKUstfhJRlGJVlyHLRzt+BJl83+lMWlVipluUbJ0UrwiY17EhAMUgdhZfPtTyDCATHx+4lz+0wrrAoFau1HLM7tAP3qZ1Y42Sdap8vDTTijpwqYRzpY4j7jpOYzEB/eYX6HKE6SCqYXtVWMC98be3P10DqFJYz2Qo3pYlGxmci1c/VRYDmUZ2PFTTUlYHJLJcdA6NQ6GeNhCiGg5RhSgmmz9ayjvAlJjEQqyAlGont5sXb5TwhOHSmS2C0j4SygfmF9bYNe2MP9mvAC6hHNrjOYm/9JehabUHhGoaF6u66uYRkvk4ba9dOjKOeD4qLeVQU2l7xJ0/Glca66F1RZmB/vYb+37BLNPaZ/kNCuFg
-DKIM-Signature: a=rsa-sha256; bh=5IMCEQSW4EddZ7FIT1wbfB/0SX217DwqV013zAOLwEo=;
- c=relaxed/relaxed; d=3mdeb.com; h=From; s=ovhmo3617313-selector1;
- t=1793299823; v=1;
- b=Im5XjzsVNNrV1DhjQgGOj5hk3cOh2OquWrmePLmX1H/PEb6Bezqn8vEK9s5jIx0aSh3rIq4S
- dDLP+xwj7Dp9TD2RcDSbtNpS+fwPzj44hLfhyg/Ji3Jo/0xkAeuKpASGnZd8vLQiDtZNi57r8Dz
- +JyXXi4oKQ3XKBUZ5AfIX4pvUe9tXyti6k+wknTD2S1wwbLMl0JwJMCoB9EK/MAGxGaLPbPktyg
- swkNZLe5V2GoTUBQVkH0yS9zfMFxZ1rdXdTJ2sM+MfP0NSwsllPmayUrkAmOlpQJ10OP+aGkUNT
- turz/t7g0Dn/0eD/xrwmKZdsmbsrg8k/rz/m1uOKUsLGQ==
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Paul Ely <paul.ely@broadcom.com>
+Cc: hare@suse.de, msmurthy@linux.ibm.com
+From: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>
+Subject: [PATCH v2] scsi: lpfc: Fix race conditions in ELS retry
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=BOMmP1QG c=1 sm=1 tr=0 ts=6ae39588 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=Q-fNiiVtAAAA:8 a=Bz3PlmeQYvTki0S0ELIA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: EwpCjOlHLhaJS7iapAt1IwfixQHgfo4F
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA3MyBTYWx0ZWRfX4la0dvE84NqX
+ 79DAIoxOhEilZ7l3N4llTS/qbXZOi5ZFMkTKpbHLQ4MOS6Smxjs3JPo18+DUikJk0HA52bbbV/R
+ +lcRyT25xb/+MbqX6nH6z+LEZcqUgLfq9OW1jAfxcplQY+SmbapaVpDx8mC5dMtjvOq9IE56dCp
+ KK6f3GfN2wLpEJLPDEM3GaOIvf9iYGTVzG+uhZj2k8wXO4U7nf9/vx1TDoyocYo9sQ68vLmIc3D
+ kQUFheC+DHhqP3qo0U+xIQu/RhAM7swmofqYXPt3Zcth0RmyfsZE/u511C5rwdeCB6T1t39ADs5
+ 7Rvo+BCt9SHO7M5MnDG9cuFNPZX0ldBDUafbvRo3BHL5Ca75pfsZ/1XUGIpm2LC6EjRrHk3beb0
+ XnNq1WGgQI4zuzkI0uh0zAPr08hiMl/DzI4s1VOlHv5x0pPVRtyiDMrjdf9DOwm1MT+JkSHFxWn
+ l3B9dvKTy97UT+myXPw==
+X-Proofpoint-GUID: EwpCjOlHLhaJS7iapAt1IwfixQHgfo4F
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA3MyBTYWx0ZWRfXz9xGFcqcJ5YP
+ 9PdYSoj/h3N4D47fCX979aLONRCqkKt6xbo/D4wUMDVA7RXBdI06tTej8bghWK4hrnK2QAU8w6u
+ Oi0XXMPyEkFmk01dk/gDGB660J/wh4c=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 malwarescore=0 clxscore=1011 spamscore=0
+ phishscore=0 adultscore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610290073
 
-On Thu, Oct 15, 2026 at 04:50:48PM +0200, Jiri Pirko wrote:
-> From: Jiri Pirko <jiri@nvidia.com>
-> 
-> Add provider validation, instance registration and lifecycle management for
-> the attestation family.
-> 
-> The provider descriptor is one immutable evidence and MR contract; journal
-> storage follows in the next patch. The core object can be compile-checked
-> here. CONFIG_ATTESTATION remains unwired until the CTLV handlers land.
-> 
-> Assisted-by: Cursor: GPT-5.6 Sol
-> Assisted-by: Cursor: Claude Opus 5.5
-> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
-> ---
->  Documentation/driver-api/attestation.rst |  36 +++
->  Documentation/driver-api/index.rst       |   1 +
->  MAINTAINERS                              |   2 +
->  drivers/attestation/Kconfig              |  12 +
->  drivers/attestation/Makefile             |   4 +
->  drivers/attestation/core/core.c          | 280 +++++++++++++++++++++++
->  drivers/attestation/core/internal.h      |  35 +++
->  include/linux/attestation.h              | 138 +++++++++++
->  8 files changed, 508 insertions(+)
->  create mode 100644 Documentation/driver-api/attestation.rst
->  create mode 100644 drivers/attestation/Kconfig
->  create mode 100644 drivers/attestation/Makefile
->  create mode 100644 drivers/attestation/core/core.c
->  create mode 100644 drivers/attestation/core/internal.h
->  create mode 100644 include/linux/attestation.h
+This patch addresses a race condition in the lpfc driver's ELS retry
+event handling that can lead to a use-after-free in the
+lpfc_cancel_retry_delay_tmo(), where the NLP_DELAY_TMO flag is cleared
+before acquiring the lock to check if the retry event is queued. This
+creates a window where the timer can be rescheduled and fire, causing
+both the cancel path and the worker thread to release the same 
+reference, resulting in a double-put and use-after-free.
 
-[...]
+Signed-off-by: Kyle Mahlkuch <kmahlkuc@linux.ibm.com>
+Signed-off-by: Paul Ely <paul.ely@broadcom.com>
+Tested-by: Maram Srimannarayana Murthy <msmurthy@linux.ibm.com>
+---
+  drivers/scsi/lpfc/lpfc_els.c     | 32 +++++++++++++++++++++++++-------
+  drivers/scsi/lpfc/lpfc_hbadisc.c |  5 +++++
+  2 files changed, 30 insertions(+), 7 deletions(-)
 
-> diff --git a/include/linux/attestation.h b/include/linux/attestation.h
-> new file mode 100644
-> index 000000000000..0fd806ea77d8
-> --- /dev/null
-> +++ b/include/linux/attestation.h
-> @@ -0,0 +1,138 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef _LINUX_ATTESTATION_H
-> +#define _LINUX_ATTESTATION_H
-> +
-> +#include <crypto/hash.h>
-> +#include <linux/types.h>
-> +
-> +#include <uapi/linux/ctlv_attestation_gen.h>
-> +#include <uapi/linux/hash_info.h>
-> +
-> +struct attestation;
-> +struct ctlv_blob;
-> +
-> +/**
-> + * struct attestation_digest - One MR digest.
-> + * @algorithm: hash algorithm
-> + * @data: digest bytes
-> + */
-> +struct attestation_digest {
-> +	enum hash_algo algorithm;
-> +	u8 data[HASH_MAX_DIGESTSIZE];
-> +};
-> +
-> +/**
-> + * struct attestation_digest_set - Digests ordered as the MR algorithms.
-> + * @values_count: number of digests
-> + * @values: digest array
-> + */
-> +struct attestation_digest_set {
-> +	size_t values_count;
-> +	struct attestation_digest *values;
-> +};
-> +
-> +/**
-> + * struct attestation_mr_props - Immutable MR properties.
-> + * @id: provider-unique MR ID
-> + * @name: MR name
-> + * @algorithms: ordered hash algorithms
+diff --git a/drivers/scsi/lpfc/lpfc_els.c b/drivers/scsi/lpfc/lpfc_els.c
+index 6f6394a0047c..ffd61ac46646 100644
+--- a/drivers/scsi/lpfc/lpfc_els.c
++++ b/drivers/scsi/lpfc/lpfc_els.c
+@@ -4477,18 +4477,36 @@ lpfc_issue_els_edc(struct lpfc_vport *vport, 
+uint8_t retry)
+  void
+  lpfc_cancel_retry_delay_tmo(struct lpfc_vport *vport, struct 
+lpfc_nodelist *nlp)
+  {
+-	struct lpfc_work_evt *evtp;
++	struct lpfc_hba *phba = vport->phba;
++	struct lpfc_work_evt *evtp = &nlp->els_retry_evt;
++	struct lpfc_nodelist *arg_ndlp = NULL;
++	unsigned long flags;
++
 
-Why do these need to be sorted?  Is it just to make indexing easier?
-
-I see that the number of algorithms is also checked on extending.  Does
-it mean that a situation when not all PCR banks are extended at the same
-time is considered an invalid one?  That may be a problem at least for
-DRTM which may extend only one bank even if several are active.
-
-> + * @algorithms_count: number of algorithms
-> + * @has_register_index: whether @register_index is valid
-> + * @register_index: native register index
-> + * @readable: MR can be read
-> + * @extendable: MR can be extended
-
-At least with TPMs, whether a PCR can be extended depends on locality,
-so this isn't necessarily a static property.  Is this flag expected to
-always be accurate or it would be OK for a provider to declare an
-extendable MR but then deny doing it?
-
-> + */
-> +struct attestation_mr_props {
-> +	unsigned int id;
-> +	const char *name;
-> +	const enum hash_algo *algorithms;
-> +	size_t algorithms_count;
-> +	bool has_register_index;
-> +	unsigned int register_index;
-> +	bool readable;
-> +	bool extendable;
-> +};
-> +
-> +/**
-> + * struct attestation_evidence_supported_object - Evidence output description.
-> + * @format: evidence format name
-> + * @max_length: maximum output bytes
-> + * @binds_mrs: evidence validity depends on MR state
-> + */
-> +struct attestation_evidence_supported_object {
-> +	const char *format;
-> +	size_t max_length;
-> +	bool binds_mrs;
-> +};
-> +
-> +/**
-> + * struct attestation_evidence_caps - Immutable evidence capabilities.
-> + * @min_challenge_length: minimum challenge bytes
-> + * @max_challenge_length: maximum challenge bytes
-> + * @max_total_output_length: maximum bytes across all objects
-> + * @objects: supported evidence objects
-> + * @objects_count: number of objects
-> + */
-> +struct attestation_evidence_caps {
-> +	size_t min_challenge_length;
-> +	size_t max_challenge_length;
-> +	size_t max_total_output_length;
-> +	const struct attestation_evidence_supported_object *objects;
-> +	size_t objects_count;
-> +};
-> +
-> +/**
-> + * struct attestation_evidence_object_request - One resolved output object.
-> + * @supported_object: matching capability entry
-> + * @output: resolved output blob
-> + */
-> +struct attestation_evidence_object_request {
-> +	const struct attestation_evidence_supported_object *supported_object;
-> +	struct ctlv_blob *output;
-> +};
-> +
-> +/**
-> + * struct attestation_evidence_request - Validated evidence request.
-> + * @challenge: challenge bytes
-> + * @challenge_length: challenge length
-> + * @objects: requested output objects
-> + * @objects_count: number of objects
-> + */
-> +struct attestation_evidence_request {
-> +	const u8 *challenge;
-> +	size_t challenge_length;
-> +	const struct attestation_evidence_object_request *objects;
-> +	size_t objects_count;
-> +};
-> +
-> +/**
-> + * struct attestation_evidence_result - Provider evidence result.
-> + * @object_lengths: produced length for every requested object
-> + */
-> +struct attestation_evidence_result {
-> +	size_t *object_lengths;
-
-No number of objects?  That would make this structure more
-self-contained.  Copying `objects` from the request would allow passing
-it around to handle results, but there may not be too much value in
-doing it this way.
-
-> +};
-> +
-> +/**
-> + * struct attestation_provider - Immutable provider operations and properties.
-> + * @evidence_get: produce requested evidence
-> + * @mr_read: read one MR
-> + * @mr_extend: extend one MR
-> + * @evidence_caps: evidence capabilities, or NULL
-> + * @mrs: fixed MR properties
-> + * @mrs_count: number of fixed MRs
-> + */
-> +struct attestation_provider {
-> +	int (*evidence_get)(struct attestation *att,
-> +			    const struct attestation_evidence_request *request,
-> +			    struct attestation_evidence_result *result);
-> +	int (*mr_read)(struct attestation *att, unsigned int mr_id,
-> +		       struct attestation_digest_set *values);
-> +	int (*mr_extend)(struct attestation *att, unsigned int mr_id,
-> +			 const struct attestation_digest_set *values);
-> +	const struct attestation_evidence_caps *evidence_caps;
-> +	const struct attestation_mr_props *mrs;
-> +	size_t mrs_count;
-> +};
-> +
-> +#endif /* _LINUX_ATTESTATION_H */
-> -- 
-> 2.56.0
+  	if (!test_and_clear_bit(NLP_DELAY_TMO, &nlp->nlp_flag))
+  		return;
+  	timer_delete_sync(&nlp->nlp_delayfunc);
+  	nlp->nlp_last_elscmd = 0;
+-	if (!list_empty(&nlp->els_retry_evt.evt_listp)) {
+-		list_del_init(&nlp->els_retry_evt.evt_listp);
+-		/* Decrement nlp reference count held for the delayed retry */
+-		evtp = &nlp->els_retry_evt;
+-		lpfc_nlp_put((struct lpfc_nodelist *)evtp->evt_arg1);
+-	}
++
++	/*
++	 * If retry event is queued, remove it under lock and consume
++	 * its payload to prevent double-put. The event holds a reference
++	 * to the nodelist that must be released exactly once.
++	 */
++	spin_lock_irqsave(&phba->hbalock, flags);
++	if (!list_empty(&evtp->evt_listp)) {
++		list_del_init(&evtp->evt_listp);
++		/* Take local copy and clear to prevent reuse */
++		arg_ndlp = (struct lpfc_nodelist *)evtp->evt_arg1;
++		evtp->evt_arg1 = NULL;
++		smp_wmb(); /* Ensure NULL visible before unlock */
++ 	}
++	spin_unlock_irqrestore(&phba->hbalock, flags);
++
++	/* Drop the event-held reference outside the lock */
++	if (arg_ndlp)
++		lpfc_nlp_put(arg_ndlp);
++
+  	if (test_and_clear_bit(NLP_NPR_2B_DISC, &nlp->nlp_flag)) {
+  		if (vport->num_disc_nodes) {
+  			if (vport->port_state < LPFC_VPORT_READY) {
+diff --git a/drivers/scsi/lpfc/lpfc_hbadisc.c 
+b/drivers/scsi/lpfc/lpfc_hbadisc.c
+index 4c673dffa671..3eb142cf4455 100644
+--- a/drivers/scsi/lpfc/lpfc_hbadisc.c
++++ b/drivers/scsi/lpfc/lpfc_hbadisc.c
+@@ -846,6 +846,11 @@ lpfc_work_list_done(struct lpfc_hba *phba)
+  		switch (evtp->evt) {
+  		case LPFC_EVT_ELS_RETRY:
+  			ndlp = (struct lpfc_nodelist *) (evtp->evt_arg1);
++			/*
++			 * Consume the payload to prevent reuse or double-put.
++			 * evt_arg1 was populated when event was queued.
++			 */
++			evtp->evt_arg1 = NULL;
+  			if (!hba_pci_err) {
+  				lpfc_els_retry_delay_handler(ndlp);
+  				free_evt = 0; /* evt is part of ndlp */
+-- 
+2.55.0
