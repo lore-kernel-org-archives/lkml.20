@@ -1,93 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793305742;
-	b=ugH7bZn8q1t4Qd4A/2MvllpbbKfJ12RnrjJgX88pThHbXXIjG+YnLiLi7X1EKUM7czWl
-	 R4fOFUaqlQoOPl+qUVL5ojQQYTWi2Lj/JeRj15LnScZgtLbUelIlUtd4Tv7SiceXnJG0l
-	 SuarDgWncQ+SjJgNx2DI3+dMAElVUFf7gBzpbJEcDw/b3Gbn32f/8fIpejnsC3STwrYkw
-	 iEa3x7L57Zg4/YRGHHRkdTKOnIotqoesnzCdNZCliFM0peI9kv2N0hQeaAGBmRxK79P11
-	 mSHW4TFin+A6NYBLEt0c+dLedhn5Lrw8Jl8zDVNwmrPebbcPwrP/Qjb5pEN4DfyAiJA==
+	t=1793305812;
+	b=ba2tdK12qy700UpMH+yrE9tpN9BqXWIKx9s8HEwugX2lOgG1i8IUv7ZDeQ9ljXOI5hiG
+	 ex+kThQKY3W/9LNisnwJqk9IWgiRhD0g6ncYDcOIhI5l6HGjU3tVVT+J2tKzx77/RVqeI
+	 bDJAQQa7LECuc96SAczns9DDCZR2W078FFgPcMvdwEWUiGV2QDd3y1j9nriYAtWEpBLjP
+	 HpvtpwtfVdbzLSVz3RLkHxpb5qEbqUfB6D/BJDBbPeZ8IHwKs+V2/mp3a019n0XErNLKp
+	 YGn4YvE91F+2s0pJLpbyelNbdS9WiosDxRz3+a3wcS7Aoiqfy73RqrzwcYySxG6WNuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793305742;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793305812;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lbbKXnXlDWrZBBtTs8TaCdwHJMgkhA2ffCtAIVgiVQM=;
-	b=DlKTVgvGxc7Cfwm1dE/NxVrFyVt2Pjo0KM650LzKK/cMW8leWBwG4Zv8V/DRGQZoNYn+
-	 j8/W8GiVUGs+eB9dJvolwnIob8RK/BVDVx7hFnQkKAJAQY7qdslQO0KzmbT01ReGxmdMP
-	 a6whkG3QEZ/t0w4j552k4nWbapSbQXI4KG5aW6CT1Wn8PRaMF4CpKmdfdMN+02zlG5kVT
-	 MGkDwrLczQ7Y/cfXV8k7fkY7oVxkOvrr/JTUezsgLqARAlv+qsKNe5224r+lM5GAgFXH7
-	 TMU5oSsh6vdcTfwRKFvHfh1iu8okuKXlzw1eXM8+NTswLzwXVjVMKAZ57H10o0ql/Hw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=uXSeg1mwXsdfU65lCvMy2yLqWgpkOlopYKKBWO91XDU=;
+	b=zfEEziSLQ28BV9JmWMfV4f5vPZ4kN1ei6o9a7zLwpv8j+s/j9KYrZuNYjJuyyG16cTFf
+	 4MGNuv8/jh3WCqd+Pn4d5jdqygUjIr+dAGxuyHkGfvxWZFj0RFv2AdZ9e5CYSPgqBu+Fn
+	 5Q8QCy+n0k4BWSPzUzK9w5lDQm9r+Im4VrfwzdCoan4vF5BExDl+eEzvDyEoZ85cOKIU8
+	 4eaMU0DaZID6vmoFRnnRcR+OczfiVzPux3Pgk1Ncyr/imrX+tYjBST+j0OHA/WtAVwKN/
+	 Uk8On9Qwt3ZzaIDkRW1TuLm9pe7I9zHyTkAm6wWTvclfn2MR6yKmLsKIp0DRB25xStg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=simpleble.org;
-	spf=pass smtp.mailfrom=californiaopensource.com;
-	dkim=pass header.d=simpleble.org header.i=@simpleble.org header.a=rsa-sha256 header.s=google header.b=gubvwfoJ;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--scollyer.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=p+SfqPC2;
+	arc=none smtp.remote-ip=74.125.82.72
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB8C606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:29:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBB8C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simpleble.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=californiaopensource.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802D2606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:30:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 802D2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--scollyer.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=simpleble.org header.i=@simpleble.org header.a=rsa-sha256 header.s=google header.b=gubvwfoJ
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3550c917fd3so115748eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:29:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=p+SfqPC2
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-18eb2616974so2849381c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:30:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=simpleble.org; s=google; t=1793305741; x=1793910541; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lbbKXnXlDWrZBBtTs8TaCdwHJMgkhA2ffCtAIVgiVQM=;
-        b=gubvwfoJzUtdrSOFTUNJUXP7E4eC7eJQgGbU5M6EsfkBIJLpz1VlkVUNWtwBE4ROND
-         i+usOdYzOp55mv4JXW9H9fA1xwicnCRM38idhqMrab9pLkHRgE99Y8ajJWNZ2SQgSq8W
-         8hjeUhu/tp1lXVGAHaJtFhT4lGRyNBHpC6KVU3XgM2HuhjwHeFPXo9bDDB4NMbFjQpCW
-         N6oT0dItwg8dt9PurJ0h3s2sM8VDULNJKwhKYqlA1qNo+r8LlMJ7klMW3m0bpbhPyoiq
-         tqhOXC/nW7rf0kWJ4rwH0tkCZr4ECPJ7lsTst9V78IhU7WqROo9YnJrbLjyRD52DPkjC
-         hk9w==
+        d=google.com; s=20260707; t=1793305812; x=1793910612; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uXSeg1mwXsdfU65lCvMy2yLqWgpkOlopYKKBWO91XDU=;
+        b=p+SfqPC2TKLRYRGAQKYdsg4hvSGOYSaZPNRCmZwI+OWG8JYu/encDCWEy0hXGlPSv9
+         o1v0sXKjKRfTMIepr680LUYxQiwlaGtoGMnp/IU46MF9otqe2IuIf08h01lBR7NYDYkb
+         DPc5J5C4qGaq4+DlEWItKrD1uIAhM9tuXV2ThzshWc3C5Qk+Xqydk88V32KhIXXR7U5B
+         3+RnvrWZIc+dxmRrBJ+ZVdxy3WV2TzU9NRk4LoDOwnjSnbaBFaXoKqR42GKN+nBKanSC
+         +6hC84OuOlRiYstRrUjNQ3DFQabLGKLJ2o0VbiNWPo8BXzXGYgNDxkQbcuDSx4+ynx6E
+         5fQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793305741; x=1793910541;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lbbKXnXlDWrZBBtTs8TaCdwHJMgkhA2ffCtAIVgiVQM=;
-        b=vC8VDCC6U+5y2zXyg5pJ5SWoyDDcAMtXhuz8LT05VQ+NTPAoIEA9w0ObXXVoL5kcxc
-         aMJ5HuOZ9FayXv0HWa8qf849YKVQ57++PHbj5DC7J5SzE7c9rSYxqOykF3HrxPFXQIer
-         GGvLkVv/OHx+krfP0vrYqB+UOJwRCq8jhKHrn/PvaR0EHsnguKwIfups38sHYqFVpfE+
-         klxbhMf5xiubp8miov9u1euaVKWtMlP2k8s/5k8qE3IHGIRrmMDd8rIbFtig+iDUIvWI
-         n2PjNxs7XBIkEOda0ZEOD4BZK1B+99U9r4beEckbfcu97+8hm0gVwY/syi2mHX/Q2Tbg
-         EJ9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz7+gzKTSC/dZT2F1sJueLEi64NgEuEtZ/VLKWjIkb95EDVKiyemenmc2Abg0NSQhWyK71BzdEFkEfKUFU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqq0AH1flf9mQpZ6zwTWafs3dnQr8nulUIRi8wathX/MjpHBKx
-	+sPmv0WjTd+yL8EXQoGnxwndqHvFcKKAU4kHSlZWkKztPkX9Nq+ZSmqbOK8C/+o+Fq4=
-X-Gm-Gg: AYBFou2VhfpyAkPqGXbEKfdzVC1+Z5KRC1lpOBohjkgMRJm333x2+3yuIm02+NgJe8X
-	uRlic302ku/p/9dtf6oHvn4N1tnWILCwOz5CctLm4WiZtoo26fV0TO4wVhzU8t6pL0yoI7iRFG7
-	MAF1QSbO9e3Ol7tO7n0CS/2dHjt7Z0/y/8wzmdRFOxcmpTmJkl580C+zBoq6Mw2IcodXWo1wvz3
-	VgaeiKRpl3uuxEPpnEuyI47ZLB04yaJggSBcuvcimsK3FvN79IPitUCWuwkESDXC6hB9MJCyzjJ
-	Tx1+TwLq6ERiGGJvLkpOyhKINU1RYK53y290ip846haotsmqh4F2dga9TNJn9Fv5vwgNheuQAIy
-	9uKpx/oMf9G64SYsHQFhwVBYHt6818kxT/gTH+97r4lS6An/oybbeUPjp7/rRWeGz3K+k8tRRH3
-	tenGFKV5uCt/8tTj9Phuq1nYOZ/qp2nPUBDHHxGyRbZQIfXsQ9SZ3VBoeurd26/ROPTjn//YS0E
-	IhofXZE90ag9Kh/l2/xksZUVYO4FRFXAqAAa+Ms55FWunxg3k2IZ/tcyDz9rZBkfhuBaB5siF/3
-	JXYpkCKaiZbADJi9pFQPjNSh+NSkcLQCsMjL1XgqufffxghxQW/QMSZNFMeU+MwjWx/lyeM13uv
-	T31tzrl5clYWWeEtOR7NAip7iDh/Rx0B0ACL8ihHxswsS2mI1z2YhvJjPCsOrT2GmOenZ8XI=
-X-Received: by 2002:a05:693c:601c:b0:36a:270:ce76 with SMTP id 5a478bee46e88-36a424de9abmr612001eec.33.1793305716768;
-        Thu, 29 Oct 2026 13:28:36 -0700 (PDT)
-Received: from localhost.localdomain ([147.185.47.151])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm934519eec.7.2026.10.29.13.28.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 13:28:36 -0700 (PDT)
-From: Kevin Dewald <kevin@simpleble.org>
-To: linux-bluetooth@vger.kernel.org
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Kevin Dewald <kevin@simpleble.org>
-Subject: [PATCH] Bluetooth: MGMT: Clear disabled connection parameters when loading none
-Date: Thu, 29 Oct 2026 13:28:32 -0700
-Message-ID: <20261029202832.35354-1-kevin@simpleble.org>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20260707; t=1793305812; x=1793910612;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uXSeg1mwXsdfU65lCvMy2yLqWgpkOlopYKKBWO91XDU=;
+        b=0YtNNK0hX9i6kX9C1+sfM5emP80TCt+rjy6OIMckUoHa6gpBtA/oFbWwfMWeh7L2G6
+         YLuoMQkTkTddBRr9pRB/+Vrq1i8AmAJ5MmGZCkH+0R+XOi1H/kniBGf6RXLaZH6XljqI
+         v6tesUo3yTyI/qnlH1ct6sd6Sijn0eo8i5/l8hJE2nrzHunHVmiOeecnmkmKxUV3gdhf
+         iHXGbPZsiZbnnsTUMmMTY5DxRzH+FRMVjRFZTdZ0+hcThFUkv8vXlXm60ylEB6hB0ebz
+         wDb8cZCPL7kDExcPIRJpcyUNOrl+TzadPXcMY+1UyBknNiDdgL3Aj0RvnUBhEV+mVAMY
+         A1qQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzkBViYAsmMovXZ9keJC7ZhU+asnTzOO+shR/Rw78SUWXi8jkwQJ1OcbhUtnPyyBFcoZDbyxQMnQjWWJbo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK57D4/DE4mivl7qWjw8HXEBzqAQ+jtaCxebQ179ZurHkZO6lIz
+	U/0WSJaq2wBI9gq8xPIvpHpgaM7Q3epa9vfmt1WuOvXZke/TK9cfsiSESbVUJKE1V9DCxE+2t+S
+	tSHKPxj76RcV2rg==
+X-Received: from dybmx2.prod.google.com ([2002:a05:7300:d402:b0:369:ff7f:6354])
+ (user=scollyer job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:ea4b:b0:1a7:979f:ecc0 with SMTP id a92af1059eb24-1ac5b7e1074mr150741c88.27.1793305811259;
+ Thu, 29 Oct 2026 13:30:11 -0700 (PDT)
+Date: Thu, 29 Oct 2026 13:30:08 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,62 +75,134 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261029203008.419808-1-scollyer@google.com>
+Subject: [PATCH v3] platform/chrome: cros_ec_ishtp: report EC_HOST_EVENT_PANIC
+ to userspace
+From: Scott Collyer <scollyer@google.com>
+To: Benson Leung <bleung@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Scott Collyer <scollyer@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Load Connection Parameters only clears the disabled connection
-parameters when it loads more than one entry, so that loading a single
-entry can update the parameters of one device without dropping the
-others. Loading no entries does not clear them either, though, which is
-what bluetoothd does when it starts without stored connection
-parameters.
+When the ISH firmware encounters a fatal exception, it resets and sends
+EC_HOST_EVENT_PANIC over the ISHTP MKBP channel. Register an
+event_notifier callback in cros_ec_ishtp to log the panic, invoke the
+panic_notifier chain, and emit an ERROR=PANIC uevent so userspace crash
+collectors can capture the panic dump and handle recovery.
 
-Pair Device adds disabled connection parameters for the device it pairs
-with, so these now survive bluetoothd restarts, and new connections to
-the device keep using the parameters they were created with instead of
-the defaults set since, e.g. the connection interval from main.conf.
-
-Clear the disabled connection parameters unless a single entry is
-loaded, as was done for any number of entries before.
-
-Fixes: 0ece498c27d8 ("Bluetooth: MGMT: Make MGMT_OP_LOAD_CONN_PARAM update existing connection")
-Assisted-by: Claude:claude-opus-5.5
-Signed-off-by: Kevin Dewald <kevin@simpleble.org>
+Signed-off-by: Scott Collyer <scollyer@google.com>
 ---
-Found with the BlueZ functional tests, which run one after another on
-the same VMs: after test_bearer_le_pair, the next LE connection between
-the two hosts kept the parameters the pairing had added.
+Changes in v3:
+- Use ec_dev->dev in cros_ec_ishtp_event() and drop the client_data lookup.
+- Register the event_notifier before calling cros_ec_register() so pending
+  events dispatched during registration are not missed.
 
-Reproduced in test-runner: host0 pairs with host1, then bluetoothd is
-restarted on host0 with MinConnectionInterval and MaxConnectionInterval
-of 80 (100 ms) in main.conf and connects to host1 again. Without this
-patch LE Extended Create Connection asks for 30 to 50 ms (3 of 3 runs),
-with it for 100 ms (3 of 3). Without the earlier pairing it asks for
-100 ms either way. The kernel testers pass as before. Only tested with
-the emulator.
+Changes in v2:
+- Move EC_HOST_EVENT_PANIC handling from cros_ec.c into an event_notifier
+  in cros_ec_ishtp.c as suggested by Tzung-Bi Shih.
+- Drop kernel_restart() and instead invoke panic_notifier and emit an
+  ERROR=PANIC uevent so userspace can collect the crash and handle
+  recovery without forcing a kernel reboot.
 
- net/bluetooth/mgmt.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/platform/chrome/cros_ec_ishtp.c | 43 ++++++++++++++++++++++++-
+ 1 file changed, 42 insertions(+), 1 deletion(-)
 
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 3cb4f9ece8..cf5256f4a8 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -8175,7 +8175,11 @@ static int load_conn_param(struct sock *sk, struct hci_dev *hdev, void *data,
+diff --git a/drivers/platform/chrome/cros_ec_ishtp.c b/drivers/platform/chrome/cros_ec_ishtp.c
+index 3766cef81fe8..d3a00dc6924e 100644
+--- a/drivers/platform/chrome/cros_ec_ishtp.c
++++ b/drivers/platform/chrome/cros_ec_ishtp.c
+@@ -8,7 +8,9 @@
+ // (ISH-TP).
  
- 	hci_dev_lock(hdev);
+ #include <linux/delay.h>
++#include <linux/kobject.h>
+ #include <linux/module.h>
++#include <linux/notifier.h>
+ #include <linux/pci.h>
+ #include <linux/platform_data/cros_ec_commands.h>
+ #include <linux/platform_data/cros_ec_proto.h>
+@@ -117,6 +119,7 @@ struct response_info {
+  * @work_ishtp_reset: Work queue reset handling.
+  * @work_ec_evt: Work queue for EC events.
+  * @ec_dev: CrOS EC MFD device.
++ * @notifier: Notifier block for CrOS EC events.
+  *
+  * This structure is used to store per client data.
+  */
+@@ -133,6 +136,7 @@ struct ishtp_cl_data {
+ 	struct work_struct work_ishtp_reset;
+ 	struct work_struct work_ec_evt;
+ 	struct cros_ec_device *ec_dev;
++	struct notifier_block notifier;
+ };
  
--	if (param_count > 1)
-+	/* A single entry may be an update for one device, so keep the other
-+	 * disabled parameters then, but clear them otherwise, including when
-+	 * no entries are loaded.
-+	 */
-+	if (param_count != 1)
- 		hci_conn_params_clear_disabled(hdev);
+ /**
+@@ -538,10 +542,30 @@ static int cros_ec_pkt_xfer_ish(struct cros_ec_device *ec_dev,
+ 	return rv;
+ }
  
- 	for (i = 0; i < param_count; i++) {
-
-base-commit: 1081a6ef8f1e0661fd52eb3f878691b0b96cdff9
++static int cros_ec_ishtp_event(struct notifier_block *nb,
++			       unsigned long queued_during_suspend,
++			       void *data)
++{
++	struct cros_ec_device *ec_dev = data;
++	u32 host_event = cros_ec_get_host_event(ec_dev);
++
++	if (host_event & EC_HOST_EVENT_MASK(EC_HOST_EVENT_PANIC)) {
++		static const char * const panic_env[] = { "ERROR=PANIC", NULL };
++
++		dev_emerg(ec_dev->dev, "CrOS ISH Panic Reported\n");
++		blocking_notifier_call_chain(&ec_dev->panic_notifier, 0, ec_dev);
++		kobject_uevent_env(&ec_dev->dev->kobj, KOBJ_CHANGE, (char **)panic_env);
++		return NOTIFY_OK;
++	}
++
++	return NOTIFY_DONE;
++}
++
+ static int cros_ec_dev_init(struct ishtp_cl_data *client_data)
+ {
+ 	struct cros_ec_device *ec_dev;
+ 	struct device *dev = cl_data_to_dev(client_data);
++	int rv;
+ 
+ 	ec_dev = cros_ec_device_alloc(dev);
+ 	if (!ec_dev)
+@@ -555,7 +579,22 @@ static int cros_ec_dev_init(struct ishtp_cl_data *client_data)
+ 	ec_dev->pkt_xfer = cros_ec_pkt_xfer_ish;
+ 	ec_dev->phys_name = dev_name(dev);
+ 
+-	return cros_ec_register(ec_dev);
++	client_data->notifier.notifier_call = cros_ec_ishtp_event;
++	rv = blocking_notifier_chain_register(&ec_dev->event_notifier,
++					      &client_data->notifier);
++	if (rv) {
++		dev_warn(dev, "failed to setup event notifier: %d\n", rv);
++		return rv;
++	}
++
++	rv = cros_ec_register(ec_dev);
++	if (rv) {
++		blocking_notifier_chain_unregister(&ec_dev->event_notifier,
++						   &client_data->notifier);
++		return rv;
++	}
++
++	return 0;
+ }
+ 
+ static void reset_handler(struct work_struct *work)
+@@ -665,6 +704,8 @@ static void cros_ec_ishtp_remove(struct ishtp_cl_device *cl_device)
+ 	struct ishtp_cl	*cros_ish_cl = ishtp_get_drvdata(cl_device);
+ 	struct ishtp_cl_data *client_data = ishtp_get_client_data(cros_ish_cl);
+ 
++	blocking_notifier_chain_unregister(&client_data->ec_dev->event_notifier,
++					   &client_data->notifier);
+ 	cancel_work_sync(&client_data->work_ishtp_reset);
+ 	cancel_work_sync(&client_data->work_ec_evt);
+ 	cros_ec_unregister(client_data->ec_dev);
 -- 
-2.53.0
+2.56.0.317.g454f8302e1-goog
 
