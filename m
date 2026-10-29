@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793259354;
-	b=RJ+fWEgJD5O3bGDm02Ft1s+d9HcDayxKg0KKejRbxQk7H2i4/1Y6hIZybhUJhHf8uVFX
-	 c+6z6NE92VTqHqjP+dsgdAZ/MHijX5WgzDfX5GW00Y8I7CjjcRQ4F8b3zv5YLgtS/V5l2
-	 2TtTF8Im11/mUEorjZVY+DLZmUneOEtKuviwmCxyqKqfawgbZBu2mIxf102wUCLoi5CGz
-	 6eY0edmB533m/p38MI+N9iol1fa+JKDMxdVPtbv7oZljkVHfshAvpFscDB9Kgecf/Il/r
-	 CgqJkNU9AByg4E0Mr651ueKL7OLuB14gp2ZLsUBTDl8DkOCfg2z3mpNVYTJG4aiOUog==
+	t=1793259366;
+	b=tYrblb8JsWZU1+jZxSLqUrJyEjHzZf+7hPWIFJH4XEwk84UHRAVbWQz0mkqBD546ozPY
+	 pCvfxP3Zb4UEIOW5F8x+NrLmfckErGjtfIDe4XPW3ccSSQV1LjJi/PwnNxcb5N/2UFROI
+	 DMQkF+6rC4gb/kFbQpJJIgSyiP+AFMlam+b/Cx67b9tKM8YS/V+zP8SHlWz//XF2lzJpl
+	 U8nrqG3eqe848BSclLe1aAZSQxu3NYyGThV2auLDZdXo0WmspvLZOPy/0UR5CBKYhLpXt
+	 gtZ8/S0dXAJrJ9N7sIIdgOOHhLBnHeaNu/auaFNH84B5U3VhUYjQrwzFbTQH+p4tZew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793259354;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793259366;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0Epe+yalr0ncnNFeZXalmoB1ngEy5h1+ZCqluOO5m08=;
-	b=uP/DdPBA5tL0BjqIzdc65ZT8gHnmWHl15w5DigG0S398C5aSP3x63xNWrfPhwGmnpkn3
-	 gKdDWbC0mLxbSPICgqAoODxD+h4J61Ay/IPwUHWzlUAuuUg4SDC6AYQvq5Yq33V3VpXZ4
-	 UoUv4APzl22Y4GBhxEQtvDrcm/oVKZEEYtHT9ctgUbrWNl/YBPVuzKXg0DOGlX0p6ck5o
-	 xzlFjSJYPiM0GqcMcbDwLMok4RfXj//WEVMZarHXmpXIhDTuYxBBRp9M8qDf5GUUDIdL0
-	 Nvyy9kXLVSdJuovo6TeMa2hIZT0iftJB991IEqI0HfY+tgFHi/2neX1xvX2HNu76GhQ==
+	bh=9dgPrzh36HQtv2U6nKZiCZt5EekKbvtdQUbtKRXTdTM=;
+	b=q9hmrtawHYYW97s9EmUl3+Slmz0fNS1WlVUrEn1ybSN0TJ2egu6ZnZKvUeE5kVmOqpPH
+	 GminU5KPvbg5baqvrJHYm+ZgqmEiosZK8kuNMvsl2fF9+0RhmxjRHs9uAeu3+wAv/TeVb
+	 c+kbI8ECLzG0EAYHKaKYl4MpWVHDjHv3gT9ZQhBGTTpKnEjaTj5UKNThUgjUJ9oBz0N6i
+	 2T6IkGzorbCsYv4+90KfTq0WMMX4RdM95SUj0vo10+5YQ+ZvFDyUCXw+5KYDakxovXgUi
+	 YraRej/4ppprY9f6W4KM+Vl7hCTdJ4C7RpVVlerPgDbqkILAGhga4LIyUSpb3jaefmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V43TEX6F;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RlniipXP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26C0606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:35:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F66A606A31A;
+	Thu, 29 Oct 2026 07:36:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V43TEX6F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 135EB1F01825;
-	Thu, 29 Oct 2026 07:35:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RlniipXP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DF691F01828;
+	Thu, 29 Oct 2026 07:36:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793259353;
-	bh=0Epe+yalr0ncnNFeZXalmoB1ngEy5h1+ZCqluOO5m08=;
+	s=k20260515; t=1793259366;
+	bh=9dgPrzh36HQtv2U6nKZiCZt5EekKbvtdQUbtKRXTdTM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V43TEX6Fw8eQjHoTKHC2CRjnughswM+IkpybdsCO33FGiISABle3TSCUtdt1TfgZq
-	 3sAW4vI1itqPrr1APjhXZ2+WNM0GpELOy/iz6lHNCH1x67fMMjVvCPM1iCzBjpztZZ
-	 +vANLaBPjgNZl6lOPZE8fT+fb7OJAXTU2/WYUH3uId87pAVR1tYrLsK8H0iiPVA2LZ
-	 RvESoKXHo76HJUx1MFCdBo0JlI+nULCC7LyN3AtDbTITDzparVWWDKdwpAb700rNdu
-	 sPBVj66V4DQodubdnKCLyPjO0hDmKnJ5Aah5iOhJOFbUSgfy3jwfoG69l66HZYPKI6
-	 Rb9qyByArGDbQ==
-Date: Thu, 29 Oct 2026 09:35:45 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, surenb@google.com,
-	mhocko@suse.com, baoquan.he@linux.dev, pasha.tatashin@soleen.com,
-	graf@amazon.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org
-Subject: Re: [RFC PATCH 1/2] kexec: do not place the next kernel in a
- fixed-address CMA area
-Message-ID: <auL3UW2InVqYU6Fs@kernel.org>
-References: <20261014145731.3431527-1-radhey.shyam.pandey@amd.com>
- <20261014145731.3431527-2-radhey.shyam.pandey@amd.com>
- <2vxzh5i5orbv.fsf@kernel.org>
+	b=RlniipXPmaOyUi70du+qvaRbwBOIswMw3dOa4xGE/Vt01/p2tKyD45/C9VClVCD4G
+	 u5iWY38pC3Rgo+3UKvhRsYZxxiLmbmxFQvNYghBCjWBNRUCyIg3zLCGX/ccA7wnFMY
+	 N/H7muFCIAwdYbrEvubfmseVYUQRDEzF8RftBZj8CtseBzMIlX0Ebd0Dd3rpk4EsVl
+	 gExY+cRrOiqKcB3yMiFvoT3LrE4UghOHC3B8aD+4YM/KNhk5gny0gDOys9RVrfWeS8
+	 OScVqm2GwuCqYiBVzKLBSb4pLhPi+/ZzInFaJxSpg+ANittbziepEsF2ZPZThPprkp
+	 gogFu+44UA0mQ==
+Date: Thu, 29 Oct 2026 08:36:02 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gregory CLEMENT <gregory.clement@bootlin.com>
+Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+	=?utf-8?Q?Beno=C3=AEt?= Monin <benoit.monin@bootlin.com>, =?utf-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 3/4] MIPS: dts: eyeq5: add MSI controllers
+Message-ID: <20261029-guan-of-radical-reverence-6346b4@quoll>
+References: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
+ <20261028-eyeq5_msi-v1-3-c464752fb55f@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,192 +61,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <2vxzh5i5orbv.fsf@kernel.org>
+In-Reply-To: <20261028-eyeq5_msi-v1-3-c464752fb55f@bootlin.com>
 
-On Wed, Oct 28, 2026 at 03:03:16PM +0100, Pratyush Yadav wrote:
-> On Wed, Oct 14 2026, Radhey Shyam Pandey wrote:
+On Wed, Oct 28, 2026 at 04:58:50PM +0100, Gregory CLEMENT wrote:
+> Add the two EyeQ5 MSI controllers. They use reserved-memory regions as
+> their doorbell windows.
 > 
-> > kexec_alloc_contig() picks the destination of the next kernel out of the
-> > default CMA area, and the next kernel then runs from there in place
-> > instead of being copied out. That is only safe if the area will not exist
-> > at the same address in the kernel being loaded.
-> >
-> > For an area whose base came from the device tree, it will. The loaded
-> > kernel parses the same description, declares the range it is executing
-> > from as a shared-dma-pool, and cma_activate_area() releases the pages
-> > holding its own image to the page allocator.
-> >
-> > Distinguish the two cases. An area placed by cma_declare_contiguous_nid()
-> > without a fixed base lands wherever this kernel found room, and the next
-> > kernel repeats that search against its own memblock state, so it cannot
-> > collide. Record the difference as CMA_FIXED_BASE and refuse to use such
-> > an area for the payload, which leaves kexec_locate_mem_hole() to fall
-> > back to the memblock hole search as it did before CMA placement existed.
-> >
-> > This is what makes the KEXEC_FILE_NO_CMA flag unnecessary on platforms
-> > that describe their CMA pools in the device tree.
-> >
-> > Tested on a AMD Versal AI Edge Series Gen 2 VEK385 Evaluation Kit whose
-> > device tree declares three CMA pools, the first of which is
-> > linux,cma-default:
-> >
-> >   cma_reserved@800000000     4 GiB at 0x800000000    (default)
-> >   cma_reserved@50000000000   6 GiB at 0x50000000000
-> >   cma_reserved@60000000000   4 GiB at 0x60000000000
-> >
-> > All three have a fixed base, so kexec_alloc_contig() declines the default
-> > area and kexec_locate_mem_hole() falls through to the memblock search,
-> > which places the Image segment at 0x9c00000 size 0x1de0000. The kernel
-> > that boots from it reports its image as [0x09c00000-0x0b9e0000] and
-> > 14680064K cma-reserved, i.e. all three pools still present and none of
-> > them overlapping the running kernel.
-> >
-> > Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
-> > Assisted-by: Claude:claude-opus-5
-> > Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-> > ---
-> >  include/linux/cma.h | 10 ++++++++++
-> >  kernel/kexec_file.c | 12 ++++++++++++
-> >  mm/cma.c            | 16 ++++++++++++++++
-> >  mm/cma.h            |  2 ++
-> >  4 files changed, 40 insertions(+)
-> >
-> > diff --git a/include/linux/cma.h b/include/linux/cma.h
-> > index 8555d38a97b1..2fe66377e5d3 100644
-> > --- a/include/linux/cma.h
-> > +++ b/include/linux/cma.h
-> > @@ -61,4 +61,14 @@ extern int cma_for_each_area(int (*it)(struct cma *cma, void *data), void *data)
-> >  extern bool cma_intersects(struct cma *cma, unsigned long start, unsigned long end);
-> >  
-> >  extern void cma_reserve_pages_on_error(struct cma *cma);
-> > +
-> > +#ifdef CONFIG_CMA
-> > +bool cma_has_fixed_base(const struct cma *cma);
-> > +#else
-> > +static inline bool cma_has_fixed_base(const struct cma *cma)
-> > +{
-> > +	return false;
-> > +}
-> > +#endif
-> > +
-> >  #endif
-> > diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
-> > index b668ce8d68ee..10e770bcee0b 100644
-> > --- a/kernel/kexec_file.c
-> > +++ b/kernel/kexec_file.c
-> > @@ -28,6 +28,7 @@
-> >  #include <linux/vmalloc.h>
-> >  #include <linux/dma-map-ops.h>
-> >  #include <linux/kexec_handover.h>
-> > +#include <linux/cma.h>
-> >  #include "kexec_internal.h"
-> >  
-> >  #ifdef CONFIG_KEXEC_SIG
-> > @@ -691,6 +692,7 @@ static int kexec_walk_resources(struct kexec_buf *kbuf,
-> >  static int kexec_alloc_contig(struct kexec_buf *kbuf)
-> >  {
-> >  	size_t nr_pages = kbuf->memsz >> PAGE_SHIFT;
-> > +	struct cma *cma;
-> >  	unsigned long mem;
-> >  	struct page *p;
-> >  
-> > @@ -702,6 +704,16 @@ static int kexec_alloc_contig(struct kexec_buf *kbuf)
-> >  	if (kbuf->image->type == KEXEC_TYPE_CRASH)
-> >  		return -EPERM;
-> >  
-> > +	/*
-> > +	 * The next kernel runs from here rather than being copied out, so it
-> > +	 * would declare this area again from the same description and release
-> > +	 * the pages holding its own image to the page allocator. Only an area
-> > +	 * this kernel placed itself is safe to use.
-> > +	 */
-> > +	cma = dev_get_cma_area(NULL);
-> > +	if (!cma || cma_has_fixed_base(cma))
-> > +		return -EOPNOTSUPP;
-> > +
-> >  	p = dma_alloc_from_contiguous(NULL, nr_pages, get_order(kbuf->buf_align), true);
-> >  	if (!p)
-> >  		return -ENOMEM;
-> > diff --git a/mm/cma.c b/mm/cma.c
-> > index a10ea37a261d..1f4d3d48a3bb 100644
-> > --- a/mm/cma.c
-> > +++ b/mm/cma.c
-> > @@ -55,6 +55,19 @@ const char *cma_get_name(const struct cma *cma)
-> >  }
-> >  EXPORT_SYMBOL_GPL(cma_get_name);
-> >  
-> > +/**
-> > + * cma_has_fixed_base() - was the area placed at an address it did not choose?
-> > + * @cma: Contiguous memory region
-> > + *
-> > + * Such an area is described outside the kernel, typically by a device tree
-> > + * reserved-memory node, and so lands at the same address in every kernel
-> > + * booted with that description.
-> > + */
-> > +bool cma_has_fixed_base(const struct cma *cma)
-> > +{
-> > +	return test_bit(CMA_FIXED_BASE, &cma->flags);
-> > +}
-> > +
-> >  static unsigned long cma_bitmap_aligned_mask(const struct cma *cma,
-> >  					     unsigned int align_order)
-> >  {
-> > @@ -304,6 +317,7 @@ int __init cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
-> >  	cma->ranges[0].count = cma->count;
-> >  	cma->nranges = 1;
-> >  	cma->nid = NUMA_NO_NODE;
-> > +	set_bit(CMA_FIXED_BASE, &cma->flags);
-> >  
-> >  	*res_cma = cma;
-> >  
-> > @@ -517,6 +531,8 @@ static int __init __cma_declare_contiguous_nid(phys_addr_t *basep,
-> >  	}
-> >  
-> >  	(*res_cma)->nid = nid;
-> > +	if (!fixed)
-> > +		clear_bit(CMA_FIXED_BASE, &(*res_cma)->flags);
+> Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
+> ---
+>  arch/mips/boot/dts/mobileye/eyeq5.dtsi | 30 ++++++++++++++++++++++++++++++
+>  1 file changed, 30 insertions(+)
 > 
-> Nit: This reads a bit odd. cma_init_reserved_mem() sets the fixed base
-> and then you clear it later. Wouldn't it be better to just pass the
-> fixed boolean to cma_init_reserved_mem()?
+> diff --git a/arch/mips/boot/dts/mobileye/eyeq5.dtsi b/arch/mips/boot/dts/mobileye/eyeq5.dtsi
+> index cec5ad8752285..be5239d890239 100644
+> --- a/arch/mips/boot/dts/mobileye/eyeq5.dtsi
+> +++ b/arch/mips/boot/dts/mobileye/eyeq5.dtsi
+> @@ -309,6 +309,36 @@ gpio1: gpio@1500000 {
+>  			resets = <&olb 0 26>;
+>  		};
+>  
+> +		msi0: msi-controller@5840000 {
+> +			compatible = "mobileye,eyeq5-msi";
+> +			reg =	<0x0 0x05840000 0x0 0x10>,
+> +				<0x0 0x05840040 0x0 0x20>;
+> +			label = "port0-msi";
+> +			interrupt-parent = <&gic>;
+> +			interrupt-controller;
+> +			#interrupt-cells = <1>;
+> +			msi-controller;
+> +			#msi-cells = <0>;
+> +			interrupts =  <GIC_SHARED 7 IRQ_TYPE_LEVEL_HIGH>;
+> +			memory-region =	<&pci0_msi_reserved>;
+> +			num-vectors = <4>;
+> +		};
+> +
+> +		msi1: msi-controller@5840010 {
+> +			compatible = "mobileye,eyeq5-msi";
+> +			reg = <0x0 0x05840010 0x0 0x10>,
+> +				<0x0 0x05840060 0x0 0x20>;
+> +			label = "port1-msi";
+> +			interrupt-parent = <&gic>;
+> +			interrupt-controller;
+> +			#interrupt-cells = <1>;
+> +			msi-controller;
+> +			#msi-cells = <0>;
+> +			interrupts =  <GIC_SHARED 48 IRQ_TYPE_LEVEL_HIGH>;
+> +			memory-region =	<&pci1_msi_reserved>;
+> +			num-vectors = <4>;
 
-Actually, we shouldn't expose cma_init_reserved_mem() at all.
+Continuing my question from the binding - all of the devices have four
+vectors, so why do you need the property?
 
-The current callers of cma_init_reserved_mem() should be switched to
-cma_declare_contiguous_nid() that does sanity checks before calling
-cma_init_reserved_mem().
+Best regards,
+Krzysztof
 
-This way the callers won't need to keep the checks for e.g
-CMA_MIN_ALIGNMENT and we'll have the clear way to differentiate areas with
-fixed based from allocated ones.
- 
-> With that fixed,
-> 
-> Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-> 
-> >  	*basep = base;
-> >  
-> >  	return 0;
-> > diff --git a/mm/cma.h b/mm/cma.h
-> > index 68e574b0f951..1bab24033284 100644
-> > --- a/mm/cma.h
-> > +++ b/mm/cma.h
-> > @@ -80,6 +80,8 @@ enum cma_flags {
-> >  	CMA_ZONES_VALID,
-> >  	CMA_ZONES_INVALID,
-> >  	CMA_ACTIVATED,
-> > +	/* Base address was dictated by the caller, not picked by CMA. */
-> > +	CMA_FIXED_BASE,
-> >  };
-> >  
-> >  extern struct cma cma_areas[MAX_CMA_AREAS];
-> 
-> -- 
-> Regards,
-> Pratyush Yadav
-
--- 
-Sincerely yours,
-Mike.
