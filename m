@@ -1,66 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793256163;
-	b=OGTAIi5FTqmb8CrQI/5crZ/J5aK+qm83H7VirpgqH023k7zvrwskUCcef1+TnwrNSfTM
-	 mcTRL+PA1lu8Src8uQFwN5h0UAHzcDImmY7N7ArYQZ6GCp3T9eBu5eqEWGQTu/AuClTdV
-	 g7DAw0A1YJomX6+KofLQH4/e8qm2+ngWT2RTjiPcsR6YJz1JshVH/vmrHzh/imeB+tCPR
-	 K4A+tKspyYnN688TVFzklEIqLrwnbMqugVEZons4Xa4JesC5P1u7dxgZQuraMace1RJ7L
-	 WXoGS3ym8w4POLt5i608SHrqtbO+tloBUNetT/M11QcdxKyxWfQ1+6jGTpIOZkj9QMw==
+	t=1793256230;
+	b=soOf+hFhxMXfyR518qz+culbYbS3yxGYSY7ZFJihdS+82v3qH+Il6Wc/q0Y7bAnGsPsI
+	 6MFlX6Sd4KbiUNPYxVwroZ8I65AWdWrF7LrCzLlrVkdYDaLNmbzhO3pmAAWqXU0tfoSgo
+	 3k8NlmidYIA2ml2jIu6iNRihBnRFL/o3oSu2gC+hkUPytaMtdhQmL4y6dbvJgW8E0Dz/B
+	 2IhAcspt9SZUYA7GgUrRfPYu1E0BIZHB464zIKBMj06k6Xg3+BBwBwOb4nSIIEIJQyjRr
+	 nvvOrqi5gMYyW7Q8xDTr9cf0lv1cQSnkV3f7HrPuqFeYrHlOV2gCJPsZCwVdl+tkx0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793256163;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Spam-Status:X-Spam-Checker-Version;
-	bh=TwPeZ3+dVYa0x/Onb18lEJ0bQ1+V91oucPH+79L0Cjs=;
-	b=250uyr/6WyAbCaSqtoJJLRlZcNLkT1dPZarpo//PFybSOSYNTwOMWhuGcw4JFNsMTQV2
-	 lWqJ2JsO02oFP1QT+9Ubzh6LKHsr5jw6nlb7m25TEHeZDJSX2nILt/HkMmYCXlf8fn1Xo
-	 x+aSpHbFbU7IaTNQXBuJF3wQJu76NyRhlWhYE9rtXCS3k2M/iBFLbBMTQU3aZNqDK64o5
-	 r8Pu+4tj2tea1aCNDqQSBYlZ8roqPlusEklWBTdRXkOiEOGSQXGp2tG7PU+aPwyClS1v1
-	 I6eDWvTNJoFNRdUqQd27+F2wu5wa9FELGZubdtL8yN+xIAe8wZ8Y8j6zClKObQBys/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793256230;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=LYSppn+c8e5u6slhU90tGiZOtFKk/+H1GYWinE/YCks=;
+	b=OjODCgy0h6DKa6nwzjlLfVn8a6dNW9HfMJ8bYmo6ufNs7lbTQ7gckrgQc1kZ9xyPOBuy
+	 r04XNPK1Cb5FshRdbKWoVy3ZVK6H2U8KqBKePW7pMewOuCm/GfI52AEFJrtpryzm4W09P
+	 UpzY0QHrQuyL/wVV09yng5x44C+8JhTLXcqCCauZ2BgvWnDClXqtvov9snVid7ac1d6rg
+	 xxm5b51O6vBV+qsJ+1c8/zgBTH7nOHRTGdlV14hMZ8CYe0W2u0xoSxvnztTv5SvSt/um4
+	 vpb/FThYG+yZVxmu18czW68sgR/T5knx4d98JTTRvTaEGYSfukqtv5VgAK/L5NRaL2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b="o/nxMkJd";
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 493FC606A31D;
-	Thu, 29 Oct 2026 06:42:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 493FC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dmarc=pass header.from=kroah.com;
+	spf=pass smtp.mailfrom=kroah.com;
+	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=ZjH5utAS;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Teet5Hsn;
+	arc=none smtp.remote-ip=202.12.124.139
+Received: from flow-b4-smtp.messagingengine.com (flow-b4-smtp.messagingengine.com [202.12.124.139])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913E5606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:43:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 913E5606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=o/nxMkJd
-Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.21])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 104C720B7167;
-	Wed, 28 Oct 2026 23:42:26 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 104C720B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793256150;
-	bh=TwPeZ3+dVYa0x/Onb18lEJ0bQ1+V91oucPH+79L0Cjs=;
-	h=From:To:Cc:Subject:Date:From;
-	b=o/nxMkJdZ4WGFtpXcylsak83ZpeAYJPHPaEghJJnNB48zOld4dstbLI/nGvoX+7jE
-	 EvOfMuExGoDnA2diNcvL8vZuzTXuWTlpbCyplt9F/IJ8SH3/jr0ak3R2oLvr6Vwmcd
-	 7SrNhc+Yh56Mj9IoySRuq60fGZJ/8tMtdKQA9T8A=
-From: Naman Jain <namjain@linux.microsoft.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	luto@kernel.org,
-	peterz@infradead.org
-Cc: hpa@zytor.com,
-	riel@surriel.com,
-	mhklinux@outlook.com,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] x86/hyperv: Account for lazy mm_cpumask maintenance
-Date: Thu, 29 Oct 2026 06:42:33 +0000
-Message-ID: <20261029064234.362385-1-namjain@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=ZjH5utAS;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Teet5Hsn
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailflow.stl.internal (Postfix) with ESMTP id 14D6F1302126
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:43:49 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Thu, 29 Oct 2026 02:43:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1793256226; x=1793263426; bh=LYSppn+c8e
+	5u6slhU90tGiZOtFKk/+H1GYWinE/YCks=; b=ZjH5utAS2CIm+N6ZzEunmjbfaB
+	jhz9ts7I2sgJltgYFHi2Z4jPCcLO8e+W7PqTWTc1dDTuW3LeQHx+X6O183tPvyCF
+	ePdueWqG8ujRpAsGJAd6k/zIJJriD64N7UjUM+jElD0KkR6jqX1udS8/xcVb1BUM
+	RlawQGpC8Tj0LyZ0qjOBuf7NPS3tZ293ip/Mh2rc5wpG3hfLf3Cy/XQ6hgm4RORT
+	HklArEfbuSQdCm/3lKMvETALUqadSmjgIImM/xyGEZm2qhZObg5YlLdEW1OxOYev
+	Y9PkeSxvlOZbOVP4LsTBPBFCrMsxhdPiCaT6TLEPf469IHTvWF/7pZ6l+JIg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793256226; x=1793263426; bh=LYSppn+c8e5u6slhU90tGiZOtFKk/+H1GYW
+	inE/YCks=; b=Teet5Hsnckb6lm1pCbXvX4WOxuD5PtzRB2GetTnYXKxpT84YW73
+	+a8bCgiFTwKJsVC7dRhK3t86gjC9h5sW0xz/Xymm5ENa0J5T/vGsI2W3HxbcK7GF
+	3yAF+Ux88nN7oRF6S50uyJJnmiwzsJPOZGVY4xHpavmuz/e188QEUpzd+NEknDgz
+	8pCWPaJUWWmLt21jXmpKEBhNI9ijcR6YUjAepodg44V2f0ub9qb4+zHCibHCdxNv
+	zkLhtKheZTqBPOoOMUKXCJMR9P8SHeAwUmmBIQbN+G9HukGvtbvhzW1G4s8h6T5X
+	lNxrV6/IbaJw9jsoMO1kgAUH/ws3LhFmuHg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793256226; d=kroah.com;
+	mf=PGdyZWdAa3JvYWguY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:TyLo0419NF9Wrrq7p9dfDvtdAW13oiJh3lNsOm1UHtsuH7Q
+	VdPJuB52z9T4ztD5uLgSqzGZgg1gvNe7Up6NaXNOv8dxPCaIV9n1GdxkDaRl97fN
+	Y8HH+aGDlTtCogsdrlr0offYnBBMqavKT1q6Z3Ll3gLBePK53w4+7+GtsQl/xer5
+	9KY2KoeJwMr2lsYDbwgCX/UwufWRaY1o/XYjKobjqRRcy00B9BeR8M62z9+LFPl7
+	LrdOqR52pnFuwyFVjJ0CUqGpHGOF7AoSQ/kPqxtmleC1UB8CEk4FI9/Ah48IT5W1
+	iZKE0mD755IoDWCLBfmxc3Jb52Qemn1dlqQvUOg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:sNXm1VZHPLvxi2/PmVkw4u3FhZW7bm07fmgeKTb4hjY=:LYSppn+c8e5u6slhU90tGiZOtFKk/+H1GYWinE/YCks=;
+X-ME-Sender: <xms:IuviaqMBY1oagLgP8jBpJuwzCqNWF2vM1_6SCBTSG2dWL5myPu9iRw>
+    <xme:IuviapbrUGenXxyL_9Tlgd5ElNFzEjqnag59RW0zrdC2CAXMto0GK89vUrCt_59Ox
+    z0jbX9iCtvQRbXVVcjoOw6h21LP2dgzoj1Cu4Pt_3yoTcS31AM>
+X-ME-Received: <xmr:IuviamtWI8iperDNxA78ylItBUQdP0DvQG7tZf7bqz6m79bima_B9NXXM8G0e69URME-7RhzhK9ffrLTqD5x00lOoU-6Vo7yFZzoQNohGIQ>
+X-ME-Proxy-Cause: dmFkZTGXI/sv7Q3ryCVVO7Xkbkb5CXjELT7BUMWJ5iydtxBy6d5IEU2kFOL1C3R3qccr0y
+    cxFeikHBBYQ4oJ5QDRf88fxh5criWaOgLcLTynDQ3nCU63yAkfupVkGirzLHQOQvJ+pzKZ
+    FkTU9agIFQ1vdeeo1rEotZj8YUCRvpbu2QY4zMPVrqwT3boHBPL8tcUvjNQYuQiji8d+lI
+    4SRuenta5RYjFCtfRd88OnECiKwyD7WXLC7485injrQvGU4+6hQQpkovBRdYHVTcvLgWK3
+    l0FBkn8daNvWgZP/Y43zojH5uPEbHh43NAJBW8KgYymW9ZKgT1yNI3lDm07GSaSohHW2Y5
+    VW3G7JmtQPGUNJKMRC2eV/inWDyyheRirRxl+LwqRvh+GRuExXSYIqNYNmIwEEmw6nsA7Y
+    FtZrJCnm61HbJC4CXX7daYadxsOFERsDL9OL8MbAXrNCLCv04t4jIttJncLSO2rFYe9GC3
+    3RHvogfuY6uYy0eYCDSJZOdoMxZJqtCNWJem4HVA+KD+EyUJ1+HKSYgqWmxbQOKEUDuOau
+    S46NyAY9pdt/JorF4bPSQDU6B0s0KCn76BqqOf4uTdWyhwLVxOxnYYlHXjbDlWciacnesZ
+    QYrgOobiPctt1OY9D9zpgc7GRjN70m39VrUMTgpfBwgpJRW7B1GpAsu61/Xw
+X-ME-Proxy: <xmx:IuviaopEjIGElkTtFCPE2t2DVD7aFg73Q26L5EIFQZP0HAj-BfW6FA>
+    <xmx:IuviamSjPAE-z7mnIgpNL33jE6bTLUzZyYKeyEfWVKnn6SoT0c-0QA>
+    <xmx:IuviatZwlm8lFD7cn5QqU3MIUf8nwVvNkKqv7G6w8EchDBZ_dHT0GQ>
+    <xmx:Iuvian40eKwGlYmYUZWuZM9JeSKHEUZ06D3fLRHRTax6NQaBMNg6Hw>
+    <xmx:Iuviaolo3xcF3g1RQw5hN6DBnCOZT28ZIp-v-4L_dHpaboqcWk3TJZeR>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 29 Oct 2026 02:43:45 -0400 (EDT)
+Date: Thu, 29 Oct 2026 07:43:43 +0100
+From: Greg KH <greg@kroah.com>
+To: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+Cc: Jarkko Sakkinen <jarkko@kernel.org>, brauner@kernel.org,
+	dhowells@redhat.com, keyrings@vger.kernel.org,
+	linux-kernel@vger.kernel.org, security@kernel.org,
+	edumazet@kernel.org, ncardwell@google.com, lyutoon@gmail.com,
+	tpluszz77@gmail.com
+Subject: Re: [BUG] watch_queue: RCU/info_id overlap leaks kernel stack
+Message-ID: <2026102915-safeness-snazzy-a36d@gregkh>
+References: <CALf2hKveij_sHgANY9Aktm1dPa4wfKjKNkHyp9yPbjORWFXagA@mail.gmail.com>
+ <auIbEZv5macfZ4aq@kernel.org>
+ <CALf2hKty86GatQ01C30j20oa+TeVdJRvbX=a_+0Rga33woJ6Lw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,223 +126,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CALf2hKty86GatQ01C30j20oa+TeVdJRvbX=a_+0Rga33woJ6Lw@mail.gmail.com>
 
-CPUs no longer running an mm may remain in mm_cpumask(). Hyper-V treats
-these CPUs as flush targets and bypasses the native callbacks that trim
-the mask. A single-threaded process can therefore keep issuing
-all-processor flushes after visiting all CPUs and returning to one CPU.
+On Thu, Oct 29, 2026 at 01:06:28AM +0800, Zhiyu Zhang wrote:
+> We will send the reproducers (including the complete exp for lpe) to you
+> and the relevant maintainers privately. I understand your point that a
+> similar reproducer can likely be recreated with a few LLM prompts.
+> Nevertheless, Documentation/process/security-bugs.rst says not to
+> publish a reproducer for an AI-assisted finding, so we are keeping it off-list.
+> The same guidance says that AI-assisted findings must be treated as public,
+> which is why the report was posted publicly.
 
-Share the native target predicate and filter the mask before building
-either hypercall format or selecting HV_FLUSH_ALL_PROCESSORS. Preserve
-lazy-TLB exclusion and unfiltered page-table-freeing flushes, and use
-native callbacks for periodic trimming and ASID transitions.
+The documentation also says that a patch should be sent which I can't
+seem to find here, am I missing it somewhere?
 
-When no remote targets remain, request immediate trimming through native
-callbacks so stale memberships do not unnecessarily prevent later
-invalidations from using the local fast path. Leave lazy CPU-mask
-maintenance during context switches unchanged.
+thanks,
 
-Fixes: 209954cbc7d0 ("x86/mm/tlb: Update mm_cpumask lazily")
-Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
----
-On a 32-vCPU Hyper-V guest, after a single-threaded process visited all
-CPUs and returned to one CPU, the reproducer's median time per iteration
-(two mprotect() calls and a write) dropped from 17.235 us to 1.622 us,
-a 90.6% reduction. This could be more on higher vCPU VMs.
-
- arch/x86/hyperv/mmu.c           | 62 +++++++++++++++++++++------------
- arch/x86/include/asm/tlbflush.h |  6 ++++
- arch/x86/mm/tlb.c               |  8 +++--
- 3 files changed, 52 insertions(+), 24 deletions(-)
-
-diff --git a/arch/x86/hyperv/mmu.c b/arch/x86/hyperv/mmu.c
-index cfcb60468b01c..128ad3ce8c24c 100644
---- a/arch/x86/hyperv/mmu.c
-+++ b/arch/x86/hyperv/mmu.c
-@@ -1,6 +1,7 @@
- #define pr_fmt(fmt)  "Hyper-V: " fmt
- 
- #include <linux/log2.h>
-+#include <linux/percpu.h>
- #include <linux/slab.h>
- #include <linux/types.h>
- 
-@@ -16,6 +17,8 @@
- /* Each gva in gva_list encodes up to 4096 pages to flush */
- #define HV_TLB_FLUSH_UNIT (4096 * PAGE_SIZE)
- 
-+static DEFINE_PER_CPU(struct cpumask, hyperv_tlb_flush_mask);
-+
- static u64 hyperv_flush_tlb_others_ex(const struct cpumask *cpus,
- 				      const struct flush_tlb_info *info);
- 
-@@ -51,23 +54,23 @@ static inline int fill_gva_list(u64 gva_list[], int offset,
- 	return gva_n - offset;
- }
- 
--static bool cpu_is_lazy(int cpu)
--{
--	return per_cpu(cpu_tlbstate_shared.is_lazy, cpu);
--}
--
- static void hyperv_flush_tlb_multi(const struct cpumask *cpus,
- 				   const struct flush_tlb_info *info)
- {
- 	int cpu, vcpu, gva_n, max_gvas;
- 	struct hv_tlb_flush *flush;
-+	struct cpumask *flush_cpus;
- 	u64 status;
- 	unsigned long flags;
--	bool do_lazy = !info->freed_tables;
- 
- 	trace_hyperv_mmu_flush_tlb_multi(cpus, info);
- 
--	if (!hv_hypercall_pg)
-+	/*
-+	 * Hypercalls bypass the callbacks that trim mm_cpumask() and complete
-+	 * ASID transitions.
-+	 */
-+	if (!hv_hypercall_pg || info->trim_cpumask ||
-+	    mm_in_asid_transition(info->mm))
- 		goto do_native;
- 
- 	local_irq_save(flags);
-@@ -79,6 +82,30 @@ static void hyperv_flush_tlb_multi(const struct cpumask *cpus,
- 		goto do_native;
- 	}
- 
-+	flush_cpus = this_cpu_ptr(&hyperv_tlb_flush_mask);
-+	if (info->freed_tables) {
-+		cpumask_copy(flush_cpus, cpus);
-+	} else {
-+		cpumask_clear(flush_cpus);
-+		for_each_cpu(cpu, cpus) {
-+			if (cpu_needs_tlb_flush(cpu, info))
-+				__cpumask_set_cpu(cpu, flush_cpus);
-+		}
-+	}
-+
-+	/*
-+	 * An effectively local mm should not keep taking the remote path until
-+	 * the next periodic trim. Let the native callbacks prune stale bits.
-+	 */
-+	if (cpumask_any_but(flush_cpus, smp_processor_id()) >= nr_cpu_ids) {
-+		struct flush_tlb_info local_info = *info;
-+
-+		local_info.trim_cpumask = 1;
-+		local_irq_restore(flags);
-+		native_flush_tlb_multi(cpus, &local_info);
-+		return;
-+	}
-+
- 	if (info->mm) {
- 		/*
- 		 * AddressSpace argument must match the CR3 with PCID bits
-@@ -93,7 +120,7 @@ static void hyperv_flush_tlb_multi(const struct cpumask *cpus,
- 	}
- 
- 	flush->processor_mask = 0;
--	if (cpumask_equal(cpus, cpu_present_mask)) {
-+	if (cpumask_equal(flush_cpus, cpu_present_mask)) {
- 		flush->flags |= HV_FLUSH_ALL_PROCESSORS;
- 	} else {
- 		/*
-@@ -107,14 +134,12 @@ static void hyperv_flush_tlb_multi(const struct cpumask *cpus,
- 		 * must. We will also check all VP numbers when walking the
- 		 * supplied CPU set to remain correct in all cases.
- 		 */
--		cpu = cpumask_last(cpus);
-+		cpu = cpumask_last(flush_cpus);
- 
- 		if (cpu < nr_cpumask_bits && hv_cpu_number_to_vp_number(cpu) >= 64)
- 			goto do_ex_hypercall;
- 
--		for_each_cpu(cpu, cpus) {
--			if (do_lazy && cpu_is_lazy(cpu))
--				continue;
-+		for_each_cpu(cpu, flush_cpus) {
- 			vcpu = hv_cpu_number_to_vp_number(cpu);
- 			if (vcpu == VP_INVAL) {
- 				local_irq_restore(flags);
-@@ -127,12 +152,6 @@ static void hyperv_flush_tlb_multi(const struct cpumask *cpus,
- 			__set_bit(vcpu, (unsigned long *)
- 				  &flush->processor_mask);
- 		}
--
--		/* nothing to flush if 'processor_mask' ends up being empty */
--		if (!flush->processor_mask) {
--			local_irq_restore(flags);
--			return;
--		}
- 	}
- 
- 	/*
-@@ -158,7 +177,7 @@ static void hyperv_flush_tlb_multi(const struct cpumask *cpus,
- 	goto check_status;
- 
- do_ex_hypercall:
--	status = hyperv_flush_tlb_others_ex(cpus, info);
-+	status = hyperv_flush_tlb_others_ex(flush_cpus, info);
- 
- check_status:
- 	local_irq_restore(flags);
-@@ -197,9 +216,8 @@ static u64 hyperv_flush_tlb_others_ex(const struct cpumask *cpus,
- 	flush->hv_vp_set.valid_bank_mask = 0;
- 
- 	flush->hv_vp_set.format = HV_GENERIC_SET_SPARSE_4K;
--	nr_bank = cpumask_to_vpset_skip(&flush->hv_vp_set, cpus,
--			info->freed_tables ? NULL : cpu_is_lazy);
--	if (nr_bank < 0)
-+	nr_bank = cpumask_to_vpset(&flush->hv_vp_set, cpus);
-+	if (nr_bank <= 0)
- 		return HV_STATUS_INVALID_PARAMETER;
- 
- 	/*
-diff --git a/arch/x86/include/asm/tlbflush.h b/arch/x86/include/asm/tlbflush.h
-index 70098d448e999..e1e05cc867d5a 100644
---- a/arch/x86/include/asm/tlbflush.h
-+++ b/arch/x86/include/asm/tlbflush.h
-@@ -264,6 +264,12 @@ void flush_tlb_one_kernel(unsigned long addr);
- void flush_tlb_multi(const struct cpumask *cpumask,
- 		      const struct flush_tlb_info *info);
- 
-+/*
-+ * Do not use for filtering when freeing page tables or during global ASID
-+ * transitions.
-+ */
-+bool cpu_needs_tlb_flush(int cpu, const struct flush_tlb_info *info);
-+
- static inline bool is_dyn_asid(u16 asid)
- {
- 	return asid < TLB_NR_DYN_ASIDS;
-diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
-index 0c4da320831cb..f2f40928d56a4 100644
---- a/arch/x86/mm/tlb.c
-+++ b/arch/x86/mm/tlb.c
-@@ -1273,10 +1273,9 @@ static void flush_tlb_func(void *info)
- 			nr_invalidate);
- }
- 
--static bool should_flush_tlb(int cpu, void *data)
-+bool cpu_needs_tlb_flush(int cpu, const struct flush_tlb_info *info)
- {
- 	struct mm_struct *loaded_mm = per_cpu(cpu_tlbstate.loaded_mm, cpu);
--	struct flush_tlb_info *info = data;
- 
- 	/*
- 	 * Order the 'loaded_mm' and 'is_lazy' against their
-@@ -1311,6 +1310,11 @@ static bool should_flush_tlb(int cpu, void *data)
- 	return false;
- }
- 
-+static bool should_flush_tlb(int cpu, void *data)
-+{
-+	return cpu_needs_tlb_flush(cpu, data);
-+}
-+
- static bool should_trim_cpumask(struct mm_struct *mm)
- {
- 	if (time_after(jiffies, READ_ONCE(mm->context.next_trim_cpumask))) {
--- 
-2.43.0
+greg k-h
