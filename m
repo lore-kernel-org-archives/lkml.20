@@ -1,89 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793300319;
-	b=g4qWAquPjkQOnglNVO8iO9BBzAQ7Vcuwbo0M1VtLxggkY7soJPc7sq47uyZOV9kIz2Lu
-	 ZkRny6MotGN/6jOBr5jHSD5AcwHI65M8BTPak9VVajYrbHLeubXWuhIOM1IFoR/q6HU8U
-	 zv3BsG8aoT19/bgk3zY6TEt6PrM/VeuhWvh3f5nFtbSPcf0+DbC61qQAzVAqWZf8I8hRT
-	 GTBQCoYfXhivsQhFJFPId8YpbylW8r0ireCLcdyMBjaHVprP3zNLVUVUIIeKp2QNWL3LI
-	 8v/Xix2Onx4IEQuAPYjPBnRBGk0hgcpskc22ZUrUcbmnJyUo5gxCpHfkkEln0mX7Z/A==
+	b=Wc7PUF6D/UuuecBxX8LJc538gYja+PG9RmmjchGirkpWfVhene/pLMxeYuoveHWccdkb
+	 OWxRXHy3+Rd2qoPSR/0++IPjneg4FSR6dtdlAqwfRrWROu3SdSlSBEfQFTnsA5ZqtxRoP
+	 49oApSfHEaFkdKkf8Co6hSFylq1ii89+T8s+SMYaGC/k/Gbjara18puIaJW0l2OcExv75
+	 LQWcnbmftam2UXdEcFGLaO2y2/RuduZ5gktOxKdQJLogpQ96SgWO5xSDDv94lvHW6rXqc
+	 AL15kT76SXeUjVEBe58Yg5y+VUk5Y09uIX0ipK3+zVUXyaNODQdYLAN4atNsvIrnDlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793300319;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=9tJApL13jYD80pBp1MzydfMpvJBp4BlcldlOMSU105M=;
-	b=0srHgsMCXidbDsnURRLClWGD/xPvkSG6/0vaSLINlIJBMFPeSrJJoOgtMlooHHQsVv4u
-	 kRFyz9XRj0yO6U1frA14TPaTW2qTQJ3M9Wt73zHZ3SqmxFc63Zqsq6TvnMGq2svBM+hK3
-	 33GikWYHVfgVGa7wO7j+1wcLZEh8w1emL/OcVbTzf3Rnyin+z+XOear0Ot+jeyAdGktCS
-	 khrAzcxUi9v/NwiVuULJqfpwfXqOGOuWg8qz0p205424rftL9YfzkmhNpIbMdLLTxi2AJ
-	 bNr/he68zPpWWpTyEXX/AH1Uo4WbacM+Glu+xmqfZPkXLpQgGoBPaNe/haidL7j0zoQ==
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=XE6ycAnMXu1bQU/ooZUSiqmjYw2pSbI0uNI5n7hv+8Y=;
+	b=q+qkg8K6Za2mTZBkh7No05S5twsHeNWUSgiW2Fo5taJccCFSBcO6J1mLiFf3mxtke4yc
+	 yh/FTirKKOyqSLm0pAuY9J7+Mhk0bjsftqN11jxLH0sK2yqbY/b/fEzKmPydKRTMQzU8C
+	 8xpFEhTBIehhyw04D4FU5DA6jq9CyeaD1sA1KZQX3nKW9ADfMlhpmBkOW8/zVdx/57xLp
+	 sDCxdNA0Fz376Fe7MOz3F82s3ZzZxpSVeIgAg5Mk2QcV3HZyeqV36N5t7xZB0LjRBXzSR
+	 n68imXiwJuZF8gfpq8rSttl8Q8TP6lyQR8tlcl/zczhC+xUedhMhduMVi2s09SriKAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ROAa1Dd0;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SHGEAkqW;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77706606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:58:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77706606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1C860A2620
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:58:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED1C860A2620
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ROAa1Dd0
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso23314765e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:58:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SHGEAkqW
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-14394530ec6so2892731c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:58:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20260707; t=1793300313; x=1793905113; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9tJApL13jYD80pBp1MzydfMpvJBp4BlcldlOMSU105M=;
-        b=ROAa1Dd045ooc7vRm7+fs8AEm4NbqvkKt7xrNMxkXeL5nrPzcY9TL2+t1ItP41Bj1h
-         Gj0Yw+2kJ8l+kNSemYW2kESFfoEU8UMMacjqSSIW0bRFCNfz+Lg97csRo9ivybDKCx6b
-         cpbEwu0jXyZr8ncG/j/5+cnp2WBt+SllE1qPUvK8h2/pez0d2nC/ltA0Fzb4kJ4coydJ
-         PtGenoP6nkCrUHXTffi0WTzrtc4jcqZTiYNy9Wt8Pq5vm2GDHA99cb6G+ciEU108Ua7M
-         /EkqG2KUYwMMnVXEb/aZ/6F3jJD+2ZTqNtV7cNmVggCU99JqaA8ai/SvML8G+PW4/+Ld
-         VPVw==
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=XE6ycAnMXu1bQU/ooZUSiqmjYw2pSbI0uNI5n7hv+8Y=;
+        b=SHGEAkqWPsT/YfAZqG1IaYNh/Bv6h62Oq9yHdJ8L3qMsjd8lyuM6qKjkLlqT4UXNS7
+         Zf2sxePWISw+KvpcI8uv0soEzjR0e7DgqtAgGBvBNy8BkwFdwIPEuOOT/AMyMFllBvlF
+         uvZu8/0tVUifVKo8chRZuPqM4Gj61Y38pa4LAKzBrjIUZ1F+YLgDp0ccem0OPDXwGMqQ
+         6aGV6/TSroLOdjc6GQNYgpYWheQgsQaPv5aAvGr7lN5D4RkZhy23kBtQXQGNza2Kwe2e
+         4LyD3LGciVw+u0+MLIPxrr2hyk2viQfhvu/jCJaQUYi+ea0FMCROZBh1rXsr20Lhmb58
+         NPRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793300313; x=1793905113;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9tJApL13jYD80pBp1MzydfMpvJBp4BlcldlOMSU105M=;
-        b=cqf87/IZRcqf3ZOlk8E9FQoItu+KGJhUcxDTnKUZL7a6xj1CG8D0JSGI4i8HsOKLJk
-         /OOFIq3HWlsoAPvnMq5yjjRMaqjfhsmpEXtbAJ86xU5k3jzOpDkQ9TtHlebM/cE2c6ez
-         dkLgavVkgHhKelg97Mz4TUDMeI60zppedArBw4ehQisk/fZBAjMToiD/Dp4NRMAwm2py
-         OAQr29iG3mGdYk4n2h1+Ih1rF9SzWx+FS2P04gDGnk/4MJkmtdgNY+EtEOSOznZs9K8z
-         zkDqd5ZZV+PbuAvNhITvdA58LT5EFc7YYIWJ1FJcVx0gjoQ3gOp7XyoQhJnZypgqnT1A
-         YfYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw6oBWrjRe0tOOFfptLaVw8Bo3PB3eCUvPC7A8rLJuMsCq4bbyjhHJTkQXIxpfDossztD8zyFHUCwqMP5U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUsklUGZirs64SCYvu7LDTbJKnG7MGo0CCnG0v96jLbDUKNM2U
-	EC/wdeocdk5bjzUJact8856+YuKmy09/WQN81wEtijxX/XqZEptwxqbX
-X-Gm-Gg: AYBFou3nD7Mmhagrze3kXnNzei8jxfSHkggDt2a7eMiAh+hhqCqo0d8v8fIcPL5owFL
-	MyanI2fB4W3bjXbrOCXs3FG8lm4n0NI9/BR7zYWbP7Ic82TRkSvgXnHDR+xKDkOBV/nRLfsVXgH
-	ATEu6jbthl3Ol42G9RlKor+9iGtCZEq7rtMhpek2u1cTCeF/awKZb6o20ZJaHDSDJGYQYN/Qci6
-	6gWJnARLunejyTvDkihBotyNI0+4Wa7uzIZOwcIyfq7TXxdn1OSVXioxnNEAKWcTYaRtOVlOaOq
-	YIIX/HQEPB1dfUaxkufalIc0bYZKoVeUPB1+LasWx20Cr4tinmVhNrKYVy1Ckxt14r3qO5Y6G88
-	A8rL3xL/xSdNTHBX+hknqDVaEIcgBG7uJMvwvXVXrxGF9zPKXUGQiGSFfeLYr0X1gK892/6l6gs
-	B2XbTFMgUbL0GoUVnh3ECkdKMtdy8z3f9MbcDQQPWVjaxFAWGcnBlRjdxlzKcMFZu8SGSPo7Dfk
-	8mq2StE+Qev8+KfyYJ8kZynF5qwMSb61nGRps1WyxHiBfkNM4WulkO8l4EZ+TsZlbjd6HjwKh/d
-	r3Z4yDicqLuoiePJeYib6MqRl51PXlxvPCe6Koc/fC77eLK5Jnii/iyoNP3zAjkb4JnDXUZTeDM
-	8hif/Bc1y5p4=
-X-Received: by 2002:a05:600c:8183:b0:4a2:1a:a129 with SMTP id 5b1f17b1804b1-4a9677c92d0mr123815985e9.35.1793300312779;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=XE6ycAnMXu1bQU/ooZUSiqmjYw2pSbI0uNI5n7hv+8Y=;
+        b=iQ59oPKGiMq3AMfgGwQZTaz/a6ktedLPx81bYuGGddIfbVMsTeDjhcNcT1G9X1l5vp
+         XhbDGVAwosoOss0q4hn0Xe2gd7wbQ0UdUR0yWatOsT8AxUzwwHC70VjF00xbw4tuLv6B
+         YHqAaC7T33QFt9yNSjDku/cgvpqpf30vobBT/kFw8dfj+DNM5GDmcmJzBrYKhqh7vnEn
+         XFBXGRkhyo/kKUiVu7Ei+u6h5hdHqpk2ndyM8DEwnQ3/t6WGuTnRAt46IZ2ZM7QWsVbD
+         spDVvnmyfL6Ap0otEmTMb3nSSOCtt3XLDWKTgTFWw4AMugoiYOS0JlVP75uQsnQnHO72
+         +cqw==
+X-Forwarded-Encrypted: i=1; AKwUvBzdEVTNxYNOmtTL4amUZ5wv/QcH/yjNzfhldRYRcJp3kmxWKGWpvzgSivdHPBLEeSdKK75ur6ovVyCENkM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvUGHa7dlMC+WHD0cxev3XF81fMn+oO45cet5sdCdDZgFo8oKM
+	oT5Hnnt9VAxNvWNTir+6G5r3it8tpQSmR0LSmFcPVq1HUSBFBa4Xztzt
+X-Gm-Gg: AYBFou0BQMV894D3HWyHfmqsXZ46iyNDzdd7FHJ3m0G2Et00PbCNtIPQ7BQj33jPmp4
+	GJIrQQerXdz9q8iGRquaUr0lrOfLzLgqJ4RSJklGlGR4uJANbe0j89hPuMoAY8XgloywRCHxB4O
+	K8ExC+3+fN6b5EF9WSuONfXKO4izPjn/IuPwT8K/6F5J8bjVYxsjmTItXuWbeZPp3bH8Ulw1+oq
+	Rk3+8Q0EvX11ZJ7k/wsbUIBr/rreNXrpB9FzcYysowWbeT4f+/ORYWYcani4q4M97E4gdh8yn+z
+	BAnPTlIu5suHMpdtYZzHjfInj0hCVIFBfsu93LB3EyAjqKyYYwVQgKT30YSW2e08MXxPqygDccd
+	Gk8ZdHxz8JGcrlYm5VB6e8W6pJYEfTkEfHJpBaa5XlpMUYajQXd0es9YkONnEp2qwVPHuiuUhKR
+	YVxYUSJ+R8IGDdYC9JMZD2FaiZf4Dp5XeXee3NqLxXQ42u1fgNWh9GB07Gz8ZXu+ELyeqlMcrje
+	EC1wHSdRUUnzeXwb+R1AMe+d2DifQktfO6R81hQaobzGERk5ojV2RAn4akyNOgKr1eV2PYjstxD
+	vn8iNYo9iOn8sgJXZTCiyTuejw36QHhS5wSYA/xKxIjt1GIQMEpj1V0LH6G8yeomXtMfnMCQFpt
+	89/IomgSYV6mzSb8LPw==
+X-Received: by 2002:a05:701b:4589:b0:14b:cf58:ce15 with SMTP id a92af1059eb24-1a6d208add6mr7430450c88.43.1793300312786;
         Thu, 29 Oct 2026 11:58:32 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:23c4:a702:d301:eafc:6fb2:6c68:5ae0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm94291535e9.10.2026.10.29.11.58.31
+Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:8310:80a5:1043:3f70])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458fa3sm603891c88.4.2026.10.29.11.58.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:58:32 -0700 (PDT)
-From: Biju Das <biju.das.au@gmail.com>
-Date: Thu, 29 Oct 2026 18:58:28 +0000
-Subject: [PATCH v9 7/7] pwm: rzg2l-gpt: Add RZ/G3E support
+        Thu, 29 Oct 2026 11:58:30 -0700 (PDT)
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Date: Thu, 29 Oct 2026 11:58:15 -0700
+Subject: [PATCH] gpio: sa1100: defer GPIO chip registration to
+ postcore_initcall
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,167 +93,110 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261029-gpt_rzg3e-v9-7-f3a5520388d3@bp.renesas.com>
-References: <20261029-gpt_rzg3e-v9-0-f3a5520388d3@bp.renesas.com>
-In-Reply-To: <20261029-gpt_rzg3e-v9-0-f3a5520388d3@bp.renesas.com>
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
- Biju Das <biju.das.jz@bp.renesas.com>, 
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793300303; l=5197;
- i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=rMti4nVWaXcqMBwGhXa7IT8v4yzgTB4dEpyc6qkRjiM=;
- b=MPzAnHk+d4TjXb6vN0vwjaqQCFI08wtO+hhJ/GBLBNIu4YFoESZUfTHGDuJ8KuU5HgAzDQTtj
- VL0IZpo1idQAMsc+lcltoqN5JKsbqXl5cxXaThMr+PUwBuPuYMHS08Z
-X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
- pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-sa1100-swnode-fix-v1-1-112f4d83d191@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAEaX42oC/yXMywqDMBCF4VeRWTuQSYsSX6W4SHS000WUjJeC+
+ O5NdfkdOP8ByklYoSkOSLyJyhQzqCyge/s4MkqfDdbYiox1qJ7IGNQ9Tj3jIF8kejpX04ND7SH
+ /5sR5vpqv9rau4cPd8g/Bef4AD6TQWXUAAAA=
+X-Change-ID: 20261029-sa1100-swnode-fix-11499713eb7a
+To: Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+ Guenter Roeck <linux@roeck-us.net>, linux-gpio@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-e56a4
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+Registering the software node and the GPIO chip for the SA-1100 GPIO
+controller during early IRQ initialization causes boot hangs on
+SA-1100 platforms because the software node subsystem has not yet
+been initialized. At that early boot stage, attempting to register
+software nodes dereferences a NULL kset pointer before console or
+driver model initialization.
 
-Add RZ/G3E GPT support. It has multiple clocks and resets compared to
-RZ/G2L. Also prescale field width and factor for calculating prescale
-are different.
+Nothing on SA-1100 platforms requests GPIO lines via gpiolib during
+early boot before initcalls run; only the GPIO IRQ controller and
+domain must be initialized during init_IRQ(). Defer registering the
+software node, assigning its firmware node, and registering the GPIO
+chip with gpiolib to postcore_initcall, running after driver and
+gpiolib device initialization and before board consumers register.
 
-Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+Fixes: e4671f292ebb ("gpio: sa1100: register software node for GPIO controller")
+Cc: stable@vger.kernel.org
+Reported-by: Guenter Roeck <linux@roeck-us.net>
+Closes: https://lore.kernel.org/r/2a561a27-a3bf-4cac-a4dc-bfbc5c859f45@roeck-us.net
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 ---
-v8->v9:
- * Updated a comment in limitation section '8 Channels'->'8 channels'.
-v7->v8:
- * Updated rzg3e_gpt_calculate_prescale() with >= 64.
-v6->v7:
- * No change.
-v5->v6:
- * Updated rzg3e_gpt_calculate_prescale().
- * Updated comment in rzg2l_gpt_calculate_period_or_duty().
-v4->v5:
- * No change.
-v3->v4:
- * Added RZG3E_GTCR_TPCS bit definition for RZ/G3E and added to
-   rzg3e_data.
-v2->v3:
- * No change.
-v1->v2:
- * Added link to hardware manual
- * Updated limitation section
- * Collected tag
----
- drivers/pwm/pwm-rzg2l-gpt.c | 45 ++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 42 insertions(+), 3 deletions(-)
+ drivers/gpio/gpio-sa1100.c | 32 +++++++++++++++++++++++++++-----
+ 1 file changed, 27 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/pwm/pwm-rzg2l-gpt.c b/drivers/pwm/pwm-rzg2l-gpt.c
-index 488839e99464..5ce662559263 100644
---- a/drivers/pwm/pwm-rzg2l-gpt.c
-+++ b/drivers/pwm/pwm-rzg2l-gpt.c
-@@ -6,15 +6,21 @@
-  *
-  * Hardware manual for this IP can be found here
-  * https://www.renesas.com/eu/en/document/mah/rzg2l-group-rzg2lc-group-users-manual-hardware-0?language=en
-+ * https://www.renesas.com/en/document/mah/rzg3e-group-users-manual-hardware
-  *
-  * Limitations:
-  * - Counter must be stopped before modifying Mode and Prescaler.
-  * - When PWM is disabled, the output is driven to inactive.
-  * - While the hardware supports both polarities, the driver (for now)
-  *   only handles normal polarity.
-- * - General PWM Timer (GPT) has 8 HW channels for PWM operations and
-- *   each HW channel have 2 IOs.
-+ * - For RZ/G2L, the General PWM Timer (GPT) has 8 HW channels for PWM
-+     operations and each HW channel have 2 IOs (GTIOCn{A, B}).
-  * - Each IO is modelled as an independent PWM channel.
-+ * - For RZ/G3E, the General PWM Timer (GPT) has 16 HW channels for PWM
-+     operations (GPT0: 8 channels, GPT1: 8 channels) and each HW channel
-+     have 4 IOs (GTIOCn{A,AN,B,BN}). The 2 extra IOs GTIOCnAN and GTIOCnBN
-+     in RZ/G3E are anti-phase signals of GTIOCnA and GTIOCnB. The
-+     anti-phase signals of RZ/G3E are not modelled as PWM channel.
-  * - When both channels are used, disabling the channel on one stops the
-  *   other.
-  * - When both channels are used, the period of both IOs in the HW channel
-@@ -47,6 +53,7 @@
- #define RZG2L_GTCR_CST		BIT(0)
- #define RZG2L_GTCR_MD		GENMASK(18, 16)
- #define RZG2L_GTCR_TPCS		GENMASK(26, 24)
-+#define RZG3E_GTCR_TPCS		GENMASK(26, 23)
- 
- #define RZG2L_GTCR_MD_SAW_WAVE_PWM_MODE	FIELD_PREP(RZG2L_GTCR_MD, 0)
- 
-@@ -147,6 +154,22 @@ static u8 rzg2l_gpt_calculate_prescale(u64 period_ticks)
- 	return prescale;
- }
- 
-+static u8 rzg3e_gpt_calculate_prescale(u64 period_ticks)
-+{
-+	u32 prescaled_period_ticks;
-+	u8 prescale;
-+
-+	prescaled_period_ticks = period_ticks >> 32;
-+	if (prescaled_period_ticks >= 64 && prescaled_period_ticks < 256)
-+		prescale = 8;
-+	else if (prescaled_period_ticks >= 256)
-+		prescale = 10;
-+	else
-+		prescale = fls(prescaled_period_ticks);
-+
-+	return prescale;
-+}
-+
- static int rzg2l_gpt_request(struct pwm_chip *chip, struct pwm_device *pwm)
+diff --git a/drivers/gpio/gpio-sa1100.c b/drivers/gpio/gpio-sa1100.c
+index e4f3bf949b87..1916200ebbd5 100644
+--- a/drivers/gpio/gpio-sa1100.c
++++ b/drivers/gpio/gpio-sa1100.c
+@@ -8,6 +8,7 @@
+ #include <linux/init.h>
+ #include <linux/module.h>
+ #include <linux/io.h>
++#include <linux/printk.h>
+ #include <linux/syscore_ops.h>
+ #include <soc/sa1100/pwer.h>
+ #include <mach/hardware.h>
+@@ -322,7 +323,6 @@ static const int sa1100_gpio_irqs[] __initconst = {
+ void __init sa1100_init_gpio(void)
  {
- 	struct rzg2l_gpt_chip *rzg2l_gpt = to_rzg2l_gpt_chip(chip);
-@@ -228,7 +251,8 @@ static u64 rzg2l_gpt_calculate_period_or_duty(struct rzg2l_gpt_chip *rzg2l_gpt,
+ 	struct sa1100_gpio_chip *sgc = &sa1100_gpio_chip;
+-	struct gpio_chip *gc = &sgc->chip;
+ 	int i;
  
- 	/*
- 	 * The calculation doesn't overflow a u64 because,
--	 * prescale ≤ 5 for info->prescale_mult = 2 and so
-+	 * prescale ≤ 5 for info->prescale_mult = 2,
-+	 * prescale ≤ 10 for info->prescale_mult = 1, and so
- 	 * tmp = val << (info->prescale_mult * prescale) * NSEC_PER_MSEC
- 	 *     < 2^32 * 2^10 * 10^6
- 	 *     < 2^32 * 2^10 * 2^20
-@@ -482,6 +506,14 @@ static int rzg2l_gpt_probe(struct platform_device *pdev)
- 	if (IS_ERR(rstc))
- 		return dev_err_probe(dev, PTR_ERR(rstc), "Cannot deassert reset control\n");
+ 	/* clear all GPIO edge detects */
+@@ -330,10 +330,6 @@ void __init sa1100_init_gpio(void)
+ 	writel_relaxed(0, sgc->membase + R_GRER);
+ 	writel_relaxed(-1, sgc->membase + R_GEDR);
  
-+	rstc = devm_reset_control_get_optional_exclusive_deasserted(dev, "rst_s");
-+	if (IS_ERR(rstc))
-+		return dev_err_probe(dev, PTR_ERR(rstc), "Cannot deassert rst_s reset\n");
-+
-+	clk = devm_clk_get_optional_enabled(dev, "bus");
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk), "Cannot get bus clock\n");
-+
- 	clk = devm_clk_get_enabled(dev, NULL);
- 	if (IS_ERR(clk))
- 		return dev_err_probe(dev, PTR_ERR(clk), "Cannot get clock\n");
-@@ -520,6 +552,12 @@ static int rzg2l_gpt_probe(struct platform_device *pdev)
- 	return 0;
+-	software_node_register(&sa1100_gpiochip_node);
+-	gc->fwnode = software_node_fwnode(&sa1100_gpiochip_node);
+-	gpiochip_add_data(gc, NULL);
+-
+ 	sa1100_gpio_irqdomain = irq_domain_create_simple(NULL,
+ 			28, IRQ_GPIO0,
+ 			&sa1100_gpio_irqdomain_ops, sgc);
+@@ -342,3 +338,29 @@ void __init sa1100_init_gpio(void)
+ 		irq_set_chained_handler_and_data(sa1100_gpio_irqs[i],
+ 						 sa1100_gpio_handler, sgc);
  }
- 
-+static const struct rzg2l_gpt_info rzg3e_data = {
-+	.calculate_prescale = rzg3e_gpt_calculate_prescale,
-+	.gtcr_tpcs = RZG3E_GTCR_TPCS,
-+	.prescale_mult = 1,
-+};
 +
- static const struct rzg2l_gpt_info rzg2l_data = {
- 	.calculate_prescale = rzg2l_gpt_calculate_prescale,
- 	.gtcr_tpcs = RZG2L_GTCR_TPCS,
-@@ -527,6 +565,7 @@ static const struct rzg2l_gpt_info rzg2l_data = {
- };
- 
- static const struct of_device_id rzg2l_gpt_of_table[] = {
-+	{ .compatible = "renesas,r9a09g047-gpt", .data = &rzg3e_data },
- 	{ .compatible = "renesas,rzg2l-gpt", .data = &rzg2l_data },
- 	{ /* Sentinel */ }
- };
++static int __init sa1100_gpio_init_chip(void)
++{
++	struct gpio_chip *gc = &sa1100_gpio_chip.chip;
++	int error;
++
++	error = software_node_register(&sa1100_gpiochip_node);
++	if (error) {
++		pr_err("failed to register sa1100 gpiochip software node: %d\n",
++		       error);
++		return error;
++	}
++
++	gc->fwnode = software_node_fwnode(&sa1100_gpiochip_node);
++
++	error = gpiochip_add_data(gc, NULL);
++	if (error) {
++		pr_err("failed to add sa1100 gpiochip: %d\n", error);
++		gc->fwnode = NULL;
++		software_node_unregister(&sa1100_gpiochip_node);
++		return error;
++	}
++
++	return 0;
++}
++postcore_initcall(sa1100_gpio_init_chip);
+
+---
+base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
+change-id: 20261029-sa1100-swnode-fix-11499713eb7a
+
+Thanks.
 
 -- 
-2.43.0
+Dmitry
 
