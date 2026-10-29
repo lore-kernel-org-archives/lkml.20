@@ -1,79 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793268768;
-	b=wZ0wMv9WKCx+JpOYyuS7tE7JS2oMp5eH1LCU93tE/hgeOp4V5dIx/ObZfeXEyQKPUs4Z
-	 7XbcIXEHy0YERTKEubsuBvvYHGAKFFJeN95GAtwfRogVEbkxv+gyb4pExBQSlYQLkGHIp
-	 t4i40wLjX1q7VbE6GkKDoXI0xSHywezAWe7jvhZDyplh2is9FfPzCU84Xz+OSVkNA2kBS
-	 cog260I5t/ZSQv6BdRSCja5ivmkWEznu1wZGQnVann6uZP2+3Y5VaAFp8TdVBK+xNMX1/
-	 TVuwSQrl4axlVpzwDtj8QGEW0gqUhjSg25s9ATLSqiWfmKw/5L+efTaNsx3lLhvxDlQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268768;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=JnLk3BAN/qI883MDrnfJ8tH5wD6O7FwjQBiwykE04ds=;
-	b=MtDfc06R7Eh1w5O7v6obmOtm+2Jc+a4R8tSogiEBVZvcvtvGqPM0fYeKMSxoh433E8OY
-	 B9SoN91nx4PkB/ivSrmMeThH1L9eyjM7u8Z3az6O5cBFGVBkt5vAG4bRzdpiWrYjSo34S
-	 e3wcxSg3teQgfaSLf8khi/rZ9eQzBpfr7yv8hv+gW3KQUGZ3pqeHf1eIMaNTEIJE4thUQ
-	 ii+IwwmPpffI7oe0GVMH2ze2WRUGbXRb0dgyYID9bIpjLjgbD7p48CIhfNZxaPVq0drIK
-	 zdXmw7dkrAC/p3FneN1JTRRbEXRaOR4H8REJ7tdQoOGhsd44OFWOIwgO4N0b1MmxmzA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8SkXLlG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314F5606A31C;
-	Thu, 29 Oct 2026 10:12:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M8SkXLlG
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793268766;
-	b=1wBGxeWyzxEY1qELAdVFcJF1khlRhC9/KCWMW21qu1yoh0tjNTLjYT81tpM7H/edS6wH
-	 sc4Bo2mGPdE+G1ijudl0aQI7fGi6QZgStQ5YqD/uda79VMrFX3/tt7IlGs7FJz69UJt/D
-	 21gvOgVhxBu2uKLNW7UAyr9lbbgbB4wdEBCz/QMnBdf6I/WqPoj/suG9zSPcagZ2YSOFs
-	 0wE5/rAsto7BmpJLAjSAAwavBIZUXt/sPWAjzkySsbfFGrLwdVxbeNEIRW2ozNsXeSOaS
-	 ltVNYVdBnlAwg/3ULWKGFrMhJPB6tcBtRjme/YwDTwAJuR8K0Jv7udK/QJZQcWuXEPA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793268766;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=JnLk3BAN/qI883MDrnfJ8tH5wD6O7FwjQBiwykE04ds=;
-	b=F1uI6kD9oj/yEwcmKmfOTBYp0oU0HpfgC6srV7oYHuWNDGv39YFG7VOjmm+SBnDkv4O2
-	 MsossFh44s2TxdKscoO31bA6RayCbS/yGoTw7BETcawLB9KeIIEKb6ganf7P+WvzlIft+
-	 vMDx5x9dUzGXErDTez8u/lNdg/cyKldxTp7+8c2ngF+HDVs6GTKHt2+NITBga9dDDW5Zc
-	 T3/6hv/Ca5Z6qtjleB/p1B+Fv8NBcOycoBwP6UsXu1vFN/v3zzGrq2EwrQh0pSUZDWGC+
-	 I0Z9xmQRg1PFKK8FatZLMAF5CQXu7UGUgQKEYeGangOJ8aMWSr2HMCNlSai5cuFAfrg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793268803;
+	b=u24R/nAU4DtawTZdTmWzp4MFb13EdJCyQAIQxV1Ki4TgJXu10xVjvmujtUIuly4YttOH
+	 8MrIWrOKuLiuk/1Hq6fD8iYzPfGtt4fJffWhqkjBtYs40xdQtNdQViy/NJ+YNGDYMZk7y
+	 kiAjsB3Dav5NYEPE5HpuTUvmX+M4mrx0kx0hTwiwhcjBktNBMmzh6cjTkxYe7+lW2pnCb
+	 gdFBZZ75Vw74LHyDEc0TAq3yBFa1PEFqQ84db4sDaUUvsxu33o3AHJ3f3DjWSxXWa17yc
+	 g2uYCFeu9tusF7adN8y1bVMeWIjIfn7IoWTDSQHpN7EkJqwYmAX95oee5a4hAK2PD+g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268803;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0F6MwB09+OApBTQzzcClsM6qT4Lh0F0TCX0d9TCv1AI=;
+	b=wBimb3XpP6czuN7di8zPrfNaSepTkaeQySMgSySc+UbrWJqFX4vkT0bam9oz4ypd26WP
+	 jcbtpSVtnSvu37kxSYOPJgOzTUbp73DVZ5rxX6NhT/UseedKR1DThnxS9qE/nCiwNaeMP
+	 utu7ztDLorAHd6VbtJWa8bXBRcYvkXfneP93YeiDQglQl5gW/1Cuh0eOv1WDkFQURtpTC
+	 fguWlOsBsZ3H5xlDS77Nw1leEtr2/OnNLRt8iWuIhXspZUxW4JzyzyhmitN/X9hQKf4MO
+	 fLhX9EySvGC4TCmhTWXkBDwhPUIxsLaxMqHySOPmrqa+q+Kb7U0fuvenTZ9umPaWa0A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=N0kycOww;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jQQz7AJu;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1768E1F031E0;
-	Thu, 29 Oct 2026 10:12:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793268766;
-	bh=JnLk3BAN/qI883MDrnfJ8tH5wD6O7FwjQBiwykE04ds=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=M8SkXLlGLPlirV0fR3Dnt6JWFvy+2RCHxHpb6Q3RFteakCWlPqyyjeSkYqsI5tMKS
-	 KVffcaXYiTB5p5m/CfMFgpieOQ22gztajkCkIXwM3h9meU5rCU2ToBBs/S2u4Y9qj1
-	 hAdFZigIIsUq31jIfs2S57TU3aJ6FnyetcWwq9GxcnuS09/WL9m4SF/rYb3PrS9Pqo
-	 nUz3j4G0aMt2n1qiF9trpVgM1dpHbYTICplx8WzXd4aZR/da0BCJ1Y4KQbKCbrPhYc
-	 EEoxrF0dJXiahOIhlTV5DoQdd7Q8G9Onjc0Sc321aWBQs5n/PAmQGaqGv4B8n0CEIk
-	 g3DHrPGot5M/A==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7CF3C457D9;
-	Thu, 29 Oct 2026 10:12:45 +0000 (UTC)
-From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Thu, 29 Oct 2026 18:12:30 +0800
-Subject: [PATCH v5 1/2] dt-bindings: display: bridge: Add ITE IT6162 MIPI
- DSI to HDMI bridge
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E80606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:13:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78E80606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=N0kycOww;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jQQz7AJu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793268801;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0F6MwB09+OApBTQzzcClsM6qT4Lh0F0TCX0d9TCv1AI=;
+	b=N0kycOww9AfmFgcuzUOzX7aHLJt/C1PPWenP9oIdrrkEcL1AMFK6EfkUURnFzkcegdbu4o
+	mwZzG7Dau6/scAS7MWZA+UY1YmbRwfqsslY1CJuZH9yb8sXea4yZC09NlNwrYoH+UyE/1g
+	rkCQs/llEv0V7vE/noS1H9g9yliK1cI=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-467-sxrSNNreNMuCmHuPMwhrMg-1; Thu, 29 Oct 2026 06:13:18 -0400
+X-MC-Unique: sxrSNNreNMuCmHuPMwhrMg-1
+X-Mimecast-MFC-AGG-ID: sxrSNNreNMuCmHuPMwhrMg_1793268797
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48c430f0f01so1617491f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:13:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793268797; x=1793873597; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0F6MwB09+OApBTQzzcClsM6qT4Lh0F0TCX0d9TCv1AI=;
+        b=jQQz7AJuwneaMydjQepZ+AHismEwv7Pmg8ok18y4ZZaoeokVRSSmNF763OwPuQs0O3
+         4P4x22zkUsR8FMMSKHO7IxjUdXDnXwn06/WgPPJCGiVC1zfTeAD5MtMRUhVYgsvAmbnF
+         gKMAFj62dRhNDQBZZAMmzd4/8YzjbBcbFQIq0NRgshHIxN+5Y7aEghDouaO6VL7/kWNM
+         sKP5zQJXMW2wkSiG+NRUfM1QVjutHGv6Pisn9hPNgP2qpe52095oU0tdMIDN6uhK2sjm
+         kG98JIrSqmHSsgkepntpH0lR/Z6yKZJ8rUiyh+Zqcu00HTEniHanje2FlyaTqiVXILma
+         9BZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793268797; x=1793873597;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0F6MwB09+OApBTQzzcClsM6qT4Lh0F0TCX0d9TCv1AI=;
+        b=gDxHt4dOySpge9Ew4dFJMpAdGqu2xeH5n5TKS9Jss6jAEzrm1mud4q0u4uQgGxJ4P9
+         udhEYylbuGIXd6LAGAd5E/IFl5qz2qhMuDroAgwy+RYjfHaHLv7MVjIUhbYujd2PfjR+
+         R0RyxZMjcip5K9FDAMU7INS2vhsutuhGpubc6LIGQphc8WdUi3u714ketT9uI3hbRj3X
+         AJbR50K57OQ5nm7Fdmr6HDF7FArGpb5Zd500giZipl0RcZ7rfK9KK/CeRt6xxNCLI2SF
+         3HvLLguWC4MM7dt5POY47zYX1M+DaE5CiRjG5CwhxvQkPCtR0RdDLfirIIldltKYOJQA
+         a67Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxXoqyjQOLhz4PsZU+qR9bGh+A2vCGN0NglA2QSEjZXj8EYqldznfrmBVBnwZJgqeQJKyXiClSAdIx7Xps=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKsa0tWS4mxA2T5vJv9ikkEDAvmvoEOETQKiWjIB2EU/tw1cAZT
+	oMXKK1WN0JYxi1Du3sFQNYFWFCSDLhBK5B93cqIuCjCdT45EQshGr7Y6zES0pO2TS/BzMXDqAJP
+	m33Gsq021AfmtDTUu6GyX1csZ6+yF7/dNhh1EXZJKg8XTHgkaDzIMeTf+RW8TIY9qsQ==
+X-Gm-Gg: AYBFou2xN9soDt9cPgk8Y9ZzId/wv9YbtiRDC2u+aQ4P0IwCUHKfRLp5OE4DPkQNfXE
+	NkUE50KdlZUZRPRHOeaXMkSg3mYD2t5JjJtA2btzax3PHGsL9hn3LOmxdGIzwrnkdzei9QTZbYP
+	KrzHY9TMGPL/kLtuX5eGWkWn2Cd3aKN8/BU2mBGY7HOo1tjjrz6PtLxpE31ejkERmpX9s8p7GEH
+	hiTOEmX//8Ce4vHCSI3eOCEFdndSLbXrRiUuYup/Q2wDwZqGulVM0d1m2tfo3HkDrK9zm/Dcdup
+	dpf3KLL+87C1q5yac+f7v57BEEzzoeDG/LOdU1Puk4fv73TF2kMa3C97hnfu+YFIEhdYRmbjy4W
+	0EXwNAdLT3yPlxfuppeC2dK5rPjO1hriJC4dfAEsHVrg=
+X-Received: by 2002:a5d:64ee:0:b0:48e:6309:cefd with SMTP id ffacd0b85a97d-48e6309d0fbmr6302512f8f.46.1793268796721;
+        Thu, 29 Oct 2026 03:13:16 -0700 (PDT)
+X-Received: by 2002:a5d:64ee:0:b0:48e:6309:cefd with SMTP id ffacd0b85a97d-48e6309d0fbmr6302426f8f.46.1793268795997;
+        Thu, 29 Oct 2026 03:13:15 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1501:b100:9ea2:fd21:b361:8dab])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd3555sm33021365f8f.42.2026.10.29.03.13.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 03:13:15 -0700 (PDT)
+Date: Thu, 29 Oct 2026 06:13:12 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Francesco Valla <francesco@valla.it>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Haixu Cui <quic_haixcui@quicinc.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, virtualization@lists.linux.dev
+Subject: Re: [PATCH v2 2/2] MAINTAINERS: add Francesco as spi-virtio reviewer
+Message-ID: <20261029061258-mutt-send-email-mst@kernel.org>
+References: <20261027-spi-virtio-bindings-v2-0-67927b24b9d4@valla.it>
+ <20261027-spi-virtio-bindings-v2-2-67927b24b9d4@valla.it>
+ <20261029-lucky-vanilla-spider-f9cefd@quoll>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,270 +126,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-upstream-6162-v5-1-8369f9e5afe6@ite.com.tw>
-References: <20261029-upstream-6162-v5-0-8369f9e5afe6@ite.com.tw>
-In-Reply-To: <20261029-upstream-6162-v5-0-8369f9e5afe6@ite.com.tw>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Pet.Weng@ite.com.tw, Kenneth.Hung@ite.com.tw, 
- Hermes Wu <Hermes.Wu@ite.com.tw>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Hermes Wu <Hermes.wu@ite.com.tw>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793268764; l=6481;
- i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=QF0B/yza7N4OwyzuyvztL9A4gDCKr/fyYHljCYyQq8k=;
- b=S/rF04RECIxFE+wTACSGSXgxYdCgEPQ4UjOGZ3pWSwAXZxjrBB3BHNO/lTUS0He0m7MWUFRSP
- JaovkY9DEUxD8QoMU352AKRE3V2k0j87TsbNRIG5onJW875db8l7vvt
-X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
- pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
-X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
- auth_id=310
-X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
-Reply-To: Hermes.wu@ite.com.tw
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-lucky-vanilla-spider-f9cefd@quoll>
 
-From: Hermes Wu <Hermes.wu@ite.com.tw>
+On Thu, Oct 29, 2026 at 09:26:00AM +0100, Krzysztof Kozlowski wrote:
+> On Tue, Oct 27, 2026 at 08:26:34AM +0100, Francesco Valla wrote:
+> > Add myself as reviewer for spi-virtio, following the introduction of the
+> > devicetree bindings for it.
+> > 
+> > Signed-off-by: Francesco Valla <francesco@valla.it>
+> > ---
+> >  MAINTAINERS | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 5724645bf703..45a29ad08096 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -29673,6 +29673,7 @@ F:	sound/virtio/*
+> >  
+> >  VIRTIO SPI DRIVER
+> >  M:	Haixu Cui <quic_haixcui@quicinc.com>
+> 
+> Please drop this email with reasoning:
+> Email bounces and maintainer did not update it after changing
+> employerment.
+> 
+> Best regards,
+> Krzysztof
 
-Add device tree binding documentation for the ITE IT6162 MIPI DSI to
-HDMI 2.0 bridge chip. The IT6162 is an I2C-controlled bridge that
-supports the following configurations:
-
-  - Single MIPI DSI input: up to 4K @ 30Hz
-  - Dual MIPI DSI input (combined): up to 4K @ 60Hz
-
-The chip also supports up to 8-channel audio output via 4 I2S data
-channels.
-
-Assisted-by: Claude Opus 5.5
-Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
----
- .../bindings/display/bridge/ite,it6162.yaml        | 205 +++++++++++++++++++++
- 1 file changed, 205 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml b/Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..50a6e1e8a4c6a6b62f98b7755ca0c103df3a2960
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/bridge/ite,it6162.yaml
-@@ -0,0 +1,205 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/bridge/ite,it6162.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ITE IT6162 MIPI DSI to HDMI 2.0 Bridge
-+
-+maintainers:
-+  - Hermes Wu <Hermes.Wu@ite.com.tw>
-+
-+description: |
-+  The ITE IT6162 is a high-performance, low-power HDMI bridge that converts
-+  2 MIPI DSI signals to 1 HDMI 2.0 output. It supports dual MIPI D-PHY 2.0
-+  links up to 10 Gbps each (20 Gbps total), compatible with DSI-2 v2.0.
-+
-+  The HDMI transmitter supports resolutions up to 4Kx2K@60Hz and is compliant
-+  with HDMI 2.0 specifications.
-+
-+  For audio, it supports up to 8-channel LPCM via I2S (multi-line or TDM mode),
-+  with optional S/PDIF or DSD (for SACD). Audio sampling rates up to 192 kHz
-+  are supported.
-+
-+allOf:
-+  - $ref: /schemas/sound/dai-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: ite,it6162
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+
-+  ivdd-supply:
-+    description: Core voltage supply
-+
-+  ovdd-supply:
-+    description: I/O voltage supply
-+
-+  ovdd1833-supply:
-+    description: Flexible I/O voltage supply (1.8V domain)
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: Input port for MIPI DSI-0
-+
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                description: array of physical DSI data lane indexes.
-+                oneOf:
-+                  - minItems: 1
-+                    items:
-+                      - const: 1
-+                      - const: 2
-+                      - const: 3
-+                      - const: 4
-+                  - items:
-+                      - const: 4
-+                      - const: 3
-+                      - const: 2
-+                      - const: 1
-+
-+            required:
-+              - data-lanes
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description:
-+          Input port for MIPI DSI-1, the preferred port for a single MIPI DSI
-+          input.
-+
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                description: array of physical DSI data lane indexes.
-+                oneOf:
-+                  - minItems: 1
-+                    items:
-+                      - const: 1
-+                      - const: 2
-+                      - const: 3
-+                      - const: 4
-+                  - items:
-+                      - const: 4
-+                      - const: 3
-+                      - const: 2
-+                      - const: 1
-+
-+            required:
-+              - data-lanes
-+
-+      port@2:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Audio input port
-+
-+      port@3:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: HDMI output port
-+
-+    required:
-+      - port@1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - reset-gpios
-+  - ivdd-supply
-+  - ovdd-supply
-+  - ovdd1833-supply
-+  - ports
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        bridge@58 {
-+            compatible = "ite,it6162";
-+            reg = <0x58>;
-+
-+            #sound-dai-cells = <0>;
-+
-+            interrupt-parent = <&pio>;
-+            interrupts = <128 IRQ_TYPE_LEVEL_LOW>;
-+
-+            pinctrl-names = "default";
-+            pinctrl-0 = <&it6162_pins>;
-+
-+            reset-gpios = <&pio 127 GPIO_ACTIVE_LOW>;
-+
-+            ivdd-supply = <&pp1000_hdmi_x>;
-+            ovdd-supply = <&pp3300_vio28_x>;
-+            ovdd1833-supply = <&pp1800_vcamio_x>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+
-+                    it6162_dsi0: endpoint {
-+                        data-lanes = <1 2 3 4>;
-+                        remote-endpoint = <&dsi_0_out>;
-+                    };
-+                };
-+
-+                port@1 {
-+                    reg = <1>;
-+
-+                    it6162_dsi1: endpoint {
-+                        data-lanes = <1 2 3 4>;
-+                        remote-endpoint = <&dsi_1_out>;
-+                    };
-+                };
-+
-+                port@2 {
-+                    reg = <2>;
-+
-+                    it6162_audio_in: endpoint {
-+                        remote-endpoint = <&i2s0_out>;
-+                    };
-+                };
-+
-+                port@3 {
-+                    reg = <3>;
-+
-+                    it6162_hdmi_out: endpoint {
-+                        remote-endpoint = <&hdmi_connector_in>;
-+                    };
-+                };
-+            };
-+        };
-+    };
-
--- 
-2.34.1
-
+Makes sense, ack that.
 
