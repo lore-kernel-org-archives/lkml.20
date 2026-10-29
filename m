@@ -1,49 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356100;
-	b=ZMgi0ifZyBDAmsU+Jn/EbaY2Utc05i4QJR9OiMOyH8fGfex8yOoviexbRRd0O7tK/wDP
-	 lpAcNjK5ZbHlUF/3NKP1BdaxLIBmUsueNl8aN2P+YsfXXAke4oiIiss7yD/XcLhWxykMo
-	 mjlgmCfGJPOu7/X3Rrukt76LM4iPHA7Tbx2SAm9gdLyUWPjYfJzvWmAQVfaK3gVHbG+17
-	 Ze8/kjDrDqhg7MMYGRGlukk8siSWzOeuopmTBpUIdeDEMSpr29liMDPa8tnJ1DdNSseox
-	 lc8i18KOkx+j2GaOiMCHSZmuudT0V2q+IZEurSucIfRFLxEhAeHzC2gHwpoOfPdF1Yw==
+	t=1793356106;
+	b=zdJ6vJhc7PEDDpnEdw9ChZlgSJp0dGNN0GFxBWG3edwEiHUpk5TFApuhrG//elKQKJAl
+	 nxSLj3F6XXedYsDkuNzFp2ogB3LStwaRWk4AA9nhQGhLMwS4Bo/SvVa++YvAfvaYjH2S+
+	 rpW/BpIQl6rSxxHeZh1h7119rP/LxRwBp+AsXiJFF0w5PV8g+02eEAMVrqeipsTPFAwLh
+	 K7+DSaZZAU0PVXcuzY5hsVwo/pzSDJxclMY01CT/k7/36qPNVe9lo2nrpTDgsHUC/Bjeo
+	 cT45tXrWv2IK+j0tZA67pifo5T5hu0i0LFT/NKQkQTif09t6jufZe2ZZjymvTZk66dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356100;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=MnMXvzusoeoF9/Av5Lg+FeAyi2kBZMpvF5JpP2g3l24=;
-	b=EZCsHJpM6cZTJ4uOExSfBxXncveQN0OEF614l9oJwJXz3pA+AEAs1UrJiaUBkR0EBiho
-	 FptOHlFzzo57xEbv9C1WOL/vZSi+0Yrwqgd5bQCl4WnVlagEa3RIA2VaQNpl2j9G5Trou
-	 E3Di7ZXmTZzkJO0wSVAP2I74rU9PlYEVYq1CCfqEQJpdL8I83lftDSqY0Muj7voKsyKP5
-	 jrCvk+ywvJzDHR7FYKj/tHLhfawZN1xoAAy/tOmzzdJ8fZhtCv+PKEJf32ASH0uCYhhD+
-	 t2HCUaqj6FfNABZVOqKYnZbiYFwN1oDVF8Pn5Gxz7ampiAzEQSG0uIacV4jkiq0Gkyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356106;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details:X-Proofpoint-Reinject:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=fvdZ2wXoPKfuFGzoqROpXRZBlZnCnmXihJIuOJE2Ti0=;
+	b=nbGB4PN+6ru2tFxjk82PC5MXHdw1Kg/oFSMHEcCEFzPCj2aH4ZCNIn+NbXQw6683WvXc
+	 omiuREtWHBJ3l54Y+dRlcxPIsmpjF8RiTL9nppd3M0j7UQVW259EQYmzoh1D/de9g659G
+	 NCYn8bp+vmCrY/TXR6zuRORrsPe4YDgo/QmUzT7f7dAFKDyTMSDM5iI9O8fQ86OkLCfsY
+	 pagG0QgKiV3WJF+wKWDTdR7T15U8zb4q9QLS4iZ8TBrjKFI34MY0lkf91lCTSOxwDhb8Q
+	 iMFyp6jjWcocwC9nyItaG5QhSNciXBuNQELhTkg51sTXUnAXDszv5TBxiqHop2fQl1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTzTBEZC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="QJ/IO6d2";
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b="VP08X/Zg";
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613E0606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:28:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDEA960A262B
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:28:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDEA960A262B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTzTBEZC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A7C21F000C1;
-	Fri, 30 Oct 2026 10:28:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793356100;
-	bh=MnMXvzusoeoF9/Av5Lg+FeAyi2kBZMpvF5JpP2g3l24=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=kTzTBEZCEv36HGCT4HObpLXZYR1Zh0/M19mvMG+imYTzLxAaiysFhbSQhFQRI1uSQ
-	 MI/AjEEpQppTAA7P89FaYTjm6ow35W4OFEQ9K3eIArU9xcho5MhpqpPmxI9yyqA/tc
-	 nUR2QEuZiHIY4xuSWpJu7qkRiVjIgBwLp9itADdIhW4Qb7y8FQT7ABBVHL/eMlmGcT
-	 nqM3T9U+BOSjxHAtQiNjeUR3MnNdSPsmMwaPSgYMmZ/TFGdvsWMiYc1scNlnYzy21J
-	 po9+TZa7fXeAylXewLUbzN1ynIo/YOgMHkzeGH0RizsEdRHxac94Jkc8xOFOwy5peb
-	 Hn6Yqeg61owzg==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 11:27:41 +0100
-Subject: [PATCH v7 09/16] drm/atomic: Create function to insert private obj
- state into a commit
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=QJ/IO6d2;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=VP08X/Zg
+Received: from pps.filterd (m0167069.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8i6Dr3931287
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:28:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=fvdZ
+	2wXoPKfuFGzoqROpXRZBlZnCnmXihJIuOJE2Ti0=; b=QJ/IO6d2DX/9Lryq5nlS
+	mRi4jxNtnkLi8fxI8QdwAt0B3RL1ibRgIn/4E8XX/SHBSRfpIRCGRmJhFP1AJM/5
+	knwWSMC+lKSMdFVmeIlhzKOTNsk3S2LBPAgfNqI6bcYTeylg6osNMcZ2d9HSnJHk
+	DQBA541RR9RpfyCTGYIt7wQbXHGa8kXOg1fHblDUnAMI3TBkGf59YZAdKwCWVReN
+	VGoUEl+5jxnRo1NRxmUzXK3MmVPwQSGgQXBpmSde/rxCF7AsF/KWs+IhvDoJ2WK4
+	7jHDvzUE0lZz4KQlEme5NEAmOrb/obWzh8ct3/cU7ax3KPFen8BZhzK0VaY8h6IR
+	9g==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hksu4v7nc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:51:54 -0400 (EDT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-944101e6367so151173385a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:51:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1793285514; x=1793890314; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fvdZ2wXoPKfuFGzoqROpXRZBlZnCnmXihJIuOJE2Ti0=;
+        b=VP08X/ZgFVxfzFmuwyx3aYs+6+VnxGD4HrxYXBvdDqJJeTzjv7DMUR0w7y3S10N7ro
+         ChOSC4nxlDsydDKDA/qMfCNAMC9JZs621CRlnPUYz39jC8vjGrzlU9aExBW5UWIBfWWa
+         ekPFZc3HtJ7EqWRE1LXsx7SeFegPXu3LKs0QfU1maogZhOGnw6lW5m4nghBf3ISZJa/2
+         5edWUQPMfDYh75nvUPwEIfeQJKInEaRlSx4wBRlgIMEYDcxW2l+5T5R7vqLfpl49pPNH
+         tCW1kb5vgmpgX8Czoi94iktBybZEloHQUCHJ2JfNcD1ULrb2WzBxzYkkRSN8TKVwYEay
+         UIhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793285514; x=1793890314;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fvdZ2wXoPKfuFGzoqROpXRZBlZnCnmXihJIuOJE2Ti0=;
+        b=co6f1aw8FCUYdGNn/xYvk2FQQDHQxQYcFvhkdRMuBMfGLbS9MT+fEMMvRFH40Yj9Ty
+         YmukiWQIRlc+x2Ir17sIxa1blOruVqxxlUSDELQeCZ2N7nDaXqti3XMoLuLTZ1dEtfF4
+         gQhPQzkqjlHGi+nc9Sr6kgIPjthRz3yU+V8YXPgj3fIypOxXHOTMDwBr6DFYJvFAvbnI
+         3OqLpX4gnrTgDVKmpwN1ZS2eD3PfUoG5w8TypVK1589o1U7Glhj4ZXLQIB8FuFdscJgn
+         RlNSwuMgh6DjkAr+Ah3B8YeH7HS7pxaRVMUtb/qBP/C8/+W/gJKXf0nOwMYu3r7IelFJ
+         Dupg==
+X-Forwarded-Encrypted: i=1; AKwUvBz30N1H4F8Xfi1FlCp3AOH/N+0s9gNlM78Dk7nwk25sS4VgvEXYXVQOUTZPedr0MDNCqQph4oJWAUE3kE4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9fNmeIORrLk0dNuSULK+hBwAeAREQFTd6m1EguNuMbRhZBbox
+	GTPxLVcQGZUTITPRlVdysHjh7xm6SF9NSaxGKzwWLWLfS/QVuHbHu/QptUcTmo3ykQ3dKAJ3w3c
+	pMyUq8wumfOUBo32Zh9ujTHpSsuANky63KLLpjupodGRg8YbELMf6YLj/Lm4ftw==
+X-Gm-Gg: AYBFou2uthPOKPzreUSsTB0twX/gYHbgNu0efBHXSmWEXu/DLrFZbhDVLwGVmQpoqoz
+	T3Du4sKq1yomAh1v/5K3+z6JpnnljtaAlGOzsGmc87BN4yTxh8bA8GvSnvBiRTljrOiSU/Ye6oT
+	IvCQxJiZTfk8Uy09gx0Kw3/vVNuo/dCO9NQxvQz2yOtdOq5/9DY0NUSVM+9Twry8TCUBmouIhS2
+	CiHj/73Ls9HkGnVmbyTWBCOdgFXcpdY3m6B1vLnPvssp88Xllv7lNPaOk+1w+mymZJ8W01sB+DR
+	2+okW0jQKwTufe82CMSDImtKyDh4SpvhLR7AJe594Tjdok6mOJZ6tzgJt6AyJOvE7+lFoz+d7Xw
+	90XnsoEUEbp1IOulxAxqCbJui3uM9L8+dR3XlCLjm9nNPU76NSsaCuCSA47jWWTcJPfDChPlu8C
+	HQ/7irV26KnKIokiM=
+X-Received: by 2002:a05:620a:1a19:b0:93e:e111:2778 with SMTP id af79cd13be357-944133591eemr413699185a.14.1793285514144;
+        Thu, 29 Oct 2026 07:51:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a19:b0:93e:e111:2778 with SMTP id af79cd13be357-944133591eemr413696085a.14.1793285513645;
+        Thu, 29 Oct 2026 07:51:53 -0700 (PDT)
+Received: from [127.0.1.1] (bzq-79-179-7-133.red.bezeqint.net. [79.179.7.133])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04723sm78153515e9.5.2026.10.29.07.51.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 07:51:52 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Thu, 29 Oct 2026 10:51:25 -0400
+Subject: [PATCH v2 4/9] ecryptfs: use a folio and a buffer in
+ crypt_extent()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,129 +120,205 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-drm-reset-state-flag-v7-9-4e55eaeae683@kernel.org>
-References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
-In-Reply-To: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3320; i=mripard@kernel.org;
- h=from:subject:message-id; bh=bz8WgYdyyKFKUw0Z8N3MeqXXAFbvhUkQzTihY9/0wRE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCqVPPmypuHI9KHXa/Ifq6zQ+1yzRnna//fLvvnvlN
- 6av0r79o2MqC4MwJ4OsmCLLE5mw08vbF1c52K/8ATOHlQlkCAMXpwBM5OlNxoYXHtrXxWc8T5kw
- 39W4/uw3cetw9X0Zf2Xv313zY9e3knlhci/TJ9srrq6R4W+z+j8peB9jfcEJ/qBlzX82Zl5O93L
- +ynf/5txdj+4feT5lN5+w5Rr7ffY/osuU4lOOSYuUT7jC13fsLwA=
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Message-Id: <20261029-ecryptfs-folio-v2-4-dc53f1d47d9c@columbia.edu>
+References: <20261029-ecryptfs-folio-v2-0-dc53f1d47d9c@columbia.edu>
+In-Reply-To: <20261029-ecryptfs-folio-v2-0-dc53f1d47d9c@columbia.edu>
+To: Tyler Hicks <code@tyhicks.com>
+Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793285500; l=6214;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=An8YAI40XTeu7sFYJ7stWLk4oSytgbyqmqAEZJZ4u6A=;
+ b=+n5y1ufKS1plUMz00VQ5uUcrV8EZTGGn0yJVgHU3+KCNE99J01y2pIP74Fz/m2pkaeX7WOSPH
+ rmyNrySnZQ4Dr5Hk1lOmP7Fe3xWLkcAnVMQcXLxQnjQHcycv2eq2x3M
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11949
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=10 phishscore=0 bulkscore=10
+ priorityscore=1501 clxscore=1015 adultscore=0 impostorscore=10 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290058
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: sPlAK8BpLxLIHoRSlgNxad1N3IMj3UGx
+X-Proofpoint-ORIG-GUID: OFYYD8piDrBKU5YNzGTCELdfgYQmdtA_
+X-Authority-Analysis: v=2.4 cv=GfuCDgXL c=1 sm=1 tr=0 ts=6ae47148 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=LRATYcvZeiQrLRB5MfbBvg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=JR4YdQiviy7OQf72WyZ1:22
+ a=YUWrOzf3Fweq1H2EzuoA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0MSBTYWx0ZWRfX2jUT2WTkcK6Q
+ vxaExTx0pjp1uW9aLyE5Iw7TOaoy5D+McQHFLuUmlZfBRG/Ni88I2kAdJ2XXL3frIYUYLOMIQSq
+ AJT1/4RTrVsLmT/3xwTszHgjFdTHiPjHlPbt+KnPwQXiBiGBaeF2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0MSBTYWx0ZWRfX4stqTjOhdAwA
+ MuxZ+kxAD4DgPMTqz7zwUvaTx85p6yg7AT2nOvpMm3ZAI1iNIHZKkaDQ4veUAGE6b3r/VNUTm7/
+ xdsyQUPV+kZp6IoMEmTGw7k7YU6NcdpqfzX8oEAJRyMdIvaWsGr/v/bkPsQl+hUmNlzp+bCKHer
+ 1uPEDbJZufPq26t/Jd10aLhdNAizdUdFBjgjTY9AnXZJO/SlnReMbPIHVq/rZeKiRxVeMg0ZaL+
+ 9e3eTaWuzooUazkmunX73z+25lMtgD3uTQp5iIGwg/wkmktubmlWaBPu9f1UKsowLfwhEbbM50Y
+ 5mm7+kRlC5Iv2Q4DEvRfb5bWr1z4bPW+NMBVVHGvt4ZZ5pL0MiAJm9dzBF80Sd+J47felSCETDX
+ SjCs/RJCBGfSctkytMfe/WnT4qH6bAGztWfgJ16XRATKKMbm9o5pc0UhghonOqAoSnqOQuQ8/Og
+ k/aUBfOoDAW2rBJhRtg==
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11950
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=10 lowpriorityscore=10 priorityscore=1501
+ malwarescore=0 bulkscore=10 spamscore=0 phishscore=0 adultscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=2 engine=8.22.0-2610190000
+ definitions=main-2610300041
 
-drm_atomic_get_private_obj_state() allocates a new private object
-state by duplicating the current one and inserts it into the atomic
-commit as a single operation.
+crypt_extent() currently takes its source and destination as pages, so
+ecryptfs_encrypt_page() and ecryptfs_decrypt_page() have to pass
+folio_page() of the folio they are given, and the ciphertext buffer in
+ecryptfs_encrypt_page() is allocated as a page to match.
 
-However, a later change will need to insert a private object state
-into a commit without going through the full allocation and
-duplication path in drm_atomic_get_private_obj_state().
+The source is a page cache folio, so pass it as one and set up its
+scatterlist with sg_set_folio(). The destination is not: it is a
+temporary buffer that is only needed to be able to write to the lower
+file. There is no reason for it to be a page or folio. Convert it to a
+buffer instead, with NULL meaning the operation is done in place on
+the folio, which is what ecryptfs_decrypt_page() does.
+ecryptfs_encrypt_page() can then kmalloc() it and write it out without
+mapping it. Allocate the buffer with GFP_KERNEL. There was no reason to
+use GFP_USER as it had previously been doing.
 
-Extract the state insertion logic, including the array reallocation,
-into a new static drm_atomic_commit_set_private_obj_state() helper,
-and convert drm_atomic_get_private_obj_state() to use it.
-
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
- drivers/gpu/drm/drm_atomic.c | 53 +++++++++++++++++++++++++++++---------------
- 1 file changed, 35 insertions(+), 18 deletions(-)
+ fs/ecryptfs/crypto.c | 47 ++++++++++++++++++++---------------------------
+ 1 file changed, 20 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 807b575ecc54..513e91ad2fdc 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1096,4 +1096,33 @@ drm_atomic_private_obj_fini(struct drm_private_obj *obj)
- EXPORT_SYMBOL(drm_atomic_private_obj_fini);
- 
-+static int drm_atomic_commit_set_private_obj_state(struct drm_atomic_commit *commit,
-+						   struct drm_private_obj *obj,
-+						   struct drm_private_state *obj_state)
-+{
-+	struct __drm_private_objs_state *arr;
-+	int index, num_objs;
-+
-+	drm_modeset_lock_assert_held(&obj->lock);
-+
-+	num_objs = commit->num_private_objs + 1;
-+	arr = krealloc_array(commit->private_objs, num_objs,
-+			     sizeof(*commit->private_objs), GFP_KERNEL | __GFP_ZERO);
-+	if (!arr)
-+		return -ENOMEM;
-+
-+	commit->private_objs = arr;
-+	index = commit->num_private_objs;
-+
-+	commit->private_objs[index].state_to_destroy = obj_state;
-+	commit->private_objs[index].old_state = obj->state;
-+	commit->private_objs[index].new_state = obj_state;
-+	commit->private_objs[index].ptr = obj;
-+	obj_state->state = commit;
-+
-+	commit->num_private_objs = num_objs;
-+
-+	return 0;
-+}
-+
- /**
-  * drm_atomic_get_private_obj_state - get private object state
-@@ -1112,6 +1141,5 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 				 struct drm_private_obj *obj)
+diff --git a/fs/ecryptfs/crypto.c b/fs/ecryptfs/crypto.c
+index e67119b6029c..9b8b0c5a81cd 100644
+--- a/fs/ecryptfs/crypto.c
++++ b/fs/ecryptfs/crypto.c
+@@ -271,8 +271,9 @@ static loff_t lower_offset_for_page(struct ecryptfs_crypt_stat *crypt_stat,
+  * crypt_extent
+  * @crypt_stat: crypt_stat containing cryptographic context for the
+  *              encryption operation
+- * @dst_page: The page to write the result into
+- * @src_page: The page to read from
++ * @folio: The folio to read from
++ * @dst: The buffer to write the result into, or NULL to crypt the
++ *       folio in place
+  * @page_index: The offset in the file (in units of PAGE_SIZE)
+  * @extent_offset: Page extent offset for use in generating IV
+  * @op: ENCRYPT or DECRYPT to indicate the desired operation
+@@ -282,14 +283,12 @@ static loff_t lower_offset_for_page(struct ecryptfs_crypt_stat *crypt_stat,
+  * Return zero on success; non-zero otherwise
+  */
+ static int crypt_extent(struct ecryptfs_crypt_stat *crypt_stat,
+-			struct page *dst_page,
+-			struct page *src_page,
+-			pgoff_t page_index,
++			struct folio *folio, void *dst, pgoff_t page_index,
+ 			unsigned long extent_offset, int op)
  {
--	int index, num_objs, ret;
--	struct __drm_private_objs_state *arr;
-+	int ret;
- 	struct drm_private_state *obj_state;
+ 	loff_t extent_base;
+ 	char extent_iv[ECRYPTFS_MAX_IV_BYTES];
+-	struct scatterlist src_sg, dst_sg;
++	struct scatterlist src_sg, dst_sg, *dst_sgp = &src_sg;
+ 	size_t extent_size = crypt_stat->extent_size;
+ 	int rc;
  
-@@ -1127,24 +1155,13 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 		return ERR_PTR(ret);
+@@ -297,14 +296,15 @@ static int crypt_extent(struct ecryptfs_crypt_stat *crypt_stat,
+ 	ecryptfs_derive_iv(extent_iv, crypt_stat, extent_base + extent_offset);
  
--	num_objs = state->num_private_objs + 1;
--	arr = krealloc_array(state->private_objs, num_objs,
--			     sizeof(*state->private_objs), GFP_KERNEL | __GFP_ZERO);
--	if (!arr)
--		return ERR_PTR(-ENOMEM);
+ 	sg_init_table(&src_sg, 1);
+-	sg_init_table(&dst_sg, 1);
 -
--	state->private_objs = arr;
--	index = state->num_private_objs;
--
- 	obj_state = obj->funcs->atomic_duplicate_state(obj);
- 	if (!obj_state)
- 		return ERR_PTR(-ENOMEM);
- 
--	state->private_objs[index].state_to_destroy = obj_state;
--	state->private_objs[index].old_state = obj->state;
--	state->private_objs[index].new_state = obj_state;
--	state->private_objs[index].ptr = obj;
--	obj_state->state = state;
--
--	state->num_private_objs = num_objs;
-+	ret = drm_atomic_commit_set_private_obj_state(state, obj, obj_state);
-+	if (ret) {
-+		obj->funcs->atomic_destroy_state(obj, obj_state);
-+		return ERR_PTR(ret);
+-	sg_set_page(&src_sg, src_page, extent_size,
+-		    extent_offset * extent_size);
+-	sg_set_page(&dst_sg, dst_page, extent_size,
+-		    extent_offset * extent_size);
++	sg_set_folio(&src_sg, folio, extent_size,
++		     extent_offset * extent_size);
++	if (dst) {
++		sg_init_one(&dst_sg, dst + extent_offset * extent_size,
++			    extent_size);
++		dst_sgp = &dst_sg;
 +	}
  
- 	drm_dbg_atomic(state->dev,
+-	rc = crypt_scatterlist(crypt_stat, &dst_sg, &src_sg, extent_size,
++	rc = crypt_scatterlist(crypt_stat, dst_sgp, &src_sg, extent_size,
+ 			       extent_iv, op);
+ 	if (rc < 0) {
+ 		printk(KERN_ERR "%s: Error attempting to crypt page with "
+@@ -321,7 +321,7 @@ static int crypt_extent(struct ecryptfs_crypt_stat *crypt_stat,
+  * ecryptfs_encrypt_page
+  * @folio: Folio mapped from the eCryptfs inode for the file; contains
+  *        decrypted content that needs to be encrypted (to a temporary
+- *        page; not in place) and written out to the lower file
++ *        buffer; not in place) and written out to the lower file
+  *
+  * Encrypt an eCryptfs page. This is done on a per-extent basis. Note
+  * that eCryptfs pages may straddle the lower pages -- for instance,
+@@ -338,7 +338,6 @@ int ecryptfs_encrypt_page(struct folio *folio)
+ 	struct inode *ecryptfs_inode;
+ 	struct ecryptfs_crypt_stat *crypt_stat;
+ 	char *enc_extent_virt;
+-	struct page *enc_extent_page = NULL;
+ 	loff_t extent_offset;
+ 	loff_t lower_offset;
+ 	int rc = 0;
+@@ -347,8 +346,8 @@ int ecryptfs_encrypt_page(struct folio *folio)
+ 	crypt_stat =
+ 		&(ecryptfs_inode_to_private(ecryptfs_inode)->crypt_stat);
+ 	BUG_ON(!(crypt_stat->flags & ECRYPTFS_ENCRYPTED));
+-	enc_extent_page = alloc_page(GFP_USER);
+-	if (!enc_extent_page) {
++	enc_extent_virt = kmalloc(PAGE_SIZE, GFP_KERNEL);
++	if (!enc_extent_virt) {
+ 		rc = -ENOMEM;
+ 		ecryptfs_printk(KERN_ERR, "Error allocating memory for "
+ 				"encrypted extent\n");
+@@ -358,9 +357,8 @@ int ecryptfs_encrypt_page(struct folio *folio)
+ 	for (extent_offset = 0;
+ 	     extent_offset < (PAGE_SIZE / crypt_stat->extent_size);
+ 	     extent_offset++) {
+-		rc = crypt_extent(crypt_stat, enc_extent_page,
+-				folio_page(folio, 0), folio->index,
+-				extent_offset, ENCRYPT);
++		rc = crypt_extent(crypt_stat, folio, enc_extent_virt,
++				folio->index, extent_offset, ENCRYPT);
+ 		if (rc) {
+ 			printk(KERN_ERR "%s: Error encrypting extent; "
+ 			       "rc = [%d]\n", __func__, rc);
+@@ -369,10 +367,8 @@ int ecryptfs_encrypt_page(struct folio *folio)
+ 	}
+ 
+ 	lower_offset = lower_offset_for_page(crypt_stat, folio);
+-	enc_extent_virt = kmap_local_page(enc_extent_page);
+ 	rc = ecryptfs_write_lower(ecryptfs_inode, enc_extent_virt, lower_offset,
+ 				  PAGE_SIZE);
+-	kunmap_local(enc_extent_virt);
+ 	if (rc < 0) {
+ 		ecryptfs_printk(KERN_ERR,
+ 			"Error attempting to write lower page; rc = [%d]\n",
+@@ -381,9 +377,7 @@ int ecryptfs_encrypt_page(struct folio *folio)
+ 	}
+ 	rc = 0;
+ out:
+-	if (enc_extent_page) {
+-		__free_page(enc_extent_page);
+-	}
++	kfree(enc_extent_virt);
+ 	return rc;
+ }
+ 
+@@ -432,8 +426,7 @@ int ecryptfs_decrypt_page(struct folio *folio)
+ 	for (extent_offset = 0;
+ 	     extent_offset < (PAGE_SIZE / crypt_stat->extent_size);
+ 	     extent_offset++) {
+-		struct page *page = folio_page(folio, 0);
+-		rc = crypt_extent(crypt_stat, page, page, folio->index,
++		rc = crypt_extent(crypt_stat, folio, NULL, folio->index,
+ 				extent_offset, DECRYPT);
+ 		if (rc) {
+ 			printk(KERN_ERR "%s: Error decrypting extent; "
 
 -- 
-2.55.0
+2.39.5
 
