@@ -1,77 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793274944;
-	b=uG+drtaPe98LTFwt2kXcBI2AinEe0jf7Zro6XpVfZjLB7chA5/0HlfCZmHG+h3O+SfDC
-	 dtK05sWd9oCa8k8BMH5bT1WGP6y1RqbI7MlAferV3c7RdUgPj2Qx3AuMV/u6+8WCKsIeV
-	 AEYVJMdynB2hrE9YRWo6aqbNHToyLmftC8KOIEZPME9Pp8I4IgD6rzF42pM4csBEGOf2Y
-	 lU6yhmNM29yqUXvtyFZbyH9QD6993aF/DKXmS4hb31sxuU/bSIdnuqEtCYnTtBfW9QZD5
-	 g67018kTw82x1RiRygWeds8f2Kcb/KNW31dSuonYtGZUzRfeQ9gZVUc2zhbj+H9KojA==
+	t=1793275008;
+	b=i5H9RmuvR61nYmrm+/AYcDL0k0jQ0VMIC9Ty66z6wt7hMV7S5/y4j9zesKXdlm56dW14
+	 /9wbIgGEEzAfWLD0lDPi9K9VbFg/XFWNRfGE7QyGQjOC7jO4FwZvZrTOUfj4vB7PvUCY1
+	 mvb7LZZNvXbLVH1v1iGqYvXdQnqHcn5rD/3+jfO9PpuNf1235fXsji66ZoWx89GvOcO/X
+	 YdFLG7AtdKgkzkzNQd9Cn3GswkLXsfhLPzs6rw0Voc/N9/ScZ1hnkI5PUpMbAIKCcin7A
+	 oqlp49dG0KfHs8dOaNnkwV9kwvcsSJUqeqO3R/J+rRyGx7jGgFTkJNqwHRH2g60xeXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274944;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
-	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
-	 Content-Type;
-	bh=KTQVFO6lzA96PIqvJ8pV9UqSzjjQB2hOeeMYeqx+0tA=;
-	b=oyn5+35HNSmSGsYMpEJiEII5MalAlXl+HPObfjkchIW9UiVr/w+ZX8h0ra/+q8bNyTJa
-	 BNGobEpjKQ1QCgWbBysf2uraQmRw15UQ6CwWG4U+Pp4TAomo+9IGhK0pvBaZ4BAMWfwXh
-	 8vvUOk0poron6Y/LXwyIRJrp9XxD0wLiglxPScFvjjWFTjaaNnZYadlYG2quhFtBE/SHU
-	 FjBWlbxTEgWkDAVzt7Itt7LcS4VqH5KCGzjLY1A5kfhid6lXyQYQogQ88eITWOevtX/dS
-	 H5HNaTeNkSeybKy0XYx83j7c7+JdVCna6tIJV4AS6F7nfYGwubBbmpKZqLjADvM5t0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793275008;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=sU4e7wuqTqzUVQN/c3QiLVT4NajPsQIxnJ8H+MQ9VO4=;
+	b=VK/y180niGJcMgcJKBlrmEZjU0ydw6g6DIWbD6e0D2RNfOuxBsKhSpSbZGqax91qXU6n
+	 vFbMqITbujbV3imdwv0eK7jr9s8k0WCiYAZBZKStPMtqvs4QEruVnhbjIT/RT5hTtF4rx
+	 T3uYEdBd7/dl7WkM4QYX06oX6p+TfQT3THuvMuLJ1FaOdaPEuV7sBy10vDLKDdBIB5z+u
+	 e3u1QeBso0uupQt/EQDZVk/9X/Dsme4EBHAsQkt2bJQPAhwXwFh7pU3Ts9tm52gibnoK7
+	 Vi5AVmIiev5YnBzELW3VdFqs33Gc5uyp7K3HLXOVPX9XAAIPBXB/x76X8xR1ASjipHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ssi.bg;
-	spf=pass smtp.mailfrom=ssi.bg;
-	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=ACSa9OZQ;
-	arc=none smtp.remote-ip=193.238.174.39
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Aq2yS91g;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D706F606A31A;
-	Thu, 29 Oct 2026 11:55:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D706F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC90606A31A;
+	Thu, 29 Oct 2026 11:56:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AC90606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=ACSa9OZQ
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id C82ED21F6D;
-	Thu, 29 Oct 2026 13:55:38 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=KTQVFO6lzA96PIqvJ8pV9UqSzjjQB2hOeeMYeqx+0tA=; b=ACSa9OZQh9B+
-	LAp8VRdwAqHwOR2Px2EB24IG9wkcUZzO2qCihGkGemEj6o/KdD6WfeOgrhbPtzNi
-	NM6PmVipshH1D2DpyxZxITRocvyZtVsdaYDpPg+ZLOh4egb52aOmJbTMEoQ1Mnkt
-	WmK1EM13CoeR114C+ged3t8hBQ24BQMLulwX0vcCEX95GoneF+IVETdRuBb7slmI
-	6gQvThBfupm/lmJCy/2YwtXZyjHmGiYmGalPmbHcL1ape56DRzBb/flBS1I3skCv
-	7jTQ/Xnj6bSjnCrd68D80XbK01tkmcD+MaxlPcgnPT0hd4q6OwkGmfAjLSy8Wuw1
-	cRMjRpbgVmVWfJ8zEHnju/CdwkiFzEfnJWdBR7wFKb0x/X1dV2JmVW+Ja7DjHLdg
-	LRNo24A+w/HvC4lx4avRctelUOvyaMVJ81lCNi4sjPLrh1mPSB+oFVeK92n8Jl53
-	tkyD5TjHqxHGKTeSVOays7c2eW0h5ub8RqMQJV5h9Es2Cqny9cj+JKfLEOghqR7L
-	53fi6b3q7W84bQUaVSJGr4VWe5ntyhygjG2N8iwQFiw4iAzNy6BkBLQcWgDo3EUY
-	PsxctM++wP2k1khWszkzmkZLLrB7zmWsVunAGCoUByEMUsgSbZzSgcnSXPa/7yJl
-	9hbSIJ8Zo/5fvA3NCyl2U3RLFD3YP6g=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Thu, 29 Oct 2026 13:55:38 +0200 (EET)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 6121160A0E;
-	Thu, 29 Oct 2026 13:55:38 +0200 (EET)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 69TBtWKA036805;
-	Thu, 29 Oct 2026 13:55:33 +0200
-Date: Thu, 29 Oct 2026 13:55:32 +0200 (EET)
-From: Julian Anastasov <ja@ssi.bg>
-To: Linkui Xiao <xiaolinkui@126.com>
-cc: horms@verge.net.au, dsahern@kernel.org, idosch@nvidia.com,
-        davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-        pabeni@redhat.com, netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>
-Subject: Re: [PATCH net-next] ipvs: annotate the lockless read of
- sysctl_sync_threshold[0]
-In-Reply-To: <ede3104a-7e14-40ac-b16c-9750d5b2a8a7@126.com>
-Message-ID: <7bcb4225-b6d8-3815-a6f8-61b5f885f929@ssi.bg>
-References: <20261026083708.617278-1-xiaolinkui@126.com> <45d598e6-3625-0879-59b0-51f649ebe509@ssi.bg> <ede3104a-7e14-40ac-b16c-9750d5b2a8a7@126.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Aq2yS91g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793275007; x=1824811007;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=ECaTdLJk1+NJUFeCKq9XKqsWx9P7nQKtBPkNrz3LMl8=;
+  b=Aq2yS91g3atFfCeszqItufiVDEztW7JQT2hD0J9wRGzu5PXKQCBAHJ7/
+   JoimfshfXGgWzahv5IzIYXy4V0jwbHfMds0umAP2l0Ig+iyaP3GusU0EU
+   kXyTp67pIEuEEwL5Np4jqY8Vc+TEI8ekcDm7x9NRDLQ9mCblj+e1y84Lk
+   unVRBCUSDiCJqHWEzfEP7uFCdnK+9mjrPYm4Dp6rTYv/WzWPrrl+ZnfSE
+   u3e4FXrgXTKw/wXCrHqbD8X81xSJcTlp6fBQcMXWEPKkTNi9ae8b68i41
+   6I/1Sko74fvmj+PlNevggCfTCF1LYctlFUVGFTozanIL0qckzjPzOzaqB
+   w==;
+X-CSE-ConnectionGUID: FjIJi7taR0Cp0kIlFh7CgA==
+X-CSE-MsgGUID: qeEf+P3QRFeCcwST9OzocQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2108286"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="2108286"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:56:47 -0700
+X-CSE-ConnectionGUID: s/nwXWPnQHa0rPLrpJ73QQ==
+X-CSE-MsgGUID: 6rpluSCQSL+1tvtH1I46RQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5223627"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.149])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:56:35 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 29 Oct 2026 13:56:29 +0200 (EET)
+To: Jiri Slaby <jirislaby@kernel.org>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Joshua Rogers <linux@joshua.hu>, Chris Mason <mason@kernel.org>, 
+    Josef Bacik <josef@toxicpanda.com>, Tony Lindgren <tony@atomide.com>, 
+    Rafael Gago Castano <rgc@hms.se>, Florian Fainelli <f.fainelli@gmail.com>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    Peter Hurley <peter@hurleysoftware.com>, 
+    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+    Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
+    Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+    Pengutronix Kernel Team <kernel@pengutronix.de>, 
+    Fabio Estevam <festevam@gmail.com>, 
+    Manivannan Sadhasivam <mani@kernel.org>, Olof Johansson <olof@lixom.net>, 
+    =?ISO-8859-15?Q?Andreas_F=E4rber?= <afaerber@suse.de>, 
+    Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+    Peter Griffin <peter.griffin@linaro.org>, 
+    Alim Akhtar <alim.akhtar@samsung.com>, 
+    Robert Baldyga <r.baldyga@samsung.com>, 
+    Thomas Abraham <thomas.abraham@linaro.org>, 
+    Kukjin Kim <kgene.kim@samsung.com>, 
+    Patrice Chotard <patrice.chotard@foss.st.com>, 
+    Srinivas Kandagatla <srini@kernel.org>, 
+    Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+    Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+    Andy Shevchenko <andy.shevchenko@gmail.com>, 
+    Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
+    Al Cooper <alcooperx@gmail.com>, LKML <linux-kernel@vger.kernel.org>, 
+    linux-serial <linux-serial@vger.kernel.org>, stable <stable@kernel.org>
+Subject: Re: [PATCH 24/24] serial: stm32: don't report a wakeup to a closed
+ tty
+In-Reply-To: <74e02b49-f596-4433-a132-7799029db2a5@kernel.org>
+Message-ID: <84ab00cb-ac35-f1c3-ac9c-fbbdeb210ec2@linux.intel.com>
+References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org> <20261027-tty-llm-v1-24-99b0202ae546@linuxfoundation.org> <aef066bc-1b1e-b1e8-97f5-6fa8c8d18940@linux.intel.com> <74e02b49-f596-4433-a132-7799029db2a5@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,74 +104,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323328-1863965678-1793274989=:1322"
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-	Hello,
+--8323328-1863965678-1793274989=:1322
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-On Thu, 29 Oct 2026, Linkui Xiao wrote:
+On Thu, 29 Oct 2026, Jiri Slaby wrote:
 
-> Hi Julian, Simon,
-> 
-> Thanks for the reviews.
-> 
-> On Wed, Oct 28, 2026 at 07:15:34PM +0300, Julian Anastasov wrote:
-> > Yes, ACCESS_ONCE was used to solve possible division-by-zero problem,
-> > not to solve the data race. Even if memcpy is converted to 2 int copies
-> > on some archs (eg. x86) may be it is time to use 2 WRITE_ONCE instead of
-> > the last memcpy. Can you include this change in v2. Post it when net-next
-> > opens again by using nf-next tag.
-> 
-> Agreed. v2 replaces the last memcpy() in proc_do_sync_threshold() with
-> two WRITE_ONCE() stores, one per element. The if/else branches gained
-> braces to keep checkpatch --strict happy about the now multi-statement
-> else.
-> 
-> net-next is currently closed and is scheduled to reopen on November 9th
-> (https://netdev.bots.linux.dev/net-next.html). I will post it as
-> [PATCH nf-next v2] then.
-> 
-> On Tue, Oct 28, 2026 at 12:49:35PM +0000, Simon Horman wrote:
-> > I wonder if it would also be appropriate to call
-> > sysctl_sync_threshold() only once (per-packet) in
-> > ip_vs_sync_conn_needed(). Stashing the value in a local variable if
-> > appropriate.
-> 
-> Agreed, and thank you. v2 reads the value once into a local variable,
-> sync_threshold, before the branch and uses it in either branch.
-> 
-> One precision while re-checking the code: the two call sites are on
-> mutually exclusive branches of the same if/else, so a single packet
-> never reads the value twice at runtime. My v1 commit message overstated
-> this ("the two comparisons ... can observe different values for one and
-> the same packet"); v2 rewords that paragraph and notes the rewording in
-> Changes in v2. Stashing a single snapshot is still the cleaner shape, so
-> the change is worthwhile regardless.
+> On 27. 10. 26, 14:02, Ilpo J=C3=A4rvinen wrote:
+> > On Tue, 27 Oct 2026, Greg Kroah-Hartman wrote:
+> >=20
+> > > From: Josef Bacik <josef@toxicpanda.com>
+> > >=20
+> > > stm32_usart_interrupt() reports a wakeup interrupt as a wakeup event =
+of
+> > > tport->tty->dev.  That pointer is only set while the port is open.  T=
+he
+> > > port of a console is not shut down by the last close: it stays
+> > > initialized, so the wakeup interrupt is still enabled on suspend.  If
+> > > the system is then woken up by the console, the handler dereferences =
+a
+> > > NULL pointer.
+> > >=20
+> > > Take a reference to the tty, and leave the event out if there is none=
+=2E
+> > >=20
+> > > Fixes: 48a6092fb41f ("serial: stm32-usart: Add STM32 USART Driver")
+> > > Cc: stable <stable@kernel.org>
+> > > Cc: Jiri Slaby <jirislaby@kernel.org>
+> > > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> > > Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> > > Cc: Andy Shevchenko <andy.shevchenko@gmail.com>
+> > > Cc: Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>
+> > > Cc: Peter Hurley <peter@hurleysoftware.com>
+> > > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> > > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > > ---
+> > >   drivers/tty/serial/stm32-usart.c | 11 +++++++++--
+> > >   1 file changed, 9 insertions(+), 2 deletions(-)
+> > >=20
+> > > diff --git a/drivers/tty/serial/stm32-usart.c
+> > > b/drivers/tty/serial/stm32-usart.c
+> > > index ad06b760cfca..3bc2ce877585 100644
+> > > --- a/drivers/tty/serial/stm32-usart.c
+> > > +++ b/drivers/tty/serial/stm32-usart.c
+> > > @@ -872,8 +872,15 @@ static irqreturn_t stm32_usart_interrupt(int irq=
+,
+> > > void *ptr)
+> > >   =09=09writel_relaxed(USART_ICR_WUCF,
+> > >   =09=09=09       port->membase + ofs->icr);
+> > >   =09=09stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_WUFIE);
+> > > -=09=09if (irqd_is_wakeup_set(irq_get_irq_data(port->irq)))
+> > > -=09=09=09pm_wakeup_event(tport->tty->dev, 0);
+> > > +=09=09if (irqd_is_wakeup_set(irq_get_irq_data(port->irq))) {
+> > > +=09=09=09struct tty_struct *tty =3D tty_port_tty_get(tport);
+> > > +
+> > > +=09=09=09/* A console stays set up after the last close */
+> > > +=09=09=09if (tty) {
+> > > +=09=09=09=09pm_wakeup_event(tty->dev, 0);
+> > > +=09=09=09=09tty_kref_put(tty);
+> > > +=09=09=09}
+> > > +=09=09}
+> >=20
+> > Could we like add a helper into serial core to do this tty wakeup dance=
+?
+> > It is duplicated in quite many of these patches.
+>=20
+> Likely. Or use scoped_guard(tty_port_tty) at minimum.
 
-	IMHO, ip_vs_sync_conn_needed() should not be changed, 
-sysctl_sync_threshold() is not called twice in same flow. OTOH,
-sysctl_sync_period() is properly stored in sync_period because
-it is used twice. 
+Also the irqd_is_wakeup_set(irq_get_irq_data(xx)) part seemed duplicated=20
+so it's not just about the reference dance what is duplicated in this=20
+fragment.
 
-	But there is still little gap where proc_do_sync_threshold()
-changes the two values one after another while ip_vs_sync_conn_needed()
-can not take snapshot without using some common lock, eg. some
-seqcount should be more appropriate for this. Writers are already
-synchronized with the mutex, so ip_vs_sync_conn_needed() can read the two
-values into temp vars under read_seqcount_begin()+read_seqcount_retry().
-And later to use the temp vars. proc_do_sync_threshold() can use 
-write_seqcount_begin() and write_seqcount_end():
+--=20
+ i.
 
-	local_bh_disable();
-	preempt_disable_nested();
-	write_seqcount_begin();
-	2 WRITE_ONCE
-	write_seqcount_end();
-	preempt_enable_nested();
-	local_bh_enable();
-
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
-
+--8323328-1863965678-1793274989=:1322--
