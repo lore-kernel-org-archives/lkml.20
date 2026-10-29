@@ -1,93 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793244561;
-	b=Pixh6Bgaigap9+SGWRgE8J7PrRwRD0htg6ve15hukaVdx21Tm4h2Y8szSNRq1oXYvmVl
-	 RuehBG6VYUBRoHwqb4SOavFBGckMeiUXNWknN4jfBxp7yw1Gr9LkJYnDzrupsusrhnNLv
-	 bq9Vyp2+Q++lmdscAfdZwRdk/5RqX7gngA5rJ0aCbst+FrKlQKRgmXd1ElU1EW49JFW05
-	 VvJxElAkfELHq3/r78Zx+bRy0HofEjrBg/5aCxdWdIBZ/U9kRF8Z2RG078HlTV03lu65s
-	 j9jZ6Dbr3pCkJAwuLbWW69TLThTDoBtp32U/PvjjlGtd8j1bB2tw3sABGMlhBPeVCLg==
+	t=1793244588;
+	b=B0RDrsZL2jyi0d45/tX/mAQQjnq0Ad86KYRq23xxSBq+qkeTOBdL07uzdc5BQIcVfifY
+	 hCtQZHP+mpJ0Wld8JPjiKr3xw0YkcXPcmnEPRgtGUyxBao0sEf1eaeYLl3d+mI6vyFLHH
+	 2LeJDOeyNzdlAXSR3ZgztTW44ugJJsJAYz1k/cG7+nsHWHhLYrzN0PJAPkgKVGjwzAQQJ
+	 YZv6TSsjhYk6sOV/yIhN627eIk4Jx0TuIij76VekW5wEYy/y8GQ3LmLDcKeHiQJMUqW40
+	 RDlrGgbasQMNmM6vGaW9ADs8YlFGc8nSqbf4JDHtGmG6Uqlmcj+97tp580P4v+KaOhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793244561;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793244588;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=r2lP39Zwrg6b6ti0XQBBmhYF5G4i5EE9mhv+bYMknKs=;
-	b=yJeK6iedhLUZiV3NvEuYttn/WYq2iOps8Ir9XV4L+9MM4FiiOeDUO85Wlc7S2nUF6tv0
-	 u5KaDyEXQqhAcm0+xtYSsbePsbyZLfnQyHioJFpDkLoeQ65aj4erLcV7fMl8k+3084usM
-	 E1rYipRneX74ZY3pefBMcJ8aA5C3nffl2iAUvIeL0L+MS14K5Fjs3ODacl/SpLmXpEo4M
-	 YWeHsiW4smkv3mugqQPW4kCkNmoppqrGaGYySRoG0/TIatRH5MPfR6XKCVj8TYhEpHSkZ
-	 6a0ZVw6kTr38gV3xOyQj0j6PAAi9yjvdLB4ibGfPTJR/do4VoYtfJmUGtTiwRFNmI4g==
+	bh=aLxkHNwaV2Nm/4SXJqHXqRt/QoXx8VfPwy6LHI2UFFM=;
+	b=pv/8sYqF7zC7kT1jSPkqCauLKJurvxkshhJE8QETzdQuRnacy24qt5AEaeiWBqs46UaT
+	 pfGEVS/+C3oid9p/A/lNZ8+C0DMxjZl5UWU2VOmVpvdXOzTIRKULjuo2n4sbUIVL+1RE1
+	 OE2Msz3Y2H6O1bkS86tfcnPmMEuI3ldIyYp+pI+SA7fkG+opaEARHRNpG4FznUDgWee1r
+	 rhW2BkI4JfR9a+lBRRhcsUYCpDa7UJJBWuQOaFX68Pmp5+JDY5KUEfOTIKOR7Q7iqa7SA
+	 RYVaKs5sVhAGycyj7tXrhG4BXox5ROdzhnA3o+KRYxrADkvpSuVE2Hi2L/wHbmiB4TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FkstOb1a;
-	arc=none smtp.remote-ip=209.85.216.41
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=nRg7cJN9;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37AE5606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:29:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37AE5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE9DF606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:29:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE9DF606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FkstOb1a
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ab41538192so1248789a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:29:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=nRg7cJN9
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so10578745e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:29:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793244561; x=1793849361; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r2lP39Zwrg6b6ti0XQBBmhYF5G4i5EE9mhv+bYMknKs=;
-        b=FkstOb1aJBK1v5iT+BgBG1SChsoebhDJbYmMaVbK7CxnJub6cKdGUUcS6KZ4b1YTVQ
-         uoHqZQoAM6PBmWyT4P6A+LzgqoOKdOeeM9VOOUURShHlFGUgrQmC48ThDuCNfTicRPf5
-         chsj3E7MRuOxuGk584uvzHWlipMxeSmj0OU9UEQw0wRfgWx/Ml1st8hbbN/5MqeCEz38
-         7p0LWs8Msp8Eo7ah23s5PCFMJ6ba7p+MUVxeXC6DVpybGoJaGtt7gko/dYiijtIhw3Bc
-         Dggio91+CFbf9r20MGFjJkuQWOs1/M15beg5OWX3PMRoU6oRII6oICkv38HWz3WxtBRE
-         kr+Q==
+        d=googlemail.com; s=20260707; t=1793244586; x=1793849386; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aLxkHNwaV2Nm/4SXJqHXqRt/QoXx8VfPwy6LHI2UFFM=;
+        b=nRg7cJN9SLqW61SOTpAvJUE6k+wITMzWkO1BGOzi4qowcDN2HOi2XBaTgc8oBVKBD4
+         lVg7a3HC/DNhM9g3Ot9jBkrBl5hCThZUE9A6fRO7VEinLVqDjXqSs0ud2S6jaw6TJ60H
+         pzOw91R3lcIl/e34GqL8gj84v4Mp7QjDNG0g1YiFaBxg25VoIXH9T75abWAOs930/1GJ
+         oEfM678598TckKw1ZgQ500OfELjiRAtUWU/vHMT4zu4FxBfo3l6GHkeGBzkgyc20ffUu
+         O9mV/4AE+xh3FHNK+JpuW0VvRMNCJIF6rhC+TcgJIchu9DqLUEGrsf5+dkPgmfc89BzD
+         P/Aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793244561; x=1793849361;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793244586; x=1793849386;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r2lP39Zwrg6b6ti0XQBBmhYF5G4i5EE9mhv+bYMknKs=;
-        b=0J8DXuZSjlMLj9O9XEaLcLbOpOAP8t/kDaQeGEC29WCMfdluHbj3noFSXZUD/6Ao/r
-         mLVqhkuqcxIA12w8Ut+OI6SxMD3e6V38692b0lSqrW4SlzQzPaV3j1PXViSIRfbAnx31
-         xWmxQBcf/dJU//4oYXe3NNxp5hvjM5AMq0pu81qGjPzZoPQy1LXe8kHFp5yp5uFici+D
-         2VsHuZuiAfmXCPEjdUyFbqwJbsO6GTIB21kkDwIHI++P7Mi4us1vmgCEjvumEzXUCXSm
-         4agG2ROWMdZthqO8i4/x4jbCdJ3r6UbZ5M9vKFR31TclnnCSwzeX/UXiSuUQd5GGkqrX
-         fAwg==
-X-Forwarded-Encrypted: i=1; AKwUvByaMSRzeIEEta5g1Nv+ifJ6MJQKjz50bT8EuofUZGZEZeLNSRxQUKa0GEG7e/4aKfiQuUocZ2qzTaSJYlw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKTibwttXZuGaTYffH7X5v02vvFH55hJs+dSU0XM20NSBl80kb/
-	j9v3pnHW7d7sw3HbWO2wk5V0RqMrYEV/QiwdlDnu4ldDhGHyQyM1kM+lAPhiS0N3
-X-Gm-Gg: AYBFou2Y2EbOpwYj0tJi6pLtcCGQvr0LAW5P4pcutJIsj+FNUELtGuJapfrRh12y7yd
-	S/pUknYY994zyROfW7Onh2YHvE56hoFD/DbfOVaSi2TSG41nzOUQ7muVxiaF1YCN31vDvl8DsPK
-	eyBBtoNY2GOtV8/FxoEC6OSAv5l/oEJhGEJMsbLpRcRZZiVv+hp6bSxeJiQMcDvx27j8j6IMoXc
-	PhGqJozwatPiG2CbEqLnIImuoljYSwasdX9o7N5b7NCrV0h+wwFk9JxNhd5h2ma0EHU7F8b/kK+
-	QkIDlXZXD9fVe+d70VC3Zob34frx37dmSF2WzNY1HDoFQ5VZUXCz0xpnIXb0F9GUYNxcMIl86wV
-	jN4MByjAR6Z1OEf24W1ItsoUN73nsUYMJ3up2c1riJiCNaXSSJnKkpS4frCVjEwCgEO4oUyFlUb
-	oKqrByVpAQq4NOH5Arn8zwIIQ+HlAXiEzBCG8kfPvrVxlS/NxN2YeofttqmAPVIIb4SPkKeFHJq
-	CXhmzzwm8DP9aA7fct94De2f/FnHxP9XNtqb6XkRfIYmKtjK24gt0Uur3JhbCPRYqyPsZMLL3kf
-	+gP+kDWwYg2B1WJRHSDKZHYlFuyn7Rr+470m6DoaSIUfYXDfA3RdbvxXyEGzL3k3+0KSt4tOb4j
-	Np83y1dhr2YSHkih7Ttqsjm8=
-X-Received: by 2002:a17:90b:1343:b0:3a7:ab31:2f4f with SMTP id 98e67ed59e1d1-3ae58228c39mr3338365a91.28.1793244560629;
-        Wed, 28 Oct 2026 20:29:20 -0700 (PDT)
-Received: from kic-machine.localdomain (122-117-151-175.hinet-ip.hinet.net. [122.117.151.175])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae57a56a1dsm2828318a91.4.2026.10.28.20.29.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 20:29:20 -0700 (PDT)
-From: Kuangyi Chiang <ki.chiang65@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ki.chiang65@gmail.com
-Subject: [PATCH] ALSA: usb-audio: Add delay quirk for HIK camera
-Date: Thu, 29 Oct 2026 11:28:56 +0800
-Message-Id: <20261029032856.7100-1-ki.chiang65@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        bh=aLxkHNwaV2Nm/4SXJqHXqRt/QoXx8VfPwy6LHI2UFFM=;
+        b=GT40xdanAqjwxc7mWnxEbqNLiXvClh74KuvUFrpOZFSbr5qi678kXIgTeCtuEj2NJa
+         ibhKkIKEuxbZlST7AZ2DjOxi3wDuk18n0tsMpYFCs/OSnUzSnsqNd6MDqcgUUIhe4i/U
+         8tpUTV7chjcgvCc9DjCxGAye5ad/wdKTk2gjWXXCtCCCA80XCRgijz1k3LR3ejmgk7tf
+         +bLzSDZe/Y3xUW1FCkZ7ZMGNzi5HX4P1oi69QoN6+NrmFfsgxiHZ5QjiXi+NESo8M0pR
+         apgUw8jTDm23p7dZnraEqXRmmDgBoo+ELCimIj4zcW+HC3RBSnlj84cfZF+TL3ePXRRP
+         g4rw==
+X-Forwarded-Encrypted: i=1; AKwUvBxArDdOxY5cGZ9LyUXRrErxAwBCFSmqAp/jBS2umsRT+gL7PGOmWlY80yGZ6Q11z+xR6bGC35TLBgocr0Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6cM9zw/qsfsAgayn3//2r8eIKKfEkMtyg/LpTnAiHZephJvMn
+	IyKPNKjAFTGF7/FZgrZOT8+/0LUpT1ULoq+f111Xf2JjqQ138W2MpWs=
+X-Gm-Gg: AYBFou3SpxhfJhNJvBBKCvxviOK+dCn9+R8s0yYyW5qQ3Duqm00V0D2/6/6aIzO58U6
+	CRpnOpa7oNPnLmb64/Ycsfbvvr6nd9oBMAYOdeAIrWMBJPQiKE5AChqoqbS98rsIUs/ECLzctr4
+	ChWDl1yv39AWkxFtll+VthCHVxDP+ExLyQ5KY04idk7rEySp7ubybwkHkZXmSYEZJhQKevJ3AYj
+	iGExyetrMwVBOe+YvHWy+1KpFhBkgr1uSWMVl8NnP2USWsYN+4G8SScXzRF7za/Ppkjqq34TR4r
+	EYXyYYeudgWpUM8wKt2Y+PtN7sd2Yarf6VLlnp93rCvXNVfmS3CA2r51N1oeKerAmoewhe2Z/e7
+	i+SEwVdtELf0/TdimlPYCTIOVAwQlwmDhLsZZK3W+3JYfY7VoV1TcjtAkGyr+C54S57B1ee2dM5
+	9Lwrab4sz6Qx1CjXArOAwDrlFmkO7Ogub+kCtwW5lUeQGKD4RVod7q6NaaldPSr2bmVCAEjw2wO
+	LWQfx2Z+e5eV/bY1LmV6Jps1d5pwwYatrV1ec54IlNdiYcK+dvqbgPR8FtCunqlKT9Ma1gi74oD
+	0oQB4hdD+8TBoD/9JbCx1L94QFrJcF7tdiawXoYLjI9xdsKr/7ZGWjXpQOYT1mXv2NuEeNF3i5h
+	x6Exffbg=
+X-Received: by 2002:a05:600c:4f94:b0:4a3:5a42:b29c with SMTP id 5b1f17b1804b1-4a967202997mr98238455e9.26.1793244585802;
+        Wed, 28 Oct 2026 20:29:45 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2ac3f1.dip0.t-ipconnect.de. [91.42.195.241])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7ee57589sm37717095e9.2.2026.10.28.20.29.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 20:29:45 -0700 (PDT)
+Message-ID: <a58da4e9-8fa4-4aaf-a0c5-f2f443a79504@googlemail.com>
+Date: Thu, 29 Oct 2026 04:29:44 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,32 +92,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.6 000/168] 6.6.161-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261028165943.089486480@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Audio control requests that set the volume sometimes time out on the
-HIK 1080P Camera (2bdf:0280).
+Am 28.10.2026 um 17:58 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.6.161 release.
+> There are 168 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Adding a 1ms delay between control messages avoids the issue. Apply
-QUIRK_FLAG_CTL_MSG_DELAY_1M for this device.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-Signed-off-by: Kuangyi Chiang <ki.chiang65@gmail.com>
----
- sound/usb/quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index a54fabc..d2920bd 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -2532,6 +2532,8 @@ static const struct usb_audio_quirk_flags_table quirk_flags_table[] = {
- 		   QUIRK_FLAG_GENERIC_IMPLICIT_FB),
- 	DEVICE_FLG(0x2b73, 0x0047, /* AlphaTheta EUPHONIA */
- 		   QUIRK_FLAG_PLAYBACK_FIRST | QUIRK_FLAG_GENERIC_IMPLICIT_FB),
-+	DEVICE_FLG(0x2bdf, 0x0280, /* HIK 1080P Camera */
-+		   QUIRK_FLAG_CTL_MSG_DELAY_1M),
- 	DEVICE_FLG(0x2d95, 0x8011, /* VIVO USB-C HEADSET */
- 		   QUIRK_FLAG_CTL_MSG_DELAY_1M),
- 	DEVICE_FLG(0x2d95, 0x8021, /* VIVO USB-C-XE710 HEADSET */
+
+Beste Grüße,
+Peter Schneider
+
 -- 
-2.25.1
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
