@@ -1,92 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793259322;
-	b=oUG1q9cvApwxYde7X4wTSSKKfxh1qXifxT6eR9mGbbaOwwjYpQNyZq3ntsjlGISUkxs1
-	 ZRAaDukPI6drlAU3rDi+TomLUiMP7ilhNgl4AtFlod/Vx4VanfmXdKlfWOFv/Wb2OBhP8
-	 ItL4Fi6vpXKcBRt/HW3qXSUelxyCqwEy37E2xadTeq46UgmEBMV3xqJBAmlG7AbwMoyhB
-	 pdPt8nPIGeQ3k0VpFXoMcmO4H6KhkxNBbsZWz3XwFNmxhcH+PXqIeDSP1eGRJgE/Evypj
-	 TuT3sbMJhO+6jTgjWZRhbnGBwuAYi3rSo9q4vp3ymgCnUgeKerTrw7cbHbApnfuQ9nA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793259322;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RvFDBcBfjaQE/Mn9jGFUBcfgjjmQKzykunP7APSjZw4=;
-	b=rty86Jl/qjBrxhJsUVXixqzNM+goWsj8JRspNB+hfoQMlp8BVmzi55W51A0G7fhpypjQ
-	 RXv78w9dTXQFojGXeUgTw4kz3kOLRIA0/ibUkCXqcGupkB1MToenC18XlzVKRT7Y29kc/
-	 mcgg4T2bzoKcKbk4V19cNDK6Ye5luaE8PAE2HYMlTdP7HviyLSUNzzh/U0dpbKw+Mcq0J
-	 6Ck65KUtGJwO70E3MUtO1eT3Klgswq3Z85KXm65PX5ZkNT4fqOoZkijZaUcHCz0AJgKtP
-	 gu33yomRLUVrgfZql4Mxc1C8UQcmIk7MDS6ZeOAS6xCv9Gizp4FvU060ERoQX9r9Tjw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=X42reEGL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.71
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010071.outbound.protection.outlook.com [52.101.201.71])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793259316;
+	b=qGsZRZ7JoNKzhrHA4N/Mco06Yf/7uthAwPKy+wxVgWy8QhY+KvXE9ncz9+HO42Ivz7y3
+	 PtLXj/jRiZGD0fdqjvH/TbACVfX00/f8OMHHh4DNuKDSDSiqwP0fftD7m/WU4lHHVHTp+
+	 br3YCRoef9KegGG8vR7xsaup6Zihlhu38cSgVTgLibts3THOeZ8cVfNR8a8hBnEigETZq
+	 Iy8pKYTTyt0mTxLPKL7ImTdUJ5aebFxd85or9Sw51k2HJrd+jBF5pl4LEr2Px5CGEbcyr
+	 jtfdew3eqjYTXP3zAmhF2hBU1HHQE4p860tLHqScdHPPQXndPY4Bo/Fr5/2C9afiElg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793259316;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+jXDd/GS0z0ToNdtXu970MbuBomRW4+5l+rF/BVbHZY=;
+	b=Of0tymduXZYNb/ciwgumHzqgzU3erN+tt3p8gpJHc8OIC8H7RLDGWo2WefhOWcqdFvcr
+	 nsFwMOJBV9v1svLAUF+NZuFYaMfhtBDY8z+n7KZqPSkauCkdgdbR44WgpNz49D/hF/3tE
+	 6A+h0JZCu3ujIrHvgNNkzH7fkLo5pdQDYy/27/iexuwO6cab/BguwrN4hDgDj9wIrx85c
+	 2FLwmOuDnNZ7SpBBwME83mY/+Z9De9wXoG26SaOUP2t4J2Ttz5KWknKVVNh6GjRxsHjj3
+	 KyQGoCn9Jzz6hO6b7l2CpY5XxsT+5+JHa7CKzymWBTiL4hp0ld8nNGHOD6vhVEYh2XQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZZgYT79W;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29056606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:35:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29056606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392A3606A31A;
+	Thu, 29 Oct 2026 07:35:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=X42reEGL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O2zr1UYYK73qh4ERNek3UIcISxBOhLrqTLg/M12TG63YgZaP2h+CFGEIKv+b0iJhFfazXUGTkAUGie2MRBn/Kgcu5G1HsXd0RipkukPOovUhwnmhFeNL+NFIbeeqAHZub2yaFsvhiV5lurHFO8xeX+uqvLsOvrAcObeRttKnWN0SNwgJEVZ/rysIbut8sWl98GjK9E3fs9yVVdsuek1G9rx6IU66Tm1F9q1ro9fk2IDx6OGUiWrlpL7CVcSRDJe2b/HuTORFlNfRT46qWH8sgnxOv3aRRb2kS9fc3RWJSbvXNjF5GmIA2cjd6rdq3KwoiK+karoi1hm1NPd4k7S+vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RvFDBcBfjaQE/Mn9jGFUBcfgjjmQKzykunP7APSjZw4=;
- b=WyHomq+Q0mVe0QCf+7RS+qAX5PgdhKwHkpKiZ1KpKDYzlyJaUuT/Gkh8IawlyHNXDOVVseUY6fEjDXmUH49r+2I8xmRtGmeJJXuNc9lec+RNfgKptuxQccGU5UzbkktsR6gChHAMu/oPMOIwON5ffTqx2BKe/x2qNsmIdxbC9uULm37Rlj2ywTfQjCPniC4L9wbbMnJJBUIvzMlkVxTsP/3yXQBs5fHO18z6079BXHieXlsXbINw5Ep2JrmkUNeXu8Ata6xdz7Yijm7Xcep6u3i5zEJ6uDWjE7XvIRtTanjfNsTncK4amBQm9C7vutA9MUIksymOX1z7OJVrFJdz8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RvFDBcBfjaQE/Mn9jGFUBcfgjjmQKzykunP7APSjZw4=;
- b=X42reEGLZnM6xW99EOpNeMN5Fr+U9MMs8cgL1j3B/UiCyjhibsT+b9Fd4m6Y34GxUrATSiEN0EtrcKrLWHJhNwvshIt8h59sEeywjKmTK0/wxTGFVbnSFairk+1cTmdqzd/UiBo3j8Gd8Bx+K450fhJqxu2mxDdAWEdnRRF6sZeMcAOuMscjjjSOuIpB/c4jBgltbZbYkdkjSkHp1nyLqPklAQik5q/sZVKyeq+olb0fM5iiYiHkXHHUEfpGzHTmMtZr0Y8kd6nfSWP7+Zs0XVU8ugIl0w7qaER+xcZCjntz1Io9gwqiFI2VSZyVZ6ipI/rbErJkY1Q7MpV9uJtZZQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by SN7PR12MB6690.namprd12.prod.outlook.com (2603:10b6:806:272::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
- 2026 07:35:18 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
- 07:35:18 +0000
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>
-Cc: sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 sched_ext/for-7.4-fixes] sched_ext: Avoid unnecessary IMMED reenqueues on idle CPUs
-Date: Thu, 29 Oct 2026 08:35:08 +0100
-Message-ID: <20261029073508.3901589-1-arighi@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR0P278CA0059.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:21::10) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZZgYT79W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D636E1F01825;
+	Thu, 29 Oct 2026 07:35:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793259315;
+	bh=+jXDd/GS0z0ToNdtXu970MbuBomRW4+5l+rF/BVbHZY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZZgYT79WN4lYYJgg+hfo99SifcxE2htdu4A45hB8F1UrA1ql4UKWhxDYBKQBqCL67
+	 rlXXzsQ8qcxTslcUsk1kDc9/LkBtu4oj7d+FAft75yqCpNODRsUkSWGn7RZHyRv2Ez
+	 8IN9T7/+QqwXusTQkt3yXojKHpBWBDuL4d8MDosMb6pJUgO8LTmikvSHO+77wlaVPJ
+	 /dSF75nDxL0/QZ43C3fsdAfu1eKTb0Pv3U1UwufDzzFAhsW/tUN7lazI+o8UeEAApn
+	 VIArWwTG7O0dgnQHCrE+A2vMO0/5mcuDHL9mBYTWn5g/LJJqwWsg/iTJyG4mcgll/N
+	 LD8095Mmaa1Ng==
+Date: Thu, 29 Oct 2026 08:35:12 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gregory CLEMENT <gregory.clement@bootlin.com>
+Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
+	=?utf-8?Q?Beno=C3=AEt?= Monin <benoit.monin@bootlin.com>, =?utf-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: interrupt-controller: add Mobileye
+ EyeQ5 PCIe MSI controller
+Message-ID: <20261029-positive-unbreakable-zebu-d4484c@quoll>
+References: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
+ <20261028-eyeq5_msi-v1-1-c464752fb55f@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,115 +62,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|SN7PR12MB6690:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7bcf05eb-4f0a-4724-9942-08df358f2df0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|11063799006|56012099006|261009223027099003|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261021121427099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	r8srFqjiFLDTYqdRL0Mkpl5i1Vh9AiTbyVTdg78K4d+V52u8mISKM5rnZEaawAxEV4hCRVvCtH7/iEtx1cOb142P9WZmTNn7q9uNhHARUWc1NUg1++bSnWmqZkLG6lTXzfuD2DA/5LzIupVLxuVVwSjl6pVS1GFZpUAemh5hzvNjIsSJbD4itVC+p+CpnhnzxPqhaDZ4C18ODnw2t2Uv5w0GW+ihl6UJRJvbvoZekBGKcXlyCiZDWZhGi0Yc71vV6eAKfMybh0+wgpOCnpjDkLb+niYcDTIyRXFxSbIunsG6PUN5oPDtLEC7Bu9SKQ5MaKIquCmGICYsFrP2YZTizxrGWDZMid46i9AfChYsnPmgdJXBPGOhhbC4NKTZ8QPpKWjlqKp9f+yBalWDRPvgAR86kUXAemFqaKI2GRbmtmStNKoI2nf2ZpPVJ0hq3X2sk4l7orJXf8rASj/t8uHSL7rXyeRO9xlP9sG2RaPHNq+9G2GCZx4tuLDZdZQvT/9zfjjfLf/NuYOTACOruRG7Ip635rEbeGXoy7cmpW4zwhL+R4JPws9l4o1H2ruMBl4fiMSkhDw3hdd2gxnHG8RyzvSOK1Tgry6aDZIHRcrfDh34VKHJYLMfehJtJtvNZfR/fsnjLhou6Gwi5/AZsmooiR3Jih7OMqXOXGd14+s3FxY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(11063799006)(56012099006)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fhfGQFn39KvIsV7SPhViEJPpvcVzbum0lr0C+gCuH5/y374U7nxBuVDVQXjW?=
- =?us-ascii?Q?PK2nHb/+Oiu1Dp2WY6h/7f9fji+0QtLcCYcvyKrsKnmw8IO3IWwPqZTWwmBL?=
- =?us-ascii?Q?f7IZo2KkwOaBGlsf/rPs8QZZkLb2UyV7FkNKoSK+6ITSQUZTsGw90isXnLcA?=
- =?us-ascii?Q?0UsGGdk6/hlp0yWNvh69u4CA+ty6seGF1ndBeIsf71b7KIQl9zX9mnQpeF+O?=
- =?us-ascii?Q?AS+GjOuLoQyetVaKKGWqodFVP/I6AgOGAa/AiAO+SH0MyNUL+VNZbex0OQJc?=
- =?us-ascii?Q?+dDfo6o+PPxjYBbsOfHOkcPmrKi16eVQpBCVRt0HWzjSRVucQMc7v2ETUYGQ?=
- =?us-ascii?Q?eakTL/2IVbnmqKC+wS0SoAy/L30F073IQX143zS6M0hIl2Y0bhzyySFV5aVa?=
- =?us-ascii?Q?nQOW3HPJpyCd8nf4l+TPLv4r+ivvJWGaMzRQTOwf8fGEG3Zp1K8yeCa7AXYi?=
- =?us-ascii?Q?uvjo6cK6Hr7scuH73IPHNeg9ARcHnAUUPNiWofEAaTMXa9flA9g1JxKbEo9A?=
- =?us-ascii?Q?+MU6y2Kj6uL//6tBRPtK+mwqopeUSEVYKwvxGHl5h4V1YrjLNwtbFg0am68i?=
- =?us-ascii?Q?tZ4sifi+kD3iuvRSTSoJOrCnlmRrrk8hXMagVzzTUEZi9fdd4VTgqKukUaCI?=
- =?us-ascii?Q?WgNcmEVlDm4Zcs+XM+9F9xJyqhcg7SAknf3AY/o5fN0UtI5bD9LHHu+ZuNfN?=
- =?us-ascii?Q?1qYvRh/d8+fIOgQ+lXCIfwqQJCUlZTW5UKlD1B2QB079jZCs5q3EijHaBylP?=
- =?us-ascii?Q?xbm6SI6CAHpjnlOowMtkmMVoa/9UiuxnRNsopzvqxCdRg/hz8464J2bnyiL1?=
- =?us-ascii?Q?w5nd4oOSxQ8AnOXQi25f79HBYOR/zXw4HHvyknr5TRKLOQF/AzTSL+TYyfyR?=
- =?us-ascii?Q?z6VN4ERYxW2wG1eUJjL52CudQlGItYAH8yEUTvtqHa1aez2uC2wkz+BgDPjN?=
- =?us-ascii?Q?9CSlwCqKXwYx1m2SXrkdYTUurwF7y1TkoQN+X0kN2b9ZfP0bja+KCxbaS8BD?=
- =?us-ascii?Q?QZvSOClTgWbeg7Oy97reKO0jXAfIhEZGivm7XDx0eT55Mu/eV51qb8IemMBB?=
- =?us-ascii?Q?+KwWZSZxfbHO/yTt50JAL9hMZXyzDqXxKkrvzaUGWybs/jRGWNouxOHnp9rD?=
- =?us-ascii?Q?zY0g8o+QM6Sng4QhLubEyuSIbA/MLcK/k48ZF0hS9VL40bJvAlb+m5a5+hT1?=
- =?us-ascii?Q?398D+xxa9ogh8ag1v1oxowYY9nmjx/VYEBcr8xYAicley0fHlN3cLGBhoulM?=
- =?us-ascii?Q?WZTelWL2xjZCszliqJENDUdPY1sLu8XflDdRa1QViS5nqxwY8468Jf8R1+/x?=
- =?us-ascii?Q?j1BlvA871Z65FWmeYXLYaTrl2pKDWFQLH/wCMrQ5hALgzaXCa5tXJ/r0RjOf?=
- =?us-ascii?Q?GsmYcmOLaTl6O5kS8BhTYru85RDsu+5+GGfrU59g37D5q6F9C3a807gd633I?=
- =?us-ascii?Q?jTTrfZfZQSZgBcqiFfY58PiQX8/3Vywklb3vxG1EbdWqNBGEfKcNRe6PElfk?=
- =?us-ascii?Q?BjgNIRqEodLNs95rgYxcvl1PZ252KZJQGAP5rwxT55RH6xrZvsTJZx+Zno78?=
- =?us-ascii?Q?G5gR0IHieBwgqACPc107mlfFWRiFjbOJPbkpVLM/7H+fdOtX9q4lfBP5qVAL?=
- =?us-ascii?Q?ZH8bSdgPWTCS8HN/azEYTaWCCBQjGiajINKc9a2e+5ARxRmJJ2MaEifj0phl?=
- =?us-ascii?Q?Djg1w22k2xiv+r/Kk9TsUJYlW9I2v39tmBFYwjj3pgkzRuYy?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bcf05eb-4f0a-4724-9942-08df358f2df0
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 07:35:17.8956
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DE4sx3MuY1hO8TVs23LG6O9r2ft+T/2h1RPEjmv7YTmWbKOJ26W9lvb8y43ocJp3L6eiY33CapLvS0W86c2Elg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6690
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261028-eyeq5_msi-v1-1-c464752fb55f@bootlin.com>
 
-When two IMMED tasks wake on an idle CPU, the kernel can unnecessarily
-send both back to BPF instead of keeping the first task ready to run.
+On Wed, Oct 28, 2026 at 04:58:48PM +0100, Gregory CLEMENT wrote:
+> Add binding for the Mobileye EyeQ5 PCIe MSI controller.
+> 
+> Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
+> ---
+>  .../interrupt-controller/mobileye,eyeq5-msi.yaml   | 120 +++++++++++++++++++++
+>  1 file changed, 120 insertions(+)
+> 
 
-The first wakeup inserts a task into the local DSQ and raises
-rq->next_class to ext before the CPU leaves idle. The second insertion
-queues a reenqueue scan. rq_is_open() sees next_class == ext and reports
-the CPU unavailable, although it is still idle. The scan then reenqueues
-the head along with the task behind it, losing a placement that could
-have been honored on the next pick.
+There are some build/check failures here, so limited review.
 
-Report the rq as open while the CPU is idle, even if a local insertion
-has already raised next_class to ext. This keeps the local DSQ head
-through the reenqueue scan while IMMED tasks behind it are returned to
-BPF.
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/mobileye,eyeq5-msi.yaml b/Documentation/devicetree/bindings/interrupt-controller/mobileye,eyeq5-msi.yaml
+> new file mode 100644
+> index 0000000000000..919af55fc8a60
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/mobileye,eyeq5-msi.yaml
+> @@ -0,0 +1,120 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/interrupt-controller/mobileye,eyeq5-msi.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Mobileye EyeQ5 PCIe MSI controller
+> +
+> +maintainers:
+> +  - Gregory CLEMENT <gregory.clement@bootlin.com>
+> +
+> +description: |
+> +  The Mobileye EyeQ5 PCIe MSI controller snoops the MSI write TLPs of a
+> +  PCIe port. The controller signals the parent interrupt controller when a
+> +  vector is pending. The memory-region property gives the base address of
+> +  the doorbell window. A port supports a maximum of 4 MSI vectors.
+> +
+> +  This node is both an MSI parent for the PCIe port and a chained interrupt
+> +  controller.
+> +
+> +allOf:
+> +  - $ref: /schemas/interrupt-controller/msi-controller.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: mobileye,eyeq5-msi
+> +
+> +  reg:
+> +    items:
+> +      - description: GCSR block of the PCIe port
+> +      - description: MSI vector control block
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  '#interrupt-cells':
+> +    const: 1
+> +
+> +  msi-controller: true
+> +
+> +  '#msi-cells':
+> +    const: 0
+> +
+> +  label:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description: Name of the MSI domain. If omitted, the node name is used.
+> +
+> +  memory-region:
+> +    maxItems: 1
+> +    description:
+> +      Reserved-memory region. The hardware uses its base address as the MSI
+> +      doorbell window.
+> +
+> +  num-vectors:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: Number of MSI vectors that the port supports.
+> +    minimum: 1
+> +    maximum: 4
 
-A local reproducer runs in a four-vCPU virtme-ng guest: two futex
-waiters pinned to CPU 0 are woken together from CPU 2, and the BPF
-scheduler inserts their wakeups into the local DSQ with SCX_ENQ_IMMED.
-Across 10000 pairs, kernel instrumentation counts 9776 unnecessary head
-reenqueues while the CPU is idle and next_class is ext. Keeping the idle
-CPU open eliminates these head reenqueues.
+So your SoC has multiple blocks with different number of vectors?
 
-Fixes: 98d709cba319 ("sched_ext: Implement SCX_ENQ_IMMED")
-Reported-by: Tejun Heo <tj@kernel.org>
-Link: https://lore.kernel.org/r/1548cc9309a6e0894e358262e0b3d4ee@kernel.org
-Signed-off-by: Andrea Righi <arighi@nvidia.com>
----
-Changes in v2:
-- Remove the core-scheduling cookie check (Tejun Heo).
-- Remove the independent skipped-head bookkeeping fix (Tejun Heo).
-- Link to v1:
-  https://lore.kernel.org/r/20261028165258.3723153-1-arighi@nvidia.com
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - interrupt-controller
+> +  - '#interrupt-cells'
+> +  - msi-controller
+> +  - '#msi-cells'
+> +  - memory-region
+> +  - num-vectors
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/mips-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
 
- kernel/sched/ext/ext.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+From here...
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 1b098728676f3..8862e81b63157 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -461,6 +461,14 @@ static bool rq_is_open(struct rq *rq, u64 enq_flags)
- 	 * @rq is either picking, in transition to, or running an SCX task.
- 	 */
- 
-+	/*
-+	 * A local insertion can raise next_class to ext while the donor is
-+	 * still idle. Keep the rq open so that the local DSQ head is not
-+	 * unnecessarily reenqueued before the CPU can pick it.
-+	 */
-+	if (rq->donor == rq->idle)
-+		return true;
-+
- 	/*
- 	 * If we're in the dispatch path holding rq lock, $donor may or may not
- 	 * be ready depending on whether the on-going dispatch decides to extend
--- 
-2.56.0
+> +    / {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        gic: interrupt-controller {
+> +            compatible = "mti,cpu-interrupt-controller";
+> +            interrupt-controller;
+> +            #interrupt-cells = <3>;
+> +        };
+> +
+> +        reserved-memory {
+> +            #address-cells = <2>;
+> +            #size-cells = <2>;
+> +            ranges;
+> +
+> +            pci0_msi_reserved: pci0-msi@806000000 {
+> +                reg = <0x8 0x06000000 0x0 0x100000>;
+> +            };
+> +        };
+> +
 
+.. to here drop everything. This causes warnings.
+
+> +        soc {
+> +            #address-cells = <2>;
+> +            #size-cells = <2>;
+> +            ranges;
+> +
+> +            msi0: msi-controller@5840000 {
+
+Drop unused DT label.
+
+> +                compatible = "mobileye,eyeq5-msi";
+> +                reg = <0x0 0x05840000 0x0 0x10>,
+> +                      <0x0 0x05840040 0x0 0x20>;
+> +                label = "port0-msi";
+> +                interrupt-parent = <&gic>;
+> +                interrupts = <GIC_SHARED 7 IRQ_TYPE_LEVEL_HIGH>;
+> +                interrupt-controller;
+> +                #interrupt-cells = <1>;
+> +                msi-controller;
+> +                #msi-cells = <0>;
+> +                memory-region = <&pci0_msi_reserved>;
+> +                num-vectors = <4>;
+> +            };
+> +        };
+> +    };
+> 
+> -- 
+> 2.53.0
+> 
