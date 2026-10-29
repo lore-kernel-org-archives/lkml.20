@@ -1,70 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.27
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793293016;
-	b=yE5IpvXUFut4XeCXXbZcfrFZNYMYeRy5XuCxheu7AU6obnVVUF9ChLq17hxmTdNzsh8p
-	 9Cwte+Id/eaE0ccdeZQ+dgjHrZW+qaDUS7oYK8EjykWUrYsscSpXZk8g1CIYi9mVVOxna
-	 8S9eAU5wZiIfERuFxI8qr2lhXl/TaMp3dfJYvo5muAK56eFaRkrfFLkHK38XszCbbwZiR
-	 z+ikS8RFsTb7cndLepuyR3r3TpF2OBXrKm6L3TWBT+CCXbN4as2ws5ajwB4hVBV1GK1Fv
-	 ffQwzaYf4TsUuCcdEkvT9QqPvyDkp6TBOQTnK//zQipSGNEKYWkBCXUFl/bmQ8DPrNg==
+	t=1793293036;
+	b=f3ISjZoEXOrHPUwc+1C4+gJUHrdAybcSHIGn79HEGrw4yPB48jQYtamiTjtyvXCGE8Z+
+	 7381WYxYEiuysXnMQSG4p6kQFY2Z8Q17h7Ro7UoK3qaJ4rVix4nrR4Mnr6ItwY/bU3Kng
+	 WM5dRJMsEn6wKwspNuJNTaf/QactQyFNxr43XIRBvuSSxHvFpxBBzcc4fSn0MDEmD7RGi
+	 mnQrOjI/QZ13PoDg1IoTmIs84gvXexFQMI1uheF5WRDT9RVfi/KpgKNezHFavbqc+VMns
+	 mfc0fPBIW3exr6mbycSeqQqUZLEGwZ/82BhrF4c+OTmmEgIigIIvqP55NCHhn9bPtFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793293016;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 X-Mailer:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Hl2FAoChiij72hAtomRJkkZ9M0nlYfCdBuDh7jqAxB4=;
-	b=t4Dn9F63mxVRF5qwwDBtH4q45feWmLsMz4diG6RVHYlZwJkLBgzO04RxCzuLeW4AZjB2
-	 hwO/M/w2w9XMtCUxgvRBybgCSY73tuzdsbFFsKM+p+icHU1Px5dUSOuybZ00Jr08HBTo/
-	 tWTieUpuaqkrek3ZvCSaIveFfWYtjfzYMgk7Yvy2zIRBRrLfpeifd6DkFNt0G6wSX+nyk
-	 1UCIv8luXOJ8w/9BA/OfJ8W6RNu/4UF5xXrFjhoiTRUVbRLAkGwatUizNVW1CbVUtQdUY
-	 NkckaE07mtRkpe8gcRSQojeBJCO7pIv+b9SkIXvAGUxzstHRiwnpmBt9Cwqri/jnv6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793293036;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cyFkeSoD7QBapusNRRYnZYh0f6fgzoNNczOjrCuvgyY=;
+	b=mOUjaYH+jVCkuEXYIV3YOhGMgWJDeuu0kqFK0fEj61teDBVJfmCw/zAUAYetSdEzGOw/
+	 a2QEHkWEGUn67M2es4uT6vE15KAYKJyqABADDwj7lxL/lLLgrh2WMrcc2AXzBzg1mLeyv
+	 /04AZPqWMjIVeo8GJ02WNTQZvNXVPuoc/zzcO9BuA4b+7V2FG12Qh7I2sTG2kyXrlnWEt
+	 tRzYI/WldGMtWuxZ+QxvyySZZUByAyhLumF5LpUhCrXInXI1ivN+sc8adhuPWz45Ed6hA
+	 IIJh9jI7qlLsPF2S0BhaBCVt1GCCbQdF6LcoaOC4KPoYYUPWWOmP68K5KnUcbGWFkIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HBpBkoHc;
-	arc=none smtp.remote-ip=95.215.58.27
-Received: from mta1.migadu.com (out-27.mta1.migadu.com [95.215.58.27])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xbXFhVIF;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D66D606A325
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:56:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D66D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10126606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:57:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10126606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HBpBkoHc
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/dXjDDSTBXGEfyEbgPW2q5whv/wUPaoNdKn8g3XixeA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793293013; v=1; x=1793897813;
- b=HBpBkoHcFVqLjDak0A0AiIuKpaOWWoIm72CoiuStEa7WVSzIyXKrh0+rtgqzDyrPFxC+d914
- GA1H+ITTAuwpUjVgMe/TUyvq3K6E5aZv+yaTkNN1OrPXnpMPP0b6Q/3QOmGw8GUzjDQJQ/2PCse
- pFHaeYTco1wtDPGjsWEK0rD0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 28a782b4a7711c87;
-	Thu, 29 Oct 2026 16:56:53 +0000
-X-Mizu-Trace-ID: 28a782b4a7711c87
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 29 Oct 2026 16:56:43 +0000
-From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-To: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Puranjay Mohan <puranjay@kernel.org>, 
-	Ard Biesheuvel <ardb@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
-Cc: Ben Cressey <ben@cressey.dev>, 
-	Florent Revest <florent.revest@linux.dev>, Bill Wendling <morbo@google.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-Subject: [PATCH v3 5/7] arm64: ftrace: Support CALL_OPS on kernels built with
- kCFI
-Message-ID: <20261029-b4-arm64-callops-kcfi-v3-5-1b011ad5ddec@linux.dev>
-X-Mailer: b4 0.15.2
-References: <20261029-b4-arm64-callops-kcfi-v3-0-1b011ad5ddec@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xbXFhVIF
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e20edd106so1887867f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:57:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793293034; x=1793897834; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cyFkeSoD7QBapusNRRYnZYh0f6fgzoNNczOjrCuvgyY=;
+        b=xbXFhVIFuwAjMEOiX7TC/apqjVa6tAuU4PZW8wem3ThjCpBNkEdcTMDzLHaRnGAYAh
+         CHO/faPXG/1C8D+O8qkNyM8Dv8t/baf+a7v0WxUIHx+GIiczxqSrttFHVpKxva3NpbsQ
+         oZrm4nI2RyCxC+hbh/U/T2GOq1oT+0ILNNybYGcPb1Yl8veboLvKCsuFcYSr+N4n++Mu
+         7tmVPnNlSPGsaP3m6WBRtEx9+u2zMGIILTXxRrepMrZSgc1kv412BEr0verE2y8TQ3T3
+         OacGGPdydqMJfY97A0J2yq5SpY0a8HcEqLM4Ob0whCAJTEO7t/kpAQmTz0Cok6QN/VgW
+         hoog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793293034; x=1793897834;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cyFkeSoD7QBapusNRRYnZYh0f6fgzoNNczOjrCuvgyY=;
+        b=K6OhkG7bopJWE94PTpchcgrcEYzmFLXDy6mhxNNSJPM0PDcnuk95QSJMe96hUPVuax
+         mFukcXXyrcUaAYLkRHDv330eaukDYueSjlnOVvYTym/nt6030uZmYKM4pjXk3Kpyq5qH
+         J60kVhYWQVUErVHM7f3qSTp84AjTc+pUC6tE5punpBFPw2mltToVRVZ76YCKqXUsPH14
+         7q72xll/lM5s54rBh/gF5kIjklcAuzr1vIvfG/VfDUse/0FkzPgfXYF7ep+N9LVtnuT8
+         A1J2ztJ3eMWPDmH0vMbo9gzI6E9DrdJRhtMI8Eny+Ef0Cx66cQok06dDyF2rF/or9P3e
+         VbbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzzdV2JWbzj+o723u7Gb/3AXPagU1+r5lezE3Ymy6yNKWVedKD18tmwqM8zSs2bWYsObc91tQH+uHTezZo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIHDRbSMtePHSEK/W4zrf7VtLlbg2IwcEpyIJVZDAZIqpbuQYC7
+	6nD2FxTmyeZb5QczQWrTvGpmvlrKNXsRbUyzyT+29JrH6QZ6pN2UQnvL
+X-Gm-Gg: AYBFou2NVshejcw63/q81zV57qa4BrcGrDVtnlVBQq0gW+idsVsXW0iCK+BCtXqx9+n
+	q28ohjr2Q8qNl1LiiANEkRpw2s3Zb4E8d6MbQAAiJVwuP+uWI0vpTszzCVoEIg3c5lxebOwDs4Z
+	g5LkXWLfstNH9JBMltWM0Az6b2OpVqK19YxB7pivY/RDzpf3H76SDb8BBSpHwBcos2Uvo341PFy
+	sLOMo3MB5ve3dVdlvvv/sp3a9aCE04seH3G/+g6hkbQj0UVEqQIhu2ees+a466siLhxF9kFFKnP
+	x+49yxFik1E46ZDlEmj7Y9IGccT8Hd7sdt4ccjHjKpLYYQ5kxvGIIcwLp18bPgrM5D1b5YRuXIT
+	0IBYZi6OlilmxVK0vOLU3K7vBmHfWjhvmcQBYEmKbKpc9+BYjZVqkJK62hmjakESMz2YVQA0Brn
+	218Ayy1LM1rcBRYYBJWPR+CrQOxkdzD9NFqv8FPFe5AB503dTRoq1sQvYlmFTQAn6JDOc8uvHI4
+	f/aGMsBfG8+ASbk0KWs/Q7TF6Ka+23WJJwZoQDqyQNa5vJbO5jf+R7KtBQe1fvLIElR7HMD814d
+	yAF1zKIU8nwG3crsAeWBRTnF41DqpdZm3yDnn/YtyvXU137+Kdw=
+X-Received: by 2002:a05:6000:2086:b0:48b:118e:7454 with SMTP id ffacd0b85a97d-48e5d5a45e2mr13646899f8f.31.1793293034323;
+        Thu, 29 Oct 2026 09:57:14 -0700 (PDT)
+Received: from stjepan-Aspire-F5-573G ([2a00:1bb8:118:d39e:4868:f22e:b51d:7cb])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e6dfac9d9sm325680f8f.44.2026.10.29.09.57.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 09:57:13 -0700 (PDT)
+From: Stjepan Poljak <stjepan.poljak@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: Clemens Ladisch <clemens@ladisch.de>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: usb-audio: don't resubmit MIDI URBs at once on -EPIPE
+Date: Thu, 29 Oct 2026 17:57:01 +0100
+Message-ID: <20261029165701.2004391-1-stjepan.poljak@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,192 +96,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-b4-arm64-callops-kcfi-v3-0-1b011ad5ddec@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-CALL_OPS and kCFI have been mutually exclusive on arm64 since commit
-baaf553d3bc3 ("arm64: Implement HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS").
-kCFI checks the type hash at a fixed offset before the entry point, so
-every function needs the same number of prefix NOPs. Before clang 21,
-prefix NOPs came only with an entry in ftrace's table, and untraced
-functions had none. Since commit 9315e22b0c0a ("arm64: ftrace: allow
-DIRECT_CALLS without CALL_OPS") a kCFI kernel can attach BPF
-trampolines. But without CALL_OPS, a trampoline out of BL range is
-reached through ftrace_caller, ~10 ns more per call than on a CALL_OPS
-kernel, plus ~4 ns for every extra ftrace_ops registered.
+When a USB MIDI device answers with a stall, as a bus-powered keyboard
+does while it is being switched off, snd_usbmidi_urb_error() falls
+through to the default case: it logs "urb status -32" and returns 0, so
+the completion handler resubmits the URB at once. That fails the same
+way, so the URBs loop, logging every failure, until the disconnect is
+processed.
 
-Clang 21 added a third argument to -fpatchable-function-entry that names
-the section the entries go to [1]. Point it at a section the linker
-scripts already drop and a function gets prefix NOPs with no entry in
-ftrace's table. When CFI and CALL_OPS are both enabled, compile every
-object with
--fpatchable-function-entry=M,M,.discard.patchable_function_entries,
-where M is CONFIG_ARM64_FUNCTION_PREFIX_NOPS.
+On a Raspberry Pi 3B+ with a keyboard behind the onboard hub, that
+disconnect is never processed. Printing to the framebuffer and serial
+consoles holds the loop to about 250 messages a second, and all
+interrupts are handled on CPU 0, so the hub's port change isn't handled:
+the keyboard stays silent until it is replugged. With loglevel=3, the
+same kernel processes the disconnect 0.04-0.24 s after the first error
+and the keyboard works again.
 
-Gate CALL_OPS under CFI on ARM64_CFI_PERMITS_CALL_OPS, which needs
-clang 21 or newer and RUST off. rustc has its own flag for the prefix
-NOPs and this patch does not pass it, so Rust functions would have no
-prefix and a different hash offset.
+Treat -EPIPE like the other errors seen while a device goes away: retry
+from the error timer after ERROR_DELAY_JIFFIES, without a message. An
+endpoint that is really halted wasn't cleared before either; it is now
+retried every 100 ms instead of continuously.
 
-M is 3 because the ops pointer needs an aligned 8-byte slot inside the
-prefix NOPs, and the 4-byte hash puts the NOPs at offset 4. A traced
-function, with the two entry NOPs from CC_FLAGS_FTRACE, then looks
-like this:
+Tested on the Raspberry Pi 3B+ (rpi-6.12.y, dwc_otg) with the default
+console settings: after each off/on the disconnect is processed, the
+keyboard re-enumerates and plays, and nothing is logged for the stall.
 
-  func-16:            .word <hash>    // kCFI type hash
-  func-12:            NOP
-  func-08:            NOP             // ops pointer, 8 bytes
-  func-04:            NOP             //
-  func+00:    func:   NOP             // To be patched to MOV X9, LR
-  func+04:            NOP             // To be patched to BL <caller>
-
-Size of .text in vmlinux on a defconfig-based config with clang 21.1.4:
-
-  Kernel                 || .text bytes | Delta       | Delta
-  =======================++=============+=============+=======
-  kCFI, base             ||  21,023,888 |             |
-  kCFI, M = 3            ||  22,031,504 |  +1,007,616 | +4.8%
-  -----------------------++-------------+-------------+-------
-
-Numbers below are from a KVM guest on a Graviton4 host, v7.3-rc1 with
-and without this series. The workload is a fentry program on
-__arm64_sys_getpid, 20M calls per pass, six passes per boot, six
-boots, each cell the call with the program attached minus the call
-without it. The in-range rows are the same kernels booted with nokaslr.
-
-  Kernel            | Trampoline   | Extra      || Per-call cost (ns)
-                    | vs. BL range | ftrace_ops || Median | Min  | Max
-  ==================+==============+============++========+======+======
-  kCFI, base        | out of range |          0 ||   32.9 | 32.6 | 33.4
-  kCFI, base        | out of range |         16 ||   92.6 | 92.4 | 96.3
-  kCFI, base        | in range     |          0 ||   21.3 | 21.0 | 21.8
-  ------------------+--------------+------------++--------+------+------
-  kCFI, this series | out of range |          0 ||   22.7 | 22.0 | 22.9
-  kCFI, this series | out of range |         16 ||   22.1 | 21.9 | 22.4
-  kCFI, this series | in range     |          0 ||   22.4 | 22.1 | 22.6
-  ------------------+--------------+------------++--------+------+------
-
-Out of range this saves ~10 ns per call and the cost stops growing
-with extra ftrace_ops. In range both kernels branch straight to
-the trampoline and the numbers roughly match.
-
-ftracetest and the BPF trampoline, struct_ops and kprobe_multi
-selftests pass with CFI enforcing.
-
-[1] https://github.com/llvm/llvm-project/pull/131230
-
-Reviewed-by: Ben Cressey <ben@cressey.dev>
-Reviewed-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
-Acked-by: Alexei Starovoitov <ast@kernel.org>
 Assisted-by: LLM
-Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+Signed-off-by: Stjepan Poljak <stjepan.poljak@gmail.com>
 ---
- arch/arm64/Kconfig                    | 15 ++++++++++++++-
- arch/arm64/Makefile                   | 12 +++++++++++-
- arch/arm64/kernel/pi/Makefile         |  2 ++
- arch/arm64/kernel/vdso/Makefile       |  2 +-
- drivers/firmware/efi/libstub/Makefile |  2 +-
- 5 files changed, 29 insertions(+), 4 deletions(-)
+This replaces "ALSA: usb-audio: reset a MIDI device whose input is stuck"
+(v1: https://lore.kernel.org/linux-sound/20261026125751.1700779-1-stjepan.poljak@gmail.com/
+ v2: <20261027152034.1871962-1-stjepan.poljak@gmail.com>). As Takashi
+said, resetting the device was the wrong place to fix it. The disconnect
+wasn't lost by the USB stack either: on mainline dwc2 and on dwc_otg
+with loglevel=3, the same unpatched kernel gets it. It was this driver's
+own resubmit loop starving the CPU that handles the interrupts.
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index aa7d5e1859af..6715adcae38b 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -190,7 +190,8 @@ config ARM64
- 	select HAVE_DYNAMIC_FTRACE_WITH_DIRECT_CALLS \
- 		if DYNAMIC_FTRACE_WITH_ARGS
- 	select HAVE_DYNAMIC_FTRACE_WITH_CALL_OPS \
--		if (DYNAMIC_FTRACE_WITH_ARGS && !CFI && \
-+		if (DYNAMIC_FTRACE_WITH_ARGS && \
-+		    (!CFI || ARM64_CFI_PERMITS_CALL_OPS) && \
- 		    (CC_IS_CLANG || !CC_OPTIMIZE_FOR_SIZE))
- 	select FTRACE_MCOUNT_USE_PATCHABLE_FUNCTION_ENTRY \
- 		if DYNAMIC_FTRACE_WITH_ARGS
-@@ -271,8 +272,20 @@ config GCC_SUPPORTS_DYNAMIC_FTRACE_WITH_ARGS
- 	def_bool CC_IS_GCC
- 	depends on $(cc-option,-fpatchable-function-entry=2)
- 
-+config CC_HAS_PATCHABLE_FUNCTION_ENTRY_SECTION
-+	# The section argument needs clang 21 or later:
-+	# https://github.com/llvm/llvm-project/pull/131230
-+	def_bool $(cc-option,-fpatchable-function-entry=1$(comma)1$(comma).discard.patchable_function_entries)
-+
-+config ARM64_CFI_PERMITS_CALL_OPS
-+	def_bool y
-+	depends on CFI
-+	depends on CC_HAS_PATCHABLE_FUNCTION_ENTRY_SECTION
-+	depends on !RUST
-+
- config ARM64_FUNCTION_PREFIX_NOPS
- 	int
-+	default 3 if DYNAMIC_FTRACE_WITH_CALL_OPS && CFI
- 	default 2 if DYNAMIC_FTRACE_WITH_CALL_OPS
- 	default 0
- 
-diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
-index ed28f94be428..9fbfe5ab3724 100644
---- a/arch/arm64/Makefile
-+++ b/arch/arm64/Makefile
-@@ -137,7 +137,17 @@ CHECKFLAGS	+= -D__aarch64__
- 
- ifeq ($(CONFIG_DYNAMIC_FTRACE_WITH_CALL_OPS),y)
-   KBUILD_CPPFLAGS += -DCC_USING_PATCHABLE_FUNCTION_ENTRY
--  CC_FLAGS_FTRACE := -fpatchable-function-entry=4,2
-+  prefix_nops := $(CONFIG_ARM64_FUNCTION_PREFIX_NOPS)
-+  CC_FLAGS_FTRACE := -fpatchable-function-entry=$(shell expr $(prefix_nops) + 2),$(prefix_nops)
-+  ifeq ($(CONFIG_CFI),y)
-+    # Every object gets the prefix NOPs and no ftrace entry by default.
-+    # CC_FLAGS_FTRACE comes later for traced objects and overrides the
-+    # -fpatchable-function-entry.
-+    CFI_PREFIX_CFLAGS := -fpatchable-function-entry=$(prefix_nops),$(prefix_nops),.discard.patchable_function_entries \
-+			 -DCC_USING_PATCHABLE_FUNCTION_PREFIX=$(prefix_nops)
-+    KBUILD_CFLAGS += $(CFI_PREFIX_CFLAGS)
-+    export CFI_PREFIX_CFLAGS
-+  endif
- else ifeq ($(CONFIG_DYNAMIC_FTRACE_WITH_ARGS),y)
-   KBUILD_CPPFLAGS += -DCC_USING_PATCHABLE_FUNCTION_ENTRY
-   CC_FLAGS_FTRACE := -fpatchable-function-entry=2
-diff --git a/arch/arm64/kernel/pi/Makefile b/arch/arm64/kernel/pi/Makefile
-index a273ab5af805..0ccae4ff00a0 100644
---- a/arch/arm64/kernel/pi/Makefile
-+++ b/arch/arm64/kernel/pi/Makefile
-@@ -18,6 +18,8 @@ CFLAGS_map_range.o += -mstrict-align
- KBUILD_CFLAGS	:= $(filter-out $(CC_FLAGS_SCS), $(KBUILD_CFLAGS))
- # disable LTO
- KBUILD_CFLAGS	:= $(filter-out $(CC_FLAGS_LTO), $(KBUILD_CFLAGS))
-+# the discard section holds absolute relocations, which relacheck rejects
-+KBUILD_CFLAGS	:= $(filter-out $(CFI_PREFIX_CFLAGS), $(KBUILD_CFLAGS))
- 
- hostprogs	:= relacheck
- 
-diff --git a/arch/arm64/kernel/vdso/Makefile b/arch/arm64/kernel/vdso/Makefile
-index f6619e1cb2ce..334ea3fac812 100644
---- a/arch/arm64/kernel/vdso/Makefile
-+++ b/arch/arm64/kernel/vdso/Makefile
-@@ -38,7 +38,7 @@ ccflags-y += -DDISABLE_BRANCH_PROFILING -DBUILD_VDSO
- CC_FLAGS_REMOVE_VDSO := $(CC_FLAGS_FTRACE) -Os $(CC_FLAGS_SCS) \
- 			$(RANDSTRUCT_CFLAGS) $(KSTACK_ERASE_CFLAGS) \
- 			$(GCC_PLUGINS_CFLAGS) \
--			$(CC_FLAGS_LTO) $(CC_FLAGS_CFI) \
-+			$(CC_FLAGS_LTO) $(CC_FLAGS_CFI) $(CFI_PREFIX_CFLAGS) \
- 			-Wmissing-prototypes -Wmissing-declarations
- 
- CC_FLAGS_ADD_VDSO := -O2 -mcmodel=tiny -fasynchronous-unwind-tables $(CONFIG_CC_OPT_INLINE_MEMSET)
-diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
-index bbab12b8eb4b..5bbb57c64fe0 100644
---- a/drivers/firmware/efi/libstub/Makefile
-+++ b/drivers/firmware/efi/libstub/Makefile
-@@ -54,7 +54,7 @@ KBUILD_CFLAGS := $(filter-out $(RANDSTRUCT_CFLAGS), $(KBUILD_CFLAGS))
- # remove SCS flags from all objects in this directory
- KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_SCS), $(KBUILD_CFLAGS))
- # disable CFI
--KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_CFI), $(KBUILD_CFLAGS))
-+KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_CFI) $(CFI_PREFIX_CFLAGS), $(KBUILD_CFLAGS))
- # disable LTO
- KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_LTO), $(KBUILD_CFLAGS))
- 
+The patch is against for-next; on the Pi I tested the same change on
+rpi-6.12.y.
 
+ sound/usb/midi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+index e3d157554061..5604c3fdbe3b 100644
+--- a/sound/usb/midi.c
++++ b/sound/usb/midi.c
+@@ -194,10 +194,11 @@ static int snd_usbmidi_urb_error(const struct urb *urb)
+ 	case -ESHUTDOWN:
+ 	case -ENODEV:
+ 		return -ENODEV;
+-	/* errors that might occur during unplugging */
++	/* errors that might occur during unplugging or switching off */
+ 	case -EPROTO:
+ 	case -ETIME:
+ 	case -EILSEQ:
++	case -EPIPE:
+ 		return -EIO;
+ 	default:
+ 		dev_err(&urb->dev->dev, "urb status %d\n", urb->status);
+
+base-commit: a4311e9447bbb219044db38897f95be112f46a8a
 -- 
-2.54.0
+2.53.0
 
