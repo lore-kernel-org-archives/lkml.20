@@ -1,100 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793305352;
-	b=HLSxzjMQoNCQVUYb9s0eqH0tT8x4S2F1jiQX1lXH4GYGCitaHiYM796peuQCP+sx4Ccw
-	 sebW0rOuAtRUXcxbuJNq/mDe5qbJ1gXS3uARbt4CmP/+eH87gOAf2MXawJCEIdhb2276Y
-	 VqIJaxvJrQmugpbz4KOIaLNy08xaXFrQZWHtB8O6wzEVuDEBNp14IFcKpHmM4O8U+X6Qo
-	 K1LFa7uIDkRxh/E1+QUSX+h3WNmVRc+mouH58nnriih6bE7dyMma4SaZWRNhLALh6ma+s
-	 oEwj2XypkokZQyhYVe7/bqe0Ppm3T1uIhN5sgJ6WbQL/ntcKzSLtlXLN9zVyFh1kXDw==
+	t=1793305540;
+	b=WDjx3J4mjHOCZgSGnQn5HRri8+JVg3t14qYHhIavM3kvWDUyVgC3H5lq4rN1d1Xn545M
+	 PU7rjbfdNIAKcw+l8zUuGPOfDCQT+KeR73VHyk/GBrcjuU85iNMiRTCeq9XGoOcfmlxRK
+	 olQfhwSk49WYtDVvv8peQN+mI9hcoNxZ5MM332e8sxdluBqxbHL1yM5ROSvXKgZ/uvQOD
+	 Jad3AdQgEJbqcqeXGZ28VOFD1p+S+wKNMqoJOKYjy1tE6Gi5rFvpBSyifOT12E+phx0QT
+	 FVw9FN2hAy4G+U6In9aaRMwRWcBxBIDVRvZEX8rcYKWJFs/gulYDsMrJRWjsB1K0lkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793305352;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793305540;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vO9ylg4VUxVdaZugbo40lpx5rO8zEQdmzReR1vkGI54=;
-	b=bDCC/oovzMc53YRx9rsZaw1vRrrzqR4xmywvHKc2aO6f8yjO5UGDuQpCrLKvtMWNnKni
-	 3TlcS1B0RYDBJGC/KG2n8RGTDW8XFDuYq+rpJmdhljlLu8XoTGRSQqKUw8gvozHbItLr+
-	 zc/43ffDpiCVYh4rnb6DqYDRQR2po8MnWW1ZD1xR1d4ASlw178izEKu1uQsHAvN+Nsdt5
-	 Oe6T4+uIRrr0Yr4k/XHAh/zdDnJGNWG0eeig2h1MYElwp80T4DG8+9D9FS1lzvo1HgfSW
-	 M141xyYBeFcaMpfcUSi2FAeIp2AUPdQaR7P8gIUi+3TGU+LUZoUsFVtHFXPiok8adxg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AJ2rr9yl7nzCTLgX0OQTyS4SWxqI0qu4DuqhR4MK27g=;
+	b=PTG4Geky22Xoioils1AISWEIC53t4ekf5Wi7sKMVOf9oRPLt9feTPQ6k+S3yy9u8ivnw
+	 E4JE/bU08QOLMZ7RMdKwG9xfI2Pevv+vNA7ywbiiwWNTO85hPLe6pYaiUeULk51YxIBKU
+	 WZUWGC1pRalTKMz1Rsy0OrxCJDZgZdGQ5w6sQh3D4WlwoEWGIxxn/M+wpO60dxJ2SKEId
+	 XSXtZnYoKZIAbLmF+KqWIIbKYz/HIoEakFUbZJmiYQtn8/ru6ymy/Akuc3Z7LG6GPz1B2
+	 kEYcpRzjAb/LNqXwfUuonIOnmhk9hHOEybInh3MLTtaH2CYRRDTd5EkA4QBIaUYEzjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnV4ktCY;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HuJXZvMB;
+	arc=none smtp.remote-ip=74.125.229.133
+Received: from mail-dl2-f5.google.com (mail-dl2-f5.google.com [74.125.229.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FDB60A260A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:22:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50FDB60A260A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 464ED606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:25:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 464ED606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnV4ktCY
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so24799915e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:22:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HuJXZvMB
+Received: by mail-dl2-f5.google.com with SMTP id a92af1059eb24-1ac216daf7dso61525c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:25:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793305350; x=1793910150; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vO9ylg4VUxVdaZugbo40lpx5rO8zEQdmzReR1vkGI54=;
-        b=ZnV4ktCYp3AQOO3uK6bikG5UAIfnSGV9WL/ut2i8u4nhKLuis7RxHUoGsJpTvldUEx
-         KuQ8DZMBadtBGs1X2IyrPOtqN2XoXLcOq3HitVCBt6KRnciba/+RLbVUMxfVtgrT9C1o
-         pDu+413eJqXtxkhzx/FiE06jvFi0kZLRsXQXC3RwYDKwcgtN9JYUITbOHz+JjWP5h5oL
-         +L3RwvIfpD/odWo4tSTCr2meh1rDWxmhgL3Pdie9qUDWyI428aoRKOJF6vtIEmRFHrNh
-         9HahuuIVBwxeVPcwLkZ82zpobzoPOTRsVqjU/7ESym+TrHFctH/TWp9WjD+0c3rinjPR
-         e7cw==
+        d=gmail.com; s=20260707; t=1793305539; x=1793910339; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AJ2rr9yl7nzCTLgX0OQTyS4SWxqI0qu4DuqhR4MK27g=;
+        b=HuJXZvMBZqZoZ1IJ0Au4NTWas5k2JraJEWR7azsu0LGrObUsqThdtmt+JZDaWSq4ZK
+         uc7Wg05f4u/OPDeLCtehyc1CTXTHEc3wutW/Q4C4J+fbSzkMBxxHIS+FxiUUFw2R0CeP
+         tLnGc2MDnQ2D+nOlg6AIBbve0lsUSoHb0BFl3IycI8f5oeUjoDK+4XDHqTHtNPO0LUuZ
+         J8jSConYemvnfwHycleXl7t8ktZxRyRlw5/vX34jw/tDxCtdEVgEmaGpCtk3mdCu/mE0
+         r1STlzOFry6MWpl50GFApT4Ghie5PrwQyRt7/PnamieplaiodoF/dccgy3l+XMF2US3U
+         1G0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793305350; x=1793910150;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vO9ylg4VUxVdaZugbo40lpx5rO8zEQdmzReR1vkGI54=;
-        b=tzOuTRTxEkaU8AkXEVieaDQVD86MNqw611O2NVsptofMigPzJP9siOdYScURMOeu4p
-         QZ/i8Tiv3R3QOPsb/muP8Jv6PgcGoI/diNazKvzH3HLxUD2g51lMxi1EnXe5HLbS7jW6
-         oX/o4TCLrUkpll8ChM16GTH2yI8jmjBS+ECqMmVhZr4EQ7a7I5SOkj4Iibq7AAUkvlYm
-         pHMjOTu5A0IyZSJC6SbyVhgmRQ7P6T6nptuVnJbQlBEQ8PRWX0znPvOqhBCZDY9nX2Fv
-         k6tco7nRAuA5mNu69FcKeO/vIsC5LsKmwaHagrVrz5FVwSxifwHhta8Uoi3USVebPy9Q
-         quPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQvDfB5Y3sEH3OCxMzCRr0EUPjCHBVIKg2LsEomvhchD6H3qeDByye8KkrCUmrGmE5w4BxSVXILLSIszg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwix4Fc44gti7k/q6Lil+gZkaJYrEuCCGQ2T84frCTqk7U9GY4
-	0cKKK9+ao/Kb5DlF3hHTEQZFIxEw9CxaZRr4OQ92UEG+2+iAOE02ufXO
-X-Gm-Gg: AYBFou3wbIRmNAsDUeRmaHIG1CV6yZs3URdbx2yFd9sox9AAnyqEAIawYsNo5RjOmGi
-	dwHdTXxHsnYlP9qD2aQ9Phd3D72Db1ffR289lq/V895h8LT6JZZwEtgyNH3scTRx7fXYRemwsUM
-	4nUZpG+/Ie5ND6KVKTiwm3aZbNbHWuW17OUru/EYLjc65E9KJquBPdFqQH3+LshPz5MSVJWWLFv
-	YNWMSJr3WAd0TqcAPymLSACZPNsxj44GtETfFd6rSYrb1A+XveMUj73yoQUOwSRG6Klwi3aj1G/
-	e05n3/uTt5VZJMsmFX86ZS+zKWnzM49eWvOppsaEQq9w6R39EF4YcyyzZLW8sxA6Hg0L8JuXyWV
-	qAR92j+QAcjKd2/KaFEqNznce23wvi35x4lNF8T1pXDXtqe9FVXtUwPOYnwGSrfNm7jQmqfeTCg
-	1kmCMmjrfxN9X406ejooQqNs+WtZ+kCyqpZfrURQp+iP3uIZi42mVRsXeRRpwFkiOPKmGCSdFN8
-	Zjw2tk28HcEEXqUHhYE0+zpWZN3w/sv/A5WcWbpDB3T3Xz9g4POomDVl+YZ++N0r+yXXz1FaFGK
-	DQVtG3mQe308AhyG4tOm6RtU/Wv6aZDJRcs8gvpNvA8/Pxp16O3hR+SVztt7+CsVMryGqnsxhCL
-	I0g==
-X-Received: by 2002:a05:600c:3b2a:b0:4a1:fae5:f2e2 with SMTP id 5b1f17b1804b1-4ac14fbdd04mr2192255e9.4.1793305349601;
-        Thu, 29 Oct 2026 13:22:29 -0700 (PDT)
-Received: from env.. (dynamic-176-003-098-140.176.3.pool.telefonica.de. [176.3.98.140])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf7146621sm9424335e9.13.2026.10.29.13.22.28
+        d=1e100.net; s=20260707; t=1793305539; x=1793910339;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AJ2rr9yl7nzCTLgX0OQTyS4SWxqI0qu4DuqhR4MK27g=;
+        b=dl6K76YMrCCWUhdDwc5vYPdhd6Pwatiwg91pOhBY4H3Z2zCdzytWjmuw8LIfq2yK6B
+         O9SAgvToHZPeIIdAgs0H4JA6va5JCv6eKnc6zwBDwFRUeVVhBMPlA/HdCYayQXGa0kJD
+         9an5dLZu0vqqOxr2NmP1XpIl6SX0Vmu690NkcVaMQNttJ9/WCxUZbVJZ3NkrEJRWtB7+
+         9otqlUBP9gjjtevIMV23w/+2cslWQnRYZFRyDvsrN32fJXNlDTwEh1+mpZHy3T8qsNim
+         bnrYKAFk8JGbR5lA8ISq8L0gOXKZWR5629pKxALz1a1/PFa4rcN/B32HyVQzOnXSB6Iq
+         Bm8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzUjBKPIk0i76AuGASnsQeGKq+dwdoOA3qezOJ+oIGl3e7eCbb1m4yKmrJ+sipLFTZPzcXy/LIpQxRAQJU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYL3bJ3qtNBmS/CU+e0H/blK/GY3kZXs6eexA6NfL1qmARQbDx
+	sttFG5WkbWy/8vHyGyfCDoO4wYZrtMuK+5LVZj9A2Zv/oi0sfdhDw7Um
+X-Gm-Gg: AYBFou029Lfgi6oJiV3w3jXgSISsxDFZeZIJgyiTFwWOpp/ZEOU3V+JLQTttUB5+eLR
+	chdAbvKISYjS2PBFi4KRnFEXlmKAkiZU5vn7URxwa/hW1rGwz/Oi4K/E+nZxlsYT88Fo6L9brZY
+	eWFqRnZvsHOEDWkgjuzaJVY5IsT0xtK5SgDBNTlKWeFn/7eG4GS/sqi8T1ng4WQ7AytYWUbeFcc
+	W3nM8zBAosEwngsLDO0OerWwCuWptjK6UBfj7AV8sC0bCrvdWhjgTy/5bx2JA5cta5ScQVpqaL2
+	4J4qpjdPeVYaYW3904VgIL/RmXkcujulJFag3fVLweIxrc5cY0V+RbHN0106OdAXSemi0GIOKb/
+	47ydWRCIUPwgfZDS7FKLeGxnSAikUIky5NTqpVbGyaUS2618MiLblcpY9Sn57NOlwAophrrPoMM
+	cOcYKNdk0+Adz4sCsqTIIdqlgfrjvvqv0WUEidAy931E6YlMiCoNWKfor/rIqGfwkzxPqBdocGZ
+	5S1b99f7DNpUqTFDfH4UU4pdqlAwoqVn99OTro1C/POjDnZneWHhhRxGCEa9ov8MfY+Ldzxg5bm
+	tPFrgf+5WqSbDNDo9Q4sMoH0aSLfhwstl5KlDUBimXjtv3Mb5j1VoCyU
+X-Received: by 2002:a05:7023:a42:b0:16a:c6f2:60c2 with SMTP id a92af1059eb24-1ac5d88c626mr122263c88.12.1793305534108;
+        Thu, 29 Oct 2026 13:25:34 -0700 (PDT)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19c6b969sm916000c88.14.2026.10.29.13.25.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 13:22:29 -0700 (PDT)
-From: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
-To: song@kernel.org,
-	yukuai@fygo.io,
-	mtkaczyk@kernel.org,
-	magiclinan@didiglobal.com,
-	xiao@kernel.org
-Cc: linux-raid@vger.kernel.org,
+        Thu, 29 Oct 2026 13:25:33 -0700 (PDT)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: hirofumi@mail.parknet.co.jp
+Cc: akpm@linux-foundation.org,
+	brauner@kernel.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>,
-	Zhihao Cheng <chengzhihao1@huawei.com>
-Subject: [RFC PATCH v5 4/4] md: add a control device for array management
-Date: Thu, 29 Oct 2026 20:22:08 +0000
-Message-ID: <20261029202209.1422567-5-abd.masalkhi@gmail.com>
+	dennylin0707@gmail.com
+Subject: [PATCH v2] fat: fix parent link count when replacing a sibling directory
+Date: Thu, 29 Oct 2026 20:23:52 +0000
+Message-ID: <20261029202352.59890-1-dennylin0707@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029202209.1422567-1-abd.masalkhi@gmail.com>
-References: <20261029202209.1422567-1-abd.masalkhi@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,769 +99,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-All md management ioctls (SET_ARRAY_INFO, ADD_NEW_DISK, RUN_ARRAY,
-STOP_ARRAY, ...) are issued on the md block device itself, so the
-caller must hold the array open while it configures or stops it.
+vfat_rename() and do_msdos_rename() adjust parent link counts only when
+updating the dotdot entry for a move between different parents. Replacing
+an existing empty directory in the same parent also removes a
+subdirectory, but leaves the parent's link count unchanged.
 
-This is a problem for STOP_ARRAY and STOP_ARRAY_RO. Before the array is
-stopped, the page cache must be flushed, and no other task may have the
-device open or be writing to it. The issue arises when several tasks
-share the same file descriptor table, as they count as a single opener.
-Consequently, one task may still be writing while another task flushes
-the page cache and stops the array. A write within this window can race
-with the stop operation.
+For example, renaming one of two sibling directories over the other
+leaves the parent with four links instead of three. stat and ls report
+the stale count, and find -links 3 does not match the parent.
 
-Add a misc character device, /dev/md-control. The control device is
-not tied to any md device, each request specifies the array in the
-payload, either by name, by UUID (it is only available for arrays with
-native metadata) or by device number, without the need to open the md
-block device. Every request structure has a flags field. Unknown flags
-are rejected with -ENOTTY.
+Drop the parent's link count for this case after the source entry has
+been removed successfully. Leave cross-parent renames, regular files
+and the existing error paths unchanged.
 
-md_alloc() adds a new mddev to all_mddevs before its gendisk exists,
-and frees the mddev directly if creation fails. Move disks_mutex out
-of md_alloc() and take it around the control device lookups, so that
-they never take a reference to an mddev that md_alloc() has not
-finished.
+As in rmdir, check that the parent's link count is at least three before
+decrementing it. Report a filesystem error if corrupted directory entries
+have left the count too low, rather than reducing it below two.
 
-The existing ioctl on the md block device is unchanged, but a warning
-message will be printed to recommend using the control device and
-indicate that the per-array MD ioctls will be removed in the future.
-
-Suggested-by: Yu Kuai <yukuai@fygo.io>
-Suggested-by: Zhihao Cheng <chengzhihao1@huawei.com>
-Signed-off-by: Abd-Alrhman Masalkhi <abd.masalkhi@gmail.com>
+Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- drivers/md/md.c | 632 +++++++++++++++++++++++++++++++++++++++++++++++-
- drivers/md/md.h |   9 +
- 2 files changed, 638 insertions(+), 3 deletions(-)
+Changes in v2:
+- Check the parent link count before decrementing it and report low
+  counts with fat_fs_error(), matching rmdir(), as noted by Sashiko.
+- Retain Hirofumi's Acked-by from v1.
 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 3b4497b615cf..a1425b5e6b3e 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -64,6 +64,7 @@
- #include <linux/slab.h>
- #include <linux/percpu-refcount.h>
- #include <linux/part_stat.h>
-+#include <linux/miscdevice.h>
+v1: https://lore.kernel.org/r/20261028211626.26103-1-dennylin0707@gmail.com
+Review: https://sashiko.dev/#/patchset/20261028211626.26103-1-dennylin0707@gmail.com
+ fs/fat/namei_msdos.c | 8 ++++++++
+ fs/fat/namei_vfat.c  | 8 ++++++++
+ 2 files changed, 16 insertions(+)
+
+diff --git a/fs/fat/namei_msdos.c b/fs/fat/namei_msdos.c
+index c7500c2859e0..97289c9d9261 100644
+--- a/fs/fat/namei_msdos.c
++++ b/fs/fat/namei_msdos.c
+@@ -565,6 +565,14 @@ static int do_msdos_rename(struct inode *old_dir, unsigned char *old_name,
+ 		(void)sync_inode_metadata(old_dir, 1);
  
- #include "md.h"
- #include "md-bitmap.h"
-@@ -367,6 +368,8 @@ EXPORT_SYMBOL_GPL(md_new_event);
- static LIST_HEAD(all_mddevs);
- static DEFINE_SPINLOCK(all_mddevs_lock);
- 
-+static DEFINE_MUTEX(disks_mutex);
-+
- static bool is_md_suspended(struct mddev *mddev)
- {
- 	return percpu_ref_is_dying(&mddev->active_io);
-@@ -6319,7 +6322,6 @@ struct mddev *md_alloc(dev_t dev, char *name)
- 	 * If "name" is not NULL, the device is being created by
- 	 * writing to /sys/module/md_mod/parameters/new_array.
- 	 */
--	static DEFINE_MUTEX(disks_mutex);
- 	struct mddev *mddev;
- 	struct gendisk *disk;
- 	int partitioned;
-@@ -6386,8 +6388,10 @@ struct mddev *md_alloc(dev_t dev, char *name)
- 	disk->events |= DISK_EVENT_MEDIA_CHANGE;
- 	mddev->gendisk = disk;
- 	error = add_disk(disk);
--	if (error)
-+	if (error) {
-+		mddev->gendisk = NULL;
- 		goto out_put_disk;
-+	}
- 
- 	kobject_init(&mddev->kobj, &md_ktype);
- 	error = kobject_add(&mddev->kobj, &disk_to_dev(disk)->kobj, "%s", "md");
-@@ -8374,7 +8378,7 @@ static int __md_set_array_info(struct mddev *mddev, void __user *argp)
- }
- 
- static int md_ioctl(struct block_device *bdev, blk_mode_t mode,
--			unsigned int cmd, unsigned long arg)
-+		    unsigned int cmd, unsigned long arg)
- {
- 	int err = 0;
- 	unsigned int noio_flags = 0;
-@@ -8386,6 +8390,8 @@ static int md_ioctl(struct block_device *bdev, blk_mode_t mode,
- 	if (err)
- 		return err;
- 
-+	pr_warn_once("md: %s uses the deprecated per-array md ioctls, which will be removed in future; use /dev/%s instead\n",
-+		     current->comm, MD_CTL_NODE);
- 	/*
- 	 * Commands dealing with the RAID driver but not any
- 	 * particular array:
-@@ -8601,6 +8607,618 @@ static int md_compat_ioctl(struct block_device *bdev, blk_mode_t mode,
- }
- #endif /* CONFIG_COMPAT */
- 
-+static struct mddev *mdctl_get_mddev_dev(dev_t dev)
-+{
-+	struct mddev *mddev, *ret = ERR_PTR(-EINVAL);
-+
-+	if (MINOR(dev) >= (1 << MINORBITS))
-+		return ret;
-+
-+	if (MAJOR(dev) != MD_MAJOR)
-+		dev &= ~((1 << MdpMinorShift) - 1);
-+
-+	ret = ERR_PTR(-ENODEV);
-+	spin_lock(&all_mddevs_lock);
-+	list_for_each_entry(mddev, &all_mddevs, all_mddevs) {
-+		if (mddev->unit == dev) {
-+			ret = mddev_get(mddev);
-+			if (!ret)
-+				ret = ERR_PTR(-ENODEV);
-+			break;
-+		}
-+	}
-+	spin_unlock(&all_mddevs_lock);
-+
-+	return ret;
-+}
-+
-+static struct mddev *mdctl_get_mddev_name(const char *name)
-+{
-+	unsigned long minor;
-+	struct mddev *mddev, *ret = ERR_PTR(-EINVAL);
-+
-+	if (strnlen(name, MD_NAME_LEN) == MD_NAME_LEN || strncmp(name, "md", 2))
-+		return ret;
-+
-+	if (name[2] != '_' && (!isdigit(name[2]) ||
-+			       kstrtoul(&name[2], 10, &minor) ||
-+			       minor > MINORMASK))
-+		return ret;
-+
-+	ret = ERR_PTR(-ENODEV);
-+	spin_lock(&all_mddevs_lock);
-+	list_for_each_entry(mddev, &all_mddevs, all_mddevs) {
-+		if (mddev->gendisk &&
-+		    strcmp(mddev->gendisk->disk_name, name) == 0) {
-+			ret = mddev_get(mddev);
-+			if (!ret)
-+				ret = ERR_PTR(-ENODEV);
-+			break;
-+		}
-+	}
-+	spin_unlock(&all_mddevs_lock);
-+
-+	return ret;
-+}
-+
-+static struct mddev *mdctl_get_mddev_uuid(const char *uuid)
-+{
-+	struct mddev *mddev, *ret = ERR_PTR(-ENODEV);
-+
-+	spin_lock(&all_mddevs_lock);
-+	list_for_each_entry(mddev, &all_mddevs, all_mddevs) {
-+		if (memcmp(mddev->uuid, uuid, sizeof(mddev->uuid)) == 0) {
-+			ret = mddev_get(mddev);
-+			if (!ret)
-+				ret = ERR_PTR(-ENODEV);
-+			break;
-+		}
-+	}
-+	spin_unlock(&all_mddevs_lock);
-+
-+	return ret;
-+}
-+
-+static struct mddev *mdctl_find_mddev(struct mdu_ioctl *md_ctl)
-+{
-+	struct mddev *ret = ERR_PTR(-EINVAL);
-+
-+	/*
-+	 * md_alloc() adds a new mddev to all_mddevs before it creates the
-+	 * gendisk. If creation fails. it frees the mddev directly, without
-+	 * looking at ->active. All of this happens under disks_mutex.
-+	 * Holding disks_mutex for the lookup means we only see mddevs that
-+	 * md_alloc() has finished, so taking a reference is safe and every
-+	 * mddev we find has a gendisk.
-+	 */
-+	mutex_lock(&disks_mutex);
-+
-+	if (memchr_inv(md_ctl->md_uuid, 0, MD_UUID_LEN)) {
-+		if (*md_ctl->md_name || md_ctl->md_dev) {
-+			pr_err_ratelimited("md: only supply one of name, uuid or dev number\n");
-+			goto out;
-+		}
-+		ret = mdctl_get_mddev_uuid(md_ctl->md_uuid);
-+	} else if (*md_ctl->md_name) {
-+		if (md_ctl->md_dev) {
-+			pr_err_ratelimited("md: only supply one of name, uuid or dev number\n");
-+			goto out;
-+		}
-+		ret = mdctl_get_mddev_name(md_ctl->md_name);
-+	} else if (md_ctl->md_dev) {
-+		ret = mdctl_get_mddev_dev(new_decode_dev(md_ctl->md_dev));
-+	}
-+
-+out:
-+	mutex_unlock(&disks_mutex);
-+	return ret;
-+}
-+
-+static int mdctl_lookup_array(struct mddev *mddev, struct mdu_ioctl __user *u)
-+{
-+	struct mdu_ioctl md_ctl;
-+
-+	memset(&md_ctl, 0, sizeof(md_ctl));
-+	memcpy(md_ctl.md_uuid, mddev->uuid, MD_UUID_LEN);
-+	strscpy(md_ctl.md_name, mddev->gendisk->disk_name, MD_NAME_LEN);
-+	md_ctl.md_dev = new_encode_dev(mddev->unit);
-+
-+	if (copy_to_user(u, &md_ctl, sizeof(md_ctl)))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
-+static int mdctl_get_raid_version(struct mdu_version64 __user *user)
-+{
-+	struct mdu_version64 v;
-+
-+	memset(&v, 0, sizeof(v));
-+	v.major = MD_MAJOR_VERSION;
-+	v.minor = MD_MINOR_VERSION;
-+	v.patchlevel = MD_PATCHLEVEL_VERSION;
-+
-+	if (copy_to_user(user, &v, sizeof(v)))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
-+static int mdctl_get_array_info(struct mddev *mddev, void __user *arg)
-+{
-+	struct mdu_array_info64 info;
-+	int nr, working, insync, failed, spare, journal;
-+	struct md_rdev *rdev;
-+
-+	nr = working = insync = failed = spare = journal = 0;
-+	rcu_read_lock();
-+	rdev_for_each_rcu(rdev, mddev) {
-+		nr++;
-+		if (test_bit(Faulty, &rdev->flags)) {
-+			failed++;
-+		} else {
-+			working++;
-+			if (test_bit(In_sync, &rdev->flags))
-+				insync++;
-+			else if (test_bit(Journal, &rdev->flags))
-+				journal++;
+ 	if (new_inode) {
++		if (is_dir && old_dir == new_dir) {
++			if (old_dir->i_nlink >= 3)
++				drop_nlink(old_dir);
 +			else
-+				spare++;
++				fat_fs_error(old_dir->i_sb,
++					     "parent dir link count too low (%u)",
++					     old_dir->i_nlink);
 +		}
-+	}
-+	rcu_read_unlock();
-+
-+	memset(&info, 0, sizeof(info));
-+	info.major_version = mddev->major_version;
-+	info.minor_version = mddev->minor_version;
-+	info.patch_version = MD_PATCHLEVEL_VERSION;
-+	info.ctime         = mddev->ctime;
-+	info.level         = mddev->level;
-+	info.size          = mddev->dev_sectors / 2;
-+	info.nr_disks      = nr;
-+	info.raid_disks    = mddev->raid_disks;
-+	info.md_minor      = mddev->md_minor;
-+	info.not_persistent = !mddev->persistent;
-+
-+	info.utime         = mddev->utime;
-+	info.state         = 0;
-+	if (mddev->in_sync)
-+		info.state = (1 << MD_SB_CLEAN);
-+	if (mddev->bitmap && mddev->bitmap_info.offset)
-+		info.state |= (1 << MD_SB_BITMAP_PRESENT);
-+	if (mddev_is_clustered(mddev))
-+		info.state |= (1 << MD_SB_CLUSTERED);
-+	info.active_disks  = insync;
-+	info.working_disks = working;
-+	info.failed_disks  = failed;
-+	info.spare_disks   = spare;
-+	info.journal_disks = journal;
-+
-+	info.layout        = mddev->layout;
-+	info.chunk_size    = mddev->chunk_sectors << 9;
-+
-+	if (copy_to_user(arg, &info, sizeof(info)))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
-+static int mdctl_get_disk_info(struct mddev *mddev, void __user *arg)
-+{
-+	struct mdu_disk_info64 info;
-+	struct md_rdev *rdev;
-+
-+	if (copy_from_user(&info, arg, sizeof(info)))
-+		return -EFAULT;
-+
-+	rcu_read_lock();
-+	rdev = md_find_rdev_nr_rcu(mddev, info.number);
-+	if (rdev) {
-+		info.major = MAJOR(rdev->bdev->bd_dev);
-+		info.minor = MINOR(rdev->bdev->bd_dev);
-+		info.raid_disk = rdev->raid_disk;
-+		info.state = 0;
-+		if (test_bit(Faulty, &rdev->flags))
-+			info.state |= (1 << MD_DISK_FAULTY);
-+		else if (test_bit(In_sync, &rdev->flags)) {
-+			info.state |= (1 << MD_DISK_ACTIVE);
-+			info.state |= (1 << MD_DISK_SYNC);
-+		}
-+		if (test_bit(Journal, &rdev->flags))
-+			info.state |= (1 << MD_DISK_JOURNAL);
-+		if (test_bit(WriteMostly, &rdev->flags))
-+			info.state |= (1 << MD_DISK_WRITEMOSTLY);
-+		if (test_bit(FailFast, &rdev->flags))
-+			info.state |= (1 << MD_DISK_FAILFAST);
-+	} else {
-+		info.major = info.minor = 0;
-+		info.raid_disk = -1;
-+		info.state = (1 << MD_DISK_REMOVED);
-+	}
-+	rcu_read_unlock();
-+
-+	if (copy_to_user(arg, &info, sizeof(info)))
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
-+static int mdctl_set_array_info(struct mddev *mddev,
-+				struct mdu_array_info64 __user *user)
-+{
-+	struct mdu_array_info64 info;
-+	int err;
-+
-+	if (!user)
-+		memset(&info, 0, sizeof(info));
-+	else if (copy_from_user(&info, user, sizeof(info)))
-+		return -EFAULT;
-+
-+	if (mddev->pers) {
-+		err = update_array_info(mddev, &info);
-+		if (err)
-+			pr_warn("md: couldn't update array info. %d\n", err);
-+		return err;
-+	}
-+
-+	if (!list_empty(&mddev->disks)) {
-+		pr_warn("md: array %s already has disks!\n", mdname(mddev));
-+		return -EBUSY;
-+	}
-+
-+	if (mddev->raid_disks) {
-+		pr_warn("md: array %s already initialised!\n", mdname(mddev));
-+		return -EBUSY;
-+	}
-+
-+	err = md_set_array_info(mddev, &info);
-+	if (err)
-+		pr_warn("md: couldn't set array info. %d\n", err);
-+
-+	return err;
-+}
-+
-+/*
-+ * Return true if @cmd needs a configured array, false otherwise.
-+ */
-+static bool mdctl_ioctl_need_config(unsigned int cmd, u32 flags)
-+{
-+	switch (cmd) {
-+	case MD_CTL_HOT_ADD_DISK:
-+	case MD_CTL_HOT_REMOVE_DISK:
-+	case MD_CTL_RESTART_ARRAY_RW:
-+	case MD_CTL_CLUSTERED_DISK_NACK:
-+		return true;
-+
-+	case MD_CTL_STOP_ARRAY:
-+		/* switching to read-only needs an array, a full stop does not */
-+		return !!(flags & MD_CTL_RO_FLAG);
-+
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool mdctl_ioctl_need_suspend(unsigned int cmd)
-+{
-+	switch (cmd) {
-+	case MD_CTL_ADD_NEW_DISK:
-+	case MD_CTL_HOT_ADD_DISK:
-+	case MD_CTL_HOT_REMOVE_DISK:
-+	case MD_CTL_SET_BITMAP_FILE:
-+	case MD_CTL_SET_ARRAY_INFO:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static int mdctl_ioctl_valid(unsigned int cmd)
-+{
-+	switch (cmd) {
-+	case MD_CTL_RAID_VERSION:
-+	case MD_CTL_LOOKUP_ARRAY:
-+	case MD_CTL_GET_ARRAY_INFO:
-+	case MD_CTL_GET_DISK_INFO:
-+		return 0;
-+
-+	case MD_CTL_SET_DISK_FAULTY:
-+	case MD_CTL_GET_BITMAP_FILE:
-+	case MD_CTL_ADD_NEW_DISK:
-+	case MD_CTL_HOT_ADD_DISK:
-+	case MD_CTL_HOT_REMOVE_DISK:
-+	case MD_CTL_RESTART_ARRAY_RW:
-+	case MD_CTL_RUN_ARRAY:
-+	case MD_CTL_SET_ARRAY_INFO:
-+	case MD_CTL_SET_BITMAP_FILE:
-+	case MD_CTL_STOP_ARRAY:
-+	case MD_CTL_CLUSTERED_DISK_NACK:
-+		if (!capable(CAP_SYS_ADMIN))
-+			return -EACCES;
-+		return 0;
-+	default:
-+		return -ENOTTY;
-+	}
-+}
-+
-+static int mdctl_flags_valid(unsigned int cmd, u32 flags)
-+{
-+	/*
-+	 * for now, Only MD_CTL_STOP_ARRAY takes flags; other commands need
-+	 * flags == 0.
-+	 */
-+	switch (cmd) {
-+	case MD_CTL_RAID_VERSION:
-+	case MD_CTL_LOOKUP_ARRAY:
-+	case MD_CTL_GET_ARRAY_INFO:
-+	case MD_CTL_GET_DISK_INFO:
-+	case MD_CTL_GET_BITMAP_FILE:
-+	case MD_CTL_ADD_NEW_DISK:
-+	case MD_CTL_HOT_ADD_DISK:
-+	case MD_CTL_HOT_REMOVE_DISK:
-+	case MD_CTL_RESTART_ARRAY_RW:
-+	case MD_CTL_RUN_ARRAY:
-+	case MD_CTL_SET_ARRAY_INFO:
-+	case MD_CTL_SET_BITMAP_FILE:
-+	case MD_CTL_SET_DISK_FAULTY:
-+	case MD_CTL_CLUSTERED_DISK_NACK:
-+		if (flags)
-+			return -ENOTTY;
-+		return 0;
-+	case MD_CTL_STOP_ARRAY:
-+		if (flags && flags != MD_CTL_RO_FLAG)
-+			return -ENOTTY;
-+		return 0;
-+	default:
-+		return -ENOTTY;
-+	}
-+}
-+
-+static long mdctl_ioctl(struct file *filp, uint cmd, ulong u)
-+{
-+	int err;
-+	unsigned int noio_flags = 0;
-+	struct mddev *mddev;
-+	void __user *arg;
-+	struct mdu_ioctl md_ctl;
-+	bool closing = false;
-+	bool suspend;
-+	u32 flags;
-+
-+	err = mdctl_ioctl_valid(cmd);
-+	if (err)
-+		return err;
-+
-+	/*
-+	 * Commands dealing with the RAID driver but not any
-+	 * particular array:
-+	 */
-+	if (cmd == MD_CTL_RAID_VERSION)
-+		return mdctl_get_raid_version((struct mdu_version64 __user *)u);
-+
-+	if (copy_from_user(&md_ctl, (void __user *)u, sizeof(md_ctl)))
-+		return -EFAULT;
-+
-+	flags = md_ctl.flags;
-+
-+	err = mdctl_flags_valid(cmd, flags);
-+	if (err)
-+		return err;
-+
-+	mddev = mdctl_find_mddev(&md_ctl);
-+	if (IS_ERR(mddev))
-+		return PTR_ERR(mddev);
-+
-+	if (cmd == MD_CTL_LOOKUP_ARRAY) {
-+		err = mdctl_lookup_array(mddev, (struct mdu_ioctl __user *)u);
-+		goto out;
-+	}
-+
-+	arg = u64_to_user_ptr(md_ctl.arg);
-+
-+	/* These commands do not need reconfig_mutex. */
-+	err = -ENODEV;
-+	switch (cmd) {
-+	case MD_CTL_GET_ARRAY_INFO:
-+		if (mddev_configured(mddev))
-+			err = mdctl_get_array_info(mddev, arg);
-+		goto out;
-+
-+	case MD_CTL_GET_DISK_INFO:
-+		if (mddev_configured(mddev))
-+			err = mdctl_get_disk_info(mddev, arg);
-+		goto out;
-+
-+	case MD_CTL_GET_BITMAP_FILE:
-+		err = get_bitmap_file(mddev, arg);
-+		goto out;
-+
-+	case MD_CTL_SET_DISK_FAULTY:
-+		err = set_disk_faulty(mddev, new_decode_dev(md_ctl.arg));
-+		goto out;
-+	}
-+
-+	if (cmd == MD_CTL_STOP_ARRAY) {
-+		/* Need to flush page cache, and ensure no openers */
-+		err = mddev_set_closing_and_sync_blockdev(mddev, 0);
-+		if (err)
-+			goto out;
-+
-+		closing = true;
-+	}
-+
-+	if (!md_is_rdwr(mddev))
-+		flush_work(&mddev->sync_work);
-+
-+	suspend = mdctl_ioctl_need_suspend(cmd);
-+	err = suspend ? mddev_suspend_and_lock(mddev) : mddev_lock(mddev);
-+	if (err) {
-+		pr_debug("md: ioctl lock interrupted, reason %d, cmd %d\n",
-+			 err, cmd);
-+		goto out;
-+	}
-+	if (suspend)
-+		noio_flags = memalloc_noio_save();
-+
-+	/*
-+	 * Commands querying/configuring an existing array.
-+	 *
-+	 * If the array is not initialised yet, check of the command requires
-+	 * the array to be initialised.
-+	 */
-+	if (!mddev_configured(mddev) && mdctl_ioctl_need_config(cmd, flags)) {
-+		err = -ENODEV;
-+		goto unlock;
-+	}
-+
-+	/*
-+	 * Commands even a read-only array can execute:
-+	 */
-+	switch (cmd) {
-+	case MD_CTL_SET_ARRAY_INFO:
-+		err = mdctl_set_array_info(mddev, arg);
-+		goto unlock;
-+
-+	case MD_CTL_RESTART_ARRAY_RW:
-+		err = restart_array(mddev);
-+		goto unlock;
-+
-+	case MD_CTL_STOP_ARRAY:
-+		err = -EINVAL;
-+		if (!flags)
-+			err = do_md_stop(mddev, 0);
-+		else if (flags == MD_CTL_RO_FLAG && mddev->pers)
-+			err = md_set_readonly(mddev);
-+		goto unlock;
-+
-+	case MD_CTL_HOT_REMOVE_DISK:
-+		err = hot_remove_disk(mddev, new_decode_dev(md_ctl.arg));
-+		goto unlock;
-+
-+	case MD_CTL_ADD_NEW_DISK:
-+		/* We can support ADD_NEW_DISK on read-only arrays
-+		 * only if we are re-adding a preexisting device.
-+		 * So require mddev->pers and MD_DISK_SYNC.
-+		 */
-+		if (mddev->pers) {
-+			struct mdu_disk_info64 info;
-+
-+			if (copy_from_user(&info, arg, sizeof(info)))
-+				err = -EFAULT;
-+			else if (!(info.state & (1 << MD_DISK_SYNC)))
-+				/* Need to clear read-only for this */
-+				break;
+ 		drop_nlink(new_inode);
+ 		if (is_dir)
+ 			drop_nlink(new_inode);
+diff --git a/fs/fat/namei_vfat.c b/fs/fat/namei_vfat.c
+index ff7652bf0410..c4d5628c05fa 100644
+--- a/fs/fat/namei_vfat.c
++++ b/fs/fat/namei_vfat.c
+@@ -1011,6 +1011,14 @@ static int vfat_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 	vfat_update_dir_metadata(old_dir, &ts);
+ 
+ 	if (new_inode) {
++		if (is_dir && old_dir == new_dir) {
++			if (old_dir->i_nlink >= 3)
++				drop_nlink(old_dir);
 +			else
-+				err = md_add_new_disk(mddev, &info);
-+			goto unlock;
++				fat_fs_error(old_dir->i_sb,
++					     "parent dir link count too low (%u)",
++					     old_dir->i_nlink);
 +		}
-+		break;
-+	}
-+
-+	/*
-+	 * The remaining ioctls are changing the state of the
-+	 * superblock, so we do not allow them on read-only arrays.
-+	 */
-+	if (!md_is_rdwr(mddev) && mddev->pers) {
-+		if (mddev->ro != MD_AUTO_READ) {
-+			err = -EROFS;
-+			goto unlock;
-+		}
-+		mddev->ro = MD_RDWR;
-+		sysfs_notify_dirent_safe(mddev->sysfs_state);
-+		set_bit(MD_RECOVERY_NEEDED, &mddev->recovery);
-+		/* mddev_unlock will wake thread */
-+		/* If a device failed while we were read-only, we
-+		 * need to make sure the metadata is updated now.
-+		 */
-+		if (test_bit(MD_SB_CHANGE_DEVS, &mddev->sb_flags)) {
-+			mddev_unlock(mddev);
-+			wait_event(mddev->sb_wait,
-+				   !test_bit(MD_SB_CHANGE_DEVS, &mddev->sb_flags) &&
-+				   !test_bit(MD_SB_CHANGE_PENDING, &mddev->sb_flags));
-+			mddev_lock_nointr(mddev);
-+		}
-+	}
-+
-+	switch (cmd) {
-+	case MD_CTL_ADD_NEW_DISK:
-+	{
-+		struct mdu_disk_info64 info;
-+
-+		if (copy_from_user(&info, arg, sizeof(info)))
-+			err = -EFAULT;
-+		else
-+			err = md_add_new_disk(mddev, &info);
-+
-+		goto unlock;
-+	}
-+
-+	case MD_CTL_CLUSTERED_DISK_NACK:
-+		if (mddev_is_clustered(mddev))
-+			mddev->cluster_ops->new_disk_ack(mddev, false);
-+		else
-+			err = -EINVAL;
-+		goto unlock;
-+
-+	case MD_CTL_HOT_ADD_DISK:
-+		err = hot_add_disk(mddev, new_decode_dev(md_ctl.arg));
-+		goto unlock;
-+
-+	case MD_CTL_RUN_ARRAY:
-+		err = do_md_run(mddev);
-+		goto unlock;
-+
-+	case MD_CTL_SET_BITMAP_FILE:
-+		err = set_bitmap_file(mddev, md_ctl.arg);
-+		goto unlock;
-+
-+	default:
-+		err = -EINVAL;
-+		goto unlock;
-+	}
-+
-+unlock:
-+	if (!err && mddev->hold_active == UNTIL_IOCTL)
-+		mddev->hold_active = 0;
-+
-+	if (suspend) {
-+		memalloc_noio_restore(noio_flags);
-+		mddev_unlock_and_resume(mddev);
-+	} else {
-+		mddev_unlock(mddev);
-+	}
-+out:
-+	if (closing && (err || flags == MD_CTL_RO_FLAG))
-+		clear_bit(MD_CLOSING, &mddev->flags);
-+
-+	mddev_put(mddev);
-+	return err;
-+}
-+
-+static const struct file_operations mdctl_file_ops = {
-+	.open = nonseekable_open,
-+	.unlocked_ioctl = mdctl_ioctl,
-+	.compat_ioctl = compat_ptr_ioctl,
-+	.owner = THIS_MODULE,
-+	.llseek  = noop_llseek,
-+};
-+
-+static struct miscdevice mdctl_misc = {
-+	.name = MD_CTL_NODE,
-+	.minor = MISC_DYNAMIC_MINOR,
-+	.fops = &mdctl_file_ops,
-+};
-+
-+static int __init mdctl_init(void)
-+{
-+	return misc_register(&mdctl_misc);
-+}
-+
-+static void __exit mdctl_exit(void)
-+{
-+	misc_deregister(&mdctl_misc);
-+}
-+
- static int md_set_read_only(struct block_device *bdev, bool ro)
- {
- 	struct mddev *mddev = bdev->bd_disk->private_data;
-@@ -10814,12 +11432,19 @@ static int __init md_init(void)
- 		goto err_mdp;
- 	mdp_major = ret;
- 
-+	ret = mdctl_init();
-+	if (ret < 0)
-+		goto err_ctl;
-+
- 	register_reboot_notifier(&md_notifier);
- 	raid_table_header = register_sysctl("dev/raid", raid_table);
- 
- 	md_geninit();
- 	return 0;
- 
-+err_ctl:
-+	unregister_blkdev(mdp_major, "mdp");
-+	mdp_major = 0;
- err_mdp:
- 	unregister_blkdev(MD_MAJOR, "md");
- err_md:
-@@ -11097,6 +11722,7 @@ static __exit void md_exit(void)
- 	struct mddev *mddev;
- 	int delay = 1;
- 
-+	mdctl_exit();
- 	unregister_blkdev(MD_MAJOR,"md");
- 	unregister_blkdev(mdp_major, "mdp");
- 	unregister_reboot_notifier(&md_notifier);
-diff --git a/drivers/md/md.h b/drivers/md/md.h
-index 27de34a8bdf9..0dfae7b86830 100644
---- a/drivers/md/md.h
-+++ b/drivers/md/md.h
-@@ -996,6 +996,15 @@ static inline void rdev_record_write_error(struct md_rdev *rdev)
- 		set_bit(MD_RECOVERY_NEEDED, &rdev->mddev->recovery);
- }
- 
-+/*
-+ * Return true if array is configured or its metadata is managed by user space,
-+ * false otherwise.
-+ */
-+static inline bool mddev_configured(struct mddev *mddev)
-+{
-+	return mddev->raid_disks || mddev->external;
-+}
-+
- static inline int mddev_is_clustered(struct mddev *mddev)
- {
- 	return mddev->cluster_info && mddev->bitmap_info.nodes > 1;
+ 		drop_nlink(new_inode);
+ 		if (is_dir)
+ 			drop_nlink(new_inode);
 -- 
 2.43.0
 
