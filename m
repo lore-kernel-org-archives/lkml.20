@@ -1,47 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282086;
-	b=0s65U9C0fOkXIzqpMuikctlyijt9bK5axAL++aaikatacGLiHELhGI/KROr/7ktBmlRE
-	 1AvFcZPo95pGVIDZw7bZYsxGMOsEeVDKXQPhF06dEnaX7MUdOA7B+ahKoDmlbLNJTks3o
-	 SZavwXpSmpp5RSkzgkLy6pRRHcNtE12rsChA2WkcSTSC3XZwQUUe4SvG8OQ4Acwdc+N8a
-	 w+xPp9W4+AEDtIaIBnvkGMMQSzGV6b9YJl4L3VmBoZ09jYW2p1BZWfLN5GAUtDxbDeVHI
-	 1QgBL87H0cpMX29sUSVaPV0hEsR2Pha2iVxx8+2EdRwzwrI16s58F7dYe/vwP8+m9AA==
+	t=1793282123;
+	b=1V6++zcg73m1n04wTIV5GxbOgo8FdpU+jw/FNYivNF7GzHzorRVj1TckQDeVj6aYRPZM
+	 7GlsnUPVXEcKwtAZhGvKaP7XOFurgu0m/vmTbGp4uwbWZKhc2/SmCSAc2YjOff2ZFAXHq
+	 +1+7unIHUO2ZdNFNPfXtOKTSbyKHwnbFarxfo9ZQhegn8D+wB+f1b3kjpRFuqLZuo1G8R
+	 jZOlTFOLbQ6XvzUQG6aYiX2ojNRzwbxBf1NmwiDsp+xhbe6U4/1S/kPo8MNf6D35XG8xs
+	 Gg7kIOzeaLmbU/3h8uoirKCKdrkMShiboXMOSDErc3bBiCRuIT1fO6fwV1GXXZoy2eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282086;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=9pamEexFG6/52egXa9hLLeSrQGqwFqspA1svbb9YVk4=;
-	b=KuQqgIo6+5dyNldhD48kN4zO/ORQkC6mbZIKt25frVNyUnX/TDvH2gvta/zhyeUw4cD2
-	 6U4A5PzhYA71qUvL1T0h/dIVjrVIYPYaQhKZlqrN2RJGFxM99Urr2fQlf96tJrWHg+Dwy
-	 QNhX4p2hP50DjNHZMvCeK2YyW4G71ZTHg/TS1dj5OqehLrMwxCkRctDsBtdz3Ux27+gHk
-	 IRv/TqwIhswaP4PILXMVUz+1fmWP4in179GI5Op0vrnSFMOlw0EzGzEXmscULkUNkDmQ6
-	 b/koC/rKaT5Zk7OmeBxQzur2JyrICooGdA9BBe+xG2hXP/mbCokg6qNhmJOuhxLp+Jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282123;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BMa/V2u8DSOiKoMYsxsHe3HEm/inDMpyw+DHYrdgIMk=;
+	b=lXOakUbRoM1KT5teaMM9CUgKfPsFvm7oyobOy1qWL1vW+6YN9RLbkHnQlzhaiNKUHpWZ
+	 oqQdn15Yg9/y1aqOJGRL92OaIWh0JMHpZZ2VS9PtOSjcZSZG9SZ0XQUGvC9tWnWa0MvwD
+	 8AsDkiV9atpwUDE4pynI8/5RGkrXD3O+SjcpyfrY47LQUZVylxcBx9Egazt0h1FKgonJb
+	 R80v6SCHtBnqmMZOALeBeBkgGrMJ+X3xbpghJH7KNiXDHKllTHqbtRFes62zwLvuwkM6z
+	 WSGpWXMaDOAAKCgALgsFoNUyOagdJM1BM4QsetvZNSsdo3jOhaqbGzo2jLQzk/X/F4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ga5NksAI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1bPYmGA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341BD606A31A;
-	Thu, 29 Oct 2026 13:54:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 8E092606A31C;
+	Thu, 29 Oct 2026 13:55:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ga5NksAI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646171F01825;
-	Thu, 29 Oct 2026 13:54:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K1bPYmGA
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9929F1F01825;
+	Thu, 29 Oct 2026 13:55:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793282085;
-	bh=9pamEexFG6/52egXa9hLLeSrQGqwFqspA1svbb9YVk4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ga5NksAIKx9E5rhS+Wmw4j7v1i3706sDmtjVdgHnMsH2v6wWruI6K8kWZ47fD+PJV
-	 d/onsiIsW3iX7h/LweN3yLS17eVB6bXCyL6OysbyDVnH/Et+Gks7S3syohiUZr9+5t
-	 WZO3wDHX5VprTB4dRDeXExDyF5x3g1KPiOvHVrF5gzld7qZnbUc0xQqVZ+47ATNiFo
-	 t6K6Fi+CNO49KUpE45Vr7qZ0n6zVQiPhlY6kGXm6hNxjSyCkBYxYASTJGa5MIUA0ih
-	 4FJoUxBi6pnavShQf3DWPS92HlYoBagp+Eow+lxYmHOC5M9KbsdKmRUWxqn4bc+bxg
-	 p7ag0S872AfiA==
-Message-ID: <e3c9087e-fea5-4ec6-852a-a0e0e33ce461@kernel.org>
-Date: Thu, 29 Oct 2026 14:54:35 +0100
+	s=k20260515; t=1793282123;
+	bh=BMa/V2u8DSOiKoMYsxsHe3HEm/inDMpyw+DHYrdgIMk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K1bPYmGA6AawuBvfPStSu7tDTsnOi3g2ZS6f3uyUOCrL0eqLiWFtNfPcA2oJjiBIG
+	 ueLB0T8EPH5WhmmmtO78zAapcdSPF89M+l0oEj1HNvFDfIzAjpx67QCwLhH0TakPLD
+	 vX6UmyBZZBtREJIcQ1uLtjHu5rnHrOHQlngsaGjOwE3syB6aYZLjWk7Uhvf8ED4Dt2
+	 FrYG2QVD+tgpOPv6nE9e5CVpmrs2KhKBx6UEFxXV9XPotzX8GzYk6IODCWJET31J2G
+	 TK0k0CxXihL2pm3G5xwdU/RmDjL0cQDRdxBPzR2X3AAH2jIm7xpMB6ibhJaKff8xtV
+	 EZMCqjAO7O4uw==
+Date: Thu, 29 Oct 2026 15:55:19 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: linux-kernel@vger.kernel.org, pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] tpm: tis_i2c: Add reset delays for ST33KTPM2XI2C
+Message-ID: <auNQRzb8H9KsHVqR@kernel.org>
+References: <20261029095528.8073-1-stefano.r@variscite.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,157 +58,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: mfd: introduce the TC9564 config syscon
-To: Alex Elder <elder@riscstar.com>, robh@kernel.org
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260918165234.687224-1-elder@riscstar.com>
- <20260918165234.687224-2-elder@riscstar.com>
- <20260920-fiery-fanatic-manticore-6abf0a@quoll>
- <85b0e7de-e4a8-4e08-b801-a9664d366e1a@riscstar.com>
- <7e32063f-f1a4-4259-96c9-fcbdd25c7f2f@riscstar.com>
- <fbeac5ba-a28d-4d34-8d23-4946aef515ea@kernel.org>
- <4bb9c85e-f991-484e-861f-1940b8263890@riscstar.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <4bb9c85e-f991-484e-861f-1940b8263890@riscstar.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029095528.8073-1-stefano.r@variscite.com>
 
-On 28/09/2026 16:52, Alex Elder wrote:
-> On 9/23/26 2:25 AM, Krzysztof Kozlowski wrote:
->> I think nothing behind PCI EP should be described in DT, because
->> everything is internal to the device and implied by compatible (or
->> vid/pid). We do describe internals of devices in DT usually for complex
->> devices (like some display blocks with multiple subblocks) or when they
->> are used outside of that device. That's why I asked how are all these
->> clocks and resets exposed to the host. If the syscon is used only by the
->> device itself, I don't quite get the benefits of describing it in DT.
+On Thu, Oct 29, 2026 at 10:55:28AM +0100, Stefano Radaelli wrote:
+> From: Stefano Radaelli <stefano.r@variscite.com>
 > 
-> You say you think "nothing behind PCI EP should be described in DT".
-> However the mere existence of the PCI endpoint bus as an option
-> contradicts that statement, by providing a means of doing *exactly*
-> that:  using devicetree to describe things behind a PCI endpoint.
-> This is the model we are using.
-
-No, the existence does not contradict. We allow further description as
-long as things are not autodiscoverable and are necessary for the host
-to deal with the device, like power sequencing. Same we did for
-"onboard" USB hubs.
-
-You are however describing internals of the device like syscon, which is
-way beyond what is necessary for the host to instantiate that device.
-
+> The optional reset control is deasserted without a delay, and probe then
+> proceeds directly to the first I2C register access. Since reset-gpio
+> initializes its line asserted, this provides no guaranteed minimum reset
+> pulse width or recovery interval before communication starts.
 > 
-> In June we switched over to using the pci-ep-bus model based on a
-> suggestion from Rob Herring (and Mani Sadhasivam).  Rob felt our
-> previous auxiliary device approach wasn't right for the peripherals
-> found within the SoC, given we were accessing them via PCI BARs.
->    https://lore.kernel.org/lkml/20260605144032.GA3659201-robh@kernel.org/
-
-Oh, that's good, so let's quote:
-
-"The ethernet nodes should be just these PCI function nodes."
-
-"And really, a DT node for them should be completely optional (unless
-there's some power on ctrl needed)."
-
-"Everything else like SPI, GPIO, UART, etc. should be under the PCIe
-switch upstream node in a pci-ep-bus."
-Sure, but you add syscon. That's completely internal stuff.
-
-> We found that using pci-ep-bus provided a very natural and familiar
-> way of representing the organization of the TC9564 SoC, and used
-> it to represent all of the peripherals (including XGMAC).  It
-> nicely partitions the hardware design, as well as providing a
-> well-understood connection with the software.
+> Table 66 of the ST33KTPM-IDevID datasheet specifies a minimum reset pulse
+> width of 1 ms and up to 50 ms from reset release before the first command.
+> Choose a 2 ms assertion interval to provide margin above the minimum and
+> wait 50 ms after deassertion, before initializing the I2C guard times.
 > 
-> The switch involved quite a bit of work, and the result is a set
-> of basically independent platform drivers that are modular and
-> easily reviewed.  I really would rather not go back to to what
-> we had before.
+> Pull the timings from the matched device entry. If they don't exist,
+> fall back to the legacy behavior without delays. Update of_tis_i2c_match
+> with the timings for st33ktpm2xi2c.
 > 
-> Do you have criteria for what in a chip/SoC is sufficiently
-> "complex" to warrant allowing devicetree to describe some of
-> its internal details?
-
-For me criteria are the resources from the host. I think I said it
-already, we do not describe internals of I2C or SPI devices: their
-internal clocks, internal power supplies. We only describe the inputs
-from the host. You can map it into the pins.
-
-Same here, IMO.
-
+> Link: https://www.st.com/resource/en/datasheet/st33ktpm-idevid.pdf
+> Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+> ---
+> v1->v2:
+>  - Rewrite the last paragraph of the commit message
 > 
-> I believe the TC9564 *is* such a "complex" SoC.  And in any case,
-> anywhere pci-ep-bus is used, it implies that some chip internals
-> would be described using devicetree.
+>  drivers/char/tpm/tpm_tis_i2c.c | 26 ++++++++++++++++++++++++++
+>  1 file changed, 26 insertions(+)
 > 
-> Would incorporating the chip internals in a devicetree *overlay*
-> have any effect on your opinion on this?  I.e., the "main"
-> devicetree nodes would simply define the PCI device hierarchy,
-> but anything behind an endpoint would be described in an overlay.
-> This way, pci-ep-bus on a PCI endpoint just provides an external
-> interface onto which a very complex device could be "mounted"
-> (and described in an overlay).
+> diff --git a/drivers/char/tpm/tpm_tis_i2c.c b/drivers/char/tpm/tpm_tis_i2c.c
+> index cde0b093ed58..8bcbc84815fd 100644
+> --- a/drivers/char/tpm/tpm_tis_i2c.c
+> +++ b/drivers/char/tpm/tpm_tis_i2c.c
+> @@ -12,6 +12,8 @@
+>  
+>  #include <linux/i2c.h>
+>  #include <linux/crc-ccitt.h>
+> +#include <linux/delay.h>
+> +#include <linux/property.h>
+>  #include <linux/reset.h>
+>  #include "tpm_tis_core.h"
+>  
+> @@ -55,6 +57,11 @@
+>  #define TPM_INTF_CAPABILITY_ZERO 0x0FFFF000
+>  #define TPM_I2C_INTERFACE_CAPABILITY_ZERO 0x80000000
+>  
+> +struct tpm_tis_i2c_reset_timings {
+> +	unsigned int assert_us;
+> +	unsigned int deassert_us;
+> +};
+> +
+>  struct tpm_tis_i2c_phy {
+>  	struct tpm_tis_data priv;
+>  	struct i2c_client *i2c_client;
+> @@ -330,6 +337,7 @@ static const struct tpm_tis_phy_ops tpm_i2c_phy_ops = {
+>  
+>  static int tpm_tis_i2c_probe(struct i2c_client *dev)
+>  {
+> +	const struct tpm_tis_i2c_reset_timings *timings;
+>  	struct tpm_tis_i2c_phy *phy;
+>  	struct reset_control *reset;
+>  	const u8 crc_enable = 1;
+> @@ -347,17 +355,25 @@ static int tpm_tis_i2c_probe(struct i2c_client *dev)
+>  
+>  	set_bit(TPM_TIS_DEFAULT_CANCELLATION, &phy->priv.flags);
+>  	phy->i2c_client = dev;
+> +	timings = device_get_match_data(&dev->dev);
+>  
+>  	reset = devm_reset_control_get_optional_exclusive(&dev->dev, NULL);
+>  	if (IS_ERR(reset))
+>  		return dev_err_probe(&dev->dev, PTR_ERR(reset),
+>  				     "failed to get reset control\n");
+>  
+> +	/* Allow an already asserted reset to meet its minimum pulse width. */
+> +	if (reset && timings)
+> +		fsleep(timings->assert_us);
+> +
+>  	ret = reset_control_deassert(reset);
+>  	if (ret)
+>  		return dev_err_probe(&dev->dev, ret,
+>  				     "failed to deassert reset\n");
+>  
+> +	if (reset && timings)
+> +		fsleep(timings->deassert_us);
+> +
+>  	/* must precede all communication with the tpm */
+>  	ret = tpm_tis_i2c_init_guard_time(phy);
+>  	if (ret)
+> @@ -393,9 +409,19 @@ static const struct i2c_device_id tpm_tis_i2c_id[] = {
+>  MODULE_DEVICE_TABLE(i2c, tpm_tis_i2c_id);
+>  
+>  #ifdef CONFIG_OF
+> +/*
+> + * ST33KTPM-IDevID datasheet DS15011, table 66: tWL >= 1 ms and
+> + * tCMD <= 50 ms. Allow 2 ms for tWL to provide margin above the minimum.
+> + */
+> +static const struct tpm_tis_i2c_reset_timings st33ktpm2xi2c_reset_timings = {
+> +	.assert_us = 2000,
+> +	.deassert_us = 50000,
+> +};
+> +
+>  static const struct of_device_id of_tis_i2c_match[] = {
+>  	{ .compatible = "infineon,slb9673", },
+>  	{ .compatible = "nuvoton,npct75x", },
+> +	{ .compatible = "st,st33ktpm2xi2c", .data = &st33ktpm2xi2c_reset_timings },
+>  	{ .compatible = "tcg,tpm-tis-i2c", },
+>  	{}
+>  };
+> -- 
+> 2.47.3
 > 
-> I'd like to continue to move ahead with upstreaming support for
-> this SoC, but to me it seems you have basic doubts about
-> pci-ep-bus and I'd like to get past that.
 
-Well, Rob might understand this better, so maybe review from him will
-solve these questions.
+Thanks, LGTM.
 
-Best regards,
-Krzysztof
+
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+
+Br, Jarkko
