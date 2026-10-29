@@ -1,101 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793280624;
-	b=QUQ0wVKKpgwQUwDS4/A7YRftBVo7rytYOQTUk9ZAlyx3VnpOjRZMXIfesv4jV6IdpGPY
-	 h7v2gPwssQSRhL6P2+NjnKqODKwbccstRSazl1dwiBHlmR4fbj5BYWWPOerv+xuV2ed8B
-	 puHzZVG6ogktCqTz6OeENP2qpgjzvN/ynvGOUVWmgEv7iV4nF7Yovo1UuwEt+8s6xfbRc
-	 tTkE7OebM/uOT+eCsZtMiJFKSJyOMBtQBlrDf9CalFBf7Yf3T5HIzNzJ1sjKmPG+elt0Q
-	 H5Y665IU5RnCTgENIpmlNVJsSkp4hq+HyO8nFJfDlPZ9cU2snnDPwv11lCvnJtqxq0Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280624;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=w/sgwy/ghE2b57F7Uzomj2dyjYLCkONxslOZZKWqXNg=;
-	b=XSOxdJ4JKU7gGwaIDJrfff7w4t7N2x3QEzKw2MPq1hxe2DucgOj/W9x0fB3CYfoZsleW
-	 Yc7RQydqP6rZiWVsZuiN57K6SBlp8OT2Pf/q6ShH3R4fLjxUY5Gf7KqTSAdFHi6YKMlbS
-	 HR94U47svS6pJ/22BVgMI66DZwh8tl1BKmmsC/gcUjNuXUfnlJqpBNJqWX0yKeExbBc2+
-	 I1zrj7fGDLElk9/x36tPjkCX4NvxYzOSfdKk11YDZO9A0qOkG1JAhRtOhLnl8JGtMvkD6
-	 z/OjlNYImGWptXlGdSCZkM4iXSRSleVglwIvGaKf1UvyaTD9eG8DxEZwCmVrL/3+fPg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=phQ+TDVo;
-	arc=none smtp.remote-ip=209.85.215.195
-Received: from mail-pg1-f195.google.com (mail-pg1-f195.google.com [209.85.215.195])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793280661;
+	b=zW5GNJXeTtdItisWHdRW5Xe0eQfdKGKSykYyxasgROZ3/ypFraoR1jsuwXnI7pIEJMlS
+	 IKSsZqXcwZj21aDhPWB7APo2EF1OrFa6OEkJZ++r/PkmIRQOR6TQmDAkMciYwbGIidmyn
+	 yO9tWYtaKWMDMAj3xD+pYZ+zBGAlPkUHvfB62K8e5aFqVfLm/LFk9o16uxZNBnZ+k/Og9
+	 bQXBReVehtvkNqGrLXthDbC/LLpJmGeb6mc4HcfUcOZTBuxSAJ+/J+ZN0cN8zfUkQQcqC
+	 RdNN5Lu4J+41NmCN9s3/42PUTMVam4YQUtaXM/ewJxgYmBcEhalqmWpQE4i6xa3WEDw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793280661;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=V7aW5LIr7L2GSPUjs+x9CLXGgo94k6NyizG3TKtWNlo=;
+	b=uONB8xRGGPm2qkgPsfiZHVX37yYGsUwYbWmJuDNyAkrkwG6szuoJFqgAXiBICSzcODoU
+	 4q+VyQRItB/qxxfAbimtkaWS33/RVneggjTedLHUthmUGOjCI3xKwLrhG8G7XJq3aSTAy
+	 APayIBtVEWvCuuwJkJXkKqre4KPIJIzWKAYIw5nNmkZH82UkKK9x7Gicn4YNQuZpqU3dE
+	 NPKKYbjDIhhCswRRynu72pePYFsCRyXk1adB3pfBcPVRNfK9Nf17qXJLj3Yhqmmw4VSG4
+	 wVIqm25QeClcfIU8IjumqZxbcm1Qu0WbPJHlPP0NTHgQI0c3P3alauGwZX4CJhDxEnA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HWP0nN1O;
+	arc=fail smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05EC9606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:30:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05EC9606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE317606A31D;
+	Thu, 29 Oct 2026 13:30:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE317606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=phQ+TDVo
-Received: by mail-pg1-f195.google.com with SMTP id 41be03b00d2f7-cc147d86bebso458345a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:30:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793280622; x=1793885422; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w/sgwy/ghE2b57F7Uzomj2dyjYLCkONxslOZZKWqXNg=;
-        b=phQ+TDVodvXQq3QKjLT5zxDjTJJp2Dg6G5BekDVPp88r2jmFmQw1O0sHLTwKv27NG1
-         ccsYRz8+LKjsXSUlZUBoEJ4KIfoM8d1yZpGltz11Vm+fi0sq3EoRVrc4ZnW2BlH/RHuM
-         U5tZtDfDSZja49se22Sq1CHN1EwoAmfBgQSFw+UT5GwvmqhRy+baEtfEVbv9HKmy8CQ6
-         pLil481J/TsMK2j6VTaS01O+nvOYmWd5FxO2c8DOYKhlxagzhmht+Ms7sHZj94fs/NL5
-         wdogXJJh3AtCwmu4CEmRJBD5Sf+KhQ5v6legILOLMLueCvYUG73RHe/eeondZLZQq8Eq
-         RbXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793280622; x=1793885422;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w/sgwy/ghE2b57F7Uzomj2dyjYLCkONxslOZZKWqXNg=;
-        b=IJx6R8snqvw0WTtJe5wIEAPxFl4Hom9jVnPbQMzHEL2Ht5oeQaPRqc5bX+K3l8zEdF
-         0z3eixh53L+YucRwiYr3Rcc8m5ahUzMXhpSS3lIjotFY+he8CH/pSNzv0FrefhyDvg2G
-         jl6tA2mUImxAFXQuwqZcOjmDeNQSmnPgkRKCsvUoICfp24H61LJX4h3zIxnEK6PvfnT4
-         r96WVLUZpRzMsZSq42SijQMCN1d80G8jdbGWbkIna66VcC0qgjGM0vAzf/u2q0jfR+BT
-         nxRAown6q4S1Gc7F8BvnTmI907BoN8nwXODDjqEWykIFsBuqemQiO1AI5H5iHgtXHqxd
-         INdg==
-X-Forwarded-Encrypted: i=1; AKwUvBxtCjqBEuIDBPI2G7qHNLxkZ70Lurg4tDhtUjpe0ZEXdgfgr9xzu4y4vgMzdTmkU0zqr5wFZ40ibRotHUs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKzZ2J/2yd5KVkWInQZFwqBadmWSt29K3VupSIfxVmbfmEOQnKc
-	ERQWe4/y5SIPmWWAUQYZbC3BshKRRtBCK5jAtLRtvIBm3gwIVaRCyiDx
-X-Gm-Gg: AYBFou0rrBsZkIi1SexBubIr4va8fjUt+lQ+Z+zoLXu6rQzfRhjxblpkI1Zf40MQdar
-	2dPdX3Kq3IJlcJuUft8OXlciUby4tud10adgTOVpV8zNmXvDUsAYJC0xM4/nRnz3AJx0kMcVSeQ
-	8ASYeSmQbCUtV9yvimBY1BoVhSsoFEz58u5kSCRt7RgtJHbwWtOp9rSa4fd/5qX9zl7uNHxWwFS
-	/o1aT0xh+lPbVLAQBdEn9vglurH8DyCw02NpNiNNbiCvBfUg05XxHksPNp/26Cc6A/5rN1enDHt
-	YMdhsayV78L78dIR7GQUVjCmIIIdvzIBHPYpjhfPd3QaYpKNA5jyiy1Y9mqUGKRXEghBilJrPWY
-	fkl40vTCdNFKem7mrWAMTn9QkBKXXLEf4c3uxl52wTJ2I/feDSWyvuW5QERIDMrYZQOI2D90lDp
-	y/7IgjCNLwnH8Et7Cw7powePGfAaGo+EmkcfP0rtfyRy+F3YAFbwQ02GLlloWopQe1o4+DI3x8l
-	vOGHLo9psK/rqt30xC6cWiqOv8kIKrXcCuyzX+lc6h7ZyzQvHjBLDEQtVVgN8yuxArFeUV65XBP
-	/6ihJKKlSrTFXXNZ7LRRAMWZgvDbLpIj12WunQ==
-X-Received: by 2002:a05:6300:6bd3:10b0:3e9:1b6a:f709 with SMTP id adf61e73a8af0-3e91b6af7cemr709533637.22.1793280622038;
-        Thu, 29 Oct 2026 06:30:22 -0700 (PDT)
-Received: from archlinux ([2409:8a4c:cc3:2931:e1d3:ace0:b5ce:fd44])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdacd6aeb55sm4068530a12.7.2026.10.29.06.30.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 06:30:21 -0700 (PDT)
-From: Jiandong Qiu <qiujiandong1998@gmail.com>
-To: alexs@kernel.org,
-	si.yanteng@linux.dev,
-	dzm91@hust.edu.cn,
-	wy@wyuan.org
-Cc: corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jiandong Qiu <qiujiandong1998@gmail.com>
-Subject: [PATCH v4 1/2] docs/zh_CN: add process/changes.rst translation
-Date: Thu, 29 Oct 2026 21:29:40 +0800
-Message-ID: <33cf49a36a2e87a40cacfc9669578203ca135c1c.1793279600.git.qiujiandong1998@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1793279600.git.qiujiandong1998@gmail.com>
-References: <cover.1793279600.git.qiujiandong1998@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HWP0nN1O
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793280660; x=1824816660;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=kN8+DTSEMxnSJyTGYiBrObVCvaziliWm95xvXbAJUA4=;
+  b=HWP0nN1OkLdajRFzsT664jcUU2gLzDHr7L0isERwhYclgXyCF4MRF5kX
+   hK1qnZrgBrSWClQmwPqWxYxA4P1zYPr5SegefY2Of4kLgGGsoXUmckVb/
+   ZvdU38K0FRFGX0dcwgtRAh4RkwntVFBWun/nLe4uKjRjF0St0soJcTIOW
+   A6MHk3qUdg4KvHl2D/0BAdtq0DM5m/Xw5hWdh7uUlhe+eEoLWa6sBAZKQ
+   bRZ4Thj/OlP5jPnj1WXBzWwgZNSLbmtPVqG/e71KK8jdk/Pdn+PrLXur8
+   gKmGDkdZKBB1T8nI2Afu0eC0QFJQCUIghbQgBkVSDfNMlIsENJZvf5Ydy
+   g==;
+X-CSE-ConnectionGUID: 3dGDdP1ETlWK9o9Iqz0RMw==
+X-CSE-MsgGUID: f/5Ulj5nTe2k6mUBl3TdzA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2126919"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="2126919"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:30:59 -0700
+X-CSE-ConnectionGUID: AVvL9TA7R62OgzEQAM4yyg==
+X-CSE-MsgGUID: j3BauZ51ST64KyOoe9QCtA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5282789"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:30:59 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 06:30:58 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 29 Oct 2026 06:30:58 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.24) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 06:30:58 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xu8Kyv/M6b7Bz4RGViPcVArT5waTlTJN86ztCPZ2DvdxqPecNqDmF3WvOqXTO4az8MgsY/TwGzir6G68GhVGn2DggiZlHINLFbYh3HBNbiHjNx1S2SlOGLZoh/laaCwxBmTjJu21CpjO8gCjw4pZ8stlzv34dCWbK+UA82op83Z39iPmFQRk5LAMhWdIJwTgtE3yrDhogEz1rYYYlFfft2VXae1IIT+2mRI/ShJE+pfw5Wy6RXACDCRcTvzL8lqXXYaWDpqNJxnizk74gsSLMXLgSLb1F5b1CJeQ6bCJ9e9ds0CkJZ6gHRFe5Zu6UQfegPmyON6lY6kWPFO5tAi+XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V7aW5LIr7L2GSPUjs+x9CLXGgo94k6NyizG3TKtWNlo=;
+ b=gTPkM49NAQhyj5dMMDzKjxfEX2Ly8dAzaha9Y9dgMjoGChcOc6we6cOe/Iz3ZeTwtV8Ices8xqAzwmDU+hpFZL0CNHFFInLp3Nm7wUx38I4Z4hvqYiqsGWyJBpz/Wbkiie9mTdBHZ2kt87Hx5Ynms40au95FXL0OViqy170K0qgSoMXDde3o0/6g9B63ETHG/4jrTXTmie0ZHAWvUyn6qtJ0hLnwy7BOvA4RTRM5KhkOUM013ywv/Qb7pGvx8Jhf0NMooBRYsTgjrr9Ru5RWbMnFnl20VQu7w0MyjKv9JBzkCEloLChG8WEPmtnC1NQCgtn93YJ4EcA5QrjOLlRnyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com (2603:10b6:208:419::15)
+ by CH2PR11MB8814.namprd11.prod.outlook.com (2603:10b6:610:281::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Thu, 29 Oct
+ 2026 13:30:55 +0000
+Received: from IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456]) by IA1PR11MB7198.namprd11.prod.outlook.com
+ ([fe80::2c4e:e92a:4fa:a456%3]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 13:30:55 +0000
+Message-ID: <ae75bad6-ed8c-4510-9650-888bfce423f7@intel.com>
+Date: Thu, 29 Oct 2026 15:30:50 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mmc: sdhci-of-dwcmshc: downgrade HS200/HS400 clock-reduce
+ message to dev_dbg
+To: Jun Yan <jerrysteve1101@gmail.com>, Ulf Hansson <ulfh@kernel.org>
+CC: <linux-mmc@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261009084604.385664-1-jerrysteve1101@gmail.com>
+Content-Language: en-US
+From: Adrian Hunter <adrian.hunter@intel.com>
+Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park,
+ 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 -
+ 4, Domiciled in Helsinki
+In-Reply-To: <20261009084604.385664-1-jerrysteve1101@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DUZPR01CA0058.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:469::12) To IA1PR11MB7198.namprd11.prod.outlook.com
+ (2603:10b6:208:419::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,575 +136,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR11MB7198:EE_|CH2PR11MB8814:EE_
+X-MS-Office365-Filtering-Correlation-Id: 71ce3683-bb65-4ae8-d82c-08df35c0dbc6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|261028144727099003|11063799006|56012099006|261021121427099003|261009223027099003|261021123027099003|261022075727099003|261026140227099003|10067099003|261022105027099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: ul+l6gFrFVSfs2eH31pWYuGh6q5ALVUqGfkEwV/6xoyOOkf/Nu8r+lTixzGD5123mX95vSh74KoZbVs6Pfd4/nsC9EFD+AVa+gyco5PqkwuweW0o3BHMwPBHZ4xt8wgXRHrUdPJ9ETroBfw+Rxm1ADY+bOlDVbGzqoHoztcIP6NpOhCpT9IcPtMG8tLCEvyJIc6CC4BkZ4bOfo1KSdk3fVKiwMKqlSl2/CdpYPzOmC/ejrRtz/yJsVa5N0NjuWhVdkmO2CIVTwrllyUaoULMLo1M2KL0YecKH8x5AOjEFpTrnHbaas61YIwA4jqDoxRxL6+4xHOtuT4TqDzqzssC1iZgy+UzeABAjdS82jxQe4JFf/zpspmd//7DNTBBGUKPUp+VR2BWgH595qe1jFMJYbiaB/i3i+nUkw4mQlIIOln4+kZ2WIdJogn54VQ5c5Q1oXCNtGU3cWmNdDyqf4AQSAeNGf3fTOOFiRx5GMF3HezBNAWrmjtwONkRaoY6oWriloQEmwYM4AMn9yYX+hT2XDOg/whthz7BSLYD/2q08Mla0kTm7hNKsnO39+CyHSXymvuEcV9W1/1FbYpZmCK9LhYP9EZAyCotCu3ddTQc9NL6ldgEVfZPn7hhgPJdtedo4Kt9PGrupc72JUpyeCNk6nqyezf8JhsYEsIAtIfoLM8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR11MB7198.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(261028144727099003)(11063799006)(56012099006)(261021121427099003)(261009223027099003)(261021123027099003)(261022075727099003)(261026140227099003)(10067099003)(261022105027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QTR3TFVWK1FZcU4wblJRSG5yZWxzdmgvVEt6amtqc0IyZWRjNXZ0THI1QUFG?=
+ =?utf-8?B?YTNsZFBpTjZJVnVhelpZajRKd2JVL0xuQTgrMis0YitlVS9UZW0zb0RpanNC?=
+ =?utf-8?B?MDVDbC9wSHdubGlXSDYwdi9uVUNZc2NMdENhM3B4dlRpOVZkZkRZTkJzK2dJ?=
+ =?utf-8?B?MFVoSjUzclZHYStEdG1sMHluQXFaQjY2dzVQTVI4L2FvMEF4L2krZENlbUsv?=
+ =?utf-8?B?Z3l1eWM0aVR3RCtGZUhPcDFmazBpcFM2YmZpb1RvRUNRdTBZNEVSYmFaMVVU?=
+ =?utf-8?B?VEhmVVdlVVpqWVJQSGliZEtWSE9KcG9UZnpyMkt2dElGR2lka1pMTGJraWVK?=
+ =?utf-8?B?WmdFVGFPMWh2bnR1NWNJVjZ4cXJrL1dBaENMT3FiL0FCcWtndVhickZ2UlRB?=
+ =?utf-8?B?TWxGYWIzZG4wVzhnK25YbzVLR2w4OGYxY2ErQUlka3F3Z2MzMFhFdzlGYWl0?=
+ =?utf-8?B?KzlsUmo5akRWUVJKdUM1N24xenI2c3lnNWpWQUw2NkNFeW0wVGZOUjRDRmhx?=
+ =?utf-8?B?WmxiWUcvMmU3L0NQNUNGZWF4bUsvdXFwKzRqRTg2Z3JpeThWZlFtdnRZZWdz?=
+ =?utf-8?B?UTliaTBua0hHNUorQkNYUTMySnpHSVd0S0dmMnpwWW10NjVuOWhXVjZDd3oz?=
+ =?utf-8?B?NXovT0UvV05vZkthaXdXK2NVN3dLSTZjR1VEK0RVNVl2LzZnbWQ1RURuaFpW?=
+ =?utf-8?B?SUJ5eWtCMmRoUlF2WkpjMGFJTjkxNWpwT0tTZHpsZHJXOFpURjNDR3FlT3FR?=
+ =?utf-8?B?Mk1PU2VkSHo1SVdEdnJRaW9xaXBadlFaandJSHNsR1c5bDVQWG16RUxScjJL?=
+ =?utf-8?B?eGtHNkU1UktnZ2xpYmpJZ0N0cWNhVjE5VldCNmlTR05uNnNTWW5vY1Ywazlj?=
+ =?utf-8?B?WGl0czR4U0wrOEticmFWNVdFVTN4QXl5ZlEyUEQ4b3E0SUtXN28rNHhwbmgv?=
+ =?utf-8?B?aTRCOEQ5NzE3OTJZK2ZFd2J5aTUrZEx6eDAwVExLU3pQL3hWVEc0a3grRWFx?=
+ =?utf-8?B?QzFMSXZCQS81MlpXT1lwUllYMndDaDJ0M1NBc0FublNQWUgrUVFUTmxnMVRk?=
+ =?utf-8?B?aHZMYUJUdkMwNysvc3M1NHFnQk9JSmt2U1hMUTdaMnUrV21UM3Y3aldaL3E2?=
+ =?utf-8?B?U3lVK1c2ZE1oZkQycmJWOGIvM1g5S0JtK04zM2l2RHpvYksyajc0b0EzaFRQ?=
+ =?utf-8?B?MEUrbWNkVnR4V01xTFg0ZWMvZ1J6ZTFJVTRmNFJqOCtqeHhyU0ZpN1QwNjFs?=
+ =?utf-8?B?WVl5Uyszb1JJQklaL2RoeHpaM3hwdzNjcDFVTGRUSlZTQ0gzZzdHYnNmZGd6?=
+ =?utf-8?B?OWlZTW9QamxJWER3NHVPblFMSi84aWd0WWRzZllkaWoxUWJsVTVyQlhibzlt?=
+ =?utf-8?B?d0R6Y2UwRDk5bGpDVnNseG5hY0NEdkVIZFRDalRrcmNOU2RwSnM5RzNaR2pO?=
+ =?utf-8?B?NWpzcHp1ajhrV2U0RmUxT0ZpbU9YVE1VaTJqTmRLTStQUzk5SyswMjZKSVZk?=
+ =?utf-8?B?MC9EaFc3Y0w0bkQ5cGJMQXhMTnVObnlXWDM5S3RzL3RrNytFT0ZTRGF2dUdE?=
+ =?utf-8?B?T09LM1hyM0taTUQvbkZaakhEOUlGVkVwZmhNalBrcy9vT0txbjdSYmJRNkc2?=
+ =?utf-8?B?emFkWDEraHVzcWJqQWNKUkZjb2Z5d1ZTRXQxWHpVMHlNcGQ5OEQ3dE5KM3ho?=
+ =?utf-8?B?d2xvbE84eExOWHBwcUlNUjdvb0dHdVQybmFxeEoxb0RWc3ptSTdBcmtlb0Zz?=
+ =?utf-8?B?Ri9vRjMwUTJNcWpvTHNGYm8wMTBPSm9XZXp3Y2ZRKzFvTnRoU1FndTRXTDF1?=
+ =?utf-8?B?YU1Jc3NGZDNZaXMyYlo0VUR1TjFhU2dJMytUd2w5WlN5WENoeHhSdWdQY016?=
+ =?utf-8?B?SjU5TXU0Q2pCUis1czRTV1FIeVAra0xQS2JZK1NxemlleWdCU1VYZHdteTM2?=
+ =?utf-8?B?Zi9QU3NVY1ROVjRzMkdCQWJ6SW1ucnVYZnc1VGgwdzl3b3F4ZDZtRGVMRXBI?=
+ =?utf-8?B?QXlFWldyVU1HYTN0MjcvcmRxaUZRc1k3Z2l5NzVFaUsremFNTUkyVHlVMWVo?=
+ =?utf-8?B?clp2a3dTQzJqc3pZbEp2Q3pwUkZuTDZvMXZadzNzUW1YdW5ORWx5V2JBSUJH?=
+ =?utf-8?B?VnZwVlEyYkNTMU1XdHFGVVV3ODAzUi9lNzBHaHRHSHZiNm0rRHlsOXlSQ1d1?=
+ =?utf-8?B?eW9qU01sSk9KUmtIRzZHV3cwc1IycEtSNmlXZGdTVC9ORHVERFl1Z3k2azR3?=
+ =?utf-8?B?QjJMMGZJR3FMUXo0NWhwRmFwVHlJY1NSRGtJRGJxU1ZNdldMeFBKY1ZlQTZV?=
+ =?utf-8?B?MnJLekdMcDNiQTRCOUtja1E5R1V0RTNqMC9ua1BsVWJ4VU9zY010ZTdsRnNh?=
+ =?utf-8?Q?cjsMnx47joaS+CWc=3D?=
+X-Exchange-RoutingPolicyChecked: v6LxELiBzOmVT3J3YRKvgrvzEY9u6pYjAO8/lI5YEOTxBED6cy5d6sH9OF8vEaq/I2SmaFeZVeuuOZkY8Ndh3Fwvivo7iWywZwaVyQ6I6NxpHihkKEO5ObBCFA7z1N0lRCLW08LplszjfqQ0DucZ9z93si2QhkpyC8k+8ZkGbf1jh4QRSx8d7ejLSbXmatVXAlSHv29/FRviI8pBr1edeMyZ7OD5B+EgjXF6wgkLDgPKiQzPveFPuxwzp/VNi6Ra9sGvpO3JX1bldKwDauFhRbE/smCHAkX+2KUzIsd8e1tLDDIJgebtIHUONaA/a+Z/lB7a5gMasP6RqcpvmL890w==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71ce3683-bb65-4ae8-d82c-08df35c0dbc6
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR11MB7198.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 13:30:55.0870
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JuqLmDU7wFxiDTBMApu8iDDYy5VzmPpfk2nfKj1YL14CLdAUrYAPyaKRhCUUc11ACq2/hDHT3fQFrQqLqV6YSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR11MB8814
+X-OriginatorOrg: intel.com
 
-Add the zh_CN translation of process/changes.rst.
+On 09/10/2026 11:46, Jun Yan wrote:
+> dwcmshc_rk3568_set_clock() refuses to lower the bus clock below 52 MHz
+> when the eMMC is in HS200/HS400 mode, since those modes require a
+> minimum 52 MHz bus clock.  This is expected behaviour, but it is
+> currently reported at dev_err level and therefore fires on every boot
+> and on every suspend/resume cycle, cluttering the kernel log.
+> 
+> Demote the message to dev_dbg so it stays out of the default log while
+> remaining available via dynamic debug.
+> 
+> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
 
-Update the translation through commit fd5425b67355
-("docs, resolve_btfids: Document kfunc BTF annotation emission")
+Acked-by: Adrian Hunter <adrian.hunter@intel.com>
 
-Signed-off-by: Jiandong Qiu <qiujiandong1998@gmail.com>
----
- .../translations/zh_CN/process/changes.rst    | 528 ++++++++++++++++++
- .../translations/zh_CN/process/index.rst      |   2 +-
- 2 files changed, 529 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/translations/zh_CN/process/changes.rst
-
-diff --git a/Documentation/translations/zh_CN/process/changes.rst b/Documentation/translations/zh_CN/process/changes.rst
-new file mode 100644
-index 000000000000..f709f1742981
---- /dev/null
-+++ b/Documentation/translations/zh_CN/process/changes.rst
-@@ -0,0 +1,528 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+.. include:: ../disclaimer-zh_CN.rst
-+
-+:Original: Documentation/process/changes.rst
-+
-+:翻译: 裘剑东 Jiandong Qiu <qiujiandong1998@gmail.com>
-+
-+==================
-+编译内核的最小需求
-+==================
-+
-+引言
-+====
-+
-+本文旨在给出运行当前内核版本所需的最低软件版本列表。
-+
-+本文最初基于 Linus 为 2.0.x 内核编写的 “Changes” 文件，因此也应将功劳归于
-+与该文件相关的同一批人（Jared Mauch、Axel Boldt、Alessandro Sigala，
-+以及互联网上无数其他用户）。
-+
-+当前最低需求
-+------------
-+
-+在认为自己碰到了一个bug之前，请先至少升级到以下软件版本。
-+如果你不确定当前运行的版本，建议使用右侧命令进行检查。
-+若要列出系统中的程序及其版本，请执行 ``./scripts/ver_linux``
-+
-+再次提醒，本列表假定你已经能够正常运行一个Linux内核。另外，
-+并非所有工具在所有系统上都是必需的；例如，如果你的机器没有任何
-+PC Card硬件，那么大概无需关心 pcmciautils。
-+
-+====================== ===============  ========================================
-+        程序             最低版本              版本检查命令
-+====================== ===============  ========================================
-+bash                   4.2              bash --version
-+bc                     1.06.95          bc --version
-+bindgen（可选）        0.71.1           bindgen --version
-+binutils               2.30             ld -v
-+bison                  2.0              bison --version
-+btrfs-progs            0.18             btrfs --version
-+Clang/LLVM（可选）     17.0.1           clang --version
-+e2fsprogs              1.41.4           e2fsck -V
-+flex                   2.5.35           flex --version
-+gdb                    7.2              gdb --version
-+GNU awk（可选）        5.1.0            gawk --version
-+GNU C                  8.1              gcc --version
-+GNU make               4.0              make --version
-+GNU tar                1.28             tar --version
-+GRUB                   0.93             grub --version || grub-install --version
-+gtags（可选）          6.6.5            gtags --version
-+iptables               1.4.2            iptables -V
-+jfsutils               1.1.3            fsck.jfs -V
-+kmod                   13               kmod -V
-+mcelog                 0.6              mcelog --version
-+mkimage（可选）        2017.01          mkimage --version
-+nfs-utils              1.0.5            showmount --version
-+openssl & libcrypto    1.0.0            openssl version
-+pahole                 1.26             pahole --version
-+pcmciautils            004              pccardctl -V
-+PPP                    2.4.0            pppd --version
-+procps                 3.2.0            ps --version
-+Python                 3.9.x            python3 --version
-+quota-tools            3.09             quota -V
-+Rust（可选）           1.85.0           rustc --version
-+Sphinx\ [#f1]_         3.4.3            sphinx-build --version
-+squashfs-tools         4.0              mksquashfs -version
-+udev                   081              udevadm --version
-+util-linux             2.10o            mount --version
-+xfsprogs               2.6.0            xfs_db -V
-+====================== ===============  ========================================
-+
-+.. [#f1] Sphinx 仅在构建内核文档时需要
-+
-+内核编译
-+--------
-+
-+GCC
-+~~~
-+
-+gcc 的版本要求可能会因你计算机中CPU的类型不同而有所变化。
-+
-+Clang/LLVM（可选）
-+~~~~~~~~~~~~~~~~~~
-+
-+clang和LLVM工具的最新正式发行版（依据
-+`releases.llvm.org <https://releases.llvm.org>`_）支持用于构建内核。
-+较旧版本并不保证可用，我们也可能移除内核中为支持旧版而加入的兼容性处理。
-+更多信息请参阅 Documentation/translations/zh_CN/kbuild/llvm.rst
-+
-+Rust（可选）
-+~~~~~~~~~~~~
-+
-+需要较新的 Rust 编译器版本。
-+
-+关于如何满足 Rust 支持的构建需求，请参阅
-+Documentation/translations/zh_CN/rust/quick-start.rst。其中，``Makefile`` 目标
-+``rustavailable`` 可用于检查 Rust 工具链为何未被检测到。
-+
-+bindgen（可选）
-+~~~~~~~~~~~~~~~
-+
-+``bindgen`` 用于为内核的 C 侧生成Rust绑定。它依赖 ``libclang``。
-+
-+Make
-+~~~~
-+
-+要构建内核，你需要 GNU make 4.0 或更高版本。
-+
-+Bash
-+~~~~
-+
-+内核构建会使用一些 bash 脚本。需要 Bash 4.2 或更新版本。
-+
-+Binutils
-+~~~~~~~~
-+
-+构建内核需要 Binutils 2.30 或更新版本。
-+
-+pkg-config
-+~~~~~~~~~~
-+
-+从 Linux 4.18 起，构建系统需要 pkg-config 来检查已安装的 kconfig 工具，并确定用于
-+'make {g,x}config' 的标志设置。此前虽然已经在使用 pkg-config，
-+但并未进行检查或文档说明。
-+
-+Flex
-+~~~~
-+
-+自 Linux 4.16 起，构建系统会在构建过程中生成词法分析器。这需要
-+flex 2.5.35 或更高版本。
-+
-+
-+Bison
-+~~~~~
-+
-+自 Linux 4.16 起，构建系统会在构建过程中生成语法解析器。这需要 bison 2.0
-+或更高版本。
-+
-+pahole
-+~~~~~~
-+
-+自 Linux 5.2 起，如果选择了 CONFIG_DEBUG_INFO_BTF，构建系统会从 vmlinux 中的
-+DWARF 生成 BTF（BPF Type Format），稍后也会为内核模块生成。这需要 pahole
-+v1.22 或更高版本。
-+
-+它可从发行版中的 'dwarves' 或 'pahole' 软件包获得，或从
-+https://fedorapeople.org/~acme/dwarves/ 获取。
-+
-+Perl
-+~~~~
-+
-+要构建内核，你需要 perl 5 以及以下模块：``Getopt::Long``、
-+``Getopt::Std``、``File::Basename`` 和 ``File::Find``。
-+
-+Python
-+~~~~~~
-+
-+若干配置选项需要它：例如 arm/arm64 默认配置、CONFIG_LTO_CLANG、某些
-+DRM 可选配置、kernel-doc 工具以及文档构建（Sphinx）等。
-+
-+BC
-+~~
-+
-+构建 3.10 及以上版本内核时需要 bc。
-+
-+
-+OpenSSL
-+~~~~~~~
-+
-+模块签名和外部证书处理使用OpenSSL程序及其加密库来创建密钥并生成签名。
-+
-+如果启用了模块签名，那么构建 3.7 及以上版本内核时需要 openssl。构建
-+4.3 及以上版本内核时，还需要 openssl 的开发包。
-+
-+Tar
-+~~~
-+
-+如果你想通过 sysfs 启用对内核头文件的访问（CONFIG_IKHEADERS），则需要 GNU tar。
-+
-+gtags / GNU GLOBAL（可选）
-+~~~~~~~~~~~~~~~~~~~~~~~~~~
-+
-+内核构建要求 GNU GLOBAL 版本 6.6.5 或更高，以便通过 ``make gtags``
-+生成标签文件。这是因为它使用了 gtags 的 ``-C (--directory)`` 选项。
-+
-+mkimage
-+~~~~~~~
-+
-+该工具用于构建 Flat Image Tree（FIT），常见于 ARM 平台。该工具可通过
-+``u-boot-tools`` 软件包获得，也可以从 U-Boot 源码构建。详见
-+https://docs.u-boot.org/en/latest/build/tools.html#building-tools-for-linux
-+
-+GNU AWK
-+~~~~~~~
-+
-+如果你希望内核构建为内建模块生成地址范围数据（CONFIG_BUILTIN_MODULE_RANGES），
-+则需要GNU AWK。
-+
-+系统工具
-+--------
-+
-+架构方面的变化
-+~~~~~~~~~~~~~~
-+
-+DevFS 已被废弃，转而使用 udev
-+（https://www.kernel.org/pub/linux/utils/kernel/hotplug/）
-+
-+现在已经支持 32 位 UID。尽情享用！
-+
-+Linux 中函数的文档正在转向以内联文档形式存在，即在源码定义附近使用特殊格式的
-+注释。这些注释可以与 Documentation/ 目录中的 ReST 文件结合，生成更丰富的文档，
-+随后可以再转换为 PostScript、HTML、LaTex、ePUB 和 PDF 文件。若要将 ReST
-+格式转换为你所需的格式，需要Sphinx。
-+
-+Util-linux
-+~~~~~~~~~~
-+
-+较新的 util-linux 版本为更大容量磁盘提供 ``fdisk`` 支持，支持更多的 mount 选项，
-+识别更多分区类型，以及其他类似改进。你大概会想升级它。
-+
-+Ksymoops
-+~~~~~~~~
-+
-+如果发生了最糟糕的情况，内核出现 oops，你可能需要 ksymoops 工具来解码它，
-+但在大多数情况下并不需要。通常更推荐在构建内核时启用 ``CONFIG_KALLSYMS``，
-+这样可以产生可直接使用的可读转储（而且输出比 ksymoops 更好）。
-+如果由于某种原因你的内核不是以 ``CONFIG_KALLSYMS`` 构建的，
-+并且你也没有办法重新构建并在启用该选项的情况下重新复现Oops，
-+那么你仍然可以使用 ksymoops 对该 Oops 进行解码。
-+
-+Mkinitrd
-+~~~~~~~~
-+
-+``/lib/modules`` 文件树布局的这些变化同样要求升级 mkinitrd。
-+
-+E2fsprogs
-+~~~~~~~~~
-+
-+最新版 ``e2fsprogs`` 修复了 fsck 和 debugfs 中的若干bug。显然，升级它是个好主意。
-+
-+JFSutils
-+~~~~~~~~
-+
-+``jfsutils`` 软件包包含该文件系统的工具。可用工具如下：
-+
-+ - ``fsck.jfs`` - 启动事务日志重放，并检查和修复 JFS 格式分区。
-+ - ``mkfs.jfs`` - 创建 JFS 格式分区。
-+ - 该软件包中还提供了其他文件系统工具。
-+
-+Xfsprogs
-+~~~~~~~~
-+
-+最新版 ``xfsprogs`` 包含 ``mkfs.xfs``、``xfs_db`` 和 ``xfs_repair`` 等
-+XFS文件系统工具。它与架构无关，2.0.0 及以上的任何版本都应能与当前版本的
-+XFS内核代码正常配合使用（推荐 2.6.0 或更高版本，因为其包含一些重要改进）。
-+
-+PCMCIAutils
-+~~~~~~~~~~~
-+
-+PCMCIAutils取代了 ``pcmcia-cs``。它会在系统启动时正确设置 PCMCIA插槽；
-+如果内核采用模块化并使用了 hotplug 子系统，它还会为16位PCMCIA设备加载相应模块。
-+
-+Quota-tools
-+~~~~~~~~~~~
-+
-+如果你想使用较新的 version 2 配额格式，就需要支持 32 位 uid 和 gid。
-+Quota-tools 3.07 及更新版本提供了该支持。请使用上表中推荐版本或更新版本。
-+
-+Intel IA32 微码
-+~~~~~~~~~~~~~~~
-+
-+新增了一个驱动，可用于更新 Intel IA32 微码，并以普通（misc）
-+字符设备的形式提供访问。如果你没有使用udev，则在使用前可能需要以root身份执行::
-+
-+  mkdir /dev/cpu
-+  mknod /dev/cpu/microcode c 10 184
-+  chmod 0644 /dev/cpu/microcode
-+
-+你可能还会希望获取用户空间的 microcode_ctl 工具来配合使用。
-+
-+udev
-+~~~~
-+
-+``udev`` 是一个用户空间程序，用于动态填充 ``/dev``，
-+仅为实际存在的设备创建设备节点。``udev`` 替代了 devfs 的基本功能，
-+同时允许为设备提供持久化命名。
-+
-+FUSE
-+~~~~
-+
-+需要 libfuse 2.4.0 或更高版本。绝对最低要求是 2.3.0，但 mount 选项
-+``direct_io`` 和 ``kernel_cache`` 将无法工作。
-+
-+网络
-+----
-+
-+通用变化
-+~~~~~~~~
-+
-+如果你有较复杂的网络配置需求，应该考虑使用 ip-route2 中的网络工具。
-+
-+包过滤 / NAT
-+~~~~~~~~~~~~
-+
-+数据包过滤和 NAT 代码使用的工具与此前的 2.4.x 内核系列相同（iptables）。
-+它仍然包含与 2.2.x 风格 ipchains 以及 2.0.x 风格ipfwadm 的向后兼容模块。
-+
-+PPP
-+~~~
-+
-+PPP 驱动已经过重构，以支持 multilink 并使其能够运行在多种介质层之上。如
-+果你使用 PPP，请将 pppd 至少升级到2.4.0。
-+
-+如果你没有使用 udev，则必须拥有设备文件 /dev/ppp，可以通过以下命令创建::
-+
-+  mknod /dev/ppp c 108 0
-+
-+需要以 root 身份执行。
-+
-+NFS-utils
-+~~~~~~~~~
-+
-+在很早期的内核（2.4 及更早版本）中，nfs 服务器需要知道哪些客户端希望通
-+过 NFS 访问文件。这些信息会在客户端挂载文件系统时由 ``mountd`` 提供
-+给内核，或者在系统启动时由 ``exportfs`` 提供。exportfs 会从
-+``/var/lib/nfs/rmtab`` 中获取活跃客户端信息。
-+
-+这种方法相当脆弱，因为它依赖于 rmtab 的正确性，而这并不总是容易保证，
-+尤其是在尝试实现故障切换时。即便系统运行正常，``rmtab``
-+也会积累大量从未被移除的旧条目。
-+
-+在现代内核中，我们可以选择让内核在收到未知主机请求时通知 mountd，
-+再由 mountd 将合适的导出信息提供给内核。这样就不再依赖 ``rmtab``，
-+并且内核只需要知道当前活跃的客户端。
-+
-+要启用这一新功能，你需要在运行 exportfs 或 mountd 之前执行::
-+
-+  mount -t nfsd nfsd /proc/fs/nfsd
-+
-+建议尽可能使用防火墙将所有NFS服务与公共互联网隔离。
-+
-+mcelog
-+~~~~~~
-+
-+在x86内核上，如果启用了 ``CONFIG_X86_MCE``，则需要 mcelog 工具来处理和
-+记录机器检查事件。机器检查事件是CPU报告的错误，强烈建议对其进行处理。
-+
-+内核文档
-+--------
-+
-+Sphinx
-+~~~~~~
-+
-+关于Sphinx需求的详细信息，请参阅
-+Documentation/translations/zh_CN/doc-guide/sphinx.rst 中的 :ref:`sphinx_install_zh`。
-+
-+rustdoc
-+~~~~~~~
-+
-+``rustdoc`` 用于为 Rust 代码生成文档。更多信息请参阅
-+Documentation/translations/zh_CN/rust/general-information.rst。
-+
-+获取更新的软件
-+==============
-+
-+内核编译
-+--------
-+
-+gcc
-+~~~
-+
-+- <ftp://ftp.gnu.org/gnu/gcc/>
-+
-+Clang/LLVM
-+~~~~~~~~~~
-+
-+- :ref:`获取 LLVM <zh_cn_getting_llvm>`。
-+
-+Rust
-+~~~~
-+
-+- Documentation/translations/zh_CN/rust/quick-start.rst。
-+
-+bindgen
-+~~~~~~~
-+
-+- Documentation/translations/zh_CN/rust/quick-start.rst。
-+
-+Make
-+~~~~
-+
-+- <ftp://ftp.gnu.org/gnu/make/>
-+
-+Bash
-+~~~~
-+
-+- <ftp://ftp.gnu.org/gnu/bash/>
-+
-+Binutils
-+~~~~~~~~
-+
-+- <https://www.kernel.org/pub/linux/devel/binutils/>
-+
-+Flex
-+~~~~
-+
-+- <https://github.com/westes/flex/releases>
-+
-+Bison
-+~~~~~
-+
-+- <ftp://ftp.gnu.org/gnu/bison/>
-+
-+OpenSSL
-+~~~~~~~
-+
-+- <https://www.openssl.org/>
-+
-+系统工具
-+--------
-+
-+Util-linux
-+~~~~~~~~~~
-+
-+- <https://www.kernel.org/pub/linux/utils/util-linux/>
-+
-+Kmod
-+~~~~
-+
-+- <https://www.kernel.org/pub/linux/utils/kernel/kmod/>
-+- <https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git>
-+
-+Ksymoops
-+~~~~~~~~
-+
-+- <https://www.kernel.org/pub/linux/utils/kernel/ksymoops/v2.4/>
-+
-+Mkinitrd
-+~~~~~~~~
-+
-+- <https://code.launchpad.net/initrd-tools/main>
-+
-+E2fsprogs
-+~~~~~~~~~
-+
-+- <https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/>
-+- <https://git.kernel.org/pub/scm/fs/ext2/e2fsprogs.git/>
-+
-+JFSutils
-+~~~~~~~~
-+
-+- <https://jfs.sourceforge.net/>
-+
-+Xfsprogs
-+~~~~~~~~
-+
-+- <https://git.kernel.org/pub/scm/fs/xfs/xfsprogs-dev.git>
-+- <https://www.kernel.org/pub/linux/utils/fs/xfs/xfsprogs/>
-+
-+Pcmciautils
-+~~~~~~~~~~~
-+
-+- <https://www.kernel.org/pub/linux/utils/kernel/pcmcia/>
-+
-+Quota-tools
-+~~~~~~~~~~~
-+
-+- <https://sourceforge.net/projects/linuxquota/>
-+
-+
-+Intel P6 微码
-+~~~~~~~~~~~~~
-+
-+- <https://downloadcenter.intel.com/>
-+
-+udev
-+~~~~
-+
-+- <https://www.freedesktop.org/software/systemd/man/udev.html>
-+
-+FUSE
-+~~~~
-+
-+- <https://github.com/libfuse/libfuse/releases>
-+
-+mcelog
-+~~~~~~
-+
-+- <https://www.mcelog.org/>
-+
-+网络
-+----
-+
-+PPP
-+~~~
-+
-+- <https://download.samba.org/pub/ppp/>
-+- <https://git.ozlabs.org/?p=ppp.git>
-+- <https://github.com/paulusmack/ppp/>
-+
-+NFS-utils
-+~~~~~~~~~
-+
-+- <https://sourceforge.net/project/showfiles.php?group_id=14>
-+- <https://nfs.sourceforge.net/>
-+
-+Iptables
-+~~~~~~~~
-+
-+- <https://netfilter.org/projects/iptables/index.html>
-+
-+Ip-route2
-+~~~~~~~~~
-+
-+- <https://www.kernel.org/pub/linux/utils/net/iproute2/>
-+
-+OProfile
-+~~~~~~~~
-+
-+- <https://oprofile.sf.net/download/>
-+
-+内核文档
-+--------
-+
-+Sphinx
-+~~~~~~
-+
-+- <https://www.sphinx-doc.org/>
-diff --git a/Documentation/translations/zh_CN/process/index.rst b/Documentation/translations/zh_CN/process/index.rst
-index 3a36ca7d9333..15f8347bf1a0 100644
---- a/Documentation/translations/zh_CN/process/index.rst
-+++ b/Documentation/translations/zh_CN/process/index.rst
-@@ -61,6 +61,7 @@ TODOLIST:
- .. toctree::
-    :maxdepth: 1
- 
-+   changes
-    stable-api-nonsense
-    management-style
-    stable-kernel-rules
-@@ -69,7 +70,6 @@ TODOLIST:
- 
- TODOLIST:
- 
--* changes
- * kernel-docs
- * deprecated
- * maintainers
--- 
-Jiandong Qiu <qiujiandong1998@gmail.com>
+> ---
+>  drivers/mmc/host/sdhci-of-dwcmshc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/mmc/host/sdhci-of-dwcmshc.c b/drivers/mmc/host/sdhci-of-dwcmshc.c
+> index c688f3eaf468..b4fb1c1e6d99 100644
+> --- a/drivers/mmc/host/sdhci-of-dwcmshc.c
+> +++ b/drivers/mmc/host/sdhci-of-dwcmshc.c
+> @@ -790,7 +790,7 @@ static void dwcmshc_rk3568_set_clock(struct sdhci_host *host, unsigned int clock
+>  	if (clock <= 52000000) {
+>  		if (host->mmc->ios.timing == MMC_TIMING_MMC_HS200 ||
+>  		    host->mmc->ios.timing == MMC_TIMING_MMC_HS400) {
+> -			dev_err(mmc_dev(host->mmc),
+> +			dev_dbg(mmc_dev(host->mmc),
+>  				"Can't reduce the clock below 52MHz in HS200/HS400 mode");
+>  			goto enable_clk;
+>  		}
 
