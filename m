@@ -1,150 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267956;
-	b=qC+DeaQWe8KgPlAP+xLri4uyNlILqRHfmDcZ98GSVrmyvuOLG5ltow5AXlKyBYDXXAgS
-	 juEXp6z1Ee+cH+TE/JgqBV97E/lzxpdI4kZyif8RzhGLiKjUMaiABXCvEFcHLJRVak/SO
-	 NMnHI75TZrnNtTdfd4lQ+8G4VSM3Feq2h30YmOkd79PZYLyKWgBgxGyDfW+ViU0MTl0JP
-	 Xehqdn6YmYNeHXLrjD/vm3Y2xeKonssVF4s+hX5znXBGzlNH/MZ9+ZdOdl/D+uDmxToU4
-	 4B24dfSOPXhgjxG15HDaNSyJnsJrSWlrqmW4jO5Xp90okzH01PfZ7HXfNmZtWlTQwXw==
+	t=1793267980;
+	b=DY+QIdnJyoJB02dgT4xNCZ4pKodxUoTPIHN6c7cxkUK0YFzn5iTk9qR/TQm7+/f9aSLl
+	 qGulkKSZlmLQgTlHjKmcLL+ZBXis+QGepUksN5sNKN0g/sBdzEyeAd9l/5+O/7A+ou1Oo
+	 A+hOwOHB7dYWJoOPsO0n85JsO+4reFX+iZBJ5Tco2WViCwktzMv5lKUIqP/Qn28jW7uHK
+	 QuT7m4lfGuziQMM53IX58VdcG0xZpaTM4V3JA4Q5Szlbn+TRJLyNkQNqCbOJyn8IqINyM
+	 vmUr5YSEAkG4bT17NbxZ5gFwc8BWCtBQL6vsNF4dVgjaw4p3Rngsedy/YaiXSmnFlCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267956;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TzR0iS7QHEr3XjS3VyvSCg4YGglik9yLN4DV8S4aDGQ=;
-	b=MTcuQz7z6BxvRa31Bi96GmR9NQr5ImZpkCM0eM85K90ka3+ZJdpfR+zavFTnX48MBv1S
-	 Ci8C59r1308vDQukdgkaESAm+f8xsr3y3G7wgFYVVeLGefACpP1m1EWiA+E/GH+F70arj
-	 W+kalYrtflk1fexNbYak+pQNrWLNn7l04dK7gebV3gmaMBRnifbshuVLfpzHI0AXl846u
-	 E66XbcQ7G/pUu/fCUmnzhcguFuIrgVdjwXO7s+RPg4JltQzWhTSQHLqMPD1VA0cbTxdr7
-	 7sEnqNAi6EK5vUGoKrmRLbq9d1QLu03AkSyuLZ22+URtfm45OJll0g5cW5Om0/SQDXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267980;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=U99SJ7R4mLLxhW7B2LnKG47mwU6pah+xCFdx+p50og8=;
+	b=QODNXddUwnZFtr5LY+UfNMsW/abzckRdfKMwUkJYcFtZKOkhozQsmk9IhcshOS69Ju8r
+	 kkf8hZvpVf8/9Sr9dCgCFNmyY3aO+0JB/afm5Awke8h01ajznKdiBWUsIuOdPzD3+GAR1
+	 bkeHTZNSmiMEQy+T+tBYU8N01g8Wlbd0j0bw5tJFvPBz5Jwsyb6WEvZsL7e/uHK1Q/hpx
+	 Wl3V9kmWt0uQk8S4Yk8dMwH6i51maW6sO/aVe2pNKLfiofYjdxnfQBt7gLDLnxpQRDOic
+	 wUEsHnsmLV9q1tZAChNlt/IxNfRkv2AGVTHZ2HaIYZu1yhDvOlXR5Gjg2mc2yrWnDSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lkHYOsCT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zix5f4Ae;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5619B606A31D;
-	Thu, 29 Oct 2026 09:59:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6069F606A329;
+	Thu, 29 Oct 2026 09:59:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lkHYOsCT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4570B1F01829;
-	Thu, 29 Oct 2026 09:58:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zix5f4Ae
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C9E1F01825;
+	Thu, 29 Oct 2026 09:59:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793267955;
-	bh=TzR0iS7QHEr3XjS3VyvSCg4YGglik9yLN4DV8S4aDGQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lkHYOsCTkFVL1U8yRfvPJ5LQM5O66jziEjdl0fS4qhg5XrAwQZiZAIcO+FkL8Uee6
-	 LEF1qMxPTYsF45eiNTGuIRhd1orc6LRJa2TrGpcx/oqhyiZ8UrhWHcoE5O230LvGwU
-	 Z8m5FBeVHmK3RzUCBBmTRRYUtwLYKwiaMwWTyAzFIqRZmCwnXZcS/AnXFvVUNSN/52
-	 oIG3H2hmGhCVc7oxGv/JEbteBqLgLY97KfSXyuemp5dfN8ZO25PCwQbXNBAIuoYfbD
-	 cIRTgtWLTo1n5pVfgUc9hwVpoSrHgSsAkrVRczOUN+dLo4bmpH3m140Y7raMV9s1sY
-	 7Ola2pOJMfgHw==
-From: Philipp Stanner <phasta@kernel.org>
-To: Min Ma <mamin506@gmail.com>,
-	Lizhi Hou <lizhi.hou@amd.com>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Karol Wachowski <karol.wachowski@linux.intel.com>,
-	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Felix Kuehling <Felix.Kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Russell King <linux+etnaviv@armlinux.org.uk>,
-	Christian Gmeiner <christian.gmeiner@gmail.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Alessio Belle <alessio.belle@imgtec.com>,
-	Luigi Santivetti <luigi.santivetti@imgtec.com>,
-	Qiang Yu <yuq825@gmail.com>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	=?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Dave Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Natalie Vock <nat@pixelcluster.dev>,
-	Arun Pravin <arunpravin.paneerselvam@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Melissa Wen <mwen@igalia.com>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Zack Rusin <zack.rusin@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sunil Khatri <sunil.khatri@amd.com>,
-	Kees Cook <kees@kernel.org>,
-	Jesse Zhang <jesse.zhang@amd.com>,
-	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
-	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
-	Kexin Sun <kexinsun@smail.nju.edu.cn>,
-	Prike Liang <Prike.Liang@amd.com>,
-	David Rosca <david.rosca@amd.com>,
-	Krzysztof Karas <krzysztof.karas@intel.com>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Shixiong Ou <oushixiong@kylinos.cn>,
-	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
-	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
-	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Neill Kapron <nkapron@google.com>,
-	Michael Bommarito <michael.bommarito@gmail.com>,
-	Sam Day <me@samcday.com>,
-	Gabriel Prostitis <prostitisgabriel@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	amd-gfx@lists.freedesktop.org,
-	etnaviv@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org,
-	imagination@lists.freedesktop.org,
-	lima@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org,
-	freedreno@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	spice-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	linux-tegra@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Subject: [RFC PATCH 2/6] dma-buf: dma-fence: Add flag for using 64-bit seqnos
-Date: Thu, 29 Oct 2026 10:55:39 +0100
-Message-ID: <20261029095542.1526750-5-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261029095542.1526750-3-phasta@kernel.org>
-References: <20261029095542.1526750-3-phasta@kernel.org>
+	s=k20260515; t=1793267980;
+	bh=U99SJ7R4mLLxhW7B2LnKG47mwU6pah+xCFdx+p50og8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Zix5f4AeG0b26CGKytIaRSw6ZEc3BYP6FNOflQjshf6oQ3fBYtCcKvD418n2O4idD
+	 VkC/KPqEkvzykEwu922IObYnxERDc7XkUgobdi8UU/njPjCnkOeMYsps1ZutSRPHjC
+	 NglNsTidAbDJJpEd+mFmX4esNqh/qJDQs5Iscg94kEYA9TK7o3+hcpNKOXI3l2uXHE
+	 uosyFJHk1JYglJomqxSnJlTghv5bHaGCcCFZlaG0/KesU7nluOqQeCvyb7UueHTHgb
+	 o78V8/RjkWyjJux2U3iC9Dlb0a8P9ffNnfw3DyjkFsxHxmgQ/jPHwLIp72Av380LX6
+	 yNYLu/4sTdw/A==
+Message-ID: <1fc0caa5-43b1-487f-94cf-0d1aff4c03fd@kernel.org>
+Date: Thu, 29 Oct 2026 10:59:33 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -154,53 +51,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm: page_alloc: do not give all non-blocking requests
+ reserve access
+Content-Language: en-US
+To: Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@lst.de>
+Cc: Salvatore Dipietro <dipiets@amazon.it>, hannes@cmpxchg.org,
+ abuehaze@amazon.com, alisaidi@amazon.com, blakgeof@amazon.com,
+ brauner@kernel.org, brendan.jackman@linux.dev, david@redhat.com,
+ dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, linux-xfs@vger.kernel.org, matt@readmodwrite.com,
+ mhocko@suse.com, ritesh.list@gmail.com, rvvandan@amazon.com,
+ stable@vger.kernel.org, surenb@google.com, willy@infradead.org,
+ ziy@nvidia.com
+References: <arFBr22V60BMmVpl@cmpxchg.org>
+ <20261027150002.318916-1-dipiets@amazon.it> <20261028144148.GA14023@lst.de>
+ <20261028225517.75e13881be22461a8c94e07d@linux-foundation.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20261028225517.75e13881be22461a8c94e07d@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-dma_fence_init() now has its own flag field for user options. Use this
-field to enable 64-bit seqno support through a dedicated field.
+On 10/29/26 06:55, Andrew Morton wrote:
+> On Wed, 28 Oct 2026 15:41:48 +0100 Christoph Hellwig <hch@lst.de> wrote:
+> 
+>> On Tue, Oct 27, 2026 at 03:00:02PM +0000, Salvatore Dipietro wrote:
+>> > 
+>> > Hi Johannes,
+>> > 
+>> > Vlastimil asked that v6 of my page_alloc patch [1] not go to mainline
+>> > before these two patches land, so Andrew parked v6 at the tail of
+>> > mm-unstable and dropped its Cc: stable until then.
+>> > 
+>> > Are you still planning to work on 1/2 and 2/2, and if so, do you have
+>> > a rough ETA? Or would you rather post them as a separate series as
+>> > they are? If anything is needed on my side to move them forward, I'm
+>> > happy to help.
+>> > 
+>> > For what it's worth, I ran both stacked under v6 on v7.3-rc1 and saw
+>> > no performance difference on my benchmark with or without them.
+>> 
+>> It would be really important to get some fix for this into 7.3.
+>> We can still perfect it later.
+> 
+> What is "this"?  You're referring to the performance regression which
+> Salvatore's "mm/page_alloc: avoid direct reclaim and compaction for
+> costly __GFP_NORETRY allocations" addresses?
+> 
+> In
+> https://lore.kernel.org/all/9f415dc7-adad-4161-b20d-7c3173f50ff3@kernel.org/
+> vbabka indicated that Fixes: 281dd25c1a01 is needed on that patch.  The
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/dma-buf/dma-fence.c | 8 +++++++-
- include/linux/dma-fence.h   | 4 +++-
- 2 files changed, 10 insertions(+), 2 deletions(-)
+"that patch" being Johannes's and the v2 you picked up has it
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index a640fb99f942..b11ee52a40d8 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -1114,7 +1114,13 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
- 	       spinlock_t *lock, u64 context, u64 seqno,
- 	       unsigned long init_flags)
- {
--	__dma_fence_init(fence, ops, lock, context, seqno, 0);
-+	unsigned long fence_flag_bits = 0;
-+
-+	/* Mapp the init_flags to the fence-internal flags. */
-+	if (test_bit(DMA_FENCE_INIT_FLAG_SEQNO64, &init_flags))
-+		set_bit(DMA_FENCE_FLAG_SEQNO64_BIT, &fence_flag_bits);
-+
-+	__dma_fence_init(fence, ops, lock, context, seqno, fence_flag_bits);
- }
- EXPORT_SYMBOL(dma_fence_init);
- 
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 0cb425f7d5e9..6654bcc2441f 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -123,9 +123,11 @@ enum dma_fence_flag_bits {
-  *
-  * These flags can be passed in dma_fence_init().
-  *
-- * DMA_FENCE_FLAG_SEQNO64_BIT - use 64-bit sequence numbers
-+ * @DMA_FENCE_INIT_FLAG_SEQNO64: Use 64-bit sequence numbers.
-  */
- enum dma_fence_init_flags {
-+	DMA_FENCE_INIT_FLAG_SEQNO64,
-+
- 	/* Must always be last member. */
- 	DMA_FENCE_INIT_FLAG_NR_OF_FLAGs,
- };
--- 
-2.56.0
+> patch I'm sitting on (below) has Fixes: 5d8edfb900d5.  Please clarify.
+
+It's correct.
+
+> In
+> https://lore.kernel.org/all/c6e2c1e1-a285-406e-a2b6-c09e05df91d8@kernel.org/
+> vbabka argued that Salvatore's "mm/page_alloc: avoid direct reclaim and
+> compaction for costly __GFP_NORETRY allocations" should be a 7.4 thing.
+> 
+> So it's all clear as mud.  Can people please clarify?
+> 
+> I have hannes's series "mm: page_alloc: fix reserve access for
+> non-blocking requests, v2" in mm-hotfixes, planned for 7.4-rcX.
+> 
+> Should I move Salvatore's "mm/page_alloc: avoid direct reclaim and
+> compaction for costly __GFP_NORETRY allocations, v6" into mm-hotfixes
+> also, and restore its cc:stable?
+> 
+> My vote: "yes" - that's a pretty obnoxious perf regression.
+
+Yes please.
 
