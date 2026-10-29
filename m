@@ -1,78 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269778;
-	b=JTPH0UlmS5yUFJ9E9RCtkjxfGd/OgERKlsV7nbKEYzM+AU4Go6JEiyDZve+12UGL1cWk
-	 BMjo4ke6nWyWVz9JsXtwRheIa/7BRpId0y/jMyfxNaE8tBiU+3Rqs+at0FRrkX03293XR
-	 JkeEphEAr7ieJyJ2Cczatp/qHBT80ExENpJOd8/GpeYOse44HYUKkWWdW6PsafgzwW+db
-	 3rxON53rNlE7s/XZWTiZCJ9pu4fnXcEaBJOysvFiNz/XzkM1+nalmD7aobkNEmx8o6TVR
-	 v7HT82MF5JsWasQZkef1zCZ69KppGJS77CDK6kHWHkAfO17cZO/TFQWY78nPUDyFHRg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269778;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=R/lMsusE19estJ9V38aj7rBdTRNza2SkNgqdcGvspKE=;
-	b=szqZbV2glKv61gDiAMsRub2Qd8AswsFy61aPLXsECBvP6BmAvANvdWZCnyPINnnIF8YZ
-	 V9zvDDPoFYByqR6bIz6Yllmgr3m1g7aQZPcXYjojGAqQT8zY8IHwpihY8ZbeHDLfD2LWg
-	 quTtC2XHKaaAf2qDWMEmtBFs27tdfho93mMgmRZ1efV9tV26386bXWdJqfuVMGvT6gIM/
-	 s4r7qpiLw/gpnF1QO+y9KtIJiu9b+h9m/DBXvsTCzNv/JY38xNhmPJi91eoMDPftw5L9c
-	 9Cz2LCYXiAf94qPMhoWVE4+catOHrokzagohla6W6rfdURVZ9C7Ueznk52zQN+IrR3w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=CEuiE4wh;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793269799;
+	b=zO5rRyexeSyVC6oIedJXOK6Sdm3Z1ip2pHLt/X1IBXtXZ/uiFYB79mdNLyq+acmHu+qz
+	 3idGYalt7XbsJFaI3wOVMUtbKPmQBhEhUJ2PZHyangmwma5T0iSVh3fekZUjh3TITKx5k
+	 L26jDWB9S6hQq11W2yBTtaZJCITwFF2X7n7qoqGLTfzsVqF0sxwaGkXI4ydja6CPWkf4G
+	 O1RwhttfgfnviwvI0R4+0/FYM1ilZW07aDl30zGVV37SAROjkbqRKT86pT3jJ0UQgC39i
+	 JtKC6wxIQICjNUNO3fWoBheZqAR/xXEWCZmDenSA7MIpP6jROxS/C+pg6uqbR+s/bBA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269799;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=DNplS0zzpx7i/xZRFiwu1m1gWz/uU3B841QxYLsWDE8=;
+	b=F4CzWQ2zhUkEODuUE4Ju+G1L3j0Sbdg9hmxPvAZVIQy0qvRz0bzvGeAvYzc3Fs7gf11u
+	 YHD5de1HivexYDa1plcLlrbFxAY8QX4aLXrrsVegJJInKbKAP1eQGFN12gMfxCjuOqdeh
+	 xgZayW9jvQfIAXsiUdE3+ckqjH3B7yeC0xK11fhHeaHedwcrB52p0sGtpn6rq0h4Dc98/
+	 n/qh5T6At8dJRbucMUg5RIbJp4tFrBP3BEfGLyH2D2DKuvYJ3txy3hSbpd4uS72aMRlc8
+	 prmh9HMLcaKKv86KIj17At5hMwO/4Y9C9OXxRO567eqvRcE4XLY3tJ2pgfadmRvxXeQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Ouu3AuL0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7A7606A327;
-	Thu, 29 Oct 2026 10:29:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB7A7606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4533606A31A;
+	Thu, 29 Oct 2026 10:29:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4533606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=CEuiE4wh
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=R/lMsusE19estJ9V38aj7rBdTRNza2SkNgqdcGvspKE=; b=CEuiE4whPwRJOvlJT1/4ISkmaH
-	yFu7mttcfqMvdF39rwvFEeePWC1/MV/Hc5CAz37LE3dpCCJaw1km5sC7VvA17QDpN6gqlY7r9DS3a
-	h80CwUyehGohUljql3sUWCu0pVBe2E4cXnO4Vk20R9WTpOpQttX7EiAOIy4wTfjj50nS37nTGqq0l
-	ZZeWkC9h+3vigME7XBUZ+Dj6xkA+00c+ycavd3XEAk3+SIG6G3EeRVonj/tjxtt+ViI7NWf1hkbAs
-	D5ypbwrxxBPyVQVKyQNhM7GaUl9zI/u2k8hiYAA5hcBUM09GcowjtQZlrapvHz+30qs4n/gBrHQjs
-	dEUyweEQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMNNz-0000000GsBu-3dyu;
-	Thu, 29 Oct 2026 10:29:32 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 80967300329; Thu, 29 Oct 2026 11:29:30 +0100 (CET)
-Date: Thu, 29 Oct 2026 11:29:30 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>,
-	Sandipan Das <sandipan.das@amd.com>,
-	Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	Ananth Narayan <ananth.narayan@amd.com>,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	bpf@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [Patch v5 09/18] perf/x86/intel: Keep LBR frozen throughout PMI
- handling
-Message-ID: <20261029102930.GK1779021@noisy.programming.kicks-ass.net>
-References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
- <20261029043914.1395147-10-dapeng1.mi@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Ouu3AuL0
+Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
+	(Authenticated sender: lst@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4DBAB200467;
+	Thu, 29 Oct 2026 11:29:55 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793269795;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DNplS0zzpx7i/xZRFiwu1m1gWz/uU3B841QxYLsWDE8=;
+	b=Ouu3AuL0td/GA4CXCAjqkAnzYyeT5NMT8eTLTB/dP/g70gpRL2muYm+LHuykTlbc7pzZmX
+	6FD0solH2WX/omdPMbWp4gj5e5PgcI7mOmj1pdSNARzNjb8GSxPNFkZOCst1+2jxoitcrH
+	9rz4m555/XT0xz2e0J+yN9s/0yCiVkJIL7a0KRNwpYUb5l9gl0F//PVZBnHRTjUbMm4Fn1
+	z6CJjulAGMOz888RDmKJ0gU2A9Mr2mCRWD36yUJHP44GLDMPVCN1utoTCoClbjqaJG7E6u
+	qpilQFSuo29FPvslQNVLOzgdcnZVLqvM0clx8BE6Ka63yWbnNLbLTAB0XLAN8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793269795;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DNplS0zzpx7i/xZRFiwu1m1gWz/uU3B841QxYLsWDE8=;
+	b=YQ16bMiv/93sxnl9JqbF24Sbj6pC0xgEZhW9f5RaWujz0EMIt5Dcs87Int1qAwHJ77GEV/
+	Z/tju4N6Wgc9ElEvrgI/1mjkVK1twZD8knwuEB93hF+XnyLiijsFDgit0nvA72ElQWG5El
+	iE8+NPfzcVxw0gZ9AUSQi0axsvLqNJM1miWNBZuLRLsJuT6JCvPxziJZvnmbGKXczqrBOC
+	dbiTh8bAKFYrLsxyZwpH27weRWS/NqhtTBvCMevWJEEQNic8XUPWQTk+1nSkNlKzqe87Mw
+	8sCnaQ74l+xLGzzEdf1lh7DMhJ41ZJLv0gvQo/Dv/Jy29hSuT+/JgCfAiaxaPg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793269795; a=rsa-sha256;
+	cv=none;
+	b=fWBfDvbpU5d8hVbO1VhAWCs2Snz+MZ/iyDtvFGSV42bwV9cs0FSgeo27XWBUGshFI6KUlY
+	yH7T4D8JP4FoNqIOcu+DpGB+XD2TT4ogF01tFarf2X2qyw7o8tUJl4rr76chynHPgYdJJm
+	egKCyG9TmQNepL+yZehQKfnwW6wprc2xsbluqTmNvVlwJgbdCY+c2pvnamdoSQAqI7xK+Z
+	5pej/vDshrujw9SUnTb64FyFXYU1D2lX20hnK+BMv97xwsYRGrhKb+Ec3uXLv/FTay0l41
+	A/gT95DSGSG1E+qHW0+CpM9yp6W3/n+BqPgkeK5LOh0xMf5m+XdQG4ajv/nWXw==
+Message-ID: <70665d4cee43685f603beb94f220848cd00e02ab.camel@pengutronix.de>
+Subject: Re: [PATCH 1/2] drm/etnaviv: etnaviv_fence: Put base class first
+From: Lucas Stach <l.stach@pengutronix.de>
+To: Philipp Stanner <phasta@kernel.org>, Russell King	
+ <linux+etnaviv@armlinux.org.uk>, Christian Gmeiner
+ <christian.gmeiner@gmail.com>,  David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>
+Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Date: Thu, 29 Oct 2026 11:29:55 +0100
+In-Reply-To: <20261028103129.1036380-2-phasta@kernel.org>
+References: <20261028103129.1036380-2-phasta@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,83 +96,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029043914.1395147-10-dapeng1.mi@linux.intel.com>
 
-On Thu, Oct 29, 2026 at 12:39:05PM +0800, Dapeng Mi wrote:
-> For the platforms which has 4+ PMU version, streamline LBR freeze is
-> supported. The PERF_GLOBAL_STATUS.LBR_FRZ bit is set to freeze LBR once
-> a PMU counter overflow. However, the current PMI handler clears the LBR
-> freeze bit too early, allowing branch operations that occur during PMI
-> handling to be recorded into the LBR stack.
-> 
-> This can pollute or overwrite the intended branch snapshot, especially
-> when bpf_get_branch_snapshot() is invoked from bpf_overflow_handler().
-> In that case, branches recorded while processing the PMI are mixed into
-> the original LBR data.
-> 
-> Defer unfreezing until after PMI handling completes so the LBR remains
-> frozen for the entire PMI path and no branch activity from the handler
-> is recorded.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/sashiko-outbox-179823@kernel.org/
-> Fixes: 425507fa5f32 ("perf/x86/intel/lbr: Optimize v4 LBR unfreezing")
-> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Am Mittwoch, dem 28.10.2026 um 11:31 +0100 schrieb Philipp Stanner:
+> struct etnaviv_fence contains a struct dma_fence, which is its base
+> class. The base class should always be the first member of a class.
+>=20
+> This allows for removing a deprecated callback in a subsequent patch.
+>=20
+> Make struct dma_fence base the first member of struct etnaviv_fence.
+>=20
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+
+Reviewed-by: Lucas Stach <l.stach@pengutronix.de>
+
 > ---
->  arch/x86/events/intel/core.c | 13 +++++++++++--
->  1 file changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-> index 15dcf8b78de9..a67297148bb6 100644
-> --- a/arch/x86/events/intel/core.c
-> +++ b/arch/x86/events/intel/core.c
-> @@ -4062,7 +4062,13 @@ static int intel_pmu_handle_irq(struct pt_regs *regs)
->  	loops = 0;
->  again:
->  	intel_pmu_lbr_read();
-> -	intel_pmu_ack_status(status);
-> +
-> +	/*
-> +	 * Do not clear the LBR frozen status here; keep LBR frozen
-> +	 * throughout PMI handling.
-> +	 */
-> +	intel_pmu_ack_status(status & ~GLOBAL_STATUS_LBRS_FROZEN);
-> +
->  	if (++loops > 100) {
->  		static bool warned;
->  
-> @@ -4081,10 +4087,13 @@ static int intel_pmu_handle_irq(struct pt_regs *regs)
->  	 * Repeat if there is more work to be done:
->  	 */
->  	status = intel_pmu_get_status();
-> -	if (status)
-> +	if (status & ~GLOBAL_STATUS_LBRS_FROZEN)
->  		goto again;
->  
->  done:
-> +	if (status & GLOBAL_STATUS_LBRS_FROZEN)
-> +		intel_pmu_ack_status(status & GLOBAL_STATUS_LBRS_FROZEN);
-> +
->  	if (mid_ack)
->  		apic_write(APIC_LVTPC, APIC_DM_NMI);
->  	/* Only restore PMU state when it's active. See x86_pmu_disable(). */
-
-Given the whole PMU is disabled per __intel_pmu_disable_all(), all that
-can really happen is for more bits to be set, right? I mean, any counter
-cleared on the first ack_status, will never be re-set, it already fired
-and its disabled. All that can happen is that the disable is 'delayed'
-and a counter can maybe fire a little bit after the disable; getting
-missed on the first go.
-
-Can we really get more than 1 extra loop there?
-
-I'm sure this code has changed lots since we added that loop thing
-there.
-
-Anyway, if we can never get more than 1 extra loop, we can probably move
-the ack to the end, without having to do a second.
-
-I suppose this isn't something you have to do now, but keep it on the
-todo list or something?
+>  drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etna=
+viv/etnaviv_gpu.c
+> index 5c23182f4d33..e51a310c8d70 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+> @@ -1148,8 +1148,8 @@ int etnaviv_gpu_debugfs(struct etnaviv_gpu *gpu, st=
+ruct seq_file *m)
+> =20
+>  /* fence object management */
+>  struct etnaviv_fence {
+> -	struct etnaviv_gpu *gpu;
+>  	struct dma_fence base;
+> +	struct etnaviv_gpu *gpu;
+>  };
+> =20
+>  static inline struct etnaviv_fence *to_etnaviv_fence(struct dma_fence *f=
+ence)
+>=20
+> base-commit: 731ba09867520c047c7de53f92e384808e0b638e
