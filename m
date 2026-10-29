@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269117;
-	b=2qdn1fCAZMjOVHbvv2QvmQbLAuml5WZGey3JKYCrW82hzP9pd8PModAzcILZS7YtSeFw
-	 +yGChNh6o0xYlEjfGZPwy7JO35fpywZJKcyj3AeCfdILW/XVISX0PFmvUd7azpPNTcnCo
-	 vL2AMuJcaDa08cKTlg0jC5P1rjTPNvXNROCes4gyoljoqCfd30w/EyVSSKN6I+8otd+QB
-	 nQvFngQHREeJu3pHIDfXANz1UbHRv5gnq3l0RXCY5O0NFTvToId4tf82grqT33aPuPlBs
-	 tYaI3qxSAuRrt99CMuTQ/zjLzRlhcQszfiUj0CmbRwvvHtZHWzupj8NqmaC7dZirgOw==
+	t=1793269114;
+	b=zv0Gn4MH6oE7TzMWIl0T3GSRH3efdF1hKtJmj06xdwetSPCZ3itSb0+71NK3Zt0C6Fux
+	 QZ0igqlCfDu+yYTkdDXYDqmVJlSIF9tFb0ivPYsA4P9us03scbBq+ki4Q/BeOecJnsXA4
+	 MYhsOLQC7dawEsOzNTq5PH6slAdcM215qdT8pYiEA0a9US7EXnVVMzs6F920ajjgQI0zo
+	 Bq4aFLDpZGLdLoyqtj/XNHnI6ET23jRMc6yl8JmNjTpvYZ0YyWn9n4FbRvgZST3MZ0S3r
+	 fRoKaFJo4EFIMj74QtcsndFSDTHokCkHTVW27HhicYZnnvxQn76fqFXN4le+7l41JQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269117;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269114;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=tLSIccFHorX+6O5ooGIFQ+bO/vHG9UJYFlcd1fhhBi4=;
-	b=i9TrGsHfYc+oakCZXTOPfC3uYpNQgGEmhinj2iMzha6UVYLP4yZKOf2LkMMbZ0YbN4jU
-	 pJemHFKc7cDjhz/BkLx1WghrkhR0MPgbZn+BDs3ugWwvhBhKI5Y3johXN+x0+g5PTHcMo
-	 15P6N56+xjn0c6B+rmNzu3oQyV/Eyutt2mO6gDZcjZcwaTv4o669n+EYC3J3b10HmEt8f
-	 VhGTqredvmqUsqCcRwIWLZ7JdIABAaBA5QQQAKWv0sbNv8wrLuEoO2JjGYoJ/GN7rn+f6
-	 SYRZ9WSLdIZSxZ+YSLeio4gH91YjgT98N/LzY/rDsP4yFy8Kt3UUkxm2PaR+cpeeUhw==
+	bh=ZswYnDpjiPQQjT78JVpuuL0hR+s+VPAsr78sVKkNA/E=;
+	b=oCd2flpb+XEl2wAebiUgWV1ILsgMFb+D8+rQgfD+OWuHFY2AVnH/t2QOItEpCcUTO3PP
+	 Yj660MScleLD4rKBP9VdGpwDBDJLY3lvW8OPop/NRJVTD3QxmEMcR8iLyrKHxcM2ZCG/V
+	 +XvB9H24q0RhVHEHyQqV1uutwJyicPMng9QY8CaFgvFi0L4QbLR9Wm1uTInsWO0yLbsw8
+	 WIr2iYt5ogzkJlv8+fJxUx1EiyRzaZRzNWxXBaiAofgzZXaNGPa2bitdEgtlNPptbifP0
+	 fWVWc3d4T27So38PWWNe670231xjoMGuYG181eVt2Ehw6S2gBSPRBQoLS5Etn+5eZGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UOlnLdAP;
-	arc=none smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oK9UURDb;
+	arc=none smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127C0606A335
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:18:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 127C0606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE56606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:18:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBE56606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UOlnLdAP
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso888116a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:18:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oK9UURDb
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so3275637a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:18:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793269115; x=1793873915; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793269112; x=1793873912; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=tLSIccFHorX+6O5ooGIFQ+bO/vHG9UJYFlcd1fhhBi4=;
-        b=UOlnLdAPcICJBfP/9Va6/jpahl0YLUlGB25a5b+vGFo2rlehMmjBOConnFRizUDvje
-         sIHK/vzuUP/6taFgPjBKbha2W3ZcDVzJYI1Xfh+XEuTHjh4Jo+7LM0Piy3MVZkQ2VuMI
-         Ro/8/QTXk/pgxbzZ529bbI49pwSqzfh/e3pGzOcsCmJ3eVFz4Rgkxc1YeXEVJjtIw7pw
-         QgK+m+E1EyOB13fz5kKDEZamDRZCOf/g+k1ryYnsPY5CPJBiD7k/CMQ31PObr3pNff7e
-         ui3ihV7DNRHyGw9zWi9Wd66xKa0jw0Kb4zrCqQH9YPN6AAr2oncJTnHcxJ/Rot37Hl/q
-         V+hA==
+        bh=ZswYnDpjiPQQjT78JVpuuL0hR+s+VPAsr78sVKkNA/E=;
+        b=oK9UURDbtj5cmbigIdvbfw8F70F/hTthBA0hn89n66C+EO4qlOBLzGCG+3s3HYT4Vo
+         nfdgjsIWTdGS44HdzAgMPe1KeDd9QoBNsbQ4n44pQ5F31KU0RnswUK5Vei/6QNr6DhhK
+         +gZYSuJw0OfzAVBt1Two0XPdj6eA5R10LqAOmjdMEf45GXw5cHfp2pnHTOjULc5goUpa
+         VCPqMHPhQHKK5/9EAKpvwOgXZG9wBlBf/W9jlwDw7/beIg/Ai1N+wbl+TBn2Pij/qT7i
+         XkgiO4TESp0/8OJy1qCxY4UIgy5KwgtSETvZgqMlltjlGkJYuPpA04cinfRENoF60Lgs
+         m83A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793269115; x=1793873915;
+        d=1e100.net; s=20260707; t=1793269112; x=1793873912;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tLSIccFHorX+6O5ooGIFQ+bO/vHG9UJYFlcd1fhhBi4=;
-        b=SLIxEkUR3o+njVZOQ1IovqMNnUfe23HjjvtyhAzIf/VqtMCANzWaPAAmJ0t9Cd2Bjg
-         pKGUtxK9XRZ6zn/lPcy12i4W3OQVsE5bznCsrJPPRERd5o0b86v8C97F6mKS4habYF2+
-         Hi9zYdfHsnGCBmR76iHHPGC3AhRCnFatXXg7k6vHi9qiy/eHOscymI4L3Zategnrt6D0
-         4HXh0bayZ1rg+2KZZgx8n74Y/4+ZqWo24Kds+QVDm5HFjGphIPeYoEKmmKAMuK7PTvMC
-         9lhAG4smTfqYLNAYVI+14iiDqnKSSg0YjY1mR0c2g+fM25tlyn8hjLuaj+qPCAg5g8IC
-         vJYw==
-X-Forwarded-Encrypted: i=1; AKwUvBzKxPhvCOMUzNS4SUgPHHY4slkxCe4gxVagLPzG7cT+U9Cl543iDLMQf04JJas/+gGCeffeSaXwHaZ9LeY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKtrbv0iFA9q4Pn1RqS5anVwX1SMdWuqZmkB/Kp8EgPwZNSGRWT
-	kw+TPcqaiVylOx5aMBXOf/vV8tgv4lmXNpuIZltgcoSuEFsv7khhI36G
-X-Gm-Gg: AYBFou2/6YyvkUSwwgpEabKvuh8Kydjd4PzLwiP9NrFRlzFp/COSPbsLAI7ECP2yga9
-	knGmMBbAmzdyYAUAo883NQ8ZRVnOSv1Mvi2ENm5zvDY82HCSd0bjL399VMB9MR0uQU+AwE4i3eB
-	cXIviJe6TaxDwvXzIlZ2RKeyHIF2Do6QQCBtIldAmkcsnYKL4v3O8ILnoGOxGF8tWlKeTmvUG4g
-	jo+BtDj+k/x4bPe2lS4UiFU7Dv2LUi7z+YtkezInuaP+ik+iwqnwEcyFWDQN6w/emnhLInfkO4P
-	HnSDrTAr36MgEgpDMXvf7rcmlTMHoxF0TJ/wBgrqjw4XHlW1c5KW9bpwrAIK5Bst59deikJmaIr
-	M0rdb+rOWiVKYUTa6S69soHFd6vWW/LThmRkiipdSLAFL0SXjhRg4uLDqmHAUv8QUnwBy25Xugu
-	G/qOHHxJa/omLah34KC+JAbKezSvAisWi1yPsPs5W+NstuDQEzGt2m3irhx+zv6ynO49M+UTk5M
-	QrA+SleEHDctpzKYu9aCxveNBpg11assDyQh3AUCwmOBjM0feN23F51GMZtoQK9q+MMBrYRcMLO
-	zIPR3VGSyYlXhi5V/nqeJVBXUHDfmAzxkWqaE9+DprfiRZZWWU3mIQfq85ETxjM=
-X-Received: by 2002:a17:907:80e:b0:c2e:62af:b6fe with SMTP id a640c23a62f3a-c49d11324e8mr178671366b.8.1793269115238;
-        Thu, 29 Oct 2026 03:18:35 -0700 (PDT)
+        bh=ZswYnDpjiPQQjT78JVpuuL0hR+s+VPAsr78sVKkNA/E=;
+        b=k3StfvDn1haYK1O6Y26xeuTMn7eZYjV+f1pnOadHezoyb3qy1Vn/mtyiy0J98nuJQ7
+         NOheWLkjuuv9rEStnA23TBq+bFU+VpgqSH9eLOl9CEA8ZyDI0fTDsVxrYateDn4vBUfv
+         jKAkEDxINTAI/aVUoGeXkSPu9j6j1c8FljiGRwbmkgbfZF8UbjotkOJ5WWuIRcHdgQCr
+         EKAADc7YNrzn8V3I4XbYgzLfZ2akidDLjw7dw5+Eoh/ELmOMJVL3MfMgeXgDpHHCGjtH
+         2G1BfDnpqPPXFLmXLK+Xq31UrTrxIXjgGbPd53vrylYa66g/7fIyKTUCRSIl6pZdAZVi
+         +VbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw9pLy5htkUrtmUl63qFRDPdIdWClj5Puj3U4cGcDG4uSY2y0UU4Y2/Fcae9iXV6pi0VgdNigmfcBN38ww=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8urweYrseERkNl6gaATbNHaJvPMdXyHAOsMit/NZDzfeo/PSH
+	sK2PJraSpa77gEZwwFgAz+DfaALM+jCdUroS8YsbpQOKqswQ0DnDQFDz
+X-Gm-Gg: AYBFou2Vov+POwIITwDsHTuzDq3tKhe2CNC61OXOOT8iC9gNfhOqGi+1KYbEUJt2jQc
+	8x5ckwEK0mZWwYPywzwURmNJixiq0NNKvgaHaEci1fNaCkzO2+qfwEhFA3Cl9wLmpPlDMn1fzmy
+	OAXHaCqQVEUDnNnEGdHbHjoWurDJLqbTS/X++iO7M2hfj1xbcgk0TWuXpdRC4V5ocs5SqrOeWbK
+	QAMTFRWcn562j2NXFAi6f6gB3d5uIbPbbSGn9giG1tVnp9mcfmlUPz9QLR49IppR0uAVHRftOQv
+	B4PBDsR9LZhlUEikjGzenzviTRiKH/MCrYjMiIdNU6w/t4NgKAXBzhlFAek2n7iQBoAU3/iUlIr
+	p4h+yaQduGW600ptUJ+i27JaUw55lKswjEU4Q0jG/z0SdfYo77rGB7CjF2eAeeyTtoa7JZ+Ym0N
+	LgcTUjiZe0BkmFMDEMz8QRY1UDWyuN+Q6KeuVMDshuGmgdnuKRpLerU3SVBnQODxY0H8kBKkcAE
+	qcIfEopKq28QrEBSmlqOqi5Legr+RzjgSBVYNazwqDeeXoSDoVEHYgGOhhAUscHhupI0SEm5XmF
+	fKfbDFtun6umo12/P41BaGasl0oC5rr6ermttv22WVMx54XwCrMwX8mZ7zd8EpM=
+X-Received: by 2002:a17:906:ef03:b0:c2d:c98f:4824 with SMTP id a640c23a62f3a-c49bdf32b3emr416211766b.30.1793269111958;
+        Thu, 29 Oct 2026 03:18:31 -0700 (PDT)
 Received: from localhost.localdomain ([46.205.195.0])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd66c6dbsm712145966b.59.2026.10.29.03.18.33
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd66c6dbsm712145966b.59.2026.10.29.03.18.30
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 03:18:34 -0700 (PDT)
+        Thu, 29 Oct 2026 03:18:31 -0700 (PDT)
 From: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Jani Nikula <jani.nikula@linux.intel.com>,
@@ -102,9 +102,9 @@ Cc: Jani Nikula <jani.nikula@linux.intel.com>,
 	intel-gfx@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: [PATCH v2 4/5] drm/gma500: Use drm_dp_enhanced_frame_cap()
-Date: Thu, 29 Oct 2026 11:18:25 +0100
-Message-ID: <20261029101826.72773-5-dmitrymalovanyy@gmail.com>
+Subject: [PATCH v2 2/5] drm/bridge: cdns-mhdp8546: Use drm_dp_enhanced_frame_cap()
+Date: Thu, 29 Oct 2026 11:18:23 +0100
+Message-ID: <20261029101826.72773-3-dmitrymalovanyy@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
 References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
@@ -119,46 +119,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use the helper instead of open coding the check, so enhanced framing is
-used for all DPCD r1.2+ sinks as the spec requires.
-
-The helper takes DP_RECEIVER_CAP_SIZE bytes and gcc warns about reading
-past dpcd[4] (-Wstringop-overread), so read the full receiver caps like
-the other drivers do. That is 15 bytes, it fits in one AUX transfer.
+Use the helper instead of checking DP_ENHANCED_FRAME_CAP directly, so
+enhanced framing is used for all DPCD r1.2+ sinks as the spec requires.
 
 Compile tested only.
 
 Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
 ---
- drivers/gpu/drm/gma500/cdv_intel_dp.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/gma500/cdv_intel_dp.c b/drivers/gpu/drm/gma500/cdv_intel_dp.c
-index 8d0626ddf..0973598c7 100644
---- a/drivers/gpu/drm/gma500/cdv_intel_dp.c
-+++ b/drivers/gpu/drm/gma500/cdv_intel_dp.c
-@@ -262,7 +262,7 @@ struct cdv_intel_dp {
- 	uint32_t color_range;
- 	uint8_t link_bw;
- 	uint8_t lane_count;
--	uint8_t dpcd[4];
-+	uint8_t dpcd[DP_RECEIVER_CAP_SIZE];
- 	struct gma_encoder *encoder;
- 	struct i2c_adapter adapter;
- 	struct i2c_algo_dp_aux_data algo;
-@@ -1070,11 +1070,7 @@ cdv_intel_dp_mode_set(struct drm_encoder *encoder, struct drm_display_mode *mode
- 	intel_dp->link_configuration[0] = intel_dp->link_bw;
- 	intel_dp->link_configuration[1] = intel_dp->lane_count;
+diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+index f47717bd1..8cab9a3e6 100644
+--- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
++++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+@@ -1375,7 +1375,7 @@ static int cdns_mhdp_link_up(struct cdns_mhdp_device *mhdp)
+ 	mhdp->link.rate = drm_dp_bw_code_to_link_rate(dpcd[1]);
+ 	mhdp->link.num_lanes = dpcd[2] & DP_MAX_LANE_COUNT_MASK;
  
--	/*
--	 * Check for DPCD version > 1.1 and enhanced framing support
--	 */
--	if (intel_dp->dpcd[DP_DPCD_REV] >= 0x11 &&
--	    (intel_dp->dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP)) {
-+	if (drm_dp_enhanced_frame_cap(intel_dp->dpcd)) {
- 		intel_dp->link_configuration[1] |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
- 		intel_dp->DP |= DP_ENHANCED_FRAMING;
- 	}
+-	if (dpcd[2] & DP_ENHANCED_FRAME_CAP)
++	if (drm_dp_enhanced_frame_cap(dpcd))
+ 		mhdp->link.capabilities |= DP_LINK_CAP_ENHANCED_FRAMING;
+ 
+ 	dev_dbg(mhdp->dev, "Set sink device power state via DPCD\n");
 -- 
 2.50.1 (Apple Git-155)
 
