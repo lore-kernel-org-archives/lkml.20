@@ -1,55 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.77.101.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793261994;
-	b=i3PgIo8QUhXZXOciH/urG2TUtOHI96i+bWcF8hzR6sA+1lZKrnMvf8eJ1F6RNG4+YVt8
-	 qU9KiaDkMkbmG1CYbeLtIL5PqmB4J/O2sr34uPyuhlMuzajw9APZYa+C0lw4eu18Shdy6
-	 tG6SjQFI/B+5WdhkprHXkc5ZPwMAgdU8KMB40XFnmJrSDQmA7QPInhJl+3CgeFzGtopn2
-	 a+1gUOI1QqOSt1zXzvVNpKtem0IyVecgn2BgMe/4O5OUChDbAFvl2LVOnFCd6TtjKaTdb
-	 WUwd5TgVK/0EnMQsqTXdxHNhdBolK4Jz726ywKtrGAXFxIbS4+CrMcKnrPKsITsVEEg==
+	t=1793262006;
+	b=dTXvzOEgICVTyUrj47QfLkcR9uL5fy1nEQoi9wY7qjNO3S2hi4UR/+Uof9ozn3Iflxsy
+	 S1l6kp0lEMDgCZfvM6wAFyzMmbzf9qnHCZitooLkr2Qwk6BSIks5ADnfXfE1rNLdnzZNR
+	 wxoFNPTV6CyE0Hue1cJ5t0m0a2+Ox6nQnnA5V7LXr5lujbIfahdTYyhKSbONf87vKS47r
+	 DMFCHiS62oBm1h9DsjABxzemm6F/7FFMOov/1BQY9i5N3DJrTqYE43S8XM4Gh/aR2FJCf
+	 9nbAiUtUOAb1tHGkSCTEf5Max0te7Y6GqYKBX3hIwEYBiXqwndUySx85Oc+KkO0bvdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793261994;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=kXOqiSQJA94Tx05bKB7kJ8VRta93p9NNx4w0EZdrfVc=;
-	b=GRhhuI/tHypanciVEN2osR0QsWo3GvCLo2E2Bbev8QoEcu9rA/ZPd1g7v+FVNR8TxOwR
-	 elc9yA9taxrlYptGu7osjuzghqmKMNQInHPMVxgDVg+y4TVkySxN18d9oBeTJi/iQBgh7
-	 KNlH3RTBEKDxoXnBDQh/bEr9gsZNRjReEsCH9L8OxIvF6aNvGsYV1HH4Cn/Iqz3dQRui1
-	 hGHBzJMqr2brKy60m3wQWLX9+j9W2uDlztzrxlJLjZ8IeerFW82DK25G1om7lnGghFksO
-	 Re8bUUthaMnXbiwBy6NBvtIUzbbk7Cuimri81oLa0rkkH8crQplpHy9TUx3TYDImkww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262006;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-WP-MailID:X-WP-AV:X-WP-SPAM;
+	bh=hq49hLBHa7UxfN5Y7PY1/zeZc0Rq/8U/5K7+yWJjlb8=;
+	b=yT5iOZYCqSvTo4BEgX29yI8dHaLkPRjl11+00OPYaUxO9BLaGTYZfqCqvJcDKSQTRE/3
+	 htTrCK2IlNifHvfU4C+deRVaZ2pNh7VMOv+1J0yG6eCg3jXQlDJHHLMegys6aWMwis9Zt
+	 /Pfw35tl6C1o36PwZS95811fQsrJbX9vM1SaKDmXeZGmfDcwx0qh2uhRH0uC5xPlTLbNq
+	 qiSk6I0+TMx87Gq9WOyt2s+RQthK0fDl2VRI5iFtJo4JFpZcGoxQS2fBdAJgEqaaYvQ0v
+	 7rZa01hJ8CNdLVen0dz/9bLG58RcjFstYFqJo0G2hLOe90e8bfRqyEg8CfHRG7/izWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GK1lp0E2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=wp.pl;
+	spf=pass smtp.mailfrom=wp.pl;
+	dkim=pass header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=QIMHzxMr;
+	arc=none smtp.remote-ip=212.77.101.9
+Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D71606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:19:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA7B606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:20:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCA7B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GK1lp0E2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 415A41F031E1
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:19:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793261994;
-	bh=kXOqiSQJA94Tx05bKB7kJ8VRta93p9NNx4w0EZdrfVc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GK1lp0E2ZVQQN/J04RE4C/lvLxHibbe40AgtuYSwZPkAJOGVZSnqYAECnOY3lVD1l
-	 +Eg4vQGaBO54lxKXVlbN207sUd3AX+qE9aVExH5GAhhhmFCCcIX5TP70lnJzUfjEtt
-	 SFJA182NbneiLVG49jQVj7NXtW7bGV651KwzJwjNXvmX2xB8EHBBIaZ72GE6Cv5iSH
-	 bAkiV/ykVppChRs/tQfp7Z5N5BPMJHQln07U120fJv+pE2Fn87e/tXGt9XOcelTmnc
-	 JaxeRIZinDw59TN4d9PBNzQ5Aoy7M3mUYopDig1BhTuRWFeGUb03E/T9Pg9IApZiLM
-	 4FSWuS6jKL32w==
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4301e334ceso151233966b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:19:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzlMllaLaBEe3AkS4QZPm3+x+B2S7/nPiUngYxJIWfFoMTu0yZ2Meh9Y3GFToZexvh2w+YllnKdLm80zmc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrhgJpxTvMFh1mrIe3tik9dhTKqngkuBYVIQ1yhUtPayJj4qL0
-	+Af8kL8XU4GjmvzISkRjmiaHdVnKHYcAOyHZ2lKEsCE67pwESgckiAu8h9MXc3p51VhZUPiSomh
-	n8HHujyCOJSr5Jt0vtz2LOvVgZbHX4RM=
-X-Received: by 2002:a17:906:7312:b0:c29:6400:ef8e with SMTP id
- a640c23a62f3a-c49bdfd2fc1mr411845666b.42.1793261992920; Thu, 29 Oct 2026
- 01:19:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=QIMHzxMr
+Received: (wp-smtpd smtp.wp.pl 19003 invoked from network); 29 Oct 2026 09:19:56 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
+          t=1793261996; bh=hq49hLBHa7UxfN5Y7PY1/zeZc0Rq/8U/5K7+yWJjlb8=;
+          h=From:To:Cc:Subject;
+          b=QIMHzxMrXKyvbvSPf9r3zdRNpzdUXlqA9y9T+e0eXS1souqtzoh16entuXwVA90XY
+           M3fNHWJ7hzfryk1SjVAppe86hzO9mafjrdFxpQpW+uCSr77xtdbvxySibggXUMA1Hn
+           luhOT3bkTrmlVbqFPYxAVh9t25uH4kUISSUcSWnrsGn9e93jg3AGs9Cm0jFwp68v1M
+           ZUcM80POHLdc0k/otEl3iGEaPLRy+ykIVPdx9/Ln6VTShgOUvDcAu5moUZ6elDPwCS
+           BOO8kSRl0nvlV6WVHM6aJbPN3lAtRN1Ti9JkI8YCxkM5pnzVT/GU63v19qkImA1KdI
+           yZeL0RKr1ySrQ==
+Received: from localhost (77-236-11-144.static.play.pl [77.236.11.144])
+          (envelope-sender <stf_xl@wp.pl>)
+          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+          for <enderaoelyther@gmail.com>; 29 Oct 2026 09:19:56 +0100
+Date: Thu, 29 Oct 2026 09:19:55 +0100
+From: Stanislaw Gruszka <stf_xl@wp.pl>
+To: Zhao Li <enderaoelyther@gmail.com>
+Cc: Wey-Yi Guy <wey-yi.w.guy@intel.com>, linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: iwlegacy: unregister the LED if 3945 hardware
+ registration fails
+Message-ID: <20261029081955.GA10212@wp.pl>
+References: <20261028142328.18560-1-enderaoelyther@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,39 +65,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029012803.222197-1-icb@fastmail.org>
-In-Reply-To: <20261029012803.222197-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 29 Oct 2026 17:19:40 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_pq4_7MRnaLnKm=fz3BBTsY_+qagSo6jQZzdt-Z_EOsw@mail.gmail.com>
-X-Gm-Features: AclHuK8JTTb6utrReJCmF_HwXNkxb--l1xkkIjG1hxGS7h3OLv0cKs-DFK7l2oY
-Message-ID: <CAKYAXd_pq4_7MRnaLnKm=fz3BBTsY_+qagSo6jQZzdt-Z_EOsw@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: revert fsids on durable reconnect and replay failure
-To: Ian Bridges <icb@fastmail.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028142328.18560-1-enderaoelyther@gmail.com>
+X-WP-MailID: 075bfac9a22155880d5d6a0228c06ea4
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000001 [4eLx]                               
 
-On Thu, Oct 29, 2026 at 10:28=E2=80=AFAM Ian Bridges <icb@fastmail.org> wro=
-te:
->
-> On a durable handle reconnect or a request replay, smb2_open() switches
-> to the SMB user's fsids before calling ksmbd_vfs_getattr(). If that call
-> fails, the code jumps to err_out2 and skips ksmbd_revert_fsids() at
-> err_out1. The user's credentials then stay installed on the shared ksmbd
-> worker. Later work on that worker, including other users' requests, runs
-> with the first user's fsuid, fsgid and supplementary groups.
-> ksmbd_free_work_struct() also warns, because work->saved_cred is still
-> set.
->
-> Jump to err_out1 instead. No path is held at this point, so skipping the
-> path_put() at err_out is correct.
->
-> Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
-> Fixes: bb8bf7eb13b5 ("ksmbd: add SMB3 request replay support")
+Hi,
+On Wed, Oct 28, 2026 at 10:23:28PM +0800, Zhao Li wrote:
+> If ieee80211_register_hw() fails during 3945 setup, later LED callbacks
+> can access hardware and driver state that probe has already freed.
+> 
+> il3945_setup_mac() registers the LED before the mac80211 hardware, but
+> its registration error path does not call il_leds_exit(). The analogous
+> 4965 failure releases the driver and reaches its existing remove cleanup.
+
+Could you explain exacly how this is fixed in 4965?
+I do not see this in the code.
+
+Regards
+Stanislaw
+
+> Unregister the 3945 LED before unwinding a failed hardware registration.
+> 
+> LLM assistance was used to find the bug and review.
+> 
+> Fixes: 5ed540aecc2a ("iwlwifi: use mac80211 throughput trigger")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Ian Bridges <icb@fastmail.org>
-Applied it to #ksmbd-for-next.
-Thanks!
+> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+> ---
+> Validation: A W=1 module build with MODPOST passed. Not
+> reproduced; 3945 hardware was unavailable.
+> Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
+> 
+>  drivers/net/wireless/intel/iwlegacy/3945-mac.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/net/wireless/intel/iwlegacy/3945-mac.c b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
+> index f7ca182d1494..5e11f0597255 100644
+> --- a/drivers/net/wireless/intel/iwlegacy/3945-mac.c
+> +++ b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
+> @@ -3529,6 +3529,7 @@ il3945_setup_mac(struct il_priv *il)
+>  	ret = ieee80211_register_hw(il->hw);
+>  	if (ret) {
+>  		IL_ERR("Failed to register hw (error %d)\n", ret);
+> +		il_leds_exit(il);
+>  		return ret;
+>  	}
+>  	il->mac80211_registered = 1;
+> 
+> base-commit: 25e73f1d6868c759c8eb56cad4e411692c5341b4
+> -- 
+> 2.56.0
+> 
