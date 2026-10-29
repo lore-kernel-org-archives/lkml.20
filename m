@@ -1,104 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793261818;
-	b=Bwso1WZO0GSNYS+FqAEFk6KVABOY/c2G4qEMVir6MkzVUQu4O/N3M2gPkikiEqDo82un
-	 FZQXYUhqXxcDeh2iZojKUubnMpPHEIHEp9jhScmlq1sa7W5re378xNw8E6WHZPTANKLrL
-	 +86esbs38D/BmmWtjg5AoFDwZA2CZYIde8VdNCXtSUbJm64PaFaC4wYLJjBeTKmEAOtnK
-	 7qEg/aSZtmLrr7M1+Nno5HdEI01/oc82sgw0oJwSigy0DRU41LcJrDVLw59jpBT/7iulo
-	 EgcLxScggFbxGWfYh5Wyp13nC2BvkqJO39R+hKRsDFUL6BMo+glRWiLvk6h4yp1lZcg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793261818;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spamd-Result:
-	 X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
-	 X-Rspamd-Queue-Id;
-	bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
-	b=E77yczGhCF/ekKNAGd/sZHOuZtNIlP+NKG0TULStp0JJ3jIAyOCMNL9iuXR3SSaooOp4
-	 j+yQUlOIGwWJudOf2gNirb4+3Um/ayfoxRzy7yzm43ITpgLTq6Exln+h4YqfkYN3/ID5H
-	 is5IjPQLdb/Trcr+b1akmGZhnzL0GNfLX3ka3vq/mVNQtrDuV+J9TdgNj/L36JVavTLy1
-	 tXzngSW8aOUB7kjtDBoO3q84CbpRxuqAlYK51V1WqjB5mvuDfBiEyQUXDVHr+K+OI4SjR
-	 KyQoEgGRh7OBp73kOkVlQgm+SlLLfmyFhiZ2H4XwwMv0qB22bbTvdJkx+7SnQ212LxA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=01TYH+QT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9uaghDHq;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=01TYH+QT;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9uaghDHq;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793261814;
+	b=aogN3+Gcj2dd5uaFWkhpRkSEX8fkM8m8FweVAGTx+5PpZ+SUXyHA/4ypQkiRPPgO4pqO
+	 rSuyd0wUzF55GTRu0pIUHSkg38PzFNUMSzuIwABcw6cc7tgWdl2ts89mtX+nfmjhzxw1o
+	 tzu7zpMECxT3fm14HTSOfg0nK3rF25Za+yH5g0erFzL0GFPin/zMLDDCQ9zfQBsghGm5P
+	 IDZKQ8zf7lrNCm5zk/C0CN47sEjAlLK1AER4XM1bhb9dx7Z02P/EcaJqkiGW2lhGPcPr9
+	 E3pGn4NQe8hlFkJVx4c9ySkT9cUBS3Sym9LSE0ChRYPj738feZjJDP1adMKg9P8zt+Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793261814;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=piBghiZYeWGYQnYfcj3/DPjYXKZYBNBwxEB3ZbQoJhE=;
+	b=nT4j5rqGr/RG5LmJS6jbA+VN6m1xRyljIkloUk8LekBTbI4ZOmscyTqpq+hEkTwM4wOz
+	 H/t9DcySXOzQ+mfqnxQSsltFvG+P7Nxrk0V7xDPMxRoSogmVAweFLtu27bRFa7pCFXttG
+	 3ilqAjL+DkMhA1U7CPsozJ9F33/jK0p0YfNE7qeZ5EikG5Zv5KKau7UN/AmKeYdd3xSi1
+	 sV/WaNJiyGTyrSKjgDbsu2tpO+izM0X32XHritkrKOTz6/Gp/d6kcP7UBRlo/3Aq/xpiF
+	 ib01E8n4mcpuXBaw5Nl6GSFxtBe9Kakxlf4akC33ms8QhF+5Jbz/7NX2tBVvMr+jsMQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZXRLyL13;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC92606A31F;
+	Thu, 29 Oct 2026 08:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZXRLyL13
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793261814;
+	b=PBn3kLVu29230TlFgxRVpJOEdM+SEn+F7RQP6F1srgZKeW8fOyCWVGID114/elzhM7xY
+	 F8fum4Eudbsko5VVPyaMdalqPiVxsizX2wJ5rQff54FZU6CVzK6BH07orHKdwRV8H555z
+	 DgSAB6xquxjn220ORIG9YKsZ8T3Q8TahPH5AiU3AiT5wzuUAeoER5N18v7TIhXf13cdxZ
+	 nxpkTw0wzNp8JybocTmd85OkhI0r3jvxfoPbDJcMzF6hefH5lYpL0LjqM+6cakRBTJom6
+	 yc4zZ+dmzMmS1uAmk7WTKIEnm8UzibTQ2gM8JdhDeJjgO8ni3pxVaSiNlnRboKntw5A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793261814;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=piBghiZYeWGYQnYfcj3/DPjYXKZYBNBwxEB3ZbQoJhE=;
+	b=zyH9y6be2IH6VdtXRa4BZms5KUtYXt2iPRJFJQmNG3BmkDZ+n8PkmNNdVusLGb+EIOMU
+	 xHDZwh1Q8aAtZU1eJ330bMw2EiVMRroTtCX8bj6Xr6zXVMNFv/hYK201tMfbaTBcBxycU
+	 p1CCdjtK2edBLQ3goyMjQID3b0bUlVXmPQ2gN/Bv7ixxxdQtBPoMC3RaG430Z9qcEuY1e
+	 fBounI8fYjuYufmDm1skzQFwwVW9BcZRJWcuBITYVoJv0TPzrOwsK+i6xGL4kDhZAKt4m
+	 WK/ImL6WRm1VENy33rVPSY9YXbU4o+ASvkehulEaqIKhmtCEuQ9E9Irw10it4TC118w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27683606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:16:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27683606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=01TYH+QT;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9uaghDHq;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=01TYH+QT;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9uaghDHq
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3557F21E6D;
-	Thu, 29 Oct 2026 08:16:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793261816; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
-	b=01TYH+QT+K9P7IciLxYb/PTJnHnaVP/rAQs0iC4eTqIpzCBqFmDvXBQ7h27P0wpnob7OUU
-	BGVms/L6IoXKvMVbfem7kuMwp/iDzDkBbXcRdnd4KMdQnOiSqGgLj6wG3uPZG8yjoA1gCt
-	Xak6z7Gta0G367FidtBydPTgIgSRAgo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793261816;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
-	b=9uaghDHqHd9lfhl9gL0T/iR2HdO0mjB3gy0Wzs6SXNwTJ4g537aFdfpa7WL0R3PljSge0l
-	TKuzhV1OkjhxXtCA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=01TYH+QT;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=9uaghDHq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793261816; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
-	b=01TYH+QT+K9P7IciLxYb/PTJnHnaVP/rAQs0iC4eTqIpzCBqFmDvXBQ7h27P0wpnob7OUU
-	BGVms/L6IoXKvMVbfem7kuMwp/iDzDkBbXcRdnd4KMdQnOiSqGgLj6wG3uPZG8yjoA1gCt
-	Xak6z7Gta0G367FidtBydPTgIgSRAgo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793261816;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=FMbAUOTFQxMb5k2XP3cMn8vSb9OHRgu3gg/bt0adrVY=;
-	b=9uaghDHqHd9lfhl9gL0T/iR2HdO0mjB3gy0Wzs6SXNwTJ4g537aFdfpa7WL0R3PljSge0l
-	TKuzhV1OkjhxXtCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CE7E113419;
-	Thu, 29 Oct 2026 08:16:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Ca0mIfcA42pMOQAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Thu, 29 Oct 2026 08:16:55 +0000
-Message-ID: <5e547172-ac10-4a28-a584-9a385dbe2b80@suse.de>
-Date: Thu, 29 Oct 2026 09:16:55 +0100
+	by smtp.kernel.org (Postfix) with ESMTPS id 0784F1F01828;
+	Thu, 29 Oct 2026 08:16:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793261814;
+	bh=piBghiZYeWGYQnYfcj3/DPjYXKZYBNBwxEB3ZbQoJhE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ZXRLyL13GxbLyR9eD4bunGsgkQbr7rW6sF8STLyVz1QXDXPEpcYADdL/I+sCYfJGV
+	 iSRXPNJrvW17QXhH1YOa5F7M7WEZnPWEAxbLF2kTuyVPhWNsyRHd+1mxmdeNkGdBx9
+	 JpkOeS+Q7mrULCnu4YAKYjTVbPZkTrZHbwFJP6TbTt2kQ5MvHArb+DEjm2FT47+PdO
+	 JR8/Jnbjhj3xRRZNMxJICyuF/CHGOEG7T7ilFV2mXis6gt3bFRc3PjwgIUh6q5OWGy
+	 4o4RHtsEu1iEypKUrgc6PTj/YOLwy2SUDT58eywV9t/Ioy14c954xISSz19hrHFdIm
+	 C5BiKYUifEGbg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6EF5745785;
+	Thu, 29 Oct 2026 08:16:52 +0000 (UTC)
+From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
+Date: Thu, 29 Oct 2026 13:16:44 +0500
+Subject: [PATCH 1/2] btrfs: zoned: finish the zones of a relocated block
+ group
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,130 +83,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] vga-switcheroo: Allow VGA_SWITCHEROO to be enabled on
- LoongArch
-To: Tianrui Zhao <zhaotianrui@loongson.cn>, David Airlie <airlied@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- chenhuacai@loongson.cn
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- wuqianhai@loongson.cn
-References: <20261029013618.3558115-1-zhaotianrui@loongson.cn>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20261029013618.3558115-1-zhaotianrui@loongson.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-13.50 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[loongson.cn,gmail.com,linux.intel.com,kernel.org,ffwll.ch];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,bootlin.com:url,suse.de:dkim,loongson.cn:email]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -13.50
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 3557F21E6D
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261029-btrfs-zoned-active-zone-leak-v1-1-777dd01ff914@gmail.com>
+References: <20261029-btrfs-zoned-active-zone-leak-v1-0-777dd01ff914@gmail.com>
+In-Reply-To: <20261029-btrfs-zoned-active-zone-leak-v1-0-777dd01ff914@gmail.com>
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+ Naohiro Aota <naohiro.aota@wdc.com>
+Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Mark Korenberg <socketpair@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793261811; l=4344;
+ i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
+ bh=zRjBI+rJe+s4Uyjpfd78jmh2lrY/Nq7+JPNK4RV1AgQ=;
+ b=2nZhBQNgYMl+xskDi0bYJDWXNYH/OIBVapj4dT9o4si/8CQfk9iRtSQt9ILvnEtBaQ3BrlVhS
+ XXymjKOZiBpBEdwtZNnuW6Udt46TIcgI78xex0XH+PmTN6lTxuiP2jV
+X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
+ pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
+X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
+ auth_id=806
+X-Original-From: Mark Korenberg <socketpair@gmail.com>
+Reply-To: socketpair@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi
+From: Mark Korenberg <socketpair@gmail.com>
 
-Am 29.10.26 um 02:36 schrieb Tianrui Zhao:
-> LoongArch systems with hybrid graphics (integrated +
-> discrete GPU) can benefit from the same GPU switching
-> mechanism that x86 laptops use. Relax the dependency
-> to allow VGA_SWITCHEROO to be built on LoongArch,
-> consistent with the existing dependencies on ACPI,
-> PCI, and FB=y.
->
-> Change-Id: I84d38fdfe5e1591495fb3681474a7f1f64281fa8
+btrfs_relocate_block_group() ignores -EAGAIN from btrfs_zone_finish().
+A metadata or system block group with tree blocks not written yet, or
+the data relocation block group, is then relocated and removed with its
+zone still active: it stays on zone_active_bgs and its share of
+reserved_active_zones is never given back. Repeated balances drive the
+reservation negative, which ends in -ENOSPC and lost data in writeback
+(see the next patch).
 
-Internal change ids should be remove before submitting patches.
+Finish the zone in btrfs_relocate_chunk_finish() before removing the
+block group. It is read-only and empty by then, and relocate_block_group()
+has committed the transaction, so its tree blocks are written. Drop its
+data relocation role and finish it. Keep the chunk if that fails.
 
-> Signed-off-by: Tianrui Zhao <zhaotianrui@loongson.cn>
-> ---
->   drivers/gpu/vga/Kconfig | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/vga/Kconfig b/drivers/gpu/vga/Kconfig
-> index bad4bcee313..89edd1211aa 100644
-> --- a/drivers/gpu/vga/Kconfig
-> +++ b/drivers/gpu/vga/Kconfig
-> @@ -1,7 +1,7 @@
->   # SPDX-License-Identifier: GPL-2.0-only
->   config VGA_SWITCHEROO
->   	bool "Laptop Hybrid Graphics - GPU switching support"
-> -	depends on X86
-> +	depends on X86 || LOONGARCH
+Fixes: 7ae9bd18032e ("btrfs: zoned: finish relocating block group")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mark Korenberg <socketpair@gmail.com>
+---
+ fs/btrfs/volumes.c |  3 +++
+ fs/btrfs/zoned.c   | 36 ++++++++++++++++++++++++++++++++++++
+ fs/btrfs/zoned.h   |  6 ++++++
+ 3 files changed, 45 insertions(+)
 
-I'm a bit skeptical if that's all there is to do.  Does loongarch really 
-work with the existing handlers in the graphics drivers as-is?  See [1] 
-for the interface that implements the actual switching.
-
-[1] 
-https://elixir.bootlin.com/linux/v7.3/source/include/linux/vga_switcheroo.h#L93
-
-Best regards
-Thomas
-
->   	depends on ACPI
->   	depends on PCI
->   	depends on FB=y
+diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
+index d3e6a9b429dd..112ef1a53199 100644
+--- a/fs/btrfs/volumes.c
++++ b/fs/btrfs/volumes.c
+@@ -3703,7 +3703,10 @@ static int btrfs_relocate_chunk_finish(struct btrfs_fs_info *fs_info,
+ 
+ 	btrfs_discard_cancel_work(&fs_info->discard_ctl, bg);
+ 	length = bg->length;
++	ret = btrfs_zone_finish_relocated(bg);
+ 	btrfs_put_block_group(bg);
++	if (ret)
++		return ret;
+ 
+ 	/*
+ 	 * On a zoned file system, discard the whole block group, this will
+diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
+index 1cda88332284..ce8d96a48aa3 100644
+--- a/fs/btrfs/zoned.c
++++ b/fs/btrfs/zoned.c
+@@ -2649,6 +2649,42 @@ int btrfs_zone_finish(struct btrfs_block_group *block_group)
+ 	return do_zone_finish(block_group, false);
+ }
+ 
++/*
++ * Finish the zones of a block group emptied by relocation, before removing it.
++ *
++ * btrfs_relocate_block_group() tries this before relocating, but gets -EAGAIN
++ * while tree blocks allocated in the block group are not written yet. If the
++ * block group is then removed with its zones still active, it stays on
++ * fs_info->zone_active_bgs and, for metadata and system, its share of
++ * reserved_active_zones is never given back. After a few balances the
++ * reservation is negative and data writeback fails with -ENOSPC.
++ *
++ * Here the zones can be finished: the block group is read-only, so nothing is
++ * allocated in it, and relocate_block_group() committed the transaction, so
++ * its tree blocks are written.
++ */
++int btrfs_zone_finish_relocated(struct btrfs_block_group *block_group)
++{
++	int ret;
++
++	if (!btrfs_is_zoned(block_group->fs_info))
++		return 0;
++
++	/*
++	 * do_zone_finish() refuses the data relocation block group. This one is
++	 * empty and gets no more relocated data, so drop that role.
++	 */
++	btrfs_clear_data_reloc_bg(block_group);
++	spin_lock(&block_group->lock);
++	clear_bit(BLOCK_GROUP_FLAG_ZONED_DATA_RELOC, &block_group->runtime_flags);
++	spin_unlock(&block_group->lock);
++
++	ret = do_zone_finish(block_group, false);
++	WARN_ON_ONCE(ret == -EAGAIN);
++
++	return ret;
++}
++
+ bool btrfs_can_activate_zone(struct btrfs_fs_devices *fs_devices, u64 flags)
+ {
+ 	struct btrfs_fs_info *fs_info = fs_devices->fs_info;
+diff --git a/fs/btrfs/zoned.h b/fs/btrfs/zoned.h
+index 8e21a836f858..700d6909ee3f 100644
+--- a/fs/btrfs/zoned.h
++++ b/fs/btrfs/zoned.h
+@@ -82,6 +82,7 @@ int btrfs_sync_zone_write_pointer(struct btrfs_device *tgt_dev, u64 logical,
+ 				  u64 physical_start, u64 physical_pos);
+ bool btrfs_zone_activate(struct btrfs_block_group *block_group);
+ int btrfs_zone_finish(struct btrfs_block_group *block_group);
++int btrfs_zone_finish_relocated(struct btrfs_block_group *block_group);
+ bool btrfs_can_activate_zone(struct btrfs_fs_devices *fs_devices, u64 flags);
+ int btrfs_zone_finish_endio(struct btrfs_fs_info *fs_info, u64 logical,
+ 			     u64 length);
+@@ -238,6 +239,11 @@ static inline int btrfs_zone_finish(struct btrfs_block_group *block_group)
+ 	return 0;
+ }
+ 
++static inline int btrfs_zone_finish_relocated(struct btrfs_block_group *block_group)
++{
++	return 0;
++}
++
+ static inline bool btrfs_can_activate_zone(struct btrfs_fs_devices *fs_devices,
+ 					   u64 flags)
+ {
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+2.56.0
 
 
