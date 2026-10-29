@@ -1,79 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.48
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793266388;
-	b=4Y3TkTdyohR56R+xiy6nJVWJ/udJRK/EJnKBpLCE3Y1TzzY8w/zyDGha1PX8WFA/dy5V
-	 4CI5WG2us5v3hvPQ0z8kucRp1YzqOU1+rn12AoFnNfGS352DmcYB2/XiEnEd1B99gpgOL
-	 1piRGII/qzsJss8M5Vw8bsUIrTRl++uJvrBGHNYnCkzOSs7A1RskdlYRFklTbK1JZ6JXM
-	 eTsQi6TWhaKjqbriCSgo8INQ1fuPTQuX5HA5DIRAO1kMFpTR3/2qJHzp0wgljUgGh7iqF
-	 7Dpt1b/tUD5nMWHyOzpmGdIOFe9WCoAV9Jf1N1GjlikxuB6D2UwzYXKhrL3WZnFlHqA==
+	t=1793266507;
+	b=OBslIrj0TstiAYFJtWJ0sVfPF4yyfLLwHLz/OpMLsj7Pgzg8ppY1dXdjiIJsfJUWlvIq
+	 /36X4R9uFevaeCjfY07rthOsDtIICNSiW9d0l2I5ujrHPQp4iV7mtDnJLF/kjPIWjY/9E
+	 wQ1/3Q6Yz8/KJaWf+B3e3aYe8ULSFihitlXoB5sxvAesui5I500cwxPSqOIzon77k6Uh1
+	 Vqp0a+jVPbolT+1mFwSPTsDDEhrg3FAFTtPpq3UYa9zRRIA6tvZjRDYyZgmJ4zVZ428FZ
+	 uJHB6TBZ8Vt2AQKjieWOWLiP9VPcfrwqjiBu5TGUG4iKu8nhF6d2vz3UNnKonS0d9ag==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266388;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=D2VRF1UIw2L4uB0SVfNxu6kmcdfbw/3EKqehM5bCLkA=;
-	b=z1Rkqv+8lmadRorw7XslfskyWKiOvN49NXE4Zt0Xq82IujuMJH1ecO1605NgUbuLLrGO
-	 78pi255r8yMzHRb9A1za8my5mHkqt4y/+hDPtBFkdXHbbi7f6W4n+mpx/fszboDQzobJk
-	 ME31XEZjAdaKVBI45pGDL2myK1odkz0kD4Yt4q4tdgxGZNKsUyjJXD8Z87teipZvWYHmA
-	 CR0G4lgJqOlTb7BGWqswmGI9LtPvnHuHeDv6WluC6fmFh7ss4m4m5qCdOQllhqXbv8zWf
-	 YXKYqOAlVGOFk3CbYGHgklx8XweoKg7bz/1U8hTsT6hegpzmsX16K1v4WJ9xYnwHG0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266507;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=oGKNVB69wurMCLPvdqcLe36qhX1WPx65AE96vDluugY=;
+	b=mYdCSIQwlsuS+gRS0WM4CXz99j5aIy1UroHIHZxC1hdG/30m3znNicGgwX5A133b+Qsu
+	 RTvHnqRBuG/hFUsB75y/lD3K70nBewkQoJbA0R389+gLOYbo8r1X6mo9DdJPp3CbpDplV
+	 dQWx3l0f+qTDqUKjRXBm03g6eCGbGsjcezwtR47tLjRkwOtASDNV7np+X8prjI7/Lx5x+
+	 PqZsGWjstzYJ+gSmkKw2HYSmOVBPOwoVIRRmaDAYV0FZ3CvUEKz6VV6nMdsybK/Dr/TJX
+	 Fd7mQmG3bCf+OXMTJt6KhNTmQvWEfc5q/6YzbeuvOMEGkrWDaXhf2T2yHcRlAzUKuzg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GSlZ0c9q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="X5QjZb/y";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.48
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013048.outbound.protection.outlook.com [40.93.201.48])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 409D7606A31F;
-	Thu, 29 Oct 2026 09:33:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACCF606A31C;
+	Thu, 29 Oct 2026 09:35:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ACCF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GSlZ0c9q
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793266387;
-	b=RafwU4pyPS7EYktQblZVVeUJUF5RKLntq9YFAJ71sA7w2vrxbD5HaOwYNBoBf4DaGl35
-	 CU5ZpiIGB0Ikf17q86fIedxYzbcC7uDPgfnxJSpOiTbPxRI2RFL3GDb1XQJtniZfXu09d
-	 HltPIJ50Qlpax5kI/o9YZxmjPq6qm44V4E0CuaJuNw4wF0lz0IGZjyMkzUF/D9Pc7qxo9
-	 3kE6zpofPCfwDAMc1qV8ae2ezu3WDmJmkIjbBOjUreQ7lNThkMXgt3dd9qbScBGYozYMC
-	 zd18dmXo/iKEcrk1Ya2gaVZH6wMixNhS++FquzQS1ZPfaL7GPCNJuWcfwxJ2dJuS4lg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793266387;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=D2VRF1UIw2L4uB0SVfNxu6kmcdfbw/3EKqehM5bCLkA=;
-	b=c8/Nc3Ek7Q5I+4Eis3sV5rAHNltEOepWIEYLDheXCG/yu6+p05tQxttNKnl1uJyhTW1+
-	 Ee8+auKhrs2e/wjonqfAd2KSwU4Mc9tqG0NEf65jjsGYpMSZvNK6NEd1/w3gGCCAyxpTP
-	 wENewzr0R52OzSDNRKdu3CQJ/Pfy9DKRlikY3WLV1RSFhPJEkOf9UpBC+7+La6Kv3kin/
-	 isnQhmo2ZucI6YkdnnpWB+irN4VUnwsyz+dgZBPj/Z5QmBaUnELgyyyq1yfeIToLhPyQb
-	 0bfY1R8LNgeUEGqcPS27hKVmJwT9J2YocO4Qxic2ygiaj65kSEzJasqrHW9ZYa6KYsQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8C7F11F031E5;
-	Thu, 29 Oct 2026 09:33:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793266387;
-	bh=D2VRF1UIw2L4uB0SVfNxu6kmcdfbw/3EKqehM5bCLkA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=GSlZ0c9qa/DNsF627Ye0ZhrEJ/fLCeRUYf2ISuLFhJUKhVfiHtyDLboXuMIiV/izj
-	 A8PzY5dyKQ8H306DKSDROsIkmWkG75wMTd4OOdUiaYUydhr4G351JSMP/2212+tjCT
-	 Bnr0lzdKTXbhpo1FfBnc/DLwjavOUobX7oCkPNpWAi24Uw4hzWUgIZcDrHvLPfXycs
-	 Gl6awXvEoTTNXP7NEr3ICDBwJSLRBzpTDXCds/e9t04r33AxQimRXpxfeJ6zI0oZxc
-	 UQ3RyamBuW1QPandsmsMG43TOh8CE1fRHqMMK03K6Nce0cpudaABn8FVpjLWxX5WYF
-	 xLbk7z3Duvd6Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1BF37457D1;
-	Thu, 29 Oct 2026 09:33:06 +0000 (UTC)
-From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
-Date: Thu, 29 Oct 2026 10:33:01 +0100
-Subject: [PATCH 3/3] clk: tegra: dfll: Get the voltage step of range-based
- regulators
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=X5QjZb/y
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=s/zHrNlZC1HiiezaKoghqkc0IXt2WSkGIT2YVGeWU8evH0cVfM0ZkqV7y5Ofb5zVcUL3t9DwItck7ERwK2XrcVg5jGa9l9YkevQ+Xa8gkeY+gPHw+DgoFCoFPGUwm40FQ4Z+OTs+Fhr9M66ihUHchgiy+CMFAOQtoMKNRON0SRinP889JBK2QMMXFuSm2fReK4+Nrg4Dnq1A30io83bFgTjV8o5I987dK1DmGEEJ8whPGfVMzcVh9bXmUSgi1rrb11cwKN6lm6iz36A+mbB4Xz0s5V8w6UygOxpQoUOadPZpsSJ5n9vyEvhUUH5oM9gw9A9ZrCeR1fLK1RXfP+4sNA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oGKNVB69wurMCLPvdqcLe36qhX1WPx65AE96vDluugY=;
+ b=svsqBtItIaCZ09t/oO/XXimjVMF8Q45G4rWN3jx27Aw/t0+Te2YreYX7AIU+7jujnLm+Tbb7d0NkhfIvHN7UBfPLj/8TrMvZz7sfT3NVbJMoT97UeGkMnPDnv/BgT6AIMNBNqDGUxz+PGKMpvzGcwzQpttCtp5vhTUSWQ9YvGM5DvpRlUR2vB8FkJPZGJidneSdQBIpWHHHGNMUAMg97OQ0dXfzUunoy7WFd3a+1qTkAcFZLJDbENgnC8pGs/4ktcZHvo+y+aOJx+PjdV+EHsIXJseibdEl7F96xia00F61I4II47394upWt3lNAKFerZpZNKtw37/ivoEMwmuw3SQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=bytedance.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oGKNVB69wurMCLPvdqcLe36qhX1WPx65AE96vDluugY=;
+ b=X5QjZb/y5KJZE6nq1VCw8uNp+OJVneWn85gHbzdN3wW3QvwzXX038olchi9U3SIBPQ3wJCCis4RyUYTkQ+P9XjHS12c/yE4eikFasnFt0qcbLXR3a5eVcRv8ovm3+puqifqvzUdNXEkUX6mM+NIvKuZnD8dNv/dFkXnHDNmZU9Y=
+Received: from BN1PR10CA0011.namprd10.prod.outlook.com (2603:10b6:408:e0::16)
+ by SADPR12MB333558.namprd12.prod.outlook.com (2603:10b6:802:101::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 09:35:03 +0000
+Received: from MN1PEPF000793FF.namprd05.prod.outlook.com
+ (2603:10b6:408:e0:cafe::84) by BN1PR10CA0011.outlook.office365.com
+ (2603:10b6:408:e0::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Thu, 29
+ Oct 2026 09:35:03 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MN1PEPF000793FF.mail.protection.outlook.com (10.167.249.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 09:35:02 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
+ 2026 04:35:02 -0500
+Received: from [192.168.0.152] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
+ Transport; Thu, 29 Oct 2026 04:34:56 -0500
+Message-ID: <0676993f-c04c-4e4e-9f8d-1650c8fd6d6e@amd.com>
+Date: Thu, 29 Oct 2026 15:04:51 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,118 +101,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-upstream-speedo-t114-v1-3-81457cc9d94c@tsv-stahl-riesa.de>
-References: <20261029-upstream-speedo-t114-v1-0-81457cc9d94c@tsv-stahl-riesa.de>
-In-Reply-To: <20261029-upstream-speedo-t114-v1-0-81457cc9d94c@tsv-stahl-riesa.de>
-To: Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Mikko Perttunen <mperttunen@nvidia.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, 
- Prashant Gaikwad <pgaikwad@nvidia.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793266385; l=3247;
- i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
- bh=gDuzbARfWGkxqaRftjXwXdKDlFHjKq5qyD4dHr0p9zA=;
- b=UCEkvo1iL+WYXKVi+OSl1d7CVjMUf8WfbDywb4ejuLsyVFLuyGV4tLMHXRHQfNkaschpr9pgm
- pK4anvbJKLdDoDHmbZjnADxSRDPI5Bd1BMeWQYy+ACSr59oV2cGEbOn
-X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
- pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
-X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
- auth_id=1251
-X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
-Reply-To: admin@tsv-stahl-riesa.de
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] sched/numa: make free-space tiering promotion
+ bypass configurable
+To: Li Zhe <lizhe.67@bytedance.com>, <akpm@linux-foundation.org>,
+	<bsegall@google.com>, <david@kernel.org>, <dietmar.eggemann@arm.com>,
+	<gourry@gourry.net>, <joshua.hahnjy@gmail.com>, <juri.lelli@redhat.com>,
+	<kprateek.nayak@amd.com>, <ljs@kernel.org>, <mgorman@suse.de>,
+	<mingo@redhat.com>, <peterz@infradead.org>, <riel@redhat.com>,
+	<rostedt@goodmis.org>, <vincent.guittot@linaro.org>, <vschneid@redhat.com>,
+	<ziy@nvidia.com>
+CC: <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>
+References: <20261028041253.74839-1-lizhe.67@bytedance.com>
+ <20261028041253.74839-2-lizhe.67@bytedance.com>
+Content-Language: en-US
+From: Bharata B Rao <bharata@amd.com>
+In-Reply-To: <20261028041253.74839-2-lizhe.67@bytedance.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF000793FF:EE_|SADPR12MB333558:EE_
+X-MS-Office365-Filtering-Correlation-Id: d749afd4-4247-4fbb-ed80-08df359fe89a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|82310400026|36860700016|921020|4143699003|11063799006|56012099006|261022075727099003|261028144727099003|261026140227099003|261021121427099003|261022105027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	NN8VyqDq0GbR/y4YMoOxeTzGHJnH8ayYdmHhmXheor/LXGsWOfq6jyc/NHEAYoQSiCoSoYY8X5NkDq8qn/4ekARST1hmS2AhleJiV06DkHwtfp/7wYB2rNjSZNKMwyI7MCbXouHCXK6R3LClhHFS5B6UrGAYigJzp/V9dJHGX9/4DUf2jqAMpLqiXW4R6j20NGIY6CBxvLODklnb1QJX5U9rJ88g52ZVblnpw4DqhEn1sdOVyo/iya4wI07c2s4QT8xnOvm2UrGaizOZTTcchhk7QNf3MqXP/QGAV6oD9zMdiO/2XjwzPUk6nh8acD2vMN/akAtm1gnyQWPvl+cHcuodmxLCMyNgGp8GYFvmQJ35jPQq3OcR2Y0w8EEncR9s5wo+rdFbNSJTzHaHNMJTF6OO5hqLArSBEAQQpiODG5L8+VBJZZK+QIMo43RUAGymEH+bRTywYgro9q0DY2ij/PlFo7SRJOxx8lrfow7psis1o/eX0INuYdzad8D+v6d4WDSM4pO7FVKRNxBrEaPHj3qXCs06CK1zD7dJxt82JyRMi2nvyhJVSfiTHwCa0lv1Ibm33nKXSiol8w7/RPjazuWZC2P3Gn1moNYjuWCloJvu02rnf5EWab3XCj3KUpao6m7zGXm1l6IMUuFE499w+vkx8bh6a47he6v0+JbJz+rdPFE7onNizmtL/jf+k8arhjBfCDcnRKoPRZGoZRlvQZyw1wf5srwu+pK7ElRRYgQiPZOOYvxd5Kr6rHEzt+dF
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(82310400026)(36860700016)(921020)(4143699003)(11063799006)(56012099006)(261022075727099003)(261028144727099003)(261026140227099003)(261021121427099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Lvkzr5Wt4XfUGmn671Wv0A9HntpMjXwRvT/34/40x6jHaYk/nQ8/X05c9QyFbAWwjbOdT69fDA3OK8JEnpiZdIlsOhJJ+wuoJGNCApDW1s9V+GZAEOOu1BdfXCZUEtb1qI4SIC4XLVXVpc/mIVWjOL0aSlRCcAuyBTWNVo925Y8GwqkkzyQiAe49pkKI4VFpPt7O/s/jSV1SNRuDmw7drJ996Gw2F31GHqx3Nn6+PNB/VbLvPlOL3ONwOLnM6E8vamJLpb1r9QxvpRbsvlxEL1+ziu74sgrjHyqOzuqybUeuv1PPvKrAdJw8Bk1wH84kJL1WF7/TzM9RV21MIfqNlSf/meyg2L6hUt0/VdvmKX1o9bkBab6Qkly84X79t2QwmfOu4y6HmsuF/vdkErIPNOCcIK+AP9qmgCprC4XlgLhOlVMd2P1N06Ot7Y5zkS4n
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 09:35:02.7980
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d749afd4-4247-4fbb-ed80-08df359fe89a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF000793FF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SADPR12MB333558
 
-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+On 28-Oct-26 9:42 AM, Li Zhe wrote:
+> Memory tiering normally promotes any recently accessed slow-tier page if
+> the target fast-tier node has enough free space. This preserves the
+> existing policy of filling available fast memory before relying on
+> hotness and rate-limit control.
+> 
+> That is not always the desired policy. Some deployments may intentionally
+> keep part of a workload's memory on CXL-attached memory, for example to
+> preserve a desired DRAM/CXL capacity split or bandwidth distribution. With
+> the free-space bypass, short cold accesses and bursts of hot accesses can
+> refill the fast tier and pull the workload away from that distribution
+> whenever DRAM has free space.
+> 
+> Redis testing exercises this policy issue. On a CXL system with node0 as
+> DRAM and node3 as slow-tier memory, a Redis test was run with
+> memory-tiering-only mode enabled. The test used a Redis dataset with 12
+> million 4KB values. It reclaimed memory until about 85% of Redis
+> anonymous memory was on node3, used a Redis benchmark configuration with
+> a 10% hot-key working set, and then issued a short 256MB access burst to
+> cold keys outside that working set. The cold-key burst mainly touches
+> memory outside the hot working set, which is expected to remain mostly on
+> the slow tier.
 
-get_alignment_from_regulator() takes the voltage step from
-regulator_get_linear_step(), which returns desc->uV_step. Regulators
-described by linear ranges, such as the SMPS of the TI Palmas PMIC,
-leave uV_step at 0.
+Can you please clarify if 85% of redis memory ended up on lower tier naturally
+due to overflow from toptier? I ask this question because, if it is a natural
+overflow/demotion, then it will be hard to find head room in the toptier to
+allow promotions that bypass hotness or rate limit checks."
 
-With a step of 0, round_cvb_voltage() returns 0 for every OPP, which is
-then clamped to min_millivolts, so all CPU OPPs get the same voltage.
-The I2C LUT is broken as well: find_vdd_map_entry_exact() and
-find_vdd_map_entry_min() divide by the step, and on ARMv7 with hardware
-division the result is 0, so selector 0 matches every voltage. The LUT
-ends up with a single entry and the DFLL never changes vdd_cpu.
-
-This affects boards that run the DFLL in I2C mode with a Palmas SMPS as
-vdd_cpu. In mainline these are the Xiaomi Mi Pad (Tegra124, since v6.19)
-and the Asus Transformer Pad TF701T (Tegra114, DFLL enabled for v7.4).
-The AS3722 and MAX77621 used by the other DFLL boards report a linear
-step, and the PWM mode does not use the regulator.
-
-On a Tegra Note 7 (Tegra114, TPS65913) all 16 CPU OPPs are at 1000 mV
-and vdd_cpu stays at the 1.10 V left by the bootloader. The CPU runs at
-about 1.34 GHz whatever cpufreq requests. With this patch the OPPs range
-from 1000 mV to 1270 mV, the LUT holds the 1000 mV to 1270 mV selectors
-and the DFLL follows cpufreq up to 1708.5 MHz.
-
-If the regulator reports no linear step, use the smallest step between
-the voltages that are usable on the board. Fail the probe if there is
-none instead of running with a step of 0.
-
-Fixes: b3cf8d069505 ("clk: tegra: dfll: CVB calculation alignment with the regulator")
-Cc: stable@vger.kernel.org
-Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
----
- drivers/clk/tegra/clk-tegra124-dfll-fcpu.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
-
-diff --git a/drivers/clk/tegra/clk-tegra124-dfll-fcpu.c b/drivers/clk/tegra/clk-tegra124-dfll-fcpu.c
-index 457a77c5bb62..5bdea4775076 100644
---- a/drivers/clk/tegra/clk-tegra124-dfll-fcpu.c
-+++ b/drivers/clk/tegra/clk-tegra124-dfll-fcpu.c
-@@ -642,6 +642,7 @@ static int get_alignment_from_regulator(struct device *dev,
- 					 struct rail_alignment *align)
- {
- 	struct regulator *reg = regulator_get(dev, "vdd-cpu");
-+	int i, n_voltages, uv, prev_uv = 0;
- 
- 	if (IS_ERR(reg))
- 		return PTR_ERR(reg);
-@@ -649,8 +650,33 @@ static int get_alignment_from_regulator(struct device *dev,
- 	align->offset_uv = regulator_list_voltage(reg, 0);
- 	align->step_uv = regulator_get_linear_step(reg);
- 
-+	/*
-+	 * Regulators described by linear ranges (e.g. the Palmas SMPS) don't
-+	 * report a linear step. Use the smallest step between the voltages
-+	 * that are usable on this board instead.
-+	 */
-+	if (!align->step_uv) {
-+		n_voltages = regulator_count_voltages(reg);
-+		for (i = 0; i < n_voltages; i++) {
-+			uv = regulator_list_voltage(reg, i);
-+			if (uv <= 0)
-+				continue;
-+
-+			if (prev_uv && uv > prev_uv &&
-+			    (!align->step_uv || uv - prev_uv < align->step_uv))
-+				align->step_uv = uv - prev_uv;
-+
-+			prev_uv = uv;
-+		}
-+	}
-+
- 	regulator_put(reg);
- 
-+	if (!align->step_uv) {
-+		dev_err(dev, "failed to get vdd-cpu voltage step\n");
-+		return -EINVAL;
-+	}
-+
- 	return 0;
- }
- 
-
--- 
-2.56.0
-
-
+Regards,
+Bharata.
