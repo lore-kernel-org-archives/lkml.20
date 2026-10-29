@@ -1,76 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793308159;
-	b=kxXSh2V72uhpuWwHdQqnITqqQO6yvMiMpjhvvAfLjV0oRNBohSsBmAgjLNbhz4YCflzQ
-	 Lt93N9TJp+NJWqX8sDTnLu/pJ98Zil8U5DWeyq9+YuGeg/1zgilJ9hEYbR/4Yu30ne3cy
-	 nIGQKPTbTx/1TKMpq+Cvd9/U86BGHll0+dYijiGnVeBnVtAjzPxQM4lioLpiInymGS0y1
-	 r+FxOfW31zhgGyhWUJCCC12ppjCK3tEikoZD47YYXIdBGtJ+rnxmVqeRErtpmXeT8ljAW
-	 dtbl8YjSmLSkic82HTco+ce7UDuqd/Vu8wVHFkeJmuZ5X52uIIwKB5tk8Qb0NkROlAw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793308159;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793308164;
+	b=biaC3iulj9HJ1zGGq9rSGk5Kin2xJObulKGuqrAPzPE3clj6vvSRTaCpRNY14mX2Cn9/
+	 IYR045IzYmpCdpngbuR3yiUh3MFpKovjJtUs43+e1buWasRCUGPmx/DT7QH2HUGlire7n
+	 5em34n6rDCmO4PA4P5M5HCwGQ1gYr2JC7BhQc5e+C4tteXTBg5zS/U2yJXmi/3J4uNUCK
+	 KkKHDu/B01kwZqW25yAPlbbBF0S1pFsd3AhYwlTwwT3sqKsuQW2Kug86MgX1+cpBVtM7O
+	 cFmM/0vHPYmo/Bh50+YIDifVyt0fAFrc3yc3DxuUrW/y6fGUK0ToTumBT/aQzYxAQbA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793308164;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UZTQQFl2Xa9cNGYHC+qyfUooFiuQyHGk98xX353r+qY=;
-	b=F/KF0udR2cIExdVz5RA5j4Q9BUnqtLTB+y59Zozuq8eUQ7qBZeJXp6hI7Yc+W+1ElUyM
-	 47AFzYIKKWP7jl8rKNr8zpA2I3Y0+nSldmbIoBC+NxSvlF7jf1/VHCDd1YT+gmFXnjBB1
-	 uA4Nc18cDU4VucUD4s5wruk7uADVh/76yv56+Erwce1aCxhYiNwF8JIXpSgIkFCR2OlHw
-	 jPnLWtwKeSkjk3D44Pa7fM/k4Q83Gm0h/R4Ggziit/KJ5CjxsYAK1eCam1mTCzXYVpp17
-	 qpCnJSG05/ZHnA4BBnvoWcBa1x59O82+/i2UlDXaL3d0cbPchjvgQdAffzigsgstBYg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lX5yng3c;
-	arc=none smtp.remote-ip=209.85.215.199
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7kYdsdZrgEIyd8GSLnE1/erB4mjt9X79rFFJFtO64kU=;
+	b=0O7aC0NmxxqE5puaHki2tXwmgCMQ6gr/jMhG5BQ9GLhd6wFQMctfQKb3inh0koykPWus
+	 bYp8UKddHo4Cb/l7ZCz8pRXXpVmdr26qLmQ2wyLYcOUCum1J1fC0OVqb7kj+jr4gFH44a
+	 5elZfYv52I9RVWyA4q8XBR45FHByMM3E+hIy1RpfMUEYXvdUdMH3a6RsMlsJaa4+UUQCX
+	 MxNfJpUvoEx8HkvZ6H9/xhOWBEGNUzuxoQS43N60XaG/7zk7OUWEnQvA++Wwbmcy5jVOD
+	 KCqjPEtC8ICUYCiry7fHc0KBTMqpD2eoip6jOer1Di2GxhBA2d384ow+AvL5kLOIDSg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GJkAPnXc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.176
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA3C606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:09:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCA3C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D5B606A322
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:09:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2D5B606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lX5yng3c
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd8b299b05fso11692a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:09:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GJkAPnXc
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3ac97e45a79so775271fa.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:09:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793308162; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jEf1voqhfS+RYGsF/6ZYgVwtCu8zscVwzcDgrDsevtz3R9rFFCtZLWxQFtd/gVEBPZ
+         a3IlZDWmv4gSKhXAQxjU+fLTfgPzGr8yxqCITHvVv1yGUX4BMp+JK+Sy6vzAvxJmvbUD
+         UfzeJgTherPe97XpUpljKLThPGTfpGf0Mdwr8DStM7E/cX8+fGvjLG4CgxmEpgXbRo8F
+         IhEmRuTvNmkzfkbQRFxjWq6lqp7q6jQWyTDpMRB7eCUY7ui0WwV6nJutrNr5Z6y4dAdE
+         HhJ645Y8hL9V5/lhDtKYcjd3f9An7ZVZCm6+tp21HWmpEF7gAf5Y5XabLM3h3VoBzbsu
+         98XA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7kYdsdZrgEIyd8GSLnE1/erB4mjt9X79rFFJFtO64kU=;
+        fh=LgF7yrI+7cSf3qH6gJZ+4+F/PMtPFAKtZ9ZYfYEg8kE=;
+        b=ni6YYRZoPcV9zgnR9MJlRI8xgRMZUmgANI29Suzdnhn4QQID0ZCiMT1CgteOzUbCt0
+         DQZZVbMtYaedmdHrZhCyRI3N76w5XX2rm3CvSwy3RwuNvueXAoqc3DgbjqPp58+Jn5lt
+         1Z6ytL3uWSAIGQxVCaMrXjXPeJ8NNmgSkOCMV3+J52Tyg1nl4QWqNftMUTxvTluuP6Ir
+         SvtSQpnDfYNS8dZmk8OnI9M2LWEGltln4tsVkmLUBAJ9hOYhtn/cs0l+ebKQL1avBCj3
+         LdtJXFwVZFA1S96hr44bY/1SQJovE88xztjPxE64HNUgWP2b8YI08arHyDpRMMKwMBQZ
+         phMw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793308158; x=1793912958; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UZTQQFl2Xa9cNGYHC+qyfUooFiuQyHGk98xX353r+qY=;
-        b=lX5yng3cJrilLmgre+XF6cWaCORTkxbMYGTQ27oLnG9B34rlaYEmnwsqLb+AyL+C49
-         z5Rp/X00V1BXhQuQF1+Ch6W0sfSOtPXIjFI3ETVrfufZI8r27XqztpvW6K7VJ0ZA7682
-         xn4WPtchzaCtluDwPAnBJCVDYTOCu73xf6CUk6ezPgFeIa7/5o7Ge/kNJkPd0zrL5EtV
-         02ybCwKdo4zIa6JVJuw56zSYlhijS7KrzLvz0405ViUgVLzFeKloy1z0qr5NuAiaHlRg
-         inoRJvlpqw25y8Y2jAxcHcaNKhTV2kJGpMBD8smeO0ayuX+Djxs9xR8YPHzF4eN8MhU4
-         wPsg==
+        d=gmail.com; s=20260707; t=1793308162; x=1793912962; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7kYdsdZrgEIyd8GSLnE1/erB4mjt9X79rFFJFtO64kU=;
+        b=GJkAPnXcrUi4h3HatzovAOMoP85xhYxV+kQ182b3TNTPH0iqgpnF6S5IoS8oi85qCj
+         AEWDm/91aA8JzjZ4XxxalQfl52S6vLsJsmbiLxbm7FJ46Xilk4ErlDXMjsvgNALPscpw
+         T6IQt4u55seGSlBgG+qwSB4NSgN14WnH5bwqhnGqzJqOvuTN1XkJmuJVbA7TEpDT0TS+
+         cWT84erM4hEdWlDbi6Mr/oc7U8Os+HjXFkOv6HnfY48ZCFLEI5YwTZxVR/028mGseeWR
+         65rRGsRANfSGQUyGGK8aKqc/aZ5XfxGpRhzPyLRKXWxt0pMnQNcKByLrEX0USnASjDSU
+         GiDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793308158; x=1793912958;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
+        d=1e100.net; s=20260707; t=1793308162; x=1793912962;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UZTQQFl2Xa9cNGYHC+qyfUooFiuQyHGk98xX353r+qY=;
-        b=mx9O4PrRrIDqv9UCBE3m9SAgZajkMIewzKhMahqw2lYIus77IswE5fMx9fydipvT8R
-         HQXoFBrbpiDVtkfrTDlZaKXCTUzGl/OBHC+dG3ffP+jGcYbhPOtT+9wXHz6E3qmkVlPx
-         weOIXiZN/fkjn3iwf0GK+PkE9R99stYDp5DMLijNCFbTLaH8ha+niijQ7QnF6no101Ss
-         T0eTKaE3UiUTQzqRrZHOZNJs+zb+8PAeW3DAYZ7HIe/SSr5kEFKS90tGyrBkUdFliMsP
-         2L13LWi8ZVY0sz3bbQIPqnjXHqDwMmEwDomt+5/9YvL89cLH1pIMeE41PLT5G/6pjS+P
-         lVtA==
-X-Forwarded-Encrypted: i=1; AKwUvBxeDk+Qq6Uj9u2LAmWurPs0qGG5hWtjhOpQgDQsnfYUclPJmNQJbUZPiJzuV5z+W9/Jgcj2jXto2kO8TwE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkAswryS3GJtrH6JIFmh71MVks1NotYzZU0TLBq7Bp7I4bZ3NF
-	ABUtlHrppGTp4D5QKSL/bkQxIWR2zKWYYZi4CyfYCEWpcdb5UjVwEiPw6yCdRiSYZMM1iBxAo63
-	WbEELVQ==
-X-Received: from pjff12.prod.google.com ([2002:a17:90b:562c:b0:3aa:ff61:94d0])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4b90:b0:3ac:da41:ef7e
- with SMTP id 98e67ed59e1d1-3ae89851099mr137795a91.52.1793308157908; Thu, 29
- Oct 2026 14:09:17 -0700 (PDT)
-Date: Thu, 29 Oct 2026 14:09:17 -0700
-In-Reply-To: <GV2PR06MB10711171A7A8F225207FACD6BB96E2@GV2PR06MB10711.eurprd06.prod.outlook.com>
+        bh=7kYdsdZrgEIyd8GSLnE1/erB4mjt9X79rFFJFtO64kU=;
+        b=CMSkYikOYQQz+EUokWSKT+HdYnAwRuU+hZgzBYtDlPW4XymZ2AMAErJXT6qtsI8FWg
+         krJDwyJyH2z5Vd6EWIF3ZZTnPY6PF31V7I7oAlcC7Ps2kn/9iC76hSfMDx2I1xqo4Mec
+         fsQxwJ1HZabsNNGt5HXc/2opPNSALrGDmhOl8xytZQpbViajA1tQn6SHaDEmwlWS0yN2
+         Mm8S7Mpv+u0TF9ktiRrHzEUgCsYp2zwLhRU2WQ8wLsyLw4R/nAzeBP3reIfc9bitM87s
+         GG2zcSTkdk96dtpHMuRMSRvD7KGtTwzuCbwmd2+RZIJDJvs4nfOsjbaaZl7Z//qY9zYU
+         hS1g==
+X-Forwarded-Encrypted: i=1; AKwUvByR450VQqBFHRtaNGHE5iYWLb1mfeTTEyo4exKLSKWnqSrXqLmXMYVID6K+4jJPFHxzFmDzua962tR+po8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmpZJ1ZhVcx4KLukN4FQUC64I1U7pGI3GH8GUAo0H1u8HPzU4s
+	0ZB3p1ytot+zIxGFrHGwjkgqI8ma++OhPICUbqs+CLkL7tf8nCvvkJoRG7CEMcbs2OIhyJKMcud
+	ip1mWmcIPKMcEJMY7HpYRzD0/5qnb1QE=
+X-Gm-Gg: AYBFou1+c11ERW3NJLS0ne7nrHLQVW76H+XmNDvCP7CWQdzlbHM3vm6oG3hkg9F8fsr
+	AkcU533olSXdaTAHL6D1dABntBK+rDUCXRcUC/AVrtqt/UnrPlItytF3WD0JR9f254C6l+lCboz
+	zoeFV0OvEis36uUJKe85QQuDr6VSmVr/rCxCAOtgL4WZTh4kH+NO8H9tvmHJIXY1YxFdOHhzPA9
+	ipy9i8ykkPtRHPRauNAI42kAlFPjA/W7EaIEasYlKWNuBstHIU2aoxvw1Pxo3bgvxLUJQZ7yqDb
+	h4mCeto9nINYjKaosIMJbMXAJTgq511cF2HvdNakfATBoUDFJW0upBKgBfcUhuAPbuHUGfikTdj
+	vsU+1l6/ULl0OlKpklMMKfzkLsuMs8XpSZk+6
+X-Received: by 2002:a05:6512:a94:b0:5bf:b246:87a2 with SMTP id
+ 2adb3069b0e04-5bfd957b610mr43125e87.10.1793308161793; Thu, 29 Oct 2026
+ 14:09:21 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,215 +103,352 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261028202607.1844883-4-seanjc@google.com> <20261028215143.2913059-1-jthoughton@google.com>
- <GV2PR06MB10711171A7A8F225207FACD6BB96E2@GV2PR06MB10711.eurprd06.prod.outlook.com>
-Message-ID: <auO1_YE89Q0T0hfI@google.com>
-Subject: Re: [PATCH 3/4] KVM: x86/mmu: Add automatic prefaulting/prefetching
- for TDP MMU faults
-From: Sean Christopherson <seanjc@google.com>
-To: Marco Marangoni <mamarang@amazon.com>
-Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "pbonzini@redhat.com" <pbonzini@redhat.com>, 
-	"cc-open-source@amazon.com" <cc-open-source@amazon.com>, James Houghton <jthoughton@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+References: <20261028030503.17923-1-kanchanapsridhar2026@gmail.com> <auOZBtRqQGzFcbAT@google.com>
+In-Reply-To: <auOZBtRqQGzFcbAT@google.com>
+From: "Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Date: Thu, 29 Oct 2026 14:09:09 -0700
+X-Gm-Features: AclHuK-m7JH-ZqoB-jo0yDD7-BAXHkWcLwROF3ZmF0vmqG3Tfo8M-MSswHjw2Rs
+Message-ID: <CACpmpocqHHa4z9hkZ6YEm-wmzMqSX5WpPLfku7Om=NenRq_05Q@mail.gmail.com>
+Subject: Re: [PATCH v2 0/8] Batched zswap_store() framework with compression batching
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
+	akpm@linux-foundation.org, linux-mm@kvack.org, herbert@gondor.apana.org.au, 
+	davem@davemloft.net, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, rientjes@google.com, willy@infradead.org, 
+	senozhatsky@chromium.org, 
+	"Kanchana P. Sridhar" <kanchanapsridhar2026@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026, Marco Marangoni wrote:
-> Hi Sean, thanks for the patch!
-> I run some benchmarks on it, and it definitely helps! This is the time to=
- fault 128 MiB linearly after a snapshot restore, with an UFFD page handler=
- that faults chunks on demand; medians of 60 restores. Baseline is kvm-x86/=
-next. Each entry is nr_pages: change vs baseline on the patched kernel; neg=
-ative means faster.
->=20
-> - UFFD 4 KiB handler (baseline 2228 ms) 0: +1%, 1: =E2=88=925%, 2: =E2=88=
-=923%, 4: +1%, 8: =E2=88=923%, 16: +1%, 32: 0%, 64: 0%, 128: =E2=88=922%, 2=
-56: +1%, 512: +1%
-> - UFFD 512 KiB handler (baseline 543 ms) 0: 0%, 1: 0%, 2: =E2=88=9236%, 4=
-: =E2=88=9251%, 8: =E2=88=9259%, 16: =E2=88=9264%, 32: =E2=88=9271%, 64: =
-=E2=88=9267%, 128: =E2=88=9268%, 256: =E2=88=9267%, 512: =E2=88=9266%
-> - UFFD 2 MiB handler (baseline 513 ms) 0: 0%, 1: +1%, 2: =E2=88=9234%, 4:=
- =E2=88=9250%, 8: =E2=88=9259%, 16: =E2=88=9264%, 32: =E2=88=9268%, 64: =E2=
-=88=9268%, 128: =E2=88=9268%, 256: =E2=88=9268%, 512: =E2=88=9268%
->=20
-> 8 is the series' default; 0 and 1 both disable prefetch and reproduce
-> baseline. The 4 KiB row is within =C2=B15%, i.e. noise.  It's measured on=
- nested
-> virtualization, so the improvement is probably less dramatic on metal. Fo=
-r
-> context, my initial patch was around ~75% faster, so I'd say that
-> performance-wise, your implementation is solid!
->=20
-> It seems like a prefetch of 32 is the sweet spot, but I agree that with J=
-ames
-> that with the normal GUP it's probably better to keep it off or very low =
-by
-> default.
+On Thu, Oct 29, 2026 at 12:12=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wro=
+te:
+>
+> On Tue, Oct 27, 2026 at 08:04:55PM -0700, Kanchana P. Sridhar wrote:
+> >
+> > v2: Batched zswap_store() framework with compression batching
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >
+> > This series is a spin-off of "v14: zswap compression batching with opti=
+mized
+> > iaa_crypto driver" [1], and focuses on the generic crypto_acomp and zsw=
+ap
+> > compression batching enablers. Resuming work on this series following a=
+ gap
+> > since v14 (January 2026). Please note that my email address and affilia=
+tion have
+> > changed from kanchana.p.sridhar@intel.com to kanchanapsridhar2026@gmail=
+.com. I
+> > have retained the original Intel sign-offs on prior patches for histori=
+cal
+> > attribution while signing off v2 of this series with my current address=
+.
+> >
+> > The main focus of v2 was to establish a reliable and accurate performan=
+ce
+> > measurement methodology, that addressed the problems with variation in =
+v1. This
+> > is accomplished and used to validate v2, by reducing usemem to 2 proces=
+ses and
+> > enabling PMD THP. As the data shows, we get exactly the same "2048kB-zs=
+wpout"
+> > counts in the baseline and with this series.
+> >
+> > To summarize the main contribution of this patch series: Batching is in=
+troduced
+> > in zswap_store() of large folios: we carve out a large folio into batch=
+es of
+> > ZSWAP_MAX_BATCH_SIZE (8 pages) for software compressors, and store each
+> > batch. Moving the fundamental operations that need to be happen to stor=
+e a page
+> > to now work at the granularity of a batch offers opportunities to optim=
+ize them
+> > from these perspectives:
+> >
+> > 1) Utilize existing kernel API that minimize obtaining locks for bulk
+> >    operations, e.g. kmem_cache_alloc_bulk()/kmem_cache_free_bulk().
+> >
+> > 2) We keep the working set for each of the core store functionalities
+> >    (alloc/initialize zswap entries, compress pages, store pages in zsma=
+lloc,
+> >    pool/objcg reference increments, objcg charging) to be focused on a
+> >    batch, thereby minimizing cache evictions and benefiting from cache
+> >    locality.
+> >
+> > 3) Along the lines of (1), the main zswap_compress() batching routine o=
+btains
+> >    the comp_ctx mutex lock once per batch, and releases it after it has
+> >    processed all pages in that batch.
+> >
+> > 4) Any zswap store functionality that works on a batch can potentially =
+be
+> >    optimized via bulk-processing/parallelized as a next step, to furthe=
+r improve
+> >    performance.
+> >
+> > Performance data: usemem with 56% over-commit:
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > Validation was done with mm-unstable as of 10-25-2026 (Baseline) and wi=
+th this
+> > patch series. To minimize variation in the data, I made these changes t=
+o my
+> > performance measurement methodology:
+> >
+> > 1) Reduced the number of usemem processes to 2. Each process tried to a=
+llocate
+> >    2400M, in a 3G cgroup memory.high budget, effectively accomplishing =
+a 56.25%
+> >    over-commit.
+> >
+> > 2) Increased the runtime of the workload to ~9 minutes by enabling PMD =
+THP,
+> >    i.e., 2048kB mTHP folios.
+> >
+> > 3) The use of PMD THP forces zswap_store()/zswap_compress() latency to =
+be in the
+> >    critical path, and thus enables very reliable measurements with bpft=
+race.
+> >
+> > 4) I used lhist() instead of hist() in bpftrace to gather latencies at =
+a finer
+> >    level of granularity and accuracy.
+> >
+> > Testing was done on a Chromebook with a QEMU "vng" VM running in Crosti=
+ni.
+> >
+> > Chromebook Diagnostics reports:
+> >   Intel(R) Core(TM) Ultra 5 115U (10 CPUs, 4.200GHz)
+> >   RAM: 16GB
+> >
+> > vng setup:
+> >          Memory: 7G
+> >            Swap: 3G
+> >     Pinned CPUs: 2 (E-Cores: 2,3)
+> >
+> > zswap compressor:
+> >   ZSTD
+> >
+> > mTHP enabled:
+> >   2048kB (PMD THP)
+> >
+> > I used the help of an LLM to write the bpftrace data post-processing sc=
+ripts
+> > that generate latency percentiles.
+> >
+> > vm-scalability/usemem setup:
+> >
+> >   cgroup memory.high: 3G
+> >   2 usemem processes, each allocates 2400M anonymous memory, reads the
+> >   Silesia dataset [2] from a pre-fork-allocated buffer into the 2400M,
+> >   writes to each unsigned long in the 2400M, sleeps for 10 sec, then
+> >   frees the memory and exits.
+> >
+> >     usemem -w --read-silesia -O -b 1 -s 10 -n 2 2400M
+> >
+> >  usemem metrics are reported from a single run after starting the QEMU =
+VM.
+> >  Further, I have tabulated the bpftrace p50/p95/p99 latencies with thes=
+e labels:
+> >
+> >  "zswap_store_higher_order":
+> >     zswap_store() of PMD folios.
+> >
+> >  "zswap_store_order_0":
+> >     zswap_store() of order-0 folios.
+> >
+> >  "zswap_batch_compress_per_page":
+> >     zswap_compress() per-page latency of store batches generated from P=
+MD
+> >     folios.
+> >
+> >  "zswap_single_compress_per_page":
+> >     zswap_compress() per-page latency of order-0 folios.
+> >
+> >
+> >  ----------------------------------------------------------------------=
+------
+> >  usemem                       Baseline      zswap        zswap   Change=
+ with
+> >  PMD THP                   mm-unstable      store     compress      com=
+press
+> >                             10-25-2026   batching     batching      bat=
+ching
+> >                                         (patch 6)    (patch 8)         =
+ %
+> >  ----------------------------------------------------------------------=
+------
+> >  usemem process 1                6,353      7,240        7,428
+> >   Throughput (KB/s)
+> >
+> >  usemem process 2                6,352      7,236        7,422
+> >   Throughput (KB/s)
+> >
+> >  Average Throughput (KB/s)       6,353      7,238        7,425        1=
+7%
+> >  ----------------------------------------------------------------------=
+------
+> >  usemem process 1              484,580    308,903      257,230
+> >   Time to free memory (usecs)
+> >
+> >  usemem process 2              518,928    438,585      446,958
+> >   Time to free memory (usecs)
+> >
+> >  Average Time to               501,754    373,744      352,094       -3=
+0%
+> >   Free Memory (usecs)
+> >  ----------------------------------------------------------------------=
+---------
+> >
+> >  ----------------------------------------------------------------------=
+---------
+> >  usemem                          Baseline        zswap        zswap    =
+   Change
+> >  PMD THP                      mm-unstable        store     compress    =
+     with
+> >  BPFTRACE                      10-25-2026     batching     batching    =
+ compress
+> >                                              (patch 6)    (patch 8)    =
+ batching
+> >                                                                        =
+     (ns)
+> >  ----------------------------------------------------------------------=
+---------
+> >  zswap_batch_compress_per_page (ns):
+> >                          p50                                 40,086    =
+    1,569
+> >                          p95                                 54,689    =
+  -64,505
+> >                          p99                                 83,248    =
+  -88,488
+> >  ----------------------------------------------------------------------=
+---------
+> >  zswap_single_compress_per_page (ns):
+> >                          p50       38,517       38,352       36,650    =
+   -1,867
+> >                          p95      119,194      121,174      133,678    =
+   14,484
+> >                          p99      171,736      158,601      169,010    =
+   -2,726
+> >  ----------------------------------------------------------------------=
+---------
+> >  zswap_store_higher_order (ns):
+> >                          p50   21,012,222   21,322,885   20,176,667    =
+ -835,556
+> >                          p95   25,643,500   26,204,375   24,485,000   -=
+1,158,500
+> >                          p99   28,567,400   38,577,750   26,158,000   -=
+2,409,400
+> >  ----------------------------------------------------------------------=
+---------
+> >  zswap_store_order_0 (ns):
+> >                          p50       37,601       36,994       37,568    =
+      -33
+> >                          p95      123,731      137,034      128,366    =
+    4,635
+> >                          p99      159,965      169,282      175,618    =
+   15,653
+> >  ----------------------------------------------------------------------=
+---------
+> >  vmstat summary:
+> >  ----------------------------------------------------------------------=
+---------
+> >  zswpin                         1,104,226      993,412    1,091,146
+> >  zswpout                        1,688,181    1,582,664    1,669,671
+> >  2048kB-alloc                       2,500        2,505        2,500
+> >  2048kB-zswpout                     1,535        1,535        1,535
+> >  2048kB-swpout-fallback               927          929          875
+> >  ----------------------------------------------------------------------=
+---------
+> >
+> >  Detailed vmstat & zswap stats after workload finishes:
+> >  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
+> >
+> >  ------------------------------------------------------
+> >  usemem                          Baseline        zswap
+> >  PMD THP                      mm-unstable     compress
+> >                                10-25-2026     batching
+> >                                              (patch 8)
+> >
+> >  ------------------------------------------------------
+> >  vmstat:
+> >  ------------------------------------------------------
+> >  pswpin                               0              0
+> >  pswpout                              0              0
+> >  thp_swpout                           0              0
+> >  thp_swpout_fallback                927            875
+> >  swpin_zero                           0              0
+> >  swpout_zero                          0              0
+> >  zswpin                       1,104,226      1,091,146
+> >  zswpout                      1,688,181      1,669,671
+> >  zswpwb                               0              0
+> >  nrswpin                              0              0
+> >  nrswpout                             0              0
+> >  pgmajfault                     173,554        173,774
+> >  nr_free_pages                1,753,879      1,755,195
+> >  nr_free_pages_blocks         1,651,712      1,667,072
+> >  2048kB-alloc                     2,500          2,500
+> >  2048kB-zswpout                   1,535          1,535
+> >  2048kB-swpout                        0              0
+> >  2048kB-swpout-fallback             927            875
+> >  2048kB-swpin                         0              0
+> >  memory.current                 352,256        499,712
+> >  memory.swap.current                  0              0
+> >  ------------------------------------------------------
+> >  zswap stats:
+> >  ------------------------------------------------------
+> >  pool_limit_hit                       0              0
+> >  written_back_pages                   0              0
+> >  reject_alloc_fail                    0              0
+> >  reject_kmemcache_fail                0              0
+> >  reject_reclaim_fail                  0              0
+> >  reject_compress_fail                 0              0
+> >  reject_compress_poor                 0              0
+> >  decompress_fail                      0              0
+> >  stored_incompressible_pages          0              0
+> >  stored_pages                         0              0
+> >  pool_total_size                      0              0
+> >  ------------------------------------------------------
+>
+> As mentioned in the previous version, I cannot reproduce these results,
+> mainly because the noise is too high. Digging a bit deeper, it's because
+> the throttling from memory.high varies. Hacking in a change to make
+> calculate_high_delay() always return 0 (no memory.high stalls) paints a
+> clearer picture about throughput improvements from the series up to
+> patch 6 and patch 8. With that, I see 1-2% improvement in throughput
+> with patch 6, and almost no improvement with patch 8 on top. Similarly,
+> for zswap store latency for high-order folios, I see a slight (~1-2%)
+> improvement with patch 6, but almost none with patch 8 on top.
 
-Yeah, agreed.  Triggering zswap or any other heavy operations could regress=
- a
-lot of configurations/workloads.
+Thanks Yosry, for sharing this. Let me also see if I can replicate
+this hack on my end, and its impact on latency.
 
-Hrm, but I don't want to lose support for guest_memfd without an hva.  Oh. =
- That's
-a pre-existing bug, kvm_prefetch_pages() should reject kvm_memslot_is_gmem_=
-only()
-slots.  But that's a side topic.
+>
+> In order to make meaningful progress, can you send patches 5-6
+> separately? I assume that 1-4 are prep for 7-8, so 5-6 are standalone. I
+> also think patch 6 will be simplified if we drop the prep work for
+> patches 7-8?
 
-Argh, FOLL_FAST_ONLY is internal-only.  But do we actually need it to be su=
-per
-strictly fast-only?  Wouldn't FOLL_NOFAULT suffice?  IRQs are enabled so ta=
-king
-mmap_sem is fine; it's not be ideal, but KVM will still try fast-GUP first,=
- and
-in practice performance is going to suffer no matter what if mmap_sem is
-contended, e.g. arm64 *unconditionally* takes mmap_sem for read when handli=
-ng
-faults, and while it shows up in micro-benchmarks, e.g. mmu_stress_test, AF=
-AIK
-no one has complained otherwise.
+It shouldn't be a problem to send patches 5-6 separately, but I would
+like to measure the latency impact with the hack and confirm the
+latency results in my environment, so we can figure out a plan on how
+to proceed. Patches 5-6 alone only achieve bulk allocation of
+zswap_entries. It could be possible to bundle in patch 8, which
+generalizes the store batching framework, but let's revisit on how
+best to make meaningful progress.
 
-So isn't the fix just this?
+Patches 5-6 have a dependency on the batch_size for allocating
+acomp_ctx resources, which is for the compress batching improvements
+in patch 7-8.
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index b673c8130edd..1fcf4fedc0bb 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -4684,6 +4684,9 @@ static int __kvm_mmu_faultin_pfn(struct kvm_vcpu *vcp=
-u,
- {
- 	unsigned int foll =3D fault->write ? FOLL_WRITE : 0;
-=20
-+	if (fault->auto_prefetch)
-+		foll |=3D FOLL_NOFAULT;
-+
- 	if (fault->is_private || kvm_memslot_is_gmem_only(fault->slot))
- 		return kvm_mmu_faultin_pfn_gmem(vcpu, fault);
+>
+> Also, PTAL at Sashiko reviews before respinning.
 
-> From my perspective, using fast GUP has the problem that you cannot prefa=
-ult
-> "around" your page, but just ahead of it, so I don't mind going with norm=
-al
-> GUP if it makes things easier for you.
+Sure.
 
-I think I'm missing something, why would fast GUP prevent prefaulting "behi=
-nd"?
-E.g. is that effectively a limitation of the underlying backing store you'r=
-e
-using, a fundamental limitation somewhere in mm/, or a limitation in KVM it=
-self?
-
-> I'd say that most setup would know the size at which UFFD copies the memo=
-ry,
-> so having to explicitly configure is okay.
->=20
-> For completeness, I also measured how much the patch improves at various =
-UFFD chunks, with nr_pages at the same size:
->   - 4 KiB: 2285 ms =E2=86=92 2321 ms (np1), +2% (np1 is "off", noise)
->   - 8 KiB: 1435 ms =E2=86=92 1441 ms (np2), 0%
->   - 16 KiB: 1036 ms =E2=86=92 860 ms (np4), =E2=88=9217%
->   - 32 KiB: 743 ms =E2=86=92 469 ms (np8), =E2=88=9237%
->   - 64 KiB: 645 ms =E2=86=92 319 ms (np16), =E2=88=9250%
->   - 128 KiB: 587 ms =E2=86=92 242 ms (np32), =E2=88=9259%
->   - 256 KiB: 561 ms =E2=86=92 200 ms (np64), =E2=88=9264%
->   - 512 KiB: 543 ms =E2=86=92 165 ms (np128), =E2=88=9270%
->   - 1 MiB: 534 ms =E2=86=92 171 ms (np256), =E2=88=9268%
->   - 2 MiB: 523 ms =E2=86=92 151 ms (np512), =E2=88=9271%
->=20
-> These measurement highlight a possible limitation (why didn't 8KiB improv=
-e?):
-> it seems like the prefetching doesn't kick in the first time a page is
-> getting faulted in the chunk, is that expected? I asked an LLM to
-> investigate, and it seems to be because with async PF, the first fault
-> doesn't reach the kvm_mmu_auto_prefault code path.
-
-Hmm, right.  I deliberately hooked kvm_mmu_page_fault() instead of
-kvm_mmu_do_page_fault() so that prefetching wouldn't trigger auto-prefetch,=
- but
-the existing shadow MMU prefetching does kick in for async #PFs, and it doe=
-s make
-sense to prefetch in that case if we buy my argument (from this changelog) =
-that
-async #PF should punch through dirty logging.
-
-Auto-prefetching for KVM_PRE_FAULT_MEMORY feels "wrong", but we do prefetch=
- in
-that case for the shadow MMU, though I'm like 99.9% certain no one is runni=
-ng
-TDP with the shadow MMU these days, so I don't think we should consider tha=
-t a
-valid datapoint.
-
-Untested, but I think it'd be this:
-
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index b673c8130edd..c0ff50c52ad5 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -5024,6 +5024,9 @@ enum kvm_prefetch_type {
- 	KVM_PREFETCH_AUTO,
- };
-=20
-+static void kvm_mmu_auto_prefault(struct kvm_vcpu *vcpu, gpa_t start,
-+				  u64 error_code, u8 level);
-+
- static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
- 				 u64 err, enum kvm_prefetch_type prefetch,
- 				 int *emulation_type, u8 *level)
-@@ -5098,6 +5101,9 @@ static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcp=
-u, gpa_t cr2_or_gpa,
- 	if (level)
- 		*level =3D fault.goal_level;
-=20
-+	if (r =3D=3D RET_PF_FIXED && prefetch !=3D KVM_PREFETCH_AUTO)
-+		kvm_mmu_auto_prefault(vcpu, cr2_or_gpa, err, fault.goal_level);
-+
- 	return r;
- }
-
-or to disable it for KVM_PRE_FAULT_MEMORY:
-
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index b673c8130edd..ee31a35f6a55 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -5021,9 +5021,13 @@ static int kvm_tdp_page_fault(struct kvm_vcpu *vcpu,=
- struct kvm_page_fault *faul
- enum kvm_prefetch_type {
- 	KVM_PREFETCH_NONE,
- 	KVM_PREFETCH_MANUAL,
-+	KVM_PREFETCH_ASYNC,
- 	KVM_PREFETCH_AUTO,
- };
-=20
-+static void kvm_mmu_auto_prefault(struct kvm_vcpu *vcpu, gpa_t start,
-+				  u64 error_code, u8 level);
-+
- static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
- 				 u64 err, enum kvm_prefetch_type prefetch,
- 				 int *emulation_type, u8 *level)
-@@ -5098,6 +5102,10 @@ static int kvm_mmu_do_page_fault(struct kvm_vcpu *vc=
-pu, gpa_t cr2_or_gpa,
- 	if (level)
- 		*level =3D fault.goal_level;
-=20
-+	if (r =3D=3D RET_PF_FIXED && prefetch !=3D KVM_PREFETCH_AUTO &&
-+	    prefetch !=3D KVM_PREFETCH_MANUAL)
-+		kvm_mmu_auto_prefault(vcpu, cr2_or_gpa, err, fault.goal_level);
-+
- 	return r;
- }
-=20
-@@ -5215,7 +5223,7 @@ void kvm_arch_async_page_ready(struct kvm_vcpu *vcpu,=
- struct kvm_async_pf *work)
- 		return;
-=20
- 	r =3D kvm_mmu_do_page_fault(vcpu, work->cr2_or_gpa, work->arch.error_code=
-,
--				  KVM_PREFETCH_MANUAL, NULL, NULL);
-+				  KVM_PREFETCH_ASYNC, NULL, NULL);
-=20
- 	/*
- 	 * Account fixed page faults, otherwise they'll never be counted, but
-
+Thanks,
+Kanchana
