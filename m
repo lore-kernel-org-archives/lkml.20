@@ -1,144 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264410;
-	b=Og4eFzGqVceR/a3MfMoiolnY202BE5CdkCXn+swrANYkHpd5W4QQWAlmY+3b8T4oslMC
-	 Hi4/v2A5P+KJXgLgu7KHJZOoIewennHG9Kb6pMgQJCeoAbCyL9CFR9yb01Pqib7yrGwo+
-	 f+Z3nJ9Jt6kzBW57SOBmKTITnwgN8OD709Q6CtdUEkSwyePbhBb+33l3ejMuGreU6vof7
-	 S/oSVS8xKpRf2VfyphJ9bBcN+IyiQSS3VGW7c9y2NsU5StECa2RMScZyO62qKVBW+HwC1
-	 fjILDpnRivvRDnsvFSZVLU9Uy/yj9h1CIx80AJ5KmGr3PuvBPPanHd4qyO3e8S4BXFw==
+	t=1793264430;
+	b=KzWXo9f585axh/BtmErt1PQyLBNy6lOSBwDmS57OyBh0lpwe3JBp6yyPlV676w/Wiral
+	 gt3KYHR0n3Oaga1AFbPvancf2E6VtA/n+hOUC3uf2zY9m5J0AUYkxxWowe5pxS8aXCq8H
+	 2XxyuOyd7/nFbp72XVWuz+8nfeSTsdjpb7Ow7zLOz1W4yGBvGoxfuamZHxNmK3Cohqh3/
+	 JPO3/36m9mgW5l8VXl1cqyGlwfH7bfNR7bouHAWKNh6NQRxXeX8yV4UcVp2eHPvuW8Fje
+	 QOVDTcZO3TSTrC6HAeziX1Jlf5QYoxNQSchePSM0mPIPjh5iZOgo2f40RdFfKs/Y9TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264410;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=bas+A2pwMPdYKlr8K9rmQmJzztUh1FCL0UJNjmXGJUs=;
-	b=bqCzOOMi/jVjnPLEsd7HtFAYAuDm8LHn0YDvU31pkawpAj8v62l+JNz5gge6hALhbQtB
-	 g1ay5RoRrX1ddF1lZcjEpsnZMjF04aSYIAOigcqH0bLcBRiFHjIUZWfRrqw2R4425jEq1
-	 FNulz/gG09ODf330OELpTB2JhA/tNso90KGbt8GHYzfN7THR54CukegupVNcwKcSzoHvY
-	 rC6uPEqZH9LsmMWzh2JO22W8RBWyG5TPBA1VvwpjlpJceLaobpjThWX0EgjPgdx8d0bGO
-	 iXwx++3KLoYW/c8MAXot6fyxbiHLu5rlqWbxy/MJTGxb3nqLF0Vs2+MJROwpt2rD1uA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793264430;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=DgX+B0l0y0JObzSV9Y9eOGQGcmRVOIfdFOkUhnziwVY=;
+	b=vgM1at8/iltwtCcQa5Y6nvg8QsRHIAf36ymKy5JzCteN3qjMXz9q/4oLCcGq0xiJ2wIt
+	 0Y6T6X2gnZzQPGI4Gd/z0XrcxWNqddUMm1FRG+EmkOuC7sPRB6qSrzArT8Ku12xjGuJ0G
+	 gKq/qC7ekG/nMCO/Yi7zGGFmG38nTTDVH9FVr6rqLtSAEqlW5C3hxpi9354YBX8Nr0Hiz
+	 u5BLPkVm0e2hX44JUzBRVrswCxP2eQWuiMgy9h/XT/ShtvEX4cjVoKAUjN4D2h6b1NFs2
+	 Z9PsxDuEZzRDR1J6sD00BgvbBTdWltfPt4ttVE2n69t3gD2EoG0kx4z371wXMSq6mHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xt7r6i1X;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NCDv9Hzu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC91606A327
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:00:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCC91606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BAF606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:00:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xt7r6i1X
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36a1947498bso1259127eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:00:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793264409; x=1793869209; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bas+A2pwMPdYKlr8K9rmQmJzztUh1FCL0UJNjmXGJUs=;
-        b=xt7r6i1XB1wkXiieaXlil0rUqSFTNnvo7KXs2PxxFwFRllKLzCjc3lAJO51BFf/aQE
-         xwbahwlJGxoNmGtKzWB5ciUYUa8c3l5IJQsM+quncSLh590orvnt0rglBklJg/4hSSr5
-         zUPZzBSdVHkEFdUOEXNz8+Iq29pYNSRU0vAv9U/jDNds4FjL0ObkXxPo6wW9U7n8MZge
-         OCHy/7VRQ2HxiSov3eT+s6eDTuNFwtOZq9jcBMY8gKElsY6t9e3T1UTNnMtDHZO16180
-         l9J76Q96/yivgS/e1DmrD4Nu65RQWYxclEk/7RuWeTqfVqY8JXOD8ciHHvZVApvrwhvR
-         6rrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793264409; x=1793869209;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bas+A2pwMPdYKlr8K9rmQmJzztUh1FCL0UJNjmXGJUs=;
-        b=QBqxhuW7vcopi+v8pJmPtO708CAzIWpcecSx9QdvRX0V8Acq+02GdkaaDGexzxesEL
-         OSCzFJWT+yaCq3ADc7FoAvgsSKHNkVk/xMcLXKxDLaXmVFvGD8u39l1b0pYRyVtu/myU
-         nQID6Az2pAzX1nZ8mN1GqeJ4XuBhyq4jnzX71+UI+qI4IwFKHMma+vpYygBmRYoktPWd
-         P2SZFRypvToTl/1+KDnO1dHak9lbRgltYvQdsjDqwEZHQ1EgUHlcegSDcYgWJIvQULm1
-         72R/9GOLEiOnzdiHPxeNecXz+7d4dK9v9Vx4oFh05l137XbrlcUSRDFE675y3vY31xnj
-         MGqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxRAz3/BHRIros9jAE1iHRxL2cMd0U/+1M21wC5s7LxFhpJa22dQ0f2gkUVYbr3EeanKgVdjSNH4zyc0Go=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJF79pdSRLX+YxrBbfpWdmXQfjxz5ZW5xCRxy2RHpiLaR7UE9BI
-	+wYHzx0DBg0J1BJhQV8rfZp+YcJUgRaENjT/ccva94F35gr/p//nJFM=
-X-Gm-Gg: AYBFou0QfaRcqs7zuDNqnvcDug/CfnZCFStZWUco9usFv51RryvVCwBu5EpRan7cuQ7
-	W5L9uBIBUP3+CKb9n9As4J2kumeG3BBXvcKt4Y1Ghmdema/digml4I2gMHNM2hL1lneGcXphtOK
-	RfHOzECklrmSc+GgRe2ROSR90xXYnHpmCgJ9axztnA4ODE80QhMGzvdM5m9bZQXvVQdAiq4KBsO
-	FD5rbRjT45vye35wcLExVLeTsBu/1cwjAR5n9c7N5T4Z35cOrAa/ysMl0hwTFTLAFKFSGlE6J1J
-	8/sli5/HArwA1nTutZqlDp5BnBWJuf/YjjGS4awukkTfgU2E+FSi5z8PDryYqfg9NRLwcA2eiK/
-	aWvUjJbSzTbIYSOMhVLi4X4wOsazZ9+5j4WmmspwYdfp8zd6RpysAI594TuIlqWwTUXMWZvXzLD
-	uT7EsH1xjCD7Qk0i2AhMM6SkDI3Mp9wu4vxe/3W7RuOs8FvzsJtoAQIAd/uVImTby1hhFgfiH5K
-	5xXPUN29Oxuu8Fm2mcF8ZT9q9gdq7cDkO3DKtkGZslm2WUeL5CTS/61LmBYlbKAAuQwdpqej9kg
-	lhB1weNRtjHXn2k1OxcH47EOzexRE1Mvxt2MS78gfl8nIxRDrw9x+nY9Ry6MHw==
-X-Received: by 2002:a05:7301:d185:b0:369:fe4c:b48f with SMTP id 5a478bee46e88-36a20119d21mr7048294eec.0.1793264408741;
-        Thu, 29 Oct 2026 02:00:08 -0700 (PDT)
-Received: from at-Standard-PC-Q35-ICH9-2009 ([27.60.20.232])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23641e78sm16497937eec.0.2026.10.29.01.59.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 02:00:08 -0700 (PDT)
-From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-To: 
-Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-hwmon@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	mfd@lists.linux.dev,
-	platform-driver-x86@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	linux-integrity@vger.kernel.org,
-	keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: [RFC PATCH 09/14] treewide: disable other rtc's in t2 macs
-Date: Thu, 29 Oct 2026 04:52:06 -0400
-Message-ID: <20261029085504.3547-10-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
-References: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NCDv9Hzu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE7FE1F01828;
+	Thu, 29 Oct 2026 09:00:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793264429;
+	bh=DgX+B0l0y0JObzSV9Y9eOGQGcmRVOIfdFOkUhnziwVY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NCDv9HzuMoEmCs8WRoESgwJLXAydU8XhMhF12n47jW7sNHzO0X3BOlXZ/mz1dMhx7
+	 E7qvCiqCWFwk8wyTMscwk/6QjlqbduI5fvc7W/pTjh2wxzJYhaNDYMpU3hrhgbxIoL
+	 5aHamqVza5xepn1xnc1cl+e7OSEauaV/fpYpSKmg=
+Date: Thu, 29 Oct 2026 10:00:27 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: =?utf-8?B?5r2Y54Wc5p2t?= <panyuhang@hdu.edu.cn>
+Cc: zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	security@kernel.org
+Subject: Re: [PATCH] drm/vmwgfx: unpin BOs without revalidating placement
+Message-ID: <2026102908-calculus-reenact-6ec5@gregkh>
+References: <AD6AfwDkLPJWAKFimg*tgar*.1.1793261964318.Hmail.242270054@hdu.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -148,62 +57,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <AD6AfwDkLPJWAKFimg*tgar*.1.1793261964318.Hmail.242270054@hdu.edu.cn>
 
-The CMOS RTC and the ACPI TAD clock don't work correctly on
-T2 Macs. When macsmc-rtc is enabled, turn them off on these
-machines so macsmc-rtc is the only clock.
+On Thu, Oct 29, 2026 at 04:19:24PM +0800, 潘煜杭 wrote:
+> 
+> Unpinning a buffer object does not change its memory placement.
+> Placement revalidation is unnecessary. Currently
+> vmw_bo_pin_reserved() calls ttm_bo_validate() for both pin and unpin
+> operations and treats any validation error as impossible with BUG_ON().
+> 
+> During PRIME/GEM cleanup, vmw_gem_object_unpin() calls
+> vmw_bo_pin_reserved(vbo, false). The Linux 7.3-based QEMU reproducer
+> confirmed that ttm_bo_validate() returned -EINVAL. The following BUG_ON()
+> crashed the kernel during process exit. 
+> 
+> The relevant report excerpt is:
+> 
+>   [   72.916147] [BO_PIN_TRACE] before-validate pin=0 old_mem_type=0 target_mem_type=0 flags=0x10
+>   [   72.916201] [BO_PIN_TRACE] after-validate ret=-22 old_mem_type=0 new_mem_type=0 ...
+>   [   72.918841] kernel BUG at drivers/gpu/drm/vmwgfx/vmwgfx_bo.c:342!
+>   [   72.918892] Oops: invalid opcode: 0000 [#1] SMP NOPTI
+>   [   72.933292] CPU: 1 UID: 0 PID: 346 Comm: repro_vmwgfx_bo
+>                Not tainted 7.3.0-dirty #2 PREEMPT(lazy)
+>   [   72.937912] RIP: 0010:vmw_bo_pin_reserved+0x36d/0x380
+>   [   72.947235] RBP: 00000000ffffffea
+>   [   72.990254] Fixing recursive fault but reboot is needed!
+> 
+> The reproducer created a dumb GEM buffer, exported/imported its PRIME fd,
+> performed GEM flink/open/close operations, and exited. During exit_group(),
+> the call path was vmw_gem_object_unpin() -> drm_gem_map_detach() ->
+> dma_buf_detach() -> drm_prime_gem_destroy() -> drm_gem_shmem_release() ->
+> vmw_bo_pin_reserved().
+> 
+> The fix skips ttm_bo_validate() when unpinning. Validation remains on the
+> pin path before ttm_bo_pin().
+> 
+> Assisted-by: OpenAI Codex (GPT-5)
+> Signed-off-by: Yuhang Pan <242270054@hdu.edu.cn>
+> ---
+>  drivers/gpu/drm/vmwgfx/vmwgfx_bo.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+> index 9c7a73c..14d28e2 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+> @@ -308,6 +308,11 @@ void vmw_bo_pin_reserved(struct vmw_bo *vbo, bool pin)
+>      if (pin == !!bo->pin_count)
+>          return;
+>  
+> +    if (!pin) {
+> +        ttm_bo_unpin(bo);
+> +        return;
+> +    }
+> +
+>      pl.fpfn = 0;
+>      pl.lpfn = 0;
+>      pl.mem_type = bo->resource->mem_type;
+> @@ -321,8 +326,5 @@ void vmw_bo_pin_reserved(struct vmw_bo *vbo, bool pin)
+>  
+>      BUG_ON(ret != 0 || bo->resource->mem_type != old_mem_type);
+>  
+> -    if (pin)
+> -        ttm_bo_pin(bo);
+> -    else
+> -        ttm_bo_unpin(bo);
+> +    ttm_bo_pin(bo);
+>  }
+> 
+> -- 
+> 2.34.1
 
-Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
----
- drivers/acpi/acpi_tad.c | 4 ++++
- drivers/rtc/rtc-cmos.c  | 4 ++++
- 2 files changed, 8 insertions(+)
+This patch is corrupted and can not be applied :(
 
-diff --git a/drivers/acpi/acpi_tad.c b/drivers/acpi/acpi_tad.c
-index 45459a4ca..a137a39e5 100644
---- a/drivers/acpi/acpi_tad.c
-+++ b/drivers/acpi/acpi_tad.c
-@@ -28,6 +28,7 @@
- #include <linux/ktime.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/platform_data/x86/apple.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/rtc.h>
-@@ -845,6 +846,9 @@ static int acpi_tad_probe(struct platform_device *pdev)
- 		return -ENODEV;
- 	}
- 
-+	if (IS_ENABLED(CONFIG_RTC_DRV_MACSMC) && has_apple_t2_chip)
-+		caps &= ~ACPI_TAD_RT;
-+
- 	if (!acpi_has_method(handle, "_PRW")) {
- 		dev_info(dev, "Missing _PRW\n");
- 		caps &= ~(ACPI_TAD_AC_WAKE | ACPI_TAD_DC_WAKE);
-diff --git a/drivers/rtc/rtc-cmos.c b/drivers/rtc/rtc-cmos.c
-index fa04ece15..bdb436e24 100644
---- a/drivers/rtc/rtc-cmos.c
-+++ b/drivers/rtc/rtc-cmos.c
-@@ -33,6 +33,7 @@
- #include <linux/init.h>
- #include <linux/interrupt.h>
- #include <linux/spinlock.h>
-+#include <linux/platform_data/x86/apple.h>
- #include <linux/platform_device.h>
- #include <linux/log2.h>
- #include <linux/pm.h>
-@@ -944,6 +945,9 @@ cmos_do_probe(struct device *dev, struct resource *ports, int rtc_irq)
- 		.priv = &cmos_rtc,
- 	};
- 
-+	if (IS_ENABLED(CONFIG_RTC_DRV_MACSMC) && has_apple_t2_chip)
-+		return -ENODEV;
-+
- 	/* there can be only one ... */
- 	if (cmos_rtc.dev)
- 		return -EBUSY;
--- 
-2.55.0
+Also, no Fixes: or cc: stable tags?
 
+thanks,
+
+greg k-h
