@@ -1,57 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793302911;
-	b=cdOUTIsXBowx819Ow4rJZQPv2NPwhmu9Rh6mCX8pVmEj/LNLFBGg6wwulEPkdmGYC+W2
-	 55/Ig7KrqEK+UwPaEJ22Wc0h/MpLcHy9NvkY1UYvf7uFqf/FaKMo9dAvj0tcD9FSWmQT1
-	 eI8NRsICBzikrzQkXGQv+tyFI5xx6Kzk/x0FAUP+TUEfBhkXJQ+fEdmPm2CA9nVHkMTuL
-	 JGIIaVqpJtfkVix+zxJYXoxB4gylkpFoGpUGp+gcRG49YApYmjGoQCeQHz25DiNuzRaRU
-	 nPTkQpgg3vITJ2EISiMNUDVgNbgln0KFjsaD9E6zm0vqNi0EllPGZgEB45nPsmSsvhA==
+	t=1793302959;
+	b=TOz5mOBjAEqTPNSOZza0d+l4U+g/MB0iXVyIKAp/NMuug3wUeYyOQ2LfG4gJTyuGZiqW
+	 te37Ud2EsCWMDMvtMR79zE7DEopVf7it5C5OlOBVdR4Xl5QBRXTVdTFs3M18KeCnvTrWL
+	 wyu9jeDUt6iBKQUikgIZBLxuVJABk3PJbmD0/+Mk4t8Ms/TjLAguEy4EypzeRJm3xMPOc
+	 KErFYfKOz5+jnFPLnQ6AgF/bFksjsQ9kZhFDke67aGt3iXcwSX81Kr5AiCFyA+sPbZJzI
+	 WANhwK1+NAaRSze2x3LNWaVcgxbZ0Ib1jimOk2WS/zM6jG086RMEzmuUexZ7mxoD0nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793302911;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Content-Type:Content-Transfer-Encoding:From:
-	 Mime-Version:Subject:Date:Message-Id:References:Cc:In-Reply-To:To:
-	 X-Mailer;
-	bh=XRi8pcTf4rfC4VLA5r1QxQ3Of7atJjfiNOnycg20qTU=;
-	b=aM+Va2w17urgdtXnhsTTz3rqjL8cKDG22XgNK4ffu5z1zK5GUjrk2uY5u/qCwRkp7Z3h
-	 +AHS8QRugaIVDfZku4G0z3Q6XxiswIXZofPunfz0Wq+KrgJUPU/c0EtKWKjQHs5hHCW9u
-	 2vKtqsramFK3Zf2fX0aJNk61F2vuvbABcaEB6KL/TIovvJ9Wg7+3Cqi6kQsle34mURqJF
-	 SKghlDUEIf7F9ugXJGBt8kX6NDCHkpmhS51XmRLYICJTkKsM+/Inb5kQKe7O6Aw0/Cx+T
-	 Eck37rCVayrDwHUuS8r+hCYK9VFVsL9ZLOKJbvjdLwcvyrkRWU9ZzvYOhBej+LlXIHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793302959;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
+	bh=M5BOmtE/8D5RrPoWo6N/EKi/wginAI3FukwfrzZJ0T4=;
+	b=xVepFKLYMzL9/ttQc1ICrw8jFn4RmmDPEjLjsEo1c+VAWxjFY7gRvvCnmNrwEzMLDhia
+	 wJs0KECKMde35GXI3FrcoGVS+6q0LTUVZSEjDTobG0X/ojqS48zdI8hhhWKnfePwPB1Sh
+	 aFvrIz0Mbhab4ON4s2XwrbkC2/mVu1hE79cY4bXagnadA0HSIXJ3ZHE4fPISaxUIBsfdj
+	 j/MkNYzysbLe6yJA4iJm2YX9KglPOpqmhEwxehAyuuwQEBxMkmlnA7qr6Uez5mzSCjziA
+	 /3XieAr2mxyphlEEbYN/65XYf1rc4+IhL/SQxKqAhwbGaHW4nyZ46xeGEqXyotkmENw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inria.fr;
-	spf=pass smtp.mailfrom=inria.fr;
-	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=epaaUSOf;
-	arc=none smtp.remote-ip=192.134.164.104
-Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n039RvLz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AF8606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:41:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89AF8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47EFD606A31A;
+	Thu, 29 Oct 2026 19:42:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=epaaUSOf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=content-transfer-encoding:from:mime-version:subject:date:
-   message-id:references:cc:in-reply-to:to;
-  bh=XRi8pcTf4rfC4VLA5r1QxQ3Of7atJjfiNOnycg20qTU=;
-  b=epaaUSOfb0zSZpemikoEL1jRlpVBGP2WHyK3QRbuv05yjQrd3VFSqACS
-   rnKiAcEjy2mjwRFOBRA7C7SArzo4npYsQsbxNsEi+7bBJ1GZrq241apHU
-   U2yhBvyALYzabx7EE4rrB4wphL57AQw36HheQY7y+lN/R8TJ7yFdL4+p7
-   A=;
-X-CSE-ConnectionGUID: URfV2/lBQt+woBOfA5N9bA==
-X-CSE-MsgGUID: PKaJ28FpQM2EwgDc7biwzQ==
-Authentication-Results: mail3-relais-sop.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=Julia.Lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.27,185,1787004000"; 
-   d="scan'208";a="161239336"
-Received: from 37-167-22-2.coucou-networks.fr (HELO smtpclient.apple) ([37.168.22.2])
-  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 20:41:24 +0100
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Julia Lawall <Julia.Lawall@inria.fr>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n039RvLz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85BE91F01816;
+	Thu, 29 Oct 2026 19:42:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793302958;
+	bh=M5BOmtE/8D5RrPoWo6N/EKi/wginAI3FukwfrzZJ0T4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=n039RvLz2MQBp9BfxMGzLnlsnUbqv3QH+HRwNf04y8I98V0PpNABrMhrQJMeaVmvi
+	 3zd85eM31AJtqMMB13jFkSzHv20sMetPAlDdCrnN+gI7jS+LzruLhraQXgfy47gOTT
+	 wpDzerJy0E9A5ce5AyJDoETbe3jRVDdWzHquTqzoqF3fmvcdz0PyWTAygUO988r7Re
+	 Dfc0Ff9jntdVerieMBs8hG4DiJnjUPBGUKeH9lxbkdygoBOOVImf8qmcqQVIOKmaO7
+	 aLxl7AN2nZfGozNkzCESmg2v5yIhJ/KpKEP2Bt8IAMYBLHSy7y/tY1SFFm/cPJ17Yg
+	 pNfHWjm/hb5jw==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: "Ard Biesheuvel" <ardb@kernel.org>
+Cc: "George Guo" <dongtai.guo@linux.dev>,  "Mike Rapoport"
+ <rppt@kernel.org>,  "Pasha Tatashin" <pasha.tatashin@soleen.com>,
+  "Pratyush Yadav" <pratyush@kernel.org>,  "Huacai Chen"
+ <chenhuacai@kernel.org>,  shuah@kernel.org,  "Ilias Apalodimas"
+ <ilias.apalodimas@linaro.org>,  "Andrew Morton"
+ <akpm@linux-foundation.org>,  baoquan.he@linux.dev,
+  ruirui.yang@linux.dev,  guodongtai@kylinos.cn,  "WANG Xuerui"
+ <kernel@xen0n.name>,  "Alexander Graf" <graf@amazon.com>,
+  liukexin@kylinos.cn,  loongarch@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  kexec@lists.infradead.org,
+  linux-mm@kvack.org,  linux-kselftest@vger.kernel.org,
+  linux-efi@vger.kernel.org
+Subject: Re: [PATCH v6 1/8] efi: Pass KHO state to the next kernel in a
+ configuration table
+In-Reply-To: <2382a0ee-cb6d-4572-be6e-ce3cf4d006e5@app.fastmail.com> (Ard
+	Biesheuvel's message of "Thu, 29 Oct 2026 20:28:01 +0100")
+References: <20261029172956.20791-1-dongtai.guo@linux.dev>
+	<20261029172956.20791-2-dongtai.guo@linux.dev>
+	<2382a0ee-cb6d-4572-be6e-ce3cf4d006e5@app.fastmail.com>
+Date: Thu, 29 Oct 2026 20:42:34 +0100
+Message-ID: <2vxzqzh8mgyd.fsf@kernel.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,113 +71,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (1.0)
-Subject: Re: [PATCH] staging: greybus: audio_manager: Add newline to sysfs output
-Date: Thu, 29 Oct 2026 15:40:58 -0400
-Message-Id: <3B73BF88-AA02-4965-8FAC-82881C192E69@inria.fr>
-References: <20261029181948.13121-1-mariasheikh812@gmail.com>
-Cc: outreachy@lists.linux.dev, vaibhav.sr@gmail.com, mgreer@animalcreek.com,
- johan@kernel.org, elder@kernel.org, gregkh@linuxfoundation.org,
- greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org, Maria Sheikh <mariasheikh812@gmail.com>
-In-Reply-To: <20261029181948.13121-1-mariasheikh812@gmail.com>
-To: Maria Sheikh <mariasheikh812@gmail.com>
-X-Mailer: iPhone Mail (23E261)
+MIME-Version: 1.0
+Content-Type: text/plain
 
-Please read the recent mailing list archives. A similar patch was already re=
-jected.
+Hi Ard,
 
-> On 29 Oct 2026, at 14:25, Maria Sheikh <mariasheikh812@gmail.com> wrote:
->=20
-> =EF=BB=BFFix checkpatch warning:
->=20
-> WARNING: return sysfs_emit(. . .) formats should include a terminating
-> newline.
->=20
-> Add "\n" to the sysfs_emit() format strings of the name, vid, pid,
-> intf_id, ip_devices and op_devices attributes.
->=20
-> Signed-off-by: Maria Sheikh <mariasheikh812@gmail.com>
-> ---
-> drivers/staging/greybus/audio_manager_module.c | 12 ++++++------
-> 1 file changed, 6 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/staging/greybus/audio_manager_module.c b/drivers/stag=
-ing/greybus/audio_manager_module.c
-> index dc90cc2d2308..5737f2a32f5a 100644
-> --- a/drivers/staging/greybus/audio_manager_module.c
-> +++ b/drivers/staging/greybus/audio_manager_module.c
-> @@ -75,7 +75,7 @@ static void gb_audio_module_release(struct kobject *kobj=
-)
-> static ssize_t gb_audio_module_name_show(struct gb_audio_manager_module *m=
-odule,
->                     struct gb_audio_manager_module_attribute *attr, char *=
-buf)
-> {
-> -    return sysfs_emit(buf, "%s", module->desc.name);
-> +    return sysfs_emit(buf, "%s\n", module->desc.name);
-> }
->=20
-> static struct gb_audio_manager_module_attribute gb_audio_module_name_attri=
-bute =3D
-> @@ -84,7 +84,7 @@ static struct gb_audio_manager_module_attribute gb_audio=
-_module_name_attribute =3D
-> static ssize_t gb_audio_module_vid_show(struct gb_audio_manager_module *mo=
-dule,
->                    struct gb_audio_manager_module_attribute *attr, char *b=
-uf)
-> {
-> -    return sysfs_emit(buf, "%d", module->desc.vid);
-> +    return sysfs_emit(buf, "%d\n", module->desc.vid);
-> }
->=20
-> static struct gb_audio_manager_module_attribute gb_audio_module_vid_attrib=
-ute =3D
-> @@ -93,7 +93,7 @@ static struct gb_audio_manager_module_attribute gb_audio=
-_module_vid_attribute =3D
-> static ssize_t gb_audio_module_pid_show(struct gb_audio_manager_module *mo=
-dule,
->                    struct gb_audio_manager_module_attribute *attr, char *b=
-uf)
-> {
-> -    return sysfs_emit(buf, "%d", module->desc.pid);
-> +    return sysfs_emit(buf, "%d\n", module->desc.pid);
-> }
->=20
-> static struct gb_audio_manager_module_attribute gb_audio_module_pid_attrib=
-ute =3D
-> @@ -103,7 +103,7 @@ static ssize_t gb_audio_module_intf_id_show(struct gb_=
-audio_manager_module *modu
->                        struct gb_audio_manager_module_attribute *attr,
->                        char *buf)
-> {
-> -    return sysfs_emit(buf, "%d", module->desc.intf_id);
-> +    return sysfs_emit(buf, "%d\n", module->desc.intf_id);
-> }
->=20
-> static struct gb_audio_manager_module_attribute
-> @@ -114,7 +114,7 @@ static ssize_t gb_audio_module_ip_devices_show(struct g=
-b_audio_manager_module *m
->                           struct gb_audio_manager_module_attribute *attr,
->                           char *buf)
-> {
-> -    return sysfs_emit(buf, "0x%X", module->desc.ip_devices);
-> +    return sysfs_emit(buf, "0x%X\n", module->desc.ip_devices);
-> }
->=20
-> static struct gb_audio_manager_module_attribute
-> @@ -125,7 +125,7 @@ static ssize_t gb_audio_module_op_devices_show(struct g=
-b_audio_manager_module *m
->                           struct gb_audio_manager_module_attribute *attr,
->                           char *buf)
-> {
-> -    return sysfs_emit(buf, "0x%X", module->desc.op_devices);
-> +    return sysfs_emit(buf, "0x%X\n", module->desc.op_devices);
-> }
->=20
-> static struct gb_audio_manager_module_attribute
-> --
-> 2.53.0
->=20
->=20
+On Thu, Oct 29 2026, Ard Biesheuvel wrote:
 
+> On Thu, 29 Oct 2026, at 18:29, George Guo wrote:
+>> From: George Guo <guodongtai@kylinos.cn>
+>>
+>> KHO has to give the next kernel two addresses: the KHO FDT and the
+>> bootmem area list. arm64 and riscv put them under /chosen in the boot
+>> FDT. LoongArch systems booting with EFI and ACPI do not require a boot
+>> FDT, so KHO needs another way to pass this information.
+>>
+>> Add a Linux EFI configuration table for them, under
+>> LINUX_EFI_KEXEC_HANDOVER_GUID. It points to a struct linux_efi_kho_data.
+>>
+>>   - On a cold boot, the LoongArch EFI stub installs the table, zeroed.
+>>     Each kexec'd kernel is given the same EFI system table, so it finds
+>>     the same table.
+>>
+>>   - In early boot, efi_config_parse_tables() reserves the table so
+>>     neither the page allocator nor kexec segments use it, and calls
+>>     kho_populate() if the table holds KHO state.
+>>
+>>   - Provide efi_kho_update() to update the table before kexec. Map the
+>>     table during boot so updates do not require allocation or mapping
+>>     at panic time.
+>>
+>>   - efi_kho_table_found() tells architecture code whether the table was
+>>     found at boot, so it can turn KHO off when the table is missing.
+>>
+>> Only the LoongArch stub installs the table, and only with
+>> CONFIG_KEXEC_HANDOVER. Elsewhere there is no table and this code does
+>> nothing.
+>>
+>
+> Can we handle this as an arch table then, and handle everything in
+> the LoongArch arch code?
+
+I think this is useful for all architectures that use EFI, not only
+Loongarch. Today Loongarch is the only user, but this can very easily be
+used by other architectures.
+
+For example, I have been considering moving x86 over to this too. Today
+we use setup_data. Once we get EFI support, I would like to get rid of
+that and unify everything under EFI. It is much simpler to have a
+universal way to pass KHO payload over.
+
+-- 
+Regards,
+Pratyush Yadav
