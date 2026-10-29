@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793288099;
-	b=w81c3deMfhFMK8K+VQ4FIxUA7Zm8W0u1dAiPAw85TIHI1WFKYFwGxPtrMhz+dsEBdYeY
-	 iXoAX1TPrDsZdQSrqB3t4qSvJQiNMO2ZIa7owbiCsJSLUcuUbuP2tt7tqApR1p+wMWQ/x
-	 BhcO1dNvzYh0xqlO+cDA5kpo52hNb4GH+JRT/h939gyOaoY0WdfNcGXjUvEVwVF8R0wka
-	 6RS99oZOi7kCwZgUDdmpqpvB3JVMgoa9FrQM70FFFcZ1UyU/iJXa5QJMUBqtJkXgh5eDg
-	 bzMphi65ARLCs88ENGNheLcoeZhaUcWA/JxiJqa9wEX1JsMdt00mbv3RXFzfG454/VA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793288099;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=K5Rm/IwaNhYgMhwcnqL255xWGYwp8sgs8BcKPKPbzD8=;
-	b=Zve3WeI3H1oPblOq5PM+osczTmM5YbAMlQIVtW7xlE/wvJ2sU1Lg4xJ75H4Z1nFzqEgT
-	 8giC649YmZXcuD0P1FHZi2S3/bQB7lHaRU3hXi1ZS3S6XnkSDpvfnfPgJDfCWxDMfYpap
-	 O3XuxO8rhCVgcatiJIIMR5+B0pz6znNnYl8ISmylGWh6Sf8R2m9Qy4lNFPNvIX4ETqRgs
-	 Ut6LzwfL5CQ/natbMchstJHEE3lM73/350UkkHiUtRQqJYSw4TgyEzuKf9fVJqXQcL78A
-	 T87pAWE7cuHDgnH9nPLvvhp6/KPJXsATNgFkeHLKRfM5mbo/unomJqRsUhzk2Uu2RyA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JU48K3St;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793288164;
+	b=tOvyFntOcj5G9zpknRotD8tHV1wySGcaAIvL8gb1SBZK2L8ufxJqTAyS9BQuppHAqfD9
+	 7NV2wJxJrlt256XPWn7U5Ab9Ch0GvEkZExSCYS8ljm8VxeBReJ6mNvg+YuKlRspBAbO2w
+	 kv9oEoAfPYNo0XWUkLQbNfljt2mnPMn0tK2hVifIDL5H309nLJ8d5qyEVA/oOtaA2Wa9Q
+	 fXCT8d3ylrAEhDPI78fE1pgMSQ8kEkyvVUT7GoyNr4oKNhDhKJJtI4QVVyRYSrd2lAQ+y
+	 JeZmhgxtFWmcKZzZKug393QR3HxmhyjnMWdVQHYTJpGc3VTkmehdy5Cq02jb9U0AZUw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288164;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0MZ+Cdtu8ZetD6MQAGKoqkVifXgXtqYdnKHo/eTOhbs=;
+	b=l5lkuQZsRqk6jjl7lZnCUKcq0m67ndW+1uQwcT2CLhQi4ZkTv2ClvtaNE+7HopG3aNWB
+	 JAbrjskSw6ZeGM8zeFbYKOa8ls6xcl63qYnbWorfj+k/NOfzm59tezNxJ276sfJvgGyQ7
+	 Wnwbro37CLMjfKBMhbFUVUhawR/6MYGREc2AZAh6lSfCb09beQYrMXg+q9APqdHsQ64NG
+	 CoeMKUJeAcaxiPQ0z4Mmg0d2GsObU3nOVMVcEg5xnvsvFrvxKSEFCam20KSFtYoirbyRX
+	 oDIkrheCH9zxzMfE2IyPBpgjf4AXufJnXx08W8XBdSYCzhsDvE48k5lP+YE0ai1+U2w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SvnxR1RE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71832606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:34:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71832606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3280606A31A;
+	Thu, 29 Oct 2026 15:36:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JU48K3St
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d0so16974671fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:34:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793288098; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UZlBZLRFoznGAL9O5djUwBKfsB2m4qoPxhmakwVhS50XmUFtFHUVjlXJ2IUv2OGJJR
-         Sz2FAKn/xixhD3pmrEzPkvZzAjEpUjrnPguUszlZLqMuePH9yQaaEuhVvmwTbKGYmY9V
-         uin1J7k1l4uM5dBdaKhJuimtWuvCCNMn34sJxF1wD80U2EldRyuo09v8pZUNtcak0z8W
-         a7N2XsRrzy7mS19ijiZhi7klyIPjaBvDO2AZAf6yobiqFrcYTDO9Sb56puaaH8BhNFhm
-         uP2Wg6ZQ7vutK0izzLCBzYU4IF3RAhjbk6fiJYSZMfoOsLR7WiFrHk9jmqbq0zqnruv2
-         9Cyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=K5Rm/IwaNhYgMhwcnqL255xWGYwp8sgs8BcKPKPbzD8=;
-        fh=twSvucFudBtfov+WnadBVqekN/pDFrwEpYFzBAexwII=;
-        b=FkKTMMEb0K0uWuDhqMNIyVAmqcMD6LRDjlJcN51S1i4wHLFSoJDA6iv136kEq4PL4o
-         /HvSMnJF6Mt2U0NgMFqo0Q7Y6YBUV3SA5nOwg+ruMIZ1GZzjDlw852H0k1csbLl3DVM8
-         V1MrG6AVYgr2DoxJarQHRA1xT3W42wekhkdLfq9spBxuqL6gcoD2nqU2ZT6tB/dy2aHo
-         ANmNgflCKrJdo+RYjq7GmJT9wu0+OFdLpgqsMI21silGdDm0A4rnW17GX//XIYZj/j8H
-         P8lW8rhji9egnv+UoJSeq2QGvMiNzBMbHsrWdBNb9Lo/e0VCGfUqCtU7g+WNJXA9CZM7
-         OvZg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793288098; x=1793892898; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K5Rm/IwaNhYgMhwcnqL255xWGYwp8sgs8BcKPKPbzD8=;
-        b=JU48K3StrPmJy+BWBXIimZZVccOgFf+hwfyzZld26az5XfF9tBNddSRRA6EbTNH/iI
-         1gbEcjpkkMPDfjRZj02sayE/rDgogPl0HqX5RxpF3COYCVPkhy43++ax7kr9CZHbByT3
-         /dG90Httmlbxd4g/b2oVe3D6+xBGiwLMUqyhyuPWpEoQ5MWrA2UcABudFCclnuawEyZk
-         dhu2cpbb9eWELAn7JEH4LlscXqJmgRxhSQVK2TuZhaGHbfJ5Nk9UuZ75GB/iVe7JDuZW
-         iHoDmjlZjcOt1gUo+onBNqR9c6cLGbeiJGrW6NvFYLzqSHKn5MvAW4M3q02ZPy6GtHkO
-         6z1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793288098; x=1793892898;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K5Rm/IwaNhYgMhwcnqL255xWGYwp8sgs8BcKPKPbzD8=;
-        b=L6ffOF/ViSfaC+rzsfxcII87d39Q+/dgswXpMKfmTtoAZmJRWO3Yu/0M+GVLsleE5K
-         Db7q75wByU+rV47jCmrolo3lyAyI0v1N0EurxBdvaIC4Yl5HOmlhAcW1YDGfnYG6Q4k0
-         GIzryIZZcSyTPIfFlNSD/R2yFGIsBuJ1d9+R0/DyBXwauRxXHPUGKaE9inMWdf/2tYkE
-         qTPns65Es4thZQZ/xbTnEvtShQGYSSw0bdYeDajY1ArxIU/gl0m8Mlq5Ci6n7tSSVy5m
-         2+BHvlYAmPRVWzWjziC9tSazpU+hUri4OZ1ARPiOMpy3/7qq0V1nVDyx7Paid0falf1D
-         SX4g==
-X-Forwarded-Encrypted: i=1; AKwUvBzw6nTMyK8B+upTD+cJ+L+2gzon01j5AKQ2D8UW30FoV/XlphS8tELAvh5wgZEDlkoOLqaqzjoif3y71BE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJlT3EEkl9dbf5v8uCiYCjRpTmS+bw3WL7gQCA0qursfkNzg/1
-	rJtqhbpPEmUl5YUVu1Waufe6skmhC+ZNfRT94UzfWhl9QpOAKRO4bsG5Ki2bwNQQneotaHqRE6T
-	XqRfOFFDCAGD+TMOgG6KR5sDnBD0CwwQ=
-X-Gm-Gg: AYBFou0a1a45u1tBRFrLkIt1EnROvE2g5I4v7CJ3RI6uy0SlbH4D2QBNvlho9tTWGUD
-	jVAITa3J5AQ4dpxryB2GwAYwPQr4CpjcviLpCHPa79WwUXAYCW46PQW15MPbLy2Lv8KrQj9gcIX
-	9RZnn2H4ykEvDPVqd6ycklJIpA2ZjjXbiLcZ/GVJrjqfhQjrI+lxs35snPgf7NdAeDWhj6WWy8I
-	o30Nm5Gp53IKPAPITdiGQfytaXgeQQmR7xwAmEAaV9T/nWKFIy8iEUj/GCaT4yK1ASW2u5L/ZV5
-	B9qfqzaOEQFJrHCwisMkd6hu1XBObPrSUk1jXfayj8IoP2Lv63zF+9BA0/QqZ4rDUzcKF8h+rDf
-	/jVfXRozC6r2g4YfJtB+eZhrz5p5wldXWc60Hhaq9ZQOSwLh1DL+R9799O7KUBotCGqm6QUJU9a
-	zzxW14rlV9/hcFegvTcXRTi1vM8ELorKUU7N+01lMRgxXuHe7Vz5VT
-X-Received: by 2002:a2e:bc01:0:b0:3ab:4107:1bef with SMTP id
- 38308e7fff4ca-3ac9ce5418bmr14386351fa.1.1793288097433; Thu, 29 Oct 2026
- 08:34:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SvnxR1RE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBEE31F01824;
+	Thu, 29 Oct 2026 15:35:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793288163;
+	bh=0MZ+Cdtu8ZetD6MQAGKoqkVifXgXtqYdnKHo/eTOhbs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SvnxR1REqXjogeGPFsmkj46v0mjpHOkSNLkbtpJLKJnBH2R57tcgmfFBLxg3pg+tc
+	 hyT1sCGbf5V9UaG9pEvhmd/4dZjpLb7ssvKXSN0V7KILMB8LcOXEFLy+Is3AkWvyyS
+	 uSMXMe7F5Ryv+os8+r6jBBYCoI2bgM3QV6MI/39SdvciA0pOCwQNuaL5x92OOIZgkI
+	 jYsv8a3nz9ca+51kEv6QxK7fMZmRnlAZUIelKhdKNS2pI48R9iE46PIH/2UXUpYFFp
+	 b7sZoOi9kvVNaM/xMhYaE69JMYiB1hlPi/NKqIFfmvSD0Fzq0an+EX7an9WJEKizxt
+	 w7qkPA0NsvJBg==
+Message-ID: <957fc9ce-1789-41d7-a4cb-66acdf7fcecb@kernel.org>
+Date: Thu, 29 Oct 2026 16:21:54 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,43 +51,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028-alpha-profileme-v1-0-d44b52bf2500@gmail.com> <20261029091141.GG1779021@noisy.programming.kicks-ass.net>
-In-Reply-To: <20261029091141.GG1779021@noisy.programming.kicks-ass.net>
-From: Matt Turner <mattst88@gmail.com>
-Date: Thu, 29 Oct 2026 11:34:45 -0400
-X-Gm-Features: AclHuK-YqVWgs2e1oeI2-sd1y4gbLXMqMG1B76Dt72P9DpeCFgJ2eqCh-7oWuCk
-Message-ID: <CAEdQ38GiZLmnjYxzN6C92uz4-MOX7KoYvTuRrZ5Zike8ssDCqQ@mail.gmail.com>
-Subject: Re: [PATCH 0/5] alpha/perf: add ProfileMe sampling
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Magnus Lindholm <linmag7@gmail.com>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/46] mm/truncate: look again if a folio left the mapping
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>,
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-cxl@vger.kernel.org, stable@vger.kernel.org,
+ Josef Bacik <josef@toxicpanda.com>
+References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
+ <20261027-fixes_core-v1-5-6f74bec9a5bb@kernel.org>
+ <auIniV8YSpA4_oxg@thinkstation>
+ <2f2ef336-2186-4f20-b7f5-565e60471bda@kernel.org>
+ <auMvYdTd_e9O9kDj@thinkstation>
+ <7fab2115-6c44-43b1-b03b-8ce4a37ffe32@kernel.org>
+ <auNaOMYUUpnzCofx@thinkstation>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <auNaOMYUUpnzCofx@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2026 at 5:11=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
-g> wrote:
->
-> On Wed, Oct 28, 2026 at 02:09:29PM -0400, Matt Turner wrote:
-> > The 21264 from EV67 on, and the 21364, have a second performance counte=
-r
-> > mode, ProfileMe, alongside the Aggregate mode that the driver uses toda=
-y.
-> > An Aggregate mode sample reports the PC where the overflow interrupt wa=
-s
-> > taken. On an EV7 that is anywhere from 15 instructions before to 12
-> > after the one that overflowed the counter, which makes perf annotate
-> > output close to useless. In ProfileMe mode the CPU picks one fetched
-> > instruction, follows it down the pipeline, and reports its PC along wit=
-h
-> > what happened to it: whether it retired, whether it trapped and why,
-> > whether it was a mispredicted branch, stalled before map, or was killed
-> > on a wrong path, and what PCTR1 counted while it was in flight.
->
-> Isn't this the thing that ended up as AMD's IBS?
+On 10/29/26 15:38, Kiryl Shutsemau wrote:
+> On Thu, Oct 29, 2026 at 03:18:23PM +0100, David Hildenbrand (Arm) wrote:
+>> On 10/29/26 12:37, Kiryl Shutsemau wrote:
+>>>
+>>> Yes, I missed that the loop only goes back to start when a lookup
+>>> comes back empty below end. When the last batch reaches end, it exits
+>>> without another look. It doesn't need the split either: any punch hole
+>>> whose last page is in the page cache gets there.
+>>>
+>>> That exit looks unintended to me. b9a8a4195c7d ("truncate,shmem: Handle
+>>> truncates that split large folios") turned the "if (start >= end) goto
+>>> out" early exit into the loop condition. Before it, the loop went back
+>>> to start until a lookup from start found nothing; Hugh kept that on
+>>> purpose for hole punch in 792ceaefe621 ("mm/fs: fix pessimization in
+>>> hole-punching pagecache").
+>>>
+>>> Restoring it is enough, and makes the "restart to make sure all gone"
+>>> comment true again:
+>>>
+>>> +       if (start >= end)
+>>> +               return;
+>>> +
+>>>         index = start;
+>>> -       while (index < end) {
+>>> +       for (;;) {
+>>>
+>>> Then a replaced folio is found on the next round, and truncate needs no
+>>> special case for it.
+>>>
+>>
+>> But that's then another lookup even if not really required?
+>>
+>> Why do you thing that is that better?
+>>
+>> I agree that the code is simpler, but at least it's consistent with the other
+>> handling.
+> 
+> The extra lookup only happens when the second loop had work to do.
+> Normally the first pass removes everything, the first lookup from start
+> comes back empty, and both versions stop there. When the second loop did
+> run to end, it costs one more lookup over a range that is now empty.
+> 
+> What I like about it is one way to look again instead of two: the loop
+> already goes back to start when the last batch ends below end, and the
+> patch adds a second way for when it ends at end. truncate is not like
+> shmem here: shmem_undo_range() stops after one sweep on hole punch on
+> purpose, so it needs the rewind; truncate was meant to sweep until
+> nothing is left.
+> 
+> Your version fixes the bug too, so I'll leave the choice to you.
+> 
 
-I have no idea, but it wouldn't surprise me too much :)
+Can we just do:
+
+diff --git a/mm/truncate.c b/mm/truncate.c
+index 733d2713a875..9e9bf029635c 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -475,8 +475,11 @@ void truncate_inode_pages_range(struct address_space *mapping,
+ 		}
+ 	}
+ 
++	if (start >= end)
++		return;
++
+ 	index = start;
+-	while (index < end) {
++	while (true) {
+ 		cond_resched();
+ 		if (!find_get_entries(mapping, &index, end - 1, &fbatch,
+ 				indices)) {
+@@ -499,6 +502,7 @@ void truncate_inode_pages_range(struct address_space *mapping,
+ 			folio_lock(folio);
+ 			VM_BUG_ON_FOLIO(!folio_contains(folio, indices[i]), folio);
+ 			folio_wait_writeback(folio);
++			/* Do not handle errors, we'll do another lookup */
+ 			truncate_inode_folio(mapping, folio);
+ 			folio_unlock(folio);
+ 		}
+@@ -760,7 +764,12 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
+ 			folio_lock(folio);
+ 			if (unlikely(folio->mapping != mapping)) {
+ 				folio_unlock(folio);
+-				continue;
++				/*
++				 * Folio might have been replaced: look up
++				 * again.
++				 */
++				index = indices[i];
++				break;
+ 			}
+ 			VM_BUG_ON_FOLIO(!folio_contains(folio, indices[i]), folio);
+ 			folio_wait_writeback(folio);
+-- 
+2.43.0
+
+
+That would be easier for me to digest than the index <= end thing.
+
+
+-- 
+Cheers,
+
+David
