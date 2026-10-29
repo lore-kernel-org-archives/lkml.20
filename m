@@ -1,59 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793277629;
-	b=IrhBTbCzDiq0lDe/w+4ZiHIdn0SHIAedME/UWNEk3is4KMYF5qLOBG5R4Jz+f2G6HLXe
-	 68I9YpDNWbwcyqVFboJJ+Mt+wMFHrpxribSvreXzUMo0SmQ7TzoJv+U48hASI7AykY7ua
-	 H8sA16u49m5CWYA7bWNXKNiGFi57eLj6451WgFWGXrKxyeis1tfT+Lsi2k+zkpkWrI4lv
-	 3171hR87j98LhFTbaQdtqlRu7cja9xt8n3MQSk0aXrEM37U0IW1R21W8IP/GQdL0b13Sg
-	 G4fD8tU3xhjcO7cUJOmlJ8TgsIC8WzYXmnqTkj3ZEHJIhfNWEUZB2Dz35dOZVRpdh3A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277629;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=t67BBHCIL7EUtyLOu8dUfk5JQITxnHbOVp7o6sR49Lo=;
-	b=KwX4biG5ZJ+l5jLmvKBToywTBZWriQuqMVm1rgLT0H+N+/xn24yLWyuiiRzzYu0eoDHr
-	 FH9Yt173+BlbNG/Xc6Cl1DOgJjqhhNVpR1jlV6wZoPsnpe4NBZhEztMQY8fvSKhA7mqmd
-	 KM9Cf5Y8UemDc5GVNSZWJhwOuSY5cz6TjChQh5Ynu18PbvVvutA2zLNTmPsYViOhphiRg
-	 OgHoUPAh+ZXwwjIdZc2EMqqgg+oykuyU9aicqC3ISXKQrCsYFlgVdSGxYQe3Xvywt6MVr
-	 zx7wG1H0Cxnd5Ql5sZQVylWmE9LKFYDm0uzCyMtoYj3KG0o4ZGqYfvt20+E4QEZEdTg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IVEKkSl3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.97
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793277725;
+	b=pypg4B+5AHwtRSdd6WS9Crz1mSR5V942N1hTWQR5GJI0HKgkgFwhNqG5cDEmCeylkXAd
+	 wVI96SOkfcWIbeC+VjEY7QiRwUEjEA7iXfX1YWT1PqVQ0ZZpthi3K89ABRofWrlHVhCUj
+	 SetHItgoHe3OoRaZzAhi2q0Qt4hV6a/43bWAx1gh/ozFkO9Mbu633eGlwUf2HcHge21fP
+	 iUVBh8DWhvrDKxyFvB/arGXome2qRf7cdTkm420FK56IWmqKO1jjNZ2g+XGssi7bkm9Gi
+	 Tmt94TmBJTUdLcOieD+iA/XrxXMzOy3qMk/FfrBLS7mg/oXkd7q61g+6cy/pJD8+NnA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793277725;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=IlfCkaxrTaB5puTFuxoOhA7Sw2Q92nX/SaX+B99HdMU=;
+	b=vw5Sk3t8GjC4wvl7ZW4OR4OK3upjQdKMhpWc7GZb+Rink7BbGEY7MDFefODWA4IzDZYV
+	 fEHvttm6vB1ceaI4ld64CLEdxBXU4crjXU8b8TCZULldC+gITdnmqvA6HzK9o1C/0Fgec
+	 5J5KP6SGKqhlrPF4T4uCt0ihwv+DW75LE902B/y2/OF5NEeC8lbtjppJU07PWHHUwU6Rj
+	 MpKIv1rAI+EAt20HD697wq75RfeN2dOaC3SaZ7OXr7erSX3JXqyOuWBZvu2moumsKdomA
+	 a+UUMUHrwwcdbQxxQXhcPIBIY5+7xjFzF2Hz2hKi+1DTesQh1vg9cGTu1AuusWJ9FWQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zohomail.eu;
+	spf=pass smtp.mailfrom=zohomail.eu;
+	dkim=pass header.d=zohomail.eu header.i=@zohomail.eu header.a=rsa-sha256 header.s=zoho header.b="Z1U5hFl/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.97
+Received: from sender-pp-o97.zoho.eu (sender-pp-o97.zoho.eu [136.143.169.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3A6606A31F;
-	Thu, 29 Oct 2026 12:40:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13476606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:42:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13476606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IVEKkSl3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 855EF1F01825;
-	Thu, 29 Oct 2026 12:40:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793277629;
-	bh=t67BBHCIL7EUtyLOu8dUfk5JQITxnHbOVp7o6sR49Lo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IVEKkSl3j5tFHHYE1LKR+DuBf1Oxx/j+z6NfrUWDYJAL0JfElidf9BkjOJyB6mVPo
-	 pFhk1a/YMfxEAg6KV3sj3kKPJKcM9uSy/gdruoltaTJbYwYE5C8pi4E1oTn3NkWrLQ
-	 Fqb1maQM2o8bsLge4vXKBwXTQk7DPPku3VcnYBJ1jR+JB39ACIEnOVnHoHdFeVnPrl
-	 5p8TcKiBosyi5szeSBGV9s9LbAz6v2dmpQmXw2ibwd3mIjzqWKc3GK8SCgSUTV62TU
-	 MdRPXoFeUsvqXnzMziwFlDTeRylZ8401H10h1d2H9VU8iISb/QDDsUzxHR4/9Jldiz
-	 cM1hbX3q9rzFQ==
-Date: Thu, 29 Oct 2026 14:40:21 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] mm/cma: accept memory of CMA areas reserved with
- memblock_reserve()
-Message-ID: <auM-tYrdV4TJgJ6K@kernel.org>
-References: <20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org>
- <auM6lKGAeUI26jCj@thinkstation>
+	dkim=pass (1024-bit key, unprotected) header.d=zohomail.eu header.i=@zohomail.eu header.a=rsa-sha256 header.s=zoho header.b=Z1U5hFl/
+ARC-Seal: i=1; a=rsa-sha256; t=1793277698; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=jZm/8o3IRNLR3MMAIs1KqAMSNxmCgqKm1sa6HzDm8xJmCbxf8685lAneencYwKjUX/gaw2PMqttidgZtq8zpCRWu8Xv3VS3FrIUujt2Lvf4/83n2qeq2J8tYLIUg4m2b9gftY2Pyu679h5oSS8heCzXvLlZcr1lMafOgKapABgk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1793277698; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=IlfCkaxrTaB5puTFuxoOhA7Sw2Q92nX/SaX+B99HdMU=; 
+	b=HfDz2x7e0Fb+JxwwZ+rYJ3gX3j3LiFonmUtfsSL4+CwtJhkFiEyU2PFpfsM+FuJQPKTm3u5G5xsPKYw3KYYdQ+GdwTHFaiGjMImHN64tpJ8RaSztC8DTqM0E6vp4nEsW4iJge7Hk8I7JBUUicAUmOzDGxR0XyrTkay99f/cocaU=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=zohomail.eu;
+	spf=pass  smtp.mailfrom=harukak@zohomail.eu;
+	dmarc=pass header.from=<harukak@zohomail.eu>
+DKIM-Signature: a=rsa-sha256; b=Z1U5hFl/B4IpEM9YQo+HAq/WOk7UCXOo6lYnF9m2TzV8+OqC7lG9bjhxJxHiHiWUY1ifcV4775CGh+3+FpxksjouqtkqzwoV/g/FNcSiOP9vFPpqhFQ/L6XTIgr9Ed4v+Nxn0L+vBDKFF6gafYe1jOgisNJj93sHqBKSvCKgCJU=; c=relaxed/relaxed; s=zoho; d=zohomail.eu; v=1; bh=IlfCkaxrTaB5puTFuxoOhA7Sw2Q92nX/SaX+B99HdMU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.eu with SMTPS id 1793277697278378.4156436187916;
+	Thu, 29 Oct 2026 13:41:37 +0100 (CET)
+From: Haruka Kuze <harukak@zohomail.eu>
+To: Jens Wiklander <jenswi@kernel.org>,
+	"Michael S . Tsirkin" <mst@redhat.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Sumit Garg <sumit.garg@kernel.org>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Tomas Winkler <tomas.winkler@sandisk.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Harald Mommer <harald.mommer@oss.qualcomm.com>,
+	virtualization@lists.linux.dev,
+	op-tee@lists.trustedfirmware.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] rpmb: add virtio RPMB driver
+Date: Thu, 29 Oct 2026 21:41:30 +0900
+Message-ID: <20261029124132.2354314-1-harukak@zohomail.eu>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,35 +76,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auM6lKGAeUI26jCj@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Thu, Oct 29, 2026 at 12:27:23PM +0000, Kiryl Shutsemau wrote:
-> On Thu, Oct 29, 2026 at 12:18:36PM +0200, Mike Rapoport (Microsoft) wrote:
-> > Pages of allocated CMA areas are released to the buddy allocator with
-> > __free_pages(), which does not check for unaccepted memory.
-> > 
-> > This usually works because memblock accepts the memory it allocates.
-> > 
-> > However, multi-range CMA areas, used by hugetlb_cma, and fixed CMA areas
-> > requested with cma=<size>@<base> are reserved with memblock_reserve() and
-> > their memory is never accepted.
-> 
-> It feels like memblock_reserve() abuse, no?
-> 
-> crashkernel=size@base already uses memblock_phys_alloc_range() for this.
-> Should the fixed and multi-range CMA paths go through the allocation API
-> as well.
+This adds a driver on top of the rpmb subsystem for virtio-rpmb devices.
 
-Fixed path already has the range, why would it use allocation APIs?
+Alex Bennée had an earlier virtio-rpmb driver in his RPMB series [1]
+but that stalled due to the user space API.
 
-The multi-range could, but it will be several times slower and I believe
-the intention was to avoid allocation APIs exactly because of that.
+The one that merged later has no user space API and OP-TEE routes frames
+through it so this driver only needs to implement route_frames().
 
-> -- 
->   Kiryl Shutsemau / Kirill A. Shutemov
+I added patch 1 to fix a use-after-free that I hit while testing
+removing the device (OP-TEE can still route frames after driver unregisters
+the rpmb device).
 
+I tested this with UML (virtio_uml) and a vhost-user backend I wrote
+for this on top of rust-vmm's vhost-device with KASAN, lockdep:
+
+ - key programming
+ - write counter
+ - single and multi block write and read
+ - MAC and counter failures
+ - max_wr_cnt
+ - unbinding the driver when the rpmb device is held
+
+With OP-TEE 4.11 on QEMU virt arm64 the secure_storage example TA keeps
+its objects in RPMB through the driver and an object written to in one
+boot is found in the one after.
+
+I have added myself in MAINTAINERS. I would like to maintain the driver.
+
+Changes in v2:
+- Use guard() and scoped_guard() for the locks in both patches (Greg)
+- Call virtio_device_ready() before vr->vq is set, so a request on
+  restore can not kick the queue before DRIVER_OK (sashiko)
+- v1: https://lore.kernel.org/all/20261029081317.2264887-1-harukak@zohomail.eu/
+
+- haruka
+
+[1] https://lore.kernel.org/all/20220405093759.1126835-1-alex.bennee@linaro.org/
+
+Haruka Kuze (2):
+  rpmb: stop the routing after unregister
+  rpmb: add a virtio RPMB device driver
+
+ MAINTAINERS                      |   7 +
+ drivers/misc/Kconfig             |  10 ++
+ drivers/misc/Makefile            |   1 +
+ drivers/misc/rpmb-core.c         |  14 +-
+ drivers/misc/virtio_rpmb.c       | 286 +++++++++++++++++++++++++++++++
+ include/linux/rpmb.h             |   4 +
+ include/uapi/linux/virtio_rpmb.h |  56 ++++++
+ 7 files changed, 377 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/misc/virtio_rpmb.c
+ create mode 100644 include/uapi/linux/virtio_rpmb.h
+
+
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
 -- 
-Sincerely yours,
-Mike.
+2.55.0
+
