@@ -1,56 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271372;
-	b=j8fM+CvPl+UfY5DQC+ZkzBi0EBNkqOEGPiJuwGokUAg5R0tBuNTAzh7zHxXdypzNTZEB
-	 kvY4a23qVnQzM5g9nHbbsMX9JesrxTkEoELUQlvcKFQ9EcGOWz8jCoP+7cYBIpANCO8Be
-	 eQFxF2dSlFZAuZS0OMm0vq1OB/SqN1x+N+iR3l82Ci9FNuB+guuKm1QBfhpF61sXiJuBx
-	 w8pjBabuHAl93Z1DWfwTmCxdgzE+3G2TFCu1nGUZsPIWtfhQqbpA2UYxz8rpofGg3vEY1
-	 dIL1DJC0U915ucqnzSsf3wE2I8XIVSE9UkhYYX3ruKdxPSbcf7Vn79ZSphM4xmhq/Ag==
+	t=1793271389;
+	b=G4cdIqWXFCJ6SFNp+Bune9Ju5NEPW2sEEMV8SbQDah25C8r07u5NbSJw1taKfzt6h08B
+	 HsJ3e5xrPsa2C7Qin+6XRVbj8iAFO1Jk6wU4OAP2CPHyR32t9yBIU//u0lmAY20+GzGqm
+	 zDux64Db+Abr0lKs9HXuCTqTwOPKBiXd098VuoLMduknpHilW1VAwDZlY6LHuOJAmec8R
+	 kWT3YcFlM7wYu3G+dmm8gomOshxqZce2+bVhbZGXqO0okCWf63V9Z+zHitGTbaAzgF0p4
+	 Mf0Xw1w3BkQfx1dkBGrVxxl0LyaqZO5R89jmKKKWUPJozE3jREJDHrLvsFG1HauW1KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271372;
-	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
-	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=EXqNzBB5vpavjyBNQAV3mjvkLPwAjt6dir4BzaGhbIA=;
-	b=v9XigITcnTVFeExpSxuGgi/0pOH45SO8uUE8bL/NFBmZZX/qMObL7Q5LM8qMOxbBnM20
-	 zVSZTIGxEWQhN4WaprCvKzZ3jQY7ocmVs8diLGAIDJVgZhLDiNvCnb9enNSYy1ir2w09X
-	 rqaUCpPqGv1IXTPmhX59eY2zYNKNTXv1oKtVRndlQA8olUZiqcZ+kvzbBO7Frc9K5vsnf
-	 BIkpGTsxLwfKhbRtdf5nh9e302+c+yaJ76olx9X+ijblu8ntW7Drcyhx//VJNNxgxbaFb
-	 2q23n3FgB2ul4i/W+H5ttyY7EuQWg8T4ieA8OU8pVF4TgsiDlDMQmc+j06UN7MSybyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793271389;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=NSH1x3BBzRaE3Cv0AWjNvraojxbNU18l90OOGfS9A2Y=;
+	b=1NWZ8oGr4MNTsw//ty7YKfPJZ1o9Vdl0KAqgxH65Ek3XCjcAu5NIpTKFfsKSlW+wxt4p
+	 9BiMcZQhKAaaKGjJT1B+1Erm6K/jFEdzTMPiianAiJvS5UQ11IdsiXQync5YT5iwWF8VT
+	 1QZkmK79LJWOEh992D6iI7g/CiSq9Qh+tiyawdIIkVlz7xoOCp85seJzbFZBfaEqooXQD
+	 aPyUv/nRlqf91bzz900zRa6Fp0oVeoz2aKXId1hHUKnshslXXHJzuCpyryc5I+8lpu7q3
+	 G/UKHmXgsoOaB9T0OqJfme1+NrcS+rrtda7fseKtfW2KQTKer2icownmjeKziq9YC0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=bBSykGGu;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=ZtHFyEA3;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABDB4606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:56:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABDB4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D37B606A31C;
+	Thu, 29 Oct 2026 10:56:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D37B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=bBSykGGu
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=ZtHFyEA3
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=EXqNzBB5vpavjyBNQAV3mjvkLPwAjt6dir4BzaGhbIA=; b=bBSykGGuUIhl+cO0nULg4GSnSz
-	MpLSTSbKWFR3SmkvGa/YX11FWGBLyU1PfCurq9r3vZUtP85raWMojj9U/Uyspi6eMPmKykg3OGRYH
-	sZr0felJYT27OP0/AUpBeIXyBdz0PA/iHWfOWbOXfsL6ZOi24U/7tkVLn5lchLBmUNatZUXyYlBrL
-	qiiyz3b2RTvgfNJMnFr8NdjVo+EmXOE0Ow+DGBz0QSKIqXiW2ZhNbhHC3dxWm3z95vL8t84RuV6wi
-	Dt1f0Fk6XgL5Ul0MMPnC8mLlsYbDsI42lWMETUgUNfKDTRURL13gsJIuvidBeowAXPQxbkIeDo3Mk
-	BXqrb9+g==;
-Received: from [::1] (port=39374 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xMNni-00000009KUn-08vp;
-	Thu, 29 Oct 2026 11:56:04 +0100
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=NSH1x3BBzRaE3Cv0AWjNvraojxbNU18l90OOGfS9A2Y=; b=ZtHFyEA3C/+nbaEYKk5V6u5/sL
+	lusa/FqrGhQT1DM+5uAYDsypSDZ4s0jtNfd8Awwk/n7KulUH563jE6UichpR33E6RjoADmBRGBpVR
+	0+f7D3WxikPIws1AXFfYTcyKgAVmE0mG5fDsx7OXIw7wri8SzDQDEJBlV6HX1MgpIiePbCBAwooQ6
+	Y9YJbAcSksVVVtAZUq+qF6Kxc03uezib/14nWta4ChLq7UHaG7AK3fBjAKUnDRmq6etqjs3TeqfuC
+	+aMyk8/oibWF1BdP6QLo+0jUBSPMZqydB49ED7Zao75uKaYStuLzvS70XRDRQk+/AlBv5SLxv76r8
+	d/XfEJRA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMNo0-0000000GtOk-0Sam;
+	Thu, 29 Oct 2026 10:56:24 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id F22413011E4; Thu, 29 Oct 2026 11:56:22 +0100 (CET)
+Date: Thu, 29 Oct 2026 11:56:22 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>,
+	Sandipan Das <sandipan.das@amd.com>,
+	Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>,
+	Ravi Bangoria <ravi.bangoria@amd.com>,
+	Ananth Narayan <ananth.narayan@amd.com>,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	bpf@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>
+Subject: Re: [Patch v5 12/18] perf/x86/intel: Always snapshot live hardware
+ LBR state for BPF
+Message-ID: <20261029105622.GN1779021@noisy.programming.kicks-ass.net>
+References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
+ <20261029043914.1395147-13-dapeng1.mi@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,151 +82,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Thu, 29 Oct 2026 11:56:03 +0100
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Dominique Martinet <asmadeus@codewreck.org>
-Cc: Eric Van Hensbergen <ericvh@kernel.org>, Latchesar Ionkov
- <lucho@ionkov.net>, Christian Schoenebeck <linux_oss@crudebyte.com>,
- v9fs@lists.linux.dev, linux-kernel@vger.kernel.org, stable@kernel.org
-Subject: Re: [PATCH] 9p: pin request under client lock in p9_tag_lookup
-In-Reply-To: <auLejxGRgVLKlLuL@codewreck.org>
-References: <20260930201357.590469-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <auLejxGRgVLKlLuL@codewreck.org>
-User-Agent: Roundcube Webmail/1.6.20
-Message-ID: <08dad2f67457cf97eedff42e57312bd2@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029043914.1395147-13-dapeng1.mi@linux.intel.com>
 
-On 2026-10-29 06:50, Dominique Martinet wrote:
-> Jérémy Jean wrote on Wed, Sep 30, 2026 at 08:13:58PM +0000:
->> 9P clients keep separate request tables but share one request cache.
->> p9_tag_lookup() can race with the final p9_req_put() and pin a request
+On Thu, Oct 29, 2026 at 12:39:08PM +0800, Dapeng Mi wrote:
+> __intel_pmu_snapshot_branch_stack() is intended to capture the current
+> live hardware LBR state for the BPF path. However, that snapshot is
+> currently skipped when all LBR users are PEBS events.
 > 
-> Ah.. Right, just checking the tag isn't enough, we also need to check
-> the client... I'm not sure why I had assumed the caches were not 
-> merged,
-> they're only not merged with different types..
+> BPF LBR snapshotting now uses its own dedicated LBR stack, so there is
+> no longer a risk of clobbering the shared default LBR stack. As a
+> result, always snapshot the live hardware LBR state for the BPF path.
 > 
-> So technically we could add a reference or some kind of id for the
-> client and check that, but given SLAB_TYPESAFE_BY_RCU is hard to grok I
-> guess it's much simpler to just take the lock and be done with it...
-> (in that case we can get rid of SLAB_TYPESAFE_BY_RCU altogether, the
-> lock is enough guarantee that the memory is valid until we get the ref
-> here)
+> Fixes: c22ac2a3d4bd ("perf: Enable branch record for software events")
+> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> ---
+>  arch/x86/events/intel/core.c | 10 ++++++++--
+>  arch/x86/events/intel/lbr.c  |  9 ---------
+>  2 files changed, 8 insertions(+), 11 deletions(-)
 > 
-> It's far from a new bug so I'd rather not rush this just to go back to
-> rcu a few weeks later, give me a bit of time to check how much impact
-> taking the lock here adds so we can decide. There's enough leeway in 
-> the
-> p9_req_t struct that we can check the client for free if we care...
-> 
-> Meanwhile, if someone else has an opinon feel free to chip in
+> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+> index 482a148916bf..110fff65bd50 100644
+> --- a/arch/x86/events/intel/core.c
+> +++ b/arch/x86/events/intel/core.c
+> @@ -4069,8 +4069,14 @@ static int intel_pmu_handle_irq(struct pt_regs *regs)
+>  
+>  	loops = 0;
+>  again:
+> -	intel_pmu_lbr_read(&cpuc->lbr_stack,
+> -			   cpuc->lbr_entries, cpuc->lbr_counters);
+> +	/*
+> +	 * No need to read the LBR stack when all LBR users are PEBS events,
+> +	 * since the PEBS handler updates it.
+> +	 */
+> +	if (cpuc->lbr_users != cpuc->lbr_pebs_users) {
+> +		intel_pmu_lbr_read(&cpuc->lbr_stack,
+> +				   cpuc->lbr_entries, cpuc->lbr_counters);
+> +	}
+>  
+>  	/*
+>  	 * Do not clear the LBR frozen status here; keep LBR frozen
+> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
+> index 63f0504f9d2a..790580f96040 100644
+> --- a/arch/x86/events/intel/lbr.c
+> +++ b/arch/x86/events/intel/lbr.c
+> @@ -1050,15 +1050,6 @@ void intel_pmu_lbr_read(struct perf_branch_stack *lbr_stack,
+>  		return;
+>  	}
+>  
+> -	/*
+> -	 * Don't read when all LBRs users are using adaptive PEBS.
+> -	 *
+> -	 * This could be smarter and actually check the event,
+> -	 * but this simple approach seems to work for now.
+> -	 */
+> -	if (cpuc->lbr_users == cpuc->lbr_pebs_users)
+> -		return;
+> -
+>  	x86_pmu.lbr_read(cpuc, lbr_stack, lbr_entries);
+>  
+>  	intel_pmu_lbr_filter(cpuc, lbr_stack, lbr_entries, lbr_counters);
 
-Hello Dominique,
-
-Thanks for the reply, and I'm happy to discuss the best way to fix
-the UAF.
-
-I am not so familiar with that code base and I have a hard time
-deciding the actual impact of the lock. As you said, it might be
-possible to keep p9_tag_lookup() lockless by storing the owning
-client in each request and then validating both the client and the
-tag after successfully incrementing the refcount.
-
-The two helpers refcount_inc_not_zero_acquire() and
-refcount_set_release() should ensure that the client and tag checks
-see the newly initialized request state after reuse. Then, the
-mismatched reference could be dropped through req->client. This
-should stop a stale lookup from mistaking a recycled request from
-another client for the original one.
-
-Below is a tentative patch that applies this strategy. I have
-verified with my reproducer that it indeed fixed the UAF. What
-do you think of it? Let me know if you'd want me to send a v2.
-
-Best regards,
-Jérémy
-
----
-
-diff --git a/include/net/9p/client.h b/include/net/9p/client.h
-index 55c6cb54bd254..a46187833cb8d 100644
---- a/include/net/9p/client.h
-+++ b/include/net/9p/client.h
-@@ -84,6 +84,7 @@ struct p9_req_t {
-         int status;
-         int t_err;
-         refcount_t refcount;
-+       struct p9_client *client;
-         wait_queue_head_t wq;
-         struct p9_fcall tc;
-         struct p9_fcall rc;
-@@ -333,7 +334,7 @@ static inline void p9_req_get(struct p9_req_t *r)
-
-  static inline int p9_req_try_get(struct p9_req_t *r)
-  {
--       return refcount_inc_not_zero(&r->refcount);
-+       return refcount_inc_not_zero_acquire(&r->refcount);
-  }
-
-  int p9_req_put(struct p9_client *c, struct p9_req_t *r);
-diff --git a/net/9p/client.c b/net/9p/client.c
-index ef64546c6d52a..31e4bfa4901e3 100644
---- a/net/9p/client.c
-+++ b/net/9p/client.c
-@@ -181,9 +181,10 @@ p9_tag_alloc(struct p9_client *c, int8_t type, uint 
-t_size, uint r_size,
-         p9pdu_reset(&req->rc);
-         req->t_err = 0;
-         req->status = REQ_STATUS_ALLOC;
-+       req->client = c;
-         /* refcount needs to be set to 0 before inserting into the idr
-          * so p9_tag_lookup does not accept a request that is not fully
--        * initialized. refcount_set to 2 below will mark request ready.
-+        * initialized. refcount_set_release to 2 below will mark 
-request ready.
-          */
-         refcount_set(&req->refcount, 0);
-         init_waitqueue_head(&req->wq);
-@@ -212,7 +213,7 @@ p9_tag_alloc(struct p9_client *c, int8_t type, uint 
-t_size, uint r_size,
-          * callback), so p9_client_cb eats the second ref there
-          * as the pointer is duplicated directly by virtqueue_add_sgs()
-          */
--       refcount_set(&req->refcount, 2);
-+       refcount_set_release(&req->refcount, 2);
-
-         return req;
-
-@@ -243,12 +244,12 @@ struct p9_req_t *p9_tag_lookup(struct p9_client 
-*c, u16 tag)
-                 /* We have to be careful with the req found under 
-rcu_read_lock
-                  * Thanks to SLAB_TYPESAFE_BY_RCU we can safely try to 
-get the
-                  * ref again without corrupting other data, then check 
-again
--                * that the tag matches once we have the ref
-+                * that the client and tag match once we have the ref
-                  */
-                 if (!p9_req_try_get(req))
-                         goto again;
--               if (req->tc.tag != tag) {
--                       p9_req_put(c, req);
-+               if (req->client != c || req->tc.tag != tag) {
-+                       p9_req_put(req->client, req);
-                         goto again;
-                 }
-         }
+AFAICT AMD could be similarly modified, it currently unconditionally
+reads the LBR stack, irrespective of lbr_users.
