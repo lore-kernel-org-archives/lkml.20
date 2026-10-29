@@ -1,110 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793301478;
-	b=5rJ5/D0Igq7H5lD0nIXzMwc4I1pEjft9Hm1f0rlekkFzxUOpW9mBr6DxOJNSIsdXywAX
-	 oVvOSwv1tz9aAJ4aJh8SsZnjIAVB7xPIbDSwdJra4A41PDyz3yj+VQWC/7jdwkdU5Eesd
-	 r+fySamtGEu4VxL8YxN6kqyd5RObqy25ONJzwDDi6tgO3Iny/tpRCiR8Fc2djVytulCOF
-	 N0XcvHGho4xzNLTdPBd2khRkELLdn9jFMUeeV951h3L5sNY9GAbVjqJUYtF4Sbtb/7rvY
-	 ILlCwEHsbQrkOJ6oYPbbkXxkejQwizFTeJrTnV9VYRFvNtL5w2AgmHfJQ3aWyE6uAUg==
+	t=1793301526;
+	b=Nuw4pjkHvk0ZlAS6K+x5REBDEZW6lQm98BuGTIb0ZBi9vxTxFOmj3yzr+PBg2QDZh+JV
+	 q5PF3aBFtqgUaQy8b/S/Mr+14aOPh4fk5hBB08+Uo15lxAwWalhrSZR5s+bn8A02pIcUU
+	 fZKSiF0KqePm+ALyHs5+arQy7JuoMPoLShfVN5UGlu7d4e5AoLwhMKur/B+eMQpwyoRzf
+	 4MwfoUCmeEuUiZ9XU+4/ORbtfKvUgDjUB6BBuGkOkhiuUgP6gCdnHtyy2X12c25XUNXqL
+	 tPMKnq3mNebirIfBtMR220yZkfnIhU8aUDYIcxkMAVFg7dP5MVQ+8RPtXqwpLKGtpog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793301478;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=/ulCvwB2xwRabyK+mOG5zQB868mEQ7a193kjvrG/0Sg=;
-	b=cdrGJkRqH5M8YGtI/t24nBvqWcRMycs5DkX6+AeaAh6WnLRpWZ2jEVkjPM9tDkZLOf1v
-	 yNOjskWQwaUGBfWx9LD6YzgjRWMiX/inqKEdyqhR/P8eERHc8cYkHWw9AgUOPUvKHYqJF
-	 0i55/bt3hh/eJv2l40Xc87cubLBEDa7meawtULQe1vtrAB1QW7XGgYQpStD8H8bG5SSBu
-	 WBlXVFG5ClF/pxUMG51LhssAM0NGphrXb9M13LhI4ennlNLczCj8dTnxC16QhfeQzPeoa
-	 XqLHkf3RZ+6IHhRjcitfwyZtKDJOaTPbkVmNBsFfjxSGrctvsNo70gfUHT46TLW2MNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793301526;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ph8C1jmnpdrdeev4LCocOpai7bmb4a/dXqzWxHzIVz0=;
+	b=YQidcfAhBYhT7Clwm6yE4pB5E8IaCBOAIK3V6/zdanVGv0/KH/izqsUTF1jREwXWLo1/
+	 9fMeJk8fqxTM7e3WDXTZTBUsAIXpMmQuku8fs3/Jy2ogjPczAeelBPUiiYJXnfDosv9je
+	 qsf7qTJHSMTGcJICU64sTos+ElCwXKE/ujjm7jLLCBAnpYiGvH5DQbpmXesGOHfm5Suai
+	 w1xfDfiIkbdstZT7/qUWJnNOJuhtSwAnn4P8p/3G88yU1iucF9hLESW6GcBlFLewjR7bP
+	 oxtY2XvrG3mWGo2nN1aol6utQy43DuY1SRzlL936EVAXWu26FxhLDYqNUBiB7ICtqPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmpxchg.org;
-	spf=pass smtp.mailfrom=cmpxchg.org;
-	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=gBMaCZnf;
-	arc=none smtp.remote-ip=74.125.224.53
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gf3rGWJU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4B6606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:17:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F4B6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69140606A31A;
+	Thu, 29 Oct 2026 19:18:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=gBMaCZnf
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-6798af41644so2051763d50.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:17:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1793301476; x=1793906276; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/ulCvwB2xwRabyK+mOG5zQB868mEQ7a193kjvrG/0Sg=;
-        b=gBMaCZnfEHzvdpxRC3G99RRCV1PII4S9DLB8gXI+TdO7z/ALvtzOGCkM3K7FGycc4P
-         qB5oGn/6a9lIM4CFK9Dlq3PNcpINRq7KT/Rdvd0AsXW/TzJYsZZjwV1I7HGmn0SEecgF
-         prDhrXvBNk02mgv4ZlSJ3vVtfSriJ2hqIaGiKYCAtm67bU8dkg5+x89EvuP5rNSQeavh
-         llpzyFB9cQOAWMr7Q7ipO9/vGBpXxAuFxDPkUzCWublErrjtg+P1d84CkDiRWPPcUPDT
-         OVqBoLD2+jw23OWyaog1gNH/0LIFr+RsdIcuw+lHkmzxVASAqu79nnqPWHAarLFVVIr2
-         Rwrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793301476; x=1793906276;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/ulCvwB2xwRabyK+mOG5zQB868mEQ7a193kjvrG/0Sg=;
-        b=Bu+NfMl9zF3ihjy1s5irE4fcht4JWcyPw47+STiy6ccPMfr1EMB8F3LjTgOWFLPIUy
-         ZV6puiKYvmRqz7x32ki3D190Q7mNL/rPKajr3YeLvSg4ejUinu9pWc7lYUuZyQzZ5vQh
-         E+W9v8aGcjijmUoTmHa8wUfkEX0SDr5a3mm1W0FaCQBO2H5Gy7x6ztlRH4yTmTf2ySrU
-         bgMav0JK09RuWH5iyLCu5+WLCFkYZhM0AAPgTVIOhr9Ntkhp6w5IT2y6sFmpooHaYEO9
-         GLc5GN1ymEOUQmqHqn2QMYoAYq4TLKA8/Vs7U+IA+RXeEmxw0WvI+9PsegfIsDGDVnNa
-         vPgA==
-X-Forwarded-Encrypted: i=1; AKwUvBwyb9+wnXAiWzeF5bk9fenIikcakvQ/6RIaCoVOuEArIZo0fwACmAHC50d1bJDUUhie1F1sEIKrDONpPsc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKuCkPZEAxFjbD4B1v/W+wCIDgpFHKUxdwBS3WzJdbM0Qz1QoRw
-	psVp32JLJD41w03SPEvJ45KS4z96vdII2ji9JudePtrFh3JrhQnf4Q60Sc52zNKzB9I=
-X-Gm-Gg: AYBFou00B1/xy4/qeuSBOf+SIyX0lXOTezGZFltl9Fr2YRRv+VsVyr5dg9K7w8vCMuq
-	Yt1/wYgNMcRp7/KybxgwB0lBS3xagAHEM0yrAxFfN9Y/E1IEhgLubVJ/CrzTCzckQQXtuLvZHfj
-	mwVbhO5efj6uzHkuve4seU6NzL8bZJ9uv2udFCIdGR+Rc6swnY0o0N+J/tYmLaRQbISMTiJLZ8V
-	9xgR04hC+sLoHr0wGCCjX0KIPY9xh8c/8C550YEQzR0SinDQ4XAQpD9dJyklEXBA/q2iyc4hpx0
-	I/IvQ6UfnFcEfgAaJgV6tiT23gOmeKgomODwbpzGijnttYi0b1szDp4iA+S3QsZsuI7ELSIKkL4
-	uOyKzUGH/VF9d3aZ0Ti0ECNE9QInsmpCUPehiuZ5IxTb+KPPcIRHLxHmbpl9bKHxsyiJp7addE6
-	M9bAGJC30xs++87+N1ZHaFtG83bKLP387e5aMgOGL533MwRyM46vBHliquBPUrI4hYtlWJP8u6n
-	acmkm2J4u+hc6fJb+8w39AeoBohXJr5+O/IqaTspfeC252ZgENGoc7f2uwta0keujbtkcipEBRR
-	wO8d5TBWGE+8DyJcre4YG0IXABvY
-X-Received: by 2002:a53:b193:0:b0:677:cdbf:41ad with SMTP id 956f58d0204a3-67ba4c90d54mr59919d50.12.1793301476120;
-        Thu, 29 Oct 2026 12:17:56 -0700 (PDT)
-Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67ba3a2552fsm148947d50.17.2026.10.29.12.17.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 12:17:54 -0700 (PDT)
-Date: Thu, 29 Oct 2026 15:17:54 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Usama Arif <usamaarif642@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Chuanhua Han <hanchuanhua@oppo.com>,
-	Mani Tofigh <mt4022@columbia.edu>, linux-kernel@vger.kernel.org,
-	Kairui Song <kasong@tencent.com>,
-	Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] mm/zswap: drop the stale zswap entry of a zero folio
-Message-ID: <auOb4tvXoDbsx4jz@cmpxchg.org>
-References: <20261030-swap-fixes-v1-0-73f73a59f2fc@tencent.com>
- <20261030-swap-fixes-v1-1-73f73a59f2fc@tencent.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gf3rGWJU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A11C1F01824;
+	Thu, 29 Oct 2026 19:18:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793301526;
+	bh=ph8C1jmnpdrdeev4LCocOpai7bmb4a/dXqzWxHzIVz0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gf3rGWJU5hbTZOexRbTZOJDmxHULJI5KXdcRKAlnfLmHqVHp9ZGY+dEmN25dhzEAl
+	 3DEuSOE0mIwV8CyctydR6aiUqxOr9XHMH7VyF2VXTSZmFsNkHwUiEGyo/Vk8brWuD7
+	 2HH1Utj+X9rzkIQtOPZBqQWXqugxM1exuPJRbHt8SycgJ74axOP/RiOmdoJGeWe+zF
+	 hBIh2PFr8Jf+U/lG0ANzGDoHDUwPpZlQwjc22JnLMWY+Q1O4rTuJQaKOUWodAKpVeo
+	 UUQI8rgTznnArkRPRZgSdHJT0tshbP3lJkbuHTHgwK4CqTVhjsO0omZdPWqpGjFea1
+	 IsrJQJpFIHaeQ==
+Date: Thu, 29 Oct 2026 19:18:38 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Kwanghoon Son <asdfkwang@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 05/12] dt-bindings: serial: Add BL808 UART
+Message-ID: <20261029-sequester-countable-6a7b597c2551@spud>
+References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
+ <20261029-rust-bl808-console-v1-5-b736ee920078@gmail.com>
+ <20261029-pouch-enunciate-e74cf84e42a7@spud>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,52 +80,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Oo1FlmzmZPb07xbS"
+Content-Disposition: inline
+In-Reply-To: <20261029-pouch-enunciate-e74cf84e42a7@spud>
+
+--Oo1FlmzmZPb07xbS
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261030-swap-fixes-v1-1-73f73a59f2fc@tencent.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026 at 02:31:41AM +0800, Kairui Song via B4 Relay wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> A folio can stay in the swap cache after zswap_store() has stored it,
-> when a swapin fault gets a reference on it before reclaim can remove it.
-> do_swap_page() maps an exclusive folio writable and, for a read fault,
-> keeps it in the swap cache, so it can be modified and swapped out again
-> to the same slot. zswap_store() handles this, it replaces the old entry,
-> or drops it if the store fails or zswap got disabled, "otherwise,
-> writeback could overwrite the new data in the swapfile".
-> 
-> swap_writeout() does not get as far as zswap_store() if the folio is
-> zero-filled now. It only sets the zero flag of the slot, and the zswap
-> entry with the previous contents stays in the tree and on the LRU:
-> 
->   reclaim            fault              zswap shrinker
->   zswap_store(D1)
->                      swap cache hit,
->                      map, write zeroes
->   swap_writeout()
->     zero flag set
->   folio reclaimed
->                                         zswap_writeback_entry()
->                                           swap_cache_alloc_folio()
->                                           decompress D1, uptodate
->                      swap cache hit:
->                      maps D1
-> 
-> Swapin looks at the zero flag first, but only when it has to read the
-> folio. The folio that zswap writeback leaves in the swap cache is up to
-> date as far as anybody can tell, so the process gets its old data back
-> instead of the zeroes it has written, until that folio is reclaimed.
-> 
-> Invalidate the zswap entries in the zero-filled case as well. The folio
-> is locked and in the swap cache, which keeps zswap writeback away.
-> 
-> Fixes: 0ca0c24e3211 ("mm: store zero pages to be swapped out in a bitmap")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> [kasong@tencent.com: fix zswap_invalidate() arguments]
-> Signed-off-by: Kairui Song <kasong@tencent.com>
+On Thu, Oct 29, 2026 at 06:54:49PM +0000, Conor Dooley wrote:
+> On Thu, Oct 29, 2026 at 01:05:46AM -0400, Kwanghoon Son wrote:
+> > Describe the UART register range, interrupt and baud clock input.
+> > Initial Linux support targets the BL808 32-byte FIFO and reuses
+> > Zephyr's bflb,uart compatible. UART3 is D0 PLIC source 20.
+> >=20
+> > Link: https://docs.zephyrproject.org/latest/build/dts/api/bindings/seri=
+al/bflb,uart.html
+> >=20
+> > Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
+> > ---
+> >  .../devicetree/bindings/serial/bflb,uart.yaml      | 57 ++++++++++++++=
+++++++++
+> >  1 file changed, 57 insertions(+)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/serial/bflb,uart.yaml b/=
+Documentation/devicetree/bindings/serial/bflb,uart.yaml
+> > new file mode 100644
+> > index 0000000000000000000000000000000000000000..df29d258f0a1c6d7bb283cf=
+19c4157436991b64b
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/serial/bflb,uart.yaml
+> > @@ -0,0 +1,57 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/serial/bflb,uart.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Bouffalo Lab UART Controller
+> > +
+> > +description: |
+> > +  UART IP used by Bouffalo Lab SoCs. Initial Linux support covers the
+> > +  BL808 controller with a 32-byte FIFO. The compatible follows Zephyr.
+> > +
+> > +maintainers:
+> > +  - Kwanghoon Son <asdfkwang@gmail.com>
+> > +
+> > +allOf:
+> > +  - $ref: serial.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: bflb,uart
+>=20
+> This needs to be a device-specific compatible - please just use the
+> binding already reviewed and agreed upon in Jisheng's 2023 series.
+>=20
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +
+> > +  clocks:
+> > +    items:
+> > +      - description: Baud rate generator clock
+> > +
+> > +  clock-names:
+> > +    items:
+> > +      - const: baud
+>=20
+> Drop this clock name, with only one clock there's no more need for it
+> than the interrupt-names or reg-names that you do not use either.
 
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+And additionally, I see no value in picking something to suit zephyr,
+when zephyr uses things like "bflb,clock-controller" or "bflb,pwm-1" and
+"bflb,pwm2" and so on. Make a clean break and do things correctly rather
+than try (and fail) to be compatible with the zephyr dts.
+
+>=20
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - interrupts
+> > +  - clocks
+> > +  - clock-names
+> > +
+> > +unevaluatedProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/interrupt-controller/irq.h>
+> > +
+> > +    uart3: serial@30002000 {
+> > +        compatible =3D "bflb,uart";
+> > +        reg =3D <0x30002000 0x1000>;
+> > +        interrupts =3D <20 IRQ_TYPE_LEVEL_HIGH>;
+> > +        clocks =3D <&uart_baud>;
+> > +        clock-names =3D "baud";
+> > +    };
+> > +...
+> >=20
+> > --=20
+> > 2.47.3
+> >=20
+
+
+
+--Oo1FlmzmZPb07xbS
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauOcDQAKCRB4tDGHoIJi
+0vgpAP0Ykz6jLYW3pZLrj+OXAuKEfEQ7s4+gO6k+C0dlr9qAfwD/Rk+Q3480s7KS
+h4SKrbAvl0+aogP6ibLD6PeZLk0/vAc=
+=kFab
+-----END PGP SIGNATURE-----
+
+--Oo1FlmzmZPb07xbS--
