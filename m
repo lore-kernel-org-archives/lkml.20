@@ -1,99 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306010;
-	b=J8RVhDooJ3/aETfOaa+gelkHHDlTS3sXMpjXVHxvK7x+IDWMHqCdbTHPp9/xd/gbKQER
-	 aWKWZGEFnhkA4tliEmbHhe1+MDAv1kA1ivB9wpd/nmbAcokdZvtlHKk08sRr3yIbA3Iiy
-	 yZvHMHWn/sbAHRMHco/EBnS1AI62uP1PbKOd4meMFGVVWEJF8HlbkaBNkyqvGtt7HM7HB
-	 iDbYBj6kZ48cez4MC+Zeo+X2hF4KZVa2PRlONeI7YNILGzsdj1zJXNZ08NUn8BvLlqcn8
-	 4CQ6csQ3sSxdoUbNQcPLKb8UjOurMQauQvYGWQEIZ6yfjadIFG0HUEaZZLShOAsYZhQ==
+	t=1793306016;
+	b=HjmT4fah/BOCwtPeZ7kPW6McmhPvUpf8EB/eZXrlXcZdJPDVCVDZ40UGpyLAsvYn+zdo
+	 axQkQ9wJ6KMg9PEBnVM4M/UFlbgMme1qgJYVhafV4Eps26/BOCJ4s4A6x0bgk5+ZZ14B2
+	 1ll+iQWOf0UAn7Dup9hk180renk2DvwYpKQWg8FioThgH2wa0v+Q6DwfeQJAZkKFjoVDj
+	 SgXJ2dp68AMsHG0PBpbA2mRi1WRpqMdyYqvu67xjiU3ZPNatMLEbS9kXb6U8nUHXfgiWv
+	 Fe3+kTdxbGNblzgXL6mBNhDW8kc/OhkFNvr0Y1u+U69fngqVRkErjVeDRTLuKcanBBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306010;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306016;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=1FwGxH5RamrY2sgTjs3EG6aOjMo9Ydi6StxHkJqw4Uo=;
-	b=nlUy75phyR+PAB6QTWiJ+X1fHPlPRZYseW8Qd8/qwjVrLey7xi43bheQshFbA3d2xZ0k
-	 0hl6ABdJ3CxODiBCv86I35j5LOD3qI+QdzXVWUcTmXmOEwFwG9yFVhacUBDX0BjsXfABB
-	 OYfaIYx+xAmoeyFswentiPZmvFVh9P1m6DodQV/hRYyk9WHQaSGeFkJv3EANUl59LlsHT
-	 8pO3c4L9AHIeZuap3TcKuXgcIqY4j/qeijHmRqpoJpaUhch5HbtRB2h375RihcvIw/WiJ
-	 +v3fkR2U/KOX1Ou1wUzwPInyOS1VndD3rnqBQaIWHz6MeCc5q8LX4E11LPQaFPbt0Sg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=z179Ocr4JquFIIJEs4efAQ+NRuf5uFGDrSodVviqc40=;
+	b=asPO5TXI8TWNlNv/yO9sQGCGIfIqcdnEXe08GkiKb/wv1DpDnNXFVcMsfvskFodBsw+c
+	 SZIakJud+vyTyFcP+uTnY7vmjujEWA7CoCX121TpAy26h+g0HQNhi1AG4sEzjWkNCKw9m
+	 f5WfnvR25Jo8Y0OJvk9pVMkpQAeS+x2BTVYM4QpGc24Sdwq2OfF0RNpPpWnzhK0Ig3Kcq
+	 roIHqUsg/X59iXvvQy6Wf5ILU6MNMeQ26DrEFQ7olI7Oxv83iwEE/inPQKIAFdXX7KZ4g
+	 3Vi1oh2bUAHjGDqGAwx1yY3QeNH8sLnMPktI+XGJT3TodVMPYxjogvbN4qJ7Pwu3Rlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=amutable.com;
-	spf=pass smtp.mailfrom=amutable.com;
-	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jzUC4j+m;
-	arc=none smtp.remote-ip=209.85.161.53
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="k/h7ENib";
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55EC8606A335
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:33:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55EC8606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A0C360A2601
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:33:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A0C360A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=jzUC4j+m
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-703be215729so1405247eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:33:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=k/h7ENib
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8a086f5d91aso3313580b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:33:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1793306008; x=1793910808; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=1FwGxH5RamrY2sgTjs3EG6aOjMo9Ydi6StxHkJqw4Uo=;
-        b=jzUC4j+m5k1GWzE4M+MP1+7CZ24I8OTXJlA+L47TEmbE8YmDlulAMxTxxOUwWkdRHH
-         ZA7UWCWY4UP0IpGp1AHTAIZ3biCBCS3Tm/hc1d7JYAYzBEUgymxOLRamDSR52NWY6yTV
-         Nj/CqyTphrQl74nCEr4jlN0A5maoCINl7zvMB7W8X8TZfTkAJvS2G8HM3Jp5HF69ixuK
-         k8K6KaBp15/F8ksjNkcHk9DTAxy2LvSV5923Kd0H2P6TbZ8q5agmTrdcmkY94F1z8Riv
-         XkPjRnV7/c156Gl2EZ27Xh6M+m8MNab0eP3uNFZbUkpddrNb2ItyVbJgXuN7mAV+JTBo
-         PHqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793306008; x=1793910808;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793306010; x=1793910810; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1FwGxH5RamrY2sgTjs3EG6aOjMo9Ydi6StxHkJqw4Uo=;
-        b=Kde8pexUW/iHD2ONHeEqJC4hTsGLIopQV0Ei6nwf5AsAE570oGPK8sTbNlEsn+oUmr
-         Ss4AowZpxw/PzyUKADdGsodTmqGtECE5b4EvPj3qaaZO71Stn1kzn1MhtkOE2azlxiSz
-         u3x/ebh+zNzSLcWV8pJVttsKWhUPEZpa/hE7hHhAyzl3BZ3rVZLiu9wYhjIpssatf1sj
-         k2UKub9QX/UlWDXZpqgSzpP+Dk4by6fMcOv7U+3SM4tLv9C3ZgI5PJghG97MfTTaqSyn
-         ZF5gNpRJE7kFcLORyhVe8suQMDN7BazSWPQOU9/L0t8ndq1gHwJn/DkqWUmDlRSNhnTg
-         qFgw==
-X-Forwarded-Encrypted: i=1; AKwUvBwTEE/z7QB48hlSHD3tV3Nu41d6uRFxkHDkNShCGelHZmkqtnV9r9JXh8JsDHRk5e2uYxYyxc5V/QUOe/E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJvPMb4MZuxscrr/xAO4mTDphT/Dq5DRDSjQa6YESKViaVxjvR
-	0plY6zHbSnKcwSrC3kEXfGotveuRVe1CmIOG4YEzLdWv/omIihby2BdE/GrwR50sGLZW
-X-Gm-Gg: AYBFou2txwZk/onAUUlVeUs45aMwGEPD3YALolstNKT0gHAVWqS3zjC8Veu7eWdghfk
-	tIlFKXu8gPpPieOel2I2LMTOvH+hzLkZCb35AwRX4TazyPYyGXPm5eIQ65mLthGTf840bxw+rL5
-	RaCpanGXpOHM+uWvz/Z77ROhBZtUfl7O+kwGM0obNf6rHQ2MWZMhJVfi+Mc/wlDg/Wgp3WS+61s
-	bLfhlzzOX9f9YH1Nbpfny7PFZTVWVkCp7dnRtRitAE2VwKRf63rMK/D4b3YPbEYceQEnE8b8jqw
-	B3JWf2Uw1eVGmLZEL4/SPOkgQZ+Ca8zRX8ahxZ0aj89nN24LrG1m0NeAdlomrfzlKvUAYAo/O8h
-	jdBZzzoO4gsU2OW4shRFTasRAJHS4GO+mr3QZw/mb0/S6+v/XAkTpe6OPEisaSuxY0ElDVgp6qM
-	wjihMsV4b1HBR/uljg26K44AJUdGUfoBoWoYXdFxqWsy8uOAwCrRDMiEtF1XC3vuPFfw0kAPrmU
-	7Xv+V5GExl5ep8ESVglHMzUnSXSIvIBg/3AvBFBAs133NKW9mYVyoI4O/hW+QnONreMzzOc9fVu
-	Syb4UyasF+I+bzd1nvATgFaS
-X-Received: by 2002:a05:6820:240b:b0:6dd:25a3:94dd with SMTP id 006d021491bc7-714f29beb56mr224819eaf.41.1793306008134;
-        Thu, 29 Oct 2026 13:33:28 -0700 (PDT)
-Received: from toolbx ([2600:6c8e:af00:4c:73ea:df46:8ccd:ac9f])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-714f2ce7c9csm260964eaf.5.2026.10.29.13.33.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 13:33:27 -0700 (PDT)
-Date: Thu, 29 Oct 2026 15:33:25 -0500
-From: Andrew Halaney <andrew@amutable.com>
-To: manuelh@nvidia.com
-Cc: Fan Wu <wufan@kernel.org>, David Howells <dhowells@redhat.com>, 
-	Jarkko Sakkinen <jarkko@kernel.org>, Christian Brauner <brauner@kernel.org>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Luca Boccassi <luca.boccassi@gmail.com>, James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	linux-security-module@vger.kernel.org, keyrings@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org
-Subject: Re: [PATCH v2 1/3] ipe: add the .ipe policy keyring
-Message-ID: <auOn9CzT_gku-5cH@toolbx>
-References: <20261029-b4-ipe-keyring-rfc-v2-0-77727b205844@nvidia.com>
- <20261029-b4-ipe-keyring-rfc-v2-1-77727b205844@nvidia.com>
+        bh=z179Ocr4JquFIIJEs4efAQ+NRuf5uFGDrSodVviqc40=;
+        b=k/h7ENibaZ/MHveOfXZbn8cGvIsxFR9IpAxNtw3uxjW2EEVPpBpgKySaDvjVCOtLkC
+         PFPyV6kU+sS1sl2BXzQphOCHkjj+1XhYVzhLPwFeoiTBp7QrtAWXIyKORrt0HLt2Olmk
+         Rqdjd4bcgIe+aXaCPfjfbV/wcB4KhVhth/FMBH1Acc5y1M8qHyXaae0FputJ9WIt6wK1
+         ELuMFTyxid2zLMBN1WdTMSsV0IJlaGuE6o9f9XdTN1mbpnf9AuQhHazzCUy2IuoW9u+H
+         J/t1k11ZqkQ7EmxV54ne+n3n5zMIwVgbZONmDDp7KmG2yiiZclWh5sL1Bogt4zPnEBoG
+         yBhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793306010; x=1793910810;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z179Ocr4JquFIIJEs4efAQ+NRuf5uFGDrSodVviqc40=;
+        b=KPNc46ti5ax7gVIdsokTkTJ3U1Kn7jjTrpFfM0OS+yGhV68QEh6y++4/3hz8o79YZ9
+         M3HNAhyyINgsqIIsd64fwTcw1j+KU7F/TYMbXAD02IFCAOKdsna7rkpdSUkL6ZJs6Ibq
+         9pAU8UMFnQePDgkei3CGcERLAueJFbSxoxCE75v9S5NIUNgzDU09LTRgWfiNgBjdilyT
+         i0FICAthVFDq6z0IZOJjj9XiyAOYI3NWs6tsG4MG3h9WHJQ0YCWLgMtY7VV6w/5naN8n
+         xdAtIy9MHYY2ciKDQwCVwnQ86wozYC4kpup/Izkv5SRI4vtLeOJ+IaL/AP2ozZjO9qrr
+         zxmw==
+X-Forwarded-Encrypted: i=1; AKwUvBxQJ8Y5HYCaf533an0VkpgU8KTPoF+c/dFCYhvpd84RxyowrwAg9hvZBHufLpWJfpz09VK4E3oJSp+V6tc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKpdKPmAHCUdAgGbikLLqTyvjz9S6hoFlCj+CH3DA1F8n7enw9/
+	6dV3UrvE/z+sym35rh5l70eEqNmM3WTT2rBvemj9XV0bFw5Pl7iownFD+9euu0yDHXqhwd9IZN0
+	VeRwh7yu6Ruh3hQ==
+X-Received: from pgdo12-n2.prod.google.com ([2002:a05:6a02:620c:20b0:cd6:1fc4:6199])
+ (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a21:7741:b0:3e2:30c1:fe01 with SMTP id adf61e73a8af0-3e928e3f9c8mr297152637.69.1793306009847;
+ Thu, 29 Oct 2026 13:33:29 -0700 (PDT)
+Date: Thu, 29 Oct 2026 20:33:23 +0000
+In-Reply-To: <20261029203324.1637772-1-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,65 +78,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-b4-ipe-keyring-rfc-v2-1-77727b205844@nvidia.com>
+Mime-Version: 1.0
+References: <20261029203324.1637772-1-dmatlack@google.com>
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261029203324.1637772-5-dmatlack@google.com>
+Subject: [PATCH 4/5] vfio: selftests: Add sysfs_kernel_warn_count_get()
+From: David Matlack <dmatlack@google.com>
+To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
+Cc: Abhishek Sahu <abhsahu@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
+	David Matlack <dmatlack@google.com>, Raghavendra Rao Ananta <rananta@google.com>, Shuah Khan <shuah@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 29, 2026 at 12:30:38AM +0000, Manuel Huber via B4 Relay wrote:
-> From: Manuel Huber <manuelh@nvidia.com>
-> 
-> Add a dedicated .ipe keyring for IPE policy signature verification.
-> With this, userspace can provision its own keys into the keyring,
-> then restrict it and activate it for IPE policy signature verification.
-> 
-> Gate creation of the keyring behind a new by-default disabled
-> CONFIG_SECURITY_IPE_KEYRING Kconfig option. When created, the keyring
-> is empty and writable. The keyring is used as a fallback after the
-> existing policy trust sources only when it is created, non-empty, and
-> restricted with restrict_link_reject.
-> 
-> This enables scenarios in which a trusted userspace component generates
-> an IPE policy, and creates an ephemeral policy-signing key pair,
-> provisions its public certificate, and restricts the IPE keyring during
-> the early lifetime of a system. The trusted component can then sign the
-> IPE policy, destroy the private key, and load and activate the policy.
-> During that phase, the system is considered in a trusted state whereas
-> the system transitions into a possibly untrusted state afterwards,
-> running arbitrary user-provided applications. In such a scenario, the
-> trusted userspace component could reside on a dm-verity protected
-> rootfs disk, and applications would reside on additional dm-verity
-> protected disks. The latter disks would be dynamically attached and
-> their dm-verity root hashes and/or signatures not known a priori to
-> launching the system.
+Add a helper to read /sys/kernel/warn_count, which counts the number of
+warnings (e.g. WARN(), KASAN, and UBSAN reports) the kernel has
+encountered since boot. Return a negative value if the file does not
+exist, e.g. on kernels that predate it.
 
-Not trying to muddy the water here, but I stared / thought about this
-a while and wonder if I'm missing something below...
+Factor the code to read an integer from a sysfs file out of
+sysfs_val_get_int() so that it can be shared by both helpers.
 
-With this Kconfig approach, aren't we now saying "if you want to use IPE,
-and you want to ever use this feature, you need to make sure you seal that
-keyring or else someone can replace the IPE policy!"? That seems rather
-easy to foobar, and means to me at most kernels (i.e. distros) won't have
-this enabled which limits how easy this is to use. I know Fan wanted this
-behind some Kconfig to make it controlled by build time, but does it make
-sense to keep the command line option as well to really make this opt-in
-for users who have it enabled at build time? Otherwise you really are gonna
-have to craft a special kernel in my mind.
+This will be used in a subsequent commit to detect kernel warnings
+triggered by tests.
 
-Likewise, but more nitpicky, I'm not sure the restrict_link_reject
-requirement buys much over the chain restriction. restrict_link_reject
-stops new keys being added, but pkcs7_validate_trust() walks certs
-embedded in the signature, so whoever holds the private key of any cert
-in .ipe can sign a new leaf, embed it, and have a policy accepted anyway
-I believe. Under both restrictions that basically means "holders of an
-enrolled private key and whoever they delegate to". If the concern is a
-restriction like key_or_keyring:<id> pointing at a writable keyring,
-that seems like a provisioner bug rather than a reason to rule out the
-chain restriction. Am I missing another reason for the stricter check?
-I do realize this is rather pedantic in argument and doesn't have a place
-in the use case described, but I'm wondering if a future use case will
-want such a thing.
+Signed-off-by: David Matlack <dmatlack@google.com>
+---
+ .../vfio/lib/include/libvfio/sysfs.h          |  7 +++++++
+ tools/testing/selftests/vfio/lib/sysfs.c      | 19 +++++++++++++++----
+ 2 files changed, 22 insertions(+), 4 deletions(-)
 
-Thanks,
-Andrew
+diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/sysfs.h b/tools/testing/selftests/vfio/lib/include/libvfio/sysfs.h
+index c9ab1ea8f5a9..1b9711d1bf90 100644
+--- a/tools/testing/selftests/vfio/lib/include/libvfio/sysfs.h
++++ b/tools/testing/selftests/vfio/lib/include/libvfio/sysfs.h
+@@ -9,4 +9,11 @@ char *sysfs_sriov_vf_bdf_get(const char *pf_bdf, int i);
+ int sysfs_iommu_group_get(const char *bdf);
+ char *sysfs_driver_get(const char *bdf);
+ 
++/*
++ * Return the number of warnings the kernel has encountered since boot (e.g.
++ * WARN(), KASAN, and UBSAN reports), or a negative value if the kernel does
++ * not support /sys/kernel/warn_count.
++ */
++int sysfs_kernel_warn_count_get(void);
++
+ #endif /* SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_SYSFS_H */
+diff --git a/tools/testing/selftests/vfio/lib/sysfs.c b/tools/testing/selftests/vfio/lib/sysfs.c
+index d88e348a1e0d..71470196f092 100644
+--- a/tools/testing/selftests/vfio/lib/sysfs.c
++++ b/tools/testing/selftests/vfio/lib/sysfs.c
+@@ -33,15 +33,12 @@ static void readlink_base(const char *path, const char *data_fmt, void *out_data
+ 	VFIO_ASSERT_EQ(ret, 1);
+ }
+ 
+-static int sysfs_val_get_int(const char *component, const char *name,
+-			     const char *file)
++static int sysfs_path_get_int(const char *path)
+ {
+-	char path[PATH_MAX];
+ 	char buf[32];
+ 	int ret;
+ 	int fd;
+ 
+-	snprintf_assert(path, PATH_MAX, "/sys/bus/pci/%s/%s/%s", component, name, file);
+ 	fd = open(path, O_RDONLY);
+ 	if (fd < 0)
+ 		return fd;
+@@ -56,6 +53,15 @@ static int sysfs_val_get_int(const char *component, const char *name,
+ 	return ret;
+ }
+ 
++static int sysfs_val_get_int(const char *component, const char *name,
++			     const char *file)
++{
++	char path[PATH_MAX];
++
++	snprintf_assert(path, PATH_MAX, "/sys/bus/pci/%s/%s/%s", component, name, file);
++	return sysfs_path_get_int(path);
++}
++
+ static void sysfs_val_set(const char *component, const char *name,
+ 			  const char *file, const char *val)
+ {
+@@ -148,3 +154,8 @@ char *sysfs_driver_get(const char *bdf)
+ 
+ 	return out_driver;
+ }
++
++int sysfs_kernel_warn_count_get(void)
++{
++	return sysfs_path_get_int("/sys/kernel/warn_count");
++}
+-- 
+2.56.0.317.g454f8302e1-goog
 
