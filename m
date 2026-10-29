@@ -1,95 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793262254;
-	b=CqH95TQ1xDL2G48ueXAsqzNVnqFeEkHUDxnCjonYQbqBpdJBY9cXITMmxaTCFhXyunWG
-	 T5P2Rl4ibphjr4f7sis7X7vqcgNgcUy1GtK1e9WlxScisj6Onzl2WVxLD74hJ46EQflx4
-	 fHD78ufOk2mZXxpv+aEgxzVwM5B0iQvlWz2LUUMc3YsxMvUkekMW+iJFQTndKDuB62ATV
-	 mFZhH/7rs+w1vrroKHaqlmznhMSMhMm5Q4fAjd2zaj5mKJzyl6pa63UPrz4q0dGa+tDWs
-	 kAjFd7KP5qFfg1Y4gsDvp0547ofkoV2uS4T/bjOzSFVeCPGzTHf8ZCSTROg8FGticIg==
+	t=1793262315;
+	b=A9I80BGxB1rpcWOdMP3y9Vdrhd2Lhs/GOGGBsG3NVHkDwMqXlBwW6p65t4zYBlbyED7j
+	 u2jxNsP2/xZDyswsvzSsKAUdbUfz42cZV6PoIPBXrRVHQXPFArvclEI5BKhY1dOeHG7+H
+	 aN5Kkta2fVrVLNdiDtTp22IfYRo/S8uLooTcyDTwbtsBXaxZI0EUSSwou9wjd7kJl7Y4M
+	 tLUHt/D4f6HETXZOw6Tqt4BNScL7L/TADax99MuWgRNC3lDLEptYLYNeNAZhQvtp5LiNC
+	 gdPxNWiF5Wfayqn16N/Lf5xqXIvW94UvpEPPYk8ELbOe5H4I1PfyvJaTx/HSWdtIC1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793262254;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Jl62TfhWYAfPnyRC2G3aSDjU5xgDd+P3RO6y8pPbcO0=;
-	b=u35V3PN7GgkwwzPuKO43543applfz6wVeeXpktpwaZNx3MXqgqgjdQ0mcK9qL3rEbMul
-	 grVlSC2cOzdLdawvfEzkhmMC9f5tWDVULFoU1/hKD8m7Yi8lwyrILSpOypxagNmpeiSDD
-	 XVR7rfXzaLyKGpU5CS9nEsEWXooQC9ta6ql7MXyCP+Ro5p/q00W8aVRvdbLGf4QhCgz0R
-	 yU6g14gb2AFRtlHfnLYje4vlkvrrOBd+Lft3fu7Ew91k1W6coMnpmNNkw8R9DYNzhOGC7
-	 9s0OfNZVA+MzVVazDwvAHmRIWK4bwcBLHvLuJEIigh6Q1PczIZ2Mss7ptW7XBb4eT9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262315;
+	h=DMARC-Filter:DKIM-Signature:X-Lms-Return-Path:To:Cc:From:Subject:
+	 X-Mailer:Content-Transfer-Encoding:Message-Id:Received:Date:
+	 Mime-Version:X-Original-From:Content-Type;
+	bh=sDSw+quj48/Sv4K0BAesVEV8uBVWYkpg2NZQSvi+LvE=;
+	b=T1P2uqJWAWId/LEdKH7XiC6p2WL9033pgKOfSPT3vMQ7+5fxxNvFCd6VbN3HdH3pDr7z
+	 NVJqyEvgjkrcUG8Mq2kRnT45SrRmU04q/dicanPPSv9UNSOh/aD2qdTzrK1NQrs0exUqN
+	 VqUB1UaBBlOTlLaSZSaMGcdeXxJn10qpMz2sr2jCZTGTMcRy4qSiWkVXbLXrY9V+Frth9
+	 UucL+PfcnHKJhHGUhOaJeWbgqbT/2duif4Haz78t2L44ETBFo4cIu4OZCV5W1Td5Xh5n4
+	 ILfZd9MJCYYUAh0+z6tijkkH1UedqNQFZpiI2wzJ/ZgqzxKTXxmWL6ORr0bUUbxGLOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=logictree.app;
-	spf=pass smtp.mailfrom=logictree.app;
-	dkim=pass header.d=logictree-app.20260707.gappssmtp.com header.i=@logictree-app.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=aE6JFdCC;
-	arc=none smtp.remote-ip=209.85.215.182
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	dmarc=none header.from=lanxincomputing.com;
+	spf=pass smtp.mailfrom=lanxincomputing.com;
+	dkim=pass header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=LziBzNF3;
+	arc=none smtp.remote-ip=209.127.231.28
+Received: from va-2-28.ptr.blmpb.com (va-2-28.ptr.blmpb.com [209.127.231.28])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A201D606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:24:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A201D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=logictree.app
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logictree.app
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B4A606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:25:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44B4A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lanxincomputing.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=logictree-app.20260707.gappssmtp.com header.i=@logictree-app.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=aE6JFdCC
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cd5cd8d89a7so948662a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:24:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=logictree-app.20260707.gappssmtp.com; s=20260707; t=1793262253; x=1793867053; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jl62TfhWYAfPnyRC2G3aSDjU5xgDd+P3RO6y8pPbcO0=;
-        b=aE6JFdCCM7LO9HwJ3nmpqUEZ5Tb1xgSgczp0QUjlpVLgv6TlMsf7w3ivWhK/vnw1TY
-         +N9kasdgbbSCGzA/mfKxrMAhdiEuOwQGGkqAD2PIPoN/rrU1wROWH19hksp/yp6O80nd
-         U2O3Kcxx37NH+woPi2x7cUkUqP3Zv/lp9vjbZ/tpn7ssENonLbqcLASC4spNRBAJd1Xj
-         IDsiTiAeofqeeYS1NzAmrZNvedePS03zVYZRSOSouqNQ8mH85lOOl5sR3H9pSjdRiK7h
-         y8oA1nrLpQlAdTsLnz4VxnsowpJpdzhkPkyXr8Op8OHILm2yhshgYxD88zCaigM47yi/
-         mTIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793262253; x=1793867053;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jl62TfhWYAfPnyRC2G3aSDjU5xgDd+P3RO6y8pPbcO0=;
-        b=E1TJbs9pRb7ryXwdV5kkO/8roxVMj1l7YDQygPtwjqsvW+4ZDWct3LoGPgNSiPGm9e
-         taxcTvgfyF6Qcz5PnJhYollPwG/pk3l5I5RRk+DbLyRWgktKnxQd0lLxi6d4ak9WlIIY
-         q5S9tC+A4UsVq/TEm3qFj9TE31imIVIznDAgcGMqEi0uIl1YWt8ceYL310NTqCe0Cqfh
-         CP6b6poyW14uMj0ZhvYqmOMm8R8nezxmdOpklxzjWJXaobj5sw7KoxcA7L+GEHk+K6Nz
-         5Ok/yu+EAto5F0H0C/Bx9yOTc1x0Z+nXM8Kr1kg1WBC9BWog4RoLNVqQTkzK1PnO/Crg
-         gOhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwoqeGk7kLi+dw4r+U/VLQsbqI12U4IHpZx9uyiMwXYotFoY0CYz521EMXlE5nojYmim7cuHdG38YKlV7w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEqdoHdGINKSEtKf+Vp4KvJ7lhS4VvnG7Rm5hiFD6PAJIXsTJY
-	+zyykpGtC8pV/pfP5ax6zES3EWeU8fe9EjHXTp41RplxLb6LvHtAs0uRfcnzTrAOm4z2
-X-Gm-Gg: AYBFou1pN25PupnpC8kKqS8RV7++xRIgnojSwgpjXK1Q4RjpVFrW5CJSN4iyG8f4PF3
-	h7/aTCdixtdw4yipL6NfOMnjZgCDyGNM9SCrMnCeKBgwZFL+7CH1C237QX8juzUflBNcIY0mNTy
-	MVtMGLdPRzurWMvJxHnXt3mey/1n4qPRB6TP77+b3YrpjO+HSiCtFzSRKeEm+4BAbr4duAMdy5Y
-	RMsbpMuRsAiFANMTNaQddyDMtaUB3vVlPiqkZNrcSz/r6u88Zg5FVy1YGoWudvbqW7bLHxFy5Da
-	/qGcJ5yM6tAVSjkkG76ex8dzTcA3pOlqueqzjBoypwg0pXEECH4S9KChxgeWMVnsZDe4b/ACu1g
-	2aW69J/aJVqZAgFqvg1UIlrVo5yIsybesWvGaHURqDWglAz/2ttcKVH+75S1Rp5Eir32HQrmY9S
-	8MBfgGsA+mLvY29zyWHqWzGXM/CQzq2VBzD4LLonP82550K3laE3DXJKToLHKNDvUiXKnx2dOgy
-	5eKhBzC6lL5vB3re/P4n+8wID8EjlvdyKLisUhlUN3RdFTjWQUq1s1Hv4Vp1kJRR2BMjokAY1HQ
-	0KJPVJoYjW2/N+0i/kvArjDimOrYFzxvoR90Q24F44nns2NSUtQ0J+wj+VFzOJnfd4u6+bnSefa
-	9QMOphzJGqxyzAlHCH+2PMQ+FRKbRNoYPBXui7Q/zvaNgBPFCxvVkMJtrKEqgFDwAkTgaXnwkHa
-	qD+QD4pJjolw==
-X-Received: by 2002:a17:90b:1c8b:b0:3ac:b7b9:6484 with SMTP id 98e67ed59e1d1-3ae5817e0a6mr3383992a91.45.1793262252637;
-        Thu, 29 Oct 2026 01:24:12 -0700 (PDT)
-Received: from localhost.localdomain ([1.251.203.28])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e7f9cd0sm3150530a91.6.2026.10.29.01.24.10
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 01:24:12 -0700 (PDT)
-From: JaeGwon Go <ceo@logictree.app>
-To: linux-usb@vger.kernel.org
-Cc: westeri@kernel.org,
-	andreas.noever@gmail.com,
-	YehezkelShB@gmail.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] thunderbolt: Send header-only XDomain properties changed response
-Date: Thu, 29 Oct 2026 17:18:34 +0900
-Message-ID: <20261029081834.91559-1-ceo@logictree.app>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=LziBzNF3
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=lanxincomputing-com.20200927.dkim.feishu.cn; t=1793262308;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=sDSw+quj48/Sv4K0BAesVEV8uBVWYkpg2NZQSvi+LvE=;
+ b=LziBzNF3dWsH332s+G0OU0HiDC3iEztpv/epxzDd1DWfsksaoQ6ok+955/dgoMwXfRfjk2
+ BVM1RxDAVyAK/VsBLexqNmqKrIcdHTRiGNkgklU1WUaK8WZ9SkSctOvG1PADkCx9ITrZBH
+ HTMe3nfcdFNPtkGNVj8EyEko7mRYdN15+orAYRXIos8MyHMocClMS13PAIhzbUwG7RcMIM
+ l14Urll4UoYKv+fwsVianE9CicZ3PCYP8Xq1ia52Bz1w3qL5yI17AN3HrEU2xbmueX+zxE
+ pKAZCmjLap0Fe8bx8Ch5/e8ZT7ZlrcksE4sCJs0c2cAwZh4Yyp7VRsShm4ZilA==
+X-Lms-Return-Path: <lba+26ae302e1+11ff5d+vger.kernel.org+xiangwencheng@lanxincomputing.com>
+To: <anup@brainfault.org>
+Cc: <atish.patra@linux.dev>, <pjw@kernel.org>, <palmer@dabbelt.com>, 
+	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <kvm@vger.kernel.org>, 
+	<kvm-riscv@lists.infradead.org>, <linux-riscv@lists.infradead.org>, 
+	<linux-kernel@vger.kernel.org>, <xiangwencheng@lanxincomputing.com>
+From: "BillXiang" <xiangwencheng@lanxincomputing.com>
+Subject: [PATCH v2] riscv: KVM: Add hart-to-vCPU mapping for faster MSI injection
+X-Mailer: git-send-email 2.53.0
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029082426.706302-1-xiangwencheng@lanxincomputing.com>
+Received: from lanxin-ThinkBook-16-G5-IRH ([123.120.5.129]) by smtp.feishu.cn with ESMTP; Thu, 29 Oct 2026 16:25:04 +0800
+Date: Thu, 29 Oct 2026 16:24:26 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,69 +64,160 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Original-From: BillXiang <xiangwencheng@lanxincomputing.com>
+Content-Type: text/plain; charset=UTF-8
 
-Commit 19813551701d ("thunderbolt: xdomain: Avoid potential stack OOB
-read") turned struct tb_xdp_properties_changed_response into a union of
-struct tb_xdp_error_response and struct tb_xdp_header, so that
-tb_xdp_handle_error() can safely read the error field of a received
-response. tb_xdp_properties_changed_response() still sends sizeof(res),
-so since that commit the response Linux sends is 36 bytes instead of
-32: it carries the zeroed error field, and its XDomain length field
-says 6 dwords instead of 5. The other responses changed by that commit
-are not affected, because their non-error members are already larger
-than struct tb_xdp_error_response.
+Replace linear searches over all vCPUs in MSI injection paths with a
+hart_index -> vCPU xarray lookup table. This avoids O(n) scans on
+every injected interrupt and improves performance when the number of
+vCPUs is large.
 
-macOS sends this response as the header only. macOS 27.2 (26B123) keeps
-re-sending PROPERTIES_CHANGED_REQUEST when it gets the longer response:
-after link-up it repeats the request every 1.5 s, ten times, and then
-resets the link, about 15 seconds after it came up. thunderbolt-net
-logs in and passes traffic before the reset. The same host stayed
-connected to the same Mac for about 23 hours while the Mac ran macOS
-27.0.1, so the change in behavior came with macOS 27.2.
+Both kvm_riscv_aia_inject_msi_by_id() and kvm_riscv_aia_inject_msi()
+now use the table instead of iterating over the vCPU list.
 
-Send only the header again, as before that commit. The union stays, so
-a received response still has room for the error field. Linux
-requesters accept the shorter response: tb_xdomain_match() requires
-only frame.size >= response_size / 4, and tb_xdp_handle_error() reads
-the error field only when the type is ERROR_RESPONSE.
-
-Tested on an ASMedia ASM4242 USB4 host running an Ubuntu 7.0.0-38
-kernel, connected to a Mac17,6 running macOS 27.2. With this change
-macOS stops re-sending after the first answers, and tracing shows an
-8-dword response with length 5, the same as the response macOS sends.
-The link has stayed up for over 1.5 hours, about 80 minutes of which
-carried a multi-gigabyte transfer every few minutes. Not tested: a
-Linux peer, the error response path, and macOS releases other than
-27.2.
-
-The analysis, the fix and the tests were done with an AI coding
-assistant.
-
-Fixes: 19813551701d ("thunderbolt: xdomain: Avoid potential stack OOB read")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: JaeGwon Go <ceo@logictree.app>
+Signed-off-by: BillXiang <xiangwencheng@lanxincomputing.com>
+Changes in v2:
+- Use xarray instead of normal array to handle incontiguous hart_index.
+- Link to v1:
+  https://lore.kernel.org/kvm-riscv/20260730093614.983508-1-xiangwencheng@lanxincomputing.com/
 ---
- drivers/thunderbolt/xdomain.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/riscv/include/asm/kvm_aia.h |  3 ++
+ arch/riscv/kvm/aia_device.c      | 50 +++++++++++++++++---------------
+ 2 files changed, 30 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/thunderbolt/xdomain.c b/drivers/thunderbolt/xdomain.c
-index b187a60..563a8b6 100644
---- a/drivers/thunderbolt/xdomain.c
-+++ b/drivers/thunderbolt/xdomain.c
-@@ -509,8 +509,8 @@ tb_xdp_properties_changed_response(struct tb_ctl *ctl, u64 route, u8 sequence)
+diff --git a/arch/riscv/include/asm/kvm_aia.h b/arch/riscv/include/asm/kvm_aia.h
+index ab03f853e507..3b075f18e1d6 100644
+--- a/arch/riscv/include/asm/kvm_aia.h
++++ b/arch/riscv/include/asm/kvm_aia.h
+@@ -12,6 +12,7 @@
  
- 	memset(&res, 0, sizeof(res));
- 	tb_xdp_fill_header(&res.hdr, route, sequence,
--			   PROPERTIES_CHANGED_RESPONSE, sizeof(res));
--	return __tb_xdomain_response(ctl, &res, sizeof(res),
-+			   PROPERTIES_CHANGED_RESPONSE, sizeof(res.hdr));
-+	return __tb_xdomain_response(ctl, &res.hdr, sizeof(res.hdr),
- 				     TB_CFG_PKG_XDOMAIN_RESP);
+ #include <linux/jump_label.h>
+ #include <linux/kvm_types.h>
++#include <linux/xarray.h>
+ #include <asm/csr.h>
+ 
+ struct kvm_aia {
+@@ -47,6 +48,8 @@ struct kvm_aia {
+ 
+ 	/* Internal state of APLIC */
+ 	void		*aplic_state;
++
++	struct xarray hart_to_vcpu;
+ };
+ 
+ struct kvm_vcpu_aia_csr {
+diff --git a/arch/riscv/kvm/aia_device.c b/arch/riscv/kvm/aia_device.c
+index efc7c0bcfba9..a415a8c10967 100644
+--- a/arch/riscv/kvm/aia_device.c
++++ b/arch/riscv/kvm/aia_device.c
+@@ -259,6 +259,8 @@ static int aia_init(struct kvm *kvm)
+ 	if (ret)
+ 		return ret;
+ 
++	xa_init(&aia->hart_to_vcpu);
++
+ 	/* Iterate over each VCPU */
+ 	kvm_for_each_vcpu(idx, vcpu, kvm) {
+ 		vaia = &vcpu->arch.aia_context;
+@@ -280,6 +282,11 @@ static int aia_init(struct kvm *kvm)
+ 		/* Update HART index of the IMSIC based on IMSIC base */
+ 		vaia->hart_index = aia_imsic_hart_index(aia,
+ 							vaia->imsic_addr);
++		
++		ret = xa_insert(&aia->hart_to_vcpu, vaia->hart_index, vcpu, GFP_KERNEL);
++		if (ret) { 
++			goto fail_cleanup_imsics;
++		}
+ 
+ 		/* Initialize IMSIC for this VCPU */
+ 		ret = kvm_riscv_vcpu_aia_imsic_init(vcpu);
+@@ -299,6 +306,7 @@ static int aia_init(struct kvm *kvm)
+ 			continue;
+ 		kvm_riscv_vcpu_aia_imsic_cleanup(vcpu);
+ 	}
++	xa_destroy(&aia->hart_to_vcpu);
+ 	kvm_riscv_aia_aplic_cleanup(kvm);
+ 	return ret;
+ }
+@@ -557,30 +565,25 @@ void kvm_riscv_vcpu_aia_deinit(struct kvm_vcpu *vcpu)
+ int kvm_riscv_aia_inject_msi_by_id(struct kvm *kvm, u32 hart_index,
+ 				   u32 guest_index, u32 iid)
+ {
+-	unsigned long idx;
+ 	struct kvm_vcpu *vcpu;
++	struct kvm_aia *aia = &kvm->arch.aia;
+ 
+ 	/* Proceed only if AIA was initialized successfully */
+ 	if (!kvm_riscv_aia_initialized(kvm))
+ 		return -EBUSY;
+ 
+-	/* Inject MSI to matching VCPU */
+-	kvm_for_each_vcpu(idx, vcpu, kvm) {
+-		if (vcpu->arch.aia_context.hart_index == hart_index)
+-			return kvm_riscv_vcpu_aia_imsic_inject(vcpu,
+-							       guest_index,
+-							       0, iid);
+-	}
+-
+-	return 0;
++	vcpu = xa_load(&aia->hart_to_vcpu, hart_index);
++	if (!vcpu)
++		return 0;
++	
++	return kvm_riscv_vcpu_aia_imsic_inject(vcpu, guest_index, 0, iid);
  }
  
+ int kvm_riscv_aia_inject_msi(struct kvm *kvm, struct kvm_msi *msi)
+ {
+ 	gpa_t tppn, ippn;
+-	unsigned long idx;
+ 	struct kvm_vcpu *vcpu;
+-	u32 g, toff, iid = msi->data;
++	u32 g, toff, iid = msi->data, hart_index;
+ 	struct kvm_aia *aia = &kvm->arch.aia;
+ 	gpa_t target = (((gpa_t)msi->address_hi) << 32) | msi->address_lo;
+ 
+@@ -595,18 +598,16 @@ int kvm_riscv_aia_inject_msi(struct kvm *kvm, struct kvm_msi *msi)
+ 	g = tppn & (BIT(aia->nr_guest_bits) - 1);
+ 	tppn &= ~((gpa_t)(BIT(aia->nr_guest_bits) - 1));
+ 
+-	/* Inject MSI to matching VCPU */
+-	kvm_for_each_vcpu(idx, vcpu, kvm) {
+-		ippn = vcpu->arch.aia_context.imsic_addr >>
+-					IMSIC_MMIO_PAGE_SHIFT;
+-		if (ippn == tppn) {
+-			toff = target & (IMSIC_MMIO_PAGE_SZ - 1);
+-			return kvm_riscv_vcpu_aia_imsic_inject(vcpu, g,
+-							       toff, iid);
+-		}
+-	}
++	hart_index = aia_imsic_hart_index(aia, target);
++	vcpu = xa_load(&aia->hart_to_vcpu, hart_index);
++	if (!vcpu)
++		return 0;
+ 
+-	return 0;
++	ippn = vcpu->arch.aia_context.imsic_addr >> IMSIC_MMIO_PAGE_SHIFT;
++	if (ippn != tppn)
++		return 0;
++	toff = target & (IMSIC_MMIO_PAGE_SZ - 1);
++	return kvm_riscv_vcpu_aia_imsic_inject(vcpu, g,	toff, iid);
+ }
+ 
+ int kvm_riscv_aia_inject_irq(struct kvm *kvm, unsigned int irq, bool level)
+@@ -647,9 +648,12 @@ void kvm_riscv_aia_init_vm(struct kvm *kvm)
+ 
+ void kvm_riscv_aia_destroy_vm(struct kvm *kvm)
+ {
++	struct kvm_aia *aia = &kvm->arch.aia;
+ 	/* Proceed only if AIA was initialized successfully */
+ 	if (!kvm_riscv_aia_initialized(kvm))
+ 		return;
++	
++	xa_destroy(&aia->hart_to_vcpu);
+ 
+ 	/* Cleanup APLIC context */
+ 	kvm_riscv_aia_aplic_cleanup(kvm);
 -- 
-2.54.0 (Apple Git-157)
-
+2.53.0
