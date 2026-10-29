@@ -1,75 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793300719;
-	b=ffUh9eUqJZDyYTx4VmWqfUNqK/FtJUQoCnfaSWu/4xrS1n5Svr/ekhv6lQhOLD4fL4jI
-	 LzjBjRw4bliKXTtGwINhgAybXNNYByMNWoAIoyrKwS2j7TTCdDrWku3wBmYPijArTUFSa
-	 I34/JkOIJ/XYq1JwK4m68UOoTS/Yind40VH3MtAlWKF1v9jwVEzY5yINgtQSqo1mDs7pH
-	 HFudRQZIa5ZhgTyw9wFhKzO9ZsFUHxSNM3OIAGDkLpC0CtY7ao1ZuXjZmveENDh477FFu
-	 LzcY2ki+AMeelSchl/32aqvOgcWAi409MiPONHa2cBPMLKWHx+kwca0X2l9MHt3AkJg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793300719;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZIrKddf6pvxQavxN4Amy5fMjCUZq8twVYnoaojmCO50=;
-	b=w1QJfx7mhwQUqahjspTe0TwNjGlEqzcs8JG8epC0eGDkE36/Bx1NyiJ4Xp/kaRD2D66n
-	 +PI2eERyR85hPSDxbSEu2b7a0fdVubcRXSY70TfMX6ybJ7G8ZBxI44ZvZP46/QuuXZnC9
-	 XI4AsyLsL99bZi1AD3x3cit4pDjiKGJ9j2q/yc1M5jx4WBwerNbvLsAGV1UFOZC4LdHuB
-	 bn5gjmH+uPFe+8aSN22OSUtnq8JICAhRddMO6eAxKgcqtVOOuQd1LKyQeB0zpyuwRKoRo
-	 ehvbUOG41jhRtL9qH1zJqaxJIkxAGnvpZPlrSspw2L/YkGPTIPNZuJLBqKyIPwOOKLA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pui3m9Aj;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793300771;
+	b=Bd1QH6+iIelOmk0+Z2s0i7OQSzsvRvL2QppAMwtJUlk1r+2gHVrCRuJ60i6a/hT4z8Xf
+	 m27fwKL1512WBw47tig21oQaCJH0ngn3vCbfPA9NNTIzgtpHGQY5RVE5mnxYjMltgLZiu
+	 9cNz/VIOm0c2e8SKuRClPeLltdBbQv4zyoESxGRpg1XvSGYvEONI4r1tlFx0cM5fb8oT3
+	 jHBxgUw9yYsgezr8foLT31j1VYFZhfiYOe/67ELDnBostkq0dSkwsd9EuYpEuueiCnVAe
+	 ytuJMKBSaWMbM1zhfBc43LC8pFOoclow3zXiMqQxLGEECc4PN1flbdY/ZXmta+te4/g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793300771;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=PMb9kS7LsQRg2NkbqvbZ3pBQyQ2wS67IIwsfWZTsHx8=;
+	b=dovChaXogi3xlT/ywxbS1lyzh0cX+auBaSITca0IFmZPZ3e0rPGuZw2+cbKnkO3taVyb
+	 1TeayaIl5BLkJmdX9+ih9wIX0Q06j0YF4VLkaahqpv/lXAibMtFTR0GMZDF/VVzgXxsdA
+	 atlhVkY4i4MsdWSFdqlGvAKodLsTt2Eqhde0MBap+HalvxDneByCXPA8CEUdlb2FYP7Ny
+	 jJpiARtSSQKobP9dE6TmWakquIpf31SuZR63moCJcEMX/8YxmCECBZHlyypWqUtYPiJw/
+	 1Hu8PTd9OED9RUL0yFaajPMvQv0vWzkF3teysRtzp9yr4RuejYNAk94RnGG+n/2yyqw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVfC5CPh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FC3606A31E;
-	Thu, 29 Oct 2026 19:05:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60853606A321;
+	Thu, 29 Oct 2026 19:06:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pui3m9Aj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 747CA1F01816;
-	Thu, 29 Oct 2026 19:05:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HVfC5CPh
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793300771;
+	b=0X+AMNcyEGN+ubXVzYPx7n6S0dfAwYpBSSwN0imOjijFErYFfoq5ML16MFKuhNA5mIBh
+	 1pqKrr80SFR4I+WwW2JeKeK0rjRj1oQ4ftXBog3SggPVH4p7Z0HsqU80qdQOdpsIdsw3q
+	 TtLsi2tre1/dNegtm+5Pbiju/U7wfvw0534um/geunTrNR99qK4P0bWDRn8pyyDCQ1m5A
+	 Nh5hy/Yc9IP/iFdaaQfDkheUIedtHAgnzMTZ2BSUblG9uDEpZCKemLYQ94W67odC6HrOQ
+	 JLItffkooNEPjxsFjq9+Ie8YAv4JafK5aEWkEiWW17IpBQCrwPGSlA44MBKlBI4ywrA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793300771;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=PMb9kS7LsQRg2NkbqvbZ3pBQyQ2wS67IIwsfWZTsHx8=;
+	b=MBFLHDmMvjTNH5C2K9t6wX/3qwb/YFZvxL8MyvX3x2Xg2C1AWSRESFCeKBgY+dHt+IvA
+	 XL+mfPG/gQsy2yaYJ+hQGzxZo/PsU6Agw9BbHaRlaX0NQg/9ydkOPsgf5D57ntZmKbT2l
+	 zZ5dhdZ/tfY76M/0X2u+YEQy+2J4YfmPZHAQy4J1gQaaDe71S8tK/KcPk1VWcmmuzCX9a
+	 GM2Xs44CG+nIqTzr5djHCGO05/bVb55RGgAfRddGj88QUZOafs34+h8nBNw3xQHtZL7gP
+	 18FO4WdfEKB2XtHoYsMQIcEHqi51g8ymBXQsJQ3ObLIxPmEun/P6yuLQkjhux5JpK5Q==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 5E7091F01825;
+	Thu, 29 Oct 2026 19:06:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793300718;
-	bh=ZIrKddf6pvxQavxN4Amy5fMjCUZq8twVYnoaojmCO50=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Pui3m9AjSPH1MZlpcaehf1JH5eg/ZnS7g/erGiLGLK4BqVVBUQtlnOkYVhg5IENyl
-	 TJqWo6nwpnO27pqSFlm4w+r4s/rg3NBrFhOJReBK9LK+wzY0RvRduLQaMqRgDc6d1S
-	 zm0uDg3CaFEOQjDcJrgihZwxjE8a8GML5q/e1susNgAdpcFvbPPmc3YJvbf2sx1iDM
-	 n+Hkt1rSjyDElXicwNDqQ0JGnCtVzVEEq7ERoTZZFeo2MAkvudTi8lAznndem5DQ/A
-	 4Fh62FFYdq8oh4cXpBPjFaHUH2PTJR27Cz5SDtgnQHgLobCmyPcU+1IoO2GjIzPAPN
-	 zifHWKznRsZ3g==
-Date: Thu, 29 Oct 2026 19:05:10 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Kwanghoon Son <asdfkwang@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH RFC 09/12] riscv: dts: bouffalolab: Add BL808 SoC
-Message-ID: <20261029-rimless-could-7b96455c785b@spud>
-References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
- <20261029-rust-bl808-console-v1-9-b736ee920078@gmail.com>
+	s=k20260515; t=1793300771;
+	bh=PMb9kS7LsQRg2NkbqvbZ3pBQyQ2wS67IIwsfWZTsHx8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=HVfC5CPhhauVX00V7EtR4dmGF60Tmi+gOBurqV6q5Vl9HapRuz/tW9qM+UulDxl9D
+	 t0S6qyg51buAB0ip2nT8GupUb+qErQV/UQlRB8Zn5W7Y4w4czuDzgEABK+yHB/SfdR
+	 y3d8mno5xONVloEoE/5v6mBtM2FM8Z8l6ZCnlJz6U8cQfJUwtK94wZ/awRlZ7QAnUU
+	 aW7RsTiZHAH56+uhxF0IKs+NX8Ut2XRRHJPg/EJofXbT787AnYRheuvisWU+s4Yn7o
+	 q5HgBnP4ZRxnH7s2yw1tCuu+vf3iu+D2rPwYxpJkV+Xfr5C10TpMiWNn1b4vzshQu/
+	 4gdhTHe744z8g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D882445968;
+	Thu, 29 Oct 2026 19:06:09 +0000 (UTC)
+From: Jacob Lefkowitz via B4 Relay <devnull+jlefkowi.akamai.com@kernel.org>
+Date: Thu, 29 Oct 2026 19:05:50 +0000
+Subject: [PATCH 1/2] perf jevents: add iommu page table walk metrics
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,127 +82,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9JO81ZQA/u1VUulC"
-Content-Disposition: inline
-In-Reply-To: <20261029-rust-bl808-console-v1-9-b736ee920078@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261029-perf-tools-next-v1-1-a75a2b64a15e@akamai.com>
+References: <20261029-perf-tools-next-v1-0-a75a2b64a15e@akamai.com>
+In-Reply-To: <20261029-perf-tools-next-v1-0-a75a2b64a15e@akamai.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ben Chaney <bchaney@akamai.com>, Matt Pelland <mpelland@akamai.com>, 
+ Jacob Lefkowitz <jlefkowi@akamai.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3881;
+ i=jlefkowi@akamai.com; h=from:subject:message-id;
+ bh=vi12b5KTiVUT3//EtfmECCInovAIRPbBmoFjz6jP4xo=;
+ b=owEBbQKS/ZANAwAKAdLKfgzjwTS1AcsmYgBq45kgbws/mkXO7RgLc1YXyZDQ6ZoM3ruOiFqpK
+ FU0D2DafAiJAjMEAAEKAB0WIQQKFmVpIhg7hFI7scTSyn4M48E0tQUCauOZIAAKCRDSyn4M48E0
+ tTJ7D/9LxuJke4JN3hiFOgiGe2IBY3C7fO48/Dqk219DTUzc602LXw7LUyNfG7AC06nOQugBwSc
+ 447fdJ+RhZ3k5voqJI+hubB97tEwVsjH1cxEcTkLZTJSh4qcfJM0lzQLoIZwzjVPXLeclUwgqBo
+ 9ue8SVTvaFQ8S2TKR/Ll4W6F9FwPsixvkqbeFNUo4QJ8jCTXfkYPunVLXyZRZAXFPrxTTCLFf5S
+ f0O+YFGFDPa/QB8c4nRReWSS91nR04gVWC5EbhzxIS3xkzIaURPqSnt2rP7B97TT3dWFLftWqCG
+ V0lECv0s9QlVWraWW8VDDu9YzpLLvcBPJUU/dx9NFRfT2MtR42qVPA6qMRXKID9F3xHw37PVrxo
+ bTKvjdB+bPfV/AoRvoePekpfYqyjs0hCp0kzWi12EwUoOVgfOrhdcrPvjM3nAGeVXnkwP+xsKvm
+ DHbdJ2Ot0kDxkR6Iw29af/oFw0Q7kI7a++MqcB1t43zfzZmeHWL9+KOkPUgYfMjsSLZlsRVO+dc
+ j7/4zgVeD07vk0N3pnmkQdCj3VCUqDCD4WlJq7wzJm7p/xVDHsVIDwlLEDSOB7eSpIRuYmqDMK6
+ dFwGZtqlvogt2AKUQ9Imw9EyZhNHqrRph6otyNhv5o96d5/s7QdjkjcyJj5v7EGUGemZ98c2JZi
+ 18ZQcmHirBqALTA==
+X-Developer-Key: i=jlefkowi@akamai.com; a=openpgp;
+ fpr=0A16656922183B84523BB1C4D2CA7E0CE3C134B5
+X-Endpoint-Received: by B4 Relay for jlefkowi@akamai.com/default with
+ auth_id=1357
+X-Original-From: Jacob Lefkowitz <jlefkowi@akamai.com>
+Reply-To: jlefkowi@akamai.com
+Content-Transfer-Encoding: 7bit
 
---9JO81ZQA/u1VUulC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Jacob Lefkowitz <jlefkowi@akamai.com>
 
-On Thu, Oct 29, 2026 at 01:05:50AM -0400, Kwanghoon Son wrote:
-> Add the BL808 D0 CPU, PLIC, CLINT and UART3. Leave UART3 disabled for
-> boards to enable. UART3 connects directly to PLIC source 20; firmware
-> sets up UART clocks and pins.
->=20
-> Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
-> ---
->  arch/riscv/boot/dts/bouffalolab/bl808.dtsi | 70 ++++++++++++++++++++++++=
-++++++
->  1 file changed, 70 insertions(+)
->=20
-> diff --git a/arch/riscv/boot/dts/bouffalolab/bl808.dtsi b/arch/riscv/boot=
-/dts/bouffalolab/bl808.dtsi
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..c739c77960c4578b87fcf2bc0=
-96ef7c8cda089bd
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/bouffalolab/bl808.dtsi
-> @@ -0,0 +1,70 @@
-> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-> +
-> +#include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +/ {
-> +	compatible =3D "bflb,bl808";
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <1>;
-> +
-> +	cpus {
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +
-> +		cpu0: cpu@0 {
-> +			compatible =3D "thead,c906", "riscv";
-> +			device_type =3D "cpu";
-> +			reg =3D <0>;
-> +			mmu-type =3D "riscv,sv39";
+Adds page table walk metrics specfically to perf jevents for AMD
+platforms to enhance observability into IOMMU overhead. The metrics
+are supported on Zen 2 and neweer processors. They are implemented
+using the amd_iommu PMU events.
 
-> +			riscv,isa =3D "rv64imafdc";
+The list of metrics added here are:
+- lpm_iommu_ptw_reads_per_tlb_miss
+- lpm_iommu_ptw_nested_read_ratio
+- lpm_iommu_ptw_guest_read_ratio
+- lpm_iommu_trans_per_sec
 
-Please drop this property, there shouldn't be any part of the stack that
-needs it anymore.
+The changes here have been tested with 'sleep 10' as the workload:
 
-Cheers,
-Conor.
+perf stat -M iommuptw --per-socket --metric-only -j -a -- sleep 10
+{"socket" : "S0", "counters" : 8,
+"reads/tlb_miss lpm_iommu_ptw_reads_per_tlb_miss" : "0.5",
+"%  lpm_iommu_ptw_nested_read_ratio" : "100.0",
+"%  lpm_iommu_ptw_guest_read_ratio" : "0.0",
+"trans/s  lpm_iommu_trans_per_sec" : "971.5"}
+{"socket" : "S1", "counters" : 0,
+"reads/tlb_miss  lpm_iommu_ptw_reads_per_tlb_miss" : "none",
+"%  lpm_iommu_ptw_nested_read_ratio" : "100.0",
+"%  lpm_iommu_ptw_guest_read_ratio" : "100.0",
+"trans/s  lpm_iommu_trans_per_sec" : "none"}
 
-> +			riscv,isa-base =3D "rv64i";
-> +			riscv,isa-extensions =3D "i", "m", "a", "f", "d", "c",
-> +					       "zicsr", "zifencei", "zicntr", "zihpm";
-> +
-> +			cpu0_intc: interrupt-controller {
-> +				compatible =3D "riscv,cpu-intc";
-> +				interrupt-controller;
-> +				#interrupt-cells =3D <1>;
-> +			};
-> +		};
-> +	};
-> +
-> +	xtal: clock-xtal {
-> +		compatible =3D "fixed-clock";
-> +		#clock-cells =3D <0>;
-> +	};
-> +
-> +	soc {
-> +		compatible =3D "simple-bus";
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <1>;
-> +		ranges;
-> +		interrupt-parent =3D <&plic>;
-> +		dma-noncoherent;
-> +
-> +		uart3: serial@30002000 {
-> +			compatible =3D "bflb,uart";
-> +			reg =3D <0x30002000 0x1000>;
-> +			interrupts =3D <20 IRQ_TYPE_LEVEL_HIGH>;
-> +			clocks =3D <&xtal>;
-> +			clock-names =3D "baud";
-> +			status =3D "disabled";
-> +		};
-> +
-> +		plic: interrupt-controller@e0000000 {
-> +			compatible =3D "bflb,bl808-plic", "thead,c900-plic";
-> +			reg =3D <0xe0000000 0x04000000>;
-> +			interrupts-extended =3D <&cpu0_intc 11>, <&cpu0_intc 9>;
-> +			interrupt-controller;
-> +			#address-cells =3D <0>;
-> +			#interrupt-cells =3D <2>;
-> +			riscv,ndev =3D <82>;
-> +		};
-> +
-> +		timer@e4000000 {
-> +			compatible =3D "bflb,bl808-clint", "thead,c900-clint";
-> +			reg =3D <0xe4000000 0xc000>;
-> +			interrupts-extended =3D <&cpu0_intc 3>, <&cpu0_intc 7>;
-> +		};
-> +	};
-> +};
->=20
-> --=20
-> 2.47.3
->=20
+Signed-off-by: Jacob Lefkowitz <jlefkowi@akamai.com>
+---
+ tools/perf/pmu-events/amd_metrics.py | 49 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 48 insertions(+), 1 deletion(-)
 
---9JO81ZQA/u1VUulC
-Content-Type: application/pgp-signature; name=signature.asc
+diff --git a/tools/perf/pmu-events/amd_metrics.py b/tools/perf/pmu-events/amd_metrics.py
+index 42569b9153f4..dcffd6e268fa 100755
+--- a/tools/perf/pmu-events/amd_metrics.py
++++ b/tools/perf/pmu-events/amd_metrics.py
+@@ -5,7 +5,7 @@ import math
+ import os
+ from typing import Optional, Union
+ from common_metrics import Cycles
+-from metric import (d_ratio, has_event, max, Event, JsonEncodeMetric,
++from metric import (d_ratio, has_event, max, min, Event, JsonEncodeMetric,
+                     JsonEncodeMetricGroupDescriptions, Literal, LoadEvents,
+                     Metric, MetricGroup, Select)
+ 
+@@ -318,6 +318,52 @@ def AmdIotlb() -> Optional[MetricGroup]:
+     )
+ 
+ 
++def AmdIommuptw() -> Optional[MetricGroup]:
++    global _zen_model
++
++    if _zen_model < 2:
++        return None
++
++    walks = Event("amd_iommu/mem_iommu_tlb_pte_mis/") + Event(
++        "amd_iommu/mem_iommu_tlb_pde_mis/"
++    )
++    pt_rd = Event("amd_iommu/page_tbl_read_tot/")
++    pt_rd_nst = Event("amd_iommu/page_tbl_read_nst/")
++    pt_rd_gst = Event("amd_iommu/page_tbl_read_gst/")
++    trans = Event("amd_iommu/mem_trans_total/")
++
++    return MetricGroup(
++        "iommuptw",
++        [
++            Metric(
++                "lpm_iommu_ptw_reads_per_tlb_miss",
++                "Average IOMMU page table reads per IOTLB miss",
++                d_ratio(pt_rd, walks),
++                "reads/tlb_miss"
++            ),
++            Metric(
++                "lpm_iommu_ptw_nested_read_ratio",
++                "Share of IOMMU page table reads from nested (host) tables", # 0 without nested translation
++                min(d_ratio(pt_rd_nst, pt_rd), 1),
++                "100%"
++            ),
++            Metric(
++                "lpm_iommu_ptw_guest_read_ratio",
++                "Share of IOMMU page table reads from guest tables", # 0 without nested translation
++                min(d_ratio(pt_rd_gst, pt_rd), 1),
++                "100%"
++            ),
++            Metric(
++                "lpm_iommu_trans_per_sec",
++                "IOMMU translation requests per second",
++                d_ratio(trans, interval_sec),
++                "trans/s"
++            )
++        ],
++        description="IOMMU page table walk metrics"
++    )
++
++
+ def AmdItlb():
+     l2h = Event("bp_l1_tlb_miss_l2_tlb_hit", "bp_l1_tlb_miss_l2_hit")
+     l2m = Event("bp_l1_tlb_miss_l2_tlb_miss.all", "l2_itlb_misses",)
+@@ -526,6 +572,7 @@ def main() -> None:
+         AmdCtxSw(),
+         AmdDtlb(),
+         AmdIotlb(),
++        AmdIommuptw(),
+         AmdItlb(),
+         AmdLdSt(),
+         AmdUpc(),
 
------BEGIN PGP SIGNATURE-----
+-- 
+2.53.0
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauOY5gAKCRB4tDGHoIJi
-0msBAP4795/OI4/Z/fe0Yr9RRuYypthWWhBXNyzAEDKFE8sLdQEAtwkfNDEfXRMn
-ii8vn56yY4seLAp/qcClM7GtoSAN2Ak=
-=DS5v
------END PGP SIGNATURE-----
 
---9JO81ZQA/u1VUulC--
