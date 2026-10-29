@@ -1,96 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793295498;
-	b=JosMNDBcTTtX31HBGtw2hteMO7SevgzSvjByLilPPhqXDS/eR7nkoZmqPTExaaU3O+C+
-	 Pn+0WpBypNTYqQ0NdzDCddH36xqheuqeetB65N5i3rM5+vJ05Ruq5M6wvJAZqs5kpcGL/
-	 kDk9luOm5N3ku57vqUxebSELX3BYj8YtzFmQ6GXhLsrDpQNJ+YAteuOgafBreiLvrDTjz
-	 Vb5bw8vlfrwWzYzsT0NoXou9IqNBTglOyURLRns4rHHl+8LBLl6b470aWj/n7BYTZipIC
-	 inb9K8oJaKQnTcEx5SE5ZEf2qe95vFwvkF+b8GjqjEPAj53+6wFislvsnlSKBHd3PGA==
+	t=1793295511;
+	b=d0lkHmWvCoJVX3C4bjWhAT8qyF22EBloddZhvv23mEItQYeziXMYyR3PtLLw061spslu
+	 IB5IKT1SJ61gBiXzwjdB6YlflVK8ZYkTc3ylcT312gcpbdOvICFA+hBJikVW2gGwsS281
+	 EP36OTG/dpQkJU4JIr/7C6q7ByThweUMoj+uxWwLDlQ0YyT89miklxDPNVTxYHy+8zm6p
+	 kWXsmfcns8HLpAolXxbnf9mRhU6Sx5tY+2zuuMJWw6HdkjAhe3FMJ0k27ykC9o9Zb7xLW
+	 654QMwqGq1Jzorfg6D5Gkth49aXT1OGRveXA4elzF2N0Scv1EEALHdg3BUMkfCZWlkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793295498;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=+xEi/FXjAcaiOhZWzJNypC4CeC4XPVjT5VrS5d9n3Bw=;
-	b=2BYgpZLsHDj9pHm/AIvKebRin3tKd8tGw0rVbQNJw7ZU6mI/XdNNkeadwguUdrQkHawh
-	 HYBazkmo77eY4bdmeF7HQ7WWrS4TmLmAnOPMEOoJoIiigyCq3EmJS+tRhpXO//sgBkF8i
-	 CMB/woIq7cjO6B6Ylv/17Qpx0U8Dlj5pjNc0g2V23dJsUwq+ZOp0AYp5Ppr3BB9bJnBfO
-	 5OzeaMhAKEA1bR3r7dQj07ZaGqxvgXMPkk18bqOHcJBDnnI0nIiDlXgNTpNRqpOcjzPbU
-	 jDlepMzYNRJA4+iVI5aWJG0W01N5xqFLzYxYSmWZJIl6usYP+/+AWr4QbK48moCDEsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793295511;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=/KEC84hmoiSqAMPb0/WNJj6+/aU+u2mLmnNoCNNmZpY=;
+	b=Y/7+6dkzTRsfQG8UWA530mCQLeBzxATTxOTGKGKZLuOkrPWor5114H6+wFlqnmZ5XAJn
+	 cHjPoK/5iCemGGDPG+vg0y5lSeecQEBSt9wzl0AMgQpxJj0WbR/8pVyESfRVqrNWpOg0O
+	 wlwYSCkk0DIdiIR+EU8xsw1DU49T5AZ4NPUfuv6xFBLjm/EmVXUeSN8xpevdhRsrd8hk0
+	 YhdP8yqVLO1g2mods5qjBlwsCKNeTQFJ3DpUv+gWvCl2svCO+87Lg4+vdib9+1RD2E+C+
+	 YP7cMExeZbqOMLRbpimdQMbag7FH6mtv6xAlLJLfRNJ0DGQ3eA8gBTR2wdfgErA56BA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=F0yCYTRH;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2BGeVUp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF91606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:38:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CF91606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCDD606A324;
+	Thu, 29 Oct 2026 17:38:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=F0yCYTRH
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a06454116eso1334894b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:38:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793295498; x=1793900298; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=+xEi/FXjAcaiOhZWzJNypC4CeC4XPVjT5VrS5d9n3Bw=;
-        b=F0yCYTRH1KCKgj1wamQyvj2+BZVTNOuWxMJPDP0xqDm8z2AXasRhnLVIjfTJB+urOA
-         hYMOTEHqguCWwBanaJwRqINoqTBckwHx8a2498qdICI+n/lBDqGMFaBGSnDJTcqrlXwJ
-         6N3EVeIucQlMqzblx8dYqq1ROCDLze9gT6aRY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793295498; x=1793900298;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+xEi/FXjAcaiOhZWzJNypC4CeC4XPVjT5VrS5d9n3Bw=;
-        b=SnEbyXMBj2MGgbLEXJRx9MoNajsJoZ7j2sLNPRhJIGlUw2VF7J/6WW6szZqumCOxyj
-         a0r71T3ERISuS7fXQ4cdrYFHXFIU8UWGNmHU8noePEhwcyh73WbJAcvF1jDES+7OF42M
-         4TnJ93P2DugrFeRw4U21F4LFISPAJUY/posU7esZiZewNNm7diiL/TVtI1pfeVf64gJd
-         eCvTK+tszv/lXbPQixZ5l8qc0iGcTQFj1X69hdX/7DpvPIpZgsKM5zFeb+wU/3+7iqbe
-         bZdQPDndIwANxrxGfKkmMSwHguQuFsyTl0nA6eEX5fCrB38gm0/7TkcMKEKR8Lnzca88
-         6UlA==
-X-Forwarded-Encrypted: i=1; AKwUvBxH9jyPHrIsUm27JGC9HlUhXXl08IDrrDmHmtObBXPmqaBBczKHdMqnFlZW49nC2rN2mjOIZSoMf9HTmvk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ1NHjPM7yeUY9/yGflYK3bnHp5Uui7YOrOw9jpFTPiTnWBg6u/
-	M+L7G4dqPOanyxLzKgDxquO2qshaxiH3yCixWLZ45/vRtZeyfE2tRKo7ipP2mSL3wiQ=
-X-Gm-Gg: AYBFou0mMo0HedXcZzLyQ7Y+MjJT3jO0N7PjYOVGNgfIP2U9+3yQnk4qnsRk0c+E7KY
-	wcxuJ5u48qA5EywC7lfRfUUMGgHg/6niZFANp3IyRbsMtqIksn3z3Hr2GgvtnuRAbeVNMQ6Koz1
-	vjV92nqetjBGoKwa/Lb9VXpt9tZj8mp0hMMuVjaw7wR7cuz6yKV+9Jibnq7H+QGl4SW6y6TneAj
-	Ti5yb1ezQHPRU0uBcCzSTiYEzvC+iqzvz9Ft4hlnRxVHY8AYiIUs+83O8/RfOXaeollEi/PoskK
-	Os6R23Va3AwpM3uKtPBRgPWojOAuBFnw4S+e/B5EPTk19WFuT4lXXEAxzG3p2TfnaUvqXoHE0c5
-	52Y/wNH9ikfl2dLU55kDx/EWtGS9hKzDlaweKcGU9otw2sArnB8tNfhDaEo6MzA85/7YZei7hnX
-	NPvNV+4KhGhJeRgUN+38TXY6DWzaAUH7/Rd1ljmoPbzJOndkpWBKvLiErpbfYV+35suneSB4sgW
-	2Hnt4BV0pITQhhpk2c1uLx0bKfYEHrWK1awH7DOsXLs9X0zVUywB7c26JANEdkiWVCHMPSESReJ
-	krtl3NR0m5lq+4s4lDEch3WW0sBwhsDROoy5xymva+pmrZucLTtfcrTb48ndZ2hpXpPfJGmQ5L2
-	S+5jKOucfEyebqbvsh4SNZC+Rn50Mf7yU4Fgvj4YtgIEZuDYlCXjv7LSSeOAIkCwj6HFds7Uv
-X-Received: by 2002:a17:90b:1d44:b0:3a7:250:333e with SMTP id 98e67ed59e1d1-3ae57f631f6mr4570721a91.11.1793295497657;
-        Thu, 29 Oct 2026 10:38:17 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e8fb1ddsm5096378a91.5.2026.10.29.10.38.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 10:38:16 -0700 (PDT)
-Date: Fri, 30 Oct 2026 01:38:13 +0800
-From: Chris Down <chris@chrisdown.name>
-To: Omar Sandoval <osandov@osandov.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-debuggers@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: Re: [PATCH] proc/kcore: Allow disabling /proc/kcore at boot
-Message-ID: <auOEhTNaKzu8dgEy@chrisdown.name>
-References: <auAmuqZyUodq3iqk@chrisdown.name>
- <auKKisespDm1xLLg@os-N5J97HY9XQ>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X2BGeVUp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7706E1F01826;
+	Thu, 29 Oct 2026 17:38:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793295510;
+	bh=/KEC84hmoiSqAMPb0/WNJj6+/aU+u2mLmnNoCNNmZpY=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=X2BGeVUpZHoGajAQeQzH20EQSs95tIj1nCOEkAxuv3bdZFkgBT3F1oQphYaKbfZc9
+	 rR9pXZmm8yihu6ppjvGoZ2oXEG+uTJuki8pvFHhRtEq1gF1uC5dwE25wPV2jKntI37
+	 rGBjCVVYHu8X3PNlL0/xPxB58Lu2LDaL9VtOrGy4KbEvEvullSTPX05EUmsqlhhYnk
+	 caxq/vugvm3w6bPfXGUtkGVvXpSEbDtCk10AEBGgbp0KrIUlCzJ1M7hvqCUJpgHMPn
+	 wLV1Zy5fVR+JnKDVJQxrsMHtFTIQK0vR1rIWSxWI1BTnav0A1lYH5Q32uFV8a5dlWO
+	 +hHWjhnsOTcbA==
+Date: Thu, 29 Oct 2026 12:38:29 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,43 +51,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <auKKisespDm1xLLg@os-N5J97HY9XQ>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: krzk@kernel.org, linuxppc-dev@lists.ozlabs.org, chleroy@kernel.org, 
+ npiggin@gmail.com, linux-kernel@vger.kernel.org, sashiko-bot@kernel.org, 
+ ritesh.list@gmail.com, conor+dt@kernel.org, mpe@ellerman.id.au, 
+ devicetree@vger.kernel.org, sshegde@linux.ibm.com, maddy@linux.ibm.com
+To: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+In-Reply-To: <20261029112742.10238-1-lefteris.koutrakis@gmail.com>
+References: <20261029112742.10238-1-lefteris.koutrakis@gmail.com>
+Message-Id: <179329529616.3541731.13593434719099067546.robh@kernel.org>
+Subject: Re: [PATCH v2] powerpc: dts: Add support for WatchGuard Firebox
+ T30
 
-Hi Omar,
 
-Thanks for taking a look!
+On Thu, 29 Oct 2026 07:27:41 -0400, Lefteris Koutrakis wrote:
+> Add initial device tree support for the WatchGuard Firebox T30 board.
+> Enable building firebox-t30.dtb under CONFIG_MPC85xx_RDB in the
+> arch/powerpc/boot/dts/fsl/Makefile. Document the watchguard vendor
+> prefix in vendor-prefixes.yaml.
+> 
+> Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+> ---
+>  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+>  arch/powerpc/boot/dts/fsl/Makefile            |   1 +
+>  arch/powerpc/boot/dts/fsl/firebox-t30.dts     | 386 ++++++++++++++++++
+>  3 files changed, 389 insertions(+)
+>  create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
+> 
 
-Omar Sandoval writes:
->The code looks correct, but is there a reason that /proc/kcore
->(CAP_SYS_RAWIO) is any more concerning than other ways to read kernel
->memory (e.g., CAP_BPF + CAP_PERFMON)?
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Not in terms of what it can read, indeed. I would say the distinction is more 
-about who needs each capability and what we can remove.
+yamllint warnings/errors:
+./Documentation/devicetree/bindings/vendor-prefixes.yaml:2022:1: [error] missing document start "---" (document-start)
+./Documentation/devicetree/bindings/vendor-prefixes.yaml:2022:3: [error] syntax error: expected '<document start>', but found '<block mapping start>' (syntax)
 
-Abstractly speaking CAP_SYS_RAWIO may be needed for hardware access without 
-necessarily wanting to grant general RAM access. STRICT_DEVMEM already makes 
-that possible for /dev/mem, but /proc/kcore gives the same capability to do 
-general purpose RAM reading anyway.
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/vendor-prefixes.yaml: ignoring, error parsing file
+./Documentation/devicetree/bindings/vendor-prefixes.yaml: error loading YAML: expected a single document in the stream
+  in "./Documentation/devicetree/bindings/vendor-prefixes.yaml", line 4, column 1
+but found another document
+  in "./Documentation/devicetree/bindings/vendor-prefixes.yaml", line 2022, column 3
+./Documentation/devicetree/bindings/vendor-prefixes.yaml:2022:3: but found another document
 
-In our case in particular, a process with CAP_SYS_RAWIO doesn't necessarily 
-have CAP_BPF and CAP_PERFMON, so keeping BPF available doesn't make removing 
-kcore redundant.  On the hosts in question, BPF tracing and BPF LSM are part of 
-the monitoring and sandboxing we rely on, so we can't remove it from the kernel 
-entirely, but we nevertheless keep CAP_BPF and CAP_PERFMON away from guest 
-facing processes. Nothing on those host uses /proc/kcore, so we remove it as 
-one more gap to close.
+doc reference errors (make refcheckdocs):
 
-For that reason those hosts already run with CONFIG_PROC_KCORE=n, while other 
-hosts keep kcore to aid debugging, since they have a different threat model.  
-This patch, then, lets us preserve those choices while using the same kernel 
-image.
+See https://patchwork.kernel.org/project/devicetree/patch/20261029112742.10238-1-lefteris.koutrakis@gmail.com
 
-In retrospect I should have explained that better in the commit message :-) I 
-can update it for v2. Does that make more sense? Let me know if I can clarify 
-further.
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
 
-Thanks!
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
