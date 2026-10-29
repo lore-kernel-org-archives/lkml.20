@@ -1,101 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793304733;
-	b=dvegMv43mCCrzzjUU8hhT9iXHNdQJSbTpixAGzZdQenWZoxDhCs6htQfHT3IK9Gn8x/J
-	 Ai2lwBqSZn9qX0zw2i8J/0odk+4VjFuLXSaddtT8bpIM6BnbSKlnrUOZUGtWxqhRKT3TP
-	 XwEfjQyLqNRxuIazXv7NrlZ6/6oz0AlFrJ+KwXrD6xZGNNVHwP5UUknMQTZv751QtTEi5
-	 kGaX5L+BxF4Vhh0MSowzjfzGQkjIE13Y/5QsxHWBbgPsM73zRUHDcS6RQFvtoTkDWsl44
-	 iaD9DMj2Ny7VqP09URNyYZsTGMJ0OdC3ICs4fqt6cyqhYDYm0xsP5Xi+pvQ02+zOtLg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793304733;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=I4MkKR6JIP2KDMXQy0atyZipWl/GBl7GkfJx4r11tBk=;
-	b=f9FXUJsuqbkPN3B5YMe4a8TvXk5jRRI88Z8SCh1U3s8zuk0niHb93RQGx2xIXP0KB8NA
-	 d3o7VksP3t//Z+RlCvqGUifDXRc+WBbHPBPqRvygTS+eFS/oq1x7O5cqlw3S8gQHn4zhY
-	 fNuVN0OS+XdUs8WwSzZBoTwfzUTxe7XzwGWOQG53nZ2oMI4JVP139ouoVbBreguL6iRvZ
-	 GY8WELvhv8HTTwgKQP//sIvGi8sCBwCKY2nU1plGVUYFQb+GZTKhR2hxAuYk3TZvWGN6q
-	 yqU6aw3qxFt7U9YhqrD4R8NGFP2sjR3utl9CSMOKxyq4K+i1qz+MWl9+ZGeNY6OJhHQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="UFwV7/FK";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793304725;
+	b=lgt//G9kaSjmQ9XWdubZKZtkixjsl+HuZHuSu7C0VEQuUCVhAdeSdHNNAtCZtdgmdfT4
+	 79klkKV/l86k9v2FwtoR/T3giuJBgAR45sVFbOiifINdfWUWIpKG7bKDPSThyuAT2gYF6
+	 6f5ndynOhys7kJZ/h+ZZwcRHlQO5YFwyCqxWYY3cYxjcDBgSX3s4p1Wgmlf2T9Ld7jtBr
+	 UfGBvTk7Hw7BWhiTFNl3vIOSQB+YksZ4tGf73wijiXzP80YkWHOO2Br5cqm7fAQqyw52G
+	 wON07SaWZCVuvPixhAnuVRbCQcZ3jU9UUgTA1dEG9Eo5Pd1bL1ZZy5MBtE2CHCximbA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793304725;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=v25Odk+w8zqh+xoMuADbn2dgTDEctJs52lZ7sJTHx+4=;
+	b=mpglgyNDPEcEBA6mSjYadO0irgGTIE+u0PJqLSJZeI7Ez4zaCEle9hduQzKEXdy4cuR8
+	 QdsZy3Ne3UHJRaqiwzE5LjXalnONHZ8aqZwCIvQhLdgr/P8Q4CbMtRlPPJI9Hmlx7hyTH
+	 floduDJDUBvpdfzLhL7K62nn7XaJDeZuSx9yLozqyRkS164kWJ810NlfAv3K8KIjdL0qB
+	 whJinrmi7spz9y9aVe/ewNhFG6zKTmfVTd0ljhMwEPvCAZCR1uOty8kPEWXa/sgeibJy2
+	 Ui2VXU8y3Q/1JnDHCltZpqOaWewPC7eoXOEiLR/1w9/zfLbYLZtgDqu3XnDHjohTjxw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=inf.ufrgs.br;
+	spf=pass smtp.mailfrom=inf.ufrgs.br;
+	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=4gGYnZBI;
+	arc=none smtp.remote-ip=143.54.11.23
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FE59606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:12:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FE59606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005A4606A31A;
+	Thu, 29 Oct 2026 20:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 005A4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UFwV7/FK
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ae1d0caaedso1285184a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:12:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793304732; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Z15WdZYdXRbv345wXpt76QA5oIGXuU+xyy/yWO4GuE4/6qsBD5HDYeeVMMfvmfDHUy
-         hdcqOYlooemFwpwmGw6Qy+nhtqsV2i7/yI6ZSqTJrtsi+uxHhGx0Xo9OOzZT4jIIW9+6
-         1Tkt7cII7QTiYTAJxUkrO5V0a6F7zVh8vyo5Wrr1devAoYox+l1ZpKdpHeh/2LGT21eS
-         NjS5Qv/Mt4kyIAZUp0JghDZIGlMPcEv3cFaixogy5xv3szutPFuUDUW2Qtnu3BTfUcpE
-         ECClmKNTq6tc4VkiVSOZMzB8jBLSHr2ahtZv1FfaKfKNBkV4HNp2WRaIvgyHIgPJZMiW
-         CwJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=I4MkKR6JIP2KDMXQy0atyZipWl/GBl7GkfJx4r11tBk=;
-        fh=VU3wktpV5CAbYx4CRtposaMK6jFYoMpZGs0FgYmIzfY=;
-        b=YL/5Sq/IDdr5ReqOj3HVj1DXy/GYEv9NE7qQjYyDQWQUlva3XDy3mX002NbidHpbkz
-         jfvfc/2mBj81cL89IvisQvCPuCw4wafDYyzPVUj6b2vRoVf+eS22CCi0XbWOlLU5IR0y
-         TIajBgADLdGyjdaZgbt/k0Vy6ZCWkJp20fA4gCaSf/DVET8qSPBjg/7aCLWyTMLGDIWn
-         FiPe5Ox5o3yMeSg7S2qzavN2N47iaivUChvG9/5uscLuXgs+5J+GGwjyh3K0FDy+lSz6
-         KOtB3RLA6M9aDvEYXRcbMH0PGsM8E0ykRYzm1b5UhdNq6stYhCY8gQxQwTbHiIEDTALB
-         0gpQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793304732; x=1793909532; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=I4MkKR6JIP2KDMXQy0atyZipWl/GBl7GkfJx4r11tBk=;
-        b=UFwV7/FKl/rLJt4F063/DU5f1VBHC2QGKLaJqYcvpvIf0z6uEzyITXltH+3AkSOCb0
-         ANgAAbay/s/fF46r9m9qjUtcK67KTMp6IfbIClkolwhY7TvfhzKUA4nyKDykKiAIxxMS
-         kpJIhOkum+Jk/JP1ELIGskm6cXKoTVBA7lt3PrfcQYwpJ7XDAXeoivLWFc7cAmem9J+z
-         NFJ2wgS9fJXPxhFGjEl8Gvvti+mkczGgQN0+RflZOFnQt3e/MOiIjyKActMH8T8EG+is
-         vcgFCBGPKHEP6tYcWfiKFPYpijHZkLCL1jvcgmfwz2kA3THg/Mwnrd08Hz+6mhbtU8TO
-         x3Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793304732; x=1793909532;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I4MkKR6JIP2KDMXQy0atyZipWl/GBl7GkfJx4r11tBk=;
-        b=FQrGyhcmzoWWj0cYFoJpNNjTN/jwHotxLfY4TI2eWbCcYSfzjZga+/y8S2EpZAanDN
-         uVaHDeirB2Jp9sFffe/lVPpKNOVU+z0sbVDbmQj/zgVWXfYgSae2R9ET/y1IwvUVYwrw
-         DZCzSRuKovMUKdOEP0rFpTA5Z9sGU+FC02DFqj+DfElP9dkeoUsFLsKzTEW1S+ZyBjvw
-         8y7wMimHucVFSUSrWxrjx7YnmhPLArN/x22pf34MEW9M5j/qmJIu2jrHs9UnMCdaiF5s
-         5L1SN/0z4i4d+bF7UC1aNQySqh/qCiQQCnd81B4d60oH+qBNvgRXjcu3Bz7xQeAupEtn
-         Futg==
-X-Forwarded-Encrypted: i=1; AKwUvBxu1zGIIeCKrkWMiqCsrL0K/QTmCXHU38MFZnC2OvNXMtLMMslF/sbq4/W9RC9eIO+cUrYIyF8cCxYbpHk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLtVjd9ltHhA0hjy26FBok32QuWO+Vc2lzPn5j1Wum2QGsgjqL
-	aZ9MhOwCqtDtMGfSqGbakC6yc5DdTb48Vo5Pv3nh5rlM7/hSI51SlNE0GlipuabCYbcu6w6goPD
-	6mhBRzLJ/OVOO3r0rLVat42O6WM0eJXo=
-X-Gm-Gg: AYBFou1kge6/u1cexVot/+GL1oWIl2g8TxOkzSAcvgDgIpTacjRSdq7C3PRJQ8mVUcI
-	N2r2VTWpKRJqQ5Qax6FJwGYT/6Ab8RkCy/FLWm6BGXnJq8LSTTjkbHpgxp2hGa1+dYqfUjdB+Go
-	Qh3uXMK3uCGxUDSB0X+VkszCGp5PbocDbjjQd1ipINRi3N78xzkED8Zabo8y5at4OqSigGQgbe3
-	M5EYGYi90yTl66YoDU4FNFbWHqMp48LtyiHwatQQcB2+2/KgKpwBO40DqW0m3l4FFNkhrTw0jAF
-	5/WN4p4L26x2BsNn5AfaSIonSk81IlhYyKx3f7uc+zQuMipUFycDuaIhZ+juecuBFAKXvTKO82O
-	jf1CAtiMG5dYLSxVuC6qY4iG76fRenhRnvXPIt6GuUB36mW5jLkarTdkzcqsCW9vrPBgo/Nu+bL
-	7U9fjiDnvAN/uGC3us+QaapJZx3DiW+f/Irpc4WqsNq8WNu7PKOJsv0kM=
-X-Received: by 2002:a17:90b:2891:b0:3ac:7c52:fb04 with SMTP id
- 98e67ed59e1d1-3ae897ab44emr53096a91.44.1793304732221; Thu, 29 Oct 2026
- 13:12:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=4gGYnZBI
+Received: from DESKTOP-PJTTJ93.localdomain (unknown [189.6.233.4])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 4D27412021F;
+	Thu, 29 Oct 2026 17:11:49 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1793304714;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v25Odk+w8zqh+xoMuADbn2dgTDEctJs52lZ7sJTHx+4=;
+	b=4gGYnZBInza8ErhRqp01hIijDFba+eYqAeB2uTZVThs/r4MgYUZNHG5WaqvA55QwtYnhld
+	aV6+ZjxoEWNW9eE6p7N3Wb4ajQlIpDWfywXbsDtnLQbrcA/JfbvhS7Utw271qTDXFMIeO9
+	YPzTB5N0F7xuotrNFVqQmBBYduEojP++AEscLT+KzucON4byYKp1yP/itI4b0WkjegEd6r
+	Y9aKCmguhaCcDoTl3eEpH8IvB4aF1PVsT/7+RHG+5XMVxg6jXS+n9PiyIp2rkUua7jcXMl
+	vrsHmvKa3FRaGl2brGta6pQRMXVt2bgiAm8JxKFuhRQ/8ox3GTCuO4Ge6lZ/6A==
+Date: Thu, 29 Oct 2026 17:11:46 -0300
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: Bryanna Marihugh <bryannamarihugh@manhattantech.edu>
+Cc: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>, 
+	Andrew Morton <akpm@linux-foundation.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC] fat: use write_inode_now() on flush to avoid racing
+ the flusher
+Message-ID: <auOlUam8nXqdTZu0@DESKTOP-PJTTJ93.localdomain>
+References: <20261029-fat-flush-isync-v1-1-69c02c258d0c@manhattantech.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,106 +65,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261023124157.75524-1-puranjay@kernel.org>
-In-Reply-To: <20261023124157.75524-1-puranjay@kernel.org>
-From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
-Date: Thu, 29 Oct 2026 13:12:00 -0700
-X-Gm-Features: AclHuK8MkbbkbEYYrLZY6y9oQnDFH2cmvw9bwmFuv3G0y6W5whRHgCqUuNX5aMs
-Message-ID: <CAEf4Bzb2jEjqpZrmtTk_+YCW3_jU8fcVzk26CBZnxkpYJ8kCbQ@mail.gmail.com>
-Subject: Re: [PATCH] perf/x86/amd/lbr: Freeze LBR on PMI only when kernel
- branches are recorded
-To: Puranjay Mohan <puranjay@kernel.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Andrii Nakryiko <andrii@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-fat-flush-isync-v1-1-69c02c258d0c@manhattantech.edu>
 
-On Fri, Oct 23, 2026 at 5:42=E2=80=AFAM Puranjay Mohan <puranjay@kernel.org=
-> wrote:
+On Thu, Oct 29, 2026 at 12:29:05PM -0500, Bryanna Marihugh wrote:
+>On cheap USB 3.0 sticks, copying a large file to one formatted FAT
+>slows down badly when the background flusher runs at the same time.
+>This only impacts performance; it does not corrupt data.
 >
-> On CPUs with X86_FEATURE_AMD_LBR_PMC_FREEZE the LBR is always frozen on
-> PMI, so the branch stack ends before the IP and callchain, which are
-> taken when the NMI is delivered. IBS rejects branch-stack events, so
-> there is no precise alternative.
+>udisks mounts FAT with the flush option, so closing a written file
+>calls fat_flush_inodes(), which starts writeback of the data with
+>filemap_fdatawrite(). That does not set I_SYNC, so the flusher starts
+>at the same time, which causes lots of small requests.
 >
-> The freeze only keeps the PMI handler's branches out of the stack, which
-> matters only when branches into the kernel are recorded; without it the
-> stack fills with the handler's own branches. A user-only filter does not
-> record them, and parts without the feature are never frozen (see commit
-> 598c2fafc06f ("perf/x86/amd/lbr: Use freeze based on availability")).
+>Cheap controllers handle small writes poorly and sometimes stall for
+>seconds. I have found this to be a problem on many cheap USB 3 drives.
+>Older USB2 hardware, better drives and ones that support UASP
+>don't show this behavior.
 >
-> Freeze unless the value written to LBR_SELECT, which is shared by all
-> events on the CPU, suppresses branches into the kernel.
+>Use write_inode_now(inode, 1) instead. It goes through
+>writeback_single_inode(), which sets I_SYNC while it writes.
+>Close now also waits for the data and the directory entry to be written.
 >
-> With perf record -e ex_ret_brn_tkn:u -j any,u on a Zen 5 part running
-> CPython, the function of the sampled IP differs from the function of
-> LBR[0].to in 84.3% of samples with the freeze and in 0.1% without it.
+>Benchmark copying a 3 GiB file to a USB 3 stick (PNY, 154b:00ed),
+>default writeback settings: 11.6-16.3 MB/s before, 17.6-18.0 MB/s after.
 >
-> Signed-off-by: Puranjay Mohan <puranjay@kernel.org>
-> ---
->  arch/x86/events/amd/lbr.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
+>Signed-off-by: Bryanna Marihugh <bryannamarihugh@manhattantech.edu>
+>---
+>This is a performance fix for cheap USB 3 sticks on FAT mounted with
+>flush (the udisks default). It stops close and the flusher from writing
+>the same file at the same time.
 >
-> diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
-> index a55646fcb8465..7ec50380ac81d 100644
-> --- a/arch/x86/events/amd/lbr.c
-> +++ b/arch/x86/events/amd/lbr.c
-> @@ -392,7 +392,7 @@ void amd_pmu_lbr_sched_task(struct perf_event_pmu_con=
-text *pmu_ctx,
->  void amd_pmu_lbr_enable_all(void)
->  {
->         struct cpu_hw_events *cpuc =3D this_cpu_ptr(&cpu_hw_events);
-> -       u64 lbr_select, dbg_ctl, dbg_extn_cfg;
-> +       u64 lbr_select =3D 0, dbg_ctl, dbg_extn_cfg;
+>Tested on v7.2.12 (stock and patched) and mainline c339f4010dea
+>(patched), bare metal, same stick. With the flusher kept busy
+>(dirty_background_bytes=256M, dirty_writeback_centisecs=100) cp goes
+>from 6.8-8.7 to 13.5-17.4 MB/s. With the patch one task writes the file
+>and 96-100% of data bios are 768 KiB or larger (4-16% before).
 >
->         if (!cpuc->lbr_users || !x86_pmu.lbr_nr)
->                 return;
-> @@ -405,7 +405,12 @@ void amd_pmu_lbr_enable_all(void)
+>Only measured on one usb-storage stick. UAS drives I have used did not
+>show the slowdown, but I haven't traced them.
 >
->         if (cpu_feature_enabled(X86_FEATURE_AMD_LBR_PMC_FREEZE)) {
->                 rdmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl);
-> -               wrmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl | DEBUGCTLMSR_FREEZE=
-_LBRS_ON_PMI);
-> +               /* Freeze unless the filter suppresses branches into the =
-kernel */
-> +               if (lbr_select & LBR_KERNEL)
+>fsync() and sync_bdevs() can race the flusher the same way on other
+>filesystems. I kept this patch to FAT, but have numbers for exFAT, ext4
+>and btrfs if useful.
+>
+>I am a sysadmin not a C dev haven't written it much since school and so
+>did use an LLM for help reading the writeback code, analysing the block
+>traces and drafting the patch and text and who to email. I typed,
+>reviewed and tested the change myself and feel confident that I
+>understand it and can answer questions.
+>---
+> fs/fat/inode.c | 21 +++++----------------
+> 1 file changed, 5 insertions(+), 16 deletions(-)
+>
+>diff --git a/fs/fat/inode.c b/fs/fat/inode.c
+>index d85c8fbdcca4..0643244223c5 100644
+>--- a/fs/fat/inode.c
+>+++ b/fs/fat/inode.c
+>@@ -1911,28 +1911,17 @@ EXPORT_SYMBOL_GPL(fat_fill_super);
+> 
+> /*
+>  * helper function for fat_flush_inodes.  This writes both the inode
+>- * and the file data blocks, waiting for in flight data blocks before
+>- * the start of the call.  It does not wait for any io started
+>- * during the call
+>+ * and the file data blocks, waiting for in flight data blocks and
+>+ * ones it starts. write_inode_now() takes I_SYNC, so the flusher
+>+ * does not try to write at the same time.
+>  */
+> static int writeback_inode(struct inode *inode)
+> {
+>-
+>-	int ret;
+>-
+>-	/* if we used wait=1, sync_inode_metadata waits for the io for the
+>-	* inode to finish.  So wait=0 is sent down to sync_inode_metadata
+>-	* and filemap_fdatawrite is used for the data blocks
+>-	*/
+>-	ret = sync_inode_metadata(inode, 0);
+>-	if (!ret)
+>-		ret = filemap_fdatawrite(inode->i_mapping);
+>-	return ret;
+>+	return write_inode_now(inode, 1);
+> }
+> 
+> /*
+>- * write data and metadata corresponding to i1 and i2.  The io is
+>- * started but we do not wait for any of it to finish.
+>+ * write data and metadata corresponding to i1 and i2 and wait for them.
+>  *
+>  * filemap_flush is used for the block device, so if there is a dirty
+>  * page for a block already in flight, we will not wait and start the
+>
+>---
+>base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+>change-id: 20261029-fat-flush-isync-ae828e018ee0
+>
+>Best regards,
+>-- 
+>Bryanna Marihugh <bryannamarihugh@manhattantech.edu>
+>
 
-On Intel CPU side, we reset this FREEZE bit in
-__intel_pmu_lbr_enable() if is_lbr_call_stack_bit_set(), with the
-comment "LBR callstack does not work well with FREEZE_LBRS_ON_PMI.".
-So this is not *exactly* what Intel side of things is doing, and I'm
-not sure I fully understand the differences, so hopefully someone more
-knowledgeable can help.
+I Agree with OGAWA.
 
-But what Puranjay is trying to do here is to at least make a
-user-mode-only LBR and IP + callstack to be coherent (for PGO data
-collection, which we then use for user space app compilation), by
-disabling freezing for LBR.
+Also, since writeback_inode() will just be a call to write_inode_now(),
+couldn't this helper be removed and instead write_inode_now() be called
+directly?
 
-It doesn't seem like there is anything we can do on AMD hardware for
-when we want kernel-side LBR and precise IP to be in sync,
-unfortunately, but at least for user-space only case it would allow us
-to not plain disable freezing altogether at kernel boot time.
-
-Does this approach make sense?
-
-
-> +                       dbg_ctl &=3D ~DEBUGCTLMSR_FREEZE_LBRS_ON_PMI;
-> +               else
-> +                       dbg_ctl |=3D DEBUGCTLMSR_FREEZE_LBRS_ON_PMI;
-> +               wrmsrq(MSR_IA32_DEBUGCTLMSR, dbg_ctl);
->         }
->
->         rdmsrq(MSR_AMD_DBG_EXTN_CFG, dbg_extn_cfg);
->
-> base-commit: 0f443787a7f6ae907975742680aac2600483eaf1
-> --
-> 2.53.0-Meta
->
+Thanks,
+Matheus
