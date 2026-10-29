@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793277411;
-	b=ngaWfZxSRGpPV84YnpYFz3qbNmtRhmQzp2ebN1kyYG6nSizbJHpUuXJUPLtVaElCeoEM
-	 9e50S+P/MZw2fgp3g8M017Ot8cuJXDO0ZlVMkoZ7w2W+PcATt4uk2HJQmmWxvTwsKrfZd
-	 hFMmUDBjFOo4RmA0C2fA/3IBAkHDxE499WXiIfk0zyKKxOgO+y1bRRfMirP5RiOiHcDEi
-	 P6TosLrORSC8BFXATsVsJEd0Ox0pDdoAu277T/OAMteiGp5faKps7Qyck4XLrdW3EzxFP
-	 OM0qCG9wHgCRw8f0elWMkLRQpLkHhIZk7zNt5YjzxDbVwePGZXl+kQLmoVPltZz+JNQ==
+	t=1793277414;
+	b=F3d3UntImwAB/QvVwOBJqk7iB5ZSYXCnKTSY5X4ZJKLtEqokkB7dulo4F0hG0qgk8qgl
+	 1bmbk3sorPRiGpGKx0+WMvzvPbP2xSRK5KrMPGYzHm9V5jPlI4Voww+nRi4pY1z2WZ2H8
+	 tfTeogH77MmaaEo8VEAIRNExJAyrE44dMPjlra9/OaUqT7FR4JIdJxkzaJf2Qw96OdlR1
+	 gQ7FYsJ4XJ6p38wlyt8yknsDgu9o6Hkqqpc2lwDmNbzakB5WuPE1XCZ6SDfDNYzve7kw4
+	 1R9ppRdV4OQnuxxU6zbrQoATgso4X5jdD+f0B7BpORATeb1iFkocQSqpaWYw2s/YBpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277411;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793277414;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=iX/J80IPxttEGcgsZtNtc5Pybe2s9hAalnCzi4noQaA=;
-	b=QaHm60zcxwcUVIth7UsmfLGQ6Ux2ZqPtklEN3h/u0lH+hFQW4Be8XE4S2S6T2N20tYci
-	 sgIymJ8Quxyv0JfpyKBueLl2a/3RoACX4Voac6A2bEp4SSVquaF96zgptGFtDh3Cs37Kl
-	 ad7yDO7yANUtFXejCaF3MFzfucEQ0zMgt2+0qODd3K8Z15qN25t/21a/pZfwG0/r+1Il1
-	 ef3O4Dn1qaoU7YCRyyLWrfLCriKdeVLCkaQo6qVmTagq/Bs48FEtLwzotIajFLX/NDAER
-	 loxLu+kAIwdN1byJC/o6S7OLAKgcB6yGerkM6gFvhC9TGufLVprg7yY8JrMSE/ErkTg==
+	bh=qNHQ/CjqKp6Qo9XYbCd8OHdzmqMQwGutPp8zz1Kaeis=;
+	b=c538A3MLzBcyy2cUsLAcSmwGioX1qVYPP8zXj050u/JXrn6mu5jAzMqNqIig8BenEqkc
+	 mVqckDnat309Z+o9u0BH21a+9f7n80+g3ApJmEjk/uMsvH4gdH1slGm3dNKmiKyo5YJgX
+	 n80cuFQhTCkvy9Ml0zHy8JCGzFu4fLM9wqKiIgeXM4nYgNAKs6HelBvwcm+LvDn/zZeNq
+	 CzKxolIenmKfb1PVY53V0q7bN1+eg2OYthMRthhvlId8WF7uaMdSu2JhMWaWLB72TDEE6
+	 aAlOqT3/EYs+/XPMIHYwudykT3yqfayk82MJu7vnwjcXHZBc0nLYpd/Qsn2uvkOrfcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=fhkLwn8C;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=eYelVYeK;
+	arc=none smtp.remote-ip=113.46.200.223
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AFB8606A32E;
-	Thu, 29 Oct 2026 12:36:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AFB8606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8C160A260A;
+	Thu, 29 Oct 2026 12:36:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A8C160A260A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=fhkLwn8C
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=eYelVYeK
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=iX/J80IPxttEGcgsZtNtc5Pybe2s9hAalnCzi4noQaA=;
-	b=fhkLwn8C5hfORpucbzLVUVTLqWRNLp89ITujl+EyKpIOjqT7E8a9m/1AZ8aTeGX2WnazlWnWi
-	g3iYoWwh2JXV/jxQFShK+XBEBdv2cqXIDSLxmuADPX/lXB9Bos+XW28zg/oWFzqbm7zcugJ6VqG
-	OMdkAi111W8EudfVScPrXjM=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jFkHl2qwWz1T4hD;
-	Thu, 29 Oct 2026 20:36:35 +0800 (CST)
+	bh=qNHQ/CjqKp6Qo9XYbCd8OHdzmqMQwGutPp8zz1Kaeis=;
+	b=eYelVYeKjnXwWuyoa6znSSGsY8G8Dwya5YJDIaSfuAg+6yuJctINj/RmCrH39XuA3mo5Op9KP
+	xEWjDrv+y3TVddIRpGWv4vA0o9zEgle/cgCi6vJkAvPUDwkb7ysOkxcqDcAZ6In3EFouxDcHUKM
+	aKG+pCOczjkZcunfYzaqegw=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jFkHv3Y3MzmVBy;
+	Thu, 29 Oct 2026 20:36:43 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id A9DD940537;
-	Thu, 29 Oct 2026 20:36:46 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 8816640572;
+	Thu, 29 Oct 2026 20:36:50 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 29 Oct
- 2026 20:36:45 +0800
+ 2026 20:36:49 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <reinette.chatre@intel.com>, <james.morse@arm.com>, <ben.horgan@arm.com>,
 	<fenghuay@nvidia.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
@@ -63,9 +63,9 @@ To: <reinette.chatre@intel.com>, <james.morse@arm.com>, <ben.horgan@arm.com>,
 	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
 	<linux-riscv@lists.infradead.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH v2 11/19] fs/resctrl: Add the L2 monitor events
-Date: Thu, 29 Oct 2026 20:36:03 +0800
-Message-ID: <20261029123611.1108424-12-ruanjinjie@huawei.com>
+Subject: [RFC PATCH v2 16/19] arm_mpam: resctrl: Report counter assignment per resource
+Date: Thu, 29 Oct 2026 20:36:08 +0800
+Message-ID: <20261029123611.1108424-17-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261029123611.1108424-1-ruanjinjie@huawei.com>
 References: <20261029123611.1108424-1-ruanjinjie@huawei.com>
@@ -83,66 +83,32 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-MPAM monitors belong to a cache, and firmware says which level that
-cache is. Add the L2 entries to the event table: l2c_occupancy for
-occupancy and mbm_core_bytes for bandwidth. They have their own names
-because an L2 counts the traffic the cache sees, not memory bandwidth.
+resctrl_arch_mbm_cntr_assign_enabled() says assignment is on by checking
+whether the resource is the L3. A platform whose L3 has no bandwidth
+counters is then told assignment is on, although no counters were set
+up.
 
-Read the L2 events through the same per-domain path as the L3. The L2
-has no domains to sum, so a read without a domain fails. The events only
-show up once an architecture enables them; x86 never does.
+Report the per-resource flag MPAM sets when it sets up the assignable
+counters. Other resources can then report their own state.
 
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- fs/resctrl/monitor.c    | 9 ++++++++-
- include/linux/resctrl.h | 2 +-
- 2 files changed, 9 insertions(+), 2 deletions(-)
+ drivers/resctrl/mpam_resctrl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index 9b747b88fd6b..3544dd2a983a 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -537,12 +537,15 @@ static int __l3_mon_event_count_sum(struct rdtgroup *rdtgrp, struct rmid_read *r
- static int __mon_event_count(struct rdtgroup *rdtgrp, struct rmid_read *rr)
+diff --git a/drivers/resctrl/mpam_resctrl.c b/drivers/resctrl/mpam_resctrl.c
+index 4de3ad5a8ca2..b5416f589698 100644
+--- a/drivers/resctrl/mpam_resctrl.c
++++ b/drivers/resctrl/mpam_resctrl.c
+@@ -130,7 +130,7 @@ void resctrl_arch_reset_rmid(struct rdt_resource *r, struct rdt_l3_mon_domain *d
+ 
+ bool resctrl_arch_mbm_cntr_assign_enabled(struct rdt_resource *r)
  {
- 	switch (rr->r->rid) {
-+	case RDT_RESOURCE_L2:
- 	case RDT_RESOURCE_L3:
- 		WARN_ON_ONCE(rr->evt->any_cpu);
- 		if (rr->hdr)
- 			return __mon_event_count_one_domain(rdtgrp, rr);
--		else
-+		if (rr->r->rid == RDT_RESOURCE_L3)
- 			return __l3_mon_event_count_sum(rdtgrp, rr);
-+		rr->err = -EINVAL;
-+		return -EINVAL;
- 	case RDT_RESOURCE_PERF_PKG: {
- 		u64 tval = 0;
+-	return (r == &mpam_resctrl_controls[RDT_RESOURCE_L3].resctrl_res);
++	return r->mon.mbm_cntr_assignable;
+ }
  
-@@ -1035,6 +1038,10 @@ struct mon_evt mon_event_all[RDT_NUM_RESOURCES][QOS_NUM_EVENTS] = {
- 		MON_EVENT(QOS_MBM_TOTAL_EVENT_ID,	"mbm_total_bytes",	false),
- 		MON_EVENT(QOS_MBM_LOCAL_EVENT_ID,	"mbm_local_bytes",	false),
- 	},
-+	[RDT_RESOURCE_L2] = {
-+		MON_EVENT(QOS_OCCUP_EVENT_ID,		"l2c_occupancy",	false),
-+		MON_EVENT(QOS_MBM_TOTAL_EVENT_ID,	"mbm_core_bytes",	false),
-+	},
- 	[RDT_RESOURCE_PERF_PKG] = {
- 		MON_EVENT(PMT_EVENT_ENERGY,		"core_energy",	true),
- 		MON_EVENT(PMT_EVENT_ACTIVITY,		"activity",	true),
-diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
-index 0a60372299c5..95ffff4c7925 100644
---- a/include/linux/resctrl.h
-+++ b/include/linux/resctrl.h
-@@ -180,7 +180,7 @@ struct mbm_cntr_cfg {
- };
- 
- /**
-- * struct rdt_l3_mon_domain - group of CPUs sharing RDT_RESOURCE_L3 monitoring
-+ * struct rdt_l3_mon_domain - group of CPUs sharing L2 or L3 cache monitoring
-  * @hdr:		common header for different domain types
-  * @ci_id:		cache info id for this domain
-  * @rmid_busy_llc:	bitmap of which limbo RMIDs are above threshold
+ int resctrl_arch_mbm_cntr_assign_set(struct rdt_resource *r, bool enable)
 -- 
 2.34.1
 
