@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793275008;
-	b=i5H9RmuvR61nYmrm+/AYcDL0k0jQ0VMIC9Ty66z6wt7hMV7S5/y4j9zesKXdlm56dW14
-	 /9wbIgGEEzAfWLD0lDPi9K9VbFg/XFWNRfGE7QyGQjOC7jO4FwZvZrTOUfj4vB7PvUCY1
-	 mvb7LZZNvXbLVH1v1iGqYvXdQnqHcn5rD/3+jfO9PpuNf1235fXsji66ZoWx89GvOcO/X
-	 YdFLG7AtdKgkzkzNQd9Cn3GswkLXsfhLPzs6rw0Voc/N9/ScZ1hnkI5PUpMbAIKCcin7A
-	 oqlp49dG0KfHs8dOaNnkwV9kwvcsSJUqeqO3R/J+rRyGx7jGgFTkJNqwHRH2g60xeXw==
+	t=1793275052;
+	b=kX02FKnsxdC6lG41lHt2FZA9C9RS6ZD+o24sgsf/Dl4mJvjWa6M22/tA4SSmd8Lcymwn
+	 bwy0flzhAy854yP41uZBBFakEfZvPkkc3nP1ZmqtaUSAJYwyFTpd6gOqib0BDZsANnFu4
+	 RiTkzv61D0xh5MXPpn72KxV9fFr32FKoj2Wd45eByK9R34W5wOhpiWnh74KyYS2ynD13J
+	 +tVqhvB4FhYh9F2mNdjn4ki6qGaXhrmfvOq9fcxlWbyXXZriE3zFHUYsVfNXo4wuvHQEd
+	 bZd/duT1pqMuAZXkHK9L92f85xoMmQKNjWnQkmB+TRIM0Xi7u3BbVvVnOeJTxevDTSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793275008;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=sU4e7wuqTqzUVQN/c3QiLVT4NajPsQIxnJ8H+MQ9VO4=;
-	b=VK/y180niGJcMgcJKBlrmEZjU0ydw6g6DIWbD6e0D2RNfOuxBsKhSpSbZGqax91qXU6n
-	 vFbMqITbujbV3imdwv0eK7jr9s8k0WCiYAZBZKStPMtqvs4QEruVnhbjIT/RT5hTtF4rx
-	 T3uYEdBd7/dl7WkM4QYX06oX6p+TfQT3THuvMuLJ1FaOdaPEuV7sBy10vDLKDdBIB5z+u
-	 e3u1QeBso0uupQt/EQDZVk/9X/Dsme4EBHAsQkt2bJQPAhwXwFh7pU3Ts9tm52gibnoK7
-	 Vi5AVmIiev5YnBzELW3VdFqs33Gc5uyp7K3HLXOVPX9XAAIPBXB/x76X8xR1ASjipHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793275052;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=85WNzndYYnYjdw+c5+YUiQvdyptr/w4CZ44uKXD8zJs=;
+	b=rBXiMiL0VHwiK8m5vZIcIavQ7gFw9W9uIxRnTclAksDw/wJlqB0qeqc4+VH+mWwozjNP
+	 SAslnJTrfmPVK2lIoLI3fqs4WNIm1OklP2MLmBNVElYr9U8HXoJ7qdx6crugyBPs7kjnS
+	 JxIfEkB+OCWX7txZkqrY7jb7Bwq2i0PeuU983+rvTpZm+s0eq0e8Rg4JgSaNwOJCenHJz
+	 Tib/CKmg54xKOjP4lC47GM8fHzrzN31o+Tichl6J3z7imyw0q/lG+kaNMkYcGqi2Zl8PZ
+	 mnPrG704uoY4et592dClZRitiawTFIXBFkIj8wt+/P4ijfp0C7kHVQ87QUH/ncTNtpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Aq2yS91g;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QOoC3x2Y;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC90606A31A;
-	Thu, 29 Oct 2026 11:56:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AC90606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D61A5606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:57:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D61A5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Aq2yS91g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793275007; x=1824811007;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=ECaTdLJk1+NJUFeCKq9XKqsWx9P7nQKtBPkNrz3LMl8=;
-  b=Aq2yS91g3atFfCeszqItufiVDEztW7JQT2hD0J9wRGzu5PXKQCBAHJ7/
-   JoimfshfXGgWzahv5IzIYXy4V0jwbHfMds0umAP2l0Ig+iyaP3GusU0EU
-   kXyTp67pIEuEEwL5Np4jqY8Vc+TEI8ekcDm7x9NRDLQ9mCblj+e1y84Lk
-   unVRBCUSDiCJqHWEzfEP7uFCdnK+9mjrPYm4Dp6rTYv/WzWPrrl+ZnfSE
-   u3e4FXrgXTKw/wXCrHqbD8X81xSJcTlp6fBQcMXWEPKkTNi9ae8b68i41
-   6I/1Sko74fvmj+PlNevggCfTCF1LYctlFUVGFTozanIL0qckzjPzOzaqB
-   w==;
-X-CSE-ConnectionGUID: FjIJi7taR0Cp0kIlFh7CgA==
-X-CSE-MsgGUID: qeEf+P3QRFeCcwST9OzocQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2108286"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="2108286"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:56:47 -0700
-X-CSE-ConnectionGUID: s/nwXWPnQHa0rPLrpJ73QQ==
-X-CSE-MsgGUID: 6rpluSCQSL+1tvtH1I46RQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5223627"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.149])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:56:35 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 29 Oct 2026 13:56:29 +0200 (EET)
-To: Jiri Slaby <jirislaby@kernel.org>
-cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Joshua Rogers <linux@joshua.hu>, Chris Mason <mason@kernel.org>, 
-    Josef Bacik <josef@toxicpanda.com>, Tony Lindgren <tony@atomide.com>, 
-    Rafael Gago Castano <rgc@hms.se>, Florian Fainelli <f.fainelli@gmail.com>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Peter Hurley <peter@hurleysoftware.com>, 
-    Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-    Crescent Hsieh <crescentcy.hsieh@moxa.com>, Frank Li <Frank.Li@nxp.com>, 
-    Sherry Sun <sherry.sun@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-    Pengutronix Kernel Team <kernel@pengutronix.de>, 
-    Fabio Estevam <festevam@gmail.com>, 
-    Manivannan Sadhasivam <mani@kernel.org>, Olof Johansson <olof@lixom.net>, 
-    =?ISO-8859-15?Q?Andreas_F=E4rber?= <afaerber@suse.de>, 
-    Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
-    Peter Griffin <peter.griffin@linaro.org>, 
-    Alim Akhtar <alim.akhtar@samsung.com>, 
-    Robert Baldyga <r.baldyga@samsung.com>, 
-    Thomas Abraham <thomas.abraham@linaro.org>, 
-    Kukjin Kim <kgene.kim@samsung.com>, 
-    Patrice Chotard <patrice.chotard@foss.st.com>, 
-    Srinivas Kandagatla <srini@kernel.org>, 
-    Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-    Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-    Andy Shevchenko <andy.shevchenko@gmail.com>, 
-    Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>, 
-    Al Cooper <alcooperx@gmail.com>, LKML <linux-kernel@vger.kernel.org>, 
-    linux-serial <linux-serial@vger.kernel.org>, stable <stable@kernel.org>
-Subject: Re: [PATCH 24/24] serial: stm32: don't report a wakeup to a closed
- tty
-In-Reply-To: <74e02b49-f596-4433-a132-7799029db2a5@kernel.org>
-Message-ID: <84ab00cb-ac35-f1c3-ac9c-fbbdeb210ec2@linux.intel.com>
-References: <20261027-tty-llm-v1-0-99b0202ae546@linuxfoundation.org> <20261027-tty-llm-v1-24-99b0202ae546@linuxfoundation.org> <aef066bc-1b1e-b1e8-97f5-6fa8c8d18940@linux.intel.com> <74e02b49-f596-4433-a132-7799029db2a5@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QOoC3x2Y
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso14215345e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:57:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793275050; x=1793879850; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=85WNzndYYnYjdw+c5+YUiQvdyptr/w4CZ44uKXD8zJs=;
+        b=QOoC3x2YyskGvLJscTJSqiZXiq0SzZ2ahe/1p8X3vlAZHS62uH4dZ6cUo79jHAZpvh
+         gstHjhyT/KASszJi3nPoOF8N0uc1AXfq14EEU3V4uiitOU6YvZd84O3OxYftQxfqwT21
+         1Xg/HXiEQY0BjJqDw2TwqFjHEua9jmVS+VW63MRXNm2xT+M+RqiOwtmJkOPMSc34pU1Z
+         pwM664IN+FqBJP2wEaz5xwU/w+ySOyJAPTIBnP/KDznTLIcbc0/cZ5DTTKziW3BIPkEG
+         kA/j40sM/53vrHeMfZvTlUaymrZwf9BDyIckL6DZh40RWyHf8Ko3mfXnFiWjpbjlHdD+
+         1r6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793275050; x=1793879850;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=85WNzndYYnYjdw+c5+YUiQvdyptr/w4CZ44uKXD8zJs=;
+        b=RV0z5TTw3/gWOJv7bvVQo1EdmRT1rLJIAYqE8vRSTxDLlJdVB4h8tYqE24ChRyiIF0
+         1ERRtwgUSBOAbWQr5L37OZ000PNUQulqAYQGFoosr65hwFuTcf4Tjdx5g36dPpqpeBO1
+         R8qW8Kv+eaAODIuhAhYQj3Z9narzEt68k0u6VyxYzctlXgVQ0LlfBzl0X+StyOPwP11r
+         GPkQa52U1+GWdeCP1ZsgxcEj9kcqRBskfdxd6Flf9uslc6nKTJgb/wAtypccfgfePLSH
+         xqlimdi8+tKi6OgP1hTGCkKtfiqc6ZceWfM6Rj4pAoaIllTVQnrPYd8UjeOTw8B2i+ES
+         Wfug==
+X-Forwarded-Encrypted: i=1; AKwUvBxVerMulx++QYQaw4mHCHjmCVe0L9lBK4+3pawz7bKQbaNg7b1vMp/zX4PXWbh9c7BDgGj3aH4/FI1ucIo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJvElO0HqhfPpxto/v+oexcvUmcd43maP+dORJ2SgzibyvyA1oA
+	eu+HzkjLLZ88winCnPIXLpeQl0Hb3mTU8FEtTJjx24HtIY6QFjpNm633
+X-Gm-Gg: AYBFou3z9FbfI6p9UFS2Otj+OnFH61gxK0l9Dgu8N74PW+XQHy40kYU0aXJVW3uMogR
+	obU9pdYC0GKuBr6kTA3cEIQuiEnFNxjC3FxFPzrMy84WasQrU3AifiKSo1FiGlL9EQAmksGTX/0
+	y5JAFgPN20VG/w0bkOmaxYR8SR2Tce9+SDP5uNd86WNdHZkrpye2Jl03EEQr4ofJbn5talkQOT/
+	nUCcjgR8M9re4GPf+DkqoTe4wqlelXuLHflNR68PvS8Ldmjn+k+XNR335EL5CEwlmKeL6A6wznO
+	NPsQjqjWWqADBp9+ArugHi/qgHSvdqnzirfV36Xz3pM2jILKTxaYfdoTzxyaphOBGjB23m1UyQb
+	wFg1hI8k02Gx/EIJGcJgoPxSN46bo+LKNBVzW7U9gEwkyB5gSmaFsxhtR/2vwIl2q0ZD0v6ldOY
+	obt+Snqwp48KyrGRJXmFQ8PmV+xJWyo4oHB6w+BJdKRJKvRRn1a7mH7Xn/F7fMslENG6xUx1g4L
+	ZttEf1QC6FaW3qs9pxqUQqcy+1CrXPUINyjvAGc/FIiRiHoo/u6S5qBHoAYzf5V5v3mgQ7PF5wK
+	Wt1JVRyBjslcSGeFNWdory4qJdIWOjTYMGzj7/u0tmE3Bg==
+X-Received: by 2002:a05:600c:1387:b0:4a4:4d57:8487 with SMTP id 5b1f17b1804b1-4a96667b9f7mr114934065e9.5.1793275050100;
+        Thu, 29 Oct 2026 04:57:30 -0700 (PDT)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a966a56abesm79733875e9.0.2026.10.29.04.57.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 04:57:29 -0700 (PDT)
+Message-ID: <9f0f96ca-86c8-4732-a6bc-a7f955873ec2@gmail.com>
+Date: Thu, 29 Oct 2026 12:57:28 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,83 +92,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1863965678-1793274989=:1322"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323328-1863965678-1793274989=:1322
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] mm/vmalloc: drop VM_DMA_COHERENT from
+ remap_vmalloc_range_partial
+To: Ye Liu <ye.liu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
+ Uladzislau Rezki <urezki@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Ye Liu <liuye@kylinos.cn>
+References: <20261029-vmalloc_remap-v2-0-c4705cbf26c2@linux.dev>
+ <20261029-vmalloc_remap-v2-1-c4705cbf26c2@linux.dev>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261029-vmalloc_remap-v2-1-c4705cbf26c2@linux.dev>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-Transfer-Encoding: 7bit
 
-On Thu, 29 Oct 2026, Jiri Slaby wrote:
+On 10/29/26 10:19 AM, Ye Liu wrote:
+> From: Ye Liu <liuye@kylinos.cn>
+> 
+> No caller maps a VM_DMA_COHERENT area through this path: such areas
+> come from dma_alloc_coherent() internals and are freed via vunmap(),
+> never through remap_vmalloc_range[_partial](); all 13 callers pass
+> vmalloc_user()/vmalloc()-backed addresses.
+> 
+> The flag was added in commit fe9041c245196 ("vmalloc: lift the arm
+> flag for coherent mappings to common code") as a mechanical
+> translation of ARM's VM_ARM_DMA_CONSISTENT.
+> 
+> Drop it so DMA-coherent areas can never enter the path.
+> 
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+> ---
+>  mm/vmalloc.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index db669103dc66..a888eca016a8 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -4894,7 +4894,7 @@ int remap_vmalloc_range_partial(struct vm_area_struct *vma, unsigned long uaddr,
+>  	if (!area)
+>  		return -EINVAL;
+>  
+> -	if (!(area->flags & (VM_USERMAP | VM_DMA_COHERENT)))
+> +	if (!(area->flags & VM_USERMAP))
+>  		return -EINVAL;
+>  
+>  	if (check_add_overflow(size, off, &end_index) ||
+> 
 
-> On 27. 10. 26, 14:02, Ilpo J=C3=A4rvinen wrote:
-> > On Tue, 27 Oct 2026, Greg Kroah-Hartman wrote:
-> >=20
-> > > From: Josef Bacik <josef@toxicpanda.com>
-> > >=20
-> > > stm32_usart_interrupt() reports a wakeup interrupt as a wakeup event =
-of
-> > > tport->tty->dev.  That pointer is only set while the port is open.  T=
-he
-> > > port of a console is not shut down by the last close: it stays
-> > > initialized, so the wakeup interrupt is still enabled on suspend.  If
-> > > the system is then woken up by the console, the handler dereferences =
-a
-> > > NULL pointer.
-> > >=20
-> > > Take a reference to the tty, and leave the event out if there is none=
-=2E
-> > >=20
-> > > Fixes: 48a6092fb41f ("serial: stm32-usart: Add STM32 USART Driver")
-> > > Cc: stable <stable@kernel.org>
-> > > Cc: Jiri Slaby <jirislaby@kernel.org>
-> > > Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> > > Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> > > Cc: Andy Shevchenko <andy.shevchenko@gmail.com>
-> > > Cc: Vladimir Zapolskiy <vladimir_zapolskiy@mentor.com>
-> > > Cc: Peter Hurley <peter@hurleysoftware.com>
-> > > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> > > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > > ---
-> > >   drivers/tty/serial/stm32-usart.c | 11 +++++++++--
-> > >   1 file changed, 9 insertions(+), 2 deletions(-)
-> > >=20
-> > > diff --git a/drivers/tty/serial/stm32-usart.c
-> > > b/drivers/tty/serial/stm32-usart.c
-> > > index ad06b760cfca..3bc2ce877585 100644
-> > > --- a/drivers/tty/serial/stm32-usart.c
-> > > +++ b/drivers/tty/serial/stm32-usart.c
-> > > @@ -872,8 +872,15 @@ static irqreturn_t stm32_usart_interrupt(int irq=
-,
-> > > void *ptr)
-> > >   =09=09writel_relaxed(USART_ICR_WUCF,
-> > >   =09=09=09       port->membase + ofs->icr);
-> > >   =09=09stm32_usart_clr_bits(port, ofs->cr3, USART_CR3_WUFIE);
-> > > -=09=09if (irqd_is_wakeup_set(irq_get_irq_data(port->irq)))
-> > > -=09=09=09pm_wakeup_event(tport->tty->dev, 0);
-> > > +=09=09if (irqd_is_wakeup_set(irq_get_irq_data(port->irq))) {
-> > > +=09=09=09struct tty_struct *tty =3D tty_port_tty_get(tport);
-> > > +
-> > > +=09=09=09/* A console stays set up after the last close */
-> > > +=09=09=09if (tty) {
-> > > +=09=09=09=09pm_wakeup_event(tty->dev, 0);
-> > > +=09=09=09=09tty_kref_put(tty);
-> > > +=09=09=09}
-> > > +=09=09}
-> >=20
-> > Could we like add a helper into serial core to do this tty wakeup dance=
-?
-> > It is duplicated in quite many of these patches.
->=20
-> Likely. Or use scoped_guard(tty_port_tty) at minimum.
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
-Also the irqd_is_wakeup_set(irq_get_irq_data(xx)) part seemed duplicated=20
-so it's not just about the reference dance what is duplicated in this=20
-fragment.
-
---=20
- i.
-
---8323328-1863965678-1793274989=:1322--
+-- 
+cheers,
+jose a. p-a
