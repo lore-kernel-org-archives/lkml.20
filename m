@@ -1,101 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793248060;
-	b=YOJnmduE715jHsIVFxNo2Pf6RADx/lNBnOlaCo11/Ba67zwKv//NnUiFW/fmfaBphnmm
-	 ejFj278RUnm9cLGFacHYmmOgPQv8/vvoFzUKKia85v1S41azQRU0meJmRE4yWwpN7LF3z
-	 fyvJu6AEPUytqFCNjPlVu/EwKAaMMFHwU0TOobjzsKARTtPhhuTRpvvKAvVNYqGiI4tVL
-	 veAtVA6LLwHx/tibfPIzJgTARTUux5ROMhAuHEN3MUIkBWDrAoOPdKNc9xcuGe45I8I6A
-	 JaX857fnOqbCPbonXCUQV8bcTAwVJrqbr2zYw8zFhH6mwXwC+PmzelcI6DDveXborlA==
+	t=1793248096;
+	b=kqS2XMNv868iUMZIvXMK/ITuEFqzhQuIbWUvCiodu1c5OVewnWDe/fCnqXDz5n2sTCbt
+	 ZZ1dFGaMYqQpuDAc8ddvaHY9dflagC72/GSTLgepfPvSZ5L22R312MIrJwG/h1fLqPhr4
+	 YszWfB2mOoyRKKaDDtok23EtrYJq+rBxFeDidhbmdzUWDP4jJIHA4e2BKXXBDxgIntkTT
+	 N5ljGYXPmZ1aFxUuEV5xzjDtGNdfthsUxshrBOzDTy9LZeQYL/ILETYN+5HuL19mhcbge
+	 ivrMYG5sEw+o5CYrXe28FZiP1eP+EQ9h22BdnZdOwLXVFBzL2cIjG1+35ABUUxrOepw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793248060;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793248096;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=92Ry8Npagaq/z8a8VQiLsTt0Bsh/v/B89EOMNxNHR6w=;
-	b=yDh5CIOdyvu52/9SEB+wj/toAKERHFAg6uLf2ptfHYw5k7BIzw5yRwV+Mxu/Pb/I/kAp
-	 1AXoQUj6J9xhHwuE34okJ9flufZzmV8sfDdu9/klVJtidjl8LfwCL4dF2h2oU86hF6DMs
-	 mnybUxst/d2Mm2RxecqJL1cXVcpBT6qBFhy5z7yZMizXRvLLl/4lHaWc80LHKrHc+VKYA
-	 kr4TlpX3TRXUHJ8xdCg3WyETIMUb9veECfjRuwZQVnr9j5Ie19toIkZgUYA/5nskDG19s
-	 /kmtlfNtLi3R4l1IjocVFtC001REBlcXNmNua7QOXtTTZiIJg1b3Zc2ORCjm3L/08lw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=CSHf8I62FhzeLncTYbcQDe6xLWKGa/E6H6jtHXh4bkk=;
+	b=0DYsWvxuz7t8lCKiS8xoGoWBMjuQUZSJUEyp3JE0N/nIUxAOZHrQrsTd+ARxn/mAikDJ
+	 oM4bdAo0TRz+Fausbjiwd+ch5axrPVLvdEpTBirjZll1yWptxVO0dZG2JlqpshIASQaVJ
+	 hqckCt4n8HigI8kK91AzD6Ukev3X1XntYXKEnKR4krZV2FcmMyt/53gDu6KmQIHrpCuDz
+	 lUsUTSky7pFKlONePtTXdv2dr5cze+5NZK6udrWLAXkJy74mi+LFbYNDycTSbkFSRlw4j
+	 SrU+TDo8IaSdJukGlq850nCr+UyO6Yrrckb2r+16q7POr4oX06SmHgPfZePMzKGwQvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PmrIkzsF;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zwYgkpzx;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE14E60A2603
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:27:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE14E60A2603
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5D4606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:28:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C5D4606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PmrIkzsF
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso199971a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:27:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zwYgkpzx
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-156cbe59524so1982942c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:28:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793248059; x=1793852859; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=92Ry8Npagaq/z8a8VQiLsTt0Bsh/v/B89EOMNxNHR6w=;
-        b=PmrIkzsF3KWnP0i6mMndM6dmhR3o55JdfGB0tKABw5xOAMyEwvboHP936D2DTSd7yi
-         HsM3FXRiVwQr/fKIEPvhektnia9sU2G4HOSXZlnRsDBW/zTlfaKjVO9omxl649aBln3Q
-         Gf5CYIqV+U+q+aVU2MsQTjNkBgrUutudp8NJsImyalHlZujeME9ABU1C+PiDotVLpLrZ
-         FySJryJUdt3JLLZAmdCX8VzgS1G09ewoclj+1OQkznyFJY7832qOBBCEPFSaavjYbuLo
-         mqfDNEEQGBHNnhBDG4BIApB8j6ug75eez0IFzQ/GzKQrcepcY19gu91AKaSo3n6IxaQU
-         0W0A==
+        d=gmail.com; s=20260707; t=1793248095; x=1793852895; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CSHf8I62FhzeLncTYbcQDe6xLWKGa/E6H6jtHXh4bkk=;
+        b=zwYgkpzxTsC5Kk2+OWJpbf8FhZQj3lq+cEqtZH3GV1uqYDaCNGISxVylEDgZfflGYC
+         p2YmEO7+t9zn55dXjEYlQbzuefzhD0Ux4k6Rbkj+JI1pgl2pdWTIJk/yt03KswlAhCd/
+         MdtsA9jBnGPxgQHhjCbvEWF8nyBmeXPNdfLHxcuNwG8ldMDTF1+CwvxQn83p50li6vs0
+         WXB7S1yjojswws7fIVaR0OZvMuRX2kx8+zYLdigK0yPMRL1jNnNwv8MdKls9xO+N3Pxc
+         GAmDt4FKPoZI00WdREVotopX8MfPlYTV149DqIQo1XsdnogK9losd7UdruTE53GF569o
+         DYgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793248059; x=1793852859;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=92Ry8Npagaq/z8a8VQiLsTt0Bsh/v/B89EOMNxNHR6w=;
-        b=mfVZ0idZ8kWcmnrG8S+HOpsBHI4/wpOwygIc9wzKAjZDd7V9nRebac8+PBSVCQWN8f
-         Y+r8KB/c4hSbuELR/KHPVI5Rxf2aGjttfBYwVltGNhe48E5RKqHarycfSG9H1TKBhSr0
-         Su35/7Fa9yVvjKaQ3ALOpNl3F7a7YTTOAnM2xmIlsGJDFKxw2lKKyiPAKZl1/gU0/5fO
-         +5kjRcTXD5urZ5B7FZjbXXmXP34zxLr58FrmYlLmLO7gAFncLvGeU2w/hmtIc0E6adWM
-         F9ruhuCMssBMi0Y696rKwUeoOl4lPjnOMQy1aEJZxjvcggk+M4qSg5zRpAOH5pyt7qQy
-         Amcw==
-X-Forwarded-Encrypted: i=1; AKwUvBwuUAKkuFNgEQbYEFueHA7t8RmbwJbN6ZxTaV8RY7mX0OWejVhyKYfWENg1q21/2s2ZP7415as/TsHnnko=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgqEpGDxylzeUNf/XY38vYxlxhs0Wx0YExki1z9rrdJcIoJnCu
-	sQrIg3ghUBvEv4Mw6veqqUCNduBswxB9CtSyMpiC1CbmiFc7Q19vu/0J
-X-Gm-Gg: AYBFou2Z6EMXxjPYocFjaTKvZ8Xiu9KN8zNQ12wOXvi8tGy6+mDblE2xtuEEWlfcmPb
-	X//SCeXHu4IAsSi80yXReHIgSXNa4kLY3qLiiZMqWkHGf9iwDjVC++bCuOU90G2gYzP5UuQAmPs
-	8TlvqRqiFkaX+fmNZDy0eM6yHDRzKTwzFm0xpXI9zBAphUlT/VYuGeIqeYT546wwC32PwuKzlcb
-	ygp7VM/FNVcAcX3d/TZUkj/IR3FPfVK8wS6JqQlGL3JxvshwI1xfIhFDlvauAUlfcjcvrmAyJ+3
-	gyZjDkYdrngLRKnO95Q0iNNarTt6xiogtqd/PB5wyHgKJPynwgUdxt8wW1gVyFZfW3FXl365pTc
-	PaokprrrDU+pdTmc5gFrubymtuqRsHO+4UyIfCbBj4YRKVC9J02lZTAAZGlLgDcDxw9G6q/BSCN
-	6iJ01Phb+Tk6FOK6KDcbL0OqB1b5hcY3sELUPRPCWR/rcX3BbM10YRIIPnxGtudF6/tZj/moRBB
-	+qaKDNk769F0hBxQduHR0jvCtMMaTxjc6jgSs9s+jBK3y/VJ+utYf2aAhIORGnpweWvb4GXq4tb
-	/JWEDq4Kwr/6j4I15vwq6SMc/C/t4VOyGWRZqXanavyLtDyIQk7Mqww=
-X-Received: by 2002:a17:90b:57e6:b0:3a8:786a:cfed with SMTP id 98e67ed59e1d1-3ae6ed88ed6mr887736a91.37.1793248059222;
-        Wed, 28 Oct 2026 21:27:39 -0700 (PDT)
-Received: from localhost.localdomain ([155.69.168.11])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e898317sm2010846a91.16.2026.10.28.21.27.36
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 21:27:38 -0700 (PDT)
-From: Yuqiang Sun <izaiahsun@gmail.com>
-To: haris.iqbal@ionos.com,
-	jinpu.wang@ionos.com
-Cc: jgg@ziepe.ca,
-	leon@kernel.org,
-	guoqing.jiang@linux.dev,
-	gi-oh.kim@ionos.com,
-	aleksei.marov@ionos.com,
-	lgs201920130244@gmail.com,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] RDMA/rtrs-srv: Reject an empty pathname
-Date: Thu, 29 Oct 2026 12:27:19 +0800
-Message-ID: <20261029042719.75868-4-izaiahsun@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261029042719.75868-1-izaiahsun@gmail.com>
-References: <20261029042719.75868-1-izaiahsun@gmail.com>
+        d=1e100.net; s=20260707; t=1793248095; x=1793852895;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CSHf8I62FhzeLncTYbcQDe6xLWKGa/E6H6jtHXh4bkk=;
+        b=QW/II73jRecNMFti/z3l4QHlyRGXykl8abeYk/fek/aZSIUWavtplb/Ev6QD9wK0b1
+         JA1bYqf/FKE29oTpRZ1ADqQrF1Cz4cztZiTi2cURPK/0/NnQtVZEUvjge4RA3uUyeFEe
+         NVRGGv11HHgZ3arkmjL4m5NZxNoD81mBfvWSCLzfPSeFQhfTtEvOliuQQiQr+nzgM7P1
+         P8dMfrXboovTXkuHqBn4IyfgC9g4shMX5WDvp39h9JydUWjE6mD9of4DJxiZ72vHgmmk
+         60/LBvX5IAlPzBnudhF0FBOp3TA1ZSsE+u3MxRWLjBkl6XVIRcb4Bo3GR9SA8hTBAjib
+         OTIg==
+X-Forwarded-Encrypted: i=1; AKwUvBw/e6x6n7pBmQdGcB8wEFKsAhme0zzbj7PJpd6s0x1DauuEsvJyw4dW+CdbbXrgG4FB3vQ65dyXjwR8j90=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKiPDiygd4KYVkiDdj3B5KkeBc8UEl/5fgkL8m8ELMIW/SSKvyy
+	DsS+qMQTIzQYafhoNZOgKwFM6+TeTT8mZ8OLe21rixCeI64y1mTmh3Vj
+X-Gm-Gg: AYBFou1sitUnMf/9g5OVGoXN+PiPCZdHKyD1exgsMAoPjgdu0L+elogAbklKCeXOnkJ
+	LEkdTEgTtZcKIEeBO4OtUkkEOy/W0gdH6ePudwzwGCnMTo+H8iXHcp5saR7d/42KJIbkBbC+dKK
+	oalJWJYMk9acoetDO7u1NR7Hhmt2bwZL0PPrHYuA0ZpQkHn6Y5zdmrgoqZ0kIemA/FRvBIotFe/
+	6JPkts9p4NiQ4PloXEelhT2CvJqDuNk6kNeoaoiB/JHTJtxh0FcEOrgywQpDZCosaY/SJDjzAu5
+	bijlNxezgtz+pfGHQDPT+1Pwek9gzmMzggcEc6j8+OSdwfDwPaccOOp1A0RUktGLwQEFvamciZm
+	rxsdCFFOz/xmdj7NIgqS6q3B6Mo0886LMyISLHEV7McPj/lF3q9Uz0slB99+y11TFQgKM67zlvO
+	HSuy0oIr3EqaEbh/LDo00KG6JBkH7l0bZ3+b4IVsQH0iojbzgW/2BT/LM82w5opIUppM3znnOa4
+	sqsxxvTuQEmbozutRgt2Dq6vRBhrEqe7QD6SJ4ogLR71Ul9LRhqvfSDG/qZnKQ3fFgglsICAR4i
+	4oUAbxT7QsLA0i7VWgo=
+X-Received: by 2002:a05:7022:f502:b0:16a:8ffd:4977 with SMTP id a92af1059eb24-1a6ce113cf7mr5846676c88.17.1793248094861;
+        Wed, 28 Oct 2026 21:28:14 -0700 (PDT)
+Received: from localhost ([27.122.242.71])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75e0098basm10515062c88.12.2026.10.28.21.28.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 21:28:13 -0700 (PDT)
+Date: Thu, 29 Oct 2026 13:28:10 +0900
+From: Hyunchul Lee <hyc.lee@gmail.com>
+To: Hongling Zeng <zenghongling@kylinos.cn>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org, zhongling0719@126.com
+Subject: Re: [PATCH 1/2] ntfs: keep the file size on a failed
+ initialized-size extension
+Message-ID: <auLLWhcN3xKsSdB6@hyunchul-PC02>
+References: <20261028080656.1027283-1-zenghongling@kylinos.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,45 +97,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261028080656.1027283-1-zenghongling@kylinos.cn>
 
-process_info_req() uses the pathname sent by the client as the name of
-the session device and rejects names containing '/' or '.', but it
-accepts an empty one.  dev_set_name() succeeds for it, and device_add()
-then fails in kobject_add_internal(), which warns about the empty name.
+On Wed, Oct 28, 2026 at 04:06:55PM +0800, Hongling Zeng wrote:
+> ntfs_extend_initialized_size() only extends the initialized size and
+> never changes the data size, but on a failure it calls
+> truncate_setsize() with the old initialized size, which shrinks the
+> VFS size down to it and drops the page cache beyond that point.
+> 
+> None of the callers rolls the shrunk size back.  A buffered write
+> into a hole has nothing to roll back - the data size never changed -
+> so the file keeps the shrunk size even though the data size on disk
+> is intact.  The mmap and named stream callers return without any
+> rollback either.
+> 
+> The sizes did not change, so nothing needs the shrink.  Remove it.
+> 
+> Fixes: af0db57d4293 ("ntfs: update inode operations")
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 
-Reject an empty pathname together with the other invalid ones.
+Looks good to me.
 
-Build-tested with x86_64 and arm64 allmodconfig (W=1, sparse): no new
-warnings.  Run-tested under KVM with KASAN, lockdep and kmemleak, using
-a small user-space rtrs client that sends an empty pathname: the server
-now rejects it at the check above, nothing is reported, and an ordinary
-rnbd map, I/O and unmap afterwards still work.  Not tested on RDMA
-hardware.
+Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 
-Fixes: dea7bb3ad3e0 ("RDMA/rtrs: Do not allow sessname to contain special symbols / and .")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5-5 kbound
-Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
----
- drivers/infiniband/ulp/rtrs/rtrs-srv.c | 4 ++++
- 1 file changed, 4 insertions(+)
+> ---
+>  fs/ntfs/inode.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+> index 206db4e99ef1..ac13e8776909 100644
+> --- a/fs/ntfs/inode.c
+> +++ b/fs/ntfs/inode.c
+> @@ -2599,8 +2599,6 @@ int ntfs_extend_initialized_size(struct inode *vi, const loff_t offset,
+>  	mutex_lock(&mrec_ni->mrec_lock);
+>  	err = ntfs_attr_set_initialized_size(ni, new_size);
+>  	mutex_unlock(&mrec_ni->mrec_lock);
+> -	if (err)
+> -		truncate_setsize(vi, old_init_size);
+>  out:
+>  	filemap_invalidate_unlock(vi->i_mapping);
+>  	return err;
+> -- 
+> 2.25.1
+> 
 
-diff --git a/drivers/infiniband/ulp/rtrs/rtrs-srv.c b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-index 56f0ab5a7619..d34a177f7ba2 100644
---- a/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-+++ b/drivers/infiniband/ulp/rtrs/rtrs-srv.c
-@@ -823,6 +823,10 @@ static int process_info_req(struct rtrs_srv_con *con,
- 		return err;
- 	}
- 
-+	if (!msg->pathname[0]) {
-+		rtrs_err(s, "pathname cannot be empty\n");
-+		return -EINVAL;
-+	}
- 	if (strchr(msg->pathname, '/') || strchr(msg->pathname, '.')) {
- 		rtrs_err(s, "pathname cannot contain / and .\n");
- 		return -EINVAL;
 -- 
-2.53.0
-
+Thanks,
+Hyunchul
