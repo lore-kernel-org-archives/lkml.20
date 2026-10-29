@@ -1,97 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.129
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793280619;
-	b=LK3g3QDUCInxNh4r3OjZLhiRZ/PN6KlXil9lV9hBPVxBm9EL9qHWV57KojQRBT31+7T3
-	 q/UfgvemaqJSexZt+1JfGhvVxnN9Hz09ucyUUVNyBSOe5VPE1l+/ZDk6IuHCsqCv0hPYN
-	 m7UNGtOT9EkawgzbY8BJ2aFr7J9OiQL2RnDMimP0297TizW/W5FPnbB7M0gXlG4fVcb5E
-	 f8aEWmCozS2nQ/I10s9l7sESg8c1LBSQeYT1bazo5X9WkSolsemFbSD0BgYPPLSI3HbdB
-	 elx+urHEbGq9qt5RnGj2dTt5yZLhblKHKL50uxl2NoXHo3LcEUraoCWntrMazngBXbw==
+	t=1793280625;
+	b=oxYq2OYKfVJox8F1eNs7yGZKIGbd3c7bxFtgDq4sEkxrC4/XcUEiiM+Y+pBtdPUVBVvt
+	 W90h9bYKMfGRFdo14YTO6C0hQ76ZZqLE2lUlga5V86PUo47Z5M+nZbriRGS6O8CbIr3u+
+	 nnElu7rBtyL7VPM0CIO6mane9BBUKh8zif2heaUi5o2MOtnMm5ypA2VvXELMUrEVJZNHK
+	 Z0uoKHvJwP7zx3OEaEdGJt1QCAsUXd/L9jVoKoLaSfxughMRezmd17nhr/yCUdbc5CG9U
+	 4p9iU9ZgsB4jo3h5R8vkTQ+s20TJTedt6gjn2QHGTAlUHxv0izqwKnakIcA8gojY9Rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280619;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FK1NEp7KNqNkN9kw4sF+qFm94iQIH/PmZZAd7ktbsQU=;
-	b=Q2Hpp9Uh8pctuNl5/htzrU2NLClqJE5M3k5/llx/fr5s7Qzc0tzoGrf9txn7/Uri5KZ8
-	 607CJ11z0zUAk8CYAWspiVZpD8qZJwMwN+TmRyjwEekMnKgmLXI3b2vqEq60HW7PPaGuW
-	 RCEgTcGLc5xK4KaURJOxKaXo8wNx75Sf9vHz187Nf8WCpI++vIKTib8G9XH4b0VB4ogHr
-	 8W7UIsu+Dbr6Dkw3kQT+yN8Gn3Lp2Oc3IBCHCaQcWmsVhyqRTyO1q1MlA6jJs6IeXjUh4
-	 lduDN/CvY0/eK33qp77a1rmc+ai1sPSF/Kw5XSPfy1QCaEDSdJYuhVVTAEXuaaimKMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793280625;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Mb2nUQU4M00SSUzZJSeoQpnNXAraCq7x3LdAKS30Euw=;
+	b=av59mA0JFVoyz4HJOq9OYY+bqom6HCJpdGpiVJZgY+AAAAPVDwFOBscIb2eE9diepS8a
+	 838mm8Qv1AJ5Ew7hqXjfDP08UFl5ExS2cKSlAhmM755PQbQ8sFnI93jLjEkU1AMzcega6
+	 I+P/CSQSOQqFPMkAYQI6/W7WEU+yng1qLG1kRzE4F5mquQXMfMaeL/nl9G6o74heCvQEa
+	 rpQqU7kMzF8FNOkada1v+mxwpETZCFwUIYkuux5HVTxkEX/osFBJflMCLDKoUROsZnXWa
+	 2Ob+h0uRQla21ncH85NoA+sTZKMIRLVybaHkb40iHT2q74gjkm7C+1c0AnHdWhQsHdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TP0rN4nH;
-	arc=none smtp.remote-ip=74.125.227.129
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=moKhVdIW;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15945606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:30:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15945606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67996606A326;
+	Thu, 29 Oct 2026 13:30:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67996606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TP0rN4nH
-Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2e876f468e5so1185125ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:30:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793280618; x=1793885418; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FK1NEp7KNqNkN9kw4sF+qFm94iQIH/PmZZAd7ktbsQU=;
-        b=TP0rN4nHLQ1fB57H62jKG4PP8jAKAyi3uopqyZO4N6PtzC2dD8jg4dpauPdJrLFsQ/
-         6NY8asEy/okYbK3YqTDLb9hzEpRQFqgPEPdCkRwFEqmkgWfwVyvjTXUb7F1aVx5dRnNW
-         FNaQnkS6HXj+JfvIsA4Bwv/Xd/gXvo6bjEK8nH4hBACXP9bhM2iURYU3yq6oCvMb5nzE
-         ocmCqg8hMNKK54alNTlT13b6BVzDNiXlp4VGn+1sdufrXLCAdIqM7UDJZtEr6gUoOymv
-         7bu7CNI2kHCNUlR2qZks7V6UTWVbFotYg4l7R/FoBT+fTYnylC7dzrcjg5zj9cIsfY1i
-         knHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793280618; x=1793885418;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FK1NEp7KNqNkN9kw4sF+qFm94iQIH/PmZZAd7ktbsQU=;
-        b=GRamUdkdzI6yXWz+C4qSDSUF0jJ3L9aL6tqu5SSB4dUZPRaXBYSyswEmL4ZdPMLEIx
-         KaPtfH1WcMEaphF3i0qPd+E2cHsJr8tUXR8KbrCoTR3u4eh34qSgCk7ek1092Cc9q0A8
-         8Gm9Sp8U7efCF7zSdt0LAlvcHSrPCF95teJA+yLC6yy7AnutYvfytq0F1PQuBK1DoWwX
-         REQhdm+ZUBV+ku7J+LlkWNz0Slzuu1+bcvGG0/FAaDE/49nZPHASrIiqq6L7J/EGpQ9a
-         iMkCq95wc0U989FP2XtCZgvYEJGFVXg5vRUb0bSXa0/ewZTt8iLPg9VICiylIDGNtum4
-         vHJw==
-X-Forwarded-Encrypted: i=1; AKwUvByKIAhqyEO/sJgxO5oJzSA1Hye8oKILHFsjzEtFnFo0/b1Q/e8nXV5EGHYXcD3/muIF/gwQ9jvQBaDJ6yk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+p51xNbrdoqFk8QtDW96lEEpryygJMw7KNjhgISM8QHROT4Y2
-	9AdZJ+9RXjIWXLMDnMposNVxU4k9QbRlR67dqPI5PFP2hU82m0trGojEwmwYxcVMnAk=
-X-Gm-Gg: AYBFou3jr2n2hgQKLNdNXQQCMjBr5EBKkbjvrLRik6UZzuyfzIWsPGd2rIvvQUyxzM5
-	0ml7lEhJmqrCg5F/mjtLJxn85rkTsm/9CwK8yoowIpnkG3EBgw+xpN/Q1dIxHFMB9DO0sdzNQIt
-	78gjE6txbqDVy0Gxqi9RXlqSC1AzNDzdfQuwZLQv2GNYkcK/AHz1c8xflQ6e9F1B9uUMMSC/piO
-	U0P7atUYObujXk0SX+RliffGkiunQPXI0ZpGTHUdfKIydZUiLhJ6u6wNrq0ge0UH2WZRY86p0yq
-	sxVjVVbNHFA0L2C1RiF7aq/T6I2sug8PcD1VOi7kKU5KHCwKUTIbGdhS5akv3rrLFjBTIB3qodw
-	bhEZFbwTHct9SUERSTk75zJ4onT/Yk4JiV1U05D1MAQK7Sbw0c6fFuv17vI9Go5E3hi0f386f9e
-	93iQ/ymYVa8xe2q1djbkfIDijYpnExbTjbPpAJzrPKIm2azZnEwlC8aoMvp77gxOCX85HTkcsqb
-	E+HzMsAs3ehdYfjswtFIA8P5+tu8jry5k0r4+rSUnwwViblW8Yx3l8i+NSX4zIuxfCOsj28LQMA
-	ZK//tZVaGLzht+UVfR8twNgrAQlQwQdJyEJqww==
-X-Received: by 2002:a05:6a20:2445:b0:3de:7bd5:fb47 with SMTP id adf61e73a8af0-3e9023a4ad3mr4982964637.39.1793280618265;
-        Thu, 29 Oct 2026 06:30:18 -0700 (PDT)
-Received: from archlinux ([2409:8a4c:cc3:2931:e1d3:ace0:b5ce:fd44])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdacd6aeb55sm4068530a12.7.2026.10.29.06.30.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 06:30:17 -0700 (PDT)
-From: Jiandong Qiu <qiujiandong1998@gmail.com>
-To: alexs@kernel.org,
-	si.yanteng@linux.dev,
-	dzm91@hust.edu.cn,
-	wy@wyuan.org
-Cc: corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jiandong Qiu <qiujiandong1998@gmail.com>
-Subject: [PATCH v4 0/2] docs/zh_CN: update translation of doc-guide/sphinx.rst
-Date: Thu, 29 Oct 2026 21:29:39 +0800
-Message-ID: <cover.1793279600.git.qiujiandong1998@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=moKhVdIW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793280624; x=1824816624;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XiB/P3z67uNi54hQwr+HoGceAi4KeJ58DpxovBSc0bg=;
+  b=moKhVdIWHTlYBTM27yPpptcYvWfZxeoV5vQDl8tROPJHxcy1XOyrsLiH
+   UEC0pOG8yTIBOxOxX+8Sx3MfPvthNhhSVbg7hmXMLdY75L0ynvudB2qUB
+   xwDw8dlq+JFqmrEH1vF2p5uZ15A+7QpDyhHdm3QkceUndx7CjaFFhUM69
+   MGYS36fDRAR2PqPL1vCXsKjhaE/atqXAWFvoXUpwofjuL2spLHNDxelfM
+   4s5Iqm0+JQ+1YT0Rz6kf+pLQU6USwnYQL+Zb3tysqKRg5FvDcKhZdVdhv
+   IUM8pJpk+riQyMmNtQTeyuROg0DxK1r+WJdKbdMqvpLe47T3qLyVJqwQX
+   A==;
+X-CSE-ConnectionGUID: X1a7bbI8SnWe9Ef4aSkLOQ==
+X-CSE-MsgGUID: CjMqrJc6RY20tCJkecc5HQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1915313"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1915313"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:30:23 -0700
+X-CSE-ConnectionGUID: pazyI6DLSZO+QuLDn2CgVg==
+X-CSE-MsgGUID: Eiw0OS5rRee86K4uWKSdfA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5273644"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:30:12 -0700
+Date: Thu, 29 Oct 2026 15:30:09 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>, linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-gpio@vger.kernel.org, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-leds@vger.kernel.org,
+	mfd@lists.linux.dev, platform-driver-x86@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
+	linux-watchdog@vger.kernel.org, linux-integrity@vger.kernel.org,
+	keyrings@vger.kernel.org, linux-security-module@vger.kernel.org
+Subject: Re: [RFC PATCH 03/14] watchdog: add driver for apple smc
+Message-ID: <auNKYRpfqrtKa50O@ashevche-desk.local>
+References: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
+ <20261029085504.3547-4-atharvatiwarilinuxdev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,46 +112,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029085504.3547-4-atharvatiwarilinuxdev@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi all,
+On Thu, Oct 29, 2026 at 04:52:00AM -0400, Atharva Tiwari wrote:
+> Add a watchdog driver for the SMC on Intel Macs. It can
+> reset the machine if the system stops responding. It works
+> on both newer and older SMC versions.
 
-It has been quite a while since v3. Thanks to Weijie for the reminder,
-and to Dongliang for reviewing the series. Sorry for the long delay
-in sending this update.
+...
 
-This series refreshes the translation of doc-guide/sphinx.rst.
-Since the updated version refers to process/changes.rst, I also add
-the missing zh_CN translation for that file to ensure a consistent
-reading experience.
+> --- a/drivers/watchdog/Kconfig
+> +++ b/drivers/watchdog/Kconfig
+> @@ -1810,6 +1810,17 @@ config SIEMENS_SIMATIC_IPC_WDT
+>  	  To compile this driver as a module, choose M here: the module will be
+>  	  called simatic-ipc-wdt.
+>  
+> +config MACSMC_WDT
+> +	tristate "Apple SMC Watchdog"
+> +	depends on X86 && MACSMC_ACPI
+> +	select WATCHDOG_CORE
+> +	help
+> +	  This driver adds support for Watchdogs in Intel macs Using
+> +	  Apple SMC.
+> +
+> +	  To compile this driver as a module, choose M here: the module will be
+> +	  called macsmc_wdt.
+> +
+>  # M68K Architecture
+>  
+>  config M54xx_WATCHDOG
+> diff --git a/drivers/watchdog/Makefile b/drivers/watchdog/Makefile
+> index 9ac406677..f142a5d8d 100644
+> --- a/drivers/watchdog/Makefile
+> +++ b/drivers/watchdog/Makefile
+> @@ -158,7 +158,7 @@ obj-$(CONFIG_NIC7018_WDT) += nic7018_wdt.o
+>  obj-$(CONFIG_MLX_WDT) += mlx_wdt.o
+>  obj-$(CONFIG_KEEMBAY_WATCHDOG) += keembay_wdt.o
+>  obj-$(CONFIG_SIEMENS_SIMATIC_IPC_WDT) += simatic-ipc-wdt.o
+> -
+> +obj-$(CONFIG_MACSMC_WDT) += macsmc_wdt.o
+>  # M68K Architecture
+>  obj-$(CONFIG_M54xx_WATCHDOG) += m54xx_wdt.o
 
-Changes in v3 -> v4:
-- add changes.rst to the Chinese process toctree and remove its TODO entry
-- sync changes.rst through commit fd5425b67355
-  ("docs, resolve_btfids: Document kfunc BTF annotation emission")
-- remove Assisted-by tags from both patches
-- fix a typo in the sphinx.rst commit message
-Changes in v2 -> v3:
-- sync changes.rst with the latest commit.
-Changes in v1 -> v2:
-- drop the separate llvm.rst anchor patch
-- remove the `_sphinxdoc_zh` anchor from .../zh_CN/doc-guide/sphinx.rst
-- add Assisted-by tags
+In moth files the entries seems misplaced to me. Also, why did you touch
+the blank line?
 
-Link: https://lore.kernel.org/linux-doc/20260619140245.1982921-1-qiujiandong1998@gmail.com/ # v1
-Link: https://lore.kernel.org/linux-doc/20260621131215.1303439-1-qiujiandong1998@gmail.com/ # v2
-Link: https://lore.kernel.org/linux-doc/20260706151358.2103703-1-qiujiandong1998@gmail.com/ # v3
+...
 
-Jiandong Qiu (2):
-  docs/zh_CN: add process/changes.rst translation
-  docs/zh_CN: update sphinx.rst translation
+> +struct macsmc_wdt {
+> +	struct apple_smc *smc;
+> +	bool has_oswd; /* Newer version of watchdogs in macsmc */
+> +	struct watchdog_device wdd;
+> +};
 
- .../translations/zh_CN/doc-guide/sphinx.rst   | 167 ++++--
- .../translations/zh_CN/process/changes.rst    | 528 ++++++++++++++++++
- .../translations/zh_CN/process/index.rst      |   2 +-
- 3 files changed, 662 insertions(+), 35 deletions(-)
- create mode 100644 Documentation/translations/zh_CN/process/changes.rst
+Try with `pahole`.
+
+...
+
+> +	.probe = macsmc_wdt_probe,
+> +	.driver = {
+> +		.name = "macsmc-wdt"
+
+Always add a comma to non-terminator entries in the initializers
+(yes, there are some exceptions, but it's not the case here).
+
+> +	},
 
 -- 
-Jiandong Qiu <qiujiandong1998@gmail.com>
+With Best Regards,
+Andy Shevchenko
+
 
