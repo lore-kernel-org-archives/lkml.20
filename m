@@ -1,127 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793305112;
-	b=ES6IQWGZchHXqmVXWkR4OKoIzRdPG6uhZjFjWHp7WAxmvQ910vxSE3Yo95oO64H6sff5
-	 C6fv7JDNNkSgMDqijrDxFB6ND3lWWHUninFJFqrI3obmTmfNbZ0CHFqp+/UYCK0ffmaRy
-	 ZgZ8r+QOCMSET61vn5ZQmOOXJDl5V1hbsUijzosNC7thZVIPigur0EJH5lHoafApHruzX
-	 kSSDuDRyfIrV4H4fTjeWonO+SW448rqa31kskJuuaz3w7Y/DBqqfYj/7RKFyQDaalHOGG
-	 LsnJz02V/U0nOmr/2WHAiCFdqgUiV4e63pkmYyGvrN/e/9lWJtfFGvZq1Ih7nAOI36A==
+	t=1793305149;
+	b=wd45l/1hGtjyMf3YJVui36hnAISBiHB1ALk1qSUsjgTOfT0xDvtM5YnrUyn/XZzFzizZ
+	 WnMAmYnlXPd0yUkavd+qWlrh0/tjT4MwrM1US9yGifWBkuyvF/m8vNfAlv73Jei9MFkHZ
+	 cv/rOn+G+KGK2/OTJoBjJfRmsB/7+AbSR07DV3oew/jS9ieBFB2Zp230Cq1SCkhpHAbnu
+	 xszowqDD+qQ7V05csO/EYYUdrHfQs06gmQ1Yh2kjQGgILERQb0/MBLRRw3u7nRT5rIzaK
+	 Zh3NeQYkKVUyj9cZHI/A83wNJZkEEEn2kun5w7xU+mmM/yaOaMOX8/YSgU3KcYoKO9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793305112;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=8ezEVu/wf9LIg8Dnb2467LtGKEBxep11x0ghaaw5IxI=;
-	b=Ly+UhjzyORd+I/OMmoKax2+iiE4bOWeyFrdCpANoEjrweXde45FFo07QKTwwfFcxgnW6
-	 amgRQakZto6uXDFqO+dXC/+KUtfjSqX8IFwfZhpRpAzdxq14N6reYs7Rc0v7d2ah893RZ
-	 8IK/rciR65KBVjZfSDQD1RZd+jISdpfvPyT07L/4dP35w8mKXMssyWxpnkxaTmSVcFpR7
-	 gHvsFtXkKqByrIxF83NSbxIHFMiUnrdtyujvE3wU8MVJk15WgjFWXkPryKLG65U2EdBT5
-	 homEREkNFygcNRwMJwdeHAnZh/ZW8UIBYQ8QByViWZKvl6cV6LEji5nbRtz1SBL5P5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793305149;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=DgH2xCOp/6/mNmEP4Z/0nXSnHkQBtLx+MyyZJMoK6oE=;
+	b=f4BHegkFHRtlJXwQ1g3fDSwLKNm7kzX+OITRE9Cp9K7UDICsFsCcQ5LlJhipEF2rvu0z
+	 Qjgd7xybDREwgKNqwI3kpRaT4qRy6mlznRDtXOU+WeNYsLxI8vEImDGlp+SbkoSZHaXdi
+	 EoQx5qNHzG/53WWX7Eacd4ZoH+faitmPnSXP3tqJEE4aDisSZu+7N+pxZBIEtFd2igKKJ
+	 7A7JMH4e8GKzsMG+NKJ4ArWDPqG3mNFs/9AWk47CUKn5o4ApE42uaR9Zh4FCK4D2M0koL
+	 3Vnn5ClYQpWsR+y31IE70gyxBWvBNbvJKuz4uvJoOB4C1tZU/QOf4A8u0oUZHBjkNHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EC7ofjzx;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=INAS2edq;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n16LifQm;
+	arc=none smtp.remote-ip=209.85.216.70
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5BF9606A32C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:18:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5BF9606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3017D606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:19:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3017D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tjmercier.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EC7ofjzx;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=INAS2edq
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TJjj041122778
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:18:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=8ezEVu/wf9L
-	Ig8Dnb2467LtGKEBxep11x0ghaaw5IxI=; b=EC7ofjzxolr8nIxz3oLc7q8L5Hu
-	FeKJc01cKQpzdfxSgPkfzno5pNxha/enC7hkjkhVqOghsoYPINxQwF7EZ61tZcJJ
-	grUlU1LqLAaRI3XtdvqXqrXEyot69XH0zsdhijexNbss0imw2yov60NbGXGZiTvq
-	5IMKqVJdWIxckG+7+sQ6hk4AVHLAgT64L1LSYB1QJH30IXNnJuanpebQpokiHtz3
-	AWUAiEnqgJNz23l8iC7eVLl/CmfpNt6L4HldY7RoURnvnqWQynHAvcu6zFtjYvt3
-	qsbw5Zv5ngO81pVdwO3vLukuuzTV/YI+/P03WTfR4oo12rMtNu9Dc7A1QJw==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hm8k4k0rp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:18:30 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-89e05d31e54so2039239b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:18:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n16LifQm
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae1d132d52so8122a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:19:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793305110; x=1793909910; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8ezEVu/wf9LIg8Dnb2467LtGKEBxep11x0ghaaw5IxI=;
-        b=INAS2edqqGmxvCpEo5pRz6B7cJ8iG7XJygnl8XAFvQ1nnFVy/Sx2if/RP5rJ8FtS/C
-         kB6RryV8N1gzLV6jZ5dRcC5CP55XapItr7q7Y5FveqnIHEyCqg1h5hBtTJ8EXSBJlfAI
-         8e7CKKHXvPOpJIxVGcDLMosy8hbFvGdvoMRbWbtSAfTxTawPjbkiZZS6cnNcqvfqJlcR
-         8tI/yz/odw+Jf79zjutufZB6qhm1uJfp0TrQrYoyf2PiRy5+Fx3otHlrrqdvWazabowy
-         u+RcV1VOtdiOHJWTS2T7UTLMRrZtknLCHvHh8EihgF5NHRk0dt3I6XeiUmwqJqtNHp84
-         HVzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793305110; x=1793909910;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20260707; t=1793305148; x=1793909948; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8ezEVu/wf9LIg8Dnb2467LtGKEBxep11x0ghaaw5IxI=;
-        b=SPLuvVRLzs7d2r01tmmn4aU/F6JBUHPYAmEjRiLkTkfqgUCQBzZY369UC8YWUQ0QDt
-         suCXexs9dnaPFZxq/+i1FHtmhe1MVmlmkQfczWPpGO27NYWa8kE1pl2Ua8L29VI479YC
-         6cRDDmfWcnsENDOjPA84/d51mD9LpQ1D4Fx47dgEHXo4pQoM7oW87AQUI6BBt3N54pyr
-         VBDxiSEszoULHUA/03OKA0NZ1GDoKzTzR1jqE/E9gOVWOYc9Fd7DISLcOzHOyhOaWuam
-         /Py+jD27xqG0AZO1m5SQUp2v+J8kNYORvlbkdwPV8RpWmNAj8aFroLxVeTZBnyyicu96
-         svEw==
-X-Forwarded-Encrypted: i=1; AKwUvBxfutsNgkCOfASSk9yR+kFCmiuHt6MUA0ueoVnGpjAPBBRxdZoS8fSrzJqflQ+hhEEyKpIg62gZtvtE/jM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1sh2A79/1mgl/wcy5rTvb1DjnhknwOsxI9YRQjDsdfIYexQK+
-	2Fm35ZvA8bZQIidziO5GAp/d0UQdhrHe1oOMJvAjr3bzSv1mQpxnluz62nPYHDqJItYtSWoMiO6
-	W6G/9BQDbcDgzY98jMrdlK0NlXumKSrYmuLel2MTzX72mKTZpOW8VCIufH5HrOOrXXls=
-X-Gm-Gg: AYBFou3/OweRiK0s8apI36ygO8MNtP8S1m6to+XGlYrRxLMccRa/9X3Xr86oLneKTPW
-	PganJCBZrLUrNAVXhiAmw0TzWLwmXTVsKQSIAX/hdmQ9EXcwU/sfhGkAxbnzxuJLtjGgMSJ12n2
-	IeY/m4OZtyVPliAAe22PeVtnPIxGEPSnS21NB972OaizL0ge90PEuz/47E9pPWGAgE+XkL8zwgo
-	/QBSLPHE/1XpBafXVMoJDajjLp0EGgcbBGNTY+uKI0ZNp5K3Vqz1wu3nf3gGrq+w5wpO/azDYQ9
-	6WTRjfo9EAK7Un95IpFCVaR28BCG4QpFUgibk4xJLecT3qkNW7lKQRiKDzfTwCucRSCsX9UB2gJ
-	X8OwBh9/zvcTI1pWWAPFlPkjGt6eb6HfewVYR1yuJtiJJQvlmqHiqG+l158XhJyEa0F/VDW61s8
-	npHtMi86ve0iskk+ImJxl4Fg==
-X-Received: by 2002:a05:6a00:1393:b0:899:27b5:214e with SMTP id d2e1a72fcca58-8a9bed5ba40mr156467b3a.30.1793305109785;
-        Thu, 29 Oct 2026 13:18:29 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1393:b0:899:27b5:214e with SMTP id d2e1a72fcca58-8a9bed5ba40mr156437b3a.30.1793305109321;
-        Thu, 29 Oct 2026 13:18:29 -0700 (PDT)
-Received: from localhost (c-67-168-198-145.hsd1.or.comcast.net. [67.168.198.145])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a98a2b049csm254918b3a.56.2026.10.29.13.18.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 13:18:28 -0700 (PDT)
-From: Rob Clark <robin.clark@oss.qualcomm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
-        Alexander Koskovich <akoskovich@pm.me>,
-        Jie Zhang <jie.zhang@oss.qualcomm.com>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
-        Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v3 14/16] drm/msm/a8xx: Use CP_PROTECT_PIPE regs
-Date: Thu, 29 Oct 2026 13:16:24 -0700
-Message-ID: <20261029201730.151754-15-robin.clark@oss.qualcomm.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261029201730.151754-1-robin.clark@oss.qualcomm.com>
-References: <20261029201730.151754-1-robin.clark@oss.qualcomm.com>
+        bh=DgH2xCOp/6/mNmEP4Z/0nXSnHkQBtLx+MyyZJMoK6oE=;
+        b=n16LifQmuoNDtwFF4AQxmFuVlC73wKUZAnY13CNT0cdrOgFDn1qOPK78rJ4jvNz6F1
+         iaYI12oPJRMdbOdScY1ZviBzD0Mrx6k1KJeKjNu5a9koknHMEqluR+un3VNlPv7Yzwx1
+         dAorpZBXT6LWv3q75uH7yOxC/j7zX3PvLw0eYGO8dRwNbrJglq5Y5ovYy/JtscSE5Fey
+         /OpxoKu0TLitSeLr7RRJBxKCeRzsOkc6zio5rRvYb4tsEleBUPB1qjXYrPangBSA+XaK
+         f+13CuwqMLNEA6Tmi3jlmKqlAxqQEo0SMOKRH0p5ZnhRSjUSKPG7+ydQ3Jd1mexZj7eV
+         KbJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793305148; x=1793909948;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DgH2xCOp/6/mNmEP4Z/0nXSnHkQBtLx+MyyZJMoK6oE=;
+        b=lZHpZMq+04dBy+NUS8O5YQlRv+2PLZaaN5iqXcX6dNH9Rz+XrttY9FoTBd97iYroZV
+         KbDLHTbRNT5GFd/7vrXLYqViNOXeFkkk6oaO7hwicjol35dF23TDyM/JbZbWxNv7rXx4
+         J9RNGA+vFLM9vNWutlPgmBR8zQueT3WGz3ARM5IETA4gEFJu5i8ov3qWxJndnsWieA/a
+         jlhpSOTEqqqSdXPS+oliei5h3E8TLIby9TpkVKdCm66GfJ1oJbuUI6ofCkNGL2zcvQzx
+         DxP2nuatYRuMuR1WXSYOYzGcl2xItPt66fky9yjVTxdOOLmaqir80HefFQ2uhVE3Fzbc
+         na+w==
+X-Forwarded-Encrypted: i=1; AKwUvBx/tbNKrawtwpuoKwd6zxV1B/MvfCSruXftEq96dJ3gYERukTCGyfDKJEeoKx68EJ3NhiHhM8DcDXGzREg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJk4sDJTFRwwASpEGluDXNcI6J/Tv9jlCvPFRpX82NYmBCsmabD
+	Gxya4nAFRKRfoX74UVj5j1JZdYp6vn9jRQvRuePW+Wb8hOwvFNvIY0bN39slhUzy5/ir5raUpTU
+	fgQDMpmPHY+YCjj14OQ==
+X-Received: from pjig2.prod.google.com ([2002:a17:90a:5782:b0:3a8:7374:19e9])
+ (user=tjmercier job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:35c8:b0:3ac:9a5e:9ce7 with SMTP id 98e67ed59e1d1-3ae897aa7aemr68937a91.49.1793305148283;
+ Thu, 29 Oct 2026 13:19:08 -0700 (PDT)
+Date: Thu, 29 Oct 2026 13:18:58 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,75 +75,177 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA3OSBTYWx0ZWRfX6jOBzs0NVRaR
- kbNBvAsxVqgWyyOPxJCbJ+ukHuBwJVge5LMkip0KFDAzwBA/cLXYKdf9f8V2OY8AMDbXXZUPF2h
- PQ/wfhf2et8SZgs4Yh/nKXBM8ErO1mV26s7pe0PmdFrBmZkhSZfHoJGbO00/Do2cIeZA6OqUuP1
- xuhMvaqDpvbk19tviGzVBgaCoZTTIDKqviSm9dWfmK6zgp9mVo+DiCB48h4xQSH3l+vejVzcXVb
- /1sSBmLpSMO1s9tItEFOGNQUFiGj8IRyywbRYYa51zryWX5dZjcPQJFZGAR2J78uU550Fa8Y5rC
- 3wgNYwHKv1QAZi1osypDBrKA2xMMMCkDmIIAxbsQ0kgcFuH+mnRZWRKZrXBDapJ/Ir1wsDkGLcS
- hkzz0CI0jblXF1ktFW4i6TKKkuzDsMOfYEIH4sIZEYyMJG3vyafFVRePCRyOh5kvcw295BcnNs7
- xVYu2U8e516YENhx7Sg==
-X-Authority-Analysis: v=2.4 cv=LuAHWXdc c=1 sm=1 tr=0 ts=6ae3aa16 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=6Rn/7xRx7Ub4NEhlm8k1cw==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=Dhg23qV5XRRJQlZlKu4A:9 a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-GUID: 9KF_l6pDf9M77-89ZxP6ujjRLspLSdM6
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA3OSBTYWx0ZWRfXwF+hFytMdqi9
- 02MnmsZDyt7xybtoTe0svUza7tcRfMnRrm566zLteYgjUpNa8ELTfWO1nKnTd7MIHxSq3oLK64/
- Yrx6zuPo3siObAQ40l0X/s3uuXkdFFc=
-X-Proofpoint-ORIG-GUID: 9KF_l6pDf9M77-89ZxP6ujjRLspLSdM6
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 clxscore=1015 adultscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290079
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261029201858.2932905-1-tjmercier@google.com>
+Subject: [PATCH v3] mm: memcontrol: fix NULL pointer deref and UAF from
+ high_work_func() on dying memcg
+From: "T.J. Mercier" <tjmercier@google.com>
+To: hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
+	shakeel.butt@linux.dev, muchun.song@linux.dev
+Cc: zhengqi.arch@bytedance.com, jp.kobryn@linux.dev, akpm@linux-foundation.org, 
+	cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, "T.J. Mercier" <tjmercier@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-If there are not enough global CP_PROTECT_GLOBAL regs, we can use
-CP_PROTECT_PIPE regs for the extra spans.  We just need to configure
-them the same on all pipes.
+When memory.high is exceeded in non-task context, try_charge_memcg()
+schedules memcg->high_work without taking a reference on the memcg, and
+high_work_func() invokes reclaim_high() without pinning the memcg.
 
-Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+With obj_cgroup reparenting, introduced in commit bf4f059954dc ("mm:
+memcg/slab: obj_cgroup API"), objects charged to a child memcg are
+reparented to its parent in mem_cgroup_css_offline() instead of holding
+a reference on the child until uncharged. Subsequent uncharges of those
+objects go to the parent, which can leave the child's memory use
+permanently above its high limit, so any later charge on the offlined
+memcg in non-task context schedules high_work. This was later widened
+from kernel memory to LRU folios when commit f1cf8d2f36dc ("mm:
+memcontrol: eliminate the problem of dying memory cgroup for LRU
+folios") converted LRU folios to use obj_cgroup reparenting.
+
+cancel_work_sync(&memcg->high_work) only runs at the end of teardown in
+mem_cgroup_css_free(), so high_work_func() can start or still be running
+reclaim_high() after mem_cgroup_css_released() or shrink_many() has
+called lru_gen_release_memcg() and unhashed lruvec->lrugen.list. If
+reclaim tries to rotate the memcg, lru_gen_rotate_memcg() dereferences a
+NULL pprev pointer. This issue is specific to MGLRU and was introduced
+with the memcg LRU in commit e4dde56cd208 ("mm: multi-gen LRU: per-node
+lru_gen_folio lists").
+
+With either traditional LRU or MGLRU, css_free_rwork_fn() calls
+css_rstat_exit() which frees per-CPU rstat data before calling
+mem_cgroup_css_free(). If reclaim_high() is still running, rstat updates
+via mod_lruvec_state() -> __css_rstat_updated() cause a use-after-free
+on the per-CPU rstat data. This was introduced when commit 5da3bfa029d6
+("cgroup: use separate rstat trees for each subsystem") moved
+css_rstat_exit() ahead of ss->css_free().
+
+Fix both problems by acquiring a reference with css_tryget_online() in
+high_work_func() before calling reclaim_high(), and by resetting
+memory.high and swap.high to PAGE_COUNTER_MAX in
+mem_cgroup_css_offline() so that charges via references on an offlined
+memcg do not trigger high_work on the dead child and skip checking live
+ancestors in try_charge_memcg().
+
+Acquiring the reference in high_work_func() rather than before
+scheduling high_work is safe because mem_cgroup_css_free() calls
+irq_work_sync() and cancel_work_sync() which cancels pending work and
+waits for an already running high_work_func() to complete before
+mem_cgroup_free() frees the memcg. css_tryget_online() uses
+percpu_ref_tryget_live() and is safe to call after percpu_ref_exit()
+before the cgroup is freed unlike css_tryget().
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+CPU: 1 UID: 0 PID: 27 Comm: kworker/1:0 Tainted: G    B   W           7.3.0-rc5-g2bba28e98578 #284 PREEMPT(full)
+Tainted: [B]=BAD_PAGE, [W]=WARN  <-- Taint from lru_gen_rotate_memcg() VM_WARN_ON_ONCE
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
+Workqueue: events high_work_func
+RIP: 0010:lru_gen_rotate_memcg+0x1a3/0xe90
+Call Trace:
+ <TASK>
+ ? read_ctrl_pos+0x22f/0x3f0
+ shrink_lruvec+0x16cb/0x1b80
+ ? ret_from_fork_asm+0x1a/0x30
+ ? lapic_next_event+0x15/0x20
+ ? clockevents_program_event+0x2bb/0x6f0
+ ? lapic_next_event+0x15/0x20
+ ? __pfx_shrink_lruvec+0x10/0x10
+ ? __pfx_clockevents_program_event+0x10/0x10
+ ? _raw_spin_lock+0x84/0xe0
+ ? __pfx__raw_spin_lock+0x10/0x10
+ ? kasan_save_stack+0x30/0x50
+ ? psi_group_change+0x381/0x740
+ ? __pfx_sched_clock_cpu+0x10/0x10
+ ? save_fpregs_to_fpstate+0xc4/0x2c0
+ ? finish_task_switch.isra.0+0x1de/0xac0
+ ? __schedule+0xf62/0x42c0
+ ? __pfx___schedule+0x10/0x10
+ ? __pfx___irq_work_queue_local+0x10/0x10
+ ? shrink_node+0x626/0x31e0
+ shrink_node+0x626/0x31e0
+ ? ring_buffer_unlock_commit+0x11d/0x5c0
+ ? kswapd_clear_hopeless+0xa0/0x150
+ ? __pfx_shrink_node+0x10/0x10
+ ? 0xffffffffc0000095
+ do_try_to_free_pages+0x255/0x13b0
+ ? ring_buffer_unlock_commit+0x11d/0x5c0
+ ? reclaim_high+0x10a/0x1b0
+ try_to_free_mem_cgroup_pages+0x1f9/0x5a0
+ ? __pfx_try_to_free_mem_cgroup_pages+0x10/0x10
+ ? irqentry_exit+0xc6/0x670
+ reclaim_high+0x10a/0x1b0
+ ? __pfx_reclaim_high+0x10/0x10
+ ? process_one_work+0x5ff/0x1030
+ ? __pfx_high_work_func+0x10/0x10
+ process_one_work+0x6e2/0x1030
+ ? __pfx___schedule+0x10/0x10
+ ? __pfx_process_one_work+0x10/0x10
+ worker_thread+0x422/0xbb0
+ ? __pfx_worker_thread+0x10/0x10
+ kthread+0x2cd/0x3a0
+ ? recalc_sigpending+0x15c/0x200
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork+0x368/0x590
+ ? __pfx_ret_from_fork+0x10/0x10
+ ? __switch_to+0x588/0xf50
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
+
+Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+Fixes: 5da3bfa029d6 ("cgroup: use separate rstat trees for each subsystem")
+Cc: stable@vger.kernel.org
+Signed-off-by: T.J. Mercier <tjmercier@google.com>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
 ---
- drivers/gpu/drm/msm/adreno/a8xx_gpu.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+Changes since V2 (https://lore.kernel.org/all/20261028183537.605854-1-tjmercier@google.com/)
+- Add RBs / Acks
+- Explain why css_tryget_online() is safe in the commit message.
+  (Shakeel Butt)
+- Update the commit message and subject to explain the cgroup UAF this
+  patch also fixes. Add Fixes: 5da3bfa029d6 ("cgroup: use separate rstat
+  trees for each subsystem")
+  (Michal Hocko, Johannes Weiner)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-index a6146372cf7e..1f8dd688b967 100644
---- a/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a8xx_gpu.c
-@@ -258,12 +258,21 @@ static void a8xx_set_cp_protect(struct msm_gpu *gpu)
+Changes since V1 (https://lore.kernel.org/all/20261023222313.3979455-1-tjmercier@google.com/)
+- Switch to Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+  from Fixes: f1cf8d2f36dc ("mm: memcontrol: eliminate the problem of dying memory cgroup for LRU folios")
+  per Muchun Song.
+- Reorder and update commit message content to describe reparenting
+  separately from the commits that exposed and then widened the problem.
+- Trim the backtrace a bit.
+
+ mm/memcontrol.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index a05d9a8baa1b..84f4a8fd4d16 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -2457,7 +2457,10 @@ static void high_work_func(struct work_struct *work)
+ 	struct mem_cgroup *memcg;
  
- 	a8xx_aperture_clear(gpu);
+ 	memcg = container_of(work, struct mem_cgroup, high_work);
++	if (!css_tryget_online(&memcg->css))
++		return;
+ 	reclaim_high(memcg, MEMCG_CHARGE_BATCH, GFP_KERNEL);
++	css_put(&memcg->css);
+ }
  
--	for (i = 0; i < protect->count; i++) {
-+	for (i = 0; i < min(64, protect->count); i++) {
- 		/* Intentionally skip writing to some registers */
--		if (protect->regs[i]) {
--			gpu_write(gpu, REG_A8XX_CP_PROTECT_GLOBAL(i), protect->regs[i]);
--			final_cfg = protect->regs[i];
--		}
-+		if (!protect->regs[i])
-+			continue;
-+		gpu_write(gpu, REG_A8XX_CP_PROTECT_GLOBAL(i), protect->regs[i]);
-+		final_cfg = protect->regs[i];
-+	}
-+
-+	for (; i < protect->count; i++) {
-+		/* Intentionally skip writing to some registers */
-+		if (!protect->regs[i])
-+			continue;
-+		a8xx_write_pipe(gpu, PIPE_BR, REG_A8XX_CP_PROTECT_PIPE(i - 64), protect->regs[i]);
-+		a8xx_write_pipe(gpu, PIPE_BV, REG_A8XX_CP_PROTECT_PIPE(i - 64), protect->regs[i]);
-+		final_cfg = protect->regs[i];
- 	}
+ static void high_irq_work_func(struct irq_work *work)
+@@ -4463,6 +4466,8 @@ static void mem_cgroup_css_offline(struct cgroup_subsys_state *css)
  
- 	/*
+ 	page_counter_set_min(&memcg->memory, 0);
+ 	page_counter_set_low(&memcg->memory, 0);
++	page_counter_set_high(&memcg->memory, PAGE_COUNTER_MAX);
++	page_counter_set_high(&memcg->swap, PAGE_COUNTER_MAX);
+ 
+ 	zswap_memcg_offline_cleanup(memcg);
+ 
+
+base-commit: 2bba28e98578de622ef307d00875aa8f8bca3d10
 -- 
-2.56.0
+2.56.0.385.gac671c819a-goog
 
