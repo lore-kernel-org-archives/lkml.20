@@ -1,62 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793263428;
-	b=Y/FdLO3k7PZVq6SkCi5wTn0o2v135VUnTzz+mSvf06Rz8qgNOV1JJWH+/UQuIJ/svq5b
-	 ff7fVnNfrKowDlGTEfjalRzwt9/nkiFnYs9Yb8McTAwKZK0eZnNHMGYufeG/02RTuUlg2
-	 TffLtbz2YScXB3hE8Z1Gb4iSSESDgy+YZqHLAcYyb89DvBSm5B7rfih7KgDC1SiulrRRk
-	 lHD31yVcZ/ZQUStt9/ULKMyI3z9S3sBe5/TnNAlWFKCGTLjSetzusoi+dEhxqJgsLVBxE
-	 Ul8pfEMPvYqaw9bobNd7Vc4SGTcfZRwsIEoY1IdNbPVldTfY23BgVAqRKrCyIsEJiiw==
+	t=1793263448;
+	b=0jNCowiALmHgVQ+Q/GVmF/qD+rXoruJteOtSOmdXedUTODjF/uPckEpRV64TmvbdIjpO
+	 ISqg8qCJoeosP1iwQf6tf1fV99WFo/F+pIuPuTemioECjwdQQmYcMjSwxTF0JfNMgjlUs
+	 F4VrK8MGKP04SopLnIMbDjreOv8rCphIFwhR/KpkGRvueJrH8WnaJWdW061S6paw+qXkZ
+	 ZZnP+3Dm7BecpQSZ4anYBoetaOuDVoZ2b6oUulUS8g6od8QdPd76Aj8xR0MNm300idvFx
+	 XBfLCOEPOxTrbKJFusNLWLjM3uETKiwJ+vCMZ6LwKtIYqeLD1vWaI9WaaAU6VGaKYMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793263428;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ikej2X49QtIj36ZiDznwF0O2B+EjT+ddV6bxiamU910=;
-	b=htOWHszhb64g3mZaXp3iAPIicaiFj/zR/Z2d0SDBPOSafe4lYEA+Ms+MmBQI/it0QlWH
-	 crYnzTmwcz5w6/D/RjLT4zhCNhiURm96oGQDks9i+y10ir5MyxJf5MR2ZzuO6qtcW7gqr
-	 thK0NVWq8wF3zrQA2Lpik89g+VZU1zX7eXhb6gXl9+ixBT9qvtrvUDvabnI/WV0j/aqpN
-	 tLe64durbmlw0aOJ0Lcmp60vkrXEWSxFt9h32rvtGBzt8cMWS1MLmuMGnAp8EZwk5l7Qr
-	 iTuk2Wp7ERKElZONoCQ03WujA2OWP6M0khsbNciYbv00rQKzTsxdEdXRMi1hRogXz/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793263448;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	bh=YDl9p7g5quENVJzD97vvD5OqlYe1ysXU7bQyzl1X/uw=;
+	b=T2+zme69izMTXh5CL2T6ypE79nfQRvC4yE+IBLx3Q6m/uh/ZXBySKYRYPKxovW/KF8zT
+	 YxF7iWPi9l2ZTORGQynHVW3tYR3H3928+wGhBk1xAOwEkSR6d7wAuhR90zrncBzSF3h2o
+	 B28wIob1zhxF1pLB2q/feihuaSEIqSZnWyyK8791JyMZlzBJtvlxWqIpeRJUnCzeyK3TE
+	 hY/iIU3oW5ZcU8CXm/FecSUFm8V+n8DA/Xxr342dtWBH1hDKzF4Dj0rlYlDjJwd/Fs0MC
+	 IWF4afsxp2gvW2J60xoH7o/41y/y4KmjeO7peEzL9ECPb9brobncIcwFfucoVCEKfvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PZD3dxop;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kwj2yoBg;
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F83606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:43:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9469606A31A;
+	Thu, 29 Oct 2026 08:44:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9469606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PZD3dxop
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B24D1F031E3
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:43:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793263427;
-	bh=ikej2X49QtIj36ZiDznwF0O2B+EjT+ddV6bxiamU910=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=PZD3dxopJ3zk4I1/t3QpPKr/gvtnnbsS9CLoa1m4NP5KE8sq3rq5q0Uez9uctlgFG
-	 rkw8A3jmZh8pe3KE00Gt/Bpjx4Yt74GDcSrVyivQGQz1gZcb8UQJqIunWwRg17qTTT
-	 wKkYjeHJjOWLv1mjNKrv+cN/G6WTuKp9copxQL7Pa69BwV4FY0+68u597ApkMb8IW+
-	 +7JHCkkwg2pdL2mR/k+CakiPp6D5WeFPEAp5K27/8tfeLlv7VDjF/Ymx2gWlWQ2Zrr
-	 qrRLXUaSeY2xpGXsu6rtiDI16R1w7bcK/KI1GWX2FpQxu6W27kEyI7LJR/pIqCWFOj
-	 OX0gMay0MfQvA==
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3ac97e45a79so13667321fa.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:43:47 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByDM2HzMlgC3r/mrW+Y4UBWS9uy5aAdpkYrmgRQPsdOGFrr5JJqEAxpT/cSb/8BRD72dTF2xY8oYsKR4m4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrZrQ7xr6ST0G3zl76935iGLly18TJWwvQEyqzTlYnelKIfiJN
-	Sh75qFpwyAWCb392no4Gy36cybwX/hu0ZkvBhO4hdeNYYMLEO0wtOF6PjoX6uIOvSeD+ZJEKTyT
-	53pAJ1hCxF1258q6/AyB6wBwMyBBgHeBhk1tLZTbdnQ==
-X-Received: by 2002:a05:651c:31c4:b0:3ac:48a0:e253 with SMTP id
- 38308e7fff4ca-3ac9cf5f8e2mr12236951fa.23.1793263425814; Thu, 29 Oct 2026
- 01:43:45 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 29 Oct 2026 04:43:44 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 29 Oct 2026 04:43:44 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <CAMRc=MdWuoANzpNDa9XvJjK=ccY12y7TJaqnUsV8GRqSDh7jAA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kwj2yoBg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793263446; x=1824799446;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=WP/QAZ7Uc8hCjUk9W10FsuMb7rLn58PCckd869LjBFA=;
+  b=kwj2yoBgupyp5IAV0wK58klQS9NyrD3FpPZHuPNibHJZvXoMXe1ONcDQ
+   lxjQi6P5W13Cw2q8CmZlim51OjyincDA/L1gVq57Mg1ct9HZHUfyuSdtu
+   lNXLO4bvGoV0uwpCrCOkDMMzEqn5jV6tA5kdDBk3HeOtaHDw5qu3mJCfX
+   paLbRGWPiT1NJhQBbd+vsl0SOVK+mM/iOZAA3CfsmvEAu3W4GdimuKXd6
+   nS6rtFwsyWu6JL6EhDS4F3VSzASNv7B9YNyPmb9kEiV9O487BzX9A/eXa
+   q4SobvY8hehlW5EC6+5SIcflMiOja0cC86OKyCf2M+Jf41jMEhHyIDGxs
+   Q==;
+X-CSE-ConnectionGUID: CqrrEIrhTsiTytS8gM2RUw==
+X-CSE-MsgGUID: lZrwwhGjTaGVPSL0h2s3UQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2011321"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="2011321"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 01:44:06 -0700
+X-CSE-ConnectionGUID: oDqzyd5cQ0OZV3ZmvaMS7A==
+X-CSE-MsgGUID: gVbT5JW4Somf8pxelwKQ+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5411378"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.74])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 01:43:59 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Andi Shyti <andi.shyti@kernel.org>, Dmitry Ilvokhin <d@ilvokhin.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6n?=
+ =?utf-8?Q?ig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Lee Jones <lee@kernel.org>, Pavel
+ Machek <pavel@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
+ <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>, Billy
+ Tsai <billy_tsai@aspeedtech.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Kees Cook <kees@kernel.org>, Andy
+ Shevchenko <andy@kernel.org>, Matthew Wilcox <willy@infradead.org>, Andrew
+ Morton <akpm@linux-foundation.org>, Andy Whitcroft <apw@canonical.com>,
+ Joe Perches <joe@perches.com>, Jonathan Corbet <corbet@lwn.net>, Shuah
+ Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-hardening@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-doc@vger.kernel.org, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Subject: Re: [PATCH 05/10] drm/i915: switch to __nonnull_args() macro
+In-Reply-To: <auHf-pdvGkPibgTp@zenone.zhora.eu>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <cover.1793027261.git.d@ilvokhin.com>
+ <33ec8080594f9f4ef1d50e36497339c9a6897393.1793027261.git.d@ilvokhin.com>
+ <auHf-pdvGkPibgTp@zenone.zhora.eu>
+Date: Thu, 29 Oct 2026 10:43:56 +0200
+Message-ID: <b3045bc3ae77ef78a1f479448a5dc780d89bf38d@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,74 +102,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021-gpio-aggr-const-configfs-attrs-v1-1-a98e8d1157a6@oss.qualcomm.com>
- <CAMuHMdWhBeqmMt-VXbh2u6AvzyQ6NsZAzATNRZCnm2DHUAFUFw@mail.gmail.com> <CAMRc=MdWuoANzpNDa9XvJjK=ccY12y7TJaqnUsV8GRqSDh7jAA@mail.gmail.com>
-Date: Thu, 29 Oct 2026 04:43:44 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MctUi9g5DUOxEa3F541gZXfeDO_dCoJO9D0tmHmcfa_9w@mail.gmail.com>
-X-Gm-Features: AclHuK8jarM1InMQ9s0mWphG0Q1RQHgt7P6_poc_jWRv0zoJUeQx3q6bVqCJ2Uk
-Message-ID: <CAMRc=MctUi9g5DUOxEa3F541gZXfeDO_dCoJO9D0tmHmcfa_9w@mail.gmail.com>
-Subject: Re: [PATCH] gpio: aggregator: constify struct configfs_attribute
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, 
-	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Thu, 29 Oct 2026 09:41:02 +0100, Bartosz Golaszewski <brgl@kernel.org> s=
-aid:
-> On Thu, 29 Oct 2026 08:57:15 +0100, Geert Uytterhoeven <geert@linux-m68k.=
-org> said:
->> Hi Bartosz,
->>
->> Thanks for your patch!
->>
->> On Wed, 21 Oct 2026 at 14:31, Bartosz Golaszewski
->> <bartosz.golaszewski@oss.qualcomm.com> wrote:
->>> In preparation for the constification of configfs attributes, make the
->>> existing instances of struct configfs_attribute in gpio-aggregator cons=
-t
->>> and use the new st_attrs_const field of struct config_item_type.
->>
->> This has a hard dependency on commit f7528cd38b87fb59 ("configfs:
->> Allow the registration of const struct configfs_attribute"), which is
->> not yet in gpio/for-next, thus  breaking your build.
->>
->>> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.co=
-m>
->>
->> Since you have to rebase anyway ;-)
->> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
->>
+On Wed, 28 Oct 2026, Andi Shyti <andi.shyti@kernel.org> wrote:
+> Hi Dmitry,
 >
-> Ah, dang it. :( I stupidly assumed it must be in mainline when Thomas
-> recommended it. :(
+> On Wed, Oct 28, 2026 at 08:19:44AM +0000, Dmitry Ilvokhin wrote:
+>> Commit 22302af28d3f ("cleanup: Annotate guard constructors with
+>> nonnull") added the macro __nonnull_args() to wrap raw compiler
+>> attribute.
+>> 
+>> Replace __attribute__((nonnull)) with __nonnull_args() to standardize
+>> nonnull attribute usage across the tree and keep the attribute's quirks
+>> in one place rather than open-coded at every call site.
+>> 
+>> Suggested-by: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+>> Signed-off-by: Dmitry Ilvokhin <d@ilvokhin.com>
 >
-> Thomas: Unless there's an immutable branch I could pull, I'll need to bac=
-k all
-> of them out of my branch and have them wait for the next cycle I suppose?
->
-> Bart
->
+> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
 
-Ah, seems like commit
+Pushed this patch to drm-intel-next, thanks for the patch and review.
 
-commit d4d9eb226e4c2af8ab390bb470477fa68072fa2a
-Merge: 32543b09681a1 6c1fa55e287a6
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Tue Oct 20 16:25:43 2026 -1000
+BR,
+Jani.
 
-    Merge tag 'configfs-7.4-rc1' of
-git://git.kernel.org/pub/scm/linux/kernel/git/leitao/linux
 
-    Pull configfs updates from Breno Leitao:
-
-     - Attribute structures can now be const (Thomas Wei=C3=9Fschuh)
-
-pulled it into Linus' branch so it's just a matter of post-poning them unti=
-l
-v7.4-rc1.
-
-Bart
+-- 
+Jani Nikula, Intel
