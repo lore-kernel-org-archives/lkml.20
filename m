@@ -1,115 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.149
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281804;
-	b=uVT7fOp+22ARN+brphSw+/2b7zPlhhHNBruTXy1DJqYHzNEZSNWECzm0rzGqT5KVxuM4
-	 qj5SEIXwTHLIuA8+dDavRuqqSWH+y+F55oj1BqyBabAXw8o5076YSvsNDuLnpogg7W4AA
-	 gN/+bCXLLEjb6NRH8GSKMu3WMbq9E9kvt47V1V1VN9TYZ2D8cbQmzsir/azn837sKb32K
-	 A9OJrDShnJ3Wq7vx712YwIBV+6IvnstOCV26LSE9DC2dYsPwd4kkPtOH8U48fA/8xhBmH
-	 EhZ4SmyUhQlhMNT+Ca+cTP3giNu/PzAVvNGjHHgIUOzlmf0a+tmw0/CsFL7ZUbnn+rg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281804;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793281827;
+	b=CKKpX0nWPL9VrJ0CARChlV2GhD5MHQMMkNDZY2I+axIuXvThQZf3/02s5SKeUDRl01Or
+	 FUYpDZabTOMFPjtYSIgXx+GWsffmieWjTmUMmjg4Lu7DRMTeXUPKarnBfakJ1UVbvjTKN
+	 d+k/BcHMiBrGiyCHpSdn1IXdz1t7iehcXSWR7m11FbfCUr1T0SHPkPUzpLo0YxXCCBfO4
+	 fMawG85zdA84DX9FNvL+h4bs8V48GgqjI2ncf/hX1TxWxvJ+VEhETZLQ4SjwVOD18lkmd
+	 I8MZnHf89VivznFIuShoquftGFQBiB7VahOqunH9DavJeDwpT48MAqG/U2LP/DIhmWA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281827;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=eVQoUYkvGYDjfff+tOxxhz0fkEYj1xQD620TYS9hUB4=;
-	b=ZW3hqvBrI76WbX2Ags+GvWjDVSbt9MOE1mllAR4yAn88Tr9WOB73UDQor0H6PQJ8JLCv
-	 TeGn4KQsNNLBSQzNJkEk2u+it/zQocBdblnx5MSEBy1ZrKe86/oWQazDNAWpbjbXuU3ia
-	 psudisnqXo0hOc0SgtjDC9eqzscLmI2wVvmzh2kLIrKJme9Fdt/Q9FVXX4mCurjMrkhJp
-	 kdDYACaDs9TaD00iZShjDD+LqVnvgB6wLVA2tXRkD7VAhwg/YbANCroPzbTei4HzQuMUt
-	 jrvtgQn4E2AhN+7nMRs1JSntgilgjUcIDp/zy76MUUcuHT+PeB8ESKCrG0cmmPIeBkw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kumba.dev;
-	spf=pass smtp.mailfrom=kumba.dev;
-	dkim=pass header.d=kumba.dev header.i=@kumba.dev header.a=rsa-sha256 header.s=fm3 header.b=CadEP7sI;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jJU0Rr06;
-	arc=none smtp.remote-ip=103.168.172.149
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+	bh=K4ilaixi7PzQ3jyW2MqZwExvQII83Z2kevqQDSBbKdo=;
+	b=iNlgvu2V8ibjogCmTRkDGwX2/ZY+612uFUvBOkltEV5aNiO3BpciVvcLDdpr/b7DDQUv
+	 B9eXPDbuezwiwTyV5/dni4wkC9E6IFiAEnZSXdBNE+Q65GkmI6Ttvz8T9wE/kAHbb+IOD
+	 BtXZo1JBsQyDjchxM/u7bZsfhQ01Dn2Uf1/FJCStdVI9GQq5G6kHFsjO+ira4W3lPHRss
+	 lfqdjTMnwNhGKaXi2zBUxv4cSmEiQ0Xj6xxyDNk8ENYAWRdzDYeA20VscBjF36HZVZX2d
+	 IhkTpi7jFD66qMPb6IT9NdgLcfYWb8Xir/jjgHsINsynbHw7Cm+l4KA2Zy61SiuTWiw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WwM5QhL5;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dDsbtHRb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0641D606A335
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:50:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0641D606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kumba.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kumba.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9A5606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:50:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA9A5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kumba.dev header.i=@kumba.dev header.a=rsa-sha256 header.s=fm3 header.b=CadEP7sI;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jJU0Rr06
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 22A24EC0323
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:50:03 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Thu, 29 Oct 2026 09:50:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kumba.dev; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1793281803;
-	 x=1793368203; bh=eVQoUYkvGYDjfff+tOxxhz0fkEYj1xQD620TYS9hUB4=; b=
-	CadEP7sItSZKo62jD62pV24Eyju7XUlE8fUJJqjR1y4lIfIvq55x+e0AhF+1o9gw
-	eII6YEfAXOc2yHtMMHVQWUEPdQvQ+Z0lkuN2bLo3cyCkaASsTi1bWwcq3PeurSji
-	+XAYO8/995NmqJJZOIKKJAVuqJS++oXBH+mgAjHsFw9AzkUGfljEDSr+a22Ap/z0
-	X9PvVhmk1+uHHDAJwd3Qn3LAUZfauiPYU0GddkgY4ErMShRx2bjSEwJebmqlAihU
-	JRUcQOHPh3ue/p4iF60DaFYKubaQU4b1rRYacYl7O1+O+eUWqmbyO3roK7yiU3Ef
-	UvxbVxpLGQdZa0yRJAhmOA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793281803; x=
-	1793368203; bh=eVQoUYkvGYDjfff+tOxxhz0fkEYj1xQD620TYS9hUB4=; b=j
-	JU0Rr06gcY54HDgiz5nihCbd2AuQXcL+JmZiqQzEr/IpwY9LUqWVKsbBZSfvGTGP
-	ivuChXR9+IwHdl6F1HCsnjtuU3R5EFBN2lPMs9frL55SvW9DyiM++fwCAsOsKUZ5
-	dIwitt+XH8iVGYBCi0OUQ7JMZP8tqwdA3QQZIYGuS+BbeFuQLhRG/ANFuc6PeRUh
-	+EST13QtRo6JcPqQwmOGYfS29m1HWrZGkVLyR4BhKzgVmIcc0dIGnQCuJ++t4yxK
-	A6eDr6xyDBkIDKzz+a6cPtsUk4b9bWaKgpX7ATMR0Zm3PDyKWuHRxWRQyIo+R0DW
-	882U1fdhS5rUe9iA5UyMQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=kumba.dev a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793281803; d=kumba.dev;
-	mf=PGxpbnV4QGt1bWJhLmRldj4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:nB4R1hgI+v7P1JAKw0zxR9ccanjMxfcDzm4/G+ifidvlZoQ
-	DehF5DPq+25Ip+TAgV7saibA8buVdZ1JH2nSfx4TzLX962XYk7w8RT3xRKkinNl9
-	jGQaMfYImEjSurVNQDx27RpIA746YNkmgGVv9ws5tKnq+JTpX0rVClNr/qRZt63w
-	HuI6j/A5E/S6ZDzUAi6EOl597fgVerpKW6krODxUU7RxAgAGlIjlSxRqA2NIFjCO
-	aqeEzct2Cxy2ij1TrAT7v1CQkJKAlzKguUcRR/pg+/qtRWKL8U3fdWBgKNPzgNlH
-	kspHND8le8MMoL2XiOAkm9t2LaHcFH5rTpiDP5Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:vI6qlQzBl+GTvVPBRgsmO2IJJENyKhLbipEFDZwD5SE=:lL9PBvvwMS9xs8eXtNx38+AREKQmoiWBzQomeHrfdAE=;
-X-ME-Sender: <xms:Ck_jave8BM8NpGD7iFmOhJME1o5cTG0RZNLl9Srpb-Hoz-nYfKP14g>
-    <xme:Ck_jas_iSLV8B39gCbFih0FLd51Xlsc0KE-mON2Q-sExnCZb8opysTS-0-XUX4IpN
-    GwgfVWtMH8497Jlvm6QEOKZu1udjQ3xmBN7ApSicgC3tkpqxy9fum4>
-X-ME-Received: <xmr:Ck_jarkHBK9IA4qFItVehNrDMPdEkT0nmwlkNJRncF4jCjlTJ-hwlEqRhoWFr6NF2cx2GCYnXEQ7AixrG_uC03MrStGMfTo9gVBZjSSuSGqNN285Rw>
-X-ME-Proxy-Cause: dmFkZTGCckvdbmJSrwT/0nMfGBTG3ucAJFscvqUupw1+PIdf9k85QpSvIakmALPkITSkBn
-    OqWFT29uRp3qXLwvOSYMU68AYInSwGDonE3aOzU2oH8Lh15MBvG20ALFEBZqwDIG7U9eDQ
-    ogsEG9S8TPZByQyjFGgRNsW0qQ0MyNZUoEBf5oVIplSKLon44SBl/35GXBRaPmlP1grLf0
-    1KIupexiHba9aukIGulUsFvEXwIsN3QqUIkJHkxbARsiEh+12aaVWbNgdmbYR4flZrt4ck
-    7RPMyakRmRw57PNO7VCC68NFPymo8G4ufakBiXXGN2MgOwzXi4TMKkkkOos7WKXxLesFBr
-    Oxkvx3ynNbLpQN4EYLCCR7bg9BWOabx2bQLx0k9veOSOGRRoF/MDTCRmT9pG3GyXQ/YBFA
-    cPXUC6i7Q6a7w15ZKFjgxxMYwTHkRb8kFKX8RBJ748dRCQW3+2iAXiX8aNgYJwMwe1ySJ+
-    ShWkJsdj88IiNGhYyuEZqnc5xymxcEzBIC2pUjpHGXCod5MvGPmkJ/K+hImBNs6lszQdMv
-    5oQImApVOUIjJ4dda81oZoza/ZTcEWQr3DtMeJRDxqSPrqqRoc4hLZ5Tas/qD1xhIrqxSe
-    o8odDWg8bzE60aI/fnS6wAoNjuXmsaySuCpXg9sNqJ22P56ZH2OtL7PfRVoA
-X-ME-Proxy: <xmx:Ck_jau8AxboZPS-aVfBFC1ZXDTaQ8NTFxzqYbYhWSuH0Atj-g1ExkQ>
-    <xmx:Ck_japkp3xBbCGQVpNrbC2CGw-_D9j-YPJcIUOrwG4gxgHwC0v4qpg>
-    <xmx:Ck_jar3snhh5RNc6zjhvIdfdkAZ-8gEzQajf6nSI4MVc_rzVm4-ZNQ>
-    <xmx:Ck_jakqogtatBdjqADszrRDdEe8zm2-MI1X5k1p-22h3FhgXylcDzw>
-    <xmx:C0_japhw9vU7zVDe_0AQinRYNGntEA10Em-jhjDaSddr1OjJpH-_EkJR>
-Feedback-ID: if8114916:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 09:50:02 -0400 (EDT)
-Message-ID: <cd2a54f7-89f2-4683-b6da-cf14e62fffe0@kumba.dev>
-Date: Thu, 29 Oct 2026 09:49:18 -0400
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WwM5QhL5;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dDsbtHRb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793281825;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=K4ilaixi7PzQ3jyW2MqZwExvQII83Z2kevqQDSBbKdo=;
+	b=WwM5QhL5G1knhAtFz34NAkXaDKGKc5vcCtqtlNXFZWju6VI55zQ2fP3NK+wPaRBLTM3nYI
+	RGHgxxNrdFYtydKzm1JY7/Z1q1T7PEd6gSprvsY1J0bZ6QOV1aL8h/kW5wiJnhiH8oK3UE
+	3ZlLFug2HgC73k/h7RLvD6dRf+h3a94=
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
+ [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-455-5FwoEMK2MhiP-nmjoVKqSg-1; Thu, 29 Oct 2026 09:50:21 -0400
+X-MC-Unique: 5FwoEMK2MhiP-nmjoVKqSg-1
+X-Mimecast-MFC-AGG-ID: 5FwoEMK2MhiP-nmjoVKqSg_1793281820
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-679b96a1e29so3555316d50.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:50:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793281820; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cTbsSGRxc0rV3+N+J4F9qwpnalcYf8Ws+tQm48Z+a/WqHgh7cFIzk7iRf3dsQhhWWv
+         mYwgTpLlbg4SUyMdiQD+Mdf+Y3+7JEjPGdaNZ7fefaoNZtlld+6A8xTqNo3o46XkP7C+
+         wrQ8h4AAKMx6tqJ3LsZzGS09WWRXwpaVQQQKB3i3yAa915h1CjzVSxoxkG6K0j5Qp6rV
+         N8tozjQGd4696atm11/DmMvPw4sI6xxzrfHn4lmZK11GM4fgEttoj+h8evL9lQC+Owf0
+         ZkTpJJpQRrXzdt7HmPrYUaI+dSuyBZMHacH64swr7oSTSPglsKaftzSADNTON1lxhgKy
+         HcMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=K4ilaixi7PzQ3jyW2MqZwExvQII83Z2kevqQDSBbKdo=;
+        fh=769goaatJVVbMcoM8aZta5mv/oZfxp0JTKxiYJhREkY=;
+        b=pJJLU4883p4mUywGhHzBPtyPAMuewXAYDGwqPT6AdmDnEZiOn3CD4xlzm7e3xAsqGs
+         unkI7Kd9qcFzBLrJVRbnyD31/1/h1V1aTBS9k6/nMxWFPjb128MgUX5R9fA78h3QZ6tY
+         0LNLrHOhO5XrfSTLAIAi3LFA0C4wBttyDTat1iT4vU985u4R6NFkyTLEF779tdKYhvGm
+         MhAAVHRteEjKp/vxXKJSFT3qUDbQrayfWsTvyJtUlGojkXWwWE0yxM52wd3I6Mvv2WYw
+         iZUdVpNuS9gg8AmsuG/Ok1ImxyydblJ2Fi/p3Dc/FviZGG802Ef+0Tg7SOmBE1PxCtii
+         f2fg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793281820; x=1793886620; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=K4ilaixi7PzQ3jyW2MqZwExvQII83Z2kevqQDSBbKdo=;
+        b=dDsbtHRbfeNFJREACYLUVAPG3QyBRzqbzues7l2mwFGXYra00VVWSpcEXKhIsQt9Lt
+         n4dNUER9uCptqVRLI0xM53MM4SG9PmruKF8nKjS7sQwZlFK4iLiSUxMmD964JQ0BAIRX
+         DEu4JW1fAe4/O0HCOwdWh7+XdpJJhi6Ricx7tw5ReEzj5Etgem+oRMNYl6LW7uozbj6q
+         fYoYzTQcEK1LvZDhgZ4UYWzD29BTn8EMXzrarIX0lFsvsoF/XHYmguyEZyux5DvxlkFA
+         557RZQ0FhOgN4qMupuEUnjaDhrmTTep6YF9Gv7khln48IP7yexRjznNnHQwEbUszV8ZD
+         5E6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793281820; x=1793886620;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K4ilaixi7PzQ3jyW2MqZwExvQII83Z2kevqQDSBbKdo=;
+        b=ap1Rae2vDucml1yJBj7n8TL6elgN+M5m0a7y9zCzKI3QsFAmfFy2T5OwJTIrT9O9DK
+         /GneumcgQ5unzOOhdjYtz9vWflyiGaTynZfQSlIbOcJDQIMPhIYMjCBKirZZlkWxXvAH
+         5cuO8fXIl8KxKxjIzXGonBYpXJKfp21h0PkgzGfIeoXWd/acWVtqqwLSgln/gHmtpzCQ
+         TQioFbF3KHVUkljW2Kwe4eHkKS4LktILODhq5Tl+nHX8pUWWXORqnWDagSJwPMQ1/8Sm
+         /ALylHAbsSROv8xyVeSMUFedta8QRBe+O0fyMGlVAnZDlKjYb5mHT6oFRrx9suKXIQ2F
+         mzSA==
+X-Forwarded-Encrypted: i=1; AKwUvBxSW2wGQJD6DPYvJs9n7DW26TeJPdj3bTm7oYn7Kb/CjchgXMFaseF1E5mGsbsr7KeyJ0Ef9CBK7rzMCCQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyguKv99O4mk0C1fB9mC8Nr4cXRxyt2m8e33xpFSxIfbffJvmu
+	jJhDoV3iL7PnCSWpb6akSvDn2adg6i9ktd19sYq6i4RdI+RZeoJs928EQmAGtC5YhGe6XSwyP7F
+	k0M8IsI+rZljJOt9+gNa9nxlcu4DktqpoTPxPlJv2yCKSczPTzUpty5RXHJimzq783joKnRLCG2
+	NdCrqPky88sMhGiwTwOP8FmzIWnnNy7KtYq1XtrknP
+X-Gm-Gg: AYBFou3TN0bQ59cpkvXCeHS90E8zQGfnPncxATY+6/lOhXGgGCi73hf5YZx5pm7rpso
+	U55Zce9TUUqOefxuDH2dbIzfaq+tWxzYR3LG+QvWIuaO4o1BCBcpG9XdLYnJbUu4NQBSYwFaw+U
+	VeqEH9ZEk8AXtnklOqgHRyGVHYOyJohUG2xMPCXU+rWJk9N6dHcg8JltAvBiZjhldtcWA9c15GL
+	0AA7yGD2/Xx6PGhMoOafjIcbtgoMu8vmczEUfTjjxZ7sA==
+X-Received: by 2002:a05:690e:43c6:b0:679:943f:b192 with SMTP id 956f58d0204a3-67a7bd34f4bmr3441794d50.76.1793281819671;
+        Thu, 29 Oct 2026 06:50:19 -0700 (PDT)
+X-Received: by 2002:a05:690e:43c6:b0:679:943f:b192 with SMTP id
+ 956f58d0204a3-67a7bd34f4bmr3441771d50.76.1793281818946; Thu, 29 Oct 2026
+ 06:50:18 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,66 +125,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/12] rtc: ds1685: use sysfs_emit() instead of sprintf()
-To: alexandre.belloni@bootlin.com
-Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261029132339.925021-1-alexandre.belloni@bootlin.com>
- <20261029132339.925021-9-alexandre.belloni@bootlin.com>
-Content-Language: en-US
-From: Joshua Kinard <linux@kumba.dev>
-In-Reply-To: <20261029132339.925021-9-alexandre.belloni@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261023101830.139094-1-hackerowskiy@gmail.com>
+In-Reply-To: <20261023101830.139094-1-hackerowskiy@gmail.com>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Thu, 29 Oct 2026 14:50:07 +0100
+X-Gm-Features: AclHuK-JLcGWRfpdOvPnvmGXH13NO45FtGdQUfg0yCXNZWHwDHDohNE_RnQ41sc
+Message-ID: <CAHc6FU6Pmu6MfJKNRZ+WhE2y9viU23HsKx9wCbumShCxU45avA@mail.gmail.com>
+Subject: Re: [PATCH] gfs2: keep glocks alive while AIL entries exist
+To: Eduard Zateev <hackerowskiy@gmail.com>
+Cc: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	syzbot+ab91b239b20ae188b9cb@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/29/2026 09:23, alexandre.belloni@bootlin.com wrote:
-> From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> 
-> Use sysfs_emit() instead of sprintf() in sysfs show callbacks
-> (ds1685_rtc_sysfs_battery_show, ds1685_rtc_sysfs_auxbatt_show and
-> ds1685_rtc_sysfs_serial_show) to conform to the recommended sysfs
-> attribute formatting guidelines in
-> Documentation/filesystems/sysfs.rst.
-> 
-> Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Eduard,
+
+On Fri, Oct 23, 2026 at 12:19=E2=80=AFPM Eduard Zateev <hackerowskiy@gmail.=
+com> wrote:
+> A buffer on a glock AIL list can outlive the glock reference held by its
+> inode. During withdrawal, gfs2_ail_drain() later removes the buffer from
+> gl_ail_list, which dereferences the freed glock.
+>
+> Hold one glock reference while its AIL count is nonzero. Acquire the
+> reference for the first AIL entry and release it asynchronously when the
+> last entry is removed, since AIL removal runs under sd_ail_lock.
+>
+> Build-tested: x86-64 GFS2 objects with W=3D1; arm64 GFS2 objects
+> also compile.
+> The syzbot report has no usable reproducer on current HEAD, so a runtime
+> test was not possible.
+
+thank you for this patch. I agree with the solution, but I'll merge it
+with a better description.
+
+> Fixes: 864174f97647 ("gfs2: Don't cache unreferenced glocks")
+> Reported-by: syzbot+ab91b239b20ae188b9cb@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3Dab91b239b20ae188b9cb
+> Assisted-by: LLM
+
+Nit: Assisted-by tags are now discouraged.
+
+> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
 > ---
->   drivers/rtc/rtc-ds1685.c | 10 +++++-----
->   1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/rtc/rtc-ds1685.c b/drivers/rtc/rtc-ds1685.c
-> index 284815e5f478..323fc9c17106 100644
-> --- a/drivers/rtc/rtc-ds1685.c
-> +++ b/drivers/rtc/rtc-ds1685.c
-> @@ -988,8 +988,8 @@ ds1685_rtc_sysfs_battery_show(struct device *dev,
->   
->   	ctrld = rtc->read(rtc, RTC_CTRL_D);
->   
-> -	return sprintf(buf, "%s\n",
-> -			(ctrld & RTC_CTRL_D_VRT) ? "ok" : "not ok or N/A");
-> +	return sysfs_emit(buf, "%s\n",
-> +			  (ctrld & RTC_CTRL_D_VRT) ? "ok" : "not ok or N/A");
->   }
->   static DEVICE_ATTR(battery, S_IRUGO, ds1685_rtc_sysfs_battery_show, NULL);
->   
-> @@ -1010,8 +1010,8 @@ ds1685_rtc_sysfs_auxbatt_show(struct device *dev,
->   	ctrl4a = rtc->read(rtc, RTC_EXT_CTRL_4A);
->   	ds1685_rtc_switch_to_bank0(rtc);
->   
-> -	return sprintf(buf, "%s\n",
-> -			(ctrl4a & RTC_CTRL_4A_VRT2) ? "ok" : "not ok or N/A");
-> +	return sysfs_emit(buf, "%s\n",
-> +			  (ctrl4a & RTC_CTRL_4A_VRT2) ? "ok" : "not ok or N/A");
->   }
->   static DEVICE_ATTR(auxbatt, S_IRUGO, ds1685_rtc_sysfs_auxbatt_show, NULL);
->   
-> @@ -1032,7 +1032,7 @@ ds1685_rtc_sysfs_serial_show(struct device *dev,
->   	ds1685_rtc_get_ssn(rtc, ssn);
->   	ds1685_rtc_switch_to_bank0(rtc);
->   
-> -	return sprintf(buf, "%8phC\n", ssn);
-> +	return sysfs_emit(buf, "%8phC\n", ssn);
->   }
->   static DEVICE_ATTR(serial, S_IRUGO, ds1685_rtc_sysfs_serial_show, NULL);
->   
+>  fs/gfs2/log.c  | 5 ++++-
+>  fs/gfs2/lops.c | 3 ++-
+>  2 files changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/gfs2/log.c b/fs/gfs2/log.c
+> index b55daf1e638..aa5f2a9a94f 100644
+> --- a/fs/gfs2/log.c
+> +++ b/fs/gfs2/log.c
+> @@ -74,10 +74,13 @@ unsigned int gfs2_struct2blk(struct gfs2_sbd *sdp, un=
+signed int nstruct)
+>
+>  static void gfs2_remove_from_ail(struct gfs2_bufdata *bd)
+>  {
+> +       struct gfs2_glock *gl =3D bd->bd_gl;
+> +
+>         bd->bd_tr =3D NULL;
+>         list_del_init(&bd->bd_ail_st_list);
+>         list_del_init(&bd->bd_ail_gl_list);
+> -       atomic_dec(&bd->bd_gl->gl_ail_count);
+> +       if (atomic_dec_and_test(&gl->gl_ail_count))
+> +               gfs2_glock_put_async(gl);
+>         brelse(bd->bd_bh);
+>  }
+>
+> diff --git a/fs/gfs2/lops.c b/fs/gfs2/lops.c
+> index 341f5bb844b..c4e63fb375b 100644
+> --- a/fs/gfs2/lops.c
+> +++ b/fs/gfs2/lops.c
+> @@ -120,8 +120,9 @@ static void gfs2_unpin(struct gfs2_sbd *sdp, struct b=
+uffer_head *bh,
+>                 brelse(bh);
+>         } else {
+>                 struct gfs2_glock *gl =3D bd->bd_gl;
+> +               if (atomic_inc_return(&gl->gl_ail_count) =3D=3D 1)
+> +                       gfs2_glock_hold(gl);
+>                 list_add(&bd->bd_ail_gl_list, &gl->gl_ail_list);
+> -               atomic_inc(&gl->gl_ail_count);
+>         }
+>         bd->bd_tr =3D tr;
+>         list_add(&bd->bd_ail_st_list, &tr->tr_ail1_list);
+> --
+> 2.55.0
+>
 
-Acked-by: Joshua Kinard <linux@kumba.dev>
