@@ -1,104 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793293247;
-	b=rKIZDqbxoWGJtUVNfoLd14BrRMuO9zLRS6cD92Di+KmJjkuLUNW1ypWMnwhX8xJf2N13
-	 XVVHEcoAPRXCv7uCQbVh6EHyn8NvFDJ5HhSKiZiBF5H6xnGHeU1dxDFrXcTLcpPL+hthT
-	 b8UXXn72r7Tu26NPBCbYrhG2BuskW+elG/pVB3bHAGhyqfD6zVT3oj7qMAapnsNUPNpLx
-	 hTOSK+s0E7C5wW0XRV5FuRNXrnzxaJP9SXVxz+8h0iGlvJHkbWhLd3Ymn1vP0IzeBUHz2
-	 g35QlYk/Bxqca/1Pgb2Slyg/UFVXQMxwiGM0Ols4jpPiUCNdLK2QZPyse/jJ4vg0THQ==
+	t=1793293512;
+	b=oPMhH81BfY4RS8OQLTRzyfXYW1/HMUN5loU/ryZ6iWuYkx0iIT2VR8tgkDzSz9A4LcfU
+	 vvHOSX+VWcK2TYJ+8B/54FOqDGsvi/kK0WRhWYwMZJKoiKOY0ehgfNQMZnntYpCfL+IYs
+	 gM2eKUtlGiDBVNjPmOxxzxELv8jRa1E4BL+2ifnlrxtukDM8sxgzekkAJih0S9LYCvyMz
+	 LNSxC41B4xBPnygSGiEDFJwqDZtIRXDlpsL+D4W0fn1cWK8jLIaQT+PkYrZjake+NNPYQ
+	 8lofNdlPgineqEFW0MK/0NCMZ/RnuMAMGuN+ejVUJuL+1NjFBS4ppx8pUXTEDtFs16A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793293247;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZD/qDGi1O6nHsAaexh1x5wdETQZTzQoYlRWPgZIsXpY=;
-	b=f/DhQ3j+KbGOJzOSMfcS3aH9cA3i27mf/AFxWn+vVfH4XZImVUXMjqCfiNviu3QaGp8b
-	 fRlr8a+81U8IIXvdt5WjxFutQzBwW6wQ9vxeOC0kpUTVSE9IfpP/EaVaeXvdKmYfjnen5
-	 xtsNyPlA08p5CQsThXdAUa4F4lPOZyYI+YIBNYzeyUicQe0VGf/QSP1B9aFT+LuC87Dc6
-	 WZKQRDE7EDt+lkxqkC/eiXI/CLLKr0B00pGcTEsS0Z3mJqjgbtgIzGX8nUreUqync2ACa
-	 7Iwb0SjN/eg2hhRbdATVQiiE6NyVZlf3ZWT1Eo/Xng4EASBsD6oVLAkrol4YucMcEGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793293512;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=LVRxZ24pqtgoa//AHQI5Xv+cMRAGXk2uxfsL1IU6GrI=;
+	b=RZ8eK6XRCVKZWizp3/K+b3CgTD8/+7K1Ltcz1jGNhxpiti1cyZRgkvZRCb4s/KVLLuS1
+	 RV5/BiFs+e0c7m5TCZ4cpq/k+QyiBU9WIZ2C0dSX3aDPoxh2k89SQfwe6MkzKM/nZzwlO
+	 ttVW+P7iIyYarOWPG6NO6TJcW0XRNkcOj+LHiUle4zN8Gbu1doKB9PbPLPGq4t0qBMW+1
+	 KzhxcQChg7gIWC0IWAi9EmpY5mKkK44POeL7qRAdG8b36+LvDZpuKyGAHa2PpenCl8Czh
+	 vR7k0Y5JPgzcq4XvCKvc/c0x9AFhEGJalyYPu5xOqInukXMyVqtE7yPfT0qpvhhWBtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b="P/ryviEr";
-	arc=none smtp.remote-ip=209.85.219.43
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0ykgAeC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA78606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:00:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EA78606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E31606A31A;
+	Thu, 29 Oct 2026 17:05:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=P/ryviEr
-Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-917a707f37eso22666786d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:00:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1793293246; x=1793898046; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZD/qDGi1O6nHsAaexh1x5wdETQZTzQoYlRWPgZIsXpY=;
-        b=P/ryviErdiPh42kReFxkMw1q1mH9fz9TsFFVhDr7/C5Fa2PSoxZUA9NuSEwkEuOkDH
-         fNZeVoONCuCJO6q9+z+VTVZWbo0t4PQAZZQbmnCCao5RytIfbF7qM4u0UGfrh8SXqE5C
-         1Oy++8U8wu01GKb+uUKj/3+Vr18qQiyVTGVonel5fUq452tyDa7V3ank6XovkMgPdMz1
-         b4mfXcw4lUP07SJ9XOoL+xDmONdFYgfmQzR+4w8bOdy6pmffsNZIdJApXGGJQO3JrUXL
-         yXzp8LM+iVAhhqSPhoFCJc5loCUVs6wj2cMaSUauBqxFa4vtTkEvYVcrRZ93WpEPiEEE
-         wK4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793293246; x=1793898046;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZD/qDGi1O6nHsAaexh1x5wdETQZTzQoYlRWPgZIsXpY=;
-        b=xXvdrbamWJ4Vp3nW7rAcJUqFDk8nG4ccJ6yEJzEDNpWA1Bt7x156M422Tq4SerGHfl
-         9mgvp/uX2AQPvJYhi9peHzwxzDzC/jdUwhxv+dB9cixlCyJeeDe2oIGFG+XdHbfJcT4Y
-         eUIEjqjP/KhdAAO7Se3lJ5uBZl44CtDdenhJRRErKqwO/U3btL1UbFGN2o+KQQ4lokSH
-         gtFJgODNpS58t33TVsCfq8JRZCkl+Vz7PDZBX2oBmrqNMq9xHhrch1I3aUC5Webc60jo
-         vAeDVH/81Sg2uc53EXQReBlPVJE8ph47VwhHltuoRiZcePMP9rm+AOJBT6nLS9f6ICP7
-         wY3g==
-X-Forwarded-Encrypted: i=1; AKwUvBxGSTdPDJc9RmEzs/omv3OjWCnrAjaR2ZBQzVDgw9v7Ko/+llgE/OFBEByOC8jsS/cTZ0J0aSuxmXlmniY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLPslqe2mo6s2ebtw/bG0o3znDPEI9GJsOEHLf/z2Pf6ARmSmqH
-	ubS9m5R0Q7yWUaWjMz9zU+TGYPGoucBADMlXy84gDezHUiYPtcSkhw/QqXsoUhO17Y0wa96AwQ7
-	9bkRa
-X-Gm-Gg: AYBFou3PSbH8R4UKxtnAsXdySrmSqlVfphOd3c3/z0EX8d+cfWGhqNG22hOEiyKnrhG
-	1lkg4PG0goABPjOl+8m4VHVZuZ0op8Iv4l+XUqWj/rF2YLdLZwDTFwMoy2rsmceLNuSIJz8mLro
-	A3R6xnbWn7EWqkf/VoIGy3dw67WcnnTvKiV+nwhceMjlZ5oWyAcMJHVNgUe5yyzvVbmihwLR2bR
-	pv2zUlVTEdD+l2ZrieAgBxiMvdIBwehfnNQGWWzMFE21ttFid3OvE4D55Xl41lJh5uUg2/LP3J5
-	uAgCAsXyhgEl5g1p4CjlGuOw7ES0qL9cwZx1D8uMWMWVeXOHd5UkhIdzHM9fQ4JssSqJN+bDQ6u
-	cvzTIWxpov13cE3ZtZo3hLJcZZHJCaZyK9xmtsQAyMEuHDHWLrRZPiI3K2OwLBTiU+QqNmZIYpc
-	j/ZXn80D0cHAEhOzIcJz88zdBpR9KVYjy6qwhkuF1xawicpdwsWepyh9dhIyzh9JhGxC0/tQgEK
-	Fshn0YzRaPaKt8ZE0ZtPfENCun6gANWNlnY9Fx9So7ml3vNKFXu7nvUFPIQSdwD0ny1oc5Bd5sJ
-	Ufukh2tr37nfQYUFEANetsj7fRlUkRWwiOm1liG0bZyWRYm8eEknT52CawHhNP9Pje6vVU3RB8K
-	+T7GTWzDU3bY=
-X-Received: by 2002:a05:6214:3a87:b0:91c:6e6a:f1ad with SMTP id 6a1803df08f44-91c7cb836c2mr100048286d6.0.1793293245829;
-        Thu, 29 Oct 2026 10:00:45 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca317a421sm870346d6.44.2026.10.29.10.00.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 10:00:45 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xMTUa-0000000G37w-2g1i;
-	Thu, 29 Oct 2026 14:00:44 -0300
-Date: Thu, 29 Oct 2026 14:00:44 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Cc: alex@shazbot.org, pbonzini@redhat.com, seanjc@google.com,
-	bhelgaas@google.com, jjohnson@kernel.org, johannes@sipsolutions.net,
-	mani@kernel.org, lpieralisi@kernel.org, kwilczynski@kernel.org,
-	robh@kernel.org, vkuznets@redhat.com, kevin.tian@intel.com,
-	linux-pci@vger.kernel.org, kvm@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 5/8] ath11k: use KVM MSI domain for VM passthrough
-Message-ID: <20261029170044.GR1685504@ziepe.ca>
-References: <20261029163713.1366077-1-jtornosm@redhat.com>
- <20261029163713.1366077-6-jtornosm@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G0ykgAeC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 984731F01816;
+	Thu, 29 Oct 2026 17:05:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793293511;
+	bh=LVRxZ24pqtgoa//AHQI5Xv+cMRAGXk2uxfsL1IU6GrI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=G0ykgAeC8Jlr/lcfDgv58kfm/oA5Cqf1X+4jYhIrQD3Kou6DYng9U8chgQ0LB3y5M
+	 Yt7cvZBcvOTLO86KBx8YRxUQErNyGF0JFHkOhjzzg5M8+mpey1kQIt0dS07g+9d6HZ
+	 9RepnMfzjxY29/6VHS+wjqy16gp0NNHNg5GeYApljtXKHzbPP+0kpCxrhJhLYjpV/2
+	 uWNecWqCg1+1CE1RslIgmixd81EXgnXQfnR0mLvdEbU8+Q747HGhFQyEVytR/uxWLR
+	 lvjRAxnZlIM5nhArfjEsGxc1XdqRH1n4nA9aQjFBGYgPl08Sky82QepCv814D8njvW
+	 wI4JfCiXXKpCQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xMTYr-00000008dbp-06u5;
+	Thu, 29 Oct 2026 17:05:09 +0000
+Date: Thu, 29 Oct 2026 17:05:08 +0000
+Message-ID: <86ik2kxwsb.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: francesco.boccola@unina.it
+Cc: Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2] KVM: arm64: nVHE: Flush all TLBs when freeing a VM's stage-2
+In-Reply-To: <20261029-nvhe-stage2-flush-v2-1-096723b28bef@unina.it>
+References: <20261029-nvhe-stage2-flush-v2-1-096723b28bef@unina.it>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,25 +77,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029163713.1366077-6-jtornosm@redhat.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: francesco.boccola@unina.it, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Thu, Oct 29, 2026 at 05:37:10PM +0100, Jose Ignacio Tornos Martinez wrote:
-> @@ -855,6 +858,13 @@ static int ath11k_pci_power_up(struct ath11k_base *ab)
->  
->  	ath11k_pci_msi_enable(ab_pci);
->  
-> +#if IS_ENABLED(CONFIG_PCI_KVM_MSI_DOMAIN)
-> +	if (kvm_pci_msi_wait_ready(ab_pci->pdev, 500) > 0)
-> +		kvm_pci_msi_get_address(ab_pci->pdev, &ab->pci.msi.addr_lo,
-> +					&ab->pci.msi.addr_hi,
-> +					&ab->pci.msi.ep_base_data);
-> +#endif
+On Thu, 29 Oct 2026 15:34:48 +0000,
+Francesco Boccola via B4 Relay <devnull+francesco.boccola.unina.it@kernel.org> wrote:
+> 
+> From: Francesco Boccola <francesco.boccola@unina.it>
+> 
+> kvm_free_stage2_pgd() frees a VM's stage-2 page tables without invalidating
+> the TLBs. That is correct: the VM's VMID is not reused before the next VMID
+> rollover, and flush_context() then invalidates the entries of all VMIDs on
+> all CPUs (TLBI ALLE1IS).
+> 
+> In nVHE mode, however, a CPU that ran a guest makes the host's broadcast
+> TLB invalidations more expensive for the whole system until then, which
+> with 16-bit VMIDs usually means until the host reboots.
 
-This connection should be done through ACPI somehow, and I think
-Thomas would expect this to be modeled on the platform msi domain,
-just ported to PCI instead of this.
+Does it? Why? What permanent state is kept in the CPU TLBs that makes
+invalidation slower?
 
-Jason
+> With stress-ng
+> --tlb-shootdown on three CPUs of a cluster, the cyclictest maximum on a
+> fourth, isolated CPU goes, before and after one guest:
+> - Cortex-A53 (Zynq UltraScale+ KV260, no VHE, 6.1.70-rt): 53-72 us ->
+>   83-164 us;
+> - Cortex-A55 (RK3588, kvm-arm.mode=nvhe, kvmarm/next): 18-23 -> 78-97 us;
+> - Cortex-A76 (RK3588, kvm-arm.mode=nvhe, kvmarm/next): 16-30 -> 74-80 us.
+> It crosses clusters: after a guest on an A55, an isolated A76 goes from
+> 14-18 us to 129-154 us. The same happens on kernel 6.12.113 (20-24 -> 44-49
+> us on the A55) and on 7.1.9 with and without PREEMPT_RT.
+> 
+> One guest that turns its stage-1 MMU on, even for a few microseconds, is
+> enough; a guest that keeps its MMU off is not. With VHE nothing changes.
+> 
+> The state is in the CPU that ran the guest: a local TLBI ALLE1 on that CPU
+> at teardown removes the effect on every CPU, the same on all the other CPUs
+
+I note that the hack you are adding in this patch is a broadcast TLBI,
+not a local one.
+
+> does not. Invalidating the dead VM's VMID (TLBI VMALLS12E1IS, as pKVM does
+> at teardown) does not remove it either, whether stage 2 is disabled while
+> it is issued (as __kvm_tlb_flush_vmid() does from the host's context) or
+> enabled; nor does invalidating VMID 0 or the host's stage 1 (A53).
+
+VMID 0 is not special. This is just a convention, and you could use
+VMID $(RANDOM) as long as you use it consistently everywhere.
+
+> 
+> So do the rollover's invalidation when the stage 2 of a VM that has run is
+> freed, in nVHE mode. That costs one TLB refill on every CPU per VM
+> teardown; 500 VMs created, run and torn down one after the other take 32.1
+> ms each with it and 33.4 ms without, and an isolated CPU meanwhile sees no
+> change in latency (15 us against 13 us).
+
+Not a lot in this report makes sense, I'm afraid. I'm not pretending
+that what you are seeing isn't real (I haven't tried it), but without
+a actual description of what the root cause of the problem is, we're
+not going to randomly sprinkle TLB invalidations that are not
+architecturally required.
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
