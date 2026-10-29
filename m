@@ -1,53 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.22.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793262083;
-	b=yOGY90NLbiiJ++L2neQZj7/JG0RtCJoN1J0TGV7eziucMXVV3dBZLJekzCciN6dznnT9
-	 w5pL5cbVJHaWB6ixd8ZJ1x0HcNOStMM+iaFSIEV1XT+hmf9vOpJr78zB8B6BRsC8voM1E
-	 CDH9/qXWKZV33s19pNF3SNP3MifZ+rdvlx7TQWrvEjsnplFieHBywwfPnVlY3bibzxpfV
-	 v6CHN776nWaPQt4hUms2laafhY5uOR4uiJ+dRaX2e3g10aW42mz+oW13+2kl0fw540WQK
-	 56P21NFoMagNeTpFEPsPDMExaslfz2bAONK1efj7PRMoqoj8DWtJoHfI/FVTyMgqfLg==
+	t=1793262086;
+	b=sE9Y2jqLe0Evnurmn2odlnE3XFyRydf0p/L6O9WGzaA/YOLmdN1XKyRW/FegRG5g1HCU
+	 fF0Rv09uo9bizVw9IRfyX6rXEA/XQqFpkgjt1CPmyV++pp3r5ogRS6Yt5Dkq4xr8w6z+E
+	 1nK5YAEIDc1tB3t1b8/IZ9fayCaao0GTCaVd4c9f/zlw8UrU82xTAleQj2aKIeaQpjgia
+	 LjTN5shhN+NhziBUuHthz2dPElSchkgsLaLka4B8ntjd96BRvNthQI1j9OeCjfHZJZ9HX
+	 Mvws73qHx3Jy2GRpq9eEXdx27zuayTBUF5Cs+dMzB31mPrvwFlu/7yEqE/YG2Jkie6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793262083;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262086;
 	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
 	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:X-QQ-SENDSIZE:Feedback-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=MaiGehwDWMGje7GwBD46BC7L0JM33MNhQCknypc1LC8=;
-	b=IXlznx0GGgtM0rSBzNZ9BCQgZnbendFSHbQs8c/Jhgp5KCtJh5ehcp2lv18pLjyqeN+u
-	 S5iSzOC16ttnwu89j4DHJMpZHN+DRRrcathcxoacNK2Vh0pn+efA62bCRjTBQ8aJbaXS+
-	 MmFSg2f+oNGWiWqKoRE7UYvUG88MFo2q+1yPSZE7IEthbxDkWA5U+urfT3YT0X8DKcBdm
-	 h4C0LC98iPxFIIoEBfVTdxporazAokSamg8rr/ERWtW9sc/s8u/tHGkpXzETgxEUXXvoH
-	 RPiUATMALg5/pol2BQdG7qh/wqR8lQYifLzY4BKrbAY/l7B0JCjjtub77rutKp2J44A==
+	bh=coo6LudP7+MXTGLkixUJjnU6L9CG0CO+uQUYKmWvOsg=;
+	b=PqMIwfeQa1Hz+RVWzhEVQFcyK4SVpovMUKW3wczn/tRI5vtSyk0Np0PvGsxeEsgRJkd0
+	 sCfYOfB98PooF0zWJxs3hWBd8i0B0cSZvHVqEDHHpPpeMy1IHyesHt9rmR+5D7s7l4o0F
+	 X0Fm/I7nNG+nmrajshpkmUkwRKcUjH1fq8m3rVN7cs9i9mXFCYr9cmafz6NhACY85Gxem
+	 TsMNUfFBBmnbKA4sRYDve8UiiY1rYhgtS/T+8QJUzFu4bmKjViKFHHsGpIi6V1dMDitus
+	 LkPhh2HO6ozn99/E3uhFF10cQdVYVKfTHic2Iw9BpeQf5CkrZAis6sMkIdWIBz8CyTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=airkyi.com;
 	spf=pass smtp.mailfrom=airkyi.com;
-	dkim=pass header.d=airkyi.com header.i=@airkyi.com header.a=rsa-sha256 header.s=altu2504 header.b=VQ4iADg3;
-	arc=none smtp.remote-ip=54.207.22.56
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+	dkim=pass header.d=airkyi.com header.i=@airkyi.com header.a=rsa-sha256 header.s=altu2504 header.b=RWiCKpdX;
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869AD606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:21:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 869AD606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9409606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:21:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9409606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airkyi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=airkyi.com header.i=@airkyi.com header.a=rsa-sha256 header.s=altu2504 header.b=VQ4iADg3
+	dkim=pass (1024-bit key, unprotected) header.d=airkyi.com header.i=@airkyi.com header.a=rsa-sha256 header.s=altu2504 header.b=RWiCKpdX
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
-	s=altu2504; t=1793262071;
-	bh=MaiGehwDWMGje7GwBD46BC7L0JM33MNhQCknypc1LC8=;
+	s=altu2504; t=1793262075;
+	bh=coo6LudP7+MXTGLkixUJjnU6L9CG0CO+uQUYKmWvOsg=;
 	h=From:To:Subject:Date:Message-Id;
-	b=VQ4iADg3Q0Ly+Rx7riOGsaq8JeEpTn9Pgzq3v7MIEc3/JIZgHhVxneUQDThchz89h
-	 iLRWzQm6LLFU0WAWbwQyDJ3jfe6u0UxOqr+9claTuCG0MyLfSgTzN895jyrEmT6ljJ
-	 +CwUJ7ldBsK2NfGJaDaBGKh6/jlSj987uVRVkRvU=
-X-QQ-mid: esmtpsz17t1793262066t0346ef20
-X-QQ-Originating-IP: RWwCt8iHxYDYBOfvEVyX3eJc7UNRrPOzEF6rxt0WmXk=
+	b=RWiCKpdXNAGaOwjCuLMuU9vrf5CcJVPDNNFWxf3UYd8cwvOUasXHouXkNE/C5Ucu0
+	 BVxln0sui8WEnhR2BI1o+rkxzgJVLJ8aX1Ky3gT5bGXDCWBwLJSVcaNjH4Ay2s3Kfl
+	 WpDtTmQYD5XmTi2xFkgJpyy5bn4aUrWdDN1a3B0g=
+X-QQ-mid: esmtpsz17t1793262071t26810925
+X-QQ-Originating-IP: MU1nVtS0U94iEE4PP6y+/7HGqBqj4VURMar9zqctctA=
 Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 29 Oct 2026 16:21:00 +0800 (CST)
+	id ; Thu, 29 Oct 2026 16:21:07 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 771743844341427657
+X-BIZMAIL-ID: 958842394236650097
 From: Chaoyi Chen <kernel@airkyi.com>
 To: Sandy Huang <hjc@rock-chips.com>,
 	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
@@ -64,31 +64,31 @@ Cc: dri-devel@lists.freedesktop.org,
 	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
 	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
 	Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: [PATCH v2 1/3] drm/rockchip: vop2: Use drm_format_info_min_pitch() for plane offsets
-Date: Thu, 29 Oct 2026 16:14:27 +0800
-Message-Id: <20261029081429.862-2-kernel@airkyi.com>
+Subject: [PATCH v2 2/3] drm/rockchip: vop2: Skip UV plane setup for packed YUV formats
+Date: Thu, 29 Oct 2026 16:14:28 +0800
+Message-Id: <20261029081429.862-3-kernel@airkyi.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20261029081429.862-1-kernel@airkyi.com>
 References: <20261029081429.862-1-kernel@airkyi.com>
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NG63YEgwc4yzfugC3WsiuOAJWCPjs1BJ74Th5dTvCCDKUdenYSMm8+Tp
-	CxMmZ2vVRLpu1ID4i6/7hkV16az15T7NqH3X1YwEIasxvyxqke1QI8LYEf+BAByyORg+JM/
-	nysJUS1pHy2wx6aT1Blgspx7cNAa1VtlrEJZr/rPtyDW2GhVjUftgIW7Ag0AhlFHVXnvBuo
-	849MVtfOp/kXMhZe18DLcntFf88WGQMLv7Qcbwq3MJdPbH6mYjN4f6IjPo7BvPTbd0NxiV+
-	s6g++PDHa7wm9X3vfyLaFRGe21uePQbdTKjUyeQrYL+3ZmR7mmEg0SYdQg9pcaH0ECTS2Xk
-	TKscT/HhKdl0YeWkEuOCNdqvQsd1NMvr6T+gE98DFZjW2XyigtHIzfFLQzE4lenscLQvbBL
-	iu4amGqYuuKPyre01Aj/7doJqm6YMj3O9r52uOQDNHPWVpOGxI16tMEtShrOmiaC6YRxvFl
-	vW4Mj0YdALAv7XlS+8le1LJs8QkJnqjjOfUaPczU4iObSxESS6Nr8IWFU9TWXo/pLAe8ZuY
-	H/npaVB0y5cvOVp2Rtl3iqRzCpQDtrJ7a/fVS/Ymk6jtKJCIF700obZsfVNcAxggRVyIgl3
-	A4nc6W2CS7D3dHP+A4Xc6uTqRd3SNGl51cl02JuQFx1Ix+E+Aet1Le5WP4zdan3+XbJc3N3
-	Edyz4DQswALlyI9hOx0q7z//kVcofo98l8nMsBrE5A03avzpHXyOLskvq+c7e7iIHShDKJ4
-	6AR7nMHldNtLcR6GHuI+Fqa1mb+xl1x9jhg/Gl+zBR0SQV0E4FA7iQpgY9uZcZGL15VZG8s
-	kqdwE8KxSVzdP5hRDr6glvXf6Yk0vT84X2cYYg6cm+eEN+rVTBLnUw2/+8Rz8H/1o4SZjvf
-	sjCjjgp0aEXH4pfJApzs4uxcLsChf8Tmme2vn4hlVDai4jCofLyAmjQe0oEN8DoiSqkIMgD
-	QBsCAoROh15ZhVyk0OcZ/QGm/Dk24S+POzDc5D9ZbvHjJLiPjfVcsXBUURzFZ9ryQTZj226
-	i+sYXo8k9cChf2SSUoDut9lLGdohHtNRCqtiF34g==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-XMAILINFO: MIYVF5Pddf3w0c6i6Ir5NX0Dk0nBSN+SCIhe6vihL4NwzYHe/H2UE0H+
+	IXw4jM1gzxPvg2OxK/hrdA1nK4/ThGYkWqWpjhxdD398NqlK4S7rduTMujFfRNrmtbIek3+
+	8CnECu8m8s+BMeotYRMsKxoV1vYYnJ6yitlb/xIp+bZT7weYWLjibAHooNSn+mZb99CA3dJ
+	E2xWLq/fZ4YAfGLXvu5mBB1SmyQZSm9S2hU8i5f8f1v52knyFgN3ANSJY6iV7SZBYWTkg/v
+	JJTN8YyNgPVWjsmnqMQEu/ZTMdjbjOctEJBGDie87uN07d2rwJJcG7dOCPKQA2YOU4Neb6J
+	QyAtUXcdR0Ha434G6mM/wSiGDrtNaPg9Nn4psK+AGrqS5rAgtXgy3ANBESNOPcRbq7AGQO0
+	LOBDS39TZf3edRfuciCwN3DsdgLdhRgw0yDPSgXEtZYpq+6Isr786MdsDr/kWiATNwDkC8g
+	qe8DtmWWE0zrbBemEoo4H/5jjQsILGzAh5SevfgmLcT6LggU8AD+1fVYbEvaM47eaDCANLg
+	osbBwSULfqQawmSp6FZV3vedmJlFZI3CjFEszZQhX6GjjnJ3W6/A9ribefdGHhAHDtLcBYF
+	iAvdiHB5t0D3EcrJDcUtRs4FpYL5ADw+dcw7txXeoxIKCctmzRBqSQqkIYYpTqDkSgsTpo2
+	clfaOYYTPG07TcXxqSYtPU3Q5J15BUoQ1zSfxgGQvyZvV3YHocLZjGs9ADp4cQQzEdhElWo
+	ZcuXuixfEaGtIfa7VXchm88aJCcWIo25wIINkcOgRjuUPqWnka4M6bnvYQk5U0WueFQc06F
+	EV0Xp5UCmyzFbSpfaar7kHWkAPYgdeI5IMZ+W/SjScQ7eHvfZvR6Dy+UWhfCYPYHZ9CtMi0
+	77ufv6i78Zue3IthZ1+p7YSEDCgEe/XnQ1BLIU85EK6fmft4UAZM3M6ucEA3KNgDYhzs3fj
+	Mm/I/Jrgk4/mzdl9BuCOYZk4+jEqL4vhcB2yZyEpHwrUKRpIguRoJ3hQHWjse2+BMTOC3hp
+	pUCohkR6DGrPDghF0C
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
 X-QQ-RECHKSPAM: 0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -101,53 +101,41 @@ Precedence: list
 
 From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-Use the block aware helper instead of cpp[], the latter aliases
-char_per_block and is wrong for packed 10-bit formats like NV15,
-NV20 and NV30.
+Packed YUV formats store chroma interleaved with luma in the same plane,
+so they have no plane 1 that the UV address registers could point at.
 
-Tested with modetest[0]:
+Restrict both the plane 1 offset calculation and the UV register writes
+to formats with more than one plane.
 
-```
-	modetest -s 86:3840x2160 -P \
-	59@83:3940x2160~96,0,3840,2160+0+0@NV20 -a
-```
-
-fb size (3940x2160), src at (96, 0) with size (3840x2160),
-dst at (0, 0) with size (3840x2160)
-
-[0]: https://github.com/windowsair/libdrm/tree/src-pos-support
-
-Assisted-by: LLM
 Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 ---
-Changes in v2:
-- Missing removal of the replaced line(Heiko).
+(no changes since v1)
 ---
  drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 4cce3e336f5b..b38a32d623b5 100644
+index b38a32d623b5..06291a13320d 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1290,7 +1290,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
+@@ -1305,7 +1305,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
+ 	rk_obj = to_rockchip_obj(fb->obj[0]);
  
- 	afbc_en = drm_is_afbc(fb->modifier);
- 
--	offset = (src->x1 >> 16) * fb->format->cpp[0];
-+	offset = drm_format_info_min_pitch(fb->format, 0, src->x1 >> 16);
- 
- 	/*
- 	 * AFBC HDR_PTR must set to the zero offset of the framebuffer.
-@@ -1309,7 +1309,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
+ 	yrgb_mst = rk_obj->dma_addr + offset + fb->offsets[0];
+-	if (fb->format->is_yuv) {
++	if (fb->format->is_yuv && fb->format->num_planes > 1) {
  		int hsub = fb->format->hsub;
  		int vsub = fb->format->vsub;
  
--		offset = (src->x1 >> 16) * fb->format->cpp[1] / hsub;
-+		offset = drm_format_info_min_pitch(fb->format, 1, src->x1 >> 16) / hsub;
- 		offset += (src->y1 >> 16) * fb->pitches[1] / vsub;
+@@ -1460,7 +1460,7 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
+ 	uv_swap = vop2_win_uv_swap(fb->format->format);
+ 	vop2_win_write(win, VOP2_WIN_UV_SWAP, uv_swap);
  
- 		if ((pstate->rotation & DRM_MODE_REFLECT_Y) && !afbc_en)
+-	if (fb->format->is_yuv) {
++	if (fb->format->is_yuv && fb->format->num_planes > 1) {
+ 		vop2_win_write(win, VOP2_WIN_UV_VIR, DIV_ROUND_UP(fb->pitches[1], 4));
+ 		vop2_win_write(win, VOP2_WIN_UV_MST, uv_mst);
+ 	}
 -- 
 2.53.0
 
