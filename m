@@ -1,76 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793275869;
-	b=r3Hvlo1pajTZc73erMmyQQV72ncsJfhUduymoyKn3BKfQInPuHx1VPLwTZo9I0UHCmtY
-	 ObERaZ3EY3tFgx6D/t/3iJbPsdiRmSVR4uFeLYwZyLs2nCNHQAPyafxinlOX5H2wpSNBd
-	 Sdi7Z6FcEvGkwi/GZZL0AYvf7Ao/LS+JnU0aiqIUMu8kvfh6syIU2JEktmjls0b1SX8dK
-	 SlNG2qUIJcDGX/28j4xQ7UHXCmEDz0mXxtZZrnP3+6jEd9IzAshW2oe+eP9gnCYpMU8wg
-	 2g0Ugm3MUhOYVyUkNcDxY36fFUkqOZi2EzG4S9kM9ugZlnrsOsbWfI+S1nif7sY1fqA==
+	t=1793275886;
+	b=pgfwX0CnmE00fei+Qm2Jyt/G28+g9qZzar1gktpI0+6NhtMw2Tau3zs7CT9RFkF5Sx2u
+	 GauXBHQSmqQn3JMdbLgVKIMZIxBoPPdzDUfWcozvBPAmsFB1aHBP0ugSVv7yM5rbLRB5f
+	 gw0gdhJva0JxT7+L8bbmui2SPvbgQlvJbkuEjGQI+zxNT1lsPtaJvZBny2MZgQ/sECQdS
+	 AjG9uNJL/lue6j0TqvYeq6uWeL3k6C+i4YH+Ri2rd90I+tdsDsVZtAeZ5SgIzF0wSfgP1
+	 9CJ6OQGhKclBE0uhIbiNWSlR/It+k+LPr6CAWZxYvQoB4VzUqSAohlGEutiKDbLw+vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793275869;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793275886;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:Subject:
+	 In-Reply-To:References:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=8Jb0QjN+ngY6etMxQOZMOoIlhB+546T+PND1NORcPzA=;
-	b=F8NLIJ9eeOEe83t4MLGgUfHy/U00ArZgIOjYl4DecWydtUmYPBsYeq846GKqek4zBSKg
-	 Qc/5OXiWUhzp0p+W7tnBq60uS99wCDFwBrx3jJymw7A0cEezk+YOOUyUXjJnPnoQWPQ8d
-	 RBrdLlJ1fBO90hYvq15Hh5s1xktRyJooWByH5XDS6kYiQLHmc1iEaKw04NIWdlePOdIum
-	 rM17xyKdGmn2zCoYt4zfZAVh31DwJy1Qz0V3SlYLlm+zVxfrrnNL7GwLhnKVLLOUKCLl7
-	 Mg1Ro4p0H/CVRS5hVLTwpxg+4SebIonu8QlLvz0kiIqnLTOmQ6iO+6JanOC+URS8kZw==
+	bh=YbujP6JKj1oxCEjBlCYusdX8zGbYupnOiFDHcl8ZAlk=;
+	b=lVBM+wETZ6RvDk3HwRJphVhomEwG2WPOszTMeSmpr7e0AnDDre2Snwh10M78PsMJhRFQ
+	 UBjrJ4qq6nSjZXykfoko4n4ln1Q1ojqYhQprpPg1gYsfSsLQ1c0mzKG+QIm3G8AEtLxgC
+	 8bpqVqTmaiKPB73Q+/dwr4bhYh8Zg8TA50STxKQmxYjlkH+jVumdO+qP9aoaWcUNiO8mp
+	 K/aVTP87WTwrYLi3exI4VqGifGsrDU6ZV06kxNLjNaCJaeCBl9oTva+kf9jWH95szcCUm
+	 UWT57zULY2eE4uYZkpdZLSX1EQHAiLyGhHknd812VzZasouEMwmGYb5zA+pVQHwXewA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--halg.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="Jlnl/QUT";
-	arc=none smtp.remote-ip=209.85.218.70
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=OuZ1g7Kr;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=xLTFNUs6;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D65606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:11:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98D65606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--halg.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D931606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:11:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D931606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Jlnl/QUT
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c42888c50c4so180496866b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:11:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793275867; x=1793880667; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8Jb0QjN+ngY6etMxQOZMOoIlhB+546T+PND1NORcPzA=;
-        b=Jlnl/QUTtPccNXi+ZNNtbAqFpxXTju7rbaudqoEAepuOGdczXzyFQiuTlvKV9TRJFk
-         Fp6YrBzWkmYN3bqS/G8vDFtnVhiAlhRXvYxV7V3Wg4R2R56JN4EzGTkxQscvA2DHXocH
-         xqv3pRmejhrrxLL6D1jiPl6quIY++yph2+5UyvcgdWP33jRH+zU9UlGvQGFJZw9M4vFC
-         ah2J/703hoBaTXZRxbDhVBoL5SfyHkCEuaYbCEzb9LGTWdPAX6cLywrWb24VDZrVPpED
-         i84/UyEbcaXba0ha2kGdCV6YnJ0ZZq2iJ/jvKqL+jER6wtiVUy1Jw/OVcWsxlFH9UdV/
-         cpoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793275867; x=1793880667;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8Jb0QjN+ngY6etMxQOZMOoIlhB+546T+PND1NORcPzA=;
-        b=dO+ry2AMCGqvMR4Y8HBxZEpUf/0yFD/rphcIxyBa+xSLzQctZAQHXx+oV4NU9ehZLA
-         t+N/i7h8qylX+cYEacH7Z8rWZK8RXcIf92JufUVW1uv5kN+GWTCK+jZwdQ1L82Y7dOyV
-         AKbxWuOQGyhCCISH4I75nsUnz4gKIRvzTwVhsbbc9etlc/w82oEcug57PlJYvx8nRvZe
-         qFFbm4PYD4y3i0I/aFtGGtxZ2T/Jgl9k/nWttiAq2M8Lnb7nkBAIMc1HGZOvFpKYX2LV
-         +k0o7k5UXToalKN0OpdufduXuqzm/6NvxcDu5zQewZXV6J7S+Y+u+qYMOkx8C0Qv6xxs
-         YivQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxfZmPDjj1YO1HTjpd4rYo0nsaA+jpi7p+OYT4P/q5uFLnR4dXTW2l6idZMIHAmHwzPZn2w0KUhB/KUQxc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJni1FQMHtnp0J7nK37dNOKy7vjc9VHZiigQbwp7MX+dO3Hm1jW
-	eGXoSfZhSaeNfKVyHS0qymPJfEgTvKdlgYOxZjX+GEZymOFqVfZxNZDR4+ZjBay+XQTsbQCL1w=
-	=
-X-Received: from ejoy1.prod.google.com ([2002:a17:906:4481:b0:c49:cd3a:2b6e])
- (user=halg job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:ecc5:b0:c49:d058:6901
- with SMTP id a640c23a62f3a-c49d05873a3mr206311266b.38.1793275866775; Thu, 29
- Oct 2026 05:11:06 -0700 (PDT)
-Date: Thu, 29 Oct 2026 12:11:06 +0000
-In-Reply-To: <CALCETrW9ygriu54gxiHFLEd5+hJminQo0r8Jwd63wR69Dj4W7w@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=OuZ1g7Kr;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=xLTFNUs6
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793275881; bh=YbujP6JKj1oxCEjBlCYusdX
+	8zGbYupnOiFDHcl8ZAlk=; b=OuZ1g7KrM4Y+yS6CIqeQc5Rjmu37bmlP5cz8OOpKIub5axU1a3
+	fmUsqiyt88nqkQF6+NEK6hJM0SuL4voAlesIWVZdclXFP8H9DXbv2jqkTayc77G7JQRyt8H7Bwn
+	J3ag5oHnUuNyZSNVdUhrGSwI5rtTXsQ/gSVXhJRH2MtpRbshntiahptXIaiaHCkBWV1UWnBevl9
+	xk9bE2sBTzK0NblbdbFuY/3aI9Q6zToGF9IjvXlHRY0TWS9YsN3dlASJRBblDsn11xPeNx2BwmV
+	98J76fncAU5s94usEibCFRdsv2S+OGm5vWeWIQ3P6T/j+Y2MsQxG+ssrHMbxkDchXmw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793275881; bh=YbujP6JKj1oxCEjBlCYusdX
+	8zGbYupnOiFDHcl8ZAlk=; b=xLTFNUs6g2l8MEeqWVdZ+0xPwNlVxlCQ9q1rFrUU93dmcvb+U3
+	WDX+c2rV+aZ2vNWchrpovmP4f9ppd+SjzaAQ==;
+Date: Thu, 29 Oct 2026 12:11:22 +0000
+From: Bradley Morgan <brads@mainlining.org>
+To: Andrew Morton <akpm@linux-foundation.org>, thnkslprpt@gmail.com,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/3] profile: simplify /proc/profile read layout
+In-Reply-To: <20261020182736.26ac79b01dd02ecda8a89ab6@linux-foundation.org>
+References: <e7e8de4d10204573a54c2044c060379b.1@linux-foundation.org> <e7e8de4d10204573a54c2044c060379b.3@linux-foundation.org> <20261020182736.26ac79b01dd02ecda8a89ab6@linux-foundation.org>
+Message-ID: <3E2400AD-7988-4D87-9982-A2B6EEE0B1E5@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,156 +62,167 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261028221705.3915340-1-halg@google.com> <CALCETrW9ygriu54gxiHFLEd5+hJminQo0r8Jwd63wR69Dj4W7w@mail.gmail.com>
-Message-ID: <auM32mOlBLu6ZUlt@google.com>
-Subject: Re: [PATCH 0/8] userns: per-namespace capability bounding set and
- opt-in netns loopback
-From: "Hallgrimur H. Gunnarsson" <halg@google.com>
-To: Andy Lutomirski <luto@amacapital.net>
-Cc: Christian Brauner <brauner@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jan Kara <jack@suse.cz>, 
-	James Morris <jmorris@namei.org>, Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Jann Horn <jannh@google.com>, "=?utf-8?Q?G=C3=BCnther?= Noack" <gnoack@google.com>, KP Singh <kpsingh@kernel.org>, 
-	Jonathan Calmels <jcalmels@3xx0.net>, Casey Schaufler <casey@schaufler-ca.com>, 
-	linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-api@vger.kernel.org, containers@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 28, 2026 at 03:56:11PM -0700, Andy Lutomirski wrote:
-> On Wed, Oct 28, 2026 at 3:18=E2=80=AFPM Hallgrimur H. Gunnarsson
-> <halg@google.com> wrote:
-> >
-> > When an unprivileged process creates a new user namespace, it is grante=
-d
-> > a full set of capabilities (CAP_FULL_SET) scoped to that namespace.
-> > While these capabilities are isolated to the namespace, they allow
-> > unprivileged local users to reach deep kernel subsystems (most notably
-> > networking configuration and raw sockets via CAP_NET_ADMIN and
-> > CAP_NET_RAW) that historically assumed a trusted caller and have
-> > accounted for a large share of local privilege escalation
-> > vulnerabilities.
-> >
-> > Many workloads and sandboxes use unprivileged user namespaces strictly
-> > for basic UID/GID, mount, PID, or network isolation and never need
-> > high-risk capabilities like CAP_NET_ADMIN or CAP_NET_RAW. Likewise,
-> > system administrators often want a host-wide policy ceiling restricting
-> > which capabilities unprivileged user namespaces may acquire, without
-> > disabling unprivileged user namespaces altogether.
-> >
-> > Prior work by Jonathan Calmels [1] proposed addressing this via a sixth
-> > per-thread capability set (cap_userns) alongside a global sysctl mask.
-> > During that discussion [1, 2], feedback (e.g. from Casey Schaufler)
-> > suggested that rather than adding another per-thread capability set and
-> > prctl() interface, capability restrictions could be integrated directly
-> > into struct user_namespace and configured via clone3(). At the same
-> > time, as noted in [1], a clone3() flag alone is not sufficient for
-> > administrators who need to enforce a host-wide ceiling on unprivileged
-> > user namespaces without modifying every userspace callsite.
-> >
-> > This series combines both pieces of feedback: it embeds a capability
-> > bounding set (cap_bset) directly into struct user_namespace, reusing
-> > the existing task cap_bset, cap_permitted, and cap_effective sets on
-> > namespace entry, and provides both a system-wide sysctl ceiling for
-> > unprivileged user namespaces and a CLONE_NEWUSER_BSET flag for
-> > voluntary per-namespace restriction via clone3().
->=20
-> Why should the task's cap masks affect this?  *Maybe* cap_bset makes
-> sense, but I'm struggling a bit to see why cap_permitted and
-> cap_effective should matter.
+On 21 October 2026 02:27:36 BST, Andrew Morton <akpm@linux-foundation.org>
+wrote:
+>On Tue, 20 Oct 2026 17:52:03 -0700 Andrew Morton
+><akpm@linux-foundation.org> wrote:
+>
+>> read_profile() is needlessly difficult to understand.  It copies the
+>> four-byte sampling-step header one byte at a time, then manufactures
+>> a pointer before prof_buffer so a file offset can be used as a
+>> counter-array offset.  Its signed byte counter, unsigned long file
+>> offset and repeated size calculations further obscure where each
+>> read starts and how many bytes it transfers.
+>> 
+>> Treat the file as two consecutive regions: a four-byte header and
+>> the profiling counters.  Use size_t for byte positions and lengths,
+>> copy the bounded header in one operation, and address the counters
+>> relative to the start of prof_buffer.  Brief comments explain each
+>> region.
+>> 
+>> Keep the word-sized shift and explicit narrowing required by Avi
+>> Weiss's "profiling: fix sampling step on 64-bit big-endian systems".
+>> Assign the header value separately and explain why the 32-bit ABI
+>> requires a narrowing conversion.
+>> 
+>> Preserve the partial-read and fault semantics established by [1/2],
+>> including short copies within either region.  No userspace-visible
+>> behavior change is intended.
+>
+>Me:0, Sashiko:1
+>
+>revised version, I'll resend in a few days.  I tested 32-bit now.
 
-Sorry, the phrasing here may have been misleading. Just to clarify:
-none of the creating task's capability sets (cap_bset, cap_permitted
-or cap_effective) are used to restrict the new user namespace.
+Thx, did you resend them?
 
-When I wrote "reusing the existing task cap_bset, cap_permitted and
-cap_effective sets on namespace entry", I was contrasting this with
-the prior series from 2024 [1], which proposed adding a 6th per-thread
-capability set to struct cred.
+>
+>
+>From: Andrew Morton <akpm@linux-foundation.org>
+>Subject: profile: simplify /proc/profile read layout
+>Date: Tue, 20 Oct 2026 23:58:33 +0000
+>
+>read_profile() is needlessly difficult to understand.  It copies the
+>four-byte sampling-step header one byte at a time, then manufactures
+>a pointer before prof_buffer so a file offset can be used as a
+>counter-array offset.  Its signed byte counter, unsigned long file
+>offset and repeated size calculations further obscure where each
+>read starts and how many bytes it transfers.
+>
+>Treat the file as two consecutive regions: a four-byte header and
+>the profiling counters.  Use size_t for byte positions and lengths,
+>copy the bounded header in one operation, and address the counters
+>relative to the start of prof_buffer.  Retain the full loff_t value
+>for EOF and negative-offset checks before narrowing it to size_t.
+>Brief comments explain each region.
+>
+>Keep the word-sized shift and explicit narrowing required by Avi
+>Weiss's "profiling: fix sampling step on 64-bit big-endian systems".
+>Assign the header value separately and explain why the 32-bit ABI
+>requires a narrowing conversion.
+>
+>Preserve the partial-read and fault semantics established by [1/2],
+>including short copies within either region.  The full-width offset
+>check also prevents 32-bit pread64() offsets from wrapping into earlier
+>profile data.  No other userspace-visible
+>behavior change is intended.
+>
+>Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+>---
+>Tested the combined three-patch series on x86-64 and i686 QEMU/KVM
+>guests with CONFIG_PROFILING=y and profile=12.
+>profile-read-test.c: PASS (0 failures) on both architectures.
+>Covered short and unaligned reads, header boundaries, EOF, partial
+>user-copy faults, return values, file positions and retry behavior.
+>The 64-bit big-endian sampling-step fix was not runtime tested.
+>No separate per-patch or unpatched-versus-patched run was reported.
+>
+> kernel/profile.c |   61 ++++++++++++++++++++++++++++-----------------
+> 1 file changed, 39 insertions(+), 22 deletions(-)
+>
+>--- a/kernel/profile.c~profile-simplify-proc-profile-read-layout
+>+++ a/kernel/profile.c
+>@@ -153,35 +153,52 @@ void profile_tick(int type)
+> static ssize_t
+> read_profile(struct file *file, char __user *buf, size_t count, loff_t
+> *ppos)
+> {
+>-	unsigned long p = *ppos;
+>-	ssize_t read;
+>-	char *pnt;
+>-	unsigned int sample_step = (unsigned int)(1UL << prof_shift);
+>-	size_t not_copied;
+>+	const size_t header_size = sizeof(unsigned int);
+>+	const size_t file_size = (prof_len + 1) * sizeof(unsigned int);
+>+	unsigned int sample_step;
+>+	loff_t offset = *ppos;
+>+	size_t pos;
+>+	size_t done = 0;
+>+	size_t n, not_copied;
+> 
+>-	if (p >= (prof_len+1)*sizeof(unsigned int))
+>+	/* Keep the shift word-sized before narrowing to the 32-bit ABI. */
+>+	sample_step = (unsigned int)(1UL << prof_shift);
+>+
+>+	if (offset < 0)
+>+		return -EINVAL;
+>+	if (offset >= file_size)
+> 		return 0;
+>-	if (count > (prof_len+1)*sizeof(unsigned int) - p)
+>-		count = (prof_len+1)*sizeof(unsigned int) - p;
+>-	read = 0;
+>+	pos = offset;
+>+	count = min(count, file_size - pos);
+> 
+>-	while (p < sizeof(unsigned int) && count > 0) {
+>-		if (put_user(*((char *)(&sample_step)+p), buf))
+>-			goto out;
+>-		buf++; p++; count--; read++;
+>+	/* Copy the four-byte sampling resolution. */
+>+	if (pos < header_size) {
+>+		n = min(count, header_size - pos);
+>+		not_copied = copy_to_user(buf, (u8 *)&sample_step + pos, n);
+>+		done += n - not_copied;
+>+		if (not_copied)
+>+			goto fault;
+>+		buf += n;
+>+		pos += n;
+>+		count -= n;
+> 	}
+>+
+>+	/* Copy raw counters using offsets relative to the counter array. */
+> 	if (count) {
+>-		pnt = (char *)prof_buffer + p - sizeof(atomic_t);
+>-		not_copied = copy_to_user(buf, pnt, count);
+>-		read += count - not_copied;
+>+		not_copied = copy_to_user(buf,
+>+					(u8 *)prof_buffer + pos - header_size,
+>+					count);
+>+		done += count - not_copied;
+> 		if (not_copied)
+>-			goto out;
+>+			goto fault;
+> 	}
+>-	*ppos += read;
+>-	return read;
+>-out:
+>-	*ppos += read;
+>-	return read ? read : -EFAULT;
+>+	*ppos += done;
+>+	return done;
+>+fault:
+>+	*ppos += done;
+>+	if (!done)
+>+		return -EFAULT;
+>+	return done;
+> }
+> 
+> /* default is to not implement this call */
+>_
+>
 
-In this series, when a task creates or enters a user namespace, we
-simply initialize its new cred->cap_{bset,permitted,effective} in
-that namespace to user_ns->cap_bset instead of CAP_FULL_SET.
-
-> Also, I think that Docker in non-userns mode restricts cap_bset, and
-> the purpose of that restriction is rather at odds with interpreting it
-> as a restriction on newly created user namespaces for purposes of
-> vulnerability mitigation.
-
-When computing the new user namespace's user_ns->cap_bset in
-create_user_ns():
-
-1. The creating task's cred->cap_bset and cred->cap_permitted are not
-   consulted at all. The base ceiling is inherited from
-   parent_ns->cap_bset (which is CAP_FULL_SET in init_user_ns), not from
-   the task's cred->cap_bset. So a non-userns Docker container that
-   drops bits from its task cap_bset does not restrict newly created
-   user namespaces.
-
-2. The creating task's cred->cap_effective never restricts the new
-   user namespace, but it is used as an additive exception to the
-   unprivileged sysctl ceiling.
-
-   The rationale is that if an admin restricts e.g. CAP_NET_ADMIN in the
-   unprivileged sysctl, an unprivileged daemon that already holds
-   effective CAP_NET_ADMIN in the parent namespace is allowed to keep
-   it when creating a new user namespace. There is no added attack
-   surface if the user already had the capability in the parent ns.
-
-> > In addition, because restricting CAP_NET_ADMIN at user namespace
-> > creation time prevents userspace from bringing up the loopback
-> > interface in new network namespaces, the series first introduces
-> > an opt-in flag to automatically enable loopback on network namespace
-> > creation:
-> >
-> > 1. Opt-in loopback activation on netns creation (Patch 1)
-> >
-> >   New network namespaces start with the loopback interface (lo) DOWN by
-> >   default, requiring CAP_NET_ADMIN over the owning user namespace to
-> >   bring it up. To block external network access while preserving
-> >   localhost networking, sandboxes commonly create an isolated network
-> >   namespace with only the loopback interface enabled.
-> >
->=20
-> The whole unshare/clone flag situation is getting out of hand, IMO.
-> And this new thing makes logical sense but is really about reducing
-> exposure.
->=20
-> Perhaps we should instead have a small list associated with a userns
-> (extensible in the future) of things that the ns's admin (i.e. whoever
-> has CAP_SYS_ADMIN relative to the ns) may do.  That list could
-> include:
->=20
-> - Create loopback with sensible defaults for ipv4 and/or ipv6 (i see
-> no obvious reason to separate them)
-> - Create tun/tap interfaces in that ns (and attach them, etc)
->=20
-> And add a very simple new API to do these things.  Actually, the
-> tun/tap could just use the normal mechanism.
->=20
-> Thoughts?
-
-I'm not particularly attached to CLONE_NEWNET_LOOPBACK. I'd be happy
-with whatever mechanism allows bringing up loopback in a new netns
-without granting all of CAP_NET_ADMIN.
-
-The main reason I went for a creation-time flag is that it avoids
-needing a separate userspace API call after namespace creation and makes
-it simple to get working loopback for sandboxes that want to drop all
-capabilities in the new userns from the start, e.g. CLONE_NEWUSER_BSET
-with cap_bset =3D 0.
-
-That said, if maintainers prefer not to spend clone/unshare flags on
-this, I'm completely open to an alternative mechanism.
-
-Also worth noting that Patch 1 is orthogonal to the rest of the series.
-The capability bounding set changes in Patches 2-4 stand on their own
-and Patch 1 just makes restricting CAP_NET_ADMIN more practical for
-common sandboxing use cases that rely on localhost networking.
-
+--- Thanks!
