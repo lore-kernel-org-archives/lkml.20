@@ -1,58 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282549;
-	b=dPQw4hBkROknYNBB5zA74DnU9vcSCYnqv6+OLR2JJuqroq46I6oHuez6Qj8Fa3zCAv68
-	 TuapTBOtlIyscCtM/eCtxfycHTNSIHF6BtBvBPb9lVVq4hbnjCziWZ1oRrVotSuRRaqBH
-	 cAsu0N9EIQfhLpaOOZC1YfuyMeaSqJu8tfGUhaD11pEG3eRZOMhT/4uWRLIi1V3/sp0O7
-	 97vE1EHJvYi5tTnx6uXB0i9ACsEQFTPlz7WgfcY3WGvzGQgOcOyY8S66DUVpxkyRgD7V4
-	 yCogqF5/hHr6xLYq5Gedmpylx2lbFRF14lZNxtULocslgSOKlk/9QkEaoSCqS5W0UeQ==
+	t=1793282573;
+	b=wFw4UcrpTceEBH6BB92rFZ3ZY/W63Jdx8LBnYQV2BYXGTamlhRfSjYgOb2ZqR0qOYi3M
+	 UbVx/BUWHfuwfCa8BxD1bISLdc07T5VSl/H82A1+3wU9esiL8svS5gfESTGC3hf4cW8Do
+	 ra/gS5/DP2VPKXBr3sOXt1FFub5Wpf+rVvHJl3XsIraLshfVLKyjbHfl8U2Hwbx4O5KhG
+	 EhzZr50NZPh6TaS7y9lZ0Zvt9lCV5/0jXvaccF0Zmw6rrqotq35XEKQ5GFqpjA1IsE5FG
+	 qiyH8xnNGjl0ga5FBMW9S7khUYyCVOrghS0kHxW3g6NnC80EaQ6Hfu0gxx9kIjq2+hA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282549;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=46BTS2L17vKUMaAXzO89PlCn4e9X2ecYyyZ5hRRDLBc=;
-	b=WS9Phh0Zw8LWjnC4ojlp9jcodm0sjhRCYzM4FTlOIgbB/DDt8AfBer5c7Sb+cmCJyHgV
-	 hbWCbKa0KrTeKjddRi7JYlL/2XF4HKT0mUWN7g6RzM0A9f+p/BnSMamt+EMJMUYdUiBuI
-	 wIUGXAYZX8WiMJnqedYH0W8iItjBj4VAIF2lwIJIS0WNqzF8905aA9GNj3IoYxkF5vzzC
-	 FnD8CsDKgAsokuYbwviMRBP3F932m1J3xor4KGDqejzduXDvLxxRq6//IJEwnJYaaKMwX
-	 ZlVsuI0Nk9B19Wp634g857ibrqGLKVJMqwZmAT14ahNEN3rPDXt0kIACAF4QvlkXfUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282573;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=ZLGAVMj8edgpTxrXyIpRaEv+HUauO5qynVoClba6by8=;
+	b=W7YUaWPPIaeMz418Vdi2Ly4fmSMEchUb1Dkascj3nXgQzDgj+si8x9dnweBzYfPYj0Y9
+	 2RuoJVLvAWbBHudKmzZQhrNt9V5skQFBqc14biS6Y5cd1MbRtPxpKJH0vIMiSd2lYHrke
+	 6x/Gb6Di1ZUoVBGkMif2osZJX/EVZKuTf9Jm+n/3FFk/UnVIH01VJl1JjHnhuYiVhtRsC
+	 x8U2MB3TimxNQ0A370KtRK4MjT2ntJT0Lq0nbufA8dECQYZYpiIy1Wf7l+byuL3eTcdMk
+	 BEkNlvfD8LJPfcuZ2Sa39nBm7mAITAh98U/N1qYtxS2qr6CIqCMX+xEnSgi42Ey3XOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Xxcr1uEv;
-	arc=none smtp.remote-ip=113.46.200.221
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Im+KZbvB;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C28606A336;
-	Thu, 29 Oct 2026 14:02:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7C28606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68309606A31E;
+	Thu, 29 Oct 2026 14:02:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68309606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Xxcr1uEv
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=46BTS2L17vKUMaAXzO89PlCn4e9X2ecYyyZ5hRRDLBc=;
-	b=Xxcr1uEvjyUncblEyLuJ13eru1beYW/GY5GFrPE5ZiK43B4KlA7E+sfVr4qhA3hrvIBxIwDSM
-	8bbmRWDAsZAUJOf4aPz+Fkbsf8dlBiYZwCbJ4LCU36/fQiGVBZ8WrYc5WWyoqZLYFc7PE1SX2xp
-	egChEha82ieFCMIiUlrLwNo=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jFmBT2KpwzRhQX;
-	Thu, 29 Oct 2026 22:02:09 +0800 (CST)
-Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
-	by mail.maildlp.com (Postfix) with ESMTPS id 162B340561;
-	Thu, 29 Oct 2026 22:02:12 +0800 (CST)
-Received: from [10.67.120.103] (10.67.120.103) by
- kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 29 Oct 2026 22:02:10 +0800
-Message-ID: <009b13c6-f618-43fe-8a56-8519d31b239b@huawei.com>
-Date: Thu, 29 Oct 2026 22:02:10 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Im+KZbvB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793282573; x=1824818573;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=b5SbZqE3VE1sXZHKUnpwViBY2Le886Gx4mvn/rVtwso=;
+  b=Im+KZbvBlXJGXnoTrkWSehkhvnkRu1RWm584upl1r8aHSbhq6O8iKbU1
+   kPMatiI7c9dDjXeMzWxttJQ1JcJhu3JAaQnkQLksyyn50TxcHN8670/6Y
+   cxO04DEOz0bl7t1BRqq96IWQbSSwPeZNJflWuy5jKtpySMS4c8MvTLbue
+   XKyXUugavjdCP4i43PO+7Hw3ue06s4EdeiqXRavG27BJ1pwuuROb4z6tO
+   jKSxWdL2Iv4lL4J0AAVlr+McJakZ72iglCArVCAiV0ScNtscfeNtYOgKy
+   y+HrzjzjsnufuTxEIOFO9gcg4kaIo/4zS/Gb3RpLFwVW2Uunu79/chxvi
+   A==;
+X-CSE-ConnectionGUID: P5g4DsBSRpuQezvNtLvjRg==
+X-CSE-MsgGUID: 45NgsUmlSx6six0zooTgxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1908102"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1908102"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:02:52 -0700
+X-CSE-ConnectionGUID: 6ccZibXWQsWOZy6jYQDlcA==
+X-CSE-MsgGUID: 0rnN32oITYqBf+1yqo2CeA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5700869"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:02:50 -0700
+Date: Thu, 29 Oct 2026 16:02:47 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Antoine Pichot <antoine.pichot@gmail.com>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com,
+	mchehab@kernel.org, hansg@kernel.org, dan.scally@ideasonboard.com,
+	djrscally@gmail.com, dmanresa@gmail.com,
+	dave.stevenson@raspberrypi.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 5/9] media: i2c: ov7251: Use sub-device active state
+Message-ID: <auNSB_yCjo8KVGJF@ashevche-desk.local>
+References: <20261028112154.855185-1-antoine.pichot@gmail.com>
+ <20261028112154.855185-6-antoine.pichot@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,143 +81,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 05/15] KVM: arm64: Harvest stage-2 dirty state into the
- host folio account
-To: Leonardo Bras <leo.bras@arm.com>
-CC: <maz@kernel.org>, <oupton@kernel.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <corbet@lwn.net>, <pbonzini@redhat.com>,
-	<yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>, <yangjinqian1@huawei.com>,
-	<caijian11@h-partners.com>, <liuyonglong@huawei.com>,
-	<tangchengchang@huawei.com>, <yezhenyu2@huawei.com>, <yubihong@huawei.com>,
-	<linuxarm@huawei.com>, <joey.gouly@arm.com>, <kvmarm@lists.linux.dev>,
-	<kvm@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <seiden@linux.ibm.com>,
-	<suzuki.poulose@arm.com>, <fuad.tabba@linux.dev>, <mark.rutland@arm.com>,
-	<seanjc@google.com>, <rdunlap@infradead.org>, <linux-doc@vger.kernel.org>,
-	<linux-kselftest@vger.kernel.org>, <skhan@linuxfoundation.org>
-References: <20260929103655.85107-1-zhengtian10@huawei.com>
- <20260929103655.85107-6-zhengtian10@huawei.com> <at-WceRKAVM2kEnI@LeoBrasDK>
-From: Tian Zheng <zhengtian10@huawei.com>
-In-Reply-To: <at-WceRKAVM2kEnI@LeoBrasDK>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemr100010.china.huawei.com (7.202.195.125)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028112154.855185-6-antoine.pichot@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-
-
-On 10/27/2026 2:05 AM, Leonardo Bras wrote:
-> Hi Tian,
-> Sorry for the delay in reviewing...
+On Wed, Oct 28, 2026 at 08:21:50PM +0900, Antoine Pichot wrote:
+> Port the ov7251 driver to the sub-device active state.
 > 
-> On Tue, Sep 29, 2026 at 06:36:45PM +0800, Tian Zheng wrote:
->> With VTCR_EL2.HD set, hardware promotes writable-clean descriptors to
->> writable-dirty without any VM exit, and the only record of the write
->> is the S2AP[1] bit in the stage-2 PTE. The write never passed through
->> the host stage-1, and no unmap path reads the bit, so the record dies
->> with the PTE and reclaim may discard written guest data (silent
->> corruption).
+> The driver kept its own copies of the active format and crop rectangle
+> and selected between them and the try state with a pair of helpers
+> switching on the format's "which" field. Move the format and the crop
+> rectangle to the sub-device state for both the try and the active case,
+> drop the helpers and the private copies, and use the v4l2_subdev_get_fmt
+> helper for get_fmt. The init_state operation now fills whichever state
+> it is given through set_fmt, so the explicit ov7251_init_state() call at
+> the end of probe goes away; the exposure control gets the default mode's
+> range at creation instead of being adjusted by that call.
 > 
-> Sorry, I didn't get what you are trying to achieve here.
+> The driver mutex went away with it. The control handler's own lock now
+> serves as the state lock as well, so the control framework and the
+> sub-device core serialise the pad operations, the control operations
+> and the stream start between them; s_stream takes the active state lock
+> itself. The mode pointer, which the frame interval operations still
+> select by frame rate, stays and is protected by the same lock.
 > 
-> On your patch, I see you marking backing pages dirty at wrprotect and unmap
-> walkers, and it's very confusing to me on why you are doing this.
-> 
-> IIUC, what you are trying to do is make sure a page does not lose it's
-> contents in case it is reclaimed by the OS.
-> 
-> IIUC, when a page is reclaimed, it will unmap the S2 PTE, and save it's
-> contents to swap, so when the guest read or write to that page will cause
-> it to fault.
-> 
-> The page can never be just unmaped, as if there was a single write to it,
-> the backing pages should be writable, and the contents need to be saved
-> somewhere.
-> 
-> So, if I was able to understand your suggestion, we don't need to worry
-> about this, and this patch wouldn't be necessary.
-> 
-> Did you hit this issue?
-> Can you please expand on your issue, if I could not describe it above?
-> 
-> Thanks!
-> Leo
+> Behaviour is unchanged for applications. As a side effect the core now
+> reports V4L2_SUBDEV_FL_HAS_EVENTS for the sub-device and handles control
+> event subscription, so v4l2-compliance's VIDIOC_(UN)SUBSCRIBE_EVENT test
+> passes without the driver having to declare the event operations.
 
-Hi Leo,
+...
 
-Thanks for the review. I haven't hit this in practice, and based on your
-analysis the patch doesn't look necessary.
+> -	mutex_lock(&ov7251->lock);
+> +	state = v4l2_subdev_lock_and_get_active_state(subdev);
+>  
+>  	if (enable) {
+>  		ret = pm_runtime_resume_and_get(ov7251->dev);
+>  		if (ret) {
+> -			mutex_unlock(&ov7251->lock);
+> +			v4l2_subdev_unlock_state(state);
+>  			return ret;
+>  		}
 
-Reclaim only writes back folios whose PG_dirty flag is set; a clean
-folio is simply freed. A stage-2 write never touches the host
-stage-1, so the folio depends entirely on kvm_release_faultin_page()
-at fault-in to be marked as dirty; without it, the page stays clean from
-the host's perspective and reclaim drops the data.
+>  		pm_runtime_put(ov7251->dev);
+>  	}
+>  
+> -	mutex_unlock(&ov7251->lock);
+> +	v4l2_subdev_unlock_state(state);
+>  	return ret;
+>  
+>  err_power_down:
+>  	pm_runtime_put(ov7251->dev);
+> -	mutex_unlock(&ov7251->lock);
+> +	v4l2_subdev_unlock_state(state);
+>  	return ret;
 
-Your **RFC v1** patch 2 changed that marking from writable to dirty:
+I'm wondering if v4l2 provides the set of conditional guards and hence some
+kind of ACQUIRE() macro.
 
-```
-- kvm_release_faultin_page(kvm, s2vi->page, !!ret, writable);
-+ kvm_release_faultin_page(kvm, s2vi->page, !!ret, dirty);
-```
-
-During logging, a read fault maps the page as WC: the folio is not
-marked PG_dirty in kvm_s2_fault_map() and hardware promotes the PTE to
-WD on write without any fault, so reclaim frees the page without saving
-it (the folio was treated as clean).
-
-Therefore, **HDBSS v5** patch 2 reverted to marking the folio for any
-write-permitting mapping:
-
-```
-kvm_release_faultin_page(kvm, s2vi->page, !!ret, writable);
-```
-
-Together with the v5 scheme, this makes patch 5 unnecessary:
-
-- kvm_s2_fault_compute_prot: always set PROT_W when map_writable
-- stage2_set_prot_attr: PROT_W -> DBM unconditionally
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
----------
-
-On a related note, I'd like to discuss the next version of the DBM
-scheme, following Oliver's suggestion [1].
-
-Oliver asked for the write bit to be selected by the system capability:
-
-	FEAT_HAFDBS: PROT_W => DBM, PROT_DIRTY => S2AP[1]
-	!FEAT_HAFDBS: both => S2AP[1]
-
-However, our v5 kvm_s2_fault_compute_prot() granted PROT_W
-unconditionally. With PROT_W => S2AP[1] on !FEAT_HAFDBS, a read fault on
-a dirty-tracked memslot would install a writable page. Since dirty-
-logging relies on the write fault to observe the page, we would fail to
-track it.
-
-So we also need to fix kvm_s2_fault_compute_prot():
-
-```
-if (s2vi->map_writable) {
-         if (s2vi->device ||
-             !memslot_is_logging(s2fd->memslot) ||
-             kvm_is_write_fault(s2fd->vcpu)) {
-                 *prot |= KVM_PGTABLE_PROT_W |
-                          KVM_PGTABLE_PROT_DIRTY;
-         } else if (kvm_supports_hafdbs()) {
-                 *prot |= KVM_PGTABLE_PROT_W;
-         }
-}
-```
-
-For normal RAM on a system without FEAT_HAFDBS:
-
-	logging + read fault  -> PTE read-only
-	logging + write fault -> PTE S2AP[1]=1
-
-[1] 
-https://lore.kernel.org/all/ff218960-c412-4283-aa41-b7af2a7048b8@huawei.com/
-
-Thanks,
-Tian
