@@ -1,95 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258150;
-	b=qRpaFpMMRRzKl52dr7eLbTGIiysqttnSx7CaxIOoSpTCZQx3oqHvBMXz43mjDqXdqsKf
-	 ayYRTTSYT50Q6comkbWvq21m1eNbrpw7mLC6lwOgdOwcZE6Wp41vvoCYXpRy20y8slPLq
-	 o62aTTbVbNGzfnEl51KOy/LUnxdq5us/FFqL6GKwjKJCwF371hj/+J7L1FHXcVg4rUUd5
-	 k+3rrhsDhkHeutqdxfaFW01ObBQ28hWYyw8W/36n89TxVNErwxr2NNK6eTEz6nJrbhHPP
-	 fqJStAjgzIv5Mmxkj51Fy8V7MZjDSccIybbIq19GFImZJis82KaF+0oNb1zkygHswxg==
+	t=1793258151;
+	b=N1VwBbfPmSOX+eie4VwPVcVpeN4JktGHP10sQQQGqC2XFwpYk5PnO/RJJ9LrRf6sdh+D
+	 wNPYgXQ9BOGsP58Bfg+rGj4FaiIVe6JK0Vz35iXt+tkT4MaP45bhyu2n5fWfazElHT4CL
+	 27/Oo06E8W7qbMvgCZZ8OzypqcnYRHpCCNAsBPKck7z4z7oX0u+TFV7dS7ocLGhlgZd2e
+	 LD0agmdz+zUBymfIdDxlASwq2Wm+a+XwUYT9fWTCLKNonFXGKaU88NTGdoM8cIN+gLe7j
+	 uLd7y8/+v4PVNBQSMnaceHaSjoBYgaUP7MvB3/VfXKoIebqRJxswvGfV+AOI//NyJaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258150;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=QK1MJtOZnTvQLwtzTSOCrMRjmVXz1xBzWs67Kata2lY=;
-	b=g1DXbm/5yasAIMAWTykHJ5BInw4498TDs1LhXL7GRMoyjNlSujoFVrFyGMkJ4v7qTDep
-	 Aohu9AWOMn1nJXyKW5gFtwywmJDvM8LO44d3B3LOTQ0whY5Ukcb7v8NuOf8Rm539miAu+
-	 SrlrqDLCRvvWwdarOTdbIXHJjmYByfnGa9qqeF0v9cwgibIEMk33w+nq1OhoNoy1aMo6P
-	 HtqmluAsIP2PXzQk+uokuQJt+AcSawXq9nfbEQpGI6TJuNT3robkZvaxcHb3BPsn0IBbn
-	 uOtTOZNC/pCqQodD9CZ4Kyz6I1VCCJ3oBz2g1pXU7Ws+Gq3HO15PgRxuc/akOr7Hadg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258151;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=bvWZLy9g7KOLN83oax/3KQpxauUHOmhI+XerJotVa/I=;
+	b=WWI6HUrYSUcUrgv0p6hJbsRA1RiUN8UYJonSRifeUwINs5cpu7gcm42HIlFh0zq+JpvK
+	 t/exUA2DENm2aCvHvUltgAgiGYPyyktwaxZgw0Q+YmEGyzvUtBhr+TXxp5jVmDfUjkVUX
+	 yRpux+7o1mvowJHk5qlW1WpSsrCDNYHph+aCbMFTeRkvvJzIWz6FQQucQxdFpK1aLNqEV
+	 FnjdFLADZzqimgtSLD658nX8Dr+EyO4M3eZ8aiZp2s4wjseZSSqkpwD0VF9tVeTTHNyTW
+	 vYxQCtx8TmIrWqKMceGjkEhM7FMrUkThefKlaEbhZvMYZ8rngJp6ivOF+5UZ8vzpnbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=lUcLe++e;
-	arc=none smtp.remote-ip=209.85.215.176
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A66D606A32F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:15:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A66D606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=DuzECotV;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E631606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:15:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E631606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=lUcLe++e
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso773371a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:15:50 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=DuzECotV
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793258150; x=1793862950; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=QK1MJtOZnTvQLwtzTSOCrMRjmVXz1xBzWs67Kata2lY=;
-        b=lUcLe++eW8TiMI641PxvAUEBDgOFjIRK6nyX5FWa9Akqy8n6oLPZYPbwUzJ77iPq9s
-         CUANv4dI1KON3YSwb+FLTSsHuLIlPK5f5e16+HhKvVlxyVHmsvuSED/3v0gbJ4NMlfE9
-         ynySfC09rq/Q0UBOcODsainpw2I5hrDcvA7wE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793258150; x=1793862950;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QK1MJtOZnTvQLwtzTSOCrMRjmVXz1xBzWs67Kata2lY=;
-        b=C4r9MJbRMihrqBD1cQ0nKweQp7c4PDPov7QS6sgGnB5uZ1gPBtjRbO4yzVKWCeEfbD
-         djh8LY3f5UiWCNzTw7+EWpG8T3JggYeycRDtwvi8drdWs8H2Tm6GLd+C9DjEgOHZMNqV
-         uV09sbpY3gttb1kunGsSGcYjVDA8sHPWVHyDTKidFFjV+BQ5zOD6io7Y0lYC08oEFztS
-         4VsVqzv5TsdzwgDmkd6t7DUFjec7PJj2FXpjGp6eAIfIcOeMCzcQ9nQ8tCs148qVlvci
-         PolMrpfZfDQcLpyZRpf0NZU13/kmZWa3kPW1rlWdY1z2UP64AMl4Tji4m13FFB8K++Kr
-         RtcA==
-X-Forwarded-Encrypted: i=1; AKwUvBxAvxIjxzQhOcsa4xtYYgMI0xqmiaweWhB1r6GFyvzRkOrZaXGQISE5UQ7SPismYZLJaRQuWFQAiKWi2SE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoC8qPUQiUqG1Ki5tqrV+qS+eO0uIqTeaWZc6bpiCUQHwXK6wv
-	94yTg/QXCy96qVpUOvvtsLuSymYZezbvnY6dErO76e/qKZ2HNpqHj4Di9wl6AdC9QVw=
-X-Gm-Gg: AYBFou3Lj1UOsgws2mvK4Y0mOLG+xt9DzHqrumlh5vWfPfXE1xR4lhzcaMs49LTCXBX
-	edyp8pCWqqRTbJId2a/692n0nGuI2tnkmg9N2IwwfPge+UKGtgGxNeHD2NYT5pR8DFg46+7QY8m
-	CY/c2l5L3PNRekQz4KFEH7WN9bi5RwJVtPH/hQZ+ArPWEvoVlOYVhwNrrht49AonRW8pe0a0KK7
-	QqU4Kgak2c0Qen/A8QN0ya+DwSawMxeFK1CN0dhkWiNIH8JxjBG06w+nJJA6rQlmXrS04SlP4rI
-	OolZ8v1JyZ+o+kuf2rSeOKm54M6arIb7zMd3N4Q+Zd0l7aj2hgpoRVSh+vDhlNDKYJUL1YduSBH
-	5E+p1nXhS8MbawXjEURcuFlskzS98WMXT14mT09ANY8el5LzENMY6cu8hUWmUlP4A/5D8bY1rYc
-	tcrfCsSYWXincn67E6Gh/jFJqgv6xZRZav3AIrNqR6Rt5482wPdMqKqej1CS/nciE1/TcoEOiVA
-	voIJ1cQ/PCtEtfw4AU4Ww6D4cA0xhFOqref9IkVrDZXtRAtvRu3xtzOH87xznxLOSGbH+a5tFE1
-	5IrLCVxg+NUgdSsnCa0QKnoXw+7QO1RHPDRc7DV1R7VE2szJOs/YOxM6IbPRiS0uVh4HvOtgpgR
-	Y6gHdYVRT4F3owi8ZxgY+sbDMomRVS+0vcnaNjiMWfTKQQpFSsGnJuQQ6a42NbTsfakc4SBas
-X-Received: by 2002:a17:90b:57c5:b0:3ab:9f89:e1b3 with SMTP id 98e67ed59e1d1-3ae580dded9mr3262824a91.40.1793258149716;
-        Thu, 29 Oct 2026 00:15:49 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e7ac44asm2857764a91.2.2026.10.29.00.15.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 00:15:49 -0700 (PDT)
-Date: Thu, 29 Oct 2026 15:15:44 +0800
-From: Chris Down <chris@chrisdown.name>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 12/16] printk: Separate code for enabling console
-Message-ID: <auLyoELT68zaiXs3@chrisdown.name>
-References: <20260929120546.328616-1-pmladek@suse.com>
- <20260929120546.328616-13-pmladek@suse.com>
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=DuzECotVW1XnZSqhbu2Ry91xkqUntPUxGlCc/W9ATcKJoi3Qp5l4duBsyQ14wf10+fYhrogWjuSoU
+	 WwkKXkyKRj4LDtb3ZgulLcWpfjrufsQk7eFo11Y1uSl6yVZUFxHOb1KCTJCqDjCTwOpp7XFyf6xV/y
+	 UnNAVrKj6f2PBb28=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86ae2f29ddf8-07650;
+	Thu, 29 Oct 2026 15:15:41 +0800 (CST)
+X-RM-TRANSID:2ee86ae2f29ddf8-07650
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from Z04181454368174 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36ae2f29942f-24253;
+	Thu, 29 Oct 2026 15:15:40 +0800 (CST)
+X-RM-TRANSID:2ee36ae2f29942f-24253
+From: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
+To: Frank.Li@nxp.com
+Cc: alexandre.belloni@bootlin.com,
+	adrian.hunter@intel.com,
+	jorge.marques@analog.com,
+	tze.yee.ng@altera.com,
+	adrian.ho.yin.ng@altera.com,
+	linux-kernel@vger.kernel.org,
+	trivial@kernel.org,
+	zhang jiao <zhangjiao2@cmss.chinamobile.com>
+Subject: [PATCH] i3c: master: cdns: Fix IBI FIFO buffer overflow
+Date: Thu, 29 Oct 2026 15:15:32 +0800
+Message-ID: <20261029071533.715-1-zhangjiao2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,9 +73,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929120546.328616-13-pmladek@suse.com>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+Content-Transfer-Encoding: 8bit
 
-Acked-by: Chris Down <chris@chrisdown.name>
+From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+
+The cdns_i3c_master_handle_ibi() function reads the IBI payload length
+from the hardware register field IBIR_XFER_BYTES(ibir) (0-31 bytes) and
+uses it directly as the FIFO read length into slot->data, which is a
+buffer of size dev->ibi->max_payload_len.
+
+The slot->len is clamped with min_t() to max_payload_len AFTER the
+i3c_readl_fifo() call has already written the data. If the hardware
+reports more bytes than max_payload_len, the FIFO read overflows the
+heap buffer before the clamp takes effect.
+
+This can be triggered by a malfunctioning or malicious I3C device on
+the bus that sends an IBI payload larger than the agreed-upon
+max_payload_len, leading to kernel heap corruption.
+
+Fix this by checking nbytes against max_payload_len BEFORE reading the
+FIFO. If the payload exceeds the buffer, recycle the slot and let the
+existing out path drain the FIFO. This matches the approach already
+used in dw-i3c-master.c and svc-i3c-master.c.
+
+Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+---
+ drivers/i3c/master/i3c-master-cdns.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/i3c/master/i3c-master-cdns.c b/drivers/i3c/master/i3c-master-cdns.c
+index 2d98c1ce9b12..b5ffea1e6a4c 100644
+--- a/drivers/i3c/master/i3c-master-cdns.c
++++ b/drivers/i3c/master/i3c-master-cdns.c
+@@ -1318,13 +1318,18 @@ static void cdns_i3c_master_handle_ibi(struct cdns_i3c_master *master,
+ 	if (!slot)
+ 		goto out_unlock;
+ 
+-	buf = slot->data;
+-
+ 	nbytes = IBIR_XFER_BYTES(ibir);
+-	i3c_readl_fifo(master->regs + IBI_DATA_FIFO, buf, nbytes);
++	if (nbytes > dev->ibi->max_payload_len) {
++		dev_dbg_ratelimited(&master->base.dev,
++				    "IBI payload %zu bytes exceeds max %u, dropping\n",
++				    nbytes, dev->ibi->max_payload_len);
++		i3c_generic_ibi_recycle_slot(data->ibi_pool, slot);
++		goto out_unlock;
++	}
+ 
+-	slot->len = min_t(unsigned int, IBIR_XFER_BYTES(ibir),
+-			  dev->ibi->max_payload_len);
++	buf = slot->data;
++	i3c_readl_fifo(master->regs + IBI_DATA_FIFO, buf, nbytes);
++	slot->len = nbytes;
+ 	i3c_master_queue_ibi(dev, slot);
+ 	data_consumed = true;
+ 
+-- 
+2.33.0
+
+
+
