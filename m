@@ -1,113 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269115;
-	b=w3sKwinyBvuUvOiMW+zdQTRMdfkNb3VT4WIn05IAhlnXI+d0kJmXb4YaJk3XyOb75Q4r
-	 +6lQTx/cwQbiRpxmiX/92b42+vrCAO/4aXUnjKdYwjxDdWEf/V/EpeVMNMAE5c4FS1Sxd
-	 sAYq9f7CLIMgKiM0TChCxdroFvvEN65TvF065DunaGV5KDjEaJiBiHCMT8c7AEPvhL+rH
-	 frQOCNZuyZH/oySVT7Pf+GR0oAPhcwcej0kJR4ItBXw9A/WBVPHlRTT/B/8i0Fa3zSpRh
-	 DUnEzpOQm1bYIuCOt7FCOdHAs/PASTJXUopURo9mY0mmdF4RJgQQS2s32vjyJbH53vg==
+	t=1793269129;
+	b=5qz/ltT0E87SX8g8bHVwrO4DxVbDuA2kWjo1A4oP2ehuM5n/Wxwyoz97gaCn6AtzC8yT
+	 +5Uv0DRRHZnpW+YJzpDNn6yfZtFv3se6ZCpCrplSzKPUIT+0x8z9KZqZXw+pi8hRrStDX
+	 zeRCNQPiKxhe6C4R7hzOyV78FQYerDWLMO9iVHrOaxEEDD049GyYiFxgzT53xpx3QSH2h
+	 PmHQYV/is1vwu22eyhSyJEaizGN0ZkzCYteli/Uo7C0XnA9gmQJ2L1ecqB3QGHGbIm+Vp
+	 ORGySrxr2VVsfF+6C/G+TlZDcGy9swB3CcQJN5R4ijKKJtZCrDiI2slaDXTzu5GgBag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269115;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7eDSUJln09vjqS6fT78Hrmt4ANao45wYJuBLIsNkp4w=;
-	b=xAs8fJjT3owT3VV+vEMzXg91Aydjy/hFrYrhB8iXefte00R6MAcTveS6n3QaLGn5THyx
-	 IvLSuvqZKIShJTua1Dpwl4/9w+kdPGFRPUzRkRqmgrFh4o/6V/cjU4PR2NXTjQlGRdj7g
-	 QZjE3i7JHCC3Dh79/h0gQmoAGEpgcNY/wyroXIl6KuWWfQmQEZuBc8EEywL7/go0YNO3Z
-	 ZT/qk1XrnOSrNZQYSAHB/pbrtZ18rb6PpJZqobYGENKvwjU12qBU9tLlKcDgTT22mTms5
-	 FOd+S8XgFnKFbECojK8S2L6BH/3Q87UmNKrVJBuL7vEH/RAyXqElyYMk5H1/nwammEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269129;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=TMyNi9h8uZB0CnN21h3FMGgHT3Z+cop+m15S7SnkkEE=;
+	b=KhBbgC8NX4ltHYyuiEt1jEfyWLxK6rgH9uHmnzKLBd+GWc40wYcJJF69xR9BCbKaFbJE
+	 NANcUhEP4DNcYsSFPP9YAyd5Jw4ret1ts9fjAi6IKWXtYBrO5vzxHIrJ2c2F5GPGlKt/U
+	 xjYve+xJszHb9spJ0kZak0TtUyG9/nxn5nBLFIvW9byk1PFHmbbo+DxxsenT2CZI5Bgx7
+	 tLm7PDhzOTyly8yX6FQChQ5cEpOkX4CzG1ZfndpKT08GS7VG2nTy7cluKk1rONsc2UDOE
+	 GCsfYwWwLPEQDVHPZtGFsO4LAxNfoY7okKuXRZULwtj+csXRvAytjOZ2RTgLuBzUjJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uNZnN6Os;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kLNZ1CIW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29727606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:18:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29727606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 999B8606A31F;
+	Thu, 29 Oct 2026 10:18:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uNZnN6Os
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c418e215671so249523766b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:18:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793269113; x=1793873913; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7eDSUJln09vjqS6fT78Hrmt4ANao45wYJuBLIsNkp4w=;
-        b=uNZnN6OsRy8OUFlf01ab+vmNA3++DAfLZmOAKwEoel+ddDKGH29fDh7V4VAajEwdfQ
-         rx+hzw9i4A1bEOVE7GXS2ZbrfFRf6KeDEJjfSO8ApWK7TL/b1ERc+zi2e4oThNuzUZ4S
-         Gcc84KdqiBjIxQO170+akD5Grc5R+uRbMcV8sD6DDEuxGaIT85OAQz1NFrnY+TGmS7FX
-         8xuzx0MA12osWtHgayDyuBOzVs42WjilGxIyGuX2J5DXUP2DUsfwAkTrDbaeKVz3D+Br
-         STjkEsCQnEKFgsqqnuXhWvxgxhU/tVPd/d2NWlnO/1bLFgcx/vRVzTsFGUhhzRB5Py9G
-         9YrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793269113; x=1793873913;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7eDSUJln09vjqS6fT78Hrmt4ANao45wYJuBLIsNkp4w=;
-        b=VixPMteM6PLYqm5kQmAdR/M2pZgLgDC2HjHrWq40WYHMi+ihI6P0Boh+Yx3j8kqprc
-         nhSCs8eIzl4Nj+Jtq6Ltpfh2Bp8vex2QL2BL6YtPBptCyJRGtiBIqMxZoVmYPnbPP2Mv
-         +q9MLOd4uV+IacWaNHlK+a1Z79sX/P4ACsIANB6oyJTs+UX833EhYxe6OKT3WQh7UAhj
-         ehrilz5DJi+SdLPjf6j0GOxeK+T6xZCrv9/rQHSfGbC+avwKD+T5tOBtNlUwYhoWZ032
-         6FejQP8oa9p3j8jqR3P87KYZ0xPyEpb+elw3XcpG/GV/krYu5w8NC7Xq4AtPulziXj3q
-         Qmrw==
-X-Forwarded-Encrypted: i=1; AKwUvBzIqQMnqYjN5qjSzhXezjaCuy2+WwL92o52m9+HFhFgSdiuyddgYpjNa6Q5/s96FZt4DnoArArkqJhzGZ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIlIbYRl2TEdFP39SJqUDPAVufh+RjZXf0vqglQxXES1ctQ9jDJ
-	AKlFbiRPEOdItjZ1p0a3ZzCC8BYsENEVoQ4MBPCTRgo4VvZob/8Umvzm
-X-Gm-Gg: AYBFou3RLpI6C9vgt6t/XXAT5Y7ipTwWSiEqg6xZWUUwmXlRBXdcEYPBh1m3jResbQW
-	56jxPczoNKWhKyG0O0SI9WGcLBzdx8JzyMDonMJOiidYXte/c5RJ1V9beyPB1Mye6vsiR6hvusB
-	niP15mqyI4gKVmKoG5C7z5PX7b+0JfEws6Z6kl7bhCx/K6G4ih/JR9KbWnQ8iu/BCqEpyRSjg7d
-	7F7lg9u5enVsoAkriEIc4p5AHpB68dJm3VgI8qshG92st9auoPSo9CwGA45vlF+AQUlWWOWxTyX
-	WrHXsYMZqD0uh0CobzBQKq5RpQnnsg+OdZB/+ZtM3VY5uKBUws2yIYos9GESQNwEAbk996RYVwm
-	+WMz2bfBxOHkt16V2+eMYN5iZTZM8xgJnlcVtbrlfm4ZQrhk576nozVIEWJ+jd6CzR7NXVM2Nmg
-	kLNGgtyqb29D5y8jgdu3xOSpvMW2jGhVJETkqLUdN/GDcwko8AVdmb6gT5u7Mo5CxdhyOGPA0rU
-	WuVmPi0v0ac7BhXIPCWxFsbzU7wDw5yk2LFYyzp40UXbl9h2Pb5qwIFB/BVTUisUFALN1ihqOLX
-	Y0fui9HcBpz1L7O+oHWqnPiqWu8khxDm3yOb4B9ZNb0cRSRxs8hVujLd5SkZd0k=
-X-Received: by 2002:a17:906:f581:b0:c49:8fa2:4a22 with SMTP id a640c23a62f3a-c49bdf569b3mr418814266b.41.1793269113505;
-        Thu, 29 Oct 2026 03:18:33 -0700 (PDT)
-Received: from localhost.localdomain ([46.205.195.0])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd66c6dbsm712145966b.59.2026.10.29.03.18.32
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 03:18:33 -0700 (PDT)
-From: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
-	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
-	Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	nouveau@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: [PATCH v2 3/5] drm/bridge: it6505: Use drm_dp_enhanced_frame_cap()
-Date: Thu, 29 Oct 2026 11:18:24 +0100
-Message-ID: <20261029101826.72773-4-dmitrymalovanyy@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
-References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kLNZ1CIW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800F61F01829;
+	Thu, 29 Oct 2026 10:18:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793269129;
+	bh=TMyNi9h8uZB0CnN21h3FMGgHT3Z+cop+m15S7SnkkEE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=kLNZ1CIW2YxK0uST8iiMQenMa7zmpUsZAyb4dVyOsejE+jvn/l9vgOMmNecd2xd48
+	 jLuQs/kZGYQg+ozRL0n6IhurzDdCEhRo34ZyLlqHTCgjl56zP1w8mAoLGwaHEUlos7
+	 XtKu82hBX81C7OX3yfRMEihSQnbDEBI2nDB5BE+JjQhabRsawia8vcrJ8sEz9TwHaa
+	 dtUbAzMsCJdShBOyvNoLtEIOdw2tn8qslCCM+VFfnQBLkn2doBYK8ZhpkAck2GUgT2
+	 U9roVrXu+3qvHtQcvut7xEHw4hDV12vHibzvr+Li4hyvn13zMM43+TVQEF3TCOgmVg
+	 rK6RMcRR8tWpA==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Thu, 29 Oct 2026 12:18:38 +0200
+Subject: [PATCH 2/2] mm/cma: accept memory of CMA areas reserved at a fixed
+ address
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,31 +53,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-cma-multi-v1-2-2cbced8b5cb7@kernel.org>
+References: <20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org>
+In-Reply-To: <20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
+X-Mailer: b4 0.16.1-dev
 
-Use the helper instead of checking DP_ENHANCED_FRAME_CAP directly, so
-enhanced framing is used for all DPCD r1.2+ sinks as the spec requires.
+CMA areas allocated from memblock have their memory accepted by
+memblock_alloc_range_nid(), but areas reserved at a fixed address with
+memblock_reserve() are not.
 
-Compile tested only.
+If a fixed CMA area is requested by the cma=<size>@<base> command line
+parameter, it may be in regular RAM and on TDX and SEV-SNP guests it
+must be accepted.
 
-Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+Accept the memory of fixed CMA areas as well, so that all CMA areas are
+accepted regardless of how they were reserved.
+
+Fixes: 75d090fd167a ("x86/tdx: Add unaccepted memory support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- drivers/gpu/drm/bridge/ite-it6505.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/cma.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index e136ac71e..d798a3db7 100644
---- a/drivers/gpu/drm/bridge/ite-it6505.c
-+++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -1651,7 +1651,7 @@ static void it6505_parse_link_capabilities(struct it6505 *it6505)
- 	link->rate = drm_dp_bw_code_to_link_rate(it6505->dpcd[1]);
- 	link->num_lanes = it6505->dpcd[2] & DP_MAX_LANE_COUNT_MASK;
+diff --git a/mm/cma.c b/mm/cma.c
+index 0035efb1130a5..f61d52796f4ef 100644
+--- a/mm/cma.c
++++ b/mm/cma.c
+@@ -381,6 +381,8 @@ static int __init cma_fixed_reserve(phys_addr_t base, phys_addr_t size)
+ 		return -EBUSY;
+ 	}
  
--	if (it6505->dpcd[2] & DP_ENHANCED_FRAME_CAP)
-+	if (drm_dp_enhanced_frame_cap(it6505->dpcd))
- 		link->capabilities = DP_ENHANCED_FRAME_CAP;
++	accept_memory(base, size);
++
+ 	return 0;
+ }
  
- 	DRM_DEV_DEBUG_DRIVER(dev, "DPCD Rev.: %d.%d",
+
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
 
