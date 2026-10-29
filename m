@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258420;
-	b=hqiBiL3dCQhApgLKU9T4ZweiMhU2qRmfXR6uDYg8g7BwCofMKL11jMLNjz+B6SW60FgS
-	 DUCtiFdansbflFkOpEfx/jvBTQ3tAqkSyUZSii4Tt/Fd3DK17z/nvrcYQwvOrGyBznhWo
-	 ucZMOMR7w4hFYM2pvyQwQUdLEH3do6mhqO5jDW4n2s3jjXlWV29uyeZydtxHek9hRBqep
-	 twDpfeMsbx25SYaiSaiK9LhRm4dnD4028ShhGTcwfPpIPOXZcCzEREN9kJ2XqqR+UwVhm
-	 f9Skj0IgJbnofOAU8IRkc8Tj9BgR0zasvPSOBQPqXtT4ay7FBilhcnyXdYeXIIcUkAA==
+	t=1793258437;
+	b=TZjcLBTOUXln/pwRlYDzc6LAfRMKA2gl0ldrvqcz/u2PjLN+2kg0ZApbO09b6OPcW6h3
+	 s9RQvMqpWCto93SY2iHI6vYvKtTthrqouN32Z/wWq6xsttVmpjmIAIvPK72wSF6MEgQaX
+	 7sCoKdwEUQuEp+bQB0cjnYOWZqRIJWuAtgv+ShqgB+IDWQzVkzyNk3cmn11eUAWNy7MGy
+	 F6yZA8IFyoT+wy3I0BY1HK+B590W9pSKSLvobgSQhdsPPnpPNsc+kJBgIusjnSORRiKLq
+	 9LTxrpfVURx6hAnI1vNrngFZgZwnFbITfAASWER0/tIMj/ENqNuLuZbUEDedayuAdBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258420;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258437;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=msIwo/eMaQA86/KSNqtbAUpHQHSvhDmPlJ4v36muoi0=;
-	b=eNBwh/TRU8nkHKokeijiXUlR6bdVarGkxYl8NnOh0Cz36GFzhWySi9dtzRGanRctJ+I/
-	 fxl65S4DOOHevY3OCeLJI01KRITRBhRW4jH29FAZQV2hvnQ3pk+wkHZG8YElh5b2bpI2o
-	 yYIYEyU8EhkhjapigsQa5w1cnmgkJNDiPZvBEGy+9tEY/8SiH5xOXiY6VBoKM2Cz4gRSR
-	 VgR6Msdl7UyFOZsgdeY6SVEaPUOTj4wYb0sXVtrZ9+AJRluZYTZ8R5bW1XYzj7Qw9afoT
-	 sSirfwrK3HJXFdylMX25x/CJ13y8E00cg+kOcqG2Rwns1gDG0gFTOKHec7NVlIzAUJQ==
+	bh=FTTD/S+UNPlifc6ePjk5iJlNvpEw1FV1wU8LTRfDAVQ=;
+	b=fBgT4pvAvWICOx4fDBCJHnJyC6uimFrKPxJhNfNcXVJTxdW4bJ5AanUkhHXX+t9Fxbg3
+	 95hwTAMdCV5JsHfX65kAMs0lMl9dzQ35OnpG8+TEToSpuOBa/MdOHx5v2WVaY5NwJWxV5
+	 YQpadFJSLgFZTY7I5EjE4ssKnvr6GuGMac9odU/ggtjfGLcdbB82p+qBdgMJodGMvD6T9
+	 5mCGUnkjexxeHoUyAu6vF+78zPzD+aOCMjsGf+n2G4o3AYkdLgNLS1VMCSf1ulr7yvXIj
+	 UnJjELQ2msBBRIIMWfLIpgZBXT+2MVGX8KvqjCCf3I9sSAQzngoCZkbPA24R7CvLmwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chrisdown.name;
 	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b="ZOF8ZVP/";
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=bKb2acJZ;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C431606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:20:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C431606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433E6606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:20:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 433E6606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=ZOF8ZVP/
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-88cfa501c5cso954990b3a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:20:20 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=bKb2acJZ
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2eb18f4da15so2863975ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:20:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793258419; x=1793863219; darn=vger.kernel.org;
+        d=chrisdown.name; s=google; t=1793258437; x=1793863237; darn=vger.kernel.org;
         h=user-agent:in-reply-to:content-disposition:content-type
          :mime-version:references:message-id:subject:cc:to:from:date:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=msIwo/eMaQA86/KSNqtbAUpHQHSvhDmPlJ4v36muoi0=;
-        b=ZOF8ZVP/+ft5G0xbjZvNsEI2Sy7HUSanc2AHIj6gbQfCoTvvXH47Rv2wOXek07mlHS
-         ABxhnKGCt5pSoYdjNSIaZD9DwBKzdjBkMxGVqOWUdNe6+0+XFOwZg+vD5eit2I7o7k+0
-         MGi38YDSSHL9pN2K5czmV6ukBO4pDBWAacGLw=
+        bh=FTTD/S+UNPlifc6ePjk5iJlNvpEw1FV1wU8LTRfDAVQ=;
+        b=bKb2acJZHwZBJ0Tq2SOyhFwZcSuNugyACDrOSYbL4TkOg7G+d6+QXHYrc4afjFamnB
+         RRioAtN7CXFf+dyKN5lImEdZv80w9DXWNMLMoUlsTB6mGSyxm2HN0ZjTB+2BeInlbuUG
+         y+FPGQyBu8quNdHU0qdLJqFJQYhKC7tyf0xCY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793258419; x=1793863219;
+        d=1e100.net; s=20260707; t=1793258437; x=1793863237;
         h=user-agent:in-reply-to:content-disposition:content-type
          :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=msIwo/eMaQA86/KSNqtbAUpHQHSvhDmPlJ4v36muoi0=;
-        b=pDarEAfIvWzpMWBpKZBfjq3ju+stE0fnjdO/k8ZpCDUrB/Vatu+IUZ+xaajV5HX0sd
-         FGD6ccm3cwX1CtiaN7r50zg2PPu2XGFY6q8+xc9rX32Tf68k1guXMFfBGoihc6TC2+IP
-         s6YknaRtZ45E6cQwLsW4wbiNzs8lyU9372NavEi3gJxKdHWqdrMR64lbN5Z2UPH5iCsB
-         VZHOI3u4GR408Cv6fU7sA7Ssjc/NtgJj+z6KLqyG3lUSpSWdHhTxV+y0vF2lGcySKCVK
-         x4ZrGwu41vhr7vI1StFpEWnRCjYXSoOUEWc5+B67whQXFUy2AhdjS7g12TXV9zwvvTVB
-         ZRqA==
-X-Forwarded-Encrypted: i=1; AKwUvBw3LRa8zMAW2cmcibLX6hRrAd1KfR+dhVlP2NAU7bXc/lzgPlYEGW2xVQxJlp2PNP8McZADNJh5NfNllQc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyZEndwQVtcIlIbaiWi/Q9ojUAceaAhsWECzTug3k0taW83XBv
-	4Q4/P/X5VZ+W+2BfadJba2vbdm3YU9e23v8Y4rq2KK41ah1kG01Hh7ZPjU+UO5mVo3ErBD/EdyY
-	0yc+zFqXDjRJR
-X-Gm-Gg: AYBFou2pGzj2shtud3wZGyyWiY3YxJKvylveQamAD4VKBMQPw+LtyL8uOEaWWAzeJkz
-	YmAM7zGZnMBxNe9nWF34uTXoyCGmGQn55dtXro0u7waCHveUdqWJU08O7x5qLx0kKXQYZzas2hH
-	ZWYJ2NwFgIGPbawWiBzawL+yU5O2Hz1tNTW8ctso14HKlmt0HD5sQW5g+NCceB2wtljMaQsWYTr
-	Izlf8ElEI/QHtBLmYAUuMST/nPDRPQf6dyad7yUaXaWMkJB1Qe7TPNpWwTtYvhQjFUKO+Z5IAki
-	acTW328cJvLuKoOFPSPkCKhR0ixwotmx1p33YrPO/qjMvSvPM3YBKJbTSqxNg+zNcAv18jqyHYr
-	tcKNGnhZA20jVrlBb8bCKKUV0grG6l2ccxAKSih6wdOfrNg06fEuMWsFFaFe7wgGbkwetOvsDuJ
-	Vc1lxCTNu07oZdHeeRuft88QSSN5FfyCoqYop0y4Sk3zr3MOmbGslDVnZiUjf1gCPg7EdzBgFRf
-	Ojwx2ZyfWjgCFf+1EZkEXFsbphGPgV3y6uIgYfapDux1uWQg2gHK0zDtKmwADOMdr2DXVUwsH6G
-	8DfjJAAl25OtqvgfAQVikpK6BoCYrRqRw12wJ8SHtcX4sCBZQgfYHqoDIc1PMSmJg3p5oNKvnkH
-	Z70pTSqy0lHOCyL5OeQdk88kw/u/Qcwm5vwBgPX/PK5m3gJYFicRgGT/NriH15Id+tgloPm2+
-X-Received: by 2002:a05:6a00:421b:b0:89e:b12e:7eda with SMTP id d2e1a72fcca58-8a6e3c6d4d6mr3938049b3a.7.1793258419593;
-        Thu, 29 Oct 2026 00:20:19 -0700 (PDT)
+        bh=FTTD/S+UNPlifc6ePjk5iJlNvpEw1FV1wU8LTRfDAVQ=;
+        b=Qr0Mv8RMHOMK/hUdRprOj6CSnF2gO74lkWqc16N+jfWZWrkLvq6nzei2bNFnmM9172
+         Wt9mJtdLTloZj/Tt6vqgEBk6U/H0UJ5v8+0G56IksvnkrB2HULE99Px/QXplsmRWTe0v
+         inq5MwwbFpTl/YTw3bY1aqcTiaG2ZT/ivsMhtzkfyDiPpZXOdyEN/G62QKRrWGfroF2c
+         mh86qHCmBs+nH1qbFO1I0IRarh8G2/7GCA0ufhtizNHu1yxGceQY7b6xq2hx+FdN2ZwS
+         FuQhCeww8n203q2HFYwLM4yx3BeiKOAR29+f7Eu3CKLK9gCfIQIEEwfiAMp3h7NsXEu/
+         NWnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzXRkFCFktqs+lBP92hykBbH3xwn4vW1y5QdBlCnEE3uwtnl0uJ98w8upZcAAjGwRNfmyMkVHQotE1rvdI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4YodRbVJF4RURnsV9zMTu2JA1fUc3d/D+GMrlFWbepf0joKFi
+	e/Z1wgooCig+pvLp32OC2I4T6Rm/Q0tmf+uBdknXPM7jaVxQcln4/+1u66rE6iqF38Y=
+X-Gm-Gg: AYBFou0UOLYJZFJMaBztMakrdwEUT0LN0m45xNtfhV7Y1F8nl/NX/rWDbFMFjNLKHEx
+	WfopOixCR8aA4H/qONTwbnpvOuB4GYZb1ckvQe/e1E7vfwgOhiVsWDJPumcbD1Zyhjq8r4hztpA
+	+9pnnsQmhQTXGAZtkb4+5xYOc8Q9Aak+/qYeWnoeYkmO/5RyXPT5m/qRPAtGGjMUE59FriE7Sce
+	i03rIvTxusR4u7Bk7D+K02+gnxbBDMvOxWbG+XAK8nIprVuZqOJxyr6IGUrq2tbu0cDmiPvIvfv
+	PnYGoRp+dJcZH1XVKfCghyva+TbFW1GsZz+7S9m+ZT9tcHMjIX9TZBjk2bTjXGF0HTne7Duwsfi
+	dPbPMZ5OyT3JVZwPbdVmz1xwWyzBjNXY4ggfE2XG9cp2YejtW8nzdCmBnhMPbrIXxp5aLhIge2u
+	Mz/WTWlXzmtvKEWT1Jd2QfgHIqctZOTgs9lkUsk75H3qAKgKTsiS33TcQ3WO1xWrcCSgQjgbgw1
+	1csp07Ytl6Rog62bdEjyzCVWOVTNJKvVXyeRZiby8bF7Ur5ntrOYKX9I1QYl5siDZGwwCikwhwA
+	6c6Hh/WzAlntdcQAiBnH/vz9oRbK5EWIP9neGS4RWChIfUW5xESHMxr2eNgUPIQ1w5SGednOGgh
+	e8KNZbGLBjGJxztsWssSvHCHPF2WT7SbHUEWk25m1lVJ3/4bSltQ8jlp+5cFpckhGXPnqq1+v
+X-Received: by 2002:a17:903:2311:b0:2e9:ca71:45f4 with SMTP id d9443c01a7336-2eb0042c50amr37191315ad.33.1793258436686;
+        Thu, 29 Oct 2026 00:20:36 -0700 (PDT)
 Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a662d96asm1913026b3a.26.2026.10.29.00.20.18
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6b774acsm29333125ad.22.2026.10.29.00.20.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 00:20:18 -0700 (PDT)
-Date: Thu, 29 Oct 2026 15:20:13 +0800
+        Thu, 29 Oct 2026 00:20:36 -0700 (PDT)
+Date: Thu, 29 Oct 2026 15:20:31 +0800
 From: Chris Down <chris@chrisdown.name>
 To: Petr Mladek <pmladek@suse.com>
 Cc: John Ogness <john.ogness@linutronix.de>,
@@ -87,11 +86,11 @@ Cc: John Ogness <john.ogness@linutronix.de>,
 	Marcos Paulo de Souza <mpdesouza@suse.com>,
 	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 15/16] printk: Modify try_enable_default_console() to
- return error/success
-Message-ID: <auLzrR_kDaEtr7Us@chrisdown.name>
+Subject: Re: [PATCH v5 16/16] printk: Try enable preferred consoles only when
+ there are any
+Message-ID: <auLzv9oFYmYTlRle@chrisdown.name>
 References: <20260929120546.328616-1-pmladek@suse.com>
- <20260929120546.328616-16-pmladek@suse.com>
+ <20260929120546.328616-17-pmladek@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,9 +102,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260929120546.328616-16-pmladek@suse.com>
+In-Reply-To: <20260929120546.328616-17-pmladek@suse.com>
 User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-Thank you!
+Thanks!
 
 Acked-by: Chris Down <chris@chrisdown.name>
