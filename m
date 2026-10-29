@@ -1,125 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260244;
-	b=Wc5rL3zi24jwDSnslYfM3r8BxHHP+QzBPphTyPNgDyekurQhYAmXq3UVJMHbwbiS/6Y2
-	 FdsGpTMkHCHaJGEeT8jfUbSS79ARvgzwsKKBkAcw2Jz6JxdHvoKQN/xV/L2PJVvasi1Ze
-	 07FlhLZMPzNrqCsWfILCCZU5NLatlQo/5QktQ/EIEx7zntYkLMzv6I236QkOl3GvzJNFl
-	 b9sbmLC/b350K3KtihuNyAG6I9nipXs0BVItT5pbCrf6EUu72M++nx9bZl9L/Zbr3Y2Ny
-	 z003ANJwKDJ2+LpIx9t131WUIOHVi4+vX8nz1TK7cY6Q1g1qnq8pW2uowddF6yfK6fg==
+	t=1793260248;
+	b=v6jvf+HWe/fAGyHDZ/ikwEDlNFrW6jtTFxCTRnoJGrVzxb++gnO+KB5azQolcN2Ze08h
+	 5/u0CLGQzB682rLOpOtjcoe1/tW34gAEMEwRx201uJfch/BGEiG3a0pfJ8zaoyslPyHKn
+	 1c7zs30IbkiYWO5plj6E0OTNJUMPbDSf4BxdS7uvAA+6Usj5v4e8oDmMBZIUryQB4CHUW
+	 L5GhQ7xc/bUTaQKwVboeDM7vPqrTDLqydvjJJr6lqyJf/iYLEgEPbLRH6PikpCy/KvjPh
+	 o4coWzTweNQ0xQykGv7UGBaufpru0PpVt9CafutI9TfxG4Y2HDCYbta5y3iOw9NCzkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260244;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KGtx6/Y4jw1xOGZOxg+hfjoK70dC2iNPtMRt22eWyh0=;
-	b=pTqle/7dmxdYpNK+dlgxJjESfiFxWtsNBQb33MPwoUP1yHO6i4qgcWUmoz9Ux/HEwDR8
-	 zZ480FkI1Mb/PP2XZhO/6EFvKD4WM8JaeudtEKdjSwkPqGslFOncj79k3yHmAw5ZmhxGs
-	 T3HIaZ1DjT8GPl3+UdtIGp4Tik6tjPyrpNmuM9+1Cy0MzTqDBckMw2N+dIJK0XD6mYYxU
-	 PS8PAqAs4eGUv1xrwGe+gL4kwAaQpfF62xkRtzQxcnhQPnMv1GEvfD1Lp3O4030HbWHRb
-	 Ku+YvQUGfDlCJD08YhYaXuoavC3rnNVSVtBBokL6JThRlsQW27/y+apbY1gU5lXXU5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260248;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=NRjITIPkdmWIGWowLy1TC+g49D0fUwGLw1HxPYp7dRg=;
+	b=CI1vL74rXcezu0DUVCG9TpLoJ30pRm2RIfYlrrPwuuLueUJ0niBoV3+pCgALQonjBeTm
+	 Prlb8If7GQAIFvw2H3FiaMhcO8ayYkxCMQvHl5qpwO47/prJlegW4/EHvrPk9gJA2BjdZ
+	 wHnVxELKM8TKdIEs0UXz6YitukR9JRVbO4SHl9A4ZKvwPznSXZC7OPryyCZoH1h+orzxg
+	 m2hPvpvSl1vKYNteJpQ33CmdcCvA01m/cBbIM7YS0X8eqWUP+Xu7mQW6fRekIQ6KrRaF4
+	 zCRDlauFnCVnDxmSvo58OLE9bseqxhpE/wbshWAw2Nfuv06JTa2e8QTmYvRGjGhEsEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=P0bD1T7r;
-	arc=none smtp.remote-ip=74.125.227.138
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=H9GB5CwF;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="Dq/YHesS";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821DC606A322
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:50:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 821DC606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3F9606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:50:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E3F9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=P0bD1T7r
-Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2e934c6c1c8so5823275ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:50:43 -0700 (PDT)
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=H9GB5CwF;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Dq/YHesS
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5HCwk2244621
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:50:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=NRjITIPkdmW
+	IGWowLy1TC+g49D0fUwGLw1HxPYp7dRg=; b=H9GB5CwFLiO5T00Hz8eY6N8cqBf
+	Zq+34UgfeztZ0VA5dItQCf+rQHeTHWp4qsFS7FsHIA1W/jF1/zKydiN+bhS8FEHw
+	9wZ0ClUjLSKCVL+GCkPWz72HdTm0QR2lpn5xFlAkLAyX8szPqIwGXiEUuw+hkffM
+	lR8JKMn2WfihnSjWhSbggLU/wVTK88GhfY3ovaLXwBETgVmyqyAgejiIGu8Jqm2O
+	fQ2UAEFHVpQZ4eMMVbpS+Biw4F/HrBHnOZfMCzJ7fdqQzlmUQNZjPI6dReVW7Uar
+	c3LUVr0pG8nmulbfCrc/VR4AZcavxUO970pMTxs8QKMCjmtMU1r96gZKrHg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hky5s8n2c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:50:37 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f322ef7d3so375392885a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:50:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1793260243; x=1793865043; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793260237; x=1793865037; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KGtx6/Y4jw1xOGZOxg+hfjoK70dC2iNPtMRt22eWyh0=;
-        b=P0bD1T7rkuZzgD8GER6Cpg9NR+Wo/UNvQm9rvke63dtabL95NyW1d9hoT0NgMfmwd3
-         fVx5NIC+jDuVqvO5J4CGb1VDtg3BUMudnH4pbHnoQMgAcRaRUqw2glRHqxVh6CWkcfIv
-         9SVHWx7f4749NFVLr5x80sqXDZKplJqFjptFYKLIQ6Snou2RFXRjWXXqN7PMFq+snyVu
-         84T7xYwhT9cQEtkpb8VyHhRbudRU1AT7XenYlnClUm23zxhRxrapE5bHWvG8s3Jcjkqm
-         t8lWuh406Q6/jMYmo8wXL5yuYe3jN6Dk9F7p6cvPx4NIElHUVrLrd6ecXDOvRcc7/mB0
-         7hHw==
+        bh=NRjITIPkdmWIGWowLy1TC+g49D0fUwGLw1HxPYp7dRg=;
+        b=Dq/YHesSlruM8oYYOdePIQ3WMvkiITNBWS5lRuDNeNWeKahCRRZDk77HfhE2qz5Zvc
+         +EEYnH9gPOlRSASOcK2yh+4yuQxOmXmSXXWRKPh1RD4WSrApyXEDUgWPRJmk/m6kUqVE
+         vQwIcaUt65MKuagLCfhuRD1tS7giY4rtAXeBLuzsh7SCucVehqXKNn9CMjRHpDDBRSsm
+         kgbglsVbuMT/IDJh7eMazhIHBwCOigvlORjC/O1arU8FrmxyyhkLJurLNop7HKOfrvqJ
+         UebP70DSVlvQ82XGkpyjiVPjy8qitbahkeLCyJayfpTrm22pyhC58b0uxfxrflQzzsiZ
+         4x0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793260243; x=1793865043;
+        d=1e100.net; s=20260707; t=1793260237; x=1793865037;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KGtx6/Y4jw1xOGZOxg+hfjoK70dC2iNPtMRt22eWyh0=;
-        b=fQ9pJYgPziLpJbAJdtF6mMtpwzev1o3t6xAA7lIEo2I/G0JMbPTIzQevR0WvKDqySn
-         6Cr4SCOEEwTBGXcmiyWX6KTQokZWwjKq0fxeOXY4uQDTxkw/sC6rpy/DGf31omjulWfQ
-         MjkQdEAKt3fJAJatf5zMhpvKLfaDdJmjHFex1K1e7DyYYavbPCDNxkAtjTyXDsrFB/ML
-         G8nMYVFCUgfUn2ga/qyCoDx48q5/Zo76LyYpMwplZdTLwEQ0CCGx5/HQClW0qWsRbnRT
-         VGa6e/ZvHYuSCOooMQTsmyCMO35s3c3HbqDR1Vi9CIbGM/MP4xEuMlx2TM9orsUWLPlC
-         HrpA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3aNcWqIrGg3M0Yx4DLb+PEnW0ZuCxyc2T8CgOUaKO4J9r9A6bNOGeFnfdRfY916Uk5W+uO5zO2kxeVbQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIr+ELJeZmZFHbJmKlBE93O3Pw9nEGvFcpN2ktRTuOJPjqUipWD
-	DuaOH+fmx9VHRyPHm8/PHEEnkUyfuFvbK7f1ifZ35Mc1udTMXskWAMCSSoeNk2CS/8o=
-X-Gm-Gg: AYBFou0z1TQeN6zv/Vl7ea2ezp65YzH3tP37HHGGzZaSPFyIX5wMBGPp+wFU2U1g4BL
-	wi1s0RMvh7iBJ7/LaJwgjMH5+ig5kg5KPjH9G+YVRZr9s9iS2Sye/AXD92DSfF7XsTHBi5KWJhb
-	ULRasydk5N4Qu1U/U7gJzJMW8szz0pVRWwuAEY1nUd6PUVPJ/nWjOhn26H4jNFv674EzOsbiBBV
-	za0q1psFQFeVkWw2CE1tnOF/BGztCQWrSFhUrsFfAtKxL0iuCcqCHFKskwg8dQgn7sUVeSSozmR
-	hmOnZFKewiqbHkKbmTLIwNpwTrwvguUi1pQwbCovtrqMrk0GSWVf7n36h7ViOjVmzhEbyGnuQaF
-	jY1r6fLBhJWnLu8NmPh5LU4ZSUd2kZiAz60LKQCYpI+h0AC8cJQpHG21DtxWQueMTyubc67qo/L
-	sryjCDe3n7clqP0bImON+ZEZbkdjyTXbFOhpzCmyJFiGodmiu36/1MhG6EVWqYaFUL0GPm2mQAR
-	8VitJ2sD/sdxeV+5HUmsB4YAsQVpzM/ZOHTrAMA+gD2V1Q3n879Zdz29ie8WIaMxOSKMVRo5N3y
-	8P1T+maTp3MtUd1vhG4IIjj8BcJfMW1VQ41GiX7aXJha8UUCUV+1c9A5Fp6kS8j552vYuwY1kgM
-	Ju08XdGc=
-X-Received: by 2002:a17:902:f54c:b0:2e9:a090:dd80 with SMTP id d9443c01a7336-2eb0048632bmr44539025ad.22.1793260242802;
-        Thu, 29 Oct 2026 00:50:42 -0700 (PDT)
-Received: from FJ7FR2JRQ3.bytedance.net ([186.240.245.239])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6bd60desm30598915ad.29.2026.10.29.00.50.30
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 00:50:42 -0700 (PDT)
-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
-	Conor Dooley <conor@kernel.org>,
-	Anup Patel <anup.patel@oss.qualcomm.com>
-Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
-	Yunhui Cui <cuiyunhui@bytedance.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Will Deacon <will@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <shuah@kernel.org>,
-	yuanzhu@bytedance.com,
-	yang.yicong@picoheart.com,
-	yang.susheng@zte.com.cn,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-Subject: [PATCH v12 07/11] perf: RISC-V: support callchains with SSE delivery
-Date: Thu, 29 Oct 2026 15:48:49 +0800
-Message-ID: <20261029074853.35467-8-zhangzhanpeng.jasper@bytedance.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261029074853.35467-1-zhangzhanpeng.jasper@bytedance.com>
-References: <20261029074853.35467-1-zhangzhanpeng.jasper@bytedance.com>
+        bh=NRjITIPkdmWIGWowLy1TC+g49D0fUwGLw1HxPYp7dRg=;
+        b=KoJyfkWwlWu2mKq5XiHpN79X5NeTkkK5N8WC7YSrbfM9o+rncW6+h21D05aWaC4ENm
+         r99aA6RXtR/tUv5AbM3nfJ2S6scD7AJHjcEMNsBIAs9RLKea8F2iH0/mPzSLqDTkJtA/
+         a5SaP/l9MQTALTTFEE+DL61po3sQObascjnCy/qlCjM6FuuGHeCcI5p+3l++GN+GtKWX
+         +kEls3e8EFfuyZL54ugpghSrdDEqoAc+GANehhfBgp1i/ZCYsLGHvZJJK/ow5AqRlBkq
+         bXS48GocYO24e5kaXtOW9vqOUDZcr3+WCvJcBpCdhbulL5NDD3ziWhLWVfUYDczzwt5P
+         YpkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBygiaN/n9g5DDv/Snr9VbWCqNld5ZR8qfgBGqeEEXI2Nm2HLvGfazQ0sUCpYcz4WSfcOs2It/OAza9OXuk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEPnb9riRkqyXwMw8JGGCYxGkZX+KLIIccLzaYdwovFh8OOEYo
+	aTxkQ/KWPOsvpxAbom3E3YC+uCgTufF6O2cEqgi/ZqZFEWm0kaYsBEI87k3wTLeYc9JOdr8okcz
+	deUQFM9CAO+yE5zWJax1MyWaHm00QZjYmD/0ovN2UvZhrzfp36+4YZKvBPC8J52l2P75TWQFGaL
+	JOaQ==
+X-Gm-Gg: AYBFou2yZRdBkSTuyx5qil3PVJFhx7VcEIgyZs3m6SeBnEZi64uyVK1PG+yyN5NeAEV
+	sSBVjixUSTDVu4jNNFUlqYIEelq0i5edIzIIQXZnTjqII7IjItEgwE41YF93ZE4H6q+df13Gn8O
+	NZ6WZ6KOOgs/FVP5HADnhr6nuLzdNdUzBItPbcJmJUSW0eCBvqHh/EJ7l6p0DGSSFjTLLNg8sNC
+	IVAQ4rEJuXK99jCz3+SBZWWF3Fx/ki5sjxpLlYg4incp0xL7XrygNP9AvSI7B10tU7g156qAfzC
+	j9LzysuBN36lNNLLYkHqjoyB9ODASwSJfq3gVREDBPsiFoSlsC6PTlJZX8K7b31t9fWKfksFddH
+	QTFVkznvZ2XKsLhgFlRaWhnE37r6BPKQvVv+1MV8ed+6du1RyXGP9CiDnSZ6ty/UrtsuJBghNRw
+	==
+X-Received: by 2002:a05:620a:17a9:b0:93e:94f2:ada9 with SMTP id af79cd13be357-94408cf77dbmr715123085a.58.1793260236644;
+        Thu, 29 Oct 2026 00:50:36 -0700 (PDT)
+X-Received: by 2002:a05:620a:17a9:b0:93e:94f2:ada9 with SMTP id af79cd13be357-94408cf77dbmr715122585a.58.1793260236287;
+        Thu, 29 Oct 2026 00:50:36 -0700 (PDT)
+Received: from lin-0772.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dcbsm31876763f8f.14.2026.10.29.00.50.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 00:50:35 -0700 (PDT)
+From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: atanas.filipov@oss.qualcomm.com, Krzysztof Kozlowski <krzk@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Jonathan Marek <jonathan@marek.ca>, Bryan O'Donoghue <bod@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm8250: add camcc interconnect cells
+Date: Thu, 29 Oct 2026 09:50:33 +0200
+Message-Id: <20261029075033.3558229-1-atanas.filipov@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <6ivurpkaxe7rs5lxpbyahpst2bqzpkcb67whcymoopdgo6sjvq@xd2otcdpe6gg>
+References: <20261016170701.1504338-1-atanas.filipov@oss.qualcomm.com> <20261016170701.1504338-4-atanas.filipov@oss.qualcomm.com> <usade5zkrncpry4ufbdtaahoa2zyd5hx7tjgfvzfte2aqbkgs7@t3mej4maj6za> <3e5b7781-20ef-4e84-bb62-29a081c26d8f@oss.qualcomm.com> <x5x4av76vm3swozvwe46uq5vz2ys7bvo4bducpp7flnmhykg65@pvr3znxyktje> <a01d8d86-740e-4a25-96a4-d4dfd664af5e@oss.qualcomm.com> <20261028174523.3514860-1-atanas.filipov@oss.qualcomm.com> <6ivurpkaxe7rs5lxpbyahpst2bqzpkcb67whcymoopdgo6sjvq@xd2otcdpe6gg>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -130,244 +134,53 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzMCBTYWx0ZWRfX7CZYDLquUKpv
+ cDgGBBue5MUIbe7TJYf3aUJz15ANJCK7OKYYCMqETpzEFyzA6WAoEv2UqJc1Dxm5w2Ve2SyPl1i
+ NUCCUY3u4e0LZkyz2ot4n++6azUq2aeFKE7UO3HTbqbE50F+ZMMhBNcs+WJ95IF5ugs0ZJ3S1GQ
+ ivoXG/Fs3Kp87hW1wbUmzjGxvbI1dDljqlL3bA+U3jypdD6K/RGJpE15n/5vZRMFJuPpaKpfTDC
+ F4FCcm0BwisLLS6ABkpiDoGjjik53wvZHhuL1fcCvbjOCsV+i7tKfn9Wk5j4OTFAFf+EehBo1GA
+ +YodwQ5Lr9fZlXZgqF/umSvR4yxa4xrSvXGM8kY4jDVNerksDqvfiaNYG9YwL99Nd9gKI1Mt9wo
+ erlkF5acnHLifr/iuQ5zgnPJxgyEp2OKAKpuL4upsUu4lD3sFbsdwzWlDA6B3PHq3mV3oYldaiS
+ Gwdsv/cAVXEYNn5SuUQ==
+X-Proofpoint-ORIG-GUID: s8d7UrEYytHsP-bSbQWATZqu7JneVVun
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzMCBTYWx0ZWRfXw4Rwi2km2K0U
+ L4DhTOZxNUaj52ziIvgsvKzDRkk/3REgkqKSvgJsQ0//4euPQvi4e9CDqVAHIHbaGztyojKy6Fa
+ 3WZEVDYE1bTJpxF4pqTAV0CXb7YuWAU=
+X-Proofpoint-GUID: s8d7UrEYytHsP-bSbQWATZqu7JneVVun
+X-Authority-Analysis: v=2.4 cv=f/vdl+yM c=1 sm=1 tr=0 ts=6ae2facd cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=tiiBXXJjtJp2WioFvjMA:9
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610290030
 
-PMU overflow delivery through SSE enters Linux with a synthetic supervisor
-context on a dedicated event stack. The perf unwinder must use the context
-interrupted by the overflow rather than treating the SSE handler frame as
-the sampled frame.
+On 10/29/2026 3:41 AM, Dmitry Baryshkov wrote:
+> On Wed, Oct 28, 2026 at 07:45:23PM +0200, Atanas Filipov wrote:
+>> 			power-domains = <&camcc IFE_0_GDSC>,
+>> 					<&rpmhpd RPMHPD_MMCX>;
+>> 			power-domain-names = "ife", "mmcx";
+>
+> If IFE_0_GDSC is an (indirect) child of MMCX, this is an overkill. You
+> should not need to cast votes on MMCX, IFE -> TITAN_TOP -> MMCX will
+> work for you.
 
-Use the interrupted pt_regs published by the RISC-V SSE entry path. Walk a
-kernel callchain only when the interrupted PC, SP, and frame pointer are
-consistent with the current task stack. For sensitive entry windows and
-IRQ stacks whose bounds cannot be proven, retain the interrupted PC without
-following an unsafe frame chain.
+Agreed, IFE_0_GDSC is a subdomain of TITAN_TOP_GDSC, which is a
+subdomain of MMCX. I will keep only the IFE GDSC in the VFE node.
 
-User callchains continue through the existing nofault RISC-V user unwinder.
-If hstatus.SPV says the interrupted context was a guest, do not interpret
-the guest stack through the host address space.
+>> Does this match what you had in mind?
+>
+> Yes
 
-DWARF callchains additionally copy a raw user stack. Provide an SSE-aware
-riscv_perf_out_copy_user() following x86's copy_from_user_nmi().
-The copy runs under pagefault_disable(), so a non-resident source
-page takes an exception-table handled fault that returns the number
-of bytes not copied
-instead of entering handle_mm_fault() or opening an interrupt window, and
-perf truncates the user-stack dump accordingly. The SSE entry saves and
-restores the interrupted task's stack metadata across that nested trap.
+Thanks.
 
-In SSE context also check access_ok(), require a user mm, and compare
-the active page-table root with current->mm before copying. This rejects
-a mismatched root, but does not exclude stale translations in the window
-between a satp update and the following TLB flush. It is not a complete
-equivalent of x86's nmi_uaccess_okay(). Outside SSE, retain the existing
-inatomic copy with page faults disabled.
-
-Susheng Yang reported this failure with perf callchain workloads.
-
-Link: https://lore.kernel.org/r/as79MHtNYd-VbUug@hu-himchau-blr.qualcomm.com/
-Reported-by: Susheng Yang <yang.susheng@zte.com.cn>
-Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
----
- arch/riscv/include/asm/perf_event.h |  10 ++
- arch/riscv/kernel/perf_callchain.c  | 140 ++++++++++++++++++++++++++++
- 2 files changed, 150 insertions(+)
-
-diff --git a/arch/riscv/include/asm/perf_event.h b/arch/riscv/include/asm/perf_event.h
-index bcc928fd378..ddc40479475 100644
---- a/arch/riscv/include/asm/perf_event.h
-+++ b/arch/riscv/include/asm/perf_event.h
-@@ -18,6 +18,16 @@
- 	(regs)->sp = current_stack_pointer; \
- 	(regs)->status = SR_PP; \
- }
-+
-+#ifdef CONFIG_RISCV_SBI_SSE
-+/*
-+ * Raw user-stack sampling can run in the NMI-like SSE context. Route it
-+ * through an implementation that does not fault on a non-resident page.
-+ */
-+unsigned long riscv_perf_out_copy_user(void *dst, const void *src,
-+				       unsigned long n);
-+#define arch_perf_out_copy_user riscv_perf_out_copy_user
-+#endif
- #endif
- 
- #endif /* _ASM_RISCV_PERF_EVENT_H */
-diff --git a/arch/riscv/kernel/perf_callchain.c b/arch/riscv/kernel/perf_callchain.c
-index b465bc9eb87..216f5bd14c0 100644
---- a/arch/riscv/kernel/perf_callchain.c
-+++ b/arch/riscv/kernel/perf_callchain.c
-@@ -1,9 +1,15 @@
- // SPDX-License-Identifier: GPL-2.0
- /* Copyright (C) 2019 Hangzhou C-SKY Microsystems co.,ltd. */
- 
-+#include <linux/kallsyms.h>
-+#include <linux/mm.h>
- #include <linux/perf_event.h>
-+#include <linux/sched/task_stack.h>
-+#include <linux/thread_info.h>
- #include <linux/uaccess.h>
- 
-+#include <asm/csr.h>
-+#include <asm/sse.h>
- #include <asm/stacktrace.h>
- 
- static bool fill_callchain(void *entry, unsigned long pc)
-@@ -11,6 +17,126 @@ static bool fill_callchain(void *entry, unsigned long pc)
- 	return perf_callchain_store(entry, pc) == 0;
- }
- 
-+#ifdef CONFIG_RISCV_SBI_SSE
-+static bool sse_addr_on_task_stack(unsigned long addr, unsigned long size)
-+{
-+	unsigned long end = addr + size;
-+	unsigned long stack;
-+
-+	if (end < addr)
-+		return false;
-+
-+	stack = (unsigned long)task_stack_page(current);
-+	if (addr >= stack && end <= stack + THREAD_SIZE)
-+		return true;
-+
-+	return false;
-+}
-+
-+static bool sse_kernel_regs_safe(struct pt_regs *regs)
-+{
-+	unsigned long fp = frame_pointer(regs);
-+	unsigned long pc = instruction_pointer(regs);
-+	unsigned long sp = user_stack_pointer(regs);
-+
-+	if (!__kernel_text_address(pc))
-+		return false;
-+	if (!sse_addr_on_task_stack(sp, sizeof(unsigned long)))
-+		return false;
-+	if (fp < sizeof(struct stackframe))
-+		return false;
-+
-+	return sse_addr_on_task_stack(fp - sizeof(struct stackframe),
-+				      sizeof(struct stackframe));
-+}
-+
-+static bool sse_callchain_is_guest(const struct riscv_sse_interrupted_context *context)
-+{
-+	return context && (context->hstatus & HSTATUS_SPV);
-+}
-+
-+static bool sse_callchain_kernel(struct perf_callchain_entry_ctx *entry,
-+				 struct pt_regs *regs)
-+{
-+	const struct riscv_sse_interrupted_context *context;
-+	unsigned long pc;
-+
-+	context = riscv_sse_get_interrupted_context();
-+	if (!context || context->regs != regs)
-+		return false;
-+
-+	/* A guest stack cannot be walked using the host kernel address space. */
-+	if (sse_callchain_is_guest(context))
-+		return true;
-+
-+	if (user_mode(regs))
-+		return true;
-+
-+	if (sse_kernel_regs_safe(regs)) {
-+		walk_stackframe(NULL, regs, fill_callchain, entry);
-+		return true;
-+	}
-+
-+	/*
-+	 * Keep the sample useful for sensitive entry paths and IRQ stacks. The
-+	 * generic walker does not take explicit IRQ stack bounds, and its
-+	 * THREAD_SIZE alignment assumption fails for non-vmapped IRQ stacks.
-+	 * Conservatively avoid walking IRQ stacks in every configuration.
-+	 */
-+	pc = instruction_pointer(regs);
-+	if (__kernel_text_address(pc))
-+		perf_callchain_store(entry, pc);
-+
-+	return true;
-+}
-+
-+unsigned long riscv_perf_out_copy_user(void *dst, const void *src,
-+				       unsigned long n)
-+{
-+	unsigned long ret;
-+
-+	/*
-+	 * Raw user-stack sampling can run in the NMI-like SSE context. Mirror
-+	 * x86's copy_from_user_nmi(): the copy may take a page fault, but it
-+	 * must not fault a non-resident page in. pagefault_disable() keeps the
-+	 * RISC-V fault handler on the nofault exception-table fixup (no
-+	 * handle_mm_fault(), no interrupt window), and the SSE entry saves and
-+	 * restores the interrupted task's stack metadata across that nested
-+	 * trap. A fault therefore returns the number of bytes not copied, and
-+	 * perf truncates the user-stack dump accordingly.
-+	 *
-+	 * In SSE context also approximate x86's nmi_uaccess_okay(): only sample
-+	 * when the active page table root still matches current->mm, so we do
-+	 * not walk an unrelated address space after interrupting a KVM guest, a
-+	 * kernel thread, or a task whose mm is being swapped. This root check
-+	 * does not close the window inside switch_mm() between writing satp and
-+	 * flushing the local TLB (RISC-V has no LOADED_MM_SWITCHING marker like
-+	 * x86); that is a window between instructions, not within one. In that
-+	 * window a stale TLB entry may still resolve to the outgoing mapping, and
-+	 * with ASID reuse the residue can even belong to an unrelated address
-+	 * space. The nofault fixup only bounds faulting accesses; it cannot
-+	 * detect a successful hit on a stale translation. This is therefore a
-+	 * bounded sample-quality gap (a mis-attributed or truncated user-stack
-+	 * dump), not a memory-safety hazard: the copy target is the perf ring
-+	 * buffer and the length is bounded, so a stale read cannot corrupt an
-+	 * unrelated kernel object.
-+	 */
-+	if (riscv_sse_get_interrupted_context()) {
-+		if (!access_ok(src, n))
-+			return n;
-+		if (!current->mm ||
-+		    (csr_read(CSR_SATP) & SATP_PPN) != virt_to_pfn(current->mm->pgd))
-+			return n;
-+	}
-+
-+	pagefault_disable();
-+	ret = __copy_from_user_inatomic(dst, src, n);
-+	pagefault_enable();
-+
-+	return ret;
-+}
-+#endif
-+
- /*
-  * This will be called when the target is in user mode
-  * This function will only be called when we use
-@@ -28,6 +154,15 @@ static bool fill_callchain(void *entry, unsigned long pc)
- void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
- 			 struct pt_regs *regs)
- {
-+#ifdef CONFIG_RISCV_SBI_SSE
-+	const struct riscv_sse_interrupted_context *context;
-+
-+	context = riscv_sse_get_interrupted_context();
-+	/* A guest stack cannot be walked using the host address space. */
-+	if (sse_callchain_is_guest(context))
-+		return;
-+#endif
-+
- 	if (perf_guest_state()) {
- 		/* TODO: We don't support guest os callchain now */
- 		return;
-@@ -39,6 +174,11 @@ void perf_callchain_user(struct perf_callchain_entry_ctx *entry,
- void perf_callchain_kernel(struct perf_callchain_entry_ctx *entry,
- 			   struct pt_regs *regs)
- {
-+#ifdef CONFIG_RISCV_SBI_SSE
-+	if (sse_callchain_kernel(entry, regs))
-+		return;
-+#endif
-+
- 	if (perf_guest_state()) {
- 		/* TODO: We don't support guest os callchain now */
- 		return;
--- 
-2.50.1 (Apple Git-155)
-
+--
+Best regards,
+Atanas
