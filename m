@@ -1,45 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.20.114.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260327;
-	b=djps0CbTD6jDWBqNqQloUkwOv7Lv0H81TGdnG2iCGGdt3/iC2i6UNZox14B/11M7C4lc
-	 vQaYKYdhRsVeRj/qt0mnJ5SzEhpEWJTWrEvwLMnEf/754gTjbo/wJNipz73QcGRkxLRPE
-	 oS1ndZPJhKtOPOjS7EJfhlQnv4emrMpYMw1edo+M01IOPl6QHqK5EGiC3YX96KTV0diXP
-	 l2mjmxjN8pwx94zXm0IfW6uKqYJL58rRTwx8I5uzD5vqhvHNCpWcTxW5OT/6MN9o1P/y2
-	 qctThlsqa7Qt5bDktqP3X9o+JCi70rP9x5YRNRg1alZ152z5gYemyqBhGJtVmK70aOg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260327;
-	h=DMARC-Filter:Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-ID:X-B4-Tracking:
-	 X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=sqagyVcKqIAinu4JxuHIZSAS6rRzPNadzZhNbuXuo+w=;
-	b=zcUDTXgWTNFPqXPEi7JbBEW4PViHgWvxhVdb1+ZnOiHJNzH2v3d/IDL6RL9+HOXB19m9
-	 u1rxZNJ2EHChEv0ZpnQsrdJ1IfidlUcyHUiuvO+21Glg/HcGh9nkhoAvRrk9mvXaD0gr/
-	 QJiqywfPd4p5gzpDG7AI2L+kv7uEkzRlcWA/RXYiusFI0InQqasDwW1zHqLlv1URFRH6K
-	 WbYaAg3JPlM2uI5bA6MXghG5xu1b0++TDHRalf8EpvqTVmYEfJKlG8hMWpNSxFu0XPMSE
-	 eP7fwo0sD/MG/wdQI/j0dQ7Plf6ikvahunLmiVoDPHxgBQ8kQOFiPtjwt4XfgaSzetQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aspeedtech.com;
-	spf=pass smtp.mailfrom=aspeedtech.com;
-	arc=none smtp.remote-ip=211.20.114.72
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.193
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793260392;
+	b=Aq6Y1kmqV8JXsGwtGhtJcvgI84n0jKt+eGJc1G9VdGzFviJO08EV30MS1CVFrx2wqOUo
+	 xRoMXTcGi6ap0F17uhnU2LxCY6EM99kIl+Lf88P6+56v3dwxHwVpCZkM6be/4Xi9J0La5
+	 tuX+hrlhshB9SKjaibCz82gKsebgSHB95wSjELLbvUzzaLCuSoVbr03zoghkidQ+9XxGd
+	 VWoSklUR+cKr30RCMDWSQimnKBtWIp7zBojfb04EyGqANjoolH0oPkvuGPQu0GX/08q7u
+	 zcWKXXFy77cdJZTx0gpAdtBSfPr8+ghsyA9yTsdkkUnzypznvjGJhFotwjPtQaPWcnw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260392;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=kUc17Gyf3nvifNnB1KWpHD2qqumkD79iYmF/XwTcUzk=;
+	b=YgtCBNHrCpEX9nhPS3mIRxZ79jJNI9UVsSCgJRjYkqs2jNcjyQlzupF+4DcfRhJhYMnm
+	 EZeDveeYugZ/cJottomK60KIl+9C1D8HUjCw+Pu+yIgjQUBCTqf4MOQ5siuB7gsY4Tk3o
+	 RdgBp0N32igM6voGp4uk4x0nMPspyy+Z79X8HqMyAQADkU/3tf+kzB/gZJEHdT69tSRZW
+	 7wfEVM8VvnYnTxgmUg2ZRJz0q+BJaFjK/t08SfgvK8BDGIMgFxDVi/+s8ZUBfZ2wGpl/w
+	 W6Ko3uK/yaKXQx+toU68muHE7JrWsadpC5F0yVRkSGpRZbaTj1ufVM5QRSqUWWmz05w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mml8OJiu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.193
+Received: from mail-oi2-f1.google.com (mail-oi2-f1.google.com [74.125.231.193])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2146E606A31A;
-	Thu, 29 Oct 2026 07:52:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2146E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Thu, 29 Oct
- 2026 15:52:03 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Thu, 29 Oct 2026 15:52:03 +0800
-From: Billy Tsai <billy_tsai@aspeedtech.com>
-Date: Thu, 29 Oct 2026 15:51:54 +0800
-Subject: [PATCH] arm64: dts: aspeed: ast2700-evb: Reserve coprocessor, IPC
- and VBIOS memory
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8C4606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:53:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE8C4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mml8OJiu
+Received: by mail-oi2-f1.google.com with SMTP id 5614622812f47-539d2baa897so904925b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:53:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793260390; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eZxe7jDcJhld/ehJRvcmBBFiBN8hLuj+OW8LPleGI7uobbqF6J5yKe+Vh7b/WKrMiO
+         L2Ecy7ojjhNe8C0573xeyTeeBv1oPcWxvRQOVK009iEuegFBGR2XvQh3UyDHoDY3yM1n
+         Ud0DTZhjmwfd7T6OkfKO5JvHl7TRf2ORHPVYY7V48DU93tJnnGy0XVLNyiXdcA2PSauv
+         X/de+ASBU35Vgw/41Mjx58lSgcj/CKs9pN8snC9YL0FyckWKIGbzpd5q1LMJH8Y+cPHR
+         J6GrotowoaMkVVsMSgXdHNaL2dW0bi6ikjyLKoSgpmX2fhvZHHEUDHIwAdQ1fFYpLcjn
+         dzpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=kUc17Gyf3nvifNnB1KWpHD2qqumkD79iYmF/XwTcUzk=;
+        fh=R0RyYsOztBVy/54xk70Q31DwxbpQD5ho4OMNTMxW2dk=;
+        b=lZCilInokW2bVOAyJhnw0LcMk96ixgRYKuufhTd6fnz2lOQopBRmbGPwcw1OokNktA
+         YjoluoJpNHLA5V7l8Rd3mOs3lwchWvnqZ+0cigsrs/I+eBcJ275lJufCPSM/vQWzFVFt
+         AVTUA2It+VIezw5yKcrk3RkYxCrJDkB5exVxVxMj/Gbjgj+2xCsbWw104DBYhee5IraC
+         cvaipyXyuiuFPSfJPeYg/6QU8o4ch0h8PvC+04Ep64Vv7vm3LbyrdbOn3lMZ+pSbfx4T
+         up1VWyy9nmGlIoB2Ky1KFUYfenTNHeEAA+vFmMbGjZtIE0E5yrEyDA41XM+y56Koorpl
+         DNhw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793260390; x=1793865190; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kUc17Gyf3nvifNnB1KWpHD2qqumkD79iYmF/XwTcUzk=;
+        b=mml8OJiuTmVOXInxSBsTu3NToV8noLYGsPtTfZHP0vaDh3gz0bd0TFs81P27gH5O9O
+         QPB9BaBvPWExsZEkTvysVmwlbl/tXiLLSGtxJN2k1BslC5QwcNLCet8P0Ttbf2K9R59w
+         JC446ZKD0o3BMscpP4MZmJ3R6K+tm2viSMEAIAJLw849Xrb8ORrQ8ssI21h0Ol7vdk1a
+         B3OEZQWBLtf/0ej8asKTmp84TaesJWhbzflfjs+Osf3Bio+PaLab/9/IFBnLIb8dM79V
+         4lMG7iuxM4+Wb4iLujg5jy0MRqhQDMKu/joYpQ5/cW71Ks0i/JWsz0injqpUWxfFXllI
+         +OXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793260390; x=1793865190;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kUc17Gyf3nvifNnB1KWpHD2qqumkD79iYmF/XwTcUzk=;
+        b=M4pXGM2tVqHVMuadwoU7JGFjH0sxliMaJfVLkhlyo9Ka2b0wqVNKIYHdBHXhvBO+A7
+         rW9lfRmYO1DJIWJ2xs8u/J8Q/6ONL1CN9c6zEl8sXcHrIwgfY7kj1ujSvNqlU0jX7UnT
+         mIDbBGVlSqE4hg3tqnH3hRYsj/cKcThA8XMRixesLErMnU9BgaaBX6l8wncKehfLZk7W
+         d2RNZxYjjtAQeHocJQe0WUMfptQOfDfXAVVhMevwbvC6GTA8CMLJ5ii/yd92IJ9w9B/J
+         5G1ebGiIPVm5pdWjms2viY/oeCRF1GT8Iw4FBuZ3hYzIIWL8o93WWGyiwVPbfzrSrKJb
+         4t9w==
+X-Forwarded-Encrypted: i=1; AKwUvBzrgxv4nq4Jh9rZjjve2cQlOcx2ZqLssNys86vasN7Jy75OxY8hFMajm8bS+ec8Wdg/byGbzi6aOUmdkmc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+af7Xl6gZ0XlTzrNVEbfDQkppMDxGB0fXwRr2h8QhWSZNNgyj
+	70rBCo/QF8kJV9IMx3l6+F9ryZmYwvjOQbAb/spGT6wFBdHz/vQwXjYYrignYx1J6i2c6YrQ3Aj
+	alKrqS2eFyzkq+hSrH3q6RsP8VI6YgiQ=
+X-Gm-Gg: AYBFou18tS03aT7AaROkkwpNBcKw4t4KvBPHMD+RiFLCSsEHMlE1yWaHYAB2RpHw0m3
+	JK6LyL015bYYLNCUTxonQXxrB3pJp4PKu508rYP4/NLlXox0hrTP/CWSLtJrB6WNf2SJitBg71G
+	h4EqmH7jyM8+BeM/kBIX8QOwejQw8uc/fPYU+Y/fi8b1mWpPkgAamUdDlbrwh+D12RuIAm7LlhW
+	C15UCDhQAzBl3/q/TFAuEf0FWD8eAuZex8rytrRtPkPgpkeTAdFboSypHANWbIoK7R+HSja40RV
+	SlZazJ0Y4ewDEEab1Y7NFoxXZiZM5kzttrFFUM1zNntrQvUFiyWGF5s9jEKWGJ6BZKioGeKrk6b
+	CPoVJlTpTh3j2HK60bENqZs+FgVOfqVRd1qpQTebL51nbK22iyhfDl+Jt9JgWa1K3hlkNSUM=
+X-Received: by 2002:a05:6808:23c2:b0:4fc:3dc7:66af with SMTP id
+ 5614622812f47-56383482f5amr2991341b6e.10.1793260390312; Thu, 29 Oct 2026
+ 00:53:10 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,101 +103,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261029-ast2700-evb-reserved-memory-v1-1-ca1360d585d9@aspeedtech.com>
-X-B4-Tracking: v=1; b=H4sIABr74moC/x3MQQqDMBBG4avIrB1IImjaqxQX0fzaWahlUoIi3
- t3g8lu8d1KCChK9q5MUWZJsa4GtKxq/YZ3BEovJGdda4zyH9HedMYw8sKLUGZEXLJsejMYPU4i
- +ta9A5fBTTLI/909/XTeUBCUAbQAAAA==
-X-Change-ID: 20261028-ast2700-evb-reserved-memory-e38bfad8619a
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
- Jeffery" <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>,
-	Arnd Bergmann <arnd@arndb.de>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>, Billy Tsai
-	<billy_tsai@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793260323; l=2191;
- i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
- bh=XeDRHsPi2k+CJeY1+La1RVHwRDnYoS77GIz9W0YvdBE=;
- b=A0sObIioWr33st/x7XXxLcltHvLkUZzDkbvHk3dGjV8HJbQuNdyuI1n81g6fNqzcC8W15IXAZ
- GpOGCylX8nDCD/IE+z2YAh4Dl5Wy2FoUN1ZNH6GP4CPCIwjwocgp9wv
-X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
- pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
+References: <20261029002052.54117-1-dennylin0707@gmail.com>
+ <2026102957-suitable-gesture-be83@gregkh> <CAGEkeHft5gqu1Kq0saC1O0hg+ZE9AEO1tOgeXmd-g10uk2obgQ@mail.gmail.com>
+ <2026102930-underwire-manmade-8083@gregkh>
+In-Reply-To: <2026102930-underwire-manmade-8083@gregkh>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Thu, 29 Oct 2026 00:52:59 -0700
+X-Gm-Features: AclHuK8eIF8y_uq-0haaIwCtaPGzrYPOasOKqF8SErkDCEeB0RjNpkjMoQKSoxE
+Message-ID: <CAGEkeHfTRiRmb-SpLUZeBkUrmRmq-bHLhD=CWnqsrvpbnymuYQ@mail.gmail.com>
+Subject: Re: [PATCH] tty: n_tty: convert the full VTIME interval to jiffies
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: jirislaby@kernel.org, linux-serial@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On the AST2700 EVB, the boot firmware places the SSP and TSP
-coprocessor firmware in 0x42c000000-0x42fffffff, the IPC shared memory
-in 0x431080000-0x431b2ffff and two VBIOS regions in
-0x431bb0000-0x431bcffff, and locks these ranges so that accesses from
-the Cortex-A35 are blocked. U-Boot does not add reserved-memory nodes
-for these ranges to the DT it passes to Linux, and they are inside the
-memory node, so the kernel uses them as ordinary RAM and the EVB fails
-to boot once it touches them.
+> Ok, and has it ever reported problems with this rounding error?  This is
+> very old code, changing it needs to be done only if an issue is actually
+> noticed as it might be relied on, right?
 
-Reserve the regions with no-map so the kernel neither allocates them
-nor keeps them in the linear map.
+I don't have a report from users of those systems. I found this by
+inspection and reproduced the early timeout using PTYs under QEMU.
 
-Fixes: e77bb5dc5759 ("arm64: dts: aspeed: Add initial AST27xx SoC device tree")
-Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
-Assisted-by: LLM
----
- arch/arm64/boot/dts/aspeed/ast2700-evb.dts | 36 ++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+For comparison, FreeBSD's original VMIN/VTIME code keeps the timeout
+in microseconds and rounds the remaining interval up when
+converting to ticks:
+https://github.com/freebsd/freebsd-src/commit/d32198f15b39a0f6dc29229ba4925d67d136956e
 
-diff --git a/arch/arm64/boot/dts/aspeed/ast2700-evb.dts b/arch/arm64/boot/dts/aspeed/ast2700-evb.dts
-index fe8f0b80fb2c..795284253ea5 100644
---- a/arch/arm64/boot/dts/aspeed/ast2700-evb.dts
-+++ b/arch/arm64/boot/dts/aspeed/ast2700-evb.dts
-@@ -24,6 +24,42 @@ memory@400000000 {
- 		device_type = "memory";
- 		reg = <0x4 0x00000000 0x0 0x40000000>;
- 	};
-+
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		ssp_memory: ssp-memory@42c000000 {
-+			reg = <0x4 0x2c000000 0x0 0x2000000>;
-+			no-map;
-+		};
-+
-+		tsp_memory: tsp-memory@42e000000 {
-+			reg = <0x4 0x2e000000 0x0 0x2000000>;
-+			no-map;
-+		};
-+
-+		ipc_ssp_share: ipc-ssp-share@431080000 {
-+			reg = <0x4 0x31080000 0x0 0x800000>;
-+			no-map;
-+		};
-+
-+		ipc_bootmcu_share: ipc-bootmcu-share@431880000 {
-+			reg = <0x4 0x31880000 0x0 0x2b0000>;
-+			no-map;
-+		};
-+
-+		vbios_base0: vbios-base0@431bb0000 {
-+			reg = <0x4 0x31bb0000 0x0 0x10000>;
-+			no-map;
-+		};
-+
-+		vbios_base1: vbios-base1@431bc0000 {
-+			reg = <0x4 0x31bc0000 0x0 0x10000>;
-+			no-map;
-+		};
-+	};
- };
- 
- &fmc {
+I understand that this doesn't rule out applications depending on the
+existing Linux timing. Would you consider the conversion correction
+worthwhile on that basis?
 
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20261028-ast2700-evb-reserved-memory-e38bfad8619a
-
-Best regards,
--- 
-Billy Tsai <billy_tsai@aspeedtech.com>
-
+Thanks,
+Hungyu
