@@ -1,150 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793268018;
-	b=pWoPVbKZ85J248TH6KppbjFzH9q8PkOpxl68WraeyGHQEYmFASR13DALC9weqFSBdnNq
-	 5oEbcNLusuiv1EGruWfMVm4ggsLYPkPM/PWZX3WB/w/yCmG59phBGMGZzvPNZK8L+RiIu
-	 BAAp9K7u02N76/M9no+jxB2vTsBA2nYAhWITFcby3gJ5U1dWKhH8UdWXUNqdhgrqgRMUx
-	 eSO6yTreN/PD7AeJM/CTeIZAgnzxkXijwgUZqbCYu5sjcyqhiSHrxyzmCt9yTZAd2SXV6
-	 CZFtno9hA7Mxst2bo/0iY+Dx1Bu78xWkYxsEqfR4ZyjXGFVpvSBI58WbEOiE7te7B9Q==
+	t=1793268033;
+	b=dlH0FKU+PluGpc6RFyauPTDBcJeUH4N0ghF+ZtA/G62pCFVzJJofR7msRHipzhRvt2ta
+	 BLwwSHpBO49h+nEBY4B0Wq/LE1L4vUW1TdfPjBndEzkmq6HdGeUEV55tD/fTwbSz17C+w
+	 j+vR/fIqXzoUcoJt6jyN4JAHHAegJj2aBbXYnR9WCAZzVJvNe9EB/i4cGmnIchKepaYgz
+	 vrRPr0CRL+xZIiu9sMax00FZWQ6jyyJ7tavyZZhdSblVf40z+se+EwVArMgj22ASyYJeI
+	 CvMcn0KPIhC5XAglOO+ZAlRQlsYl4avnofdjMLpDonxXeEUH/5+4WXGzY+UFBnnivHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268018;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WKgY4TxM7jCCTLKvPKBg2Os4gMDYJkQWtwa2sp51kDE=;
-	b=WS5EjqiJMKgSJZ0gknNEhKfOMMqjviVA+hXfgCX5iqNunT37x+VLl60ro8I67cflnJOe
-	 MJjl9EVo2oYLGMVm6DMUULnun602JGi6WiHClSWKtj709IpjLdbS/o0dl9diJaw2vrlMj
-	 TGzAY8c93U7pa4Rzn0pFOofLT8nfwfS/BEv2caKMt9P3fmD+XblcKeJSHS+qS42UbjpNN
-	 0EDAvSc0N+6yG3SrBySWiaNXbYlHeXM7muqqf0/LdwKyYmKTKvIdZN7TqkbuzgvDjpBU1
-	 HdOXAAFA7tAM8JfbLUuQR0uGLCRucRh/hDUBZ3/50eL8VMQjBt8nSyYlYPlBi7haNAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268033;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=MuAgzDOGGZNImhzWO720yvkQx63NEyn8l8tBYbjMb5U=;
+	b=CgIx3U5ZdkxGJoLrVV+2/hC/eZwzU9Abpq4+kCRy2Q1MzQsF8g23EoZgrphsbObi+8j0
+	 mOt7/KKJAfFxQCyNurr1p3ufTY+rRMyas+F7QG/mEXdvSnMDFbe8wwQLU6QH7s4U2cKL2
+	 pGtGTLkzDmnz2TAKplyC0myW//Y3wKxSYEVDI3nyEn/gwxafwDp03YmHhe7/MFIzIITSJ
+	 f9SpDzcSu4IObCvaiICsGIVCQ3BhET/FOf011THBdd9z8E+wHAng/ZmdKOrsPOz5EvbU+
+	 Rr4QFoR0/RT+m9xWnLVVh03HlHwHUFEubK+R8yRXBknEG4ApO8rOBFKmSBWJoJFRjKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=baiCwMb4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JAywMryx;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2B2606A31F;
-	Thu, 29 Oct 2026 10:00:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9BA606A32C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:00:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC9BA606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=baiCwMb4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63621F01828;
-	Thu, 29 Oct 2026 09:59:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793268017;
-	bh=WKgY4TxM7jCCTLKvPKBg2Os4gMDYJkQWtwa2sp51kDE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=baiCwMb4N80s/wYScg8peqquVrnIxU2J0+kSJgvciGEDkhkeSpiwqOGZvHBxsi0LO
-	 83Y8Qdm88haCAL7OoIhGJLG87zWYHs5Dmbw9wTTFSGXelkhBoV2CErv6UzJ7Og4oti
-	 T/BlIXfNAzcPkiRRAdbPcHftzcmxj3jUyJP/Efe8cTASzdYwMmYT7MIowSXb20HqmD
-	 4Eu057SH8gJa+Kr1lyQqyJjo2UVqDPsLEJ9DafJkgX0YOhLBedzCTZdexnprq3eQZf
-	 xE5xJXUonpzifrxiXRXdhKtH7kYZwst6cnR32e28C4D93HOKnOLE0PwAxZQE0kj/Rl
-	 XX8uiGMH5YNBg==
-From: Philipp Stanner <phasta@kernel.org>
-To: Min Ma <mamin506@gmail.com>,
-	Lizhi Hou <lizhi.hou@amd.com>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	"Rob Herring (Arm)" <robh@kernel.org>,
-	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Karol Wachowski <karol.wachowski@linux.intel.com>,
-	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Felix Kuehling <Felix.Kuehling@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Russell King <linux+etnaviv@armlinux.org.uk>,
-	Christian Gmeiner <christian.gmeiner@gmail.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Alessio Belle <alessio.belle@imgtec.com>,
-	Luigi Santivetti <luigi.santivetti@imgtec.com>,
-	Qiang Yu <yuq825@gmail.com>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Steven Price <steven.price@arm.com>,
-	=?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Dave Airlie <airlied@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Natalie Vock <nat@pixelcluster.dev>,
-	Arun Pravin <arunpravin.paneerselvam@amd.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Melissa Wen <mwen@igalia.com>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Gurchetan Singh <gurchetansingh@chromium.org>,
-	Chia-I Wu <olvaffe@gmail.com>,
-	Zack Rusin <zack.rusin@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sunil Khatri <sunil.khatri@amd.com>,
-	Kees Cook <kees@kernel.org>,
-	Jesse Zhang <jesse.zhang@amd.com>,
-	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
-	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
-	Kexin Sun <kexinsun@smail.nju.edu.cn>,
-	Prike Liang <Prike.Liang@amd.com>,
-	David Rosca <david.rosca@amd.com>,
-	Krzysztof Karas <krzysztof.karas@intel.com>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Shixiong Ou <oushixiong@kylinos.cn>,
-	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
-	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
-	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Neill Kapron <nkapron@google.com>,
-	Michael Bommarito <michael.bommarito@gmail.com>,
-	Sam Day <me@samcday.com>,
-	Gabriel Prostitis <prostitisgabriel@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	amd-gfx@lists.freedesktop.org,
-	etnaviv@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org,
-	imagination@lists.freedesktop.org,
-	lima@lists.freedesktop.org,
-	linux-arm-msm@vger.kernel.org,
-	freedreno@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	virtualization@lists.linux.dev,
-	spice-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	linux-tegra@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Subject: [RFC PATCH 5/6] dma-buf: dma-fence: Close race in dma_fence_is_signaled() by default
-Date: Thu, 29 Oct 2026 10:55:42 +0100
-Message-ID: <20261029095542.1526750-8-phasta@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JAywMryx
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso1482704f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:00:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793268031; x=1793872831; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MuAgzDOGGZNImhzWO720yvkQx63NEyn8l8tBYbjMb5U=;
+        b=JAywMryxHW1yaysWfWfVQAC0k1C8utwWeeeo1Tt788UbG8ftVXpmVToxy8Ui/PbSt4
+         pK69YqTnf+OIdIYPJN6q+/TATtv+wPb6XUkI8stly8vXz1CrpvD99gksZmgxsCBYVYqz
+         hFdsofdcvZ0c2pmoxr9P1Z9hah+VlU2mF4/rt3v7tpaUMHAMe2MZTZYJkFUr02gPdD7V
+         aQ7hZVvx3k6/irktRxITFy4AwZw3x2yeJiIDDaFrgigLPDmwFNhmysyRzGCT/BTLNr5G
+         51KTo/tUIZWi2XvnhbhrsfiiTQ4pHKR/2ywEvKJw8dyctfdL520Sdobp3wjnqgTZRaDz
+         1m+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793268031; x=1793872831;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MuAgzDOGGZNImhzWO720yvkQx63NEyn8l8tBYbjMb5U=;
+        b=e+kkjBmKMVI4nxHDRQyn3wJQ5OdEzN0QOPQAjdsrux+a1gkNooczson5UeH2r1tu09
+         dmlSNJ+uVgEN1qNpqfzVRj993RY3fyz9uxGAsFBBACj78Ten+AZWCnG21SICXsboY/EV
+         sAk/7jktoIz4QUNRckPcmc+woBIsc7pf6kNo3G0p/D+VpxdDy3o3r9tWh+GFV0qVFYLI
+         cD3nSTS2AxoDSuPGSImHJNQDKPh7UeEA4ElOtPvUTL7XqpL00nPpfhl5h3AEXOotrL8g
+         r1wgHAI1g+EnbyjyMoej6dVtCK0OvcN3bWMIXcBbn5azqkC0Ljkwmh29KlvRmPeRIzFo
+         rJJw==
+X-Gm-Message-State: AFq9FYLZEobFCiMIzQ1tdt+5mND1Ip5BQrI5WDadcAytKv6yMscHv06S
+	LoIhM7WNJ1gWIjJbV7SLURypftMv2GPZl0ate3AAjOOMS6ju6IoZu8IS
+X-Gm-Gg: AYBFou0CE6ziE/yG+QVRCMP1+h9AQOjcF2v2uLp+nrBYS9pNItRNah5MA3NG7QuRvU4
+	o11THxapLg/0ViuczUCFJlIw92EP7LJA52IZVIQvoQ28eqPNxlvO11I+NpYO4RS3pqWBHfx38f9
+	J28+QR9wng4lQvDHQ3SayodBV3ahaIGnJKd8GNG+lYyUqLrGlkZDCu+ECwGF3grP7MWG4f6omuW
+	pRDPD76gcI88dXGGFrTIkXBS8+a+MhqhLcjxtScsrUMFaPSVHfOxS/Cvfdc6cCtA1RhnsBB+JT6
+	vv7uLv7lnYeFTRRvpq7mwOwL/Wfxhd85o1NPuA7JupJqmnEw6++xjDNqKdj4DJuKk5EDkXDfH9v
+	p/Rbw6YJT9i57lCLRdw2yHGnuDie1k+J9FleUyATYkMijJkGjvRxSnpv7hy3WocG5amGM2Qh5V6
+	TPzGHVMf9ehUOaih2AQYWs+/rQ8YIT0wryzfYI9YfHvFt1XAuJ9yqy+K/qV3JlqlubwaXHuzzjB
+	X0rnmPA4d0JpfOzXLeejiF39UVa9wXSkesGH9Tf+E8Mh4VyhxhSIA7Jejzp9BPnHZzZQOlZIyNj
+	QfGVYW0hyX3ARdyggAwX+bJuztGD6lkI5Z7+HDrV4bE=
+X-Received: by 2002:a05:6000:29d7:b0:48e:6264:c373 with SMTP id ffacd0b85a97d-48e6264c7f1mr4314548f8f.14.1793268030946;
+        Thu, 29 Oct 2026 03:00:30 -0700 (PDT)
+Received: from dell-desktop ([2a02:587:4b42:1400:8199:c552:2b9e:c33])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3c5bsm34025569f8f.9.2026.10.29.03.00.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 03:00:29 -0700 (PDT)
+From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+To: bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	viro@zeniv.linux.org.uk,
+	brauner@kernel.org,
+	jack@suse.cz,
+	tasos.papagiannnis@gmail.com
+Subject: [PATCH bpf-next 0/3] bpf: Add bpf_path_getattr()
+Date: Thu, 29 Oct 2026 11:59:49 +0200
+Message-ID: <20261029095952.44833-1-tasos.papagiannnis@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261029095542.1526750-3-phasta@kernel.org>
-References: <20261029095542.1526750-3-phasta@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -156,103 +103,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dma_fence_is_signaled() contains a lockless check of the signaled-bit,
-which is set under lock protection. This is a race condition which makes
-the API fragile and has caused at least two bugs already, addressed in:
+Userspace code can populate BPF maps using file identities obtained from
+statx(). BPF LSM programs need a way to generate those inode and device
+numbers to look up for those entries. Reading inode fields directly can
+give different values on overlayfs and misses filesystem-specific getattr
+behavior.
 
-	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
-	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
+bpf_real_data_inode() resolves the inode hosting a file's data, whose
+identity and metadata can differ from those reported by statx() on 
+overlayfs. It does not invoke the filesystem's getattr operation or
+provide mount information.
 
-It has been argued by some that this race cannot be closed for the
-entire kernel through locking because this would lead to a cache line
-invalidation for all parties reading that fence. While it remains
-unclear why these parties don't simply let themselves be notified about
-the fence being signaled instead of checking this repeatedly manually,
-there is a way to preserve this behavior in any case:
+This series adds bpf_path_getattr() for sleepable LSM programs. It takes a
+trusted path and calls vfs_getattr_nosec() to avoiding calling back into
+security_inode_getattr().
 
-This patch adds a new flag for dma_fence_init(),
-DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK. If this flag is not set, the
-spinlock is taken and dma_fence_is_signaled() becomes perfectly
-synchronized: it can only return true once signaling of the fence is
-completed.
+The kfunc returns a 64-byte bpf_file_stat. We avoid using struct kstat
+directly as this is an internal structure and this can lead to changing
+the user API. Inode and device identity follow the filesystem's getattr
+operation, and the device number uses stat(2) encoding. Mount IDs,
+mount-root attributes and ownership translation follow statx(), including
+mount idmapping and translation into the current task's user namespace.
 
-Disable the racy check for everyone by default. Should some parties
-really experience severe performance degredations because of this, they
-can trivially re-enable the race condition for their driver by setting
-the flag in dma_fence_init().
+Selftests compare the result with statx() on tmpfs and on overlayfs before
+and after copy-up, and exercise verifier restrictions. The series also
+updates the relevant documentation.
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/dma-buf/dma-fence.c |  2 ++
- include/linux/dma-fence.h   | 22 ++++++++++++++++++++++
- 2 files changed, 24 insertions(+)
+Anastasios Papagiannis (3):
+  bpf: Add bpf_path_getattr()
+  docs/bpf: Document bpf_path_getattr()
+  selftests/bpf: Test bpf_path_getattr()
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index f7c084926ae6..1ae8c7aade39 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -1119,6 +1119,8 @@ dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
- 	/* Mapp the init_flags to the fence-internal flags. */
- 	if (test_bit(DMA_FENCE_INIT_FLAG_SEQNO64, &init_flags))
- 		set_bit(DMA_FENCE_FLAG_SEQNO64_BIT, &fence_flag_bits);
-+	if (test_bit(DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK, &init_flags))
-+		set_bit(DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT, &fence_flag_bits);
- 
- 	__dma_fence_init(fence, ops, lock, context, seqno, fence_flag_bits);
- }
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 52e7ddfd2d06..ee6e8de3ebc6 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -115,6 +115,7 @@ enum dma_fence_flag_bits {
- 	DMA_FENCE_FLAG_SIGNALED_BIT,
- 	DMA_FENCE_FLAG_TIMESTAMP_BIT,
- 	DMA_FENCE_FLAG_ENABLE_SIGNAL_BIT,
-+	DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT,
- 
- 	DMA_FENCE_FLAG_USER_BITS, /* must always be last member */
- };
-@@ -124,9 +125,12 @@ enum dma_fence_flag_bits {
-  * These flags can be passed in dma_fence_init().
-  *
-  * @DMA_FENCE_INIT_FLAG_SEQNO64: Use 64-bit sequence numbers.
-+ * @DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK:
-+ * Legacy flag. Enables a race condition in dma_fence_is_signaled().
-  */
- enum dma_fence_init_flags {
- 	DMA_FENCE_INIT_FLAG_SEQNO64,
-+	DMA_FENCE_INIT_FLAG_RACY_SIGNALED_CHECK,
- 
- 	/* Must always be last member. */
- 	DMA_FENCE_INIT_FLAG_NR_OF_FLAGs,
-@@ -568,9 +572,27 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
- static inline bool
- dma_fence_is_signaled(struct dma_fence *fence)
- {
-+	const bool racy_check = test_bit(DMA_FENCE_FLAG_RACY_SIGNALED_CHECK_BIT,
-+					 &fence->flags);
- 	const struct dma_fence_ops *ops;
-+	bool signaled = false;
-+	unsigned long flags;
- 
-+	/*
-+	 * For legacy reasons, there is a race window here against parties
-+	 * signaling the fence. They might still be doing that right now.
-+	 *
-+	 * For most users, this window shall be closed, but there are parties
-+	 * for whom the cache-line invalidation by taking the lock might be so
-+	 * significant that they prefer to accept the race at their own risk.
-+	 */
-+	if (!racy_check)
-+		dma_fence_lock_irqsave(fence, flags);
- 	if (dma_fence_test_signaled_flag(fence))
-+		signaled = true;
-+	if (!racy_check)
-+		dma_fence_unlock_irqrestore(fence, flags);
-+	if (signaled)
- 		return true;
- 
- 	rcu_read_lock();
+ Documentation/bpf/fs_kfuncs.rst               |  13 ++
+ fs/bpf_fs_kfuncs.c                            | 108 +++++++++-
+ .../selftests/bpf/prog_tests/path_getattr.c   | 185 ++++++++++++++++++
+ .../selftests/bpf/progs/path_getattr.c        |  25 +++
+ .../bpf/progs/verifier_path_getattr.c         |  57 ++++++
+ 5 files changed, 387 insertions(+), 1 deletion(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/path_getattr.c
+ create mode 100644 tools/testing/selftests/bpf/progs/path_getattr.c
+ create mode 100644 tools/testing/selftests/bpf/progs/verifier_path_getattr.c
+
+
+base-commit: d80373a8e70d3193151232c3062abbbe367ff5ad
 -- 
 2.56.0
 
