@@ -1,80 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793279777;
-	b=F0IaGI53h1PH4/VG0SBHCxYp7tk3ThgcUlCdswMyBzcMXy+7Glzu1arbZUI7syYJWPZ3
-	 2U1RJbijEdpDUNJgwvzo2tkStph+lw3GcJQB8P7/TU8ePwXSHdSRnlbdT3c+Pz+fr14Q9
-	 oZWI0wS1fL1Homo7wfyio62V6VFaFVS4E9FUK9P8KvSYNd8a1d/TuuEm8V3QgBxrAxO+0
-	 SUagcm3itWqvcEW6pOTKWSM5IPrWt0+11wemmEF2Ec4nR6PPcgZ8WO1eBm1LTaobjq04P
-	 wguTMNrPNwIoQfafmKy+SSQVdQ9o6z9F0z+haJWNSXFUXjWcVbNfqXuQ5G5Rz8H/aEw==
+	t=1793279833;
+	b=expX1xqVTKM66T0Fzy6ttJKv+lFn2CJSxn1lGNB8s1QJ1Si+WR/Vqh19giZ26Oo2lZOp
+	 01t4pz9dLR3KKQngaI9i/3RfrFYBaTzbQKRmi12VpCogKfdFTSLMvB7UVwKd3js0i6PJZ
+	 rad8yrWaWJHj4vRF8ktEMCdGZdWd6uVxB6MnkaKjRRyFo8v3aBZ49AuCNAtg4GVJs+iFA
+	 7OVXaDufI4YmyJsCYK7TA3/bfsqtBbcZzuxGh0bFzh8wXbVN5z8Wr1YKe8zKCA44G6XU3
+	 qkESuOAP/5Jnjk8FGanZ/do8DhblVzueern3TEI4r+a9Fspq0O83M0o0MWGWl+8J2gA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793279777;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793279833;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=h8u45CNmIEd0bbtYlv6CM92JPz3f01uopFoHms6RdL8=;
-	b=5X9hd6FslnifodQFBT+XSEXbWy5bVoyubeRNyPhkWoQfdlhROvQndUhlzZ6Y+f1M8Zzo
-	 DRD73hfD5PXGA9ExWDrPOA5cndv3qjh/YmdTanOlC2NoBNzI/9JQj14YndQxsHbljJ7v/
-	 VEEKDB3a9NEgrDWx4hDJQiwpPbdfwFwdwOjm7CKBybMYeya9uLO4PIhgcZOvaM9djcWq4
-	 4nXPfheouRb6pnRDfmTOLf0QpYZ0SpEhAjTwVFtPzi0GUm3y+SASnFoty2zUiN3hEU2Gf
-	 mVnvjS5Sp0uCBBf+awJmLpb33tiWQ8sYnLHFQMMBRG+beZ7Acjox+rJRr1DeFG5oRgQ==
+	 Content-Disposition:In-Reply-To;
+	bh=JRA+EBscIjB3Wf85Kdsp3ZllP4NjhEMks6pJspoVgFI=;
+	b=RJx87mx+TbSaVoatdMOTSAjnLJd6S/WT8zk/+OVDQRZaAbkJtAyMoearycKQwf338TTJ
+	 InX7X95sGuMquuoN3ePuPMZbRw0Qj7ZxDwCdctc3xYbibcsPJmSUrV50qUiPGTMKwELSL
+	 esT7PV+naodId2O5jNZ+EjsOsCXRW9DULyBIzBm5+bE2+2nEJcpVw/SsyRAg+CpBRY1/X
+	 9SGBwkSdeWQ2uFETeS4GVMmYPtD2YvT+OcTiLrmfMay0ZWuQssNM9B8qFFKlool9oe7F6
+	 x86ThTNEWC/MuAyK6YTLvhVpYdyP28I2Wum1q+fft9IGPJ/ZO6xjYvJ/gUWmYacu3mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kVtwdqBb;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExxhoTgL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F202606A31E;
-	Thu, 29 Oct 2026 13:16:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F202606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865B4606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:17:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kVtwdqBb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793279777; x=1824815777;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=0k351C2/JUZ73k6Gtt6/++UObK1xusuhxkHbZNf6oSU=;
-  b=kVtwdqBb0gBFp6ekE5175Bp3nt49RXEk+L/RhfWVskQzLmI1yDiMvSWx
-   kPw9Kg8R1Fbf54AVqrpxuxN2cMbZWS3LRt3DFuK97eC58vZ7m4na+9867
-   hTtVAbKeSpqtcmEaD73B7YBBqXCOO23PDmT6/WXyL+ETplGOaIOKUFDOu
-   d4QSY+k9+nStH0ZyXCguTY0VI7Agk1KuGuuIQyhLpjX4ZOGk1lVYfGJxQ
-   q2fX5SWki185ez8GNXZrrWu9mMMh5+UVq/DfiILhgxQkFigXvQqS4YuZr
-   KEr3hGCk4T8XrdYEqjayJPvT1k9sZuH2xr+zXCWHegcrsUFmJtVPQpD/z
-   g==;
-X-CSE-ConnectionGUID: Bubl1s1rQ1W9oLjHyEkUiQ==
-X-CSE-MsgGUID: AJjtosgXQhud0lxXQYHGwQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2038140"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="2038140"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:16:17 -0700
-X-CSE-ConnectionGUID: Cm6bfeYkSo6Wzv/qwOUJ9A==
-X-CSE-MsgGUID: HXNgm2u3SzW0GNBTUrvuYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="6907380"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:16:13 -0700
-Date: Thu, 29 Oct 2026 15:16:11 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 0/5] media: atomisp: remove the circbuf library
-Message-ID: <auNHG_JHY9P3xqMd@ashevche-desk.local>
-References: <20261027230807.2407261-1-vladurares@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ExxhoTgL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B59C1F01825;
+	Thu, 29 Oct 2026 13:17:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793279833;
+	bh=JRA+EBscIjB3Wf85Kdsp3ZllP4NjhEMks6pJspoVgFI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ExxhoTgLpmardw03fYqQ5Z99pOOg/9EAf9OCNy5IikWuNrxOwziwwMHkyQVfLkB8e
+	 sMzz0mutTiCjvLQoDVRf098zOXBcYIFzKeEtegeOIRrRxv5orNNGPegzkhjdfoZJC1
+	 /gAMFi2JSfCWG2LXfQ5EAHCGJY1yfFPmHsKvuHaE0Y/CUHe2z6j1Mz6L0cKItab5S7
+	 ZwqCTD2Qy9UrXj7q1MjE9mdA8HFWbcFJZn9h3xdU8PHdI8qH/53okMpOnQuPVgNCu8
+	 besGbjfbWqJvlZMND2HOyHx+USOJ/tUzdAyH4SLjOp9EN2Ydz3dU82NTDCzxsGS9ci
+	 hcfDaDdOB+LSw==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 4A423198003A;
+	Thu, 29 Oct 2026 09:17:09 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Thu, 29 Oct 2026 09:17:11 -0400
+X-ME-Sender: <xms:VEfjaiBdtk8eSqQZZC_siWUNjp2XkmnUYdgaj_pO0fwEO7m7hQs9cw>
+    <xme:VEfjas8tPX1HCuciZcBjCntcbHreNpgolp2GChr-f4BKtzxEk8d1FBsFUejZbGQkA
+    OuR06tY5PjhdvrZ0XjtW24VnSOn5h004S36m3veDe3entpZ2FSRV8IM>
+X-ME-Received: <xmr:VEfjarC-xtsABZe4qugdnyGgA8JROjkZxr1Liqcf_I5F6ZpseHmNL6d-zj4>
+X-ME-Proxy-Cause: dmFkZTG2EVxsiXqZOd32Nkq2kAun5pY6dWfNhhCiR95p6LBReaqvq03sPl8TN9erfkk0z1
+    KTntpfrqVGeL9x1bmG/wkYLrULDdbe73UgZsxUYteqXu1qb0r7PB55VdGOox5cUZ8co7/u
+    dZbZ+V6ErfeNzekxowVgsvUXTTLpyn1piwccOyRtMMzxlCZuo0WPOsQWlntSkDidJIMQOv
+    M6pCN+bMHlsgaa39ZsrwapEieXGuHAHcOWGc5Xhy0nxxCCPOwgRQYpCME/wA2YaTZmhDqi
+    4EI4t32GKL0L2I+7TH+Z4hmIQymqAMCSwo/Eo6zjbX7Z0/2jj2hpmJ+TCsn8bdUzJkaNMO
+    NCOMRe0lPsiH+E7VCC1pn/jknH5q21qyXXvkMF8BvXyNlwqi8BXYHqrbSYz/p+kTM8ppnc
+    Glxuv07CuB9+LYt8gGuoZ8+RyNP+ugGlrw8bUKCJxfD1iA+n/nbk0fl84/DHo7JF7OJSL/
+    azpUfXoZIrzopbX6exR9zJfgSx/M+Pmb9BdzqThL04B/Me6eoaNpqmsqarnS1hSCcvP4Ko
+    dWs8Swn0FcYhOmmn7GISdaF5jIHXSOukDmxJyK2yDIP4JnbymtkEZAMjs1EMZZIIFZieew
+    GOaKtvWvMdRwmDdQ2BrXWWW3bcgwJxHRQ8J1XCaToGBh8UV/zjIuwFKJ6DrA
+X-ME-Proxy: <xmx:VEfjauunaaMeRiuKnHXbsJmtOYDrSpyOKPD_sZ91W3zgIVDdz9W_GA>
+    <xmx:VEfjarEZNQ-xtc-qWG5wZA7FreBVZRVlal7OLQ2HM6ZcNhqEY7Gb9A>
+    <xmx:VEfjap_9pXFINOd-m61pulQfv17tnFFdF-8FxB6GVj0zSQFmfG9cNg>
+    <xmx:VEfjahO835ydd3R2iOG1LVa_p0gwkiasQ3O0Wqv_cXxfCxMiJnTn-A>
+    <xmx:VEfjavjM0W98gr5mnFSzoc1pt3ZiuXwUD3I6pRrj-E6pcUAlkgjqXSB3>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 29 Oct 2026 09:17:07 -0400 (EDT)
+Date: Thu, 29 Oct 2026 13:17:06 +0000
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
+Subject: Re: [PATCH 0/2] mm/cma: accept memory of CMA areas reserved with
+ memblock_reserve()
+Message-ID: <auNE2XEGreHRKoPO@thinkstation>
+References: <20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org>
+ <auM6lKGAeUI26jCj@thinkstation>
+ <auM-tYrdV4TJgJ6K@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,64 +91,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261027230807.2407261-1-vladurares@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <auM-tYrdV4TJgJ6K@kernel.org>
 
-On Tue, Oct 27, 2026 at 11:08:02PM +0000, Rareș-Mihai Vladu wrote:
-> Thanks to Andy for suggesting, in review of my earlier typedef
-> patch [1], that I look at converting the custom circbuf code to
-> circ_buf or kfifo, and for reviewing the previous versions.
+On Thu, Oct 29, 2026 at 02:40:21PM +0200, Mike Rapoport wrote:
+> On Thu, Oct 29, 2026 at 12:27:23PM +0000, Kiryl Shutsemau wrote:
+> > On Thu, Oct 29, 2026 at 12:18:36PM +0200, Mike Rapoport (Microsoft) wrote:
+> > > Pages of allocated CMA areas are released to the buddy allocator with
+> > > __free_pages(), which does not check for unaccepted memory.
+> > > 
+> > > This usually works because memblock accepts the memory it allocates.
+> > > 
+> > > However, multi-range CMA areas, used by hugetlb_cma, and fixed CMA areas
+> > > requested with cma=<size>@<base> are reserved with memblock_reserve() and
+> > > their memory is never accepted.
+> > 
+> > It feels like memblock_reserve() abuse, no?
+> > 
+> > crashkernel=size@base already uses memblock_phys_alloc_range() for this.
+> > Should the fixed and multi-range CMA paths go through the allocation API
+> > as well.
 > 
-> While looking into it, I found that the circbuf API is only used by
-> the local queue path, and ia_css_queue_local_init() has no callers,
-> so as far as I can tell that path is unused. The remote queues only
-> need the descriptor and element layout shared with the SP firmware
-> and a few small helpers.
-> 
-> So this series first moves the remote queue handling into helpers,
-> then removes the unused local path together with the queue type that
-> no longer seems to serve a purpose, moves the few remaining pieces
-> into ia_css_queue_comm.h and drops base/circbuf/.
-> 
-> checkpatch warns about new typedefs in patch 4 and about MAINTAINERS
-> in patch 5. The typedefs are only moved from ia_css_circbuf_comm.h,
-> which patch 5 deletes, and MAINTAINERS has no entries for the removed
-> files.
-> 
-> Compile-tested only.
-> 
-> This supersedes the typedef patch [1].
+> Fixed path already has the range, why would it use allocation APIs?
 
-Thanks!
+Having the range doesn't make it a reservation. Both paths take free
+memory for the kernel's use, which is an allocation, and an allocation
+has to be accepted. memblock_reserve() is for memory that is already in
+use: kernel image, initrd, firmware tables. Using it for allocations
+leaves acceptance to every caller, and both CMA paths missed it.
 
-Sakari, can you apply this, so we have reduced code base (by 1%,
-which is significant in this case) to think of?
-
-FWIW, output of `cloc`
-
-$ cloc -- drivers/staging/media/atomisp/
-     605 text files.
-     602 unique files.
-       3 files ignored.
-
-github.com/AlDanial/cloc v 2.04  T=0.21 s (2828.8 files/s, 456544.5 lines/s)
--------------------------------------------------------------------------------
-Language                     files          blank        comment           code
--------------------------------------------------------------------------------
-C                              144           8850           6077          46523
-C/C++ Header                   455           5355          10852          19150
-make                             2              7             16            286
-Text                             1              8              0             35
--------------------------------------------------------------------------------
-SUM:                           602          14220          16945          65994
--------------------------------------------------------------------------------
+If memblock_phys_alloc_range() is the wrong tool, let's add a
+memblock_*alloc*() helper that takes the exact range and does the reserve
+plus memblock_prep_allocation(), the way memblock_alloc_hugetlb() finishes
+its own search. There is no search, so the multi-range path doesn't get
+slower, and accept_memory() stays inside memblock.
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+  Kiryl Shutsemau / Kirill A. Shutemov
