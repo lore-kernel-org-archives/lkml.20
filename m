@@ -1,95 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793249225;
-	b=npDa9yAk/g1zu2tHEO1hjhH8EjUrGkmDfUQpHpa3eSPxFEHrxJohr7kFnQUzK6Yd2hRs
-	 MUAKAJTNvMyMEAiDyEZnVByzFopws5hdDjVwy1Tm5pqbm9/FUfOI1yDaa5ai6rexO8QAF
-	 K0p/TYtWKGWu6Akycfp8LIPuKb9l7SSeap17skzAYZ5sgTpRIyPQlItPhA6Je5JTApkhY
-	 RI4T1SUtB6uBPB8DH92UTXTvLXIpbWRPB0XVZGskGFfrg3Er9jxs98dVFzo1wDsZziI20
-	 DdvKTbSh0gU5Wo+BcBZo9z3Io2uj+d/sBNF+e/mc3NRJDvbQrzekgzTiKT0EkW2sPiA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793249225;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8CrB0Izb9RCgbyuLTsLtugBVvhPWOmwsAnrt3LuXukA=;
-	b=TM9dzo1NSpNJKB4VhWxI16YYC4P4Lt5XtqIClrUTI5tJ2tLon6VOteFhCpvfLBBGQGvR
-	 0kmJmRGzM/qMEBXe5t6enBAuSy1fChxk/L2wLHnDMrZxvlGVT0E6G6RhqZiVlWBvnhXsh
-	 XaJF4FHVBJKT4dmnChBu+3BqWD69eZMf1GKobeeb+9z4BANBebOd+AsbAVYjA8kxJjEdz
-	 295ScbMuBD6H3mbehDCktkFJC4Gd+WMbyJgwbHY9rVxEbv0fMNmYwbQxRbsNPNeUuVPrw
-	 ajRhJwzxjzcSSocBUpN5QsQljidzuF7W7QHAUJuUPjJOCQuITB6Vf1JDeWQW13yoo8A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K4CtogpS;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793249234;
+	b=lhDffNi6NHSdGqXj8UwQ3WPYaNP4svkztt7s9x3xb1CSPTP6QYz1jEgB986BKudPM+L9
+	 Fqn2ux9yiTXXZVkSsYhscucp9cvqKsWIxG2bKHsoppeShs387amOtf5WAbBfnsPXeTrCg
+	 oKbZ1GtdAdk65NSU4OKixWEDeroxSaP7jryFQ9FF5E0y0vHmydgDyNQ7LMK1uEv8DTLOI
+	 cRAOLfCGy4Yt7ezRdPIy3+q+FTmT8uvK+AI391ZaQb5twWyEVeVN+K3Kf8WW0Uw6deLj1
+	 xVIcuccC+MzID0DV5mRVj34+ZarR8tR4hJ1vUkKpcTHAMdZuOvDBqq6ZEQeJAn2Iu1g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793249234;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=UWCIZt4qaahjD1Y4aFHR35NaUAkunHopVmd0Os9Fkqw=;
+	b=0++mlwsKYRFM7kaPD+J0QHir07op1QSxUR/4MTwV0InfVdcIZIC9K9ukLfmDLS0KOQSa
+	 26Eb7QsjRzeOlLvnSOquEI5tKA015iW6N6xU6tfh9DWLNC1pM83tEO3mQsOmi1pLeZv+K
+	 ElH0TOBZEZSjcnW6C9zarzWomZ+n5UW00jgmZ8kSFVdSNNl2I+foA9V1/xPuiteXctMpZ
+	 901GRlt6vj006I6acybKoMbR9WPBtcOlpki9Yfrr0qwPU7YuC5FOjNkcXnu0oVp3m8Dqy
+	 34vWe9ksqEL1S7DvmWAyIUh6wSceL9m4xXPjbSagHf7j7v43d97Lew6pOPhAc+FlJxg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R/l6h8KB";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86489606A31A;
-	Thu, 29 Oct 2026 04:47:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86489606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D098606A332;
+	Thu, 29 Oct 2026 04:47:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K4CtogpS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793249225; x=1824785225;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ShmOFcKWsMhxwDMTrAUAt2M+Fx3W9K6ZXyPKFGmexkM=;
-  b=K4CtogpS7U8mi+KGStZMifmFPw6TosGbRqgUIWACyOrMC+ADT+uSUUbo
-   qKAn/DaJsLaB8Nx49iKA5Pu84zUMx/5tt5ymWeoLkAZuCEyN5dlAA91Lu
-   N64zP3+rhqXpUqa84zh0aoX7xylpvIFAu9YMmfgZl0TckSNYa2UdqTo68
-   DsBzW0fgIm1TmgPveMkfmjwPUHO40kNvGYMZSrWCHCaSh69uUWc0Eh703
-   ZNs4TdJeLhh/mwdxpC9NFmh9U6BVZVG52VVI3GWNo8HfS4spvrLwYwN0d
-   wOC3rHp30mjAEm2B/TRC+9PVyIvtj+zN59opLnXA4t1Bn7XM4hQA16F7o
-   A==;
-X-CSE-ConnectionGUID: ygTNcMbNR2a3XlGoAu9G0A==
-X-CSE-MsgGUID: uHsi95opRlaazkHCXU+CUQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1986268"
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="1986268"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 21:47:04 -0700
-X-CSE-ConnectionGUID: 6ZgtpV3SQua6tve83x3WdQ==
-X-CSE-MsgGUID: Roqkig6GQvOSLgS2t261DQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
-   d="scan'208";a="5420358"
-Received: from spr.sh.intel.com ([10.112.229.196])
-  by fmviesa007.fm.intel.com with ESMTP; 28 Oct 2026 21:47:00 -0700
-From: Dapeng Mi <dapeng1.mi@linux.intel.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>,
-	Sandipan Das <sandipan.das@amd.com>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Song Liu <song@kernel.org>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	Ananth Narayan <ananth.narayan@amd.com>
-Cc: linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>
-Subject: [Patch v5 05/18] perf/x86: Add lbr_enabled to track LBR state
-Date: Thu, 29 Oct 2026 12:39:01 +0800
-Message-Id: <20261029043914.1395147-6-dapeng1.mi@linux.intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
-References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R/l6h8KB
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793249234;
+	b=vouOK2CCXqchnUa0o12FzUtnnAbG2/q33Qe9SeATZeI/tDXmGa2Ye9zqBm7CORxgTi02
+	 fHpekKuOfzIHJvA1oO6LLPRBkKp7FL4hna6rqXu4cChBDewFZZib2pGVSUF6/tXQYaFHk
+	 p03J7jqW2XaljznmqtY5aLvh2IyN5tObcY+FprpT9VIjXy1Q1gH91grNsdCwOKrlGmFCW
+	 59/ZTjQ2EXnywR/hlE5E7zsPQtUjVe/IJ017LTkaePOYEm6yw5P4AO+g/g2pifyRdlcxn
+	 2gM1QwQruns+l2G0Laum35lIMeyqnWj7wGFAO+M1aVAhhGslxrgvzI0xa1Mp2teQHKA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793249234;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=UWCIZt4qaahjD1Y4aFHR35NaUAkunHopVmd0Os9Fkqw=;
+	b=Vsx09ixCrOq3D+B7XPrRrHxzHrQjjXO7yfGXrTV4ct8aEU/UacCDfegWqlkVqQ0d/Uoj
+	 7qV+E+67s1dMLTalEDNhD6w+EeR1es1xLHf5UogE+iUGe1zYTrZydP89hYT+knilgA28q
+	 2WLBlsJc37PEvILJ59n9vE38RLVHtdz/CMMEgirvy8d+1ybJ9APZoMRoRNeg4L2o0CW7X
+	 RENmBZJ71wJWJiT1KvO2sPZk/V57BaqwaN751FQxQN8dyCF1EMF3uSKCEf4d0GFUTQRc3
+	 6b5UL/9QUXCLdMU3E0QgrkpV3UM3dO9rIbOExAjQbAbQ6j/ZTLULe1ZVBl9ALtK58/w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 9D8B01F031E4;
+	Thu, 29 Oct 2026 04:47:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793249234;
+	bh=UWCIZt4qaahjD1Y4aFHR35NaUAkunHopVmd0Os9Fkqw=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=R/l6h8KBpgd1twPloc1coLDBgiQPBcTAaY+th1IpoeVTpq2sLWvWCsEpxjXAR1nX2
+	 Qc70s8Wrs3nwB9wYGgW4sxF/hHhiv8uLwxUR7kwVUO4ckl6U+Z6fQdnVJ67RDrQFqk
+	 +gYGf/j9Pw22HH1jxaAMeWPxPJ90rxtuT/PXrENwfLq9CUp9G9JnWNBkF4YBAvFB6E
+	 +h6G6nYXUnJFzx6JpvB5HfronxLjgMQ9kpSEDtRRQt1bR604Du0HvJ1nEzdLmkWc0h
+	 BzcVyDHoBgDw3w6DOyKKqqgXZeS9J4MyLGvaDsraUrvArhEfKYFc3HvoW0NwSPfR74
+	 VEHJU+kCbNJrA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 325D14560F;
+	Thu, 29 Oct 2026 04:47:13 +0000 (UTC)
+From: Bryam Vargas via B4 Relay <devnull+hexlabsecurity.proton.me@kernel.org>
+Date: Wed, 28 Oct 2026 23:47:13 -0500
+Subject: [PATCH net v3] net/iucv: take a private, writable frame before
+ rewriting it in place
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,108 +83,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261028-b4-disp-1edbbc34-v3-1-13495411f5b9@proton.me>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ6CMBAAv0L27CbQFkS/Qjyw3QXWQyVdNCaEv
+ 1v1OJPM7GCSVQyu1Q5ZXmr6SAX8qYK4jGkWVC4MrnZdU7seKSCrrdgIE0UfMPQjn1sm38ULlGz
+ NMun7txwgyQa3v7Qn3SVu3xkcxwdfbNRMeQAAAA==
+X-Change-ID: 20261028-b4-disp-1edbbc34-48ad75db36c9
+To: Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Alexandra Winter <wintera@linux.ibm.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Thorsten Winkler <twinkler@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>
+Cc: Hidayath Khan <hidayath@linux.ibm.com>, Simon Horman <horms@kernel.org>, 
+ Ursula Braun <ursula.braun@de.ibm.com>, linux-s390@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793249232; l=3123;
+ i=hexlabsecurity@proton.me; s=default; h=from:subject:message-id;
+ bh=JFUfhciEChw7BgSLF92o8VaqbY3+Obn41qmQCu8hTpc=;
+ b=xB7V2bhn6yEiVdWWxB5Zut++I9OEjUHTLT/m685QspAXcWfHaaewSgGT5tCMdViA7k7dk9yJ7
+ utyXMSZzOVrDTYPb5i/zuzqgNgCwKAWEkEBwow0HPRXlVi4uA2y/PcJ
+X-Developer-Key: i=hexlabsecurity@proton.me; a=ed25519;
+ pk=xw1AhCtQdvuoQc+bOQIYy9o8G++cp4/VniI2G/tc3G8=
+X-Endpoint-Received: by B4 Relay for hexlabsecurity@proton.me/default with
+ auth_id=893
+X-Original-From: Bryam Vargas <hexlabsecurity@proton.me>
+Reply-To: hexlabsecurity@proton.me
+Content-Transfer-Encoding: 7bit
 
-Add a lbr_enabled flag to track whether LBR is enabled. This will be
-used by a subsequent change to avoid blindly re-enabling LBR in
-perf_snapshot_branch_stack() without checking whether LBR has already
-been disabled.
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-Fixes: c22ac2a3d4bd ("perf: Enable branch record for software events")
-Fixes: a4d18112e531 ("perf/x86/amd: Support capturing LBR from software events")
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+afiucv_hs_rcv() rewrites the frame in place -- EBCASC() on four name
+fields, then afiucv_swap_src_dest() swaps them and pushes an Ethernet
+header -- and can hand the same skb to dev_queue_xmit(), without making
+it private first, so a packet socket that also gets the frame reads the
+rewritten names. An ETH_P_ALL tap runs first and leaves af_iucv a
+cloned skb; a socket opened for ETH_P_AF_IUCV sits on a ptype_specific
+list, walked after ptype_base[], so deliver_skb() takes a reference and
+af_iucv runs on an skb that is shared but not cloned.
+
+Unshare, then cow, in that order: skb_cow() can reach
+pskb_expand_head(), which has BUG_ON(skb_shared()). skb_cow() tests
+skb_cloned(), which is what a rewrite of the data needs; skb_cow_head()
+tests only the header. Asking for ETH_HLEN also covers the unchecked
+push in afiucv_swap_src_dest(); on the ordinary path eth_type_trans()
+has already pulled that much, so it only compares.
+
+Fixes: 3881ac441f64 ("af_iucv: add HiperSockets transport")
+Closes: https://sashiko.dev/#/patchset/20260813-b4-disp-60433a46-v1-1-509e1200533e@proton.me?part=1
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 ---
- arch/x86/events/amd/lbr.c    | 2 ++
- arch/x86/events/intel/core.c | 5 +++++
- arch/x86/events/intel/lbr.c  | 2 ++
- arch/x86/events/perf_event.h | 9 +++++++++
- 4 files changed, 18 insertions(+)
+v3: skb_cow() instead of skb_cow_head(), as Paolo and the netdev AI
+    review asked: the rewrite is in the data, and skb_cow_head()'s
+    skb_header_cloned() test would leave it shared with a nohdr holder
+    (none reaches af_iucv today; still the wrong contract). One-word
+    change, rebased on net. v2 carried Alexandra's Reviewed-by; v3
+    changes the helper on Paolo's point, so it is not carried. Same
+    s390x QEMU A/B as v2, re-run on v3: same eight boots, same table.
+    Unpatched, the tap and the ETH_P_AF_IUCV socket both read the 48
+    name bytes in ASCII and a SYN with no listener never reaches the
+    socket; with this version every frame arrives as sent. Drop
+    skb_share_check() and the socket is broken again; drop skb_cow() and
+    both are.
 
-diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
-index 46bd3ce1d614..cf11e4815c39 100644
---- a/arch/x86/events/amd/lbr.c
-+++ b/arch/x86/events/amd/lbr.c
-@@ -399,6 +399,8 @@ void amd_pmu_lbr_enable_all(void)
- 	if (!cpuc->lbr_users || !x86_pmu.lbr_nr)
- 		return;
+v2: https://lore.kernel.org/all/20261008-b4-disp-bf46f1ba-v2-1-46ff1ea9c40b@proton.me/
+v1: https://lore.kernel.org/all/20260815-b4-disp-dc82fde4-v1-0-e83b10b22ce9@proton.me/
+---
+ net/iucv/af_iucv.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/net/iucv/af_iucv.c b/net/iucv/af_iucv.c
+index 5ba875798aa4..ce13fe3c85b5 100644
+--- a/net/iucv/af_iucv.c
++++ b/net/iucv/af_iucv.c
+@@ -2080,11 +2080,20 @@ static int afiucv_hs_rcv(struct sk_buff *skb, struct net_device *dev,
+ 	int err = NET_RX_SUCCESS;
+ 	char nullstring[8];
  
-+	cpuc->lbr_enabled = 1;
++	skb = skb_share_check(skb, GFP_ATOMIC);
++	if (!skb)
++		return NET_RX_SUCCESS;
 +
- 	/* Set hardware branch filter */
- 	if (cpuc->lbr_select) {
- 		lbr_select = cpuc->lbr_sel->config & LBR_SELECT_MASK;
-diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-index 18cae4ac32b6..0ed0269189ba 100644
---- a/arch/x86/events/intel/core.c
-+++ b/arch/x86/events/intel/core.c
-@@ -4001,6 +4001,11 @@ static int intel_pmu_handle_irq(struct pt_regs *regs)
- 	 * It needs to be restored when leaving the handler.
- 	 */
- 	pmu_enabled = cpuc->enabled;
+ 	if (!pskb_may_pull(skb, sizeof(*trans_hdr))) {
+ 		kfree_skb(skb);
+ 		return NET_RX_SUCCESS;
+ 	}
+ 
++	if (skb_cow(skb, ETH_HLEN)) {
++		kfree_skb(skb);
++		return NET_RX_SUCCESS;
++	}
 +
-+	/* If pmu version < 4, LBR freeze disables LBR. */
-+	if (x86_pmu.version < 4)
-+		cpuc->lbr_enabled = 0;
-+
- 	/*
- 	 * In general, the early ACK is only applied for old platforms.
- 	 * For the big core starts from Haswell, the late ACK should be
-diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
-index 1ae853f7ac1a..ee724b28d90c 100644
---- a/arch/x86/events/intel/lbr.c
-+++ b/arch/x86/events/intel/lbr.c
-@@ -132,6 +132,8 @@ static void __intel_pmu_lbr_enable(bool pmi)
- 	if (pmi && x86_pmu.version >= 4)
- 		return;
- 
-+	cpuc->lbr_enabled = 1;
-+
- 	/*
- 	 * No need to reprogram LBR_SELECT in a PMI, as it
- 	 * did not change.
-diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
-index e274802ef062..a4aab8130e92 100644
---- a/arch/x86/events/perf_event.h
-+++ b/arch/x86/events/perf_event.h
-@@ -473,6 +473,7 @@ struct cpu_hw_events {
- 	unsigned long		active_mask[BITS_TO_LONGS(X86_PMC_IDX_MAX)];
- 	unsigned long		dirty[BITS_TO_LONGS(X86_PMC_IDX_MAX)];
- 	int			enabled;
-+	int			lbr_enabled;
- 
- 	int			n_events; /* the # of events in the below arrays */
- 	int			n_added;  /* the # last events in the below arrays;
-@@ -1676,8 +1677,11 @@ int amd_pmu_lbr_hw_config(struct perf_event *event);
- 
- static __always_inline void __amd_pmu_lbr_disable(void)
- {
-+	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
- 	u64 dbg_ctl, dbg_extn_cfg;
- 
-+	cpuc->lbr_enabled = 0;
-+
- 	rdmsrq(MSR_AMD_DBG_EXTN_CFG, dbg_extn_cfg);
- 	wrmsrq(MSR_AMD_DBG_EXTN_CFG, dbg_extn_cfg & ~DBG_EXTN_CFG_LBRV2EN);
- 
-@@ -1829,13 +1833,18 @@ static __always_inline void __intel_pmu_pebs_disable_all(void)
- 
- static __always_inline void __intel_pmu_arch_lbr_disable(void)
- {
-+	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
-+
-+	cpuc->lbr_enabled = 0;
- 	wrmsrq(MSR_ARCH_LBR_CTL, 0);
- }
- 
- static __always_inline void __intel_pmu_lbr_disable(void)
- {
-+	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
- 	u64 debugctl;
- 
-+	cpuc->lbr_enabled = 0;
- 	rdmsrq(MSR_IA32_DEBUGCTLMSR, debugctl);
- 	debugctl &= ~(DEBUGCTLMSR_LBR | DEBUGCTLMSR_FREEZE_LBRS_ON_PMI);
- 	wrmsrq(MSR_IA32_DEBUGCTLMSR, debugctl);
--- 
-2.34.1
+ 	trans_hdr = iucv_trans_hdr(skb);
+ 	EBCASC(trans_hdr->destAppName, sizeof(trans_hdr->destAppName));
+ 	EBCASC(trans_hdr->destUserID, sizeof(trans_hdr->destUserID));
+
+---
+base-commit: fcc00b15cb21a6de76826e5012b2c758505f5e65
+change-id: 20261028-b4-disp-1edbbc34-48ad75db36c9
+
+Best regards,
+--  
+bryamzxz <hexlabsecurity@proton.me>
+
 
