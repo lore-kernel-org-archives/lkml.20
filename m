@@ -1,100 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283551;
-	b=AILGTPdHreflIAkF4cXyf34v+uieoAKpG6CAB1Ofpd2qegA+1//Kv7p76Xi1eeqrnLV5
-	 OmU9CwnA+pwwnEGSD6f8L06zRzKMsqromD/wxfQdjh3YMt/6d5Mg5T6ePE7nS/ED3Nm6R
-	 5EX6zMOWXBoBEocNhmXPVMSDN6gjHOhrpwtLPf84ckcr34SAFEio8Rb1tIk5FLKE9jWPp
-	 VU6185EntuBcp1I4nShYrRgsiqPTWWpn7AS35bM9a+I155TPLxSkHgrK3TomDYIxSXepr
-	 TO9SWHzDPTev23J2kPKnHvD0WOzIncITzJprE+I5BAqC6nC0FxEa0S2u2pD5gx+ydrg==
+	t=1793283538;
+	b=tHaIYKCho5dOlJsgfltzCkexPVWA9dkDOXFdrMsseGYgrLRTZjxOMmo7cb1B7QCQfYoF
+	 MnG7NX6Xpfe+hRlFFP9QI/AUkV1qme+7VAMfKOcsJcj11C0OR/r5P/6g/wCz58YCzGpTf
+	 Hr54WkcCjtknkxYbKVse3iH+f7QtV315UGo8JJpQnzQedjNtG0ti7iRjrHacHpmKnCDfj
+	 AU3f191cxtPPZdpv4Vf3Wacydt/RT0YwYBj5TTU4U5CAvihw3UyDrBW4auWiuuGxPDFOo
+	 f4RcGU0sO0VQXLKa29qD5Enblrh0XoaRpG1IaXRGyGv7nKoUAt8XwWwG8byQ8XRmIIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283551;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=h3LMsbtIcJ0VDO1NfF8USKNq+9F4WgnyItWrt5X3yTw=;
-	b=LSBSi9xsi9wKwyTqqzyTspShucavdnvfJRrgYBUiq0DkOBvAJOAQcuyJ75RobxYxVC06
-	 L7JWt8Zc2zcFlvQlueqfzblo3TvkLK8UNQ6CNs0bXXKx9hOV+pAPECejzR0oCWTP9xyWQ
-	 cq3gam8gX+9NaIw2vJktQeaVTHPrZLoHW8xKlIfbJwI/ytb0eOImmkSm29pgIBR+jgVWT
-	 phWQ97e0Kf54XuaVTRJmF6VdY0BEfboPpJ8EnDoLJaV91iJWmdKLCajZyXfeIcwd4sHso
-	 NMaH0l8ZRUNc7a7vSUfuBvhlHUKUkj0J6ILzpufWePV5tdFpEO9nOSYDo7XyWmTSj2A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283538;
+	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=LA0Z7C4i6n4Zp39cfwPi7Pw307xQvQwzfqOo6mJbd6w=;
+	b=vL8w0ou2wohjGpiEPl0p7nAYFSJBdnngAHXBXeKRj0jH5+J/S/QHMQpKhmAgLY+xgutW
+	 adkZQuqmYgTSGwTEvKpsAmeGUI3q8kpWzRJ3XtTk6Wo07kgJuzL7QQOThQdjD+MFbkctA
+	 aizpDs23eOZTJ2dsD2YinQRQd6dk7qUWS8Ox4lhyW8bAUacGATZicgVbmpukAgTHd9rPa
+	 iKciW4JwywkJ5iKPV78ymqAxE8hKEgPKoq4XCXv71qVv/ghbGi3mtjfdeNnMSivbw1zum
+	 QN9mzYm/q6c2AzPtIOQJrwkfV/3TGG8CBxo9g65BGLZ2AdPb48otWNAqSJZn8vL7VFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="w5u+SPT/";
-	arc=none smtp.remote-ip=209.85.217.41
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=crapouillou.net;
+	spf=pass smtp.mailfrom=crapouillou.net;
+	arc=none smtp.remote-ip=185.119.170.32
+Received: from aposti.net (aposti.net [185.119.170.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC6B0606DFF2
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:19:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC6B0606DFF2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w5u+SPT/
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7ce77f98658so576144137.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:19:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793283550; x=1793888350; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h3LMsbtIcJ0VDO1NfF8USKNq+9F4WgnyItWrt5X3yTw=;
-        b=w5u+SPT/+ou5Z9k2lLpKetNuoAoooLIoSWeAZ3GyoWHclxB/0KhHFdDcrbLoANl9vw
-         fiWr1YPtWhv0Ez6DnTLYU4gghkzKA1z1lMGwCf+b91aUW1GWOdlpg/pb6Sx5G01r9AYo
-         B/vZyjWSclGxXnjYlOMIAsMC6NmfMWRtTF1XIe0yUBruSbOMUVwMPYGlQQOvIDiyRUg5
-         /afg46BQWWxPccLRvSpyMvnbAGKVbYDLjbxmsjxyYyCLXPC6m6G1LvpyUS53a2w3YIUg
-         KNb/+0YNpMmzBxxEWcMSSPYF+Z7HTRrVri5EkiyG+DXUNkC5TcRfFJJR6POwjFtF2Zis
-         D4FA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793283550; x=1793888350;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h3LMsbtIcJ0VDO1NfF8USKNq+9F4WgnyItWrt5X3yTw=;
-        b=b38tFq5xrZDiFp7morBriCbd3PpvwTYYf6u1JMAbhc1GPwHuv+WGod8IHqfygaRRz6
-         s51yTvMdfUfK3Ju/v3gnjavR8vgSj84t7sjFmegARmG+wbq9XHGLH3ChX0vuAL3E3IMw
-         ZyidTTWdPZQ3pacvxLL417n/60ZVQ/01aZhrqG7QFZYXkmvRzdgq/S6rlB0PA+AeAhoO
-         KtZSC5fZp4/hwYDqFf7C5S+yXkTDkip5JZgeWLXC4ubUwwrWkRApgo8/ZYsy8jy2R3Z6
-         AncOn4FLqsjUMUiSYgeMrCchWam7ip0D7q5gCfnomFxC+04l+tRjcefqDYiHx6vcwcV5
-         /ySw==
-X-Forwarded-Encrypted: i=1; AKwUvBwhQUIbZ+vYXJg+RrKW2sTrSS2d7NJT97EIZYbIVTHe84D4hI1fdvL1/HfCzPO0NKEKaxiF76ezBEYU/JE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKB5V3o/BZwl1legltbVn9X578z232X7fn3b1PjbGb8pNP3rjuQ
-	xAUnhtydiTwognsPn7jju8HbEjXi8k8otmv7CUKKovu7XrcQ5GABP9db
-X-Gm-Gg: AYBFou1G1KLZqxS6CgiO/5ZNurWjD61A/R4U6XuT6PEJfWsfxob6IrlKnNhNu0EW0iJ
-	0es/7yUM+diIX1fhJYJ5GTatEONBhwKX8IdqQUyhOWDi+lN0wufF+TcO/mtx1glkRzVrdwNZLAt
-	Ns1NVsp3p+5MkyW8Tau/Jo8UEYmhUiJ6/SbLS4zm8VIWN5ArAGNKN5pxydcoJaZE76YRE8fa7Iq
-	PIbDlwxIJZnI/OJmMeP6xXLVfZDAyrjoGMk+u1yiHl6m/x8MohvZH9QGrH3djwEJht3qzEStIT+
-	We0vaHCola2AJrcf7zhy3kXvBNrG4clWDePsUohkkgZMaZOEEiOmvaAQ4YOiRGZTIUwg/Eh7d+9
-	KVjsGgDmUZCNnrauzMakrk+a1TX8Naz46Q1+O8vrrk1AgJVnly3eDVUk17aIuO+MbJz6pH7SaJI
-	FyKliOuPcMFrxfkKSP69XmqpeAF+idrXjKJ4aSTaWSCI1FJ1zsDfcMBNftdi/xV5rwf09cT9Us7
-	SBL/gzFXw3pSVoBBsOH0/3cjl0rE3rFuh9Gv3QUw+F/OIsSFjsFzAGqmjs+CScKtiivc8TgWR6g
-	86NWs2bhfLOrZWSPpFISeYseXMELhgekREgBvTTgIEC2L6bYBLH+zXjf6NVw
-X-Received: by 2002:a05:6102:f08:b0:7ce:6474:7216 with SMTP id ada2fe7eead31-7d03a62cb8bmr2399258137.36.1793283549317;
-        Thu, 29 Oct 2026 07:19:09 -0700 (PDT)
-Received: from bridge.. ([2804:14d:ba6b:8339:e751:b7f8:a4ea:bd70])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cea3d32a48sm9362274137.9.2026.10.29.07.19.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 07:19:08 -0700 (PDT)
-From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-To: linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	sgogte@purestorage.com,
-	hare@kernel.org,
-	nilay@linux.ibm.com,
-	wagi@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nvme-rdma: fix NULL queue->ctrl dereference on reconnect
-Date: Thu, 29 Oct 2026 11:18:43 -0300
-Message-ID: <20261029141843.2066616-1-christian.aurichzm@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029060521.1690223-1-christian.aurichzm@gmail.com>
-References: <20261029060521.1690223-1-christian.aurichzm@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E289E606C46E;
+	Thu, 29 Oct 2026 14:18:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E289E606C46E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+Message-ID: <304c061aa5fa7f271acfa74c640ab1f0a40e393c.camel@crapouillou.net>
+Subject: Re: [PATCH] usb: gadget: f_fs: Remove deprecated dma_fence->ops
+From: Paul Cercueil <paul@crapouillou.net>
+To: phasta@kernel.org, Neill Kapron <nkapron@google.com>, Greg Kroah-Hartman
+	 <gregkh@linuxfoundation.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Al Viro
+ <viro@zeniv.linux.org.uk>, Nuno =?ISO-8859-1?Q?S=E1?=	
+ <nuno.sa@analog.com>, Sam Day <me@samcday.com>, Michael Bommarito	
+ <michael.bommarito@gmail.com>, Gabriel Prostitis
+ <prostitisgabriel@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+Date: Thu, 29 Oct 2026 15:18:51 +0100
+In-Reply-To: <e30a0a03cb7d393cbd88565bf81e156d2f38b293.camel@mailbox.org>
+References: <20261029125143.1744481-2-phasta@kernel.org>
+		 <7fd62daa875e4a3772e980127d368704a849caee.camel@crapouillou.net>
+	 <e30a0a03cb7d393cbd88565bf81e156d2f38b293.camel@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,20 +57,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 03:05:21AM -0300, Christian Aurich Zanettini Martins wrote:
->  static void nvme_rdma_free_ctrl(struct nvme_ctrl *nctrl)
->  {
->  	struct nvme_rdma_ctrl *ctrl = to_rdma_ctrl(nctrl);
-> +	int i, nr_queues = NVME_RDMA_OPT_NR_QUEUES(nctrl->opts);
+Le jeudi 29 octobre 2026 =C3=A0 14:49 +0100, Philipp Stanner a =C3=A9crit=
+=C2=A0:
+> Hi,
+>=20
+> On Thu, 2026-10-29 at 14:19 +0100, Paul Cercueil wrote:
+> > Hi Philipp,
+> >=20
+> > For context, this .release() callback was added to avoid the implicit f=
+ree
+> > of
+> > the base class, which IIRC was a request I got during the review proces=
+s of
+> > this
+> > change set.
+>=20
+> Can't say anything about the request you got, but fences are reference-
+> counted and the ability to free itself exists since at least
+> 3c3b177a9369 (2014).
 
-Please drop this one, I'll send a v2. Thanks for the reviews, Nilay
-and Christoph.
+Yes, it already existed when I wrote the code and I was requested to make i=
+t
+explicit. Not trying to make a point here, just stating the reasons why it =
+was
+written that way.
 
-When creating the controller fails, nvmf_create_ctrl() frees opts right
-after nvme_put_ctrl(), but that put is not always the last one. With
-CONFIG_DEBUG_KOBJECT_RELEASE, KASAN reports a use-after-free here on
-every failed connect.
+> From dma_fence's perspective it's certainly the desired canonical
+> pattern since the release() ops prevents fences from the important
+> feature of decoupling fence producer and consumer.
 
-v2 only moves queue->ctrl and leaves queue_lock where it is.
+ACK.
+
+> > I'm personally fine with the change, but do we need a "keep this field =
+at
+> > the
+> > top" comment for the base class in the ffs_dma_fence struct? Or what's =
+the
+> > policy here?
+>=20
+> When I got into the kernel I was told that it's common practice to
+> always have the base class as the first element. That also allows for
+> obtaining the parent class by a mere pointer-cast instead of
+> container_of.
+>=20
+> But the reality is also that some users are not aware of this rule. I
+> can document it in a v2 if you like.
+
+Let's wait on feedback from more people. I don't have a strong opinion eith=
+er
+way.
+
+Cheers,
+-Paul
