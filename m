@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793288090;
-	b=gQyaX4KQv0jVT0PikQ3t/CL2vLwNLvArd2DrCJ4qX1g0+Fvo3DGxjyyRMUywt3sSHlMQ
-	 N2byPQAAMgiE1LBYbIc7A1Tch0ngTT25pubvr+y8+HFqs+HEKfr5tKEIaj4U6G6/I/1Uo
-	 PT6tiw8gey9s6qS5yUC0mwWMP2EbgCJWLR4SxykQIw5QSVYMIg/QeHPY/b5EVlCGjBG85
-	 GkETJzeH8HLDheQTQAT4Dk3r461YnJCvGghDlzDvhxNco/bbbYduibcVIbwFLOtVcb0TB
-	 5aj1Y+VMilBd4N1zGPtmV+/P3dRTSg3R3uNfdWbnlrTU6NvTFVePMiMoUl8Vmgwomnw==
+	t=1793288099;
+	b=w81c3deMfhFMK8K+VQ4FIxUA7Zm8W0u1dAiPAw85TIHI1WFKYFwGxPtrMhz+dsEBdYeY
+	 iXoAX1TPrDsZdQSrqB3t4qSvJQiNMO2ZIa7owbiCsJSLUcuUbuP2tt7tqApR1p+wMWQ/x
+	 BhcO1dNvzYh0xqlO+cDA5kpo52hNb4GH+JRT/h939gyOaoY0WdfNcGXjUvEVwVF8R0wka
+	 6RS99oZOi7kCwZgUDdmpqpvB3JVMgoa9FrQM70FFFcZ1UyU/iJXa5QJMUBqtJkXgh5eDg
+	 bzMphi65ARLCs88ENGNheLcoeZhaUcWA/JxiJqa9wEX1JsMdt00mbv3RXFzfG454/VA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793288090;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=21UBwjN745OrDP2vnXLH2+DeJYrhc+swHwlN/Pu0D5U=;
-	b=PxnRt/wIs6enz4iEvDoY2F8fpc2yxhwlcmNKWowaXw583HOzLVsjkZ+TtXnKX9QmZ3v+
-	 cfgq69IL8vQCeY0Tt8/uekqyoz8X/lj76e2JGgBhkruVVAVTL/u70/ihBQOvIwwGTl/5y
-	 bOgtTj0/RRPaUbBN1BS6YuRFdrI05ysNu3wmyVk3b6RkuunSDut9PBJLQXcTkzrGiO4DB
-	 niPhsgJbfgtasSFdtdYao+aKpCLNwpHmhg8B5qgOxZCmosgCJmyvQpzdIewW7JpLiCu94
-	 cN+vIdVa3zo4AygIxNzUbaFHDNIUy41jxQfYZleh+m2gJV8f2bkb/C1ir5+ZU5JPDhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288099;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=K5Rm/IwaNhYgMhwcnqL255xWGYwp8sgs8BcKPKPbzD8=;
+	b=Zve3WeI3H1oPblOq5PM+osczTmM5YbAMlQIVtW7xlE/wvJ2sU1Lg4xJ75H4Z1nFzqEgT
+	 8giC649YmZXcuD0P1FHZi2S3/bQB7lHaRU3hXi1ZS3S6XnkSDpvfnfPgJDfCWxDMfYpap
+	 O3XuxO8rhCVgcatiJIIMR5+B0pz6znNnYl8ISmylGWh6Sf8R2m9Qy4lNFPNvIX4ETqRgs
+	 Ut6LzwfL5CQ/natbMchstJHEE3lM73/350UkkHiUtRQqJYSw4TgyEzuKf9fVJqXQcL78A
+	 T87pAWE7cuHDgnH9nPLvvhp6/KPJXsATNgFkeHLKRfM5mbo/unomJqRsUhzk2Uu2RyA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IA5XhRC1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6120D606A31A;
-	Thu, 29 Oct 2026 15:34:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IA5XhRC1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793288090;
-	b=Bglrp5wY1NHnL4s+NPAyVWl+Svszkr1wETSaCTM4oGHoELiAtALLk+uOxA7cpmAuq5fG
-	 kA5NfWxvIsyty9txBHkKkgxXh/BtVJ4XqK3GNUSQvM0hOFVa5X5klSwoPALVRbI0aB72m
-	 lgdpNDWvL/JaO+5RAZ3zhZekq3O0cGPreY3A18zD8W7RcJBTGfWgwctmJe0aAwIZxHgRD
-	 RBLBxEBYwlWXnVXfpyldmzX6hu5XhLRM5dClM2v/SCxepGhSt/RfUaRmdQD04m/uiEbLc
-	 LEB7r7X2kAt4R0URCE3mZAmJ5qAydB9eBmM9Vn82pfv0theAq6QzZ+zK6Kd9jUaeG4A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793288090;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=21UBwjN745OrDP2vnXLH2+DeJYrhc+swHwlN/Pu0D5U=;
-	b=cqszNNaAaDd802UwCxTOeYxltoummd9af7T9tiMGaUGA87su/v9aFczWZEOLvk1lQLWU
-	 WTAMW4yTSoxDGIaiVahV+NAmCCryrVa6Kcpirno9vZNriZ9xgAKIefDIFMHpyZUk7mKEE
-	 8s7J4jau6TfesoSLPfxlKq1zVGbUN8ttj939qqxVKiQrhnsoGEhCjlOSHl1X/jdU/uHPI
-	 om1YcHlCFKhBuguza+ymWU6yUxSRRaODtxDFLqp1BULY5nulDvVLVVW+XRlicm1evozRa
-	 d3trGtM2Rr182NbD+o8fuo8T5az463AD6iwKajlJUeifpL1BDWddO7grjm0/zs09uFg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JU48K3St;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.171
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 062151F01816;
-	Thu, 29 Oct 2026 15:34:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793288089;
-	bh=21UBwjN745OrDP2vnXLH2+DeJYrhc+swHwlN/Pu0D5U=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=IA5XhRC1llZ+hUokn4xOLOeeqes+hs/SNRZ1CVjofBbOyGLsCQRQvi3X+T61MNrBi
-	 vUZ6YtuQ8QClLvC6P2c2AEVw4ltLuUbiBFmJUFbJo2zYE0VkTtk/CzSrYWBjZ9Z9rL
-	 WYO5NoLKIFEudMA9tnq7P9oDTAFmpoUOSFcArQFgORr/W1Z2UW2ktH36Xnx2vhHUBW
-	 v36CGcK99vZt6dV0oCrXRBfFZ2nJSZk1RlL13KTSHJgl/tTESS6+I0O63PtXB4Y3t+
-	 2MTJtZKfRjkt2CwnMuqx7ckUjhHbW4U7Th64dMTKKDK6f33oLXfa08u3Q1ZvwAdzzW
-	 pDB3hpeWZKHCQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8F1A3458E4;
-	Thu, 29 Oct 2026 15:34:48 +0000 (UTC)
-From: Francesco Boccola via B4 Relay <devnull+francesco.boccola.unina.it@kernel.org>
-Date: Thu, 29 Oct 2026 16:34:48 +0100
-Subject: [PATCH RFC v2] KVM: arm64: nVHE: Flush all TLBs when freeing a
- VM's stage-2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71832606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:34:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71832606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JU48K3St
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d0so16974671fa.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:34:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793288098; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UZlBZLRFoznGAL9O5djUwBKfsB2m4qoPxhmakwVhS50XmUFtFHUVjlXJ2IUv2OGJJR
+         Sz2FAKn/xixhD3pmrEzPkvZzAjEpUjrnPguUszlZLqMuePH9yQaaEuhVvmwTbKGYmY9V
+         uin1J7k1l4uM5dBdaKhJuimtWuvCCNMn34sJxF1wD80U2EldRyuo09v8pZUNtcak0z8W
+         a7N2XsRrzy7mS19ijiZhi7klyIPjaBvDO2AZAf6yobiqFrcYTDO9Sb56puaaH8BhNFhm
+         uP2Wg6ZQ7vutK0izzLCBzYU4IF3RAhjbk6fiJYSZMfoOsLR7WiFrHk9jmqbq0zqnruv2
+         9Cyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=K5Rm/IwaNhYgMhwcnqL255xWGYwp8sgs8BcKPKPbzD8=;
+        fh=twSvucFudBtfov+WnadBVqekN/pDFrwEpYFzBAexwII=;
+        b=FkKTMMEb0K0uWuDhqMNIyVAmqcMD6LRDjlJcN51S1i4wHLFSoJDA6iv136kEq4PL4o
+         /HvSMnJF6Mt2U0NgMFqo0Q7Y6YBUV3SA5nOwg+ruMIZ1GZzjDlw852H0k1csbLl3DVM8
+         V1MrG6AVYgr2DoxJarQHRA1xT3W42wekhkdLfq9spBxuqL6gcoD2nqU2ZT6tB/dy2aHo
+         ANmNgflCKrJdo+RYjq7GmJT9wu0+OFdLpgqsMI21silGdDm0A4rnW17GX//XIYZj/j8H
+         P8lW8rhji9egnv+UoJSeq2QGvMiNzBMbHsrWdBNb9Lo/e0VCGfUqCtU7g+WNJXA9CZM7
+         OvZg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793288098; x=1793892898; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=K5Rm/IwaNhYgMhwcnqL255xWGYwp8sgs8BcKPKPbzD8=;
+        b=JU48K3StrPmJy+BWBXIimZZVccOgFf+hwfyzZld26az5XfF9tBNddSRRA6EbTNH/iI
+         1gbEcjpkkMPDfjRZj02sayE/rDgogPl0HqX5RxpF3COYCVPkhy43++ax7kr9CZHbByT3
+         /dG90Httmlbxd4g/b2oVe3D6+xBGiwLMUqyhyuPWpEoQ5MWrA2UcABudFCclnuawEyZk
+         dhu2cpbb9eWELAn7JEH4LlscXqJmgRxhSQVK2TuZhaGHbfJ5Nk9UuZ75GB/iVe7JDuZW
+         iHoDmjlZjcOt1gUo+onBNqR9c6cLGbeiJGrW6NvFYLzqSHKn5MvAW4M3q02ZPy6GtHkO
+         6z1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793288098; x=1793892898;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K5Rm/IwaNhYgMhwcnqL255xWGYwp8sgs8BcKPKPbzD8=;
+        b=L6ffOF/ViSfaC+rzsfxcII87d39Q+/dgswXpMKfmTtoAZmJRWO3Yu/0M+GVLsleE5K
+         Db7q75wByU+rV47jCmrolo3lyAyI0v1N0EurxBdvaIC4Yl5HOmlhAcW1YDGfnYG6Q4k0
+         GIzryIZZcSyTPIfFlNSD/R2yFGIsBuJ1d9+R0/DyBXwauRxXHPUGKaE9inMWdf/2tYkE
+         qTPns65Es4thZQZ/xbTnEvtShQGYSSw0bdYeDajY1ArxIU/gl0m8Mlq5Ci6n7tSSVy5m
+         2+BHvlYAmPRVWzWjziC9tSazpU+hUri4OZ1ARPiOMpy3/7qq0V1nVDyx7Paid0falf1D
+         SX4g==
+X-Forwarded-Encrypted: i=1; AKwUvBzw6nTMyK8B+upTD+cJ+L+2gzon01j5AKQ2D8UW30FoV/XlphS8tELAvh5wgZEDlkoOLqaqzjoif3y71BE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJlT3EEkl9dbf5v8uCiYCjRpTmS+bw3WL7gQCA0qursfkNzg/1
+	rJtqhbpPEmUl5YUVu1Waufe6skmhC+ZNfRT94UzfWhl9QpOAKRO4bsG5Ki2bwNQQneotaHqRE6T
+	XqRfOFFDCAGD+TMOgG6KR5sDnBD0CwwQ=
+X-Gm-Gg: AYBFou0a1a45u1tBRFrLkIt1EnROvE2g5I4v7CJ3RI6uy0SlbH4D2QBNvlho9tTWGUD
+	jVAITa3J5AQ4dpxryB2GwAYwPQr4CpjcviLpCHPa79WwUXAYCW46PQW15MPbLy2Lv8KrQj9gcIX
+	9RZnn2H4ykEvDPVqd6ycklJIpA2ZjjXbiLcZ/GVJrjqfhQjrI+lxs35snPgf7NdAeDWhj6WWy8I
+	o30Nm5Gp53IKPAPITdiGQfytaXgeQQmR7xwAmEAaV9T/nWKFIy8iEUj/GCaT4yK1ASW2u5L/ZV5
+	B9qfqzaOEQFJrHCwisMkd6hu1XBObPrSUk1jXfayj8IoP2Lv63zF+9BA0/QqZ4rDUzcKF8h+rDf
+	/jVfXRozC6r2g4YfJtB+eZhrz5p5wldXWc60Hhaq9ZQOSwLh1DL+R9799O7KUBotCGqm6QUJU9a
+	zzxW14rlV9/hcFegvTcXRTi1vM8ELorKUU7N+01lMRgxXuHe7Vz5VT
+X-Received: by 2002:a2e:bc01:0:b0:3ab:4107:1bef with SMTP id
+ 38308e7fff4ca-3ac9ce5418bmr14386351fa.1.1793288097433; Thu, 29 Oct 2026
+ 08:34:57 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,405 +105,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-nvhe-stage2-flush-v2-1-096723b28bef@unina.it>
-X-B4-Tracking: v=1; b=H4sIAJdn42oC/32NwQ6CMBBEf4Xs2Rq2GAFPJiZ+gFfDYYWFriHFt
- KXREP5dwLvHmbx5M4FnJ+zhlEzgOIqXwS5B7xKoDdmOlTRLBp3qI6a6VDYaVj5Qx1q1/eiNQua
- CsubAWYaw7F6OW3lvzjvcrheofqUfH0+uw2pbMSM+DO6zPUfc4D8nERUqKvI6J6ISGc+jFUt7C
- VDN8/wFhz2CjMgAAAA=
-X-Change-ID: 20261029-nvhe-stage2-flush-1ee8a3d4e331
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
- Steffen Eiden <seiden@linux.ibm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
- linux-kernel@vger.kernel.org, 
- Francesco Boccola <francesco.boccola@unina.it>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793288088; l=14469;
- i=francesco.boccola@unina.it; s=20261029; h=from:subject:message-id;
- bh=9IF4V7AIed5CaK2oDNKXPIRINnVqS5Wh9/sL9HPf4nw=;
- b=lj2DTPtaJ+JK5PaPBUKGi6P78ixO1QOocnpfev3lOa83n77hySpIjprdmArTmGwXwxRrYj/6M
- Ft6oEhJN74qAeabaKNb0jzJdf0CHLxzID4Zo98muQSDNAUpXNlstWGA
-X-Developer-Key: i=francesco.boccola@unina.it; a=ed25519;
- pk=82q3OTrtEAajk43b58WBO5I1Hj8Gg8DU6k0GngJr9rA=
-X-Endpoint-Received: by B4 Relay for francesco.boccola@unina.it/20261029
- with auth_id=1353
-X-Original-From: Francesco Boccola <francesco.boccola@unina.it>
-Reply-To: francesco.boccola@unina.it
-Content-Transfer-Encoding: 7bit
+References: <20261028-alpha-profileme-v1-0-d44b52bf2500@gmail.com> <20261029091141.GG1779021@noisy.programming.kicks-ass.net>
+In-Reply-To: <20261029091141.GG1779021@noisy.programming.kicks-ass.net>
+From: Matt Turner <mattst88@gmail.com>
+Date: Thu, 29 Oct 2026 11:34:45 -0400
+X-Gm-Features: AclHuK-YqVWgs2e1oeI2-sd1y4gbLXMqMG1B76Dt72P9DpeCFgJ2eqCh-7oWuCk
+Message-ID: <CAEdQ38GiZLmnjYxzN6C92uz4-MOX7KoYvTuRrZ5Zike8ssDCqQ@mail.gmail.com>
+Subject: Re: [PATCH 0/5] alpha/perf: add ProfileMe sampling
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Richard Henderson <richard.henderson@linaro.org>, Magnus Lindholm <linmag7@gmail.com>, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Francesco Boccola <francesco.boccola@unina.it>
+On Thu, Oct 29, 2026 at 5:11=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
+g> wrote:
+>
+> On Wed, Oct 28, 2026 at 02:09:29PM -0400, Matt Turner wrote:
+> > The 21264 from EV67 on, and the 21364, have a second performance counte=
+r
+> > mode, ProfileMe, alongside the Aggregate mode that the driver uses toda=
+y.
+> > An Aggregate mode sample reports the PC where the overflow interrupt wa=
+s
+> > taken. On an EV7 that is anywhere from 15 instructions before to 12
+> > after the one that overflowed the counter, which makes perf annotate
+> > output close to useless. In ProfileMe mode the CPU picks one fetched
+> > instruction, follows it down the pipeline, and reports its PC along wit=
+h
+> > what happened to it: whether it retired, whether it trapped and why,
+> > whether it was a mispredicted branch, stalled before map, or was killed
+> > on a wrong path, and what PCTR1 counted while it was in flight.
+>
+> Isn't this the thing that ended up as AMD's IBS?
 
-kvm_free_stage2_pgd() frees a VM's stage-2 page tables without invalidating
-the TLBs. That is correct: the VM's VMID is not reused before the next VMID
-rollover, and flush_context() then invalidates the entries of all VMIDs on
-all CPUs (TLBI ALLE1IS).
-
-In nVHE mode, however, a CPU that ran a guest makes the host's broadcast
-TLB invalidations more expensive for the whole system until then, which
-with 16-bit VMIDs usually means until the host reboots. With stress-ng
---tlb-shootdown on three CPUs of a cluster, the cyclictest maximum on a
-fourth, isolated CPU goes, before and after one guest:
-- Cortex-A53 (Zynq UltraScale+ KV260, no VHE, 6.1.70-rt): 53-72 us ->
-  83-164 us;
-- Cortex-A55 (RK3588, kvm-arm.mode=nvhe, kvmarm/next): 18-23 -> 78-97 us;
-- Cortex-A76 (RK3588, kvm-arm.mode=nvhe, kvmarm/next): 16-30 -> 74-80 us.
-It crosses clusters: after a guest on an A55, an isolated A76 goes from
-14-18 us to 129-154 us. The same happens on kernel 6.12.113 (20-24 -> 44-49
-us on the A55) and on 7.1.9 with and without PREEMPT_RT.
-
-One guest that turns its stage-1 MMU on, even for a few microseconds, is
-enough; a guest that keeps its MMU off is not. With VHE nothing changes.
-
-The state is in the CPU that ran the guest: a local TLBI ALLE1 on that CPU
-at teardown removes the effect on every CPU, the same on all the other CPUs
-does not. Invalidating the dead VM's VMID (TLBI VMALLS12E1IS, as pKVM does
-at teardown) does not remove it either, whether stage 2 is disabled while
-it is issued (as __kvm_tlb_flush_vmid() does from the host's context) or
-enabled; nor does invalidating VMID 0 or the host's stage 1 (A53).
-
-So do the rollover's invalidation when the stage 2 of a VM that has run is
-freed, in nVHE mode. That costs one TLB refill on every CPU per VM
-teardown; 500 VMs created, run and torn down one after the other take 32.1
-ms each with it and 33.4 ms without, and an isolated CPU meanwhile sees no
-change in latency (15 us against 13 us).
-
-Signed-off-by: Francesco Boccola <francesco.boccola@unina.it>
----
-On Cortex-A53, A55 and A76 hosts in nVHE mode, a CPU that has run a guest
-with its stage-1 MMU on makes the host's broadcast TLB invalidations more
-expensive for the whole system until the next VMID rollover, which usually
-means until the host reboots. The patch does the rollover's invalidation
-(TLBI ALLE1IS) when the stage 2 of a VM that has run is freed; its commit
-message has the measurements.
-
-RFC because we can only describe what these cores do, not explain it. Which
-per-CPU state survives the invalidation of the VM's VMID, and why it slows
-the broadcast invalidations of other CPUs, is microarchitectural; an
-explanation from someone who knows these TLBs would be welcome.
-Questions:
-- Is this known behaviour of these cores in nVHE mode (A53, A55 and A76
-  here)?
-- ALLE1IS also drops the host's own EL1&0 entries on every CPU. A local
-  TLBI ALLE1 on the CPUs the VM ran on (mmu->last_vcpu_ran) is enough in
-  our tests, but needs IPIs; would you prefer that?
-- In protected mode, the host itself runs with stage 2, and the same test
-  gives 112-153 us from boot, guest or not (18-23 us in nVHE mode before
-  any guest). Is that expected?
-- Should VHE hosts also invalidate (we see no effect there)?
-
-Reproducer (below): tinyvm.c, a ~110-line KVM VMM running a guest (guest.S)
-that turns its MMU on and powers off, and run.sh: stress-ng --tlb-shootdown
-and cyclictest (SCHED_FIFO 99) on a freshly booted host, 3 x 20 s before
-and after one such guest. Controls: a guest that keeps its MMU off (no
-change), the same kernel in VHE mode (no change), this patch on kvmarm/next
-(A55 19-22 -> 20-32 us, A76 14-24 -> 13-15 us).
-
-To run it: make (or make CROSS_COMPILE=aarch64-linux-gnu- LDFLAGS=-static),
-then, as root on a freshly booted host with stress-ng and cyclictest,
-./run.sh -v <cyclictest CPU> -c <three other CPUs of its cluster> -g <guest
-CPU>. The defaults (-v 3 -c 0-2 -g 2) fit a 4-CPU cluster; -m 0 runs the
-control guest (MMU off). In our tests the cyclictest CPU was isolated
-(isolcpus, nohz_full, rcu_nocbs).
-
-Found while measuring containers run as KVM guests against plain containers
-on these boards.
-
-==> Makefile <==
-# Native build on an arm64 host: make. Cross build (static, for hosts without
-# a compiler): make CROSS_COMPILE=aarch64-linux-gnu- LDFLAGS=-static
-CC = $(CROSS_COMPILE)gcc
-OBJCOPY = $(CROSS_COMPILE)objcopy
-CFLAGS = -O2 -Wall
-
-SPIN = 0
-all: tinyvm guest-mmu0.bin guest-mmu1.bin
-
-tinyvm: %: %.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $<
-
-guest-mmu%.bin: guest.S
-	$(CC) -nostdlib -static -Wl,-Ttext=0x40000000 -Wl,--build-id=none -DMMU=$* -DSPIN=$(SPIN) -o guest-mmu$*.elf $<
-	$(OBJCOPY) -O binary guest-mmu$*.elf $@
-
-clean:
-	rm -f tinyvm guest-mmu*.elf guest-mmu*.bin
-
-==> guest.S <==
-/*
- * guest.S - the guest of tinyvm: with MMU=1 it turns its stage-1 MMU and
- * caches on (identity map of its RAM), writes a marker through the MMU, spins
- * for SPIN seconds (virtual counter) and powers the VM off (PSCI SYSTEM_OFF);
- * with MMU=0 it does the same with the MMU off.
- * Linked at the start of the guest RAM (0x40000000):
- *   gcc -nostdlib -static -Wl,-Ttext=0x40000000 -Wl,--build-id=none -DMMU=1 \
- *       -o guest-mmu.elf guest.S && objcopy -O binary guest-mmu.elf guest-mmu.bin
- */
-#ifndef MMU
-#define MMU 1
-#endif
-#ifndef SPIN
-#define SPIN 0
-#endif
-#define MARKER_ADDR	0x40100000	/* 1 MB into the RAM, read back by tinyvm */
-
-	.text
-	.globl	_start
-_start:
-#if MMU
-	movz	x0, #0xff00		/* MAIR: attr0 Device-nGnRnE, attr1 Normal WB */
-	msr	mair_el1, x0
-	movz	x0, #0x3519		/* TCR: T0SZ 25, WBWA inner shareable walks, */
-	movk	x0, #0x0080, lsl #16	/* 4 KB granule, no TTBR1 walks, */
-	movk	x0, #0x0002, lsl #32	/* 40-bit PA */
-	msr	tcr_el1, x0
-	adr	x0, pgtable
-	msr	ttbr0_el1, x0
-	isb
-	tlbi	vmalle1
-	dsb	ish
-	isb
-	mrs	x0, sctlr_el1
-	movz	x1, #0x1005		/* I, C, M */
-	orr	x0, x0, x1
-	msr	sctlr_el1, x0
-	isb
-#endif
-	movz	x1, #(MARKER_ADDR >> 16), lsl #16
-	movz	w2, #0x4d4d		/* "MM" */
-	movk	w2, #(0x55 + MMU), lsl #16
-	str	w2, [x1]
-	dsb	sy
-#if SPIN
-	mrs	x3, cntfrq_el0		/* spin SPIN seconds */
-	mov	x4, #SPIN
-	mul	x3, x3, x4
-	mrs	x4, cntvct_el0
-	add	x3, x3, x4
-2:	mrs	x4, cntvct_el0
-	cmp	x4, x3
-	b.lo	2b
-#endif
-	movz	w0, #0x0008
-	movk	w0, #0x8400, lsl #16	/* PSCI SYSTEM_OFF */
-	hvc	#0
-1:	wfi
-	b	1b
-
-	.balign	4096
-pgtable:	/* level 1, 1 GB blocks: 0-1 GB Device, 1-2 GB Normal WB (the RAM) */
-	.quad	0x0060000000000401
-	.quad	0x0000000040000705
-	.fill	510, 8, 0
-
-==> tinyvm.c <==
-/*
- * tinyvm <guest.bin> [cpu] - the smallest KVM VMM: one vCPU, 16 MB of RAM at
- * 0x40000000, no interrupt controller and no devices. It loads <guest.bin> at
- * the start of the RAM, runs the vCPU (pinned to [cpu]) until the guest powers
- * the VM off through PSCI, checks the marker the guest wrote and exits 0.
- * Build: gcc -O2 -o tinyvm tinyvm.c
- */
-#define _GNU_SOURCE
-#include <errno.h>
-#include <fcntl.h>
-#include <linux/kvm.h>
-#include <sched.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/ioctl.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <unistd.h>
-
-#define RAM_BASE	0x40000000UL
-#define RAM_SIZE	(16UL << 20)
-#define MARKER_OFF	0x100000UL
-
-#define CORE_REG(x) (KVM_REG_ARM64 | KVM_REG_SIZE_U64 | KVM_REG_ARM_CORE | \
-		     (offsetof(struct kvm_regs, x) / sizeof(uint32_t)))
-
-static void die(const char *what)
-{
-	perror(what);
-	exit(2);
-}
-
-int main(int argc, char **argv)
-{
-	struct kvm_userspace_memory_region region;
-	struct kvm_vcpu_init init;
-	struct kvm_one_reg reg;
-	struct kvm_run *run;
-	uint64_t pc = RAM_BASE;
-	int kvm, vm, vcpu, fd, size;
-	uint8_t *ram;
-	struct stat st;
-	uint32_t marker;
-
-	if (argc < 2) {
-		fprintf(stderr, "usage: %s <guest.bin> [cpu]\n", argv[0]);
-		return 2;
-	}
-	alarm(120);	/* a guest that faults spins forever: give up */
-	if (argc > 2) {
-		cpu_set_t set;
-
-		CPU_ZERO(&set);
-		CPU_SET(atoi(argv[2]), &set);
-		if (sched_setaffinity(0, sizeof(set), &set))
-			die("sched_setaffinity");
-	}
-	kvm = open("/dev/kvm", O_RDWR | O_CLOEXEC);
-	if (kvm < 0)
-		die("/dev/kvm");
-	vm = ioctl(kvm, KVM_CREATE_VM, 0);
-	if (vm < 0)
-		die("KVM_CREATE_VM");
-	ram = mmap(NULL, RAM_SIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-	if (ram == MAP_FAILED)
-		die("mmap");
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0 || fstat(fd, &st) || st.st_size > (off_t)MARKER_OFF ||
-	    read(fd, ram, st.st_size) != st.st_size)
-		die(argv[1]);
-	close(fd);
-	region = (struct kvm_userspace_memory_region){
-		.slot = 0, .guest_phys_addr = RAM_BASE, .memory_size = RAM_SIZE,
-		.userspace_addr = (uintptr_t)ram,
-	};
-	if (ioctl(vm, KVM_SET_USER_MEMORY_REGION, &region))
-		die("KVM_SET_USER_MEMORY_REGION");
-	vcpu = ioctl(vm, KVM_CREATE_VCPU, 0);
-	if (vcpu < 0)
-		die("KVM_CREATE_VCPU");
-	if (ioctl(vm, KVM_ARM_PREFERRED_TARGET, &init))
-		die("KVM_ARM_PREFERRED_TARGET");
-	init.features[0] |= 1 << KVM_ARM_VCPU_PSCI_0_2;
-	if (ioctl(vcpu, KVM_ARM_VCPU_INIT, &init))
-		die("KVM_ARM_VCPU_INIT");
-	reg = (struct kvm_one_reg){ .id = CORE_REG(regs.pc), .addr = (uintptr_t)&pc };
-	if (ioctl(vcpu, KVM_SET_ONE_REG, &reg))
-		die("KVM_SET_ONE_REG pc");
-	size = ioctl(kvm, KVM_GET_VCPU_MMAP_SIZE, 0);
-	run = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, vcpu, 0);
-	if (run == MAP_FAILED)
-		die("mmap kvm_run");
-	for (;;) {
-		if (ioctl(vcpu, KVM_RUN, 0) && errno != EINTR)
-			die("KVM_RUN");
-		if (run->exit_reason == KVM_EXIT_SYSTEM_EVENT)
-			break;
-		fprintf(stderr, "unexpected exit %u\n", run->exit_reason);
-		return 2;
-	}
-	memcpy(&marker, ram + MARKER_OFF, sizeof(marker));
-	printf("guest done: system event %u, marker %#x (%s)\n", run->system_event.type, marker,
-	       marker == 0x564d4d ? "MMU on" : marker == 0x554d4d ? "MMU off" : "BAD");
-	close(vcpu);
-	close(vm);
-	close(kvm);
-	return marker == 0x564d4d || marker == 0x554d4d ? 0 : 1;
-}
-
-==> run.sh <==
-#!/bin/sh
-# run.sh [-v rt_cpu] [-c stress_cpus] [-g guest_cpu] [-t seconds] [-r runs] [-m 0|1]
-#
-# Does running a KVM guest make the host's broadcast TLB invalidations more
-# expensive, after the guest is gone? With stress-ng --tlb-shootdown on
-# stress_cpus (one worker per CPU), cyclictest (SCHED_FIFO 99) measures the
-# wake-up latency on rt_cpu and stress-ng its own throughput, -r times; then
-# tinyvm runs one guest on guest_cpu (-m 1: the guest turns its stage-1 MMU on,
-# the trigger; -m 0: it does not, the control); then the same measurements
-# again. The effect lasts until the next VMID rollover or reboot: run it on a
-# freshly booted, otherwise idle host. Needs stress-ng and cyclictest (rt-tests)
-# in PATH or STRESS_NG / CYCLICTEST; run as root from this directory after make.
-set -e
-V=3 C=0-2 G=2 T=20 N=3 M=1
-while getopts v:c:g:t:r:m: o; do
-	case $o in
-	v) V=$OPTARG ;; c) C=$OPTARG ;; g) G=$OPTARG ;; t) T=$OPTARG ;; r) N=$OPTARG ;;
-	m) M=$OPTARG ;; *) exit 2 ;;
-	esac
-done
-SNG=${STRESS_NG:-stress-ng}
-CT=${CYCLICTEST:-cyclictest}
-W=$(echo "$C" | awk -F, '{n = 0; for (i = 1; i <= NF; i++) { split($i, r, "-"); n += (r[2] == "" ? 1 : r[2] - r[1] + 1) } print n}')
-part() { awk -v c="$1" '/^processor/ {p = $3} /^CPU part/ && p == c {print $4; exit}' /proc/cpuinfo; }
-mode=$(dmesg 2>/dev/null | grep -o "kvm \[1\]: [A-Za-z ]*mode initialized" | sed 's/kvm \[1\]: //' | head -1)
-echo "kernel $(uname -r) $(uname -v | grep -o PREEMPT_RT), ${mode:-KVM mode unknown (dmesg)}, up $(cut -d. -f1 /proc/uptime) s"
-echo "cyclictest on CPU $V (part $(part $V)), stress-ng tlb-shootdown x$W on CPUs $C, guest on CPU $G (part $(part $G)), MMU=$M"
-[ -r /sys/module/kvm/parameters/stage2_free_flush ] &&
-	echo "stage2_free_flush $(cat /sys/module/kvm/parameters/stage2_free_flush)"
-
-measure() { # <phase> <run>
-	$SNG --tlb-shootdown "$W" --taskset "$C" -t $((T + 3)) --metrics-brief > sng.out 2>&1 &
-	sp=$!
-	sleep 1
-	set -- "$1" "$2" $($CT -m -a "$V" -p 99 -i 1000 -l $((T * 1000)) -q 2>/dev/null |
-		awk '/Avg:/ { for (i = 1; i < NF; i++) { if ($i == "Avg:") a = $(i + 1); if ($i == "Max:") m = $(i + 1) } } END { print a, m }')
-	wait $sp
-	ops=$(awk '/tlb-shootdown +[0-9]/ { print $(NF - 1) }' sng.out | tail -1)
-	printf '%-6s %d  cyclictest avg %4s us  max %5s us   stress-ng %8s bogo-ops/s\n' "$1" "$2" "$3" "$4" "$ops"
-	echo "$1 $3 $4 $ops" >> results.txt
-}
-
-rm -f results.txt
-i=1; while [ $i -le $N ]; do measure before $i; i=$((i + 1)); done
-./tinyvm guest-mmu$M.bin "$G"
-i=1; while [ $i -le $N ]; do measure after $i; i=$((i + 1)); done
-awk '{ a[$1] += $2; m[$1] += $3; o[$1] += $4; n[$1]++ }
-END { printf "after/before (means): cyclictest avg x%.2f, max x%.2f; stress-ng throughput x%.2f\n",
-	(a["after"] / n["after"]) / (a["before"] / n["before"]),
-	(m["after"] / n["after"]) / (m["before"] / n["before"]),
-	(o["after"] / n["after"]) / (o["before"] / n["before"]) }' results.txt
-rm -f sng.out results.txt
----
-Changes in v2:
-- Restore the reproducer's lines starting with '#' (#include, #define, #if
-  and comments), which were dropped from v1.
-- Link to v1: https://patch.msgid.link/20261029-nvhe-stage2-flush-v1-1-a87c7aaa91e1@unina.it
----
- arch/arm64/kvm/mmu.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-index a48f3f531..baeea69e7 100644
---- a/arch/arm64/kvm/mmu.c
-+++ b/arch/arm64/kvm/mmu.c
-@@ -1216,6 +1216,17 @@ void kvm_free_stage2_pgd(struct kvm_s2_mmu *mmu)
- 	write_lock(&kvm->mmu_lock);
- 	pgt = mmu->pgt;
- 	if (pgt) {
-+		/*
-+		 * The VM's VMID is not reused before the next rollover, which
-+		 * invalidates all VMIDs, so its TLB entries can stay until then.
-+		 * In nVHE mode, however, a CPU that ran a guest with its stage-1
-+		 * MMU on makes the host's broadcast TLB invalidations more
-+		 * expensive for all CPUs, and invalidating the VM's VMID does not
-+		 * stop it: do the rollover's invalidation now. A VM that never
-+		 * ran has no VMID (0).
-+		 */
-+		if (!has_vhe() && atomic64_read(&mmu->vmid.id))
-+			kvm_call_hyp(__kvm_flush_vm_context);
- 		mmu->pgd_phys = 0;
- 		mmu->pgt = NULL;
- 		free_percpu(mmu->last_vcpu_ran);
-
----
-base-commit: dd0bc00e3e9201fd49b62ff9cc07890c89003afe
-change-id: 20261029-nvhe-stage2-flush-1ee8a3d4e331
-
-Best regards,
---  
-Francesco Boccola <francesco.boccola@unina.it>
-
-
+I have no idea, but it wouldn't surprise me too much :)
