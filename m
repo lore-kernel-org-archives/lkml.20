@@ -1,47 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271784;
-	b=zxHVL7Aa8G/GMfsy+JSPnaK+BHRixml3LQn7sVZVyIUKMuJUZRuacfsGBxWZJrDVYJv3
-	 IXYdLW4xYnxg0hWBwRwXd1mkuVlPBRb8BzXQZOspcdtk0Hryoa9gyVgv0cM9rCSQSWJo+
-	 6E+aHO59EPzI63v/o2s2U0AFs5TyeHeQJx0u5GM/lRkC+dkcpU7aRrciu6PL/BRAY9iyN
-	 uP7QxtPg2b7BbyiRFxWYwM8VgAF7y84Q4LxM3VKzS4OCB0quR4O7/GOVlOIp8CEYxSIt5
-	 zMmLCu5bu/kPsmBvPN3e6uwih9UN5VWVKPx+R9kqYvqColTTG9v0rPFzyKP6SOKjqyg==
+	t=1793271802;
+	b=H8aQ5zhXa8wGMwAjvMZof96E2qtIpnHcqqPEyMudExOTGvFt4h0OxBp67BnFS1vc0bp5
+	 l+mpCKIT1q3nDs1KRJuPKvUpG3x/KPZUSek5JbZ4bL0yZi0Av4vWPLAAhhifldzOhaMkH
+	 tRN9Pc6c4kkUAEw/uy4y2aWE10j4R9SRD8wAvKvVKHkLfFQiTyLJfwh2ZQ5PGBiy3p/ul
+	 dbLwo/5tO/X8FLMqB6LcwtezXhzm5fDQKg4/ivGd0Y+choyGvaB1VSidX7BVvVF4XjSO8
+	 YvA9Z1vThNblHx6E+q+6ZQRo8/ZB0nT6hYLiSoQ44u8wT7n2CEwA3uR5DOVma/hh5Og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271784;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=lqdjZkQwVXgTMSk1QocnJZhAE2sMU/4Mo4N5OcDK2FQ=;
-	b=buOaXeXFr43SqTDJaB6Ys343YRlLjrmAIL29jTAEB1NS6FyGAXRF0Cs0+5GS6E+0GOxO
-	 WeWjsNJSeD9q09oenVMTUwXWFZQnlqnh+fYnUdfY8KopCZRygtTBNQ9hAyH52J2tLu32L
-	 TutvQ1WmhTUoEWxfDI5e94R4vKA61QrujiJKBO9Gmg/blt70hEpXXvk9gUz7eGdlz4jEX
-	 2mddW3H+U3qqMeYuBiqNMbEl2PqEpFOxn+/r5RF6Q4BC86zLYvIfs/Z69vVHI5mE9w8LQ
-	 /5G+eVc9seZ1ws0ivnPe9WsA1ygL6UoWmzPerS/G+SXsXI7UrE54V3Oxq4brzhmiJXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793271802;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=KfmDwcMrjK2ZAGraZ+4RY99djt++qfZZqI79X0qnDYI=;
+	b=kU7bHzjgGGEv8+r3XJCsH3OS859tlMHL32xUw+p2wiPSKySYEJkaEtblToJ+W1IlW1X8
+	 EMbh95e9GosCNvafFPLfCY9XTAtMZk8co5AlsL0OKzarRBuk6RVPIofy0TpVY4LbXjIJj
+	 6MWFcpfpryP0LMZjHqvPSZdK/YPWGAU2zEa3JJwoz0IBgcLQDaObvV+rpzBUfXNH2qwz9
+	 ItymQMueCAwbA8oTlBkJDc1A72zV/hWXdg5Tr384lqc6xw4nwpt6Ng1VrCfM/7ln0GdEO
+	 kDe2Lcb+pgip8B4XhUQqVjdpo4DrwkW2a9f+JWKVHFVwh+HnksaxSlmOZBv0gv1okOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MdlFVKzu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.35
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6676F606A31C;
-	Thu, 29 Oct 2026 11:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MdlFVKzu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F6951F01828;
-	Thu, 29 Oct 2026 11:03:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793271784;
-	bh=lqdjZkQwVXgTMSk1QocnJZhAE2sMU/4Mo4N5OcDK2FQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MdlFVKzuWxOxSjNjAhnFHwPZSKwPu5DlnspZZDlB0/cJmbVUI+7dUAXHJcsUW2pPb
-	 3wLgn9zUorPGJNR4YgijvuBCkqfz0wmaR1NLHrTH+50fiHo9vx5iT1682o0qKET4J+
-	 5PLKVBtfJJnwdtRit0dsHNmfyBzPkvN/VPmirZM5R9NfuC8ppWwrYM5xQPuSEzu0l1
-	 +xZhdpSEbo8k3dgPtmHi35AzoOXVtHjLAjruYIiQl/1fya5kQKNoIvPs5a2evjEHoV
-	 rv6b2t6D/WWkoxy7tA0MkFAFM4dJJUT54FMBICT5N3KKpMqy/1y1+GNCO0AjfVoDGU
-	 /lz+sftOX6tjQ==
-Message-ID: <8a675e45-eed1-406c-a503-e1490d10b638@kernel.org>
-Date: Thu, 29 Oct 2026 11:03:00 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2470606A323;
+	Thu, 29 Oct 2026 11:03:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2470606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jFhD76rkpz8Xrrb;
+	Thu, 29 Oct 2026 19:03:19 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl2.zte.com.cn with SMTP id 69TB3Cwl071868;
+	Thu, 29 Oct 2026 19:03:12 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Thu, 29 Oct 2026 19:03:14 +0800 (CST)
+X-Zmail-TransId: 2afa6ae327f2272-0a40c
+X-Mailer: Zmail v1.0
+Message-ID: <202610291903148135Df-fh-xl3zWuRJkq8AXn@zte.com.cn>
+Date: Thu, 29 Oct 2026 19:03:14 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,97 +56,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/14] media: qcom: camss: Introduce CPU latency QoS
- during streaming
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>, bryan.odonoghue@linaro.org
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
- <20261029-v4l2-frame-sync-v1-1-d37992559c58@kernel.org>
- <C5h3n3GoAvX7tdfEig7r4z8hDirrcGnY7QGp0x-H3DZbiSXQh2wMHxeydOkYcYOIARD07F7-bhic3uHlUpkgxQ==@protonmail.internalid>
- <CAFEp6-0H=9=KM8eiJ690GEgpCqPKe3034gGLJbz4RrVxHP28bg@mail.gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <CAFEp6-0H=9=KM8eiJ690GEgpCqPKe3034gGLJbz4RrVxHP28bg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <dlemoal@kernel.org>, <cassel@kernel.org>, <linux-ide@vger.kernel.org>
+Cc: <linux-kernel@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIXSBhdGE6IGxpYmF0YS1zY3NpOiBzZXQgdGhlIGZpZWxkIHBvaW50ZXIgd2hlbiByZWplY3RpbmcgQ0RM?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl2.zte.com.cn 69TB3Cwl071868
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.133 unknown Thu, 29 Oct 2026 19:03:19 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE327F7.000/4jFhD76rkpz8Xrrb
 
-On 29/10/2026 10:10, Loic Poulain wrote:
->> +
->> +void camss_cpu_latency_get(struct camss *camss)
->> +{
->> +       mutex_lock(&camss->cpu_latency_lock);
->> +
->> +       if (camss->cpu_latency_users++ == 0)
->> +               cpu_latency_qos_add_request(&camss->cpu_latency,
->> +                                           CAMSS_CPU_LATENCY_US);
->> +
->> +       mutex_unlock(&camss->cpu_latency_lock);
-> I agree that we need such a latency request mechanism, but the current
-> approach requires additional logic and locking.
-> 
-> What about one of the following alternatives instead?
-> - Move the latency request handling to the suspend/resume paths. The
-> request lifecycle would then be naturally serialized and balanced, and
-> in practice there are very few cases where the device is resumed but
-> not actively streaming.
-> - Alternatively, add a dedicated latency request instance to each VFE
-> and let each VFE manage its own request during start/stop. That would
-> keep the ownership local to the VFE and avoid the need for extra
-> locking altogether.
-> 
-> Regards,
-> Loic
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-yeah both of those would work.
+ata_mselect_control_ata_feature() rejects enabling CDL while NCQ
+priority is enabled, but unlike its other error branches it returns
+without setting *fp.
 
-I'll have a think about that, thx
+ata_scsi_mode_select_xlat() initializes fp to 0xffff and, when the
+handler fails, adds the mode select header and block descriptor lengths
+to it.  The resulting sense data then reports a field pointer far
+outside of the submitted parameter list instead of the byte that has to
+be changed.
 
+Set *fp to the beginning of the mode page data, as the other branches of
+this function do.
+
+Fixes: df60f9c64576 ("scsi: ata: libata: Add ATA feature control sub-page translation")
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-bod
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index 5cde90fe594e..c07c1ff09757 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -4494,6 +4494,7 @@ static int ata_mselect_control_ata_feature(struct ata_queued_cmd *qc,
+ 		if (dev->flags & ATA_DFLAG_NCQ_PRIO_ENABLED) {
+ 			ata_dev_err(dev,
+ 				"NCQ priority must be disabled to enable CDL\n");
++			*fp = 0;
+ 			return -EINVAL;
+ 		}
+ 		ata_dev_dbg(dev, "Enabling CDL\n");
