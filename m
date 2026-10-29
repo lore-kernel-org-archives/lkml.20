@@ -1,177 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793258326;
-	b=QiJWgGhhItD5HVhQlNy8uqG1ed2aq+mf8JtwRcuwim88U7A7cxgzUdgbodwvcVWbGnjQ
-	 EVi2rOAqBuDz3lb578rfWobUdCixH2yV+DDFnLrovrGja6csLEFvaOiWKvrLW6Uaq/jGV
-	 FUXY/py/ZEMz1t9AYZ0inOjnQ1M31xjEBbX7gOsjAKnu6Vi2VnXozjDMRpnfsbrxJX27o
-	 Nx+fkvJy+pJKzgN177g1KYLrSbtXnmTbQpYjJ6Kn+sgis/62X4qX/AXgNx56b6duZZ3KE
-	 ry+d95/sA42Ep8wG8EmEC9p9+cgxMl2mGN1nu9uxaxrwixcoTJnIwn/mvXBaXahx2fg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258326;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=C34Kp2u5piqyuwxlMEDRHe9pHmEIIHjPT6KZj4nQdJA=;
-	b=jzokSytoivg0dl6zeZlVmR/B7KfhotAx0jiO7bwieLnHSRTL+Y0YOqXah5kOZz5Psdpc
-	 IP4kTBceAYE5O9Q+muFX0cIEd8AtnzDIvayrCLyNOXglYPT6fqPNhTVJ0+rxXw6+mCGsG
-	 qwOEdpPVAzDoiO0YBbD5/dKrSPsnHSP30MERZ8S5JSgg07eqGRkx1+xQmWw86egFbF0Jh
-	 wKpcs+2n5EoXIJd4dojY4mSeDxLahBMmKLRxb24eMvYiDz7fJdLK32DSZLLVkO2hc8/Fv
-	 PZJ6YzpJoFwfGxCXl94I5jtabpKsAcqtYh+fjVUmAXnw9/E8TE4b5Y/aysRNj77FAlg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qy6K+XCv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793258332;
+	b=OhGmSC+Mkcc2gT/h3dQtX6HJnGr+3Ng4cHbJwYdu/9kuzWDdrh5HbSpkx0CgTKvJ2ppc
+	 /4kZ4KVXUhOuWNIq74TZ9le86+SXY+7jl37/yJQOqNZ7wtpUDYbFnBOjzHeZV9MHO306b
+	 jRHLUB7z/P4vvJYfwvNdjAo9P7cbJqI4OHfw1gkfihUzG+Ta549U9OfIcZ0j3h2UfHdaU
+	 28BC4luexpGGdC1TmB+NZ8NJxjTZOEpZ2jlyFIIxczrXG49p2KolG0lODBpA7PzKt4ySz
+	 WKbnmlGcnJN0aLiZKe6xpX6VAyN8UsitiiBKn557CAbnjot49bIeWVPY+985a4EWbkg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258332;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=atNvn1z8TQdD8u9nTViz2qRbbhoeiOPAre3zqXpvFyQ=;
+	b=HT7icTH6il4p4wpbu+ovwKy8T9WJA067XVlLC7CXG8uoJpTDgzYS+2JvnL/L4bxr/wsg
+	 WWtDDIkP5fSpi/e4X6kZoOdt4UuKlYHHB+gC7zHA98GgE8XiCCLPBp0YDE5wQ0uB2c6xq
+	 YxbxSOqZVk0189s//i29OkC1Bk7A69VbqWmQqCN0ioXswbYiNFRtBk9b8TU5pbbSeL2H5
+	 dQ920726QLltPGkoWALPcSa1M1dTVoF8K2s3gXy353d3COgaGkC+FvmK/CcWHV++QMnwb
+	 jYXCpe4iHS4WirmNEou1/cvHFs/EF1fJyA5ASikd0hoUiD9THQsnsYOdZ6ocGjqvAAQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FaChNVkG;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACA1606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:18:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AACA1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1983606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:18:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1983606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Qy6K+XCv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793258325; x=1824794325;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=C34Kp2u5piqyuwxlMEDRHe9pHmEIIHjPT6KZj4nQdJA=;
-  b=Qy6K+XCvgkc+pK321X1gWcXvgTwS7f/GRJhlaik1vRQ+6VUQj92TCgCq
-   +O/xcpWba3M5KdqdXv3biHf9b1+mdqa/vnsnmct52emCblfyX7oDEmsGC
-   9lMptBHVwFtwJDNO51JP9U67fuc+u+bquhDD3nUxyEK5fzsb1hOjxISGy
-   qvYjsGXO2HHE4ORZi60EyFRqEEzlORGScEDDXwJUMonddI8039mHHdwqz
-   X8VJMO1TYyTC+i8sY6YIGCxSUvq/X+9d8KsvOEVbNsZ29RvkXlWVonEHX
-   OptWkap/XhWiGogTDvZnam0EZk1SWn0g0ub34bQe5bpQiyGl7HtiX5K5N
-   w==;
-X-CSE-ConnectionGUID: oAB0t48tTJSo9gJYv8FwDA==
-X-CSE-MsgGUID: PYowtfEdRqKLDEFpZpb5WQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2021217"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="2021217"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 00:18:43 -0700
-X-CSE-ConnectionGUID: 3mNQ2j/TQT+ZQj7nTI0/tg==
-X-CSE-MsgGUID: 6knccoMrSveQfrqMw5CXNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5451962"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 00:18:42 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 29 Oct 2026 00:18:41 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 29 Oct 2026 00:18:41 -0700
-Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.43) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 29 Oct 2026 00:18:41 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nUvYoEL3HzjXA46A8PYKwJ44LK7/1gx4Y0v/oUm/JpbhhlYAwFkTXk2fUdCpTeZKy8XAL1lWrj46DIA7jp0GdVCyFaAl6uGpMjiJPJU7WBrutrpXDVzO206YI0VRO8bqP09WrXolLvLdFX8UrzlNDCH2gWinzaTA8cdbTVOPnPEjFJMwLVop9UbCjfT8OeW8D6n9LTZWPQ7yNyztJiARlozNLuPlmWNYgYV4O7Ar++/Iv8f10fXbOHIrNcEiRVJnxTAlqJJGlkZx2pLO0D7BSR96KEuUunIqKvFnrqlhCv0nulsCzBEpQ5zafUaUSf2nGu3evAO1+OBVXJZvIjxwzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C34Kp2u5piqyuwxlMEDRHe9pHmEIIHjPT6KZj4nQdJA=;
- b=Vg5xfuofZL0TQcGBss3U0aN8zeOAQzz0eWT501tuR1RCT7jMqY9ATAInm3MHXXLI1KbVxkmjwDCjjZ7aXdXyYU6B7QSfL71NtolnhDwjZFF9sUBDgdpos8eEkwIN5IJ3Wp4mbGVZayEGkQEhePqY4jk7gVuLwJnTqw8WkRl484JhPYSHcyroBVTJ7mf8oENQ7KJMJXQ/DGwVo1EVEQJJBq+rNiL/eaGZbTzl1iDQUfrbPLqdZ9aXXV7TMuUyZwelVw5EkG8fYL0tVZm+60x2vNzEzoxrqn2g30PNK7hiiay4eWxPtpH80MWon52bjlIBXpkyFl7iuG8PHa0sFgayHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from CO1PR11MB4835.namprd11.prod.outlook.com (2603:10b6:303:9e::22)
- by CO1PR11MB5203.namprd11.prod.outlook.com (2603:10b6:303:98::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 07:18:34 +0000
-Received: from CO1PR11MB4835.namprd11.prod.outlook.com
- ([fe80::d051:d948:c209:9225]) by CO1PR11MB4835.namprd11.prod.outlook.com
- ([fe80::d051:d948:c209:9225%6]) with mapi id 15.21.0569.008; Thu, 29 Oct 2026
- 07:18:31 +0000
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Nicolin Chen <nicolinc@nvidia.com>, "joro@8bytes.org" <joro@8bytes.org>,
-	Lu Baolu <baolu.lu@linux.intel.com>, Jason Gunthorpe <jgg@nvidia.com>
-CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Jean-Philippe Brucker <jpb@kernel.org>, "Liu, Yi L" <yi.l.liu@intel.com>,
-	"iommu@lists.linux.dev" <iommu@lists.linux.dev>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v1 1/4] iommu: Unpublish the attach handle before the
- group detach callback
-Thread-Topic: [PATCH v1 1/4] iommu: Unpublish the attach handle before the
- group detach callback
-Thread-Index: AQHdUFzgAWlNmRkmSEyc0A/qizEGdLcUSn2w
-Date: Thu, 29 Oct 2026 07:18:31 +0000
-Message-ID: <CO1PR11MB483537421C45068D163811AD8C6E2@CO1PR11MB4835.namprd11.prod.outlook.com>
-References: <cover.1790718296.git.nicolinc@nvidia.com>
- <03392b21011e9285b342488f0df233b92acc3405.1790718296.git.nicolinc@nvidia.com>
-In-Reply-To: <03392b21011e9285b342488f0df233b92acc3405.1790718296.git.nicolinc@nvidia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CO1PR11MB4835:EE_|CO1PR11MB5203:EE_
-x-ms-office365-filtering-correlation-id: fb8f426e-c5f9-441b-b977-08df358cd60f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|38070700021|261028144727099003|56012099006|4143699003|11063799006|261022105027099003|261026121527099003|261021135927099003|261021123027099003|261026140227099003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: s4JEYvwlulNrtxq7uaKcJSb0R/rFqT5yB1v9tpF8fzwyvKk2N1npUCR250RKjePKAbgzIJSRHOXU64obr/cZ5W6WaNLQ3AZBZoSEV1CwVby65AHZVwI/aopOgYRXlfw7vf0zjDkG08TDeCcaXK1LzxpD2q5PFjFB4PO/B70errZGwLdaZkE0fOJDrWBoJFwQ1LZJxMqgQ2ZRTkert5E91fn+FdWtFlGb6AYp2Hq8NN29Ugdr+P2kr/kk9Q8Ygsd38p/smKYMfZomeduTpY/o3QxYX7HVhFwQuQW+zRP2QBDakIHdjjnnJvfdHXN/uZnsKh+0jA1f/FkOST5TwLG8hwYZepvNOf2LHTG5jzyIzzWCgVr3FK9RGEvKWZHMzpTtxpk9BSBm+4XX4c+1nX6pma9DfUhauM+V6Ys5XFS0AgFHPT/CCkxS+8CiJ22mo0WXTDQ5XEIAD37G1bVuOwAb9KufLNcV7KhLfMh/7kF/L+jzk6WtYDv413AX2LxMtd9dsE3yLW+ExNXC3/a7s8Vt8gK94F+dLpMPFYqzkKGPJWXjqTSejqA5JJiiukixzZIin3p8Uq1x84b2y8xh9up2w0ukFRR4kikD0CfxKdlIjDl0Rt6ZCfBH88sShYYsd4ERFoe008967vKj8rzYBBpjThJxb0H+L6WFms6h0VPAP6/vnqX85P5HGQ3RAsSiWZIr6jR/NyTVQFckrhiZAbbh8k+XKpJLhvhQPrHIdfZkkfI=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR11MB4835.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(38070700021)(261028144727099003)(56012099006)(4143699003)(11063799006)(261022105027099003)(261026121527099003)(261021135927099003)(261021123027099003)(261026140227099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?RhkVi0V31zquEOltYCx7BtPc5sXHuA9SSdKCHQ1q/Dbk1RqssmxtE8Xv7Kgj?=
- =?us-ascii?Q?J7Q3bECsJzPigmBSGTjQeb/4y5dj7prp/KizO0VeYCJNGWLTmhpwm71THzwd?=
- =?us-ascii?Q?uvyfy88GkpxR7260s2xxr+OeHWdSmgHOlkrazsGSg4jxL1JCKqfdxZbBEe5c?=
- =?us-ascii?Q?r5eTMZohnLRr0rtYPMylH/Fy/t6h5dBcelR7p+yiOyETnv99i7PEnxWdC77o?=
- =?us-ascii?Q?ghLp/lqcX0nLGfQsWSyffE7q+RYfXTx/21je02WGTzTepNbDVemtCWFRQIUA?=
- =?us-ascii?Q?s8Cpfa7Ozz5yMR1Ns9kKS7nXynN0nQesFj0qj0b+gdDDQas5EYFUOYhbVDJl?=
- =?us-ascii?Q?BMIzOEvlJKieHG1IJ7cgCbtyaB2ovUo5mwD7NJO3rz00ycWZS7P6yLpwPuGj?=
- =?us-ascii?Q?84kHuHdaQSnsfsAz8PHc6P2gKiG7PRqCFRW+d2YARts3/lDqvqyJpYmR25vX?=
- =?us-ascii?Q?vZCY+NszyJMZtP968tOGNd/16zAitNGEVGgNYM8xwyAwYz31Pa8HxzSln6su?=
- =?us-ascii?Q?hHtCv1xaFZf2wJ/2wB6sbKk5UUIqTr9098gI58gjnFCyY77sV5XGiGrfl+mM?=
- =?us-ascii?Q?dGZ/Ens6cmN73lKqitdGClV0OkNLXsUtxkN5p23/g/XDgZLxxvYKUL2WOOyZ?=
- =?us-ascii?Q?12sI3VdI7AIx8tcYv8h0MBACsJ4Hvx3KeqO4hgGH23y4hqCrw28soRRxTBc0?=
- =?us-ascii?Q?KoLmPbuIXqniZX8ta2kUKYfBzsrsLZTJzYeLMrmO9UwIvbbwLWeuSZs5CwEL?=
- =?us-ascii?Q?HYUNgJZMiJhZpHnmFMXD21gD00sbN3W7et34PL5WzlRTMg13fwHxFs0SBHKU?=
- =?us-ascii?Q?2OXPDX7LsCnEJEQoUbl3JOviT9LjmqDQ5Gi0zX7hnl9qGIg2e6h/xVjMftXg?=
- =?us-ascii?Q?UtLBeKaGw2M8yXVjG0sSfr1+4R+smpKwka6wWrKQplhA9hdOechtFgBwjBaS?=
- =?us-ascii?Q?3Q+bYhEOLqGg3fcI94ASYjNRX7AaLzfJGHsotjm0n2y1BitYpdVsD0DGUdrb?=
- =?us-ascii?Q?6RKXp+4kxdZZeol4Nm2KscROrBf+NxYVsDefHTAZCxcLOXLHCGX7mTiRpHES?=
- =?us-ascii?Q?TE0v6D5+3q33I+EaH6trhm2+njhG+6AH8Zn5FORLDpw+sN0cjYZBuCzuGB6o?=
- =?us-ascii?Q?1bJjpR/9miFq7KrHauAvybRiiFpoa8uakrSg1Zz0IGRyjmAQPixwFDr+nrbi?=
- =?us-ascii?Q?z52+WaEUG8hBnnwlA/EJh4Rlh6LlvAggFy7IGyVsiwTtaKO1pL+uRN3QlKm9?=
- =?us-ascii?Q?YMFsr/lGvtuOD7WwvsPOvLNbRL6oo/l483Mv65O5hgX837Uv26nBkHmrvLZf?=
- =?us-ascii?Q?u7oMGuj1NfIMgGiWp1r7723Ab4HPJV/Ijpeq7ERW03ZZK/yGmvF/B7TlHE+A?=
- =?us-ascii?Q?5QDBVrsdEkDN9Ux+P+sirqv6pBR/hZYmgiHdsUc5H71zkVNcecKp8fUa9F4G?=
- =?us-ascii?Q?G+2Uil5kNfx8elFiPIhjChaMxjZr7JHceOEd+5I++x86/+7KLuVujGIl51IN?=
- =?us-ascii?Q?3Bb+C+iHRZBeB55pgZ598J4T5zj45uwPAtebtT1le7EVU9eFMWvEjCXncUCR?=
- =?us-ascii?Q?Iya7TXQhAMGiMdfHsvYrk3/lzI9HRw1HRJCrgpSW18ZNupefWHebH/yJCzNd?=
- =?us-ascii?Q?0XysmwP1+HxQxJExKyF/FtqYWUqriKKfNlfZ9lYin2Bh1IDMKHEQv7QK093u?=
- =?us-ascii?Q?u189V3thY6ovKWS0YtxO2gIu0tuNhgQQzLPYdvrhYlwTPPTN6AjDmqWdnpU4?=
- =?us-ascii?Q?Y53ZhqNk8Q=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FaChNVkG
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a058315c79so924483b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:18:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793258330; x=1793863130; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=atNvn1z8TQdD8u9nTViz2qRbbhoeiOPAre3zqXpvFyQ=;
+        b=FaChNVkGQQu4rXm9yywdb9Fc+Zb5Yz7GzCYNh4BmltNwSNsqpUJhLYvExzdE15Dv2e
+         TWb07Ul7oYxx1epEbcpwDodxRlpg9w+1lIUQgT2U5XZb+jI9n/g/eVt+E2EyK/ryZBpM
+         ZDlH9cOqlubI0yLa/FFcMBwIMSCJto/PDvC40DpjkZPXd3l9x6R9k327gf9a4YYPfoX3
+         iGE5+iApxYzVfM5cA7eHTNMKZDZO9v/39XBP8SiGGFC5RAcLQvr58asD1h11nrUsm9gz
+         Jv20iOY7tnj/fNBFkzzMiiNsXHX5ukogQr5gpOYWT87iNvrhDzs14/9Vz/6lrwY4mG3Q
+         M4Zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793258330; x=1793863130;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=atNvn1z8TQdD8u9nTViz2qRbbhoeiOPAre3zqXpvFyQ=;
+        b=cAQhqde0H+5m7e4AiZHqWojvfIpeUZMPzxY+bSabO1UihElhphGZBAIPppyN6/sh35
+         CYcAlHEAEIR99t7EBkEIm1v15YX+iLkpQGtiiQ8DvxhxOiGAoi0Lc2/nUd34e50W3Yrs
+         p0Qrd/jrXrsAtMalkp0QNi3nm6GvbOS/J7oL5PbcSOtKi0P6DVbJVjWH2t9FQHVm2KJa
+         8N9108G2HTh3U1InaTC+gheJSgAjIH+quzwRmuVmUEydvsBoKWtpt2cz7+EutHGZVB5e
+         0WGsSuulYqdtHSyAUgG1MPomptd5p+a7JUZvCRjz7iM7xIjsE3lVCkgUji4tJENgRWeb
+         r/Kg==
+X-Forwarded-Encrypted: i=1; AKwUvBxI5tvRCpZvYS+YADn63JBaFdGT9oHtkYliD9+jFHWGWJyEuQ8n/bXlgTVGxtPZFxTUfTvZoNybUuWjO7o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKF3MPKEhaDDXoeeOeqWpQAEoszPJcHxpBFvEpizBnf7EKo3H0N
+	L3Y9CNmh2pjlIIZoL3VBtJKWI0SPytzQ64Ji/nVpZErXCQF282A5F76w
+X-Gm-Gg: AYBFou0WHDL/CGAxAndXubE78K051ShRJ/0gPezrdCxP+rfUfMhnsN3L0j78eO7+kM5
+	xhn4Cr9Ci1ActUDCgNYd7szqMM6glbiuuMyz3bEtN7QpQ2q8K7BgETVsTFxGlOuRVT1X/9S5IE6
+	vOuQXI4i0XKMI8Gr1dAzUBqTFMStp/8drHw1w+87QW8mfZLV2KihZP5bvxVY+CN/35CFNY5Digp
+	I9kV9v8NXXxibttZ/7Ug3wyCNlHnuA0C4V7zwo9zCQ5aUH1kNe98T8mytBiEsBOrXuTp19syHfo
+	svt5F7jpUcI/dxIyOfT9frW+3wv325bsLTkdmjDauNymMR1kn4K89/na+FYqwtPU3uYWHwACHKk
+	0iVdnP2NOr10Ek7Dppm0eI/TOhaNaS0szk6Gf4Hj7R0zkifGImeHwMbsjpEH9islr46ET47JkVa
+	RwBdvVlNrLDFuKQ2H1cgeGKP6dPP8DAwWeHuEahxjX5HAsnc9tHKcnlG4IW5IBA7jBwcfINA+nT
+	+08X4My7Dw8KBEDFkoydob20cKx29o9W2AglvW78Fcwi4m7sm4ATQ4bL1Lr/f5gNq5W8Nxefabm
+	uExNa8Fqi2uflzqs2PZzkvzGTjeor9txuhpdM+8WgoEUuK2gMnRjP4LsJFS+ZrP/aLxwgc+QNA=
+	=
+X-Received: by 2002:a05:6a21:4ea2:b0:3e2:1850:ec5e with SMTP id adf61e73a8af0-3e9020cc95bmr3964418637.1.1793258330173;
+        Thu, 29 Oct 2026 00:18:50 -0700 (PDT)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([129.41.58.4])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdac68402a1sm4067654a12.1.2026.10.29.00.18.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 00:18:49 -0700 (PDT)
+Date: Thu, 29 Oct 2026 12:48:42 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>
+Cc: Renzo Davoli <renzo@cs.unibo.it>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, 
+	Ritesh Harjani <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
+	Thomas Gleixner <tglx@kernel.org>, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
+	Oleg Nesterov <oleg@redhat.com>, "Dmitry V . Levin" <ldv@strace.io>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Andrew Morton <akpm@linux-foundation.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] powerpc/syscall: Return the preset value of
+ skipped syscalls
+Message-ID: <auLyYd9-6WwwzPgz@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <20261023180735.853655-1-renzo@cs.unibo.it>
+ <auB6vjNg3w5LPVwb@kunlun.suse.cz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -181,44 +106,238 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: gLU7NBTTJas23jb7d0ipaX2ZelYGFHMwywIQ/5Tpso4RpIKBk5lafnpMmmJAW7hYrPnvl2ZlhhYBCbPbtRae3S88zm6oJHiMmmKpz3nUJFlsK1AHGoJWRHj5eTosG+QEp4ajiDFNw2QqI/dKEpllvaF/eXwMRvY/HbnaXk4dIvWgxm9vlv20O6QPirV5pp56yqhAwcIeNZFsRSsoMBzuPRi8wh4/FpnMEzXEKV+z4txTbgxMFkpqMq5JDg1B0IuT3GY3O5oYNdjUL3o491L9B37SIQgs/SVaVhI9F1m1whSbrNLl1eE2aSN1UhGfIzPHDXxr+N0xGTxA6cABkVSZsw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB4835.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb8f426e-c5f9-441b-b977-08df358cd60f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Oct 2026 07:18:31.2456
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /xsAATgQfcImcnNf8dqZ+XNCc66vxGEIxMChpn0r5XxakGujsuA9tAhYddxCRDbFIp734URtAb8umISe8Umzcw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR11MB5203
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <auB6vjNg3w5LPVwb@kunlun.suse.cz>
 
-> From: Nicolin Chen <nicolinc@nvidia.com>
-> Sent: Wednesday, September 30, 2026 5:52 AM
->=20
-> The group->pasid_array entry is erased only after the detach callback has
-> returned, so the outgoing attach handle stays published for the whole of
-> that call. iommu_attach_handle_get() reads it under the xa_lock alone, no=
-t
-> under the group mutex, so a fault raised in the meantime still finds that
-> handle and the domain being detached, both of which the caller frees the
-> moment that detach returns.
->=20
-> Commit 5e9f822c9c68 ("iommu: Swap the order of setting group->pasid_array
-> and calling attach op of iommu drivers") has fixed the attach path, while
-> the detach path never got the symmetric change.
->=20
-> Erase the entry ahead of the callback instead. A missing entry reads back
-> as NULL from xa_load(), so that iommu_attach_handle_get() returns -ENOENT
-> and the fault gets rejected rather than delivered against a domain that i=
-s
-> on its way out.
->=20
-> Fixes: 8519e689834a ("iommu: Extend domain attach group with handle
-> support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+On Tue, Oct 27, 2026 at 11:19:42AM +0100, Michal Suchánek wrote:
+> Hello,
+> 
+> On Fri, Oct 23, 2026 at 08:07:32PM +0200, Renzo Davoli wrote:
+> > When ptrace or seccomp skip a system call, the return value they set in
+> > regs->gpr[3] gets lost or the tracer is affected, since two recent
+> > changes:
+> > 
+> > 1. Commit 05c033db7e9a ("entry, treewide: Make
+> >    syscall_enter_from_user_mode[_work]() indicate syscall execution")
+> >    made system_call_exception() return syscall_get_error() for a skipped
+> >    system call.  syscall_get_error() is 0 for any non-error value, so a
+> >    success value set by a tracer at a PTRACE_EVENT_SECCOMP stop (e.g.
+> >    with PTRACE_POKEUSER), or by a SECCOMP_RET_USER_NOTIF listener, is
+> >    replaced with 0.
+> > 
+> > 2. Commit 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for
+> >    seccomp and ptrace") made syscall_set_return_value() set
+> >    TIF_SYSCALL_RET with set_thread_flag(), i.e. on current rather than on
+> >    the task passed in.  When the caller is a tracer, as in
+> >    PTRACE_SET_SYSCALL_INFO with op == PTRACE_SYSCALL_INFO_EXIT, the flag
+> >    ends up on the tracer, and the next system call of the tracer is
+> >    silently not executed.  Setting it on the right task would not be
+> >    enough either: at a syscall-exit stop the flag would then skip the
+> >    next system call of the tracee.
+> > 
+> > TIF_SYSCALL_RET is not needed anymore: after the change described in 1.
+> > the generic entry code tells whether ptrace or seccomp skipped the
+> > system call, and every in-kernel caller of syscall_set_return_value() on
+> > the syscall entry path (SECCOMP_RET_ERRNO, SECCOMP_RET_TRACE without a
+> > tracer, SECCOMP_RET_USER_NOTIF) also makes it return false.  A user
+> > calling syscall(-1) without tracer or seccomp still gets -ENOSYS.
+> > 
+> > Remove the flag and return regs->gpr[3] for a skipped system call, as
+> > done before the conversion to GENERIC_ENTRY.  The syscall exit path
+> > already converts a negative error value to the "sc" ABI, and
+> > syscall_set_return_value() keeps CR0.SO in sync for positive error
+> > values.
+> > 
+> > Fixes: 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for seccomp and ptrace")
+> > Fixes: 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
+> > Cc: Michal Suchánek <msuchanek@suse.de>
+> > Cc: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> > Cc: Shrikanth Hegde <sshegde@linux.ibm.com>
+> > Cc: Thomas Gleixner <tglx@kernel.org>
+> > Cc: stable@vger.kernel.org # v7.3
+> > Assisted-by: claude-opus-5-5
+> > Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
+> > ---
+> > How this was found and tested: QEMU pseries (TCG, -cpu power9), ppc64le
+> > guest config, v7.3-rc6 (7b63ef2d55f2), with a small reproducer
+> > (ppc_skip_repro.c, available on request) which
+> > 
+> >  - sets the getpid() return value at a syscall-exit stop with
+> >    PTRACE_SET_SYSCALL_INFO, then makes a syscall in the tracer;
+> >  - skips getpid() at a PTRACE_EVENT_SECCOMP stop with PTRACE_POKEUSER
+> >    (r0 = -1, r3/CR0.SO = return value), with both "sc" and "scv 0".
+> > 
+> >                                              v7.3-rc6      with this patch
+> >   tracer syscall after SET_SYSCALL_INFO      returns 0     correct
+> >   skipped syscall, success value, sc/scv     returns 0     correct
+> >   skipped syscall, error value, sc/scv       correct       correct
+> >   selftests/ptrace set_syscall_info test    FAIL          pass
+> >   selftests/seccomp/seccomp_bpf              11 failures   all pass (*)
+> > 
+> >   failing in v7.3-rc6: user_notification_{basic,child_pid_ns,
+> >   sibling_pid_ns,fault_recv,addfd,addfd_rlimit,sync,fifo,wait_killable},
+> >   TRACE_syscall.seccomp.syscall_faked, plus the timing-only one below.
+> > 
+> > (*) user_notification_wait_killable_after_reply (100000 notifications
+> >     with a 1 ms itimer) can hit the 30 s harness timeout under emulation,
+> >     with and without this patch.
+> > 
+> > Build-tested with W=1: ppc64le guest config, ppc64_defconfig (BE),
+> > pmac32_defconfig.
+> > 
+> > Changes in v2:
+> > - Rebased on current mainline (734bef548a96), which now contains
+> >   commit 66236558dfac ("powerpc/syscall: Avoid atomic
+> >   test_and_clear_thread_flag on fast path").  That commit folded the
+> >   TIF_SYSCALL_RET check into the skip condition, so the v1 hunk in
+> >   system_call_exception() no longer applied.  The resulting code is the
+> >   same as with v1.
+> > - Link to v1:
+> >   https://lore.kernel.org/lkml/20261018151539.440213-1-renzo@cs.unibo.it
+> > 
+> >  arch/powerpc/include/asm/syscall.h     |  6 ------
+> >  arch/powerpc/include/asm/thread_info.h |  1 -
+> >  arch/powerpc/kernel/syscall.c          | 13 ++++++++-----
+> >  3 files changed, 8 insertions(+), 12 deletions(-)
+> > 
+> > diff --git a/arch/powerpc/include/asm/syscall.h b/arch/powerpc/include/asm/syscall.h
+> > index 32be22b995cc..4b3c52ed6e9d 100644
+> > --- a/arch/powerpc/include/asm/syscall.h
+> > +++ b/arch/powerpc/include/asm/syscall.h
+> > @@ -98,12 +98,6 @@ static inline void syscall_set_return_value(struct task_struct *task,
+> >  			regs->gpr[3] = val;
+> >  		}
+> >  	}
+> > -	/*
+> > -	 * Mark that a return value has been explicitly set by seccomp or
+> > -	 * ptrace so that system_call_exception() can skip the syscall
+> > -	 * unconditionally, even when the user requested syscall(-1).
+> > -	 */
+> > -	set_thread_flag(TIF_SYSCALL_RET);
+> >  }
+> >  
+> >  static inline void syscall_get_arguments(struct task_struct *task,
+> > diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
+> > index 1e069a2e7ce8..0487e94d3416 100644
+> > --- a/arch/powerpc/include/asm/thread_info.h
+> > +++ b/arch/powerpc/include/asm/thread_info.h
+> > @@ -120,7 +120,6 @@ void arch_setup_new_exec(void);
+> >  #endif
+> >  #define TIF_POLLING_NRFLAG	19	/* true if poll_idle() is polling TIF_NEED_RESCHED */
+> >  #define TIF_32BIT		20	/* 32 bit binary */
+> > -#define TIF_SYSCALL_RET		21	/* syscall error value set */
+> >  
+> >  /* as above, but as bit values */
+> >  #define _TIF_SYSCALL_TRACE	(1<<TIF_SYSCALL_TRACE)
+> > diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
+> > index 8529827d697f..52ceff4ef41b 100644
+> > --- a/arch/powerpc/kernel/syscall.c
+> > +++ b/arch/powerpc/kernel/syscall.c
+> > @@ -18,11 +18,14 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
+> >  	long ret;
+> >  	syscall_fn f;
+> >  
+> > -	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0) ||
+> > -			test_thread_flag(TIF_SYSCALL_RET))) {
+> > -		clear_thread_flag(TIF_SYSCALL_RET);
+> > -		return syscall_get_error(current, regs);
+> > -	}
+> > +	/*
+> > +	 * If ptrace or seccomp decided to skip the syscall, regs->gpr[3] holds
+> > +	 * the return value they set (or the unmodified first argument, e.g.
+> > +	 * for PTRACE_SYSEMU). Return it as is, the exit path takes care of
+> > +	 * the error encoding for the "sc" ABI.
+> > +	 */
+> > +	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0)))
+> > +		return regs->gpr[3];
+> >  
+> >  	if (unlikely(r0 >= NR_syscalls)) {
+> >  		if (unlikely(trap_is_unsupported_scv(regs))) {
+> 
+> This does two things that should be addressed separately:
+> 
+>  - eliminating the TIF_SYSCALL_RET flag
+> 
+> The previous refactor aimed at removing this flag. If the kernel still
+> builds when it's removed removing the flag and the branch that tests it
+> is merely dead code eliminaation unless there is something creative
+> going on somewhere.
+> 
+>  - replacing syscall_get_error() with regs->gpr[3]
+> 
+> This is a very dubious change. If this does fix something this is likely
+> papering over some place that sets the return value incorrectly.
+> Instead of this change the place where the incorrect setting of the
+> return value happens should be fixed.
+> 
+> Thanks
+> 
+> Michal
 
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+I agree with Michal here.
+
+what do you think about this diff
+
+diff --git a/arch/powerpc/include/asm/syscall.h b/arch/powerpc/include/asm/syscall.h
+index 32be22b995cc..4b3c52ed6e9d 100644
+--- a/arch/powerpc/include/asm/syscall.h
++++ b/arch/powerpc/include/asm/syscall.h
+@@ -98,12 +98,6 @@ static inline void syscall_set_return_value(struct task_struct *task,
+ 			regs->gpr[3] = val;
+ 		}
+ 	}
+-	/*
+-	 * Mark that a return value has been explicitly set by seccomp or
+-	 * ptrace so that system_call_exception() can skip the syscall
+-	 * unconditionally, even when the user requested syscall(-1).
+-	 */
+-	set_thread_flag(TIF_SYSCALL_RET);
+ }
+ 
+ static inline void syscall_get_arguments(struct task_struct *task,
+diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
+index 4df3f4b5bd56..f4f35314a901 100644
+--- a/arch/powerpc/include/asm/thread_info.h
++++ b/arch/powerpc/include/asm/thread_info.h
+@@ -110,7 +110,6 @@ void arch_setup_new_exec(void);
+ #endif
+ #define TIF_POLLING_NRFLAG	22	/* true if poll_idle() is polling TIF_NEED_RESCHED */
+ #define TIF_32BIT		23	/* 32 bit binary */
+-#define TIF_SYSCALL_RET		24	/* syscall error value set */
+ 
+ /* as above, but as bit values */
+ #define _TIF_POLLING_NRFLAG	(1<<TIF_POLLING_NRFLAG)
+diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
+index fbefe1927b10..ec81046e9eb5 100644
+--- a/arch/powerpc/kernel/syscall.c
++++ b/arch/powerpc/kernel/syscall.c
+@@ -19,13 +19,17 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
+ 	syscall_fn f;
+ 
+ 	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0))) {
+-		clear_thread_flag(TIF_SYSCALL_RET);
+-		return syscall_get_error(current, regs);
++		/*
++		 * The syscall was skipped by seccomp or ptrace, which have
++		 * already stored the result in the user ABI form via
++		 * syscall_set_return_value(). Hand it back in the form
++		 * syscall_exit_prepare() expects: -errno on failure, else the
++		 * value in r3. Using syscall_get_error() alone would drop a
++		 * successful value, e.g. from SECCOMP_USER_NOTIF.
++		 */
++		return syscall_get_error(current, regs) ?: regs->gpr[3];
+ 	}
+ 
+-	if (unlikely(test_and_clear_thread_flag(TIF_SYSCALL_RET)))
+-		return syscall_get_error(current, regs);
+-
+ 	if (unlikely(r0 >= NR_syscalls)) {
+ 		if (unlikely(trap_is_unsupported_scv(regs))) {
+ 			/* Unsupported scv vector */
+
+
+
+Regards,
+Mukesh
