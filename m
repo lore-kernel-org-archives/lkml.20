@@ -1,48 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793307061;
-	b=KX7zqEsMBhwOZE37F/LKHuvkevYgq2mo77sHQO/kOBK6q+M33sqf8wKuuihFVyCVmSiU
-	 5SMwI0Xp8I0dKY5SgbaAw9gY5KSZQaGfTw5YtnvDycpmlQ4TpwtGeJhMRbyKU+dSnNQnO
-	 5yMY84Xvmuy7ysGdGxSZ7vvVMzRWV6JbxKnowMlrOw/j4+EU5lLixCK2wlOESp0zDEch+
-	 +wEw6rhU8C5IfHYXAxDMTEmMZ19BUY97uDqRJqK3Tn0jhg9y1UsRQXO+z6XH4M3xFSftx
-	 NmCvFDgqqtEtDxUFUPok+KNuEJWlvrONG9ckpohWiYIrJeAUT4hmW4KUI7nTiPlsHJw==
+	t=1793307079;
+	b=yAxUi3P7OJFBCAXVIDIY0ZkMUPj4XDqLk9nF+GhnLUWrBQkcweA0uvINuu50MCFwPD5O
+	 jpaWyhggh3dWo6JUKPkudDnen14RDJ4+hEbad7yT25t5tYuOyPx0QdQbdWcocZGJoFu55
+	 q7QECyB9zKua/orhQDPBOZJMzieVAM4duqNzmxesFeN3Qu2HMrKjrUsmhU9JLVfrDbeZe
+	 IuuBzBjyxGQcByh3CtZ3OEqEn2wHTD85VsCXh638n3Nten6ufNXkeaMOZbGBTsDLh3Awc
+	 3ZS8IIwtBml1Y7dpZRmsuXMcOf1g/b9BhIlizqJDHNB4Y9Ad0bHmSsUovagPzt15npg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793307061;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=OmrddnalYvKzrQnN9N4Fpu9NVAES2TsOMe4SsI3z9gU=;
-	b=V+W5SXee/wznbgY93xY44lZulWKC4GGkLBDBOT9DPbyKuK9BsHyug5AQFuZO3WtvMJjj
-	 P6d+2oScW72YqfTNKtX4WY5STKSlZwE8RAJFEhXHykZ4iHrmcavJVw7o/5PxDAlm8dElY
-	 2y9xyqoN/YfKkMviV7KChM7UVc6RwFpQ/nM9oYSLIi/9IaiLX622d4bBDR3SAnA4a7aGE
-	 vt2awu5jyvkPMMisH0H4DWMjxXVYLaZsOSF4VuoJlB6kXtgeWhBUTSpk6oPudHkYDG6wb
-	 kuw1lvDsVVXcbckhbDcUxip/F5tKvnDHJXuPNFFG/Ek5abwdbeWL94ehx59CgxdRBDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793307079;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=M/QeBdycFBmMW/5BeoBbGqWDGKRCZXC7X2wditQIHQE=;
+	b=c1d0Jf5wMK7r5nvKCN6JUTFACke0DT24yxm0d3tOFT2d+rUqmuRAkuQjFTenSs/GZhL4
+	 Gha/2DKWPuV09pHBell/NoaFrhuJLxkjJDJNDgX43Px6TOj4lC1Wc/yUDGHA18eKI+mPE
+	 73BE00+qRU6gFkvUWn0a9p/hLhw9atCBkoHXtWIVxBB+Xqmvce4c7DlKD1To2URiQxbja
+	 ip7wLoxwhtPVa3RgyE/OArxCag6OiKJJGEDYM8EUErOJP9AoBcIZk1QHap5wpCF6P5asK
+	 eSpPVKdGLkg/WTiLrlcrf8sBcrxHHTYb2vrtVdxJ8du0SxfC/PzXEOPQ/wF97J1kdrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GauLCy/1";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALOVMv66;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 529C260A2601;
-	Thu, 29 Oct 2026 20:51:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CE3606A322;
+	Thu, 29 Oct 2026 20:51:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GauLCy/1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B00911F01825;
-	Thu, 29 Oct 2026 20:44:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ALOVMv66
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEBF31F01816;
+	Thu, 29 Oct 2026 20:51:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306675;
-	bh=OmrddnalYvKzrQnN9N4Fpu9NVAES2TsOMe4SsI3z9gU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=GauLCy/1HrYbdieZoYJGY/PpIUS1vgONUu0M4PlXJvY7eY+GegQj06Bc3k52Nn7Cw
-	 5pUOiZmQPSa/agrZVJmrfiWcTl/MEWxkZ9UQsk7lluRie9slFArS3/SevT9Xccdva3
-	 jp2ZFiK7k5Rm5+WgEwWwD32w960RLwKV1pQDqkERuQqbjtkTQtpbzWr7jdja43hl2C
-	 c8k7J5I4N2CU6YXX6Fvp4i5opY3LoX3l2OPr87naVfONU+oHtwZSXt5gIoOIzHgVXo
-	 jtFFykZR1o4q1kxv0399ek+IcViDhuU9YWAlcP+xsYEpMNrWrwGCMJzm0kwU8GDd9N
-	 c2NA3KmLJdFDw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:40 +0100
-Subject: [PATCH v2 45/47] mm/cma: don't release CMA pages still in use
+	s=k20260515; t=1793307079;
+	bh=M/QeBdycFBmMW/5BeoBbGqWDGKRCZXC7X2wditQIHQE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ALOVMv660GDEhsdxOlSAlq0oNCfopkpdQ3k/WmJpMIyPVijk3Jd9X0dAtInQlI1yi
+	 LjluZmI3Fdv29QPt9V1ar8P5gNPZEMNchqKup0F37+PtYfeF5/5mGYdX8Gkpun6cz7
+	 z8ttoaIzCFw9v7JWmxadjnQ/vWs3qqCJLXGbgB4xrKo85yEFlIawGednHbNq5gKfIq
+	 /pGQEqd4AFYLzSWHQ4C5Wt3a6YqJArVR7YGqKW1xRNPsXDeZ9D5NtVIKUpixXDV20E
+	 +IO5TsJo3i9+tJipwYMsQZZIKD4G9pktMXucs5K7JzitxSaw8HPm7N/nM1r4Df+HMB
+	 Xn2qLpOqf2Fkw==
+Date: Thu, 29 Oct 2026 20:51:17 +0000
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Nickolai Zeldovich <nickolai@csail.mit.edu>, 
+	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
+	Vitaly Wool <vitaly.wool@konsulko.se>, Vitaly Vul <vitaly.vul@partner.samsung.com>, 
+	Paulo Alcantara <pc@manguebit.org>, Namjae Jeon <linkinjeon@kernel.org>, 
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, 
+	Tom Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org, 
+	samba-technical@lists.samba.org
+Subject: Re: [PATCH v1] mempool: fix min_nr exceeding the elements array
+ after concurrent resizes
+Message-ID: <auOrt2Cfq92heZQk@thinkstation>
+References: <20261016132510.789715-1-nickolai@csail.mit.edu>
+ <atJBK6hWYh2AqXwK@thinkstation>
+ <de86277d-ed7e-4208-a3c2-6d26a8278d0c@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,120 +66,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-45-a64ce7f83abb@kernel.org>
-References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2252; i=david@kernel.org;
- h=from:subject:message-id; bh=3kpfFp5NOxLKJV7MN0qgqEyHjOOrTqFsf7HE3Qur7Ks=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer+16LPZT4EOJ2H3DwG0neWorjk3wfGRVsoy7nXl93
- YOjzLF9HaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzk7zaG/wGvIi2+nrw7edI2
- i513/4c0ZS6asqr28e2KUp2fNmp7rUMZfrPoSJ2ovysSvbya44cCH9+H3rqFRjUPV/WUWk7Yv/V
- nMCsA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <de86277d-ed7e-4208-a3c2-6d26a8278d0c@kernel.org>
 
-From: Rik van Riel <riel@surriel.com>
+I refined the commit message a bit per Vlastimil's feedback...
 
-When a driver calls dma_free_contiguous() before quiescing DMA, the
-page might still have a reference from the device.
-put_page_testzero() there returns false, WARN fires, but the code proceeds
-to free_contig_frozen_range() putting a live page onto buddy and clearing
-the bitmap. A subsequent allocation can hand the same PFN to a new
-owner while the original holder still references it.
+On Tue, Oct 20, 2026 at 10:42:53AM +0200, Vlastimil Babka (SUSE) wrote:
+> On 10/16/26 17:46, Harry Yoo wrote:
+> >> ---
+> >>
+> >>  mm/mempool.c | 4 +++-
+> >>  1 file changed, 3 insertions(+), 1 deletion(-)
+> >> 
+> >> diff --git a/mm/mempool.c b/mm/mempool.c
+> >> index cb74e718b2c6..95533e2975ce 100644
+> >> --- a/mm/mempool.c
+> >> +++ b/mm/mempool.c
+> >> @@ -378,7 +378,9 @@ int mempool_resize(struct mempool *pool, int new_min_nr)
+> >>  			pool->free(element, pool->pool_data);
+> >>  			spin_lock_irqsave(&pool->lock, flags);
+> >>  		}
+> >> -		pool->min_nr = new_min_nr;
+> >> +		/* Raced, the array may now be smaller than new_min_nr */
+> >> +		if (new_min_nr <= pool->min_nr)
+> 
+> There could be just '<' ?
+> The outer if uses <= but the == case only leads to an early goto out_unlock.
 
-A concurrent put_page() that drops the last reference between the
-testzero loop and free_contig_frozen_range() can double-queue the page
-via page->lru, corrupting buddy lists.
+However I didn't adjust this. the end result:
+> mempool: fix min_nr exceeding the elements array after concurrent resizes
+> 
+> When mempool_resize() shrinks a pool, it releases and re-acquires
+> pool->lock for every pool->free() call until the pool holds no more
+> than new_min_nr elements, and then updates pool->min_nr to new_min_nr.
+> 
+> The shrink path has stored new_min_nr unconditionally since a historical
+> commit 6892188b54d4 ("[PATCH] Re: [patch] change mempool to not alter
+> managed elements"). However, unconditionally updating pool->min_nr is
+> incorrect when a concurrent mempool_resize() has shrunk the pool size
+> below new_min_nr.
+> 
+> Re-check new_min_nr against pool->min_nr under the lock and update
+> pool->min_nr only if new_min_nr is not larger than pool->min_nr.
+> 
+> This was discovered by formal verification of mm/mempool.c against the
+> kernel binary. While reproducing it in the kernel has not been
+> successful, in a userspace implementation of mempool, ASAN was able to
+> detect a heap buffer overflow.
+> 
+> In theory, an in-tree caller can hit this: fs/smb/client resizes the
+> global cifs_req_poolp from cifs_demultiplex_thread() (grow, when a TCP
+> session is created) and from clean_demultiplex_info() (shrink, when one
+> goes away). The two are coordinated only through the atomic
+> tcpSesAllocCount, so mounts and unmounts racing on one client run the
+> resizes above concurrently; pool->free is kmem_cache_free() there and
+> the window is a preemption inside it.  The other callers
+> (block/blk-zoned.c, drivers/s390/scsi/zfcp_erp.c) serialise their
+> resizes.
 
-Avoid the corruption by not freeing a CMA region if any of the
-pages inside are still in use.
+[+Cc folks in COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)
+ as the paragraph above mentions it. ]
 
-Make it explicit in the warning that the driver allowed a leak.
+> Assisted-by: LLM
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 
-While at it, use page_ref_freeze() to make the semantics clearer and
-switch to pr_warn_ratelimited().
+Here I'm bit hesitant to add Cc: stable for a 24-years-old theoretical
+race that hasn't been reproduced in the kernel. But it would be easy
+to backport if anybody complains.
 
-Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rik van Riel <riel@surriel.com>
-Link: https://patch.msgid.link/20260811132045.5f114772@fangorn
-[ david: use page_ref_freeze() + pr_warn_ratelimited() ]
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/cma.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+> Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> Link: https://git.kernel.org/pub/scm/linux/kernel/git/tglx/history.git/commit/?id=6892188b54d484098b79b0c9813c20e543124e2d
+> Link: https://patch.msgid.link/20261016132510.789715-1-nickolai@csail.mit.edu
+> [ harry@kernel.org: refine changelog per Vlastimil's comment ]
+> Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
 
-diff --git a/mm/cma.c b/mm/cma.c
-index a10ea37a261d..871f95c9ae9f 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -1020,7 +1020,7 @@ bool cma_release(struct cma *cma, const struct page *pages,
- 		 unsigned long count)
- {
- 	struct cma_memrange *cmr;
--	unsigned long ret = 0;
-+	unsigned long leaked = 0;
- 	unsigned long i, pfn;
- 
- 	cmr = find_cma_memrange(cma, pages, count);
-@@ -1029,9 +1029,13 @@ bool cma_release(struct cma *cma, const struct page *pages,
- 
- 	pfn = page_to_pfn(pages);
- 	for (i = 0; i < count; i++, pfn++)
--		ret += !put_page_testzero(pfn_to_page(pfn));
-+		leaked += !page_ref_freeze(pfn_to_page(pfn), 1);
- 
--	WARN(ret, "%lu pages are still in use!\n", ret);
-+	if (leaked) {
-+		pr_warn_ratelimited("%lu pages are still in use, not freeing CMA region!\n",
-+				   leaked);
-+		return true;
-+	}
- 
- 	__cma_release_frozen(cma, cmr, pages, count);
- 
+This will be queued to slab/for-next-fixes soon.
+
+Thanks!
 
 -- 
-2.43.0
-
+Cheers,
+Harry / Hyeonggon
