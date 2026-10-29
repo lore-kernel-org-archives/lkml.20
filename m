@@ -1,57 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793265799;
-	b=Kkyqfi8e4SFY3bXSLl3Lpr1Kht0fmz7Yequ0RD12k4Wa7fSoInV2DbQUZlSB6YX1HFWz
-	 MtO9LGdq4WlQnckbubu7tdemtSqRB/Nd1x5cinTar9gbQABTRSZAm+6pzZRNIjCYFrzu1
-	 veOLW/6ppY1t2oEmR50evgHDwStdTX4vLO3r1+NTsKRc8Tbn3C2wSeb8y4clWgz7vEuwq
-	 kOEu5hokndjQpbu10mh+chU7fonbqlaeNfx856QM+TLB+5CqV1GtBygKpDrKLg5OmU7Qt
-	 04RI7u2znr93xvbsura7cbSqEiPOyXedRKo9BtP5iWK2Zz/tIPqplVmQmO1vBLdZFiQ==
+	t=1793265887;
+	b=ajRnZdIRM/ksI1aNlO0cg7fmBFruHGHg/wa9f19Amu0xcUTN0nI+ysbnFgCnCst/JhTC
+	 4MKP25FjzBFRqkFjpUa3y+OLTxA2+2G2KkohQRnoQW1y5NCFps+wuAZ3txgJNCVVlhtzz
+	 lu7UyUr2rj3M/MqteGbx8JnPgYuLZ5kwfcq2Ef4x/8zbwNoIXujZ9KFp4H9aZluWB63ee
+	 kL48c/txS7u/Oui58fQ8a4O7dPGJPOn1WLh0vASrAFOqaeU/I3LGE0gSTESdG2as4ynYu
+	 ytyv68AHN1zoRQ0rNlKxHc5ML0lYOgEJUvEDetIv/u4nsz9FxjwFwwtLUHRqCgqGCZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793265799;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=068RARPUhpeNt5cdqdcKQHksPIpTlxwfCKWl/O6RHkI=;
-	b=szCxsrTU3gLshW+eihJPdbTpiLWiF7IrbRw38qxZP3T9jojXRVvEmmcjpIczuRSoEFDZ
-	 IH7LnaITE+l1GHjPhM6OMgcYjLdKNCQYGCI/vo88a8eSFzyFi/vHbHjP1Z8xT8pJ1kRrG
-	 395iFgBLI2DjLhwbtnndYQb87PHpfHRI9TpDWLZPyj1IWWbOYN6JrjofZcjThIu4u4vqw
-	 NLd/hf7LpEUuI1lGs0KZCsUs/RFj8dZB/O5O41Jd32e5aZ4vOrHqBXoXwrT35Ic7jrzS5
-	 TW7Ajdh7Wz8yTAQybzlGuQPZGqGpBWHTEKzbmvTntWpAoHMGGBi155AUkMtYMj/rLwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793265887;
+	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=luEVM4Eim8Yp29bwXPo7UtdKs1nlH+Pzyq5a2hp44q0=;
+	b=fbmViP2uykCQgAG9IgmqFmRS5L0DR6PJWwEnHOgdZMOHeLIYVnKGK2zbPmjkhkKwAMp3
+	 QofeZYJHBnK0qOucCQklqxdFlBqJN38HGXhtweypwDxj7LE1lDfqe64Gw59WZJljPbGMB
+	 w8GdyG4wfOtLzc1NbEfW3DQdmcXmmDRLwTmnDCCSoor9sd25zvnzyso5byH15HCd4IVkJ
+	 WB/Y0ZZFX0aA1LQ0jZlJRL+2TPLhF9NCjJyT6EOL8qiGaZAOPKimy4nWx2MX5+6xFZggw
+	 SmSa7LE6j1coUZrmAqc9AtNUqjJk8Bul/WPVKi1+NrvCpDDFagDh9GqfFVmzLmbM95g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hl1arTt9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 842BD606A337;
-	Thu, 29 Oct 2026 09:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hl1arTt9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD8C1F01828;
-	Thu, 29 Oct 2026 09:23:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793265799;
-	bh=068RARPUhpeNt5cdqdcKQHksPIpTlxwfCKWl/O6RHkI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Hl1arTt9CLQDGptJengrqjKeO/CbPgOOLiN0GgPZ7OP4SrH7yv69hn2BZ34ibZZwj
-	 riXpYoM6I7ebc+BptLTZeaRG7HPvOiI7ypiF7RnGaJYpob/awILhwuT+sImxbOe6UF
-	 qYoRY4rkNJZwdYscvantXBkx955C6gZRNdUMyFT4mL8drqL/cIU3tKGSL8bSi79ePp
-	 5OY1HcF0rrk+nenDrPIkt8RJtvjagARti6Yb2PcMcCcuPPgzhiMgJ0L+SppbT/MfEd
-	 vdI2ObMITkJLxiG+cvBt6R549iZoEjWaqKaoKDmmVF1xhbTJhAZHJTEt7estahfIiB
-	 JrzzBODm+DPYA==
-Date: Thu, 29 Oct 2026 02:23:17 -0700
-From: Oliver Upton <oupton@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: xuheng@cs.columbia.edu, maz@kernel.org, qperret@google.com,
-	will@kernel.org, catalin.marinas@arm.com, mark.rutland@arm.com,
-	joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com,
-	yuzenghui@huawei.com, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	tabba@google.com
-Subject: Re: [PATCH] KVM: arm64: Add an ISB after mapping a hyp fixmap slot
-Message-ID: <auMQhSmxIm5JMftF@kernel.org>
-References: <20261028-fixmap-isb-v1-1-6c9f0f9cb810@cs.columbia.edu>
- <20261029085414.2279900-1-fuad.tabba@linux.dev>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F880606A31A;
+	Thu, 29 Oct 2026 09:24:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F880606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 8f413766d37a11f19a56ed5b684f684d-20261029
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_DIGIT_LEN
+	HR_FROM_NAME, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_UNTRUSTED, SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR
+	SA_EXISTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+	CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
+	GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:553eb04b-26dd-4815-ba07-98c98a4735e9,IP:10,
+	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:-15
+X-CID-INFO: VERSION:1.3.19,REQID:553eb04b-26dd-4815-ba07-98c98a4735e9,IP:10,UR
+	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-15
+X-CID-META: VersionHash:7db8b62,CLOUDID:a07bb596bbfb029ec605fef6e093316c,BulkI
+	D:26102917243992FITHXI,BulkQuantity:0,SF:17|19|38|66|78|102|127|136|850|86
+	5|898,TC:nil,Content:0|15|50|99,EDM:-3|-100,IP:-2,URL:0,File:nil,RT:nil,Bu
+	lk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:
+	0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 8f413766d37a11f19a56ed5b684f684d-20261029
+X-User: liuzhe1@kylinos.cn
+Received: from localhost.localdomain [(114.244.3.119)] by mailgw.kylinos.cn
+	(envelope-from <liuzhe1@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 2010831275; Thu, 29 Oct 2026 17:24:36 +0800
+From: Zhe Liu <liuzhe1@kylinos.cn>
+To: tj@kernel.org,
+	josef@toxicpanda.com,
+	axboe@kernel.dk
+Cc: cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhe Liu <liuzhe1@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] blk-iocost: account flush sequence latency only once
+Date: Thu, 29 Oct 2026 17:24:24 +0800
+Message-Id: <20261029092424.764545-1-liuzhe1@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,64 +85,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029085414.2279900-1-fuad.tabba@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 08:54:14AM +0000, Fuad Tabba wrote:
-> Hi Xuheng,
-> 
-> On Wed, 28 Oct 2026 23:02:10 +0000, Xuheng Li <xuheng@cs.columbia.edu> wrote:
-> [...]
-> > A litmus test of the same shape (map the slot, DSB ISHST, load through
-> > it) faulted on a Cortex-A72 in 2 out of 100M runs.  Arm's herd7 model
-> > with -variant vmsa also allows the fault, and forbids it once the ISB
-> > is added.
-> 
-> nit: it would help to have the litmus test itself in the commit message,
-> or as a commit note, so the herd7 claim can be checked. Here's the one I
-> ran (herd7 7.58, -variant vmsa): "Sometimes" as below, "Never" with an
-> ISB after the DSB, and "Never" without the ISB under -variant vmsa,ETS2.
+A flush sequence with a DATA phase can complete its original request
+twice. Both completions invoke ioc_rqos_done(), causing the request to
+contribute two latency samples and adding the same queue wait time
+twice. This gives such requests disproportionate weight compared to
+ordinary writes, distorting the device-wide latency and queue wait
+feedback used to adjust iocost's virtual time rate.
 
-Maybe I've been conditioned at this point but doing DSB; ISB to consume a
-translation after setting it up seems pretty straightforward. Especially
-since we don't care about ETS in the kernel at this point.
+Skip requests marked RQF_FLUSH_SEQ in ioc_rqos_done(). The flag is set
+when the request enters the flush machinery and is still set when the
+data phase completes; blk_flush_restore_request() clears it before the
+final completion, so accounting happens only once, after the whole
+sequence finishes. The remaining sample covers the request's lifetime
+through any postflush, and its queue wait time is accumulated only
+once.
 
-IOW, I'm not sure what additional detail the litmus test buys us.
+Fixes: 7caa47151ab2e ("blkcg: implement blk-iocost")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
+---
+ block/blk-iocost.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Anyway:
+diff --git a/block/blk-iocost.c b/block/blk-iocost.c
+index 2ae40138e041..601029221e6f 100644
+--- a/block/blk-iocost.c
++++ b/block/blk-iocost.c
+@@ -2868,6 +2868,9 @@ static void ioc_rqos_done(struct rq_qos *rqos, struct request *rq)
+ 	if (!ioc->enabled || !rq->alloc_time_ns || !rq->start_time_ns)
+ 		return;
+ 
++	if (rq->rq_flags & RQF_FLUSH_SEQ)
++		return;
++
+ 	switch (req_op(rq)) {
+ 	case REQ_OP_READ:
+ 		pidx = QOS_RLAT;
+-- 
+2.25.1
 
-Reviewed-by: Oliver Upton <oupton@kernel.org>
-
-Thanks,
-Oliver
-
-> 	AArch64 fixmap-noisb
-> 	{
-> 	 [PTE(x)]=(oa:PA(x), valid:0);
-> 	 0:X1=PTE(x); 0:X2=(oa:PA(x)); 0:X3=x;
-> 	}
-> 	 P0           ;
-> 	 STR X2,[X1]  ;
-> 	 DSB ISHST    ;
-> 	 LDR W4,[X3]  ;
-> 	exists (fault(P0,x))
-> 
-> FWIW, the result matches the ARM ARM (B2.3: without FEAT_ETS2, a DSB ST
-> doesn't order an earlier store before a later translation table walk),
-> and emit_pte_barriers() in arch/arm64/include/asm/pgtable.h has the same
-> dsb(ishst) plus isb() after making a kernel pte valid, for the same
-> reason.
-> 
-> [...]
-> 
-> Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-> 
-> Tested in protected mode on QEMU, booting a protected and a
-> non-protected guest, and on an Apple M4 (nested virtualization),
-> booting a protected guest. No regressions.
-> 
-> Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-> 
-> Cheers,
-> /fuad
