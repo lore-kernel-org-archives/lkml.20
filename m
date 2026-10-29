@@ -1,80 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793279145;
-	b=dWefedldAbNNVUcw4EaViuyxwxot8zvpdr5+sYGMLiqI+GgT/s7/TMFHH3Yp0SDU+wiL
-	 pYLEPrFB5fkkUQYnhN1UlFYEUPmb6D+Q6587L83yBFFJ58ZF36KrGGf9IClBgb6HvqNdP
-	 c6f3eA0T0bbCwXE3Bv/1OaD8WezbuGVUbUoLYFrNZGsuXY1i0T+rjTChCD6oCLyySaW0+
-	 sr4TN4aySBZTDR+uTybPlpowCCsFSzaoEpVfUDmK5n5IkzSlkxeFv0GrKqVBiFdGDwri4
-	 Hw0tIaQckY7MftPmL6WLIYgnG5pKiRTjYo35WOsJyY4Jkwls4mZx7jeY3oD+wzBLsjA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793279145;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=ydVblDX7W0cXEAEJbmWVNGpTe/4AkHnmmnq8en75pvQ=;
-	b=LdhvgC3CsTmWlT0Jwu2R7mrrtORZSJozCnX6LrWIgiEdGR4pTBy9QKYvwhbjGCXEpM3z
-	 Hpr2wxMfQQhEyP870M9dfON9Eh+BKMNUXnA04ALGsUFfDqvB2F83Q1YVrR5RAbNCktp7q
-	 s/N6H8lTv+dp1P7D/RH9gjup/pTPznXbFsLTYfwooZP5kf0qe4BTKkPVtB+9GdgGLRyy/
-	 dfLl/EGsDM7hb4zTnDW15J4mtH3CUin3zWf9g0+JfKQHgBe+hsvBNnfgP92m3UmML57rL
-	 zc/u6i607JUEPz3Y43NiqNK2u9exUN/Bq3vDtJwndYTMJBLrLdxgOCZDLyVD7oC/r3g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DW1iasmv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F1F606A31D;
-	Thu, 29 Oct 2026 13:05:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DW1iasmv
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793279144;
-	b=Z7ZxDgWr+vzqFsKwwb/FLajA01kpVL6aJwTo6ELmtTyG2qCK061aFpgtT0iWR7l+Wd35
-	 77/6+t/0mgtt4yH7V9T2AQLLhrsM1j7sHZoTyoT1kFRm7mPWcs5M11J5y40s8DP42WUT1
-	 DDPnlF58DsPuC9t1GQpbnk0nlkAWTsETTh3oEoksGvGd2wo1j8wI9obSMJ4FyRuMh41GB
-	 JBqg7HTzOV0XPKPQ2q+tQ6XbWu1KVLn9tbLY+90SPJe3yOZ56V/a85Aaudm//w5NxdoOs
-	 iBaCK6o3PiNMZdYvtorRM+6n4lxA9xkpnFqOgjqbrDQuV/2pGtH0h9/xQ95FdDp11Hg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793279144;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=ydVblDX7W0cXEAEJbmWVNGpTe/4AkHnmmnq8en75pvQ=;
-	b=d9J8LOSGinW5xSo7kMAHEKweRt8XMOq8Z1IvvT6dg5BcDS4VDWyWjv1ndfXvAsUwS+ds
-	 L+kigOhrPAxpuubhao7jVF7UMvQVtB8RHRyUXsdhN+VXyxXHIkAS4PJsOAWjPy5EZNhXp
-	 A7qoFRyO4rGpPq2dekZmjMi3YzWNQ6FM6zRpyCnM8eKD0smIfQQsim1XG8dcoCqwutuBT
-	 DvmK+ZIknD3KNoZaT+U7/PQMMIIKnVtuvSfRWzyotXf04xNOsWmhH46AThUMM5Leu3AaR
-	 SVeJ1Y4Ewo/jL7xBQRoojXn4cvfD3dKMOELyUyYIlgXkX3x4XQWIxXzb67u33ZQY+mw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793279146;
+	b=YiRRSMBVbNie5oKReamZZfXSOkBxrKuRXhTdCxvZO3MsyVVKxa2cKpulwW3clYxNpqtC
+	 h6kVJIyrCTFlaGHtoAa9MMPrMilXQeiER6Hy4NmN2qLg0pc2R7YOqYk8lGISC2v7LyMlS
+	 K0rmbT1BCGYgzVov2WJFQExw57xWKkatcaOieOzIZAWC6usLCpaHa87XT0cEZ8eFm8SE/
+	 sz3GqJsxrmVc23P785jTWDfkmSjGc020+O1TSPYMGj8iIuxLE2MaAx4eHaxadeoJ+V9Ea
+	 xfiTTqgMkkEfdvMNumIIoHROl2aOkHczEL0UwIgBf79R2cL9NUKQ0kop0dfkK02qntg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793279146;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wNUOdm/IOUvvzJJ7mh0K1e4OLnQV405xLGrAKQJel44=;
+	b=fbPwHcZNz2hDgjXGTdW4ttMhLcXE8aMCovjYJ3W2kQbb3qvXHzvH1CYurFgl4F8OUZAG
+	 SDqCxisZfzJEuLDgiArpht45mGMzIFV3ZEryHalyxzfvWvsr/b65fw6uxQrxkugO/9BFr
+	 eQfSIs6kxgdHY3ZY6lLOcU+kCTFD5aXFjn1Cjhdk869Ai3ltGIhfCTEnlUJfC3eE24RFc
+	 PG815MeVKSpSTS8EnKj4HB+TPXMNnlBtXPmCSdjpNz3D8X8ftDRpnv3j8KbUm5oDUMUzu
+	 J8Ihdbi2LC3UwXP2ECCvQzKM/jP636ppuN2Dtuy2lFkz+dyvh/kgcfvfvBqsZUGiOLQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b0Z1+RBH;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id AFA331F01825;
-	Thu, 29 Oct 2026 13:05:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793279144;
-	bh=ydVblDX7W0cXEAEJbmWVNGpTe/4AkHnmmnq8en75pvQ=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=DW1iasmvUlF7zfZbIHeTFsBp2ko6wPmN3RrarFZ0T94IG7+xlz0qOKq58qCfaOLAY
-	 PTRtPd8/IR7BccKA7uNGx96FqGNiUQu/xojrS5WPSv+TTMQ2zl6kGAPK64b9SxK3qO
-	 vZGd9TYfGVa0aSn0i85unV9iguGtY1m8a8poQhvlin5uA1Vgc5beCjDGfNE3h26PYv
-	 pjaDwOMVdpqDKipOCpk7DybUh+7o61bHNcgMr3MEUSCA6xSzJvbeHwa84eUIvwjzom
-	 p5HjLQEeeIXu/v//6TmFLT2QNxJ/MpjbRWDejcC8oVRAlA48Iti5dBaquGbuJt8xYk
-	 lx2xuD8+B7ADg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 11EB945872;
-	Thu, 29 Oct 2026 13:05:43 +0000 (UTC)
-From: Mark Korenberg via B4 Relay <devnull+socketpair.gmail.com@kernel.org>
-Subject: [PATCH bpf-next v3 0/2] bpftool: Make the LLVM disassembler an
- optional runtime dependency
-Date: Thu, 29 Oct 2026 18:05:36 +0500
-Message-Id: <20261029-bpftool-plugin-v3-0-87af799da40a@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07267606A32C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:05:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07267606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b0Z1+RBH
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-170135e43c7so1414387c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:05:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793279145; x=1793883945; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wNUOdm/IOUvvzJJ7mh0K1e4OLnQV405xLGrAKQJel44=;
+        b=b0Z1+RBHNX51Mk1N0BEEnymeLKvBCMIDV3LQX1GA5YjhmMxTeZ5GUscPtVYL0HzVM9
+         CpvsnF6PXb/Rrwk5oLrQgUD3wmD26JQHPv8ZjFlZz7LG37/3k3fOuI8L2Ay8+HVpOLCn
+         NwO8ma+ICHu7ei1tvcD26EGn+gYfWN983XV6d6b8TvJqxEuQjMBqjUoGoyVawac+1x9A
+         ZhTf45ucKratTaL+vsJn851UpfsHfPrymSSHM9Za2dlxDjJ+pvqha14lE+8VXudb22Lm
+         BnCz3gSIzNoE0KWZzBHGwvWwEKh+mZvjDmpnO0MhiEqguhkEbg4PLz09+Ehbr0A9tmrN
+         IECw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793279145; x=1793883945;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wNUOdm/IOUvvzJJ7mh0K1e4OLnQV405xLGrAKQJel44=;
+        b=LsJ6NIXzY4gLlZs1ITnEWTMMYI6rGFCo79CjKhTG2UqTA+V0lsshScZm1cXagvfI4N
+         EGNG7umv2ihZfnQ9OkSq1ahuNOvdENK45NDSyJTjoRj+RzKFvUYMi6pLZTzcWwShc0cX
+         ES9w7VaoAPKwU5HR9amj3GJa4esU8xIRNcciq1jlbMFSqYJRGL9xpmBs2kjuAq4hQS6V
+         nTbuIurdP7krCrUjH7D/e71e5wuWIMvInZJa2fbsvZksIqDDUlNcbtGf+/gS12bEDGRR
+         QP3lumNj9vA500RdzjvVa0a+nauX8lAy5KOlU2DB5N62xoytHcqMhirTQrTFGWRTblqk
+         rqTg==
+X-Forwarded-Encrypted: i=1; AKwUvBxHF7MGswiBtSst6wUlUYIHcuVWr7U0dxg95zw76pcq467cORvxk9eeBG1xPdKUtnhD2eYEuhjeuHInaSk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxaWn2Cg9hXSXRNJqDnz6pbDEVXkWGalfTAYiEt4Fx/RNFuPbu
+	zMlG8kaKcrvGki+j45E0ff8abn2mCgzaF0mqMHSHCO4hRHZMYmLPD3AM7mtTYg==
+X-Gm-Gg: AYBFou1DLHdHW389jVJfPhcpzzOhSWnbsLxbm1Fk5+r3drscG5gHFfZ5cSaKgvZCP7M
+	k8QNgUcsvegcAP75fYZB5zGxY73c9a3pjvZ3kU/ukSYChM6j/6qx2xFPb0S7Yfr50/WIRuk62ma
+	SSVcctTjTTA9s+Ac9deheuHyu/aJnKM2honVEFGTaOgcH6/jApLfpgdfW7T5Q8Ak9lrCRPcU/4q
+	zf7202QslpdGnINIMrNnYskMrXntJ1+rZEYPE4bxK0a8S6iVhnhiNKLKYBE689SCBvpIUkcdpvo
+	QEd6fnOy/iRR7LLj97DNnDMrgY+sVVmU5hddlAz9Dz9hg9vaB5ViXVpLmhwqK9eGHs7Y0v1F7FK
+	6nHDcxdkl1mG9S0VYX3MXWnheW90G1DaKpFb2sZEVQzUKRZG4Eh2BjcVkMafqyzAbqL2U92f9uv
+	js8u+y1TYE6cTqSXm3MS4DsbNIp0zpdbcfrcu4Q7AGjuvtD8FANbSaDyfaWzQNHLnxMY2NRuWPg
+	yF6Cpj54D3E6uU1a9wa1uTRxiedM2wjUh5wiMESPD9Xkae8zlX5iSO2FuUAggzn46JXi2TUbbOU
+	ZoyPYJFr3+FYxWXorYBXpUP8gjFL/S2AIskhtS4lhMms+FiHdtPNQVNPRhhDYEf7B3yEPGImaDs
+	cbHYol6Jm+Pxp9NK7kX7mxuSlQ8hxa47wqww750Gj
+X-Received: by 2002:a05:701b:4509:20b0:196:aa86:fcf3 with SMTP id a92af1059eb24-1a6cdb50d84mr7706490c88.26.1793279145054;
+        Thu, 29 Oct 2026 06:05:45 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a760569d53sm15322824c88.23.2026.10.29.06.05.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 06:05:44 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: tiwai@suse.com
+Cc: perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: ump: Fix dropped data bytes at UMP System message conversion
+Date: Thu, 29 Oct 2026 22:05:37 +0900
+Message-ID: <20261029130538.1985867-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,96 +98,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNywrCMBREf0Xu2it51Ghc+R/iIolpG2iTktRQK
- f13QxYiiMth5pxZIdnobILLboVos0su+BL4fgemV76z6B4lAyNMEEE46qmdQxhwGp6d82ikbLT
- hloiGQ4GmaFu3VOENyha9XWa4l6Z3aQ7xVZ8yrf0/aaZIUZwNUUbS9qj4tRuVGw4mjFWV2Qenh
- MkfnCFBqpqTZlxSTfQ3vm3bGzLVaGH1AAAA
-X-Change-ID: 20260603-bpftool-plugin-c994bc3e0643
-To: Quentin Monnet <qmo@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
- Martin KaFai Lau <martin.lau@linux.dev>, 
- Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Song Liu <song@kernel.org>, 
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
- Justin Stitt <justinstitt@google.com>, 
- Emil Tsalapatis <emil@etsalapatis.com>, 
- Ihor Solodrai <ihor.solodrai@linux.dev>, 
- Nick Desaulniers <ndesaulniers@google.com>
-Cc: linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
- Mark Korenberg <socketpair@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793279142; l=2789;
- i=socketpair@gmail.com; s=20260603; h=from:subject:message-id;
- bh=4+EVE0vRRHLPdxZueJ3Z0rAQkXRNx4EBHKNnKXGICFc=;
- b=3b61HIda+LvZWU94BX+vCZzYrThe3BCs40LS4OpIm+W09DBcofh39uT5hDHoua/0i3W6GoYZ1
- 3rCH3FG558rBB6tXw7G3nHFVNwKuiPn2leCvd2fisZAAWToY1bCNbJv
-X-Developer-Key: i=socketpair@gmail.com; a=ed25519;
- pk=2iAMjWhs7kA9X8ccetT2YVX8dvniXua2okQogw3Don8=
-X-Endpoint-Received: by B4 Relay for socketpair@gmail.com/20260603 with
- auth_id=806
-X-Original-From: Mark Korenberg <socketpair@gmail.com>
-Reply-To: socketpair@gmail.com
+Content-Transfer-Encoding: 8bit
 
-libLLVM (~140 MiB on Fedora) is a hard dependency of bpftool, although it
-is only used by "bpftool prog dump jited". This series moves the LLVM
-disassembler to a plugin that bpftool loads on demand, so that
-distributions can make it optional. Patch 1 fixes a leak found on the way.
+The cvt_ump_system_to_legacy() function switches on
+ump_message_status_code(), which returns only the upper 4 bits of the
+status. The case labels are the full 0xf1, 0xf2 and 0xf3 values, so they
+never match. MIDI Time Code, Song Position and Song Select are converted
+to the status byte alone, and their data bytes are lost.
 
-Changes in v3:
-- Look for the plugin next to the bpftool binary before its install
-  directory, so that bpftool run from its build directory does not pick
-  an older installed plugin (Sashiko)
-- Link to v2: https://lore.kernel.org/r/20261029-bpftool-plugin-v2-0-1a47b2391b0b@gmail.com
+Switch on the full status byte in buf[0] instead.
 
-Changes in v2:
-- Move the LLVMDisasmDispose() fix to a separate patch (Quentin)
-- Look for the plugin next to the bpftool binary when it is not installed,
-  so that bpftool works from its build directory (Quentin, Sashiko). Not in
-  the current directory: bpftool usually runs as root.
-- Export a single versioned structure of callbacks from the plugin (Quentin)
-- Only report "llvm" in "bpftool version" if the plugin loads (Quentin)
-- Handle dlerror() returning NULL (Quentin)
-- Rebuild jit_disasm.o if libdir changes between "make" and
-  "make install" (Quentin)
-- uninstall: use QUIET_UNINST, remove $(libdir)/bpftool (Quentin)
-- With a static libLLVM, which a static bpftool requires, link the
-  disassembler into bpftool as before (Sashiko). This drops
-  LLVM_LINK_STATIC: static LLVM archives are never linked into a shared
-  object.
-- Commit log and comment fixes (Quentin, Sashiko)
-- Rebase on bpf-next
-- Link to v1: https://lore.kernel.org/r/20260603-bpftool-plugin-v1-1-68c0ac91f5a3@gmail.com
+Both callers of snd_ump_convert_from_ump() pass the result on as is: the
+legacy rawmidi input of a UMP endpoint, and the MIDI 1.0 path of the
+f_midi2 USB gadget.
 
-Tested on Fedora 44 x86_64, LLVM 22: plugin, built-in and SKIP_LLVM
-builds; plugin lookup (installed, build directory, missing, wrong ABI);
-install/uninstall; "prog dump jited" (plain and JSON) on live programs,
-and disassembly of aarch64 code through the plugin. Not tested: a fully
-static build (no static libraries available).
-
-The v2 changes were written with the help of an AI assistant (Claude),
-from the review comments; I reviewed and tested them.
-
+Fixes: 0b5288f5fe63 ("ALSA: ump: Add legacy raw MIDI support")
+Cc: stable@vger.kernel.org
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
 ---
-Mark Korenberg (2):
-      bpftool: Fix disposal of the LLVM disassembler context
-      bpftool: Make the LLVM disassembler an optional runtime dependency
+Prepared with Claude Code (Claude Opus 5.5). Tested with a KUnit case
+for snd_ump_convert_from_ump() under UML. Without this patch, MIDI Time
+Code, Song Select and Song Position come out as one byte with no data.
+With it, they keep their data bytes. Timing Clock still converts to one
+byte.
 
- tools/bpf/bpftool/Makefile      |  38 +++++++++-
- tools/bpf/bpftool/jit_disasm.c  | 158 ++++++++++++++++++++++++++++------------
- tools/bpf/bpftool/llvm_disasm.c |  84 +++++++++++++++++++++
- tools/bpf/bpftool/llvm_disasm.h |  41 +++++++++++
- tools/bpf/bpftool/main.c        |   3 +-
- tools/bpf/bpftool/main.h        |   3 +
- 6 files changed, 276 insertions(+), 51 deletions(-)
----
-base-commit: d80373a8e70d3193151232c3062abbbe367ff5ad
-change-id: 20260603-bpftool-plugin-c994bc3e0643
+ sound/core/ump_convert.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
+diff --git a/sound/core/ump_convert.c b/sound/core/ump_convert.c
+index 0a7972d91ec5..ecbd894f4c83 100644
+--- a/sound/core/ump_convert.c
++++ b/sound/core/ump_convert.c
+@@ -69,7 +69,7 @@ static u32 upscale_14_to_32bit(u16 src)
+ static int cvt_ump_system_to_legacy(u32 data, unsigned char *buf)
+ {
+ 	buf[0] = ump_message_status_channel(data);
+-	switch (ump_message_status_code(data)) {
++	switch (buf[0]) {
+ 	case UMP_SYSTEM_STATUS_MIDI_TIME_CODE:
+ 	case UMP_SYSTEM_STATUS_SONG_SELECT:
+ 		buf[1] = (data >> 8) & 0x7f;
 -- 
-Mark Korenberg <socketpair@gmail.com>
-
+2.43.0
 
