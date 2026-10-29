@@ -1,79 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.60
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793266271;
-	b=TWPaYjeuR/GJmuyohaO0EzWQCbeXUZd5GtPNP+ZFErXIcOM6F9Hobx5Ga/V9Ft136mV1
-	 1GuWx4/OmovaqDcALtTIhijKLMqhJtCLH6A+SUAu/gyWszz4Reu6MNctpejswrzwF0BPj
-	 ITfQ93wMP1otFqJ8h1BoVeQcasJsc9jwhFoRhKORy2P4FagSQ5pKqWfzJ08WQFawXIc0w
-	 fUvOcpQBrrCJ40wA9wckI0OKSmCcGDZkr+3lmcazaYfMekcfqTwzTT4z0uTTwufBUf0RG
-	 C8/oGdG/4kmAFRd+N/iV/AIQhDsutnzohYB+AzKBgK7ISsF9A6qPilW5F8c/eUbKI/g==
+	t=1793266267;
+	b=ivAjcab/4ntow9AGErBbne+W+wJ+p/zlDvfbrOZVPOXpYlHnQGE1w5s1p6HQPOmMawzt
+	 lmg6XcumpbMZ61lrkV/HCw3E57+o9jTHi9epV1VXNl38XlKVQhxQ+z8cAsFMvrNqP0qw4
+	 LVpAhhcGzNiNXZsgTcgT/7NqAkwQ8dCxNB38+0svPQdTOYrPZlRG4a9wa8SI7Iable7/0
+	 Jp1QbXX2SK6apvtFaozzMt+IY9w194BVaF8QbRggS4XKPjWDDIetxjBnbZllvf53PbSC+
+	 pspP1TnlKVIJIz6/H3COn6gnjtJuorKaVQyeRIvpaAgtNDUlo53wyWZnoEiolU/bprw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266271;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=lRK+vR5DapZgqS0HuHWspANx/juMaX+qmJujqAN6Rqo=;
-	b=quSQAi0gc10cdyhTzSIDDdU0zy5WPNA1HABF3S/2dRSYWbVKtLLCNMx0Cz1j28We86js
-	 QojCAVu+k8j1W46q3BANAT0hyJzEvBWwOTxjO10i3aCzpJILIjwBvY+KJPaHcAzeFuEGG
-	 PvU8fjO5iTNLv26XdM5dLE+0XE6ONHAXvm8TZwYXifB1lcceEhbgvz5TaX9RDi1HhMmHa
-	 K6iDSsC2mPUQlpVpzRbAYnUWGe2YtnPQod1fEHqESiOCOb8WcSlS81x18e7xet3F5Gito
-	 OGeFNNDhTWI9hiv7nyii1EZuyq0l8W7h48A2xfvwgLAwJjfkRuXTX06/OrRepS9fQRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266267;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=I3f4JlL/Lq4UVK+KUuf9gsC2xhpreisQLjDZzyrloJ4=;
+	b=kC6N8KarRHo1hiQ5OwplJZlUlO07w/gksk2rHqcV64NlfMdwrBqGuiDD7HbZSdPxUTkg
+	 gu8Y5CW0pw2u2dCxwTDyqq8xyW0BdBkGUSvBhEGEyxci89psfi9gTh8uuAyz6m7RAfQFE
+	 O9UG6IkoCzhNjGxzUhtFEuQlVM4oTIYKBRS1fHAzvTL3SngDiDBSNxbbYNYIziuOov+Qy
+	 KA72gxV99oiLOV/5H7QrQm9qhI38ZVlAbqRq+GE+SWDF8jpI7P46eiAqRtJZC3w865kpY
+	 d4lHCo94xMQIu6YUqEhu6RSKh1h/ijqd7GkBti/OqtLwOCX3HBj45KrdZDfPTjMLKiA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DEXYskPS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="t7K6/Lh1";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.60
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011060.outbound.protection.outlook.com [52.101.65.60])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC795606A324;
-	Thu, 29 Oct 2026 09:31:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D6FC606A321;
+	Thu, 29 Oct 2026 09:31:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D6FC606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DEXYskPS
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793266270;
-	b=ftLTyQZDEsdyH0Sz7Ubxv+60Z4ZQV9pkxl7b+XXrteunBa2iRnXP/Kzz1V4HPMT42eUF
-	 IPutoWScgq7p40QuDcOz58coJtwus8JQwt4DuKo8VSrxBGcNHctIDnA/XRYaYX/X9z/KR
-	 rflPFcXnPuPU6WDo2rzsjnmWBtthM+fWxF/db33UsZs1C+LEJVYPVmhBVwPFhFBhkWfhp
-	 DJ806ggpLC6eYlM/dy9JxQ4lQ8eN8ZPZAK5Qvj85bo/jh4TfRicvmesJIYFPHvsO5/I2x
-	 9lAxtrWXqyp6DBCS9YIrWivhP7Cd3w91XWq2ageFaDthNZ8l9V7IsPk9QanPbIsqqhQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793266270;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=lRK+vR5DapZgqS0HuHWspANx/juMaX+qmJujqAN6Rqo=;
-	b=UgsBMAXIJI2PclW0Tc6wQjM1sJ75wMsDmWBdif/QLliyv4x6cNbJdFA4qkZBGu2Qavnt
-	 ANkLN1Bix4hGgR8J26/1LfTgBWBY8JBtBBPcG+u8AcZBpbfxmw0DQSfYTeyhiDOlvjzWK
-	 NwUvNG/uXhJTk7seg1DfJaClf2l0dWrH9EGERUnHt8Fe0zzNy3184tEH+nyT4wPNiaTYM
-	 kME+O2QwDYdgy1ksuRxf3DcHsYJ3htU+S5hssSl4P589jdkTLza51mI8WglVw5lk+OLh/
-	 ycusWKfwZn0VU+9FKqDJE9oalqQHNJSmw7YRXDfZlaBpO/RyLkfviIrPfEzQ/FjrBrw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A0BDA1F031E9;
-	Thu, 29 Oct 2026 09:31:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793266270;
-	bh=lRK+vR5DapZgqS0HuHWspANx/juMaX+qmJujqAN6Rqo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=DEXYskPSDmCO5wb3o7F1LKgNTAJ+QD+Q5DlwGhifui1pLhA8qxCVUBQEn2+S6KgEX
-	 o0Y1tTqglhc0EXC+GrlaJuMP8r/KQ4+QYVquHxP7auvBlxN29bmygMz91VSiETrXSf
-	 Z/OAZMBjGoEg+togOxQ+eqbnsB0kt5p6FaAupJ8QizibJHb/SiaIeJDcMB9m/Ghx5P
-	 qxRe6puU5KAW6MWc2DOiz3AuzK1PlUkspCefOmW7bOZXhUU33uM5X/i7hZ/0WxdaYd
-	 aFkg47qAJABIKynnmpAWO5Jj48UBHP/Xh66nu2kSq/bINv19e7D2cxT1CHgFOJ/SMU
-	 ddBgEoq82R8oA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 32CF9457C0;
-	Thu, 29 Oct 2026 09:31:09 +0000 (UTC)
-From: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
-Date: Thu, 29 Oct 2026 17:30:53 +0800
-Subject: [PATCH RFC RFT v2 2/3] clk: divider: add CLK_DIVIDER_INVALID_ZERO
- flag
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=t7K6/Lh1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jb8o202vnRpao99yvaCDz+LGP3N0wc7078OOHcn0z/xxhjkqGOAFDkR/Xds8lVoz11DF84Mx6LEgaNC+jtT4AvWA34shM12xF6EvA3ozQ9LXpSel9xloi/Y7dRmWjXRbo8YgWdzvfBhaG0Z7v2nYq3ceEDGsgEKo+MU8H+WFQbAoxV5lnCcGKIgCRUnvocNM73YELfdhhduZBlmMWRg7UPFFzvOYStPjA36p73AaWcLZ792j88DWeF33gqR1TdA9nttifkSFoJYkC3iuCcEIgiRCVlYiBfgC/54jsa6Kd3kfF+movGUFSUocSi4Rv98wbWpKnauhyWVTWj7oAR1V/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I3f4JlL/Lq4UVK+KUuf9gsC2xhpreisQLjDZzyrloJ4=;
+ b=IUS/vTfLbv38r24Y1AI5ujgkJui/n5MWwtEwPGCUfch9wdEA4leFEYLm9jsvvlHQOm+5EpFrTLo4q6JkMMd6VunrPu5YJbLtdqSKup6qqNtRE4LSgqmkHxTDOTvsxnhB+KXT78P+iERo/dw5R6egamOXPYjTauTh7d3r+WJbPnjQFanklZT/oP+MMJpAY2cB+YII1JMSmK0Dn20xtGewDbiuUBrAw8wMsCQPPWBl6bSju0LKJbfL2g8rXu/+59rud/FCzeUmRS+x51068A6sSaS3EW2MaJqgBNAGiU+ew7Lh50u1MDjfHENilLSHeDAm0unhwWAWgSXEdgFXF6v1RQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I3f4JlL/Lq4UVK+KUuf9gsC2xhpreisQLjDZzyrloJ4=;
+ b=t7K6/Lh1fRu0TEM2q0WNKqG6IjQyabJrbqXSjEabPfRhMAUba/nheA3jHuq7my2GUn26VFeeOnHgAPzJeK7XQcYVLURBOfGqkJLxl4CeoB603kfNIImqp8UaWjAd9DQCpquYmVSSKUwveIh8nDhHg5dgyeGhnMACxDeOkBVGeXaPf21QWOo58yA3xeVNsaFdqupAfn4P65aC0AwYbkfXUUq6aXHmU1QmpUaxFbI/iDab6BGikE2C/as2/etWzwDnVjuXm0iqG02a3p9bnHJKshsQOqyzCrtDXmSxBGW2qzvjatrCuU/vZsvzisfGIkrxdEAYdkrAXZEIfiV16A5n6Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by GVXPR04MB10681.eurprd04.prod.outlook.com
+ (2603:10a6:150:226::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 09:31:01 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
+ 09:31:01 +0000
+Date: Thu, 29 Oct 2026 11:30:55 +0200
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v7 07/15] drm/imx: dc: Add PRG support
+Message-ID: <auMIsiZ5ARIl-6N6@vm>
+References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
+ <20261026-imx8-dc-prefetch-v7-7-a0b50cc4fc65@nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-imx8-dc-prefetch-v7-7-a0b50cc4fc65@nxp.com>
+X-ClientProxiedBy: AM8P191CA0008.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:20b:21a::13) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,101 +107,271 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-meson_refactor_n-v2-2-ff4ac74e527b@amlogic.com>
-References: <20261029-meson_refactor_n-v2-0-ff4ac74e527b@amlogic.com>
-In-Reply-To: <20261029-meson_refactor_n-v2-0-ff4ac74e527b@amlogic.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Jian Hu <jian.hu@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793266267; l=2646;
- i=jian.hu@amlogic.com; s=20260415; h=from:subject:message-id;
- bh=erjQIBkjDA84dTVLTzuE89941kvEx6V1M15mAHbEPe8=;
- b=M75Y/COMa5W9P7iRc1XOwuaQfgaKCQJcQkJtXFEVpP2ZItZa3Z3j5x4GpxtgBUsuhYOXxfLUk
- EUICoiNiwyoD68vezXaTQdTyxvh7+B/yg7YLCsnpmyKeXtnwg69fDeW
-X-Developer-Key: i=jian.hu@amlogic.com; a=ed25519;
- pk=zHUE+rNtH9z+Sb8au1/elWknjFQmy5QDVkBoxleuOIA=
-X-Endpoint-Received: by B4 Relay for jian.hu@amlogic.com/20260415 with
- auth_id=735
-X-Original-From: Jian Hu <jian.hu@amlogic.com>
-Reply-To: jian.hu@amlogic.com
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|GVXPR04MB10681:EE_
+X-MS-Office365-Filtering-Correlation-Id: f47da405-a5ea-425a-2ffc-08df359f588d
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|19092799006|11063799006|4143699003|56012099006|261009223027099003|261026140227099003|261026121527099003|261028144727099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	iZn+lFjfmRuP3W461T1zBwQ2xfj3hPwXKyeusrNBGsIRhy15Hn8cVADBdGH/AQhBre7m696r5RVhROSQThg+daGVntjGgKHwvhDYoAdbp5i/7KRhniyB0pKMuxQGJBkEO3bcElIGZpyK/GOEtd1GNMalMUAZmj5MQp1ARvIBmKNEVmXYYQV/oAFCZTpxqDJyj6d/a26NnRqpRLGDOE5m8fiOLkPOoXM89J9w6MXYUBHA0QlEUKtnIO0qbEtPhDrW1xg8a7r2hr+jovR3rxy7fOJ9h8+sDdW5eJeYqiJjqkFxgWvCsi9ZgVYTFTsnf+jVGVPV9awRxa7sz2uh9/5hAwIyDYRQrZ5LBBEB7BfQhijIkUBWAL9c2aueLYAdD+w8BeEdH1rDyrK7k62G3g76Asq47fjqP+AhWEcRIKKcRwfq5X3WXCw+5Jctw4y7j2GG3FCtlGSGLwDBYSDjSopAOVbeb5koiNPBo80JOamkYAYVG9l17pDnuq/9ykq35eyIyxYFRI9K681dnPl9HpMfCZJ9Zg8KSNLozZ00990XlLfYzhohIYwNeTH1PUSJlF/pBtyPCVmJXP+VYNkPr6CM+un7oBNcjNVgFJc0VPTrfCayK7db8ZwZSDQ0y8IoucKSBxO8eRh7nUjCbAanGrDCOy+eQo/yZjmGATy0GwHvCGs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(19092799006)(11063799006)(4143699003)(56012099006)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NV0eyPMUt28vYbrnt5JhAsuNP9ErThw3XEctk31ut0kMEfjYh2WPNsFpMT8R?=
+ =?us-ascii?Q?tD1BKcCufYi1fs9vJWF8fPSnhLU4Lp0b3C7UtSdARXAqLKM6QjUp7gkWTCq8?=
+ =?us-ascii?Q?DSB3/Wc0hMWeICMRMVColfnC6k1l/6F2pxhMnjus294WzE/u3mM6WBHFLJLa?=
+ =?us-ascii?Q?LemBxvKua475P3/oBnhqYTgF8DWQeHBHOyj1rQRHsqxBvWR2AH6Fv9k8TtKD?=
+ =?us-ascii?Q?rD1nNRxP+cEXgYmW6PLCx8SRl4HQy+KvwRn5u2MFShdpwzqam/cPlfQdIO0O?=
+ =?us-ascii?Q?3zqIpJjjCMifRyNJCyYEa1a2taLBi+rZeWBb0KVD/qbGP5xWT114K0tT70OP?=
+ =?us-ascii?Q?bT96sWDo9428eDr0GuLJUJCyMoBIzuBmtqMswRiS6S8YHOXkmtHabbs8ISC2?=
+ =?us-ascii?Q?zKNtJm55cWJ6rGseu4e7stHqIeYW/nAvk9K2yaKuydQFr+ir2nwjplFWw1t3?=
+ =?us-ascii?Q?kUEYgEtA984cKlkTb+OKD3E9yGBuURSefZKNcdFjGiZNmAaOGKvmixYTBu7B?=
+ =?us-ascii?Q?PfGRp0K8GMG87jWhKaGXFu7S/RAkTSWyrUBm5pGdNWFLuJMd31hk4FMdFzte?=
+ =?us-ascii?Q?cpkJxDS4pb9aH7eEkF7Kxr9RFOWEzr4GEZs2nZVJpdZ8KlK0xxg0SRq/5FtA?=
+ =?us-ascii?Q?4y0FiEmtRgaGLhWxENvbkb2Vo1cRHltGDQrjELvNy0vxK7ZaG07NQdwnM3KP?=
+ =?us-ascii?Q?jbMqAZne/FXAZr8+U+j4AMynIhEbbxsj2neLCkDPa04jwFMLfFiPjR7c1rW1?=
+ =?us-ascii?Q?7iw9teTeYyteQynM3/gu02CamfHvbqApQvCO7TF/ri2ttZBtm0octF8I9esd?=
+ =?us-ascii?Q?+sulHKINi4b4M+lG5yVJUVvKNimtWFRsTX8iBV1+OtXaxraNnqg8P25CiI5w?=
+ =?us-ascii?Q?jpAtD69pZNr05qiiUM+x6R1M4cQkDHo3F+yYmkLPqhziivBxWHRbBALqPSSP?=
+ =?us-ascii?Q?Cmdu5UpqqD2qbn/Qbvrwwtssr5VVaO6F0BJFcVp9N1Yeyp8Lqa/yj8uN6kx6?=
+ =?us-ascii?Q?NURKZtLsxSfVkSGwY+ZH34RHPLI7tI+NpRUCKhKqUfquwR8mItSemLpbYO4k?=
+ =?us-ascii?Q?v6xDGIDLAu+PimILcTFru/oPpfNIHiSU7FnBU+ZjTpe0roEvmO+Lf3leoyII?=
+ =?us-ascii?Q?SuqWu5BJfU8N+GS2QbEgn9Q/iJiIsliEyhG0sMm+uTWfb9gNygUT5j3Fj5GC?=
+ =?us-ascii?Q?bk9pUX9hHAInXuojVPhT/6uCZuVyDSoPYq+vKqi7jH0zRzkr5soHev94Q5q7?=
+ =?us-ascii?Q?ExDtNluyAPGYCQP3dbMJVY8o8ZuAoR0l2nig15XMemFnnzi6CBYSKpvfjhf+?=
+ =?us-ascii?Q?dERcphMYlaImxO5YJHFnTpr27bLUvXVNskxMugOJmQpV3Ib3+1X+sAOX1GAX?=
+ =?us-ascii?Q?q9wgo6muWyiEmNIillzyng9Gz6GLqiIDXyefTt/rQyMFJyAYY7rNW1F1BhSq?=
+ =?us-ascii?Q?HIGtj0+owlC/6kEj1s+6bAUDBBE9Z5wRwC5Ah/INvgYc7rJyVXrDfLf9WTU1?=
+ =?us-ascii?Q?vSNPBLG7Jdp0sXubKW3TT9Xu79bMCNPVsaIraMj4UzJn/c0e1CRqzxtVZHaU?=
+ =?us-ascii?Q?XDMMIQ691QsJa67KMfmFkPZSWpiTHCisdyt/feiF4te4uyvFJ73BmYSwm2Fx?=
+ =?us-ascii?Q?jNfisaOAiITlp4CTLNe/BPbo+/iNwWvPps+UczswwHRZ29UG+LjFQ+MMTsdT?=
+ =?us-ascii?Q?JxQi4q+ccSohbCmqtVhW2hK1zjgFUowOw2htmqwapoqDXeVTkZgeFfdIV/3n?=
+ =?us-ascii?Q?ah6TOCnQDZ49aTeK5WSd/iJqcgs6v7M=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f47da405-a5ea-425a-2ffc-08df359f588d
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 09:31:01.3345
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: X3bQPzMVrhJSjHaKwSCL7jOOKVM/vadAkpnYFDmPBaFB2kiz5fJYr3/BHEQar+fZeAhjmqZVxYP5hFvhn15nug==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10681
 
-From: Jian Hu <jian.hu@amlogic.com>
+On Mon, Oct 26, 2026 at 06:05:12PM +0800, Liu Ying wrote:
+> Display Prefetch Resolve Gasket(PRG) is a part of a FetchUnit's
+> prefetch engine.  It sits between a Display Prefetch Resolve
+> Channel(DPRC) and a FetchUnit.  Add a platform driver to support
+> the PRG.
+> 
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> Acked-by: Maxime Ripard <mripard@kernel.org>
+> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> ---
+> v7:
+> - Collect Maxime's A-b tag.
+> - Return 128B burst size from dc_prg_burst_size_fixup() when baddr == 0.
+>   This avoids undefined behavior of __ffs(0).  (Sashiko AI bot)
+> - Initialize and declare prg_node at the same time.  (Sashiko AI bot)
+> - Add device link between PRG's consumer and PRG.  (Sashiko AI bot)
+> 
+> v6:
+> - Include "dc-drv.h" to avoid build warning with C=1.
+> - Fix PRG BYPASS programming.
+> 
+> v4:
+> - Sort bits and bitfields in descending order for register PRG_CTRL.
+> 
+> v2:
+> - Manage clocks with bulk interfaces.  (Frank)
+> - Collect Frank's R-b tag.
+> ---
+>  drivers/gpu/drm/imx/dc/Makefile |   2 +-
+>  drivers/gpu/drm/imx/dc/dc-drv.c |   1 +
+>  drivers/gpu/drm/imx/dc/dc-drv.h |   1 +
+>  drivers/gpu/drm/imx/dc/dc-prg.c | 314 ++++++++++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/imx/dc/dc-prg.h |  35 +++++
+>  5 files changed, 352 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/imx/dc/Makefile b/drivers/gpu/drm/imx/dc/Makefile
+> index b9d33c074984..e3a06ee3ce1a 100644
+> --- a/drivers/gpu/drm/imx/dc/Makefile
+> +++ b/drivers/gpu/drm/imx/dc/Makefile
+> @@ -1,7 +1,7 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  
+>  imx8-dc-drm-objs := dc-cf.o dc-crtc.o dc-de.o dc-drv.o dc-ed.o dc-fg.o dc-fl.o \
+> -		    dc-fu.o dc-fw.o dc-ic.o dc-kms.o dc-lb.o dc-pe.o \
+> +		    dc-fu.o dc-fw.o dc-ic.o dc-kms.o dc-lb.o dc-pe.o dc-prg.o  \
+>  		    dc-plane.o dc-tc.o
+>  
+>  obj-$(CONFIG_DRM_IMX8_DC) += imx8-dc-drm.o
+> diff --git a/drivers/gpu/drm/imx/dc/dc-drv.c b/drivers/gpu/drm/imx/dc/dc-drv.c
+> index 09387d62cc0b..1d01f896e427 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-drv.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-drv.c
+> @@ -351,6 +351,7 @@ static struct platform_driver * const dc_drivers[] = {
+>  	&dc_ic_driver,
+>  	&dc_lb_driver,
+>  	&dc_pe_driver,
+> +	&dc_prg_driver,
+>  	&dc_tc_driver,
+>  	&dc_driver,
+>  };
+> diff --git a/drivers/gpu/drm/imx/dc/dc-drv.h b/drivers/gpu/drm/imx/dc/dc-drv.h
+> index 1ec9304329eb..27ef2c552549 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-drv.h
+> +++ b/drivers/gpu/drm/imx/dc/dc-drv.h
+> @@ -81,6 +81,7 @@ extern struct platform_driver dc_fw_driver;
+>  extern struct platform_driver dc_ic_driver;
+>  extern struct platform_driver dc_lb_driver;
+>  extern struct platform_driver dc_pe_driver;
+> +extern struct platform_driver dc_prg_driver;
+>  extern struct platform_driver dc_tc_driver;
+>  
+>  static inline int dc_subdev_get_id(const struct dc_subdev_info *info,
+> diff --git a/drivers/gpu/drm/imx/dc/dc-prg.c b/drivers/gpu/drm/imx/dc/dc-prg.c
+> new file mode 100644
+> index 000000000000..43df5683b24d
+> --- /dev/null
+> +++ b/drivers/gpu/drm/imx/dc/dc-prg.c
+> @@ -0,0 +1,314 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Copyright 2025 NXP
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bitops.h>
 
-When a divider register reads zero, divider_recalc_rate() currently
-emits a warning (unless CLK_DIVIDER_ALLOW_ZERO is set) and returns
-the parent rate.
+This header can be removed.
 
-This behaviour assumes a zero divisor acts as a pass-through, which
-does not apply to all hardware. Some dividers, for example PLL
-pre-dividers on Amlogic SoCs, come out of reset with a zero value
-that does not produce a usable clock. Returning the parent rate
-hides this fault behind an incorrect, plausible value.
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/list.h>
+> +#include <linux/module.h>
 
-CLK_DIVIDER_ALLOW_ZERO only suppresses the warning while still
-reporting the parent rate, so it cannot represent this hardware
-behaviour.
+This one too.
 
-Add CLK_DIVIDER_INVALID_ZERO for dividers where a zero divisor value
-is invalid. When this flag is set, recalc_rate() returns 0, making
-the faulty state visible to the clock framework rather than hiding it
-as a pass-through.
+[...]
 
-Signed-off-by: Jian Hu <jian.hu@amlogic.com>
----
- drivers/clk/clk-divider.c    | 3 +++
- include/linux/clk-provider.h | 6 ++++++
- 2 files changed, 9 insertions(+)
+> +
+> +void dc_prg_disable(struct dc_prg *prg)
+> +{
+> +	regmap_write(prg->reg, PRG_CTRL, BYPASS);
+> +
+> +	pm_runtime_put(prg->dev);
 
-diff --git a/drivers/clk/clk-divider.c b/drivers/clk/clk-divider.c
-index f68216c65d3d..6c1523d22477 100644
---- a/drivers/clk/clk-divider.c
-+++ b/drivers/clk/clk-divider.c
-@@ -143,6 +143,9 @@ unsigned long divider_recalc_rate(struct clk_hw *hw, unsigned long parent_rate,
- 
- 	div = _get_div(table, val, flags, width);
- 	if (!div) {
-+		if (flags & CLK_DIVIDER_INVALID_ZERO)
-+			return 0;
-+
- 		WARN(!(flags & CLK_DIVIDER_ALLOW_ZERO),
- 			"%s: Zero divisor and CLK_DIVIDER_ALLOW_ZERO not set\n",
- 			clk_hw_get_name(hw));
-diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
-index dc8e161f9c2c..fe2dbbba49e3 100644
---- a/include/linux/clk-provider.h
-+++ b/include/linux/clk-provider.h
-@@ -744,6 +744,11 @@ struct clk_div_table {
-  *	big endian.
-  * CLK_DIVIDER_EVEN_INTEGERS - clock divisor is 2, 4, 6, 8, 10, etc.
-  *	Formula is 2 * (value read from hardware + 1).
-+ * CLK_DIVIDER_INVALID_ZERO - a zero value read from the register is not a
-+ *	divide by one / bypass but an invalid setting which does not produce
-+ *	a usable clock.  recalc_rate() returns 0 so that the broken state is
-+ *	reported to the framework instead of the parent rate, without
-+ *	triggering the CLK_DIVIDER_ALLOW_ZERO warning.
-  */
- struct clk_divider {
- 	struct clk_hw	hw;
-@@ -767,6 +772,7 @@ struct clk_divider {
- #define CLK_DIVIDER_MAX_AT_ZERO		BIT(6)
- #define CLK_DIVIDER_BIG_ENDIAN		BIT(7)
- #define CLK_DIVIDER_EVEN_INTEGERS	BIT(8)
-+#define CLK_DIVIDER_INVALID_ZERO	BIT(9)
- 
- extern const struct clk_ops clk_divider_ops;
- extern const struct clk_ops clk_divider_ro_ops;
+I have a question about this. I see Sashiko also flagged an issue regarding the
+unconditional put when the pm_runtime_resume_and_get() fails in
+dc_prg_configure(). The resume is, probably, unlikely to fail. But, I see a
+situation where the dc_prg_configure() is never called: when the plane is
+invisible. The dc_prg_disable() would still be called in flush() when the plane
+is disabled, would it not?
+
+> +}
+> +
+> +void dc_prg_disable_at_boot(struct dc_prg *prg)
+> +{
+> +	regmap_write(prg->reg, PRG_CTRL, BYPASS);
+> +
+> +	clk_bulk_disable_unprepare(prg->num_clks, prg->clks);
+> +}
+> +
+> +static unsigned int dc_prg_burst_size_fixup(dma_addr_t baddr)
+> +{
+> +	unsigned int burst_size;
+> +
+> +	if (baddr == 0)
+> +		return 128U;
+> +
+> +	burst_size = 1 << __ffs(baddr);
+> +	burst_size = round_up(burst_size, 8);
+> +	burst_size = min(burst_size, 128U);
+> +
+> +	return burst_size;
+> +}
+> +
+> +static unsigned int
+> +dc_prg_stride_fixup(unsigned int stride, unsigned int burst_size)
+> +{
+> +	return round_up(stride, burst_size);
+> +}
+> +
+> +void dc_prg_configure(struct dc_prg *prg,
+> +		      unsigned int width, unsigned int height,
+> +		      unsigned int stride, unsigned int bits_per_pixel,
+> +		      dma_addr_t baddr, bool start)
+> +{
+> +	struct device *dev = prg->dev;
+> +	unsigned int burst_size;
+> +	u32 val;
+> +	int ret;
+> +
+> +	if (start) {
+> +		ret = pm_runtime_resume_and_get(dev);
+> +		if (ret < 0) {
+> +			dev_err(dev, "failed to get RPM: %d\n", ret);
+> +			return;
+> +		}
+> +	}
+> +
+> +	burst_size = dc_prg_burst_size_fixup(baddr);
+> +
+> +	stride = dc_prg_stride_fixup(stride, burst_size);
+> +
+> +	regmap_write(prg->reg, PRG_STRIDE, STRIDE(stride));
+> +	regmap_write(prg->reg, PRG_WIDTH, WIDTH(width));
+> +	regmap_write(prg->reg, PRG_HEIGHT, HEIGHT(height));
+> +	regmap_write(prg->reg, PRG_OFFSET, 0);
+> +	regmap_write(prg->reg, PRG_BADDR, baddr);
+> +
+> +	val = SHADOW_LOAD_MODE | SC_DATA_TYPE_8BIT | HANDSHAKE_MODE_4LINES;
+> +
+> +	switch (bits_per_pixel) {
+> +	case 32:
+> +		val |= DES_DATA_TYPE_32BPP;
+> +		break;
+> +	case 24:
+> +		val |= DES_DATA_TYPE_24BPP;
+> +		break;
+> +	case 16:
+> +		val |= DES_DATA_TYPE_16BPP;
+> +		break;
+> +	case 8:
+> +		val |= DES_DATA_TYPE_8BPP;
+> +		break;
+> +	}
+> +
+> +	/* no shadow for the first frame */
+> +	val |= start ? BYPASS : SHADOW_EN;
+> +
+> +	regmap_write(prg->reg, PRG_CTRL, val);
+> +}
+> +
+> +void dc_prg_reg_update(struct dc_prg *prg)
+> +{
+> +	regmap_write(prg->reg, PRG_REG_UPDATE, REG_UPDATE);
+> +}
+> +
+> +void dc_prg_shadow_enable(struct dc_prg *prg)
+> +{
+> +	regmap_write(prg->reg, PRG_CTRL + SET, SHADOW_EN);
+> +}
+> +
+> +bool dc_prg_stride_supported(struct dc_prg *prg,
+
+It looks like you're not using prg. Can it be removed?
 
 -- 
-2.47.1
-
-
+Thanks,
+Laurentiu
