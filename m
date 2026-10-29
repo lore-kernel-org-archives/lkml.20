@@ -1,56 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282875;
-	b=On8gvqbh1elfYHRAb0zpEUGedtALJ6mtWBSYiL0gjiyVaail6r3HIGXbMZEjHpABS46L
-	 dfn04PjJ9EQpirIgxPcejJ/rM2/LR3BZBAwPeEBS/M2O18roq/qVad5kzgZAo646p5sRu
-	 lwWP/xWYlappe+e3UvPUO/l22MtvSxZaphMoFBSmgpT+5oL1eCDnXDn5qqc0KuAraiWXQ
-	 WHhJzb71wm6++gDofZH504r8fgPiMGTrJNI3MEPBJ/Smh0rVVbkBbJMl2HO/dxXyf2gJs
-	 TkLWaYPZSueoXNM/W9DupIduP0+M8a57PwOwbJydoCk547h5b8Ds0EPKp1jUxvKEW+w==
+	t=1793282916;
+	b=vPUbcncMdVZQdLYWd0uMHcDLLEryM5eBsYUPfuvsouAuERCj+XheseTmeF1GYlLEcHc5
+	 fCSW/898c2LklUKjlCGHl2KERyBn3YVrNnt4k/7IJ9M0vwqIRjPI4NONL5xW+3EsCZvBY
+	 +N2ckVS7Cwu5Qh1OuvVUqqodnsWRuLSDtq0NkdFd7wuSAnLUmJSPrFxQuK44NrUao3HXD
+	 3gLmORkPPbfgI6a6AIyqUcgGQBKM3ENU6t6djxkdCktgYywQ6XykWF1HRW4qu0E5cBSBK
+	 UpaEyMCv+GnE3w3Uoke5A0XGoK/kel8rZgbLvZHGJnbOKIoel1FCBTLAosYGpqOdvgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282875;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=szVDTVMoBrzo+8gOA/eu3lrdUwW+vlQh8WYKufnmZdE=;
-	b=EDCFKY5wtccR1vPc+G7yYCYUHUopx//Iyj9xocHtZLQ4we9XaDCf9IdX6YlhLkAdV88Q
-	 lFdtXHPuGqI0Idl/bYy1LKXSR98Dvvpn8nNvzR4NGoIJI3c5SOClXfuJgjoNiyPEC6Pyl
-	 MN4of0AANomGVmRswmDnyd5GnfoMYh95k3LHtJM+2MqLGy8j2gzVawiCfEIveYNtdRIMO
-	 T1pf3HVZHbqrYleGmd1ol/bQqpPzH2vGtsYuEfrhVkt0BP13LNGYSHlZMcfLLmGzbt7iO
-	 wztFFLg65rd1NSqGv7WlMteCmDKbM1gEIFVtrr7Msv1p7KNd8zgniHhrdKvkvHJWfMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282916;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=0ULFcL4e+6n3G3BYTpyQ0Jax9vpvQWSN/L5pCMjIYSk=;
+	b=W6BNVqOPJOdEcklBSHSuzv/ZxXD3sKOyTqvNLZ1QXKxzyuidJ7t1PQ+eTW35CXMNc/yW
+	 b+axDre6XIq5i5DXHLSLPwnlUzSuYJNLBxJBEcKDqiQ0GX6r/rPN4khaVKk2Hu0OEbhQ3
+	 qFiQB4nIVio/ukyztjLyjR+skjfPeex7gNhbml+xJ67+eQYi8HrpH5vyN0z3vTfNuVw5F
+	 JVoeQdj7vwRmnXjsNh9j6zuUjN4FADX0OLFb4PenwhJpyYmOgJavJcm8ABm+lL5kV5U+d
+	 9vxlx4kE9EFgDa2FPMfTxHhcNRANKjFQZRJmpxn7d4FfHesVgubYzuz3gL9X8Plk3SA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="ZZ6/50eP";
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=s4+F7OlG;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFA6606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:07:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DFA6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E0B606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:08:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0E0B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ZZ6/50eP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:Content-Type:
-	MIME-Version; bh=szVDTVMoBrzo+8gOA/eu3lrdUwW+vlQh8WYKufnmZdE=;
-	b=ZZ6/50eP6t1GsTidDd9rm4HpNhHivlubiJOa08tlsVDyYr5RidshMBymjo3uiH
-	RZw+K7bMON/Ht98f8ij+6zXfsuynNMsphiB8tjnCbx62cqWmXGFmbBLAdxFjo/19
-	lbvoT9Rj69CEN9Vx9t6GpREiYSXrfm6edTOqhFzlWhoKw=
-From: linfordWu <linfordwu@163.com>
-To: Johan Hovold <johan@kernel.org>
-Cc: elder@kernel.org, gregkh@linuxfoundation.org, greybus-dev@lists.linaro.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] staging: greybus: fix loopback Kconfig help
-Date: Thu, 29 Oct 2026 22:06:58 +0800
-Message-ID: <179328281884.1789021.4493185936400503751.linfordWu@163.com>
-In-Reply-To: <auC2LiV6564Z1zFg@hovoldconsulting.com>
-References: <20261027142258.1720002-1-linfordwu@163.com>
- <auC2LiV6564Z1zFg@hovoldconsulting.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=s4+F7OlG
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id A3AA1C49F47
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:09:34 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 374DF60360;
+	Thu, 29 Oct 2026 14:08:32 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 58CCB10328365;
+	Thu, 29 Oct 2026 15:08:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793282911; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=0ULFcL4e+6n3G3BYTpyQ0Jax9vpvQWSN/L5pCMjIYSk=;
+	b=s4+F7OlGQdsZG+NGuTyHk4OP3xyyVPb+Kobp+25ay0GxP+/LWoKmslXDRLsgRvcGCm7IjR
+	b3PdwmhAipHqKhG4SdWPVxDbG5tmr6xW61x+iS5ry5AUUADq2odGB5bmGLDuk2PbOPgc0Q
+	I5cjpG9PibYotzZeNSpWtnA2cLqVxB/q5dk+SIEVoG75v8W3x7InEiUtXFtqUKO2livQNm
+	FMn1yhPARNcQL2uisFi3PMBh2/1nnjU9cP9AG8UTWqmZ8clabvWkrkVyIsdgYgVZH/T9Bw
+	7pJEEJ6ZbwAqG/gSKdAtfDePhcNXnJnQpKgRqJkTPb5YsEh1hpLrVKJ9L459cg==
+Date: Thu, 29 Oct 2026 15:08:30 +0100
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Akshat Rawat <akshatrawat095@gmail.com>
+Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rtc: rv3028: use sysfs_emit() instead of sprintf()
+Message-ID: <179328288491.935369.6481765729463819875.b4-ty@b4>
+References: <20261022081242.421-1-akshatrawat095@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,20 +65,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:QCgvCgAXPo4CU+NqX9goCw--.34937S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUUv38UUUUU
-X-CM-SenderInfo: xolqw0pugz3qqrwthudrp/xtbC8gNoCGrjUwP70gAA3h
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022081242.421-1-akshatrawat095@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Johan,
+On Thu, 22 Oct 2026 08:12:42 +0000, Akshat Rawat wrote:
+> Use sysfs_emit() instead of sprintf() in sysfs show callbacks
+> (timestamp0_show and timestamp0_count_show) to conform to the
+> recommended sysfs attribute formatting guidelines in
+> Documentation/filesystems/sysfs.rst.
 
-I found the incorrect help text while reviewing the Greybus Kconfig
-entries and prepared the fix with assistance from an LLM. I should have
-caught the earlier patch during my pre-submission search.
+Applied, thanks!
 
-Thanks for pointing it out, and sorry for the noise. Please disregard
-this patch.
+[1/1] rtc: rv3028: use sysfs_emit() instead of sprintf()
+      https://git.kernel.org/abelloni/c/55bb5877494d
 
 Best regards,
-linfordWu
 
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
