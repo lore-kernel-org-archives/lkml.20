@@ -1,69 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793253615;
-	b=k1mlnJlB7OBfiI8REPYmj1kkdY0LRXOi78YE4EYMDWGqoFCADoxg0JSe326zphxumnyo
-	 m/rlcD/8lpNK1hkPeTw459MUAkCJlkdCskuApBxT4tKWjwIwe9TME2Eh6fM+iNf5iINhc
-	 h7F8ZeU0X+EIR8zLEX55xfBpCNywAlQbje8uPZphhtkss0xFr942E6NB3KsiXIj6uuqrd
-	 gzdiko5NXf2uGr6rtSJjHAK7dwU8AsgzpW11IMMdZkUZ2/ujxgJGS7WcjEMYCP5/sot4R
-	 zRaFI0Y/17xvmXhMXMr2NhDV/75EaH8djfrSH78LNGI43D0QiNHCtrnSynkT3Aqw0dA==
+	t=1793253626;
+	b=tzGvCH9CIhQt+umOw652Ms8Ja11nuuWkY0zo84FdyIUIuJ6J7yp5uleQZYQN6pVxKEMa
+	 b0mISd8+oijURfah/W2I9OrHo5Fxbzyab9u/u/QbCG65T7HZUgeySFCzODQ2kJ8XXispO
+	 kSaGdFiXx5KNHobafVlrfsKyij6OnnDIK2v+PfrkSV6PB1X80R1AKr+SE3RTIz95IqEm9
+	 UiCvKGexbbvHKHjcFVJDvmcYW2MvYLOH2onue6w+md5PRp7NfcSPszwynu8M0PdPyU4W8
+	 DVaLktfR57wZVaKtlw9KbIJKxXyNR6yb/tkMKx8N6JM9b9mZhk61YYyv+irvjrLzLuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793253615;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=sWVF7rYCEhz0Ry5qBHpVVjFwJ4bZ/8r5OtxGRQ9JARw=;
-	b=i1c6X+3Aj4VUz+175/xDdjOBZWG6RbTgpq8JY5c9+tRyOPV84lWoWBSxo7gv0uSZuiRQ
-	 5M7CCc8ieJF8JV4/T5eVlLbBI6MX9P1LNJCcq7CVvhhe8oAD4mkdVZUpJNIf2ec5CS2IJ
-	 pYXOnndjSqYsZ0Qmn28ebsGHy/4HrYYFnulX/X6BeZSs4bZW3153Y7n+djKTqXYYrsHJU
-	 L1B5yiGvQ7BSO2Rkg8YQiNuHrK8M2U0KKz+SHSPSUeCmmf7EYnvKwof60DAgwkJKR4rfP
-	 Xs+Jfc3/1i7423XjVjo3WLkYOgmAgEPOVbL1BZMO+/U33ZMi9qhBJ9PFW726ww31UKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793253626;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=vOGC1ex5Knc4gUvwls9OSLa63qIjRIYMiD8fFkiWwrE=;
+	b=JoHcxVnLnNs+P0r4xoSl+FDTLH/WRTn1VGtQBcqfjcFsQudsq1PbJz2GHSh3AqrgcF0O
+	 +IUwIUikrP9W5jQCxEkGmEuD9G+cqL6MNlqGY6SdctShfxDU5F4V5ZfS5BoENToi4Bx4i
+	 YEQhDE5+N5IH+iKro7WAW0wL5GuY8s1ts9bN5iWZfM78zhOG//AT7QLz9uESelnt/smAN
+	 FSG+nHsLurES7QwMf4URhQjEfcGSZkB4NfezZLqT3+EMFxmCwqq3nnuwylFbBVX57xQYE
+	 qs3dxNVykf+n55BsLCrCap8dQEMFItGmMtTwPYhRrKp72h8XJJ0ErgBSerTm75I/yGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dmarc=pass header.from=codewreck.org;
+	spf=pass smtp.mailfrom=codewreck.org;
+	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=QJmOLFkT;
+	arc=none smtp.remote-ip=62.210.214.84
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921A1606A31F;
-	Thu, 29 Oct 2026 06:00:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 921A1606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: f9e71620d35d11f19a56ed5b684f684d-20261029
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:1eec36b7-8308-432e-aba8-a750ef63a55e,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:751e04b5da58cdf5c88130d28e8706f4,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
-	M:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f9e71620d35d11f19a56ed5b684f684d-20261029
-X-User: zhangheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 655998292; Thu, 29 Oct 2026 14:00:00 +0800
-From: Zhang Heng <zhangheng@kylinos.cn>
-To: tiwai@suse.com
-Cc: perex@perex.cz,
-	kailang@realtek.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhang Heng <zhangheng@kylinos.cn>,
-	John Doe <coolcrew45@disroot.org>
-Subject: [PATCH 2/2] ALSA: hda/realtek: Convert HP AIO SPK fixup to INIT-stage depop
-Date: Thu, 29 Oct 2026 13:59:45 +0800
-Message-Id: <20261029055945.188723-2-zhangheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261029055945.188723-1-zhangheng@kylinos.cn>
-References: <20261029055945.188723-1-zhangheng@kylinos.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E582B606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:00:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E582B606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=QJmOLFkT
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 69EED14C2D6;
+	Thu, 29 Oct 2026 07:00:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1793253622;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=vOGC1ex5Knc4gUvwls9OSLa63qIjRIYMiD8fFkiWwrE=;
+	b=QJmOLFkTugrCihej57+Q0f0P+SXn029yLmYWE0Kb7/AJOyQd6ujIpzmsG9B27FMaphwiI3
+	Vx1qX/AJjRgo65RrelaK6gtkJEGY98z/o72aEYn0wQZuWVqVR1GWzEZojbjDaQSP1ba9UV
+	Rk5WD/KqdrM0MRORpaevjUgcqmqVKgMGNzIbwXttqaHHYuLpoQ7QjmtVPkPcdeIrM35Hqz
+	PmFdpbgsTvnjMa/x/GTXtgTygD/HsA0/BSVwaW19RcZvG3uAP6GJPH30M7zGpjyH/8a9t8
+	1tGXjvX1/D1QHL+mHEc85Imj/t7ekleGMgBB28hqKQIgyY6skQCHlSXGT85M+A==
+Received: from gaia.codewreck.org (localhost.lan [127.0.0.1])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTP id 506b6a35;
+	Thu, 29 Oct 2026 06:00:18 +0000 (UTC)
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Eric Van Hensbergen <ericvh@kernel.org>,
+	Latchesar Ionkov <lucho@ionkov.net>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Christian Schoenebeck <linux_oss@crudebyte.com>
+Cc: v9fs@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] 9p: optimize p9_fcall struct
+Date: Thu, 29 Oct 2026 06:00:12 +0000
+Message-ID: <20261029060014.3-1-asmadeus@codewreck.org>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,70 +69,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Replace the static coef-0x10 verb table with a function that mutes
-pin 0x1b, writes coef 0x10, waits 75 ms, then unmutes — eliminating
-the pop when the internal amplifier enables at init time.  Add
-SSID 103c:84ee to the quirk table.
+p9_fcall has a 1 byte hole followed by more data and then a single byte
+element:
 
-Reported-by: John Doe <coolcrew45@disroot.org>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221616
-Tested-by: John Doe <coolcrew45@disroot.org>
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
+struct p9_fcall {
+	u32                        size;                 /*     0     4 */
+	u8                         id;                   /*     4     1 */
+
+	/* XXX 1 byte hole, try to pack */
+
+	u16                        tag;                  /*     6     2 */
+	size_t                     offset;               /*     8     8 */
+	size_t                     capacity;             /*    16     8 */
+	struct kmem_cache *        cache;                /*    24     8 */
+	u8 *                       sdata;                /*    32     8 */
+	bool                       zc;                   /*    40     1 */
+
+	/* size: 48, cachelines: 1, members: 8 */
+	/* sum members: 40, holes: 1, sum holes: 1 */
+	/* padding: 7 */
+	/* last cacheline: 48 bytes */
+};
+
+move `zc` up to optimize it:
+
+struct p9_fcall {
+	u32                        size;                 /*     0     4 */
+	u8                         id;                   /*     4     1 */
+	bool                       zc;                   /*     5     1 */
+	u16                        tag;                  /*     6     2 */
+	size_t                     offset;               /*     8     8 */
+	size_t                     capacity;             /*    16     8 */
+	struct kmem_cache *        cache;                /*    24     8 */
+	u8 *                       sdata;                /*    32     8 */
+
+	/* size: 40, cachelines: 1, members: 8 */
+	/* last cacheline: 40 bytes */
+};
+
+This in turn also makes p9_req_t 16 bytes smaller (152 -> 136) as it
+contains two of these.
+
+Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
 ---
- sound/hda/codecs/realtek/alc269.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
+ include/net/9p/9p.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 67ce5b130f81..3a1b664fca0e 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -2902,6 +2902,20 @@ static void alc225_fixup_s3_pop_noise(struct hda_codec *codec,
- 	codec->power_save_node = 1;
- }
+diff --git a/include/net/9p/9p.h b/include/net/9p/9p.h
+index 22ab7486795d..067e8a3b38d0 100644
+--- a/include/net/9p/9p.h
++++ b/include/net/9p/9p.h
+@@ -581,6 +581,7 @@ struct p9_rstatfs {
+ struct p9_fcall {
+ 	u32 size;
+ 	u8 id;
++	bool zc;
+ 	u16 tag;
  
-+static void alc225_fixup_hp_aio_spk(struct hda_codec *codec,
-+				    const struct hda_fixup *fix, int action)
-+{
-+	if (action != HDA_FIXUP_ACT_INIT)
-+		return;
-+
-+	snd_hda_codec_write(codec, 0x1b, 0,
-+			    AC_VERB_SET_AMP_GAIN_MUTE, AMP_OUT_MUTE);
-+	alc_write_coef_idx(codec, 0x10, 0x0220);
-+	msleep(75);
-+	snd_hda_codec_write(codec, 0x1b, 0,
-+			    AC_VERB_SET_AMP_GAIN_MUTE, AMP_OUT_UNMUTE);
-+}
-+
- /* Forcibly assign NID 0x03 to HP/LO while NID 0x02 to SPK for EQ */
- static void alc274_fixup_bind_dacs(struct hda_codec *codec,
- 				    const struct hda_fixup *fix, int action)
-@@ -5987,12 +6001,8 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
- 	},
- 	[ALC225_FIXUP_HP_AIO_SPK] = {
--		.type = HDA_FIXUP_VERBS,
--		.v.verbs = (const struct hda_verb[]) {
--			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x10 },
--			{ 0x20, AC_VERB_SET_PROC_COEF, 0x0220 },
--			{ }
--		},
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc225_fixup_hp_aio_spk,
- 	},
- 	[ALC286_FIXUP_ACER_AIO_HEADSET_MIC] = {
- 		.type = HDA_FIXUP_VERBS,
-@@ -7737,6 +7747,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x854a, "HP EliteBook 830 G6", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x854d, "HP EliteBook 840 G6", ALC285_FIXUP_HP_GPIO_LED),
- 	SND_PCI_QUIRK(0x103c, 0x856a, "HP Pavilion 15-cs1xxx", ALC295_FIXUP_HP_PAVILION_MUTE_LED_1B),
-+	HDA_CODEC_QUIRK(0x103c, 0x84ee, "HP Pavilion AiO 24", ALC225_FIXUP_HP_AIO_SPK),
- 	HDA_CODEC_QUIRK(0x103c, 0x85ba, "HP Pavilion AiO 24", ALC225_FIXUP_HP_AIO_SPK),
- 	SND_PCI_QUIRK(0x103c, 0x85c6, "HP Pavilion x360 Convertible 14-dy1xxx", ALC295_FIXUP_HP_MUTE_LED_COEFBIT11),
- 	SND_PCI_QUIRK(0x103c, 0x85de, "HP Envy x360 13-ar0xxx", ALC285_FIXUP_HP_ENVY_X360),
+ 	size_t offset;
+@@ -588,7 +589,6 @@ struct p9_fcall {
+ 
+ 	struct kmem_cache *cache;
+ 	u8 *sdata;
+-	bool zc;
+ };
+ 
+ int p9_errstr2errno(char *errstr, int len);
 -- 
-2.25.1
+2.56.0
 
