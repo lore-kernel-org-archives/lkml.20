@@ -1,70 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793254639;
-	b=MzHuGLYex1Djq1ij0I7Xc/c74DduNpknXo/dnJutw7Z01s3SNXjHxXOR5JOK41LsRLtn
-	 VbC9uAwM9JOhZFyyIUoEX4bAmBbUlMpws0X6dIeL7u/h0jLop9RGLJSHKm/HljeUdCM4m
-	 19YGfCQVmLU8wD1FLL11u6PGM02yNL8lQstqZ5X3F/xOgnuH37cXLmgRWsDQasVuBWtB7
-	 N0iFojflOVV9+/mGj2E/gE/Kfr424M0LCAL2EvIkI0YP/EEmddDKkT8n9+ZTBLVyiXtoH
-	 wS65vwF6Vv2vYP2Qpn3oIzTbCJeQzY5tLWJZikPHIJVLkVCo0Ocmd9/w2WbCev7mLXw==
+	t=1793254664;
+	b=Hje1C9VhxKBwI4kQ0gPcEuRWaDdyEBCfUbK2LoC7iCIr7P/marVmBrMSO5zNEnTpWqgv
+	 rxafNPTUUg/WqVc7zUuSVFZBZkqKGnUJvwb6ZeFRyydLCvxRbAUS0SJb4zDsljvs9IRcL
+	 yoLS9Sr6spPzougD+vMuKp5Gf+O14TGcJkyfvne5E3gNRHeo/cqqDjNelBOnklvoHXLMs
+	 5pPL7I81aNnuwRmHjJ+Cdwd5dBVMPApHoY/9NCsSgSs/gKsNrGAKxLYCaYsdqMAvx3E0V
+	 4esvGBWjDajjwS0x7+/PSVtQCoDlcR+W5QkT58MJ5QSnUlr9nji8B1qMBZUv8n6TohQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793254639;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=yBZ4TUo03feojPuxZWuTtPwGy7knKvPPOqlwiFV/hDo=;
-	b=QVEeVWKZpAhynIZVOW5nMfwTssfWhw1KWRYw/D2oKTk4UR4IWuxaOWrUrr1dK+oO/5pu
-	 0aK8YvSIDn4j1WPwkDoSs6VTyM0+fiCxHdRj7BeEbTfVb/IxkRarHK2rQY6eAuon4C5pA
-	 JQZ2D3JMKKj11fBm1JUlC9BHJTMPOR6A+AY+P2QIs7F6BFC6t5AcnpFhGFXX/oP1URJpl
-	 DH+mn7OKj9TTvr7k6VyufvA4DjKebcCsrshpwq7RDxCo4XjtBlwVQTaDh2Rqx6vRxtpgh
-	 RP1dNsznJrl4nYYNGXUpzJ1XCz5gf4OyXAlQwdzNBWYVvXsUdxFwtiAL/AMwivpG9iA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793254664;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mYlcUSaYWpVPYtfz0pyW45L2HYD9vrtuExdJX7usMSg=;
+	b=rKb1g+ripQV977/kmOFzR9TPfuZSAPOLC6L6c1VszXfFeNUm71OwKaBAl7LIwu9mLt6I
+	 08Wq3bxMfmAWcemt8c5gP4mDmhYKtv7AHDnkOCh4zwZ/8E7eyS7/8/222HQA1kUonYNGi
+	 nJXQdtuIrlWdtEYpC/CKR1f61jdAH6bdtlppf+NvJjm2hl4eMEZC1JkGRnYzcCz0IxPnc
+	 y+iav/Wg+KpSW81CXs2atLC7jrk4j20NF8uMpYZHkca+4yxiMF5yzbSotzWQPKKyNVDE8
+	 BgrnC/S795ktRLLsu4HgljYQ64Jqbj/Sd14nXd1nVa/mwaNCV9croav3cSKmQo0suKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MG089LjB;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DF4l3Bg9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833D4606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:17:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 833D4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 897CB606A31C;
+	Thu, 29 Oct 2026 06:17:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MG089LjB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793254638; x=1824790638;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=6EWDwgloRuMWf647VnD//4UEbpnkuFDnlJXuxT0wTts=;
-  b=MG089LjBFqwgVRXaqNVH09s/MKrUkM+ykSFK8dRe5h2n+tg4m2YwXT6A
-   ePd1i0wtOIOHqeKBMpWuc+gZHOgsHA4Iu6wzyoAk3EAf54A5DShydQNEB
-   hyg/WY80lsVyV2u+H8ry/RjoDwHpQeYs4iOZXFUS1lq20xdsxG+esFlQo
-   cGpQUFL2Zpxe1lqG9A4Px0Do/+cMP3xCk+6PZs52TCG3yG+hA9OGV4U5P
-   Fxwgzjn9wnz/D5I6CVpBUIj7rcLWeJD94cs/6arQfoLaQal0cmC9tRqLS
-   ryiw2KbTeBZYRMsIzqIas/34nfjBCAgJRkEptRaN64bW5cnleJGaDaVaL
-   w==;
-X-CSE-ConnectionGUID: 7Py1PwgFT8GVW6ZjlODDig==
-X-CSE-MsgGUID: 6BFNLKg+Scie9RnxJZmPog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1877302"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1877302"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 23:17:17 -0700
-X-CSE-ConnectionGUID: Xwf62UUNRBSQVFDqa7x9vA==
-X-CSE-MsgGUID: TRwYLekhRcOWwLmOYq65Fw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5042596"
-Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 23:17:16 -0700
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Thu, 29 Oct 2026 08:16:56 +0200
-Subject: [PATCH] mei: avoid reuse client on bus for vtag
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DF4l3Bg9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490971F01825;
+	Thu, 29 Oct 2026 06:17:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793254663;
+	bh=mYlcUSaYWpVPYtfz0pyW45L2HYD9vrtuExdJX7usMSg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DF4l3Bg9PbAdaokN5m/oQoyH75+XfyOSnr+YEjckoAbLBySSAtLTta6QO62Xgj8XW
+	 NpD+qSoEz97JS5nPpmWL3NFJcuK5BnRgrYGp/B8UU43HIHP8qSmfG0fZSnxRLwOmMv
+	 nxbsUE+zVuMnGV0SY+OA8U6ejO9UuWIiWlXNCxJc=
+Date: Thu, 29 Oct 2026 07:17:39 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Peter Schneider <pschneider1968@googlemail.com>
+Cc: Brett A C Sheffield <bacs@librecast.net>, stable@vger.kernel.org,
+	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org, akpm@linux-foundation.org,
+	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+	lkft-triage@lists.linaro.org, pavel@nabladev.com,
+	jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.1 0000/1887] 6.1.191-rc1 review
+Message-ID: <2026102927-unbundle-overshot-4e48@gregkh>
+References: <20261028170459.200466217@linuxfoundation.org>
+ <auJTCcqMDEmAS7Q_@karahi.librecast.net>
+ <auJem0IIOw9Ibiw-@karahi.librecast.net>
+ <3965e950-1e5c-4b52-82f0-9fe92806654f@googlemail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,55 +63,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-mei_avoid_reuse_bus_on_vtag-v1-1-ae80231c1265@intel.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqDMBAG0KvIrBvQoP27SilDNF/sLJqUjIaCe
- HeDy7d5GymyQOnZbJRRRCXFiu7S0PRxcYYRX022tdeutQ/zhbArSTxnrAoeV+UUuSxuNrcw3gf
- fow/DRHX4ZQT5n/vrve8HirRzBW0AAAA=
-X-Change-ID: 20261029-mei_avoid_reuse_bus_on_vtag-7fb85d4e4f5c
-To: Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Menachem Adin <menachem.adin@intel.com>, linux-kernel@vger.kernel.org, 
- Alexander Usyskin <alexander.usyskin@intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793254635; l=973;
- i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=6EWDwgloRuMWf647VnD//4UEbpnkuFDnlJXuxT0wTts=;
- b=DIf73Js3ieZiw+ZsA9VNE3ODEKn7f8S/e2ObZhkog4S6rVNtD49ygCSl2eSCmIgUS80Zr+vvh
- jefx0JIEw0VCTkRe4TPqF1ld5O/45xNPChqc0XNusYmQ7k66n0no1XQ
-X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
- pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3965e950-1e5c-4b52-82f0-9fe92806654f@googlemail.com>
 
-Bus device assumes exclusive ownership on client object.
-Do not allow vtag connect to reuse client owned by device on bus.
+On Thu, Oct 29, 2026 at 01:25:45AM +0100, Peter Schneider wrote:
+> Am 28.10.2026 um 21:44 schrieb Brett A C Sheffield:
+> > On 2026-10-28 20:54, Brett A C Sheffield wrote:
+> > > On 2026-10-28 17:34, Greg Kroah-Hartman wrote:
+> > > > This is the start of the stable review cycle for the 6.1.191 release.
+> > > > There are 1887 patches in this series, all will be posted as a response
+> > > > to this one.  If anyone has any issues with these being applied, please
+> > > > let me know.
+> > > 
+> > > Build failure on amd64 with amdgpu:
+> > > 
+> > >    CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dmub/src/dmub_dcn315.o
+> > >    CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dmub/src/dmub_dcn316.o
+> > >    CC [M]  drivers/gpu/drm/amd/amdgpu/../display/dmub/src/dmub_dcn32.o
+> > >    LD [M]  drivers/gpu/drm/amd/amdgpu/amdgpu.o
+> > >    AR      drivers/gpu/built-in.a
+> > >    AR      drivers/built-in.a
+> > > make: *** [Makefile:2040: .] Error 2
+> > > 
+> > > No time to bisect just now but will try to have a look tomorrow.
+> > 
+> > Fortunately it was a build failure, so I just left that running:
+> > 
+> > git bisect start
+> > # status: waiting for both 'good' and 'bad' commits
+> > # bad: [adc8e434cf08c73b0f02dab2c15319315f07172f] Linux 6.12.115-rc1
+> > git bisect bad adc8e434cf08c73b0f02dab2c15319315f07172f
+> > # status: waiting for 'good' commit(s), 'bad' commit known
+> > # good: [85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e] Linux 6.12.114
+> > git bisect good 85d82e0d7c2dfd3e75d34f35b7ebbf41f45c9c4e
+> > # good: [0e1dbd1409918dbd331cd9c382ce64736dcf3272] ksmbd: fill in FileSysIdentifier in FS_POSIX_INFORMATION
+> > git bisect good 0e1dbd1409918dbd331cd9c382ce64736dcf3272
+> > # good: [617f27c3fa85742e9d468a2145e3676af6b2498d] Bluetooth: L2CAP: refuse __l2cap_chan_add if chan already has conn
+> > git bisect good 617f27c3fa85742e9d468a2145e3676af6b2498d
+> > # good: [1476a3a7d286ad7763025337f20bb841b24c72ea] io_uring: don't pass restart error codes to userspace
+> > git bisect good 1476a3a7d286ad7763025337f20bb841b24c72ea
+> > # good: [be00113e49ff42c2c007993dd05cf4bdd1c2bfeb] keys: Protect the type name while describing a key
+> > git bisect good be00113e49ff42c2c007993dd05cf4bdd1c2bfeb
+> > # good: [6270098a65994bdf26b736b2ad6614e5b9078ad6] coredump: hold RCU while releasing parked threads
+> > git bisect good 6270098a65994bdf26b736b2ad6614e5b9078ad6
+> > # good: [41af0a793777ede3f1839bcd8abae92a5c901fe4] fork: release the files of a failed fork after sched_cancel_fork()
+> > git bisect good 41af0a793777ede3f1839bcd8abae92a5c901fe4
+> > # good: [6da107042aaa43b05f4c16bee65afc2e9b5f7561] signal: allow taks to temporarily block TIF_NOTIFY_SIGNAL
+> > git bisect good 6da107042aaa43b05f4c16bee65afc2e9b5f7561
+> > # good: [da1419eb5d34caf39c1f3abad5b95a601a35114f] fanotify: Fix crash in fanotify_init(2)
+> > git bisect good da1419eb5d34caf39c1f3abad5b95a601a35114f
+> > # first 'bad' commit: [adc8e434cf08c73b0f02dab2c15319315f07172f] Linux 6.12.115-rc1
+> 
+> 
+> Brett, you are reporting against 6.1.191-rc1. Are you on the wrong branch?
 
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
----
- drivers/misc/mei/main.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/misc/mei/main.c b/drivers/misc/mei/main.c
-index 4fbf0b323616..1795f1a00b67 100644
---- a/drivers/misc/mei/main.c
-+++ b/drivers/misc/mei/main.c
-@@ -572,6 +572,10 @@ static int mei_ioctl_connect_vtag(struct file *file,
- 			if (!IS_ERR(mei_cl_fp_by_vtag(pos, vtag)))
- 				continue;
- 
-+			/* do not share with devices on bus */
-+			if (pos->cldev)
-+				continue;
-+
- 			/* replace cl with acquired one */
- 			cl_dbg(dev, cl, "replacing with existing cl\n");
- 			mei_cl_unlink(cl);
-
----
-base-commit: 79e5797d243a466138f641932f81dc69f796060c
-change-id: 20261029-mei_avoid_reuse_bus_on_vtag-7fb85d4e4f5c
-
-Best regards,
--- 
-Alexander Usyskin <alexander.usyskin@intel.com>
-
+Yeah, somthing looks wrong here :)
