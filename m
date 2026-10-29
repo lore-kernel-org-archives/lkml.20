@@ -1,83 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793308599;
-	b=Rqpzp8jIJspJjRqf0EuEa9Iz6njQW140U1X3ufjzEWkzoCOiddxITVkN95gVXumcqK7I
-	 wPRXn4KfITrtxECo6DhhZDuWf3rDxlgT5t9sEYnkOfyjMPnhO4Aw3p9PNK6ln1Snpkgn9
-	 RRWlM/fx6y3SA9TkSJsKnHJtiTnAsH4d+RU3+7HVq0MhhzajbTyX70abKcXltyI73xR68
-	 SAWufZHhEcMLXKKwCNepCnQOdN/ModppGXV/Eh7GObmFIY2SKB8AYgdXdxpLy6Whqdtfi
-	 Cfc6Ye3CdM6BFGS4p15Vg9K4LTv+WuaBSBnkLF9zKpe5XEPuW/VKV0jBnubNeVEaBkg==
+	b=OOO7QpFe+Svrmtpoj6QtpEK3OnZUSAaUZq/qaxDzfjyfiMIUdaEz1/G0WFm11fAs6Ltr
+	 GIsW5c92Yw8YddPCtIROYg+bCYYnH18XWeYD4mxRVKx86hCcIkkIfM/7r+dOU5Ccs/jqF
+	 RrnIK+aqtFR9t4a0avtV/mwTg/AEm9GrZjdKVpcCiGMXDYWAl6fImsleqX2dWt6763Gwi
+	 fTtK7DCxuHZ6wK9aCeehjlIGI/WPRJZKCqkQTZ/U4mpQTTvqCEYcAIvSi1b1arT/KMDgd
+	 XLqzGie6qGSY/pqSUUDKboqn4hbi+nAxISaakY40UOJ6sHTJsUXiA2cOKm80/R7Wq/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793308599;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ve26lUBmUJFECYTyCPLjaRxL8AOyHzq0JI4RfNsIoIc=;
-	b=wPBt/2WBWwnkHN3hLMrB60DuqgcrmLQsWWj4j/gWkd4tib8KEWaCONUzZ5Y7bCCzMmPM
-	 WVR8tDHPfVI5DVS3VgYkzne5LRVicFksl+QZjBlyXa5cCbhlNErOLpZrE+d1dYTtZSFpx
-	 Lpyny6Oj8vPDyd/nKgeOHBnR+Q384IXlldJfP7A4Aiq0VjVsPBB1O9tXnr5VQfPxbGIXN
-	 xKdhREj2NmHdYx9/BKvi0/k1aufeA2Ez3MpVtay5/rvqk9/+9ASlvPHqm7Lh6cNHY4kqD
-	 hWexOX0Jz1IdPGSeXjHKQMSgAfMMowYBa4+2ohRSh8iQXkVYTGKbTstMMaTofEfZpGw==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=ubPnJzRS8C1+M2WmRVf76+mZlKCt4O18wsj2CRU6IKw=;
+	b=xYNHxZXZjbqAn2cer+RYetoI5z4biKh8U6USEW1G6MKtbS8QXx/EYes+jzJrp2RlElnl
+	 RNbJy6+nPzZOqG884vx6aLx5Zpo1xUdW7BmxidIZ/QexVRzGRO/5eell90uFUSiY50pNY
+	 GGsfskM80brQsa5A7jlwZfxeUMJ2ef3ifk3xlyvMuVvzWC9tqobcK8NS56zfjYu6wzsgK
+	 GBjeSfpCRoOSjVfOFFqp19I32HBb1NJylqR8XBi9eey8e06uxyG7SIf1yx+AilyBvFog4
+	 Wjfif4Uo77ON3YdvoO/PBOI1nGviALFNTWcY/Ql9tht0OjHSjB1Js4+IvUfRh+TLAKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nwvuYeOF;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oA8bBns3;
+	arc=none smtp.remote-ip=209.85.215.198
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C49606A31D;
-	Thu, 29 Oct 2026 21:16:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3C49606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA99606A330
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:16:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CA99606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--hramamurthy.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nwvuYeOF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793308598; x=1824844598;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=gUD11uQ0t0v2ZsUT6AEd0e2qy1EJgpyF60DowInl21s=;
-  b=nwvuYeOFaohurymzfNyavKDLUocI1f5FBwte3B1GtM1B2ov8wpOk7Ov/
-   fxm1+PgZBkrE8/XthuWHdnsotY8AImNeAovu967KLDHPuoZ6ELqWuJsnh
-   vgCalk/8yDK+Hu+9u8uS+ENJ3XxmX7Mfg4BE/1SUhRI+MdbhBAKGUd+4s
-   KLyla1nAdAm9yXsHw4t+rOvkOjB2voFgTCbXTpnO90GG5TmAr+M5ohj33
-   4sPdI8mqfXd9QfzdS4v9mPNBje+PK3krXAHvhYhe8AfJGE1X83YwiYsxe
-   vyk2rjcjTEZnHPQQIMzMupLbCziG4zsJeujvYPT/wn85NM2MOQyM8HSBu
-   w==;
-X-CSE-ConnectionGUID: JGvO9pANQU+HnhFPtcnVfw==
-X-CSE-MsgGUID: qqRwZW5zRoO17+9oMcReFA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1949741"
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="1949741"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 14:16:38 -0700
-X-CSE-ConnectionGUID: Ak24gQHiQ9GYGQhbyQFg4w==
-X-CSE-MsgGUID: sGh9KwjSQGWzllNlhd+0FA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,185,1787036400"; 
-   d="scan'208";a="5224591"
-Received: from b04f130c83f2.jf.intel.com ([10.165.154.98])
-  by orviesa004.jf.intel.com with ESMTP; 29 Oct 2026 14:16:37 -0700
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>
-Cc: Tim Chen <tim.c.chen@linux.intel.com>,
-	David Hildenbrand <david@kernel.org>,
-	Frank van der Linden <fvdl@google.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Mohini Narkhede <mohini.narkhede@intel.com>,
-	Pooja Jain <pooja.jain@intel.com>,
-	Doug Nelson <doug.nelson@intel.com>
-Subject: [PATCH] mm/hugetlb_vmemmap: Fix usemap overrun on nodes with multiple ranges
-Date: Thu, 29 Oct 2026 14:21:37 -0700
-Message-Id: <20261029212137.3141875-1-tim.c.chen@linux.intel.com>
-X-Mailer: git-send-email 2.32.0
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oA8bBns3
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cdae10aebfdso37729a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:16:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793308599; x=1793913399; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ubPnJzRS8C1+M2WmRVf76+mZlKCt4O18wsj2CRU6IKw=;
+        b=oA8bBns3TAyYqiYf2YWxAO7LMvAAee3flytLjR8v8+nT5ayS4RVnq8kwS6pBsuDUkE
+         r0VQJLzydMDgjfbqh7hiRjTsdus+I24ucjHA5OSgLEg/DBQWawnA63VxFQyT8cscVu6u
+         jJLggqoB2MAAGBfjhlsxRpGYYVgS3XgRHMS6hzpbc4Hiz/SkCpFk+uh8Mj4tpn2kiNjv
+         r3cfwTjVNEGIyA7TzosVR5XKvFjVNUjE1aZlPszEFMfS/x+4xWhGBPj5PEa9B1gr0kYD
+         bZPVrbXsoNvgchoHzHmjmN5/Ug7KRb95BP3HJH1pLkLTzQfQ38HHOkDRRzHBgJhYX6SP
+         cCWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793308599; x=1793913399;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ubPnJzRS8C1+M2WmRVf76+mZlKCt4O18wsj2CRU6IKw=;
+        b=Mqmf3OJm/RXSW2ysMfCup4toP6TSwnF5i8U2ydfybqjJV57oP3zIM/07EpViNtf4RD
+         worNfYUfmBJ+EZs8H+7RhtaKMVUFXYMPuqiip/dbv2bMbVxpt46gyqKND7Vcd4g3h6nz
+         ll2Dok1wX+9kUTokzzwv2suwaU9Yw9OslAyMUMyNtqNnP49R0KhRQGDRLTfA22CkkfBl
+         Gvz7z8TrkbEtzG9CeoMsSTgorEXA4vfX66jU74dxzBQFbjXjwjx78+y6fMcjyG1pVjR7
+         UBhynjm4H34HrT656sswalylZP83k03HMUHkW8edjmVuD+o7oJfPPRvNzD1ckUk5hLeQ
+         WDog==
+X-Forwarded-Encrypted: i=1; AKwUvBxu6vV7czm2TBtIheLn242TsNajIsXdXVTr19+JsoP49iJ2nEJFMjOim7VQbcE8Ef/kJivsehBTy6FqbtE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL43/HNRn9K/6pEm+yS6fJzgTitQV5LyC8r//YIwSwW8ZmQtsNM
+	qfcod5kixvQLeAtnZCenCV/w8oX9h0WqLuyHSbHadx2F5CVI7pt8reBR3025CsVNqYK/WJoEGEV
+	Kg3aXkKnP+AXdSb/epAnXrNVvQw==
+X-Received: from pjbci19.prod.google.com ([2002:a17:90a:fc93:b0:3ad:3715:39c8])
+ (user=hramamurthy job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90a:e7c5:b0:3a8:337d:228a with SMTP id 98e67ed59e1d1-3ae89559886mr128445a91.6.1793308598543;
+ Thu, 29 Oct 2026 14:16:38 -0700 (PDT)
+Date: Thu, 29 Oct 2026 21:16:32 +0000
+In-Reply-To: <20261029211634.2232784-1-hramamurthy@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,235 +78,292 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261029211634.2232784-1-hramamurthy@google.com>
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261029211634.2232784-3-hramamurthy@google.com>
+Subject: [PATCH net v4 2/4] gve: Fix backward stats when interface goes down
+ or configuration is adjusted
+From: Harshitha Ramamurthy <hramamurthy@google.com>
+To: netdev@vger.kernel.org
+Cc: joshwash@google.com, hramamurthy@google.com, andrew+netdev@lunn.ch, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	jordanrhee@google.com, willemb@google.com, przemyslaw.kitszel@intel.com, 
+	nktgrg@google.com, maolson@google.com, jacob.e.keller@intel.com, 
+	pkaligineedi@google.com, yangchun@google.com, patricion@google.com, 
+	awogbemila@google.com, stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Debarghya Kundu <debarghyak@google.com>, Pin-yen Lin <treapking@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-sparse_init_nid() allocates one usemap slot (struct mem_section_usage)
-per present section in [pnum_begin, pnum_end), and
-sparse_init_early_section() hands them out in order, with a BUG_ON() when
-they run out. hugetlb_vmemmap_init_early(nid) however initializes the
-sections of every bootmem gigantic page on the node, including pages
-outside the range being initialized. If a node's memory is split into
-more than one range, sparse_init() calls sparse_init_nid() once per range,
-and this takes more slots than were allocated. The same happens if a
-gigantic page straddles a node boundary.
+From: Debarghya Kundu <debarghyak@google.com>
 
-For example, with this SRAT layout every node has a small range below 4G
-and a large range above 4G:
+gve_get_base_stats() sets all the stats to 0, so the stats go backwards
+when interface goes down or configuration is adjusted.
 
-  Node 0 PXM 0 [mem 0x00000000-0x2fffffff]          768 MB  (low)
-  Node 0 PXM 0 [mem 0x100000000-0x80cfffffff]               (high)
-  Node 1 PXM 1 [mem 0x30000000-0x5fffffff]          768 MB  (low)
-  ...
+This issue was discovered and actually triggered by the
+drivers/net/stats.py selftest (check_down test case). Bringing down the
+interface caused statistics counters to reset to 0, triggering selftest
+assertion failures because netdevice stats must not go backwards.
 
-In 128 MB memory sections (x86_64 SECTION_SIZE_BITS = 27), node 0's low
-range is sections 0x00-0x05 (6 present sections) and its high range is
-sections 0x20-0x1019. The low ranges of the other nodes are 4 or 6
-sections, all smaller than the 8 sections of a 1G page.
+Fix this by persisting baseline stats across queue teardown in
+gve_queues_mem_remove() and single-queue stop in gve_rx_queue_stop().
 
-Node 0's first range has 6 sections, so 6 slots. With "hugepagesz=1G
-hugepages=400", hugetlb_vmemmap_init_early(0) then initializes node 0's
-1G page at 0x67c0000000 (sections 0xcf8-0xcff, in its high range), and
-the 7th section hits the BUG_ON() (seen on v7.2.6):
+Also report the live XDP TX ring counters in gve_get_base_stats(), as
+those rings are not exposed as netdev queues, and take stats_lock around
+the priv->rx[idx] writes in gve_rx_queue_start().
 
-  kernel BUG at mm/sparse.c:268!
-  RIP: 0010:sparse_init_early_section+0x9f/0xb0
-  RAX: 0000000000200000 RBX: 0000000000000cfe RCX: 0000000000000020
-  RDX: 0000000000000cfe RSI: ffd7e1d09fc00000 RDI: ff252cb28ffb3f50
-  R10: ff252cb28ffb3d40 R13: 0000000000000d00
-  Call Trace:
-   hugetlb_vmemmap_init_early+0xe1/0x140
-   sparse_init_nid+0x56/0x370
-   sparse_init+0x192/0x2b0
-   free_area_init+0x7f/0x690
-   start_kernel+0x64/0x540
+This change was tested using the DQO RDA queue format.
 
-Here RDX is the section number, and R10/RDI are 6 slots apart: the start
-of the usemap buffer and its current position, which is the end.
-
-Pass the section range to hugetlb_vmemmap_init_early() and only pre-HVO a
-page whose sections are all present and within it. Ranges are disjoint,
-so each page is handled once, in its own range.
-
-Skipped pages are not marked HUGE_BOOTMEM_HVO. Their sections get a
-regular memmap from sparse_init_nid(), and the pages are optimized later
-by hugetlb_vmemmap_optimize_bootmem_folios().
-
-Fixes: b1222550fbf7 ("mm/hugetlb: do pre-HVO for bootmem allocated pages")
 Cc: stable@vger.kernel.org
-Reported-by: Mohini Narkhede <mohini.narkhede@intel.com>
-Tested-by: Pooja Jain <pooja.jain@intel.com>
-Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
+Fixes: 2e5e0932dff5 ("gve: add support for basic queue stats")
+Signed-off-by: Debarghya Kundu <debarghyak@google.com>
+Co-developed-by: Pin-yen Lin <treapking@google.com>
+Signed-off-by: Pin-yen Lin <treapking@google.com>
+Signed-off-by: Harshitha Ramamurthy <hramamurthy@google.com>
 ---
- include/linux/mmzone.h |  9 ++++++---
- mm/hugetlb_vmemmap.c   | 38 ++++++++++++++++++++++++++++++++++----
- mm/hugetlb_vmemmap.h   |  7 +++++--
- mm/sparse-vmemmap.c    | 16 +++++++++-------
- mm/sparse.c            |  2 +-
- 5 files changed, 55 insertions(+), 17 deletions(-)
 
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 94f9c3ff54160..da17dae8b057b 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -2167,13 +2167,16 @@ static inline int preinited_vmemmap_section(const struct mem_section *section)
- 		(section->section_mem_map & SECTION_IS_VMEMMAP_PREINIT));
+Changes in v4:
+- Report the live XDP TX ring counters in gve_get_base_stats() (Sashiko)
+- Take stats_lock around the priv->rx[idx] writes in
+  gve_rx_queue_start() (Sashiko)
+
+Changes in v3:
+- Drop u64_stats_sync for the base stats and use spinlock to protect
+  them instead
+- Save base stats in gve_queues_mem_remove() instead of gve_close()
+- Save base stats in gve_rx_queue_stop() for single-queue restarts
+- Drop unused rx_dropped and tx_dropped accumulation in gve_add_base_stats()
+- Refined the commit message
+
+Changes in v2:
+- Add a NULL pointer check in gve_get_ring_err_stats() (Sashiko)
+- Use local variable to prevent inflates from u64_stats_fetch_retry()
+  (Sashiko)
+- Add u64_stats_fetch/begin to protect base stats (Sashiko)
+
+ drivers/net/ethernet/google/gve/gve.h      |   6 +
+ drivers/net/ethernet/google/gve/gve_main.c | 131 +++++++++++++++++----
+ 2 files changed, 115 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+index 104468c2c07f..37070bc14c87 100644
+--- a/drivers/net/ethernet/google/gve/gve.h
++++ b/drivers/net/ethernet/google/gve/gve.h
+@@ -871,6 +871,10 @@ struct gve_ctrl_ops {
+ 	int (*report_link_speed)(struct gve_priv *priv);
+ };
+ 
++struct gve_ring_err_stats {
++	u64 rx_alloc_fails;
++};
++
+ struct gve_priv {
+ 	struct net_device *dev;
+ 	struct gve_tx_ring *tx; /* array of tx_cfg.num_queues */
+@@ -962,6 +966,8 @@ struct gve_priv {
+ 	unsigned long service_task_flags;
+ 	unsigned long state_flags;
+ 
++	struct gve_ring_err_stats base_ring_err_stats;
++	struct rtnl_link_stats64 base_net_stats;
+ 	struct gve_stats_report *stats_report;
+ 	u64 stats_report_len;
+ 	dma_addr_t stats_report_bus; /* dma address for the stats report */
+diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+index 26fdd22644f4..b5e2f39a903c 100644
+--- a/drivers/net/ethernet/google/gve/gve_main.c
++++ b/drivers/net/ethernet/google/gve/gve_main.c
+@@ -61,16 +61,44 @@ static netdev_tx_t gve_start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		return gve_tx_dqo(skb, dev);
  }
  
--void sparse_vmemmap_init_nid_early(int nid);
-+void sparse_vmemmap_init_nid_early(int nid, unsigned long pnum_begin,
-+				   unsigned long pnum_end);
- #else
- static inline int preinited_vmemmap_section(const struct mem_section *section)
- {
- 	return 0;
- }
--static inline void sparse_vmemmap_init_nid_early(int nid)
-+static inline void sparse_vmemmap_init_nid_early(int nid,
-+						 unsigned long pnum_begin,
-+						 unsigned long pnum_end)
- {
- }
- #endif
-@@ -2379,7 +2382,7 @@ static inline unsigned long next_present_section_nr(unsigned long section_nr)
- #endif
- 
- #else
--#define sparse_vmemmap_init_nid_early(_nid) do {} while (0)
-+#define sparse_vmemmap_init_nid_early(_nid, _begin, _end) do {} while (0)
- #define pfn_in_present_section pfn_valid
- #endif /* CONFIG_SPARSEMEM */
- 
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 917db0984143c..e9b35dabb6a4f 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -758,10 +758,37 @@ static struct zone *pfn_to_zone(unsigned nid, unsigned long pfn)
- 	return NULL;
- }
- 
-+/*
-+ * sparse_init() initializes a node one run of contiguous, same-node present
-+ * sections at a time, and only reserves usemap space for the sections in
-+ * [pnum_begin, pnum_end). A node may be made up of several such runs (e.g.
-+ * with interleaved NUMA layouts), and a gigantic page may straddle a node
-+ * boundary. Only pre-HVO a page if all of its sections are present and
-+ * within the run being initialized; the rest is left to the generic path.
-+ */
-+static bool __init bootmem_page_in_section_range(unsigned long pnum,
-+						 unsigned long ns,
-+						 unsigned long pnum_begin,
-+						 unsigned long pnum_end)
+-static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
++static void gve_add_base_stats(struct gve_priv *priv,
++			       struct rtnl_link_stats64 *s)
 +{
-+	unsigned long i;
++	struct rtnl_link_stats64 *base_stats = &priv->base_net_stats;
 +
-+	if (pnum < pnum_begin || pnum + ns > pnum_end)
-+		return false;
-+
-+	for (i = 0; i < ns; i++) {
-+		if (!present_section_nr(pnum + i))
-+			return false;
-+	}
-+
-+	return true;
++	s->rx_packets += base_stats->rx_packets;
++	s->rx_bytes += base_stats->rx_bytes;
++	s->tx_packets += base_stats->tx_packets;
++	s->tx_bytes += base_stats->tx_bytes;
 +}
 +
- /*
-  * Initialize memmap section for a gigantic page, HVO-style.
-  */
--void __init hugetlb_vmemmap_init_early(int nid)
-+void __init hugetlb_vmemmap_init_early(int nid, unsigned long pnum_begin,
-+				       unsigned long pnum_end)
- {
- 	unsigned long psize, paddr, section_size;
- 	unsigned long ns, i, pnum, pfn, nr_pages;
-@@ -784,6 +811,12 @@ void __init hugetlb_vmemmap_init_early(int nid)
- 		psize = nr_pages << PAGE_SHIFT;
- 		paddr = virt_to_phys(m);
- 		pfn = PHYS_PFN(paddr);
-+		pnum = pfn_to_section_nr(pfn);
-+		ns = psize / section_size;
++static void gve_add_tx_ring_range_stats(struct gve_priv *priv, int start_ring,
++					int end_ring, u64 *packets, u64 *bytes)
++{
++	int ring;
 +
-+		if (!bootmem_page_in_section_range(pnum, ns, pnum_begin, pnum_end))
-+			continue;
++	for (ring = start_ring; ring < end_ring; ring++) {
++		struct gve_tx_ring *tx = &priv->tx[ring];
++		unsigned int start;
++		u64 pkts, byts;
 +
- 		map = pfn_to_page(pfn);
- 		start = (unsigned long)map;
- 		end = start + hugetlb_vmemmap_size(m->hstate);
-@@ -794,9 +827,6 @@ void __init hugetlb_vmemmap_init_early(int nid)
- 			panic("Failed to allocate memmap for HugeTLB page\n");
- 		memmap_boot_pages_add(DIV_ROUND_UP(HUGETLB_VMEMMAP_RESERVE_SIZE, PAGE_SIZE));
- 
--		pnum = pfn_to_section_nr(pfn);
--		ns = psize / section_size;
--
- 		for (i = 0; i < ns; i++) {
- 			sparse_init_early_section(nid, map, pnum,
- 					SECTION_IS_VMEMMAP_PREINIT);
-diff --git a/mm/hugetlb_vmemmap.h b/mm/hugetlb_vmemmap.h
-index 7ac49c52457dd..255e650bc4174 100644
---- a/mm/hugetlb_vmemmap.h
-+++ b/mm/hugetlb_vmemmap.h
-@@ -28,7 +28,8 @@ void hugetlb_vmemmap_optimize_folio(const struct hstate *h, struct folio *folio)
- void hugetlb_vmemmap_optimize_folios(struct hstate *h, struct list_head *folio_list);
- void hugetlb_vmemmap_optimize_bootmem_folios(struct hstate *h, struct list_head *folio_list);
- #ifdef CONFIG_SPARSEMEM_VMEMMAP_PREINIT
--void hugetlb_vmemmap_init_early(int nid);
-+void hugetlb_vmemmap_init_early(int nid, unsigned long pnum_begin,
-+				unsigned long pnum_end);
- #endif
- 
- 
-@@ -76,7 +77,9 @@ static inline void hugetlb_vmemmap_optimize_bootmem_folios(struct hstate *h,
++		do {
++			start = u64_stats_fetch_begin(&tx->statss);
++			pkts = tx->pkt_done;
++			byts = tx->bytes_done;
++		} while (u64_stats_fetch_retry(&tx->statss, start));
++		*packets += pkts;
++		*bytes += byts;
++	}
++}
++
++static void gve_get_ring_stats(struct gve_priv *priv,
++			       struct rtnl_link_stats64 *s)
  {
+-	struct gve_priv *priv = netdev_priv(dev);
+ 	unsigned int start;
+ 	u64 packets, bytes;
+-	int num_tx_queues;
+ 	int ring;
+ 
+-	spin_lock_bh(&priv->stats_lock);
+-	num_tx_queues = gve_num_tx_queues(priv);
+ 	if (priv->rx) {
+ 		for (ring = 0; ring < priv->rx_cfg.num_queues; ring++) {
+ 			do {
+@@ -84,19 +112,41 @@ static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
+ 			s->rx_bytes += bytes;
+ 		}
+ 	}
+-	if (priv->tx) {
+-		for (ring = 0; ring < num_tx_queues; ring++) {
+-			do {
+-				start =
+-				  u64_stats_fetch_begin(&priv->tx[ring].statss);
+-				packets = priv->tx[ring].pkt_done;
+-				bytes = priv->tx[ring].bytes_done;
+-			} while (u64_stats_fetch_retry(&priv->tx[ring].statss,
+-						       start));
+-			s->tx_packets += packets;
+-			s->tx_bytes += bytes;
+-		}
++	if (priv->tx)
++		gve_add_tx_ring_range_stats(priv, 0, gve_num_tx_queues(priv),
++					    &s->tx_packets, &s->tx_bytes);
++}
++
++static void gve_get_ring_err_stats(struct gve_priv *priv,
++				   struct gve_ring_err_stats *err_stats)
++{
++	int ring;
++
++	if (!priv->rx)
++		return;
++
++	for (ring = 0; ring < priv->rx_cfg.num_queues; ring++) {
++		struct gve_rx_ring *rx = &priv->rx[ring];
++		unsigned int start;
++		u64 rx_alloc_fails;
++
++		do {
++			start = u64_stats_fetch_begin(&rx->statss);
++			rx_alloc_fails = rx->rx_skb_alloc_fail +
++					 rx->rx_buf_alloc_fail;
++		} while (u64_stats_fetch_retry(&rx->statss, start));
++
++		err_stats->rx_alloc_fails += rx_alloc_fails;
+ 	}
++}
++
++static void gve_get_stats(struct net_device *dev, struct rtnl_link_stats64 *s)
++{
++	struct gve_priv *priv = netdev_priv(dev);
++
++	spin_lock_bh(&priv->stats_lock);
++	gve_get_ring_stats(priv, s);
++	gve_add_base_stats(priv, s);
+ 	spin_unlock_bh(&priv->stats_lock);
  }
  
--static inline void hugetlb_vmemmap_init_early(int nid)
-+static inline void hugetlb_vmemmap_init_early(int nid,
-+					      unsigned long pnum_begin,
-+					      unsigned long pnum_end)
- {
+@@ -646,6 +696,9 @@ static void gve_queues_mem_remove(struct gve_priv *priv)
+ 	gve_get_curr_alloc_cfgs(priv, &tx_alloc_cfg, &rx_alloc_cfg);
+ 
+ 	spin_lock_bh(&priv->stats_lock);
++	gve_get_ring_stats(priv, &priv->base_net_stats);
++	gve_get_ring_err_stats(priv, &priv->base_ring_err_stats);
++
+ 	priv->tx = NULL;
+ 	priv->rx = NULL;
+ 	spin_unlock_bh(&priv->stats_lock);
+@@ -2689,8 +2742,20 @@ static int gve_rx_queue_stop(struct net_device *dev, void *per_q_mem, int idx)
+ 	gve_turnup_and_check_status(priv);
+ 
+ 	gve_per_q_mem = (struct gve_rx_ring *)per_q_mem;
++	spin_lock_bh(&priv->stats_lock);
++	priv->base_net_stats.rx_packets += priv->rx[idx].rpackets;
++	priv->base_net_stats.rx_bytes += priv->rx[idx].rbytes;
++	priv->base_ring_err_stats.rx_alloc_fails +=
++		priv->rx[idx].rx_skb_alloc_fail +
++		priv->rx[idx].rx_buf_alloc_fail;
+ 	*gve_per_q_mem = priv->rx[idx];
+ 	memset(&priv->rx[idx], 0, sizeof(priv->rx[idx]));
++	spin_unlock_bh(&priv->stats_lock);
++
++	gve_per_q_mem->rpackets = 0;
++	gve_per_q_mem->rbytes = 0;
++	gve_per_q_mem->rx_skb_alloc_fail = 0;
++	gve_per_q_mem->rx_buf_alloc_fail = 0;
+ 	return 0;
  }
  
-diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
-index 5a2469fb1838c..baed805b87d03 100644
---- a/mm/sparse-vmemmap.c
-+++ b/mm/sparse-vmemmap.c
-@@ -573,15 +573,17 @@ struct page * __meminit __populate_section_memmap(unsigned long pfn,
+@@ -2744,7 +2809,9 @@ static int gve_rx_queue_start(struct net_device *dev,
+ 		return -EAGAIN;
  
- #ifdef CONFIG_SPARSEMEM_VMEMMAP_PREINIT
- /*
-- * This is called just before initializing sections for a NUMA node.
-- * Any special initialization that needs to be done before the
-- * generic initialization can be done from here. Sections that
-- * are initialized in hooks called from here will be skipped by
-- * the generic initialization.
-+ * This is called just before initializing the sections of a NUMA node in
-+ * the range [pnum_begin, pnum_end). A node may span several such ranges,
-+ * in which case this is called once per range. Any special initialization
-+ * that needs to be done before the generic initialization can be done from
-+ * here. Sections that are initialized in hooks called from here will be
-+ * skipped by the generic initialization.
-  */
--void __init sparse_vmemmap_init_nid_early(int nid)
-+void __init sparse_vmemmap_init_nid_early(int nid, unsigned long pnum_begin,
-+					  unsigned long pnum_end)
- {
--	hugetlb_vmemmap_init_early(nid);
-+	hugetlb_vmemmap_init_early(nid, pnum_begin, pnum_end);
+ 	gve_per_q_mem = (struct gve_rx_ring *)per_q_mem;
++	spin_lock_bh(&priv->stats_lock);
+ 	priv->rx[idx] = *gve_per_q_mem;
++	spin_unlock_bh(&priv->stats_lock);
+ 
+ 	/* Single-queue creation requires quiescence on all queues */
+ 	gve_turndown(priv);
+@@ -2780,7 +2847,9 @@ static int gve_rx_queue_start(struct net_device *dev,
+ 	 * which needs the rtnl lock, will not run till this func returns and
+ 	 * its caller gives up the lock.
+ 	 */
++	spin_lock_bh(&priv->stats_lock);
+ 	memset(&priv->rx[idx], 0, sizeof(priv->rx[idx]));
++	spin_unlock_bh(&priv->stats_lock);
+ 	return err;
  }
- #endif
  
-diff --git a/mm/sparse.c b/mm/sparse.c
-index 7c15406e77f5d..25fe41c69414c 100644
---- a/mm/sparse.c
-+++ b/mm/sparse.c
-@@ -288,7 +288,7 @@ static void __init sparse_init_nid(int nid, unsigned long pnum_begin,
- 	if (sparse_usage_init(nid, map_count))
- 		panic("Failed to allocate usemap for node %d\n", nid);
+@@ -2844,12 +2913,30 @@ static void gve_get_base_stats(struct net_device *dev,
+ 			       struct netdev_queue_stats_rx *rx,
+ 			       struct netdev_queue_stats_tx *tx)
+ {
+-	rx->packets = 0;
+-	rx->bytes = 0;
+-	rx->alloc_fail = 0;
++	const struct gve_ring_err_stats *base_err_stats;
++	const struct rtnl_link_stats64 *base_stats;
++	struct gve_priv *priv;
++
++	priv = netdev_priv(dev);
++	base_stats = &priv->base_net_stats;
++	base_err_stats = &priv->base_ring_err_stats;
  
--	sparse_vmemmap_init_nid_early(nid);
-+	sparse_vmemmap_init_nid_early(nid, pnum_begin, pnum_end);
+-	tx->packets = 0;
+-	tx->bytes = 0;
++	spin_lock_bh(&priv->stats_lock);
++	rx->packets = base_stats->rx_packets;
++	rx->bytes = base_stats->rx_bytes;
++	rx->alloc_fail = base_err_stats->rx_alloc_fails;
++
++	tx->packets = base_stats->tx_packets;
++	tx->bytes = base_stats->tx_bytes;
++	/* XDP TX rings are not exposed as netdev queues, so report their live
++	 * counters here to keep the device totals consistent with
++	 * ndo_get_stats64.
++	 */
++	if (priv->tx)
++		gve_add_tx_ring_range_stats(priv, priv->tx_cfg.num_queues,
++					    gve_num_tx_queues(priv),
++					    &tx->packets, &tx->bytes);
++	spin_unlock_bh(&priv->stats_lock);
+ }
  
- 	for_each_present_section_nr(pnum_begin, pnum) {
- 		struct mem_section *ms;
+ static const struct netdev_stat_ops gve_stat_ops = {
+-- 
+2.56.0.313.g2479322e68-goog
+
