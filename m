@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.236
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793295050;
-	b=JSRjUSLyE4pfGBbCg4/5jai/XHJp1DRw1wJbdDjvhq4Dr+GsWoWBZ5AVnO/spdBJHDc1
-	 PKOiN3z/5Spo9pLyv1zTIEXtcH0akX13flbeH910qYGW4neb9JwvYcEOA04MzM6Es0u7X
-	 MzwhpK1ufjZ6USi0sKrC1W8PCpMI7FCng5icWWIzleHjRvPaTEG2zuWxfHerkI8IIf+4r
-	 kTkd8kmIFMHWC3c8uhNsanekNcAUbK9bBy7myhUYU2DttN7sCwdJNb4r50bc1rcQiS5qR
-	 OMUqKqknNoVrDCEafX5AvdLmhcZTx1DUHhhI7fjXmYn71nTuP0oR6Jj3sfnYL7jMm2Q==
+	t=1793295056;
+	b=0CfSNwTDphgODekOyGLzuFEac+vV6GpnGwiKWJOC41RqvY7N92+z5Gw7+ZdYZYaOWNFK
+	 n71VIWoEOm0WkD1Pru1BxCwDLylPMvrOfRHdv3nkjb0tQ18Y+h1QlQKQu0IAcrsp0n/er
+	 hS5RDHb2zWZFwfEEg49I3Prin3tpe6gsKwpFPZVgCXs2SPfJ9euetxI/2Vu7ISBLVl2NE
+	 2ibkWNCwfe6oq6ZLdOdzEUSVb1FVdDC6NfqYpj+plF3fF2ZsylKtMMqH1RDTLCs44xEj0
+	 V5xcQ93Wk3ijRf7304IOpt46TLj6gaSAJjAuvNT9JAnGGZTQDpKLTvb5aLJ79eBRS4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793295050;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793295056;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=rBVVW3tHabgwrKT2QwycDYkPKCsMYjmGYVvwfvGvrhE=;
-	b=4qB5VRFpXugXKIdFxpPGpRcaPVveOX5A45toz/dadB3Xp6dm4ZBk3s2zzYdDf57YB2bs
-	 jmcLup2VdezsCmRa57Y1xB8EbJZ/8BfeTRmGR/nWRjAWSmlPKk4cWyddo6jv0fx1CZygI
-	 WATsWLZ5rND0jKx6G8/aDRAoGsmM3dViZeRFFx8DBJ/duFMua9i7iTu5aWFEYN3sHIvfw
-	 5YYP1SCWm4YPiBuDwMZyXHnvYqYx36mjpm+L58jghoXvWW2KWXL+jkMlvq6n3dB5pnehN
-	 5qGXSBco6ckQP2gqJhgp0tWjlNP6GqcOfU7LYM6MMzYmWyh/lPog+uIUx/ucdtgTwkA==
+	bh=YeQsqnpkwn6ypXN7vyNImbLG7QIbHLNRV1Ffg9tI2a4=;
+	b=txM3/O1GuHG/boOsMJrP+4qtsdDN90wlretLS2R0NsQExb1unm7dflu4YAG3SpUTJZB6
+	 EI9Arqhh2I8EVaOXjXbqcoCgZTbHS+fmSqCv4Cw2FA3lfb2S3Wli29E0BPwkQTZeFENZr
+	 naJYPGqce4w3CLh0w51oVu952dU/LBRq1Sq36M2p0uc4EuQ+8sto9LzCgc53dhNI3lILS
+	 i95lTseHnR+M3ERpB9cjEVcmUyklJk/witUwLsx4r3cP7xZunMGip8nCFswoA5rYsfV8s
+	 /Koxu+uYOUDpia4X6N9wIX1ndO5WZplJogfFpo63Qc/OQZIGmsalTfZVHzO1FidO3kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HC6izpFB;
-	arc=none smtp.remote-ip=95.215.58.224
-Received: from mta1.migadu.com (out-224.mta1.migadu.com [95.215.58.224])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FpX9XV92;
+	arc=none smtp.remote-ip=95.215.58.236
+Received: from mta1.migadu.com (out-236.mta1.migadu.com [95.215.58.236])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E8F606A32C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:30:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10E8F606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE9A606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:30:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CE9A606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HC6izpFB
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FpX9XV92
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7EdBEd5XL5wRdZvYlylGxvVrrhD/K6K3u333eKYP51c=;
+DKIM-Signature: a=rsa-sha256; bh=5xQkj3N9yiVJ8AVum9FtJNkr8nMttgbgXIeAZWsu7R4=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793295047; v=1; x=1793899847;
- b=HC6izpFBgx9Os0a9ApbmT2Glk501euie4yvJGNNb7zQBjlxydSGvilwWczTel/QZIX6ywO4n
- MTUMT5QvMBh0ouFgHp4Nv4X3nrI2oItKbxYRkNG+LllR7xNIV3QSufQWwP14HJ5/bGcN9HFVUX0
- L2/ocLWMVGp1/+3XWj/tMaXk=
+ t=1793295053; v=1; x=1793899853;
+ b=FpX9XV92A0v/B1Tp65pVnzHFflZPsb/Paqgp5DTXqZzfwEOcbIYDvyjn/jkvkoHcKBLGzh0/
+ 6unVyNBofcX839jRDqKW1UmW2dv6/m5EhOwc+cVK5Nc6TT90RVisiUXypBi6CNimLs9DaW7jg8/
+ 74i75g7i084UaIvQJWOHH12o=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 155dc8602c7bb9c2;
-	Thu, 29 Oct 2026 17:30:46 +0000
-X-Mizu-Trace-ID: 155dc8602c7bb9c2
+Received: by smtp.migadu.com with ESMTPS id e9111306d7fcf669;
+	Thu, 29 Oct 2026 17:30:53 +0000
+X-Mizu-Trace-ID: e9111306d7fcf669
 X-Migadu-Flow: FLOW_OUT
 From: George Guo <dongtai.guo@linux.dev>
 To: rppt@kernel.org,
@@ -68,9 +68,9 @@ Cc: ilias.apalodimas@linaro.org,
 	linux-mm@kvack.org,
 	linux-kselftest@vger.kernel.org,
 	linux-efi@vger.kernel.org
-Subject: [PATCH v6 4/8] kho: Add kho_disable()
-Date: Fri, 30 Oct 2026 02:29:51 +0900
-Message-ID: <20261029172956.20791-5-dongtai.guo@linux.dev>
+Subject: [PATCH v6 5/8] LoongArch: Allow memblock arrays to resize
+Date: Fri, 30 Oct 2026 02:29:52 +0900
+Message-ID: <20261029172956.20791-6-dongtai.guo@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261029172956.20791-1-dongtai.guo@linux.dev>
 References: <20261029172956.20791-1-dongtai.guo@linux.dev>
@@ -87,65 +87,62 @@ Content-Transfer-Encoding: 8bit
 
 From: George Guo <guodongtai@kylinos.cn>
 
-On LoongArch, KHO state is passed to the next kernel only through an EFI
-configuration table. Only the EFI stub installs this table, during a cold
-boot.
+LoongArch never calls memblock_allow_resize(), so the reserved region
+array cannot grow beyond INIT_MEMBLOCK_RESERVED_REGIONS entries
+(INIT_MEMBLOCK_REGIONS + NR_CPUS).
 
-A kernel entered through kexec does not run the EFI stub, so it cannot
-create the table if the previous kernel did not provide one. Without
-the table, it cannot pass KHO state to the next kernel on a subsequent
-kexec.
+After kexec, kho_memory_init() reserves every range preserved by KHO.
+Each range that is not adjacent to another one needs its own entry, so
+with enough scattered preserved pages the array overflows and the
+incoming kernel panics:
 
-Add kho_disable() so architecture code can turn KHO off when the EFI
-configuration table is missing.
+  Kernel panic - not syncing: memblock: cannot resize reserved array
+  Call Trace:
+   memblock_double_array+0x2d4/0x2f8
+   memblock_isolate_range+0x54/0x1a8
+   memblock_setclr_flag+0x44/0xe0
+   kho_preserved_memory_reserve+0x78/0xb8
+   ...
+   kho_memory_init+0xbc/0x394
+   mm_core_init+0x124/0x154
+   start_kernel+0x568/0x6dc
 
+The liveupdate luo_stress_files test with 500 files triggers it on a
+kernel without CONFIG_SMP, where NR_CPUS is 1. With CONFIG_SMP the
+array is larger and the test passes, but more preserved memory still
+overflows it.
+
+When the reserved array is full, memblock allocates a bigger array
+from free memory. This is only safe once all memory in use has been
+reserved, so enable resizing in arch_mem_init() after the firmware,
+kernel and initrd reservations are made.
+
+The memory preserved by KHO is reserved later, in kho_memory_init().
+A new array cannot land on it either, because kho_populate() already
+limits memblock allocations to the KHO bootmem areas, which hold no
+preserved data.
+
+Co-developed-by: Kexin Liu <liukexin@kylinos.cn>
+Signed-off-by: Kexin Liu <liukexin@kylinos.cn>
 Signed-off-by: George Guo <guodongtai@kylinos.cn>
 ---
- include/linux/kexec_handover.h     | 3 +++
- kernel/liveupdate/kexec_handover.c | 9 +++++++++
- 2 files changed, 12 insertions(+)
+ arch/loongarch/kernel/setup.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/include/linux/kexec_handover.h b/include/linux/kexec_handover.h
-index ef2b188c8ed0..6f80e1b0ccd4 100644
---- a/include/linux/kexec_handover.h
-+++ b/include/linux/kexec_handover.h
-@@ -15,6 +15,7 @@ struct page;
+diff --git a/arch/loongarch/kernel/setup.c b/arch/loongarch/kernel/setup.c
+index 6fa4a22a58fd..dff2e0c67ea0 100644
+--- a/arch/loongarch/kernel/setup.c
++++ b/arch/loongarch/kernel/setup.c
+@@ -402,6 +402,9 @@ static void __init arch_mem_init(char **cmdline_p)
  
- #ifdef CONFIG_KEXEC_HANDOVER
- bool kho_is_enabled(void);
-+void kho_disable(void);
- bool is_kho_boot(void);
+ 	check_kernel_sections_mem();
  
- int kho_preserve_folio(struct folio *folio);
-@@ -54,6 +55,8 @@ static inline bool kho_is_enabled(void)
- 	return false;
- }
- 
-+static inline void kho_disable(void) { }
++	/* KHO may restore more reserved regions than the initial array holds. */
++	memblock_allow_resize();
 +
- static inline bool is_kho_boot(void)
- {
- 	return false;
-diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index 74c4633f5afc..3280533eaebe 100644
---- a/kernel/liveupdate/kexec_handover.c
-+++ b/kernel/liveupdate/kexec_handover.c
-@@ -82,6 +82,15 @@ static int __init kho_parse_enable(char *p)
- }
- early_param("kho", kho_parse_enable);
+ 	memblock_set_bottom_up(true);
  
-+/*
-+ * For architecture code that finds, after the early parameters are parsed,
-+ * that it cannot pass the KHO state to the next kernel.
-+ */
-+void __init kho_disable(void)
-+{
-+	kho_enable = false;
-+}
-+
- struct kho_out {
- 	void *fdt;
- 	struct mutex lock; /* protects KHO FDT */
+ 	swiotlb_init(true, SWIOTLB_VERBOSE);
 -- 
 2.53.0
 
