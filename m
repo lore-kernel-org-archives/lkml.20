@@ -1,106 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793262373;
-	b=tnJaH7FmwbzcdcprUeJGDZe9HjyqYyIraQG4cvk6AHpsSMk/DW+YCsFqa99f4G93kc1Q
-	 DN23qhsFPZ1XbcTINYpq42MSsNaA3wS4n6DitEvXSw+BUSC7HdXDylCwF2+oNcLsXuYnR
-	 9VRs0UnyfwLIrmHitl2Aa56rshhEs0VNmIg0tsuCVHr5vae72O9vpl8W/BYYCmXA0t0+w
-	 zoPPW8cqh4D3YjD72XC1ErwEFEwC8mnWRF0Y9H/WvYW9rsmduW06B4XQ76GTD7rW4Rrhf
-	 1uKPjUTskHshzrNaTHifhpTBWWCgiy+/ctAlB4exjKhKFUReIbJijJ2ES1Ten+Ma0gw==
+	t=1793262379;
+	b=3+w8YepVtBv6gtlOnYLcsYtmMlLtIAf/o8dY2fTaCBDQxa9LXoYrm6T76z8l8hhO7Gc4
+	 2koWcG3zvDJiU6Q6kmcXGa3EOkF6EMjFQFxD2uxT1ELdqqlzvbf1iRFMFA5s/e0hWXbJi
+	 oR4LVkYGQQVphD5bim0/ow/4gH2s3EGPadNQ6Kl806ucRfsz/XAROqnYUu3zuM3ZBiMPi
+	 UMPh7xt5braF3xtfrjZpRUv15rSw4Mfh6e/y3Du2sZnDFUH0uXzpgVNRQxNwxFmVBi7qn
+	 JwalZbcLo6ho0DYgL3h11lNebBEP5WL+4t4JP/LqBmZsLq7EhhyuxBzefM1q4tKwqoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793262373;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262379;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=UNWkw8vYb7JpYpnCN3rPDxXzy3LWTgIRTpE3bVdVYK4=;
-	b=yx/U7FadE0jHxXlbWU4mzfDBs3Qmm/BHWBm+EwD35HTyYi+XnwL0WS11A4PH00qTTcyb
-	 ghXXB/bFQLQ4Nzh8rNup1G6PPkDayiSG/TUp27EAUah+rpybaKs84oMlP+Gk55oprud82
-	 w/Ad39wuj8uRelS1P+wnEmJPL8tqYa4RGTNNysufCp+2OF/nX3nggeRbFu8G30nAsL07x
-	 0M/3ovcA3lFQWZl7fHiDvHO96wl8q/DTuMYV18PHN/p16njWP93f29w/wSp9AmwAFYZle
-	 /yUAPMotxx8SJZ2K5ZiuhH8Ax1Wpb0lRAcPnN5cg1ficxInW1pJ6TQjnIt/isS8VzZQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zErrqnlEG6xc6cNz8Rb/DdY5GOFsAT42rGi6nItA13g=;
+	b=21OxyWd4QWBsshM+MnjY/UnTMkwsFKqdCqIbPL1dZpV6uffUPQRq/q0eFaDkQTpVJTeT
+	 62j9/KQ9lO85f906voskvZXSjc3oWjR6j6hXxbCOv3DZ+TaKv88toKVe2Q/njNBuDcPOB
+	 WpK7s9dF25TyynRI43nzceUDmilIqftWdfFrxoKdsy5kK3bKjQzYYHGoY98eD7f06SW4k
+	 mySZZDzXaWrPJNLinXRc/Wh5kgmdM8xZpNBY4IU9+Fz5F1hKwObcIit0YvJNONESxhOm4
+	 LjJxoR9NrAaEzN+zRanMvPh7TO5bcqfYQJsY0qA35wpeDOYPfDJpwwRdLU/Sl9s1KGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nYC+QuJl;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="A/oy4t6q";
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4EA606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:26:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B4EA606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A303606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:26:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A303606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nYC+QuJl
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e8ad5b2f61so5444755ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:26:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A/oy4t6q
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48df4f540ebso886447f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:26:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793262372; x=1793867172; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UNWkw8vYb7JpYpnCN3rPDxXzy3LWTgIRTpE3bVdVYK4=;
-        b=nYC+QuJlGPWv7gHT2s17wBR0beq6hdlI3uFQngjhSzA4kUtXpyQH3H1w1LU1fjtAnd
-         a7EnMLlvtgdTbH32vry4E/b1A/TjMXaV9Auxw1E/CI5SxiGYt7PW+FsvWMZ+wpnSYbXH
-         sCwIFZzB0N1wOxlhcdIMCWiyHWX+hjNxql5uYxr8Tg3O+/J7wiOUsLXUdMHHMXLDiWuc
-         XClWbpT3IaiUD/5WwB7xaR+Lsvcqh+NkQlkWOTO5cyFd8VuZWeylC8T6C3oV3jxs6fvK
-         P5aKzPO80GvF7W+dPBVq3P15hDb4slKQQw3DPisF72vTyN6CphiRZaKN8Jo3En4kYvpf
-         eRdA==
+        d=gmail.com; s=20260707; t=1793262378; x=1793867178; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zErrqnlEG6xc6cNz8Rb/DdY5GOFsAT42rGi6nItA13g=;
+        b=A/oy4t6qN+Q/bG/BT5S3XsYMMsIM3P1jN1hF29agMxtIGsrEbca0X6xjGsEs5usWK7
+         fByw/wpS0IjDrbmi851J+QuRREOTbxlXXGdW+oBNND3Moq5OH/pGUuZvd7c0rMoNcpDO
+         PQlUTXvq3B8UtGF7fO7oPmU1wcQPSshBhM/yOCh6BB2y7ILc6nYSFu5TPSJ63ReaGoOA
+         t+Fx6ht/fvzMUyxV8NjcHs8oZfzmcCnvbMx6gyndTXdoxS+tJ+0+2qJQlFGA17/shZQ9
+         QJonzhPnh6/OmjIF8VHbs9xBWv0MAr/Zyf125CJUAaKG45/6EomZ2X50oGaHN/433EvI
+         INwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793262372; x=1793867172;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UNWkw8vYb7JpYpnCN3rPDxXzy3LWTgIRTpE3bVdVYK4=;
-        b=nPalvtoLKAx+RLln61Qg05minK9NWsSOykJUHa0HByHegmSKVucbBfpSnuUWyshWVC
-         2CwM1qfZp6f/cG8GCvtp+uklS/+r8tmRIATLrP0vTwWPIyCtRayPiwKe52RiWTOwfCr2
-         lH/y4o0d82RxK84IVRkO9NUgqLeSprQ3diCl/ldu2ZeywLnDO9SVkX1UUgxx9gXVwGy2
-         CThae+yt3lLSmumuaukJy4/y/0a3h1JbWeISHTqq7/cxb8idSz6UL3ue7z9ln0Ni/25X
-         37fhmKCF69i91u+X3mcDxhtQPJMyF0SH/7Y0tPPykeCOVhQpZKAf9kKfNopcAot3Vlu3
-         FuVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzP6Nxj/O6Cglr/6rdvM0KxisdFyfVafa/x514d4IoB8ZqBY6DLOWiZ+5Pl8DTA3W7URfj1qQrYgEzqDM4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1Mte5rrLdzIDPc+Oys+HF9Lo1JQxA923i+kys72qdieaYRHVX
-	BE8DJmtrkNJGRbcme/YEXzGTrAsJcIcCXjI3yOUW78Spv38o29F4BQ/k
-X-Gm-Gg: AYBFou2E6EvFzK6EvKzj5ArWqRwji06wUxbhMtfu9+6fZ7BJUpCJU3a9PLpgfcFf22B
-	camm0aTcKszHCvTt5sl5wt3gJNENOq1D+jhScG9se6QlGNCptLcnyo2vuSGhk7WCQBGApJ9YDxw
-	tV+qoMqq95XaO1iDpiOOXw6WnLvF2VZS/yQmfNgFPNMW+6+jLCWZh/RhrXIq5YpE96Z8kMBVFT6
-	Higk180DwKi4r64LHkW2539V0YjDv+2blz/Ym9Hdx4qX5EoE9vEUFHPg7wzotBo2QmTZ9B2se4Z
-	UV9ZTD0nNHIktpbp6eVURFkhQ7Z960KEQj8zfEaesnFa7gDuGMryW650htBsCaoLjuv0Y+en15G
-	QeE8RhlvYhZ6mTfmrnpOJvbZcysZTR31z1f9jLI7+wO/IOwkQSw9Cr8LRkYjQgzyaNa3gzdJAPh
-	T+5yr47rHhR9RLx8JCMNAchAFVKaC4Q9TenV/fJPgSRNQeZIrOaEZr8jfiR6iLlNuwl/ba7X/Y0
-	i1YDSVcJpg1equ0loNg8Larx8Q5oqT7oL26BuBm5qZB9n7Fj4GEjBuOxLTbfOnx7vXV3MGSVlM9
-	gZLFUnSHe37bI1tteDRvjq2XmgHWsnfr
-X-Received: by 2002:a17:902:f545:b0:2e9:53b1:a3c8 with SMTP id d9443c01a7336-2eaffe75f83mr68645205ad.0.1793262372227;
-        Thu, 29 Oct 2026 01:26:12 -0700 (PDT)
-Received: from localhost.localdomain ([240e:36d:b08:2bc0::a60])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6b7a216sm30031585ad.16.2026.10.29.01.26.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 01:26:11 -0700 (PDT)
-From: Jianfeng Liu <liujianfeng1994@gmail.com>
-To: linux-rockchip@lists.infradead.org
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Quentin Schulz <quentin.schulz@cherry.de>,
-	Jianfeng Liu <liujianfeng1994@gmail.com>,
-	Alexey Charkov <alchark@gmail.com>,
-	Amin Gattout <amin.gattout@gmail.com>,
-	Chukun Pan <amadeus@jmu.edu.cn>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Hrushiraj Gandhi <hrushirajg23@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] arm64: dts: rockchip: Add ArmSoM Sige7s board
-Date: Thu, 29 Oct 2026 16:25:21 +0800
-Message-ID: <20261029082541.469999-3-liujianfeng1994@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261029082541.469999-1-liujianfeng1994@gmail.com>
-References: <20261029082541.469999-1-liujianfeng1994@gmail.com>
+        d=1e100.net; s=20260707; t=1793262378; x=1793867178;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zErrqnlEG6xc6cNz8Rb/DdY5GOFsAT42rGi6nItA13g=;
+        b=BVeUrauvtbelkAhE/vy/chdz4WwSssdPyL6cxxYbzvC2vGvp4pj93D/X38Rnt9ABBl
+         tUtQzBSi35SATywIDHpZuhyN9FMgYFpzlgcu7h7kcYEbzDIqOWocWmbblZ/iRilYhHIj
+         acGybKvXMLwBKIM2PKGW23jpW7V8oXn78XYD0mzCE1cYigG+844AQ/gOm8jM9W0A9sfq
+         m/nfHuHz/aOyvGrtCqWQN9gCzm6kCC3DnkP2R+fOpCZpEviDUgWhnlBhfEDvYDFvF941
+         A9dKrVKaT363uVaBPsMOFrJxqYyngk1G4yBKS2N1wpPCEcT8K8SeJVsgyxaSthb/jiwd
+         fLYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLNxZAX8hx4bXL1E7oVdQN8mFHoaJQ4MslEixZovVkRH3qpTxd6ubIPREGXvj6XmRKRt7L5W7dYmc8wes=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLXCIUgfXz6svaNQVqx6dLw1GiNowWnRM3/bS68BO9XyZ4iX4FR
+	OqOjjlOwC2RSRnqIlDtHd3Pgg4pDtMYNm1FV338jojbK8qTSLEcC9qZhgxccQORH
+X-Gm-Gg: AYBFou3b7CHD0WOa2lt+JBFnEGPtOU0iSXXgusCIw3rm9SEd2IeQHcySYlSGQJyPg8q
+	fLsKyHdzi6a0mzyYMsKXDd+Y7K0NKuvRDWTgi9GC9PlnKIpMCQJ/9K05cIGAfqScZKISmoqviiO
+	e9FQs8N08cAFcgXUrg3UT6YyUtu6TQGyi+FosCnmJFr6yCTZW3K/KYaHbIfdy6gIZxC1ztnUoqc
+	+8D3YAQLhEmpqIpUgx5PAertj/Bt/04Fn6pd2OiLPZFwh5YX8ViKe4GF+zUjdyV79ZOJRwm7r4I
+	T4IMD6XKDWuedv1B6F/+gTImZh92SFcjoXLe+7j3R0MbowN34XfrtSlF70mFU4mpliPsmAwxILw
+	l29q98ErAxjCHvc284j5KmgHzVupQUYftARYLfAeChMvjbTn7XbS8m5tmmTKRLBbQ4C/olqPQOo
+	PDqWmYc89dEyznRknMDZz6MboH8OikAaSh6bWoVCN4r5niGNPaGSkkbFcZSX7tvoMKYaX2XbXZ7
+	/HhsYLZn2YFzBgdBMS/W7KfImDM/3pXiC4M5zpDq5Yy9OImMSqwRh7Qx6GkLoQ8zB/3O3wajic1
+	dhjVMNbKkKPvxdX9OyzfFsGLPjdXVb5IFCeb79J3PCXihUydDvUVQeQHhvi46P/iDgrxcgo5/Z4
+	GZGCQ4qOE/5iwWSiSfS+WhmW7Bz5YXqBtOQXGSyL5l9Tu3EZXXORqocr7nDWXIwi2JBHE6lr01R
+	gpwaFvGDuaO/o73I1IKW9PBcoN6NBF8OlOAD/QS4CBm01tlpgHqHAOWA8=
+X-Received: by 2002:a5d:5e92:0:b0:48e:5db7:fd6c with SMTP id ffacd0b85a97d-48e5db7fd9amr9968747f8f.4.1793262377778;
+        Thu, 29 Oct 2026 01:26:17 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a00-1028-8388-a84e-ddd3-b021-e674-5520.ipv6.o2.cz. [2a00:1028:8388:a84e:ddd3:b021:e674:5520])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb90dsm31125184f8f.22.2026.10.29.01.26.16
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 29 Oct 2026 01:26:17 -0700 (PDT)
+From: Josef Schlehofer <pepe.schlehofer@gmail.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>
+Cc: Thorsten Blum <blum@kernel.org>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	linux-crypto@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Marius Dinu <m95d@psihoexpert.ro>
+Subject: [PATCH] crypto: atmel-i2c - find the bus speed behind an I2C mux
+Date: Thu, 29 Oct 2026 09:26:16 +0100
+Message-ID: <20261029082616.53365-1-pepe.schlehofer@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,68 +103,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ArmSoM Sige7s is a rebranded CoolPi 4B. ArmSoM purchased the original
-hardware design from CoolPi and confirmed that no hardware modifications
-were made for the Sige7s.
+On the Turris Omnia, the ATSHA204A sits behind a PCA9547 I2C mux. The
+driver reads "clock-frequency" from the mux channel, which has no such
+property, so the probe fails with -EINVAL:
 
-Include the CoolPi 4B DTS directly and override only model and compatible.
-This preserves the Sige7s board identity without duplicating the hardware
-description or changing the existing CoolPi DTS. It also preserves that
-identity when a firmware-provided DTB is replaced by one shipped with the
-kernel.
+  atmel-sha204a 6-0064: failed to read clock-frequency property
 
-Add a comment explaining the relationship between the boards and register
-the new DTB in the Makefile.
+A device tree patch in 2024 added the property to the mux channel. The
+review rejected it, because the I2C core ignores the property there. The
+driver would then compute the wake token for a wrong bus speed. The
+review asked for a fix in the driver, but none was sent.
 
-Link: https://docs.armsom.org/armsom-sige7s
-Link: https://lore.kernel.org/r/2a1c33c9-8971-4054-a463-60f3ceddd627@cherry.de/
+Keep reading the property of the client's adapter first, as before. If
+it has none, look at the parent adapters. If no adapter has it, use
+100 kHz, the default of most I2C controller drivers.
 
-Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
+Fixes: 11105693fa05 ("crypto: atmel-ecc - introduce Microchip / Atmel ECC driver")
+Cc: stable@vger.kernel.org # v5.19+
+Reported-by: Marius Dinu <m95d@psihoexpert.ro>
+Closes: https://lore.kernel.org/all/46ea55652f8bcdef51d5c552902fd0cc@psihoexpert.ro/
+Link: https://lore.kernel.org/all/20240515104149.2ce3566e@dellmb/
+Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
 ---
+Tested on a Turris Omnia with 7.2.13 and 6.18.59: the driver probes, and
+/dev/hwrng reads random data from the ATSHA204A. The mv64xxx controller
+stops at the address NAK, so this test does not exercise the token size.
 
-Changes in v2:
-- Include the CoolPi DTS directly instead of extracting a common DTSI.
-- Explain the board identity requirement in the commit message and DTS comment.
+ drivers/crypto/atmel-i2c.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
- arch/arm64/boot/dts/rockchip/Makefile            |  1 +
- .../boot/dts/rockchip/rk3588s-armsom-sige7s.dts  | 16 ++++++++++++++++
- 2 files changed, 17 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-armsom-sige7s.dts
-
-diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
-index 442d322a20cf7..c8a5a88a0e46a 100644
---- a/arch/arm64/boot/dts/rockchip/Makefile
-+++ b/arch/arm64/boot/dts/rockchip/Makefile
-@@ -231,6 +231,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-turing-rk1.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-vicharak-axon.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-vicharak-vaaman2.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588-youyeetoo-yy3588.dtb
-+dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-armsom-sige7s.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-coolpi-4b.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-evb1-v10.dtb
- dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3588s-gameforce-ace.dtb
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-armsom-sige7s.dts b/arch/arm64/boot/dts/rockchip/rk3588s-armsom-sige7s.dts
-new file mode 100644
-index 0000000000000..c3282581b42d2
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3588s-armsom-sige7s.dts
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+diff --git a/drivers/crypto/atmel-i2c.c b/drivers/crypto/atmel-i2c.c
+index 24bded4..5ff7bf5 100644
+--- a/drivers/crypto/atmel-i2c.c
++++ b/drivers/crypto/atmel-i2c.c
+@@ -347,11 +347,28 @@ free_cmd:
+ 	return ret;
+ }
+ 
 +/*
-+ * The ArmSoM Sige7s is a rebranded CoolPi 4B. ArmSoM acquired the original
-+ * hardware design and confirmed that it was not modified. Reuse the CoolPi
-+ * 4B description while keeping the Sige7s model and compatible to identify
-+ * the board under its marketed name.
++ * A device behind an I2C mux sits on a channel adapter. Try the adapter of
++ * the client first, as before, then its parents. Without the property,
++ * assume 100 kHz, the default of most I2C controller drivers.
 + */
++static u32 atmel_i2c_bus_speed(struct i2c_adapter *adap)
++{
++	u32 bus_clk_rate;
 +
-+/dts-v1/;
++	for (; adap; adap = i2c_parent_is_i2c_adapter(adap)) {
++		if (!device_property_read_u32(&adap->dev, "clock-frequency",
++					      &bus_clk_rate) && bus_clk_rate)
++			return bus_clk_rate;
++	}
 +
-+#include "rk3588s-coolpi-4b.dts"
++	return I2C_MAX_STANDARD_MODE_FREQ;
++}
 +
-+/ {
-+	model = "ArmSoM Sige7s";
-+	compatible = "armsom,sige7s", "coolpi,pi-4b", "rockchip,rk3588s";
-+};
+ int atmel_i2c_probe(struct i2c_client *client)
+ {
+ 	struct atmel_i2c_client_priv *i2c_priv;
+ 	struct device *dev = &client->dev;
+-	int ret;
+ 	u32 bus_clk_rate;
+ 
+ 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
+@@ -360,14 +377,8 @@ int atmel_i2c_probe(struct i2c_client *client)
+ 	}
+ 
+ 	bus_clk_rate = i2c_acpi_find_bus_speed(&client->adapter->dev);
+-	if (!bus_clk_rate) {
+-		ret = device_property_read_u32(&client->adapter->dev,
+-					       "clock-frequency", &bus_clk_rate);
+-		if (ret) {
+-			dev_err(dev, "failed to read clock-frequency property\n");
+-			return ret;
+-		}
+-	}
++	if (!bus_clk_rate)
++		bus_clk_rate = atmel_i2c_bus_speed(client->adapter);
+ 
+ 	if (bus_clk_rate > I2C_MAX_FAST_MODE_PLUS_FREQ) {
+ 		dev_err(dev, "%u exceeds maximum supported clock frequency (1MHz)\n",
 -- 
-2.47.3
+2.54.0 (Apple Git-157)
 
