@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793305711;
-	b=e3DFwOdGC/MNxulXftroZVfgakiG6qAxxRUyB/EgluznR3sHWbVbXJqx5+tqbWhPnZCK
-	 y7ixCqjqDKilnKj5EubSmd0wKhw+M7xtZd5SzLJr0blgfau5xTOfwPch50ax3qpxV1pkG
-	 LlkQO7fK6Z3AmgEJr7lrI/Y7hs5BxV+LAFtB935+KA4xQwdumo7GbtQnCa0s3ZoM1ZVdr
-	 woxtXJE4HFlKpV1jl5Gcw5Ur6ZYk4jXaBg4HUnMkZEbm88ZsQL132R1sbWrsF7nEOBUFx
-	 poBgVITlaA9z6uP9prS7HAvpR41/pWzWkYoPKxZItk1soaqkvBNvRM5rH78hDxlhRvw==
+	b=dKeSV7N4fdEGqsta331BikqTamuhuqWwgUD0yZaTQiTxeaW4au5+SF4ncVKe1jsgEcXm
+	 UjNjvgJiV0xm02p1AbpPs2tq4+71mfobBH3WZ4feorRBnCGnMRWkwsdvhG7VLPcUhOuT1
+	 tBK5JKeCQSqhDGk9qX3Y7vu4LcHFyIUGYGaQni6pI+3iQW4JCANU4hI+Nyx4eRDDByFzv
+	 F0qbBZMCnN7iCMOau988byIqBC2aSccAr/Jb0J19+f/TBp5Z4lQQnM5Xq+Gi+auTaphp/
+	 AFwVKFTnCaYmAFDaS021Qn+XPDECfB2nafw//eJi9P+fp8uf4ig15wmE4fAO2whU79g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793305711;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=6O2eAJSUXZ4itbfWSmtZjRk1vi0Y9zhxx9kPbocHe2s=;
-	b=XYyxitvF6u9wHlantMGhbc765hxPiSz+TjsCBSgeseJQuzbV1fwt6Es+7GGEUsH1kQNH
-	 V/tAU7YnIwU0hKdYjdxU/v0F7QKjvOjqqhwSa/nT0O6yIo29JgD6HiJ3dzdNxcsP+KdRO
-	 vZQdw9kC51EG1HV6inlaVWUXV9ZRL6sl9ULADzt30dz3fhdlClDbnKvmmDCOkoCxqG4z9
-	 9/XBKah0WYfJePuG12fpBI00ZW1d3eg4WkVoNV06f/KMJKaRJiCFMLBckNvDzwAqb8ery
-	 Xc+jzV0AZobDvvF8V+R6UModEIMvf7seBPWemlX640v1p77M0Keo+t4HAyXZVaPsXxw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=cZzrCOWTd2fbBwQmagh5NJOE4ckRSGpMrV8yJJh7s5c=;
+	b=z1XR6GHvDvrXD0qBgc5SLzDYRjFYNZVfSJHPYCCrqqu3uUrCHGEnijTzp1bg/64EfnkE
+	 DQSy9oPqtrK/VaY84JXNbh0xLuEBiHPiyF1wn3zhXyrgw7Fb5IltkVivupJc0M1AXUI0p
+	 8MYMB2GzgTYG6H3UB7aTKgSeAZMTT/jEbqqPQB0fKsB2laziZhE5JhuiOa3qRG0++oOtP
+	 qLyUXVdv8syC0Vlbia9lWuADnXoMcJKaYadzzczYtMxwSKFRHxpURniQVkY9Hdqr3bdyC
+	 V7eQBDgEe+PzHA96FmH/z5n7Ra/V8IP1rjomZZNgxWLSEMjA3yMuKFXK3rJGvQxGgrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JQsIYhm9;
-	arc=none smtp.remote-ip=209.85.216.70
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GkIJG07d;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97099606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:28:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97099606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64163606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:28:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64163606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jmattson.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=JQsIYhm9
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ae1d132d52so12587a91.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:28:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GkIJG07d
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a079256596so2269626b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:28:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793305710; x=1793910510; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6O2eAJSUXZ4itbfWSmtZjRk1vi0Y9zhxx9kPbocHe2s=;
-        b=JQsIYhm9nNhmPFm3tJTbecq1sCv4VIao66kAnI89b7oKMxSQGh2O9ZDmAgaStEkKF5
-         OzKm3V8EQ1/DuiMFY6XgTdRkTmg9VefYEi2c2CEMW3sCNZ+ehoVV1BBq6w3sGmClJx6z
-         AAIdpB1TyuZYEjrKGaR1jg9wMAa903CEjhrhXfvo9J34NT72TIOKzKAiM1FvqfqysD5l
-         /IlnWcrAH83UnHxinZ0jSyLK5aLq++Whx+ios1uCTMgXNTvwLqPi2UP2iBwXwRh6QQeL
-         IvHNDNdZenB3Q+ghKGWy2y3V7j4cLYC8gDIaMeYu/QhrCcNv2urkxgzOkteBql/JNEGW
-         Z0xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793305710; x=1793910510;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793305711; x=1793910511; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6O2eAJSUXZ4itbfWSmtZjRk1vi0Y9zhxx9kPbocHe2s=;
-        b=L1yASjha1ezX+mfRFL4f0DeZhglTpzkKIU0hTrMAuE99HGVkC7OJJQX0b9Arl6Ctyp
-         ttweT0UH0cOoHdrOwMp+JyJOgcDAR8N0FMKm7GWfqe6D3n9lxBANT2klaLaHpNre2DF7
-         ABEYe5FR3GVnoRaoCFNdL/RVmJwmCXxanYTxmAcofTXPqLY+zLDOpkDHTrdFCKvnYH2N
-         lwwySxdpz/70pnemCa8kpUABjX+Q6ttBZi8CoSEmrx8hijlWNWdVogOLt6Aw7R3f1ncK
-         rSLco4tr95a7S3o6YVWRUy6BcOutq/arjVVUQyPKn4Llnyrvz8fSMmnf1uq4q/pD7Nhk
-         rS8g==
-X-Forwarded-Encrypted: i=1; AKwUvBydss6M42tIAcJVtc9T2tf2Ibhker1yFZoUhiXfEUoQIHlsPCk+F8xreU76I0mGKyq31qn5CLCN8EbEaUA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoO03RY5rydteVk3scFWaLPPod90szwlet65uqQAWivNzJ+ty5
-	5aSzL7eWIIsXlJX2jIVBNZiUd79v9Fp/O1/OEfDBVLl+GWKo//xjQsQNc+vBjyVevN5/uTiAhoW
-	rY9VDq3GuDaVu3g==
-X-Received: from pjblt21.prod.google.com ([2002:a17:90b:3555:b0:3a8:74c5:5a5c])
+        bh=cZzrCOWTd2fbBwQmagh5NJOE4ckRSGpMrV8yJJh7s5c=;
+        b=GkIJG07dYY2I4Zo1h+fLgM7rJMxTsUZGXOkw5/HTO/H0iP6g9a2wid0vb49fwBh5gO
+         LpRm8fPajjcPl0kZuDgM8M1+q0ZcMSikTeVQU9En4l6napt4g8yCV9NvB5wN0lI+1j2y
+         1tHCn4ALUZh8r4f2rQX5N99rLaRP0hkbxpj6ykZAHDDCrMsT8M16h13GwoAmfzMv9syP
+         I54PGEyOiXdkZ44ciSjmB8r/LF5puRt2vDlpw59ZhEXt258i4vSIb2JzpD/sSto1KYAV
+         ZswYr19Z4qrdX5aJW47j5xxB5IsKND2Tpz3X8++nf+woe9WBNkLJFxlQgshuZkURVF4f
+         yTYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793305711; x=1793910511;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cZzrCOWTd2fbBwQmagh5NJOE4ckRSGpMrV8yJJh7s5c=;
+        b=Do8C4fpXA+poGb3nK18xHYO86rO62fmDGbyNQQLXLY4K10iA6FxuwU5XiFCMrZJxLp
+         KK2tHtaXY3eikxV79uPsgANNfV1rnWlDPdFo9Qq44Nu728HqSaHYPoUk3RpS9zkwkOcj
+         IykAdfaOarbgCWAsp04OyvfdlIt+3Nh1lWBRVXhu+ehANvogEBEdsRjVw4ESywhdXfoc
+         1W7cYNMc8e1zBbFa4B3asRxl3W6nSBQTiPz450gV+ctrvZPlOrDp5VD2oY3M5MpvCUXM
+         qRLFnUauEK2UaUOeEnPafzJWR9Id8hZ/V9Ca1gxb/+2VMZwL2KPDPfHAT5D0FdtWAHiX
+         UKYA==
+X-Forwarded-Encrypted: i=1; AKwUvBzhDwz46aAqhN5ABfAbNjynagd5x8bpd0tXRMHKwsC4/JTpOfA+wFZESYC3g7K52/5fSQyFH4hTTzMDQYU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGC7NdXBO6kf25Lq3L0+0053chmcVMDFm2ftly2QGDFADabLr6
+	/NwcGUk1oJeCZxxIthJz3HzMGMiJn7/xFmaRyskpZ9i72Ulhh5n80pDNCVqSN7HdLXJ9iEWJVwj
+	Q34D0P98WQGqc4A==
+X-Received: from pgbx22-n1.prod.google.com ([2002:a05:6a02:63d6:10b0:cd8:5a84:95f])
  (user=jmattson job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:17c1:b0:3ac:7556:8ed9 with SMTP id 98e67ed59e1d1-3ae8970e52fmr76939a91.10.1793305709732;
- Thu, 29 Oct 2026 13:28:29 -0700 (PDT)
-Date: Thu, 29 Oct 2026 13:28:14 -0700
+ 2002:a05:6a20:c98d:b0:3cc:45cc:c401 with SMTP id adf61e73a8af0-3e928d4684bmr325145637.13.1793305710592;
+ Thu, 29 Oct 2026 13:28:30 -0700 (PDT)
+Date: Thu, 29 Oct 2026 13:28:15 -0700
+In-Reply-To: <20261029202817.901145-1-jmattson@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,10 +79,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261029202817.901145-1-jmattson@google.com>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261029202817.901145-1-jmattson@google.com>
-Subject: [PATCH 1/3] KVM: SVM: Check EFER.SVME before updating MSR_VM_CR on
- guest writes
+Message-ID: <20261029202817.901145-2-jmattson@google.com>
+Subject: [PATCH 2/3] KVM: selftests: Rename svm_nested_efer_test to svm_msrs_test
 From: Jim Mattson <jmattson@google.com>
 To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
 Cc: Shuah Khan <shuah@kernel.org>, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
@@ -87,71 +90,35 @@ Cc: Shuah Khan <shuah@kernel.org>, kvm@vger.kernel.org, linux-kselftest@vger.ker
 	Jim Mattson <jmattson@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Per the AMD APM, setting VM_CR.SVMDIS while EFER.SVME is set raises a #GP.
+Rename svm_nested_efer_test.c to svm_msrs_test.c (matching
+vmx_msrs_test.c), in preparation for testing other SVM MSRs.
 
-In svm_set_vm_cr(), check whether EFER.SVME is set and the value being
-written sets SVMDIS *before* modifying svm->nested.vm_cr_msr. (Host-
-initiated writes are allowed to set any valid MSR_VM_CR bits.)
+No functional change intended.
 
-Fixes: 4a810181c8bc ("KVM: SVM: Implement emulation of vm_cr msr")
 Signed-off-by: Jim Mattson <jmattson@google.com>
 ---
- arch/x86/kvm/svm/svm.c | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
+ tools/testing/selftests/kvm/Makefile.kvm                        | 2 +-
+ .../kvm/x86/{svm_nested_efer_test.c => svm_msrs_test.c}         | 0
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+ rename tools/testing/selftests/kvm/x86/{svm_nested_efer_test.c => svm_msrs_test.c} (100%)
 
-diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 136069dfcd44..3a0a507c94b2 100644
---- a/arch/x86/kvm/svm/svm.c
-+++ b/arch/x86/kvm/svm/svm.c
-@@ -3015,14 +3015,24 @@ static int svm_complete_emulated_msr(struct kvm_vcpu *vcpu, int err)
- 	return 1;
- }
- 
--static int svm_set_vm_cr(struct kvm_vcpu *vcpu, u64 data)
-+static int svm_set_vm_cr(struct kvm_vcpu *vcpu, struct msr_data *msr)
- {
- 	struct vcpu_svm *svm = to_svm(vcpu);
--	int svm_dis, chg_mask;
-+	u64 data = msr->data;
-+	int chg_mask;
- 
- 	if (data & ~SVM_VM_CR_VALID_MASK)
- 		return 1;
- 
-+	if (msr->host_initiated) {
-+		svm->nested.vm_cr_msr = data;
-+		return 0;
-+	}
-+
-+	/* check for svm_disable while efer.svme is set */
-+	if ((data & SVM_VM_CR_SVM_DIS_MASK) && (vcpu->arch.efer & EFER_SVME))
-+		return 1;
-+
- 	chg_mask = SVM_VM_CR_VALID_MASK;
- 
- 	if (svm->nested.vm_cr_msr & SVM_VM_CR_SVM_DIS_MASK)
-@@ -3031,12 +3041,6 @@ static int svm_set_vm_cr(struct kvm_vcpu *vcpu, u64 data)
- 	svm->nested.vm_cr_msr &= ~chg_mask;
- 	svm->nested.vm_cr_msr |= (data & chg_mask);
- 
--	svm_dis = svm->nested.vm_cr_msr & SVM_VM_CR_SVM_DIS_MASK;
--
--	/* check for svm_disable while efer.svme is set */
--	if (svm_dis && (vcpu->arch.efer & EFER_SVME))
--		return 1;
--
- 	return 0;
- }
- 
-@@ -3262,7 +3266,7 @@ static int svm_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr)
- 		svm->nested.hsave_msr = data & PAGE_MASK;
- 		break;
- 	case MSR_VM_CR:
--		return svm_set_vm_cr(vcpu, data);
-+		return svm_set_vm_cr(vcpu, msr);
- 	case MSR_VM_IGNNE:
- 		kvm_pr_unimpl_wrmsr(vcpu, ecx, data);
- 		break;
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 888a7530a280..d1ddce584efe 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -122,7 +122,7 @@ TEST_GEN_PROGS_x86 += x86/state_test
+ TEST_GEN_PROGS_x86 += x86/vmx_preemption_timer_test
+ TEST_GEN_PROGS_x86 += x86/svm_vmcall_test
+ TEST_GEN_PROGS_x86 += x86/svm_int_ctl_test
+-TEST_GEN_PROGS_x86 += x86/svm_nested_efer_test
++TEST_GEN_PROGS_x86 += x86/svm_msrs_test
+ TEST_GEN_PROGS_x86 += x86/svm_nested_shutdown_test
+ TEST_GEN_PROGS_x86 += x86/svm_nested_soft_inject_test
+ TEST_GEN_PROGS_x86 += x86/svm_nested_vmcb12_gpa
+diff --git a/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c b/tools/testing/selftests/kvm/x86/svm_msrs_test.c
+similarity index 100%
+rename from tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
+rename to tools/testing/selftests/kvm/x86/svm_msrs_test.c
 -- 
 2.56.0.317.g454f8302e1-goog
 
