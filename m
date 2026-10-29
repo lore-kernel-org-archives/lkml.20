@@ -1,54 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287574;
-	b=h+6Jpl9vgieOv3vK2LEsROrpsEgt4m6oYZ+WX3jXqK2noTgKNU+wAOwFG1ihhlIs2yiP
-	 dGkc8FjgjXFfGZ40Mht/xWc0ZHV56NkWlX0RS+qgdNz1ZccU6x1DLVoExXFkK16AcB/XM
-	 eQ8WBHHtl63sxfiWFYIdcUppDpBRR7ZvEiChBdTFCkmXrHwSEHXP31ZqVsMysn1GRz3Q2
-	 E+qhukljCeRvejNBCYRZGgzmk3IX7ypQnuJMesznwXtwXPxaqq+BdiUhGWcFtJYU4D0Az
-	 LqUtZ+47ttz+00Tk+ldYGG5NE4Mxj5Sl3TPWEgDDhduphlYRUnd/LV1A1JTZvpyAEAg==
+	t=1793287584;
+	b=IsTgBa03128kyZvpN9uq3u2iuKSwT7Onh78k25+XvzqrxvxxqFMLDnaMmmzDABP26RDq
+	 BOTzGLjue0+FN/ebzHD3hVqol1UZshZ69uHHS6hlwj4JVFgk7Sh4GSokm9wEBr6qwf4ds
+	 pW3A1bE136qLFb5kPwwFz1WmUsBIYr++J45soXWTiA70H5FM/Femx6Hpl3MIc3103k6Bo
+	 ZQ80FutoQe4z7Y+opIy8hoi2xNIcp+4gbAG720RIGWBNUxujb+3KEkkXgoidKp1X/GKvi
+	 QObpW+oJIEcq37/SZUhxgpjgbVX7MCcOTvLQ1hgqybByv6YrOtEZCtFDPhJtT1BABuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287574;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mpW7Rx8PuBJeOKNX2dQ8d9XnAjnbB8743kHyv8YBQHw=;
-	b=AUM9Cf8KmKPrR+aAni6suOfBLSnbb9DHybjiDQksk0WfVfanvgY7FdG1N9Hi0mPvhgM1
-	 ix+nSzfJGvrvpEeE7sGFc2zKztIXBtkMEh2BDhzKsVI99dVhMvv1fXtouI27XGlXwGa0O
-	 wmVKIYTyDUhna1H3fV+bZ5x2kQmpq8Ets+68tQM/O9J3FyPf2OhCBBdO6AB6gpNAxCbBt
-	 jxpYS+I+WkbzOpgCvnd024pMjGVTGY5vgOgTdhf+HuoMcHnLkD+k9q7k6PqFCPJ0EYwKw
-	 bNixrKjSK617wfN0JMQ/RBlyHFuUpQdhrVaZmGQnTAU0FXy7drrigRIOHViPL2WXOlA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287584;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ABoTDXyOtvkcn7EUfVmTDlnC7sq68l91R9Ze2UwYLLQ=;
+	b=bv7r+MDqC6GsurUkCltprGISrTL3TMyTQbB2B5ZQHCtBHWZ3Vcua5DYwaupMj4TYq2yH
+	 7KMJFiLFsOC6G1nfBzV21ih8wPXbVBUQjPt+07cPU1A6StxKs8IaOUsv9BpdLPDBQORzF
+	 D42Ma2kxYOsRE3jHdYjzcNAPL9L4mzrzjssDc2yxEhD/dksuelAhpYoCG6M3iB4Dh+DVR
+	 ssdtAGwm/8uh5Q/O1CwT+LYWZjp1b8h4x95KzAHYSpqAXREi1h7e+19IMxhKSR9dGEHa5
+	 8LDqNJqBr1O6Ndxw04Bll8XxM9TfrS01r5l9AaC9WGeSw1w3RL4pM6iLkOujz06gb6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="CFHq/4I7";
-	arc=none smtp.remote-ip=95.215.58.216
-Received: from mta1.migadu.com (out-216.mta1.migadu.com [95.215.58.216])
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b="YXVJ/RGI";
+	arc=none smtp.remote-ip=209.85.210.46
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D96D606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:26:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D96D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B071A606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:26:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B071A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CFHq/4I7
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vYqatMBexbASiH/pDoDg+soUpC7jr6OsHv3SiCXY0DQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793287570; v=1; x=1793892370;
- b=CFHq/4I7/Ryp9pDrYCokipvX9Q3IBM65pbtpLZ0ZnxwtpVp4/KZergKO2A6hs85u2EgK1XI4
- salYWiH7GwXrPHodZwh3cocV/ZBi2TKG3EyzBZ710vT60x7aM4qAx1NbVH12ki0e43SO8KIm1bB
- HywAW1I7jNTMsiGuMH2y4/qo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7378328bbc0346d2;
-	Thu, 29 Oct 2026 15:26:09 +0000
-X-Mizu-Trace-ID: 7378328bbc0346d2
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <12988c8e-95ad-4989-a6de-e02af3c9ef1b@linux.dev>
-Date: Thu, 29 Oct 2026 20:55:53 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=YXVJ/RGI
+Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-843a4ca671eso1111682a34.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:26:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1793287581; x=1793892381; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ABoTDXyOtvkcn7EUfVmTDlnC7sq68l91R9Ze2UwYLLQ=;
+        b=YXVJ/RGIq7/qk0n7fsJn4kWm5KE0pNRcpfbCAQ6lTB8cHKmx6WeLPP4RvldpW5hBEZ
+         xj1zozDJRuW8t0keGI1RgvA0Do8zlKNgUFMOdNIJRwCTJZ8gHtQVOPXlzKHormMpJkgN
+         m15uciVLgJ7JiySdGCLTgZhOEJjhbOV47wOAg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793287581; x=1793892381;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ABoTDXyOtvkcn7EUfVmTDlnC7sq68l91R9Ze2UwYLLQ=;
+        b=tmisRHKptdhbgtrhJCBj4s/Zs/qgGxW4DG+j/ADLDF+P0avqkAKyZuzxYgwOSImOww
+         aC3oD1os5k0BI1TWCSanfPduy82APwGUHix8kOfVkimvtgd5KwwKHCdpJs1aLIcX4du0
+         wck24u0zQwMs5rmDBl5p+RZQTcF68SegrMsZCqzeVLBY3uiXfuJdbefudjjAeAPYd7P4
+         R2fAxhcgIaFF//cayM5iC5WZTrk+RGDX1BPvosZW4P8i1Um1Gh7frTmyuAi1skJbyG3a
+         PfC3nW41NuaMvPAGK5UhmFfBGIEKrk207K1hP05M0M0wWOYWMXQnhg42eJOVZwOfKQDe
+         Pu9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwtTREGajNIrXaMlmG6Aet7B/X+Qb9EkrrbRW/6VvilIA3c8wXAp16ZKphQorT1Hp6T4RFU+ADLmUTmKEU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7TuIGvChSBlrgWCPlFeXGYLmw0f/Fjf41DhdMD1yhIAUyTsIS
+	+3t9b8SLuiATHRqchORE56kjL1+gues5gMTt0tynzD/K+BDTFLp7yp9dWL7wuOxJ2/o=
+X-Gm-Gg: AYBFou1Jm+xSinK6WuQUrwAETCVz3NT96/pl5rM+xrrYwesQz5XzHJg18aw9E4aObXP
+	YiZ7GGyErng9odvDzlJ2Nw1rJZOpd3BJOJ8SIDD20HDScHHFaTXRbLaWXGSPSJGN73P1POtT8vP
+	C7dXeGcZsmqwT+96tr306bVLPuONvu8SeP0YILdR8dcPyjgFIiyFxIxZsd46caRqpNLykuxw6Em
+	Fvk9mGXrMMeS4poWb6tCTm9kaAMGFiZdHtkvybCcoP6czCbjEuXl0Hh9XZMbnnGhU1uBoeW/Xph
+	5q2amp1peMcJ1xu8JupYxTlOmX+UThl7Kkjm89dOWUlpYTmBfqEiKA+8pxPWwPoyeTmVh2dvG1y
+	XAy1iR9d0U9H8Ega3oUMpFDSmzjlik+zAH4yjYBlQbTNMoHag74nktkYYx8OzOcHMSUolXZdDpo
+	AtiofvVAAIaRdN7Lo7SYCkIiUmUgF2pHWSJ/lKwXoQGa0HWpjpAJtYpUyz5vSesvWwnefl58GjJ
+	i0p8vYblWMrsLX6Yjevt8AXtOaAdIWBUJtoRv/So//ypNodhX9hVLpiiWFBwtmHujxCQmsOw6Wu
+	JqG/aVrETxPOvP7N1yF1ILv9fy3+KJAMguEWeoCGaj7eiTVthB7OCZs/WXA=
+X-Received: by 2002:a05:6808:178d:b0:4e9:eb70:b98 with SMTP id 5614622812f47-56382680c8amr4552456b6e.32.1793287581613;
+        Thu, 29 Oct 2026 08:26:21 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-563c5a4d8b7sm3701051b6e.8.2026.10.29.08.26.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 08:26:20 -0700 (PDT)
+Message-ID: <554ef84c-a307-4385-b244-007adeeb8fc1@linuxfoundation.org>
+Date: Thu, 29 Oct 2026 09:26:17 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,73 +90,46 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 14/14] mfd/macsmc: add ioctl to access smc keys
-To: Sasha Finkelstein <k@chaosmail.tech>,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Cc: alexandre.belloni@bootlin.com, andy@kernel.org, asahi@lists.linux.dev,
- bhelgaas@google.com, bp@alien8.de, brgl@kernel.org,
- dave.hansen@linux.intel.com, dlechner@baylibre.com,
- dmitry.kasatkin@gmail.com, eric.snowberg@oracle.com, griffin@kroah.com,
- hansg@kernel.org, hpa@zytor.com, ilpo.jarvinen@linux.intel.com,
- j@jannau.net, jarkko@kernel.org, jic23@kernel.org, jmorris@namei.org,
- lee@kernel.org, lenb@kernel.org, linusw@kernel.org,
- linux-acpi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-gpio@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux@roeck-us.net, mfd@lists.linux.dev,
- mingo@redhat.com, neal@gompa.dev, nuno.sa@analog.com, paul@paul-moore.com,
- pavel@kernel.org, platform-driver-x86@vger.kernel.org, rafael@kernel.org,
- roberto.sassu@huawei.com, serge@hallyn.com, sre@kernel.org, sven@kernel.org,
- tglx@kernel.org, wim@linux-watchdog.org, x86@kernel.org, zohar@linux.ibm.com
-References: <525E5B4D-A947-4567-9FCD-5FFF2CA8B161@chaosmail.tech>
- <20261029143926.1246-1-atharvatiwarilinuxdev@gmail.com>
- <0683C803-C578-4C55-B893-BC03EBF9A9F1@chaosmail.tech>
+Subject: Re: [PATCH 6.12 000/247] 6.12.115-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20261028165947.349197979@linuxfoundation.org>
 Content-Language: en-US
-From: Aditya Garg <aditya.garg@linux.dev>
-In-Reply-To: <0683C803-C578-4C55-B893-BC03EBF9A9F1@chaosmail.tech>
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-
-
-On 10/29/26 8:23 PM, Sasha Finkelstein wrote:
-> On Oct 29, 2026, at 15:39, Atharva Tiwari <atharvatiwarilinuxdev@gmail.com> wrote:
->> 1. The patch is required, atleast on intel macs, as without writing GPU and CPU
->> states to smc, the system gives PROCHOT signal under small load
->> , and heats up a lot.
+On 10/28/26 10:56, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.115 release.
+> There are 247 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> In that case, why are you exposing a generic smc key interface instead
-> of one that just does that? If you think that this data should be set
-> from userspace - whitelist the set of keys that are needed.
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.115-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 > 
 
-Whitelisting will create an endless cycle of upstreaming new keys. But 
-considering T2 no longer is receiving updates, Asahi would be happy to 
-send their keys they wish to be whitelisted right ;)>
->> 2. the smc dosent expose keys of nature that can physically damage the system
->> it only exposes power/volt data, and the most you can poke is reboot
->> keys and gpu/cpu p-states.
-> 
-> Are you willing to make that claim for every smc-equipped device, not
-> just T2? Are you willing to make the same claim for future versions of
-> smc firmware?
+Compiled and booted on my test system. No dmesg regressions.
 
-Fair enough. We can restrict it to T2 Macs, and Asahi can later adopt if 
-useful?>
->> 3. If a person is randomly touching keys, Its their problem and not ours.
->>
->> 4. There are a lot of things that can mess the system way more and permanently
->> than smc (undervolting for example), but they are not safe guarded, why
->> should this be then?
-> 
-> I think it is inadvisable to leave a loaded footgun around and then
-> blame the user for using it. As an "OS Vendor" you have a duty of care
-> to your users.
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-It would say the "duty of care" argument is more of a philosophical 
-thing than a technical argument here. Still, I respect that but there 
-needs to be a balance between adding features and respecting the duty. 
-It seems various vendors have different views in determining the 
-balance. The above 2 arguments look like a good balance. What do you think?
-
+thanks,
+-- Shuah
