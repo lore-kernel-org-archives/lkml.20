@@ -1,81 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793280671;
-	b=NhPfNF0eQZTd+sFm5aybzG/FRk0RYJntF+K6Gj3Vy5wNsz5s29NjQmnuJ8NwgXqXQpad
-	 x/ixNl9MHrP0M8QhxFspvoS8ZsY1CxjrU+7+G2YCKNseYBzUWq/BML+rfF/kYFgzXBs2c
-	 JzgUjx8X8GDwDQCvOqq+5xKtOyz1S+hS9jOMX4CxP9anVSaojFU1cS34nD7umJJ4+uErf
-	 LCSpK29xax6VviQRTtlDK5NtMMgksBRWAZVZMzsweqLi4MvE0yTqOYHTaRq9dJTFBl+fk
-	 6DfFfaYSAjmYpMn+iXay2NlD7rt7/pScljd/SEmEktN27xnDgyv3fK1t8MrT5QYhYuQ==
+	t=1793280766;
+	b=R93yjRMGuDwONDalc+3KVXWMIBF/gAL9V66wccpBJ82DTC6WZV3rM2SIb9LiMb7ppJV0
+	 XT+QIUB/4FxD1eZqmaouwdOv/hQkjJn5Ok+/xe2qJXUy7Gw7hjTXahGrrrNWflKpBPcek
+	 B7b4bIJcOTwieGdGPTyuYW0an6A2qagFaq1MxyQ6SWnB0ikbWnW/HQjfv/FBSBs2VJUze
+	 XCs89BObFkoidDNi9TfwR3HGiES5R+E1+tHhnjkmblXTaaVVyHMB3b66FmCKIZejaZNMc
+	 6UgZI2wpzHKLdFRZGNy+pXNdep04EhF3BSDTTR3BztaaTyogUmAVx7sHzhNIn3JlKFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280671;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=b+AFuhWnPDJSLYhPZ4qjpkT+CV2kwG8ni2hQRfb7t5c=;
-	b=nbOcJE78CH7mSOynfPKQVoKOgtpevwa9PuLxs5dFCVbP7jtG3ynp3oEbn2d8+dVXryHC
-	 NEswD/ELKIwBedSA152ms9U+g5uqj5medbDvdeQSZ6vgya1RV9hYDKz62N/Pkxtv1rj0/
-	 PTCRbpMOWuUmCnibOpHHLvfc+FZKOOg8Fa6ERq6J9aFpn30fbg2JfFq2Q7iLF3xVkQGQ7
-	 GqncZulvEhNbBiqb4uuKu4DGqwgoHZ/gumXlHtN4zS+NsHe8yCW/ejb/oYYk8NcNt8CSO
-	 N2cMEvGMRzyyZ8JDFVM0XP/MJ+omt0XFyp6Y9fYLkowRmnLx1DWRbCUoMc1R+VZStew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793280766;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=d/d3yGImmhA5Pa1MeHR8lgTc0tfl6qkT6DVrelhpVq4=;
+	b=D+z3KihWW7Ope92v/9bySjrUvStAa58d28e4u4M6+/rizweg2slT01D3hYoPqroYyoAW
+	 McyjnENGENSVR9fsfuM6N+VGhIrO/93VNgLgdOTnyuPu+/ZJAjCMGduRTtqcIAe089O5f
+	 ioC49KknPqtOR43x9cUf/Y4Zd8KMCy2nsPaWQMvvQwIdzOuQ0YK9tWeoUxq/MGbgEg4YZ
+	 oxH8q1cY6lQEakWO5asoJK4J2Dz94KJzm1n4hZjD2gpAR1sVqqtc4sUkD5Nfsk8Ro2YxR
+	 zmdesQrn4qf1i3NSN6kDUNjW2gUB4xAWsKp76CTIkwP50mCaIq/DrlT6FKK+EaVK99Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ICrif33P;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=osCaFOwX;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0A9606A321;
-	Thu, 29 Oct 2026 13:31:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C0A9606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8987606A31A;
+	Thu, 29 Oct 2026 13:32:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8987606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ICrif33P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793280670; x=1824816670;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=zbPNXzmKH5aiAeKH/1F04rnmfk563h7HnAZF0WYRyrA=;
-  b=ICrif33PAkFdKQhDpW7b0nvjVyoca7qh1NCgdBw3WJE8wcaYy14ZjlSQ
-   5VhkdDnGtKRKqu+JGhhsCrK1b2a9j+9NgCSf9roGWpLqy9eB7JuNA33wL
-   C5n5C0PSxKmVrvEjvqX1fFYq4iMVIh79IdWy65Ywy+4eIbgGF9cMJFs88
-   ARaeSWCdBwy6Ok4xQNv/WjSyUuSsgBiTPHDh6oHFT2P3Oe1TfUmaUC2x0
-   zvrMaVVST4f0vCNv0wrhO/uOKze7C8/L3r+5rB5wFtCNYBs+E+yMHCq1i
-   5uRzLWYBvXlxmbgIpYeYV+ZJSjj/2vvTCX4B+XznrD/TM/qFmf0wMl1HE
-   Q==;
-X-CSE-ConnectionGUID: TWDiercORcaZmkk7YwIQ6Q==
-X-CSE-MsgGUID: 9huVO9KVSNWr7rd/HvbIOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1906435"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1906435"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:31:10 -0700
-X-CSE-ConnectionGUID: ZVqDH6SwSAi+mVyeV+cHmw==
-X-CSE-MsgGUID: r8hmop+ZR1uxXaDTAZ6hKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5035807"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa007.jf.intel.com with ESMTP; 29 Oct 2026 06:31:08 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xMQDg-00000000aAi-3BfQ;
-	Thu, 29 Oct 2026 13:31:04 +0000
-Date: Thu, 29 Oct 2026 21:30:15 +0800
-From: kernel test robot <lkp@intel.com>
-To: wuqianhai@loongson.cn, bhelgaas@google.com
-Cc: oe-kbuild-all@lists.linux.dev, wuqianhai <wuqianhai@loongson.cn>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	tzimmermann@suse.de, javierm@redhat.com,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] PCI/VGA: Fix boot device detection after framebuffer
- relocation
-Message-ID: <202610292159.Ls5pkJAS-lkp@intel.com>
-References: <20261028094634.766723-1-wuqianhai@loongson.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=osCaFOwX
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TCi7LI212081;
+	Thu, 29 Oct 2026 13:32:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=d/d3yG
+	ImmhA5Pa1MeHR8lgTc0tfl6qkT6DVrelhpVq4=; b=osCaFOwX1RX+0p+Uwb5xz/
+	yzXjc4tYzkIM6ZJ+j+x/uom5s3/y2nJlQDK88I/ea2o35ridblABxgMTxuEMvzO0
+	130e1xEmeCaGg6rCqB7kLKcBrePLpgmOCIVrAeqoQ+eigv/MPfwvrBFqABjaMdZe
+	4d3SNKsS9gxmpn4ilUfKzAmkgAJQ+dvPds1u0hjS/9Dyyb1b7ALeR4nNCtXHj6Jt
+	LjbOirJ0zxookb5R0crCw2An4pgjRsAIkLE0DqIMPPjU8osJ8N+e8aMl3VhjWpCR
+	mHLIPKfDn4bLwqCNqXt2Fkq+qdDEa9Yl+Xs5o8aLrqIViaJPOhE1UmksnDQfsqKw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm64af46-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 29 Oct 2026 13:32:14 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69TCnxWx3085026;
+	Thu, 29 Oct 2026 13:32:13 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hjtnnhtke-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 29 Oct 2026 13:32:13 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69TDW9dh15598032
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 29 Oct 2026 13:32:09 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 988B620040;
+	Thu, 29 Oct 2026 13:32:09 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9399C2004B;
+	Thu, 29 Oct 2026 13:32:08 +0000 (GMT)
+Received: from [9.87.137.195] (unknown [9.87.137.195])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 29 Oct 2026 13:32:08 +0000 (GMT)
+Message-ID: <4605dad5-aab2-49e3-b919-bf9897181834@linux.ibm.com>
+Date: Thu, 29 Oct 2026 14:32:08 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,55 +86,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028094634.766723-1-wuqianhai@loongson.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 04/13] cpumask: Introduce cpu_preferred_mask
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        mingo@kernel.org, peterz@infradead.org, juri.lelli@redhat.com,
+        vincent.guittot@linaro.org, yury.norov@gmail.com,
+        kprateek.nayak@amd.com, iii@linux.ibm.com, corbet@lwn.net,
+        ynorov@nvidia.com
+Cc: tglx@kernel.org, gregkh@linuxfoundation.org, pbonzini@redhat.com,
+        seanjc@google.com, vschneid@redhat.com, huschle@linux.ibm.com,
+        rostedt@goodmis.org, dietmar.eggemann@arm.com, maddy@linux.ibm.com,
+        srikar@linux.ibm.com, hdanton@sina.com, chleroy@kernel.org,
+        vineeth@bitbyteword.org, frederic@kernel.org, arighi@nvidia.com,
+        pauld@redhat.com, christian.loehle@arm.com, tj@kernel.org,
+        tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org,
+        rdunlap@infradead.org, kernellwp@gmail.com, linux-doc@vger.kernel.org,
+        jgross@suse.com, virtualization@lists.linux.dev,
+        sunlightlinux@gmail.com
+References: <20260928053728.797539-1-sshegde@linux.ibm.com>
+ <20260928053728.797539-5-sshegde@linux.ibm.com>
+Content-Language: en-US
+From: Mete Durlu <meted@linux.ibm.com>
+In-Reply-To: <20260928053728.797539-5-sshegde@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA1MSBTYWx0ZWRfXwmENVi6yd30m
+ 07V81Q7TAzyI70EmBlMbSyhJibr/vBMCR3p69dzoTwMzg3WlgGqOZ7218XblEKPIWVQZkYJXhvZ
+ dl8RuRBMg3G97/xgM8SFHznqf1PgPPU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA1MSBTYWx0ZWRfX7IFz0/EFbET9
+ DhCeQyXGvf0cHYHHCtm2NUt1Tni0JxS5yIPCAsN9SRm1k8ZOobEuOERw6IZ3ypcoMhr3/D7a42q
+ rmU3NgCu5LsSvVnizIEcVo67i72G9tSxp9NZmVeH/N18S7XdtL0tkPccE1oSgmk7tKYWJQeKYVD
+ 2j8rgW3bKwHLqy4Fp7iBu4JOAkJB3IUBjSSorwu5jW11gJIzmyLoi2/ACMa9z7kMKCTkHJONjXF
+ c0d4+cZnWKV01rUZNROjHwUgbuIh0U9eAapow3AMc10fNwkCzCPsqKpbim3tSwURP+gBCkAYjUa
+ ki01BF1JbiLWDiijV0OqwRoraGqfDJVzohLpqPgyjArMQAz3quD479FQWSgeLswKK9BforJlb5O
+ XxtjbwWGGEE6lASI5nuBimQYTYyn0Hc1juwwek4Mc4fncM5yhd7lcA7BCVCe7DUp/hdMGp36Iry
+ CP0bl0o2F7AHa6q5Kcg==
+X-Proofpoint-ORIG-GUID: YjLDRhwcO4SdktYbavYUvtEdxGpgFOL4
+X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae34adf cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=NEAV23lmAAAA:8
+ a=VnNF1IyMAAAA:8 a=mP_uidrk0wjRY6XPjW0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: s7PRJQE60tIN94dBRZ_PuUEFzyRxo7Y1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ lowpriorityscore=0 malwarescore=0 clxscore=1011 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290051
 
-Hi,
+On 28/09/2026 07:37, Shrikanth Hegde wrote:
+> Provide the preferred CPU infrastructure. Define get/set macros
+> which could be used to get/set CPU state as preferred.
+> 
+> CONFIG_PREFERRED_CPU will be selected by the driver which handles
+> steal time values. It is going to set/clear preferred CPU state.
+> This driver will be called steal_governor and it is introduced in
+> subsequent patches. It periodically computes the steal ratio and
+> decides on preferred CPU state.
+> 
+> A CPU is set to preferred when it becomes active. Later it may be
+> marked as non-preferred depending on steal ratio by the steal_governor.
+> 
+> Always maintain design construct of preferred is subset of active.
+> i.e. preferred ⊆ active ⊆ online ⊆ present ⊆ possible
+> 
+> With CONFIG_PREFERRED_CPU=n, ensure set_cpu_preferred is a nop and get
+> method returns the active state in that case.
+> 
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> ---
+>   include/linux/cpumask.h | 24 ++++++++++++++++++++++++
+>   kernel/Kconfig.preempt  |  4 ++++
+>   kernel/cpu.c            |  6 ++++++
+>   kernel/sched/core.c     |  5 +++++
+>   4 files changed, 39 insertions(+)
 
-kernel test robot noticed the following build errors:
+[..snip..]
 
-[auto build test ERROR on pci/next]
-[also build test ERROR on pci/for-linus linus/master v7.3 next-20261028]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>   
+>   #define cpu_is_offline(cpu)	unlikely(!cpu_online(cpu))
+> diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
+> index 985aea617cfe..edc067a0c422 100644
+> --- a/kernel/Kconfig.preempt
+> +++ b/kernel/Kconfig.preempt
+> @@ -194,3 +194,7 @@ config SCHED_CLASS_EXT
+>   	  For more information:
+>   	    Documentation/scheduler/sched-ext.rst
+>   	    https://github.com/sched-ext/scx
+> +
+> +config PREFERRED_CPU
+> +	bool
+> +	depends on SMP && PARAVIRT
+FWICT, PREFERRED_CPU mechanism can work perfectly fine without PARAVIRT
+selected. It would be annoying to enable it and implement a dummy
+paravirt_steal_clock() just for that.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/wuqianhai-loongson-cn/PCI-VGA-Fix-boot-device-detection-after-framebuffer-relocation/20261028-174634
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
-patch link:    https://lore.kernel.org/r/20261028094634.766723-1-wuqianhai%40loongson.cn
-patch subject: [PATCH] PCI/VGA: Fix boot device detection after framebuffer relocation
-config: microblaze-defconfig (https://download.01.org/0day-ci/archive/20261029/202610292159.Ls5pkJAS-lkp@intel.com/config)
-compiler: microblaze-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261029/202610292159.Ls5pkJAS-lkp@intel.com/reproduce)
+Shrikanth, would it be possible to drop that dependency?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610292159.Ls5pkJAS-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   microblaze-linux-ld: drivers/pci/vgaarb.o: in function `vga_arb_device_init':
->> drivers/pci/vgaarb.c:1536:(.init.text+0x10): undefined reference to `screen_info_apply_fixups'
-
-
-vim +1536 drivers/pci/vgaarb.c
-
-  1524	
-  1525	static int __init vga_arb_device_init(void)
-  1526	{
-  1527		int rc;
-  1528		struct pci_dev *pdev;
-  1529	
-  1530		/*
-  1531		 * PCI resource assignment may have relocated the firmware
-  1532		 * framebuffer BAR. Update screen_info's lfb_base so that
-  1533		 * vga_is_firmware_default() can match it against the boot
-  1534		 * device's relocated resource.
-  1535		 */
-> 1536		screen_info_apply_fixups();
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks!
+-Mete
