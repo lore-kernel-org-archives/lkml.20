@@ -1,79 +1,80 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793293193;
-	b=cxE8dce7FV3Tem6V6SjwdWW7bFR/gjhdM9NOCFcq5lsIvgBb4EYS/ZYl6en4P53BW171
-	 72GYq8PuMIaIjU8VP/EY/5PWL/wpIehON0iCA5mM0afsr6T1RjuD1nVnEKoVizZeRvaV9
-	 RLtmZOTvvS0WoH/md4EDH5v5JHaQ1JKDr/2B8TkgkVsMx3A0mwN7oknO2qadN1GXzAzYl
-	 NvTkNLgH179mPa3QU+sBlWwzvNPLMSQBiSFHZQFbOhSvyYVOeq568QYKaIuoHfhZ7r4v4
-	 SpEIlNLFXEMGWm7Pzqbo2Ampmdv1dLq6DT09Yr9YxR2ANKsJ2XLRoWUSQQtjylVL0Gg==
+	b=ldJErl2+Mx2Fbuq5xNxZNbPRPHlQf/9T2QC6+zusLrifvlix1M49bTC5L7Ga/4oKOeCI
+	 rY+Icvs9nbDZ9pxUMkl8fOtDXsLma4gEt05u6a5ANyl+oKtLI4B16WEYjjoKNlHjOwSQb
+	 b1gjE24+qR1OWa0QG6fDlMGIxDSTt4QAFEWKdRIbZWLR/thYOUHxmTHaYbuYBgkvPKB5g
+	 O1Dt6MTwChuIbTX5zuDK/zUOUVJWxTdTMAniFzvsGjILhlNNyLH7ArxAp2Y+g/7tZSMF+
+	 sBI+3o9OO/xAMHvfNos/wVEfmSKXzLPrPOIMSMCAg3ad4ATMGplAYLEWdSa9HkyhpyQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793293193;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dUQ2rWkA23mCd6BSj61o++KCBFyn8O400fA/qDdn6sM=;
-	b=GaDlh+VgqRScPSjqbrTmfZX/q7dd0z5atDjC+t1oYW4S4L6C5pOmGBaBaE5DKXZzFkkq
-	 zrhj5FjDEUbLaPIm7DAIMlz+HXmUNbC8UsT5Hts25Wtuz4w2/Byr2Bd9F76ZEqfS0e7da
-	 0hE/a57WmpkzfMc2rp8CdyxlfJ69eyXUHAumzWiFFESg/r4bOkPsuIGvfn9tnG9yvzQy7
-	 AGRBr1pzdtBU2Ic57Dy8MwNc04APgtVzfjjL8jEO/JjRtfQ3Dsu3H+QIP021jbCKOlICd
-	 eBiVFrxdEYhpeaTSzL+hNLqUBZpsWxgO7iXV95+2IdBiFmWWSNugyipBi1D1+vW259w==
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=YHVa+8E3twtVMw1FZ3XwHX19OXl3xIFjKnZNfhJISFU=;
+	b=4BzNYFqcEVxGtaBR77nbgqNkP6T/3AdVRet69DL1o4DLkeOTtBx76NTUxVo8SJj+Sm+P
+	 sD1qBXW9URtOZrvXlb8NUBuS5yVaIc8WgbMjcbHpXvWWI64Z4LKOR0WOSkbOG5DXZkgi+
+	 BTPyogYBqxD0JMfECUa0d5TcA7OTgfj8rt+NG0GGh9eNmnS9MnOgdbh1LggftLpMSUG57
+	 zAsUYrNL8JtSvYIjBx/KAvSIOXvtFfDdNpZAVMKS3ZqrmWwqFtpZzbh/Mr4Q9JhuPFn2e
+	 lOl5zken4WsnT5c+z6lOYVWZ5NKnwoYbpDgceu8x/F5Lq11RN6BZvnMWouHy/jOAajA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=errjSsOe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FT3cDMFT;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EFB5606A339;
-	Thu, 29 Oct 2026 16:59:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC8E606A32E;
+	Thu, 29 Oct 2026 16:59:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=errjSsOe
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FT3cDMFT
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793293193;
-	b=Qqr0uT78ZE1vQw4SJko9Q48M7mHGl45diXYRuq29rpAAHVAsd+PiE7qao4QuduLY/TWx
-	 9HcRP7CcipoGrfALpzY4CI1QhzguBAB9XIXK1YZQ32v9rY23KowTYjsunkdwoGziIC6FU
-	 KXO3BB6Cs12J3dPxysjiuF8P2CXDBa78y2gLOY7rB8PFEJPiEgxvGS5eZuBUbATJIL8bT
-	 lbRkfGybltf+dgcuDhcl9CPb0Mm12aWti7lV7i8rPaDEhrG4Rh7oAZDok+GWRL0h16Pne
-	 yXsoA3THeHlVtBDFdP334nhyJMGMaevr+rt2eUelkoFy45syxaCaigOX8p9gLzy5tOw==
+	t=1793293192;
+	b=sXUAvBADO4Sm8NtWUglCClZSXiZqJv7lwv4pzyjWbUQp1O9vJHsXQdgQaWRriQtcuCMV
+	 egUjLFrh6Y217lbvbudE17z63h2opW6UKcU5VERyheLVzJaXg1VImxZn96BRkOm1yVHM2
+	 UGyypVzqGXYuwaR2xXPihDw/jR/Ahrin/JfrhIoLVIpmMDNcPhLAIIxOuscceX8+jWH0O
+	 okwRJhm0ws2GpUq7WfwP2k6AAw4wnFjQHb4iaK3a056HANYio+N0Y+PNZlXVKI+KYASdK
+	 fkWmyvw2fkC13hpK9+QPsrwkR5zAwnQtOzwWv0BvpFP4CIAwHlH0HLkd0hoXmnNy2CQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793293193;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=dUQ2rWkA23mCd6BSj61o++KCBFyn8O400fA/qDdn6sM=;
-	b=LoCCxuitF3fFEPoXi1eB0FZ/X86YT4XjqEtfxxo8JK8CBAAHtSf8tY6pKLR5G62Y9Vnx
-	 b3nlpmR8t+2aeqnJ1O9XJ8HUQYVT2wZ087GJ3thN91uHo7a7FexGvWqUwmPNiszoNJAR9
-	 kFRQQ67C3kfLPE7tt+ROavwb4Ba5E3CokZHvJkjMa77RcERhE+3C095din2UjDcaFYDPc
-	 1RYG4ZIxRBcEktRb4cFx1/MxnU37V6v7NcRwcIJnlmz9NuUUKHHZeBSntlNKGg5mChrHi
-	 qJVAuC1w1fh4HdcDjVCJAln2xdbDi9QGeBwy32Vm34exiuJ/D30cGO8wquvp1X9N6zg==
+	c=relaxed/relaxed; t=1793293192;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=YHVa+8E3twtVMw1FZ3XwHX19OXl3xIFjKnZNfhJISFU=;
+	b=uLUwCRAfPD05iFvIU/bMcVq/QTBjzyCohdKeAB/vkqYn9BUZ1/KhXAyv8jyj7WWL3GDQ
+	 vTkwCpdMqbiDf5Vz2UVeOBCd9QQVbyfiSXcPPzaFY6MQpBKiOZKVRhK9dlDpqJ3f7jOlH
+	 xCzq0VqQ5tBBF6jFJBOCcxsvJPg/RfIg36yG1/145wWAOeB6pPqKo5voKqo4jJDfqS+iv
+	 foJk52uZT9AS3l/um7KOcNHdCYddfy1JyfGt6oa87F14RvRs8sQywZ34vRyJzaUFu0GO4
+	 wxrao/P3Ip3h4Qnu1f8kx3MUNb6LO5UAW6gsEtMwrTup3jgv2JavCca1FicJk+Ytk+Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B9CEC1F031E8;
+	by smtp.kernel.org (Postfix) with ESMTPS id B963B1F031E5;
 	Thu, 29 Oct 2026 16:59:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793293193;
-	bh=dUQ2rWkA23mCd6BSj61o++KCBFyn8O400fA/qDdn6sM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=errjSsOej9bgDOfiTpN9IJhiti/LBQQGJraYP/UdMy/jcbMTX/XoZeqYzYziDG9hj
-	 yVWtRGN7IxD4LsTmAw24yAHKlUBHIhviHBUXBE1pXu9SGkgHH23pNxsRZuSQSkSREQ
-	 Fk5/coKXX1AOs+0DCDlb/qZHf9GvQzv4U9arrvySPyh76SmSZP8oMjh7oALZP5jdNI
-	 JdQgji8afEw3toUzBRpN0CLWvT6EqgtwLKVZ+IB5gZnQp0phLPFjTtZ7ch9XtXc9Av
-	 C/ahVn4WmF+fBQwYQxFVsGeGGiHkSW49mz3l1zfkgABOHcx8BQn1lMmua+OSXV8tGB
-	 VQadsHHcqSmiQ==
+	s=k20260515; t=1793293192;
+	bh=YHVa+8E3twtVMw1FZ3XwHX19OXl3xIFjKnZNfhJISFU=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=FT3cDMFTwNc5NfpnkAsLZzL5ZxiccspZgjpN9doP3Ms/WrEuTczkhrrtUidssMu+A
+	 CB4/GLpwYyxuros1lIz7yOf20uH8o9zshyO1U9RaNOXw48/YxxY4Ha7ivl12qcNGlW
+	 jB1ffjWqP4Q4YSOyZHlcbpCf3Sc/I16WOvYef7n24h1wXX+dbUOZmYftCojZ1xOAM+
+	 O1QQhlVbiqh0hHkS9BKoxa+Le/yiwJQg04M+K7g1IBQ0IznKlJd9sQra+GRlsvtmVl
+	 rsjNHR2PFfNPQHi70JmFaysBPChEZz+aPVN0d9XiZLYJMxDyaKsqK0W7mEdUEFU4qw
+	 KNyCJHRD6JHSQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2EEBE4590D;
+	by lkml.kernel.org (Postfix) with ESMTP id 1372145909;
 	Thu, 29 Oct 2026 16:59:51 +0000 (UTC)
 From: =?utf-8?q?Nicol=C3=A1s_Antinori_via_B4_Relay?= <devnull+nico.antinori.7.gmail.com@kernel.org>
-Date: Thu, 29 Oct 2026 13:59:02 -0300
-Subject: [PATCH v2 2/3] rust: kunit: allow same test name with different
- #[cfg(...)]
+Subject: [PATCH v2 0/3] rust: kunit: support #[should_panic] and same test
+ name with different #[cfg(...)]
+Date: Thu, 29 Oct 2026 13:59:00 -0300
+Message-Id: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,9 +85,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-rust_kunit_v6_send-v2-2-5ce551efc48e@gmail.com>
-References: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com>
-In-Reply-To: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAFR742oC/x3MQQqAIBBA0avErBPUSKirREjoVENgMVMRSHdPW
+ r7F/xkEmVCgrzIw3iS0pwJbVxDWKS2oKBaD1dYZbTvFl5x+uxKd/nZeMEUVddM2wTjTzh2U8GC
+ c6fmnw/i+H03elpBkAAAA
+X-Change-ID: 20261029-rust_kunit_v6_send-d0353c1615f9
 To: Alice Ryhl <aliceryhl@google.com>, Benno Lossin <lossin@kernel.org>, 
  Boqun Feng <boqun@kernel.org>, Brendan Higgins <brendan.higgins@linux.dev>, 
  Daniel Almeida <daniel.almeida@collabora.com>, 
@@ -103,147 +106,127 @@ Cc: Alexandre Courbot <acourbot@nvidia.com>,
  rust-for-linux@vger.kernel.org, 
  =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5079;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5381;
  i=nico.antinori.7@gmail.com; h=from:subject:message-id;
- bh=zzc2fwAl7G0oF5NHbgAZSoqWvnfQ18grBJuQDw4KJ6o=;
- b=owGbwMvMwCV2QdXfwqNJ1YjxtFoSQ9bj6pZZTq5XXzhrVeUXqtR/NffM8tku2Mz4dUOp8Jb/r
- P9Y6hd3lLIwiHExyIopsszlfP/Z2Na8olx6UxDMHFYmkCEMXJwCMJEVDQx/uKe9Pn5Czrqk4oRM
- l9CP2ZMDizn4TgRNNBJyd+pNnvZrL8P/2IPR7bZLwtLuzSrsd3rNePBQ5M4J/o8v9lbtKggOZ3/
- JBQA=
+ bh=qbLPq7lD1HdTSfI9ix8eOoU9492wccTuMFu99cmlC/g=;
+ b=owGbwMvMwCV2QdXfwqNJ1YjxtFoSQ9bj6uaWjphP06byffzN93TVjpLm5rcFvJV+na3lsz1/h
+ u8VFJPtKGVhEONikBVTZJnL+f6zsa15Rbn0piCYOaxMIEMYuDgFYCJpBYwMu9JyemMO5Oo+feyQ
+ f/i8VV1zcpqtmMvsk3/f/zjNoPmqheE3G6NjiyDPd2kBoxzTFQWT1875paOZ69jUeTi+o9p7Vxk
+ PAA==
 X-Developer-Key: i=nico.antinori.7@gmail.com; a=openpgp;
  fpr=9D09EFF3333D3778771BB252D0254F3848822532
 X-Endpoint-Received: by B4 Relay for nico.antinori.7@gmail.com/default with
  auth_id=1086
 X-Original-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
 Reply-To: nico.antinori.7@gmail.com
-Content-Transfer-Encoding: 8bit
 
-From: Nicolás Antinori <nico.antinori.7@gmail.com>
+This patch series intends to implement two features for KUnit tests
+written in Rust. The work is based on a TODO comment made in the
+`bitmap.rs` module [1].
 
-Sometimes it is necessary to test the same code paths under different
-configurations. The `#[cfg(...)]` macro can be used to check if specific
-configurations are enabled and run tests accordingly.
+Changelog:
 
-Currently, defining multiple tests with the same name under different
-`#[cfg(...)]` attributes results in a compilation error. This patch
-removes that restriction, allowing identical test names across different
-configurations.
+v2: 
+- Added more tests in `rust/kernel/kunit.rs` testing Sashiko findings
+  and changes.
+- Solved Sashiko: "[Low] kunit: spurious "try faulted" error logs for
+  successful #[should_panic] tests": Solved by adding
+  `rust_should_panic` in `kunit_try_catch` C struct to check if the test
+  is expected to panic and act accordingly. Dismissed what I first talked
+  about in [3].
+- Solved Sashiko: "[Medium] kunit: assert! macro in #[should_panic]
+  tests causes unexpected failure": Solved by making `kunit_assert`
+  macro aware if the test should panic and act accordingly. Dismissed what
+  I first talked about in [3]
+- Solved Sashiko: "[Low] kunit: missing diagnostic log for
+  #[should_panic] tests that fail to panic": Added an error message when
+  a test that was expected to panic do not
+- Solved Sashiko: "[Low] kunit: dead_code error for test wrappers with
+  inactive cfg": Solved by moving the #[cfg(..)] attributes on top of
+  the wrapper functions
+- Dismissed Sashiko: "[Medium] rust: bitmap: memory leak in
+  owned_bitmap_out_of_bounds() test panic": Not sure if can be done
+  anything. If I am not mistaken this is the same issue as stated here [4].
+
+Sashiko report links: https://sashiko.dev/#/patchset/20260930-rust_kunit_v4-v1-0-e3b0d45311dd@gmail.com?part=1
+
+v1:
+- Removed 'stringification' of test names (to avoid clash of names for
+  different configurations now a number is appended).
+- Added bool `rust_should_panic` attribute to `kunit_attributes` C
+  struct
+- Removed #[panic_handler] in Rust side, checking for aborts in the C
+  side (`kunit_run_case_catch_errors` function). This allow to catch
+  panics triggered, for example in a Rust function that called a panicking
+  C function.
+- Now the tests that have an inactive #[cfg(..)] do not appear un the
+  KUnit execution summary as ignored, they just do not run.
+Link to v1: https://lore.kernel.org/all/20260930-rust_kunit_v4-v1-0-e3b0d45311dd@gmail.com/
+
+- RFC patch: https://lore.kernel.org/rust-for-linux/cover.1789500084.git.nico.antinori.7@gmail.com/
+
+1. Supporting `#[should_panic]` [2]:
+
+KUnit tests in Rust follow the user-space syntax, but at the moment
+`#[should_panic]` is not supported. The first patch of this series adds
+support for the attribute (only in its basic form, `#[should_panic =
+"message"]` is not supported yet).
+
+The way it is supported is by adding a new boolean property called
+`rust_should_panic` to `kunit_attributes` struct in kunit/test.h and in
+`kunit_attributes` in kunit/try-catch.h and check for the
+`try_catch->try_result` code and the named flag to detect if there was a
+panic in `kunit_try_catch_run` function.
+
+2. Allow same test name with different #[cfg(...)]:
+
+When testing `#[should_panic]` in `bitmap.rs` (check the last patch of
+the series) I found that the test that was supposed to panic had the
+same name as another one, but they were run on different configurations.
+This caused the following compilation error:
+
+ERROR:root:error[E0428]: the name `kunit_rust_wrapper_owned_bitmap_out_of_bounds` is defined multiple times
+   --> ../rust/kernel/bitmap.rs:503:1
+    |
+503 | #[macros::kunit_tests(rust_kernel_bitmap)]
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `kunit_rust_wrapper_owned_bitmap_out_of_bounds` redefined here
+    |
+    = note: `kunit_rust_wrapper_owned_bitmap_out_of_bounds` must be defined only once in the value namespace of this module
+    = note: this error originates in the attribute macro `macros::kunit_tests` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+Now, only the tests with an active `#[cfg(...)]` will be executed by the
+runner. Tests with an inactive `#[cfg(...)]` will not appear in the
+report since they are not added to the TEST_CASES array.
+
+[1] https://github.com/Rust-for-Linux/linux/blob/fd73f4a6659897191fa0d40695fe370925dd3780/rust/kernel/bitmap.rs#L592-L600
+[2] https://doc.rust-lang.org/rust-by-example/testing/unit_testing.html#testing-panics
+[3] https://lore.kernel.org/all/DM41PHVITKOG.3I6P2X8048BEP@gmail.com/
+[4] https://github.com/Rust-for-Linux/linux/blob/fd73f4a6659897191fa0d40695fe370925dd3780/rust/kernel/kunit.rs#L129-L136
 
 Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
 ---
- rust/kernel/kunit.rs | 22 ++++++++++++++++++++++
- rust/macros/kunit.rs | 36 ++++++++++++++++++++----------------
- 2 files changed, 42 insertions(+), 16 deletions(-)
+Nicolás Antinori (3):
+      rust: kunit: add #[should_panic] support
+      rust: kunit: allow same test name with different #[cfg(...)]
+      rust: bitmap: kunit: uncomment owned_bitmap_out_of_bounds panic case
 
-diff --git a/rust/kernel/kunit.rs b/rust/kernel/kunit.rs
-index 5e688b743ee2152867e2f99c7f18b86e1b7fbe3d..ba3040d302b95af6d6e648a229ac8e9ea2c31a8c 100644
---- a/rust/kernel/kunit.rs
-+++ b/rust/kernel/kunit.rs
-@@ -367,6 +367,28 @@ fn rust_test_kunit_in_kunit_test() {
-         assert!(in_kunit_test());
-     }
- 
-+    // Tests with cfg have the same name on purpose because we are implicitly testing that
-+    // tests with the same name but different configs do not throw a compilation error
-+    #[test]
-+    #[cfg(CONFIG_RUST_KUNIT_SELFTEST = "y")]
-+    fn rust_test_kunit_run_only_active_cfg() {
-+        assert!(in_kunit_test());
-+    }
-+
-+    #[test]
-+    #[cfg(CONFIG_RUST_KUNIT_SELFTEST = "n")]
-+    fn rust_test_kunit_run_only_active_cfg() {
-+        // This test should never run because of the `cfg`.
-+        assert!(false)
-+    }
-+
-+    #[test]
-+    #[cfg(CONFIG_RUST_KUNIT_SELFTEST = "INVALID_VALUE")]
-+    fn rust_test_kunit_run_only_active_cfg() {
-+        // This test should never run because of the `cfg`.
-+        assert!(false)
-+    }
-+
-     #[test]
-     #[should_panic]
-     fn rust_test_kunit_panic_in_kunit_test() {
-diff --git a/rust/macros/kunit.rs b/rust/macros/kunit.rs
-index 288b53d21c4e7c8d9b5148d50c1a833f73e53015..173792563ca8b42e39ec0a53798f7b3bb75bf9cf 100644
---- a/rust/macros/kunit.rs
-+++ b/rust/macros/kunit.rs
-@@ -45,6 +45,8 @@ pub(crate) fn kunit_tests(test_suite: Ident, mut module: ItemMod) -> Result<Toke
- 
-     let mut processed_items = Vec::new();
-     let mut test_cases = Vec::new();
-+    let mut test_cases_cfgs = Vec::new();
-+    let mut test_case_number: u32 = 1;
- 
-     // Generate the test KUnit test suite and a test case for each `#[test]`.
-     //
-@@ -134,7 +136,7 @@ macro_rules! assert_eq {
-         // Add back the test item.
-         processed_items.push(Item::Fn(f));
- 
--        let kunit_wrapper_fn_name = format_ident!("kunit_rust_wrapper_{test}");
-+        let kunit_wrapper_fn_name = format_ident!("kunit_rust_wrapper_{test}_{test_case_number}");
-         let test_cstr = LitCStr::new(
-             &CString::new(test_str.as_str()).expect("identifier cannot contain NUL"),
-             test.span(),
-@@ -154,18 +156,12 @@ macro_rules! assert_eq {
-             )
-         };
-         processed_items.push(parse_quote! {
-+            // Prepend any `cfg` attributes before the function declaration to activate it only in
-+            // cases the configs are on
-+            #(#cfg_attrs)*
-             unsafe extern "C" fn #kunit_wrapper_fn_name(_test: *mut ::kernel::bindings::kunit) {
--                (*_test).status = ::kernel::bindings::kunit_status_KUNIT_SKIPPED;
--
--
--                // Append any `cfg` attributes the user might have written on their tests so we
--                // don't attempt to call them when they are `cfg`'d out. An extra `use` is used
--                // here to reduce the length of the assert message.
--                #(#cfg_attrs)*
--                {
--                    (*_test).status = ::kernel::bindings::kunit_status_KUNIT_SUCCESS;
--                    #assertion
--                }
-+                (*_test).status = ::kernel::bindings::kunit_status_KUNIT_SUCCESS;
-+                #assertion
-             }
-         });
- 
-@@ -174,15 +170,23 @@ macro_rules! assert_eq {
-             case.attr.rust_should_panic = #should_panic;
-             case
-         }));
-+        test_cases_cfgs.push(cfg_attrs);
-+        test_case_number += 1;
-     }
- 
--    let num_tests_plus_1 = test_cases.len() + 1;
-+    // This dummy array is used to calculate the exact number of tests cases that are active
-+    // depending on their #[cfg(...)] attribute.
-+    processed_items.push(parse_quote!(
-+        const TEST_CASES_COUNT: &[()] = &[#(#(#test_cases_cfgs)* (),)* ()];
-+    ));
-+
-     processed_items.push(parse_quote! {
--        static mut TEST_CASES: [::kernel::bindings::kunit_case; #num_tests_plus_1] = [
--            #(#test_cases,)*
--            ::pin_init::zeroed(),
-+        static mut TEST_CASES: [::kernel::bindings::kunit_case; TEST_CASES_COUNT.len()] = [
-+            #(#(#test_cases_cfgs)* { #test_cases },)*
-+            ::pin_init::zeroed()
-         ];
-     });
-+
-     processed_items.push(parse_quote! {
-         ::kernel::kunit_unsafe_test_suite!(#test_suite, TEST_CASES);
-     });
+ include/kunit/test.h       |  1 +
+ include/kunit/try-catch.h  |  3 ++
+ lib/kunit/attributes.c     | 18 ++++++++++++
+ lib/kunit/kunit-test.c     |  3 ++
+ lib/kunit/test.c           |  2 ++
+ lib/kunit/try-catch-impl.h |  2 ++
+ lib/kunit/try-catch.c      | 14 +++++----
+ rust/kernel/bitmap.rs      | 21 +++++++------
+ rust/kernel/kunit.rs       | 73 ++++++++++++++++++++++++++++++++++++++++++++--
+ rust/macros/kunit.rs       | 67 +++++++++++++++++++++++++++++-------------
+ 10 files changed, 164 insertions(+), 40 deletions(-)
+---
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+change-id: 20261029-rust_kunit_v6_send-d0353c1615f9
 
+Best regards,
 -- 
-2.47.3
+Nicolás Antinori <nico.antinori.7@gmail.com>
 
 
