@@ -1,88 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793292261;
-	b=eCHRUGmTXEMMQrT6f50oVMCIKwFW/FRcrbOrX9dAFqyeKsxMRA6KO0p1c2sEzpsjVe17
-	 VhSIgweSu4mlLmGKWZ6YbRsKOlYIFdeSdzc+vaKKWImPpaL+lh28UnI8TetXFFmQHJcmo
-	 Gm/7SKF0IK8BV01KyvJvuSI7IDV3bQRJrlEneFTG+iO/G7uBjzcEJ8Nj/m/ybOdbwhPxq
-	 fO+vXyj2pVSLQi36hChrgZN4outYv5U7k4IVE6ejx3dTub6hR2C3PDeTc48aW/I75h4xT
-	 nexeMu1QWmnze5GhgoHC5Bji6hdKTxINLyi25wTe1l+YRO9Su2SI3VEScdy1gF/67TQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793292261;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=ukzCygZvukvs7xtNwXeIg6EW4nYVim1PfE4vJaFRyh4=;
-	b=KiGTE/se9akN/8PoLL8c7GH9liENXP4qqsxB17OtBNWn6ErfaiRUuVwpXXMM5G5AL1na
-	 e42C1M8gSRXioVWi+TYI0LRbG3/CqX57OcyqZy2OHp0gqt2jjaH9HeriY3IpIlywTG62J
-	 X2i8F+FgwkKN5tHMHu/WZdBGoDD1TPldsRF1uF1kVeNsj1AvLxlFfRvT2bQeqyQvHPSpq
-	 MzzhLav1yU08ErBxnifMu0eyd0J8oTL/DQFlOlP7s9z3bJX72fAOG7oGgJC5bfaJW386y
-	 Nbu3MtcB+rStCX/HjTDVJhZBY79r9VpdfAeOLnKes1vngFNxphhkJM7qx7jLsNxbHrA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RO2eNF8m;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.64
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793292267;
+	b=b0Q4Npmq7zc5uySWL6720VjdoZj3djLmUrJEEf7OQKN+YVu924ospNNtBVVwsJDkDFdr
+	 qAUOt/1g3zMmWXdnX+QTavumiPIizG3bGYzv1jPCGu7g4sO9n9LcWK6hj4EtC6QE1tst1
+	 ajscKahKxH5Y7pBos7g9V9gv+Kfh5vaW34bs52L9w8qNlSMxd1/pEU6T6231KGowiyTtQ
+	 bIAh4ir1I311eEBkl64mi0/qAjQxL/nY+CilyGuIm89DTA3/80CR5yZyPlcZJTzF5eJJH
+	 WEoV9+/4iOLLG4DRc2WS7mNT7RUzkaxD66bq72T3UncfuctQB5Ol4i+2fj5x5MVwUhg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793292267;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=b3+y3Zx9Shf/DUAvT1EB/38PRALBhEtVxrkr32O/5Hw=;
+	b=BHRcaCTT6fG4zA+nqsXcGxkhtAVqqRhh4pBm1h83rGjMin1fOv55dR7GuVxoDUBmPdBq
+	 FOArCDH3a92tECJVtJ8mwUI7zDco10Da+f7iOWdYWMb1jIRBEubDHUAOY4Uxn4CpoWQ7Q
+	 gFmO39bNBx3Mg3smiC5DXKOwJsQpXLXqD0M9Rf7SY2Q22k+8wqs03MdQ/+0vcEFHDdrY2
+	 jKNKtkLptfM/T/z7X17c+wjf0j2ESBXFHHcTTyO+ukyXs91X6YKA7PG67olk4kh+dbRUv
+	 t46hAvziPG460eFeu+BawqZNtJHzyPrRb4EbMB8YNQ//Abs4lOZF0SQQEGPKR1dDang==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.231.64
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CFEC606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:44:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CFEC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RO2eNF8m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793292260;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ukzCygZvukvs7xtNwXeIg6EW4nYVim1PfE4vJaFRyh4=;
-	b=RO2eNF8mmJZjaalrN+KllEzd/2AUOi8UO9zO/ECMLwA9DKn5PAOewh9TQiMXgGzOyMRICt
-	Zs8vMagb3Y+jC+X4jxq+2rrqiZBlXRGfRNqSjUmgaCY0gwancOBFpSsXNBLAx8Qn4UeODH
-	1p/M1RwrQIuqTJBqH3vhCYuhqoTKYOU=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-646-2S1eWF6uO1-heGXZBdtGng-1; Thu,
- 29 Oct 2026 12:44:10 -0400
-X-MC-Unique: 2S1eWF6uO1-heGXZBdtGng-1
-X-Mimecast-MFC-AGG-ID: 2S1eWF6uO1-heGXZBdtGng_1793292247
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3C6BF195FE10;
-	Thu, 29 Oct 2026 16:44:07 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 704E41955F01;
-	Thu, 29 Oct 2026 16:44:03 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: jgg@ziepe.ca
-Cc: alex@shazbot.org,
-	ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	bhelgaas@google.com,
-	jjohnson@kernel.org,
-	johannes@sipsolutions.net,
-	jtornosm@redhat.com,
-	kevin.tian@intel.com,
-	kvm@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	mani@kernel.org,
-	skolothumtho@nvidia.com,
-	yishaih@nvidia.com
-Subject: Re: [PATCH 0/7] Enable Qualcomm WiFi PCIe passthrough to VMs
-Date: Thu, 29 Oct 2026 17:44:02 +0100
-Message-ID: <20261029164402.1366695-1-jtornosm@redhat.com>
-In-Reply-To: <20261014150047.GO14213@ziepe.ca>
-References: <20261014150047.GO14213@ziepe.ca>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DD58606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:44:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DD58606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-44cdbcd53b8so321624fac.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:44:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793292261; cv=none;
+        d=google.com; s=arc-20260327;
+        b=G9F39HS63A33Gk4Qg1t9g3zhKeqHTnyqOS6vND/pdL8csqJNX46Rff8cGzg4yMbFaf
+         nERxt9TKyJ38QwR/aqoKUkpi48+5Lsu85aSVw2Prdych9Rrl4DvsLryyujVc0r9kUS51
+         Ak4+4sqBUABH6FA9WtdfrI19HAxyXuCQj/IS3nHZBhmDaxyfcOEMSLnl3izNYbQeHPzK
+         UMPoWDzpdSddmqPOIkBl8HCnGRFLgTx7jHpWlGxggYgiZxxzXbuWK/3ApmKiG67sj7Sj
+         B438HTQSMb5Yp3IaLU4SZ9KD9iqOyq044wAVDgMlOOgSpcF7MEn5Lv4xXaGeUgOqmHJZ
+         HdYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=b3+y3Zx9Shf/DUAvT1EB/38PRALBhEtVxrkr32O/5Hw=;
+        fh=Y8MtGNC5AJ6VwAIiR8QJH+tdb8azWbzF6DtefHXTtuY=;
+        b=rIKRTmsEPW7QYmHp1wDrAmdnWxwsWwuF97TK9C4Ip/1QnZZlwYGnilK1Ddlye/LykT
+         29xiE+NR5XJrUcEWD+7/l3thiDdH314a9urwlknb5g86XQVNA5RTGh7pYrE4FfygFIRw
+         GOnBCckx4g+GGEQIGaAAwTMnjNUkogMxute66gWZupgVMj/3luZU4afNr/9M0GRF/j7d
+         psi6UvKtfrdwObGh10wGicUdNoEvkNEZ5jBUj3mcFc+JYfXNrmtzs9Nli+2KKzQU7eze
+         GBhMiZd4o1MuFOX4FiZkO67oWYR1v3yGU8LOqEg6U9VAaFLHSz0x3HF6sdSal3zREYAE
+         LfFQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793292261; x=1793897061; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b3+y3Zx9Shf/DUAvT1EB/38PRALBhEtVxrkr32O/5Hw=;
+        b=AAGCmWWE4tApKkseEkuGhwQaDIuvXKoBEP7SRmhW41ihlMKO+4bZhK+iS27ObPnPFP
+         W9mn2giAl0C5EPi2aGu5+JB5AYe8vcltVgsTQRxVM8RhAe6cHkXtS0jQxbsHav63AEho
+         ycRIJ2opAcbgBREJIKoYk9C84et5Zb7zTy17+mBcnIvdPOEjJoBnfS2pTf71n+qSRQ/M
+         6NC7uCig4PX+yFvfQhqaCPpXxbnuvAOs+34gUd7jDS3Vkt5hORPPehD+8JwXuQ+DYHHM
+         2vWWCETwhtajHRNsaYgW6iBX8S52a8p1La0IFhDg4RTyLr4Spf0kOPQ8GmAcpB6h900H
+         591g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793292261; x=1793897061;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=b3+y3Zx9Shf/DUAvT1EB/38PRALBhEtVxrkr32O/5Hw=;
+        b=p1u9Zx4un7ybGYhgdP5Wj6hlr0evzJdu4Wxplwhi6vLl0BqeYaReLS236GyU5KqAQk
+         eTf3Eds6/NW8BZIpK+UYTr67NtMSyeWqxUzEG3Gyj0h6MVGxL++DalDx5o3i+ZuSKRNS
+         dJyJex4LAz5fxGB/+uTaj68Fq4xvG06teoZObHWqKmq7qbfxYwyQmf3cE06850k3qgJ6
+         gO44sytWMgNnzu04KlvvbPfNZ5xJTD2VQn5wRSUzLugJRLMOgOSHIU3sKVPSkCytX3/t
+         +U7ey3yc9hu6zZrPhpTwF20HZfaiIJAZWPrdPVnKeqZOrJZ7jRB8V7jqP2PDECCwmDF7
+         gBAA==
+X-Forwarded-Encrypted: i=1; AKwUvBzoRJlBkezL57Y/r30slYbgkNxL9xL000d6f/qu9bKI4RpVgbPhIfLZWPWnYVmIqW+lTLROSuRsWToiU00=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6GOvKb6FcLMzr4iVSWesWXngmjKGwrq6wbGco92whkAfUAs/t
+	5Hk3vFbqJLA3N8GNYM1qJ4hn4hPmAxfeopneuq4lmpiioV7oka5hKowxKan/bYMf7CgdFzF0sPq
+	mLEwp7rOFksl5ixUi2J8tpBnYL9rzBIY=
+X-Gm-Gg: AYBFou0qVS172xQJiBVa291KRn+Ttv3zfZFnpHBCw4wMDdJ61Rr1hhOg8HIpHAFj8dA
+	4cEbLMDag+jfovOlMNEZawsOJ74qLSgjJdl6dJgU5lG1kRrAz2OmA/diKWmIZdu/VqUF0ABZ4KP
+	Y0R0+ZVs/OXw4qFoCl5t0N/a36V3kXz2oBE4uHgAcX4JZ4cuhzliSuxfPAUP8jOpNu/ckCQEGkk
+	JofjKnGHaOMzemwpsfqxh5kz+oFg9EQU2rMsSudzWMFzmF0NZC1oWvF/TrZlvIPu/pQfKapYe6l
+	7ZcUqQ4KNc7mQK6Vqfa41dDUGr+mGWLTjTl2h9zsxvor9sMtkQvNPw94FQeTOBIx7IJvmOzma/3
+	ca9vEI6p8TCj0hIKzmO6scavAl4NluvSE4bQfpcLN++s5GYonwAB0de7ro9EI9fxqrxpupDtW
+X-Received: by 2002:a05:6808:3197:b0:4d6:90f3:74ae with SMTP id
+ 5614622812f47-56384197794mr4379953b6e.46.1793292261209; Thu, 29 Oct 2026
+ 09:44:21 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,18 +100,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+References: <20261028154008.67451-1-dennylin0707@gmail.com> <CAOQ4uxgDmhddqpFawaK874cfWCp4jVDnE67eqXyDA9eumpMEpg@mail.gmail.com>
+In-Reply-To: <CAOQ4uxgDmhddqpFawaK874cfWCp4jVDnE67eqXyDA9eumpMEpg@mail.gmail.com>
+From: Hungyu Lin <dennylin0707@gmail.com>
+Date: Thu, 29 Oct 2026 09:44:09 -0700
+X-Gm-Features: AclHuK_1sASlVUtzDN1GpkTnsvtyNbxnOAThii4_r-uX-r_SWsslPNQvF3mBN50
+Message-ID: <CAGEkeHdXVTQU7VS=TxPqmsXMtFFeP=LWw-y04NmcRWJrwHa8mg@mail.gmail.com>
+Subject: Re: [PATCH] ovl: restrict casefold consistency checks to directories
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: miklos@szeredi.hu, andrealmeid@igalia.com, linux-unionfs@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Jason,
+> I am asking because I got some patches for overlayfs casefold which I do not
+> prioritize because I do not know how widely the feature is really in use.
+>
+> If you are interested in reviewing or testing said patches, let me know
+> and I will send them to you.
 
-I have studied your analysis and tried to follow your guidelines
-for the KVM paravirtualization approach.
-You can find the proposal in v3:
-https://lore.kernel.org/all/20261029163713.1366077-1-jtornosm@redhat.com/T/#t
+Hi Amir,
 
-Thanks
+Thanks for applying the fix. Please send the casefold patches over;
+I'd be happy to help test them.
 
-Best regards
-Jose Ignacio
-
+Thanks,
+Hungyu
