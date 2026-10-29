@@ -1,82 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793238738;
-	b=2TKSAaMhbDgUQ161CmlkTrH4RIpLMKA9NZp5DSJ32dXxD3CQiIvDX3SkpEh88GiW0ENU
-	 CtilNd0pu5movml1qe8G9JP9xhEEOXjmoRlHWkK7521Tqd/ppXrMYZkFfjNdeteMZiO9s
-	 pePHOWifws/evvSko0avfAchA9jobuLCK/WM0hBrdE5PUMxMOjPOy7YhcPXSVAt8gawm+
-	 RetXbJDT6YQMOl+xA3p5o9ym+lQa012WSwZVY6w0N94w6GIHPixR5n4yxHjhIO3QGMQvK
-	 XQtI9nwvVjSf+wKB75Kg1SR+jaiXIFVbevx0SG+DIOs64NACXZqfhlZxZ2DeV54ODbw==
+	t=1793238778;
+	b=yN0CPeqpRwEQkBjIYN6f7SJpttRt0Zhjnb3tgPB4NcAJb3p4FRtZrBoWUlruytJekWIc
+	 JwIbWaJoMJEvNq9P81lKZOuRnZ9Drmjco1KeSjSYYJPjpBWJxbGvlprsETSupQ8TTKLA+
+	 b7I9N4RQw/V7cTVKEihveXuIeohjtLyGDWuFY2fviMffRj+HWAuSImnPO7WN+YpNxpwXl
+	 LQLXgp7GVAFNgZYw8R2r19lzBqrr4nWIaHN3vKNx4QnOSjDfG8DpzBwQsPD1esHS+Atcw
+	 Zptx81XYUg5mfxd1emhkOYFKi/QMLUFa8QJDDvtuawqb6U8OVl10fZosSbNqnWx1kmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793238738;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=a+kTNEMlGRHVqhyrD9wjKCx3s2EeROQLPFxQ8ka5f9I=;
-	b=kxuBMaSiExVRYl7v9wOrVtcgL7hSde6AnXRR9pBxVXTNbGI+zmCP9DAXzgtv060a0FFQ
-	 exIrqEO+cq09WWPIGlAhqpTq7A80rtcgP98VyumplGEdY2gpwxzInS55Kb/cuKcoWNqms
-	 +QumH3SHmvBHnsZE8cw25zCuyNy8dL13WxnyPwskQ6IKEcPmHKBcthuaYv7Ja/42tklH7
-	 NNmNK7K6bnoZAGhMbqZJMn6nCojSQfjbMF/cyGKTnVWNkpKB1jMfmLd2t9ZRK4ToV//WO
-	 6AajQTcL6av5KVaWW0LLNa25ZtkVTmuuam91tVlmrW1iZX85NzwI87gGm0mnAMQ3HYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793238778;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=VS3KrUAsZqGFDdQ1zZWj5siDrI6dINzVkvHLgIOwcqQ=;
+	b=cu2nfuCKY9dHh16EVJk7BPdn7Vi9sTLjIWBrbVZ02XqoRrK2wBnfBFrIU4DLSoERsAzy
+	 Dvr03PN2QcVoZg6ukmq5ayfkmi5mC/qkSHRBC9FoHGd8s5V1nUWtX29fnTR4Ne9hB/fjS
+	 gyRci+5evLkv4wR9JrdB6oylf4OLrDE+wBAIEPjWDL2HwJIxx06JCYcoXZNKgdRS1lsPz
+	 zQA1ctaHPYWvSmtwFkjXrwZjVawMaBKWj6Kpjz9GtBxcmENqsxhE7lUW3DIxLffYJPNHQ
+	 zQSGEzMDA+onDS9+Zv9AWomvIkiq9bo5ZXEP6TcP1in6+qMTsfGrsYALRwPvC4h+6Dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dXotS6ND;
-	arc=none smtp.remote-ip=115.124.30.100
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I6mBccfK;
+	arc=none smtp.remote-ip=91.218.175.45
+Received: from mta0.migadu.com (out-45.mta0.migadu.com [91.218.175.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DCAC606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:52:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DCAC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19E53606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:52:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19E53606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=dXotS6ND
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1793238733; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=a+kTNEMlGRHVqhyrD9wjKCx3s2EeROQLPFxQ8ka5f9I=;
-	b=dXotS6NDy47yy486s8WGssXOguwlwvulm1T6NQvNm6SqNrrdAdFcXfXw5nHFh1qnQvtwcaJmUOIDWuPbjgbzZwVBEBbtSMbGYanAgux+svuEtTBhrz4xmZki4Gdfty2xEkZw9vU0XJ/boE7OTiNyx3KxzSU0Uo3TUhFXYkpPHQc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XDhqoRO_1793238728;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XDhqoRO_1793238728 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 29 Oct 2026 09:52:10 +0800
-From: fangyu.yu@linux.alibaba.com
-To: jgg@nvidia.com
-Cc: alex@ghiti.fr,
-	andrew.jones@linux.dev,
-	anup@brainfault.org,
-	aou@eecs.berkeley.edu,
-	atish.patra@linux.dev,
-	baolu.lu@linux.intel.com,
-	fangyu.yu@linux.alibaba.com,
-	gong.shuai@sanechips.com.cn,
-	guoren@kernel.org,
-	iommu@lists.linux.dev,
-	jgg@ziepe.ca,
-	joerg.roedel@amd.com,
-	joro@8bytes.org,
-	jroedel@suse.de,
-	kevin.tian@intel.com,
-	kvm-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	palmer@dabbelt.com,
-	pjw@kernel.org,
-	robin.murphy@arm.com,
-	skhawaja@google.com,
-	tanchi25@mails.ucas.ac.cn,
-	tomasz.jeznach@linux.dev,
-	vasant.hegde@amd.com,
-	will@kernel.org,
-	zong.li@sifive.com
-Subject: Re: [RFC PATCH v5 00/10] iommu/riscv: Add hardware dirty tracking for second-stage domains  
-Date: Thu, 29 Oct 2026 09:52:07 +0800
-Message-Id: <20261029015207.82522-1-fangyu.yu@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <179320128818.2412245.14186677086155168748.b4-review@b4>
-References: <179320128818.2412245.14186677086155168748.b4-review@b4>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=I6mBccfK
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=L5Q6rCoHvu1FDzBsQtgKrDF+QPXj/u5Q9tsLLNU5L+Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793238776; v=1; x=1793843576;
+ b=I6mBccfKKKY8NPjFyfsHE6zdDeDSuhASqL1OBCfxshXBGCTV+SmHrmX2fIKrHgDdTFS1IxL9
+ n1IaKO4MxlXimXduqZz8Ls/ILCXKFWD9lBLoKHvCQdUuxJHrMjxSlVKkH+OdBsE3mt2bAkqUmMq
+ WrUfXl80Qvj+7c2eQrh/tVXc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e06e74143ea9c3fb;
+	Thu, 29 Oct 2026 01:52:55 +0000
+X-Mizu-Trace-ID: e06e74143ea9c3fb
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ed6fecb4-38e9-4a73-8c1a-7bdd80175a69@linux.dev>
+Date: Thu, 29 Oct 2026 09:52:51 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,38 +58,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: Fix missing effective_xcpus accounting of
+ child partitions
+To: Waiman Long <longman@redhat.com>
+Cc: ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com, shuah@kernel.org, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20261027123837.100909-1-guopeng.zhang@linux.dev>
+ <c00f13e5-d048-4d5d-98ea-984ea7ebc13b@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <c00f13e5-d048-4d5d-98ea-984ea7ebc13b@redhat.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
->> From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
->>
->> The RISC-V IOMMU architecture defines an AMO_HWAD capability (Hardware
->> Access/Dirty update) that allows the IOMMU to atomically set the A/D bits
->> in second-stage PTEs on DMA access.  When DC.tc.GADE is asserted, the IOMMU
->> autonomously sets D on the first write to a page mapped by an iohgatp
->> domain.  This series wires that capability up to the iommufd dirty-tracking
->> interface (IOMMU_HWPT_SET_DIRTY_TRACKING / IOMMU_HWPT_GET_DIRTY_BITMAP) and
->> reports IOMMU_CAP_DIRTY_TRACKING.
->
->These patches don't apply, so sashiko couldn't run:
->
->https://sashiko.dev/#/patchset/20261020094106.92722-1-fangyu.yu%40linux.alibaba.com
->
->> [ ... 86 lines skipped ... ]
->> [1] https://lore.kernel.org/linux-iommu/1-v2-563ee63886f0+1209-iommupt_armv8_jgg@nvidia.com/
->> [2] https://lore.kernel.org/linux-iommu/20260818092444.42755-1-andrew.jones@oss.qualcomm.com/
->
->Because of these extra patches I suppose.
->
->Please figure out how to fix this before you send it again..
->
->Also no base-commit trailer which helps sashiko apply them.
->
 
-Sure, I'll fix the apply issues and add a base-commit trailer in the
-next version.
+
+在 2026/10/28 23:30, Waiman Long 写道:
+> On 10/27/26 8:38 AM, Guopeng Zhang wrote:
+>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>>
+>> When a partition root expands its exclusive CPUs, a valid child
+>> partition will be able to claim more CPUs from its parent. As
+>> update_cpumasks_hier() always updates a cpuset before its descendants,
+>> the parent has already been committed when the child partition is
+>> reached. Its effective_cpus is computed with the child's old
+>> effective_xcpus subtracted and no further adjustment is made
+>> after the child commits its new effective_xcpus.
+>>
+>> The additional CPUs are thus granted to both the parent and the child
+>> partitions. generate_sched_domains() then emits the warning below
+>> about the overlapping sched domains:
+>>
+>>    WARNING: kernel/cgroup/cpuset.c:919 at rebuild_sched_domains_locked+0x1ec/0x2e0, CPU#21: bash/1225
+>>
+>> Fix that by taking the CPUs newly added to a valid child partition
+>> away from its parent at the commit point of update_cpumasks_hier()
+>> right before the new effective_xcpus is committed. The tasks in the
+>> parent cpuset as well as its other children will be updated if its
+>> effective_cpus is changed.
+>>
+>> A new test case is added to test_cpuset_prs.sh to test this patch.
+>>
+>> Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
+>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> 
+> Thanks for reporting this bug. Yes, the current code doesn't handle expansion of parent effective_xcpus correctly. I would prefer to handle it inside update_parent_effective_cpumask() and try to minimize partition related changes in update_cpumasks_hier(). I have posted an alternative patch for your review. Let me know how you think about it.
+> 
+Thanks for the alternative patch.
+
+Well, I am still learning how you approach this whole series of
+problems.
+
+One more thing I found yesterday: neither the current code nor my
+patch runs the housekeeping check when a valid child partition gains
+CPUs from its parent, e.g. when its parent expands the exclusive
+CPUs. With nohz_full, an isolated child partition can take over the
+last housekeeping CPU. I verified this on a nohz_full=1-7 boot.
+
+I handled it roughly like the diff below. Please take a look and see
+if it is worth handling together in this series.
+
+@@ -2142,12 +2142,28 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+ 				deleting = !cpumask_empty(tmp->delmask);
+ 			else
+ 				part_error = PERR_NOTEXCL;
++		} else if (cpumask_andnot(tmp->addmask, tmp->delmask,
++					  cs->effective_xcpus) &&
++			   prstate_housekeeping_conflict(cs->partition_root_state,
++							parent_prs,
++							tmp->delmask, NULL)) {
++			/*
++			 * A valid partition may be able to claim more CPUs
++			 * from its parent, e.g. when its parent expands the
++			 * exclusive CPUs. The newly computed effective xcpus
++			 * may not have been housekeeping checked before.
++			 */
++			part_error = PERR_HKEEPING;
++			adding = cpumask_and(tmp->addmask,
++				       cs->effective_xcpus,
++				       parent->effective_xcpus);
+ 		}
+
+I have something urgent at hand today, so I will get to your patch a
+bit later and run it through the test cases I have, including the
+isolated_cpus accounting case I mentioned in my previous reply.
 
 Thanks,
-Fangyu
+Guopeng
 
->--
->Jason
