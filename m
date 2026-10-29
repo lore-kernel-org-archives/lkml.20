@@ -1,96 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=85.215.255.23
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793285617;
-	b=TN73FLAonXc7A+SuBRQTgZ9uEbK4MZSEZRgJrTk1QwKdUoHxRYOBXShaFzb4nluuVwE+
-	 XlT/GTIzZPGbarNQZ1W/jMF48UZN4Sr3QIze4Dvr0FZOqpPqNQkTuP9PLZO3rjAgEgsCX
-	 4IG1gmLiPI3YUq33eAO38s4CdV1A/Nefk6F1wEXmUUtKGcGEuCe+zsq98M+v8n85L+8XM
-	 xe+If18KNmV99av/0zyqJu1etIBlghn2IaW6sZ48mgZyBlq6MI/FBc5WUIl69NX0TU41N
-	 NLBsRyoMv+R0IEh/xnYHiYMgaAEnHaS9LqinYFo4LWWrlk/Fy6Uw7BmHDHYYqkdnEug==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793285617;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=e6a3ejsaJHMW+KDy85U2/gImbBTkpAO1PWITLaqzfdo=;
-	b=4jz3RBaWH/SmCxVVbq8PTWVEWZBcv6nIRpVS9eO8RfZQTAA1QP94vM45Dtqq2nf4EX6U
-	 HgF3fyP0D2DLAuwIfGRHgNY3sqsWgbBLNa736nkT+Df2h6EC1ElhbMX1qE/JbgaE4Ezc/
-	 7yqgVwIyKBZ8N6DJ59lyvvKXMzA9WYfpwS0t+X3zn/lTIrclHBhUZ0NJYi+VJQGoAsDhV
-	 GmvHza5g9BrCtHo66FU4NQz/7Ssb3NTraQRSGuFfrRr3dro9JdkACTrVS7r73q1LNk1bf
-	 RhxMgbnBAPv1NGZzpOd0CiQDrpPRszh0nmgNbG9JSiatJmPRab6oZlvcpBhTgKJNG7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outer-limits.org;
-	spf=pass smtp.mailfrom=outer-limits.org;
-	dkim=pass header.d=outer-limits.org header.i=@outer-limits.org header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=AUYIcL4r;
-	dkim=pass header.d=outer-limits.org header.i=@outer-limits.org header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=XZFNg72m;
-	arc=fail smtp.remote-ip=85.215.255.23
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.23])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.81.229.115
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793285621;
+	b=RG7cL/RPfe8PqUQ+Gz2L4B+O94M9nL7f9405yvdasRr6zGmemyym/y63QLYDBbn4CCmI
+	 kTtG5us5ZP1rFY0FX5bJQyXzpQFCG61z4iWJdGCJS/pH9C0WmwY0QLwFy8fdADG8bg1PJ
+	 Q7iNNQYfU/vbbcIvfa3ixxsE5ZbvvVT80gpaz7wCIkBpNNq78E5fHSUsIRP5A7Hoyt0yH
+	 vuwLYDlC1+grX5sv0ZYJXKH2zgvUNZOfsTQYbj2pbVokqsjwdrWzY2wsp/2bgEXUP2KIQ
+	 DGhEMYpkIpSoSVaFBWOjEB8+BAyiLHKtcb7VdaWPbz2mTJJRdrTmtEZ/MGo96TO3hqg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793285621;
+	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
+	 Subject:From:In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:
+	 References:To;
+	bh=UbSiEL7++BWQVToI7FmOqiyK9zuBqGN72UpL4qL+D0U=;
+	b=LxdT979BRUdHjVoxjtEb6xyas2BrJNGLn8f3rzNPSZLHS2xUzdzOGzXUwnTc/4VMJRuL
+	 +hCKCzb/ZUKKmoYAOYBWQZwffPz52do2+Y2HC0BlNvay8AP+iiX0NzMgas9kGtXRTy8K3
+	 7Yw3GGyUJfUZR8yEE6TjBVKerLHbsSWktq4M/h1pdgaLSni3Kul2LtJHt2oYIk4uWLf0B
+	 vbYmUSGEU1oLwO3D0aR+HH+1FcWp62bV1rGTVP7CVvxZzZZwgWGtdaU2Ee1GrHkuXULSh
+	 BRTQcUaTcEMVKetzlXUZBaRRZjHJxvDnn5XZT+ihpMNaUE5iWeHu4Hy3u8M0uD/5b5w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chaosmail.tech;
+	spf=pass smtp.mailfrom=chaosmail.tech;
+	dkim=pass header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=JB0kqTmV;
+	arc=none smtp.remote-ip=77.81.229.115
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90FFD606A320;
-	Thu, 29 Oct 2026 14:53:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90FFD606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=outer-limits.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outer-limits.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE747606A324;
+	Thu, 29 Oct 2026 14:53:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE747606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outer-limits.org header.i=@outer-limits.org header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=AUYIcL4r;
-	dkim=pass header.d=outer-limits.org header.i=@outer-limits.org header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=XZFNg72m
-ARC-Seal: i=1; a=rsa-sha256; t=1793285607; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=SP8bNBwIw077fjMhz8/z0R56Aqlzq5YJNgTXXUhVNGjNwwnANgrK05627GCcv8BsXd
-    1R2M+AjoWcKJ01efl97rSpUwwfXp7eKYYEv8IcrJ96ZGMWkiWJWn+Q1k1Ee4488eT3Ke
-    4eUrvTB5bVMihWZRoaQI7TtYfxsJJwrdEL6pWWhKDgV9bI9EafnbwUe7t791OOHrjhkq
-    dZOhi4ZETkCrcEyqKOdQSUWUAknVXwOLLNO8JaKOBAjkwnSxUS1UeKGhQL58x37/VCir
-    ktu2gbeyt8yzSV+w2jJd22gFBcLX0NSN8SJBSDK914uKvmnLaIs5VzJDQdgtFFELDfX4
-    sdwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793285607;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=e6a3ejsaJHMW+KDy85U2/gImbBTkpAO1PWITLaqzfdo=;
-    b=bxJ10KomDUxj50H7guAyXIhm/Rl09UOLvmmv9IWKFdpP0UFiquAQobXG7zQek3jHut
-    I0IC+2M3ADdkNK5aPx7DkYcViu3fUA7MqgY/5h+0VhJQdFjlzbLIIkXqQtPKdN8HfuCg
-    PKuOeGzVqz850nuCkY6zGaO+TPFQQn74JJTVwO4t+ySjSMpm+Z4V/hHix6yTCwrFBRCX
-    vJNWGNJVnpUkb5R4GvqCWpqg6d8c1OOUH9tG/2fc09vtULOBOP61v6lJQv95bVLKehJi
-    Q0W4++pns+Z6EKtJ39sNov+mW9yiL4ebIMr7lZ0v3nkkF8TUBgyqZmhHHVicRAug46AV
-    WW6g==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793285607;
-    s=strato-dkim-0002; d=outer-limits.org;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=e6a3ejsaJHMW+KDy85U2/gImbBTkpAO1PWITLaqzfdo=;
-    b=AUYIcL4rd+yQm/x+F5Xaua13c58mBl/UQiuS8TECZvEkMvlCGgf7Q1I3fLHVe1A+Kp
-    njrJTje+OuTUiMRpJxoaYiQUgLhHQ9XwQcidvqUG6DsQnk7YZ5I0qo8qI1m46R/iB9Nf
-    exnJ7Pmmv6x/XPJN2AoeOZIw2A10HN5xDBFf8Pc39sy4dxHNROkv1hxbpxqa7b95KWYh
-    v0/HGz1rhvUjLod77UkE4bhlDNqXmCtqcRu/dAhDAGgvXQLYctXfZkf8pLrErfHXF98M
-    0F3+UwxbeTgpzUr6dRJ0rgIp4QmdwJy6OWRGRlQx76knWNgKEYyIRLyVd+b50w+OEnfq
-    6Svw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793285607;
-    s=strato-dkim-0003; d=outer-limits.org;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=e6a3ejsaJHMW+KDy85U2/gImbBTkpAO1PWITLaqzfdo=;
-    b=XZFNg72mpMi/ev+I1NyCKE6jTyxvrpN/OkbGgE9Jyv3KFujWK6tbSSBtetDDDk9R+r
-    IQAhTpFtBd3shkW9H0Dw==
-X-RZG-AUTH: ":JnkIfEGmW/AMJS6HttH4FbRVwc4dHlPLCp4e/IoHo8zEMMHAgwTfqBFXdk1Z5IDmIqDY7xpnOs6mGD64frXxHtrE3e66udIGwZnWwLgga9o="
-Received: from julian.home
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id J82cde29TErQz6J
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Thu, 29 Oct 2026 15:53:26 +0100 (CET)
-From: Julian Vetter <julian@outer-limits.org>
-To: "David S . Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Julian Vetter <julian@outer-limits.org>
-Subject: [PATCH] sparc: Remove IO memcpy and memset from sparc code
-Date: Thu, 29 Oct 2026 15:53:09 +0100
-Message-ID: <20261029145309.132218-1-julian@outer-limits.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=JB0kqTmV
+Received: by chaosmail.tech (Postfix) id AA44C1C8AAF;
+	Thu, 29 Oct 2026 14:53:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1793285617;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UbSiEL7++BWQVToI7FmOqiyK9zuBqGN72UpL4qL+D0U=;
+	b=JB0kqTmVG4H4ja0Pp0Eah0YzrRch2nw5+T2+ML1Vpc13jMJHEYCHgQdssFpAxSYtsF+Vhc
+	lxr/E6ukKsAYSFkTL14uCwyPFc9tJHoY58kAIAacAdrjWZvC2+VU0K1J2hjatCqtQu2uKP
+	ianM2iZH8ZTIgpcbtXl0LW2Vy85GaGE=
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,148 +56,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Subject: Re: [RFC PATCH 14/14] mfd/macsmc: add ioctl to access smc keys
+From: Sasha Finkelstein <k@chaosmail.tech>
+In-Reply-To: <20261029143926.1246-1-atharvatiwarilinuxdev@gmail.com>
+Date: Thu, 29 Oct 2026 15:53:23 +0100
+Cc: alexandre.belloni@bootlin.com,
+ andy@kernel.org,
+ asahi@lists.linux.dev,
+ bhelgaas@google.com,
+ bp@alien8.de,
+ brgl@kernel.org,
+ dave.hansen@linux.intel.com,
+ dlechner@baylibre.com,
+ dmitry.kasatkin@gmail.com,
+ eric.snowberg@oracle.com,
+ griffin@kroah.com,
+ hansg@kernel.org,
+ hpa@zytor.com,
+ ilpo.jarvinen@linux.intel.com,
+ j@jannau.net,
+ jarkko@kernel.org,
+ jic23@kernel.org,
+ jmorris@namei.org,
+ lee@kernel.org,
+ lenb@kernel.org,
+ linusw@kernel.org,
+ linux-acpi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ linux-gpio@vger.kernel.org,
+ linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org,
+ linux-pm@vger.kernel.org,
+ linux-rtc@vger.kernel.org,
+ linux-watchdog@vger.kernel.org,
+ linux@roeck-us.net,
+ mfd@lists.linux.dev,
+ mingo@redhat.com,
+ neal@gompa.dev,
+ nuno.sa@analog.com,
+ paul@paul-moore.com,
+ pavel@kernel.org,
+ platform-driver-x86@vger.kernel.org,
+ rafael@kernel.org,
+ roberto.sassu@huawei.com,
+ serge@hallyn.com,
+ sre@kernel.org,
+ sven@kernel.org,
+ tglx@kernel.org,
+ wim@linux-watchdog.org,
+ x86@kernel.org,
+ zohar@linux.ibm.com
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <0683C803-C578-4C55-B893-BC03EBF9A9F1@chaosmail.tech>
+References: <525E5B4D-A947-4567-9FCD-5FFF2CA8B161@chaosmail.tech>
+ <20261029143926.1246-1-atharvatiwarilinuxdev@gmail.com>
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 
-Remove the IO memcpy and memset from sparc specific code and fall back
-to the implementations from lib/iomem_copy.c. They use word accesses if
-the buffers are aligned and only fall back to byte accesses for
-potentially unaligned parts of a buffer, while the sparc versions always
-use byte-wise readb()/writeb() accesses. Other architectures, such as
-arm64, csky, loongarch and parisc, have already been converted to the
-generic implementation.
+On Oct 29, 2026, at 15:39, Atharva Tiwari =
+<atharvatiwarilinuxdev@gmail.com> wrote:
+> 1. The patch is required, atleast on intel macs, as without writing =
+GPU and CPU
+> states to smc, the system gives PROCHOT signal under small load
+> , and heats up a lot.
 
-This does not drop any memory barriers. The sparc versions don't use
-mb(), and the rmb()/wmb() implied by readb()/writeb() on sparc32 and
-sparc64 are only compiler barriers.
+In that case, why are you exposing a generic smc key interface instead
+of one that just does that? If you think that this data should be set
+from userspace - whitelist the set of keys that are needed.
 
-Signed-off-by: Julian Vetter <julian@outer-limits.org>
----
- arch/sparc/include/asm/io_32.h | 40 ----------------------------------
- arch/sparc/include/asm/io_64.h | 38 --------------------------------
- 2 files changed, 78 deletions(-)
 
-diff --git a/arch/sparc/include/asm/io_32.h b/arch/sparc/include/asm/io_32.h
-index 549f0a72280d..5df651ee5935 100644
---- a/arch/sparc/include/asm/io_32.h
-+++ b/arch/sparc/include/asm/io_32.h
-@@ -7,10 +7,6 @@
- 
- #define IO_SPACE_LIMIT 0xffffffff
- 
--#define memset_io(d,c,sz)     _memset_io(d,c,sz)
--#define memcpy_fromio(d,s,sz) _memcpy_fromio(d,s,sz)
--#define memcpy_toio(d,s,sz)   _memcpy_toio(d,s,sz)
--
- /*
-  * Bus number may be embedded in the higher bits of the physical address.
-  * This is why we have no bus number argument to ioremap().
-@@ -20,42 +16,6 @@ void iounmap(volatile void __iomem *addr);
- 
- #include <asm-generic/io.h>
- 
--static inline void _memset_io(volatile void __iomem *dst,
--                              int c, __kernel_size_t n)
--{
--	volatile void __iomem *d = dst;
--
--	while (n--) {
--		writeb(c, d);
--		d++;
--	}
--}
--
--static inline void _memcpy_fromio(void *dst, const volatile void __iomem *src,
--                                  __kernel_size_t n)
--{
--	char *d = dst;
--
--	while (n--) {
--		char tmp = readb(src);
--		*d++ = tmp;
--		src++;
--	}
--}
--
--static inline void _memcpy_toio(volatile void __iomem *dst, const void *src,
--                                __kernel_size_t n)
--{
--	const char *s = src;
--	volatile void __iomem *d = dst;
--
--	while (n--) {
--		char tmp = *s++;
--		writeb(tmp, d);
--		d++;
--	}
--}
--
- /*
-  * SBus accessors.
-  *
-diff --git a/arch/sparc/include/asm/io_64.h b/arch/sparc/include/asm/io_64.h
-index d8ed296624af..83fb1cf90601 100644
---- a/arch/sparc/include/asm/io_64.h
-+++ b/arch/sparc/include/asm/io_64.h
-@@ -349,17 +349,6 @@ static inline void sbus_memset_io(volatile void __iomem *dst, int c, __kernel_si
- 	}
- }
- 
--static inline void memset_io(volatile void __iomem *dst, int c, __kernel_size_t n)
--{
--	volatile void __iomem *d = dst;
--
--	while (n--) {
--		writeb(c, d);
--		d++;
--	}
--}
--#define memset_io memset_io
--
- static inline void sbus_memcpy_fromio(void *dst, const volatile void __iomem *src,
- 				      __kernel_size_t n)
- {
-@@ -373,19 +362,6 @@ static inline void sbus_memcpy_fromio(void *dst, const volatile void __iomem *sr
- }
- 
- 
--static inline void memcpy_fromio(void *dst, const volatile void __iomem *src,
--				 __kernel_size_t n)
--{
--	char *d = dst;
--
--	while (n--) {
--		char tmp = readb(src);
--		*d++ = tmp;
--		src++;
--	}
--}
--#define memcpy_fromio memcpy_fromio
--
- static inline void sbus_memcpy_toio(volatile void __iomem *dst, const void *src,
- 				    __kernel_size_t n)
- {
-@@ -399,20 +375,6 @@ static inline void sbus_memcpy_toio(volatile void __iomem *dst, const void *src,
- 	}
- }
- 
--static inline void memcpy_toio(volatile void __iomem *dst, const void *src,
--			       __kernel_size_t n)
--{
--	const char *s = src;
--	volatile void __iomem *d = dst;
--
--	while (n--) {
--		char tmp = *s++;
--		writeb(tmp, d);
--		d++;
--	}
--}
--#define memcpy_toio memcpy_toio
--
- #ifdef __KERNEL__
- 
- /* On sparc64 we have the whole physical IO address space accessible
--- 
-2.53.0
+> 2. the smc dosent expose keys of nature that can physically damage the =
+system
+> it only exposes power/volt data, and the most you can poke is reboot
+> keys and gpu/cpu p-states.
+
+Are you willing to make that claim for every smc-equipped device, not
+just T2? Are you willing to make the same claim for future versions of
+smc firmware?
+
+> 3. If a person is randomly touching keys, Its their problem and not =
+ours.
+>=20
+> 4. There are a lot of things that can mess the system way more and =
+permanently
+> than smc (undervolting for example), but they are not safe guarded, =
+why
+> should this be then?
+
+I think it is inadvisable to leave a loaded footgun around and then
+blame the user for using it. As an "OS Vendor" you have a duty of care
+to your users.
 
