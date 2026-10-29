@@ -1,50 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257958;
-	b=iznOt0P8URoLnqXieNlzK7D3MR8AAFbf53F/djh5cMb6mt6Ir/1M0VVbrkER/yAravG+
-	 CTBARu5z+VrSIrGN4kJgdZdDHrjNFv6zlUqWseUi5qTlejreoNkXjnG2PIiGQPp7ZNkMp
-	 jpJHFgO4+QqyRv97r+nOInLuKXlKXX0eC/JDuppqj6GgAVoqvQdgRyYODlK4DdGC3TdeF
-	 YGCA1amtFR6BAL1fIqgvhLdR8YufGnYQUBLvXoEyq1pLdtSCG/pxPtJxygFMTcYlv5+cc
-	 jBKa+M0AIkbkJebKrUUTFEuDzWMe+hgV31POOAX9Ur/nl//6CUAobsCf9qogtOe2g9Q==
+	t=1793257996;
+	b=KKjxsnEmiunO0EMiylDkbDCQHY7e8bXj/L2yc2gg+jVA3inseaIjVXVEc9jpFMYx0H7/
+	 hxQfyjKRRbLxK1iqMmQSBjuQ9I8WCKsgNPh2BhbGsG42P37I1CDpQ6ju6NNKTTPOpJYfl
+	 pz94AEfGd+2x6lpX61LJ/OX2viatgJzT2FEg+xT23CXN8EKvgtpv1y0/vddzMlodmyHHZ
+	 4mtCQMkjznjGxK5KE2+6pigIo//1EqqQyEv2ndrKjmIIg0RZjZm50+mDjI5sFJwWrdhAk
+	 ya0cibK7F8Mrq2NVaWmSEhrsnlEk1u/zkTVjyu5Bnvj3gyeB4IqGulcilFBqj9KHy7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257958;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=YE3HaUFMXr1zHYphXLYt4rfKv0I9yidvNxJtP4SlTG4=;
-	b=Mwxi28au8SBqAes5ScnJvJgKpB8PHMAPMwvUj/bhqTjS/uJYDiQERs87n7HOVjkeM8mB
-	 IyR9QYmlWqNkpRL8TA4Rkd/ZpfTNL8sDMGZ3HQ1xesR0H3NpuNocHGqU220hC/n27ol6F
-	 sunCJ1u/N94J4j8EPkuS26X7BgSzNtKeWz0RlIzRYLwOA0o2FYRmROZ+gOgc5pWuupO65
-	 3dK9Gf7ka1HGgXjiWII6DaiyGRQb0W9aLVHgch8h3c9IJi+67ZOQOTsiEboIRxIqhRZg4
-	 ArjEomlrgy1742DYQWBvjtvnqnljo1hpqj30OZp7Uvh1N3yYDq3JESO0LiXIHYBlCWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257996;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Hb59LP10QcRi2gQtYU4Yq5Tp1KlGeogk3z8PXLHKSoY=;
+	b=psmk2VLMh2/KSlRQHJL8vY3a1iTKH3WJEdg4+ZsjrWRpfY1BLNqUMHBYDyI4DjJMOEoF
+	 Z6zZ45jdTAh0xgCs8uiL0WYBYONhk3JDArth6gt02BgxbedrEf0UOw/ZHMo1RfyYxNSah
+	 mSjZbZDUASLrCrZ6ZvA2+rDk7EVu6fv50Kc0Wiqi7g4vq6f+3jG9ca5K+4n84W2L0Xl8X
+	 FnifuzyEEVWTTwK3IJuIE5iPPh3CDlEXsMosdJQZ6qFxKOOlgyHp9Y6/YChgOeNKuu+0y
+	 WCskAiKnhLu7+Qn5BOMZNN152c+D37xu8EibPti1LPojMvn8QmhRzEoDvt6OAVZluZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GYOZgeZC;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ptoU1Ccz;
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05395606A31C;
-	Thu, 29 Oct 2026 07:12:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05395606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1684606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:13:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1684606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GYOZgeZC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=YE3HaUFMXr1zHYphXLYt4rfKv0I9yidvNxJtP4SlTG4=;
-	b=GYOZgeZCLW/kRTBVJQyYzM2lWKL4NY3GGhuiRRHKPMefJkxwM1uxAd+py4lBkw
-	Se9N4EpRA1N/3KO31Cz8Gqa1H1I1KTInjBotYwVtsB5671WXJuPLuSd2DTPz1sp1
-	PLBHZxuocC3wAZKQeWTqYsFAyU0kQXfux64TLG5JHrJWk=
-Received: from [IPV6:2409:8900:1fd1:c0be:78be:cbf2:dfd7:c36a] (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgBXy5bL8eJqvRzvCg--.27646S2;
-	Thu, 29 Oct 2026 15:12:14 +0800 (CST)
-Message-ID: <6be3a4e6-e345-4bfe-80b3-d3f4d34e6bc4@163.com>
-Date: Thu, 29 Oct 2026 15:12:11 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ptoU1Ccz
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c499e0e43a9so23427466b.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:13:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793257994; x=1793862794; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Hb59LP10QcRi2gQtYU4Yq5Tp1KlGeogk3z8PXLHKSoY=;
+        b=ptoU1CczcGjWkVNE0L6P7V5YYacX1MIenQ8eUTmzh+7VT7RpSN/t1/3CEC5mxmEVVQ
+         09cj6zz7T64iCtzPb3SJYBAXALsH0YSvzz9OdFNxtN/sFKBrA8x4RNeBdf2RYeCfx+Yi
+         eXSBrPrQTYPpn4YR+Z6xiVCBrY0doZ20fOIhlIUey82CkxnyWXpgvJewahO5ClbvYiQd
+         IpjmpuBItwaoJ9E3PCrEXA82dlPk3jWu79xSdOEi6VLM5CjBmBjapWYHIFSKy9CfGgRo
+         rkcPdSviPZWu7lJEiGhk6Q2lgsY5XN3npoBWqX9GWbPwVkQlG3xvPfar4WT7XMu4gXrA
+         EXyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793257994; x=1793862794;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Hb59LP10QcRi2gQtYU4Yq5Tp1KlGeogk3z8PXLHKSoY=;
+        b=GS26zbutV66KbpcDk1gk6SwlI21Xxl47XYWv7kG16psETlEld0nmTBCfh7eNiNpPtL
+         UDvYODnYEzL57J4QOkKmuO/1xFNqevO3s4+05qUKL7gS52xBWqMxgbDq1OT6YrQnE4Ps
+         sSbV3Q35JLO6Z52YW8rJ154PEHYwXvqYH7vAnVRTIF8LGHHO4oq0O8Vu/NHZlqaYYZNB
+         ettgWJTwEnRA31IuUCobq7U0qu7Sc2C6wy5hvgVyL1hxF7vSywXXc96aj6s/2q9kssUu
+         o8PD43jlo65fpkSqCcaxSak1/s+Pvbs0ptSEyWk70I31hiIgZBPttUpDYfNb9d20kPCr
+         0FYg==
+X-Forwarded-Encrypted: i=1; AKwUvBwfGXgqqeIIMbabGQRN5hgUK1oDe46m4A4qt2dvHbD+7xZhLcwE+XumuMJjkez4MrUGFXzC1ss0stjWMDw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJvCXjxsuD+Wp78vjSpTd+cKDChBIsg/j6qSWCDpUNCDB5LiRc6
+	VzusizX0b7vAWwTBJ0u7sjwx2rL0k4+XgiMgnqxeSgqy5gR72a5GhzrD
+X-Gm-Gg: AYBFou1e1ezXNcZmyFjokU5aPbvMSsV1rv2lHOFgtbPKDcpe+HzczJSsLyKYDNlruYt
+	seLkOFyNxKNzGxtyGK/QbLGUA07qhbi08uJ9+vQh3qe+Zfk5iCL23I7owogq7jzUEQU8AC0IxvG
+	hkkRQ2Ak3kg7YixMCrlFHb7iz8OmSIqDVqN5HyvGPAoXy6SW2YQj9BFCzCw+gvaAGT9xv8Kvd4c
+	CQWz/0v/4BwYxyFnvf1eV5QtJO83aMlwIsj+EckLAnfhg6y3K6FKzLtD+ah22j0/FRpDHqIjp7f
+	OHqZPLBHY5aWPQDI+zL6BLYIT9An6Nfk4GrT4+NnTfmvlXexAhaFTO4VMve82ldhSa8FOX7g1Cd
+	4i3JAYbGNiPU5Lkpo9iKJ2kksJdVToHFWtp/8icEF4qy0oM73D820iMIu6i/6WPX2LQ24VewZKm
+	xkvrtJbXs25+kDcrAiQGPi7ZICRDimGYNrDM+Jd1kHtPGepspcBeug0qOXEvjjJVDObMpOuH522
+	hssrKuiC5QEQiEQQxkGkj2tGZa/hl3kTEniaXIAqKwzZbyGrKKfdvd2EqaB09ONnw34uFfNxpMH
+	00KYjNBlndHyiR+JOH1wPYaoMxNLeRvVb30YZZKf8Vw2TOtFrW91Eb6Y
+X-Received: by 2002:a17:906:d932:b0:c43:f1ab:167c with SMTP id a640c23a62f3a-c49bdd9ab19mr398914666b.1.1793257994106;
+        Thu, 29 Oct 2026 00:13:14 -0700 (PDT)
+Received: from scheduler.schedules ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecde7c3sm34417791f8f.51.2026.10.29.00.13.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 00:13:13 -0700 (PDT)
+Date: Thu, 29 Oct 2026 10:13:10 +0300
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: peterz@infradead.org, mingo@redhat.com, tim.c.chen@linux.intel.com, 
+	yu.c.chen@intel.com, kprateek.nayak@amd.com, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
+Subject: Re: [PATCH] sched/cache: Check reduced capacity before
+ alb_break_llc()
+Message-ID: <auLs7xeL9FsHcf-h@scheduler.schedules>
+References: <20261029023650.3404429-1-zhanxusheng1024@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,105 +100,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ntfs: wait for bitmap folio writeback before modifying it
-To: Shengzhuo Wei <me@cherr.cc>
-Cc: Namjae Jeon <linkinjeon@kernel.org>, Hyunchul Lee <hyc.lee@gmail.com>,
- ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-References: <20261029-b4-ntfs-bitmap-writeback-wait-v1-1-e2ba711b2dbf@cherr.cc>
- <374bf856-f880-4fa2-abec-c4b2a063bf57@163.com> <auLlFEHMZvANXUvU@kernel>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <auLlFEHMZvANXUvU@kernel>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgBXy5bL8eJqvRzvCg--.27646S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr13ZF13KFWDWFWDJrWxXrb_yoW8Kw4Upr
-	yftay7Kw4qqrn7ZrnFy342q3W09w48AFW7JF45WF4xArn8ZF1S9ayYgFy0vas5C397JFWU
-	XF4Ska4xAw1jyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UTCJQUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Q4DzWri8c5SpQAA3p
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261029023650.3404429-1-zhanxusheng1024@gmail.com>
+
+On Thu, Oct 29, 2026 at 10:36:50AM +0800, Zhan Xusheng wrote:
+
+Hi Zhan,
+
+> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> 
+> need_active_balance() moves the only CFS task off a CPU whose capacity
+> is reduced, for example by IRQ load, to an idle CPU with more.
+> alb_break_llc() runs first and refuses to move a lone task off its
+> preferred LLC, so if no other CPU in that LLC is idle the task stays on
+> the reduced CPU.  Like asym packing, which was moved ahead of
+> alb_break_llc() for the same reason, this is a performance case that
+> cache locality should not override.
+> 
+> With two LLCs of two CPUs, the other CPU of the task's LLC busy and 60%
+> of the task's CPU spent in a hardirq, a CPU-bound two-thread process
+> stayed there for 20 seconds at 38% of its normal throughput.  With this
+> change it moves to the idle LLC within a second, as it does with cache
+> aware scheduling disabled.
+
+Sweet.
+
+> 
+> Fixes: 714059f79ff0 ("sched/cache: Handle moving single tasks to/from their preferred LLC")
+> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> ---
+>  kernel/sched/fair.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index cfc982205b98..e313c6d212c6 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -13585,12 +13585,6 @@ static int need_active_balance(struct lb_env *env)
+>  	if (asym_active_balance(env))
+>  		return 1;
+>  
+> -	if (alb_break_llc(env))
+> -		return 0;
+> -
+> -	if (imbalanced_active_balance(env))
+> -		return 1;
+> -
+>  	/*
+>  	 * The dst_cpu is idle and the src_cpu CPU has only 1 CFS task.
+>  	 * It's worth migrating the task if the src_cpu's capacity is reduced
+> @@ -13604,6 +13598,12 @@ static int need_active_balance(struct lb_env *env)
+>  			return 1;
+>  	}
+>  
+> +	if (alb_break_llc(env))
+> +		return 0;
+> +
+> +	if (imbalanced_active_balance(env))
+> +		return 1;
+> +
+>  	if (env->migration_type == migrate_misfit ||
+>  	    env->migration_type == migrate_llc_task)
+>  		return 1;
+> 
+> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+> -- 
+> 2.43.0
+> 
+
+Well yeah. alb_break_llc() just returns true in the nr_running <= 1
+case. FWIW, on my tip tree this just creates a conflict. On me
+alb_break_llc() is first, then asym_active_balance() and then
+imbalanced_active_balance(). I think in that case moving all three
+functions would be better? (below this other block that's for this case)
 
 
-
-在 2026/10/29 14:17, Shengzhuo Wei 写道:
-> On 2026-10-29 10:07, liubaolin wrote:
->   
->> Hi Shengzhuo,
->>     Could this deadlock during MFT bitmap
->> expansion？ntfs_mft_bitmap_extend_allocation_nolock() can recurse into MFT
->> record allocation while holding mftbmp_ni->runlist.lock.
->>
->>    With L being that lock, could we get the following interleaving?
->> A and B are $MFT::$BITMAP folios; B is outside the cached iomap.
->> Time flows downwards.
->>
->>    Writeback                        Bitmap expansion
->>    ---------                        ----------------
->>    lock A
->>    set PG_writeback(A)
->>    map A (take/release L)
->>    add A to wpc->wb_ctx
->>    unlock A
->>    [BIO still unsubmitted]
->>                                     take L
->>                                     extend bitmap mapping pairs
->>                                     need another extent record
->>                                     ntfs_mft_record_alloc()
->>                                       mft_bitmap_alloc_free_rec()
->>                                         lock A
->>                                         folio_wait_writeback(A)
->>                                     [wait for A's I/O, holding L]
->>
->>    lock B
->>    set PG_writeback(B)
->>    ntfs_writeback_range(B)
->>      __ntfs_write_iomap_begin()
->>        down_write(L)
->>        [blocked on L]
->>
->>    Cannot reach iomap_add_to_ioend()
->>    to submit A's pending BIO.        Cannot release L until
->>                                     A's writeback completes.
->>
->>     ntfs_writeback_range() obtains the next mapping before
->> iomap_add_to_ioend() can submit the pending BIO.
->>     Would we need to submit that BIO before taking the mapping locks?
->>
->> Thanks,
->> Baolin.
->>
-> 
-> Hi Baolin,
-> 
-> Thanks for the analysis. I checked the paths and agree with you.
-> 
-> Following your suggestion, I prepared a change to submit the pending
-> ioend before obtaining a new mapping in ntfs_writeback_range(), clearing
-> wpc->wb_ctx even on error to avoid resubmission. I plan to make this a
-> prerequisite for v2, retaining all six waits.
-> 
-> One concern is that submitting at mapping boundaries may reduce BIO
-> aggregation, including for ordinary file writeback. The change has
-> passed object builds, but has not been runtime- or performance-tested.
-> 
-> Does this approach look reasonable to you?
-> 
-> Thanks,
-> Shengzhuo
-
-Hi Shengzhuo,
-
-    That sounds reasonable to me.
-    Clearing wpc->wb_ctx on error also makes sense, since the submit 
-helper calls bio_endio() on that path.
-    You could run some tests to check the performance impact.A 
-before/after comparison of throughput and BIO sizes would help, 
-especially where adjacent mappings are physically contiguous. Testing 
-bitmap expansion alongside writeback would also help check the locking 
-change.
 
 Thanks,
-Baolin
+
+Kayra
 
