@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793300109;
-	b=0yPJHTrlAatFlLkfrQmphPbESXOHlb3LD6DtTRDaIRCvr/Y/03J9O2iI5mifW98vegyI
-	 h708IUvL7vM5eOC7RZZv4/0RivQ6pD/1O5f12bkdTaJMdl31RFsic7FwP2vgaV+WazxF6
-	 bFtDRlPKE9Br79QCy7y09zuw7Hemc+bwzUx7Etm5goQTqC6SMSIcmA0BR3FYBhbwC8g6v
-	 N8V0hwSSQd8A+lu6bLdsiwu6wnIF7JEsu3i5zybWIg5ZYuXSE4gbawfzgdN1okSlPP199
-	 90M6gGEdEYmhDEQ0CbbYrsHJj2D6Z9mASN0z7Hxj3WSwa10AaJb716RADwOnf7oepmw==
+	t=1793300115;
+	b=LCcOHLYXgIY+3LaCZFUYL+a3mrXaI23JWYy7qQNvNj+sf5oCF9iY4A4SA+xV2KIt456s
+	 xgpU8gUlX1BlXgiDhZjQaLnUhIoVY5R+oOHKiKvBjdGWZBTDbZOFoBnQCr5G66zvwQ3PH
+	 IdePtd+oheXwzL2Bz+9P+qhzYiWFRVeILjH4ALfHFBjVvTrdhibqlW1ba2husGRFnGnd4
+	 UFP9l+diEpvUmgAI1HXntMP/fu8hniJ6l8S6CzKC7KlonpAmX2cWk4lWDkBg40RwigYzh
+	 Jv8bp/1p5ZCc0HXzBEb816dox7X7FcCKfrpthNicoTgmaK+ujczmtKvTidZAO3F9y5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793300109;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=38enHGzZbRMY5MzhDG7NevDj9M9rSop00+ZOozP8nYw=;
-	b=pNP2ojDTOLixm3XPojNSQoKE+XTJD0YbS+XaNchiO42bCFhhFkVv0wQ3b0biiQlF7SfR
-	 vg2cZnSFTfmoeLhlk+y6ukddIvZODiGEhh4BFfOzXHyV4CPJ0lOfSEXDNLPa8x3m3JFDq
-	 jRnhAuqsvZ1JjR/MQ10LANq1d3D/Ckj57aSFaXTEFzoPVEXHdb2+eHkBmAGiAetb68E79
-	 hJpyap5eVNssI4s45hQW0llBxFpoebCI5rbaUx637khy3lPYsJmsv6V+pKECTmOfCpN2l
-	 wOz5iM0QIHfz3NZ4BqgSAFQQxOOqhQNXo2/4/vSCU6qtFSKlm1w1q5juH64HE6nd9SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793300115;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gUvl5WqmD9NdeP4SAbNgXpqCBWFdA8ZWyAHGPR7kM9A=;
+	b=pWk8fOaBqvI6JOFcC35PCaN+j2IN3YbFH2vGuaZsKoqICD7ESz1XMyJ3DP+1PadSE/ZS
+	 WYpyfc//+/0PEU2wlP2Xg0PSe33hxtObGno8NM2Z4+ODFxxSrgjmZBmhZJprNWtKwFL66
+	 chslRYRtElI/oB8sWtRdOq3mTzN0hB2XXaiftvtEmvMB1kxZ9YIRUXZb77x6rtmV3UJE2
+	 Tf55BIUBTDy4ZFjLupTbpBXuoDFEBTmT4QZBl16MvzHbG9i7aHjfsUVmfbbX1xm/XcXHv
+	 G1kDyts7Hest0aCAWiwXPTznSKqkpTtfBTDzQEHASfkY7MhRlxpPgkL4BCT69piwUbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=magOWvZO;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=YZEeVVQ0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EEE29606A331;
-	Thu, 29 Oct 2026 18:55:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 631C0606A332
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:55:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=magOWvZO
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id F3ECE1F01826;
-	Thu, 29 Oct 2026 18:55:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793300108;
-	bh=38enHGzZbRMY5MzhDG7NevDj9M9rSop00+ZOozP8nYw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=magOWvZO8kqeKhGNN9P1FdOWms45OxtPynyKc1l+h9WHBUNxHDxuxnzqaBvKQ68yB
-	 jmW/5fYkMFCOO03pFDtnFaI/LqGwD69cH/savMLZPL/aK19zRXKOKY8sSkvwHqwuzj
-	 O4TkUjoLrjQHflq0TOJR6rdsgNTsGlE29/mr2yV5yRUJFX6IuU4JqWWFzz9ZwNTnWz
-	 b3XY6lmv3wjJ9MM2n1QAQ8mswIeCWPP312I5Rcd2Aksp/T0da+0roRJLkMmgE/pqzF
-	 m7WXyuE4YJVsy37aseJ5RJjLxILIyoFN/cgg5Emk+W2T3Ukj3WCAFj84wmn8FG/3ts
-	 3kfG0vRgHsEpg==
-Date: Thu, 29 Oct 2026 20:55:04 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Arun Menon <armenon@redhat.com>
-Cc: linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
-	Peter Huewe <peterhuewe@gmx.de>, linux-integrity@vger.kernel.org
-Subject: Re: [PATCH v5 5/7] tpm: Increase TPM_BUFSIZE to 8KB for chunking
- support
-Message-ID: <auOWiCsW73yO33Zs@kernel.org>
-References: <20261029181541.99505-1-armenon@redhat.com>
- <20261029181541.99505-6-armenon@redhat.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=YZEeVVQ0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C79A71F031E0;
+	Thu, 29 Oct 2026 18:55:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793300115;
+	bh=gUvl5WqmD9NdeP4SAbNgXpqCBWFdA8ZWyAHGPR7kM9A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YZEeVVQ0HWyMbtYXSm1tuNEnWeuWZktaclmkU4T/7bh2nDKy9xSEXJyryWZqMZmmg
+	 rMErXHY7t7NJaPtR6Zj+AlNYghoDkEKSi3vIiz5kyJ+47pJNNGLXD82oVewVMkjTcw
+	 ed3ThzKKJZ4mt9iFTsvsKTJ0Yih5hJdnDeXiFi7g=
+Date: Thu, 29 Oct 2026 11:55:14 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Cheng Yongkang <teel4res@gmail.com>
+Cc: linux-kernel@vger.kernel.org, "Shubhang Kaushik (Ampere)"
+ <sh@gentwo.org>, Davidlohr Bueso <dave@stgolabs.net>, Manfred Spraul
+ <manfred@colorfullife.com>
+Subject: Re: [PATCH] ipc/msg: align compat version-0 msqid_ds with native
+ IPC_OLD
+Message-Id: <20261029115514.fd04df0fb01f070f0e960eb1@linux-foundation.org>
+In-Reply-To: <179328314077.648427.7284615104475689945@gmail.com>
+References: <179328314077.648427.7284615104475689945@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,60 +57,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029181541.99505-6-armenon@redhat.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2026 at 11:45:39PM +0530, Arun Menon wrote:
-> From: Arun Menon <armenon@redhat.com>
+On Thu, 29 Oct 2026 07:12:20 -0700 Cheng Yongkang <teel4res@gmail.com> wrote:
+
+> The compat version-0 IPC_STAT path copies the 64-bit counters into the
+> 16-bit msg_cbytes/msg_qnum/msg_qbytes fields without clamping, and leaves
+> msg_lcbytes/msg_lqbytes zero.  A queue with 65536 bytes, 8 messages and
+> q_qbytes=200000 is reported as cbytes=0, qnum=8, qbytes=3392,
+> lcbytes=lqbytes=0, while the native IPC_OLD path reports the clamped
+> counters and the full values in the l fields.
 > 
-> TPM_BUFSIZE limits the TPM2 command the kernel builds before handing
-> it to a chip driver's send() callback. TPM 2.0 Library Part 3:
-> Commands v185 adds ML-DSA key objects and the ML-KEM
-> TPM2_Encapsulate()/TPM2_Decapsulate() commands (sections 14.10,
-> 14.11) [1]. NIST FIPS 204, Table 2, gives the largest ML-DSA
-> parameter set, ML-DSA-87, a 4896-byte private key and a 2592-byte
-> public key [2].
-> Loading such a key pair with TPM2_Load, plus header, handle and session,
-> comes to roughly 7.7KB - more than the current 4096-byte TPM_BUFSIZE.
+> The compat version-0 IPC_SET path reads only the 16-bit msg_qbytes and
+> ignores msg_lqbytes.  A caller following the old ABI with msg_qbytes=0
+> and msg_lqbytes=131072 gets q_qbytes=0 and the queue stops accepting
+> messages, while the native IPC_OLD path falls back to msg_lqbytes.
 > 
-> Raise TPM_BUFSIZE to 8192 bytes. It covers this command with
-> headroom, and keeps every kzalloc(TPM_BUFSIZE, ...) call in the TPM
-> stack at an order-1 page allocation rather than a higher order.
+> Mirror the native IPC_OLD handling in both compat version-0 branches:
+> clamp the counters to USHRT_MAX and fill the l fields on stat, and fall
+> back to msg_lqbytes when the 16-bit qbytes is zero on set.  The compat
+> IPC_64 branches and the native paths are unchanged.
 > 
-> This matches the largest parameter set defined today. NIST has already
-> published PQC families with larger keys and signatures than ML-DSA
-> (e.g. FIPS 205/SLH-DSA), so a future algorithm could exceed 8192 bytes.
-> CRB chunking, added later in this series, does not change that; it only
-> lets an already-built command cross a smaller MMIO window in pieces,
-> it does not change how large a command the generic stack can build.
-> 
-> [1] https://medias.cdn.trustedcomputinggroup.org/production/Trusted_Platform_Module_2_0_Library_Part_3_Commands_Version_185_pub_87a5c10230.pdf
-> [2] https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf
-> 
-> Signed-off-by: Arun Menon <armenon@redhat.com>
-> ---
->  include/linux/tpm_command.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/tpm_command.h b/include/linux/tpm_command.h
-> index fc446a1282e2..4ad11068b090 100644
-> --- a/include/linux/tpm_command.h
-> +++ b/include/linux/tpm_command.h
-> @@ -434,7 +434,7 @@ struct tpm2_context {
->   */
->  
->  #define TPM_DIGEST_SIZE		20	/* Max TPM v1.2 PCR size */
-> -#define TPM_BUFSIZE		4096
-> +#define TPM_BUFSIZE		8192
->  
->  /*
->   * SHA-512 is, as of today, the largest digest in the TCG algorithm repository.
+
+Thanks.  I had LLM poke at this and it had things to say:
+
+: The conversion changes look right, but the Fixes tag needs correcting.
+: 4693916846269d only moved the compat code. Both omissions are already
+: present in 1da177e4c3f4 ("Linux-2.6.12-rc2"), the initial Git import.
+: Please drop the incorrect attribution; the actual introduction predates
+: that history. Keep the stable CC.
+: 
+: Please also coordinate this with the unsigned-long msgctl_down() fix
+: from Shubhang Kaushik's "[PATCH v2] ipc/msg: prevent msg_qbytes limit
+: bypass in IPC_SET".
+: (https://lore.kernel.org/20261027-ipc-msg-qbytes-v2-1-48d8f72f1359@gentwo.org)
+: On the current base, your new fallback lets a
+: privileged old-ABI caller supply msg_lqbytes=UINT_MAX, but msgctl_down()
+: still narrows that to int and installs ULONG_MAX on a 64-bit kernel.
+: That downstream bug already affects other interfaces; this patch makes
+: it reachable through the repaired fallback too.
+: 
+: The original bugs give legacy 32-bit programs wrapped queue statistics
+: or unexpectedly set the queue capacity to zero. Subsequent sends then
+: block or return EAGAIN with IPC_NOWAIT, even for zero-length messages.
+: The ordinary capacity permission checks still apply to the long value.
+
+
+> --- a/ipc/msg.c
+> +++ b/ipc/msg.c
+> @@ -686,10 +686,17 @@ static int copy_compat_msqid_from_user(struct msqid64_ds *out, void __user *buf,
+>  			return -EFAULT;
+>  	} else {
+>  		struct compat_msqid_ds __user *p = buf;
+> +		compat_ulong_t qbytes;
+> +
+>  		if (get_compat_ipc_perm(&out->msg_perm, &p->msg_perm))
+>  			return -EFAULT;
+> -		if (get_user(out->msg_qbytes, &p->msg_qbytes))
+> +		if (get_user(qbytes, &p->msg_qbytes))
+>  			return -EFAULT;
+> +		if (qbytes == 0) {
+> +			if (get_user(qbytes, &p->msg_lqbytes))
+> +				return -EFAULT;
+> +		}
+> +		out->msg_qbytes = qbytes;
+>  	}
+>  	return 0;
+>  }
+> @@ -720,9 +727,23 @@ static int copy_compat_msqid_to_user(void __user *buf, struct msqid64_ds *in,
+>  		v.msg_stime = in->msg_stime;
+>  		v.msg_rtime = in->msg_rtime;
+>  		v.msg_ctime = in->msg_ctime;
+> -		v.msg_cbytes = in->msg_cbytes;
+> -		v.msg_qnum = in->msg_qnum;
+> -		v.msg_qbytes = in->msg_qbytes;
+> +		if (in->msg_cbytes > USHRT_MAX)
+> +			v.msg_cbytes = USHRT_MAX;
+> +		else
+> +			v.msg_cbytes = in->msg_cbytes;
+> +		v.msg_lcbytes = in->msg_cbytes;
+> +
+> +		if (in->msg_qnum > USHRT_MAX)
+> +			v.msg_qnum = USHRT_MAX;
+> +		else
+> +			v.msg_qnum = in->msg_qnum;
+> +
+> +		if (in->msg_qbytes > USHRT_MAX)
+> +			v.msg_qbytes = USHRT_MAX;
+> +		else
+> +			v.msg_qbytes = in->msg_qbytes;
+> +		v.msg_lqbytes = in->msg_qbytes;
+> +
+>  		v.msg_lspid = in->msg_lspid;
+>  		v.msg_lrpid = in->msg_lrpid;
+>  		return copy_to_user(buf, &v, sizeof(v));
 > -- 
-> 2.56.0
-> 
-
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-
-Br, Jarkko
+> 2.34.1
