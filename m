@@ -1,68 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264592;
-	b=3Fkby1kWQd7TxTcLNEAvfsqBO4hn83C0BD0b+DgtiDR8u/+8/xQtXmek+USIu2H/0Qhs
-	 ABBqtqMfdG6XPxPY6CtZ8QmWdM9v9MCL6GnGzvbDlZ0+mjtpfo9Dpc0H+nIQQR7s4gKha
-	 /qJ77afNCx21GGdC1VlSdj/udacvTkzvLTs4Tp+MZrU072YqjcGPgDy4vcJyq6NrWNRO5
-	 ldQWGqHONIqYw82GZ3JaqTSVrDV3IEZ0iveiF5rC4GKmxWrtV4HSxqQin/VQVk+etZSDS
-	 iOyXCVAJ0PKuZNK9MBYd8TCjKbRdWcqse0fhNNqk7+IPW3hKOJ037ws7HJe6BsNfofA==
+	t=1793264738;
+	b=ZkV9T4ZucfW9GaNH0IHdg2z3Wu+zesMwmkGjgPXIiFnyP8KS7DQp7d09zdYtqzlH/Urc
+	 I9qA/pfduRtYBFP86zhiyxUMD6fMyXuiq09gfGud1RXZo0+kgKJY0gi4rH5nDi6CLeobg
+	 hmqPLXMiifa15K57yXSVrRyDQqMO5CMyIdE8Gnp911+n9RhXRJef0/uAt/mywhLing80J
+	 dcLFffM9BCXqKV6WmX0D+sRoSGenqgsaZZw0Zt+/ksPjur0KbbOiiQFg2R2nuH9Uj+n2P
+	 rJU8POp3APdN8DTpy9eqcrinsgSYaYmok6TrD40IJwKTUTMfSHER24RoNAAAVgXwxvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264592;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793264738;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=UFZCpBIooBFicB0DvgSTv3ZMKgKfwRuEH73crPEA3VQ=;
-	b=eDdV6kjDx7Z3K5Qftq6ogoMODOXsvgHCyuCEaljQdnmdr+DPXJzaKoROkzhEsKFdDLE+
-	 DPdQaT5ATMnkFpZjvm58YH7hDjzo3VDLEF5MVBlzgLrySyChNTLlytJSjAWfN5XwRtOws
-	 fdqj+Dcf5VrCcdZshdHNPCgFMyDbTPhrQ2uRq/za+MvJ3/YO2mL2yv+kE04z8L3z1C/pf
-	 JlyElfSvoWJZFjgWcswI2aPdSgZpaZkQRCgnj+vMvmwMCf0nkHxX39g1F755nsHB60+AM
-	 Pin1d7J37XVoO5Ci9Dh9+1W5F4UAn9C31wYDOXnH03iVIZC9IRmlON3XXgX1L/roUMA==
+	bh=DUwEU5VFVcm3BSvlIi+qnX1DNEYOOSjt0f4UAgjp/q0=;
+	b=QzhJGxfuzYtwALHp2k4yc9YFoXwj8p86kIhkbZDQMNnZtw7UxRvpMk2a7cqWOQgqKIyM
+	 4Buv78mwmkTaWRUjXfvmFGMrrXoP413/+uVkUPpr0dWK3ckvd5gxUtia47daAhdKpHRd5
+	 I5UqNLJakMt5I/iRaiBpNQgAV49y4q0wZ7MVHd/ihpLqDxv11g2RHMeyfUAdXO3ZiWPIf
+	 wKwXRXkZXyUQaha3NjZKPxBYfXAAjm9hE4uMhUhldVpkit2cPs69g0SUDSeWET0pLAVoI
+	 1UE0sMVvQOflwcK3C6NjcIKW4NJEpEXjbB7OgfukFK2YOx8esi4G4sCJQgPlPX2FVaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kEPeHiBc;
-	arc=none smtp.remote-ip=95.215.58.152
-Received: from mta1.migadu.com (out-152.mta1.migadu.com [95.215.58.152])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UE3pYWlM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B82606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:03:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53B82606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EDE606A31A;
+	Thu, 29 Oct 2026 09:05:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=kEPeHiBc
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MaoRXuZQ6JtSp1A0fSU4PHAxq4HR0lMZe1iC1l2Gt+U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793264589; v=1; x=1793869389;
- b=kEPeHiBcFJ6MqLDvdk679musMJlanpqMTGX3dcejyW4Vsb3Stn63Pm1k3TIxv7ZLbNC1JnXd
- ABg0A/JtwajvqXjc2lo1tfdg3wyYzmi/u6sVEaxrwmPaqkny4qi0Vuw6lSQd3dYv2PG42it8dUl
- O02+X887Y2BXcEFXc9guNpSA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 62a73de914bba6f0;
-	Thu, 29 Oct 2026 09:03:09 +0000
-X-Mizu-Trace-ID: 62a73de914bba6f0
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 29 Oct 2026 17:02:50 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Justin Iurman <justin.iurman@gmail.com>,
-	Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH 0/3] net: ioam6: makes IOAM insertion transparent to IPv6
- ECMP
-Message-ID: <auMLuvAuQZoOfAyc@fedora>
-References: <20261028-ipv6_ioam_ecmp-v1-0-9b6715b6f4c0@kylinos.cn>
- <auGryXdPv2mx0qlp@fedora>
- <20261028165812.1b40d1d4@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UE3pYWlM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2A921F01825;
+	Thu, 29 Oct 2026 09:05:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793264738;
+	bh=DUwEU5VFVcm3BSvlIi+qnX1DNEYOOSjt0f4UAgjp/q0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UE3pYWlMUN95Niu9Wtfdm3GxQH1knhbb/MKIkHh7IJ2bNicQLmFbrF5q1JQYXasKZ
+	 z4wj8JOiEhU74QBIK5Z3ndUsaoUU7BgPFSWCBeuERZPO3ckPct4MAT1NQXxFWPotl5
+	 3i4GCG3NFPUMorcuASu/L6ZAEoZhkGOXw/tsOQO/6H/H44u5pat8YWBJUuOu3ki+V2
+	 KAKWF+F84fZVsfsKHbUWbgWYZEJmQi3SAEIGzUMfPCObb6n0XuCf1xftEBPCFS6xsP
+	 Vc8DWMIvSEyRad1nF+CqBRxXHhLFv2v0K/4MEQgAEFYgnycFzyJiqU3PCodskvl2oV
+	 Tq71mQ2U6LTyg==
+Date: Thu, 29 Oct 2026 10:05:25 +0100
+From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mel Gorman <mgorman@suse.de>, Andy Whitcroft <apw@canonical.com>,
+	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>,
+	Rik van Riel <riel@surriel.com>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>,
+	Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>,
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	Nick Piggin <npiggin@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org,
+	linux-arch@vger.kernel.org, linux-s390@vger.kernel.org,
+	luojiajun <luojiajun3@huawei.com>,
+	Josef Bacik <josef@toxicpanda.com>, stable@kernel.org
+Subject: Re: [PATCH 01/15] hugetlbfs: fix integer overflow in fallocate()
+Message-ID: <auMMVcK_80irHLkP@localhost.localdomain>
+References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
+ <20261028-fixes_hugetlb-v1-1-a0a033db180f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,139 +88,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261028165812.1b40d1d4@kernel.org>
+In-Reply-To: <20261028-fixes_hugetlb-v1-1-a0a033db180f@kernel.org>
 
-Hi Jakub,
-On Wed, Oct 28, 2026 at 04:58:12PM -0700, Jakub Kicinski wrote:
-> On Wed, 28 Oct 2026 16:01:13 +0800 Hangbin Liu wrote:
-> > On Wed, Oct 28, 2026 at 01:45:28PM +0800, Hangbin Liu wrote:
-> > > This series makes IOAM insertion transparent to IPv6 ECMP, as required
-> > > by RFC 9486 (C2): a packet carrying IOAM options must be forwarded
-> > > along the same path as the identical packet without them.  
-> > 
-> > Sorry, forgot to add target repo "net". I will add it in next version.
+On Wed, Oct 28, 2026 at 09:13:29PM +0100, David Hildenbrand (Arm) wrote:
+> hugetlbfs_fallocate() rounds the range end up by adding hpage_size - 1
+> to offset + len. vfs_fallocate()'s existing overflow check only makes
+> sure that offset + len does not overflow.
 > 
-> CI bot says:
+> Once we overflow for valid endpoints near LLONG_MAX, we can get a
+> negative temporary result that is then converted to a very large
+> huge page index.
 > 
-> The new selftest added alongside this series (tools/testing/selftests/net/ioam6_ecmp.sh)
-> is failing in our CI on the "Transit input ECMP with/without IOAM" scenario:
+> A one-byte allocation ending at LLONG_MAX can therefore consume all
+> available huge pages. Pages added beyond LLONG_MAX are skipped during
+> inode eviction, leaking them and triggering the BUG_ON() in clear_inode().
 > 
->   TEST: Transit input ECMP with/without IOAM (diverged on seed 1: without IOAM via
->         link A, with IOAM via link B)   [FAIL]
->   TEST: Transit input ECMP with/without IOAM (seed 2..12)                [ OK ]
->   TEST: Encapsulating node re-lookup ECMP with/without IOAM (seed 1..12) [ OK ]
+> To fix it, calculate the end index in a simpler way that cannot
+> overflow. This also fixes the signed overflow reported by luojiajun in
+> 2019.
 > 
-> 11 of the 12 "transit input" seeds pass, and the whole "encapsulating node re-lookup"
-> scenario passes on all seeds, so this looks like an edge case in the Hop-by-Hop
-> nexthdr-recovery logic used for the policy-0 multipath hash, rather than a test
-> infra/flake issue. Could you take a look at whether the recovered "virtual" nexthdr
-> (or the padding/option-length walk used to compute it) is correct for all IOAM option
-> layouts/trace sizes, since one specific packet still ends up hashed to a different ECMP
-> sibling than the equivalent packet without IOAM?
+> Backporting notes: without commit a08c7193e4f18 ("mm/filemap: remove
+> hugetlb special casing in filemap.c"), remove_inode_hugepages() must
+> include the final huge page during truncate and eviction.
+> 
+> Reported-by: luojiajun <luojiajun3@huawei.com>
+> Closes: https://lore.kernel.org/all/1554775226-67213-1-git-send-email-luojiajun3@huawei.com/
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Fixes: 70c3547e36f5 ("hugetlbfs: add hugetlbfs_fallocate()")
+> Cc: stable@kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-OK, after running the test 50 times on a debug kernel and over 70 times on a
-normal kernel, I've finally reproduced the issue and identified the root cause.
+Acked-by: Oscar Salvador <osalavador@suse.de>
 
-The reason is the ping `-w` parameter. I originally thought it set the maximum
-wait time, but it actually keeps sending packets regardless of how many packets
-have been sent or received. Combined with `-i 0.2`, it sometimes sends 10 packets,
-which carry over into the seed 1 test and affect the result.
+> ---
+>  fs/hugetlbfs/inode.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+> index 01c4d6f44ebe..5592cfc6cc8b 100644
+> --- a/fs/hugetlbfs/inode.c
+> +++ b/fs/hugetlbfs/inode.c
+> @@ -721,11 +721,13 @@ static long hugetlbfs_fallocate(struct file *file, int mode, loff_t offset,
+>  
+>  	/*
+>  	 * Default preallocate case.
+> -	 * For this range, start is rounded down and end is rounded up
+> -	 * as well as being converted to page offsets.
+> +	 * vfs_fallocate() guarantees that offset + len is positive and does
+> +	 * not overflow. Avoid overflows when calculating the end huge page
+> +	 * index: set it to one past the index of the huge page containing the
+> +	 * last byte.
+>  	 */
+>  	start = offset >> hpage_shift;
+> -	end = (offset + len + hpage_size - 1) >> hpage_shift;
+> +	end = ((offset + len - 1) >> hpage_shift) + 1;
+>  
+>  	inode_lock(inode);
+>  
+> 
+> -- 
+> 2.43.0
+> 
 
-That's why the debug kernel case worked and the normal kernel failed in Jakub's
-environment, while it always passed in my laptop test environment.
-
-After removing the "-W 1 -w 2" parameters, I ran the test 200 times and all
-passed. I will post the fix in the next version.
-
-TL;DR
---------------------
-
-Here are my testing steps. After reproducing the issue, I dumped the tc output
-and found 10 extra ICMPv6 echo requests.
-
-filter protocol ipv6 pref 1 flower chain 0
-filter protocol ipv6 pref 1 flower chain 0 handle 0x1
-  eth_type ipv6
-  ip_proto icmpv6
-  src_ip 2001:db8:1::2
-  icmp_type 128
-  skip_hw
-  not_in_hw
-        action order 1: gact action pass
-         random type none pass val 0
-         index 1 ref 1 bind 1 installed 0 sec
-        Action statistics:
-        Sent 1040 bytes 10 pkt (dropped 0, overlimits 0 requeues 0)
-        backlog 0b 0p requeues 0
-
-on gamma veth0 at the start of seed 1 testing, but *a0* is 0. This means some
-echo requests are still in flight during this window. I then captured traffic
-with tcpdump and confirmed those echo requests are present on gamma veth0:
-
-15:47:09.161066 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3254, seq 1, length 64
-15:47:09.161083 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3254, seq 2, length 64
-15:47:09.161086 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3254, seq 3, length 64
-15:47:09.161088 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3254, seq 4, length 64
-15:47:09.161091 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3254, seq 5, length 64
-15:47:09.161093 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3254, seq 6, length 64
-15:47:09.161095 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3254, seq 7, length 64
-15:47:09.161097 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3254, seq 8, length 64
-15:47:09.161100 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3254, seq 9, length 64
-15:47:09.161102 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3254, seq 10, length 64
-
-The question is: where do these 10 packets come from, and why are they sent
-within this narrow window?
-
-We expect only 3 echo requests during the ECMP link warm-up, which does not
-match the tcpdump capture. The timestamps, however, show the traffic starts
-during the warm-up phase. The subsequent echo requests on veth1 are correctly
-sent as 3 packets with a 0.2s interval.
-
-15:47:09.221513 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3284, seq 1, length 64
-15:47:09.426247 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3284, seq 2, length 64
-15:47:09.633125 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3284, seq 3, length 64
-
-It looks like the skbs were held in the unresolved neighbour queue and flushed
-after receiving the NA, causing the packets to be delivered to gamma ingress later.
-
-Then I tried to send 1 packet on before the warm up.
-ip netns exec "$ns_alpha" ping -6 -q -c 1 -i 0.2 -W 1 -w 2 2001:db8:2:1::2  &> /dev/null
-
-Now the packet shows
-
-16:05:20.744986 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3765, seq 1, length 64
-16:05:20.744987 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3765, seq 2, length 64
-16:05:20.744988 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3765, seq 3, length 64
-16:05:20.744988 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3765, seq 4, length 64
-16:05:20.744989 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3765, seq 5, length 64
-16:05:20.744990 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3765, seq 6, length 64
-16:05:20.744990 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3765, seq 7, length 64
-16:05:20.744991 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3765, seq 8, length 64
-16:05:20.744992 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3765, seq 9, length 64
-16:05:20.744992 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3765, seq 10, length 64
-16:05:20.744992 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3774, seq 1, length 64
-16:05:20.936373 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3774, seq 2, length 64
-16:05:21.137153 IP6 2001:db8:1::2 > 2001:db8:2:1::2: ICMP6, echo request, id 3774, seq 3, length 64
-
-The warm-up packets are correctly back to 3 with a 0.2s interval. However, the
-first `-c 1` ping still generates 10 packets. With set -x, it shows
-
-+ ip netns exec ns_alpha-nBg602 ping -6 -q -c 1 -i 0.2 -W 1 -w 2 2001:db8:2:1::2
-PING 2001:db8:2:1::2 (2001:db8:2:1::2) 56 data bytes
-
---- 2001:db8:2:1::2 ping statistics ---
-10 packets transmitted, 0 received, 100% packet loss, time 1865ms
-
-After checking, I finally got the answer:
-
--w deadline: Specify a timeout, in seconds, before ping exits regardless of
-how many packets have been sent or received.
-
-When `-w` is used, the `-c` packet count no longer acts as a hard limit. Ping
-keeps sending packets until either the expected number of replies are received
-or the timeout expires. In our case, the timeout was hit. All 10 packets
-(sent at a 0.2s interval within the 2s window) got deferred and surfaced
-during the seed 1 test, corrupting the result.
-
-Thanks
-Hangbin
+-- 
+Oscar Salvador
+SUSE Labs
