@@ -1,88 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271811;
-	b=o78H6H58IRpD3tanLebRbzJYfIprMrqnxxMscvzHGHHFtOE3U3XR31/e6Gg9dpo9xzkg
-	 qMlekbUlktXgE4fEo+k1DqdM4JYJKO+c/WkwYh5rHja+WlaaGnV3sd5pFRQQOYwUAvcQK
-	 2Djp6+sQd5E8pcUag6pmtU1wqo3N0Drbg3rKEKFVZYgnvQzdwAhddQHpI+rOWIKguuGpv
-	 +yxDfBNYJjxHaSyZ9a91JJzKcpjJE/7VW2mSYzDxdBWFqpRP/WA1AairgoN7Ph8gIwA99
-	 c2FzT7Gk9EOYjBndZnlXL7jhCeZij0z2SAKpJuGrxfzzh2SyoPo/5eET56YCVKsoKyw==
+	t=1793271837;
+	b=Ed2gLhEHTE01GPE2rlK23TBRyW+o/rDULB42pFRujei9toxeQYbqDXPiZ1Y6Qfe4WyLi
+	 FlVaR0zJ9fGyZlbcVWy9DGagLOKb1mzYi0dgYwQzU8afmsHafXIt3HO8NOVvBJ0XRE5Ls
+	 MQfChmzNnnsFavFkTUTnNNqHRWi+mRu/ddOI9GMympyxPolv0lNVPl6b2cwPpr/OCKSJz
+	 Wh8ce2C7f4jgghb3uuanQgAt/xOB69DhaQ9lRUNfRvx35310+EkMiiw9YLmXJqHJT5P1x
+	 JgoVnEJKDbDIzj+BS1qnYlPJYsI/QVfmEnfD7IPPi95uFBZTJCyrYiOni2a/ZUMfICQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271811;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793271837;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=J5RKqB0wgxY8YriR4eRdaupljBM7MivKlhMpyC78ArI=;
-	b=HDDCP94xDUdMyUnREerOOEFD77wEC2Qjy8Rz2QqJ2KGtVsUKciWlx9zJCQbXooT52++m
-	 YJfVlYDw+nYGvAY8AqcWoNw4NXYQDp4lVaKFqW5HUjc+aqQgQGczgjIL+S/dkWgs7qTla
-	 izFI3ReESGoRw6uZAF0QM2Z3/jwbM3H76lZGsQMGr189a4Uui3SHQ8l7T+6tbkkss/qAX
-	 T0dXKPexxVrQCwNytC2lkg7t0meTmaIZ08Z5xpjb072Y41RGi23PvfTeymXkcF4Cl6LcB
-	 pa5xJmSVBMMnD9nF1nnHAUZTF/hS2H2AVYldWPtviLTJtWHn80MxCJqzdbkKWC67Fwg==
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 From:To:Cc:Subject:X-Mailer:References:In-Reply-To;
+	bh=muSquEeptmJIsXJiarZANV9wpj/9lTOSCGNsvcEZLTo=;
+	b=NAcoVx8Oqdv3f8TOktY56DK1JIeAxVhgLU/7c1jyCdGARZKF2Fu26kQ7a8OR/IUT2NWN
+	 q0RP6Fogr4eyAJ26HY4iVedFqR2n3sMxzSnvfOZOIIwo5R8NXeDrQfsXjLStzM1O1PFdk
+	 pHwTYzndhhZPeWjlxcamknShPd0Kc2/5tGwQnQkUbCEBwGtbPkQCp6tFjfWTlpinFKuQW
+	 zlPQhYGm8HguliIgXOctdYUEPnHTVhFO5CvyiuM/Y6UuVMJSrJaMfOPxn8BHiALVI9Ft0
+	 uXMQ/tF29wk5At3pmiK7dqcTqBL+EW1E49RjsBN7hADo2p2lFLPU9XAyiPzj3anpf8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hrXahkik;
-	arc=none smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qvHinnD/";
+	arc=none smtp.remote-ip=209.85.222.179
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BAA606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:03:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69BAA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D69A4606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:03:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D69A4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=hrXahkik
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c4550d8ab15so268154366b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:03:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qvHinnD/
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93f3c8958d5so213714885a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:03:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793271810; x=1793876610; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=J5RKqB0wgxY8YriR4eRdaupljBM7MivKlhMpyC78ArI=;
-        b=hrXahkikk7oPVzSRUtQfM/bx8Q+IZRX4rdX79RaEPz/v4VBbl43d+ck3Cd2vrB5Sj3
-         gFx2QuyMC20hfHiS4FxPcfN7zUBaoQIw76IuDe0qf0LHTkF8WXHvDQXilycCuPpU0LkV
-         DAabHYnBM7Xdc0VUjq3xEcBW9iSSM8i/tvja/z2LrzMrkBjgIjK2JouGDkjcxYj9hazm
-         TOMOmuW3bYbLsvzMYJoZu8PwfbazZIMUpFiSRSPCB9ZrPngsojD/2eC27bO1CyUFr4St
-         HtK1obuv/HRs3nWAvxWXyFzLUcWW1LjtuYEoNZ9DY0IDpg/nVmmN9k8CVS9qQyTfaY5Q
-         wvLw==
+        d=gmail.com; s=20260707; t=1793271836; x=1793876636; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=muSquEeptmJIsXJiarZANV9wpj/9lTOSCGNsvcEZLTo=;
+        b=qvHinnD/zBOohgWrBCPjKhxrCzsM5HIs+nI4rv2uerlKKl4bAfAogD0nXVnEzVc6E7
+         /QPewiKO5a3PhClnv8wrwJHy4hWNsd1N5JOXDhXrYiqwfGGWk4Eyi2PRTbkOn3EvNE3f
+         bzHsuT9CuuNzS/XKGTdWov126Pyo/KycEqR3JkcwfoPBdxwZTjlGWmqDWC0IvPb+STt+
+         vGUc2mxpeYiT/o6Tt64YokXfvgkLvmTzniUq9524kWyfOGfzXFS6Jlm7VFsqFI74uP8N
+         glpJ7XJu/M2le5uQVgKOhgpK/u3vfnmihOyeM3U3AOTEBBR2+q1/ek6cNwxtoFZVYwLJ
+         xtCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793271810; x=1793876610;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=J5RKqB0wgxY8YriR4eRdaupljBM7MivKlhMpyC78ArI=;
-        b=JUERnMcG69YsldJi/Lnn9X5IUrjfbhNU7zfMTMopSuHoJ0tSroaxbg6vpp89Ztjzxy
-         +np2J1uVNOz6h4BSBzoWKMcMnWrnvTi3UjU2fkNZjfPXFgC5JgaY1OsFw2rBx8hYf7HC
-         6dh2utgMTGnrSXVFgyYPTidodWDqIrU0cM8Kdl7Yg+jkaV10SSXckoZi4Li1eGc0vuvv
-         zzc2d3sgiuvZxkyk5OcOLvB3JV5dhEUKRKcvt0MlennqUnlqwERukrVe0BXZh0iXy6bR
-         CL0ukuX1x02GS9D7lS/Fka7deqElUEsM55SaGTGih+YMglVg514fi7633l4F6QLVac54
-         dmSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywhWvrCszSTVUyb8Xoj8gTmEBlzmmtNQW4wlX8h++GxVD4JmX33bAyxYkWn5Rb3Dxa2Y/PhjNoxiTv36g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqQjU2Au3fHmykKZqzkQqY5g1SChXoJz+brqslo9ur9A6Wh/Sp
-	I73yeG0N9sjTnl4SmTVyPubocwEEaITKk9loFOIx9qZI9WaMKi3R5gqfBGNQiQzPB8A=
-X-Gm-Gg: AYBFou3wEmnNw9weA1yzYz33/Z02knMhXdGjpixIqGoKC8M1XWGMbc3QP92YSmHGS5W
-	FJ0cIRFQ3mZotnj4Qqt51nLrIlS/Sq3CLsw565FautIHSDGleccpQpmgCGiwXyGSiN6xoKDRWPm
-	w9Bj972hLalB0Z702egHRYCZzl3iBAOdk5aUUXyCBhIl8tnMwFMNvIFT8kQe1xXixef5n6WnCcs
-	fesVkgY59M5TCJxTfC3yS+MHks7TPWQnM/aIua6LksvFqjZVW8BZgjxp5hDs+uNLsV9wmeC1hQ6
-	X9wXVPNSP4SxFPBgFRe9QVVsRqNmQUs/lgTda0dlNfHNIsMYaDAv9uTOrBSe/UtQ0lcPU2F6Mh+
-	xqHKkXItiFAJXOXnamoeSES3zvlaNzPOe9Vz5/xNU3m1Ul4itZ9W7x29O3lbZX98qrZUe68gzKH
-	zNdViGRp51j3THfYLBdYjOYTGEVvYrDrDgKVc/YArhMXiPM90d261Ti3PamEdewAQObzvr0zNxT
-	iB1R9XFrTY5mC4dXiUyRFE2xku+GRXG6epfsWB/KN365nePd9AMF15J9RSNgYGm0Og06aOaf07/
-	12ZuY+8EcAiBMEy+Kqy8/neoydA7MQQ6onq1u7eb3wh+ZKD7rmTeaKHnmeePsH8DeztNTQ1iorD
-	fllZdOBZqWslWpv8irLlSzw==
-X-Received: by 2002:a17:907:9606:b0:c41:e75e:5889 with SMTP id a640c23a62f3a-c49bdf2edb1mr432560966b.33.1793271808923;
-        Thu, 29 Oct 2026 04:03:28 -0700 (PDT)
-Received: from puffmais2.c.googlers.com (180.192.141.34.bc.googleusercontent.com. [34.141.192.180])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd5206dasm723212766b.33.2026.10.29.04.03.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 04:03:28 -0700 (PDT)
-From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Thu, 29 Oct 2026 11:03:26 +0000
-Subject: [PATCH 6.18.y] kbuild: link-vmlinux.sh: improve detection of third
- pass requirement
+        d=1e100.net; s=20260707; t=1793271836; x=1793876636;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=muSquEeptmJIsXJiarZANV9wpj/9lTOSCGNsvcEZLTo=;
+        b=hiYlVPdVl6XdtsV2jR2DENL/TgAGSPZqO8zQY3qWnLsTCTgOf5tHCkN7RVrT3buX41
+         1ye+HDTMOaI/Z0OB7GwR67AwCiShdFxIpbm/Wh5MtFvogAOWrXCTKlETKqjIBCOKowCC
+         AetmIhZr0snb3kJ8PQeoj6bsvrwLm1+XKJ8f8HztkjF36ASRU+mOZpM502wfHFZTLUmE
+         Kp9bImCGSGNB5IhiaRlpDZHWZE/jCdUDE8Dfi99bH/VrSWHpzR2Dw+klyxl/yyC0jkVc
+         8n8obPyxiuDfVFnRpW4k9d22Np3/aP2Qk8bOtKv9//gt/zqq2hPTGsyFSDfF7c9PEk8w
+         RVNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwoD5dr8U+vjXM86qhErwVrQlMkqxlJD/Qdnd18iPolaEAUljACuPQZ16rkU54R669UYYGfK4699vuULIM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhuWIgzI7PL8bgdb7/8oSjIG7OQd/HFHpXESMwJyR+NCz94jbj
+	Vja2amdkHfigviqPLPCawPsRHD7PtOFKTQJB2gwV9C8QeoDqh4LOEuSt
+X-Gm-Gg: AYBFou3TutbGQnhvCqRSL8H68cQ5t4o3tAb81lZ1otHkxIFAdx2T2oZeIECf9SIniSw
+	i7SJxuZycdM+lF5cJRhPYNGZdcBpuMsIfcegevBEAkpnwxVKNz6LZHwXLpmc44Bl59pwfvzmpsl
+	9aN2hdiYuLarzZLVRAJrh4UCLiohLfeRNQV0SKOORl8VCWY5ffhdbuJPQM0C0ha1Pjdis0+EkN1
+	DbxJl360Rcd4QGBVXNU0UlWPnSguGnJHAJ0fPVvpkgPQUExizTvVwXWqu4zit5393hqHu7bIqeY
+	Dh1Bc4etf4wmVmCtv3dgkc7g+Hign7q7U/dnUnVlMTBSraFoxn0cyuNlZcUZDKoSJKaXtauQAab
+	jwxRmPAGUVPsCGMBctgnjZtmh5KI1MlpqMlUpqsYacZ+emCAGa1w4mTr4qTQBEWIW459V6tivzl
+	oo9lOEGVtK8OaNE0tWDXxtnTPVH/kU4vbiWjyaEsNXvKPfYNhgPRZCVCZHd349hjSWGs9v4dwSn
+	st7OSJSttunyr2aQmM8GYTXoKxUpwht+Lnp0tPzRBSsAKOk+5WjCIDvzP+O58XOxasg4XSpsObv
+	V2jpwvXHlNfCk+1SFajEdx8QyF+BmrKh/g==
+X-Received: by 2002:a05:620a:3183:b0:93f:2c95:658c with SMTP id af79cd13be357-94408a7fa2amr789388085a.14.1793271835721;
+        Thu, 29 Oct 2026 04:03:55 -0700 (PDT)
+Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f05af648sm1506079685a.1.2026.10.29.04.03.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 04:03:55 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,129 +87,69 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261029-linux-kallsyms-fix-6-18-v1-1-69c5dbee4c80@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAP0n42oC/x2MQQqDMBAAvyJ7diUJEmO/Ih6iWdulaZQsLYr4d
- 0OPwzBzglBmEnhUJ2T6sfCaCui6gvnl05OQQ2EwyljVmxYjp++Obx+jHB/BhXe0qB2GEKbOqcV
- T30Gpt0zF/c8D2Ea75oDxum4inuOicQAAAA==
-X-Change-ID: 20260924-linux-kallsyms-fix-6-18-dddb780fae97
-To: stable@vger.kernel.org
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel-team@android.com, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-X-Mailer: b4 0.14.3
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 29 Oct 2026 07:03:54 -0400
+Message-Id: <DMH9T7NY96VZ.X2G6APCG51K0@gmail.com>
+From: "Daniel Zahka" <daniel.zahka@gmail.com>
+To: "Kiran Kella" <kiran.kella@broadcom.com>, "Jakub Kicinski"
+ <kuba@kernel.org>
+Cc: "Daniel Zahka" <daniel.zahka@gmail.com>, "Willem de Bruijn"
+ <willemdebruijn.kernel@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>,
+ "Simon Horman" <horms@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>,
+ "Shuah Khan" <skhan@linuxfoundation.org>, "Randy Dunlap"
+ <rdunlap@infradead.org>, "Donald Hunter" <donald.hunter@gmail.com>, "Andrew
+ Lunn" <andrew+netdev@lunn.ch>, "Shuah Khan" <shuah@kernel.org>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH net-next v2 4/7] psp: add core tracked stat for
+ outstanding tx keys
+X-Mailer: aerc 0.21.0-threadmapfix
+References: <20261009-psp-v2-0-5596ab50f677@gmail.com>
+ <20261009-psp-v2-4-5596ab50f677@gmail.com>
+ <CAPHeo3erVfzLE0wTmz4=0HKWdOL63+7W2KXO67OuEfRXhf_M8Q@mail.gmail.com>
+ <20261028152950.6624ee83@kernel.org>
+ <CAPHeo3c0RP34ASvzV3UrwDa4PvXHhuAOq1+-Bn0Z5+QXFV+BpA@mail.gmail.com>
+In-Reply-To: <CAPHeo3c0RP34ASvzV3UrwDa4PvXHhuAOq1+-Bn0Z5+QXFV+BpA@mail.gmail.com>
 
-commit 14b8b4bf2d7bd5d58c17adbeed0edfda1dfc1a7f upstream.
+On Thu Oct 29, 2026 at 3:14 AM EDT, Kiran Kella wrote:
+> On Thu, Oct 29, 2026 at 3:59=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> =
+wrote:
+>>
+>> On Wed, 28 Oct 2026 17:16:17 +0530 Kiran Kella wrote:
+>> > > +      -
+>> > > +        name: tx-key-count
+>> > > +        type: uint
+>> > > +        doc: |
+>> > > +          Current number of Tx keys installed on the device.
+>> > > +          Only visible if the driver stores keys on device.
+>> > > +          Kernel statistic.
+>> > >
+>> >
+>> > Maybe it is good to have a counter that denotes the number of PSP
+>> > sessions set up on a device, which is managed in
+>> > psp_dev_tx_key_add/psp_dev_tx_key_del operations similar to the
+>> > tx-key-count. That way, even in non-SADB drivers the user can know the
+>> > scale of the PSP sessions set up on a device at any time.
+>>
+>> AFAIR the thinking was to also implicitly flag that the device has
+>> an SADB here. So this stat should probably be called tx-sadb-key-count.
+>> We couldn't think of a reason to count the tx keys when SADB is not
+>> present. Rx keys? maybe, because of SPI exhaustion. Tx keys - why..
+>
+> Tx keys to just provide info to the user about the scale of active PSP
+> bidirectional sessions (after the key exchange) for debuggability and
+> for any other derived scaling/performance metrics.
+> Especially for non-SADB drivers, where there is no device limit on the
+> Tx keys that can be created (of course limited by the SPI exhaustion
+> on the peer).
 
-It can happen that symbol sizes within .tmp_vmlinux1.kallsyms.o and
-.tmp_vmlinux2.kallsyms.o differ, without affecting file size on disk
-because of section alignment and/or padding emitted by the assembler.
+The main use case I had in mind was seeing how much of a device's SADB
+was in use. If the usage is high, maybe the user will have a policy to
+not even try rx-assoc (which always succeeds), just to fail tx-assoc
+with -ENOSPC.
 
-link-vmlinux.sh doesn't detect this case currently and keeps using
-.tmp_vmlinux2.kallsyms.o to link the final vmlinux. Due to the
-different symbol sizes, other symbols are shifted within the final
-image compared to .tmp_vmlinux2, and the final comparison of System.map
-against "${kallsyms_sysmap}" fails with the message:
-
-    Inconsistent kallsyms data
-    Try "make KALLSYMS_EXTRA_PASS=1" as a workaround
-
-This can happen in particular if the linker emits additional symbols
-that might have different names between our (re-)linking steps, e.g.
-because those names depend on the virtual address of the symbol. Linker
-stubs for ARM errata work-arounds are one such case.
-
-These changed symbol names can cause the output of the token
-compression of kallsyms.c to change due to the changed symbol substring
-count, which in turn can change the size of the kallsyms_names symbol
-itself, causing the potential shift of subsequent symbol addresses in
-.tmp_vmlinux2.kallsyms.o and therefore the final image.
-
-Update link-vmlinux.sh to not rely on file size of
-.tmp_vmlinux?.kallsyms.o alone but to also consider symbol offsets
-within to resolve this, and do a third pass if required.
-
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
-Tested-by: Nathan Chancellor <nathan@kernel.org>
-Reviewed-by: Nicolas Schier <nsc@kernel.org>
-Signed-off-by: Nicolas Schier <nsc@kernel.org>
-[AD: adjust context]
-Signed-off-by: André Draszik <andre.draszik@linaro.org>
----
-This patch fixes an actual problem people are seeing in various
-different kernel versions.
-
-The version from 7.3 doesn't apply cleanly on 6.18 and a minor context
-update was necessary.
-
-The bug was introduced by 7e2b37c971a2 ("kbuild: kallsyms allow
-3-pass generation if symbols size has changed") in v4.10.
-
-Upstream 14b8b4bf2d7b cherry-picks cleanly onto 7.2; please apply it to
-the stable 7.2 tree as well.
-
-Cheers,
-Andre'
----
- scripts/link-vmlinux.sh | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
-
-diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index 433849ff7529..050791ea1023 100755
---- a/scripts/link-vmlinux.sh
-+++ b/scripts/link-vmlinux.sh
-@@ -133,6 +133,18 @@ gen_btf()
- 	btf_vmlinux_bin_o=${btf_data}
- }
- 
-+# Check if kallsymso_prev and kallsymso differ
-+# If symbol sizes within ${kallsymso} change, any symbols within vmlinux are
-+# likely to shift, invalidating ${kallsymso}.
-+# Since file size can remain unchanged even if symbol sizes change, compare the
-+# actual symbols instead of relying on file size only.
-+kallsymso_changed()
-+{
-+	${NM} -n "${kallsymso_prev}" > "${kallsymso_prev}.sym"
-+	${NM} -n "${kallsymso}" > "${kallsymso}.sym"
-+	! cmp -s "${kallsymso_prev}.sym" "${kallsymso}.sym"
-+}
-+
- # Create ${2}.o file with all symbols from the ${1} object file
- kallsyms()
- {
-@@ -149,6 +161,7 @@ kallsyms()
- 	${CC} ${NOSTDINC_FLAGS} ${LINUXINCLUDE} ${KBUILD_CPPFLAGS} \
- 	      ${KBUILD_AFLAGS} ${KBUILD_AFLAGS_KERNEL} -c -o "${2}.o" "${2}.S"
- 
-+	kallsymso_prev="${kallsymso:-}"
- 	kallsymso=${2}.o
- }
- 
-@@ -267,7 +280,12 @@ if is_enabled CONFIG_KALLSYMS; then
- 	sysmap_and_kallsyms .tmp_vmlinux2
- 	size2=$(${CONFIG_SHELL} "${srctree}/scripts/file-size.sh" ${kallsymso})
- 
--	if [ $size1 -ne $size2 ] || [ -n "${KALLSYMS_EXTRA_PASS}" ]; then
-+	# Due to alignment, file size of the kallsymso object file might remain
-+	# unchanged even if individual symbols within change size. Changed
-+	# symbol sizes can still shift other symbols, though. Therefore, don't
-+	# rely on file size alone.
-+	if [ $size1 -ne $size2 ] || kallsymso_changed || \
-+			[ -n "${KALLSYMS_EXTRA_PASS}" ]; then
- 		vmlinux_link .tmp_vmlinux3
- 		sysmap_and_kallsyms .tmp_vmlinux3
- 	fi
-
----
-base-commit: 1253a6aa5d104312bf0992afacc15220ae35bdf9
-change-id: 20260924-linux-kallsyms-fix-6-18-dddb780fae97
-
-Best regards,
--- 
-André Draszik <andre.draszik@linaro.org>
-
+Total active PSP connections on a host is something I think users will
+want to track. I'm not sure it needs kernel support though.
