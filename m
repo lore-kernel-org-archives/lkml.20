@@ -1,62 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793276399;
-	b=vSTeon0ydH34ByC0Oc3jgN76jgsPMaZL4cZfLSbKtktqqEQ4dk3kryd5EsPU3ZoVo2m9
-	 Lwx7re9nndoQ1GJo4VmDmh5xaaSr17suSIYqMjoZroN9u5c0vruQvYHLcj8J1Pp/sIZVr
-	 c+xXiL7pN9tKZ1I83Tq12dCsa9BIxH865OUuw3qV65F7xmym1e9fc9+1/tVho4QrNFKMr
-	 0JAFV90FAW1+4OzaY97Iqeb1wxfHu7ZJjpKYyCUUg7MKYtsHkDpKn8tZWiNGUo3Dz5L7D
-	 QIN6CmlIL1IR6cGp2QNnmO+x4v6yPukbRliIKpKseX8QdiNhrQnI+ebgva0UZe5/kWw==
+	t=1793276401;
+	b=YkIfFL4rT3vAl+Ia6HwV3xz6A7XWrsZ8EOokkTUT8KAlxIcoHI6XQdsPNAwXw3gBLlfy
+	 tc8DMD4afJfzD5e/zcmXQnDNe+uGQyb3Hj7uTkFKI3P1D28hCBpOBEYFpvrDAiKLgdzJX
+	 9lUXQDg2Rd5WPOwzJQFSgvG+QRm3DinyfgVZzAmUB9zF5XV+wesYzgVv89S9wdH0mDKkh
+	 rulkRgxOTBYAkJ7Kz5G63tavC00+uJ/L5lpmO+0hb9xoOS33J+QuCNEpwntevufZ9CWB1
+	 L3ijm2aAzR8iwMb3tK0T2htb0Py+uC6R7vAkNPdcH9nrBKef5VGC+Z8Wz/sgU63CiSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793276399;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=8GOm5mqv/vPH3T4K7FKnmGNXu6Nbnr7Dim4Q9gPf8QE=;
-	b=qHyyZK/PRn63HVJqp6vCWXQlC86SUQqY6ngkQkuIeV9JKNofGXFkJpkfHGBRDHnpf9Jz
-	 /20i4bzOHojBgCAVwiWudz2KTtFNQYADED9KOZ3+uoKL2kLh9gJGW2z++xStSEB0t42Ak
-	 owM1NYWiA5p4dfHRZ3+JFuM7Bqwsr71ipCu+2uPxuhyMH1ICqG5kLQFrGNWoaCGL+pX+P
-	 T8PDgkszEG0IFWaY++fxHZKW6psPE+X/yZm7yJiKPC7GKn/iq7/C542JT0bI5BYMYz/Fg
-	 ID9MlgVSYzlQ1afsjHmyhJ5MZeVykZdRI+FWd+iLMnEjB12UZR8F4f/GL04D2cSTtpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793276401;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3gESRXwpoweyr0cm+satiqXh4JmHP5qxA2OIhTI1lmM=;
+	b=XvrIjRH4xzfmCQV1wWiAK/FhPBCbdTMXzTjcWCkSZd6FU0djreYfumq14PXvh80tVr2O
+	 fS4ClHwAZoe13JviPxooz0fuqE/DgzNyndmuNTTqiBn2z82RYtvmnCUr5r/zf3S3R9Hwu
+	 u0Me9Brxm4X3gGnwL5yDj3Acvqryp1g7uUfL9R8kTOBatrmZX37GeQs3SAFduBqomHSow
+	 0WpV1qn3m4g87rP8EYABZaAlyA8OTJGXcriMjdNBuX2aq9818tHWIZUselRgl9euPSLbG
+	 8/ZLwpC8eFUfuJG0pUs6EGH6+pmboHkzxNPd35I65Z9J3OPN7J4Ft4EHXUTOkhCVZQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=PD1Svb8u;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 578F3606A31C;
-	Thu, 29 Oct 2026 12:19:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 578F3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiohXsBn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAFD606A31A;
+	Thu, 29 Oct 2026 12:20:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=PD1Svb8u
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7840F1BB2;
-	Thu, 29 Oct 2026 05:19:54 -0700 (PDT)
-Received: from e127648.arm.com (unknown [10.57.65.47])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id BB2263F673;
-	Thu, 29 Oct 2026 05:19:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793276397; bh=IRXzHZizSA8qgVC1SYHO6nGD/4m9qSUc1s3Tu/z9hSY=;
-	h=From:To:Cc:Subject:Date:From;
-	b=PD1Svb8uFrM+sG42iYhRGAc6HevICG+FOJHye7uL/Kut66vpCZi8LioLSmK6mNMzJ
-	 Kdu44/+643OZlYzagrbvgzWh+MJJbKedqs+YLlhB+I+SDYTVaCffNX/iRr4NJ+1NoB
-	 Ea99gJicVrLYFW/dvJFZW5SB1zg2arZwM9xCMYW8=
-From: Christian Loehle <christian.loehle@arm.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>
-Cc: "Gautham R . Shenoy" <gautham.shenoy@amd.com>,
-	Perry Yuan <perry.yuan@amd.com>,
-	Huang Rui <ray.huang@amd.com>,
-	Dhananjay Ugwekar <Dhananjay.Ugwekar@amd.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: [PATCH 0/2] cpufreq/amd-pstate register write fixes
-Date: Thu, 29 Oct 2026 12:19:43 +0000
-Message-Id: <20261029121945.854675-1-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiohXsBn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 868951F01825;
+	Thu, 29 Oct 2026 12:19:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793276400;
+	bh=3gESRXwpoweyr0cm+satiqXh4JmHP5qxA2OIhTI1lmM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RiohXsBnJlLT7tXhp1+CPkAKj9f9s2yejzY0UNAw7u2R9VLKbB3S0S0gsWNgOc8Ct
+	 dyqsZ/gwKDcgSH1IqYh5nh4xdu8wJtONfpBiFjFSD0jvyFbBnlhsq6JHnvRf6RZV+Q
+	 0pepzCfT/HEy38cjcE0+f9+8DwFVSuOe/5eWC/PdJj9KE2HCTT0YHagX6+r64QNMVO
+	 mAKjgVCDFQ9Fwq2mzC9NsocLkNSzzgs1svNuAdoPLTaNhoYDZOaL+Uk6bBeF3/aUXO
+	 jkiDvSyt5/a3UUUZeiSD/YDtIJAymxtQOwWP0jPE3fKXa1rIwx9HM7OfkXFbsQ4/U9
+	 WPTunT/VQvhTg==
+Date: Thu, 29 Oct 2026 14:19:53 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: "Gupta, Pankaj" <pankaj.gupta@amd.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm/cma: accept memory of multi-range CMA areas
+Message-ID: <auM56dTOXCb70vzz@kernel.org>
+References: <20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org>
+ <20261029-cma-multi-v1-1-2cbced8b5cb7@kernel.org>
+ <a25827d8-83ee-4e05-8c55-4e6ca8a498ad@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,31 +64,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a25827d8-83ee-4e05-8c55-4e6ca8a498ad@amd.com>
 
-Two issues that popped up when trying to integrate an AMD machine into
-my testing for acpi-cppc, in particular for this (otherwise
-unrelated) patch:
-https://lore.kernel.org/lkml/20261020121846.691218-2-sumitg@nvidia.com/
+On Thu, Oct 29, 2026 at 11:52:53AM +0100, Gupta, Pankaj wrote:
+> 
+> > On systems with unaccepted memory, memblock allocations accept the
+> > allocated range, but when cma_declare_contiguous_multi() uses open coded
+> > allocation of multiple ranges, it reserves them with memblock_reserve()
+> > and they are never accepted.
+> > 
+> > These pages are released to the buddy allocator by cma_activate_area()
+> > with __free_pages() that does not check for unaccepted memory, so the
+> > first access to such a page in a TDX or SEV-SNP guest is fatal.
+> > 
+> > Accept the memory of each range when it is reserved.
+> 
+> Fix looks correct to me.
+> 
+> Any easy way to reproduce and test on SEV SNP?
 
-The first is rather straightforward, I think the case was just not
-considered during the refactor of the Fixes commit.
-The second is part of the resume handling and was introduced when
-that restored the register values (DESIRED derived from policy->cur).
-My platform seems to handle it well, but it's still strange
-behaviour, so why not fix it.
-(Also of course the resume value will generally be overwritten and
-therefore 'fixed' anyway.)
+I think running a VM with 16G or ram on a single node and with
 
-Christian Loehle (2):
-  cpufreq/amd-pstate: Keep minimum requests within policy limits
-  cpufreq/amd-pstate: Clamp desired perf on resume
+hugetlb_cma=8G memmap=2M\$0x2ffe00000 init_on_free=1
+ 
+in the kernel command line will do the trick.
 
- drivers/cpufreq/amd-pstate.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> Thanks,
+> 
+> Pankaj
+> 
+> > 
+> > Fixes: c009da4258f9 ("mm, cma: support multiple contiguous ranges, if requested")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+> > ---
+> >   mm/cma.c | 2 ++
+> >   1 file changed, 2 insertions(+)
+> > 
+> > diff --git a/mm/cma.c b/mm/cma.c
+> > index a10ea37a261da..0035efb1130a5 100644
+> > --- a/mm/cma.c
+> > +++ b/mm/cma.c
+> > @@ -678,6 +678,8 @@ int __init cma_declare_contiguous_multi(phys_addr_t total_size,
+> >   			break;
+> >   		}
+> > +		accept_memory(mlp->base, size);
+> > +
+> >   		pr_debug("created region %d: %016llx - %016llx\n",
+> >   		    nr, (u64)mlp->base, (u64)mlp->base + size);
+> >   		cmrp = &cma->ranges[nr++];
+> > 
 
-
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
 -- 
-2.34.1
-
+Sincerely yours,
+Mike.
