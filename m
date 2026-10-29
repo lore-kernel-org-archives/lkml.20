@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281002;
-	b=fpWq2Kx49MGBhgUK1AU7UvsIC83KaxmlMSDmcrdEiJ/gCRGw6cPyHwq4Plm0O4awfyF2
-	 YV56Ny5HE0H/q66dVPjPAhho73poeYgME17x8VRxr/eU5MMasfkKuziTlgZHIqClQoS9k
-	 AEtle7Pxe+FLm183pwAD1uVjsd60czgGj9HAjXdE+c1sJtGxVlJrjyLu3SPHbe9FHLmOm
-	 p5ZyXxmDwuQmZXTQCIEe/p6qUDowkaqmzMMMnaPaXAsnJHw+KZH2yzQAo6zxaubHE5eW4
-	 Uz77T4QI17odHjSIUWZbWsHzSTjJAEsW0pp4qPRhrezCe625ZeJdy+5rzRw0nqGj9LA==
+	t=1793281004;
+	b=Fs0Gm9+ZAlbMLzfztlLgcju4ZiGgyT/q7l7+jK3/dgHtTPDJ8+HN3RP2lx1l84qpGere
+	 fIBcvIFBTIMG8qq/EUd4bmDJdnBbngA4WvshvIVLiVOeuSRAPLaMkzNo2tSygivnJxqpO
+	 ipOYMbE9iyHn3S3bCFayYgTJVrfBQXvVusX1v8zzancDY8mtLsh2xx9LUCKyL4TOgU6tK
+	 fcoGY++ycZyx/i+xREmHPEUCQ+qe69j8/J2WoEQigVF5AOvLDpyBcGs06wrrxA/kpubbf
+	 9fzria+Pss3mirk+O2+8Ez0pMJeJ3k9g7JUQPpibkW9X/GucKL5mP7TggU1D8fDPyyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281002;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281004;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=U6eS14BX5+3MydfDxoVozlPdQr/30wymbrvMFm+XtDk=;
-	b=X+8hMLyQLJdsBiI1qAUfZgrhYm3gJ0uG+nyFCNHRN73qFMsHdiIKou6uGLcQud6CIAft
-	 /7sgiISKdBYEMm3b2rVgdWPUcx5kwOjvKv9DJXwRkMTipebu3aos9gdTclNKK4D/wa1Cj
-	 yTgjRPQ/Q4AoR7J0yuFex/QiikiegP2Rtpm5u6+i0RtRAgngfDtipX0dYUyZyZSZ5Xmwc
-	 o0wllceSLuKT5KMAsg+GmO6gHs4gcij+t3wDGV5Cm5IWDMPgj8bfJE58Rsv6oxZGR605N
-	 g9Zp6dRSKUU+xHptOMhcT2OS0RqvvgwKWYfinP8L3cmroz1IY3wN50YB2ZKfIeeFcog==
+	bh=rdb5sBDXeh9AfCd9wmWOf86ib01yXhPjddrnCAI4hG4=;
+	b=lJ4AF6xSaxnLN2R2ajhqHUjaCjBjX294SSCSZnmcjhWCAXlmA1xFqi6JHzQIGrtv/Uct
+	 AMgGpP8oYqtgQLFQju1JEpPqqeEVLP+U6q9d6QFmkcObk72UX/L7LoaYM3idJmFnIlcC+
+	 4BytmN2aJxKy40svrCRoROFU00aWmwwqpqZ0tll/gPnYox5U/Hl5fVxE415EB9jhmXxDq
+	 mB+HRI3D+ITBpM1i49vRWjyCZd6zqCZGnW0Bgt//CWEMePFIYKQS/94vjWZ1TDcYSNO4/
+	 9yWgpf37CBJyaWg2zuM5leCj0viEmgNbq0IatVFUjFicBuYAmstrHKWnQ4VoUxj0s4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyuMjLlW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZkFncyJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D57260A6F71
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF87C606AAC3
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RyuMjLlW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05F2E1F01829;
-	Thu, 29 Oct 2026 13:36:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BZkFncyJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3AE1F01828;
+	Thu, 29 Oct 2026 13:36:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793281002;
-	bh=U6eS14BX5+3MydfDxoVozlPdQr/30wymbrvMFm+XtDk=;
+	s=k20260515; t=1793281003;
+	bh=rdb5sBDXeh9AfCd9wmWOf86ib01yXhPjddrnCAI4hG4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=RyuMjLlWjAGrUqoa2BSPFKg6yHEz/8jhy63Y3AW+1Tx2CO0Zi1LqfFlyi+DG7eSmx
-	 MGRgWf2twa2AD3jciHXAe1PjJgxhbY2sZ8jXRuVEOVesjQRSFAG8lt0319XX/dgcNN
-	 WWWQi4GCTmMPb4fNobW5s4Fj/uf3p+cNrme4Xu9IQlL9cBaGZSoIfGFp8O3pUofS2m
-	 heWaDXIrrRuEdfnjEOO6eQUo2X6/X7SLDBC0pC6fTM6xiuwJtyjIOyYDZBuN7PzUOw
-	 aOhMn6VycAqGB92/pp9fL9v/ceGBkOE0VzgfqbZiTGTLuH8eeBgNIsGdZaBNV/6vvO
-	 I9kgkACykPzng==
+	b=BZkFncyJDOjsP4QyJB1OZ9TNAoQiVkANXAs0uUTzEdl4zGyCkQM6QiJu0/2y75Jza
+	 i5ABaidmfVhQaso41CuDDAos79yJ+RJwhm9Gw/Sy5rK1Qwa34kmGr+cu6ojnf5nP6b
+	 iBBCZOFkVntRfjkm+zMQ8iAzU+0w1T4cFJwx8CO8GBh0saCfGnTqCi6DzaeDBoNaK0
+	 BzguYgyJGw1KBSPuHpTfPfFM0CWFJK52xCxGMNgdIWuHJ0BlAH2tKm6Vu0nI9N8G7A
+	 hyLwgj4XC8v7u0ofEsykDCoJ6Tt6lETEPl1rHLBP3aYsvDr6WcCvuwz6ROBLa/WqIr
+	 csAQ8Ib7/wwNw==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:36:05 -0500
-Subject: [PATCH v4 18/31] accel: ethosu: Validate secondary streams
+Date: Thu, 29 Oct 2026 08:36:06 -0500
+Subject: [PATCH v4 19/31] accel: ethosu: Reject unsupported commands and
+ params
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-18-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-19-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -62,83 +63,151 @@ To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16-dev
 
-The command-stream validator records the additional U65 scale and
-weight stream addresses and the U85 weight decoder addresses, but only
-checked stream 0 against its region buffer.
+The command-stream validator does not model U85 branches, indexed DMA,
+or OFM transposes. A branch can bypass the linear validation state,
+indexed DMA accesses an unchecked index buffer, and a transpose changes
+the feature-map address calculation.
 
-Check every configured secondary stream against the matching weight or
-scale region before accepting a kernel operation.
+Reject any unhandled operation commands or out of range registers, as
+well as the reserved DMA stride mode and feature-map formats. Reject
+command-stream IRQs because they can signal job completion before later
+commands finish.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-v2:
- - Adjust for register state tracking
----
- drivers/accel/ethosu/ethosu_gem.c | 33 ++++++++++++++++++++++++++++-----
- 1 file changed, 28 insertions(+), 5 deletions(-)
+v4:
+ - Combine "accel: ethosu: Reject unsupported commands" and "accel:
+   ethosu: Reject reserved command encodings"
+ - Move NPU_CMD_CTRL_CMD1 to "accel: ethosu: Track command stream register setup"
+ - Rework checks for unknown op cmds and reserved bits
 
+v2:
+ - no changes
+---
+ drivers/accel/ethosu/ethosu_device.h |  4 ++++
+ drivers/accel/ethosu/ethosu_gem.c    | 33 ++++++++++++++++++++++++++++++++-
+ 2 files changed, 36 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
+index 8405e69acb0c..86412c152f4e 100644
+--- a/drivers/accel/ethosu/ethosu_device.h
++++ b/drivers/accel/ethosu/ethosu_device.h
+@@ -88,6 +88,8 @@ struct gen_pool;
+ #define PMU_EV_TYPE_CYCLES	0x11
+ #define PMU_EV_TYPE_IDLE	0x20
+ 
++#define NPU_DMA_REGION_INDEX_MODE	BIT(11)
++
+ #define NPU_CMD_CTRL_CMD1		BIT(14)
+ 
+ enum ethosu_cmds {
+@@ -98,6 +100,8 @@ enum ethosu_cmds {
+ 	NPU_OP_ELEMENTWISE = 0x6,
+ 	NPU_OP_RESIZE = 0x7,	// U85 only
+ 	NPU_OP_DMA_START = 0x10,
++	NPU_OP_DMA_WAIT = 0x11,
++	NPU_OP_KERNEL_WAIT = 0x12,
+ 	NPU_SET_IFM_PAD_TOP = 0x100,
+ 	NPU_SET_IFM_PAD_LEFT = 0x101,
+ 	NPU_SET_IFM_PAD_RIGHT = 0x102,
 diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 67c7cbbd39b8..af8a0c45039b 100644
+index af8a0c45039b..74ef86848a2d 100644
 --- a/drivers/accel/ethosu/ethosu_gem.c
 +++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -436,13 +436,17 @@ static u64 feat_matrix_length(struct ethosu_device *edev,
+@@ -190,6 +190,16 @@ static bool cmd_state_reg_is_set(struct cmd_state *st, u16 cmd)
+ 	return reg < NPU_CMD0_REGS && test_bit(reg, st->cmd0);
+ }
  
- static int buffer_size(struct ethosu_validated_cmdstream_info *info,
- 		       struct cmd_state *st, struct buffer *buf, s8 region,
--		       u16 region_cmd, u16 base_cmd, u16 length_cmd)
-+		       u16 region_cmd, u16 base_cmd, u16 length_cmd, bool optional)
++static bool cmd_is_register(u16 cmd)
++{
++	u16 reg = cmd & ~NPU_CMD_CTRL_CMD1;
++
++	if (cmd & NPU_CMD_CTRL_CMD1)
++		return reg < NPU_CMD1_REGS;
++
++	return cmd >= 0x100 && cmd < NPU_CMD0_REGS;
++}
++
+ static u64 cmd_to_addr(u32 *cmd)
  {
- 	u64 end;
-+	bool base_set = cmd_state_reg_is_set(st, base_cmd);
-+	bool length_set = cmd_state_reg_is_set(st, length_cmd);
-+
-+	if (optional && !base_set && !length_set)
-+		return 0;
+ 	return (((u64)cmd[0] & 0xff0000) << 16) | cmd[1];
+@@ -652,6 +662,9 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 		cmd_state_set_reg(&st, cmd);
  
- 	if (region < 0 || !cmd_state_reg_is_set(st, region_cmd) ||
--	    !cmd_state_reg_is_set(st, base_cmd) ||
--	    !cmd_state_reg_is_set(st, length_cmd))
-+	    !base_set || !length_set)
- 		return -EINVAL;
+ 		switch (cmd) {
++		case NPU_OP_DMA_WAIT:
++		case NPU_OP_KERNEL_WAIT:
++			break;
+ 		case NPU_OP_STOP:
+ 			if (i != size / 4 - 1)
+ 				return -EINVAL;
+@@ -745,6 +758,8 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 			st.ifm.depth = param;
+ 			break;
+ 		case NPU_SET_IFM_PRECISION:
++			if (((param >> 6) & 0x3) > 1)
++				return -EINVAL;
+ 			st.ifm.precision = param;
+ 			break;
+ 		case NPU_SET_IFM_BROADCAST:
+@@ -788,6 +803,10 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 			st.ofm.depth = param;
+ 			break;
+ 		case NPU_SET_OFM_PRECISION:
++			if (((param >> 6) & 0x3) > 1)
++				return -EINVAL;
++			if (!ethosu_is_u65(edev) && (param & GENMASK(13, 11)))
++				return -EINVAL;
+ 			st.ofm.precision = param;
+ 			break;
+ 		case NPU_SET_OFM_REGION:
+@@ -822,6 +841,8 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 			st.ifm2.broadcast = param;
+ 			break;
+ 		case NPU_SET_IFM2_PRECISION:
++			if (((param >> 6) & 0x3) > 1)
++				return -EINVAL;
+ 			st.ifm2.precision = param;
+ 			break;
+ 		case NPU_SET_IFM2_REGION:
+@@ -896,18 +917,26 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 			break;
  
- 	if (check_add_overflow(buf->base, (u64)buf->length, &end))
-@@ -507,7 +511,20 @@ static int calc_sizes(struct drm_device *ddev,
- 			st->weight[0].base + st->weight[0].length - 1);
- 		if (buffer_size(info, st, &st->weight[0], st->weight[0].region,
- 				NPU_SET_WEIGHT_REGION, NPU_SET_WEIGHT_BASE,
--				NPU_SET_WEIGHT_LENGTH))
-+				NPU_SET_WEIGHT_LENGTH, false))
+ 		case NPU_SET_DMA0_SRC_REGION:
++			if (param & NPU_DMA_REGION_INDEX_MODE)
++				return -EINVAL;
+ 			if (param & 0x100)
+ 				st.dma.src.region = -1;
+ 			else
+ 				st.dma.src.region = param & 0x7;
+ 			st.dma.src.mode = (param >> 9) & 0x3;
++			if (st.dma.src.mode == 3)
++				return -EINVAL;
+ 			break;
+ 		case NPU_SET_DMA0_DST_REGION:
++			if (param & NPU_DMA_REGION_INDEX_MODE)
++				return -EINVAL;
+ 			if (param & 0x100)
+ 				st.dma.dst.region = -1;
+ 			else
+ 				st.dma.dst.region = param & 0x7;
+ 			st.dma.dst.mode = (param >> 9) & 0x3;
++			if (st.dma.dst.mode == 3)
++				return -EINVAL;
+ 			break;
+ 		case NPU_SET_DMA0_SIZE0:
+ 			st.dma.size0 = param;
+@@ -937,7 +966,9 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 			st.dma.src.len = st.dma.dst.len = addr;
+ 			break;
+ 		default:
+-			break;
++			if (cmd_is_register(cmd))
++				break;
 +			return -EINVAL;
-+
-+		if (buffer_size(info, st, &st->weight[1], st->weight[0].region,
-+				NPU_SET_WEIGHT_REGION, NPU_SET_WEIGHT1_BASE,
-+				NPU_SET_WEIGHT1_LENGTH, true) ||
-+		    buffer_size(info, st, &st->weight[3], st->weight[0].region,
-+				NPU_SET_WEIGHT_REGION, NPU_SET_WEIGHT3_BASE,
-+				NPU_SET_WEIGHT3_LENGTH, true))
-+			return -EINVAL;
-+		if (!ethosu_is_u65(edev) &&
-+		    buffer_size(info, st, &st->weight[2], st->weight[0].region,
-+				NPU_SET_WEIGHT_REGION, NPU_SET_WEIGHT2_BASE,
-+				NPU_SET_WEIGHT2_LENGTH, true))
- 			return -EINVAL;
- 	}
- 
-@@ -517,7 +534,13 @@ static int calc_sizes(struct drm_device *ddev,
- 			st->scale[0].base + st->scale[0].length - 1);
- 		if (buffer_size(info, st, &st->scale[0], st->scale[0].region,
- 				NPU_SET_SCALE_REGION, NPU_SET_SCALE_BASE,
--				NPU_SET_SCALE_LENGTH))
-+				NPU_SET_SCALE_LENGTH, false))
-+			return -EINVAL;
-+
-+		if (ethosu_is_u65(edev) &&
-+		    buffer_size(info, st, &st->scale[1], st->scale[0].region,
-+				NPU_SET_SCALE_REGION, NPU_SET_SCALE1_BASE,
-+				NPU_SET_SCALE1_LENGTH, true))
- 			return -EINVAL;
+ 		}
  	}
  
 
