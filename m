@@ -1,78 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793270483;
-	b=wXweS8PbqAf7KfWVD+EVh7UoVX4FXjxpIVM029pEe1mTmNrFWzo22ERHIAeh5rZFLpTs
-	 d26Q6tSJTSjAdY9dP7L+ueJd7HUyj0TdrUle0WiBUPytXNNHtSGWJITmgyA0VK5IonI3I
-	 GTdsFPNWfTFwsW8n8MxBNyd+3x9RPrl4ew/3rTeW7mD9qJKV290bxtRGOesddi3DDWW5v
-	 4pN3eyvchIv1n6aYrD2nnOnFsYExgX55vEe1NVHPvvgiyHnFMtw+Y/2IsP0L4fxFOj2Y8
-	 nkamn7sGukr/OD8B/oYZLhoGxQ4/emy5vBqG+3HcGn8cRv6hsTCqS0MpLVNmvOaHgEg==
+	t=1793270516;
+	b=nihAacdSBBSnMuptrqQqKyv+EWHQNBwl8DZMRlAWNewm2TumySPqXfdqjj4RFRRhLNbB
+	 atIEUkgqLEJKDgzBox5eQ9Um+nPL2/PHSxEaVn1psoeHdEDgvpRVIcpkUwMSGb+/K3uW3
+	 n0b1AwbR5/vqYYSBbxvVf6KbBWcfRPIVxi6JHrdOxFEoVxiaqWi2xsX8Q7yuajtsZrWE4
+	 c/2Mb9dU/e+quq5EQp2JasjEdYKL+9jGs++HT4TRD+ObpVOPGqaKdgm9euTJxEqW+OTyK
+	 c/NPcnKxB1cJtoczuGUajNZShAjEogq0B3H6SYx2NxFqN9qlVk1+jDXUvkRCka5fgmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793270483;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=0g/u21OUt5SLkwjv097E9H3comvNgIEWHceOCbcl/kw=;
-	b=NyH+d3HJjIl8JAer3mtM9I2xSebJmXLs84C1aarcTtS5u7ai0hbLSZVArASq4cJ7nzPH
-	 u0M3RtwzmoCGtK40QDlbIKXvFVp2sZthCLCO9xYSYrcz1UqTyDla3lpaZ4EzLajKl0qmE
-	 G2SBF8+ciGOHnSf+/wfYPkKSrCYVJ4Z8HhSkvjsFr583HrhHA55DDx1J83+QOCTTrIgcl
-	 TyOkrahIzj/TN5q48fk52wxhMAwy8Z9wUBQv+0hZEvlXqRlRS7PnsKOZhuYulge9HlAug
-	 BvnYFu/bdHPpTqIOMYmvFBViozI5SX7C+3lhk+ooTrkao/g4pBj1OC5qchMjh3alYUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793270516;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=d8x5uWHxtG/xXNuHXD0smUyEyyZkUS1PZfI9e9L/g9c=;
+	b=UXidPMbtDLOag8kTWUb+QqDoAcBDJJy1Bw4ZBpfHTkIdjPuIKOlOVnRFC0iQ3SrZOeUI
+	 DOqcVGvwNmK1RgRroCZuEazRx/G8x3EBBQhhxqKoYvEUoIvrEE6c9Xz0UJHGpa9ZQe+hq
+	 bS3/TEGXoPYtDH+VVZr5rNlYnoM3dqEVfD5F97R15+y5Gg3fadA5oSBbHTzhxByJ3KN7S
+	 jHb8+MeyveYYp5tVpLHynzO2WTkhRCT25aVblRoR+4SgPwGqerbZZZ3PGwf9iCG02jS//
+	 ifzJqMOlcvPrkZ2XsRlDfVPyZKUjfJH++iJa4FONH0ADgo1n0YH66W0HXYb14xmCoGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=RGE6E1ED;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZtBlPnJY;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D025E606A31E;
-	Thu, 29 Oct 2026 10:41:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D025E606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50508606A31A;
+	Thu, 29 Oct 2026 10:41:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50508606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=RGE6E1ED
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=0g/u21OUt5SLkwjv097E9H3comvNgIEWHceOCbcl/kw=; b=RGE6E1ED1zakrjY++Y985kDUii
-	nIYUy/m7RdHL/TgeyEqzOAzswyupxEIRaXvSPX6UfNGXU4rZIAYkfL7w3IBqFRmj/3J0GV/c33fw+
-	0FvWAnl+NPfiat0fyNoYuYDpRoHeHq5tsqpJBBCrDhdFUBZsUdyo7UY+a1gcW1C3yF9ZooUhZd4vN
-	AjJEXUXLS16TvPWgLr4rztdyeD2q+SogZcqibG37DmAn/SbzYhhutQq3yL4o89A0cHLDKB9rJjDCF
-	j98oj7f4vSVT3ohh5+zGJAE92KZygkM67DY/gj8lTbcExVsp69FBM0UYIO31QGHWDSGbmouYel2pI
-	49aK/Q7Q==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMNZM-0000000Gsep-3int;
-	Thu, 29 Oct 2026 10:41:17 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id B12BF300312; Thu, 29 Oct 2026 11:41:15 +0100 (CET)
-Date: Thu, 29 Oct 2026 11:41:15 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>,
-	Sandipan Das <sandipan.das@amd.com>,
-	Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	Ananth Narayan <ananth.narayan@amd.com>,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	bpf@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [Patch v5 11/18] perf/x86/intel: Use a dedicated LBR stack for
- BPF snapshotting
-Message-ID: <20261029104115.GM1779021@noisy.programming.kicks-ass.net>
-References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
- <20261029043914.1395147-12-dapeng1.mi@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZtBlPnJY
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T9EB713962747;
+	Thu, 29 Oct 2026 10:41:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=d8x5uW
+	HxtG/xXNuHXD0smUyEyyZkUS1PZfI9e9L/g9c=; b=ZtBlPnJYdJThAQad3dOlR4
+	VnN15Av5gIDm4YaCoEDpxx07GGc6m3+dX2ExU/C7uFWB/O/IdQd9M0vumoRGOhdf
+	KggsKXnHS290SQVfB9atBh6fcQIQ6Rdc08/+624tVa3FDE0rSspmaVzWTI3Xngag
+	Rc6kzujNoxuKM0HsQFT0Me6Pt1EyrPMOdIkL7XKYhVvTtFyZ5Z0FAYNdghv0Uw5L
+	gwQvNd+kUZRp+bCFvcb/Y1eNPubJcFEAvDHfzb4plNWkI4k+ZpRsS3hdpvJy6WY1
+	SlcMOxV/Jtt6Dlbzepc3zINVcuOst+i4HAGe71743qvdcNRzCHihGW5acJY4ahVw
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm649jy7-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 29 Oct 2026 10:41:39 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69T952rO1711831;
+	Thu, 29 Oct 2026 10:41:39 GMT
+Received: from smtprelay07.wdc07v.mail.ibm.com ([172.16.1.74])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hk010qkv8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 29 Oct 2026 10:41:39 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
+	by smtprelay07.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69TAfcVc5177888
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 29 Oct 2026 10:41:38 GMT
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1221F58055;
+	Thu, 29 Oct 2026 10:41:38 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C6F8458043;
+	Thu, 29 Oct 2026 10:41:34 +0000 (GMT)
+Received: from [9.123.7.57] (unknown [9.123.7.57])
+	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 29 Oct 2026 10:41:34 +0000 (GMT)
+Message-ID: <ef07a928-7f28-4fcd-a1d6-4b566d000374@linux.ibm.com>
+Date: Thu, 29 Oct 2026 16:11:33 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,66 +86,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029043914.1395147-12-dapeng1.mi@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nvme-rdma: fix NULL queue->ctrl dereference on reconnect
+To: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
+        linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
+        sgogte@purestorage.com, hare@kernel.org, wagi@kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261029060521.1690223-1-christian.aurichzm@gmail.com>
+Content-Language: en-US
+From: Nilay Shroff <nilay@linux.ibm.com>
+In-Reply-To: <20261029060521.1690223-1-christian.aurichzm@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzOSBTYWx0ZWRfXwc9RbBdFEHUg
+ YY+gUpbuxLyJinBYj3RIrrcInpKrpSamFqJ1j5pWhijUpybpgdr0JtG+4mVfi5ADqUGjTSuOtva
+ AQwoZ+eColIvqmrJWYgQ2xbwHT5vQGc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzOSBTYWx0ZWRfX97KZH7TYjAHA
+ NacqSrkaIw1c0mTpOI358FLU8zlAxZMBybhmW2dLcKnUyCY6uMQ/a6mCcFYEddaEghLrNbV0QYe
+ VfQsChEf8OdK5stos46u+0M5jK/Gyubh0mdOOt7pMG1FmTl1jH2FK0vayKCOSJxQBWv2ScjUPx1
+ u5dwbM97vQAPWFehdBTh8URmhwxbFEYXdmPZeSCBzD0bLdr9ZHIk2CQ2yQ+x9MFGgYDOXAmg/xH
+ LC8Vi1XuFprrXqUcxZl6ZjUoh/P8FpyzS0IYO6sRRanSnIc3PtO3lXjAc7OO5DzdmOHpznPEq4A
+ 8cnSiDpYaumaa8tjLMahYpNRnhJZ34r2ncj4XL8trpTaEwut2Sd0uay2zYc/IVMf1LfgpXw/+Mi
+ WR3u8OfBIN6UflmOpwGdvH23nv0s/lvQ4t6pMnx5LC3QPPMJDwhcDDEP7lNZtImnxsrM846PkEy
+ bE8YvmUiBeB5LjqrtWQ==
+X-Proofpoint-ORIG-GUID: _OirM0llKTWG2z9m8TdgZrBllCJp1yQo
+X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae322e4 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=sM3CkMq7cFP6RC6SvF8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: uzYT1M35y3EhHlzBttAm8xPKbDxE950W
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290039
 
-On Thu, Oct 29, 2026 at 12:39:07PM +0800, Dapeng Mi wrote:
-> BPF LBR snapshotting currently reuses the default LBR stack
-> (cpuc->lbr_stack) when storing sampled data. This is unsafe when the
-> BPF helper runs in PMI context via bpf_overflow_handler(): it can
-> overwrite the cached LBR state for active PEBS LBR events, causing
-> incorrect LBR data to be reported to userspace. When the PEBS and BPF
-> stacks have different depths, this can also lead to out-of-bounds reads
-> when the LBR stack is later exported.
+On 10/29/26 11:35 AM, Christian Aurich Zanettini Martins wrote:
+> Since commit 2a8513091d2f ("nvme-rdma: parallelize I/O queue allocation
+> and startup"), a reconnect that gets more I/O queues than before grows
+> the tag set before the new queues are set up. queue->ctrl is only set
+> by nvme_rdma_setup_io_queues(), so I/O submitted in between reaches
+> nvme_rdma_queue_rq() on a queue that was never allocated and
+> dereferences a NULL queue->ctrl:
 > 
-> Use a dedicated LBR stack for BPF snapshotting so the BPF path no
-> longer clobbers the shared LBR state used by other perf events.
+>    BUG: kernel NULL pointer dereference, address: 000000000000034c
+>    RIP: 0010:nvme_rdma_queue_rq+0x52/0xb90
 > 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Fixes: 425507fa5f32 ("perf/x86/intel/lbr: Optimize v4 LBR unfreezing")
-> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> Add nvme_rdma_init_queue() for the queue fields that do not depend on
+> the connection and call it for every queue when allocating the
+> controller. Such requests are then requeued like on any other queue
+> that is not live. queue_lock moves there as well, and
+> nvme_rdma_exit_queue() destroys it when the controller is freed.
+> 
+> Fixes: 2a8513091d2f ("nvme-rdma: parallelize I/O queue allocation and startup")
+> Cc:stable@vger.kernel.org
+> Signed-off-by: Christian Aurich Zanettini Martins<christian.aurichzm@gmail.com>
 
-AMD has the same problem, no?
-
-> ---
->  arch/x86/events/intel/core.c | 16 +++++++++++-----
->  1 file changed, 11 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-> index 5eda551cc9f2..482a148916bf 100644
-> --- a/arch/x86/events/intel/core.c
-> +++ b/arch/x86/events/intel/core.c
-> @@ -2819,18 +2819,24 @@ static void intel_pmu_enable_all(int added)
->  	__intel_pmu_enable_all(false);
->  }
->  
-> +struct lbr_snapshot {
-> +	struct perf_branch_stack stack;
-> +	struct perf_branch_entry entries[MAX_LBR_ENTRIES];
-> +	u64 counters[MAX_LBR_ENTRIES];
-> +};
-> +static DEFINE_PER_CPU(struct lbr_snapshot, lbr_snapshot);
-> +
->  static noinline int
->  __intel_pmu_snapshot_branch_stack(struct perf_branch_entry *entries,
->  				  unsigned int cnt, unsigned long flags,
->  				  int pmu_enabled, int lbr_enabled)
->  {
-> -	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
-> +	struct lbr_snapshot *bpf = this_cpu_ptr(&lbr_snapshot);
->  
-> -	intel_pmu_lbr_read(&cpuc->lbr_stack,
-> -			   cpuc->lbr_entries, cpuc->lbr_counters);
-> -	cnt = min_t(unsigned int, cnt, cpuc->lbr_stack.nr);
-> +	intel_pmu_lbr_read(&bpf->stack, bpf->entries, bpf->counters);
-> +	cnt = min_t(unsigned int, cnt, bpf->stack.nr);
->  
-> -	memcpy(entries, cpuc->lbr_entries,
-> +	memcpy(entries, bpf->entries,
->  	       sizeof(struct perf_branch_entry) * cnt);
->  
->  	/*
-> -- 
-> 2.34.1
-> 
+Looks good to me.
+Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
