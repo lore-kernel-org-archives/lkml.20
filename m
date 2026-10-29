@@ -1,54 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.88
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793270000;
-	b=XcHn1rSV4RYaj6Vu16hd6mdEqOT47AaReanzAuWChvK738f/XeAvqd0p37f1G5m8Elzi
-	 2XU1iepgHOBwM//hnENj/ZNqctj0F7vXTgNCb2MyDSn+SB7SIRncAqKiRsHZSvoDG+Che
-	 v7RAgW7Z7dEWb8emfKE44p+ZdBreWL7KBer9rN+UifW0oJPTnzWLRYB+tSOFHd3ycW95j
-	 sBanjaGtw7WdJQbFtTPPvuqOAOO+hRvwRZJfL3odvhCfhrAsKIIcAP+hq6edsuNLnAJFf
-	 aTMgG53eAogluCnYKx+SrkgeCHqUl2CkiAWWMNkfQJYAnenVDfJ1CwurmogpEH782SA==
+	t=1793270072;
+	b=AXRrGJHbrmJ4RJQ1Hp7WM7lCNz8Ulj/YUCfA9vlJHh4tao5SRJYc7P2iRHX9omlN86p9
+	 NV8d83DX3jrwhvvd3X5U5mcYB4C08xk6X97S6EZLF5hQ3uKISa1p43qaQZ5WShDetZzI1
+	 m9I8C8Z5HzILAx6+AdqXpU1qN2AL9t/ZVy1mfjQp2uxA+H7Yr9SrCK8rRcYrVL3BHuUsM
+	 0KBLCnFyfQgQdT02O/qzhGwtQPmTm9ayVap6Hiw96bgn19rSzh+dXMYN4+FqJSKjg9thq
+	 TbMHrWUhoJxXmqL8vG8AG8v0/J3Moiau832oKodBdeBL9U+PcSQtIvCKlmaU8h1pIGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793270000;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793270072;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AQbbcg15G9Rdgl9nUgK2PYtfP3hcLsC+WTRWlyTICwA=;
-	b=2BVb86xK9swe8C+WIOwuhrALJYEzzZ5XJakbmPddJtHCPVF9vF7VtAx+e2cZyRl10EFg
-	 KzGTZ314/KWzgCFCrGoTUILyU39pVfy/Tt7VDrbHfP1jA+rVQeFsmS12CrgQP0qO20BOq
-	 LxZX5OPULcuJHBhEfiYAZR/a9utLRbTB3Z91ornpWVHyD8NjBAaegsQE8mDeZeTfBOB2u
-	 CB17ZL6yYDBsXwEboj1L5FDxp3YI9X+ynRkD7qzaZIEIton0nDftzfsaedaNomeuyfXNx
-	 RwJ8mzN1VXjmVMcJdM/v+IPpK4hn8vzQV5fPB74bPWhsw5yHj/Ue8lyC2yeWP46wrVw==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=AOkwsWmwjY7T0BagmEwjwy19sbGkrNkf9+nM9gVRFeA=;
+	b=KBz1rw3AdLWS2BC0F0WBs7vs6dvmmjVgI+2YQpJhTTmdZqZzsTFudDjTkBLaW1Bvs9qR
+	 DYTZIrv984lUpH3X+LQO9A/Cu8TDKwYcQdM/PcZAYTfsTIbNez4FZBSH+wp0s9kVa0dVs
+	 soBfZHDMJnltYjoLuN1c1uPFRxBN9TvR6ZuB19x9AqV8Gh6ZKp5DNS9toG5Mi7uPxJUld
+	 QVCYLXy1sH+3+awJAqk1adz217P2ArP14E6O05zkqZWsZbJ+4KVOZ14/h4pu9JsUmWT3b
+	 F+Y84XyEb9vf6dFaxz1afkFfTORP2eeSzg552LRTskw24uRJ6IYgLTR6T1jVbBphEwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VcAcw2Oh;
-	arc=none smtp.remote-ip=91.218.175.76
-Received: from mta0.migadu.com (out-76.mta0.migadu.com [91.218.175.76])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UXOfp9RY;
+	arc=none smtp.remote-ip=95.215.58.88
+Received: from mta1.migadu.com (out-88.mta1.migadu.com [95.215.58.88])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A54B5606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:33:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A54B5606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26A8F606A325
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:34:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26A8F606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=VcAcw2Oh
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=UXOfp9RY
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=J85rkoN1XnhCBt+ZBRQtQySMprDThVLpEudrWZLX1rQ=;
+DKIM-Signature: a=rsa-sha256; bh=V9eKCFzwICKE4rFO7Nmsc0WCMFzPWjs4u+0Fk0qiHkg=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793269997; v=1; x=1793874797;
- b=VcAcw2OhNb8Ngx6ElwFkLwLvwMVCY+eOq9jXaMCps/cuSKMXma2q+6gtBUpqiyDHqHWChBTN
- sng+jaxnGEVj+2NcVZtDgDphJmHuw8dIxMXkNJP2G5KqGsnI7dLXHHnjDFexuTJqJK/Ig+VXs6y
- Rf1EiBQI5fsrasMWufpxL95M=
+ t=1793270069; v=1; x=1793874869;
+ b=UXOfp9RYEVzG9pxkQUlobs6A4jb1xYE3cZWLzCOHQGck1nZV/9xfA585SJTqLRsuzC5Wd36Q
+ lj4xBsZMIOrGWoGZb2gahqDlSCr3eNASR11V9aCanvfVTk8onkRsgfuJQ5v8PN8sabF8JzeIo+U
+ 24AXxMU3ShTpP0llLmIiyVxQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 14e5668ba4a579be;
-	Thu, 29 Oct 2026 10:33:17 +0000
-X-Mizu-Trace-ID: 14e5668ba4a579be
+Received: by smtp.migadu.com with ESMTPS id dd12de82c714536d;
+	Thu, 29 Oct 2026 10:34:29 +0000
+X-Mizu-Trace-ID: dd12de82c714536d
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <ce3ede81-f70b-4324-9fa4-21cf716e1e33@linux.dev>
-Date: Thu, 29 Oct 2026 18:33:09 +0800
+From: George Guo <dongtai.guo@linux.dev>
+To: rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org
+Cc: graf@amazon.com,
+	changyuanl@google.com,
+	akpm@linux-foundation.org,
+	chenhuacai@kernel.org,
+	sourabhjain@linux.ibm.com,
+	liukexin@kylinos.cn,
+	guodongtai@kylinos.cn,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] liveupdate: kho: calculate per-node bootmem sizes before allocating any
+Date: Thu, 29 Oct 2026 19:34:25 +0900
+Message-ID: <20261029103425.14689-1-dongtai.guo@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,70 +74,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, josef@toxicopanda.com, axboe@kernel.dk,
- cgroups@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
- eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
- linux-kselftest@vger.kernel.org, cuitao@kylinos.cn, ameryhung@gmail.com,
- alexei.starovoitov@gmail.com
-Subject: Re: [PATCH 5/5] docs: cgroup-v2: document the iocost BPF cost model
- attachment
-To: Tejun Heo <tj@kernel.org>
-References: <20261028143534.135968-1-cui.tao@linux.dev>
- <20261028143534.135968-6-cui.tao@linux.dev>
- <72deb196d0dfc413a48f0739013bc610@kernel.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <72deb196d0dfc413a48f0739013bc610@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello Tejun,
+From: George Guo <guodongtai@kylinos.cn>
 
-在 2026/10/29 04:09, Tejun Heo 写道:
-> Hello, Tao.
-> 
-> On Wed, Oct 28, 2026 at 10:35:34PM +0800, Tao Cui wrote:
->> +	When CONFIG_BLK_CGROUP_IOCOST_BPF is enabled, a BPF cost
->> +	model can be bound to a device by attaching an
-> 
-> Users can't select CONFIG_BLK_CGROUP_IOCOST_BPF.
-> 
-The sentence now reads "When BPF cost model support is available".
+kho_reserve_bootmem() calculated the per-node bootmem sizes inside the
+allocation loop, after the lowmem and global areas had been allocated.
 
->> +	Only detaching removes the model, after which "model=bpf"
->> +	fails and the device prices with the builtin model again.
->> +	Device removal ejects the attached model as well, while the
->> +	struct_ops link remains until userspace destroys it.  "ctrl"
-> 
-> "Only detaching removes the model" is followed by "Device removal ejects
-> the attached model as well".
-> 
-Dropped "Only".
+Without CONFIG_NUMA, memblock_get_region_node() returns 0 for every
+region, and memblock_reserved_kern_size() attributes a region to a node
+by memblock_get_region_node(). Since allocations are marked
+MEMBLOCK_RSRV_KERN, the newly allocated lowmem and global areas enter
+node 0's baseline and are scaled again by bootmem_size_node().
 
->> +	accepts only "auto" and "user" and never selects a model.  It
->> +	keeps describing the builtin coefficients, which take effect
->> +	again when switched back.  The automatic profile stepping does
->> +	not switch profiles while the BPF model is in use; as with
->> +	user-set parameters, the profile selected from the device
->> +	class still applies.
-> 
-> cgroup-v2.rst doesn't describe automatic profile stepping anywhere else.
-> 
-Those sentences are removed.
->> +	defined.  They remain readable and writable while "model" is
->> +	"bpf" but take effect only after switching back to "linear".
-> 
-> The builtin coefficients taking effect again after switching back is
-> already said above.
-> 
-Removed.
+In the original 1 GiB QEMU reproducer, the default 200% scale made
+node 0 request 672 MiB: twice the sum of the 98.45 MiB baseline and
+224 MiB lowmem area, rounded up to 32 MiB alignment. The reservation
+failed and KHO disabled itself.
 
-Thanks,
-Tao
+With CONFIG_NUMA=y, node-specific accounting excludes the NUMA_NO_NODE
+reservations.
 
-> Thanks.
-> 
-> --
-> tejun
+The lowmem and global sizes are already calculated by
+bootmem_size_update() before any allocation. Calculate the per-node
+sizes into the kho_bootmem descriptors before reserving any bootmem
+area as well, and allocate the per-node areas from the stored sizes.
+Use separate read and write indices to preserve the saved sizes when
+zero-sized per-node areas are skipped.
+
+Fixes: 3dc92c311498 ("kexec: add Kexec HandOver (KHO) generation helpers")
+Reported-by: Kexin Liu <liukexin@kylinos.cn>
+Co-developed-by: Kexin Liu <liukexin@kylinos.cn>
+Signed-off-by: Kexin Liu <liukexin@kylinos.cn>
+Signed-off-by: George Guo <guodongtai@kylinos.cn>
+---
+Changes in v2:
+- Calculate every size before any allocation (Mike). The lowmem and
+  global sizes are already calculated by bootmem_size_update(), so only
+  the per-node sizes move out of the allocation loop.
+- Rebase onto liveupdate-7.4: follow the "scratch" to "bootmem" rename,
+  and keep the zero-size node skip added by "kho: do not reserve empty
+  per-node bootmem areas" by reading the saved sizes with a separate
+  index.
+- Explain why only CONFIG_NUMA=n kernels are affected (Pratyush, Sourabh).
+- The global size over-allocation on NUMA systems, which I planned to
+  look at as a follow-up, is handled by Sourabh's "kho: fix global
+  scratch size calculation" [1]. Mike asked there for a broader rework
+  of the sizing; this patch only fixes the CONFIG_NUMA=n double
+  counting.
+- No Assisted-by tag, although I said on v1 that I would add one: the
+  Assisted-by references have since been removed from the documentation
+  in mainline.
+
+Tested with the KHO vmtest on a 1 GiB LoongArch QEMU guest, with the
+LoongArch KHO series on top: it passes with both CONFIG_NUMA=n and
+CONFIG_NUMA=y. Without this patch, KHO disables itself in the
+CONFIG_NUMA=n run.
+
+v1: https://lore.kernel.org/all/20260904025101.9959-1-dongtai.guo@linux.dev/
+[1] https://lore.kernel.org/all/20260922131217.698809-1-sourabhjain@linux.ibm.com/
+
+ kernel/liveupdate/kexec_handover.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+index 6f1f55fe3181..9a53d7750367 100644
+--- a/kernel/liveupdate/kexec_handover.c
++++ b/kernel/liveupdate/kexec_handover.c
+@@ -831,7 +831,7 @@ bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
+  */
+ static void __init kho_reserve_bootmem(void)
+ {
+-	int nid, i = 0, max_nr_bootmem;
++	int nid, i, j, max_nr_bootmem;
+ 	phys_addr_t addr, size;
+ 
+ 	if (!kho_enable)
+@@ -848,6 +848,15 @@ static void __init kho_reserve_bootmem(void)
+ 		goto err_disable_kho;
+ 	}
+ 
++	/*
++	 * Save the per-node sizes before allocating bootmem areas. Without
++	 * CONFIG_NUMA, new lowmem and global allocations would otherwise be
++	 * counted as node 0 kernel reservations and scaled again.
++	 */
++	j = 2;
++	for_each_node_state(nid, N_MEMORY)
++		kho_bootmem[j++].size = bootmem_size_node(nid);
++
+ 	/*
+ 	 * reserve bootmem area in low memory for lowmem allocations in the
+ 	 * next kernel
+@@ -860,6 +869,7 @@ static void __init kho_reserve_bootmem(void)
+ 		goto err_free_bootmem_desc;
+ 	}
+ 
++	i = 0;
+ 	kho_bootmem[i].addr = addr;
+ 	kho_bootmem[i].size = size;
+ 	i++;
+@@ -879,9 +889,12 @@ static void __init kho_reserve_bootmem(void)
+ 	/*
+ 	 * Loop over nodes that have both memory and are online. Skip
+ 	 * memoryless nodes, as we can not allocate bootmem areas there.
++	 * Skipping zero-sized areas leaves i behind j, so writes to
++	 * kho_bootmem[i] cannot overwrite unread sizes.
+ 	 */
++	j = i;
+ 	for_each_node_state(nid, N_MEMORY) {
+-		size = bootmem_size_node(nid);
++		size = kho_bootmem[j++].size;
+ 		if (!size)
+ 			continue;
+ 
+
+base-commit: 9a6a70aefe77f6fb9ff2b3037dcf87f6dff65c8c
+-- 
+2.53.0
 
