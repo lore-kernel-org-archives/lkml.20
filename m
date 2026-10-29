@@ -1,84 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793236832;
-	b=dY8SZ4ZfjbjszXXGNHpy8hjFw7hmf+5+N7Tp5oeF7wmvUza/teN8Y21tGaxxX3HpAcFi
-	 3xTAZoz0HXD/cX86tvakmDKAXHNKnqHVVD+hUIkfKTcD5MQryY8CP5V/Q8NLt6pV5uQf+
-	 lAARwHnNALeQU6sOLHdv8npr3dkCh9CQEpaTAqrREi3GVvueeocB9JcrC+QhBKB/h3zBk
-	 GKKE4Q5tu2Jr58aj/FZ3x/5TdqiANBEE9mo32CmDSxLQAsbIEnzWxUMD9+tdHb7gV8l3Z
-	 yxfVhnsOg/fYuQvAEuh43NmKhNESOEoR9WyV9P66F3AYg5w4T4q5rYl1AO3X2Gx2F8Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793236832;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793236894;
+	b=A2Y9oc5BWXQYjB+WCjP+Z2blqu8XyY9x4yHrVUM+tlbImyDO9GAuiTevNUvjX/LSguyo
+	 qMhd7OFirhfA++wc2+evZM/n8RF62anCyo/bJMjfjgoYw498Jhu6MCzTUQVf0z8DxoRGO
+	 4/g0DyuMwZ5mP1hEoK4K3ucYKGgeNAZWwDXVIQ72Or4Vj2e2tkx05NvgF2EvAJ2ON+JnV
+	 yX0X/c/7VXH48jcm09QHMiMukDUTRVP3q36lGUs97BwUVu7wtXHa55zKY7D0N+d30a1JL
+	 fCG2gB/K5XOxNbkRJZZsE5TgsIHVEurfllIw/NCo7/lUaj5L/76lCixRwcpythzmZ1w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793236894;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=TWYN3MXkVQTFS4ykvP4ULAqrY98K2LtbRow9MYNtF9g=;
-	b=rP9Rxy414JfueJMysByuyZuVx/SHXBkDUwldjzG+ybjoR+qIU1nyoO8NhKhrF6c42Efl
-	 Mz4mU7Kc4hrzgxm8jazGz0nYvw+fUccRWGWAG8CEZtC/fasblGT7wd8swJM8P5SIyv915
-	 tf0Eh3bRK6tgu/ha6I6zEp/3iuN9zuiOMr+iipdDJpqK58mp9YGBjk5+3Xbfo1v2A1DMw
-	 NvDJxrmvOERj3nM2HJRZRwwtPowTaqCzjO+huMdv7rwZc5SGWI6kf4+0uSNLb9wD4MfOY
-	 1EgmNte9Vov6rk56/bNyt+HxgQ9nQTYhObpS0Qi3MBhERIFV1EDaymr8ieXsvVn3cEw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b="X0XY/GAi";
-	arc=none smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Rnnlnm9QbOzUFhPGhE2nJOVIwlLBGc5RigKMKLFD+10=;
+	b=coQbn9x+CuBioZvuTwwPQA7CB3htskT2t9QH0zbnWMCSJK+LRU7UGwpooTpdIPb0nou/
+	 1NDx3iLBALvW9boo1vGPwdkwAU0GbRMivoORHO0UBHSV4HhLqdJ4+mpJSU4JIVRs82Rdd
+	 TW6N4IsNr7c8iFfO28uMsvOdcPATjeIBDpUGQ4eSTQEUYD5w6A5kI5p/V+vwbOimZ1BeK
+	 bwdOkne0tN6rZbt7NzD8Of1vHXbf35neMYS1e4Vq92IFGobXx6txa6L9rF996mpXesYpo
+	 tophFFXCxaonwHKu0Zv4nBfviDfV0XLAIh1YMc72WgGiFOPH30jOx9rU3VvGqem1pWA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RzE7wKCZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181EA606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:20:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 181EA606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E389606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:21:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E389606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=X0XY/GAi
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b4a13789b0so328118a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:20:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RzE7wKCZ
+Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8ab43af5e97so3125077b3.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:21:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793236893; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PZEEcOgQTTmMotkOGmwkZqqH4hpxpYEl+iuSuOfXDhprGGp3UcfyAu001vWWlKeuVA
+         tGyivAMaqFifCp7dO1PH8ekks+GBlxobXVhJXLBPwhQIM4xe+umSIl7YB2MT3f/a2wSf
+         60Py7g6WfDUBVIR/HfL0uxSpLbcb9i9LHu/cqlq25WBUM6eSoEp9740cVjDPYvhtlIfH
+         W3X+coWuJvtXi4RIsH1QiIHTNQmsNJZal4EZmwql9G+KnItnRc7AgQLBcTi/3ZHMEGEw
+         8/YybnWZM8sX6jOjGR3rbe47gSMrYCvF9knFzFfwYT3Jq0XUXfqu1HIM1iek93brjAwF
+         XkDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Rnnlnm9QbOzUFhPGhE2nJOVIwlLBGc5RigKMKLFD+10=;
+        fh=0VR8OG/gDXxUmIazpbhJbGJVW3xlPpbisADNVDdIKic=;
+        b=W/R4hElaxf2bXtApCgu6TSjeBfMZZ2agwHcNtps4V5qtcPdpnlPGhkmA1xiIsFbpeJ
+         rhsu4oFSBuLonAkSWQy/I/V3l+bYHG9t1InVqghIS9SZGpRk7qirGMI0eXg4En2IKDqY
+         krR/6dRcRPEBSJwHGwSdpHIk9iqz4Bs1AluZSfYIuZqn082q72/8OWrOCUBzx54iw13A
+         KbX1NhYoVy2dLp2NXBCk/9B8ckSv9DSc+bHQ+JFGOzVIghZWvURlB4RKM77znZCeMzMw
+         zWnMNEO6DCqpqo7d6CUkjbXYoWY+zRq68boFvCdb3jxJVzl3TCTGr99+2RDmQhBQsXhX
+         D+MA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793236830; x=1793841630; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TWYN3MXkVQTFS4ykvP4ULAqrY98K2LtbRow9MYNtF9g=;
-        b=X0XY/GAiMek/vFbkNlCS++xCJPhcJpRxEM4fx1Ljjv6aCGTfMX2iHg06Cuvz3jbJ3x
-         Q0dDwGr1BIBMf5kqCtqsb5bfcPFaFZlUqEnSi6skik2W1J4zJ5GeZ5elYQvrlDRe91e/
-         CP3Ywj3kmY6/6N/XufcgSAxLlc+irLxiHwNEWl3k5M1t7aKrd+VArviVR+LRPwX+IZPm
-         GpA3SbXg+reoCoke8l+SC4GaT3nXvce2SqP/adtt8ITzlbRj4F9bRx8OgSUJIJiobyeZ
-         u80Of7gLVfSgCHHisozRXuwKcVBjIh2eid1AKfwHBlqSo1BxKhOy27h+nd0r4z6VpL4i
-         tJBQ==
+        d=gmail.com; s=20260707; t=1793236893; x=1793841693; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Rnnlnm9QbOzUFhPGhE2nJOVIwlLBGc5RigKMKLFD+10=;
+        b=RzE7wKCZFfIARIPFFqduXiJ/xtizECR9afk/A4x3sLYn8gOYpQy6b/LIP+Fk+IBgIO
+         1eu9mn4cXgM7Pt1uiNikgwIfE5cUa89qAAHkUF4A4vXXr4kGxnqyBaxyquNAc/s4+5Tk
+         FnBfIwSwExMD1F429Yfq6yVcDAE6mrAnAclRHpPYltXmpqoEACOKp2YctjSmq78cZsHe
+         g3DYmOGfaQf8QC8EjICAXSo9eJZPTyyhVuyoVVgKESoY/cu8JbnJj0pqcsswjbcAcdSG
+         wOg56dLEtokkpmdBSZMv4vdBxlmyoEc+8m1ZmsLTNIyqn6xEUw6IaJpAaisU5vdWt6sg
+         CGPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793236830; x=1793841630;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793236893; x=1793841693;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TWYN3MXkVQTFS4ykvP4ULAqrY98K2LtbRow9MYNtF9g=;
-        b=PZJ/t0O4L/HunWo1sStvvl8YlZNNlsGyLy2JshioUnwB/rIQcWykYnD0AtUrvkhGfU
-         y3VE2/p+MhP6L6gWYRQctvrPl1I84pQ3cQV1WepZutwr11ssTGfbuRehqr8K8LrobHN4
-         7tNLGIv62CvuEYhQNS9tuHfeM8rrG2V/e+Fh9oY9ybZMwPZU0Yn3Tt2knNxXZVceYOtR
-         KbCRqZigdCiQ7G6HjWiqkF6lAQY8nuKANSM+fL3LwElhn0Cyy74g2l3xtKpvj5eusybb
-         IEC8dgP13Q5qehhsaSdVv2aVjNLDo0AfaW4fmUOA1s0uqas6c4siB80nxtp4tHMvb/Ob
-         7VPg==
-X-Forwarded-Encrypted: i=1; AKwUvBwAE2dT/CsFUI2OMy+dU8lnsSL04kN964wvARJmcvHBDq5PUXOMi+NnrNh9w6lq/1Wnsvm5frs5n7x6kvo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKruJWitcARABTR7ULVYy+1+8RFYwphw9cCbtqs/QuEeQXmIzut
-	J448QzbFZ+3OD5b6LMGR7NNoqJSiW56YjHZpT7hW6ICuxtHmHA7NQ2RSzpmgq8+kpOM=
-X-Gm-Gg: AYBFou3g0ZedIjXD7FR0on3o5iL7wWLnSNTLWJUHfIKKvgvAAn8oG7w9sAjuQu+YQdc
-	EzzaW/q2H5wgWa7VJYPWS5BuSKgFpS1rPtd3xmBb8eWg7sAwJJROd0J7EwSN2AnrynYD0X9MhNe
-	PcRtzczNzHe3NxiMSm808WYisCdPht4/7pivyrEzQoti1X1/KqBKTvM0FS9RANWPmBjjGQcfxWk
-	G9/TOkpqiGwAB69M++btFG0HWUjaTJGh0gCIlL+r/TVetKg0rtXSQrIFAamm2ilifX14XEOIvo9
-	kZLYesattOg7Xjic2g99hpWheS7OxnkEKo5evBza4LgPGQfJkcyzQx4rgeTHI7vG1vP2BZWfAdj
-	39SsAnRZ4448NqRU4jrv+kpWZN/fuhnl4/TrZGn2sWBUY7qVbIXA9M9qDWASPA14nF2oa0+nQOn
-	4fztsAGIbT5k2twpA+errPLcSll/oQCTJ2Up7JTngC9aCRQfw9yvN6Z8/Wt9tqQGsFnFf1rp85P
-	NZ6CKtum2j5Di7e+zKY8fvEfpfgf2Q38732QXC+YvWg03L5QMSaHg3+OtveI3PQO6sjO5iSAQIP
-	X3TaFBcZNVBKUc6aZAwp
-X-Received: by 2002:a05:6402:c507:10b0:6b4:8d8e:c5c9 with SMTP id 4fb4d7f45d1cf-6b4b0b82678mr569270a12.4.1793236830233;
-        Wed, 28 Oct 2026 18:20:30 -0700 (PDT)
-Received: from localhost ([2a03:2880:32ff:72::])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd649f69sm671275666b.43.2026.10.28.18.20.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 18:20:29 -0700 (PDT)
+        bh=Rnnlnm9QbOzUFhPGhE2nJOVIwlLBGc5RigKMKLFD+10=;
+        b=Aba55cbSU2JE9i3MtSoowjLonhx+OKS4x1SeDrceHl8z5e5vsk4zfe4gBN/sEgzYz3
+         e9M19daa1+PuELLBvga6RzfHpHpXDIGTLmbzTONEt5wJmrQDSDwWeDwqpXElx2b66yIM
+         D1F7TCcClRkT4AulxKz8SZ1EWq3rhf2xGedWFDGzWgh290BGCInVdC92zOggUGLkQbdX
+         Vx7jJSxYY6sZB/2JsxsiNiSVLa1iNYN0HoXEmXijpXgD8r5N9e1+9j1yJxMDwLefIMlx
+         ZO3flCGksCG1nHOBis8SWGCgv06sak1AsfBl1JDByBbQdgVEPj5RrRyXoeX5aP7Tko/4
+         igfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwdAlqFGP7pud+SYxUodqBf25CCR+GLIWEjsVnN0PXRz21rwIs3in+u/0kwmPMxqjykI2uQeoMfLl/RMnQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyhlybux8rRR5DCRSp/7dM4ZPjOU8wLHk1QuLivwI/R7htUO03
+	MOu/g3RSLT8PyIqjd/TbSbCP6I84QTV6pTrHlutcwzECxY39N6w7qyS/si/r5oOzLZ0vL8CIy8N
+	8Fib4NmPHVuhw51DU6eWUo/AiVltiBROL4g==
+X-Gm-Gg: AYBFou3l/acR7DJZ00GsvLo3qHCqyYoc7GrL01+i1NPr9jGlSOgIVLvlE+SwOhydqGW
+	3jYBYTRDGNjI/+5fIFIwl5q+sD4UsaXCzXG+QDNSo4X95ciE6+12a3rPLdVcm5Au6gOCZ4y3tSA
+	QOJqTwrof2aSWOkcbSWxZHOZgqvpX1ML79KixFHJdjARbH5bVVfyXIvJyeMGRYS3oyzuj8eHTz2
+	TyZiX+wPZ66AGJ8juFm4ClZBroMELj45WqqaWrlU/OoxjtB4naQ42In1qLGYlS0AbyfDWJ1wEFn
+	RvUwlXs6/TmKCQw09hA0/y5MbpEnJ2vvqyxa6BEwmAGM/IMLP/bJYukAOidecfzgjJV+DUIDqJM
+	yNx5qPToFPv3uIS3K3vagcHk4dXM1idR5LRWtonuolCcgt8heAqT3neVLbzZo6ZziR5h6kxwNlt
+	2fns9/7h6yYjIeL+uzESNAA+NalXlFnjPRyS1V26VvTA==
+X-Received: by 2002:a05:690c:e1cd:20b0:873:5c7b:c13a with SMTP id
+ 00721157ae682-8b1c68bc542mr6313507b3.34.1793236893060; Wed, 28 Oct 2026
+ 18:21:33 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,77 +105,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 15/46] mm/khugepaged: always recheck the pmd in
- try_collapse_pte_mapped_thp()
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org, 
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
- stable@vger.kernel.org
-In-Reply-To: <20261027-fixes_core-v1-15-6f74bec9a5bb@kernel.org>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-15-6f74bec9a5bb@kernel.org>
-Date: Wed, 28 Oct 2026 18:20:27 -0700
-Message-Id: <179323682749.453251.17316394789253085295.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+References: <20261013032742.497402-1-cochcoder@proton.me> <20261029001349.1031535-1-cochcoder@proton.me>
+ <20261029001349.1031535-2-cochcoder@proton.me>
+In-Reply-To: <20261029001349.1031535-2-cochcoder@proton.me>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Wed, 28 Oct 2026 21:21:20 -0400
+X-Gm-Features: AclHuK9OA0TxC5wJjdXKN1qLToHFtxzFnXDBFSFw4UfMSYDfsvibt7iWShSwHz0
+Message-ID: <CABBYNZ+wc98wyH_rcuVZUTjy1neDb7tDr5mvCsn3_jvY9EPwug@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 1/1] Bluetooth: btusb: test larger LE packets on
+ TP-Link UB500
+To: Kyle Pepper <cochcoder@proton.me>
+Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	marcel@holtmann.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-27 00:17 +0100, David Hildenbrand (Arm) wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> try_collapse_pte_mapped_thp() drops the PTE lock after it has cleared the
-> page table, and takes the PMD lock and the PTE lock to remove it.
-> 
-> In between, MADV_DONTNEED with CONFIG_PT_RECLAIM can reclaim the
-> page table. The pmd_same() check is supposed to handle this, but it is
-> only done with CONFIG_SPLIT_PTE_PTLOCKS.
-> 
-> Fix it by performing the check unconditionally.
-> 
-> Fix generated by an LLM and sent by Josef Bacik in private.
-> 
-> Fixes: 6375e95f381e ("mm: pgtable: reclaim empty PTE page in madvise(MADV_DONTNEED)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> [ david: adjust description ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Hi Kyle,
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+On Wed, Oct 28, 2026 at 8:14=E2=80=AFPM Kyle Pepper <cochcoder@proton.me> w=
+rote:
+>
+> The tested TP-Link UB500 (2357:0604, RTL8761BU firmware 0xdfc6d922)
+> reports an LE ACL length of 27 bytes and eight packets. It accepts
+> 167-byte LE HCI ACL packets during ASHA playback. A size-only test
+> streams clearly with the eight reported LE credits retained, so the
+> previous shared-buffer workaround does not establish shared pools.
+>
+> Use post_init to test a host LE ACL length of 167 for this USB ID,
+> without changing LE packet/credit counts or BR/EDR fields. Refuse
+> unexpected initialization values rather than applying this diagnostic
+> to a different reported buffer configuration.
+>
+> This is an experimental RFC: 167 is a demonstrated working length,
+> not a measured maximum. The appropriate general limit and firmware
+> scope still need confirmation. Mixed BR/EDR and LE capacity and
+> exceptional-congestion behavior have not been established.
+>
+> The ASHA 7.2.9 trial completes all 3269 HCI packets, including 3243
+> whole audio SDUs, with a maximum of three outstanding packets. The
+> human listening verdict is CLEAR. PipeWire and its actual 4608-byte
+> socket send buffer are unchanged. Increasing only that socket buffer
+> to 8192 with HCI length 27 previously crackled and underfed the stream.
+>
+> Prepared with AI assistance for source, evidence analysis and text;
+> hardware playback and listening were performed by the submitter.
+>
+> Assisted-by: LLM
+> Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+> ---
+>  drivers/bluetooth/btusb_main.c | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+>
+> diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_mai=
+n.c
+> index 92a78a7e6..2b955ed4b 100644
+> --- a/drivers/bluetooth/btusb_main.c
+> +++ b/drivers/bluetooth/btusb_main.c
+> @@ -2972,6 +2972,18 @@ static int btusb_setup_realtek(struct hci_dev *hde=
+v)
+>         return ret;
+>  }
+>
+> +/* Private diagnostic: test a known accepted packet size, not a pool cla=
+im. */
+> +static int btusb_ub500_test_post_init(struct hci_dev *hdev)
+> +{
+> +       if (hdev->le_mtu !=3D 27 || hdev->le_pkts !=3D 8)
+> +               return -EINVAL;
+> +
+> +       bt_dev_info(hdev, "UB500 TEST ONLY: LE ACL MTU 27 -> 167; LE pack=
+ets %u unchanged",
+> +                   hdev->le_pkts);
+> +       hdev->le_mtu =3D 167;
 
--- 
-Gregory Price (Meta) <gourry@gourry.net>
+Try checking what is the maximun data length it supports, since that
+is a strong indication of what the buffer size should be.
+
+> +       return 0;
+> +}
+> +
+>  static int btusb_recv_event_realtek(struct hci_dev *hdev, struct sk_buff=
+ *skb)
+>  {
+>         if (skb->len >=3D HCI_EVENT_HDR_SIZE + 1 &&
+> @@ -4715,6 +4727,9 @@ static int btusb_probe(struct usb_interface *intf,
+>             (id->driver_info & BTUSB_REALTEK)) {
+>                 btrtl_set_driver_name(hdev, btusb_driver.name);
+>                 hdev->setup =3D btusb_setup_realtek;
+> +               if (le16_to_cpu(data->udev->descriptor.idVendor) =3D=3D 0=
+x2357 &&
+> +                   le16_to_cpu(data->udev->descriptor.idProduct) =3D=3D =
+0x0604)
+> +                       hdev->post_init =3D btusb_ub500_test_post_init;
+>                 hdev->shutdown =3D btrtl_shutdown_realtek;
+>                 hdev->reset =3D btusb_rtl_reset;
+>                 hdev->hw_error =3D btusb_rtl_hw_error;
+> --
+> 2.56.0
+>
+>
+
+
+--=20
+Luiz Augusto von Dentz
