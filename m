@@ -1,59 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793290037;
-	b=KoCsNbwxgoHJ0u7RVBcrG2DNnHKKNerbM4rn/ILLv0UNJbDcO/wuNkdKvulDMM5kUi7Z
-	 YPU4T+wSTOyERg0lUAW6JpQg4N/2HVa1jeumHTyqgvGYnm6qoU/S7qtFzWJ/kKIqE6Y5n
-	 W+2n4zmCIl99RJf2uKMBlHlLI5PbqZB554OJ62tuuSs6yLmlAuhNbRytbD7sm7iSKsxsW
-	 ajXv+CzR3H/wlQvQlZRvr6PY9oqCCm6FwVfqOzs6RSfjsgHo3/6EqW+GichZs1AUmxqOz
-	 Jis3SMVJ9rufeqFPndCocfXF+ZdgI76fTHEzxmXkrO5tgUCg9dkkr7dn50SDMIivF2g==
+	t=1793290070;
+	b=39qbdFEXYvXd9nhWPdgockYB+T0wcHLa35xp9GTOwdAB4r8zLFqyFXA6VAW/sfRkNwwL
+	 aXsIPIqYtTX1aiJ8AV0wy+4Rc30j6ZHiExhSfFp5rCi2/rAz9SDIRrWla+yP1+iD1xs0j
+	 vYVeidfWvFRlIH7MbPoSzjpMaT4y2bg7WNV7pMyl4TMmO35SoqGeFtYhDDiQkKZac59Ho
+	 9jKgwSFm1wDaE7JnL7LXmzpOZmc5QwdcL5F7CgAacpG+9p+GFjQ9P/8dIELL1OtWXp12f
+	 1qJtftLj2rQRR1xqkNmTgA+wYmYtxsUmfVbRHQt5g0U3eWloXzIRvbtL7Lv0Vhb5IHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793290037;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=6pusSa3A5cdps9One/1KbVhimt45kuAJaKKTpojXqC8=;
-	b=Dhod1QFz5AfQtIcoEtTs2cAVtWpvVSBRh97q01aMxrqU80iyLPE2R18WMNeElF/E/ZLg
-	 eNfjXQNxmgM9/LMlELRcIuSCzrm6ASYrq08O2F/ZCngvhvP2WwbjuxosM9bLbWuoQufBD
-	 ZBiLGIRalAj7BTiXTa8JYjg7qrPp1CZpf+jbNqop8abhq7P7pcScD7BxUxFW+KQ4Fs6tN
-	 5sxRHY9Ypp0pdvxQ6zq2JTyD1+t09HlCYpNQniWlwR9FX/JqC2gCVEv32DPzBOiHdTvU3
-	 fdHUWYkiZ1os0fl7vCqokwKBAqSApcWZnHPjKKSc4zXk7mSRR64ej5rVYaWU0xBpfYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793290070;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZV+j7YTGvn/UW4wjIVrdhXod9gPqi3gSAf8oPO7bcss=;
+	b=LxQNiM8mB5uDEDzzzqiy2g10htGS8VjAii4IHzFjHRX/zZ4VayuK0hbRyipZBWmFgvpL
+	 +VwGUbzx5hxHHuci+KojDwQt168ZJPwlkNFnSLGGEpH4fx8ZP2zFgPdOr8MtRGCvys8/0
+	 uwLB+0e65mAwtbmBdY5pilUFMcaJATfZkebKdufQDUo6n2mi9Tw68Z+RngphK8mPEaVhv
+	 eA3uaThRg+aJ2sjKtp7ba+7IXoHxfz0HtVtgOIy6sQtLYcBiHWpnbtA7oB5xIAXdmtACB
+	 dVRiPjMzE1kzNqIZajbOuU7rIfH5pfvzbO7voncfmXhU3n/Kv6uZ/FaGamOn7ratN8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Efty9sR5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=WKDr0TJ3;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7242E606A31A;
-	Thu, 29 Oct 2026 16:07:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5E860A2607;
+	Thu, 29 Oct 2026 16:07:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D5E860A2607
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Efty9sR5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB89E1F031E0;
-	Thu, 29 Oct 2026 16:07:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793290037;
-	bh=6pusSa3A5cdps9One/1KbVhimt45kuAJaKKTpojXqC8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Efty9sR59VAPgQ6jmItiIf7UV13TSifhZD2TkcMjtyOI0vO3ZDwhptkW/V6HMbkwJ
-	 Yp7nppuJI5BRMnbSUcGfksAUdaEoUFX2dEw/ePNn4jcU+DZgGkiSfikPuS7tgXPkDo
-	 JFYS5/vzbJn+tDZfBq8NKJG0nA7NwyxjfogoE3Irrd7iGuK6+otM6Vp+8KBBvbkKQi
-	 FiBznVuEZkjMGaB7qiDpKXdVxrSgUe85wGffX3JruIFJOkHEEkq+8bqzkrc++8j9du
-	 cgqOqGaT8P2BuuTcrREZVXnT8f5+VpIkdrOtzUhobnU15XRfApgfgdnFR2IT/GDNWA
-	 6UbaJyWfoq1gw==
-Date: Thu, 29 Oct 2026 16:07:12 +0000
-From: Simon Horman <horms@kernel.org>
-To: Naman Gulati <namangulati@google.com>
-Cc: netdev-bot+sashiko@kernel.org, almasrymina@google.com,
-	aleksander.lobakin@intel.com, anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com
-Subject: Re: [PATCH net] idpf: free the skb on TX DMA mapping errors
-Message-ID: <20261029160712.GK257209@horms.kernel.org>
-References: <20261024030401.852598-1-almasrymina@google.com>
- <179289749460.3134.17105687099040790537@kernel.org>
- <CAMP57yUindVWCLV4O=Qki61VmZ2y8hjMPVJ51UnODz3D0LKwXw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=WKDr0TJ3
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jFpzT5Gbqzlfvpy;
+	Thu, 29 Oct 2026 16:07:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793290066; x=1795882067; bh=ZV+j7YTGvn/UW4wjIVrdhXod
+	9gPqi3gSAf8oPO7bcss=; b=WKDr0TJ3zIIMA2ynix7DQl4C90xOr/vogrEdt8Bj
+	APdeFjXT9/JD6BVRTbFIELxFHNK59mpr1/WUUaSPuoC0li7JN1RW0xHMXox+mEEN
+	518c7cRjyEGpT/MmGdO8uLvkaePWjbyzBxmyDTcMIJNWUzSC/g3t3uIgD9f3SCVk
+	MbaeYwrQaXNkJvZob7HcjAfMvu/3Dh7nI4lCHrC/w5anpvCnW/0BLnxETV+U5VpV
+	k50bnNNWS5S4L2xAUO9yEeyxycrwUY7lAF+rMa0ZlrhDRSIQ1UoynHbr0vA0NZN9
+	TAgBhjnBwuAb8PSsqCjk6k6PHWSivL9fleimVcTwl4uuYg==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id 2Iz3bjKf2Ha6; Thu, 29 Oct 2026 16:07:46 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jFpzP5gKNzlfvpr;
+	Thu, 29 Oct 2026 16:07:45 +0000 (UTC)
+Message-ID: <486839e6-c16f-4a60-bcf8-a9ed8a565069@acm.org>
+Date: Thu, 29 Oct 2026 09:07:45 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,33 +70,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMP57yUindVWCLV4O=Qki61VmZ2y8hjMPVJ51UnODz3D0LKwXw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/5] scsi: ufs: Fix device management timeouts and
+ runtime PM errors
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+ <mkp@kernel.org>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>
+Cc: Can Guo <can.guo@oss.qualcomm.com>, Peter Wang <peter.wang@mediatek.com>,
+ linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261029040003.2100003-1-stanleyjhu@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261029040003.2100003-1-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 26, 2026 at 02:39:40PM -0700, Naman Gulati wrote:
-> On Sat, Oct 24, 2026 at 8:04 PM <netdev-bot+sashiko@kernel.org> wrote:
-> >
-> > Thank you for your contribution! Sashiko AI review found 1 potential
-> > issue(s) to consider.
-> >
-> > Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
-> >
-> > If you believe none of the issues are legitimate, please reply to each
-> > issue of Medium severity or higher and explain why the AI is wrong.
-> > If any of them are legitimate and you plan to respin, please let patchwork
-> > know by including "pw-bot: cr" as a separate line at the end of your reply
-> > (one such reply per series is enough).
-> >
-> > - [High] The fix leaves the skb leak in place for HW-timestamped packets,
-> >   and the Tx timestamp latch they hold is also never released.
-> 
-> Both issues are pre-existing. This patch does not introduce any leaks
-> and these should handled separately in the tx tstamp and FLOW_SCH_EN
-> code paths.
+On 10/29/26 12:08 AM, Stanley Jhu wrote:
+> This series fixes two problems in UFS core entry points that issue
+> device management commands or touch host registers.
 
-Thanks, agreed.
-
-Reviewed-by: Simon Horman <horms@kernel.org>
-
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
