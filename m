@@ -1,79 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282353;
-	b=ZQEmSne6nTwifXPe68UMP9wTxA2xk3qPvsz5RXycSor8j+ILQRPRx/L0yLhC2widwb+F
-	 mA+sXhCDnzsyp4k7lWDW+jR3+ikYLN+zjRkU2JVwOBwZUViYb21bX5yEBkTBYX1Vt9A3k
-	 J6xfEN9qPsqYKx/1FNZFXODr8XvvKPQNQR7UFsaejwXVqY3hfohZNI/kznygEg5BFQ8Ma
-	 qLZT7P2CvVKICY2Ny0ndl6iV/VsOds7I2OagfDbkClcjMzAwbWCl0MQjW4UuJV1vbKZCE
-	 3Sy8FgoXgLEIkY8Wwa1At5YZNdS1kzGao10eOIACPrMuT7fWphUNqUy9N9DSukbN7Ow==
+	t=1793282458;
+	b=2hIT8Xin73KJy/smLinpd1J1AQmHhE8nGqJ21H+7fj+4OVPgI8tagISOlq83ZxXEFxdz
+	 uxbbGsDidHLHIvfHv6l5QsMKSG/Qv7LHn3e+AoqHcsiikh9kqc4+s+YPI8LeWmUxaZjQ4
+	 2oQLgoK9+EZ16Tlvn3tLZWg9s2qCnI3M+8af4qblBYou5Jbtin+13IHPt5CeVzmEdauII
+	 s+ltbM+eiWXzOx4U+9VrUlZR+OK1Jc5FV4KsC2kjdi1DuxFulPQNz5j+aeoKWXGj+ukx4
+	 Nb6qElBC8Nsl9WkwhU6eEzjBu8HIqnXKaVp8ZuBCry8au8HxMMEkkGG0ECvXgcmYSHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282353;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=uMHXUOFE7AZZDX+LsX6dXeRhGFEiwL4Q1GknxPdY3Lk=;
-	b=IGhmYWV6U3pM+qNLSCXoITj9MUf3DbmVzGtoYyJntAtsWecG1mozFiaU2RHO79NxI9Ic
-	 BVX+fMpAoXxoKCKnzKEncm/3q3hQyTnKraD/vuOTysLXCYdGecBRu5QALwM5+/5QwCImF
-	 ua98r6bq6clBZZuPBucjnbi1BScsiwoQRM4G1jWMQv4CE/DNhw2f6B61qJHn1IgZm2n0o
-	 oadGnGGTNrTiBypu/po2Q58bI00siAT2njSMxaPAAbIElkb6fpw5X1YdDAwSe6sYsF6ck
-	 ppYXkUC46ND5BIPO1O/D0dAxJmjpeRBjX0BhHoCtPc47427SUtltFp+2cH/MjYNvhWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282458;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=YCDhUrSgjNdk/K5jPzg/ggXsYFm6g39g9OKWkp0qG5E=;
+	b=h++jSsNdUm/JmGNYqsb61lrdjpE8xAV6hrvdSIiDWCeEejJ/Hb3+xAwdw71j+pmUlXMy
+	 Tq3217lbYMFgRHQ+Ui2O9m64GF4YbxFeql2BQcVAJLa9gAPc+qYBcuVTz8xvmDxYZHG4D
+	 dKw8F4eLS8TChAFCSK1Pbe5HQSW5v4fgtJmBzJNwm1wep9PM8zXNE0SmsRqihjGfOQA9O
+	 6KRv0oVrdrOzYhVBOkg5sK1Kj0m6joW0awWrfU3wZ2Geq4bj3TJhOusBJc/RnW9cUThr0
+	 jw/N2TxMwBicO+QgGv7nS5FuQD+WsI/KZw/BryHfyawHO81uMMk1kfLFYncPTD594Sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O4kuHfCw;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=XjvHn+1U;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852AD606A31A;
-	Thu, 29 Oct 2026 13:59:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 852AD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249FE606A31C;
+	Thu, 29 Oct 2026 14:00:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 249FE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O4kuHfCw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793282353; x=1824818353;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6y2zegGNR4BIjDGrQ4yACT78u9RtDlzbO8PSVZOswc8=;
-  b=O4kuHfCwDvlgac2o+0ut3PGOaowvaFp7HdaeRBoTAhhkyahK+rhxgnGH
-   4SV7QkKEzB62Q6KXEKyxlEHGJ6Mvecb2VufP9UtyRa6vdKc9yNxF3cvRd
-   3zjq9x7dQPyqlnhmIvtJCd/nB6aOTg8pcdnzFIHD/6UZasLJeEN1uLMAn
-   6ZJM7m1H2WtUeZ0m/VLTStaf5RIrhkpFpiZ/9FO7YHKnFaxQKSj76RKkv
-   FjFV+CP+PxFoVdO8jbQpiPnW8P4TuCnemLvp9lqBkSM/z6dNPaCo+MNvt
-   YiQwpWQGfV+lqeYyR0KscK0GyuhuPcf+2cqnWNLpEi5XrJCKbbHv+sOiF
-   g==;
-X-CSE-ConnectionGUID: 7fvV+HqRSvS1VS+uZySmWA==
-X-CSE-MsgGUID: 62snd5jeQlKakbvIWCNgjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1938066"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1938066"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:59:12 -0700
-X-CSE-ConnectionGUID: G42LKDdkS2ezAcmcJfP6Hg==
-X-CSE-MsgGUID: DBMiwUJ8R8qCvmWT+sAADw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5115670"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:59:09 -0700
-Date: Thu, 29 Oct 2026 15:59:06 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Antoine Pichot <antoine.pichot@gmail.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com,
-	mchehab@kernel.org, hansg@kernel.org, dan.scally@ideasonboard.com,
-	djrscally@gmail.com, dmanresa@gmail.com,
-	dave.stevenson@raspberrypi.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/9] media: i2c: ov7251: Report the pixel array rate
- for both link frequencies
-Message-ID: <auNRKsUghekdXM_q@ashevche-desk.local>
-References: <20261028112154.855185-1-antoine.pichot@gmail.com>
- <20261028112154.855185-4-antoine.pichot@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=XjvHn+1U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=YC
+	DhUrSgjNdk/K5jPzg/ggXsYFm6g39g9OKWkp0qG5E=; b=XjvHn+1UGXYQZ9c77T
+	jFr9YjX6/IJZIJTZr7O8J5G+VOidnJIdo10kDEFINpfPHTQEuiQ8CYDiBwvMVS5j
+	aQSGToubgr74bC5en/2KIEZAyc1cr9J8ZCF5EFmmt1ae1Pfvp9av/dt80mpopyM3
+	GzZwwOYBDRaQjVyp2P9dC8fsk=
+Received: from iZbp142fio164970eurit1Z.. (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgA3faSKUeNqOAYoCw--.33705S2;
+	Thu, 29 Oct 2026 22:00:42 +0800 (CST)
+From: linfordWu <linfordwu@163.com>
+To: brauner@kernel.org,
+	shuah@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linfordWu <linfordwu@163.com>
+Subject: [PATCH] selftests/pidfd: skip setns tests without namespace ioctls
+Date: Thu, 29 Oct 2026 22:00:42 +0800
+Message-ID: <20261029140042.1788909-1-linfordwu@163.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,52 +61,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028112154.855185-4-antoine.pichot@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgA3faSKUeNqOAYoCw--.33705S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Xr1UZw4fAr18Wry3KrW5Awb_yoWkurcEk3
+	9Fqrs7CFWDuF10kr97GF15urWrCw4xGr1rtFyYqFy3Gryqva15WFykCrZrW3y7WrZ0q39F
+	gF1DCrW3KF17XjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRGg4fJUUUUU==
+X-CM-SenderInfo: xolqw0pugz3qqrwthudrp/xtbCzwoKqWrjUYpePwAA3V
 
-On Wed, Oct 28, 2026 at 08:21:48PM +0900, Antoine Pichot wrote:
-> pixel_rates[] gives V4L2_CID_PIXEL_RATE 48 MHz for the 240 MHz link and
-> 63.84 MHz for the 319.2 MHz link, which is the CSI-2 bus rate of each
-> link (one lane, 10 bits per pixel). The control is the pixel array rate,
-> and Documentation/driver-api/media/tx-rx.rst says the bus rate "is not
-> the same thing as the pixel rate on the camera sensor's pixel array
-> which is indicated by the V4L2_CID_PIXEL_RATE control".
-> 
-> The pixel array runs from PLL2's 48 MHz system clock at both link
-> frequencies: the PLL2 registers are the same in both tables, and the
-> measured frame rate is 48000000 / (928 x VTS) with either link. On a
-> Surface Book 2 at 319.2 MHz, VTS 1724 gives 30.0 fps; 63.84 MHz would
-> give 39.9 fps. A Surface Pro 7+ measures 30.01, 60.16 and 90.45 fps at
-> VTS 1724, 860 and 572, the same 48 MHz. Dave Stevenson saw the same on
-> a Raspberry Pi with a 24 MHz clock, where libcamera asked for 100 fps
-> and got 75, the ratio of the two rates.
-> 
-> Report 48 MHz for both link frequencies and drop the table.
+Kernels without the pidfd namespace ioctls return ENOTTY. The
+current_nsset fixture expects only EOPNOTSUPP and reports a failure for
+every namespace before running the tests.
 
-...
+Skip the fixture when ENOTTY is returned so unsupported kernels report
+skipped tests instead of failures.
 
-> Fixes: ed9566ce1946 ("media: i2c: Add support for new frequencies to ov7251")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/linux-media/CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com/
+Signed-off-by: linfordWu <linfordwu@163.com>
+---
+ tools/testing/selftests/pidfd/pidfd_setns_test.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Same comment about Link tag.
-
-...
-
-> +/* PLL2 sys_clk: the pixel array clock at both link frequencies */
-> +#define OV7251_PIXEL_CLOCK 48000000
-
-Perhaps
-
-#define OV7251_PIXEL_CLOCK_Hz (48 * HZ_PER_MHZ)
-
-(will require units.h to be included)?
-
+diff --git a/tools/testing/selftests/pidfd/pidfd_setns_test.c b/tools/testing/selftests/pidfd/pidfd_setns_test.c
+index 107edecff..8856e3e19 100644
+--- a/tools/testing/selftests/pidfd/pidfd_setns_test.c
++++ b/tools/testing/selftests/pidfd/pidfd_setns_test.c
+@@ -126,6 +126,9 @@ FIXTURE_SETUP(current_nsset)
+ 
+ 		self->child_pidfd_derived_nsfds[i] = ioctl(self->pidfd, info->pidfd_ioctl, 0);
+ 		if (self->child_pidfd_derived_nsfds[i] < 0) {
++			if (errno == ENOTTY)
++				SKIP(return,
++				     "Kernel does not support deriving namespaces from pidfds");
+ 			EXPECT_EQ(errno, EOPNOTSUPP) {
+ 				TH_LOG("%m - Failed to derive %s namespace from pidfd of process %d",
+ 				       info->name, self->pid);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
