@@ -1,47 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258825;
-	b=1DVWKKitsKqkJ5oqdrwUSckBP8dSI7h0zIdX7dZvNwDTQaDrfB/zPwxtluOeiZwB6LUv
-	 mgXms/hAbAGCRRlbewmqfFAD/xly9o6/ntmvsaD9fytrjX6X/ZNKPVJrLW7cOiVr95y7n
-	 RvPwZKkfEYAHbNjCJk65batzltQyRNMFlbeIaxMQa81Fq8SxFf8+pxdr5yN2MwOzwZMHp
-	 j+ifkcGrYeaQXx3IuAgvzR65o6ePACrNt6oaooLqIxAlgiP8TWkqX0KmsKTaj1OBCmgB0
-	 jecrzfnaLZQLgYH/VOKdoS2jmF5ELphFmSHXUCdGVMpKuOy5KYxth+OwxTLqM49Lrfw==
+	t=1793259027;
+	b=DvgQ5g9JWIrkUlmBJYeMHSjj8PIrmuILfPeqfrY73us4PMhOt8Sfu87DsrvK0WN2iFGu
+	 veN+d3ST4WDLBCq2lqeJFV7v743crgkeNHZ94tQJWBWICKFxH0H8XlpU3VikpXR9leQWA
+	 ejatbUu1bRouX0AjxQMdV7haPAIUlxnVfPBmRWgd1IITx0AFFi4qNLaZLhZUuFmYLhIxW
+	 pxmN28r/6C0v8mOvZs5lQ64aK+/OIMsca+Ih2/nj0T2xmSofagp/8UO8+OKwLUeF1OlRw
+	 D4MhzBvHvnAQucIlL659igoeJIifEFqe2xq62cjWqLH5oKArzyYZAyYoo1vLW09kG3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258825;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Ynv3ES4qgVrrqHs4XJtRSvFfOR5ptSdd48Cutyq7X9o=;
-	b=BDExm9O75V23wxMAaIRoMeroQ7x5Ru4NRGelKWlDNCckF5o8dLjQraDEz2n+TA+hvtMy
-	 73d0fu1tqW/PYTzN2d4A9sugsgPxP+z9UAdQh7b382oAjMdzoB7Qioiq4iw3UFOEAfA8W
-	 HFdDbFMlDQoNBmCMX6c+0mTmqL3eP8bd0/VUAyFxLm1r+5mt74sPwyh3kKvaJBBQYn0ce
-	 cACCVGStrcJ+8qxgM1xJe0lPISYE+l1nU5DLhHHzb1C/fPaaVXKyJb888FWX2TmPRNn2i
-	 FxLbfwel0BpLiPA1FM7H76oIh7AJOA9LDuaFhHhLNUy9LntPmSoiNC6UubSduKFK45g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793259027;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=wv/hhLPWhmY3X0g7zF73HBjVxwILbM4aXNmpTd5ryb4=;
+	b=Pff8f1VDPmTtQSrUm55ml92wDj182bAFEnxI8X8raiLZt4/tUCE6i+uR+1QKgpzpXsZ0
+	 l4/IgC92UYh+Am5zClJ4upmbWuifLEGnoajk6YqCl5GD5Rjzmx7g8pvMz/RXZ/pVzhAn2
+	 gckg6i/7C9oKnakCGtW5Qu+L9pJ0ciOYfHA59FTL0dT7hGVIjnaedltxQ0Nkw45I/Ttg/
+	 1vuzdOp7xpYvv4hs+e48q6vC0tHbtmP95zsdho5tvulqDNQ5BWIdv2vUyjq6O54UvEsh7
+	 KQIeZM05EmDE73wKpdVCtmJwx1WkHlxpzmZNlqv7UfSJtR8SQaVw0ZYdvUoDUWzYs1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nO8+AGHG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ioHfBpge;
+	arc=none smtp.remote-ip=74.125.227.134
+Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C951C606A322;
-	Thu, 29 Oct 2026 07:27:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583F4606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:30:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 583F4606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nO8+AGHG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E7971F01825;
-	Thu, 29 Oct 2026 07:27:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793258824;
-	bh=Ynv3ES4qgVrrqHs4XJtRSvFfOR5ptSdd48Cutyq7X9o=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=nO8+AGHGo3EmJA46J+Dqn+xwFezonYLDBhShUDyRd0KkDTNnZCr8VF9smVObjEAv8
-	 1fJhlYVHYbVSUNB04FVX9n89VZas9d2f91s1Vs2QMlFu3Q83Tl/xOUFs190rHFkD7c
-	 zhPkG+Z4WSNLRgly9SdLr9zoWJm+yz9iuhptJq7lrz5nNltFKAnHO+T0WfUiiQ/ctj
-	 14OdML1KkR5ftQcDuDvtmhhw/50Z3m5pT75P3iiVhjWqMRoRTaZ/bZkcPHIt0cq6zr
-	 T+XK+1yTMXV5lAKJltbGoq6K+hkdpJDfuwY59TpgeSmx7Vt6cvd00W9V89J2njPk/M
-	 4zQnoXCiNB53A==
-Message-ID: <5421ac81-1947-424a-b4c2-6a1634ae5a99@kernel.org>
-Date: Thu, 29 Oct 2026 08:27:00 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ioHfBpge
+Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3ad41dad3faso1199518a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:30:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793259026; x=1793863826; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wv/hhLPWhmY3X0g7zF73HBjVxwILbM4aXNmpTd5ryb4=;
+        b=ioHfBpgeQDW0DtC+R4cAXLIrR9P8EYCIKnEyrGhoswjB463cJzhwxPnOuSQSWsi0kr
+         cc0N51ecS4otM2pTW9ARGI/iM3lUp7jbBWhKDrvkbW7k7QPUBW7MmNxKkvcCQMR/qh6E
+         oACXVhq19K/ga6kBSGZHIAdIp/5QLTKvDZZNNZolc7OMsWaym56lDnpU5kBKDsndp6xY
+         /fFbikGOGkkp/KWGtQGLfTeQ2uICU0HmIvaVzrHEkrj3XBfzm9CTi2MKHuZVzkjUJEN6
+         /bn8OBH5z+OKI2dTXlDpVA6XZ4p5O63OPa7iLEzuMq9p4y5sYSHOhqV80s9S4sCtZC4V
+         HGXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793259026; x=1793863826;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wv/hhLPWhmY3X0g7zF73HBjVxwILbM4aXNmpTd5ryb4=;
+        b=hdp5mmeKUJ0De7IEHbv7mjVTYDfOGGSjhaK7wRepf3GK4KvodDcx+9anS+0DJDvB/T
+         oIa2izLei4ys1PhMsvGuUYY5WDzRjdxAFQeyhmdKx3xH1fn3vz0kBQB8ksQlGGSABxH0
+         Tmxsrd6t6QfgmCRZGuOkX7GVu1CYyFhp/xYcA6kB5wXrUZ26WcYPQFM8PBGnxtuppQzq
+         p7LTkuGGSWvZwZp/DEZzVQARCUhnl5K8ZlN2bGQl5QcoTEPaGvUP/D5owpnuaOi7LT6P
+         dOGeXS7DaqsQLbD7AJkHgvPLKc+ztscYF196oQUxjWK+3Pa/VdfCgo2VHKc+6FQzvlMj
+         /S+w==
+X-Forwarded-Encrypted: i=1; AKwUvBw1QtDjzrvW5HgQpG59ph7XFsLM/ozpR9FnlbC5otRbnvIunl9dfz8hVvlUB0dSDMbVORjAIhAz4xe58KE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKiq29tEbAvbjdP2hADag4USzQZ10Chl/ctHySu/njK5rGt5iWo
+	/tKKwnGeUrLUcooffCIes2zfLu/IVc6tefv+nr2ygmr1o1iUvcA42B8M
+X-Gm-Gg: AYBFou1WznVGgSEBq8ybxu8kHu2zKzXAg++s3NsXXlY0oMzFYFkB8xzLg9nHghCwqv0
+	Q8jurxYKBJhqajTggvwuewN1jQx+wdHO15HSc6zUdNbNXoYmxszjr05/Iiwpop+rq+8Mt+A5w3v
+	uQHX0qLOEfX9DSag8sd2dE+rjmmlU7HJdnT5/UvU5B0uNLUkEB8M/Ny3qqboz/6NC5k9R7w46nq
+	nsOFyb9Gc641UsBL8AMFudD422UMXhDff01JOm+eTyHP6mx8tKGtkNOgYPyDQoR2tB0WN1Dwa+p
+	yKY1n+w1POF8Ny2a0IZuJJaDSwGEVEXX79aDuVu5cuY2CrN5H+KN42ITYV7xdP9mH1EgIcNyBf7
+	HtKd+swz6JnhSvGytnBp3DTny7JiYdL9It7rkko0T86ErdBkYlQzdW3ECuYhwnptF8KrobSUaIA
+	/6ht4h1vPUmlBmAU0Kz69thpducJR5jxHMq78zAi36256u3GhDPFDSX6ctiyxreY20iy0Z9yo1O
+	LZtTrQ6wWn0AiPv2/dYos9LGs5Xrg0piLbGvcefk/u8fEPBdeHw2qWeYpfb9+UihV5SZ8wq31E1
+	nPXcrOZPiHCYs8BEDTT79BA+IN4MXAypnw6vI5VQDQOo30pGh3AEtFHC
+X-Received: by 2002:a17:90b:4cce:b0:3ac:74b3:a8f3 with SMTP id 98e67ed59e1d1-3ae582c2823mr3715004a91.44.1793259026521;
+        Thu, 29 Oct 2026 00:30:26 -0700 (PDT)
+Received: from lima-ubuntu.hz.ali.com ([47.246.98.219])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae57a2a053sm2660414a91.4.2026.10.29.00.30.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 00:30:25 -0700 (PDT)
+From: Qing Wang <wangqing7171@gmail.com>
+To: kayracizmeci@gmail.com
+Cc: bsegall@google.com,
+	davichazbh@gmail.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	tim.c.chen@linux.intel.com,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com,
+	wangqing7171@gmail.com,
+	yu.c.chen@intel.com
+Subject: Re: [PATCH v3] sched/fair: Replace random newidle_balance with Bresenham accumulator
+Date: Thu, 29 Oct 2026 15:30:17 +0800
+Message-Id: <20261029073017.2464877-1-wangqing7171@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <auGzaT-RjHdctV60@scheduler.schedules>
+References: <auGzaT-RjHdctV60@scheduler.schedules>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,85 +110,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: mmc: mtk-sd: Document support for
- Airoha AN7581 SoC
-To: Christian Marangi <ansuelsmth@gmail.com>,
- Chaotian Jing <chaotian.jing@mediatek.com>, Ulf Hansson <ulfh@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Wenbin Mei <wenbin.mei@mediatek.com>, linux-mmc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20261027144002.10606-1-ansuelsmth@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261027144002.10606-1-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27/10/2026 15:40, Christian Marangi wrote:
-> Add dedicated compatible for Airoha AN7581 SoC integrated MMC controller.
-> The MMC controller is based on the MT7988 with the difference that it does
-> have a single clock controlling it.
+On Wed, 28 Oct 2026 at 17:01, Kayra Cizmeci <kayracizmeci@gmail.com> wrote:
+> On Wed, Oct 28, 2026 at 11:44:49AM +0800, Qing Wang wrote:
+> > The current NI_RANDOM implementation uses a random dice roll to allow
+> > newidle_balance attempts according to the success rate. There is a better
+> > way to implement it.
+> > 
+> > Replace the random dice with a Bresenham accumulator that distributes the
+> > allowed attempts uniformly across a 1024-step window:
+> > 
+> > Each step does the following:
+> >   - Accumulate (1 + newidle_ratio) into newidle_window_pos.
+> >   - If the accumulator reaches 1024, allow the balance attempt and
+> >     subtract 1024.
+> > 
+> > This guarantees exactly (1 + newidle_ratio) newidle_balance operations per
+> > 1024 steps, uniformly spaced for any ratio in [0, 1023].
 > 
-> Add the dedicated compatible to describe the 2 register requirement and
-> permit to define only 2 clock (the main one and a fixed clock for HS)
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
-> Changes v2:
-> - Also add compatible to restrict clock-names for source and hclk
->  Documentation/devicetree/bindings/mmc/mtk-sd.yaml | 3 +++
->  1 file changed, 3 insertions(+)
-> 
+> I still quite don't understand why we need this. If there's not a gain,
+> the old code is simpler. I'm not against this but still I'm just asking.
+> Changelog just says "better way to implement it" but doesn't say why
+> it is better.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Sorry for not explaining this clearly in the changelog. My reasoning is:
 
+1. It is deterministic and reproducible. For a given ratio, the
+   balance frequency is exact and not subject to random variance,
+   which makes the behavior predictable when debugging or tracing.
+
+2. The attempts are evenly spaced, without bursts. With Bresenham the
+   interval between two balance attempts is uniform, whereas with the
+   random dice the number of skipped attempts follows a geometric
+   distribution: at low ratios we may go for a long stretch without
+   balancing, or balance several times in a row.
+
+Also, looking through the scheduler code, I found very few places that
+rely on random-number-based probabilistic decisions like this. IMHO
+that approach is not a great fit for a kernel mechanism where
+predictability matters. Using a window and spreading a fixed number of
+allowed attempts evenly within it seems more reasonable to me.
+
+I'll put this rationale into the changelog in the next version.
+
+> Why do we need to make this 0? We need
+> 512 calls for this to happen. But for balance to run we need
+> newidle_window_pos to be 1024.
+> 
+> So, we reset newidle_window_pos per 512 calls but we need it to be 1024
+> in order for balance to work When weight is 1, the newidle balance just
+> doesn't run.
+> 
+> Or am I missing something :-)?
+
+You're right, this is a bug. I wrongly assumed that newidle_ratio is
+updated once every 1024 calls, so I reset newidle_window_pos in the
+update path. Since newidle_call is halved after each update, the update
+actually happens every 512 calls, and the reset discards the
+accumulated value before it can reach 1024.
+
+The reset isn't needed at all. newidle_window_pos always stays within
+[0, 1024), since weight <= 1024 and we subtract 1024 whenever it
+reaches the threshold, so the residue can simply carry over across
+ratio updates. Dropping the reset fixes the issue. I'll send a v4 with
+it removed.
+--
 Best regards,
-Krzysztof
+Qing
