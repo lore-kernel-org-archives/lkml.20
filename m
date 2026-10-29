@@ -1,46 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793290514;
-	b=GKIH54jglOKaOifsq6HWVj4AGiOMnJm1lmZka9p3FJOgrTmnB+Hic6z5XzfAq7nihXzM
-	 WPVHYW6y0xH0fNk1V3YnGgCtltPhInsBfzTsiKSBQFcPa1Agj07acBqizzfVwPNUAKbaH
-	 /Z+/PYJ0dTzO28E2/7MG8GikHHBQNvCWg3Mo558cO1n2cJhTm+rkqMqjMXdE48g58HBQd
-	 zLyZw/HcmogX5QqXThs3NKzaG3UKMFgkc+Kk8/JZ/sAdeFYPEMXZJy2gjXvF4ly9WCCPe
-	 xA4h+kgZFGhskK60E72c2xgX6ldo/l7wXgVbYNEEYmEiAam6yuhUkzMmcFxtjOFCEwQ==
+	t=1793290518;
+	b=Ykldp9L5FOD2zbDBNNGis3S9vMoo45LUARVhlVFoHvpcx9xhUGGBa33m+T1ssGhMVM6y
+	 +Qe2HBInUL9533MaZ6AYMRaKvFc9qSgXbOB45YksIHmTUiKbyM0+WaniHweS9URCgJpel
+	 ViUzAL6xpJ27SGbxlBlfzdOfc4Qi/Ha5HYcgKCZF0q0ZMhL7JoTUnIKqOmjHoeuT2a9yH
+	 /qZOnNKCuvVRo0KmoxOzCmOg74515tDL5dYrXWVLxLeeG2+v+p7q150HYMoT2FUt6Ubaw
+	 bflEdxu5M0EaBtS8ea7UW1L5eqRXMsXkyCXH8AyN2X04D/oNHRmMakKbRW6Y0+FlCPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793290514;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793290518;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=A5I0sjiC3/tXoE6gD6LWbDqfY9ZN1us7CsjxWKvsGJ0=;
-	b=iBX2RqMJeQlwBHcQlnK7cUqOaNfhRv66nBF/IrKOCi1r07hKH+xG35NB/A+DtIseC6S9
-	 CPlWeese9MwbR+t+PKmhUEjMKMtB4QKaICuhz7TOxnPB38GJCDlpPikKqT9TiYfLD/gTH
-	 GfsNT7ONNQv/X548pIgA15+9w6/KVK+vkcn+PW6suKKXBO0N0KYrixLRuKO75+ATsnmi5
-	 FFpzy9KITQClroADzD0Qe8hLczcARrhOo/5Qth8OYCenf01PG9AjOE2PU8vzT1HVXvZ4y
-	 IKXQ0XxEXxM1m8giV01GHnPF6tvsxVWnKtm8X+WhbUj2WnarsAUSfWolmbjCxjZsSrA==
+	bh=/ixsccMVhQQFsyZTijSDqJU2Yn/nNlxSIzZkTKWFQDU=;
+	b=N7C5Y4PyI4rAC1FBIX4y3u9VFtZs3fzWeNTm36SZDIvacC7IrYiwVawBm7phz8s+yoXc
+	 14SmoWY2xo3oNceDWQ8Igc7BGYqkwiNM2DE0at2+WaR5kRbm/FmI/bJ5SZoQCPbioPDsp
+	 QUVsI6HJMc3Bm6brR5vwO5GYxwXnAFoRNLlmxqddkgn5PkjSjnsD8SBUCw7KK8XNH2T//
+	 VjiSCke07hE6anraWiCysZGPXC2Zk7lkm8eXct47+ZDJX7IfF+sXAy3uEdbSKeoi2PnOZ
+	 v9AmsDyxG5QIqx/Yf2U/94GxWz96kgRnE1VfcOZYfMIX5CCXn3YBUwt4sPR+BdlmaAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LgWUOrU1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEi8K5yC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9CD9606A33C;
-	Thu, 29 Oct 2026 16:15:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6FA9606A333;
+	Thu, 29 Oct 2026 16:15:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LgWUOrU1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A46351F031EB;
-	Thu, 29 Oct 2026 16:15:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEi8K5yC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BDE61F01816;
+	Thu, 29 Oct 2026 16:15:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793290513;
-	bh=A5I0sjiC3/tXoE6gD6LWbDqfY9ZN1us7CsjxWKvsGJ0=;
+	s=k20260515; t=1793290517;
+	bh=/ixsccMVhQQFsyZTijSDqJU2Yn/nNlxSIzZkTKWFQDU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LgWUOrU1x3XohJOFevxR/w/0WuLroq8cLqXvzezz/1+GNgg9LQ2Oxo7OdgYg2OcXc
-	 X1hmO5/Y1kGLIAo+gfi654dravufUexHX1GseLOSdAxA8XZHCVmhFy+oKTHsQkqfls
-	 mv9v5sXnzfc64BFBaBLm/TutWPIKKwCcAaW4BHvVsS47Xqh5SY6YUTniSzPmYxAwHT
-	 aYYzJsUaQWqRVZoFc29tl6IudnW2Asaw6CPBsUUb+KxbliIy6xH49E/8OPQ8yXTZNi
-	 pDzAWxxW6JeyOhbzBdvS2OW1/LRbxeVGKnLroHuDy/GMs4aHnJXijz6NXnkkme9Gpr
-	 ueZIrTfg0+sLg==
-Subject: Re: [PATCH net 04/11] net: au1000: report MDIO transaction timeouts
+	b=WEi8K5yC45PD7IOiavDKRd2ByVXzmOWB6fnAv2y2q+o92eY6d98MjLO/wjON5mxXE
+	 POh1QmKHfk6HD8S6R6ByLQrF2lZefHgXkUN+yaRJHh3FXV3gZvEtFYLApRotcksgU7
+	 c2ObdUuq5z0NkElphy1LervXQjKebCnfs0yrtTxzcjVlbJQaBOmjcS68o449sva5aK
+	 zxcIXxIkW6iF/ieMgHLw2pnffZoA16InLx1ALibfVdU+2hg3M5LjUBuPrNkIsdmmOg
+	 NST3nVuUdWHa9mR+JH8JC/Hj/VhA03cFyFSnLfrNHSHqam2aITt862y2DwUAIErplr
+	 aYkoFhABdIuMA==
+Subject: Re: [PATCH net 06/11] net: au1000: assign a valid MAC address without
+ platform data
 From: netdev-bot+sashiko@kernel.org
 To: f.fainelli@gmail.com
 Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
@@ -49,10 +50,10 @@ Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
  runyu.xiao@seu.edu.cn, mmyangfl@gmail.com, hvr@gnu.org, jeff@garzik.org,
  danny.kukawka@bisect.de, mugunthanvnm@ti.com, sebastian.hesselbarth@gmail.com,
  linux-kernel@vger.kernel.org, manuel.lauss@gmail.com
-Date: Thu, 29 Oct 2026 16:15:12 +0000
-Message-ID: <179329051221.3134.18425968013165195410@kernel.org>
-In-Reply-To: <20261027223140.3774570-5-f.fainelli@gmail.com>
-References: <20261027223140.3774570-5-f.fainelli@gmail.com>
+Date: Thu, 29 Oct 2026 16:15:15 +0000
+Message-ID: <179329051563.3134.3476237104312720828@kernel.org>
+In-Reply-To: <20261027223140.3774570-7-f.fainelli@gmail.com>
+References: <20261027223140.3774570-7-f.fainelli@gmail.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -72,104 +73,60 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The new completion poll in au1000_mdio_write() reads MAC_MII_BUSY
-  right after `writel(mii_control, mii_control_reg)`.
-
-Pre-existing issues:
-- [Low] On success, au1000_mdio_read() returns the raw 32-bit
-  MAC_MII_DATA value (`return readl(mii_data_reg);`, au1000_eth.c:298)…
+- [Low] The code change is correct, but the commit message overstates its
+  impact.
 
 --
 
-net: au1000: report MDIO transaction timeouts
+net: au1000: assign a valid MAC address without platform data
 
-This commit changes au1000_mdio_write() to return an int. Timeouts from
-the busy wait before the transaction, and from a new completion poll after
-the write, now go back to phylib through au1000_mdiobus_write(). The read
-timeout paths in au1000_mdio_read() now return -ETIMEDOUT instead of -1.
+This commit adds a call to eth_hw_addr_random() in the no-platform-data
+branch of au1000_probe(). Without it, dev_addr stays all zeroes and
+eth_validate_addr() refuses to open the device.
 
-> diff --git a/drivers/net/ethernet/amd/au1000_eth.c b/drivers/net/ethernet/amd/au1000_eth.c
-> index 70319b432182f..a507a524370fd 100644
-> --- a/drivers/net/ethernet/amd/au1000_eth.c
-> +++ b/drivers/net/ethernet/amd/au1000_eth.c
+> The supported no-platform-data path leaves dev_addr as all zeroes. The
+> device can register but eth_validate_addr() prevents it from opening.
 
 [ ... ]
 
-> @@ -292,14 +292,14 @@ static int au1000_mdio_read(struct net_device *dev, int phy_addr, int reg)
->  		mdelay(1);
->  		if (--timedout == 0) {
->  			netdev_err(dev, "mdio_read busy timeout!!\n");
-> -			return -1;
-> +			return -ETIMEDOUT;
->  		}
->  	}
->  	return readl(mii_data_reg);
+> Fixes: 7718f2c27dbd ("au1000_eth: use eth_hw_addr_random() instead of random_ether_addr()")
 
 [Severity: Low]
-This isn't a bug introduced by this patch, but should au1000_mdio_read()
-mask the data register value to 16 bits before returning it?
+The code change itself looks fine. Is "supported" the right word for this
+path, though, and does a Fixes: tag fit here?
 
-On success the raw 32-bit MAC_MII_DATA value goes back through
-au1000_mdiobus_read() to phylib. __mdiobus_read() expects either a
-register value or a negative errno, and it passes the value through
-without masking:
+As far as I can tell, no in-tree configuration reaches the !pd branch in
+au1000_probe(). The only "au1000-eth" platform devices in the tree are in
+arch/mips/alchemy/common/platform.c, and both set platform data
+statically:
 
-drivers/net/phy/mdio_bus.c:__mdiobus_read() {
-    ...
-	if (bus->read)
-		retval = bus->read(bus, addr, regnum);
-    ...
-}
+au1xxx_eth0_device:
+	.platform_data          = &au1xxx_eth0_platform_data,
 
-If bits 31:16 of mii_data ever read back non-zero, phylib would get a
-value wider than 16 bits. If bit 31 were set, it would read as an error.
+au1xxx_eth1_device:
+	.platform_data          = &au1xxx_eth1_platform_data,
 
-Nothing in the tree shows whether those upper bits are ever non-zero on
-this hardware. Would something like readl(mii_data_reg) & 0xffff be
-safer, now that negative values on this path are proper errnos?
+board-mtx1.c only copies replacement pdata into those static structs
+through au1xxx_override_eth_cfg(). au1000_eth_driver has no
+of_match_table either, so device tree can't create an instance without
+pdata.
 
->  }
+On in-tree boards, a missing or invalid PROM MAC leaves pd->mac zeroed.
+That case already takes the existing else branch:
 
-[ ... ]
+		if (is_valid_ether_addr(pd->mac)) {
+			eth_hw_addr_set(dev, pd->mac);
+		} else {
+			/* Set a random MAC since no valid provided by platform_data. */
+			eth_hw_addr_random(dev);
+		}
 
-> @@ -320,6 +320,17 @@ static void au1000_mdio_write(struct net_device *dev, int phy_addr,
->  
->  	writel(value, mii_data_reg);
->  	writel(mii_control, mii_control_reg);
-> +
-> +	timedout = 20;
-> +	while (readl(mii_control_reg) & MAC_MII_BUSY) {
-> +		mdelay(1);
+So it looks like only out-of-tree board code that registers the device
+without platform data can hit the zero MAC failure.
 
-[Severity: Low]
-With this new completion poll, will every MDIO write now busy-wait for at
-least 1 ms?
-
-A clause 22 management frame is about 64 MDC cycles, which is roughly
-26 us at 2.5 MHz. So the first readl() right after
-writel(mii_control, mii_control_reg) will almost always see MAC_MII_BUSY
-set, and mdelay(1) will run at least once.
-
-The mii_bus->write callback runs in process context under
-bus->mdio_lock, which is a mutex. Could this use readl_poll_timeout()
-with a sleep of a few tens of microseconds and the same ~20 ms timeout?
-
-To be fair, before this patch the access that followed a write already
-paid this mdelay(1) in its own BUSY wait before starting. So for
-back-to-back sequences the cost mostly moves into the write. The new cost
-falls on the last write of a burst and on isolated writes. The existing
-completion poll in au1000_mdio_read() has the same 1 ms granularity.
-
-> +		if (--timedout == 0) {
-> +			netdev_err(dev, "mdio_write busy timeout!!\n");
-> +			return -ETIMEDOUT;
-> +		}
-> +	}
-> +
-> +	return 0;
->  }
-
-[ ... ]
+Could the commit message describe this as a latent fix for users without
+pdata? Without in-tree users, would net-next without the Fixes: tag be a
+better fit than a stable backport?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261027223140.3774570-1-f.fainelli%40gmail.com
