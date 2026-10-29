@@ -1,111 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793232124;
-	b=gDQDTdA5FhHp5xkhPctwze1bUTyJzfPPxJQ0Y/wzIamyXWrTSvsBiH8kKzMH3I1oZPfh
-	 Mthmr9G6NPnV7r5YC5SRa5xLl/RwQq49YkCKjtS0wd9xztEC+ZcdrVUZUSOolQ6XLLSma
-	 IHtv9N+P/i3olH0nm0dIkezDLcB+b6rNONNQEa9FTaA6RjVyWnRZWYebjcj9IHiFxpCOI
-	 IkB2aQXdE3VGxDlpu/wclASoyy+SLjqFCga/20AwiEvOpxa4QV1uqsUa8NGwQTglToroB
-	 HR9mmOXrkz0eShjfa/JtijH4M5z2HWjf546mFSxkdIR8ihMo7i0oJ0SwtUFUyOG1j3g==
+	t=1793232285;
+	b=zexETwPuTVSmX19MvvUTewHjJj0sOLD4hyPsJyiJs5YkLLPnZ1/UvxJg3+wyPCwueN+j
+	 gz2jBcpxUxeuaUcuumGfqxtrTOLBKixlp9JAnIoPXpXcm7DXnsRE7Q/TW3YfhfxQ87spM
+	 EbSEiPkyXC8FJjqoGVils3vRrsyUg8CZxZsahd59UEK9Aah0Qly7hystp/BGyOTQr+K1J
+	 Wct7fJvqTKZLFE+M+8aUvENrTkP9Dd6N7GWSKlYPeR615P0gbbg9E/nuIvGjsM+3+dI17
+	 LqQxQEPJuOITV0zgbHmH+zFS69qdS3RFUNbeJkbre5VqMmy+sIpDiMPkmx91BMd1HYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793232124;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793232285;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=UtW/sYsNMYd14q833jtnLcBy0iGbA94LyKtY63+yQks=;
-	b=rcI1YZm6W+bLL/H87Ro4Y6FUfwWdkN2I1I+ZNEZdyNl9qiyExtbz5sg/M8j1Sf8TzDNk
-	 RbxKJkQTwq72Zy87FwA+l+wTX/31139hGopALoxAVUGI3G31cbeRcmSJimyMtTjz23/Jf
-	 rTCdZGPDvSTOSAtOyrWE4snxjNGqQGkBVa8FQ/SX8DFASjJMz+Qp4ncztp+1kzTMb23hM
-	 IL4e4L/PXwLa1aeP95Jym+7+wd6gY5bvbBqr2V12YZ+1sT669S2nJIyzLuu7XubsICvqd
-	 Yi5OqJD05LQpV+9UvjxE/bNWTrIvU7sMy1REIFV6sX0Eg4dHmfXz4t+MXt/eviH6fWg==
+	bh=q/xBVtBLk16U8qItuEo0/3JxmIlfapOJCXoA5AObKSA=;
+	b=Gu7e4TG3JkYNur1TX02Qi2iDsWj/S5R5fO40y+HP5qIsdTiT3U5uyVNTKuoUI6TRoR76
+	 QClgtMj/rK5GblaXanohNko8rYyVzMpLvHwuSc45bK/vBBJyTQiPwNQucF5yLTkvzMoA+
+	 2t34l4AB9RJqMdhkGJjO1jpkDVCWgL6ZmE3inIeamudNRTP+xuPQiuWHUge87UGyH1EzM
+	 LxOjGdQqWEzNa9n5beUei1LIu2Nb7nQ5xsH8c91ySneqNuIrEv7dHL9EHvLdRxC9rNV+f
+	 Y9X9ntpGFZCNSa7BWRHfz+kVGs/7DOxWvFE+Wip1svCQCxvDy5cHf4z4TNMQ3Y6242g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=soleen.com;
 	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=EpKoMwgE;
-	arc=none smtp.remote-ip=209.85.221.169
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=BDLaQPpE;
+	arc=none smtp.remote-ip=209.85.217.44
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EA2606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:02:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84EA2606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96552606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:04:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96552606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=EpKoMwgE
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5eab93a9862so509911e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:02:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=BDLaQPpE
+Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7cb6dc850c7so525713137.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:04:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1793232122; x=1793836922; darn=vger.kernel.org;
+        d=soleen.com; s=google; t=1793232283; x=1793837083; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UtW/sYsNMYd14q833jtnLcBy0iGbA94LyKtY63+yQks=;
-        b=EpKoMwgEEoHgtRNLqOsrFbza9ayjknIjZvpEUcg2luJkviGEk3/b3r07STY/DjmLA8
-         /XkGfSisrwYjJB+E2qraZr1BMSiDgD/mg+5mg/Tbyv3Psv5T4MFMXGB11oiCZAUjJa4D
-         zeL2ENfDoV2R1H++PE0b/6NBGj4qTP2FN6s7uasK/3sY3Yoqyf4ZXjosooinUqF2Pipm
-         UquXeuIIUMX8B6YMwPoqf5sckl6UKYocL3LgFsWmqoKJ7qyRraYqUx/7MVvgXj0mYg3x
-         8fV5AvWQFSGxbCvYUTrUD5HebiEPYTH/yCjpVCK4zWTJDFsYQmsHf1SS7tyFh0xGotDs
-         OoKg==
+        bh=q/xBVtBLk16U8qItuEo0/3JxmIlfapOJCXoA5AObKSA=;
+        b=BDLaQPpEQkC/NOGErHzNgMqNEFgiZW+qixJDZ5RtDffvwjsqxm93mYTldZW4Txe7YC
+         KOlzFcRPqQr1N7PzdaxoW1U9MQgJBHjgARqwrgxXEZIU7JNfwIwgLxfO92G6pOC4G4rk
+         4OSF6jFiqrA40z8orm3/UNdvF1RJjCFi7ClJV0vWr8MykRtBgdBxnizZAivW6aZRN3kx
+         l5uvOty6CRBiTWGUrkgmOuKvd2MUI35gla4/qmesv+YfLyi3mwck9NijjEVz8zhSCgxi
+         pcgFazOCNQkh0LbGTfZyXdh3RejNnsqgBCJkWvDATwo+Kuk2B2721o1lMZ/ETjyXrhG9
+         LPqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793232122; x=1793836922;
+        d=1e100.net; s=20260707; t=1793232283; x=1793837083;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UtW/sYsNMYd14q833jtnLcBy0iGbA94LyKtY63+yQks=;
-        b=RExqTOQ5Ge9TpvfkyalBXZ7Xjz+RFNqqLJhExdin0JQTI3GURDReMjtEcODNTo5vnb
-         XZLE2Zc1AJ9fphXwL/OQYFS2CdTWECtW9iHww98i8ld07jtDQHuhY4BPpOKVtGaI2ekW
-         vl4TRKmfFKAiNqJmi/pBEfNOvz3r8ZTW8jfhKEcgSTiaKGFypdPlifdfeI12L6pUdXQ1
-         Z1IZ1BeNNkly0zdJbt3O+OPEggNyzM5OgjXusCC/+bMSdpmysV5tdFvh8E3X0FdxOkhh
-         Z3vy3ZfRQhgA+Riy90Dm1FE+8pFDBgvMH2cnVBip9/8TeJDkIKRjL0IZNGe4FfjoSahZ
-         Baog==
-X-Forwarded-Encrypted: i=1; AKwUvBzoWahHBHKPpuOfXN9zfzkBfaVS/wdklAsPAxrSos2NhfVXBLfwOTtGAFta1XEBgGzCiOyVOPgDNhGKrbA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLY5AkK/4jChH94OCU1N18/rrrNiA5kKcxKQBbi1sGr1dtySFzG
-	smKn8ZmW2S5wfaPWVQa9dxCEPUAcNDswH5WDbS8XQu85OaJC6aiiw9pll1Lwb+IItbI=
-X-Gm-Gg: AYBFou0PswM31ogWZg5VBsa+ABX2tTk9elkomjRrtocMSO8k1qJMlH1m8njghP9Ar+s
-	iZ8p1Ad8wH4m8Hi5PtUlcvcRwRS+6cSPuuSKitT2w8eaqQiv3S35lxbvQ4E9ueSZb7I95s6wyLT
-	YU/BKYP/NUvNQUo4ULM554TDoTVJZOONDuTXqFqp2K+4DZE1kcHlYgyaml3hMD1qjo4HmKDMIGe
-	zVfn0Cz9TRmSLjlCV/7zPFHUCAax0jAzNTKfAWKZBFt23cz2+o1eF0/f2kd1gtC8prAC6tK6ljO
-	tR+9yu6S3575jDPCwS1qksE+cTh/vUnC33tQD+Stha1FK1RZpJqn2oZCys4F3o7Xbqq23nvDsq8
-	EIGj+3AOrjuDGLdX0s44q95ZA81RCi8NIn4miOLTBgLlOT23nkYW2U7yC2nxw2u3TGp9uOKwNzl
-	YtLJSatbwhjonBk7m5b8O5csOY35SQd0kjx0xdnvkYqIJR+6hJ3qws6//0pTTk5A7uTnuh+lpcq
-	NUR8JRBc5FufXinMLnQTDkBJTfRw3ng7K/o9kq2ykMFX0tc3HYS/FEPjz1/Bvi1nq0dFAOER1cu
-	KAfVRuZ55wuXFZvR0AwJmJthfn/iOr79IpIaKTG+LIL3ZaOX6jnNOoIBCLDDC+nowWOGPPtZRja
-	/uwmYoKmC7EJm9ANsljcyM2jA4NJWQ2L4
-X-Received: by 2002:a05:6122:1c03:b0:5ea:d14a:ef8f with SMTP id 71dfb90a1353d-5ec4cc14f21mr1861192e0c.4.1793232122251;
-        Wed, 28 Oct 2026 17:02:02 -0700 (PDT)
+        bh=q/xBVtBLk16U8qItuEo0/3JxmIlfapOJCXoA5AObKSA=;
+        b=Cl95OMmckF6JZ3hLp/yMv0K70K6tGaXtYpGGLycbMT5v4YSexyhq5x+6InnMmqWGaV
+         SpoOyBJLZ13DIbVzOtELcHRo4MvlPD7mopWDpD9urYfXr++DK8gQYPu/WrhOIK3B8z7X
+         m0Nzii0oi8tOxyG6d8Uup2+akN2kT3o4bBJ+mSyKKuG/pBHkwuTExiYErKK6HeWrIK1x
+         gGfHhxB/4xkc9ivgTy9DZIVdhbaVWHzPJmdA/6GBxVq72ggi00FKSzPbWKITXnSKXIRM
+         0bYjOYAxXbVKR+UMSCNxEAN6fQu6NCbgqQUTXLkyXFZM/vbKWNAeyStcvOHvmoKgLjk8
+         kiqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx4JFoACRPeyPwGTMnWGpvSzqdin31ZjamZncIF2nYwHK2YWo67eqAODif/f+lK438+2/wbUwyJwY+Cxus=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKB1wZ9YkyJI66zglyO4HLhZPgqgQDBztyxydiRnh0y7b1xoEYo
+	KyeaH/CNqDIDhuuWZ3ZqtoNXclleOQrvm+cC2N3rJcLKBY1KLYcPb6M4BE9KcPIJjOc=
+X-Gm-Gg: AYBFou1CbVnCBD6f2PPT7d8T/Dups0AiAvRaaZCdkauuNUNVrSKNB9NWarBAaQXRqy+
+	mtOvQTCehrWJuLWy7jWAGBcdtIBUpdMqy0WzeWgUkNjdzyCldpLJL8QZpAP+fQdZ9lHIlfGoPaU
+	PI7SYkBRPOLsBv5SgUid8Q6IIDdAYuR4/Fe9XutRUyyk9pHX1Zc5qtHmyk64EDO6ZTYAZ4p63lw
+	jP/jtWpUS1klrEGGQe0RwvOWw4Lc1DyQANb+rmXgawxU0q/m+W/6JppwBf461QU805TJrhkCnkF
+	uZbCd4NNUTOCHjMXDsMqfb4NVUTcckEt47Sa9Rum8DSnpK3Zc+ti6MqkM9GcpYnBvVmtUFmABTJ
+	mkifFyn2A/U814qwOE5eTZk0ZN4pgL5jdhZTzAsXGTrBe1uTZEhjSBDrYLqr6zshTfsCDdn7259
+	UtelTPzCZ0gNd5V/8z+OI/BCKEmq+GEFOFLavUEY3O3qO7V4/oXIOb8IGgR0UFt21kLaLUAXdBg
+	NXDiL0yt6dWDdFfIJSUFY0YhNoXsSqLhFBtU9SeMwM7Kp8BAJCwT+xF+5O5uUcRvJLYRMxUdAIc
+	Y0Nryr+1Ck4P1ZbJ0xj6rZjqqNrnQSBqiJ3qX0NoHRKOPstrgH4fbXSqZgcxiUH4vdUZNkCez4o
+	RYN9bdn2xOfEQWS+COcmRxYCDpYVy0o+e
+X-Received: by 2002:a05:6102:3e92:b0:7b5:1ca4:9df1 with SMTP id ada2fe7eead31-7d03a29c54fmr1908368137.5.1793232283543;
+        Wed, 28 Oct 2026 17:04:43 -0700 (PDT)
 Received: from google.com (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec4f931911sm3523257e0c.10.2026.10.28.17.01.59
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99125931983sm7622737241.2.2026.10.28.17.04.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 17:02:01 -0700 (PDT)
-Date: Wed, 28 Oct 2026 20:01:59 -0400
+        Wed, 28 Oct 2026 17:04:43 -0700 (PDT)
+Date: Wed, 28 Oct 2026 20:04:42 -0400
 From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: Pratyush Yadav <pratyush@kernel.org>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, kexec@lists.infradead.org
-Subject: Re: [PATCH 1/3] mm/memfd_luo: don't use memfd_pin_folios()
-Message-ID: <auKJXHWnNMzju7cv@google.com>
-References: <20261027173031.763213-1-pratyush@kernel.org>
- <20261027173031.763213-2-pratyush@kernel.org>
- <179321872100.1775665.6881420026761127422.b4-review@b4>
- <2vxz4ie5o2ak.fsf@kernel.org>
+To: David Matlack <dmatlack@google.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, kexec@lists.infradead.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, Alexander Graf <graf@amazon.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Christian Brauner <brauner@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	Hugh Dickins <hughd@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Samiullah Khawaja <skhawaja@google.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Vlastimil Babka <vbabka@kernel.org>
+Subject: Re: [PATCH v2 07/10] mm/shmem_luo: Retrieve tmpfs files onto a tmpfs
+ mount chosen by userspace
+Message-ID: <auKND0n3LyivCrir@google.com>
+References: <20261022225035.377445-1-dmatlack@google.com>
+ <20261022225035.377445-8-dmatlack@google.com>
+ <179322496574.1894369.544573858973645958.b4-review@b4>
+ <auKAlcPN0Lt6Y3Wm@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,39 +112,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2vxz4ie5o2ak.fsf@kernel.org>
+In-Reply-To: <auKAlcPN0Lt6Y3Wm@google.com>
 
-On 10-29 00:04, Pratyush Yadav wrote:
-> > Nit:
-> >
-> > I would suggest adding another helper, memfd_luo_get_folio(inode, index, 
-> > &folio), that wraps:
-> >
-> > - shmem_get_folio()
-> > - The !folio_is_longterm_pinnable() migration retry loop logic
-> >
-> > I think this would make the final code a bit more manageable.
+On 10-28 23:09, David Matlack wrote:
+> On 2026-10-28 06:02 PM, Pasha Tatashin wrote:
 > 
-> Sounds good, will do.
+> > > +/*
+> > > + * Whether @inode is on the internal shmem mount, which is used by
+> > > + * shmem_file_setup() and thus by memfd_create().
+> > > + */
+> > > +bool shmem_inode_on_internal_mount(const struct inode *inode)
+> > > +{
+> > > +	return inode->i_sb == shm_mnt->mnt_sb;
+> > > +}
+> > 
+> > Please fix the warning reported by kernel test robot.
 > 
+> Will do.
+> 
+> The prototype for shmem_inode_on_internal_mount() is in mm/internal.h,
+> which mm/shmem.c only includes if CONFIG_SHMEM=y, but the robot was
+> building without CONFIG_SHMEM. I've moved the definition of this
+> function into CONFIG_SHMEM in v3 to fix this.
+> 
+> > Looking at this together with Pratyush's mapping-freeze series ([PATCH
+> > 0/3] mm: allow freezing mappings), I think we should extend the mapping
+> > freeze lifecycle from preserve() -> retrieve() to preserve() ->
+> > finish().
 > >
-> > Other than that the patch looks alright, feel free to add
-> > Acked-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-> > Once the nit is addressed.
+> > When retrieve() returns an fd, its mapping should still come out frozen
+> > and only become fully user-owned/mutable once a successful session
+> > finish() happens. That keeps the index -> folio mapping invariant across
+> > the entire live update until every fd in the session (e.g. vmfd,
+> > iommufd, vfiofd that depend on the memfd) has been retrieved, passed
+> > can_finish(), and been finalized together in finish().
+> >
+> > (Doesn't have to block this series, we can do it on top or as part of
+> > Pratyush's AS_FROZEN series.), but I think we must fix it either here or
+> > there.)
 > 
-> Thanks!
+> Ok that sounds reasonable. Should we do that as part of Pratyush's
+> series then?
 > 
-> I think the MM side might take some time to gather reviews so I will
-> send this out as part of a liveupdate-only series. This patch is useful
-> on its own anyway.
+> Pratyuh's series replaces shmem_freeze() with mapping_set_frozen(), so
+> retrieve() would freeze the new file and finish() would unfreeze it.
+> That should work the same for memfds and tmpfs files..
+> 
+> BTW, this tmpfs series does a lot of renames and code motion so it
+> conflicts with Pratyush's series. How should we order these?
 
-Sounds good. Could you also consider adding a patch to that live 
-update-only series to extend the memfd freeze from retrieve to finish()? 
-That would close another gap that does not affect us yet, but will once 
-other session fds depend on the memfd mapping.
-
-See:
-https://lore.kernel.org/r/20261022225035.377445-8-dmatlack@google.com
+Initially, I thought Pratyush's patch series would land after yours. 
+However, since he plans to separate the LU changes from the rest, I 
+expect both series to land in this cycle. The order does not matter; 
+whoever lands in liveupdate/next first, the other will need to resolve 
+the merge conflicts.
 
 -- 
 Pasha
