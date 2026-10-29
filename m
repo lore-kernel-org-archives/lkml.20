@@ -1,67 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793240975;
-	b=Qp08Tjjcvuduj+H9V2UG1Gae/CQLegcxJ16CptOZTEgacpTYkwr1u8CarFEqmLY2C3ki
-	 1/LuPH3chnVI72mM20BhKIatR4UUes837eUyh04SGjcghXop3ygia6uPszX4aCJe2il+g
-	 zNi9MoXSwLVBZaxIwc/JCFSrDqyFYHvtfwM5FXzj/fdZwmyoDnnK3YcUVPY6AweuvC0Pa
-	 H8Zg4P6e0fRi0kaZUZ72ygYYviDqQPyzIk/IyGEl6J5M/CmVLLzeR/B3HCffF+XxlNctD
-	 TRTdt/CaeodmjDbUxJvmajpt4FNcSn2mxBYKcMqIjJD3nlCC4x9JbVrl784MEDt+ixA==
+	t=1793241016;
+	b=k7j3lLoPxbnLTiHzWgCYzHYi4zCXTRRhcR1CHLAQ5fKXwo0hXDjfmSO677WXTDX5cdkq
+	 2nfRbEPxu3PxucIsyptAs6Q0IavDmJLbz1TCVauY77LqeJGsnqxS86zeYu6yDdLyBpLtm
+	 oAQ56ws7gBSNhn/pJogM+EVM5EJVK14Lnw7L+MSPUEnP8QQHGZS4n3/e2BICHYCuD2x0f
+	 afFhpRuWxFMP5lKGMtPboYFelkR9LNq5c22v0V1kSap5xW0E9XUt0xWATEILDL3xy/Hl5
+	 YTxpfTPDmfQd0L+N2cFGBv/tV+U9+YSi6kZoNKPvpKV8b7AXhXnObWOy93ASc32I1VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793240975;
-	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=SNAZgMWdago4QF2GOz0W0+f73cppO6R0b/wUNfoa/VU=;
-	b=PJefp054ydALSETOCgRf1RALffR5V1WucyOtFcoaGF4/SrZ2P4Rkq9+Y6yZVUBd9fRSq
-	 hyBRb7fLwwhDAWiUUudbkLBF30tSYbZnBW9aCAXGKJkQ8x+hLrd9eebCqrUyhBDtf0R2m
-	 GUcAYSTEyIlsjrxqbSgEdjNflp1jGiDcxh756QSnVMQnaojK7LE9TLEdoB/0WP9Ei+GXk
-	 c+VVMogmq2tjF2ZWsa1gA842IAKttgctxKMSHnCIFXoaPylL4N9mrD655dp1w6dFyLPvv
-	 xd1+yjG9KsUVrH/aO9lPIjBEf7Df3n2RGQzv7rXLfRQWupQPCsxvcdiN5o1cWi+UMsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793241016;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9fy076pAcz5orhmpfztB9xT2wFCRJQvV1U6xK17MGms=;
+	b=ahgfkozSXcCdn59Y3kDsKywCVPU1Q8HkCWt7OClSBRe7U/Qqvj8eFqVeBm6uTtHgOeaz
+	 5D4Ar0uFkvVSsIzaQN12q05FTAGUrsncr0wqF6m0lml8/QFgWlLsGgTQy8o7JXyAsm/NN
+	 Kgu6qgnMbWg/ZWFZhlI2ODrAY9rDgACyz9vm5YBRnbcKs5ZouStmL5PTG9rAEaPtEFghj
+	 H+vnTBpZLm9V/jP8CYbo6TYaw+3Th/gaTkjp4u0/x6MwEaEHjLgWCQA5QWF+xd84iwqD5
+	 WD6yxG4jpoDfd+Xj6Tji3pMHbdhh6qm3RDxali1vD6hxni52ArQZU0bwjJWxIXUMi/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hygon.cn;
-	spf=pass smtp.mailfrom=hygon.cn;
-	arc=none smtp.remote-ip=101.204.27.37
-Received: from spam01.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5BA64606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:29:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BA64606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jFSq470Xhz171Yr;
-	Thu, 29 Oct 2026 10:29:20 +0800 (CST)
-Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jFSq32bswz171Yp;
-	Thu, 29 Oct 2026 10:29:19 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id 0AC65314AC01;
-	Thu, 29 Oct 2026 10:28:56 +0800 (CST)
-Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 29 Oct
- 2026 10:29:17 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>, Tim Chen
-	<tim.c.chen@linux.intel.com>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
-	<kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld
-	<pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, David
- Hildenbrand <david@kernel.org>, <maddy@linux.ibm.com>, Michael Ellerman
-	<mpe@ellerman.id.au>, <ljs@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
-	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
-	<yingzhiwei@hygon.cn>
-Subject: [RFC PATCH v3 05/17] sched/topology: Walk LLCs in NUMA node
-Date: Thu, 29 Oct 2026 10:20:23 +0800
-Message-ID: <20261029022036.4002331-6-wujianyong@hygon.cn>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l4cfbUY+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F27A1606A320;
+	Thu, 29 Oct 2026 02:30:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l4cfbUY+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06E681F01829;
+	Thu, 29 Oct 2026 02:30:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793241015;
+	bh=9fy076pAcz5orhmpfztB9xT2wFCRJQvV1U6xK17MGms=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=l4cfbUY+vxh3vT/fMqbxtLwKN0Ckz+LXHsWUzDqOjWQCfBkzQclI3QB6gaqsRSE2/
+	 rNpFSIQO7X0TnOa7chkmJSC5WfXcByk7mINpswxAlaQuZxB+ZB6Zt59omLlT7tUh25
+	 TcjCal624msc6l29AgCVDXldMGRAd46TlPyzoAlBwxU8CnT9vIjhHgwbeKLl4KlH3H
+	 WUQabcJgVJr6glP72zbdlvPI9Zk29sxJ1gKb1mLQaij73XCdxKGWfq2cHimJq/ZUsu
+	 YQmMKWXvM6cedtnYWmUKMTrcGUpevv6p8+BFE7vf8E0lPsvK8Xyxt/qRlM0XmcUXs1
+	 J9mN1+Uqz9PQQ==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH v4.1 02/15] tracing/filters: Fix false success return in process_system_preds()
+Date: Thu, 29 Oct 2026 11:30:11 +0900
+Message-ID: <179324101176.752804.17624386967710135045.stgit@devnote2>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029022036.4002331-1-wujianyong@hygon.cn>
-References: <20261029022036.4002331-1-wujianyong@hygon.cn>
+In-Reply-To: <sashiko-outbox-188613@kernel.org>
+References: <sashiko-outbox-188613@kernel.org>
+User-Agent: StGit/0.19
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,320 +64,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
- (172.23.18.114)
 
-Cache-aware scheduling needs to walk the LLCs of a NUMA node, either by
-LLC ID or by their CPU spans. The existing LLC-to-node map records each
-LLC's node and rank, but does not provide a direct per-node walk.
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Store LLC IDs grouped by node in ascending ID order and cache each LLC's
-CPU span in the RCU-published map. Add iterators for both forms of
-traversal; the span iterator skips empty spans, and both keep the map
-alive throughout the walk.
+In process_system_preds(), "fail" was initialized to true to indicate
+whether any event in the subsystem successfully applied the filter.
+However, "fail = false;" was placed at the end of the event loop outside
+the error check, unconditionally clearing "fail" on every iteration even
+when process_preds() returned an error.
 
-Refresh the map after CPUs are attached to or detached from root domains.
-Also refresh it when a CPU gives up an LLC ID even if another CPU still
-holds that ID, so the cached spans reflect the current load-balanced CPUs.
+As a result, if every event in the subsystem fails to match the filter
+(e.g., an invalid field), process_system_preds() returns 0 (success)
+instead of -EINVAL. Consequently, create_system_filter() considers the
+operation successful and silently resets the subsystem filter display to
+the default global filter message instead of reporting the parse error.
 
-Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
+Fix this by clearing "fail" only when at least one event filter succeeds.
+Consolidate the cleanup logic in fail and fail_mem by using ret
+initialized to -ENOMEM, setting ret to -EINVAL in fail, and falling
+through to fail_mem, freeing any replaced filters via delay_free_filter()
+if !list_empty(&filter_list->list).
+
+Fixes: 80765597bc58 ("tracing: Rewrite filter logic to be simpler and faster")
+Cc: stable@vger.kernel.org
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 ---
- kernel/sched/sched.h    |  37 +++++++++++
- kernel/sched/topology.c | 134 ++++++++++++++++++++++++++++++++++------
- 2 files changed, 153 insertions(+), 18 deletions(-)
+Changes in v4.1:
+ - Recover 'fail' flag instead of clearing 'ret'.
+Changes in v4:
+ - Clean up process_system_preds() by replacing the 'fail' boolean with
+   'ret' and consolidating the cleanup logic between fail and fail_mem,
+   as suggested by Steven Rostedt.
+---
+ kernel/trace/trace_events_filter.c |   17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index b114b7cc813f..dec697c6a283 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -4141,6 +4141,43 @@ sched_cache_numa_key_cmp(struct sched_cache_numa_key a,
- 	return 0;
- }
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index 28977d10e60b..981cddf01e65 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -2338,6 +2338,7 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
+ 	struct event_filter *filter = NULL;
+ 	struct filter_head *filter_list;
+ 	bool fail = true;
++	int ret = -ENOMEM;
+ 	int err;
  
-+struct llc_node_iter {
-+	const int *llc;
-+	int nr;
-+	int index;
-+};
-+
-+/* Walk the LLC IDs of a node in ascending order under one RCU snapshot. */
-+extern struct llc_node_iter llc_node_iter_begin(int node);
-+extern int llc_node_iter_next(struct llc_node_iter *iter);
-+
-+#define for_each_llc_of_node(llc, node)					\
-+	scoped_guard(rcu)						\
-+		for (struct llc_node_iter __ln_iter =			\
-+			     llc_node_iter_begin(node);			\
-+		     ((llc) = llc_node_iter_next(&__ln_iter)) >= 0;)
-+
-+struct llc_node_span_iter {
-+	const int *llc;
-+	const void *span;
-+	int nr;
-+	int index;
-+};
-+
-+/* Hold RCU continuously from begin() through the final next() call. */
-+extern struct llc_node_span_iter llc_node_span_begin(int node);
-+extern const struct cpumask *llc_node_span_next(struct llc_node_span_iter *iter);
-+
-+/*
-+ * Visit @node's LLC spans in ascending LLC ID order. Empty spans are skipped.
-+ * The body must not sleep.
-+ */
-+#define for_each_llc_node_span(node, span)					\
-+	scoped_guard(rcu)							\
-+		for (struct llc_node_span_iter __ls_iter =			\
-+			     llc_node_span_begin(node);			\
-+		     ((span) = llc_node_span_next(&__ls_iter)) != NULL;)
-+
- struct affi_node_order_iter {
- 	const int *order;
- 	int root;
-diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index 512a9762b9a2..37f1eeae9b7b 100644
---- a/kernel/sched/topology.c
-+++ b/kernel/sched/topology.c
-@@ -698,14 +698,22 @@ struct llc_node_map {
- 	int nr_llc;
- 	int nr_node;
- 	int *rank;		/* [nr_llc]: ascending LLC ID rank within its node */
-+	int *node_llc;		/* [nr_llc]: IDs grouped by node, in rank order */
- 	int *offset;		/* [nr_llc]: triangular offsets, grouped by node */
- 	int *inverse;		/* [nr_llc]: position of each offset */
- 	int *node_count;	/* [nr_node]: number of LLCs in each node */
--	int *node_offset;	/* [nr_node]: start of each node's offset slice */
-+	int *node_offset;	/* [nr_node]: start of each node's LLC/offset slice */
-+	void *span;		/* cpumask_size() bytes per LLC ID */
- 	/* One allocation contains node[] and all the arrays above. */
- 	int node[];
- };
- 
-+/* The span array holds cpumask_size() bytes per LLC; never index it with []. */
-+static inline struct cpumask *llc_span_at(const void *span, int llc)
-+{
-+	return (void *)span + (size_t)llc * cpumask_size();
-+}
-+
- static struct llc_node_map __rcu *llc_to_node_map;
- static void rebuild_llc_node_map(int size);
- 
-@@ -935,25 +943,33 @@ static void build_llc_offsets(struct llc_node_map *map)
- static void rebuild_llc_node_map(int size)
- {
- 	struct llc_node_map *new_map, *old_map;
--	size_t entries;
-+	size_t entries, span_off;
- 	int cpu, llc, node;
- 
- 	lockdep_assert_held(&sched_domains_mutex);
- 	if (size <= 0)
- 		goto fail;
- 
--	entries = size_add(size_mul(size, 4), size_mul(nr_node_ids, 2));
--	new_map = kzalloc(struct_size(new_map, node, entries), GFP_KERNEL);
-+	entries = size_add(size_mul(size, 5), size_mul(nr_node_ids, 2));
-+	span_off = struct_size(new_map, node, entries);
-+	if (span_off == SIZE_MAX)
-+		goto fail;
-+	span_off = ALIGN(span_off, sizeof(unsigned long));
-+	/* The spans grow with nr_llc * nr_cpu_ids; avoid high-order kmalloc. */
-+	new_map = kvzalloc(size_add(span_off, size_mul(size, cpumask_size())),
-+			   GFP_KERNEL);
- 	if (!new_map)
- 		goto fail;
- 
- 	new_map->nr_llc = size;
- 	new_map->nr_node = nr_node_ids;
- 	new_map->rank = new_map->node + size;
--	new_map->offset = new_map->rank + size;
-+	new_map->node_llc = new_map->rank + size;
-+	new_map->offset = new_map->node_llc + size;
- 	new_map->inverse = new_map->offset + size;
- 	new_map->node_count = new_map->inverse + size;
- 	new_map->node_offset = new_map->node_count + nr_node_ids;
-+	new_map->span = (void *)new_map + span_off;
- 	for (llc = 0; llc < size; llc++) {
- 		new_map->node[llc] = NUMA_NO_NODE;
- 		new_map->rank[llc] = -1;
-@@ -962,17 +978,23 @@ static void rebuild_llc_node_map(int size)
- 	/*
- 	 * for_each_possible_cpu() revisits the same LLC non-consecutively
- 	 * under SMT (each node's LLCs are walked once per thread), so
--	 * dedup by populated node entries, not by comparing against the
--	 * immediately preceding CPU's llc.
-+	 * assign the node once by checking populated node entries, not by
-+	 * comparing against the immediately preceding CPU's llc.
- 	 */
- 	for_each_possible_cpu(cpu) {
- 		llc = per_cpu(sd_llc_id, cpu);
--		if (llc < 0 || llc >= size || new_map->node[llc] >= 0)
-+		if (llc < 0 || llc >= size)
- 			continue;
--		node = cpu_to_node(cpu);
--		if (node < 0 || node >= new_map->nr_node || !node_possible(node))
--			continue;
--		new_map->node[llc] = node;
-+		if (new_map->node[llc] < 0) {
-+			node = cpu_to_node(cpu);
-+			if (node < 0 || node >= new_map->nr_node ||
-+			    !node_possible(node))
-+				continue;
-+			new_map->node[llc] = node;
+ 	filter_list = kmalloc_obj(*filter_list);
+@@ -2364,9 +2365,10 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
+ 			filter_disable(file);
+ 			parse_error(pe, FILT_ERR_BAD_SUBSYS_FILTER, 0);
+ 			append_filter_err(tr, pe, filter);
+-		} else
++		} else {
+ 			event_set_filtered_flag(file);
+-
++			fail = false;
 +		}
-+		/* CPUs detached from load-balanced domains keep their LLC IDs. */
-+		if (cpu_rq(cpu)->rd != &def_root_domain)
-+			cpumask_set_cpu(cpu, llc_span_at(new_map->span, llc));
+ 
+ 		filter_item = kzalloc_obj(*filter_item);
+ 		if (!filter_item)
+@@ -2380,8 +2382,6 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
+ 		filter_item->filter = event_filter(file);
+ 		event_set_filter(file, filter);
+ 		filter = NULL;
+-
+-		fail = false;
  	}
  
- 	/* Rank LLCs by ascending ID, independently of CPU enumeration order. */
-@@ -984,6 +1006,12 @@ static void rebuild_llc_node_map(int size)
- 	for (node = 1; node < new_map->nr_node; node++)
- 		new_map->node_offset[node] = new_map->node_offset[node - 1] +
- 					     new_map->node_count[node - 1];
-+	for (llc = 0; llc < size; llc++) {
-+		node = new_map->node[llc];
-+		if (node >= 0)
-+			new_map->node_llc[new_map->node_offset[node] +
-+					  new_map->rank[llc]] = llc;
-+	}
- 	build_llc_offsets(new_map);
+ 	if (fail)
+@@ -2396,19 +2396,18 @@ static int process_system_preds(struct trace_subsystem_dir *dir,
+ 	return 0;
+  fail:
+ 	/* No call succeeded */
+-	free_filter_list(filter_list);
+ 	parse_error(pe, FILT_ERR_BAD_SUBSYS_FILTER, 0);
+-	return -EINVAL;
++	ret = -EINVAL;
+  fail_mem:
+ 	__free_filter(filter);
  
- publish:
-@@ -2464,6 +2492,69 @@ const struct cpumask *tl_mc_mask(struct sched_domain_topology_level *tl, int cpu
+-	/* If any call succeeded, we still need to sync */
+-	if (!fail)
++	/* If any filter was replaced, we still need to sync */
++	if (!list_empty(&filter_list->list))
+ 		delay_free_filter(filter_list);
+ 	else
+ 		free_filter_list(filter_list);
  
- #define llc_mask(cpu) arch_llc_mask(cpu)
- 
-+#ifdef CONFIG_SCHED_CACHE
-+/* The iterator's LLC slice remains valid throughout the caller's RCU scope. */
-+struct llc_node_iter llc_node_iter_begin(int node)
-+{
-+	struct llc_node_iter iter = {};
-+	struct llc_node_map *map;
-+
-+	RCU_LOCKDEP_WARN(!rcu_read_lock_any_held(), "LLC walk without RCU");
-+	map = rcu_dereference_all(llc_to_node_map);
-+	if (!map || node < 0 || node >= map->nr_node)
-+		return iter;
-+
-+	iter.nr = map->node_count[node];
-+	iter.llc = map->node_llc + map->node_offset[node];
-+	return iter;
-+}
-+
-+int llc_node_iter_next(struct llc_node_iter *iter)
-+{
-+	if (iter->index >= iter->nr)
-+		return -1;
-+
-+	return iter->llc[iter->index++];
-+}
-+
-+/* The iterator's arrays remain valid throughout the caller's RCU scope. */
-+struct llc_node_span_iter llc_node_span_begin(int node)
-+{
-+	struct llc_node_span_iter iter = {};
-+	struct llc_node_map *map;
-+	int base;
-+
-+	RCU_LOCKDEP_WARN(!rcu_read_lock_any_held(), "LLC span read without RCU");
-+	map = rcu_dereference_all(llc_to_node_map);
-+	if (!map || node < 0 || node >= map->nr_node)
-+		return iter;
-+
-+	base = map->node_offset[node];
-+	iter.nr = map->node_count[node];
-+	iter.llc = map->node_llc + base;
-+	iter.span = map->span;
-+
-+	return iter;
-+}
-+
-+const struct cpumask *llc_node_span_next(struct llc_node_span_iter *iter)
-+{
-+	const struct cpumask *span;
-+	int llc;
-+
-+	while (iter->index < iter->nr) {
-+		llc = iter->llc[iter->index++];
-+		span = llc_span_at(iter->span, llc);
-+		if (cpumask_empty(span))
-+			continue;
-+
-+		return span;
-+	}
-+
-+	return NULL;
-+}
-+#endif /* CONFIG_SCHED_CACHE */
-+
- const struct cpumask *tl_pkg_mask(struct sched_domain_topology_level *tl, int cpu)
- {
- 	return cpu_node_mask(cpu);
-@@ -3426,7 +3517,7 @@ static int __sched_domains_alloc_llc_id(void)
- 	return lid;
+-	return -ENOMEM;
++	return ret;
  }
  
--/* Return true only when the last CPU releases the LLC ID. */
-+/* Return true if @cpu held an LLC ID, whether or not the ID is released. */
- static bool __sched_domains_free_llc_id(int cpu)
- {
- 	int i, lid, max;
-@@ -3442,7 +3533,7 @@ static bool __sched_domains_free_llc_id(int cpu)
- 	for_each_cpu(i, llc_mask(cpu)) {
- 		/* An online CPU owns the llc_id. */
- 		if (per_cpu(sd_llc_id, i) == lid)
--			return false;
-+			return true;
- 	}
- 
- 	__cpumask_clear_cpu(lid, sched_domains_llc_id_allocmask);
-@@ -3458,6 +3549,7 @@ void sched_domains_free_llc_id(int cpu)
- {
- 	sched_domains_mutex_lock();
- #ifdef CONFIG_SCHED_CACHE
-+	/* Drop @cpu from the LLC span even if another CPU still holds the ID. */
- 	if (__sched_domains_free_llc_id(cpu))
- 		rebuild_llc_node_map(max_lid + 1);
- #else
-@@ -3532,10 +3624,6 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
- 		}
- 	}
- 
--#ifdef CONFIG_SCHED_CACHE
--	/* The map depends on assigned LLC IDs, not on sd_llc allocations. */
--	rebuild_llc_node_map(max_lid + 1);
--#endif
- 	if (WARN_ON(!topology_span_sane(cpu_map)))
- 		goto error;
- 
-@@ -3608,6 +3696,11 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
- 	}
- 	rcu_read_unlock();
- 
-+#ifdef CONFIG_SCHED_CACHE
-+	/* LLC spans depend on the root domains just attached. */
-+	rebuild_llc_node_map(max_lid + 1);
-+#endif
-+
- 	if (has_asym)
- 		static_branch_inc_cpuslocked(&sched_asym_cpucapacity);
- 
-@@ -3723,6 +3816,11 @@ static void detach_destroy_domains(const struct cpumask *cpu_map)
- 	for_each_cpu(i, cpu_map)
- 		cpu_attach_domain(NULL, &def_root_domain, i);
- 	rcu_read_unlock();
-+
-+#ifdef CONFIG_SCHED_CACHE
-+	/* Detaching CPUs must also remove them from the published LLC spans. */
-+	rebuild_llc_node_map(max_lid + 1);
-+#endif
- }
- 
- /* handle null as "default" */
--- 
-2.34.1
-
+ static int create_filter_start(char *filter_string, bool set_str,
 
