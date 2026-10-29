@@ -1,54 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.186
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793274786;
-	b=vVCfIpuc6/wvCFhYPjfTPeU8SXdD/JyHifx1d4Uxu+njt6mT6lD03LAL1r469XJpvc5Z
-	 B/sXyFLvFS+rsVwOICJwpXBNJp1Td5B7jkkEm5dS0BJ/a1cGiPXklXX1C70JgsjIHd2bu
-	 ICQr1Rkfpph6G0BsXlV/z+/+jlwQCXJnQssZSK51vU25CyR4lxGTTeOYdSUmDHVvdSWA6
-	 ea0Md2A2h9PNtgKgFVszMcBqhk/aNzxZiKK83hzwtVr3JVaZGVmS83F5l1gQ+JHHhPktp
-	 qssoUi3pO4Bu35Raff0yUK5mUz/Igm7WEXJi6CZIe81WTxOjGzh/TaHcZS2nnwCD8Uw==
+	t=1793274792;
+	b=uM9VllQBv0rvf4SOEOnIyEN+UjGigvcBxlRtvuW5HgKo9eu+Jwbb2OHoUsdP7mV16ZKh
+	 qBzvrcsZY/DtzGMPraasMneFYy9GKmy7ybEhjcK/1yceLO8IRp9giEU1LdAmbbZsivtYl
+	 KjhX8ENQFR7YPvbYY0FnJx+jgkDAdPf+nldIXqg95BcUi12ZsH2/85DzAxOc4zwRbmc9P
+	 M8aLfbHp8nYL100gTZ2WyuDVZB5lBKQrzTX6gCWYrlLuEEhgh8PocYl8gvIY4o9tz6ik+
+	 C1rkkt1hWzEzcU/OPTWqSA02cKcB7nzTvUbNL83o7msJ/xJHsChSNknT6J60nN0u2vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274786;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=B6fFfQE7RrEN57mIZD+kdgqs70BufHGSWfMzjOpwU+U=;
-	b=cxwHXjgQlHkn7KEhdPvLz2mMCeYoBgtJinvOxtdsbB4Om0eQ9r9LSrW4VeSUk+Xp9OCr
-	 XR9t4AhAEMZ+CoA31x4jJZxxNK9RxkiWhMSkSjyC3TM+jX9m9jqp7Dg/aH4Q6CxsicpYw
-	 DoE9n/cEuXxjxfp75s8l5ECGm0WzkoVjhq8AY1Rl9oau5l3l3YBKQguNLj56NMpifCr59
-	 5mJODD+nWT0x042SNYuudvihDJo5I5eWR0lmwqY/mM8QFXVUI4Fv45YTPeBKFaQx8ROpL
-	 PokY/pNyhrrqBUNVBP+Ym3qRrNcUr+aEmMCND1aaZKqGlhoib2+blmTS1L1nLONsV0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274792;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=jUwPwLLs3ItuEGtYWzom9wMw0uBhDScICxqoGDVoPms=;
+	b=wi5ZgkN6kHvqWdRroG8jYjgqkuQhIRx8QD9zqsNOA7z4IaGUPJJ2rlmFpCWNHdyu1aB8
+	 tnRyfayY2+Wji/akSeGexmNrR6HgEglgPx4ijfeuzaUVYvqqED1lr9zAXH+3WMC7dq6NJ
+	 TfvKFwrjyWHJ8T3g5DvnD2J6LrON8lsuA1qkQWOyONKBFEkgtCwpPNmeLoD/CDKf8kRef
+	 dpvOWv3g+0FWWn8FoJbV+Zjq1vaTR505uzPjrWtnsq/R1zbf46oaR5SOLu9wMELu3HL64
+	 DW4shnsX30WzpmdgyOUwAYNFGVqxlgSaPlhmy1jxgnXRdP0nFPGOKyWjgmp7e6lRKkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GqzIuOBU;
-	arc=none smtp.remote-ip=95.215.58.186
-Received: from mta1.migadu.com (out-186.mta1.migadu.com [95.215.58.186])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RYU3cpo9;
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B266606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:52:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B266606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82145606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:53:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82145606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=GqzIuOBU
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lS2RsKxNaMi6eyWMVxwMVQS/P8x6d1KNXff8k9wBiKg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793274778; v=1; x=1793879578;
- b=GqzIuOBUOLrrFoTp6swnjL58TcaG22yxSt2Qlg+rHlOgFnSdLX+c08ZFntQ8lnzU52pTYQyR
- FoirYGwy/CyY4nYzzGH04t/5rYgPd6f188HropH8V2UFlLSH76LwOCrOO+NyMOcL3Ar3V8Fk59F
- ssY6JhE/K6V11uxbW4il1vvs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e413e8c6e9ff3dee;
-	Thu, 29 Oct 2026 11:52:58 +0000
-X-Mizu-Trace-ID: e413e8c6e9ff3dee
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <eebfec12-d0dd-433c-9332-f1e894fdcda8@linux.dev>
-Date: Thu, 29 Oct 2026 19:52:53 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RYU3cpo9
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c414e5d282eso271101166b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:53:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793274791; x=1793879591; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jUwPwLLs3ItuEGtYWzom9wMw0uBhDScICxqoGDVoPms=;
+        b=RYU3cpo9DciUFn6VpBMgihzLJDxrpN41WV68WkmYn6mVv/24wdMR5DdenFLdICeb0U
+         rH08VGFDuUTfC+/dga2oBEcjdnuOSLsAWhQ5T2aA7EuIT48ChDX1jsQudCRi1B8quKgW
+         2X8xd6Ugr+sVQ8EKQ6dBGexbbkxWKVXqeHnAWSFg9xCf1JE28o/EZVSyvZ3icSYESfhK
+         YUk0WhiK3akB7KYllTWmbWLmG2RwoU7vmVLUeI4aeW0eSrPGM4Cm16cn9iCAfvKAF9Ci
+         8vgsAL53gRinaQkTmrAyNdPVU7LGBEnWhs/8NrRkwQJGYvs0N+FtHPKUAv8JMuWWUUsn
+         2NFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793274791; x=1793879591;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jUwPwLLs3ItuEGtYWzom9wMw0uBhDScICxqoGDVoPms=;
+        b=Jvlzt0uvC2Ir6BqtQIgchoiFVvG4W/RF6MTA6JtVc3FEDlyZNcFHd3z79AN2DLXvsp
+         cbpkK70YLWblCDDPXvqlTaC7R0Td4nD5UiecwUEt/mazF3hjjzsCKklhlQnOSTXsXpsX
+         3ONXYDxxVhDVg7aRXuDZTa7dle89hs6ncgILY7A9hC8ix56XDXKiff1xyAav85bI3MTe
+         +aYiNWlDhUC+L2QL7+XFDdN6JMEplXnFK4U0FhxqwSV1D8DKlavmVzdWd+w/psiBEOpj
+         Yjk+hSqWmkjVt93tfKyCxoQchPtIsT1ZKL8ENrL/HYK0L6jAcgQIWG7AtQnoPM7DHSTZ
+         StDw==
+X-Forwarded-Encrypted: i=1; AKwUvByeaVxFHcOaDtRYCSDKqD5r7HkBJxC1U8kFmLXRhI8Im5KUk6DtVwmX5ro20cFE1NfIv+GdUHBTOPQKt9w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1rkBMWPY3C9Iy8zGSRMU99IysGGJ9m0KcjgTCRZwSAf+Zcm+X
+	tY+IHcqWNgwAZV2dVcm2QmZbgA4NaR/6jQB4QlUNXXzk92hSgR/ViRuW
+X-Gm-Gg: AYBFou3VUEfpE9y8dIiyzTNFHxyO/WOSYi29psYJx+rAnzCUIxmlqoXUnPPovpsa6iL
+	UH7EE89ejeGgkKvTVI7FcdT9O15Re59K4G/sKWXm9/XCeDESmxhIFuc0jroNKihXD7/Q7wAyZkG
+	KyD0fb791OWjIRactWBm0ZeDBij99WS21TH3iL5naSe2GV6ttNTm65PpGih/bqjR0XR/fILB3IP
+	gGNuYGaEqgaQSP0vUyUGeW+HueZQCNq1UNPkyKG+XZ2Rt9VDnqu1lwMi/oyyZMNP2Jm8KMr6lCY
+	rTgER9WQrynG48LQkz5jDKruuNa1x1IEOXoCqCIrHtW2Rc1jT1fSryVW3qNaNvW3RBu+w+lu268
+	hXCqWlYis1orFw+NSjEx8ytT7NZdXL+K6QX1T0U1a0qvS1C4rWo3ljCCB0MiUYJk34hZRII5JO4
+	LdBxAiCevOelJf9HDTVcq94EAtMwnHTiQ/Jpu5+zHKqgrEfs8CzKxzuzEwA/YGr93MTOpgIM4kh
+	LU/YSe2RxGRMVSdtP6p4ekDTTfaOcshe7LZB6mGSR8bpjUK7UM1OhqMFfIQ03kQKbz9GHsSw5hN
+	1umDDtgpjPTVEB4lhdKqfqTknlj5W6SUof6etzhAkClxNHKEawT4El6BJsdoXAr8NU3u9NBaXwZ
+	3n05oE8iRNEk=
+X-Received: by 2002:a17:906:9f86:b0:c40:80eb:c541 with SMTP id a640c23a62f3a-c49bdd7e2admr460193066b.2.1793274790899;
+        Thu, 29 Oct 2026 04:53:10 -0700 (PDT)
+Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd34f465sm721068766b.8.2026.10.29.04.53.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 04:53:10 -0700 (PDT)
+Date: Thu, 29 Oct 2026 12:53:09 +0100
+From: Amir Goldstein <amir73il@gmail.com>
+To: Pedro Falcato <pfalcato@suse.de>
+Cc: koraynilay <koray.fra@gmail.com>, David Sterba <dsterba@suse.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Chris Mason <mason@kernel.org>, Jan Kara <jack@suse.cz>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Sean Smith <defendthedisabled@gmail.com>,
+	Andrey Albershteyn <aalbersh@kernel.org>,
+	linux-btrfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 1/2] vfs: add provenance time (ptime)
+Message-ID: <auMzpUIEmGCE_x_N@amir-ThinkPad-T480>
+References: <20261028134728.294127-1-koray.fra@gmail.com>
+ <20261028134728.294127-2-koray.fra@gmail.com>
+ <auILs54TUcWXf3us@pedro-suse.tail5790ac.ts.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,90 +106,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/4] ksmbd: route WRITE requests to an unbound
- workqueue
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: linux-cifs@vger.kernel.org, senozhatsky@chromium.org, tom@talpey.com,
- chenxiaosong@chenxiaosong.com, tj@kernel.org, linux-kernel@vger.kernel.org
-References: <20261022092514.2590010-1-huiwen.he@linux.dev>
- <20261022092514.2590010-3-huiwen.he@linux.dev>
- <CAKYAXd9Ow2SeZ1EjR7UBF3rmMn4=HKZrKajNdFU5TAnLVf=THg@mail.gmail.com>
-Content-Language: en-US
-From: hehuiwen <huiwen.he@linux.dev>
-In-Reply-To: <CAKYAXd9Ow2SeZ1EjR7UBF3rmMn4=HKZrKajNdFU5TAnLVf=THg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auILs54TUcWXf3us@pedro-suse.tail5790ac.ts.net>
 
-Hi Namjae,
+On Wed, Oct 28, 2026 at 02:56:39PM +0000, Pedro Falcato wrote:
+> On Wed, Oct 28, 2026 at 02:47:27PM +0100, koraynilay wrote:
+> > Add provenance time (ptime), indicating the time when a file or
+> > directory was created. This is user-settable via file_setattr() and
+> > retrievable via statx(2) (using STATX_PTIME) or file_getattr().
+> > 
+> > The semantics of when to preserve this new timestamp are the same as
+> > mtime, the idea being that there is a correspondence like this:
+> > 
+> > ctime <-> btime
+> > mtime <-> ptime
+> > 
+> > so every operation (copying, moving, ...) that currently preserves mtime
+> > should also preserve ptime.
+> > 
+> > Furthermore, in order to avoid the legacy FS_IOC_FSSETXATTR accepting
+> > FS_XFLAG_PTIME, add an FS_FILE_ATTR_XFLAGS_MASK mask to support new
+> > xflags, and use it in fileattr_to_file_attr()/file_attr_to_fileattr() to
+> > allow ptime to be used with the file_setattr()/file_getattr() syscalls.
+> 
+> Random comment, but: could this be doable with xattrs instead? I'm not sure
+> where I would put the xattrs code (if in userspace exclusively, or if hooking
+> the VFS up with this, or if doing it on the filesystem side), but it would
+> surely be less disruptive than modifying a bunch of filesystems one-by-one.
+> 
+> This patch is quite simple, but changing btrfs, then ext4, xfs, etc is a
+> mess, and inevitably you can't get these timestamps until you upgrade your
+> filesystems.
+> 
 
-在 2026/10/24 12:26, Namjae Jeon 写道:
-> Since this improves performance, why isn't it enabled by default?
-> Also, I would like this setting to be on/off via ksmbd.conf.
+I disagree.
 
-I left it off by default for now, since I've noticed some
-regressions.I'm testing more cases and trying to find a general
-fix. If those regressions can't be avoided, a ksmbd.conf option
-would be needed.
+I think that creation time should be a first class property in
+filesystems that support it.
 
-> For 4 KiB single-channel WRITEs, throughput drops from 219.55 to
-> 193.01 MiB/s. Should we add a size check here to keep small WRITEs on
-> the per-CPU queue?
-
-I tried keeping small WRITEs on PERCPU and routing only larger ones
-to UNBOUND. However, this did not work well for workloads with mixed
-request sizes. For example, a workload mixing 8 KiB and 64 KiB WRITEs
-still regressed. Small and large WRITEs share the same connection and
-send lock, so a size check alone does not avoid contention.
-
-I then changed the send path to let one worker send several completed
-WRITE responses together, without waiting for more responses. This seems
-to work better:
-
-Single-channel WRITE, 16 jobs, QD32 per job, tmpfs on a 128-CPU server,
-Throughput is in MiB/s.
-
-Size       PERCPU    UNBOUND+batch    Change
-4 KiB       228.12           248.89    +6.96%
-64 KiB     1797.26          2091.17   +15.34%
-1 MiB      2188.42          3330.72   +53.47%
-
-However, I found that there is still a performance regression at QD1.
-
-1 MiB WRITE, one channel, one job:
-
-With schedutil:
-
-QD    PERCPU    UNBOUND+batch    Change
-  1   1945.94          1021.28   -47.52%
-  2   2844.66          2567.18    -9.75%
-  4   2338.03          3547.42   +51.73%
-
-Performance governor on all host CPUs:
-
-QD    PERCPU    UNBOUND+batch    Change
-  1   1974.35          1785.16    -9.58%
-  2   2904.12          3038.52    +4.63%
-  4   2418.45          3659.93   +51.33%
-
-
-CPU frequency scaling makes the QD1 regression larger.
-
-The main challenge seems to be balancing CPU locality and parallelism.
-Keeping the work local helps QD1, while allowing it to run on another
-CPU helps when receiving and processing requests in parallel. I have
-not yet found a suitable policy that works well for both.
-
-Any ideas about this?
-
-> This walks the entire channel list and sets multichannel_seen again
-> whenever an additional channel is registered. Since the flag is
-> sticky, all existing channels are already marked when count > 1. Could
-> we walk the list only when count == 1, marking both the existing and
-> newly added connections, and update only conn->multichannel_seen when
-> count > 1? This would avoid the repeated traversal and stores.
-
-Agreed. Thanks for pointing this out.
-
-Best regards,
-Huiwen
+Thanks,
+Amir.
