@@ -1,117 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793263103;
-	b=a01NFlC5tWXh43B34ZZCgzLJZTaunezapMOrOe2DIBKZNdNhNN+Kd4EasehHJ7+XOqV9
-	 enQKq8tFc7hs0vPNEqTOqAYR3O/Wa1wiNNjehRzqd/iM+7ya8M1OLSwXKaMZAHJetdYga
-	 1GUd+c5c2iWrnctI5b0pw6v2GSz3VFqmi1umYTkzDzMlmMqj8IDAfOpk96/BjlajkvC0A
-	 K9M38j9r39wp2QuFFMZyT14AqegSeJ128hC26FKcRNxVXMc35mo0Yp/YahIel43K7+/a+
-	 kvMgP5diZNDeGUdViEZKyDYeaUKrYUOQHkRJfXVP5Xf9TZBs0YxNxQyemjoQMV4YyEQ==
+	b=nRp5TMuoPNzeLMbMWe6YHjPHu+zu3Qw4MicvYMjihIRnyikFmVuiL3Y3fNDYRLgZHqXt
+	 z7FY5HmWGaGXlHm1tDZeNBcJ2o8pXXOoG9TkoUJtfNQF9Yn+HlR8wQA7ODmv4wHXV9bb6
+	 nEjhkGd7nc24icje2LYaVpKKDcmyi5MscDxVm38ZhSGCroNrJI+M26eo14K0IfuW741dh
+	 b8AowXtqJ1lwAoBip2vkumY7Q70gqZ+G+sM+6wUv/nby2tvyGlFPN4imkbpbA0yx+P9sv
+	 Zp2gCtlSRLkITks02H5BWo7xWx2Wq3kYZFSRze8R1Rvm/rkCP3vPrl4Ocw9X8ynvp4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793263103;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=vIcadRaG/lLLs49WUSCvxD9hZUTSME/z22s+T48ubUc=;
-	b=FOxvYqK2SVAKmbBiO4voUz6s6N0YOQ5uiWocVt+/SzAZ30k20Iti5bCnISZfosrwE9mj
-	 sRTA+bLmNZ45ToCnWdWZO6QwdWh7qXv+XqdA/FHJg1ZpU195JxEvwbeaTcOcluTHmpI+k
-	 buzAar60iP+zzC05r3GHKOi48mNaA1de1Gr/Ut66exDWfPygE58REKHVywdJTkzdfLdWB
-	 22fMHK7OWtoKvkOQx7kvAZMruT33vzmTN/qMyNNKXE/o67LOBgjV++Wi7MTSgd8Hvd6JM
-	 72IeuWl3ukwSGoSzcLkmD1ELuZwoDqmONzS8jn/+akfQdn/Da+qqm4RvjWffVYhII6A==
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=ScDNiRu1LhhAqGnssz6v8Goe18dHxFftj2LJPSqODSs=;
+	b=RwmqKgo36nR6b09VNr951Ciq9ZkjKGMB9eC3xm2CPxBK1v1E6WzM7TWL18XH4+SlDSzA
+	 BkX5Sd1QbsyOKDhTes0abrtKb7hyFTAX9SNV4qA6vpPWQk4jfNNS98KPyHNLuBan2Kih8
+	 QMfNT8pbjjDWOnvYmZnhnH0QYew+LNFlj8lAoG+psXJ0J3N8oaLKYbjt7rimJQQFyZUL0
+	 52lceOQJO7kggPJZIpWI18qgP7Vvupae4fdOLM7/mII+AkA2gU2jRvqAMCE5DTvFauk/p
+	 zRHEapg1wZGeYXjoxeqGGf29LjxSqLKa9expSZRuf9I4+qIxJEC/mZhGs06o9Lijp9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=esRjHtj1;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ITFYQ793;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.72
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0C0606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:38:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E0C0606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=esRjHtj1;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ITFYQ793
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5GpJq176860
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:38:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=vIcadRaG/lLLs49WUSCvxD9hZUTSME/z22s
-	+T48ubUc=; b=esRjHtj18kr6K9P158h0VnRWCOwP7sX7ffywjD0FnNUYZsGiw6a
-	JUFnAC3i6RY+motCvxOzAinUsAQSSzvwikLnBt7cRxaCvEp1+je5bYBm0rcYKjPQ
-	GIZqayddhDCoF9Ie/tc29XJjca+UGj307P3t5Bd7LkZoZFDS6BXZPlWCjazP28Ou
-	3A48tk9Ww/7BHfXUNUsOBqc9ApUXBaYq5IKpXAZNH2T2bcafVO+YwMGtUnROquu+
-	wvV+jMRA7N+n7xaFqo6qRfhrvjmnROvtc8+E4MzDA9iCkI/8zwPqBtw3Zdeh1PC1
-	xvZtz3dV4aCPyB992m5VmwJNYVPpVdrscVg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkkehuq5x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:38:22 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5338c215ed2so32504721cf.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD91606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:38:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFD91606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-821de0b7baaso2518253a34.1
         for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:38:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793263101; x=1793867901; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vIcadRaG/lLLs49WUSCvxD9hZUTSME/z22s+T48ubUc=;
-        b=ITFYQ793s+0dz3nJk5+df4Gi90zTfxDmacAVTjkCjyYFlqfNDd+eLSpH8+uLkJr5O5
-         ih94xHFNAgeanh0JKMAvwaaBE/SHWKTibQiPIuPX58joe/S87gmyMegOA6400UQHgl/1
-         VPFM9s/gOmIIxOgZrCl0eCpn9hPYh8Zuhrc7U4sAEa7XlSS3gYwjeIOYOG1SjSKeaIS9
-         /f5AHftLs4cbq6MgYmaiGJ/1klc68ParxxnVx1+vJAVGAhSGS2+9wjdJHO0rTvYbKAlU
-         5DFl4fqyU6W+IneOYDlvlqhmKyRdjf3ikZbCJq4sKPYlHUcECsuf4H7fkSOG5pvm2iNL
-         2VvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793263101; x=1793867901;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vIcadRaG/lLLs49WUSCvxD9hZUTSME/z22s+T48ubUc=;
-        b=SoEOsJdh14OewT8N9RTGciSMD3VBhxrvqVGsTNsrxBE5wcQRKUcGPV/GDMRICxM5t/
-         EudrO1MrVVEZongBiIRgKiFEU7K9o8O54Tv5aGAJKRfAwkKnGDYOyak2qwtXJh/COooO
-         ACD5MU1tAJCaOV3QGGkvsuoMOjEY8ZvYb0HTat4jS8wpGoQ1SDSbRZj0kwKQR4CU/prB
-         dKQST10b4z+0aYtI4CuWoOhlqOclpmzMzxvfifO1OKgsssAGUCOsOnFm5pphitN8YVZz
-         +7iQeC4i40T5lqgsZ/2JkOW3+ntP7AoKZei4nU4O3SEb+qwpXi7ZI+WZlAuHKD5P8/D9
-         P+UA==
-X-Forwarded-Encrypted: i=1; AKwUvBzToo2Ky44r4HdjIFrJlCc77MWOn+RQJqoykyxWEXjFtZD+sOjq9ZfQYjfoeUOI5j7t4tbKqn3YC1px+5A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLB/iKk8TRw0/Ru7dwx/SZZrWA1iwytlkS0nonmw/aRw1VmhImZ
-	vEZqUXBHtqeaAB1scWImIO6HxfsOVXr9Uyag9YYVdisG4T+X8zRgZsNJP64AdgijizjyXSWv1ok
-	JKwoYEd9P2U/3iInlDbPTfiVrN32L5BFI4vvZjWZPLa4LckIbqSzgvDqcyrG9NJcg3t0=
-X-Gm-Gg: AYBFou0/kGXZAfHquNI+5I2/d49sAB2d5xWDt5IgV9fBSSie3eNhHmexPDpRuiWE+mj
-	73aV5JcAk7WzfTCFEQvo7s4NY1hAYIinP11ZzNPB+Csu+wADQz495lX52pYxHipEkAdocywOWm1
-	IJ/M9JechQRWxeDB+Vircs8yrRTJirLY0uDA7kRYna4Egfosz/tXnOQ2swI+k7urZTH7y47dkqH
-	BW+29YR/Gsde1CBIiGm6EMrgF267gjPPeQvoIsJmDPKEsERTFBhwof8Uo2AHNXk37X+gotClZn0
-	6FYDL/XUzftOEzsRxJF0CehPsA2lornPsK+zGCK3yjSBrsUrJs0HX/qeVGv8ngIuhlV3bn3pHqK
-	yqTza68MEiFaMBNx1ATtc/qBvt8hatigl2TX53Bksd00Aq5KJOGu8HD/ZyHkRuQ==
-X-Received: by 2002:a05:622a:13cb:b0:535:bfc:329 with SMTP id d75a77b69052e-53fcc9c1a8cmr79181511cf.61.1793263101187;
-        Thu, 29 Oct 2026 01:38:21 -0700 (PDT)
-X-Received: by 2002:a05:622a:13cb:b0:535:bfc:329 with SMTP id d75a77b69052e-53fcc9c1a8cmr79181181cf.61.1793263100577;
-        Thu, 29 Oct 2026 01:38:20 -0700 (PDT)
-Received: from quoll ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a93103e72dsm74803635e9.2.2026.10.29.01.38.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 01:38:19 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-        Griffin Kroah-Hartman <griffin@kroah.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Dan Murphy <dmurphy@ti.com>,
-        linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] dt-bindings: leds: ti,lm36922: Correct filename to match convention
-Date: Thu, 29 Oct 2026 09:38:12 +0100
-Message-ID: <20261029083811.43354-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1793263102; x=1793867902;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ScDNiRu1LhhAqGnssz6v8Goe18dHxFftj2LJPSqODSs=;
+        b=xN81RkYOEFByTPCPvitGqtU97o4rh9YukFs2RAlLXi01eAUrZBL6IATWP0qui6/nCS
+         OhwDOn/z4xhV8XxP2mPsj5aRvjRRv+KXYNm3Dkc/1xRFksdUggI07N4GeoZJw0ybm4gs
+         bGsL2n2f7sgfaaYy/ZkdnF8wnt6+HteC4SzcDOutz9gLuciY9xXyqlQ/NjYm49T0cCzc
+         GsNlPlzXp4Doky9DlMc44pXXnHd+MotTDOlZpZiv7/Cczva0eNHY7U35giWWFV0KTAU+
+         z/lt9OyIcztUEtBmyPp91R3hdhvHdANb4pELyydNyEYRdwD2E8obkfEjV8yCojjbVF/K
+         kjQw==
+X-Forwarded-Encrypted: i=1; AKwUvBwAw8BOfsuOAY+KGESPUOOCt8aHHdw9JmMSwrLV8vpm5phIMne+gg/JWJTA6A+IP0MjYPuLlQxFHIKAbIo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeVytTTp3alVXehJoqAPwFLcYeU4kN1nzBDFn5tJaFie+wLCA4
+	C0FrvQdfTxz1GI/lYmxzWYJkyk/5Qcgudzeafu2SWvbUFXqOAzdbquLTTqi7OIPstQ7h2J3k/m9
+	LijXPHZS2QOUvgXC0QlGik+EpoVybaSjdU3Z360PbYePyqK4WhOfJTb5l2WM=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,78 +58,234 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1270; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=d6Jp+0RIHBCNlV6gtgrKIkhG26wE4IX5xBW5hZVHTBM=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq4wXzWhkJsZYHBOCylT4pXM3rS8M00JmhjiYIN
- 5k690VVTXqJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCauMF8wAKCRDBN2bmhouD
- 15LyD/9ltaVg1EUjpFcEb/437yVxGxymBcAUnF5XFesq4P9G1f1NTbheRv/QRPJfv7tft0Ly0fB
- 0z/wBmrXN/fzJpTZBCtqQuWg+SBFZaO9LfjviIlu5zzzU8u4Oy7k0wUGWJDpBe9mjT6wNur8mTv
- xDCmOJcY3zsqTe4rYVR728SmKZBx44kwQRgUQnuAIlPA8Zd6j0o1qnSBCeLfPyJ442GQotyUo8l
- uF5ZUFGN/s5wCA8UWBHyIWW/wbGg/RoGQ6zFGOYgh8HlJOO5yNc7s32uWAJ2qKbx+S2VnW+bv2k
- mZCSjutDZg9M9srxFkkpy3mtW7LSUhtTWI46fqr4g695oX2fmNJao1YagHkLxc3743zUaiEqsWi
- Rwfxf8G98ArIu/IK4K+L5Rzp15VWLt7W54pUVY3I+Gnp4fjiofYqZ9SFo6b7ZS1LCvc+0OQXIb9
- rn1gM0RsOA+2tBwpfHKW/PU/dA2A4RLi76ur1YUWVyJuEM6Yrh8SxA65NeewyhKMLvwANuzfq5b
- prx2LzQBAxbtwS0kKYVlbnS6ishcGSBgqdRHPt2NOJmZq15H9D7+oxseZWpWcGDPib+1BPCR5FT
- 4nYdM2YE0QruPkRdwAosHCrlaD8AAC+AA4fGeks6jd9UjHBudmGAkZEDEfTkcErxSb8QVkPZT79 8wo2zHzfN5e5+5w==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: NXHMjTwwBAYOlAhFo_ySRp0u840F3gOt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzMyBTYWx0ZWRfXwV9UwRgcGNOC
- CGkCFew2pdg3b0z5B+Z3/TcbOQVocF4ba+/wnhBJid7Ix6ZW+9OV1bSY1nOVrOi8Zgq0q+LqZAo
- fgGUvADppC9S+V8XROuDQADdarj+3HgIdXS2hi3sGdw28JSHOUEWcstD2faY5gSsLU6qWip3Hlf
- uqoH+OU8SdlCGS4dZlYsuu179LDP730DEafmJ11YhXIdDWQQvxSZT7+z5mm9v2xdpm6zUuKEfYj
- xIN+pmfLlobSnaRXwQgwcQEBkmEZ9jdEpNjCR3V7BFk1oIM5iCsygvKFhojEUfbuDMcaY3D8JZx
- 8YUkQZk5VIedVeAdZkBjOoTiXFPFP683OQnTXt6GWhEz1qRIPePjnt2Ta4fIbc20m64rnWl9Hfo
- Q+OsW8+EEL7JiLrLuP4L2twsrI60SEqchLEPYTAvWrG6UmmGW6DtqeTPG4H5iN2pvVbzfKND8kC
- vZQh9j0MZ3h1ccJf1Tw==
-X-Proofpoint-GUID: NXHMjTwwBAYOlAhFo_ySRp0u840F3gOt
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzMyBTYWx0ZWRfX2ll6GHUjiEBS
- urtQaQkBBnX23PN6Uh/KwlzmiZOsC91mJlQvSBi8hUQL8JslWI/Aw8tz4z7lIHlSfCOnYp32+Qn
- OhDmspaT71AC2OB026gqODHYYrFtlpk=
-X-Authority-Analysis: v=2.4 cv=bYv+w+PB c=1 sm=1 tr=0 ts=6ae305fe cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=gEfo2CItAAAA:8
- a=EUspDBNiAAAA:8 a=gbLkFptvmrSoAGgJOCQA:9 a=kacYvNCVWA4VmyqE58fU:22
- a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0 spamscore=0
- phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290033
+X-Received: by 2002:a05:6820:83c5:20b0:70e:78ba:1192 with SMTP id
+ 006d021491bc7-713ed7bcb3emr1972000eaf.27.1793263101856; Thu, 29 Oct 2026
+ 01:38:21 -0700 (PDT)
+Date: Thu, 29 Oct 2026 01:38:21 -0700
+In-Reply-To: <20261028141751.6728-1-enderaoelyther@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae305fd.5451848c.f7707.0008.GAE@google.com>
+Subject: [syzbot ci] Re: wifi: mac80211_hwsim: fix netlink release and radio
+ removal races
+From: syzbot ci <syzbot+ciaa26a4b0500f613c@syzkaller.appspotmail.com>
+To: enderaoelyther@gmail.com, jlopex@gmail.com, johannes@sipsolutions.net, 
+	jukka.rissanen@linux.intel.com, linux-kernel@vger.kernel.org, 
+	linux-wireless@vger.kernel.org, linville@tuxdriver.com, 
+	stable@vger.kernel.org
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Convention is to name binding files by one of the compatibles, so fix
-the typo in the name: '.' -> ','.
+syzbot ci has tested the following series
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+[v1] wifi: mac80211_hwsim: fix netlink release and radio removal races
+https://lore.kernel.org/all/20261028141751.6728-1-enderaoelyther@gmail.com
+* [PATCH 1/2] wifi: mac80211_hwsim: ignore non-generic netlink releases
+* [PATCH 2/2] wifi: mac80211_hwsim: serialize radio removal with frame commands
+
+and found the following issue:
+INFO: task hung in mac80211_hwsim_netlink_notify
+
+Full report is available here:
+https://ci.syzbot.org/series/fe9cfff2-ef52-45eb-993c-ea84c287686d
+
+***
+
+INFO: task hung in mac80211_hwsim_netlink_notify
+
+tree:      wireless-next
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/wireless/wireless-next.git
+base:      864c07de0c7dcbca58b61625dfa2e461ae63b242
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/ffa94119-c540-48f2-b244-f5fa2d9531b2/config
+
+INFO: task syz-executor:21314 blocked for more than 143 seconds.
+      Not tainted syzkaller #0
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:syz-executor    state:D stack:22184 pid:21314 tgid:21314 ppid:1      task_flags:0x400140 flags:0x00080002
+Call Trace:
+ <TASK>
+ __schedule+0x17dd/0x5820
+ schedule+0x164/0x2b0
+ schedule_preempt_disabled+0x13/0x30
+ __mutex_lock+0x7c4/0x15a0
+ mac80211_hwsim_netlink_notify+0x193/0x1140
+ notifier_call_chain+0x1a5/0x3d0
+ blocking_notifier_call_chain+0x6a/0x90
+ netlink_release+0x1211/0x1a90
+ __sock_release+0xa0/0x1f0
+ sock_close+0x1c/0x30
+ __fput+0x408/0xa40
+ fput_close_sync+0x11f/0x240
+ __se_sys_close+0xa2/0x160
+ do_syscall_64+0x166/0x520
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fed3715fd8e
+RSP: 002b:00007fffadf594c8 EFLAGS: 00000246 ORIG_RAX: 0000000000000003
+RAX: ffffffffffffffda RBX: 000055557b013500 RCX: 00007fed3715fd8e
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000005
+RBP: 0000000000000005 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007fed37f54670
+R13: 0000000000000014 R14: 00007fed37f54864 R15: 00000000000001f4
+ </TASK>
+
+Showing all locks held in the system:
+locks held by kworker/u8:1/13: 3, on CPU#0:
+ #0: ffff888111e50148 ((wq_completion)ipv6_addrconf){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #1: ffffc90000127c40 ((work_completion)(&(&ifa->dad_work)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #2: ffffffff9125a680 (rtnl_mutex){+.+.}-{4:4}, at: addrconf_dad_work+0x116/0x15c0
+locks held by khungtaskd/35: 1, last CPU#1:
+ #0: ffffffff8fd59ca0 (rcu_read_lock){....}-{1:3}, at: debug_show_all_locks+0x2e/0x180
+locks held by getty/5413: 2, on CPU#1:
+ #0: ffff88811659a0a0 (&tty->ldisc_sem){++++}-{0:0}, at: tty_ldisc_ref_wait+0x25/0x70
+ #1: ffffc9000348b2e8 (&ldata->atomic_read_lock){+.+.}-{4:4}, at: n_tty_read+0x45a/0x1360
+locks held by kworker/u8:2/5484: 3, last CPU#0:
+ #0: ffff88810b983148 ((wq_completion)krds_cp_wq#3/0){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #1: ffffc90004407c40 ((work_completion)(&(&cp->cp_conn_w)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #2: ffff88811a039280 (&tc->t_conn_path_lock){+.+.}-{4:4}, at: rds_tcp_conn_path_connect+0x1cc/0x920
+locks held by kworker/u9:17/30931: 3, last CPU#1:
+ #0: ffff8881000ac148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #1: ffffc90006befc40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #2: ffff888054278258 (&devlink->lock_key#13){+.+.}-{4:4}, at: nsim_dev_trap_report_work+0x57/0xb30
+locks held by kworker/u9:38/30947: 3, last CPU#1:
+ #0: ffff8881000ac148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #1: ffffc9000765fc40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #2: ffff888075278258 (&devlink->lock_key#12){+.+.}-{4:4}, at: nsim_dev_trap_report_work+0x57/0xb30
+locks held by kworker/u9:39/30948: 3, last CPU#1:
+ #0: ffff8881000ac148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #1: ffffc9000768fc40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #2: ffff88806cffd258 (&devlink->lock_key#5){+.+.}-{4:4}, at: nsim_dev_trap_report_work+0x57/0xb30
+locks held by kworker/u8:7/20795: 7, on CPU#0:
+ #0: ffff8881012dd948 ((wq_completion)netns){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #1: ffffc9000791fc40 (net_cleanup_work){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #2: ffffffff9124be48 (pernet_ops_rwsem){++++}-{4:4}, at: cleanup_net+0xf5/0x810
+ #3: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: hwsim_exit_net+0xc9/0xf70
+ #4: ffffffff9125a680 (rtnl_mutex){+.+.}-{4:4}, at: wiphy_unregister+0x26f/0xb20
+ #5: ffff888068390800 (&rdev->wiphy.mtx){+.+.}-{4:4}, at: wiphy_unregister+0x279/0xb20
+ #6: ffffffff8fd60328 (rcu_state.exp_mutex){+.+.}-{4:4}, at: synchronize_rcu_expedited+0x2cb/0x760
+locks held by kworker/u8:8/20796: 2, last CPU#0:
+ #0: ffff888113926148 ((wq_completion)bat_events){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #1: ffffc9000793fc40 ((work_completion)(&(&bat_priv->dat.work)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+locks held by syz-executor/21314: 3, on CPU#0:
+ #0: ffff8881bfaa2640 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
+ #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
+ #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
+locks held by kworker/0:5/21344: 3, on CPU#0:
+ #0: ffff88810006ad48 ((wq_completion)events){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #1: ffffc90003ed7c40 (netdev_work){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #2: ffffffff9125a680 (rtnl_mutex){+.+.}-{4:4}, at: netdev_work_proc+0x6f/0x770
+locks held by syz-executor/21396: 3, on CPU#0:
+ #0: ffff888112f5c440 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
+ #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
+ #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
+locks held by syz-executor/21403: 3, on CPU#1:
+ #0: ffff888013e16240 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
+ #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
+ #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
+locks held by syz-executor/21473: 3, on CPU#0:
+ #0: ffff8881a662e240 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
+ #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
+ #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
+locks held by syz-executor/21500: 3, on CPU#0:
+ #0: ffff88816a9b4440 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
+ #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
+ #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
+locks held by syz-executor/21503: 3, on CPU#1:
+ #0: ffff8881a652ee40 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
+ #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
+ #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
+locks held by syz-executor/21537: 3, on CPU#1:
+ #0: ffff8881bfaa5040 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
+ #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
+ #2: ffffffff90a92d40 (hwsim_radio_mutex){+.+.}-{4:4}, at: mac80211_hwsim_netlink_notify+0x193/0x1140
+locks held by syz-executor/21559: 7, on CPU#0:
+ #0: ffff888117068460 (sb_writers#7){.+.+}-{0:0}, at: vfs_write+0x22b/0xba0
+ #1: ffff888120412c80 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x1d8/0x540
+ #2: ffff88816bbcf4b8 (kn->active#49){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x22b/0x540
+ #3: ffffffff90ad1400 (nsim_bus_dev_list_lock){+.+.}-{4:4}, at: new_device_store+0x13c/0x6d0
+ #4: ffff8881c71ac128 (&dev->mutex){....}-{4:4}, at: __device_attach+0x88/0x450
+ #5: ffff8881c71a9258 (&devlink->lock_key#14){+.+.}-{4:4}, at: nsim_drv_probe+0xfb/0xbb0
+ #6: ffffffff9125a680 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_net_dev_lock+0x257/0x2f0
+locks held by syz-executor/21566: 3, last CPU#1:
+ #0: ffff88819720ac40 (&sb->s_type->i_mutex_key#13){+.+.}-{4:4}, at: __sock_release+0x7a/0x1f0
+ #1: ffffffff912c9268 ((netlink_chain).rwsem){++++}-{4:4}, at: blocking_notifier_call_chain+0x54/0x90
+ #2: ffffffff8fd59ca0 (rcu_read_lock){....}-{1:3}, at: nl80211_netlink_notify+0x75/0x860
+locks held by kworker/u9:0/21570: 3, last CPU#1:
+ #0: ffff8881000ac148 ((wq_completion)events_unbound){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #1: ffffc90003e87c40 ((work_completion)(&(&nsim_dev->trap_data->trap_report_dw)->work)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630
+ #2: ffff8881bbf09258 (&devlink->lock_key){+.+.}-{4:4}, at: nsim_dev_trap_report_work+0x57/0xb30
+locks held by syz-executor/21598: 2, on CPU#0:
+ #0: ffffffff909c0ba8 (&ops->srcu#2){.+.+}-{0:0}, at: rtnl_link_ops_get+0x23/0x250
+ #1: ffffffff9125a680 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_newlink+0xc10/0x1c30
+
+=============================================
+
+NMI backtrace for cpu 1
+CPU: 1 UID: 0 PID: 35 Comm: khungtaskd Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150
+ nmi_cpu_backtrace+0x274/0x2d0
+ nmi_trigger_cpumask_backtrace+0x17d/0x390
+ sys_info+0x135/0x170
+ watchdog+0xfd2/0x1030
+ kthread+0x38b/0x480
+ ret_from_fork+0x514/0xb70
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
+Sending NMI from CPU 1 to CPUs 0:
+NMI backtrace for cpu 0
+CPU: 0 UID: 0 PID: 20796 Comm: kworker/u8:8 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Workqueue: bat_events batadv_dat_purge
+RIP: 0010:native_apic_msr_write+0x39/0x50
+Code: 74 2a 83 ff 30 74 25 eb 10 81 ff d0 00 00 00 74 1b 81 ff e0 00 00 00 74 13 c1 ef 04 81 c7 00 08 00 00 89 f9 89 f0 31 d2 0f 30 <66> 90 c3 cc cc cc cc cc 89 f6 31 d2 e9 e6 17 aa 03 66 0f 1f 44 00
+RSP: 0018:ffffc90000007e50 EFLAGS: 00000046
+RAX: 000000000000000f RBX: ffff888120e23f40 RCX: 0000000000000838
+RDX: 0000000000000000 RSI: 000000000000000f RDI: 0000000000000838
+RBP: ffffc90000007f10 R08: 0000000000000100 R09: 0000000000000001
+R10: 0000000000000003 R11: ffffffff81758510 R12: ffffffff81758510
+R13: 1ffff110241c47f1 R14: 0000000000000000 R15: ffff888120e23f8c
+FS:  0000000000000000(0000) GS:ffff88818c4a4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f85c76b3866 CR3: 0000000169088000 CR4: 00000000000006f0
+Call Trace:
+ <IRQ>
+ lapic_next_event+0x11/0x20
+ clockevents_program_event+0x44e/0x630
+ hrtimer_run_softirq+0x255/0x2e0
+ handle_softirqs+0x265/0x8d0
+ do_softirq+0x77/0xd0
+ </IRQ>
+ <TASK>
+ __local_bh_enable_ip+0x100/0x140
+ batadv_dat_purge+0x2d7/0x3c0
+ process_scheduled_works+0xc3d/0x1630
+ worker_thread+0xa47/0xfb0
+ kthread+0x38b/0x480
+ ret_from_fork+0x514/0xb70
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
 
 ---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
 
-There is no maintainers entry to update after rename.
----
- .../bindings/leds/{ti.lm36922.yaml => ti,lm36922.yaml}          | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
- rename Documentation/devicetree/bindings/leds/{ti.lm36922.yaml => ti,lm36922.yaml} (97%)
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
 
-diff --git a/Documentation/devicetree/bindings/leds/ti.lm36922.yaml b/Documentation/devicetree/bindings/leds/ti,lm36922.yaml
-similarity index 97%
-rename from Documentation/devicetree/bindings/leds/ti.lm36922.yaml
-rename to Documentation/devicetree/bindings/leds/ti,lm36922.yaml
-index 8ffbc6b785a3..1c267e549a44 100644
---- a/Documentation/devicetree/bindings/leds/ti.lm36922.yaml
-+++ b/Documentation/devicetree/bindings/leds/ti,lm36922.yaml
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
- %YAML 1.2
- ---
--$id: http://devicetree.org/schemas/leds/ti.lm36922.yaml#
-+$id: http://devicetree.org/schemas/leds/ti,lm36922.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
- title: Texas Instruments - LM3692x Highly Efficient White LED Driver
--- 
-2.53.0
-
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
