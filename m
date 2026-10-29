@@ -1,114 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269119;
-	b=3U4R3wWjJ7SmTaVghcBbxDSTZQ3f81O5WGkwq1QCAU8el5Ng2tHmXOhQHP+tRAmmV0TQ
-	 1HDmP77h2w8nNl1BNUR16lL7ORegRG91k4EOwenVTMkWROy5IvedWCp0qpNXaMS7Xytwo
-	 x+9h0r5Em7kBOrljIukrIcW1slF0iHCzjOhZJ4SGYL8bUzjj3mp1qjGDkgPQclZtTil7T
-	 nlOav+50YPQk4EZyAVPQTeim6quSNMm2IHlTicTSsfYkN7MyS4bGluGdgFu7SwvwTTeqi
-	 /KE2EA72DV9RMrdoNgwjZzAtOg9LdP8k1JYu3/8O2BhZ6+RUWK5GPxiUCpitzYEx4zQ==
+	t=1793269123;
+	b=GAMlDlxhPdK9QUuZvPq/b0+ZpjmQi27zk4+b78oQgSurcJXVgD17qbhUKkDL4nPgPcty
+	 yI9PewfpT1y507ZmrZh65uutKgT5h6WuaE2mNb4/dDkI1a8tokCtNnB8fxQl4csO75qOn
+	 4RPQ8yYIUU+tBkUj4hVzASHwPYhpnwGD/s7Xmek6P8TbpETmGzt7mgYW+qx57xSvibsao
+	 n+xwUD2YlZiXY65vmq5ZIpPmHSzKQJ+5Iazx4G2hqhyu2VX7YOZIGzUsA4h/5PbTBNEh8
+	 n9dFVWEDZTnFrWjyXUdutJCL2OKEWzuX498W+q689c+EZQGmGxCoOitsTPVkReQR1Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269119;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KBF/n889W/0PSJDWRM61nGSK3OIoWxNCG5rQWJv9+Po=;
-	b=I/cjM4vTUHleL2eJKPpChuzk1DFmqv6WPZIKda3wYdXToDiSQTFepbC2DVRmBOpmZPhU
-	 ufi5zjqYOOat6tCOfUplumfYS8h8sOTAlTBuU9mVJ5KsxshxSfPgBVW7ucUrUPh306TPp
-	 mwbjMmx1oskKlYM8LDRqDpPcUkyfxmi9IeMCpb/R/7BnrRh8KOnrnELmg1r+ULQ+qpgtY
-	 LbWiZQut8YLIP7KQE/m/oV7NGf1+5aTpFU0Rt/mbQ9dU+vySOGQjZz5UShArcSJw1S5qO
-	 qVai71d/oCQ1ef8nGTQmVU06hByfu29bxcOgNHKuYjCWDV6Iv80aN+AvmgNVT6Kiwjw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269123;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=XpQcrguvfG92mrR/1zjrsuKSPP3ZCLK4NMxFB/iVLxE=;
+	b=0QK5ceCRwBP9EQjyZ52qp4pZc5pHM5JdWOOJcddJUAUxZscVI7P1x+7VnmJxRPNI2LeI
+	 AyOYoeA+GTvlr2VJHDkxpHP04UMxgkoRcDY9EotqZpucs62p1KYvQ/IT+kV90gfeLi2Us
+	 M2EJBAg6ReUah4f8Ux21sOerbwVY8C9jyRbCOabZqUqDUZN3osaePXLKbJq+PS4JwO4zx
+	 RLPNz70suK/lEmso1EZKsBzY9DIbhfhZItD+Oft73QiQkLLQHRVDg1uMiYLW6SzVwqipI
+	 U3bPk+nIIEzqh5YV+W0S0PoXKOBbkrCGbhb8awEEGfUCW6FE6fLQXbK0FhpZFsdqXVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qGvPfA+g;
-	arc=none smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UGZKVN5c;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED3660A2609
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:18:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DED3660A2609
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17EA960A262B;
+	Thu, 29 Oct 2026 10:18:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qGvPfA+g
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b1ec41d8e9so2295629a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:18:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793269117; x=1793873917; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KBF/n889W/0PSJDWRM61nGSK3OIoWxNCG5rQWJv9+Po=;
-        b=qGvPfA+gV9jdEuXa/r44oJVmBBLaOYFcZJ/p3lwEzDZP4eHnaf4X2ERMs+3EWJUQ0Y
-         D7YANPMINQDduEV32lQw7tDOea6O0lP2THA6zm/BNvyTUg34ydKGU3MPmw73U0V63abg
-         P9T1zOAPKw8Shdi1L9Hv5Ig8iubdOijfJZMfvmAXZu1wS9IFWr+kfYrH9TPVJIN7HIOQ
-         yxt6r8f53IYpKW9pHNzC83KTgJxguqh2sDxHQppU6tlJnWdBF5QUENBhn8z2664PuJef
-         /jrbVmFXAuyGiROD89Yo2brQ/MjfOLu4SMYT9FU09tEg+X46g/aCgnuuz+65xQ9qNz2n
-         YW8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793269117; x=1793873917;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KBF/n889W/0PSJDWRM61nGSK3OIoWxNCG5rQWJv9+Po=;
-        b=FC6atB/FBoYkGyn2np0c0NjaOh/S+eYNNYvy+XvZ9y0L2uyyOJyWPjAgpwPBo0ECSi
-         6nlhmYPm6ivoF2sT77YqBOVKLfcRI/FGSICsNFmerjMTeMjskvAVk0geTMS3X+XPIEk1
-         MyDIbiYgI5SQIA8+LxJpmoG67hCOcS3ucMBlG8PdZfM6PK9K/wvk9ffNaIdw126+uhdo
-         BlJZPihbJBb3O4Gd+CpiqXax9+T/xQE5Kw+rJZdyanFrJBIrxxy0Mym8T6XqsWJMKwW3
-         cSIIxyFVFZjIq3icaoh++HdKphOhD1gVh+EorSqce79e0Gj43CjWaqnpvwC3ZyebT1ov
-         EDJg==
-X-Forwarded-Encrypted: i=1; AKwUvBytZp7KYhNjgX8aCG4n0ExZBI12z6ZDDKQ51NHOwGMbCKtROoLkkYXgUTS2CPe/W+pwdT+wRm9okgTcC1w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLaoz+ysi4TtApyAddybQ5zGIiVXQEhQRcRYAQunoST3GX8kLBp
-	fwMs72g3TJtUENbtGWBYJKT+tRzlv+Be7PaIjFzTPU+LbjShG258cpb0
-X-Gm-Gg: AYBFou3RuxPE3uDFbkZ1mhzhHKlu/+lGHhBvJwk+ZmB0tMTPYCcf+db07qOxwCSUmIf
-	YZAZlwBggYFeMuSlgZFtqMH2wC5/2eA80t0jStbAXZd6lTfTwLkIYX8ljFX6RTRydXEPRRhqo3y
-	dSY0zFIiI7doqitiX7donrnH8MOLtL63p00ij6HF/L/fa40/s3jJoj5gI614ezr2bsY/f19uPyP
-	waaBKIRWSIcwfe6wF+z3/tKlp42vOc3ys3u84/09ELprzdljcYG+voD/kATeRRPRNEy0U6Tghga
-	m4HLC9uvbAk47gpRI+pvodIxFStWxn+P4U0OIKAgWRf6dWs2nbP6T4s/Nqzv61wUpt4VUGcQXQv
-	JjJXjMoAPW4DddoMAAITMpI5qiGsEYKpdD6EaqGrRvox/MFk+0Bj4e9jsvtKZh2TBx+flMx3JLs
-	7quBIkZgLy8IqcLQ92uKbHQWxZ/7Z13uSWoghvrixGOHRzWIVoddSRkjUa5JSAKjJqnzWdbtrp+
-	4ltF8v5M0tn8QpMRaoVvA1QhcZpT+9LbYZ6geS75QzrK1y4Y/SJoJsQodTixK8347dt/afjt3GD
-	EThUiVoHNC3Ps++9Y1kGppNZgmEWW0z2hHKnPjKcszEYFdnsaqiVokUmzMCDfrB7QUW+7S8ZzYM
-	lZQ9uq5en
-X-Received: by 2002:a17:907:7251:b0:c46:8c16:a656 with SMTP id a640c23a62f3a-c49bdecf308mr430095466b.18.1793269117120;
-        Thu, 29 Oct 2026 03:18:37 -0700 (PDT)
-Received: from localhost.localdomain ([46.205.195.0])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd66c6dbsm712145966b.59.2026.10.29.03.18.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 03:18:36 -0700 (PDT)
-From: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
-	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
-	Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	nouveau@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: [PATCH v2 5/5] drm/nouveau: Use enhanced framing for DPCD r1.2+
-Date: Thu, 29 Oct 2026 11:18:26 +0100
-Message-ID: <20261029101826.72773-6-dmitrymalovanyy@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
-References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UGZKVN5c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23B0E1F031E9;
+	Thu, 29 Oct 2026 10:18:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793269122;
+	bh=XpQcrguvfG92mrR/1zjrsuKSPP3ZCLK4NMxFB/iVLxE=;
+	h=From:Subject:Date:To:Cc;
+	b=UGZKVN5cSz2uXvbrzke3kpSyVoCYXXylm+V8uh5iNqo7vR+jXc4fct3C/1z9hoytj
+	 q7fgajy4PetaKS1N/uz0mIPjLjzWiA93XYt1lfamyEW3KRvt1xcTrsEkEipoRVT+uN
+	 jMzpxuq0ux6ZhRpBEvgLxRv8tLrQjoB1wt8mfX9PAr7a28GT1/QyJHK0NMULn0iDXg
+	 fB6kydmZoGzukHD/2kdwdB6Bma16AK+8UNB6gmk/8ThrgP8sdKuesF/OUWOPNIDbAB
+	 5d/cCx9Xu8fbkmHVjNO7lMFZpCvcJftvxjXgRuZF8qtUbYUJMwq8G9b12gTpWrFCGJ
+	 +1AUYXgsnEk+w==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Subject: [PATCH 0/2] mm/cma: accept memory of CMA areas reserved with
+ memblock_reserve()
+Date: Thu, 29 Oct 2026 12:18:36 +0200
+Message-Id: <20261029-cma-multi-v1-0-2cbced8b5cb7@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,102 +54,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMyw6CMBAAf4Xs2cbS+AB/xXhYygJrbCG7xZgQ/
+ t1WjzOZzAZKwqRwqzYQerPyHDPUhwr8hHEkw31mcNZdauta4wOasL4Sm/Y69Cc6N4i2gdwvQgN
+ /fq/748+6dk/yqQxK0aGS6QSjn4qahUeOx4CaSGDfv/x3LhWNAAAA
+X-Change-ID: 20261029-cma-multi-97fd4e58aa08
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, stable@vger.kernel.org
+X-Mailer: b4 0.16.1-dev
 
-nv50_sor_dp_watermark_sst() checks DP_ENHANCED_FRAME_CAP for the
-watermark calculation, but the actual enhanced framing enable is
-decided in nvkm, in nvkm_dp_train(), nvkm_uoutp_mthd_dp_sst() and
-r535_dp_train_target(), with its own copy of the check. Convert all of
-them so they keep agreeing with each other.
+Pages of allocated CMA areas are released to the buddy allocator with
+__free_pages(), which does not check for unaccepted memory.
 
-dispnv50 uses drm_dp_enhanced_frame_cap(). nvkm does not include the
-drm helpers, so add nvkm_dp_enhanced_frame_cap() with the same rule.
+This usually works because memblock accepts the memory it allocates.
 
-Compile tested only, I don't have nvidia hardware.
+However, multi-range CMA areas, used by hugetlb_cma, and fixed CMA areas
+requested with cma=<size>@<base> are reserved with memblock_reserve() and
+their memory is never accepted.
 
-Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+On TDX and SEV-SNP guests the first access to such a page is fatal.
+
+To ease the backporting, each case is addressed by a separate patch:
+- patch 1 accepts the memory of multi-range CMA areas
+- patch 2 does the same for the fixed CMA areas
+
+The second patch won't apply cleanly to 6.6 and 6.12, but I believe the
+stable team LLMs will take care of that :)
+
 ---
- drivers/gpu/drm/nouveau/dispnv50/disp.c               |  2 +-
- drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.c         |  2 +-
- drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.h         | 11 +++++++++++
- drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c      |  2 +-
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c    |  2 +-
- 5 files changed, 15 insertions(+), 4 deletions(-)
+Mike Rapoport (Microsoft) (2):
+      mm/cma: accept memory of multi-range CMA areas
+      mm/cma: accept memory of CMA areas reserved at a fixed address
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index e91130f93..f965d4811 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1607,7 +1607,7 @@ static bool
- nv50_sor_dp_watermark_sst(struct nouveau_encoder *outp,
- 			  struct nv50_head *head, struct nv50_head_atom *asyh)
- {
--	bool enhancedFraming = outp->dp.dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP;
-+	bool enhancedFraming = drm_dp_enhanced_frame_cap(outp->dp.dpcd);
- 	u64 minRate = outp->dp.link_bw * 1000;
- 	unsigned tuSize = 64;
- 	unsigned waterMark;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.c b/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.c
-index a109348bd..fbd9935f4 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.c
-@@ -509,7 +509,7 @@ nvkm_dp_train(struct nvkm_outp *outp, bool retrain)
- 	OUTP_DBG(outp, "training");
- 
- 	ior->dp.mst = outp->dp.lt.mst;
--	ior->dp.ef = outp->dp.dpcd[DPCD_RC02] & DPCD_RC02_ENHANCED_FRAME_CAP;
-+	ior->dp.ef = nvkm_dp_enhanced_frame_cap(outp->dp.dpcd);
- 	ior->dp.bw = outp->dp.lt.bw;
- 	ior->dp.nr = outp->dp.lt.nr;
- 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.h b/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.h
-index 9a6be4391..e56acc162 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/dp.h
-@@ -23,6 +23,17 @@ void nvkm_dp_enable(struct nvkm_outp *, bool auxpwr);
- #define DPCD_RC10_SUPPORTED_LINK_RATES(i)                               0x00010
- #define DPCD_RC10_SUPPORTED_LINK_RATES__SIZE                                 16
- 
-+/* Same rule as drm_dp_enhanced_frame_cap() */
-+static inline bool
-+nvkm_dp_enhanced_frame_cap(const u8 *dpcd)
-+{
-+	if (dpcd[DPCD_RC00_DPCD_REV] >= 0x12)
-+		return true;
-+
-+	return dpcd[DPCD_RC00_DPCD_REV] >= 0x11 &&
-+	       (dpcd[DPCD_RC02] & DPCD_RC02_ENHANCED_FRAME_CAP);
-+}
-+
- /* DPCD Link Configuration */
- #define DPCD_LC00_LINK_BW_SET                                           0x00100
- #define DPCD_LC01                                                       0x00101
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c b/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
-index 377d0e0ce..b0158fc30 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/uoutp.c
-@@ -87,7 +87,7 @@ nvkm_uoutp_mthd_dp_sst(struct nvkm_outp *outp, void *argv, u32 argc)
- 		return 0;
- 
- 	return ior->func->dp->sst(ior, args->v0.head,
--				  outp->dp.dpcd[DPCD_RC02] & DPCD_RC02_ENHANCED_FRAME_CAP,
-+				  nvkm_dp_enhanced_frame_cap(outp->dp.dpcd),
- 				  args->v0.watermark, args->v0.hblanksym, args->v0.vblanksym);
- }
- 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-index f5f22173f..c62900320 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/disp.c
-@@ -972,7 +972,7 @@ r535_dp_train_target(struct nvkm_outp *outp, u8 target, bool mst, u8 link_nr, u8
- 	if (mst)
- 		cmd |= NVDEF(NV0073_CTRL, DP_CMD, SET_FORMAT_MODE, MULTI_STREAM);
- 
--	if (outp->dp.dpcd[DPCD_RC02] & DPCD_RC02_ENHANCED_FRAME_CAP)
-+	if (nvkm_dp_enhanced_frame_cap(outp->dp.dpcd))
- 		cmd |= NVDEF(NV0073_CTRL, DP_CMD, SET_ENHANCED_FRAMING, TRUE);
- 
- 	if (target == 0 &&
--- 
-2.50.1 (Apple Git-155)
+ mm/cma.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+---
+base-commit: 5b0764a53235d3c77e1ed674e836e1b3fe1a4b1f
+change-id: 20261029-cma-multi-97fd4e58aa08
+
+--
+Sincerely yours,
+Mike.
 
