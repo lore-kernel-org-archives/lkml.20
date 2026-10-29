@@ -1,56 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793259689;
-	b=kwEzYmf5tUdR+OHC2dr4sqo9KZzNSIUN4HEhEAaK0nsh1Jq3XvObWMJNkZ7chls/q+pA
-	 HPu7R747Zy8dBzjGoQJPbYR6BGF1+rozDgyNLZQYOIWZZnDN9ZM/8bVU4wvz7a4S184RD
-	 TKwyiuTd3SlVa7yVQp7lRTJm78+w7B03YavJHEB12LQn/dVGqpQifUE4iDS46n8ZPZauV
-	 J6Wxa8M3Y/MXiElznGGQUJx1uVeC60sLVZmhmxbJdX088vpLgNRznNZZ1oUDihWhchzmn
-	 SRHF5A2jvsZUzTCMNXWb0ph89+/BWPdinGchlGeKc8LXiOC8GDLnu6WMLuhzhEKrrnA==
+	t=1793259750;
+	b=PUZbjwAuW67FT9Q6y34hRkKZJs4gORiZjGFShUL44rCl/KZRLjbOErr5g12S+DqKkwrr
+	 mVCS2J7swKBzNRM4OWIIXWTM4aYflV+d+wzTu/2meRY6AJqfGM2xHkKAAo96lzfoDiXir
+	 K9Hygg9liK7TO7r6ZstzrmT6Y3/KYZrEdmzy3+8n2LpnYq1sba8dkPIktqI4bSIcT5ZY3
+	 NAixVpe2DA1aqBnJxP5dtzTnWDxjwJh1lA/1o7K4h6vByWkovxfo4ooNhPpxP8qSqUVEp
+	 ClBZPKdvBYvQzhf0Tsfnd39fA5T/L67pVKXIZBlQz1bN2ZTquhoZyzNHEMRIOgQqeBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793259689;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=55b5s+R9twQxElwt/hmg6vi8POgmGGaNVzc+dDZF88s=;
-	b=kO0XHSIJby2WqWvfCanfyO2rjgrfRFP6D0K4Fumkug+ugP1AEH8h3u1umdnQX2qfOxJv
-	 oxYOYGLEQ4kA8vs1eILbLe/eN51gu2hcQ8ukCMyDVG+V1h1DsMWB+rv16KFsvnMdKezox
-	 T4UyJ6um7YqzxR7nEpzy0/h2one+PBy8Co9I18UFi1knWq4ykH71VYORykIwhooVQIibW
-	 Kgq+SZoMduTmYdE1X3fKZ+OWG3sikqxPe5E7XgRmgr4zjzqrh5UEQQBaXzVJjhpRwYLMM
-	 6vDpWZeGYoCzFGxLu4FyB7j+yf/2ekulGmuAYsEZWrX5DD+wKMRhFw9eeIYyPbun5iA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793259750;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=uqtLDQD5xTS0V2akScr1AeCuZBi18jL8j7JRCM14Iek=;
+	b=KYQMYaKQ0L52G9rFKG955z0A5f68fAASfg+OBQ63/nlQ0DyJ8QmQ2uadStdySiaiC1LN
+	 BJDrFk5IXr+1vlBbPDs12oxzjv7gF3v4gECXl9yt5HoknCO9fohUcz4RZU9CoDs9NfDwS
+	 BJU4pkjnVwps93VAdOEZnkqBlVaHB0rERiT3WC5zRiXFkj/5Exkl81aGbg3Qrx0hBH6kd
+	 E1zEYdihI5wBAis3DgcDHdIO+dT5FCphT+piGp4pgK1gbkD/mhNwx2wsg1eLznVBYZ1ul
+	 UPN2Iut4VYmD18Crs41I7Nq0/o9iLXOnOB//T+TJYoTm4uQrYlbiXcosuDdYiUSlO9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gcTtyRVM;
-	arc=none smtp.remote-ip=91.218.175.177
-Received: from mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=djNC1Rw9;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C886E606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:41:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C886E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473AE606A31C;
+	Thu, 29 Oct 2026 07:42:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 473AE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=gcTtyRVM
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kqXkXah7tJyY7/8XgkA0XpkEeCII2v4IbMiHYj6hQ9o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793259686; v=1; x=1793864486;
- b=gcTtyRVM6pdvEsNQWrKhRkJzdWMLLeOlqbc7qyRtEG6LQ6/2dJoz7jS4tooOBi3iZ1BJSjNo
- uNq4NU2/rrnQ7NbbwiLch45wDTmAygvq2KOX9+YtqvvD2Oliq62FyI++T2b3G9SAamLTiKZR5pW
- Q9Mhv2Rh4E+3nqMuGcXJ4jew=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 34ecf73c26048443;
-	Thu, 29 Oct 2026 07:41:26 +0000
-X-Mizu-Trace-ID: 34ecf73c26048443
-X-Migadu-Flow: FLOW_OUT
-From: Ye Liu <ye.liu@linux.dev>
-Date: Thu, 29 Oct 2026 15:41:02 +0800
-Subject: [PATCH] mm/huge_memory: use READ_ONCE() when cloning folio flags
- during split
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=djNC1Rw9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793259750; x=1824795750;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=MVpVtdLQY4IkhjqzlWnwVcUPW52r2XOrV9LJwuyJ5k4=;
+  b=djNC1Rw9WbnjxgyKxSPeoG/tA56mEJCCp2eIq8otp+wwnxh4cPTWghmT
+   0IGHoQ2iObykXtCqFJZQEYK4nextG6C98Zwg7aMhKIYYhN28UT2xLdn+m
+   +HcMHpzx16DTQSKkcPytTtAx+/njBGf9fwVA70v37qfNYlmnAGaoxU0sR
+   rN7Q3ojYBXcELXwPL/smFFf5bUiYSJpippOPJjy2XH008TgMZXNa351OM
+   o8kXq8wI9JQZriQQwEgr9vTB04m+JYmOoPoyiq9D+nV9y082Gc21jlN8f
+   DpaoL7C+Pz++4Mfe+FqeqfsWNiExcKLKfyh3TacPexL20l0ONgJUDjp9D
+   w==;
+X-CSE-ConnectionGUID: z/bylCyEQPaA8UmcuVNX7w==
+X-CSE-MsgGUID: is+ZuzrEQJWOqPVQOfe0vA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2022961"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="2022961"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 00:42:29 -0700
+X-CSE-ConnectionGUID: kxMxIR/0T1ONe6fL/FYo9Q==
+X-CSE-MsgGUID: 3ztfeBnzRVClbEO5iW7CNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5456510"
+Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 00:42:24 -0700
+Message-ID: <0945bca7-fb1c-4bbe-b14d-1e9939738daf@linux.intel.com>
+Date: Thu, 29 Oct 2026 15:42:21 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,57 +72,339 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, Robin Murphy <robin.murphy@arm.com>,
+ Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
+ Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
+ Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v6 11/18] iommu/vt-d: Preserve PASID table of preserved
+ device
+To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ David Woodhouse <dwmw2@infradead.org>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-12-skhawaja@google.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <20261025021930.674647-12-skhawaja@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev>
-X-B4-Tracking: v=1; b=H4sIAI344moC/x3MQQqDMBBG4avIrBuI0QrtVUoJY/w1WSQtM7YI4
- t1Nu/wW7+2kkASle7OT4Js0vUpFe2koRC4LTJqqyVk3tNbdzMQre+EAHz8LfEY2vZs7Hqy9hr6
- jGr4Fc9r+08ezemSFGYVLiL9VZl0hdBwnD1VtJn0AAAA=
-X-Change-ID: 20261029-data_race_huge_mem-42f3a6005c43
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Ye Liu <liuye@kylinos.cn>
-X-Mailer: b4 0.14.3
 
-From: Ye Liu <liuye@kylinos.cn>
+On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
+> In scalable mode the PASID table is used to fetch the io page tables.
+> Preserve and restore the PASID table of the preserved devices.
+> 
+> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+> ---
+>   drivers/iommu/intel/iommu.c      |   3 +-
+>   drivers/iommu/intel/liveupdate.c | 144 +++++++++++++++++++++++++++++--
+>   drivers/iommu/intel/pasid.c      |  10 ++-
+>   drivers/iommu/intel/pasid.h      |   8 ++
+>   include/linux/kho/abi/iommu.h    |  19 ++++
+>   5 files changed, 176 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
+> index 991ad9b2456e..ecec057f78dd 100644
+> --- a/drivers/iommu/intel/iommu.c
+> +++ b/drivers/iommu/intel/iommu.c
+> @@ -3473,7 +3473,8 @@ static struct iommu_device *intel_iommu_probe_device(struct device *dev)
+>   			goto clear_rbtree;
+>   		}
+>   
+> -		if (!context_copied(iommu, info->bus, info->devfn)) {
+> +		if (!context_copied(iommu, info->bus, info->devfn) &&
+> +		    !dev_iommu_restored_state(dev)) {
+>   			ret = intel_pasid_setup_sm_context(dev);
+>   			if (ret)
+>   				goto free_table;
+> diff --git a/drivers/iommu/intel/liveupdate.c b/drivers/iommu/intel/liveupdate.c
+> index cf98b95bf8d2..36816d3651e6 100644
+> --- a/drivers/iommu/intel/liveupdate.c
+> +++ b/drivers/iommu/intel/liveupdate.c
+> @@ -14,6 +14,7 @@
+>   #include <linux/pci.h>
+>   
+>   #include "iommu.h"
+> +#include "pasid.h"
+>   #include "../iommu-pages.h"
+>   
+>   /* 2 tables per bus in scalable mode with upper table at odd bit */
+> @@ -393,6 +394,69 @@ void intel_iommu_handle_drhd_restore_failure(struct intel_iommu *iommu)
+>   		      iommu->name);
+>   }
+>   
+> +enum pasid_lu_op {
+> +	PASID_LU_OP_PRESERVE = 1,
+> +	PASID_LU_OP_UNPRESERVE,
+> +	PASID_LU_OP_RESTORE,
+> +};
+> +
+> +static int pasid_lu_do_op(void *table, enum pasid_lu_op op)
+> +{
+> +	int ret = 0;
+> +
+> +	switch (op) {
+> +	case PASID_LU_OP_PRESERVE:
+> +		ret = iommu_preserve_pages(table);
+> +		break;
+> +	case PASID_LU_OP_UNPRESERVE:
+> +		iommu_unpreserve_pages(table);
+> +		break;
+> +	case PASID_LU_OP_RESTORE:
+> +		iommu_restore_pages(virt_to_phys(table));
+> +		break;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static int pasid_lu_handle_pd(struct pasid_dir_entry *dir,
+> +			      u32 max_pasid, enum pasid_lu_op op)
+> +{
+> +	int max_pde = max_pasid >> PASID_PDE_SHIFT;
+> +	struct pasid_entry *table;
+> +	int i, ret;
+> +
+> +	for (i = 0; i < max_pde; i++) {
+> +		table = get_pasid_table_from_pde(&dir[i]);
+> +		if (!table)
+> +			continue;
+> +
+> +		ret = pasid_lu_do_op(table, op);
+> +		if (ret)
+> +			goto err;
+> +	}
+> +
+> +	ret = pasid_lu_do_op(dir, op);
+> +	if (ret)
+> +		goto err;
+> +
+> +	return 0;
+> +
+> +err:
+> +	if (op != PASID_LU_OP_PRESERVE)
+> +		return ret;
+> +
+> +	while (i > 0) {
+> +		table = get_pasid_table_from_pde(&dir[--i]);
+> +		if (!table)
+> +			continue;
+> +
+> +		pasid_lu_do_op(table, PASID_LU_OP_UNPRESERVE);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+>   /**
+>    * intel_iommu_preserve_device() - Intel IOMMU callback to preserve device state
+>    * @dev: Target device
+> @@ -404,6 +468,7 @@ int intel_iommu_preserve_device(struct device *dev,
+>   				struct iommu_device_ser *device_ser)
+>   {
+>   	struct device_domain_info *info = dev_iommu_priv_get(dev);
+> +	struct pasid_table *pasid_table;
+>   	int ret;
+>   
+>   	if (!dev_is_pci(dev)) {
+> @@ -434,6 +499,22 @@ int intel_iommu_preserve_device(struct device *dev,
+>   
+>   	device_ser->attachment.attachment_id = domain_id_iommu(info->domain,
+>   							       info->iommu);
+> +
+> +	if (!sm_supported(info->iommu))
+> +		return 0;
+> +
+> +	pasid_table = intel_pasid_get_table(dev);
+> +	if (!pasid_table)
+> +		return -EINVAL;
+> +
+> +	ret = pasid_lu_handle_pd(pasid_table->table,
+> +				 pasid_table->max_pasid,
+> +				 PASID_LU_OP_PRESERVE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	device_ser->intel.pasid_table = virt_to_phys(pasid_table->table);
+> +	device_ser->intel.max_pasid = pasid_table->max_pasid;
+>   	return 0;
+>   }
+>   
+> @@ -445,15 +526,33 @@ int intel_iommu_preserve_device(struct device *dev,
+>   void intel_iommu_unpreserve_device(struct device *dev,
+>   				   struct iommu_device_ser *device_ser)
+>   {
+> +	struct device_domain_info *info = dev_iommu_priv_get(dev);
+> +	struct pasid_table *pasid_table;
+> +
+> +	if (!dev_is_pci(dev))
+> +		return;
+> +
+> +	if (!info)
+> +		return;
+> +
+> +	if (!sm_supported(info->iommu))
+> +		return;
+> +
+>   	/*
+>   	 * The context tables preserved during device preservation, in the
+>   	 * preserve_device() callback, might be shared with other devices, so
+> -	 * those are unpreserved in the iommu unpreserve() callback. So this
+> -	 * callback is kept empty.
+> -	 *
+> -	 * Once device PASID tables are preserved, the unpreservation of PASID
+> -	 * tables will be added here.
+> +	 * those are unpreserved in the iommu unpreserve() callback.
+>   	 */
+> +	if (!device_ser->intel.pasid_table)
+> +		return;
+> +
+> +	pasid_table = intel_pasid_get_table(dev);
+> +	if (!pasid_table)
+> +		return;
+> +
+> +	pasid_lu_handle_pd(pasid_table->table,
+> +			   pasid_table->max_pasid,
+> +			   PASID_LU_OP_UNPRESERVE);
+>   }
+>   
+>   /**
+> @@ -499,3 +598,38 @@ void intel_iommu_unpreserve(struct iommu_device *iommu_dev,
+>   	unpreserve_iommu_context_tables(iommu, ser);
+>   	iommu_unpreserve_pages(iommu->root_entry);
+>   }
+> +
+> +/**
+> + * intel_pasid_restore_table() - Restore preserved PASID table for a device
+> + * @dev: Restored device
+> + * @max_pasid: Maximum supported PASID
+> + *
+> + * Return: Pointer to restored PASID table directory, or NULL if not preserved.
+> + */
+> +void *intel_pasid_restore_table(struct device *dev, u64 max_pasid)
+> +{
+> +	struct iommu_device_ser *ser = dev_iommu_restored_state(dev);
+> +
+> +	if (!ser || !ser->intel.pasid_table)
+> +		return NULL;
+> +
+> +	/*
+> +	 * MAX PASID of a device should not change as it is read from
+> +	 * capabilities.
+> +	 */
+> +	if (ser->intel.max_pasid != max_pasid)
+> +		panic("%s: preserved max PASID %llu does not match %llu\n",
+> +		      dev_name(dev), ser->intel.max_pasid, max_pasid);
+> +
+> +	if (ser->intel.restored)
+> +		goto out;
+> +
+> +	if (pasid_lu_handle_pd(phys_to_virt(ser->intel.pasid_table),
+> +			       ser->intel.max_pasid, PASID_LU_OP_RESTORE))
+> +		panic("%s: failed to restore preserved PASID table\n",
+> +		      dev_name(dev));
+> +	ser->intel.restored = 1;
+> +
+> +out:
+> +	return phys_to_virt(ser->intel.pasid_table);
+> +}
+> diff --git a/drivers/iommu/intel/pasid.c b/drivers/iommu/intel/pasid.c
+> index e4f24d3f19a6..59cc69383799 100644
+> --- a/drivers/iommu/intel/pasid.c
+> +++ b/drivers/iommu/intel/pasid.c
+> @@ -13,6 +13,7 @@
+>   #include <linux/cpufeature.h>
+>   #include <linux/dmar.h>
+>   #include <linux/iommu.h>
+> +#include <linux/iommu-liveupdate.h>
+>   #include <linux/memory.h>
+>   #include <linux/pci.h>
+>   #include <linux/pci-ats.h>
+> @@ -60,8 +61,13 @@ int intel_pasid_alloc_table(struct device *dev)
+>   
+>   	size = max_pasid >> (PASID_PDE_SHIFT - 3);
+>   	order = size ? get_order(size) : 0;
+> -	dir = iommu_alloc_pages_node_sz(info->iommu->node, GFP_KERNEL,
+> -					1 << (order + PAGE_SHIFT));
+> +
+> +	max_pasid = 1 << (order + PAGE_SHIFT + 3);
+> +	if (dev_iommu_restored_state(dev))
+> +		dir = intel_pasid_restore_table(dev, max_pasid);
+> +	else
+> +		dir = iommu_alloc_pages_node_sz(info->iommu->node, GFP_KERNEL,
+> +						1 << (order + PAGE_SHIFT));
+>   	if (!dir) {
+>   		kfree(pasid_table);
+>   		return -ENOMEM;
+> diff --git a/drivers/iommu/intel/pasid.h b/drivers/iommu/intel/pasid.h
+> index 48d3bb6b68de..801768cdea16 100644
+> --- a/drivers/iommu/intel/pasid.h
+> +++ b/drivers/iommu/intel/pasid.h
+> @@ -301,6 +301,14 @@ static inline void pasid_set_eafe(struct pasid_entry *pe)
+>   
+>   extern unsigned int intel_pasid_max_id;
+>   int intel_pasid_alloc_table(struct device *dev);
+> +#ifdef CONFIG_IOMMU_LIVEUPDATE
+> +void *intel_pasid_restore_table(struct device *dev, u64 max_pasid);
+> +#else
+> +static inline void *intel_pasid_restore_table(struct device *dev, u64 max_pasid)
+> +{
+> +	return NULL;
+> +}
+> +#endif
+>   void intel_pasid_free_table(struct device *dev);
+>   struct pasid_table *intel_pasid_get_table(struct device *dev);
+>   int intel_pasid_setup_first_level(struct intel_iommu *iommu, struct device *dev,
+> diff --git a/include/linux/kho/abi/iommu.h b/include/linux/kho/abi/iommu.h
+> index 95354a12ba1d..08443f6cee6f 100644
+> --- a/include/linux/kho/abi/iommu.h
+> +++ b/include/linux/kho/abi/iommu.h
+> @@ -137,6 +137,21 @@ struct iommu_attachment_ser {
+>   	u32 padding;
+>   } __packed;
+>   
+> +/**
+> + * struct iommu_device_intel_ser - Intel specific state of serialized device
+> + * @features: Bitmask of Intel device specific features
+> + * @restored: Whether the device state is restored
+> + * @pasid_table: Physical address of pasid table
+> + * @max_pasid: Maximum supported pasid
+> + */
+> +struct iommu_device_intel_ser {
+> +	u32 features;
+> +	u8 restored;
+> +	u8 padding[3];
+> +	u64 pasid_table;
+> +	u64 max_pasid;
+> +} __packed;
+> +
+>   /**
+>    * struct iommu_device_ser - Serialized state of a device
+>    * @hdr: Common object header
+> @@ -146,6 +161,7 @@ struct iommu_attachment_ser {
+>    * @iommu_phys: Physical address of the serialized IOMMU the device is behind
+>    * @attachment: Attachment of the device to its domain
+>    * @reserved: Reserved for future common fields.
+> + * @intel: Intel specific serialization data
+>    */
+>   struct iommu_device_ser {
+>   	struct iommu_hdr_ser hdr;
+> @@ -155,6 +171,9 @@ struct iommu_device_ser {
+>   	u64 iommu_phys;
+>   	struct iommu_attachment_ser attachment;
+>   	u64 reserved[2];
+> +	union {
+> +		struct iommu_device_intel_ser intel;
+> +	};
+>   } __packed;
+>   
+>   /* There are maximum 256 buses, so maximum 512 context tables */
 
-The head folio's flags are read as a whole word to clone specific bits
-into tail folios during a THP split.  This plain read can race with
-concurrent atomic flag modifications such as folio_set_waiters()
-(PG_waiters), as reported by KCSAN:
-
-  BUG: KCSAN: data-race in __split_huge_page_tail / migration_entry_wait_on_locked
-
-Signed-off-by: Ye Liu <liuye@kylinos.cn>
----
- mm/huge_memory.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index bd44d58e8684..aac91c972ced 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3731,7 +3731,7 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
- 		 * PG_anon_exclusive (-> PG_mappedtodisk) for these here.
- 		 */
- 		new_folio->flags.f &= ~PAGE_FLAGS_CHECK_AT_PREP;
--		new_folio->flags.f |= (folio->flags.f &
-+		new_folio->flags.f |= (READ_ONCE(folio->flags.f) &
- 				((1L << PG_referenced) |
- 				 (1L << PG_swapbacked) |
- 				 (1L << PG_swapcache) |
-
----
-base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
-change-id: 20261029-data_race_huge_mem-42f3a6005c43
-
-Best regards,
--- 
-Ye Liu <ye.liu@linux.dev>
-
+Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
