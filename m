@@ -1,79 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793307767;
-	b=LvmxhgcYVnSDuhHvtaJulYDNCBTeqMlA62s9i1v8CVVKq0cGukG2pBtpKC8B5e4TEQBs
-	 EfXCRC9ytuxGJz53wc92oFXI7StX8eE03Yss8yFvDs68aoiObsKZkeFhrsNAN3R4Zwxzh
-	 SGaM2t4p7JgV3Sk4FDEgG/x5CbF6CfaNZ/JReFccFwc+ngR7xzfySWeL7OuDZtIweJ2ma
-	 vaWR5kH/TLeFDZL0y3zWJv8OPBxTF08zaCnUiDYGr6S63C8bvmv2OL8y+ovIEkXyKVPFL
-	 cHcoUx6DQ1f3Jnb8aOUJzbWMbE5Tjg5QJZ1s0wf2kilHJKc3fMvYqCZPku11HonIrNg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793307767;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w41sq28x/ASq4lXyo8/BhZ5wcP8Nly9VwoK1OLW/Pp8=;
-	b=5ZSKgxWJsnkI7jhGQnihxDquCX52XWGTjLz7v3Fw+2uvQLYixYylRnvvPvJnqiwUhJfK
-	 ZMQ7fG/bHv8JabsAJtFN1Z/x+2AmIO+7zt7p5Kxj/DetJ3coIl/tvLA3sshnjB5HUnbWJ
-	 CqAY6oN/T37klTnAyTGPzviX/aDgSqIrjhjveP1Sm1YN+gHPlbm7gwWWodc4XZDXI2hob
-	 Ys4MjGiV3/LTQc37k4PZORephgeDJBeqV4DUxuP6vIt/+xbnF/4nx2paFos2fRDKGqAoT
-	 7GpMKSVAJ65e+K5aYct7OgQ2wREz06MUvzMDqeJBIBG830oN1r8wLtzsMVMFwlx+Vgg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Orrk8FxC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793307803;
+	b=Rg/zm1NpLXaT+jShOwgmZdCg7xDUgHDSA0Nele4U4eBVYpCEtz11V6NJkPISJ3dN85x4
+	 i0bprILzff3Ers1dKfuuElnh+0Beh3TM2d/3QdlzD1wMysZMCdBtwyzAoTVUmxOUWUI1f
+	 VxgGurRgsQT/MLc/wZbMnEaGUc6KJ3+u68ELTrrsC4jfdmP7VpM0oCpEDkwrEyz4e6Md1
+	 vPvz+FsIoBUzDdsEgS0leMLIt8zEizNWW1g1K8gQKD1BaPae3sgu+ieORlBpss9Px5lI6
+	 hMgDx4zIKOn2JmLkzJ4TRMASszUJWdYJCZzenZrQZoMNIIVBKQUx1IHICs00/7NyW1w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793307803;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=bPk1bfovMrQzqMiTrMYNCt5DVPkMQCG01pyOU5nTCcQ=;
+	b=NRYHD1kingWcjAmjLtakMus/7+DaFFiU/SdMznTg4B+HVVVPjN00zq7HTYSdWpbt0rTP
+	 cU1s53XoBLv8qxGkEongG8d3XyppQppckX9oXz2g/NU7MQlElXljcNVaKHLDCqQTVb0XK
+	 a58vuHjCTkjUdkigoYhI3Voe7lV4qN1VHyhcQQ/XdRFrQa/36U7lOo/fFSglBY5JExL8g
+	 5uDIy2WYycY/Cb618a0GKKbcJlDN/+nx6Nk0FjyHo3kloshIy0JEqfhXBLCEs+utQNPQV
+	 bt3fOGC/hguQMnukyIwGT8bSCu6WzdLYlUg91Y7EWj3Wp+QtjSQKo4A43Yr9b4ieNIg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gxgsY/mE";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C50D60A260B;
-	Thu, 29 Oct 2026 21:02:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4210606A31A;
+	Thu, 29 Oct 2026 21:03:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Orrk8FxC
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793307762;
-	b=CrEiYe9583yQZ6g8kWuM6h4hLnWw6W6h7FKk+UrKR24EiuHTM+tIAwMoTfHFK9ZkfhQz
-	 xhV6PJvNOkb73MDxoORr/EowHvBAKoHmsZpDGbPYsLxu8hH9F8ZHflnoefMqu+kjblcB4
-	 ICRaq+LQH0fmMlpnaXnlYMJz5j9xZjSIccErlVY9/yzJgs1MaUk0jbw1IBN9ojXwYychx
-	 pJ+6h3AkJcypR3U/+KCRtSygUX5IGxlIqe9icEEVoXVgST3ft5dAKstJdx63u+mjiPluJ
-	 02R9ik8LVs1qkGz33VVZKEsuV3EnuAgAVRV1yO8FC9YgWnJVf5TX+ftEPUnKzGL0b+g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793307762;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=w41sq28x/ASq4lXyo8/BhZ5wcP8Nly9VwoK1OLW/Pp8=;
-	b=uK+gEhU37dZ3t9Q6XSA/Xzw8ZBVYF0P++6rb6iLBBKlDNuwCn2vikPgzLxD7ev/BoS63
-	 WHxjVDpolGeb9mG4+xYkMHAOQ3eRh+cI82EIZQ414AT5k5RguU66JSsgu/bT6H1+0JAqe
-	 R7SNYjyz2f1VHHIk2TI4w/iyk8DVKUd/Hwzfn2njNfTB+T8a04z9TnwKWLkarRCnAhfQl
-	 fLY/vULIv9AMXOFdHFJK+7YPrjXXyEsDQoUVGT7MmMHa7CvQiiD+5EFdglaG1Wp3YZjGV
-	 DiRpRAEESulv9JPku3iLovynnZGyCmGeapys0hHvECOYLeusvTuduS9qYSO+F6xfA5g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 2C06A1F031E2;
-	Thu, 29 Oct 2026 21:02:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxgsY/mE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352D71F01816;
+	Thu, 29 Oct 2026 21:03:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793307762;
-	bh=w41sq28x/ASq4lXyo8/BhZ5wcP8Nly9VwoK1OLW/Pp8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Orrk8FxCJocyKLi8FRsai06fgyaLKlitCXzV0JGryyWT6TuXkz5dgoa5dhKvX8BRG
-	 b7EDSaqIbSfYIcKQuj28bEknENtOwdhZ9iMTyDMYa2M7TK8ACosB129NwY2mJQG5Gj
-	 YGxKKPGWn2r4xWuDJgj539wHN/cJBpnWx5Kb3HcwSIXKisQh79FMKsRoDluwoNLYPg
-	 RlA3jNgMgnFcLUEXeTdbeHHQ3/6zmY+QmC9yqMJpu87QgfmNoovw1g8RMAKBeuWfXz
-	 l+zv8gpUmwH4y8C3Zn1YsleWoRnF55QauqQGUKPkIQ/q7gbfiYNVSwa0I1ln6MQK1L
-	 S052DhEksGIWw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3836E459DE;
-	Thu, 29 Oct 2026 21:02:38 +0000 (UTC)
-From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Fri, 30 Oct 2026 00:02:41 +0300
-Subject: [PATCH v7 10/11] dt-bindings: input: touchscreen: goodix: Add
- binding for GT970
+	s=k20260515; t=1793307802;
+	bh=bPk1bfovMrQzqMiTrMYNCt5DVPkMQCG01pyOU5nTCcQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gxgsY/mEtcQDMWilKYoUvRE5Q96btIKXnI7LUSBtZ58xZLk6nv+9j7NPZDZgvc6nN
+	 N4P9hQ0gnBRgZc6K6wmFf92AKJEcw+2fEFixT9++kqwsx4Pf+/A0bW/oaVyaOrXkAl
+	 uML464qkFyH2X2188iliQKpPodzyUpKVvXxWgyIY9aPGKT6k7dAUZwu2rpsxKCrR6o
+	 5Q5/gFcD0Vtww8gNdAJ/kAyDznwlLMlaj3B1liScS+5Sxw4KTfA21+ksrjOEkZ9xi5
+	 3dTA31cm+z356Lt8i3H+TQqZWweex4AACNdT9s9B1izedKR9RaAsaYMABPjPuEeYws
+	 L47UDYMhdoDVg==
+Date: Thu, 29 Oct 2026 22:03:18 +0100
+From: Niklas Cassel <cassel@kernel.org>
+To: Igor Pylypiv <ipylypiv@google.com>
+Cc: Damien Le Moal <dlemoal@kernel.org>, John Garry <john.garry@linux.dev>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+	Hannes Reinecke <hare@suse.de>, linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ata: libata-sata: allow re-enabling NCQ with the same
+ queue_depth
+Message-ID: <auO0lmGIi0AZUH40@ryzen>
+References: <20261029184445.1615717-1-ipylypiv@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,117 +59,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-msm8952-initial-support-v7-10-ad748ace375d@mainlining.org>
-References: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
-In-Reply-To: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, 
- Rajendra Nayak <quic_rjendra@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Krishna Manikandan <quic_mkrishn@quicinc.com>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
- linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
- linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793307755; l=1656;
- i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=WcI6NF2jH7/1jsgO/qq/6GfopHH27DV/LBlXLYlg2yo=;
- b=KaVq6JMZuo3i7wkTjbLJsHd9Jmfne5+q+ucL4Yn9K7uwr8fdG/0pQ6H8NdBv0fDg2nySA2G7s
- XCRYwH3A72GAEr18ksMnVvsYSFPJtptrjY7nrZRMU5r8xHer6DbMIDY
-X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
- pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
-X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
- with auth_id=954
-X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Reply-To: muzafferkadir@mainlining.org
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029184445.1615717-1-ipylypiv@google.com>
 
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+On Thu, Oct 29, 2026 at 11:44:45AM -0700, Igor Pylypiv wrote:
+> When ata_eh_speed_down() disables NCQ due to excessive errors, it sets
+> ATA_DFLAG_NCQ_OFF without changing sdev->queue_depth. Userspace can
+> re-enable NCQ by writing a queue depth > 1 to the sysfs queue_depth
+> attribute, which invokes ata_change_queue_depth() to clear
+> ATA_DFLAG_NCQ_OFF.
+> 
+> However, ata_change_queue_depth() returns early if the requested
+> queue_depth is equal to sdev->queue_depth before clearing
+> ATA_DFLAG_NCQ_OFF. As a result, writing a different queue depth > 1
+> re-enables NCQ, whereas writing the current sdev->queue_depth value
+> leaves ATA_DFLAG_NCQ_OFF set.
+> 
+> Since ata_change_queue_depth() already checks whether queue_depth equals
+> sdev->queue_depth before calling scsi_change_queue_depth(), remove the
+> early check so that writing the current queue_depth > 1 clears
+> ATA_DFLAG_NCQ_OFF and re-enables NCQ.
+> 
+> Fixes: 45623d33bfc0 ("ata: libata-sata: Improve ata_change_queue_depth()")
+> Signed-off-by: Igor Pylypiv <ipylypiv@google.com>
+> ---
+> Commit 45623d33bfc0 ("ata: libata-sata: Improve ata_change_queue_depth()")
+> didn't add the first queue depth check, but it changed the return value
+> of the second check from -EINVAL to sdev->queue_depth so it seemed like
+> a better candidate for the Fixes tag.
+> 
+>  drivers/ata/libata-sata.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/ata/libata-sata.c b/drivers/ata/libata-sata.c
+> index 32fd0e804654..d917242ac136 100644
+> --- a/drivers/ata/libata-sata.c
+> +++ b/drivers/ata/libata-sata.c
+> @@ -1287,7 +1287,7 @@ int ata_change_queue_depth(struct ata_port *ap, struct scsi_device *sdev,
+>  	spin_lock_irqsave(ap->lock, flags);
+>  
+>  	dev = ata_scsi_find_dev(ap, sdev);
+> -	if (!dev || queue_depth < 1 || queue_depth == sdev->queue_depth) {
+> +	if (!dev || queue_depth < 1) {
+>  		spin_unlock_irqrestore(ap->lock, flags);
+>  		return sdev->queue_depth;
+>  	}
+> -- 
+> 2.56.0.317.g454f8302e1-goog
+> 
 
-GT970 works with GT911 driver, document it to be
-used with GT911 compatible.
+You could probably even change you commit message to say:
+before 45623d33bfc0 ("ata: libata-sata: Improve ata_change_queue_depth()"),
+ata_change_queue_depth() cleared ATA_DFLAG_NCQ_OFF unconditionally:
+-       dev->flags &= ~ATA_DFLAG_NCQ_OFF;
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
----
- .../bindings/input/touchscreen/goodix.yaml         | 35 ++++++++++++----------
- 1 file changed, 20 insertions(+), 15 deletions(-)
+So the subject of the patch could theoretically be:
+ata: libata-sata: re-allow re-enabling NCQ with the same queue_depth
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-index a26a54d63a1c..4be2c137abd7 100644
---- a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-@@ -14,21 +14,26 @@ allOf:
- 
- properties:
-   compatible:
--    enum:
--      - goodix,gt1151
--      - goodix,gt1158
--      - goodix,gt5663
--      - goodix,gt5688
--      - goodix,gt911
--      - goodix,gt9110
--      - goodix,gt912
--      - goodix,gt9147
--      - goodix,gt917s
--      - goodix,gt927
--      - goodix,gt9271
--      - goodix,gt928
--      - goodix,gt9286
--      - goodix,gt967
-+    oneOf:
-+      - enum:
-+          - goodix,gt1151
-+          - goodix,gt1158
-+          - goodix,gt5663
-+          - goodix,gt5688
-+          - goodix,gt911
-+          - goodix,gt9110
-+          - goodix,gt912
-+          - goodix,gt9147
-+          - goodix,gt917s
-+          - goodix,gt927
-+          - goodix,gt9271
-+          - goodix,gt928
-+          - goodix,gt9286
-+          - goodix,gt967
-+      - items:
-+          - enum:
-+              - goodix,gt970
-+          - const: goodix,gt911
- 
-   reg:
-     enum: [ 0x5d, 0x14 ]
+Perhaps that is too many re-..
 
--- 
-2.55.0
-
-
+Anyway, re-gardless:
+Reviewed-by: Niklas Cassel <cassel@kernel.org>
