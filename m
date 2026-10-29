@@ -1,70 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793298011;
-	b=DLZ4Py7fV4xdsrOr1xjRD6qqMLVwfzAD5nFMtzpT/33AeYPHjVvIjYMe8Imp8RNdv85C
-	 7fiOlg4RoP2y8YcNlOxO76KoAAw3kRL3h8Kwihde7V4AtH9bWt3J56+5OkcpL8BHK6jkr
-	 IxFSrF3FKIm2wThgy/RF0GGldJdMMddmC4LDUULntq2i2Tk1UKy2TvwI6axvRCmF89MAN
-	 mrsPx/6F8caAl721w7VJu2+Bs/A8dpWWrOkX8h3LNuFzDmWJRzuXuOwSdb5zjXm9JphaF
-	 i+b3ewpCBPw4p3mtydD23PSZSFQuufdXfJrrsPwl55kfXPyTZu6y3h/UT756OVPIBwQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793298011;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
-	bh=bOHnuqm9JpBcA8XwXXxzaZDMRZkV0lT5/r8gk4REOYs=;
-	b=os01x7ODv9iwzSEfHDgwZRpvAWQqwHAcEcp8XxWHhsWYCyfZPMhZxEeKqyAs8NLp/Cuy
-	 +f09Pku8/d46VOluHmvJHwHjq1ZgpcYR/IfwODzZVPxXdXkwIxwi3KJCIwaLTyp5/Z5Ww
-	 yEAX3jmbonS2E+PuWYiw8m0kb2yQF37NUQXRoMi+TsSuDIbK33OV+uuU1GuYRLtI97nO5
-	 TllaWfU4yc1yMKS6rVrf6ivtqBwPxzyHR66BjLRlNESuEyCPRESyToUX//2fqDft6V4Nn
-	 x0P9eNPwUPye3cIfh1MyPvfc72HDtzmcaMl2JYkrp1Dte6xn2GGyDGTnG9Pug+cm86A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JiDLCoST;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B401606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:20:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B401606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793298051;
+	b=jId2h5Oo1gOYPwr1D+hJpFnO3xBfwsrtgYzXGT2zpNJqkeFVZ5Z53BjwBBDJl7EOqSW5
+	 lWCRTJO+eGA9V26nAJBImhjR+16/DrncNgKAhAkOLf9vhb7Kp9LGtJmMmo67pcRqeiWKU
+	 llAbYEz8Sm67pTo2HG0pdVxNv4VoxlL4J51jgRrbWnDObgCrfMUFnLlO4mFeZBTTvfhux
+	 vWoBctEkloqXaknSAyUhdFihYHAhk5peCgCTlGVoZWXQr8z1shgvQnZr1+aNTnHAAfQwe
+	 2z7amWdh5aghetIEvZfjsp1Yy/E6pjTBcNnZmnCYRpQCrhg2vBoS1ikuKd8kxx7RwfA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793298051;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=ggNoVNPA2Bii3jze7tCfHt9vsP7G4w8X9UYeBYzIxhU=;
+	b=OMuzD4gH8K4/6771wzdTbOGrr5HgY9A8WlhDLJzD1Yfsm6eMkEKjNOZcr8I50ijnTcWF
+	 PU0c43EJb8yBw2akdl1GC1f9IbfHwnC2NHma4nVXArgZIvcvB9PYcLeUjaZFmEbZf57Yk
+	 7QRDCiYnXHvxSyGz9ZGLwXMaDLoZ16hULVMci4R7zPJWPB57OCCpGS8/dvVjhZozlkj7f
+	 aWfeopj+p7ScyvVLz1jx+b1hu6vmPx6p/kGelhA2f9w2+9+yEAV26RKlQviZfTkUpazEv
+	 QZCr4Vo+B+XUkMl3hNaIGWZAYG4Zd3wUqJG9YVn1E5JYg4cjzVyAYPGWsFFjNegtBEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ie8aKxgX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.52
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FAD606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:20:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47FAD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JiDLCoST
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C9A01682;
-	Thu, 29 Oct 2026 11:20:06 -0700 (PDT)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 469CE3F673;
-	Thu, 29 Oct 2026 11:20:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793298009; bh=cWbcv/OrR3AC8MWmsufB2MOUC/lX1aMLnaTpaG/Zm6s=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=JiDLCoSTk0j+JNfFGYPj7s5GQs9Ok0PIGN3GkOADOMJO4HOphVZlHwhzIw81Hsx/W
-	 r7U7Y9HdV6FkmNlQsULUl6Qi45DshRgf6ayeyi+lkU7/zlMymKsLRv8tYIDx38k2Po
-	 Q1pQyDXi2cM7dXwceosKX8wRfP6ScMXmTszM5nig=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Oliver Upton <oupton@kernel.org>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Tian Zheng <zhengtian10@huawei.com>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/3] Set DBM bit on writable pages
-Date: Thu, 29 Oct 2026 18:20:05 +0000
-Message-ID: <auONmOc-nYsQwCnG@LeoBrasDK>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <auExh5laWQbUKmUY@kernel.org>
-References: <20261026144413.441566-1-leo.bras@arm.com> <at-lSy7H-K60LhCB@kernel.org> <auCOj9dgk42AE1WX@LeoBrasDK> <auExh5laWQbUKmUY@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ie8aKxgX
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-8479f46ecd8so1107374a34.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:20:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793298050; cv=none;
+        d=google.com; s=arc-20260327;
+        b=C+B1t4jJk6zlhq2jbNrO818jv9qPOOUDVhQVzvrz+khjc3tmkqKe5r6sbHxFvY7XhT
+         70lA+V+IbmR3wtxdm2EF/W4LO2dHHMk26bD4xLllV5giubo9rKnUiPMfqcigCO5kCWf0
+         RY7cIYGNmubnB2Lp3KQd6OT38/0gVImowa27v1AgC7dQObsJa1ZlGNX2+3toCx+S/bHd
+         Z+1lQj777S766x63H6MZ4W53/Quc4NkN19LZFeBR6xo1nRou2HbfciL04Kc4re3X+/SI
+         N9yAmb+g+f1ZgaHY36ootnV0yIDXNY21QgngJ7nb7pGYX0uqmHkFdJvwT7E3ucj40EEd
+         QD9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ggNoVNPA2Bii3jze7tCfHt9vsP7G4w8X9UYeBYzIxhU=;
+        fh=kXNxnEKBRfWaOPqwzeLO+aZCqDukm1Y3p6U/lGS2IZ8=;
+        b=MBcIpFP5lJGB7wwYXeVKkpstDl+JsiqqQbf7oBr652J9bCMlx5iZ3L7g/5QuTd+HLA
+         Eglh700VVREkNAfXREE5pHYiQjwQ5VH/7003lm8GjWHLrfpN3pTpF+sWPXf0iI1GCN0s
+         JJ2EKs95Kc/UNFEBLdMAt8tEOeAYKtvhP02C9wWWUlJVcSzNusZB5uBh+PKg/Xbi0eyK
+         Y+2IBcIrOldIESBT8vmDSFDKffxnHNJSLsG/sizs52aJ5kc32Wq2jOW6Gw1jQH15a6OW
+         qUlcSBEjEBL6SgXbyPfvNXSgyAXa4jEQSK3yu82aeKWerHrDD6AOCYMRpI3gqadudKD9
+         aI4g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793298050; x=1793902850; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ggNoVNPA2Bii3jze7tCfHt9vsP7G4w8X9UYeBYzIxhU=;
+        b=Ie8aKxgXYZgZ4zONjSH1zfhtUgHtVC/N0CsbnCfi0La6zmMvQnQsQXxfu/Sg6rxyaI
+         bLun0mjxBmY8WO8m3pLkaUF/SAvrOAh9tFOmo4p77f+n/Zv7yZ3jYEuYC1wYg16ZHcIV
+         0ttgdSQAYmx54JiEeQ0iW1oC2ZxSyeobAGlTYF9YNO79BcdWt8E7SWocgoXhl97SjlrT
+         YBx/Ly6ZkD4GdUlp2dD0k0QF5b6bs5Wzr6ZXhxxTkeESAeSMFFJ8zYad098BZHbTtdhH
+         kEBm7Jcy2ewx0mA5JrN7OtVmnZ6FSbbjH5a7JBGfZtg5Nb9rIHWLcmk/xpvUgfLZlq8X
+         GbGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793298050; x=1793902850;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ggNoVNPA2Bii3jze7tCfHt9vsP7G4w8X9UYeBYzIxhU=;
+        b=lVtV+LGVF+K0SCz7i4AtF2DoBO+xYaedMP7FSGXdJsldB8/jlAoR/dO4TamNQgUDwH
+         U9sfOAzRJ0mwWZ/T3++xdxxEz30nQ0x8wwsbsQuG/2f3jKlLd2DE+Dtt7JsRWCHNrmev
+         LKyINmcDzAfMNcXkg1gUJ9ML3hNh6vMbGGpTOHuVVfUyYrb4fbCTGX8Tb4nMOUyiYAvX
+         7B8hANQlsOfH1DRXfvBkoD0i396omQ8c7tYJZ7AOggl8UwzSUAKWiymuXOekD8iSazzu
+         CYGYAaah/Rx5/GAB0VsxTONvsXi8nuJ0D1Jqy2L1GCy0YhpIVrtEaG9dpV9dE/kDj/5M
+         kPwg==
+X-Forwarded-Encrypted: i=1; AKwUvBxZ9X4wDvnjo3YoNwh2/kVqFcwLLL/cvHGHPyNI8lRfwrTB95cdUhirWmYcaIhrT2uqbTDwGmBUMz+7FQ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8N5H4WZoY4Oq/nxEio6SzaW9oz7HP1Yit2XrylyEB89bbTCzo
+	KfKX0BB6SYUpGulx8hVd2XZ89M83+baoJsFsImumBjip9czG0e4gIp0VqSG95iAFog9UnfWc8Dv
+	g1VwJO6/NwOD34uxJDlVmGaO0nPGu8BE=
+X-Gm-Gg: AYBFou0r1GgsNoXAV4Bu2mp1OvCbKMpLHoJew0cYxKdbbQzdkpWkNTAQONQpyQWUXvc
+	X+SKKiGOZQcMt+u2kcvr/4gGvWPLrn4T656tC5rcr3/S6EPjyfBhNyrl5Rx05LkHIPMalxhSuMJ
+	MdhHnb4N8JWwWoGZSp9zwYCZuJfX971lgvCecPiMzTy5fRmqF0SYp73dc/N06+TjThhNBImFNti
+	PoNn1LljABAZeZW/CDFvT1BF4tRf2PbFJJ5EQ9pbElcYfO2/6pheT4RR0r+96pAxqurpvLOHPLV
+	MiKc4D+0lA8YiHslTMMehM+0Mdn8nL/BXfLsRDZ7+HLDsF5OoyN8ElwAv6k0pCe8EHhXsyYudWM
+	tGrdrLwh6f35OpsmB3NhIV+SPIW4P9J0pTe0y
+X-Received: by 2002:a05:6830:2e10:b0:835:63b5:8b7b with SMTP id
+ 46e09a7af769-85ab9873be4mr5674733a34.10.1793298050197; Thu, 29 Oct 2026
+ 11:20:50 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,131 +103,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+References: <20261029132339.925021-1-alexandre.belloni@bootlin.com> <20261029132339.925021-2-alexandre.belloni@bootlin.com>
+In-Reply-To: <20261029132339.925021-2-alexandre.belloni@bootlin.com>
+From: Bruno Thomsen <bruno.thomsen@gmail.com>
+Date: Thu, 29 Oct 2026 19:20:34 +0100
+X-Gm-Features: AclHuK_hxeJmxs8OSnBxPWTgkT9aBV9FYIaOOO8Fd1TAmXsqXcLas4MA2equwKw
+Message-ID: <CAH+2xPB-oaN=m5RuG8pkw3W162Px5pRypNJTSHWEpO5yt2RmEg@mail.gmail.com>
+Subject: Re: [PATCH 02/12] rtc: pcf2127: use sysfs_emit() instead of sprintf()
+To: alexandre.belloni@bootlin.com
+Cc: linux-rtc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 27, 2026 at 04:19:35PM -0700, Oliver Upton wrote:
-> On Tue, Oct 27, 2026 at 11:44:15AM +0000, Leonardo Bras wrote:
-> > > I'm pretty sure I shared this feedback before, but patches that enable
-> > > DBM do not make sense in isolation. We need a single series that
-> > > contains the DBM enablement as well as the corresponding HDBSS support.
-> > >
-> > 
-> > Right, 
-> > My reasoning is that we can discuss this new version, and make the needed 
-> > changes, so Tian could pick this for his own patch series for the next 
-> > version. I do not intend to get this merged by itself.
-> > 
-> > Next time I will make sure to state this in the cover letter so it's clear.
-> 
-> Can you just work this out off-list? Let's keep the on-list dialogue
-> consolidated to a single series to review.
+Den tors. 29. okt. 2026 kl. 14.38 skrev <alexandre.belloni@bootlin.com>:
+>
+> From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+>
+> Use sysfs_emit() instead of sprintf() in the sysfs show callback
+> (timestamp_show) to conform to the recommended sysfs attribute
+> formatting guidelines in Documentation/filesystems/sysfs.rst.
+>
+> Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 
-Sure, will try to reduce this noise in kvmarm.
+Reviewed-by: Bruno Thomsen <bruno.thomsen@gmail.com>
 
-> 
-> > > The abstract permission flags need to have a WRITE an DIRTY state, which
-> > > we then map to hardware based on the capabilities of the system.
-> > > 
-> > > !FEAT_HAFDBS:
-> > > 
-> > > 	DIRTY	=> S2AP[1]
-> > > 	WRITE	=> S2AP[1]
-> > > 
-> > > FEAT_HAFDBS:
-> > > 
-> > > 	DIRTY	=> S2AP[1]
-> > > 	WRITE	=> DBM
-> > > 
-> > 
-> > I agree that it could work, and my first version was based on that.
-> > 
-> > But looks weird to me that we have to decide the writable bit based on 
-> > having a feature enabled.
-> > 
-> > Take in account that we can only have DBM being the writable bit while 
-> > HAFDBS is enabled (not only present), and that it is just enabled during 
-> > dirty-tracking. 
-> > 
-> > It means we would need to convert the whole pagetable between DIRTY=S2AP[1] 
-> > and DIRTY=DBM every time we enable or disable dirty-tracking.
-> > 
-> > My suggestion with this series is to have WRITE=DIRTY=S2AP[1] at all 
-> > times, and have DBM to act as a "can be promoted to writable on write" bit.
-> > This way we don't actually need to convert between encodings, and it still 
-> > works and complies with the architecture.
-> 
-> There's no such "can be promoted to writable on write" in the indirect
-> permission model.
-
-Well, IIUC it's kind of the default behavior, right?
-Direct - DBM means HW can promote that page RO->RW, with HAFDBS=on
-S2PIE  - All pages can be promoted RO->RW, as long as HAFDBS=on
-
-> This is why I'm suggesting that we align the abstract
-> permission bits (i.e. KVM_PGTABLE_PROT_*) with the architecture's own
-> abstracted permissions (e.g. uX, pX, RO, RW).
-> 
-
-I think the approach you suggest makes sense, and it makes it simpler to 
-deal with permission indirection in the future. In order to do like that, 
-while keeping a single encoding for direct permission, I suggest we have:
-
--	KVM_PGTABLE_PROT_W			= BIT(2),
-+	KVM_PGTABLE_PROT_DIRTY			= BIT(2),
-...
-+	KVM_PGTABLE_PROT_DBM			= BIT(6),
-...
-
-+#define KVM_PGTABLE_PROT_W	(KVM_PGTABLE_PROT_DBM | 
-+				 KVM_PGTABLE_PROT_DIRTY)
-
-(Rationale is: it's writable if it's either dirty, or can be made dirty by 
-hardware on a write)
-
-And then replacing by PROT_DIRTY the uses of PROT_W which were only 
-tracking the fact it's dirty. I tracked just a couple of those.
-
-When detecting the PROT_* based in PTE encoding, we track PROT_DIRTY, and 
-PROT_DBM individually. The same can be done in nested, as we can just 
-ignore the PROT_DBM for shadow pagetables, given we want, IIUC, to fault 
-and update the original pagetables.
-
-That would avoid switching between encodings while toggling HACDBS, and 
-while making use of the DBM without directly associating it with the write 
-permission.
-
-What do you think?
-
-> That composes nicely with nested virt as it is unambiguous what
-> permissions we're trying to represent in a shadow stage-2. And in the
-> non-nested case you can just lay down writable-dirty translations for
-> most things and use writable-clean when necessary for HDBSS.
-> 
-> > > Beyond making the whole HAFDBS easy to reason about, I want this for
-> > > FEAT_S2PIE which reimagines bit 7 as a literal dirty bit that can be
-> > > managed by software or hardware.
-> > 
-> > Humm, and would not that work with the above suggested approach?
-> > I mean, bit 7 (Dirty, S2AP[1]) will both mean WRITE/DIRTY, but it will be 
-> > able to get promoted (nonW->W, or clean->dirty) based on the indirect 
-> > permissions.
-> 
-> There's a bit more though. We need to have an entry in S2PIR_EL2 that
-> encodes write permission and select that with PIIndex. So then we wind
-> up mapping the abstract WRITE permission bit to two fields into the
-> descriptor rather than 1.
-
-Makes sense to me now.
-
-Sorry I took long to reply your message, I was reading the docs for S2PIE 
-and thinking on a solution that would make sense for it in the future as 
-well.
-
-I hope it's enough, but if it's not, let me know of any suggestions or 
-requisites.
-
-Thanks!
-Leo
-
+> ---
+>  drivers/rtc/rtc-pcf2127.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/rtc/rtc-pcf2127.c b/drivers/rtc/rtc-pcf2127.c
+> index ff2023908f5a..49542cc53411 100644
+> --- a/drivers/rtc/rtc-pcf2127.c
+> +++ b/drivers/rtc/rtc-pcf2127.c
+> @@ -972,7 +972,7 @@ static ssize_t timestamp_show(struct device *dev,
+>                 if (ret)
+>                         return ret;
+>         }
+> -       return sprintf(buf, "%llu\n", (unsigned long long)ts);
+> +       return sysfs_emit(buf, "%llu\n", (unsigned long long)ts);
+>  }
+>
+>  static ssize_t timestamp0_show(struct device *dev,
+> --
+> 2.56.0
+>
+>
