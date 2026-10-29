@@ -1,96 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.14
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793308024;
-	b=Wclb0sjtoAxJlki52QE5Sm29JVZrJMZm2kzLjRcOLg5phQzhg6FexHVtvnkUcuLlu64c
-	 msk2Wb+mz0jK/io3NLdj9ZdXLcByrBjAJkdXTy5Oc9zPFH4C5Rp6RenjphS4u2K6Ca+Dy
-	 xSA8oBHLO4HY0IkQ1SscMm+C0z5NdGIUAQXTVRJCI1B1q7kE8h5i0RhkrYHjs5usuqnF9
-	 VEarK+UQsCFf+AFXhy3RpVWU2Ot6frDYEsXUu9W8p6Ud2G1bqkFs465EkYx9K7RYTTT8o
-	 KggqxdtS5Op0vTaR4ISRmKdM4bk2UFg6+OHN31/new9hWNEdy+NVdDg2MVuMREFepvw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793308024;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=BA19MkknKHlwmK/pkrg+bh9QKov5Bs/Vn/UrvuF8BS0=;
-	b=N0z0/XWTRQ7+rT9RLb3wyqK9xjNLaoWkhbByq1nhI4RS89Q52ioxsHHodBcJlmHV6BhQ
-	 DcgmdCW6QxGsa7cRMavrPCPzSJuwcqTeukbg3emseetjDKcPPyje0s/r7WXI9xpo2XZnN
-	 cCIwVyUA4PBeKdFm900Q8bTtXFneS3bkDpGg4HIkRsAozmxQVqa888F1wMOGwoU3ZyLkO
-	 sKruYhr4Nyiq6NtLvzfge1frhuEA/3DmMpR0RSvHwh+zPNWfzhA4KfFMct8RWjcnt/DUz
-	 z89A+FcPMiaNrO1hzl8GCgmPLCpIhkTl6JPR0slwyyIXef6an6i/Q0ela9nubUYaMRw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="PhbvR/Gw";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.14
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013014.outbound.protection.outlook.com [40.93.201.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793308159;
+	b=kxXSh2V72uhpuWwHdQqnITqqQO6yvMiMpjhvvAfLjV0oRNBohSsBmAgjLNbhz4YCflzQ
+	 Lt93N9TJp+NJWqX8sDTnLu/pJ98Zil8U5DWeyq9+YuGeg/1zgilJ9hEYbR/4Yu30ne3cy
+	 nIGQKPTbTx/1TKMpq+Cvd9/U86BGHll0+dYijiGnVeBnVtAjzPxQM4lioLpiInymGS0y1
+	 r+FxOfW31zhgGyhWUJCCC12ppjCK3tEikoZD47YYXIdBGtJ+rnxmVqeRErtpmXeT8ljAW
+	 dtbl8YjSmLSkic82HTco+ce7UDuqd/Vu8wVHFkeJmuZ5X52uIIwKB5tk8Qb0NkROlAw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793308159;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=UZTQQFl2Xa9cNGYHC+qyfUooFiuQyHGk98xX353r+qY=;
+	b=F/KF0udR2cIExdVz5RA5j4Q9BUnqtLTB+y59Zozuq8eUQ7qBZeJXp6hI7Yc+W+1ElUyM
+	 47AFzYIKKWP7jl8rKNr8zpA2I3Y0+nSldmbIoBC+NxSvlF7jf1/VHCDd1YT+gmFXnjBB1
+	 uA4Nc18cDU4VucUD4s5wruk7uADVh/76yv56+Erwce1aCxhYiNwF8JIXpSgIkFCR2OlHw
+	 jPnLWtwKeSkjk3D44Pa7fM/k4Q83Gm0h/R4Ggziit/KJ5CjxsYAK1eCam1mTCzXYVpp17
+	 qpCnJSG05/ZHnA4BBnvoWcBa1x59O82+/i2UlDXaL3d0cbPchjvgQdAffzigsgstBYg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lX5yng3c;
+	arc=none smtp.remote-ip=209.85.215.199
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349DD606A31C;
-	Thu, 29 Oct 2026 21:07:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 349DD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA3C606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:09:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCA3C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=PhbvR/Gw
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TWcYCsWnEJ3gcCBMCWgS1pwArUKJ7cPZtyTIzL2NvnhaDuAKD1P/Jo5re2d6qgt/99tqFtdg1ck+xwybSesakpgq6vIWhA6yGyL8LsitN7+6QDLjQ8iGqbYHDK3xlsKDOlOSzXlI+YliQZgPVh81yfdctehMj4vQ+Jw24D4WVDyOmpxebTPuxURetq32+Il7bNz6F5kmjNWmYqiDDPf+2zBYe2j0prNh9WYx3gnVjLFXYXlD/d/xDyYFzXHkmaxTv/pF143+VKgdobYq/rTRrVRWkMvkcYRM60SxZCR2un+a44Pavmv20IJAHUuXfaCdaDvKdtnhdkrVgNS5m9SvdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BA19MkknKHlwmK/pkrg+bh9QKov5Bs/Vn/UrvuF8BS0=;
- b=VZW9bNnwDoKYSS+3ldaDAgyVafJFr6K6ALGOmfhNDxyNmuVqCaDpJTRUxxzgL+l/EsZFCTr3JQffl+a+K2HQfLeGv38LeiBZuEkIhPE7e/jL96UGVoSAK0n7kcM4RS4uyLhNn0TnxdbjP4Gp9/gCKK1aUMXm/TuX2o19jN7u5YHDdILfLKPTKjcc+2Ip57+0VftUvHQcRhVCuhUIpwd1LCQncy+HeNPDg+TimAfoI93p4fQyIhr3I7vvmLeMdkEnwEh8sdM2/oD9mWvtqgHZFj0O953CxfmTjevlheqXhjN6i2qnVqLZRr6KB0MuPaRfShrd/W4z3+TNXAUSSV4g7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BA19MkknKHlwmK/pkrg+bh9QKov5Bs/Vn/UrvuF8BS0=;
- b=PhbvR/GwNc2GkhIzpNqhqL34udgwZtJJIXa6BRWhRKEnxC0hCHWMNRpn3eLQrYlnW1EO2j8IXUQ8arZUUM0tBtZgLmghBnxsUIoHN3ynGJ7tr2dgbPGsKaAoLJlLZD8P5urfBZr3/9ilhtXuBx20Spih7JVVYGpNkK7Px/cEv7NoL61hKzPazCx/WSUTEGMzJ7pZbfg9lflT/VNoWt+VYRJj7DS10CFbkcrwDCD6Ue/+1y8Rc/nd87TPJ4E/k0H54F3doS8OE/pkQE7ZzqJi5dl2vYd5SeU3PEy/dBSB7QitabhBO+7UE2kIJZxAEoYQUJ4ppG0oJqGXIkBp/7CIrQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by DS0PR12MB8574.namprd12.prod.outlook.com (2603:10b6:8:166::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 21:06:57 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0569.008; Thu, 29 Oct 2026
- 21:06:56 +0000
-Date: Thu, 29 Oct 2026 23:06:48 +0200
-From: Ido Schimmel <idosch@nvidia.com>
-To: Cheng Yongkang <teel4res@gmail.com>
-Cc: Nikolay Aleksandrov <razor@blackwall.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, bridge@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: bridge: mcast: validate the source limit before
- replace
-Message-ID: <20261029210648.GA1492006@shredder>
-References: <179328314075.648427.9644307795980106759@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179328314075.648427.9644307795980106759@gmail.com>
-X-ClientProxiedBy: FR2P281CA0177.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9f::13) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lX5yng3c
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd8b299b05fso11692a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:09:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793308158; x=1793912958; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=UZTQQFl2Xa9cNGYHC+qyfUooFiuQyHGk98xX353r+qY=;
+        b=lX5yng3cJrilLmgre+XF6cWaCORTkxbMYGTQ27oLnG9B34rlaYEmnwsqLb+AyL+C49
+         z5Rp/X00V1BXhQuQF1+Ch6W0sfSOtPXIjFI3ETVrfufZI8r27XqztpvW6K7VJ0ZA7682
+         xn4WPtchzaCtluDwPAnBJCVDYTOCu73xf6CUk6ezPgFeIa7/5o7Ge/kNJkPd0zrL5EtV
+         02ybCwKdo4zIa6JVJuw56zSYlhijS7KrzLvz0405ViUgVLzFeKloy1z0qr5NuAiaHlRg
+         inoRJvlpqw25y8Y2jAxcHcaNKhTV2kJGpMBD8smeO0ayuX+Djxs9xR8YPHzF4eN8MhU4
+         wPsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793308158; x=1793912958;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UZTQQFl2Xa9cNGYHC+qyfUooFiuQyHGk98xX353r+qY=;
+        b=mx9O4PrRrIDqv9UCBE3m9SAgZajkMIewzKhMahqw2lYIus77IswE5fMx9fydipvT8R
+         HQXoFBrbpiDVtkfrTDlZaKXCTUzGl/OBHC+dG3ffP+jGcYbhPOtT+9wXHz6E3qmkVlPx
+         weOIXiZN/fkjn3iwf0GK+PkE9R99stYDp5DMLijNCFbTLaH8ha+niijQ7QnF6no101Ss
+         T0eTKaE3UiUTQzqRrZHOZNJs+zb+8PAeW3DAYZ7HIe/SSr5kEFKS90tGyrBkUdFliMsP
+         2L13LWi8ZVY0sz3bbQIPqnjXHqDwMmEwDomt+5/9YvL89cLH1pIMeE41PLT5G/6pjS+P
+         lVtA==
+X-Forwarded-Encrypted: i=1; AKwUvBxeDk+Qq6Uj9u2LAmWurPs0qGG5hWtjhOpQgDQsnfYUclPJmNQJbUZPiJzuV5z+W9/Jgcj2jXto2kO8TwE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkAswryS3GJtrH6JIFmh71MVks1NotYzZU0TLBq7Bp7I4bZ3NF
+	ABUtlHrppGTp4D5QKSL/bkQxIWR2zKWYYZi4CyfYCEWpcdb5UjVwEiPw6yCdRiSYZMM1iBxAo63
+	WbEELVQ==
+X-Received: from pjff12.prod.google.com ([2002:a17:90b:562c:b0:3aa:ff61:94d0])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4b90:b0:3ac:da41:ef7e
+ with SMTP id 98e67ed59e1d1-3ae89851099mr137795a91.52.1793308157908; Thu, 29
+ Oct 2026 14:09:17 -0700 (PDT)
+Date: Thu, 29 Oct 2026 14:09:17 -0700
+In-Reply-To: <GV2PR06MB10711171A7A8F225207FACD6BB96E2@GV2PR06MB10711.eurprd06.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,100 +79,215 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|DS0PR12MB8574:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9ee638b-cd5b-4cfa-5953-08df360090c4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|11063799006|261009223027099003|56012099006|261026121527099003|261021123027099003|261026140227099003|261022105027099003|261021121427099003|261028144727099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	N9RirD+kEz+9PD6ueVmVF3FQdu5jvT1/Cz1rAnyqIyozX3gj1Qllztf9Y8xrmZnMe8vUmw9j20EzUwVcrI3AYnIBYF5pef396eHQz7W8eJPWoVrG0TPrGypDJ+Z4BMqzmnyqs2pij21CwOpA96JFQWJcY87hKi8xNFVBMjMW4EE5CZkIGx3YRl04XJEkcdf1r2P4892oZ7T98GkDLfyqUCUgZodCakuNZTMZXjJAa1krbKT2ijlYRmwla/TROEKcZYDY31Urctv6pnJAv3NXVxFmDusl22LXbjy0yYv5YE2bixG9VVanR5U17RaLeA0LTAzd5P9s/tDZFpH/XxIBqwyvfTjBD54w2tMMGPFmB9dt8b15YRvnVT9MC49/9MxbrJ72bbArjMytnjxnuFi0f8VUDXCPLAP9QA2Com9CR0ju6Aw/ThzkIrIvsVtAe7x3g6fdfgsmRUkazVmwOdVsPU1kTIZkgCiiOFMzfh8Safl95NybZ4hh87qC/PnBERheHCI94Sny6EpPRaP8t/5KX078wQLoxRiR0Lbv0MFI/MDBGJzRIq4VCkaK+p4kom1Yr0x/wNP4kUvdKz1FjyjZSRYMU7Fz0GiK9XJL56nwcfGEkrqSTvWd9UocLwROFlpuKCg1CZhlAJYnP+LlwX6B5FZ69nsfFtliMFWv/N/k92U=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(11063799006)(261009223027099003)(56012099006)(261026121527099003)(261021123027099003)(261026140227099003)(261022105027099003)(261021121427099003)(261028144727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?d1SWfHLvpYycC2ZKLaUtaHSLu7ZO/g5j8avKB/REzqD0gXTgemcY6vfpkoeS?=
- =?us-ascii?Q?WWI4O6A7/uLGvnBBrkkqdK9t1fJY2UF8Wttys+NX0JPzZAmMsIjiz2P7Rd1y?=
- =?us-ascii?Q?mmGTHem/HDFeChnqoCOqD6gDTYQ2GqEf5WLemUAw30zSWXhqZ80q2+X+zSLD?=
- =?us-ascii?Q?YkzjacN4SZprRHV81RGOznpoPUZF9nIJmuaxSBBnGL9fFdBP9CJWvsKjBuku?=
- =?us-ascii?Q?GKS+UjQiLUdlmtusZkKb8WSP2Z5t2yIvO1SBYMYgMpNSS7YBrZixkg3Tkmwc?=
- =?us-ascii?Q?TkPmbsdMjuBzTQ/zRtDDLOx9pUcCPYodgjcmVr4NVs/IhVhUsa+Pg1/fMxdE?=
- =?us-ascii?Q?zHi13b+d2nAeJXtcfQmDghF7mvY15STBbg//tyoNApIKRCIA5xgM3l5qEKCy?=
- =?us-ascii?Q?g4ZtDpnplDlh0iV9jCwxRY6ymzo1Z2wOCvdq80120iKdwIBFnhX1FwzTSPf6?=
- =?us-ascii?Q?vhgiGnjxc4GudasKtf0Yv7j7KCzTI5KvQemq5cuPeiX8oDIheM1AYIEFdC13?=
- =?us-ascii?Q?OqJZRM+OisciRZcCBasHlyUz1N4QbXfxy4ddFQQdUTUlIC9j+HTYbi+0yV9N?=
- =?us-ascii?Q?4fKzq3UuW93zTXxCWo7dQD3w39prwWTiZjDDgNTL+9WDJNlTWFjBkLTxzGV1?=
- =?us-ascii?Q?dIQgYUW4slCZgpz3g7jZK5Z2f59AYrIbBZUr1VjM4H84g+U28y+z6IT+V8mf?=
- =?us-ascii?Q?Rrz8j4umKQDCXDhTznx8GYOdhiM/VIobcTfeO6kCR0vcnftG6LPjXu8m9uWl?=
- =?us-ascii?Q?4WpDmc4W3OeLt4RTHfZkSKFOAW57k+8nh0km5mxi/8wrULKOEKoFWsE17j5Q?=
- =?us-ascii?Q?bAXFTBGbTXpeSNBlizscmR9N8Mpvq9K4MExfvx3jtSViRVv/l5EYU+8g7Gd0?=
- =?us-ascii?Q?nmUcPxes5G3gjKKpeFb8oou9YFpf2aU/4RygbZXDC+fl2eoXGuT1cuukH+Ko?=
- =?us-ascii?Q?kRqVdBG0045T8sLL9nGfWoGOZPwFtP84UpVhxHj5+FdAmMUwuTLINqdHc0Da?=
- =?us-ascii?Q?AZ3PKcFU6sgk2ywUjx2gtDJ/a4cYf59NkI2xpLPSV9AW2oJ4zFd+y9NVmWu9?=
- =?us-ascii?Q?jYtN7NG90X/i2TrMa36jRBt2cluQ8IUsPP2cA3k2iGZIy2dpgVkdIecSlqhe?=
- =?us-ascii?Q?6Pm4hM0XyKs7FSVt/UMCcA6A5+PTW9DZDQW7M9k0x6DeCtoyhVkN7vxSBDzd?=
- =?us-ascii?Q?yXGiDE+F67oYgk807+ZCZobqTio8W9xgYb7QLZDyhN/kBHgJjl8q00dVmgip?=
- =?us-ascii?Q?vTQD6JHbe9Fsr8QVRpcw1X+ONlbybO2wdlCRe76PWTenmZJK/IDTrXahv5Fy?=
- =?us-ascii?Q?bGjv0ohCa65A88yi2AB53LGKBHG1m0m4Gyj1YQcXOlFdyMeB80Whoe/8TNx8?=
- =?us-ascii?Q?Q1PTn53LvxVnSIT1Ags/oJvXFeJO3gNQAEW1Y5arTj4GBzcSjEGWcnwGMUah?=
- =?us-ascii?Q?S7kYucAIgnd5FP7q7+2EQaTA2wFo+r+UYnC6mB4hMs9B8KjMr2mYZb2QRCAe?=
- =?us-ascii?Q?Ogfk5LsS6+NgRKqy1yMRA4Hp/O1w+aNcsPiAxAUs3jjFE8P4cuNrUlk8qOvY?=
- =?us-ascii?Q?4efmW+rCmb52SYem50lN0AtE0UZ/pXV6OFpj1ckctmu5bm+6l6QjCrkWySri?=
- =?us-ascii?Q?sPl9JxuWFiFtW4TLBD6ti4e838smgK45NHPmAaSZ6UzZ7nKo1Nn2vHjHscrJ?=
- =?us-ascii?Q?FKwDRn0ALYVNw6Nv2p9qAi7z2G1zRNd6CAM7ei+O8CNCKLz5?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9ee638b-cd5b-4cfa-5953-08df360090c4
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 21:06:56.9125
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D8l9RpSkC35eIoZ4jDXAIHZ3W7wbwjyv43CganrcrNj2UoElu+tTDgxahqUC2mkZyi/XEaYaKyPjX2hgBfi/Jw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8574
+Mime-Version: 1.0
+References: <20261028202607.1844883-4-seanjc@google.com> <20261028215143.2913059-1-jthoughton@google.com>
+ <GV2PR06MB10711171A7A8F225207FACD6BB96E2@GV2PR06MB10711.eurprd06.prod.outlook.com>
+Message-ID: <auO1_YE89Q0T0hfI@google.com>
+Subject: Re: [PATCH 3/4] KVM: x86/mmu: Add automatic prefaulting/prefetching
+ for TDP MMU faults
+From: Sean Christopherson <seanjc@google.com>
+To: Marco Marangoni <mamarang@amazon.com>
+Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "pbonzini@redhat.com" <pbonzini@redhat.com>, 
+	"cc-open-source@amazon.com" <cc-open-source@amazon.com>, James Houghton <jthoughton@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 07:12:20AM -0700, Cheng Yongkang wrote:
-> br_mdb_replace_group_srcs() marks every existing source for deletion and
-> then re-adds the sources named by the NLM_F_REPLACE request.  The add loop
-> checks PG_SRC_ENT_LIMIT before allocating each new source; if the
-> transient source count reaches the limit, br_mdb_add_group_srcs() unwinds
-> by deleting every source it processed, including the pre-existing sources
-> it just refreshed.  The error path only clears BR_SGRP_F_DELETE and
-> cannot restore those sources or their (S,G) entries.
-> 
-> A replace with E existing sources and N distinct request sources not
-> already in the group fails at the limit if and only if E + N exceeds
-> PG_SRC_ENT_LIMIT.  The rejected request currently leaves the group with
-> one fewer source and removes that source's (S,G) entry:
-> 
->   before: (*,G) star_srcs=31, S present, (S,G) present
->   after rejected replace: star_srcs=30, S and (S,G) removed
-> 
-> Count those new sources and reject the request with -ENOSPC before any
-> source is marked deleted or added, so a rejected replace changes no
-> state.  Valid replaces, including ones that transiently reach the limit,
-> keep the same behavior.  Other add-loop failure paths are unchanged.
-> 
-> Fixes: 61f2183512a7 ("bridge: mcast: Support replacement of MDB port group entries")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
-> ---
->  net/bridge/br_mdb.c | 51 ++++++++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 50 insertions(+), 1 deletion(-)
+On Thu, Oct 29, 2026, Marco Marangoni wrote:
+> Hi Sean, thanks for the patch!
+> I run some benchmarks on it, and it definitely helps! This is the time to=
+ fault 128 MiB linearly after a snapshot restore, with an UFFD page handler=
+ that faults chunks on demand; medians of 60 restores. Baseline is kvm-x86/=
+next. Each entry is nr_pages: change vs baseline on the patched kernel; neg=
+ative means faster.
+>=20
+> - UFFD 4 KiB handler (baseline 2228 ms) 0: +1%, 1: =E2=88=925%, 2: =E2=88=
+=923%, 4: +1%, 8: =E2=88=923%, 16: +1%, 32: 0%, 64: 0%, 128: =E2=88=922%, 2=
+56: +1%, 512: +1%
+> - UFFD 512 KiB handler (baseline 543 ms) 0: 0%, 1: 0%, 2: =E2=88=9236%, 4=
+: =E2=88=9251%, 8: =E2=88=9259%, 16: =E2=88=9264%, 32: =E2=88=9271%, 64: =
+=E2=88=9267%, 128: =E2=88=9268%, 256: =E2=88=9267%, 512: =E2=88=9266%
+> - UFFD 2 MiB handler (baseline 513 ms) 0: 0%, 1: +1%, 2: =E2=88=9234%, 4:=
+ =E2=88=9250%, 8: =E2=88=9259%, 16: =E2=88=9264%, 32: =E2=88=9268%, 64: =E2=
+=88=9268%, 128: =E2=88=9268%, 256: =E2=88=9268%, 512: =E2=88=9268%
+>=20
+> 8 is the series' default; 0 and 1 both disable prefetch and reproduce
+> baseline. The 4 KiB row is within =C2=B15%, i.e. noise.  It's measured on=
+ nested
+> virtualization, so the improvement is probably less dramatic on metal. Fo=
+r
+> context, my initial patch was around ~75% faster, so I'd say that
+> performance-wise, your implementation is solid!
+>=20
+> It seems like a prefetch of 32 is the sweet spot, but I agree that with J=
+ames
+> that with the normal GUP it's probably better to keep it off or very low =
+by
+> default.
 
-I'm not going to review this. You already sent a bridge patch [1], which
-I reviewed, asked for changes and you didn't follow up. I can only
-assume that the same will happen here. I'm reacting this way because
-this pattern is not unique to you (see my reply in [1], for example) and
-I'm tired of it. Get a patch merged, then continue to the next one.
+Yeah, agreed.  Triggering zswap or any other heavy operations could regress=
+ a
+lot of configurations/workloads.
 
-Also, AFAICT, this patch doesn't fix a regression (never worked) or a
-security issue, so should be targeted at net-next which is currently
-closed [2].
+Hrm, but I don't want to lose support for guest_memfd without an hva.  Oh. =
+ That's
+a pre-existing bug, kvm_prefetch_pages() should reject kvm_memslot_is_gmem_=
+only()
+slots.  But that's a side topic.
 
-[1] https://lore.kernel.org/netdev/179268538303.70821.8213834342995341232@gmail.com/
-[2] https://netdev.bots.linux.dev/net-next.html
+Argh, FOLL_FAST_ONLY is internal-only.  But do we actually need it to be su=
+per
+strictly fast-only?  Wouldn't FOLL_NOFAULT suffice?  IRQs are enabled so ta=
+king
+mmap_sem is fine; it's not be ideal, but KVM will still try fast-GUP first,=
+ and
+in practice performance is going to suffer no matter what if mmap_sem is
+contended, e.g. arm64 *unconditionally* takes mmap_sem for read when handli=
+ng
+faults, and while it shows up in micro-benchmarks, e.g. mmu_stress_test, AF=
+AIK
+no one has complained otherwise.
+
+So isn't the fix just this?
+
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index b673c8130edd..1fcf4fedc0bb 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -4684,6 +4684,9 @@ static int __kvm_mmu_faultin_pfn(struct kvm_vcpu *vcp=
+u,
+ {
+ 	unsigned int foll =3D fault->write ? FOLL_WRITE : 0;
+=20
++	if (fault->auto_prefetch)
++		foll |=3D FOLL_NOFAULT;
++
+ 	if (fault->is_private || kvm_memslot_is_gmem_only(fault->slot))
+ 		return kvm_mmu_faultin_pfn_gmem(vcpu, fault);
+
+> From my perspective, using fast GUP has the problem that you cannot prefa=
+ult
+> "around" your page, but just ahead of it, so I don't mind going with norm=
+al
+> GUP if it makes things easier for you.
+
+I think I'm missing something, why would fast GUP prevent prefaulting "behi=
+nd"?
+E.g. is that effectively a limitation of the underlying backing store you'r=
+e
+using, a fundamental limitation somewhere in mm/, or a limitation in KVM it=
+self?
+
+> I'd say that most setup would know the size at which UFFD copies the memo=
+ry,
+> so having to explicitly configure is okay.
+>=20
+> For completeness, I also measured how much the patch improves at various =
+UFFD chunks, with nr_pages at the same size:
+>   - 4 KiB: 2285 ms =E2=86=92 2321 ms (np1), +2% (np1 is "off", noise)
+>   - 8 KiB: 1435 ms =E2=86=92 1441 ms (np2), 0%
+>   - 16 KiB: 1036 ms =E2=86=92 860 ms (np4), =E2=88=9217%
+>   - 32 KiB: 743 ms =E2=86=92 469 ms (np8), =E2=88=9237%
+>   - 64 KiB: 645 ms =E2=86=92 319 ms (np16), =E2=88=9250%
+>   - 128 KiB: 587 ms =E2=86=92 242 ms (np32), =E2=88=9259%
+>   - 256 KiB: 561 ms =E2=86=92 200 ms (np64), =E2=88=9264%
+>   - 512 KiB: 543 ms =E2=86=92 165 ms (np128), =E2=88=9270%
+>   - 1 MiB: 534 ms =E2=86=92 171 ms (np256), =E2=88=9268%
+>   - 2 MiB: 523 ms =E2=86=92 151 ms (np512), =E2=88=9271%
+>=20
+> These measurement highlight a possible limitation (why didn't 8KiB improv=
+e?):
+> it seems like the prefetching doesn't kick in the first time a page is
+> getting faulted in the chunk, is that expected? I asked an LLM to
+> investigate, and it seems to be because with async PF, the first fault
+> doesn't reach the kvm_mmu_auto_prefault code path.
+
+Hmm, right.  I deliberately hooked kvm_mmu_page_fault() instead of
+kvm_mmu_do_page_fault() so that prefetching wouldn't trigger auto-prefetch,=
+ but
+the existing shadow MMU prefetching does kick in for async #PFs, and it doe=
+s make
+sense to prefetch in that case if we buy my argument (from this changelog) =
+that
+async #PF should punch through dirty logging.
+
+Auto-prefetching for KVM_PRE_FAULT_MEMORY feels "wrong", but we do prefetch=
+ in
+that case for the shadow MMU, though I'm like 99.9% certain no one is runni=
+ng
+TDP with the shadow MMU these days, so I don't think we should consider tha=
+t a
+valid datapoint.
+
+Untested, but I think it'd be this:
+
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index b673c8130edd..c0ff50c52ad5 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -5024,6 +5024,9 @@ enum kvm_prefetch_type {
+ 	KVM_PREFETCH_AUTO,
+ };
+=20
++static void kvm_mmu_auto_prefault(struct kvm_vcpu *vcpu, gpa_t start,
++				  u64 error_code, u8 level);
++
+ static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
+ 				 u64 err, enum kvm_prefetch_type prefetch,
+ 				 int *emulation_type, u8 *level)
+@@ -5098,6 +5101,9 @@ static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcp=
+u, gpa_t cr2_or_gpa,
+ 	if (level)
+ 		*level =3D fault.goal_level;
+=20
++	if (r =3D=3D RET_PF_FIXED && prefetch !=3D KVM_PREFETCH_AUTO)
++		kvm_mmu_auto_prefault(vcpu, cr2_or_gpa, err, fault.goal_level);
++
+ 	return r;
+ }
+
+or to disable it for KVM_PRE_FAULT_MEMORY:
+
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index b673c8130edd..ee31a35f6a55 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -5021,9 +5021,13 @@ static int kvm_tdp_page_fault(struct kvm_vcpu *vcpu,=
+ struct kvm_page_fault *faul
+ enum kvm_prefetch_type {
+ 	KVM_PREFETCH_NONE,
+ 	KVM_PREFETCH_MANUAL,
++	KVM_PREFETCH_ASYNC,
+ 	KVM_PREFETCH_AUTO,
+ };
+=20
++static void kvm_mmu_auto_prefault(struct kvm_vcpu *vcpu, gpa_t start,
++				  u64 error_code, u8 level);
++
+ static int kvm_mmu_do_page_fault(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
+ 				 u64 err, enum kvm_prefetch_type prefetch,
+ 				 int *emulation_type, u8 *level)
+@@ -5098,6 +5102,10 @@ static int kvm_mmu_do_page_fault(struct kvm_vcpu *vc=
+pu, gpa_t cr2_or_gpa,
+ 	if (level)
+ 		*level =3D fault.goal_level;
+=20
++	if (r =3D=3D RET_PF_FIXED && prefetch !=3D KVM_PREFETCH_AUTO &&
++	    prefetch !=3D KVM_PREFETCH_MANUAL)
++		kvm_mmu_auto_prefault(vcpu, cr2_or_gpa, err, fault.goal_level);
++
+ 	return r;
+ }
+=20
+@@ -5215,7 +5223,7 @@ void kvm_arch_async_page_ready(struct kvm_vcpu *vcpu,=
+ struct kvm_async_pf *work)
+ 		return;
+=20
+ 	r =3D kvm_mmu_do_page_fault(vcpu, work->cr2_or_gpa, work->arch.error_code=
+,
+-				  KVM_PREFETCH_MANUAL, NULL, NULL);
++				  KVM_PREFETCH_ASYNC, NULL, NULL);
+=20
+ 	/*
+ 	 * Account fixed page faults, otherwise they'll never be counted, but
+
