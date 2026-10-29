@@ -1,48 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793277260;
-	b=aM3WbM1yASj9UbQ6VuhwAEAB0TpsyUu3E8XwMLRNnEvgiGEZjGQG+pu/W7SJrKEjzFcW
-	 afz4PGMDNqVAIHKIS/ee0oivPdY9mOfyk7yk9HXCjftHpbIprqqYHgWWTg3zB9unN3A2d
-	 gDn9xJhJgbTNazjJlqJI/fVfgYMcrViENulRB6Fz4e5uzWS1EJs3NeKseWXhJrR08hXjn
-	 sqIhLVxEJaEutOSKcJ4n/WRF+H0mopXJyty0g1gzNrelPboxVL1Ck5mhe/7RUU3nR+zwM
-	 RaBi6ELBlYzWamN9Xc2S/wTzZ9W7hsQW4d7b44cM8Ri5E66Dr12lzL7OIi+3sQaHuMQ==
+	t=1793277398;
+	b=orMsrOlEGpBouksNTpOTMUQnXLxYiwWMinZ7DBomY3qclxTpjxKvRQG7Dbk7E925Xg73
+	 p1Qa2i22LGSJT2GTDIoOZgDMN/UQdA2IT82gR2kbwwnHykCc0+SMCCDstByKn5HDm8Kpd
+	 OeD6pFxBSiQjXxQVKJwmvswstptk2xvqG3un0oVcvg+8Q/PJB4FZG7nxuqGSWL4E9LT7d
+	 Yg8zX4HitVsbRdHlXENnQkkFA3a0cfMn+4VUl9h72RdJXFV50MltYLqshcJrWmG22ebMQ
+	 DGx5Z3y5/ORwt/25qQXe2SlOCyNoqBJSm9f/SobKw16TR+ZvuCloRhGkvfeWxnASI5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277260;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:CC:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=NjjyRBUz9+jz1+MqgP9WavWIYwl4eYuReQuwaoEETnQ=;
-	b=zvp+OCiQlvviEh95GkQrHMdpmzJKAYr+HYGB8oR8LTYlwHD0+5AXx/HzmMLkuVjfjBNl
-	 IZeZUwPrTxgxapDpqeSK4lNxBhcsxYRwe5rkR1k8rkpYXG6f8G08ssRvSqVXryDZ0Q0I0
-	 i8emGMYk97uc6IZcdvxR9uQOVCchAiuX6IDoQLbGtlCx7skWbUE7RLd4hCBzVRiBHNA2q
-	 jozzp+NOugCfg0tJq1U+5lngvWIqxpywlAQmld4Tbf2UN1RGLcYjLgs5UIHdxNkTSmANV
-	 O0dHlkiyDGjwrPG6+4muuLDRG4GXjXxz+nobDzhz+UlsQi+TY5PXeT0jvZafM11DgQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793277398;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=+/luh6WGTlhkUZ89lJkceAsV6ypcW34insANuZaFpUY=;
+	b=CLzD0TOvelCfYi7ytnBYM/aNdUFzMhNuhGnEXzn4Sg8X7NLH4l9is0txYJSqE6dSAZzl
+	 Jgpg71CjxqUhvp6pJTzqaLERGET7ANOTxwUZg+wnCJx/Re1qpKENDoXbp9RXBWJpI0HxE
+	 3g41kiuEzWYY+ZgWtGenb7kfKKjW+Fsgpi/Rg5wv6kOJCMzftqViKtwW9pbSZrfsNxaFx
+	 /n01yZsMVcgKoCmRmTLMFJogZF3Rvs+ndKhPBAmes8FFPNq1p57PqXpYQV4TEJH4JpIWf
+	 G5zTn+/xSBCQLtKcEMA42odJvjI4hu1urhSRDPTTNI7mT8XOYV9IzpMQUITkN9wYC7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hisilicon.com;
-	spf=pass smtp.mailfrom=hisilicon.com;
-	arc=none smtp.remote-ip=113.46.200.216
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=tHy9bQ4z;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68BE0606A321;
-	Thu, 29 Oct 2026 12:34:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68BE0606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hisilicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hisilicon.com
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jFkDg6BxCz1T4Fy;
-	Thu, 29 Oct 2026 20:33:55 +0800 (CST)
-Received: from kwepemf200017.china.huawei.com (unknown [7.202.181.10])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2853040538;
-	Thu, 29 Oct 2026 20:34:07 +0800 (CST)
-Received: from [10.67.121.58] (10.67.121.58) by kwepemf200017.china.huawei.com
- (7.202.181.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 29 Oct
- 2026 20:34:06 +0800
-Message-ID: <933a389a-5572-4b3b-99c6-88aad9304349@hisilicon.com>
-Date: Thu, 29 Oct 2026 20:34:05 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDAD5606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:36:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDAD5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=tHy9bQ4z
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
+	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
+	From:Reply-To:Content-ID:Content-Description;
+	bh=+/luh6WGTlhkUZ89lJkceAsV6ypcW34insANuZaFpUY=; b=tHy9bQ4zpbWvn6ZjqJSS/mzTm2
+	q8dgwX5FEthEyCv50iEA6qZVM8o9MIWr24ONfl7s/v3W2hsA6wmQgT5WvXoErT/NkF0+o6EqBZO7q
+	C8zP/kxT2t/NoJ6TT5YLlhk2iFD+DUNfoa3evwmxNGRLXIwNE2gykiOQBkdqlDAJbHRJHwFzkk8jX
+	7G+0XnTLvXT2p8PprbFCyzfTKRG2VurUxiJvuBcUKhQfJqA9++7JVMPznC/GS2z8g26pdW9i6g6RX
+	0XHmd1PO29Dpuu7LdgV5M6YtJmccs9Epb40WmFs4uhU0++GMeZHHEMPP26xd0lf0Gg22xIo6MpYkJ
+	uuSIL/Ig==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xMPMx-0031XU-1a;
+	Thu, 29 Oct 2026 12:36:35 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Thu, 29 Oct 2026 05:33:45 -0700
+Subject: [PATCH wq/for-7.5 v4 1/2] workqueue: Move the initial max_active
+ setup into a helper
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,70 +63,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] cpufreq: CPPC: Enable boost by default when supported
-To: Christian Loehle <christian.loehle@arm.com>, Pengjie Zhang
-	<zhangpengjie2@huawei.com>, <rafael@kernel.org>, <viresh.kumar@linaro.org>
-CC: <linuxarm@huawei.com>, <prime.zeng@hisilicon.com>,
-	<wanghuiqiang@huawei.com>, <xuwei5@huawei.com>, <zhenglifeng1@huawei.com>,
-	<yubowen8@huawei.com>, <pierre.gondois@arm.com>, <sumitg@nvidia.com>,
-	<linux-pm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<mojunjun4@huawei.com>
-References: <20261022075901.3436021-1-zhangpengjie2@huawei.com>
- <d9fa8052-f562-4867-9e9f-1fd2a66fa794@arm.com>
-Content-Language: en-US
-From: Jie Zhan <zhanjie9@hisilicon.com>
-In-Reply-To: <d9fa8052-f562-4867-9e9f-1fd2a66fa794@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemf200017.china.huawei.com (7.202.181.10)
+Message-Id: <20261029-wq_final-v4-1-2985ea9f24fd@debian.org>
+References: <20261029-wq_final-v4-0-2985ea9f24fd@debian.org>
+In-Reply-To: <20261029-wq_final-v4-0-2985ea9f24fd@debian.org>
+To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
+Cc: linux-kernel@vger.kernel.org, marco.crivellari@suse.com, 
+ Breno Leitao <leitao@debian.org>, kernel-team@meta.com
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2375; i=leitao@debian.org;
+ h=from:subject:message-id; bh=odDWIwjBvIjpwXjLA0juHNuEvW3vZJibT7D+9bcTFXw=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq4z3Lv2frivbqFXYJbtvQvfr8wtB37bUj3y8U9
+ 1NeEWMtENCJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauM9ywAKCRA1o5Of/Hh3
+ ba+OD/9MijBPaBS7qUeuTuEHqwUJCvvI5IPj2tuRxyYjOiVGa1VTEzD3kwqjQjzF6oaPqoc/UBW
+ rhHkoTCyAkqwfzw/tBz/2FsVjg8F35eUHfz+tC9pvO5tVBC596oHOhIX2Ekn/baR0KjteO6yByK
+ QAjDMGGt1vj4wgG2XLvR5iu4T/6MMC1TJGjsmVAcv7MpY6Digavo/g02pbjYIN/Nn+IKqSpsaaG
+ vMjK8pZ10m0TNafoAjZ7dk5zY2Nst/VEOT1Yr4Fkq2BZqV4dImKt5xvmR9xhD1BFJPHI9i8AzAI
+ ciqKCjhhFOA5+dz3mTx3nIU4K1vCR1erD8fUorgFXAitMeUIr5VG9pthy0mItZSuv3J9ZJ5zfxa
+ FzqtEB+yn9VNVAejnqn/DLxDe91j0eNP2kpiiY43qn18Ilux+0KxJPyyP3Zn6BEQkN9mSYI6G+d
+ IkJvnlAkCvgqhGl5SCR8a4TamsjUNPANlqytiahBKQEx8RVYJKaqfUziJhYwkpWVBYcD0RWFq3X
+ K2Or264hZFQAaNqfRhbCV6MWDqrINJXf6RdcmPllsO0AYBxFymoE36GPNc4RLQn3lAl5/EYoH41
+ 83NOSY63KASCI3Ql7aT/Q6bqKzR9kVVn4OpBGDXvuffesLtgcYNYTNsjviGVpGYJ/bLIyZNT2pD
+ uf2PlDJGBcg3Vmg==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
+Extract the max/min active assignment into a helper, simplifying
+__alloc_workqueue() and keeping the next patch easier to review and reason
+about.
 
+Signed-off-by: Breno Leitao <leitao@debian.org>
+---
+ kernel/workqueue.c | 46 +++++++++++++++++++++++++++-------------------
+ 1 file changed, 27 insertions(+), 19 deletions(-)
 
-On 10/29/2026 4:51 AM, Christian Loehle wrote:
-> On 10/22/26 08:59, Pengjie Zhang wrote:
->> The CPPC driver leaves boost disabled by default when Highest Performance
->> exceeds Nominal Performance. Userspace must explicitly enable boost
->> before governors can use the full advertised performance range.
->>
->> Enable boost by default when at least one possible CPU reports support,
->> while users who prefer to stay within the sustained nominal limit can
->> still disable it via the boost knob without determining scaling_max_freq
->> for each policy.
->>
->> Check the performance capabilities before registering the driver so that
->> the cpufreq core enables boost for each policy that supports it.
->>
->> Signed-off-by: Pengjie Zhang <zhangpengjie2@huawei.com>
-> 
-> 
-> Just to be clear I'm not blocking this per se, but continuing my comments:
-> 
-> I just wonder if this is a configuration worth keeping.
-> You mentioned your platforms have a BIOS to set nominal==highest or not.
-> If we removed interpreting highest - nominal as boost entirely that
-> would also make that BIOS setting obsolete. Userspace could still
-> query nominal and restrict cpufreq to that if it wishes to do that,
-> we could add that to cpupower for convenience (i.e. set all policies'
-> max to nominal).
-> 
-> With the changes that are coming with CPCv4 we would save ourselves
-> some headache (like keeping track of boost status when ospm_nominal_perf
-> is being written).
-That would be just some bonus functions.
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index f2e8071a6f4eb0..826a64c6055d0c 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -6031,6 +6031,32 @@ static int init_rescuer(struct workqueue_struct *wq)
+ 	return 0;
+ }
+ 
++static void wq_init_max_active(struct workqueue_struct *wq, int max_active)
++{
++	int effective_max_active;
++
++	if (wq->flags & WQ_BH) {
++		/*
++		 * BH workqueues always share a single execution context per CPU
++		 * and don't impose any max_active limit.
++		 */
++		effective_max_active = INT_MAX;
++	} else {
++		effective_max_active = max_active ?: WQ_DFL_ACTIVE;
++		effective_max_active = wq_clamp_max_active(effective_max_active,
++							   wq->flags, wq->name);
++	}
++
++	if (wq->flags & WQ_UNBOUND) {
++		wq->max_active = effective_max_active;
++		wq->min_active = min(effective_max_active, WQ_DFL_MIN_ACTIVE);
++		wq->saved_min_active = wq->min_active;
++	} else {
++		wq->percpu_max_active = effective_max_active;
++	}
++	wq->saved_max_active = effective_max_active;
++}
++
+ /**
+  * wq_adjust_max_active - update a wq's max_active to the current setting
+  * @wq: target workqueue
+@@ -6156,27 +6182,9 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+ 		flags &= ~WQ_PERCPU;
+ 	}
+ 
+-	if (flags & WQ_BH) {
+-		/*
+-		 * BH workqueues always share a single execution context per CPU
+-		 * and don't impose any max_active limit.
+-		 */
+-		max_active = INT_MAX;
+-	} else {
+-		max_active = max_active ?: WQ_DFL_ACTIVE;
+-		max_active = wq_clamp_max_active(max_active, flags, wq->name);
+-	}
+-
+ 	/* init wq */
+ 	wq->flags = flags;
+-	if (flags & WQ_UNBOUND) {
+-		wq->max_active = max_active;
+-		wq->min_active = min(max_active, WQ_DFL_MIN_ACTIVE);
+-		wq->saved_min_active = wq->min_active;
+-	} else {
+-		wq->percpu_max_active = max_active;
+-	}
+-	wq->saved_max_active = max_active;
++	wq_init_max_active(wq, max_active);
+ 	mutex_init(&wq->mutex);
+ 	atomic_set(&wq->nr_pwqs_to_flush, 0);
+ 	INIT_LIST_HEAD(&wq->pwqs);
 
-I think the idea is to give userspace a knob to toggle boost on/off and
-check the current status.
+-- 
+2.53.0-Meta
 
-As of now, we don't have a better way to achieve this other than taking
-highest > nominal.
-> 
-> The question is also how often the combination of "enable nominal < highest"
-> and then explicitly toggling boost at runtime actually happens...
-> 
-In most cases, it's only set up once on boot.
-Some experimental, debugging, or clever userspace strategies may toggle it
-more often. Who knows :)
-
-[...]
