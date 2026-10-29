@@ -1,78 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271389;
-	b=G4cdIqWXFCJ6SFNp+Bune9Ju5NEPW2sEEMV8SbQDah25C8r07u5NbSJw1taKfzt6h08B
-	 HsJ3e5xrPsa2C7Qin+6XRVbj8iAFO1Jk6wU4OAP2CPHyR32t9yBIU//u0lmAY20+GzGqm
-	 zDux64Db+Abr0lKs9HXuCTqTwOPKBiXd098VuoLMduknpHilW1VAwDZlY6LHuOJAmec8R
-	 kWT3YcFlM7wYu3G+dmm8gomOshxqZce2+bVhbZGXqO0okCWf63V9Z+zHitGTbaAzgF0p4
-	 Mf0Xw1w3BkQfx1dkBGrVxxl0LyaqZO5R89jmKKKWUPJozE3jREJDHrLvsFG1HauW1KA==
+	t=1793271437;
+	b=17I1mE0bXjh3kS6n8G0xd4j6x4X9PwjtErpmg5bYoq0nai477A5y1GHofau61KPfiFKc
+	 Zt1zf8HayLVCJ+jg2kYYql8/g91mJ8pnAsUkjea6on0Ughn+hbpTqI7Mc0dZeGIpNF1vl
+	 Y+pUhgcIHriBzAYzq1TlKzPsE5Vr8OL7zngiQxklWITceQrW9Grrw00m8TIu/tG5MJ13z
+	 suoD58F8COQN2GaVdRkVOn1qxloFwnims+UqE0hjfR6L+StBTPrOTAGew0BLoFUMcs+PQ
+	 QWFFoklGOPSDVruyZ7c169+ZxoGTMV/Zid02JkBUP1MZwrtwGJhOVHMgLB6CUGOqHrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271389;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=NSH1x3BBzRaE3Cv0AWjNvraojxbNU18l90OOGfS9A2Y=;
-	b=1NWZ8oGr4MNTsw//ty7YKfPJZ1o9Vdl0KAqgxH65Ek3XCjcAu5NIpTKFfsKSlW+wxt4p
-	 9BiMcZQhKAaaKGjJT1B+1Erm6K/jFEdzTMPiianAiJvS5UQ11IdsiXQync5YT5iwWF8VT
-	 1QZkmK79LJWOEh992D6iI7g/CiSq9Qh+tiyawdIIkVlz7xoOCp85seJzbFZBfaEqooXQD
-	 aPyUv/nRlqf91bzz900zRa6Fp0oVeoz2aKXId1hHUKnshslXXHJzuCpyryc5I+8lpu7q3
-	 G/UKHmXgsoOaB9T0OqJfme1+NrcS+rrtda7fseKtfW2KQTKer2icownmjeKziq9YC0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793271437;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-Spam-Flag:
+	 X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=eHLr56sFD2D2TWh1Q3BE7l/mRjeL6DJWJN7ujgMW5xw=;
+	b=vdr30C0zVxlv0Z2SwEw+Bnq64gEFg5rC+kh+1NaLqijPK6HXHdIVp7xI21g9Ft+k64m+
+	 ynT4nCCPD24yJrir7VkKoUE9e3A4CiR1a0CWSMSo85EmdbzjQt0Zj/v47FdFNQ0Cdm3+0
+	 Fb2S6bDOId0NBCs+NnAmmnOfZgIqYKcRf6tCdIve7flqQ67ATw8GOdqjgwpVIRWD2rTEE
+	 KSv+Y0URhPZDYhtu469udqza8+am6A8xkWZgBPYbFRQor2JIzYxV+jVSrWaQpw48IvGT/
+	 dkQwy9qQhmSt8gP7qdDRy3Ft28x+53zw8XKTXtDA0T+pdFUFuFOKiv5PnCFQUHMJPzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=ZtHFyEA3;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="jemv/8D2";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=aqFHd81y;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=q1cvKuD4;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GMehQJnw;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D37B606A31C;
-	Thu, 29 Oct 2026 10:56:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D37B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CCD606A31E;
+	Thu, 29 Oct 2026 10:57:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6CCD606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=ZtHFyEA3
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=NSH1x3BBzRaE3Cv0AWjNvraojxbNU18l90OOGfS9A2Y=; b=ZtHFyEA3C/+nbaEYKk5V6u5/sL
-	lusa/FqrGhQT1DM+5uAYDsypSDZ4s0jtNfd8Awwk/n7KulUH563jE6UichpR33E6RjoADmBRGBpVR
-	0+f7D3WxikPIws1AXFfYTcyKgAVmE0mG5fDsx7OXIw7wri8SzDQDEJBlV6HX1MgpIiePbCBAwooQ6
-	Y9YJbAcSksVVVtAZUq+qF6Kxc03uezib/14nWta4ChLq7UHaG7AK3fBjAKUnDRmq6etqjs3TeqfuC
-	+aMyk8/oibWF1BdP6QLo+0jUBSPMZqydB49ED7Zao75uKaYStuLzvS70XRDRQk+/AlBv5SLxv76r8
-	d/XfEJRA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMNo0-0000000GtOk-0Sam;
-	Thu, 29 Oct 2026 10:56:24 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id F22413011E4; Thu, 29 Oct 2026 11:56:22 +0100 (CET)
-Date: Thu, 29 Oct 2026 11:56:22 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>,
-	Sandipan Das <sandipan.das@amd.com>,
-	Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	Ananth Narayan <ananth.narayan@amd.com>,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	bpf@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>
-Subject: Re: [Patch v5 12/18] perf/x86/intel: Always snapshot live hardware
- LBR state for BPF
-Message-ID: <20261029105622.GN1779021@noisy.programming.kicks-ass.net>
-References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
- <20261029043914.1395147-13-dapeng1.mi@linux.intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=jemv/8D2;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=aqFHd81y;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=q1cvKuD4;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=GMehQJnw
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0F1A52213F;
+	Thu, 29 Oct 2026 10:57:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793271435; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=eHLr56sFD2D2TWh1Q3BE7l/mRjeL6DJWJN7ujgMW5xw=;
+	b=jemv/8D299Zjj9ZER5bhD7DSMwR3Sz1cOmsws1LW2NYsHuHjziLl0Hy9jcuaq/qt8gZ0cn
+	uiOpfWvrgZagT93pmyQT2X+hxZRHdmYz+fios5rAZZXdLLa0yeDdWAvAFhJhPW3HwIfxAw
+	DAgtHgI+UT25n0sG7a3ePIAnHx8UgDw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793271435;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=eHLr56sFD2D2TWh1Q3BE7l/mRjeL6DJWJN7ujgMW5xw=;
+	b=aqFHd81yjn6tarGzEZif3s0HX0wwWsUrsz+Gd3gbqZKySA2lFfY0zJDWjUHZt+Z9mf31XA
+	BEEHQL7oWRe/v8Bg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793271434; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=eHLr56sFD2D2TWh1Q3BE7l/mRjeL6DJWJN7ujgMW5xw=;
+	b=q1cvKuD4pyYlJAe5EpZbRM5WGtXRnjEc3GQ3o4wduOZvwrdmk7gkmOqwodxAjdv3OMfnoa
+	yY0iJg3QvVSAkIlhswCR9JPJj0SKVOxK/VMZaCxfqMPb2BQp6ASTKGMnUjyTg/w5faHXzc
+	gdoe5bO6yd1dUBFaQt/K3o+vJQXl8FM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793271434;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=eHLr56sFD2D2TWh1Q3BE7l/mRjeL6DJWJN7ujgMW5xw=;
+	b=GMehQJnwzewnI8GEKLcG3ZvC78IYSsbj7sv6+8Ld820TetOjFhPcfAXwnE8jWfYKPbxpux
+	zPjaOhYk7w0ZPnDw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 81E941339F;
+	Thu, 29 Oct 2026 10:57:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 9HVAFYkm42qKYAAAD6G6ig
+	(envelope-from <fmancera@suse.de>); Thu, 29 Oct 2026 10:57:13 +0000
+From: Fernando Fernandez Mancera <fmancera@suse.de>
+To: coda@cs.cmu.edu
+Cc: codalist@coda.cs.cmu.edu,
+	jaharkes@cs.cmu.edu,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	Fernando Fernandez Mancera <fmancera@suse.de>
+Subject: [PATCH] coda: fix timeout sysctl width on big-endian architecture
+Date: Thu, 29 Oct 2026 11:57:01 +0100
+Message-ID: <20261029105701.3829-1-fmancera@suse.de>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,67 +106,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029043914.1395147-13-dapeng1.mi@linux.intel.com>
+Content-Transfer-Encoding: 8bit
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-11.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.995];
+	MIME_GOOD(-0.10)[text/plain];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,imap1.dmz-prg2.suse.org:helo];
+	FROM_HAS_DN(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_FIVE(0.00)[6];
+	RCVD_TLS_ALL(0.00)[]
+X-Spam-Score: -11.80
 
-On Thu, Oct 29, 2026 at 12:39:08PM +0800, Dapeng Mi wrote:
-> __intel_pmu_snapshot_branch_stack() is intended to capture the current
-> live hardware LBR state for the BPF path. However, that snapshot is
-> currently skipped when all LBR users are PEBS events.
-> 
-> BPF LBR snapshotting now uses its own dedicated LBR stack, so there is
-> no longer a risk of clobbering the shared default LBR stack. As a
-> result, always snapshot the live hardware LBR state for the BPF path.
-> 
-> Fixes: c22ac2a3d4bd ("perf: Enable branch record for software events")
-> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> ---
->  arch/x86/events/intel/core.c | 10 ++++++++--
->  arch/x86/events/intel/lbr.c  |  9 ---------
->  2 files changed, 8 insertions(+), 11 deletions(-)
-> 
-> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
-> index 482a148916bf..110fff65bd50 100644
-> --- a/arch/x86/events/intel/core.c
-> +++ b/arch/x86/events/intel/core.c
-> @@ -4069,8 +4069,14 @@ static int intel_pmu_handle_irq(struct pt_regs *regs)
->  
->  	loops = 0;
->  again:
-> -	intel_pmu_lbr_read(&cpuc->lbr_stack,
-> -			   cpuc->lbr_entries, cpuc->lbr_counters);
-> +	/*
-> +	 * No need to read the LBR stack when all LBR users are PEBS events,
-> +	 * since the PEBS handler updates it.
-> +	 */
-> +	if (cpuc->lbr_users != cpuc->lbr_pebs_users) {
-> +		intel_pmu_lbr_read(&cpuc->lbr_stack,
-> +				   cpuc->lbr_entries, cpuc->lbr_counters);
-> +	}
->  
->  	/*
->  	 * Do not clear the LBR frozen status here; keep LBR frozen
-> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
-> index 63f0504f9d2a..790580f96040 100644
-> --- a/arch/x86/events/intel/lbr.c
-> +++ b/arch/x86/events/intel/lbr.c
-> @@ -1050,15 +1050,6 @@ void intel_pmu_lbr_read(struct perf_branch_stack *lbr_stack,
->  		return;
->  	}
->  
-> -	/*
-> -	 * Don't read when all LBRs users are using adaptive PEBS.
-> -	 *
-> -	 * This could be smarter and actually check the event,
-> -	 * but this simple approach seems to work for now.
-> -	 */
-> -	if (cpuc->lbr_users == cpuc->lbr_pebs_users)
-> -		return;
-> -
->  	x86_pmu.lbr_read(cpuc, lbr_stack, lbr_entries);
->  
->  	intel_pmu_lbr_filter(cpuc, lbr_stack, lbr_entries, lbr_counters);
+coda_timeout is an unsigned long, but the "timeout" sysctl entry uses
+proc_dointvec() with .maxlen = sizeof(int), so the handler accesses only
+four bytes of the eight-byte variable.
 
-AFAICT AMD could be similarly modified, it currently unconditionally
-reads the LBR stack, irrespective of lbr_users.
+On little-endian this works, since the four bytes are the low half. On
+64-bit big-endian they are the high half. The sysctl reads back 0
+instead of the default 30, and writing N sets coda_timeout to N * 2^32 +
+30 seconds, so a stuck upcall effectively never becomes interruptible.
+
+Fix this by using proc_doulongvec_minmax() handler and adjust the
+maxlen to the right value.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Fernando Fernandez Mancera <fmancera@suse.de>
+---
+Note: found this while fixing a similar issue on SMC sockets. This is
+janitorial work, I don't think CODA is used in big-endian at all.
+---
+ fs/coda/sysctl.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/coda/sysctl.c b/fs/coda/sysctl.c
+index 0df46f09b6cc..73bc48460453 100644
+--- a/fs/coda/sysctl.c
++++ b/fs/coda/sysctl.c
+@@ -18,9 +18,9 @@ static const struct ctl_table coda_table[] = {
+ 	{
+ 		.procname	= "timeout",
+ 		.data		= &coda_timeout,
+-		.maxlen		= sizeof(int),
++		.maxlen		= sizeof(unsigned long),
+ 		.mode		= 0644,
+-		.proc_handler	= proc_dointvec
++		.proc_handler	= proc_doulongvec_minmax
+ 	},
+ 	{
+ 		.procname	= "hard",
+-- 
+2.56.0
+
