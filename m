@@ -1,96 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=161.35.211.235
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793270193;
-	b=jFw8JP/xkcV0NWBmTZ8nYyyHTlleEvXYupXKcm1YRkKaIrLI2tExyYOzRozhfHJVZXeY
-	 QYHM1SZ6zQ1pImWDAgDAA6aShNXkZKE4qxGSXM1qviZR18l35yRbDDcJS16LRa+zB2ccF
-	 BoaImTJwHb9J3lg4qE1+Lsao6bCrCRLwe5jg/iySQ8ji5AYSUI22rm4eihxvRiuWKuhG+
-	 3SUnIj68+VQuoMIFLn9ikak7/GVWiZgc/AK0wsgFhpvlnzUzP6PNPFhAD9ocqa2enHP7S
-	 5NuGQVxt3NUzHgFLrUKnzWTePtc9nKSAf8YSBG4z7ncG5ThunP9pa5QOBGpsCKjBtfA==
+	t=1793270311;
+	b=BB5y/saa76fDN5AG6uskydYzvxeGb5oP4b0ma6Wl8ldiSBg3YILFuiz8acBgF1nuc6d9
+	 Q3rdhcraOs/wmRHKxSeqpVHKLIgPtsBuHNlTPXb7yxggDGBDA8fAmj8k2qgPhMd3Yeo3z
+	 PMTTE+urTqOSSwd24tl3Kj6kblhl3AHnv4mqrGfp5hh3ygluO3k2UDwPuqXwOhGoRfFEH
+	 SpnOwTXZ6wLv5Z37Dwkm/GnFo+K3cF2w+dhczJwWXngQuNh5L98oGcVyBt0usUvdwK+HO
+	 1UKQP/XvNFJAyAyYgSdZn1ou9tT1MiHWP0uHmqyPwMBzLQ8r11X50XUyf9yzy1WwLZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793270193;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jehMkVEgMGBUzExRW4jLTeS4kpPNr3py8r2FnDt6bfI=;
-	b=WLIYygnDCoPSdfsXWYQEapK5ePDvFYYa12HwZvNvqsN3EitXEHkLC1ddUI1CgcdHk6yo
-	 WO2BO5Yg51FvR7Btq2qnwIAzQP+iJsPXVf2GwWanH7LjVA1jGyFQ0gayzUl6aEbBvOE8u
-	 JJWxqA1eIfi/xvhmuY8KitVLTKuaKNxpng09eKLXFKRC1+06R3PvJUwTus+a/1n0p9L0U
-	 y6USfQELMaapIn+iYJaMiPA9tiqBx1eb2bE+qPwtSbBnyoshIVgVCdJolsYJVHEUGL4gA
-	 7fMqwF0u2j/TpAxedI7zHDMpvQNOW+/+uwEA4H9mLs7gRCyrfmjSsgPq6YfrKwtYSZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793270311;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=Ld4QZ3pQQcZaz8vukIMO+uxQ90DsPcX0V4TVlD11JwE=;
+	b=ErLwVSzEqDj5q7Bv3VHAbYEIMNXS1/AEtgVAkic+qmVuHeWdO45AvGLAqkL4Luiv0Eu2
+	 TSo1DGuisIAEQCWho/GClDh8kbWCwLsyEwEn/PaUVnAMQEoIrtL7ZBYirkAfGTGnWvGFv
+	 G50heRXpNeuqHjcyB1p4BUax5Tc1Ym0M9AFVB2pdW8sca0KfFVLpbcjw1d9fh+C5U0QQE
+	 HE7s2lkutJMBMOxcNS1nLYTnHqrvwMZ/agtJdVFVKla0P0OZLx2F5sJNGFIfxaf5sjI/A
+	 ixWNK6XB+uojpPUUntTOKyOV00nOrHSKz+7FzRe0oBt9l+WXghVtgL3tdNHukNFHKfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gd4GPgsj;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mifar.in;
+	spf=pass smtp.mailfrom=mifar.in;
+	dkim=pass header.d=mifar.in header.i=@mifar.in header.a=rsa-sha256 header.s=mail header.b=mPwfOPuO;
+	arc=none smtp.remote-ip=161.35.211.235
+Received: from mifar.in (mifar.in [161.35.211.235])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2122606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:36:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2122606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0511606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:38:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0511606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mifar.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mifar.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gd4GPgsj
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so1604021f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:36:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793270191; x=1793874991; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jehMkVEgMGBUzExRW4jLTeS4kpPNr3py8r2FnDt6bfI=;
-        b=gd4GPgsjVo6GcYklyr1/n1T+RIm/k3Kyr0LN0pHHmi0WpE+3LYFksPgqRfLZhxpWO8
-         rTEQYvkf30gK2Jc+/VGp6ld4qZD8LMdn6EvRJMwNI6DswMMb5bRJ2fs1Zk1rEQM5CK+m
-         3EshKbyw2XIgoDPG0+ldJGles3WBcJP2sZpWBkTsJZWnvwseD9CKkN1sE7waoSOPhZK4
-         5BSUusbSKU3UIxWNCEkHPn76dxUwcvsa4/yCRj0YRxxrYSns18l+eQxWh6xDts8bLhK1
-         HNK7rckLaQfqeHOgye/wqpFNdh23bS5dOk/EbYM7qonlCOq02rMf6bNh16lMaca32bKY
-         Cgwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793270191; x=1793874991;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jehMkVEgMGBUzExRW4jLTeS4kpPNr3py8r2FnDt6bfI=;
-        b=dgHz1omQHlVE3gU0TgJKXOogAjacmOtaCfJsl5oluBhdUg7ddyth15BKB5GPL2bbFP
-         mFFUebcIPdD7LtElz8ZmSvD2dszWgpCEC5oxG71H7+jcFD52VfFaMXYvOlHb3kWbhC/3
-         x8yL4sjD78ICam2aF9fr3kQHmhVHIDCN3hiEGhDcCYe5bcOrq/tbVWYzcyxCdyPyl89L
-         O05tKjo/efjYDBU1qtnSaLC///8t4ph/Z8E4TS5eRQeMQR30XNug5q/VGCtRDO9sKEvW
-         qbaB9SbYm8f45yYsu7Cns6q/sGlIoRil+4SjYtOo1pKFV7NsACph3TnO/+BuOgKk/WHe
-         CGRg==
-X-Forwarded-Encrypted: i=1; AKwUvByVxXnKvniNDKqMPR5IZJh1hJYI94sYwtds6VXUvuaUZ954UVVCFOIr0HPlDeJv//rVqncHG7iGHyXtV/g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwV0M8xII83cR02RWBakWzDvVZbmWf2NuW902QFdi+Ay+g5LhP
-	Lm8LyN5JGAbnsnAWpQFCz9+1ImAHIMwMNTIe2KyrDTIOEEf9Y2MhRbj0MaH0ZE7Yw85naQ==
-X-Gm-Gg: AYBFou2ChCjL9bP+iXfLJ5IUbB/u18fajRCbxS4swg1nM2RHMRZ19CO198M1I9PWXGJ
-	lwvfbT4UeAiaXfFm+DUKX6Ja1UeBU4/lM6fcHqmzopA40JdwpxOcfH0HQcs+vKJzTwdqfWZ9m+B
-	E6MKqzh4rZfyr4Jvx9EwfAiq6In5oExKRLlCxJGCviR7rkJknQbGL9UuTe/Ajha8Wmr0hKneTtd
-	eEQeWgWjN4penNVaN8OvUFtfow9Q7UO/P0+XN6Mu6HozPL9d3f6A/0umbjvAj9v9GhUNA0I6msO
-	7vycV142DGIPiJr5lh6pfhWwKfRHgTTcVry9FiC25swvLUkhSxlyB4OzpswQZRe5gUeNcIbwPr6
-	g5gw3u9rDEfm+wNO7+lw5Skwfb3UwW7M417n/X2AWeXoX0lVsUdJXwBc2qy7oLZDXpM5ke8bW+H
-	nLVNCOzcvAW/Zxwap9sGcq074P5Uqr5OpNmTDLHcZIeZijWCkYVU4gHb7LH8bxg78EL6N1WBJHe
-	4w0tRRQmM/zpQEvT7YaqC5YjogjUiymHfUzFdmeIARHcZB96nd8wl0JjPTs+qJS4uhS5I43brOb
-	aZ04r4i0VVF9e4FsupOr1/ljciDcLXH8SRwbaBFjaVc8gdj/flEM7RrFZw==
-X-Received: by 2002:adf:e283:0:b0:48e:1299:c00f with SMTP id ffacd0b85a97d-48e5d288c04mr9053525f8f.3.1793270190865;
-        Thu, 29 Oct 2026 03:36:30 -0700 (PDT)
-Received: from LAPTOP-AVI.lan ([2a06:c701:4778:c500:4cef:6e83:1a47:83fa])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecde7easm33914037f8f.52.2026.10.29.03.36.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 03:36:30 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Grygorii Strashko <grygorii.strashko@ti.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Santosh Shilimkar <ssantosh@kernel.org>,
-	Kevin Hilman <khilman@kernel.org>,
-	linux-gpio@vger.kernel.org,
-	linux-omap@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=mifar.in header.i=@mifar.in header.a=rsa-sha256 header.s=mail header.b=mPwfOPuO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mifar.in;
+ i=@mifar.in; q=dns/txt; s=mail; t=1793270303; h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ content-transfer-encoding : in-reply-to : from;
+ bh=cHpyh54zy9xh+wdRjyz3Jr7nU3jQZkJ9CsSQ6jhbF3w=;
+ b=mPwfOPuOZNbbuBaKJ9oZDbH/i/v3oJlA1QMQsyrR9FhtCzSgn56yqKLptec5W7Wmhuynk
+ UbU1pGPVchzuaIf38vtL9pvvEldm/hPtpr09U8wT8bgjOv3QyygX71y5wBjsnXSlxZbFDSw
+ w4+6gSWFPb6HCkahd5u7qS2eXBMlP9TiqUOp1Gy3RTIN4uwBKVhASZrRSubjDRA357E8tzV
+ 5UUPT8Irc/2w7aWRU5zdA3cKnEsPa/C1yxaRRZuP7KCumqw1kvzQnVsbJSvIUXFCs335jn3
+ EbATEzAZMctWNoS1UDDOeqfDxsd9K5PKk9zuA0Yjd7yMZzxMVdyK9ncaKljA==
+Received: by mifar.in (Postfix, from userid 1000)
+	id 213E044917; Thu, 29 Oct 2026 10:38:23 +0000 (UTC)
+Date: Thu, 29 Oct 2026 10:38:23 +0000
+From: Sami Farin <lkml20261027@mifar.in>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Sean Christopherson <seanjc@google.com>, linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@kernel.org>, kvm@vger.kernel.org,
+	kimjw04271234@gmail.com, stable@vger.kernel.org
+Subject: Re: [REGRESSION] KVM: x86: OVMF boot hang with SMM enabled after
+ commit b3e6212dea2e ("KVM: x86: Use active memslots for the per-vCPU MMIO
+ cache")
+Message-ID: <20261029103823.3u32wxlxdjksq6j4@m.mifar.in>
+Mail-Followup-To: Sami Farin <lkml20261027@mifar.in>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
 	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] gpio: omap: Propagate runtime PM failures in probe and request
-Date: Thu, 29 Oct 2026 12:36:26 +0200
-Message-ID: <20261029103626.1527919-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Greg Kroah-Hartman <gregkh@kernel.org>, kvm@vger.kernel.org,
+	kimjw04271234@gmail.com, stable@vger.kernel.org
+References: <2026102314-CVE-2026-99082-e5b1@gregkh>
+ <20261027124140.upuow4a3kv6kssvn@m.mifar.in>
+ <auIy4UZMGxLhBCAn@google.com>
+ <d4214249-5ec0-4600-91be-13632b180425@redhat.com>
+ <69437bf0-45fc-4701-9144-a208c12423e6@redhat.com>
+ <auI4kViOXpqxT3wA@google.com>
+ <6f6694db-b1aa-4d9e-be82-b0d11cd814d9@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,74 +77,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <6f6694db-b1aa-4d9e-be82-b0d11cd814d9@redhat.com>
 
-pm_runtime_get_sync() can fail when the OMAP PM domain cannot
-resume a GPIO controller, but omap_gpio_probe() and
-omap_gpio_request() ignore its return value.
+On Wed, Oct 28, 2026 at 19:42:38 +0100, Paolo Bonzini wrote:
+...
+>1) if this patch gives the WARN (with vanilla 6.18.58):
+>
+>diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
+>index cfe96962a4e4..a96d839a317b 100644
+>--- a/arch/x86/kvm/x86.h
+>+++ b/arch/x86/kvm/x86.h
+>@@ -263,6 +263,7 @@ static inline void vcpu_cache_mmio_info(struct 
+>kvm_vcpu *vcpu,
+> 	vcpu->arch.mmio_access = access;
+> 	vcpu->arch.mmio_gfn = gfn;
+> 	vcpu->arch.mmio_gen = gen;
+>+	WARN_ON_ONCE((gen & 1) != kvm_arch_vcpu_memslots_id(vcpu));
+> }
 
-Consequently, probe can register a GPIO controller despite a failed
-resume, while a GPIO request can report success and modify GPIO
-state even though runtime-PM acquisition failed.
+This did not trigger, but would it have been better to do
+WARN_ON_ONCE((gen % kvm_arch_nr_memslot_as_ids(vcpu->kvm)) != kvm_arch_vcpu_memslots_id(vcpu));
 
-Use pm_runtime_resume_and_get() in both paths and propagate
-resume errors. On probe failure, disable runtime PM and unprepare
-the debounce clock when applicable.
+Anyways, I tried this with 6.18.58, but I cannot reproduce the infinite loop anymore!
+I have Intel Core i5-13600K, qemu-11.1.2.
 
-Reproduced both failures on QEMU N800 by injecting -EIO from the
-OMAP PM-domain resume callback. The original driver continues
-probe and accepts the GPIO request - while the patched driver
-rejects both operations with -EIO. Normal GPIO controller
-registration continues to work without fault injection.
+Please disregard and drop this patch.
 
-Fixes: 77640aabd755 ("OMAP: GPIO: Implement GPIO as a platform device")
-Fixes: 55b93c32520d ("gpio/omap: use pm-runtime framework")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
+After deeper tracing to understand why deterministic reproduction was elusive,
+I looked into how memslot generations are initialized and incremented in
+virt/kvm/kvm_main.c:1667-1673:
 
-Related/similar upstream GPIO runtime-PM commits:
+     /*
+      * Generations must be unique even across address spaces. We do not need
+      * a global counter for that, instead the generation space is evenly split
+      * across address spaces. For example, with two address spaces, address
+      * space 0 will use generations 0, 2, 4, ... while address space 1 will
+      * use generations 1, 3, 5, ...
+      */
+     gen += kvm_arch_nr_memslot_as_ids(kvm);
 
-  e9438ab5328a (gpio: zynq: fix runtime PM leak on request error path)
-  ff82fc3a4a1d (gpio: xilinx: fix runtime PM leak on request error path)
+Because KVM seeds AS 0 with 0 and AS 1 with 1, and steps each update by 2,
+AS 0 generations are strictly even while AS 1 generations are strictly odd.
+The generation sets are disjoint (AS0 ∩ AS1 = ∅).
 
-Both use pm_runtime_resume_and_get() to avoid retaining a PM usage
-reference when acquisition fails.
+Commit b3e6212dea2e ("KVM: x86: Use active memslots for the per-vCPU MMIO
+cache") already fixed this completely by switching from kvm_memslots() to
+kvm_vcpu_memslots(). Because the active memslots' generation already embeds
+address-space parity in bit 0, an MMIO entry cached in SMM (odd generation)
+can never produce a false cache hit in normal mode (even generation). Tracking
+mmio_as_id separately is redundant.
 
- drivers/gpio/gpio-omap.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+The Windows 11 / OVMF boot freeze that originally motivated this was traced
+separately to high-vCPU SMI rendezvous lock contention during an NVRAM write
+storm on dirty boot, completely unrelated to the MMIO cache.
 
-diff --git a/drivers/gpio/gpio-omap.c b/drivers/gpio/gpio-omap.c
-index a9b9a3d9631e..31525a8eedf5 100644
---- a/drivers/gpio/gpio-omap.c
-+++ b/drivers/gpio/gpio-omap.c
-@@ -813,8 +813,11 @@ static int omap_gpio_request(struct gpio_chip *chip, unsigned offset)
- {
- 	struct gpio_bank *bank = gpiochip_get_data(chip);
- 	unsigned long flags;
-+	int ret;
- 
--	pm_runtime_get_sync(chip->parent);
-+	ret = pm_runtime_resume_and_get(chip->parent);
-+	if (ret < 0)
-+		return ret;
- 
- 	raw_spin_lock_irqsave(&bank->lock, flags);
- 	omap_enable_gpio_module(bank, offset);
-@@ -1459,7 +1462,13 @@ static int omap_gpio_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, bank);
- 
- 	pm_runtime_enable(dev);
--	pm_runtime_get_sync(dev);
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret < 0) {
-+		pm_runtime_disable(dev);
-+		if (bank->dbck_flag)
-+			clk_unprepare(bank->dbck);
-+		return ret;
-+	}
- 
- 	if (bank->is_mpuio)
- 		omap_mpuio_init(bank);
+Sorry for the noise.
+
+Thanks,
+Sami
+
+> static inline bool vcpu_match_mmio_gen(struct kvm_vcpu *vcpu)
+>
+>2) if patch 1 or patch 2 separately are enough to fix the issue;
+>
+>If you have time, can you also check if it fails to boot even before 
+>reaching Windows (you can try any Linux ISO, or even with no disk at 
+>all)?  Also, just to cover all bases is your machine Intel or AMD?
+>
+>Thanks,
+>
+>Paolo
+>
+
 -- 
-2.43.0
-
+Do what you love because life is too short for anything else.
