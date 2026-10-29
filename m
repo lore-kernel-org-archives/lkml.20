@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297400;
-	b=TrnMX3tzIi/EmDyc4ZxCfFORhiLCL4lP68/aj4NppHv5ZQAB30YVcQw+hWmJD/Jwd/9U
-	 RwSmZFCAImck7QL1Kc//YvkijnJhQsIj/6V6fZVLaJ44zRplBkJYJMDKICykRv7PhItZF
-	 bw4nIntlvMxMOrBvwB4o6fsfV4vkAmez6095WOWwj6ZEbodxaJ5V1NPMuS/upPQMmbx/j
-	 HZSqPrRPdHhIT3MTZUC2+eGiGpF+GMauyzJ7JIygkpzJcRUw4mvlMGtVcz/vw/qm4qjJN
-	 fUcUcwMHs9uAVAz+bYGS1DAA0nVu/q9Q6CFvAoTOwuRMjKYHorcXQLh/CaUpDVWRRCw==
+	t=1793297417;
+	b=MNHQM3SF9u7F94UmRta49ScF06Mnq2Sl0GGuZLdpWsfCFN7+0+I3mDgMxFpWZoxvNnBB
+	 F5F9yXktN+WLvOqxtRYe8ElXNn4R1dQpreT28yuG0aE02QRcV0DJokXUGkaLy09ooLAzu
+	 zCFg0DhEx7ywysjiIit5PVjRaFZzD67v5m15LLXf2O48epoQhq3p0i6dGliDP0Ma+V6da
+	 /yGYy/gfd6I3x4uXigESdu0TXMDYfU074IzVpx2tuWn8enf93p7nxvHUzC32X1oItwqp5
+	 URw8U9xrwf0dUVMcvqyK9ooQJVoijh+oZGLCYYKYv97pH6esgX7pQnBb6Pc21mNAn1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297400;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297417;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=s15KPFvSCwNiVaqBAYJFg7BNb25ktBO5/NM/9ViUK+E=;
-	b=QAybm/QvqALp4gWbosuZrayEaPlE5GfuCF3fz2f0/TakREDYkUKtKgAKkw5xyharoBt2
-	 Oclld2Hp6mtfao2mchKqg9O+zbHNWrjmTzGAwsgRpgwfMq9ESLih4tanyt88QH1GfX+yD
-	 O94qzjj6ZUeQ6XcDxPhYZFBBqE1ya64BdwRDVgN6j092AoetQ9mou6hhdvhQa/JP4Ypjb
-	 FqVk9gm0poetJmus0B9OHyyU0xN2nx7yBHTXKRckIWVmCfnpesOUHTn7XCab3K0cLXOUy
-	 0nPb+pL9eGGNNC6pmIkmMzdPRbJqX2rfrGk+ihF4RKzYYETNCFapNkG7E0kJSgDwbTw==
+	bh=DJ2DAyUZ/cE8PWYufte6QskZeIdiAS+8BIHT7ee4M9A=;
+	b=kYsYMF4pMwgUxNL5SWf3bbbbB5HEucvdSvkmNaE3FW4HyhSqBg/doD8l9F+NafyPZ5Ly
+	 Skl9KKS1tshPR/pgYDwGJ0gX56jode5SYtaj/Kqqqu+UqGd6PoXpiPxbhZ3jlnhpLFg6/
+	 qquUpWTahNGe+mQ/SDkvMwlhaYWchZcWBFWx9mPnNItEtjMV/66/SZF9kgPHbv+MKI6fQ
+	 P5SpR1IK2RIhG8YkYZ1rcIE/+iU8ju5UOO0CSYsyIUvuRaC+5XuCQkymyHNWvAMTxe/Rs
+	 S1/ne0Ai0KO8nnlSCognMrVbmA7wn3SNnULvwMZe0StJVyF/ItujV4fJyupe/xjPtwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=hammerspace.com;
 	spf=pass smtp.mailfrom=hammerspace.com;
-	dkim=pass header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=VHAaoFOq;
-	arc=none smtp.remote-ip=209.85.210.43
-Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	dkim=pass header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=n5Ycg7Ix;
+	arc=none smtp.remote-ip=209.85.167.170
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A5760A2626
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:09:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8A5760A2626
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E599D606AB4B
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:10:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E599D606AB4B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hammerspace.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hammerspace.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=VHAaoFOq
-Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-845f3fa7f38so1154883a34.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:09:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=n5Ycg7Ix
+Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-563a0462094so1163241b6e.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:10:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=hammerspace.com; s=google; t=1793297398; x=1793902198; darn=vger.kernel.org;
+        d=hammerspace.com; s=google; t=1793297416; x=1793902216; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=s15KPFvSCwNiVaqBAYJFg7BNb25ktBO5/NM/9ViUK+E=;
-        b=VHAaoFOqccV0hFbc/ilFGOCwBwlm7TlXY62UVXoSJHQ6ULl7rIxY59eOHwq0CF9/io
-         uHUH5dNGfW/I6lhPVAh1H4wl2sE+JeC5MUR7zR8iFZcLo83oTar/Ry3m6+IHkan6JPXp
-         m8yPcXCpfLKjhJ1tr27UMZxgXiTjjZ1jB5zwZj8j/4LeMnwZbNb0IYPUMYVNbhsCkAjS
-         7FJCNZnQJpgwLJo7Sfn8xu+cf7XjBdAcnz1xKs+65uWE3QDT5DOvkhQY1QJpC2Ll+8uF
-         9ack3+/n9ZsYHkPe91Zh4sm35qFh/wyOPftUXrqDqZNtR3wbp+nTsCMweOAnQu+vjU/U
-         9NyA==
+        bh=DJ2DAyUZ/cE8PWYufte6QskZeIdiAS+8BIHT7ee4M9A=;
+        b=n5Ycg7IxyZ+K65mf71RWcIDKfS2t3bQ1TMnTVvBEHF/qTOn8KHah5qx/iuaDmb0YCr
+         AbogfBSMjHHUVO6j7S42cuw8dxSO2XuLXYxAcEYk/c6TUBHa4koTsGhBhVOcyPyzOOig
+         Gkf0lC3j2BgUBb22KiadsllXwF6xONDrHxisxOMzk8U7+VLj3z7Hy/kbi1M0m99h/gXQ
+         MY7QMxI4MCT23si6o0qTNVhd2Os7ijq8tTT5aO+FYwhAW7boMuui+yBWbPihESGwf4zI
+         TgHJMhmie8psihtkrQiKu/mVgNrN2GVpvetVKtl7Xs3KqnV1w9UjkLYc5yAnmkhW0Vue
+         DtSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793297398; x=1793902198;
+        d=1e100.net; s=20260707; t=1793297416; x=1793902216;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s15KPFvSCwNiVaqBAYJFg7BNb25ktBO5/NM/9ViUK+E=;
-        b=0PQPS4jtzkQX9MP+n36MTkfo5jmpRy0AVj12JzmojmCffKGynTahsCBlCapYzGOSej
-         uojQDT8v/x8gRCCsbRwHxcc1KjH1G0AhULqcru116IGiU8dGz4IKHegu9UVaGhzuoTEa
-         L4q3Z3ybKmNsnViDrxFlpL8ZTaso6OgSqUFfC4LNmqFiazsoXu6sL76kGmRXI5PChVaF
-         PPDhHWY2qAwRLQsZC2mhQlBQU2lkYiwZjEJFdZwaZyqeEVk+srE8e6ZT/gRU+/OrINHU
-         RcOBdMxTzn5zLEodqxoJD9/HMihoAOVTZIBIJfuebh2jYGkgaEo7t8XlvwaoQDNwzIO+
-         DU1g==
-X-Forwarded-Encrypted: i=1; AKwUvByf2K5uNnCknUE0zpd1KvYFXUrxL7UOIl7R+hfgnL6RdDmqLPOV5QpcKUWIPq0r3bsZnaaMjozztt4Z1wo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3BvXtHrA5u68qVV1/onTT+cHco+lK9JDilCK/+eYjpAEfemEb
-	zSP6/em29Bt6PnF3cU7gnECEwIkG0LnvAmfvMVHTeJs5Jzz/v1pnE4yqjFkJ2aKBmi5lZjpNPQ/
-	vdHvoCH0=
-X-Gm-Gg: AYBFou2pbSZABiuHnEIka82orj43UU6UmgGEeWowdizjUqwDo9V+elkMCn/v+dhKfHQ
-	Tq2V27/tzin9ab3PKz7WDPofMfj+FYe8epveT7lZKE4O2a2SRNwvazxrUHKHfMiLW38k7iYFHXJ
-	JgCnvoW0gWyoRLno239FmgbJQuPz/+s4IX3OPHScD3yZgLCvviogIetluuT0Ukw2TDu6QlhNGBf
-	hbVJy6ta/4dERd42EbPMU9QTm7t6BWBKpse7p0QFgriBQWOTf+b8V020mAO5FTAaU6GKw91TWEq
-	8f2Xwr29NpnkTKGdnGDWGkP/pv3369vhEQtHoCR0oSDsiQmgryLIRnn69z7N9yPtJf9ms9xn8WA
-	GCVQrW9CnVd4+fnF0tjD0mFs8BQbJSg648/bVAreDOA44e+q/Jupx+tzowjM6rezrchbeJxmAtA
-	s0Sv4zph6e+Dikmaz5ikU6t398IAckT36YhIfGjU/typXQZfcCqt7nnUVudM/I86K7yeomBz2lD
-	9V95mlSGla2YV3XBfs3aL7EoRdoku3hWrulw3iNUus4ak9XapsO4rzxJI7fmT3urerPfvfsUihG
-	iVFcR7B0C+iM21l14hr7sto9ttRTftoJe5FVbZxFfCNLwqrOL/AmDpOwHETIMcWfG1Fdafm4
-X-Received: by 2002:a05:6830:4120:b0:81c:dbd7:65dc with SMTP id 46e09a7af769-85abf770d16mr4912244a34.7.1793297398266;
-        Thu, 29 Oct 2026 11:09:58 -0700 (PDT)
+        bh=DJ2DAyUZ/cE8PWYufte6QskZeIdiAS+8BIHT7ee4M9A=;
+        b=dM2Hr3BulkRzhTBlkAb4GOzct4BmgzVzULXhvARcQxk8DjKbC8tsg+uqxS0EZWIyUK
+         +Xb2phjwllGMa+vssSpCPXMe1jfqxkoEYkxgnd8HssSxl56/nmA/PSuvoBRaMQzn7sy6
+         e6Z2oZUDLMqy4yseeVv42LOuwVf2+U8GtzP+m0PdGKFY/5Dq5W32aWZ6OMzIuG67VpeZ
+         7O80mkLi5k7ic0Y3mchmxejEI9TcOxyVT2V0ZhVQXhkEhGAyTWmWdIQG5sxqwzcbKd0r
+         mYRTpcj8A8DQ530q8z9B+YprK3PIpZL5TSy3CeN/bGsNce9czMAdH0WmSlkerkywF3Ie
+         XxnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwxPqMwng9RvO2Je8WBoKC4yTP3zJN/UAuPxj2bjayRR47iTioCesRlLaAXzhpKRhAxcjBq5eT7Urnr8D4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL2mWcMQGqdLoxd0Upsf0QwJ70O9qOdgGnykGbf6zXQIYMbtjN9
+	K/tMV5s6be3oxRGaLPzPjRl1FhBdRtQEd1p2DrwB9ye0wz2YjQOV1ddPRI8ew5W//QA=
+X-Gm-Gg: AYBFou1x7zO+5Ndywo5upNlqjVNr3OnzwEvdHrxUNhykk9ZmW5yNc7IQ/Kl0u7zm8at
+	aXYu9uPYgKfP8yqWG95N8gliHnJtQ3MTs4ZIH09C4an53WpexOXrP3+EuBNuAuXHdzM0o01/f0a
+	J9d95frVzyUSF1Fqj/kjH39L9VEbjG7ekrtgXPpYolOFDiwfKhA76q1+tiHc2TXVqsr+/UfbqEH
+	fn6/VLRKH05PwQdQlrLMyzMQelQYhndw2uUAbIYTZojQR5SYrRxSujkQONNh65M5xw8RNebbSmX
+	rxuJZ9hUSAote0ZjNnTvF/QJbl7Ry4Z65ObC0Wom4LoWwp/gomS5H3Td8exw5RO2emMfJ67VDE/
+	r3micOScn4qE/ufkNVCmdJa4C02kk7TaJPXR+uMkt2dDg6bch8IkH1Uisn70N9SSFbLrMhPTk4q
+	uNnZG7VAG1t+QBI1UkRUFh1M10cWU/T4S2gz8BIlxgnDp8RzmJjhiZei4i1W/ej0HOJ+KKSKF/x
+	X4dleMzwz/ya1rJSYo0TN5CZN/IK+0RwyWnPxgddOMlpONkcKOSpCdHhf6+z3AylpeG+XREmUfA
+	FU3g8t/JdAKIfeHenKmBXtN/axPddHbkstVpjF5QzbRXDDyeovIZ8Mpb5BTkUVOw+jDFNqFhYUN
+	MzaW+jzdvzOoep1SqKg==
+X-Received: by 2002:a05:6808:1b27:b0:53c:7298:3598 with SMTP id 5614622812f47-56382b885d6mr4651460b6e.31.1793297415482;
+        Thu, 29 Oct 2026 11:10:15 -0700 (PDT)
 Received: from localhost (75-163-200-235.clsp.qwest.net. [75.163.200.235])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d3545b847sm156364a34.7.2026.10.29.11.09.57
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-563c5a4d8b7sm4093861b6e.8.2026.10.29.11.10.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:09:57 -0700 (PDT)
+        Thu, 29 Oct 2026 11:10:12 -0700 (PDT)
 From: Jonathan Flynn <jonathan.flynn@hammerspace.com>
 To: NeilBrown <neil@brown.name>,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -93,12 +93,13 @@ Cc: Jeff Layton <jlayton@kernel.org>,
 	linux-nfs@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC 00/12] vfs, nfs: concurrent create and unlink in one directory
-Date: Thu, 29 Oct 2026 12:09:45 -0600
-Message-ID: <20261029180957.387138-1-jonathan.flynn@hammerspace.com>
+Subject: [PATCH RFC 08/12] nfs: keep the dentry of a shared-parent removal hashed
+Date: Thu, 29 Oct 2026 12:09:53 -0600
+Message-ID: <20261029180957.387138-9-jonathan.flynn@hammerspace.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028041023.3738553-1-neilb@ownmail.net>
+In-Reply-To: <20261029180957.387138-1-jonathan.flynn@hammerspace.com>
 References: <20261028041023.3738553-1-neilb@ownmail.net>
+ <20261029180957.387138-1-jonathan.flynn@hammerspace.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,152 +111,198 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Neil,
+With the directory locked shared, a removal stays ordered against
+lookups and opens of the same name only through the name's dentry,
+whose ->d_revalidate() waits while the dentry is marked.  Three paths
+act on a cached dentry without that wait: nfs_prime_dcache(), which
+unhashes a dentry that a directory listing disagrees with and
+otherwise refreshes its inode from the listing; nfs4_file_open() when
+the open fails; and recovery of open state.  Make each of them leave
+a dentry marked by such a removal alone, so that it stays hashed until
+the removal itself deletes it, and so that a listing that may predate
+the removal does not stop the removal from dropping the link count.
 
-Thank you for this series; it is what makes these patches possible.  I
-had them on your v3 and have rebased them onto v4.  They extend it so
-that processes on one NFSv4 client can create and remove files in one
-directory concurrently.
+Have nfs_prime_dcache() also leave alone a dentry that has been
+unhashed.  When the listing holds a reference, a successful removal
+unhashes the dentry, rather than making it negative, before it clears
+the mark, and a refresh from a listing that predates the removal could
+then put back the link count that the removal took away.  Without that
+reference the removal makes the dentry negative instead, and the
+listing treats the name as one it has no dentry for: the case that
+"nfs: do not cache a name from a listing that a removal overlapped"
+handles.
 
-  operations per second   parent exclusive   parent shared   ratio
-  creates                            2,616          29,939   11.4x
-  removals                           2,157          32,360   15.0x
+Of the three, only the listing runs beside such a removal by design,
+since it holds the directory shared too.  The other two hold no
+directory lock, and can meet a marked dentry only through a reference
+taken after it was marked, by a path that does not wait for the mark:
+an open by file handle, which NFSv4.1 and later mounts support.  A
+lockless path walk that checked the dentry before it was marked fails
+its recheck and retries, because marking it also invalidates the
+dentry's sequence count.
 
-One client, 96 processes in one directory, each creating files (open
-O_CREAT, a small write, close) for a set time, then removing them all;
-NFSv4.2 to a pNFS metadata server that is not knfsd; your v4, the 7.4
-VFS changes it builds on, the three silly-delete fixes and this series
-on a 7.3-based kernel, among other patches.  Each row switched only its
-own path, by a test-only module parameter not in this series, with the
-other path on; one run each.  The creates row comes from 300 s of
-creates.  The removals row comes from 120 s of creates, and each of its
-runs removed about 3.7 million files; the removal rates vary with that
-number, so it is given.  With the parent held exclusive, operations go
-one server round trip at a time.  2/12 quotes an earlier measurement,
-on a 7.1.13-based kernel.
+Nothing marks a dentry this way yet, so the one change is that
+nfs_prime_dcache() leaves alone a dentry that something else has
+unhashed, rather than refreshing its inode or caching a replacement
+for it.
 
-How it works.  2/12 lets a filesystem have the parent locked shared for
-O_CREAT (a flag in a new ->iop_flags field), and 6/12 for unlink(2)
-(->unlink_shared() and ->unlink_shared_done()).  The dentry then
-excludes the name: for a create, its in-lookup state, all
-nfs_atomic_open() needs since your 3/9; for a removal, an NFS mark that
-lookups, opens and creates of the name wait on until
-->unlink_shared_done(), which the VFS calls after the fsnotify delete
-event, if any.  What NFS cannot order that way, such as an open file,
-it hands back to ->unlink() under the exclusive lock; where the server
-reports itself case-insensitive or not case-preserving, NFS sets
-SB_I_NAMES_COLLIDE (3/12) and both keep the exclusive lock.  Both paths
-call d_alloc_parallel() under the shared lock, as lookup does.  When
-your directory-locking changes lift d_alloc_parallel() above i_rwsem,
-these calls have to move with lookup's; the exclusion does not change,
-and the opt-ins go once the VFS stops taking the parent lock (2/12,
-6/12).
+Signed-off-by: Jonathan Flynn <jonathan.flynn@hammerspace.com>
+---
+ fs/nfs/dir.c      | 42 +++++++++++++++++++++++++++++++++++++++
+ fs/nfs/internal.h | 50 +++++++++++++++++++++++++++++++++++++++++++++++
+ fs/nfs/nfs4file.c |  9 ++++++++-
+ fs/nfs/nfs4proc.c |  3 ++-
+ 4 files changed, 102 insertions(+), 2 deletions(-)
 
-Patch flow:
-  prereq   1  store re-read server capabilities in one step, for 3
-  create   2  VFS opt-in to take the parent lock shared for O_CREAT
-           3  NFS sets SB_I_NAMES_COLLIDE where names can collide
-           4  NFSv4 directories opt in for O_CREAT
-  remove   5  factor vfs_unlink() into a helper, no functional change
-           6  VFS opt-in: ->unlink_shared(), ->unlink_shared_done()
-           7  a second ->d_fsdata mark, for removals under a shared lock
-           8  keep a dentry carrying that mark hashed
-           9  no new dentries from a listing that a removal overlapped
-          10  the removal method, handing back what it cannot order
-          11  look a name up again once its removal has unhashed it
-          12  NFSv4 directories opt in for unlink
-
-Three fixes for the silly-delete hand-off, which your 2/9 makes
-reachable, are posted separately, in reply to 2/9.
-
-Tested on the same kernel over NFSv4.2, with the new paths on and off:
-removal races (with listings, and with tasks killed); O_EXCL creates
-racing unlink, with a kernel-side check that no revalidation trusted a
-removed entry; inotify event order; two clients; and an overlayfs mount
-whose lower file another client renamed away and back.  All passed,
-with no kernel warning or hung task, except the two-client test's check
-that nothing was left behind: on this kernel and on one with an earlier
-revision of this series, it found one silly-renamed file in three of
-four runs, with the new paths off as well as on, so they are not the
-cause.  Each time, the file left behind was not the one that had been
-silly-renamed: the silly-rename's RENAME, which goes by name, had moved
-another file of that name onto the hidden name.  A PROVE_LOCKING and
-KASAN build ran the removal, killed-task and O_EXCL tests with no
-report.  A case-insensitive server, where two spellings of a name never
-made two files, was tested on that earlier revision only; that code has
-not changed since.  Not run: fstests, knfsd as the server, NFSv4.0 or
-4.1, directory delegations (the server grants none), CONFIG_DEBUG_VFS, a
-weakly ordered CPU.
-
-One question: are the opt-ins in 2/12 and 6/12 acceptable as interim
-interfaces until the directory-locking changes land?
-
-The series applies to 83f32c773255 in Linus's tree on top of your v4
-and the three silly-delete fixes.  fs/ compiles there without warnings
-at every commit, with and without CONFIG_DEBUG_VFS and lockdep; I have
-run it only on the 7.3-based kernel above.
-
-Tools: these patches, their changelogs, the race tests and this letter
-were written with Claude Code, using Anthropic's Claude Opus 5 and
-Claude Opus 5.5 models, at my direction over many sessions: I chose
-among the designs it proposed and directed each revision.  It found, by
-reading the code, the bug that 1/12 fixes: while the client reads a
-server's capabilities again, a capability the server still offers can
-look missing.  The three silly-delete fixes, posted separately, say
-which of their problems it found and how they were tested.
-
-Thanks,
-Jonathan
-
-Jonathan Flynn (12):
-  nfs: update a server's capabilities in one step
-  vfs: allow the parent lock to be shared for O_CREAT
-  nfs: tell the VFS when two names can be one entry on the server
-  nfs: concurrent O_CREAT in one NFSv4 directory
-  vfs: factor file removal into a helper, no functional change
-  vfs: let a filesystem remove files with the parent directory locked
-    shared
-  nfs: add a second mark for a removal made with the parent locked
-    shared
-  nfs: keep the dentry of a shared-parent removal hashed
-  nfs: do not cache a name from a listing that a removal overlapped
-  nfs: add the removal method for a parent directory locked shared
-  nfs: look a name up again once its removal has unhashed it
-  nfs: remove files with the parent directory locked shared on NFSv4
-
- .../filesystems/directory-locking.rst         |  60 +++
- Documentation/filesystems/locking.rst         | 259 ++++++++++++-
- Documentation/filesystems/porting.rst         |  35 ++
- Documentation/filesystems/vfs.rst             |  25 ++
- fs/namei.c                                    | 360 +++++++++++++++++-
- fs/nfs/client.c                               |   1 +
- fs/nfs/dir.c                                  | 300 ++++++++++++++-
- fs/nfs/inode.c                                |   2 +
- fs/nfs/internal.h                             | 211 ++++++++++
- fs/nfs/nfs4file.c                             |   9 +-
- fs/nfs/nfs4proc.c                             |  35 +-
- fs/nfs/nfstrace.h                             |   2 +
- fs/nfs/super.c                                |   2 +
- fs/nfs/unlink.c                               |  16 +-
- include/linux/fs.h                            |  72 ++++
- include/linux/fs/super_types.h                |   1 +
- include/linux/nfs_fs.h                        |  28 ++
- 17 files changed, 1361 insertions(+), 57 deletions(-)
-
-
-base-commit: 83f32c773255720a661aa45d83e36278135f23f5
-prerequisite-patch-id: 3405b4d6ab8b0bf24ba63a898083d617deec4f24
-prerequisite-patch-id: 096657d6d80d7ca533ccb574d2af65611ede4af2
-prerequisite-patch-id: 1a2319c14739918aef86116647fea28ae85ad4df
-prerequisite-patch-id: 725cb18c3936d50141ef27dafc159bf50b64a5bd
-prerequisite-patch-id: b39cdd352b97e2cd247311fd5db620dbff227bd7
-prerequisite-patch-id: f9f3f0e945cadf96113d4ac9ab8f7b0c207af4e5
-prerequisite-patch-id: 4c09a15390bb556d79bea1ee733f52a58bec80ef
-prerequisite-patch-id: 7c026717a97b2c86a169539822f5d14650f68f8a
-prerequisite-patch-id: a702d54495d0f3d7f88b82411d884dcf5aacf9a0
-prerequisite-patch-id: a7e7263e8916612f3e4b767946b5d9259029f50e
-prerequisite-patch-id: a8e5414df9d9912dcdf9bb1dbb2811ce326a1e1f
-prerequisite-patch-id: e8050b998d5790f3bb4311bc65011735ed7d8b2f
+diff --git a/fs/nfs/dir.c b/fs/nfs/dir.c
+index 68a1e578e1..2a4c059064 100644
+--- a/fs/nfs/dir.c
++++ b/fs/nfs/dir.c
+@@ -756,6 +756,48 @@ void nfs_prime_dcache(struct dentry *parent, struct nfs_entry *entry,
+ 		return;
+ 
+ 	if (!d_in_lookup(dentry)) {
++		bool hands_off;
++
++		/*
++		 * Leave alone a dentry that a removal made under a shared
++		 * parent anchors on, or that has been unhashed.  readdir holds
++		 * the parent shared as well, so it can run beside such a
++		 * removal, and while the REMOVE is in flight neither of the
++		 * two things done below is safe: unhashing the dentry would
++		 * let a lookup or open of the name overtake the REMOVE, and
++		 * refreshing its inode from this reply would advance the
++		 * attribute generation that the remover's nfs_drop_nlink()
++		 * compares against, so that the removed file kept its link
++		 * count.  Nor is a refresh safe once the REMOVE has succeeded,
++		 * since this reply can still list the name: on a server that
++		 * reports how its change attribute behaves, nfs_refresh_inode()
++		 * takes attributes with a newer change attribute whatever
++		 * their generation, and would put back the link count that
++		 * the removal took away.
++		 *
++		 * Both are tested once, before anything else is done with the
++		 * dentry, in a ->d_lock section of their own.  This caller has
++		 * held a counted reference since before the test, and the
++		 * remover stores the sentinel only on a dentry whose count it
++		 * reads as one in the section it stores in: either the remover
++		 * sees this reference and hands the removal back, or the
++		 * sentinel was stored first.  If the REMOVE then succeeds, the
++		 * VFS calls d_delete() before ->unlink_shared_done() clears the
++		 * sentinel.  A d_delete() that finds this reference only
++		 * unhashes the dentry, under ->d_lock, so a test that finds the
++		 * sentinel gone comes after that section and sees the unhash.
++		 * One that ran before this reference was taken left the dentry
++		 * negative instead, and the code below drops a negative dentry
++		 * and treats the name as one it has no dentry for.  -ENOENT
++		 * ends either way too, through nfs_dentry_handle_enoent(), and
++		 * any other failure leaves the file in place.
++		 */
++		spin_lock(&dentry->d_lock);
++		hands_off = nfs_dentry_is_shared_anchor(dentry) ||
++			    d_unhashed(dentry);
++		spin_unlock(&dentry->d_lock);
++		if (hands_off)
++			goto out;
+ 		/* Is there a mountpoint here? If so, just exit */
+ 		if (!nfs_fsid_equal(&NFS_SB(dentry->d_sb)->fsid,
+ 					&entry->fattr->fsid))
+diff --git a/fs/nfs/internal.h b/fs/nfs/internal.h
+index 7cda8b7b3f..907ea27ea2 100644
+--- a/fs/nfs/internal.h
++++ b/fs/nfs/internal.h
+@@ -102,6 +102,56 @@ static inline bool nfs_dentry_is_blocked(struct dentry *dentry)
+ 	return nfs_fsdata_blocked(READ_ONCE(dentry->d_fsdata));
+ }
+ 
++/*
++ * Does a removal made under a shared parent anchor on this dentry?  The
++ * caller holds ->d_lock; READ_ONCE() as in nfs_dentry_is_blocked().
++ */
++static inline bool nfs_dentry_is_shared_anchor(struct dentry *dentry)
++{
++	lockdep_assert_held(&dentry->d_lock);
++	return nfs_fsdata_blocked_shared(READ_ONCE(dentry->d_fsdata));
++}
++
++/**
++ * nfs_d_drop_unless_anchored - unhash a dentry unless a removal anchors on it
++ * @dentry: dentry to unhash
++ *
++ * As d_drop(), except that a dentry carrying NFS_FSDATA_BLOCKED_SHARED is
++ * left hashed: a removal of its name is in flight under a shared parent,
++ * and unhashing the dentry would let a lookup or open of the same name
++ * overtake the REMOVE.  The test and the unhash are one ->d_lock section,
++ * and ->d_lock is the lock the sentinel is stored under.  The sentinel is
++ * all that is consulted - not the parent's lock and not its operations
++ * table - and a further condition, if one is ever added here, has to come
++ * after that test, not in front of it.
++ *
++ * The callers hold a reference to the dentry and no lock on the parent.
++ * The remover anchors only on a dentry that nobody else holds, so they can
++ * meet an anchor only if that reference was taken after the sentinel was
++ * stored, by a path that did not then consult ->d_revalidate(), which would
++ * have waited.  An RCU-walk that consulted ->d_revalidate() before the
++ * sentinel was stored is not such a path: the store is followed, in the
++ * same ->d_lock section, by write_seqcount_invalidate(), so the walk's
++ * ->d_seq recheck in legitimize_path() fails and it retries in ref-walk,
++ * where ->d_revalidate() waits.  An open by file handle is such a path:
++ * its reference comes from d_obtain_alias().
++ *
++ * The sentinel is cleared without ->d_lock, so the test can still see it
++ * for an instant after the REMOVE has completed and leave hashed a dentry
++ * that would otherwise have been dropped.  That direction is safe: the
++ * remover's own d_delete() normally unhashes the dentry, and an open by
++ * path that returns -EOPENSTALE is retried by the VFS, first in ref-walk
++ * if it was begun in RCU-walk and, if it fails again, with LOOKUP_REVAL,
++ * whose ->d_revalidate() asks the server.
++ */
++static inline void nfs_d_drop_unless_anchored(struct dentry *dentry)
++{
++	spin_lock(&dentry->d_lock);
++	if (!nfs_dentry_is_shared_anchor(dentry))
++		__d_drop(dentry);
++	spin_unlock(&dentry->d_lock);
++}
++
+ static inline fmode_t flags_to_mode(int flags)
+ {
+ 	fmode_t res = (__force fmode_t)flags & FMODE_EXEC;
+diff --git a/fs/nfs/nfs4file.c b/fs/nfs/nfs4file.c
+index 9a434f5dda..ccb801ab38 100644
+--- a/fs/nfs/nfs4file.c
++++ b/fs/nfs/nfs4file.c
+@@ -101,7 +101,14 @@ nfs4_file_open(struct inode *inode, struct file *filp)
+ 	return err;
+ 
+ out_drop:
+-	d_drop(dentry);
++	/*
++	 * Unhash, unless a removal made under a shared parent anchors on
++	 * the dentry.  For an open by path, -EOPENSTALE makes the VFS redo
++	 * the lookup either way, and that lookup waits for the removal in
++	 * ->d_revalidate(); an open by file handle is not looked up again,
++	 * as it never was.
++	 */
++	nfs_d_drop_unless_anchored(dentry);
+ 	err = -EOPENSTALE;
+ 	goto out_put_ctx;
+ }
+diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
+index 808bb8f1c1..fbf9e97815 100644
+--- a/fs/nfs/nfs4proc.c
++++ b/fs/nfs/nfs4proc.c
+@@ -2791,8 +2791,9 @@ static int _nfs4_open_expired(struct nfs_open_context *ctx, struct nfs4_state *s
+ 	 */
+ 	opendata->o_arg.open_flags = O_DIRECT;
+ 	ret = nfs4_open_recover(opendata, state);
++	/* Unhash, unless a removal under a shared parent anchors here */
+ 	if (ret == -ESTALE)
+-		d_drop(ctx->dentry);
++		nfs_d_drop_unless_anchored(ctx->dentry);
+ 	nfs4_opendata_put(opendata);
+ 	return ret;
+ }
 -- 
 2.43.0
 
