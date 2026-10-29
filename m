@@ -1,49 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306706;
-	b=yiSEDBXjm+ow8sz79UpvMUCd+QQaQAjilLZrNqjRZaXKufPn6Weng/ms1g9NHooN3VS7
-	 DJGt4BJeTsjtLzyRSpigrEN9v+LGMC2Bzb65Nq4cir2kqVmt+F/ajLHc6r4w731JBXByl
-	 K6xzMCgfSwF+G2AEJWTCZD5euhRsUnz0HGu2MH7Kkl50r9NIboU+5+GFjpiXBWx1W2gfU
-	 QU7Te2e24RlRNsIKpTEyPXVir+YityxtoQm39fYSkzQe85Tyuk5VMkjd1/d1I0FX3rGof
-	 613uDU6ATINSI6aZnXuwp2vpOQU5bpkfOT2iPRsr28BXGDkr8mxtfvYT2LUiyqd1yyw==
+	t=1793306753;
+	b=0ooOMy/S4Z3SlLcZYoajGGCeyCDwjGqOTSRuQqrBH0UfNTmOJFAettPKXDSbMUDLl/cQ
+	 KfDFBgMDMRwx+9+k6zK+G4LXfBGsfmHoSSEo/pm4FxkQrpM+o8RbSzIhNf9G8lYrwVb4q
+	 d/c59Sk4/MQWzUZo3YDofRVkkN36t+L1g9jmYHWBYobX+LHlptholj2SpbFzgkgUr9NZq
+	 6WeqPjKN8bL9pQIC4c60bZOyT63Gu7t5jtBA+7C9+WnCg5/wIOQ8TtaQpYBV4ga9xSaWt
+	 GvsXOHOsr0GvCKLvtDrf/ynYWOBjCXAIgLyjFJ+yt1+D9vGjBy0U/GS+547V2qjfX4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306706;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=GTbYn1B9uEaHo+IwnQISx6DSu8nadScf/DEgScNsxUY=;
-	b=Ko1e0GW4xdBuqRtt2k0706mPAkJ19cVaJYBJnyvBZhEXl/75XZrNhRnxYw7hEkCy89u+
-	 7zget1MDgtV6Qto1FpLMAZQCcyM8rwSZwtYfYcSNxjd9W8twTtjdoHDrb72zuwmULY5FO
-	 f5PxPknZDn0jClMPdjd6aB7dQVb/HmvtOzkx/WIwxEYxMARBMS0+EGHka9BJfMTWhszzL
-	 xR1xGR2feHKxFMM1dx7os6P5HDGEw+sHzOOke61Wjcoww00gaPJC73N6fHWfMwUJRb4YX
-	 tUczL8exJfwraiYnQarZLWJROGJJz1vP2dW0+RjCI2bH8d+Vh/hx3m7S7XuSSaKedJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306753;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=QKQNsEollpyNwBzBoAQphHlX3teAI5VImT9uIGC+KFQ=;
+	b=z/CsjGSgC8naUyvWsneC2E3hm1VcBCbIsunGN43h2zcMhI/vrPtOCvfilNTd8/v1CkHc
+	 0iRO5/epK8cQc8gePjKA/oUeKIMmZrIk0NJJfaIF2FDpuzIAqy8hnKcNGgbAYun9GwfOC
+	 NXekW4Cr17d6DcTOU55p8YSbyQ9dQcdunyHm9NGY9IGsaWNCsi3EFoeGbm88Frmuzx2ZI
+	 ugKr5WUZvubIiaD5UQTeZZSnSgQ8z/o/TqtkBiOXubVsBxHwYwEuFVx2sd838+bEPMr4b
+	 6oov0ULGYU2Ln2g5Mkkv8+L1OJXahwwc6dZEwR4Op0hW0ercqrNospRSHzLXhG2q6JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WhdvjoN5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eau6p76X;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE4060A380F;
-	Thu, 29 Oct 2026 20:45:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C790606A322;
+	Thu, 29 Oct 2026 20:45:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WhdvjoN5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CB641F01826;
-	Thu, 29 Oct 2026 20:44:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Eau6p76X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D2141F01824;
+	Thu, 29 Oct 2026 20:45:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306705;
-	bh=GTbYn1B9uEaHo+IwnQISx6DSu8nadScf/DEgScNsxUY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=WhdvjoN5s9yBtKL7TO38yUQNFfwrtZV+RPRgO+dXzIyrW8v5zeF7U9sUJeRD31dCv
-	 tnqMt3RnlqgeqbFDBeJAps0ju8zYO89p+SoK/or2UoMdEm0hCT/TD/yDv0PCOqJ85P
-	 fNE8dHo04vvN/YtksdSHaEnUUy15/kf2CTeZdHFG47FJoXBqSAglNrRlOwaDjz8AAy
-	 wlfc60h5OWJMf1LQnsGiuPdwzn1ZbsCsvU/CR2NPTcn/RQ5ASf9KNEV4lkEIoVlIr7
-	 6AOCkbODg+/zUBE9orFJVeVfbx5hHhBwXIQMFWWkdVDDspFJ9Pj/83r9qJZySYzwBG
-	 KUEYRbyPx4IGw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:42 +0100
-Subject: [PATCH v2 47/47] fs/proc/task_mmu: refuse addresses beyond 32 bits
- on 32bit
+	s=k20260515; t=1793306752;
+	bh=QKQNsEollpyNwBzBoAQphHlX3teAI5VImT9uIGC+KFQ=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=Eau6p76XxgG8TSQLIRKcIwiJyPGN9KzurbABCukQ54WpVG6Up8SB17U+UppdNziUP
+	 0TLFNE4KZs3IV+XYuOErkIqP+NHSH7n/0FUBoPZ9WBCKkqHiwn/DlxSC0TDrbCwcHr
+	 fWVqbm+H/rYWTg6lQo0a+sWRW4f9M+9xzUnzFNGKhOdjNrkmshEyuo4dOwkpF1oN+M
+	 tvyKTttZYQCRGa/Yx7noQeq4RJ8wG4Rw7UY4M5dhi332XkRYKFLVYnUh/x47GLE/r/
+	 0z9WXIWdcO626+8U6rQ2CF+fVcNzNzUenKy5+0ElWdeZPC03/ygQER3H45CpTAh5pW
+	 olHzgcZnFlOWQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D4A0380823C;
+	Thu, 29 Oct 2026 20:45:52 +0000 (UTC)
+Subject: Re: [GIT PULL] Rust fixes for 7.4
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20261029180116.49074-1-ojeda@kernel.org>
+References: <20261029180116.49074-1-ojeda@kernel.org>
+X-PR-Tracked-List-Id: <rust-for-linux.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261029180116.49074-1-ojeda@kernel.org>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/linux/kernel/git/ojeda/linux.git tags/rust-fixes-7.4
+X-PR-Tracked-Commit-Id: 7d109178cd644268326cd31702ed46c7ac8bb300
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: fb7bd3a2aad70a76232a7168a505386d0a1396af
+Message-Id: <179330675112.683852.3819619373663092542.pr-tracker-bot@kernel.org>
+Date: Thu, 29 Oct 2026 20:45:51 +0000
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,101 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-47-a64ce7f83abb@kernel.org>
-References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1693; i=david@kernel.org;
- h=from:subject:message-id; bh=H23iSXQ9Zo3UCvNDkTgZhR+Jd2mqfSBMzvPG+6Su2Bs=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer+36dd5g2Q4ND87Jf761zFBNvRKV+lT8j+vKzflze
- YyOa+w70FHKwiDGwSArpsgSFHzf4OXLdbXVbnzMMHNYmUCGMHBxCsBEvrUyMqy5fPDlzml6Z/cX
- 79h+PNfDilFB5ZDotvsSF56fsl9+5eVERoa/IndyDIr42sM3z5yxY7reXodOs79NDjUek3fdtxO
- tdeEBAA==
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Josef Bacik <josef@toxicpanda.com>
+The pull request you sent on Thu, 29 Oct 2026 19:01:16 +0100:
 
-The addresses in struct pm_scan_arg are 64 bits wide.  The first thing
-pagemap_scan_get_args() does with them is to cast them to unsigned
-long.  On a 32-bit kernel the upper half is dropped without a word:
-PAGEMAP_SCAN of 0x100001000-0x100002000 scans, and with
-PM_SCAN_WP_MATCHING write-protects, 0x1000-0x2000, stores the result
-at the lower half of vec, and reports success.
+> https://git.kernel.org/pub/scm/linux/kernel/git/ojeda/linux.git tags/rust-fixes-7.4
 
-Return -EFAULT, as for other addresses outside of the address space.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/fb7bd3a2aad70a76232a7168a505386d0a1396af
 
-This is probably not worth CCing stable.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- fs/proc/task_mmu.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 7452b695fdae..762b6dbb81e4 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -3032,6 +3032,12 @@ static int pagemap_scan_get_args(struct pm_scan_arg *arg,
- 	     arg->category_anyof_mask | arg->return_mask) & ~PM_SCAN_CATEGORIES)
- 		return -EINVAL;
- 
-+	/* Don't cut 64-bit numbers down to addresses that happen to work. */
-+	if (arg->start != (unsigned long)arg->start ||
-+	    arg->end != (unsigned long)arg->end ||
-+	    arg->vec != (unsigned long)arg->vec)
-+		return -EFAULT;
-+
- 	arg->start = untagged_addr((unsigned long)arg->start);
- 	arg->end = untagged_addr((unsigned long)arg->end);
- 	arg->vec = untagged_addr((unsigned long)arg->vec);
+Thank you!
 
 -- 
-2.43.0
-
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
