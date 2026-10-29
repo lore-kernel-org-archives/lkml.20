@@ -1,56 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287374;
-	b=MARhQGdFvju7agZS4dgh+5ApDwwuL3RqXew03hYYoRI/cbVszvzVTjsJHqafFqi9H0zq
-	 G1sJJyy3O4JdO0tNV6VshwoXoPkYvAarzyBJHwatsBiewquCZ3S43TxKSnAkQTYzZgt3q
-	 TC3WdjM8RlM6P94Lc4U5FAteUTwOjs7tRUdJxJYJC2FPt/YMgAIWWJfqzTZeLTlOK6E6p
-	 6OpubkqUvNvBMT+LCjJ/6PhL+hANYTDR5ErabWSMzb/IhdhjS0xkypN+fWP17cghPJJW+
-	 xF1WhUWnjarX+MS7/UgfwXxK5lXNppB7pdbaTKaZS5ANOQi8ImdQLgrDI9FLBAVEoyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287374;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=RCUDrEpIT2IvdnVVG1nY06CRd9IuL0zGxbHUihdyeIE=;
-	b=DC4RuU+vOCHjEC28W2z6ODR/f3CY8QsaC3TGifNz/jzU1sCGj10Gqre7kVYEF0O2MLoL
-	 HJ7s7sbn+0FNYPKKpLBLKHfJEitwnDJViFbuMTKKQzHQQif3l0ocOklxF2IisdJ6B8H9f
-	 sUsvY46XLdHtYlbebJcrUDgnEXcJ7BJf/5pD8j3pdNaIyBmqqr6OhzXKNzpncBlUdm1ik
-	 KZQ4isCpcXjiVGVnqa5YcNn6kWz6k/dd4xsFRtSW1OtP2bO6DkSZFtSt/nkQ0T9GFJU0O
-	 sJwPJ8xWMqNOB0VpNA6QdrEhhlPXup2oh4kV+g37V5qfMYw9EoaSVt80DzZYSYY9jRg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LV1soVb0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.6
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793287430;
+	b=uibdjnHVqm/lYzEdYvuQNMGD4i7Ofnsyd+5dJUHpjJdYQG8w7XuYb4FDs0WrKQPjAfkT
+	 Cq+opy7aOucnZaqngQOinZidZTIerDcHyUq1fa6WxERTeDcz54SMXH0ugCY1ZHiUhCvaX
+	 XybPE3+GpQ+CSH2Q98/EtdpoB8fl09HTJl3nElM9OqDbzqqINKoA/7amgbtOKxJz/pXCv
+	 gFPCjVrhZbZ+IUHRf/9/33XrbNBpEk/TGpECT1UNFbXDnf+0X4wXi8ndCrNPMu5SCMze1
+	 BklIaj6QZ9CdcdfU3t4OBMKy6Mcgi4u2Rm9PqYzNKX0UpysccUc5XypF+UeeXupOwwg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287430;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=S5qE6TRuHz/u1s+UcxpXs9MW7ypeH7ShXkwAjQP66gY=;
+	b=vOqlKnnhJ3HLCVBxJ9KIyML8rI0nlZZ6WAQT7WL5cJD7KkjV7ZrSSAhJYpu5BjIz1w5c
+	 ex+UkD0LZcYItsDDtrJi/YX4Vi+iY3+R51ykhzWV68SyO9frpG/GlqZC5yfxPBiPblHE8
+	 bOYCo8LSVvoruyZJstetEBjaysUVuYUV3kloZlrBuk6hwUfnrSkik+nFNNGWOGWHxjw5h
+	 yxXNNX8hDes7+2QFIbwRHhZcRC1vNjTZd63C6Fok9HKLejqqFew88GaM1/Ux9Rj41aQuv
+	 M7TOBZHUh/sY9k37RCfQg/8CVZI0eM8gcpp4DaAsEPMMpkP7/yiHujJRQSngbRHQe7g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ska39Kk4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.6
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011006.outbound.protection.outlook.com [40.93.194.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB98606A31C;
-	Thu, 29 Oct 2026 15:22:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF6A606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:23:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFF6A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LV1soVb0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFE971F01816;
-	Thu, 29 Oct 2026 15:22:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793287373;
-	bh=RCUDrEpIT2IvdnVVG1nY06CRd9IuL0zGxbHUihdyeIE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LV1soVb0Hs2V6u7fdVNsnMxE10JaRyW3dhLIRjh0Y+S8S+pmk0X08ee7xlJT2LiDp
-	 ai+M6gc3T3Zn6OBi8Si52kkYIZh/54CTHndMxWOW+u4m3n6oPPgEHuwYbfyKUOdkTU
-	 C+MSZ18UGFO/JHSL9qwr8C46Yd/HTTgr3m3bdShailGdX4KFwiqeUEoXxnOnOHFl9M
-	 LTnYqtzPmF3Y37p1RiMXd9Sp4S9TmdbGh77lilHFy4PwCd6Dk0g8YW6WLkZDrEzPQK
-	 BPI5FQ8yIWmzupPZI9Qfmgrjlc8BqSasFQgSr6KV/S/xVhclUbyKeYsTGq3EmpcBx/
-	 /Y266aJWHw+BQ==
-Date: Thu, 29 Oct 2026 15:22:49 +0000
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: rosenp@gmail.com, netdev@vger.kernel.org, rafal@milecki.pl,
-	bcm-kernel-feedback-list@broadcom.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, nbd@openwrt.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: bgmac: fix oversized RX frame check
-Message-ID: <20261029152249.GI257209@horms.kernel.org>
-References: <20261028011035.49201-1-rosenp@gmail.com>
- <179323634946.3134.7111348485490827533@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ska39Kk4
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rQ+mAaIF7tR2qhLmT1Rz5/oGW741ZqeVAaUgZJOBu95PFJdjGH6yscgRAdIIYQaSC+8k1g2Lzpz2xBFu8z1weC7WZlygEUGY6ubQTDulLOjKHe4iWf4ZJkkgkOdfGkES1uqFse+jRui7MComjVPp9/hQgU0YEakMHhY7hpKSZmtW18WNjUcTf41IZAyVvAElNu4jybxVQeZUWGD/maqHxp44oMRKkEexXiSyxUm+LX8J6qmgZu9ExR7e5/QizcSaVllNJYMaSjfFuWX/1N8qaPasSO5Tz9ODoWTP+1qLlyp9KyV9t7xRVBI+/oEIrb0PSt6cMpulcdfvYAMCIu7RcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S5qE6TRuHz/u1s+UcxpXs9MW7ypeH7ShXkwAjQP66gY=;
+ b=eWi5PMoEMzGgM9xGrczgXmfnz3QDp0jis4gvGH8OonnZsh5o/xXCBbkEqX9dFcH49l/Vay9hMdojjSY+cNlVX9DcD/kNHOmEFkAB/Q5/VBqbot8SqnhyM0BRz6hltD5uIy1pULTjKb9c3eW/e9WNnHcoLLYfxQtBorcNMJ8o2hnEvLzBoceUrRNKr+XLdHd5UgCrdP2/D3XxLb6qoDb4z/V0gLzsOQTMjgV8ERnMBdQlr1eekAQ9xG68edPTj2LcnepXVVyvFchcaEKVC+bsKmti21EIeNKOffTbEMoxqBxmeO92jc3/1hQMr+fEmCG3NYMtbiqMk7NBbf3yoD/Lag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S5qE6TRuHz/u1s+UcxpXs9MW7ypeH7ShXkwAjQP66gY=;
+ b=Ska39Kk4Y+BViuR+0jIk7l+NuBsvjXWxORos1zJA8qO8D4Hix0TVVLjyYG+AajCJLMv/EBriu+Z0s3SKvbq0eatfYBUnc8qJwTt+kRwwcrK/MWefIAoki2Psq0qvQreUsdKDcQD79nQMGUYFKcHzViOPOE3Z938KEpS0NZMI0B0=
+Received: from SJ0PR05CA0030.namprd05.prod.outlook.com (2603:10b6:a03:33b::35)
+ by SN7PR12MB6931.namprd12.prod.outlook.com (2603:10b6:806:261::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 15:21:41 +0000
+Received: from BY1PEPF00026956.namprd05.prod.outlook.com
+ (2603:10b6:a03:33b:cafe::8c) by SJ0PR05CA0030.outlook.office365.com
+ (2603:10b6:a03:33b::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.592.4 via Frontend Transport; Thu, 29
+ Oct 2026 15:21:41 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF00026956.mail.protection.outlook.com (10.167.244.164) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 15:21:41 +0000
+Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.53; Thu, 29 Oct 2026 10:21:39 -0500
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Felix Kuehling
+	<Felix.Kuehling@amd.com>
+CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	<amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 4/5] drm/amdgpu: add wedge event implementation
+Date: Thu, 29 Oct 2026 16:19:51 +0100
+Message-ID: <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com>
+References: <20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,159 +110,314 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179323634946.3134.7111348485490827533@kernel.org>
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF00026956:EE_|SN7PR12MB6931:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbb93e31-7c94-42f0-616e-08df35d055cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|82310400026|36860700016|260925022911599003|260925021911599003|260925021311599003|11063799006|56012099006|261009223027099003|261009221227099003|261026121527099003|261026140227099003|261028144727099003|261021121427099003|261022075727099003|261022105027099003|261021123027099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	2au5ktVxFleNPq0ZkMce7xCcI+8U0G/jmXHqVOAzBSRtGpYElB/13CklzqxWZ0TYCI84AT8yITTXUKHoLvPpikZNEZQZ/9dlOuQNsuBrIOE3lzGKqLBOBRA/sOmJunDNrdKhcr2t8ZeRAut+lc4BOOOtzCAfqNEeaveY2XhVobWgoE22shLx8Txr3UrXbQMQTGDQyvUMhVA8AyMzyvvyDe7I3l2PSiOokyvi5Vkf586yfX/weQwRbd76KdQmAyev4WfhgC7BKgnCuM6ZmzTUcLDbyN50nPsbCedRp/m7u8aa4uIIF9dWlBsSWL07jDsANklPQRQFwzPNFoQ6eSr98af/aiCtMoVFe+B7C2mNnWgiXxWkoc7mMsT72/EgbsAybDpai6Ccl6eE6ir+QjVFx3L5GPECWCSn2dg8eiGEurCWsi2eEIZqJZpPR5+x6s3TfrMr3/O+49V2PZTAXl5QsFKOBfW3JGU92lPPvc6q5KS+WTvK9R+W3w0BcJb8RdXnOOW/y6wWpkX0iA7Kj8AaFnWRumF/1d21CkwNmAOmQF6j/qknBmENgr5j0FMxPhUQHHzzyxe3oWxDy4md1lOYHnk/bFhf2yrHKkg/kZWtzgRKQUj/K31EnGr1yACPSKXtaPbvrQsi4oJT7gBu6VVV+NRxCsMq1h1kV+mYz0Yelt0xaGH2TqGc0Hl62BjyO/jhFHWc/l5GVdMa/ApFkXyBzQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(82310400026)(36860700016)(260925022911599003)(260925021911599003)(260925021311599003)(11063799006)(56012099006)(261009223027099003)(261009221227099003)(261026121527099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022075727099003)(261022105027099003)(261021123027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	lYiTNA+7eRB355C8Br3Q6mKS520FwAQR0BORC/HZ4FlfeQDL9HbsKriC2cOolgokd3S6QByol3AdLTRQ1cHNjRxpn42iqhVN5xukfrBBiHYRIRIHeQu9FWg+SnLmdZA1vAT7su/3H3R+WLFpn5vjJHKplW+pHca8jDnLYrZ8UH2eqtj8JrxpcvtVkHiUEmuHmLd26uyo5y9B1p3Dlhy5elMhbLFql7d28GVBSw4hd0x8BwJcdrR1mVC6jcVvnpe33mK1BG5prpGSC2XLWPP/Ske1pXsiEFGMeAU+jLD/bnvCzpBdTeY+rDu/euSOb/PgcO2LLn0Qabwd4D1enPwuRLtz7MEctwkSlaLren2tFJ9VWWWgFiAvXbfZYxx1IV43TSdh8nXuj/LNgVogjjD6Q4+F8NOWHr0aviVmbFNmqbP6E6X5cvVHk0aT5vARxZ7M
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 15:21:41.7488
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbb93e31-7c94-42f0-616e-08df35d055cb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF00026956.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6931
 
-On Thu, Oct 29, 2026 at 01:12:29AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 2 · Medium: 1 · Low: 0
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] The fix only tightens the upper bound of the RX length check in
->   bgmac_dma_rx_read() (drivers/net/ethernet/broadcom/bgmac.c).
-> - [High] bgmac_dma_rx_read() loses track of the RX descriptor ring when a
->   frame spans more than one descriptor, and a remote sender can then…
-> - [Medium] The commit message rests on the premise that 'a valid frame is
->   at most BGMAC_RX_MAX_FRAME_SIZE bytes long' (1536 including FCS).
-> 
-> --
-> 
-> net: bgmac: fix oversized RX frame check
-> 
-> This patch changes the RX length sanity check in bgmac_dma_rx_read(). The
-> length from the RX header is now compared against BGMAC_RX_MAX_FRAME_SIZE
-> instead of BGMAC_RX_ALLOC_SIZE. The intent is to drop frames with a
-> corrupted length instead of hitting skb_over_panic() in the following
-> skb_put().
-> 
-> > diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
-> > index b3a92ae95de30..6873c7bb7a141 100644
-> > --- a/drivers/net/ethernet/broadcom/bgmac.c
-> > +++ b/drivers/net/ethernet/broadcom/bgmac.c
-> > @@ -455,7 +455,7 @@ static int bgmac_dma_rx_read(struct bgmac *bgmac, struct bgmac_dma_ring *ring,
-> >  				break;
-> >  			}
-> >  
-> > -			if (len > BGMAC_RX_ALLOC_SIZE) {
-> > +			if (len > BGMAC_RX_MAX_FRAME_SIZE) {
-> 
-> [Severity: High]
-> 
-> Should this check also have a lower bound?
-> 
-> len is a u16 read directly from the RX header. A value of 0..3 passes both
-> the 0xdead/0xbeef poison check and this upper-bound check. Further down in
-> bgmac_dma_rx_read():
-> 
-> 	/* Omit CRC. */
-> 	len -= ETH_FCS_LEN;
-> 
-> 	skb = build_skb(buf, BGMAC_RX_ALLOC_SIZE);
-> 	...
-> 	skb_put(skb, BGMAC_RX_FRAME_OFFSET +
-> 		BGMAC_RX_BUF_OFFSET + len);
-> 
-> The subtraction wraps len to 65532..65535. skb_put() then asks for about
-> 64KiB, but build_skb() only provided
-> SKB_DATA_ALIGN(BGMAC_RX_BUF_SIZE + BGMAC_RX_BUF_OFFSET) bytes of linear
-> space. skb->tail ends up past skb->end, and skb_over_panic() calls BUG().
-> 
-> Isn't this the same "corrupted length leads to skb_over_panic()" case that
-> the commit message describes?
-> 
-> Lengths 4..17 also get through. They produce an skb shorter than an
-> Ethernet header, and eth_type_trans() then reads the header from bytes past
-> the end of the received data.
-> 
-> Would it work to also reject len < ETH_HLEN + ETH_FCS_LEN (or at least
-> len < ETH_FCS_LEN) in the same rx_length_errors branch?
+When a job times out the kernel tries to reset the GPU to get
+the system back to a normal state.
+Sometimes it's useful to disable this process - for instance to
+be able to inspect the hardware state at the time of the hang.
+Since leaving fence unsignalled might affect the system's
+stability, this commit enables the drm wedge framework for amdgpu.
 
-The problem above does seem legit to me.
+When a hang condition is detected, the GPU isn't reset but all
+the pending fences are signalled and the hung GPU cannot receive
+new work. For KFD it's implemented by making
+kfd_process_device_data_by_id return NULL if the requested GPU
+is wedged.
 
-> 
-> [Severity: Medium]
-> 
-> The commit message says:
-> 
->     so a valid frame is at most BGMAC_RX_MAX_FRAME_SIZE bytes long.
-> 
-> Does this match the limits the driver sets elsewhere?
-> 
-> bgmac_chip_init() programs the MAC with:
-> 
-> 	bgmac_umac_write(bgmac, UMAC_MAX_FRAME_LEN, 32 + ETHER_MAX_LEN);
-> 
-> That allows 1550 bytes. bgmac_change_mtu() writes 32 + mtu, which goes up
-> to 1564. bgmac_enet_probe() also sets:
-> 
-> 	/* Omit FCS from max MTU size */
-> 	net_dev->max_mtu = BGMAC_RX_MAX_FRAME_SIZE - ETH_FCS_LEN;
-> 
-> This leaves out ETH_HLEN and any VLAN/DSA tag, so a frame at MTU 1532 is at
-> least 1550 bytes long.
-> 
-> With this patch, frames of 1537..1564 bytes that the MAC accepts are
-> dropped here. They are logged as "Found oversized packet ... DMA issue!" and
-> counted in rx_length_errors. Frames of 1537..1540 bytes, where only FCS bytes
-> went past the buffer, used to be delivered intact.
-> 
-> bgmac_change_mtu() also never updates net_dev->mtu. The MTU the stack sees
-> and the hardware limit can therefore drift apart.
-> 
-> Should UMAC_MAX_FRAME_LEN and max_mtu be derived from
-> BGMAC_RX_MAX_FRAME_SIZE, so the MAC never accepts a frame larger than one RX
-> buffer can hold?
-> 
-> [Severity: High]
-> 
-> Can a frame longer than one RX buffer put the ring out of sync here?
-> 
-> bgmac_dma_rx_setup_desc() sets up each descriptor with:
-> 
-> 	ctl1 |= BGMAC_RX_BUF_SIZE & BGMAC_DESC_CTL1_LEN;
-> 
-> That leaves room for 1536 frame bytes after the RX header. The MAC is
-> programmed to accept up to 1550 bytes, or 1564 after bgmac_change_mtu().
-> 
-> b43 uses the same Broadcom DMA engine, and its dma_rx() handles this case
-> explicitly:
-> 
-> 	if (unlikely(len + ring->frameoffset > ring->rx_buffersize)) {
-> 		/* The data did not fit into one descriptor buffer
-> 		 * and is split over multiple buffers.
-> 
-> b43 then recycles every slot the frame used, and brcmsmac chains
-> continuation buffers in a similar way. Only the first descriptor carries the
-> status header, and continuation data starts at offset 0 of the next buffer.
-> This split-descriptor behavior is inferred from those sibling drivers, not
-> from bgmac-specific documentation.
-> 
-> On the oversized path, bgmac_dma_rx_read() frees only the first buffer and
-> advances ring->start by one. The next iteration reads the continuation
-> descriptor as a new frame. Its rx->len and rx->flags are then frame bytes
-> 1536..1539, which is payload the sender chooses.
-> 
-> If those bytes decode to a len of 0..3, len -= ETH_FCS_LEN wraps and
-> skb_put() reaches skb_over_panic(). Other values produce frames built from
-> stale buffer contents.
-> 
-> With the default UMAC_MAX_FRAME_LEN, can a single 1544..1550 byte frame
-> from a LAN peer reach this panic?
-> 
-> For the fix to cover this, would it need to skip the continuation
-> descriptors (as b43 does), keep UMAC_MAX_FRAME_LEN within the buffer
-> capacity, and reject len < ETH_FCS_LEN?
+When the user is done, it's possible to trigger a GPU
+reset.
 
-But the one above seem speculative.
+The auto-recovery is still enabled by default, and to use this
+feature one has to either:
+* boot with amdgpu.gpu_recovery=0: not recommended as it disables
+  recovery for all GPUs
+* write 0 to /sys/kernel/debug/dri/X/amdgpu_gpu_recover to disable
+  auto-recovery for one GPU only
 
+Runtime power management is disabled when the device is wedged
+(because we can't submit any work to the GPU).
+
+Assisted-by: LLM
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 13 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     |  3 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  8 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  8 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  3 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 34 ++++++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 12 ++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c   |  6 +++-
+ 8 files changed, 83 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 34bbb30b6f0c..cd4959486c94 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -989,6 +989,13 @@ struct amdgpu_device {
+ 	 */
+ 	bool gpu_recovery_enabled;
+ 
++	/* Set to 1 when the device has been declared wedged following a
++	 * hang: it no longer accepts new work and pending fences have been
++	 * force-signalled. Reset to 0 once the device is reset back to a
++	 * working state.
++	 */
++	atomic_t wedge_status;
++
+ 	/* KFD
+ 	 * Must be last --ends in a flexible-array member.
+ 	 */
+@@ -1374,4 +1381,10 @@ void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
+ 			   uint64_t uid);
+ uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
+ 			       enum amdgpu_uid_type type, uint8_t inst);
++
++static inline bool amdgpu_device_is_wedged(struct amdgpu_device *adev)
++{
++	return atomic_read(&adev->wedge_status);
++}
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index fa301c71b782..d119de477284 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1465,6 +1465,9 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 	if (!adev->accel_working)
+ 		return -EBUSY;
+ 
++	if (amdgpu_device_is_wedged(adev))
++		return -ENODEV;
++
+ 	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
+ 
+ 	r = PM_RUNTIME_ACQUIRE_ERR(&lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index ec2514079919..641b7fe24951 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -4110,6 +4110,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	}
+ 
+ 	adev->gpu_recovery_enabled = true;
++	atomic_set(&adev->wedge_status, 0);
+ 
+ fence_driver_init:
+ 	/* Fence driver */
+@@ -4362,6 +4363,9 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
+ 		amdgpu_sync_free(&adev->isolation[i].prev);
+ 	}
+ 
++	if (atomic_xchg(&adev->wedge_status, 0))
++		pm_runtime_put_autosuspend(adev->dev);
++
+ 	amdgpu_reset_fini(adev);
+ 
+ 	/* free i2c buses */
+@@ -5155,6 +5159,10 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
+ 	r = 0;
+ 	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
+ 		amdgpu_set_init_level(tmp_adev, init_level);
++
++		if (atomic_xchg(&tmp_adev->wedge_status, 0))
++			pm_runtime_put_autosuspend(tmp_adev->dev);
++
+ 		if (full_reset) {
+ 			/* post card */
+ 			amdgpu_reset_set_dpc_status(tmp_adev, false);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index fb60a99f43c1..617d4eec4e26 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -459,6 +459,9 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ 	uint32_t handle, initial_domain;
+ 	int r;
+ 
++	if (amdgpu_device_is_wedged(adev))
++		return -ENODEV;
++
+ 	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
+ 
+ 	r = PM_RUNTIME_ACQUIRE_ERR(&lock);
+@@ -961,6 +964,11 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
+ 		abo = NULL;
+ 	}
+ 
++	if (amdgpu_device_is_wedged(adev)) {
++		r = -ENODEV;
++		goto error_put_gobj;
++	}
++
+ 	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
+ 
+ 	r = PM_RUNTIME_ACQUIRE_ERR(&lock);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 4204c3c750a8..53fa9fa83ae7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -730,6 +730,9 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+ 	struct amdgpu_job *job;
+ 	int r;
+ 
++	if (amdgpu_device_is_wedged(adev))
++		return;
++
+ 	ring = to_amdgpu_ring(adev->mman.buffer_funcs_scheds[0]);
+ 
+ 	if (!hub->sdma_invalidation_workaround || vmid ||
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 0b8d0a79dd45..f72c9c690c3b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -24,6 +24,7 @@
+ #include <linux/kthread.h>
+ #include <linux/wait.h>
+ #include <linux/sched.h>
++#include <linux/pm_runtime.h>
+ 
+ #include <drm/drm_drv.h>
+ 
+@@ -185,9 +186,35 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
+ 		if (r)
+ 			dev_err(adev->dev, "GPU Recovery Failed: %d\n", r);
+ 	} else {
+-		drm_sched_suspend_timeout(&ring->sched);
+-		if (amdgpu_sriov_vf(adev))
++		if (amdgpu_sriov_vf(adev)) {
++			drm_sched_suspend_timeout(&ring->sched);
+ 			adev->virt.tdr_debug = true;
++		} else {
++			struct drm_gpu_scheduler *sched;
++			struct amdgpu_fence *guilty_fence;
++
++			/* Declare the device as wedged if it's not already. */
++			if (!atomic_xchg(&adev->wedge_status, 1)) {
++				/* This ref will be dropped in amdgpu_device_reinit_after_reset. */
++				pm_runtime_get_noresume(adev->dev);
++
++				pci_clear_master(adev->pdev);
++
++				drm_dev_wedged_event(&adev->ddev, DRM_WEDGE_RECOVERY_REBIND, info);
++			}
++
++			guilty_fence = to_amdgpu_job(s_job)->hw_fence;
++
++			sched = &ring->sched;
++
++			/* Prevent anybody else from touching the ring buffer. */
++			drm_sched_wqueue_stop(sched);
++
++			amdgpu_fence_driver_force_completion(ring, &guilty_fence->base);
++
++			/* Start the scheduler again */
++			drm_sched_wqueue_start(sched);
++		}
+ 	}
+ 
+ exit:
+@@ -439,7 +466,8 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
+ 
+ 	/* Skip job if VRAM is lost and never resubmit gangs */
+ 	if (job->generation != amdgpu_vm_generation(adev, job->vm) ||
+-	    (job->job_run_counter && job->gang_submit))
++	    (job->job_run_counter && job->gang_submit) ||
++	    amdgpu_device_is_wedged(adev))
+ 		dma_fence_set_error(finished, -ECANCELED);
+ 
+ 	if (finished->error < 0) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 14a72a406d37..2393cad36ac0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -781,6 +781,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT : 0;
+ 	}
+ 	case AMDGPU_INFO_TIMESTAMP: {
++		if (amdgpu_device_is_wedged(adev))
++			return -ENODEV;
++
+ 		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
+ 
+ 		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+@@ -913,6 +916,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		if (info->read_mmr_reg.count > 128)
+ 			return -EINVAL;
+ 
++		if (amdgpu_device_is_wedged(adev))
++			return -ENODEV;
++
+ 		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
+ 
+ 		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+@@ -953,6 +959,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		uint64_t vm_size;
+ 		uint32_t pcie_gen_mask, pcie_width_mask;
+ 
++		if (amdgpu_device_is_wedged(adev))
++			return -ENODEV;
++
+ 		/* The clock limits are only available while the SMU is up. */
+ 		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
+ 
+@@ -1187,6 +1196,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
+ 		}
+ 	}
+ 	case AMDGPU_INFO_SENSOR: {
++		if (amdgpu_device_is_wedged(adev))
++			return -ENODEV;
++
+ 		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
+ 
+ 		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index ac18c2be6ecb..b95dddeaccc5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -2424,8 +2424,12 @@ struct kfd_process_device *kfd_process_device_data_by_id(struct kfd_process *p,
+ 		for (i = 0; i < p->n_pdds; i++) {
+ 			struct kfd_process_device *pdd = p->pdds[i];
+ 
+-			if (pdd->user_gpu_id == gpu_id)
++			if (pdd->user_gpu_id == gpu_id) {
++				if (amdgpu_device_is_wedged(pdd->dev->adev))
++					return NULL;
++
+ 				return pdd;
++			}
+ 		}
+ 	}
+ 	return NULL;
 -- 
-pw-bot: changes-requested
+2.43.0
+
