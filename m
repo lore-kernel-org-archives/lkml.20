@@ -1,60 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793237988;
-	b=W60CDXnb3trvniO6c4nGy8a9anXYPmr0TAfzi4hAKCUHFvKC2t7Kk2n8LDuGv+Y1hNlx
-	 BGv//mjHo7iVhxIAorHGjf1ewBCl7gaFFh7SMg5xb9dx72lxzJA6Qjor2qbW93rHRVtAD
-	 n78zU03YbPAVyVdGVSoR0DHBYZQyfhMxnfrqhB/JUcKS4qnZ6NDxVpItRtMCeob9k6NvO
-	 4S1B1UVYFzJZzlNCfibn09JTFq6hO861iVBSwFpLFeWWv6IcycVV5vYcgr7iPRqsjk2er
-	 FoKPD6P7mcwh82Ll0TakGSH9Mx3mH6bNEWu0U7Q6RtytyrT2qvjGFjGmVmwG+GfvGew==
+	t=1793238087;
+	b=aSWCDCgfzkFYb47+P9CDfQpoKIrmMkVkDcKMEYQDwM4wX79RZW873zPKarr3a0co2Jv9
+	 7k8djgS4XWKaKfZbucTTo8zxk2IzoUIGJW+4tpTJxD7wavuDsEOdHDQBfFhvIRQcBUheG
+	 S+zHs34HMQDd5Q8mtVbDdJ22P1b5GpiL0mpQs/YBYvaWSQL9W2ZOEews/l+V3vKM33rwt
+	 iFMxxOUvwHELgsDWOFoVhi3MchqmQkz/NSuPXGzVhkpBp501jBCANzxTsn0u8CITXknsz
+	 3njQTC8sNChAlyiBKnbQcEr69v+dFC0NxKwf9yvgSR8Jbd4lwy9MnIyYCNwhr/jGVEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793237988;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DWQxbmV0bH8re7GX2QHEPfKuuqupaaE79RPxwBK2nIA=;
-	b=pU8ZbQvaS0sn63hQLOTIga4a5Eht4Qobzmn4HHQx9Aj4L7J3bGCcvqAaxFG6UvK9rsJz
-	 c2KMO/bSy5SQzJoaNs/bdqHkqQwkMNQbvGrhlP2gKaJ+6uKperi2uWluMCWtbvtmz6kaF
-	 Z4E/Gy4Amg4Cft2RkJQJNMTHF5xyfUptOvcIESxossvzF2SUJpp0JE1XbIL+3Dmu4bM+J
-	 p/2Wh2xz7w6wTCdJPS9TODyBDUAAJSHYWhnmlSG+fWp1vr/DQhFUEBSO0LrwinlAEpXcZ
-	 BNpUjfYSK/R9DQSzh7Ji109PkmE1d7BvfqhvFsI2QrU2YxpuPPp5UEzrE+J0BqvEnaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793238087;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=a2kuXhqVMsHVz13E2+Xy/aRM3eaxUgD5cFHLsM4u7/8=;
+	b=nCuiGS0d3+WF/eo0RIz4u81Ag+UREDU69nGz75KaM18tRcNsJ6nV8/xfxu1ovCctfLJ2
+	 Usmu/OfYxW/69OspHkSznylId7w8hrVtZnZOEzNWJAzu9ihtnJu5t7LfukwYbxprsN24N
+	 IZKbYpjNgw+W4ahHxeWVJQdtFe9WntrtPJqPzUanmmBdPs3tBTldK7i72tnZrLGYBlJIZ
+	 Be8aXBUYknbZpSTtEOfC3r4nq/pEA6JOyX30C0AjIsCVQa35a0h4QvZC0TCA6NIqXpwEp
+	 p+L1UKRXcdcDzJVUJoCH4A8Hp0tP9V6zMUuJRkouySmbP+x/Mj7GtYukfJMY+TIsU1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dumBjmEs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="FO5r/cyj";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="LsKvT/JE";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BB79606A31C;
-	Thu, 29 Oct 2026 01:39:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B942606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:41:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B942606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dumBjmEs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95D6E1F01828;
-	Thu, 29 Oct 2026 01:39:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793237988;
-	bh=DWQxbmV0bH8re7GX2QHEPfKuuqupaaE79RPxwBK2nIA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dumBjmEs4eiLodakeYnT3akEBBb0DysCs9Cor+j8+D1UuNJx7P3luwR2NRZsUKNTK
-	 lj3MtlzOOH6UKK9ZLdsjtlLviGhfRyvPkYtfj46Qw9J5+hiCmqMlIFY1UMIYJktdCd
-	 yEJaVwguacAUuRGH0nbgloUrcWPG6LhMoF5eMDaW586t6ecZvCVjrjJ+Pw40+XasZL
-	 BPoS/rzIMJDwaZz+NUfZ+s+ER9Q76W2ZM1kRVUpusE+kgX0JzzLIpoYZgd+oP2DQ0O
-	 LKunZyahiEH6AtjFF71zn4WyM9I+/SfAeyQUEPgDFXmAPxZzJt5aVpeR+HMh3SMeBl
-	 k6HphE2eM0MyQ==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH v4 15/15] selftests/ftrace: Add event filter syntax check test case
-Date: Thu, 29 Oct 2026 10:39:44 +0900
-Message-ID: <179323798449.740114.5416715723328926616.stgit@devnote2>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179323784538.740114.15323117974242744566.stgit@devnote2>
-References: <179323784538.740114.15323117974242744566.stgit@devnote2>
-User-Agent: StGit/0.19
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FO5r/cyj;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LsKvT/JE
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SMALIB1333239
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:41:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=a2kuXhqVMsHVz13E2+Xy/aRM
+	3eaxUgD5cFHLsM4u7/8=; b=FO5r/cyjOLkBNAJFnWxgB1NUvwodRJijYg496R31
+	+KlJUmu5ZzIxTukS2wkBt+jNNXzrVBAVOniHH0vUQR7NkDw5Q14ah7KioCAvNO3L
+	Z82Kq6bnDDoU/ptI4fSoWwJSuuxS8h0RegwcKGsuou/2UeKx43kwCU+51Gi1d582
+	lT7uYlLk/tNK2hwrO4ixPCvdRH4lFzA/Rtk90AwjpOyTmCKshQs1SY5f4B43jItu
+	ZNORkbmem2nRvttm3Nc/k3F8YKHCZXb650NqhYd9hXwqjUPAM3ecRirD4riQBrFg
+	xUO9fV9KL6sY/hfbtaDgYLrVz6o5BldLV4H/W5FB6byxEQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkdsp3qq0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:41:25 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f37c94ceeso50940785a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 18:41:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793238084; x=1793842884; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=a2kuXhqVMsHVz13E2+Xy/aRM3eaxUgD5cFHLsM4u7/8=;
+        b=LsKvT/JEXNLi43lAm3c8END4CjTzsCR1l9d6gAIPE82nsWVFSmvVT4EU+hVbDLGjxC
+         pHb/Ky4wDnILcYsGX51QKbXDnaS+lNOIGcBIM+pHqZ/T40Meei80kDwLePawR2FpYO3K
+         UNi1yo7Qbtcvx/9z/Wyw2LBmffxMylvGxMKoY6me9uznx6wt74PbvMUOyXmPDKQbDyCn
+         /FhlC47Fq4qIzK93TMT7+zpPFwDMc1dEx6vJbhxzYcoewQ+36wbV2NtO0Y6I6wlumDLe
+         DeWtmn9VyGw7ZeAGgHlTZXiYOgmQ/HKsoleLPtchwpNq+kpaozziB6p02wrudYJj9CMd
+         aRQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793238084; x=1793842884;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=a2kuXhqVMsHVz13E2+Xy/aRM3eaxUgD5cFHLsM4u7/8=;
+        b=ox2SDp/6M7snvL2udh41nNcCs1WYEdnrbXOFV3Dz7lRAlu3ZM4pahO0AX07wclaN6i
+         PXUPUyORaiCO4QNSKtGjVY8jk9Om62xTJtYOX3/gFV3B/JDDdXHLkQbEyulcIVzLuXAV
+         JQ2ef6rHuFKspp9I3yhMq2tOAoIHhpV+AYqoeqDLfoVVL7v3PGQ2Mwm7GLohx9mENghI
+         VDP4Bej+1TZUASRHS+HSE0EoiWQfyh6e8hjphbKhHwacbrx57VUMFpn29VAHGI8PD/zu
+         x7xAiOI2O7NvhJvhwbSy/vDywi/j68c/6JwZG7PYGWQ3H7dfsDig/BHCI1oCIkNwXu8m
+         5I5g==
+X-Forwarded-Encrypted: i=1; AKwUvBwWukCp2q7aHRoZ4wnL7A/BrYfR7PRJ1r8Ii0ZGP/KF/5mdBAyvbqV+SzvTGI3ikBaCL76gAhY/kjUTj44=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9FnZuQbJld0nkt8gxyQ6rOGVoBxBq1mIw2wDlNiiUj7A7i68f
+	lqx1Qh31vwmxXGx1TcKNJrHTCJjtb3Xjj2jnPL/oEx6hNB42pWRWCOZQSwNutvx+FQ3yhRhmPkO
+	VvpMCS8VuY/nErvkQwDNCqdPkBbtoNt9c8TqJWeVCo7ry5Wr6JEVseOw1b0YVmIsPkUU=
+X-Gm-Gg: AYBFou3DdNPWOEw2hG6E0tacGcwe32zCnjpcCne1qNrB7S4wLzXcIQgykStuxEf0X4d
+	IneayELvJHoWQ3zovy8Is3thKuMZRUObhS8nZi4NCQm+2hyvruzC4skpZP0cNhc57GS127mfflL
+	DCCHoMwC8UnN4p8rgBJKd2kN+YN7jEZ2HAMjfGymEB+98l7bIbxwc7NQb7dDU1Ug2z4ABwquLoz
+	31gtvC4b6KwgcHk8QMjruD5oR/Qhj9fwsNROWX4euiogw5paW/4Q4Wsv5V0YLkrqDgcJlj8CxK7
+	fvadeuYaN3YO2Oe/JTaTkz3o+DTYwXKzrryrXaKvkM70oqh9RP99JEme4q289KatnA6pEAmH4Ef
+	Jp7D6L3YhY7Yzl75lF/g9a1cdNhi/VNmxoyRmvluddoLFEFIEy7WkByFFe6IaHQiRyplhT1xzzZ
+	cX85qTJ1hTIRw6Q/oCGPJu0qKbdrNSFb4pZDFrdCr6HyFvY3t+LWmpCGLYfrZ6Lw==
+X-Received: by 2002:a05:620a:4104:b0:944:4e6:85d8 with SMTP id af79cd13be357-944132689a6mr211049985a.5.1793238084501;
+        Wed, 28 Oct 2026 18:41:24 -0700 (PDT)
+X-Received: by 2002:a05:620a:4104:b0:944:4e6:85d8 with SMTP id af79cd13be357-944132689a6mr211046785a.5.1793238084012;
+        Wed, 28 Oct 2026 18:41:24 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfd27eecedsm69199e87.2.2026.10.28.18.41.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 18:41:21 -0700 (PDT)
+Date: Thu, 29 Oct 2026 03:41:18 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Jonathan Marek <jonathan@marek.ca>, Bryan O'Donoghue <bod@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm8250: add camcc interconnect
+ cells
+Message-ID: <6ivurpkaxe7rs5lxpbyahpst2bqzpkcb67whcymoopdgo6sjvq@xd2otcdpe6gg>
+References: <20261016170701.1504338-1-atanas.filipov@oss.qualcomm.com>
+ <20261016170701.1504338-4-atanas.filipov@oss.qualcomm.com>
+ <usade5zkrncpry4ufbdtaahoa2zyd5hx7tjgfvzfte2aqbkgs7@t3mej4maj6za>
+ <3e5b7781-20ef-4e84-bb62-29a081c26d8f@oss.qualcomm.com>
+ <x5x4av76vm3swozvwe46uq5vz2ys7bvo4bducpp7flnmhykg65@pvr3znxyktje>
+ <a01d8d86-740e-4a25-96a4-d4dfd664af5e@oss.qualcomm.com>
+ <20261028174523.3514860-1-atanas.filipov@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,143 +137,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028174523.3514860-1-atanas.filipov@oss.qualcomm.com>
+X-Proofpoint-GUID: pjQ7hR7XUBsKeP5cbm-VfTXS6Ny_Oj2_
+X-Proofpoint-ORIG-GUID: pjQ7hR7XUBsKeP5cbm-VfTXS6Ny_Oj2_
+X-Authority-Analysis: v=2.4 cv=Cssq4X4D c=1 sm=1 tr=0 ts=6ae2a445 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=rTgqbrGwJKAB67wPnucA:9
+ a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAwNiBTYWx0ZWRfXwc/TanycuiV7
+ CvnM/ldBKGGSONCgA10jowXcIL8Vjf7ypjGhIMi3UeFsQGAVevRVVn/ZtZBD6aLex/VbFybuhl5
+ mVkY83RkNrHohZaecCUNqAX6jaLIxppq7zjwfk5Rmgm5JbivSR4u5J4z1HRzCJeA9Jek5wRivp3
+ 8SHLJogqFJ20WkVUwN2dbS8hXuuHnUVCfeovpoWU19m61nA/XsyFLVYGmVJ+ktemS5ZLvC8QX4n
+ t32xou4sYeS+Hxiz2MxrT/bRrgdAIlDm10JVXN+G1gra4zmABEa6MbXGajQTCqfGb3j881YGKap
+ v50y6jTxCjnjHWiGmRdq9BFDeDF/jgiABii/D5aZyQPzqo9ctraLLezw+GqBH84JPNAfwPsWxHX
+ YpfT0IOYe52UFVivTh7o0XTevlitpZHHl55P5tcT1jA1CsUduPgLuf+77aZLnQpf3TZsr1PPxiX
+ UiOg8tfWW5GKA8V/0Vg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAwNiBTYWx0ZWRfX7nsbtZ3pa9On
+ WivGRVDojXgeFN9aoeft2ZC2s4akr1gkp73eidLGrG7yxF1ytYgcnQyBVBkzOzaRgdzR0/RGThq
+ y3xanr+PYQExUv9QvYi6wNFcxKazEg4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_07,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ impostorscore=0 malwarescore=0 bulkscore=0 phishscore=0 clxscore=1015
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610290006
 
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Wed, Oct 28, 2026 at 07:45:23PM +0200, Atanas Filipov wrote:
+> On 10/20/2026 3:49 PM, Atanas Filipov wrote:
+> > On 10/20/2026 12:45 PM, Dmitry Baryshkov wrote:
+> >> 3. Add minimal VFE nodes and let camss use those. Converge towards the
+> >> split VFE (IFE) device tree.
+> >
+> > Agreed, I will take that up separately. To get it right the first
+> > time, could you clarify what "minimal" covers:
+> 
+> After going through the options discussed so far, I think the VFE
+> child nodes you suggested are the right approach for the per-VFE
+> votes. Below is a concrete proposal. It is separate from this series,
+> which stays limited to the icc-clk conversion as you asked.
+> 
+> Why a VFE node is needed, not only convenient:
+> 
+>  - The VFEs need independent votes for three things: their own clock
+>    rate, the MMCX level that rate requires, and their own bandwidth.
+>    OPP is per device, so this needs one device per VFE.
+>  - VFE and VFE Lite have different rate tables (on SM8250 vfe0/vfe1
+>    350-720 MHz, vfe_lite0/vfe_lite1 400/480 MHz). A single
+>    frequency-keyed OPP table in the CAMSS node cannot describe both.
+>  - Today nothing scales MMCX with the VFE rates: camcc only applies
+>    its fixed required-opps, and CAMSS sets no performance state.
+> 
+> Proposed minimal node, one per VFE, as a child of the camss node:
+> 
+> 	camss: camss@ac6a000 {
+> 		...
+> 		vfe0: vfe-0 {
+> 			compatible = "qcom,sm8250-vfe";
+> 			clocks = <&camcc CAM_CC_IFE_0_CLK>;
+> 			clock-names = "core";
+> 			power-domains = <&camcc IFE_0_GDSC>,
+> 					<&rpmhpd RPMHPD_MMCX>;
+> 			power-domain-names = "ife", "mmcx";
 
-Add a new ftracetest test case (filter-syntax-check.tc) to verify valid
-event filter expressions, error_log caret reporting for malformed filter
-expressions (empty filters, missing fields, unbalanced parentheses and
-quotes, dangling logical operators, invalid fields/values/cpulists),
-newline truncation on multi-line filter input, and error returns on
-invalid subsystem filters.
+If IFE_0_GDSC is an (indirect) child of MMCX, this is an overkill. You
+should not need to cast votes on MMCX, IFE -> TITAN_TOP -> MMCX will
+work for you.
 
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
----
-Changes in v3:
- - Replace negated pipelines (! cmd) with explicit
-   "if cmd; then exit_fail; fi" checks to properly catch unexpected success
-   under POSIX sh with set -e.
- - Add test cases for empty string matching (prev_comm == "",
-   prev_comm ~ "").
- - Add test cases for out-of-range CPU IDs with CPUS{} comparison.
- - Add test cases for missing operands after operators.
- - Add test cases for empty operands and stray operators.
- - Add test cases for operand type mismatches and brace errors.
- - Add test cases for function event filter syntax checks (including
-   INVALID_OP and ILLEGAL_FIELD_OP caret checks).
- - Add test cases for multi-line input validation on event and subsystem
-   filters.
----
- .../ftrace/test.d/filter/filter-syntax-check.tc    |  100 ++++++++++++++++++++
- 1 file changed, 100 insertions(+)
- create mode 100644 tools/testing/selftests/ftrace/test.d/filter/filter-syntax-check.tc
+> 			interconnects = <&mmss_noc MASTER_CAMNOC_HF 0
+> 					 &mc_virt SLAVE_EBI_CH0 0>,
+> 					<&camcc MASTER_CAMCC_CAMNOC_AXI
+> 					 &camcc SLAVE_CAMCC_CAMNOC_AXI>;
+> 			interconnect-names = "hf", "camnoc_axi";
+> 			operating-points-v2 = <&vfe_opp_table>;
+> 		};
+> 		...
+> 	};
+> 
+>  - Only what is needed for the votes moves: the core clock, the
+>    power domains, the OPP table with required-opps, and the
+>    interconnect paths. reg, interrupts and the remaining clocks stay
+>    in the camss node for now.
+>  - VFE and VFE Lite get separate compatibles and separate OPP tables;
+>    VFE nodes of the same kind share one table.
+>  - CAMSS populates the children and uses each child device for
+>    dev_pm_opp_set_rate() and its ICC path. The OPP core then sets the
+>    clock and the MMCX level, genpd takes the highest level across the
+>    VFEs and the other MMCX consumers, and the interconnect core
+>    aggregates the bandwidth with the other camera consumers.
+>  - Without the child nodes CAMSS keeps its current behaviour, so older
+>    DTs keep working.
+> 
+> Child nodes keep the camss node as the single entry point and keep
+> the change small for existing DTs. reg and interrupts are not needed
+> for the votes, so I would leave them in the camss node; moving them
+> would only make the child nodes look complete without changing what
+> the driver can do.
+> 
+> Does this match what you had in mind?
 
-diff --git a/tools/testing/selftests/ftrace/test.d/filter/filter-syntax-check.tc b/tools/testing/selftests/ftrace/test.d/filter/filter-syntax-check.tc
-new file mode 100644
-index 000000000000..02fb2be6e6eb
---- /dev/null
-+++ b/tools/testing/selftests/ftrace/test.d/filter/filter-syntax-check.tc
-@@ -0,0 +1,100 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+# description: event filter - test filter syntax error check
-+# requires: set_event events/sched/sched_switch/filter error_log
-+# flags: instance
-+
-+check_error() { # command-with-error-pos-by-^
-+    ftrace_errlog_check 'event filter parse error' "$1" 'events/sched/sched_switch/filter'
-+}
-+
-+# Valid filter expressions
-+echo '(common_pid == 0)' > events/sched/sched_switch/filter
-+echo '((common_pid == 0) && (prev_pid == 0))' > events/sched/sched_switch/filter
-+echo 'prev_comm ~ "*sh"' > events/sched/sched_switch/filter
-+echo 'prev_comm ~ "*"' > events/sched/sched_switch/filter
-+echo 'prev_comm == ""' > events/sched/sched_switch/filter
-+echo 'prev_comm ~ ""' > events/sched/sched_switch/filter
-+echo 'common_pid == CPUS{0}' > events/sched/sched_switch/filter
-+echo 'common_pid != CPUS{0}' > events/sched/sched_switch/filter
-+echo 0 > events/sched/sched_switch/filter
-+
-+# Empty or meaningless filter expressions
-+check_error '^()'						# NO_FILTER
-+check_error '^== 1'						# INVALID_FILTER
-+check_error 'common_pid ==^'					# INVALID_FILTER
-+check_error 'common_pid !=^'					# INVALID_FILTER
-+check_error 'common_pid >=^'					# INVALID_FILTER
-+
-+# Unbalanced parentheses and quotes
-+check_error '^(common_pid == 1'					# TOO_MANY_OPEN
-+check_error 'common_pid == 1^)'					# TOO_MANY_CLOSE
-+check_error 'prev_comm == ^"bash'				# MISSING_QUOTE
-+
-+# Dangling logical operators and empty operands
-+check_error 'common_pid == 1 &&^'				# TOO_MANY_PREDS
-+check_error 'common_pid == 1 ||^'				# TOO_MANY_PREDS
-+check_error 'common_pid == 1 || (common_pid == 2 && ^)'		# INVALID_FILTER
-+check_error '(common_pid == ^)'					# INVALID_VALUE
-+check_error 'common_pid == ^&& common_pid == 0'			# INVALID_VALUE
-+
-+# Invalid field, operator, or operand type
-+check_error '^no_such_field == 1'				# FIELD_NOT_FOUND
-+check_error 'common_pid == ^@'					# INVALID_VALUE
-+check_error 'common_pid == ^"1"'				# EXPECT_DIGIT
-+check_error 'prev_comm == ^0'					# EXPECT_STRING
-+check_error 'common_pid ^~ 1'					# ILLEGAL_FIELD_OP
-+
-+# CPUS{} syntax errors
-+check_error 'common_pid ^> CPUS{0}'				# ILLEGAL_FIELD_OP
-+check_error 'common_pid == CPUS^0}'				# MISSING_BRACE_OPEN
-+check_error 'common_pid == CPUS{0^'				# MISSING_BRACE_CLOSE
-+check_error 'common_pid == CPUS{^}'				# INVALID_CPULIST
-+check_error 'common_pid == CPUS{99999^}'			# INVALID_CPULIST
-+
-+# Function event filter errors (if supported)
-+if [ -f events/kmem/kmem_cache_free/filter ]; then
-+    check_kmem_error() {
-+        ftrace_errlog_check 'event filter parse error' "$1" 'events/kmem/kmem_cache_free/filter'
-+    }
-+    check_kmem_error 'call_site.function == non_exist_func^'	# NO_FUNCTION
-+    check_kmem_error 'call_site.function ==^'			# INVALID_FILTER
-+    check_kmem_error 'call_site.function ^> 0'			# INVALID_OP
-+    check_kmem_error 'common_type^.function == 0'		# ILLEGAL_FIELD_OP
-+    echo 0 > events/kmem/kmem_cache_free/filter
-+fi
-+
-+# Multi-line input with non-whitespace characters after newline must fail
-+if ( printf "common_pid == 0\ncommon_pid == 1" | \
-+     dd of=events/sched/sched_switch/filter bs=4096 ) 2> /dev/null; then
-+    exit_fail
-+fi
-+if ( printf "common_pid == CPUS{0\n\"} && common_pid == 0" | \
-+     dd of=events/sched/sched_switch/filter bs=4096 ) 2> /dev/null; then
-+    exit_fail
-+fi
-+
-+# Trailing whitespace characters after newline are permitted
-+printf "common_pid == 0\n  \n\t \n" | \
-+    dd of=events/sched/sched_switch/filter bs=4096 2> /dev/null
-+echo 0 > events/sched/sched_switch/filter
-+
-+# Subsystem filter must fail on invalid filter expressions
-+echo 'common_pid >= 0' > events/sched/filter
-+if echo 'no_such_field == 1' > events/sched/filter 2> /dev/null; then
-+    exit_fail
-+fi
-+if echo 'common_pid == 1 &&' > events/sched/filter 2> /dev/null; then
-+    exit_fail
-+fi
-+if ( printf "common_pid == 0\nfoo" | \
-+     dd of=events/sched/filter bs=4096 ) 2> /dev/null; then
-+    exit_fail
-+fi
-+
-+# Subsystem filter with trailing whitespace after newline must succeed
-+printf "common_pid == 0\n  \n\t \n" | \
-+    dd of=events/sched/filter bs=4096 2> /dev/null
-+echo 0 > events/sched/filter
-+
-+exit 0
+Yes
 
+> 
+> --
+> Best regards,
+> Atanas
+
+-- 
+With best wishes
+Dmitry
