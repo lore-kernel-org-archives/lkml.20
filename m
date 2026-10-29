@@ -1,104 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793266127;
-	b=WdQIm55PA5fVsABZHT846QHe3gAzt9ASJrdc4vrRt4GjP/8tsqro5XK55XIYvOJ0vBq2
-	 4O+UDZQooDSLzgWNKIrARI5DAJ8JyHYgLhTYxijaI3oFQ4oKNvJsr526PTlrH5B3Nw6/q
-	 6DdPce8+sxvmymrK09Id4XABlZY97slFhXjczAkdctwQD4PeQj7posquuUkpu+ClYRYIM
-	 Rv8sSB3OA5rbhCvZ8Qu0LCyA3frEPk+y8six8ZSph1/T//nEjXXOlK/kWC+PEZti2drX2
-	 F96s+TWE5N0XoMaABovbDzQVg9sed7bwNGbTXLXAE1e2XgqV+F4aa4EozurJvvo8iOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266127;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=huDiPeXuLYclu6b5diw/uWzYjoD1pbCq8RTMXuT7a/g=;
-	b=hyVDGYIjeJHBEb0mfoRO3Y8M+hVc+3UvWG5MH0nrkEv66B969okQ1DutZosuCQSOX+n4
-	 lzxCGvcMyra/oYt74QW5V8yt6Nwl2aj1S3ERPU/DO0FIO063pQAVOvTLW2EgczqcalYGh
-	 CI8qj9OCj7dPw69I4ZdZA2iBEEFCMTMnFLs/fPdCjqbn7B4bFQmPvweYj6gHzSOGkzwx8
-	 8RUDg8NVBxV4MzkNq5Xi47Z+sWEHYTOTnc6n4tFzqVRcfHbPAdmBVM10oVes7LuoK937r
-	 C9CbMzSvUDIX55KQUDOoxY6SuBbteVhZpEjUsG5Am7SyMVVfWsLsM+KPJ4fPqfJcRVA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=QARfb+7T;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.65
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012065.outbound.protection.outlook.com [52.101.66.65])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.69
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793266133;
+	b=cf6Qpdck3x8O9M1r1Ju5kPQMrGXQGGcTlVzu7NxfoeNxbRPqRmv6ntTmJemiqAwgSvW+
+	 HmJ/z+jXHGXFMy2T7pBF+tTYeCLK0llA5EVCCOSA7AkVzot1xvYzB3oS7J3Yjkl9UXtUV
+	 TSt+dIPv3InTYnghSx991Uo5xRFs8mLiJXU0pM1IWhgljYuPUe3lKZKQ3m9nJ+L9RHAET
+	 5LXtYQc0acp8FHtx0r1pbNx6yuKqptJtLJbqNS60t4dvxEY/L676W7S8UP3ZoJLflkPT4
+	 i7HK7DH1KJZ0TUy/trGU4yC/1cQK0Gq9OxI/zufgrr2rpaYbdIia0pMpnKquKDJE+WA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266133;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=b8pOvgJ6ftBD+jWFy+BUMkCeP4sQzdAebnkeUQ4aVeM=;
+	b=vE8iAUQwlX4Ix3Y5AXFoSKSBUC8SfLWQwlHsCOfVJcQazMEka9FrlwsQdrcH5UTFMc4x
+	 b8l1CiIqldDL440tdey6e9+v4wvAzonaGbKPa0Phcw75ML1kTsaJA5++7/7P2z0TJewcw
+	 ekv8MdnETEVstII6YXUlVK05aqKojZXGCHJ3WwgAKFtIzMLYKXafYelbxgQ3tzDUsPif+
+	 oBfMMaoh8Nnc65X6pLCapALsZkWN/PT/1RK8IL/YGXlhlVXreFQOiBwBkivhT1OMoEKra
+	 BbEXcwncj+P4EAg0Q1aTzCDWvT+qJ3R0a5kBNTEtw7OTY9ha9B6nVMA5WNdYzX7oopw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="pErQcUO/";
+	arc=none smtp.remote-ip=74.125.82.69
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF445606A32A;
-	Thu, 29 Oct 2026 09:28:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF445606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E82E7606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:28:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E82E7606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=QARfb+7T
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TZr03pmr5yLMVtW8/fwL8zSlNreu49zHS3S8d+4t548DLeGsmsSfJrjCrQNWVwJEX2o+9Eczy8urDj17I5K5RwRSP8h/u/nkpu7QbRs/rsPYKHWL2wKHmCGVCxnpv0Kk3gV/tR2Y8c9I50G2P/5EdtiEushg1hNSSpI2FUYtzcSc2cTJdgvXrJy/fBXstG55/k6dLxBFKpUZYlFqBkjKNQDOrtXtTXep1eFtp5r5sB60FTrhTPuy5tQV0doMRDz30LKrmWG8AyNfwtgvCkzT5U9hiCj+4TxUvTmqvGI8cqd0pIdNI+55Htgrb4VTYk/hoWn9DETg18tTMk2wzTXN+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=huDiPeXuLYclu6b5diw/uWzYjoD1pbCq8RTMXuT7a/g=;
- b=QvsjX7yspaNZb4tbGGerUbfQ7rtVZ+rSP8WxrMpltnLbhsaI+Fh7tySsmQqWSwiP1HTh5Rcu2tuuBJ5vG4OSe5+4zO7sO0BlkXc7FeSnXVx4hkbCR03We2GP/1shQE2qyS1oL8V7Xrb3VHlKPZ4suuNzjrrO/OGzEJTnmD5FmOTVuN/MMubH7ACin1WfwkO670AcaS4tiIxRej8qNREC+IoWPicc0nvVG/mpgoPqysBDFd3zwfYNL5o1DRQhtq0gn7IzqVeMZ/2qfhCHdyYhCzWBqpA692mIOfBs6WPkfIoIMGrNV5E+p9O8GwbihZPXOumXx0O2koFLJYNXc5BAbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=huDiPeXuLYclu6b5diw/uWzYjoD1pbCq8RTMXuT7a/g=;
- b=QARfb+7ToBDWeSxJlz86VzD34sO4BpQB7af67x8uo8POOQ2/k3KzUeaNgIVzK8HfW9BG5uGaPafntRiNXUzKBBPigXHbAxTVeuI1Hnro0WZGLxwCMPeWgnHEeapau20sBIzJhQnXXGHKJeeZtQMK7AkB2FK2x5J7TyYhixnF9/gU3sRomuAh8afU9dUyMwOxWy2WPXZYXq1PAumxcFSpBqZP+p75ZGvHyPVMbn9edxSVj0YVNS5DhZpwOBdIf/64bBpT/z0iCeJNzIYkrT00V+grFNh/wcId4NnBKIhSAhDFdDmjTovzclWMjyp9oKSp+6EOJdR8jv3uC/xTtfrHyQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by BR0PR04MB935173.eurprd04.prod.outlook.com
- (2603:10a6:2c8:4d::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 09:28:43 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
- 09:28:43 +0000
-Date: Thu, 29 Oct 2026 11:28:37 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
-	Alexander Stein <alexander.stein@ew.tq-group.com>
-Subject: Re: [PATCH v7 05/15] drm/imx: dc: Flag CRTC status in
- GERNERALPURPOSE register
-Message-ID: <auH5iQyk6HBDvxiP@vm>
-References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
- <20261026-imx8-dc-prefetch-v7-5-a0b50cc4fc65@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-imx8-dc-prefetch-v7-5-a0b50cc4fc65@nxp.com>
-X-ClientProxiedBy: AS4P190CA0021.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:20b:5d0::6) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pErQcUO/
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-147be78cd56so5891304c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:28:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793266131; x=1793870931; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b8pOvgJ6ftBD+jWFy+BUMkCeP4sQzdAebnkeUQ4aVeM=;
+        b=pErQcUO/9o8FmQbuPXmtbm/bPMWyBn/vM43iNvQJAkO1PthI2RtvQfDDvOzfyEbNaY
+         orbcnjhdOAP+rNOWw0Ta8aLadydbIgJc0jxW5xrnA9kzDBtCyjK4eeOwlWqB7QKKfl6T
+         dgzcfTn4gV3UB4053GjuCHRVFNRkg04gD6yL/Ujrb6slhafguMYvmUR6UP1LyBzCP2qe
+         4t3WyZ9CqwWoK3imvzSROj5zZfeo3kpBXK1tTNJDbx4jCZ0TG5K+0mZyZf4jy1w07rXA
+         yttgSv9yTp3m7LKevS22A0MSZoJ4NDMbG6SUFFErYu3EqMVFIyEXIQ8+cheV2fT1mSo0
+         UO6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793266131; x=1793870931;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b8pOvgJ6ftBD+jWFy+BUMkCeP4sQzdAebnkeUQ4aVeM=;
+        b=ywGUpoIAiM6qkepgcaKKk5dIRT6aUybvk8lxuNyffLdfovG0sl1b1hO6/qwghDjV/v
+         tZuzWghI0HDVnbhtPEV6rPBF2d4B2VzE8K0y2XYXpzRZp0Btil3vhD+7aE4FKE0qJ4jq
+         mFbAEY7feocwv7/3G0RjXp+8kxW8YSLqbuGcQaXKyn/FiMtIqhCkhNjVlcwIFS7DcgW2
+         HioIGsXJk3C5E6RQDnc78wx04nOK3W0u1sogR5uIEZfJmrtWKp/Uxr4amtwFnOYe6wrI
+         C7+8x36AlfhmUJZ/HcUA7P7StGRfarm2wnoCLzIqywV0SFc0s+KuGVxqiF6YLCkXhqW0
+         lpQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxOFbvHqbyYY/tAEWLMkFrhoNQ4COz059Lf2/szjU3aku/wYuaG6wtPixGU00VVsCoHiK0yXr7FRFyNd10=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9J8o2Fg5rrTYHzuEoBHPi7eUKJVA3flWYmx5aPf8z8q+3FlAQ
+	hYWa60nbzRCsQhSHfswW5xtUHH2MN6CwkUc2ZzOJUQXfw9qccCTq2vIg7XZ99hLINHuLtC7QHfJ
+	19z9Mh6a+b+8KLA==
+X-Received: from dli6-n1.prod.google.com ([2002:a05:7022:286:10b0:1a7:a0e9:a225])
+ (user=sgsatyam job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:701b:42cb:10b0:165:aced:1fde with SMTP id a92af1059eb24-1a6c27a3ba4mr7332206c88.0.1793266130487;
+ Thu, 29 Oct 2026 02:28:50 -0700 (PDT)
+Date: Thu, 29 Oct 2026 09:28:39 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,197 +75,92 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|BR0PR04MB935173:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7b450fa-6d4c-4849-addb-08df359f062b
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|19092799006|366016|4143699003|11063799006|56012099006|261009223327099003|261009220027099003|261026140227099003|261009223027099003|261009221227099003|261009221727099003|261026121527099003|261028144727099003|261022075727099003|261022105027099003|261021123027099003|261021121427099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	iDUAHBrIiQPMgW4+Z2+IFF1L4QAE6aaqxHHJy+ePkFGkkwud1wRF+nT0hreHSV+/77YILqxdnz08gq9ycPOuiQxJwbEueqp11F5zPan9Wn9b9ylZGzE3Xcmia7ntpaNAzDSiQmlA21L6ecMBkHqvwOb59hz1hMzgS0ciE6NUgYbZn+vttO2cUA5ub587TeQrcVUBLAhAfymzPsT1flGuc/uEBorCjWdXGUh4ULm6vhBkMq1EP5duL/IzNlpM3avJq0bmZJGUlo8c+O7QTsMOD4cLEconC3q4e5XCNEOjJjDV+CpnyVa+28C8MMCbKhFpJ6NhGlA+Dhdal5Oo9Zi8kZi4JZoFojoNiewh1zdoJFM1vE3Iep4tzSZjNnlnabBJxPEEtZKVXkcl1ZYVn8ye0DM+DSBW9wXRKX9F7ZrtBljwOg89AxxBevbTazYxaWN4sLkMO5ukKWb0gfdG7WmqwBzsIfTiWJ3l8EqIqaTBrmYwApGt2PL6Mj4tGQb6G5H6idf6UBtTTvEYaqQWzpI+Ocd0Z6uEbkZidAfmkStnOZIoI/sf90Ax4Cfqw4DwrijI0ESseT0wC1AWQ12Pg1d9X2BkGSKwq5yTwHoHBJEjGpuReyIa3foNUsXy6Jf+7VuNGGErQLQsz9GEgtXzFT2M7WYFVCgevVnrl63aGfqT0wg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(19092799006)(366016)(4143699003)(11063799006)(56012099006)(261009223327099003)(261009220027099003)(261026140227099003)(261009223027099003)(261009221227099003)(261009221727099003)(261026121527099003)(261028144727099003)(261022075727099003)(261022105027099003)(261021123027099003)(261021121427099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?tP44GNQdrBWCNMuE0zoyOw9Zl+Qj2ZDzhH1jUSfFtc6Im41Y5b7jHb5LsgQE?=
- =?us-ascii?Q?8hhRwpVJ+m8KBMaPint23+Yu5cE7fyzpdwQXyXVYbFTqtKZKKcep+6D/3ikr?=
- =?us-ascii?Q?DbdK7I8vEaLuIkxKNpZ4rL9o5kDJ3buMif0F0+WWboOkNdTSUD4pyNOLfqSp?=
- =?us-ascii?Q?9FyOmVnLlE/26AGfICgx0M6CfhFwG/hc0Vyk99tqWYNctcCQr9m/livmGn9p?=
- =?us-ascii?Q?grDFPp53A81UZKe6795OOj6kOIN2xGe2UMqY5FbVcyH0FaQ8Nl171mib/A5O?=
- =?us-ascii?Q?JDsMQ76Vp8lo0OCI1oBSsFWapySzMJZBuuHwHErLI1CrgD/P1gNnw2L5QlAf?=
- =?us-ascii?Q?CRNBZuUjCPdqM/wnUwCztD8ObiXpJQBT08V5gunranaBaYIBIOgNAciNa1/p?=
- =?us-ascii?Q?1vq2jLaWcbmOriBbcqgyYw7xOGEdFX1peU07cNoZKR5VM/wJRDMZNUThh3bc?=
- =?us-ascii?Q?vpFcBg/ov5aPjSHSFjqlV/46YMWVIqKtKH8piTjOlOp45nDd71hPf+L2QzUN?=
- =?us-ascii?Q?9Dh2hNV5jjyoMC9FEVC5VW63/RACjmo4NByuyEd5s7K+oLExPNHUP+86Shx9?=
- =?us-ascii?Q?HGCQ3EKHBreyDhJpjVkgT9MWxb8BZH9W6TP4JO/DrskQWiFM0KJlHCx6Lcqm?=
- =?us-ascii?Q?IAmZ3Rad8E6PfWPKQzywsuUjtheSTYJCO+yy35zsJGVNXz1AISP7qlLgEs/v?=
- =?us-ascii?Q?7+nyIQ1mbXP524BqopoCijd6pENaGjZ0j2332TUMBTyLqcbHqP6SrfkfuW+5?=
- =?us-ascii?Q?vM9awO381i87GfNusjzZGrR68z1LcvxF2c4kB257oxZEZHpcoIryu/gWR/uQ?=
- =?us-ascii?Q?I9hG2Uw0/hBrF/YM7Hi+kqop7QNzuSwzNwsMG87I9jztw067FbdXsXo9d3Tb?=
- =?us-ascii?Q?2N7Ryj3tDHU2LQY8kIJ1rmUhRuZ9CawJYfeHImCjSk7364GdTZHKwy244eis?=
- =?us-ascii?Q?t4Rh9AelBCecBYQ9bqKYbTp5JRGlibXF406xLaATNgY6xwLKAx/DaO31aooj?=
- =?us-ascii?Q?0o9Cma8kC4bq8X8cbe2ehoT6/5wWfHUutIxVtggDO+/07f5kLtPAogFEbWGI?=
- =?us-ascii?Q?Cqhm/bUNW/6xchSWk5kzqOjqly2nekb7nF/8MAXudA9qgg71CSZylHRAA2or?=
- =?us-ascii?Q?8uweavAeFIySrymkUy39u5jCbsycpkDrTkQf42jsYEYmvR5wClXDQgvlnFcg?=
- =?us-ascii?Q?qPp13G0ICuz5SfHuGgLU5xpzyhlKUrIgdvEAuDlyI73jTV8cVlxYbkqDZ7OI?=
- =?us-ascii?Q?vrcO7fupHaem9MIQpXGPUk9V4hHgSJf8a5QMTKXj80q1lVDg0+fD3myCOMbx?=
- =?us-ascii?Q?HFGcbB4P+Z/YG54wtdnskiINo49scZulDMAk8Q2eKhbYGrqfRHDyiEytLJzb?=
- =?us-ascii?Q?TTWjcIsv4a20sbplFsP6TnMjor4AAONItNT0jsk3EVxV5yU7BAVp9ysE6D6e?=
- =?us-ascii?Q?Pcopx/R3xyJGwY22vehiuqkxmEDGp4Hy6wzBU7URx1LRdm4Jrsx89L/Lwx81?=
- =?us-ascii?Q?XGWn3oWKgWAHz1VzbG8PYLIUz3RFGi9XZ/Dga0SIsuXSxp6DX/s8oB4bsF/h?=
- =?us-ascii?Q?MW/PUwWqfZ2G7Tl4A9Sx0o3wXaPLN8evu0mN0GePbjyswBPcMtde1EIM51Lm?=
- =?us-ascii?Q?X56C1NisoPL5vGIWd4slpJwwBDq+qyP3xPclgsC6CtTfIFJMdbO8N2ph8lp/?=
- =?us-ascii?Q?NYVC/x5lKlXvtzaBavSDKfxXYwunwb8yNKTu9+Hfnll6Jrzt6034jN5ekUz2?=
- =?us-ascii?Q?QtePQ36ZR3SjjD5R5roLDUKO8K8KinA=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7b450fa-6d4c-4849-addb-08df359f062b
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 09:28:43.0873
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e97aJSrxizXPxQ6mXnFihKhJaslmnuVlxz+nIMXn79DWKS3CWLu5oNsF9YFchEXcN2lzNi3S3TWMd7N/zxZeQg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB935173
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
+Message-ID: <20261029092846.1567475-1-sgsatyam@google.com>
+Subject: [PATCH v6 0/7] platform/chrome: cros_ec_sensorhub: Timestamp wrap and
+ drift filter fixes
+From: Satyam Gupta <sgsatyam@google.com>
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
+	Gwendal Grignou <gwendal@chromium.org>, Scott Collyer <scollyer@google.com>, 
+	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Satyam Gupta <sgsatyam@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 26, 2026 at 06:05:10PM +0800, Liu Ying wrote:
-> Map Display Controller's register GERNERALPURPOSE at offset 0x100 and
-> create an MMIO regmap to access the register.  Create helpers
-> dc_drv_flag_crtc_{enable,disable}() with the 2 LSB bits in the register
-> to flag the CRTC enablement/disablement status.  Also, create a helper
-> dc_drv_crtc_was_enabled() so that the CRTC driver can use it to check
-> if the CRTC was enabled by a previous boot or not.  This is a preparation
-> for an upcoming patch to disable display controller at boot if the CRTC
-> was enabled by the driver during a previous boot instead of a bootloader.
-> 
-> Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> --
-> v7:
-> - Newly introduced in v7 as a preparation for fixing Sashiko AI bot's
->   comment on an upcoming patch.  (Sashiko AI bot)
-> ---
->  drivers/gpu/drm/imx/dc/dc-drv.c | 76 +++++++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/imx/dc/dc-drv.h |  7 ++++
->  2 files changed, 83 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/imx/dc/dc-drv.c b/drivers/gpu/drm/imx/dc/dc-drv.c
-> index 13795a2ad735..ac1321adf1c8 100644
-> --- a/drivers/gpu/drm/imx/dc/dc-drv.c
-> +++ b/drivers/gpu/drm/imx/dc/dc-drv.c
-> @@ -13,6 +13,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/pm.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
->  
->  #include <drm/clients/drm_client_setup.h>
->  #include <drm/drm_atomic_helper.h>
-> @@ -28,9 +29,21 @@
->  #include "dc-drv.h"
->  #include "dc-pe.h"
->  
-> +/* General Purpose register offset used to flag driver usage. */
-> +#define GENERALPURPOSE		0x100
-> +#define  CRTC_ENABLED(x)	BIT(x)
-> +
->  struct dc_priv {
->  	struct drm_device *drm;
->  	struct clk *clk_cfg;
-> +	struct regmap *gp_regmap;
-> +};
-> +
-> +static const struct regmap_config dc_gp_regmap_config = {
-> +	.reg_bits = 32,
-> +	.reg_stride = 4,
-> +	.val_bits = 32,
-> +	.max_register = 0,
->  };
->  
->  DEFINE_DRM_GEM_DMA_FOPS(dc_drm_driver_fops);
-> @@ -156,6 +169,8 @@ static int dc_probe(struct platform_device *pdev)
->  {
->  	struct component_match *match = NULL;
->  	struct dc_priv *priv;
-> +	struct resource *r;
-> +	void __iomem *base;
->  	int ret;
->  
->  	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-> @@ -167,6 +182,28 @@ static int dc_probe(struct platform_device *pdev)
->  		return dev_err_probe(&pdev->dev, PTR_ERR(priv->clk_cfg),
->  				     "failed to get cfg clock\n");
->  
-> +	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> +	if (!r)
-> +		return -EINVAL;
-> +
-> +	if (!devm_request_mem_region(&pdev->dev, r->start + GENERALPURPOSE, 4,
-> +				     dev_name(&pdev->dev))) {
-> +		dev_err(&pdev->dev, "failed to request memory region\n");
-> +		return -EBUSY;
+This series fixes how the 32-bit EC timestamps are unwrapped, and
+several issues in the filter that converts them to the AP timebase. They
+caused sensor timestamps to be off by a whole overflow period (about 71.6
+minutes) after long gaps such as suspend, Out Of Order (OOO) timestamps,
+and large gaps between sensor samples during batching.
 
-Use 'return dev_err_probe()'.
+Patches 1 and 2 handle the EC timestamp wrap across long gaps. Patch 3
+fixes an off-by-one in the filter history shift. Patches 4 to 6 make the
+drift estimate robust to interrupt jitter and to switches between
+streaming and batching. Patch 7 drops samples whose timestamp goes
+backward instead of re-timing them.
 
-> +	}
-> +
-> +	base = devm_ioremap(&pdev->dev, r->start + GENERALPURPOSE, 4);
-> +	if (!base) {
-> +		dev_err(&pdev->dev, "failed to do ioremap\n");
-> +		return -ENOMEM;
+Drift between the AP and the sensor hub, measured from the
+cros_ec_sensorhub_timestamp trace event over 10 to 20 minutes:
+- Intel ISH (Panther Lake device): about 16 to 21 PPM
+- standalone EC (MediaTek-based device): about 2900 PPM
 
-Use 'return dev_err_probe()'.
+Tested on both devices with the Android CTS sensor tests
+(CtsSensorTestCases, 440 tests, all pass), and across a natural wrap of
+the 32-bit EC timestamp with sensors running. On the MediaTek-based
+device, also tested two 40 minute gaps without FIFO interrupt, longer
+than half the wrap period, after streaming the accelerometer at 100 Hz:
+with the FIFO interrupt disabled as is done on suspend, and with the
+sensors also stopped, as the EC does in suspend, so that samples stayed
+in the FIFO across the gap. In both cases the FIFO interrupt timestamp
+was unwrapped one period off, patch 2 reset the filter, and the samples
+read after the gap got timestamps matching their age, including the 40
+minute old ones. Replaying the same traces through the current code
+gives timestamps off by up to 71.5 minutes.
 
-> +	}
-> +
-> +	priv->gp_regmap = devm_regmap_init_mmio(&pdev->dev, base,
-> +						&dc_gp_regmap_config);
-> +	if (IS_ERR(priv->gp_regmap))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(priv->gp_regmap),
-> +				     "failed to init General Purpose regmap\n");
-> +
->  	dev_set_drvdata(&pdev->dev, priv);
->  
->  	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
-> @@ -196,6 +233,45 @@ static void dc_remove(struct platform_device *pdev)
->  	component_master_del(&pdev->dev, &dc_drm_ops);
->  }
->  
-> +void dc_drv_set_crtc_enable(struct dc_drm_device *dc_drm,
-> +			    unsigned int crtc_index)
-> +{
-> +	struct dc_priv *priv = dev_get_drvdata(dc_drm->base.dev);
-> +
-> +	if (WARN_ON(crtc_index > 1))
-> +		return;
-> +
-> +	regmap_set_bits(priv->gp_regmap, 0, CRTC_ENABLED(crtc_index));
-> +}
-> +
-> +void dc_drv_set_crtc_disable(struct dc_drm_device *dc_drm,
-> +			     unsigned int crtc_index)
-> +{
-> +	struct dc_priv *priv = dev_get_drvdata(dc_drm->base.dev);
-> +
-> +	if (WARN_ON(crtc_index > 1))
-> +		return;
-> +
-> +	regmap_clear_bits(priv->gp_regmap, 0, CRTC_ENABLED(crtc_index));
-> +}
-> +
-> +bool dc_drv_crtc_was_enabled(struct dc_drm_device *dc_drm,
+Changes in v6:
+- Patch 1: rework "Fix AP/EC TS wrap". v5 compensated for missed
+  overflows on resume and only detected forward wraps, but the sample
+  and interrupt timestamps were still unwrapped separately and could end
+  up a period apart, which the forward-only rule never corrected. Derive
+  the sample timestamp from the interrupt timestamp instead, which also
+  covers samples that stayed in the FIFO during a long suspend.
+- Patch 2: new. Reset the filter when the EC and AP elapsed times
+  disagree.
+- Patch 3: describe the off-by-one precisely and add a Fixes: tag.
+- Patch 4: fix the unit mismatch in MAX_M pointed out by Tzung-Bi: the
+  slope is in ns per us, so it is 1000 times the unitless drift. With
+  the fix, a MAX_DRIFT_PPM of 5000 is really 5000 PPM (v5 clamped at
+  5 PPM), which covers the drift measured above.
+- Patch 5: drop the unnecessary "m = 0" and use -dx instead of abs(dx)
+  so that backward timestamps are not treated as valid intervals.
+- Patch 7: reset batch_state[].last_len when dropping a sample, so the
+  next batch does not compute its sample period across the gap.
+- Rebase on chrome-platform for-next.
 
-I believe it would be better to rename this one to 'dc_drv_crtc_is_enabled'.
-After all, you're checking whether the crtc is enabled *now*. Reading those
-bits in GENERALPURPOSE show the current status, not a past one.
+v5: https://lore.kernel.org/all/20261014074306.2500909-1-sgsatyam@google.com/
+v4: https://lore.kernel.org/all/20261013105753.1370713-1-sgsatyam@google.com/
 
-With the above addressed:
-Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Satyam Gupta (2):
+  platform/chrome: cros_ec_sensorhub: Unwrap sample TS relative to FIFO
+    TS
+  platform/chrome: cros_ec_sensorhub: Reset TS filter on EC/AP time
+    mismatch
+
+Scott Collyer (5):
+  platform/chrome: cros_ec_sensorhub: Fix TS filter history shift index
+  platform/chrome: cros_ec_sensorhub: Clamp clock drift slope to
+    MAX_DRIFT_PPM
+  platform/chrome: cros_ec_sensorhub: Reset TS filter on ODR or mode
+    changes
+  platform/chrome: cros_ec_sensorhub: Increase TS_HISTORY_BORED_US to 2s
+  platform/chrome: cros_ec_sensorhub: Drop sensor samples with past
+    timestamps
+
+ .../platform/chrome/cros_ec_sensorhub_ring.c  | 114 ++++++++++++++----
+ .../linux/platform_data/cros_ec_sensorhub.h   |   2 -
+ 2 files changed, 93 insertions(+), 23 deletions(-)
 
 -- 
-Thanks,
-Laurentiu
+2.56.0.307.g5fe7bd680c-goog
+
