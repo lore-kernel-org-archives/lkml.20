@@ -1,92 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.56.87.4
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793291286;
-	b=NXAr/0DBVDFYlQ+yLg6cFWCgtygwxikh+yxPq7V3FGte5rxh/h7ShpIBNWHjgNv6WXjW
-	 8uGDDeWnPZUa7y3/6B+0ZVD0OzNyXgJEEqU58gCwxTUkfDAacJHU1XqxZFlwXr7rxmdH9
-	 O6LGvywp1si0bCVCmzyRra44nP4T8N6mJiJstOmK3Mzs6/AfiAEG0MQ8UZ6Yqz7S1Byce
-	 Fs47b44VIl5IL6TyMMMTT5jzpA1xpNrRM2zhxwlunqKoFh34l+xuwQbHs5XR4YQgzfq4w
-	 yDi0VNK27shGB3+5gy6otUgqrxPHle4CCfixe7hwUuQAhsh/iJ2NlSn8sesV/BRDmGw==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793291310;
+	b=DKQdZf6/2RTSJOcEuhB6JGQuXzTQ8HXZkUP38WsNL9sB8oIKUDCBnFUziEleahRup+9/
+	 i2kH82M7q+r3uUbTYwqG3jhBWg9y8RpP6wYGwN1bYkZVEbbaaC9jXc7mRmAoeIyJoj5+p
+	 u86vi1Q9jk7I5QYimwFQaGUdCUQ2xJq3uUTGQvdgE/k34569Rk1PtSKE60uJ600QLXbGI
+	 6d/s9eP4Oh4Z3WEpHZfAutjKWYnBscctHwPi4HTiG9IT/dgeBEJtBEHPOGgRbXag8PDpv
+	 dis0uGabk4DLSSqWaoY4y3XPGd0mFVPUXSwE6Tdcm8oMDNa9H6eTTwNa/BtqpxQM02A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793291286;
-	h=DMARC-Filter:DKIM-Signature:Received:DKIM-Signature:Received:From:
-	 Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Source:X-Source-Args:
-	 X-Source-Dir:X-SGantispam-id:X-AntiAbuse:AntiSpam-DLS:AntiSpam-DLSP:
-	 AntiSpam-DLSRS:AntiSpam-TS:CFBL-Address:CFBL-Feedback-ID;
-	bh=qzZZ46lO4KbnLO67zSOK1gQ54aowsw3oRwEUjqeFz+0=;
-	b=0DxWpYsIlZaY+b3mbk4PTBg5a3ZJxovCK1S+/v17pcfTDAKkMV9IuPM4e2exegDFfbP+
-	 h+446uhhQMRBN6yAJDmFW4JGGgvt3zCP4bDHIILXBA6Vd2O01ja7y/ThMym2upS8oVJk9
-	 ZNmD9j7x3iZ9aiHD0DGEaREBkgu+vV+IfLW2eX+NBuSs1Nnws9xsHTtObqxeq7hkcrA+1
-	 8oOBvUU8ZtlZNJi+9Nu1XDtdJsumGFxtCIH/IVfTgE5elkne7we3RXRD1UxNcJxY66Eld
-	 aQd3darW2J2j7dPB7bd5pDaGz7KWn9CQVIn28UxVixo3hMEpjFdXiH/bDCLV/QpxQ1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793291310;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Ec7n3tBIs89R2/LzH5q+gHIxeKPOb/RT/5XNvFGn7Gs=;
+	b=xZi3h/NsRAerAkgS8LG9w6PxCLxpfdxKz1zUfJLZ7eOM00PCv7jHTPfpdMabODib0DQl
+	 EReyqAEGRm5sYzsTcKBOes+WYr2dfOd6L3F0xexo3tRENgN1IgdbNp4CwV1ODpx/Sz/3Z
+	 2qJ0uxW3lSDRRKWp7C5f5pNZS7Fow+2KcSG/cQgGiDkdhtEXXesIiqSXhMZsq9l5HreJK
+	 M35rnmRjnI3WCdUrGvsH42hOKmhMgdpz66eAqN78NnaSgcPLHnZ5vv4jhX9dFbxCdFZKc
+	 FMpVRw//xym/5k0aU235w7NgYF+A8pLIIBp2vJ59nu1lMX3PxiRs/K6eEPioVgkBQfw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valla.it;
-	spf=pass smtp.mailfrom=valla.it;
-	dkim=pass header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=1QHMFxvc;
-	dkim=pass header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=WZgR0WO5;
-	arc=fail smtp.remote-ip=185.56.87.4
-Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.4])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ljJaEdhI;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=W+7gZiJU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453C0606A330;
-	Thu, 29 Oct 2026 16:28:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 453C0606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C886606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:28:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C886606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.a=rsa-sha256 header.s=default header.b=1QHMFxvc;
-	dkim=pass (1024-bit key, unprotected) header.d=valla.it header.i=@valla.it header.a=rsa-sha256 header.s=default header.b=WZgR0WO5
-ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-h5rs.prod.antispam.mailspamprotection.com; s=arckey; t=1793291284;
-	 b=nDX2CUi++DmFX+mgZEa/6noBdPuWdhfvcTDACijThM1D5+cRDxR3Vw//yVJw1j+qK7LLt/Eh5s
-	  XUXSPjR9Y1B7+UYzA9cd/FJ/sqePSfD8gmksz44HW4KHtxhGLnuwk5vUJJr+uaZuOMy7I+NEtL
-	  SfFyopy6a8fFrUhNPUrNWfZ4QXeigG0TaLHU4cFCQkNpBH45Lt902t/qX3lTcW4NPW1PCcm80n
-	  xox32K2jvcuAXku2cugbzAgFeEaSU4uX35C0GQZWOC+I5DIsWOFnlhLla7Lgzs0hjkBcs+iGhY
-	  N9OTwJEt+3l6Wjq//CT5kOfvmvBFFMcv6djXIRjCdeburQ==;
-ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-h5rs.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-h5rs.prod.antispam.mailspamprotection.com; s=arckey; t=1793291284;
-	bh=7b/4UNnisenlSzsvuHFwODw1hJLbDH9CfkQsAIZ2bPU=;
-	h=Cc:To:In-Reply-To:References:Message-ID:Content-Transfer-Encoding:
-	  Content-Type:MIME-Version:Subject:Date:From:DKIM-Signature:DKIM-Signature;
-	b=mTCx8G5KKw6qbJBp5t7PRxYAtF97a0lQsbmn4dzgSm6GUOUD/cipISdhgV+TACzYYto5GwI4Vn
-	  La7LBrybH+vogK4wtjnGlBJSzHQ552dcRo8KF4po/X/jVflN9h6QC6btMgpo/Cdv7gf1xDUls7
-	  PDZcrUb8TgroEKcXvV3DvdZ2mcz5+OON2tRpTPQ00sdSYh47slZc24/6qn1CURn73JVAtuDzEO
-	  SLiN1BBVCi9GbKfT9ykVCpw7regE+yefchqzTQhNaNLEC6/bupHTukkba1KP1tR6n7pH7Y6cUh
-	  y8CT8xjrpw0Mydn6W5j4HI8uJKfCLMSCMCpyFbZjMEMztQ==;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
-	:Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject
-	:Date:From:Reply-To:List-Unsubscribe;
-	bh=qzZZ46lO4KbnLO67zSOK1gQ54aowsw3oRwEUjqeFz+0=; b=1QHMFxvcGDFnYkjB9TI+7E9MAr
-	2psfHq8x/EpvO9MzezNOzfLNO2LcLeilgDcU0ChUUXtc6cIgw1HypKhAUzuuIrj7WnHFAOp42fXfI
-	P607HnY76/Ex7wxxLz9eyr+l6JYVyNtbGJVRp6pt6EkrPKZSEQuA0rsfvB5Svhc29BOk=;
-Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
-	by instance-europe-west4-h5rs.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xMSyr-000000092qb-20TT;
-	Thu, 29 Oct 2026 16:27:58 +0000
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
-	s=default; h=Cc:To:Subject:Date:From:list-help:list-unsubscribe:
-	list-subscribe:list-post:list-owner:list-archive;
-	bh=qzZZ46lO4KbnLO67zSOK1gQ54aowsw3oRwEUjqeFz+0=; b=WZgR0WO5GkOpt6JEDqE5J7VkIM
-	8yH9x2HH4c9GfuP6utiGDonzti4sk01RUOSv+p0YOcQUnKbukIKKSpZKLMREzyimyvhFyx9mA/io4
-	H3pul+vWnlVGN1YgKvdGatyrr2sLGGvoxY+QxJvJ/o0VhH/426M+M91cnTu801/0ssFY=;
-Received: from [87.16.26.129] (port=60224 helo=[192.168.178.175])
-	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <francesco@valla.it>)
-	id 1xMSym-00000000LSm-0Rqv;
-	Thu, 29 Oct 2026 16:27:52 +0000
-From: Francesco Valla <francesco@valla.it>
-Date: Thu, 29 Oct 2026 17:27:43 +0100
-Subject: [PATCH v3 1/2] dt-bindings: spi: add spi-virtio
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ljJaEdhI;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=W+7gZiJU
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TGDIpX227451
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:28:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Ec7n3tBIs89R2/LzH5q+gHIxeKPOb/RT/5XNvFGn7Gs=; b=ljJaEdhI51Ae+dKw
+	BJD0bZe2JkSc0nwrpWLUljK0wB3INpfz7VXgHHVAtqn1Xrmh8QUGuXzYrdGOPPp2
+	bQvomHAMxEFcSwiAK8fIWB8irunsEo6hByYcCqV5womjEUBL85IWIMCWVwPqnLcd
+	zFjEE/276e3tv+PujkrtT4ciFcLBrG3XiLVpkCivhVfZl3T3r/YvzmRty5avP/yy
+	Q+J7N1FiGz+xAuG96OA90BCKZ9u0nlXoJd0RPo/500Q8/6MSci2KNfowAYuAtpSe
+	4CdeP9r9S7k2O0k5a6xCmaOcyDe0GSSXBNvuUjb0552QBJbz49t6y8Wr5S5U1sOF
+	eawDpw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hm42fhkxm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:28:29 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cb7f9bb86so490483985a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:28:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793291309; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UooqRimWmp2CI19BljohiTyqIeInYPuaBDFudKu6iY3MbsGLhJxdCqaXvf76npZJSt
+         lsTjeKhMzbmn0ueqMVkJcaBAcvTjF/VdrI4aXSxRZ6SXwEiMI+sv2c92rBW+D1t3u7hh
+         plY3Kt1IrZZlI7I4mH/5n5I2UUd29W1Pr3G60aRTqNF7QyO66h4YLTF7dtaf2HRjQEH4
+         VTiCpjQFhBmrzNwylnxIIgOLsupHK9MK7MHT3kM4/iQk9XdtFK9q7w83obVdgPpkrioD
+         iZ4divGNLVJdXLgU5bS+5IcAwY6ZRRrXxiys0oHLLmfhyo0fvEvfeZ10k13627CWspw3
+         6HMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Ec7n3tBIs89R2/LzH5q+gHIxeKPOb/RT/5XNvFGn7Gs=;
+        fh=3cDjwIoHplHk3gsSaE08qsKNJhFOCesq9zPnSMNA3jc=;
+        b=lU8FFdZrqtx58EnfY2LFOnpzLZmiKdczlA5j2WkdpqA7lAbXHitB6xEYYxgBOPkfY1
+         l/IIswV2eRnh4wslLDR2vYREm6L7h+XejOjOqw27Sedobxw8+s7lO/yw+wzhodyLkUCk
+         +rsJv7sFE6ZlF0CmW21wZOHkqrUbLzCVFVkjEl3B3yeTN/0KDCUkHKy4/8CNr1zHPo70
+         rRYpXeHdE4vmm7mfBhkSgT5IR7S3JLqVaLqee64triAku5CTVJm5YzLFRIgFXdniheIY
+         Oe8vaaXs1EsZQ7H1431Z8i7e6Rj1bm4XQr+XC2Xmzu54QT9vPBO+tJSKuY1k/n2w1SLN
+         sy3A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793291309; x=1793896109; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ec7n3tBIs89R2/LzH5q+gHIxeKPOb/RT/5XNvFGn7Gs=;
+        b=W+7gZiJUh31zjNBcD/7gfEEnrXKm8SK0/9Q0iunWJvHcGD0tX7rrjZ1uEI5KFwOYAt
+         qUntqwgI/33M7umcU8ip81T0BOW8scWg9G5h8ZVIonGNH0qvdbyXj9Q6Z+c8gosDtCZc
+         VPCgcUa8M11Oyrju45LEQZVIuvKWXdyU0/Yl80A1YojvKif46GdP30ZhpwLMJuCywdU1
+         DGUiNncosd1dx1/fvqKu4sgP8IGOKx/bbAq+q8W5Nlr3fu+vrjps62/aPI3B9INpNNy6
+         NWKumY50Q560hePsb9v2u3QjsXgEjLfd+kFnhecvEWqjiOI1BBMOVq3VsT/LHNR/H5No
+         rFrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793291309; x=1793896109;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ec7n3tBIs89R2/LzH5q+gHIxeKPOb/RT/5XNvFGn7Gs=;
+        b=N/DujB+zesB5Hf5unQet2NuFWE/uzSatRBGA8V4KhIu0ux9czEdKWcQjspFcylSbrI
+         RJ9lqgWeAE7d5b/TJfUT24p4UujT7lKu8GjnI0UDAP2ArNdJMRHXMufR/o3C5NBqj/FY
+         eLesqS90psbFttajh0wF/GDdnnWgmB1FxQkTr/YMnrWZ50QBv5YGJCh7XPPc8hxRalxy
+         3Pt8rlMgYAkKjStLINi3nwc4uwYKgGg3DzgA/Urw4zWFkfIlhFwZY0PzjKImhnShl/rJ
+         2wCaJU20m4qpsqrUiNfwk9TBw+cvaGJfiGeBucPKUWEfnxLyBNWuh8Cp9OXbgYqqBbWv
+         8VYg==
+X-Forwarded-Encrypted: i=1; AKwUvByser33pigBl2da3DiT0bgy5tk69Inob0DNo5//m8R2XrRoBFIsN7uBEzdG29fZuwCRA1SfnmRZHtxDxdI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIybjNbI18oL7CzH8BhQG0fvtnwgPYW7BU5iwV3dS0mBFYXM7Sy
+	RgS85jQRrLMd9VWUGhH0syjh2sPeMH5y/pE8B0G5mCC/IIR6uP2rXcCLB8fS6YVszoT5Bj+J6Lo
+	m5bEdoFLyu+0FklK5fGQpclerp5eE9k7auRTLvd950YYpZpPOB87bBvDbcL1GPzRMGDYUgQmHdC
+	l4UolWlHUu1WkC+3YUT2e3ydOQoGg1/2wHUtpU6sOK8A==
+X-Gm-Gg: AYBFou0XquASY/wvPnROv7ZT0IxUqJqqlIW0bVXBJG2gd9nyewX+a1RfdDdAp4EcY9I
+	lOK41ESPN1hJX/nurxfprNDnp42USfmKNbT//ebfwQ4GQtiJ0SVdYhisyhk8CLoarrdV0TCS7cV
+	IzS8MTEUV/K3UII6INHHgqb15cyR1uTgRiCurp8cDd5f9T9jk/kGvnRzggJGmEYf7EY3VmqePPh
+	59+uRuUELlMM3Vy6+PefnoCeGuOSCS+VRl1F2HrefIDHNLB1EsZsTVBfMs7HSj+hG9RmUMWDLKp
+X-Received: by 2002:a05:620a:4106:b0:93f:565f:e40 with SMTP id af79cd13be357-94408d9cd0cmr909713985a.65.1793291308655;
+        Thu, 29 Oct 2026 09:28:28 -0700 (PDT)
+X-Received: by 2002:a05:620a:4106:b0:93f:565f:e40 with SMTP id
+ af79cd13be357-94408d9cd0cmr909709685a.65.1793291308187; Thu, 29 Oct 2026
+ 09:28:28 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,137 +128,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-spi-virtio-bindings-v3-1-ef30217abefd@valla.it>
-References: <20261029-spi-virtio-bindings-v3-0-ef30217abefd@valla.it>
-In-Reply-To: <20261029-spi-virtio-bindings-v3-0-ef30217abefd@valla.it>
-To: "Michael S. Tsirkin" <mst@redhat.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Haixu Cui <quic_haixcui@quicinc.com>, 
- Jason Wang <jasowangio@gmail.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, linux-spi@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- virtualization@lists.linux.dev, Francesco Valla <francesco@valla.it>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2605; i=francesco@valla.it;
- h=from:subject:message-id; bh=7b/4UNnisenlSzsvuHFwODw1hJLbDH9CfkQsAIZ2bPU=;
- b=owGbwMvMwCX2aH1OUIzHTgbG02pJDFmPS9j4AgrnsdxhU/x3WnsKT13UxK//uHx/2fCcsr2/6
- Fed8hGljlIWBjEuBlkxRZaQdTfu7Zlr/i1tA+MjmDmsTCBDGLg4BWAiO7oYGe5P+i0R/4hN+3uA
- ZczDyTrpXbtmbFtwKED91/2Jkca17+8xMjSHnV27dsGRP1HHjzQ8fc/A0N50v3tnpY9BnvqKJKv
- L1dwA
-X-Developer-Key: i=francesco@valla.it; a=openpgp;
- fpr=CC70CBC9AA13257C6CCED8669601767CA07CA0EA
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - esm19.siteground.biz
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - valla.it
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-SGantispam-id: a12818b650b4c9ed42fb73900ccb25d9
-X-AntiAbuse: ID - a12818b650b4c9ed42fb73900ccb25d9
-AntiSpam-DLS: false
-AntiSpam-DLSP: 
-AntiSpam-DLSRS: 
-AntiSpam-TS: 1.0
-CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
-CFBL-Feedback-ID: 1xMSyr-000000092qb-20TT-feedback@antispam.mailspamprotection.com
-Authentication-Results: outgoing.instance-europe-west4-h5rs.prod.antispam.mailspamprotection.com;
-	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
-	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
-	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
-	arc=none
+References: <20261028050337.127464-1-yaojiale02@163.com> <20261028050337.127464-2-yaojiale02@163.com>
+In-Reply-To: <20261028050337.127464-2-yaojiale02@163.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 29 Oct 2026 17:28:16 +0100
+X-Gm-Features: AclHuK9jYoqEMbdFg84LDshS_f4aCDb9uqZSpjUek3Kwn5SwhZg0YWrh26svot4
+Message-ID: <CAFEp6-3UCSqHqABuvBwmNf_bAvJCWg+N9rZvLMYRydWQKxMpeA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] wifi: ath10k: clear monitor interface after add failure
+To: Jiale Yao <yaojiale02@163.com>
+Cc: Jeff Johnson <jjohnson@kernel.org>,
+        Michal Kazior <michal.kazior@tieto.com>,
+        Kalle Valo <kvalo@qca.qualcomm.com>, linux-wireless@vger.kernel.org,
+        ath10k@lists.infradead.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA2NCBTYWx0ZWRfX9643Kt5kYRAO
+ SXdWS/kx7ZH/lMbAg0uL3KpePMf0emQLkXejOECXRALsnOi7v1zSD1p75uF6/XreAjGvZ4/Dzb/
+ RXKroO0b6YkhoNJi8qVe+G2hG07+VKZ0ujn1LIypGXKuCgEYXdrBZzbtnhJ9zHxzWDKm5e/FH6i
+ 0uuPDKFfUsqjA8tf3gw86ZgcEu5/8q6a0LjORF68C8+ynR6M+M4zAobB/exoKzu/urmTHWb0BiJ
+ F9L9w10tIYw9Wlm9yazV+uyowGdxGAUHCu/IcpobKlNr/agmRqrkCwHEIz80TOmEbNkm1uE8QkQ
+ l2/P7sAl/zY71+kGVI+SG5xXusoMIy+wlLrF35eiS8CrVrjXHHMz2s2PuWxsWK8iNsSKG9HhAxp
+ hWjie/kiguFjl+WPVtssivGYahJGFiE6XinWgMf2QfmJgvhSj/xTRDQDnajiHbFnJxoapDGgqB4
+ /ZDJVkiv3xKID/zhgyw==
+X-Proofpoint-GUID: 8a_Us_pqyTTEeEvlnPJ5cSSeWm7oZhvA
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA2NCBTYWx0ZWRfXwxCJ4VOcI6bg
+ VNiFncdNS6IoZkXU2sUVbI54AM1dScPM9qg6ouWquuvG+/PRklnaDH3tiY4ZIoEgkXVy1Tb6ter
+ QKxzifParIEI0c2dsm+2PDNM7mIqslM=
+X-Authority-Analysis: v=2.4 cv=UN9Ijyfy c=1 sm=1 tr=0 ts=6ae3742d cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=Byx-y9mGAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=laIMyccDeTmSpVvBuxYA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: 8a_Us_pqyTTEeEvlnPJ5cSSeWm7oZhvA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 spamscore=0 suspectscore=0 clxscore=1015
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610290064
 
-Add bindings for spi-virtio based on virtio-device, allowing proper
-validation of SPI controller nodes declared as children of virtio
-transports (e.g.: virtio-mmio). Such nodes are not used to instantiate
-devices, which are registered by the virtio transport, but to define
-their properties and establish dependencies with other nodes.
+On Wed, Oct 28, 2026 at 6:04=E2=80=AFAM Jiale Yao <yaojiale02@163.com> wrot=
+e:
+>
+> ath10k_add_interface() publishes the monitor vif before recalculating the
+> monitor configuration. If that operation fails, the interface addition is
+> unwound but monitor_arvif still points at the vif that mac80211 will free=
+.
+>
+> Clear the published pointer before entering the common vdev cleanup path.
+>
+> Fixes: 500ff9f9389d ("ath10k: implement chanctx API")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
 
-The compatible follows what the virtio framework already searches for,
-"2d" being the hexadecimal representation of the SPI controller device
-ID defined by the virtio specification [1].
+This looks like a reasonable UAF fix to me.
 
-[1] https://docs.oasis-open.org/virtio/virtio/v1.4/virtio-v1.4.html
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Francesco Valla <francesco@valla.it>
----
- .../devicetree/bindings/spi/spi-virtio.yaml        | 46 ++++++++++++++++++++++
- MAINTAINERS                                        |  1 +
- 2 files changed, 47 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/spi/spi-virtio.yaml b/Documentation/devicetree/bindings/spi/spi-virtio.yaml
-new file mode 100644
-index 000000000000..5fc04a9c62cc
---- /dev/null
-+++ b/Documentation/devicetree/bindings/spi/spi-virtio.yaml
-@@ -0,0 +1,46 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/spi/spi-virtio.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Virtio SPI controller device
-+
-+maintainers:
-+  - Francesco Valla <francesco@valla.it>
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-controller.yaml#
-+  - $ref: /schemas/virtio/virtio-device.yaml#
-+
-+properties:
-+  compatible:
-+    const: virtio,device2d
-+
-+required:
-+  - compatible
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    virtio@3000 {
-+        compatible = "virtio,mmio";
-+        reg = <0x3000 0x100>;
-+        interrupts = <41>;
-+
-+        spi {
-+            compatible = "virtio,device2d";
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            sram@0 {
-+                compatible = "microchip,mchp23k256";
-+                reg = <0>;
-+                spi-max-frequency = <20000000>;
-+            };
-+        };
-+    };
-+
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 03649f08c7c7..5724645bf703 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29675,6 +29675,7 @@ VIRTIO SPI DRIVER
- M:	Haixu Cui <quic_haixcui@quicinc.com>
- L:	virtualization@lists.linux.dev
- S:	Maintained
-+F:	Documentation/devicetree/bindings/spi/spi-virtio.yaml
- F:	drivers/spi/spi-virtio.c
- F:	include/uapi/linux/virtio_spi.h
- 
-
--- 
-2.56.0
-
+> ---
+>  drivers/net/wireless/ath/ath10k/mac.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/net/wireless/ath/ath10k/mac.c b/drivers/net/wireless=
+/ath/ath10k/mac.c
+> index 8e604697d6c2..36b694ae6de4 100644
+> --- a/drivers/net/wireless/ath/ath10k/mac.c
+> +++ b/drivers/net/wireless/ath/ath10k/mac.c
+> @@ -5875,6 +5875,7 @@ static int ath10k_add_interface(struct ieee80211_hw=
+ *hw,
+>                 ret =3D ath10k_monitor_recalc(ar);
+>                 if (ret) {
+>                         ath10k_warn(ar, "failed to recalc monitor: %d\n",=
+ ret);
+> +                       ar->monitor_arvif =3D NULL;
+>                         goto err_peer_delete;
+>                 }
+>         }
+> --
+> 2.34.1
+>
+>
