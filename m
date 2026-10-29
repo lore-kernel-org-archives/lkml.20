@@ -1,110 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793267669;
-	b=EJT3knwtOYEz3uJ9g+JFJsvwmh/dbY6RAd2am40L402gSBsKGpODPU6M4aA1Y0vH+G3k
-	 xRwabWgcA4MpBXV+I9686pJRQm1OimQX1Ef0FsSjkd2X8yzKdQWK9piAbESBVybKerBgW
-	 UpgprL54OKvYJX+QRzgrfbo0mxDVR7QqhLV8b75C7ZVfhbwsYfV3k3nDlS6mkimAypfJf
-	 AROBrynbE1DNz+ahFHRacj5X/aC8cZqDohKW+irPciPLChm3i4T+AA/0b+582q/yzlhGd
-	 RownsMhOFBN76PFSwowgDZpeK/ZNep2upGPUfgjnAia92Q72hKlGK6/183nxjhAJkbw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267669;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=eEL3wboi4iG5htAvVkp/8DL3ChDa89CZfWMBboscGUA=;
-	b=1C/EyMFG/K0/UMWCFWQXDtChWGOximtgD1LwkNCppfsgPLJ1RmNx+jUVP2WnsJPVsZ5G
-	 ft+FIQlarSMd5yY4KYjDdj63QZ4ulDSYMRpaQQfip1TzHSZI7gnWuzazCIbJa09ns8Bby
-	 jmO9j1x0dNMXsFWi+F10sm7EOi0O9kGN0CHpl8BLBbKU6E85kOmOcYciMmjNvX9NPKII8
-	 NphpEkYITbt30M3kpcCfbw+FkRduPefqtI3ljNRXzB19FLXiVXwWX6kqeW3QRNiRG4KeU
-	 MiwynTxA4eY2dSKzS8qXKCsH+Auk0AG/x8bBMiys/JdQpM7bVYlAL3XVYMnVJeZNA5g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=renesas.com;
-	spf=pass smtp.mailfrom=renesas.com;
-	dkim=pass header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=CY1Y0hMC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.20
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011020.outbound.protection.outlook.com [40.107.74.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793267731;
+	b=GXfVsB3i2rjChEpn9jgNTYvvfn7K9ljBHap1HyaA9YiZHm4EBkU7zj6Gd0zFJrFvXD8b
+	 DmqFR3po06TV58PP+yUtEdtQBMxKA3fWv6z5ZH0hAKfA7Xlg7VvFBM2j/UdZ4Y8KSjmeA
+	 iokTDmY3C/jAh4sf2bSDJbIzBypV6wVY7vWmYebt3fZJQeaq5Cg1ZZ5Lfit0IRAbWZtjV
+	 3wHrfE9maKzB8mjepQ1czgdu4XN8YpCjxMmLgWqTGTb6amJmpe9sWr/0uPFl+o5SL9Hir
+	 aJOU3d7A2rebtYKifkbizyhUZMKJxzJ+SA1WDaBvpXKJ0aa72BZbY3VT2aqusiRhr4A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267731;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=JjlaPahkTtPgjrIwMI9/6GY+ApixKnOFIywkbwnoooU=;
+	b=KxHfFM6YNDXVR/31kU7OgZ0yAoTvQBY592TQLUMbq4m+aJ22/hLhJekUJnIkf581rWPr
+	 R13BtMTYjzL7fgEoJwgvonvfRavdJLCPvMCPwL1mQZPgmNJVfjl1jqk3u1OBqBuPH2hUX
+	 U0sakA2/u3xnsMRVZ1trDg6qfpHrkoiCmOp1DepDrzi3/mUOPF1Mv7ETonL88rCfbvxkX
+	 UmdkYeFR6YzwQ9wdBms5qpJNkijP1xafRtfTFM68K8Qphj6rP/Fl0jGvhBHtMW2NuhSlq
+	 KHq6VI2E8msFFZ5JsEz9Ml9uvLtQlK2yYftcjvRhr5XGzjxoW/k6YX0xNkwotxPvdrw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=a3+5dlpu;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26547606A31A;
-	Thu, 29 Oct 2026 09:54:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26547606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E3D606A337
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:55:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1E3D606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=renesas.com header.i=@renesas.com header.a=rsa-sha256 header.s=selector1 header.b=CY1Y0hMC
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AU5ZdyIbs80VNYwy3qQ4Paa4fHH/K4yhQjCmwc/Kn1FAb9HPnSecaglXPrunmlbZ4xrbuKrBLTSjn7inmtTqg8O4eKT1CLXG4s2qPHVx/Wi1qN5Rj9wrYuwDExCCJ47Gj9XQxXLLgVbD6/Eln9zADGqNN/6g4+s4R1n+7rnX39sczMLIjOW+MMrZj4vmeKljkoRGY7jR9vNOXMv7/TRUtcFeqMfPcA4u3qCfNlTax7AFJwOlbwMLH3syi7BQNmnYrMWO7NEGUEWlN8Vo15/WgULeaxi0OO0Cnz+NIpq037OH3skhjp2ntg1KA2iZzGm5W+9D7pE4AdhkHRkEJ2ZDmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eEL3wboi4iG5htAvVkp/8DL3ChDa89CZfWMBboscGUA=;
- b=FQcIAM1MmJ38IAHVmGlR9WeyV0OpQjmWjEtfHhNcPILBOmH5nlThMBdUPYADQ2NSEd23VqgkkOIT0bkFLef7Nxyao3o/cxUsYFjkrQk6oq/6MqUPxlTRg5vtotZozniE+MIDNWGFGBaVPp/BaxPucr1y/wg5iC5YULGeyoOZlaOH71DTqyopwUV6oYES6jhV4N49joVZjo324r9lPTLZzANIvCsCjzCGF4cu9KClhtzDuZ55ixXLGG6PPU4jnHs5M1vTptIR6D208QEqzbdMKvfYbpv3c9Ch7BfWrMsov51olphOMh2eE43cR5eGVREi4OseNIAWx4SGP5FN/9y0Kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eEL3wboi4iG5htAvVkp/8DL3ChDa89CZfWMBboscGUA=;
- b=CY1Y0hMCKYs54VW7sGLtDHAnYJ0z4yoNmplny3QfiR0w7JgEZgqoov7bMdiPPhM/9Lokmd9AiG36gE76DOYfCGVJgLzHrYkMY3KiSVRp1sKZKyqSZKTthnfcwfOxSOKxgYw8egR4Zg+rxykZC3/hrwEOnJwLqUhu4iYlV6QVgUw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYYPR01MB15118.jpnprd01.prod.outlook.com
- (2603:1096:405:1a1::11) by OSZPR01MB6955.jpnprd01.prod.outlook.com
- (2603:1096:604:136::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 09:54:25 +0000
-Received: from TYYPR01MB15118.jpnprd01.prod.outlook.com
- ([fe80::1116:d56:8164:63b4]) by TYYPR01MB15118.jpnprd01.prod.outlook.com
- ([fe80::1116:d56:8164:63b4%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
- 09:54:25 +0000
-Message-ID: <db1ad309-c02e-4616-8486-ffa967207d44@renesas.com>
-Date: Thu, 29 Oct 2026 09:54:14 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: i3c: renesas,i3c: Document analog noise
- filter control
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, linux-i3c@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-References: <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-0-b7ad60cde650@renesas.com>
- <20261020-divo-ssgrlpcsrc-2966-i3c-anf-v1-1-b7ad60cde650@renesas.com>
- <ate-aNmqsyXCAIX8@lizhi-Precision-Tower-5810>
- <64f604a7-7e70-4a0d-8164-28c5d7b1e509@renesas.com>
- <at-5E3b_wKcnuJ9Z@lizhi-Precision-Tower-5810>
- <f4b8a714-dab8-45d4-b98f-717d010806de@renesas.com>
- <auC06gqa5lGtKPjj@SMW015318>
- <7dea4022-20d8-493b-b560-ee635deb7cbc@renesas.com>
- <auIK38HPyv7PmDJF@SMW015318>
-Content-Language: en-US
-From: Diogo Ivo <diogo.ivo.sx@renesas.com>
-In-Reply-To: <auIK38HPyv7PmDJF@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0145.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::17) To TYYPR01MB15118.jpnprd01.prod.outlook.com
- (2603:1096:405:1a1::11)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=a3+5dlpu
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48df54150dfso1075056f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:55:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793267729; x=1793872529; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JjlaPahkTtPgjrIwMI9/6GY+ApixKnOFIywkbwnoooU=;
+        b=a3+5dlpuU3dAzPnqclZxDqJP0GWVKSTANx7Cf5Cad+pvl38cMa6QyMG7ovIul1hebS
+         NLaMLbvX9K4BPf8qCnOpQOTV6JX/+yklBGctPmMIW6c/9TgEGj4ctTAE0Mk5D/3OGdwf
+         FgDgMGMoCsR5eeG6XlRuwSU62QqCB9WKxybKCX423BJYtNGWj50yGHxPtHAdSMmPxMVZ
+         rEj/E+jSb1phxBVmjOcqlb5CjPFSZymdWo+M2cFM8imV1s0MebVPgMESZlQ8Lfnvu/eE
+         w51lc47ZfxJ7axQjIv1HfnmDU1Q63xe9cD9Hd131Am73dN7o4486J+ApiaIHjO8TPOgL
+         uLKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793267729; x=1793872529;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JjlaPahkTtPgjrIwMI9/6GY+ApixKnOFIywkbwnoooU=;
+        b=bQoPvg46i7SXejevb7Z2X4u99WWVN7GVWGG7OhwNUwuW0m4fHbauxI01aQxEOy8Mnv
+         iUp5ciJgm7K/mco/yOl6bLhuyeQc2Qbpku38zhSgQsJvcYwUMzvCOWCTOcoT89BszlSQ
+         YPJR8Q9Wow1QN/X2ebiLVi49ZTnP68sgld5ch5iUaYPVVZZrEMz+x0vfWKRaiMLlXxvk
+         wdDNaBLsc51ZoM7a7vYLkaYXJLw9WvgL5e9qoZBBw8f8+nhdIQ2Ui0O2LAz9eYfugey2
+         UA23lRKu6tdiXX0sLCNydBpTiIMcgZcwiGS+JzCiOLrMiuorr49JrKSbL7IEgyF96+5M
+         XEyw==
+X-Forwarded-Encrypted: i=1; AKwUvBwQm+u1Bb51V3mvunek1C+5WJqTf+30rLao8tbsdbipnsGABO4lq+eikPDnO/uClE7gupP2aZ6t4+NFXoI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvFaz4udgfZDlWTRSTqpFfeSHEf5cjSunVj8ZimpjuqUbrP1Fc
+	8fkBjZYORvs5ZScSKbwx2yTD548vYcgT5FHqR2z/A3WZrowwouOxCDmoqov7ozpBqIo=
+X-Gm-Gg: AYBFou25+3KcBxtFQ0FaxlxFH7ER7l/igYANYB0ET7zLkOpS5aEtoHjAcELZS114nzX
+	KfRCke1d7eYnvMaHdiCBKn9W/HoiT764SiaMSmwd/QySQZ2GGWIvCCfuCabVqWw7+p/LVF5A2B9
+	k/aSLxPdYnpwuqb9DnY8EiwNbkMf5Uu6QbFMlcpJtpWCmm+4uvzua/fEThnLBMsuJGq220Vucpn
+	ei22q6S/ZJX+/ldX6U5S0122rGewQELsaeasm6IytrlOGOSh85tddWvIvXcyGQvFF8zj0otmT1m
+	EIcNCV8DFNYw5It9UzLe1lQ5p3+QbtYx2WpBunW9+edSmPPjq2aVFoWcHborX3V4Yu8Y3FA9wCE
+	434hJ5MUsf3+ohyuvKiF3P+6RkTICYcTDdYUCG9/rfoXoY7KfGXLLoXiTQc9eD5tZq0xQCwnTx5
+	HUk1/afLkprEZuQb6cJmKp0lpyRKIiwNV4xJj5bd8kCKr8RI0cr/vCD/7nyTfuG2d15i0rQq+w1
+	/I1HojvbbgZRp3mBfyfr7JB4qSod6WF5kPEDrQ2RMCfYq47q7Uj6tbug8KBpuC7oe9FomvFqwGT
+	mGYIr3tCOoiOAA3rU+KE
+X-Received: by 2002:a05:6000:4383:b0:48d:f541:a6e7 with SMTP id ffacd0b85a97d-48e5d5c4738mr11190308f8f.40.1793267729106;
+        Thu, 29 Oct 2026 02:55:29 -0700 (PDT)
+Received: from [127.0.0.1] ([64.43.45.156])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd37f4sm40437160f8f.44.2026.10.29.02.55.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 02:55:28 -0700 (PDT)
+From: bryan.odonoghue@linaro.org
+X-Google-Original-From: bod@kernel.org
+Date: Thu, 29 Oct 2026 09:55:10 +0000
+Subject: [PATCH 01/14] media: qcom: camss: Introduce CPU latency QoS during
+ streaming
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,209 +94,179 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYYPR01MB15118:EE_|OSZPR01MB6955:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea2a3f03-7c5c-4796-f146-08df35a29d61
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|261028144727099003|4143699003|56012099006|11063799006|261009223027099003|261022105027099003|261021121427099003|261021123027099003|261026140227099003|10067099003|261026121527099003|18002099003|22082099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	kTyzRKZnAbt/nnUTSUtAUWFRBtrDqc943nJmlCTirGr9lyXueKYuwHQmVDLQ+SPUWTmRI7arYNyGMfo5gaB0dbsTI/MNkQi18s9gET8To59DO3wAiXXOng8EPysPTtHn37ehrzFNTE3v70RI+o3Nl9lT7THPqyD7qFajfpoCs+k7+9czSdLVCICySe1DJrwaIZLP/d+BLLxhWeaJDPJKDWbuft/yI+R9aZ8MgnuJVvWAdO3I5GwBduWmSfB84sk+fmO2nWxhT/hrBnP+Z66MHacteqRc5DJ7qVEXpG9wc8AeJdPbJa52MVWmsqQfGDu0vI9v5lwsKbkKcE9j6Ceo+1DdsEedMfd30taQq4OtrqggAKjndwVDxeN26vkZwooOy4UHZr3BAH/jZUc+Tce6uPOOYxX6FFr0+G2exLhfC1WYukjck42yQ1INfulRBrO8HuLAI4GI0Ol9XBR3MAbYuYmG7J1GzIvZqKn0RJz4827PHWt+kWfZ4BTr85KQSueOJmy7PQvU+pUmk7V+Bm+p//YHT9KzJ4uaSTFVLb7umPz/RfE20Gc2cR8u+zAUcSdskSUIL9IKw90Uwmwq0ep/20htlCJHGnGHBzmPEH+TzemKELvce9WOpElxnNxQ89VxH/5HsVj7L8srz5Dq4DagYePGNPIJOQ/5xbPlFIxdQKw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYYPR01MB15118.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(261028144727099003)(4143699003)(56012099006)(11063799006)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(261026140227099003)(10067099003)(261026121527099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y1dzRVEwTzhFWWt1NXNzR2QvT1NneDYxbWxYdU5QL3IzckxqVXNpZW95UjZO?=
- =?utf-8?B?M3FaSkVDMkpFMU1uY3l4cnUrV0J2WjEwcWx6a2RLWlIyOGo2dGxLb21JK3Vn?=
- =?utf-8?B?RFNvNTdaTXN0T1BCc2J1NmR5cnczMTJJbFgrOUUrS05mdmhHWll2U0xEYzE4?=
- =?utf-8?B?OWZ1N0xVRHhBSjdmZGhreFdPUCthUDhId090TGRDcWYyL1lYeFpEWFdzUy8y?=
- =?utf-8?B?T3BuUEN5aVhpOGRUelJaSGpkQmFJRWsyTFZiaWRJWlRvSGNHcXpROFhUby96?=
- =?utf-8?B?bjZEMWwxMlFpUk5FM0pjTEd0dnNYR1Aza21rcmdXYzVHcXduaExZTDRmRHdG?=
- =?utf-8?B?bEtiL25xRU5ndEtJRE9Rb09uVENxbUJHSEZ0TW1CMU1RZGUyY0t4WnJHU2hy?=
- =?utf-8?B?dzhORkdSaCtiQ3BwOStZZ1M1KzVNVy9lVmNQYzcrR1h0MWs1TFpQTjg2cFRq?=
- =?utf-8?B?VWFpS1czTFhjNloyOHNlQy9kY0NwOXZBSDU2ZVNaalpIUW8yeFlaKzlkcVNs?=
- =?utf-8?B?V2JYVmhWZ3dJM2lwVFhYR3A1ZW9ZdVlDRlpTZG9NaVJtYmZnSXlVKzVvWXNn?=
- =?utf-8?B?eUxwSVpudWpUOTlrUk05bGZrQVFkNFNWRjlVdWtIOG1rdkMvQXJSaG5qempi?=
- =?utf-8?B?bHJxK2NUcWpES2UwL2FRQlgyNjFiY0JFcGppL2VQdDdlNnlMSFN0N0FzeGFq?=
- =?utf-8?B?aVN6bzNKeVF3d0ZtSW80Z24ycExMc3FidlN2OEJhRXBUQWJaZUl0VGpJdm9K?=
- =?utf-8?B?UHZQM2lkc0xwZDB4NE9xU1BDbTg0cVFVUVhGUTdGYklXR1VwckVrQkNBL1Jm?=
- =?utf-8?B?czc4alNvcVNuOTR0WitQNHUyclU5Nk1ZRzRyV2lacElZU1NGVUpZcnRscStS?=
- =?utf-8?B?ckQ3dDB5dnV4UFpybFNlb3RzRkg5KzJSMU12eExGTHBscmVqZ1RtYWUrYUtJ?=
- =?utf-8?B?dVlUTnF1YlM1SE9TSzNlT3BEd3BmbHY5Ui9tZnZlOC9BbWp2UFpvOThUY083?=
- =?utf-8?B?SDFPMnpxYmRYUGZHZXFkcmtLSjNtOEhRa3BGMkFWS1FhUjdpRlJub0xHYUVE?=
- =?utf-8?B?Z3FCb0pvRS80d0trRDF4V0d1Ny9pUGM2bjBVQ0NDRjlSeWdpd2dMYmlWZWIz?=
- =?utf-8?B?SHdMMjNac0lnQUpaeVNZckI2MXhpR2x4OVFULzZDdWxCc3p5Q252UXNhZU1R?=
- =?utf-8?B?S0t2VnRzbmNhMEs5TGJuVHRzMDlpa0piWnpXUUV2UDJTeWlUaHdlMnAvbjV4?=
- =?utf-8?B?UkFsaTZrTlFiOFNtSGIxUW9UNTFWTDA2aFpFWDdUajczblZFbTdwTU1ocXpX?=
- =?utf-8?B?NFZWQ3MrMGQ1dG1DNWNlSWJ1TWg5S2FxTWhsMHFPaWZ4eVB5MlhsYWZqZEJt?=
- =?utf-8?B?V085SS94b2tjVUdxSlR1NGg4TTgvc21LMDdVM2RQNTd3bnNQL0pUYjNvYnl3?=
- =?utf-8?B?eHNZWFl2TDZJZjBrd0RyeVkwTkRTcStINGl5bldIVUtpMFI1YkovTHI0TlBF?=
- =?utf-8?B?dFhYYjdIY2c1VnZQRm5UVmZ3eC9sY3hBWGpnbm4yTDg1emRYUmtielRIQmJX?=
- =?utf-8?B?REV0YzFnTHB6Y0pESW5YTDRsOGN0eEVoQ01sWlVNWllpanhkUVhRazEyaThz?=
- =?utf-8?B?Q3M1WUlkQVltby9oci9wUFBwTEVHN0t5ZHIrTGpuZnNqL2tmVndiVG51VVc0?=
- =?utf-8?B?R3JxRExXbjlSSDdoRzJwUXFkWlVEYmhTcTRlVFJ0ZkowMElaODZxM2duSmh5?=
- =?utf-8?B?WFhCZVEyUWtOM2NCSnVIM3ZKOVk2THRhZ05HQVFoTE1PcVo3RHYwNkNxdVE0?=
- =?utf-8?B?eEVmZmp5YnM3R2VoS2JOTHhkc3lkeUZxaThQaGIyUnlMSXNJWnk5TWRHdUxL?=
- =?utf-8?B?UHhwcUpBcno2bkRnZTdaNWh6VFRSTHJaa294QlJxeEN2VnBRQlFqU2tBN0RQ?=
- =?utf-8?B?Q0lYdXFrcjVPck1CUVZYT294UFRpTFVEV0laRC9DWU5IZUtsWG02MlAxVS9t?=
- =?utf-8?B?dERPQmZMN2ZDaGpONjEzTkZRTjdEVjczcW9jQkJEWG0zM2xUN1lLMlJSd1VN?=
- =?utf-8?B?SmNwMm1rQkRNM3ZsYXVCcjRCZTlFYVgrM1d4R1orM0tUVHhxc0ZJTnVXcW1r?=
- =?utf-8?B?cm42ZVRLY01yVGFSS1pLb2taUjJ3Y01nU1VTdSswSm5LTFYvMGl2UkxSVytY?=
- =?utf-8?B?YXNOczBPV2F3NWJsQ2FBV2R3dUxwaWRqRC91OVgydnRvUG9MYmZTcjdpQVQw?=
- =?utf-8?B?U1B0NnFMcWkwc0YxTzNoZnV3QkhsQzl2ZlRmaHhRNmhXRTU5YWg4bnZlbmlx?=
- =?utf-8?B?UUJ1dnIxbk0wNUxYZ0VpamtvMWFGVmp6Q2tOZEtxVGhPcUtWemwyZz09?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea2a3f03-7c5c-4796-f146-08df35a29d61
-X-MS-Exchange-CrossTenant-AuthSource: TYYPR01MB15118.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 09:54:25.5193
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YSjh4GMr8nKA20OKWrZ93leeVKilYz86OqlyNpHENcQEYDwJ5o8bVBiTts1pAwEFQLy1u/8a/CHhF8KuI7u72V9brIdMy+JXRYDmsCiPK2M=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB6955
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-v4l2-frame-sync-v1-1-d37992559c58@kernel.org>
+References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
+In-Reply-To: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5374; i=bod@kernel.org;
+ h=from:subject:message-id; bh=Ai35Q8ExABw969As4EQ3ii0MaisJda4tJc9aDuiu4Ro=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq4xgJP7E5pu/wCSc3z7ZasGKLN+u170t4lIe74
+ XNgmN0c1WOJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCauMYCQAKCRAicTuzoY3I
+ OiUBD/4sKcBewQnuKNKxdWkyJu+Elvl5ygx+Q/pMYV75aR2eqovk5zhSokkbWvpqM4WQ25deCch
+ JGSVqtTQBBdTJ327lRanYn4zMiqn6e/An10Ds6RJ/9zneH1iRc6kUXflPnJnzGDBjNyrFlsERjt
+ D4yhTuFcAtyQXx905umMMdBjx1/uLfTGEQiEHZmxSOv/e0Zm8YMvszNvm7di6AoCcS5jfqlY5DM
+ YO+k6MzF6o5utxloS/a5qiqW1+PZ4L0M8TlPpH3jWcipt6d9DJ9BgdX19TUVkbsoymbGg+l9dSJ
+ hKHEeY2VpPgKEx8KyavCTGJSkFpEujOPmBMPYTSxCZb2zJwSG+gQAZxj3hUYgp3UZRODUh/qeTK
+ r2Ctug5hx81tV5zCsVUaV2aS3TH2n9Q4E881C9MnE4s4DgQZ488NLm6DZ0IC6JsGmjEROUVUspV
+ c679FYuWpuu6YwVFBDJkloHRZvQmQX0YqQ2KS5Mr2ELPfoZb9t9fkgbsPW2dSvX6YIVtaNEB+2w
+ 1Dn9CZB3tuZkrL6sbd7o+B3eHAKxjM6ogmnxptvyzL3qi3fcDyqTDgiF9+nKK9GC7VIowu4P9vs
+ qqs3ZJZitsqxrCKmv2qzfHwWvVI5kubFm+c0RxvHIIfpPbM/BUXIXxWhg15WgeDdwGxmuy+XA4I
+ tSQjg1nQbSanF/g==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Hi Frank,
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-On 10/28/2026 2:46 PM, Frank Li wrote:
-> On Wed, Oct 28, 2026 at 11:10:07AM +0000, Diogo Ivo wrote:
->> On 10/27/2026 2:27 PM, Frank Li wrote:
->>> On Tue, Oct 27, 2026 at 10:34:54AM +0000, Diogo Ivo wrote:
->>>> On 10/26/2026 8:33 PM, Frank Li wrote:
->>>>> On Mon, Oct 26, 2026 at 04:21:06PM +0000, Diogo Ivo wrote:
->>>>>> Hi Frank,
->>>>>>
->>>>>> On 10/20/2026 8:18 PM, Frank Li wrote:
->>>>>>> On Tue, Oct 20, 2026 at 10:36:26AM +0100, Diogo Ivo wrote:
->>>>>>>> The analog noise filter for the input terminals (I3C_SDA, I3C_SCL) of
->>>>>>>> the Renesas I3C controller is controlled through the SYS_I3C_CFG
->>>>>>>> register of the system controller. Document the
->>>>>>>> renesas,analog-noise-filter property, which references the system
->>>>>>>> controller together with the offset of the SYS_I3C_CFG register and
->>>>>>>> the state of the filter: 1 enables the filter and 0 bypasses it.
->>>>>>>>
->>>>>>>> The property is optional: device trees not providing it keep the
->>>>>>>> filter at its reset value.
->>>>>>>>
->>>>>>>> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
->>>>>>>> ---
->>>>>>>>      .../devicetree/bindings/i3c/renesas,i3c.yaml          | 19 +++++++++++++++++++
->>>>>>>>      1 file changed, 19 insertions(+)
->>>>>>>>
->>>>>>>> diff --git a/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml b/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
->>>>>>>> index 08fcea89a015..381807844351 100644
->>>>>>>> --- a/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
->>>>>>>> +++ b/Documentation/devicetree/bindings/i3c/renesas,i3c.yaml
->>>>>>>> @@ -96,6 +96,25 @@ properties:
->>>>>>>>            - const: presetn
->>>>>>>>            - const: tresetn
->>>>>>>>
->>>>>>>> +  renesas,analog-noise-filter:
->>>>>>>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
->>>>>>>
->>>>>>> I don't like this syscon property, look like it is one kind pad propterty.
->>>>>>> Is it possible model as pinctrl?
->>>>>>
->>>>>> On the RZ/G3L and RZ/G3S this filter is not controlled on the pin
->>>>>> controller's address space but in the SYSC address space (hence the
->>>>>> need for the sysc phandle).
->>>>>>
->>>>>> There are a few factors weighing against modeling this as pinctrl.
->>>>>>
->>>>>> The first is that the physical pads used by I3C are multiplexed between it
->>>>>> and for example RIIC3, so we are not filtering the pad but the internal path
->>>>>> of the I3C IP. The pinctrl does indeed have some controls for the pad's
->>>>>> digital filters, that apply to whatever block is multiplexed to the pad.
->>>>>>
->>>>>> Besides this, even if it were moved to pinctrl we would still need the sysc
->>>>>> reference, as the pfc driver would need a way to reference the sysc address
->>>>>> space.
->>>>>
->>>>> System allows multi pinctrl devices. your syscon can work as pinctrl provider
->>>>>
->>>>> pinctrl-0 = <&your nomral pinctrl>, <&syscon i3c ... > ;
->>>>>
->>>>> The key problem is if model is resonable. Syscon is simple, but have not
->>>>> good abstract.
->>>>
->>>> Doing this in pinctrl is feasible, especially since the pinctrl driver on
->>>> G3L already has a reference to syscon for clone channels. The question
->>>> really is if this is what makes the most sense, as again we are not really
->>>> controlling an external pin but something inside the IP
->>>> block,
->>>
->>> I don't think so. Generally, PAD some property, like pull up/down, driver
->>> strength, some include glitch filter (capacitor or schmitter trigger),
->>>
->>> 'renesas,analog-noise-filter' like adjust some capacitor at PAD, only
->>> controler signal (register) is not in your pinctrl region.
->>>
->>> There are not analog-noise in side SOC's digtial part (Or we can't care it).
->>> Analog sigal generally existed in PHY and PAD.
->>
->> On the RZ/G3L the analog filter is located after the pinmux, at the input of
->> each I2C/I3C block. Each I2C and I3C block in G3L has a single
->> register bit that controls if the analog filter is enabled for that specific
->> block (so we have SYS_I2C0_CFG, SYS_I2C1_CFG, ..., SYS_I3C_CFG)
->> each with a single bit that controls if the filter is enabled or not.
->>
->> However, for the I2C blocks they can be multiplexed to dozens of pads, and
->> these pads don't each contain an i2c analog filter. Rather, the signal
->> passes first by the external pad and pinmux and then it reaches the intended
->> I2C or I3C IP block, where the analog filter is then located. For example,
->> the P2_0 and P2_1 pads can be multiplexed between I3C and RIIC3, and each of
->> these blocks then has its filter at the input of the IP block, and a single
->> bit in the SYS register controls the filter for SDA and SCL together.
-> 
-> The location in hardware is not important. What's most consider is choose/use
-> which software model to descript your hardware.
-> 
->> Then,
->> there is the problem that if we model this with pinctrl with a pad property
->> then pinconf would not know which block's SYS register to write without
->> coupling to pinmux. In this specific case of P2_0 and P2_1 pads without
->> coupling pinconf and pinmux we could not determine whether we should write
->> to SYS_I3C_CFG or SYS_I2C3_CFG.
-> 
-> coupling pinconf and pinmux is quite common. I remember pinctrl framework
-> already consider that.
+On a quiescent system - for example the X1 CRD booted to a simple ramdisk
+rootfs during development of V4L2_EVENT_FRAME_SYNC it was observed that
+interrupt for buffer done could be delayed until after the SOF for the next
+frame.
 
-In the end we got confirmation from the HW team that the SYS_I3C_CFG 
-register does not actually "exist" and was unintentionally left in the 
-HW manual, meaning that we cannot control if the filter is ON/OFF so 
-this whole discussion and patch series becomes moot. The only patch 
-needed on this topic is removing the SYS_I3C_CFG register definition 
-from the SYSC driver as per the HW team's recommendation.
+Fiddling about with the interrupt bits, clearing them and changing the
+logic of V4L2_EVENT_FRAME_SYNC to buffer completion didn't work and besides
+"felt wrong".
 
-Sorry for the noise and thank you for the discussion and your time!
+Tracing it looks like this:
+<idle>-0       [000] d.h1.    36.374380: csid_isr: rdi0 sof=1 done=0
+<idle>-0       [000] d.h1.    36.406601: csid_isr: rdi0 sof=1 done=1
+<idle>-0       [000] d.h1.    36.439910: csid_isr: rdi0 sof=1 done=1
+<idle>-0       [000] d.h1.    36.473245: csid_isr: rdi0 sof=1 done=1
+<idle>-0       [000] d.h1.    36.504786: csid_isr: rdi0 sof=0 done=1
+<idle>-0       [000] d.h1.    36.506350: csid_isr: rdi0 sof=1 done=0
 
-Best regards,
-Diogo
+Tracing with /dev/cpu_dma_latency = 0 looks like this:
+<idle>-0       [000] d.h1.   556.149115: csid_isr: rdi0 sof=1 done=0
+<idle>-0       [000] d.h1.   556.181338: csid_isr: rdi0 sof=0 done=1
+<idle>-0       [000] d.h1.   556.182880: csid_isr: rdi0 sof=1 done=0
+<idle>-0       [000] d.h1.   556.214643: csid_isr: rdi0 sof=0 done=1
+<idle>-0       [000] d.h1.   556.216185: csid_isr: rdi0 sof=1 done=0
 
-> 
->>
->> Then there is also the precedent of i2c-analog-filter being a controller
->> node property rather than a pad/pinctrl property.
->>
->> For these reasons I believe that pinctrl is not the best way to model the
->> I2C/I3C analog filters but please do let me know your thoughts.
-> 
-> But syscon is also not good, which basic have not any abstaction.
-> 
-> Frank
->>
->> Geert, DT maintainers, do you have any preferences on what the best way to
->> model this is?
->>
->> Best regards,
->> Diogo
->>
->>
->>> Frank
->>>
->>>> so I'm still not fully convinced. Are there more opinions on this?
->>
+The second is the pattern you expect CSI SOF followed by data.
+
+We will require SOF to track and understand which data-frame is correlated
+to which camera stastics and parameters frame. On an ordinary system with
+several things pinging off at once, WiFi, display, keyboard you will be
+unlikely to hit deep idle and hence unlikely to see the long exit. However
+we should design for the case where the system is otherwise quiescent with
+only the camera streaming.
+
+Choosing a request of 300us - 1000us seemed to work fine but cutting the
+margin finer, similar to the value on IPU6.
+
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+ drivers/media/platform/qcom/camss/camss-video.c |  4 ++++
+ drivers/media/platform/qcom/camss/camss.c       | 27 +++++++++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss.h       |  7 +++++++
+ 3 files changed, 38 insertions(+)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
+index 0852eb6f13154..191cb71d02e19 100644
+--- a/drivers/media/platform/qcom/camss/camss-video.c
++++ b/drivers/media/platform/qcom/camss/camss-video.c
+@@ -286,6 +286,8 @@ static int video_start_streaming(struct vb2_queue *q, unsigned int count)
+ 			goto error;
+ 	}
+ 
++	camss_cpu_latency_get(video->camss);
++
+ 	return 0;
+ 
+ error:
+@@ -306,6 +308,8 @@ static void video_stop_streaming(struct vb2_queue *q)
+ 	struct v4l2_subdev *subdev;
+ 	int ret;
+ 
++	camss_cpu_latency_put(video->camss);
++
+ 	entity = &vdev->entity;
+ 	while (1) {
+ 		pad = &entity->pads[0];
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index c54185c93a8a9..06e1bf82f4836 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -5064,6 +5064,29 @@ void camss_buf_done(struct camss *camss, int hw_id, int port_id)
+ 	}
+ }
+ 
++#define CAMSS_CPU_LATENCY_US	300
++
++void camss_cpu_latency_get(struct camss *camss)
++{
++	mutex_lock(&camss->cpu_latency_lock);
++
++	if (camss->cpu_latency_users++ == 0)
++		cpu_latency_qos_add_request(&camss->cpu_latency,
++					    CAMSS_CPU_LATENCY_US);
++
++	mutex_unlock(&camss->cpu_latency_lock);
++}
++
++void camss_cpu_latency_put(struct camss *camss)
++{
++	mutex_lock(&camss->cpu_latency_lock);
++
++	if (--camss->cpu_latency_users == 0)
++		cpu_latency_qos_remove_request(&camss->cpu_latency);
++
++	mutex_unlock(&camss->cpu_latency_lock);
++}
++
+ /*
+  * camss_register_entities - Register subdev nodes and create links
+  * @camss: CAMSS device
+@@ -5429,6 +5452,10 @@ static int camss_probe(struct platform_device *pdev)
+ 	camss->dev = dev;
+ 	platform_set_drvdata(pdev, camss);
+ 
++	ret = devm_mutex_init(dev, &camss->cpu_latency_lock);
++	if (ret)
++		return ret;
++
+ 	camss->csiphy = devm_kcalloc(dev, camss->res->csiphy_num,
+ 				     sizeof(*camss->csiphy), GFP_KERNEL);
+ 	if (!camss->csiphy)
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index 7dc2fd9f03e0d..9341fdc9bca0e 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -11,6 +11,8 @@
+ #define QC_MSM_CAMSS_H
+ 
+ #include <linux/device.h>
++#include <linux/mutex.h>
++#include <linux/pm_qos.h>
+ #include <linux/types.h>
+ #include <media/v4l2-async.h>
+ #include <media/v4l2-device.h>
+@@ -141,6 +143,9 @@ struct camss {
+ 	struct icc_path *icc_path[ICC_SM8250_COUNT];
+ 	const struct camss_resources *res;
+ 	bool legacy_phy;
++	struct mutex cpu_latency_lock;	/* Guards cpu_latency_users */
++	unsigned int cpu_latency_users;
++	struct pm_qos_request cpu_latency;
+ };
+ 
+ struct camss_camera_interface {
+@@ -182,5 +187,7 @@ void camss_delete(struct camss *camss);
+ void camss_buf_done(struct camss *camss, int hw_id, int port_id);
+ void camss_reg_update(struct camss *camss, int hw_id,
+ 		      int port_id, bool is_clear);
++void camss_cpu_latency_get(struct camss *camss);
++void camss_cpu_latency_put(struct camss *camss);
+ 
+ #endif /* QC_MSM_CAMSS_H */
+
+-- 
+2.56.0
 
