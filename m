@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793266139;
-	b=e6Po8LTPwd0QlpbH3YT5aqbEjSVPWxd8xywo7Z9fgNHD1uhjRGMaS1utXwrJq66qzUyf
-	 OXVfCeOXCSWBgVp2oGgExVpk0rUr2VnW+gEpiaAsmpnlYXmBRfiiNrmeUehp0KogEuvOP
-	 Kh6iAiwaBku7xfVfMrTqu1WrhqkqaSe2sB+kOB87VENnjSg5dRxvUs+4gOnpSmhatii3B
-	 HK2LXL5Z9Ak8vt6AkjVw5vcMvGV9Lkfq10E4UPqpPvxoUpe/UDvemXz7S/1vbsqN3hqe/
-	 O8tioEd3fW9S5q8jfa6i7mHQ3Ui5IhwdLJ+/9EtfImUcZmY3T94Mj+Ew9t/78X/6rWQ==
+	t=1793266143;
+	b=LgmUgvnVSiWoKYCDRDfcEO50cnFKjtS4jIzxkFmLbC+TDhyjH2nr4EzI7y0UN3KGRlXi
+	 sDvip4s1sEX5pKiCIDXJvxbfAGZFoGzlpzBTG1zVqE5ACSBmk6bXbqQbr4NDeXwiJsNSg
+	 QRER20xj08hDdM9xBgHL84T1y22GVA8v/nNqAQ+KKGTyRCDFZx6Bw//CTjqOMKglF8gEH
+	 dnqi0XDsTykLxSeyKhrdMy3Tw/fwe28EXf6WDYOmXvmc9tp30TCKGEesvp9GMhFOjkDaK
+	 /ND1Y8eNZRE8LGTFmaDOkVrbow0sfRJOxb/hVFF+bGyXMLRjAfyehPeff7I4Zb4zsyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266139;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266143;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=DyYlx7RzolSrqUFoSHL9Wz3/RMfVWdxjcPwX2TXBXFE=;
-	b=QeCJslqdDwD0sX0mdNvCBG+IU8LcH0YO4VsmiwUY/5NAavfG6rV+vA/oXVtEhE9nUgzX
-	 akeYv+LRsV78/eWLerPIsVikjqEi2PEDMf9p7z0r3C+Gu1YLz+YdNq9YVHlBsl7hTR2Bk
-	 nyiWpcW64w8g0TKML6yXe3LfmXcm0KuCpiBkpbpV/Ut357tOHNu3Z5MXe3guo61RE0xP/
-	 gBmldem3sXq89yzW6DCYmJ7NlSxc0cJUMcp4qfo2/bHrsrll/LJOjzaL+ByPYlDkIpkoI
-	 B9dfmpwCFTvGE7Nx+e0Yf6XZYP3OPhhB5wHq728fEVNtp4RKHT6LtOejhcwngXveMAg==
+	bh=Jb3EUq4KlbjY0bhSkBco4tRa1Qo54N/IBnyYXHi22sQ=;
+	b=yAR1ryLjkJ0Ts3eO4OzwgZsmukiY30e++4ub+/3FBcs2/vwKcUWOSloL61Y+0uCHueXr
+	 6SjxtwaWjqN6cccbjW2naVb8m/+20bqEWib2446DKpBAIIqJOoUP+QYKGc1PC3dA/kpFK
+	 V3wHA1iBuXHgL8WHmkzTk5O8EHl30dYuWmHMnimOyiSGeEeaN9OldotQHy8IefmRwKqzh
+	 zBl7jkIqcWf0vTzXmJDaZRD9bJx/JjP7OydjHZCUcgfMWYeZzVVW9G86XxBtRzrGJgWyT
+	 3BJPMN14i0zjctk359Ynpr6Ur/7SV63ZeuOB/vw6mj0zdZmrunqiORgOcQ3tawsX50Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Fp3jU+ZX;
-	arc=none smtp.remote-ip=209.85.210.197
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=o4JIOSJg;
+	arc=none smtp.remote-ip=209.85.210.200
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC47606A325
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:28:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEC47606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E61606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:29:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61E61606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sgsatyam.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=Fp3jU+ZX
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a05bfa6af5so1596152b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:28:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=o4JIOSJg
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a01ea9e318so2616994b3a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:29:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793266138; x=1793870938; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793266143; x=1793870943; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DyYlx7RzolSrqUFoSHL9Wz3/RMfVWdxjcPwX2TXBXFE=;
-        b=Fp3jU+ZXDe5xQ9gU6Y0878wffA+jwkfzH2VksIjkPgeu58rrapbh3xF3+LqbZ415nt
-         IPLxPILwZuKnQjOfoWrveQHN/uYUdiGWEVoRbVE9mPtQPxYATVCeq+vW3S4vaZ10t+Gt
-         WVxqx51RapwZDZ7KabsME9jo4ngXvoc9G1h8Pviti4D/eaQLk0wsGlxkV9JjK/NyWTt8
-         k/aNVRiT4HcIkAc4bAVSK5WAXUqpmoT/CvBXd+aRr/isSrID85GE1INY3t4ybnBLkU1L
-         kFVb/bj2Dwv209F88QQEFUoKlT9wHoB0w8I/3/Q4u+0U0L+hU/R4x+8CejyG2UMFIC/S
-         0+Iw==
+        bh=Jb3EUq4KlbjY0bhSkBco4tRa1Qo54N/IBnyYXHi22sQ=;
+        b=o4JIOSJgkFEFIRvHkvnv1q1zpw4VfKChqjxZeP+sh4CynZg8zoLYiS/ViOcXmCCOmP
+         ZoZzQP9V3gGW+tmhHgNiRqdLHjB8VW1y6ZdKEQ2RvnhSdYu6aHUicZJvvlyhk1MQY5JL
+         Cbw3NywYV933g5Ve7wkvMmKP9NfFbilZt0T5Vt3kNfqavCF7TxSIYrr8S6Mqp4YxG+Bj
+         R41ByFraLlV6SIYktLJu6eCplEAWnvfGVHKxYQ+DGl1yD5XNNYsuI17B9CIHCi4VNn/p
+         BGPip0d3wNyHDd+Utw/cHP6kJQMPFxyu/Erhlsp7RHZtu9AsKK04jucAmAXUKWsHzYdP
+         OvQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793266138; x=1793870938;
+        d=1e100.net; s=20260707; t=1793266143; x=1793870943;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DyYlx7RzolSrqUFoSHL9Wz3/RMfVWdxjcPwX2TXBXFE=;
-        b=HzpDAiY0i+xJ3zANlmZEqG3KU3XLRCvw5rORgecvfoL6F/9UFhsR+fHXFlymOtMpI4
-         tTKJ/14hERqscmsePIjd/xmLBgLLjUGH4z2lSd7LPXEFPGAz0rQmlGJqyJmL6vOvlhH7
-         mv0AHoCZ5QipMjRbrqaYcsq5luwryNs6wRzAPt1Pi+FwdObnPu8j4EeWul4Aob7d+PGa
-         mO+OFENr4gofpYxLoY3CWzYcLIqCNrbjxdXes8LHmV02XhwyYrlfAT01/fR+ls4u1u5Q
-         GDSb+Z4nxJ8gpUOdkYnpOPgNTT98PPGEFBS8ruoRnMDEWbiVLLp9uGcRRgz1au4oIniU
-         Go8A==
-X-Forwarded-Encrypted: i=1; AKwUvBy6nFgibH6Y+kut5zpgq0/y7pOxaXHEwXaQJPxzGgUIDtueVRfVDUW8h54aF0EpIfDxWu3madJuQy88/wQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYID8Fd4ZLTeFPW+nhMCD4HsRA4CE9VHhEBZT5TqJwIjMeUgz0/f
-	PSPR86hZWNiz54kyPHHcmzfaYaY0rYeabZ7F3y6z0PO+FYwAx2Ib1F59T3pfxt/DFM63iep8qq8
-	4GHPUEI+JSzE1nA==
-X-Received: from pffk11.prod.google.com ([2002:aa7:88cb:0:b0:89e:65fd:e92])
+        bh=Jb3EUq4KlbjY0bhSkBco4tRa1Qo54N/IBnyYXHi22sQ=;
+        b=Xp+DM2qTlzYAkm8yLM/8suf7JXZ6acitdeXDWdMIUk46K2gJ/2kbifPgQRG1gqkXcS
+         ENBb2R+wSVGrmtUD1qogm0fRbjtef6T7tYpDBPfdTDcJ6+Fe3SGq4l0OX6uFkgjtYH9n
+         Qq7xLl9n1+GcM15xtJEvPh15dI7RY8ZHe/Fc5WJ6gDc9I+1IGVlH5Dv0dHwwDRYj9Kx0
+         /v3f4UwDqDujO+j76B4Peo2FsHifCN6RIT799itAWAYdnfKq3V/yRdwHnHc08XLjLp4W
+         hURNvF3FXyn8NHi4iwF5/bHeMV1brJAWoX2Em30i3ge4iNSN/dhF7WM6FNalle8IizDa
+         oCug==
+X-Forwarded-Encrypted: i=1; AKwUvBy1FpdRLpHELWsUmcFXaS/yVgctBPm7Fv1XjpP6kxB3i24h7//UXYB69RdnzXUjU0D/be/55aBd7RFzweU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKg7B9z5Lcp4jCqBsPQNb3Qp+AntkJTXDaD7DpgE4/dvjQut7gq
+	fdafUbv13BlWAllXCcg6lyMbaTyZP0d7kgnbK/xr6czzxxufH+X0t3GfKpzTM5YUlOeduvvJhRR
+	YrrXLU2eZq9NufA==
+X-Received: from pfbbt8.prod.google.com ([2002:a05:6a00:4388:b0:887:5ba8:7334])
  (user=sgsatyam job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:3a0d:b0:882:94ab:20ea with SMTP id d2e1a72fcca58-8a6e78cfe1dmr3662107b3a.39.1793266137875;
- Thu, 29 Oct 2026 02:28:57 -0700 (PDT)
-Date: Thu, 29 Oct 2026 09:28:41 +0000
+ 2002:a05:6a00:4f95:b0:881:b7d0:8dd5 with SMTP id d2e1a72fcca58-8a6e7acee1fmr4165007b3a.32.1793266142425;
+ Thu, 29 Oct 2026 02:29:02 -0700 (PDT)
+Date: Thu, 29 Oct 2026 09:28:43 +0000
 In-Reply-To: <20261029092846.1567475-1-sgsatyam@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261029092846.1567475-1-sgsatyam@google.com>
 X-Mailer: git-send-email 2.56.0.313.g2479322e68-goog
-Message-ID: <20261029092846.1567475-3-sgsatyam@google.com>
-Subject: [PATCH v6 2/7] platform/chrome: cros_ec_sensorhub: Reset TS filter on
- EC/AP time mismatch
+Message-ID: <20261029092846.1567475-5-sgsatyam@google.com>
+Subject: [PATCH v6 4/7] platform/chrome: cros_ec_sensorhub: Clamp clock drift
+ slope to MAX_DRIFT_PPM
 From: Satyam Gupta <sgsatyam@google.com>
 To: Tzung-Bi Shih <tzungbi@kernel.org>
 Cc: Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>, 
@@ -92,41 +92,62 @@ Cc: Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>,
 	Satyam Gupta <sgsatyam@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-The timestamp filter history is only emptied when no interrupt happened
-for TS_HISTORY_BORED_US of EC time. After a long gap without events, for
-instance across suspend, b may be unwrapped to the wrong overflow period
-and appear to have advanced very little, while the AP time advanced by
-the whole gap. The filter then keeps a history that no longer matches
-the offset between the EC and the AP, and predicts timestamps off by up
-to an overflow period until that history is replaced.
+From: Scott Collyer <scollyer@google.com>
 
-Also empty the filter when the EC time and the AP time elapsed between
-two interrupts differ by more than TS_HISTORY_BORED_US.
+Interrupt jitter can produce slopes between consecutive IRQ timestamp
+pairs that are far larger than any real clock drift between the EC and
+the AP. When such outliers dominate the history, they corrupt the median
+filter used to convert EC timestamps to the AP timebase and lead to Out
+Of Order (OOO) sensor events.
 
+Clamp the slope to +/- MAX_DRIFT_PPM Parts Per Million (PPM). The slope
+is computed from a time delta in ns over a time delta in us, so it is
+1000 times the unitless drift; take that into account when converting
+the limit to fixed point.
+
+Set the limit to 5000 PPM. The drift measured between the AP and the
+sensor hub is about 16 PPM on a device with sensors behind the Intel ISH,
+but about 2900 PPM on a MediaTek-based device with sensors behind a
+standalone EC.
+
+Signed-off-by: Scott Collyer <scollyer@google.com>
 Signed-off-by: Satyam Gupta <sgsatyam@google.com>
 ---
- drivers/platform/chrome/cros_ec_sensorhub_ring.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/platform/chrome/cros_ec_sensorhub_ring.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/drivers/platform/chrome/cros_ec_sensorhub_ring.c b/drivers/platform/chrome/cros_ec_sensorhub_ring.c
-index 7eb8841..076a65a 100644
+index c5331d9..46f44c6 100644
 --- a/drivers/platform/chrome/cros_ec_sensorhub_ring.c
 +++ b/drivers/platform/chrome/cros_ec_sensorhub_ring.c
-@@ -294,6 +294,14 @@ cros_ec_sensor_ring_ts_filter_update(struct cros_ec_sensors_ts_filter_state
- 	if (-dx > TS_HISTORY_BORED_US)
- 		state->history_len = 0;
+@@ -23,6 +23,14 @@
+ /* Precision of fixed point for the m values from the filter */
+ #define M_PRECISION BIT(23)
  
-+	/*
-+	 * Also empty it if the EC and the AP disagree on the elapsed time
-+	 * (dy, in ns), for instance when b was unwrapped to the wrong
-+	 * overflow period after a long gap without events.
-+	 */
-+	if (abs(dy) > TS_HISTORY_BORED_US * NSEC_PER_USEC)
-+		state->history_len = 0;
++/*
++ * Maximum clock drift between the EC and the AP, in Parts Per Million
++ * (PPM). m is computed from a time delta in ns over a time delta in us,
++ * so it is 1000 times the unitless drift: 1 PPM is M_PRECISION / 1000.
++ */
++#define MAX_DRIFT_PPM 5000LL
++#define MAX_M ((s64)(MAX_DRIFT_PPM * M_PRECISION / 1000))
 +
- 	/* Move everything over, also update offset to all absolute coords .*/
- 	for (i = state->history_len - 1; i >= 1; i--) {
- 		state->x_history[i] = state->x_history[i - 1] + dx;
+ /* Only activate the filter once we have at least this many elements. */
+ #define TS_HISTORY_THRESHOLD 8
+ 
+@@ -289,6 +297,12 @@ cros_ec_sensor_ring_ts_filter_update(struct cros_ec_sensors_ts_filter_state
+ 		return; /* we already have this irq in the history */
+ 	dy = (state->y_history[0] + state->y_offset) - y;
+ 	m = div64_s64(dy * M_PRECISION, dx);
++	/*
++	 * Clamp the slope to the maximum expected clock drift. Interrupt
++	 * jitter can produce slopes much larger than any real clock drift,
++	 * which would otherwise corrupt the median filter history.
++	 */
++	m = clamp(m, -MAX_M, MAX_M);
+ 
+ 	/* Empty filter if we haven't seen any action in a while. */
+ 	if (-dx > TS_HISTORY_BORED_US)
 -- 
 2.56.0.307.g5fe7bd680c-goog
 
