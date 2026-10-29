@@ -1,67 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793253614;
-	b=LE14zYv3zka+iie0CWXi87mtr1nHTu3zPqvEJKfjumo2xWIpoOG8Q48l4IcxaTu44wxj
-	 e4iY5n2kzrMMWzmlfcZsianWKi1f5pnS/orkIuiRQtPf/Q3sIFKUofC8YXlaMNcZ8sBlW
-	 hn73QYzrVp5X2uY0vBSl6A06R+bwuVbnddyy4jvMj5HYhdut7NfyRXaFQefxGO9M5nbk4
-	 +eybMcU4gGX3PcFWty4/WLefTZSNtvz1uAUQfjX6dF0+vvqWQYgBBLjNaZZDZGJaeo0tT
-	 S5yfXH9+YV4Buh1UFt87+JflJfjaaG3aigW0xF1V2KAxioOfcJr3W6UoQm2O6DLKDAg==
+	t=1793253745;
+	b=Wnwrns6jPxTKxmM6Djmdtb1X264hYeax+PBuovs/9bwI38J2WOO7GNQA9V6wkceivZ21
+	 /KNMgy2jpMIEocX/ukuupI7hMKRUkY05MKAXeEcs14woOMR5UHPGub5OZZJejYl+jowUl
+	 PxXCQarHgmE1iQGpHDscsxZffpnE207mG/NNqbDPYEbgOwrTMA+auJqjCq0UH7ZtOKCQ+
+	 yTGSDwbRGVYjJkmmgrnyE4K40JJQN45tlo7C16ztd37nbkFkjAAdqBPiBX+d+XmwZZhS0
+	 dugDhqA0TKYtUBOxtWPvDb4Ag1dBdSwqkvh/HPp6mwSVzUCn2BncoLPK4g4TpEeoVkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793253614;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9jsZV6tJxvBfZHrRRHfJr4z1Bdmp0wbXP7PaAyZg2DQ=;
-	b=T5gusDtghlL7UOI4/wRZ9efE/Sr+etDEeNJ2jlCJYmt0qQ2/+6W9HRiImZyrIkbS714Z
-	 0Algkaj9Jc/DZUuVyGQyG6j/xaGjDBcLYfenp/hy+FmqeNhHtWecxIwU3zfXYio7a9oBu
-	 qPYjS1rjaMX6IrbIkbLeOo04YXC7NUab1AwQmahjtCOk+MtcZIRotzLe8rwN7s5Qbv1o2
-	 b06++QQCHo8pSBDELaubJ3635AC/aFfr4uMm4eCPD3yck5/t0GeasDKUVWC+DA7olxYLh
-	 CSxqSKWaP6akIaqpH5KiNBr/8Y54nGnCiO3h2EbmMGRH6rtBbnZWhE/aC1t6xX85x+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793253745;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=MaszquqzrzKNoBcJxBUNb8Lmnhh0W1i6uNLCQIsKc1A=;
+	b=ByXxLkTWfTbAHq7EhDHgZ4ua5VXzMTKmugLodv2f0LTcyNfFnvZNW/msf4wKxxeSWhOb
+	 vFUjHmrl5YM7jeKvbFw+a41jz0G9VQ+hyaM5UdtKPmqPgCt9xmCBoarf0xpcNWSxDZMGX
+	 kJS1y3AVf81jzNQ+c5RhQOUg4v0WYVJmNAvn34ntDL+4OFxWsRhcKDEWMFEPkI+qQmbCN
+	 UOU2pcm3EyknfTfiJsg/QOTMztLCx1oe9qgVN1eq8WJyWdvPvgUwCDeNj5IC7orQVf0Xp
+	 TqFoJ9hA8tCKDgn7N+q7R/oekEjSdWRk6Yo0L+pNbOaf2lu5U+BDTRlbw0nHLE9Ed0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fj65yHa8;
+	arc=none smtp.remote-ip=115.124.30.112
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92187606A31E;
-	Thu, 29 Oct 2026 06:00:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92187606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: f8ed46c2d35d11f19a56ed5b684f684d-20261029
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:94fa15f2-9933-4612-8501-663724b1ac59,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:503cd10159724e47f562d8a7ecf15e67,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
-	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
-	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f8ed46c2d35d11f19a56ed5b684f684d-20261029
-X-User: zhangheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1239124262; Thu, 29 Oct 2026 13:59:58 +0800
-From: Zhang Heng <zhangheng@kylinos.cn>
-To: tiwai@suse.com
-Cc: perex@perex.cz,
-	kailang@realtek.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhang Heng <zhangheng@kylinos.cn>,
-	John Doe <coolcrew45@disroot.org>
-Subject: [PATCH 1/2] ALSA: hda/realtek: Add speaker depop sequence to alc225_shutup
-Date: Thu, 29 Oct 2026 13:59:44 +0800
-Message-Id: <20261029055945.188723-1-zhangheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5263606A31A;
+	Thu, 29 Oct 2026 06:02:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5263606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=fj65yHa8
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793253739; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=MaszquqzrzKNoBcJxBUNb8Lmnhh0W1i6uNLCQIsKc1A=;
+	b=fj65yHa8F5WVX/LkBebeGn0vP7oVTrQsnAfga39vWez/Kc5Ln7uCTa1Nqfxx6OkgCO3BpDIZfqJcHBaPZa22wu1MdDNeEG2OfrAfZY89VGMJG11Ooi9Y+/zZKA7kdML+/Ob6zlcPlRLSH4+FyETlzu+59A6idm/XvM9si96+19Y=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XDibLMD_1793253738;
+Received: from 30.221.129.93(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDibLMD_1793253738 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 29 Oct 2026 14:02:18 +0800
+Message-ID: <40009068-73c7-4a60-8789-34d32d574264@linux.alibaba.com>
+Date: Thu, 29 Oct 2026 14:02:17 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,50 +53,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2: keep locking_state within the cluster
+ connection lifetime
+To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0011-v7-61e3ef8b1ad44ac2e817@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0011-v7-61e3ef8b1ad44ac2e817@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Mute speaker pins and disable their pin widgets, with a 75 ms delay
-after each step, before cutting EAPD in alc225_shutup().  This
-prevents the pop noise that occurs on suspend when the amplifier
-loses its input signal while still powered.
 
-Reported-by: John Doe <coolcrew45@disroot.org>
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221616
-Tested-by: John Doe <coolcrew45@disroot.org>
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
----
- sound/hda/codecs/realtek/alc269.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 23329d5887a5..67ce5b130f81 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -665,6 +665,7 @@ static void alc225_shutup(struct hda_codec *codec)
- 	struct alc_spec *spec = codec->spec;
- 	hda_nid_t hp_pin = alc_get_hp_pin(spec);
- 	bool hp1_pin_sense, hp2_pin_sense;
-+	int i;
- 
- 	if (!hp_pin)
- 		hp_pin = 0x21;
-@@ -698,6 +699,16 @@ static void alc225_shutup(struct hda_codec *codec)
- 		alc_update_coef_idx(codec, 0x4a, 3 << 10, 0);
- 		alc_enable_headset_jack_key(codec);
- 	}
-+
-+	for (i = 0; i < spec->gen.autocfg.speaker_outs; i++)
-+		snd_hda_codec_write(codec, spec->gen.autocfg.speaker_pins[i], 0,
-+				    AC_VERB_SET_AMP_GAIN_MUTE, AMP_OUT_MUTE);
-+	msleep(75);
-+	for (i = 0; i < spec->gen.autocfg.speaker_outs; i++)
-+		snd_hda_codec_write(codec, spec->gen.autocfg.speaker_pins[i], 0,
-+				    AC_VERB_SET_PIN_WIDGET_CONTROL, 0x0);
-+	msleep(75);
-+
- 	alc_auto_setup_eapd(codec, false);
- 	alc_shutup_pins(codec);
- 	if (spec->ultra_low_power) {
--- 
-2.25.1
+On 10/27/26 12:31 PM, Cen Zhang wrote:
+> The locking_state reader calls ocfs2_dlm_lvb() through the selected
+> cluster stack. Its debug-object reference keeps the tracking list alive,
+> but does not keep that stack selected without a cluster connection.
+> 
+> DLM initialization publishes the file before establishing its connection,
+> and DLM shutdown drops the connection while the file still exists. Both
+> the mount error unwind in ocfs2_mount_volume() and ocfs2_dismount_volume()
+> remove the debugfs subtree only after ocfs2_dlm_shutdown() has returned.
+> Whenever the disconnect releases the last stack reference, which is the
+> case for a failed mount and for any unmount without a pending hangup, a
+> concurrent reader dereferences a NULL active_stack:
+> 
+>   Mount error unwind                  Debugfs reader
+>   ------------------                  --------------
+>   ocfs2_mount_volume(): out_dlm
+>     ocfs2_dlm_shutdown()
+>       disconnect last cluster
+>         clear active_stack
+>                                       read locking_state
+>                                         ocfs2_dlm_seq_show()
+>                                           ocfs2_dlm_lvb()
+>                                             dereference active_stack
+>   fill_super(): out_debugfs
+>     remove debugfs subtree
+> 
+> Publish the debug files only after the connection and the mount lock
+> resources are initialized, so a failed DLM initialization has no debug
+> reference to drop. Remove them again in the common DLM shutdown helper
+> before the connection is dropped: debugfs removal waits for readers that
+> are inside the file operations, and the parent directory is still present
+> at that point in every caller. This covers the mount error unwind, the
+> ocfs2_fill_super() failures after a successful mount that dismount with
+> mnt_err set, and unmounts whose disconnect releases the stack directly.
+> 
+> Only the relevant frames of the report are kept:
+> 
+> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
+> KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
+> RIP: 0010:ocfs2_dlm_lvb+0x38/0xf0
+> Call Trace:
+>  <TASK>
+>  ocfs2_dlm_seq_show+0x36a/0xb70
+>  seq_read_iter+0x480/0x1110
+>  seq_read+0x362/0x5a0
+>  full_proxy_read+0x11f/0x180
+>  vfs_read+0x1a0/0xc20
+>  ksys_read+0x111/0x200
+>  </TASK>
+> 
+> Fixes: 286eaa95c5c5 ("ocfs2: Break out stackglue into modules.")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+
+Looks fine.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
