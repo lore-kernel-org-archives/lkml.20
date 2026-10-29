@@ -1,62 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793280891;
-	b=HBIjqI8yAmcHeCHhtMR8LqEJUnMg/RHU6Kern1n7RLPp0r5DbqmC0xu+QGcORuTf7cUN
-	 T4hX7fvzIt057IVs4izOdDY+r4OTLinVYCBhBIzEITE2k7qcj4PhKvSJyCmYyeUdDx7ZI
-	 qfP/nFp8H9gy40YgwnHlQ63JWygen/IWk7+NQPfkQG2uwc/ovMb84Dpw5LIrkdHIGLPNd
-	 BwrnISdgqoo8wi27oEdVDgqcxpZoOMKXdc4+ZH7X5XJTjQT3OMrLvNfJBcBttfNnBzUl7
-	 LJ3gixoWNirRaxei89dBnMZMEqVoFA1Z8PNs2CVjoLcj4D2aoIp77mNVIy8ZaZbmE9A==
+	t=1793280902;
+	b=3hRU0vBbtnnZtIP+z84sPquI7w7XXhoI1AsTebRnh4HdJ67ypS6pcW6ulkgl9DvhbzWq
+	 WCF9SCYZIILisbqv2XxaRfgZjDEumO+7IrJ5kauHcIjLUklq4SAKFniv4CxVBXme8nac9
+	 sCLT93SBd1rPeehUGWb6vvjWoPQ3jZryg0RfLb0ou5Q4ts3/CcGwfjo5DeggiP/6fFGRw
+	 R5MH3goo3eAB4USsvB0hmjxJPni16myHH7NJflLa6RUEp0arPoBZdOD2oszWUdgGUTM1m
+	 Fi2Ry1m+zlgLqJOrh8mALPJMN+a1SWegHi3EO6FBPZrUDwz08vVmyLga4NOnkRlUVVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280891;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793280902;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=nNOo9ztPq2H1V9K18/duaVRD55SEQg7q5xZq3bqGz2Y=;
-	b=tYLatfUEyd8L/IAGaj7dYbFUEDOCW7Hxgi0zWLDKwYJCDnkjuYYvc/BD3nQ+yRnVaxyN
-	 ccp9qcoA+77s+Nrwcjo9+3fQvygQhWEyqHjF7jxfihZ6oWDbIce8XnaHkbFwYmKg2yAco
-	 j4TKb+WNP4Oy6aiTKrsFWF0TFa5OLXN+EmSJs4jo3/dMfAFWy0nVJCHGs4ITQLrX7C/uq
-	 x+u1akMcJZu0O4dKCgCC6Tl7PfF3bRj0iJ90eqLPETvjRqMEWJa3hAwbvTMeUgNaKb4sz
-	 rHHdgQljEg27w1hWcSDi/ZbMBvCd6FpOXZfkMrqaxFgeuj7YOwpzSQee5MJeQd4VKJA==
+	bh=hzpa1p8pFos3CJzbXazpLtnf4XKtlgHWA6A5JBwhE24=;
+	b=d4xn0LJr53WVwMfBtSo+n+xYGQUivdqYIwFWEvL4YNMDiYDtLbQAOKfKyePfSvbKZ3WL
+	 0xyfjTJ8ncL2LWITna1ZMG4x6Q+qd379ILen/TbOGB9sOOIOew2EeJv0nprmNvudfEIoS
+	 jNljlQsKQpR9vROVsFvjQckmNkR4i78D/Ng/wbX8Z3SI3WvUzw3qpfbEMMeXTGW1mH7Qa
+	 eFyXgLTinv3gfz9Tz+adkStJIJ0DDnevZPPZNLrwtf0DjvTA2241Bp6JZOkq4pAhScekd
+	 4gpBSHcR860Nwf6g+YKaTIL3AmoZz9X1Jj/x7vMxd+c4l8+ipSoYdtLoHOwJvhRa1nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DoogYOgx;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=rBFoaLJu;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B93B606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:34:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B93B606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3264A606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:35:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3264A606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DoogYOgx
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=rBFoaLJu
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 18968C49F44
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:35:52 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id A964B4E4138B
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:35:00 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B0EA360360;
-	Thu, 29 Oct 2026 13:34:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E8ED31032900F;
-	Thu, 29 Oct 2026 14:34:44 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7F85260360;
+	Thu, 29 Oct 2026 13:35:00 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 99FCD1032900F;
+	Thu, 29 Oct 2026 14:34:55 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793280885; h=from:subject:date:message-id:to:cc:mime-version:
+	t=1793280895; h=from:subject:date:message-id:to:cc:mime-version:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=nNOo9ztPq2H1V9K18/duaVRD55SEQg7q5xZq3bqGz2Y=;
-	b=DoogYOgxvPvZsXRXiki1NVQmA1JmsUoDXuKTcP+1epCe9qp9fguE0SPcIcTFdR7Na2qN0E
-	r2M/tnmmF12pYcmHrFTbiAaVun8nToKbYx6At9pMotgwCgQ5MO8vOJCGqYVwP/5KiQrw1Y
-	ll2z5jwSJDep5uzGKTxAoRWPwiXBQe/MH2AGrJtYnqS5Ym1rF4R249hw3uG9OLyfaIC461
-	ryWoKygSyx8dCbpx1+YRlkHq0lk8zZvP/cFIrfw16aXBgi4+1oG8vIrWGg9h8/sXOCfauC
-	krlafdJ2RrI7ZRH0nS00MHCPPfij6ZGzqMNsLy7UA75bAuq4ZglpVtmHsxLhfQ==
+	bh=hzpa1p8pFos3CJzbXazpLtnf4XKtlgHWA6A5JBwhE24=;
+	b=rBFoaLJuB9HqBxQo683PgzTnPcxdPRoa9fz/ySr9OyvgksBOfuE0fsIC8lvYHxg7gYf9Df
+	ZpfQdItlA5sVcNETZ0+8j2ByP2erJ3Vl9W/A4S53VAeWM7Pz+8S7I7Rf2Xusl/ooRD21KV
+	MmTAVT7JAS6aHbiq6hXACiGa6Kn6/IS/6SKtvPKICSOibM4GE/cvuHZGyMSgW81+q0TK/0
+	+WV9oKoDYoKkoWAsDDMXG8hd8N7cnuuyJ5EBhy6tampOEtsFjBzCNIzuWdz9mYRTWDC9rQ
+	nkrso4ZtJLslFVYFkApRyHMAm+kQJb6LvIClOHBAAEiSEsc8I2/4HOzCeW8sdA==
 From: alexandre.belloni@bootlin.com
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Joshua Kinard <linux@kumba.dev>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
 Cc: linux-rtc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 07/12] rtc: rx8025: use sysfs_emit() instead of sprintf()
-Date: Thu, 29 Oct 2026 14:23:30 +0100
-Message-ID: <20261029132339.925021-7-alexandre.belloni@bootlin.com>
+Subject: [PATCH 09/12] rtc: ds1685: use sysfs_emit() instead of sprintf()
+Date: Thu, 29 Oct 2026 14:23:32 +0100
+Message-ID: <20261029132339.925021-9-alexandre.belloni@bootlin.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261029132339.925021-1-alexandre.belloni@bootlin.com>
 References: <20261029132339.925021-1-alexandre.belloni@bootlin.com>
@@ -74,28 +75,52 @@ X-Last-TLS-Session-Version: TLSv1.3
 
 From: Alexandre Belloni <alexandre.belloni@bootlin.com>
 
-Use sysfs_emit() instead of sprintf() in the sysfs show callback
-(rx8025_sysfs_show_clock_adjust) to conform to the recommended sysfs
-attribute formatting guidelines in Documentation/filesystems/sysfs.rst.
+Use sysfs_emit() instead of sprintf() in sysfs show callbacks
+(ds1685_rtc_sysfs_battery_show, ds1685_rtc_sysfs_auxbatt_show and
+ds1685_rtc_sysfs_serial_show) to conform to the recommended sysfs
+attribute formatting guidelines in
+Documentation/filesystems/sysfs.rst.
 
 Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
 ---
- drivers/rtc/rtc-rx8025.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/rtc/rtc-ds1685.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/rtc/rtc-rx8025.c b/drivers/rtc/rtc-rx8025.c
-index 2f2deb59cbee..96a04c977d0f 100644
---- a/drivers/rtc/rtc-rx8025.c
-+++ b/drivers/rtc/rtc-rx8025.c
-@@ -486,7 +486,7 @@ static ssize_t rx8025_sysfs_show_clock_adjust(struct device *dev,
- 	if (err)
- 		return err;
+diff --git a/drivers/rtc/rtc-ds1685.c b/drivers/rtc/rtc-ds1685.c
+index 284815e5f478..323fc9c17106 100644
+--- a/drivers/rtc/rtc-ds1685.c
++++ b/drivers/rtc/rtc-ds1685.c
+@@ -988,8 +988,8 @@ ds1685_rtc_sysfs_battery_show(struct device *dev,
  
--	return sprintf(buf, "%ld\n", -adj);
-+	return sysfs_emit(buf, "%ld\n", -adj);
+ 	ctrld = rtc->read(rtc, RTC_CTRL_D);
+ 
+-	return sprintf(buf, "%s\n",
+-			(ctrld & RTC_CTRL_D_VRT) ? "ok" : "not ok or N/A");
++	return sysfs_emit(buf, "%s\n",
++			  (ctrld & RTC_CTRL_D_VRT) ? "ok" : "not ok or N/A");
  }
+ static DEVICE_ATTR(battery, S_IRUGO, ds1685_rtc_sysfs_battery_show, NULL);
  
- static ssize_t rx8025_sysfs_store_clock_adjust(struct device *dev,
+@@ -1010,8 +1010,8 @@ ds1685_rtc_sysfs_auxbatt_show(struct device *dev,
+ 	ctrl4a = rtc->read(rtc, RTC_EXT_CTRL_4A);
+ 	ds1685_rtc_switch_to_bank0(rtc);
+ 
+-	return sprintf(buf, "%s\n",
+-			(ctrl4a & RTC_CTRL_4A_VRT2) ? "ok" : "not ok or N/A");
++	return sysfs_emit(buf, "%s\n",
++			  (ctrl4a & RTC_CTRL_4A_VRT2) ? "ok" : "not ok or N/A");
+ }
+ static DEVICE_ATTR(auxbatt, S_IRUGO, ds1685_rtc_sysfs_auxbatt_show, NULL);
+ 
+@@ -1032,7 +1032,7 @@ ds1685_rtc_sysfs_serial_show(struct device *dev,
+ 	ds1685_rtc_get_ssn(rtc, ssn);
+ 	ds1685_rtc_switch_to_bank0(rtc);
+ 
+-	return sprintf(buf, "%8phC\n", ssn);
++	return sysfs_emit(buf, "%8phC\n", ssn);
+ }
+ static DEVICE_ATTR(serial, S_IRUGO, ds1685_rtc_sysfs_serial_show, NULL);
+ 
 -- 
 2.56.0
 
