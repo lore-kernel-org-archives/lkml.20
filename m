@@ -1,85 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287202;
-	b=arMOngoEO1NnTu14ciSPhjY7RvtseR8MkwzLAhI5N9Iob6guO4x+iF9O5OJ+YWvZV9Ai
-	 /lyB+LHVPG1VCdagCTnn99eGS4Vz4Zao/v1o9Z9UTjDSwR7368W8cEysVpT3E+M6sCyv2
-	 YtqNizfQH05DTFReKjvM7hBL4u7agwf0eguhtE0/iGmCbqBUARATgzsitil9cXeSvAduK
-	 hLJr2oHbr9JiCEQpZ2uz5PYxsPPeV2Seuz9Vj/cZkFtzr1b0/dJGUlfo7wdo/mKjzABGH
-	 B9UyDfSq5KmcR3C8zWdzm1iXcLqoLy8LjoSJ+KZg4hbNhqDQG3JTRG+h9D18u2xk8Sw==
+	t=1793287238;
+	b=W88uKsaJ+PQroTcNRdGKnY1xl1iwUX/37GwvIor7HlMNC/w1fn3Q659mjd3yxdOSkIeg
+	 pcCwXash41qEMTK12EI1SHiZuRisQnVV1vXXdAclG8bO+LbxRL298E3S3jMpSxzQr4jDp
+	 0f2sid9p864RMSDtTUaHOljkh/RD11RxHkp0S3VSPd7KHIK3AnAgIFPtVxYsQn6JkAvBj
+	 Jc47LbuwUJEYUtk1qn8A5ClPg6dSIPpW3zFvGJkCkl+7+9LIeOqPqjgBCEP11qfVq0Hqv
+	 g/05JiSGaykisNHO/SfxuLnUqBskcf3YT+Hr7QUJnCX+l8lAetTKy87GqolJlmk08Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287202;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=x473ufmcJ5W3DLAFHIuNnT5Lpmdr63e0NBlGNs5sk3o=;
-	b=rnEoWBcC0VgIROMoAJEr4pOO4hdnMa82fq8ui4Mn9H6Hjpg9VXR4v1lJFWuc15NdZmK4
-	 Z/6FCR7RpT5ZGgr0rerHsi7FUlrb/pP0g1gEUuKD/WS0j9sxnErXTUog3YsQ2N3OI8xNL
-	 onNfS1919WcT9m8g8tOlZO+tOhpK9Nw1nwNNz8L5ysEb0qUA8VuQzO/Nf+fQ6+B4WDxFa
-	 bMAOFgKsL0FvrvwgU4sXqEt82eN6egbuGG5ocMCmGJ2/7Gpuvyi9OWtRe8Dm/zzcG0BA/
-	 aI+IAQmWj3+Ej/ZshMbE2zTeZnC5Y1K3fefMGcRQJPbUV7elTTiFECGhbvCULKAHqlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287238;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YNtzOHBIDefRhwkoBdu0VmuJr8iGnrmpv1C4RVrOtuI=;
+	b=nMM5BRobsMeG9noXtiIDzWt5xUgv2tkTlxejIbufzEDQMhdCULjCwNR+g6kE5XgIt5RW
+	 yj7p4HRYlV2G1/Mt5pvEkwVby5/mr0lcI3G+td0QMvYWlTJxkDhbsaMNGwNa2uLPGEDq0
+	 sc/MyY0XJePkr6AXPRf+6kT/gGZhFT2tyQxEVuDStiJnOgYCCtT/lAoBlbUbjpf2Ur6Kh
+	 nG5L8d3toeei5vwBQEst4S8Uxy/zNuKGF9NLOA1unuU7nmxAln98990IC7gjfLP7jST+D
+	 jy8JWlWRRqnq78v062sFKJ+Os86g5/VfpxDRwlNrDQ1scEuhAKUDGyo0Ab/v31DO/gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=dMbfqC92;
-	arc=none smtp.remote-ip=209.85.161.47
-Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l1+stCLG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CDD606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:20:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77CDD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD87606A31A;
+	Thu, 29 Oct 2026 15:20:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=dMbfqC92
-Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6deb848ddd7so1730928eaf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:20:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1793287199; x=1793891999; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x473ufmcJ5W3DLAFHIuNnT5Lpmdr63e0NBlGNs5sk3o=;
-        b=dMbfqC92YyXt2EJ6qqq0TeQI8ZcYJlvA+L4HQAfALpXt1DoG/dV4NajcMHZzAVNyNF
-         tHvT3fbft+VzXRNllk1ys4eBCzRkDEoQATRbvjimQuyLpmAM6nUR+OnPZ4gPTvGlOMGu
-         PrTiS8M1ccbzeZb/RmtdKVELL8JeIG1GVcmtY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793287199; x=1793891999;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x473ufmcJ5W3DLAFHIuNnT5Lpmdr63e0NBlGNs5sk3o=;
-        b=HNo+6P0zofVn2menIizjtoax7w5KpFbKpam2j4oBHOPMX/zk6k5NAtEeZmVkvTL/nL
-         Q7iJlGLzv3ziXj45aRcGp8mUZmLL4NsjywI8Pa1VClUTMO2UQjPUgoHxLAE2k78hGLs9
-         r9KaC2AjAYEx14xESDNXHCKpMShDUI71TFQODYTPLVvGP7u81EQlu/E3HDgsc8AeDsId
-         HhYb2OiI3KFxbzppXRyPhaqpYqzLknpZb37dXm7Obpnyqmd+4GRB1GGaAJrmimYEc1T6
-         FDvm9mVhhAQnDUO6iM7EuNSVWu7ZK/Nb0WXq8oFWTr4NdvFUn2DdkffwaZheY9qqpE2m
-         XsYw==
-X-Forwarded-Encrypted: i=1; AKwUvBzxKQi8H57iglmd/wl5wZeJILDV8xMBz5Y2yINaxgsTz2Cn6jfBsRik21ezAN8zP1Ic+w9zpupkrsplOpc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVtNyEyxF5P2SB7/3ssXB9Wn6HLPSOC+A3CQseBbH4XxOQJfTj
-	hsyPZCkh671O5yRxy52DKVAfx2O3kDmqqORc+hR8PylSLojbE5NPVSGqVnHbvf8IHyA=
-X-Gm-Gg: AYBFou2/rYd7Yfm/PTgJivRySyckSzn+t3tjriEBfZKlylzRvBRRWMq52GoN+lA6StJ
-	9W8ox56/M+Gj08mc14V1nosA4OAcqmkpBz5judoNVyUOP11Jk4n7vLc5bDDkXdGprr4/h2j30zy
-	c/vy8bcqZFm4JaGblKy5NggZOM8ACLMKKDcj0Bgl0RILQUmnvr/VC3RDFSlPrdF5GrqdyhDsN+D
-	/Ij1OFODcQJSRIJ57hQVBargw47V4CSuFo7bRm6ymtXGuHZwDumxARb51m23S0Z3p1695sM2iim
-	gB6IpfgQfWb91IDwvAof/1kZmsbwpsJ0IA461Gvb6fH8dipYcZzTPtaHAhotEVcxgz9hAg1r3lT
-	4P4LcgSUVMdAMEkjJUByFyElYEsYjPiL3GHTLM0FgYEPt/uyVAto2/bhckM8I02VEVj2uZcFVy3
-	NYkdHRj+BiD6g7s0PuMMUPyGVH4kG5nF3V8ZHbfVA9fEv1DwmJUehAlh+/3GzKA7v9zh8MXBocy
-	IpFrIhPQZ6s+CYFeaTQd7rZBy3TP6Qxl5QFjlxutfuV/GdPFAuzuE3gOWLbuxv92Y5SPvEBNYy9
-	wREQY0Se2NX3UkStjIQZFOAWDDBkOe5pPiM8Qw==
-X-Received: by 2002:a05:6820:1c96:b0:6de:d2c1:e95d with SMTP id 006d021491bc7-713f01f0633mr3625060eaf.72.1793287199393;
-        Thu, 29 Oct 2026 08:19:59 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8b793fe7csm4994076fac.15.2026.10.29.08.19.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 08:19:58 -0700 (PDT)
-Message-ID: <d6d7f806-c771-4b8b-aeb5-c3e1308780f8@linuxfoundation.org>
-Date: Thu, 29 Oct 2026 09:19:55 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l1+stCLG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D20581F01824;
+	Thu, 29 Oct 2026 15:20:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793287237;
+	bh=YNtzOHBIDefRhwkoBdu0VmuJr8iGnrmpv1C4RVrOtuI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=l1+stCLGuGuddp5FZgDLxWPrHt0I10EoPNtGNu/K6sNZ3Tj5kR1V21HhZT2vzYSpQ
+	 1z3Q/KeUl9P7480hTMMlGsx0C5mpsdlTLMyU5YmTXvloq2JRUmzHCWwIP++Xc1OzFh
+	 pUQI9IUWlF734zlTLjcwT8jM0AM+b+3e/AOxqi0iQsIs3tk488t9uPgkcxfWPCENGg
+	 F8uevdRAHUSAbasaP818alM170oDowB0UfAnMeVCOj95RCXgYzOf/0TImEqxIjfVAr
+	 VfAev2UAVQIqnEHoAE/nonbJeGcuazqSYP0kqwevB1j7qaOEG5Qv5T0qc8TciVlUI6
+	 jusRYhr7LXe5g==
+Message-ID: <06b18cb4-cd1d-48b8-8944-dd1139ad18ad@kernel.org>
+Date: Thu, 29 Oct 2026 10:20:33 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,46 +52,118 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/88] 7.2.14-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261028165942.107695352@linuxfoundation.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: runtime resume dGPU on ACPI notify from
+ its own node
 Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261028165942.107695352@linuxfoundation.org>
+To: Mike Lothian <mike@fireburn.co.uk>, amd-gfx@lists.freedesktop.org,
+ alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: dri-devel@lists.freedesktop.org, linux-acpi@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261029151422.56791-1-mike@fireburn.co.uk>
+ <20261029151422.56791-2-mike@fireburn.co.uk>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20261029151422.56791-2-mike@fireburn.co.uk>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/28/26 10:59, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.14 release.
-> There are 88 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 10/29/26 10:14, Mike Lothian wrote:
+> On BOCO platforms the SBIOS can signal a display hotplug on a powered
+> off dGPU by notifying the dGPU's ACPI node. On the ASUS ROG Strix G513QY
+> the USB-C DP alt mode lanes are driven by the Navi 22, and the CPM
+> D3cold table handles the HPD GPE with only:
 > 
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
+>    Method (_L05) { Notify (\_SB.PCI0.GPP0.VGA, 0x81) }
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.14-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
+> Nothing in Linux listens on that node: ATIF is bound to the iGPU and the
+> dGPU node is not an ACPI video bus. If the dGPU is in D3cold when a dock
+> is attached it stays off, no hotplug reaches userspace, the external
+> displays stay dark, and the level-triggered GPE keeps firing until the
+> dock is removed.
 > 
-> thanks,
+> Install an ACPI device notify handler on the dGPU's companion when BOCO
+> is used, and request a runtime resume on 0x81. Runtime resume already
+> re-detects all links and sends a hotplug event, so the new displays are
+> picked up; the device autosuspends again if nothing is enabled.
 > 
-> greg k-h
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h      |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 31 ++++++++++++++++++++++++
+>   2 files changed, 32 insertions(+)
 > 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 7974f9b7944f..deb63122828d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -641,6 +641,7 @@ struct amdgpu_device {
+>   	bool				need_swiotlb;
+>   	bool				accel_working;
+>   	struct notifier_block		acpi_nb;
+> +	bool				acpi_dgpu_notify;
+>   	struct notifier_block		pm_nb;
+>   	struct amdgpu_i2c_chan		*i2c_bus[AMDGPU_MAX_I2C_BUS];
+>   	struct debugfs_blob_wrapper debugfs_vbios_blob;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> index 7f5abb03be1b..a4041f90b374 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+> @@ -1280,6 +1280,23 @@ static int amdgpu_acpi_event(struct notifier_block *nb,
+>   	return amdgpu_atif_handler(adev, entry);
+>   }
+>   
+> +/*
+> + * On BOCO platforms the SBIOS signals display hotplug on a powered-off dGPU
 
-Compiled and booted on my test system. No dmesg regressions.
+Although your system is a BOCO platform; I do think this same thing for 
+this signaling to wakeup could apply to a BACO system too.
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+> + * (e.g. USB-C DP alt mode HPD wired to the dGPU) with Notify(<dGPU>, 0x81)
+> + * on the dGPU's own ACPI node. Nothing else listens there, so wake the
+> + * device; runtime resume re-detects all links and sends a hotplug event.
+> + */
+> +static void amdgpu_acpi_dgpu_notify(acpi_handle handle, u32 event, void *data)
+> +{
+> +	struct amdgpu_device *adev = data;
+> +
+> +	if (event != ACPI_VIDEO_NOTIFY_PROBE)
+> +		return;
+> +
+> +	dev_dbg(adev->dev, "ACPI notify 0x%x, requesting runtime resume\n", event);
+> +	pm_request_resume(adev->dev);
+> +}
+> +
+>   /* Call all ACPI methods here */
+>   /**
+>    * amdgpu_acpi_init - init driver acpi support
+> @@ -1325,6 +1342,14 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
+>   	adev->acpi_nb.notifier_call = amdgpu_acpi_event;
+>   	register_acpi_notifier(&adev->acpi_nb);
+>   
+> +	if (!(adev->flags & AMD_IS_APU) && ACPI_COMPANION(adev->dev) &&
+> +	    adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
 
-thanks,
--- Shuah
+I'd install the notifier for BACO as well.
+> +		adev->acpi_dgpu_notify =
+> +			!acpi_dev_install_notify_handler(ACPI_COMPANION(adev->dev),
+> +							 ACPI_DEVICE_NOTIFY,
+> +							 amdgpu_acpi_dgpu_notify,
+> +							 adev);
+> +
+>   	return 0;
+>   }
+>   
+> @@ -1344,6 +1369,12 @@ void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps *caps)
+>    */
+>   void amdgpu_acpi_fini(struct amdgpu_device *adev)
+>   {
+> +	if (adev->acpi_dgpu_notify) {
+> +		acpi_dev_remove_notify_handler(ACPI_COMPANION(adev->dev),
+> +					       ACPI_DEVICE_NOTIFY,
+> +					       amdgpu_acpi_dgpu_notify);
+> +		adev->acpi_dgpu_notify = false;
+> +	}
+>   	unregister_acpi_notifier(&adev->acpi_nb);
+>   }
+>   
+
