@@ -1,69 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258151;
-	b=N1VwBbfPmSOX+eie4VwPVcVpeN4JktGHP10sQQQGqC2XFwpYk5PnO/RJJ9LrRf6sdh+D
-	 wNPYgXQ9BOGsP58Bfg+rGj4FaiIVe6JK0Vz35iXt+tkT4MaP45bhyu2n5fWfazElHT4CL
-	 27/Oo06E8W7qbMvgCZZ8OzypqcnYRHpCCNAsBPKck7z4z7oX0u+TFV7dS7ocLGhlgZd2e
-	 LD0agmdz+zUBymfIdDxlASwq2Wm+a+XwUYT9fWTCLKNonFXGKaU88NTGdoM8cIN+gLe7j
-	 uLd7y8/+v4PVNBQSMnaceHaSjoBYgaUP7MvB3/VfXKoIebqRJxswvGfV+AOI//NyJaA==
+	t=1793258264;
+	b=Esn90F/gMdeTwbSpWt3aqKRXJwyFzIUF5Syuslin/2cimDYa5ktCmpsaZFIWwzE/0Omu
+	 a0q1/uue9YXZ6QvBSLbH6l3bRpQfy1CMTsT6FbyrETk2BVi14OT6+IesM83/OFmvaJtAz
+	 XtfUnnpQbREQsMEhOImQ6GdTDsd7Sb4+zaD/pGvx6HGxHlHhsxi7qRq0/6gUqdx4WAavI
+	 oApjtQYOrJGzkwJQQPL5yiR3Wi4IB9+8BqSTCMclRxgyvLw3Hu9sfeWiFnUOr2WPCfxmd
+	 vxkCBnT8RcGj2X+R2xUGQgmnivZ0NoSOaY4pF0pbJd2hOXwHdcdG+JI+0Yg9MhVWhWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258151;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bvWZLy9g7KOLN83oax/3KQpxauUHOmhI+XerJotVa/I=;
-	b=WWI6HUrYSUcUrgv0p6hJbsRA1RiUN8UYJonSRifeUwINs5cpu7gcm42HIlFh0zq+JpvK
-	 t/exUA2DENm2aCvHvUltgAgiGYPyyktwaxZgw0Q+YmEGyzvUtBhr+TXxp5jVmDfUjkVUX
-	 yRpux+7o1mvowJHk5qlW1WpSsrCDNYHph+aCbMFTeRkvvJzIWz6FQQucQxdFpK1aLNqEV
-	 FnjdFLADZzqimgtSLD658nX8Dr+EyO4M3eZ8aiZp2s4wjseZSSqkpwD0VF9tVeTTHNyTW
-	 vYxQCtx8TmIrWqKMceGjkEhM7FMrUkThefKlaEbhZvMYZ8rngJp6ivOF+5UZ8vzpnbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258264;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=OJBSYAu1agTSLj9Xv6QbA109yx+UKkcrUeXFkEu6p4Q=;
+	b=EHZpygRHcw1LCxbTFaEVtp/9n5ERJteQbOLXAKWD4wCapaTPzzNPhr/1cXazC/x/iGB6
+	 ccGaIgTzHMfQztPHHs+a5/GQRdoFt3PE/nu10foA9hRAwUbKf1nTkBGZAB/BNs6bdMb9s
+	 EwZ5LkA+b/hFeZznnYr3ma0CBQ8v8QrJlcGpeiVkySOu2omnJw0U2Pb51E9WVzYXhunEq
+	 lm6n7Zb9ygo8yacv/3/OgS+t0PUj2udXVSf8SdaYTTuhacmMmYv0xwxJF9nweUL/E4a0E
+	 mYbVB3itzi0oA4dBEJPrIf8p8AhabBaSi01nMTvvhQviAzZRZFqJVFmAklRUrxHRGsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=DuzECotV;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E631606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:15:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E631606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvkpZmH1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BD8606A31C;
+	Thu, 29 Oct 2026 07:17:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=DuzECotV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=DuzECotVW1XnZSqhbu2Ry91xkqUntPUxGlCc/W9ATcKJoi3Qp5l4duBsyQ14wf10+fYhrogWjuSoU
-	 WwkKXkyKRj4LDtb3ZgulLcWpfjrufsQk7eFo11Y1uSl6yVZUFxHOb1KCTJCqDjCTwOpp7XFyf6xV/y
-	 UnNAVrKj6f2PBb28=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86ae2f29ddf8-07650;
-	Thu, 29 Oct 2026 15:15:41 +0800 (CST)
-X-RM-TRANSID:2ee86ae2f29ddf8-07650
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181454368174 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr03-12003 (RichMail) with SMTP id 2ee36ae2f29942f-24253;
-	Thu, 29 Oct 2026 15:15:40 +0800 (CST)
-X-RM-TRANSID:2ee36ae2f29942f-24253
-From: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
-To: Frank.Li@nxp.com
-Cc: alexandre.belloni@bootlin.com,
-	adrian.hunter@intel.com,
-	jorge.marques@analog.com,
-	tze.yee.ng@altera.com,
-	adrian.ho.yin.ng@altera.com,
-	linux-kernel@vger.kernel.org,
-	trivial@kernel.org,
-	zhang jiao <zhangjiao2@cmss.chinamobile.com>
-Subject: [PATCH] i3c: master: cdns: Fix IBI FIFO buffer overflow
-Date: Thu, 29 Oct 2026 15:15:32 +0800
-Message-ID: <20261029071533.715-1-zhangjiao2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvkpZmH1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC8BF1F01825;
+	Thu, 29 Oct 2026 07:17:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793258263;
+	bh=OJBSYAu1agTSLj9Xv6QbA109yx+UKkcrUeXFkEu6p4Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=fvkpZmH13wXzma5Q9R+hksrE/M98khDyfXTWpfEf/D8C4UxN6gSstkl0EsLaMZx5s
+	 +NRQvEJi1OD4H9h56Jfe5kNwZDv17533gBw+hfZFEKbKnpmfuflLZS6OgJ9p/t/zMI
+	 P8mVnqVbSuyRZ/sZUhgGhkLvQMVWRRy5W3j4mBLvhdxzYI5GrvIQQXcsm//spR8MqF
+	 9QjCeI+autY5C/bJYGUdZzYbls0EglCvlldPsGT623WQjuoPplO7w3wZQktNYJ6Dgv
+	 tYnMz6gE4mhtxr8WeF8JqUm4q5k/ZS9zraBleMh1RiwZRRDx5hMTad2ht2KYMYVTPs
+	 8tOlF8HnCEIDQ==
+Message-ID: <3f909a67-ffbd-49ff-a51c-e08cc15a5ec0@kernel.org>
+Date: Thu, 29 Oct 2026 08:17:36 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,64 +51,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6] powerpc/dts: Add Device Tree for WatchGuard Firebox
+ T30 (v6)
+To: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, maddy@linux.ibm.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, mpe@ellerman.id.au,
+ npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
+ sshegde@linux.ibm.com, sashiko-bot@kernel.org
+References: <20261028194046.49784-1-lefteris.koutrakis@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261028194046.49784-1-lefteris.koutrakis@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+On 28/10/2026 20:40, Lefteris Koutrakis wrote:
+> This commit adds initial device tree support for the WatchGuard Firebox T30
 
-The cdns_i3c_master_handle_ibi() function reads the IBI payload length
-from the hardware register field IBIR_XFER_BYTES(ibir) (0-31 bytes) and
-uses it directly as the FIFO read length into slot->data, which is a
-buffer of size dev->ibi->max_payload_len.
+Please do not use "This commit/patch/change", but imperative mood. See
+longer explanation here:
+https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
 
-The slot->len is clamped with min_t() to max_payload_len AFTER the
-i3c_readl_fifo() call has already written the data. If the hardware
-reports more bytes than max_payload_len, the FIFO read overflows the
-heap buffer before the clamp takes effect.
+Please wrap commit message according to Linux coding style / submission
+process (neither too early nor over the limit):
+https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
 
-This can be triggered by a malfunctioning or malicious I3C device on
-the bus that sends an IBI payload larger than the agreed-upon
-max_payload_len, leading to kernel heap corruption.
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
 
-Fix this by checking nbytes against max_payload_len BEFORE reading the
-FIFO. If the payload exceeds the buffer, recycle the slot and let the
-existing out path drain the FIFO. This matches the approach already
-used in dw-i3c-master.c and svc-i3c-master.c.
+> board and enables building firebox-t30.dtb under CONFIG_MPC85xx_RDB in
+> arch/powerpc/boot/dts/fsl/Makefile. It also documents the watchguard vendor
+> prefix in vendor-prefixes.yaml.
+> 
+> Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+> ---
+>  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+>  arch/powerpc/boot/dts/fsl/Makefile            |   1 +
+>  arch/powerpc/boot/dts/fsl/firebox-t30.dts     | 386 ++++++++++++++++++
+>  .../arch/powerpc/boot/dts/firebox-t30.dts     | 386 ++++++++++++++++++
+>  4 files changed, 775 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/vendor-prefixes.yaml
+>  create mode 100644 arch/powerpc/boot/dts/fsl/Makefile
+>  create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
+>  create mode 100644 target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
+> 
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> new file mode 100644
+> index 0000000..c78a53f
+> --- /dev/null
 
-Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
----
- drivers/i3c/master/i3c-master-cdns.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+Not existing? You are sending some random changes to us. Please slow
+down, read the docs how to use Git and how to generate patches.
+Documentation/process (including submitting patches) will be helpful.
 
-diff --git a/drivers/i3c/master/i3c-master-cdns.c b/drivers/i3c/master/i3c-master-cdns.c
-index 2d98c1ce9b12..b5ffea1e6a4c 100644
---- a/drivers/i3c/master/i3c-master-cdns.c
-+++ b/drivers/i3c/master/i3c-master-cdns.c
-@@ -1318,13 +1318,18 @@ static void cdns_i3c_master_handle_ibi(struct cdns_i3c_master *master,
- 	if (!slot)
- 		goto out_unlock;
- 
--	buf = slot->data;
--
- 	nbytes = IBIR_XFER_BYTES(ibir);
--	i3c_readl_fifo(master->regs + IBI_DATA_FIFO, buf, nbytes);
-+	if (nbytes > dev->ibi->max_payload_len) {
-+		dev_dbg_ratelimited(&master->base.dev,
-+				    "IBI payload %zu bytes exceeds max %u, dropping\n",
-+				    nbytes, dev->ibi->max_payload_len);
-+		i3c_generic_ibi_recycle_slot(data->ibi_pool, slot);
-+		goto out_unlock;
-+	}
- 
--	slot->len = min_t(unsigned int, IBIR_XFER_BYTES(ibir),
--			  dev->ibi->max_payload_len);
-+	buf = slot->data;
-+	i3c_readl_fifo(master->regs + IBI_DATA_FIFO, buf, nbytes);
-+	slot->len = nbytes;
- 	i3c_master_queue_ibi(dev, slot);
- 	data_consumed = true;
- 
--- 
-2.33.0
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -0,0 +1,2 @@
+> +  "watchguard,":
+> +    description: WatchGuard Technologies, Inc.
+> diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
+> new file mode 100644
+> index 0000000..60caf36
 
 
 
+Best regards,
+Krzysztof
