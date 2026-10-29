@@ -1,61 +1,131 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269701;
-	b=nUdD03+3S8kj2JrclBaVhi1f+SvbQB1q2JHTuFvKEIfaMWMiv7XwIhCO8RvDs4vwDWqZ
-	 qSiZPadjJnXJipkGj95DQ9w29yKH0vvTsT+Ce7uxmjG9dQVebkXLgIJkpITW7kw9PCaPt
-	 OTz9P17kgsdO0ym0vYfgL3J9vT3qrt7FgOomYYtewd4K1GFV/+DLgxesz1kB8RTxF3oSc
-	 3VLDQ2RWPzgu2yKyGGHbAghiI+QCpb4R1IZ9Z2vDm8Y5inX59k7fWXMeG8p6dn/jMq2MW
-	 mAuD61mv3U9wMOgaDWSmHlQMOKSs1Wjk6gBXzuD8asx164wzxI391BpX15IAbNiyp8w==
+	t=1793269744;
+	b=QDf7E+HWqveHk5Ly8fi8hOvsV2tvSkENnmIOaC8YKtsmH5y/V4re/gb2rMlkCsIRGrQ7
+	 K3RVTZl9Tx8z/yYq74Taj1gGt2qJrnU66RGPe0xwhoGIEbodBte6H8BvzsAygcWx+j5he
+	 /oYRSRNkahgqt3mrI4iixiHz0AfsFajxxfpd6tIzqWwWfDPiMVoPVky4rvD+iyxUQtwkJ
+	 ukcPTxNzmWb6GArOp255SMqdjM8374LwldwAAGEzYrZcpKOIWLH1cyaFySBeq/10Jsvz7
+	 TXctPMX7nd5gyTxQ2VF6FJGxAleN4RhCqXywTzMlaqLXt17BmCElV1qRLoEqLZ8r5dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269701;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=fBNFZdt83poB+vWK3RH+fH/Du4zaUdYMvSCheFF+r4g=;
-	b=c84gBExtKiMwvS2EWqxOCSBeRFi9HLCrxtKkiT51Xg81ZDJC+E8iVMGuIfbmSD7xhwM3
-	 gCvjAbKUyMWjL5tb7A76LOFMaaN7IrFtDcBPvgU4y3DGTxOLIrNspPPKgGO/TRLz2Bqm0
-	 yypQe4TaU53paJXcTgCBsuujG4Ao7H9jWfFzbHeMutHKLr0X02GzRTtKEFfI3GnJZWU9X
-	 bXodzcJkA6jVGzGym2O2ogf8ucjE8evO9C2DzmfEBwNRBw7XhLn/JzB1hUXTyFaE6tclO
-	 z/LHt+lQ3zUYXbmli9q0hHJPsi/dmbJFMVGLpvdC6d1SRE3Ot/uFcQcCBH2Tku1qbfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269744;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
+	 X-MBO-RS-ID;
+	bh=PQfG2Km+YKrxCDPAAbbWYdryEevMUab9CWpj+Sh05TA=;
+	b=Xs+iTgw6VhhYUbyhejm/DW4DfoY0qUIGeXMPidvnBzLO5IqbxsMgHOU2H3GxMRFNKo+O
+	 GlV3s1tFk5Max++syaR3DWVZdUG8uA4yYDsCDSyp+3PC7TadA0+tQ/aUWj93x07PAXbwM
+	 5rSOTRTPaZgVceh5wIRjfwbb9O6Pwcu6uCfBjvJvcr+CSNWf+0nAf7zWWb2haZJwYHBST
+	 +mRf+fCIakCbQPMI987SDXHaGI7bLV4nn9FrrEN5XDBXZEQ0Ssixlr46GYLkok3oDRI42
+	 jtxBKTdurv0S6O8Bd9MD003wG1hanb50Dka5Y3jbb0MwPIAS8DTQedqxokKDmwQJCzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpLAjoHM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=owjb1PqO;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A816A606A322;
-	Thu, 29 Oct 2026 10:28:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1255B606A31C;
+	Thu, 29 Oct 2026 10:29:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1255B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IpLAjoHM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDA8F1F01828;
-	Thu, 29 Oct 2026 10:28:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793269700;
-	bh=fBNFZdt83poB+vWK3RH+fH/Du4zaUdYMvSCheFF+r4g=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=IpLAjoHMpgJ223v9a7892cnz9I0FhSOu1kk3OPik/LUFkB52LRySawUqUDS8jtgKX
-	 /01QFvqmm4eB+uoFbKxLr0/QsDCeM28mGw/1WBlqjkDpByWxr1Q0AeCiZXXoU0Gvve
-	 Fb33Nhn56UH4WgZQSTF+MpVgEd4KFKVP48Db3FJVydFIpxEBCVmVfFRRFwUFSG11dA
-	 QrX4JQf3PoPkGhdRUuHshhfVT3UNiIh5T8OyttbSRg2hmDWbbX+DRcFDGIpH7U+cWT
-	 yj0Au4D3MSm3E3DZhSUEFemE5wzl7zsZw1Cz97cLV8Prl6uMKjW82bfErho/fsvGdy
-	 bba2WlxxDBh9A==
-Subject: Re: [PATCH 2/2] net: atlantic: AQC113: Limit multicast filters to
- avaiable slots
-From: netdev-bot+sashiko@kernel.org
-To: j@jannau.net
-Cc: sukhdeeps@marvell.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 29 Oct 2026 10:28:19 +0000
-Message-ID: <179326969938.3134.798759730911402864@kernel.org>
-In-Reply-To: =?utf-8?q?=3C20261026-net-atlantic-aq113-apple-l2-filter-slots-?=
- =?utf-8?q?v1-2-d72e99b69583=40jannau=2Enet=3E?=
-References: =?utf-8?q?=3C20261026-net-atlantic-aq113-apple-l2-filter-slots-v?=
- =?utf-8?q?1-2-d72e99b69583=40jannau=2Enet=3E?=
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=owjb1PqO
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jFgSW3XgszMlJf;
+	Thu, 29 Oct 2026 11:28:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793269739; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PQfG2Km+YKrxCDPAAbbWYdryEevMUab9CWpj+Sh05TA=;
+	b=owjb1PqOwF30L04GcK9Gww366AX2aDnKYxBGxkid6fiIMNw14Fg6DhRRdvbRSRfBeVSMQl
+	WaxlytFFpjs1RJoZ5N45Sz33bL9w1qJBlyeR1eU5rt65f55C6aO6qdifwEcZ130ppK53tP
+	pSveThL3uREOnABjLcdpsunrn9gRUFcZLXwXOSMIY/Byy+6Sd2LBtfvMGzoSgr9hC9w0Ly
+	5xXQ0diqvtpnZBddkWZNE4v0Z6yBzfp+Ldvy08kYgCZJDjkf6XZXF1wQdHfrhUyKVv7ICE
+	Oy4tVehaRM110/poQ6AB8ew8cPWmwyLlOdtLmIRxn5M7f9zit58chkxeIOjPjA==
+Message-ID: <3565783722927fa48a30f48b063ef99bcd703eab.camel@mailbox.org>
+Subject: Re: [RFC PATCH 0/6] dma-buf: Phase out is_signaled() race
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Lucas Stach <l.stach@pengutronix.de>, Philipp Stanner
+ <phasta@kernel.org>,  Min Ma <mamin506@gmail.com>, Lizhi Hou
+ <lizhi.hou@amd.com>, Oded Gabbay <ogabbay@kernel.org>,  "Rob Herring (Arm)"
+	 <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Karol Wachowski	
+ <karol.wachowski@linux.intel.com>, Andrzej Kacprowski	
+ <andrzej.kacprowski@linux.intel.com>, Sumit Semwal
+ <sumit.semwal@linaro.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
+ Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter	 <simona@ffwll.ch>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Russell King	
+ <linux+etnaviv@armlinux.org.uk>, Christian Gmeiner
+ <christian.gmeiner@gmail.com>,  Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Alessio
+ Belle	 <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>,  Qiang Yu <yuq825@gmail.com>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov	 <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang	
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten	
+ <marijn.suijten@somainline.org>, Lyude Paul <lyude@redhat.com>, Danilo
+ Krummrich <dakr@kernel.org>, Boris Brezillon
+ <boris.brezillon@collabora.com>, Steven Price	 <steven.price@arm.com>,
+ =?ISO-8859-1?Q?Adri=E1n?= Larumbe	 <adrian.larumbe@collabora.com>, Liviu
+ Dudau <liviu.dudau@arm.com>, Dave Airlie	 <airlied@redhat.com>, Gerd
+ Hoffmann <kraxel@redhat.com>, Matthew Brost	 <matthew.brost@intel.com>,
+ Natalie Vock <nat@pixelcluster.dev>, Arun Pravin	
+ <arunpravin.paneerselvam@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ Thomas =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>,
+ Melissa Wen <mwen@igalia.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal	
+ <mcanal@igalia.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance	 <kernel-list@raspberrypi.com>, Dmitry
+ Osipenko <dmitry.osipenko@collabora.com>,  Gurchetan Singh
+ <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
+ <zack.rusin@broadcom.com>,  Broadcom internal kernel review list	
+ <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding	
+ <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Cameron	 <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=	 <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Greg Kroah-Hartman	
+ <gregkh@linuxfoundation.org>, Sunil Khatri <sunil.khatri@amd.com>, Kees
+ Cook	 <kees@kernel.org>, Jesse Zhang <jesse.zhang@amd.com>, Timur
+ =?ISO-8859-1?Q?Krist=F3f?=	 <timur.kristof@gmail.com>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>,  Kexin Sun <kexinsun@smail.nju.edu.cn>,
+ Prike Liang <Prike.Liang@amd.com>, David Rosca	 <david.rosca@amd.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>, Marco Crivellari
+ <marco.crivellari@suse.com>, Shixiong Ou <oushixiong@kylinos.cn>, Jouni
+ =?ISO-8859-1?Q?H=F6gander?=	 <jouni.hogander@intel.com>, Thadeu Lima de
+ Souza Cascardo <cascardo@igalia.com>,  Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>, Joel Fernandes
+ <joelagnelf@nvidia.com>, Al Viro <viro@zeniv.linux.org.uk>,  Neill Kapron
+ <nkapron@google.com>, Michael Bommarito <michael.bommarito@gmail.com>, Sam
+ Day <me@samcday.com>,  Gabriel Prostitis <prostitisgabriel@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+	etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+	imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
+	linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+	nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
+	spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+	linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-usb@vger.kernel.org
+Date: Thu, 29 Oct 2026 11:28:39 +0100
+In-Reply-To: <abca3f0039b07999e29558690c27fef23292bea3.camel@pengutronix.de>
+References: <20261029095542.1526750-3-phasta@kernel.org>
+	 <abca3f0039b07999e29558690c27fef23292bea3.camel@pengutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,205 +135,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MBO-RS-META: j7weafhpcaunystyo7r38dam3cyszcnz
+X-MBO-RS-ID: 051d97976afa34da498
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+On Thu, 2026-10-29 at 11:23 +0100, Lucas Stach wrote:
+> Hi Philipp, hi Christian,
 
-Critical: 0 · High: 2 · Medium: 1 · Low: 1
+Jo Lucas
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+>=20
+> Am Donnerstag, dem 29.10.2026 um 10:55 +0100 schrieb Philipp Stanner:
 
-- [High] hw_atl2_hw_multicast_list_set() (hw_atl2.c:783) now rejects any
-  count above `priv->l2_filter_count - 1` with -EBADRQC.
-- [High] At the end of the series, multicast filters on AQC113 parts with
-  l2_filters_base_index > 0 are still disabled, by…
-- [Medium] The new bound `count > (priv->l2_filter_count - 1)` in
-  hw_atl2_hw_multicast_list_set() uses a firmware-reported u8 that is…
-- [Low] The commit message has a typo in the subject ('avaiable' should
-  be 'available') and a garbled sentence in the body ('which could in…
+[=E2=80=A6]
 
---
+> I think we would all be interested in the actual use-case that's
+> sensitive to this kind of latency.
 
-net: atlantic: AQC113: Limit multicast filters to avaiable slots
+Me too.
 
-This commit changes the count check in hw_atl2_hw_multicast_list_set().
-The check now uses the firmware-supplied l2_filter_count instead of
-HW_ATL2_MAC_MAX - HW_ATL2_MAC_MIN. The goal is to keep the multicast
-entries, which sit above the firmware-assigned MAC address slot, within
-the available L2 filter slots.
+Let me use this opportunity to stress that in the future, in DRM,
+whenever we have [to accept] a racy "optimization", both commit
+messages and code comments must document why it exists and who
+requested it with what proof.
 
-> net: atlantic: AQC113: Limit multicast filters to avaiable slots
+Would save us lots of time when those things are discussed >5 years
+later.
 
-[Severity: Low]
-This isn't a bug, but there's a typo in the subject (avaiable).
+>=20
+> However, I wonder if this is even an issue anymore with the lock
+> inlined into the fence structure.
 
-> HW_ATL2_MAC_MIN) which could in setting out of bounds filter slots.
+Almost no one uses inline-lock so far. So unfortunately, we might
+regress old drivers, maybe.
 
-This sentence seems to be missing a word ("which could result in ...").
+But sounds as if you're in favor of phasing the locklessness out :)
 
-Could the message also describe the concrete case? The old bound of 37,
-combined with the caller's cap of AQ_HW_MULTICAST_ADDRESS_MAX (32) and a
-firmware base index such as 9, lets base_location + i reach slot 41. That
-is past HW_ATL2_MAC_MAX (38).
 
-It would also help to mention the l2_filter_count the affected hardware
-reports. Oversized lists now fail with -EBADRQC instead of being clamped,
-and the message could say so.
-
-> diff --git a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-> index 82be3bb2e76d4..41c653c14e5af 100644
-> --- a/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-> +++ b/drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2.c
-> @@ -780,7 +780,7 @@ static int hw_atl2_hw_multicast_list_set(struct aq_hw_s *self,
->  	struct aq_nic_cfg_s *cfg = self->aq_nic_cfg;
->  	int err = 0;
->  
-> -	if (count > (HW_ATL2_MAC_MAX - HW_ATL2_MAC_MIN)) {
-> +	if (count > (priv->l2_filter_count - 1)) {
-
-[Severity: High]
-Can lists that aq_nic_set_multicast_list() still treats as valid now hit
-this limit?
-
-The caller only falls back to IFF_ALLMULTI / IFF_PROMISC based on
-AQ_HW_MULTICAST_ADDRESS_MAX (32):
-
-drivers/net/ethernet/aquantia/atlantic/aq_nic.c:aq_nic_set_multicast_list() {
-    ...
-		if (i + netdev_mc_count(ndev) > AQ_HW_MULTICAST_ADDRESS_MAX) {
-			packet_filter |= IFF_ALLMULTI;
-    ...
-	if (i > 0 && i <= AQ_HW_MULTICAST_ADDRESS_MAX) {
-		self->mc_list.count = i;
-		err = hw_ops->hw_multicast_list_set(self->aq_hw,
-						    self->mc_list.ar,
-						    self->mc_list.count);
-		if (err < 0)
-			return err;
-	}
-
-	return aq_nic_set_packet_filter(self, packet_filter);
-}
-
-Some firmware reports l2_filter_count <= 32. One example is the base
-index 9 case, which leaves at most 29 slots below HW_ATL2_MAC_MAX. With
-that firmware, a uc+mc count between l2_filter_count and 32 now gets
--EBADRQC.
-
-Before this patch the check was count > 37. With the caller capped at 32,
-this path could not be reached.
-
-When it is hit, no address gets programmed and IFF_ALLMULTI is not set.
-aq_nic_set_packet_filter() is also skipped, so any IFF_PROMISC /
-IFF_ALLMULTI change in the same rx_mode update is lost.
-
-aq_ndev_set_multicast_settings() throws away the return value with
-(void), so nothing reports the failure.
-
-The early return also leaves the oversized value in self->mc_list.count.
-Would the next aq_nic_start() fail as well?
-
-drivers/net/ethernet/aquantia/atlantic/aq_nic.c:aq_nic_start() {
-    ...
-	err = self->aq_hw_ops->hw_multicast_list_set(self->aq_hw,
-						     self->mc_list.ar,
-						     self->mc_list.count);
-	if (err < 0)
-		goto err_exit;
-    ...
-}
-
-ndo_set_rx_mode does not run while the device is down, so nothing seems
-to reset mc_list.count. aq_ndev_open() and atl_resume_common() would then
-keep failing until the driver is reloaded.
-
-An unprivileged user can grow the list with IP_ADD_MEMBERSHIP /
-IPV6_JOIN_GROUP.
-
-Should the core know the real capacity instead of getting an error back?
-For example, it could fall back to IFF_ALLMULTI when the count exceeds
-that capacity.
-
-[Severity: Medium]
-hw_atl2_utils_get_filter_caps() copies priv->l2_filter_count, an unsigned
-int, straight from firmware:
-
-drivers/net/ethernet/aquantia/atlantic/hw_atl2/hw_atl2_utils_fw.c:hw_atl2_utils_get_filter_caps() {
-    ...
-	priv->l2_filters_base_index = filter_caps.l2_filters_base_index;
-	if (priv->l2_filters_base_index >= HW_ATL2_MAC_MAX)
-		priv->l2_filters_base_index = HW_ATL2_MAC_UC;
-	priv->l2_filter_count = filter_caps.l2_filter_count;
-    ...
-}
-
-If firmware reports 0, doesn't l2_filter_count - 1 wrap to UINT_MAX, so
-the check never fires? Only the caller's cap of 32 would then limit
-base_location + i, and that can go well past the 38 physical L2 filters.
-
-Nothing checks that l2_filters_base_index + l2_filter_count <=
-HW_ATL2_MAC_MAX either. Take base 9 with a reported count of 32. Could
-the loop still write slots >= 38 through these functions?
-
-hw_atl_rpfl2unicast_dest_addresslsw_set()
-hw_atl_rpfl2unicast_dest_addressmsw_set()
-hw_atl2_rpfl2_uc_flr_tag_set()
-hw_atl_rpfl2_uc_flr_en_set()
-
-The neighbouring fields are already sanitised: art_count,
-l2_filters_base_index, and the VLAN and L3 counts. Should l2_filter_count
-also be clamped against HW_ATL2_MAC_MAX - l2_filters_base_index, with 0
-handled too?
-
->  		err = -EBADRQC;
->  		goto err_exit;
->  	}
-
-[Severity: High]
-Do the slots this patch bounds actually stay enabled once the series is
-applied?
-
-hw_atl2_hw_multicast_list_set() programs entry n into slot
-base_location + n and enables it. Both aq_nic_set_multicast_list() and
-aq_nic_start() then call hw_packet_filter_set right away.
-
-That reaches hw_atl_b0_hw_packet_filter_set_int() with base_location =
-l2_filters_base_index + 1:
-
-drivers/net/ethernet/aquantia/atlantic/hw_atl/hw_atl_b0.c:hw_atl_b0_hw_packet_filter_set_int() {
-    ...
-	for (i = base_location; i < HW_ATL_B0_MAC_MAX; ++i)
-		hw_atl_rpfl2_uc_flr_en_set(self,
-					   (cfg->is_mc_list_enabled &&
-					    (i <= cfg->mc_list_count)) ?
-					   1U : 0U, i);
-    ...
-}
-
-This predicate compares an absolute slot index with a count, which only
-works when base_location == 1.
-
-Take base index 9 (base_location 10) and a typical count of about 5. Since
-10 > 5, wouldn't slots 10..14 all be disabled? With larger counts, only
-slots 10..count would stay enabled.
-
-The loop also runs up to the fixed HW_ATL_B0_MAC_MAX, whatever
-base + l2_filter_count is. That writes enable bits outside the
-firmware-assigned range.
-
-The earlier patch in this series, "net: atlantic: AQC113: Fix
-hw_packet_filter_set for l2 filter base index > 0", says
-hw_packet_filter_set will no longer disable filters configured in
-hw_atl2.c. This predicate still seems to disable them.
-
-Is something like i < base_location + mc_list_count needed, with the loop
-bounded by base + l2_filter_count (clamped to HW_ATL2_MAC_MAX)? Without
-it, multicast reception, including IPv6 solicited-node groups, looks
-broken on this hardware.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026-net-atlantic-aq113-apple-l2-filter-slots-v1-0-d72e99b69583%40jannau.net
+P.
