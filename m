@@ -1,85 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287709;
-	b=a+MeVND48wblJn/AwCGshXezSOkbaHaBXWIhduIdSj07B8or2Nhcct0i9gSZrkB8U95H
-	 nLoGtYZ1k4OdtHvg3PRCNxNLDyoZhUzcfFdGWNVbiC7CGmMF7PteSPo1P/2GFj3uDEC3Y
-	 1j0uvgpjHnrTKYqujPQAvgHbNs8pwBudG2vL+gPoThbOXEREM6uJMZuo5OsFALjPOMAwP
-	 2oIGZkv4aQiJNyxYCfz7GwE2rPd4Isq4veiRSGj4jNg6my/Vms643Aivy0Ae3516q3SQP
-	 uH7UMLjIhq6/ejHgxoPls4f2UL9yvhwX6LEKlEnp4VQEzpb9cIQgJdQc5syL5d82ffg==
+	t=1793287765;
+	b=S8Txj5zKw/i0Bffj1C/CxUcIYOf+QDj+cJbcUj8nZlf1sHOh3PEFWJ6PVocp+Q0UwRc8
+	 Z6AR7CXvbAdANYIcrCaFtJILPh/9iae6LKyJSqfOuZeRO0rDhbJx3+HCKMzoybfQlyuEj
+	 NDnt83cQ1uAwz8ILZT1VO2gZlTfre8pGIqhC23/5Z/cqV3EloIM1ITtpFaE2T6yHcannk
+	 BoL4H9Xrrs+uEzLNZo4n/fZTsrLNCmY90leXz+zXLgdnQXujkhALViBWHVapWgpWWeUUN
+	 Wx7iDuHDK833gdEkbsf7Z3KTODK3BA5q3agEoBNaOdrHNHDofjZULCLuGW+EN6p9hJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287709;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=yZTE4OyXfMuvSFj9u4UbsZSTrlYFDczLFmxLInU5s4g=;
-	b=LDDL1/o8SY7ecwKXv82DU1yxdFOSqxuO/nIt7uPCfcV4FllFmYjVAX2kNxeg6N5i1euW
-	 M2dAEZrf1ytv3+i1ZwGGp2R/uADhR3/QEN8Bdzp/ZEYRuug/+Na5tH5BUyrdhcMRkeJuz
-	 JjXWgc2Z4syg05aV4vq+dzUDDWxPBjN160O1wQ4ziztcolrjRqIgSkMrD+i7Yhu5Hl4XQ
-	 XBhqRUA3UzbAgPF/Sj0sKWCA6PuC75lHqN3hVJNrNqEKq7otzYR6WasPhkCZnHMQFE1QQ
-	 cVd8GqEILyNZOAN2Fbmi5+hav1btd4pOSFoZw0E5xRon24+uTSo4KdeuLewdEvFThmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287765;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=744oJqLHibDWboUALGgnird9ud0/SsHRUCImjN81cRk=;
+	b=Qf2l56QtNBLFSSv086kmkuEzrndHbxDpf06Zw4wmQ/a/H+9kJ2N6RmW3abwZM4ge4zxw
+	 NDfo/aJQDi/Xg23k932M7Gfwy0QXc38oWt9dvTLG4OILSn0xLYnjBsF3VQtH4/IvPcg8J
+	 tnXdikj+5qYjjIhM3neq9bXbdZNjoUKzQc7Pvqb/dolZwd3WWOUGxwAzTrVyuD6zGfW+5
+	 M+Fg45vUtygMYyVOJ+O74O1217pwCylHTXgoJP4W2YrspVKiEiz6/nPwEi0LMZj2Dcs/L
+	 vPSRAK/ISiPclqemWIzGXgjJ9E8eZtmkUsBAgKGYVXbDoEuSdeHuGbqN6KrcAv+rkqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=TTXhoTzg;
-	arc=none smtp.remote-ip=209.85.210.54
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=GTf4aq+y;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1AE606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:28:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B1AE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68830606A31F;
+	Thu, 29 Oct 2026 15:29:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68830606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=TTXhoTzg
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-843ea301d60so1575524a34.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:28:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1793287706; x=1793892506; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yZTE4OyXfMuvSFj9u4UbsZSTrlYFDczLFmxLInU5s4g=;
-        b=TTXhoTzgbadNcSaonXWqQF5fezqBgmOZg+URLV1aOo/G93jXRxEYqIayW3y/pjiLpq
-         Gy+P9SgVHj6qs4wtajtDVUhLHB2GNX2WaBLhctqfmnbsHtr97aR9pNSl1+6dUiUFDiBE
-         L1NluUHoEwshsGLwXzvPlVr1VLVMAI2FPRe8c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793287706; x=1793892506;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yZTE4OyXfMuvSFj9u4UbsZSTrlYFDczLFmxLInU5s4g=;
-        b=LqbK61j2YHilvbk9kvyc7z71JIrk5mswRZcrXP/BTz7MUdfVb86ZK8T6XBzZLjPNDo
-         R66ejpf+4DPQAXiNdZ9oGnFKJG0csFZAYIqWiRvyTlquBb301bs47HrwAJKjRwy0puAY
-         pB2Hzr4Rj8J0Zhf8Re3FwE8ws6wB5ZVHHCbhg1mEWSwaCkGie4sYBqlM5uENB1FOohru
-         U+HLRqvU9gzeQjlZ5yBPpAHEuSFi+sDq51MPBhxJnLKg/uDz9IFAkzustyCgpuQgNLkg
-         s/t/uEE0Ats9t1UUS+UABkUBi8avQgE4hFjrhMJog65aENKw6E7XZ555E5aULIvyfcQw
-         w/Wg==
-X-Forwarded-Encrypted: i=1; AKwUvBwAJl04G0KHR9ed33b7CScpexWC1rsri3p1W7I4ml8XPEhXjLJ/9fOlbwcsGLkT7wXuDYUJ07SA5L7OPg0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvo7/oyMtJ3kMNoJmg6DGzZEO/ar1PBc/1FBZXc8QqjnhM2FJu
-	ikg8wAbR3uiJs5yw8Wna6Fpcavx6XccBSNj2bG/T9+La/lYSsAPY/UUbwkTpeOVc1BE=
-X-Gm-Gg: AYBFou0DtEUXStQ3IijFS32VryvsG5h9z2JCK1ISTH6qs0uw/Mba9OaRGMMevfnW8AD
-	vO47nQhl4TPUHzUZjhTR943FFNpmxRjcdkdNf2AjZ/4VT0FGYEu6pRqePZRwhH6xn0SODL3U4jx
-	IN93Yij4sO+UFqwyJEx4lgBChvXsxXazVhdhDSglJrduUs9FmdSoU4pxl0zc/RLinDDA4aFdtL5
-	hveGcsnC5cGOIPBbMjFG11x2sb2njZVUihN4HTztQ7sb34j4aPGjYmEuiXk8yi1DpdI+DT5/M3f
-	I5YleqeT6jKlRrcpIKsjgEno2m4bO5cST8Vaule0mHdeUqkcuGDni92yg9V7WBBm//u7VdDITVC
-	utXtOuN63bwI9S5Hbe+PUWl9rbhUZy2mpAWmZlMDypjkEGVNNecOXxVJ37oXtgfe0/op/eMdZwH
-	dFa40fit7Lf30IiNMfuNVvfLbcmdjP0L3YzlMzxwT2AMyDyeRt1Ul88bWNhSX23QO/kfUgRqL5/
-	jXvSyihH605C0NE9DPgW329qqkNQnqKNGCNeE1EcwCJtdVUThvwPVunW2dIIlDEfdCwA/zNuTVY
-	IX2nA6CKpTya3NZQ1eo94s8vAMl5vnnsG9YGsyQ=
-X-Received: by 2002:a05:6830:4411:b0:829:2af1:a07d with SMTP id 46e09a7af769-85abf966b72mr5093393a34.5.1793287706261;
-        Thu, 29 Oct 2026 08:28:26 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d33f9bd96sm72469a34.10.2026.10.29.08.28.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 08:28:25 -0700 (PDT)
-Message-ID: <8c2197e0-d83b-4089-94e9-7e6cf5a080b2@linuxfoundation.org>
-Date: Thu, 29 Oct 2026 09:28:21 -0600
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=GTf4aq+y
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=744oJqLHibDWboUALGgnird9ud0/SsHRUCImjN81cRk=; b=GTf4aq+yFc/PVJRYup5NFr+zf2
+	lGOnWUsLsK8Lspb7305sg3xuCNsN5nlxil8IXsUGBCK3OYi6nti395wj7xIAKyCMiu13jXcOOx/4A
+	980sm0nP89UAN9Y5ozHoOdOw0iJ8GnH/OcFykhitxhOtqErxBXJAi1nsIVHjeKnTVXffg2WPpVNUb
+	MoCtRZLu9bYvRoBNgn6ajAlz586oH+lg5iG1W3z8YvgWkZ4rgu/d+IBDWD7S3C57w5+rs/RME76qT
+	zEHTgo1NkqLeztCVvZ7OJEwspGK9O69L6n9u+Cs2GqNv9ktEvH8NCxrFFK7yybuTnYIjPsGqHmir4
+	VvckzlXg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMS4C-00000009dMX-0I8y;
+	Thu, 29 Oct 2026 15:29:24 +0000
+Message-ID: <a9417893-b7ad-4f9b-b8dc-93a41eb7ff46@infradead.org>
+Date: Thu, 29 Oct 2026 08:29:22 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,46 +59,44 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 000/168] 6.6.161-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261028165943.089486480@linuxfoundation.org>
+Subject: Re: [PATCH 2/2] docs: Improve wording in Sphinx dependency checker
+To: Dongliang Mu <dzm91@hust.edu.cn>, Jonathan Corbet <corbet@lwn.net>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1793119566.git.dzm91@hust.edu.cn>
+ <13b42c47a375e2ccc9f84412c10e7868f7ea7c4a.1793119566.git.dzm91@hust.edu.cn>
+ <5a257e68-f1b9-4c50-919a-a85d0df8686c@infradead.org>
+ <e0415ef0-205b-442d-8e4c-46b72da9fc83@hust.edu.cn>
 Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261028165943.089486480@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <e0415ef0-205b-442d-8e4c-46b72da9fc83@hust.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 10/28/26 10:58, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.161 release.
-> There are 168 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.161-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
 
-Compiled and booted on my test system. No dmesg regressions.
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+On 10/29/26 5:51 AM, Dongliang Mu wrote:
+> 
+> On 10/28/26 8:07 AM, Randy Dunlap wrote:
+>> Hi,
+>>
+>> On 10/27/26 10:07 AM, Dongliang Mu wrote:
+>>> @@ -784,10 +782,10 @@ class SphinxDependencyChecker(MissingCheckers):
+>>>               if not self.distro_msg:
+>>>                   self.distro_msg = \
+>>>                       "Note: RHEL-based distros typically require extra repositories.\n" \
+>>> -                    "For most, enabling epel and crb are enough:\n" \
+>>> +                    "For most, enabling EPEL and CRB is enough:\n" \
+>> I think that "are" is correct here since the subject is plural.
+> 
+> 
+> From my understanding, enabling XXX is the subject, so I change it to "is". However, this is not very clear.
+> 
+> How about "For most, the EPEL and CRB repositories are enough:\n"? This seems more clear.
 
-thanks,
--- Shuah
+Fine with me. Thanks.
+
+-- 
+~Randy
+
