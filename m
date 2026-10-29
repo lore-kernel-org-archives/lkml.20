@@ -1,72 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260189;
-	b=vI4LUhRQP82+rnOMsqk9+VbNFaE7iKLPqVhCmYRItr+j+3o2MiFJhhNCnfw7rIkSkftS
-	 IKauj9cOkIZoNwNdKiofudkeUOtmEEzKsdXUo16ypZYcCuMWmveL5NOxdHqEKLIERg9Ii
-	 SDBFTsrcvn4yh76n+sj7ByJeHloyd0TdOXRo4fCQGDXBz7/PTmNgLrARJktv/wO0Sf8xg
-	 0fZQlWI4nZnJbXSJnpYNP/FzGdx1zjKz1rHpIK/kohZZH7N2+lT22STZ/Dauw/I6jocsp
-	 SRCCrFUuhiG1Jcv29DlCdAKnmTSyC/EmSl8Rnla28uip87lX+4PqtQu6v5yuh8Ls/ig==
+	t=1793260191;
+	b=1cWNtmoB7zFFFqsFn9SCUG2U/CKcTqU40KsEeLgnzdyOnntccRQzQML1S7xi6KvHCFEv
+	 ydiIup003gbHA3pfG5mlHw+R34IrvlKAs+Ci4ubxGu+O+n7F7GyGoSTQBdwZre0tkQtz0
+	 LNx1PuHoCs48wqCh1fN4h8LvZ0HqeEU82ymKiFhLlOSw+cmFcMOiU74S9U49/wrktNwpt
+	 tp97nR3yr6nP0g2uO4fEOkJmP0Fuqa0LyrnKtq3xsxh/MnSddPSGi+JsSY4rJqBnOFc98
+	 xXDJIgkNeJaqFLHbfb/gVgsQzgVvA+fkDt+EwQe0kC5E6o9pAV4kPryKJ8TjlQrFVpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260189;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=wKcwn6Rk5lPeD1ZYuSyC9nozBY4N1b3MpNfJc6pFicQ=;
-	b=uT1FeNJHlUL0TGLjSbewt16Sd31mSglcZX66CavInZ4kl4yZOjQINPmxai/5+TFOBE9f
-	 GA40jWOm+hBPWihUtEqGUaNOZNmMmS0HmmSZyFcRa2VRM34NgQvK342m5y1peY0ctX4mp
-	 xTOzUkd8V9kqfCilulG8xntPGrbmyPPQFI1Fnhll0q6RZTJ9i3zkX43a3JBOXN6bRNuOl
-	 SDJ9kjMP5VBOn/R+vNtxKj2uKDb9v1SLp+68C1xvjBGwt5ywgvuq7U4RDEQYMGuw6BO7W
-	 CLCoKxgfkdx55eITsdTqpUbM4av/fR8OGPZbzFSnSpBE2mUucnQ/cJRoFzzQqHT0EjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260191;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yz8i4WKkbNXEG8JNojJIwkG6eD/QvdmFoULtZaxCats=;
+	b=O2NFj3nJd7JsZ6qTokrRji4NUZs8+e7pwet10/yRHZAJLgbRP5ux/X+aAxsoZqOjrMVf
+	 6eIa61lkPtGPBFHt7+FSXrkYJqDE3mxxACgrTV1Lk/QcytwB5sc0WXurq1oL8XqF0XqN9
+	 7HPkvqlCD0ABjKg1HsrCs83imY2Y2edOyNvvQEwV3vOlTxFreQEDnPVR1gqR4ud1Bjr7w
+	 D3EDTqS+e2bWUO+ta5xkEbz05syZClS6Z/DaSa8iTkJJtqfGuXvabN2lYB4GjWB6vYfv1
+	 fTSgMPnot21NYWCuVvcEF+mvXW14aAbIvRG6OSydFbpaUF2iBXp2QmbBcRhBJmgJwqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mjhYPKAe;
-	arc=none smtp.remote-ip=95.215.58.152
-Received: from mta1.migadu.com (out-152.mta1.migadu.com [95.215.58.152])
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b="JQEhOH/A";
+	arc=none smtp.remote-ip=74.125.227.131
+Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1AE606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:49:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF1AE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4850606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4850606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mjhYPKAe
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ofXpdaB/7nB74dbgxFWLaiAeMu+4yAIU416lNX3BA6g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793260186; v=1; x=1793864986;
- b=mjhYPKAejWK+RVReAHy+JkxcsJ13c4KJkbJC1rrrOqC6eBWYzHzKbW6GkDQSMMfHyUmQRfeS
- dSgIZbAOqpgOtt+RId04OkiFZZFa/QO/3q30HlaPVUB1lPBhJf8ZGqoRb3OvIWhswgRB1dL3r52
- eREOniOR0v9s7IvdLxmTaXm0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f7790a20ed431206;
-	Thu, 29 Oct 2026 07:49:46 +0000
-X-Mizu-Trace-ID: f7790a20ed431206
-X-Migadu-Flow: FLOW_OUT
-From: Qingfang Deng <qingfang.deng@linux.dev>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Qingfang Deng <qingfang.deng@linux.dev>,
-	Breno Leitao <leitao@debian.org>,
-	Norbert Szetei <norbert@doyensec.com>,
-	Taegu Ha <hataegu0826@gmail.com>,
-	Paul Mackerras <paulus@ozlabs.org>,
-	Brice Goglin <Brice.Goglin@ens-lyon.org>,
-	Andrew Morton <akpm@osdl.org>,
-	Matt Domsch <Matt_Domsch@dell.com>,
-	linux-ppp@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] ppp: remove SC_MUST_COMP
-Date: Thu, 29 Oct 2026 15:49:32 +0800
-Message-ID: <20261029074935.40509-1-qingfang.deng@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=JQEhOH/A
+Received: by mail-pj2-f3.google.com with SMTP id d9443c01a7336-2e831901331so14382165ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:49:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1793260190; x=1793864990; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yz8i4WKkbNXEG8JNojJIwkG6eD/QvdmFoULtZaxCats=;
+        b=JQEhOH/AcH+D00whwk5YV2SCmCAIr9A4mreKRfPCO+U5z1fI+gJYKPW0nXRB+YW4/M
+         wFL7MFo5HR0p5w8cXZ36ka+3r39vzeOeGlTLOJzCkuuN602PMe5ohvO1hc1tar0cBIg3
+         R2GZ7e/eDg/0UyBvCQyU8bN8kn8Vpu43pZRnlyxH6BYbdGIRLCAS3dj4qr1iQgvkoCr6
+         ZchzgXu8aKR1VASXb2XRLqKHmWjt9INRnP+y1NGDluZ6jv249/+ml5scLncR3LhI7SrZ
+         9jP25OeZzxQz4gLvPigG25eeQwHoQFzXZHy8OIXdIyBuWKpRIR3RSSzUlZyvqxd1h8+T
+         LMSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793260190; x=1793864990;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yz8i4WKkbNXEG8JNojJIwkG6eD/QvdmFoULtZaxCats=;
+        b=aQ1ZU1s13yPgruv1iWi2VKJAtcIms+elj3Y/2YBvD4PTqQQbOCPvSn4mJJOxnbkoca
+         j6n0IJZjyMYNWxncvWp8qj82hZo9LkhINho9TWZmz7CR9CVB2AvO9xa3USzMkLriasal
+         QsqeLyNCtmr2Kkkwp/1Mndz4JYhQsPP3IFRrXyFh4gvOGqwGqlPr/AUoC/uGMXcCTfu/
+         Jswawix+Vmf6L8jcZwd0T+taEw9yzWnfrXI0ZMDJYYBhBjVMg4Vb9ik8fiaI4XUJbfQv
+         hyi9ufIEQ7BcYQSFo2CQHMOw7xIXL64a3pVboD7Ob5eYsiUeVdxV8tdqdhq9hT2NsAGg
+         GRPQ==
+X-Forwarded-Encrypted: i=1; AKwUvByB3m1kO2uujaIMAks2mPtzLzFc/FAHcYxv+kZZoLpG7g9Z7bXPObeBItgiM+owBvCXHBzOWK+SKm6JgTk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLImCAJ4EzbjSqemoJetQTTn0Mt1MJOr5ZhtgKaTBElvS6rhgjE
+	YeOolU0btc0jIaQ4EX77ZwSuR3kuBykNtyeYtS4kCcDJskpyL4BarFfmqOuJc3B0WH4=
+X-Gm-Gg: AYBFou0+9D8aKkXtecxYCtP07m0kn6LTbR4JhwBXidfSHQm0guKYfE5icdio91/YNol
+	YNcZxpaqcl0c6ZXKAS0Jl3/dEiQDJyMvcdlg7AN44AfvJXPZ8DokHDrIIt9QpbptX6VL7d2KEtf
+	K2WfbgAjNjtsbZB4jfjsG0CumoyswVzjpTWGz5vB3TproWEYNxvh35Sap8JGckykr6lqHtP6vKn
+	GxCWOfho7H+YFl/SeVae/PyxKwez26t8CSRAGudpouZlxI1N4JeWKLvp1TqjilUdBB9wVXJIRT9
+	lzGa5DVg32oG6oEqEWjL89CIqK3nKswlf6E5qK3zQFc5AMeccRQtXnuA+/kYoYpZsHn0Puppn1Y
+	HOz5si0yLtxKOL0R6Klb9bZGq0gvFlrfrGx9/nsHeghpNnfJZFp79ZCdpWj4mqJcuMwV53nps3K
+	pW6vO/342OQTq5LNEOKOMOvwfsY8yjD0GNg2Cz352A/zzoKCJ6IIzrZtiacFSGvYegLcvX6+/k/
+	F0hqMKwtstl8qgNNzIIS4CPoGowuCHw4YZbkz5KpY7mplNkqiq42dZeFNCdzhZOGwzx4s5atJME
+	gf1NCqkcKWgoOaEfToh4pNyFygkJEp2b6+Dlkl8faRXYmzAMmbvx4i0P9HgEfViFpEPP37N3DPf
+	YvemOBxc=
+X-Received: by 2002:a17:902:f691:b0:2e9:5eee:e071 with SMTP id d9443c01a7336-2eb00587616mr45487815ad.57.1793260189931;
+        Thu, 29 Oct 2026 00:49:49 -0700 (PDT)
+Received: from FJ7FR2JRQ3.bytedance.net ([186.240.245.239])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6bd60desm30598915ad.29.2026.10.29.00.49.37
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 29 Oct 2026 00:49:49 -0700 (PDT)
+From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
+	Conor Dooley <conor@kernel.org>,
+	Anup Patel <anup.patel@oss.qualcomm.com>
+Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
+	Yunhui Cui <cuiyunhui@bytedance.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Will Deacon <will@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <shuah@kernel.org>,
+	yuanzhu@bytedance.com,
+	yang.yicong@picoheart.com,
+	yang.susheng@zte.com.cn,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+Subject: [PATCH v12 03/11] riscv: sse: mask events during shutdown and kexec
+Date: Thu, 29 Oct 2026 15:48:45 +0800
+Message-ID: <20261029074853.35467-4-zhangzhanpeng.jasper@bytedance.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261029074853.35467-1-zhangzhanpeng.jasper@bytedance.com>
+References: <20261029074853.35467-1-zhangzhanpeng.jasper@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,114 +131,189 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SC_MUST_COMP accidentally shares the same value with SC_DC_ERROR.
-PPPIOCGFLAGS combines configuration flags with transmit and receive
-state, so a userspace cannot distinguish them, and a read-modify-write
-sequence can promote a decompression error into SC_MUST_COMP.
+SSE delivery is independent of normal S-mode interrupts. Firmware may also
+retain an event registration until Linux explicitly unregisters it. A hart
+must therefore stop accepting SSE events before Linux stops servicing the
+registered handler.
 
-The flag entered Linux in 2005 with commit b3f9b92a6ec1 ("[PPP]: add PPP
-MPPE encryption module"). The original patch submission [1] said pppd
-would set it when CCP came up with MPPE enabled. That intended
-integration [2] appears never to have landed upstream.
+Mask SSE on the local hart before panic stop, CPU stop, restart, poweroff,
+and crash shutdown paths. This prevents firmware from entering Linux-owned
+handler state after the corresponding CPU or kernel context is no longer
+valid.
 
-Remove the broken and unused SC_MUST_COMP from the UAPI, SC_MASK and
-SC_FLAG_BITS, and remove its transmit and receive drop checks.
-PPPIOCSFLAGS will discard this bit while PPPIOCGFLAGS can still report
-it as SC_DC_ERROR.
+A crash kernel cannot identify or take ownership of registrations
+inherited from the crashed kernel. Reject a later normal kexec while such
+SSE state may still exist, rather than transferring unknown firmware state
+to another kernel.
 
-Fixes: b3f9b92a6ec1 ("[PPP]: add PPP MPPE encryption module")
-[1] https://lore.kernel.org/netdev/20050814141046.GB20944@lists.us.dell.com/
-[2] https://lore.kernel.org/netdev/20050814190529.GA26802@lists.us.dell.com/
-Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+The restriction is deliberately based on firmware SSE availability, not
+CONFIG_RISCV_SBI_SSE or registrations made by the crash kernel. Disabling
+SSE in the crash kernel does not establish that registrations left by the
+crashed kernel are absent. Consequently, normal kexec from a crash kernel
+is also rejected when firmware advertises SSE but no registrations were
+actually left behind. This conservative restriction remains until a safe
+way to establish or clear inherited firmware state is available.
+
+Link: https://lore.kernel.org/r/as7-3PbWDxygadnJ@hu-himchau-blr.qualcomm.com/
+Reviewed-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
 ---
-Found and reproduced with LLM. Combined with the broken BSD-Compress on
-64-bit, it results in a broken link:
+ arch/riscv/kernel/machine_kexec.c | 11 +++++++++++
+ arch/riscv/kernel/reset.c         | 18 ++++++++++++++++++
+ arch/riscv/kernel/smp.c           | 17 +++++++++++++++++
+ 3 files changed, 46 insertions(+)
 
-1. First BSD failure: the kernel sets both SC_DC_FERROR and SC_DC_ERROR,
-   then passes the failed packet to userspace. pppd closes CCP. Traffic
-   falls back to uncompressed, but SC_MUST_COMP becomes accidentally
-   latched.
-
-2. Re-enable compression: send SIGUSR2 to pppd, to let BSD compression
-   renegotiate. This is a documented pppd operation (man 8 pppd). The
-   stale flag survives.
-
-3. Second BSD failure: the kernel sets both error flags again. Now the
-   receive check fires:
-
-	if (ppp->flags & SC_MUST_COMP && ppp->rstate & SC_DC_FERROR)
-	    goto err;
-
-   The kernel drops the failed packet before delivering it to pppd.
-   Consequently, pppd does not perform its normal CCP shutdown and
-   cleanup.
-
-4. Subsequent incoming IP and CCP packets hit the same drop check,
-   preventing normal recovery.
----
- drivers/net/ppp/ppp_generic.c  | 15 ++-------------
- include/uapi/linux/ppp-ioctl.h |  3 +--
- 2 files changed, 3 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/net/ppp/ppp_generic.c b/drivers/net/ppp/ppp_generic.c
-index 1a610a18893b..84ca4e93ad9a 100644
---- a/drivers/net/ppp/ppp_generic.c
-+++ b/drivers/net/ppp/ppp_generic.c
-@@ -157,14 +157,13 @@ struct ppp {
+diff --git a/arch/riscv/kernel/machine_kexec.c b/arch/riscv/kernel/machine_kexec.c
+index 738df176ff6..24e7affae70 100644
+--- a/arch/riscv/kernel/machine_kexec.c
++++ b/arch/riscv/kernel/machine_kexec.c
+@@ -14,10 +14,13 @@
+ #include <asm/set_memory.h>	/* For set_memory_x() */
+ #include <linux/compiler.h>	/* For unreachable() */
+ #include <linux/cpu.h>		/* For cpu_down() */
++#include <linux/crash_dump.h>
+ #include <linux/reboot.h>
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
  
++#include <asm/sse.h>
++
  /*
-  * Bits in flags: SC_NO_TCP_CCID, SC_CCP_OPEN, SC_CCP_UP, SC_LOOP_TRAFFIC,
-- * SC_MULTILINK, SC_MP_SHORTSEQ, SC_MP_XSHORTSEQ, SC_COMP_TCP, SC_REJ_COMP_TCP,
-- * SC_MUST_COMP
-+ * SC_MULTILINK, SC_MP_SHORTSEQ, SC_MP_XSHORTSEQ, SC_COMP_TCP, SC_REJ_COMP_TCP.
-  * Bits in rstate: SC_DECOMP_RUN, SC_DC_ERROR, SC_DC_FERROR.
-  * Bits in xstate: SC_COMP_RUN
-  */
- #define SC_FLAG_BITS	(SC_NO_TCP_CCID|SC_CCP_OPEN|SC_CCP_UP|SC_LOOP_TRAFFIC \
- 			 |SC_MULTILINK|SC_MP_SHORTSEQ|SC_MP_XSHORTSEQ \
--			 |SC_COMP_TCP|SC_REJ_COMP_TCP|SC_MUST_COMP)
-+			 |SC_COMP_TCP|SC_REJ_COMP_TCP)
+  * machine_kexec_prepare - Initialize kexec
+  *
+@@ -36,6 +39,13 @@ machine_kexec_prepare(struct kimage *image)
+ 	unsigned int control_code_buffer_sz = 0;
+ 	int i = 0;
  
- /*
-  * Private data structure for each channel.
-@@ -1862,13 +1861,6 @@ ppp_prepare_tx_skb(struct ppp *ppp, struct sk_buff **pskb)
- 	/* try to do packet compression */
- 	if ((ppp->xstate & SC_COMP_RUN) && ppp->xc_state &&
- 	    proto != PPP_LCP && proto != PPP_CCP) {
--		if (!(ppp->flags & SC_CCP_UP) && (ppp->flags & SC_MUST_COMP)) {
--			if (net_ratelimit())
--				netdev_err(dev,
--					   "ppp: compression required but "
--					   "down - pkt dropped.\n");
--			goto drop;
--		}
- 		new_skb = pad_compress_skb(ppp, skb);
- 		if (!new_skb)
- 			goto drop;
-@@ -2416,9 +2408,6 @@ ppp_receive_nonmp_frame(struct ppp *ppp, struct sk_buff *skb)
- 	    (ppp->rstate & (SC_DC_FERROR | SC_DC_ERROR)) == 0)
- 		skb = ppp_decompress_frame(ppp, skb);
++	/* A crash kernel cannot tear down registrations inherited from firmware. */
++	if (is_kdump_kernel() && image->type != KEXEC_TYPE_CRASH &&
++	    riscv_sse_available()) {
++		pr_err("Normal kexec from a crash kernel is unsupported with SSE\n");
++		return -EOPNOTSUPP;
++	}
++
+ 	/* Find the Flattened Device Tree and save its physical address */
+ 	for (i = 0; i < image->nr_segments; i++) {
+ 		if (image->segment[i].memsz <= sizeof(fdt))
+@@ -127,6 +137,7 @@ void
+ machine_crash_shutdown(struct pt_regs *regs)
+ {
+ 	local_irq_disable();
++	riscv_sse_mask_current_hart();
  
--	if (ppp->flags & SC_MUST_COMP && ppp->rstate & SC_DC_FERROR)
--		goto err;
--
- 	/* At this point the "Protocol" field MUST be decompressed, either in
- 	 * ppp_input(), ppp_decompress_frame() or in ppp_receive_mp_frame().
+ 	/* shutdown non-crashing cpus */
+ 	crash_smp_send_stop();
+diff --git a/arch/riscv/kernel/reset.c b/arch/riscv/kernel/reset.c
+index 14eb08a6db8..fdab37e7ae5 100644
+--- a/arch/riscv/kernel/reset.c
++++ b/arch/riscv/kernel/reset.c
+@@ -6,6 +6,20 @@
+ #include <linux/efi.h>
+ #include <linux/reboot.h>
+ #include <linux/pm.h>
++#include <linux/smp.h>
++
++#include <asm/sse.h>
++
++#ifndef CONFIG_SMP
++void __noreturn panic_smp_self_stop(void)
++{
++	riscv_sse_mask_current_hart();
++	local_irq_disable();
++
++	for (;;)
++		cpu_relax();
++}
++#endif
+ 
+ static void __noreturn default_power_off(void)
+ {
+@@ -18,6 +32,8 @@ EXPORT_SYMBOL(pm_power_off);
+ 
+ void machine_restart(char *cmd)
+ {
++	riscv_sse_mask_current_hart();
++
+ 	/*
+ 	 * UpdateCapsule() depends on the system being reset via ResetSystem().
  	 */
-diff --git a/include/uapi/linux/ppp-ioctl.h b/include/uapi/linux/ppp-ioctl.h
-index 1cc5ce0ae062..672f7ac11a0b 100644
---- a/include/uapi/linux/ppp-ioctl.h
-+++ b/include/uapi/linux/ppp-ioctl.h
-@@ -39,8 +39,7 @@
- #define SC_LOG_RAWIN	0x00080000	/* log all chars received */
- #define SC_LOG_FLUSH	0x00100000	/* log all chars flushed */
- #define	SC_SYNC		0x00200000	/* synchronous serial mode */
--#define	SC_MUST_COMP    0x00400000	/* no uncompressed packets may be sent or received */
--#define	SC_MASK		0x0f600fff	/* bits that user can change */
-+#define	SC_MASK		0x0f200fff	/* bits that user can change */
+@@ -30,12 +46,14 @@ void machine_restart(char *cmd)
  
- /* state bits */
- #define SC_XMIT_BUSY	0x10000000	/* (used by isdn_ppp?) */
+ void machine_halt(void)
+ {
++	riscv_sse_mask_current_hart();
+ 	do_kernel_power_off();
+ 	default_power_off();
+ }
+ 
+ void machine_power_off(void)
+ {
++	riscv_sse_mask_current_hart();
+ 	do_kernel_power_off();
+ 	default_power_off();
+ }
+diff --git a/arch/riscv/kernel/smp.c b/arch/riscv/kernel/smp.c
+index eddbc3ad06c..9ad38df4827 100644
+--- a/arch/riscv/kernel/smp.c
++++ b/arch/riscv/kernel/smp.c
+@@ -22,10 +22,13 @@
+ #include <linux/irq.h>
+ #include <linux/irq_work.h>
+ #include <linux/nmi.h>
++#include <linux/panic.h>
+ 
+ #include <asm/tlbflush.h>
+ #include <asm/cacheflush.h>
+ #include <asm/cpu_ops.h>
++#include <asm/sbi.h>
++#include <asm/sse.h>
+ 
+ enum ipi_message_type {
+ 	IPI_RESCHEDULE,
+@@ -78,8 +81,18 @@ int riscv_hartid_to_cpuid(unsigned long hartid)
+ 	return -ENOENT;
+ }
+ 
++void __noreturn panic_smp_self_stop(void)
++{
++	riscv_sse_mask_current_hart();
++	local_irq_disable();
++
++	for (;;)
++		cpu_relax();
++}
++
+ static void ipi_stop(void)
+ {
++	riscv_sse_mask_current_hart();
+ 	set_cpu_online(smp_processor_id(), false);
+ 	while (1)
+ 		wait_for_interrupt();
+@@ -90,6 +103,7 @@ static atomic_t waiting_for_crash_ipi = ATOMIC_INIT(0);
+ 
+ static inline void ipi_cpu_crash_stop(unsigned int cpu, struct pt_regs *regs)
+ {
++	riscv_sse_mask_current_hart();
+ 	crash_save_cpu(regs, cpu);
+ 
+ 	atomic_dec(&waiting_for_crash_ipi);
+@@ -253,6 +267,8 @@ void smp_send_stop(void)
+ {
+ 	unsigned long timeout;
+ 
++	riscv_sse_mask_current_hart();
++
+ 	if (num_online_cpus() > 1) {
+ 		cpumask_t mask;
+ 
+@@ -300,6 +316,7 @@ void crash_smp_send_stop(void)
+ 		return;
+ 
+ 	cpus_stopped = 1;
++	riscv_sse_mask_current_hart();
+ 
+ 	/*
+ 	 * If this cpu is the only one alive at this point in time, online or
 -- 
-2.43.0
+2.50.1 (Apple Git-155)
 
