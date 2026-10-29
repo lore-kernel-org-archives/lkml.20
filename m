@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793290190;
-	b=176b9LEZ+03tWNaxkHg1fGZHgGyYxb5LIaV5UpyAYDPYcOOhjW1FmYJXHJ1070oQAWNh
-	 eOcjNaYua5ilFiqvFheO7zQF2unM2wzsPg9Zh7pgGU7nQn2p2EUVa4yp3fB8W8VPEDFFq
-	 InImIF9GcrExrsC+ka5VIFqFW8Yh8Rbq2Zxr/jDIc6lQBehgxI3mH3A/nVqN8mn6zda1s
-	 d2YNqDeqJWQ3VKVM/16p4ucHEBfA2FH5RYKuXeGr2NBnQN3aK20/Xrhmn8zNpOBJg9n0h
-	 2vHPJc1pIu9Wt+qE5uJAIFU7VF00bJ6F0fqYu3IWvuvg8s8zj4W0awlr66jNg+KY/EQ==
+	t=1793290214;
+	b=E9K1pFbDMheUxhaAULMjOt6Zyv3Q/KOPZviTFCxTFx891EDAoiNjayZ6cK8jx8y2U9+V
+	 YSqkGiGuereSxKAHAp13Ttv1Eb9sqAjf6bTdWf8n3R8tqdYAwTLZmIDsW2casrjVSd8Lm
+	 t+v/vUH5etslyzm7rvzs1lBWYDFQDsEx12F0mhhK/eQONmLB8U+V6PMKoQlo25bNwad3V
+	 +4GojscpjgdBFQqh6dhsU6DHrFIi8TVezvjKsgTmWthdlHx7g2esSSJDnzyr5rCKFjsyN
+	 naxpK0a1dh6u+u7Rl4vsxU5aXl44XIESfVf9e0zFsbEVINMD+/jF+wZVVHkzYqaYNVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793290190;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=wje8FwG2UPim3o1XMNQhcPtkK2evzH/2elPS1xirYTg=;
-	b=Pap0qAaNDV1kNgDuCIKHdE+WX8ZnqV2uN8GCS5ycbBdjtwkpG+cQoWlF3vbTFFGrlCbu
-	 laaYDc5i3D/UlVlbdrdAlfwPGHKYVhkxQtk5eC/4oHN8qZ4q2WopCbbtvdg7uR6egmGsQ
-	 ntPBAtOdny4AjZwXCcpwOd4RYk/57/c4Ur+ExEG9xDU3A6OCWE1v99/pZJl9VVpRPWWqZ
-	 gi4Zpm9TXif628+0WEI7mNKmnop7LQNJuOLMARJ4eVGM5/0WW9esJUSw+FV59ohqsseua
-	 r/i+3b+fWVe33bMCOTu6+pW7mfsBpPxeQ/3pM6rx0CQRMczg316b2n7xOAKAesjLdUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793290214;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=yaQqJmE/bdN8+eGSGKklAuxZN+lw+10q8P+DbsBhiG0=;
+	b=1cWP/rurA30GHheqPeEk07VEpKQCSSKPSZIwDB1Id0DuyOfnl/aVXNG41YIfVBq/qNgB
+	 LrNDBzklq7mMMA7fdtHVCtwZj/YoirUhb10qUPPBSp1KTcQBMTbn7ouBZFF6SAv9sxrEv
+	 9i7shoBrI2cR791VVzBC7XYAXlELZJJH94vxRdM+XNorcmlraKUf7NQYHm6i3LAcO0abm
+	 Dzch0rO0RPHQaCBSNLu4NbQ1NAWoYCs+GUUGdLAuqTLQr/xQdOcqAYhTp8Fve0SCGl7Mq
+	 JfufGI6GgmjgfR6PonWFQl5vps5xy5si8+vCDCZXU5ZSa4rrN8b43M+SwzdUdW467Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=mlwXHVwF;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNxZw7qk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D939606A9E9;
-	Thu, 29 Oct 2026 16:09:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D939606A9E9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D1E606A33A;
+	Thu, 29 Oct 2026 16:10:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=mlwXHVwF
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=wje8FwG2UPim3o1XMNQhcPtkK2evzH/2elPS1xirYTg=; b=mlwXHVwFdN0YpiFH2TfVFQXp8a
-	KQdRyJfUr9b+iazRyXGN16ZU4tEcvKPHvOFegFT9EjEv+hdviG+pvino0MhEHH9SwTezsHFBW/SQc
-	LBqJXUAMDMH+rv3RgUTvX5nrDFewfQFFUMf7k2KTPabp9n7gMGS7j5Ipih1C5xB8qpx7k78+zIrlP
-	XUKiePeFKD212nb6qpmK/4oZNaXbaNg5dp6x82fWzvzKF94tIn9B+0OjFQPtbmjaEef0TtB1a5SgY
-	8Fc+j95+rOx3/oWrajFjmgaUy7mEfTzqxsIg0ZZ17hyp9H5/8C7/wAPuKNCs9um7M1w7BDrdcUIGE
-	D1AmwRjQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMShJ-00000009lXW-18EP;
-	Thu, 29 Oct 2026 16:09:49 +0000
-Message-ID: <324eb8fd-4d3a-477b-8415-41230c451cb6@infradead.org>
-Date: Thu, 29 Oct 2026 09:09:48 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VNxZw7qk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A13E1F01826;
+	Thu, 29 Oct 2026 16:10:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793290213;
+	bh=yaQqJmE/bdN8+eGSGKklAuxZN+lw+10q8P+DbsBhiG0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=VNxZw7qkLvYeobcQq/vEwy9kprYLkv8G74Sjg7gyrUwTaFkmc74vDZdfpm4loZXl8
+	 JEJ2FeCWIyBzfKhGdO55ijXb7RRYOUWKKdzrnq2mHBP9ft797JnFs8WIwv6l8hS2A0
+	 UUHaoNQfA2E68gPG8cIjPF6hxnf+Ujs2c5y8Le9WLhCSLGD3KHGfSbgJn3ffcmHwp5
+	 t4iyc/Kx0pUjHNDl37IvOasdIgh0R4XWATRy2AHn+jRqcnapFB05HR4kz+TtujdufQ
+	 Xny8nt3tCCNSCMbFGOmy0uJ/CJKJumSPQem8aJoegxd+9iH0vf6yPMGC+if3ow7Pbs
+	 JKzHue8sSJTtw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 401C93808221;
+	Thu, 29 Oct 2026 16:10:13 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,62 +53,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/7] docs: ABI: power: rt9756: Fix invalid inline
- emphasis
-To: Waqar Hameed <waqar.hameed@axis.com>, Sebastian Reichel <sre@kernel.org>
-Cc: kernel@axis.com, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-References: <cover.1793225920.git.waqar.hameed@axis.com>
- <2d5ebe3886651217d55c338188f11a2711df19ef.1793225920.git.waqar.hameed@axis.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <2d5ebe3886651217d55c338188f11a2711df19ef.1793225920.git.waqar.hameed@axis.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] netdev-genl: ignore NETDEV_UNREGISTER rebroadcasts
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179329021180.546068.16729568713969066908.git-patchwork-notify@kernel.org>
+Date: Thu, 29 Oct 2026 16:10:11 +0000
+References: <20261026221306.3151025-1-namangulati@google.com>
+In-Reply-To: <20261026221306.3151025-1-namangulati@google.com>
+To: Naman Gulati <namangulati@google.com>
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, kuniyu@google.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+1269fe6cc2016008124e@syzkaller.appspotmail.com
 
+Hello:
 
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On 10/28/26 3:39 PM, Waqar Hameed wrote:
-> `docutils` warns:
+On Mon, 26 Oct 2026 22:13:06 +0000 you wrote:
+> netdev_wait_allrefs_any() re-sends NETDEV_UNREGISTER every second while
+> it waits for the last references on a device to be dropped. By then
+> netdev_run_todo() has already marked the device NETREG_UNREGISTERED and
+> RTNL has been dropped at least once since the initial notification sent
+> by unregister_netdevice_many_notify().
 > 
->   Documentation/ABI/testing/sysfs-class-power-rt9756:1: (WARNING/2) Inline emphasis start-string without end-string.
->   Documentation/ABI/testing/sysfs-class-power-rt9756:17: (WARNING/2) Inline emphasis start-string without end-string.
+> netdev_genl_netdevice_event() does not tell these rebroadcasts apart
+> from the initial notification and sends a NETDEV_CMD_DEV_DEL_NTF
+> multicast for each of them. At best this spams NETDEV_NLGRP_MGMT
+> listeners with duplicate notifications; at worst the pernet state of
+> the netns the device belongs to is already gone and the handler
+> dereferences a NULL pointer.
 > 
-> Fix this by escaping the `*`.
-> 
-> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
+> [...]
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
+Here is the summary with links:
+  - [net] netdev-genl: ignore NETDEV_UNREGISTER rebroadcasts
+    https://git.kernel.org/netdev/net/c/fd0909e963ed
 
-> ---
->  Documentation/ABI/testing/sysfs-class-power-rt9756 | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-class-power-rt9756 b/Documentation/ABI/testing/sysfs-class-power-rt9756
-> index c4d6c2b4715d3..e1ec7977a3402 100644
-> --- a/Documentation/ABI/testing/sysfs-class-power-rt9756
-> +++ b/Documentation/ABI/testing/sysfs-class-power-rt9756
-> @@ -1,4 +1,4 @@
-> -What:		/sys/class/power_supply/rt9756-*/watchdog_timer
-> +What:		/sys/class/power_supply/rt9756-\*/watchdog_timer
->  Date:		Dec 2025
->  KernelVersion:	6.19
->  Contact:	ChiYuan Huang <cy_huang@richtek.com>
-> @@ -14,7 +14,7 @@ Description:
->  		- 500, 1000, 5000, 30000, 40000, 80000, 128000 or 255000 (milliseconds),
->  		- 0: disabled
-
-The bullet list above could be improved (probably just add
-a blank line before it).
-
->  
-> -What:		/sys/class/power_supply/rt9756-*/operation_mode
-> +What:		/sys/class/power_supply/rt9756-\*/operation_mode
->  Date:		Dec 2025
->  KernelVersion:	6.19
->  Contact:	ChiYuan Huang <cy_huang@richtek.com>
-
+You are awesome, thank you!
 -- 
-~Randy
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
