@@ -1,100 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.7
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793286127;
-	b=4hQhEzE7IlX3M0XvihtGoqw23YfKEURU7rXfwnyaQO4AEEvWmStEO9TThW9MRID6Of7Z
-	 wbu0153C1W4e2tsY5seJ1fu+FatPIo8vkqL+AZoMKZn2y6Fe5kmhki7HoVYufOPfihHsQ
-	 2CvlN4wBWnaXLXSFQ0GP2xSQ3qIagZ5a/OBGqiP6vtZsCV3XzNx23aDk3dmvRzpXXW9wi
-	 nC+IPrAFvJO7mwOikGdHjsPAgUDx4jLonI5l5+0R8vjQTWvu6tZ2H/aKtxvAVZPF7KT4f
-	 oq8raiuerGXhYjpMv5K5l1oUo0ko9lTbPNrahJwZdRIg/b6RHW5rtM2lsnZ8bo5c89A==
+	t=1793286139;
+	b=jJovEj5zKOS857iZuxAc9S5EZKrkN2UVmb6QlSssl3SKv6bvSep3++1h9q+WWb2cvBlI
+	 pSp8SMEaCAeZR634qEpPpmidUc8ZQeVVfM4XCH9dz8FzpccGJR3f8+A0/CphA5n25A91Z
+	 6HpsBGvn2xwtYBpPHg/Hunspwk641+2JKFLUJT+BovACxmCCImKqHYaEDtDqbJXiHW+ep
+	 Lugvg+2d4NvAnyCpbJstBbQosw6z9T1na68rg6dlSlhJdKBvoQ5yQgNztQAWjA8DJYg4J
+	 kDTIH47qwwp2BbDyfSl/K/0fcwRNv/xJeA6orYxRXwJiO+ZTZ5AeGziGZSjx53P2VzA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793286127;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3pv54lpPQ42UJPfl7NiVIVr5xpTo5h1NIoL6uWP0Qlk=;
-	b=gA7K9bShNQK2oTGDJTw0w2ly3wINmcTdJ+25OpdWS7T5QOdSodpfNSTMFiaZJNBT4lms
-	 /laVjaw6FtYiMHCeWFXCVPYRwXxvGyl9rzz0oSGJrmKhS4n+T4yR7D9x/B3txSomw/wmP
-	 m9ZINfL3mU0iWLehA1TsZL3vxzb2LT/0ltygRR788ko/dsL+U4RRcz0w9/d9MerpH++AC
-	 6YyGRSDUzJ3E35FIQxy+9P2f6WEu0N5LIMwevIT/kJnQ7P5nrjAwxv227VPHhYM5ZG6Np
-	 Sa2rhY9PFyf7Df55lTK8l/6ARprVqDFEkIWn2LT0iOBNVDV00h6tnkz43D/1CFOtt6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286139;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=sVOP8XjCaR6Z8nbrqOWtfye2gABOW2qgCi9w6vUtWZ8=;
+	b=z3MBip+R1PlZeNRFhlYBI3yaQQ9YKqm5aT4A+DBhLwfJ5N7n2i6akClwkIKFeBMixG60
+	 5aXJazncuX1ndEfpguCFLK1DT2Lu1m/boKbD0szEVqo188YWIITOtbSjGAisAlNi57Xh2
+	 91qO8VUiRloQJOwykEQQ1Vn7ootHWouHzH8zdVx6VIuiXNLl6yK5hPcud1sIu9vvHC3aJ
+	 ZsV9OnjwmEzgxmdG+ZaT3V5lxNh9957lF9G1xkmUot9gPfPin7gF8UNA3xPp5i4AjVFk/
+	 lZ+bF7cA9uXAJ69f2lt8GgD6PiInN4hZfVkHqQewmbXuPR4drFc4G9wux7gsNq/jZ7g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=At8KQKvW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=qPbpJCaf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.7
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011007.outbound.protection.outlook.com [52.101.70.7])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6DE606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:02:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D6DE606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A111606A31C;
+	Thu, 29 Oct 2026 15:02:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A111606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=At8KQKvW
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c40f29667e6so303613766b.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:02:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793286125; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Fg4wlWeQ96qyJQqkXKc5n7tLbKqqfCEqGIt81QXiKyCGDXh2n9hDAfaKQJamARCRO8
-         Mj7o2+J5jf/lVdELQ0oebH4JEX5f6Chxe8edJoS2GJvvn46Cni6PxRR56f+f/xVVqPgz
-         j7ovZO3Oqnak16kjVWOkkRDcXymi/9AEr3cgxRkf9GqyMrNyPGKlQifNHBduRpy+IAjt
-         d2AOqccJTsF8DPU3u/iwEYHwzbvS2i+ETLiXoh/J8Feu3dRk1YTLa1BsxSqtAutSCpdh
-         3H29uTX5ef+jvBWCHxwAtruoFkuUww637iw99X23Is0paXx4uGuQqHGSuOYeT8NkTbRa
-         dP+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3pv54lpPQ42UJPfl7NiVIVr5xpTo5h1NIoL6uWP0Qlk=;
-        fh=jhrYOcTmilC/awejfgh0SAigwh1z8+2rsfhaE5X4MNI=;
-        b=Sn/l/rNwZbowE9uy9wOaJCWSeKDbDgKDUiAo7cVO/VaF9XpViE4V6r7cuid3YV/8OK
-         iyjuHgaHGiZCN68I0pBYjIn/59dFtV2r7V8jyYKilBN5SH39U47P7rxzZeY4rQx3esdi
-         2pJcmg+Vwh8b8on7EUgiBZqeE5MK/f9GD4z+XnS5lc6ZoNyHnesICdA45UsKXhF9nxUg
-         sVEWn6lsqqC+DE0C4nYd8Ly2UHoefSC5tIuK3daXL7pw2vJpjXT1FadeO5PIluAxp5GS
-         MRQobND++JOegenAaFU1XcLw4PNRCz9M48jmjbFQsFMQcidnvAugFSTyzrnPFWIMFp9B
-         LRPA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793286125; x=1793890925; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3pv54lpPQ42UJPfl7NiVIVr5xpTo5h1NIoL6uWP0Qlk=;
-        b=At8KQKvWo8fhNk7ywdT7FNDhpC3ba7IwiYlI7QmFy7Zh3uJJY4cGFeNFCR7BjY9ix0
-         Z0LycXeX1d7ozowebTUnosQYM3e0PA4OBDFuKc8XhQQWprwTpYgrRgeFq5c5YRtM+/J1
-         APL9/PifUoPMDSW0FVca4S4a4DhjU85h6eVasm15MpBB4SSd/uFe9e2USgS0tVMxtSom
-         N/qyqp6LogRmNVZxui1J90unNeWqvpYBjFg8EMdUWe/bycEmgEEmkx8XeMd2U5/u01EQ
-         3KuGQZpZJe+HCxk16t3EEUK9x/XgzJHEVq2C7X7nbLxwzAcE2FV8kKPE3ctva+3ZPMP1
-         7V8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793286125; x=1793890925;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3pv54lpPQ42UJPfl7NiVIVr5xpTo5h1NIoL6uWP0Qlk=;
-        b=Mamk7O3wTHdBvIUboZ9hf32d3ZFFGoL+VQ7ftjegl4OKSs/resir9c6mhuVxsG+eIY
-         BeIIBxzaeJqL/AwJVyu7pNz5jU6VTla8Y8arzD81dFnWfZ+h6Gy8bSDp6MWnY616y3bE
-         qKr+TeLDNvckysBnoVyKKgvERs4GSVeern1K0uwuogAkCoTX9tah9r9rkoK4MyK4q1GO
-         IEi+7bmVAn4SVhlJJlajFTw58bfKf/DmD+sNKzsIV7BxuhKmbhn4a0dSQoYX2FKvikMl
-         D1uvSDVeA6CPL4l2aaG5EWkzBtBGLyxFA1O5NES2nAIa3GMZfK4Q26X1o0DwMfS9C71G
-         yAeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzzoDgfrxLLRBa5DY9KxLl4Re4MoBAtq0QSbyme7t142SidZ9puwB50QcI80WHGD9/qVa0TakALw72NAiU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJP8grakrJd/1PifejvjHshYVjO+z+6dFCfSFGylf+nlwGnUPro
-	ZPEqK2yXUBdR/uXeN9oJ3rcmdfzaFD2S0DH4NT7cI+N1B2uzVIqDFZqWZfulYCdV27KvA+D1/ZL
-	ealAZJYBbK2x4XPXmFbGXi6NgsE8ADG0=
-X-Gm-Gg: AYBFou3NFEZXV+jNbpIlk5rUJHv2bILWRy7i/zrljsVfeKK8gvieqiUaqmqNIkKA6GB
-	MK5MVDs4b2dn9pwPS9Tqi+kKFeQt3MJ6owflzj0O0z+QXIEFmAreHsph28TTOEWz8yBEk+e6LKJ
-	0tGo9jE43S/YlokjS+IL3z4po+7T5qyYFv/9OTNxtad4u/uiTSTbPEkCcAN5Q2xR9JCsWU3kU3m
-	gd1hcikpG3uWDzVo7mPKWG8YUY/vL+LYHxgNFgGBOmgLxYuwB10Pu6MG4NPbOp3OXedap2fda/o
-	nj1ewP7A9VXUVlH7f720th50yFoTBO1u8bjW0NHwglh5bHztBy9q9OC1lFKC6oe/FJoUX3yqcdC
-	vMEJbw7XmhGWtzImvsIYbA1Z97SG78M4YlfSTFoP/My+shtIGVKIq2PSDicR8/6eUUntN
-X-Received: by 2002:a17:906:794e:b0:c33:ae8b:817d with SMTP id
- a640c23a62f3a-c49bdf9016cmr515625366b.46.1793286125001; Thu, 29 Oct 2026
- 08:02:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=qPbpJCaf
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v2/+bil0iAACFe8Bse4WazhLc/A+7iY3hmuDWpniSiMxwes8zXnoflHYrNnEBEeWuPA3+dddaX5uTjz1okrpAa5B1/YIrYE7vJA51vOLJx7XQhRy56gaYRb1AsGDaN7rDe3/PI0xaja6NL0a4f0rJzRi+aVeqcVt6UJIPvEggtQ+a170pH1od+aEFWhW9TDlc3pYTj/dGcbYRMGLS919HLaau+pGH2a0BGMOSebyCL8zcdISSywKdOjvNe/u6XJ+RIpusTk5tpJkujbf6BuVpY5stIzVB8FI4ZtYk2b0sgdDIJzWmB66CUaDlRHg6rqgDaKyOqxVvQ6xD3pjmaILRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sVOP8XjCaR6Z8nbrqOWtfye2gABOW2qgCi9w6vUtWZ8=;
+ b=EJiipiIXeO1eMZA4jvZ1oFFhSpvF9ib4n8N1/j/MKeo8Zt/3++eSuX8LPnvfIn+5J759Y/JoacTFhdxf1LKgw0M4j90LLTNKuC5ouXpuzDSG7qiAkeG6CpevsAROJeQ7r4izINY7hdu7bdINpUOenv+edT6sFO/xqfgFTCuw4RgVyJb/F4Gn/SqSawg3FBPswumphFAixsOMDOrQEJ1ERPjvIvz7TOWBPOdqKw98z/fQflSYK8YqhnryMj0DKjQDhjzlOIo6nK7aQd4JkjNa5vk0y4zEk7SrZg2eMYzysdK65O9qVJpCF4BJRj9VpqGZqx1aoqVgb9032bhB9MZvRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sVOP8XjCaR6Z8nbrqOWtfye2gABOW2qgCi9w6vUtWZ8=;
+ b=qPbpJCafZ9Lf10ptYukUM+kozJ6TWSau/kZ5lVVok0ybto5kLQG1XsziEV0qHsolegr98NwRNKm5JrVQiDnWXjsLsRsgJjcz97yREJV6tTFTxsySzPligw20+ZZetVEVhmRsvqXvq3a7dpHvdRRVFqz6VdQw5wZirvfLgOt2JsSqcFVoq6nDhuXS/nPOzrcBjYg7i+kt009hUcRZbT78MVWhmdjkxoQaSHYXC+yUJmSXvystZm76zLHu40HuYCYyhy1R0MsYAmYbwmteyrMNWRkQTtHMG2OaS1VNmsXaI43hSd4D1Y4qJAqfcU8NpYA/oAqxRrHuka32Dh7m/vnCoA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GVXPR04MB12091.eurprd04.prod.outlook.com (2603:10a6:150:312::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
+ 2026 15:02:14 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 15:02:14 +0000
+Date: Thu, 29 Oct 2026 10:02:00 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Jacob Procee <sn125164@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dmaengine: apple-admac: Fix position one period ahead at
+ period boundary
+Message-ID: <auNf6KqfgS5Usrfk@SMW015318>
+References: <20261029105908.22809-1-sn125164@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029105908.22809-1-sn125164@gmail.com>
+X-ClientProxiedBy: PH8P223CA0004.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:2db::29) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,169 +100,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028-alpha-profileme-v1-0-d44b52bf2500@gmail.com> <20261028-alpha-profileme-v1-5-d44b52bf2500@gmail.com>
-In-Reply-To: <20261028-alpha-profileme-v1-5-d44b52bf2500@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Thu, 29 Oct 2026 16:01:53 +0100
-X-Gm-Features: AclHuK-GNrjKeGtxUttAzHxHHU9r3Wn59K2y6AwVpRTg9_F9nYsnOjJyieFCY_M
-Message-ID: <CA+=Fv5S5S3o1=2LetFuLQNqjtuw0DTgxVWAYAiAVvsdUNgNEyQ@mail.gmail.com>
-Subject: Re: [PATCH 5/5] alpha/perf: optionally randomize the ProfileMe
- sampling interval
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GVXPR04MB12091:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95a7c1af-c493-4682-b1f4-08df35cd9d99
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|23010399003|7416014|376014|1800799024|22082099003|18002099003|56012099006|11063799006|10067099003|261028144727099003|261022075727099003|261022105027099003|261021121427099003|261009223027099003|261026140227099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	EopZ5dikKEs6t20onIchoSqi69azPGNgbDIbAHBhgf7BBFq6XNlqvQ9MrPuCXoD/ToepSqb1r+u6x6IIVW1HkN1t/RU/+R+cGXYVV97BaQuGA8rkkBV3L/3GqbUcJru8SmJF7vq/rwOsRKGrxGLxc/aKEDhk+bexZh/yb0Zpwlsx7EJo4ZFnPypDgU6O2wLGMQB31FtLlNeBs2hT7Hsdo2m0RxkWDXrGAPdLLmYb99FYSX3gowgRtcdz7zt1qJdnYaFM+g6JHskplR9Kc0Ic8CO4Xc6zPDKZFu4xNmVfBiZhWjxNib/QPCTnss+KmRfM+fluyds4WtSwl59l6exkUsEl//4cbKmSWX62+vGzwOJUI8NZliRQeIxBQlNQlN0Ef8GV2q5i/a5aGwEicULY1l9hB/Ug46qCr1ZRREwXsk3j3JDOIMEsBuNefKuwP7aV4UTjqpv9MeiY9jJ8GN15HpfMstsTrWUvan0UFbd1W0nIjZLFV3BHiPzlWEJJi0qUMCVhuU/rLnxtaVq19DbtDRvwV7RLEnI5lofC5Q/l4x6S8IpDZcB3mADyGiTrEhL8lCEQkUV7F/7u/IvoU2N/FPVjXvwFuOKWy8RjlVJEPHNW4DSUVlo6EkAY7iL3/Q+6Y/VVwcLN+fCv6YRg0Zdrg2/xnwrm1721QSB66OqFypA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(7416014)(376014)(1800799024)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(261028144727099003)(261022075727099003)(261022105027099003)(261021121427099003)(261009223027099003)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?fUREhWaoP7CzVTAx+9GQd8WkevyPMJHW1UgDPjddBFcsbLGk9Zgi2xqKb0sC?=
+ =?us-ascii?Q?6MbtvRnK3BJKR91VtjihU63ByFuHoibZZnQGIvEUk+6eVYMOuCCQWoSHGPTz?=
+ =?us-ascii?Q?iiGR65Rc132+oHKYcAEF9uk+1oucQyoHw8Yhttb0KMylmcyT7xUy10F+TLYy?=
+ =?us-ascii?Q?cnfJK5T6QBWTiaep01C9lIUb8WOY1lsgSau06QfXFOfCAJwi2IbeA9LhvRFg?=
+ =?us-ascii?Q?tFaMH3gj4KeTICm9ZTRGAUxR2KxnAL/NQLcgGgpGVCzklYHQCooWot/xKWFa?=
+ =?us-ascii?Q?y1SbmX4eBx/sFvsp+2PzDn/8zDG0Bc5kh0+aD4MSxPYQZmeAPXDI6nsQfr9V?=
+ =?us-ascii?Q?4o5CAXQUZFUxfhhJRAgAT+oKkImGLg+HUmCRWxUT+bOlfcPWsEsE0nBUmmbH?=
+ =?us-ascii?Q?T8/Iy5mwyO4qZ5aa3j+zgnTmUmN8FslDzD4fYZc/9POOsJA+vbaikvkpTnxE?=
+ =?us-ascii?Q?/zL3hagven0WTXFpp9UwUa+FoezLhppdjCtkjXABIIUGlKkreMFbtYVDdbek?=
+ =?us-ascii?Q?cjjAptFfqXCYIa+SDzMnuKiTdjzbbQJj8B649wZLbgnkCK6PA0Q//N4l2yyx?=
+ =?us-ascii?Q?9kQM/a1fUbMecvEd5MBFmsaOQtKTok16qH2+l6HLVZjdouTnlxK5i0HC9Pyd?=
+ =?us-ascii?Q?YPCkDoQOqYbX+NLCLADx+dBHSnrdx7m8Nue+oEaZh8ILOcAqjpedgTYPTwiV?=
+ =?us-ascii?Q?uzJwyx6fyO65Kr+FKOy/J8KAoAQGp35Ru8O6C805weMNJlf0Bz/y7mjgdfco?=
+ =?us-ascii?Q?8bNGYMn7FsOUu0N9v0B2/sy+x0+9qRC6omKv4iFKKmjjgd3Zbb2P0ip1KWJn?=
+ =?us-ascii?Q?jpVloUAUmcPAQrktrdJwUzy5O9hnUE0v0uBd0l86d4z33T2V/dvEC/JKOhw6?=
+ =?us-ascii?Q?cqh8D7ZY/P4zdyKLhuBu5kG6hGqvZ8LASvDec+UB872xpu3KZmLLDyW9wrL8?=
+ =?us-ascii?Q?fxZ4TmQg1Oz2z9Nfs8rBMHcovfbRbZfLKie3G7ImR+V9d7EbCKDWXy0F/IFc?=
+ =?us-ascii?Q?XRLcJVd2YS/mg4Z12GaKYdR3wMaZJoi++Y9UOmXjAkllz8aXk/ybfK4ITyVF?=
+ =?us-ascii?Q?NeiZa8vK7xkWIVlw/iuKCGj5jRdcE0SW1Z8f7ZANXshzIiou9TMd2h56EzX2?=
+ =?us-ascii?Q?t+IrvZhocoJx4pG5RiWMEY9xYRkgPVxS6eHnMVEH50z23trg4JcD7CpnV7Ie?=
+ =?us-ascii?Q?EjyEx+19ykXYxTWp52Cj9FHRKsaTMdpuoVjs6yKAEmnGjzluhAoCrWMl1h16?=
+ =?us-ascii?Q?QjIY8eHhwo+vaihjLK2nYqpEjmggXyjg8taWzSCCy9jsjcUurDqrkuEjl6uA?=
+ =?us-ascii?Q?F6DRiMPZdYNbNEFh7++4B6Y2Whdp5Qgaq/UwXzA+JP8pyMzV993WLvggAvTU?=
+ =?us-ascii?Q?xOBXlTjyWzSUSdwVWgrUGFrON3CKYKvlkGGpPMZKrHMwlVq0MWItFRuLS2T1?=
+ =?us-ascii?Q?fa3BhLM1MiGyR8YmbSbRjNN1EI6kzWa5c564XaQfCeUeikjCLIlYCqFS3wFd?=
+ =?us-ascii?Q?5t2hS/dOgzyrOflkuvRXggJuJaRgccCoYmrBVR8TQjbsRI+PGYgxX+gRoWv3?=
+ =?us-ascii?Q?6eq+yxBMvIhOq8B5+8R9yrsYRJ/CiEtGGXcczmVFEFRz65xzSjbUmUCB8JZP?=
+ =?us-ascii?Q?Hs3iRgczTEmPXGT4G0vqn4YA5XFSM2RyCrLIG6GN/swibJv5lfAGuRzFGIap?=
+ =?us-ascii?Q?dZ0y0bADTyfcXmDduNdMwdsA4eDQYYGfFNHkzN6Bkjf9LGiOCXevZNFid+C5?=
+ =?us-ascii?Q?9ysC8eRoakb+NT7g4hqMn8ZCXf9ubG7UI1iMNtt/MQSKNhYF0BNG?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95a7c1af-c493-4682-b1f4-08df35cd9d99
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 15:02:14.0019
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ReHQGzEM3z3zUJmd+qPmV8AkykX77xix9MhblxdYA6Qh59n30c+5Mjuf8g2QMX88JucZP3BYIoNx6QOAlh3FGEQvqkP+flgISmWCIGwpq6V+Vx61eXi9MRX7vuyK2KTc
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB12091
 
-Hi Matt,
-
-On Wed, Oct 28, 2026 at 7:09=E2=80=AFPM Matt Turner <mattst88@gmail.com> wr=
-ote:
+On Thu, Oct 29, 2026 at 11:59:08AM +0100, Jacob Procee wrote:
+> [You don't often get email from sn125164@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 >
-> A fixed sampling interval can phase-lock with a loop whose length divides
-> it, so that the same few instructions are profiled over and over while
-> the rest of the loop is never seen. DCPI avoided this by randomizing the
-> interval.
+> Speaker playback on a MacBook Pro 14" (M1 Pro, J314s) underruns at
+> irregular intervals, audible as a tick: 8 times in 3.7 hours of
+> playback. Where an underrun was caught (4 of 8), the ALSA hw_ptr had
+> jumped by one buffer size while about 70 ms of audio was still queued,
+> and a kernel trace showed the DMA position stepping back by exactly one
+> period at each of the 6 underruns it covered.
 >
-> Add a randomize config bit that varies each interval by up to 1/16 of
-> the period in either direction. Only ProfileMe events accept it, since
-> Aggregate mode samples already land a variable distance from the
-> instruction that overflowed. Counts are unaffected, because prev_count
-> already records the value actually written to the counter.
+> admac_cyclic_read_residue() derives the position from the report ring
+> (periods finished but not yet reclaimed) and REG_RESIDUE (bytes left in
+> the current descriptor). When a descriptor finishes, the residue first
+> drops to zero, then the report is posted and the next descriptor is
+> loaded. Usually the last two happen together, but occasionally the
+> report comes first. A read in that window counts the finished period
+> twice:
 >
-> The jitter comes from a per-CPU prandom state rather than
-> get_random_u32_below(), which takes the batched entropy local lock and
-> triggers an invalid wait context report from lockdep in the PMI.
+>  - residue2 == 0 with the report already in ring2: the period is
+>    counted in nreports and again as the fully consumed current
+>    descriptor;
+>  - residue1 == 0 with the report already in ring1, and the next
+>    descriptor loaded by the time residue2 is read: the
+>    residue2 > residue1 branch adds one to a ring1 that already holds
+>    the report.
 >
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> Either way the position is one period ahead. The next read is behind
+> it, snd_pcm_update_hw_ptr0() takes the backwards step for a wrap of the
+> whole buffer, and the stream underruns.
+>
+> While the channel runs, a zero residue only occurs between descriptors,
+> so read the registers again while either residue is zero. The retries
+> are bounded, as the residue also stays zero on a stopped channel or one
+> that ran out of descriptors; after the last retry the position is
+> computed as before.
+>
+> With a debug build counting retries, one hour of playback needed a
+> retry for 2210 of 3.39 million reads, at most three retries (3.5 us),
+> also across pause and stream restart. Both states above showed up in
+> the logged register values. There were no underruns in three hours of
+> playback with the fix.
+>
+> Fixes: b127315d9a78 ("dmaengine: apple-admac: Add Apple ADMAC driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Jacob Procee <sn125164@gmail.com>
 > ---
->  arch/alpha/kernel/perf_event.c | 33 ++++++++++++++++++++++++++++++++-
->  1 file changed, 32 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
-t.c
-> index 06c9afeb7c05..da8262c74d04 100644
-> --- a/arch/alpha/kernel/perf_event.c
-> +++ b/arch/alpha/kernel/perf_event.c
-> @@ -16,6 +16,7 @@
->  #include <linux/kdebug.h>
->  #include <linux/mutex.h>
->  #include <linux/init.h>
-> +#include <linux/prandom.h>
->
->  #include <asm/hwrpb.h>
->  #include <linux/atomic.h>
-> @@ -33,9 +34,11 @@
->  /* Layout of attr.config for PERF_TYPE_RAW events; see format/ in sysfs.=
- */
->  #define ALPHA_PERF_CONFIG_EVENT                0xffULL
->  #define ALPHA_PERF_CONFIG_PROFILEME    BIT_ULL(8)
-> +#define ALPHA_PERF_CONFIG_RANDOMIZE    BIT_ULL(9)
->
->  /* hw_perf_event.flags */
->  #define ALPHA_PERF_FLAG_PROFILEME      0x1
-> +#define ALPHA_PERF_FLAG_RANDOMIZE      0x2
->
->  /* For tracking PMCs and the hw events they monitor on each CPU. */
->  struct cpu_hw_events {
-> @@ -59,6 +62,9 @@ struct cpu_hw_events {
->  };
->  DEFINE_PER_CPU(struct cpu_hw_events, cpu_hw_events);
->
-> +/* For randomizing sample intervals from the PMI, where locks are not al=
-lowed. */
-> +static DEFINE_PER_CPU(struct rnd_state, alpha_perf_rnd);
-> +
->
->
->  /*
-> @@ -246,10 +252,12 @@ static int ev67_raw_event_valid(u64 config)
->
->  PMU_FORMAT_ATTR(event, "config:0-7");
->  PMU_FORMAT_ATTR(profileme, "config:8");
-> +PMU_FORMAT_ATTR(randomize, "config:9");
->
->  static struct attribute *ev67_format_attrs[] =3D {
->         &format_attr_event.attr,
->         &format_attr_profileme.attr,
-> +       &format_attr_randomize.attr,
->         NULL,
->  };
->
-> @@ -360,6 +368,20 @@ static int alpha_perf_event_set_period(struct perf_e=
-vent *event,
->                 ret =3D 1;
->         }
->
-> +       /*
-> +        * Vary each new interval by up to 1/16 of the period either way,=
- so
-> +        * the samples cannot phase-lock with a loop whose length divides=
- the
-> +        * period. The count stays exact because prev_count records the v=
-alue
-> +        * actually written.
-> +        */
-> +       if (ret && (hwc->flags & ALPHA_PERF_FLAG_RANDOMIZE) && period >=
-=3D 8) {
-> +               long jitter =3D period / 8;
-> +               u32 r =3D prandom_u32_state(this_cpu_ptr(&alpha_perf_rnd)=
-);
-> +
-> +               left +=3D (long)((u64)r * jitter >> 32) - jitter / 2;
-> +               local64_set(&hwc->period_left, left);
-> +       }
-> +
-
-One minor corner case? This  multiplication can overflow for very
-large  sample periods. I guess normal sampling periods are not
-affected, is it worth using overflow-safe multiply/shift to avoid this
-limitation?
-
->         /*
->          * Hardware restrictions require that the counters must not be
->          * written with values that are too close to the maximum period.
-> @@ -715,7 +737,8 @@ static int __hw_perf_event_init(struct perf_event *ev=
-ent)
->                 return -EOPNOTSUPP;
->         } else if (attr->type =3D=3D PERF_TYPE_RAW) {
->                 if (attr->config & ~(ALPHA_PERF_CONFIG_EVENT |
-> -                                    ALPHA_PERF_CONFIG_PROFILEME))
-> +                                    ALPHA_PERF_CONFIG_PROFILEME |
-> +                                    ALPHA_PERF_CONFIG_RANDOMIZE))
->                         return -EINVAL;
->                 ev =3D attr->config & ALPHA_PERF_CONFIG_EVENT;
->                 if (!alpha_pmu->raw_event_valid(ev))
-> @@ -740,6 +763,14 @@ static int __hw_perf_event_init(struct perf_event *e=
-vent)
->                 return -EINVAL;
->         hwc->flags =3D profileme ? ALPHA_PERF_FLAG_PROFILEME : 0;
->
-> +       if (attr->type =3D=3D PERF_TYPE_RAW &&
-> +           (attr->config & ALPHA_PERF_CONFIG_RANDOMIZE)) {
-> +               if (!profileme)
-> +                       return -EINVAL;
-> +               prandom_init_once(&alpha_perf_rnd);
-> +               hwc->flags |=3D ALPHA_PERF_FLAG_RANDOMIZE;
-> +       }
-> +
->         /*
->          * We place the event type in event_base here and leave calculati=
-on
->          * of the codes to programme the PMU for alpha_pmu_enable() becau=
-se
->
-> --
-> 2.55.0
->
-
-I'll report back once I've done some testing on real hardware.
-
-Thanks
-
-Magnus
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
