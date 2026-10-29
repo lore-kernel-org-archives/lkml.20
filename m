@@ -1,88 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.248
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793292978;
-	b=VftylFJRNm+Vj+ivJjoIlFnTKg6OIg2k1TUh7sX5Q+B7qdRMC//f5gAokv2pp46Z+GFM
-	 ae9xpJ1/1UE53Tx99snAeJR6B2Sc+oiT1u/xAnDXJRJNAkSazsHlTOmPiBjHadDF35DGm
-	 zVNQbu2g5AR1nqB4KVZ2FrzCEWxItK/XejaKN1Ds47BGoi/GSQ420AQV0UH3KhduaETNo
-	 xax30zXKzmxn7YwbUow04MYQueKuZVsvSWzDCi6H/hvLENph2xtY2RlJjQUkV83FQqlsY
-	 c0jdTTxsGf/XvftFMgHOmpwCSdRac6lv3BtGP7FQXfEAr46P27A4IcEVmjNMkqC7dFA==
+	t=1793292987;
+	b=qLzL+f48jDIShgA/F/VSE3tJsUXT6Jpq98nNPuPU9zFElkm5BlegdnYoXbhFwqocjH5y
+	 vOYI2I4JwGgz3GjO7et08QlBrieeDR+qDoQoxzvxR3pY9UoBpgmBeV+YRuZZBvhw0ByJo
+	 SMR7BPntLNWO3I1iTA+YvVG7SJ4aPzSJ0up5/fh3J9Vy5c6Rv6i/7p/XGvGZYjVTjl4iC
+	 Tt8Xnil6lKh/42jUMVRQ0BOBfZlYCRw3eJjOzX4mY2t39yGuRHDEYH/OkohtPgEBlmNjM
+	 103r+D2nFVANNLbK43JV7WlEUzd0dgvumP63MG/3GzLjmVk+eW724gxJmljQ5ZdAqkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793292978;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=kL5j3EEqbMn3qYBmWtzp3XXkY9AfG36sC38Zmkd8NNA=;
-	b=eI1HfX8sX2wf+Iu2rJlRFjZvWSnTOiSxDIek3y1wq5wvSC8QoRNDlbjcCW/16Qjr1yyv
-	 6W7vPwVR8mGkXqwbXX3uU+Flw9wlNjgXy+5TAxsZnLuOgfDsnCoTvkD2Q9YLMCaK/goT2
-	 iT/1VNiiXK1hEWkPp/U+vx+vKt37VKYFU4iNRvzk7ab4pBzkzv20bXi2mrMc59y0Ka1Ts
-	 5kAhd2Yppudez0OqlPo+1Kz6mCeCLhsBPiGkg6/siwfTWWHcYojU5H4hvJsHdDRHRrsKe
-	 EjmSUw7LLv5b1uVzE3VNCIrpCRhC1hMk7x5/0UwyBWCKBtU20c3dQ/q4qJIS3I3cSgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793292987;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 X-Mailer:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=hua8r15V7TSjOPkP1LZ0fLVVfYG8l7xLUVsTAllRXFY=;
+	b=TIWLFrofWwg8eC5HFRwY/ORjoE12UPE/ERc+NLRlwjGAYrpOUDZxl9TjucWoQYnUl6UA
+	 59Q/oAotPjqInhXnqePPmitcvsUtAqUnJMDC51PsriG8wsN+0sBKKNsm73spJELgAl/QZ
+	 soWKQhOkgVb564Pf7JvtgTMUQYbTrTlXvWncR6hMZpN/g9uiGRMsRuJpYCwN9MYEJ0vsb
+	 JOp+thrr8YW9cNehM5iCv0rDxF6dvwHdy/WmKnWRUvdtTOBJXCXIWIDz6zIx6T0UfntH4
+	 ZXmY2xmUkfRHxOWESw21XKWgogG+q6M48yDonnNJb/t+JEczSdAnRq4M7TZ59Gm0oLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=nilk.net;
-	spf=none smtp.mailfrom=nilk.net;
-	dkim=pass header.d=nilk.net header.i=@nilk.net header.a=rsa-sha256 header.s=nilk header.b=fHewcwhQ;
-	arc=none smtp.remote-ip=209.85.167.177
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="SB/cbvIM";
+	arc=none smtp.remote-ip=95.215.58.248
+Received: from mta1.migadu.com (out-248.mta1.migadu.com [95.215.58.248])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D4E606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:56:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5D4E606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nilk.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB52F60A2601
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:56:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB52F60A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=nilk.net header.i=@nilk.net header.a=rsa-sha256 header.s=nilk header.b=fHewcwhQ
-Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-4b28d9537bcso692839b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:56:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nilk.net; s=nilk; t=1793292977; x=1793897777; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kL5j3EEqbMn3qYBmWtzp3XXkY9AfG36sC38Zmkd8NNA=;
-        b=fHewcwhQIjNO0M14v2tyKKNcwasiZIxpd0YZ6NF/ma/Eh29ffF64GuU5nLtuXnlDQc
-         75PDEGdKkSZM+xRlXuJX8lxNAs+aOJUskHSWRdHzJ57hxZ1ksqbdPhqcXIemcRBEnsYD
-         CHM+zuGGkz9hoSKp1i6IlU5pLHpT8pIfaPHMk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793292977; x=1793897777;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kL5j3EEqbMn3qYBmWtzp3XXkY9AfG36sC38Zmkd8NNA=;
-        b=v5kVIHYVZaSDdfVj6/p8S9Ml6vngs+YB//N2NKU6FDfI44x0TdIXpqpDHNYkAge4nE
-         8r11qOGhyfB6cPBMAI2gfoTrZIAwBh4Zz+TToS/3uwSREJQ5oRFJYpuzalFM8aEqusHY
-         MxfOJOhds9JG91EucGW59Z7JSxQ3I3W5G/QfgS+ooJqHeUn6sm5xKrbjtssdewvHVGMt
-         hTqcZjx8daK3xyzVrxHENXxvY1OA7eiH1VK7O9I4tG/3p5lBNDpwJsT3vmvCIOwtqZTH
-         /QbalJWdyCb6sB6a3AWO7GiQ2QtKBR26WHcIc5ZgbBfzpCw9gi0sAdMenF1OV677Q7gB
-         GUNw==
-X-Forwarded-Encrypted: i=1; AKwUvBxiTlUzjsBcaYNQ001RJwgWUDh+IEBvNWaMGHu5czQvxft8yMDqQUEI6GNELt1SU+rbbRWDxxJKm3ltfUI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLy3QyqPcQCdJuyahoEPibVgcPg7k3XqBvJyTgCRphMFGS48HwA
-	+7z5T+/fLwHxGSUvx5SyYBVxntM96H78UViDIpJAry8aTE2jqy4P8cPTS/6aU2/mDA==
-X-Gm-Gg: AYBFou3+Asu2tjNB/sc2HxhKpy+PNpIDNUmz05j65EO6P47pNMRpPBLaoLuab8XXoTy
-	ClDR4fvjPcomp1fCAXCrL3wDyFRtlXmiTsnki5GRRbm/ViCKHWF0yTtXQA0l70Bj/fDADUjWSu5
-	5bJl87MPsGlIb7myrZzGo4v3fh7A8OdGmOrlnAUExkZTcXW+4T+qQEmhvy5Y/gtWaR0VU6ljKSY
-	iGW7uXSFA5WyvhhSv+V5gTqpwsLWuOrsszzTHqIiJBRUo4iT60RBopWkwEdg0sB04CcMBDa8bfo
-	TmyazZyG1P9i6bC+9lCR5ZYsbDTGdsVUFm2/dsYTxP6DsJkOldSstnHko+nymzkp2EpR0PouNq9
-	4qQaypoTFzvKS6L4Fu61DOy9joVYh7M6lfLPAjd9fA74z/DCeOzhkQibQpPydN7fVj3IgqOLTZR
-	iF56DpuYe5r9DDn7oB57PbwebU9rInr9ZI2Y4KfVnUsdauuR/XvN9Zyj3DqGvljj+oCcgck54Ex
-	rfzUfe98Cl/FEFKubsNjwE/KeQcXXnEWZtKuuRxDObOjdpUWBXLAMSK+Hrzc3MtthjBbmkW803F
-	f4VHqT3yvfOOAyFTC6mD/hFFyY8f12OGQQ0wphD5Ui1RRX2EHopqWyP4eAm/c65X+xL43QlqhBU
-	xtzXelykbu5wNsKlWK203Mae+ooxTqCXtcaZ3q4EWQSdPEZMu4zIZOWXtGgGq7UvkMJzCdELWLS
-	tsTqhoEMR+xdIAjGYXEAdU2St+FdMU112Yj35b9gEYChebDl+n3uE+A9cW5s2BX9JRZAjgppuQn
-	oPidtRa
-X-Received: by 2002:a05:6808:1b2b:b0:4b8:46e3:e224 with SMTP id 5614622812f47-563ef728ba8mr1823577b6e.16.1793292976579;
-        Thu, 29 Oct 2026 09:56:16 -0700 (PDT)
-Received: from [192.168.0.114] ([187.14.252.62])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-563c634709asm4289499b6e.12.2026.10.29.09.56.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 09:56:15 -0700 (PDT)
-Message-ID: <1dd56310-9286-4321-ad1b-e4643aeaf60e@nilk.net>
-Date: Thu, 29 Oct 2026 10:56:13 -0600
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SB/cbvIM
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=434KqqiFbfCjkA3irR1iRo73T1t1MZ/g1nUcxCwYWug=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793292984; v=1; x=1793897784;
+ b=SB/cbvIMn8fzU93V1cumKiWJi/6yMseJcAkNuE388oSnCtAUPcNQMjh/nRWj0CVpivpLJWth
+ RIqwr0VrtyfZOZmff6NIWBuxTRyMlKhoVTzYiwTMs7hVvryUM55oji7mRz4zEDc9EmseKRfnsAn
+ cTPBg3NpRc0dH2aQ1fmRRR9c=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5d6b4a9e39e1a764;
+	Thu, 29 Oct 2026 16:56:24 +0000
+X-Mizu-Trace-ID: 5d6b4a9e39e1a764
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 29 Oct 2026 16:56:15 +0000
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Puranjay Mohan <puranjay@kernel.org>, 
+	Ard Biesheuvel <ardb@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: Ben Cressey <ben@cressey.dev>, 
+	Florent Revest <florent.revest@linux.dev>, Bill Wendling <morbo@google.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Subject: [PATCH v3 4/7] arm64: cfi: Use CONFIG_ARM64_FUNCTION_PREFIX_NOPS for
+ the type hash offset
+Message-ID: <20261029-b4-arm64-callops-kcfi-v3-4-1b011ad5ddec@linux.dev>
+X-Mailer: b4 0.15.2
+References: <20261029-b4-arm64-callops-kcfi-v3-0-1b011ad5ddec@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,41 +74,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] media: i2c: ov5693: Program the mode registers on
- stream start
-To: Marco Ziliani <rylos78@gmail.com>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, Tony Garcia <tony@loafecho.com>,
- Simon Kruse <simon0x+git@proton.me>, "D. Manresa" <dmanresa@gmail.com>,
- linux-kernel@vger.kernel.org
-References: <20261029-ov5693-fixes-v2-0-2526d7b13030@gmail.com>
- <20261029-ov5693-fixes-v2-1-2526d7b13030@gmail.com>
-Content-Language: en-US
-From: Chris Simpson <chris@nilk.net>
-In-Reply-To: <20261029-ov5693-fixes-v2-1-2526d7b13030@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-b4-arm64-callops-kcfi-v3-0-1b011ad5ddec@linux.dev>
 
-Tested on a Surface Pro 9 (Intel Alder Lake-U, i7-1255U; IPU6, front
-OV5693) in a 7.3-based kernel, with the v2 series applied to an
-ov5693.c that matches the base-commit (d7e7bca71698) apart from the
-pad ops' client_info argument, against the same file unpatched, using
-raw captures from the ISYS video node:
+Make cfi_get_offset(), SYM_TYPED_FUNC_START and the BPF JIT use
+CONFIG_ARM64_FUNCTION_PREFIX_NOPS instead of hardcoding four bytes. kCFI
+kernels with CALL_OPS need three NOPs, or five with ThinLTO and BTI.
 
-- With the sensor held powered between streams, OUTPUT_SIZE (read
-  over I2C during and after each stream) matched the requested size
-  in 32 of 32 streams requesting 2592x1944 or 1296x972, and every
-  stream delivered image data. Unpatched, it stayed at 2592x1944 in
-  all 32 and the 1296x972 streams gave no frames.
-- With each stream started from runtime suspend, the path v2
-  changed, OUTPUT_SIZE matched the requested size in 12 of 12
-  streams (as it did unpatched), all with complete image data.
+CONFIG_ARM64_FUNCTION_PREFIX_NOPS is 0 on every CFI kernel today, so no
+functional change.
 
-The test scripts, the analysis of their output and this summary were
-prepared with an AI coding assistant (Claude); I ran the tests on my
-Surface Pro 9.
+Reviewed-by: Ben Cressey <ben@cressey.dev>
+Reviewed-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
+Acked-by: Alexei Starovoitov <ast@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+---
+ arch/arm64/include/asm/cfi.h     | 11 +++++++++++
+ arch/arm64/include/asm/linkage.h | 11 +++++++++++
+ arch/arm64/net/bpf_jit_comp.c    |  8 ++++++--
+ 3 files changed, 28 insertions(+), 2 deletions(-)
 
-Tested-by: Chris Simpson <chris@nilk.net>
+diff --git a/arch/arm64/include/asm/cfi.h b/arch/arm64/include/asm/cfi.h
+index ab90f0351b7a..f3c04a2a6a95 100644
+--- a/arch/arm64/include/asm/cfi.h
++++ b/arch/arm64/include/asm/cfi.h
+@@ -2,6 +2,17 @@
+ #ifndef _ASM_ARM64_CFI_H
+ #define _ASM_ARM64_CFI_H
+ 
++#include <asm/insn-def.h>
++
+ #define __bpfcall
+ 
++#ifdef CONFIG_CFI
++static inline int cfi_get_offset(void)
++{
++	/* The 4-byte type hash sits before the prefix NOPs. */
++	return 4 + CONFIG_ARM64_FUNCTION_PREFIX_NOPS * AARCH64_INSN_SIZE;
++}
++#define cfi_get_offset cfi_get_offset
++#endif /* CONFIG_CFI */
++
+ #endif /* _ASM_ARM64_CFI_H */
+diff --git a/arch/arm64/include/asm/linkage.h b/arch/arm64/include/asm/linkage.h
+index d1f7a16729d2..14bc3c67c38b 100644
+--- a/arch/arm64/include/asm/linkage.h
++++ b/arch/arm64/include/asm/linkage.h
+@@ -39,6 +39,17 @@
+ 	SYM_START(name, SYM_L_WEAK, SYM_A_NONE)		\
+ 	bti c ;
+ 
++/*
++ * The compiler emits CONFIG_ARM64_FUNCTION_PREFIX_NOPS NOPs between a C
++ * function's kCFI type hash and its entry point. Callers check the hash
++ * at that offset.
++ */
++#define __CFI_TYPE(name)				\
++	.4byte __kcfi_typeid_##name ASM_NL		\
++	.rept CONFIG_ARM64_FUNCTION_PREFIX_NOPS ASM_NL	\
++	nop ASM_NL					\
++	.endr
++
+ #define SYM_TYPED_FUNC_START(name)				\
+ 	SYM_TYPED_START(name, SYM_L_GLOBAL, SYM_A_ALIGN)	\
+ 	bti c ;
+diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
+index aaa34c739004..42cb2d446680 100644
+--- a/arch/arm64/net/bpf_jit_comp.c
++++ b/arch/arm64/net/bpf_jit_comp.c
+@@ -185,8 +185,12 @@ static inline void emit_bti(u32 insn, struct jit_ctx *ctx)
+ 
+ static inline void emit_kcfi(u32 hash, struct jit_ctx *ctx)
+ {
+-	if (IS_ENABLED(CONFIG_CFI))
+-		emit_u32_data(hash, ctx);
++	if (!IS_ENABLED(CONFIG_CFI))
++		return;
++
++	emit_u32_data(hash, ctx);
++	for (int i = 0; i < CONFIG_ARM64_FUNCTION_PREFIX_NOPS; i++)
++		emit(A64_NOP, ctx);
+ }
+ 
+ /*
+
+-- 
+2.54.0
+
