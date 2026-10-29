@@ -1,52 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269156;
-	b=b//lGOWZRm0iWg5H3VIXZjO687jG/XgNf+/iJvdx3nfGrBoj4x/zXy66a6YurTGNCMDj
-	 5HfROiv2KXqXSw1BLgwy1Iy05X8oiHgOaYgclp+MYou8NG4j3UuhsDBf1vj5Of+Z6Um5J
-	 UM54g027C37HRnqB3jYmFbU8zzNRzge2JqbdcqCbD0T1hqRtSMGJyUiJYVYGhW8HwMuyB
-	 gavDD783vkqzI6rgFcdgB/3aBWKqyfGMskMFMzZ7CgTacJoN4/XWowSpPLbaR9m7jw/UM
-	 KRMIOn0BmpAX1IOwFjsLb9OcJ5i143UOoy1z/1Wh/hJWE/1U6k3NPet0UZE9L9O9N6Q==
+	t=1793269147;
+	b=G8T800KASxoR2rx66W1JDIX80AtmON9aS+daCB7KxZNKPAChqphAIRplFlO/X53hOzc3
+	 pWH7cbZk2eyPKTrQ1ypizUPKZVvK0M65R6Mgu2HyUflxJQYfRjRPMMQNJgFU1bgnb7Llx
+	 rv165YQoSlroIfus54sU9GPWo7AOHX64yItXOKJgCUqKqw6xjrU1qVLvtY7ro3XFhxyjV
+	 LSIjRk9swqEgVsq34yO9GtvOkq5lbHcIWqjCeshQtW3sJdl+xsS9n0b8NPaxnwEBxNE1a
+	 3xMsL0DaotVYvWxJsUdAM/Zo48vlu0HUTC8vT0iaYM7yxApUYpA7O0q4Aor1b1cwJwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269156;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=6LCAQEBPZJx8JZSEy214RQoDXw+6FRsYGwEN0a3YsIc=;
-	b=jrgBc/IrRzT4yuJ/0NQEa7L3VjvWKbQulKNSSdzdZxP44s1d/VsCa3yXu2UAgJrfkchX
-	 NbNjUBdFfOlolRt8gXHX4EkukmgGd5324sZpw3K2c8JWUmguLmvrf8E9nB1YSQIWZlffV
-	 AVRni+t4yoPxGC6GbjzbRY3qQ2gNW5h6mMphis+uZ96rusSIrj67o76M4v2AlvkW4I0NA
-	 17uHw3QGBygrFdJXd5q5U5IKCY0hu/7xYBz9OMpMTbvBIjYE7yWruVzmcuiQi0kl3sp3e
-	 tZdFjYWSnzF+EFPC+ouJ7/POy+bIiwoFNXLTWJI4Cli05RS4MAKsYqs7OulPgybsX4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269147;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Vc0r3JbZbwBvUVapNGhL09kDmaTErdcaYY3i2MzSoa4=;
+	b=PlmStOPEyYJRr8ez/K9Zf2unQeRA41TAHDhgvIriS1ddlM1jqRil+/f7RAraBaR+73ll
+	 WTHayRekXQj0MDJgtGWRP6ANSiaRhJ4iPLJakZ75Ma9c7zawt05oYyKPKwX52AEilUoTh
+	 TM5QzZgi2Gb0jit/cKCm+CzXhsWVzJ8+lAFXV+W10wt4jUHt6zhWwzp2WfSdsZZtufRev
+	 mNJ721v3yJoBrZemZN+Q47judGC2wCT1SPj/yG044pvCNQPM9KpVmpu4Olb9BcG/Y5ixl
+	 acsY0ULk06V34/0VXn/VDM4GclrDA3yQXYcmahccTDLSB5DvW2eBf/4neidn8l/U6ZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=DNRMNkyk;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zH9z4kbb;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277BA606A32D;
-	Thu, 29 Oct 2026 10:19:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 277BA606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE79A606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:19:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE79A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=DNRMNkyk
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CC243C22;
-	Thu, 29 Oct 2026 11:16:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793269019;
-	bh=KBtlOAOFYJM1PRfZCgbJiAuSbTP1DfY5ZemL9rRN+5M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=DNRMNkykF6fjjsLioGOMEwAdBA3gHRimDByzK+7TB6t4Ndd7ORUkNrMSV0Jh6V4AP
-	 KiYUj08X2fb0up55sxL49AKY/40loj9ZohhluLHDTadYnUysCDGTwzbzpxbmFz++FW
-	 v88AM7W6XNvcYN8OOUDVje7+woUWoVg6p2jQlofs=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 29 Oct 2026 12:18:50 +0200
-Subject: [PATCH v4 04/14] drm/tidss: Drop the tied off video port check
- from mode validation
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zH9z4kbb
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso17568635e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:19:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793269145; x=1793873945; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Vc0r3JbZbwBvUVapNGhL09kDmaTErdcaYY3i2MzSoa4=;
+        b=zH9z4kbbMg0lkkb/HqgCLaFR9vONpMS7UnrW2ezQXaMot4yuVlvx8b5AsRhSxwcAbi
+         Q4V4plM0s/t0NDmjNPggc0m3ZhTaJqh16rAqpGi9MHj+RiOCp8gednbCJjh+al/OBh3J
+         k7dr5f93QI3uvgi5N70JgAPgUqm5BbmDSTg4+7OuWMyvYgfA37I5zYTduwmKcfRgttzJ
+         kjcY4e0V4EKRJbYh1+4WRLNTrxvUqyF0Wh6n+2CKqJa9D29js7cu4+6Z8dPMKadEGaoD
+         kMgHq+0nvRzb+a+PbaN9D/ZrUsU0nRFfB6YPncLGLwQk91Qn1/Z4TSQbNgEhroKs+9x9
+         ox+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793269145; x=1793873945;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vc0r3JbZbwBvUVapNGhL09kDmaTErdcaYY3i2MzSoa4=;
+        b=kcSPNzb/F0RYhyIcG173ZYNcUha8AYT0QFXiwAx9P4MV/E9U01MAlxehkI5VQZEAGF
+         rqhTOP1uaj9EkJwB9mTJSH4gCl73Duc+VWzykaRp9FI9ogREKmcjFqw6JXB7E0cJCA6y
+         XBWxydIRgQWXi2cogUCSgwTAV6b4nwu6eescVbgPeSOPcu9tKXUyaHc8Zq/BkwWDa2kF
+         KVIThmdAKHgInnyR/hVAvBUz4jrd4LpnxK3wIj3S5GpPwe56eUS1lo3VgFoM574EuB7f
+         adBDBfK6v0DJKa8AKuTcRlxLo8UXP3A+u5qzGN3iwsAtD9QKQrqkP5REnMUlbwUFTC8Q
+         GTUg==
+X-Forwarded-Encrypted: i=1; AKwUvBxbF3qu2KwFLcxbb78HV0Z2nGHe+ONuU5fVruzSoL1mZ6EdAmX9Pq3V9qI0/EU9mrfzahdixvhDvFptgmk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILCLGJdTdJ0GhIuNzO5mxZECsC812g8yd4CqyRPHxyTFRvobzF
+	4bACNSIRhAZ8z5h83HGpKVGLnikcYYVueMQBwKE+JPB0S4xldeZMBRpZ
+X-Gm-Gg: AYBFou1vHnqGIivTnaKAii2WljXwemZxFkMIfYad2MBf/ebV6f7FKl74DtifS6DA40P
+	oGmntxSURMWK9EsMHWDdVP+/xbqKpP0tVbgPKfXLdo053iIa4mWFx39DXtQZ7LvbK5/VaQJQ6wp
+	nF86DPeRWyuEgLuRUTcHuxzZT35x2QWAxcrX4oNig+kfRw7BjlbFBi3fZyNDxwWBGIXLu7AL9d1
+	qjThB1cx7fptkI5KYsozd9/vKzPNU+k8Pudz+Ue3Re08Fi6+ll0NVFF/toQvv1QwEhiG6SVAbxR
+	6bRSwW0qJ4DJw6x40umGT4Wibj+67zTI6qVbt+lK3ZZSrgxVzAwTnQbsO3sGMNCuM7IG48R0zQb
+	7/2adHiYNUG9ug2wJVQpmML7Oq01fC7dwtkoIOFJIl3L8+O/7ncMTZrDldOHA5v7PfVQ49tESx9
+	GasxxCk5XLRiFBdJmrMlBe67LRNaTGzvo0CgFzu0xPYML2ZN4nu+whi2AKDPrg19nvnS08twACz
+	rZMm254rGsGl5Qb+blIk9/4Pbg+TgLACbs6Yed8ChFICx784ZwSzJFvMytttxjEu5GrW+2p6jvO
+	uRfPb1edxREEww0mompkdeOHh2PQN+vjeEVCIr0hrHIMWonhfvFnMckORv1g4T6X+w==
+X-Received: by 2002:a05:600c:6088:b0:4a1:742e:3 with SMTP id 5b1f17b1804b1-4a9677ca203mr118445565e9.27.1793269145060;
+        Thu, 29 Oct 2026 03:19:05 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd354asm31946023f8f.43.2026.10.29.03.19.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 03:19:04 -0700 (PDT)
+Date: Thu, 29 Oct 2026 10:18:59 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Esko Mobius via B4 Relay <devnull+echoowall.gmail.com@kernel.org>
+Cc: echoowall@gmail.com, netdev@vger.kernel.org, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "David S. Miller"
+ <davem@davemloft.net>, Simon Horman <horms@kernel.org>, David Ahern
+ <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, Jiayuan Chen
+ <jiayuan.chen@linux.dev>, Shuah Khan <shuah@kernel.org>, Thorsten Leemhuis
+ <regressions@leemhuis.info>, regressions@lists.linux.dev,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>
+Subject: Re: [PATCH net 2/2] Revert "net: advertise TCP MSS from the
+ configured MTU, not the learned PMTU"
+Message-ID: <20261029101859.6893f1a0@pumpkin>
+In-Reply-To: <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
+References: <20261026-advmss-revert-v1-0-272fa4b7ecb6@gmail.com>
+	<20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,73 +106,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-beagley-ai-display-v4-4-dc7f2b532478@ideasonboard.com>
-References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
-In-Reply-To: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>, 
- Devarsh Thakkar <devarsht@ti.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1116;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=KBtlOAOFYJM1PRfZCgbJiAuSbTP1DfY5ZemL9rRN+5M=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2WJ3f5PtYgPGQjINcFNhfcLRDv9Y9wkNfDk
- raEBSXv3oiJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdlgAKCRD6PaqMvJYe
- 9XBkD/9HAxVjBiLH8Gn7K5nseLyKL+qMTPW5zFvL0i+XUNwXCm2GiHrrx0Qg1IVlGVZwVbN+Tx8
- E9t73PbHlp2DZP2XRgR0/q7cSjqBFuGFF//1SoaGENwUKnJbm0pt7YUvmnOYwnPRupxAa6lnxGd
- o7s/nXR28apu4HRhWHFy22KwJCAIcpz2QoWuOSvBobfl5RKpG+frRNhNEiH6oDxJHArLEGlatgI
- KhZdUFj1TZtphmTQorPXsdH3mXwimABLeg24pP/P8zjkdBlHHdY4pm6xovfIFs6jHqtGD909kfb
- gsBDsnp+sS64g2oy3E38/+7VvCeATJwYiZYG8cO+3k9VeOI+gT4MYEf75A8PoSCsYF8GvaedR34
- mBBJosZccbb1SIVZd8OESVmOuRBOyfUKVDaxLRTq1H9aBMYxUm8q5mfMd6yQpQND1dRcX1Fh54p
- gbBc4eAzFuxif8W8PxyV9pAz9BRA18itb3x+SOVLBThEhHF2cFyI3G2QlZ7n0Ey4vV04yrAR68r
- X5EWdku/7xj/qvZaYdbz9k7KXAy+p+7nn076I5K6b11h/IvG1S6cL65S7Y3oCLXVxO0u+LTuXWE
- CNLxru/rPwgpZ4RmuOZmU7EeZ0dNaGvkCE3Trz+HFrvWNLefi0ibHuFwN6LLkiFtWAPtJje32+f
- rK9ACKQ3yM6PFKg==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-dispc_vp_mode_valid() WARNs and rejects every mode on a video port that
-is marked as DISPC_VP_TIED_OFF in the 'vp_bus_type' feat.
+On Mon, 26 Oct 2026 15:23:09 +0800
+Esko Mobius via B4 Relay <devnull+echoowall.gmail.com@kernel.org> wrote:
 
-The check is redundant, as nothing in the DT will be connected to the
-tied off VP, and thus the driver can never do a mode_valid call for it.
+> From: Esko Mobius <echoowall@gmail.com>
+> 
+> This reverts commit 2640e6419594 ("net: advertise TCP MSS from the
+> configured MTU, not the learned PMTU").
+> 
+> That commit stopped the learned PMTU from lowering the MSS we advertise
+> in SYN and SYN-ACK. For symmetric paths it argued that "the peer runs
+> its own PMTU discovery and usually already knows the real path MTU".
+> That only holds if ICMP "fragmentation needed" can reach the peer. When
+> the peer sits behind a firewall that drops inbound ICMP, its PMTU
+> discovery is a black hole (RFC 2923, section 2.1), and the smaller MSS
+> we advertised was the only thing keeping its full-size segments off the
+> narrow hop.
+> 
+> Inbound ICMP filtering is very common in enterprise and carrier
+> networks, and it is pervasive in mainland China. We hit this in
+> production after the commit was backported to 6.12.111: TCP connections
+> that reach a server through a relay with a smaller-MTU hop complete the
+> handshake, then stall as soon as the client sends full-size segments.
+> Clients on networks that let ICMP through, and connections that bypass
+> the relay, are unaffected, which made it hard to trace back to the
+> kernel.
 
-Remove the check, and rely on the DT to be correct.
+If it isn't a silly question, how to connections in the other direction
+work?
 
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
----
- drivers/gpu/drm/tidss/tidss_dispc.c | 6 ------
- 1 file changed, 6 deletions(-)
+I'd have thought they'd need that ICMP message to get through.
 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index efdabf046d64..8c537280faf5 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -1342,12 +1342,6 @@ enum drm_mode_status dispc_vp_mode_valid(struct dispc_device *dispc,
- 					 const struct drm_display_mode *mode)
- {
- 	u32 hsw, hfp, hbp, vsw, vfp, vbp;
--	enum dispc_vp_bus_type bus_type;
--
--	bus_type = dispc->feat->vp_bus_type[hw_videoport];
--
--	if (WARN_ON(bus_type == DISPC_VP_TIED_OFF))
--		return MODE_BAD;
- 
- 	if (mode->hdisplay > 4096)
- 		return MODE_BAD;
-
--- 
-2.43.0
-
+David
