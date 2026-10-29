@@ -1,81 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793299365;
-	b=Pkgs/KL7NWvZftGDA8v6haBcXonIpm7eNFUeeyW1v201SfA1vcpB6zy87ebELydqoDk9
-	 f8lIa0D3GN6g0SN4hcml5qXZwubHUULBNwU/62pU9eqoItHNr0vO5TTS4fCsYbN8OKiTS
-	 ZTsdbYJK3WkqYEVRw9g9jcAaNj+zySyNmCrJz5Q6g5UbcX1UkEjh/9s1A8I3yn6cxzl0O
-	 llkfoX+oAYK5Ifzc8LwarL47jTk0fm3Ru9qNyKZt/Ji7WVvy9dV+gXGT/jtCUmKmAODLK
-	 8IXZLtPzmwkd2+L2bVZjBBwtTPIxlwQ4qnrc/nJxWcWT67bDB1CyCBKtfXq1+Un4hJw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793299365;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-Id:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=IdoTT1CqpSViQf/sJ1ZInJfV4Y32eAAs9cGPyv2vdaE=;
-	b=or6zIUwhMf15jcDZBvG4SFC9PgDPjJspyxHW9dzALcZqYfHZxDycuR3iowM3oCU0IsA7
-	 sMnrWMhZDh9+dlXQsQi4GBRqFjQg03HGml99Sim6MHZXvOKtECqI1kmghzfd+6EAOUMMT
-	 bFEYXGYPC1vi/MS3ltdz3i2NIgn384B8aP+jiGxiTagNcATNc1SmCHCCQej4Iwnbltczr
-	 0WVkIVgwiIxQ5638YJphrlTsTgUjz1UVuxp4FMrlfnhmQzFuCcFGoFhESUR329banPMpW
-	 nb6jyF/8txt7FUTjizERueJzTGG6z+XKeVxhg2VYoHLqkp6UCBfcPohsTg2X7yGC8Qg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cjdns.fr;
-	spf=pass smtp.mailfrom=cjdns.fr;
-	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=mycm05UW;
-	arc=none smtp.remote-ip=5.135.140.105
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.22
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793299416;
+	b=gLPP7deBKwcBKLzofr+yclIAhQyYchjf0z648jm7IIUGOXZGroPxQWAx20Wp1aTbolfT
+	 MQwcEn3/RnaLry5Rkoh+lXqTZGkATkj+96SrpbdFhtBmVllCPL3oPa70Bc64WUoIZUMul
+	 bZa5VYLD/ZpLdw/ydVfiKKXd7e1ia71vzB4jzOFWSmL2jOdvia1r5gRzqingUzi6FuBdT
+	 jnrkYC2JrSnTLUH8xckpsgIrIamx1Lx2iMLBf+GCltY2UHkEJiSDr90J3m0LxTUK1N7Rw
+	 Ttmkg9OJU3KR5fT9CrIIQ/EpjhsdGyf9dWuk5vp1LWMcyp9l2jXFi7e1W4eW8W1Nq+g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793299416;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ry+CDb+yJCC8w5K5tQWHKlcwqLC9+2T1t4oKed4/sKQ=;
+	b=N3qptXhwyA8Z9GlZriztCAdINFmmxKHZJf08do6SujQJsN+B6gqaHkmp6TjYIWVPFXvE
+	 6IJ8v5JIJ3nyYqbE4fIiWuRPufr+fQFjEfK0FeitDBu6ojEzG3vZHy+UhsYUrQbMI1dwJ
+	 9FQF5LhTY06ILWsj29dmHmzV+UgZU96KTOSVmXSJwr3x92ORthrer2qOBmIqz/CHQ/jtD
+	 QVT1+qS3r2ZlpTf9ZGBfiP6jV/64KNm7xUspKs+C0CY9iHABBhUgBs6v0JTXXFapLOy78
+	 wlgA7pdb5/V8ekMMXBvOO+iefdxzCVRk1ETVF1CBhcosGzxWFx1FKmp7i/WwsDBLbXA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Fp0hwjIO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.22
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012022.outbound.protection.outlook.com [52.101.53.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB0560A2619;
-	Thu, 29 Oct 2026 18:42:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEB0560A2619
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A260606A31E;
+	Thu, 29 Oct 2026 18:43:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A260606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=mycm05UW
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4E9E41AAF30;
-	Thu, 29 Oct 2026 19:42:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1793299362; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=IdoTT1CqpSViQf/sJ1ZInJfV4Y32eAAs9cGPyv2vdaE=;
-	b=mycm05UWJmBtS3LjxFoCnE5RYz73AsGlliMGqFZW4ynC441yNrYdRJhHSVhbhyRlf9PZFS
-	gSYTLN8QYyls/1u395N22fi4QzFaFFmzQRSvwXWT6LQ2zOjZj+xlrJayw3sy/+aW3MCobW
-	WkLVP6Wxi63Iayo1iOFvjtz3XB1NAajyiB5Bjq0zwAU1tZsp/EYXB3D3YUSy2UXmy6X1Z+
-	JPjlwcznqSgJwAmdwf1WmcVNM19GpTmOHWu79ItAXQsBYIsWqDOXggce5cdBTVvHNn2kKU
-	dILXrg2xU5qNSc9ecy3ANPw5Z4nkqSlHC1hCzg8vcFFiFPcTwpR0k2pEe+C6Rw==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: netdev@vger.kernel.org
-Cc: andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	chester.a.unal@arinc9.com,
-	daniel@makrotopia.org,
-	linux@armlinux.org.uk,
-	arinc.unal@arinc9.com,
-	Landen.Chao@mediatek.com,
-	dqfext@gmail.com,
-	sean.wang@mediatek.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	naseefkm@gmail.com,
-	b.larsson@gmx.com,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH v4 7/7] net: dsa: mediatek: support EN751221 switch
-Date: Thu, 29 Oct 2026 18:42:02 +0000
-Message-Id: <20261029184202.1859843-8-cjd@cjdns.fr>
-In-Reply-To: <20261029184202.1859843-1-cjd@cjdns.fr>
-References: <20261029184202.1859843-1-cjd@cjdns.fr>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Fp0hwjIO
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KD5Vzw9lWcF6KRZd4nRbo6t2pY1zrspyr4ip37dvivT7Ai3M7m62qDOANyhKGjJNcFDDPNJ/Q0UnDQVdjvVdXc3mFSPzW9WHiEvqRQDXK5cjhdaSF8lpz+vJzUuchLx+QKDyZSY44//aolaVdlu1gHG/56c1+C35hodAVVZ5peCYpU7Tp3F/XLzdbTjDXZc7POk1r1p0US7/Dp8F2K57hRRBja3mtm3svzxd+b7npV1j3pR8nIGGbrj1qACSg6Q/2Sutz/owsUNLNGrxoVIH8E0Iu/XfI0yy/4b11EP/0yadQn0MV0MKFaj0LktAdUh0yTNV6A/qpkR8Ty4PK0FMDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ry+CDb+yJCC8w5K5tQWHKlcwqLC9+2T1t4oKed4/sKQ=;
+ b=Tm5lyHHvueztoBNtPWjrgXlMwpDBFaFviGgzNOetxAiA0sa+qe7AJFWt/d3IBz0yJhMj6C/VFKFYLj20GszDAN59XPWv23lZ/Epp0Fm0RqFMfiibk1rIt0q/Zd100zKf+2YpnyMOP8ZM4YZBDzRrTACvtFL3jx5/EkJjUa6fhfuC0PROzBX6aSxu/TGWu4sBfMGBCm4ApxKpJaQavXPlz4jTBwYv2qToe1Tltn+YdjNyIUgrhuwkXg+rSm93G0RQaS3xxjIYbpz3U0IFcTb+6DCMYQCe448M5l6n8Ac9U4+fMZCUHSOvuyuJ8ryQ5rZJwQC9ZZ63B/1beNrReP22sQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ry+CDb+yJCC8w5K5tQWHKlcwqLC9+2T1t4oKed4/sKQ=;
+ b=Fp0hwjIOqpltloh03Z4hBYSzHWO0oEptYM3fVEySNHx+IIVeHIQRCRH0UmXYkZvbRyBBdq37qAlBJ374zAjjMOe8ENYoLIJIIpHfLcr35VmTA9GypxdVkqllMPkybgb5AHQECFtjA5phId4BZxpmq8VwWckR/lIB3/+y1mAkgRT7ivER1SkdKQMe3R1/tG6O5icsmDL4FnOqS6MUaklDilgzgLft3KHfSXm51HqWJxWjiGXmHuNAsQPe5C0mYLIAVclPwHgetpEOVRRv6alqAWgcDGZiHOMJMOqzgAsE0RRDdFPB42z76vGviJQhjyZ5Ub3acxitvT/9iMXD3SbiQw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by SJ2PR12MB7896.namprd12.prod.outlook.com
+ (2603:10b6:a03:4c6::5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 18:43:24 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 18:43:24 +0000
+Date: Thu, 29 Oct 2026 15:43:24 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Jiri Pirko <jiri@resnulli.us>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
+	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
+	sameo@meta.com, drdeeglaze@gmail.com,
+	James.Bottomley@hansenpartnership.com, aik@amd.com,
+	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 14/20] attestation: Add the base family specification
+ and generated files
+Message-ID: <20261029184324.GE3734323@nvidia.com>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-15-jiri@resnulli.us>
+ <179302367452.58760.3782556786585774917.b4-review@b4>
+ <auMX4kbsflE9kK3Q@FV6GYCPJ69>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auMX4kbsflE9kK3Q@FV6GYCPJ69>
+X-ClientProxiedBy: YT4PR01CA0124.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d5::21) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,557 +108,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|SJ2PR12MB7896:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7ec08b6-5c9d-44c3-beec-08df35ec83a8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|366016|4143699003|261028144727099003|11063799006|56012099006|261026140227099003|261009223027099003|261026121527099003|261022113327099003|261022075727099003|261022105027099003|261021121427099003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	Fvcq/YH5nct9U0JXc1/luJty9ZCwjr2qhcJ9ldDeO3XY1ew1Bs7ciprbpOIa1lv8jBEFVTHJu/bL/u6EpiB0/G5ICVCOuo2JRy9OMCqk8NkFWzPFXgK3zWklwMw9yDP2Cap2/6nQJeeM0f5aPjWYXJCMRLnScv48fQwSHeNqqSHoy9N5EzK+hcCB5Ixz6nE3GdsG7Skaaa/IR9BKB5LHum7A59TLK/0dVmqIZXFX/Ho6hhSCSiBxZJk/5FAZGkJK5/CInQApTNaiRQ18zhLZRWQwPMFPXj8xTGWz5ivEUMIwkxe/3TOLtPKgx0ax86BIl8to3r+uo2bYoE5qcplsiu/8kmEBrpccIPR0p+7vihAbyZr8FbfIcM/aCdqULAvI27foJsMMIwuksvN6D3tb7Hl9OmEBcxP4R0/B4flk27kIU7FIoDIXRnNDFVUkLZdOtmkSNXSG8ApGOq36A6M9j2g5zRbL1J0Qs0ydxpGwK5yERsIq/4X9unHD7wkdu4ItvX9Laz2HsiiM/GlDlaPdghYsJp/IbY+b4wLYAWK2TNu4EkKTtZkhnm19KDyYB5DW9xYhRlnLyx+tT3DUBaM9exyysdqLP7I08Fy/8I1GeeijkUisa3XPTZKS5sITc6XKMoPZHoYrn44RpzpK5YUqTR3RhWS/vXDBLblAEVTOrm8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(4143699003)(261028144727099003)(11063799006)(56012099006)(261026140227099003)(261009223027099003)(261026121527099003)(261022113327099003)(261022075727099003)(261022105027099003)(261021121427099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?tEdOb0JACC4ErLhHwWdnTnau8IaHoTBYmiByQRgSRjT9B0QyHDtRhKVeBRu/?=
+ =?us-ascii?Q?+webhL7F3FdQ4v70+BnpfE1v4o8ebBJILhQIaZGjHDR4jrzGFZ6kIDlzsSpA?=
+ =?us-ascii?Q?nijO1iHpOFDwpSNL7r5+3wCOdZ6UMNsFPFPWuHLIPDuH0Csjj/82vRBtl9QE?=
+ =?us-ascii?Q?1/lVO3h5JiBkZdv/rT03TpxZ3SnqNWWAxjq8x2vhq2QXcGYRnhsIi315tT2/?=
+ =?us-ascii?Q?Bi0IyWuElUE5QcBeEm9VK8Yk0mv7LuplVezL5+msjGHk7HUOjQugLlq5gYza?=
+ =?us-ascii?Q?2lZdn0XOv7/rAbs9AevW+MCoDrkbuwcWAqISfw+xzqG9cwqXOd7WcN7gqKpE?=
+ =?us-ascii?Q?mRf5XeKujLEx5Mm9FxQ/2jBqVlUilz4HZb/ranbpV+Hf0kaZOlqNibyQQzty?=
+ =?us-ascii?Q?QknAx3odrwof7XjplPTYGfJ3pexO1xRsH7LvghYPMBjG5Yo2Ku5414+jE9o3?=
+ =?us-ascii?Q?lHM/lJIHFJB11vZzQ2i6AENs3VhUeGUKaKNgHn43VTPvlmQ9ABE/DDJi0kk6?=
+ =?us-ascii?Q?9glPq2lc6U9BxkXf/nI5yIUFDt+KmMC77aBws8q3TezODS/imcM70/Hts+c8?=
+ =?us-ascii?Q?djlGWRZhWsF0QkhwnyqDQCM0t6N70wQnONvzg1I++TUf6hzPETuMCwMAkoPA?=
+ =?us-ascii?Q?VD+jLLvvbsscrHWv7MjdqOoaPduur3fkccEfvj8WVkSfBEnz2U9Q0tLq6j62?=
+ =?us-ascii?Q?9XSY/TZBT3pkoyHHaPfntoCwiJ6hxnTG9JboCu1T2vYmx/IWplC2NdXSJX1R?=
+ =?us-ascii?Q?JJElgX3mf3V+PNL5FdSwiGPeXVJ2MgwXVlW5FtfWcypnzypFHTbbt3atQfxK?=
+ =?us-ascii?Q?j12BPMYOWuh2PyMriLo5mdf6vQPYOy/HXs8Lnk7rhYCKTJZHqUpLruaHtlY+?=
+ =?us-ascii?Q?mT6QNfIpFpqlsDpKFXo3Wb9lgzus+M6wPxuho9Hxh/TEjWeE3QlZrFuLNcNw?=
+ =?us-ascii?Q?dN0TKTgEWRcjcTIV7tsxB0V+W0QrLZIbm+zne7rCc+Lbu9NVz2xKQvmDJAuT?=
+ =?us-ascii?Q?Yfey/1qBiMCyZ4E3WtMfd5EBISuI2i4gHXsVZqpGMrBf4l71GMRV92LcTMMh?=
+ =?us-ascii?Q?xYbaDkVYIUIExbbwU1jQv9GCeIUd9tMVt51yY90c+0NQ6JLKS0j2NEn6KZrM?=
+ =?us-ascii?Q?b6X8g7uXdiq6PA3xWV2RMFtRbElvKP0l7QeJMhzgoPTxvYC5G3yKAHCvzPkU?=
+ =?us-ascii?Q?E955yDw0NhbOopL3YDkWam0ZXRbT7Sk+FkiSNEy73TprkWDON8cmnmm5E+TB?=
+ =?us-ascii?Q?oHHuRvC+6Fli4CYlLWcOtT+baODh1wUW3X1HtxKlsRxYdXV0oFb5h320zBjJ?=
+ =?us-ascii?Q?rmBHXDfGI1AsN0B0LgZfPV037FhDh/z5xAXDZilIzyHhtC/hN3nI5lTAIcYV?=
+ =?us-ascii?Q?anf7rfgh8/BZTkZ3f/U+3UUc/vHlBwJ7M1j2ymfDfqJ1gsricNJ6WOP1ygkX?=
+ =?us-ascii?Q?hwF+7bU6BUx+CwpAXFb3ipE5RlfB6cKwRAhMGHoSZowz3E47LESmC0JaT220?=
+ =?us-ascii?Q?5wZ6NT8ZLGU4jlNJzXx0OEaVsbKutuhfZbRYAewWuSGSRowNbv+2kB4lm74X?=
+ =?us-ascii?Q?Sr6MxfxttD7mRiVEb+Htd/mnXOf/VgbjzdPtbNO4AOsv5REvmsjTI9spln87?=
+ =?us-ascii?Q?nAa9dZkXhxz8kM+Tx1F2i//g74U2pV/I/5cnJATs+f3rjKKVcamAfZ+nD1Qm?=
+ =?us-ascii?Q?S8oFbAZHRioyh/PkwxJIoXBvOxrUzipwuXB4bV7S+ucf6RAS?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7ec08b6-5c9d-44c3-beec-08df35ec83a8
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 18:43:24.8380
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KzUAISG5VeulnmerdJTXZ6gGRdSQHZ7VU0OWrpjoTw+nRhfeP88LMzlAkz9g+vP8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7896
 
-The EcoNet EN751221 has either one, or two, onboard MT7530 switches.
-Every implementation of this SoC has one switch on die with the CPU,
-but some chips - notably those with a "G" in the name, have a second
-MT7530 as an MCM module.
+On Thu, Oct 29, 2026 at 11:04:58AM +0100, Jiri Pirko wrote:
+> Mon, Oct 26, 2026 at 03:07:54PM +0100, jgg@nvidia.com wrote:
+> 
+> [..]
+> 
+> >
+> >=======
+> >
+> >device-get:
+> >  request: {}
+> >  reply:
+> >    caps:
+> >      evidence?:
+> >        min-challenge-length: uint
+> >        max-challenge-length: uint
+> >
+> >Did anyone implement a variable length challenge? That seems a bit
+> >strange. There is also a very important crypto warning here that the
+> 
+> Yes. TPM2_Quote accepts variable-length qualifyingData, represented by
+> TPM2B_DATA with an explicit length. This varies per request on the same
+> TPM:
+> 
+> [1] TPM Library Part 2, section 10.3.3, page 136: TPM2B_DATA.
+> https://medias.cdn.trustedcomputinggroup.org/production/Trusted_Platform_Module_2_0_Library_Part_2_Structures_Version_185_pub_c0a962a931.pdf#page=136
+> 
+> [2] Part 3, section 18.4.2, page 158: TPM2_Quote qualifyingData.
+> https://medias.cdn.trustedcomputinggroup.org/production/Trusted_Platform_Module_2_0_Library_Part_3_Commands_Version_185_pub_87a5c10230.pdf#page=158
+> 
+> The PSA Attestation API, section 4.4, also requires one implementation to
+> support 32-, 48-, and 64-byte challenges:
+> https://arm-software.github.io/psa-api/attestation/1.0/api/api.html
+> 
+> FIRME DEN0149 1.0 ALP2, section 8.12, Table 8.23, page 100, likewise
+> defines an explicit Platform challenge size parameter in x4[31:0].
+> FIRME itself does not mandate the specific 32/48/64-byte set:
+> https://documentation-service.arm.com/static/699c3b70b60ef220b14ec14d?token=#page=100
 
-The on-die MT7530 has 4 FE ports and 1 GE port. The MCM switch has all
-gigabit ports.
+I feel like userspace needs to know the difference between 'any size
+between 0 and 100 and 'exactly one of 32, 64, 128' ?
 
-The MCM switch connects to the SoC switch via a TRGMII link from port
-5 on the SoC switch to port 6 on the MCM switch. This link undergoes
-calibration on startup.
-
-All known devices with the MCM present do not make any use of the ports
-on the on-die switch, it is put into "passthrough" mode in which all
-traffic is shuttled between port 6 and port 5 without alteration of the
-DSA tags.
-
-Add support for both the on-die and the MCM switch, and calibration of
-the TRGMII link between them.
-
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- drivers/net/dsa/mt7530-mdio.c |   1 +
- drivers/net/dsa/mt7530-mmio.c |   1 +
- drivers/net/dsa/mt7530.c      | 335 +++++++++++++++++++++++++++++++++-
- drivers/net/dsa/mt7530.h      |  24 +++
- 4 files changed, 357 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/dsa/mt7530-mdio.c b/drivers/net/dsa/mt7530-mdio.c
-index 0be107dc6759..6dd099466dc3 100644
---- a/drivers/net/dsa/mt7530-mdio.c
-+++ b/drivers/net/dsa/mt7530-mdio.c
-@@ -139,6 +139,7 @@ mt7531_create_sgmii(struct mt7530_priv *priv)
- }
- 
- static const struct of_device_id mt7530_of_match[] = {
-+	{ .compatible = "econet,en751221-gswitch", .data = &mt753x_table[ID_EN751221_EXT], },
- 	{ .compatible = "mediatek,mt7621", .data = &mt753x_table[ID_MT7621], },
- 	{ .compatible = "mediatek,mt7530", .data = &mt753x_table[ID_MT7530], },
- 	{ .compatible = "mediatek,mt7531", .data = &mt753x_table[ID_MT7531], },
-diff --git a/drivers/net/dsa/mt7530-mmio.c b/drivers/net/dsa/mt7530-mmio.c
-index 746a0a462249..6da7a1787ffe 100644
---- a/drivers/net/dsa/mt7530-mmio.c
-+++ b/drivers/net/dsa/mt7530-mmio.c
-@@ -12,6 +12,7 @@
- static const struct of_device_id mt7988_of_match[] = {
- 	{ .compatible = "airoha,an7583-switch", .data = &mt753x_table[ID_AN7583], },
- 	{ .compatible = "airoha,en7581-switch", .data = &mt753x_table[ID_EN7581], },
-+	{ .compatible = "econet,en751221-switch", .data = &mt753x_table[ID_EN751221], },
- 	{ .compatible = "econet,en7528-switch", .data = &mt753x_table[ID_EN7528], },
- 	{ .compatible = "mediatek,mt7988-switch", .data = &mt753x_table[ID_MT7988], },
- 	{ /* sentinel */ }
-diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-index 24e4485624d3..447c80455460 100644
---- a/drivers/net/dsa/mt7530.c
-+++ b/drivers/net/dsa/mt7530.c
-@@ -49,6 +49,9 @@ static const struct mt7530_mib_desc mt7530_mib[] = {
- static int
- mt753x_ctrl_phy_addr(struct mt7530_priv *priv)
- {
-+	if (priv->id == ID_EN751221)
-+		return 12;
-+
- 	if (WARN_ON_ONCE(!priv->mdiodev))
- 		return 0;
- 
-@@ -349,12 +352,19 @@ mt7530_setup_port6(struct dsa_switch *ds, phy_interface_t interface)
- 	regmap_read(priv->regmap, MT753X_MTRAP, &xtal);
- 	xtal &= MT7530_XTAL_MASK;
- 
-+	/* EN751221 on-die does not report clock speed in MTRAP */
-+	if (priv->id == ID_EN751221)
-+		xtal = MT7530_XTAL_25MHZ;
-+
- 	if (xtal == MT7530_XTAL_25MHZ)
- 		ssc_delta = 0x57;
- 	else
- 		ssc_delta = 0x87;
- 
--	if (priv->id == ID_MT7621) {
-+	if (priv->id == ID_EN751221_EXT || priv->id == ID_EN751221) {
-+		/* PLL frequency: 362.5Mhz */
-+		ncpo1 = 0x1d00;
-+	} else if (priv->id == ID_MT7621) {
- 		/* PLL frequency: 125MHz: 1.0GBit */
- 		if (xtal == MT7530_XTAL_40MHZ)
- 			ncpo1 = 0x0640;
-@@ -471,6 +481,251 @@ mt7531_pll_setup(struct mt7530_priv *priv)
- 	usleep_range(25, 35);
- }
- 
-+static bool
-+en751221_trgmii_cal_ok(struct mt7530_priv *rx, u32 reg)
-+{
-+	u32 val = 0;
-+
-+	regmap_read(rx->regmap, reg, &val);
-+	regmap_write(rx->regmap, reg, val | EDGE_CHK);
-+	regmap_write(rx->regmap, reg, val & ~EDGE_CHK);
-+	regmap_read(rx->regmap, reg, &val);
-+
-+	return FIELD_GET(RD_VALUE_MASK, val) == TGMII_TD_PAT &&
-+	       !FIELD_GET(RD_ERR_MASK, val);
-+}
-+
-+static void
-+en751221_trgmii_calibrate_direction(struct mt7530_priv *tx,
-+				    struct mt7530_priv *rx,
-+				    u8 *default_taps)
-+{
-+	int channel;
-+
-+	regmap_set_bits(tx->regmap, MT7530_TRGMII_TXCTRL, TRAIN_TXEN);
-+
-+	/* Put fail pattern on every channel */
-+	for (channel = 0; channel < NUM_TRGMII_CTRL; channel++)
-+		regmap_update_bits(tx->regmap, EN7530_TRGMII_TD_CTRL(channel),
-+				   TGMII_TD_PAT_MASK,
-+				   FIELD_PREP(TGMII_TD_PAT_MASK,
-+					      TGMII_TD_FAIL_PAT));
-+
-+	for (channel = 0; channel < NUM_TRGMII_CTRL; channel++) {
-+		u32 rx_reg = MT7530_TRGMII_RD(channel);
-+		int best_tap = -1, best_range = -1;
-+		int first = -1;
-+		u8 dac;
-+		char log[TD_TAP_MAX + 1];
-+
-+		/* Put test pattern on correct channel */
-+		regmap_update_bits(tx->regmap, EN7530_TRGMII_TD_CTRL(channel),
-+				   TGMII_TD_PAT_MASK,
-+				   FIELD_PREP(TGMII_TD_PAT_MASK, TGMII_TD_PAT));
-+
-+		for (dac = 0; dac < TD_TAP_MAX; dac++) {
-+			/* Set TAP */
-+			regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
-+					   RD_TAP(dac));
-+
-+			/* Check if we can get a good read */
-+			if (en751221_trgmii_cal_ok(rx, rx_reg)) {
-+				log[dac] = '+';
-+
-+				if (first < 0)
-+					first = dac;
-+
-+				if ((dac - first) > best_range) {
-+					best_tap = (first + dac) / 2;
-+					best_range = dac - first;
-+				}
-+			} else {
-+				log[dac] = '.';
-+				first = -1;
-+			}
-+		}
-+
-+		log[TD_TAP_MAX] = '\0';
-+
-+		if (best_tap > -1) {
-+			regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
-+					   RD_TAP(best_tap));
-+
-+			log[best_tap] = 'X';
-+
-+			dev_info(rx->dev,
-+				 "TRGMII lane %d: %s tap %d old %d\n",
-+				 channel, log, best_tap, default_taps[channel]);
-+		} else {
-+			regmap_update_bits(rx->regmap, rx_reg, RD_TAP_MASK,
-+					   RD_TAP(default_taps[channel]));
-+
-+			dev_warn(rx->dev,
-+				 "TRGMII lane %d: %s calibration failed, preserving tap %u\n",
-+				 channel, log, default_taps[channel]);
-+		}
-+
-+		/* Return channel to failure pattern */
-+		regmap_update_bits(tx->regmap, EN7530_TRGMII_TD_CTRL(channel),
-+				   TGMII_TD_PAT_MASK,
-+				   FIELD_PREP(TGMII_TD_PAT_MASK,
-+					      TGMII_TD_FAIL_PAT));
-+	}
-+
-+	regmap_clear_bits(tx->regmap, MT7530_TRGMII_TXCTRL, TRAIN_TXEN);
-+}
-+
-+static void
-+en751221_set_tx_drive(struct mt7530_priv *priv, u8 drvp, u8 drvn, u8 clk_drvp,
-+		      u8 clk_drvn)
-+{
-+	int channel;
-+
-+	/* Tx driving for TRGMII path on SoC */
-+	for (channel = 0; channel < NUM_TRGMII_CTRL; channel++)
-+		regmap_write(priv->regmap, MT7530_TRGMII_TD_ODT(channel),
-+			     TD_DM_DRVP(drvp) | TD_DM_DRVN(drvn));
-+
-+	/* Undocumented 6th channel, probably drive strength for clock line. */
-+	regmap_write(priv->regmap, MT7530_TRGMII_TD_ODT(5), TD_DM_DRVP(clk_drvp) |
-+		     TD_DM_DRVN(clk_drvn));
-+}
-+
-+static void
-+en751221_trgmii_pair_setup(struct mt7530_priv *ext, int ext_port,
-+			   struct mt7530_priv *ondie, int ondie_port)
-+{
-+	u8 default_taps_ondie[NUM_TRGMII_CTRL];
-+	u8 default_taps_ext[NUM_TRGMII_CTRL];
-+	u32 mcr_down, mcr_up;
-+	int channel;
-+	int reg_val;
-+
-+	/* BOTH: Put interfaces in a downed state */
-+	mcr_down = PMCR_IFG_XMIT(PMCR_IFG_XMIT_64) | PMCR_MAC_MODE |
-+		   MT7530_FORCE_MODE | PMCR_MAC_RX_EN | PMCR_BACKOFF_EN |
-+		   PMCR_BACKPR_EN | PMCR_FORCE_SPEED_1000 | PMCR_FORCE_FDX;
-+	regmap_write(ondie->regmap,  MT753X_PMCR_P(ondie_port), mcr_down);
-+	regmap_write(ext->regmap, MT753X_PMCR_P(ext_port), mcr_down);
-+	usleep_range(5000, 6000);
-+
-+	/* BOTH: Reset TX */
-+	regmap_set_bits(ext->regmap, MT7530_TRGMII_TXCTRL, TX_RST);
-+	regmap_set_bits(ondie->regmap, MT7530_TRGMII_TXCTRL, TX_RST);
-+	usleep_range(5000, 6000);
-+	regmap_clear_bits(ext->regmap, MT7530_TRGMII_TXCTRL, TX_RST);
-+	regmap_clear_bits(ondie->regmap, MT7530_TRGMII_TXCTRL, TX_RST);
-+
-+	/* BOTH: Reset RX controllers down */
-+	regmap_set_bits(ext->regmap, MT7530_TRGMII_RCK_CTRL, RX_RST);
-+	regmap_set_bits(ondie->regmap, MT7530_TRGMII_RCK_CTRL, RX_RST);
-+
-+	/* BOTH: Set TX drive strength, MCM uses more */
-+	en751221_set_tx_drive(ondie, 8, 8, 7, 7);
-+	en751221_set_tx_drive(ext, 11, 11, 15, 15);
-+
-+	/* BOTH: Reset RX controllers up */
-+	regmap_clear_bits(ext->regmap, MT7530_TRGMII_RCK_CTRL, RX_RST);
-+	regmap_clear_bits(ondie->regmap, MT7530_TRGMII_RCK_CTRL, RX_RST);
-+
-+	/* BOTH: Ports up */
-+	mcr_up = mcr_down | PMCR_MAC_TX_EN | PMCR_FORCE_LNK;
-+	regmap_write(ondie->regmap, MT753X_PMCR_P(ondie_port), mcr_up);
-+	regmap_write(ext->regmap, MT753X_PMCR_P(ext_port), mcr_up);
-+
-+	/* MCM: Set Ext->SoC TX delay to 0 */
-+	for (channel = 0; channel < NUM_TRGMII_CTRL; channel++)
-+		regmap_clear_bits(ext->regmap, EN7530_TRGMII_TD_CTRL(channel),
-+				  TGMII_TD_TAP_MASK);
-+
-+	/* SOC: ODT */
-+	regmap_set_bits(ondie->regmap, MT7530_TRGMII_RCK_RTT,
-+			DQS1_GATE | DQS0_GATE | EN751221_B17);
-+
-+	/* SOC: Undocumented */
-+	for (channel = 0; channel < NUM_TRGMII_CTRL; channel++)
-+		regmap_write(ondie->regmap,  (0x7a14 + channel * 8),
-+			     0x3227700);
-+
-+	/* MCM: Spread spectrum clock*/
-+	core_clear(ext, CORE_PLL_GROUP8, RG_LCDDS_SSC_EN);
-+
-+	/* BOTH: Zero clock delay */
-+	regmap_clear_bits(ext->regmap, MT7530_TRGMII_RCK_CTRL,
-+			  DQSI0_TAP_MASK);
-+	regmap_clear_bits(ondie->regmap, MT7530_TRGMII_RCK_CTRL,
-+			  DQSI0_TAP_MASK);
-+
-+	/* BOTH: Collect and then zero every RX TAP */
-+	for (channel = 0; channel < NUM_TRGMII_CTRL; channel++) {
-+		reg_val = 0;
-+		regmap_read(ext->regmap, MT7530_TRGMII_RD(channel), &reg_val);
-+		default_taps_ext[channel] = FIELD_GET(RD_TAP_MASK, reg_val);
-+		regmap_clear_bits(ext->regmap, MT7530_TRGMII_RD(channel),
-+				  RD_TAP_MASK);
-+
-+		reg_val = 0;
-+		regmap_read(ondie->regmap, MT7530_TRGMII_RD(channel), &reg_val);
-+		default_taps_ondie[channel] = FIELD_GET(RD_TAP_MASK, reg_val);
-+		regmap_clear_bits(ondie->regmap, MT7530_TRGMII_RD(channel),
-+				  RD_TAP_MASK);
-+	}
-+
-+	en751221_trgmii_calibrate_direction(ondie, ext, default_taps_ondie);
-+	en751221_trgmii_calibrate_direction(ext, ondie, default_taps_ext);
-+
-+	dev_info(ondie->dev, "TRGMII inter-switch link initialized\n");
-+}
-+
-+static void
-+mt7530_cal_interswitch_trgmii(struct dsa_port *dp)
-+{
-+	struct dsa_switch *ds = dp->ds;
-+	struct dsa_switch *peer_ds;
-+	struct dsa_port *peer_dp;
-+	struct mt7530_priv *peer;
-+	struct mt7530_priv *priv;
-+	struct dsa_link *dl;
-+	u32 pmsr = 0;
-+
-+	priv = ds->priv;
-+
-+	if (priv->id != ID_EN751221_EXT)
-+		return;
-+
-+	if (dp->type != DSA_PORT_TYPE_DSA)
-+		return;
-+
-+	regmap_read(priv->regmap, MT7530_PMSR_P(dp->index), &pmsr);
-+
-+	if (!(pmsr & PMSR_LINK))
-+		return;
-+
-+	list_for_each_entry(dl, &ds->dst->rtable, list) {
-+		if (dl->dp != dp)
-+			continue;
-+
-+		peer_dp = dl->link_dp;
-+
-+		if (peer_dp->type != DSA_PORT_TYPE_DSA)
-+			continue;
-+
-+		peer_ds = dl->link_dp->ds;
-+
-+		if (!of_device_is_compatible(peer_ds->dev->of_node,
-+					     "econet,en751221-switch"))
-+			continue;
-+
-+		peer = peer_ds->priv;
-+
-+		if (peer->id != ID_EN751221)
-+			continue;
-+
-+		en751221_trgmii_pair_setup(priv, dp->index, peer,
-+					   peer_dp->index);
-+	}
-+}
-+
- static void
- mt7530_mib_reset(struct dsa_switch *ds)
- {
-@@ -1459,7 +1714,8 @@ mt7530_port_enable(struct dsa_switch *ds, int port,
- 
- 	mutex_unlock(&priv->reg_mutex);
- 
--	if (priv->id != ID_MT7530 && priv->id != ID_MT7621)
-+	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
-+	    priv->id != ID_EN751221 && priv->id != ID_EN751221_EXT)
- 		return 0;
- 
- 	if (port == 5)
-@@ -1486,7 +1742,8 @@ mt7530_port_disable(struct dsa_switch *ds, int port)
- 
- 	mutex_unlock(&priv->reg_mutex);
- 
--	if (priv->id != ID_MT7530 && priv->id != ID_MT7621)
-+	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
-+	    priv->id != ID_EN751221 && priv->id != ID_EN751221_EXT)
- 		return;
- 
- 	/* Do not set MT7530_P5_DIS when port 5 is being used for PHY muxing. */
-@@ -2665,6 +2922,12 @@ mt7530_setup(struct dsa_switch *ds)
- 			   MT7530_CHG_TRAP | MT7530_PHY_INDIRECT_ACCESS,
- 			   MT7530_CHG_TRAP);
- 
-+	/* EN751221 MCM starts on the wrong frequency */
-+	if (priv->id == ID_EN751221_EXT)
-+		regmap_update_bits(priv->regmap, MT753X_MTRAP,
-+				   MT7530_CHG_TRAP | MT7530_CK_SEL,
-+				   MT7530_CHG_TRAP);
-+
- 	if ((val & MT7530_XTAL_MASK) == MT7530_XTAL_40MHZ)
- 		mt7530_pll_setup(priv);
- 
-@@ -3085,6 +3348,44 @@ static void en7528_mac_port_get_caps(struct dsa_switch *ds, int port,
- 	}
- }
- 
-+static void en751221_mac_port_get_caps(struct dsa_switch *ds, int port,
-+				       struct phylink_config *config)
-+{
-+	switch (port) {
-+	/* EN751221 ports 0..3 are connected to the integrated FE PHYs. */
-+	case 0 ... 3:
-+		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-+			  config->supported_interfaces);
-+
-+		config->mac_capabilities |= MAC_10 | MAC_100;
-+		break;
-+
-+	/* Port 4 is connected to the standalone EN7512/EN7521 GPHY. */
-+	case 4:
-+		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-+			  config->supported_interfaces);
-+
-+		config->mac_capabilities |= MAC_10 | MAC_100 | MAC_1000FD;
-+		break;
-+
-+	/* Port 5 is the 1 Gbit/s TRGMII cascade to the external MT7530. */
-+	case 5:
-+		__set_bit(PHY_INTERFACE_MODE_TRGMII,
-+			  config->supported_interfaces);
-+
-+		config->mac_capabilities |= MAC_1000FD;
-+		break;
-+
-+	/* Port 6 is the 1 Gbit/s CPU link to GDM1. */
-+	case 6:
-+		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
-+			  config->supported_interfaces);
-+
-+		config->mac_capabilities |= MAC_1000FD;
-+		break;
-+	}
-+}
-+
- static void
- mt7530_mac_config(struct dsa_switch *ds, int port, unsigned int mode,
- 		  phy_interface_t interface)
-@@ -3234,6 +3535,9 @@ static void mt753x_phylink_mac_link_up(struct phylink_config *config,
- 	}
- 
- 	regmap_set_bits(priv->regmap, MT753X_PMCR_P(dp->index), mcr);
-+
-+	if (interface == PHY_INTERFACE_MODE_TRGMII)
-+		mt7530_cal_interswitch_trgmii(dp);
- }
- 
- static void mt753x_phylink_mac_disable_tx_lpi(struct phylink_config *config)
-@@ -3499,7 +3803,8 @@ mt753x_conduit_state_change(struct dsa_switch *ds,
- 	 * interface is up. NOTE: "CPU port" can also mean an upstream DSA link.
- 	 */
- 	if (priv->id != ID_MT7530 && priv->id != ID_MT7621 &&
--	    priv->id != ID_EN7528)
-+	    priv->id != ID_EN7528 && priv->id != ID_EN751221 &&
-+	    priv->id != ID_EN751221_EXT)
- 		return;
- 
- 	mask = BIT(cpu_dp->index);
-@@ -3817,6 +4122,28 @@ const struct mt753x_info mt753x_table[] = {
- 		.phy_write_c45 = mt7531_ind_c45_phy_write,
- 		.mac_port_get_caps = en7528_mac_port_get_caps,
- 	},
-+	[ID_EN751221] = {
-+		.id = ID_EN751221,
-+		.pcs_ops = &mt7530_pcs_ops,
-+		.sw_setup = mt7988_setup,
-+		.phy_read_c22 = mt7531_ind_c22_phy_read,
-+		.phy_write_c22 = mt7531_ind_c22_phy_write,
-+		.phy_read_c45 = mt7531_ind_c45_phy_read,
-+		.phy_write_c45 = mt7531_ind_c45_phy_write,
-+		.mac_port_get_caps = en751221_mac_port_get_caps,
-+		.mac_port_config = mt7530_mac_config,
-+	},
-+	[ID_EN751221_EXT] = {
-+		.id = ID_EN751221_EXT,
-+		.pcs_ops = &mt7530_pcs_ops,
-+		.sw_setup = mt7530_setup,
-+		.phy_read_c22 = mt7530_phy_read_c22,
-+		.phy_write_c22 = mt7530_phy_write_c22,
-+		.phy_read_c45 = mt7530_phy_read_c45,
-+		.phy_write_c45 = mt7530_phy_write_c45,
-+		.mac_port_get_caps = mt7530_mac_port_get_caps,
-+		.mac_port_config = mt7530_mac_config,
-+	},
- };
- EXPORT_SYMBOL_GPL(mt753x_table);
- 
-diff --git a/drivers/net/dsa/mt7530.h b/drivers/net/dsa/mt7530.h
-index c86bc4bca29b..1a4329749c0f 100644
---- a/drivers/net/dsa/mt7530.h
-+++ b/drivers/net/dsa/mt7530.h
-@@ -24,6 +24,8 @@ enum mt753x_id {
- 	ID_EN7581 = 4,
- 	ID_AN7583 = 5,
- 	ID_EN7528 = 6,
-+	ID_EN751221 = 7,
-+	ID_EN751221_EXT = 8,
- };
- 
- #define	NUM_TRGMII_CTRL			5
-@@ -356,6 +358,9 @@ enum mt7530_vlan_port_acc_frm {
- #define MT753X_PMCR_P(x)		(0x3000 + ((x) * 0x100))
- #define  PMCR_IFG_XMIT_MASK		GENMASK(19, 18)
- #define  PMCR_IFG_XMIT(x)		FIELD_PREP(PMCR_IFG_XMIT_MASK, x)
-+#define    PMCR_IFG_XMIT_96		0
-+#define    PMCR_IFG_XMIT_RAND		1
-+#define    PMCR_IFG_XMIT_64		2
- #define  PMCR_EXT_PHY			BIT(17)
- #define  PMCR_MAC_MODE			BIT(16)
- #define  MT7530_FORCE_MODE		BIT(15)
-@@ -584,6 +589,7 @@ enum mt7531_clk_skew {
- #define MT753X_MTRAP			0x7804
- #define  MT7530_P5_PHY0_SEL		BIT(20)
- #define  MT7530_CHG_TRAP		BIT(16)
-+#define  MT7530_CK_SEL			BIT(15)
- #define  MT7530_LOOP_DET_DISABLE	BIT(14)
- #define  MT7530_P5_MAC_SEL		BIT(13)
- #define  MT7530_P6_DIS			BIT(8)
-@@ -601,6 +607,8 @@ enum mt7531_xtal_fsel {
- /* Register for TOP signal control */
- #define MT7530_TOP_SIG_CTRL		0x7808
- #define  TOP_SIG_CTRL_NORMAL		(BIT(17) | BIT(16))
-+/* Undocumented */
-+#define  TOP_SIG_CTRL_B0		BIT(0)
- 
- #define MT7531_TOP_SIG_SR		0x780c
- #define  PAD_DUAL_SGMII_EN		BIT(1)
-@@ -647,18 +655,31 @@ enum mt7531_xtal_fsel {
- #define MT7530_TRGMII_RCK_RTT		0x7a04
- #define  DQS1_GATE			BIT(31)
- #define  DQS0_GATE			BIT(30)
-+/* Undocumented */
-+#define  EN751221_B17			BIT(17)
- 
- #define MT7530_TRGMII_RD(x)		(0x7a10 + (x) * 8)
- #define  BSLIP_EN			BIT(31)
- #define  EDGE_CHK			BIT(30)
-+#define  RD_VALUE_MASK			GENMASK(23, 16)
-+#define  RD_ERR_MASK			GENMASK(11, 8)
- #define  RD_TAP_MASK			GENMASK(6, 0)
- #define  RD_TAP(x)			FIELD_PREP(RD_TAP_MASK, x)
-+/* Training does not try anything beyond this */
-+#define  TD_TAP_MAX			64
- 
- #define MT7530_TRGMII_TXCTRL		0x7a40
- #define  TRAIN_TXEN			BIT(31)
- #define  TXC_INV			BIT(30)
- #define  TX_RST				BIT(28)
- 
-+#define EN7530_TRGMII_TD_CTRL(x)	(0x7a50 + (x) * 8)
-+#define   TGMII_TD_TAP_MASK		GENMASK(11, 8)
-+#define   TGMII_TD_PAT_MASK		GENMASK(7, 0)
-+/* Use a 01010101 bit pattern */
-+#define   TGMII_TD_PAT			0x55
-+#define   TGMII_TD_FAIL_PAT		0xaa
-+
- #define MT7530_TRGMII_TD_ODT(i)		(0x7a54 + 8 * (i))
- #define  TD_DM_DRVP_MASK		GENMASK(3, 0)
- #define  TD_DM_DRVP(x)			FIELD_PREP(TD_DM_DRVP_MASK, x)
-@@ -764,6 +785,9 @@ enum mt7531_xtal_fsel {
- #define  RG_LCCDS_C(x)			FIELD_PREP(RG_LCCDS_C_MASK, x)
- #define  RG_LCDDS_PCW_NCPO_CHG		BIT(3)
- 
-+#define CORE_PLL_GROUP8			0x407
-+#define  RG_LCDDS_SSC_EN		BIT(10)
-+
- #define CORE_PLL_GROUP10		0x409
- #define  RG_LCDDS_SSC_DELTA_MASK	GENMASK(11, 0)
- #define  RG_LCDDS_SSC_DELTA(x)		FIELD_PREP(RG_LCDDS_SSC_DELTA_MASK, x)
--- 
-2.39.5
-
+Jason
