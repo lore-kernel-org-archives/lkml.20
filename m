@@ -1,81 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793286720;
-	b=YBN/NZ8J13jerzKLoz2tiCgnFdgZ66E6X+BOn8kIumb/wVlZnNOdinX2fySMaLlHBQ6g
-	 SUF8M9hNMeIrMo5WLVgMHjFTBE+msYnDQifnGamyfKCKzbMScSfKk2xou/svVpyNQv10E
-	 l+oVF7l62o8o84FZI/2sAayfAqOB411edPfIDf62d2y+4VZU6+IwDjvzcx5gt4M3ds0oj
-	 S+D897UeZ6Yz3myu2JdYrB4B/99fw06FzbOxbS0bickpdHB/2nTTOnJG5CbaQavBc+77s
-	 f3dtzgC/bfiaENQHjtONLYSbGXnxKSX0oKCBg8cmOKUnyEjD54kzhETe0Yyv8uDHNbA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793286720;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
-	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
-	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
-	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
-	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
-	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
-	bh=6OivFj7eK/2o7S42fglb8hJK44S7C9v5KM3KhCAq8U0=;
-	b=gZOb1azpnthM0xIeKvOrhGhGxIlMeysUIHoSYAFW7xlW6qWYfMe646OTV0omefNxDBAE
-	 Cpe3kJkpPkwNm51NBvSSU0qAvCaBDSSgCQ4aaHaZ1i/vc9rcL4HZtkBPecByuSlZ/EPUn
-	 8Uq4XG2I61FUJfgo2Rle8FulKOGf9vtzWXF1V5Ke1F8pQbYUGylaKQMXONKUPIMj7da44
-	 gc+/9rO/TVGF77SAPakkVZJLctFUbnYSQWJZnZhxtF5/Ch4Uit9LNN9xs6qhfzSogIdH9
-	 50wqlj9nHJ/p7hyflCsMxrex2HRudEB+WhUY0SfGLF6QS+7QOEVfZoNMUyENSzszEOw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=astralinux.ru;
-	spf=pass smtp.mailfrom=astralinux.ru;
-	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=kjyUxfdf;
-	arc=none smtp.remote-ip=37.230.196.243
-Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793286758;
+	b=4J1c1uMzkF4ntvGtG5oAIaSQwvqhBQo3JEMTAisKyEkdeowHzLNYyCY41Ea3AmD6CRcb
+	 WhpaNqGLsB9qdhDsVgaxlYEQpYxAgYV1tadSJGz6GTl3shDxCkWwvDwyo6bjUZxeV/JWL
+	 hz63NqX/HPrRwWCEKOaUrkb+Yjx4V/qKyeJbWC+EB+S5L9wezpscixTvbNyZK9kFT/V3D
+	 ZfZgPRzuDoxGz0bJ5Vzp6l+pgDM7LSzisvGa41bb7vUymi4XdLGYDJRGZhzycdYt5Zp/K
+	 cpVv5B5kaHmyZIP8pESyVmdGoMzzUjPtHZ/+F6anA9OkuSEItVFTSYL+rb7ubQWuRgw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286758;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=VpLpdA+yCrDrK4tzoP5LaLfSg6uFoDAIq4N1ZuvvpEw=;
+	b=DgqzcEhH3AiAq+nJQzO2vAV0Tpxu0Qghm7Vos0zix8CqxXysn3qi77k3FhcKhl1PLHAU
+	 flPvrS8ZPWySdB+rkgxP4TPFoiLjme5o9lwu7h1xnyh+iSf3d779dEXccDz/TnVHlB1B0
+	 mQLH8r+lMWM2ZCPy/WASuGjsHbOzCE+m9qYmYMuC3TLno+aF1O7+OX/HVEIutCGZwVH8u
+	 7bRzmpXMWgzPZzRzNkIDTHWTjMGhhvBnYv3OjSQGtfB2fg7IXTdN+zNrmHMNWMyfQk2zp
+	 AMLj77+/H8DduEJGujB1KWrKz81AgoeoAeipI6nL3AXQHZwqLVzBGAgeeOJm7KgI+zQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=QJ1PuZIJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.170
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B0A1606A31A;
-	Thu, 29 Oct 2026 15:11:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B0A1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0635606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:12:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0635606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=kjyUxfdf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
-	s=mail; t=1793286708;
-	bh=8Oepbe9O9yB6V1/MpLPmhshtyjQFBga0hDC5FctDDeI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=kjyUxfdfrR0wq3hxAnOaHGgsa5WnkMO4Ko3UUBrKB3GkZ9ssZJ3Ae7eRD2vOw54vw
-	 nnszICRL9jLkk56uEquTGnPIc+HbSMzHvh0Q8SBarqjGaGNiCywhM7PXR0oSpBtkd5
-	 VGXi04CbPRzmVo9ExQZZN1+oI5DledTcv0506gTge3rzCWxghLnYGd4phd9D0IzO42
-	 /aIPghJ7/wep61G1QyMA8+vMqm/LD9dLU53iJiElxawmZzVTGkums6rIva+FpxLoD/
-	 a8MX3Opx0MdM/DwnIvSLuXZVdy28zQrmz7qRgr5sg9fERl/WoODI+YU3rDIFtuaiME
-	 MxtsXKb8yO3ZQ==
-Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
-	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 99B0A25C98;
-	Thu, 29 Oct 2026 18:11:48 +0300 (MSK)
-Received: from new-mail.astralinux.ru (unknown [10.205.207.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
-	Thu, 29 Oct 2026 18:11:47 +0300 (MSK)
-Received: from DESKTOP-D46TNHI (unknown [10.198.28.100])
-	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jFnkq2dccz1NyJ;
-	Thu, 29 Oct 2026 18:11:47 +0300 (MSK)
-From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
-	David Sterba <dsterba@suse.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	David Lee <david.lee@trailofbits.com>,
-	Qu Wenruo <wqu@suse.com>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10/5.15] btrfs: lzo: reject inline extents without valid headers
-Date: Thu, 29 Oct 2026 18:10:26 +0300
-Message-ID: <20261029151028.780-1-mdmitrichenko@astralinux.ru>
-X-Mailer: git-send-email 2.54.0.windows.1
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=QJ1PuZIJ
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-9440304604aso93918985a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:12:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793286756; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NbiunLt14oiQAJzadKpGnB2+giof5pDrfEghiTqJKSfQZLK3YoMwpIBuDjWo9tRyoL
+         4Vt5cUDKt2z/rZoooZY+8BfuS3fZ06RRnjwQOqqhgX7+Hj3xjcxRJZ3XkVY16O1v+4VQ
+         oKwzT6gQ6SRC1GxuuqrzKz8l3Pln1Q/tczcE5pVIV2uTNuqqUcPC0D9Dykip3ViP+ULz
+         CFsOLfctc8D4m/xtYHH1JujBddtXPV9DQqv7qt+q4D9fDQHqbAqeZirfFoI5bGDZdo3I
+         VQ0x/FGt4pFfBurZi8p81ox/Ggw4JG6MiM8sxR7OHpmo46Ce4y/FflX6RrOor2kvFgcX
+         9vBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=VpLpdA+yCrDrK4tzoP5LaLfSg6uFoDAIq4N1ZuvvpEw=;
+        fh=S2189CmWPybrQVseazHT0Ggltdgrv5Syd6EXThBYsHs=;
+        b=e/FxXkKzIXtXTxYmtwEejJdC//BSVXUhojIXMaRUCFX+iSg7kalj6NG2m8OBJ8W9hN
+         7J526C4BpNuybh/3R4GXIZmLJGur1j8mmIwScTJEIxf+SM7S1B2h/oUDIHyMV98UUMta
+         8tVBf4EJk4iL1xEkUrA4pB1QqKi1jSWZ1sroqugm81osbNUJLcjGGerYR/V/QZ+guYr2
+         tyzJ1nPiYxa9lQKeCgJNyIf6UC4ACHPRhqO0atXrzhqwEzkn/2zuLAUXLIWv+z6sjW4T
+         bm4F87WHmsSXC6vJxjg8mPq/x1szbMWEeuyXnMuXVXDWDn2ZdvHq/UBminETQeVofhIW
+         S/wQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1793286756; x=1793891556; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VpLpdA+yCrDrK4tzoP5LaLfSg6uFoDAIq4N1ZuvvpEw=;
+        b=QJ1PuZIJLWdMBXB20D11/pW68AEffCEZP0jC5HvR/4LAIyPKqEYKmk2GV4gXi5OuWV
+         nduYlh40ec0IXb8Q/+bhffsj0v6WHrymaZViiBHHP4xdGYu0zj4O6AJB83RY5cMrjqKl
+         s9/dJn4APLOlerpSdceYhotqJxOtP4u2BMA5207mnIIZpqEMlkuvwunItfiyr/nD3r9A
+         1lWWpiKUd8haObDhrH6LdTTpyj3Ib6IBUwk6CT2Ra31tORapyLETRFk8+PD7wH2R0waO
+         RtVLFcGhW0PA647M04h8X/tpW26M3ESXdgD7gUBvYy7rROo2jU8yHgDMgsIPaOGaV4z5
+         l+pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793286756; x=1793891556;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VpLpdA+yCrDrK4tzoP5LaLfSg6uFoDAIq4N1ZuvvpEw=;
+        b=t8IkctlC1hBPcHqiES9qffu2yYZnceBJK6yLWKAu3kYe3jf+BiZ50u5E0EAM+WVcAQ
+         vyLijXYH2shLP3hOmv+j0PtCThxKbWHG7FSJj4vPFA5J+t0kO4Z1bHgP53uv8riKkgYP
+         UGEx2n+t3tXdYcBa7ivnAemBaW2SWhO51ON+4geGPsVr6v9lymXZ67seAwYmFMXA+bZO
+         Gp+agg4l0Yt9w5Grfy9ZzkIGrvQKwlRSjMnao3y2rJYRixYJK1FM9qJW3HasDU5z+Vx4
+         QajKTI/ASBC/GasOOhh14/jW8CaYTBuFFye+SSAouQtHpO6Zs6VIcZ4z0Ld+dzCX2srS
+         COjA==
+X-Forwarded-Encrypted: i=1; AKwUvBzIRkhmc58kMIfqdrauVsAsgdcS00Gr23rGC37M493hOFrS+QN8HTe0YXDKqhFK5kC0ySLiwTi0s+04YLE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKu2OpdR5yV7dl8IN8G/ZKUcrBN5xYWSoLYYAwsw9leDlS56fya
+	rUdiF8YUh3RjVd/60lhyjIzJt2qB/jGj9+L+34uNBNOIhcn1r0n+KYoaLhjfKgO1d3w/6VBvWed
+	3F3gB4bnaip+T/zhg0e7mJfCvE2dudQYnhhzRQNiN5A==
+X-Gm-Gg: AYBFou1VMoehiRh9l8O8ABjFhxkuui94LKZZRsl8CgycULUjpcZZHLeLDtXX0CNvG6a
+	qQQ14lDdoYwTXYRj1+4JN2i2ZtA7sZgN/59Lzql+xt7NlGe8O7YPij6CVGekJnlOBLOKuCHKxrq
+	lY1swZjJ4rZ2iY6hikYeyo7C7H0MBDs34qXNreGmXSwN0SJuvr/drqM2LhwYfnxA3XPyKop+qPp
+	ZGAvPMP9B7pWPIIQFufUMGHeDCbffblz/jk6emLdb0t10UDQ3iXNTSfsVhl86AhpGHxEEecRI0Y
+	iz4G+YMKg1n5qYB2N1R3JLKLvUxDwZoTq3ukQCnq0lg6gkFcdNDZdcdt9aelxwZNuZBYPgBlsyt
+	JsIVRXkjgLULf12URbLqPID+55VmhLKue+IHtWp8KvUzS785La1ICVqYDrW4vWYvY/d7/ORtUeA
+	bIQ9PWr/fL0eFX4IJVca67KoTtjhHYhq2IucKU9y1RAuZByIlA5zoGB2sU+A9eLs9QU1NV6OsMy
+	vk=
+X-Received: by 2002:a05:620a:4052:b0:93c:290e:9e9c with SMTP id
+ af79cd13be357-9441337e6c2mr427309985a.16.1793286756364; Thu, 29 Oct 2026
+ 08:12:36 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,109 +105,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-KSMG-AntiPhishing: NotDetected
-X-KSMG-AntiSpam-Auth: dkim=none
-X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
-X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
-X-KSMG-AntiSpam-Interceptor-Info: scan successful
-X-KSMG-AntiSpam-Lua-Profiles: 207109 [Oct 29 2026]
-X-KSMG-AntiSpam-Method: none
-X-KSMG-AntiSpam-Rate: 0
-X-KSMG-AntiSpam-Status: not_detected
-X-KSMG-AntiSpam-Version: 6.1.1.27
-X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/29 07:40:00 #28758333
-X-KSMG-AntiVirus-Status: NotDetected, skipped
-X-KSMG-LinksScanning: NotDetected
-X-KSMG-Message-Action: skipped
-X-KSMG-Rule-ID: 1
+References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev> <20261014-ov9282-fixes-v2-8-3bb376d8b1a9@linux.dev>
+In-Reply-To: <20261014-ov9282-fixes-v2-8-3bb376d8b1a9@linux.dev>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 15:12:17 +0000
+X-Gm-Features: AclHuK-uUWfGkjzNpPgxkc9h9-DVCMS05G89F7iEGV7DilP91VXl08Uhulon7tc
+Message-ID: <CAPY8ntAYERfaKFs5ub9xpu0Ds45dFz6+aABGsdmzZMay+LT-gw@mail.gmail.com>
+Subject: Re: [PATCH v2 8/8] media: i2c: ov9282: harmonize dev_err_probe usage
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
+	Jacopo Mondi <jacopo@jmondi.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: David Lee <david.lee@trailofbits.com>
+On Wed, 14 Oct 2026 at 07:49, Richard Leitner <richard.leitner@linux.dev> wrote:
+>
+> Use dev_err_probe() for all error messages during probing. This ensures
+> there's a common "look-and-feel" in the drivers source code as well as
+> the system log.
+>
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 
-commit 0fa78ef637deb5dbe341582f88553a4bce496de0 upstream.
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-[BUG]
-For a crafted btrfs image, the following KASAN can be triggered when
-reading an inline lzo compressed file extent:
-
-  BUG: KASAN: slab-out-of-bounds in lzo_decompress+0x57d/0x700
-  Read of size 4 at addr ffff888006f2e644 by task btrfs_lzo_inlin/77
-
-  Call Trace:
-   <TASK>
-   dump_stack_lvl+0x5b/0x70
-   print_report+0xd1/0x610
-   kasan_report+0xe0/0x110
-   __asan_report_load_n_noabort+0x13/0x20
-   lzo_decompress+0x57d/0x700
-   btrfs_decompress+0x140/0x1c0
-   uncompress_inline+0x147/0x1b0
-   btrfs_get_extent+0xb23/0x10a0
-   btrfs_do_readpage.constprop.0+0x538/0x1ac0
-   btrfs_readahead+0x32f/0x5f0
-   read_pages+0x16f/0x850
-   page_cache_ra_unbounded+0x296/0x490
-   do_page_cache_ra+0xd9/0x130
-   page_cache_sync_ra+0x3ee/0x6f0
-   filemap_get_pages+0x306/0x15c0
-   filemap_read+0x329/0xd00
-   btrfs_file_read_iter+0x1f8/0x2b0
-   vfs_read+0x4ef/0x720
-   ksys_read+0xf8/0x1d0
-   __x64_sys_read+0x71/0xb0
-   x64_sys_call+0x1ab0/0x1b70
-   do_syscall_64+0x61/0x470
-   entry_SYSCALL_64_after_hwframe+0x4b/0x53
-   </TASK>
-
-[CAUSE]
-For an inline lzo compressed file extent, there should always be one lzo
-header, recording the total length of the compressed data, followed by
-one segment header, recording the compressed lzo payload.
-
-But if a crafted inline lzo compressed file extent contains only an lzo
-header, without the segment header or payload, lzo_decompress() will
-still try to read the segment header, causing a read beyond the item
-boundary.
-
-Furthermore if the inline lzo compressed file extent is the first item
-of the leaf, it will be at the extent buffer boundary. The above
-out-of-boundary read will go beyond the extent buffer boundary,
-triggering the above KASAN report.
-
-[FIX]
-Validate the total length of the inlined lzo compressed file extent, to
-make sure there is at least one LZO header and one segment header, and a
-non-zero payload.
-
-Fixes: a6fa6fae40ec ("btrfs: Add lzo compression support")
-Assisted-by: Codex:gpt-5.5
-Signed-off-by: David Lee <david.lee@trailofbits.com>
-[ Rework the commit message to remove slop ]
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-[ mdmitrichenko: Update the existing srclen check, which returns
-  -EUCLEAN directly in this version of lzo_decompress(). ]
-Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
----
-Backport fix for CVE-2026-74723
-
- fs/btrfs/lzo.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/fs/btrfs/lzo.c b/fs/btrfs/lzo.c
-index aa9cd11f4b78..40647a5cab6b 100644
---- a/fs/btrfs/lzo.c
-+++ b/fs/btrfs/lzo.c
-@@ -432,7 +432,7 @@ int lzo_decompress(struct list_head *ws, unsigned char *data_in,
- 	char *kaddr;
- 	unsigned long bytes;
- 
--	if (srclen < LZO_LEN || srclen > max_segment_len + LZO_LEN * 2)
-+	if (srclen <= LZO_LEN * 2 || srclen > max_segment_len + LZO_LEN * 2)
- 		return -EUCLEAN;
- 
- 	in_len = read_compress_length(data_in);
--- 
-2.43.0
-
+> ---
+>  drivers/media/i2c/ov9282.c | 32 +++++++++++++++-----------------
+>  1 file changed, 15 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> index f877cb9e78c38..8b01d9d43f0df 100644
+> --- a/drivers/media/i2c/ov9282.c
+> +++ b/drivers/media/i2c/ov9282.c
+> @@ -1077,9 +1077,8 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
+>         ov9282->reset_gpio = devm_gpiod_get_optional(ov9282->dev, "reset",
+>                                                      GPIOD_OUT_LOW);
+>         if (IS_ERR(ov9282->reset_gpio)) {
+> -               dev_err(ov9282->dev, "failed to get reset gpio %pe",
+> -                       ov9282->reset_gpio);
+> -               return PTR_ERR(ov9282->reset_gpio);
+> +               return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->reset_gpio),
+> +                                    "failed to get reset gpio\n");
+>         }
+>
+>         /* Get sensor input clock */
+> @@ -1095,8 +1094,8 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
+>
+>         rate = clk_get_rate(ov9282->inclk);
+>         if (rate != OV9282_INCLK_RATE) {
+> -               dev_err(ov9282->dev, "inclk frequency mismatch");
+> -               return -EINVAL;
+> +               return dev_err_probe(ov9282->dev, -EINVAL,
+> +                                    "inclk frequency mismatch\n");
+>         }
+>
+>         ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
+> @@ -1112,16 +1111,15 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
+>                 bus_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
+>
+>         if (bus_cfg.bus.mipi_csi2.num_data_lanes != OV9282_NUM_DATA_LANES) {
+> -               dev_err(ov9282->dev,
+> -                       "number of CSI2 data lanes %d is not supported",
+> -                       bus_cfg.bus.mipi_csi2.num_data_lanes);
+> -               ret = -EINVAL;
+> +               ret = dev_err_probe(ov9282->dev, -EINVAL,
+> +                                   "number of CSI2 data lanes %d is not supported\n",
+> +                                   bus_cfg.bus.mipi_csi2.num_data_lanes);
+>                 goto done_endpoint_free;
+>         }
+>
+>         if (!bus_cfg.nr_of_link_frequencies) {
+> -               dev_err(ov9282->dev, "no link frequencies defined");
+> -               ret = -EINVAL;
+> +               ret = dev_err_probe(ov9282->dev, -EINVAL,
+> +                                   "no link frequencies defined\n");
+>                 goto done_endpoint_free;
+>         }
+>
+> @@ -1352,8 +1350,8 @@ static int ov9282_probe(struct i2c_client *client)
+>
+>         ret = ov9282_parse_hw_config(ov9282);
+>         if (ret) {
+> -               dev_err(ov9282->dev, "HW configuration is not supported");
+> -               return ret;
+> +               return dev_err_probe(ov9282->dev, ret,
+> +                                    "HW configuration is not supported\n");
+>         }
+>
+>         ov9282->regmap = devm_cci_regmap_init_i2c(client, 16);
+> @@ -1364,12 +1362,12 @@ static int ov9282_probe(struct i2c_client *client)
+>         ret = ov9282_power_on(ov9282->dev);
+>         if (ret)
+>                 return dev_err_probe(ov9282->dev, ret,
+> -                                    "failed to power-on the sensor");
+> +                                    "failed to power-on the sensor\n");
+>
+>         /* Check module identity */
+>         ret = ov9282_detect(ov9282);
+>         if (ret) {
+> -               dev_err(ov9282->dev, "failed to find sensor: %d", ret);
+> +               dev_err_probe(ov9282->dev, ret, "failed to find sensor\n");
+>                 goto error_power_off;
+>         }
+>
+> @@ -1379,7 +1377,7 @@ static int ov9282_probe(struct i2c_client *client)
+>
+>         ret = ov9282_init_controls(ov9282);
+>         if (ret) {
+> -               dev_err(ov9282->dev, "failed to init controls: %d", ret);
+> +               dev_err_probe(ov9282->dev, ret, "failed to init controls\n");
+>                 goto error_power_off;
+>         }
+>
+> @@ -1392,7 +1390,7 @@ static int ov9282_probe(struct i2c_client *client)
+>         ov9282->pad.flags = MEDIA_PAD_FL_SOURCE;
+>         ret = media_entity_pads_init(&ov9282->sd.entity, 1, &ov9282->pad);
+>         if (ret) {
+> -               dev_err(ov9282->dev, "failed to init entity pads: %d", ret);
+> +               dev_err_probe(ov9282->dev, ret, "failed to init entity pads\n");
+>                 goto error_handler_free;
+>         }
+>
+>
+> --
+> 2.53.0
+>
+>
