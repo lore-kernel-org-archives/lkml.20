@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793289851;
-	b=hn4hDv48NsJPCR2U4JMPatxgrJseE+hE7Eu1TgQgyj4YjgGPwlZygIloXD3pxVG/mVkH
-	 ndN5weBCBHW18zIZ7UlNqd12+EGPR/vYTKC3CrX35uWEqRNX8apSU6PbNwqc7l8ZuJdRt
-	 OtwWxRFZL1PIoMkcHK3FKtEFSBo4vyGFmZan4IP2Iaft2kgzbsXtkZ6ziScZEuqPr5Mw+
-	 KXvY3ajkukjpNIsyqE2yHhQlypBaP5UZ+TlPslmrA0JU9gDWLRJYIGVjstgUKw8IDz/Nh
-	 alrC5YglYl81IyRfjxiXukTXZxlM4UFBX0KP+2fjT5IynhBH8OLei9Tm6zRroBbAMfA==
+	t=1793289889;
+	b=YKz+iAEt1P2oqFz/xdK2OBIZgYs+begaQFKyCnzOB39bCWniKETBKFXsePQDOe3JhIHL
+	 NwGIKY0wGwsl70TVoP4P+1IlSRnh16+cbcPibamdGaRF3t9DizoVRkdD0B0ze5/0AIQGO
+	 3C7Mm7qmWHCoAiJvGTGhKRNf+blUZsoMfumNaE5kvTVKBJFL9Q9hR0VIURqnDoxBP8H3F
+	 tQbJ9OgfaPz0IU+GJifgZ8KYIhdeBX2KBpUBTbyaqfbxeeRSVRv1TAYt5qttEZXD7OFeI
+	 pU/7HtV6f1SA/Ea2+nAEM+lreIqcXPYgo4cEJF/VX9d/PKzcZveqFfyOCKqEQafUueQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289851;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=ZEImV1bsETTOjzgBZOnqxSCBynlGZZgQGJAOsTFWdvs=;
-	b=PK01/5ZHWmXL95tGimJKaQ+dnk9b1JZDoKqpuIiRyzdfC2WYQcuazhqkCtqflGvGQV5n
-	 781qFZaQ/ps+uaxG1cS+/4ZEAkgc9a9CRDy5MqwUqUp6QD9ZPt2RmhcrEsrz1THbi9yoO
-	 9UeJjswX+q9Cn83CXVmqFlAQVv405z5OY5qpDE27NSp7P6sH0rxmPM6Dzv7ou4F/aJJDd
-	 fFg6epbDxswfAMffjr3u00l29ZljabIbQhKHzUrxmAvEKSIwTT+VOrIODefJhWJenxpuy
-	 3bbnJ2i9d+5Ealu2Biotku5thFsUzzV/4LbwQ359dQDb2WE9k2D1hSOAqcljE8SLZzg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793289889;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qVRLkBmwmg+TmfzMT50Xgy/KvRvwtW2uIgy7R70qgBk=;
+	b=Xkk+nCq5zSt4EUcwxEcWqLqsNkDobx6Jtl/O3Ev22QTo07HeAnzuU+1q2cu11ny4dhDI
+	 Takmdldn5u3lFcrInpabTDUbUKSbFgxKsFu+HlY1D60hwQ3NsarSAKmGXwRUwmoyGB0bG
+	 5CS7ZNISoPOdQFbm8yTjrEhM82N4IrlyVNWYyLszMN/kqkubCrDBJ2teGztDZ/xHOfK1W
+	 YCPnvkhW5/qquahSj0xNWlLMYRF9pKEdoWdzaWsZM2/Y5KOGtuLecx14UQLgtOfm1MxX3
+	 YmXtzAoM/OfnW5bLl+GFdbpJuHnPM4DZpkbZgDYPCp+7JK/EkuWxDQjNZCtuJptEePA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnxrPTFL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Imn8dHmy;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C3A606A31A;
-	Thu, 29 Oct 2026 16:04:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C8C606A31C;
+	Thu, 29 Oct 2026 16:04:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53C8C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jnxrPTFL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F661F01825;
-	Thu, 29 Oct 2026 16:04:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793289850;
-	bh=ZEImV1bsETTOjzgBZOnqxSCBynlGZZgQGJAOsTFWdvs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jnxrPTFLrMh7lS0axSQZJeIw1zTZvkrB4+S47jC9dT5x4umfdVJ3i2j1TvejMOR6x
-	 BJFAR5YKZQTHT3iLU2Tu5VK1VvJqRcy843wlOLG3Z1fBBUbb+Sb8OMOJ+sy17ax7qM
-	 NltRB2210GdZxxK0PGcyACJf8fhMJz8/pycGtt04vTFUb3zOAGoHRlL2YNYLZjat8o
-	 RQUIJrXMYd9hIkqrD0WWaKEMa4sLwnU2MY8440CDdUO06TgWx+Z/Zb40mTeygYUuB7
-	 NPOO2yTNeL9ft5Z4lwHjTq9qykadh8pqrJ2e11rfB5l5aNCofsTVrL4FvwZVVsdt8S
-	 vJsiCYCtj++fA==
-Date: Thu, 29 Oct 2026 16:04:06 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Nickolai Zeldovich <nickolai@csail.mit.edu>
-Cc: Matthew Wilcox <willy@infradead.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] xarray: clear the new head's parent before freeing
- the old head
-Message-ID: <auNtjKLHZOo1awG1@gremlin>
-References: <attzI4sj2Pagmvkd@casper.infradead.org>
- <20261027192014.844878-1-nickolai@csail.mit.edu>
- <auNdNjH4zo7OYbe-@gremlin>
- <CADGQE7EtDGs=g7p5=_m2LieLcEj-k4LyupOFWt96Aw9py-gYaw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=Imn8dHmy
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=qVRLkBmwmg+TmfzMT50Xgy/KvRvwtW2uIgy7R70qgBk=; b=Imn8dHmy6kBxKHeJAUhZloX+Ef
+	ITtxnVSuM9fvcVrPBTUFfVEgLqU77+C2E0SEJlVFjEL0IzpuTX3f63KyjBzyosHAc5TLUhezwA56O
+	8yS4tLUblvA2zgnbO8B2JUCHzLsPUrXb915EXl26W2myXFxcvHeDVyYSQf7IwX4ua13t9QNIKA9Id
+	CXWQZYjaebKGHRwpoKzy9jcm1toZdtRwsnYwkgcFl5/dvCWKb7r9vDVxj0Lj6jA4NMIqdZxmVweTN
+	mT8CRwiV/4MUH8fc26WDXqZDqOXMQDqyqjm8lyloBi2+52KjBB8kDFuagrqDct4VaSm3MZmMRhv6q
+	m20mD1eg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMScR-00000009jhR-2orr;
+	Thu, 29 Oct 2026 16:04:47 +0000
+Message-ID: <58d11bf2-f5db-40e4-b367-de8ae7e31472@infradead.org>
+Date: Thu, 29 Oct 2026 09:04:46 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,76 +58,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADGQE7EtDGs=g7p5=_m2LieLcEj-k4LyupOFWt96Aw9py-gYaw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/7] docs: ABI: power: rt9471: Add newline for
+ paragraphs
+To: Waqar Hameed <waqar.hameed@axis.com>, Sebastian Reichel <sre@kernel.org>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: kernel@axis.com, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1793225920.git.waqar.hameed@axis.com>
+ <98bc1b0dae37a68b4a5f148094459fabd5f4c867.1793225920.git.waqar.hameed@axis.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <98bc1b0dae37a68b4a5f148094459fabd5f4c867.1793225920.git.waqar.hameed@axis.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2026 at 11:50:37AM -0400, Nickolai Zeldovich wrote:
-> Hi Lorenzo,
->
-> On Thu, Oct 29, 2026 at 11:03 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> > It's pretty 101, but please don't send new revisions in-reply-to older
-> > revisions or feedback [0].
->
-> Understood, will do.  (I was thinking that applied more to
-> multi-series patches, which indeed gets unwieldy.)
 
-In general in mm and mm-adjacent we prefer not. I think this might vary by
-subsystem, but it gets buried easily in even single patches, so best to default
-to not I think.
 
->
-> > Also, if somebody replies to you, reply back. You, not your LLM.
->
-> Indeed, I've been replying personally, though in a few cases I sent
-> the response in the notes of the v2 patch, in an attempt to send less
-> mail to lkml.
+On 10/28/26 3:39 PM, Waqar Hameed wrote:
+> To split paragraphs in reStructuredText, an empty line is needed.
+> Otherwise the output will be:
+> 
+>   Access: Read, Write Valid values: - 1: enabled - 0: disabled
+> 
+> Add a newline in order to properly format it as intended.
+> 
+> Reported-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+> Closes: https://lore.kernel.org/oe-kbuild-all/20261020101625.01874245@foz.lan/
+> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
 
-OK appreciated!
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
 
->
-> For context, I use an LLM to write Lean proofs of correctness, which
-> seems useful for cases where the patch is non-trivial (e.g., [2]).
+> ---
+>  Documentation/ABI/testing/sysfs-class-power-rt9471 | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-class-power-rt9471 b/Documentation/ABI/testing/sysfs-class-power-rt9471
+> index d4ea9c9a5a9b2..53393488ec419 100644
+> --- a/Documentation/ABI/testing/sysfs-class-power-rt9471
+> +++ b/Documentation/ABI/testing/sysfs-class-power-rt9471
+> @@ -14,7 +14,9 @@ Description:
+>  		Note: use /sys/class/power_supply/rt9471-\*/load_switch instead.
+>  
+>  		Access: Read, Write
+> +
+>  		Valid values:
+> +
+>  		- 1: enabled
+>  		- 0: disabled
+>  
+> @@ -29,6 +31,8 @@ Description:
+>  		datasheet for details. Normally controlled when TypeC/USBPD port integrated.
+>  
+>  		Access: Read, Write
+> +
+>  		Valid values:
+> +
+>  		- 1: enabled
+>  		- 0: disabled
 
-Ack, this seems to be a trend. And obviously we're not against LLM usage, as I'm
-sure you're aware, this is about rate-limiting that's all.
-
-Also use of lean seems like a nice way of bounding LLMs in a way that makes them
-less likely to go awry, I didn't know people were already using that for the
-kernel, so that's interesting!
-
->
-> > Also, you are flooding the kernel with patches, 5 series across 5
-> > subsystems over 2 hrs:
-> >
-> > https://lore.kernel.org/all/?q=f%3Anickolai%40csail.mit.edu
-> >
-> > I already asked you once to stop doing this [1]. You've carried on.
-> > [...]
-> > I'm sure you're acting in good faith, so can I please ask you to engage
-> > with maintainers instead of ignoring us and treating our time as valueless?
->
-> Sorry about that.  I'm happy to send bug reports with clear userspace
-> reproducers, instead of patches, for any bugs that seem particularly
-> significant.  I'll also get in touch with the relevant maintainers to
-> see what, if anything, might be useful to them, rather than sending
-> individual issues/patches.
-
-In general the bug reports are welcome, just space them out a bit, or if you
-have a bunch for a subsystem, contact maintainers ahead of time.
-
-I know you've generally only sent a few-per-subsystem, but in general this is
-about managing workload.
-
-Right now the biggest issue with AI submissions is volume-of-submission
-vs. review resource. The former can grow exponentially, the latter very much not
-:)
-
->
-> Nickolai.
->
-> [2] https://lore.kernel.org/lkml/20261027125210.843589-1-nickolai@csail.mit.edu/
-
---
-Cheers, Lorenzo
+-- 
+~Randy
