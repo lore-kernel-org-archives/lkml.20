@@ -1,113 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793288577;
-	b=KV5mB1pSdhvUQKZQm07GgS5QihkzvcypTVIxAESUyBHZp8t05Pzk5aj4aJHfzgktAngH
-	 Yp4RRc9+Xsxjj1f9TS536Eb/BxQzTL9lu1nUMKQmz8Piw+6dLnYhwzw+eXhDmaYynqagh
-	 FOMHpwG1ckneZGQ2I7e22zjSppBNARrnU9LIieZGIk/tUOT2E/JrpLSVzTGbxC6Krdu6n
-	 e/LXgfGaLKggBAHfHNq1vhvdhCxhcvrWXrm80vRRIjDwPzz8PlilvlOsL9kxQhXRmpKYF
-	 PiTTV6cEO1bPFd0uR4PIqVgB5o9g0xjcbxAJt6W/Khpd1PoN2NUnS/Nks7RT1lyAg5g==
+	t=1793288603;
+	b=ibXX17ZTrmN8GvCJtsWRbM3OSUo4fA2Uq4cSyEAyqkas2k8wk9TKbkuj7g2o1wLC8RI2
+	 EU63Sx72opXf2fS3KwPPg5s2StoL81ukh9NUnWtrsSweCFs9BRt8TpOXVl/9fu33KnbdB
+	 VGmv/FGHLiV1Tn844ahAIhSrLgTQOby0iJo3oBdLJ9zIAH8YS2HmHQLkpLEnCClX+bT8I
+	 Nzbmkfqq6rQJ81pIY3JxSXBeP9JQb7BsyVuVvr08pEn7doDUcLjTgYIYWxjCCnfOC4MWC
+	 OwM/7rXpB5eBLRP/BO6eVkG4CVV1mIar5M9Z2lrL6l3sPo+FX72WY2P/yoy37qrSQOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793288577;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=x05fCxndf1hYykwEJ06qD0sbC4EVKTE/sZRMpUPdEQc=;
-	b=f6yj0LSVW+IUN8KAbkkSz3bFNf/Y5nKd75DEpJcuL8U3hV+e0yU9JP4nfs9lmq45FCUL
-	 rhb2txmC6vIH5whS3mLqxCJ3BLCjKj+z+yRxRFgiS6CzeuD+IMlwAbfCMh7Z28FIc/iVO
-	 s1U6RipoTUQWPdDq+rKMYBLQr+3naDxh98LikbunNlRHOy5qP1IG3BEEculEvaItSJkLW
-	 UjLDIuYmQzi2nIXm1SrSIs9+sV7cC+X+sii+9Dl8EkOl2iuPFT3pnx1Las6caksogVML9
-	 TidU93yrpDrEbzruBNBpHOrnIDxXQmlkTeWEXQtpadl16HmTgIEHCXsv2msefjDlN8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288603;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Last-TLS-Session-Version;
+	bh=Sk8NTlk3apacTKEu+QU4AwxZCr6z7+F7EHf6/mGPK9I=;
+	b=G6JxEJzZwLynz+BGG6vWZa0M6Tnd4xokpn5lE86r24f5ZfK1QGpilyJzkJr2a5hZfaEi
+	 2qxzbObASWlpWiEwkdLgpkXR8KfYlfEmF4VZuB3sretoQKTsO4qqYWZBrX5uZKTvd91gx
+	 3m7gr1UKoflS5dTtn8e6YzyndWmXyHZcmHvjrK+sLsvselkbtHZODvwoagx4xAzfOJIxM
+	 MPj209+C/co+IpZ+6MBAUPmo1Sb50BmLqROFJ3Pr7YBcPfhb9zwCbeXam6jIvDTZiFM2J
+	 mzBlAkJSjL9kPLQQyouV0P7OjQS7WbWNXDYsEOprYWHFCoFrbnKXlRF8VTbv0IBKXeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VBWpMU/K";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=afwor1U4;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF77606A32D;
-	Thu, 29 Oct 2026 15:42:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BE6606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:43:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71BE6606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBWpMU/K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6F621F01825;
-	Thu, 29 Oct 2026 15:42:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793288576;
-	bh=x05fCxndf1hYykwEJ06qD0sbC4EVKTE/sZRMpUPdEQc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VBWpMU/KLAu7f/e/8Noc5/ky4m6uYCqrAnbDe7B1Eiyf3YKYYuSJu9S6rMUBwAHRq
-	 rxdNuSkxQyc4TOUMzaXdWdtkkmG4SSedqSFbH+UiVGUvDBhSbF5ps5Rj1N4WC5Z+1M
-	 nVg6ipTCrheIKd6OSnlqmCHY40aY5JuHQMktjBDTz0bNGDllpKtBpr67h+uTjX/02/
-	 BPVwPJ/jrEhMjy1lbZssZEiGQ47CW+eoOvd7LM9X+gXcm1M/wx1zx2VQ/uyO8q67C5
-	 n6t0zAffCO2JyYnGumXddDp++ELqcS68IiiH0skAk3Y++ZmqpXAGKI8OP//9xNZw14
-	 KXjSab75N39jg==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 55D60198003A;
-	Thu, 29 Oct 2026 11:42:41 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 29 Oct 2026 11:42:51 -0400
-X-ME-Sender: <xms:cGnjatNYCDeDF49taWGwFnFA6DTBtqFjLkJEWyZ2h7-8tO1hYgeSTw>
-    <xme:cGnjalcGilwgpzywEq5-9_Uax-LoiciY26Hr9Dx2NdLZKDVOeYHxJNoKbsqoyc0HV
-    fMpRhpRtFCi6EkHPOqVKO7Qgcsf8k8JabM2EeZbLZYt0LPRJSrAX1Uy>
-X-ME-Received: <xmr:cGnjam3XDA41P6ZfG4_oZPjd4RhksmXGacPPo4PHNrL9WQIkvxQOdIUOlic>
-X-ME-Proxy-Cause: dmFkZTGrojcwHOYNV1R27yGMmE+sn2SpgiwFqzTWix470caHvIOH90SafujrsKt+HTJD90
-    SN5SPP69uNBPn1MxWH6/eaMHHTJo/SvRT/z0Ju39Z9YfjzvKYsDYrFhgheSCBdJ9b5YIFp
-    cIdIwys365LDAngvB6UcUIm3AGzNccSf4yN/FZLQr8sexIPFzUStpfInmWS9yXmQgvCx5c
-    fmpZ7EbFXEWylssnvmmDQCnrMMUW1jHsUhf/jrVErtMG2Lbffr1bqxM2P6gj7ypN5ZdyZj
-    TgAYvrVjfWikwB2MTrnw3YjFYjeMV0UDDQUTP/dXoAy/YlzoJiJh64//IR8g0ZuUVQCpel
-    PcjjoB9Q6Jx3knI5olrCUi4hirBEGQQT+oSeGTeh25/h09KblyE6Vl7jNLQSnQit4V+35z
-    J17GU/oPzC0n+oCMVsG/dfInPKVCtLZBd5z2d7pFm7kIyajC91WW0fXwTIMOKy3y+R1okp
-    ekcKGTudIOrHnEZRx1GDJKalnfGvVV/PnxC4Qbu/41RL8DRLjWQuiSHsfiURJwHwuxhasY
-    GYMOJsxXNzU8cnNcXtdtzJIfeYba/tJgBPi2qhRcbC1kxMhMglGWVDH8uH+rSsnay/vQnw
-    D3Mh5eiVtNV6r+viH4MNCT1TzsAFldnQpQurl7rb5p9gSfzssla1/AAmhpLw
-X-ME-Proxy: <xmx:cGnjalwWU8W_LTwkSDS4FwlbRvlMAxVh616uhleGcP8DWlPfaYmGzw>
-    <xmx:cGnjaj53Pt7V4Vu7bIXzZKdpvSrEym3BIg-jYhLqD8PxloGEbD1BjA>
-    <xmx:cGnjampN953BOAPY-iT_PyL1bwsUDnSFFEZwFhBzoi8zawrViQ6drg>
-    <xmx:cGnjaqnZb_SLLcbp0PPUsQOS2wLwEGRm-QsuvZlsn1hfIsEUvsIcMQ>
-    <xmx:cGnjaqQ6rvy28ek_52FnLx0f5zjRtsChWHkRCTWZP2DTXANVWLWIhapi>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 11:42:39 -0400 (EDT)
-Date: Thu, 29 Oct 2026 15:42:38 +0000
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Hugh Dickins <hughd@google.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Pratyush Yadav <pratyush@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
-	Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Usama Arif <usama.arif@linux.dev>, 
-	Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
-	Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
-	Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, Xu Xin <xu.xin@linux.dev>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Youngjun Park <youngjun.park@lge.com>, Gregory Price <gourry@gourry.net>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 42/46] mm/huge_memory: split huge PUDs when adjusting VMA
- boundaries
-Message-ID: <auNpU-7hPtUZeTGs@thinkstation>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-42-6f74bec9a5bb@kernel.org>
- <auMxQPze5cOvGbCe@thinkstation>
- <9f4128a4-85fc-4f4b-ac41-b9d348f56e37@kernel.org>
- <auNYPPlCnLdN88t_@thinkstation>
- <d5d077fe-4695-453a-a2cd-40ef30abd61d@kernel.org>
- <e796dace-06c6-43b8-83f0-594e7f1e7380@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=afwor1U4
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id D31641A1392;
+	Thu, 29 Oct 2026 15:43:19 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 932396076A;
+	Thu, 29 Oct 2026 15:43:19 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E281B103290FF;
+	Thu, 29 Oct 2026 16:43:15 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793288598; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Sk8NTlk3apacTKEu+QU4AwxZCr6z7+F7EHf6/mGPK9I=;
+	b=afwor1U4Ve+al8vWhKU9FKqqq22hWCLDvP9bvh4sd0koXe+CzwNmn4PzlpOD6lH5uIa1Y6
+	aeRd8j7rfquF+pN2V7gVjMhguT38ZS8uqUagUrsbIM2F86VlazmzN4CZtkuuPx0vKFmh+E
+	dTvh3aIV5o1I8tKgcX3nN1OPuYjixQuftohcxXVWo8wmFTbhBDtjvsHFgI6NrsgmC5xDPp
+	PK8vo0WMo36NyxUXCQZxUCKiI9Ee7XPlkSyPrU1aUx50XKRdOKPHYTIscNJODcQf2yoS12
+	CiLWtJpoJyDhuZ9jedlYrUwSq1DRN9Z4dGpRz4jQDUhv02ylWYjtYnB4W1P57A==
+From: =?UTF-8?B?QmVub8OudA==?= Monin <benoit.monin@bootlin.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Josef Bacik <josef@toxicpanda.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable <stable@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Paul Cercueil <paul@crapouillou.net>
+Subject: Re: [PATCH 01/15] iio: buffer: let the block keep its DMA fence
+Date: Thu, 29 Oct 2026 16:43:14 +0100
+Message-ID: <-TPmKHsgTdWh1jJ4sxKceg@bootlin.com>
+In-Reply-To:
+ <20261027-llm-char-misc-iio-v1-1-0d818334f6c7@linuxfoundation.org>
+References:
+ <20261027-llm-char-misc-iio-v1-0-0d818334f6c7@linuxfoundation.org>
+ <20261027-llm-char-misc-iio-v1-1-0d818334f6c7@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,27 +76,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e796dace-06c6-43b8-83f0-594e7f1e7380@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, Oct 29, 2026 at 04:35:46PM +0100, David Hildenbrand (Arm) wrote:
-> On 10/29/26 15:40, David Hildenbrand (Arm) wrote:
-> > On 10/29/26 15:31, Kiryl Shutsemau wrote:
-> >> On Thu, Oct 29, 2026 at 03:24:29PM +0100, David Hildenbrand (Arm) wrote:
-> >>>
-> >>> __split_huge_pud() must split a leave. Either by zapping it (what we do right
-> >>> now) or by populating page tables (as in Usama's PoC).
-> >>
-> >> No, meant the situation when pud_leaf() is true, but split_pud is false,
-> >> so __split_huge_pud() is never hit. pud_present() is true so we proceed
-> >> to pmd_offset()
-> > 
-> > Oh, yeah, I can add a WARN_ON_ONCE() for that, it would be a bug in the software.
-> 
-> Ah, or I can just drop the split_pud check. Let me do that.
+On Tuesday, 27 October 2026 at 17:19:05 CET, Greg Kroah-Hartman wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+>=20
+> iio_buffer_enqueue_dmabuf() hands a plain pointer to the fence to the
+> buffer implementation, which keeps it in block->fence, and since the fix
+> for the fence leak it drops the initial reference right after
+> dma_resv_add_fence(). The only reference left is the one of the
+> reservation object.
+>=20
+> That one does not last until the fence is signalled. dma_resv_add_fence()
+> replaces and puts a fence as soon as a later fence of the same context and
+> the same usage is added. All the fences of an attachment share a context,
+> and an enqueue on an output buffer only waits for the writers, not for the
+> read fence of the enqueue before it. A second IIO_BUFFER_DMABUF_ENQUEUE of
+> a buffer which is still queued is refused by iio_dma_can_enqueue_block(),
+> but by then its fence has taken the place of the first one. When the DMA
+> is done, iio_buffer_signal_dmabuf_done() signals a fence which has been
+> freed and schedules the work item in it.
+>=20
+> The leak came from the reference which iio_buffer_signal_dmabuf_done()
+> takes and iio_buffer_cleanup() drops: with it nobody dropped the initial
+> one. Do not take it, and leave the initial reference to the block until
+> the cleanup.
+>=20
+> Fixes: a09399935508 ("iio: buffer: Fix DMA fence leak in iio_buffer_enque=
+ue_dmabuf()")
+> Cc: stable <stable@kernel.org>
+> Cc: David Lechner <dlechner@baylibre.com>
+> Cc: "Nuno S=C3=A1" <nuno.sa@analog.com>
+> Cc: Andy Shevchenko <andy@kernel.org>
+> Cc: "Beno=C3=AEt Monin" <benoit.monin@bootlin.com>
+> Cc: Paul Cercueil <paul@crapouillou.net>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
 
-Yeah, looks good.
+Having the block and the reservation each hold a reference to the fence is a
+better fix than mine.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Reviewed-by: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
+
+>  drivers/iio/industrialio-buffer.c | 15 +++++++--------
+>  1 file changed, 7 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio=
+=2Dbuffer.c
+> index 4294101810fd..a2386dba497c 100644
+> --- a/drivers/iio/industrialio-buffer.c
+> +++ b/drivers/iio/industrialio-buffer.c
+> @@ -1931,9 +1931,14 @@ static int iio_buffer_enqueue_dmabuf(struct iio_de=
+v_buffer_pair *ib,
+>  	if (ret)
+>  		goto err_queue_unlock;
+> =20
+> +	/*
+> +	 * The reservation object takes a reference of its own, and drops it as
+> +	 * soon as a later fence of this attachment takes the place of this
+> +	 * one. The initial reference stays with the block, which points to the
+> +	 * fence until iio_buffer_cleanup() has run.
+> +	 */
+>  	dma_resv_add_fence(dmabuf->resv, &fence->base,
+>  			   dma_to_ram ? DMA_RESV_USAGE_WRITE : DMA_RESV_USAGE_READ);
+> -	dma_fence_put(&fence->base);
+>  	dma_resv_unlock(dmabuf->resv);
+> =20
+>  	cookie =3D dma_fence_begin_signalling();
+> @@ -1989,18 +1994,12 @@ void iio_buffer_signal_dmabuf_done(struct dma_fen=
+ce *fence, int ret)
+>  		container_of(fence, struct iio_dma_fence, base);
+>  	bool cookie =3D dma_fence_begin_signalling();
+> =20
+> -	/*
+> -	 * Get a reference to the fence, so that it's not freed as soon as
+> -	 * it's signaled.
+> -	 */
+> -	dma_fence_get(fence);
+> -
+>  	fence->error =3D ret;
+>  	dma_fence_signal(fence);
+>  	dma_fence_end_signalling(cookie);
+> =20
+>  	/*
+> -	 * The fence will be unref'd in iio_buffer_cleanup.
+> +	 * The reference of the block will be dropped in iio_buffer_cleanup.
+>  	 * It can't be done here, as the unref functions might try to lock the
+>  	 * resv object, which can deadlock.
+>  	 */
+>=20
+>=20
+
+
+
