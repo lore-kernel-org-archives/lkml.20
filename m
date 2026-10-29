@@ -1,75 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793300098;
-	b=lPGerbqlSoNqrFdL8XICDgwL/S/fzzcCew9VFqItMO5ESjdldCOcNO1uFMfvCZGqEoxP
-	 Zn1IcIBMqs3YJAM+eUxklO+QGWxzlhzRJfKJnUgeZv0LvRgF6fkeq7cJYPyjVBFb1L7Jc
-	 ZL3h939V0p2Qj3Sjd5tQH16h57/JVW1N88QxunvkO0sYcIvu5QvAGTknae7YDB4Y2+Umo
-	 a6e4w1MSmDpNG6fFWhePNVxPEhlxdJM2d/u7WFfG/VlZs7Gz0iLWgck4wm+wt0fLxut+3
-	 T30RTcRKppnuycAPshJMkdpCkrwNffIuvejQj5wJI0KErPxrToa8UIXi1ReEkOKyMww==
+	t=1793300109;
+	b=0yPJHTrlAatFlLkfrQmphPbESXOHlb3LD6DtTRDaIRCvr/Y/03J9O2iI5mifW98vegyI
+	 h708IUvL7vM5eOC7RZZv4/0RivQ6pD/1O5f12bkdTaJMdl31RFsic7FwP2vgaV+WazxF6
+	 bFtDRlPKE9Br79QCy7y09zuw7Hemc+bwzUx7Etm5goQTqC6SMSIcmA0BR3FYBhbwC8g6v
+	 N8V0hwSSQd8A+lu6bLdsiwu6wnIF7JEsu3i5zybWIg5ZYuXSE4gbawfzgdN1okSlPP199
+	 90M6gGEdEYmhDEQ0CbbYrsHJj2D6Z9mASN0z7Hxj3WSwa10AaJb716RADwOnf7oepmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793300098;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793300109;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wEgbHVoAVDi5POFLCru0ShT3/K2/8OJVSBqmnEGYSeo=;
-	b=aiF4YXgUd29Z+i3sLfthLEkwqe41fo7KkaPt+geh0fVckrGZzHg2/nF/c0tjcmcubBfe
-	 8MbIyscAMXYt1P9hNQQQlKpzok37oHLcpn72RO3KAuQmtRtYuokHl4vx7KcKM4NvzAPnL
-	 x59pp1s1XiMN6qSba5LCjTRf//El2kNXYJ7s8IVcGOFnlSeE+SyA/48vcQVUwqsNreah4
-	 EG+5282Mzm41FhSZivbR/iEpEAneTX5g2tfnyqAi3IoN4kuuRVtV2dn1n8ellOt2hnMiJ
-	 Hkyle+ykJ3lL9Nnwv/mypMoCebLwjy6lti2OwazAynebHOXn4pgPo1kYb4MHHkYxFZQ==
+	bh=38enHGzZbRMY5MzhDG7NevDj9M9rSop00+ZOozP8nYw=;
+	b=pNP2ojDTOLixm3XPojNSQoKE+XTJD0YbS+XaNchiO42bCFhhFkVv0wQ3b0biiQlF7SfR
+	 vg2cZnSFTfmoeLhlk+y6ukddIvZODiGEhh4BFfOzXHyV4CPJ0lOfSEXDNLPa8x3m3JFDq
+	 jRnhAuqsvZ1JjR/MQ10LANq1d3D/Ckj57aSFaXTEFzoPVEXHdb2+eHkBmAGiAetb68E79
+	 hJpyap5eVNssI4s45hQW0llBxFpoebCI5rbaUx637khy3lPYsJmsv6V+pKECTmOfCpN2l
+	 wOz5iM0QIHfz3NZ4BqgSAFQQxOOqhQNXo2/4/vSCU6qtFSKlm1w1q5juH64HE6nd9SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETFMsP8s;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=magOWvZO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17AE606A31A;
-	Thu, 29 Oct 2026 18:54:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EEE29606A331;
+	Thu, 29 Oct 2026 18:55:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ETFMsP8s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20B621F01816;
-	Thu, 29 Oct 2026 18:54:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=magOWvZO
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id F3ECE1F01826;
+	Thu, 29 Oct 2026 18:55:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793300097;
-	bh=wEgbHVoAVDi5POFLCru0ShT3/K2/8OJVSBqmnEGYSeo=;
+	s=k20260515; t=1793300108;
+	bh=38enHGzZbRMY5MzhDG7NevDj9M9rSop00+ZOozP8nYw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ETFMsP8s7BqWCCvKeR8RYN4ZbgkNL97EI1G0cfCpGTNPDTtpy+LJHIkygumdQSR6Z
-	 YZoiaI0cRVFxac43T+75VHxazwRUFK/rY9SRmpVzb2r3Gc1Gm6bcMYPXKN0TFXXG7F
-	 D8d0zAbx/00vMCVqqSrjDgZty6kFK5ropSwVzkmzlGVaVUGj7BYoE0bL1UPUCAlO6F
-	 clg3Vh4cSWhi5hgmrwheRXHYVWmGRMaJna6/glQxmbmR4pCC4SED8hlOFty84skrfZ
-	 OQC1MBwEg9bofBa/HM61P1HBpEBb1daP/Q08BXjHuua7zqnkA8DQlKeRkN9FyM4Yho
-	 1AUknEPd2kX4g==
-Date: Thu, 29 Oct 2026 18:54:49 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Kwanghoon Son <asdfkwang@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH RFC 05/12] dt-bindings: serial: Add BL808 UART
-Message-ID: <20261029-pouch-enunciate-e74cf84e42a7@spud>
-References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
- <20261029-rust-bl808-console-v1-5-b736ee920078@gmail.com>
+	b=magOWvZO8kqeKhGNN9P1FdOWms45OxtPynyKc1l+h9WHBUNxHDxuxnzqaBvKQ68yB
+	 jmW/5fYkMFCOO03pFDtnFaI/LqGwD69cH/savMLZPL/aK19zRXKOKY8sSkvwHqwuzj
+	 O4TkUjoLrjQHflq0TOJR6rdsgNTsGlE29/mr2yV5yRUJFX6IuU4JqWWFzz9ZwNTnWz
+	 b3XY6lmv3wjJ9MM2n1QAQ8mswIeCWPP312I5Rcd2Aksp/T0da+0roRJLkMmgE/pqzF
+	 m7WXyuE4YJVsy37aseJ5RJjLxILIyoFN/cgg5Emk+W2T3Ukj3WCAFj84wmn8FG/3ts
+	 3kfG0vRgHsEpg==
+Date: Thu, 29 Oct 2026 20:55:04 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Arun Menon <armenon@redhat.com>
+Cc: linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+	Peter Huewe <peterhuewe@gmx.de>, linux-integrity@vger.kernel.org
+Subject: Re: [PATCH v5 5/7] tpm: Increase TPM_BUFSIZE to 8KB for chunking
+ support
+Message-ID: <auOWiCsW73yO33Zs@kernel.org>
+References: <20261029181541.99505-1-armenon@redhat.com>
+ <20261029181541.99505-6-armenon@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,117 +58,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="F1Dhg2KrVTCkSmmT"
-Content-Disposition: inline
-In-Reply-To: <20261029-rust-bl808-console-v1-5-b736ee920078@gmail.com>
-
---F1Dhg2KrVTCkSmmT
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261029181541.99505-6-armenon@redhat.com>
 
-On Thu, Oct 29, 2026 at 01:05:46AM -0400, Kwanghoon Son wrote:
-> Describe the UART register range, interrupt and baud clock input.
-> Initial Linux support targets the BL808 32-byte FIFO and reuses
-> Zephyr's bflb,uart compatible. UART3 is D0 PLIC source 20.
->=20
-> Link: https://docs.zephyrproject.org/latest/build/dts/api/bindings/serial=
-/bflb,uart.html
->=20
-> Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
+On Thu, Oct 29, 2026 at 11:45:39PM +0530, Arun Menon wrote:
+> From: Arun Menon <armenon@redhat.com>
+> 
+> TPM_BUFSIZE limits the TPM2 command the kernel builds before handing
+> it to a chip driver's send() callback. TPM 2.0 Library Part 3:
+> Commands v185 adds ML-DSA key objects and the ML-KEM
+> TPM2_Encapsulate()/TPM2_Decapsulate() commands (sections 14.10,
+> 14.11) [1]. NIST FIPS 204, Table 2, gives the largest ML-DSA
+> parameter set, ML-DSA-87, a 4896-byte private key and a 2592-byte
+> public key [2].
+> Loading such a key pair with TPM2_Load, plus header, handle and session,
+> comes to roughly 7.7KB - more than the current 4096-byte TPM_BUFSIZE.
+> 
+> Raise TPM_BUFSIZE to 8192 bytes. It covers this command with
+> headroom, and keeps every kzalloc(TPM_BUFSIZE, ...) call in the TPM
+> stack at an order-1 page allocation rather than a higher order.
+> 
+> This matches the largest parameter set defined today. NIST has already
+> published PQC families with larger keys and signatures than ML-DSA
+> (e.g. FIPS 205/SLH-DSA), so a future algorithm could exceed 8192 bytes.
+> CRB chunking, added later in this series, does not change that; it only
+> lets an already-built command cross a smaller MMIO window in pieces,
+> it does not change how large a command the generic stack can build.
+> 
+> [1] https://medias.cdn.trustedcomputinggroup.org/production/Trusted_Platform_Module_2_0_Library_Part_3_Commands_Version_185_pub_87a5c10230.pdf
+> [2] https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf
+> 
+> Signed-off-by: Arun Menon <armenon@redhat.com>
 > ---
->  .../devicetree/bindings/serial/bflb,uart.yaml      | 57 ++++++++++++++++=
-++++++
->  1 file changed, 57 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/serial/bflb,uart.yaml b/Do=
-cumentation/devicetree/bindings/serial/bflb,uart.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..df29d258f0a1c6d7bb283cf19=
-c4157436991b64b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/serial/bflb,uart.yaml
-> @@ -0,0 +1,57 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/serial/bflb,uart.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Bouffalo Lab UART Controller
-> +
-> +description: |
-> +  UART IP used by Bouffalo Lab SoCs. Initial Linux support covers the
-> +  BL808 controller with a 32-byte FIFO. The compatible follows Zephyr.
-> +
-> +maintainers:
-> +  - Kwanghoon Son <asdfkwang@gmail.com>
-> +
-> +allOf:
-> +  - $ref: serial.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: bflb,uart
+>  include/linux/tpm_command.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/tpm_command.h b/include/linux/tpm_command.h
+> index fc446a1282e2..4ad11068b090 100644
+> --- a/include/linux/tpm_command.h
+> +++ b/include/linux/tpm_command.h
+> @@ -434,7 +434,7 @@ struct tpm2_context {
+>   */
+>  
+>  #define TPM_DIGEST_SIZE		20	/* Max TPM v1.2 PCR size */
+> -#define TPM_BUFSIZE		4096
+> +#define TPM_BUFSIZE		8192
+>  
+>  /*
+>   * SHA-512 is, as of today, the largest digest in the TCG algorithm repository.
+> -- 
+> 2.56.0
+> 
 
-This needs to be a device-specific compatible - please just use the
-binding already reviewed and agreed upon in Jisheng's 2023 series.
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: Baud rate generator clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: baud
-
-Drop this clock name, with only one clock there's no more need for it
-than the interrupt-names or reg-names that you do not use either.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    uart3: serial@30002000 {
-> +        compatible =3D "bflb,uart";
-> +        reg =3D <0x30002000 0x1000>;
-> +        interrupts =3D <20 IRQ_TYPE_LEVEL_HIGH>;
-> +        clocks =3D <&uart_baud>;
-> +        clock-names =3D "baud";
-> +    };
-> +...
->=20
-> --=20
-> 2.47.3
->=20
-
---F1Dhg2KrVTCkSmmT
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauOWeQAKCRB4tDGHoIJi
-0uKtAP0ejRfkQ6TQ/zZ8dEodbmT5akOou9YEluj6A8bUEGnyQgEA1uS4y7a9YWeA
-TkOZjaMll9OgIUH9gJmfHcwWaiRo2Q0=
-=y6XU
------END PGP SIGNATURE-----
-
---F1Dhg2KrVTCkSmmT--
+Br, Jarkko
