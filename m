@@ -1,72 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283466;
-	b=ui7CghlarSQv+S+ebmOCeT/Gmp0UMiX8A+Zx/al5zQQiEI7PgbBiTlFyiM8Vkx5pQaRf
-	 xj+asBsTzpSH76OSjeNtiPD5F3s/tY7Yg/+2zjyu6VhoK8BnNN7ZM+79rcv9gVUd5nBkC
-	 Bc9D9jM637pb8iibiud4nBYIbU/uqrR5A4pzyihgw2i2SUoQCgsjrDV3GYNV0WKVzmL5U
-	 FPRBmCEG2LmiAfqZkKDEFz88dZ1NsTC4Co4w0yDD7lPadHCbhGQpDspMmp/w1XjZI/uMd
-	 RjQJpsa/ygCDXeGFvgd7yv+AqCTcnPLB8MtoMNiZvLkRrzhB4VSMBtkTwVjnf7lbF4w==
+	t=1793283474;
+	b=wYDkYfqGJpduYwoQHl2juFxOrZf6jjBVVxsx0TYqj+yCTWZVKKegIelRsaZvE6J0M6Mm
+	 aulkd02NET56FdpzG9qIbMaAQVfXbhzXX31+hCCaeSLCeUiZsQq2L4m6q6/0NVKmuKtIv
+	 yfakLRwF4PNx5MT3Z5bLeonRm9QB7t+y8LaEMYYU8VcAxRtHLqudt/UwZUTQQ/eNaD7FA
+	 fFCxes8YvFoshyWmol+53bVPOg5IXKCBRssKaNphYcuOhRtXPBXZg77sgAGsUcVfzCTVD
+	 55ant/Wq0j18B6per3NJ+hlN4gsZPuoGrTa8p/YtBhHPhxnFSWc6rbglKQeh6TnkXEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283466;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=j6tezR2bbFOEa7WomVMs7rpcLRiBTmUY1XcdPftvFZo=;
-	b=mA8551gZrOVOUtJwTXvbq3C2qd5v7WCIootGyZuX/GU9vsgvyZYDJ7u4KWIXj6DZVMSX
-	 lWWi1PkR3LNzE+XRoqWVixo0Z31ONqP8i8iBdzkdrkmbGwg7Oc3wSyHyTmbq+1e6pTY8v
-	 kKgirgD2Ih5KtA8WW/74fyGYDzhzs/0opNUAIjdLZpiPdUnC3pS0C3zHEE0hjE0DtWHvN
-	 Gut5ywM1JBPnu1xYcLsxrDbBdPT3UOI/jutIkGjjUyW5Po6TAj7kaKkKpCqonqXAGYExq
-	 X15+b6+eUqVwh/WPoCiCdJZc+l+pdVTzLY105UFjyYct5p+S7NtRVmCuta5WvUMT2jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283474;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=ZGzPxtLEIASh5v8GJvNps6xy+CY7bnAktG1HiW2ABhc=;
+	b=HKR6xGHaf0XmZGfGBYFb7Q4MossHhSdHKiU2Ed9oH4h8XeGdmvZXkbQRnobmy6kAAGcE
+	 yVKyYNIadBhWUdV83jSnhROvKcD9kxhkPEbaoq1AJ6w36R6gUec9ZZoCQxZI6joeaB6FQ
+	 9sfk1ZtGM2pjUZpIO6eqR6MVmHNUaxYTyw6pU/V63uLubXvIbGGhdKEpV3v1rCvwxdoBN
+	 E2uWkTdnBw2tnDO0pfqBUA/u01JbTV+i5gu4XsHyywtPJmnv07uKguRPgLUeCxp7VV+pd
+	 innbhWzKZWNC+P2E8A8lt0RrvrvYZKrU1GkJltZkQiVp0VKJu3kR9iOObWVhDIH+8Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=w6rz.net;
-	spf=pass smtp.mailfrom=w6rz.net;
-	dkim=pass header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=R8h8nS2F;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LC95WxYV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C807F606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:17:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C807F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C99F5606A31D;
+	Thu, 29 Oct 2026 14:17:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=w6rz.net header.i=@w6rz.net header.a=rsa-sha256 header.s=default header.b=R8h8nS2F
-Received: from eig-obgw-6006b.ext.cloudfilter.net ([10.0.30.211])
-	by cmsmtp with ESMTPS
-	id MMDVxHhSILvgbMQwlxFZac; Thu, 29 Oct 2026 14:17:39 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id MQwkx0odusTgvMQwkxb6XA; Thu, 29 Oct 2026 14:17:38 +0000
-X-Authority-Analysis: v=2.4 cv=DPiP4zNb c=1 sm=1 tr=0 ts=6ae35582
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=GxnsrCybi4LwF3y-YhAA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=j6tezR2bbFOEa7WomVMs7rpcLRiBTmUY1XcdPftvFZo=; b=R8h8nS2FLrx4IergPvlH4ydsmb
-	YwI98F3OoBGBVhZ2MB4pLEW350dXqbVaN/lGRh4QihNxIi6uX7crSB558yDT05DQ14vzkXYPN2xE+
-	tNEESuqTII08BEdES5bjRWME5n1Y6NtsvQ7HJXRJkekSRQuss+oIRnqpq7PVpRV+x2dr0doZC2tsC
-	PAU2HCfn90ps8YKls/X3QqCuS5KUHMLXDd7r0yych1nUs5dqUk4JQpakRzG43OPWanottPsxSt8K1
-	8iFBL5zQ3OXqGT6lipUgYiEhiMrgW/aupbAsOxEG0IlWfVrnoVTLTqe4TBmpm64ER2UNJ+IpvImi9
-	4BV1sX5Q==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:52240 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <re@w6rz.net>)
-	id 1xMQwj-00000003wiX-3R7j;
-	Thu, 29 Oct 2026 08:17:37 -0600
-Message-ID: <4169401d-5dcb-46ee-ad65-3c14569c84aa@w6rz.net>
-Date: Thu, 29 Oct 2026 07:17:36 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LC95WxYV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEDB51F01825;
+	Thu, 29 Oct 2026 14:17:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793283473;
+	bh=ZGzPxtLEIASh5v8GJvNps6xy+CY7bnAktG1HiW2ABhc=;
+	h=Date:From:To:Cc:Subject;
+	b=LC95WxYVZywPVHOZD/8qJ0ugk/2tvuhkhKkyhHCBck9tW9Qqvigy0gLzt/bxNoNqi
+	 IOjPBT9cObu5cIjE9ObGeQym3xati08UOEsSj9KNK92h7oF7FYk7DiN/07uSb9xj7T
+	 PyrFIEf9COYcWw1eNUYR+u7UGL4Fvxv074XURQF5wz+ZcgSfKuh9MwvBvEm62FUKNk
+	 MkLfXtUn+PQq8zHHjoxDQBJWj3h1NTC/QOfqXJeX6wMBsLTQ1mG1q14Jh3ljUe21W0
+	 yHDee8e6aIPZPTBMM91kFUIFSCD4iDtPySzgWkB42AJygURXiPuKo13Z4epJauRbez
+	 r5jDSgB37eidA==
+Date: Thu, 29 Oct 2026 14:17:50 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: manual merge of the vfs-brauner tree with the
+ vfs-brauner-fixes tree
+Message-ID: <auNVjjjxWnmPOLUj@sirena.org.uk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,63 +56,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/88] 7.2.14-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261028165942.107695352@linuxfoundation.org>
-Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20261028165942.107695352@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1xMQwj-00000003wiX-3R7j
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:52240
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 37
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfLKNHxMCRUQVVQzHxYjHUik15KXhGEUgh48cioK3PC2fCglAAJzJJv3jupbAxvWtZbJEUnAExSMjTEERoE/etZtqF1vuyfjO49HxAfE++q4s1yZA9bIb
- PqZGZ3qJwitU4zcxhRJjBvaw8c+c2lPek1g74sfXpEX9wvvl4lONS6S85dW6jS2yo1+SSseL1Bjb8ic9tMzr1SvcvYDkUYzAPwA=
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3wPxrIIxSqRRX/oS"
+Content-Disposition: inline
 
-On 10/28/26 09:59, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.14 release.
-> There are 88 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.14-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+--3wPxrIIxSqRRX/oS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Tested-by: Ron Economos <re@w6rz.net>
+Hi all,
 
+Today's linux-next merge of the vfs-brauner tree got a conflict in:
+
+  tools/testing/selftests/Makefile
+
+between commit:
+
+  073d71c5118f4 ("selftests/filesystems: add a test for freezing a shared b=
+lock device")
+
+=66rom the vfs-brauner-fixes tree and commit:
+
+  c6c917c1ecb48 ("Merge branch 'vfs-7.4.misc' into vfs.all")
+
+=66rom the vfs-brauner tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --combined tools/testing/selftests/Makefile
+index 07c3719f8b04b,32dde7b95848e..0000000000000
+--- a/tools/testing/selftests/Makefile
++++ b/tools/testing/selftests/Makefile
+@@@ -34,13 -34,11 +34,13 @@@ TARGETS +=3D exe
+  TARGETS +=3D fchmodat2
+  TARGETS +=3D filesystems
+  TARGETS +=3D filesystems/binderfs
+ +TARGETS +=3D filesystems/configfs
+  TARGETS +=3D filesystems/epoll
+  TARGETS +=3D filesystems/eventfd
+  TARGETS +=3D filesystems/failfs
+  TARGETS +=3D filesystems/fat
+  TARGETS +=3D filesystems/file_stressor
+ +TARGETS +=3D filesystems/freeze
+  TARGETS +=3D filesystems/openat2
+  TARGETS +=3D filesystems/open_tree_ns
+  TARGETS +=3D filesystems/overlayfs
+@@@ -99,7 -97,6 +99,7 @@@ TARGETS +=3D net/packetdril
+  TARGETS +=3D net/ppp
+  TARGETS +=3D net/rds
+  TARGETS +=3D net/tcp_ao
+ +TARGETS +=3D nfsd
+  TARGETS +=3D nolibc
+  TARGETS +=3D pci_endpoint
+  TARGETS +=3D pcie_bwctrl
+@@@ -180,10 -177,6 +180,10 @@@ endi
+  # of the targets gets built.
+  FORCE_TARGETS ?=3D
+ =20
+ +# Remember dry runs for the build report before MAKEFLAGS may be cleared.
+ +KSFT_BUILD_REPORT_DRY_RUN :=3D $(strip $(foreach f,n t q,$(findstring $(f=
+),$(firstword -$(MAKEFLAGS)))))
+ +export KSFT_BUILD_REPORT_DRY_RUN
+ +
+  # Clear LDFLAGS and MAKEFLAGS when implicit rules are missing.  This prov=
+ides
+  # implicit rules to sub-test Makefiles which avoids build failures in test
+  # Makefile that don't have explicit build rules.
+@@@ -228,10 -221,6 +228,10 @@@ ARCH           ?=3D $(SUBARCH
+  export BUILD
+  export KHDR_INCLUDES
+ =20
+ +# Version of the optional KSFT_BUILD_REPORT format written by these rules.
+ +KSFT_BUILD_REPORT_VERSION :=3D 1
+ +include $(top_srcdir)/tools/testing/selftests/build_report.mk
+ +
+  # set default goal to all, so make without a target runs all, even when
+  # all isn't the first target in the file.
+  .DEFAULT_GOAL :=3D all
+@@@ -240,13 -229,11 +240,13 @@@ all
+  	@ret=3D1;							\
+  	for TARGET in $(TARGETS) $(INSTALL_DEP_TARGETS); do	\
+  		BUILD_TARGET=3D$$BUILD/$$TARGET;			\
+ -		mkdir $$BUILD_TARGET  -p;			\
+ +		mkdir -p $$BUILD_TARGET &&			\
+  		$(MAKE) OUTPUT=3D$$BUILD_TARGET -C $$TARGET	\
+ -				O=3D$(abs_objtree)		\
+ -				$(if $(FORCE_TARGETS),|| exit);	\
+ -		ret=3D$$((ret * $$?));				\
+ +				O=3D$(abs_objtree);		\
+ +		status=3D$$?;					\
+ +		$(call ksft_record_build_status,all,$$TARGET);	\
+ +		$(if $(FORCE_TARGETS),[ $$status -eq 0 ] || exit $$status;) \
+ +		[ $$status -eq 0 ] && ret=3D0;			\
+  	done; exit $$ret;
+ =20
+  run_tests: all
+@@@ -303,7 -290,7 +303,7 @@@ ifdef INSTALL_PAT
+  	install -m 744 kselftest/ktap_helpers.sh $(INSTALL_PATH)/kselftest/
+  	install -m 744 kselftest/ksft.py $(INSTALL_PATH)/kselftest/
+  	install -m 744 run_kselftest.sh $(INSTALL_PATH)/
+ -	rm -f $(TEST_LIST)
+ +	: > $(TEST_LIST)
+  	@ret=3D1;	\
+  	for TARGET in $(TARGETS) $(INSTALL_DEP_TARGETS); do \
+  		BUILD_TARGET=3D$$BUILD/$$TARGET;	\
+@@@ -311,11 -298,9 +311,11 @@@
+  				INSTALL_PATH=3D$(INSTALL_PATH)/$$TARGET \
+  				SRC_PATH=3D$(shell readlink -e $$(pwd)) \
+  				OBJ_PATH=3D$(INSTALL_PATH) \
+ -				O=3D$(abs_objtree)		\
+ -				$(if $(FORCE_TARGETS),|| exit);	\
+ -		ret=3D$$((ret * $$?));		\
+ +				O=3D$(abs_objtree);		\
+ +		status=3D$$?;				\
+ +		$(call ksft_record_build_status,install,$$TARGET); \
+ +		$(if $(FORCE_TARGETS),[ $$status -eq 0 ] || exit $$status;) \
+ +		[ $$status -eq 0 ] && ret=3D0;		\
+  	done; exit $$ret;
+ =20
+ =20
+@@@ -329,9 -314,6 +329,9 @@@
+  		printf "Emit Tests for $$TARGET\n"; \
+  		$(MAKE) -s --no-print-directory OUTPUT=3D$$BUILD_TARGET COLLECTION=3D$$=
+TARGET \
+  			-C $$TARGET emit_tests >> $(TEST_LIST); \
+ +		status=3D$$?; \
+ +		$(call ksft_record_build_status,install,$$TARGET); \
+ +		(exit $$status); \
+  	done;
+  	@VERSION=3D$$(git describe HEAD 2>/dev/null); \
+  	if [ -n "$$VERSION" ]; then \
+
+--3wPxrIIxSqRRX/oS
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrjVY0ACgkQJNaLcl1U
+h9AGWwf9HZN9ZZPN9FVw/Yfr7SjSOcZYvHad64XVnBcKEGdjzTrn84FCOesAA9eR
+EORZ8qyltJfqv3n2jB01kfzHA1eA91P3PWRUJtpNRTBqU8OaukVjzMxoii8i0Tcg
+m/AIZIzMnQZwCU2lgpc+u2Temyy27EW5JtNiXCddtPjjtr4XAW7tfpy4Ztnk55bm
+5akRCmlrg06ijTGIVc7XaLspiyy8dYTmlR2HuRZuAu2mGekVTpY1djvxVKf4hToe
+K9HAoF0arkHjb20VVPxFB/wbPm9lycdTpudMRDY9LVMSHwc8fWypYamCliHMo1QF
+t6MBA1CJ7JSLpnmNOajkma/IFaC+bA==
+=H3v3
+-----END PGP SIGNATURE-----
+
+--3wPxrIIxSqRRX/oS--
