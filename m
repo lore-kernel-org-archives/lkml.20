@@ -1,53 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257792;
-	b=XKSfgMHgGYTLjflxKpBgywBUAs84ke8vlHg2lx36CHwij36S/gau1v/uls8DvGmQ51fO
-	 7dRgvxtU/SdHilkhr16uPNXT37IkiFP/NfqTEYpErWLAZimB66JGwT9gjjuSYLkR2jJ5z
-	 0HPSFKnXp5QWuSQBmHcncXOyhrn1dRWPmkVwncHhJgPOSGdxXqn9CJ06AhKzEHXexhMfr
-	 D+728ASY6869O0t3bhUACSsv6cYC+kLKfPCYc4ar1/sKTk9AjtQ4LcUJoic0yw7o47FND
-	 3W74r2P1GRXio6O6QXJ9uOv+udbe4EaX70yAz03k0YRag33WJNO3IevnZXCPUYJN8ig==
+	t=1793257794;
+	b=iHI+H+DaGUPdMv8p1VNAE/PNE64q1huS17ZcZPk50aczPOKF+pmKO09rMdJURc+0qxEP
+	 8LgORtTQHzaNNk1FRoDPmHlIHVZu471ijlxvP3ZXcMU5li+A6boKi+u6KN5s3T3skYM7v
+	 jfsasoJX1yTdMWMnSQQdwPQxwicIBKeyxy/qEbnhNk+Og6J8oiSSxP87kvChNyxguUbM9
+	 wraG/ut1WAIe+vCm0DLDFvfN3La5tRZa2AfPdQceZcG/73hjvLyjJtB96StZsEMBcGfk2
+	 D7wyGOzNplEHHm0jM3+Ld0mm8ux3tFiLTcpRyd9sRZI63N35s79DoQGPqXnSQzwyxJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257792;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=OkNNt1DdYJ8oNEZtMuUEt211HeokbzbkjBqm4BwFhvU=;
-	b=v9rbuERyEHGDz5TXVNAwxhEjILs0B/B+txRg0NQrbw4bXtu0bz87XKngXMze0LhEJbnH
-	 j2zc9hTQzG70/X8j97OdDJy8+ZaiGHifoap8F8fAF856TUOk3SeF0JonB4trzOOiXEzdu
-	 IgKAT1Dw5HegHsduFVnmkfrivUgOQoqpItz8s7rBA5uvpWotVZlJcR1sPnFaoLv3uYxGm
-	 V9G9jCFTWl5jVPchC+GAD7ivL7Q45aXHtiFCHkwEp+6xcpB9Ozl02lkhpMC8yOTkxz1rB
-	 G1/St1xqfdcKHVXrp4yt421uez3Cdskdrq4kW6VghIOVIWlGEVKpDBJ/Ho5JlG2V2SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257794;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JNNV788xpo7WgIiTAmutGEMDPMzL76pTp2ULVwQN6Ks=;
+	b=1/DYDO48yL/1R9xZ2TZRdn49whseWZSqcqg1aexLf37/NQ1nXmYTSvQC2OUYzXOXvl3w
+	 zZpKyMxt/fGl14bL00Rj/KXL0qlYjhYwL7Xdg1j/XdDmMiq1WRUJaKuoKUY98H/FVGPrr
+	 ZhLMqmLsl6AHyM2zvbMWNAZNziBcrEkQApt0wBrx8Ewzm6o2I8RsjJ5LuNCHb+XZH4xCe
+	 Ls3RjJghPJBkt9MxMa98bPVTGD6NUISd/vcZAgqFwP0wnR9kfDl4RPZk2qqT/ptJlHTnr
+	 RzjgIDlSF3B2OGzydNvpybWNxoKZhTrs9NqqDsA7LeDgVUvg2FOYaH8+hS8cwLu0RxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.161.72
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=NkiYk3Ms;
+	arc=none smtp.remote-ip=162.62.57.49
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85018606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:09:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85018606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-7026e2e80f0so2045761eaf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:09:52 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793257791; x=1793862591;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OkNNt1DdYJ8oNEZtMuUEt211HeokbzbkjBqm4BwFhvU=;
-        b=SutiKJo2NReRJwLCEhg5jUWbZUJ8kY2adNf5bGH60tVt17i+E1qdEbmzzw+eOubue0
-         xlxt/5ehBw614nvxd9wTGaqJJv/NTalqOsfMA+uW73bw1j2hgK2ZNuQL0jTIEqrD6Fkz
-         xd+NtktvIcGDdjs3n15PjYrsna7T+QqDchDBcPcG2iksNdlLVOUoLFWI3hnx8WrsKKuW
-         lYw0ejwFjzGoBEyqAckUpUCqtPVmHdXpZ/yk+1K8qzm2oxBpMwemyawkhUknJ797WX6N
-         8uw8LSBkFSmf6DiORfHWrXZ/l4c+yv/aq3CYCVbMTfceheN3sxOsGjitDHO4439owO2m
-         eIEQ==
-X-Gm-Message-State: AFq9FYLoV1QpS8mFr1VonerjlJ6qiNAJK29bAPFQUp59sz2cSPi9ao3f
-	CmcCKPzpdJbw+x0ars/VIptBCvLZPwcFP22tRAySeH9V0i1IeEiw9I0toO2/jLp+3p0vfc6Gmne
-	ERKaTPyzskY8l0Xeijv+ZIgL5CDn+BwfuWSNG2Ev+wbSGjmKzanGX5L00Bmo=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E55606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:09:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61E55606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=NkiYk3Ms
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793257788;
+	bh=JNNV788xpo7WgIiTAmutGEMDPMzL76pTp2ULVwQN6Ks=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NkiYk3MshO9ilazqOGwBYobhQf0+hD4h7bgMU0j5d5SnnuRWZdDuX8x4ZG7uU6o6T
+	 l2yp8RCvXAaNrMBP+RDtw0EHy694jlEznG1DschGchSYJKm881dV1lJo+1eA26ZBxJ
+	 5a4tuo3gomJBVbZXIUBXlGv5NeJChzzAts3O/iXw=
+Received: from HAPYCAO-MC1.tencent.com ([61.151.228.145])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 26D9EAA6; Thu, 29 Oct 2026 15:09:45 +0800
+X-QQ-mid: xmsmtpt1793257785tqfw5o7kv
+Message-ID: <tencent_4EEFD45526C7EA904A92EBD59731E1362D07@qq.com>
+X-QQ-XMAILINFO: MDbayGdXPuoefcWCFGYWk1ixO7KUdSk472SRPFHO4J5adNW8bCY/A34rt+p7Fy
+	 bjHtZIKadn+/bIfIw02M8KziBTRXfswB6Eog7UWgBVkOq/Mnv06gBQVyGr6wbOZdtwsl7olHzrU0
+	 351/St/RyQJclOkPVaSlFJD+oNIxIQkpOQ1HKp5sXvuNftFFyjIx3mYt4g1WFvGdz2balqXgQFYb
+	 xJ5fR7D7ED278ZhRs3G+Atjzaed/kIDaolRpFYUcMdhp+SdUsd1rH8cTBl8w0WJd3sbIus2c5eGu
+	 VfhDz/B/eddNNVMsM2x4Ihe8kOOiXnrkKoMnS0hUwIGaFbF3H+udmbWKZjGx7+Aee4B28bcdpuQA
+	 ttK9Fgf2bpDdYHImFDNrpPnnLdAEaHaCapF7XJbo5aKZIlpKLfVyWt1f4dm2WUpACCWaokiSRRm0
+	 HNR6qxXiwENDcjP/mGt5asyNTlXWbq0fE+d9Pu7CM16oyRvglkZwozKlIfblqUDL9K1qcxhDY4WU
+	 E7+EPuptoEtcAZ8hX+waVeB9gW3bRo4+22/xhFsvVVTJ5vVq/mY0T40BxoDKNUQE9Ai5iszso48G
+	 npSOm79DLWrwvn8PIDPlOJ7UME3L6rebLcWE+pHzpbZfGZ8jChAz0X6yQPiunrEuDqVPCUldmLiY
+	 lOJirRQiQxRVY28L96rDvO0zCsYm838d5VuaWjxhAcIftuFKPFXdZyNINmxKoFIRbvBlnxTcF0KF
+	 VdDtOd66h/JtGAkbPtg0jV7kuqw7tdph8SBrex14Wmi3/ZpE3qvQG+AuKfWLrfHEDrtMXH+u30fg
+	 H52jabsRsRbI+RR+dkmUCBNTAAr36dylpZQ33yQyJ7w7LMXl2QEeKuqXu3sdGVVJ6rhgSip3emS3
+	 z1jyWRXOmnD2LujNyVFNfIqpFuWHSmUA3z9GxYhAW3UZDF5071LN8CMa+e/iqzurSs4aL69ZiUVb
+	 R9dHGzn/7HtAJ1XkKmIxFKf41IXoJfSNTDg0AYNjZo6ki6tgf0yfh0F75FiiT6k14mBsL/XbGYMZ
+	 mbtvy+om4XoPadAh7ZcTLEqbofwBK6t6t2y9t/VWFcOfc2QtY/9e9sdxVlzhc0bNC3F0ap7puxIl
+	 gRbADEeqNDhN8E4Tunh3R4AODs0BUkGPTSnltg
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: bo cao <treebacker@foxmail.com>
+To: gregkh@linuxfoundation.org
+Cc: arnd@arndb.de,
+	linux-kernel@vger.kernel.org,
+	treebacker@foxmail.com
+Subject: Re: [PATCH] char: uv_mmtimer: prevent read-only mapping from becoming writable
+Date: Thu, 29 Oct 2026 15:09:45 +0800
+X-OQ-MSGID: <20261029070945.64492-1-treebacker@foxmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <2026102935-corridor-surreal-ef51@gregkh>
+References: <2026102935-corridor-surreal-ef51@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,32 +82,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:8595:10b0:6b7:8415:d790 with SMTP id
- 006d021491bc7-713ef240ba4mr1912096eaf.59.1793257791566; Thu, 29 Oct 2026
- 00:09:51 -0700 (PDT)
-Date: Thu, 29 Oct 2026 00:09:51 -0700
-In-Reply-To: <6ae27ca7.5451848c.f7707.0002.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae2f13f.5451848c.f7707.0006.GAE@google.com>
-Subject: Forwarded: Re: [syzbot] [mm?] BUG: Bad page state in hugetlb_no_page
-From: syzbot <syzbot+d06e9fe6d6a7b537fe49@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+Understood -- please consider this version withdrawn; your patch
+covers it.
 
-***
+For what it is worth: my duplicate check is automated, and
+lore.kernel.org is behind an anti-scraping challenge (Anubis), so the
+list archive was not machine-searchable from my tooling -- that is
+how the duplicate slipped through.  Before posting future patches I
+will manually search the archive for the relevant keywords (file
+names, subsystem, subject lines) to confirm no existing patch already
+covers the same ground.
 
-Subject: Re: [syzbot] [mm?] BUG: Bad page state in hugetlb_no_page
-Author: jm5905938@gmail.com
+Apologies for the noise,
 
-#syz fix: mm/hugetlb: fix use-after-free of a new anon folio
+bo cao
 
-Resending the fix association directly to syzbot, as my previous
-reply was sent only to the mailing list.
-
-I verified this fix against the syzbot reproducer: the unpatched
-kernel reproduced the issue in 18/20 runs, while the patched kernel
-reproduced it in 0/10 runs.
