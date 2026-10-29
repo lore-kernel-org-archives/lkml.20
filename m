@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281972;
-	b=uuxjX4eFQhl8hxg8NqFmS/VLuIHYPXO2e92cFbh8PEdbT1qS4vH+Nzr4nONYAYFAGtaW
-	 QatZf4vWKtE8fdM4j/2ZsTKo4XPI7PtxOnTKDu70nTjHba3bD4VRlYgy/Tl0mQtVKHSlW
-	 jEPtRI6ANQTwMxbUOfaXTERjqb45/SR0VuaETqVqxyKUpvp4dEfq+KcB/BZBBBFy06HNW
-	 YLFzw+WfzcQCMFurUYEiVF5dy3/dg6LY5iviKIPm575Znru7UUvT0rDcEsB1COcSQfIYU
-	 QtFij7eHV+lXRhc7DWMAnCGIfPooLkGvw/ZB2wArWSEj3/rHD92fO8/DD1GR2XxLnBA==
+	t=1793281987;
+	b=DkE+r/e2Pd+BSL8zTlMjrKr1UqBx0nLndVaVnJMS8tgOusRvMU7K7bxT7siTqSiw47Eh
+	 76V7PPweISZvir8loUD+y1/0UErB2LdmBc/IShXfsSWshS+sQgGk6YjadeR0RmSC3POYh
+	 KnsyXStkP4e251fIU3w1fGxBWvsDLAkhzDnkwpAaFRK1KLnfNGfXCMqAyxbfoC/HYKrBq
+	 s+H043bYwC57/f5H1pGeAMmf1ywPSzkEXo5AfGpN43k0+HC29HVQB66fOt1y+EHPQ1Za6
+	 wUw4dfCKZ47UtI7QdJnFHu0AAAAruSQh06cjh5Xd+6rAYxbccFomqlE6GAAk711qFYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281972;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=WZB7xneQnbHrSucut/VMFiD9WupDYt7EZVgw8aPOdQE=;
-	b=2QN4YLIT5ZUiC3C/LFVQWTbSjEGf+8trrwaBDteoeL98+sExoKwgXg4gqwvl0kdekBLH
-	 edghwgXg7AP0uoAYrZo9vuYjkibPqfIqUB7GIgO+j0WCR/5PiVVLll6KAgFuifHV0om+p
-	 XIgqTIh1zXA1hAdlYWYyN5fXKKUQl07EaCYTa7j4ZQotk3sBrp7Iepo0D3bniWkPaMkoy
-	 xnu/xRbplDSZ1MUkXcJq5c+HSU4BnIybkvBSsdj9ZvpyW6Wt41ZPLzO+DNKmsbUoW5kQU
-	 U014EZwL2D+c2NI9ey9hZU/WXMkIaOqC6CpgM6yZqH+mVeqjdLF/5NQdkzZoiHnub+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281987;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=gaJ4+9mmPD4lBBlHsni916fB1brqPSLNtulQU+Q8NCs=;
+	b=ypqXV3u1AYlxpDKJ9CCV5dF+yRX7TbGtZ+6/Wq+18/fbm4jHefxgtbKNXpXLNYQnP9Gh
+	 upez7bUBgABJXUB6ZeOpOcRAy0z0jtTy4OTblrx6il5dj3TH1lI3ZDjiLWPH55yDxfDRX
+	 amcMeLYODCqBZDN18aXIoLwTdE2lur3rGJ7DyEtoCOx5usirQWS0vF4tbfVBl7i2Nt6DA
+	 n83xejf4wMrHL2XP0OAjnVwd9QFWxzMgvxd+dN7nmMWqIBjiGgEINt1N9d+IXquKcPBHJ
+	 GcOYZTIuJvDmr6OCx6F8e2A+mnSCEGDdLaRUQ1eb8FVYE6zRfdMwlLqyMGJOK+1oICA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8rQT21N;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Ndce/g9J";
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0C8606A31C;
-	Thu, 29 Oct 2026 13:52:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 657C9606A332
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:53:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 657C9606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P8rQT21N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15C671F01825;
-	Thu, 29 Oct 2026 13:52:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793281971;
-	bh=WZB7xneQnbHrSucut/VMFiD9WupDYt7EZVgw8aPOdQE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P8rQT21NZ3ze9vyOwpc+ckgR/cNbNf6P//SEGy7Jp0nHNEQGwEN6in9V34L/4ig+J
-	 loj4ub6qLdQyzRbONNWnLezUqPUDpam2la/7xtLGrjilVWeUFBRjvxgSpK5pLDXeEP
-	 cbTa9LCtSAMkcIthmg/1nfQ0LLT/0U3NDuvQsbjSQ+Oj26WzBQulb7Er6qd8+MRySe
-	 YdAJtrac6fxRR0pUOaCbxmDtXFvVns0MOxmP0sqDD/uhjxzMPmirCMKTpPThwYBifT
-	 XuS6hpwKWmFxAJ3ZDoCHDRiCGM6xqGcE3IWb1sA89ABFFYx/gzKeQCvI9rQhKUygkv
-	 7UeJrx5ShE3YQ==
-Date: Thu, 29 Oct 2026 14:52:47 +0100
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Kees Cook <kees@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Bill Wendling <morbo@google.com>, Petr Mladek <pmladek@suse.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Shuvam Pandey <shuvampandey1@gmail.com>, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] seq_buf: Mark a seq_buf overflowed when terminating it
- loses a byte
-Message-ID: <auNNcmUuR8DS7Hys@devuan>
-References: <20261029053250.i.220-kees@kernel.org>
- <auMwo_T_FsZp5UsB@devuan>
- <20261029091845.21464a1a@gandalf.local.home>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ndce/g9J
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e09aa5264so1157700f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:53:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793281986; x=1793886786; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gaJ4+9mmPD4lBBlHsni916fB1brqPSLNtulQU+Q8NCs=;
+        b=Ndce/g9J4Oe2VVJFSgQ2IQsZWr3ydkH04o77/QHfkZoQHeD8Yu2I6SQQt7hXKrPj40
+         eXrGq6RIpaw9ZmyJtLBIuGYEcHhyN1DdClqcHEZ+5qg51++Jag+ep+NjD9HJ8qLSWLy9
+         NWVL+gpV4Quh96YINe+ezGZaaJ9oE4nm5UgH7zH9ZdkqMVpenHGaaa6tVgsh23lT4402
+         /TSOSfmn+WYKGBhBxUg7TjJ39M5NfBwRU0lf+zC9fuvAO+Xke1PiiLWcrCnPU1jqC6QI
+         Mn7B3jDP1MTpNZcqf4ntVSJ5gCHPV2529wER5Q8O3MVqQ36LeZN2VbRDxiD+tLbvfhYF
+         DJZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793281986; x=1793886786;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gaJ4+9mmPD4lBBlHsni916fB1brqPSLNtulQU+Q8NCs=;
+        b=SqnNmis718ZMAFykEnI+n6Q4gYJAIKsRGHnzentZ90i/xY87t3It5xzByZDCGe4X7Q
+         Nrx1MEg8qFacrpSWm8oE9u0xUoU5powWJmX0iyXQFv7v9MfT8dyEkYabGw+kUDiySHXA
+         7GnUJEkP4OYkGyvLyP8qHOAFU17vcLkA+6FRAGqXi/6OsArtGPnGpmNVpWPqs1SGODRy
+         WK6jV4uCQs77MRMBe1w8Lx5DmH1fGsRHUMTxC/3IAYLPSHMuIJANOcCGJC3ZJVe5u7vY
+         4GC8s/SoS385Zi3uzjxmm3w/Bzav5SSazptmuT52AkrddfPIfzaFBmtriwAmyRkdW+Bm
+         nfCA==
+X-Forwarded-Encrypted: i=1; AKwUvBxCQTFDcvY4N5i0Vkb0HkLgKlihPiNMG0CNpMS81SXBB/wL1aDtoi/u726xvqfkmPXxaGEGNCZ9nMr5R/k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDscgRm2/Mqaqv3FWpHsd1f/G8mLdQ2UuaoXbJD0y8HO84tf17
+	AuS8LdhUoFEUu0l1nf/UxrufWANZpKsUDPxcQ2fdtuKvbxv1H6rTyX0=
+X-Gm-Gg: AYBFou0JpuhlhD1I283boUzUWF7Zec3wblWeXQ3wzvi93i6UFAlr60H5wrOc7XsCsbX
+	boyQvejUvYUaYbisOnqFruIyeNlrshnsagtn4tbEtA7PQMF9+Q31+abp+VvzwaOoxEGcc7DGTlt
+	EYmMilv2Lg1eEDNuRfPWrmbwbz6Ls3wInluVxGS/Q5lg0T4X9zXxRWjd8olHH9YYpwPwQUx0Vkk
+	cWUmfZLik73rmpzML0SOUhOvkGvEjOJaZpb3qw2XfWKj1+SlYB/IriJ+WHp/+spr8SYeaGjWhRf
+	+7gFMRpnN4WqmLG4vRaNrGSLx1UDFGJdtG74L/f3+8r8iMumC/ORudxw1eQh00ru5nyzRlDe/oH
+	DWnpOP9yihBbo8Sz1MkC9LBwv0M9koCKDT18EXVnhNkUY4B8imaW5XPOt8pGNHyguk1jmHZ8nlg
+	x414dq1xK2ms6Xay9ng6eiO1JEsDumCw2OGv2p2uMrguw1W/VWOzH0dBOXQjaL8XzLD2qQU0Kma
+	VCaTFukcOBJNzA/QNoHB52YrKvwAfSSgtbCkyS9oyYastACYSOy9eNo+4Iv6nhuh+bWIcDKIGWM
+	k+/h+7UZIguTH/kTcQPx9NuLX203TsvFfy+bo6+ocFJTGQ==
+X-Received: by 2002:a05:6000:200c:b0:48b:116d:56fb with SMTP id ffacd0b85a97d-48e5d567e85mr13366844f8f.1.1793281985638;
+        Thu, 29 Oct 2026 06:53:05 -0700 (PDT)
+Received: from [192.168.1.67] ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dcbsm33456468f8f.14.2026.10.29.06.53.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 06:53:05 -0700 (PDT)
+From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+Date: Thu, 29 Oct 2026 14:52:40 +0100
+Subject: [PATCH RFC v2 03/14] drm/msm: look for lpac from dts
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,131 +92,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="54jmzgfhb4l25z3a"
-Content-Disposition: inline
-In-Reply-To: <20261029091845.21464a1a@gandalf.local.home>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-descriptive-name-lpac-upstream-v2-3-a21a5c850961@gmail.com>
+References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
+In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, 
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793281977; l=6436;
+ i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
+ bh=XpQ9AteTwMtLcsxYohB2gJNeRwk7JfV+tvwdBjYtlVM=;
+ b=qJvSiqvDD9GrBlIaJ1RKA9o8A4IaM3JohySZtd/JVEOLdgV49X0tKEgfd5R3pjwNDTF4Zh1r/
+ nkMzJe2orBYCYxYltUajmFOI3R3Mior3UrbO69vtb5EGuRS9UYNb5Ry
+X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
+ pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 
+In order to associate the SID used by LPAC to it's own domain and
+context bank we need a separate node on the DTS.
 
---54jmzgfhb4l25z3a
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Kees Cook <kees@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Bill Wendling <morbo@google.com>, Petr Mladek <pmladek@suse.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Shuvam Pandey <shuvampandey1@gmail.com>, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] seq_buf: Mark a seq_buf overflowed when terminating it
- loses a byte
-Message-ID: <auNNcmUuR8DS7Hys@devuan>
-References: <20261029053250.i.220-kees@kernel.org>
- <auMwo_T_FsZp5UsB@devuan>
- <20261029091845.21464a1a@gandalf.local.home>
-MIME-Version: 1.0
-In-Reply-To: <20261029091845.21464a1a@gandalf.local.home>
+Add the code to look up that node on initialization.
 
-Hi Steve,
+Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+---
+ drivers/gpu/drm/msm/adreno/adreno_device.c | 10 +++++++++
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c    | 36 ++++++++++++++++++++++++++----
+ drivers/gpu/drm/msm/msm_gpu.c              |  6 +++++
+ drivers/gpu/drm/msm/msm_gpu.h              |  1 +
+ 4 files changed, 49 insertions(+), 4 deletions(-)
 
-> Date: 2026-10-29 09:18:45-0400
-> From: Steven Rostedt <rostedt@goodmis.org>
->
-> On Thu, 29 Oct 2026 12:47:04 +0100
-> Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
->=20
-> >=20
-> > This fix in theory solves the issue.  However, I wonder if this is maybe
-> > too late to report the overflow.  Callers normally expect the overflow
-> > to happen while they're performing their writes, and maybe they don't
-> > expect the overflow to happen at this point, so they might forget to
-> > test, and keep going with truncated data.
->=20
-> No, the overflow should be checked when they are done with the seq_buf.
-> Which means after they do either seq_buf_str() or seq_buf_terimnate().
->=20
-> >=20
-> > How about not allowing a full buffer without a NUL terminator in the
-> > first place?  That is, we could report a _putmem or _putc operation that
-> > writes a non-zero byte to the last element in the buffer as being
-> > overflowed.
-> >=20
-> > This would waste one byte, but would prevent users from having to expect
-> > a possible overflow when reading a buffer.
->=20
-> This only happens when the user expects the string to have a nul
-> terminating byte. Don't think too much into this.
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
+index 7f20320ef66a..4d22223c3323 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_device.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
+@@ -6,6 +6,8 @@
+  * Copyright (c) 2014,2017 The Linux Foundation. All rights reserved.
+  */
+ 
++#include <linux/of_platform.h>
++
+ #include "adreno_gpu.h"
+ 
+ bool hang_debug = false;
+@@ -271,6 +273,12 @@ static const struct component_ops a3xx_ops = {
+ 
+ static int adreno_probe(struct platform_device *pdev)
+ {
++	int ret = 0;
++
++	ret = of_platform_populate(pdev->dev.of_node, NULL, NULL, &pdev->dev);
++	if (ret)
++		return ret;
++
+ 	if (of_device_is_compatible(pdev->dev.of_node, "amd,imageon") ||
+ 	    msm_gpu_no_components())
+ 		return msm_gpu_probe(pdev, &a3xx_ops);
+@@ -282,6 +290,8 @@ static void adreno_remove(struct platform_device *pdev)
+ {
+ 	struct msm_drm_private *priv = platform_get_drvdata(pdev);
+ 
++	of_platform_depopulate(&pdev->dev);
++
+ 	if (priv->kms_init)
+ 		component_del(&pdev->dev, &a3xx_ops);
+ 	else
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index f3fc7032fadc..1dedeb19946e 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -11,6 +11,8 @@
+ #include <linux/firmware/qcom/qcom_scm.h>
+ #include <linux/kernel.h>
+ #include <linux/of_reserved_mem.h>
++#include <linux/of_device.h>
++#include <linux/of_platform.h>
+ #include <linux/pm_opp.h>
+ #include <linux/slab.h>
+ #include <linux/soc/qcom/mdt_loader.h>
+@@ -201,7 +203,9 @@ adreno_iommu_create_vm(struct msm_gpu *gpu,
+ 	struct drm_gpuvm *vm;
+ 	u64 start, size;
+ 
+-	mmu = msm_iommu_gpu_new(&pdev->dev, NULL, gpu, quirks);
++	mmu = msm_iommu_gpu_new(&pdev->dev,
++				gpu->lpac_pdev ? &gpu->lpac_pdev->dev : NULL,
++				gpu, quirks);
+ 	if (IS_ERR(mmu))
+ 		return ERR_CAST(mmu);
+ 
+@@ -1187,6 +1191,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 		const struct adreno_gpu_funcs *funcs, int nr_rings)
+ {
+ 	struct device *dev = &pdev->dev;
++	struct device_node *lpac_node;
+ 	struct adreno_platform_config *config = dev->platform_data;
+ 	struct msm_gpu_config adreno_gpu_config  = { 0 };
+ 	struct msm_gpu *gpu = &adreno_gpu->base;
+@@ -1200,6 +1205,18 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	gpu->allow_relocs = config->info->family < ADRENO_6XX_GEN1;
+ 	gpu->pdev = pdev;
+ 
++	lpac_node = of_get_compatible_child(pdev->dev.of_node, "qcom,lpac");
++	if (lpac_node)
++		gpu->lpac_pdev = of_find_device_by_node(lpac_node);
++	if (gpu->lpac_pdev) {
++		pm_runtime_enable(&gpu->lpac_pdev->dev);
++		if (!device_link_add(&pdev->dev, &gpu->lpac_pdev->dev,
++				     DL_FLAG_PM_RUNTIME | DL_FLAG_AUTOREMOVE_CONSUMER))
++			dev_err(&gpu->lpac_pdev->dev, "failed to link to lpac device\n");
++	}
++	if (lpac_node)
++		of_node_put(lpac_node);
++
+ 	/* Only handle the core clock when GMU is not in use (or is absent). */
+ 	if (adreno_has_gmu_wrapper(adreno_gpu) ||
+ 	    adreno_has_rgmu(adreno_gpu) ||
+@@ -1221,8 +1238,10 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 
+ 	gpu_name = devm_kasprintf(dev, GFP_KERNEL, "%"ADRENO_CHIPID_FMT,
+ 			ADRENO_CHIPID_ARGS(config->chip_id));
+-	if (!gpu_name)
+-		return -ENOMEM;
++	if (!gpu_name) {
++		ret = -ENOMEM;
++		goto err_put_lpac_pdev;
++	}
+ 
+ 	adreno_gpu_config.ioname = "kgsl_3d0_reg_memory";
+ 
+@@ -1230,7 +1249,7 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 
+ 	ret = adreno_get_pwrlevels(dev, gpu);
+ 	if (ret)
+-		return ret;
++		goto err_put_lpac_pdev;
+ 
+ 	init_completion(&adreno_gpu->fault_coredump_done);
+ 	complete_all(&adreno_gpu->fault_coredump_done);
+@@ -1241,6 +1260,10 @@ int adreno_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 
+ 	return msm_gpu_init(drm, pdev, &adreno_gpu->base, &funcs->base,
+ 			gpu_name, &adreno_gpu_config);
++err_put_lpac_pdev:
++	if (gpu->lpac_pdev)
++		put_device(&gpu->lpac_pdev->dev);
++	return ret;
+ }
+ 
+ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
+@@ -1256,4 +1279,9 @@ void adreno_gpu_cleanup(struct adreno_gpu *adreno_gpu)
+ 		pm_runtime_disable(&priv->gpu_pdev->dev);
+ 
+ 	msm_gpu_cleanup(&adreno_gpu->base);
++
++	if (gpu->lpac_pdev) {
++		pm_runtime_disable(&gpu->lpac_pdev->dev);
++		put_device(&gpu->lpac_pdev->dev);
++	}
+ }
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 18ed00e5f143..20581be10ca7 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -963,6 +963,8 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 		gpu->gpu_cx = NULL;
+ 
+ 	platform_set_drvdata(pdev, &gpu->adreno_smmu);
++	if (gpu->lpac_pdev)
++		platform_set_drvdata(gpu->lpac_pdev, &gpu->lpac_adreno_smmu);
+ 
+ 	msm_devfreq_init(gpu);
+ 
+@@ -1032,6 +1034,8 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
+ 	msm_gem_kernel_put(gpu->memptrs_bo, gpu->vm);
+ 
+ 	platform_set_drvdata(pdev, NULL);
++	if (gpu->lpac_pdev)
++		platform_set_drvdata(gpu->lpac_pdev, NULL);
+ 	return ret;
+ }
+ 
+@@ -1062,4 +1066,6 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
+ 	msm_perfcntr_cleanup(gpu);
+ 
+ 	platform_set_drvdata(gpu->pdev, NULL);
++	if (gpu->lpac_pdev)
++		platform_set_drvdata(gpu->lpac_pdev, NULL);
+ }
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index e2291dfe3ca8..271956e7f870 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -172,6 +172,7 @@ struct msm_gpu {
+ 	const char *name;
+ 	struct drm_device *dev;
+ 	struct platform_device *pdev;
++	struct platform_device *lpac_pdev;
+ 	const struct msm_gpu_funcs *funcs;
+ 
+ 	struct adreno_smmu_priv adreno_smmu;
 
-Hmmmm, sounds reasonable under the point of view that users shouldn't
-expect these buffers to contain strings.  Then, seq_buf_str() would
-obviously be a write operation, since it transforms to a string from
-something that wasn't a string.
+-- 
+2.56.0
 
-> > > @@ -137,10 +137,16 @@ static inline size_t __seq_buf_terminate(struct=
- seq_buf *s)
-> > >  {
-> > >  	size_t end;
-> > > =20
->=20
-> Hmm, I was thinking that this should first check if the string is already
-> terminated with a nul byte. Why add another one if it is?
->=20
-> > > -	if (seq_buf_buffer_left(s))
-> > > +	if (seq_buf_buffer_left(s)) {
->=20
-> 		if (s->len && !s->buffer[s->len - 1])
-> 			return;
->=20
-> > >  		end =3D s->len;
-> > > -	else
-> > > +	} else {
-> > >  		end =3D s->size - 1;
->=20
-> 		if (!s->buffer[end])
-> 			return;
->=20
-> Otherwise this overflows the buffer even when it is already terminated.
-
-If it is already terminated, s->buffer+s->len points to the NUL, right?
-Is so, then we'd only reach this second branch when the buffer has
-already overflowed (seq_buf_has_overflowed(s)=3D=3Dtrue).  If the buffer has
-not overflowed, s->len<s->size, and thus we'd fall in the first branch.
-
-If we have already overflowed, we shouldn't be concerned about further
-overflowing, right?  And on overflow, if there's a NUL, it certainly
-must be at s->buffer+s->size-1, so overwriting it with another NUL
-wouldn't do any harm.  If this helps us avoid a check (and thus a
-branch), it would be worth it, right?
-
-BTW, I'd very much suggest renaming that 'end' local variable to 'nul',
-since it is the offset of the NUL byte.  'end' could be confused with
-the end of the buffer (as in ARRAY_END()).
-
-
-Cheers,
-Alex
-
---=20
-<https://www.alejandro-colomar.es>
-
---54jmzgfhb4l25z3a
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrjT6kACgkQ64mZXMKQ
-wqk3Bg/9FCem0Gk8ETPq5oOgGZAIhs8jy6p/mMsd9KjsX2z66Ltah7AITRLt+7rl
-3a7pm8nmy3sg7tZ99VWt9hAL8c+rcMk2RgKBJAxo2H0wTd/8Sl40oab+qAiA/2zV
-Cksf/w+gmyfAV5K8kimQCz1vEjXblboVtDHL7ffU4TQHHOt32BK0wh8iV6dEmGU+
-wrXOPoQxzZvXLpWDPWlu3i5EaNvd0/l7Nb7dVam/lf0kr6MH5ALjLBGUBM3Enscp
-0spLNyeXY3QW9OVnILMaZLujKEduvs/mssdW1LqoqOaDIC9YtycMxvCgnc5eQ1HS
-amY7soMcG1c2chRx0GPrC1uKfDFSt/XzT3bkbjDc61bBwcJt2Ul2rl0K/DMwmA1c
-QZEGlp33vZDfXvBtTrpHvMcQ79F9eNc3ghLvp2x5tz+SmgTVPVJUlpprtWwfUf2J
-O1UykeVIlarJGMV5/Z3pK5Xt6ZAs1oZ+HL7BT1KpBofmEC1AAD04Sfg2r752avDh
-iLTipExtcwyYeh7AVCHnswRpUmqmMbB/HZPltGwJR7r+VYzfGVQII6ZrrB+HQcwT
-UUnUeU0VOf6CikrEZrGS2V0jRax6OoaV7x4AtBcnjiUNrfWGEFPtaJCAW+HX04GY
-yXxdKD9wtJFKjyr/LzwuBEjs3bLqz/ByCTH6anrbkYUagKLfBZw=
-=jkYe
------END PGP SIGNATURE-----
-
---54jmzgfhb4l25z3a--
