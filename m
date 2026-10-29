@@ -1,47 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283524;
-	b=Y/sXPjzIA6CwaL0M1RDkjAPMlg/SGB9k0wjNmKb/qG7aQXqLpxcbryEg67spRyr6f6SJ
-	 gPncyvv8nizDQFf4QKdZl8qAYPThQUDh9ybbQEXoJpEceALOQqMMXSZk6nddC9yvl4Qdr
-	 PHoQjCR1fEB3Vw7Q/Hsj8qTgfTCFMYBT//pejfgd1eV+AOqzEEWTZRpIjAr9jd9TKLvAi
-	 7qkxrnbD8kNqhkQyXuBlFHehpj24VtpsWnNSvBx5ifn2w5O/kxE/fLkBVWAzDpixJZCjP
-	 cNg9s4UdcXovChvB/CdW+DYsSopAdEam7Ltl15UoljhvqRindnFpfbe2NIMs3695w4w==
+	t=1793283528;
+	b=eeRfzMhL/IefSeXqkmLkeHyYSeaHLA1uECSywb8wlXQXDo/6d7Bh2Yt++B3fwEJK0l1z
+	 GXeS1kGIbbHq36FmkX4R3M4phv02jq2Is754ioR62mAzAEsh5Woy261KJ487syaGl4140
+	 5807w15mDoHV5Ph8AHAT5yRBzGpbF6bLKPPtQu2rr4senNbcgj6KDKRn3UY68MLLBqu/o
+	 esn5EN5p1lCgHhmrvIXNAowD12kAzNfa99r4JO19AQstnkTXY9b7rd2/Tskq3ad3lU92P
+	 MXwq3killlkvU5FJXp5xw1YyT1zFE+6gNMb31O9/XrM/g1UG1AKReGd9xK9GTftLS5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283524;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=KrmJHHnmWU49kR3EjjGIqe7TD1rMMa5OKGo7QYF6nE0=;
-	b=spp9omB0i/DdeZo8seNH42ck38zuhk1gvK7M+ntk6aCvb4NI+MTimo5ikjZNI6t6o2jM
-	 xvQXv/w4I0wZTb1GaZFfhEuDZ/hFG+E74erSfeiIG7Exw+A5J9FCL1aJvDiUoE7B++RAR
-	 n0aXELP7idlnw/PemyEClGTT7LUKcSfPf6TGaECz/lvebwEsYY4fWvL8sX5CaOVm7SWx4
-	 XH+sjcbxrUvw4kMlSS6wNL5xAkdCJA1nDnZbmZeI14pN+GrneojRggf2X+BMzh+VDHwLX
-	 FjVZai6ljIj8EQRRGOsLvqct/gBPWid4JOy87G+50tRsnOeKcBo4bs6y3lfyRgHbyxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283528;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=8ukfyerQ0BNQwVLXMA6bWcXy9Z460lzQtyxZ+Xp8q7Y=;
+	b=TM2sX3N1M+k6A6aWTYHBtXQGSDb2SeYwWv3oepcHieOvlVzDzKz50JoKeWsle+8x3t/K
+	 kLcuawlCfgNGbJj08tPFmS8ishNKX1D1AXD6XrP685tsoDC5ElY1b2UT6H3CFsV05Pfhk
+	 JFsDltCyp7gtz8rdTGJ5IFqXVjOJuVBr6rhRWJZeqrN39VtC2xHDbXswE8WUJyV4oyYOZ
+	 lZsdDMjNSeHfqM8QzgPqPB+YzhH73Dq9gAPl6X4iCr3f/9b/j9mEpkSny0+omMvGNovU6
+	 WcCT/PUjjQbYxBZpnwcqyDzvYjqzAcb4B8RYC68FJfHeuinxRzJL3nQBoMGNaCG4qSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUQVHCdI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=erYCAd+Y;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE38360A2606;
-	Thu, 29 Oct 2026 14:18:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C393C60A3825
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:18:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C393C60A3825
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUQVHCdI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37A8D1F01825;
-	Thu, 29 Oct 2026 14:18:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793283523;
-	bh=KrmJHHnmWU49kR3EjjGIqe7TD1rMMa5OKGo7QYF6nE0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XUQVHCdIXfvmbaph/VA/rxWkBrBMpTWNrTAYGGhlCnhClgHcbmqfLm/eKiQyCpl+W
-	 E3eYifg9BPWiMSDXEftsG6P1erQcEU1cxEqVv7Q65NLTq6sRGvicyug8evlSykwQ1n
-	 N555FxgSSTArXb9eRt1k/+Rr7/gKg542EG3ZHgkCdrsxx5r9mVZUcQFcOovPpa8Tf+
-	 K5DX1M/2E6C5yMjxDhwgcHRNE2N173N/c0Ut2AaVXgOtOHtG0XhsZlbs8t2w98oJlg
-	 Mu1VOIE7670qxMrHyiu6QL0I/NiamJbSsCKr41PrvWSm0g6yo0ne75ilTxt7hUJyj/
-	 vpESVobE2Pi8Q==
-Message-ID: <7fab2115-6c44-43b1-b03b-8ce4a37ffe32@kernel.org>
-Date: Thu, 29 Oct 2026 15:18:23 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=erYCAd+Y
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so19670425e9.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:18:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1793283526; x=1793888326; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8ukfyerQ0BNQwVLXMA6bWcXy9Z460lzQtyxZ+Xp8q7Y=;
+        b=erYCAd+YzEWa9UGAOz3SXnve57b/PfEiNXFDorTVJd9u/DmTRd0cbA6tqR2bF4MOSU
+         9NT9ZYVcOv8Xhuh/STL1V5VcOTlpe7yWe0hZov3//bPJIBIFgqmTz7UoJWlanqMLg8vG
+         gc9lVwOMxCzCl2/igOCi9oUHT0G8ViVIarprTVY88OPPlCnolpWVspD9SUTz+hhrLdHE
+         LNXY6kP7jDv4hJaFbpIYdzwccd2sbGi/JW/NLqTAbodSxlxIV5WoIsxdOICh5qqviXw5
+         wx/YLRkUEVushHX3GHwz0wrk8qlDeLgTvA5J9v0fnEf9P4Kpm6TK26/VRRx4oAFT7Uee
+         A2lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793283526; x=1793888326;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8ukfyerQ0BNQwVLXMA6bWcXy9Z460lzQtyxZ+Xp8q7Y=;
+        b=m7vA4nvMxXPQAYSMGJtCLZfQ0t1rBuGe/1kOuHuH7WNbvGweh0OhCMo/P98ucP7iv9
+         yfiB7bnAp/OAcYBAa1249fwnSipkvlDKpgicQY3r3LmLhjtv00wByvOCSx3fBJzpxHLK
+         b4I5I41P1IyRg7QPq3G/fRItNt3xEXp7LaJJDdVj+nc2+gkfIDh40DWf8CqZendpibCO
+         ooTWxngeavuPndy7V6eI/5ejiBotmdnT+shXUohsJ/uK4SyZEs0OUuT+OCHJUOrgvMCq
+         cvOuG69oj79NKWtRuQ9STWJvdo44TDVy9ZoROrnNuyEFhAmyR+AXetZOkJFsKvJX9Xxf
+         2RRw==
+X-Forwarded-Encrypted: i=1; AKwUvBwIMUoFXAOWpeqxLRWA6dkIsRWeUgomOONQH142r9KxQE2gaPg4r0GLoAe4H13fnyArPGPenS5oNIYFPXk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItH6VuZnbEjtx/KuETbOMZ8WZ2J5eDwSArcJVPTM34aLsRqIYG
+	RyamLn3xHSoG8NU4xk01DtYftfhgl1xkJDkTG8UKrhTUdSEIsI7urtWjrL9GfTw++E4=
+X-Gm-Gg: AYBFou3F8cjuRmOja4bMnF6IITWMAfY0/HdcC8VcvuA1kXsTmrotpNqKlbqPqnzZ3CP
+	NRz9TG0p49Tm0UKzwI5IxFHPaOzviPH162HPaELvJsMeo9uRwX7baAQWIr4RaVjxde6G8ev5wBg
+	YEXBR5PD0e5rAE8hyCZ5atreI5upmDvLai+STNXdPFCDS0wXkAfGtvwEZyYxCqX8wn/YW9oq0n2
+	xC7O7PtmZRM5Lh9zYfdAAFpeSGjlCrsAq/376NioxCXS3xaqzzpt/AzXyigXmqD0/Szg8X1XzS3
+	Mz4jZdwtOlhaVy1/FMh+NrEG+iSDUpy562RPUVVz83iOclecY/280BCgP/2ZA/7jyUlhjgeLwCC
+	SGo1P4OS4w5t24dXG33gOBM56so4F8Tgy3KmWxVJPmcx2fJHjs48COt0oOBTvlOs/MxtSX8kCGV
+	gbtyf1hQw9NcDaoxsrMjV1SER19YWALC1qUimzvfN6A+fRvfTEyEQ+4BJHuPxLDHpSC3w9FlmrA
+	i/aqmeDsL/an7xGeydFboYYXV3BzXmO1vrg4/HVLYg94gnAZzimUVk63cT9zqmirdAgZY8lBQwZ
+	d2ULo74v4IRGKGVUrV5mRWicJVv20iHPAXy7HHTFbby2PZTsTfDrOxq/tGL5fWpiwSyrc/+4wKe
+	WPDwZ
+X-Received: by 2002:a05:600c:37c3:b0:4a2:1867:10e8 with SMTP id 5b1f17b1804b1-4a96701830cmr125321535e9.25.1793283526321;
+        Thu, 29 Oct 2026 07:18:46 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm66702755e9.11.2026.10.29.07.18.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 07:18:45 -0700 (PDT)
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 14:18:29 +0000
+Subject: [PATCH v7 08/18] media: sony-starvis2: Put module into standby
+ after identify
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,137 +93,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 05/46] mm/truncate: look again if a folio left the mapping
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>,
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, stable@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>
-References: <20261027-fixes_core-v1-0-6f74bec9a5bb@kernel.org>
- <20261027-fixes_core-v1-5-6f74bec9a5bb@kernel.org>
- <auIniV8YSpA4_oxg@thinkstation>
- <2f2ef336-2186-4f20-b7f5-565e60471bda@kernel.org>
- <auMvYdTd_e9O9kDj@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <auMvYdTd_e9O9kDj@thinkstation>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-media-starvis2-v7-8-b33a1332fdfc@raspberrypi.com>
+References: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
+In-Reply-To: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Alexander Shiyan <eagle.alexander923@gmail.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
+X-Mailer: b4 0.14.1
 
-On 10/29/26 12:37, Kiryl Shutsemau wrote:
-> On Wed, Oct 28, 2026 at 10:45:34PM +0100, David Hildenbrand (Arm) wrote:
->> My brain hurts, does the above make sense?
-> 
-> Yes, I missed that the loop only goes back to start when a lookup
-> comes back empty below end. When the last batch reaches end, it exits
-> without another look. It doesn't need the split either: any punch hole
-> whose last page is in the page cache gets there.
-> 
-> That exit looks unintended to me. b9a8a4195c7d ("truncate,shmem: Handle
-> truncates that split large folios") turned the "if (start >= end) goto
-> out" early exit into the loop condition. Before it, the loop went back
-> to start until a lookup from start found nothing; Hugh kept that on
-> purpose for hole punch in 792ceaefe621 ("mm/fs: fix pessimization in
-> hole-punching pagecache").
-> 
-> Restoring it is enough, and makes the "restart to make sure all gone"
-> comment true again:
-> 
-> +       if (start >= end)
-> +               return;
-> +
->         index = start;
-> -       while (index < end) {
-> +       for (;;) {
-> 
-> Then a replaced folio is found on the next round, and truncate needs no
-> special case for it.
-> 
+The module has to be brought out of standby in order to read
+some of the identification registers. Whilst it would be
+powered down via pm_runtime, should that be disabled it would
+be left in streaming mode.
 
-But that's then another lookup even if not really required?
+Restore standby mode after identify.
 
-Why do you thing that is that better?
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+---
+ drivers/media/i2c/sony-starvis2.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-I agree that the code is simpler, but at least it's consistent with the other
-handling.
+diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
+index 84f3978e1eda..95da8a9e671e 100644
+--- a/drivers/media/i2c/sony-starvis2.c
++++ b/drivers/media/i2c/sony-starvis2.c
+@@ -1162,7 +1162,8 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
+ 	 * This sensor's ID registers become accessible 80ms after coming out
+ 	 * of STANDBY mode.
+ 	 */
+-	cci_write(starvis2->cci, STARVIS2_REG_MODE_SELECT, 0, &ret);
++	cci_write(starvis2->cci, STARVIS2_REG_MODE_SELECT,
++		  STARVIS2_MODE_STREAMING, &ret);
+ 	fsleep(STARVIS2_MODULE_ID_DELAY);
+ 
+ 	cci_read(starvis2->cci, variant->id_reg, &val, &ret);
+@@ -1170,14 +1171,15 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
+ 	if (ret) {
+ 		dev_err(&client->dev,
+ 			"I2C transaction failed ret = %d\n", ret);
+-		return ret;
++		goto err_standby;
+ 	}
+ 
+ 	val &= variant->id_mask;
+ 	if (val != variant->id_value) {
+ 		dev_err(&client->dev, "Chip ID mismatch: %x!=%llx\n",
+ 			variant->id_value, val);
+-		return -ENXIO;
++		ret = -ENXIO;
++		goto err_standby;
+ 	}
+ 
+ 	cci_read(starvis2->cci, STARVIS2_REG_MONOCHROME, &val, &ret);
+@@ -1185,7 +1187,7 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
+ 	if (ret) {
+ 		dev_err(&client->dev,
+ 			"I2C transaction failed ret = %d\n", ret);
+-		return ret;
++		goto err_standby;
+ 	}
+ 
+ 	detected = val & STARVIS2_TYPE;
+@@ -1207,7 +1209,10 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
+ 	}
+ 	starvis2->variant = starvis2->info->variant;
+ 
+-	return 0;
++err_standby:
++	cci_write(starvis2->cci, STARVIS2_REG_MODE_SELECT,
++		  STARVIS2_MODE_STANDBY, NULL);
++	return ret;
+ }
+ 
+ static const struct v4l2_subdev_video_ops starvis2_video_ops = {
 
 -- 
-Cheers,
+2.34.1
 
-David
