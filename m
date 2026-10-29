@@ -1,60 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793279932;
-	b=UnwLIiofcTMscYNexnmpba6vVMr4KO0fmAV41j2GRU6+XlXfKlPUubfYBpQ4xyyMC0Y9
-	 FohIa0Y3pwS6JSpd9Zg9vS19+nKr7BsEcONg9wBRuDOzCKrXg1io8n2/M6u4SFRg25vmP
-	 GyJa6dVGR/DaCwDUv4onUXI2IZxPZHPKO8/JF5tDwYbN5XRTK7mqqmZnJp/Xu6JniISYf
-	 vBGCB3qFojQleX2c5x9dpZ8Zv4jydyWtH6bSYX5057BZaj2xT69uFZZvLrSvnhIdZIxx0
-	 XB19vjRCFzLB1H0g2AKdL66LqKjwd+97Sfq6cBTi+UmQa1ubCaA0Pf3KYMsfUKTs4Mw==
+	t=1793279951;
+	b=kETXTdeXssD0A2D4BZXUYvpcROwZood16WBeGY096OYy2qLoRiv6iAUXnnfA7NhMlT4n
+	 /A087S9ZFIEk08Ihov1NWPPsp/iV/IhuGB28JiO3/9bXdmCgaa1BKkpi5OETyBxUu+YFS
+	 o4VqSr049V+9VVxh3FZ13Y9uM4YTLtwufS7G0iAW5XmvrIpbaP1pKJAhrJKPQoCLm9V3Z
+	 n6hed3D6iaUc0vUFLgyuUGaRoLPGZRAT42+BcZPDsJiG8BIaGllhMZyHu85sUZa2CCvgI
+	 IwC2HOg6xovBXw+vBDc4Wk9QCfn9rHOQOhNsjJgRLZwhCEtKgkX1SFj44oMf3o+dofw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793279932;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=+9XYDfCRrvUivoiUz7z3TeuDRVY7Fxr93i1TYt+3ZnM=;
-	b=gXUR65qwIZyWbNqfvjO19hj5nO47hOsZsWfr1vQTCZtB4LBJKSTPLeZUfaAz6x/rVMzl
-	 72LZAGqrZjODPMJLnruxxCUmWJij8P2axAiGL8m8RyJoJN/1C/hqdycyuQ4oRdckfBDQp
-	 dM2go6XlbY61ANk+YZw7ykPL0nv/4X7nPorUiPAoZSUpWJmgFmGf+yIelVBJq7IYYkPmI
-	 FIT2DMXDVj3wyWig2pbPOMsee53pWdL7WYU0Pvq2tfP1E2ltIhzUlE7ahbLP1bGmU5oaD
-	 LSwKM56OwBC9VLIhEIRYeILcFiBqiHWWlXxiFqOU831RuEqfxYp9C0UCZk+MYRBASlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793279951;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=P9aTY6Y7+MtguZH9UX86Hx6mdEqowM9IHKfA/xNeRKQ=;
+	b=yjpwYV1oFLQwjgfs8G1YjdRUNBiupV+BJYbCiSfcbUjmCMjO8l+Rl6PqflpQPPGHiIhI
+	 epFQxFO1tiH3dSuTZDpnTlXLPtqfDBY6F8slJfRVax+TQYhHtVwHanLQcjsEXQOJgNBYc
+	 G7YW2rD4Yrs72mtnNBYibjZwxmOAZVuDkD4IJDOQ4Ncetz6nbkJbwMUKpSWrXTl2yX4w4
+	 xxZEaYgiNC6QLxNSXY4UMReWJ5nFe8JUuuVH+8Tkmo9hzZ9o+QIW/rFXCxU83PTcfDN2x
+	 PtK1gjlh18peyqLLpGi+z5k6PESDbw/E7PNmP0sksKq8LsAerfNrutyoFAYIBWgt4/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=PLMQDWbO;
-	arc=none smtp.remote-ip=216.40.44.12
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EicX68n4;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA012606A31D;
-	Thu, 29 Oct 2026 13:18:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA012606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35104606A31A;
+	Thu, 29 Oct 2026 13:19:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35104606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=PLMQDWbO
-Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id 2FF93A03E6;
-	Thu, 29 Oct 2026 13:18:49 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id 0213F2002D;
-	Thu, 29 Oct 2026 13:18:46 +0000 (UTC)
-Date: Thu, 29 Oct 2026 09:18:45 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Bill Wendling <morbo@google.com>, Petr
- Mladek <pmladek@suse.com>, Randy Dunlap <rdunlap@infradead.org>, Shuvam
- Pandey <shuvampandey1@gmail.com>, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] seq_buf: Mark a seq_buf overflowed when terminating it
- loses a byte
-Message-ID: <20261029091845.21464a1a@gandalf.local.home>
-In-Reply-To: <auMwo_T_FsZp5UsB@devuan>
-References: <20261029053250.i.220-kees@kernel.org>
-	<auMwo_T_FsZp5UsB@devuan>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EicX68n4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793279951; x=1824815951;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NvjTTIe6UHqhGrx5HYZ+BE+S0MbAmWkir5Ulab06dtQ=;
+  b=EicX68n4MEmb0zxtzD/hVqsi8Rnen61K2Bz7ACnzv6RQ7QNswwCgWqLu
+   KAuDH/6/vDPGiJmH+pMNfscy49egNEi45k0eGzO15nsPC0ccN1skpRgdF
+   zmmP+42V4zOrnwWx4G8fOYjvVfJ9S/PBK+uYtdcgpYlSZQWJdOMszjUl+
+   JHwOYhBeB2FhTd4Jiooj1O4QUh7TgX3vIgsLrwdHiabd5cqoSfwt0HN/O
+   xqaaN1nYYN5FykhpJtOOgR7sghBPjeAK/spzXZuCFf6zjWeX8ZiltTCbW
+   oL88Wx7BnilbOx5S0kwuQnd8XwEivymzMdgrkBEolMqfd0MP/taukw5/f
+   w==;
+X-CSE-ConnectionGUID: 8sCtgaKkQe+r/kH0540zqg==
+X-CSE-MsgGUID: 874vaowiQxujKQsznRFtlw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2015311"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="2015311"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:19:10 -0700
+X-CSE-ConnectionGUID: XAVI6bC8RxCF1vxKIAzWJA==
+X-CSE-MsgGUID: SHOmO7qiSqSmUr9GTFtF0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5103504"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:19:07 -0700
+Date: Thu, 29 Oct 2026 15:19:05 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Liu Yufei <lyf98405@gmail.com>
+Cc: Alex Lanzano <lanzano.alex@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Gustavo Silva <gustavograzs@gmail.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: imu: bmi270: fix zero timestamp in triggered buffer
+Message-ID: <auNHyQGAcTcq8G2V@ashevche-desk.local>
+References: <20261028-bmi270-fix-timestamp-v1-1-99c0e5fe7d0c@gmail.com>
+ <auG5MXTh9ZkXMw55@ashevche-desk.local>
+ <auID4_vQSZXuNk0Q@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,76 +85,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: 0213F2002D
-X-Stat-Signature: ii7jx3yqhuo5tentuhpkydyjj3ugs18y
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+Ggy7flGuT3pJl4pfAFY5kwIdBw233O1A=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=+9XYDfCRrvUivoiUz7z3TeuDRVY7Fxr93i1TYt+3ZnM=; b=PLMQDWbODAmt/quoHI6B3iDL39mXPgDCkjUwVSajdMkc3Nffvr+xsqTlIcaXuPQ9UnPKlcZn9NGbNbBd6v8OLxppf5gekjVObTiKF5R+rganE48CbCgaJtu3rqmSWGYP125LfrJUB1nrm8PiafoajZe/2/pP7UE41lPdt6/3Nuo=
-X-HE-Tag: 1793279926-234888
-X-HE-Meta: U2FsdGVkX1+kSgXyut/GEd14B1877Ubg7n1dE2PJkiUImxISYpua7RqK8Fivkp2umWdON2LVrdfM7NXACAyuNbwUi07mjcrTgDpTcZegLwpmmaRtRRyjcGMX+82Ovou4fIg8l7kEOa58f4a4PmuIbagOvQiXJOCZ9OTa3eP2RSMJ0WP0u9j9hIHw0ZUoMJ+0acXAHldHA9wjtgJHc8qOoEGKqetGylZfY4jR5nnXh+GDnmTE1LgJqRLOAnbmiNy7FCtduxMUFjXTuha26rMPxSoVvw3+2nX5JCNDlhtXDMY5Lt8BAkpAG0rB0bJCrHvdwbSnsieale42Uahj8aGr3dMQlZvLCm4o
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auID4_vQSZXuNk0Q@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, 29 Oct 2026 12:47:04 +0100
-Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
+On Wed, Oct 28, 2026 at 10:24:11PM +0800, Liu Yufei wrote:
+> On Wed, Oct 28, 2026 at 10:58:25AM +0200, Andy Shevchenko wrote:
+> > On Wed, Oct 28, 2026 at 10:59:26AM +0800, Liu Yufei wrote:
 
+...
+
+> > > +	s64 timestamp = iio_get_time_ns(indio_dev);
+> >
+> > Do we need this variable? Why not call it directly?
 > 
-> This fix in theory solves the issue.  However, I wonder if this is maybe
-> too late to report the overflow.  Callers normally expect the overflow
-> to happen while they're performing their writes, and maybe they don't
-> expect the overflow to happen at this point, so they might forget to
-> test, and keep going with truncated data.
-
-No, the overflow should be checked when they are done with the seq_buf.
-Which means after they do either seq_buf_str() or seq_buf_terimnate().
-
+> The intent was to capture the timestamp before the bus read, so it is
+> as close as possible to the data ready event rather than after the
+> regmap_bulk_read() over I2C/SPI.
 > 
-> How about not allowing a full buffer without a NUL terminator in the
-> first place?  That is, we could report a _putmem or _putc operation that
-> writes a non-zero byte to the last element in the buffer as being
-> overflowed.
-> 
-> This would waste one byte, but would prevent users from having to expect
-> a possible overflow when reading a buffer.
+> If that difference is not considered significant here, I'm happy to
+> call it directly in v2.
 
-This only happens when the user expects the string to have a nul
-terminating byte. Don't think too much into this.
+But the time of the event in the kernel should be ideally with data we get,
+not in the past, right?
 
+Jonathan, what our expectations / requirements on the timestamp capture?
 
-> > @@ -137,10 +137,16 @@ static inline size_t __seq_buf_terminate(struct seq_buf *s)
-> >  {
-> >  	size_t end;
-> >  
-
-Hmm, I was thinking that this should first check if the string is already
-terminated with a nul byte. Why add another one if it is?
-
-> > -	if (seq_buf_buffer_left(s))
-> > +	if (seq_buf_buffer_left(s)) {
-
-		if (s->len && !s->buffer[s->len - 1])
-			return;
-
-> >  		end = s->len;
-> > -	else
-> > +	} else {
-> >  		end = s->size - 1;
-
-		if (!s->buffer[end])
-			return;
-
-Otherwise this overflows the buffer even when it is already terminated.
-
--- Steve
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-> > +		/*
-> > +		 * About to overwrite a written byte in the last position
-> > +		 * in the buffer, so it must be considered overflowed now.
-> > +		 */
-> > +		seq_buf_set_overflow(s);
-> > +	}
-> >  
-> >  	s->buffer[end] = 0;
-> >  
