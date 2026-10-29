@@ -1,74 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.206.215.185
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793277411;
-	b=yZKNg+nh90LoChu113PRswYLUhd6m5GEnJbpdrfh/OWWmd3NXoAzQIrC181FXKJJGc0M
-	 aIDGOAy9TLwtJrycXS1cgi9uQOReM84mLalHJgVfLNZYIQUsZY6vl01UIZyo74wEFVhda
-	 mOTLBX3D+WxhRH11y+F4ZedEHMiUzEX7iuYXpOrBxsWq72JyjtAcxscHblvzL42pg7oqi
-	 vWuL9SL4lCPQY2xzf7Wt9C7HAftvkO9MeqKx/B5V91+dHzb9oKcYKS5VMxypN0zG5wrUt
-	 Hegque4CBW3/IMRrQYlVeXSvJQtyqG/gISts6tPOCxLzcwx6UiPVuy1RCiwEsunl+qA==
+	t=1793277447;
+	b=swFDnmtJmvTWE+S29/QQoU4c8ngFn9WEV2ayUpzyxRlbyZQi+K4JtUhU2Wur2h+vOnBN
+	 39O1V1QH/dV3F+8U/p+PlqEtIcfXHLK259dWV0Hnl/ies5EzQGAaeWg6wXZIG4oglGgD2
+	 iSb7nweZLJqiOkXJgh2fnkK0XFrhhyrnjhegfoQ2T5HlTSlEoo6Ef3SFD6dFJ2aquj1tR
+	 4/coacbWZgDbsl/6SyfQieDvrj8Fssx2RsCDhkIHgPwG1SE35pcK33CU5bWNHxRcvS9RP
+	 ym1wNMB/a5m60k2x3Y73ohabdLOFnxWZCxiA+InHseMQvKyuRx36XIGrsa2fnJHskyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277411;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793277447;
+	h=DMARC-Filter:X-MD-Sfrom:X-MD-SrcIP:From:To:CC:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=9LtYTlF4nmZX0qyti0J6LbKRcdJci5QGUwvdH4bCuSg=;
-	b=fjDOmlrU6zOcxsVU4rJJfRMsbxSVv0DGmlfcBCS3tzhOuGjazZHxY0dxoFSpWlJv5jO5
-	 CDnCWiAg1u1a2PFuSK4n/oR7hC96WgqyIlPSsxhVbBXxFBaduaaz/FuA4AA3ocCKIf3mm
-	 v9UE0WqKgjzw1DqZ7879XbJ5+draU4XyRHfQEmC4wsk0dh9VwzABWr4OSTkIXsmyaNAEQ
-	 Vwtul+rhtmSwEnJSlRG5B808sW7niZTkveoyKsyheo8glx365YiiKpsDl0yEcwKwYJ29Z
-	 oUOovF41LWR148D3hidYC0Ds2UUp9ENgihB3OuEmdyTwoVZCViU7yuNQ1MFffgdMB3w==
+	 X-ClientProxiedBy:DKIM-Signature;
+	bh=fhT5gHYEbBem0PJaUDojK3jurWH1XsoVoO3BjZuzUCk=;
+	b=0MU5DKiMBbzoyuYxulAiohA/juQvi1ILW78RzMUMz2Nh7/t1+Cmms5OwbMTVm36wKfox
+	 wE0hO6SCYYWSh2uwOc3JkccFDaNN7NiC+StYyvcNl/XPj9tC23R+nQr2AUqQdWtg4Rz43
+	 5YV3UwVzGhBpjKnYOJPTGm4aDqkaXqP+XrSs8gv6et9b9l0YiY/r8Vt5roDOc3/4lfzxe
+	 Tre5Hx4xKoOLLspttGjNvsdAj3vf7q3sI+Hppa1D/Pr8b4RsRwdfFXOynMft9GsDM3vu5
+	 8yHgzogXVbWKi4wOAsGsoMM/hsleInzGnFfkWpEkz04JUv/G6+teiAI6/JmLUKzLFyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=RDi9sqvQ;
-	arc=none smtp.remote-ip=113.46.200.227
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5852606A31D;
-	Thu, 29 Oct 2026 12:36:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5852606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	dmarc=pass header.from=baidu.com;
+	spf=pass smtp.mailfrom=baidu.com;
+	dkim=pass header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=T+aD56nU;
+	arc=none smtp.remote-ip=111.206.215.185
+Received: from outbound.baidu.com (mx24.baidu.com [111.206.215.185])
+	by smtp.subspace.kernel.org (Postfix) with SMTP id 6508D606A31D;
+	Thu, 29 Oct 2026 12:37:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6508D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=RDi9sqvQ
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=9LtYTlF4nmZX0qyti0J6LbKRcdJci5QGUwvdH4bCuSg=;
-	b=RDi9sqvQcqUUiXoJvYPkjsWO3kL7JyvV/wAgS2GQ4J7Kxr4nmZZQYZahupS82jwtpiewQV9/q
-	7vDwE3uxIQeHUF/yqp0k9IJcCmDectsntLoK6cAMnyVj7FnLCJFkIJaI1b9OoZv5ID4eP7O+fWq
-	rAcoKrXBIimdTsdw4quHXxY=
-Received: from mail.maildlp.com (unknown [172.19.163.214])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jFkJ114b0znTV7;
-	Thu, 29 Oct 2026 20:36:49 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id C2EC54056C;
-	Thu, 29 Oct 2026 20:36:42 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 29 Oct
- 2026 20:36:41 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <reinette.chatre@intel.com>, <james.morse@arm.com>, <ben.horgan@arm.com>,
-	<fenghuay@nvidia.com>, <catalin.marinas@arm.com>, <will@kernel.org>,
-	<mark.rutland@arm.com>, <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<rdunlap@infradead.org>, <tony.luck@intel.com>, <Dave.Martin@arm.com>,
-	<babu.moger@amd.com>, <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>,
-	<tan.shaopeng@jp.fujitsu.com>, <jic23@kernel.org>, <zengheng4@huawei.com>,
-	<gshan@redhat.com>, <x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-riscv@lists.infradead.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [RFC PATCH v2 06/19] resctrl: Remove the L3 monitor event names
-Date: Thu, 29 Oct 2026 20:35:58 +0800
-Message-ID: <20261029123611.1108424-7-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261029123611.1108424-1-ruanjinjie@huawei.com>
-References: <20261029123611.1108424-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=baidu.com header.i=@baidu.com header.a=rsa-sha256 header.s=selector1 header.b=T+aD56nU
+X-MD-Sfrom: zhangyili01@baidu.com
+X-MD-SrcIP: 172.31.51.15
+From: Yili Zhang <zhangyili01@baidu.com>
+To: <alison.schofield@intel.com>
+CC: <dave.jiang@intel.com>, <dave@stgolabs.net>, <djbw@kernel.org>,
+	<jic23@kernel.org>, <linux-cxl@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <shiju.jose@huawei.com>,
+	<vishal.l.verma@intel.com>, <zhangyili01@baidu.com>
+Subject: Re: [PATCH v2] cxl/edac: Fail ECS threshold read for reserved encodings
+Date: Thu, 29 Oct 2026 20:37:06 +0800
+Message-ID: <20261029123706.83190-1-zhangyili01@baidu.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <atjhQTk4k6On7Fcm@aschofie-mobl2.lan>
+References: <atjhQTk4k6On7Fcm@aschofie-mobl2.lan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,32 +56,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-ClientProxiedBy: bjhj-exc5.internal.baidu.com (172.31.3.15) To
+ BJKJY-Exc19.internal.baidu.com (172.31.51.15)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
+	s=selector1; t=1793277435;
+	bh=fhT5gHYEbBem0PJaUDojK3jurWH1XsoVoO3BjZuzUCk=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
+	b=T+aD56nUuTFDZOzO1RIJBcEZIJDoTll6f1qVly+X67hkv7zau17k4fb4LQG3xk1eO
+	 eFR4vwRuvFK05EUkxvvZjqXwAp+ou2nplwhSowAni5woRFp4Hs11mwd4lY6xKsfxXT
+	 C21uzu/bCwkfwhj40Vf7XRma2FgUfN1DE70jiizh8JqB9aIJCO5OvJ7ijrwo6jvnoi
+	 4UcqHn+B1wzvI2DmwXhSPS3LZnWMu6nqZyWlcnw4i5gNaFvuHI5dDrf6+x+fxJcGrP
+	 o7LoJ392xOIoC9Ozemr/9G0rP6SfVsl+2J2MzztEwbsDQiwASNMgI8x6lALKMXy/yl
+	 gfVX+FYkfu9YA==
 
-Every user has moved to the resource-agnostic monitor
-event names. So remove the old ones.
+On 2026-10-21 08:58, Alison Schofield wrote:
+> > Fixes: 85fb6a16ad14 ("cxl/edac: Add CXL memory device ECS control feature")
+> > Suggested-by: Alison Schofield <alison.schofield@intel.com>
+> > Signed-off-by: Yili Zhang <zhangyili01@baidu.com>
+> 
+> Hi Yili,
+> 
+> Thanks for the updates from v1.
+> 
+> Just a couple of process things for v3. Drop my Suggested-by tag.
+> That is usually reserved for folks who suggest the actual patch,
+> not folks who suggest changes on v1, like I did. And, send v3 as
+> a new email thread, not in reply to this thread, as you did here.
+> 
+> -- Alison
 
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- include/linux/resctrl_types.h | 6 ------
- 1 file changed, 6 deletions(-)
+Apologies for the slow reply -- I only just caught up with this email.
 
-diff --git a/include/linux/resctrl_types.h b/include/linux/resctrl_types.h
-index 8679cbe589ec..d0e56de038f0 100644
---- a/include/linux/resctrl_types.h
-+++ b/include/linux/resctrl_types.h
-@@ -71,10 +71,4 @@ enum resctrl_event_id {
- #define QOS_NUM_MBM_EVENTS	(QOS_MBM_LOCAL_EVENT_ID - QOS_MBM_TOTAL_EVENT_ID + 1)
- #define MBM_STATE_IDX(evt)	((evt) - QOS_MBM_TOTAL_EVENT_ID)
- 
--/* Old names, kept until every architecture has been converted. */
--#define QOS_L3_OCCUP_EVENT_ID		QOS_OCCUP_EVENT_ID
--#define QOS_L3_MBM_TOTAL_EVENT_ID	QOS_MBM_TOTAL_EVENT_ID
--#define QOS_L3_MBM_LOCAL_EVENT_ID	QOS_MBM_LOCAL_EVENT_ID
--#define QOS_NUM_L3_MBM_EVENTS		QOS_NUM_MBM_EVENTS
--
- #endif /* __LINUX_RESCTRL_TYPES_H */
--- 
-2.34.1
+The v3 was already posted on Oct 21, before your email arrived on my
+side, and it still carries your Suggested-by tag. I will send a v4
+that drops the tag, again as a fresh thread.
+
+Thanks for the review and the process guidance!
+
+Best regards,
+Yili
 
