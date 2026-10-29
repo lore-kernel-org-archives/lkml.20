@@ -1,97 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793289233;
-	b=hRcl6/pvdjaAdUcDm+SJyvjRqOU5Tcj/K8ITHNIYfYKiCn/+pSUE18XeN8r8R3nwsBCf
-	 a5BrM/t3zO3l5vVp1Be0nKLS/SDvopU7dQM6LZssJYoM3Rl6DS7cdEUtjn7ftF2gZyk7z
-	 BtbwKMdyXRBcXkmyPEFqOPtyl9xmjv5q7DUdtMduhqV9ZBbOBkSg0vP4izuRCTDgb2r/I
-	 JsPfhw2aS1iICnxVJRPlxdYQwEOUL/w+y7O/JD3SiYuyjFUJe4gKerIT+a/qcLSWUUVBi
-	 d/ckTxenZL+fozgD0LsPBCvO5ISi8/pfDTJ4N/s9Su9zYS1W0g0tDkO/srzkF803sag==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289233;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793289265;
+	b=Q8lUtSbZarSCh9qc7Wvg2m8OcXUyV0fxT704mFjjsoUdCNTMOgz9oXPRr9IyO/mesIhe
+	 CVJyUbbzLBYn9nHJX69QVO10vTlrFZp8jqEPtG+U1Jr7e8K2qI0T8pvP4U4atILlSj035
+	 PCUZIQvaRMTApMqo5MXZWQEPjh+LSHlvHc1uXK73iPVzdk62DUmpTLiabifdxfUXOwCYM
+	 JpiMQx53aguSd8Xl6RVur+B8hfb8r1A/Q3pEEWbJEvon1inmWrDGMqU3F/6KFkmB4WTB3
+	 WNzrIeUPbECyRFDYk8PYKgWI6u9AzgKbPoZzIRLARr4xFsqsuaRQiXfrkgdblhBsvaA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793289265;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=cTVOu4c15J1856ItbAlmhTsLRjjX4BIL7cg31O9/lmM=;
-	b=QutR363RP+NNpHEr6G20aWYD1IA+ULtgyHf2A8BwS2OzEUMgV+9r3QrkKOsaYXPKBQzS
-	 E/ippoqDoagVCik+bv4R0u06fWgsjGsJ7grWgcYdr8emOO0nirJmuYI9dib1bg/YSyA6M
-	 JZDNI4drAyONzyuxY9jgf/wKXg7sjF+4KvRQVvJDVL+yEu/WHNzoc7duqYOpaQe/lQpis
-	 1L5f2YYzK0GBFBD1zg5XTVKlTSnDl4u1gm+dx2MtpDsS4zN8JRSCMzDLumkuy5w4SR/Jk
-	 KDpwP7ZaVVoFeOlImYir8nDLHGQNQ7sI7GN9DX8M//ut/QnIc7IlmZvP9w8nD55Em6Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uxiIybsT;
-	arc=none smtp.remote-ip=209.85.222.42
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=J0441SvuXNyp+dPH0a7qYaBBZzYNLLrZxDgICCCbycU=;
+	b=kaXPkSgRcUiAn5Gl2y4l9bxGThZbvsyQmLhklrzEnpmfp4fEbHQZWHokkKIHuUageA3P
+	 QHft/EdUm4GSOhQnFrVysZ+Zw34RAp1m/JiW2xhRkyq3+1SyEMMrV3P70FoXM2f72h/6B
+	 CH+fKj8cSWG/6AWp8L9wJsKyjVdWwO3kj4uUPBlrrcxQE/fl54Ph93Zpm29GkFhpRiCIO
+	 kfSmQlHzcBfJyzr/y8pBh9Vz7yQ6IQ0bUaI9AjWiIdw8Py2/HdRVkq2UhgXLsLhtnA55s
+	 45IFAPEJAyyYIf8OtqyLYQOolJPo0xAZMCs/VXzEi3s+XAVS8uLDrToUFEX8LHGOdVg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=fEV27xoq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.42
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445CE606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:53:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 445CE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029BC60A2601
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:54:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 029BC60A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uxiIybsT
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-9908346255fso484386241.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:53:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=fEV27xoq
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-70a66a3e3a6so86326eaf.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:54:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793289264; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QTNmZnz6/rvBXejfhklL77LRbATdod8b8pzpFLCokfF3kBi8SGOnvMai2ULYKITdoN
+         Qj2bZnrzCpSX4jhptIatuLWiF+rouBp9jdZI1xy3DyK4OdP6uoDnImN0Dcbvv41ZOLXO
+         eGdF6w+q4Y5H/NCu8QLFUJAnSMW+xdh7YyBOm7DAS641T1rWcwK+prrqgZ3UOvZ20uFd
+         l+fD0jvA+WbvleJk8O289t8IMQ1Qzp0ArVNi9AAgzIiUxdWzNrFbIJtL0S3dA+rwwBxI
+         oJMHEGESVwdb9vWb4HbHYCaSkff4vFJm6WPEmNj3rLiQaYMcRbNS5R1HmSgNVtZ1vlmQ
+         JF8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=J0441SvuXNyp+dPH0a7qYaBBZzYNLLrZxDgICCCbycU=;
+        fh=gY+gku2APANrW2omQQlykbhgt8+BqYzkUnTr0fZiky8=;
+        b=Of5EgYN+8Y7rIBzP3kRvzbTSlbHUQLFSQprV+Is09fbpZngeeJbz0dSYD4aTH7aytm
+         O7kd6kTbrVsn7dlw676cbAPrtYifZv4nI0j2YBW8pBCzwMFxUDk5X6EfTBvBqExwGXzz
+         N1/gxXLWB0rehivUYka20ojarmT/gvdpyEzH90UbPfBHnjGW1vcmJfFYAbIgSEfrzjbV
+         uw79/l3TdW3AuazMzJLSb1+If3OGXvXRx5u8NcFAjKMU5R+xip26ft46CgZxUbQf/mA8
+         OYlRuw/vs6d8UTyjCZDKZK/9hylSKGqazy7DY9sXrzfu71lp6lltUc93FLcHnNZzXgld
+         q7aA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793289232; x=1793894032; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cTVOu4c15J1856ItbAlmhTsLRjjX4BIL7cg31O9/lmM=;
-        b=uxiIybsT3eFKXSM7jcIbSAlZoR3RVXHGbGvNa2gwyXM77xos206PLZlB1pbmBf+DHh
-         pG3kGoXcdYgCt/F0qQ3WvYGkASVFA6Hhb+ybn8kusmldpLKp8jmExrnc51gBSo/CO6xc
-         UkmtvxVjFBwzuTshN9wkQCaY8vsftzkJhZOWy2bCFF0Oipo9Gv3mdQpdXBNUpX4NNb3d
-         NpDhNr1qvTYeN6bL0tMJtiFFC98L+RfYR49BewB0CR3L4/JGuNsOKoDRV4ST5JpqlnRh
-         rlNvPotOw0YDzDbFltTuKObOfmKxiOhxzd5Z4+zu5RhTwCEh7BPc3t8NiveR99ePSsVG
-         t1Uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793289232; x=1793894032;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=purestorage.com; s=google2022; t=1793289264; x=1793894064; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=cTVOu4c15J1856ItbAlmhTsLRjjX4BIL7cg31O9/lmM=;
-        b=dtqkxgLExMBL0J2HvvzgTN3DgJBipgFld8Y412ljavtMRWDlUN/zDJLeNJJ/3td2V1
-         8D+eJWY8X4rVjvTbGP8DqoyDgYEzkKvCN8anTYMVAY7xU6aCIwHvC3Dk6QiRvu9T7gpT
-         sZNr4EFP6B5lCuYIFml9ebosWA16CTEpMRDI14N0QyRsTz6GDF2Pr/+QfHq3nZ7x+VLc
-         LO3R2Xu9UHEJjblgJw9+d1rhdLacl8JH1/+VzI5QVrD3WE8cuDDrBeLpi0Fel3099yjJ
-         fpNfV7rhLPMFkkHqgZTeuJ+cwwnV2A0smCbPt2yhffqiGev3d6ahqjOMVWjSV3LO6eYM
-         ZiWA==
-X-Forwarded-Encrypted: i=1; AKwUvBwifvPbz3mRTwCrOfrAhbFQS8fZQ6NdSQ52DpE3qqSz3evJy3FjtChUt5gnoqwopG5nfHUt/Y4upyFxvIY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7r3QOpW7bRm7DI8hedU7t/H6qXNufb5tMBi/oQIfMP9YO8bno
-	YadLKbE2faX+OCWA3EszgGDX0NgKebr1dKhHYMTNZdUjKCrUaPZRRFC9
-X-Gm-Gg: AYBFou1DyIo8RKvbxRo8SZPt6FNucxMi8xzZA5YXUZGJ4ce/6BsemJUnKYwl0KLNEwE
-	0sOhZ3p7YnMFBxZuXNISGo4ULKbwlTJR6+KGUNuq/Chb2eXGFiEXkauEUlM9y49ZEXztYAFMXw8
-	9OtRJ6q+2dlcGXhKStgN83hxvghuxv8R5d822FWwnZrzAWCOLxzTSJOJgjCrG5GslDqNbpfr0nz
-	05WlwLTwF00ZkMtmvdzMy9F5PBvNhXbH4oZHzsl0MtqUmtc+u7J5z+dqvbdd66YW6CekIn33XIx
-	aYQ5FlRRFz2yK4RCIZDuSlPftDO4mAz5xJvpbPSAxUBbbT5Z/QJweZL09ZmgtReUN+8zvvqu0YH
-	ld+YLx40r+qn1USjkZ5A+kZnu1Rb5E1t46n1iyef/lHhWpnmEyfG8MMwbX/POqCknLgqwbwF/iO
-	0gtlD036rbeIltEmtrQLIF0ngbxUM+KAtAIsXyRQTA9tOOVktTHd4B5SHTJ2mHGVYlCKhsRykxQ
-	xDrts6WTiALGGZvX9Nmm1vbIx5JdBvWmlcOB35i9qOoFrcVhJcB8DlTtdzRPRnx1DEi1BzZaQY1
-	DGsvMaGCZGfslikg0Gn+LfDBg29Qhqgbumld4vjIqGwdX4xZsCFuVEcy7Ybh1lEaTYSTz8FYc6C
-	yNBrpFJaDOlBzvhB/22PeApg5VGwJ+WuVXw==
-X-Received: by 2002:a05:6102:5244:b0:7c8:78bd:fd7a with SMTP id ada2fe7eead31-7d054298427mr897702137.25.1793289231938;
-        Thu, 29 Oct 2026 08:53:51 -0700 (PDT)
-Received: from [192.168.15.16] ([2804:1b3:a2c1:77a1:5cd:8fee:f3c:4da7])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9924f6c9c53sm42988241.8.2026.10.29.08.53.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 08:53:51 -0700 (PDT)
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-To: Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
- Ilya Maximets <i.maximets@ovn.org>
-Cc: David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Toms Atteka <cpp.code.lv@gmail.com>,
- netdev@vger.kernel.org, dev@openvswitch.org, linux-kernel@vger.kernel.org
-Subject: [PATCH net] openvswitch: advance by the real header length in
- get_ipv6_ext_hdrs()
-Date: Thu, 29 Oct 2026 12:53:41 -0300
-Message-ID: <179328922134.76862.10417963652853801970@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+        bh=J0441SvuXNyp+dPH0a7qYaBBZzYNLLrZxDgICCCbycU=;
+        b=fEV27xoqw1M9SH398pbtNvixn5ZME9TnAyZczpY9fIe4qYVLaOxtCAhtfyionz6eDN
+         KVJEyBCGIjGBir+FrCD6CpLzGVSIeEaSM2KWlMxS4QheoqS5x99uMRxu1Zh4LeZUU88V
+         BzNSoRfZrTBji+OINyBurVKifuYV1grPWZzKhCgo8eaaPVsoY1X4Fq8tZmr/5d51Vyu0
+         aIy9+p/OeJ4AJyynX1Fo3iVJzTak/APxEzrCKmO7iJygmKExihszmKnYu2p1gTMKtxsQ
+         2gOSosw2XXGMJII91DR1zrjDzjaWBxsQ9lKgVUXncdTtrFbK8XJId7AltnY7AIgOTbwo
+         8XCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793289264; x=1793894064;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J0441SvuXNyp+dPH0a7qYaBBZzYNLLrZxDgICCCbycU=;
+        b=CoVn+JC+tEJMmIQnpWWDYFCR5wH7vf2vKsUg6KuS9UMVU83FFSY8wsnjD4MelFIYoy
+         ruHZafP0g5B4qU56YtiG78AC9YpXndS11LRrckgk5gDtjR/ziXlY1wP8t2/SqqkL1TRV
+         iUIcp5IFiezTU2x3b3gdoHZODlMTxo03qIHcrIrgn3UPhLudQwlbf6gKghtsPe1sbV+I
+         qxhm4LMkqOAokW+z4KLvX3dZh7ap2kGh67atAF86nOMT9QCFDErRwUFncUbP+AoUAHbC
+         Musy55GhrOWysAy3d67susMTUfMnFBK1ylYHDV59PDTmILQXIgZRCJFxjmBRQXI/vazG
+         hG+A==
+X-Forwarded-Encrypted: i=1; AKwUvBx+9fCqUJv6LU9K5H1SRoWXDK9sqbgaQBcx/1UBYbQucGKTNI4DP2+yGwsFYAj3Ek3ZbagXJYxHPPCYf4c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIe6PTJw1fjdw0vBs+VSGGVQ2EW165wc0/qOamGhNUbX8BYxZeD
+	IgWinMx4/ho+y5uMCQ0+F5JGWjhvgyYoQeIFXFadKiKlykDaDIZeesmINMPppzYKu87QD+SdJyZ
+	zkQpEKbznr9TM4ht4VEXw16jLbkNdh48hPbtFI5GOLQ==
+X-Gm-Gg: AYBFou2djPsdvg+87TtWR5dn6J55WpOF/r7hF0tjUaiXYh6WHmp9ppmusLCY+0ZSJ1M
+	9wCVkIbXGNhJq0LxVNmrgkostx9PeKnn35hr9uGO1Sh0YqUjoWV6gFHyWhdYH5eccXTuyy6BoXp
+	Ids1A6cLMauEpXfFAkCWy/88Moo8Zpivj8VCk95PI/fAXhqncwRXfG7XQJi9ZTnPA7T8F66tJ2P
+	zPNQA8hpmgoYmpUJWiIgW5pBQd2qcqtQISu+r0Q5B1CuTtMWdqSvdGFW3bWfEam1fTQqs/j9HKJ
+	kIr3Nvx54jGxIC5xTYEMgNi7KS3xioZV6ok3RDv+9dFTHHmw+e/SEL/t7WDVuL3FXGfQF8N5QOZ
+	DaVZn9XjW5UazbXUG1vdxwuoVz/8z3QoGNXRPKQ==
+X-Received: by 2002:a05:687c:646:10b0:4a7:1396:72a with SMTP id
+ 586e51a60fabf-4a8bb8e2349mr5536503fac.1.1793289263755; Thu, 29 Oct 2026
+ 08:54:23 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,79 +104,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <6ae2d5bd.84012103.26b497.074c.GAE@google.com> <20261029073745.324823-1-eadavis@sina.com>
+In-Reply-To: <20261029073745.324823-1-eadavis@sina.com>
+From: Caleb Sander Mateos <csander@purestorage.com>
+Date: Thu, 29 Oct 2026 08:54:12 -0700
+X-Gm-Features: AclHuK8LFHNXUrjGb0oo4IZd9KIl4s2UKSWkW36VswbAX2fDkzhZ5xHVAXoR1c0
+Message-ID: <CADUfDZo9XZvYd0VUW8cMJZWM_BeUHCiVNSeWHegxtNnaWBcg8A@mail.gmail.com>
+Subject: Re: [PATCH] block: remove inode lock for buffered write
+To: Edward Adam Davis <eadavis@sina.com>
+Cc: syzbot+39e465d3f7a1555b0f96@syzkaller.appspotmail.com, axboe@kernel.dk, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	sunjunchao@bytedance.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-get_ipv6_ext_hdrs() walks the IPv6 extension header chain to fill
-key->ipv6.exthdrs, but advances to the next header with ipv6_optlen()
-whatever the current header is.  That is only right for Hop-by-Hop,
-Destination Options and Routing headers:
+On Thu, Oct 29, 2026 at 12:39=E2=80=AFAM Edward Adam Davis <eadavis@sina.co=
+m> wrote:
+>
+> Commit 2fec4fd97cc3 ("block: take i_rwsem for the direct I/O write fallba=
+ck")
+> added shared inode locking around ordinary buffered writes, but commit
+> 1b1be9ea4e34 move the lock to blkdev_buffered_write() and didn't remove t=
+he
+> shared inode lock in blkdev_write_iter(), potentially hitting:
+>
+> WARNING: possible recursive locking detected
+> --------------------------------------------
+> syz.2.64/6167 is trying to acquire lock:
+> ffff88802a5f1ee8 (&sb->s_type->i_mutex_key#9){++++}-{4:4}, at: blkdev_buf=
+fered_write block/fops.c:734 [inline]
+> ffff88802a5f1ee8 (&sb->s_type->i_mutex_key#9){++++}-{4:4}, at: blkdev_wri=
+te_iter+0xd12/0x11d0 block/fops.c:812
+>
+> but task is already holding lock:
+> ffff88802a5f1ee8 (&sb->s_type->i_mutex_key#9){++++}-{4:4}, at: blkdev_wri=
+te_iter+0xc5e/0x11d0 block/fops.c:811
+>
+> other info that might help us debug this:
+>  Possible unsafe locking scenario:
+>
+>        CPU0
+>        ----
+>   lock(&sb->s_type->i_mutex_key#9);
+>   lock(&sb->s_type->i_mutex_key#9);
+>
+>  *** DEADLOCK ***
+>
+> Call Trace:
+>  inode_lock_shared include/linux/fs.h:1039 [inline]
+>  blkdev_buffered_write block/fops.c:734 [inline]
+>  blkdev_write_iter+0xd12/0x11d0 block/fops.c:812
+>
+> Let's remove shared inode lock from blkdev_write_iter().
+>
+> Fixes: 1b1be9ea4e34 ("block: take the inode lock for buffered write fallb=
+ack")
+> Reported-by: syzbot+39e465d3f7a1555b0f96@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D39e465d3f7a1555b0f96
+> Tested-by: syzbot+39e465d3f7a1555b0f96@syzkaller.appspotmail.com
+> Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+> ---
+>  block/fops.c | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/block/fops.c b/block/fops.c
+> index 517b96c9d262..375ec2c15926 100644
+> --- a/block/fops.c
+> +++ b/block/fops.c
+> @@ -808,9 +808,7 @@ static ssize_t blkdev_write_iter(struct kiocb *iocb, =
+struct iov_iter *from)
+>                         } else {
+>                                 ssize_t ret2;
+>
+> -                               inode_lock_shared(bd_inode);
+>                                 ret2 =3D blkdev_buffered_write(iocb, from=
+);
+> -                               inode_unlock_shared(bd_inode);
 
- - an Authentication Header is ((hdrlen + 2) << 2) bytes long
-   (ipv6_authlen()), so with hdrlen = 4 the walk skips 40 bytes instead
-   of 24 and reads the next "header" from the ICV and payload;
+Already fixed by
+https://lore.kernel.org/linux-block/20261022062513.77372-1-mzx199711@gmail.=
+com/
 
- - a Fragment header is always 8 bytes, and the byte read as hdrlen is
-   its Reserved field, which the sender controls and receivers ignore,
-   so a non-zero value makes the walk skip up to 2048 bytes and miss
-   the headers that follow.
+Best,
+Caleb
 
-In both cases the OFPIEH12_* bits stored in key->ipv6.exthdrs depend on
-bytes chosen by the sender rather than on the headers that are actually
-present: payload bytes that look like another AH or a Hop-by-Hop header
-add OFPIEH12_UNREP/OFPIEH12_UNSEQ, and real headers after a Fragment
-header can go unreported.  Flows that match on OVS_KEY_ATTR_IPV6_EXTHDRS
-then classify such packets wrongly.  There is no memory safety issue,
-skb_header_pointer() bounds every read.
-
-Advance by sizeof(struct frag_hdr) for Fragment headers and by
-ipv6_authlen() for AH, as ipv6_find_hdr() does.
-
-Fixes: 28a3f0601727 ("net: openvswitch: IPv6: Add IPv6 extension header support")
-Link: https://lore.kernel.org/all/178905555085.219967.6617611783437228045@kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
----
-Found while going through the pre-existing issues the Sashiko review of
-"openvswitch: fix wrong flag value in get_ipv6_ext_hdrs()" pointed out
-(Link above); Eelco mentioned putting them on his todo list, and I did
-not find a fix for this part in net, net-next or on the list.  Happy to
-drop this if a fix is already in flight.
-
-Tested by building get_ipv6_ext_hdrs() before and after this patch in a
-userspace harness (skb_header_pointer() replaced by a bounds-checked
-memcpy from a buffer) and feeding it crafted packets:
-
-  AH(hdrlen=4) + DSTOPTS + TCP, payload mimicking AH at old offset
-    before: AUTH DEST UNREP UNSEQ      after: AUTH DEST UNSEQ
-  FRAG(Reserved=0xff) + DSTOPTS + ROUTING + TCP
-    before: DEST FRAG UNSEQ            after: DEST FRAG ROUTER UNSEQ
-  FRAG(Reserved=0) + ROUTING + TCP, HOP + DST + ROUTING + TCP
-    unchanged
-
-net/openvswitch/ builds cleanly with W=1 (arm64, net/main 94cea342e891).
-I did not test it on a live datapath.
-
- net/openvswitch/flow.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/net/openvswitch/flow.c b/net/openvswitch/flow.c
-index 1c4f3a079..a1c60d2f5 100644
---- a/net/openvswitch/flow.c
-+++ b/net/openvswitch/flow.c
-@@ -372,8 +372,13 @@ static void get_ipv6_ext_hdrs(struct sk_buff *skb, struct ipv6hdr *nh,
- 		hp = skb_header_pointer(skb, start, sizeof(_hdr), &_hdr);
- 		if (!hp)
- 			break;
-+		if (next_type == IPPROTO_FRAGMENT)
-+			start += sizeof(struct frag_hdr);
-+		else if (next_type == IPPROTO_AH)
-+			start += ipv6_authlen(hp);
-+		else
-+			start += ipv6_optlen(hp);
- 		next_type = hp->nexthdr;
--		start += ipv6_optlen(hp);
- 	}
- }
- 
--- 
-2.39.5
+>                                 ret =3D direct_write_fallback(iocb, from,=
+ ret,
+>                                                             ret2);
+>                                 need_sync =3D true;
+> --
+> 2.43.0
+>
+>
