@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793295047;
-	b=dVCl7X3grFuNjpURGjLU4KaONUFTVRH5bspxtRGHW3EWe9ohtvvguLIuKdJr0swK1N0w
-	 B8SykTtWq6rvVRIGXuXBfT9Bj1jvzWX3S9T+hvYxBWMxkXpb5RYxWV/18wpkTkKPYQeFp
-	 gIhXZZecO2EGzqZeaFa46zhjkZS15lUjUpJeuSTNHbVrWDGcl20jhGHpxWfUL8yGGXR4p
-	 DRn3vuuWhsxhpTY4NS9EPD7jhYE/RVCHz+FPDdHXn+qckxQA6Rye1Sqcw+B3FAp06z8Sf
-	 4OKuD3LrI8yy9ku8iGpPTW5BsqfDjRkeXu6DEx4VjOQFw60kCxHWLp7n+fwmCzq0IDg==
+	t=1793295050;
+	b=JSRjUSLyE4pfGBbCg4/5jai/XHJp1DRw1wJbdDjvhq4Dr+GsWoWBZ5AVnO/spdBJHDc1
+	 PKOiN3z/5Spo9pLyv1zTIEXtcH0akX13flbeH910qYGW4neb9JwvYcEOA04MzM6Es0u7X
+	 MzwhpK1ufjZ6USi0sKrC1W8PCpMI7FCng5icWWIzleHjRvPaTEG2zuWxfHerkI8IIf+4r
+	 kTkd8kmIFMHWC3c8uhNsanekNcAUbK9bBy7myhUYU2DttN7sCwdJNb4r50bc1rcQiS5qR
+	 OMUqKqknNoVrDCEafX5AvdLmhcZTx1DUHhhI7fjXmYn71nTuP0oR6Jj3sfnYL7jMm2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793295047;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793295050;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ZMDApzLIDOAKE5Gyc0kBJeDtiPqWtLZVQgfI5VI22BQ=;
-	b=G7UdtTMMqnlN+t/R+DvabM5+fY0ji/7WypJXPspkmP1u9Ct2KrRjw1//muaPEeB84aPv
-	 I48Fad+Bs5K3VnCeDjBy/azRoUjdj9wFUhhBSAQCzbqpAdatybxHIiniiqUtZ2kauidYZ
-	 FBSPdpGf0SAofqBEJYs6EYM4xpXPcEAG61gbzzd/XojAMUtjLWI+rE9m/zyGcSIbHBOlg
-	 FmHkXgLIlVsIzb/W8UPEdgK+FAa7GnDbq85wwSoWPJehBll44ElDOSAM3CiH9J4oSz5Rp
-	 jiYcDX5GJlmBRuhqZUkm50TXUE7y1ey4Xun0846D0FtTK5p8ROr0YuLmvKup+zmL6GQ==
+	bh=rBVVW3tHabgwrKT2QwycDYkPKCsMYjmGYVvwfvGvrhE=;
+	b=4qB5VRFpXugXKIdFxpPGpRcaPVveOX5A45toz/dadB3Xp6dm4ZBk3s2zzYdDf57YB2bs
+	 jmcLup2VdezsCmRa57Y1xB8EbJZ/8BfeTRmGR/nWRjAWSmlPKk4cWyddo6jv0fx1CZygI
+	 WATsWLZ5rND0jKx6G8/aDRAoGsmM3dViZeRFFx8DBJ/duFMua9i7iTu5aWFEYN3sHIvfw
+	 5YYP1SCWm4YPiBuDwMZyXHnvYqYx36mjpm+L58jghoXvWW2KWXL+jkMlvq6n3dB5pnehN
+	 5qGXSBco6ckQP2gqJhgp0tWjlNP6GqcOfU7LYM6MMzYmWyh/lPog+uIUx/ucdtgTwkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DlimMrOb;
-	arc=none smtp.remote-ip=91.218.175.161
-Received: from mta0.migadu.com (out-161.mta0.migadu.com [91.218.175.161])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HC6izpFB;
+	arc=none smtp.remote-ip=95.215.58.224
+Received: from mta1.migadu.com (out-224.mta1.migadu.com [95.215.58.224])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25106606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:30:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25106606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10E8F606A32C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:30:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10E8F606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DlimMrOb
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HC6izpFB
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=LXdJ2wzcp0hoHVE9cbEq+7Hky76xZdetmi2maoCyhPM=;
+DKIM-Signature: a=rsa-sha256; bh=7EdBEd5XL5wRdZvYlylGxvVrrhD/K6K3u333eKYP51c=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793295045; v=1; x=1793899845;
- b=DlimMrObNqkXb5rzzvGt/o5MlLGzTCnpncP0VUWI1dg2+CfU41UO9p3lvJQnz69v18Cywvrp
- px/On5GsE4FyXiNd8EQRj6TXLEiLlr5Mtt1AVGx+tkk2prfJRp1trLFlgy55E+DuthYgyepjnDS
- Ho07kMcgRMyyjJwh4u4XbJzQ=
+ t=1793295047; v=1; x=1793899847;
+ b=HC6izpFBgx9Os0a9ApbmT2Glk501euie4yvJGNNb7zQBjlxydSGvilwWczTel/QZIX6ywO4n
+ MTUMT5QvMBh0ouFgHp4Nv4X3nrI2oItKbxYRkNG+LllR7xNIV3QSufQWwP14HJ5/bGcN9HFVUX0
+ L2/ocLWMVGp1/+3XWj/tMaXk=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9eed6b1d4b951111;
-	Thu, 29 Oct 2026 17:30:45 +0000
-X-Mizu-Trace-ID: 9eed6b1d4b951111
+Received: by smtp.migadu.com with ESMTPS id 155dc8602c7bb9c2;
+	Thu, 29 Oct 2026 17:30:46 +0000
+X-Mizu-Trace-ID: 155dc8602c7bb9c2
 X-Migadu-Flow: FLOW_OUT
 From: George Guo <dongtai.guo@linux.dev>
 To: rppt@kernel.org,
@@ -68,9 +68,9 @@ Cc: ilias.apalodimas@linaro.org,
 	linux-mm@kvack.org,
 	linux-kselftest@vger.kernel.org,
 	linux-efi@vger.kernel.org
-Subject: [PATCH v6 3/8] kho: Include linux/mm.h in kho_block.c
-Date: Fri, 30 Oct 2026 02:29:50 +0900
-Message-ID: <20261029172956.20791-4-dongtai.guo@linux.dev>
+Subject: [PATCH v6 4/8] kho: Add kho_disable()
+Date: Fri, 30 Oct 2026 02:29:51 +0900
+Message-ID: <20261029172956.20791-5-dongtai.guo@linux.dev>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261029172956.20791-1-dongtai.guo@linux.dev>
 References: <20261029172956.20791-1-dongtai.guo@linux.dev>
@@ -87,32 +87,65 @@ Content-Transfer-Encoding: 8bit
 
 From: George Guo <guodongtai@kylinos.cn>
 
-kho_block.c calls virt_to_phys() and phys_to_virt(). With CONFIG_KFENCE=y,
-the LoongArch implementations use offset_in_page() and page_address(),
-which are provided by <linux/mm.h>.
+On LoongArch, KHO state is passed to the next kernel only through an EFI
+configuration table. Only the EFI stub installs this table, during a cold
+boot.
 
-Include <linux/mm.h> explicitly to avoid implicit-declaration build
-errors for these helpers.
+A kernel entered through kexec does not run the EFI stub, so it cannot
+create the table if the previous kernel did not provide one. Without
+the table, it cannot pass KHO state to the next kernel on a subsequent
+kexec.
 
-Co-developed-by: Kexin Liu <liukexin@kylinos.cn>
-Signed-off-by: Kexin Liu <liukexin@kylinos.cn>
+Add kho_disable() so architecture code can turn KHO off when the EFI
+configuration table is missing.
+
 Signed-off-by: George Guo <guodongtai@kylinos.cn>
 ---
- kernel/liveupdate/kho_block.c | 1 +
- 1 file changed, 1 insertion(+)
+ include/linux/kexec_handover.h     | 3 +++
+ kernel/liveupdate/kexec_handover.c | 9 +++++++++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/kernel/liveupdate/kho_block.c b/kernel/liveupdate/kho_block.c
-index 0d2a342ef422..0d56891b2f4c 100644
---- a/kernel/liveupdate/kho_block.c
-+++ b/kernel/liveupdate/kho_block.c
-@@ -25,6 +25,7 @@
- #include <linux/kho/abi/block.h>
- #include <linux/kho_block.h>
- #include <linux/slab.h>
-+#include <linux/mm.h>
+diff --git a/include/linux/kexec_handover.h b/include/linux/kexec_handover.h
+index ef2b188c8ed0..6f80e1b0ccd4 100644
+--- a/include/linux/kexec_handover.h
++++ b/include/linux/kexec_handover.h
+@@ -15,6 +15,7 @@ struct page;
  
- /*
-  * Safeguard limit for the number of serialization blocks. This is used to
+ #ifdef CONFIG_KEXEC_HANDOVER
+ bool kho_is_enabled(void);
++void kho_disable(void);
+ bool is_kho_boot(void);
+ 
+ int kho_preserve_folio(struct folio *folio);
+@@ -54,6 +55,8 @@ static inline bool kho_is_enabled(void)
+ 	return false;
+ }
+ 
++static inline void kho_disable(void) { }
++
+ static inline bool is_kho_boot(void)
+ {
+ 	return false;
+diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+index 74c4633f5afc..3280533eaebe 100644
+--- a/kernel/liveupdate/kexec_handover.c
++++ b/kernel/liveupdate/kexec_handover.c
+@@ -82,6 +82,15 @@ static int __init kho_parse_enable(char *p)
+ }
+ early_param("kho", kho_parse_enable);
+ 
++/*
++ * For architecture code that finds, after the early parameters are parsed,
++ * that it cannot pass the KHO state to the next kernel.
++ */
++void __init kho_disable(void)
++{
++	kho_enable = false;
++}
++
+ struct kho_out {
+ 	void *fdt;
+ 	struct mutex lock; /* protects KHO FDT */
 -- 
 2.53.0
 
