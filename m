@@ -1,96 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257426;
-	b=1os2+Ke+ogKyfxh4HHXLsMQzaY0916SBsTu45R5ncdKSR5l66E6WN9VOQ2dFs/JzfDeo
-	 a/TN4U/xIF79KC6yaDqMVCTpMaEd0l8d7Qar8daiqfPpDMMJvMYZvHlGInePZJfDSlR+y
-	 EUHb/Wnpy4vwbC2AemKW8WBQrPnju+M2DX0SMcfaRZdqK0aw+olq11PTW6fk+kTmVVTVd
-	 aXT3E6dMoRoFg5k/dx1hU1VUjDceUh5bOCWeOC45HppSDTWfWfrU5R7xX7HNnzFVw+47U
-	 HsuWgtMUSHieCU59oDZc+BP9bGKWVAeeg7HWR/sewcKettxTO0xdlbOet4mWM2SBIoQ==
+	t=1793257432;
+	b=5inhg+QYkqUVkRgqbhOlT9Iyh7Dp4mwPQjSdO4j+XgJzo7L1obUpFhWZhlJn7AyZo2Xh
+	 NPgYc+5oeq4CUe1LlqpWMTx41ZN6PQgJB0E5DEVSMmBcY8E5rHP2j+r5N6XF+pIdcrjAC
+	 wAFxOLWY1izOxD6YN/2dQkhJ/0eKQeHO+023vOz2XBZrxheCpADtdC8XVDO9VVwO6Tmqi
+	 22o3x4yX5EeBV79u41JF1DEIyf70+egqs9+Px2dH9yZYh4Eb/zZprVae6obUsjSUB0fo0
+	 BlLe53SUETV4n6KdfAiv0bxcEmjA/q+isUg7cm9FpcMdRMXC9Rn0Oz8qTsWFAhPxZyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257426;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257432;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=Wmh5BqCIN24Z4d1WjOHMBcROEM2qdMCDw1sDW+ZOtlo=;
-	b=G0rJsk7R8gXaT2Ay9Rx+c3WUTMclR2cpemhwnDLlCHxNQ5m0rgRX1PpK+UUUUFIhCHK3
-	 yUSsoUmZHiaYF5LVYPVPE2kczWKa13kHcOxbaTiDtRk7aPJR4Wd09htfDKsJpOkzkrJZE
-	 V9GFff3/EoLhDt47kaW3WYNxOEfIwi3IwAcmP2DuX4Ij9fLDU1M5D5qkzvg/SrBKsyX6Z
-	 zwcLZJNoDsj17mCpYc9/cihUsfLYljDWmMLUS2b24jn1+PvA2bvq2yzY1rqUlaP9knZO7
-	 8JcpG1snf/l2TZhNJYEsCAiKwmxKkbrpPcXXrdUtUwOBcVyXrXnrMqLicd3wKeLPIdg==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=U4fFdtJNvcZ6y6D1x1v24LO+4CMQIoUBaMtD1ZPuCLk=;
+	b=KW+lnt40O8I1i0/MdeQ21v40fTNQopQEQIBKzct9KDIQPUwLeRFde4anFiutS2n+IIIy
+	 9tzi4r8BQou5ypcQpP05opWV1eJBZAa0qcuynvbp+wAciRHr7M/p94df+3Tf6A5flX3kU
+	 BXcF29bFNSvLvj6PK51ufOqQVvsPDDzpiSIGAjIPglLTamNMH2RNymGPhQmecmIxkJxzm
+	 Phkl37s2HdcFG804ygslNiMKfqvs+I8SwkVBckbeZ8xEC5dZj7MzQrRkyn6SnLstGmCH/
+	 cCw3g9mlut1PWnNkGeESwgOjC/NjLhHzis1zOoz6+0a9H8MlQ6FLHfdcFdmO2zT8Hmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chrisdown.name;
-	spf=pass smtp.mailfrom=chrisdown.name;
-	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=tVoz7AAZ;
-	arc=none smtp.remote-ip=209.85.210.169
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F+pudE1W;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD9B606A336
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:03:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAD9B606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6617606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:03:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6617606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=tVoz7AAZ
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a07078200fso930203b3a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:03:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F+pudE1W
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so2546684eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:03:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chrisdown.name; s=google; t=1793257425; x=1793862225; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Wmh5BqCIN24Z4d1WjOHMBcROEM2qdMCDw1sDW+ZOtlo=;
-        b=tVoz7AAZ2irYMShZMaLIsF5JObl8tVX05MXEr+7X6NZL7oQzJRwE/T4RQT0Q5XhSb7
-         0WarkG8+k7hXbq/M3zpu2WIEPAA5uFzr4bA1K+GRYBswxSOA01ZCHlOb/GPPPxddNuTA
-         FV4ePeWDbuZcfkg8zaUQVPgVlqDhqsABdeS60=
+        d=gmail.com; s=20260707; t=1793257430; x=1793862230; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U4fFdtJNvcZ6y6D1x1v24LO+4CMQIoUBaMtD1ZPuCLk=;
+        b=F+pudE1Wz7CqOqPaimvu4Pl/+YNsvoQM/t+U/mEYukGErBeyHWCN272+UtDoWNvHMC
+         vAbOVjw5jNDZKqVWvZIigAyIF/4ESJZJg24DbMqgqsPrjUo1VXoyaa84Qnoc6dpgsKow
+         JnXYjABw0qcn7QpUtnBpbMfNOIp8jsS/bzIG1KqgA32WsNOOhrTRm0M8ilMrd+WFoIIj
+         2Hu6CwA/ZyDT2GE4BajHITQmDKwrg38kvYBXwKRGjaijJByJT/VazKfta/CnxRw+8FlJ
+         ut22x4oOCDQDYQeIdnZqr9s59cDhITvsT3mB0kPl54Nkafg1zi2Q1XTY7Hd5k28YU8XO
+         lt4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793257425; x=1793862225;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793257430; x=1793862230;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Wmh5BqCIN24Z4d1WjOHMBcROEM2qdMCDw1sDW+ZOtlo=;
-        b=vGmwcqE48dohqI4vnf29Gh/+tPaMumFFrQg4iKCuSStVZ3oC/hUJsjg1Xjk/APUmCX
-         D8Hb1qpwXmF4LQ58VRgaLcMl11bSNceU0E6aLuvMlZi8Oedk0nGW2I3ZQGUnBF4HlNK/
-         r30Bkyyy9/P78vp6KiW5JDy9qDpdzMJfM0CqQVDgZwKUYHXkMv2YLOadr7Ax2fD1w9dQ
-         BKGmRBmYJgLo42xuAFBQ6NZiiBj8CdiDDN1pJ3pJagA47ZBsGGnXd+cqrPg+OLmQGvxK
-         WbYfpIQ5UxVgqyxhIlibbo+0e8TOjO9+68QYKPDHVYrD17p/1no17tduNzN8U3Ze5xEB
-         s0Cw==
-X-Forwarded-Encrypted: i=1; AKwUvBwz3EeOXblBd2nh2uO4hfuSzAeLfZ2pD6DPeb+itZmg+fazd7ClSygmviL3TqFe5pFBv0LdpkuA78+TzL8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAmtcIIz5HuQcn7ykEA5Mu/fq0SKgko9yO2XHtYhxkz7bqlwr7
-	DBtG5KSaPO2VlYgX5MkNHPuNsqDDo/nUbLvBXiKhXY77NF4WVly+8cRl/zf2DMXy1LQ=
-X-Gm-Gg: AYBFou3TV2wkMcqMXfjKKoUVkk1xWvhs7BV9W+rfHgkQcG/Eyj5A4w/ZjdapQBNVz6x
-	IfTOOgMAwuSzESpjTYNU0/JUT6uCN/eGq/VJDt4p9l3PFCL/UfRUALJvuIv1xZsoOLOtBCLrqN/
-	ClxWDdOl3vrjJuAxKFOkgG7Lzf4iDuQyc+L/sFnw0wA9k5R47hMSsKYOhqEjkJ0gKl0ahnxpCfI
-	8tsmfpVX3UQSqi0Dhft6d3iCPVx6AZ0LQ2F5MPVyyh/Gfw9ZTqMv+TtGLWoiloI47jrio+Y3Unf
-	6L493qEIa8wXTDxPiaytywdhF7CzKAHnMte7DM58q4i1I2DCLTKcMafssV6ov1RLvaQxaurL+o4
-	34AKXjgnozabk0M0nkkOqyyW8blQ5N/90cDXkPEfA22jDZiXc3awoV5M62xTV6rdnnokFR9HZEi
-	YO7xoWtjRIoR3iFkXBkxFfahJxLGJKjV/Z9bvGQcRY/eIrDofFwT/Sl1ihfXpizHALhQJjTrU4r
-	2tU8nW8CNDuxCm9nR/HLGHEDBRkhGTJRaC0awm/5xxUZnyV7vYdoxRkVKOpZ7JQN+b617xZ3ip1
-	ixmBVINmlJlKUqUfPOVmV+LpSFeSb4s9ZmFRa7Gjy5547s93XdTgP9ocP0VGRL1Pvpz8WCuEMFV
-	gCayoVmeBnf8FKpVmALMV3p0eOkX/1FP8dhILPd2YcDFDAyeNQ7znxkXojVOin94ZvZwqnjok
-X-Received: by 2002:a05:6a00:3a05:b0:89f:7ed5:865c with SMTP id d2e1a72fcca58-8a6e72dace8mr3884111b3a.9.1793257425056;
-        Thu, 29 Oct 2026 00:03:45 -0700 (PDT)
-Received: from localhost ([116.86.153.182])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a3d5bd52sm1949028b3a.8.2026.10.29.00.03.43
+        bh=U4fFdtJNvcZ6y6D1x1v24LO+4CMQIoUBaMtD1ZPuCLk=;
+        b=ukzL6dCYsc7pMsXJgqtI015dszpOLX2T5VPFsUJbZwdtTArT9Kr1HYuJ27+gRY55uT
+         eTHy5ejEoSJmagEqG5HmmwKotf0EM31WpCONw1LqpJrKny6H5QtYIY4oRYPVXPkh/YXS
+         diJYuvbsRU9N+zN4kHfMERFpHFRBTfaMD7ZxuAXlYzgWGFMC2f0g7831ulkRMB4M+x0X
+         vrPNilBHq4sGQhaUtAD/z+L1DIyLK9eqJ3MUyJ+ETctm8agj1ZqfCxqD9zpeHxCMdNb9
+         UUAa4TQZCdhLtBy3dd+udJIFgWXa0gbgQUzBpeX1FFF82WPK3JU7XNG547e845OQZLSl
+         9/Xw==
+X-Forwarded-Encrypted: i=1; AKwUvBzRSxKS1gE2J1id7cE+sqRdG+O1lV6QkL3YPuuf1wN+dwcA1rpISiquaIRZ1k6WWLQVEJINbgzIRcsq6WA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqjS5dTvdi1Nht3hKrOzOXBOb0dKoQuB5YzAn9m6Z1TGBoDe00
+	Od+YKbcsW505g2uCaJ0ifXmuiOipoWqlOtmKGk+i6Ej5hTIf0V+5I18K
+X-Gm-Gg: AYBFou1WwZTa3s29smZPXk8EqgM4Xk+tk8zkbruDYe2aHN2pjfrKwnwyq1+DpF7kfvq
+	jD0Jvp8fCkHlvCpdU9/o8OF9U3EkYG4CBYvBfTQSIQFWxBRqg8FpyXZ+4527v14q8ujeKEBtnbO
+	MyMTY2FuNvwj73CZC+7ZzUo0LbLmX2gGr22tEitRFVOYyrz956uW7Fw7BOcq74y7E6EwTboXDRj
+	gVqRaetZiUOvD8PEuAB/BUxWd4r62L3UOAUkEwsqf5geFm8SYPZ0TM/g0kxTeJ4Xd0h4kiGVvzh
+	HGayaMBK4kkB8cCrUprUJLzWCsVLAzosIloTzzsSE30NVh8Jm3oNFM1fGkosEN3QSpcmjoPYQto
+	ukykZ7x62N8i4qS2koiI51FAMfi0SaT2ozfHYid/URnNr9SFjHz9spcXkJYZjYZK/WDrjSdPtIe
+	ASkDGVtIs4oXYhdHcdg3rEfGHaKOFXJqEvdwu6rh2mdXf+RjE+ozlQoVpkiMKDlbW/YOObFoTWB
+	tHZezRqU+3RfECGqIv2eJpdxzxpw9n+Yx1xVYRmAuojxYt74i76HlO1yApj2ntqyawILXQSXtcE
+	Z3QP2m/5oiobO5vaZiKuM1Cm6hXx+hwX61wHSaKkL7jVV2bQMN3IcXTCj/S4TYDE149udYZxyeb
+	NAkoGojEmy6FM3DbuHtzwITBl00QK
+X-Received: by 2002:a05:7300:e11a:b0:353:7d17:9a86 with SMTP id 5a478bee46e88-36a200bea2cmr7029875eec.26.1793257429997;
+        Thu, 29 Oct 2026 00:03:49 -0700 (PDT)
+Received: from Sobhana.localdomain ([152.58.200.233])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a2398fa4csm16955443eec.24.2026.10.29.00.03.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 00:03:44 -0700 (PDT)
-Date: Thu, 29 Oct 2026 15:03:39 +0800
-From: Chris Down <chris@chrisdown.name>
-To: Petr Mladek <pmladek@suse.com>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Marcos Paulo de Souza <mpdesouza@suse.com>,
-	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 01/16] printk: Rename struct console_cmdline to
- preferred_console
-Message-ID: <auLvy8826MGpqeMI@chrisdown.name>
-References: <20260929120546.328616-1-pmladek@suse.com>
- <20260929120546.328616-2-pmladek@suse.com>
+        Thu, 29 Oct 2026 00:03:49 -0700 (PDT)
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+Date: Thu, 29 Oct 2026 07:03:00 +0000
+Subject: [PATCH RESEND v11 3/5] dt-bindings: firmware: qcom,scm: Document
+ SM7250 SCM
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,40 +94,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929120546.328616-2-pmladek@suse.com>
-User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-master-v11-3-2c29e382162c@gmail.com>
+References: <20261029-master-v11-0-2c29e382162c@gmail.com>
+In-Reply-To: <20261029-master-v11-0-2c29e382162c@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Danila Tikhonov <danila@mainlining.org>, 
+ David Wronek <davidwronek@gmail.com>, Abel Vesa <abelvesa@kernel.org>, 
+ Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-pm@vger.kernel.org, Sreeshankar K <sreeshankar0910@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793257394; l=838;
+ i=sreeshankar0910@gmail.com; s=20261029; h=from:subject:message-id;
+ bh=n/5l0LzNHQkrbMmziTZYOIF2FEcc8PMKPnj4oscjta0=;
+ b=gjdaSkAxoqehvftK1W3o4GIVUIA72A6eMiGKTKK8PKFf4JbbGxuhscbbg/ywU6MqKNl0mpR9g
+ xohlD0CPLyOAVuyH5IEDoVDWsgs3nVO3qP+to1jabBDFYp6pcoRN6tB
+X-Developer-Key: i=sreeshankar0910@gmail.com; a=ed25519;
+ pk=CGSHduvtn2hwLCNRXRc9s/fh6X8PH/zNdp08zC8hOuQ=
 
-Petr Mladek writes:
->The structure 'console_cmdline' was originally intended to store details
->about consoles defined on the kernel command line. However, its usage
->has since expanded; it now stores information for consoles preferred
->via SPCR, device tree, or by particular platforms, e.g. XEN.
+Document the SCM compatible for Qualcomm SM7250 SoC.
 
-A couple of optional nits if you respin:
+Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ Documentation/devicetree/bindings/firmware/qcom,scm.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
->@@ -2633,6 +2632,10 @@ static int __init console_setup(char *str)
-> 	char *s;
-> 	int idx;
-> 
->+	static_assert(sizeof(preferred_consoles[0].devname) >=
->+		      sizeof(preferred_consoles[0].name) + 4);
->+
->+
+diff --git a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+index 40a267c54..ee02a9c20 100644
+--- a/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
++++ b/Documentation/devicetree/bindings/firmware/qcom,scm.yaml
+@@ -76,6 +76,7 @@ properties:
+           - qcom,scm-sm6350
+           - qcom,scm-sm6375
+           - qcom,scm-sm7150
++          - qcom,scm-sm7250
+           - qcom,scm-sm8150
+           - qcom,scm-sm8250
+           - qcom,scm-sm8350
 
-Double blank line here which checkpatch --strict is not happy about.
+-- 
+2.43.0
 
-> #include "printk_ringbuffer.h"
->-#include "console_cmdline.h"
->+#include "console_register.h"
-> #include "braille.h"
-> #include "internal.h"
-> 
->@@ -362,9 +362,9 @@ static int console_locked;
->  *	Array of consoles built from command line options (console=)
-
-This comment still says "Array of consoles built from command line options 
-(console=)", which is exactly what the rename is meant to stop implying (as in, 
-the array also holds SPCR, DT, etc). Could be updated in this patch if you 
-respin.
