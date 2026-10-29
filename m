@@ -1,55 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793262339;
-	b=zGCdK8oBySi9cFoo/3lg/jrToZEg8akVPHDVr7nmpjAT/fGTxJPMunt2dasP7pnMd6qE
-	 +A+Ru6NoR5d38z142TGAZ6hfuQ4e5z5a6ed0U/xRYdv+y0bpWAotG2x72Bn0BGLVLq/js
-	 aPdyrlyk2ZDH933MeoRTyu0gxROw/FYohAvmBfqtCriaeX76qnjYVPrD9MAnVmWaaTcrF
-	 Qb1WKn2Z305uL0s5svxWqadBGdUMb77vew9inLF/1XepsA3zsAPjOVhl8/a1McVm17IGX
-	 0dwZSTCYqhc5RsbqxLC5lfxy84G3J55FBIpsgl5NANWafUyCjnODNbqpkR3lVbwjuVQ==
+	t=1793262361;
+	b=4QBe/iWF2AF7REwZ7+bpApTSKkgIdrnWpGByTdtn5Qg13Chg0v+Hnfy4nr+qX7fWKbrR
+	 zCy4Vsmgr1yD2w27y51KkkWtRPNIp/Zj/Cur0GnawaMbpd9MJqqS94Hfn9O9JCDjfkelV
+	 jwWxUHAFbREINikumrq7hN/GcCgfR/Ah2aleoyfOICsShaamd1aXQOl/uV7CBI7fVfpbV
+	 POdkGI4Jj6qfQozmeeBo0uUszZhiqz3H3cs8MTL0XS4uNR2r1LBkpi+DFF5udAY3RSlvu
+	 G8tSrnGslTsDgMhU9mSto4pUEoeIk5Hi3V9gaHa/waN4IQ190owwIfSYMR3RqMpivRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793262339;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:To:From:
-	 Subject:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=i7BliqTUh+ruXPtCUZKVjBBAkHgZCIiGzPUh2SAN8YU=;
-	b=AF7BJ9Gnd6od6BNdREjHsLOfo/vzKRdTOdCKxohxryfrgcBjk/dF6omfKUYqogfw6fZJ
-	 7jx5CyCJgLaw/bbD70cPZYscQIN++IDg6sp8VO131cP3o009ufC5Ce9cmxZCp7bEdrv0f
-	 /UraJ+FbL2SiykyKqEj0sAxrSvOkUUwfOJMcVdAaDquQbH0oM0UMCpo0MTgj8BZdCo9da
-	 vWYGvVB1w941LmQ+W+CY+NGmt7gSrlS6Df+CqSX57pyrXzm+PI+E9XOezidD5TjN4v4dh
-	 z0ThIxtEqSwad9sb6J2QGchxNfWjHdLZ/4CgrdeyPg+vS5cqTbKqRt6QNgbF+AdOAPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262361;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xSAI1Taz7XPgEgkZ0/+WnfXZLsVVAFKEoUaZ094DMNk=;
+	b=RyLT0ginmOB1aVNEi/MyBys1jwUk3EQewbLJXKntBEsHo7c+J8Bgw1moD4fMhH/HK8Za
+	 0RG/E1N5d2vf/24/knrkDc1sCx9/ZytaFfXNilHEpyYtCTx9Zo7jJSoWeoN6V4tnNwiGn
+	 ++AuquC9/ciXDcNdTWbuUgeQh4ZhO7TY01WhE04YeC/L0UfcMLXVXRWn+WHH+XUB9F1wK
+	 V45As7My677oAMKzHjP2yQAYV3ov69MUkT6FKIjEQ1Q4NFcfAcqSOIU9zNcPbhF0J+t0X
+	 gd/N5p0XrpBbxJJVq3FbA+P2CRacin8hPjuHqmsmMF/6HlXcBZsZvoYaOEcVQBQr5lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b="Gi5/RwN+";
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZEWLkcMZ;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE732606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:25:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE732606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFDD2606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:26:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFDD2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Gi5/RwN+
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 0C4214E41388;
-	Thu, 29 Oct 2026 08:25:35 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D39A260360;
-	Thu, 29 Oct 2026 08:25:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4D2211032900F;
-	Thu, 29 Oct 2026 09:25:27 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793262333; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=i7BliqTUh+ruXPtCUZKVjBBAkHgZCIiGzPUh2SAN8YU=;
-	b=Gi5/RwN+yASwrW6VfMvE/S4XS0WOri5JMkDDX4WyM2rJbSJR6DSixH1w43CDLfewcnktxo
-	5EVVKGSWob+WF+J853qHqHE6OYPH1VFPOykVOJcJH6VskN+hUaJGq22wQId/DMGbZN7i0C
-	AcuFUNcyN93AyQ/4o+VHvilqoiB+uFl7mc+1fiIm3jDQ2aZfB5IkHMy/25sdmE2PCzGGbz
-	QKRnb2fiCwMM2cpuVBITTWSIWsV0ipEKvk47dOhjVZVkEs1ZshYi0wDSGdGEhH3wstfV0a
-	Gala+pSEWo8DNnC2T5uh/X6AUNaj1pqB6Z6uQyQBbG1KaUDXMza3Z+MeX+nR9g==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZEWLkcMZ
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2e83d2cc8a2so4330645ad.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:26:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793262360; x=1793867160; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xSAI1Taz7XPgEgkZ0/+WnfXZLsVVAFKEoUaZ094DMNk=;
+        b=ZEWLkcMZ8/QNABuzDhJfJmFN5hUPFbOLuoMMYZuiB7Qf7nwzWq/ntmp4K7YADMs+bK
+         S/cQbbdch+4vnPHfdd1Wb0IbE8RQJxTV0Paca9FtnPnirjLNcQCamNWVEL4pRwVvAqva
+         YskHf9oXe/D4YuNmsqORQE5yLJSZ0COXH7sUMishp9aXSStn6cdCyK75Plr3SGg/jIyl
+         Arsg+6Nuxwo49Xj1j+iC7nbUd482zlziaYjnqt+iVnLKrf+UP865OzwUUIO8CBMsGHhr
+         F5XuEUzWAPLXT5eW4gcadQqCFFe0x0xTKICfeOPP5fOBAD96gXUR74N9AajszIwJc8AN
+         y0IQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793262360; x=1793867160;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xSAI1Taz7XPgEgkZ0/+WnfXZLsVVAFKEoUaZ094DMNk=;
+        b=PrkqflvQTZCjDy4r+eByHvJeQA94RN3fQf6BXiz3TiZ1CLLz82tqhkVY3+8XGpFn0f
+         0MzUYLaHlyup/WxlNrHWpcEOwITet6+GFlbEpw3bvAH7uyvtAstiE6+lcXUPaUIlsLIA
+         yBVKhs9nIpf+xW69kMsYTIfnekRNx5yD8/EuPoQwKv/T2F0cFdlPZ1nAu7rbazqgtRaG
+         XsZJVtlmny/6Ge0b0xCYd1EVQ2xviXQ+KT4jS5YJzIk6iJ+S6GknFdnBWPcmciZRQ4DT
+         G0mFugPRNiZfjF44VVXKHG51+CQVs+kxPD5P75YWLDyaOfKKa7W+NlcNu5aSUTLmo/yU
+         OB8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxCMxjmqVTl2L1zCuvNzqIHGbtnuakuLDVun+OC93MVco6GiiS+GdPlXj47HxSdtyNEDTW3LHR1+2WbkMU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIr/SmgdaxOcD6abclVpvv9szzplYpeRadCx+U3BoSGb69MOLGb
+	qCE1s1rPy0Y/HR74TFXnmUQv3qv2Rn+h0QwrWuEbTnHB0kefNLUprnR8
+X-Gm-Gg: AYBFou05kk6bYOrIdw5WTWZ8d3YVxSKkiVxOjE4+dGfKDd/mIbQjwq/CCWC7hcPdJNy
+	Z8SQcNGnHeDDoy6YuShVy6LB4/tij2AsXTewwYYm1YMkmhnArtBcEYHL4zKCjPs3Dj/U5eNCL4f
+	zkzeikhU5+Ud+U6rgn7zF+MMNhRZN0f5PEIo++VYAf1pRaS9n3PIH95nvMyIr8iaJkk9cClgIVl
+	aCa5jvWadEVby+qBb58M9bMgEdLRVu+3GLmp5n1Pcd78wYqY4XCdn5n5RSHQSMazBszkLFK7S5P
+	+ipgQb150Y0gSNcoEDPFwBxEdQIzN6IIXmpvvCNxlQ6m/XF158zxLt1DgEJ/t3Kwec0OBCU2eXH
+	BcFEJYycA4tsGaaywz4LTtieyS17OEN2K51+sRiVJd9ooyhN+MSmrLKoY7aZYfh+6swBBCax21+
+	E1JAgchrIF3LCfdZOVj/fK+7VySCLXCvLpFWCad5cH8gc4+Rg+dxQX77w2HOjJfaovkZTfOk3zS
+	4WhXUl29D6annrk0Ze2Jf2BQUCPFKNx0m0dL5xYmY8ypYT11kOxe6zDEpOHA3FBo7k+Jv3lkkeX
+	F1cB1iH37RTXXKKi6Mq2344kLSQWiqCp
+X-Received: by 2002:a17:903:32ce:b0:2e9:4175:306b with SMTP id d9443c01a7336-2eb00052bc8mr67641045ad.1.1793262360067;
+        Thu, 29 Oct 2026 01:26:00 -0700 (PDT)
+Received: from localhost.localdomain ([240e:36d:b08:2bc0::a60])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6b7a216sm30031585ad.16.2026.10.29.01.25.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 01:25:59 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: linux-rockchip@lists.infradead.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Quentin Schulz <quentin.schulz@cherry.de>,
+	Jianfeng Liu <liujianfeng1994@gmail.com>,
+	Alexey Charkov <alchark@gmail.com>,
+	Amin Gattout <amin.gattout@gmail.com>,
+	Chris Morgan <macromorgan@hotmail.com>,
+	Chukun Pan <amadeus@jmu.edu.cn>,
+	Coia Prant <coiaprant@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	FUKAUMI Naoki <naoki@radxa.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Hrushiraj Gandhi <hrushirajg23@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+Subject: [PATCH v2 0/2] arm64: dts: rockchip: Add ArmSoM Sige7s support
+Date: Thu, 29 Oct 2026 16:25:19 +0800
+Message-ID: <20261029082541.469999-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,68 +111,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 29 Oct 2026 09:25:26 +0100
-Message-Id: <DMH6FVUD4K0S.R8UAMMH8TVZY@bootlin.com>
-Cc: <romain.gantois@bootlin.com>, "Cosmin Tanislav" <demonsingur@gmail.com>,
- "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>
-To: "zhangjiao2" <zhangjiao2@cmss.chinamobile.com>, <andi.shyti@kernel.org>,
- <dumitru.ceclan@analog.com>, <sakari.ailus@linux.intel.com>,
- <luca.ceresoli@bootlin.com>, <andriy.shevchenko@linux.intel.com>,
- <gonglinkai@kylinos.cn>, <rosenp@gmail.com>, <stable@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <trivial@kernel.org>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH] i2c: atr: fix race condition caused by static local
- variable in i2c_atr_map_msgs()
-X-Mailer: aerc 0.22.0
-References: <20261029070818.639-1-zhangjiao2@cmss.chinamobile.com>
-In-Reply-To: <20261029070818.639-1-zhangjiao2@cmss.chinamobile.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Add support for the ArmSoM Sige7s, an RK3588S-based single-board computer.
+ArmSoM confirmed that it purchased the CoolPi 4B hardware design and made
+no hardware modifications for the Sige7s.
 
-+Cc Romain, Cosmin, Tomi
+Keep a distinct model and compatible so Linux identifies the board under
+its marketed name, including when a kernel-provided DTB replaces the
+firmware-provided DTB. Retain coolpi,pi-4b as a fallback compatible.
 
-On Thu Oct 29, 2026 at 8:08 AM CET, zhangjiao2 wrote:
-> From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
->
-> The variable `c2a` in i2c_atr_map_msgs() is declared `static`, which mean=
-s
-> it is shared across all invocations of this function regardless of which
-> ATR channel is being serviced. Since each channel has its own
-> orig_addrs_lock and alias_pairs_lock mutexes, two threads can execute
-> i2c_atr_map_msgs() concurrently on different channels, racing on the
-> shared `c2a` pointer.
->
-> This can cause:
-> - The wrong alias to be used for address translation, sending I2C
->   transactions to the wrong device.
-> - The `fixed` flag of an unrelated mapping to be corrupted, breaking the
->   alias replacement logic.
->
-> Remove the `static` keyword so that `c2a` becomes a regular local
-> variable, eliminating the shared state between concurrent calls.
->
-> Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+Following Quentin's suggestion, the Sige7s DTS now includes the CoolPi 4B
+DTS directly and overrides only model and compatible. The existing CoolPi
+DTS is unchanged, and the common DTSI extraction patch has been dropped.
+The series now consists of a binding patch and a board DTS patch.
 
-Was this potential bug observed on real hardware? I'm a bit surprised
-nobody noticed before.
+The v1 series was boot-tested on an ArmSoM Sige7s v1.0 board, which booted
+successfully into userspace. This series retains the existing hardware
+support provided by the CoolPi 4B device tree.
 
-Also, if it's a bugfix, it should have a Fixes: tag and possibly Cc:
-stable.
+Validation for v2:
+- Build-tested both DTBs with arm64 defconfig and W=1.
+- Ran dt_binding_check for arm/rockchip.yaml.
+- Validated both DTBs against the processed schema set.
+- Checked the new DTS with dt-check-style --mode=strict.
 
-Code-wise it looks OK. Not sure a bug can really happen but I don't see any
-reason this variable should be static: it is always set before being read
-by this function.
+Based on next-20261028.
+v1: https://lore.kernel.org/r/20261022125339.82746-1-liujianfeng1994@gmail.com/
 
-Also please keep Romain, Cosmin and Tomi in Cc in future iterations, they
-worked significantly on this code.
+AI assistance: Codex prepared the v2 changes from the v1 patches and
+mailing-list feedback, revised the commit messages and cover letter,
+and ran the build and schema checks.
 
-Luca
+Changes in v2:
+- Drop the common DTSI extraction patch and reduce the series to two patches.
+- Include the CoolPi DTS directly in the Sige7s DTS, as suggested by Quentin.
+- Clarify the unchanged hardware design and the reason for a separate identity.
+- Add a background comment to the Sige7s DTS.
+- Rebase onto next-20261028.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Jianfeng Liu (2):
+  dt-bindings: arm: rockchip: Add ArmSoM Sige7s
+  arm64: dts: rockchip: Add ArmSoM Sige7s board
+
+ .../devicetree/bindings/arm/rockchip.yaml        |  6 ++++++
+ arch/arm64/boot/dts/rockchip/Makefile            |  1 +
+ .../boot/dts/rockchip/rk3588s-armsom-sige7s.dts  | 16 ++++++++++++++++
+ 3 files changed, 23 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-armsom-sige7s.dts
+
+---
+base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
+branch: sige7s-next-20261028
+
+-- 
+2.47.3
+
