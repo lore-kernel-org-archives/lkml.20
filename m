@@ -1,103 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306382;
-	b=u8zOStDGn+DVtT6Ssj3q5U7Nyc18WN562JcBj5AF6POzuauULGPZoV+BpFF0ZNUwRtzr
-	 TiEYZZbsxWd/t20bOIF+r+lurqT692UJQ6rn9hXjzMmC0vcC1X9ds7/LHixcoHIP+rMCm
-	 zTiqq4b0kn3SMMaLBln8vZ7xMX4eUECZTkm8EXECZiZk7+EwWy2QbeVKaKqAbzDzIXP4Q
-	 AHbCLDzLmhTO/1vjjEAe/h3hj5XnESfPFLeo/vgVmMKDB8OGz6zJY+Lsvoz8WHgEcQY5g
-	 P8xrhLvWlAd5Ji0v73pGZLptVSC7T91t3H29L/uAYdOF6U+PZYGtCH+mq84fiT7W5/w==
+	t=1793306393;
+	b=KW39G2RGN644YXAciVAi4TjsA6AtIC487sxyQmQJ+vf4BeNpgRtkSlBIM3xcb5EcfqEK
+	 YkDcSV1qxvbneEV+osF9kB50gL1GZH3rcWUWmGevj5vNjX7BHBLziUeqZtpQ2ndXVOq67
+	 8K4G8qikMTeZ9bfjg4Lz1vI7eY38crD2JlQMDYvvsxv3W4LzdWIpBI5Y/ykmQLdUgwV8H
+	 JIYnIA5g/oqV4WXipSX4DwnejRYh4QSXlD/xqTj0e83CpfOMJEb8r239YP5FRvtxIJCEK
+	 0uYpC2EVT0h5d8C+uUu5gHxiEM+LEF3N/zJHD80LmWHtk9p/f3jKNY9LadPmVlVRENQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306382;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:User-Agent:
-	 MIME-Version:Content-Type;
-	bh=zZ98LDJa1IE/oN6cTPpb0GoN4V76v/7mFaBGKH4x77k=;
-	b=Nh6bsxlZClChNs4+yGWjBcX6aHIvjY8VBIeCXdaxvR3z81Y9vEfjksH927We7bqoJSEU
-	 CHQgchTcUgdzrYrq67DJPFtgCPrwHrmTIfqdetyPQLiJeLlyMZYTwnO9ZzrzSQ9qAZ629
-	 OJEIKk4IGhOT4VSzHLo5flhNOr7mLMxRpi7/NSaT6BvyX72PVKWXnHnY+7i4DBLwCOygE
-	 1kTx7K3JYuUMwr/TzhNIF8JSl/gyXOqOhDTPrwCwwBnLPQoT9HTsyyN8H/bJSl+Bl7y8X
-	 CncTVQdXT7J3eL+CVq9DHeImJuewGe5iSZ/qpn/gMq3FWgPoMVVwzlg9Y5C5Xf0wM8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306393;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Km0yqTQxYGForZ+cy0urvWCzslLgA0FkwENmG253UiU=;
+	b=FywwJW8dikRwgwe95E9/aM4J+9Ymm7vl7uq+9NFfaQVJhyWM1lJIsl6ldOYKiJVd/XHA
+	 sIE2cZVWIOthtxVLIlkKr9B+kJo41zEs16XltPT9tg+q6s3X3JbShn36FpKkenCHYn+pQ
+	 QG1CAjWd79yF/6G0Zerwe5EXmgKOnnzF1Y+ZtEGsGP483ZzKw5H9qYkO6zAVFvYfooZZm
+	 wQk+IAxUZFe2FyevZ7BEhMVWDsEOx+K8oNvy5S21XoG6nveVnn98XHcZb7UtS3U0wtIxe
+	 kra2u925xSNff/pImpunn7VK2Z2wBSKV3sx12IQUIJsL4YEUCWC6mu2EVCXlHUzK76g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lAkm9XIa;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z47TJXE0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28BAC606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:39:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28BAC606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08CB4606A326;
+	Thu, 29 Oct 2026 20:39:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lAkm9XIa
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso195560eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:39:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793306380; x=1793911180; darn=vger.kernel.org;
-        h=content-type:mime-version:user-agent:message-id:date:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=zZ98LDJa1IE/oN6cTPpb0GoN4V76v/7mFaBGKH4x77k=;
-        b=lAkm9XIafJ32D5jpH3y47xA0Lyt/iZujWDQlydsE1AeX8igESOpEMbvwqu3Pz2HDm4
-         JS+Fc4fMAJrJKoYv4nn4LK8I6YbnYOUN+JP4jJUbhSodrB49sLMdiYFzZ5v50A0Uy3YQ
-         zXNlqOOYIA/13lEvnNVBEq5GZySO9u1YcziG/xRarI3/BU8eBQrnHlrzRUH9iLH5AWCz
-         VYj+3S+vAkeFVUqsyIBzP3W/eTCrxWF7x6gnZf7gkDnin67Fc/1lHDbK/j2WvvuGeqgo
-         BW1yTfthoirf2sGs5V0xGz+T5p7nGZXxnfjgZ/0JztvPMgqZCGuPN4dQfSuGddr3ksSo
-         iJVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793306380; x=1793911180;
-        h=content-type:mime-version:user-agent:message-id:date:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=zZ98LDJa1IE/oN6cTPpb0GoN4V76v/7mFaBGKH4x77k=;
-        b=zPcAgDuTAkHTWawvn7GrFupcLMPtlyjo6DI95deeK8i4praV0S83UDo0UDjh0f3w4U
-         a+ktjct1G3niOoG3sDQKn8PJzt23ZO6Yd8HrM5AkvGxDEW+8jMoUkwteCds6tvSxNbfw
-         USmvq1W5+JCB2YCCBUXICOfJAzVbhdbZzBlki8/utnodHAadrRr2xi2Yio3WgHXpwgmc
-         gFowaYfhqVzEwv6qvnmiQMuiXZSSiL1ZA6+e9QPlyf++BKIdDdt/phAo4orqj3Ydx1Tx
-         4fZruWP4npKqg4OsrMtl4YGEHV8I15zXorDCEegD/InjKjTvWgsmCrIHRkMX90m1B5vx
-         evKA==
-X-Forwarded-Encrypted: i=1; AKwUvBx/udzPc/a4M/h/X4LBbjviwAZunkGARq55rWP3UL9bEt7qUL2h3SeXvp+qbdfbchmfvgA95tZrU5b6gh4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8F9fajrhDT/6vNp/6H114KoqZNcRtVijxO4zL0mB9cMsSSfoU
-	Gg0yj1ZeGRO55xKTF/4riFo/NdgqxHbgx3bdqmh6FMbo9XfP0Mu/j4jUfZY3ckwZJCtws02fdUH
-	H8dQPsEru
-X-Gm-Gg: AYBFou3SHfHsbeZvkVphW6x1lA6/gtY7aHMS0q/ijYDx8JCOfPuB9TPxALRaPRe2gc5
-	iOU2fItcLeEpg+A2GcS3O61L2hDFuyWD6tvFCs101C/2vUeZ/5MdkVW8FXI2tjKS0oRbFGWCRlg
-	KWaSMuvQNv+JVdjkT+28LhdB/pfkRai39oHXelDXCWZpfIJaH9DxAwE9Kwz7ESTKF8ImD6lDLOD
-	0kqaETx9TbgXQHTZSZ+9YloWPXI9Y/8ZHOxtD17P1deVRZQUa6kdr/khk+XR8II1pswgowR93Hs
-	GMvDVQGBMMAfhjsyAwPJRO05WZkvVqv1HEanDFOgkr68sQTdij1kl2t9bXEjUeqZ2INZimjaH8G
-	Be/eFHwmuTF4jXHpVvPNDjBVDLk9DqHjgIBL1Jh9rfAC9DUKEC/i+h+WdJvWpIqb9NJ2yOfXmXD
-	8Ox64Xwxb7ochboSq3SCetetPNl8c3H5nH3MqzY2P/OEH3p6YUidhh2LXovHyrpw3zMIdVOBjzu
-	5XU1RVpXjLarG2kolj7l2aDSON5t9cWHiCuRZwpvyYKPQadtwpl4I/Q0U32POAICM9LvjIdS9jx
-	3k5n4Y+zLZE/0ckI1I3WdEDcmktrc0uVytyMjTxyRJ2UiFIKcRF3g+DZfme4
-X-Received: by 2002:a05:701b:424f:20b0:149:d501:b990 with SMTP id a92af1059eb24-1ac5eea2ea4mr189708c88.25.1793306379177;
-        Thu, 29 Oct 2026 13:39:39 -0700 (PDT)
-Received: from bsegall27.localhost ([98.45.141.147])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458fa3sm1090743c88.4.2026.10.29.13.39.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 13:39:38 -0700 (PDT)
-From: Benjamin Segall <bsegall@google.com>
-To: "Aaron Lu" <ziqianlu@bytedance.com>
-Cc: "Daehyeon Ko" <4ncienth@gmail.com>,  "Ingo Molnar" <mingo@redhat.com>,
-  "Peter Zijlstra" <peterz@infradead.org>,  "Juri Lelli"
- <juri.lelli@redhat.com>,  "Vincent Guittot" <vincent.guittot@linaro.org>,
-  "Dietmar Eggemann" <dietmar.eggemann@arm.com>,  "Steven Rostedt"
- <rostedt@goodmis.org>,  "Mel Gorman" <mgorman@suse.de>,  "Valentin
- Schneider" <vschneid@redhat.com>,  "K Prateek Nayak"
- <kprateek.nayak@amd.com>,  "Linux Kernel Mailing List"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] sched/fair: Clear throttle state when leaving the fair
- class
-In-Reply-To: <20261029032740.GA2901802@bytedance.com> (Aaron Lu's message of
-	"Thu, 29 Oct 2026 11:27:40 +0800")
-References: <20261022235234.150957-1-4ncienth@gmail.com>
-	<xm26ecd9ihv8.fsf@google.com> <20261029032740.GA2901802@bytedance.com>
-Date: Thu, 29 Oct 2026 13:39:37 -0700
-Message-ID: <xm26a4nwi6ly.fsf@google.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z47TJXE0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF371F01816;
+	Thu, 29 Oct 2026 20:39:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793306392;
+	bh=Km0yqTQxYGForZ+cy0urvWCzslLgA0FkwENmG253UiU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Z47TJXE0l6fe1vovOHQ3FpK1iOCvEzErSXBZCqfYcFmCe1OR4tizVqjNtq8YptI8F
+	 E1FxARPrarpNaQs8d2re/6lqZYh7B9tob9kySkkPSimf5/t8u6+/O+Q6tm7+5dVymq
+	 Z4jRfOfaB6GeRWvjszdBBgH8+2LRQZvumLdv4sfVFU++tNEy+dmdk6pyCWkznrI2xr
+	 pI9kSd+7lc44NFOdscpI6wxLRg67IXR0ZzzfBxhHeeXzGJL6+005JluRIpA5FTCSaW
+	 WwB7fba2nbeIL794lJiM16afnh9A5EhYshChrvMKsf107deOSjhJX9joXxfSP9N8f+
+	 aKLCjZWW9IIdg==
+Subject: Re: [PATCH net v3 1/2] net: ethernet: bgmac: preserve forced 2.5 Gbps
+ link speed
+From: netdev-bot+sashiko@kernel.org
+To: florian.fainelli@broadcom.com
+Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, rafal@milecki.pl, bcm-kernel-feedback-list@broadcom.com,
+ jon.mason@broadcom.com, arnd@arndb.de, linux-kernel@vger.kernel.org
+Date: Thu, 29 Oct 2026 20:39:51 +0000
+Message-ID: <179330639152.3134.1743045089447832212@kernel.org>
+In-Reply-To: <20261026203742.3198673-2-florian.fainelli@broadcom.com>
+References: <20261026203742.3198673-2-florian.fainelli@broadcom.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,63 +64,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
 
-"Aaron Lu" <ziqianlu@bytedance.com> writes:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-> On Wed, Oct 28, 2026 at 03:24:11PM -0700, Benjamin Segall wrote:
->> Daehyeon Ko <4ncienth@gmail.com> writes:
->> 
->> > Task-based CFS bandwidth throttling removes a task's fair sched_entity
->> > while the scheduler core still considers the task queued. p->throttled
->> > carries the fair-specific state across dequeue/enqueue operations.
->> >
->> > DEQUEUE_CLASS removes the task from cfs_rq->throttled_limbo_list
->> > but retains the bit. If the last finite CFS quota is disabled while
->> > the task runs in another class, it is absent from the unthrottle walk and
->> > the bit survives.
->> > Returning to fair while cfs_bandwidth_used() is false then performs a real
->> > fair enqueue with p->throttled still set.
->> >
->> > After bandwidth is re-enabled, a class-change dequeue treats the
->> > stale bit as limbo state and skips __dequeue_task(). p->se.on_rq therefore
->> > remains set, and put_prev_task_fair() places the entity in the EEVDF tree
->> > while the task moves to RT. On exit, the fair picker can select the
->> > TASK_DEAD task. __schedule() then returns to do_task_dead(),
->> > which hits BUG().
->> >
->> > Keep p->throttled across migrations and group moves, but clear it on
->> > DEQUEUE_CLASS because fair-specific state must not outlive fair-class
->> > membership. A later return to fair uses the normal enqueue path. That path
->> > still respects a throttled cfs_rq.
->> >
->> > A KASAN, LOCKDEP and DEBUG_LIST v7.3 kernel reproduced the do_task_dead()
->> > BUG in 3/3 root and 3/3 delegated uid-1000 runs with CapPrm=CapEff=0 and
->> > RLIMIT_RTPRIO=1. The fix passed both matrices plus a 3/3 class-switch
->> > control with bandwidth continuously enabled, without a scheduler warning,
->> > KASAN report, lockdep splat or crash.
->> >
->> > An AI coding assistant analyzed the state mismatch and drafted the initial
->> > reproducer, fix candidate and this changelog. The source paths, trigger,
->> > controls and results were rechecked against the cited revisions.
->> >
->> > Fixes: e1fad12dcb66 ("sched/fair: Switch to task based throttle model")
->> > Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
->> > Cc: stable@vger.kernel.org
->> > ---
->> 
->> Yep, sched_class switch lets you smuggle ->throttled into
->> !cfs_bandwidth_used(), and then that check on enqueue_throttled lets you
->> smuggle it onto actually being enqueued, which leads to corruption.
->> That's fun.
->> 
->> I think we need to use switched_from_fair though - if we are currently
->> TASK_ON_RQ_MIGRATING, sched_class changes will skip going into
->> dequeue_task_fair at all, so we will not see the DEQUEUE_CLASS.
->
-> sched class change serializes with migration I think, with task_rq_lock()
-> which waits for migration to settle, so this should not happen?
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-Right, of course, sigh. So then this should indeed be fine.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Reviewed-By: Ben Segall <bsegall@google.com>
+- [Medium] The steady-state 2.5G override also hits non-Northstar
+  platform AMACs.
+- [Low] On forced-2500 devices, the programmed MAC speed and the reported
+  link speed now disagree.
+
+--
+
+net: ethernet: bgmac: preserve forced 2.5 Gbps link speed
+
+This commit makes bgmac_adjust_link() use SPEED_2500 instead of the fixed
+PHY's reported speed when BGMAC_FEAT_FORCE_SPEED_2500 is set. The goal is
+to keep the AMAC at 2.5 Gbps on Northstar and Northstar Plus. Without it,
+the first link change reprograms the MAC to 1 Gbps.
+
+> diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
+> index b3a92ae95de30..ec879c203bc59 100644
+> --- a/drivers/net/ethernet/broadcom/bgmac.c
+> +++ b/drivers/net/ethernet/broadcom/bgmac.c
+> @@ -1417,11 +1417,15 @@ void bgmac_adjust_link(struct net_device *net_dev)
+>  {
+>  	struct bgmac *bgmac = netdev_priv(net_dev);
+>  	struct phy_device *phy_dev = net_dev->phydev;
+> +	int speed = phy_dev->speed;
+>  	bool update = false;
+>  
+> +	if (bgmac->feature_flags & BGMAC_FEAT_FORCE_SPEED_2500)
+> +		speed = SPEED_2500;
+
+[Severity: Medium]
+Does this reach more than Northstar and Northstar Plus? bgmac_probe() in
+bgmac-platform.c sets the flag for any platform AMAC that has no
+phy-handle, whatever the SoC family:
+
+drivers/net/ethernet/broadcom/bgmac-platform.c:bgmac_probe() {
+    ...
+	} else {
+		bgmac->phy_connect = bgmac_phy_connect_direct;
+		bgmac->feature_flags |= BGMAC_FEAT_FORCE_SPEED_2500;
+	}
+    ...
+}
+
+Before this patch, the 2.5G setting from bgmac_miiconfig() only lasted
+until the first bgmac_adjust_link(). That call reprogrammed the MAC to the
+fixed PHY's 1000. With this change, 2.5G becomes the permanent MAC speed.
+
+The in-tree Cygnus board bcm911360_entphn.dts enables eth0 ("brcm,amac"
+in bcm-cygnus.dtsi) without a phy-handle, so it gets the flag. Its switch
+peer is "brcm,bcm11360-srab" (BCM583XX_DEVICE_ID), and CPU port@8 there is
+a fixed-link with speed = <1000>.
+
+The companion change "net: dsa: b53: restore the NSP IMP port 2 Gbps mode"
+only forces the IMP port to 2000 for is5301x() or BCM58XX_DEVICE_ID:
+
+drivers/net/dsa/b53/b53_common.c:b53_phylink_mac_link_up() {
+    ...
+		if ((is5301x(dev) || dev->chip_id == BCM58XX_DEVICE_ID) &&
+		    dsa_is_cpu_port(ds, port)) {
+    ...
+}
+
+Would that leave the Cygnus AMAC at 2.5G and its IMP port at 1G? That is
+the same mismatch the series describes as the cause of the output queue
+discards.
+
+Hurricane2 ("brcm,nsp-amac") and Stingray ("brcm,amac") would be treated
+the same way if their DT had no phy-handle. In-tree Stingray boards do set
+phy-handle, and no in-tree HR2 board enables amac0.
+
+On parts without idm_base, bgmac_miiconfig() skips the 2.5G IOCTL clock
+select. The MAC speed field would still stay at CMD_SPEED_2500:
+
+drivers/net/ethernet/broadcom/bgmac.c:bgmac_miiconfig() {
+	if (bgmac->feature_flags & BGMAC_FEAT_FORCE_SPEED_2500) {
+		if (!(bgmac->feature_flags & BGMAC_FEAT_IDM_MASK)) {
+			bgmac_idm_write(bgmac, BCMA_IOCTL,
+					bgmac_idm_read(bgmac, BCMA_IOCTL) |
+					0x40 | BGMAC_BCMA_IOCTL_SW_CLKEN);
+		}
+    ...
+}
+
+Should the override be limited to the SoCs that really run this link at
+2.5G?
+
+>  	if (phy_dev->link) {
+> -		if (phy_dev->speed != bgmac->mac_speed) {
+> -			bgmac->mac_speed = phy_dev->speed;
+> +		if (speed != bgmac->mac_speed) {
+> +			bgmac->mac_speed = speed;
+>  			update = true;
+>  		}
+
+[Severity: Low]
+After this change, can update ever become true on forced 2.5G devices?
+
+bgmac_chip_reset()->bgmac_miiconfig() caches these values before the PHY
+state machine runs:
+
+		bgmac->mac_speed = SPEED_2500;
+		bgmac->mac_duplex = DUPLEX_FULL;
+		bgmac_mac_speed(bgmac);
+
+The fixed PHY reports DUPLEX_FULL, so both comparisons in
+bgmac_adjust_link() come out false and this block is skipped:
+
+	if (update) {
+		bgmac_mac_speed(bgmac);
+		phy_print_status(phy_dev);
+	}
+
+Before the patch, the first link-up saw 1000 != 2500, reprogrammed the MAC
+and printed the "Link is Up" message. That message seems to be gone on
+these boards now.
+
+Also, phy_dev->speed stays at 1000. bgmac_phy_connect_direct() registers
+the synthetic fixed PHY with .speed = SPEED_1000, the DT fixed-link uses
+speed = <1000>, and swphy can't represent 2500 either way.
+
+bgmac_ethtool_ops uses phy_ethtool_get_link_ksettings(). Would ethtool and
+/sys/class/net/<if>/speed then report 1000 Mb/s while the MAC is
+programmed for 2.5G?
+
+Should the commit message mention these user-visible changes?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026203742.3198673-1-florian.fainelli%40broadcom.com
