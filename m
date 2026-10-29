@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281009;
-	b=42EH1RS2BJWfVgQpLS04PzgbYyR3EQGhSiT0A7A+VGdaKFBOLXG28KE6R5p48mEEDN1u
-	 ydnijG418JIrSHLoT0h3RqGEuxgt1mCJZRJUUK97NyDGiOzPP/FJ0RwWkPIqW1imT0xsY
-	 Y4P3yjq0IwwutZKPYa4uXPRLJT1iRpoti0GviN6IDl/YFdZqpE+83JlFXRyfd/7my7Jpw
-	 7MMYjcFSozn3b7rGc3gN1dKyG2EDU1N1qBxpzMlK1Cv1o5qeCQ5Y4M7SpoLn81+jAVILc
-	 syaZq3SeunuH6ov8MNxKCeljs1eqhhgDjXVHiDCcWYg5+5onhMsTFCp75LkM5krBi/w==
+	t=1793281010;
+	b=pxYZ1bqrHw2TkuaYnzgzWj/apQG/41NdrnUjjjYtauh9i21AY+4UpUNejZ9dkp/56g7y
+	 x5nAVVkwRf8BdTQ7HmV1lFUwKUPXTTJ8JzyOBO/96d+7LLtnO+QkY+C0/2KMt3Pustu0E
+	 DQX/BnGwTlxFPCEaQw62oBkXsI2XyGpdoFsAtcdLqJtKnWJGFE8V4WU/xx8D091/DlAYc
+	 fREKUGUBIgn7OooFvQfKIoI9Ci96Q2Gj89RGTwgnZ4UC9HYjv7fqMzPXKxer3a34PEk2p
+	 ykTTEfqBNY8quE6TUrmz6QmYTks6qEHO+QbVRkYhkdh0IDe6FrS4XoAfTOFKF8reaRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281009;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281010;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=b3OI7HIMTivy4Hm7qCSnXSUHSju2/Cp8Y4ZNFOoePyg=;
-	b=mk33CsSDNbPN0nwzrC0zDpiDDL6tVGXWwCG3rkRGwNSymJlPSi5vg7//+LcPHKzlPKiN
-	 twkg1DSirLj9NZvE1LPA7GgRlLvSYoq45lrPR1pmUXiMNpTjO1Vai5lyZyz4CYcy0SkJA
-	 dypQQzlakklhF0ZpTQ/ibtyudhvSsXmh7noCg+2jUHPOq6aj30YVI5FJJI8KVED2kxto6
-	 1fV5bZhoBzLOZiO+2NVks38P4IJkCTVqBXFe3lg9BjKgPsq7wyyDcrVK3ZnNfe1Dtb3ad
-	 oE/umB5Bq6EFio9p82K1ilV2L973Jww2ittrq3MKqwHGq0WWTF2vi+YBN/Whud6xT2A==
+	bh=uDjNo4o/Fzvj7jDp1d0P2M1Ecp3UU3p7NgRlpibXB2Y=;
+	b=G+NKOXl2TVWDbppebphK1TaNli6SpDxqYYTNvTKuymZfv9HWLeAJMb2utU7CViKaodVp
+	 felai20656C1ea3vIKP40z9eNAajBIFrqgTOdn69e7k3pPcQ8NtouMJ+gV4azd1iOkeJw
+	 GQf9mlwXgGF1wJgDuOk9bcqb4IdlzH0DNLqc8lQa58pDczYPU3Drri3PSbpqWsjIGe11w
+	 XdPFoujLPHnRHBl+2m/blTTfkw7T80qot3WzXrexUzAMh9cN8aJ9bks8v3Es1bqelvlW2
+	 7kNorZgN16ioTD3IJvohaslji/aunErQLt6zVsrudoWFXOXay4fuWqRH217aCZ2k9Lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SpPOYmaR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dOYtivVn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E8F606B565
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F906606B575
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SpPOYmaR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22261F01825;
-	Thu, 29 Oct 2026 13:36:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dOYtivVn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B9C1F01825;
+	Thu, 29 Oct 2026 13:36:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793281009;
-	bh=b3OI7HIMTivy4Hm7qCSnXSUHSju2/Cp8Y4ZNFOoePyg=;
+	s=k20260515; t=1793281010;
+	bh=uDjNo4o/Fzvj7jDp1d0P2M1Ecp3UU3p7NgRlpibXB2Y=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=SpPOYmaRLfWyAuWl6w+dntYdw69RI1AtSYkhyMb9boGo9ncaOwKY00YNQEODKll5e
-	 HSv0o8ZTeYd5mmm1FK2MUUmpQtvV64Aj7ql23qe6iXcWak7DrSQRclGSVUMnpzNlWX
-	 YWVP7gJCG8CINiaz4rZs4k5uH9yLKMejs2aZRNyFcdjTl+g27AJ7DKRlOC6/lISBXN
-	 gp5wehMjvS6y8cO6syVJ9Mc9vfoTPpA8nOkBFZldKClkS3z6iMdi2armxTmWh7gBom
-	 jmwNq5sNO/J/ZuJ87dCaMZyAyVK7NWFm26961HvHo7jlRy7eY+gm4jrs017Z5J/tkK
-	 ARgk4vdRQsovQ==
+	b=dOYtivVnG0AHZgfD/5Ugc+TwQqqZ3CLD3esOB5AmI5KsWGkPYH5PYutRmDI+kql2r
+	 DQhXd+S2rIWp1PGCWHot2fbwbE6jafbpxSsy+H57Ite9x+TU0wjPFH0cL/SWraCWNl
+	 N2vz+2BiuQ3bf46Vb2SWSgdKpZC54CoClhl0SqYFSicd/ymU4jA8P0twrS3eqx56+R
+	 qZpeqSLjab2Ij8OerSEnxtKtPamQbRi/5crCOQH91se2Sunc7PEczIkmocZDswvqDP
+	 Xl2XdNmxQCr0ZYEWyUtUyqgzdX3DeDSBkqwTsIpGeNpe6P2YmKnxXkFixBw12e69uX
+	 E9/dt25d4ikvg==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:36:10 -0500
-Subject: [PATCH v4 23/31] accel: ethosu: Account for kernel dilation in IFM
- size
+Date: Thu, 29 Oct 2026 08:36:11 -0500
+Subject: [PATCH v4 24/31] accel: ethosu: Validate accumulator input
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-23-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-24-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -63,60 +62,114 @@ To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16-dev
 
-Kernel dilation increases the input feature-map area accessed by a
-kernel operation. Include the x and y dilation settings when
-calculating the required IFM bounds.
-
-Without this, a command stream using x2 dilation can access IFM
-memory past the range validated by the driver.
+The U85 ACC_FORMAT command can select IFM2 as the accumulator
+input. This is used by null-pool operations and can also be used
+by convolution. Track this selection and validate the IFM2 feature
+map against the OFM extent before submitting the operation.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
+v4:
+ - Accumulator input should not be checked for elementwise ops
+
 v2:
  - new patch
 ---
- drivers/accel/ethosu/ethosu_device.h |  2 ++
- drivers/accel/ethosu/ethosu_gem.c    | 10 ++++++++--
- 2 files changed, 10 insertions(+), 2 deletions(-)
+ drivers/accel/ethosu/ethosu_device.h |  4 ++++
+ drivers/accel/ethosu/ethosu_gem.c    | 35 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 39 insertions(+)
 
 diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
-index 61dec8ec23ea..80cba318f773 100644
+index 80cba318f773..d3df6720085d 100644
 --- a/drivers/accel/ethosu/ethosu_device.h
 +++ b/drivers/accel/ethosu/ethosu_device.h
-@@ -90,6 +90,8 @@ struct gen_pool;
+@@ -127,6 +127,7 @@ enum ethosu_cmds {
+ 	NPU_SET_KERNEL_WIDTH_M1 = 0x120,
+ 	NPU_SET_KERNEL_HEIGHT_M1 = 0x121,
+ 	NPU_SET_KERNEL_STRIDE = 0x122,
++	NPU_SET_ACC_FORMAT = 0x124,
+ 	NPU_SET_WEIGHT_REGION = 0x128,
+ 	NPU_SET_SCALE_REGION = 0x129,
+ 	NPU_SET_DMA0_SRC_REGION = 0x130,
+@@ -181,6 +182,9 @@ enum ethosu_cmds {
+ 	NPU_SET_WEIGHT3_LENGTH = 0x4095,
+ };
  
- #define NPU_DMA_REGION_INDEX_MODE	BIT(11)
- #define NPU_OP_CONV_WEIGHTS_IFM2	BIT(0)
-+#define NPU_KERNEL_DILATION_X		BIT(3)
-+#define NPU_KERNEL_DILATION_Y		BIT(4)
++#define NPU_ACC_FORMAT_INPUT_MASK	GENMASK(5, 4)
++#define NPU_ACC_INPUT_IFM2		2
++
+ #define ETHOSU_SRAM_REGION	2	/* Matching Vela compiler */
  
- #define NPU_CMD_CTRL_CMD1		BIT(14)
- 
+ struct ethosu_perfmon;
 diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 143021a3f9ed..15a4cab1b286 100644
+index 15a4cab1b286..406e1c07246d 100644
 --- a/drivers/accel/ethosu/ethosu_gem.c
 +++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -579,10 +579,16 @@ static int calc_sizes(struct drm_device *ddev,
- 			((st->ifm.stride_kernel >> 1) & 0x1) + 1;
- 		u32 stride_x = ((st->ifm.stride_kernel >> 5) & 0x2) +
- 			(st->ifm.stride_kernel & 0x1) + 1;
-+		u32 dilation_y = 1 + !!(st->ifm.stride_kernel &
-+					 NPU_KERNEL_DILATION_Y);
-+		u32 dilation_x = 1 + !!(st->ifm.stride_kernel &
-+					 NPU_KERNEL_DILATION_X);
- 		s32 ifm_height = st->ofm.height[2] * stride_y +
--			st->ifm.height[2] - (st->ifm.pad_top + st->ifm.pad_bottom);
-+			st->ifm.height[2] * dilation_y -
-+			(st->ifm.pad_top + st->ifm.pad_bottom);
- 		s32 ifm_width = st->ofm.width * stride_x +
--			st->ifm.width - (st->ifm.pad_left + st->ifm.pad_right);
-+			st->ifm.width * dilation_x -
-+			(st->ifm.pad_left + st->ifm.pad_right);
+@@ -155,6 +155,7 @@ struct feat_matrix {
+ struct cmd_state {
+ 	DECLARE_BITMAP(cmd0, NPU_CMD0_REGS);
+ 	DECLARE_BITMAP(cmd1, NPU_CMD1_REGS);
++	bool acc_input_ifm2;
+ 	struct dma_state dma;
+ 	struct buffer scale[2];
+ 	struct buffer weight[4];
+@@ -534,6 +535,28 @@ static int feat_matrix_size(struct ethosu_device *edev,
+ 					  max_len);
+ }
  
- 		if (ifm_height < 0 || ifm_width < 0)
- 			return -EINVAL;
++static int
++calc_acc_input_size(struct drm_device *ddev,
++		    struct ethosu_validated_cmdstream_info *info,
++		    struct cmd_state *st)
++{
++	struct ethosu_device *edev = to_ethosu_device(ddev);
++	u64 len;
++	int ret;
++
++	if (!st->acc_input_ifm2)
++		return 0;
++
++	/* The accumulator has one input value for each OFM element. */
++	ret = feat_matrix_size(edev, info, st, &st->ifm2,
++			       FEAT_MATRIX_IFM2, st->ofm.width,
++			       st->ofm.height[2], st->ofm.depth, false, &len);
++	dev_dbg(ddev->dev, "ACC IFM2:%d:0x%llx-0x%llx\n",
++		st->ifm2.region, st->ifm2.base[0], len);
++
++	return ret;
++}
++
+ static int buffer_size(struct ethosu_validated_cmdstream_info *info,
+ 		       struct cmd_state *st, struct buffer *buf, s8 region,
+ 		       u16 region_cmd, u16 base_cmd, u16 length_cmd, bool optional)
+@@ -655,6 +678,9 @@ static int calc_sizes(struct drm_device *ddev,
+ 			       true, &len);
+ 	dev_dbg(ddev->dev, "op %d: OFM:%d:0x%llx-0x%llx\n",
+ 		op, st->ofm.region, st->ofm.base[0], len);
++	if (ret)
++		return ret;
++	ret = calc_acc_input_size(ddev, info, st);
+ 	if (ret)
+ 		return ret;
+ 	if (!feat_matrix_chained(edev, &st->ofm))
+@@ -842,6 +868,15 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 		case NPU_SET_KERNEL_STRIDE:
+ 			st.ifm.stride_kernel = param;
+ 			break;
++		case NPU_SET_ACC_FORMAT:
++			if (!ethosu_is_u65(edev)) {
++				u32 acc_input = FIELD_GET(NPU_ACC_FORMAT_INPUT_MASK, param);
++
++				if (acc_input > NPU_ACC_INPUT_IFM2)
++					return -EINVAL;
++				st.acc_input_ifm2 = acc_input == NPU_ACC_INPUT_IFM2;
++			}
++			break;
+ 		case NPU_SET_IFM_PAD_TOP:
+ 			st.ifm.pad_top = param & 0x7f;
+ 			break;
 
 -- 
 2.53.0
