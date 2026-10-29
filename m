@@ -1,98 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793275096;
-	b=JAIRjrzH6nNnYS9ZnZxu++13Y0jrL7Yh1IzT3jvmMnZiruWKGwG+LD3OsCH5BqbRntSW
-	 Bm5u+UnxgfSTTqRTklTVrZJlpTpQeYb5XeB8SV/8WxmhXEeFt/wJAFMHxXtsU56TyLKBe
-	 42+rr0lDpjakBY91v2gaeSosDDrs/HrgkybILelrslHrjiHNjvCzej3Gne160ZYj7V5+C
-	 8MogkTgcvHC148ytFR2s+GA2/EEcftU4yDSeXhA3XrLl1PERcQckrBxLELkPpeBg3tGcx
-	 nfH2s7EjN26ryF0uRda6qMLlVHYSMdhHvAfWYrERCa7aajpkFXnPvdYPmaQ/D252/7A==
+	t=1793275126;
+	b=3stkfPiEv3NQQO0gFuoh8kD9/NgdTp/yfQp40cdbBeWLfEcGUW2GFfMF2ZfOA9+RWU0b
+	 ZIPx2uED1bWorCSEAMAj50fRqK69Ly/uMI6Lehgo6K804TnjJGY5wRU/RhmORalveFx1G
+	 OBx5ET86w2Bifw8YK8z7bgNVoXCx8ISW/BVbU5GgtRBcCEB4IHGHqsQRc/j6RvlGF4HdW
+	 Wsh86aISk4ynLjK0OFiUm5qfpHT5rS6fStw6rBIBOpYfaY1ldtCYzY7QLgcDmPa3WtoWL
+	 msUz1HAiiiSrWaxHTxeE216MrodTeQgVJtPipAOn+VzO7NGUdQQa9etaUUS59g8aMSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793275096;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=VEJxuw7v5WS1JXklJNxWI3IzTNd4l+O1vemEGC9NlII=;
-	b=mRqWbMjODL/ftzz5B7yWDN3W+OYuHC2cMBTNT2x6uN9AUWHHuyVnfr5lB6orBcmJB0p+
-	 G47qWXRw2MdOKYNr3d/XSX9mGwTMpgMpvN6NjCr9+LQCci6HwJplxDZ8SUrQ7GyvQDrUU
-	 eY6ohKfsHZnbKvonefhVM2fOk7HtKYPW31JmxaJhSEvOdVT2PvNMrwaNP1d0Y8r2cAvPW
-	 jBC4ioe+I4GCqeK3gRwNJeOUcPEPQFz9gw2uXnLn8yGGjzxj8syiUyCwGUefPa3eprWoU
-	 HmHVeXx4ese2ZrbxnOwbsLOX/zlkYFVf2xBB/gAodYL5ifDs6uBCEY+GuIPqTFP2nZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793275126;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	bh=bFtWXG8m5JKsyn/qeOedunaPNpqgZZez15iz91neCTQ=;
+	b=CUwHJXysU7xaHXCwUdXKOfnWa1/kxbqQHXBQCyJT0aJOwCKQ5hYSSug6DL7cdn1lo39y
+	 mx1039BQmvrc9FjaAcrDvmaNdvAB4fByl/DJbZeirsrfA3K5PeCLFuTb3YS9FYJV/HU/r
+	 nR3MdViWo+jT3whoFCSvF5OJLE8gZFHNE8i5qzUaIVBSJicP3QmN6HfX6bMyETrNo8h1L
+	 pnNshluAXDHQgUNt+KScElSBZL/7H0dbs+oqmJMQNyaJAgkzjcZHtBoZ+uFwj9507f6E9
+	 pG1oYJiacw0aDc+o6ESjuVgTYeH7QoP06Q5x3IwwvSPvbz5vK3sb4QQDbn83yECTWTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZxOySYw6;
-	arc=none smtp.remote-ip=209.85.214.170
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="hCEgCh/B";
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD31606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:58:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BD31606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62BB5606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:58:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62BB5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZxOySYw6
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2e812e2b31bso12063605ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:58:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793275095; x=1793879895; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VEJxuw7v5WS1JXklJNxWI3IzTNd4l+O1vemEGC9NlII=;
-        b=ZxOySYw6NYmINxrUznhCRkoVM326b1kMuU0Pzv421sKfplb9XFqTFdPUjFvnQHH07z
-         dU1dUS6CghARvfNo0xujIQxq0UtnRQXho6lVU2aBzH1dV6rzrbMl9qn+62l9uSeWGR/Q
-         /n3DmY+eG/tVIP6NWe7zrqjdPr7Pd76YXeNf5eXZbEqjOJ2PUDQfZEl+Ikp76A9KNXfP
-         QsrWwasvhfhgUFBKNVv9G9xmiIoEyYpocrWbBPlkb8K//1xwGGxZzz9aLI8m4SKuQcNK
-         uF3tVlKFnZbXjuKX6XWmBEdXdDVFdsdYtBZHRWKe4Eb+43avQTJXnvK01TvDRJgQjdgA
-         ES/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793275095; x=1793879895;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VEJxuw7v5WS1JXklJNxWI3IzTNd4l+O1vemEGC9NlII=;
-        b=lTZBw+ScBotov7UYN9eTIpskE4/xfBILPRBswMd5uRj6zRxLk+i6FsO16mrXdsPoM+
-         DXj3CN5SNgWSEN5Ho4D99hVp+xsUCmkxCmYplM8cvSyvOeDJjl+ckA4Ni2WtPuITjvEG
-         8e90GIS4410H3x4zQeGFSYs2SH+GhVyQlp3D35bUiKQs62AFUW8HTNJv7j4NuH+12cYN
-         o1Gx6A1ieM0b6CE9wzD373TFGf1SDDZQl1WsCKCPK+WLkDDNKHLeL5uT7DWAfqDehGwZ
-         AbdCkCRGd1LZV4ebAeE+g9D/pt4GBn9N477BjN31qLb0sbgDZpfSEIfg86v21rgYVtQv
-         9ABg==
-X-Forwarded-Encrypted: i=1; AKwUvBxq1lPQnYer9akrs3LKEcOkCUaIGGz2/T0edNDJ+Y48n1QdXZD/WrHQ02m+AXS/oxAdnhhmSXT9dZBAeaQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYId45/lxbU+jAa4oK7SYxkBhupRiNDdVMKm9EhmGvvIlsrQ+KtX
-	NplbVxR7C0f3qcTNFFwoPUC5qfQbuM0L/f1pPl7PDhHU/TLPUIAs03+4
-X-Gm-Gg: AYBFou3n2Svb3cgYS9gaFrkqdcWkPC3LTBo3rHXh4iAs0sG8jG2bZ5zXl18L4/bomqL
-	Kudv5VwEHXpa0JsZQS7e2/ehEoFwWfmmBYJk5jk9jE65oMDgENwYGmhw3nZw/LSS4fmWZh/X+Sk
-	3u9jo4Mt+BnscOQZqf2BZLo80XAcOo/eFN1zAN86iaAYKKe8U74tHXsKP7v2JtQL3SiecqhDlEb
-	LXZJx3X+iNwOHmcH1JFiXbzC+r6TnxOvVsuVPDnpLkBtpA3nCDVC/+09rAvFJFtJsRtM7xZulKT
-	cDonHSztIoVyR91EjFgzCX1qkI9FCS1Zp3hJrJAoXfkyZAxxFPAe8petQGBU5sQ0SvCRMWVSFn7
-	nrejd/avxGojZoGLf6KtYY1XQUP++jaLRuDxwbclopsvN89ZxH0tTFzZ+Z2qoJ6jXp8wemnEBhZ
-	/xoSBYpQ2M0kjHyTaR2pPLgSepjRyr+MDIwpx6kvUF+C1DVJvig9PsPsyGC41AdckgWWPK0mFPv
-	QmG9sJ3u9mInLMprBxgw+KTzxdg5ywC0frYemN8iBGzSPgbYxPY766+QDvI+UgZYb9f36zJ8owp
-	DwY1otb4FyZcpitBqFzNIBEW
-X-Received: by 2002:a17:90b:2710:b0:3ab:ab5a:ef06 with SMTP id 98e67ed59e1d1-3ae57f637cemr3901099a91.12.1793275094915;
-        Thu, 29 Oct 2026 04:58:14 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e8401casm4137834a91.11.2026.10.29.04.58.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 04:58:14 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: dhowells@redhat.com,
-	jarkko@kernel.org,
-	paul@paul-moore.com,
-	jmorris@namei.org,
-	serge@hallyn.com
-Cc: keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH] keys: Protect the update method check against type removal
-Date: Thu, 29 Oct 2026 19:58:06 +0800
-Message-Id: <pm-keys-update-type-removal-20261029-v6-3d92b2f9693854230a02@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hCEgCh/B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793275125; x=1824811125;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=i2ey7uKnBTF2PqloNxgHfVH5I2ULdNgzLR4UomlVJVE=;
+  b=hCEgCh/BTa/Qzgmp+4HLQioOq5WHwB5VWc3hQ0aXHp3L7kbbr10u6jYH
+   GnH9fCIp3T3nNhuncYyXqjaITEMpHcRldCDGwLzI1V6fJPW/fJgBNMzuv
+   6IxniOigI2OVzv96VJG40Tgs5qtI7cUSnvlmHSAsGcddQS651DnimrYYR
+   s/dJdfVXpMzQpCNB3MmgtZBbwmCyDg107BZXI6i/a7Pv75ifGWeui+jve
+   daZ7Lck+LldP8LBtktbd4WqK99HhxJYhgrbQL/2t4+nDknQAUkxhgN2jJ
+   E4wFxDWL7bs+hUce2OMBxvGLr3n1Ry/S/iYpo1FBDAeMHaDmMaIj9BUux
+   A==;
+X-CSE-ConnectionGUID: zwFmdZriRKWYBEedRq7rSw==
+X-CSE-MsgGUID: MQFxtwHRQ+etF4FlcH+lXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1908637"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1908637"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:58:44 -0700
+X-CSE-ConnectionGUID: c3VOsTDBQBC2683iNWsTgg==
+X-CSE-MsgGUID: NQ3qXX8fTMilynHkhUiSEQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5462784"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.145])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:58:39 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Maarten
+ Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Patrik Jakobsson
+ <patrik.r.jakobsson@gmail.com>, Lyude Paul <lyude@redhat.com>, Danilo
+ Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dmytro
+ Malovanyi <dmitrymalovanyy@gmail.com>
+Subject: Re: [PATCH v2 2/5] drm/bridge: cdns-mhdp8546: Use
+ drm_dp_enhanced_frame_cap()
+In-Reply-To: <20261029101826.72773-3-dmitrymalovanyy@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+ <20261029101826.72773-3-dmitrymalovanyy@gmail.com>
+Date: Thu, 29 Oct 2026 13:58:36 +0200
+Message-ID: <3d8c0987e3f9e4e099372475b2e0584963b6b71d@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,107 +96,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-key_update() reads key->type->update, ->def_datalen and ->preparse
-before it takes key->sem. A reference on the key does not pin the
-module that provides its type, so KEYCTL_UPDATE can race with the
-unloading of that module, for example dns_resolver:
+On Thu, 29 Oct 2026, Dmytro Malovanyi <dmitrymalovanyy@gmail.com> wrote:
+> Use the helper instead of checking DP_ENHANCED_FRAME_CAP directly, so
+> enhanced framing is used for all DPCD r1.2+ sinks as the spec requires.
+>
+> Compile tested only.
+>
+> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
 
-  KEYCTL_UPDATE task                  Module unload and key GC
-  ------------------                  ------------------------
-  keyctl_update_key()
-    key_update()
-      key_permission()
-      load key->type
-                                      exit_dns_resolver()
-                                        unregister_key_type()
-                                          GC: down_write(&key->sem)
-                                          GC: retype to key_type_dead
-                                          GC: up_write(&key->sem)
-                                        unregister_key_type() returns
-                                      free_module()
-      read saved type's update member
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-The final access reads freed module memory. With the updating task
-held after the key->type load, it faults:
+> ---
+>  drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> index f47717bd1..8cab9a3e6 100644
+> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+> @@ -1375,7 +1375,7 @@ static int cdns_mhdp_link_up(struct cdns_mhdp_device *mhdp)
+>  	mhdp->link.rate = drm_dp_bw_code_to_link_rate(dpcd[1]);
+>  	mhdp->link.num_lanes = dpcd[2] & DP_MAX_LANE_COUNT_MASK;
+>  
+> -	if (dpcd[2] & DP_ENHANCED_FRAME_CAP)
+> +	if (drm_dp_enhanced_frame_cap(dpcd))
+>  		mhdp->link.capabilities |= DP_LINK_CAP_ENHANCED_FRAMING;
 
-  BUG: unable to handle page fault for address: fffffbfff804107f
-  #PF: supervisor read access in kernel mode
-  RIP: 0010:key_update+0x12d/0x550
-  Call Trace:
-   keyctl_update_key+0x6b/0x110
-   __do_sys_keyctl+0x21d/0x4f0
+I note that the driver should probably also switch to
+drm_dp_read_dpcd_caps(), but that's beyond the patch at hand.
 
-This is the same problem that commit 925c84e3cc21 ("keys: Protect the
-read method check against type removal") fixed for KEYCTL_READ.
+>  
+>  	dev_dbg(mhdp->dev, "Set sink device power state via DPCD\n");
 
-The encrypted and trusted types can be built as modules and have an
-update method. For them there is a second window: the GC can move the
-key to key_type_dead after the method check and before key_update()
-takes key->sem. key_update() then calls the NULL update method of
-key_type_dead.
-
-Take key->sem before the first access to key->type and hold it until
-the preparsed payload has been freed. Once a key exists, only the GC
-changes key->type, and it does so with key->sem held for writing.
-unregister_key_type() does not return before the GC has done that for
-every key of the type that is still in use, so the type stays valid
-for the whole update. If the GC has already moved the key to
-key_type_dead when key_update() gets key->sem, there is no update
-method and key_update() returns -EOPNOTSUPP.
-
-Assisted-by: LLM
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
- security/keys/key.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
-
-diff --git a/security/keys/key.c b/security/keys/key.c
-index e88548f1a704..bac2333089fc 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -1101,9 +1101,13 @@ int key_update(key_ref_t key_ref, const void *payload, size_t plen)
- 	if (ret < 0)
- 		return ret;
- 
-+	/* the GC cannot change the key's type while we hold the semaphore */
-+	down_write(&key->sem);
-+
- 	/* attempt to update it if supported */
-+	ret = -EOPNOTSUPP;
- 	if (!key->type->update)
--		return -EOPNOTSUPP;
-+		goto out;
- 
- 	memset(&prep, 0, sizeof(prep));
- 	prep.data = payload;
-@@ -1116,8 +1120,6 @@ int key_update(key_ref_t key_ref, const void *payload, size_t plen)
- 			goto error;
- 	}
- 
--	down_write(&key->sem);
--
- 	ret = key->type->update(key, &prep);
- 	if (ret == 0) {
- 		/* Updating a negative key positively instantiates it */
-@@ -1125,11 +1127,11 @@ int key_update(key_ref_t key_ref, const void *payload, size_t plen)
- 		notify_key(key, NOTIFY_KEY_UPDATED, 0);
- 	}
- 
--	up_write(&key->sem);
--
- error:
- 	if (key->type->preparse)
- 		key->type->free_preparse(&prep);
-+out:
-+	up_write(&key->sem);
- 	return ret;
- }
- EXPORT_SYMBOL(key_update);
-
-base-commit: 9a2a4c51dccc3168c3dc949fcbaa360a478fa228
 -- 
-2.43.0
-
+Jani Nikula, Intel
