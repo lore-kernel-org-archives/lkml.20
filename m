@@ -1,131 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=192.198.163.12
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793271127;
-	b=Q0X6b3TOw+pKcqOnaVcQewEQM9OGhyef5E8vD5u9t7Oy5k+/4aP8qgHb9mPnVxjpXT4U
-	 N7F747FG+ANG9V6RYFwTRVHBn1q9LzteDMvlYhRTdtWqSQXm30fApk4mgU/K5Z93F3wFE
-	 wYLuzB0S5w18aBhGmzuWAUBfs5gFtabqCbPzGT7FI7rzcMo7CvHB99Cep7gZ8UryCW4H7
-	 WcUMSAIoiBni/ujMy3XpI2zPacnoTLz6dwrsWpc++4041CLDv9eb+jLUreUAXPlawfAfF
-	 OhhjjocB04GYcP4BlQVkECzUgfMGq1KeGwJybkI4yR85CNZbcESGboKTaGLOrwTv5CA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271127;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:Message-ID:Date:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=q4JG4kw7XHM3KDYS2LAz7++DRNNfk2eTqlQ4YIUrMo0=;
-	b=ScW1s3zBmFwmIyfh5PrQY8LJk/UZ0k+rZ9TcJi8iQGbx5unYcCp12OaoXoJqQ/JGlYzx
-	 6IsRe61odugYjr0l8etSViU0Ua+9gmEEE7mf1qyUFMok8esMO8i/8q706N3ziHjLKER+P
-	 MtpomqBBEB5Mta8le5WBuSoizuII6eJx5BjPoBAZzUht/7XyAh/YyD3FlJvYGL/g3qUB1
-	 IeOlxCh4A+xgtRGIvfYrAxA41waqKTyOKZ2oYqLp7g82LQb0uVIQkG02YMIZqCqaYol03
-	 sth80ZZSbo3CJFR+u1X3RqE/by3ucQydG9EdPCa9vSHrUD11LImSfOZIrXkYa9pJP0g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RpPJ98jY;
-	arc=fail smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793271124;
+	b=l3teu9Fnh41arUgW7jzU0GX2JodLMtcIkkql2twaNoW9ka1Q5LF+L8XIuKxydP5Wep9E
+	 bkD6Bc8C71+uYEAFxtKMozBqfYodveQV9kjt6U3kWMlLai1L7GkAerWe7J6TsJ4CtjVxi
+	 V1k80Gwrwl2Hlb2yxCTfqcP165UpEW9P77BFQq0OyusaLkYG8E3ZbbJgdM4eHrt56vX3z
+	 u30wkxUy/130mF9SmhnK5try/OWLNJtdU0GeYhWwx2hR4TihEPdOOR7ZZsT+W6vpmHKH+
+	 TScRNdXW8u/pygOX0zfdgAm+treoqpQ2BbQfg00d+AK7yLkWzYFq5keXg3v5NAwa3Hg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793271124;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=iymo6yWih1u6JSkjazwtYJq1W+j31tigL1sbJo3i2bo=;
+	b=2q1FGsty2+nZlRW7m4iyxSK4YsUVvNTcorm83a7+Y6ppH7oMExW7+KvnK7fWszmPdAzv
+	 irmb5FFogTRQo8mpzSCigjsbc/sVSyEp8DZXX2AsZZshlIyxkVRwe790gedIDuts9pzh6
+	 8LRz7VMI3acCE+Twy0L9DP9j9TIiOOaVAe9slyon2qI23CJ+RwgEWLFC3r6HJppRAL91C
+	 BAVl45gaMwaijCJExHE6U5Y2rDB7w7l7h3dwkEu2gUkf4UYMxLcNu060KYDGJMJIjBoAl
+	 1qQnmlnPj3WJPyzZt80YzQ4KpVSiO/RrBueBwKClDOGbeRPFidoDUJTD1BxyYP6N1bw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TSZB30aS;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF2C606A334
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:52:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FF2C606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F115A606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:52:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F115A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RpPJ98jY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793271126; x=1824807126;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=iSxDpdC98OgP2/ba8Bpy7S5rg3l1VFuYlWrrqZYdREY=;
-  b=RpPJ98jY9jLJbBjR+OXNCK4tdeaVYwBDTU1WS+TLeIvbM8n2DEHMxglR
-   CVXWpf80ueVFAkMB3BT3JZT9tSkD29VsyWEUGdeIPMVM0pIQLRd8KMOey
-   Zq1HI/ldt3fVynN87Gl/4OU2qu+lxUfmNa22Etnw3IrD/e6b+mYsnU47d
-   jLxXaD3DiFjBUWKGApL/Dh93KNa+488z7/XEcEkJdydxslDNtLmu6eCJ2
-   fkJ1SC8mw7E4rRoWthwx7ytRbBbmy/ibiPPPa0pvT/2x285r5wR2LHT5u
-   zJgCUf1g6gpU96wdasmwr7VAjqtZWQxkpTJE6PUslKxIWL+0FN0Dqc7hA
-   w==;
-X-CSE-ConnectionGUID: 2aEJHamTSauLwtjG++E2hw==
-X-CSE-MsgGUID: Zco3EomoQh+GM9BwcBf2Wg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1905946"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1905946"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 03:52:05 -0700
-X-CSE-ConnectionGUID: zb+TN9mwQVaI/QDp/rPp6A==
-X-CSE-MsgGUID: NC3VYNhtQhyLhAyDANXxCA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5448989"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 03:52:04 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 29 Oct 2026 03:52:04 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Thu, 29 Oct 2026 03:52:04 -0700
-Received: from BN8PR05CU002.outbound.protection.outlook.com (52.101.57.4) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 29 Oct 2026 03:52:04 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g16v7Ds8HXAUKSvkhFsEz/AYYI/KSQh8qE6pPnSU/2YPOnL6aOfmcpdxK6ES+lTB/wtDTkPsyDhDESMfIAm8FsigwR28d3fXQ6CacqiuoF6F3o+HEgQlRZ5qss++ikWVBf6TmD0mkXwUOVKMi0t8dAq2YaqNkrUrQFUAu8nrSbQYpEeS26LdODkmfG7+rgH+e9P4mGFQQEZIgvTcgPvKJVATNhvtv3yME8cdABTlE4/zJImaHY2Ze+Ke64ByF07TrKJnvvmnSLqQiyXKz5VJ+WgPhSi6rmq2fL+wMCoy3ATnpzFTZDI914nri6W/cEdpEyVEW7SOYRiG0CYnYItDkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q4JG4kw7XHM3KDYS2LAz7++DRNNfk2eTqlQ4YIUrMo0=;
- b=vNsw1uNeQs6COQovmlMqvCIdtguGnG8A9I5csg3UuV5h9YGXSIF+frTKRZgIUmndkrWGXFwkb4m5OlXieD6cXm78H5ayr1V9Skv568DkAdOp0ZO8cahRoc3/xxWcLpz2a3Ru/cIDR75RbDtOmP2p3GAW5HahPGBNTSgiXj+23JB3nU4ifdbL4ZQJZQw8tn57B6fDQnDtCVb18CB5vw4n96Wcm7AxUUcBB+ax1paNJeT+RwlISJAalBpOuhoPEjyn3qw7/wypYuNQeCzl3AYa0wdN+8WDuGvbTWDSgMii0i1GZueHrWGLlgJ6YWf2FjBzkXkLFxdkfKohll3NNihfag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from SA0PR11MB4527.namprd11.prod.outlook.com (2603:10b6:806:72::17)
- by DM4PR11MB5279.namprd11.prod.outlook.com (2603:10b6:5:38a::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 10:51:59 +0000
-Received: from SA0PR11MB4527.namprd11.prod.outlook.com
- ([fe80::1058:e1d:9694:c2fe]) by SA0PR11MB4527.namprd11.prod.outlook.com
- ([fe80::1058:e1d:9694:c2fe%6]) with mapi id 15.21.0569.008; Thu, 29 Oct 2026
- 10:51:59 +0000
-Message-ID: <361137b5-a84b-43d8-a173-8df57fac8b61@intel.com>
-Date: Thu, 29 Oct 2026 19:00:23 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 0/4] iommu: Fix attach handle publication ordering
-To: Nicolin Chen <nicolinc@nvidia.com>, <joro@8bytes.org>, Lu Baolu
-	<baolu.lu@linux.intel.com>, Jason Gunthorpe <jgg@nvidia.com>
-CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Kevin
- Tian" <kevin.tian@intel.com>, Jean-Philippe Brucker <jpb@kernel.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-References: <cover.1790718296.git.nicolinc@nvidia.com>
-Content-Language: en-US
-From: Yi Liu <yi.l.liu@intel.com>
-In-Reply-To: <cover.1790718296.git.nicolinc@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI1PR02CA0002.apcprd02.prod.outlook.com
- (2603:1096:4:1f7::16) To SA0PR11MB4527.namprd11.prod.outlook.com
- (2603:10b6:806:72::17)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TSZB30aS
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-15ea896ddc8so2916248c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:52:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793271123; x=1793875923; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iymo6yWih1u6JSkjazwtYJq1W+j31tigL1sbJo3i2bo=;
+        b=TSZB30aSZew/Y5iJpxyPAdCHSaUlGuRX0vGPWMGscUtyNdl4Gfru7VebT+uqAfmp6z
+         QuRNmBliNwyit8/AV+JZGMrzS05uBUZyaJBYwcrM6V4CAEnFVG1H07Yh8XF6guXXqq/R
+         0K6G6cvVOv6UxRt55KGii+YttWs6XbRYn3Y8tJ0JSK/FGkHwvCu2ElRB76I+w9muGUO+
+         ehdbGY7CFuQhqr3Ct5KWUxe2bQqDJtvarrPkhglzBJlDKwFze5DOofXjDSx9NBRX5hSL
+         ja5G7My3fhuw5URGr6Ba/QVGC9gd8w3GL/SZKX1gX5+fgnfevpEj7+FyT+7DRLu+RlLX
+         hbjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793271123; x=1793875923;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iymo6yWih1u6JSkjazwtYJq1W+j31tigL1sbJo3i2bo=;
+        b=wRTHFW9VVZJUWFRiFAlYOIJN4gAS0IXtCxotBsi49TWCViFPfGGReIMd9MQ5SpT8JM
+         M97Qw3mo2UDfBYxx+a/6beo/k5ZPMYnlypKlin3obHxLQqVEDw9PxnlnnfD2IbMPUBCB
+         nuVW9dv79zQqYVJIyxSkJsjt8NR+MaAOOpxsjoc2pqyf2WZ+ddxFDP1QFdWmvCa0Jno6
+         3vTzjRcCcTca8dZr/K3lkU6gfr7+b/wHPB1hY+2BkHsQ+KydAFnX2gQeZmflPyPYbUix
+         LaHUwvgwzwOlxjQ5rYkzUijTInsTXkQtjSfRqm0D2v/B6NIGGmJb4EvuumQdlyrS42mh
+         kk8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwhJtKlBCJPbzGB6mU4jmUMUU0aBukRxYXIXn0NZztGa3CU1Q5D3ma4Sg60cHAm1ccbF0HQOWD0zOs8/BY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqyB1Kp4oradZ2QFvcmOfE8gLiAEJkpbX/0lk8H6Vmv2YMqldj
+	YNpxzX048Cv+SrjVWxvO8C8KEzwKPrQTVurWLlpLLlxh1Xp/meRGzZyn
+X-Gm-Gg: AYBFou3DSSk2r7RqHDh0M7qNQOc22vIJ9Da0ukQZsslhymIYxqkg56roGvGxjS7sMIg
+	//Ohya5nVLJZolK2wPf04DUG92snFK/bBsxlYaOpLa4HMgUezGZu+Nu4MZD2j3q6JlZc7uENrIf
+	KG4vP7og+agrE3RESgBEv4VTI/UBN5R1Rqw9BQ4yU3daNJmgLylhJCCv+ix1d+keug3ftdUKeSC
+	86B3VYaNA664y/k5mgrtaDASMEmhcStxRL9OSGvKK817tAaraG1i/a8QYOuRiOisJ3VxOldTcEh
+	QZ+jarcpS0ghTYMrT3UlMxmDJWGDUda7/iGP4tfS3ZmP1q8LfT0EMwjqQkJpd5UgEfcA097fjO0
+	/hMmNhW26F5UGJxxq6gPonLAXAQHRK3Mo8efQdXOhe1ONXQ+NkEbYa2juq4juVlHQcYrqR9Add1
+	xSikuTSt9rHRHpIlsrZg4lqmy65VCmR1+WYdzNljL8RpNJOnhm2mLzEhQbOYyLOWQQpoeSz8ahG
+	Z29NB7PhVVoSQ0CcstgYeZ6p9c4THjnh/OB8kvOfcE7S1p0BOdKCupG8vRq8qm0jQHlE1z4sEXN
+	GGO+TYGdp2g1Iqc4T3eu1BnKsyHEgmU+ktU3Z0hKmJtA
+X-Received: by 2002:a05:7023:c081:b0:14f:8e70:fad0 with SMTP id a92af1059eb24-1a6cfb045camr6418261c88.33.1793271122885;
+        Thu, 29 Oct 2026 03:52:02 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75c9fd2b4sm14692245c88.6.2026.10.29.03.51.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 03:52:01 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	christopher.lew@oss.qualcomm.com,
+	deepak.singh@oss.qualcomm.com,
+	pranav.phansalkar@oss.qualcomm.com,
+	andersson@kernel.org,
+	effeffe99@gmail.com,
+	linux-arm-msm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: qrtr: announce local services again once our HELLO is sent
+Date: Thu, 29 Oct 2026 19:51:57 +0900
+Message-ID: <20261029105157.2553-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <at9mFUv1flg-6aMB@debian>
+References: <20261022163116.1042-1-26rote@gmail.com> <at9mFUv1flg-6aMB@debian>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,103 +110,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR11MB4527:EE_|DM4PR11MB5279:EE_
-X-MS-Office365-Filtering-Correlation-Id: 373cb122-d0df-4777-a8a4-08df35aaa815
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|42112799006|366016|1800799024|23010399003|18002099003|22082099003|11063799006|56012099006|261021121427099003|261021123027099003|261021135927099003|261026121527099003|261026140227099003|10067099003|261009223027099003|261022105027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info: yTd8FEp3Jtl7QmFJ06Enwl+ezJ9Ly7DF8+mVjGGtx53AmerS0ECRNuGkOhQtMgywpa2clkSumP3s+v7NIU56IhOltTswSRz7kjT9X5vWQtM5u8Pun74Xd6C4PNCeqPuCh1k8qp7dLxBs4ucEbV0IKeA6IaLCdSpr2/0Knp2Qr5S+Z7kIR2Z6eqY1kczw+BrJw3iQCHJA0HwaydzPWPo0p6D6nlUptXR+StNZCE/GaD0qlAXWsGKVzIH9hAHzRwTdJaitMb1G0fPQZBwJCC405N9UQPjwxaDUHduxTiLVyCvtRiWjTIkrUQuKlcSZ0gMBi+JBrdd/DiJC9j0oH9nJtvml3h7p2x7V8H904GV1/71C8MfZvHdXysOZNd+DFXEQgsMVE4kxbfH9Sgfx2qnBXNqbFTZT/V/nZ7uGYpV7f3i8l27jo+HdjK3nYU2LcdQLLJhsUgLLNoeLG6gqWiNq+diYWmmAenRH+A2YODhE0V121FwnYrSXxjvhUv8LSUpnVUXzAmJW0l7iO9DYV3p9VTWFEvw88AwE7w/sQUB+giYXrGaKt+tszO5nvAH8GRG+Ra8HG9nEB4/i852iCFO/QJPrpaNaQ0+fjgLCuZzv196yQH4Lj40/5CjjAiBL6E9P
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR11MB4527.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(42112799006)(366016)(1800799024)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(261021121427099003)(261021123027099003)(261021135927099003)(261026121527099003)(261026140227099003)(10067099003)(261009223027099003)(261022105027099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TmtiWlN1S1RBNTcyU0tBTy9BRmVhVVNNOVN0SnRzVzRsMk1tMmJlaDUwNnNu?=
- =?utf-8?B?Z0xoMGc1RXJQMXorN0N0V1l2Y1dqRHlTNWxzajQ5bGpBQXBnamJYTTdMY0kv?=
- =?utf-8?B?eHJVYzJJVG00R29EMEtMcHF0ZnJ4UFRhVFFzR3hYSFluWTdJalBnbFh1U3pn?=
- =?utf-8?B?Y2lBTnpwSmpuU21QL2MyemlWTzd0aWl6U1N3bWxlRHhBRm5WZ0IwUnkyRTh5?=
- =?utf-8?B?ODRQclZxK2hiTUNwOXRWbUt5Zk5tY3llZGZUZ0pGcm1uUUpPRDVvTmhlZzNY?=
- =?utf-8?B?RS83NGRBVnlaS0dQYUpzT0VNL1VIOGRRVStDUzF2UnBpVk5xT2FLU24remZS?=
- =?utf-8?B?enMxM3BkU0hYVTZsL2EramNYT09XUFJoV0xFckd4RGJaeUNUSS9hN3NDZFFN?=
- =?utf-8?B?b2pwaXRjVTRuU3VxYzk3OG1WRStCWDUzNFhqeFNuZ3JxVlIxWnp0SEdIRC9a?=
- =?utf-8?B?V25qRVZyVGxRRjV6NExnQ3BiV25wYXZsZkh6MnZIY0haRStZNkZLdFJYY2Nt?=
- =?utf-8?B?T3BlUk8zUVhtcEp3cGpJTGY3a0c3RDBubWQrbnlCaXQrSDY2eTc2aXBtdUZy?=
- =?utf-8?B?bEtQaXVnSy9vZzRPeENmdVo0MHRyR21EbHVOWE1EWnhjMEg0YnNLWC9GRkMz?=
- =?utf-8?B?dXJBa3pKOVpMK1gvaGlHRElJOW41bzZxV0YwV201L2MvVmZtam90ek9nMVY0?=
- =?utf-8?B?T0FGVTRadjhKK2gzQVVRSzduNjZmaUtTTWVRNjdzTlR1amZnMjIwV21ONnRI?=
- =?utf-8?B?amsvNXk1Wk5QamRqSExjMzNRYllPcFlvNEwyNzJacytxaUlzRUZaOEMvL0V6?=
- =?utf-8?B?bkFBdXAxVW4vb0VZeWprVmN3MTlBNTZEV1YydEx0WjRCa0dRdW4zZGlXYXR6?=
- =?utf-8?B?Qnc1MmpQNnRFcHVVTm8wUHdUcHpOMUJ5TGVuL3E1UGVuNy8rNm1nR29ndGRM?=
- =?utf-8?B?MzNjNjJtMVRJR1FwVnR3UFZFZFdsM1ZqWFdlSDY2QmM4algyTEhkSHBnL1dj?=
- =?utf-8?B?SFNhNmkvWDA1bEg4NTlDMGFFZ0FLdmplOGliOWZMU01uR1g0MEJOTzRHS1Zz?=
- =?utf-8?B?Qll1SGFzRFhZcWVZWloxY0RPWm5NWDFWeGs2d3ZFcGthRm9Ia01scU1TbjVo?=
- =?utf-8?B?TUxpblRmMnIwNEFZQUdCVFgxZVdwOEtEMm4rUktGOXpndS9KSk1EVWhldnlZ?=
- =?utf-8?B?SGk5UDdrbzNpclREZlpwUVphUW5WOHZtUUZWdDErbGpwek5iU3N2a3NoRk56?=
- =?utf-8?B?eUlOVWQxWFlWM2NVVGVORlRoWVVsOXFheXQ3M2JqZlNmRjJRTnYzdzd3ZVFm?=
- =?utf-8?B?b3I1d3B2L2FyTnFmMjkvVUQ4NUp6ZG4zUUlHT0FsQzJtWjFPUXVyN0xsL0ly?=
- =?utf-8?B?bUczQTN6RGhkdlRPQWE3UW1IYnJkUWd0UVhmajQ1RG45U3FrWVRseXgwczZE?=
- =?utf-8?B?N05ZMWl1NTgwUExnM2pxZ3E3WFp0bXZnRFlvSVNkWnhGSlE3T3RqTmpwRkhy?=
- =?utf-8?B?MmFMYjRYcklrM1RXaWQ1cWJJTFBiZzgrTkE4cmpGVFV1Q21PY0NlK3J6ZVFB?=
- =?utf-8?B?OGhVUkxVZ2FZVHlidUZXcDRWdmVnT3VLSHg1eFZFSEdERlNyUzlBZThsekkr?=
- =?utf-8?B?dDZGK3FhWWFnc3FhWkh2NUUreHdqejkwMnJvU2p2WjN0bFp2U3VQWTV1QzB0?=
- =?utf-8?B?NWcwTDlxKzQzY1RPcXZyVzRMUzR1bklVcnl1NTBjdUNGcFhVbE4wK3FiWVJ6?=
- =?utf-8?B?d0t5Sk1yWU5SaHl1VTFDWXNVcE5GYkdZZ3pnbnByZGpSdUdRS1RoazU1elJj?=
- =?utf-8?B?WnFvRkdLdnR6OHY0MTBCUTJRL1NpZDBYR0pGT0hLT3EzTXRRK0pSeUwydi8z?=
- =?utf-8?B?ODBIQ0xRZFY5SkMwVWFqd2RlaUZ5RVl5Qk4yRmJQNk10Mm9QSUtUR2ozUDIw?=
- =?utf-8?B?bVZhMFV3Vk1YRXVhY3oySkVkNnFiY2NpVnhacUJIWnFhNFZtV1VvVmhwTVhD?=
- =?utf-8?B?OHdWTzZlZm1laEZlN1hFZWFVMlhKODdSUWlndW9jcjhjK2Q3RVlubkVscW4w?=
- =?utf-8?B?T2dUYytqUzE4QTBWU0VKRHhpSzBmY3FNY21kYnkwKzgweUdTMDg1WXRhOHRu?=
- =?utf-8?B?SmcrK3VRNGxVTmxkaGNiTy9WdnpWU2M1dUpVMVlzbzNsNk83RTlkTU4vOTF5?=
- =?utf-8?B?ZjEyM09XeDJlRk9KdjBjTWEwT0NwbXZJZ1VCYmd1RE5wRzhlektlREdjVnBO?=
- =?utf-8?B?MnhSMEdRc09TbzlJYW5QbUtDd1dJODNBV0lmazI0eW8wMktKTVF6ZTFOcDh4?=
- =?utf-8?B?M3JWcm4vWEVwZXVPOUhWK0krUkdsRFl1TnoraDhNQkQwbHdOaG04Zz09?=
-X-Exchange-RoutingPolicyChecked: NUOQHtteckiXllHcnkdtgk2ESJZMCwfgF8sNtYfyqeY5eCNsXk2GHZ9QgOgGaIIww7M/0NRXU7U92Tbteht5KaMpPNCEl7Z4Uhk0/Ds9bP4GdILE/w3aTwv8K7lqgWWk8vpbS2Jso1g+N4rV6MhMngxNgBHezONXTil32+pxLe5yDpts+rskGrEYxOw5AFg+wCUAXlOH0ySaUx37mvDEBh3ukMmALTDgNShN3srMWA6WALQuAPXYSIc2WOV7HTtVQGXYNvbtwezfIQrMPAhDUdeKm2NzfAMGyg37R6D8g+94RYmH5apJLmyOdp0HW3pnmOOUtMg1Kd9zCeqS39Dq7g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 373cb122-d0df-4777-a8a4-08df35aaa815
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR11MB4527.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 10:51:59.3837
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mCJtq+ZfeMEbe4d7joe5stGt6xL6oMxd4ZpXsGaLmiPt64ydt5EjE7X0UQNlaqdmadLWjghHk51BShKCYwVmyw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5279
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-On 9/30/26 05:51, Nicolin Chen wrote:
-> Jason pointed out an issue in the attach handle replacing path:
-> https://lore.kernel.org/linux-iommu/20260923233920.GJ2545495@nvidia.com/
-> 
-> When an attachment is detached or replaced, the IOMMU core can still leave
-> the outgoing attach handle published while calling into the driver. A fault
-> report looks up the handle without the group mutex, so it can find the old
-> handle after the driver's fault flush and just before the caller frees it.
-> 
-> These four patches unpublish the outgoing handle before a driver callback
-> for both group and PASID detach and replace operations. Both replace paths
-> store XA_ZERO_ENTRY to reserve the slot and restore the old entry on error.
-> 
-> This blocks new lookups, but does not retire a fault that already obtained
-> the old handle. The driver must still synchronize those readers before the
-> handle is freed. A same-domain replacement skips the driver callback, so it
-> still needs a separate lifetime mechanism or fence.
-> 
-> This is on GitHub:
-> https://github.com/nicolinc/iommufd/commits/fix_iommu_attach_handle-v1
+On Mon, Oct 26, 2026 at 08:11:56PM +0530, Manivannan Sadhasivam wrote:
+> > +	if (cb->type == QRTR_TYPE_HELLO) {
+> > +		/* Pairs with smp_load_acquire() in qrtr_hello_work() */
+> > +		smp_store_release(&node->hello_rcvd, true);
+>
+> smp_store_{release/acquire}() accessors are only needed if there is an ordering
+> requirement. But I don't see that exist with this 'hello_rcvd' bool flag.
+> Wouldn't {READ/WRITE}_ONCE() suffice?
 
-this series LGTM.
+The flag is ordered against node->nid. qrtr_endpoint_post() assigns the
+node id with qrtr_node_assign() before it sets hello_rcvd, and the
+replay reads node->nid after it sees the flag. For an endpoint
+registered with QRTR_EP_NID_AUTO, the id is only assigned when the first
+packet from the remote arrives. With READ_ONCE()/WRITE_ONCE() the replay
+could see the flag and still read QRTR_EP_NID_AUTO, which has the same
+value as QRTR_NODE_BCAST, and the name service would then send its
+announcements to every node.
 
-Reviewed-by: Yi Liu <yi.l.liu@intel.com>
+The flag cannot be set under ep_lock instead, as qrtr_endpoint_post()
+can be called in atomic context.
 
-> Nicolin Chen (4):
->    iommu: Unpublish the attach handle before the group detach callback
->    iommu: Unpublish the attach handle before the PASID detach callback
->    iommu: Unpublish the old attach handle before the group replace
->      callback
->    iommu: Unpublish the old attach handle before the PASID replace
->      callback
-> 
->   drivers/iommu/iommu.c | 54 ++++++++++++++++++++++++++++---------------
->   1 file changed, 35 insertions(+), 19 deletions(-)
-> 
-> 
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> > +		to.sq_node = READ_ONCE(node->nid);
+>
+> There is no READ_ONCE() in the earlier read. So please justify why you added it.
 
+node->nid is read again here because the earlier read can come before
+the remote's first packet and still be QRTR_EP_NID_AUTO. That is fine
+for our HELLO, as qrtr_node_enqueue() takes the destination of a control
+packet from node->nid itself, but the replay needs the assigned id.
+
+The READ_ONCE() is there because qrtr_node_assign() writes node->nid
+with WRITE_ONCE() and the other lockless readers, qrtr_node_enqueue()
+and qrtr_bcast_enqueue(), use READ_ONCE(). After the acquire the id no
+longer changes, so a plain read would also be correct. I kept it in v3
+to match the other readers, but I can drop it if you prefer.
+
+> > +		qrtr_local_enqueue(NULL, skb, QRTR_TYPE_HELLO, &to, &from);
+>
+> What happens to the return value?
+
+It was ignored, and a failed replay was lost for good, as the Sashiko
+review of v2 also points out. In v3 the replay is retried 100 ms later
+if the allocation or qrtr_local_enqueue() fails, without sending our
+HELLO again, and it is queued under ep_lock only while the endpoint is
+still registered:
+
+https://lore.kernel.org/all/20261029105142.2503-1-26rote@gmail.com/
+
+Thanks,
+Joonhoe Kim
