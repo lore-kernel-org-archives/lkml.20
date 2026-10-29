@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793299436;
-	b=VG9xRh/iWNoRWwpCmSliRydmsHK3Sw6DpeHj/Q+tkeWQIgh8oUncB8vla81ZFttHxPIA
-	 nUXv3+r/hv4+qhhfJUltuviXF5fNyUiX9AUQZHmkJQ8G+BaIn11ggN+zjb9jQUV3Oryg7
-	 4QVVxZLdKVoV04w238y+L9Ey92HkvXWdloIecUGII7fbYlCqaLmN7j3S09troH8IF4s+H
-	 L6oviwPVXNr1cChejBc/Kxhbo4exnwLCKJCzNMoL6D+9hRnK5huyzWKDjoduKaW8BkEkN
-	 hGQPT3abmSK9g881LblL734IAdyozgjEnnNBISIm8rodPX/wCg3lD4If+i7MpkMt2lA==
+	t=1793299428;
+	b=FjdVMbilcgeszukEeWyC5F5Ksv99qfcwfSWLe4zOTBl2Vj7SUwmLV53DxRx3jVwMGVUI
+	 hlwt0ahOAlzitiSU2VVIg7esoNof2fpUzQCeZmeWNTFzk0NTe0g9yamJt3g1a670Zbxdn
+	 6qAjL+jNhjgjYtNy4tybPE4aXIajAMJuFBBT0G9ZMr9Hu/BiJzTVHSyqpO5+tL9GtiOul
+	 aft7xnjP1RE12ZH+DHPJoMK6fFdcYhicYhekv6nlv4++Pw/DHpvyK4CI3l8Z+eU2nrDI8
+	 QS4iuqHe5EgNtQq7SQkn3EZdwJ9Y5hJTcqyT6xlc8ZhsJnfiu3iixciYBMIFyxQNmBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793299436;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793299428;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0xZacld6o8nANioJ66Bx+wCl/dCdVGQB0X9AYNsF9fI=;
-	b=bOntLTuvUBHacQsCkGhcfFds6E6i7GDpnPL2jnUMkYaWYTZAfWGFKTmkYZ0A6SO0LAsh
-	 saExfpqBB6DsqfMCw779jxu9MfyFwbgdiBdtlj4qex+YoPqYKn/W8F/00g7HuD77PiUXR
-	 CEI2uPznUOrrS74dngZ0FBwdpsXUeidGXRRhmILW6u9y0Tc3Tv8YxV3hGJEaIiehtoNhD
-	 c8WCxCgbTZZhzDHcEyAhnXakarMKgOYku1gh3mW0gVaiOpNl6k4PCtK9KY/5U65UDC/O6
-	 etpH0chIj4CKmT4O7vVvLE0fht5jqK4TcHaTyBbWHN2SXJuSNFmdSyYpssh9obj/xxA==
+	bh=LUhYckbXrX6yJppHSxsBYbUoZtW7rgRPk1KNQoVQYjg=;
+	b=kR5ZVpRZttizaT9Y86SDsrKPfFq71MXIPv8E5LXpnLFZHkGvNTBI/LvT6RQ9/0NG929g
+	 Mtot7O5/4tTEHDeeEYYZSIOTM74YpH6mtvACOftVOvO774d9LuclmsW60adck6MszouJ6
+	 O2+lWN0a8C0kKggztmfnW5/M0Scs3dUK28sCVMhbYRoi34fxtQ7Osq27tNYMzz7P3A2/3
+	 hzBLTIhGtwxZrCQqoOJxF+8pZ/5oPULTMme+Tk7Ky+qXdZxEhmC3aU/e7EfSfaFhQmxB2
+	 a98cX8YpMxg3Ww0piydCbiVS4lEUULh+//Tz8zNa7yNi9zums2Zs+krTiQ43hiIFyCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmN3vSC9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKAOazR5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE352606A334;
-	Thu, 29 Oct 2026 18:43:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E486A606A33B;
+	Thu, 29 Oct 2026 18:43:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmN3vSC9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C17591F01285;
-	Thu, 29 Oct 2026 18:43:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cKAOazR5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C92A91F031EC;
+	Thu, 29 Oct 2026 18:43:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793299435;
-	bh=0xZacld6o8nANioJ66Bx+wCl/dCdVGQB0X9AYNsF9fI=;
+	s=k20260515; t=1793299427;
+	bh=LUhYckbXrX6yJppHSxsBYbUoZtW7rgRPk1KNQoVQYjg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SmN3vSC98k64fsfz4aHjrn4Y0iMOvJgctjRiEpXgTeKYgNGlG8wALHejij6yTr0eR
-	 NytKJ5XsMFE2xwIIqr6Vwj9mOh0UGROt57/tRg5evoi3+gEdOGK/m5SW0H+cf1kFx0
-	 ejou/RrooIXOI4RS1f2537V3wVHh4FAIiC7zlc3bxoHglktYCwvab6E3Y5AoUIvbiw
-	 dE92HOz3F2QijtMD9PMFifm/lihOR+C5s3LBVUul/xwcJ3RB12KQbxkw3Sz8uAipMw
-	 VGtEnLAHV9mUJlrtmFEGu0lk1BH/cO+HMgqsX/tjtdQdWnSRYOQL++obUhKNQbXtaa
-	 h/bX7KvYe+Haw==
+	b=cKAOazR5Ti5pak3mzylgwtzMwkQDoVTrPhOJwB6klzUMHt106oPtPAAIU2dyGCT6/
+	 JeyEWoPYCON/ePXou7ABNUGyt0veL3KY5jB9LDt5kHoV2aoVL5pIUW5hpKPSLX03gf
+	 LsmekMj9SOJ+Zt3GhyZ2NvoS/1WOxX/FP/9HmjsGF7RtiGy4fu8qRuxn9deC54mCoj
+	 ohxY8efFHWM1Zs+BkT5WUrebY9nG9SyY6y+VDj9mZziNQ3qt0pWBIRR+KKsvRjA4ZQ
+	 e/DO7EwhuvI+aBZWVGcTitg4O2/sXVEMsWXUx2FSwIQXziJyXRnbUvYEgLWwaH3MqU
+	 7vPoPf4GKxFKg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	"John W. Linville" <linville@tuxdriver.com>,
-	linux-wireless@vger.kernel.org,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Zhao Li <enderaoelyther@gmail.com>
-Subject: Re: [PATCH 5.10.y] wifi: mac80211: shut down RX BA session timer on teardown
-Date: Thu, 29 Oct 2026 14:43:25 -0400
-Message-ID: <2026-10-29-1-daily-reply-0018-mac80211-rx-ba-timer-5-10@kernel.org>
+	linux-mm@kvack.org
+Subject: Re: [PATCH 6.12.y] mm/damon/core: error damos_commit_quota_goal() for zero target_value
+Date: Thu, 29 Oct 2026 14:43:19 -0400
+Message-ID: <2026-10-29-1-daily-reply-0012-damon-zero-target-value-6-12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261028142349.19894-1-enderaoelyther@gmail.com>
-References: <20261028142349.19894-1-enderaoelyther@gmail.com>
+In-Reply-To: <20261028010247.158237-1-sj@kernel.org>
+References: <20261028010247.158237-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,10 +64,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This differs from the upstream commit, which uses timer_shutdown_sync()
-> instead. Linux 5.10 does not provide that helper.
+> If a DAMOS scheme has a damos_quota_goal of zero target_value,
+> damos_quota_goal() could trigger division-by-zero error.
 
-Queued for 5.10, thanks.
+Queued for 6.12, thanks.
 
 -- 
 Thanks,
