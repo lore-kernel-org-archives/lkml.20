@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281017;
-	b=JzuWG8cWHlXahVv1rJ/Re521g+0+nQJSzzvE9ijrIq5e6qD7bcaDQzrOnuZbcD3hPmxE
-	 yg2h5aTOijc+EhiFpbe2CzCvVnWbMp92rziPR1yyw6Z+CaV757SPryRbaLdb3slYYA9QZ
-	 RxFgLyzAMjz8YGP/fRnEjbvQI3Ar7X5nfo7bg1AhuIIYbb+KiN0MUz802kpjHUkk8T2mY
-	 OXnK8H1+9fAkQo5s+jiEAW1grgy38Meuo1Ajjf/lZK7ipLjzW7e6hPHoDL0jEpc7dFs5T
-	 9DrUJRDTElaMoQwNOvN/UewmBfzzFqjfJq1Dv2dN7a3PzbA0NSgHHfpI0sGRJLXsGOg==
+	t=1793281018;
+	b=K1xUvb+MGgf/zCWcskeM7knr7+26kzt8xETcTexUAXwQG9jkUDwgalTNRSZQyAaZnj8H
+	 fn9S6encw38mltCOoWbWdRtLRaq/kDl/+5z4wqYnbxIoDP/+nGxBiPDuqGv8/NNwAo4WU
+	 gRHhEmibs37lLYGgylKNEQ/VWo6qCsGbNTES4zpVEc6/s7Q65cyhopAfT/oozkyfQeYn4
+	 t5n8Jms8Ra1ihjcpgI6Rhiw7i8yUNNZqFWwtb9sKnUMudwx3Ptd32X1akSI3jcRDExLqi
+	 oH7ioLBpC6Nydtdio8rfz511KCeIpfJhUE7j/3RhlgxmrK2D72KXzFzRNAtqgr8bQMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281017;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281018;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=cDQAl2kMTSRMOjLE3vtGkZN+Rhn2ibmxtT8V0e0lcOk=;
-	b=1D0Z0ebfriRkyFVQOX2MbhzSo8cBKjfcimoBXYei9ihF9SWbpvWno8yj5VgRdxtziS0O
-	 b8jjyCUIBOkB8WbXJ2Xuba2h6yHtxNZMd3YKZQEFvE/KOPTOp42wXbLYfNgMDH7Uh/gGc
-	 aQ9cuV8L6O47OFtMiriNtL2AHXU+VV0hDq7gNgnV1v/zOEJHy/nOIj/FeKmA1sPVP7Q0J
-	 Ouyw97HFkRkbGGvO3ZRZWB2MEo29sgIGlaS6/RUybC8tWBpntuLgDBGZacISV7OeeOpLn
-	 lkcKxc+We0/2KvZj4jiv045CmFwbJbzV21gyMZ9/0K12YrOsZBoWtKAvrMjEYFFU3mg==
+	bh=h7/WajsG/j4H6248wyjA9raYhJwLC+lNXG4AAfWTGD0=;
+	b=jBfz8RN0JpANQyPw61gZApDo+LoKuGTaTRPo3Eg+LwtNi3M1Q3FQJte+QT4POim4af2s
+	 v75qXxHRqfu8UXHMsHUPb2uEmedj2d4OeVvKmZb0nOvWV7wKLR6VLjW1LXvvxt4dbsmv7
+	 EydC4S1MOwQmIwCRCU0HlZJrIooalC2qYov8xRod3XJJ/DeYCHXpDbMFkkQdfevzxXICb
+	 UEKHeMirH7vpCTVv5oIdfYqeRPMAvuRLfbd8WnC7tQL1WpyOEu9XAvD82RngcjaVgTZi7
+	 QrT93gb5307SAzuc5+pZV5q972IrE7H8IbTkLdU8Y9a+cQnGCusVGSYurEsOen6fo0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qtq8rQJx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhAvuHMx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A22606C311
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A359606C31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qtq8rQJx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C7EC1F01825;
-	Thu, 29 Oct 2026 13:36:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EhAvuHMx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B47631F01825;
+	Thu, 29 Oct 2026 13:36:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793281016;
-	bh=cDQAl2kMTSRMOjLE3vtGkZN+Rhn2ibmxtT8V0e0lcOk=;
+	s=k20260515; t=1793281018;
+	bh=h7/WajsG/j4H6248wyjA9raYhJwLC+lNXG4AAfWTGD0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Qtq8rQJxjTTbbxBhveFH/TUUesCAvF2JBgzho0xDiVHYoxMahVkNtM4bvyWG4riPh
-	 fAuUDE/gvFdlYyMOUi5ki5+6XRKUFGameiKLLfMmckuoa68CI+t+YQMEsTpMGMMjo7
-	 gRkB8ehwaNzC4EN/4lApllXy+Jk2w+5qWS7qIKcWSVdID9Bs6f1LmDRBiydYdhXuph
-	 lHpVNttfapsvB4aYxc6wxGEvy1SY135dEoZ4QYNGygpL1D8AOp1vcZWqD4yz6kDQ6I
-	 4QgBmBcpLpB9OAUDvlNGdLKKuzcDxrbhdY8kEMI/eCJhqgsCgQgv/2Esr+3YbNnMTF
-	 1AXj4jW5D+IpQ==
+	b=EhAvuHMxgeGO4uFSEMqS118FMWo7aeMCv9ilrZoMZR4/30I4DY19G4aEbHviB2YM+
+	 Sm/xxCEaF3AK3uGm8MHpueMT1Q6/uZMAV0G3PsV0001DtbAGgz+26iIbl9K+JgWaqa
+	 GgjMqkbMenp/U6c3axnDUE31LPBs8vwIksocopYw8fs0Ot5xPWDYPVq48gZdP1/GIj
+	 EAHrICcGnWBtrNxHOreLp2wOqJLPBbHx+wHV7GAb5NWdHL/GQuI5XnOFwOGfMCPqjm
+	 x8fm768dz1O5U32lwPY9e4ilbL4zT6d71vDFJd/x2gViQv633iFrEGM63g65ju4pD5
+	 7yGEqA3DyAvBg==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:36:13 -0500
-Subject: [PATCH v4 26/31] accel: ethosu: Split U65 and U85 DMA length
- validation
+Date: Thu, 29 Oct 2026 08:36:14 -0500
+Subject: [PATCH v4 27/31] accel: ethosu: Validate OFM transpose
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-26-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-27-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -63,191 +62,139 @@ To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16-dev
 
-Ethos-U65 and Ethos-U85 have slightly different DMA programming models.
-The U65 has skip values added on to the size whereas U85 has signed
-stride values. The U65 shares the skip values for source and destination
-whereas the U85 has independent settings for source and destination.
+U85 OFM dimensions are specified before transposition, while
+tile bases and strides address the transposed feature map. Permute
+the output endpoint before validating its tile and stride accesses.
 
-The current validation only correctly handles U65 constraints and only
-for source 2D/3D mode. Split the shared DMA length calculation into U65
-and U85 specific versions adding U65 destination 2D/3D mode and U85
-constraints.
+Allow the defined U85 transpose encodings and reject the two
+reserved encodings.
 
-Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-Cc: stable@vger.kernel.org
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v4:
- - Only account for a skip/stride between transfers and not at the end of
-   last transfer
-
-v3:
- - Fix U65 destination stride/skip handling
+ - Allow only HWC, HCW, and CHW output layouts for elementwise ops
+ - Don't allow 64-bit output precision and chained output storage
 
 v2:
- - new patch
+ - no change
 ---
- drivers/accel/ethosu/ethosu_gem.c | 119 ++++++++++++++++++++++++++++++--------
- 1 file changed, 96 insertions(+), 23 deletions(-)
+ drivers/accel/ethosu/ethosu_device.h |  1 +
+ drivers/accel/ethosu/ethosu_gem.c    | 69 ++++++++++++++++++++++++++++++++++--
+ 2 files changed, 68 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
+index d3df6720085d..c3789474fa7b 100644
+--- a/drivers/accel/ethosu/ethosu_device.h
++++ b/drivers/accel/ethosu/ethosu_device.h
+@@ -92,6 +92,7 @@ struct gen_pool;
+ #define NPU_OP_CONV_WEIGHTS_IFM2	BIT(0)
+ #define NPU_KERNEL_DILATION_X		BIT(3)
+ #define NPU_KERNEL_DILATION_Y		BIT(4)
++#define NPU_OFM_TRANSPOSE_MASK		GENMASK(13, 11)
+ 
+ #define NPU_CMD_CTRL_CMD1		BIT(14)
+ 
 diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
-index 117046e5a61f..04c0de8336cd 100644
+index 04c0de8336cd..fe6bf1a2f8cb 100644
 --- a/drivers/accel/ethosu/ethosu_gem.c
 +++ b/drivers/accel/ethosu/ethosu_gem.c
-@@ -245,40 +245,97 @@ static bool dma_params_valid(struct ethosu_device *edev, struct cmd_state *st,
- 	return true;
+@@ -422,6 +422,52 @@ static int feat_matrix_validate(struct ethosu_device *edev,
+ 
+ 	return 0;
  }
- 
--static u64 dma_length(struct ethosu_device *edev,
--		      struct ethosu_validated_cmdstream_info *info,
--		      struct cmd_state *st, struct dma_state *dma_st,
--		      struct dma *dma, u16 region_cmd, u16 addr_cmd)
-+static u64 dma_length_finish(struct ethosu_validated_cmdstream_info *info,
-+			     const struct dma *dma, u64 len)
-+{
-+	if (dma->region >= 0) {
-+		u64 end;
 +
-+		if (check_add_overflow(len, dma->offset, &end))
-+			return U64_MAX;
-+		info->region_size[dma->region] =
-+			max(info->region_size[dma->region], end);
++static int feat_matrix_permute(struct ethosu_device *edev,
++			       struct feat_matrix *fm, u32 *x, u32 *y,
++			       u32 *c, bool ofm)
++{
++	u32 width = *x;
++	u32 height = *y;
++	u32 depth = *c;
++	u32 transpose;
++
++	if (ethosu_is_u65(edev) || !ofm)
++		return 0;
++
++	transpose = FIELD_GET(NPU_OFM_TRANSPOSE_MASK, fm->precision);
++
++	switch (transpose) {
++	case 0: /* HWC */
++		break;
++	case 1: /* WHC */
++		*x = height;
++		*y = width;
++		break;
++	case 2: /* HCW */
++		*x = depth;
++		*c = width;
++		break;
++	case 3: /* WCH */
++		*x = depth;
++		*y = width;
++		*c = height;
++		break;
++	case 6: /* CHW */
++		*x = height;
++		*y = depth;
++		*c = width;
++		break;
++	case 7: /* CWH */
++		*y = depth;
++		*c = height;
++		break;
++	default:
++		return -EINVAL;
 +	}
 +
-+	return len;
++	return 0;
 +}
-+
-+static u64 dma_length_u65(struct ethosu_validated_cmdstream_info *info,
-+			  struct dma_state *dma_st,
-+			  struct dma *dma)
- {
- 	s8 mode = dma->mode;
- 	u64 len = dma->len;
-+	u64 stride;
+ static u64 feat_matrix_length(struct ethosu_device *edev,
+ 			      struct ethosu_validated_cmdstream_info *info,
+ 			      struct cmd_state *st, struct feat_matrix *fm,
+@@ -528,6 +574,9 @@ static int feat_matrix_size(struct ethosu_device *edev,
+ 	int ret;
  
--	if (!dma_params_valid(edev, st, dma_st, dma, region_cmd, addr_cmd))
--		return U64_MAX;
-+	if (mode >= 1) {
-+		if (check_mul_overflow(len, (u64)dma_st->size0, &len) ||
-+		    check_mul_overflow((u64)dma->stride[0],
-+				       (u64)dma_st->size0 - 1, &stride) ||
-+		    check_add_overflow(len, stride, &len))
-+			return U64_MAX;
-+	}
-+	if (mode == 2) {
-+		if (check_mul_overflow(len, (u64)dma_st->size1, &len) ||
-+		    check_mul_overflow((u64)dma->stride[1],
-+				       (u64)dma_st->size1 - 1, &stride) ||
-+		    check_add_overflow(len, stride, &len))
-+			return U64_MAX;
-+	}
-+
-+	return dma_length_finish(info, dma, len);
-+}
-+
-+static u64 dma_length_u85(struct ethosu_validated_cmdstream_info *info,
-+			  struct dma_state *dma_st,
-+			  struct dma *dma)
-+{
-+	s8 mode = dma->mode;
-+	s64 min = 0;
-+	u64 max = dma->len;
-+	s64 stride;
+ 	*max_len = 0;
++	ret = feat_matrix_permute(edev, fm, &x, &y, &c, ofm);
++	if (ret)
++		return ret;
  
- 	if (mode >= 1) {
--		if (dma->stride[0] < 0 && (u64)(-dma->stride[0]) > len)
-+		if (check_mul_overflow(dma->stride[0],
-+				       (s64)dma_st->size0 - 1, &stride))
- 			return U64_MAX;
--		len += dma->stride[0];
--		if (check_mul_overflow(len, (u64)dma_st->size0, &len))
-+		if (stride < 0) {
-+			if (check_add_overflow(min, stride, &min))
-+				return U64_MAX;
-+		} else if (check_add_overflow(max, (u64)stride, &max)) {
- 			return U64_MAX;
-+		}
- 	}
- 	if (mode == 2) {
--		if (dma->stride[1] < 0 && (u64)(-dma->stride[1]) > len)
-+		if (check_mul_overflow(dma->stride[1],
-+				       (s64)dma_st->size1 - 1, &stride))
- 			return U64_MAX;
--		len += dma->stride[1];
--		if (check_mul_overflow(len, (u64)dma_st->size1, &len))
-+		if (stride < 0) {
-+			if (check_add_overflow(min, stride, &min))
-+				return U64_MAX;
-+		} else if (check_add_overflow(max, (u64)stride, &max)) {
- 			return U64_MAX;
-+		}
- 	}
--	if (dma->region >= 0) {
--		u64 end;
- 
--		if (check_add_overflow(len, dma->offset, &end))
--			return U64_MAX;
--		info->region_size[dma->region] = max(info->region_size[dma->region], end);
--	}
-+	if (min < 0 && -(u64)min > dma->offset)
-+		return U64_MAX;
- 
--	return len;
-+	return dma_length_finish(info, dma, max);
-+}
-+
-+static u64 dma_length(struct ethosu_device *edev,
-+		      struct ethosu_validated_cmdstream_info *info,
-+		      struct cmd_state *st, struct dma_state *dma_st,
-+		      struct dma *dma, u16 region_cmd, u16 addr_cmd)
-+{
-+	if (!dma_params_valid(edev, st, dma_st, dma, region_cmd, addr_cmd))
-+		return U64_MAX;
-+
-+	if (ethosu_is_u65(edev))
-+		return dma_length_u65(info, dma_st, dma);
-+
-+	return dma_length_u85(info, dma_st, dma);
- }
- 
- static bool feat_matrix_chained(struct ethosu_device *edev, struct feat_matrix *fm)
-@@ -1083,16 +1140,32 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
- 			st.dma.size1 = param;
+ 	if (storage == 0) {
+ 		ret = feat_matrix_check_location(edev, info, st, fm, type, 0, 0,
+@@ -900,6 +949,11 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 				return ret;
  			break;
- 		case NPU_SET_DMA0_SRC_STRIDE0:
--			st.dma.src.stride[0] = ((s64)addr << 24) >> 24;
-+			if (ethosu_is_u65(edev)) {
-+				st.dma.src.stride[0] = addr;
-+				st.dma.dst.stride[0] = addr;
-+			} else {
-+				st.dma.src.stride[0] = sign_extend64(addr, 39);
-+			}
- 			break;
- 		case NPU_SET_DMA0_SRC_STRIDE1:
--			st.dma.src.stride[1] = ((s64)addr << 24) >> 24;
-+			if (ethosu_is_u65(edev)) {
-+				st.dma.src.stride[1] = addr;
-+				st.dma.dst.stride[1] = addr;
-+			} else {
-+				st.dma.src.stride[1] = sign_extend64(addr, 39);
-+			}
- 			break;
- 		case NPU_SET_DMA0_DST_STRIDE0:
--			st.dma.dst.stride[0] = ((s64)addr << 24) >> 24;
-+			if (!ethosu_is_u65(edev))
-+				st.dma.dst.stride[0] = sign_extend64(addr, 39);
-+			else
+ 		case NPU_OP_ELEMENTWISE:
++			if (!ethosu_is_u65(edev) &&
++			    FIELD_GET(NPU_OFM_TRANSPOSE_MASK, st.ofm.precision) != 0 &&
++			    FIELD_GET(NPU_OFM_TRANSPOSE_MASK, st.ofm.precision) != 2 &&
++			    FIELD_GET(NPU_OFM_TRANSPOSE_MASK, st.ofm.precision) != 6)
 +				return -EINVAL;
+ 			if (!ethosu_is_u65(edev) &&
+ 			    !cmd_state_reg_is_set(&st, NPU_SET_IFM_BROADCAST))
+ 				return -EINVAL;
+@@ -1000,8 +1054,19 @@ static int ethosu_gem_cmdstream_copy_and_validate(struct drm_device *ddev,
+ 		case NPU_SET_OFM_PRECISION:
+ 			if (((param >> 6) & 0x3) > 1)
+ 				return -EINVAL;
+-			if (!ethosu_is_u65(edev) && (param & GENMASK(13, 11)))
+-				return -EINVAL;
++			if (!ethosu_is_u65(edev)) {
++				u32 transpose = FIELD_GET(NPU_OFM_TRANSPOSE_MASK, param);
++
++				switch (transpose) {
++				case 4:
++				case 5:
++					return -EINVAL;
++				}
++				if (transpose && ((param >> 1) & 0x3) == 3)
++					return -EINVAL;
++				if ((param >> 14) == 2 && transpose)
++					return -EINVAL;
++			}
+ 			st.ofm.precision = param;
  			break;
- 		case NPU_SET_DMA0_DST_STRIDE1:
--			st.dma.dst.stride[1] = ((s64)addr << 24) >> 24;
-+			if (!ethosu_is_u65(edev))
-+				st.dma.dst.stride[1] = sign_extend64(addr, 39);
-+			else
-+				return -EINVAL;
- 			break;
- 		case NPU_SET_DMA0_SRC:
- 			st.dma.src.offset = addr;
+ 		case NPU_SET_OFM_REGION:
 
 -- 
 2.53.0
