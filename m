@@ -1,85 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287082;
-	b=CTF934TsoD6o6gbTlWHzAYywyRaSlKQ9Xy9ppm1EACRkk6+zJNGhJtUdtXGOVhenkQuh
-	 TPBy7KYUjC2B8E6W6tgZkc8NQXDLJwUZxl640V1NB0Sy+2r7R7YUmYNjCJtyam0u2drSE
-	 M0PuKSDq9XWGdKOfib0l94qqNWItCB9Fdp9RAt9gAoU1VxdmZDR3o8+BiybdeizGUd3g8
-	 hElEQAM4VCpkHVUbFolxNg/ZfW1qzlE2ugi3Y4GvntP4uIxdJV1Zre7aq74SeqdlAVljg
-	 XErC/CatUBPxh/8YtnBloozz3AsULs2jGesCP0XFQKibDLzDN+IrdVBTJHGLuAiAPLg==
+	t=1793287091;
+	b=OOcWlG5a+yu1xInT4CWDhFVN3hiCoufcv7YeMsM+tYjoc+zIA+Hl/Tb1pFiLfUagff1w
+	 XA1Nw2y7wtKltVGXM4FpIL7AJf66p0Fzo47J3ta7B2dOnXxC+jp5Rk6gC+YmS58UiNyha
+	 FMt04aWqNxnkcmFW9WzwJymV33tEHrHNOMwJ73k9VaQv0zELXv2q2ckWwmn0HolTKLIv+
+	 f3nPvklGudmPQEj33wvpYgyWDv8HuNQTIdVj/SNYf1/OQKBb44Fki1IWWUKtC0wv2drj8
+	 rqzqr9kTaGaMjmAyqZC/soX9PogJ1+B/dutd9nagEgVyIZGX5ySndLJfDf/wEGXAJ5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287082;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287091;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WhrGqebO51xfUsjiZH9anbqm9PSjMbH6Lkt6vVEX+10=;
-	b=xzuWo3WWyjMpofMrNyS9gjBVzXKfEY7lHiy8lf3HJtn4kGomLlEvZwsMt6isQOusNwHr
-	 5MFQwTQIdpysTu5iyRMuYBGf14GZqQGAN2AWGOJ3WGuubOsK7Jpx+adt6rZeuwiwZKJxJ
-	 Aey4em3aHq7x59N25cGct3TOOIw2ShdXrbseoxDfPmD4DJmKdlr6VLWACeh368krE4Zzd
-	 LqkpwND9v/vuIAwTVs00tHYfqAB+hFII765Ie/4yWig0YLHik6dmE9ruvDF7Lhp82y69U
-	 pg8LKTciMxhAzCsWf8BbQ8XNh7spZQhpcvPZnoN57uP/b84E72ucMfcDFK45cm5Bz0A==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=XKclWe9kzl34mf7ikCBlpHKdvGAXpEly40KTRKr1ZNY=;
+	b=F2Qp8xpB4mahfr57aBBQf1TsgvVkAG/N7aF5Moj9pl18lBEZE5fh+xJKuUfs9R6Iwxpa
+	 2Oy7v5vjr4LUAfYZxdpED673cSO91imepIPwE7XAY4ABxoh2QDm4FouNcd7ivXNzpK0DG
+	 6CBL+WlgY0LBr9njUhtVvP4bQ71FSISqoTyjhpCW+wLYfc+hzYYcvg18Eh1VdjuiGA9+a
+	 Adfem3pYKicvBx3ueJemZfKAYp5XhJZtq8CSrRytAnhkDkt+95ImMhPAnRzkSN14054Kr
+	 H2KZdFoo5GNqEOtTHMSzh/QzOoI34vAlaI6tJgX5HLYW/BaCJh0ter/CqlqX4dWloaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=ZTGx4TPO;
-	arc=none smtp.remote-ip=209.85.161.41
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lkHYRBLy;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D065606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:18:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D065606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69E07606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:18:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69E07606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=ZTGx4TPO
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6e560e00a86so1703724eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:17:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lkHYRBLy
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a215e64962so24339055e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:18:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1793287079; x=1793891879; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WhrGqebO51xfUsjiZH9anbqm9PSjMbH6Lkt6vVEX+10=;
-        b=ZTGx4TPOuWLuSzFHhiQNuv4QSd3AN8jhqJ7w0iDeaFz0SkdqzU4pIw5IMSVSl1KbSX
-         CuXmOh+nB623wfFmpWdgnlLljr8VPYeILyyooc31JLxStNHi1hXSjrRRf4tWEPquxq+h
-         L2sTN5GD/GyQYrgKJl5/FhEHdVuFJ8HPgYwYE=
+        d=gmail.com; s=20260707; t=1793287090; x=1793891890; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XKclWe9kzl34mf7ikCBlpHKdvGAXpEly40KTRKr1ZNY=;
+        b=lkHYRBLy5VLy9lkQOcJ3o9qdIPz574Rme6P63ZH03Ucpos0khXntA7NZejBhJZX79p
+         tv+/DlEor90Vx6TmKdPFWRQavGmI+kWGcRMLu12S7rAWJrrVooTEi9wbmyeeaIrB8Ar5
+         K6WDEWHUor7AlFuZ2JFi7fCfTGjrochFSL7XZYTtz70J+DxtLHnNTrylhyH+PLbhShyI
+         2yUzyM903mFa9I1fRobJG0bJwYPxx0KNP0tslpoJlx3yINr08LeQuCrPBiLzej1j8twf
+         +iAraxXQ+RrJpZgI9tvry9uEGvyxTqDdfnAEoKAjYMsP/cFGH60OM6KdBUNSEs7lTYaL
+         h2Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793287079; x=1793891879;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WhrGqebO51xfUsjiZH9anbqm9PSjMbH6Lkt6vVEX+10=;
-        b=hOb/SJi8eiVL326Sx9UP6pwYqoSEmxBpIUoRyNBnaDDHBzxxKo7MKx9LanLzhTFG54
-         p0EkSJ+CdOFxb1qAnRO6pXFEpI5jQzunXoQ8CJdHSz+TTwDQXYDKTbmpyRijKJ/Zyo2U
-         uYG/zLkIq5mHnAmEKZc+KEFcpmBXDLyg+59RqXiY9JMuoMgNXtOT7hyRjCU90T3uSYd4
-         WsbqXSMCDgPOmCgzJULKlJZmIGFESd8tTc2tAkDKt7E+seZMvzox+8w34401G/hX+4j0
-         0llTjZ7H0PbQ0zQYCYLfNjG2M7Q3n7Bph2WAp4fir78/x7BkvdxpDxkxE9lauBoLAX29
-         IdEw==
-X-Forwarded-Encrypted: i=1; AKwUvBxAjun0S8ZnTPeTKGNycGYzmk0kHcVFEJhBIOH8a14v8UYNUYY8P3/nruAZwrh2OVjaN4oTCc8zIxEeQIc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIV0Jm2QZ4vlPirkFjeUcZlsTzM7J2GVYTRVh5f3VU6ZmiuxoYc
-	jkNeQFGHfgxCXHvZ9YhoeRfcc6xyVbKosE4NeU3eCXHf6LkjBvFlV7mXkbQFasFkHck=
-X-Gm-Gg: AYBFou302/uHfdlLIPj1N1sn/HbQ7ESS/XcDsK5shQvCK1zNvVEvbhFISyP9ypws/Cv
-	hZyQikDkkllfO6hqDRFND+z+4BE56qfht1cl0ICzPhGF4dqzhYZnH9g3Dd3BYWdTtPcJIDOvCO0
-	DO28eV1ABGq/FtqlcoUDGx3eSWhNxytsHd+iR9KDfjHqDHzUQl86lJH9L/aY2JYl0w1rwAtqyd7
-	BxJfQaL9FOOWwidhH2+TBnTpLO7mIFxj/RstvycC5wsf8dYDJZ3Y5WwmQnVtH2PcXae0EpLNchw
-	v1a+Amb4WGab9FZC5LGSq7W8l8Zh00Odw0PpbSlxjPITU2t+j7/XVCTM6JmtaUq/jFO+Wqwoent
-	kSeTu9OwXV2rCosWF1mcj6cas0tLdl20FaY1y/xKEz2RZmLmzaSD0sSgNNZeouavTbYiltoU/Fb
-	YzZsdQ8mHH3Ur/q6WFcIMC5QeCvgRLR76C6gt99+opy7JeF+QaQHfYl24GxJvTIh65gQAsghz5B
-	AQjHantLeK9mTmMeqFaWC4hyS6M+8CR5cAncJzU7XAo2q7h9o6MorGKPhoMxKG2J6pVZtrGMfd+
-	9krv4ruQ4B4mU+VcAP3JUcgqugUG6EA5HnZlNygk
-X-Received: by 2002:a05:6820:1343:b0:6c9:80d9:5f0 with SMTP id 006d021491bc7-713f195f778mr3311997eaf.49.1793287079139;
-        Thu, 29 Oct 2026 08:17:59 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d33fdaad7sm43385a34.17.2026.10.29.08.17.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 08:17:57 -0700 (PDT)
-Message-ID: <d61a42b6-b92f-485f-abc8-0808fb395a87@linuxfoundation.org>
-Date: Thu, 29 Oct 2026 09:17:52 -0600
+        d=1e100.net; s=20260707; t=1793287090; x=1793891890;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XKclWe9kzl34mf7ikCBlpHKdvGAXpEly40KTRKr1ZNY=;
+        b=xPpiT9LiyaQeuFo6TkwKEWLRrgkz85mttNChNu77NIeNY4yeTa5v7YP6PkGO/cqMxk
+         RzEaXBm2qFWJ/5oVFkAdomi5C6rTspckx5tIUpxuViyxsaGKXRNI5+Ci5fmubjHFRmkI
+         jivOwwnHuDrLgS1Z1sgr4GdSBiIAX78PzXhr74CJvZE98jfdqeuVAq9FuuWFLkZouHL5
+         h8AhuGqNEDog4L1mhwCRzFv6xkYsDWMxF3xWnuhiCo9H4lO5lxFFzPpCjSt0vW8u0/VE
+         OpsTZ3ohjsp5F+lPlwYvHeAwHtv5WP+Z/Jkjt1Evo0jBxP5PzwknIq9PJwLpTwMZsA8k
+         eveQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzgBMAi8ujNG0kWP4OH3/VltmL2b+ewNt0OkgayDymZ9sceoOn5lxGM/5ShXFda+UqlhfipX2nO9f2MM3s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeMblMnAxe6YTOw8SjuS3YtUHMiva8amWtftQSbCFv3o/1o3Sd
+	9bZP9P8XkA+DK3d7zoDnQgOU5kbYEfLpf9dR5Vgkmtl0Xf725ctyNcj6
+X-Gm-Gg: AYBFou2JXbZGNG6Ea2OiiuzUsOFkGQA0uE2qyXTivWFCU6akvg0wSMW/4qF6kTpbCdB
+	T5ZExGXZ3klreiouwFraozv79zFBKiOe9losLVQXbQmTafSRQzh0QEMsmmlknP3adxX2ZKa8xhS
+	yOXQDpqzH7V89onGeAG9PaAbFnN9d/yPTm5zEnp+ScMo7hbSm5rgL9cXriZ2rUtQsLQcbLj7L3s
+	5dhKesjqKXjgTVcrIYbxTneAthVuK1vGTVLpUQMkBB8lveaR/0rkyfGiEFbuF8GvanWUZZ63bc9
+	CtR4rbVC+ckDAFhTpFoPLGtwBEdIbu1HQjDQUP1O9k+6CAMvTACNTfqt+tHSZ5ikPoa1TxJPosX
+	WkqLJ+SQD7J7vdaMLZIfMQXYYMyF0yjPATFGuCLDVt5n3EkDmuJBQPeLrfkc73H/3ESboXWyG90
+	unDVFEIr9g6OS/E8SRIZTQysjn2HtSIsvuR1xGzSKJFsnUPd/ILow7il7KSYYv2/IrHFQKi0j7s
+	eQpcnLj5AMyLfCq73AMPRnmRv8kALsikEKP/z9iPqsu4Hi5PkxKlIhV1q3X1MNpWdTL+PwV3hJS
+	cGRTAGvE4Tr0YyqMseNJf7Za7gwSry4oBeQcODFBanyDdSDcfUtGWHhzk2e/2Mk0+OB7r1wkmxG
+	lykqvTxi8SHO1KZ5rj24t0DY4WfoWjQ7jaa5qoPUyBC+ZPogWaJHkyycxl3wpVRT1usk=
+X-Received: by 2002:a05:600c:4f89:b0:4a1:c6fd:4db0 with SMTP id 5b1f17b1804b1-4a966c41836mr142852995e9.19.1793287089736;
+        Thu, 29 Oct 2026 08:18:09 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94f05e4e4sm87571055e9.3.2026.10.29.08.18.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 08:18:09 -0700 (PDT)
+Date: Thu, 29 Oct 2026 18:18:05 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>, akpm@linux-foundation.org,
+	david@kernel.org, ljs@kernel.org, damon@lists.linux.dev,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Michal Hocko <mhocko@suse.com>, Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/damon/tests/sysfs-kunit: fix leaked pid reference
+ in add_targets test
+Message-ID: <auNjrR4FyTf4WbgI@stanley.mountain>
+References: <20261029075609.35661-1-xiaoleiwangxiaolei@gmail.com>
+ <20261029141040.148392-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,47 +104,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 00/38] 7.3.1-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261028165940.394092994@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261028165940.394092994@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029141040.148392-1-sj@kernel.org>
 
-On 10/28/26 10:59, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.3.1 release.
-> There are 38 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Thu, Oct 29, 2026 at 07:10:40AM -0700, SJ Park wrote:
+> Hello Xiaolei,
 > 
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
+> On Thu, 29 Oct 2026 15:56:09 +0800 Xiaolei Wang <xiaoleiwangxiaolei@gmail.com> wrote:
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.1-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
-> and the diffstat can be found below.
+> > From: Wang Xiaolei <xiaoleiwangxiaolei@gmail.com>
+> > 
+> > damon_sysfs_test_add_targets() creates its monitoring context with
+> > damon_new_ctx(), which leaves ctx->ops zero-initialized.  Since
+> > DAMON_OPS_VADDR is zero, damon_target_has_pid() returns true for the
+> > context, and damon_sysfs_add_targets() therefore calls
+> > damon_set_target_pid() for each target it adds.  That function grabs a
+> > reference to the target's struct pid via find_get_pid().
+> > 
+> > The test then tears the context down with damon_destroy_ctx(), which
+> > releases such a reference from ctx->ops.cleanup_target().  For the vaddr
+> > operations set that callback is damon_va_cleanup_target(), and it is the
+> > only place where the reference is put.  The test never selects an
+> > operations set, though, so cleanup_target is NULL and both references --
+> > one for each of the two damon_sysfs_add_targets() calls -- are leaked on
+> > every run of the test.  Running the test with CONFIG_DEBUG_KMEMLEAK
+> > enabled reports the leaked struct pid objects as unreferenced.
+> > 
+> > Fix this by selecting the vaddr operations set for the context before
+> > adding the targets, mirroring what the sysfs interface does.
+> > damon_select_ops() fails if the vaddr operations set is not registered,
+> > in which case the test cannot exercise the pid handling and skips
+> > itself.
 > 
-> thanks,
+> Makes sense.  Thank you for finding and fixing this.
 > 
-> greg k-h
+> > 
+> > Fixes: b8ee5575f763 ("mm/damon/sysfs-test: add a unit test for damon_sysfs_set_targets()")
 > 
+> The impact is leak.  I think we should add Cc: stable@.
 
-Compiled and booted on my test system. No dmesg regressions.
+I wouldn't bother Cc stable for unit tests.  It's not something
+which affects production or real life at all.
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+I used to be a be more involved in testing and the rule was that you
+pulled the tests from the latest kernel and ran them against the stable
+kernels.  It feels like that can't make a lot of sense for unit testing
+so maybe for unit testing we didn't do that.  I can't remember...
 
-thanks,
--- Shuah
+regards,
+dan carpenter
+
