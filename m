@@ -1,65 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.202
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260443;
-	b=vI2tgdNZ2A807yyDHAbWuCCtd5PLlTswX7yG5fH6Glnb+zG3A1ERDBM4tKSOGHP9Kmtf
-	 6b3JBgmWvjpUq+SFlTzJtyg/4ctaGUV9Y6juyZxG6pqalPSvoAF4uclHcHPeAgFD3L7sg
-	 BoneI1TEHcKFLzfo2Ov9ThSHXSlfqBu1jMtr4wkkCA9POX3T4RTdEGSitNLNS2VvIhopQ
-	 G9+KkRDuXUQc7Bt2pzlJLD61GcQq35SMfcH2bNDhnPS7VlnEAr34wT+uQyokv0tMwVyh6
-	 AkuxSeaNSz68xw4oiuAWsCaTCovCdeWw9T1PsF5Nd4mCiT+YZn1AJrk+Kj8FuzEd9WQ==
+	t=1793260456;
+	b=RCRZzxqg6dlm+bXHw0NQs4lyWydqRfDfwcJIS0//RZNabCZConTr9tE8kJMHTwV1GXBF
+	 PaCxueGEAqPK6UFFKHh6uoeh7obC8oim9HDopytWVX/dUSIWnNkqcIKSVosujPVXRiyUC
+	 avu9en02BH3EF8uJW6Fny/V1V4PUZP8Dn6a5GL+us3y4/AhpGDcm9ks7p+qHeJtbj7mNH
+	 U9glvn1oCzfrIvnIPxVRiXle8o9cHriNqLamHmdUdv5PQMz//TNHUhcrARLjpAS5ZZMlg
+	 E0qQXPgE3ZwecaJtbmOgsQaWg3r99ibEll6hFP7yzkobBliUxH/WZNLaTHYr0wMf7Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260443;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260456;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=uzNPW9Z1A5OMJEgLlGk/ev674kvO8zy8ZuPotkyvMA8=;
-	b=BHmIueVmW37jt6FsJFkJ6WhroaRc+vpX2S1eiLZuYJNJXifdrHyQwYxrS467h0U80+w5
-	 aGYdy9keqtUDT4n4aTfWVqaWcK37Z0HioBd15DXbBkmXGKsDauzIMfdH2Viv526R9AjbV
-	 D/ZcztBGNxC91lXQizByQ6ZbDekaikqhTg1YN2XjiSJm1NArBjJjKTRp+CtjGg7wfEi2t
-	 Hg7QE47fgKj0h4dvYZxwMUqALPk0B9TC8EsBoua0EcbtskZqWeSltyy3q6lUdhPW7twd0
-	 Oo2NXBBE0/pZ/6t3AJzOS8sKrQa4GoK9vCG4JB6qprFx5LX7FEVbGoGR/YeHio8kDkw==
+	bh=LUJG6W0I1xzh0G74P9mtxDG1PajG0W47AUf3Z48yEDM=;
+	b=DDEgkk9URy5c5d/HmbPs0N6hY6qtWuXdqiR0AIjhfU6Jnn16TM/5O2Rc0RjFeoNNjvrb
+	 vh3nxrIqTdvgHjgdJV83x6tPXYPFtQx5SueW9h16hZu1i/uKGEst6nhsejVK5O7s59jN3
+	 nmYgcKb3AuM4uErVoOdZJ8rh0l1rxo32bbdxRU0dB0C5oPWelhieboddHOESZIUixAOXy
+	 WWbJpJlZYuKJBnBC9dSnw7tQ5MxywJwlc96fFkEFrRInPRu1vwCflwi6PrNgkcItveGow
+	 O+2fB4B8Mbp7c4oZCcZoFmRf0i+jdKA8AVRSUnF2eHjS/LYfRYsmaBpy5rl07isu1HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=BxTwrrB9;
-	arc=none smtp.remote-ip=203.205.221.153
-Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com [203.205.221.153])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=JBjATnG7;
+	arc=none smtp.remote-ip=203.205.221.202
+Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com [203.205.221.202])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4880606A33F;
-	Thu, 29 Oct 2026 07:54:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4880606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4606D606A338;
+	Thu, 29 Oct 2026 07:54:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4606D606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=BxTwrrB9
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=JBjATnG7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793260433; bh=uzNPW9Z1A5OMJEgLlGk/ev674kvO8zy8ZuPotkyvMA8=;
+	t=1793260446; bh=LUJG6W0I1xzh0G74P9mtxDG1PajG0W47AUf3Z48yEDM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BxTwrrB9g8/9sBfNrbRXqDcKxrMtT41fqwENdllmX3Jt1sSD1lTh/5sz8qcpCbAfP
-	 LfTFZAW9EFlkdpRo8uJ4nIUQUjVPwwBv/hwwMjWBRgduwr9uAzAI1/xL5y1JrxuVEx
-	 rbrHkhHxsdmvaBkGVoHDB4p0c2MWwU7yJdBEqUF4=
+	b=JBjATnG7GSJU1nY1lGr3R+qFabkuhnTJQbfZ6HDV0TyI1+qH7zd4LiGPHJUjEZwLQ
+	 etK5F2pWuY5l4dnDVDIuZShRRGjwB8BuOkoT8PtQ0biIlAh6bgnws82o9sx5she3TO
+	 dhnYkSUjWn8mbF2DVAP2lqD8IplhlzO5cmdfaR4E=
 Received: from shuai-VMware-Virtual-Platform.. ([171.8.225.58])
-	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
-	id D72B54D1; Thu, 29 Oct 2026 15:53:50 +0800
-X-QQ-mid: xmsmtpt1793260430t668yju5m
-Message-ID: <tencent_D8BA93484FB26CC87737CDE3FA8A814DE00A@qq.com>
-X-QQ-XMAILINFO: MMvVzQSdFuTppOYJSOTANJnlYcIIuqSwAik6qc77uSYXBNxBn+cQDC22xPvHA0
-	 6mwN9fAA0iA/MQv9LfptzLzuPZe9+ZXM21R8b6xlBmDRnvnGu+hrAX2kZrgNuxPo1h/Wq4ypvsxz
-	 QtYrDbPa404AGgIBHZzme7qZyu81Vo6E8kM9z1bZ4pyeBotICQXWEM05JnM/S780wE4HGxwlg/Fj
-	 gULymvHaCp+pxej43G3X2vX8z9PFJD6MJ7/bhaNBZIFzCx50m96RU20eTXAoTCAiD2iopv6QsPZ+
-	 emGKD8eyKAhTHcIhbpH8TerZkEvZ3Gce6jBrS5bZcxuBN9eQf0r98J0ws3h5NNogBO6iNm1/b51D
-	 frQceaHJrdRZTrSMDYY7a479F2nvcKBLv5S/CLJ2TSyiA78am/btU62phfY6Vrp787/7gfMILVEK
-	 b4oBWu8JCLTkd+XSgGQ4pLVUKg3ts9T3aEFrXjdbfrw9rq40WjuFXTYtRM8IzQNn5VQdR1wTXfeU
-	 AOf36qnBehLMhpW568sYAd5jj5NwlnThdO2DEtzS2y37Gj7Up4XhWn74hws4VcZHM65Ifrmm9MbB
-	 8mG2HfNZODjOjA9Dg5id3W36cfPiMpFbBXCHGlE3fJc3LIpUvrov+X02cGXE0EXxxfQ2M8CJVgrZ
-	 TirV+OWGCjX/elxXbGFjSt8uRmLoxnIKnNtm8nmJ1t3eP8RJuJKc38t2gKKWpQGioocrcrCg2FNt
-	 6xEJHLPIEMQTJba21+nOUDfD1Qhv7f67IQQbwl0XP6a2is/QxiRBKc6yfmQmuE53G1WEiJhDfu4S
-	 vSF36DL8gkeo/HCGfWaAvLPMlFOuIexcpopjaF/V9NhwH7kS1CgqJyDlsF/ISirXh3L2Aq42P047
-	 9Uqebvx781xiS9KthQI2Z2odFVhm3s0a/LzwrdMeGe0SDhWXbeE7HEpDS7mvXZbBOYJMsfh+a53i
-	 yBMGhXsv5UBJpac0jo7lukuD9SXL0Z7NvFUfbHdoNS/2Gi8x7qirlBCQpYfmvW88rOZczv2Dv86V
-	 FMF+a2SqL0R7ZywjmdO6sPZ/03ar3wDC6IgCqUnh5KFtp14NeQYzR/c4iHSvA=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id D83806E5; Thu, 29 Oct 2026 15:54:03 +0800
+X-QQ-mid: xmsmtpt1793260443twdo29r82
+Message-ID: <tencent_E9EEF3D2AF2C6DF28E4DC1B855625913D908@qq.com>
+X-QQ-XMAILINFO: NGZp1yYNf7Y+RwdaRveXY64mwAjpzX9uahC56Xqj6ngdp9u5ZJrA7j+/izsbJF
+	 HweR20KZTm69AWnNnvnfYz9j56PWsJAGwwFD/b/tssFkWDpF2Thh4G/ZhsVswBardeCRkLuRkcV8
+	 OOvX/kcWCvJLlH9obG77qEaV+Caz3ZmHgoiPMGeUgzUw4wmkCzlVuHb1kxLjmQChV1VKbbFPt76P
+	 lHtrrNFVVaS1eH/tNQLFkrwBnkAr+IRS4WAP2f/HVccXJbYEBylUU8UiQXlFu/jvJyf9bpoBazlR
+	 OiVNAmTZ2jjoL639NceClexMkNiRBiFGjEEb5EQRGkyhk0kI0AEI3PQQLEU1KFD6EppzrXu/Tp7m
+	 JXN6dLfWd7vAETY3FqR8HPjfy7IN+BikHndSqNGl/MaDQXnM5CrtP88WpPFkMG1sxEhZk5AhnK+2
+	 DEFkIovewjDiWIhKPSlt3lRnbSWc8WdR6xPRoa0DIySjUMw+akCV2TLRP/AdBCYuC/uM8wPOPi6M
+	 djA778y8wCUV3rQ+Y/vv107uAChtlxKocc6EID7IRcTebXVj3mhnumIusMWkNG+OJ//eoZFIFFeH
+	 5BXkVRnZ5l7PL9Mu/Xd+U+qJ8A8Acl42fyCwll6KgjiB/gdvob2beZ4f83eC2Wmijd92w9hrwBmT
+	 Vr/kfPKtVmZjg0I1GtyUr/D+G/soBIs1DbrDS8BEd0vLmOqOt9M2szCiJbSPt3AW1CzfOdCCKoh3
+	 vyKboTnD3UEGuvetVArAW1OVgIguYWAZcuM3UZKXvQGM47YIsABDHaOHHwJ6Yi2/FtkQDMEpDZ9d
+	 BGQ6s1ZYvsdHCoSUkkZOYrSWzdkY4mfOIEG881Zj655vtOBzHAxtVBxUmwyW2FvlHd0nlOr4YisX
+	 P9i4HbhpYhewa1WbuZL4nlA3kZTp8O5Bx+fQPBTufMEj8DkwMskQV1j1KeagRreGCE3sdM0eYGx+
+	 0MEcTp6ckioLlJqdW3gFSiutmFtgM+zoPkkYOxnawXhnQSUqynhWBm2M6mGgfwvli3q4sTUlLUl+
+	 uTNxYPYStzRBbXdnaIirDnxpjYdIkcwSFd+TYfvXBVjSnKCEjfmgB9BXtSPtrFwNhMpOm66/VIpS
+	 RmvOmW
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 From: Shuai Liu <847807867@qq.com>
 To: linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org
@@ -71,12 +72,12 @@ Cc: Shuai Liu <847807867@qq.com>,
 	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/9] media: camss: csiphy: add CSIPHY 2.4.0 lane settings for SM8750
-Date: Thu, 29 Oct 2026 15:53:50 +0800
-X-OQ-MSGID: <20261029075350.2906476-1-847807867@qq.com>
+Subject: Re: [PATCH 4/9] media: camss: csid: add the 980 generation
+Date: Thu, 29 Oct 2026 15:54:03 +0800
+X-OQ-MSGID: <20261029075403.2907098-1-847807867@qq.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028034105.326535-3-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn> <20261028034105.326535-3-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261028034105.326535-5-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn> <20261028034105.326535-5-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,36 +92,39 @@ Content-Transfer-Encoding: 8bit
 
 Hi Qianhui,
 
-Reviewing the series (built for x86_64 with COMPILE_TEST, checkpatch
-clean, no functional testing - no hardware here).
+The csid-980 register map and RDI configuration itself look sane to me
+(the vc=0 stream programming matches what gen2/gen3 already do, and the
+split RUP/AUP handling for the full variant is clearly commented).
 
-> The register map is the one the CSIPHY 2.4.0 vendor driver uses for its
-> two-phase variant (csiphy_2ph_v2_4_0_reg, 103 entries): address, mask
-> and parameter type are identical for all 103 entries, and the data byte
-> is identical for 99.  The four remaining entries are the SKEW_CAL data
-> bytes of the four lanes (0x005c and its per-lane copies), which are
-> 0x00 here, i.e. the vendor value.
+> Only the register map, the RDI stream configuration and the
+> buffer-done reporting are described here; frame start reporting is
+> added on top of it by a separate change.
 
-The commit message and the table contradict each other.  The four
-SKEW_CAL entries added by this patch program 0x54:
+The commit message does not match the patch content, though.  As
+posted, this patch touches six files, not three:
 
-  {0x0094, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-  {0x005C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-  {0x0060, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-  {0x0064, 0x7F, 0x00, CSIPHY_SKEW_CAL},
+1. drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c is modified
+   to flip the four SKEW_CAL data bytes (0x005c and per-lane copies)
+   from 0x54 to 0x00.  That is a correction to patch 2/9 and belongs
+   there - patch 2 should simply program the intended value, otherwise
+   the series carries a value its own commit message calls wrong.
 
-while the commit message states twice that the 0x005c data byte is
-"0x00 here, i.e. the vendor value" and that "the vendor value is kept".
+2. camss-vfe.c and camss-vfe.h carry groundwork for patches 5/9 and
+   8/9, none of it described by this commit message:
 
-As posted the correction does exist, but it is buried in patch 4/9,
-which flips exactly these four entries back to 0x00 - so the final tree
-matches the prose, but patch 2 as applied does not, and readers of
-patch 2 alone cannot tell which value is intended.
+   - the v4l2-event.h include and the hoisting of `line` plus the new
+     `state` variable in vfe_buf_done() (needed by 5/9);
+   - the new reg_update_after_csid_config flag in struct
+     vfe_subdev_resources and the corresponding gating of the
+     reg_update() call in vfe_enable_output_v2();
+   - the CAMSS_8750 cases in vfe_src_pad_code() and
+     vfe_bpl_align_rdi(), and the extern declaration of
+     vfe_ops_gen4 (all needed by 8/9).
 
-Please make patch 2 self-consistent: if the vendor value (0x00) is what
-ships, program it directly here; if 0x54 is intended, fix the commit
-message instead.  Either way the csiphy hunk in patch 4/9 should go
-away (see my reply there).
+Please fold the csiphy fix into patch 2, the vfe_buf_done/event
+groundwork into patch 5, and the gen4 enablement into patch 8 (or
+describe the split here if you prefer to keep it), so that each patch
+stands on its own.
 
 Thanks,
 Shuai Liu
