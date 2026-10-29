@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793313963;
-	b=1WZatCc8iqWvGY1EhRYG7WMSBWKVXN0b03eW2zIXDsCV2eKsr7fLhTYNZznCBL5dkYed
-	 TW86n4gvkONtHaYDa8dHgIL7ohwGRoh4xRXzC8C/4yhE4DuPejqdd7+An09ouZaxNrerv
-	 QNZBxRkmPp79bgCJE5JPmuXP/w28skZ2sCsmAMI+/jIYr7XMRJXQga4khlzKk983zbk5x
-	 6vdn+nAJZY3chmrkiC4JglVE3/6aA2IUtbVlnbiXG1jN5F0MOaDp9IL0TAVpxj/Z0M7JW
-	 kEq13JWd4PoSnNoG7VZZgSZS3kaMx9wESgLtNd8udg0JI+op8FRd8TescMfdxJZU+UQ==
+	t=1793313965;
+	b=vdjJqeYyRlVkYi/bPTn6Om+YvCDVT3QFSPwhjOG83RaO8qHKnPC9m00OJJJNHfXDp0ge
+	 iFqUSjsfvZzKti60WIxIxlHMzNc93ixLhTUHrXDLqQvw9373LwZm6xzulsO/Qh1AbcsKh
+	 /Vmpy6hyRiQCcKqyjZIKyLBzTq8FWlUjWlWGF0qT6qBIx7yaVcUIAPDrewQCZsYEcmxHK
+	 0lt/zfzMNDdozRkY446UtVaCNjIbdBTK5/UcM2NZkVSqC6KyutsVZZ182giNnamK+lvFh
+	 v7CFVk6JnA6TrW9gCMIePlluSXRe69lTd2/8+QRWjU5GV9M6wzazVOzQvPM7gPl/N2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793313963;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793313965;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=l2+cNjQ5KGeOolXRC1roOqIk3m2TZLZEQd8mGc6BiX8=;
-	b=pZAZ6w0gImeLU1gNSHt049lWJ8U9E4+HepzEH+f3on8ugwD+4skz/qn4C9KpvCICCyC2
-	 NaL0aTwALvVomOUtApIKX2aN5aVcmYNGheBOU53V4asRJyA1uPQtkkT7Jbv38NAvUwxwI
-	 1QWEFozGJsmU9bj7uE697Mpv0egptLE06WHsw3iRXYJNEeiH65GtCDbaleREIyMyO78KI
-	 Smk42jD3l6ySwMsS7wZI0FUYdU7atvaQGU//IjjMp6N/IAZ5cx1ESSK+04ZPNAD1yFBe0
-	 yNxboF/tha3qUfZVkpNd9FrhS33s6Ouu6TQn0HHfPB+vC60XNU3UWnw2ixeDa7Hr4Bw==
+	bh=6wI4m1WVmIVYbP7G0/24p1ugWFdmcHn5gpgD1WpwHkE=;
+	b=lsmqg7e4zORdhx4aFuDZTciAatR8GGnXBvoD3XyNk1rC6hoPl+Lpvk/BDfnycqAibwVx
+	 x67VcUbeL/u0oH6Tt8JxP/92H9NvQNh5HzuoHdGrIO9N/Yswwn+E5X1VhdoLs9h9mEuIX
+	 h6sxSJ+L97C+8gSLhUim0KrfEGxT8Yks5VxDOUpPv8+X5EispCeVdiLzAbu+6SjZckdLi
+	 oNmEjw0V6oG2ytkIsg2JDXPswuv8aIKYKvqNsau8gH9T/YX+1ARfNpaCy+AHll7dVItqT
+	 R0pAc99Ddk6o0CPVBKYMDEJ+hNA4eKT9vqjEMIMV+XEnPivDIpVq+ov+jv2Mw2iFw5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SjNHVtZM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DeErXzHC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED6E606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:46:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3494606A322;
+	Thu, 29 Oct 2026 22:46:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SjNHVtZM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CF4D1F01816;
-	Thu, 29 Oct 2026 22:46:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DeErXzHC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1ECA1F01824;
+	Thu, 29 Oct 2026 22:46:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793313962;
-	bh=l2+cNjQ5KGeOolXRC1roOqIk3m2TZLZEQd8mGc6BiX8=;
+	s=k20260515; t=1793313964;
+	bh=6wI4m1WVmIVYbP7G0/24p1ugWFdmcHn5gpgD1WpwHkE=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=SjNHVtZMc3O3hrFPHqnCPFHvuKJUR3t/uksDTfgzawCAGoHjBKSnmVeAcWplMyiUg
-	 SW5TRtRlisvikRKO7kEa7UPDxheP3cFkgwDxZXPcgwf+L8ZLzyumb+Q6PjSZsJEth8
-	 3EKZroHiC0M2wk4wuVK3MM5O+fp46RuBSXtgNPeJuXyP92nrAfwQzh7rQKi+KoCkTU
-	 pN7rZhRflaX6q4TiwTpOkeXr+CjPIIYEIYRCBiR5CkhfAb0hX8ohH6mHY+QZIUBgzw
-	 pRORyquHTwV6vhXYtc8t/ZyQvpMEZ2svxIV4dbt2JL7gOpLcxgzxcOs75oGb+o1n2X
-	 tEchI6Pot/UGg==
+	b=DeErXzHCyHwFWAOkUX9RhxeWvcXEaVWNZfLdpq1c0Tq3/yXlXqSUD4n5f8f4w53Ex
+	 1S1ervF4T7KYQ3M3V9NBX52GiHwUnf/Vt0r5RXv7oUZT5Qt0un+4LxAn1IUDNWnebQ
+	 FWxeXs7CorZ04kcAuf/sy3RJPoT5HRFUgIW6oHDK09DUd52pkrNi+Bfk6DWahlkDYM
+	 0bC+MN8SPFd3FuXIt8L6Lfr6XIsyYBtdWyzfRD5oKadh06GnS0Rj+vS08AC66or23E
+	 SFZGFD/sQkqKZrylRGqQMLcIe+IDAyYUO8yRW9kUEH6TFh0NQfJqegWKEh9sMWVZfy
+	 NBZ/8wbkvieeQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7ED0F38007D2;
-	Thu, 29 Oct 2026 22:46:02 +0000 (UTC)
-Subject: Re: [GIT PULL] RISC-V updates for v7.4
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA2D638007D2;
+	Thu, 29 Oct 2026 22:46:04 +0000 (UTC)
+Subject: Re: [GIT PULL] Hyper-V next for 7.4
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <7cd0fc49-0592-2030-17bc-83edd5003817@kernel.org>
-References: <7cd0fc49-0592-2030-17bc-83edd5003817@kernel.org>
+In-Reply-To: <20261029055527.GC3595008@liuwe-devbox-debian-v2.local>
+References: <20261029055527.GC3595008@liuwe-devbox-debian-v2.local>
 X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <7cd0fc49-0592-2030-17bc-83edd5003817@kernel.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/riscv/linux tags/riscv-for-linus-7.4-mw1
-X-PR-Tracked-Commit-Id: a5ae1bf65cee84bcc121d659e7e22a767853f5f5
+X-PR-Tracked-Message-Id: <20261029055527.GC3595008@liuwe-devbox-debian-v2.local>
+X-PR-Tracked-Remote: ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/hyperv/linux.git tags/hyperv-next-signed-20261028
+X-PR-Tracked-Commit-Id: 33b28f3b313353f11fc939e9a268605e66290d0b
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 1b8b67503725fa6deb3a4f00ea61f982bd00c152
-Message-Id: <179331396117.734384.10042062120285869563.pr-tracker-bot@kernel.org>
-Date: Thu, 29 Oct 2026 22:46:01 +0000
-To: Paul Walmsley <pjw@kernel.org>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
+X-PR-Merge-Commit-Id: 9c7e3d59107e2daf204bf6bf87b6c448ca89defe
+Message-Id: <179331396323.734384.13955158115992451525.pr-tracker-bot@kernel.org>
+Date: Thu, 29 Oct 2026 22:46:03 +0000
+To: Wei Liu <wei.liu@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Wei Liu <wei.liu@kernel.org>, Linux on Hyper-V List <linux-hyperv@vger.kernel.org>, Linux Kernel List <linux-kernel@vger.kernel.org>, decui@microsoft.com
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Wed, 28 Oct 2026 21:32:56 -0600 (MDT):
+The pull request you sent on Wed, 28 Oct 2026 22:55:27 -0700:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/riscv/linux tags/riscv-for-linus-7.4-mw1
+> ssh://git@gitolite.kernel.org/pub/scm/linux/kernel/git/hyperv/linux.git tags/hyperv-next-signed-20261028
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/1b8b67503725fa6deb3a4f00ea61f982bd00c152
+https://git.kernel.org/torvalds/c/9c7e3d59107e2daf204bf6bf87b6c448ca89defe
 
 Thank you!
 
