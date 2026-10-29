@@ -1,55 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793307157;
-	b=pMTegdbQ63/0pO+AaNOYcHPoUuKheAdf+98EfJlGEsUNKdqPLZV+ju6aimmZ+GI/ru5L
-	 Mt46rQyxdfNLT2G4kpToREbUFQVfVExjozVqXU+ZpVKuB1Wut8hB1HECYhtBZq84m3JuR
-	 i9FPbiSfJ6c+hdCZRVPzG4eO4ZD1UCfrvQOyq17NaXtutooVw/BUqPlP+ismNRUGWWgDK
-	 dZ/LmRyQgsxP6KHtOi8yTiMqPNOb6ONFLcVEbg6ovz3C3P38LjVY7bygx9IoZ2uz/FTkU
-	 iOU10gvGtcJ2J5t6lJW6Fcu3yyxZJ3WN8fPiNnewpBhWc8VwxKKlAT0g3YopVP87DCA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793307157;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=g0oiqv1BCNymG/AnH2ybaPqlkDtRSeW/PCn0KPdcdu0=;
-	b=30q1Y+nOs3CZnWQlAXM+Do796rAzUCiLF6rhc8Oswohq/IrkCqaGksozIkTLhdxL9S+X
-	 eVA/Z6wZ3g9S76ckFLMAFQCb5kpGKP9beoOMSLCiNT3aoqqff2YdQeeO+VYVlEvKzF3I2
-	 HFC28vZOk1wez3DhQ4OeCOqDRHPiye+eKsRMcvSWbTrGt72T2WYHsT15LTcTqjgQPqqGX
-	 FKJgWH8TY7wLVOwxfQb0liDDdolSP23xwVnINSQJAUe6SIg2RC4Isa0Kq/lBB1b3SWDid
-	 G35IX+kd0STHChsBF/YO61K8DEtyXbrCII5d7BmUQMAi5jTzOXGug0BOMbH/+Bbgphw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEhtR2kg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793307227;
+	b=iag19jeRuDSAqYcS6GmYnC/Hg77LdU4z0TDOzG11hm3ZtTbHCa7VwOBDksTYDNIsQ4xL
+	 T44n9CKS5pPKRSxDWtjbeE9HWuuAeH5vWziiFJcT+YfyTrw4SZZylf+xK/id38cuFWMtR
+	 j6LG1NLANQTp03NT2PbdrMOxyctFtvgc6KlogpFnLBwLxGU23zrOB8Ysf9/hXqlxCVAPz
+	 aYg7h/k34Y0wuNjjQYzSpFhlK6u9yQM94yLYVenTaHFKxUiXOisp6YAgOT8Rv0qP4t7ZF
+	 ELZTM6nCEdcKyP6A0cM9LbSyI52AY9MFzsp/Gennzc+6xYTGgzRHOwGZMSFMlu5DteQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793307227;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=+9X2/iX/Lqo173Vwu0EOcoEv3bNJRFgizimBaD4S5Pk=;
+	b=gbWArIQjooPNhnPchx7ei5NzAyzq71pPtct+y6FNcfWu7gRJHA6gZU16lJ7JWfEKTaCk
+	 t6S43MTtevOfOpQjFq01ZghjDiOjHcYZeOD/u3fauisucyzZqGhO2HowL4Z/t2PAuq8cH
+	 h13KuE6ETRTws5wDIOWXImVHL29dloNHa+Z/pMZP2Tetqwv4OkS/V/e2ssxmX9/bZOvL1
+	 lsryrMthu+2oJpP6tAyiXzDPlBePLnGT4Cv101ClwU6zqnuaTWGlfF6WBklWZENIG7amR
+	 0TSfCqVJVWPuJxQhxVjhvUIX47D+7NHDK3YnOWVVmbPv6PmRArX+Kwqt7DqgEpIFY8A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=X4ncqWDH;
+	arc=fail smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 647FD606A339
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:52:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D2560A2601
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:53:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34D2560A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nEhtR2kg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26551F01826
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:52:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793307157;
-	bh=g0oiqv1BCNymG/AnH2ybaPqlkDtRSeW/PCn0KPdcdu0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=nEhtR2kgt1sgTImuHeJZ9gHY2k8evDf8pFZ+dw4gU7Ay50EWHg1eHowt5+Zcibl2z
-	 DtFD8F7FreSCWtw5a9NnEOMstzD6zt8y3EN3RkrEfdBMYqVTHR7A9vcKi0p5IKQPaa
-	 QbfpRodtcO3aEMBpg17YKE0G/An2fEkOQ378UOOysIzGOpf+R/QfDoj43/S6Njrnma
-	 5Noq4rYzPr+Y9rTPTlizpLtukARP5l11JIw916Yqjoqgz4MuTs0Z2o2pbO+99K1SJJ
-	 VYekTJCp5Sw7mYutyGbIpJaifVhjrOAjxYGnYQKNaaiEPohEdKvE7b2xcU98hYcTSS
-	 qX/vUeTq2dFpg==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be3cff0f6cso85954e87.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:52:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByBtHC9PI2chZuGY0dSSCLaTMoKhinY7Qtq6CmCZVYr+sWjTk4g3Gdy4+uD7WCMJL6oSLxqo+oTk6AF3O0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcaNuWtbpLXOi2wh+LC6oyK9cYSDx0OkXl8ldjJdb14+Zu9eES
-	NqPIHw5HJjrfEmlNz9dxGMh1vd59V8IOOLgjf8I9HfWwwRhjPKYdqKraSrC1y6uqEa90sDiIfJH
-	GCwIssJcRPgqS3XBGRtxEf7T2bppzt58=
-X-Received: by 2002:a05:6512:3c8e:b0:5bf:9fc1:393f with SMTP id
- 2adb3069b0e04-5bfd957cee8mr30155e87.52.1793307155366; Thu, 29 Oct 2026
- 13:52:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=X4ncqWDH
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso23935eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:53:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793307226; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h4KqhXdXsYE025Pun4MqiOUG2sVpNPef1TAIRTf3O8hW3KeCVoVFrHhtU0/KsValzu
+         1FN68fsH901URpQnKswrVu4SUE9M/gIIgfLxK/ML8sQMrh3u6oADjpNQmOxirfqp+24C
+         SAnsTvFkZFaXXs6jqXF2yZQJwkOOt6kxD2ploxuBSL+L2jjPv9V57EsVdxpTGQyp8n11
+         IHVl3TuntF6EjDrLhtLDH+nbHsskUPPCU3dlZG4wvAqXFFqIznrwlGZdCL/LViMhXlha
+         EaOjKE16nyATlfe3VfHtQnRpb1Gx42P+Pb8Bb0/uRH9c4F0Zx6RMlXEEFQY0cdyC6CP+
+         riXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=+9X2/iX/Lqo173Vwu0EOcoEv3bNJRFgizimBaD4S5Pk=;
+        fh=0cQZCTO5KdiJoJ5gyVQbgM552bemCKLFvH3AHLPi1wY=;
+        b=R/4RahR3ENdtVJDQVyvn+foyVusQu03xHzNfV1FOZPkg9Va1yFOWEHTU64HGaam5t2
+         fzsdJ577ftMbG9phP7Q7/ut0PCQ9j8ov2QWRclRNPVjyhSFoUTdkqRragvbd4zJsd+aD
+         F9PlyHY5OJGHtpGMT7tBWQR9K2jp3o3rwv3Cfy5w1vZpngCn1lLyk7IjdKDIG9juFjkL
+         VV9bmTI89CoiQSnD/LVB0FL1b1UWEdCc23k6rv55tTGZDnG/xq1lRdykg4anor/ECU68
+         sQdfX9uFJH+E8Eb6SbmaQCkQyqhamCKIJwKg8ULEH3bPYYjc12HGn+cHFzqFiX7/55jS
+         rrzw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793307226; x=1793912026; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+9X2/iX/Lqo173Vwu0EOcoEv3bNJRFgizimBaD4S5Pk=;
+        b=X4ncqWDHObARExJNzFicTAgGNShnnQyxHKRK/cw0fjeWbrVpO9dqNdFUtJLaHpfPe3
+         3pQCYs5wPDyyeDRmHh6ZqxApAZowXImXkA1IiV80Wa+vN63OrMv6zHZ38w2Artqhj0kC
+         TU5uAZwV8krucDNHMSBMsftqEv1zyLHEc4T7kkfonRf1QyhSc0K9tIEDxDosPnvHYJtU
+         xrApcK1DGEJ0jC9G46yDslykO/UkCOdwNhIENzzsS6m5+HzjfiU4CekIHstdVmcDr6+w
+         qoB3o1FiEmAOoeBr6eS4J+v8S4/RWAMAqqL+riJw8IsTfV7R0fo/ywFH88iTB5PhjqF0
+         soEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793307226; x=1793912026;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+9X2/iX/Lqo173Vwu0EOcoEv3bNJRFgizimBaD4S5Pk=;
+        b=0SA5FP2HW9iXaKU1URiXqyEO+9nZZdJzQAMj6Q7zuEOAB25qb8gVB3cdrEUHCcan0d
+         lO7sQvpa58Q3VjBGuSrmVGwO/ETe4NKveOplxVqVYryXNXRKDDO9M0+q3ipc87A/03Lh
+         onUjufsw++QSeqYv4SHOf5W3559TDpIhB0hIeQnbidFVMfeenxtD/oNnQixPQQFZMRJO
+         vqBDCbStNF66Zjh/B1QBzdTjpeNGDDkiP3sP+dX8IxoiY3m17Xqt0P4HKJYxVZW0fGEB
+         shqtLkVNzX5Lydvq2tzu2FHfqlWLFlawKKO2/8+YB5dKUbOw+RBuc1jlcOJtuSag+v08
+         n0gw==
+X-Forwarded-Encrypted: i=1; AKwUvByyVT6wn/DSWKqiBFiSjbFbc9G9yiFW94shMhiXxt5FcPv59I7UyQaV9eVEMnOERLjd0Go0qOYyylPlFPk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImlS1lwqyc6fwgA4hrYLxgdE7STLXZqgScB1Qw+Q+PvP2YL7R1
+	Ii26gqFMKtKUlgpo6OOZwygYvVKzgPJpBVUCWQaIChv/oFmNUG+GsXtmfCrovXvo+G65bbzYQIG
+	7xz9zhplj/nxzALBHUwdw5spTsuzfUBGGhtzo/kvy
+X-Gm-Gg: AYBFou2d7DZlZ/R422YDt7uBv5ui0xvxyu2Nr8rRpdooMufqU7rY57aKBQLb9qDY+O8
+	V1tCQzR2D81OqBOBv6Kdgkx8TwVLKvPPKSDq1ZSbojmhkiT7p6f0qJQf1SCX+FNS/xad9JBWBnH
+	Pm/aqzU4Wl0lrNgiDpXp41Kxi2GWfTaOVcRW0bu7in4TTboVzw8CLbCAEe92XcybdWJQVl9JvT7
+	4YdgC7dMHOUUwJwOE45RzAhVfOHiOc9jtnYzJSrM62fgaWR1b5FK4REpet5JHRCE8f3/z4UWCL+
+	nR0Ya4PBP4vPJWF3zqTIGjyJWe4qiwI2EB2gMyMRIUoniShquhwWhC5UYZx2NeU8rmswQ/HFGqV
+	CdOtwyhLOjSuWr+98TjDmNPvTo968G2Jip6hqxvqIxEA68HPPE54bNXzT3Yr1XIg90bYCpLyZ0l
+	0KLbE+r5EuvTqfLDjXRmD9hJ0=
+X-Received: by 2002:a05:7022:2522:b0:1a9:c9fe:12c7 with SMTP id
+ a92af1059eb24-1ac5bbb4b85mr358477c88.9.1793307224406; Thu, 29 Oct 2026
+ 13:53:44 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 29 Oct 2026 13:53:43 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20261028-fixes_hugetlb-v1-1-a0a033db180f@kernel.org>
+References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org> <20261028-fixes_hugetlb-v1-1-a0a033db180f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,76 +109,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027143725.3763827-1-zakbrightonknight@gmail.com>
- <001101dd6631$6167dbd0$24379370$@telus.net> <CAJZ5v0gVkYuZAh7H8KFakN+vHkJTjzvmZsLrUVP0MXkaKLVoCA@mail.gmail.com>
- <004401dd665c$97eda060$c7c8e120$@telus.net> <CAJZ5v0gvruWF7VhVuLrn4AgV9_n6Ayektrh+jB=eLY79ufw4UA@mail.gmail.com>
- <006601dd672b$a7d67f90$f7837eb0$@telus.net>
-In-Reply-To: <006601dd672b$a7d67f90$f7837eb0$@telus.net>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Thu, 29 Oct 2026 21:52:22 +0100
-X-Gmail-Original-Message-ID: <CAJZ5v0jAG7wxxsuynPL3fyo8Kr3sLCC75fpm91JADuDpm10QZA@mail.gmail.com>
-X-Gm-Features: AclHuK-i6rAgr4hWoQWOq8Is9fFHqRRfrwy6lPQ_Ehh6dGw3c5bzTzaaaQyOVTw
-Message-ID: <CAJZ5v0jAG7wxxsuynPL3fyo8Kr3sLCC75fpm91JADuDpm10QZA@mail.gmail.com>
-Subject: Re: [PATCH] cpufreq: intel_pstate: Restore P-state request on resume
- without HWP
-To: Doug Smythies <dsmythies@telus.net>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Zak <zakbrightonknight@gmail.com>, 
-	linux-pm@vger.kernel.org, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, 
-	Viresh Kumar <viresh.kumar@linaro.org>, linux-kernel@vger.kernel.org
+Date: Thu, 29 Oct 2026 13:53:42 -0700
+X-Gm-Features: AclHuK_vfygndkmig7dtJT75402KjRWCrBeo-qQvow0jlIneeAJCjzWqgPCqOeQ
+Message-ID: <CAEvNRgEY1uNs7F+ZPpcbx4Tgg=9r+f6nYpPsnm7em0+2YMq6cQ@mail.gmail.com>
+Subject: Re: [PATCH 01/15] hugetlbfs: fix integer overflow in fallocate()
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>, 
+	Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@suse.com>, 
+	Rik van Riel <riel@surriel.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+	Dave Airlie <airlied@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Peter Xu <peterx@redhat.com>, Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Arnd Bergmann <arnd@arndb.de>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org, linux-arch@vger.kernel.org, 
+	linux-s390@vger.kernel.org, luojiajun <luojiajun3@huawei.com>, 
+	Josef Bacik <josef@toxicpanda.com>, stable@kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28, 2026 at 11:28=E2=80=AFPM Doug Smythies <dsmythies@telus.net=
-> wrote:
+"David Hildenbrand (Arm)" <david@kernel.org> writes:
+
+> hugetlbfs_fallocate() rounds the range end up by adding hpage_size - 1
+> to offset + len. vfs_fallocate()'s existing overflow check only makes
+> sure that offset + len does not overflow.
 >
-> On 2026.10.28 08:54 Rafael wrote:
-> > On Tue, Oct 27, 2026 at 10:46=E2=80=AFPM Doug Smythies <dsmythies@telus=
-.net> wrote:
-> >> On 2026.10.27 Rafael wrote:
-> >>> On Tue, Oct 27, 2026 at 5:36=E2=80=AFPM Doug Smythies <dsmythies@telu=
-s.net> wrote:>
-> >>>> On 2026.10.27 07:37 Zak Brighton Knight wrote:
-> >>
-> >> ...
-> >>
-> >>>> I confirm your findings and tested your proposed patch. It all worke=
-d fine.
-> >>>> I had not seen Rafaels's reply about a possible race condition until=
- now.
-> >>>>
-> >>>> Test computer: i5-10600K, 6 cores, 12 CPUs, HWP disabled.
-> >>>
-> >>> Passive or active mode?
-> >>
-> >> Apologies for the incomplete report.
-> >
-> > No worries.
-> >
-> >> Passive mode has the issue. Active mode was fine without the need for =
-the patch.
-> >
-> > Thanks for the update.
-> >
-> > Please check the patch I've just posted if poss.
+> Once we overflow for valid endpoints near LLONG_MAX, we can get a
+> negative temporary result that is then converted to a very large
+> huge page index.
 >
-> Because I had already done so before this email, I tested Zak's V2 patch,=
- and it worked fine.
+> A one-byte allocation ending at LLONG_MAX can therefore consume all
+> available huge pages. Pages added beyond LLONG_MAX are skipped during
+> inode eviction, leaking them and triggering the BUG_ON() in clear_inode().
 >
-> I tested your (Rafael's) patch and it worked fine.
+> To fix it, calculate the end index in a simpler way that cannot
+> overflow. This also fixes the signed overflow reported by luojiajun in
+> 2019.
 >
-> Tested-by: Doug Smythies <dsmythies@telus.net>
+> Backporting notes: without commit a08c7193e4f18 ("mm/filemap: remove
+> hugetlb special casing in filemap.c"), remove_inode_hugepages() must
+> include the final huge page during truncate and eviction.
+>
+> Reported-by: luojiajun <luojiajun3@huawei.com>
+> Closes: https://lore.kernel.org/all/1554775226-67213-1-git-send-email-luojiajun3@huawei.com/
+> Reported-by: Josef Bacik <josef@toxicpanda.com>
+> Fixes: 70c3547e36f5 ("hugetlbfs: add hugetlbfs_fallocate()")
+> Cc: stable@kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  fs/hugetlbfs/inode.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+> index 01c4d6f44ebe..5592cfc6cc8b 100644
+> --- a/fs/hugetlbfs/inode.c
+> +++ b/fs/hugetlbfs/inode.c
+> @@ -721,11 +721,13 @@ static long hugetlbfs_fallocate(struct file *file, int mode, loff_t offset,
+>
+>  	/*
+>  	 * Default preallocate case.
+> -	 * For this range, start is rounded down and end is rounded up
+> -	 * as well as being converted to page offsets.
+> +	 * vfs_fallocate() guarantees that offset + len is positive and does
+> +	 * not overflow. Avoid overflows when calculating the end huge page
+> +	 * index: set it to one past the index of the huge page containing the
+> +	 * last byte.
+>  	 */
+>  	start = offset >> hpage_shift;
+> -	end = (offset + len + hpage_size - 1) >> hpage_shift;
+> +	end = ((offset + len - 1) >> hpage_shift) + 1;
 
-Thanks!
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
 
-> I have not reviewed the code and will not have time to for a few days.
-
-That patch had problems found by AI and it cannot be done exactly the
-way I wanted to do it because at least the userspace governor depends
-on preserving policy->cur across suspend-resume.  However, there is a
-way to force driver callback invocation in __cpufreq_driver_targer()
-even if policy->cur is equal to the new target frequency which can be
-done during resume.
-
-I'll split the patch and submit a proper series when the AI is happy with i=
-t.
+>
+>  	inode_lock(inode);
+>
+>
+> --
+> 2.43.0
