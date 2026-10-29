@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793273582;
-	b=WvQpxu6oIONA6J7Zi3H0ha2r4GkGFlIaILLMYtZx8/iVtbMud0LH199J6YgPHqgW+OyA
-	 JPFs6cq1u6/lU4FecWLFv0QgTxPOJKw4oun26XIv3JBWec9cSDEmYk0TWnQo+jqgT9n3c
-	 EP0MJISB830KWaQHm9RMYBhijXkbBzwUKfw5tjDYU5jSUFOLLw+FeL4KY3K7BigE31Flc
-	 07MxjYxA8ge0gAY/wgB0wXIL1137L9UYiQynVR0Sn5xwqnKIu+zuRRow4BWrH+yO5F4N/
-	 PCQvDzRKuLoks44K8G8u4WpmmiWNVFGXsZVb1266hLdG+CSA9eB2EAMw7TqX3Mb6v1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793273582;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=SEsAp8eo59mWI4USMvrk2DfJuqFK7nYytkvtGnfb6o0=;
-	b=sAx5DyuWuprV6MdgTcvROubVD1VIttbVIPAIinLhm1gf7aDxYChY2ly1vJCRxBxzVxMV
-	 10gs2jkMAbssMzeGM8ldHsZZcQbRXzk6GkigIzbxnPu+4FnDnVHP+1D498EEyFIMnYZx4
-	 cgi5hcAo4RMJVwooirzzT6bmn2hpJyGNqUcaasxW3kFhhmA1UIy7hqLeipq1CM6ofogrl
-	 l8B8oBdVVbFYhismWui6R3Qs1KgwLJDDnnw/5QyNc1Quu2AwLrmbhbF/7GVld8KIw4CsR
-	 5xOFud2xuzCbYPeNIvnjjyBTkCW32HzfYamIE3u9CxNt31afrS/YQnQwedMHxqsmpSA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.112
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793273635;
+	b=Fp5Hn1NbdDriua18CNOIYEN6aNKp9MMDwG9Z9uXtsKCQ4sL3hWAAGv68shygs7RlwE8x
+	 fh4avK0bjg1Tk0mN15Zla6LCkFFm+5G0E/uAepm/j7qMhuFl9iDPX6UbXuOIra/XYzfsg
+	 PQ6lTh3/2E1g71wKvIFr+kwu3xYqPrbLumLrNNtLLvKPPTRLVMNOIvRNr0lUu8zHndb6S
+	 37zwu/bDBuOVXPhepnVIIt24aWfi5NyTKimr3ABvwWHcZLdwM284TGiyYA/Aoj+xWI5EI
+	 Au1UxWyUsh8LPIMRO0hYeR+qP6a22jusvaaTRQvzW/MBR8f0EqLx+FDRt5JieBqNRkQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793273635;
+	h=DMARC-Filter:DKIM-Signature:Date:In-Reply-To:To:From:Message-Id:Cc:
+	 Mime-Version:Content-Transfer-Encoding:References:X-Original-From:
+	 Subject:Content-Type:User-Agent:X-Lms-Return-Path;
+	bh=wFBCu+YdzwIUEcYKGRG11Fp0ZZOhUTu2QED4Ky6DRFk=;
+	b=yiWRjReZj1FvtRPiQYYn8kHzS9PzEiDjHXsC122vknifrbAGY+37AzApJf7QtibbMgPm
+	 iYigZxgtCFKrSMtplVB3u7qKoEr1Ydd74IOatV4NGYQZEbdLQqPRJ2QI6hwTe5muT5P8/
+	 iEb9cKKauIk0I1YtHNvmuEsB4CwwK/rPyDLeJMQeNDoHEmowHD2jTBMqZV4LiCB8slgCI
+	 KeRmSF1EPwYrRY7YFSeNFrOv4yF+585xejDhnyNTiNyNjg48Q5wsPqvtx2RrGS1I6/td7
+	 srl1Ypo+CSTI9wNMSUZ6iBc0stqj0B1vVBjujjqeOWFCXoLPrR1dIbz3A1OBECcLOhA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bytedance.com;
 	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=KFEbraKV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.50
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=SNU828+O;
+	arc=none smtp.remote-ip=209.127.231.112
+Received: from va-2-112.ptr.blmpb.com (va-2-112.ptr.blmpb.com [209.127.231.112])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD17606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:33:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDD17606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686EF606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:33:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 686EF606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=KFEbraKV
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6e560e00a86so1519566eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:33:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793273581; cv=none;
-        d=google.com; s=arc-20260327;
-        b=C0TXJbPuDjxkXdIw8kRb8PZb88P/M1eVJZhCZMTTeh9f9EtIFFOUUp6DSbILjNo9eo
-         xRB61WIatNrFDg7ntp/J7zb3Vl+CtkmRwmPrSIQn4zx7g2UNCaN+S1lzPdqVTpgGTWF1
-         zT28brzXhmKcMmt2K9adLNQZ3w1qrJVuQWHpiwQWIVZ/0n08qJCB8cz37xN9Qic9npMU
-         KeYOtgKb1pH6K85+gmqRIz4Mly2am2TzPGwWMM4+RRb6yj9C2QJEclRuiA0RqytTUT14
-         oCBmNuc5YVAHkrKOBCXHt/5J6uHUeLRqtBHJGaB+iDitDN0s5mWi4b6dQQaQ3aEtxzu/
-         LuAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SEsAp8eo59mWI4USMvrk2DfJuqFK7nYytkvtGnfb6o0=;
-        fh=dC9VnWj7iZ9f1j4CnFoIi8eh7vW+BJmvN9nXeljPzlg=;
-        b=Fi4A/EojgkNiRkX5Bt1+Z5XpMPjVK/jmfxp14PyHckQdkFsFYOKGCU7frXSoaevfm5
-         raTsrpaRE+0IfLYOctDAnUNGBa/et54749jJEyWQlbQUnWaat0kWH0dQ104G0IpP3l5F
-         VvdA8nPH+YYwIEIp6Yy++Q5Ymuo9KNucleWUsCc41raPC5Ov9GNM39LTLk9atO4zH0HK
-         Jzi9b6/BCVWUtKbIPaDmryMGpWO52ep4rlsVHDitiyDSSBgu0zguV8rUY572p64EYURf
-         RdF7I8lwguDQC5fX6bzG4LPKlPu9+z0U1HFIAhyg8rg1z2vvcSnv4nToWlyjS86+5stn
-         B+jw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1793273581; x=1793878381; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SEsAp8eo59mWI4USMvrk2DfJuqFK7nYytkvtGnfb6o0=;
-        b=KFEbraKVW7fUuXQBFvZ81tX96XlEJi0iIFiLju8j9dPNKY1JXR0eLkVvhemyA1zkj9
-         mGQ4qzIQPPXAilrHQd8MqBvXNLA0KxA5V7rKjQcVuhuOXLzjxHGR5HBUKPSJNTp5lyCJ
-         Npz89BtdA+dipigKTToxV/R0/XuDWsAnAc+wkmviz41aJlIPrXyZ6rTcEWdHgdNq9X0x
-         +sDrXbnfovYgwzIgtzaXiBPEiPs3MCOOkbXXKlLW181JY1lpLRNGxJYr0f+1qt6wMO3d
-         HL3RU3zn/o8aLyJuC8pHDhosV3DSZB68aOotBR3N8oXTc3NfrERtm9nFVAXugK6ILtu/
-         vPqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793273581; x=1793878381;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SEsAp8eo59mWI4USMvrk2DfJuqFK7nYytkvtGnfb6o0=;
-        b=cBdwRKU/iUibD0GlklTeNfryvr7EgMi0fvBRmbNRMLLNWhzMrh6tvWvuw98SPfAIeG
-         vmMJinLJnNCXD6vlw4/DqzS0ZpuRj6UNL92dtRYuy9K37iFpznUJxSe9+seNe/FQYi1K
-         Jun0H8ZQ3Eyt59ZGC1/7vtSNuW37YYLKc1VWbhzD9nhAWzsepP3qvn/h7kFM0qXwQyIc
-         TGq9fpgKWC+LbnB4CTa2jpe5tH80IfkubzYswbfwtoSdSjWOla/PuSHPZb92gAW9fD3E
-         ehoAoh7lEZ2jM2qbE8nqDGyWe9w6FXhGutGpWoyDCLirznOuTGcvFK4P3T2cRDz6t1iJ
-         4HfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzcAt3l4ivGBjKY8iCf2qU8ptorAvaD8WVY1tNxa2tKW8tEes/vJVcJR4uPI8R9JCfKyvMe10ChcKD+hI8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEfrWEA3UeIjuDhrXzmSuImSpVEiUr1vbO5KNWemr5V1Xum4i/
-	5SObTBED0BBN6heCDwyPoS3XmKwNOLHcBgLgjZ11WNhAscQF0Ski7CpRtEvHS9XmMXhz3hJolx6
-	USquD5uEpguLXO2FN6aluuXN7mA8m9lIJ3xHeF+bI8A==
-X-Gm-Gg: AYBFou0UYqru/ZeEKJsKoM3gqbLl0ZUbn85+OnrzX/AQnpCYvKZcYf+V8ZM1O7hXH4D
-	788sIJVtWV2RmHBE1jIyBvpBOnziemZznsEFhEsBEwXk4c3XqHUW47r/rCQXz3IwuNeLiJneZ8d
-	p2GxLdexsJsap4gu+Gakl1JmFR93kDVHXQIzNqwdDTdbTNAHe7Uj9nK6nmdTsgTcPqAy3NVYCBP
-	pD6j9WEnw4DbhWLP2Okl9MSWZCgk3LqlspdWO3nqzTiAmY8Blz89xRZihtec8UGZZyeL1vVB/8B
-	coqHe/zhoMcqcjStolade53zyy00x/NPlDzdUMKoF88VqsnsJVSZS5Z6maQSOOo4uEA+u/YeOzI
-	hwCH7347Ec1GtcqSs+mASvB2qgejRp0BkHbMQx39NDvbi1AqyPPEOVLG5hboUgFoXBD/PYwk=
-X-Received: by 2002:a05:6820:a514:10b0:70e:2d38:4b70 with SMTP id
- 006d021491bc7-713eef43a73mr2044037eaf.7.1793273580795; Thu, 29 Oct 2026
- 04:33:00 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=SNU828+O
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793273626; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=wFBCu+YdzwIUEcYKGRG11Fp0ZZOhUTu2QED4Ky6DRFk=;
+ b=SNU828+ONqWhAEgsW3dWYHT8vSOIYdYk0B/sxMZtRG/I66U5pIznJieA51RKbVa0OfKXOi
+ 6EmWB4lSolufwNm8Y/ZCoQA2/+z7jOilK7tRsZdPHLuS5av+7kVuwYWFbWFeUWsyitdgFR
+ EGpRVC4IDwrxB+TOuRZLA/niaur9H0UD7wm1zM6sQV0LFNUUyAj5+mbTli2Q1TMC6fRTBV
+ JAMFbRgDozNu4ZEnZsWAskHAIIfgWaREmIXB4Aph6VIZHEhxC/Toc1Y7mxdxL9bd4vuqwF
+ l5B5h1W57DfRKram+RGdtP4UXAxjeDCkd34KgjbxHKNAHq2UqbIsh4D/CDR53g==
+Date: Thu, 29 Oct 2026 19:33:22 +0800
+In-Reply-To: <a6bcd771-fcf7-4fe4-8c21-5e65bd579de7@amd.com>
+To: "Bharata B Rao" <bharata@amd.com>, <akpm@linux-foundation.org>, 
+	<bsegall@google.com>, <david@kernel.org>, <dietmar.eggemann@arm.com>, 
+	<gourry@gourry.net>, <joshua.hahnjy@gmail.com>, <juri.lelli@redhat.com>, 
+	<kprateek.nayak@amd.com>, <ljs@kernel.org>, <mgorman@suse.de>, 
+	<mingo@redhat.com>, <peterz@infradead.org>, <rostedt@goodmis.org>, 
+	<vincent.guittot@linaro.org>, <vschneid@redhat.com>, <ziy@nvidia.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Message-Id: <1bab234e-8914-4694-b0aa-f265fa49c6d3@bytedance.com>
+Cc: <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-mm@kvack.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,220 +63,114 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20260806055501.56761-1-cuiyunhui@bytedance.com>
- <anQyoZgi5Urnvvjw@lucifer> <919b804b-6f1d-417e-9c0c-d06f50d765d8@kernel.org>
- <anSar_i8UjniSbML@lucifer> <a6a9e0cc-e6cf-4f83-b6be-7d64058b8fa6@kernel.org>
- <anSqbW1w2bDDHpAx@lucifer> <CAEEQ3wmJoUF5TDQDfMU_dUHnY+gg7MYG=OmmdB3Ynpdu9gJ7-g@mail.gmail.com>
- <3882e553-4be3-4b2d-b884-4443032e7853@kernel.org>
-In-Reply-To: <3882e553-4be3-4b2d-b884-4443032e7853@kernel.org>
-From: yunhui cui <cuiyunhui@bytedance.com>
-Date: Thu, 29 Oct 2026 19:32:49 +0800
-X-Gm-Features: AclHuK-NsCthzCzymfm9IrdjWCbL02wiGiuXLxLhRNRDCgpTPiA9M8Ic3D1KQcI
-Message-ID: <CAEEQ3w=t4fCXZSqDUZ+XQCJ7UhtrKz+TSM=H8y=JvdAoJG9NXQ@mail.gmail.com>
-Subject: Re: [External] Re: [PATCH v2] mm/madvise: avoid skipping pages after
- splitting large folios
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, akpm@linux-foundation.org, liam@infradead.org, 
-	vbabka@kernel.org, jannh@google.com, 00moses.alexander00@gmail.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+References: <20261028041253.74839-1-lizhe.67@bytedance.com> <20261028041253.74839-2-lizhe.67@bytedance.com> <0676993f-c04c-4e4e-9f8d-1650c8fd6d6e@amd.com> <010b2b6c-8f1b-4c3b-913f-cc2e8b957759@bytedance.com> <a6bcd771-fcf7-4fe4-8c21-5e65bd579de7@amd.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+Subject: Re: [PATCH v2 1/3] sched/numa: make free-space tiering promotion bypass configurable
+Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+X-Lms-Return-Path: <lba+26ae32f19+1fccaa+vger.kernel.org+lizhe.67@bytedance.com>
 
-Hi David,
+On 10/29/26 6:22 PM, Bharata B Rao wrote:
+> On 29-Oct-26 3:16 PM, Li Zhe wrote:
+>> [You don't often get email from lizhe.67@bytedance.com. Learn why this i=
+s important at https://aka.ms/LearnAboutSenderIdentification ]
+>>
+>> On 10/29/26 5:34 PM, Bharata B Rao wrote:
+>>> On 28-Oct-26 9:42 AM, Li Zhe wrote:
+>>>> Memory tiering normally promotes any recently accessed slow-tier page =
+if
+>>>> the target fast-tier node has enough free space. This preserves the
+>>>> existing policy of filling available fast memory before relying on
+>>>> hotness and rate-limit control.
+>>>>
+>>>> That is not always the desired policy. Some deployments may intentiona=
+lly
+>>>> keep part of a workload's memory on CXL-attached memory, for example t=
+o
+>>>> preserve a desired DRAM/CXL capacity split or bandwidth distribution. =
+With
+>>>> the free-space bypass, short cold accesses and bursts of hot accesses =
+can
+>>>> refill the fast tier and pull the workload away from that distribution
+>>>> whenever DRAM has free space.
+>>>>
+>>>> Redis testing exercises this policy issue. On a CXL system with node0 =
+as
+>>>> DRAM and node3 as slow-tier memory, a Redis test was run with
+>>>> memory-tiering-only mode enabled. The test used a Redis dataset with 1=
+2
+>>>> million 4KB values. It reclaimed memory until about 85% of Redis
+>>>> anonymous memory was on node3, used a Redis benchmark configuration wi=
+th
+>>>> a 10% hot-key working set, and then issued a short 256MB access burst =
+to
+>>>> cold keys outside that working set. The cold-key burst mainly touches
+>>>> memory outside the hot working set, which is expected to remain mostly=
+ on
+>>>> the slow tier.
+>>> Can you please clarify if 85% of redis memory ended up on lower tier na=
+turally
+>>> due to overflow from toptier? I ask this question because, if it is a n=
+atural
+>>> overflow/demotion, then it will be hard to find head room in the toptie=
+r to
+>>> allow promotions that bypass hotness or rate limit checks."
+>>
+>> It was not a natural overflow from a full top tier.
+> Thanks for confirming this.
+>
+>> The test intentionally reclaimed/demoted Redis memory to the lower tier
+>> to model a deployment that keeps only a limited fraction of the workload
+>> in DRAM and leaves the rest on CXL memory.  In that setup the top tier c=
+an
+>> still have enough free space, so the current free-space bypass can promo=
+te
+>> short cold accesses back to DRAM.
+> With pghot, I have been providing benchmark numbers from two scenarios:
+>
+> 1. Non-overcommitted case: The workload memory is pushed to lower tier be=
+fore
+> the measurement phase begins, the toptier has enough memory to accept the
+> the incoming promotions.
+>
+> 2. Overcommitted case: The workload memory naturally overflows/demotes in=
+to
+> the lower tier and every promotion undergoes the hotness + ratelimiting c=
+heck.
+>
+> I gather that your measurement technique is similar to case 1 above.
+>
+> The feedback I have received for pghot is this: Non-overcommitted case is=
+ not
+> the right methodology to use but the natural spillover is. Hence I am not=
+ sure
+> if optimizing the free-space bypass case would benefit any naturally run
+> cases.
 
-On Tue, Aug 11, 2026 at 10:49=E2=80=AFPM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> On 8/11/26 04:31, yunhui cui wrote:
-> > Hi Andrew, David, Lorenzo,
-> >
-> > On Thu, Aug 6, 2026 at 11:40=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kern=
-el.org> wrote:
-> >>
-> >> On Thu, Aug 06, 2026 at 04:46:10PM +0200, David Hildenbrand (Arm) wrot=
-e:
-> >>>
-> >>> We GUP'ed a single page and now try to be smart about which other pag=
-es we'd GUP
-> >>> next.
-> >>>
-> >>> That's just wrong, and hugetlb special-casing is just ugly.
-> >>>
-> >>> The problem here is that, if we GUP'ed a page and poisoned it, the GU=
-P'ing the
-> >>> next page might fail and we'd return an error.
-> >>>
-> >>> But maybe that error can simply be handled? We have FOLL_HWPOISON.
-> >>>
-> >>> So maybe we can just use FOLL_HWPOISON and skip over the entries that=
- already
-> >>> return -EHWPOISON?
-> >>
-> >> Yup this is ugly debug code so that works for me.
-> >
-> > Thank you for the review. Based on your feedback, I went back through t=
-he
-> > madvise, GUP, soft-offline, and memory-failure paths and outlined the
-> > changes I plan to make for the next revision.
-> >
-> > The issue is that using a page obtained for one address to infer how fa=
-r
-> > the range walker can advance is the wrong abstraction.
-> >
-> > For an anonymous large folio, soft_offline_page() splits the folio to
-> > order-0 and handles only the supplied base-page PFN. Advancing by the
-> > pre-split folio size can therefore skip the remaining base pages while
-> > madvise() still returns success.
-> >
-> > Lorenzo also raised the semantics of a range that covers only part of a
-> > hugetlb page. Looking at a range that crosses a hugetlb boundary expose=
-s
-> > another problem. For example, with two 2 MiB hugepages:
-> >
-> > hugepage A: [0, 2 MiB)
-> > hugepage B: [2 MiB, 4 MiB)
-> > requested range: [2 MiB - 4 KiB, 2 MiB + 4 KiB)
-> >
-> > The first GUP resolves the last base page in hugepage A. Adding the ful=
-l
-> > 2 MiB hugepage size to that unaligned address produces the next address
-> > at 4 MiB - 4 KiB. That is already beyond the requested end at
-> > 2 MiB + 4 KiB, so the loop terminates without ever visiting hugepage B.
-> >
-> > For MADV_SOFT_OFFLINE:
-> >
-> > - ordinary pages and large folios advance by PAGE_SIZE because
-> >   soft_offline_page() handles the supplied base-page PFN after any spli=
-t;
-> >
-> > - hugetlb advances to the end of the current hugepage because successfu=
-l
-> >   soft-offline migrates the complete hugepage and leaves a healthy
-> >   replacement mapped. If the walker advanced by PAGE_SIZE, its next GUP
-> >   would resolve that healthy replacement and soft-offline the same virt=
-ual
-> >   hugepage again;
-> >
-> > - ZONE_DEVICE does not need a stride case because soft_offline_page()
-> >   rejects it.
-> >
-> > Advancing to the current hugepage boundary, rather than adding the huge=
-page
-> > size to the original unaligned address, lets the next iteration start
-> > exactly at hugepage B.
-> >
-> > For MADV_HWPOISON, I plan to follow David's suggestion and walk at
-> > PAGE_SIZE using:
-> >
-> > get_user_pages_unlocked(start, 1, &page,
-> > FOLL_GET | FOLL_HWPOISON)
-> >
-> > get_user_pages_unlocked() is the appropriate interface here because the
-> > current gup_fast_fallback() flag mask rejects FOLL_HWPOISON, while the
-> > memory-failure madvise path enters madvise_inject_error() without
-> > mmap_lock held. get_user_pages_unlocked() acquires and releases mmap_lo=
-ck
-> > internally, handles fault retries, and propagates -EHWPOISON from the
-> > fault path. FOLL_GET makes the page-reference ownership consumed by
-> > MF_COUNT_INCREASED explicit.
-> >
-> > A successful GUP is followed by memory_failure(). If GUP returns
-> > -EHWPOISON, the address was already covered by an earlier larger-granul=
-arity
-> > injection, so the walker continues with the next base-page address. Oth=
-er
-> > errors are returned. This avoids hugetlb, DAX, and folio-size inference=
- in
-> > the MADV_HWPOISON caller.
-> >
-> > Device DAX is relevant only to MADV_HWPOISON because
-> > MADV_SOFT_OFFLINE rejects ZONE_DEVICE pages. Since the proposed
-> > MADV_HWPOISON walker advances by PAGE_SIZE and uses each GUP result as
-> > feedback rather than inferring the handled range from folio_size(), it
-> > should also avoid the same granularity problem for Device DAX. A
-> > successful GUP is passed to memory_failure(), while -EHWPOISON indicate=
-s
-> > that the address was already covered by an earlier injection. Advancing
-> > by PAGE_SIZE should therefore also work for Device DAX in principle. I =
-do
-> > not currently have a suitable Device DAX setup, so this remains unteste=
-d
-> > at runtime.
-> >
-> > Because MADV_SOFT_OFFLINE must advance past a hugetlb replacement while
-> > MADV_HWPOISON can use FOLL_HWPOISON feedback during a PAGE_SIZE walk, I
-> > plan to use separate walking models for the two operations.
-> >
-> > Before posting another revision, I plan to split the work into:
-> >
-> > 1. the MADV_SOFT_OFFLINE range-walk fix;
-> > 2. MADV_SOFT_OFFLINE large-folio and hugetlb selftests;
-> > 3. the PAGE_SIZE + FOLL_HWPOISON MADV_HWPOISON walker;
-> > 4. MADV_HWPOISON large-folio and hugetlb selftests.
-> >
-> > Does this separation of the SOFT_OFFLINE and HWPOISON walking models lo=
-ok
-> > reasonable?
-> As Lorenzo says, this reads AI generated.
->
-> I assume what you mean is:
->
-> MADV_HWPOISON will actually hwpoison the pages. We can just use FOLL_HWPO=
-ISON +
-> -EHWPOISON and should be good. So far the theory.
->
-> MADV_SOFT_OFFLINE will migrate pages instead. So if we don't skip multipl=
-e
-> pages, we could end up migrating multiple times (and setting hwpoison mul=
-tiple
-> times).
->
-> Well, for large folios (except hugetlb) that's not a problem, because we =
-try
-> splitting to order-0 either way, and if that fails, we bail out.
->
-> So what remains is hugetlb, which is nasty.
->
-> I don't really enjoy having any special-casing here, because the moment w=
-e e.g.,
-> change how soft-offlining deals with splitting, we would be in trouble.
->
-> Assume we start support splitting to min-order at some point, we'd also w=
-ant o
-> skip over min-order. Gah.
->
->
-> Can we just make our life easier and disallow specifying ranges for
-> MADV_HWPOISON/MADV_SOFT_OFFLINE?
->
-> It's a pure testing interface IIRC. tools/testing/selftests/mm/memory-fai=
-lure.c
-> seems to always call it with PAGE_SIZE. Similarly
-> tools/testing/selftests/mm/hugetlb-read-hwpoison.c
->
-> There is one catch I think: an existing LTP test case issues MADV_SOFT_OF=
-FLINE
-> on a larger range. But it respects -EINVAL at least :)
->
-> So we could return -EINVAL and fixup the test case to issue multiple madv=
-ise().
->
-> [1]
-> https://github.com/linux-test-project/ltp/blob/master/testcases/kernel/sy=
-scalls/move_pages/move_pages12.c
 
-Sorry for the late reply, and thanks for the feedback.
+Thanks for sharing this feedback.
 
-This turned out to be more involved than I expected. I am not an
-expert in the memory-failure/hugetlb area, so if someone is interested in
-taking it over, that would be appreciated.
+Yes, the case I am trying to cover is closer to the non-overcommitted
+case.=C2=A0 We do have deployments where memory is intentionally placed acr=
+oss
+DRAM and CXL memory, instead of relying only on natural spillover from a
+full top tier.
+
+For example, the orchestration layer may want a cgroup to use a planned
+DRAM/CXL ratio, so that DRAM capacity remains available for later
+placement decisions or other workloads.
+
+In such setups, the top tier can still have free space, but we may not
+want short cold accesses to refill it simply because the free-space
+bypass is available.=C2=A0 The intent of this patch is to let those
+deployments keep using the existing hotness and rate-limit checks even
+when there is top-tier headroom.
 
 Thanks,
-Yunhui
+Zhe
 
 >
-> --
-> Cheers,
->
-> David
+> Regards,
+> Bharata.
