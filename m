@@ -1,119 +1,144 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264250;
-	b=TtyOXt3jke5JIBAbtyZmun1UqDoROq3oGULV9ly0AF3De7cMmUbEf/RYsXQYCcxhiVlr
-	 oKuW1e1Nn1Y/6+DJn8YCDCZbLSyS5Fvt1apx0CLwq1vWx9TDklKMRY+eAl2u00x5KiG07
-	 1Yg+c+Y1FYdyPCkoE4IiCYiQaUC8F6kc7t4uslOpt9niv4nWBd4WLkC5mQRdnEc4+ckTI
-	 gG1+kCrps1G95pJHfVOrpRS/CqGSk1oupmy07pwRKqqcdvm7gxlitYvEe/8bvK0SxVk3L
-	 J/3EZK6c72gJmfPn9OUXeM0s3o65z9Wo61npfmaAJxnc6UdQ+Miih9Q7QdtJ1JDDKxg==
+	t=1793264272;
+	b=y885Ry24HIqsdJt7+aO2DfY09RapNFJxQ+aMQsP48A+Xax07XyhnQ8v1bj+3c8yddGu4
+	 wVmLOEobiBP39ulqPSes/qWaB+arkXg8qGXvCTZ/Lrulk/8e7ibKje/kdsdijxlpfIxg8
+	 //2zaGLPzYXg6rRXPUWplSvpcvnb5jh2oI3mN++fS3sWmQvAi8Ui6TmEiccMSdB4C2anL
+	 mQK1FZS0Grt8LyGvYoufgKAlkDROMXbSHMiG4v/vAL9XDYqOTqq76Lr15c+5HefsupNgG
+	 GCdWP5wb4kjOvVw5Pvv+2jHRUhEnKc/+rS9CUCHGXdNhOeBoNKHRf6/CBYUGvh46S/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264250;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=D4dVdmSFeRE0JHF6scWJ75ZgmMOz+dO8pL/chYBEZxM=;
-	b=a5rzcmkb1ule6YFgAGCg7DXqAQkLgs8glh0yVTcK6IvvehVipTciZJP0geuKQmK5bK+k
-	 70jAM7975VQvdsYzs6bHN5taiige2NY2KXa/0VnqTKIl2iCRgB5vBMBbiNR2SefW7v6Mt
-	 F9nEMhnMDxQ84IHsnKpx6bgmq89SiUFrctG8+HAVNByyF11smE9o8UfaRRrompk4Y7En0
-	 vsCVQytwSGLNSXU7ZIkHaPSpa5GYAFagCkUQ66czHfSIkBImlGp61pCTgEd/FKIjR8SsY
-	 BxVnlUxmKvocMMQQtlVBChAyoDmjEMnv2hzq61Bi4xYm+KCFJJODJPzbHAX9qhJexmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793264272;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Cs7lasADMMl4bjEjGvbybzUuKYrhEora6V1skLnp0co=;
+	b=PSqZZUJhIe1SgYLQXEQPOl22DA3gQ36MztSdkXnBzTVGkQDHS9gF6ddHSTiLh8qncn44
+	 7V5+HbLbThG5tV8YSWUCPunUMJ7O+TAOlT27jwn6mISSSi9WNdwUMKC2XIDNb+4bNEe+C
+	 hjp8NbPbKFxiD9nKM69kEC5Z7gpUM27sbg9FgR3DuoEuPu9SovpsTssWiefi8o18VHpn8
+	 TFgW41hnMsOQCudGeL2zJ3CM2BDOP5MFtLyGwDYFJWHDzrR0mC8SoCyLvu4jE2iMSAbzF
+	 Ih1i93sY28QHJpR4uIa4fib26Fl6Nj7T7kCOuQ+EzSj+T20EAnOeYhJRtDM/yJFjYZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Xb8nWuEx;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="H2a/IXw8";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HRtT2iUT;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904A2606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:57:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 904A2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C79606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:57:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2C79606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Xb8nWuEx;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H2a/IXw8
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T8vSMZ3457774
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:57:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=D4dVdmSFeRE0JHF6scWJ75Zg
-	mMOz+dO8pL/chYBEZxM=; b=Xb8nWuExxWSsNj80Iw+7Nh/Boe4LnjrQEuyP3n1I
-	ACXVL1hHFjtBaWzhpRF6mdpk8jZN00otuJSZhzYqTzym7bnm/FtJExLruETBp+ZH
-	82YhFZaO5355ftSGa7ENqbvZhlRP2C5abtjiGadzH8ofz0TzGzB2qhr4uEuKopoy
-	CAPVvZ8L/o0EMa31lWheJd6gtoupEwabFFMnCGxO2hJF/btFpbxkHK3sZtFIcQnm
-	JJxYvtaDTrkd/AdJ5Yia6cJKuYxnfjKjHEBEOXWTLcHaAJFrXlc5UHFsuKd6yX5B
-	Zb2whAvbiTxt4Jigx5tkIMfFiI/82NzdnkDl577Z60yI5w==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hknkpb1mn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:57:25 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ecdc701a2so216776585a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:57:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HRtT2iUT
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1174689eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:57:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793264230; x=1793869030; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=D4dVdmSFeRE0JHF6scWJ75ZgmMOz+dO8pL/chYBEZxM=;
-        b=H2a/IXw8jtsUIgqoZC1MrJqTqTUsZB1FMUV0dDOex3EXft7ctiBgg58QSg0wi32AlG
-         TMvZRk0c7PkMAsoAfR0/DVu//B+YLyqrY1vSi6LlRYM46Rz7xeOjzXWW0hZ/NrYJ5Mlu
-         jbC//lLHwUyKL0v49Y03hlTn9i4/0ZQJH9BkeyImYsywOsQOCkXBGOU6cT0BiILX8/6d
-         OtEka9ZS68lEUp8XJeCnsLDkcyr4S2d4iNf3deqAFSjK2cudSr10vN+b0hjnspFQAzZt
-         tHgRqQH14DsCYqyoRKO/OgNGjdpN5kXHKZhTPR+q6XNM/5FHw2BiYVjmZQhbcOAC05oy
-         quhQ==
+        d=gmail.com; s=20260707; t=1793264271; x=1793869071; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Cs7lasADMMl4bjEjGvbybzUuKYrhEora6V1skLnp0co=;
+        b=HRtT2iUTIP8tQw0W2BF26I1s3RT7ZhcG3VnZDhwJ0/tWXcgCT1stZLKnUS9jKYY/pe
+         Qw8TAVw2OvDsE60gmnd+EW02UWEmkaqK9UP+jxxvNRtkxL/qYmdNkLloF7ZVUeUI/lcg
+         hL2EgfJIc4uL4D/gFtXsvzUtZGcJiWiTVbonWyG2YL6Ya57C1P96E/CGd5gKuQCWIa9X
+         94/0tUFVsZGEpt1X574eJA3ZBDxVk2zTZxqvXyddtci5lM2nRezNMD8TjE1ErEoWxHnr
+         cCAb1f1omnp9csacXav36aPoiaX+swdxYOmk9bluvJP5ylS8bEuIhwcEV8GjTh+CoFPJ
+         FVnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793264230; x=1793869030;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D4dVdmSFeRE0JHF6scWJ75ZgmMOz+dO8pL/chYBEZxM=;
-        b=ISC8aVJ/W2qF/2W/P6y1PhgdLUba2V+Ret8U70wSwaJxMRSWWZxBGsogzBzks/TBFD
-         QsdPXW9icrUI2sphPKbb485a8gOF4wNwcIz94w2e3UajrTpPUKrye8RTm+2tvp25DfXm
-         gQvvRfVTRWsIcqD4zwcIIk9Q7bLFEP8uh0fmXVV/yv2v5XLbTkFP4+f6fzau13z6nEDj
-         btk8rQdwbjD4g3u77WzHUYBCdOPT4MtG6wWYr/A6gumo6/6yeFDQQLrWlG7nFoc9aGEm
-         o+MQ1GYQRw+xdcUCyQuoNmjtbAkjm+eSmgSOzgfP5dZikBBWKzDqkx/N+SIzMVtOkDHG
-         306w==
-X-Forwarded-Encrypted: i=1; AKwUvBz/TkQ3oKgTNckgX8Uj/wB127x/ULnUH4AR7JnNutQLIwAAMQmG2UHCGo9+JG5gky8Xq83eqU6ZwgEzYLw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgdqyDFZ5wOgNc46Lj/ySL8ecSaz99I1ZZ2mU4ZL8JTfs/DLht
-	Zx4o/dnXBnD5TpmbuHMBoZP7EF5U5HEvD6YChSB+rP/qwOYULyElKV6NKF/jg54O7qlcHVkrdfh
-	l+KfCM18B2cwPgMVQ4KEFVxAjAdvUPxPAkeJf0XPEa0/cUKii1d7aSn5SlZnF34yZdeU=
-X-Gm-Gg: AYBFou0OiDbpZbDC63ywDRDOyF2ZB3RKieTdez7QZchSJ0Rg3WCjXxYq1lxFaPwHRvO
-	rkYmYkncqlv046qWRnpqmIIBycUtr8DKZ6Z7rqVc8Z7po7+jhKV/VcGEBjKX+12WcHNmjbMdQpU
-	8jaGhuPH4t4ljiKEEeLi+XGBU+B4EI0qxst8QBsex5RD6H7p2RTGcZN/lBfIcybEB6Ayr84p20d
-	9knwUMnP6+LtdLA0asGgArzK3moWgw4M2mFS1X8K8sfVZXw7DgZw0/24cLwNqMEJd8ovRnuOYwO
-	q2sTw0ghwXUVeIn4j6PLj/xWQ8ydJQXpjYCi8o1Tz61vCq78Bh0eLSetBe9jFX6u/bGTnUO6Ri3
-	ECVHCMZMCSSduhI7gZjy2DFmn1IiGW9nb3XqBtDsRfT63Lz0TKjxtokh/ONMrbi0r
-X-Received: by 2002:a05:620a:17a3:b0:93f:34c9:9259 with SMTP id af79cd13be357-94408cde210mr707301285a.50.1793264229733;
-        Thu, 29 Oct 2026 01:57:09 -0700 (PDT)
-X-Received: by 2002:a05:620a:17a3:b0:93f:34c9:9259 with SMTP id af79cd13be357-94408cde210mr707299085a.50.1793264229125;
-        Thu, 29 Oct 2026 01:57:09 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.77])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb902sm34947181f8f.24.2026.10.29.01.57.07
+        d=1e100.net; s=20260707; t=1793264271; x=1793869071;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Cs7lasADMMl4bjEjGvbybzUuKYrhEora6V1skLnp0co=;
+        b=2bAsuTPESLELqkCQQbYz2vpwGYgHfQEKNSv7CJMYo9/gzdOTUc42JNPLvazbDFCeAq
+         RJpd5Trtf6HNbsK/d50Gm3pDRXGsvPq5L0Gus66zg2Iq7AxdnfshUyDLpVT5dPT1fsmb
+         GdhCjUMFeH+JXetdUdGA8MTn7GYumv5nVHkFFKQGioLxP3mBhAyBV3Q4uRGYBTGnpDUz
+         tCj9O47nZYLBTEia+bSgmgfjGHoccuXAKZLa9O5dIwyIGk+zdEM1BJAfebSWYlA4uepo
+         5hnHm2VK28zEAJcULcKS1E2CbH5xcsLsMBPFkyC8uSKQTNOGJQJ7mY8duNFgP5S2JPmT
+         goUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzF4qusWzXKp7362yfqSkRCJmsDAWO8VS+8qTLA/35ebJIiUveRYvXv7mDPsv4xl0WxlL4eCcaJtOr9OoA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWRcaN5Ot2nvvZEKp+fYI3MJohl9qOmR5Eo9Q3+l1wX9yRp0tC
+	cUkyhs00fypirki5lLZNOT9w6SoHL5i4UnjWjm+3euxVsdXNkD/6Mng=
+X-Gm-Gg: AYBFou1a2yXbY7ZUvSIte3hKbP8pbqpl7BWB3P3bDn1meKqvFlWFDCurQkbHKj3WIEF
+	aNMAKDCMvNh0u4aMkWpevJjz12YCmicexBf5rvpjdxUn8O7BSx3oPoIM0hdWItDr4FgQMA9zmyF
+	BgpA35CjRsEnUaf2y/FzJrokb2at9G7DeNhXQZ17YL4RGROBBFDQnuLgjL8yYqI5K7JEJdyK+sX
+	EhpFJKwhTzMBFiEJ9AbyShDGx/b50U0soB00BcOq4YQYtXo6F5/JAhO1vbJtxxEkKhQ2z5sYNoU
+	ZZNDUl7LGlRkkw8/LHKDwwjJFLTvLcx1P0y1CBDh8eXMEfs3qvwaNLyZx2EbyytWo3SkoyzHLkT
+	2+KDWVl2X37HpHdA6Uub5E09zTOteKM3TzZ4rUZZSm4wNWaGz+q7ivlFsMNOPil1lSieqgb2WUN
+	6kK1NL/7eRxQr2ovZSOPQQZrvW+jQq1ttgC31exRvAudC3Ypv38qAw77VQmaWq/rROyT3xv9RBS
+	YP5+Tx5Wn1Eq7XW8I754zDWgJkFvQ227hqvYaOPIE7dsc/jFWD/rp6FJEpapup9GV2h1GQ8TXKl
+	VinG5cnmfEeXS9wZcliL8mVzJUfK+A8SBpRCMzZ33UPCO7nHpmowv1IRSb2xew==
+X-Received: by 2002:a05:693c:4010:b0:36a:eee:bb41 with SMTP id 5a478bee46e88-36a202bc3ccmr7412692eec.1.1793264270972;
+        Thu, 29 Oct 2026 01:57:50 -0700 (PDT)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([27.60.20.232])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23641e78sm16497937eec.0.2026.10.29.01.57.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 01:57:08 -0700 (PDT)
-Date: Thu, 29 Oct 2026 10:57:07 +0200
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Xilin Wu <sophon@radxa.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dragon@radxa.com, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v3] arm64: dts: qcom: sc8280xp: add missing QUP pinctrl
- states
-Message-ID: <m2sh6dfakwhndlpxsq5kpg5nywk634vicyf3n2c6hcx4az3q7n@27cl3z3whwxb>
-References: <20261029-sc8280xp-qup-pinctrl-v3-1-48c4ef292dfc@radxa.com>
+        Thu, 29 Oct 2026 01:57:49 -0700 (PDT)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: 
+Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-hwmon@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	mfd@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	linux-integrity@vger.kernel.org,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org
+Subject: [RFC PATCH 04/14] iio/light: add new driver for macsmc
+Date: Thu, 29 Oct 2026 04:52:01 -0400
+Message-ID: <20261029085504.3547-5-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
+References: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,52 +148,280 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029-sc8280xp-qup-pinctrl-v3-1-48c4ef292dfc@radxa.com>
-X-Authority-Analysis: v=2.4 cv=Ju9kP84C c=1 sm=1 tr=0 ts=6ae30a75 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=asF+/XNaGoxFafzDDLC1GQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=ksxQWNrZAAAA:8 a=__UjJjYY8bcpKF5Zf8YA:9 a=CjuIK1q_8ugA:10
- a=ZXulRonScM0A:10 a=PEH46H7Ffwr30OY-TuGO:22 a=l7WU34MJF0Z5EO9KEJC3:22
-X-Proofpoint-ORIG-GUID: ZLscQ08vm5RDoAxnmSeDyMtjjoc0At2M
-X-Proofpoint-GUID: ZLscQ08vm5RDoAxnmSeDyMtjjoc0At2M
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzNCBTYWx0ZWRfX/TH1kRzKHmU7
- Dg8B+j+LFr5OMMCaxSmUPxFD/OAwetNRXh+bSP5CFjdeN5g5IzFBRVTMTY/cxaghUEsw8/IIs+V
- MGPRT8hVgsP+UPpjImzVnBb8Sy6zufA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzNCBTYWx0ZWRfX/Y+v97edL3UT
- tcBpFvGFb2aUktqO9ULfpfFxIgRv4Ma3iukccHeNMV+YTnEY4LAj+kSUv7pC0XDLRWip6LEN2QC
- QIclACStPCmOTaRO12bCy+w1mkjjXhQxevKewjC+VZ1W2PcyFXrDXXqmQPVkm/fIguT5wlmEgsI
- tZiHAAGVrSv6c6SoP4+CecB9R5TFy0dXDwOVlBtCNDy9TG/gVODeG8c2Pt7GglsfW72lUK594S7
- z748TDVjo+SD744YJy/R3qHWOKfXVZ1oGIRkE9piffMiJZH1fYQHgeeDHN1hX42+9Z0p5hASLT0
- zn+Ry1+72YuJhXjfaBZnLIxhYl5hSIXVZRxf/zdbr8jM3dcluUURAr8u3joNe8a4a4MBDhBsEip
- fZSfGDl2YWrEJlxw1/Sv9v/BJuQq1ir/1isb99kV8uVvuBSAkAOMpv74r1I8ee4z4YhRqwSByWT
- /Oca765UHG2AFaL2s9w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 adultscore=0 bulkscore=0 clxscore=1015
- suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610290034
+Content-Transfer-Encoding: 8bit
 
-On 26-10-29 15:52:32, Xilin Wu wrote:
-> Add the missing tlmm pinctrl states for the SC8280XP QUP engines so common
-> I2C, SPI and UART pinmux definitions are available from the SoC dtsi.
-> Populate all 24 engines using the SC8280XP lane-to-GPIO mapping, including
-> the non-linear QUP instances, and keep the mux function names aligned with
-> the driver-supported qup0..qup23 names.
-> 
-> Define common four-wire UART electrical defaults in the SoC dtsi: CTS uses
-> bus hold, RX uses a pull-up, and RTS/TX use 2 mA drive with no bias. This
-> matches the Bluetooth UART configuration used by the existing boards, lets
-> them reference the shared QUP state directly, and removes duplicated
-> board-local pinctrl definitions.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
+Add a driver for the ambient light sensors, exposed through
+the standard IIO interface with left and right channels.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+This replaces the light sensor support in applesmc.
+
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+---
+ drivers/iio/light/Kconfig        |  11 ++
+ drivers/iio/light/Makefile       |   1 +
+ drivers/iio/light/macsmc-light.c | 189 +++++++++++++++++++++++++++++++
+ drivers/mfd/macsmc-core.c        |  11 ++
+ 4 files changed, 212 insertions(+)
+ create mode 100644 drivers/iio/light/macsmc-light.c
+
+diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
+index 462fff1dd..f84707edc 100644
+--- a/drivers/iio/light/Kconfig
++++ b/drivers/iio/light/Kconfig
+@@ -457,6 +457,17 @@ config LV0104CS
+ 	  To compile this driver as a module, choose M here:
+ 	  the module will be called lv0104cs.
+ 
++config MACSMC_LIGHT
++	tristate "Apple SMC Light Sensor"
++	depends on MACSMC_ACPI
++	help
++	  Say Y here if you have a Intel-based Mac. and you
++	  want support for light sensors.
++
++	  To compile this driver as a module, choose M here:
++	  the module will be called macsmc_light
++
++
+ config MAX44000
+ 	tristate "MAX44000 Ambient and Infrared Proximity Sensor"
+ 	depends on I2C
+diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
+index 6672ed01a..2ef4c054d 100644
+--- a/drivers/iio/light/Makefile
++++ b/drivers/iio/light/Makefile
+@@ -40,6 +40,7 @@ obj-$(CONFIG_LTR390)		+= ltr390.o
+ obj-$(CONFIG_LTR501)		+= ltr501.o
+ obj-$(CONFIG_LTRF216A)		+= ltrf216a.o
+ obj-$(CONFIG_LV0104CS)		+= lv0104cs.o
++obj-$(CONFIG_MACSMC_LIGHT)	+= macsmc-light.o
+ obj-$(CONFIG_MAX44000)		+= max44000.o
+ obj-$(CONFIG_MAX44009)		+= max44009.o
+ obj-$(CONFIG_NOA1305)		+= noa1305.o
+diff --git a/drivers/iio/light/macsmc-light.c b/drivers/iio/light/macsmc-light.c
+new file mode 100644
+index 000000000..9d4532b34
+--- /dev/null
++++ b/drivers/iio/light/macsmc-light.c
+@@ -0,0 +1,189 @@
++// SPDX-License-Identifier: GPL-2.0 OR MIT
++/*
++ * Apple SMC Light Sensor Driver
++ *
++ * Copyright (C) 2026 Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
++ *
++ * Based on drivers/hwmom/applesmc.c:
++ * Copyright (C) 2007 Nicolas Boichat <nicolas@boichat.ch>
++ * Copyright (C) 2010 Henrik Rydberg <rydberg@euromail.se>
++ */
++
++#include <linux/iio/events.h>
++#include <linux/iio/iio.h>
++#include <linux/byteorder/generic.h>
++#include <linux/mfd/macsmc.h>
++#include <linux/platform_device.h>
++#include <linux/unaligned.h>
++
++enum {
++	LEFT_LIGHT = 0,
++	RIGHT_LIGHT
++};
++
++struct macsmc_light {
++	struct apple_smc *smc;
++	struct notifier_block nb;
++	struct iio_dev *indio_dev;
++	u8 size;
++};
++
++static int macsmc_light_read_raw(struct iio_dev *indio_dev,
++		const struct iio_chan_spec *chan,
++		int *val, int *val2, long mask)
++
++{
++	struct macsmc_light *drv = iio_priv(indio_dev);
++	u8 buffer[10];
++	int ret;
++
++	if (mask != IIO_CHAN_INFO_RAW)
++		return -EINVAL;
++
++	switch (chan->channel) {
++	case LEFT_LIGHT:
++		ret = apple_smc_read(drv->smc, SMC_KEY(ALV0), buffer, drv->size);
++		if (ret < 0)
++			return ret;
++
++		if (drv->size == 10)
++			*val = be16_to_cpu(get_unaligned_be16(buffer + 6)) >> 10;
++		else
++			*val = buffer[2];
++
++		break;
++	case RIGHT_LIGHT:
++		if (drv->size == 10) {
++			*val = 0;
++			break;
++		}
++		ret = apple_smc_read(drv->smc, SMC_KEY(ALV1), buffer, drv->size);
++		if (ret < 0)
++			return ret;
++
++		*val = buffer[2];
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return IIO_VAL_INT;
++}
++
++static int macsmc_light_event(struct notifier_block *nb, unsigned long event, void *data)
++{
++	struct macsmc_light *drv = container_of(nb, struct macsmc_light, nb);
++	s64 timestamp = iio_get_time_ns(drv->indio_dev);
++
++	/* check if event is for us */
++	if (event != 0x2A)
++		return NOTIFY_DONE;
++
++	iio_push_event(drv->indio_dev,
++		IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
++				LEFT_LIGHT,
++				IIO_EV_TYPE_CHANGE,
++				IIO_EV_DIR_EITHER),
++		timestamp);
++
++	if (drv->size != 10) {
++		iio_push_event(drv->indio_dev,
++			IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
++					RIGHT_LIGHT,
++					IIO_EV_TYPE_CHANGE,
++					IIO_EV_DIR_EITHER),
++				timestamp);
++	}
++
++	return NOTIFY_OK;
++}
++
++static void macsmc_light_unregister_notifier(void *data)
++{
++	struct macsmc_light *drv = data;
++
++	blocking_notifier_chain_unregister(drv->smc->event_handlers,
++					   &drv->nb);
++}
++
++static const struct iio_event_spec macsmc_light_events[] = {
++	{
++		.type = IIO_EV_TYPE_CHANGE,
++		.dir = IIO_EV_DIR_EITHER,
++		.mask_separate = BIT(IIO_EV_INFO_ENABLE),
++	},
++};
++
++static const struct iio_chan_spec macsmc_light_channels[] = {
++	{
++		.type = IIO_LIGHT,
++		.channel = LEFT_LIGHT,
++		.extend_name = "left",
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
++		.event_spec = macsmc_light_events,
++		.num_event_specs = ARRAY_SIZE(macsmc_light_events),
++	},
++	{
++		.type = IIO_LIGHT,
++		.channel = RIGHT_LIGHT,
++		.extend_name = "right",
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
++		.event_spec = macsmc_light_events,
++		.num_event_specs = ARRAY_SIZE(macsmc_light_events),
++	},
++};
++
++static const struct iio_info macsmc_light_info = {
++	.read_raw = macsmc_light_read_raw,
++};
++
++static int macsmc_light_probe(struct platform_device *pdev)
++{
++	struct iio_dev *indio_dev;
++	struct macsmc_light *drv;
++	struct apple_smc_key_info info;
++	int ret;
++
++	indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*drv));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	drv = iio_priv(indio_dev);
++	drv->smc = dev_get_drvdata(pdev->dev.parent);
++
++	ret = apple_smc_get_key_info(drv->smc, SMC_KEY(ALV0), &info);
++	if (ret < 0)
++		return -ENODEV;
++
++	drv->size = info.size;
++	drv->indio_dev = indio_dev;
++	drv->nb.notifier_call = macsmc_light_event;
++	ret = blocking_notifier_chain_register(drv->smc->event_handlers, &drv->nb);
++	if (ret)
++		return ret;
++
++	ret = devm_add_action_or_reset(&pdev->dev, macsmc_light_unregister_notifier, drv);
++	if (ret)
++		return ret;
++
++	indio_dev->name = "macsmc-light";
++	indio_dev->modes = INDIO_DIRECT_MODE;
++	indio_dev->info = &macsmc_light_info;
++	indio_dev->channels = macsmc_light_channels;
++	indio_dev->num_channels = ARRAY_SIZE(macsmc_light_channels);
++
++	return devm_iio_device_register(&pdev->dev, indio_dev);
++}
++
++static struct platform_driver macsmc_light_driver = {
++	.probe = macsmc_light_probe,
++	.driver = {
++		.name = "macsmc-light",
++	},
++};
++module_platform_driver(macsmc_light_driver);
++
++MODULE_AUTHOR("Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>");
++MODULE_LICENSE("Dual MIT/GPL");
++MODULE_DESCRIPTION("Apple SMC Light Sensor Driver");
++MODULE_ALIAS("platform:macsmc-light");
+diff --git a/drivers/mfd/macsmc-core.c b/drivers/mfd/macsmc-core.c
+index 1c1469828..6014df4fe 100644
+--- a/drivers/mfd/macsmc-core.c
++++ b/drivers/mfd/macsmc-core.c
+@@ -29,6 +29,10 @@ static const struct mfd_cell apple_smc_acpi_common[] = {
+ 	MFD_CELL_NAME("macsmc-power"),
+ };
+ 
++static const struct mfd_cell apple_smc_acpi_light[] = {
++	MFD_CELL_NAME("macsmc-light"),
++};
++
+ static const struct mfd_cell apple_smc_acpi_rtc[] = {
+ 	MFD_CELL_NAME("macsmc-rtc"),
+ };
+@@ -158,6 +162,13 @@ int apple_smc_probe(struct device *dev, const struct apple_smc_backend_ops *ops,
+ 				return ret;
+ 		}
+ 
++		if (apple_smc_key_exists(smc, SMC_KEY(ALV0))) {
++			ret = devm_mfd_add_devices(dev, -1, apple_smc_acpi_light,
++				ARRAY_SIZE(apple_smc_acpi_light), NULL, 0, NULL);
++			if (ret < 0)
++				return ret;
++		}
++
+ 	} else
+ 		ret = devm_mfd_add_devices(dev, -1, apple_smc_rtkit_devs,
+ 			ARRAY_SIZE(apple_smc_rtkit_devs), NULL, 0, NULL);
+-- 
+2.55.0
+
