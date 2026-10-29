@@ -1,58 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.217
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793261611;
-	b=ZOm7wtahuITtco97A2vFUXh34PZE1GDXrnbo7LmwbK9Cjqc4aId9Yf+JFh4qJrOrJQ7E
-	 pUu/HU1mtEKyvmR+UZq4qAmou90sc4bScDN/oASipzUbSrgdfsIREKkNZUh8J+nNexKg7
-	 kibDrcyne8eCVmabFMyVolEr0NeiBXcYlqN4X8skpkgapM/SEghsygnFtM4bH49gq0FTK
-	 N1ZiJb/lSPZ75q9uqLLHv9jSVfj+Tqrz+TlkEsrnE0tRmOARr2giSyuRfF35gYyTCD6AU
-	 GRttiSTQA8rhtpzo9RxL/GG1JrJJ/QH3jT86gedQ+osIff30MCFx3M6XQYXoCieILwQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793261611;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=sLX0dAXJtQCVkv3TbihTh8YXNXMoEZpgRUeoWcPA1mU=;
-	b=4uyE2gKMn3jOrKP2m/7XYkrcSbELC8H4k+6t0Lf1FIYtEwsfo7xWspBWxhglmQBLvzLp
-	 8qcwjn806qeJg36LyaftGXwnLvZHJUG8ExgV7n9601a+5D6ZZTwBUcO9o5DuGDmfzrwSk
-	 yhQjYy+O4p1l94SJvJ3tFamvm7KOkgTxwJwjgUjImyoAbNcTgCyLTRRmLfaAZCne8DiwV
-	 qEMEX74j1U03tx8Sq5xKA041DcDTXoaC4C7VQwmYVaDpU6n9WjPO7xDx/RU6W0X+n4hY9
-	 oQCDHH82eNwv2iYMpm+RCNqklzL9u2yNV1qcLWtmROV/rpvibmHvYVEmZ/XtPYYL5zQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=k6m0K6oh;
-	arc=none smtp.remote-ip=113.46.200.217
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.97
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793261646;
+	b=AFxGdZ0ugLrCAnqGnGr44ewiZcwh2+8betj/CF+xHgeAbwH5ICGgbMiC/nVwOPFd9UCY
+	 6aP+NMw7gx051ez29nM5WPGqwHW/N0Ww3aDZeFWbcA7+vzrkg9JIDEsxmSOhsBWHjuGrN
+	 7/gxVlb/k52YpTLOzZhzGGI6/JVPwHKjLnsGfDtiwI2ugyVPlrEvIsf8qLfUr/x6dGPou
+	 FSEvP6He7lZgr8DvMb9bcskH+AlXiBK12jjsvlVZzsAEX9qm6J8xFBrUUKjiuw4+INSUO
+	 qLTdnF8GSegmL8Zch7hbJ7k4VGjq/EXvHXER24YlBLnybiF+clRWyQPid1c7SKuR+lw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793261646;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=Ydap92QocmwyU9V7T7zPNoS+1ppH35flYM0aoofe83s=;
+	b=uSSufK+pDNCfO0drMHJqym0fTLf5v7NQvsMQuRRWx/OIVHGu0B1XecXEtFGdN/SRx6zf
+	 IFrqNWOK93DPk+6hds1ZEiA6fjYA9UE82b3V0lkbRCj3SvO/VcmQ2wgUFDnLWpojOhobW
+	 w3AeR1o7jpX3coGK/SppLBh+nuQwvfJ8b3WQVGTeg6s4noKld+uf5okr9wTLa29LqFbEy
+	 F6QsxGBy3bYM2evwnaVEVRv0NFyASSWtlNr/ERFOTxEwzS3fTZlIjxy6INs+YJdoBcQKM
+	 dUjLc86QEvMu27T3GoUjHxFvCLRVSA9z/ZLQJH5kWNZE3p47WXA+45XUzQQGPrunqwg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zohomail.eu;
+	spf=pass smtp.mailfrom=zohomail.eu;
+	dkim=pass header.d=zohomail.eu header.i=@zohomail.eu header.a=rsa-sha256 header.s=zoho header.b=DiH8817y;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.97
+Received: from sender-pp-o97.zoho.eu (sender-pp-o97.zoho.eu [136.143.169.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D59DA606A31A;
-	Thu, 29 Oct 2026 08:13:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D59DA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C9E606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:14:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2C9E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=k6m0K6oh
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=sLX0dAXJtQCVkv3TbihTh8YXNXMoEZpgRUeoWcPA1mU=;
-	b=k6m0K6ohzROjiXTPxRaJoJPL5oH2Hj3XemhqYiI4XA4SQU1NV72L/nAHes80uhboCtMGZgHWQ
-	smdX+5iu+6YQFynGMcWDbNcA0opjC8eYlohw0BjI/jzGN1BvdNh/GUqmmvR33VzPeG9DaYzaHWL
-	plub0paio/oyi+lflNRVV+8=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4jFcRh2830zcZyd;
-	Thu, 29 Oct 2026 16:13:04 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id DA7C24057D;
-	Thu, 29 Oct 2026 16:13:19 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 29 Oct
- 2026 16:13:18 +0800
-Message-ID: <83d3798d-99d3-4f0e-8552-c1d6492d6041@huawei.com>
-Date: Thu, 29 Oct 2026 16:13:18 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=zohomail.eu header.i=@zohomail.eu header.a=rsa-sha256 header.s=zoho header.b=DiH8817y
+ARC-Seal: i=1; a=rsa-sha256; t=1793261606; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=ImD7aTbOfNqhAvAT88wybLIlUVFovdqUi6ZZTwlwf9PSzwzTWXxCv2hKd6+ZaRExVB6TTWvJndC5GGYnLjVFEqBT9dSS9+cfEqH7r7mFPFUxTKH2NiMx8aWc60TVY9+mfFdV9FFOfXakd2A+soSt+e1PiV7L8t2VQ9m6rgwFPok=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1793261606; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Ydap92QocmwyU9V7T7zPNoS+1ppH35flYM0aoofe83s=; 
+	b=WyLxnI1s8uowwTtc/5IxGRApwGrO9nLaCyNOlHDxsJwKv57EIsPiLlQHmWUr+k8sWG36jtBt4p4NRyiulVa8kaulZCh4e+5TP+pII4wd1LUiuglAK5/IW/Mpx3gAIdffKMIqX33Dpc6ixsZiHq+fkf2URrBXynk4+DgOavzeDoA=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=zohomail.eu;
+	spf=pass  smtp.mailfrom=harukak@zohomail.eu;
+	dmarc=pass header.from=<harukak@zohomail.eu>
+DKIM-Signature: a=rsa-sha256; b=DiH8817yPvTnyoluoTzODXVQ/86Lqw3T0i56bk7PdopguWdZOJThsRRs0fQ+Tg9sgToyFe3WDIIfzgu2/D7phBt5G5TjHQZV0u8h6diah9RjQpwGQnYN3dQad3j56wqPVj5fkklBu94aPCCu5nYA2krWsF/lbj8BYK8rcY+bbIg=; c=relaxed/relaxed; s=zoho; d=zohomail.eu; v=1; bh=Ydap92QocmwyU9V7T7zPNoS+1ppH35flYM0aoofe83s=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.eu with SMTPS id 1793261604462290.4820452678574;
+	Thu, 29 Oct 2026 09:13:24 +0100 (CET)
+From: Haruka Kuze <harukak@zohomail.eu>
+To: Jens Wiklander <jenswi@kernel.org>,
+	"Michael S . Tsirkin" <mst@redhat.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Sumit Garg <sumit.garg@kernel.org>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Tomas Winkler <tomas.winkler@sandisk.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Harald Mommer <harald.mommer@oss.qualcomm.com>,
+	virtualization@lists.linux.dev,
+	op-tee@lists.trustedfirmware.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] rpmb: stop the routing after unregister
+Date: Thu, 29 Oct 2026 17:13:16 +0900
+Message-ID: <20261029081317.2264887-2-harukak@zohomail.eu>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261029081317.2264887-1-harukak@zohomail.eu>
+References: <20261029081317.2264887-1-harukak@zohomail.eu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,82 +78,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/6] arm_mpam: Fix MSC MMIO window size off-by-one with
- resource_size()
-To: Yin Li <yin.li@oss.qualcomm.com>, James Morse <james.morse@arm.com>, Rob
- Herring <robh@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>, Ben
- Horgan <ben.horgan@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
-	<rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Reinette Chatre
-	<reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>, Jonathan
- Cameron <jic23@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad
- Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
-CC: Andre Przywara <andre.przywara@arm.com>, Drew Fustini
-	<fustini@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
-	<ilpo.jarvinen@linux.intel.com>, Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-	<trilok.soni@oss.qualcomm.com>, <aiqun.yu@oss.qualcomm.com>,
-	<ganapatrao.kulkarni@oss.qualcomm.com>, Srivathsa L Rao
-	<srivathsa.rao@oss.qualcomm.com>, Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-arm-msm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <driver-core@lists.linux.dev>,
-	<devicetree@vger.kernel.org>, kernel test robot <lkp@intel.com>
-References: <20261028-mpam-resctrl-dt-knp-support-v4-0-bdda1e445cba@oss.qualcomm.com>
- <20261028-mpam-resctrl-dt-knp-support-v4-2-bdda1e445cba@oss.qualcomm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20261028-mpam-resctrl-dt-knp-support-v4-2-bdda1e445cba@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-ZohoMailClient: External
 
+OP-TEE has a reference of RPMB device it used. So, it can route
+frames through the device after rpmb_dev_unregister() is called.
+Therefore, the parent device passed to route_frames() can be
+already freed, for example, mmc_blk_remove_rpmb_part() drops the
+last reference after rpmb unregister.
 
+This patch clears the route_frames when the device is going to
+be removed by getting new rwsem and makes rpmb_route_frames()
+return -ENODEV if the device is gone.
 
-在 2026/10/28 19:45, Yin Li 写道:
-> struct resource uses an inclusive end address, so the window size is
-> end - start + 1. do_mpam_msc_drv_probe() computed it as end - start,
-> which is one byte too small.
-> 
-> mapped_hwpage_sz is used by the register access bounds checks, which
-> have the form "offset + width > mapped_hwpage_sz". With the size one
-> byte too small, an access to the last register in the window is
-> incorrectly flagged as out of bounds: for a 0x1000 window, a 4-byte
-> access at offset 0xFFC (bytes 0xFFC..0xFFF, legal) computes
-> 0xFFC + 4 = 0x1000 > 0xFFF and falsely warns.
-> 
-> Use resource_size() so the size is correct. The ">" bounds checks are
-> correct as-is once the size is accurate and are left unchanged.
-> 
-> Fixes: f04046f2577a ("arm_mpam: Add probe/remove for mpam msc driver and kbuild boiler plate")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202609030809.ObirDhR3-lkp@intel.com/
-> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
-> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-> Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-> ---
->  drivers/resctrl/mpam_devices.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index 347a5a6d6a1d..0f984fcbcae9 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -2508,7 +2508,7 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
->  			dev_err_once(dev, "Failed to map MSC base address\n");
->  			return ERR_CAST(io);
->  		}
-> -		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
-> +		msc->mapped_hwpage_sz = resource_size(msc_res);
+Fixes: 1e9046e3a154 ("rpmb: add Replay Protected Memory Block (RPMB) subsystem")
+Assisted-by: LLM
+Signed-off-by: Haruka Kuze <harukak@zohomail.eu>
+---
+ drivers/misc/rpmb-core.c | 22 +++++++++++++++++++---
+ include/linux/rpmb.h     |  4 ++++
+ 2 files changed, 23 insertions(+), 3 deletions(-)
 
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-
->  		msc->mapped_hwpage = io;
->  	} else if (msc->iface == MPAM_IFACE_PCC) {
->  		u32 mpam_fb_msc_id;
-> 
-
+diff --git a/drivers/misc/rpmb-core.c b/drivers/misc/rpmb-core.c
+index ecf14acf230a..0538871af584 100644
+--- a/drivers/misc/rpmb-core.c
++++ b/drivers/misc/rpmb-core.c
+@@ -45,16 +45,23 @@ EXPORT_SYMBOL_GPL(rpmb_dev_put);
+  * @rsp:	rpmb response frames
+  * @rsp_len:	length of rpmb response frames in bytes
+  *
+- * Returns: < 0 on failure
++ * Returns: < 0 on failure, -ENODEV if the device has been unregistered
+  */
+ int rpmb_route_frames(struct rpmb_dev *rdev, u8 *req,
+ 		      unsigned int req_len, u8 *rsp, unsigned int rsp_len)
+ {
++	int ret = -ENODEV;
++
+ 	if (!req || !req_len || !rsp || !rsp_len)
+ 		return -EINVAL;
+ 
+-	return rdev->descr.route_frames(rdev->dev.parent, req, req_len,
+-					rsp, rsp_len);
++	down_read(&rdev->lock);
++	if (rdev->descr.route_frames)
++		ret = rdev->descr.route_frames(rdev->dev.parent, req, req_len,
++					       rsp, rsp_len);
++	up_read(&rdev->lock);
++
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(rpmb_route_frames);
+ 
+@@ -126,6 +133,10 @@ EXPORT_SYMBOL_GPL(rpmb_interface_unregister);
+  * This function should be called from the release function of the
+  * underlying device used when the RPMB device was registered.
+  *
++ * Once this returns, rpmb_route_frames() no longer calls into
++ * the driver, even though the users might still hold a reference
++ * to the RPMB dev.
++ *
+  * Returns: < 0 on failure
+  */
+ int rpmb_dev_unregister(struct rpmb_dev *rdev)
+@@ -133,6 +144,10 @@ int rpmb_dev_unregister(struct rpmb_dev *rdev)
+ 	if (!rdev)
+ 		return -EINVAL;
+ 
++	down_write(&rdev->lock);
++	rdev->descr.route_frames = NULL;
++	up_write(&rdev->lock);
++
+ 	device_del(&rdev->dev);
+ 
+ 	rpmb_dev_put(rdev);
+@@ -165,6 +180,7 @@ struct rpmb_dev *rpmb_dev_register(struct device *dev,
+ 	if (!rdev)
+ 		return ERR_PTR(-ENOMEM);
+ 	rdev->descr = *descr;
++	init_rwsem(&rdev->lock);
+ 	rdev->descr.dev_id = kmemdup(descr->dev_id, descr->dev_id_len,
+ 				     GFP_KERNEL);
+ 	if (!rdev->descr.dev_id) {
+diff --git a/include/linux/rpmb.h b/include/linux/rpmb.h
+index ed3f8e431eff..0a976572d1cd 100644
+--- a/include/linux/rpmb.h
++++ b/include/linux/rpmb.h
+@@ -7,6 +7,7 @@
+ #define __RPMB_H__
+ 
+ #include <linux/device.h>
++#include <linux/rwsem.h>
+ #include <linux/types.h>
+ 
+ /**
+@@ -51,12 +52,15 @@ struct rpmb_descr {
+  * @id               : device_id
+  * @list_node        : linked list node
+  * @descr            : RPMB description
++ * @lock             : protect @descr.route_frames which is cleared when this
++ *                     device is unregistered
+  */
+ struct rpmb_dev {
+ 	struct device dev;
+ 	int id;
+ 	struct list_head list_node;
+ 	struct rpmb_descr descr;
++	struct rw_semaphore lock;
+ };
+ 
+ #define to_rpmb_dev(x)		container_of((x), struct rpmb_dev, dev)
 -- 
-Best regards,
-Jinjie
+2.55.0
 
