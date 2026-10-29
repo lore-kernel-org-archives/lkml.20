@@ -1,107 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793243207;
-	b=y++epnt7dWEpmXLu3ZjZDmc34e04AS6Qa5iDRoySXKxXQ3St/8LEEcOQcmM0bzn78XCu
-	 IMeEjiVLhS/RL6+boHbitpzHLnxV/IJ8cT5iBAO1kmaRIYY/KS0qaw7V3LmQWy7MFePfg
-	 X8PNS00bxqEPoTeus6VnzcrwG3KWmkWAFghce3MnTLy9lhLSTAMvgyrVhKo6oKOnkge9X
-	 9YVy2fw2C6Oyx9z4x3a3iAX+O3ilIQzzscMH5YO8Ehfpn+bSqPQDyq64q3y+/jz8ek0Ol
-	 Z83Fibj6CIMxRT8KbW8vxL1zmDLqguTQhd4vqip1Y/ZPPlS/lnIN/1U7JC/WH+hxWVQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793243207;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:User-Agent:X-Original-From:References:From:Mime-Version:
-	 In-Reply-To:Date:X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=21fFFSCtjvZ+BnQkCcGT5s2MmdQCNwbulDZga2Yp1YU=;
-	b=iBIDiSbOTyyjlvOU8D50yHZxt55Omydx0PAt/6u1eYAP9D57aXdJ54LSCJQPbPpWmR76
-	 K6S+jfXLNMSbDr3kbL2sbvm+Qo9dmO0hRJK/IszYUPYNNMLK4/Pt0MobZCUdw3bSQjhtX
-	 zj5CBx89dsLSYaYt9jsAPLO9aFFBCjhj6APZhMlMlspbr/X32pCb3NKtq/VtGhLXC8mhD
-	 VR2QYRqId3443aK6sw40etSwwgO/CyI/S2bJI26QLUmh7fh76KwYWe45N5+RTT6cgfaxp
-	 SuFWJCcWLwX/y90MawoPHmToN490szBQOpfsG3bQwltayPVyKFqH2KCvIK4NGTZVMDw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=h6ziHXdx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.44
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793243225;
+	b=F/Bdm4R4bBjukHNez/PBvnoEWmZNY59gsHAnQuwkMf9cPqwMSWWkEOOLGQuV27ipI7R0
+	 Q9Nne6zN0BP8+ZU6bWstmKLccHxa5kSFpkG+qAGMx3kY8ChRfxgyG/ZHOQRcqBMxcNJd/
+	 ylKur115wCunalDnpebPHO7Pa7ApUzAesgvW93MEDqPw2Qi/rn/u8w8rzA09IT5Vz7ud1
+	 hWLSKYvYZulusr1etcuepcYzjBlYEHkgeUj07VwvEHotg3lCswzzl3QbXEsefjEgG3XLS
+	 eOFj6APQoIuq97NhcIfc8dMOe2H5mG6iOwc2AfBiWCuV+KtCDGuXBXhwKPQU28Hf4kQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793243225;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Z8/pcGuauuTDgFHjtK9D7d47BI5OIckj6msjTzMPejQ=;
+	b=NaiqLh3z45iI7kUgDFw9Jyq2I0PLy2JQpgvaaU1oajgZjGa8mByh8Q9/oxnZ6rBCmegY
+	 69QmbaSKyTGLgE7NGqhskS5QrxXV3NRqTcLI3b+lQEk4XCrKduRBJbFVatzlyLg/9Teyv
+	 0lS4UJwbCZL9jiSt37vhOKKzEBBr/UPRB+lmjT7KnWd6vLLltIsMgA4o+Ejj99SZMiWWj
+	 EQAyp6sT9phtpOsf2umKSkfBMJqpnxbqdzjn9bT9bNpbeqBgQdVFquD/kIEg0EhvzpZrA
+	 US2LNkysMZTaRx8t4XaK1oQOAtE20xtqWkMFGAY2rK1FBphmyG3XnIJBoeFOKis6EBA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=nqbBYkk9;
+	arc=none smtp.remote-ip=162.62.57.49
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D8D606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:06:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16D8D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE81606A31C;
+	Thu, 29 Oct 2026 03:07:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2AE81606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=h6ziHXdx
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so1675259e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:06:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793243205; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pYyctCfpHHmrlpm9gQcW5S/pm2lPdm0c4cOzkMG64Iktlj58zpZGXUULv51xLJ61fI
-         3jZUSQoKRzVQdHrhREU6OTa0UuuJfwLLWf0Z3qUXv/CsWkx1HMcACia+GXmNsPTiGpnJ
-         GYJRB3rl23w1posg/GS32/D/xCiRDp7SA6AJ72setG/WDtOlY41aPmXOxbT74BIE6EUP
-         paynitKvr7o+ASHwU5YsJwpcGsrBQ0ZfDGdt5BROeogQE3hh5MXCrjBkJ9IggaNrPbp0
-         5Kg7W5K4fBL5wIBvXODtvVhd6NFLql/IMqIJR74c+inh6M2ZyhtDeLjGSwga0zPkcxtH
-         nSlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:in-reply-to:mime-version:from
-         :references:user-agent:dkim-signature;
-        bh=21fFFSCtjvZ+BnQkCcGT5s2MmdQCNwbulDZga2Yp1YU=;
-        fh=xXnjb7Mx+bfSa+Pbcd842aneRohsoI+6WS/4L5KFGoI=;
-        b=krYICRBni5xrNNLAXbQWNyydXesKAICz9JmLBY4GNi4cxhM6o7ht/bDu+GLdCP3TjM
-         ty3+R52KEpIki5Q5RwjIqD7pg4I6GtX4brrUTO0ll+bKiZvKk2nQNR9Rp2iEr8R2Iea7
-         nOKvLnftMC27JKI43AFfr3TUvM9tVKBhU0VTjDG1tBCqi5bxAsoJbeqbKSsNc4P9aqkI
-         JnJ3JLbA6hxvTDKDOovQlClmx55ydd7/Ntg6K1tK6/7C7uieaFIISLklw4S5yslIwa71
-         DqBr2Fna+pHkjxiLCyk2jUys4qaEXAMlS4/s8MZhtZvu8YUB/rT3nb0SDhTuA8KiJMfe
-         Je5Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1793243205; x=1793848005; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:in-reply-to:mime-version
-         :from:references:user-agent:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=21fFFSCtjvZ+BnQkCcGT5s2MmdQCNwbulDZga2Yp1YU=;
-        b=h6ziHXdxperKw0FMhtwDYC/nSyqfN66VH9iz1mtw8jkUEvdOawkjO1VfElLR2jSpP+
-         jqqjO8GakTohp8gam+tBwY1/eCqNz745YmdHtDmysTJhQXVQk1KHkqHBuCjAG80VMoKr
-         UsPvcHWdqdCDP6IdasdeBSbB9R/wSwCgEerazu4r+/iYkH4qZfT3rDsaZKzZ4RWfMayf
-         CQDQBq60IHafmR+XVjCAYc9Aa0nv2+nvmQ2rc7Vfblp0ZCQcn3mnB361DJv5d9I8chlY
-         w+bLmgtYklxeK9Yg/5NDZrStW1Ky6qVVfdEvSOpUq9D9p/9XftRnMGkcVdvm01gl2an0
-         OvKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793243205; x=1793848005;
-        h=content-type:cc:to:subject:message-id:date:in-reply-to:mime-version
-         :from:references:user-agent:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=21fFFSCtjvZ+BnQkCcGT5s2MmdQCNwbulDZga2Yp1YU=;
-        b=YOqibBsr7Ibdp6o2cHrnHqTprnwsXZLegIibMAylLvtXMGTC+2TubxQ1GE8Oxjb+0A
-         CNPMOksF1cbJrRvkQUtVnZ/RH7DifMF1p6I/YQJK1EbaR7ZgXK10R+VdkxqEInD2reRG
-         y4G4urA5F/5Pq59JCdPbLTEy/g50MvdQsHfVKiNjMKX7CU1lhaKnrHk6ULr586d3t5YU
-         2MkNqhyI7502M1oC6BMEqGzsWYE8aqrT/blntuW6vz9aNY4P/P+KwZ1wJoUyIaomnGI9
-         wgOHK8dMBM2qj3j0Xawfuc1MDDasa/ML6zII8dBer7IlTkJCMQXwDqw3OEoN/sLLVhEU
-         Q2Bg==
-X-Forwarded-Encrypted: i=1; AKwUvBzytpHdezaJXTTAxli7PepnFnF1Zuz0GiNU6VS1v28n1tiNJz9dqx/dD0pfryfTbmW3JDX5X8k6Rn2mzaQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5LIEhpFzODC6GXm5FL3gWAvvHqjxLJ9nqwbPSNe3YY8FzyudY
-	lT25jjs78KPzGYscpMrdp9NKqqE5wwApuxXRUA9D1n4X/tZUe/BeAsy1Q+bGHzWL6moZ/jAdxCm
-	Hu/XdaVSpKRiJaaAqdxMT4MkTUzzP00KlKDVvfY9jCw==
-X-Gm-Gg: AYBFou21I//CbUDqrFhF9+WzJyKwsQlHJFUDuszrab+UHkMQEHSnGwiaPyRQg0yBbMi
-	yipYuIql7Y+93n0wSNKdLjjyVBNVikW9F6j/0Zwc3HGGaam5s+8cuwJWMFiQosiL+IZu4dCOSoZ
-	59FoMjNVr/aR84SGU94QNJSniB2xdpitxWBZY+IWrc67BzE5UCC7mPIlBVJVY295SSFiruK7P7A
-	/Kg2tybhtby4uJsgMvVNzICbrvmWYudCueZw7OVyJ8AKq1u5iBkO3o18taA/n+LYsmkAEqM6208
-	3wNc4MUK74dbYPu+/CR+83l/zPn5UpJDrw/u/Ba/zK2djL242EU/DG6y9BkJu156Oj6AznRAM3H
-	/tbwM+Oht0ySd/sv3EDwmu/Bg8dUs0eQBr8YS5w==
-X-Received: by 2002:a05:6512:1250:b0:5b8:997b:c606 with SMTP id
- 2adb3069b0e04-5bfcad9e1a6mr1490725e87.41.1793243205235; Wed, 28 Oct 2026
- 20:06:45 -0700 (PDT)
-Received: from 44278815321 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 28 Oct 2026 22:06:44 -0500
-Received: from 44278815321 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 28 Oct 2026 22:06:44 -0500
-User-Agent: Mozilla Thunderbird
-X-Original-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-References: <20261028165531.940336-1-anup.patel@oss.qualcomm.com>
-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=nqbBYkk9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793243212; bh=Z8/pcGuauuTDgFHjtK9D7d47BI5OIckj6msjTzMPejQ=;
+	h=From:To:Cc:Subject:Date;
+	b=nqbBYkk9YkeOcX4KQdgweO+iNJxq4BYEDDnB+/u5dzqTUkh15LnOIzBLP2u0c7jPN
+	 V5IKiwgwGW0slbwG1dFISYx9JYUOX3GM4ElKOxhkHnRHyzm6BpFJ+S+lbGLzQgyYAd
+	 QBXgLqaw1gHU/nndQAtkuhMp/2SBGaSntxJodSW0=
+Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:7875:da97:7462:bbd3])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 1B19CC08; Thu, 29 Oct 2026 11:06:49 +0800
+X-QQ-mid: xmsmtpt1793243209t1bb8v49a
+Message-ID: <tencent_6FF2EBE4EF5FF4F324C8DC4AD0F39588E505@qq.com>
+X-QQ-XMAILINFO: OIJV+wUmQOUAiowY1SzQHRLlRkNSwuqXOThjZBTx7zBIzJitakXxYA4FY1vQWg
+	 kMa2i/cl9WZDMmvcQO3U485+95cSBrQ6eWHRkZMLlA7+UNo269Dqlx04Hz1W3G7W6yVjioKeDsEd
+	 rC8GWplyxq/U3FBpIX4nU1Mi+hGZh8jWYW+ugnFUfldVBfjjXbgf24Gdp2K1J28q2wECsSNqdZf6
+	 vcSp9QUB0enbe/6DeUBOeY5/QPuhEAnB5aBa6AMbdQAEHRtRGULm8c9Xb6OtW4TA2iR5RH8srksR
+	 AGbu6Yon8HHs0FT+zioJCjirNqc3Y8WdPergtQ3IP5dqlBNKWSoot8nHaIWfrGyJkCXJRR/+qLzW
+	 9pxctdzJTP+T0tYlTtgmy/reXiwA6OFUoOolx8GBvNyxTdUBcr4UCQu4REJOwqhd80Pp2aJ5soI3
+	 HPRoe8nGTB+Rzs/44wg3E5boHIDpWqPPv9jSSGPjinMxGkUkgj+IXucoKDQkRYjGofUAaZGnUU6d
+	 TiXFSU0xVKCAeXU3tT93U3jTvVppWA/xSwIXARoOLZkBbcFuBprBm0LI5CV//6+bRZFqbFCdKTqT
+	 enD7FUFTcSomHCKbD7eJFctl7DYdrvc52xWvqAn9NQZ/YtRM6O+pMg8UXDc97Bv6MJdvW2Ks3LqF
+	 +Vn/NK95l90XSC2QEygwZFXgLaU9fvRe8VnWPY1dihP/2UEz1KttJfCh23ztgqgSL3vuiLUBQ9jp
+	 H/gyNuIu5rZgZ9lEHac8YxxkZgDOwKuBAUfX527gZK4xVGJDjG5zxGg9+u50L1I2fchO56a6Ycbh
+	 NcN6XRPVh2QDAhcMJMmKpePf2awJijPvZa3IyzbAnkz5U/J/qxj4dDrVGYhYdA60HdF1XgkxSbBa
+	 DoXcdZPm6oFYvPUYzXLdSZ4c2NdGZBzuWCILRFvhc7sNqrMgWZ/Lqw0fvF96hkS9JBewsKgMX257
+	 Zn3TNaW4lFNjq50cFSjg05dGsVwau5wMj1+fYVyt/XkOV2UAFlNCwFt8vBFbitwF97SDgNd7TuYG
+	 6dPH3KE5kLaaoeapTzT1E1Az53zbYdz4X5NZygu/Ongy2cKPMWjUI85g2OGh8=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Yingjie Wang <1075151112@qq.com>
+To: linux-usb@vger.kernel.org
+Cc: Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Bingquan Chen <patzilla007@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: gadget: configfs: NUL-terminate extended property data
+Date: Thu, 29 Oct 2026 11:06:49 +0800
+X-OQ-MSGID: <20261029030649.292834-1-1075151112@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,89 +78,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-In-Reply-To: <20261028165531.940336-1-anup.patel@oss.qualcomm.com>
-Date: Wed, 28 Oct 2026 22:06:44 -0500
-X-Gm-Features: AclHuK_OONCiZpFhomM73vca1DSs-MUlsV-8C6gmVeQhDkNqE4BPqIm0xCP39ic
-Message-ID: <CACnXVncwzQiUN9CO8_Ds7UQJEKzEF29vagsTFrC0WbRZXt7aLw@mail.gmail.com>
-Subject: Re: [PATCH v11 0/9] riscv: add SBI Supervisor Software Events support
-To: Anup Patel <anup.patel@oss.qualcomm.com>, Paul Walmsley <pjw@kernel.org>, 
-	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-Cc: Yunhui Cui <cuiyunhui@bytedance.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Will Deacon <will@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	Conor Dooley <conor@kernel.org>, Anup Patel <anup@brainfault.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Atish Patra <atish.patra@linux.dev>, 
-	Yuanzhu <yuanzhu@bytedance.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Anup, Paul, Himanshu,
+Unicode extended properties account for a UTF-16 terminator in
+ext_prop->data_len.  The configfs store path currently allocates only the
+input bytes, so ext_prop_data_show() copies one byte past the allocation.
 
-On 10/29/26 12:55 AM, Anup Patel wrote:
+Use kmemdup_nul() for the configfs data so the source byte implied by the
+terminator-inclusive length is present for both the configfs readback and
+the descriptor conversion.
 
-> [...]
->
-> Changes in v11
-> ==============
->
-> Rebased on latest for-next branch of linux-riscv tree (commit a5ae1bf65cee).
-> Also, tested PMU driver with both PMU irqs and PMU SSE events.
->
+Fixes: 7419485f197c ("usb: gadget: configfs: OS Extended Properties descriptors support")
 
-Thanks for rebasing and testing the series. I was a little surprised
-to see v11 posted, as I am still working through Himanshu's v10 review
-and validating the fixes on hardware. It would have been helpful to
-coordinate before reposting so that those changes could be included.
+Reported-by: Bingquan Chen <patzilla007@gmail.com>
+Link: https://lore.kernel.org/all/20260421141010.5607-1-patzilla007@gmail.com/
+Cc: stable@vger.kernel.org
 
-I guess this follows Paul's request to rebase onto riscv/for-next.
-However, there is one change beyond the rebase that I would like to
-clarify: why does patch 4 remove the scoped_guard(preempt) sections
-from the CPU hotplug paths? These were present in v10 RESEND, and
-the local helpers still retain their preemption-disabled assertions.
-Is there a reason this protection is no longer needed?
+Tested: x86-64 KASAN configfs readback through a built-in RNDIS function
+instance.  The baseline reports a slab-out-of-bounds read in
+ext_prop_data_show(); the patched kernel reads back the expected 0x41 0x00
+bytes with no KASAN report.
 
-The changes discussed on the v10 threads are still outstanding in
-this posting:
+Signed-off-by: Yingjie Wang <1075151112@qq.com>
+---
+ drivers/usb/gadget/configfs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- Preserve TASK_TI_A0/A1/A2 across nested exceptions.
-- Replace the temporary GUP-based perf user-stack copy with nofault
-   uaccess, following the x86 approach.
-- Address the per-CPU initialization/preemption concern.
-- Split the MAINTAINERS updates into a separate patch.
+diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
+index 51df6d1d1487a..c302e8dd25a78 100644
+--- a/drivers/usb/gadget/configfs.c
++++ b/drivers/usb/gadget/configfs.c
+@@ -1351,7 +1351,7 @@ static ssize_t ext_prop_data_store(struct config_item *item,
+ 
+ 	if (page[len - 1] == '\n' || page[len - 1] == '\0')
+ 		--len;
+-	new_data = kmemdup(page, len, GFP_KERNEL);
++	new_data = kmemdup_nul(page, len, GFP_KERNEL);
+ 	if (!new_data)
+ 		return -ENOMEM;
+ 
 
-Additional fixes from Sashiko review, the kernel test robot report,
-and our follow-up debugging are also being consolidated:
+base-commit: 6b4b543fa18757297ac756a6fe6e64f506b7844a
+-- 
+2.43.0
 
-- NMI-safe entry and lockdep irqflags tracking.
-- The unused-function warning reported by the kernel test robot.
-- RV32 vmalloc synchronization before nofault fixup.
-- Faulting-PC validation in the kprobe single-step fault path.
-- Per-counter STOP handling in SSE error paths.
-- Ordinary IRQ CPU-PM notifier ordering and IRQ cleanup tracking.
-
-In particular, Himanshu identified the missing preservation of
-TASK_TI_A0/A1/A2 across nested exceptions [1]. Following his review,
-I validated the fix with hardware A/B testing: removing it reproduced
-corruption, while the fixed kernel completed the same test sequence.
-This also gives us a solid basis for replacing the temporary GUP
-workaround with nofault uaccess.
-
-Paul, please hold off on taking this version into for-next until
-these fixes are included. The rebase and PMU testing are useful, but
-there are still outstanding correctness issues.
-
-I will consolidate the changes and post v12 against riscv/for-next,
-with an updated changelog and validation results. Let's coordinate
-the next posting to keep everything together.
-
-Thanks,
-Zhanpeng
-
-[1] https://lore.kernel.org/r/as79MHtNYd-VbUug@hu-himchau-blr.qualcomm.com/
