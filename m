@@ -1,57 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.133.4.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793261062;
-	b=BbdCHS80GG5LiSiX9AFJpEojIwH73exIBdEzFxVYlS2WVXGyg5kFgicC4rkjHGrrAIPM
-	 8AcztI9DvQVU3seB1x44cAC+LcEu6qQSLXxm8+oM8PavspetYOrZU8zFyIhF2jb1FVlph
-	 ripC+3/agNX/YvoL8TSEK38cU8nRJG1ApFoNDTCzqvc8/Y9coC1Q3cdLV4QT/r6PXIoem
-	 TDPKbIHwzH1wG+qzuC6hXjuc3HIYw2v+r82UxXhGqwtvzqOfl4lWcWLMG5JROCNVn0ONX
-	 EQq3vPwWAvl8h36dJn27J8VVnLzt2WLcghYHB8AR3xx3Hm94CYL1c8UpX5wekMlV6qA==
+	t=1793261161;
+	b=vyK6fAu4FTR6QZoF6RwqIZ7EgreNEXznLSBa9c992wAdnXCdCNmyh39m39Wc3fnYdybG
+	 3rVIKgwgdWGrNhYViX4FPnYyHJaZORyb89s+y2VIJIWQzn2+xEaakWX7Ap9dCk3z7C80z
+	 5pWh1RT2xnks8T4QkBgpysfHMNj3xC8eY7Ja+yOIZ12SQxlwESNla/S3ImXmfPvcQPP1l
+	 yM31qeOnjL13OfdTtvh4zvPW0Zxd2Ku/LtjIMMHGbEN12ux0SUPh5UWkatM69Z+iqn3ii
+	 eO8sqUyV+yKWPSWbcQoxqnPZlz2yM/TFKrpUJG94LQ+3v/pJgeo0CLuubgeqDl//+PA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793261062;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=3mi8pbVMw8BvzgIqDR4pQfsZ3+QylVo6OT08+KoiPrM=;
-	b=xBXGJ+TPg1t1wWn8a6zYEoEKi1yFN9L7AFCFmBBakid785nQtTXfhwrVc2plBxAW9+Nu
-	 ojBzBF38UBijHf19gYqpCsDJIvVDVo5f+HnjsI2qwNCwFxTEqcuft+eWtSc5Wz/TSPPFN
-	 NPYBFSe9IqBXlJ8FSO2K532Ltv2L46C/6cT4RWQXosahqox4HAQta6Wqr7OkT6bYlbL1Q
-	 EXRQS8fL/mJ0tARgmzBp/TtTSs2pNFgh9s0wA+/9oV2UWIfj9OgA4yciz7NB75tA+o1CO
-	 ZPN81VFHiAHLgOB5DxPxuB7CWdXOBYUo7fhHThVkKSXSiOQtX3k/MlHDrz07GsUNDHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793261161;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Original-Sender:
+	 X-Originating-IP:X-ZEDAT-Hint;
+	bh=v0rQSbV5ozj0CSaTaKb7xcBdpll55RTEET3OHjUcfs8=;
+	b=5sxTyyqnievbccF0BaLIKZx89qtKeK5ITJyhpgB8E84xQz9aQT6TzeeNqvwMK2B0UJev
+	 e4fGS7rYi3jXetevmVPmaFr1qDHonpNJ3V8cc9bpwlzwAyvNBvIlICiPQpvMbg6RqCZOV
+	 kTSHw1QbDlS4bZQEbGuTc4uw7P+SIb0U9dmAS3w+l3DwmC5kqKQETz96gHxY6u0a4aoN8
+	 gi/A8S9ZmLsgAFwvUah9XEm6zRgdyIikSL1lw1I1VFl11wiCizq+WNEOMh8NAlowtQhOa
+	 BG4FE4nnx7pihJy7QQ9g3W7V+YGLZzOR7IwoPkxvih1No8Id4+rhhDpAJQF/PAvPv0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	arc=none smtp.remote-ip=79.135.106.121
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
+	dmarc=pass header.from=physik.fu-berlin.de;
+	spf=pass smtp.mailfrom=zedat.fu-berlin.de;
+	dkim=pass header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=ggFC4Z55;
+	arc=none smtp.remote-ip=130.133.4.66
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE63606A31D;
-	Thu, 29 Oct 2026 08:04:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EE63606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1793261057; x=1793520257;
-	bh=3mi8pbVMw8BvzgIqDR4pQfsZ3+QylVo6OT08+KoiPrM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=IiWd7e3S+ETRMNGTnFKt60Hk2tsXc98Iro5IAQsKUoXxI3y/ZWytkooEsMcO3ZxVm
-	 WfHs1gJjZrjVBN83/9638VdvmOwX8HRJTc1iEoshMET4bfm+fZw4LcIGh89UC1sLwF
-	 xE5CD61F8sDwjpzemkVxdCBpjT0H5sTUVXTn3tSGMx59YEeeb9IKbmSCiOQd1cW/Rl
-	 uauLFtbcQYt/1GOFkdxxepZJZCd6Lgyvl4A8+Yq48A9J+dZIipGTETvkBQsDv4HlEi
-	 Fioa8urpvZMqN5Y17YAlton7PAl8HJrokHTRyR30GLIAFkeATqScA/eIGkGjfSOQMN
-	 xtLdhRTRKRd8w==
-Date: Thu, 29 Oct 2026 08:04:08 +0000
-To: netdev-bot+sashiko@kernel.org, "D . Wythe" <alibuda@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>, Sidraya Jayagond <sidraya@linux.ibm.com>, Mahanta Jambigi <mjambigi@linux.ibm.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@kernel.org>, "David S . Miller" <davem@davemloft.net>
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Cc: Simon Horman <horms@kernel.org>, Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>, Wenjia Zhang <wenjia@linux.ibm.com>, Hidayath Khan <hidayath@linux.ibm.com>, Ursula Braun <ubraun@linux.ibm.com>, Stefan Raspl <raspl@linux.ibm.com>, linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net/smc: don't spin in smc_rx_recvmsg() while a pipe holds spliced data
-Message-ID: <20261029080359.961295-1-hexlabsecurity@proton.me>
-In-Reply-To: <179209723095.434549.11206499945190748009@kernel.org>
-References: <20261013-b4-disp-193a2a59-v1-1-ed88ac10a41c@proton.me> <179209723095.434549.11206499945190748009@kernel.org>
-Feedback-ID: 199661219:user:proton
-X-Pm-Message-ID: f58622c7d2ed4f0b82b621aff97d67460d027f59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B019606A31C;
+	Thu, 29 Oct 2026 08:05:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B019606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=ggFC4Z55
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=v0rQSbV5ozj0CSaTaKb7xcBdpll55RTEET3OHjUcfs8=; t=1793261159;
+	x=1793865959; b=ggFC4Z55sNs8wQuqndorBwkyuho97TluFPYs/Guibl+3ivfJ7dc3L0B25BnaQ
+	k6WDJYOfnikwPRrGfHUblcvVGZjNXGsVUxHIzjzrLiPYUZHJiW3QmcSZr/NHsjqWqP2AHymwQnEdS
+	YzuVE9t9ohM/rfuV/GAsRREzWonndzLwOBOVJ3glN6Z+JlvTO0waivyLjjl11N3/qlhkhT4LNAcjZ
+	iCQFgQqpv6mALF0qFXbeRqxxImkMRxUoNlRIOXeerV+I5tf7VsHhEGnGZ0izk9SY50L1komKysVf/
+	Phad8Z1a+ZPzgMZodmQOFJU7DRh1doRrghmx2/lsPDPH3Q84Cg==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xML92-00000000Nob-1APi; Thu, 29 Oct 2026 09:05:56 +0100
+Received: from dynamic-093-128-055-098.93.128.pool.telefonica.de ([93.128.55.98] helo=[192.168.178.50])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xML92-000000033HV-0JMw; Thu, 29 Oct 2026 09:05:56 +0100
+Message-ID: <9d7432f2a82685fe36f807a38f4ebd0a76f1cabf.camel@physik.fu-berlin.de>
+Subject: Re: [GIT PULL] sparc updates for v7.4
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Andreas Larsson <andreas@gaisler.com>, Linus Torvalds
+	 <torvalds@linux-foundation.org>
+Cc: David Miller <davem@davemloft.net>, sparclinux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Thu, 29 Oct 2026 09:05:55 +0100
+In-Reply-To: <2c9bc34c-f0e0-4b71-a1d8-bc2881d1a7d2@gaisler.com>
+References: <5df90753-163f-44d3-ae93-c6be6ca8647c@gaisler.com>
+	 <CAHk-=wgrPOQTFxy-mV2EaWLj9RvHY151sQTQ8jc7e0FiorhvDA@mail.gmail.com>
+	 <2c9bc34c-f0e0-4b71-a1d8-bc2881d1a7d2@gaisler.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,59 +81,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-On Thu, 15 Oct 2026 20:47:10 +0000, netdev-bot+sashiko@kernel.org wrote:
-> [Severity: Medium]
-> Can this wait miss the final wakeup on weakly ordered architectures?
+Hi Andreas,
 
-Yes. Between the entry's store in add_wait_queue() and the read of
-splice_pending the sleeper only has an unlock and a lock acquire, not
-a full barrier; the release side reads the list after its own
-smp_mb(), so the gap is the sleeper's. v2 puts an smp_mb() after
-add_wait_queue(). Checked with herd7 against LKMM: the lost wake is
-allowed without it, forbidden with it. smc_rx_wait() has the same
-gap, but every CDC message that brings data wakes it again; this wait
-has only the pipe release to wake it, so the barrier matters here.
-Moving the decrement under lock_sock() is the change Hidayath Khan
-announced in [1]; the barrier closes the window on its own and
-doesn't depend on it.
+On Thu, 2026-10-29 at 08:03 +0100, Andreas Larsson wrote:
+> I got a late Tested-by for one of the patches, "sparc64: increase kernel
+> thread stack size to 32K" that I picked up already 2026-09-27, that I
+> inserted just before preparing the pull request. Sorry about that. Apart
+> from that added Tested-by, all changes has been on my for-next since
+> 2026-10-23, and most much longer than that, and with that included in
+> linux-next.
 
-> [Severity: Low]
-> Should smc_rx_wait_splice() do the same?
+If you really want to modify an old commit without touching the date, you
+can use this git rebase command:
 
-Yes, v2 sets and clears SOCKWQ_ASYNC_WAITDATA around the sleep.
-Measured on the v1 setup with one more case, an O_ASYNC reader owned
-by the reading thread, blocked behind the pipe while the peer sends
-one more byte: v1 returns -EINTR within 1 ms of the byte, v2 sleeps
-on and reads the next 4096 bytes once the pipe is drained, as the
-unpatched kernel does.
+git -c rebase.instructionFormat=3D'%s%nexec GIT_COMMITTER_DATE=3D"%cD" \
+       GIT_AUTHOR_DATE=3D"%aD" git commit --amend' rebase $COMMIT_ID
 
-> [Severity: Medium]
-> This is a pre-existing issue that this patch didn't introduce: can the
-> splice path read a stale splbytes here?
+> Below follows a pull request for my original for-next before the added
+> Tested-by. I hope you can take either my original pull request with my
+> explanation of the one below if you rather want to have commit dates
+> that better represents when they were picked up.
 
-It can; the fix is Hidayath's change in [1]. This patch doesn't touch
-that path.
+Can you push this to your for-linus branch?
 
-> [Severity: Medium]
-> This is a pre-existing issue rather than one added by this patch, but
-> smc_poll() still disagrees with this -EAGAIN:
+Adrian
 
-The commit message of v2 now says so: a non-blocking read behind the
-pipe returns -EAGAIN while poll() reports the socket readable, since
-bytes_to_rcv counts the data behind the pipe. A level-triggered loop
-that keeps the spliced bytes in a pipe gets EPOLLIN and -EAGAIN until
-it drains that pipe; before the patch the same read didn't return
-until the drain, asleep, one pass per tick, not spinning (measured).
-Looking at splice_pending in smc_poll() would hide data splice() can
-still take (a second splice with the first undrained returns the next
-4096 bytes at once, measured), so v2 leaves poll() alone; the pipe
-release wakes the socket.
-
-[1] https://lore.kernel.org/all/7a174d1f-80d8-4294-ae66-829c9dacd662@linux.=
-ibm.com/
-
-pw-bot: cr
-
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
