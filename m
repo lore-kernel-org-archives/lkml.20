@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.69.126.157
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793295681;
-	b=E9TEe86DZ5Man7xtn43JBfonznuu20yIeXodeW+U5B8eaoSEcSpbWRkonKK4Y8r2w9aC
-	 Kk8eLqEqBzIQ1fbmHvt4dYoe1BggBqhmK0xzcBpfrXBBWOxKC2QGgDr6A+VjvOK0PuZZ/
-	 lGxqlLKJ+Faq2iiYQ+klvhMhpCrArOTizdfEU3wweNXAB8ThpJgzmmPtAKr8sT70XBkSl
-	 ut89J19y+AbTr13JrjvAK9UyWHPtOeOEzb86re5VZ1Vg7hYhINlTeoKsIdpksZDDAUDbP
-	 JYqhiV3uauVZrfZhlKGHKIIgSyxIW5K8SyBXHZezZp/EYVXSQqyzMOCCIB5Sbf5rBpQ==
+	t=1793295700;
+	b=2kGds3ZptersU4ME0HAaOdKiM2eulI2fMVqcpyfxD0JXRgLLDZpEg2F2bCAZKscu/lZr
+	 1Yd7AZxRmAoOWOeHwBt4xfVtFZaLCHFEZPqMP1GC7GOGJfDFLTZoEJjk4O77uMjiHIy3I
+	 0zrMKbY8No6TG7H7a+tXRKKSj0qZKk1kk1V8X9tTPHuD0hMndm/vw2szyLwroGzqm4+6r
+	 pNNqHYeXnF4hhvXK5q1I0+QvCHet4pr3UxZ7v1ZQlOWI1UgmSI9Qc9USDgTOLsLobIJxB
+	 w7p7Pv5eFXP0E1EVPOCy0p0xmqYQZbsGq+rqSfUYi0TbEL3rNrC6hybfnzFVykxjriQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793295681;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=JJWiOAmxy65xzOnIzkKiZHs547R//LqHsI7/Rc5J/Mc=;
-	b=FHE1CeWR7wR5mdmCAAW8+Qn9uzqnBVz/PBzZSKo12XgS33DNvlfEpLVdAcAu/Afh7cWT
-	 sW20sej8e//fZwdnmu0LtEI9KIFwyboguTXSsjeeYKl1xKo8JGIHwGoHe+5eN7JqjgkCG
-	 aI689vA8EV03iQklOEuvQWXrgGfbo0Tw5oVtmv2n8Y5Dt0WClYQMh8MOszyHyQKYjzez2
-	 xE/wW9y5HnlPqLTOW37lhVM7ekHcIy7zAYmCaSCm0pS/UB64vc2bqklg1tNLATP2xsfm8
-	 uDBpoKC7x3SgrsqrcRRKhMEeROP6FsS02wsOGHCGOFkA7RqK6zDlAJnPGoP9giqRCXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793295700;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mnTCAqI/3aFZ35T1Tr0Lg3jrkeUfUxCSyaiBlqfRMgE=;
+	b=ivP0MkK+RWfTCQcwhSJyGH4p5jWjayK1yxuVawNsn+ylcGgobYHdsOTMTd1MKp7eDqeK
+	 JZhXiDZRJaJHZ9u4+booKRdjGs+2YL/Qn4v9DvM7uFf1hbmJGUPADahbB1JiYmbgzKRoq
+	 S+dVMakR7p2TKh3TAudtrMZdeapj6y9qujncypPgTy5wn+v9fhhwpyfXuby+ehLdYWSM6
+	 +QUQBcP7o1Knbe9qb8OjuoixHyl5pfI0BM8tAyhSVgMqe/BLXsQAD3QU5/3nBXS0q0o8b
+	 2rSkl8ty2C4mg8g5gTX3vJWcyCIZC7J6ONULsACPBsk6Eoy3WmocbBtStn9E7CDqvfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OpX1LeaD;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 11813606A31C;
-	Thu, 29 Oct 2026 17:41:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11813606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=weissschuh.net;
+	spf=pass smtp.mailfrom=weissschuh.net;
+	dkim=pass header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b="RPK8C4/V";
+	arc=none smtp.remote-ip=159.69.126.157
+Received: from todd.t-8ch.de (todd.t-8ch.de [159.69.126.157])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 736CC606A31C;
+	Thu, 29 Oct 2026 17:41:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 736CC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=weissschuh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=weissschuh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OpX1LeaD
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C3421682;
-	Thu, 29 Oct 2026 10:41:17 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B39BF3F59E;
-	Thu, 29 Oct 2026 10:41:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793295680; bh=GrLXrVxy0qLGUj63FcOKiSL+aGileL5U0QJtN0lpGjY=;
+	dkim=pass (1024-bit key, unprotected) header.d=weissschuh.net header.i=@weissschuh.net header.a=rsa-sha256 header.s=mail header.b=RPK8C4/V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=weissschuh.net;
+	s=mail; t=1793295697;
+	bh=80fT6/wE+Ej3xA81CGEeC2ZGrijcZBNCmzw1HOsXJdU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OpX1LeaDGd5qmg1b/GecPwfvsij4QQBlMterRUW7DW2dgl6Rc3ZH4ZPupZSb9LimB
-	 3izdwbPMZjn16r9O0DOrXshgNp7fhFXT091I41e35b4ioOmF0SjQl5Q7dRIuhpehd8
-	 ewYB2RmQbvzBn6Z9P+0r0bTgS/dGGz7C0mYN9e/Y=
-Date: Thu, 29 Oct 2026 17:41:17 +0000
-From: Leo Yan <leo.yan@arm.com>
-To: James Clark <james.clark@linaro.org>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Mike Leach <mike.leach@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-Subject: Re: [PATCH v2 09/14] perf cs-etm: Classify exception calls using the
- exception packet
-Message-ID: <20261029174117.GC9176@e132581.arm.com>
-References: <20260923-perf_cs_etm_fix_non_taken-v2-0-6ab8c07a5455@arm.com>
- <20260923-perf_cs_etm_fix_non_taken-v2-9-6ab8c07a5455@arm.com>
- <7bed4275-0b97-46d7-b250-5039aa95eccf@linaro.org>
+	b=RPK8C4/VupiLw+vDu+Vgbo7bmAVRW1XqEZj2qK39ZSdn3d4IhIKYjAp9Qp6SPoMf+
+	 tVVJW5qRdD/T0576Yaaj48mXS4LVm4hGhnK2Wwsq/qAI4B1L32CEzUoghSgX1iF+Wm
+	 IFZzA+HP8WF0WPSjMKsccwaPjPzTf3gLalh0Z5HE=
+Date: Thu, 29 Oct 2026 18:41:36 +0100
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <linux@weissschuh.net>
+To: Danish Khateeb <danishkhateeb03@gmail.com>
+Cc: Willy Tarreau <w@1wt.eu>, Shuah Khan <shuah@kernel.org>, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] tools/nolibc: fix fopen() with the "rb+", "wb+" and
+ "ab+" modes
+Message-ID: <3de13984-b78a-465c-8a48-4e916187b41e@t-8ch.de>
+References: <20261028200743.154151-1-danishkhateeb03@gmail.com>
+ <20261028200743.154151-3-danishkhateeb03@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,24 +60,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <7bed4275-0b97-46d7-b250-5039aa95eccf@linaro.org>
+In-Reply-To: <20261028200743.154151-3-danishkhateeb03@gmail.com>
 
-On Tue, Sep 29, 2026 at 03:08:42PM +0100, James Clark wrote:
-
-[...]
-
-> > @@ -174,6 +174,7 @@ struct cs_etm_packet {
-> >   	enum cs_etm_sample_type sample_type;
-> >   	enum cs_etm_isa isa;
-> >   	u64 start_addr;
-> > +	/* For exceptions: preferred return address, or CS_ETM_INVAL_ADDR. */
-> >   	u64 end_addr;
+On 2026-10-28 15:07:42-0500, Danish Khateeb wrote:
+> The C standard allows the '+' of an update mode to come before or after
+> the 'b', so "rb+" means the same as "r+b". fopen() only looks for the
+> '+' right after the first character, so it opens a file read-only in
+> "rb+" mode, and write-only in "wb+" and "ab+" modes. Writing to such a
+> stream, or reading from it, then fails with EBADF.
 > 
-> Minor nit, but you could use a union. I don't know how clear re-using
-> "end_addr" id for exception packets is when reading the code.
+> Look for the '+' anywhere in the mode string.
 > 
->        union {
->            u64 end_addr; // Range packets
->            u64 pref_ret_addr; // Exception packets
+> Fixes: a009a0c6faa9 ("tools/nolibc: add fopen()")
 
-Will do.
+The original implementation explicitly does not support 'b'.
+I guess we can add support for it, but then the Fixes is misplaced
+and the message needs to be reworded.
+
+> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+> ---
+>  tools/include/nolibc/stdio.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/include/nolibc/stdio.h b/tools/include/nolibc/stdio.h
+> index 00a95a267d90..205b06f18b4b 100644
+> --- a/tools/include/nolibc/stdio.h
+> +++ b/tools/include/nolibc/stdio.h
+> @@ -75,7 +75,7 @@ FILE *fopen(const char *pathname, const char *mode)
+>  		SET_ERRNO(EINVAL); return NULL;
+>  	}
+>  
+> -	if (mode[1] == '+')
+> +	if (strchr(mode, '+'))
+>  		flags = (flags & ~(O_RDONLY | O_WRONLY)) | O_RDWR;
+>  
+>  	fd = open(pathname, flags, 0666);
+> -- 
+> 2.56.0
+> 
