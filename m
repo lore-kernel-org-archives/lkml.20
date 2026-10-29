@@ -1,53 +1,144 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264397;
-	b=aKnK8p5XO9vSj6mmPeqhzv6HzSypJlOcEarYej+vizCpkp3/ygOZXQ1UlwkClSHp/6O2
-	 8s0Mhszxm+vG0wKMSKkIJY7Gb6eB/Xsvs5hBeBsL0NHSrgtx9VjZNUGVg40baifMah/mY
-	 d3KbMtqU+NAXM9O/8Q4SMXWEcOZdrBRnmSb4O3skGOm5SauLEGwE+vmtdcrUpOxS91H0i
-	 tph9rBXE5q7YXDMIrwpP3GlJCpZ0PsbZ9E56zAGqMu0JIe0s3rpWhupb/plnZLsUZnlWU
-	 QCsxy95dIXxpbzCeOk8fupnaGlb3M7pf2+0f/SlB43dpzG+BHAmiVH8DeWwh17H552g==
+	t=1793264410;
+	b=Og4eFzGqVceR/a3MfMoiolnY202BE5CdkCXn+swrANYkHpd5W4QQWAlmY+3b8T4oslMC
+	 Hi4/v2A5P+KJXgLgu7KHJZOoIewennHG9Kb6pMgQJCeoAbCyL9CFR9yb01Pqib7yrGwo+
+	 f+Z3nJ9Jt6kzBW57SOBmKTITnwgN8OD709Q6CtdUEkSwyePbhBb+33l3ejMuGreU6vof7
+	 S/oSVS8xKpRf2VfyphJ9bBcN+IyiQSS3VGW7c9y2NsU5StECa2RMScZyO62qKVBW+HwC1
+	 fjILDpnRivvRDnsvFSZVLU9Uy/yj9h1CIx80AJ5KmGr3PuvBPPanHd4qyO3e8S4BXFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264397;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=MfZsiPR9z6Giv1Nay+HsSdw6MpOIDutAzqAQVq0AcZo=;
-	b=E5ZwyQhoi1/F0ta1erBgUE8c1fPcQY482F0W++aeshIvuGJaUtXZ5rq0zgS0+efqOll7
-	 67wvHhouK8IKEnZfXtzS408WGILiLWAnfzgq56raIWhc8Yhw6l1BMnaOBtNAkCaPC/uoq
-	 K7uJnRvubNQtIm+v7bmoa+Yrf8+QGcCHGJFtvoRXdOHy0OHGn5fl8+vdlS1ygDhVwFIQZ
-	 U4xPiFQNlGzb0lYvcs+WchqkeJIOnl2PLx0/4x5sHExFst0jPY4N1d8yOoyOnT+/PAvH5
-	 vbMjn4uJx0bb/0rypjCn+Hsk/JOS5FHxuwdJABTm36SbwWQ8gQaaT+F+VAje1Y7hmtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793264410;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=bas+A2pwMPdYKlr8K9rmQmJzztUh1FCL0UJNjmXGJUs=;
+	b=bqCzOOMi/jVjnPLEsd7HtFAYAuDm8LHn0YDvU31pkawpAj8v62l+JNz5gge6hALhbQtB
+	 g1ay5RoRrX1ddF1lZcjEpsnZMjF04aSYIAOigcqH0bLcBRiFHjIUZWfRrqw2R4425jEq1
+	 FNulz/gG09ODf330OELpTB2JhA/tNso90KGbt8GHYzfN7THR54CukegupVNcwKcSzoHvY
+	 rC6uPEqZH9LsmMWzh2JO22W8RBWyG5TPBA1VvwpjlpJceLaobpjThWX0EgjPgdx8d0bGO
+	 iXwx++3KLoYW/c8MAXot6fyxbiHLu5rlqWbxy/MJTGxb3nqLF0Vs2+MJROwpt2rD1uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nLIWCviT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xt7r6i1X;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB56606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:59:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC91606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:00:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCC91606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nLIWCviT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBFE41F01825;
-	Thu, 29 Oct 2026 08:59:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793264396;
-	bh=MfZsiPR9z6Giv1Nay+HsSdw6MpOIDutAzqAQVq0AcZo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nLIWCviT4VYVZ40Is/cPJ+WahIS91fZhzRCp4zqICNJjUSc/5rocLhfPknIOHWbVY
-	 sg6jT2MJX/F8VeK/rw+NsrdUNLdKOeXxBtUPmt41+nZ2wzrjmOxYI5dMHBaXhzqdR9
-	 AnfeNlAo0NprTw/81wkVCYdjiS4CND2e9YGk8AX0=
-Date: Thu, 29 Oct 2026 09:59:53 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: =?utf-8?B?5r2Y54Wc5p2t?= <panyuhang@hdu.edu.cn>
-Cc: zack.rusin@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, airlied@gmail.com, daniel@ffwll.ch,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	security@kernel.org
-Subject: Re: reject PRIME export without TTM backing
-Message-ID: <2026102940-unlivable-cytoplast-352a@gregkh>
-References: <ACEAWQCGLEhWF5vMItAIpqoW.1.1793262795047.Hmail.242270054@hdu.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xt7r6i1X
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36a1947498bso1259127eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:00:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793264409; x=1793869209; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bas+A2pwMPdYKlr8K9rmQmJzztUh1FCL0UJNjmXGJUs=;
+        b=xt7r6i1XB1wkXiieaXlil0rUqSFTNnvo7KXs2PxxFwFRllKLzCjc3lAJO51BFf/aQE
+         xwbahwlJGxoNmGtKzWB5ciUYUa8c3l5IJQsM+quncSLh590orvnt0rglBklJg/4hSSr5
+         zUPZzBSdVHkEFdUOEXNz8+Iq29pYNSRU0vAv9U/jDNds4FjL0ObkXxPo6wW9U7n8MZge
+         OCHy/7VRQ2HxiSov3eT+s6eDTuNFwtOZq9jcBMY8gKElsY6t9e3T1UTNnMtDHZO16180
+         l9J76Q96/yivgS/e1DmrD4Nu65RQWYxclEk/7RuWeTqfVqY8JXOD8ciHHvZVApvrwhvR
+         6rrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793264409; x=1793869209;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bas+A2pwMPdYKlr8K9rmQmJzztUh1FCL0UJNjmXGJUs=;
+        b=QBqxhuW7vcopi+v8pJmPtO708CAzIWpcecSx9QdvRX0V8Acq+02GdkaaDGexzxesEL
+         OSCzFJWT+yaCq3ADc7FoAvgsSKHNkVk/xMcLXKxDLaXmVFvGD8u39l1b0pYRyVtu/myU
+         nQID6Az2pAzX1nZ8mN1GqeJ4XuBhyq4jnzX71+UI+qI4IwFKHMma+vpYygBmRYoktPWd
+         P2SZFRypvToTl/1+KDnO1dHak9lbRgltYvQdsjDqwEZHQ1EgUHlcegSDcYgWJIvQULm1
+         72R/9GOLEiOnzdiHPxeNecXz+7d4dK9v9Vx4oFh05l137XbrlcUSRDFE675y3vY31xnj
+         MGqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxRAz3/BHRIros9jAE1iHRxL2cMd0U/+1M21wC5s7LxFhpJa22dQ0f2gkUVYbr3EeanKgVdjSNH4zyc0Go=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJF79pdSRLX+YxrBbfpWdmXQfjxz5ZW5xCRxy2RHpiLaR7UE9BI
+	+wYHzx0DBg0J1BJhQV8rfZp+YcJUgRaENjT/ccva94F35gr/p//nJFM=
+X-Gm-Gg: AYBFou0QfaRcqs7zuDNqnvcDug/CfnZCFStZWUco9usFv51RryvVCwBu5EpRan7cuQ7
+	W5L9uBIBUP3+CKb9n9As4J2kumeG3BBXvcKt4Y1Ghmdema/digml4I2gMHNM2hL1lneGcXphtOK
+	RfHOzECklrmSc+GgRe2ROSR90xXYnHpmCgJ9axztnA4ODE80QhMGzvdM5m9bZQXvVQdAiq4KBsO
+	FD5rbRjT45vye35wcLExVLeTsBu/1cwjAR5n9c7N5T4Z35cOrAa/ysMl0hwTFTLAFKFSGlE6J1J
+	8/sli5/HArwA1nTutZqlDp5BnBWJuf/YjjGS4awukkTfgU2E+FSi5z8PDryYqfg9NRLwcA2eiK/
+	aWvUjJbSzTbIYSOMhVLi4X4wOsazZ9+5j4WmmspwYdfp8zd6RpysAI594TuIlqWwTUXMWZvXzLD
+	uT7EsH1xjCD7Qk0i2AhMM6SkDI3Mp9wu4vxe/3W7RuOs8FvzsJtoAQIAd/uVImTby1hhFgfiH5K
+	5xXPUN29Oxuu8Fm2mcF8ZT9q9gdq7cDkO3DKtkGZslm2WUeL5CTS/61LmBYlbKAAuQwdpqej9kg
+	lhB1weNRtjHXn2k1OxcH47EOzexRE1Mvxt2MS78gfl8nIxRDrw9x+nY9Ry6MHw==
+X-Received: by 2002:a05:7301:d185:b0:369:fe4c:b48f with SMTP id 5a478bee46e88-36a20119d21mr7048294eec.0.1793264408741;
+        Thu, 29 Oct 2026 02:00:08 -0700 (PDT)
+Received: from at-Standard-PC-Q35-ICH9-2009 ([27.60.20.232])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a23641e78sm16497937eec.0.2026.10.29.01.59.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 02:00:08 -0700 (PDT)
+From: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+To: 
+Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Sven Peter <sven@kernel.org>,
+	Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-hwmon@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	mfd@lists.linux.dev,
+	platform-driver-x86@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	linux-integrity@vger.kernel.org,
+	keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org
+Subject: [RFC PATCH 09/14] treewide: disable other rtc's in t2 macs
+Date: Thu, 29 Oct 2026 04:52:06 -0400
+Message-ID: <20261029085504.3547-10-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
+References: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,56 +148,62 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <ACEAWQCGLEhWF5vMItAIpqoW.1.1793262795047.Hmail.242270054@hdu.edu.cn>
 
-On Thu, Oct 29, 2026 at 04:33:15PM +0800, 潘煜杭 wrote:
-> Hello,
-> 
-> GPT-5 assisted with the initial analysis and drafting the proposed fix. I am
-> responsible for this report and patch.
-> 
-> While fuzzing the vmwgfx PRIME import path, I observed a kernel NULL pointer
-> dereference in vmw_gem_object_get_sg_table(). The userspace operation was
-> DRM_IOCTL_PRIME_FD_TO_HANDLE. The call path was:
-> 
->   __x64_sys_ioctl()
->     -> vmw_unlocked_ioctl()
->     -> vmw_generic_ioctl()
->     -> drm_ioctl()
->     -> drm_prime_fd_to_handle_ioctl()
->     -> vmw_prime_fd_to_handle()
->     -> drm_gem_prime_fd_to_handle()
->     -> drm_gem_prime_import_dev()
->     -> dma_buf_map_attachment()
->     -> drm_gem_map_dma_buf()
->     -> vmw_gem_object_get_sg_table()
-> 
-> The vmwgfx callback obtains the TTM buffer object and uses bo->ttm as the
-> embedded dma_ttm member of struct vmw_ttm_tt. In the crashing path, bo->ttm
-> was NULL. container_of() consequently produced a NULL-based vmw_ttm_tt
-> pointer, and reading vmw_tt->vsgt.sgt faulted at offset 0x88:
-> 
->   BUG: kernel NULL pointer dereference, address: 0000000000000088
->   RIP: 0010:vmw_gem_object_get_sg_table+0x2f/0xa0
->   RBP: 0000000000000000
->   CR2: 0000000000000088
-> 
-> The faulting instruction reads from [RBP + 0x88]; with RBP equal to zero,
-> this matches the reported address. The callback requires a vmwgfx TTM
-> translation table, so it must reject an object without bo->ttm before
-> container_of() and member access. This patch returns -EINVAL in that case.
-> 
-> The patch below is against the Linux 7.3 source tree; it
-> applies cleanly and passes checkpatch.pl --strict.
-> 
-> Assisted-by: OpenAI Codex (GPT-5)
-> Signed-off-by: Yuhang Pan <242270054@hdu.edu.cn>
+The CMOS RTC and the ACPI TAD clock don't work correctly on
+T2 Macs. When macsmc-rtc is enabled, turn them off on these
+machines so macsmc-rtc is the only clock.
 
-No Fixes: or cc: stable tags?
+Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+---
+ drivers/acpi/acpi_tad.c | 4 ++++
+ drivers/rtc/rtc-cmos.c  | 4 ++++
+ 2 files changed, 8 insertions(+)
 
-thanks,
+diff --git a/drivers/acpi/acpi_tad.c b/drivers/acpi/acpi_tad.c
+index 45459a4ca..a137a39e5 100644
+--- a/drivers/acpi/acpi_tad.c
++++ b/drivers/acpi/acpi_tad.c
+@@ -28,6 +28,7 @@
+ #include <linux/ktime.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
++#include <linux/platform_data/x86/apple.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/rtc.h>
+@@ -845,6 +846,9 @@ static int acpi_tad_probe(struct platform_device *pdev)
+ 		return -ENODEV;
+ 	}
+ 
++	if (IS_ENABLED(CONFIG_RTC_DRV_MACSMC) && has_apple_t2_chip)
++		caps &= ~ACPI_TAD_RT;
++
+ 	if (!acpi_has_method(handle, "_PRW")) {
+ 		dev_info(dev, "Missing _PRW\n");
+ 		caps &= ~(ACPI_TAD_AC_WAKE | ACPI_TAD_DC_WAKE);
+diff --git a/drivers/rtc/rtc-cmos.c b/drivers/rtc/rtc-cmos.c
+index fa04ece15..bdb436e24 100644
+--- a/drivers/rtc/rtc-cmos.c
++++ b/drivers/rtc/rtc-cmos.c
+@@ -33,6 +33,7 @@
+ #include <linux/init.h>
+ #include <linux/interrupt.h>
+ #include <linux/spinlock.h>
++#include <linux/platform_data/x86/apple.h>
+ #include <linux/platform_device.h>
+ #include <linux/log2.h>
+ #include <linux/pm.h>
+@@ -944,6 +945,9 @@ cmos_do_probe(struct device *dev, struct resource *ports, int rtc_irq)
+ 		.priv = &cmos_rtc,
+ 	};
+ 
++	if (IS_ENABLED(CONFIG_RTC_DRV_MACSMC) && has_apple_t2_chip)
++		return -ENODEV;
++
+ 	/* there can be only one ... */
+ 	if (cmos_rtc.dev)
+ 		return -EBUSY;
+-- 
+2.55.0
 
-greg k-h
