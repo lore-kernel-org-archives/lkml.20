@@ -1,90 +1,95 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267738;
-	b=JZBYQqEQYDElluFqieT3+z0w5sCb1/Fq0UyuZDyeUp1c75z1Cdp7VKwOgWpjhD4Pn570
-	 bkusnTgsEoQVGIDBi7/vIWsoNkBiTVPhg2gTAJkDNzAXIvdLrd7ItyDfOkgQ3sWGam/GM
-	 zEy5MJ9a1Z1IQnarqwzVLwwz9PFax3b3pjEBfayOBnj670tZ2Dx5254x9Kofoyl3yTSFB
-	 v8VVPjEHvraGfGVQ7XNv5rXfhkapaJuZ1huWU5qdrRmG9Ed8wyXjAG3f3QMIpaQbrvw+Z
-	 qbqKJXKav99xqkRHt7lkJaBxd/+i7oNwiT8l9gAfCer+ecqvOjfR6TMiGNA+XCRiVmg==
+	t=1793267748;
+	b=4UDWjKkghhXMBEKZlZ3S09kccngqF7mzm5SurLAg5JtvbISkLN6YpV1tFzGtXiUU3BCY
+	 gUyc+kNjLs6alz0YmMXDU9t3qUzQF0B2bCu2Qv8DbqQQLdw2ChfXYh4AawOkV69+Qj64x
+	 nbez+Re36tOPB8N2+e2IFPVbW60+vlPDZY++TQkt37xqOr2JuQH2Idi22XSPRCnhDpdT/
+	 JZratjkp32SaTdrtVrlvOhbUgrYJcRN0+cEw4evVXc62PZetEFR44IXaD7v2XEjTDQzx8
+	 S+cA1FZB80jxM3Ld0MByi4dZkEuVfgivLNuNqNdrej5tAcDYUPC0FIiymu7HiuYNKlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267738;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267748;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Q3K7UJYssYgndcsY5/xbkc+YHKRaobFw80/xyUa+zJg=;
-	b=K9EZiaSvTtTwRVS4NFQM2BNbEsILGUE1/KvApDI4jtF22qsfIO+2V9aybBVD8/0QEbpA
-	 u9YpcJCrgJ6KMF3D1f/V1b/ZhpPRFtghD3XSCX8+HiJEB3ybf/EuqyUfsY+BfbYP8tpHd
-	 YgGnjzGzJtST+fVL7tNHu2bK6U81pp4bwkYu5prLdE8//pRFDR/Co2tUZ2w545sP1yEJw
-	 6CA1NQlPObAYwveB+uY43FKiXxtttF/fNnfb4H0MA+jtgt/j6z3nvYY4Bsq62E5HtNqc7
-	 W44AGJTHJLsZyBFVBVtHGBK21mMfYn1P8l06s1zSt9AC/aqF/8kAZfTpVNeKx+i9x7w==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
+	 X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tm7h+ZdQp+5bG8kSfYA0Nc38x7iz+CnqQnhw3MzPmhw=;
+	b=Dy2ou8O+a1/V2r/QOY8osvlma25RX1XRIzUjbaOpQH1LVCwHPRJkN3HRh+bALZD/P3nH
+	 MufCrt90qurIU0mzl7B9srXre6LX9A0cZavFYFYmgyoW45BF/yml3LVJ/QtpHXaZG5l/g
+	 sYQh88CaFY6aQELchsEqnEyMpnTVBnmnGKrHd5lTOx+xPBWCLgu0y0xV8a2zmGGOuaOMp
+	 Ti3g4Vdzj7KRt3AlTHP/EH+fL47q68SI96ADOaV7rkeX8Fjq8YAodUN+dCWEVSUd6hgXg
+	 emVrEaqkbfjJPPOvk+i8ANFW7AMSo76qarwmAWhq4U9WDEX1XpaMYIJ67XeukiXAdtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AOsYttvM;
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yAV2817B;
 	arc=none smtp.remote-ip=209.85.128.42
 Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E105A60A5BC6
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:55:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E105A60A5BC6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E79606B773
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:55:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78E79606B773
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=AOsYttvM
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so12037295e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:55:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yAV2817B
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso17339865e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:55:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793267736; x=1793872536; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q3K7UJYssYgndcsY5/xbkc+YHKRaobFw80/xyUa+zJg=;
-        b=AOsYttvMzASirckNj31yHygQfa8Hzj5ULE/Grk8bspdy+doWgCRd8DGxEmbofrw4La
-         yPfp3cavNNm57NDb5FNWXJKOQB/BxAyIt1onF5QZ9G+fXYo/cx1su2CWU6AiNrCHIPl+
-         fY0UOs1ZwMRbzeImWj0ryR4ST6F2Bs5PiJuvENV9GyXTkTzE+RA2DaOhobp5QPnl9PIZ
-         YrV0+yUCrT5aoAvQm3o8Hmt3GSON7Y9JY4uD4Xy6zoMb0OKHfTcx7y4vc0jq39wwyptZ
-         Bhlk5Mk59465RSLgaUSvbAWE1bzd0Z7yrVtMu8lEMVQcWjYVLJNi1GYvxEuVjcirUqbx
-         LRNA==
+        d=gmail.com; s=20260707; t=1793267747; x=1793872547; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tm7h+ZdQp+5bG8kSfYA0Nc38x7iz+CnqQnhw3MzPmhw=;
+        b=yAV2817BCZ5MoqZcPdBC7vs5JZpazSQMPRTLw1nzrwi+dfNc2agwBojie/RndbbYF7
+         +vecFFR80+ss6Kw4wQVx9wwFPNoeWUkcN2GaRqMlT8xQGw8xPFkhObjJz6Hr5d/V/eiv
+         wiTmV7FHg73lsKXfvWqcdtLsunARIDDLBB+HIz/QXMOflqELVWPuP7Hu8ockbRSuurTx
+         Zah4oZMzDL+rw/zp7tyKkMW8HEWB2HAU9UeKH06Ehw/Gs6IzawAyIUmwtoLbz+J/tMNy
+         u+u5fYkSUseP17t09E8dXJtyMf9sxbfeo0zN3u6nudlnCImlZwH1XKvnMHGldGy2+A9Z
+         uGUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793267736; x=1793872536;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q3K7UJYssYgndcsY5/xbkc+YHKRaobFw80/xyUa+zJg=;
-        b=e33Aja3DcURZZkX0kbrPzuUc/+E5etK284KEhDioQuYzqE3YuwKtCnCb+YigvWwzUq
-         btNWzTm7lcXniP6cpO4GUqB0P/2eTGL2Yt+8V7LhXEgoltyJXmyZFAhDXNcy3j0VMSOw
-         7u9Kdn3a3WkXpEQOoezjnZzOzdhJaZ5ZrIOBeVe5Dknh+bGQxocWo8Hs+N19ZMtt+pP4
-         jz+EP1X/y6hG0+MHJaz/s2qwDXu0sugrGgXA8Y7NnEZC+t6TIXkXXk0TyP4K/Fulm/Pf
-         nx0nlw+Ho6OKlafxx5lkYM2k5OMlGyQPSWwUR0Acz5YktVbWSFCIonl7FudoEcE5DYGX
-         /SlA==
-X-Forwarded-Encrypted: i=1; AKwUvByUP3zqZqTsKWmDpRH1SqNBcWBAv0+aFb2SKlxr9ccihGtJQE4PE5bazVXxTYTgPlog5Wi5tYb8QToDGlw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6VlBLpMt+YnWJU/xT3pHE+2ZkgUPxTpqmT/m8a/bj+ac/gMrh
-	tRWKsgtRqCOtxBrkqtDHBNQi7CA22YWB+VDzL1AS9TLRANN51dZpsdg/svrnSuu1l1g=
-X-Gm-Gg: AYBFou3/8B7xXQOsRFtH1XSluFidHll54NYM/VmcQaR3AEWgRmG3qCcrg80fKHPCbHD
-	44Wh1Zf6fC35rQVgT/TSwS9CyXMzskKxtiH8pnYuCT8riHCIYhlBvuGUyQ0B8UACDrJLH56IDb1
-	621YkBY6qTpnJeIvx3PXVwr1mBQHTvmDEwnn/OddjynlPMehKAeWS/zDq+tCqq9mmgg7AlQH0YT
-	0uo6L5tEdB1CkMVIDQuviLgBNTHjiEp+dCYXctiFYyXzBWEODwAPBdklKyYMzXOsWyN6SuMHy4V
-	zMh/Tdepv+MJZXTWLgq7L0F1Wxv0QfU+en9xJ8zT65XH0mPDU716LKPluDhvfPalwiDipt2iq+H
-	JMImPQi4MexdeC3a9Zuw9lFyc/KAkAvkferGALzuEFcihviE5onZeYXM0CyL5Ck19/beidSitzD
-	nbDWTrFqBXEZdmw2GUcAzXmiiaI9W2MZMIA2gkngdwx9M2V07oFp074TI/eaW6pkiTp51tWwScl
-	v+KJbZCmOkqYz7ORCFHTcfrib12KqEoCqEY46fryP6O4sJENRiKDwa1ocQVaEGjx0/ozwclAGlt
-	K5dTfnrWhX/gbrifYII=
-X-Received: by 2002:a05:600c:c08d:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4a9678c2c8cmr85135935e9.23.1793267736309;
-        Thu, 29 Oct 2026 02:55:36 -0700 (PDT)
-Received: from [127.0.0.1] ([64.43.45.156])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd37f4sm40437160f8f.44.2026.10.29.02.55.35
+        d=1e100.net; s=20260707; t=1793267747; x=1793872547;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tm7h+ZdQp+5bG8kSfYA0Nc38x7iz+CnqQnhw3MzPmhw=;
+        b=gaxmlFMDLjd//OIt6lwgFovK1wMc6/ZgFD5gWB/W6UnxA5vdVBLDVIi0RUZ1T7oMbU
+         o33HOphGY1nhjddNLlq54Fi6tHnAZ1iVjHReMxZ5SaOXabuSf4Jys8bPq/H70vLWJOPf
+         XGW0POf2T8GEE62FZTN4Jp9pUswW+RhVbOeUH6bHOQlmyO1XdFkC8177vNexgOFeWOqY
+         DgRvNLx1laXqM1oXtA0QwW5lXudJneEW42gWX4VkhsKQXJEpnQL4H5447AQ0BX7qiemm
+         Ib6cxyjSPxFzoiVNK1cS4XrIAQ2jbrHDo7VOcFo4ahJ7xuJPAA8hD/8xZB61jFbT9ig3
+         M/aw==
+X-Gm-Message-State: AFq9FYLyxaNTMq8lGOsvOqrlZZhk45VIE/wD6yzDv06b7sdxCs1mAfB2
+	YOdKupCt++tlTmKVXnjRE0RZyX6oEoX5v0u2Y/zEUicle+UbjCuVbkw0VLCbSJgr
+X-Gm-Gg: AYBFou2vjX1pl/3ePLlrucs8Q/vRC4RH1iUhDv87b0SZ8Yk65bO8nSKQrcE7BRhZMgc
+	+s+18I6I3b2RLiov4oWbQzT55HHolempzkuYOYCg1GcjfJlKsSP4AgbPBGGVa/urBCql85Vwy/f
+	CFlQp1PnaE7sW8WonbTwAESe06fCdkCR5lMr4mw8AtpIYu/esWIf1xcJw/9OYkhyzTfG6IytNnf
+	ksPVkm1TfpwuSXMJcF9bGQad99MhEX2304sdnOIHJFRmW4fAjJ/UyQqocb3ORmkX4bozliKTSif
+	SYdvAoG5Hljo9IqQMCWDJpWJ3qRWKN4YptF6bmuL2MM8RRIKy6O08ubo8C2VSZxnFiDTXijces9
+	H/6mygPwiKjEiW128u+IiEER81ZQiAXxNFvajbbzeTu6MJqUEiCVsumH5ON8aTcrDpN5Ec8qXEp
+	hfLLl5uje7xsMydC//J5CWM4asM5tgp9yDpgPivchRxvzHb00TIGGKsDYQIk72FriwSq7w4dgV4
+	wZENi59TJoIeYF55k4dtUaFqzOK706AU2pIcz2iVfARm18XLHND2jHMY2y0jS4/W0zXyNAN8HlK
+	+8iSloky5Zw/pxT7NUFkHxMUixSHk9nSRUZB54JzHKE82LPP6f1UfygtLJl9Hk5HOwjT4JuFBJs
+	lLIhkK/uQ5PxL2Bk4fLl/HcRsjAVJCyNjrkLDefcmg2Rpl6wd+42/SWVHDQh9ebBwoo8JDg==
+X-Received: by 2002:a05:600c:1387:b0:4a4:4d57:8487 with SMTP id 5b1f17b1804b1-4a96667b9f7mr107761615e9.5.1793267746803;
+        Thu, 29 Oct 2026 02:55:46 -0700 (PDT)
+Received: from GLaDOS.station ([187.13.215.67])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa8213ead6sm54492295e9.14.2026.10.29.02.55.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 02:55:35 -0700 (PDT)
-From: bryan.odonoghue@linaro.org
-X-Google-Original-From: bod@kernel.org
-Date: Thu, 29 Oct 2026 09:55:18 +0000
-Subject: [PATCH 09/14] media: qcom: camss: csid-gen2: Enable RDI SOF
- tracking
+        Thu, 29 Oct 2026 02:55:45 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: linux-kernel@vger.kernel.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Peter Huewe <peterhuewe@gmx.de>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org
+Subject: [PATCH v2 1/1] tpm: tis_i2c: Add reset delays for ST33KTPM2XI2C
+Date: Thu, 29 Oct 2026 10:55:28 +0100
+Message-ID: <20261029095528.8073-1-stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,98 +99,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-v4l2-frame-sync-v1-9-d37992559c58@kernel.org>
-References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
-In-Reply-To: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2288; i=bod@kernel.org;
- h=from:subject:message-id; bh=JfR+fNInU7PvF5XtlHk/pVeaxutrzq9CX2WhXWJJ9WE=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq4xgMWwO/C4aCqtf/PsjoalxGqQoyPNTxDfkh4
- 4jOqZA2CciJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCauMYDAAKCRAicTuzoY3I
- OrIUD/0fQ8hbmWZ4pfadaormFipAx4Wysnqa+eFVSFPwk5sTi7qo2ysaSVkxc1Lza0fTwKCZkuv
- nbPam0WishR4FxP6BynfKq/xKBgVrQAGVy/Qdo2P7DB6TFIx7gvf99oPMdBSjUjVUOE2azkD0U8
- gS45TQinNzBWPWvWs9ohMFsyPL0kcQH36u2/VZg9Aw+T1FVcvDeP9pn/lAakvkol/kGkaUY6TLg
- XUcoQWMUhoJq8m/QcdYk8TZ8Qn62RNem4YpM4aKV33iX3csHKK4Qzocu4I+ZC/AqflzxaoEXTJq
- pr3w/EMDZtuO+VvnhQ3EOO0wD+4aSi45Mmf2ZJCKHX0C3qR718q+KmBVWGdb1mq8OvZfuIeEobG
- hVOTG++tGjzxzpfRUW4HfHxGKT3xLdzZQkU0ODyxVe95M3ZbUfUXTgaCyvjHLqsFvKZXObHcw1A
- Rc0BfwhmrP6sF8q3ZLnlIRfObFGWRqirX1vS+O09KbuRv15iz0+zpBnsi8stGhLLDwykYWKaBpj
- MGxRTRiIrbQOCjX7GyCfxD6UftlSaVMD6M9krvVyHkNBVvHkMcyCzxB0wWXn1bpZDEnYoPYO/8E
- v2EnPSZkOtHevwKnycsYxHvEgj9fiz5a1od9vqRZY4Oe9foGFSe91VLfioFfVNwvM7014F0EVHM
- 7ejthoyFufZYCTg==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-Add silicon specific changes to get SOF triggering V4L2_EVENT_FRAME_SYNC
-'gen2' CSID. Covers SDM845, SDM670, SM6150, SM6350, SC7280, SC8280XP,
-SM8250.
+The optional reset control is deasserted without a delay, and probe then
+proceeds directly to the first I2C register access. Since reset-gpio
+initializes its line asserted, this provides no guaranteed minimum reset
+pulse width or recovery interval before communication starts.
 
-Tested thoroughly on sm8250 only for now. An additional patch is required
-in camss.c to enable this functionality on a per-SoC basis.
+Table 66 of the ST33KTPM-IDevID datasheet specifies a minimum reset pulse
+width of 1 ms and up to 50 ms from reset release before the first command.
+Choose a 2 ms assertion interval to provide margin above the minimum and
+wait 50 ms after deassertion, before initializing the I2C guard times.
 
-Tested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org> # sm8250
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Pull the timings from the matched device entry. If they don't exist,
+fall back to the legacy behavior without delays. Update of_tis_i2c_match
+with the timings for st33ktpm2xi2c.
+
+Link: https://www.st.com/resource/en/datasheet/st33ktpm-idevid.pdf
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
 ---
- drivers/media/platform/qcom/camss/camss-csid-gen2.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+v1->v2:
+ - Rewrite the last paragraph of the commit message
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen2.c b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-index eadcb2f7e3aaa..a351ac4b91728 100644
---- a/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid-gen2.c
-@@ -38,6 +38,8 @@
- #define CSID_CSI2_RDIN_IRQ_SET(rdi)		((csid_is_lite(csid) ? 0x3C : 0x4C) \
- 						 + 0x10 * (rdi))
+ drivers/char/tpm/tpm_tis_i2c.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/drivers/char/tpm/tpm_tis_i2c.c b/drivers/char/tpm/tpm_tis_i2c.c
+index cde0b093ed58..8bcbc84815fd 100644
+--- a/drivers/char/tpm/tpm_tis_i2c.c
++++ b/drivers/char/tpm/tpm_tis_i2c.c
+@@ -12,6 +12,8 @@
  
-+#define		RDIN_IRQ_INFO_INPUT_SOF		BIT(12)
-+
- #define CSID_TOP_IRQ_STATUS	0x70
- #define		TOP_IRQ_STATUS_RESET_DONE 0
- #define CSID_TOP_IRQ_MASK	0x74
-@@ -322,6 +324,16 @@ static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8
- 	writel_relaxed(val, csid->base + CSID_RDI_CFG0(port));
- }
+ #include <linux/i2c.h>
+ #include <linux/crc-ccitt.h>
++#include <linux/delay.h>
++#include <linux/property.h>
+ #include <linux/reset.h>
+ #include "tpm_tis_core.h"
  
-+static void __csid_configure_rdi_irq(struct csid_device *csid, u8 enable, u8 rdi)
-+{
-+	u32 val = 0;
+@@ -55,6 +57,11 @@
+ #define TPM_INTF_CAPABILITY_ZERO 0x0FFFF000
+ #define TPM_I2C_INTERFACE_CAPABILITY_ZERO 0x80000000
+ 
++struct tpm_tis_i2c_reset_timings {
++	unsigned int assert_us;
++	unsigned int deassert_us;
++};
 +
-+	if (enable)
-+		val = RDIN_IRQ_INFO_INPUT_SOF;
-+
-+	writel_relaxed(val, csid->base + CSID_CSI2_RDIN_IRQ_MASK(rdi));
-+}
-+
- static void csid_configure_stream(struct csid_device *csid, u8 enable)
+ struct tpm_tis_i2c_phy {
+ 	struct tpm_tis_data priv;
+ 	struct i2c_client *i2c_client;
+@@ -330,6 +337,7 @@ static const struct tpm_tis_phy_ops tpm_i2c_phy_ops = {
+ 
+ static int tpm_tis_i2c_probe(struct i2c_client *dev)
  {
- 	struct csid_testgen_config *tg = &csid->testgen;
-@@ -335,6 +347,7 @@ static void csid_configure_stream(struct csid_device *csid, u8 enable)
++	const struct tpm_tis_i2c_reset_timings *timings;
+ 	struct tpm_tis_i2c_phy *phy;
+ 	struct reset_control *reset;
+ 	const u8 crc_enable = 1;
+@@ -347,17 +355,25 @@ static int tpm_tis_i2c_probe(struct i2c_client *dev)
  
- 			__csid_configure_rdi_stream(csid, enable, i, 0);
- 			__csid_configure_rx(csid, &csid->phy, 0);
-+			__csid_configure_rdi_irq(csid, enable, i);
- 			__csid_ctrl_rdi(csid, enable, i);
- 		}
- }
-@@ -373,6 +386,8 @@ static irqreturn_t csid_isr(int irq, void *dev)
- 		if (csid->phy.en_vc & BIT(i)) {
- 			val = readl_relaxed(csid->base + CSID_CSI2_RDIN_IRQ_STATUS(i));
- 			writel_relaxed(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
-+			if (val & RDIN_IRQ_INFO_INPUT_SOF)
-+				csid_sof_event(csid, i);
- 		}
+ 	set_bit(TPM_TIS_DEFAULT_CANCELLATION, &phy->priv.flags);
+ 	phy->i2c_client = dev;
++	timings = device_get_match_data(&dev->dev);
  
- 	val = 1 << IRQ_CMD_CLEAR;
-
+ 	reset = devm_reset_control_get_optional_exclusive(&dev->dev, NULL);
+ 	if (IS_ERR(reset))
+ 		return dev_err_probe(&dev->dev, PTR_ERR(reset),
+ 				     "failed to get reset control\n");
+ 
++	/* Allow an already asserted reset to meet its minimum pulse width. */
++	if (reset && timings)
++		fsleep(timings->assert_us);
++
+ 	ret = reset_control_deassert(reset);
+ 	if (ret)
+ 		return dev_err_probe(&dev->dev, ret,
+ 				     "failed to deassert reset\n");
+ 
++	if (reset && timings)
++		fsleep(timings->deassert_us);
++
+ 	/* must precede all communication with the tpm */
+ 	ret = tpm_tis_i2c_init_guard_time(phy);
+ 	if (ret)
+@@ -393,9 +409,19 @@ static const struct i2c_device_id tpm_tis_i2c_id[] = {
+ MODULE_DEVICE_TABLE(i2c, tpm_tis_i2c_id);
+ 
+ #ifdef CONFIG_OF
++/*
++ * ST33KTPM-IDevID datasheet DS15011, table 66: tWL >= 1 ms and
++ * tCMD <= 50 ms. Allow 2 ms for tWL to provide margin above the minimum.
++ */
++static const struct tpm_tis_i2c_reset_timings st33ktpm2xi2c_reset_timings = {
++	.assert_us = 2000,
++	.deassert_us = 50000,
++};
++
+ static const struct of_device_id of_tis_i2c_match[] = {
+ 	{ .compatible = "infineon,slb9673", },
+ 	{ .compatible = "nuvoton,npct75x", },
++	{ .compatible = "st,st33ktpm2xi2c", .data = &st33ktpm2xi2c_reset_timings },
+ 	{ .compatible = "tcg,tpm-tis-i2c", },
+ 	{}
+ };
 -- 
-2.56.0
+2.47.3
 
