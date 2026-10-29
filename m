@@ -1,87 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793278676;
-	b=KvW+XM6vpFjLYSq6NIk3cRNeGtiOgHRShfP31//SL7iUHSi+UVM1nAHCnPIYsteSrlxY
-	 9cDb/WBdZOwDBYZBHYf5GOslireRtH+89Uuhrfn+NrrZ49noVPOI8LWyrAF0UQ7iRkQSo
-	 CltdF1WT0rmF1E5nxIvs89txI/q0HoZP+w49FGyfT/zCCjCWaslt62wgpS9fihhSonypL
-	 kqz+LL/cmVxgRe9TfQX2EV7Uoif6tFoND7beo+ARk4iTiy5299iVyoYkgSrSw6rX8y9/f
-	 hoDRiNG6a24sAJwlu05yZIoxoxkLMzWJeiHp54i/XoiO5ZBZ/OJD5QIL3zYBa22S2hw==
+	t=1793278746;
+	b=SFYnKByPGyrqtX7hUOn7+dYKljtKZ8WNA76ZLcevahSV16AbAOYR26bY82ux+nNSY8TH
+	 C3F3ey1MoxIFFXKh8kXIDP1DCOgB2F4IxF1pgoPFapvAXMI9yWNmZtR/kJuvVT0+Feohr
+	 ZcZacUhvWkwH8ZnIem3S6w11DJ+z7CQEq/xU7VGoDmiZlUvKdpEiqjrPn78JACUYZ4BJ+
+	 6OehRj6JsEg+YUpJIQ3TvyZvlk3OLaK/KuS1tPJT6vhnrnwkg8mw6/ZX1z/ERsYzYj2nf
+	 m5YD+IFNd3cnm+P+JxyavQTUNaFcsbbX3FRQO6DcU+yT7LEvIgwsYp9Rfwgo34WWLSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793278676;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=lORUDuD44P5apmR746epDN5dym1GQh15CCtLamHIWFs=;
-	b=q79xiusyKhVKAMycLe38LOrs2jySNhkK2telr0S+Z8iJMo+i8MjCbVPJtFegvgnVyiJ5
-	 P8BnNvU2SbG31RG7bpXPba7jI3100q1KQt81Y6Q6BwPI4jk9odOhzvy8bg9l/EvN3Dox5
-	 Qmifm6sQCTaQ5r+y0bTGFhxgualsZl5n4cBz1SuUN8FzyjcKV+ZN4efd5yfsDS2qfVjpu
-	 NAP5Btll6wUtJwauDfp3T6mXQUspBRBRcGoc+WroQkM4JCclNCiBB8GmLK/1TXnMUJVB8
-	 PpOWMMMRCb8ds3CkfJGDabGQlwnBYbp5tIntyEF0Bf0Xz6nKCVGXoBB7umDAr86f2RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793278746;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=53kh1jzqgst4C7GMrt2nlms5x3GRLs7CUdsfirKiIAU=;
+	b=GCzfcERSwJ8fFz5VMfEBbMh4CK7qyy4i/ikK3PhWat7n4UJdBLYv7bVgBQKmSQoGmC38
+	 E6Cy+P54w4yWk9q9mAh7qo/lbgqF19ou5JrH1I4RGCYxsWLygkB3hHQa3WKKARIgpfBf/
+	 qViiL/KW2CGlHhhROlAMZibPMGmANsh9atI03Nmz0k6Wlipqdtuxrc0E/SaWYESkp+LgF
+	 KPKk7Uz2i1vdGoDofE/F8lP3u0tdIT434yM2TaILeezjzI8WMdlg5Mu4CICqnBf13o79o
+	 WFVbZUI7xcbKynynRAW5IYCcyzdEdM/GsvfDqHFhBMHthBNvwYjIkfmL35WDS0U6B+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=layalina.io;
-	spf=pass smtp.mailfrom=layalina.io;
-	dkim=pass header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=XYVlWQmP;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iMSYRC50;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF36606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:57:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FF36606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E12F606A31A;
+	Thu, 29 Oct 2026 12:59:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E12F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=XYVlWQmP
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48df4f540ebso1037356f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:57:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=layalina-io.20260707.gappssmtp.com; s=20260707; t=1793278675; x=1793883475; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lORUDuD44P5apmR746epDN5dym1GQh15CCtLamHIWFs=;
-        b=XYVlWQmP1gL0rdzvSX2PBxtass3NzTJcR41SBmfBqj7LAKpIZ6n/EzARwaGNZyW8zh
-         pDDu3Pr6+Bsr0baa42HWNfpWENXF+Gv4FN16Yzw2EWEjFKijdOIYO9jlLUdEzYsmmXzQ
-         9eOzRpjzmgwv0UUmMJgdcVmmNFDQ8LcipUaxa7zZiMrPZFSK8jGz14mVcOF+TMGATg8V
-         zCbk9805xGLLx9vHAJhZdzJoPEVC23VLntXubqjWl+4LRJtleLrgCHka+MSyG1GVy/JF
-         iHr3BdDaZRHQcIEGSE2L57RwIDosg70vv7fO0TMFo5NCx9JLftuvZGRKGwBJTHoYxIhO
-         c1ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793278675; x=1793883475;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lORUDuD44P5apmR746epDN5dym1GQh15CCtLamHIWFs=;
-        b=RdNHzLJrheWNV0OJRd2ImvSDkXtDAXS857l6zOnBSDH7diKAu9tLdeZk9rGjxg5FCh
-         pA3saVl+rTT3JeX4ZKkHbmN2zhAtIg9ZFxzerULIk+fHWX43UnrjgL2ceQFWrrt3/ZGR
-         4XGnTzH7aBvcEozuumJtPVGlZfoIrjWAPG6SZKxwkyUDPdfab1B007TR7Jd54rj+Bhm8
-         HgvakzUACPPX/ldp7FF2zq3sRO260cIyX4zLnZ9CimhmIr09b2ECHq3vf6URGycbyL5D
-         zRzkAPaT9wjDH8ciOLF/bDTTX5EPnLeVwYx8Wat1iC1MCdJLWoG/yzg+yQTr1ZmmDHK1
-         Mckg==
-X-Forwarded-Encrypted: i=1; AKwUvByEh3Dk7114mE+NsauNfZg46XRQdsvFiRP1KEt20XjChyEWCFBTEc9VHXM6syPHQe4hNKddFUsGJtYNl6w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+MzEj3D+yPJvP5+LHLs1/QfRMVY2dtf2KxZerYQEaqAySdU23
-	wUrkDLiWfS1o78GAPuE4xZFmyD1LUo6AqYIYhiy43oU7MaTARJHBMVL2/7QMl6cGYUE=
-X-Gm-Gg: AYBFou3Uqmf8prgDmIjQN1+KUrK3Yj8galDQ+gvAKp9VLGV/h1Lg3Del78Vz1VVvkuI
-	Sl0M6NsUXt8WRE5e5pbfBmF1MQntJciRQLo1t+xswX3TP3EuxvGY59IVD33Gf5Klm29qkJ9lcVr
-	ALzI2LobiRQPIJZn5y0IzlRoX2ZAD/hj8CtWi2u+AXC2jbChAEnoZae+FpzuwffEjF+2jZwA0u+
-	Pb1QsfbYnOjuxLkijJukrwXeeWssJ6x73T5+tAn/CXMJlGI6+i6ltg9SOacuot02ADs4dnrj+3P
-	2OTguj+X5bIj4wy4QHhKrrD3+YyhBearmCiBMT9wleSzIULzu8FRS1O+nfeXOm4jjxE71MQVS+q
-	KjG55NbD/cWL+3hOR2MKqfATKzPX7C2LYDJBqRCdHbLMORWPwT4QYnvS3mQ3UXchSdKB2Gkueu+
-	SmVUWcz5U+v9ok/0OqDSPf43Zk+ozTWDmpBOvF3f2mltCPDotS1oDZ3wZ752y5bm1jrYeoMD9FO
-	KgFXqPC6Ai4GhrrBFcs4HmVfNPQOwNbgNi5+Zz1Y3gxRFdhRbMUUCm8bJtUb0bdqEMccpMzSnxQ
-	xsaudU+VUVg4Z4t6Aa4lY1OQZCAzhEBnAtMTTWsdxMscp/5wGdxUssHKNXyg1+8ikRZp3KHXy88
-	nooBVAbVjvkuBUA==
-X-Received: by 2002:a5d:5f84:0:b0:48b:1a0:5630 with SMTP id ffacd0b85a97d-48e5d3063b6mr13743271f8f.41.1793278674655;
-        Thu, 29 Oct 2026 05:57:54 -0700 (PDT)
-Received: from [192.168.0.219] (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd39a9sm35661629f8f.46.2026.10.29.05.57.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 05:57:54 -0700 (PDT)
-Message-ID: <5523c6e2-b791-448c-a587-d940dc0bfdbf@layalina.io>
-Date: Thu, 29 Oct 2026 12:57:51 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iMSYRC50
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793278743; x=1824814743;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=etVGe+d7u+6Nv9Ztfov9yJUfiPZViljR0oxwR4I/XcM=;
+  b=iMSYRC50g1/r+iSOJKAWIfIfksnnJZMh9UTn7WPuLzpVvjhutvgZt6q5
+   thdK/E7iqJj+vT2gUrdqOiBAZ/Wlb537CK08Lq9O67DHkhPdKsMEZr2Qx
+   OZSqbxkh67a9YH8EW5vAUHd6xMAGoxAQMkhVjKmVDwxmnavdYL6gq718b
+   lC2pDYBWQpTvb+xp614i1V4eXobIKXnBixl7oKaC0nk+Pz/rVobQ+T2YQ
+   E7J5Qqw63i+bvrXQe+uefYDEf5nPr9BlmScno94Jq52K723QYqmSe36Wy
+   u+bPjQP9LMxxpZ0eiw56JOLREwwPyLd9veDoW9NrLQwh3cKbTqTIIZzey
+   Q==;
+X-CSE-ConnectionGUID: 7557HJU3QpeQHmKqQE+bqw==
+X-CSE-MsgGUID: aYQdXZ4YS4mC5tzv0aGVBQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2017216"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="2017216"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 05:59:03 -0700
+X-CSE-ConnectionGUID: awUjsFGATXGR3LpaXrm0Cw==
+X-CSE-MsgGUID: HMIFTgzBQ5qfE8yEzVwm0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5231919"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 05:58:59 -0700
+Date: Thu, 29 Oct 2026 14:58:57 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-hwmon@vger.kernel.org,
+	linux@analog.com
+Subject: Re: [PATCH v4 3/3] iio: adc: add driver for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <auNDEQXkQ89RHjc4@ashevche-desk.local>
+References: <20261028-topic-sm8x50-iio-max34417-adc-v4-0-d4baaf3ee903@linaro.org>
+ <20261028-topic-sm8x50-iio-max34417-adc-v4-3-d4baaf3ee903@linaro.org>
+ <auIPfwQII72aqyWA@ashevche-desk.local>
+ <d2e93ac7-1689-4e06-a694-d0a95d05a400@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,105 +90,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] sched/uclamp: Fix race condition leading to
- imbalanced uclamp_rq
-From: Qais Yousef <qyousef@layalina.io>
-To: Christian Loehle <christian.loehle@arm.com>,
- Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
- linux-kernel@vger.kernel.org, Wei Wang <wvw@google.com>
-References: <20261028020512.10245-1-qyousef@layalina.io>
- <20261028020512.10245-2-qyousef@layalina.io>
- <97ab857d-9d9e-40d4-a243-253d1c2e411f@arm.com>
- <57277276-2115-446F-A339-DBD5373E4F1D@layalina.io>
-Content-Language: en-US
-In-Reply-To: <57277276-2115-446F-A339-DBD5373E4F1D@layalina.io>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d2e93ac7-1689-4e06-a694-d0a95d05a400@linaro.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 10/28/26 12:09, Qais Yousef wrote:
-> On October 28, 2026 11:13:55 AM UTC, Christian Loehle <christian.loehle@arm.com> wrote:
->> On 10/28/26 02:05, Qais Yousef wrote:
->>> Static keys are not guaranteed to be enabled atomically across CPUs.
->>> Which means when sched_uclamp_used is enabled, some CPUs will return
->>> true for uclamp_is_used() while others won't, leading to asymmetric
->>> ulcamp_rq_{inc, dec}_id. If we decrement without increment this is safe
->>> as documented in the code. But an increment without a decrement is
->>> a problem and will leave the uclamp_rq in a corrupt state.
->>>
->>> The race for increment without a decrement is interesting as it means
->>> a CPU has seen the static key flipped and incremented while enqueueing
->>> a task, but the task was dequeued on another CPU that hasn't seen the
->>> static key flipped - we need to be wary this might be a symptom of
->>> something else going wrong.
->>>
->>> Plugging the race is hard as discussed in [1]. Take it for granted and
->>> do correction actions on going to idle to guarantee this state is
->>> transient for a short period after uclamp_sched_used is enabled.
->>>
->>> [1] https://lore.kernel.org/lkml/CANDhNCqyXsZ6G77z+9s=rTO6BZifRG9+hVxMTah+tAv6pB6h3w@mail.gmail.com/
->>>
->>> Reported-by: Wei Wang <wvw@google.com>
->>> Fixes: 46609ce227039 ("sched/uclamp: Protect uclamp fast path code with static key")
->>> Signed-off-by: Qais Yousef <qyousef@layalina.io>
->>> ---
->>>   kernel/sched/core.c  |  2 +-
->>>   kernel/sched/idle.c  | 17 +++++++++++++++++
->>>   kernel/sched/sched.h |  3 +++
->>>   3 files changed, 21 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
->>> index d7c3b43158dea..c6780358a7975 100644
->>> --- a/kernel/sched/core.c
->>> +++ b/kernel/sched/core.c
->>> @@ -2111,7 +2111,7 @@ static void uclamp_post_fork(struct task_struct *p)
->>>   	uclamp_update_util_min_rt_default(p);
->>>   }
->>>   
->>> -static void __init init_uclamp_rq(struct rq *rq)
->>> +void init_uclamp_rq(struct rq *rq)
->>>   {
->>>   	enum uclamp_id clamp_id;
->>>   	struct uclamp_rq *uc_rq = rq->uclamp;
->>> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
->>> index 76f3c84ca6846..c722b23e07dc2 100644
->>> --- a/kernel/sched/idle.c
->>> +++ b/kernel/sched/idle.c
->>> @@ -502,6 +502,23 @@ static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt
->>>   	 * lost_idle_time of clock_pelt
->>>   	 */
->>>   	update_idle_rq_clock_pelt(rq);
->>> +
->>> +	/*
->>> +	 * Due to a race condition when enabling sched_uclamp_used static key,
->>> +	 * we can end up with imbalance where uclamp_rq_inc_id() has happened
->>> +	 * on a CPU without uclamp_rq_dec_id() on another CPU that hasn't seen
->>> +	 * the static key flipped. The race condition is unlikely, but ensure
->>> +	 * the uclamp_rq() state is set properly on each entry to idle.
->>> +	 *
->>> +	 * The reset will cause the uclamp_max from uclamp_idle_value() to be
->>> +	 * lost. Since we are imbalanced, hard to know what is right. So just
->>> +	 * cleanup. This should be a transient error state once we recover
->>> +	 * everything should work as expected.
->>> +	 */
->>> +	if (uclamp_is_used()) {
->>> +		if (unlikely(!uclamp_rq_is_idle(rq)))
->>> +			init_uclamp_rq(rq);
->>> +	}
->>>   }
->>>   
->>
->>
->> I haven't checked the other cases, but sashiko notes a few issues with this.
->> The sched_ext one and the core-scheduling cases seem legitimate, i.e. the idle
->> task may be scheduled while the rq actually isn't idle and clamps should be
->> maintained?
->>
+On Wed, Oct 28, 2026 at 04:26:01PM +0100, Neil Armstrong wrote:
+> On 10/28/26 16:06, Andy Shevchenko wrote:
+> > On Wed, Oct 28, 2026 at 02:19:06PM +0100, Neil Armstrong wrote:
+
+...
+
+> > > +static bool max34417_volatile_reg(struct device *dev, unsigned int reg)
+> > > +{
+> > > +	switch (reg) {
+> > > +	case MAX34417_DID_REG:
+> > > +		return false;
+> > > +	default:
+> > > +	/* MAX34417_CONTROL_REG field OVF is volatile */
+> > 
+> > Why not add a case instead of a comment?
 > 
-> I need to check in more details, but we can add rq->nr_running guard. Might need to audit other updates here too since we update clocks and load avgs, which might be fine
+> The case is handled by the default, the comment is here to
+> explain why MAX34417_CONTROL_REG is considered as volatile.
 
-It seems we can end up with force_idle paths, yes.. I added a guard for 
-rq->nr_running. Thanks!
+Still, having an explicit case is better, just add a comment about the field.
+
+> > > +		return true;
+> > > +	}
+> > > +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
