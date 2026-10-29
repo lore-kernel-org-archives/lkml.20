@@ -1,73 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793292554;
-	b=FE4MX0fuK9vKkLaIlxo5lIDQDaCZ0Atx14cMIjML04LAlQg2d535zUp7N/gLdQxEDHGa
-	 uo6pq4dTCc5hqu/IB/XHQWoS8gz5a0KdfdpfzKggibs1FH9n0JyT/XTrWuP0ZWNzME918
-	 OhWAPiXh+ceAcg+62ATlC3hZaos3SFTK/QxzwrWRj63j6PU03pDJ1tillznbcHSXBWEkL
-	 F8bZ1469vW72mPyV7mCamkS3rcSlY3tktLQTB0acMF9KVCtUoYZah91rza+y8zx8XuyUn
-	 Henjs5lkZuLI0OBf/eBHhIInWqO2pY6K/V7sTvBz0AMq8nEjgcrJtarVCf5chUorn8A==
+	t=1793292611;
+	b=d/xX1lp7u4I1BeiJDStguC/ixsLIWlCZ4l4v5izLq3QmJWmHuAeff3aojEaUpLWE5ua+
+	 hJFLXTu7cIgVait30RzUfml1UYTQRgMX8ewIK6RlNWFznr8lxHpB/p3pqxPl80+ewjN6M
+	 qvaHttP3apeP98WV7U0bsoKp3nBeU2yUYtTL4GW+EGhwsAW4WCq7rHgy+RbUZ9eCqEqDr
+	 CzBwS5yyxSFHv2yXgc05Te9atCGN96YLsuhaf8ND5vSOv3Wvzq1wbhBgBcnaDHdYM5LIU
+	 E+HYR9s926BB4z1HrUFc92VLmu8JKuZlua1BfXlPoxuVYOuDZX9uNKXMGrC0vZ2oE2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793292554;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793292611;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=5wi6r2Bh1Iv9QLbnNFqtqG0uwuLtzn/pkDXD94Z+vfY=;
-	b=k5gVCJOWbrHdytBdkHQcBnlNqANwRa7Xp5iy0CCVoVHwLAR1U5Jh6YQpf7kccXnB03bp
-	 ga09urW2SnKnLLobEVuH4UiN+Cv1+UXT0W8s+rBzTcLlnEoIqZwipu+7YNvtKJZ8aZy8U
-	 AO2qkDPYc4gjQBxOEriAD1QoAvyNMWVi+9fJCm79kVBOw6qUUkPpGL5TcPpoecwdazgCp
-	 AmeRkSqR0fcT8Q+AwViTUopQWzWi90i4VBtGTiDOuHyqwTSDV0JC5pFU1hR3GFkULn+C4
-	 +tCbVlKwZQsadVU66a54QAlFKA8deP8LpCgp0+XGS2X6xCqmd04eUdPTUpdeeu+7FRg==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qVX1t9dKSkLThmzH5jvhgtq92wmevObd0ItO8RxTMIg=;
+	b=ZUAcjvTZA9oqA5RYOX682HNUleDTX2RVmcWbk60PpflD/BWO37Wr2jvlNdE0ZEBesOBC
+	 akcHMBi8+i4LDVG3o7HkN7E0MXgct7ZgK0DjG463tomCognlgup/KINvcwicI3X/EWfq4
+	 7KsMwcUktJ8/ZE3ka0PG4GTPo3CjEUrFy2G+rHGRA5JJ/FvN8k96tXrJ41KygGhHJBZL7
+	 krNy2w01DFRs75M5+RQx8mjBmwcUcrqek1dAb8xoSQmO2QRt5UVuyAJjhZs8cWv1ZyiCl
+	 cgZH/80XaNIsCq3MXVRY0s0pz49Z3gVAP+Idw47AD7iawywgY7Mh9gQaAfxWvXUkdlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jo8fCLzQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fdPh9Ce+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2D14606A31A;
-	Thu, 29 Oct 2026 16:49:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 45172606A31A;
+	Thu, 29 Oct 2026 16:50:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jo8fCLzQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E314D1F01816;
-	Thu, 29 Oct 2026 16:49:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fdPh9Ce+
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4B7281F01816;
+	Thu, 29 Oct 2026 16:50:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793292553;
-	bh=5wi6r2Bh1Iv9QLbnNFqtqG0uwuLtzn/pkDXD94Z+vfY=;
+	s=k20260515; t=1793292610;
+	bh=qVX1t9dKSkLThmzH5jvhgtq92wmevObd0ItO8RxTMIg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jo8fCLzQXKF02wU2RYT3THNRYIo6oYKarU7ZSxQMGfgseSFX22gAow3w3didTfBiN
-	 IDtqFugaiIQBFdhlXyAlM9Hb+KbjcnS4Kh0WQ5OePvIjoe35IpI5JqjQ/RB4Ad1rDg
-	 LQieX2k5UTDQqOazFftaFHd/HB56LjtJIg9PwAuDvcnuRwtga0nV8oUsThcSBImJYt
-	 mhEi7EM1F8PUgGauhXwwZ9LiiEF9fqBXghIsvYfiBpyUArpgidd/n4P2eB6/ronNaC
-	 qX1DjrimPuZpkw77rx3TVi4ThEGAufAa/w5ag8O75EfYgjhfpT9lmIdAagdu0RrbSU
-	 I5uBDOmRqYoIQ==
-Date: Thu, 29 Oct 2026 17:49:10 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Peng Wang <peng_wang@linux.alibaba.com>
-Cc: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Waiman Long <longman@redhat.com>, Tejun Heo <tj@kernel.org>,
-	He Rongguang <herongguang@linux.alibaba.com>,
-	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org
-Subject: Re: [RFC PATCH v2 1/2] tick/nohz: Add a policy dependency for full
- dynticks
-Message-ID: <auN5Bku9w2VDZFFX@localhost.localdomain>
-References: <cover.1792242566.git.peng_wang@linux.alibaba.com>
- <58bc33cb018a2651e9cc3fc02baad7de4d543705.1792242566.git.peng_wang@linux.alibaba.com>
- <att2hiYaaHTIkzG9@localhost.localdomain>
- <atuMJiJEwbzGjiu4@MacBook-Pro.local>
- <auIbt5JAC2cHw5jr@localhost.localdomain>
- <auLqmMdd8RIdf6st@U-3K7XLPQ6-0046.local>
- <auNR5c6hXlb_FFkB@localhost.localdomain>
- <auNuLZiBZyHLFYUr@MacBook-Pro.local>
+	b=fdPh9Ce+0ey1hBlXwFkQGvgEYPA4B0BdxhiuPuiiz4QmluS3KsQ/Tik28WCrFpcd0
+	 pDsz4xd/khL54GoXQtGyiprJakmao9c0H/Oo+GSEdIsD4ilOKy9aOGqHLBGj3HikgQ
+	 GcLHAExYQDPHsATApj0otMT/v3GqsAiQHWm0x1ZVMxlOeg6rvFkmCxolXvuDCyNkL/
+	 RlbFTBpzZjfqLyJqlAQIEbYj8t9WRdEhzlm1kDBS6elmK33tMsOd4e4APbIe4P5srY
+	 DIDrARqWAOa4hvzlUstuNb2yWDSmFZMmiBAcVxk3nqvKA4zz30UZCQrV9LWVy/e0z5
+	 w8hl58TJcUH1g==
+Date: Thu, 29 Oct 2026 18:50:07 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-integrity@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	syzbot+c15de43f1e7fffbb7b9b@syzkaller.appspotmail.com,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:KEYS/KEYRINGS" <keyrings@vger.kernel.org>
+Subject: Re: [PATCH v4] KEYS: key_garbage_collector(): process in chunks
+Message-ID: <auN5P8fmsply4mr_@kernel.org>
+References: <20261029140707.2010100-1-jarkko@kernel.org>
+ <auNZIm0meBH7zHQX@kernel.org>
+ <auN4G05kSzZepLE3@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,50 +67,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <auNuLZiBZyHLFYUr@MacBook-Pro.local>
+In-Reply-To: <auN4G05kSzZepLE3@kernel.org>
 
-Le Fri, Oct 30, 2026 at 12:02:53AM +0800, Peng Wang a écrit :
-> > Ok in that case, do you know about the current work in progress
-> > to make nohz_full opt-able through cpusets? It implies taking the
-> > target CPUs offline shortly but the policy is to be setup before VM
-> > is launched, right?
-> 
-> Not always. Waiman mentioned the cpuset work earlier; it could
-> cover selecting the policy before a new VM starts.
-> 
-> Some customers express a preference for host tick suppression
-> through the management interface when changing workloads within
-> a running VM. The host operator decides whether to allow
-> suppression on the CPUs backing that VM.
-
-I think people should know ahead if they will run latency critical workloads
-or common workloads in their VMs. Because those are completely different.
-
-> 
-> We want to support revisiting that decision while keeping those
-> CPUs online and the VM running, with nohz_full membership
-> unchanged. Could such an operation fit into the cpuset work?
-
-If that is really necessary then I guess we can have a file to control that
-in cpuset once the nohz_full interface is ready. Though I'm a bit skeptical due
-to the overhead of user <-> kernel transitions and housekeeping.
-
-Thanks.
-
-> 
-> Thanks,
-> Peng
-> 
+On Thu, Oct 29, 2026 at 06:45:19PM +0200, Jarkko Sakkinen wrote:
+> On Thu, Oct 29, 2026 at 04:33:10PM +0200, Jarkko Sakkinen wrote:
+> > On Thu, Oct 29, 2026 at 04:07:05PM +0200, Jarkko Sakkinen wrote:
+> > > keygcbench results without the patch:
+> > > 
+> > > unused:   min=3016.754 avg=11859.097 max=28667.645 var=141391574.712
+> > > expired:  min=0.015 avg=12758.165 max=21516.237 var=85158284.646
+> > > combined: min=0.015 avg=12308.631 max=28667.645 var=113477010.596
+> > > 
+> > > keygcbench results with the patch:
+> > > 
+> > > unused:   min=0.225 avg=13.991 max=853.100 var=858.700
+> > > expired:  min=0.016 avg=30.442 max=2791.695 var=14187.539
+> > > combined: min=0.016 avg=19.249 max=2791.695 var=5177.436
 > > 
-> > Thanks.
+> > I personally would optimize all-in for variance because:
 > > 
-> > -- 
-> > Frederic Weisbecker
-> > SUSE Labs
+> > 1. It is insignificant drawback for any practical keyring workload
+> >    if the total time increases slightly.
+> > 2. Latency peaks are a signifiant drawback for any possible latency
+> >    sensitive workload running in the system.
+> > 
+> > What I'm doing now is to find sweet spot chunk size below 1024 where
+> > variances reaches its lowest value.
+> > 
+> > The latency part makes this change more valuable than focusing on
+> > only on the regression itself.
+> 
+> The best block size 1 and this was actually my guess. Just in case I ran
+> the benchmark three times for each 11 block sizes.
+> 
+> It is simple refactor to do. I simply substitute KEY_GC_BLOCK_SIZE with
+> 1 and carefully refactor the constant out.
+> 
+> I think that converging to the correct solution through this route was
+> worth of the additional trouble because at least now properly sanity
+> checked.
 
--- 
-Frederic Weisbecker
-SUSE Labs
+Taking this back! It has 133% total time increase :-) So yeah constant
+is required. I have all eleven (x3 each) available so I pick something
+more appropriate (more like 13% at most).
+
+Br, Jarkko
