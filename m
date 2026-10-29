@@ -1,75 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306016;
-	b=cnXUkmMQ5uNo/Xkv0vTx17PNaX1rYBGX4U+Fy4WjNIdYm3TeOXG83l0Yk9XG/34keU7u
-	 ZNe3UJ56kUYEK83RHr8rDfBZHeYQBer8Y5+l6NNoqn/EMlH+unI4nor3FCBs8FOFoX72J
-	 9knvB1eQS0GsVHLly8S0XORDKV98eGH7vq+LLrmuSADtlnwZ8erGnFdo+wa9M7ktt5/mF
-	 IxB6TrREHprCzz/qZ9YEvRUFEgwawcrog3h7g1qY6yOFWp6CwCIVRI0Y1NVV6k/IJ0n4V
-	 X0LWDMc0JWIIk/v2MMXLzjhuZ2hq9YDhOlV0a+tuXcUWUXL9SEeZe7fJAMP5A5S1dxQ==
+	t=1793306025;
+	b=LeP87kisgwnMADIBr9tMVgQK7VJRYuUYN1ILfrqXG5lNMrFEnBGWxAeR4SxOlnPl72Xg
+	 G65qDibyVuiE3xoIe2iqafMi+C9K778PvHvXmcXyWKH6Gzn8qWbU1JS4fDQvDnL1QFSai
+	 o6dDV7GN/SyMOChKn8HMgVSb9PxFj+BNetCcHQIol1qFpAXpp669uiq+F/d1k3a/UkI5o
+	 J2yes1z+FwFtn+MeozbclOY1XXCC7EcfgXSIqH/rw6y5W2i5NCJgZxA/1g1VoshL4ULap
+	 LeHle55+Kf1OvXkrWx8zDAko/hEF7qTZMaREEZ9ijHkk7S+R5OMoyFuWroh0JZIk7cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306016;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=aPubatOHkkdD5AHBvFSNw0aw4UoRgW6eq+k6wMoCK9w=;
-	b=XY1jTu8QHoW6jLUwMwiY1J5rbAWiXJvc0CSU4ARFUgqoDEGzxDpMwySv3r8zPiOpwim1
-	 onZosjzTI2OK6QAgXoBJy29atzEmpnGv7leF+JZXKuNC5C8pmbZfxbZK8610vensC9TSv
-	 oWu2sG2KQyEFCrouuYNE4svYlYpFxhkPf3tS+x967ZSFOFQ5fpHyfF/2Yyft8xO8UpEpc
-	 9jphed8gnzCdBA+wppgghxstE7waJ14mutt1nrhOmIfdupnMmbSD84YOAW7LBOMcmCBUn
-	 Ob2auHSNBLKW0Yg7sX7alMiLyBz4FOBVGxF7sAcf+gE+FcUSfGfdtgAXpY1cioOmcKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306025;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Hl8Hja7261+PqX6A1yngTbcTCPox77BGspRqPrmbmIw=;
+	b=LPBn4KWDn+E3jPrv0b1EgRkW36mmOqY42Kzpr37SuRSb1vMvzMoqY82UOXEyvVYElg/8
+	 /bDAXwh4i1mKZbxUbqC17tmnPYNFgraFXjrQBZKfdRGtCPlWybohjXAG2/7mZA1Zfud/J
+	 fizrjk3MSKUixGlTFqoRQ3V0ItLjDnlekGs0ApLCMv7wFJs9k71mdVcZLb+LSjiQb+Raw
+	 C+tW8BO9AX2Gi8WSRyw98kRNZat1zlzpWxp9N3U+0KpeaJ3PMVImXQIMxvKP2QT81RIZs
+	 6Ubh4YEak8b8F/BBYr64+KHww1rsbhv2TYO+gXhuZbTIw69D2VnY6darqfG8J972E/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lEe7+BN8;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtblEQni;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7714C60A2637
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:33:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7714C60A2637
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15907606A31C;
+	Thu, 29 Oct 2026 20:33:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lEe7+BN8
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e954d87b48so447265ad.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:33:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793306011; x=1793910811; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aPubatOHkkdD5AHBvFSNw0aw4UoRgW6eq+k6wMoCK9w=;
-        b=lEe7+BN8ekA8v3V8WGjQBcyrW9vlA3AgEYL7fnpGvm88JJOo4O2VgS6u9fj/iQ5DBL
-         UGpGU2xgxQXjTQtgRAT17Gd11w2i/Pe58/kSP8eJaiG2f1dTHTpJdCJbzolvf+7zyPUn
-         FMkDcySWQ+xWFl+sscREsEVBRlmITn4eTR0wuii0nxLaYrYmtx+m/sxkVwHnTF59bpy5
-         eFWP4RGTMSs9LRA4VPnd4+ghwCCuTzsOmS7lyYDJXSBVQLxkXLri2XzdgI5OAcaCZ9jj
-         z86xcENzgNh+P7phoGKqUA5NyOVbl9/C/RZ+W4ZMSn7b1T13TFk3VkW3DyNhTOKH0RKO
-         qkwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793306011; x=1793910811;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aPubatOHkkdD5AHBvFSNw0aw4UoRgW6eq+k6wMoCK9w=;
-        b=VIwcWKZ0TGB1NsWd1gyKnRbnMdoS6zLTSbLCDgAXpIw8kvrNVeW/pXnOBKyBRbFNsq
-         7kzCcAeIdad68y0xRY9Llce9KbxFweICOJ7mijYNOGXlwhH1xtwpWJuGpWemSdQ5serq
-         E41rCElT3AHkJrXmiWjWQk+Xt/6jd/t+hLXv+4Vw7X6/KSUizVw86aRStXOzKj9SRx/A
-         UUv3OJvhzlWExOtoGFsc5o/2hCVN/kxevs6FyoQLphXa+2Dt0rbPUR2UCSKTVRyxoSsH
-         1g5G08Ysbbi7wKIenLRymRS3Nca+Os6kdj/O+K9sR//ReX9Y14qTsPG39XDHHQuLmo0z
-         qtMg==
-X-Forwarded-Encrypted: i=1; AKwUvBy6S8DWFJhk3+UyojvuMg+Aha6x/f+GUAS58JYZSc1EbOYtEP+WVn+u46Kp4+1Qaw4PvyEp5xnAtcOgXPY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIF1t7qyW4/5VeMCkGAH6bRXY2ak2O6k5th1q5KQttsSJ5oosVy
-	eiY0Eo9ApkxO8y1wey156HlPMCp+ivi/HcfTNFbTrfny4weS6aKA7yo9gPjtE9QZ+yn7E9iw/Sh
-	IP82cKbTQ3C+7Hw==
-X-Received: from plbjk1.prod.google.com ([2002:a17:903:3301:b0:2e8:b6a:4fac])
- (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:cec9:b0:2e8:5202:aa8c with SMTP id d9443c01a7336-2eb364f0a21mr5065755ad.48.1793306010581;
- Thu, 29 Oct 2026 13:33:30 -0700 (PDT)
-Date: Thu, 29 Oct 2026 20:33:24 +0000
-In-Reply-To: <20261029203324.1637772-1-dmatlack@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtblEQni
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6E1B1F031E2;
+	Thu, 29 Oct 2026 20:33:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793306024;
+	bh=Hl8Hja7261+PqX6A1yngTbcTCPox77BGspRqPrmbmIw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=BtblEQni/tV7KmG4ZsM9UPfe8T47hGMbbRdFSbdDMyagtA6eYkZbhluhI9z5BurdL
+	 1e78U6Dqg2OUvWYcFR0R5N87ly5LSuFRTWMfolODfDF1YuUhHuMAr0b1iHsc7D3Zok
+	 WWXgLFaB/7lS8DNFBPkUEV5jhF93hksYscJQ72sXQp+mQe59teJ8lUli9p5tFfB4A9
+	 Wz6e9K2qIY/jLVAnShYPw0I9kE8fFZ2d73v1Bo2z6zzKA/PIuyGuoriHgYP9CxUnrd
+	 fa/lB7eBUKMmE00K0RofgBKFQ5hGuNr17dEBDn3gMz8NHlng/llC5yjiUWyFxZr+iQ
+	 1NGfRY7z8HfBQ==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Thu, 29 Oct 2026 21:32:56 +0100
+Subject: [PATCH v2 01/47] mm/mglru: don't use stack pointers when walking
+ PUD and PMD tables
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,253 +52,127 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261029203324.1637772-1-dmatlack@google.com>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261029203324.1637772-6-dmatlack@google.com>
-Subject: [PATCH 5/5] vfio: selftests: Add test for device power state transitions
-From: David Matlack <dmatlack@google.com>
-To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Cc: Abhishek Sahu <abhsahu@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
-	David Matlack <dmatlack@google.com>, Raghavendra Rao Ananta <rananta@google.com>, Shuah Khan <shuah@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-fixes_core-v2-1-a64ce7f83abb@kernel.org>
+References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
+In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
+ Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Pratyush Yadav <pratyush@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+ Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
+ Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
+ Muhammad Usama Anjum <usama.anjum@arm.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2764; i=david@kernel.org;
+ h=from:subject:message-id; bh=kEXlYNiQWeqMYPtO5Vb4nXU0nymzCVHXtW6ux1YnkxM=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer2256v+r64KNwb7oXRXbchL8DsTsVdVJFHuRImHuO
+ 1Xm9q1ZHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzESYvhD9/mT2dFj7Wqffct
+ nXRd8fk7gdkPyxdo7bD4kys6+eDSXysZ/lc7b9U16thV9e2thKX+9d0xK38eTp3Zs4hT2P0qxyT
+ NN9wA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-Add vfio_pci_power_state_test to exercise VFIO's handling of device
-power state changes initiated by userspace through the PM capability in
-config space.
+From: Josef Bacik <josef@toxicpanda.com>
 
-The test covers:
+MGLRU passes stack copies of page-table entries in walk_pud_range() and
+walk_pmd_range() when walking to the next level. These copies can become
+stale when khugepaged or MADV_DONTNEED (CONFIG_PT_RECLAIM) removes a PTE
+table concurrently.
 
- - Closing a device while it is in D3hot, which must return the device
-   to D0.
- - Enabling SR-IOV while the PF is in D3hot, which must return the PF to
-   D0 and prevent it from leaving D0 while VFs are enabled.
- - Racing a close of the device while it is in D3hot against enabling
-   SR-IOV, both of which transition the device back to D0.
+This pattern dates back to commit bd74fdaea146 ("mm: multi-gen LRU:
+support page table walks"). Likely, earlier locking masked the latent
+bug. Later changes exposed it: commit 1d65b771bc08 ("mm/khugepaged:
+retract_page_tables() without mmap or vma lock") allowed concurrent
+retraction, and commit cf4a65539c13 ("memcg-v1: no need for memcg locking
+for MGLRU") dropped the walker's outer RCU protection.
 
-The SR-IOV tests are skipped if the device does not support SR-IOV or
-already has VFs enabled.
+The fix is simple, so just fix the original commit so we don't have to
+speculate. To fix it, pass the actual PMD/PUD pointers. This restores the
+RCU-protected lookup and validation against the live PMD. Note that the PUD
+handling is required as well to handle folded page tables correctly in all
+cases.
 
-Bugs in VFIO's power state handling, such as the race above, often only
-manifest as kernel warnings (e.g. WARN() or KASAN reports). So fail the
-test if /sys/kernel/warn_count changes between fixture setup and
-teardown.
+Fix generated by an LLM and sent by Josef Bacik in private.
 
-Signed-off-by: David Matlack <dmatlack@google.com>
+[ david: handle walk_pud_range() as well, clarify+simplify description,
+         adjust Fixes: ]
+
+Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Kairui Song <kasong@tencent.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- tools/testing/selftests/vfio/Makefile         |   1 +
- .../vfio/vfio_pci_power_state_test.c          | 189 ++++++++++++++++++
- 2 files changed, 190 insertions(+)
- create mode 100644 tools/testing/selftests/vfio/vfio_pci_power_state_test.c
+ mm/vmscan.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/vfio/Makefile b/tools/testing/selftests/vfio/Makefile
-index 2c32c48db509..e2b152528560 100644
---- a/tools/testing/selftests/vfio/Makefile
-+++ b/tools/testing/selftests/vfio/Makefile
-@@ -12,6 +12,7 @@ TEST_GEN_PROGS += vfio_iommufd_setup_test
- TEST_GEN_PROGS += vfio_pci_device_test
- TEST_GEN_PROGS += vfio_pci_device_init_perf_test
- TEST_GEN_PROGS += vfio_pci_driver_test
-+TEST_GEN_PROGS += vfio_pci_power_state_test
- TEST_GEN_PROGS += vfio_pci_sriov_uapi_test
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 9959ca158ce8..6a1af9b92349 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3911,7 +3911,7 @@ static void walk_pmd_range(pud_t *pud, unsigned long start, unsigned long end,
  
- TEST_FILES += scripts/cleanup.sh
-diff --git a/tools/testing/selftests/vfio/vfio_pci_power_state_test.c b/tools/testing/selftests/vfio/vfio_pci_power_state_test.c
-new file mode 100644
-index 000000000000..d5853eb89856
---- /dev/null
-+++ b/tools/testing/selftests/vfio/vfio_pci_power_state_test.c
-@@ -0,0 +1,189 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <pthread.h>
-+#include <stdlib.h>
-+#include <unistd.h>
-+
-+#include <linux/pci_regs.h>
-+
-+#include <libvfio.h>
-+
-+#include "kselftest_harness.h"
-+
-+/* PCI_PM_CTRL_STATE_MASK values */
-+#define D0	0
-+#define D3HOT	3
-+
-+static const char *device_bdf;
-+
-+static u16 power_state_get(struct vfio_pci_device *device, u8 pm_cap)
-+{
-+	return vfio_pci_config_readw(device, pm_cap + PCI_PM_CTRL) &
-+	       PCI_PM_CTRL_STATE_MASK;
-+}
-+
-+static void power_state_set(struct vfio_pci_device *device, u8 pm_cap, u16 state)
-+{
-+	u16 pmcsr = vfio_pci_config_readw(device, pm_cap + PCI_PM_CTRL);
-+
-+	pmcsr &= ~PCI_PM_CTRL_STATE_MASK;
-+	pmcsr |= state;
-+
-+	vfio_pci_config_writew(device, pm_cap + PCI_PM_CTRL, pmcsr);
-+}
-+
-+static bool sriov_supported(void)
-+{
-+	return sysfs_sriov_totalvfs_get(device_bdf) > 0 &&
-+	       sysfs_sriov_numvfs_get(device_bdf) == 0;
-+}
-+
-+FIXTURE(vfio_pci_power_state_test) {
-+	struct iommu *iommu;
-+	struct vfio_pci_device *device;
-+	u8 pm_cap;
-+	int warn_count;
-+};
-+
-+FIXTURE_SETUP(vfio_pci_power_state_test)
-+{
-+	/*
-+	 * Snapshot the kernel's warning count so that teardown can check that
-+	 * the test did not trigger any kernel warnings (e.g. WARN() or KASAN
-+	 * reports). Bugs in power state handling often only manifest as kernel
-+	 * warnings, which are otherwise invisible to the test.
-+	 */
-+	self->warn_count = sysfs_kernel_warn_count_get();
-+
-+	self->iommu = iommu_init(default_iommu_mode);
-+	self->device = vfio_pci_device_init(device_bdf, self->iommu);
-+
-+	self->pm_cap = vfio_pci_find_capability(self->device, PCI_CAP_ID_PM);
-+	if (!self->pm_cap)
-+		SKIP(return, "Device does not have a PM capability\n");
-+
-+	ASSERT_EQ(power_state_get(self->device, self->pm_cap), D0);
-+}
-+
-+FIXTURE_TEARDOWN(vfio_pci_power_state_test)
-+{
-+	if (self->device)
-+		vfio_pci_device_cleanup(self->device);
-+
-+	iommu_cleanup(self->iommu);
-+
-+	if (self->warn_count >= 0)
-+		EXPECT_EQ(sysfs_kernel_warn_count_get(), self->warn_count);
-+}
-+
-+/*
-+ * Put the device into D3hot via config space and then close it. VFIO must
-+ * return the device to D0 when it is closed.
-+ */
-+TEST_F(vfio_pci_power_state_test, close_in_d3hot)
-+{
-+	power_state_set(self->device, self->pm_cap, D3HOT);
-+	ASSERT_EQ(power_state_get(self->device, self->pm_cap), D3HOT);
-+
-+	vfio_pci_device_cleanup(self->device);
-+
-+	self->device = vfio_pci_device_init(device_bdf, self->iommu);
-+	ASSERT_EQ(power_state_get(self->device, self->pm_cap), D0);
-+}
-+
-+/*
-+ * Put the device into D3hot via config space and then enable SR-IOV. VFIO
-+ * must return the PF to D0 before enabling VFs, and must not allow the PF to
-+ * leave D0 while VFs are enabled.
-+ */
-+TEST_F(vfio_pci_power_state_test, sriov_enable_in_d3hot)
-+{
-+	if (!sriov_supported())
-+		SKIP(return, "SR-IOV is not supported or already enabled\n");
-+
-+	power_state_set(self->device, self->pm_cap, D3HOT);
-+	ASSERT_EQ(power_state_get(self->device, self->pm_cap), D3HOT);
-+
-+	sysfs_sriov_numvfs_set(device_bdf, 1);
-+	EXPECT_EQ(power_state_get(self->device, self->pm_cap), D0);
-+
-+	power_state_set(self->device, self->pm_cap, D3HOT);
-+	EXPECT_EQ(power_state_get(self->device, self->pm_cap), D0);
-+
-+	sysfs_sriov_numvfs_set(device_bdf, 0);
-+
-+	power_state_set(self->device, self->pm_cap, D3HOT);
-+	EXPECT_EQ(power_state_get(self->device, self->pm_cap), D3HOT);
-+
-+	power_state_set(self->device, self->pm_cap, D0);
-+	EXPECT_EQ(power_state_get(self->device, self->pm_cap), D0);
-+}
-+
-+struct sriov_enable_args {
-+	pthread_barrier_t barrier;
-+	int delay_us;
-+};
-+
-+static void *sriov_enable_thread(void *arg)
-+{
-+	struct sriov_enable_args *args = arg;
-+
-+	pthread_barrier_wait(&args->barrier);
-+	usleep(args->delay_us);
-+	sysfs_sriov_numvfs_set(device_bdf, 1);
-+	return NULL;
-+}
-+
-+/*
-+ * Race closing the device while it is in D3hot against enabling SR-IOV. Both
-+ * paths transition the device back to D0, which must be serialized by VFIO,
-+ * e.g. to avoid restoring the PF's BARs after VFs have been enabled or
-+ * double-freeing the saved PM state.
-+ *
-+ * The D3hot->D0 transition during close includes a delay (10ms by default)
-+ * before the device's state is restored. Use a barrier to start closing the
-+ * device and enabling SR-IOV at the same time, and then delay enabling SR-IOV
-+ * by a few milliseconds so that it lands inside that window. Vary the delay
-+ * across iterations to account for differences in timing across systems and
-+ * kernel configs.
-+ */
-+TEST_F(vfio_pci_power_state_test, close_in_d3hot_races_sriov_enable)
-+{
-+	struct sriov_enable_args args;
-+	pthread_t thread;
-+	int i;
-+
-+	if (!sriov_supported())
-+		SKIP(return, "SR-IOV is not supported or already enabled\n");
-+
-+	ASSERT_EQ(pthread_barrier_init(&args.barrier, NULL, 2), 0);
-+
-+	/*
-+	 * Keep the number of iterations low since each one enables and
-+	 * disables SR-IOV, which can take over a second.
-+	 */
-+	for (i = 0; i < 10; i++) {
-+		args.delay_us = 2000 + i * 500;
-+
-+		power_state_set(self->device, self->pm_cap, D3HOT);
-+		ASSERT_EQ(power_state_get(self->device, self->pm_cap), D3HOT);
-+
-+		ASSERT_EQ(pthread_create(&thread, NULL, sriov_enable_thread, &args), 0);
-+		pthread_barrier_wait(&args.barrier);
-+		vfio_pci_device_cleanup(self->device);
-+		self->device = NULL;
-+		ASSERT_EQ(pthread_join(thread, NULL), 0);
-+
-+		sysfs_sriov_numvfs_set(device_bdf, 0);
-+
-+		self->device = vfio_pci_device_init(device_bdf, self->iommu);
-+		ASSERT_EQ(power_state_get(self->device, self->pm_cap), D0);
-+	}
-+
-+	ASSERT_EQ(pthread_barrier_destroy(&args.barrier), 0);
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	device_bdf = vfio_selftests_get_bdf(&argc, argv);
-+	return test_harness_run(argc, argv);
-+}
+ 		walk->mm_stats[MM_NONLEAF_FOUND]++;
+ 
+-		if (!walk_pte_range(&val, addr, next, args))
++		if (!walk_pte_range(pmd + i, addr, next, args))
+ 			continue;
+ 
+ 		walk->mm_stats[MM_NONLEAF_ADDED]++;
+@@ -3947,7 +3947,7 @@ static int walk_pud_range(p4d_t *p4d, unsigned long start, unsigned long end,
+ 		if (!pud_present(val) || WARN_ON_ONCE(pud_leaf(val)))
+ 			continue;
+ 
+-		walk_pmd_range(&val, addr, next, args);
++		walk_pmd_range(pud + i, addr, next, args);
+ 
+ 		if (need_resched() || walk->batched >= MAX_LRU_BATCH) {
+ 			end = (addr | ~PUD_MASK) + 1;
+
 -- 
-2.56.0.317.g454f8302e1-goog
+2.43.0
 
