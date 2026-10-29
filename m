@@ -1,64 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793245996;
-	b=h5ZLJnkpkE4HdRRwXV2LVpkEeQN0gUQADEK7I2mDVCXOvAQvHkOQ9CIkPMOMahT1NDzL
-	 nqIeiTD2Xn5ohtufeJFtagrMrEIxUjn1GhO6/8WQJcNOCIH2YCO7Qji7dRz4jUxs/8e1w
-	 NLc8kL+sb6ICszA1jOHWKLH+TP/9QdJkHM8RFrIarHNgYOdaHa9lBn++aTe17rUvOqUe0
-	 eUy7zoq41vdTRHjJq0aAuqeEHnP14o5f06JMdO/o4HuNSHQaDdj1GFQ89p8VkFuzpS55d
-	 GYv++MpIgVT3dKUvyvfYAyIzFTkfhQAQ5/t5YER0KcmhVUGPL7ddTcbGemx7GSoT3eQ==
+	t=1793246010;
+	b=SVj0Gqx3rDksFbeOMSfXn5GX0+v4jA+5fPSxg8H27z8k2pcapKkiXeKN7S8SRSG0zhNm
+	 qncAf3QnrfSzMSAfKwT+CWQz/y8usMyN8lint3Hg+9+Ry995YtZO3vkNGus6NCUhzb1yQ
+	 DQJ33Q4cY/b4hb2KTc5IXUrrr7O77iKuXz+u/u6cN9r8uYW9zZQtP+pmVJHlHo++w0xOJ
+	 FgxR6bC5nZdA8ScWfxIpJ0Kra1Hsm9TAvnyA1b71DymBG5h4vHWnGgOTe8MRhkzULU190
+	 7NlkbRFgE6BXxSCIrVSZW17Ug+dv+zQQG/IXuLaQcZbN+KjAcpMq2fGbx72lGhA67hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793245996;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=hIJqIH2TSbmK7oxQQb57cDQpLyotV6/gNsiGp7etsrM=;
-	b=j5gRv7K/ajhj41Jn5QTDrHgr4GSW+khzSbxCntiXPZvjcjh6kcf7SESqJXfnwMXvAZ/O
-	 RjGhfy4ERUChyPk06reMeVkJuTB2dooJkY99IDM95ygm5rM3jLPENFWuuUhm95o4n52Ni
-	 PMNrCJMXaBQWN9pylI/Q1J/bTwiRvNwBgJSIzAvBNqZg2+vnkQ+TqvGHaxdHEE1gfJaB9
-	 rkjAsZoABTrzjcr668zJRu841FlaGhvWSIYYb7USSO4LlX3uYbyAb2Es734MGVkuJIj92
-	 UYINSyBbpNmDaYLZp2rpf2McvruLKchm/mL1JwkqyxTh1RxJyOBvyWDau08SihtycDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793246010;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=UyoRSOjPYG/A73IxTzTbyWdCpIvdHiidP3D772dsd90=;
+	b=B56SmCwr9el3WG406y6akTFGW5FX7ctVXBXqZGSfAysT7/XbEBeBpukNTCWRciHpSo8x
+	 HvnHO8nU4KsgTvP3CzeZCyHMPnoQ7Udg3G4JgqvB6/dcv/RikMbeDGhbocHhcP6jsjOPt
+	 T2HKPZgKZWzabA44osqtyDpnUSrm49hCxkiRXVfx313UW3tv4utR3FQNOMq+ZOtofFroA
+	 4w4Iz0OSmXDenwpCg382IDlNBRoFjliqnIfLI3OpufDbQCpd3+Sfg5r8O1Z3OJsTJ/h/E
+	 /2lhe9JS/okm5YpV7lZZvBTEpHMJW8Hi4P9NmG0ZNaespT0zup6a1E8KcFLFCwR3SHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=adlXg3PT;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=QOlTjWlo;
+	arc=none smtp.remote-ip=162.62.57.49
+Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7AFC606A31A;
-	Thu, 29 Oct 2026 03:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7AFC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4AE606A31A;
+	Thu, 29 Oct 2026 03:53:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD4AE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=adlXg3PT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=hI
-	JqIH2TSbmK7oxQQb57cDQpLyotV6/gNsiGp7etsrM=; b=adlXg3PToRtCVJPOvd
-	4SyDtxvumn+/n7fcuQuJDdIanhqjS/7TaVogheE089itlhuBv3bHWIVgtpxa5ThP
-	CFcSg29u5akRog+f60V5jJKA4gMaUNbsFPcfzXI5nwHJFGqq6oPlzbykooBUD/U+
-	gvpa6G+tcD8iOG0+a6OqgP9h0=
-Received: from pc.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgCnsSkVw+JqTWv_Cg--.16381S3;
-	Thu, 29 Oct 2026 11:52:58 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Marc Zyngier <Marc.Zyngier@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2 01/20] ACPI: irqchip: validate MADT entry bounds before probing
-Date: Thu, 29 Oct 2026 11:52:32 +0800
-Message-Id: <20261029035253.2333852-2-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261029035253.2333852-1-yaojiale02@163.com>
-References: <20261029035253.2333852-1-yaojiale02@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=QOlTjWlo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793246003;
+	bh=UyoRSOjPYG/A73IxTzTbyWdCpIvdHiidP3D772dsd90=;
+	h=From:To:Cc:Subject:Date;
+	b=QOlTjWloOw4m8JSzfkNii79DTGu8Lm/52IWitjUo8A5Wo2OurXRetLtHmUZcpGTpF
+	 TBXSqQbVIJ8xcabG62L+UnOFQvGROhKT/9ycb67+xB170SgwqHl4bMpR4ZCS+2Qkn8
+	 gLMEKMzZuL0HearS3gIHnMfkdanp2Ki11u/VaG6E=
+Received: from HAPYCAO-MC1.tencent.com ([61.151.228.151])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id D548E249; Thu, 29 Oct 2026 11:53:20 +0800
+X-QQ-mid: xmsmtpt1793246000tx00o9u6u
+Message-ID: <tencent_C59525D78A2FBCC2425A3CA9EF4C53D56F08@qq.com>
+X-QQ-XMAILINFO: MGhvBmtDPvWEuMbQS5tYTj3TMCbJjBzyxyhZk0kEvVN6aXdP9mrlocGPwYUjJI
+	 gZ3z46fgtYtxBXdccJVcft/D33d1B0fwO+0mp36GFVKWbsWeRek8Bsrhw2JKNcqD7u1shKEisXXp
+	 LcuuS/ReWdUjytbmxyZDZDFikYEosJ1SmR9jubeTXi4OwdRAvJJfqDQuHjqG9D3vwImwk0A1AaLQ
+	 VjL+c5TnRvpx0twjUdyfWQ9p8lT/o3Je+iE5q5wVXy70nUcD5z34OqBOFc/ZKVi1Rt/2AS1Le7Ct
+	 502ZtTu2rAfqD860Da3xZnd/AVMgoLasDAyyY+vOAxaPZ7lrVZUHSgOerOjusyrPv5wQnL6JeYrt
+	 bXOHTO8JxGjUbMPg45TaZoYMQ62dbUY7LmGZnHjGNJBaBg7TDylJTzwKtpsBAkQzM6EtiK1zEGfY
+	 TQLDNdIJcn0k6nOcyF4GjMg4oIy3vA9ZvVD/2NShjcoQm681LC7WN1RZm5Yp94y47h05a4VJT0+H
+	 2nqsGHIvPbRKUMbyOeampJOCMb8li8VYALPaZW7NfJ1gz7q6SH1GiKVf5+4nXVYtotspAhOhi8XW
+	 RJepv+N24AqPzSI3qQpwkH/RwCcRt6b1OfYkqI+gDp5jxPScoSmBnQ3RHT9CCYyP1CYYCHzi99Vd
+	 LyPnBItPGV9vPzdoN0GFHARZ69QGIOlm8fSoPFFOt9ZD03rv0im3n0ftFPqqEUhv34HB/xkiDeDd
+	 VUheXaRRBaj/5ZlqnULtnGcMGKDY1ONwV6NQ0mg3hvJ2yEmH4Yjq3tc2u6pY6/SYroNRHRCawbUv
+	 oO+4wsxDow5WnmyBkJKlLC/TnBuxev1Quv3DOgHghEUSHS3Dk5zjosFjma2d6fSs21FJBTz9g64O
+	 y7ejY9WiG26mu+3wuq9bZ8ad1px4msAt3H7v0QXbcHAgvwgMH3YEty+MUYc4QhyW6R2c6FRXHAG0
+	 t9iqhMRJKLx+HWzH5c2FVI2azULqoSRsfc7bx8IL4u6i+7PaeQcIjudike5wqGZIDJpFtMq9bNRA
+	 BLMwZTAPrr0IALiuP+9uKJPw04e7aUle3mAnpBQ2Ftl5Sz+BPGHgD6Btt4bjJJzIjAWCI2mltSvT
+	 XQUEsadc8Tcm2JHYeV0GPBvhUf8Q==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: bo cao <treebacker@foxmail.com>
+To: linux-fpga@vger.kernel.org
+Cc: yilun.xu@intel.com,
+	trix@redhat.com,
+	mdf@kernel.org,
+	linux-kernel@vger.kernel.org,
+	bo cao <treebacker@foxmail.com>
+Subject: [PATCH] fpga: dfl: afu: prevent read-only region mappings from becoming writable
+Date: Thu, 29 Oct 2026 11:53:17 +0800
+X-OQ-MSGID: <20261029035317.44339-1-treebacker@foxmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,46 +82,48 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgCnsSkVw+JqTWv_Cg--.16381S3
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw13uFW3uF13GFW7GF1kGrg_yoW8Jw1rpF
-	9I9Fy5tr43trWagw1xZr4UuFWrWws3Ga42gFy7G34Fv3W5GFyruaySk3y2qr1UJrWfWF42
-	v3srtr98CFW8J37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j0g4fUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRtKhGriwxvjBwAA3s
 
-IRQ chip probing invokes validation and probe callbacks after the common
-table walker has only established that a generic subtable header is
-readable. A malformed length can leave callback field accesses outside
-the MADT.
+afu_mmap() rejects writable mappings of regions without the WRITE
+flag, but leaves VM_MAYWRITE set.  Userspace can map such a region
+read-only and then upgrade the mapping to writable with mprotect().
 
-Validate the generic header length and ensure the complete declared
-entry is contained in the table before invoking IRQ chip callbacks.
+Clear VM_MAYWRITE for regions without the WRITE flag, as fixed in
+vfio/platform (commit 420bed9131db), drm/vc4 (CVE-2026-68445),
+drm/panthor (CVE-2024-53071) and ptp/vmclock (commit a5edadbae57e).
 
-Fixes: e647b532275b ("ACPI: Add early device probing infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Note this is defensive hardening: the in-tree callers of
+afu_mmio_region_add() (port_afu_init() and port_stp_init()) all
+register their regions with DFL_PORT_REGION_WRITE.  The guard costs
+nothing and keeps the mmap() interface honest if a read-only region
+ever appears.
+
+Fixes: 857a26222ff7 ("fpga: dfl: afu: add afu sub feature support")
+Signed-off-by: bo cao <treebacker@foxmail.com>
 ---
- drivers/acpi/scan.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/fpga/dfl-afu-main.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-index 0b17a7e51956..10e8d736f44b 100644
---- a/drivers/acpi/scan.c
-+++ b/drivers/acpi/scan.c
-@@ -2896,6 +2896,13 @@ static DEFINE_MUTEX(acpi_probe_mutex);
- static int __init acpi_match_madt(union acpi_subtable_headers *header,
- 				  const unsigned long end)
- {
-+	unsigned long start = (unsigned long)header;
+diff --git a/drivers/fpga/dfl-afu-main.c b/drivers/fpga/dfl-afu-main.c
+index 097a97eeea66..a802309e0473 100644
+--- a/drivers/fpga/dfl-afu-main.c
++++ b/drivers/fpga/dfl-afu-main.c
+@@ -833,9 +833,13 @@ static int afu_mmap(struct file *filp, struct vm_area_struct *vma)
+ 	if ((vma->vm_flags & VM_READ) && !(region.flags & DFL_PORT_REGION_READ))
+ 		return -EPERM;
+ 
+-	if ((vma->vm_flags & VM_WRITE) &&
+-	    !(region.flags & DFL_PORT_REGION_WRITE))
+-		return -EPERM;
++	/* Prevent read-only region mappings from being upgraded with mprotect() */
++	if (!(region.flags & DFL_PORT_REGION_WRITE)) {
++		if (vma->vm_flags & VM_WRITE)
++			return -EPERM;
 +
-+	if (start >= end || end - start < sizeof(header->common) ||
-+	    header->common.length < sizeof(header->common) ||
-+	    header->common.length > end - start)
-+		return -EINVAL;
-+
- 	if (!ape->subtable_valid || ape->subtable_valid(&header->common, ape))
- 		if (!ape->probe_subtbl(header, end))
- 			acpi_probe_count++;
++		vm_flags_clear(vma, VM_MAYWRITE);
++	}
+ 
+ 	/* Support debug access to the mapping */
+ 	vma->vm_ops = &afu_vma_ops;
 -- 
-2.34.1
+2.39.5 (Apple Git-154)
 
