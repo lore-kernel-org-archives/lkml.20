@@ -1,72 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793285129;
-	b=GNWyc4ak+S7jd4uKRaFMXa4D8Cl+a4qrjEmkiiG0oku2vg1N0M23X188tHo67jiCqJQI
-	 kWOm6BW/zZJhK19qhM3jcekdSqO1jqmczvJuNZ+3/kABwB3GivsEJl++0WF0jqpVdflV+
-	 pwkIdH9Vw19mBSJt+Jwl714QjQ5WgQQbW5ydbPVYHau/2jWYqJ6Im/UrVOI9yGBfgHk10
-	 JuZ3xBU8BY4rRfw7lrbZTXKTLvRlqwJdu8Pyu69BbzU9U9oZW/cozg841C0nxfbpOxGG2
-	 EFwQoGpuen8GCv4F88bk/rbr19XSjt8dtGvoclXuCTi9CK8ipUBVIfvdXD1hnc6zXpw==
+	t=1793285160;
+	b=Vpd77Nult35XCsr4t9sXvmaVC2Ppp5QXy3ZI+6osVsuGRSLFTiGYkW9vxnXaiKhQmEhT
+	 dLjWq6TtAXyX1sc1HHoeAHa8Umk4XG9kmTgBK1RWGk3/8IJORh6U9trThTNe9Myix+aCD
+	 HpuGwNn9Xwu87wjsUDzUAVerSLAF412oU+sOM9Q0aSLNvqWzvrVjn8JD68a49RkGnfV2B
+	 6IlU3cNTHPPDTZhEHD4txrPzC6AWc7TAkq3uK8wJxpt4rpbwR7bIM+a6wIkYzrrA4DM2p
+	 bi6mBcqH1JktE4ucM17RzJvwIM4wOZMt8etUKqWfAXYFq6JI+tfVxuPrBkO8Gfdqg3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793285129;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=hj33H5cixDs80rOIsQBOmpmSaxJjyB5hAd7hAmO37v8=;
-	b=He0/zsXHWjQ9Ekrzsq03EyRaT8+ntW1oLFRMohkRc/3/hfxWdSE/glh7cw6iv+iQHl3Q
-	 kAX5/55hfeyFX7Nj9i4QHiD6T4nK/ggCT4GJslcHA2MsR4G3nAXGiCMF23PkQ3WwnLfHr
-	 3wWdna2EKnh1ng6W2GQmk9k3zAlDPjNQhvy1HJ0rhsixPWudXaCseTBQbo5N0aQbQ33of
-	 YNCRxJTEmlz1NCqcBJbG7N5eRksNEfQ5nISpXZmPgpO2ERqM0QJ0msfjP6SCtQ+aA1uLO
-	 IG8svZOizlWuORUwEXNm7N5y/PbWNNGRed86xKV4bGnNJVhC3k+QO3J8TKyJw2YcYwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793285160;
+	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=qILeyMFmFQ4VLcR3391O/erwLoS++PVnkbeP9RcQIf4=;
+	b=shqar+8pRVd69gPrGYYI+29Gik4zffwzuWdNFQ4N3oX29KGVIxVCoSQ+GlFcSS/pg5aR
+	 y6en9VXYJE6s/0SpJbnW529pK6FmAw47hnZfOTNvh5t2jcU23qgygQiaXJt50AV/iFopg
+	 mOkg59pfKYRjvUdvaPyYx0nkpNX4ZUd4Nad2ag6mrXSC46M7c8p/JLqL7MP6lGdT354Xf
+	 QnvkSMI1krEaTJHDkJSwxUSz+eTBzlmk2rIst8QbOvTwC74HrsYyVLwiJQTU/6qIoo3yj
+	 gZEUnCXwh1Blpob32QOp5+G/aZ9DluV3q7cRCzsxK6vFeJlx4f5tz+rbn4nbsY1iWvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a0wRLaok;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ggZa3Bh/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1D9606A31C;
-	Thu, 29 Oct 2026 14:45:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE9B606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:45:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a0wRLaok
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 306501F01825;
-	Thu, 29 Oct 2026 14:45:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ggZa3Bh/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B40E71F01825;
+	Thu, 29 Oct 2026 14:45:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793285128;
-	bh=hj33H5cixDs80rOIsQBOmpmSaxJjyB5hAd7hAmO37v8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=a0wRLaokzs5Jv8M7LUWxTzbOyvNvotiMOTQ28FLvqvDcD2J/Igo8S6x8O4ipm7+H9
-	 b7OUgixy56jb+O40SUJjddADWQuevGwZ0ZNbtW7dh60oEoKCulE+1mJ5zbB3tEUiYe
-	 vdJkdBOuJrvW6FiyDOd09tHRGEu85MDNgQ1Y2vQ7WykX+8Moh1gu9NXlZVI+ACrZQ6
-	 xAsNSB1cAs9lRQz32V1VDv1X4AnEHuBZKq25ZUSdwE2ciNtsVGcFd0dbOFNXBmhB4v
-	 TxOwj3LfjePAJuT5sD8UZLilGqz4CQClMSrFtfjw7cgNx8nxqDcnXbKx4in7Y4M800
-	 cEO5Noc8Qa0Ww==
-From: SJ Park <sj@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	pavel@nabladev.com,
-	jonathanh@nvidia.com,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 000/247] 6.12.115-rc1 review
-Date: Thu, 29 Oct 2026 07:45:20 -0700
-Message-ID: <20261029144521.150074-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261028165947.349197979@linuxfoundation.org>
-References: 
+	s=k20260515; t=1793285159;
+	bh=qILeyMFmFQ4VLcR3391O/erwLoS++PVnkbeP9RcQIf4=;
+	h=From:To:Cc:Subject:Date;
+	b=ggZa3Bh/81r/LAUn/GDsu0KlMbswKJ6O+3kQ8HsFSp/oZyZgl9kyseHR8gJvJ20CS
+	 R38/6lIp4lR7vwgHaQUrWkBRHRppdlYwGbYPCOOMFBrcoRh6KaYWdcYFCih8o6pP2D
+	 IRH0B3usT87avFoBRzlRoyfZX8veZ5kkGsW0fupU7yDOE1hq2n8Z2PsjQHi6g56wWb
+	 n9ecLWJdLadVLEQlXGEbeUeObaFzmlTy3EsCszoLOtzA9tLmoH8kBD/+6WUnovAvpn
+	 EM0zVEZM+bj2k43yBLQ6gnW11lOO1C+g22bZzNiAjCI1qsfPlAd/LFwgX/LTFsX3u/
+	 RYtIN4cU4YGcw==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1xMRO9-00000003x08-2W4K;
+	Thu, 29 Oct 2026 15:45:57 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Cc: linux-kernel@vger.kernel.org,
+	Johan Hovold <johan@kernel.org>
+Subject: [PATCH] soc: starfive: socinfo: fix compile test default
+Date: Thu, 29 Oct 2026 15:45:25 +0100
+Message-ID: <20261029144525.941746-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,24 +63,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 17:56:43 +0100 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+Enabling compile testing should not enable every individual driver (we
+have "allyesconfig" for that).
 
-> This is the start of the stable review cycle for the 6.12.115 release.
-> There are 247 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
+Only enable the new starfive socinfo driver by default when
+ARCH_STARFIVE is enabled.
 
-This rc kernel passes DAMON functionality test [1] on my test machine.
+Fixes: 96b35a1251dc ("soc: starfive: Add socinfo driver for JHB100 SoC")
+Cc: Changhuang Liang <changhuang.liang@starfivetech.com>
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/soc/starfive/socinfo/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Tested-by: SJ Park <sj@kernel.org>
+diff --git a/drivers/soc/starfive/socinfo/Kconfig b/drivers/soc/starfive/socinfo/Kconfig
+index 64f1b1e04d01..92bef1dd9d7b 100644
+--- a/drivers/soc/starfive/socinfo/Kconfig
++++ b/drivers/soc/starfive/socinfo/Kconfig
+@@ -6,7 +6,7 @@ config STARFIVE_JHB100_SOCINFO
+ 	select SOC_BUS
+ 	select MFD_CORE
+ 	select MFD_SYSCON
+-	default y
++	default ARCH_STARFIVE
+ 	help
+ 	  Include support for the SoC bus socinfo for the StarFive JHB100 SoC
+ 	  platforms to provide information about the SoC family and variant
+-- 
+2.55.0
 
-[1] https://github.com/damonitor/damon-tests/tree/next/corr
-
-
-Thanks,
-SJ
-
-[...]
