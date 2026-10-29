@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297405;
-	b=k769zXbV2mjgED3KXmxOei084LEc0QJUDygCu3cAiCCWeWjyH/IvX/vZ62D1/KZnO9Gv
-	 r3tmSDRHRfvuZdc+TKnLnICw1CIJS2LuqduFLhfNYE98o46f9i2smqEzU6cflgL08aHwU
-	 UnfosfX5oCROXV1uStQosTWrmk3mXjy0UR8SZeHVAIZQT2uUmDqHQfVNp2c8RuQq0qvam
-	 RD2PP78WwjwbhLA4X47vXiQvb/BJ58obkbej8o5yhW0vU3OVduMfR29g8xxzG72GOHH0d
-	 Nj9GVYGlsw18YLbMdzmfuTenhS1uui1kFTIyMOWquqzSiO4lG8qo1bR1NTuXOt3I4bg==
+	t=1793297401;
+	b=3AL5NNdVZTkQmHW6Ga1c8fhpUHBBTqQ1XBjCLONgWU8PvA2T7mKd4bKIxEka5TfOjlyN
+	 kqF6c1vuZDX64gc3R1Q1UAwR2pZtwSlwzdLr9rNGnNS9adqW14QTWycKU9Qt/WIbhZV0D
+	 kkWnbAVlDrx92BFHnvIPt3Is1rUKpNLSyoXhBgtsiTGyf+hBMEDSJUd4J+6L2SupzV1TT
+	 rRJDE85KQVE4GmQMvt6y/72hX613Mxpjb0HyyvBGfxPPYMaqnLXldH6ZgtbhJj8ZCYDxv
+	 qN6sQD9RsxsYVfzsxOcqf7CWvJ4Yv8fcwoUF05u4Ia+4lIPOtuah/Nn5G2GBQbvLV7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297401;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Pm1R1Yg8qM+RQX7ApNjTy6aurLKiAREVlSqc/qkmz+A=;
-	b=vzHXlBhsyWBuPtnbKRiJyBsvOITesAYshcJW2SKwdXoQl5mNNnnNKFD+OOFeaDb9vwdQ
-	 XIziqPbwrISqQiSi/5MwFhiUU0+P70iZPxs5oKGNQRO6ta9kM68JmSgywxgXP3eAb5H7J
-	 KaKyt5G5pcH8yOoFiPCq7PDAMbfYD8EW1WNpSemBVT5CHDFRWjk+gcFjsNd6iMPYmYe1B
-	 9lIzaSgF6h0rPKFPaBzGbi00hBEynaKvNGvzoUm7eUZQAL4QP5Np+FWM7y2gV8CHvc+Pk
-	 vInOKj71pRsTuDAbbVaM/7UhvRwA0iunIv2NIw62ufPN5Eyc2UoqUSRgyaKpZcMgmZw==
+	bh=VIRuN5RJjbuv5CSzCNORIV49ClgI3heQ4aV2Bv/ASqI=;
+	b=PeM/ymv4+2Fr1HNByEiOcuiP6vTkxCZYKatHhBswd6P8bCL8LQz9IA9qrc8TUCW8DWY7
+	 2bxA9+shqf04+S9vprsIh2N30+2Vd+ie51ANxZW76yLUgyoWCFxltGo45QrB+qXyMrVMc
+	 v/JLMjyPk2gwRBc4JveSVRLJKl1jWk9EkYZltqh5uwp503MPVGxH+mwrmb5IBWRf/lJOS
+	 k90n9pgCyy9jnQ4l6jm6jcRE1jiqC88HMBZutmEbcjoDcIdeMPaL/zB5gxca/0r+shtT3
+	 ObN+G4uVn8Ghr1gZBaNErzUlghqkHd+q8Gzh1mgorDJEYDpPNac/B2jzNYzrm8fCJvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=hammerspace.com;
 	spf=pass smtp.mailfrom=hammerspace.com;
-	dkim=pass header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=m41LuiIJ;
-	arc=none smtp.remote-ip=209.85.167.170
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
+	dkim=pass header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=WZLxBgd3;
+	arc=none smtp.remote-ip=209.85.161.54
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E3D60A5BD7
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:10:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58E3D60A5BD7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC66860A380A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:10:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC66860A380A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=hammerspace.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hammerspace.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=m41LuiIJ
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4b21f71613fso1651941b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:10:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=hammerspace.com header.i=@hammerspace.com header.a=rsa-sha256 header.s=google header.b=WZLxBgd3
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6df0b02fe91so770981eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:10:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=hammerspace.com; s=google; t=1793297404; x=1793902204; darn=vger.kernel.org;
+        d=hammerspace.com; s=google; t=1793297400; x=1793902200; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Pm1R1Yg8qM+RQX7ApNjTy6aurLKiAREVlSqc/qkmz+A=;
-        b=m41LuiIJlm3MggjpHDY1vfjUIc3UfxLDNZGSIVM8Fm3PovKNWnn9hGmi3Gz42FmWKW
-         1089sX1WmPElVGNk7+XJXmOA7D40jb8N2b9CJ7tpRrb3Bh8LnlsDoLp0mjQk8fMUvPPc
-         mdP4X4O1OSG/tPVrUxR8lw4cIQI6sgkwPLL/pVmC/I1mHKDXr0Uj4hCOnO4+6vWQxXMb
-         l3c4nMqwgJmYSolJYQGozefAPJxYZjEaz5i60mFN+Tg5i70xdP+V//Ff+4djT3yvRDy5
-         mm6T7swk7bJkv2f9lyBPEDqW6lD6W4FmujHpQTImEvHSWMdvKuOsUvoktLBUJl8VThXJ
-         HuzQ==
+        bh=VIRuN5RJjbuv5CSzCNORIV49ClgI3heQ4aV2Bv/ASqI=;
+        b=WZLxBgd3shKUN9MMxfxeWoZmoSQYqQnLq8nPl6E3Zj9r4MlVGXVCy7M50RgeVTldnT
+         QzFj53iiOXruAIVXf1MEj5jDvkLWMdRs3iT0mxxToRMGZ+ayO6ETyGc+nq7PoDNt2Gx9
+         YkQkzqm5bSa1e9r7FmarbxkfhbsqrEcIBpWIsHl6SKMsMGlN9zJXSX4ZUIuCdoa5xLj5
+         kHaXFxjOYlyyundHMLrv/EY/3B9cJY8Vf0e7+lpfd/dwd4T2l/KhC4HPAoXdrgVCuqBj
+         khWsYoU1VSkvWeCLGxvsw8NRcQMwmctajSHnaCdrAon9Ig5dwW+vqWMvyM6NsjeB39Qh
+         xHyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793297404; x=1793902204;
+        d=1e100.net; s=20260707; t=1793297400; x=1793902200;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pm1R1Yg8qM+RQX7ApNjTy6aurLKiAREVlSqc/qkmz+A=;
-        b=OeNzEP8QR0qMnjDvYoIzLObm2iaNyum0m8XXHgMo1XxVF8MXALfMDvLYi8nQDMEwM+
-         +O7mz97mTFyKcG4wbBskN9szRnQRekj04OhQF/0EtFtMNJzJIAGEiV/Xv6OL+oT0b1v6
-         cI3NNgNgjlaiLKr9Qt/XM6tzxfezbL0vigzxymxfPGBMsufIRGrKu0wAcIaV0QVWJiuQ
-         prEFe6FvSbbB6PFSUZPTaAY9lpSrAqtw6sJoysJqgOZmHG7WhvxIVKoP4v3b/1WP6akb
-         +GsP3h6q25aOFj4/SCULZGdK1oaRWJCviVS64svc8xgNlzt+/9JLjms08LneHJHkwtGG
-         +C1Q==
-X-Forwarded-Encrypted: i=1; AKwUvByQm1rC4Zgp1jnsLUGB8RlgNq+c9iFeSvhN9TIuHMrMuTEQ8uoM/71P4LxerQZWwqSCwmkG0lEbTUrFSaA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9Nqb9hF7kNkREBCPaWbaNbDPjxwxdZ/P1+fL9plDs04JFsrH9
-	AldwANXSLDdAvv13vLNg/6zzdm94Cr2HoPBZHotqcJHtyVthyC9wXjLoWeqMT/2NPDs=
-X-Gm-Gg: AYBFou0PqzhlYibWDmJRSDJG74tdAPcXsqGo0C/yTqPzQs0SN0c9ym+7IGLqmPZu9p3
-	EWyewj2QzLn1Wt04k+K5yHqvshudHTzMxwf/Y6iIeVCl4govmBkFXxMVQ0HN8ZiAYgo0ijRU6Qs
-	ikerNkCmIWQJTMeS8xuXtpfVoyNu2E1bYpkdom4lfvdnjZdnCuGFXBgVDDk8n/dt6igKgjFHcj+
-	MkLUOYHrz3b28mZsQXiJjF2wFRia42SR9UN6VzclMpmpPWH+W1VJe5OsKcQk4gypWIh2hCFmWJu
-	MKVORajD/9bDCIPtYjWvVjT3bJNsLNoUJZLAXy3eCKXW2zxeEj1bz18IZmD4mgY64DfEkJIK+Ce
-	3msRDk6Xo4gm8kf8CoA/IPFpVnUpiZFpc/m2HAfO8AiLErqG9dtH8HCs4L7mOTuAXrAuBw/C+3g
-	mGMKYvoHnR46cLPh6FEXcB68ND9ZPsm1T2TdpdAhXDa9Thph/T9eSK6Hv9rr0k65yK+Q16W7dE4
-	YNXHkZiwAkyc/wLcGF4OZAOuYwFXWm8+V4BUZ2w9l9CBWPU0I4uAjrD04SV1L+9oty1oWjA4EO8
-	YVcQfH7Rpkup3ftIQ8k44LL1LdEUKwPLqIntdwMAkzzz/XHhplcEg/tax6tQAqA19hVP2vc3
-X-Received: by 2002:a05:6808:238a:b0:4f2:ac42:656b with SMTP id 5614622812f47-5640dbd6766mr13996b6e.7.1793297404102;
-        Thu, 29 Oct 2026 11:10:04 -0700 (PDT)
+        bh=VIRuN5RJjbuv5CSzCNORIV49ClgI3heQ4aV2Bv/ASqI=;
+        b=yfCpL7v6adyQX3WeKsBaIProrSUEm/6J3M9FSdAkoqBqgax0srKdBiw6GlLo5MlHIS
+         VOwVBozubmzVvXe1zNMEYIsRYAtJxeHTzYtjINHsKB1V14/QqAJaz9tVR/LGHw4KF517
+         m/vfTWEMzWswYPsk53xGL7oQdXrzoLQEz+/18JtzxkpXNSHr2mcpblshE6d9icbmAnhw
+         TgMH0h9RP+ZYLdlAPXvYPv+S/MW37VFb8TKBzUOroCI7hwW+duKJD6ySzlkyY2Bl1fLC
+         yjKS+cQDrahAdJ6L8wMIqspt8TazHGQxxX4ey1Vlo/LuuOF43YojsT5YiIHPEMvC2fPm
+         3VCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvQ4ubHvzyXYXh3M/ifAUpnjxJk8ZVBnm+GslCwLrhQFQl3QFBlfm1AVcFT3KZKmQOfCswf1a8+T2GFns=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvDveRQUE4GwOv9S6pZuQg3aznrBTysvWThF+8XmRCL2acWzE8
+	kOcT1dyx23HDFYk4Rh0FzMdV6x9tz+JI9prTWDfU9DHLz8j/8VT93TJxQBh8gASMmy8=
+X-Gm-Gg: AYBFou1TmpnYN5vZsLxJlI2yYipO9fgCV7kcYqUKCBp0ITAvJ4l1PaGfp9ORdejcN6m
+	2It7ZZeOu+gd/lTCM3eQpmYPn4NYd8IAqmSR3Osj3ZAfRdPfMKtl8LSWidV5gJkJK8ah4Uu0no4
+	qz0R91K08p+C/Dp99zKlq52Ki99jqhj6YKShVXubUiGCGKYZLx1sKlYES1/3O/9iDDHSKIfiZNh
+	tbe9cJzlRELPZUJnvvfsIbxqRZLLaSqwZ8y2OStBTYv5k434wsw2WH5z0lqYdEV0VPvzSuqQYj0
+	e+vamy0xDv1rgrSQvK0OfqMAB6sIR4V9lnJcnLHxbizmE83CYDib7+Dv8/F9pU0BsubIitbDrle
+	yLRB++QSAYv7oRE9OGpKkC1LRRXCTzeXeWTP236dG9A3ON5nZz2GgnhkksYKGquJb7emM7vjUxQ
+	U4Z/E4+tuHcQlsb9/adzaxtjtu5+QyXgGuUhYwQUPsrrRcPfqaYt1Cc7FTaa/jeHL99NZ3acQaM
+	zXT7RzTRZRPeaGeDWPyXuUudxpYr9R2E89k9oyIUxRavYSl6bO/srUGhsMVN9J7nrtg3ZZL8n7P
+	nm7ZE6eT2lGNGqrksBhbtZyEwijHilg0N5atqdw6WruUi6RKJwWLQDhluJ9CgiY+8jOi4UUL
+X-Received: by 2002:a05:6820:4ccc:b0:6dd:c600:ec2e with SMTP id 006d021491bc7-714ddecf85amr1873577eaf.19.1793297399528;
+        Thu, 29 Oct 2026 11:09:59 -0700 (PDT)
 Received: from localhost (75-163-200-235.clsp.qwest.net. [75.163.200.235])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-563c5a4d8b7sm4093603b6e.8.2026.10.29.11.10.02
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d354d12f2sm160242a34.17.2026.10.29.11.09.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:10:03 -0700 (PDT)
+        Thu, 29 Oct 2026 11:09:59 -0700 (PDT)
 From: Jonathan Flynn <jonathan.flynn@hammerspace.com>
 To: NeilBrown <neil@brown.name>,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
@@ -92,9 +92,9 @@ Cc: Jeff Layton <jlayton@kernel.org>,
 	linux-nfs@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC 03/12] nfs: tell the VFS when two names can be one entry on the server
-Date: Thu, 29 Oct 2026 12:09:48 -0600
-Message-ID: <20261029180957.387138-4-jonathan.flynn@hammerspace.com>
+Subject: [PATCH RFC 01/12] nfs: update a server's capabilities in one step
+Date: Thu, 29 Oct 2026 12:09:46 -0600
+Message-ID: <20261029180957.387138-2-jonathan.flynn@hammerspace.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261029180957.387138-1-jonathan.flynn@hammerspace.com>
 References: <20261028041023.3738553-1-neilb@ownmail.net>
@@ -110,114 +110,95 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A server that reports itself case-insensitive, or as not preserving
-case, can make one entry of two names that the client caches apart,
-because the client compares names byte for byte.  Mark the filesystem
-on such a server with SB_I_NAMES_COLLIDE, from "vfs: allow the parent
-lock to be shared for O_CREAT", so that the VFS keeps the exclusive
-directory lock for creates there: the per-name exclusion that replaces
-the lock for a create made with it held shared covers one byte string,
-not the names the server treats as equal.  The client learns this when
-it reads the server's capabilities, which it does again on remount, on
-migration and when a later mount reuses the filesystem, and it updates
-the mark each time.
+When the client reads a server's capabilities again, on remount, on
+migration, or when a later mount reuses a filesystem that is already
+mounted, it clears a group of them and then sets again, one at a time,
+each one the server still offers.  Anything that tests one of them on
+another CPU in between sees it missing: a case-insensitive server looks
+case-sensitive, a server that supports security labels looks as if it
+does not.
 
-This is a conservative fallback.  A server that declares itself
-case-insensitive should itself treat the two names as one, but one that
-did not was seen making two files of one name when such creates arrived
-together.  No filesystem relies on the mark yet, so nothing changes.
+Build the new set first and store it once, as the NFSv3 path already
+does.
+
+This was found by an AI coding assistant (Claude Code) reviewing how
+the client derives these capabilities, and has not been reproduced.
 
 Signed-off-by: Jonathan Flynn <jonathan.flynn@hammerspace.com>
 ---
- fs/nfs/client.c   |  1 +
- fs/nfs/internal.h | 35 +++++++++++++++++++++++++++++++++++
- fs/nfs/nfs4proc.c |  1 +
- fs/nfs/super.c    |  2 ++
- 4 files changed, 39 insertions(+)
+ fs/nfs/nfs4proc.c | 28 ++++++++++++++++++----------
+ 1 file changed, 18 insertions(+), 10 deletions(-)
 
-diff --git a/fs/nfs/client.c b/fs/nfs/client.c
-index ea99b3c105..30206b309c 100644
---- a/fs/nfs/client.c
-+++ b/fs/nfs/client.c
-@@ -975,6 +975,7 @@ static int nfs_probe_fsinfo(struct nfs_server *server, struct nfs_fh *mntfh, str
- 			server->caps &= ~(NFS_CAP_CASE_INSENSITIVE |
- 					  NFS_CAP_CASE_NONPRESERVING);
- 		}
-+		nfs_server_publish_name_caps(server);
- 	}
- 
- 	if (clp->rpc_ops->discover_trunking != NULL &&
-diff --git a/fs/nfs/internal.h b/fs/nfs/internal.h
-index 5af6a032f1..34b8aff4e0 100644
---- a/fs/nfs/internal.h
-+++ b/fs/nfs/internal.h
-@@ -224,6 +224,41 @@ int nfs_init_server_rpcclient(struct nfs_server *, const struct rpc_timeout *t,
- struct nfs_server *nfs_alloc_server(void);
- void nfs_server_copy_userdata(struct nfs_server *, struct nfs_server *);
- 
-+/*
-+ * Tell the VFS whether this server can make one directory entry of two names
-+ * that differ as byte strings.  NFS installs no ->d_hash or ->d_compare, so
-+ * the dcache compares names byte for byte, while a server that is
-+ * case-insensitive, or does not preserve case, makes "foo" and "FOO" one
-+ * entry.  On such a server SB_I_NAMES_COLLIDE keeps the parent of an O_CREAT
-+ * open locked exclusive; see atomic_open_create_shared() in fs/namei.c.
-+ *
-+ * server->caps is derived again on every probe of the server: at mount, at
-+ * remount, on migration, and when a later mount reuses this superblock
-+ * (nfs4_proc_get_root()).  So this is called wherever the case bits of
-+ * server->caps are written, once they have their final value, and when the
-+ * superblock is set up, because the first probe runs before it exists.  The
-+ * value is what the probed file handle reported, normally the mount root's;
-+ * the homogeneous attribute is not fetched, so a server whose answer differs
-+ * below the root is described by the root.  Migration runs the probe from
-+ * the state manager without ->s_umount, so the update is atomic, and it is
-+ * made only when the value changes.  Two probes of one server at once can
-+ * leave the bit as the earlier of them derived it; that needs the server's
-+ * answer to change between them, and server->caps has the same race.
-+ */
-+static inline void nfs_server_publish_name_caps(struct nfs_server *server)
-+{
-+	struct super_block *sb = server->super;
-+	unsigned long bits = 0;
-+
-+	if (!sb)
-+		return;
-+	if (READ_ONCE(server->caps) & (NFS_CAP_CASE_INSENSITIVE |
-+				       NFS_CAP_CASE_NONPRESERVING))
-+		bits = SB_I_NAMES_COLLIDE;
-+	if ((READ_ONCE(sb->s_iflags) & SB_I_NAMES_COLLIDE) != bits)
-+		set_mask_bits(&sb->s_iflags, SB_I_NAMES_COLLIDE, bits);
-+}
-+
- extern void nfs_put_client(struct nfs_client *);
- extern void nfs_free_client(struct nfs_client *);
- void nfs_cb_idr_remove(struct nfs_client *clp);
 diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index 113c199a6f..fac8450b65 100644
+index 22a2a4009d..113c199a6f 100644
 --- a/fs/nfs/nfs4proc.c
 +++ b/fs/nfs/nfs4proc.c
-@@ -4020,6 +4020,7 @@ static int _nfs4_server_capabilities(struct nfs_server *server, struct nfs_fh *f
+@@ -3896,6 +3896,7 @@ static bool nfs4_server_delegtime_capable(struct nfs4_server_caps_res *res)
+ 
+ static int _nfs4_server_capabilities(struct nfs_server *server, struct nfs_fh *fhandle)
+ {
++	unsigned int caps;
+ 	u32 minorversion = server->nfs_client->cl_minorversion;
+ 	u32 bitmask[3] = {
+ 		[0] = FATTR4_WORD0_SUPPORTED_ATTRS,
+@@ -3953,7 +3954,13 @@ static int _nfs4_server_capabilities(struct nfs_server *server, struct nfs_fh *f
+ 				     res.attr_bitmask[2];
+ 		}
+ 		memcpy(server->attr_bitmask, res.attr_bitmask, sizeof(server->attr_bitmask));
+-		server->caps &=
++		/*
++		 * Build the new set in a local and store it once: a reader of
++		 * server->caps during the probe, such as a remount or migration
++		 * of a mounted filesystem, must not see these capabilities
++		 * cleared and then set again one by one.
++		 */
++		caps = server->caps &
+ 			~(NFS_CAP_ACLS | NFS_CAP_HARDLINKS | NFS_CAP_SYMLINKS |
+ 			  NFS_CAP_SECURITY_LABEL | NFS_CAP_FS_LOCATIONS |
+ 			  NFS_CAP_OPEN_XOR | NFS_CAP_DELEGTIME |
+@@ -3961,22 +3968,22 @@ static int _nfs4_server_capabilities(struct nfs_server *server, struct nfs_fh *f
+ 		server->fattr_valid = NFS_ATTR_FATTR_V4;
+ 		if (res.attr_bitmask[0] & FATTR4_WORD0_ACL &&
+ 				res.acl_bitmask & ACL4_SUPPORT_ALLOW_ACL)
+-			server->caps |= NFS_CAP_ACLS;
++			caps |= NFS_CAP_ACLS;
+ 		if (res.has_links != 0)
+-			server->caps |= NFS_CAP_HARDLINKS;
++			caps |= NFS_CAP_HARDLINKS;
+ 		if (res.has_symlinks != 0)
+-			server->caps |= NFS_CAP_SYMLINKS;
++			caps |= NFS_CAP_SYMLINKS;
+ 		if (res.case_insensitive)
+-			server->caps |= NFS_CAP_CASE_INSENSITIVE;
++			caps |= NFS_CAP_CASE_INSENSITIVE;
+ 		if ((res.attr_bitmask[0] & FATTR4_WORD0_CASE_PRESERVING) &&
+ 		    !res.case_preserving)
+-			server->caps |= NFS_CAP_CASE_NONPRESERVING;
++			caps |= NFS_CAP_CASE_NONPRESERVING;
+ #ifdef CONFIG_NFS_V4_SECURITY_LABEL
+ 		if (res.attr_bitmask[2] & FATTR4_WORD2_SECURITY_LABEL)
+-			server->caps |= NFS_CAP_SECURITY_LABEL;
++			caps |= NFS_CAP_SECURITY_LABEL;
+ #endif
+ 		if (res.attr_bitmask[0] & FATTR4_WORD0_FS_LOCATIONS)
+-			server->caps |= NFS_CAP_FS_LOCATIONS;
++			caps |= NFS_CAP_FS_LOCATIONS;
+ 		if (!(res.attr_bitmask[0] & FATTR4_WORD0_FILEID))
+ 			server->fattr_valid &= ~NFS_ATTR_FATTR_FILEID;
+ 		if (!(res.attr_bitmask[1] & FATTR4_WORD1_MODE))
+@@ -4009,9 +4016,10 @@ static int _nfs4_server_capabilities(struct nfs_server *server, struct nfs_fh *f
+ 
+ 		if (res.open_caps.oa_share_access_want[0] &
+ 		    NFS4_SHARE_WANT_OPEN_XOR_DELEGATION)
+-			server->caps |= NFS_CAP_OPEN_XOR;
++			caps |= NFS_CAP_OPEN_XOR;
  		if (nfs4_server_delegtime_capable(&res))
- 			caps |= NFS_CAP_DELEGTIME;
- 		WRITE_ONCE(server->caps, caps);
-+		nfs_server_publish_name_caps(server);
+-			server->caps |= NFS_CAP_DELEGTIME;
++			caps |= NFS_CAP_DELEGTIME;
++		WRITE_ONCE(server->caps, caps);
  
  		memcpy(server->cache_consistency_bitmask, res.attr_bitmask, sizeof(server->cache_consistency_bitmask));
  		server->cache_consistency_bitmask[0] &= FATTR4_WORD0_CHANGE|FATTR4_WORD0_SIZE;
-diff --git a/fs/nfs/super.c b/fs/nfs/super.c
-index 23292680ad..e70cef88fb 100644
---- a/fs/nfs/super.c
-+++ b/fs/nfs/super.c
-@@ -1082,6 +1082,8 @@ static void nfs_fill_super(struct super_block *sb, struct nfs_fs_context *ctx)
- 			sb->s_export_op = &nfs_export_ops;
- 		break;
- 	}
-+	/* The first probe of the caps ran before this superblock existed */
-+	nfs_server_publish_name_caps(server);
- 
- 	sb->s_magic = NFS_SUPER_MAGIC;
- 
 -- 
 2.43.0
 
