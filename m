@@ -1,106 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793232285;
-	b=zexETwPuTVSmX19MvvUTewHjJj0sOLD4hyPsJyiJs5YkLLPnZ1/UvxJg3+wyPCwueN+j
-	 gz2jBcpxUxeuaUcuumGfqxtrTOLBKixlp9JAnIoPXpXcm7DXnsRE7Q/TW3YfhfxQ87spM
-	 EbSEiPkyXC8FJjqoGVils3vRrsyUg8CZxZsahd59UEK9Aah0Qly7hystp/BGyOTQr+K1J
-	 Wct7fJvqTKZLFE+M+8aUvENrTkP9Dd6N7GWSKlYPeR615P0gbbg9E/nuIvGjsM+3+dI17
-	 LqQxQEPJuOITV0zgbHmH+zFS69qdS3RFUNbeJkbre5VqMmy+sIpDiMPkmx91BMd1HYg==
+	t=1793232418;
+	b=BID5HFoBZEe9KafvAm3nEFwX78aK3gTPKQnqCZjByyaqMcvKZjSyaUTA6Xl14x3Bhqy2
+	 Oplw7w0iivBneNQ3NOc7aY6Un4wkl1JbCktpcqhqFWhZejDtF/jTlTDMt0805xcubpxTn
+	 JiED7YIAcRhNbiSTIFdZ974ElBXax9oseeKVWeNDLpmqmxVAZh3flAWJEjaigwoRCV/Yc
+	 g4JKHeQJOwVc2t6FvbnoN6hhrjqe/CFDkhLkepSD6ErboRir/FTVREptzrelu5lcMB/t9
+	 /LZfpSBExAtg28rg49h+eCmNGY55FmP3RKrJh3XKJ9SBWkbpQ/+eTlUYmutTI7m2bIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793232285;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=q/xBVtBLk16U8qItuEo0/3JxmIlfapOJCXoA5AObKSA=;
-	b=Gu7e4TG3JkYNur1TX02Qi2iDsWj/S5R5fO40y+HP5qIsdTiT3U5uyVNTKuoUI6TRoR76
-	 QClgtMj/rK5GblaXanohNko8rYyVzMpLvHwuSc45bK/vBBJyTQiPwNQucF5yLTkvzMoA+
-	 2t34l4AB9RJqMdhkGJjO1jpkDVCWgL6ZmE3inIeamudNRTP+xuPQiuWHUge87UGyH1EzM
-	 LxOjGdQqWEzNa9n5beUei1LIu2Nb7nQ5xsH8c91ySneqNuIrEv7dHL9EHvLdRxC9rNV+f
-	 Y9X9ntpGFZCNSa7BWRHfz+kVGs/7DOxWvFE+Wip1svCQCxvDy5cHf4z4TNMQ3Y6242g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793232418;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3fvI0TM8+FK8rZAgbHGjXojlMkSEHOIDbZUA5VlGZkE=;
+	b=dNP/XvljL+BwhslsvobcybWxT6Gp7cdwO12NKNRlrcqe/mjpI4gRgD5Jv+3JIVRhSR/F
+	 +xu2YRGt2vWzMm7wGV0Jd96bzK8NB4GWUHDEHoDKT5j3LWTK+hIyBKV/58JYQChCyYMME
+	 +MpX2PuETAtnw1KrlVmb98bbQ3oP1EcFiGds433YjfIbXWNd3R0YUinMibEgFDeeCYP0/
+	 nQlxvPfGEzruFKWZg7SsWlgAhcTfWDlIg9pNpfWTWh6ZitwW65ceEtj09ICVcXElz+dJG
+	 p4aJyAjE/mPAd/QqAWyoEEtD6KiziDO7I4h66Wz9OdzcSKtGTHGbMZK9LyEuyreIN1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=soleen.com;
-	spf=pass smtp.mailfrom=soleen.com;
-	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=BDLaQPpE;
-	arc=none smtp.remote-ip=209.85.217.44
-Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbUz4Ahf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96552606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:04:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96552606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD95606A31A;
+	Thu, 29 Oct 2026 00:06:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=BDLaQPpE
-Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7cb6dc850c7so525713137.0
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 17:04:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=soleen.com; s=google; t=1793232283; x=1793837083; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q/xBVtBLk16U8qItuEo0/3JxmIlfapOJCXoA5AObKSA=;
-        b=BDLaQPpEQkC/NOGErHzNgMqNEFgiZW+qixJDZ5RtDffvwjsqxm93mYTldZW4Txe7YC
-         KOlzFcRPqQr1N7PzdaxoW1U9MQgJBHjgARqwrgxXEZIU7JNfwIwgLxfO92G6pOC4G4rk
-         4OSF6jFiqrA40z8orm3/UNdvF1RJjCFi7ClJV0vWr8MykRtBgdBxnizZAivW6aZRN3kx
-         l5uvOty6CRBiTWGUrkgmOuKvd2MUI35gla4/qmesv+YfLyi3mwck9NijjEVz8zhSCgxi
-         pcgFazOCNQkh0LbGTfZyXdh3RejNnsqgBCJkWvDATwo+Kuk2B2721o1lMZ/ETjyXrhG9
-         LPqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793232283; x=1793837083;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q/xBVtBLk16U8qItuEo0/3JxmIlfapOJCXoA5AObKSA=;
-        b=Cl95OMmckF6JZ3hLp/yMv0K70K6tGaXtYpGGLycbMT5v4YSexyhq5x+6InnMmqWGaV
-         SpoOyBJLZ13DIbVzOtELcHRo4MvlPD7mopWDpD9urYfXr++DK8gQYPu/WrhOIK3B8z7X
-         m0Nzii0oi8tOxyG6d8Uup2+akN2kT3o4bBJ+mSyKKuG/pBHkwuTExiYErKK6HeWrIK1x
-         gGfHhxB/4xkc9ivgTy9DZIVdhbaVWHzPJmdA/6GBxVq72ggi00FKSzPbWKITXnSKXIRM
-         0bYjOYAxXbVKR+UMSCNxEAN6fQu6NCbgqQUTXLkyXFZM/vbKWNAeyStcvOHvmoKgLjk8
-         kiqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx4JFoACRPeyPwGTMnWGpvSzqdin31ZjamZncIF2nYwHK2YWo67eqAODif/f+lK438+2/wbUwyJwY+Cxus=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKB1wZ9YkyJI66zglyO4HLhZPgqgQDBztyxydiRnh0y7b1xoEYo
-	KyeaH/CNqDIDhuuWZ3ZqtoNXclleOQrvm+cC2N3rJcLKBY1KLYcPb6M4BE9KcPIJjOc=
-X-Gm-Gg: AYBFou1CbVnCBD6f2PPT7d8T/Dups0AiAvRaaZCdkauuNUNVrSKNB9NWarBAaQXRqy+
-	mtOvQTCehrWJuLWy7jWAGBcdtIBUpdMqy0WzeWgUkNjdzyCldpLJL8QZpAP+fQdZ9lHIlfGoPaU
-	PI7SYkBRPOLsBv5SgUid8Q6IIDdAYuR4/Fe9XutRUyyk9pHX1Zc5qtHmyk64EDO6ZTYAZ4p63lw
-	jP/jtWpUS1klrEGGQe0RwvOWw4Lc1DyQANb+rmXgawxU0q/m+W/6JppwBf461QU805TJrhkCnkF
-	uZbCd4NNUTOCHjMXDsMqfb4NVUTcckEt47Sa9Rum8DSnpK3Zc+ti6MqkM9GcpYnBvVmtUFmABTJ
-	mkifFyn2A/U814qwOE5eTZk0ZN4pgL5jdhZTzAsXGTrBe1uTZEhjSBDrYLqr6zshTfsCDdn7259
-	UtelTPzCZ0gNd5V/8z+OI/BCKEmq+GEFOFLavUEY3O3qO7V4/oXIOb8IGgR0UFt21kLaLUAXdBg
-	NXDiL0yt6dWDdFfIJSUFY0YhNoXsSqLhFBtU9SeMwM7Kp8BAJCwT+xF+5O5uUcRvJLYRMxUdAIc
-	Y0Nryr+1Ck4P1ZbJ0xj6rZjqqNrnQSBqiJ3qX0NoHRKOPstrgH4fbXSqZgcxiUH4vdUZNkCez4o
-	RYN9bdn2xOfEQWS+COcmRxYCDpYVy0o+e
-X-Received: by 2002:a05:6102:3e92:b0:7b5:1ca4:9df1 with SMTP id ada2fe7eead31-7d03a29c54fmr1908368137.5.1793232283543;
-        Wed, 28 Oct 2026 17:04:43 -0700 (PDT)
-Received: from google.com (64.167.245.35.bc.googleusercontent.com. [35.245.167.64])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99125931983sm7622737241.2.2026.10.28.17.04.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 17:04:43 -0700 (PDT)
-Date: Wed, 28 Oct 2026 20:04:42 -0400
-From: Pasha Tatashin <pasha.tatashin@soleen.com>
-To: David Matlack <dmatlack@google.com>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>, kexec@lists.infradead.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org, Alexander Graf <graf@amazon.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Christian Brauner <brauner@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	Hugh Dickins <hughd@google.com>, Jonathan Corbet <corbet@lwn.net>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Samiullah Khawaja <skhawaja@google.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH v2 07/10] mm/shmem_luo: Retrieve tmpfs files onto a tmpfs
- mount chosen by userspace
-Message-ID: <auKND0n3LyivCrir@google.com>
-References: <20261022225035.377445-1-dmatlack@google.com>
- <20261022225035.377445-8-dmatlack@google.com>
- <179322496574.1894369.544573858973645958.b4-review@b4>
- <auKAlcPN0Lt6Y3Wm@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbUz4Ahf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFB0D1F01825;
+	Thu, 29 Oct 2026 00:06:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793232417;
+	bh=3fvI0TM8+FK8rZAgbHGjXojlMkSEHOIDbZUA5VlGZkE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AbUz4AhfG/N19UL54LGvXeIdheWyC95cXavm4fWb811lbIpM6QIIodtY804X9Vdu+
+	 fPa5GzS3kJMRqjuVMnKDxroBwScqdAIMpwsDEpj5GH4mhmzngQ6xSJj7yBeoTEsYPJ
+	 UBLO0jKmJgdBnSom18wOgM08938wj4fUpDWwjlD1HlTEpgL8WXYUCFLRYqV8CxHLVE
+	 2fJJ3kVffvero8ipyEtZEq7NNUObOMNlr8kZ0K9N0u+6eHFcIelxsxJ1oBMYwgf6Qu
+	 ZFv9D0mhfeKgWmtxt1cmbLNK2wtU/iy2/SJj5W7PBkapXT+k/pi/epUIUXaQ0wck0x
+	 QUIsgf2fdQdBw==
+Date: Thu, 29 Oct 2026 00:06:52 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Jesper X Nilsson <jesper.x.nilsson@axis.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stefan Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel@axis.com
+Subject: Re: [PATCH v2 1/4] dt-bindings: iio: light: opt4001: add opt4041
+Message-ID: <20261029-urban-grumble-cf73863f17e1@spud>
+References: <20261023-opt4041-v2-0-ee320812804c@axis.com>
+ <20261023-opt4041-v2-1-ee320812804c@axis.com>
+ <20261023215409.4c4ff7d6@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,62 +65,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DK5ad8uOBVKaADIa"
+Content-Disposition: inline
+In-Reply-To: <20261023215409.4c4ff7d6@jic23-hlaptop>
+
+--DK5ad8uOBVKaADIa
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <auKAlcPN0Lt6Y3Wm@google.com>
+Content-Transfer-Encoding: quoted-printable
 
-On 10-28 23:09, David Matlack wrote:
-> On 2026-10-28 06:02 PM, Pasha Tatashin wrote:
-> 
-> > > +/*
-> > > + * Whether @inode is on the internal shmem mount, which is used by
-> > > + * shmem_file_setup() and thus by memfd_create().
-> > > + */
-> > > +bool shmem_inode_on_internal_mount(const struct inode *inode)
-> > > +{
-> > > +	return inode->i_sb == shm_mnt->mnt_sb;
-> > > +}
-> > 
-> > Please fix the warning reported by kernel test robot.
-> 
-> Will do.
-> 
-> The prototype for shmem_inode_on_internal_mount() is in mm/internal.h,
-> which mm/shmem.c only includes if CONFIG_SHMEM=y, but the robot was
-> building without CONFIG_SHMEM. I've moved the definition of this
-> function into CONFIG_SHMEM in v3 to fix this.
-> 
-> > Looking at this together with Pratyush's mapping-freeze series ([PATCH
-> > 0/3] mm: allow freezing mappings), I think we should extend the mapping
-> > freeze lifecycle from preserve() -> retrieve() to preserve() ->
-> > finish().
-> >
-> > When retrieve() returns an fd, its mapping should still come out frozen
-> > and only become fully user-owned/mutable once a successful session
-> > finish() happens. That keeps the index -> folio mapping invariant across
-> > the entire live update until every fd in the session (e.g. vmfd,
-> > iommufd, vfiofd that depend on the memfd) has been retrieved, passed
-> > can_finish(), and been finalized together in finish().
-> >
-> > (Doesn't have to block this series, we can do it on top or as part of
-> > Pratyush's AS_FROZEN series.), but I think we must fix it either here or
-> > there.)
-> 
-> Ok that sounds reasonable. Should we do that as part of Pratyush's
-> series then?
-> 
-> Pratyuh's series replaces shmem_freeze() with mapping_set_frozen(), so
-> retrieve() would freeze the new file and finish() would unfreeze it.
-> That should work the same for memfds and tmpfs files..
-> 
-> BTW, this tmpfs series does a lot of renames and code motion so it
-> conflicts with Pratyush's series. How should we order these?
+On Fri, Oct 23, 2026 at 09:54:09PM +0100, Jonathan Cameron wrote:
+> On Fri, 23 Oct 2026 14:30:28 +0200
+> Jesper X Nilsson <jesper.x.nilsson@axis.com> wrote:
+>=20
+> > Add a new compatible for opt4041. The opt4041 is only available in the
+> > SOT-5X3 package. The device is pin compatible with the opt4001-sot-5x3
+> > and shares the same properties. The opt4041 has one additional channel
+> > compared to opt4001, the extra channel has a wide spectral bandwidth
+> > ranging from 380nm to 1000nm.
+> >=20
+> > Datasheet: https://www.ti.com/lit/gpn/opt4041
+> > Signed-off-by: Jesper X Nilsson <jesper.x.nilsson@axis.com>
+> > ---
+> >  Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml | 9 ++++++=
++--
+> >  1 file changed, 7 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/iio/light/ti,opt4001.yam=
+l b/Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml
+> > index 12b0c7ed5d72..35e9b0deb944 100644
+> > --- a/Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml
+> > +++ b/Documentation/devicetree/bindings/iio/light/ti,opt4001.yaml
+> > @@ -4,7 +4,7 @@
+> >  $id: http://devicetree.org/schemas/iio/light/ti,opt4001.yaml#
+> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> > =20
+> > -title: Texas Instruments OPT4001 Ambient Light Sensor
+> > +title: Texas Instruments OPT4001/OPT4041 Ambient Light Sensor
+> > =20
+> >  maintainers:
+> >    - Stefan Windfeldt-Prytz <stefan.windfeldt-prytz@axis.com>
+> > @@ -13,13 +13,16 @@ description:
+> >    Ambient light sensor with an i2c interface.
+> >    Last part of compatible is for the packaging used.
+> >    Picostar is a 4 pinned SMT and sot-5x3 is a 8 pinned SOT.
+> > +  OPT4041 is only available as sot-5x3 and adds a wide band channel.
+>=20
+> I guess we keep the compatible naming because some crazy
+> person might one day release it in a different package.
 
-Initially, I thought Pratyush's patch series would land after yours. 
-However, since he plans to separate the LU changes from the rest, I 
-expect both series to land in this cycle. The order does not matter; 
-whoever lands in liveupdate/next first, the other will need to resolve 
-the merge conflicts.
+Ye it is a bit weird. I did notice it but passed it off cos the
+existing device was like that and there was a behavioural difference in
+the driver between the two packages for the 4001. Maybe this fancy
+picostarTM package is no longer a thing? Would really need to get
+someone from TI to tell us what the plans are.
 
--- 
-Pasha
+>=20
+> J
+> >    https://www.ti.com/lit/gpn/opt4001
+> > +  https://www.ti.com/lit/gpn/opt4041
+> > =20
+> >  properties:
+> >    compatible:
+> >      enum:
+> >        - ti,opt4001-picostar
+> >        - ti,opt4001-sot-5x3
+> > +      - ti,opt4041-sot-5x3
+> > =20
+> >    reg:
+> >      maxItems: 1
+> > @@ -39,7 +42,9 @@ allOf:
+> >        properties:
+> >          compatible:
+> >            contains:
+> > -            const: ti,opt4001-sot-5x3
+> > +            enum:
+> > +              - ti,opt4001-sot-5x3
+> > +              - ti,opt4041-sot-5x3
+> >      then:
+> >        properties:
+> >          interrupts:
+> >=20
+>=20
+
+--DK5ad8uOBVKaADIa
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauKOHAAKCRB4tDGHoIJi
+0nCwAP48Tc61zu/MajdD4L0PWJOHi7czGSAylmDIYXgHGSv8EAD+OewuyIZWrqWp
+7/QCD4sct+JR0AYBf7tNMHS0Ya6pPA4=
+=iE73
+-----END PGP SIGNATURE-----
+
+--DK5ad8uOBVKaADIa--
