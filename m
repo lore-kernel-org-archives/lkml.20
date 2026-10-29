@@ -1,71 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257711;
-	b=4B030C2N036rjwcWmqUEEZ6RqnOkfMg26A/kcU47EGHQZlLp2iIuM8I1zf0xVmdc+U35
-	 ShOsVSZrH5VythlDeObYagFKStyNUMkVcrDLanMbUbVh/oTQern9RiAJG322Skor3o2K6
-	 vIkJ0skYaLI/Uciy5fxIMhzwgWbzu++kkz/qUzSDz56uoCTJDXWHy1Wrb9zkdxI++CcBG
-	 pc5jf9so9PWu7XKmy+wGIws7r85lkkns93ONoglBObjJMBjHEEEpXML3qX/4AhxdAXU5q
-	 kKmqDh7o/dYqmeIb3r5uJdJd10O0TQl+U1x7dQxm86ilUlnayv4zRDKNDv0b8fv89bw==
+	t=1793257719;
+	b=edAcfdoLw1I0yAMLql+KgkRMV9C6UtYLlSLN9SWNqXEDYj4d+8GOCSb6TpploFxr1XFX
+	 nhQn4ycBhbXtGmy/KPeulSDuIaFOowHq5+OQMBgRcG3GwhHmEEib+USXHjROA7kF2G7EL
+	 cf2uFFbefQh8J6Wm68rf7Qbx+BmzyjtDP6iKwTRplWzjco789704FUs2X4Hbe5jnIB8sl
+	 +PAv6JwXzDQ1tRwfNUChlyp4fF4w2NnBSk/2QuY78n2pAwG/qQOzNvMUwSH+l7jPiV3At
+	 HyEW47utwORiLnAp0cfQUp+NuCV6h40LY0QoBsUejL0gaNA+WQBe4S7l6MS29FERcnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257711;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1mnk6HCaupblw/EK61S5BkiME4hmOYeInQztA0Fmq1Y=;
-	b=dBVx7tZDNeb4M0d4BO2KSdrrl0ryA+ngUlaRciUH/tARnKJQ47k9vWdZALsjckcJpO8k
-	 lnvMebH6da+Q8+55AijFsr6rKpsrus+m2X0IKy2t7Pfv2OhATIoIgh1+07e/KYNZEpCH6
-	 uii2XotThFmYBRefAUOnCEaTUIG+hglJLk8f9vdjOtyrr0payJ8+ZovynQxHprHoWX74I
-	 N4Rit2MMJFcjPryUbFMAjPZA6sOAbLUViADVNnOgRAXpp7bn1Ha9ZaADxEbgZd7zjQGR0
-	 pPuf/OQz7FevoLjUbMHlJ6jlCDkfxpmCem6g7Af6WgiSlXIC9za72SkjRCss8d+F5Lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257719;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=NcG7rziTtzBQo+YgRjjhG7OeEH2wIvONYfErWYNIqjI=;
+	b=sdw3UQxYV24FAjEJcxh7k6hnELM4ZhUpZRVwjxe2FYSRrp7ojEUNVA9zTQerbyTNF0h5
+	 ab2uqBDbMfVNjHcCCD06rsJJ4tSwskDJvuXexItJzBTq+TbYapj9TxAMcRyBlNE/Z3OBe
+	 wlk5NdqGH+zubiszSNOTR83msI0QF4yKnKTz1HQZN6i/+znypZCNvNcxEc0gWTlLBc7q6
+	 0TziyJW3JxIOFSLanNp+Bz+hm1mlfGKpSi4TpXkTakv1l2NjcAOZJYkaiNXXV41CEd9vg
+	 UBn+12ghSCg6CrgiS9sbKqUU+ggamBAaa4XJf1W4cFbtRkyWf0ds57Zz5trs7D8nZfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=U3T+E0Pq;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3136606A31A;
-	Thu, 29 Oct 2026 07:08:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3136606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="kfi7zL3/";
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3150C606A31E;
+	Thu, 29 Oct 2026 07:08:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3150C606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=U3T+E0Pq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=U3T+E0PqH7zD19Dzpp+xnpf3auiKt73OZP6QiSFqhkkmEQ07BvoRk7J+7yTHNOPrwAxzj/2lMvqLx
-	 uiK0OoiJurbgtpTIhgHM4sci4/TnQfxsPcC439CYDu+wdGXV5gaXQfrYK3vvAf7h1kqj3dLx66r5N0
-	 lE2M0f1hBHTyfMoc=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app06-12006 (RichMail) with SMTP id 2ee66ae2f0e73a8-3474f;
-	Thu, 29 Oct 2026 15:08:25 +0800 (CST)
-X-RM-TRANSID:2ee66ae2f0e73a8-3474f
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181454368174 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr09-12009 (RichMail) with SMTP id 2ee96ae2f0e6fd1-25d98;
-	Thu, 29 Oct 2026 15:08:25 +0800 (CST)
-X-RM-TRANSID:2ee96ae2f0e6fd1-25d98
-From: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
-To: andi.shyti@kernel.org,
-	dumitru.ceclan@analog.com,
-	sakari.ailus@linux.intel.com,
-	luca.ceresoli@bootlin.com,
-	andriy.shevchenko@linux.intel.com,
-	gonglinkai@kylinos.cn,
-	rosenp@gmail.com,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	trivial@kernel.org
-Cc: zhang jiao <zhangjiao2@cmss.chinamobile.com>
-Subject: [PATCH] i2c: atr: fix race condition caused by static local variable in i2c_atr_map_msgs()
-Date: Thu, 29 Oct 2026 15:08:17 +0800
-Message-ID: <20261029070818.639-1-zhangjiao2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=kfi7zL3/
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=NcG7rziTtzBQo+YgRjjhG7OeEH2wIvONYfErWYNIqjI=;
+	b=kfi7zL3/rr8sDCvbxJvwXX+rL/VVtaqKgNez2Wf2ByMEWMm1U6i6ncOOM167EOf6Q1cR13nys
+	dz/8xRElyMbITao2PzoSBB43OVCo1PnLXvv8pnBvLtstXdh/0h4EplLxYhFPkF3extdTNeZdKvk
+	EjWsN4t64y+XM32LpNJISoQ=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jFb0y2tZ4z1T4kk;
+	Thu, 29 Oct 2026 15:08:18 +0800 (CST)
+Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
+	by mail.maildlp.com (Postfix) with ESMTPS id 5D83740537;
+	Thu, 29 Oct 2026 15:08:29 +0800 (CST)
+Received: from [10.67.120.103] (10.67.120.103) by
+ kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 29 Oct 2026 15:08:28 +0800
+Message-ID: <6d2411a3-b37b-4cdb-80ca-10654cc88a17@huawei.com>
+Date: Thu, 29 Oct 2026 15:08:27 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,45 +62,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 01/15] KVM: arm64: pgtables: Change write bit from
+ S2AP_W to DBM
+To: Leonardo Bras <leo.bras@arm.com>
+CC: Oliver Upton <oupton@kernel.org>, <maz@kernel.org>,
+	<catalin.marinas@arm.com>, <will@kernel.org>, <corbet@lwn.net>,
+	<pbonzini@redhat.com>, <yuzenghui@huawei.com>, <wangzhou1@hisilicon.com>,
+	<yangjinqian1@huawei.com>, <caijian11@h-partners.com>,
+	<liuyonglong@huawei.com>, <tangchengchang@huawei.com>,
+	<yezhenyu2@huawei.com>, <yubihong@huawei.com>, <linuxarm@huawei.com>,
+	<joey.gouly@arm.com>, <kvmarm@lists.linux.dev>, <kvm@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<seiden@linux.ibm.com>, <suzuki.poulose@arm.com>, <fuad.tabba@linux.dev>,
+	<mark.rutland@arm.com>, <seanjc@google.com>, <rdunlap@infradead.org>,
+	<linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<skhan@linuxfoundation.org>
+References: <20260929103655.85107-1-zhengtian10@huawei.com>
+ <20260929103655.85107-2-zhengtian10@huawei.com> <arxW4PUY3qqRkogl@kernel.org>
+ <8ca88576-651a-4b7f-91ff-2cb2359aa79e@huawei.com>
+ <at9raEVrsbb7rj6n@LeoBrasDK>
+From: Tian Zheng <zhengtian10@huawei.com>
+In-Reply-To: <at9raEVrsbb7rj6n@LeoBrasDK>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemr100010.china.huawei.com (7.202.195.125)
 
-From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
 
-The variable `c2a` in i2c_atr_map_msgs() is declared `static`, which means
-it is shared across all invocations of this function regardless of which
-ATR channel is being serviced. Since each channel has its own
-orig_addrs_lock and alias_pairs_lock mutexes, two threads can execute
-i2c_atr_map_msgs() concurrently on different channels, racing on the
-shared `c2a` pointer.
 
-This can cause:
-- The wrong alias to be used for address translation, sending I2C
-  transactions to the wrong device.
-- The `fixed` flag of an unrelated mapping to be corrupted, breaking the
-  alias replacement logic.
+On 10/26/2026 11:02 PM, Leonardo Bras wrote:
+> On Wed, Sep 30, 2026 at 10:44:26AM +0800, Tian Zheng wrote:
+>> On 9/30/2026 8:25 AM, Oliver Upton wrote:
+>>> Hmm... I'd actually like to see this structured where the "write" bit
+>>> could either be S2AP_W or DBM depending on if the system supports
+>>> FEAT_HAFDBS. Look at how HVHE is handled for selecting the right AP
+>>> encoding for the hyp stage-1 page tables.
+>>>
+>>
+>> Hi Oliver,
+>>
+>> Thanks for the suggestion. I missed the case where FEAT_HAFDBS is not
+>> supported. Systems without the feature should keep the original
+>> encoding, with S2AP[1] as the write permission bit. I'll follow the HVHE
+>> pattern to select between the two encodings in the next version.
+>>
+>> Thanks!
+>> Tian
+>>
+> 
+> Hi Oliver, Tian,
+> 
+> After some digging, I think it would be better if we kept using S2AP[1] as
+> a writable bit, while DBM can be treated as "Can promote a non-writable
+> page to writable if HAFDBS=on".
+> 
+> I know it's not that intuitive, as the Arm ARM even introduced the concept
+> of Writable-clean an Writable-dirty, but I think it will be the best way of
+> referring to what was intended of the bit.
+> 
+> I wrote down what I mean by that:
+> https://lore.kernel.org/all/20261026144413.441566-1-leo.bras@arm.com/
+> 
+> tl;dr:
+> - DBM + S2AP[1] is set on writable entries (KVM_PGTABLE_PROT_W)
+> - Writable detection is made only on S2AP[1], so no changes
+> - Wrprotect sets S2AP[1]=0 from the PTE, and also DBM=0 if it's a block
+> 
+> On dirty-tracking:
+> - If HAFDBS=0 : no functional change, DBM bit there but unused
+> - If HDBSS=1
+>    - Pages: writable-clean promoted to writable-dirty on write, HDBSS does
+>      the tracking
+>    - Blocks: faults on write, splits in pages, pages get DBM=1.
+>    	(argh, I think we need a PROT_DBM for that)
+> 
+> Does that make sense?
+> 
+> Thanks!
+> Leo
 
-Remove the `static` keyword so that `c2a` becomes a regular local
-variable, eliminating the shared state between concurrent calls.
+Hi Leo,
 
-Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
----
- drivers/i2c/i2c-atr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Got it. I'll wait for the conclusion of your discussion with Oliver
+before proceeding.
 
-diff --git a/drivers/i2c/i2c-atr.c b/drivers/i2c/i2c-atr.c
-index e6d2af659d81..c9ad46db438d 100644
---- a/drivers/i2c/i2c-atr.c
-+++ b/drivers/i2c/i2c-atr.c
-@@ -360,7 +360,7 @@ static int i2c_atr_map_msgs(struct i2c_atr_chan *chan, struct i2c_msg *msgs,
- 			    int num)
- {
- 	struct i2c_atr *atr = chan->atr;
--	static struct i2c_atr_alias_pair *c2a;
-+	struct i2c_atr_alias_pair *c2a;
- 	int i, ret = 0;
- 
- 	/* Ensure we have enough room to save the original addresses */
--- 
-2.43.0
-
+Thanks,
+Tian
 
