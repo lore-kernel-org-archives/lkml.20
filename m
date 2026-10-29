@@ -1,120 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793293066;
-	b=nOHQhFhuSL/LW+x6ohEFIT/j2GWmXWNLydKNtnNwifxiOWeUqX7oM4s8+ouFg/Gttle8
-	 l1oeqJJEYRvA59HCCFp/vb/I2cmV6zBnZjoLkKQrRoeKwptWzRx71axleaxMlk16fCzr8
-	 Jt61Yeg/9Xgn9gK68bJgxXvQJh7DpfRbLfrU4YDzNrUovMobYoTV1Ne9pTKV8BtN9ukfz
-	 MOJ1FNox3cekiCHLE4oPk8bwL63FnWf39lO6l4heK4/Rm2sViVwOINzQaMfOvsq/pj/zE
-	 PWdh6rdMLuSfrH9RsL5hq//8qb4ztAluv7GbjocGD1dwpVOJUMbi3UF8wqm8cBfnzJg==
+	t=1793293063;
+	b=YFIUw7urNReQH0y+Fy82iBLq3GxubS9Iem6920as4VeoeoMQdIViUQQJ3ZlLY5r0qKGN
+	 j9LwVL3WnDcL9ijs2JT/VD9N60iX7xFmIbTX8vXEbzlYgK45qvEFHxKQy6Qogw1giebRU
+	 YEajcpB3JzfSxE3Rec42ceGfCMxvjkZhBqbT+cApmT+r0mXyGk68/8qq85eayU37xuUMq
+	 ZjqPCFrXg3ZkCxDbMLbXG0W1/HNLRGP1t5MdXA1Q4z+DWIktgc5rC1NvpWsglcfQiXf+e
+	 C4UHTg6L1J7rrVQDNkmwnllFXZfPdmA0B5/ODRDtMXm3szybzqdAEeDmuVFFwYl//OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793293066;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=hTV/3nn/Rkcmn0hRyZbdsZoeAcUIyL6tsSbtRE9aXY0=;
-	b=PwbH+HaX65grHPvOrHKP46jRMVqSlG4hk56sZqESPRevc++ASDpiCW3LKdhzHK9EcTql
-	 UbV6Y3Ez4AwXbj5oiDD5vQy/mIcmf3cXJ16shAFK1E8xvYzP7Vbi6eNMauLezQhVY7gQ7
-	 P163i+j94QfSCfnNx9Pza9yDEXeAFuusKBUVM8Qj+bIGAD3+0c3JUuUzgZGfhilZrx0pu
-	 A+vvc/6cg41tVOgGn2DIMlusaTe40y7iCsn2yo+q3G3VoH19ma+VOIwt97Vgl/CkPLQHa
-	 j/SlzCCxsqOLYsdBLa+pMltdH4D+aScxAB9qaU5ptjGt/TQI9hO8zOhZnG/gdmsfXuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793293063;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=o9qVXnmYPWwEWL6vYT0sE4rqArVgEZmH/7qwJmZBvWo=;
+	b=EeoBPIFjIDfLi+PLijMP3UZJCJ6SdwTxibp6teiII/cuTazq/fyhM8iafyLh8Bwtm0Ra
+	 rVzb8i9ILfyR4AXkS4SgwYszECDu2KR1zZd5kf9tM8U95v+PhMVks70D6YGHF7rGajdZ/
+	 mu5nlqU7e+EByMFtcUJIWk1r96v1LmlM3hyAauvhpWpzzgQQ1yfF6t6d/KObsWZFeY1LM
+	 kiwkwyKEciEKdNLln9dg/7yu8uNBcQ07C/OoQLwPoI5xynYMeJb6qRBm50qgbI8XOBuyS
+	 Iq3Ihcj+Ff+jg0Fgzz6PJZSo+gubxwDbozeuw1MZMYh8FXtr/ktqfq5Zn5mWGHp9JUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GXs86wpK;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aGrGC1H0;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=O2XMX68m;
+	arc=none smtp.remote-ip=216.40.44.16
+Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1C360A2606
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:57:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD1C360A2606
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED3660A261D;
+	Thu, 29 Oct 2026 16:57:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EED3660A261D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GXs86wpK;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aGrGC1H0
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TGF4ml053042
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:57:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=hTV/3nn/Rkc
-	mn0hRyZbdsZoeAcUIyL6tsSbtRE9aXY0=; b=GXs86wpKTuJaEtB7IvbsrQaIJiD
-	Vzau5SA5Ip+Va4Mf7Yqhhf2vXf1VBswh8RUkDV6XmXP4UTiDz83JhUF+8vSeo+Fl
-	SIxDn4xWqgvL126WPyWvXV31hOW1RV9v3jnDpX/7UDRCeP7qR0c97qiVWXf5HEFc
-	tD/swatm7oFrd2gPzLbFoMU1FyoI9OTwCeprbTcqlsSzoiqUukoqjDDju6Q6CrpU
-	uLNUnGdd+69JCAh4/HgijN6/8kUn+oiYlhFekVGKj5hfMFiTK5vO3LLWUtD0fA6/
-	ymfcWcqp4hGlkl3kp1PsW9LTPKvtkyJiIm3nt3868LpR3rnGO/ombmT9hQg==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hks3nc636-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:57:44 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-9913f410ba2so157372241.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:57:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793293064; x=1793897864; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hTV/3nn/Rkcmn0hRyZbdsZoeAcUIyL6tsSbtRE9aXY0=;
-        b=aGrGC1H0Ao2Iynuo0mhrxET4tY1TvMZ+XtrCZum1T2gtXc4f3AzCJLOAxQgSvte8nt
-         A8eBI3CHaoTw0F2OxeCM3lgdj7qohG3Uoqpz1o0xdFustRtaVi2eedXVRlieQX4IOxi2
-         9w3owQHPOxDDlfz0jNC2zH9b1ZEmmBNwIybGjWvPqSBUR+VNQs5nb5XXwNemTdnWjwpV
-         TvjHuH63sEHDqykOtRHzKXPFWPpva+tA2ORjPiG5z7CmPnMGbANYJzWE6Lw1Tih9acuT
-         1UguC0MNCwfyJHGNgbIVNGn29wJUOj6G9T18OShHTBC5vlVCgURTpk9NnvWhCI+SIy9D
-         72fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793293064; x=1793897864;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hTV/3nn/Rkcmn0hRyZbdsZoeAcUIyL6tsSbtRE9aXY0=;
-        b=rJGFXQ+oYC384IvJ+d5dLtOOq2CGIEf898xDApufCiQK4Fypif2jtOyzLVsHMp4ddl
-         FG2yZkWjWDbse9T0nP6XQkUHevdxUL9PNnqraMHxbyStCoWu4nKVP2zXUxdiM1C88Rir
-         xFlN2+GO8PfUPT4GISnQpMocyAaYeB1WMe0NMrkBDISu1kFleyOmJ8LvBxyR5bN+9dBy
-         t4EypZ8oZT0ydgYRuObhS/MQClguLO1PjrMDGKrbr8f9efljqewFIudtUJrGGWfwRmSa
-         0piK4GSpr/t2a0oBAaQs56iuwVwusuj+SdyFXhPHcorApdPp5VnPYp8qGjpJhD4q0eji
-         hMSw==
-X-Forwarded-Encrypted: i=1; AKwUvBxENdS0DtKuCXeXmq9J8bv1foaDaNJ1K/EX9Xn9lGpEAHxrzeLHDzIVaxZV2c4dmeHtI4bdMScIhXHs4dE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjQ0/SXiBCBhuhapCO8AifuCBwVM1c6Y+EwDE3MQCB0igToVsJ
-	Dk9NhiJoMqfOLk8qNNUfuRYr6Lu0PowGFYkxCnZ6cLd+3XA4MQw0eIypCIunFVbLVCDyyRdD3Ol
-	bk3ddQJwlNO+Q/5kcy5tqlij28qAH4ye8vvWBluYdzHzEkK7c/zQ3jTwj6/vcBygcxeU=
-X-Gm-Gg: AYBFou33X+DuK1eWxrvU9efMNxhK52NjaVkmkACxHAYnlFCAk9t2vp72kyw8NiV1QeX
-	DYEQlygQVITc+9gU7FqfYSH3AJZpla0DEH5ulwThvv9aLAEuk/AWLEy2vqsa6g9tPyda3VsNhNx
-	WFmVFLRgrbZIBQkkfMIpYJBC/fdKYAFL5mUu9GWUG5ymA5sL/QfP2F4Q7HAar2kJnCDgll6lZ/6
-	J5vBjjQ+AqS3UICAYbaTHe3Y4HonfICgc9poW4I9C1IAIakipnuTrPIjnOSEL1FDuRCZty2qMAS
-	xoPNA7IkUMPDOljpyBZX7au5UmCYqxb3rKeYUbNkJNRy4wYxD0QtBVpvWintqoyL8ssTQ6ELLG+
-	AwyCvrQji3G1zjq1yDVUc+8ORWWOsUPnsCO5cgpzI2aG3GEsX5uqJ+g0KotIK18X4IFYJjse/+Z
-	7O
-X-Received: by 2002:a05:6102:80a5:b0:7a7:19aa:f0d4 with SMTP id ada2fe7eead31-7d03a651783mr2367409137.33.1793293063951;
-        Thu, 29 Oct 2026 09:57:43 -0700 (PDT)
-X-Received: by 2002:a05:6102:80a5:b0:7a7:19aa:f0d4 with SMTP id ada2fe7eead31-7d03a651783mr2367399137.33.1793293063416;
-        Thu, 29 Oct 2026 09:57:43 -0700 (PDT)
-Received: from mai.box.freepro.com ([2a05:6e02:1041:c10:7fbe:151a:486d:a2cc])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e6df961dasm325669f8f.23.2026.10.29.09.57.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 09:57:42 -0700 (PDT)
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-To: rafael@kernel.org
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Heiko Stuebner <heiko@sntech.de>, Shuah Khan <shuah@kernel.org>,
-        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
-        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        linux-rockchip@lists.infradead.org, linux-kselftest@vger.kernel.org
-Subject: [PATCH v4 6/6] powercap: dtpm: Add RK3588 hierarchy
-Date: Thu, 29 Oct 2026 17:56:50 +0100
-Message-ID: <50f06fc06f0e83ee59ecf9037071e02344ecd15b.1793288783.git.daniel.lezcano@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793288783.git.daniel.lezcano@oss.qualcomm.com>
-References: <cover.1793288783.git.daniel.lezcano@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=O2XMX68m
+Received: from omf06.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay10.hostedemail.com (Postfix) with ESMTP id F0AF6C0482;
+	Thu, 29 Oct 2026 16:57:38 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf06.hostedemail.com (Postfix) with ESMTPA id A233B2000E;
+	Thu, 29 Oct 2026 16:57:34 +0000 (UTC)
+Date: Thu, 29 Oct 2026 12:57:33 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon
+ <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, Kees Cook
+ <kees@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, Puranjay Mohan <puranjay@kernel.org>, Ard
+ Biesheuvel <ardb@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Nathan
+ Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Ben
+ Cressey <ben@cressey.dev>, Florent Revest <florent.revest@linux.dev>, Bill
+ Wendling <morbo@google.com>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ bpf@vger.kernel.org
+Subject: Re: [PATCH v3 1/7] scripts/sorttable: Make the arm64 before_func
+ offset configurable
+Message-ID: <20261029125733.75e80eec@gandalf.local.home>
+In-Reply-To: <20261029-b4-arm64-callops-kcfi-v3-1-1b011ad5ddec@linux.dev>
+References: <20261029-b4-arm64-callops-kcfi-v3-0-1b011ad5ddec@linux.dev>
+	<20261029-b4-arm64-callops-kcfi-v3-1-1b011ad5ddec@linux.dev>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,118 +70,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: uvJm-zBXz9PT0HPZEF2clX4K5717KPPN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA2NiBTYWx0ZWRfX/2+5mpTe4g/s
- vsijC7DkrUCLbdBW0NZDMwuuQYOw0QbFOzCrvajt8zgzPvNGUf0flesqwoD04O2XAD0yxDAk6td
- yz0COe63nl7k39RK10Cx/t1mWMNB7AqhGox+6RRq7PgCR168loqF5CFKqif1yqMJ0MUYwqqjqOD
- 7GsOHkkLLFZTqwR666RbQeyJFt0jQywd0WaDdKFaVGfSk4R9UlYDDQAwCsn++XE/UwbEcBlvIao
- vQBwyKZJ/PSyMlropAKKl7Y3l31CQ3T6OGkhhJ0gTnkwFR5Vz7lmIJ13E/2u52pJuRQZ6CyFotY
- 4y+rXApZnKlOAqqKytsiDf3pislWweGKF0sm8ypSNpXc3z9V1saa10Z/lgXnGoVztFBDzHK9opx
- qbc2kOT18CML3ByOXz8efWUL42DA+YeOIC69y3bAk3q/QmaNyqZCbnDjGJWkAni69UNLo1MmbFz
- pJ0IKVvyGTWvuDm+XIg==
-X-Proofpoint-GUID: uvJm-zBXz9PT0HPZEF2clX4K5717KPPN
-X-Authority-Analysis: v=2.4 cv=XZEcX455 c=1 sm=1 tr=0 ts=6ae37b09 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=8Fys3Dm6xgAeGQ2jRPYA:9
- a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA2NiBTYWx0ZWRfX1fqsLNarUaIL
- 4kwVW4bJF5OrKpK/FoxF/Xj1uF54jojYhjz8Mtb7Zo3iaoIHmYfyaCkhporHq9x4QAGHf2iRDxW
- JZ34TbGW2TJYDtYZuCGnJnio/2GvhIM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0
- suspectscore=0 bulkscore=0 phishscore=0 impostorscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290066
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: A233B2000E
+X-Stat-Signature: 5754sd9cpbybo3dm5dhdrqmqhjwxwxuo
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX184EGAq7MiFwVvUPkOypaUue5Jo3FQ2e0k=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=o9qVXnmYPWwEWL6vYT0sE4rqArVgEZmH/7qwJmZBvWo=; b=O2XMX68m845O3WDKi9BwaEt1caAlqa+gEtKsxmrIIXNytcUCtD3BLyldTS0/IqEKS+sM7VNwEUlYgK6umqv9OZFhwN3O6EcrWATSvs8oQY4SOY6qfWglzjOxnxrIIqI8aklfLUt5fgWJsPkh/9yXX3eCqzf2tdv2eG8c3TO57KM=
+X-HE-Tag: 1793293054-777104
+X-HE-Meta: U2FsdGVkX189UC0rZjNrMJ6F5e65lS1+Gv5SMF2ZBhu39yNWsJkFs5+b6b9Q7YHTZ0snpCrHrxfBnDULhMEot5zJLRVz16QoQvulVN2CjfPk/B4EESInm3Qu2xcMbOjvRUMSZRmcu7Dj0JBbZ2rVgfy2wQ2z3CVuhez61PkigHP9sX7MmtxCCC3hgT+XwqT65rAlL0cskuWuJAgOialQh17Xaia6U9QUQBR/v1+1u+dr/FCg5+MG7XBrcDyJ/uDV+BxJRnh7vFNPdsY5om5V62LCUzZqD7vQuuF2wpxe+IuJ0UzeFfIc/MT8nHjhRVBEEtcK9bRoft+1iCaWP9ubvWrJAZ3Q6yh4zFo5GQOjHX5aayr72SZvIX5uZJPXZ9sQu7Cr0vzyiAGwZ1F60kRIfg==
 
-The RK3588 has three CPU frequency domains, with CPUs grouped into
-three cpufreq policies.
+On Thu, 29 Oct 2026 16:53:58 +0000
+"Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev> wrote:
 
-Add a DTPM hierarchy for the RK3588 with one CPU node per cpufreq
-policy, represented by cpu@0, cpu@400 and cpu@600. Group the three CPU
-domains under a virtual package node attached to the RK3588 root node.
+> sorttable hardcodes before_func to 8 bytes on arm64 (two prefix NOPs).
+> Make it configurable from CONFIG_ARM64_FUNCTION_PREFIX_NOPS instead.
+> kCFI kernels with CALL_OPS need three NOPs. The symbol does not exist
+> yet, so no functional change.
+> 
+> Reviewed-by: Ben Cressey <ben@cressey.dev>
+> Reviewed-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
+> Acked-by: Alexei Starovoitov <ast@kernel.org>
+> Assisted-by: LLM
+> Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
 
-Add the RK3588 compatible to the Rockchip DTPM match table to select
-the new hierarchy.
+Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
 
-Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
----
-Changes in v4 (since v3):
-- Rebase on v7.3; no code or commit-description changes.
+-- Steve
 
-Changes in v3 (since v2):
-- Rebase on v7.3-rc7.
-- Fix __initdata placement and the RK3588 match-entry indentation.
-- No functional changes.
-
- drivers/soc/rockchip/dtpm.c | 48 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
-
-diff --git a/drivers/soc/rockchip/dtpm.c b/drivers/soc/rockchip/dtpm.c
-index 5ae00680602f..664764f4b460 100644
---- a/drivers/soc/rockchip/dtpm.c
-+++ b/drivers/soc/rockchip/dtpm.c
-@@ -62,8 +62,56 @@ static struct powercap_hierarchy rk3399_hierarchy __initdata = {
- 	.nr_nodes = ARRAY_SIZE(rk3399_nodes),
- };
- 
-+static struct dtpm_node rk3588_cpu0 = {
-+	.type = DTPM_NODE_DT,
-+	.path = "/cpus/cpu@0",
-+};
-+
-+static struct dtpm_node rk3588_cpu4 = {
-+	.type = DTPM_NODE_DT,
-+	.path = "/cpus/cpu@400",
-+};
-+
-+static struct dtpm_node rk3588_cpu6 = {
-+	.type = DTPM_NODE_DT,
-+	.path = "/cpus/cpu@600",
-+};
-+
-+static struct powercap_node rk3588_nodes[] __initdata = {
-+	[0] = {
-+		.name = "rk3588",
-+		.data = &rockchip_virtual,
-+	},
-+	[1] = {
-+		.name = "package",
-+		.parent = &rk3588_nodes[0],
-+		.data = &rockchip_virtual,
-+	},
-+	[2] = {
-+		.name = "cpu0-cpufreq",
-+		.parent = &rk3588_nodes[1],
-+		.data = &rk3588_cpu0,
-+	},
-+	[3] = {
-+		.name = "cpu4-cpufreq",
-+		.parent = &rk3588_nodes[1],
-+		.data = &rk3588_cpu4,
-+	},
-+	[4] = {
-+		.name = "cpu6-cpufreq",
-+		.parent = &rk3588_nodes[1],
-+		.data = &rk3588_cpu6,
-+	},
-+};
-+
-+static struct powercap_hierarchy rk3588_hierarchy __initdata = {
-+	.nodes = rk3588_nodes,
-+	.nr_nodes = ARRAY_SIZE(rk3588_nodes),
-+};
-+
- static struct of_device_id __initdata rockchip_dtpm_match_table[] = {
- 	{ .compatible = "rockchip,rk3399", .data = &rk3399_hierarchy },
-+	{ .compatible = "rockchip,rk3588", .data = &rk3588_hierarchy },
- 	{},
- };
- 
--- 
-2.43.0
+> ---
+>  scripts/Makefile    | 4 ++++
+>  scripts/sorttable.c | 7 ++++++-
+>  2 files changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/scripts/Makefile b/scripts/Makefile
+> index d7fbb7ca098b..7ef1c84cf79d 100644
+> --- a/scripts/Makefile
+> +++ b/scripts/Makefile
+> @@ -54,6 +54,10 @@ endif
+>  
+>  ifdef CONFIG_BUILDTIME_MCOUNT_SORT
+>  HOSTCFLAGS_sorttable.o += -DMCOUNT_SORT_ENABLED
+> +# 0 or unset (no prefix NOPs) leaves sorttable's built-in default in place.
+> +ifneq ($(filter-out 0,$(CONFIG_ARM64_FUNCTION_PREFIX_NOPS)),)
+> +HOSTCFLAGS_sorttable.o += -DFUNCTION_PREFIX_BYTES=$(shell expr 4 \* $(CONFIG_ARM64_FUNCTION_PREFIX_NOPS))
+> +endif
+>  endif
+>  
+>  hostprogs += gen_init_cpio
+> diff --git a/scripts/sorttable.c b/scripts/sorttable.c
+> index 88e49a5c4251..2e951f2f60e8 100644
+> --- a/scripts/sorttable.c
+> +++ b/scripts/sorttable.c
+> @@ -281,6 +281,11 @@ static int add_field(uint64_t addr, uint64_t size)
+>  /* Used for when mcount/fentry is before the function entry */
+>  static int before_func;
+>  
+> +/* How far before the function entry a patchable entry may be recorded */
+> +#ifndef FUNCTION_PREFIX_BYTES
+> +#define FUNCTION_PREFIX_BYTES	8
+> +#endif
+> +
+>  /* Only return match if the address lies inside the function size */
+>  static int cmp_func_addr(const void *K, const void *A)
+>  {
+> @@ -912,7 +917,7 @@ static int do_file(char const *const fname, void *addr)
+>  		/* fallthrough */
+>  	case EM_RISCV:
+>  		/* arm64 and RISC-V place patchable entries before the function. */
+> -		before_func = 8;
+> +		before_func = FUNCTION_PREFIX_BYTES;
+>  #else
+>  	case EM_AARCH64:
+>  	case EM_RISCV:
+> 
 
