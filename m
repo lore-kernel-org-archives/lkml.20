@@ -1,92 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793274864;
-	b=Mq3xEiqpNChAJvHdn9V54wAM69880shKDpPADelTi/z4x728Pwwif/bphZH5mM6/vS6Z
-	 KdoJx++3M7nGn9kndROISpa2zLXmf68pDB4XjTwjJsUwpzBZp3qVLavLJJ+WlEoiCrz7u
-	 0SwKAU4+ez7rXWtfd2LCBFZh/Yq8lpJQKldWlgQR3MyEKpmREm0N5un0f5stlhwJEzvCA
-	 RDhYqyBbm0MSBSy+MxArzSSWSZthI0vi8MnWUfJOrWP7uL5w+9++SlwYUtp+VxkSW/A0G
-	 SIBX8YMRGwu5AaYvPK6L+I0yjsegxH2XFH5bzbKubM16QM3IcKjrO1C/T37QbrDAPgw==
+	t=1793274898;
+	b=lHaNqviAXlkuiBMxz3+Cc97pN0R11KGBd7Z8dbyNFFRR/mhFMDPW1scoG+MhG5abcp0X
+	 ruNr9oNPM4JeltwOwU/jESqv4IqE8cwPVhbEDr6mWTCpjva2pYwqUJ+scOQhpadTubRdB
+	 ZPgfkaQh753j9Ym2TVpDX6c3/kId/UfpVT1LpeG+1uZnqC/GFXrOjsrof3fkkRXpuaz4G
+	 w/veChhFJQeSoulS43nwZOKfhjSKuNaF4enP2FvQw+dFlprMh2f91hRn9Ag1aAl9Eho6W
+	 TXZGwnJHMpRRlQsTr6+MfsW5ETG1Bw0F9fn36f/m43MysfjqqDVpXBhmmrypow5GCEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274864;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=YBi8xDJGx/6F9wWTOGSs2iQ/3D1cw/PX4gpZHk4mGeQ=;
-	b=pQHkC8kX+hyGZOsGjTgnLRg0hwsL4aaXrS2XzbGT5CJ9ylsgRb/b33lWitYN9KSPwbKx
-	 0mXNQTHaF4hMfJ8BGMu9Wh8+3Su0sfMHMRKvMruqF6pblBqL8mnBsFRW2663kkDXxYUL5
-	 az3XdIouaUAIrJDxQEhjgGg9amYa93xvytq+KXKyQBEb7YVOfaxTgvCM61F0wBZ5prfvz
-	 Oi0KlggtE6roYunJUknxovesh6d/osR5CGXr5xAX1m2dLm0lvv8bIy4hS6xuFEmPOIkTk
-	 Kz6nuxofhCDYH6iF+ipMOWFBxWXVm9KfbXLPIC1ZimIv9EcyQiq7NDCUPS+Rrpq6pLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274898;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding;
+	bh=h/fSgV0zO2t1wf4b6fHc2vLg5ezMBdguHQgR0SISKi0=;
+	b=iGXZW39z7fUxMBQ+tH2mjY6T8J8Ra9Am9QZaohAKpFpSeCqFQqPrpGoeOr9le+ewnB0U
+	 NWGMftwOR/B4Fr6i/BBvmrVXfGJZjXlkgxq84eFQ/3pSqAoLi5yQD0P8I0dnQdHTXBDTu
+	 gOO2v9AesaJA6Kng03x4vSN0FPLCZToVFyY1TM14dOPiHx3f+oo+LNtXmQxLRaaXZvOd9
+	 erCsy8qpBXWIqDWlMsA+j/LJUfQb+i73ABurIUNtKllEz5SiXiJdNgRQ9TX30kgHo658e
+	 /1GmDYyk3W4jczCVJgdOCgAWNg/Oi7/GVxjdpX3r7zfxF2wqMQofuWhnEvzPN2O23gA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SxzGwxCT;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12812606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:54:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12812606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=I8KFvowK;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2D153606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:54:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D153606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SxzGwxCT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793274862; x=1824810862;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=JWrFGNTUYl9evw/cUDq4OqTIxZXe9cF0vyFHTZm8iS8=;
-  b=SxzGwxCTU84+5kcDIPqej9/kQkXmcPIvfJnap2hnITMUM6RRVlB60rGF
-   x/HgVyMK5v4+QljOZFEgaX7ecmP3ScQ+/DKZZjN98X0pKDLH7gPIHWK5V
-   JEnbZsVjLxg77lCBH0HkkMnNTYDI9aOSr0zmPz3o86d+7Ge7OtSR1fy5y
-   ht+vaV031GQzm/yprwDpL5nSR9R9FiP6+r11Y+jWCdRSHnPTbJZ3Y13uq
-   FCDPl2l8vr/c/GJiQtWBQ9RGldEbMPkOdWxRbIDcBar1HTu0DCscDTFdu
-   KhlNCC7OMpwS/PX1ADBIPoGECvrWkTSGP6xB/hSYwOl4sDlV7sWpr4FR7
-   Q==;
-X-CSE-ConnectionGUID: S5nDR3OOSuWeHu+jFByU/Q==
-X-CSE-MsgGUID: vkfqZihkQvy1x48qdtPRLA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1898024"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1898024"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:54:21 -0700
-X-CSE-ConnectionGUID: +A58QkJcTMik+42R32X5Cw==
-X-CSE-MsgGUID: RDmo4aLCReW6b8SBGQAJbQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5218611"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.145])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:54:12 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>,
- dri-devel@lists.freedesktop.org
-Cc: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Maarten
- Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Patrik Jakobsson
- <patrik.r.jakobsson@gmail.com>, Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dmytro
- Malovanyi <dmitrymalovanyy@gmail.com>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
-Subject: Re: [PATCH v2 1/5] drm/dp: Always use enhanced framing for DPCD r1.2+
-In-Reply-To: <20261029101826.72773-2-dmitrymalovanyy@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
- <20261029101826.72773-2-dmitrymalovanyy@gmail.com>
-Date: Thu, 29 Oct 2026 13:54:09 +0200
-Message-ID: <5c241fa804e1e4ea4518854a96097252f7a5317a@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=I8KFvowK
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE9161BB2;
+	Thu, 29 Oct 2026 04:54:52 -0700 (PDT)
+Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EB64F3F59E;
+	Thu, 29 Oct 2026 04:54:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793274896; bh=qViMHAB2Kt/5NwjHfumEcn0tMJKp0+ZDStMShfsDLVU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=I8KFvowKpOVUFgo6sy3X5C6rFJhaRyJnA25w33Wgx/17gKnukyLRomu1Pf1yI0Iof
+	 lcQnpe0Abth0EmgQxlHKa3rA+Kef/8Nq0SM2/MdkIDBqHJb0lHq64HxFrw1tmpcN78
+	 kDWC+g8JQgHOjQKJWsPFk6CCDbTnj7J797e+n+f4=
+From: Leonardo Bras <leo.bras@arm.com>
+To: Tian Zheng <zhengtian10@huawei.com>
+Cc: Leonardo Bras <leo.bras@arm.com>,
+	liuyonglong <liuyonglong@huawei.com>,
+	Oliver Upton <oupton@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 5/5] KVM: arm64: Enable HAFDBS for guests not on migration
+Date: Thu, 29 Oct 2026 11:54:49 +0000
+Message-ID: <auM0CWJTPzYUTknh@LeoBrasDK>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <52945586-8c5c-4991-bd92-fe02aaf79fbe@huawei.com>
+References: <aqneWnlsdpocLIl6@kernel.org> <aqqhDs3NyjtkZzXK@LeoBrasDK> <aqsl1_IqnV2r8kUL@kernel.org> <aqvt2gnlBZeNsaf4@LeoBrasDK> <as-mH36YSMxAosND@LeoBrasDK> <3e464bef-8dfe-44a3-afea-3c276ae87cd8@huawei.com> <attMtUqxNsuPooix@LeoBrasDK> <8eaaba87-7881-49c4-a76a-51dec2f29ffc@huawei.com> <auCPEQmnFwWldTaM@LeoBrasDK> <52945586-8c5c-4991-bd92-fe02aaf79fbe@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,66 +75,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-On Thu, 29 Oct 2026, Dmytro Malovanyi <dmitrymalovanyy@gmail.com> wrote:
-> DP 1.2 section 2.2.1.1 says "An upstream device interoperating with a
-> downstream device with DPCD Revision of 1.2 or higher must enable
-> Enhanced Framing Mode". So for r1.2+ the DPCD revision is enough, the
-> DP_ENHANCED_FRAME_CAP bit does not need to be checked.
->
-> Some sinks get this bit wrong. The Xiaomi Monitor A24i (P24FBA-RAGL)
-> sets it in the base receiver caps, but clears it in the extended
-> receiver caps at 0x2200, which are the ones we use:
->
->   base:     12 0a c4 01 01 00 01 80 02 00 06 00 00 00 81
->   extended: 14 0a 44 00 01 00 01 80 02 02 06 00 00 00 81
->
-> Through a USB4 dock (CalDigit Element 5) the link trains without
-> enhanced framing (0x202-0x204: 77 77 81), but the sink never syncs to
-> the stream (SINK_STATUS 0x205: 00) and shows "No signal". Forcing RBR
-> does not change it. Connected directly to the laptop the same sink
-> syncs without enhanced framing, at RBR, HBR and HBR2.
->
-> Make drm_dp_enhanced_frame_cap() return true for DPCD r1.2+. This
-> changes behaviour for every driver using the helper, but only for sinks
-> which already violate the spec by not setting the bit.
->
-> Tested on i915 (Arrow Lake-U), with the dock the link now uses enhanced
-> framing (0x101: 84) and the sink syncs (0x205: 03).
->
-> Fixes: a1d926527b79 ("drm/i915: implement EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT")
-> Cc: stable@vger.kernel.org
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17719
-> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
-> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+On Thu, Oct 29, 2026 at 10:54:24AM +0800, Tian Zheng wrote:
+> Hi Leo,
+> 
+> I've read your discussion with Oliver on DBM RFC v2. As a suggestion,
+> maybe we should go with Oliver's approach, i.e. revert to the v1 scheme
+> and continue fixing from there.
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+Hi Tian,
+I have been reading a bit more about permission indirection to try figuring 
+out a way that the change may work for both ways.
 
-I've bounced the series to intel-gfx and intel-xe to get CI results,
-though I don't really expect any regressions.
+The problem with the previous approach is that it assume DBM=write at all 
+times, which is not architecturally correct. Having DBM=write only on 
+HAFDBS=on as suggested would require us to transverse the whole pagetable 
+to convert encodings when we enable/disable it, which can be quite 
+expensive.
 
-I'd appreciate acks from other driver vendors too.
+One option would be to always enable HAFDBS when system supports HDBSS, but 
+I still have to figure out if that causes any performance regression before 
+suggesting.
 
-> ---
->  include/drm/display/drm_dp_helper.h | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
-> index 5b05a7fbe..4f20f60db 100644
-> --- a/include/drm/display/drm_dp_helper.h
-> +++ b/include/drm/display/drm_dp_helper.h
-> @@ -160,6 +160,10 @@ drm_dp_max_lane_count(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
->  static inline bool
->  drm_dp_enhanced_frame_cap(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
->  {
-> +	/* DP 1.2 2.2.1.1: enhanced framing is mandatory for DPCD r1.2+ */
-> +	if (dpcd[DP_DPCD_REV] >= 0x12)
-> +		return true;
-> +
->  	return dpcd[DP_DPCD_REV] >= 0x11 &&
->  		(dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP);
->  }
+The option I am pursuing is thinking on an unified code path for direct 
+permissison (both HACDBS=on and HACDBS=off) so we don't have to convert 
+between them, neither worry about the impact of HAFDBS=on on performance. 
 
--- 
-Jani Nikula, Intel
+I will reply on the thread once I figure one of those options out.
+
+Thanks!
+Leo
