@@ -1,68 +1,197 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793259750;
-	b=PUZbjwAuW67FT9Q6y34hRkKZJs4gORiZjGFShUL44rCl/KZRLjbOErr5g12S+DqKkwrr
-	 mVCS2J7swKBzNRM4OWIIXWTM4aYflV+d+wzTu/2meRY6AJqfGM2xHkKAAo96lzfoDiXir
-	 K9Hygg9liK7TO7r6ZstzrmT6Y3/KYZrEdmzy3+8n2LpnYq1sba8dkPIktqI4bSIcT5ZY3
-	 NAixVpe2DA1aqBnJxP5dtzTnWDxjwJh1lA/1o7K4h6vByWkovxfo4ooNhPpxP8qSqUVEp
-	 ClBZPKdvBYvQzhf0Tsfnd39fA5T/L67pVKXIZBlQz1bN2ZTquhoZyzNHEMRIOgQqeBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793259750;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.10
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793259758;
+	b=MXtjDPZrfe8YwDSpWK73OgqBlgZl9uRr6cWR47Miz/qsmTAmp5s1Pvbs6P6XvHuIhCxp
+	 jAhQzUxxNrMoHOgNrjw+ENLvOWoERYClnRXEWqGGJvwUJkn9dW676t5jhwUrTKOgYm95c
+	 SzdICokJgwrgOmB87L1tx9NH7dc+CUVcYlNpf2EtzKRvuOzo+dT2rI5tAildDtqSHDaVO
+	 WndKHGOShinHZlzNW569JadBJEQS7dTOvHDpA6jTPj7Yo5FNh8/l7IxViueJW265w3eKo
+	 6N+huwMTbfUEeUTwwcrKVVqnuJ6yXu7IpMcax5x/wWpqqXVe92gyr5O1oMBUsxU22gw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793259758;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=uqtLDQD5xTS0V2akScr1AeCuZBi18jL8j7JRCM14Iek=;
-	b=KYQMYaKQ0L52G9rFKG955z0A5f68fAASfg+OBQ63/nlQ0DyJ8QmQ2uadStdySiaiC1LN
-	 BJDrFk5IXr+1vlBbPDs12oxzjv7gF3v4gECXl9yt5HoknCO9fohUcz4RZU9CoDs9NfDwS
-	 BJU4pkjnVwps93VAdOEZnkqBlVaHB0rERiT3WC5zRiXFkj/5Exkl81aGbg3Qrx0hBH6kd
-	 E1zEYdihI5wBAis3DgcDHdIO+dT5FCphT+piGp4pgK1gbkD/mhNwx2wsg1eLznVBYZ1ul
-	 UPN2Iut4VYmD18Crs41I7Nq0/o9iLXOnOB//T+TJYoTm4uQrYlbiXcosuDdYiUSlO9Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=djNC1Rw9;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=dY8KX/UyWMSGfcmwFwz3Tk/cgiVQXdfDIbontacQNrM=;
+	b=foCEgg9nWjNyz9baYLGXJul2Lt+hvrvwNbHrsD7cKv1q6ySRvmhko4VTqvGymS6/kwUW
+	 8iMoaO9xYkj86ZMMbPHRpYwtXdjzX3VMHPSLOCPGCtoh/wuapH5JJ7UDj+OQJEuONEZ2u
+	 JasJmIXqAjVYvuOwhHVqClq5c5vAiHzzSfpQ+p3nql1+TWJ+A8hEQuy9/Ami8QW3c8ij9
+	 ARsUSdOO0FavtGFE0HJ1arYZQglJFz5ZedFTY7KN1tLeF7vsXV5raZMZX8phvwT8X+om/
+	 p/zqbV7dlcKEuDMep2d6X3CU1uQ9JtewrEp+SBhImMphjeR7k4QDnyxFpfkLM/Qb+vQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473AE606A31C;
-	Thu, 29 Oct 2026 07:42:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 473AE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=djNC1Rw9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A21D606A329
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:42:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A21D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793259750; x=1824795750;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=MVpVtdLQY4IkhjqzlWnwVcUPW52r2XOrV9LJwuyJ5k4=;
-  b=djNC1Rw9WbnjxgyKxSPeoG/tA56mEJCCp2eIq8otp+wwnxh4cPTWghmT
-   0IGHoQ2iObykXtCqFJZQEYK4nextG6C98Zwg7aMhKIYYhN28UT2xLdn+m
-   +HcMHpzx16DTQSKkcPytTtAx+/njBGf9fwVA70v37qfNYlmnAGaoxU0sR
-   rN7Q3ojYBXcELXwPL/smFFf5bUiYSJpippOPJjy2XH008TgMZXNa351OM
-   o8kXq8wI9JQZriQQwEgr9vTB04m+JYmOoPoyiq9D+nV9y082Gc21jlN8f
-   DpaoL7C+Pz++4Mfe+FqeqfsWNiExcKLKfyh3TacPexL20l0ONgJUDjp9D
-   w==;
-X-CSE-ConnectionGUID: z/bylCyEQPaA8UmcuVNX7w==
-X-CSE-MsgGUID: is+ZuzrEQJWOqPVQOfe0vA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2022961"
+  t=1793259752; x=1824795752;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=dY8KX/UyWMSGfcmwFwz3Tk/cgiVQXdfDIbontacQNrM=;
+  b=TVXIT4IHQ5KwJp8ocfZPGwuc67Q8YouR3nj/xOde/fkb2UdLbCY+eKVw
+   sAzhYW055AVpOyktaGwsuNNQNcgBKcXhRnitvZ+WTO5ztLcePZZ9cTsrG
+   ZPKas0arjkYSHn6hUxXon8OA+yqe5uiBAMFSIgTen39AnT4qAf9UqD5+7
+   lPZeMqZuMABc65CstEG54+/7MnqfNPv1VLG+Rui47deAfvIaM5v9k+xJ2
+   LnV9V4XTBKBkjMpJOMDOFtUhzeLKHwJ2pHrT7uNOi0gIXG5Buke9BvEDk
+   NwxWmP3KmZquCKmeEKegzrbXkWsBdzwF8p+evJFjewgtmAM1fh+3jZfK3
+   A==;
+X-CSE-ConnectionGUID: RDKjo8C5RtueMGEVb8KJmw==
+X-CSE-MsgGUID: nZFiIv3fS1OofQNvwEb4JA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1899041"
 X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="2022961"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 00:42:29 -0700
-X-CSE-ConnectionGUID: kxMxIR/0T1ONe6fL/FYo9Q==
-X-CSE-MsgGUID: 3ztfeBnzRVClbEO5iW7CNQ==
+   d="scan'208";a="1899041"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 00:42:31 -0700
+X-CSE-ConnectionGUID: YqY+w3CuSe+FGFFCn7I3sg==
+X-CSE-MsgGUID: KnQTbzgITFiiGmZAqgaGDw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5456510"
-Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 00:42:24 -0700
-Message-ID: <0945bca7-fb1c-4bbe-b14d-1e9939738daf@linux.intel.com>
-Date: Thu, 29 Oct 2026 15:42:21 +0800
+   d="scan'208";a="6822057"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa012.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 00:42:31 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 00:42:30 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Thu, 29 Oct 2026 00:42:29 -0700
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (40.93.194.50)
+ by edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Thu, 29 Oct 2026 00:42:29 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pzfXIr6ndyyv7Q3hIrECWIIq38OA9c3lLbp37GO40AnAb4Vxx+hL5V8ukaAkcc1qCKwHxnaHVyQ0ZxywFiQ7vvXu0vTuudOczrZq37SKse76UvQb/2Bb727T74RRCssV/CffDxIqCfvUgdNX7DJoWLY1CKeFFM9N3i7e4V1XNoBQV1fTJOkLcsBeG0XN4uibhxb3LgVbHQB6GwHDe5RGgesXBdHTpIitv8lAc/dNiQvp65fGc918G3j+L/mdds+sk+9Jibgq9zBQUIwwd6II03EuQS1GcDmtvBbo4gm9cUlnIdVYoJVAQpN9Qk/n6djCq2xPj1DlyJnfxaHc2Y8atg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dY8KX/UyWMSGfcmwFwz3Tk/cgiVQXdfDIbontacQNrM=;
+ b=BYjS7YKHHftxAfQzTQt23aVYqqmjlAXpI3ovTCzFzw7tCwbD7DK1MbvT23J65N1reAFfK0bKWMFjHE8J8dqzJ1EOY7EH08Z9bJzORPSgzXSCwk5BrHndG2JsyUohlpuAvG17XreFzXzG32224B8QunS2FAcnN2lkVxrBQ48OsqY+4di2LUV5vfVLlGNff2E6KUiOT5scwKWij3EyIvYt6gFS8+dnqEfcLpBB0tsPZ2xlnyFfq4TgTa88uUcPXHW1xZD7HGzrHI57HfVALgyIlLBPh6yN/i/K/DUPt46ynSaTH6UUAcAYCmF/gXSIqZy538QUivw0/n9gMkluFXmPCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DS4PPF93A1BBECD.namprd11.prod.outlook.com
+ (2603:10b6:f:fc02::3c) by DS4PR11MB9532.namprd11.prod.outlook.com
+ (2603:10b6:8:34b::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 07:42:22 +0000
+Received: from DS4PPF93A1BBECD.namprd11.prod.outlook.com
+ ([fe80::7fcc:9f43:b0e9:943b]) by DS4PPF93A1BBECD.namprd11.prod.outlook.com
+ ([fe80::7fcc:9f43:b0e9:943b%4]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 07:42:21 +0000
+From: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>
+To: "Li, Xiaoyao" <xiaoyao.li@intel.com>, Nikolay Borisov
+	<nik.borisov@suse.com>, "x86@kernel.org" <x86@kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+CC: "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
+	"bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>, "Hansen,
+ Dave" <dave.hansen@intel.com>, "kas@kernel.org" <kas@kernel.org>, "Edgecombe,
+ Rick P" <rick.p.edgecombe@intel.com>, "jgg@nvidia.com" <jgg@nvidia.com>,
+	"nicolinc@nvidia.com" <nicolinc@nvidia.com>, "aik@amd.com" <aik@amd.com>,
+	"aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>, "seanjc@google.com"
+	<seanjc@google.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>,
+	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>, "Gao, Chao"
+	<chao.gao@intel.com>, "Verma, Vishal L" <vishal.l.verma@intel.com>, "Tian,
+ Kevin" <kevin.tian@intel.com>, "Peng, Chao P" <chao.p.peng@intel.com>
+Subject: RE: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
+ operations
+Thread-Topic: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
+ operations
+Thread-Index: AQHdS9rFOalajx5+oUCDkC5Yzlha8rcCNcsAgAIPpMCACwdhAIAB6v4ggALNhwCAAFRjYA==
+Date: Thu, 29 Oct 2026 07:42:21 +0000
+Message-ID: <DS4PPF93A1BBECD796762591E71B100F8FB926E2@DS4PPF93A1BBECD.namprd11.prod.outlook.com>
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-7-zhenzhong.duan@intel.com>
+ <8c892695-7ec5-4d93-a74b-487fe535c3f4@suse.com>
+ <IA3PR11MB913605FFABBBC42C1FF341E192982@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <03c80e1b-2a47-466a-a042-c736f640d3c7@intel.com>
+ <IA3PR11MB91368A7BCDAF146ECDC6A4CB92602@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <45327d29-e9fc-4b47-9145-9ae8e63042e0@intel.com>
+In-Reply-To: <45327d29-e9fc-4b47-9145-9ae8e63042e0@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS4PPF93A1BBECD:EE_|DS4PR11MB9532:EE_
+x-ms-office365-filtering-correlation-id: 7786d05b-6312-4e90-0715-08df35902abf
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|6133799003|22082099003|18002099003|56012099006|5023799004|11063799006|4143699003|261028144727099003|10067099003|261021135927099003|261022075727099003|261022105027099003|261021121427099003|261026140227099003|38070700021;
+x-microsoft-antispam-message-info: lMsAI0LWB3PT4A2ZuwRbbQPd2NkROJfjPf94PtcDd3j67ZT7PXew5hlvkNTg4gU8U18IizqbbO04nz5xD8SzaO4+ojgWWWH4mOmRdCIg+VZ17BlnTjUZrnfMTJhrYnov5PHR9KFgIdc83BQEyqZtG3cZJeuXL71YHdfERNIwsA3mgx+tDWPETiDwUZpTPTgAozGtGt87BmDvDXNViML15ABQkA1cJnR/qU6wG2q6Alg2y7zdt0VYIo8v1X9QHZc1LXiB9yWBjdSLkGEeoVibo1tMnjGcyFIn0abpKBmBegDjRxCZz24aZ/nz9LtDGCUNisdXcC091glsSaxWsdRLvxZnF0IwDsIr48WaCGf/bFTcTOc/JRV6BvzIBcBUB0ovre/hlXXs/fNhi7IQfpyuAbEql5AFCqT0QCZh5yc68FJeLk3XpxqI/extvmAifI5a60oVjbPHgQ+uHohtLy6EcrSLkM7CbkmAkbOKsl3YcMk69a5/pPIGhJkeb1BuCWjIjssIobkp7xP3DvHLcoGNC2MXEUbt0LgEMjSO5u1Okhx3ACdjwBN4sJYmJW8io0H3XUfNynqGW6x88mBQ9VfwGLdpHHFxAmln3L3VewgX042yU3Xz8YYYRFYfJU8b92rlsqhBcBeSh8yPmRKp/PEW+P8DA4kSHmVhZotGsjVzSquAgYp583IhiRKOH7sYibUD/7rzaISEeADSi6gP5xXwrAOrVBSPLabAnNowYWPxpmc=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF93A1BBECD.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(6133799003)(22082099003)(18002099003)(56012099006)(5023799004)(11063799006)(4143699003)(261028144727099003)(10067099003)(261021135927099003)(261022075727099003)(261022105027099003)(261021121427099003)(261026140227099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VUxUdUV2bGtqMWdJbUt0Zy9sNkJVUWtJT0tkajV4d25NZm5yYkZKZW82ZGEr?=
+ =?utf-8?B?YmlTYlJSWm90S2dUUWU3MXpBK2pkOTlpT01BOERjOWpLcncxc1YzM2NwY0RI?=
+ =?utf-8?B?eVdLUmtna3pIVHg3N0dyUW5sR1RmU3VyN01IemsvNk9iLzI3bkN0YkdiWDF1?=
+ =?utf-8?B?NUsyS2psSTRoMVB2OWZhNTl2UGVLOUdwRm00aDFUOWt5dlVoWTFzdzdVMVh4?=
+ =?utf-8?B?MTkvVEJ1cXpoc0JUVmlqRHVyMU1oRXAwUmhPbE1HNVFtY0wxell1MzVUV3Nx?=
+ =?utf-8?B?aXRMZVZXQ2JuV2RBVjRUNVNhZXVXZldHMERVNzVZUURRRjFpcnNscnpkbElD?=
+ =?utf-8?B?alZFaVo4b2w1bklYYWhKUloyY2RyQ1FUa1VGYnlGSzlQYUF0TjFBMHl0VjlX?=
+ =?utf-8?B?WE9yMzZZNkovUlpYVkhwR0lzYU5KK1hnL1AzMmxzK0NiMFROMTM1Zkg5eGpY?=
+ =?utf-8?B?WjdqYjhPUUx4ajg4aHdyWWgrNjVUVFIyTVdnL0dYL3NLUTl3ajNwUWlpQ0dl?=
+ =?utf-8?B?dFc4bG1NV0pKS3B2MWxqUnJVTGJiRjU0Z2UyOXRQcW8yRS8rSHNkREdKSmtZ?=
+ =?utf-8?B?UXBOR2dmbWZNdGlpSWE3N1V4bFNvaWk2VmRGZHBpVVFLMlY1V0dBUEtCbnhm?=
+ =?utf-8?B?ZDljRDloTEVEenQzd2k3cjViTlpoRDBzdmZjZEJjNlpGanhLYnhuQWpDRUlu?=
+ =?utf-8?B?ZHVGRnYxeXJhbGVEVEdaZHhMZW5vTmIwQjRUeFNvRGpTN1NLUGd5TUJwUkZt?=
+ =?utf-8?B?Z1FkWHVaTDJZbndtMkVZYlJQSGNYeWFDMUdGY1lvR3krbEpIQXVBZTdKWUo4?=
+ =?utf-8?B?UzZTS0N3am96dUNrSVhCL09kcWZxOW8wTTJJNUNZZ0Jsd0pHWHVjL2pPTXA2?=
+ =?utf-8?B?em9jNGdUSEh1ZlA1NUNmdVFJV2lva1pGclU0Y0RnRGg4R1RHZS9sU0dUKzc5?=
+ =?utf-8?B?WTZ4QTBnVzZuZ0Fsc1pIZWJOK3Bsc1YvSTl2RThCakxCZmd3bDJjckpBMDhm?=
+ =?utf-8?B?eG5oOXBNelZmMzRYelhlZUpRdzBFei8rT1l3R2ZieW02K1owN3ZJSm1BdFkz?=
+ =?utf-8?B?aVRNYkwvUGcrWDhWQ2hWVDhWcDhZQ1BjL25uaytxa0RVOUs0YVgrNFVZamxS?=
+ =?utf-8?B?UDFHL0JhdDBOVjVVYzdaTDdCUjdvK0tOVnJXTXdoemJwdDRpN1BsWncrb3BO?=
+ =?utf-8?B?K1VoYXBnTTRKc2VUYXo1TEcxOHVaZG9PNExqMXlNNjNKOHFyRW1WM1NVYzRk?=
+ =?utf-8?B?anBIU3E5TWlPdzNvclN3dVhDc1d4NUVWUmVIdk9JS2Zmd0hyV0tPd2FuejRV?=
+ =?utf-8?B?dXRsMVF0MG1HanFJMkFXMnd0V0pCeWRmV3FJK0ZIZkxlOHBCNjRldzUzbnBO?=
+ =?utf-8?B?b0NRN3RkZnN0UWdNNHlJM0RxQ0RkTnR4akQ5ZGZXbWVPdCtMM2I3OUwreEJu?=
+ =?utf-8?B?Qi95NzkrZlBmcHc4bHdxU0FkZG9HNUtvandsekpveXZQeTFmTGo1bEhmMEl4?=
+ =?utf-8?B?T3pmeWxUTjhSd3lLNHlRV0k5WHRkNzJScjFWZzJORjd4ekExK0tkTGlKSnhy?=
+ =?utf-8?B?NTI5c0hhWVoxZEtNWjFDa2REMjBwNWpjVytKWGp2UXVzcmY5aEx4NlZScjhL?=
+ =?utf-8?B?S1Qvck5aMmxVemcrRG02YTJpSHJqZy9BL0hieldaRmI0UzUzVHBtcUN0MHNt?=
+ =?utf-8?B?WmlDOVlFVDhrVVAwU1h5MEFrd3haVmxyT05KMlFrTWNBOUcvZ2JmWml0dnFZ?=
+ =?utf-8?B?S1VaMC9oUlVBS01iK3o4VUIwY0pqVXRaS3FYdUJpRHlqQ2tEKzRmOStYeWFZ?=
+ =?utf-8?B?d01HUlVMaHhERFlyNzQ4MDdaaFRSZi9HdDExeFB4VUdVN1RWNzI4VUNRU082?=
+ =?utf-8?B?Q2M1em9ETWdad2FOd0c3WUs4UzdWR05aTkJMWWVYTXlqOVl4c0tjdG1LemJS?=
+ =?utf-8?B?K3U3VUpJVGdreEs4QkF0NjZzSnlNVmREVkZSdndrdW53eS9rZTg1TlNGMFov?=
+ =?utf-8?B?VndEK1cvV1Q1UkRhVkdzUGZuVTZySFhCblVqTkl0UXd1L0dTZ0Nzc0w0TUN5?=
+ =?utf-8?B?MTIzR2lrZVRVQlVnZmVmZ0k4c0M4ditMcnNPVDRxc0dWQTgvTVdFM3lkWXFv?=
+ =?utf-8?B?cXloQnNZY3dNbDhUaHl1NU5zc2NqSThaODl4STNFRnphMDlpbFA1eW5FU3RO?=
+ =?utf-8?B?VXRBNTBBYnlRSUZoM1VJNkVFMmZuK2xJOExkU3ZXd1o4V0RkL3c0cWM1eUtt?=
+ =?utf-8?B?ZVorb25UTElUcEo0VFNxd3NCMHYxSlI5a1gxSzdOOW9LTVpLbGYzV0JnLzlu?=
+ =?utf-8?B?RmxUWGtwd1d6blVPS25GdFJRZzhoQWVQbGJEemdWcHFvSkVsQUtTUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,339 +201,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, Robin Murphy <robin.murphy@arm.com>,
- Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
- Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
- John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v6 11/18] iommu/vt-d: Preserve PASID table of preserved
- device
-To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- David Woodhouse <dwmw2@infradead.org>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-12-skhawaja@google.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20261025021930.674647-12-skhawaja@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Exchange-RoutingPolicyChecked: 5mBeNlCDowg49yj55Rzkr/w41GcYipbrUYWTNTglvHx9Oy5EDJ5lSL6a4/7saL3ywBMnWbEDeI2Rnjt0z/LE9NzqUSiXFMj5bCIcR2Q0jOUIbtM6InN/QMNtIpJGxabknQVp1j6/TBq8KznreeaMUdkCdVBvV43xTYB4pe9U+XuRaTeiRM9O1U6utJVgAZvnb1XPvt0hiRe+y5fzBRhg8HtQpFjSQQ8aoMRrNMTbfNLjXc3OnkpnE4Ds9jFqd2Gb0bbGyTL6zWcL/Of6LPG/r4TdKVFbtHTPFBVqDbbsd+/isxlrRICly8L0Zw4qKkktMmTtjPo2kn1AtHMWJhoi5A==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF93A1BBECD.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7786d05b-6312-4e90-0715-08df35902abf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Oct 2026 07:42:21.8236
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: HljvpiqJ+S/SJ70LcrkyFWItRMKElkRzdJCi7NPh8XV1aT5nd72ObyCYcu5RgWz6pejR1Jxo1W5VmHyLY4kt54y3X2K9S0L9hmZmVmin+E8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR11MB9532
+X-OriginatorOrg: intel.com
 
-On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
-> In scalable mode the PASID table is used to fetch the io page tables.
-> Preserve and restore the PASID table of the preserved devices.
-> 
-> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
-> ---
->   drivers/iommu/intel/iommu.c      |   3 +-
->   drivers/iommu/intel/liveupdate.c | 144 +++++++++++++++++++++++++++++--
->   drivers/iommu/intel/pasid.c      |  10 ++-
->   drivers/iommu/intel/pasid.h      |   8 ++
->   include/linux/kho/abi/iommu.h    |  19 ++++
->   5 files changed, 176 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-> index 991ad9b2456e..ecec057f78dd 100644
-> --- a/drivers/iommu/intel/iommu.c
-> +++ b/drivers/iommu/intel/iommu.c
-> @@ -3473,7 +3473,8 @@ static struct iommu_device *intel_iommu_probe_device(struct device *dev)
->   			goto clear_rbtree;
->   		}
->   
-> -		if (!context_copied(iommu, info->bus, info->devfn)) {
-> +		if (!context_copied(iommu, info->bus, info->devfn) &&
-> +		    !dev_iommu_restored_state(dev)) {
->   			ret = intel_pasid_setup_sm_context(dev);
->   			if (ret)
->   				goto free_table;
-> diff --git a/drivers/iommu/intel/liveupdate.c b/drivers/iommu/intel/liveupdate.c
-> index cf98b95bf8d2..36816d3651e6 100644
-> --- a/drivers/iommu/intel/liveupdate.c
-> +++ b/drivers/iommu/intel/liveupdate.c
-> @@ -14,6 +14,7 @@
->   #include <linux/pci.h>
->   
->   #include "iommu.h"
-> +#include "pasid.h"
->   #include "../iommu-pages.h"
->   
->   /* 2 tables per bus in scalable mode with upper table at odd bit */
-> @@ -393,6 +394,69 @@ void intel_iommu_handle_drhd_restore_failure(struct intel_iommu *iommu)
->   		      iommu->name);
->   }
->   
-> +enum pasid_lu_op {
-> +	PASID_LU_OP_PRESERVE = 1,
-> +	PASID_LU_OP_UNPRESERVE,
-> +	PASID_LU_OP_RESTORE,
-> +};
-> +
-> +static int pasid_lu_do_op(void *table, enum pasid_lu_op op)
-> +{
-> +	int ret = 0;
-> +
-> +	switch (op) {
-> +	case PASID_LU_OP_PRESERVE:
-> +		ret = iommu_preserve_pages(table);
-> +		break;
-> +	case PASID_LU_OP_UNPRESERVE:
-> +		iommu_unpreserve_pages(table);
-> +		break;
-> +	case PASID_LU_OP_RESTORE:
-> +		iommu_restore_pages(virt_to_phys(table));
-> +		break;
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static int pasid_lu_handle_pd(struct pasid_dir_entry *dir,
-> +			      u32 max_pasid, enum pasid_lu_op op)
-> +{
-> +	int max_pde = max_pasid >> PASID_PDE_SHIFT;
-> +	struct pasid_entry *table;
-> +	int i, ret;
-> +
-> +	for (i = 0; i < max_pde; i++) {
-> +		table = get_pasid_table_from_pde(&dir[i]);
-> +		if (!table)
-> +			continue;
-> +
-> +		ret = pasid_lu_do_op(table, op);
-> +		if (ret)
-> +			goto err;
-> +	}
-> +
-> +	ret = pasid_lu_do_op(dir, op);
-> +	if (ret)
-> +		goto err;
-> +
-> +	return 0;
-> +
-> +err:
-> +	if (op != PASID_LU_OP_PRESERVE)
-> +		return ret;
-> +
-> +	while (i > 0) {
-> +		table = get_pasid_table_from_pde(&dir[--i]);
-> +		if (!table)
-> +			continue;
-> +
-> +		pasid_lu_do_op(table, PASID_LU_OP_UNPRESERVE);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
->   /**
->    * intel_iommu_preserve_device() - Intel IOMMU callback to preserve device state
->    * @dev: Target device
-> @@ -404,6 +468,7 @@ int intel_iommu_preserve_device(struct device *dev,
->   				struct iommu_device_ser *device_ser)
->   {
->   	struct device_domain_info *info = dev_iommu_priv_get(dev);
-> +	struct pasid_table *pasid_table;
->   	int ret;
->   
->   	if (!dev_is_pci(dev)) {
-> @@ -434,6 +499,22 @@ int intel_iommu_preserve_device(struct device *dev,
->   
->   	device_ser->attachment.attachment_id = domain_id_iommu(info->domain,
->   							       info->iommu);
-> +
-> +	if (!sm_supported(info->iommu))
-> +		return 0;
-> +
-> +	pasid_table = intel_pasid_get_table(dev);
-> +	if (!pasid_table)
-> +		return -EINVAL;
-> +
-> +	ret = pasid_lu_handle_pd(pasid_table->table,
-> +				 pasid_table->max_pasid,
-> +				 PASID_LU_OP_PRESERVE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	device_ser->intel.pasid_table = virt_to_phys(pasid_table->table);
-> +	device_ser->intel.max_pasid = pasid_table->max_pasid;
->   	return 0;
->   }
->   
-> @@ -445,15 +526,33 @@ int intel_iommu_preserve_device(struct device *dev,
->   void intel_iommu_unpreserve_device(struct device *dev,
->   				   struct iommu_device_ser *device_ser)
->   {
-> +	struct device_domain_info *info = dev_iommu_priv_get(dev);
-> +	struct pasid_table *pasid_table;
-> +
-> +	if (!dev_is_pci(dev))
-> +		return;
-> +
-> +	if (!info)
-> +		return;
-> +
-> +	if (!sm_supported(info->iommu))
-> +		return;
-> +
->   	/*
->   	 * The context tables preserved during device preservation, in the
->   	 * preserve_device() callback, might be shared with other devices, so
-> -	 * those are unpreserved in the iommu unpreserve() callback. So this
-> -	 * callback is kept empty.
-> -	 *
-> -	 * Once device PASID tables are preserved, the unpreservation of PASID
-> -	 * tables will be added here.
-> +	 * those are unpreserved in the iommu unpreserve() callback.
->   	 */
-> +	if (!device_ser->intel.pasid_table)
-> +		return;
-> +
-> +	pasid_table = intel_pasid_get_table(dev);
-> +	if (!pasid_table)
-> +		return;
-> +
-> +	pasid_lu_handle_pd(pasid_table->table,
-> +			   pasid_table->max_pasid,
-> +			   PASID_LU_OP_UNPRESERVE);
->   }
->   
->   /**
-> @@ -499,3 +598,38 @@ void intel_iommu_unpreserve(struct iommu_device *iommu_dev,
->   	unpreserve_iommu_context_tables(iommu, ser);
->   	iommu_unpreserve_pages(iommu->root_entry);
->   }
-> +
-> +/**
-> + * intel_pasid_restore_table() - Restore preserved PASID table for a device
-> + * @dev: Restored device
-> + * @max_pasid: Maximum supported PASID
-> + *
-> + * Return: Pointer to restored PASID table directory, or NULL if not preserved.
-> + */
-> +void *intel_pasid_restore_table(struct device *dev, u64 max_pasid)
-> +{
-> +	struct iommu_device_ser *ser = dev_iommu_restored_state(dev);
-> +
-> +	if (!ser || !ser->intel.pasid_table)
-> +		return NULL;
-> +
-> +	/*
-> +	 * MAX PASID of a device should not change as it is read from
-> +	 * capabilities.
-> +	 */
-> +	if (ser->intel.max_pasid != max_pasid)
-> +		panic("%s: preserved max PASID %llu does not match %llu\n",
-> +		      dev_name(dev), ser->intel.max_pasid, max_pasid);
-> +
-> +	if (ser->intel.restored)
-> +		goto out;
-> +
-> +	if (pasid_lu_handle_pd(phys_to_virt(ser->intel.pasid_table),
-> +			       ser->intel.max_pasid, PASID_LU_OP_RESTORE))
-> +		panic("%s: failed to restore preserved PASID table\n",
-> +		      dev_name(dev));
-> +	ser->intel.restored = 1;
-> +
-> +out:
-> +	return phys_to_virt(ser->intel.pasid_table);
-> +}
-> diff --git a/drivers/iommu/intel/pasid.c b/drivers/iommu/intel/pasid.c
-> index e4f24d3f19a6..59cc69383799 100644
-> --- a/drivers/iommu/intel/pasid.c
-> +++ b/drivers/iommu/intel/pasid.c
-> @@ -13,6 +13,7 @@
->   #include <linux/cpufeature.h>
->   #include <linux/dmar.h>
->   #include <linux/iommu.h>
-> +#include <linux/iommu-liveupdate.h>
->   #include <linux/memory.h>
->   #include <linux/pci.h>
->   #include <linux/pci-ats.h>
-> @@ -60,8 +61,13 @@ int intel_pasid_alloc_table(struct device *dev)
->   
->   	size = max_pasid >> (PASID_PDE_SHIFT - 3);
->   	order = size ? get_order(size) : 0;
-> -	dir = iommu_alloc_pages_node_sz(info->iommu->node, GFP_KERNEL,
-> -					1 << (order + PAGE_SHIFT));
-> +
-> +	max_pasid = 1 << (order + PAGE_SHIFT + 3);
-> +	if (dev_iommu_restored_state(dev))
-> +		dir = intel_pasid_restore_table(dev, max_pasid);
-> +	else
-> +		dir = iommu_alloc_pages_node_sz(info->iommu->node, GFP_KERNEL,
-> +						1 << (order + PAGE_SHIFT));
->   	if (!dir) {
->   		kfree(pasid_table);
->   		return -ENOMEM;
-> diff --git a/drivers/iommu/intel/pasid.h b/drivers/iommu/intel/pasid.h
-> index 48d3bb6b68de..801768cdea16 100644
-> --- a/drivers/iommu/intel/pasid.h
-> +++ b/drivers/iommu/intel/pasid.h
-> @@ -301,6 +301,14 @@ static inline void pasid_set_eafe(struct pasid_entry *pe)
->   
->   extern unsigned int intel_pasid_max_id;
->   int intel_pasid_alloc_table(struct device *dev);
-> +#ifdef CONFIG_IOMMU_LIVEUPDATE
-> +void *intel_pasid_restore_table(struct device *dev, u64 max_pasid);
-> +#else
-> +static inline void *intel_pasid_restore_table(struct device *dev, u64 max_pasid)
-> +{
-> +	return NULL;
-> +}
-> +#endif
->   void intel_pasid_free_table(struct device *dev);
->   struct pasid_table *intel_pasid_get_table(struct device *dev);
->   int intel_pasid_setup_first_level(struct intel_iommu *iommu, struct device *dev,
-> diff --git a/include/linux/kho/abi/iommu.h b/include/linux/kho/abi/iommu.h
-> index 95354a12ba1d..08443f6cee6f 100644
-> --- a/include/linux/kho/abi/iommu.h
-> +++ b/include/linux/kho/abi/iommu.h
-> @@ -137,6 +137,21 @@ struct iommu_attachment_ser {
->   	u32 padding;
->   } __packed;
->   
-> +/**
-> + * struct iommu_device_intel_ser - Intel specific state of serialized device
-> + * @features: Bitmask of Intel device specific features
-> + * @restored: Whether the device state is restored
-> + * @pasid_table: Physical address of pasid table
-> + * @max_pasid: Maximum supported pasid
-> + */
-> +struct iommu_device_intel_ser {
-> +	u32 features;
-> +	u8 restored;
-> +	u8 padding[3];
-> +	u64 pasid_table;
-> +	u64 max_pasid;
-> +} __packed;
-> +
->   /**
->    * struct iommu_device_ser - Serialized state of a device
->    * @hdr: Common object header
-> @@ -146,6 +161,7 @@ struct iommu_attachment_ser {
->    * @iommu_phys: Physical address of the serialized IOMMU the device is behind
->    * @attachment: Attachment of the device to its domain
->    * @reserved: Reserved for future common fields.
-> + * @intel: Intel specific serialization data
->    */
->   struct iommu_device_ser {
->   	struct iommu_hdr_ser hdr;
-> @@ -155,6 +171,9 @@ struct iommu_device_ser {
->   	u64 iommu_phys;
->   	struct iommu_attachment_ser attachment;
->   	u64 reserved[2];
-> +	union {
-> +		struct iommu_device_intel_ser intel;
-> +	};
->   } __packed;
->   
->   /* There are maximum 256 buses, so maximum 512 context tables */
-
-Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
+Pk9uIDEwLzI3LzIwMjYgNDo1OCBQTSwgRHVhbiwgWmhlbnpob25nIHdyb3RlOg0KPj4+IEJ0dywg
+Zm9yIFREWCBzcGVjaWZpYyB0ZHhfZGV2c2VjX3VubG9jaygpLCB0aGUgV0FSTl9PTigpIGlzIG5v
+dCBwcm9wZXINCj4+PiBJTUhPLg0KPj4+IHRoZSBmYWlsdXJlIGNhbiBoYXBwZW4gZm9yIHZhcmlv
+dXMgcmVhc29ucywgYW5kIHRoZSBXQVJOIGNhbiBiZSB0cmVhdGVkDQo+YXMNCj4+PiBmYXRhbA0K
+Pj4+IHdoZW4gcGFuaWNfb25fd2FybiBpcyB0cnVlLiBJIHRoaW5rIHByX3dhcm5fcmF0ZWxpbWl0
+KCkgd291bGQgc3VmZmljZT8NCj4+IE9LLCBidXQgdW5sb2NrKCkgaXNuJ3QgYSBsb29wIG9wZXJh
+dGlvbiwgSSBwcmVmZXIgdG8gdXNlIHByX3dhcm4oKS4NCj4NCj5JIHRoaW5rIGd1ZXN0IHVzZXJz
+cGFjZSBjYW4gaW52b2tlIHVubG9jaygpIGluIGEgd3JpdGluZyBzeXNmcyBsb29wPw0KPg0KPklm
+IGEgZGV2aWNlIGlzIG5vdCBsb2NrZWQgYmVmb3JlLCB0aGUgdW5sb2NrKCkgd2lsbCBzdXJlbHkg
+ZmFpbD8gSWYgc28sIEkNCj50aGluaw0KPndlIGNhbiBkcm9wIHRoZSB3YXJuL1dBUk4uDQoNClll
+cywgc2VlIGJlbG93LiBJJ2xsIGRyb3AgdGhlIHdhcm4vV0FSTiwgaXQgbG9va3MgcmVkdW5kYW50
+IGlmIHdlIHJldHVybiBlcnJvciBjb2RlIHRvIHVzZXIgc3BhY2UuDQoNCnN0YXRpYyBzc2l6ZV90
+IHVubG9ja19zdG9yZShzdHJ1Y3QgZGV2aWNlICpkZXYsIHN0cnVjdCBkZXZpY2VfYXR0cmlidXRl
+ICphdHRyLA0KICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBjaGFyICpidWYsIHNpemVf
+dCBsZW4pDQp7DQouLi4NCg0KICAgICAgICBpZiAoIXBkZXYtPnRzbSkNCiAgICAgICAgICAgICAg
+ICByZXR1cm4gLUVJTlZBTDsNCg==
