@@ -1,102 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.63
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793251282;
-	b=CcnhaEo3bb2lmTV1YwVkvg9axKqdSbSSnyoldyucfUIlirVgzW+kym3R4IFVARapD1xu
-	 iGP65W5dYC/jA4rmwgSwdS53zLVyOIaFjNcutEZWYvS0H7nss+SLOHTuCRf4bnmJAPMQI
-	 H3AZ8g4GkXvuesHSMCcuZStuIHcreQqedK/sIZP+7AUQVWRBiuS+SjgJ3GMR+aHBdlUDn
-	 82KK0jhzcdna5ZX5lTYQsa/bz5aq2fmqUMb+rpbaoMKPBJ1HG2DRIgdABNuE+HGLvVa+j
-	 nMsAPfv/4heA114B1mJWTRqrinJhU3Hxns80G8WxFnAt6oWqu9ELsrbzVAQXXxZtIog==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793251282;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Ef4FMabItDVWDHgPgGliUZzCc67xZgvCPwDicY74vqk=;
-	b=m8iettXllmaWcD6BTWQfAhQzZxORuerCLWBQPvKLvzoapSrci5NwI4p0ObX2sRiVtKq+
-	 E84XYCxvzPUTdM+sLGggFa8bsWm/nW9xIfjRF8hnNVTJD39g+5UFSAgfDAuQu4w/mAJIl
-	 09+HLFkX1IvXDoiElzIU9CpRkN9/mpD4uhZ93GCRbdhi62wrOiBIPOV9PM357ea8VmnRz
-	 aI/KFVMNJd7iPiNXLDRH+on6GtLPf6qXLqoB8OhzIOSFcbx1xSjb4yuKso9Dzq/pkP49s
-	 9eVJi+bxr5rdUHEerMFLb4hLtgABZe3dKHw6q8m924h/wmlb2ae5FmWGuy95BSj5IYA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xOZH+A19;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.63
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011063.outbound.protection.outlook.com [40.93.194.63])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793251343;
+	b=bA7InwunbWFiH7JE4N1wtrvKjDQx6yhuDEuNrPNXufPKZoAWaz7HwmKpej/aR3kfr+mQ
+	 AkH1SnFJM3uWZui1GfdJA6VJhYuGxGdyL5ajdafqOgUIWneoAPIkkfldTkxpBkBBoEqJq
+	 OfJJnqSN6dFA3PklBpxBhsSg9ni0Sk/X2ZBTzETSqIVmPEU/+zyNbcDp6chVQnUKQxKZ+
+	 p0NWOBVd5lZwfEu/oMu45x2WYCNxE4sjdY8OWelH8V152pM1WLnFba50gD8pDDm8lTUdV
+	 3xofs4hYEpIPQvcQldby6Wdb0EFOCaUP791tQgmmTAGe6wTDvUNB2ceiGnMFfKEnC0g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793251343;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DtBdbryVCQZJwqxQX+yRKPENpGCAPSn/JZly+yP2sLk=;
+	b=sQoVdEK07nNPtAYqvcfmLZn2FFsE2wB6k6+f3PPPUV8ScyCCw8Uwbc7kbQkrp9pMs02v
+	 S7HPVucmWQ0ygIIMky2uMMe+Wh+l1PPqUrZS6QyvB0NqP2fZa2G7RtG2uq2AujVlUyfnh
+	 CB+NJL1Mj05fTMUhSJxlRTbsM+GkwQBz1AlxuPqfJK66Vto/A1oojVVvS7DIPpOJ1g/0u
+	 /xs8ozCcNxylad4wVzvETsKXWv9XnltlIuvWsRVmsar0iFnIPaGb65EebuC0O+Lrq4X/r
+	 LiYkgx5oP4bg5dYG2ebOO2zOWlSrfr+YEOBMECLzrqLGehktygNalZdp0nvpRSbmXfA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FEP1BhMG;
+	arc=none smtp.remote-ip=209.85.221.181
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9693D606A332
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:21:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9693D606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC62C606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:22:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC62C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xOZH+A19
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oJbkr5NFXLZJtq9LEIWknxGX628DJPPmZGd/dQRpxN7GMVhpaeC2hjgcFY/gSH5MbntN+9EPUQc5xukyQwY+nfMRve4Rwkly6cWguMCeAyPOzpCDtnrmP93R49y5D5Cwvnv39M5P9vJnwCfRlgbzHh49Lt1+CgFCir63smjfITjoanL5KbsjKcRaUumBYqQVaVDBOoG4J/9aMWLPOe8a/DYaw41FoI3aICx5lv9uEISFS6CvFhkJ7fyESnc/TOuS5PS8Er+RvXJWdiCVMsuu7GZBKxOylSGV3kNr48bisfkxSrQqI71L5Odt5WikiTCpe3jMwz54Ra26Xzx/onSQOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ef4FMabItDVWDHgPgGliUZzCc67xZgvCPwDicY74vqk=;
- b=rTsbbDYrXXwFB//ZJa4Fv0XTvHcJTUVPsQr02pXluiL06q2SjhwMlWzSmceukBhZNXIzgrGG+ZXDhcJGDyNpvM5j1a9aWu7u9pGKcIiUfFdEnH8Opiyj6Eq0C2i3qraXi8+9Sp3WIF6f3PXUKXJfd7NDgCMZjs2AjDhkh9Vez0E6boCuDHwETULaShArX3lBcVgkMr8uBUdBIzW8eu6Bvk7JQx0fN70U2Bm2XO1iT/izTn1WFF4qJeD4JFQM7qj/YfrsyTT+rO+y2fXNSa64L536oVAWAI9yA1MQpGlW+6eWi8BYRuBgSuFV23hYw7trHQBhb2MGF3KYb6yAudTqoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ef4FMabItDVWDHgPgGliUZzCc67xZgvCPwDicY74vqk=;
- b=xOZH+A19wqEHHSR6Ap7H3trps9dss2w+ajSAxIcj8xqkUxGQ99IIwCSXAXoX18qZENMlrUy9+SShdmh82XysnyqyekkYrefUDRdAxuGBypjfukFtnnBjG/QmrMmd37WXLnFPA9hn3h3wzNQ+zvdFzFMrASdSIHA2eeQcBGy7bUw=
-Received: from SJ0PR03CA0064.namprd03.prod.outlook.com (2603:10b6:a03:331::9)
- by IA1PR12MB6385.namprd12.prod.outlook.com (2603:10b6:208:38b::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 05:21:17 +0000
-Received: from BY1PEPF000264B5.namprd02.prod.outlook.com
- (2603:10b6:a03:331:cafe::31) by SJ0PR03CA0064.outlook.office365.com
- (2603:10b6:a03:331::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.22 via Frontend Transport; Thu,
- 29 Oct 2026 05:21:17 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF000264B5.mail.protection.outlook.com (10.167.242.122) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 05:21:16 +0000
-Received: from BLRJANAIR.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
- 2026 00:21:12 -0500
-From: Jayapal Ashwin Nair <jayapalashwin.nair@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <zack.rusin@broadcom.com>
-CC: <linux-kernel@vger.kernel.org>, <bcm-kernel-feedback-list@broadcom.com>,
-	<mripard@kernel.org>, <maarten.lankhorst@linux.intel.com>,
-	<tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>, "Jayapal
- Ashwin Nair" <jayapalashwin.nair@amd.com>
-Subject: [PATCH] drm/vmwgfx: Fix use-after-free race in vmw_dumb_create()
-Date: Thu, 29 Oct 2026 10:51:00 +0530
-Message-ID: <48e6780670395107cc9853bf63fa7ac1d034cdd7.1793249917.git.jayapalashwin.nair@amd.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FEP1BhMG
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eadadf23e5so1575492e0c.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:22:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793251342; x=1793856142; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DtBdbryVCQZJwqxQX+yRKPENpGCAPSn/JZly+yP2sLk=;
+        b=FEP1BhMGQvm8+cq0tXbO5ZsLgPAvjefHmmnbKcA/rAMzbbB5cozIryqkFxBXnvXESE
+         KC6/As5v2mKzg0zxPuZeWK5Paog6FebQ3DplF43EQdIuE3yB+64WU/2SSK8bas5Dh1Cw
+         atTp04SDAbFQCtgN5aKMRbfa5vTfcnzkGddkl0UfvgrRep6lLVF+vB4ll2g0ZqGysij1
+         bcUOuuMf8+Ry9qQB30m8X7HTl/DFfbCIsuxVZYjUSQLGe49OSvpEn5wht/IclEcLI6sH
+         grPWKJxzkSrHQKJ1qT+gNxpIJbIGZHMLpSlrNKXEa5A+uhbwiDOzM1CwRIYMTm0J+dRx
+         DoFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793251342; x=1793856142;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DtBdbryVCQZJwqxQX+yRKPENpGCAPSn/JZly+yP2sLk=;
+        b=LSoMavac+09zLnCuGNR1Tx6Zj/fyCUFnDj0ExCJVgG2emrxTZUpE0CBQWHd3ZliZXK
+         4sjOKIuw++L0llKikl6dhHDxoGns5EaHb5s+c3EPhtHOUCsrUqPxIoQ4NtkY3XxfYrd3
+         8NKPb81OtIRL3YTGWKeO4FeTywYzunO8KQBCNzK/eCsTTqJ6j6Enb28jhZikSvAB4MtY
+         hDSKziLDxURncvdQX0XRUqjauA2a5d6FzwpaFPyBAI1u45EMvekPRmXYj0s+HgdU6XPc
+         mX56RktH4YTg9A7H9veyCre+f3RynIB/69yC7jYnW5Tfwb+IRWTxaf1b4Bv2EHfb4BMX
+         9Mpw==
+X-Forwarded-Encrypted: i=1; AKwUvBxaLbf5LKjin0x1Px/ex4SfN6owP/VUKZplPHvuk3gdhWzmNTg3XVzJ6vmqCGx7Uz9CWuefUhW7fb89kXY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/+YJYhFXqtp5B+xy5hygVbWkhLKa/sA2XCsi6EkFajDH/kLMn
+	FchlXFHvpA/jFHIze3q1boWiK/s13YYOAhZkdlXOGtGwnAelnrSzO0og6yiZsev68ws=
+X-Gm-Gg: AYBFou0hv4pUEvHYd62QFdcUck7m9E0NNGCDDEruOJvXRb2dIcP8LBWa2KzLStO2Snd
+	W3m6E/jKmkXDgNZ6qiIPqaqJsjFohopcYwWYspbGEYgXKmI/tmXqKgld9+U2MjQJcGDlA1TjK1e
+	TpvIKvyzK5jkBhC/DjC57eKK6mqycJNZD2X33yP0Tz1bXC3RGrEYmD1koNkBKnevfztMafoVHmI
+	XL8r6OfG8silEQkr5l4xu7+2NHlC2C46mWSpczHVdwgG5/DgvcMKlLsppk1CC9JRz3CSGy0ecB5
+	1mRYSszUoBe/MV8Dpy7tyNIoDocQuq85LQkFi2W9tWsfI30osa9ygpJU3wXjfRJPXgQ3r8nyvXS
+	CWDcLDQ7aT+vVBoXMljgT+ovlKl07D8pxO7vYQpUAl/JxkjLn8BZzfjgpK5Rbcg8qftswuXbfB2
+	rIu2HagJrjos6D3RzE5yCQ83swXQJ7I4TNtj300lFvw3IkXb7b9ZwSJdlfGBebiYg/L7zGtVGRg
+	LVZKERaL2iqmHhS2bwZe5wsG8VbGxZecrZohxarkf+CuXWDEHvt/nQfD1WRx9ecGRCCLZMRhRlk
+	0E7JZqkW/ACRcVpqvjKQCneUyuWVXgp6SzlDejCIFCVHqPVZ7MC/ZugwiRJY
+X-Received: by 2002:a05:6122:1b0a:b0:5ea:9ec6:72b1 with SMTP id 71dfb90a1353d-5ec4ccbce65mr2347697e0c.23.1793251341793;
+        Wed, 28 Oct 2026 22:22:21 -0700 (PDT)
+Received: from bridge.. ([2804:14d:ba6b:8339:8b5e:397a:cdcb:e1d9])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec4f5cebbbsm4360066e0c.0.2026.10.28.22.22.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 22:22:20 -0700 (PDT)
+From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+To: almaz.alexandrovich@paragon-software.com
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	yun.zhou@windriver.com,
+	syzbot+5c0ed4f2974a8b100ed4@syzkaller.appspotmail.com,
+	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+Subject: [PATCH v2] fs/ntfs3: fix double ni_unlock() in ntfs_readdir()
+Date: Thu, 29 Oct 2026 02:21:02 -0300
+Message-ID: <20261029052102.1585462-1-christian.aurichzm@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,92 +98,75 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B5:EE_|IA1PR12MB6385:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9beabadb-7e76-4a20-9f1a-08df357c750d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|261028144727099003|56012099006|11063799006|261009223027099003|261022075727099003|261009221227099003|261022105027099003|261021121427099003|261021123027099003|261026140227099003|10067099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	YUVKROhTafEunpCtwj2WxEvm5vDmapYddeHkaYw7Fgbo3ZqWjF2suCkBpwtd5aHxZP9YFMlql0jjibxr8ILk5JLXQz6Wi6aC/GG6cpXnXzpfR1ASBvlRblGcz0OeGjfkze5swPs4jggSd2jGHINm4JxQzI0EtIgmCop2p54zKGTnYdSZqwBqNqD9J4JA0TivdDu0ViQ9WcVkmpYkKqtP9kteUaANcQqoNz4qlhVpYg5x9apcZOrsLX2QEK8VFC5/pmJbl+mc24SSw2IF6I68+niU0ZfpuWdZgC6dt5jvsCR3/+bVIxm4SVo3paJEmXJBndsveL2h54RJ9uSSV+ymrv/UODhGzvROD7gZLBBD5TzKqTbQjd/PfXXnpbe/OUVrxmZPkypRW/ZWVawJ2i5ENn+QklGoGtSgO5QbfFH3t/IhD5NG/KEcTa7an4grxN6DfLcoJbagTaFX0mJ4kjT9umSSC2hCzdbgsG+T3ZUrmL3ZmL1jPf6GxFnDFQnTWPClQtDTvjVLqdSHQSrHHYePeYQpDOUdMNBCYKUgHpFPbC10mfby2CUSmQTIkt+iIDfHPAL20kxPpSrED8q8yhngkCdAdu79GeJnraF8ppHny9NomgTgwXx/KfIJO8YhmZs3aEjot9gbhTD8fNqxTDQEEby47xrgJQZZ2ZdAQl0JZ+5/dVC22lKAuK5oCrCxccr/ya/0486IPVfR9f3YRXd1cA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(261028144727099003)(56012099006)(11063799006)(261009223027099003)(261022075727099003)(261009221227099003)(261022105027099003)(261021121427099003)(261021123027099003)(261026140227099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	iG5fOq51p3O35HfT/gOZ1EFNgMYeiKMczZSIk+dVFSpvhyYaW+UywcMd1gFjbXTePo1LolgNKHFig6TRPkGwI1gUMZYaqeUp/qxlAjTynbP9mNcTNH9LvZLL+My536gfFFhKm76aY4Cj7M/NS/gSlFU3bwFum1fazKHDWqS6XGwxizan7gNgv/NndbLELnHFoWs1jletGxt6bKi/AH1cKGIfwLhEEtZOcPdMyM14gYJoQWmQ19MvF8Bczc3UZHTQyqKpqntZqoVuS1dDdtB92+YqZAU4lIRnl2Uu2MGyCyOurl7xyU3ifWV4xMz96Q0hubdw0fYVp79dqo+pUhXc+Atsc7i0OOmKeLlKb1Gdu70fCpVqaKvzO5Hzg5b9ROlX6+B4aPge/nsmOCjsPaJ657P27yJQFodOs6zvk3MSWzf4tKBZeqEHAHH8No8Qggpl
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 05:21:16.4676
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9beabadb-7e76-4a20-9f1a-08df357c750d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF000264B5.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6385
 
-vmw_dumb_create(), called from DRM_IOCTL_MODE_CREATE_DUMB, drops its
-extra GEM reference on the vbo before it reads vbo->dumb_surface and
-clears the user surface's refcount_release. After that put, the only
-reference left is held by the GEM handle, which is already visible to
-userspace. A concurrent DRM_IOCTL_GEM_CLOSE on that handle can drop it
-and free the vbo (and the dumb surface) while vmw_dumb_create() is
-still using them:
+ntfs_readdir() drops ni_lock before each ntfs_read_hdr() call and jumps
+to out if the call returns non-zero. As posted, the patch that became
+commit 7a5aa6c45072 ("ntfs3: release ni_lock before dir_emit in
+ntfs_readdir to fix deadlocks") used out as the label after ni_unlock().
+It was applied on top of commit fb058ccff579 ("fs/ntfs3: take ni_lock()
+once in ntfs_readdir()"), which renamed out_unlock to out, so these
+jumps now unlock a lock that is no longer held.
 
-  CPU0 (DRM_IOCTL_MODE_CREATE_DUMB)      CPU1 (DRM_IOCTL_GEM_CLOSE)
-  vmw_dumb_create()
-   vmw_gb_surface_define_ext_ioctl()
-     /* vbo refcount == 2 */
-   drm_gem_object_put(&vbo->tbo.base)
-     /* vbo refcount == 1 */
-                                         drm_gem_close_ioctl()
-                                          drm_gem_handle_delete()
-                                           drm_gem_object_release_handle()
-                                            drm_gem_object_handle_put_unlocked()
-                                             drm_gem_object_put()
-                                              /* vbo refcount == 0 */
-                                              vmw_gem_object_free()
-                                               ttm_bo_fini()
-                                                vmw_bo_free()
-                                                 vmw_surface_unreference()
-                                                 kfree(vbo)
-   usurf = container_of(vbo->dumb_surface, ...)  /* UAF read */
-   usurf->prime.base.refcount_release = NULL     /* UAF write */
+This also happens when getdents64() fills the supplied buffer,
+triggering a lockdep "bad unlock balance" warning.
 
-Move drm_gem_object_put() after the last access to the vbo.
+Jump to out_free instead to avoid unlocking an already released lock.
 
-Fixes: f42c09e614f1 ("drm/vmwgfx: Fix dumb buffer leak")
-Signed-off-by: Jayapal Ashwin Nair <jayapalashwin.nair@amd.com>
+Reported-by: syzbot+5c0ed4f2974a8b100ed4@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=5c0ed4f2974a8b100ed4
+Fixes: 7a5aa6c45072 ("ntfs3: release ni_lock before dir_emit in ntfs_readdir to fix deadlocks")
+Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-index bd0563741e89..2dfbd914bdef 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-@@ -2332,7 +2332,6 @@ int vmw_dumb_create(struct drm_file *file_priv,
- 	vbo = res->guest_memory_bo;
- 	vbo->is_dumb = true;
- 	vbo->dumb_surface = vmw_res_to_srf(res);
--	drm_gem_object_put(&vbo->tbo.base);
- 	/*
- 	 * Unset the user surface dtor since this in not actually exposed
- 	 * to userspace. The suface is owned via the dumb_buffer's GEM handle
-@@ -2340,6 +2339,7 @@ int vmw_dumb_create(struct drm_file *file_priv,
- 	struct vmw_user_surface *usurf = container_of(vbo->dumb_surface,
- 						struct vmw_user_surface, srf);
- 	usurf->prime.base.refcount_release = NULL;
-+	drm_gem_object_put(&vbo->tbo.base);
- err:
- 	if (res)
- 		vmw_resource_unreference(&res);
+Notes:
+    Changes in v2:
+    - Explain that the bug comes from 7a5aa6c45072 being applied on top
+      of fb058ccff579 (Yun Zhou). No code change.
+    - Rebase on ntfs3 master (da4391c496fe is now 7a5aa6c45072).
+    - v1: https://lore.kernel.org/all/20261023223533.686085-1-christian.aurichzm@gmail.com/
+    
+    Based on Paragon's ntfs3 master (ee1cb3443cff), also in next-20261028.
+    
+    Tested in QEMU with lockdep. A 128-byte getdents64() buffer
+    reproduced the warning before the fix. After the fix, no warning
+    occurred when reading root-only and 700-entry directories,
+    including four concurrent readers and a writer.
+
+ fs/ntfs3/dir.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
+index b54828735d55..45d6a41a7222 100644
+--- a/fs/ntfs3/dir.c
++++ b/fs/ntfs3/dir.c
+@@ -563,7 +563,7 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
+ 		 */
+ 		err = ntfs_read_hdr(sbi, ni, &root->ihdr, 0, pos, name, ctx);
+ 		if (err)
+-			goto out;
++			goto out_free;
+ 
+ 		ni_lock(ni);
+ 		bit = 0;
+@@ -607,7 +607,7 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
+ 				    ((u64)bit << index_bits) + sbi->record_size,
+ 				    pos, name, ctx);
+ 		if (err)
+-			goto out;
++			goto out_free;
+ 
+ 		ni_lock(ni);
+ 	}
+@@ -615,6 +615,7 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
+ out:
+ 	ni_unlock(ni);
+ 
++out_free:
+ 	kfree(name);
+ 	put_indx_node(node);
+ 
+
+base-commit: ee1cb3443cff5a800948b662756f75b17ca63fe2
 -- 
-2.53.0
+2.43.0
 
