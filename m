@@ -1,80 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793296855;
-	b=KdIOkToEWxY3Qo6TxpExwAsPWUvvMSDnEMc0nAosbBBdtz1a6A0IrHsaFXj4Tb4ZsnT8
-	 Yq8vhWWQKwynbNAtTZ7JZgoKzg/ijGeXGTItVE6umKCE3q1ZHTkeqVb48h5uIxihgxq95
-	 w3uNKXOacUSyDmBx9r871SR6gK5300HPD8+bprfw8tOnxFbm6bDAlMOk8n+OqQKdEVNRq
-	 0buZ38ABp7GM6+4gTayQK1FE1dUzRs2gbQbHlbOChAomyHHp0JjiJy5ZUzltrGuJF5XO+
-	 2RB3gkDiffELYJX+BG76QrwSN/6HMbVJ2OlLrwHGvL0RkAJd/l6Jis3D/Q5/10eAc4g==
+	t=1793296886;
+	b=Xlz90HHzs4p7YlQbXBoDSwRntQA0zNqkZAe2CW3jf85CKqJZ/p/XZraur/7ztqdoj+L/
+	 hpB6t7+GDaEiFUsK5q0gDYnBm16kSm11ZuXMyph+PmrHmjD/bNYIRScER+r/kFq4xQq47
+	 Du9pGM0LYx02w2o/LFHblTR4ZPFgqvxxOpBWeIAyCBKW46/9kFstihalfVAC1Fc8+Dl3U
+	 GpfyRKqvT77k7Ccsg00ya3FkK5nSNVnRveXuYw94idABWVa7IJhhF7gQtB6aHK6tS2d4c
+	 l+dABy/GhdVomFXUxvlFCzB8+Q8Mogpewud/NuFMRaYzFRy0P+Oz80vQvKx/fWpub3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793296855;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/3Sq2/ww2JZBxSThzLCnuhquAYjqFjF6zPeEOEIafZ0=;
-	b=Hxk/CJwWzHTfcz5dOaREKNEdjrJxf4jfFKMIzDswEEvdHtTzF1qhzFQozjsHcpHgzJaa
-	 hAAQumVRU8KnIiuLqQugsojArAkx2gD08i6o0AJASbpbKU50gDW8fYaWoa0pWd1ZEGNB8
-	 9/hWnKk4/17q0FR8uX4mUwOUuIV2kw1XVzAqhHGRF1/Ch2Bn3jpcETXzlBhMa9/JIDqKf
-	 2znTsZZdI7UCnEW+exDIcliYSlwP+L7Xo5Ne/00KhdcVdSJGDU47JPmwW/SPK5U7QWwHq
-	 BfKFPLFuruO6pRORgJ8K34wCET4wf+McPvcOfdiIvFwtDuUH3PKLaCp+uMX1X2G/rIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793296886;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Scanned-By;
+	bh=vDJylRa+BEz9FX1boW3lxDX7Nctsiexo7u0jpFX8B3Q=;
+	b=M2wIt75P3bqGtV+n6dEO2ofs16ayqehNS3a+s0KsT2QMw1fC5Dy+gTn4l73JVaR77WHk
+	 sCDGPQ6mQqzssTwolmIeaxxG8SBhwZFOWLmYyuqX37YdTC7SwiuPUv8EDxmYm+2na7ViG
+	 u8m8+hpUp8OQ+5MzJ77ORt3A4bloX9dsgZ1CR07rjyau/OF8aOEzp72dVwoi2zGlgDu+C
+	 E7ztddgGFEmaTU7K8Kds85eHn6l249JbSMWOmQULWXN1HwoH0tc4rWOjZp5z7rdm3WQyw
+	 rHAB4fAo0fdQFwhE6WKaXVzqU2XRVdfRTEZqoPIPLCmIlDolifGRa6lQK1JyA6uwZBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=IwvAaQ3r;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HoEdUSKt;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761D5606A31A;
-	Thu, 29 Oct 2026 18:00:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 761D5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F202606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:01:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F202606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=IwvAaQ3r
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jFsTx5bSKzlfvpy;
-	Thu, 29 Oct 2026 18:00:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:mime-version:x-mailer:message-id:date
-	:date:subject:subject:from:from:received:received; s=mr01; t=
-	1793296848; x=1795888849; bh=/3Sq2/ww2JZBxSThzLCnuhquAYjqFjF6zPe
-	EOEIafZ0=; b=IwvAaQ3rebFE3HXygOrKWFS/MgfQwGfhmzzznU4Fkpgei1kTNJQ
-	+ZilDB+aYDyapohYzc9M1kPFpTtaZ7erpmdp5wzHLuSE1nrL9HBC0fyec0vj9eWz
-	joYjnYc8S8+3xH7aeRMAnGG20W8pGZMaTbSuXEM12saSY2ut000AYO7+BfW+v1pI
-	01RtMQ9elGYEaegAOmC0XrBspTbGqfVrDe2fILSa6x1/zOdweh7CgnJ9IpsOwBOM
-	bgNpMIuQH1s7F9t7ijozDnElwi9oGxc1gBUcqSBFZWOl1mbKnMzw85Oit9d6RA0l
-	TBzOTz9V2inKdKwh/ykZeSOffNPyZi8TSdQ==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id AzVGFzbamnp6; Thu, 29 Oct 2026 18:00:48 +0000 (UTC)
-Received: from bvanassche.c.googlers.com.com (57.237.82.34.bc.googleusercontent.com [34.82.237.57])
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HoEdUSKt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793296884;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vDJylRa+BEz9FX1boW3lxDX7Nctsiexo7u0jpFX8B3Q=;
+	b=HoEdUSKtxZUllxFMblTf8EqB2tyVH6zPelBNj1VaZWeh5+ubCWekbMrV70ztCMIg1aXGQ3
+	uozheHPn7Tyh0a61v+9FIQIEUS3oPX6QYOECP6z4mh8JvVoWhpzNH9R46GHFzNPKamvdaw
+	v4/QA4Mzs4qvBi72ggqPO8BOdLSD6l4=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-650-hJ2iShZ8ODyePXj78tYXHg-1; Thu,
+ 29 Oct 2026 14:01:20 -0400
+X-MC-Unique: hJ2iShZ8ODyePXj78tYXHg-1
+X-Mimecast-MFC-AGG-ID: hJ2iShZ8ODyePXj78tYXHg_1793296878
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jFsTq4D84zlfvq0;
-	Thu, 29 Oct 2026 18:00:47 +0000 (UTC)
-From: Bart Van Assche <bvanassche@acm.org>
-To: Jeremy Kerr <jk@codeconstruct.com.au>,
-	Matt Johnston <matt@codeconstruct.com.au>
-Cc: Leo Yang <Leo-Yang@quantatw.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bart Van Assche <bvanassche@acm.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Leo Yang <leo.yang.sy0@gmail.com>
-Subject: [PATCH v2] mctp i3c: Fix locking in an error path
-Date: Thu, 29 Oct 2026 11:00:39 -0700
-Message-ID: <71e0a880ffe7a83237e501b07884bf54343e76ca.1793296780.git.bvanassche@acm.org>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 2A51E1805A17;
+	Thu, 29 Oct 2026 18:01:18 +0000 (UTC)
+Received: from [100.91.18.181] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id A86B318001CA;
+	Thu, 29 Oct 2026 18:01:15 +0000 (UTC)
+Message-ID: <4d9a1530-6212-4952-addb-fbd6299f0c4b@redhat.com>
+Date: Thu, 29 Oct 2026 14:01:14 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,39 +71,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: Fix missing effective_xcpus accounting of
+ child partitions
+To: Guopeng Zhang <guopeng.zhang@linux.dev>
+Cc: ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com, shuah@kernel.org, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20261027123837.100909-1-guopeng.zhang@linux.dev>
+ <c00f13e5-d048-4d5d-98ea-984ea7ebc13b@redhat.com>
+ <ed6fecb4-38e9-4a73-8c1a-7bdd80175a69@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <ed6fecb4-38e9-4a73-8c1a-7bdd80175a69@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-If netdev_alloc_skb() fails, mctp_i3c_read() jumps to a label that
-unlocks mi->lock although that mutex has not been locked yet. Fix this
-by returning -ENOMEM directly. This bug has been detected by the Clang
-thread-safety analyzer.
+On 10/28/26 9:52 PM, Guopeng Zhang wrote:
+>
+> 在 2026/10/28 23:30, Waiman Long 写道:
+>> On 10/27/26 8:38 AM, Guopeng Zhang wrote:
+>>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>>>
+>>> When a partition root expands its exclusive CPUs, a valid child
+>>> partition will be able to claim more CPUs from its parent. As
+>>> update_cpumasks_hier() always updates a cpuset before its descendants,
+>>> the parent has already been committed when the child partition is
+>>> reached. Its effective_cpus is computed with the child's old
+>>> effective_xcpus subtracted and no further adjustment is made
+>>> after the child commits its new effective_xcpus.
+>>>
+>>> The additional CPUs are thus granted to both the parent and the child
+>>> partitions. generate_sched_domains() then emits the warning below
+>>> about the overlapping sched domains:
+>>>
+>>>     WARNING: kernel/cgroup/cpuset.c:919 at rebuild_sched_domains_locked+0x1ec/0x2e0, CPU#21: bash/1225
+>>>
+>>> Fix that by taking the CPUs newly added to a valid child partition
+>>> away from its parent at the commit point of update_cpumasks_hier()
+>>> right before the new effective_xcpus is committed. The tasks in the
+>>> parent cpuset as well as its other children will be updated if its
+>>> effective_cpus is changed.
+>>>
+>>> A new test case is added to test_cpuset_prs.sh to test this patch.
+>>>
+>>> Fixes: e2ffe502ba45 ("cgroup/cpuset: Add cpuset.cpus.exclusive for v2")
+>>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>> Thanks for reporting this bug. Yes, the current code doesn't handle expansion of parent effective_xcpus correctly. I would prefer to handle it inside update_parent_effective_cpumask() and try to minimize partition related changes in update_cpumasks_hier(). I have posted an alternative patch for your review. Let me know how you think about it.
+>>
+> Thanks for the alternative patch.
+>
+> Well, I am still learning how you approach this whole series of
+> problems.
+>
+> One more thing I found yesterday: neither the current code nor my
+> patch runs the housekeeping check when a valid child partition gains
+> CPUs from its parent, e.g. when its parent expands the exclusive
+> CPUs. With nohz_full, an isolated child partition can take over the
+> last housekeeping CPU. I verified this on a nohz_full=1-7 boot.
 
-Cc: Leo Yang <Leo-Yang@quantatw.com>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Jeremy Kerr <jk@codeconstruct.com.au>
-Cc: Matt Johnston <matt@codeconstruct.com.au>
-Cc: netdev@vger.kernel.org
-Fixes: 2d2d4f60ed26 ("mctp i3c: fix MCTP I3C driver multi-thread issue")
-Signed-off-by: Bart Van Assche <bvanassche@acm.org>
----
-v1 -> v2:
-- Return -ENOMEM directly upon allocation failure instead of adding a
-  free_skb label.
+This is a problem reported by sashiko as well. I am going to send 
+additional patch to address this as well.
 
- drivers/net/mctp/mctp-i3c.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Cheers,
+Longman
 
-diff --git a/drivers/net/mctp/mctp-i3c.c b/drivers/net/mctp/mctp-i3c.c
-index 4e857dd5df64..5f225999d715 100644
---- a/drivers/net/mctp/mctp-i3c.c
-+++ b/drivers/net/mctp/mctp-i3c.c
-@@ -111,8 +111,7 @@ static int mctp_i3c_read(struct mctp_i3c_device *mi)
- 			       mi->mrl + sizeof(struct mctp_i3c_internal_hdr));
- 	if (!skb) {
- 		stats->rx_dropped++;
--		rc =3D -ENOMEM;
--		goto err;
-+		return -ENOMEM;
- 	}
-=20
- 	skb->protocol =3D htons(ETH_P_MCTP);
+>
+> I handled it roughly like the diff below. Please take a look and see
+> if it is worth handling together in this series.
+>
+> @@ -2142,12 +2142,28 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>   				deleting = !cpumask_empty(tmp->delmask);
+>   			else
+>   				part_error = PERR_NOTEXCL;
+> +		} else if (cpumask_andnot(tmp->addmask, tmp->delmask,
+> +					  cs->effective_xcpus) &&
+> +			   prstate_housekeeping_conflict(cs->partition_root_state,
+> +							parent_prs,
+> +							tmp->delmask, NULL)) {
+> +			/*
+> +			 * A valid partition may be able to claim more CPUs
+> +			 * from its parent, e.g. when its parent expands the
+> +			 * exclusive CPUs. The newly computed effective xcpus
+> +			 * may not have been housekeeping checked before.
+> +			 */
+> +			part_error = PERR_HKEEPING;
+> +			adding = cpumask_and(tmp->addmask,
+> +				       cs->effective_xcpus,
+> +				       parent->effective_xcpus);
+>   		}
+>
+> I have something urgent at hand today, so I will get to your patch a
+> bit later and run it through the test cases I have, including the
+> isolated_cpus accounting case I mentioned in my previous reply.
+>
+
