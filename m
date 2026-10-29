@@ -1,74 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.97
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793277734;
-	b=MTVFEP2IpME+C13C6aT/8ZXZzfagMy/kRqRssgBvYtVeaTqRfzzFgqygFZefGks7S6wq
-	 /ZQWmhWBZt/UrU5qYqursQF4pQ06uDKCjrL/Xii1/6MumF+13sy1KiE2/bucr7PvItN44
-	 /EXca7UFH1rUeD/xB9pYMLcKOBWxpAZe8gQZ1FTZL1vgK+JYdNZPyyiuKp5mdkMpRZ2jw
-	 MCvKUQvpgwgGSdGMBqHqQDbyVHByoxXYmu6e2FiGpuFbl0+uFS1TKphQrntbUUze7cmMC
-	 jn6M5g4UbqG0Y54SGfdjbVFb5/OVUlGcbhSqbkcx57l2HhAxzVeZ4Wd9kV4VCQmhirQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277734;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=To8qHy7Eiood9xZqkdXXiK9qKbKeWzXP3ABpjaPBsJU=;
-	b=ls5rS7WJSsaHecpAt28sARvmNOOf9lh//KXdQbu/6D3gaugW68Vt2InRwmg7skEHBDlm
-	 Mc4YsS3my0cGEOHSxVToQFpu8IuINpPkddpZmHueNVC0D3skaRtTWIvM7gq0H2eEl9XU2
-	 QCzSLWHTF6qucIkc1s8G2aZDFqWaNhd+MmCb9ECPZeWUsoK2UqgStAVqa9Cv2gQ60lBm1
-	 Yy+dKYAXcyzmgCDrhz1PqTHke80LoIRUIbEb4YpVzPOdRGP3BBKsRy5UWkPtPxlrsUKrU
-	 43cJ+yDdg/T1WFBkgt9+SpIaIWD6fBr+jxtgQQPOXC7m2GkB5ZhBIEtSY/9/R65OeaA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zohomail.eu;
-	spf=pass smtp.mailfrom=zohomail.eu;
-	dkim=pass header.d=zohomail.eu header.i=@zohomail.eu header.a=rsa-sha256 header.s=zoho header.b=UkJWq72C;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.97
-Received: from sender-pp-o97.zoho.eu (sender-pp-o97.zoho.eu [136.143.169.97])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793277736;
+	b=xiusjYih4YvsGdVlWlBto4oimxF257pcWYWkVK8QfACvHMWgMcH6jIDA8sbv0KJCCVmF
+	 Gd/EanGI/ULCClSO++RGLRU1g0URU4BtkJx9mwRegt3MSmK/ju3JZPLDF9Nm0ELyBmJbQ
+	 KsSuH1QkxPeE4KtgW/rvX5A5bpii5+JfdfqwBT0UfRI8Hi0cgq3ggyTCcX4sUeHCsAC3Y
+	 B2lPOB9i83IEoLD95VSjlGtY7htBZ2Zoe79aT+do5tgD8fow0wN+4qbdC1OsofuovrIg2
+	 ywLjz+X55bC9rNb/6LktGAfohdxWvT8Lzsj2RM6ooLOpc9WKYBvg6FOAohrTfEO2bhQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793277736;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=d66C6wv4DLzU4mI043VbebszTBlofQJOPgwX8Cd6dwM=;
+	b=qPLJlfqpxArQiLB3BjCRlSVDT63jSAxQ7jgAbAq6cWCuSOFpwRBqxggtMcdo8STzaDU1
+	 KclFC/ilwmtO+s0Egy23lWRYKZ3FkD+elkmWtjfqNBtP+wzDuBPd+sh96W+SaDi9i+ALO
+	 7WOLc0M/T5K3pEuMmchcaqTz3Cqq5GLgxcSzogd9ghIcIRgJTJIPmuN95zvFOyqfsMqRo
+	 S3941QvakQEwYNE9PW5yJhy4JXlYPRE3Ej33GUr9tkPjxCiG8qX1IlR2I2ZWw/+XnkBHq
+	 Age0QlWp5/pXHc5/eVSTuFN1JA/XWq5wYEA+nM6g0Cu3Ez7AR4++k3YkbmspGoH0cjA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=mdWwyzmu;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=WuArQmNM;
+	arc=none smtp.remote-ip=202.12.124.147
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E350606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:42:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E350606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A804606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:42:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A804606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zohomail.eu header.i=@zohomail.eu header.a=rsa-sha256 header.s=zoho header.b=UkJWq72C
-ARC-Seal: i=1; a=rsa-sha256; t=1793277700; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=YLNJ8lhS6wd7Gieoqd52aUFXnqy0IKDXz49NYI+oKC0b5LqAyN3Zbd4WAftUmYrsAQkctwYoDlJcDJ8A+mMRj0ZhEsWDwCykBefg/ys/EkJ/mTG0rz6ffXUMaSPAO6O6IrYcKjRuLKQ74omZcu6xAQ7dtzSPqm7DR9oHAXY7PBQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1793277700; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=To8qHy7Eiood9xZqkdXXiK9qKbKeWzXP3ABpjaPBsJU=; 
-	b=klQkw/rh42+lpKwpm1wRhMYy41omaoAaP422E08KlwBxc7Gp7ee4T9rglGtkcbjrHFq2/tKsLQmpdezt7aUu667cc0+ZH5m3lFjkh9egzEgFUp2r2cwxOrwBYlCmX34vyBApJU0N5I3qCm5awr29sIh0z3J68jYAaFKnhkbapP8=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=zohomail.eu;
-	spf=pass  smtp.mailfrom=harukak@zohomail.eu;
-	dmarc=pass header.from=<harukak@zohomail.eu>
-DKIM-Signature: a=rsa-sha256; b=UkJWq72CYGS6fTJCZSRJp8DhPJlfNXJtbuVYzF96s3MdngdNpYTj028ZonlFd7p9RI8hEcna2W8iIQZE6vIakAog1asxEzQuQVKvn4WaDY9LJqhHmX9hudioAE3BamkCw0hXg3MAkunygHnDjYyfy4TgqgkM0I0egALpo4jrwTM=; c=relaxed/relaxed; s=zoho; d=zohomail.eu; v=1; bh=To8qHy7Eiood9xZqkdXXiK9qKbKeWzXP3ABpjaPBsJU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1793277699620481.55238389207295;
-	Thu, 29 Oct 2026 13:41:39 +0100 (CET)
-From: Haruka Kuze <harukak@zohomail.eu>
-To: Jens Wiklander <jenswi@kernel.org>,
-	"Michael S . Tsirkin" <mst@redhat.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Sumit Garg <sumit.garg@kernel.org>,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Tomas Winkler <tomas.winkler@sandisk.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Harald Mommer <harald.mommer@oss.qualcomm.com>,
-	virtualization@lists.linux.dev,
-	op-tee@lists.trustedfirmware.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] rpmb: add a virtio RPMB device driver
-Date: Thu, 29 Oct 2026 21:41:32 +0900
-Message-ID: <20261029124132.2354314-3-harukak@zohomail.eu>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261029124132.2354314-1-harukak@zohomail.eu>
-References: <20261029124132.2354314-1-harukak@zohomail.eu>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=mdWwyzmu;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=WuArQmNM
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.stl.internal (Postfix) with ESMTP id 859FA1D00052
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:42:15 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 29 Oct 2026 08:42:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793277726;
+	 x=1793364126; bh=d66C6wv4DLzU4mI043VbebszTBlofQJOPgwX8Cd6dwM=; b=
+	mdWwyzmuwDTzAvUsxCtWbuMCcTKNS4bJzaY2TEeIJrI7yuOx+1wIj7unZryo+WQB
+	XMhpAa1cMaIixs85Y+pZ+n39ksYgSfcGdeTl3QocE/6oFU1GZY+wWZJLzfe5UPrj
+	RlxUCaMP7bE6IEXHdu8grAu0AcWetmyHunksqNFfzkLCI7Mi6CwHhTAwJfKHXDPe
+	e3Z3SzujDe5G9YaWhA5JuHlyJF3CeRwS3L84HJBtOJaKKfJNPa4hQooyxJgcnCYK
+	XcvcxgL6r9Aif9Qgzzu0gvkovzR2Br2DU0YiTbeCmmpo+VlJuyfkkaEsu3ahM2y6
+	ees+Y8fHHDuDkAduUCqpWA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793277726; x=
+	1793364126; bh=d66C6wv4DLzU4mI043VbebszTBlofQJOPgwX8Cd6dwM=; b=W
+	uArQmNM2TdA/7IGGj8PR5oVaLYbgV0+e6zFBBnA/tb2D3vszfX+Wbo1Z+KKtli5l
+	gAJ6+abnCgQPC7ansT10lcjTIsfVjbCLd6NNYM4126zLf3AuuVJLtl7ZdOS2cmPl
+	tQLHLq+QaKTG3B86cdjNS4+1kCjLLctfMiEdEf1qd9PXhFxtY+TUxcNBReuC5T8z
+	mrrh0V/Bq5LBWCuiFzDv3BREQFjfiH6EUL9YojdnM5ViGUn3UGG9TJmIXLQc5ngp
+	pYQOUfQrGIQREYDkjxMVSb1n4QaDPTZQdRs/W4bi/h4C3iYSv+qw9s3et/4JUeYz
+	c+mj6fwLRpDOhjJDAj2Mw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793277726; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:X9u+Wa7Sa5ELlB5yyHfSRhEkDINFerOz4sLP+Yhh5uwkt+p
+	zKmx+Yr8BjvOgHfqSnE1nT+wfgSo8PTJ5I96X8B8UoOAiV+b/D0Ee6cDdmZiVy76
+	+mDhj7zyw51Y6tv3KHOWd04Ie+fAi7qV4KyFlIPg62E1ttXuoJqywmm1/Ykz6QWt
+	vPIHXZjpvZteYs/6F23seR0wsW9WsgnXVGL0A3Xd4rmv/iU+vhbIo8SoCFTUxhXx
+	PlSmKwQWkxlMoOgSo2eKIXQXspGdGl8DLi99mvFqX+NJ3ypoaVw8VLb+OeYqJj3P
+	8rTjSyKYrgUvWvZPbeOGooKlECLF74t1CO+/gbg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:pa8id8lezNHZnkKCJdOaeGBTdvPO8v5XG/p8liF/bjw=:zS2WM14JlEd46YHq+76lHPH8OxosPMsFWFrHE0AZa5U=;
+X-ME-Sender: <xms:GD_jars-SiAZ94GhE4p5hGsN425X319VhlpSOuAvB0LAROqjAyGhDA>
+    <xme:GD_janSL602wCkOQBa2SEr4zFhG4eIMO8EKrbNAwWQFXh8GcwITo-tvIXnuq3t91s
+    2LNX1sux-UXIYBpnlfhlpQplJRFIWpWAEkb5bnqK5fMK67C7I5OS9EI>
+X-ME-Proxy-Cause: dmFkZTF1xeXukoYxtIemiSr7RmgPQKVnIlQT+D5fkGBom82nl7QChx9FOS7mWdlUT9+ErJ
+    kw8oCVFb8WcQicGskO3E4Bh8+FW6iiADuk0vexDdjlt6X6rnIPM/vaAWSAPvg7m32O14hd
+    4D6mdwnuYRucC5ycg1z5ZC0g+33fkdixQJ9HuIlbPD33vvSXXoIUXMZOQMIkhblzBPz2Vn
+    7Ha5MO8EXCdb4tOozCTfzfSXc6MQGpeRgufwg7Qs3KqpNn/Vbvhv7sWjDtPhqOMGV2TXho
+    fhLYxhQuYIqSHePKOBrv13qC0NDIX5Uce4IQBcqlvqWT7EvTBRwO0UPSz2t1/wqZMVf5Cn
+    SeLTQy1cF4VBH0fDdeKaDRkjA/3wX1svU9lp9S8/oBjK8016WKz/aMHS6UQ5HgnaN0bY6t
+    xaibeWvLblU9HiJXGCl4QjQq8Q7Qr1N1Mbuia8GstGHix762UveSr7WaxKt5RQDa94+WKT
+    REql0mFBWF+Zk4InDt1jMYAGzfcfJowE47U6LsU0UVP+dwSwIpxwH0G2GqUD6rwOC1twnu
+    6nOMfTmidcHMDvAxPUsoJqNL/9IqnryByrUiikyPrZUsuxmBlyw/HoV37yo32VLdxhBvep
+    VBZx4EE37nNZMEGfrSEVJvVvvB/Rv5Ojdcee0+nR3b5Z1dC+aT0kKBQp/2Cw
+X-ME-Proxy: <xmx:Gj_jaqSh7hEkubgpWYjB74-ubspQz37C-J7HMabAvLe7G8X6oqIluA>
+    <xmx:Gj_jaj7N-fx7uAIOncAl0IKrd2aD2t_4ZwXY3qeB0UT0gsn4Nj8pzg>
+    <xmx:Gj_jak3WLme5pxtj055C-QzyS0Ylbif5tgmetW7xpsnzy4QLdxNDzA>
+    <xmx:Gj_jagkJWBtj3aPUQBTOXlRTD9KYjJd5p28VQdS-a5WImaSxJDjchg>
+    <xmx:Hj_jauxjz1r3cHXoIDfeJxPTV9VljSckPEplyQ2UGA_vJLqeDvPhijTu>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 014FC32A0099; Thu, 29 Oct 2026 08:41:59 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,446 +115,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+X-ThreadId: Auj5kB-x7wqJ
+Date: Thu, 29 Oct 2026 13:41:36 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Thomas Huth" <thuth@redhat.com>, "Nathan Chancellor" <nathan@kernel.org>,
+ "Nicolas Schier" <nsc@kernel.org>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>
+Cc: soc@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-kbuild@vger.kernel.org,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ "Alexandre Ghiti" <alex@ghiti.fr>,
+ "Nick Desaulniers" <ndesaulniers@google.com>,
+ "Bill Wendling" <morbo@google.com>, "Justin Stitt" <justinstitt@google.com>,
+ linux-riscv@lists.infradead.org, llvm@lists.linux.dev
+Message-Id: <f7533c95-8b42-4154-b76b-7d0dfb56148c@app.fastmail.com>
+In-Reply-To: <20261023064908.66707-1-thuth@redhat.com>
+References: <20261023064908.66707-1-thuth@redhat.com>
+Subject: Re: [PATCH v5 00/13] treewide: Replace __ASSEMBLY__ with __ASSEMBLER__ in
+ header files
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Haruka Kuze <harukak@zohomail.eu>
+On Fri, Oct 23, 2026, at 08:48, Thomas Huth wrote:
+> The kernel Makefiles define the __ASSEMBLY__ macro to provide
+> a way to use headers in both, assembly and C source code.
+> However, all the supported versions of the GCC and Clang compilers (and
+> also other compilers like Tiny-C or PCC) define the macro __ASSEMBLER__
+> automatically already when compiling assembly code, too, so some kernel
+> headers are using __ASSEMBLER__ instead. With regards to userspace code,
+> this seems also to be constant source of confusion, see for example these
+> links here:
+>
+>  https://lore.kernel.org/kvm/20250222014526.2302653-1-seanjc@google.com/
+>  
+> https://stackoverflow.com/questions/28924355/gcc-assembler-preprocessor-not-compatible-with-standard-headers
+>  https://forums.raspberrypi.com/viewtopic.php?p=1652944#p1653834
+>  https://github.com/riscv-software-src/opensbi/issues/199
+>
+> To avoid confusion in the future, it makes sense to standardize
+> on the macro that gets defined by the compiler, so this patch series
+> changes all occurrences of __ASSEMBLY__ into __ASSEMBLER__ and
+> finally removes the -D__ASSEMBLY__ from the Makefiles.
+>
+> I split the patches per architecture / maintained subsystem to ease
+> the review, and I also split the uapi headers from the normal ones in
+> case we ever decide that uapi needs to be treated differently from the
+> normal headers here and the patches would need to get reverted.
 
-No driver exists for virtio-rpmb devices (virtio ID 28), so OP-TEE
-running in a guest can not use them.
+I have started an asm-generic branch[1] for 7.5 based on today's mainline
+snapshot and applied the series. I'll rebase once more after -rc1 is
+out to ensure this can be tested in linux-next.
 
-This registers the virtio-rpmb devices found with the RPMB sub-system.
-Each request is done in one transfer on request queue, and for key
-programming and data writing a result read frame is appended so that
-the device can return the result.
+Thanks a lot for getting this finished!
 
-These frames are copied since the caller's buffers are not always
-usable for DMA.
+     Arnd
 
-These frames follow the emmc definition, so that the device is
-registered as RPMB_TYPE_EMMC. The device has no identifier of own, so
-that a fixed dev_id is used for the key derivation for the device.
-
-Based on the virtio-rpmb driver in Alex Bennée's RPMB series.
-
-Link: https://lore.kernel.org/all/20220405093759.1126835-4-alex.bennee@linaro.org/
-Signed-off-by: Haruka Kuze <harukak@zohomail.eu>
----
- MAINTAINERS                      |   7 +
- drivers/misc/Kconfig             |  10 ++
- drivers/misc/Makefile            |   1 +
- drivers/misc/virtio_rpmb.c       | 286 +++++++++++++++++++++++++++++++
- include/uapi/linux/virtio_rpmb.h |  56 ++++++
- 5 files changed, 360 insertions(+)
- create mode 100644 drivers/misc/virtio_rpmb.c
- create mode 100644 include/uapi/linux/virtio_rpmb.h
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 748ce4d1c6a2..488003a28534 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29707,6 +29707,13 @@ S:	Maintained
- F:	drivers/char/hw_random/virtio-rng.c
- F:	include/uapi/linux/virtio_rng.h
- 
-+VIRTIO RPMB DRIVER
-+M:	Haruka Kuze <harukak@zohomail.eu>
-+L:	virtualization@lists.linux.dev
-+S:	Maintained
-+F:	drivers/misc/virtio_rpmb.c
-+F:	include/uapi/linux/virtio_rpmb.h
-+
- VIRTIO RTC DRIVER
- M:	Peter Hilber <peter.hilber@oss.qualcomm.com>
- L:	virtualization@lists.linux.dev
-diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index c40e89cc5724..eb3518ecc8fe 100644
---- a/drivers/misc/Kconfig
-+++ b/drivers/misc/Kconfig
-@@ -91,6 +91,16 @@ config RPMB
- 
- 	  If unsure, select N.
- 
-+config VIRTIO_RPMB
-+	tristate "Virtio RPMB driver"
-+	depends on VIRTIO && RPMB
-+	help
-+	  Driver for virtio RPMB devices. The device is registered with the
-+	  RPMB subsystem, where in-kernel users such as OP-TEE can use it.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called virtio_rpmb.
-+
- config TI_FPC202
- 	tristate "TI FPC202 Dual Port Controller"
- 	depends on I2C
-diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-index 7cc3d615d37a..e4390bb8bdc0 100644
---- a/drivers/misc/Makefile
-+++ b/drivers/misc/Makefile
-@@ -16,6 +16,7 @@ obj-$(CONFIG_TIFM_CORE)       	+= tifm_core.o
- obj-$(CONFIG_TIFM_7XX1)       	+= tifm_7xx1.o
- obj-$(CONFIG_PHANTOM)		+= phantom.o
- obj-$(CONFIG_RPMB)		+= rpmb-core.o
-+obj-$(CONFIG_VIRTIO_RPMB)	+= virtio_rpmb.o
- obj-$(CONFIG_QCOM_COINCELL)	+= qcom-coincell.o
- obj-$(CONFIG_QCOM_FASTRPC)	+= fastrpc.o
- obj-$(CONFIG_SENSORS_BH1770)	+= bh1770glc.o
-diff --git a/drivers/misc/virtio_rpmb.c b/drivers/misc/virtio_rpmb.c
-new file mode 100644
-index 000000000000..4caca378fecc
---- /dev/null
-+++ b/drivers/misc/virtio_rpmb.c
-@@ -0,0 +1,286 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Virtio RPMB driver
-+ *
-+ * Copyright (c) 2018-2019 Intel Corporation.
-+ * Copyright (c) 2021-2022 Linaro Ltd.
-+ *
-+ * Based on the virtio-rpmb driver in Alex Bennée's RPMB series.
-+ */
-+
-+#include <linux/completion.h>
-+#include <linux/device.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/rpmb.h>
-+#include <linux/scatterlist.h>
-+#include <linux/slab.h>
-+#include <linux/virtio.h>
-+#include <linux/virtio_config.h>
-+#include <linux/virtio_ids.h>
-+#include <linux/virtio_rpmb.h>
-+
-+#define VIRTIO_RPMB_FRAME_SIZE	sizeof(struct virtio_rpmb_frame)
-+static_assert(VIRTIO_RPMB_FRAME_SIZE == 512);
-+
-+/*
-+ * This device has no identifier on its own.
-+ * This value is used as input when OP-TEE is deriving the RPMB
-+ * key, so it shall stay stable.
-+ */
-+static const u8 virtio_rpmb_dev_id[16] = "virtio-rpmb";
-+
-+/**
-+ * struct virtio_rpmb - virtio RPMB device state
-+ * @vdev: virtio device
-+ * @vq: request queue, NULL while the device is gone or frozen
-+ * @lock: serializes requests and protects @vq
-+ * @rdev: RPMB device
-+ * @max_wr: maximum number of blocks in one write request, 0 if unlimited
-+ * @max_rd: maximum number of blocks in one read request, 0 if unlimited
-+ */
-+struct virtio_rpmb {
-+	struct virtio_device *vdev;
-+	struct virtqueue *vq;
-+	struct mutex lock;
-+	struct rpmb_dev *rdev;
-+	u8 max_wr;
-+	u8 max_rd;
-+};
-+
-+struct virtio_rpmb_req {
-+	struct completion done;
-+	unsigned int len;
-+};
-+
-+static void virtio_rpmb_done(struct virtqueue *vq)
-+{
-+	struct virtio_rpmb_req *req;
-+	unsigned int len;
-+
-+	while ((req = virtqueue_get_buf(vq, &len))) {
-+		req->len = len;
-+		complete(&req->done);
-+	}
-+}
-+
-+static int virtio_rpmb_xfer(struct virtio_rpmb *vr, void *out,
-+			    unsigned int out_len, void *in, unsigned int in_len)
-+{
-+	struct scatterlist out_sg, in_sg, *sgs[2] = { &out_sg, &in_sg };
-+	struct virtio_rpmb_req req;
-+	int ret;
-+
-+	sg_init_one(&out_sg, out, out_len);
-+	sg_init_one(&in_sg, in, in_len);
-+	init_completion(&req.done);
-+
-+	guard(mutex)(&vr->lock);
-+	if (!vr->vq)
-+		return -ENODEV;
-+
-+	ret = virtqueue_add_sgs(vr->vq, sgs, 1, 1, &req, GFP_KERNEL);
-+	if (ret)
-+		return ret;
-+
-+	virtqueue_kick(vr->vq);
-+	wait_for_completion(&req.done);
-+
-+	return req.len == in_len ? 0 : -EIO;
-+}
-+
-+static int virtio_rpmb_route_frames(struct device *dev, u8 *req,
-+				    unsigned int req_len, u8 *resp,
-+				    unsigned int resp_len)
-+{
-+	struct virtio_rpmb *vr = dev_to_virtio(dev)->priv;
-+	struct virtio_rpmb_frame *frm = (struct virtio_rpmb_frame *)req;
-+	struct virtio_rpmb_frame *result;
-+	unsigned int out_len = req_len;
-+	bool result_read = false;
-+	void *out, *in;
-+	int ret;
-+
-+	if (req_len < VIRTIO_RPMB_FRAME_SIZE)
-+		return -EINVAL;
-+
-+	switch (be16_to_cpu(frm->req_resp)) {
-+	case VIRTIO_RPMB_REQ_PROGRAM_KEY:
-+		if (req_len != VIRTIO_RPMB_FRAME_SIZE ||
-+		    resp_len != VIRTIO_RPMB_FRAME_SIZE)
-+			return -EINVAL;
-+		result_read = true;
-+		break;
-+	case VIRTIO_RPMB_REQ_GET_WRITE_COUNTER:
-+		if (req_len != VIRTIO_RPMB_FRAME_SIZE ||
-+		    resp_len != VIRTIO_RPMB_FRAME_SIZE)
-+			return -EINVAL;
-+		break;
-+	case VIRTIO_RPMB_REQ_DATA_WRITE:
-+		if (req_len % VIRTIO_RPMB_FRAME_SIZE ||
-+		    resp_len != VIRTIO_RPMB_FRAME_SIZE)
-+			return -EINVAL;
-+		if (vr->max_wr && req_len / VIRTIO_RPMB_FRAME_SIZE > vr->max_wr)
-+			return -EINVAL;
-+		result_read = true;
-+		break;
-+	case VIRTIO_RPMB_REQ_DATA_READ:
-+		if (req_len != VIRTIO_RPMB_FRAME_SIZE ||
-+		    !resp_len || resp_len % VIRTIO_RPMB_FRAME_SIZE)
-+			return -EINVAL;
-+		if (vr->max_rd && resp_len / VIRTIO_RPMB_FRAME_SIZE > vr->max_rd)
-+			return -EINVAL;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * The caller's buffers may be unsuitable for DMA, so
-+	 * copy the frames.  Writes are followed by result read
-+	 * request in the same rpmb xfer, which makes the
-+	 * device return the result.
-+	 */
-+	if (result_read)
-+		out_len += VIRTIO_RPMB_FRAME_SIZE;
-+
-+	out = kmalloc(out_len, GFP_KERNEL);
-+	if (!out)
-+		return -ENOMEM;
-+	in = kzalloc(resp_len, GFP_KERNEL);
-+	if (!in) {
-+		kfree(out);
-+		return -ENOMEM;
-+	}
-+
-+	memcpy(out, req, req_len);
-+	if (result_read) {
-+		result = out + req_len;
-+		memset(result, 0, sizeof(*result));
-+		result->block_count = cpu_to_be16(1);
-+		result->req_resp = cpu_to_be16(VIRTIO_RPMB_REQ_RESULT_READ);
-+	}
-+
-+	ret = virtio_rpmb_xfer(vr, out, out_len, in, resp_len);
-+	if (!ret)
-+		memcpy(resp, in, resp_len);
-+
-+	kfree(in);
-+	kfree(out);
-+	return ret;
-+}
-+
-+static int virtio_rpmb_init_vq(struct virtio_rpmb *vr)
-+{
-+	struct virtqueue *vq;
-+
-+	vq = virtio_find_single_vq(vr->vdev, virtio_rpmb_done, "request");
-+	if (IS_ERR(vq))
-+		return PTR_ERR(vq);
-+
-+	virtio_device_ready(vr->vdev);
-+
-+	scoped_guard(mutex, &vr->lock)
-+		vr->vq = vq;
-+	return 0;
-+}
-+
-+static void virtio_rpmb_del_vq(struct virtio_rpmb *vr)
-+{
-+	struct virtio_device *vdev = vr->vdev;
-+
-+	scoped_guard(mutex, &vr->lock)
-+		vr->vq = NULL;
-+
-+	virtio_reset_device(vdev);
-+	vdev->config->del_vqs(vdev);
-+}
-+
-+static int virtio_rpmb_probe(struct virtio_device *vdev)
-+{
-+	struct rpmb_descr descr = {
-+		/* Frames and their semantics are that of eMMC */
-+		.type = RPMB_TYPE_EMMC,
-+		.route_frames = virtio_rpmb_route_frames,
-+		.dev_id = (u8 *)virtio_rpmb_dev_id,
-+		.dev_id_len = sizeof(virtio_rpmb_dev_id),
-+	};
-+	struct virtio_rpmb *vr;
-+	u8 capacity;
-+	int ret;
-+
-+	capacity = virtio_cread8(vdev, offsetof(struct virtio_rpmb_config,
-+						capacity));
-+	if (!capacity || capacity > 0x80)
-+		return dev_err_probe(&vdev->dev, -EINVAL,
-+				     "invalid capacity %u\n", capacity);
-+
-+	vr = devm_kzalloc(&vdev->dev, sizeof(*vr), GFP_KERNEL);
-+	if (!vr)
-+		return -ENOMEM;
-+
-+	vdev->priv = vr;
-+	vr->vdev = vdev;
-+	mutex_init(&vr->lock);
-+	vr->max_wr = virtio_cread8(vdev, offsetof(struct virtio_rpmb_config,
-+						  max_wr_cnt));
-+	vr->max_rd = virtio_cread8(vdev, offsetof(struct virtio_rpmb_config,
-+						  max_rd_cnt));
-+
-+	ret = virtio_rpmb_init_vq(vr);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * eMMC reports the reliable wr count in 512 byte sectors, but the device
-+	 * limit is in 256 byte blocks.
-+	 */
-+	descr.capacity = capacity;
-+	descr.reliable_wr_count = (vr->max_wr ?: U8_MAX) / 2;
-+
-+	vr->rdev = rpmb_dev_register(&vdev->dev, &descr);
-+	if (IS_ERR(vr->rdev)) {
-+		virtio_rpmb_del_vq(vr);
-+		return PTR_ERR(vr->rdev);
-+	}
-+
-+	return 0;
-+}
-+
-+static void virtio_rpmb_remove(struct virtio_device *vdev)
-+{
-+	struct virtio_rpmb *vr = vdev->priv;
-+
-+	rpmb_dev_unregister(vr->rdev);
-+	virtio_rpmb_del_vq(vr);
-+}
-+
-+static int virtio_rpmb_freeze(struct virtio_device *vdev)
-+{
-+	virtio_rpmb_del_vq(vdev->priv);
-+	return 0;
-+}
-+
-+static int virtio_rpmb_restore(struct virtio_device *vdev)
-+{
-+	return virtio_rpmb_init_vq(vdev->priv);
-+}
-+
-+static const struct virtio_device_id id_table[] = {
-+	{ VIRTIO_ID_RPMB, VIRTIO_DEV_ANY_ID },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(virtio, id_table);
-+
-+static struct virtio_driver virtio_rpmb_driver = {
-+	.driver.name	= KBUILD_MODNAME,
-+	.id_table	= id_table,
-+	.probe		= virtio_rpmb_probe,
-+	.remove		= virtio_rpmb_remove,
-+	.freeze		= pm_sleep_ptr(virtio_rpmb_freeze),
-+	.restore	= pm_sleep_ptr(virtio_rpmb_restore),
-+};
-+module_virtio_driver(virtio_rpmb_driver);
-+
-+MODULE_DESCRIPTION("Virtio RPMB driver");
-+MODULE_LICENSE("GPL");
-diff --git a/include/uapi/linux/virtio_rpmb.h b/include/uapi/linux/virtio_rpmb.h
-new file mode 100644
-index 000000000000..66f45202857a
---- /dev/null
-+++ b/include/uapi/linux/virtio_rpmb.h
-@@ -0,0 +1,56 @@
-+/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/*
-+ * Virtio RPMB Device
-+ *
-+ * The Virtio RPMB Specification:
-+ * https://github.com/oasis-tcs/virtio-spec/tree/master/device-types/rpmb
-+ */
-+
-+#ifndef _UAPI_LINUX_VIRTIO_RPMB_H
-+#define _UAPI_LINUX_VIRTIO_RPMB_H
-+
-+#include <linux/types.h>
-+
-+struct virtio_rpmb_config {
-+	__u8 capacity;
-+	__u8 max_wr_cnt;
-+	__u8 max_rd_cnt;
-+};
-+
-+/* Request types (req_resp) */
-+#define VIRTIO_RPMB_REQ_PROGRAM_KEY		0x0001
-+#define VIRTIO_RPMB_REQ_GET_WRITE_COUNTER	0x0002
-+#define VIRTIO_RPMB_REQ_DATA_WRITE		0x0003
-+#define VIRTIO_RPMB_REQ_DATA_READ		0x0004
-+#define VIRTIO_RPMB_REQ_RESULT_READ		0x0005
-+
-+/* Response types (req_resp) */
-+#define VIRTIO_RPMB_RESP_PROGRAM_KEY		0x0100
-+#define VIRTIO_RPMB_RESP_GET_COUNTER		0x0200
-+#define VIRTIO_RPMB_RESP_DATA_WRITE		0x0300
-+#define VIRTIO_RPMB_RESP_DATA_READ		0x0400
-+
-+/* Operation results (result) */
-+#define VIRTIO_RPMB_RES_OK			0x0000
-+#define VIRTIO_RPMB_RES_GENERAL_FAILURE		0x0001
-+#define VIRTIO_RPMB_RES_AUTH_FAILURE		0x0002
-+#define VIRTIO_RPMB_RES_COUNT_FAILURE		0x0003
-+#define VIRTIO_RPMB_RES_ADDR_FAILURE		0x0004
-+#define VIRTIO_RPMB_RES_WRITE_FAILURE		0x0005
-+#define VIRTIO_RPMB_RES_READ_FAILURE		0x0006
-+#define VIRTIO_RPMB_RES_NO_AUTH_KEY		0x0007
-+#define VIRTIO_RPMB_RES_WRITE_COUNTER_EXPIRED	0x0080
-+
-+struct virtio_rpmb_frame {
-+	__u8 stuff[196];
-+	__u8 key_mac[32];
-+	__u8 data[256];
-+	__u8 nonce[16];
-+	__be32 write_counter;
-+	__be16 address;
-+	__be16 block_count;
-+	__be16 result;
-+	__be16 req_resp;
-+};
-+
-+#endif /* _UAPI_LINUX_VIRTIO_RPMB_H */
--- 
-2.55.0
-
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/arnd/asm-generic.git/log/?h=asm-generic
