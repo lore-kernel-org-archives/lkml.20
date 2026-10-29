@@ -1,91 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793291902;
-	b=dfxzTDqnLpVBbW71vqjaUGeEM0S6FZcdSWL9xNIOB4NKSJuh1BUQtZcuNZJJa7dfb/Bz
-	 HJ2vG/rli84oN5B8Vber9Ept1WYJda4LbRsrwhPXk4iiApmLHK+6KhoWjV6lRNVvGIdw0
-	 o9B/FFIYOl8Ul6PZjcT5Tsj4Xv4HLYutZoA+qtmpi2VmkDi2aQGyNPknYxjBzCvUBSIbf
-	 2s4jwkO941q2UPMkxUmWNMJXRNIuZrf6qbLjS616XofVnKViPvG6mp2sBPipD75zXGRI3
-	 XqVJh4sGP/PwV2OGCGVVbs63+02Y9+kh07KzAXmqAgHk+27HzG7Rm9jAhIIeLh6l1TQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	b=XWI4Ob8usCRrlWaU+8+D2HDbljdS/i2XDtnUBL4EljU+FpYx9JtSJamLyFNgHaY/LBl9
+	 bmjbR8o0z1oAVN3OebJkanHxqyo1kRjgm4y4XQOmMRORbxeEnnDI6UjzTdfdHRbB6kJ6q
+	 ql4DeSv8Zvo0VzZF+mT8xDzNnjwE8ZGy0wguoAUapFs9qikfWIlkDKp6Dl1uNJCbCijUL
+	 JPAn1obPLajFfaMcaphsOXPqmvNzfRM/diMCQ/HXT/wNaglC+fV6CRckp2hkrY2W6WvZk
+	 7tJcE6O/bmxUjb7GIqE72RsWMK4jIAe6Q7B892iOh4YWj6Vpc87NPFBIHuKjDf5Wvkw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793291902;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=Rk+pfvv1vb7NTTtSUJmQv83uHi7ByrRhQkXx66jSAVY=;
-	b=TMuFBvaiKksvx2acApn6gBKfqtwNumB0X6oM1pSj1Y/pq6wOYStoXPvKK2rObuH00pLp
-	 Lcn3IU3etwgJmPyxoaxymyr7BNDkLqt/CrnfYuO9cve2ypg/aIg5x12KkbrM+Cye/dtcY
-	 9v4BMu7uLckjXLNrJDxsbFPi/6+JGdY82yvwg9kw25qkjeuQoHfXeXX4hVn5FnANaaZx0
-	 MJRJOEgCp0PUYe7iLAXxlobpL98XaFzYY3RMvkPR5vN2JNHb4ET/s02IRC9cJEuPjF5UO
-	 FaZxYNy9fFoIQ48s55EALllDN9Dwl8SMZhEV7ryrijOxoHeX+TsjY4sZSOd58vIceDQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XlqZEHvN;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=GS5w2MxkVcisEnmlDwbM2WgGmsF28i8wLsmkOVo/TuM=;
+	b=z6Kn8IFq3QVOkNltgvmAeuSFDtm00LqZiXqsg6aPqvXVSOt1dA67PbTvW/BksxpQUdCP
+	 GhIO6h8pf1oo6JX/9BRpk4LnxZjbWNE043P9TKxQUe8qv+TQ8qp/mBMyFrJj5qHWg21VG
+	 qLfYa6eL1Qm4n1yQ1BWSscsRHX4sFQZjRdDB/bgUdpuRdT4NmX+uB6pvWWumQ4NGVKR0u
+	 0wVZTADFoIvsAmu1HlT0MLYMlnRmuYBG70hXz0pHhg5Jis16Ox5mkYHZRb0+Cri8aSWLs
+	 rxYnj0IqMKqUn8dD0c/Lty4jrUR7jOle2WQXeue0S6mFP+4Yqd77+A614oZ2N2Bqx2Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MKjSeZav;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.11
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011011.outbound.protection.outlook.com [52.101.70.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D293F606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6770606A323
 	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:38:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D293F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6770606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XlqZEHvN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793291900;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rk+pfvv1vb7NTTtSUJmQv83uHi7ByrRhQkXx66jSAVY=;
-	b=XlqZEHvNJ7rIB/DoiU9Zf29RWW/uqL6JMW5hn5JiwCc6b3L31CBZ2fx/LsXG1l69Weomgf
-	pO6VcxPx6UAluWXYdZyD8DOVtSdiLhcMLxwoQk1HpkpLVPJ9DO59yWscSyDxUWct85Q11p
-	DQ53BoijVDGlVpZM5qO/F3Syxn8uOEM=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-684-9LRORvpiNdStrDF32nnCug-1; Thu,
- 29 Oct 2026 12:38:16 -0400
-X-MC-Unique: 9LRORvpiNdStrDF32nnCug-1
-X-Mimecast-MFC-AGG-ID: 9LRORvpiNdStrDF32nnCug_1793291894
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0B18E1935311;
-	Thu, 29 Oct 2026 16:38:14 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 794E61956088;
-	Thu, 29 Oct 2026 16:38:09 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: jgg@ziepe.ca,
-	alex@shazbot.org,
-	pbonzini@redhat.com,
-	seanjc@google.com,
-	bhelgaas@google.com,
-	jjohnson@kernel.org
-Cc: johannes@sipsolutions.net,
-	mani@kernel.org,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	robh@kernel.org,
-	vkuznets@redhat.com,
-	kevin.tian@intel.com,
-	linux-pci@vger.kernel.org,
-	kvm@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Subject: [PATCH v3 4/8] ath11k: add PCIe link recovery retry
-Date: Thu, 29 Oct 2026 17:37:09 +0100
-Message-ID: <20261029163713.1366077-5-jtornosm@redhat.com>
-In-Reply-To: <20261029163713.1366077-1-jtornosm@redhat.com>
-References: <20261029163713.1366077-1-jtornosm@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=MKjSeZav
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fiMB7aLxEYHYHWaxa5MubJOz5mpahzw1ZlZYRNMBK7t8GsHBPfYhiTKf36bm3/T77LB2BOyQfH1IuFD9A0RE1hhRyciXk98krjIf20uiVuO82p9xJazaoroAobdAG7j5ed6jHJNgvFKYx/8yrxjpO5b/VusBM20oc1YY4pLH0IkK7QchONklDUU7Rc9JNx80W3N/L+OF4ZeYxXkCBaACJSJaIi2JKs+ptoIkYGtQ2MLHwV8SDiZXpd4GwloBNkAFvieza97kAcWO11R8CJeX7VOsH08PPF1yJlu5+cMBlx7lPJ9dNu5qtcp/vIbHunp66iKTM2tIbQFZgBGDCWNRQA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GS5w2MxkVcisEnmlDwbM2WgGmsF28i8wLsmkOVo/TuM=;
+ b=SYUpEc6xY8orRwATDHvxYD3+Rw6AXPan4o1o7U6RcjgvDpun66wqZVpJrHtRyrqGg9pK0mo6cdFWRENGRN261GPcJpj3q2BuJNILMJDyp6KiKVxfk3HbJ6+u/oQ+5w2asd/60XckB8gr7vEdJ9VR3sNhwyOVdsy6WECSWqYgbFHBVv6LwR3nvWLLZoYDE+XruYe28PU6oeydJHt7tJEKhpSYSGIANZMjWIb+nbObtYtz09PTu0fJeJ1DTWjIIKExa9fOgTyQYcvEtUSEXHG6/5RzOZ70Mh+U1HmOad7Jj66fvMbH/N6ZcqwjZcwILGiwUYl9/SS6ay+9GDN/TMbDtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GS5w2MxkVcisEnmlDwbM2WgGmsF28i8wLsmkOVo/TuM=;
+ b=MKjSeZavwE0mPofgqzxhBHFLVAVuSluY+aGGTG3eHCV3RtIV30hxKFJs+B8ax3TQf6B+gz1agRYYcRLqOmXBjMhZopjPopwwSO3EZBZ+HSW/+VOBgziThNn7a1yUIxCcgkSNXHef1ND0e6QnhJx0dGEqP+sVlghr1m5W6a4kdxZcjG4vW/yt6YKsKXOH7ZJHMABPpW6ovvpcruMltWZ2coIk/eTz7Rn+y86WtgRDrRISpPu+bfcIz7Vqm6fTmQ31k1GyykflZCu59o5E4vUkwWj129MqOpfMK+WLSQ3xwZG57ZMymiU0kHFrWezbgVqGsAH8r7A0uHeByq6ZD2gl7g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PA1PR04MB11034.eurprd04.prod.outlook.com (2603:10a6:102:483::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 16:38:18 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 16:38:18 +0000
+Date: Thu, 29 Oct 2026 12:38:11 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 06/31] accel: ethosu: Fix runtime PM get error handling
+Message-ID: <auN2c20fmWdj1vtu@lizhi-Precision-Tower-5810>
+References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
+ <20261029-ethosu-fixes-v4-6-4aa25e22578e@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-ethosu-fixes-v4-6-4aa25e22578e@kernel.org>
+X-ClientProxiedBy: DS0PR17CA0016.namprd17.prod.outlook.com
+ (2603:10b6:8:191::7) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,119 +98,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA1PR04MB11034:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4044faff-87b5-4479-b4a0-08df35db09bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|19092799006|11063799006|4143699003|56012099006|261009223027099003|10067099003|261026121527099003|261021121427099003|261021123027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	lm/CJvNJRSiI6msyBdvtiJ7snW03PQYI6DQTgT4How2PI3kb7u+BywJlA3/CkW2+y4z/ird5dNEkJ6B+XTO+wnkdynMWCPyJMJP3RbgdSqqz0H+s7TPUC/F5rcculmWTWWrvMPg+sik2rvGgXqVLK4cTdIxw2xJexkk1vz2WZhf/CfWlTQdoBiZ3chvM8sfkb+YDTUd1p1IeHpoqnOqc8TUdTLR0VFEX95k33SuMG21VUCkZjJOAn+rVdKnazNYPnd5E69ROO1TvseBgRwpCacOnqAENCK+e3is11KgfKpV5ePbtryz6OKxRA/5/u9Jyty5TFlVAq2LcSrvTNzfyo80Pi7XLRugSNbCZQCm+z+0OqXgwBVCo13n3fcZmHGbLRM1XeOjVI2J7GetvENo6MUSQowpbUOy+Oa5ievNOcbZy6MLMdvDKFrSu5R16LMX0ydQhjAlsIj0tZOx5I4BxewMHElaxWoceLyb3+gwxVHEoWpHRiysKfbSKPuUieJOcIZqtZXzOGClizfHTnywuyaS1gWb6H0LOoTnzVVQ/qAK7IkIZUZoEixQYJ70N1sQGr/W1t0ZUhtaSf5AY8xiEwOPvn344UdulHZfaqjQ8taM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(19092799006)(11063799006)(4143699003)(56012099006)(261009223027099003)(10067099003)(261026121527099003)(261021121427099003)(261021123027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XO+W7YpMuj1/u2MbBh+3K9TLD50c9/5yGeg2AKQIzEnHB4tHmFCJHYC1m8im?=
+ =?us-ascii?Q?4HJ3hP+nO29AuucwNpJb2AkKFb6Pl7KYJYPuaGknSHsnPSncFuYPwz+AAS+n?=
+ =?us-ascii?Q?rRcWlzHR2qO8Nez6CIRqTFLF8D/8xpKgjojja+gVWbGmIqu1OCBYpipAOELd?=
+ =?us-ascii?Q?z0DMyjikOt6iAKIZ4D9ZrgGO2MgJeBGZTM9PMJJ2iJ+Prb75DzFQkwsyNFse?=
+ =?us-ascii?Q?QFaqvzIJFrI94OPK1RCaonpMpuEQmmp8jVKZdbALOsLCBuc46cS52EmRCQXw?=
+ =?us-ascii?Q?wWNCLsCsqxPH4zsKfYyRhvgyAQOYq77GlXJF3bAwGt1T+FYKOQJafjIiGhRn?=
+ =?us-ascii?Q?oft1XJNBDCLFWia57XaQgvLGhxtIlZFPRhuP0vMgPeK0VS+dIE50Qld2Cncx?=
+ =?us-ascii?Q?UpuO+3lhYqQRQ6mj2v40W0qrcMIbtBp+mlIizJMy0wNkrLdVuC+sB+I/dNEk?=
+ =?us-ascii?Q?+hCdH01WYIclwQaHfSv0mBD+8v89f+w3/qAk9UCtd8A6wE48XNkpBVfBgqKq?=
+ =?us-ascii?Q?m1fot9usnnaf0fj/8IEwJqhehknMo6+KvjyVHWds2kWL2XJxfEBumeEp9Kwj?=
+ =?us-ascii?Q?s/lCNJCcMlvCpxz/RS9ZIyUUT5jZeSEDfOd6JBftCLchcNK4e7iD0y70tKrG?=
+ =?us-ascii?Q?uTpoD/CKAX7GxnN6vrEjQCzh5uT5h8k+APeKHU5IVBUweH/dtrrs5nMatftY?=
+ =?us-ascii?Q?znP7JF9DCazF7YZsINHSVmOGjYJRH5tjlDLPuOJvI0ruuyZEBvcYxnrsF9gn?=
+ =?us-ascii?Q?FYNM5somCSTl+yPivQkv3YQ9Y0Y3y6+vZPCXeW97s7QyAKqPE+ezXTSKlgfg?=
+ =?us-ascii?Q?BDnp0dG3XGCWMAwtr0kp4OrHQwBCS6iruh1+6+OAd18Z2vhKrZI2/+7/ska2?=
+ =?us-ascii?Q?2Rm7++KVkQzNLxKhQOmaGyKJL/WEhn7CIJcx8oQL8sAhWzhGYi6++J3Rj7QK?=
+ =?us-ascii?Q?Omx8fNOv6wK4piOtjSfNSbhkAtQFycnVnpWgPrzZpnQmqNiSD7AG1ZmNBBtE?=
+ =?us-ascii?Q?bmi6LhjV3XXAMz1hiYwm2/qV603fuYfUGB7gsyDBdpRR0GE0lt6jEoQOg1lf?=
+ =?us-ascii?Q?C9Jn2W/+UFsmiVQoUBuqlbhAE4wRWR/ZY+3SxupXTaNyCwa/Ap89yJ5Fs6N1?=
+ =?us-ascii?Q?/aKaElkE3ub7R/2jvNDxp26HDK4uyG9hQaqwyWkMm5XmG59er+IN8ZCe9mYF?=
+ =?us-ascii?Q?2FpCSrdqHQLvff00R3CXEYPVuBZ0rG1ThUoCAhhjlooZEOqHUrpYsau3TT5X?=
+ =?us-ascii?Q?eNHhKv0PQAMqqHYdbMedJ7z1TpjGYkDj97p14TjAIJDHHdSUWbuIRnnO2ua+?=
+ =?us-ascii?Q?59i6oUM2UHV6WvB2OPBlz7jpNNM+E3n5kF5eg2tqRbbQPZDOYqJwAp3K8VXl?=
+ =?us-ascii?Q?0ZHJNvzqqFHdIsD5dEiNypCHnR+o9SyT54tS7qyHUs9FpzkXaF6K77fF03Tv?=
+ =?us-ascii?Q?JihEfnyX1t5Fxx3RV2ohfAzbv1CAc1jTJzV7d23uXJzd7rTJpmnGtyiz0E84?=
+ =?us-ascii?Q?CurPJaw5Ylhh995OBAIC/1XdtFdIMFLztDnXRBmQCbOTwNFrU94BpOPXQ1N5?=
+ =?us-ascii?Q?QkcCSyZ3uxPCNT4o7Ti6OSgV472n8Gq0ENtcDNljjfq3KTa4ZZBz7eEyjiyu?=
+ =?us-ascii?Q?2aP5+gVEQstPfVkWxgu6VFuuaSr+XIzcgRoTwObzBTHmUMn/EoWN3j/iL3d+?=
+ =?us-ascii?Q?Y1NFbz3/yTNIygVquDx3T9rWzJ788DfB9PXGOkrWFnHQR2A76OvEKKq6NTis?=
+ =?us-ascii?Q?gg5dr9x0v/51vwq1zyOnUqs3FMlv6xbEJK7m7Qlzft/iOWZOvS62?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4044faff-87b5-4479-b4a0-08df35db09bf
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:38:18.8305
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HlggWKS850LyVVuPp+0n7153rzgwYlsJn6fgExRw+lsmLCxazEEMP943VuxT71jHbEi6Z2FKy0qn4MRrva3oO2gqtTJENECqjBZBzUKkU12IVnv6wrz96P68+4D6ZvNU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11034
 
-When ath11k devices are passed through to VMs via PCIe passthrough,
-the PCIe link may not stabilize immediately after global reset due to
-virtualization layer timing variations. This causes MHI initialization
-to fail with "BHI offset: 0xffffffff is out of range" errors because
-the device is read before it's ready.
+On Thu, Oct 29, 2026 at 08:35:53AM -0500, Rob Herring (Arm) wrote:
+> pm_runtime_get_if_active() can return an error including for !CONFIG_PM.
+> Do not treat that as an active runtime-PM reference.
+>
+> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+> v4:
+>  - new patch
+> ---
+>  drivers/accel/ethosu/ethosu_perfmon.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/accel/ethosu/ethosu_perfmon.c b/drivers/accel/ethosu/ethosu_perfmon.c
+> index 26f625374f9d..0ae2df3ceac8 100644
+> --- a/drivers/accel/ethosu/ethosu_perfmon.c
+> +++ b/drivers/accel/ethosu/ethosu_perfmon.c
+> @@ -71,7 +71,8 @@ void ethosu_perfmon_stop_locked(struct ethosu_device *ethosu, struct ethosu_perf
+>
+>  	ncounters = perfmon->ncounters - 1;
+>
+> -	if (!pm_runtime_get_if_active(ethosu->base.dev)) {
 
-Currently, ath11k_pci_soc_global_reset() just warns if the link is
-down but continues anyway, leading to inevitable MHI failures.
+This should be correct. I just post
+https://lore.kernel.org/imx/20261029163044.3062958-1-Frank.Li@oss.nxp.com/T/#u
 
-This patch adds:
-1. A retry loop (up to 5000ms) to wait for the PCIe link to recover
-   after global reset (similar to the existing ath12k LTSSM retry logic)
-2. Proper error propagation to prevent continuing with a dead link
+belong to Pattern A
 
-This is especially important for VM environments where timing can vary
-significantly from bare metal.
+Frank
 
-Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
----
-v3: no modification
-v2: https://lore.kernel.org/all/20261011074514.515894-5-jtornosm@redhat.com/
-
- drivers/net/wireless/ath/ath11k/pci.c | 38 ++++++++++++++++++++++-----
- 1 file changed, 31 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/wireless/ath/ath11k/pci.c b/drivers/net/wireless/ath/ath11k/pci.c
-index a163168f3617..7e29ebaf9773 100644
---- a/drivers/net/wireless/ath/ath11k/pci.c
-+++ b/drivers/net/wireless/ath/ath11k/pci.c
-@@ -190,8 +190,10 @@ static void ath11k_pci_restore_window(struct ath11k_base *ab)
- 	spin_unlock_bh(&ab_pci->window_lock);
- }
- 
--static void ath11k_pci_soc_global_reset(struct ath11k_base *ab)
-+static int ath11k_pci_soc_global_reset(struct ath11k_base *ab)
- {
-+	bool link_recovered = false;
-+	int retries = 250;
- 	u32 val, delay;
- 
- 	val = ath11k_pcic_read32(ab, PCIE_SOC_GLOBAL_RESET);
-@@ -215,14 +217,28 @@ static void ath11k_pci_soc_global_reset(struct ath11k_base *ab)
- 
- 	mdelay(delay);
- 
--	val = ath11k_pcic_read32(ab, PCIE_SOC_GLOBAL_RESET);
--	if (val == 0xffffffff)
--		ath11k_warn(ab, "link down error during global reset\n");
-+	/* Wait for PCIe link to recover, especially important in VM environments
-+	 * where timing can vary significantly from bare metal.
-+	 */
-+	while (retries-- > 0) {
-+		val = ath11k_pcic_read32(ab, PCIE_SOC_GLOBAL_RESET);
-+		if (val != 0xffffffff) {
-+			link_recovered = true;
-+			break;
-+		}
-+		mdelay(20);
-+	}
-+	if (!link_recovered) {
-+		ath11k_err(ab, "PCIe link failed to recover - device may need power cycle\n");
-+		return -ETIMEDOUT;
-+	}
- 
- 	/* Restore window register as its content is cleared during
- 	 * hardware global reset, such that it aligns with host cache.
- 	 */
- 	ath11k_pci_restore_window(ab);
-+
-+	return 0;
- }
- 
- static void ath11k_pci_clear_dbg_registers(struct ath11k_base *ab)
-@@ -377,8 +393,10 @@ static void ath11k_pci_force_wake(struct ath11k_base *ab)
- 	mdelay(5);
- }
- 
--static void ath11k_pci_sw_reset(struct ath11k_base *ab, bool power_on)
-+static int ath11k_pci_sw_reset(struct ath11k_base *ab, bool power_on)
- {
-+	int ret;
-+
- 	mdelay(100);
- 
- 	if (power_on) {
-@@ -391,8 +409,12 @@ static void ath11k_pci_sw_reset(struct ath11k_base *ab, bool power_on)
- 
- 	ath11k_mhi_clear_vector(ab);
- 	ath11k_pci_clear_dbg_registers(ab);
--	ath11k_pci_soc_global_reset(ab);
-+	ret = ath11k_pci_soc_global_reset(ab);
-+	if (ret)
-+		return ret;
- 	ath11k_mhi_set_mhictrl_reset(ab);
-+
-+	return 0;
- }
- 
- static void ath11k_pci_init_qmi_ce_config(struct ath11k_base *ab)
-@@ -822,7 +844,9 @@ static int ath11k_pci_power_up(struct ath11k_base *ab)
- 
- 	ab_pci->register_window = 0;
- 	clear_bit(ATH11K_FLAG_DEVICE_INIT_DONE, &ab->dev_flags);
--	ath11k_pci_sw_reset(ab_pci->ab, true);
-+	ret = ath11k_pci_sw_reset(ab_pci->ab, true);
-+	if (ret)
-+		return ret;
- 
- 	/* Disable ASPM during firmware download due to problems switching
- 	 * to AMSS state.
--- 
-2.56.0
-
+> +	if (IS_ENABLED(CONFIG_PM) &&
+> +	    pm_runtime_get_if_active(ethosu->base.dev) <= 0) {
+>  		ethosu->perfmon_state.active = NULL;
+>  		return;
+>  	}
+>
+> --
+> 2.53.0
+>
