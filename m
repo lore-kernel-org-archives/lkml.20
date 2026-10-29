@@ -1,77 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793289891;
-	b=tminGAskRvrimiCEkNA10/NlsFX7naLU+4kV8OPNX7h2Wf1avJ7zFQnoMhBtsJB5zqGB
-	 jgcOziUTENJtgNytqX+sYGlSw1XwjNL+YUTKUV7PwaA4BzIhp6rkgA2gR7ZKTTG1qEbT8
-	 gzVa0nufrTiERIpvGnbmIIgCzZyb18WM5oMgeAZraaWtSfBqpldJ1CU5eN5WnHEKXdz0s
-	 N94WYkH0PGbKwsi0ORDSSUMclJU/GwASxEHwXzCoH6Ud0UScBDgR+xv8Zq7WYbvGYrZh8
-	 BIn/EOh7IQfh7mciCDcQ5uFP+eyIlMZI3pTwVlaTCR2B1pPjnGo483mfpSLJthtwdeQ==
+	t=1793289916;
+	b=gAbRMkk515X3ef/SK681oW1exh4O4s2dDHx47YFaCYeorxKyIG9E1oNxavGQdbr4aQhF
+	 W1G3AdRPITiUvLCEaoDms7Lb+jmQXKZ+IGr3kmzjy7aqHTK/7w0VX2pRMVdQLeIxXCEj5
+	 h6hL5ST1kCPLv8Uv3P7xsxQaFlBUr85x9/Qo58pxjC2CiwyQgU6nSpdZO6i+NXLWR03dJ
+	 qciOHZHdKdEPvfcuJyQT73TZFdkbQoXDsIcRcVcsAMRaKpb7a+7+ogvSjI1h4uy1oIW4+
+	 Q7XuPYfDszHuS/KwSm61NMgX04RfW38YOD6siGBhdNhimQovoDLhCmNynm3lhFQoApg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289891;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=Ujti69uAXYq3nrNEejy8limZ43MgliAb4aAxtO/+OGE=;
-	b=mjPdxl86FGtOKm91Gd/JzPVANitdVRgofnhxNolUyKvOF4wMYkANlAvFY9ne5hAPGE34
-	 aG9LopZO3Wo23zFR0SZ+7gg8F1vbMUnf4aJil3nldhF64MZUKDQWXPxgOqQbY4Ya2/8D2
-	 1aJ9PfeK5J1YjIvkHyyqP4M+EqJzDTSSElHwZj1P9OQXWTevGWNoZumKYJLpCoSmoYZAA
-	 KyRkQutcUijEAjbLDVlbUuh8qf6/3z61NSm25FKTIySzO2QsJuHxKohFxg73JA2l67SLO
-	 i6fJ4ikd9GE9ztPOqconhSdZLLAyk9MFK/dPXCEG/ioNlm/vxMFEpwQ3ent5efh/6vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793289916;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=OsSQR7Yy26AK61HuKZwKG4x8VbuWmgNh+N/oo4fnMaI=;
+	b=J1hON8wJgO254ynHjnjBVD/41shlfp0gCFkhVg1FlQZz2cLvcoEnd+OWUrfXxLdCz4Vn
+	 6i7h+3LIv1xz7aJnbTuF1e3ZGwqMp4QLxUJcNpRgoswoNfNStZE8e8a/f20/7cFoTvMZe
+	 wFZ/g32GkZ1+hqUrvJuaadN1ymCpALCEEggurmRlasszHtckmGyzfLsiRzKaL7tnO0zcV
+	 1vFX7GwQs9rLY8cCHSAsgAYQrujBu3UQM3EUJsk/PIgr/WCtzPBiu7V12J7xEqKxrCE+v
+	 Xx0/fCudP0v99/Q9zzFfOs0XrM3l/+VC7Jidt3kWX4n/IEgR0JV4/16PoHejd8R1CgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OlYLzhR4;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=F4nLrxp+;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1660F606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:04:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1660F606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75700606A31A;
+	Thu, 29 Oct 2026 16:05:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75700606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OlYLzhR4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793289890;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Ujti69uAXYq3nrNEejy8limZ43MgliAb4aAxtO/+OGE=;
-	b=OlYLzhR42Qi83y/JGRJMf0p54MGey/4SGilKG0sM+x7aIlc4QM65lhN6gqVTjx6bFm+WG2
-	xqqg7cB5d/svpu/SbXXTRbveDb+GQP/wLUMbdx2YP4zZkU4JIiEhOWOlBsgq4+/d0BkTs2
-	//VdbxmT4gk1vWIOBHSnsJbYr5BBymA=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-313-djN2mtQlNgiWl8wg_aSqvQ-1; Thu,
- 29 Oct 2026 12:04:47 -0400
-X-MC-Unique: djN2mtQlNgiWl8wg_aSqvQ-1
-X-Mimecast-MFC-AGG-ID: djN2mtQlNgiWl8wg_aSqvQ_1793289886
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 27730195FDE8;
-	Thu, 29 Oct 2026 16:04:46 +0000 (UTC)
-Received: from jtaubepe-thinkpadx1carbongen12.ibmlowe.csb (unknown [10.22.80.33])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6132F30002CB;
-	Thu, 29 Oct 2026 16:04:44 +0000 (UTC)
-From: Jesse Taube <jtaubepe@redhat.com>
-To: "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Nimal Prabudoss I <nprabudo@redhat.com>,
-	jmeneghi@redhat.com,
-	Nilesh Javali <njavali@marvell.com>,
-	Manish Rangankar <mrangankar@marvell.com>,
-	GR-ETH-Storage-Upstream@marvell.com,
-	Jesse Taube <jtaubepe@redhat.com>
-Subject: [PATCH] scsi: qedf: Remove unesseary function call
-Date: Thu, 29 Oct 2026 12:04:43 -0400
-Message-ID: <20261029160443.904468-1-jtaubepe@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=F4nLrxp+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=OsSQR7Yy26AK61HuKZwKG4x8VbuWmgNh+N/oo4fnMaI=; b=F4nLrxp+9awbAQfHVvTPP7zTFg
+	5TxyoVriD8g0ZBcddVu4juP5OJqRpSvQGg1hI9hFL4RHjMtvbS8Lh42B8ODCnBdXdHNCNrXgKmoCs
+	/lmeIGzSQrpqfdvZXr2wbSm58orjNfY8ucQ+9/7MowI4P2SU9Y9+wFouy9DKw91xUe2h+ahnogkFB
+	PI7Au+l7HeQkSiE/uPjFcPdmpqjXIINDWJz+tRJ+UPZMuBjxFyfH7a1/V7vDl9/JCa2A6C0OEOLAP
+	aWYyqo26H9+0l9m21ZxQAFSKX3DDV3vjABZzRdGx9hTJW2a+1JCWpOcbxgEGttS+00IpOTUAIYI2+
+	afaOLAqQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMScs-00000009jin-405r;
+	Thu, 29 Oct 2026 16:05:14 +0000
+Message-ID: <2c08142d-4ae7-43da-b425-55e97056c630@infradead.org>
+Date: Thu, 29 Oct 2026 09:05:14 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,30 +58,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/7] docs: ABI: power: rt9471: Fix invalid inline
+ emphasis
+To: Waqar Hameed <waqar.hameed@axis.com>, Sebastian Reichel <sre@kernel.org>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: kernel@axis.com, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1793225920.git.waqar.hameed@axis.com>
+ <38e21b9fcf7cb784e950b51aac7488831e8f7eea.1793225920.git.waqar.hameed@axis.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <38e21b9fcf7cb784e950b51aac7488831e8f7eea.1793225920.git.waqar.hameed@axis.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The result of `skb_transport_header` was unused. Calling this function
-warned when `skb_transport_header_was_set` returned false causing a
-panic on debug kernels.
 
-Signed-off-by: Jesse Taube <jtaubepe@redhat.com>
----
- drivers/scsi/qedf/qedf_main.c | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/scsi/qedf/qedf_main.c b/drivers/scsi/qedf/qedf_main.c
-index da429b3a4283..f2bc0ac684e0 100644
---- a/drivers/scsi/qedf/qedf_main.c
-+++ b/drivers/scsi/qedf/qedf_main.c
-@@ -2496,7 +2496,6 @@ static void qedf_recv_frame(struct qedf_ctx *qedf,
- 
- 	/* Pull the header */
- 	hp = (struct fcoe_hdr *)skb->data;
--	fh = (struct fc_frame_header *) skb_transport_header(skb);
- 	skb_pull(skb, sizeof(struct fcoe_hdr));
- 	fr_len = skb->len - sizeof(struct fcoe_crc_eof);
- 
+On 10/28/26 3:39 PM, Waqar Hameed wrote:
+> `docutils` warns:
+> 
+>   Documentation/ABI/testing/sysfs-class-power-rt9471:1: (WARNING/2) Inline emphasis start-string without end-string.
+>   Documentation/ABI/testing/sysfs-class-power-rt9471:14: (WARNING/2) Inline emphasis start-string without end-string.
+>   Documentation/ABI/testing/sysfs-class-power-rt9471:21: (WARNING/2) Inline emphasis start-string without end-string.
+> 
+> Fix this by escaping the `*`.
+> 
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609110722.GAZVme6v-lkp@intel.com/
+> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
+
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Tested-by: Randy Dunlap <rdunlap@infradead.org>
+
+> ---
+>  Documentation/ABI/testing/sysfs-class-power-rt9471 | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/ABI/testing/sysfs-class-power-rt9471 b/Documentation/ABI/testing/sysfs-class-power-rt9471
+> index 90cf94c1cbf6b..d4ea9c9a5a9b2 100644
+> --- a/Documentation/ABI/testing/sysfs-class-power-rt9471
+> +++ b/Documentation/ABI/testing/sysfs-class-power-rt9471
+> @@ -1,4 +1,4 @@
+> -What:		/sys/class/power_supply/rt9471-*/sysoff_enable
+> +What:		/sys/class/power_supply/rt9471-\*/sysoff_enable
+>  Date:		Feb 2023
+>  KernelVersion:	6.3
+>  Contact:	ChiYuan Huang <cy_huang@richtek.com>
+> @@ -11,14 +11,14 @@ Description:
+>  		mode. 'Disable' also can help to leave it, but it's more like to abort
+>  		the action before the device really enter shipping mode.
+>  
+> -		Note: use /sys/class/power_supply/rt9471-*/load_switch instead.
+> +		Note: use /sys/class/power_supply/rt9471-\*/load_switch instead.
+>  
+>  		Access: Read, Write
+>  		Valid values:
+>  		- 1: enabled
+>  		- 0: disabled
+>  
+> -What:		/sys/class/power_supply/rt9471-*/port_detect_enable
+> +What:		/sys/class/power_supply/rt9471-\*/port_detect_enable
+>  Date:		Feb 2023
+>  KernelVersion:	6.3
+>  Contact:	ChiYuan Huang <cy_huang@richtek.com>
+
 -- 
-2.56.0
-
+~Randy
