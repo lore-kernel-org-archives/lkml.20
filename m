@@ -1,54 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793316109;
-	b=qWz1EwyOVSv2n27M1j88LennWsuqUGjEuIdaPwEmLzQnxovFfbpnqRhslO46o+nbuhlH
-	 zzg4k4To+bUJlos3YkJFqRRU2R/G6QtV9u9yeE9vncmMrIdTMZ4rtRqsWiJh1S9QpcjAq
-	 ZZjJxp+gcRH4re7ldigH90GzWW/GQ3opUuLwfjWkLhumpXP+zKwAnc5Li7DbLTrJb10Ef
-	 Hrgqq8BH7t09pdXwSmDgUjj+tblk2zl/BRCojCJlmkF4TK+CvJT+oYtVBPKNgkgjmYysV
-	 zCp14bgMt0Br047ePsFyK4E08N1YkhTSkxZA9iay3Kmpr0QUa2QKyLIvViD3gtn+jig==
+	t=1793316116;
+	b=gNEg6TNGidrmLgZkN5tkSFwsjCTSiSkUI3ww12S4lu6thcK/fZ1zZ4tBB4ebGH7ZNGdP
+	 orOa9/Uup9zZ83PjSPynh65m7dsqV8+GRqQLuJ52l9XL5vsx6AQCWh8FofCoJY8+lcci6
+	 4a2RmNGD/GzOkknUWyoxKJ4Rc1L5+WtT2yGYZkF2VSwMu25EbA1/4DAX+H4CpqdrTYIYq
+	 t7txbDULPKyl8FvCWMbnGKiKrsSsZlNFUc1LjXYUtcSWEI7VN45P4hcP2rbuOQy5bAWPs
+	 06Ep9igky1bGfa2WBqDR89rhWjcjHK9w6Osj/hCJDh98ngd3s39Bk1t9VSM5yYoAggw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793316109;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=9KXT4dHagJhrc5RYxqkBMcxc0mqm0x3wYl4HY30il/o=;
-	b=cUOHpAOCoWUjz+jJbF+P2pTHlvCv+TBo3XvwIk3C/ZNlk/2QiHZELdaxvD6RWszu0GZo
-	 A0nFRTk/lrHxullXcc4TAnMDNhvq0JS6fit9OvAqXpdYmAx57WYADRPI2nayT9hairslk
-	 oPa+TIHaisBpmx8RUifqpkr6iXqtfE9VNy7/VoGBOJrQn2qJFgO8gUxCNn74vhWfhvr5c
-	 02ZDVoFTgXFBaYNkqsFja0HpOCxJvk3e+e0+MoKQDZAPQoHi/my+hVaHrYt8GcyTJyMtA
-	 njhf+agHCUjXnpD0+2QGI/mf15v5pf98/qy/bdPtzNIw6t0uGTldFcj5wS/jyX6+eNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793316116;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=N3gRoLc7yvRB1yDkBERo6UVcw5vuu8Tzkngj57Vi0dE=;
+	b=T9/qlPhYTcawym2106FmdPAi7FI7cjgJZW0ZqDFJA3ejCaDOiX9vkdhILLuNqLhfHvq4
+	 yJIEvbl3rFT82ffrDohKd9ntrYTeM6iT3EZeXYQt1umoyLJw15C5fyHCz30ZBosHTR1sZ
+	 rwtwR0uVDnfORQydiDY6lhe/pSLcN2GEFEehtwHrEmdS2xl5ivxvM5yljieqMsuKoI49h
+	 KgUDS7T9GD0rOA6HsJdqTpLx2lSabeeY76DhaeEtxMejwG0gZcr+EaZc+shs6FL/xDcSE
+	 9D6OVyC9mLXiXC0xhjBTiQb9Ig7h+iQ930NcFzbzDzCfBwisJmH+XWr1hvk6i+mu7Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OeDHMRkV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC56D606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:21:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC56D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4dab94dc3e7so226022b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:21:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793316108; x=1793920908;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9KXT4dHagJhrc5RYxqkBMcxc0mqm0x3wYl4HY30il/o=;
-        b=ynLq3ThQR6ZVtDR6z+C1Pc3UJMA3V5+Z3ynthRIe5n/ijGYv/JOlFH0NMeSer9A5OA
-         GosEystN1eIry6KfI2784Vq2WGOTRwhyJ8o70MBy68dtei4V+RHj5d3F7JCoZO+HxEoj
-         G79Avi9Fi9hQTH2YSu3uleZ7zwm0U2GLj3T7rokD33+vG7XmYsU/jukf7wiULAPsbTtl
-         MwRXiq9AQ2ieA9NpwP4GNlW0lbvcaMRMtjYFc6IHYA5pKcYj7bZhNB243gfX3FYPGOzi
-         SAjwPBC7TsGMiqHqau5Ga0NVWzLW/BQPOoxDhjAFK1nE1F/awF/0PaNOSKmtlQJTycco
-         zMcA==
-X-Forwarded-Encrypted: i=1; AKwUvBxDafz8Df5bOnYw0ezwXFT7UITNPkc29Vz5MY9xtSNgP0rMzbW86QYba44iQRrFLjEpfAoWercK9xjNluM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKitCwA++8eUjqAhDiE56Dje1BiPcUefalvRrax6BAr8XHYSc8k
-	d6VzOLctkmg/cE+9xfPfTGHrb/FITlQgY/8BzFor0jEa1UuuvZMzabJMmkZAw0hRAlvIaV7MvUD
-	EDNX1k6xY6SSjwu2HLUvKJLJeC1EjUVxmWpJWuIBblkRyNGbkfQyZIgBHzy4=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77795606A332;
+	Thu, 29 Oct 2026 23:21:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OeDHMRkV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3E901F01816;
+	Thu, 29 Oct 2026 23:21:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793316116;
+	bh=N3gRoLc7yvRB1yDkBERo6UVcw5vuu8Tzkngj57Vi0dE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OeDHMRkVizcxRN9N3vVP2Rr6664f8SXA17luor+yEvb3CmNZbugi9FU7GDecXQiRf
+	 9qaUXqbPJ3rA7Dmadxspz7WfJCXoz4/60BO7EXgYSDQxIBhHhXYQ5VUi95AOqYEMgc
+	 yqdS2lhGSX1wbAXHl+O0WkoUVXbCQv4bMGvm+kxdVqANphliT50iJweStI0d/CRJrZ
+	 QN25FBK5i87iVpvu6c4F5z09Ci3tnzlpttoRzjueyUii4cjW6YL9AM8ohmw3rtq7Vw
+	 AlUGm2eibkPKCAJIpLafywkPbuqkAYFDXz6C/q5YyQv6hxTFx9knt12QlVYMU6YrS+
+	 PHxJebv/xBnuQ==
+Date: Thu, 29 Oct 2026 23:21:50 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Srirangan Madhavan <smadhavan@nvidia.com>
+Cc: mark.rutland@arm.com, lpieralisi@kernel.org, sudeep.holla@kernel.org,
+	jic23@kernel.org, catalin.marinas@arm.com, will@kernel.org,
+	andre.przywara@arm.com, aneesh.kumar@kernel.org,
+	Souvik.Chakravarty@arm.com, treding@nvidia.com,
+	jonathanh@nvidia.com, bence.csokas@arm.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [PATCH v5 2/2] cache: add SMCCC-backed cache invalidate provider
+Message-ID: <20261029-feline-monastery-07bf67308136@spud>
+References: <20261021224557.1827361-1-smadhavan@nvidia.com>
+ <20261021224557.1827361-3-smadhavan@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,180 +63,279 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:23c2:b0:4fb:73e8:5a25 with SMTP id
- 5614622812f47-5640dee0b4bmr681041b6e.53.1793316107858; Thu, 29 Oct 2026
- 16:21:47 -0700 (PDT)
-Date: Thu, 29 Oct 2026 16:21:47 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae3d50b.9c6421ad.36baac.0003.GAE@google.com>
-Subject: [syzbot] [sctp?] kernel BUG in __pskb_pull_tail (2)
-From: syzbot <syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com>
-To: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
-	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-sctp@vger.kernel.org, 
-	lucien.xin@gmail.com, marcelo.leitner@gmail.com, netdev@vger.kernel.org, 
-	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fabG0ZF/qX/zSjOV"
+Content-Disposition: inline
+In-Reply-To: <20261021224557.1827361-3-smadhavan@nvidia.com>
 
-Hello,
+--fabG0ZF/qX/zSjOV
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-syzbot found the following issue on:
+On Wed, Oct 21, 2026 at 10:45:57PM +0000, Srirangan Madhavan wrote:
+> Add a cache maintenance provider for the cache clean+invalidate interface
+> defined by Arm DEN0028 v1.7.
+>=20
+> Register the interface attributes function as an SMCCC device and bind the
+> provider through the SMCCC bus. The provider reads the firmware attributes
+> during probe and serializes cache maintenance calls. It handles transient
+> BUSY and RATE_LIMITED responses with bounded retries. It also registers
+> with the generic cache coherency framework used by memregion callers.
+>=20
+> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
+> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
 
-HEAD commit:    21a7f44fd076 Merge tag 'devicetree-for-7.4' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1299b469580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b92e3106016c03ef
-dashboard link: https://syzkaller.appspot.com/bug?extid=f15a6eff7a53f6eb7dc3
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-21a7f44f.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/9b86d9af9ad5/vmlinux-21a7f44f.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6f435992c0d2/bzImage-21a7f44f.xz
-
-AI-generated root cause summary:
-When receiving an SCTP packet that is nonlinear (such as an SCTP GSO packet
-constructed with fragments in frag_list), sctp_rcv attempts to linearize the
-packet using skb_linearize() if the sk_buff is cloned (e.g., tapped by a packet
-socket or shared) or not recognized as GSO. During linearization via
-__skb_linearize() and __pskb_pull_tail(), skb_copy_bits() fails with -EFAULT due
-to a discrepancy in frag_list fragment lengths or readable offsets, triggering a
-BUG_ON assertion failure. In production builds, this BUG() results in an invalid
-opcode oops and kernel panic, causing an immediate denial of service.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=f15a6eff7a53f6eb7dc3
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-kernel BUG at net/core/skbuff.c:2903!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 0 UID: 0 PID: 8843 Comm: syz.2.816 Tainted: G             L       syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__pskb_pull_tail+0x1335/0x1920 net/core/skbuff.c:2903
-Code: 61 f8 48 89 df e8 6b 03 fe ff 31 ff 41 89 c4 89 c6 e8 af c5 61 f8 45 84 e4 0f 84 1c f2 ff ff e9 84 f2 ff ff e8 8c cb 61 f8 90 <0f> 0b e8 84 cb 61 f8 48 8b 54 24 30 48 b8 00 00 00 00 00 fc ff df
-RSP: 0018:ffffc90000007870 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: 00000000fffffff2 RCX: 0000000000000101
-RDX: ffff888031daa580 RSI: ffffffff89ac4f84 RDI: ffff888031daa580
-RBP: ffffc900000078f0 R08: 0000000000000005 R09: 0000000000000000
-R10: 00000000fffffff2 R11: 0000000000000000 R12: 00000000000000e4
-R13: 0000000000000180 R14: 0000000000000000 R15: ffff88803a46bb80
-FS:  00007fa1c8fde6c0(0000) GS:ffff8880d44ac000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000000 CR3: 0000000037f0f000 CR4: 0000000000352ef0
-Call Trace:
- <IRQ>
- __skb_linearize include/linux/skbuff.h:4025 [inline]
- skb_linearize include/linux/skbuff.h:4037 [inline]
- sctp_rcv+0x143e/0x3cc0 net/sctp/input.c:120
- ip_protocol_deliver_rcu+0x44c/0x4d0 net/ipv4/ip_input.c:207
- ip_local_deliver_finish+0x3fb/0x6e0 net/ipv4/ip_input.c:241
- NF_HOOK include/linux/netfilter.h:325 [inline]
- NF_HOOK include/linux/netfilter.h:319 [inline]
- ip_local_deliver+0x1a3/0x200 net/ipv4/ip_input.c:262
- dst_input include/net/dst.h:481 [inline]
- ip_rcv_finish net/ipv4/ip_input.c:492 [inline]
- NF_HOOK include/linux/netfilter.h:325 [inline]
- NF_HOOK include/linux/netfilter.h:319 [inline]
- ip_rcv+0x33a/0x3c0 net/ipv4/ip_input.c:612
- __netif_receive_skb_one_core+0x197/0x1e0 net/core/dev.c:6405
- __netif_receive_skb+0x1f/0x120 net/core/dev.c:6518
- process_backlog+0x487/0x1600 net/core/dev.c:6869
- __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7938
- napi_poll net/core/dev.c:8001 [inline]
- net_rx_action+0xa40/0xf20 net/core/dev.c:8158
- handle_softirqs+0x216/0xa20 kernel/softirq.c:669
- do_softirq kernel/softirq.c:569 [inline]
- do_softirq+0xaf/0xf0 kernel/softirq.c:556
- </IRQ>
- <TASK>
- __local_bh_enable_ip+0xff/0x120 kernel/softirq.c:473
- local_bh_enable include/linux/bottom_half.h:33 [inline]
- rcu_read_unlock_bh include/linux/rcupdate.h:923 [inline]
- __dev_queue_xmit+0xa73/0x4a50 net/core/dev.c:5101
- dev_queue_xmit include/linux/netdevice.h:3483 [inline]
- neigh_hh_output include/net/neighbour.h:538 [inline]
- neigh_output include/net/neighbour.h:552 [inline]
- ip_finish_output2+0xfa4/0x2740 net/ipv4/ip_output.c:236
- __ip_finish_output.part.0+0x43b/0x6f0 net/ipv4/ip_output.c:314
- __ip_finish_output net/ipv4/ip_output.c:302 [inline]
- ip_finish_output net/ipv4/ip_output.c:324 [inline]
- NF_HOOK_COND include/linux/netfilter.h:314 [inline]
- ip_output+0x392/0xc00 net/ipv4/ip_output.c:437
- dst_output include/net/dst.h:471 [inline]
- ip_local_out+0x193/0x1f0 net/ipv4/ip_output.c:131
- __ip_queue_xmit+0x876/0x1f50 net/ipv4/ip_output.c:533
- sctp_v4_xmit+0x91a/0x1070 net/sctp/protocol.c:1061
- sctp_packet_transmit+0x22fe/0x30b0 net/sctp/output.c:659
- sctp_outq_flush_transports net/sctp/outqueue.c:1174 [inline]
- sctp_outq_flush+0xb2b/0x3380 net/sctp/outqueue.c:1222
- sctp_cmd_interpreter net/sctp/sm_sideeffect.c:1826 [inline]
- sctp_side_effects net/sctp/sm_sideeffect.c:1211 [inline]
- sctp_do_sm+0xce1/0x5c30 net/sctp/sm_sideeffect.c:1182
- sctp_assoc_bh_rcv+0x392/0x740 net/sctp/associola.c:1048
- sctp_inq_push+0x25c/0x320 net/sctp/inqueue.c:91
- sctp_backlog_rcv+0x169/0x590 net/sctp/input.c:331
- sk_backlog_rcv include/net/sock.h:1194 [inline]
- __release_sock+0x39d/0x440 net/core/sock.c:3341
- release_sock+0x1e5/0x280 net/core/sock.c:3940
- sctp_sendmsg+0x1166/0x22e0 net/sctp/socket.c:2091
- inet_sendmsg+0x11c/0x140 net/ipv4/af_inet.c:864
- sock_sendmsg_nosec net/socket.c:800 [inline]
- __sock_sendmsg net/socket.c:818 [inline]
- ____sys_sendmsg+0xa23/0xc30 net/socket.c:2715
- ___sys_sendmsg+0x190/0x1e0 net/socket.c:2769
- __sys_sendmmsg+0x20c/0x440 net/socket.c:2858
- __do_sys_sendmmsg net/socket.c:2885 [inline]
- __se_sys_sendmmsg net/socket.c:2882 [inline]
- __x64_sys_sendmmsg+0x9c/0x100 net/socket.c:2882
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fa1c819f559
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007fa1c8fde028 EFLAGS: 00000246 ORIG_RAX: 0000000000000133
-RAX: ffffffffffffffda RBX: 00007fa1c8426180 RCX: 00007fa1c819f559
-RDX: 0000000000000001 RSI: 00002000000004c0 RDI: 0000000000000006
-RBP: 00007fa1c8236b20 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fa1c8426218 R14: 00007fa1c8426180 R15: 00007fff741e8248
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:__pskb_pull_tail+0x1335/0x1920 net/core/skbuff.c:2903
-Code: 61 f8 48 89 df e8 6b 03 fe ff 31 ff 41 89 c4 89 c6 e8 af c5 61 f8 45 84 e4 0f 84 1c f2 ff ff e9 84 f2 ff ff e8 8c cb 61 f8 90 <0f> 0b e8 84 cb 61 f8 48 8b 54 24 30 48 b8 00 00 00 00 00 fc ff df
-RSP: 0018:ffffc90000007870 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: 00000000fffffff2 RCX: 0000000000000101
-RDX: ffff888031daa580 RSI: ffffffff89ac4f84 RDI: ffff888031daa580
-RBP: ffffc900000078f0 R08: 0000000000000005 R09: 0000000000000000
-R10: 00000000fffffff2 R11: 0000000000000000 R12: 00000000000000e4
-R13: 0000000000000180 R14: 0000000000000000 R15: ffff88803a46bb80
-FS:  00007fa1c8fde6c0(0000) GS:ffff8880d44ac000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000000000000000 CR3: 0000000037f0f000 CR4: 0000000000352ef0
+I acked this on v3, but I don't see it here or a reason for why it
+isn't. Ultimately, you're only harming yourself but still.
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Unless the arm64 guys pipe up and expect me to take this,
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+because it's so tied to arm architectural stuff.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Cheers,
+Conor.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+> ---
+>  drivers/cache/Kconfig           |  11 +++
+>  drivers/cache/Makefile          |   2 +
+>  drivers/cache/arm_smccc_cache.c | 156 ++++++++++++++++++++++++++++++++
+>  drivers/firmware/smccc/smccc.c  |   5 +
+>  4 files changed, 174 insertions(+)
+>  create mode 100644 drivers/cache/arm_smccc_cache.c
+>=20
+> diff --git a/drivers/cache/Kconfig b/drivers/cache/Kconfig
+> index 1518449d47b5..57fd1823dec5 100644
+> --- a/drivers/cache/Kconfig
+> +++ b/drivers/cache/Kconfig
+> @@ -42,6 +42,17 @@ menuconfig CACHEMAINT_FOR_HOTPLUG
+> =20
+>  if CACHEMAINT_FOR_HOTPLUG
+> =20
+> +config ARM_SMCCC_CACHE
+> +	bool "Arm SMCCC cache maintenance provider"
+> +	depends on ARM64 && HAVE_ARM_SMCCC_DISCOVERY
+> +	help
+> +	  Enable support for the Arm SMCCC cache clean+invalidate
+> +	  interface as a provider for memory hotplug-like cache
+> +	  maintenance operations.
+> +	  The provider registers only when firmware advertises the
+> +	  SMCCC calls and attributes, so systems without firmware support
+> +	  continue without this registered provider.
+> +
+>  config HISI_SOC_HHA
+>  	tristate "HiSilicon Hydra Home Agent (HHA) device driver"
+>  	depends on (ARM64 && ACPI) || COMPILE_TEST
+> diff --git a/drivers/cache/Makefile b/drivers/cache/Makefile
+> index b3362b15d6c1..55736a032d6f 100644
+> --- a/drivers/cache/Makefile
+> +++ b/drivers/cache/Makefile
+> @@ -4,4 +4,6 @@ obj-$(CONFIG_AX45MP_L2_CACHE)		+=3D ax45mp_cache.o
+>  obj-$(CONFIG_SIFIVE_CCACHE)		+=3D sifive_ccache.o
+>  obj-$(CONFIG_STARFIVE_STARLINK_CACHE)	+=3D starfive_starlink_cache.o
+> =20
+> +# Providers below depend on CACHEMAINT_FOR_HOTPLUG.
+> +obj-$(CONFIG_ARM_SMCCC_CACHE)		+=3D arm_smccc_cache.o
+>  obj-$(CONFIG_HISI_SOC_HHA)		+=3D hisi_soc_hha.o
+> diff --git a/drivers/cache/arm_smccc_cache.c b/drivers/cache/arm_smccc_ca=
+che.c
+> new file mode 100644
+> index 000000000000..abe6881f3de3
+> --- /dev/null
+> +++ b/drivers/cache/arm_smccc_cache.c
+> @@ -0,0 +1,156 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2026 NVIDIA Corporation
+> + *
+> + * Arm SMCCC cache maintenance provider using the cache clean+invalidate
+> + * interface defined by Arm DEN0028 v1.7.
+> + */
+> +
+> +#include <linux/arm-smccc.h>
+> +#include <linux/arm-smccc-bus.h>
+> +#include <linux/cache_coherency.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/container_of.h>
+> +#include <linux/delay.h>
+> +#include <linux/errno.h>
+> +#include <linux/math.h>
+> +#include <linux/minmax.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/nmi.h>
+> +#include <linux/time64.h>
+> +#include <linux/types.h>
+> +
+> +#define SMCCC_CACHE_MAX_RETRIES		5
+> +#define SMCCC_CACHE_DEFAULT_DELAY_US	1000UL
+> +#define SMCCC_CACHE_MAX_DELAY_US	20000UL
+> +
+> +struct smccc_cache {
+> +	/* Must be first member */
+> +	struct cache_coherency_ops_inst cci;
+> +	struct mutex lock; /* Serializes SMCCC cache maintenance calls. */
+> +	u64 rate_limit;
+> +};
+> +
+> +static int smccc_cache_status_to_errno(s32 status)
+> +{
+> +	switch (status) {
+> +	case SMCCC_RET_SUCCESS:
+> +		return 0;
+> +	case SMCCC_RET_NOT_SUPPORTED:
+> +		return -EOPNOTSUPP;
+> +	case SMCCC_RET_INVALID_PARAMETER:
+> +		return -EINVAL;
+> +	case SMCCC_RET_RATE_LIMITED:
+> +		return -EAGAIN;
+> +	case SMCCC_RET_BUSY:
+> +		return -EBUSY;
+> +	default:
+> +		return -EIO;
+> +	}
+> +}
+> +
+> +static unsigned long smccc_cache_delay_us(const struct smccc_cache *cach=
+e)
+> +{
+> +	unsigned long delay_us =3D 0;
+> +
+> +	if (cache->rate_limit)
+> +		delay_us =3D DIV_ROUND_UP_ULL(USEC_PER_SEC, cache->rate_limit);
+> +
+> +	/*
+> +	 * Firmware may not advertise a rate limit; use a small bounded backoff
+> +	 * instead of retrying in a tight loop.
+> +	 */
+> +	if (!delay_us)
+> +		delay_us =3D SMCCC_CACHE_DEFAULT_DELAY_US;
+> +
+> +	return min(delay_us, SMCCC_CACHE_MAX_DELAY_US);
+> +}
+> +
+> +static int smccc_cache_wbinv(struct cache_coherency_ops_inst *cci,
+> +			     struct cc_inval_params *invp)
+> +{
+> +	struct smccc_cache *cache =3D container_of(cci, struct smccc_cache, cci=
+);
+> +	unsigned long delay_us =3D smccc_cache_delay_us(cache);
+> +	struct arm_smccc_res res =3D {};
+> +	int ret;
+> +
+> +	if (!invp->size)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * Serialize the full retry sequence. With the default bounds, a caller
+> +	 * may hold the mutex across up to five 20ms backoff sleeps.
+> +	 */
+> +	guard(mutex)(&cache->lock);
+> +
+> +	for (unsigned int i =3D 0; i < SMCCC_CACHE_MAX_RETRIES; i++) {
+> +		/* Long firmware operations can trigger watchdog checks. */
+> +		touch_nmi_watchdog();
+> +
+> +		arm_smccc_1_1_invoke(ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION,
+> +				     invp->addr, invp->size, 0UL, &res);
+> +
+> +		ret =3D smccc_cache_status_to_errno((s32)res.a0);
+> +		if (!ret)
+> +			return 0;
+> +
+> +		if (ret !=3D -EBUSY && ret !=3D -EAGAIN)
+> +			return ret;
+> +
+> +		fsleep(delay_us);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct cache_coherency_ops smccc_cache_ops =3D {
+> +	.wbinv =3D smccc_cache_wbinv,
+> +};
+> +
+> +static int smccc_cache_probe(struct arm_smccc_device *sdev)
+> +{
+> +	struct arm_smccc_res res =3D {};
+> +	struct smccc_cache *cache;
+> +	int ret;
+> +
+> +	arm_smccc_1_1_invoke(ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION_ATTRIBUTES,
+> +			     &res);
+> +	if ((s32)res.a0)
+> +		return -ENODEV;
+> +
+> +	cache =3D cache_coherency_ops_instance_alloc(&smccc_cache_ops,
+> +						   struct smccc_cache, cci);
+> +	if (!cache)
+> +		return -ENOMEM;
+> +
+> +	mutex_init(&cache->lock);
+> +	cache->rate_limit =3D res.a3;
+> +
+> +	ret =3D cache_coherency_ops_instance_register(&cache->cci);
+> +	if (ret) {
+> +		mutex_destroy(&cache->lock);
+> +		cache_coherency_ops_instance_put(&cache->cci);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct arm_smccc_device_id smccc_cache_id_table[] =3D {
+> +	{ .func_id =3D ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION_ATTRIBUTES },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(arm_smccc, smccc_cache_id_table);
+> +
+> +static struct arm_smccc_driver smccc_cache_driver =3D {
+> +	.name =3D KBUILD_MODNAME,
+> +	.probe =3D smccc_cache_probe,
+> +	.id_table =3D smccc_cache_id_table,
+> +};
+> +module_arm_smccc_driver(smccc_cache_driver);
+> +
+> +MODULE_IMPORT_NS("CACHE_COHERENCY");
+> +MODULE_AUTHOR("Srirangan Madhavan");
+> +MODULE_DESCRIPTION("Arm SMCCC cache maintenance provider");
+> +MODULE_LICENSE("GPL");
+> diff --git a/drivers/firmware/smccc/smccc.c b/drivers/firmware/smccc/smcc=
+c.c
+> index 5dc768ac4143..5a5d50d17410 100644
+> --- a/drivers/firmware/smccc/smccc.c
+> +++ b/drivers/firmware/smccc/smccc.c
+> @@ -100,6 +100,11 @@ static const struct smccc_device_info smccc_devices[=
+] __initconst =3D {
+>  		.requires_smc   =3D true,
+>  		.device_name    =3D "arm-rsi",
+>  	},
+> +	{
+> +		.func_id        =3D ARM_SMCCC_ARCH_CLEAN_INV_MEMREGION_ATTRIBUTES,
+> +		.requires_smc   =3D false,
+> +		.device_name    =3D "arm-smccc-cache",
+> +	},
+>  };
+> =20
+>  static bool __init smccc_probe_smccc_device(const struct smccc_device_in=
+fo *smccc_dev)
+> --=20
+> 2.43.0
+>=20
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+--fabG0ZF/qX/zSjOV
+Content-Type: application/pgp-signature; name=signature.asc
 
-If you want to undo deduplication, reply with:
-#syz undup
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauPVDgAKCRB4tDGHoIJi
+0mfRAQCmWplBj+uJLhevvjcZpPZZVUEo3u8T6l+XEmAL47JPcgD/XT0XcZ3HQlZt
+DKZLu6y2ey7JrDaZXiFf98GZrWyYggk=
+=Sesk
+-----END PGP SIGNATURE-----
+
+--fabG0ZF/qX/zSjOV--
