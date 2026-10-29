@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282944;
-	b=Ch00bGYMeu0jK0As3k/HgvGK2pt+Q5FH/2tDmQJ20l44QaordJWDcf4Mix/+mWy5NGYt
-	 Ym85Nh6xTTqEqBzkP19QFANLbpGDybbyj4qvTG3oVZQQeENOWWj1PZWCuny4k4p+kXiEt
-	 LXwO3956KAvz+3CpigIP08+KV9KfJb9B3Azc3DhLkNhLSEs134YHjlXzbc5NkqdQNk90Q
-	 BP6irD4G0nXEz5Wq7SEqO+snb4sQM3Lsh3BPXkT4+JgPkMGSWWuzDBdfpEOMKo1XbSNz1
-	 FowkylfJGmdD1geyCggUSNslddMvxpT3kbukk2UsqheZXfYfFb+kUSCkRoDo4L/Gzrg==
+	t=1793282951;
+	b=FglTfyDbIxLmb71wSfa02zcYmt3TUXtplzzJnO8EaAOQyc9QE3pMoe1BIASvKgCRBtXa
+	 o++c26le0ewX/v0NkXZ9MqIP2M4JwS1eJYkqqrrOTTAbkLzglxw8jleCilThDkuL7i2fx
+	 EcORkmdyvwXjvORelcnQIoy7kZkX14pO5CTQJkFCYdZsvJD2LtYmx42xm7X5s3TLeVj6W
+	 hx9JWE7OJEqioHybdXiWlCMmTc0Rrioj6wktxgrif27Q0qFrAELaRu5x86xwfo+Wc399I
+	 svakcjtx3tfhvSi7guh0uDbCbgCmPw2cHZuPHtMkNRQoXLsCzhlgG4xclFCaC/7pQ/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282944;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=6aXSrY3A4a+657KqfeX973w806JtC78lQ2DbAnnMFB4=;
-	b=qi74PFi3sWr/pwSXrVN8TEzw2sTuZY72n9Z76kEZ5HUPz1Q9XysOa24ZZbiiP3qVmnn9
-	 0aGoTEi/j72wBKcSiui82Q8KgiMhh7uXqht4Bhrxm/MyGxibHMvHdZTJXLy1G8u9ZsXkv
-	 e3Hen5eHc94LmZBloin2HI5/4vfXcOLQ7/OkGHlW6Pk5CGA5wh+r8Ty5X9ADODkeh8Efq
-	 5E9RvblDVRxrk0tvWonHJ0hrgAIjASiPDQ2LnxjLaEgLtvRS/QvX/TtvyJtAN5wX7Rxl/
-	 MZGr4AUaRlWS999ClyuRvSMtraQMv7w9c0LGQFNcYFj38R5/M39/SgY78XTjeWqySeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282951;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Ubd3Ga831NUXqcpt+jZKp5rTrR12SuA0oDofbMeQqiE=;
+	b=tsbQm0gydVmb62E6zrHMHe9jXsJVmJZrmuPq/ZLm9tayBctHE26HAWhl4f9mWWziC3YO
+	 kzFWXBMupmXpnS7hf/uAVJKaqCgOwwK48+oSXPqlyNmRRLF+yw3MOxaAfnLE3tjj/9jdK
+	 YSFDHKrbbgEmE+ndi8XwYbNZ0EGPQiuQgy30oqC1/BTCmheD66GbLO1RKSbkc2qh8aPAo
+	 cwk+LabypWO9ge0vZmu2lzXJC76egnGdDHfOEbrVNnjyrox1zy37/L32TXhhv3DDx3RqW
+	 hzu+F5gV4uwNeXpzNyW32TYfg44UI6obnt15Peo12Yx/PhkbvrISvtivatuJFaVA2nQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kyymJSJf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24FD3606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:09:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24FD3606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a41f46d629so2955125b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:09:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793282943; x=1793887743;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6aXSrY3A4a+657KqfeX973w806JtC78lQ2DbAnnMFB4=;
-        b=B3MHUHeEDerzTkSKgy+Pel3JPDXx6wyerloQCJmzCau0b7XPG+VhEwWnJLDMsJbERK
-         V5B7L/QuM0xgczp5CqevAlKWEEI6V3WMA41gTXAhwGV2K20AwxvYcDFMEQ2LfWF+s5zY
-         KUWv/N4oS27PNMxBwkvF7I5JdbnybzhHteA5CAZ0qPAMpw9SY5rPpRhXkXKqtqojUWPN
-         lABfeq79XtTgLnPcK7GW5ARvDw/Jyhf8OINb5z9BoyaQHJ929FIsy+yaiaE62GklA50d
-         UI2e3P0wtH5GdXsxkvfbCFM7HKd+KAVWO4mztGGy0VEHZe33Y1tUXc/Zu82o/FecksES
-         6A3w==
-X-Forwarded-Encrypted: i=1; AKwUvBz6x1yhu44V+7QXDOUtCgPk5DzpaJbn2t/goUjPaGtEdPsIW1LLfeZR3tY3b3yXG2XK87F7fg2de+qIHbo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxObXcQOUAUYxhHgv5CZs1aJDyxDkuHJPbmrqQkvTVNSD63DVk
-	dFKwuL72KKnUXlqPP5x3NlXZfrNM1JctUbraZ8WJolKyPokA5R4+UqN4zu+Dp+abM0csjJFOuDB
-	F6mMEO21l4A/do93/W2X2tGxSEvJxRoPFCll5ENwiK17VLchkGUWyhrdkwwQ=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29E5606A321;
+	Thu, 29 Oct 2026 14:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kyymJSJf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBF5F1F01828;
+	Thu, 29 Oct 2026 14:09:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793282950;
+	bh=Ubd3Ga831NUXqcpt+jZKp5rTrR12SuA0oDofbMeQqiE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=kyymJSJfMEaIE0i1S2EHZCMBOFhBL9nfBTTLlhXCfM6Ltw8hLPzEIpukjwexVw9Ik
+	 10fPc+qsVFt0eVndbxaAiz86KAtYcfaTh5/wbwp/OxA4eB8fbpxUmMFkzb4v2ouP18
+	 8Er+8LbTUL8QiRq9V3M9ZGlYMamTGLS8l4L7HIqlChh4LxBosI7jKvH4inbJezMIBa
+	 AWWw09F4Pm6wlbA8MSYAdCo3qYYJzjJzStTNpVC6l5BqZJUVovL5ecOSOqdAkA9x7J
+	 lDdljxgV8eSyCgEkWdr/Pdnbyg9DxPDWEUUcByn8MCIRBqZhebcb683Y/nq2NUn6aZ
+	 8pEasA9TI9QMA==
+Subject: Re: [PATCH net v7 2/3] xfrm: set the address family before the early
+ invalid-state drop
+From: netdev-bot+sashiko@kernel.org
+To: q.h.hack.winter@gmail.com
+Cc: netdev@vger.kernel.org, steffen.klassert@secunet.com, chopps@labn.net,
+ herbert@gondor.apana.org.au, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org,
+ idosch@nvidia.com, linux-kernel@vger.kernel.org
+Date: Thu, 29 Oct 2026 14:09:09 +0000
+Message-ID: <179328294937.3134.2288184405522355478@kernel.org>
+In-Reply-To: <20261027105031.19928-3-q.h.hack.winter@gmail.com>
+References: <20261027105031.19928-3-q.h.hack.winter@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,35 +64,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3094:b0:4f6:ae3d:8230 with SMTP id
- 5614622812f47-56386c2cb42mr4046507b6e.46.1793282943163; Thu, 29 Oct 2026
- 07:09:03 -0700 (PDT)
-Date: Thu, 29 Oct 2026 07:09:03 -0700
-In-Reply-To: <CAA=drAqs-x4PdFAJGLOL47Nwrp-AhE+-L58oAg8mAUqBUD-8Cw@mail.gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae3537f.55b94f83.31f4d7.01a5.GAE@google.com>
-Subject: Re: [syzbot] [mm?] WARNING in setup_conf
-From: syzbot <syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com>
-To: gowtham398gs@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-syzbot tried to test the proposed patch but the build/boot failed:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-failed to apply patch:
-error: corrupt patch at line 11
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
+- [Medium] This commit taken by itself: moving `family = x->props.family`
+  above the `x->km.state != XFRM_STATE_VALID` check in xfrm_input()…
 
+--
 
-Tested on:
+xfrm: set the address family before the early invalid-state drop
 
-commit:         c339f401 Merge tag 'platform-drivers-x86-v7.4-1' of gi..
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=129d675874dbf896
-dashboard link: https://syzkaller.appspot.com/bug?extid=75f49ec552cc74d9d69b
-compiler:       
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=1468f08d580000
+This patch moves the family assignment in xfrm_input() above the check
+for a state that is no longer valid. As a result, the early drop path
+calls xfrm_rcv_cb() with a real address family instead of AF_UNSPEC. The
+commit message describes this as a prerequisite for releasing the tunnel
+device reference on that drop path in the next patch.
 
+> diff --git a/net/xfrm/xfrm_input.c b/net/xfrm/xfrm_input.c
+> index cfd5cea033127..ab391258a5028 100644
+> --- a/net/xfrm/xfrm_input.c
+> +++ b/net/xfrm/xfrm_input.c
+> @@ -487,6 +487,7 @@ int xfrm_input(struct sk_buff *skb, int nexthdr, __be32 spi, int encap_type)
+>  				      encap_type == UDP_ENCAP_ESPINUDP))) {
+>  		x = xfrm_input_state(skb);
+>  		xfrm_proto = x->type ? x->type->proto : nexthdr;
+> +		family = x->props.family;
+>  
+>  		if (unlikely(x->km.state != XFRM_STATE_VALID)) {
+>  			if (x->km.state == XFRM_STATE_ACQ)
+
+[Severity: Medium]
+On its own, can this commit expose a use-after-free on the vti and vti6
+tunnel devices?
+
+When an async-resumed skb (encap_type == -1) fails this check, it jumps
+to the drop label in xfrm_input():
+
+drop:
+	xfrm_rcv_cb(skb, family, xfrm_proto, -1);
+	if (async)
+		dev_put(dev);
+	kfree_skb(skb);
+
+Before this patch, family was still AF_UNSPEC at this point. That made
+xfrm_input_get_afinfo() return NULL, so no callback ran. Now
+xfrm4_rcv_cb() or xfrm6_rcv_cb() runs, and that reaches vti_rcv_cb() or
+vti6_rcv_cb() with err == -1:
+
+net/ipv4/ip_vti.c:vti_rcv_cb() {
+	struct ip_tunnel *tunnel = XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip4;
+	...
+	dev = tunnel->dev;
+
+	if (err) {
+		DEV_STATS_INC(dev, rx_errors);
+		DEV_STATS_INC(dev, rx_dropped);
+	...
+}
+
+vti_input() stores the tunnel pointer in skb->cb without taking a
+reference. vti6_input_proto() does the same for IPv6, after
+rcu_read_unlock().
+
+During async crypto, xfrm_input() calls dev_hold() only on skb->dev. On
+the vti proto path that is the underlay device, not the vti net_device.
+
+A state that becomes invalid while crypto is pending is the teardown
+case: an SA delete or flush, often together with tunnel deletion or
+netns teardown. If the vti device has already been unregistered and
+freed by then (vti6_dev_uninit() unlinks the tunnel and drops its
+reference without waiting for in-flight crypto), then the
+DEV_STATS_INC() calls would write into freed memory.
+
+The same unreferenced dereference already exists on the async success
+and drop_unlock paths. So this patch widens an existing problem rather
+than creating a new one.
+
+The last patch of this series, "xfrm: hold the tunnel device reference
+across the input path", adds dev_hold() on the tunnel device in
+vti_input(), vti6_input_proto() and xfrm6_rcv_spi(). It then releases
+that reference after xfrm_rcv_cb() on the drop path, which appears to
+fix this.
+
+Both patches are Cc: stable. Would it make sense to reorder the series,
+or fold the two patches together? That would avoid an intermediate
+state that bisect could land on, or that a stable backport taking only
+this patch would pick up.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261027105031.19928-1-q.h.hack.winter%40gmail.com
