@@ -1,101 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.67
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793291283;
-	b=IXGqoCZL+bvE+uuhfcWn0q3ALUxnzulLjTWZ2cORjbk4exXvWH+XCeWXmTUVcuBfn/iX
-	 sy/UwepuvuT+LfcD+EEQYSXRNyj+k7gq9b73e83vrWlkSUPF2v4aAW/QeZNkwgB6UYSKK
-	 tMRpGpKFo1em9fxiVwbNj1T0UIiltGMHY54LUC45b83Z68NN3mzes7vxRWJKo3tz0kEmw
-	 LPAHsTAubVI9ACKlqYReXU1HUCWXoRrFTIHfMPmshC2i9JN2L9T2ZRXfF2SohDzGrIu41
-	 dpexL8W/0/+jbCy53H3izRJ5tbs+fY+68orIqNtL8DW9lGURLVBcvu0a7FKJmHyAccg==
+	t=1793291297;
+	b=qwM7/uBTeIHCk3i3hMMBptvavb/c2TomGXGuChKKGN6Xswid2RmtCUjLiTu7R9SI+fLU
+	 hNahtRRal9ulq1n0uBb769iwQb/bRUZUKFdls0GsC9RG0XMK5gfsnN+h9+8oOIw5JlYIH
+	 xRG88E1kYasnaaichK/CXhyNUhmc0c9e/r3cbTVKB1kcxMhSq/597xc3oYzJepinI3Ari
+	 r4tisFmILytawauPYHZqH5Ykxfbbcw194vp6NDHuygZePWLGtlf+kJpsa8Cgbqdsr0h9F
+	 bxHvmovfQJCe83EHWkrzhaCzFjYfNqH3CGCDxZDpVwIRldhYGphgwOkJ1o4X+kHFkIg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793291283;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=LQ37hPvquQn330cxCo8SGW3/WEute1UfVq1UF21kzCw=;
-	b=hsa2yyxzAotnr3b61dPTCbfz8gk39r9cjIWw8B1b/5NgMQmufttxaBN9wbsU7llT50u2
-	 +JbiIdahXMyxGc91u41TUB/6S/i33LMqaPOnxZ/fY4Kx1yRa0K40shLO8c64idslmOnAA
-	 kP9gZc0YAqyKAHxalRaBIQeSd2Bx6gBIo+mWIF0rSZR1w/68eykVUtLSx1v78OqktRpHe
-	 2SutAWUrFjw6QWFnD2CfuiBOKB327sllpvCNz8QJaorPwteaoKFmjzbRfpeHFzDEdSZY7
-	 /vvJR4cAILbZQ/HOvz1wIWlaK5dSNul/NbED438tV5I+2kq8EHlIg9HACgdphOYmMfw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793291297;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Ow3fU7PzSqpq9Q4/DhMG8hz2Z6aMLUDTpEpRY8WB0j4=;
+	b=kzUqk5zD3NH6APuCY7Gw3Sr7NUrvXdTr5uQa0cxjvNTDgphOPLB1+XQ2YSb9BRyUgary
+	 LOB3oMOqaBdCf2Yt1I27WWMBi35htlUVYeduIjktjkopaz+tVkOr1PGQpSkwRnwtgGPaA
+	 yg60kf2jxpC7Cyyvvi3M6oChdbs1XEm0bt/89LgxNJGNxT5zDBrbmMK7cZV7TPOVCwk+X
+	 jCkOqff4agIz99LInDegJ20SlKlNJdCVKHet5w2Lg5Jl5UPcHlO02s/TC2Q3sDUCFt4Oc
+	 lXVsmQJiYYqyXSi/AQTAFMk9Y0Kj3sAGVnKi/2ecVTyQx07g7hKfbxHYQUygbElr5Mw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="HjoSan8/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=WhloXtT7;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.67
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010067.outbound.protection.outlook.com [52.101.85.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01458606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:28:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01458606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA977606A324;
+	Thu, 29 Oct 2026 16:28:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA977606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HjoSan8/
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b10d24345dso22812367b3.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:28:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793291282; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Zc4PE34Q4icEyuCdCoIDLYHiFjchP6EzxKy1cUv6vR1ZG3nHz4/giTcb7Rm+7eOIcH
-         1lILyPPlya/UVrYvb/qW/KVdF3LjTzFIHI18XcAmuUe5ZWVgcSg1XOm0vxHEUm5PrlYG
-         OiyLbwyxcYABCuwNkZa1E8EwbjzFCDaTP8+mOkzsPUH0aahk8fea2Ai2wJlM9lmPYfOJ
-         TC9zxqpmvts+0YHnSiv5Zd3/G64MWlaQJf2AZ/y2jvIIa3iDv3tG8EgEik0/uDQEOebZ
-         XywUM8VoE8jfvOl+X54MtifUXMDEzDggOp/o3upBQXwiML/WjEEkG6nLn3oGDNsHIhJC
-         UkgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LQ37hPvquQn330cxCo8SGW3/WEute1UfVq1UF21kzCw=;
-        fh=9BZZBCzk56+FSGxnJJAmjEvClX0RajEOqNhBNiqIksk=;
-        b=sac1ns4FEP/KsQNs68HL8PS6ejxJv9/+mQPnpioKzMXQa+rWuU1q5D0bP6d50NoZsK
-         SL2Y5aO+zcKhToiHTez1rzCyvvVVM3owqE/WoXfVb8kASBSOxIEaJmBhUhr91Qx5qnL6
-         wluI3Rw0WonAujJ7AVq1NPtDxv/ATloa6Ko3B5QALrVkNIQB+e3HSU7CAJnxiSM3dSXu
-         0he2MATK9lCjwYtt2kCvPcvR6te0wC+w35fmFHMSSfOvRkJQPbodSSvN2rWadCA82RU7
-         Zmt6cR0R3edztoi4EtGXIzhHx1j6fkVzuxpQzKMcI84L84wsnpv4F2DlYSGe1bXvKtK1
-         +zew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793291282; x=1793896082; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LQ37hPvquQn330cxCo8SGW3/WEute1UfVq1UF21kzCw=;
-        b=HjoSan8/zv52FMl4OuQXuVzj8JTJSp6j9wKD5+65byXrynFR74lCdsAoDxVmdJnPR8
-         WxAUUtKnd+gjNA5sOV5pXkj2by7gF3+iblhP61asLLJB4/4+wts9YTkkdCV4957ZeCHt
-         E1enKaP20QMf6OfBEz7aqGsjn6T9AdjP4v9YDb6oNq3Gp+uplfQGUq15z4L4F045nPbJ
-         jeJDzp+zVlw+MTCCUI1sdxUPw615ahw2d+Oc0ET/gwIaRcihtqmjObXsEOrGgrXZaFgD
-         yWkl9C+5I8nmx2S6p1XpuIFLMFlAJXB7vNcRcDi7hj0dWi4DdrWXmIVigfIFxDmjodIS
-         OTzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793291282; x=1793896082;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LQ37hPvquQn330cxCo8SGW3/WEute1UfVq1UF21kzCw=;
-        b=dUEEy2MIGnXSUn/psohowuadx8IficOZo1Otgvg5lGyn2+C9onRuCwYgFG9VWzd1Id
-         TLDtpz6gzbysmNTGWPAp/09MBvWL9LHkJCMFSqSHi09YKFo7HM4Re+5yL/08FY1hzzyS
-         Y4vY+iSAWKcyIF3CDqBF/fn1Qp8gKxxZy2ZIdeb+NBaKFfdi4HMDU/VUf11iCAaDDDh0
-         tkE980CERSnzS8i+0Ofj1JsDW78KFtYwfiBOdjl4z0fGQvU42g5WvJRgTCpUXBVBGKHf
-         WeBjbbpHWqdWU4UEupIiruQzq8c/13puTgIACBDwncP5TLir7LcO+ePzGxKitYgVnJ71
-         3LWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzsJ3BGDrdC+xx62N/0aeG34lNyPFU1PAYBSUf1Xxq7Tr6+4RbGVzlQdPr5v9McU//bLDpHDJS0E3IzVV0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3Gfy5qMTTaOAuWl1jmiF91POtWfmqa3Xj2W9PdeqqfnjH2KmT
-	Y5pMLxQtCw3SayGEgYiiKCD7/KTRMMEO9VOdoV89P2pWRaAlHuaQGIOaXxEybZpFZTh6TQwOG+7
-	Gfoc5Vp5uim5+zpCAy21ltkhpAwiTmT4=
-X-Gm-Gg: AYBFou02zKZlSpWG7pGM6CaJH02JzN8fuHQaS7YzH6wYZxKAF6VpnYXALGTei02Q/uR
-	DhL5b/bvHztWDfNxrcShsZXsY5LnJZ8UyAJVQkMsZzFvNVWXBCKsCZHfVEzZm3rJLA12zZxfAyJ
-	0O30h8dbQLwMoMOaXzbFBO4kiQ/3YB90/daZXE8Zc0+2U3Z/IwwPc9u4fCnGvaLVyT4e5IM+oui
-	e0nRNwQ2ZSsuzS+sE8C+qo2qOMeGyK1b5O939Lw1CqQ4PDNemM0phRsMWnJy5VNLk0JLbYG2baY
-	0UAkL0BYiHXxdu8tljlFjv9ZVTz2H/lwH2c+weABDe0CurhvipjySe8ekGzFqtd+gYczsLtUfrK
-	QP4T4l52I9qGAv4CPx4fAHhXA9XMQwv7VCxzO72AWDQ3JT5KQvWRERSkD4yQnTzo2I91KIro0bf
-	3OrM3BYC0apraKqkDVb2ScxCzvCBL13HT1Zk2L9Qkyc80=
-X-Received: by 2002:a05:690c:e3c9:b0:8b0:e680:6157 with SMTP id
- 00721157ae682-8b1b5d0f2acmr47617697b3.39.1793291281718; Thu, 29 Oct 2026
- 09:28:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=WhloXtT7
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GZqGwMyHKoX0x5PPSLK8iUoswUWEhsHrP9hvd2igf4SLfwks7M2x4n+SjCdIGJv1pbCUnb8IiuIXXZStiITM2W7hdpcffrTIFifl7d6V+jHe+B8Mpyaj1bo8euZ8YzWJ48mwF9DsM9TRQ77j1ahV/lMUyRgDEubqYsscNwuqW/VXwwUpAEuluT1Pq2yj70mgrq2Gg9WCYMvTxTVkfV8N4dHqpycG8jTiQkk1DVGt+fzuYXBFnOBZ7eQtp3qAS3mPlPf+wc0H+l0nXAvaIIyQ3vuZKoKpGCxbe07ofSXdJG4mq53GsnQuMMW7yHVejERrD9CMCsW4zUcC9zAzin+Q9w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ow3fU7PzSqpq9Q4/DhMG8hz2Z6aMLUDTpEpRY8WB0j4=;
+ b=CXpQ1j3dcxS29lYA9OKh4dD7kh7nRrUFqJq/r8zxEU79TVy3rprfhOhcY0ea6tmpyVk8bq1H3Uezt/MfHKkC27gyQ0klvQF1A+6oiBEDwzumea+9DrkGrVjtJWWdqvk584KA0J2NkSjILUuibELvAAE2IHRdvR7qX8RW+ZS88HFPrJfQgnoz+RiI07zFEy+onQ9Q/nnTMzD46wysiPaklrSTd/yhfg5zmpUoYpDPp2Wlx4fxDSo2S9vV+ym5TE7BH6syqk52YQH8wTqZS9OpSbtm9bWRztuNuVeG7yg/DTZh9Baju5gEHZtQi+1cmL5gsM3yiYKLjyGNVvMMAQObSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ow3fU7PzSqpq9Q4/DhMG8hz2Z6aMLUDTpEpRY8WB0j4=;
+ b=WhloXtT7eQ9kfcVxNrSQTG5FA78Ba0e2vChR1YR7OolWb4uj4US5qYAiiduSGp+WvhLoorNZBaGqYMMZJnjN27mWaifogtAjEs98ywuQWcgmf2X5XWNsJzeZYk7AkktG7locgy+VIB5wvWBtL6QdK+VICmECg8VgVq9n0Px1hdRdZIPJKD0DUPmk9S3waq4MkIg/RuU5qoOIgZznxFNRCXtHbwMPrJcD9PCxCYVYcsMrjs4qcPCBCexEYYBjN8rYHMkkCFPlo++ACG7teRWoQ3O2v3DFDsuinbgdVqbEsO1fYG6Az7Wfogh+JSW8BW7OMR425iActDw1g3I2PpFYRg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9349.namprd12.prod.outlook.com (2603:10b6:0:49::12) by
+ PH7PR12MB6908.namprd12.prod.outlook.com (2603:10b6:510:1ba::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 16:28:11 +0000
+Received: from DM3PR12MB9349.namprd12.prod.outlook.com
+ ([fe80::7678:ab4c:4a7d:7f9f]) by DM3PR12MB9349.namprd12.prod.outlook.com
+ ([fe80::7678:ab4c:4a7d:7f9f%3]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 16:28:10 +0000
+Date: Thu, 29 Oct 2026 12:28:08 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Mete Durlu <meted@linux.ibm.com>
+Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
+	mingo@kernel.org, peterz@infradead.org, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, yury.norov@gmail.com,
+	kprateek.nayak@amd.com, iii@linux.ibm.com, corbet@lwn.net,
+	tglx@kernel.org, gregkh@linuxfoundation.org, pbonzini@redhat.com,
+	seanjc@google.com, vschneid@redhat.com, huschle@linux.ibm.com,
+	rostedt@goodmis.org, dietmar.eggemann@arm.com, maddy@linux.ibm.com,
+	srikar@linux.ibm.com, hdanton@sina.com, chleroy@kernel.org,
+	vineeth@bitbyteword.org, frederic@kernel.org, arighi@nvidia.com,
+	pauld@redhat.com, christian.loehle@arm.com, tj@kernel.org,
+	tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org,
+	rdunlap@infradead.org, kernellwp@gmail.com,
+	linux-doc@vger.kernel.org, jgross@suse.com,
+	virtualization@lists.linux.dev, sunlightlinux@gmail.com
+Subject: Re: [PATCH v14 04/13] cpumask: Introduce cpu_preferred_mask
+Message-ID: <auN0GKVMNvXbNdCN@yury>
+References: <20260928053728.797539-1-sshegde@linux.ibm.com>
+ <20260928053728.797539-5-sshegde@linux.ibm.com>
+ <4605dad5-aab2-49e3-b919-bf9897181834@linux.ibm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <4605dad5-aab2-49e3-b919-bf9897181834@linux.ibm.com>
+X-ClientProxiedBy: BN0PR02CA0049.namprd02.prod.outlook.com
+ (2603:10b6:408:e5::24) To DM3PR12MB9349.namprd12.prod.outlook.com
+ (2603:10b6:0:49::12)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,107 +110,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261013032742.497402-1-cochcoder@proton.me> <20261029023235.1280321-1-cochcoder@proton.me>
- <20261029023235.1280321-2-cochcoder@proton.me>
-In-Reply-To: <20261029023235.1280321-2-cochcoder@proton.me>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Thu, 29 Oct 2026 12:27:50 -0400
-X-Gm-Features: AclHuK-NgM6Qw5Y3C2mGCjEAWYJbcX_bTgC3W0mleGrwBRXFkQrCU6Q6Z-A3hJw
-Message-ID: <CABBYNZK7wGJwAsVLWNhLfLXqGLtA-gtj9ZLYww20FpVL0Kcobw@mail.gmail.com>
-Subject: Re: [RFC PATCH v3 1/1] Bluetooth: btusb: test reported maximum LE
- length on TP-Link UB500
-To: Kyle Pepper <cochcoder@proton.me>
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	marcel@holtmann.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9349:EE_|PH7PR12MB6908:EE_
+X-MS-Office365-Filtering-Correlation-Id: d3a92518-51e9-422f-8f46-08df35d99ef7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|6133799003|18002099003|22082099003|3023799007|5023799004|56012099006|11063799006|261026140227099003|4143699003|261021130227099003|261021135927099003|261021123027099003|261021121427099003|261026130827099003|261026135527099003|261026121527099003|10067099003|261021133027099003|261022075727099003|261009223027099003|261022105027099003|261022115727099003|261022113327099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	KtkjZGcwA04cRAl0uj12K7Jg/LugP8cdwG9iQIRknDbuOAl1c8GOWyugTFxWqbt+Xgr9sh5EGnyaBhMXT5BGifYbLm28g9DMKVRvM+f3b4Al362QoDWRjLqMV8xWJKQxUV7cjg7lllLvAdI0PVwVN+MV8acBOrjWYJWkxZkYoY3buFPZdru3vc+VdCU7MC6U7VZ4g9OKF5AM3GTdcrHH+EXlkdZVN9TwL+67Jgh8kUJUo4M1eJJu0JJ7Z0IBj1gEDL12NyyRJvKRrIH7HRZSKccRO/R9QYpjoGNM/j7zgqPNncFd92JCIRJ1GBwsGcBoV6RPCxb90LsuqgQXV5bL76opRrCACYm0h1bUh/ri3/DBMi2Q5qiBdAcAiXZq4i7jUV0IQvgLB8Z5spkuwGsXnsbL6aBLsehoTp472Cv7IhKgIXQqn4EWqu+1GhZ3utUpZ2So70s/1evJWmQhrxa8fSfatGn35VMkrMu5KyhnUNyWJ6Sx7yI5JKVdQfAPt04n8Q3hjh8OmXOQ5bqXayYfcLpZEV9LyPjV2nUnUFHdjZi2JkUTpgI/qcRtfrAHNknM9MZA6wO3c72FIEZNUXqldmrTPxOW4cZpvkf7XsIiczirX4Jh+smaMe7muDYS5eggtRGwGMEnIy84GIDNL7ZYNPGZCiyMOqBbg1otZKPUVe8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM3PR12MB9349.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(6133799003)(18002099003)(22082099003)(3023799007)(5023799004)(56012099006)(11063799006)(261026140227099003)(4143699003)(261021130227099003)(261021135927099003)(261021123027099003)(261021121427099003)(261026130827099003)(261026135527099003)(261026121527099003)(10067099003)(261021133027099003)(261022075727099003)(261009223027099003)(261022105027099003)(261022115727099003)(261022113327099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UVdDTG5FT0VwSHNUZ0d3TEFqK0F0MHZ1Qk9CM1NPOGNvUkZhamp5UHZjNUMv?=
+ =?utf-8?B?RUFwL25DSStRWnFSaEZubURnOWI4dlh4ZGlCQXFTZldyR2E2K093YWU2VEl5?=
+ =?utf-8?B?cEFMWHgwUzBqQTFCZC9UOW5ab1pPNEhkUmZPTEdNcjhBT0NOYTVJd2MvTSsx?=
+ =?utf-8?B?YldWU0YvR0xMUGJMUEFRL0EraE0wOWpEMnVWc2c0UzltdXlPYVNuUS9RcVg0?=
+ =?utf-8?B?QjdvMXlzYml4K3lDMGNybm40Z3dxOWlUVWc1RkNUTmQ4NzNrTEp1eEREYWo2?=
+ =?utf-8?B?Qm9mWDVWeCsvekFNcXpxMS9INXB1UzBXYU5ob01GbCtRVnlwWDNkV3k5Y0RI?=
+ =?utf-8?B?S0haVENsUVBvR0J3RXdWNUt2MnlMQmhHczA0dXlpSy9Od3lZeUdzK3dYVEhn?=
+ =?utf-8?B?VnRPa2E5UnE4YXNyOGRLNk9tbUhuVmVrRDZ1Q0RJb0lOaXd1VnVpTjdBZUEr?=
+ =?utf-8?B?UmpwZVk3Ukt2YnFoZ3dYS2lIVXhRclhLd3JCUFpYckxUYzk3VVhPeHJjL3hH?=
+ =?utf-8?B?U0lUM3c0Y2FRU0FwU2dtbHZhdHBqd21PRjYwSU5lSjVuU2VzZ01JSEZ5TDdY?=
+ =?utf-8?B?elJrV1N4bFFERktwQWdWbDlHUmJaTHVnUHVqRktVdWI3MmRXQVlZU01NVjZH?=
+ =?utf-8?B?SWRNUWYrb0Q3NFIyLzBYMmdnYUVTTDIzalZxbURGUXRBTXBOeXBCYUh4NS9S?=
+ =?utf-8?B?cndOaHhJVTg0TVpoUTUrcFNGL3dRMzUyMGtPUXFKWGxRRjFOWk1yZVN5Q09C?=
+ =?utf-8?B?Qkd0OVFLdlp3aDZETmQ4NUhQR0pONzV3UDJGMy90VkNVUVkxSHphanlsRXdU?=
+ =?utf-8?B?TWFvbnd1K1l2VVQ1OXhaK3dwSTcrZHMrcWM5K2VmSXhYUzQyTk1wZTdwTzVz?=
+ =?utf-8?B?aVo3ZWRMbzAwenpyR05uZVNPQVZmd21wR1hkaDdpbUV5eGhtUnFoWWROK0ho?=
+ =?utf-8?B?bTc2SDVFSWxzQUhWVmdlMGtzWDJxaXM4VW5BRUxYZTVCeldlTVV2UjFYV1RG?=
+ =?utf-8?B?TnV2Y2R1UWQ1TzdLZEcyb1BPSEJLeU00WEVWYUVjSUVwUnlCMTM2b2dwT2RB?=
+ =?utf-8?B?R0hzZ0FLRUFjODQ2V3hlNkJnOTRSSHZpeWh3Wkd1akNrVzdmQUxCN2pCQlVB?=
+ =?utf-8?B?bEg3WEtuQzlKUDVDU3lSby9rNTNMTlV1TU9ML1UyTzR6U2J5cFFsaEwwNGZw?=
+ =?utf-8?B?TW82YjJ0QnRySlNNeVlwYk5uVGx3TzhDL2NSWUxOK3hEL2JOREFaL2V6TmtX?=
+ =?utf-8?B?cERDaDVFdjRiajVsYmd5aHRHSWxFUURlaTU3T1Nhb3lDWlcxU0lXSmkxRmRO?=
+ =?utf-8?B?MUpaVjBGWHVtNnAxR3pLcWpONXMzdjJxVDEyYjlqT3k2bFZxeU16SFpMd1gx?=
+ =?utf-8?B?RTFGU2llblIxbVRROS9xbVFQMGJBZzlwc3UrRnVnZzhkK21sc1hReFV5ZWlN?=
+ =?utf-8?B?dC9wQWRNMjk2M3FFdkVzeDRUSjFKVDhUaHdxNFMxaUJFODR6WVF1Sm9VS2ov?=
+ =?utf-8?B?ZHFtR0ZSV2laSlcxU3p4ZGNlWG9MMWZOWWYvOURuK05JMnJZQ28yc3JqSFpH?=
+ =?utf-8?B?Z241N1Y3cUFlUE9qZ2hxN3piNHFPSTNUOHFneXVvTSs5clZ5eDBuUlFxR0Yv?=
+ =?utf-8?B?eHdwOS9qWmNyK011ZzYxOU5lWU1rck8rSCs5a1NRYnVyUDlrRlNVMFdyTWU2?=
+ =?utf-8?B?RlgxRVp3WVZTYitFQzRHWWFrNjY5ZnFKK0d0dnQ0cUhwNWpLbXliMHYxdWhO?=
+ =?utf-8?B?Vk9pMStTTCt6MGtIZTl3WmlSalBWNitmQUE2d1I5R2MyWS9SeVQ4R081L3RN?=
+ =?utf-8?B?MjRhSFN2TXR2cVJIQ001ZjFLbHRIdzNpN05GclNtODFiNWtQQmt2R1RMQkdr?=
+ =?utf-8?B?K3NCMFZYaGxmcktJKzZjVFBMU1c3QzB3UXd2bEEvTy9qSURlRk8yUEg2Z2FJ?=
+ =?utf-8?B?NWRTQ2JkNEZtaVJ4ZkJIUmVqaE93Qjk2VG1rYU1vNSs0SS9rRTkwd2dhQUU0?=
+ =?utf-8?B?TVFtZmNnQXZDbnVtcEYzcjZZeVNCL1BYUWdFUXNRcmZDMGNOY3BRZmR0MVZx?=
+ =?utf-8?B?dWdPaytobXFXb0FDVmFYWG9pRS9MdmpWM3Vabm1NRHdYUlBlQmVOOVRwcW9v?=
+ =?utf-8?B?SmN2WnJPaHB4dUFYYlUvd1Z0cVYyWEx1Wm85cGZCTVJValFheDN6ZFNIYUlX?=
+ =?utf-8?B?eVFOVk5DWHNqa1NBdFNHSm5PanNVTzUzckpJZnFWR0R2NGcyL0VxeExkaUlG?=
+ =?utf-8?B?R21jNzBWa3pBV0VZeDR3QnhPRVRMdjFzb1JOMC9EaUp1TkNQMy9tUGtqL3JO?=
+ =?utf-8?B?NW4rUEJ6SkR4V0RDRDlYdWJOVnZhREVPZ0NVdHNqTTdEek5OVHZxUT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3a92518-51e9-422f-8f46-08df35d99ef7
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9349.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:28:10.2824
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: XJ2dnIgb4VAglcHQaBTHkmocjEq7dfJlTuPz9TPhugQ1p3X1hj++r2Xx0UN0oz+tXQt/tibqZp+CC4yZeWevzg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6908
 
-Hi Kyle,
+On Thu, Oct 29, 2026 at 02:32:08PM +0100, Mete Durlu wrote:
+> On 28/09/2026 07:37, Shrikanth Hegde wrote:
+> > Provide the preferred CPU infrastructure. Define get/set macros
+> > which could be used to get/set CPU state as preferred.
+> > 
+> > CONFIG_PREFERRED_CPU will be selected by the driver which handles
+> > steal time values. It is going to set/clear preferred CPU state.
+> > This driver will be called steal_governor and it is introduced in
+> > subsequent patches. It periodically computes the steal ratio and
+> > decides on preferred CPU state.
+> > 
+> > A CPU is set to preferred when it becomes active. Later it may be
+> > marked as non-preferred depending on steal ratio by the steal_governor.
+> > 
+> > Always maintain design construct of preferred is subset of active.
+> > i.e. preferred ⊆ active ⊆ online ⊆ present ⊆ possible
+> > 
+> > With CONFIG_PREFERRED_CPU=n, ensure set_cpu_preferred is a nop and get
+> > method returns the active state in that case.
+> > 
+> > Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> > ---
+> >   include/linux/cpumask.h | 24 ++++++++++++++++++++++++
+> >   kernel/Kconfig.preempt  |  4 ++++
+> >   kernel/cpu.c            |  6 ++++++
+> >   kernel/sched/core.c     |  5 +++++
+> >   4 files changed, 39 insertions(+)
+> 
+> [..snip..]
+> 
+> >   #define cpu_is_offline(cpu)	unlikely(!cpu_online(cpu))
+> > diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
+> > index 985aea617cfe..edc067a0c422 100644
+> > --- a/kernel/Kconfig.preempt
+> > +++ b/kernel/Kconfig.preempt
+> > @@ -194,3 +194,7 @@ config SCHED_CLASS_EXT
+> >   	  For more information:
+> >   	    Documentation/scheduler/sched-ext.rst
+> >   	    https://github.com/sched-ext/scx
+> > +
+> > +config PREFERRED_CPU
+> > +	bool
+> > +	depends on SMP && PARAVIRT
+> FWICT, PREFERRED_CPU mechanism can work perfectly fine without PARAVIRT
+> selected. It would be annoying to enable it and implement a dummy
+> paravirt_steal_clock() just for that.
+> 
+> Shrikanth, would it be possible to drop that dependency?
 
-On Wed, Oct 28, 2026 at 10:33=E2=80=AFPM Kyle Pepper <cochcoder@proton.me> =
-wrote:
->
-> The tested TP-Link UB500 (2357:0604, RTL8761BU firmware 0xdfc6d922)
-> reports maximum TX and RX data lengths of 251 octets through LE Read
-> Maximum Data Length, while LE Read Buffer Size reports 27 octets and
-> eight packets. The previous RFC demonstrated 167-byte HCI packets
-> with unchanged LE credits during ASHA playback.
->
-> Use the reported maximum TX data length as the next experimental host
-> LE ACL length instead of an ASHA-specific 167-byte constant. Require
-> the observed 251-byte maximum and 27/eight buffer reply; preserve LE
-> credits and BR/EDR fields. The maximum-data-length value describes
-> Link Layer capability and is an indication to test, not proof of the
-> physical HCI buffer size or pool layout.
->
-> A direct HCI user-channel experiment sends sixteen whole packets at
-> each HCI payload length of 27, 167 and 251 octets from UB500 to a
-> MediaTek receiver. All 48 payloads are received byte-for-byte intact
-> and all 48 HCI packets complete, with zero pending. This establishes
-> 251-byte HCI acceptance separately from the reported Link Layer limit.
-> Only one packet is outstanding at a time; the experiment neither
-> installs the revised callback nor streams audio.
->
-> Keep this a TEST ONLY RFC. Eight simultaneous large packets, larger
-> HCI limits, mixed BR/EDR capacity, other firmware and sustained audio
-> with the revised callback have not been established.
->
-> Assisted-by: LLM
-> Signed-off-by: Kyle Pepper <cochcoder@proton.me>
-> ---
->  drivers/bluetooth/btusb_main.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
->
-> diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_mai=
-n.c
-> index 92a78a7e6..b654cf5be 100644
-> --- a/drivers/bluetooth/btusb_main.c
-> +++ b/drivers/bluetooth/btusb_main.c
-> @@ -2972,6 +2972,19 @@ static int btusb_setup_realtek(struct hci_dev *hde=
-v)
->         return ret;
->  }
->
-> +/* Private diagnostic: test the reported Link Layer maximum as an HCI si=
-ze. */
-> +static int btusb_ub500_test_post_init(struct hci_dev *hdev)
-> +{
-> +       if (hdev->le_mtu !=3D 27 || hdev->le_pkts !=3D 8 ||
-> +           hdev->le_max_tx_len !=3D 251)
-> +               return -EINVAL;
-> +
-> +       bt_dev_info(hdev, "UB500 TEST ONLY: LE ACL MTU 27 -> %u; LE packe=
-ts %u unchanged",
-> +                   hdev->le_max_tx_len, hdev->le_pkts);
-> +       hdev->le_mtu =3D hdev->le_max_tx_len;
-> +       return 0;
-> +}
-> +
->  static int btusb_recv_event_realtek(struct hci_dev *hdev, struct sk_buff=
- *skb)
->  {
->         if (skb->len >=3D HCI_EVENT_HDR_SIZE + 1 &&
-> @@ -4715,6 +4728,9 @@ static int btusb_probe(struct usb_interface *intf,
->             (id->driver_info & BTUSB_REALTEK)) {
->                 btrtl_set_driver_name(hdev, btusb_driver.name);
->                 hdev->setup =3D btusb_setup_realtek;
-> +               if (le16_to_cpu(data->udev->descriptor.idVendor) =3D=3D 0=
-x2357 &&
-> +                   le16_to_cpu(data->udev->descriptor.idProduct) =3D=3D =
-0x0604)
-> +                       hdev->post_init =3D btusb_ub500_test_post_init;
->                 hdev->shutdown =3D btrtl_shutdown_realtek;
->                 hdev->reset =3D btusb_rtl_reset;
->                 hdev->hw_error =3D btusb_rtl_hw_error;
-> --
-> 2.56.0
+Do you have a non-paravirt case in mind? 
 
-Sashiko flagged 2 problem with these changes:
+I'm actually about to submit an RFC that drops the PARAVIRT dependency
+and provides write access to the preferred mask. But I want to make
+sure that we need it, and we've got no reasonable mechanism to put
+unneeded CPUs on idle already.
 
-https://sashiko.dev/#/patchset/20261029023235.1280321-1-cochcoder%40proton.=
-me
+Simply relaxing the PARAVIRT dependency without a solid use case would
+bloat configuration space for nothing. If you've got such a case in
+mind, the rest is trivial.
 
-Both seem valid to me.
-
---=20
-Luiz Augusto von Dentz
+Thanks,
+Yury
