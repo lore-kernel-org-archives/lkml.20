@@ -1,92 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793293036;
-	b=f3ISjZoEXOrHPUwc+1C4+gJUHrdAybcSHIGn79HEGrw4yPB48jQYtamiTjtyvXCGE8Z+
-	 7381WYxYEiuysXnMQSG4p6kQFY2Z8Q17h7Ro7UoK3qaJ4rVix4nrR4Mnr6ItwY/bU3Kng
-	 WM5dRJMsEn6wKwspNuJNTaf/QactQyFNxr43XIRBvuSSxHvFpxBBzcc4fSn0MDEmD7RGi
-	 mnQrOjI/QZ13PoDg1IoTmIs84gvXexFQMI1uheF5WRDT9RVfi/KpgKNezHFavbqc+VMns
-	 mfc0fPBIW3exr6mbycSeqQqUZLEGwZ/82BhrF4c+OTmmEgIigIIvqP55NCHhn9bPtFQ==
+	t=1793293040;
+	b=A1qk9naAnMzBqTm4gp656AXlxCTZqj2v3qhP0H/nWEnhwM59gD/0e7HfGU/gBhLfAnBo
+	 7K51bB1l+EgRw+JfzQH7dyie7i8hTHZnjzKcYWHOIQo1BrqUv4QUZ1s3tur84kSncXFH7
+	 liaWuwO+mUR2x55c6rFD0UEetiGij8c4Ae9fQ2kt972qwgXrOHVgqkJvSykfwVsl/slNZ
+	 bH6pZl1o0T0OUC9FZ2bYru8scaUg5dPleMlK456mQ5zhOL7r1c5se9dNJOpCtqxAqcTU0
+	 WKAl9nLZZQ7zsIOUoNJ1140CJD9NMpDEDuCVpLIp+XWRt7f68fEwhrJNLf1gUJxcakw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793293036;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cyFkeSoD7QBapusNRRYnZYh0f6fgzoNNczOjrCuvgyY=;
-	b=mOUjaYH+jVCkuEXYIV3YOhGMgWJDeuu0kqFK0fEj61teDBVJfmCw/zAUAYetSdEzGOw/
-	 a2QEHkWEGUn67M2es4uT6vE15KAYKJyqABADDwj7lxL/lLLgrh2WMrcc2AXzBzg1mLeyv
-	 /04AZPqWMjIVeo8GJ02WNTQZvNXVPuoc/zzcO9BuA4b+7V2FG12Qh7I2sTG2kyXrlnWEt
-	 tRzYI/WldGMtWuxZ+QxvyySZZUByAyhLumF5LpUhCrXInXI1ivN+sc8adhuPWz45Ed6hA
-	 IIJh9jI7qlLsPF2S0BhaBCVt1GCCbQdF6LcoaOC4KPoYYUPWWOmP68K5KnUcbGWFkIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793293040;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 X-Mailer:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=BfqsXxL1rgrukdQyTNx4+JIhiUPg8ohWg3FwnLI2hP8=;
+	b=lsmOQPuavL72v8Rs7vyf0D7ljKwOspMcmhROecc2yGmGeWvG5mkfPC7aDc2e8mM5SIif
+	 oyTpSDXCnBWdeOoaX95X2ijcGBW2mj7nk0ojQQEGX03fnI1xEmWY8NVkPrfhiIHvrzyp9
+	 DOIiToJIsJXa4SDzSYCDqYSsjd0QxrPtgDyrAkv9Xp/YpV3WKkNtiyljK9hSyVRHkAX1+
+	 IYpbEIOkwdWYy5wi2wJS48tl1Pcv2vz39eZohuId3BcvdDRXddqdjCpf3yw4EsqABB/eN
+	 Oi1DISiUohmur/t4B+hkLpUbTMQ59B9MC3SVGm7G3F5REx2qifs6mTIokweCS41JNyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xbXFhVIF;
-	arc=none smtp.remote-ip=209.85.221.51
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="vHKR8/fy";
+	arc=none smtp.remote-ip=91.218.175.177
+Received: from mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10126606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:57:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10126606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C4A606A326
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:57:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25C4A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xbXFhVIF
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48e20edd106so1887867f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:57:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793293034; x=1793897834; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cyFkeSoD7QBapusNRRYnZYh0f6fgzoNNczOjrCuvgyY=;
-        b=xbXFhVIFuwAjMEOiX7TC/apqjVa6tAuU4PZW8wem3ThjCpBNkEdcTMDzLHaRnGAYAh
-         CHO/faPXG/1C8D+O8qkNyM8Dv8t/baf+a7v0WxUIHx+GIiczxqSrttFHVpKxva3NpbsQ
-         oZrm4nI2RyCxC+hbh/U/T2GOq1oT+0ILNNybYGcPb1Yl8veboLvKCsuFcYSr+N4n++Mu
-         7tmVPnNlSPGsaP3m6WBRtEx9+u2zMGIILTXxRrepMrZSgc1kv412BEr0verE2y8TQ3T3
-         OacGGPdydqMJfY97A0J2yq5SpY0a8HcEqLM4Ob0whCAJTEO7t/kpAQmTz0Cok6QN/VgW
-         hoog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793293034; x=1793897834;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cyFkeSoD7QBapusNRRYnZYh0f6fgzoNNczOjrCuvgyY=;
-        b=K6OhkG7bopJWE94PTpchcgrcEYzmFLXDy6mhxNNSJPM0PDcnuk95QSJMe96hUPVuax
-         mFukcXXyrcUaAYLkRHDv330eaukDYueSjlnOVvYTym/nt6030uZmYKM4pjXk3Kpyq5qH
-         J60kVhYWQVUErVHM7f3qSTp84AjTc+pUC6tE5punpBFPw2mltToVRVZ76YCKqXUsPH14
-         7q72xll/lM5s54rBh/gF5kIjklcAuzr1vIvfG/VfDUse/0FkzPgfXYF7ep+N9LVtnuT8
-         A1J2ztJ3eMWPDmH0vMbo9gzI6E9DrdJRhtMI8Eny+Ef0Cx66cQok06dDyF2rF/or9P3e
-         VbbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzzdV2JWbzj+o723u7Gb/3AXPagU1+r5lezE3Ymy6yNKWVedKD18tmwqM8zSs2bWYsObc91tQH+uHTezZo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIHDRbSMtePHSEK/W4zrf7VtLlbg2IwcEpyIJVZDAZIqpbuQYC7
-	6nD2FxTmyeZb5QczQWrTvGpmvlrKNXsRbUyzyT+29JrH6QZ6pN2UQnvL
-X-Gm-Gg: AYBFou2NVshejcw63/q81zV57qa4BrcGrDVtnlVBQq0gW+idsVsXW0iCK+BCtXqx9+n
-	q28ohjr2Q8qNl1LiiANEkRpw2s3Zb4E8d6MbQAAiJVwuP+uWI0vpTszzCVoEIg3c5lxebOwDs4Z
-	g5LkXWLfstNH9JBMltWM0Az6b2OpVqK19YxB7pivY/RDzpf3H76SDb8BBSpHwBcos2Uvo341PFy
-	sLOMo3MB5ve3dVdlvvv/sp3a9aCE04seH3G/+g6hkbQj0UVEqQIhu2ees+a466siLhxF9kFFKnP
-	x+49yxFik1E46ZDlEmj7Y9IGccT8Hd7sdt4ccjHjKpLYYQ5kxvGIIcwLp18bPgrM5D1b5YRuXIT
-	0IBYZi6OlilmxVK0vOLU3K7vBmHfWjhvmcQBYEmKbKpc9+BYjZVqkJK62hmjakESMz2YVQA0Brn
-	218Ayy1LM1rcBRYYBJWPR+CrQOxkdzD9NFqv8FPFe5AB503dTRoq1sQvYlmFTQAn6JDOc8uvHI4
-	f/aGMsBfG8+ASbk0KWs/Q7TF6Ka+23WJJwZoQDqyQNa5vJbO5jf+R7KtBQe1fvLIElR7HMD814d
-	yAF1zKIU8nwG3crsAeWBRTnF41DqpdZm3yDnn/YtyvXU137+Kdw=
-X-Received: by 2002:a05:6000:2086:b0:48b:118e:7454 with SMTP id ffacd0b85a97d-48e5d5a45e2mr13646899f8f.31.1793293034323;
-        Thu, 29 Oct 2026 09:57:14 -0700 (PDT)
-Received: from stjepan-Aspire-F5-573G ([2a00:1bb8:118:d39e:4868:f22e:b51d:7cb])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e6dfac9d9sm325680f8f.44.2026.10.29.09.57.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 09:57:13 -0700 (PDT)
-From: Stjepan Poljak <stjepan.poljak@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Cc: Clemens Ladisch <clemens@ladisch.de>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: usb-audio: don't resubmit MIDI URBs at once on -EPIPE
-Date: Thu, 29 Oct 2026 17:57:01 +0100
-Message-ID: <20261029165701.2004391-1-stjepan.poljak@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vHKR8/fy
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xrX26dabxOZos4tCxbHq0hnwzFDsl+RM+u3ssoKzekQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793293037; v=1; x=1793897837;
+ b=vHKR8/fy1gGLzPk/7dE/yvu/z1/wCGN2geIm5nFwlLMJYL45BnKFjiqdZttWfGTrfRf9jdfO
+ lxiro3UjQmQVw0rHOKTxdrzNpXJ1LGYb4urQGNX5YSP3Ad8hyLkH2j4R+PrN6WjB8DH0kJLgVae
+ Em15vXBImb7NBmiX4KFZ0n20=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 47818bb9047c54b2;
+	Thu, 29 Oct 2026 16:57:17 +0000
+X-Mizu-Trace-ID: 47818bb9047c54b2
+X-Migadu-Flow: FLOW_OUT
+Date: Thu, 29 Oct 2026 16:57:07 +0000
+From: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Puranjay Mohan <puranjay@kernel.org>, 
+	Ard Biesheuvel <ardb@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: Ben Cressey <ben@cressey.dev>, 
+	Florent Revest <florent.revest@linux.dev>, Bill Wendling <morbo@google.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+Subject: [PATCH v3 6/7] arm64: ftrace: Use five prefix NOPs on ThinLTO
+ kernels with BTI
+Message-ID: <20261029-b4-arm64-callops-kcfi-v3-6-1b011ad5ddec@linux.dev>
+X-Mailer: b4 0.15.2
+References: <20261029-b4-arm64-callops-kcfi-v3-0-1b011ad5ddec@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,68 +74,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-b4-arm64-callops-kcfi-v3-0-1b011ad5ddec@linux.dev>
 
-When a USB MIDI device answers with a stall, as a bus-powered keyboard
-does while it is being switched off, snd_usbmidi_urb_error() falls
-through to the default case: it logs "urb status -32" and returns 0, so
-the completion handler resubmits the URB at once. That fails the same
-way, so the URBs loop, logging every failure, until the disconnect is
-processed.
+Default CONFIG_ARM64_FUNCTION_PREFIX_NOPS to 5 on ThinLTO kernels with
+BTI. Many functions there have a landing pad but no hash. That moves the
+entry point 4 bytes. The 8-byte slot lands on the landing pad and ftrace
+refuses the site. With five NOPs every function has a slot.
 
-On a Raspberry Pi 3B+ with a keyboard behind the onboard hub, that
-disconnect is never processed. Printing to the framebuffer and serial
-consoles holds the loop to about 250 messages a second, and all
-interrupts are handled on CPU 0, so the hub's port change isn't handled:
-the keyboard stays silent until it is replugged. With loglevel=3, the
-same kernel processes the disconnect 0.04-0.24 s after the first error
-and the keyboard works again.
+Commit d3359af21fc9e ("arm64: bti: Disable in-kernel BTI with recent
+versions of Clang") keeps BTI off on clang 21 or later, so this default
+does not trigger on a mainline build today. Josh Poimboeuf's series to
+bring it back is under review [1].
 
-Treat -EPIPE like the other errors seen while a device goes away: retry
-from the error timer after ERROR_DELAY_JIFFIES, without a message. An
-endpoint that is really halted wasn't cleared before either; it is now
-retried every 100 ms instead of continuously.
+With five NOPs the series costs 7.4% of .text on a defconfig-based
+ThinLTO kernel with clang 21.1.4:
 
-Tested on the Raspberry Pi 3B+ (rpi-6.12.y, dwc_otg) with the default
-console settings: after each off/on the disconnect is processed, the
-keyboard re-enumerates and plays, and nothing is logged for the stall.
+  Kernel                 || .text bytes | Delta       | Delta
+  =======================++=============+=============+=======
+  ThinLTO kCFI, base     ||  21,466,256 |             |
+  ThinLTO kCFI, M = 5    ||  23,047,312 |  +1,581,056 | +7.4%
+  -----------------------++-------------+-------------+-------
 
+ftracetest results match with and without this series. The three
+failures on a ThinLTO kernel are pre-existing. The BPF trampoline,
+struct_ops and kprobe_multi selftests pass with CFI enforcing.
+
+[1] https://lore.kernel.org/all/cover.1786768375.git.jpoimboe@kernel.org/
+
+Reviewed-by: Ben Cressey <ben@cressey.dev>
+Reviewed-by: Florent Revest (Anthropic) <florent.revest@linux.dev>
+Acked-by: Alexei Starovoitov <ast@kernel.org>
 Assisted-by: LLM
-Signed-off-by: Stjepan Poljak <stjepan.poljak@gmail.com>
+Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
 ---
-This replaces "ALSA: usb-audio: reset a MIDI device whose input is stuck"
-(v1: https://lore.kernel.org/linux-sound/20261026125751.1700779-1-stjepan.poljak@gmail.com/
- v2: <20261027152034.1871962-1-stjepan.poljak@gmail.com>). As Takashi
-said, resetting the device was the wrong place to fix it. The disconnect
-wasn't lost by the USB stack either: on mainline dwc2 and on dwc_otg
-with loglevel=3, the same unpatched kernel gets it. It was this driver's
-own resubmit loop starving the CPU that handles the interrupts.
+ arch/arm64/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-The patch is against for-next; on the Pi I tested the same change on
-rpi-6.12.y.
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+index 6715adcae38b..e8cb44d881d0 100644
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -285,6 +285,8 @@ config ARM64_CFI_PERMITS_CALL_OPS
+ 
+ config ARM64_FUNCTION_PREFIX_NOPS
+ 	int
++	default 5 if DYNAMIC_FTRACE_WITH_CALL_OPS && CFI && \
++		     (LTO_CLANG_THIN || LTO_CLANG_THIN_DIST) && ARM64_BTI_KERNEL
+ 	default 3 if DYNAMIC_FTRACE_WITH_CALL_OPS && CFI
+ 	default 2 if DYNAMIC_FTRACE_WITH_CALL_OPS
+ 	default 0
 
- sound/usb/midi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/sound/usb/midi.c b/sound/usb/midi.c
-index e3d157554061..5604c3fdbe3b 100644
---- a/sound/usb/midi.c
-+++ b/sound/usb/midi.c
-@@ -194,10 +194,11 @@ static int snd_usbmidi_urb_error(const struct urb *urb)
- 	case -ESHUTDOWN:
- 	case -ENODEV:
- 		return -ENODEV;
--	/* errors that might occur during unplugging */
-+	/* errors that might occur during unplugging or switching off */
- 	case -EPROTO:
- 	case -ETIME:
- 	case -EILSEQ:
-+	case -EPIPE:
- 		return -EIO;
- 	default:
- 		dev_err(&urb->dev->dev, "urb status %d\n", urb->status);
-
-base-commit: a4311e9447bbb219044db38897f95be112f46a8a
 -- 
-2.53.0
+2.54.0
 
