@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793237561;
-	b=lNFNw3HpNbepRnK9rB4hJ/IE9iGUA447Dg4jeC4HTLVmXo1ySA4pzttdght8s6uioFIc
-	 qpjITkI4cWBspgxI+ElBkBi8D6a2342oe8CWKXhANUTPjQgesnstFGs15V1GF7AK/p7LH
-	 tic9LoH6mw7HqY1YABx0UoS21xP2y8fWzXGJEBxiWn6hzqE9aXO+0hmvNpSdeVRJLtIKp
-	 T4jMpzCtKLsKSP6j7DKt/1Ye5QaqC8JYEOfaJc6HJ7Ibfgnod8q67pxhQ9EPswjOioAnA
-	 fxtnB7C6+V9q/8l7NZLE+OL3+VTkjM8pGPD9nNrqZH+A+fDmgUCxninnu8sGoAsNPxg==
+	t=1793237577;
+	b=ox3mqaNYXxc71FEius/VDv3QT8iTCY4iXm2PZzXfJ6yGqDILi6MbkApClzFeIGHfn64x
+	 z6JR3Y1sn9eQ2HEIrGs6aqaxSnQxgxi/3ty71RJR+5iH7QGxdWZlSKLXl8ug9ApZgdnct
+	 c33Hxj934t8O49yPvhJJCuCc2isyDiusCmkCbIwV8mFidh2eLfOK8NlYcmOM+8aFBEeU3
+	 /PT3Pq2OOtMyeip1abYFTojL3+B3Xnon4pcVMMBoB8/30wKXGZ4SA64M9yEFnRnWkVHJE
+	 ZFh8uKUQFQPK5uCIRdJKFiVmMHwLQYwGRl7uqz1Petotu4zjcl8d5za0Z6Lf7J7F/Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793237561;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793237577;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
 	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=hz8ZSO29ymk2Pxs2l0BF7OAQ9+ikMPxW1OzAHC82fFA=;
-	b=v7YZakJwxlDEjimQjMDcmBA0gfSZLlpX+xTWa0bdEYNz3mtmQEpVYFxC7oFf1EAyTZkU
-	 YDoMsOLNHt9bHG+zxrAp/qKG2HFIGWteC56umBV1ycRTa5nBoFpeykS19PFBI1d4l6XSX
-	 ebHV1MvdHHw/xQQPsgLWHsxuq82xpjI9N7IEfO/oSrx0ZAXsu0fCuwZZWIfFzaCkP2hen
-	 CGgVzN3Cew+HXhbDhe2XdINgZqBduVFK4PLwT2Mj8cCfJWnk9Re3SKM73szM6i4W3wnXw
-	 Y32GgH07z9Aks5L6CIFYsAylKZAt/u5V88WUW5k3CBSRmwe52aLtbGqKJSbdYkdCc4A==
+	bh=pasXn6DvD+ARe187/TWHY69TAJWxzACBgh3bl/Z0huw=;
+	b=ZS6/nixN6fl0OzBhSLUM5BKcBv7VkoKwQq+v4MRymZXQ1RXTctV6P8qlWK4qDOM1U6SB
+	 dZ1uQmkcPSTLlBvzC6X6fDccEGFiO4tqTOV+9Uf6RbsACCsP5z04/Za4UrASYmQbKiQrI
+	 azjpjtphn8UBXVWyjRGH0ecerFX1MAUZaqn9Mz51oLS4/YEcceVRrSZoq5S1PYzeLaNNQ
+	 3kocWlND9OQKZvkXH5w0x/9dn/Z0/UmibxbeGgzEnoGSUW9IDkhuqW4o7Lp4d9Nk3Ut03
+	 2FSIv/QYMylEGG5PAGOKjEOsJJPtKg/AXpIrKHPL7Kx7RStZMnX8qHgegbOP+V3NC+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9UJdwEz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7Hcwobs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46269606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:32:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636F7606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:32:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f9UJdwEz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C8D1F01828;
-	Thu, 29 Oct 2026 01:32:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y7Hcwobs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2211F01825;
+	Thu, 29 Oct 2026 01:32:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793237560;
-	bh=hz8ZSO29ymk2Pxs2l0BF7OAQ9+ikMPxW1OzAHC82fFA=;
+	s=k20260515; t=1793237577;
+	bh=pasXn6DvD+ARe187/TWHY69TAJWxzACBgh3bl/Z0huw=;
 	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=f9UJdwEzaYCSo616Gb1fRD/zS5YtKiRzyV4UgJx/z8Dyc7xKG8cewsfSgRJX+egA2
-	 iP5L/GTAatEdVmlbyHf0sBrPRbbZj+NHD/DgdEjUz6VFS/Nhcw1DaDlpIMDG+lThxf
-	 48R6/g7rpAgbSVvxGWAXA2iNJ7D8tGiRaWDQp5DKEZS1iiVxluFO8hD7jAZQ9RzYuR
-	 zfNdApHNmUorkfuiiM3IxKuv9bvBphmFTnyLhJP6G9zYSKOA8xHOzVeYC+MXw1Lsro
-	 WeJsg176zDJE+4SgpCSobSnoJ6yb6iHdT5i/QdSsRy1Hs9vv1uTA8IopJL09B+QCjJ
-	 F2u9G1o7dfESg==
-Message-ID: <dede484b-8f07-4ccb-86c3-b80466e49717@kernel.org>
-Date: Thu, 29 Oct 2026 09:32:37 +0800
+	b=Y7Hcwobs3s1k5Dazraj/ZlSPBP5mDSksYBHm2Hg9U+LG5s/Hi+M6OxFZZjDuMYkN+
+	 //eU4xuPd/HtBAKhyvigTy/uDCk6482nxtqmleaM0Zg2YEOcDYvOmZW33lpLeXD+vP
+	 NbzpGbxHn8vvS3fK48I1+OBt4+lOckS9XAF1mUY+/C8C1Oj/E0i05v2CwtBKLFbWEu
+	 Y+pKtjAG4AaCDNCFOY/of6i2bugT+1MbxNK2pB+nC5Lren1JZznlGllWOyn7dx0DP/
+	 kzWzQNtB0P4zhiDPn9M2V6UjBFtUWt6CZB5e55SBlvJhYAK+LT/XrLUsud36NV9XhO
+	 ZgsRuKssGoVYw==
+Message-ID: <0c3e3243-b9a5-4770-8d0f-a5a63ca23783@kernel.org>
+Date: Thu, 29 Oct 2026 09:32:52 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,34 +58,43 @@ Cc: chao@kernel.org, Barry Song <baohua@kernel.org>,
  David Hildenbrand <David.Hildenbrand@arm.com>, linux-kernel@vger.kernel.org,
  Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
  Nanzhe Zhao <nzzhao@126.com>, Nanzhe Zhao <zhaonanzhe@xiaomi.com>,
- Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [PATCH v8 07/15] f2fs: prepare mmap write faults for large folios
+ Ryan Roberts <Ryan.Roberts@arm.com>, kernel test robot <yi1.lai@intel.com>
+Subject: Re: [PATCH v8 08/15] f2fs: make GC migration large-folio aware
 To: Nanzhe Zhao <nzzhao.sigma@gmail.com>,
  linux-f2fs-devel@lists.sourceforge.net, Jaegeuk Kim <jaegeuk@kernel.org>
 References: <20261028154407.1601430-1-nzzhao.sigma@gmail.com>
- <20261028154407.1601430-8-nzzhao.sigma@gmail.com>
+ <20261028154407.1601430-9-nzzhao.sigma@gmail.com>
 Content-Language: en-US
 From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261028154407.1601430-8-nzzhao.sigma@gmail.com>
+In-Reply-To: <20261028154407.1601430-9-nzzhao.sigma@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 10/28/26 23:43, Nanzhe Zhao wrote:
 > From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
 > 
-> Now write protect `mmap` also need to support large folio,
-> Change `f2fs_vm_page_mkwrite` to achieve that.
+> GC can operate on a 4K block that is cached inside a large folio.
+> The data lookup helpers therefore need to test and update uptodate
+> state for the addressed subpage instead of rejecting large folios or
+> treating the whole folio as the target block.
 > 
-> Note it currently marks the whole large folio dirty
-> to avoid data loss which causes write amplification.
-> Further optimization is welcome.
+> Let f2fs_get_read_data_folio() and f2fs_get_lock_data_folio() to use
+> subpage uptodate state. Submit single-block reads at the requested
+> folio offset and zero only the addressed 4K range for NEW_ADDR.
 > 
-> The folio_zero_segment() in mkwrite is extended to zero the
-> post-EOF part of the faulted folio for both order-0 and large
-> folios, so the f2fs_zero_post_eof_page() call that was added
-> to cover the removed shortcut is no longer needed.
+> Also update `move_data_page` to mark, clear, and restore dirty
+> state for the target subpage, and submit write I/O with the subpage
+> offset recorded in f2fs_io_info.
 > 
+> The write_pages_pending reference is taken by f2fs_do_write_data_page()
+> and dropped from its common error path, so a block that is truncated
+> concurrently no longer leaks the counter.
+> 
+> Reported-by: kernel test robot <yi1.lai@intel.com>
+> Closes: https://lore.kernel.org/oe-lkp/202610081027.b13dcf10-lkp@intel.com
 > Signed-off-by: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+
 Reviewed-by: Chao Yu <chao@kernel.org>
 
 Thanks,
+
