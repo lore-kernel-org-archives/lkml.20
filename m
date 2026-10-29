@@ -1,87 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793236975;
-	b=dSWwFRkwKLEDF/usYaYdNsP5bAy54Fk8yPJvhk6jqpte8h+7vfjYAGA964nx4I0G6Dl1
-	 mOriyfY3p1pxra5lbMQTctqyMfuQnuJ6p8Ph2Pa1dECdF+sdEKE3NOwhE6xx+qUArKf+8
-	 zBomJWcF63Tw4PSsWLnxp7DaBAhLOAe3KPSUx+EsEHdPsox4Zb0D8toi747KR96uVSmTS
-	 gBfLc4RxDZuLJkPT1l693sEa6RRl7uv32O8a7qq66mqZvEYLnuDEFDbD6NP+k3cGBqEDJ
-	 bbwkyGHgeryFHExlLZ5IJk1z7TGa+J5zgx4HmDBqNWk67RdMW9v5sVZcp7nMbDOA4eg==
+	t=1793236995;
+	b=bjc+S7Y/inR5iySNLtNnm7+qvraRsQNHdp7CKGnZLMM86eTjRNWB9sThYBz8q7PccLYO
+	 Cqg5ahCsmYqCpVnDrm1tpj3XHuUkJ3G+hvAqFHWJ400Rf9HJn8t/bxH1hbpimI3g7+pjT
+	 gknswj0sZPBFxjXciVBjpXSRnZrs+cCyjkcbsHcMgF0jx2RHJVXL8zsrpqRfm10nN3Pi4
+	 Z1SNiXiU2ye3Pnc62pdTzpERBJa7dFFvfCbk4LJh+OVLqMjT4q42mDnrj42dhdVyyxUAB
+	 56LTmw4OK6QAlp4Nw64YaU0C+9Eq0iB394M2YufUlXVXVJK2q3WcfXvvaSLnpMJ+fHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793236975;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=hiNiSWDKVgEXNKW9leadRJp3AnUn3mjtErz/XHDUGVQ=;
-	b=esedVxlIlOFdvmiEKLR/Auu6sGpLVNATc5Ty0WcnRtlzjnhSBsPG4A3l60qX8dXuQcpT
-	 lym5dAPAKPiiBaUccRLOCzgdjC67yVUzwTIgZHoc5iKiouuK1LIVLXt1O628LvZ6BydhO
-	 u+Opj+my6RD/nEaiXWKeSr2Bh5RlEprJvsI8SFXYhJRVxHO7Umr+zCMKw7KlHcra0eU4D
-	 wTOyftdGaqhC/efQOXN6DvuQwBqXKe+kY1VeRV2xzXIm5ao+MSnG/bTE0kMNOj6Da/QQ1
-	 FtrU2ymrbFcRvYV8cUGCj2kCK5/KjdBF/9mf3iaWrqTZRJNcjSYFFLAN3Gv2y8dJ9+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793236995;
+	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
+	 References:Date:MIME-Version:Content-Type;
+	bh=gDbGnzb+ub3AbALGhlvIHitL/lsQ64vUwv0Xos0Y2k8=;
+	b=zaYP24sUfRbm+/AITQc2kkNEoXBAyIdiB0tD33VhcMHg8oFvXwxdN7rPXC6ORzjefQgt
+	 W374J9gE/BveA3XBEQFePcVWQjyMHJwuw7Y05efqsKAtw69Et+qcyrqlZNnypu/tT4x3s
+	 oKlHjV7PPFqql881QdBbsTTRg4yEeehCWnPM6WXnPAtPWQUg8GAhcgzvtKF9yk+h4crPF
+	 kibsau1iiZDXH4AqcuGeSiXyDpVpe6DKkKYkKG4MdUX4eUPpQUZNljzGZYwcyOUGlzeFB
+	 JFg8l/l0rb/nk2vTMKi1xCgOOJj5bAhBPyfm4dG6vxX32w+Vo/iSZxLzvNzrXtGYyDw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=ARBoLenk;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iAyVhdy6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C63606A31A;
-	Thu, 29 Oct 2026 01:22:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32C63606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03449606A31C;
+	Thu, 29 Oct 2026 01:23:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=ARBoLenk
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69T1McQgA2399462, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793236959; bh=hiNiSWDKVgEXNKW9leadRJp3AnUn3mjtErz/XHDUGVQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=ARBoLenkL4C09lTN2oFMnKPSyrxWioWu7x+Oa1huShx9DUptn/RTJ/8lWLUUhEbaZ
-	 Pxuu1Ol7z8gKMvdS5yXthrXoS4L95MKdBDEs8fGaM68YmulD8NeC1cpOjaT3tqo7oY
-	 HomuRukXKPr0h5fCyhrF/P1CI56P5a4UuRuve6+NQn9hABGqQODkXLYqSKxWnGlu5t
-	 IK312+kMxnhO7X+zccDP6Mg92+ztcEF4HvfiUuav+bfwNm3z4+l0uRXCYMnuvj3sPP
-	 9VTm3vps7n0UbXGdvm7H2uIgaemuaWNdAbVHggeM5RJ8+BiIh/EA7q96D8TaqLD3ta
-	 P+5tWWKVqIllQ==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69T1McQgA2399462
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 29 Oct 2026 09:22:38 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Thu, 29 Oct 2026 09:22:37 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Thu, 29 Oct 2026 09:22:37 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Imtiyaz Parvez <reza1234khan1234@gmail.com>, Hungyu Lin
-	<dennylin0707@gmail.com>
-CC: Luka Gejak <luka.gejak@linux.dev>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] wifi: rtw88: allow key removal when the CAM table is full
-Thread-Topic: [PATCH] wifi: rtw88: allow key removal when the CAM table is
- full
-Thread-Index: AQHdX+uKpKj5AeqD60mYtFtK4iFuvbcFrrNw//+mgICAAJDAYP//rimAgACSRQCAAD/UgIALkuMAgAD+KYCAAM/+wA==
-Date: Thu, 29 Oct 2026 01:22:37 +0000
-Message-ID: <4f88bc4989c444cd885a4784a49a7f95@realtek.com>
-References: <20261019165103.5990-1-dennylin0707@gmail.com>
- <9bde49a2e7794e4fb6bc3ae104eef87e@realtek.com>
- <334c6e785a5d242c6f168d57d042d63b777a242a@linux.dev>
- <4f48c50cab1145fd9dbd6df6d424c877@realtek.com>
- <CAGEkeHevidTtTNj-qfy6kE_O0wRvqT=F=sG+Hy83BOkRjCUqeA@mail.gmail.com>
- <CANQ=N_C3+gpQ3O=SXYpRCGTh_MC1y4TEfnxF90SWgUVF_wYPUA@mail.gmail.com>
- <CAGEkeHdT1-WwJnF1wTkrrRQRzrEYESOoDeAYE+fiV0gROG+6sw@mail.gmail.com>
- <CAGEkeHf0CLjxhGySt2axf8gXMrCcn=cEHbe1aXRW4FgcbxjyZQ@mail.gmail.com>
- <DMGRRA9L08L3.1IM2GZHXGLZQ1@gmail.com>
-In-Reply-To: <DMGRRA9L08L3.1IM2GZHXGLZQ1@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iAyVhdy6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D2071F01825;
+	Thu, 29 Oct 2026 01:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793236994;
+	bh=gDbGnzb+ub3AbALGhlvIHitL/lsQ64vUwv0Xos0Y2k8=;
+	h=To:Cc:Subject:From:In-Reply-To:References:Date;
+	b=iAyVhdy6hUmKeh/Pr7Pm++F7LyoEHrmLNvHvrXiWTPs3JqBTEYLvn4mP0lr6zvJSe
+	 VZGfuoSc2iR2QUaBVMsbDAYqJNbDYvHlBnxCTJnFG2Anhfi0vIOj2QjZm4Od8ExJrG
+	 +Vsa30tKxDCLQNFyI01+QF1bTAvnrusQLHDmYKzg9pwyJebcZduADr/Vht1SYqCd9q
+	 YFyoOeDsPLZ2FgJhtgx6bbOaH2hZvsyFNNgr/HN0GPQksv/UNJbzumsgbQFihsia3t
+	 PgPiqbxBsTRfaHJXFfx+Hio2Q9mlxI0++i/NhrhOoVaVNj/7L6Yl1b+gvQmNuLuYE/
+	 3UJgot1elDDaw==
+To: Giuseppe Piscitelli <ooonea@gmail.com>
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,  "Martin
+ K. Petersen" <mkp@kernel.org>,  linux-scsi@vger.kernel.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] scsi: scsi_debug: Drain target cleanup before module exit
+From: "Martin K. Petersen" <mkp@kernel.org>
+In-Reply-To: <20261026202342.668361-1-ooonea@gmail.com>
+Message-ID: <yq133tp5mh5.fsf@mail.kernel.org>
+References: <20261026202342.668361-1-ooonea@gmail.com>
+Date: Wed, 28 Oct 2026 21:23:13 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,19 +58,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain
 
-SW10aXlheiBQYXJ2ZXogPHJlemExMjM0a2hhbjEyMzRAZ21haWwuY29tPiB3cm90ZToNCj4gSGkg
-SHVuZ3l1LA0KPiANCj4gPiBIYXZlIHlvdSBoYWQgYSBjaGFuY2UgdG8gdGVzdCB0aGlzIHBhdGNo
-Pw0KPiANCj4gWWVzLCBzb3JyeSBmb3IgdGhlIGRlbGF5LiBJIHRlc3RlZCBpdCBvbiBteSBsYXB0
-b3AuDQo+IA0KPiBIYXJkd2FyZTogUlRMODgyMkNFIDgwMi4xMWFjIHwga2VybmVsIHZlcnNpb246
-IDcuMi4xMS1hcmNoMS0xDQo+IA0KPiBJIGJ1aWx0IG9ubHkgdGhlIHJ0dzg4IG1vZHVsZXMgZnJv
-bSB0aGUgdjcuMi4xMSBzb3VyY2UNCj4gdHJlZSB3aXRoIHRoaXMgcGF0Y2ggYXBwbGllZCwgYW5k
-IGxvYWRlZCB0aGVtLg0KPiANCj4gSSB1c2VkIGl0IGZvciBhcm91bmQgMiBob3VycyB3aXRoIG5v
-cm1hbCBicm93c2luZywgc3VzcGVuZC9yZXN1bWUgYW5kDQo+IHJlY29ubmVjdGluZy4gTm8gbmV3
-IHdhcm5pbmdzIG9yIGVycm9ycyBpbiBkbWVzZy4NCg0KVG8gaGl0IHRoZSBwcm9ibGVtIHRoaXMg
-cGF0Y2ggZml4ZXMsIHdlIG5lZWQgMjggcGFpcndpc2UgZW50cmllcyBhcyANCkx1a2EncyBtZW50
-aW9uIFsxXS4gSSB0aGluayBpdCBpcyBub3QgZWFzeSB0byBwcmVwYXJlIHNvIG1hbnkgc3RhdGlv
-bnMNCmRldmljZXMuIA0KDQpBbnl3YXkuIEFzIHlvdXIgcmVzdWx0LCBpdCBwcm92ZXMgdGhhdCB0
-aGlzIHBhdGNoIGlzIG9rYXkgZm9yIG5vcm1hbCB1c2UuIA0KDQpbMV0gaHR0cHM6Ly9sb3JlLmtl
-cm5lbC5vcmcvbGludXgtd2lyZWxlc3MvMzM0YzZlNzg1YTVkMjQyYzZmMTY4ZDU3ZDA0MmQ2M2I3
-NzdhMjQyYUBsaW51eC5kZXYvDQoNCg0K
+
+Giuseppe,
+
+> Target destruction queues cleanup in an exclusive async domain. The
+> module loader's async_synchronize_full() does not wait for exclusive
+> domains. Wait for target cleanup after removing the hosts and before
+> removing the debugfs root and returning from module exit.
+
+Applied to 7.4/scsi-staging, thanks!
+
+-- 
+Martin K. Petersen
