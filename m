@@ -1,60 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793241184;
-	b=w68B10QZWu86+FWv1565U3caALIX5xhvNps27NOkf/LVBHMVv3VLq/oyT4POHmEZN5gE
-	 59EvH9RvdgoFeVOzz2hWga4N8+wUC40oEv0rx4XRTViGOW1rSvZZJrJvmu2cZ/1Y8Nhyq
-	 YPty0OhIGUaWcim3lu478Ki7qXKRlv6/GR7+DOhkilvS6pBZK3xvlpjOZUzRTQWUfRthr
-	 H9+224hlnzAECglUWYUVRULK6psD95pO8Dp0tYRlKSqgE7MCGF7oGgKXJKdiPZ/mq4kjh
-	 LjijVu4BaENRCUGKuIkslq7shMkxH24OQb7BWlFEdZOC3wrTochLVSXkRMh9jsp/CVw==
+	t=1793241212;
+	b=RH9Vqz6ttSKA4stiuPfdsU9YKLuzbOpeJ/rqHGz5GJ6VA9Y3nDVDBa+nLmHHBY5Faqsn
+	 sgaB6ncTi8Opk48iBo/BBIfr5KJSX6Zuif2TXzMeOt7Oq2h+7cSH47fKOpk3LeWNLRQU7
+	 9bu9u2CtrAAwqCMQkfcN9PDJeshx3lL3bWcuuudQ3NebThxa2iMpkDTxiXTr7Hdf2aVY6
+	 LsMLYsdk0XJ+V7HH4a5Mh55LW1vtTJq3+q8YHF+9S/Q4bR1fOzJ7PDG1I/qELKyT5EQrd
+	 sKfuMmkeGpDOnqgoqam4PX+kOe5ELqfwZFZdIHuJ8wgDaWs0Wv3e1ioeomnirAeuy4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793241184;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=4PJt9j4HcMbX2U0OhRHELbhgSvMBy0CM2TxRYy3T7fc=;
-	b=aX3uqudVcvl/GXnCbnPzXxdsCCRdN39lhr7ll/XqKLy4U7yMcjBEIdfcAOZr2Vk+LPFd
-	 srnOr1zGUBBmxnCMQVjxp6IV9loV0dwJsbfefP23Io6SMpRyHIgFLYGCaFrs2WIPzjApt
-	 v+6Bgi43eWGXarckZU21Gg9q3fPys8LQn4IJi2v7y5YH4GcD0O7hyHfBx/WQcduMX0V5R
-	 kTTh6Ie5Euec6QTr1iO1fOPmpO5she9zxkjTL2vfyJrzefq/1Gw4NBehubms1SV1itwdR
-	 /r+OMwr5gie17il08pxycaRxwNe1H1xKJ1ZVKnUbL33uVLzgNqC7bbXyNVX7J6y8QQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793241212;
+	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=CYdYh5WBrRXXCSf7pnLISM0Ny80SHTHVoHp4gT5qeTM=;
+	b=Vnaw0p+Ue+h7C3dEtkbofyGcjyWqK4gGJZ9PwsJBcNl8NTlfTG2oZZFgzG6wJPTFeZLo
+	 vN3/6tlCwQ39zlAKCh4Oki30CEWj1IX9xZtfE/CAOlP3bb44bZo86uroYC8xG9mJyp5ny
+	 oFXfY+EzSHshQDY0LcWhOxJJGHF5DLhRbSN/LgF4g4md9iMByinzAdjcYdKZ5Ew5UK8AS
+	 JHr2+ECEkU8MSavBBiEPk5KX6plBgDHHbSU5Sj+2JSZOxAXsjce3QJmBmJEoCA5KFFI3c
+	 WJf68tczuR1rZ+r3OL270FM9l0KzzyBq1FHzOaygv5rw3fRl5cCuSrZXC2w5X5J57lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=mqn7wanqn5ak5opvlpoc36mtuq.protonmail2 header.b=B9q2kGLR;
-	arc=none smtp.remote-ip=109.224.244.17
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C280160A2608
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:33:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C280160A2608
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=mqn7wanqn5ak5opvlpoc36mtuq.protonmail2 header.b=B9q2kGLR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=mqn7wanqn5ak5opvlpoc36mtuq.protonmail2; t=1793241180;
-	x=1793500380; bh=4PJt9j4HcMbX2U0OhRHELbhgSvMBy0CM2TxRYy3T7fc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=B9q2kGLRLsBh1MtKWrzodivqUADi4nYHImcTWygIXNV325NX25GcgQxR2lHaUYkTj
-	 y+aw19MzBzWVXpF3rbQZYbg5VPke0uEK5s92MLQeqmDgJAhhJQS6YFT4yBhLl8Hpfz
-	 t+2oID27PMAQt2lPZpKIz2GC+xHe5YKkGdN1UU7ijineEhWnrMXWaL/ry4dGF0WzHu
-	 wG6yEO6nwmw5CW/nABZU4sxH5b37/dTsOomAZ4DQKom533XfypJbUlVi1t4WIDIfG0
-	 JLlM3qv1Lapc9SxRso35MdJtpiSJOCD42HN20KvOmhD2bB09WhivX3xbhEyUA2YfHS
-	 svS85HUtOw/uA==
-Date: Thu, 29 Oct 2026 02:32:55 +0000
-To: linux-bluetooth@vger.kernel.org
-From: Kyle Pepper <cochcoder@proton.me>
-Cc: linux-kernel@vger.kernel.org, luiz.dentz@gmail.com, marcel@holtmann.org
-Subject: [RFC PATCH v3 1/1] Bluetooth: btusb: test reported maximum LE length on TP-Link UB500
-Message-ID: <20261029023235.1280321-2-cochcoder@proton.me>
-In-Reply-To: <20261029023235.1280321-1-cochcoder@proton.me>
-References: <20261013032742.497402-1-cochcoder@proton.me> <20261029023235.1280321-1-cochcoder@proton.me>
-Feedback-ID: 97716137:user:proton
-X-Pm-Message-ID: 6647e1af1c4dff928fc1eb67f934e9c094048253
+	dmarc=pass header.from=hygon.cn;
+	spf=pass smtp.mailfrom=hygon.cn;
+	arc=none smtp.remote-ip=101.204.27.37
+Received: from spam01.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C6F03606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:33:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6F03606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jFSvn08j0z171YW;
+	Thu, 29 Oct 2026 10:33:25 +0800 (CST)
+Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
+	by spam01.hygon.cn (Postfix) with ESMTP id 4jFSvm0NWVz171YW;
+	Thu, 29 Oct 2026 10:33:24 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp2.hygon.cn (Postfix) with ESMTPS id AE93A314AC01;
+	Thu, 29 Oct 2026 10:32:59 +0800 (CST)
+Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
+ (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 29 Oct
+ 2026 10:33:21 +0800
+From: Jianyong Wu <wujianyong@hygon.cn>
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>, Tim Chen
+	<tim.c.chen@linux.intel.com>
+CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
+	<kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld
+	<pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, David
+ Hildenbrand <david@kernel.org>, <maddy@linux.ibm.com>, Michael Ellerman
+	<mpe@ellerman.id.au>, <ljs@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
+	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
+	<yingzhiwei@hygon.cn>
+Subject: [RFC PATCH v3 11/17] sched/cache: Drop prefer_sibling restriction for llc_balance
+Date: Thu, 29 Oct 2026 10:20:29 +0800
+Message-ID: <20261029022036.4002331-12-wujianyong@hygon.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261029022036.4002331-1-wujianyong@hygon.cn>
+References: <20261029022036.4002331-1-wujianyong@hygon.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,79 +71,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-The tested TP-Link UB500 (2357:0604, RTL8761BU firmware 0xdfc6d922)
-reports maximum TX and RX data lengths of 251 octets through LE Read
-Maximum Data Length, while LE Read Buffer Size reports 27 octets and
-eight packets. The previous RFC demonstrated 167-byte HCI packets
-with unchanged LE credits during ASHA playback.
+group_llc_balance performs balancing across LLC and NUMA domains.
+sched_balance_find_src_group() forces balancing for it only when the
+busiest group's child domain prefers siblings. However, sd_init() clears
+SD_PREFER_SIBLING on NUMA domains. On systems with multiple NUMA levels,
+prefer_sibling is therefore false at the upper NUMA levels, whose groups
+are NUMA domains themselves, and cache-aware aggregation cannot force
+tasks across those groups, e.g. between sockets.
 
-Use the reported maximum TX data length as the next experimental host
-LE ACL length instead of an ASHA-specific 167-byte constant. Require
-the observed 251-byte maximum and 27/eight buffer reply; preserve LE
-credits and BR/EDR fields. The maximum-data-length value describes
-Link Layer capability and is an indication to test, not proof of the
-physical HCI buffer size or pool layout.
+Force balancing for group_llc_balance whenever the local group has spare
+capacity, regardless of prefer_sibling. Keep the prefer_sibling
+requirement for the sibling_imbalance() path.
 
-A direct HCI user-channel experiment sends sixteen whole packets at
-each HCI payload length of 27, 167 and 251 octets from UB500 to a
-MediaTek receiver. All 48 payloads are received byte-for-byte intact
-and all 48 HCI packets complete, with zero pending. This establishes
-251-byte HCI acceptance separately from the reported Link Layer limit.
-Only one packet is outstanding at a time; the experiment neither
-installs the revised callback nor streams audio.
-
-Keep this a TEST ONLY RFC. Eight simultaneous large packets, larger
-HCI limits, mixed BR/EDR capacity, other firmware and sustained audio
-with the revised callback have not been established.
-
-Assisted-by: LLM
-Signed-off-by: Kyle Pepper <cochcoder@proton.me>
+Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
 ---
- drivers/bluetooth/btusb_main.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ kernel/sched/fair.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/bluetooth/btusb_main.c b/drivers/bluetooth/btusb_main.=
-c
-index 92a78a7e6..b654cf5be 100644
---- a/drivers/bluetooth/btusb_main.c
-+++ b/drivers/bluetooth/btusb_main.c
-@@ -2972,6 +2972,19 @@ static int btusb_setup_realtek(struct hci_dev *hdev)
- =09return ret;
- }
-=20
-+/* Private diagnostic: test the reported Link Layer maximum as an HCI size=
-. */
-+static int btusb_ub500_test_post_init(struct hci_dev *hdev)
-+{
-+=09if (hdev->le_mtu !=3D 27 || hdev->le_pkts !=3D 8 ||
-+=09    hdev->le_max_tx_len !=3D 251)
-+=09=09return -EINVAL;
-+
-+=09bt_dev_info(hdev, "UB500 TEST ONLY: LE ACL MTU 27 -> %u; LE packets %u =
-unchanged",
-+=09=09    hdev->le_max_tx_len, hdev->le_pkts);
-+=09hdev->le_mtu =3D hdev->le_max_tx_len;
-+=09return 0;
-+}
-+
- static int btusb_recv_event_realtek(struct hci_dev *hdev, struct sk_buff *=
-skb)
- {
- =09if (skb->len >=3D HCI_EVENT_HDR_SIZE + 1 &&
-@@ -4715,6 +4728,9 @@ static int btusb_probe(struct usb_interface *intf,
- =09    (id->driver_info & BTUSB_REALTEK)) {
- =09=09btrtl_set_driver_name(hdev, btusb_driver.name);
- =09=09hdev->setup =3D btusb_setup_realtek;
-+=09=09if (le16_to_cpu(data->udev->descriptor.idVendor) =3D=3D 0x2357 &&
-+=09=09    le16_to_cpu(data->udev->descriptor.idProduct) =3D=3D 0x0604)
-+=09=09=09hdev->post_init =3D btusb_ub500_test_post_init;
- =09=09hdev->shutdown =3D btrtl_shutdown_realtek;
- =09=09hdev->reset =3D btusb_rtl_reset;
- =09=09hdev->hw_error =3D btusb_rtl_hw_error;
---=20
-2.56.0
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index e9a803433b16..03bb5c85a8b7 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -13334,9 +13334,9 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
+ 	 * Try to move all excess tasks to a sibling domain of the busiest
+ 	 * group's child domain.
+ 	 */
+-	if (sds.prefer_sibling && local->group_type == group_has_spare &&
+-	    (busiest->group_type == group_llc_balance ||
+-	    sibling_imbalance(env, &sds, busiest, local) > 1))
++	if (local->group_type == group_has_spare &&
++	    ((busiest->group_type == group_llc_balance) || (sds.prefer_sibling &&
++	    sibling_imbalance(env, &sds, busiest, local) > 1)))
+ 		goto force_balance;
+ 
+ 	if (busiest->group_type != group_overloaded) {
+-- 
+2.34.1
 
 
