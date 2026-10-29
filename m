@@ -1,61 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793241442;
-	b=RkVmXHPSkphjUZ9gohm51vgknrG0tFUBoENj2Uqe+pJsy5jGzf3Ilog6SIxdZ7d0Eu1K
-	 dWt5r2SABrnRF0svrjfAjqYqcXvaQhxDCmRqEbUH4yJn0atgg3JGvx7FDMDrm1z8DGn6c
-	 8ONYVIFboH6jc2kKTopQaFwcM5lQZzsGycVBtZ9rub4edBrafT4ju7egFl8JC/3gF4CsE
-	 bw0u3NgyRPIFD393jU1Capuq0n6UplB5+GDbzrmADyx1Mgg+J8oxt59UZIUXFF+rUXisZ
-	 fLzwRmHTUqHCWx0qTL31R8bfrqiDcuyVptnQn37bqxGsaq/jp6hpr5QM3VT16eeefHQ==
+	t=1793241494;
+	b=McAAbsi5LdUCaUHKLx6c/C81G3SqyFmEbm382ap2em7uOrYPYMjVtPI1jBshfKZZEbId
+	 WiLrAmNTbvJ52HkXbp//YtGs0h/I9k9JEwEvvchP/YEH+1ZGpjgAk0wCLOaGf9mNBme4W
+	 gpvQ2C3zx4AGiHSma0I0QvoaX/K04TwNtv9iLtrUBpzj89WVQf0AiNgb3pT+p6SBjy3p4
+	 lsEeHbGqEbKGQvnxj0Pm0d7RgZQ9LzwOxWR22sse8YIGMJZTMwc/oCXoOpYgg2+httxGe
+	 KibV8lszLMVM9fs439TjYUWBijHE9gWwZfc4ES9W2mVKPiMEg3gczZp8AS7p9G5/PdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793241442;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Rvaxj/9xZzaDwaag2rGM3SvZn2Eugwkdg0lI1SmK/t4=;
-	b=K10/KVXrR2w3dZr0Y8RU8oO5aZL/cvET4sTVFl8QC70DjvL5+xvi6IPnwR615OVCyOLw
-	 nScx10qG2a4Cvwr52T5OOKEhVaabFWhwUzSHIeuq/V4UValKCs+TjQETk9AqvMVZ6vwOn
-	 WaxLPXr/7aYbLZrDZ5acoLeV0AWmPbXQVUcWMbX4TnQceV+5O8ZJwNQzIW2yDc9zz9XAn
-	 YDQ2XXy0u30hTmhbKBIXm5bepnzNkIwnxPRc50VftraDUTObCsoKJ285yViP9j2bReyMv
-	 7aYJfWVcrMnDB6nJY9E57+3LZCPD6mh3p3kKkRlikoANvHZYIOx9LxByCqDPVI4ka5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793241494;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=sKbpCZWH6g6IaTibxtmwwi5B1GQbJ9UPUlXjomKvtYQ=;
+	b=Rra4rJ9IdPt9vF8w+i/g3sM6esC+fFo27mGb1dLN9aof2917XD96Ux0kAsSs8nwBg2xW
+	 zJAgqMEXh8HuERbinykX+MllPYr1xRDFqiQuLin/oY1jU4BbOSprTzXg2Fyo/TEMLkSHs
+	 wZ6CgwA+JDdCWdXX2GjcTCNaQYcwUmbrtt6b9KnET8H6bxSgucFAxoshxxZgSAMnLOFbI
+	 ETOkx+5FcnWJcJMHw3D1OrkIt9MTrMNziQ4yccaiilxYT65FbyVKrDoj/qnN0kL0JmzF4
+	 pNXt4s1kf4PhyjzcdXAk3YkUu5r0RJng5SMXZf8DcVGhWyyh0ChYs1TJUGTrTPS4MpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MfCEoXZ3;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UcqBhXXN;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB801606A31C;
-	Thu, 29 Oct 2026 02:37:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C158606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:38:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C158606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MfCEoXZ3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39B801F01825;
-	Thu, 29 Oct 2026 02:37:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793241441;
-	bh=Rvaxj/9xZzaDwaag2rGM3SvZn2Eugwkdg0lI1SmK/t4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MfCEoXZ3II+fxXHYtsr1n18w/J62sgfVBIxUFC8CW/0hvEssvWDFWO3mjd0JRhLbx
-	 dzabngBqraLqbcNd1RAFGa7JrV/7fuCl43CRpG9/DUl9UU1K7p48zKbpiIl4LcA+Wz
-	 nhZ9cNWZQ4ehxGGrAy+73YBzXyD/m3aKunx0603z9cOmoO62TdqAnnSkvg1qSBX/PU
-	 rkOJ5vOnO2TjgsOlVihhSTHKV6Wb0EOurj0bFbTLgIatAV5FRvJwsB9IDtDL0cJuqS
-	 vi/uBJGfDPNksctzE65t4fsDWQk14mf4dsL8bUBV//Mx3amyuIcTKBunImwTGbQpCh
-	 S9zMRuSafdvKw==
-Subject: Re: [PATCH net v2] ice: fix Tx hang dump using stale tx_buf[0].skb
-From: netdev-bot+sashiko@kernel.org
-To: choiniere.vincent@hydroquebec.com
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- intel-wired-lan@lists.osuosl.org, aleksandr.loktionov@intel.com,
- michal.kubiak@intel.com, wojciech.drewek@intel.com,
- mateusz.polchlopek@intel.com, pmenzel@molgen.mpg.de, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 29 Oct 2026 02:37:19 +0000
-Message-ID: <179324143967.3134.13716472134019576369@kernel.org>
-In-Reply-To: <20261026-ice-tx-hang-dump-v2-1-e2136ef2c5dc@hydroquebec.com>
-References: <20261026-ice-tx-hang-dump-v2-1-e2136ef2c5dc@hydroquebec.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UcqBhXXN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793241492; x=1824777492;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=sKbpCZWH6g6IaTibxtmwwi5B1GQbJ9UPUlXjomKvtYQ=;
+  b=UcqBhXXNc2DoS48Oc56Me8I6QGPECfo6yvoGkdDxhwHpcTsjGuG66q4V
+   sU5TrpF4XUVPbNgz9TZ3xwzPYPifzSIp4KCY1l4PcDD73T5Z6P+hyBZyy
+   Yv5b7oC4Pv/3fgtXa++HNA3eaRSOVuhj/AOUQXb3Dal6M1jIH2HcFTJTq
+   +/iVzCvM08NombkSO2MHcsp9aSobpCpjUEG2lCXGkuKqp4aFLmtVdYa5l
+   mSHP3HgZd7BtMT8agVcVcPRxGpwEgt8HVzJSO1yhanhS5oWVDPgEukTJ/
+   kGZ968SZkMp/Bu3x8zg7LNzAsYsQoD4X4RFhniJhk50QjFZYXGwhWhret
+   A==;
+X-CSE-ConnectionGUID: XqaDaX+CRmubglmJcieU1Q==
+X-CSE-MsgGUID: 8UZV9irVRSyhzoeJ+QFCug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1966535"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="1966535"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 19:38:12 -0700
+X-CSE-ConnectionGUID: q7j3GMsXSvikVqXW3yv/vw==
+X-CSE-MsgGUID: mbBVOtNwTcGiqtv1eGvM1Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="5394664"
+Received: from unknown (HELO [10.238.0.97]) ([10.238.0.97])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 19:38:07 -0700
+Message-ID: <45327d29-e9fc-4b47-9145-9ae8e63042e0@intel.com>
+Date: Thu, 29 Oct 2026 10:38:04 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,239 +72,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 06/15] virt: tdx-guest: Support TDI bind and unbind
+ operations
+To: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
+ Nikolay Borisov <nik.borisov@suse.com>, "x86@kernel.org" <x86@kernel.org>,
+ "linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
+ "bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>,
+ "Hansen, Dave" <dave.hansen@intel.com>, "kas@kernel.org" <kas@kernel.org>,
+ "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "jgg@nvidia.com" <jgg@nvidia.com>, "nicolinc@nvidia.com"
+ <nicolinc@nvidia.com>, "aik@amd.com" <aik@amd.com>,
+ "aneesh.kumar@kernel.org" <aneesh.kumar@kernel.org>,
+ "seanjc@google.com" <seanjc@google.com>,
+ "pbonzini@redhat.com" <pbonzini@redhat.com>,
+ "yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
+ "Gao, Chao" <chao.gao@intel.com>, "Verma, Vishal L"
+ <vishal.l.verma@intel.com>, "Tian, Kevin" <kevin.tian@intel.com>,
+ "Peng, Chao P" <chao.p.peng@intel.com>
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-7-zhenzhong.duan@intel.com>
+ <8c892695-7ec5-4d93-a74b-487fe535c3f4@suse.com>
+ <IA3PR11MB913605FFABBBC42C1FF341E192982@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <03c80e1b-2a47-466a-a042-c736f640d3c7@intel.com>
+ <IA3PR11MB91368A7BCDAF146ECDC6A4CB92602@IA3PR11MB9136.namprd11.prod.outlook.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <IA3PR11MB91368A7BCDAF146ECDC6A4CB92602@IA3PR11MB9136.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 10/27/2026 4:58 PM, Duan, Zhenzhong wrote:
+>> Btw, for TDX specific tdx_devsec_unlock(), the WARN_ON() is not proper
+>> IMHO.
+>> the failure can happen for various reasons, and the WARN can be treated as
+>> fatal
+>> when panic_on_warn is true. I think pr_warn_ratelimit() would suffice?
+> OK, but unlock() isn't a loop operation, I prefer to use pr_warn().
 
-Critical: 0 · High: 1 (2) · Medium: 0 · Low: 0 (1)
+I think guest userspace can invoke unlock() in a writing sysfs loop?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] ice_tx_hang_snapshot()'s safety argument is that PF VSI rings
-  'are only replaced or freed under RTNL or from the service task, so…
-
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the patch's
-  new guard makes it look handled.
-- [High] This problem wasn't introduced by this patch, but it is a
-  deadlock between devlink DRIVER_REINIT reload and the Tx-hang…
-- [Low] tx_hang_buf is published and consumed without synchronization.
-
---
-
-ice: fix Tx hang dump using stale tx_buf[0].skb
-
-This patch changes the ice Tx hang devlink dump so it no longer
-dereferences tx_buf[0].skb or the saved tx_ring when the dump runs. It
-records the queue and ring indices at timeout time. Under RTNL, it checks
-that the saved ring is still one of the PF VSI Tx rings and that the VSI
-is up, then copies the descriptors and IRQ name. It keeps only the skb
-pointer value and drops RTNL before calling devlink_health_report().
-
-Link: https://lore.kernel.org/all/20260327072332.130320-1-aleksandr.loktionov@intel.com/
-
-> diff --git a/drivers/net/ethernet/intel/ice/devlink/health.c b/drivers/net/ethernet/intel/ice/devlink/health.c
-> index 8e9a8a8178d4..b9493ab4766e 100644
-> --- a/drivers/net/ethernet/intel/ice/devlink/health.c
-> +++ b/drivers/net/ethernet/intel/ice/devlink/health.c
-
-[ ... ]
-
-> @@ -424,24 +429,104 @@ void ice_prep_tx_hang_report(struct ice_pf *pf, struct ice_tx_ring *tx_ring,
->  	buf->vsi_num = vsi_num;
->  	buf->head = head;
->  	buf->intr = intr;
-> +	buf->queue = tx_ring->q_index;
-> +	buf->next_to_clean = tx_ring->next_to_clean;
-> +	buf->next_to_use = tx_ring->next_to_use;
-> +}
-> +
-> +/**
-> + * ice_tx_hang_snapshot - copy the hung Tx ring state for the dump
-> + * @pf: PF on which the Tx hang was detected
-> + * @tx_ring: ring saved by ice_tx_timeout(), possibly stale
-> + * @ev: event to fill in
-> + *
-> + * The saved ring may have been freed or replaced since the timeout (e.g. by
-> + * ethtool -G or -L). Use it only if it is still one of the PF VSI Tx rings
-> + * and the VSI is up: those rings are only replaced or freed under RTNL or
-> + * from the service task, so with RTNL held every access below is to live
-> + * memory. ice_clean_tx_irq() may still run and free the skb at
-> + * next_to_clean at any time, so only the pointer value is recorded and the
-> + * skb itself is never dereferenced.
-> + */
-> +static void ice_tx_hang_snapshot(struct ice_pf *pf, struct ice_tx_ring *tx_ring,
-> +				 struct ice_tx_hang_event *ev)
-> +{
-> +	struct ice_vsi *vsi = ice_get_main_vsi(pf);
-
-[ ... ]
-
-> +	ASSERT_RTNL();
-> +
-> +	if (!tx_ring || !vsi || !vsi->tx_rings ||
-> +	    test_bit(ICE_VSI_DOWN, vsi->state))
-> +		return;
-
-[Severity: High]
-Does the lifetime claim in the kernel-doc above hold for the ice_remove()
-path?
-
-In ice_remove(), RTNL is dropped inside ice_unload(). ice_deinit() then
-tears down the VSIs without RTNL. The service work is only cancelled
-later, in ice_deinit_dev():
-
-    ice_remove()
-        ice_unload(pf);        <- unregister_netdev() takes/drops RTNL
-        devl_unlock(...);
-        ice_deinit(pf);
-            set_bit(ICE_SERVICE_DIS, pf->state);
-            set_bit(ICE_DOWN, pf->state);
-            ice_deinit_pf_sw(pf);  <- ice_vsi_release() frees rings,
-                                      tx_rings and the vsi
-            ice_dealloc_vsis(pf);  <- devm_kfree(..., pf->vsi)
-        ...
-        ice_deinit_dev(pf);    <- ice_service_task_stop()
-                                  -> cancel_work_sync(&pf->serv_task)
-
-ICE_SERVICE_DIS stops new scheduling, but it does not stop a work item
-that is already queued or running. ice_vsi_free() holds only
-pf->sw_mutex:
-
-    pf->vsi[vsi->idx] = NULL;
-    ...
-    mutex_unlock(&pf->sw_mutex);
-    devm_kfree(dev, vsi);
-
-Suppose a Tx timeout fires shortly before removal. ice_service_task()
-then sees tx_hang_buf.tx_ring set and calls ice_report_tx_hang() without
-checking ICE_SERVICE_DIS. The work can block in rtnl_lock() while
-unregister_netdev() holds RTNL. It then gets RTNL while ice_deinit() is
-freeing the VSIs.
-
-Could ice_get_main_vsi(pf), vsi->tx_rings and test_bit(ICE_VSI_DOWN,
-vsi->state) then read the freed pf->vsi array or the freed struct ice_vsi?
-
-The ICE_VSI_DOWN check only helps while the vsi itself is still
-allocated. Does the service task need to be stopped or flushed, or
-tx_hang_buf.tx_ring cleared, before the VSI teardown in ice_remove()?
-
-[ ... ]
-
->  void ice_report_tx_hang(struct ice_pf *pf)
->  {
->  	struct ice_health_tx_hang_buf *buf = &pf->health_reporters.tx_hang_buf;
-> -	struct ice_tx_ring *tx_ring = buf->tx_ring;
-> -
->  	struct ice_tx_hang_event ev = {
->  		.head = buf->head,
->  		.intr = buf->intr,
->  		.vsi_num = buf->vsi_num,
-> -		.queue = tx_ring->q_index,
-> -		.next_to_clean = tx_ring->next_to_clean,
-> -		.next_to_use = tx_ring->next_to_use,
-> -		.tx_ring = tx_ring,
-> +		.queue = buf->queue,
-> +		.next_to_clean = buf->next_to_clean,
-> +		.next_to_use = buf->next_to_use,
->  	};
->  
-> +	if (!pf->health_reporters.tx_hang)
-> +		return;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can this check pass with
-a reporter that has already been freed?
-
-In ice_remove(), the reporter is destroyed before ice_unload() and
-ice_deinit(). The service work is still live at that point:
-
-    ice_remove()
-        ice_deinit_devlink(pf);
-            ice_health_deinit(pf);
-                ice_deinit_devl_reporter(pf->health_reporters.tx_hang);
-                    devl_health_reporter_destroy()  <- kfree(reporter)
-        ice_unload(pf);
-        ...
-        ice_deinit_dev(pf);    <- cancel_work_sync(&pf->serv_task)
-
-ice_health_deinit() never sets pf->health_reporters.tx_hang to NULL, so
-the stale pointer passes this check.
-
-With a Tx timeout just before or during removal, the service task can
-reach ice_devlink_health_report() after the kfree(). devlink_health_report()
-then writes reporter->error_count and reporter->health_state, and it
-dereferences reporter->devlink and reporter->ops.
-
-Waiting in rtnl_lock() while unregister_netdev() holds RTNL also makes
-it more likely that the report runs after the reporter has been freed.
-
-> +
-> +	rtnl_lock();
-> +	ice_tx_hang_snapshot(pf, buf->tx_ring, &ev);
-> +	rtnl_unlock();
-
-[Severity: Low]
-This is a pre-existing issue, and the changelog's limitations section
-already covers it. The window looks wider now, though. ev.head, ev.intr,
-ev.queue and the ring indices are read from tx_hang_buf before
-rtnl_lock(). buf->tx_ring is only read after rtnl_lock() returns.
-
-ice_prep_tx_hang_report() stores buf->tx_ring before the other fields,
-with no ordering. ice_service_task() then clears the pointer with a
-plain store:
-
-    if (pf->health_reporters.tx_hang_buf.tx_ring) {
-        ice_report_tx_hang(pf);
-        pf->health_reporters.tx_hang_buf.tx_ring = NULL;
-    }
-
-Suppose a second timeout arrives while rtnl_lock() is blocked. Could the
-dump then combine the first event's queue/head/intr with the second
-event's ring snapshot? Could the clear above also drop the second event?
-
->  	ice_devlink_health_report(pf->health_reporters.tx_hang, "Tx hang", &ev);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can this deadlock against
-a devlink driver_reinit reload?
-
-ice_devlink_reinit_down() runs with the devlink instance lock held. It
-ends up in cancel_work_sync() on the service work:
-
-    ice_devlink_reload_down()
-        ice_devlink_reinit_down()   <- devl_lock held by devlink core
-            ice_unload(pf);
-            ...
-            ice_deinit_dev(pf);
-                ice_service_task_stop()
-                    cancel_work_sync(&pf->serv_task);
-
-The tx_hang reporter has a dump op, so auto_dump is set. In that case
-devlink_health_report() takes the same lock from the service work:
-
-    if (reporter->auto_dump) {
-        devl_lock(devlink);
-
-Suppose a Tx timeout fires just before the reload. The service task can
-then be inside ice_report_tx_hang(), possibly waiting for RTNL during
-unregister_netdev(). It returns early from the snapshot because the VSI
-is down and then blocks in devl_lock(). Meanwhile the reload thread waits
-for that same work in cancel_work_sync().
-
-Dropping RTNL before reporting avoids the RTNL/devlink lock ordering
-problem. Does it do anything for this dependency between the reload and
-the service work?
-
-> +
-> +	kvfree(ev.desc);
->  }
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026-ice-tx-hang-dump-v2-1-e2136ef2c5dc%40hydroquebec.com
+If a device is not locked before, the unlock() will surely fail? If so, I think
+we can drop the warn/WARN.
