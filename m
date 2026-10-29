@@ -1,86 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269302;
-	b=pJi88FK5wkvCstszWb9qsnZHObOC9R+QjrIjYZiJfcmCgz7qpbFLNxQ5LslkguR9tDwb
-	 AqzJ6YMfTniaOyvPBvCAkHjY8FrfD8it9+6zJwzaedI+80MrfsXjuBXLLsB0efJYZ9BIc
-	 oXqonlsZX4gj2AmhlQ2ywHgGVGBa/r4aWpm4Nm7fm2yJO5L0Im4vtTAXDt4z0s7W0KaGZ
-	 mfqzzyZwryAQQXoN6VwDw36Xe69WzHlU+eL9fiB12WM2dv+7rx6GHeI3VfUyYp4UGTUdC
-	 qOZjIJE133qpDOpEoxdMRa9xcbaZiAIkDq9KqxSkhPSxgx285OSPRkt4nVk9fsW3scg==
+	t=1793269323;
+	b=qz1WlhLJnAsIqLpaOrH9a/ty7Gz7YVpzQhYdMW6qnukXqAYZeycMGmYAK8iyrVfv8+G5
+	 zj60IOtAOS10WSFSxiYmqi9Bhy0ASsFWkYy17iv0NldfbbD9a3GVQaIoq//J6FQh1B1go
+	 iWqFfS4X2kpW4/RHWw2oaakWDtp7cVF90mRT4YJSQ+P/fhHOXKTJUXFJb+WrmQrhmbCQ2
+	 kcuXbMdfCay858pg7JyXjrRCeIfp12Qa1ja+pJac1YEtHQlDRjbOEuID2XtDF/PE82dGW
+	 ZoGmffiIUOauXnIbxgv6iFoF7U4sHBOhy5PMZCIiMnA7wq4BcA20QwF+zMnSoFxq/JQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269302;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=p4CsFDjPOd5dzP69uoDvcx2oKYWrFhACnk9N0TgFakE=;
-	b=j7XRiMDp1NLY6QrM3wKaF39rWqSLtgxU0AvUXVcZl+PVRrEsD8/jUnq6FkxUudmVsJiY
-	 KEf/BzipGCXniS2CRiZhYrYA+h4NXdOrnBEHYLlEz29RIxTmBDRqm347CHhAydc18Pbgn
-	 bwx9uTnh6d2WMP5rgsg3XlYGN3+4wP0dNSRDvuLcEIjZFfSencKAvDxyh8VRl2z55ZFRD
-	 rIhKEOQ2COEIXnbdmyB/r+DCwod1sX6DIUqRvgbRmFR4YZh3KL4BvuLxtO0s6I6fbuE77
-	 D13LV3hMmSbrXr+Vtp8v+5cUR/uBlxNqZ7PEZ4sFuW0LoSZWv9Ih0GZyOpKaHHEKsAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269323;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=pIuIcfSKYBHqvo9P0Kpzpjm7WrFeoaXoEKcNhmaQ5Dc=;
+	b=kUZXOCd+lzthubh+FW+I/daxBcgsarmi2eLyMjbPJXrjB2UGV9PMoDZrwnFfcZFkP4Yp
+	 wicudD0Nrg8iVhIsGBsjRSLp+rVYqLSZG5kAKUDdu08twPav6hOFPe/8/loxFblMo6Zib
+	 9FfmwC2O6TU9hHFkW6L53iDi+iuujChPr7BoaL+J1Wu8tBhwuMW/TTRPN4dS8VPE8AURn
+	 aj4sqzh4uHIMQzC2KL60guFK3NMoLCfaI6yN/y6fAz1YpmHaGIfioeiA9M/w4DlNzzRR0
+	 U0LIEOl2JF9gbaw9yuw3geWCD3m3SkZ4wbyc10HkRfJjD0yBDA+VRRSnToVmkqCBKRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bYEkEP0d;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mail.parknet.co.jp;
+	spf=pass smtp.mailfrom=parknet.co.jp;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=qQYFkUkc;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=Ksuu9GTJ;
+	arc=none smtp.remote-ip=210.171.160.6
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B562606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:21:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B562606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3A5606A31C;
+	Thu, 29 Oct 2026 10:22:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D3A5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bYEkEP0d
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15dd124bbe7so3615347c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:21:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793269301; x=1793874101; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=p4CsFDjPOd5dzP69uoDvcx2oKYWrFhACnk9N0TgFakE=;
-        b=bYEkEP0dNxlhTdG9foSUPIsWMX1MtvqNyYtlLTMcLbRq0lyy2cratV0BIr2gtYu5ia
-         H4zg9Ixd+52wVE1IOa1nwYwk0JaaaTVOGzCRbxdtp8UMWRBohoa59HBAkTPnVp6UCjYG
-         MM5tpk3Qrmw+LDihNTctddLyIJcWuFt153NjbOak20ztDLbLw8MGv7Ayc/Ncpd/eY3Q5
-         g7OrNaKPat6T4uqBs/NJ5x4Js0oTp1QyHZlkxvIILTsOo9tvGe6YYKzHiuNHZC8yKsKC
-         JClp1ejGPTY4+BGdjE4Jd4Kl1RXPXXteK7SPhdDpfqTYVwJuMrAI5HkWguqSUZ37URHf
-         datQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793269301; x=1793874101;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p4CsFDjPOd5dzP69uoDvcx2oKYWrFhACnk9N0TgFakE=;
-        b=H6CY5vLOBck+sBs4eRJ2EQuXJwf3VTqvH69I3y40Mua7J6HA6eA0wzHHfnScCpBMlJ
-         QxI7XH7cGlsSAItDHKK/xYEciQLa9d4vrKdXzhGsiU6t6uXN0VRGBHnPZKmNZuIzcM7u
-         kIAtQrsezcTGyMYRJ6I//IhLIZmZF+YYhwZ8kAffLqn6PvkieYTvrUyF8G9clJSlk5sc
-         99e9nURd1wfajY55QmfNwtBupbMOGU9srv5jFTr8o5yrWwy/zKIIOAo01CNmGTH1q8uQ
-         BAdpELSA+L2Y3vml2jqOqjnEs1BRx1L2bn5hYuEJR8OIxkqAmw0cR0ctECeq8VHFJRtq
-         BFZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwn56eQnDqMgctVOgR6N8UtCBqrdZxnQyXROfrPxnOGGLtUvoMgs9pu0NhUe21p6L2u7FgrYndDHUaVB3Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwga29KWsyQ7kH+P210d8i2rt+k2JROxZMtVnjXWPpIztkC1JT
-	Uf2rVmJfpQpJ15pOO4TKLfQuUcyBv7OtCWYYi+JWPndw0hRy2I5gvpqb
-X-Gm-Gg: AYBFou1Ex0OFT2BdkNpkO25WtvUD82FM/BsqnXw4PuUGAj4/S1hy7E/8Narhb9RjBcy
-	HXcQp+uDq4nXoH5x9tEDRz79Wrb7cW4PduJvwvzOi8R2KnOnk2Q1LX9SeAe+n3TnxHgTOBz+YA3
-	SvC/pK9wMLrLb3ap701Heemn7isf5kmRvHAo+ae3D0hI4ro1U7JAg1H5TQHzwOsQQ4I3WKPIRE8
-	oBwb0fGavdsBdA6RjAkTnhRG4yX5r+I2b4hK22ueqMz1X1HXxJjcI2nApg+igOotmAGiK9P5DXz
-	I3cb/pIIq8BCKjHyMfZ1GieuwcDICA5WQf5piBWMyt/asRb8MEyO21rqFxZ1FMpej3wv9dU1O03
-	ebIcjIN0xuqcQ2drKk61bsMllJ9zhABGWhPJOHOVzDlNvHcI+xXqNKgCuGi1hIqD+45wsY7sXEW
-	+bIV+Syz4iMZUs2F8v7PxaYFPeXEE1d37Adr6ycYCsOpwax/SPvjjrtsQZgdgKiihpHxRHq3itI
-	8onkYDKsTFDmF0zE189trmBrjp+W5y06BpMG4cpnJjP22tq57EV1xz4C9lR0xGRklfdYCC4tam9
-	PCRNwF7XGTpKsit0QHE+HLHYSnxnzLK9mUeFWOZjdm+iYiCTtEftocnp/XI6pdDWCqw=
-X-Received: by 2002:a05:701b:4211:10b0:18c:ad6d:b790 with SMTP id a92af1059eb24-1a6cf914593mr7053743c88.45.1793269300875;
-        Thu, 29 Oct 2026 03:21:40 -0700 (PDT)
-Received: from smtpclient.apple (v133-18-180-162.vir.kagoya.net. [133.18.180.162])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d76814bsm13556801c88.10.2026.10.29.03.21.35
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 29 Oct 2026 03:21:40 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=qQYFkUkc;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=Ksuu9GTJ
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id C132C209655A;
+	Thu, 29 Oct 2026 19:21:59 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1793269320;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pIuIcfSKYBHqvo9P0Kpzpjm7WrFeoaXoEKcNhmaQ5Dc=;
+	b=qQYFkUkcoulJlnhefgR4Rhb9D+MLw43VSJZsRzprPfDarNy9bupe41BLey/bsFu8qvWSPl
+	bBif++6wlamPuyRxZShuWv+ELfcaIgVj+7PH4tItPFQAHftdayoPI02l8/lWp1IZNZu8sg
+	7/eBw+qWFckFv4hV1licv4Tu5ZxA3xmTg/UW2rRLXN9yzb5CWhOfLPJ3vCFmSThcsJ4qCk
+	R/jm1Aw7svXVSyUVmJcGuZvUTr+jQWgVTm0VyQDwxA82cebgfmOWCQ9B4DdeKZAXY9NbbN
+	jHzW3PLbdJMELPLr81b/1LFjAAJ2HT5w0bwvVc8Fwv+zWAU8GUtgU31UHHQyTw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1793269320;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pIuIcfSKYBHqvo9P0Kpzpjm7WrFeoaXoEKcNhmaQ5Dc=;
+	b=Ksuu9GTJ7hAsQwoEeb2z/TRuCmzFlwSjtaa3XdnV+Eg5aKm3UCJNia/DtohP0jXSgEsKck
+	04ANWUeB3iId/NCA==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 4C16AE0077A;
+	Thu, 29 Oct 2026 19:21:59 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 448D022001F3; Thu, 29 Oct 2026 19:21:59 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: shaos <shawnq1@163.com>, brauner@kernel.org,  aliamemis@disroot.org,
+  linux-fsdevel@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nls: fix ISO-8859-14 case folding
+In-Reply-To: <20261029091443.3531919-1-shawnq1@163.com>
+References: <20261029091443.3531919-1-shawnq1@163.com>
+Date: Thu, 29 Oct 2026 19:21:59 +0900
+Message-ID: <877bj0eri0.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,57 +79,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH net 2/2] Revert "net: advertise TCP MSS from the
- configured MTU, not the learned PMTU"
-From: Esko Mobius <echoowall@gmail.com>
-In-Reply-To: <20261029101859.6893f1a0@pumpkin>
-Date: Thu, 29 Oct 2026 18:21:22 +0800
-Cc: netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>,
- Simon Horman <horms@kernel.org>,
- David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>,
- Jiayuan Chen <jiayuan.chen@linux.dev>,
- Shuah Khan <shuah@kernel.org>,
- Thorsten Leemhuis <regressions@leemhuis.info>,
- regressions@lists.linux.dev,
- linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Eric Dumazet <edumazet@kernel.org>
-Content-Transfer-Encoding: 7bit
-Message-Id: <22077B76-12B0-4DD6-813E-A3968003575F@gmail.com>
-References: <20261026-advmss-revert-v1-0-272fa4b7ecb6@gmail.com>
- <20261026-advmss-revert-v1-2-272fa4b7ecb6@gmail.com>
- <20261029101859.6893f1a0@pumpkin>
-To: David Laight <david.laight.linux@gmail.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Type: text/plain
 
-On Thu, 29 Oct 2026, David Laight wrote:
-> If it isn't a silly question, how to connections in the other direction
-> work?
+shaos <shawnq1@163.com> writes:
+
+> Hello,
 >
-> I'd have thought they'd need that ICMP message to get through.
+> The ISO-8859-14 charset2lower table maps byte 0xa4 (U+010A) to 0xab,
+> the lowercase byte for U+1E0A. VFAT uses this table for its default
+> case-insensitive lookup, so a lookup for the distinct, absent byte
+> 0xa4 can open a file displayed by readdir() as 0xa6.
+>
+> The PoC mounts a small VFAT image with iocharset=iso8859-14 and
+> uni_xlate=1, creates only :1e0a, and then looks up byte 0xa4. On the
+> unmodified kernel, readdir() lists 0xa6 while stat(0xa4) succeeds and
+> returns the created file. Remounting with check=s makes 0xa4 return
+> ENOENT. The issue is in charset2lower[] and is independent of the
+> page01/page1e conversion-table fix in 8e17b922aff0.
+>
+> git tree:       upstream torvalds/linux master
+> source version: Linux 7.3.0-17714-gc339f4010dea
+> architecture:   x86-64
+> compiler:       gcc 11.4.0, GNU ld 2.38
+> QEMU:           6.2.0
+>
+> console output:
+> https://gist.githubusercontent.com/shaos26/4115e33780bb1ea2a0e042aa6e6588da/raw/9dfb43bd1f99e1d9138cf8147fe29eb0f131978b/console-output.txt
+> kernel config:
+> https://gist.githubusercontent.com/shaos26/4115e33780bb1ea2a0e042aa6e6588da/raw/7481bf507133c8dcb3549ed04ef4abe8de69cd48/kernel-config.txt
+> reproducer:
+> https://gist.githubusercontent.com/shaos26/4115e33780bb1ea2a0e042aa6e6588da/raw/54bd8643014abaaa49a24cbc7ff8c93329dd62b6/poc.c
+>
+> Build the kernel from HEAD with the attached config, then build the
+> PoC and initramfs:
+>
+>     mkdir -p build rootfs/dev rootfs/mnt rootfs/proc rootfs/sys
+>     cp kernel-config.txt build/.config
+>     make O=build olddefconfig
+>     make O=build -j"$(nproc)" bzImage
+>     gcc -O2 -static -Wall -Wextra -o reproducer poc.c
+>     cp reproducer rootfs/init
+>     (cd rootfs && find . -print0 | cpio --null -o -H newc | \
+>         gzip -9n) > initramfs.cpio.gz
+>     truncate -s 32M fat.img
+>     mkfs.vfat -F 16 fat.img
+>
+> Run the guest with:
+>
+>     timeout 120s qemu-system-x86_64 -machine q35 \
+>         -accel tcg,thread=multi -cpu max -smp 1 -m 2048 \
+>         -kernel build/arch/x86/boot/bzImage \
+>         -initrd initramfs.cpio.gz \
+>         -append "console=ttyS0 rdinit=/init" \
+>         -drive file=fat.img,format=raw,if=virtio,snapshot=on \
+>         -display none -serial stdio -monitor none -no-reboot
+>
+> The same PoC prints RESULT: VULNERABLE on the original tree and
+> RESULT: FIXED after the change below. In both cases, the check=s control
+> returns ENOENT for 0xa4 while byte 0xa6 remains accessible. Mounting
+> VFAT requires the privilege needed to mount a filesystem. This report
+> demonstrates filename lookup confusion, not privilege escalation or
+> memory corruption.
+>
+> Link: https://lore.kernel.org/20260909121032.76647-1-aliamemis@disroot.org
+> Signed-off-by: shaos <shawnq1@163.com>
 
-Not silly at all. The frag-needed always goes back to whoever sent the
-oversized packet, and only the client side filters inbound ICMP.
+Looks like the bug of this table.
 
-Server -> client (downloads): the server's full-size segment hits the
-1456 hop, the router there sends frag-needed back to the server, which
-accepts it, learns the PMTU and resends smaller segments. The server's
-send side was never changed by 2640e6419594 (tcp_current_mss() still
-uses the learned PMTU), so downloads always worked.
+Acked-by: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
 
-Client -> server (uploads): the client's full-size segment hits the same
-hop, the frag-needed goes back towards the client (via the relay's
-conntrack), and the client-side firewall drops it. The client never
-learns to send smaller segments, so the upload stalls. Here the only
-thing that kept segments small was the smaller MSS the server
-advertised in its SYN-ACK, which is what the reverted commit removed.
+> ---
+>
+> Validation: Fresh QEMU runs on unmodified c339f401 and on the patched
+> kernel, both with one vCPU and the same configuration, printed
+> RESULT: VULNERABLE and RESULT: FIXED respectively.
+> scripts/checkpatch.pl --no-tree --strict reports no errors or warnings,
+> and git apply --check succeeds.
+>
+> diff --git a/fs/nls/nls_iso8859-14.c b/fs/nls/nls_iso8859-14.c
+> index 60b9400f915af..c9bc4e0d30603 100644
+> --- a/fs/nls/nls_iso8859-14.c
+> +++ b/fs/nls/nls_iso8859-14.c
+> @@ -240,7 +240,7 @@ static const unsigned char charset2lower[256] = {
+>  	0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, /* 0x88-0x8f */
+>  	0x90, 0x91, 0x92, 0x93, 0x94, 0x95, 0x96, 0x97, /* 0x90-0x97 */
+>  	0x98, 0x99, 0x9a, 0x9b, 0x9c, 0x9d, 0x9e, 0x9f, /* 0x98-0x9f */
+> -	0xa0, 0xa2, 0xa2, 0xa3, 0xab, 0xab, 0xab, 0xa7, /* 0xa0-0xa7 */
+> +	0xa0, 0xa2, 0xa2, 0xa3, 0xa5, 0xa5, 0xab, 0xa7, /* 0xa0-0xa7 */
+>  	0xb8, 0xa9, 0xba, 0xab, 0xbc, 0xad, 0xae, 0xff, /* 0xa8-0xaf */
+>  	0xb1, 0xb1, 0xb3, 0xb3, 0xb5, 0xb5, 0xb6, 0xb9, /* 0xb0-0xb7 */
+>  	0xb8, 0xb9, 0xba, 0xbf, 0xbc, 0xbe, 0xbe, 0xbf, /* 0xb8-0xbf */
+> Thanks,
+>
+> shaos
+>
 
-Thanks,
-Yongjian
-
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
