@@ -1,64 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793265507;
-	b=ssT/5IfhyLc/ciGStQ2oPhFey13vJ7gvazrdAldCwUMce/tfGOP7q0IO2HRVQQkIPfYG
-	 ylyQBqdqKm9RNQp/xwxL2WXrUCn+S9jteZSWiQEHWEX8noXxyGO9E+2Cd1wRq45UQxZaz
-	 MWJbkrSCXini6K1YekbooCHxEg7wELCVPKJXQ5To6OM1S4iErHj9gmfJQ5v1wYsjcORzU
-	 F04DRVjaZ2oztl1Y4BgD/1xXSeVuF6bz6nHSHq3LVaWr9tQmIy9wjnASRfgCKtFmI90m8
-	 HdDmOcvso/FBhjijI7PVzL3BytJWgwDYHUFNPO31q1dr4VZKY6XjMxTkHvEBmLxjipA==
+	t=1793265506;
+	b=RgVc0fcX8HtH0BTF6cqnVeMT096FkyQWs39WjOrImXjEBMpFfw6aDlmaWWtAfa35TYO5
+	 Fmf/zdOCwtDaw1l/ntkrbyVeMN61CwLE++2esvWRE3huwz0Og2vkyIAH4vCqnnRNkipln
+	 dwtr856UIP6xkZidqH3yiuAUqk8Ep12DNYO99u53QTrZcsIvp18SR3F2TC5AWjx8zqEDx
+	 TTmpQl4ITXmfY1Pxs19eyHVSccdBh53MFdsUZHoKOlBoCwEsAnlNO8X6AcmVw3f0rSsgf
+	 mr5OnbBHVoeKHb3+SAECzRAuoRue0M9cOmRO/aizEsABiZarkIlniYqXxxfxjok8Iqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793265507;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=UkwRg2MfCoRtAJI2sGxhVQjo2bap0vqxQXUt68TRs8o=;
-	b=RnlV19S2GH7D9ceJh8Vrc6UCre4xit16w4IdwOGJb8HWyWYKDBhSR9UhHYlmZPsyy6yE
-	 owYMcIt5v0SdE6Tq+d9uEBrhxPogqvHrBhiZqmb63HtQYvp3Fzl96Wbf9nPEQdmb45HBR
-	 +Znisww5F9iG98WUc3MrgzUjxYFJ2IhfkgUHKkqaYTJb5m6wOlDHziLJw2goZKOEv4YXv
-	 llhYz25AiewB95OqE9sJ8zZyEDTk0LISknjzXyaLw3t4tz5BBYRsoROjFd7higR7iF9Hs
-	 5CgVhFh522GrbVxOe4MOfe3NYh9lobiBvsp0xjPk+YURS54xEmNN9vCPDoRCOss6ijw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793265506;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=WbpvsXKX9ms2sT+M7ciSC2XkOBju1VKOi1MohxOALLA=;
+	b=WMjzkpaVPxR7kTMMP7hawTfAz4KhhNAhDNPnRVGbFx+S7/tuPKdMfYqUJ25yWtMz1tr6
+	 u1Z8lx2jC3xp4hcekv+HrpVJRmu6S3TNPaR7a6gA4y5bJXaW2dQ/mlOl185DkaN34ti22
+	 MfYRmqLejCNEFPXF79OzCur+1n+5NGCsENBbsnyTC6ptjT1yPIij9MpE04Bw2W/j9ndCn
+	 HULHKX0XWbN9WSbfTPSCtfmR57keBp9R8aExaaex8WUASJr2y0cbTSqq75D/asLDS7qm1
+	 39d0E9zPa4W9sConfdZF7sJNXVGISNFwxg3KuabMzgf5YjF+uIlMFRKjvO6z937mJCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPG5loz0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=M2kWZvRZ;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA469606A31F;
-	Thu, 29 Oct 2026 09:18:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPG5loz0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C54F61F01825;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E5A606A31A;
 	Thu, 29 Oct 2026 09:18:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793265506;
-	bh=UkwRg2MfCoRtAJI2sGxhVQjo2bap0vqxQXUt68TRs8o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WPG5loz0OzzMkDVWR0/RpNMb53o+NMDQ8VSEFjfepQzfcPpperDYBZwPoNNeNuXO+
-	 FkRxqWgqe4eYfxS1nYOjB6wQZ/xqbDR+H5e0gXKGrgldBgH4Gmm0OaX81ATkpADRSi
-	 TGzIeIazP00gQWOV30Urwq0V5NhUxJrj5dv7qfWC/woUpG/I4RVC7f4FuNgsLcb+c9
-	 rOG3r4VVE2tMYRR1aWjgT1wIyKxaF6r3JHRqW/rgCpeVnw/LprE4s6KHUJh4D+YwlZ
-	 Eaz30jiCbbmNhI3jaGaef4jqEDApfzBH3O2P/uV4L7REpM6bmmfTT5GthHZY7vWaS6
-	 Y/pOavIuBOLAg==
-Date: Thu, 29 Oct 2026 09:18:20 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
-	Jann Horn <jannh@google.com>, linux-mm@kvack.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
-	Daehyeon Ko <4ncienth@gmail.com>
-Subject: Re: [PATCH v2] mm/vma: avoid spurious write locks when
- mm->mm_lock_seq overflows
-Message-ID: <auMHSGBR6SB6HcTZ@gremlin>
-References: <20261016-fix-vma-lock-overflow-v2-1-9eb778b79b58@kernel.org>
- <atXjbsDn7DJybsHU@pedro-suse.tail5790ac.ts.net>
- <atYJA7nIu_RwpoCC@gremlin>
- <auIIxSorX0bhZNZc@gremlin>
- <auIPRjj2t0BcYlOa@pedro-suse.tail5790ac.ts.net>
- <CAJuCfpFVv-t08YGMPR3YHCyiOK4HY-YjMk5rB6tdBa=mq2MvKQ@mail.gmail.com>
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03E5A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=M2kWZvRZ
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=WbpvsXKX9ms2sT+M7ciSC2XkOBju1VKOi1MohxOALLA=;
+	b=M2kWZvRZGEw73IWLSODipFlx8eZFPOXiXaj366REFXsYD04K87D4R0lxfN0aL5NrQin4b1Cx7
+	FSqaz991cw+xwymDPUg1xM3DM61ltgmF8WmhfTFZ1N7EFAcIl9ycWJw1Ly3AvMeY5IVhdOvnPa+
+	HxrdSVSgtd+ur2DMAfne5IU=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jFdtg6ZCMz1cyQr;
+	Thu, 29 Oct 2026 17:18:03 +0800 (CST)
+Received: from dggpemr200001.china.huawei.com (unknown [7.185.36.96])
+	by mail.maildlp.com (Postfix) with ESMTPS id 521974057C;
+	Thu, 29 Oct 2026 17:18:11 +0800 (CST)
+Received: from huawei.com (10.50.85.155) by dggpemr200001.china.huawei.com
+ (7.185.36.96) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 29 Oct
+ 2026 17:18:10 +0800
+From: Ran Hongyun <ranhongyun1@huawei.com>
+To: <sanan.hasanou@gmail.com>
+CC: <linux-kernel@vger.kernel.org>, <linux-scsi@vger.kernel.org>,
+	<mkp@kernel.org>, <sanan.hasanov@ucf.edu>,
+	<syzbot+fa495e1497c48a6ed885@syzkaller.appspotmail.com>,
+	<target-devel@vger.kernel.org>, <chengzhihao1@huawei.com>,
+	<yangerkun@huawei.com>, <yi.zhang@huawei.com>
+Subject: Re: [PATCH v4 1/4] scsi: target: rd: Fix oversized sg table array allocation
+Date: Thu, 29 Oct 2026 17:10:24 +0800
+Message-ID: <20261029091024.134838-1-ranhongyun1@huawei.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20261009003537.62265-2-sanan.hasanou@gmail.com>
+References: <20261009003537.62265-2-sanan.hasanou@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,55 +73,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAJuCfpFVv-t08YGMPR3YHCyiOK4HY-YjMk5rB6tdBa=mq2MvKQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ dggpemr200001.china.huawei.com (7.185.36.96)
 
-On Wed, Oct 28, 2026 at 05:34:38PM -0700, Suren Baghdasaryan wrote:
-> Sorry for missing this fix before (due to my vacation) and only now
+Hi Sanan,
 
-Never apologise for taking a holiday ;)
+Thanks for the patch. One question about rd_build_prot_space():
 
-> finding it. From a quick look it seems correct but I'll spend some
-> more time reviewing and testing it.
-> Thanks Lorenzo for the fix! I completely overlooked this overflow
-> side-effect. And thanks to Liam for flagging it!
+The totalram_pages() check is only added in rd_build_device_space(), but
+rd_build_prot_space() is also reachable with an inflated rd_page_count
+that exceeds totalram_pages(), via:
 
-No worries, though it has already been merged -> Linus's tree (lol). Obviously
-if you find anything of concern we can chase up!
+  1. echo "rd_pages=1024" > control   (valid value)
+  2. echo 1 > enable                   (rd_build_device_space succeeds,
+                                        DF_CONFIGURED set)
+  3. echo "rd_pages=-1" > control      (rd_page_count overwritten to
+                                        UINT_MAX, no configured check in
+                                        target_dev_control_store)
+  4. echo 1 > pi_prot_type             (triggers rd_build_prot_space with
+                                        the tampered rd_page_count)
 
-The general idea is simple, really - though there's nuances with the memory
-barriers (ugh).
+In step 4, rd_build_prot_space() proceeds with the impossible page count
+and attempts alloc_pages(), failing mid-way with -ENOMEM.
 
-First off, it turns out we don't have to use UINT_MAX when initialising a
-VMA, since commit e5e7fb278e59 ("mm: convert mm_lock_seq to a proper
-seqcount"), as 0 works just as well (it's not observed since VMA is
-detached at that point).
+Should rd_build_prot_space() also get the totalram_pages() check to
+reject impossible values early?
 
-Then we can simply detect when there's about to be an overflow, and zero
-every VMA's write seqcount.
+Thanks,
+Ran Hongyun
 
-This is done without VMA write lock and with potential concurrent
-readers. Which is fine, since the write locks are about to be unlocked
-anyway, so any write-locked VMAs can either be encountered as write-locked
-or not-write-locked safely.
-
-0 is even, so that marks everything as unlocked. However, to avoid read
-locks spuriously failing due to vma->vm_lock_seq == mm->mm_lock_seq, that
-check is updated to also test whether the seqlock is odd (write-locked), if
-not it allows a read-lock.
-
-Since the 'reset' doesn't acquire VMA write lock (not required and not
-really meaningful in the context), nor does it block read locks, it causes
-no interruptions on that side.
-
-And, as per the numbers I got the LLM to obtain that I shared with Pedro,
-there's no meaningful latency when this happens, which for most workloads
-takes ~days/weeks to achieve.
-
-For backports, which lack my anon pgoff stuff, I will simply make the
-fields 64-bit which make it practically impossible to hit the issue.
-
-Let me know if you have any questions/concerns, thanks!
-
--- Cheers, Lorenzo
