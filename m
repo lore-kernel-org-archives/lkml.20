@@ -1,88 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793261771;
-	b=GwAGr1MDFNYVNCvVGr6ALmsUZnhAMvK9y5fz6xWvfGfx3J6yCTKIth3Co1c2dkk1mGy/
-	 g+0aiYtXhezQAZFoMEIR9pAZSqHTFVp7DnqxSBqjqhpX7vFJjiHxvrK4PvjlP+Y7QehyI
-	 hqBU4PSuUxOw611Lx43HC8kJZ/VJQOR7i9gKhoAczcKHu2X7d6/mc2rzoszk0dQPGJp15
-	 6hwx+V7w3oT3bE9KN7jlC9wv4YYoSsE5kWx/UpAoDkIWbplYa5Lmdk5soOlHPOIux87lV
-	 U7LW4hfPSz2n1+OhO2eKgUb9laMkfH/CQE8SXZQN+eQ9ASmUJp6xwzUpA6p6yXk68nA==
+	t=1793261775;
+	b=OnPCNdB2MFPrG3piZLHNDfppY8+wE+xe8dqtPoNMyorMy0EJZRjYJsyJzHKC5KUI8xdQ
+	 BYs2xXiUlTGMeaKOdyQBkSVPZlEyv5MfeADh+rect4H4+HaOZ55zg7aC4lpEMnpfuYe5Z
+	 0mVeor1sos4T1SN3QhhYsXza9Xc0qJ5QMjok6dz6AuB45WRf5gdXOmPe8s8HF04DDc6ww
+	 wSWY3SQebJmLivGwrPhZ46Hi4d6eOX1qVMRTCtBB66xrKOOivuM9PlqaodXGw2dJb00sj
+	 q8hlf09/xwoCVwQiwF2xSV2uOUnw6MAbt3TOU+3dO6zj5KF3H0YpkKWTZPO5JHuwp8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793261771;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=yKwHsBgWsnYwW2gL1FVzWYClyycwT4ewUl/GuVtdUlo=;
-	b=t0+btxFY2iF55HTH18hq3pAiWsWDseAwc4u56/IB4kmtQ4PeG0vICUf18bqq/h2s/itC
-	 pQwMjYd1ct2GEQBiSCtXqXj8T2lkV3sXAHyAbVKLEods0IA2PM8HrCFRTCiNI7dwhQ/JS
-	 yjNE6yQA8gfHX69wAHj8/QCHU7JgFCbCb2BrLhI6k4KCbNLppDfNhiW2HKxJgTFDByptl
-	 IjKNEi61DxeMW/aAAxB3/LQurkAUZ/B1Zau3o9bFGoldgBcl79XCcAX9r04tUvX9c1zXL
-	 N687M8+qpOqsRXUJ7BBzDm6XERu123WrKxo2qFZoZWTx9/xo8xI/Xi0SyEH7KtLV7kQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793261775;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=3IJlSFMAL28bLbrAC/1XPQnKe0aCkPKQe8eJf3Dynro=;
+	b=lpSSk0Z0qjCbsuQ9NJUaNkv3dZL7IahefU8fepvUUn9Jp4WTLWLOygAyTAuSsYAhPAuP
+	 urWo/D3vIBwq4O0eq8cZ4qG0vHsm61XpJNd5LGKokWDxKBscf3YHmQ8hQhoWVaT/4eHTh
+	 Qox6F0jGEjWgtZ5QEPpf2gqUplFxlj7Qx5YbVRhvnrDX3lu7rt0H3Xag3KYFcg5f3Vpms
+	 BttgAcqClKbY3UAZ6gHLxvdN9+6HKVEf9r9EC31w2AEq++VC4wzT2m19g9+OfIg6suWoN
+	 LhPszUqvLGveLqs0raX7glRkdK6vFAbvcISPxMR5X/D6CRxMz0OZCeLbo+p91OnkDfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DhVm3V42;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=kCOR7Mxf;
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5802E606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:16:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5802E606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ED8C606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:16:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ED8C606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DhVm3V42
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so16200745e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:16:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793261769; x=1793866569; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yKwHsBgWsnYwW2gL1FVzWYClyycwT4ewUl/GuVtdUlo=;
-        b=DhVm3V425hO9R9e8v+hQASAIDN4E8dzPnfNKYpbAAL7Ry3mgMhwOniEIFT/py07BqQ
-         m0ZtiB5OLL4rCQR/ufb209Q+iGKxHsBvmZRFAmMnCJ5h6lpT2E89H/76AVFv/bp4350y
-         EqXighxV5+Hx9qgc092i46RZDp2oBfhcbgksBYsmdBLOxLCoMKK1rdFeuyUQNSg5kq34
-         vnap7Z8XnXGepqbO7ixR+t5k9vJ9+rf5FAcT+TzoIYSobtYBU7fLvkepEouzWVO6WL7m
-         UItEvzDA+2I9Ee269dKArN11nkinerJ2Ij/Rkztimsx4mnBO/aH/KyU6UU7LHUb6ZohN
-         4Rpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793261769; x=1793866569;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yKwHsBgWsnYwW2gL1FVzWYClyycwT4ewUl/GuVtdUlo=;
-        b=VEzwwrqpD6oD39ODSwLHarjXB5LZwSr9ipOmvwidthI6Q0DH9bwS4O3E+G7ny+Dzwx
-         HlPWR5SEiIhKl+VANJosyiTtpBcZtWu1VBeSzsRPujdMPJIJ8p2FpZQdh9VZj2QwAgFw
-         U7td3PTYVNTvVHOKNakbwuNubhi1umwoSniesJbclE2NxPjZBsElNHAReE3DP8yNXIxq
-         2TP3pJEr1kZBhnjDFbU7+Rs0P4u0Sir/JaQACVIRmKnvqj8syx6Tvs5K1dBFhQiepFNz
-         KdkQmXrdTFPCC/wsmzgog69O1chn0N7FJ2eqWJY9ChytMmTKB0vP2l1AHZzigQFryCJk
-         LfpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwlG5D56nPH4IDhu0TJUSl12b88kCcX3zaaSlpL4HnyWCQLYQ/HBCJT7KYTPsO5Asiu6Sgw8ZSgnfARaHI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBYaTMJZKLpqzGm/lsgckmPCec3WJ5nWfm3adgG0mU39oJgPg6
-	rEZJGk04Efzs11sIh3ZgFVjo0w4xJn3RL4WerX5pXkOm4oOM6cIj3Gsj
-X-Gm-Gg: AYBFou19DkoiHw4Wqx3ll/Xol/9hdG5xZP1O3RH26xTHmqi+9yEtkQqvbacy88Exxym
-	G1wub/hX7GShqd6hJR46UzzBFKpvKvOpZPIUjnoW5WivVFHmeZIRpQxaFJzlaroNWDMjUTAwoLD
-	CoU77ooIEAxu9vUVh27AGDPjApYyNWyiqZlmisoZYqPU6TzBbLarF27VzrucLhnJlW86h3NIRpj
-	Gpgyi93H+xlJhXuWiTa0eMQneSPQ1qqwpjDd3f3YUNARe3oHBNvbiynjNw9cWohOPJXaRJy2LY4
-	G8rLschOrD9vmBalHscrqGVc8wq13Zn6ZdjRcOap5ARvApTsnaWrPEyBBMkLRcGey49s3TRXNKZ
-	rZfKiERLLFUF38dFxPrZdI0GDTqGbKSv9FixKIZiwKXDyZ76d0YOx9gl5tqYCoyvVNPe+w2sxnq
-	xd0c85HCdf7o3O6m3euef+Agmzj2CNOTK2sPay92W4vw1GaI47AbwdE9k6gOzVYABKFligajQ7V
-	txPSA0vPLW9XygGXyyXqBWYlDfxAwIK3VIGmozigMdX67tiJ72OnzOwtUM/Hjeibv8vWX/V5Pet
-	yVVJXHpR2fnMB+JfJuAsk4JAVGSshND/+EYTJXXzcaMWN/TYv9yv8fTRiNkuKX2SrXDa
-X-Received: by 2002:a05:600d:8496:20b0:4a1:a6e0:4ce4 with SMTP id 5b1f17b1804b1-4a9b1434621mr59499955e9.33.1793261768411;
-        Thu, 29 Oct 2026 01:16:08 -0700 (PDT)
-Received: from [192.168.20.170] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94f05e4e4sm70001885e9.3.2026.10.29.01.16.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 01:16:07 -0700 (PDT)
-Message-ID: <974845a6-16bf-41ad-932b-244112b85cae@gmail.com>
-Date: Thu, 29 Oct 2026 09:16:05 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=kCOR7Mxf
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=3IJlSFMAL28bLbrAC/1XPQnKe0aCkPKQe8eJf3Dynro=;
+	b=kCOR7Mxf5RcpV13UXHQZDswEV5jWpmE4eNAlmI2XfwtwwWhLVxeYLVjaWtQrd/b0SvlGWijoG
+	xfEUJ4ShNkPZfDjvNbf6Ddxx77eRg0PY++XK+uaRCSHT5dIi31iVStCTb7iR9NQMlPVYyXSyhWi
+	/qtIv46T1SIoM/x7vNTTuQE=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4jFcVz4Jj6z1K9Bf;
+	Thu, 29 Oct 2026 16:15:55 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 910F24048B;
+	Thu, 29 Oct 2026 16:16:04 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 29 Oct
+ 2026 16:16:03 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
+	<james.morse@arm.com>, <babu.moger@amd.com>, <bp@alien8.de>,
+	<tan.shaopeng@fujitsu.com>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH 2/2] fs/resctrl: Skip monitor context allocation when force-freeing RMIDs
+Date: Thu, 29 Oct 2026 16:15:13 +0800
+Message-ID: <20261029081513.924019-3-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261029081513.924019-1-ruanjinjie@huawei.com>
+References: <20261029081513.924019-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,76 +71,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: qcom: rcg2: validate frequency table entry in
- __clk_rcg2_shared_set_rate()
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261027-rcg2-avoid-null-ptr-deref-v1-1-43c21b54cfeb@gmail.com>
- <d0492d0f-42a5-4400-80d0-987086d7d224@oss.qualcomm.com>
-Content-Language: hu
-From: Gabor Juhos <j4g8y7@gmail.com>
-In-Reply-To: <d0492d0f-42a5-4400-80d0-987086d7d224@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-2026. 10. 27. 19:24 keltezéssel, Taniya Das írta:
-> 
-> 
-> On 10/27/2026 11:35 PM, Gabor Juhos wrote:
->> Commit aec8c0e28ce4 ("clk: qcom: rcg2: add clk_rcg2_shared_floor_ops")
->> removed validating of the frequency table entry pointer returned by the
->> qcom_find_freq() or the qcom_find_freq_floor() functions.
->>
->> Since both functions can return NULL and the pointer is passed directly
->> to the __clk_rcg2_configure() function where it gets dereferenced
->> unconditionally, it could cause a panic.
->>
->> Restore the sanity check removed by the mentioned commit in order to avoid
->> a possible NULL pointer dereference.
->>
->> Compile tested only.
->>
->> Fixes: aec8c0e28ce4 ("clk: qcom: rcg2: add clk_rcg2_shared_floor_ops")
->> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
->> ---
->>  drivers/clk/qcom/clk-rcg2.c | 3 +++
->>  1 file changed, 3 insertions(+)
->>
->> diff --git a/drivers/clk/qcom/clk-rcg2.c b/drivers/clk/qcom/clk-rcg2.c
->> index d7914e59129f..260e90f53461 100644
->> --- a/drivers/clk/qcom/clk-rcg2.c
->> +++ b/drivers/clk/qcom/clk-rcg2.c
->> @@ -1385,6 +1385,9 @@ static int __clk_rcg2_shared_set_rate(struct clk_hw *hw, unsigned long rate,
->>  		return -EINVAL;
->>  	}
->>  
->> +	if (!f)
->> +		return -EINVAL;
->> +
-> 
-> Normally, the CCF calls .determine_rate before .set_rate. The floor
-> determination helper already rejects a request below the lowest supported
->  frequency:
-> 
->  ```c
->    if (!f)
->       return -EINVAL;
->  ```
-> 
-> So an ordinary clk_set_rate() request below the table minimum should
-> fail during rate determination and typically not reach
->  __clk_rcg2_shared_set_rate().
-> 
-> 
+__check_limbo() allocates the architecture monitor context before the
+scan loop, even when the domain is going offline and the RMIDs will
+be freed without reading their occupancy. So if the allocation fails,
+the offline path returns early and leaves the busy RMIDs in limbo
+which will be leaked instead of being released.
 
-Thank you for the explanation, it makes sense.
-In this case, we don't need the patch.
+Split out release_limbo_rmids() for the offline path, which doesn't need
+the monitor context.
 
-Regards,
-Gabor
+Cc: James Morse <james.morse@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Fixes: fc16126cc11d ("x86,fs/resctrl: Prevent out-of-bounds access while offlining CPU when SNC enabled")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ fs/resctrl/internal.h |  3 +-
+ fs/resctrl/monitor.c  | 69 ++++++++++++++++++++++++++++---------------
+ fs/resctrl/rdtgroup.c |  2 +-
+ 3 files changed, 48 insertions(+), 26 deletions(-)
+
+diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
+index e62a277dee85..a1837679b27a 100644
+--- a/fs/resctrl/internal.h
++++ b/fs/resctrl/internal.h
+@@ -405,7 +405,8 @@ void cqm_handle_limbo(struct work_struct *work);
+ 
+ bool has_busy_rmid(struct rdt_l3_mon_domain *d);
+ 
+-void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free);
++void __check_limbo(struct rdt_l3_mon_domain *d);
++void release_limbo_rmids(struct rdt_l3_mon_domain *d);
+ 
+ void resctrl_file_fflags_init(const char *config, unsigned long fflags);
+ 
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index b8f4e1ff4083..020140b794a7 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -124,13 +124,36 @@ static void limbo_release_entry(struct rmid_entry *entry)
+ 		closid_num_dirty_rmid[entry->closid]--;
+ }
+ 
++/*
++ * Release the busy RMIDs of a domain that is going offline. Their occupancy
++ * can't be read any more, so they are freed without being checked.
++ */
++void release_limbo_rmids(struct rdt_l3_mon_domain *d)
++{
++	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
++	struct rmid_entry *entry;
++	u32 idx, cur_idx = 1;
++
++	for (;;) {
++		idx = find_next_bit(d->rmid_busy_llc, idx_limit, cur_idx);
++		if (idx >= idx_limit)
++			break;
++
++		entry = __rmid_entry(idx);
++		clear_bit(idx, d->rmid_busy_llc);
++		if (!--entry->busy)
++			limbo_release_entry(entry);
++		cur_idx = idx + 1;
++	}
++}
++
+ /*
+  * Check the RMIDs that are marked as busy for this domain. If the
+  * reported LLC occupancy is below the threshold clear the busy bit and
+  * decrement the count. If the busy count gets to zero on an RMID, we
+  * free the RMID
+  */
+-void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free)
++void __check_limbo(struct rdt_l3_mon_domain *d)
+ {
+ 	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+ 	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
+@@ -161,30 +184,28 @@ void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free)
+ 			break;
+ 
+ 		entry = __rmid_entry(idx);
+-		if (!force_free) {
+-			if (resctrl_arch_rmid_read(r, &d->hdr, entry->closid,
+-						   entry->rmid, QOS_L3_OCCUP_EVENT_ID,
+-						   arch_priv, &val, arch_mon_ctx)) {
+-				rmid_dirty = true;
+-			} else {
+-				rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
+-
+-				/*
+-				 * x86's CLOSID and RMID are independent numbers,
+-				 * so the entry's CLOSID is an empty CLOSID
+-				 * (X86_RESCTRL_EMPTY_CLOSID). On Arm the RMID
+-				 * (PMG) extends the CLOSID (PARTID) space with
+-				 * bits that aren't used to select the configuration.
+-				 * It is thus necessary to track both CLOSID and
+-				 * RMID because there may be dependencies between
+-				 * them on some architectures.
+-				 */
+-				trace_mon_llc_occupancy_limbo(entry->closid, entry->rmid,
+-							      d->hdr.id, val);
+-			}
++		if (resctrl_arch_rmid_read(r, &d->hdr, entry->closid,
++					   entry->rmid, QOS_L3_OCCUP_EVENT_ID,
++					   arch_priv, &val, arch_mon_ctx)) {
++			rmid_dirty = true;
++		} else {
++			rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
++
++			/*
++			 * x86's CLOSID and RMID are independent numbers,
++			 * so the entry's CLOSID is an empty CLOSID
++			 * (X86_RESCTRL_EMPTY_CLOSID). On Arm the RMID
++			 * (PMG) extends the CLOSID (PARTID) space with
++			 * bits that aren't used to select the configuration.
++			 * It is thus necessary to track both CLOSID and
++			 * RMID because there may be dependencies between
++			 * them on some architectures.
++			 */
++			trace_mon_llc_occupancy_limbo(entry->closid, entry->rmid,
++						      d->hdr.id, val);
+ 		}
+ 
+-		if (force_free || !rmid_dirty) {
++		if (!rmid_dirty) {
+ 			clear_bit(idx, d->rmid_busy_llc);
+ 			if (!--entry->busy)
+ 				limbo_release_entry(entry);
+@@ -843,7 +864,7 @@ void cqm_handle_limbo(struct work_struct *work)
+ 	if (cpumask_empty(&d->hdr.cpu_mask))
+ 		goto out_unlock;
+ 
+-	__check_limbo(d, false);
++	__check_limbo(d);
+ 
+ 	if (has_busy_rmid(d)) {
+ 		d->cqm_work_cpu = cpumask_any_housekeeping(&d->hdr.cpu_mask,
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 57ab090072c2..5d0351453c2f 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -4590,7 +4590,7 @@ void resctrl_offline_mon_domain(struct rdt_resource *r, struct rdt_domain_hdr *h
+ 		 * the RMID as busy creates RMID leaks if the
+ 		 * package never comes back.
+ 		 */
+-		__check_limbo(d, true);
++		release_limbo_rmids(d);
+ 	}
+ 
+ 	domain_destroy_l3_mon_state(d);
+-- 
+2.34.1
 
