@@ -1,85 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793275170;
-	b=2rlomi2PF9w4PxfcjfgQW9K1fFv+9ud1zN1x5rwuJegbVrj17De/Dm2VOQn/k48rWoyq
-	 s8BQfmVe9zUBpRDolAzxs74v4qr/Bj290CZIxw6JYVnuO4Ch8Q/q8VSMEs13m2E2TYFtF
-	 ihbP4ESg/40ASQAmMgYwCWfR8/Iybcs3SjLdeeLPb4DICMKl8enK/XgK+wK682fxpg52Y
-	 oXD2isTi9+WJqe9rG+n3nGWcd65POzGrFk4A2ZXAXaquOeyc6kTMBY3AWjeURmFHBweqH
-	 jMURgOIzOTQhvseWP1zHwxvrN8/rtxwgNfTjYlOZzgtihOe+ZjYMHj6vs4BKHv6TtUw==
+	t=1793275234;
+	b=mNH+2FDO2Lv/IiH2zoN/PIcRSPfvyT6MsHkocoeYeFN27JhC34XCYB/2owjv5wjKaKhk
+	 nYSQ90S/ChD7Izc9+dGnhKZzUcXmfw2l1Z2J2fJ5X7arnK6KVGgxIbs7ZLSoCDCv4p5VH
+	 PCMBvsvMv54RPV3TIy20k39FnBCMAHen3brvGk9tG5ZTwxFvxOb04vJHfIvFGlat4rw9y
+	 91EpxFb/ZW8ji+ExezKknu1pAv37wgZnFMp+myw+VVjCjX6UR3mSwJI86OJ8tvBs2q8pD
+	 M2dZJxaqyBBXrW/UAI0AAYgIrzUzf3a5w5wV4mZKYC7q1vDPa6n/w+RyJwt8o43oRug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793275170;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793275234;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Kd+swtvYfZs0J8oFeVX+a8iSMPxbbJG8efLH2k8fSb8=;
-	b=q+YViyXiSvZvq+l1ACIGIJOmhdSKJO1SjAKLO3RfMV+tAp1flHLXZjKcUVMP7iy9lcGe
-	 aCls+wxGA5/304I9ay4IuzgZVeShxEdFhz4Qky5jydVeAasEnz1kYkUDXOAiGnIZl3krj
-	 bgrNvYBAs27wOH0G+JeSc8laGh8wmBllKcwWGvofEkkPztOUTfiTgnQ5GitOXdRpMBY8M
-	 ZFibFp4gmSPt39kJWt/eGI1R62cvOsXYp91X+tuKYnDCeaS2j5V0VfwzbfgmhkuAQV/OI
-	 vRaCSnaWyuoFog3uNxfhS+LGRLkj93nOBGFwBbtgqkCB7alAQq04/0bAqM6zyPaBrcA==
+	bh=uiB5CX6SbDNNbgC0+8PGZVLff5sDTap/tEnkGLg1G00=;
+	b=xEjTzHG6h2S4bfrHNtS6roEJIfo7A3GWxUXJ3bfBtUfnpLxH/OPJce5Xtg1Fft9Qb5KX
+	 QkoPlGJjk+jdhKyp6jUyuc0VLG1FEyQZ37+jJqQEuuX11Vpw1zgWgY1DsNFSmwQzETXNV
+	 o8pbW9iJWisFm0OQjPnY/cWaM4s62gAqiB8097m50Krvwu26JXtWfFIwVl0HdMGvXKahh
+	 fdEXJONsdGm0uHfakWol+z1JlP5FPfVHuQFQves8VZDvDtKeYaHdKeTXaZmmC5YRAGsxT
+	 VaSz03xN+L23RGwcd52h9u45mSjPvG0beaaxOhKbdTDpsgSdHNGv2nSKRrpW13ZQaUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Os/RE/89";
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bGf4jmD6;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jqo8aOco;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 813C2606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:59:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 813C2606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E424606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:00:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E424606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Os/RE/89
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793275169; x=1824811169;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Whob8W8/E6AHzK3NRC5hMEQe3c5hrq5OPCUcin04J/c=;
-  b=Os/RE/89P4wdUYAjQVq+dbnDMTjj6lHPraYHgI9d+3cmDBUSHdXmk3b5
-   dvZ6WCx3ccubvqjs3xSg4hNLdAJ12J8vbG/Lm+xEiQ6WXj2upRpnQM4wP
-   szZcI6eMeBYhxjWmeZ364NXxlldFt8hKDTGiRwyO6XJWLNNktIEBNtH4W
-   8CWiuU6CYku+9nouhPZr45iIPkHUq/EIpkE+IeB8kQVUDlRy46xPKJIBr
-   NO6xnU1y+Y8UsfqfNjlAUuUgt9INa4+ziJy1cdTJ/mkXY3zuMtk4Ilija
-   0oN9FNxth1yf4cG4jrIeNbjbOaUtmdbE1SmYD8Qlm400A78mev4I1Vtjy
-   Q==;
-X-CSE-ConnectionGUID: HVjHEl8vTxu9GbZPJQw0SA==
-X-CSE-MsgGUID: XlegQYj+Ro63NbliGR9nmA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1892734"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1892734"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 04:59:29 -0700
-X-CSE-ConnectionGUID: 6Jg50fcWTlm6UmMAu/oSHA==
-X-CSE-MsgGUID: KFm0A/mlRrm3jTbAA5FXLA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5260201"
-Received: from gklab-096-123.igk.intel.com ([10.91.96.123])
-  by fmviesa005.fm.intel.com with ESMTP; 29 Oct 2026 04:59:26 -0700
-From: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-To: Lu Baolu <baolu.lu@linux.intel.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ning Sun <ning.sun@intel.com>
-Cc: Michal Camacho Romero <michal.camacho.romero@intel.com>,
-	x86@kernel.org,
-	iommu@lists.linux.dev,
-	tboot-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Mateusz Mowka <mateusz.mowka@intel.com>,
-	Adam Pawlicki <adamx.pawlicki@intel.com>,
-	Pawel Randzio <pawel.randzio@intel.com>,
-	Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-Subject: [PATCH v7 2/2] iommu/vt-d: Disable TXT TPRs before enabling queued invalidation
-Date: Thu, 29 Oct 2026 12:57:27 +0100
-Message-ID: <fa4cf46c2f7613806c47f7c39bd05980b7b0024e.1793273244.git.michal.camacho.romero@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1793273244.git.michal.camacho.romero@linux.intel.com>
-References: <cover.1793273244.git.michal.camacho.romero@linux.intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bGf4jmD6;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=jqo8aOco
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793275232;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uiB5CX6SbDNNbgC0+8PGZVLff5sDTap/tEnkGLg1G00=;
+	b=bGf4jmD6g0KzB6Tk/05biQR+sIUODRA1h+GwcqKteCYSLmkwUvEHZf5+F7MU/B8Ia9vcdU
+	ClyL+dh2llB3W1Kt3W5tzHUe0BoT4JbeqgxhISeTnoVxfJOpMICGVEua0N4RrHTrK8/ch9
+	JAotkCIm8X8aqcEVnRmfZHCTXDYxDBU=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-645-GmDkOuLVPd67IyMhpt5giw-1; Thu, 29 Oct 2026 08:00:29 -0400
+X-MC-Unique: GmDkOuLVPd67IyMhpt5giw-1
+X-Mimecast-MFC-AGG-ID: GmDkOuLVPd67IyMhpt5giw_1793275228
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49953abe51fso15791325e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:00:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793275228; x=1793880028; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uiB5CX6SbDNNbgC0+8PGZVLff5sDTap/tEnkGLg1G00=;
+        b=jqo8aOcowE8cKHQjYvbPsRaxu/4Mn5fZaFPudU4a33mCDnd9U8uFatoSKN/tqbh2P7
+         1/WBqJxcs4Q3MMWG1reqIMchK8LGNMFiiBpp6pdrIRqyrppjuOrpkyVST07iKSbtlblG
+         Z+di3I6LBDjjLK1LS23htTYvPNLUAtaidoVMVqHUYLhyHawaxpa7OKV6PtcAplby9KIk
+         4DVepYLx2GZsb4yYVP4JJTRGajFbXGcufd2thMR2vgvcN7eo5rt0lKUmmj6v8QARbA43
+         OIMN1fGXvcGd0D2pLTRO/SxsPYou+14y0lQMoyVqa6p/jsM1P9E95LUM51a9oPjYq0oa
+         nM9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793275228; x=1793880028;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uiB5CX6SbDNNbgC0+8PGZVLff5sDTap/tEnkGLg1G00=;
+        b=sQuLk3azGBF1aU6ovpp/8rSGw5C9ARU4nw7oHkjNkMxT46mkK5XDwvWFORW6SgUHB5
+         VBqVcdxpXLxghJTVNWM4IpE5MOBihheyvhnVPXXLSRVa2F3kvmv8Xs5XsCOCxxg050iy
+         CdVcHqVN4A8rdHObijrk0FVUpEt2CJm+6mswmefMAS1iqpI/qOki+/7rHd27zUf2NTJ5
+         kBi+cV+mte9Mu2ragVUVLkTM76vHOUIdL0VIgQU+dthH4qPffWwc1TdX8TpSeI9KMBtc
+         RfPHFyS3eq8ZoEcogvukNbF7R62OeSmhvPREcgULPmswJjL3fyJhf98Z5eE2A+pOzNZ1
+         lmqw==
+X-Forwarded-Encrypted: i=1; AKwUvBwabdZpYIABR9K3ibIwcudHd+l2f4yNnxZ0wFGmw30iuLXOHwEry4l5qiXTKzyyP18sAFzjgWJPKi0zGcs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJu882lSccz/PEjDEHLeoVnPEBNT6ladHe/dOBkVOB+pyKbCoL8
+	6GUJ0Kyyb/Zdz/yAdC1D+bdsHe2tX7rlYj4km5++hCQK6cOVIyF0C0XAmHoaqrmJPu8bx5Z5yVD
+	CZYpEAjp1ZwGE75YpyiVnrGFPMXLAf+rD9qN001e9+M61sIjCMt/mY3dCp2/whwdl0A==
+X-Gm-Gg: AYBFou1FT6n+YlGrRQ+zoDKiDfePgTLOsUTflmVwlS9Lz/bD0uWIJAgiQjJWC3Ch76O
+	wECpm0FlWv9TDghM9WRWjX1dw11OD/T9mf6JhO18nap48MMzmHlOHayA/n0CdXcl+cfbDrX1dTa
+	SUTRQdsjFpx2Y5PzD4b6qZ8WlVVo1tkIIweUZ8P4hZT9cO3N+P2Eq7oGh36IYA8dTG2zbNRKWrA
+	8qv0ubChqGU8KVVceplseM21yQNP9HpLvsmm0U4MzUBA5f2bm0PaOvfbF3848odVqkuRZlomlKw
+	jMkoJosL3uFrMP83SVQE4koR49mlAevWtTNtNwW/5cJRa5A2JQk8bbE/nHd+Ftq8i18qF9LBwLJ
+	XEMAmhrrdnNieonM+A5uK9jfUnZS+6Hg7DrNneKQKz0+wM79r2/hjmHVVftEDndBJwkw9R+QWbC
+	gqViZ+JvhAq8K0INH/ET10rWVNl+lRuVZzywRunqPhiPX2hfs=
+X-Received: by 2002:a05:600c:4593:b0:4a7:76fa:87e9 with SMTP id 5b1f17b1804b1-4a966d361dcmr120365635e9.21.1793275227979;
+        Thu, 29 Oct 2026 05:00:27 -0700 (PDT)
+X-Received: by 2002:a05:600c:4593:b0:4a7:76fa:87e9 with SMTP id 5b1f17b1804b1-4a966d361dcmr120365055e9.21.1793275227533;
+        Thu, 29 Oct 2026 05:00:27 -0700 (PDT)
+Received: from [192.168.188.234] (ip174-129-192-82.pool-bba.aruba.it. [82.192.129.174])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece5e4asm33255784f8f.59.2026.10.29.05.00.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 05:00:27 -0700 (PDT)
+Message-ID: <e291eaa8-c090-41a7-8e8e-9f86e58723b2@redhat.com>
+Date: Thu, 29 Oct 2026 13:00:25 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,99 +112,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] mctp i3c: Fix locking in an error path
+To: Bart Van Assche <bvanassche@acm.org>, netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Leo Yang <leo.yang.sy0@gmail.com>, linux-kernel@vger.kernel.org,
+ Leo Yang <Leo-Yang@quantatw.com>, Jeremy Kerr <jk@codeconstruct.com.au>,
+ Matt Johnston <matt@codeconstruct.com.au>
+References: <58aab766b8ce35d1a7ff38880853cedaec244bf1.1793044759.git.bvanassche@acm.org>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <58aab766b8ce35d1a7ff38880853cedaec244bf1.1793044759.git.bvanassche@acm.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When the SINIT ACM establishes TXT Protection Regions (TPRs), they block
-all inbound DMA to their protected range, including the IOMMU's own
-queued invalidation (QI) ring. If the TPRs are still active when QI is
-first enabled, the first invalidation faults with an Invalidation Queue
-Error and the boot hangs. On systems with interrupt remapping enabled
-this happens very early, in intel_setup_irq_remapping() ->
-dmar_enable_qi(), well before init_dmars().
+On 10/26/26 20:59, Bart Van Assche wrote:
+> If netdev_alloc_skb() fails, mctp_i3c_read() jumps to a label that
+> unlocks mi->lock although that mutex has not been locked yet. Fix this
+> by jumping to a label that only frees the skb. This bug has been
+> detected by the Clang thread-safety analyzer.
+> 
+> Cc: Leo Yang <Leo-Yang@quantatw.com>
+> Cc: Paolo Abeni <pabeni@redhat.com>
+> Cc: Jeremy Kerr <jk@codeconstruct.com.au>
+> Cc: Matt Johnston <matt@codeconstruct.com.au>
+> Cc: netdev@vger.kernel.org
+> Fixes: 2d2d4f60ed26 ("mctp i3c: fix MCTP I3C driver multi-thread issue")
+> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+> ---
+>   drivers/net/mctp/mctp-i3c.c | 5 ++++-
+>   1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/mctp/mctp-i3c.c b/drivers/net/mctp/mctp-i3c.c
+> index 4e857dd5df64..59e7bf56fce3 100644
+> --- a/drivers/net/mctp/mctp-i3c.c
+> +++ b/drivers/net/mctp/mctp-i3c.c
+> @@ -112,7 +112,7 @@ static int mctp_i3c_read(struct mctp_i3c_device *mi)
+>   	if (!skb) {
+>   		stats->rx_dropped++;
+>   		rc = -ENOMEM;
+> -		goto err;
+> +		goto free_skb;
 
-Link: https://uefi.org/sites/default/files/resources/633933_Intel_TXT_DMA_Protection_Ranges_rev_0p73.pdf
-Link: https://cdrdv2-public.intel.com/315168/315168_TXT_MLE_DG_rev_017_7.pdf
+Why the additional churn? Just return -ENOMEM, no point in freeing a NULL skb.
 
-Tested-by: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-Signed-off-by: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
----
- drivers/iommu/intel/dmar.c  | 19 +++++++++++++++++++
- drivers/iommu/intel/iommu.c | 18 ++++++++++++++++++
- 2 files changed, 37 insertions(+)
-
-diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
-index ba675b08cd208..5e59aa46721e6 100644
---- a/drivers/iommu/intel/dmar.c
-+++ b/drivers/iommu/intel/dmar.c
-@@ -675,6 +675,25 @@ parse_dmar_table(void)
- 	if (ret == 0 && drhd_count == 0)
- 		pr_warn(FW_BUG "No DRHD structure found in DMAR table\n");
- 
-+	/*
-+	 * Only on a successful DMAR parse: if SINIT programmed TXT TPRs for DMA
-+	 * protection, disable them here, before any queued invalidation (QI) is
-+	 * enabled. TPRs block all inbound DMA to their protected range, including
-+	 * the IOMMU's own QI ring, so leaving them active makes the first queued
-+	 * invalidation fault (Invalidation Queue Error) and hangs the boot on any
-+	 * system with interrupt remapping enabled.
-+	 *
-+	 * If parsing failed, dmar_table_init() propagates the error and both the
-+	 * IOMMU and IRQ remmaping preparation will be aborted, before QI will
-+	 * be enabled, so the TPRs are left in place and SINIT's DMA protection
-+	 * will be retained.
-+	 */
-+	if (ret == 0 && tboot_enabled()) {
-+		tboot_check_tprs();
-+		if (tboot_teardown_tprs() != 0)
-+			pr_warn("tboot: Failed to disable TPRs. DMA is still blocked.\n");
-+	}
-+
- 	return ret;
- }
- 
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 2e3b3ab216f8f..8cb9096b8d732 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -2648,6 +2648,15 @@ int __init intel_iommu_init(void)
- 
- 	init_no_remapping_devices();
- 
-+	/*
-+	 * SINIT TPRs (if any were active) should be already torn down during DMAR
-+	 * Table parsing process. If the teardown failed, DMA (including the IOMMU's
-+	 * own QI ring) is still blocked, so refuse to continue a forced launch
-+	 * rather than hang mid-init.
-+	 */
-+	if (tboot_is_tpr_protection_enabled() && !intel_iommu_tboot_noforce)
-+		panic("tboot: Failed to disable TPRs. DMA is still blocked.\n");
-+
- 	ret = init_dmars();
- 	if (ret) {
- 		if (dmar_policy_force_on())
-@@ -2698,6 +2707,14 @@ int __init intel_iommu_init(void)
- 
- 		iommu_disable_protect_mem_regions(iommu);
- 	}
-+
-+	/*
-+	 * Release the TXT heap mapping if it is still held. TPRs (and the
-+	 * heap) are normally torn down in parse_dmar_table(); this is a
-+	 * safety net for paths where no TPRs were active.
-+	 */
-+	tboot_free_txt_heap_mem();
-+
- 	up_read(&dmar_global_lock);
- 
- 	pr_info("Intel(R) Virtualization Technology for Directed I/O\n");
-@@ -2707,6 +2724,7 @@ int __init intel_iommu_init(void)
- 	return 0;
- 
- out_free_dmar:
-+	tboot_free_txt_heap_mem();
- 	intel_iommu_free_dmars();
- 	up_write(&dmar_global_lock);
- 	return ret;
--- 
-2.43.0
+/P
 
