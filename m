@@ -1,70 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.244.194.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793259942;
-	b=hcvgr8C+s29rqn8l70W18racEMGOP0yNLBz3BlVWLUJpEZbx2xXs2kgrPFk8pm8p4WPR
-	 4bY7+Rhb+pfd/MIE0cfxAkyjlzGL4IonrmU+dQJkDZrRbEGx656uVddi3RufPIRJx/oln
-	 0bWZxAobIAGufg9CHYSttqEivt6MbCQpenXdAL3VLGswB5gTUxjRUahBOxd4dHLthedLV
-	 TQFu5HNvDHEIpTVqzcENVkrWPhvUsM9KIVfz0jRBpaBxJsFVQubwNZLxNRdmf+zXfqFA3
-	 aT3UMBzUW83+5KC4qje9/qPE0bn3i5X9FlTxmLT5qCdUbCHFToUXjpnI6RhDAKk+t5Q==
+	t=1793259974;
+	b=PxakuuDZr1tJTVYJ+zFudSJDQgBNAk+bRpf1yZ3jn34d7si2XlnSzNX5oz01s4I7k1BL
+	 0sNWycgl8THNxomSQ+zn4lVO7meTsmZaswD3zFSKAxePOkJU9HAoWtIFyWM+wLtbyZE4J
+	 LlNwjE/pe1OqDWaZmi2m6D2COkw6sAZJAQyRrJ6Poad5Gl/5UeSIpY4DKiTA5Rw3dzUOQ
+	 4AnV2kSkOYroIDewkH7O51ajIlATnCC+nAiCuAH3RsAAb8i7FW/Ce9JNJZYFdFeWfMGJ0
+	 vOBryMJMkC+FX6+NxKMWb+JokJpmvdANY9rACQhAEoIGNWsDKmX701BjgAzbIL5b0Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793259942;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-NC-CID;
-	bh=pKXJ9E/wDf0kP1q1OSywZuqVlXmxeGyksVbZY8r7vL0=;
-	b=RX9XlA+YaHyZi3BzWl6Epw+tGJMMsAw26ETiXF7+djETrcC3i2/u2BSFyMzhpVDROAOf
-	 IAI+fZ/6hAhWYCVFpS3Hb+dJeUGvLZ1YAadEIY9qgO4VbI1lapiVhZA1DYETsJzdSh6SH
-	 Gci3hbDhG2h6XiyudX4C6sXCb4pslUcsHtpKlhueU3k4WfsoCHeak65TpNh01K1aUDAcb
-	 Uk0xmsHwLftbWAY6+DCLYMH7ElbIBpTHcqezr+Kiao55S+Afv8HKR3zH0Lp1ZAv3FZJKv
-	 xeSaoLKv+oFier2ZwxsL9lbrJsO4CAHHK824+6pxItAmGvkBFvLZR1z29HF1TfOV1bQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793259974;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=hDPcx0zS9C4uw8gDkeYaMVywK+rChCE62DCbks73waY=;
+	b=Pgx0zrdy/j7m0o+6o9nafPHZtrTHRTHQ/rzjZL2/NloGHwlIAfnCbht3gTu/G6H9xdGq
+	 mz7kHWX/86Ib7sIFV7L8hFPsWNiJ7NAi3biHLIgo6he4KqnbMoSSm8er4P4DOX8UzSxnW
+	 sEeHQr4OEsRrMD+Hqxsp1/LuCH7tvdqD0ezGDpQJ1+C5SoMlB6lEwhOOqpgHYrXtWoDPU
+	 rsnF45D1sUkE2R+tWtRcWvncvSf1jNxkbuW0qd9Fhoz4vzBBfvcdztyutqLxKW0ltEeoD
+	 Vybnjl+SiuAzh9Zehwdlt9lcmEiCfx3Zo3+QHFgmbxz0fBYPys5hKIyU/cdAWnCeWTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=EGqMfG86;
-	arc=none smtp.remote-ip=185.244.194.184
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [185.244.194.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gkgeZMka;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EA4E606A31F;
-	Thu, 29 Oct 2026 07:45:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EA4E606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C3C606A31A;
+	Thu, 29 Oct 2026 07:46:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52C3C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=EGqMfG86
-Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
-	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4jFbqN619Nz9Qf6;
-	Thu, 29 Oct 2026 08:45:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1793259904;
-	bh=CtYdAddGRXFSFdteXA7RoueKJMyhgNC1sNbkP1+8NJs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=EGqMfG86tSl6K2u5004HpfDVj4znLTtqh5DYC3sQ633PPybiAoPaflJzBXn5mRzBk
-	 lDX20JYaQiMV7CW0uMduT5AAQuoY0HaGR5cbA26ECWqSS+ja8y+dLfcTDFzjZ2USFa
-	 axP0stqtymnFs+FgFT05RBkUoDg0iANhCZ0TwO941Cv1L6Bbx9vKH6zZ1vTsD5OLou
-	 b7vaom3aQKM32nIVhQaQpuDJ96aLQPx4EVEMk22CIteXQMz9ePcftDcbC2r+mr1CmJ
-	 ybL9if1GoQVIX2F93BHAhuXBL1q/gV5qY0gSpwunGdNo2YPnSRI6B7cQmZCBcm3OQp
-	 C5nZVdzCj1Ebg==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by relay01-mors.netcup.net (Postfix) with ESMTPS id 4jFbpd57PFz7yQT;
-	Thu, 29 Oct 2026 08:44:25 +0100 (CET)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jFbpc5Xs7z8svX;
-	Thu, 29 Oct 2026 08:44:24 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id DAD785FA6A;
-	Thu, 29 Oct 2026 08:44:19 +0100 (CET)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <a4edbfec-7343-479b-8488-38bcc3f23ece@leemhuis.info>
-Date: Thu, 29 Oct 2026 08:44:19 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gkgeZMka
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793259975; x=1824795975;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=7nM3qfG5zpENM3bUedHWCR7ahkBU2tOxlJw8SAC78uc=;
+  b=gkgeZMkaK77DVMF9T7IPTUl9gayB79KmY9hbZc+ybxx4Cps6et+8TC7w
+   POrId6Qhjz2+q8opKxQxi/eJ8SniOotULsYADIfWbhCeqiilA2mrlfTsk
+   y0QiX+TLWL9MCpBIORsgVSfkom9WJSkI6gUwdiXhul7IbY3p/3/CgOQy/
+   sX5adh6QnaXdf196rHM6U8dIT6brqom7J5JmAhS48/dIgx0cfgQKra6Ne
+   42Fid5JiRfwms0z906LsrvTn8f/lEHKeRHDNhDnRisnbHcDFx0S+U0te8
+   NOCBGZR+8TWKKqYXl56SXgXXgYFB0kXloLfmsbUuofeRc1fpK6U1MDrXD
+   Q==;
+X-CSE-ConnectionGUID: 9iQC4CMHTm6DgXPSiX6Icg==
+X-CSE-MsgGUID: 4ry5soaoRxS5yiujBTufPQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1891709"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1891709"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 00:46:14 -0700
+X-CSE-ConnectionGUID: MIFK3LTMRL2003gE9JEPAQ==
+X-CSE-MsgGUID: IYYn6DcrR1u62vNbhHPEPg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="4953506"
+Received: from carterle-desk.ger.corp.intel.com (HELO [10.245.245.57]) ([10.245.245.57])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 00:46:10 -0700
+Message-ID: <3d074141-2360-4a63-9fcb-ac8f86a8cbb0@linux.intel.com>
+Date: Thu, 29 Oct 2026 09:46:45 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,40 +73,113 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: chipidea: otg: fix fsm deadlock and B-device gadget
- registration
-To: Xu Yang <xu.yang_2@oss.nxp.com>, peter.chen@kernel.org,
- gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, jun.li@nxp.com, guptarud@gmail.com,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20261015084140.61544-1-xu.yang_2@oss.nxp.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <20261015084140.61544-1-xu.yang_2@oss.nxp.com>
+Subject: Re: [PATCH] ASoC: SOF: Intel: hda: Stop the controller before freeing
+ its DMA buffers
+To: Sasha Levin <sashal@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Daniel Baluta <daniel.baluta@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>, sound-open-firmware@alsa-project.org,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ yifan2.li@intel.com
+References: <20261028144446.992948-1-sashal@kernel.org>
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <20261028144446.992948-1-sashal@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <179325986033.965064.17849910304133225518@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: DAD785FA6A
-X-NC-CID: NA0sLkAT/+lE09eQUdVQHRSHCgVJEgML/RESAsK3YazA3iwjpDg=
+Content-Transfer-Encoding: 8bit
 
-On 10/15/26 10:41, Xu Yang wrote:
-> From: Xu Yang <xu.yang_2@nxp.com>
+
+
+On 28/10/2026 16:44, Sasha Levin wrote:
+> hda_dsp_probe() starts the CORB/RIRB DMA engines through
+> hda_dsp_ctrl_init_chip(), but neither hda_dsp_remove() nor the error
+> path of hda_dsp_probe() stops them before hda_dsp_stream_free() frees
+> the CORB/RIRB ring buffer and the position buffer.  Unsolicited
+> responses also stay enabled, so the controller can keep writing RIRB
+> entries into the freed page.
 > 
-> Commit dd0c03d68522 ("usb: chipidea: udc: support dynamic gadget
-> add/remove") introduced two regressions on the OTG FSM path:
->  [...]
+> Until commit 9e6966f70404 ("ASoC: SOF: Intel: hda: Keep non-alt mlinks
+> powered at probe on ACE2+"), hda_init_caps() dropped the initial
+> references to the non-alternate links, and dropping the last one
+> stopped the command DMA, so a probe that failed later, e.g. because
+> the firmware is missing, did not leave it running.  Now it does, and
+> as the probe runs from a work item, the device stays bound after the
+> failure, with bus mastering enabled and the DMA engines pointed at
+> freed memory.
+> 
+> Normal removal resumes the device first, which restarts the command
+> DMA, so there the ring buffer is freed while the DMA is running until
+> pci_disable_device() clears bus mastering.
+> 
+> Stop the controller with hda_dsp_ctrl_stop_chip() before freeing the
+> buffers, as is done on suspend, and export it for use from hda.c.
+> 
+> This was reproduced by binding SOF in DSPless mode to a QEMU
+> ich9-intel-hda: after the probe fails with "SOF firmware and/or
+> topology file not found", CORB and RIRB DMA are still running with
+> unsolicited responses and bus mastering enabled, and the page they use
+> is soon reused as a page table.
 
-Rudraksha Gupta: Have you tried if this fixed your problem? Or was it
-fixed some other way meanwhile?
-BTW, this patch afaics should also have this before the Closes: below:
+This is indeed a possibility which I have overlooked.
+FWIW, Li Yifan spotted the same issue earlier:
+https://github.com/thesofproject/linux/pull/5976
 
- Reported-by: Rudraksha Gupta <guptarud@gmail.com>
+but using hda_dsp_ctrl_stop_chip() is the better way.
+> Fixes: dd96daca6c83 ("ASoC: SOF: Intel: Add APL/CNL HW DSP support")
 
-Ciao, Thorsten
+Can you drop this Fixes tag, the hda-ctrl.c hunk will not apply nicely
+to older stable kernels
+With the removed tag:
+Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
 
-> Closes: https://lore.kernel.org/linux-usb/8e659c4f-723b-4241-9c2b-8ea42c6c3600@gmail.com
-> Fixes: dd0c03d68522 ("usb: chipidea: udc: support dynamic gadget add/remove")
-> Assisted-by: Claude:claude-sonnet-5
-> Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+> Fixes: 9e6966f70404 ("ASoC: SOF: Intel: hda: Keep non-alt mlinks powered at probe on ACE2+")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+
+
+> ---
+>  sound/soc/sof/intel/hda-ctrl.c | 1 +
+>  sound/soc/sof/intel/hda.c      | 4 ++++
+>  2 files changed, 5 insertions(+)
+> 
+> diff --git a/sound/soc/sof/intel/hda-ctrl.c b/sound/soc/sof/intel/hda-ctrl.c
+> index aeb34310eebd6..333f6bbea7539 100644
+> --- a/sound/soc/sof/intel/hda-ctrl.c
+> +++ b/sound/soc/sof/intel/hda-ctrl.c
+> @@ -349,6 +349,7 @@ void hda_dsp_ctrl_stop_chip(struct snd_sof_dev *sdev)
+>  
+>  	bus->chip_init = false;
+>  }
+> +EXPORT_SYMBOL_NS(hda_dsp_ctrl_stop_chip, "SND_SOC_SOF_INTEL_HDA_COMMON");
+>  
+>  MODULE_LICENSE("Dual BSD/GPL");
+>  MODULE_DESCRIPTION("SOF helpers for HDaudio platforms");
+> diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+> index 4dbba9186b29d..2a40cb9bf24d9 100644
+> --- a/sound/soc/sof/intel/hda.c
+> +++ b/sound/soc/sof/intel/hda.c
+> @@ -939,6 +939,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+>  		hda_dsp_ctrl_ppcap_enable(sdev, false);
+>  	}
+>  free_ipc_irq:
+> +	hda_dsp_ctrl_stop_chip(sdev);
+>  	free_irq(sdev->ipc_irq, sdev);
+>  free_irq_vector:
+>  	if (sdev->msi_enabled)
+> @@ -1006,6 +1007,9 @@ void hda_dsp_remove(struct snd_sof_dev *sdev)
+>  		snd_dma_free_pages(&hda->iccmax_dmab);
+>  
+>  skip_disable_dsp:
+> +	/* stop CORB/RIRB and position buffer DMA before the buffers are freed */
+> +	hda_dsp_ctrl_stop_chip(sdev);
+> +
+>  	free_irq(sdev->ipc_irq, sdev);
+>  	if (sdev->msi_enabled)
+>  		pci_free_irq_vectors(pci);
+
+-- 
+Péter
+
