@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793301900;
-	b=23NSKY1hW041QtTPANlETwY+U3C7FbB3zB4XExaMOlaWSg8dB1GGcPhqGdo2w+N53Lxr
-	 /9FaCA5TK0d344HaGKC/vpByOLPPywbpcSrrXBxeRL1fjaycfVv630xMH3hie6fWwUUJf
-	 +Iay4oK8pUEX5ATf/9OZC+AiMDSNJZBy2Ijch36UHMe0wnDpi+qYrt/xqPB26OdmHPCMM
-	 95qVacRSSFw61npwL1rFXtkNMwEI34VrP8A8aAUOOaJIls15IFhZpThROwLOq7SRYeMyd
-	 Qp4IINCGZxeHHuTdEI1r/4uLBdWbeNhJIi2dNCySG4o1DoWL7HglM7ieunvSUKfY5ZQ==
+	t=1793301998;
+	b=CKGoNJ5kUrxQTaoUJdDNGH2K8mNg0mpVfBIiLT/KHOIIRsZxD0CTCJmobKjSzdAIq3Uc
+	 NQKOU9zxR4TkXvXAIK9WYtQpD1qcezXxQ7HWCv61zFjJ3V5A08W/nUmQ7DdkMh2p1v3iz
+	 nqfOQRc9o3bTKjCv8Gp2rCOD1Ng7ZAUl7ECsIBr8guNHgnw0HtPz7b7ynFArZ4E+B1vPn
+	 RBzEhXDLzSkAyAgEguxAI0jU8Lb3ANndXD5X9cc09RCADJuX5wzSiNI6QZGQt96K3Wn6j
+	 hCblfAvuHRgy/B6Gc0SwNzARahn+wJEr3SBv9LEfiUMeEmv2dxVUA8nH8r80vJvalxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793301900;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793301998;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=vHvd/q4O+h986N5mN9exXE8IloUVYJcmVGFfgDmC9Y8=;
-	b=Kg+BD/p0XP9B1w0HsSqm9SMy4VdNXllk58g/ve/uvfCDbcCwUvRkwr5NSm6q9lcPtjos
-	 iX4WY2cbFc+0is9IDCLd6O2UKhT8Wh2yLRcAJ92iOjtl6T+N3fDKn4QGffTbhBj2/R6T5
-	 2UCEYFaH5k49HffxIqv9IgV483ZdJ4AdIyFkizZyIG4DTsesESBiFjmWbeGclp57gsbZG
-	 3PR5qWJOZn4/nDv826IIG8QCF0swSbZRVbreL9hUGUJ5+7+Gxc9ul+35SbK3oBQT58vDk
-	 DzvXiGgc60hfo1gHDrtJ/Kz4+OOBlZezoXGqKShlZ1GQuYFDTfRg6IlExVxDt09LwWA==
+	bh=olq2oLw59YhnpeUJwxDmzWejxUeT+/sp90poHb2MYpE=;
+	b=ATKbgDg4k34QHeea4ieE8g7PT1f2EANyw/otOJwHBnVwdRZoz9kxaLQlOWmOy7UONAXd
+	 GP6B5+r4iRDuryPkAx0FWq3kBoYB+aRnUXSbJwHD4pQhePbLdiqxKl7ToyUiqcLxJlICP
+	 pxilwWSdusHHidRJ8qH8nQ90hK05tVFqt8ccK/AjVbw+JIC89cwvJLzwBDkX+sHbS5qP3
+	 n0c1STOBMOKjmskSPt8pP+2iTUcO4ZRSj9XR3BoTHn+iTq6853yclRKGqaqtkfuCvWpaM
+	 hh7pRfagvsBoVGV5A4tBME24rqrBBzbnn0I1r3YTs/0INQ2z6aFvChJ9Nyj9wrggEKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2m8gHYK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vuz79kYO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB61606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:24:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A96606A31A;
+	Thu, 29 Oct 2026 19:26:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h2m8gHYK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819681F01816;
-	Thu, 29 Oct 2026 19:24:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vuz79kYO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B31D1F01816;
+	Thu, 29 Oct 2026 19:26:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793301899;
-	bh=vHvd/q4O+h986N5mN9exXE8IloUVYJcmVGFfgDmC9Y8=;
+	s=k20260515; t=1793301997;
+	bh=olq2oLw59YhnpeUJwxDmzWejxUeT+/sp90poHb2MYpE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=h2m8gHYKiowIWGROOIGIp2lgHFP799kn2vRajWijcS7Fh+fc7BMZU1zMShcDg9HTG
-	 BfUh89iRO16QtmjcQSo0OlzshRrRS6mdNcVNOAxIUViFcgKe21b+qxwWBJcSGsHqoz
-	 VEeNeJRVMbHLUGisCtyZPe/4fbCJjZUzlBePLM6WgJguoHTt5sCY168SJ5lmJCrPKc
-	 05VZ7DuHlGYolvsBCbpYBiUfTe5Gup3enN/xMpqUH5GgftDE3ejr+Sv87B6DGXRF9c
-	 kSzpiRKxYKfg1rgxL6Bwcb/rrttSBxByJG4kKkAfBWuSaxJhga7fO1vvuLksPwZF5r
-	 Vq3miXW1MpUNg==
-Message-ID: <2c84d8ad-d189-4127-9d1d-8cf0eb40c43c@kernel.org>
-Date: Thu, 29 Oct 2026 20:24:52 +0100
+	b=Vuz79kYOC25Pp9Lahkn6JIoGjLKWZgFMbszt9wdYOSUiNklBr4qPAG+Z4n0nCZ1A0
+	 eTnnRFm9Rw4IsBqS8OzDtTl17wf+e48vjls768zrm5h2RnQ9WeHLCsdOSWJIIaeEOb
+	 YML9LUIT7+G5zuOu3mOEaeFf/7OJ1Hauz1eLBtTE5Z/wfuS50OqrjJRgjI1JwBkGI+
+	 kF1Ii/KT98x8jXIXfkV/UZVqCgi8xq9PU4qG3X67p4XghMEn7hf338VOMdjyjL/U8R
+	 ylDOaPrnvYV/ZL/kdu/Wn3yRVQ8rZ1F8Hz7yZiCTmDjZVn9p2Tb1lfA9FPtv+/Sj+Z
+	 orROyVbGDU/Kg==
+Message-ID: <0a1ad7d2-ff0e-4248-8f03-2a64a9134aae@kernel.org>
+Date: Thu, 29 Oct 2026 20:26:33 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,23 +52,14 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: use READ_ONCE() when cloning folio flags
- during split
-To: Zi Yan <ziy@nvidia.com>, Barry Song <baohua@kernel.org>,
- Ye Liu <ye.liu@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Ye Liu <liuye@kylinos.cn>
-References: <20261029-data_race_huge_mem-v1-1-112e331291c1@linux.dev>
- <CAGsJ_4wndM+uFwhX+7wdkm2Q8AkgVcw_4wgpObfw0DAZ1w+sVQ@mail.gmail.com>
- <b5dccfe1-3209-471a-a34e-f77fffdee797@kernel.org>
- <DMHE8BEEER1H.2BIY52NXATPIA@nvidia.com>
- <d44e0aef-ac50-4048-952b-50a0307a41cb@kernel.org>
- <DMHKCEKNMA64.3B6O5X5918GWI@nvidia.com>
+Subject: Re: [PATCH] mm/filemap: stop fault-around when the walk steps back
+To: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ Krystian Kaniewski <krystianmkaniewski@gmail.com>
+References: <20261028-jf-mm-filemap-map-pages-lower-bound-v1-1-0bf126e876d4@linux.dev>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -115,38 +106,51 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <DMHKCEKNMA64.3B6O5X5918GWI@nvidia.com>
+In-Reply-To: <20261028-jf-mm-filemap-map-pages-lower-bound-v1-1-0bf126e876d4@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/29/26 20:19, Zi Yan wrote:
-> On Thu Oct 29, 2026 at 10:54 AM EDT, David Hildenbrand (Arm) wrote:
->> On 10/29/26 15:31, Zi Yan wrote:
->>>
->>> data_race() would work too.
->>>
->>>
->>> The PG_waiters on the original folio/the original head page is not lost,
->>
->> Ah, so it's not on arbitrary tail pages, just the old head.
->>
->>> but there is a chance PG_waiters is lost in the new head, because
->>> prep_compound_page() uses __SetPageHead() and can ignore the atomic set
->>> of PG_waiters.
->>
->> Fun.
->> ...>
->>> Solutions can be:
->>>
->>> 1. Use atomic SetPageHead() in prep_compound_page().
->>
->> That sounds like the right thing to do?
-> 
-> Yes, simpler, but the atomic op can be costly at compound page init
-> time. My plan is to add prep_compound_page_atomic() for
-> __split_folio_to_order() and the atomic version SetPageHead().
+On 10/29/26 16:50, Jose Fernandez (Anthropic) wrote:
+> filemap_map_pages() can dereference a PTE pointer outside the page table
+> it locked. KASAN has reported this as a use-after-free read [1].
 
-Makes perfect sense.
+Only read or also write? I assume only read.
+
+> 
+> Its fault-around loop walks the page cache and moves vmf->pte by the
+> change in index. A lower index moves it back. xas_find() can step back
+> to a lower index when a multi-index entry is split during the walk.
+> 
+> [1] fixes xas_find(), but the loop still relies on the walk never
+> stepping back. Stop the fault-around when the walk steps back. ->fault()
+> maps the faulting page if the loop did not.
+> 
+> Link: https://lore.kernel.org/20260904121301.200049-1-krystianmkaniewski@gmail.com [1]
+> Signed-off-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+> ---
+>  mm/filemap.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/mm/filemap.c b/mm/filemap.c
+> index b74bc1e5015c..1df776907140 100644
+> --- a/mm/filemap.c
+> +++ b/mm/filemap.c
+> @@ -3968,6 +3968,13 @@ vm_fault_t filemap_map_pages(struct vm_fault *vmf,
+>  		unsigned long end;
+>  		vm_fault_t map_ret;
+>  
+> +		/* A lower index could move vmf->pte out of its page table. */
+> +		if (unlikely(xas.xa_index < last_pgoff)) {
+> +			folio_unlock(folio);
+> +			folio_put(folio);
+> +			break;
+> +		}
+> +
+>  		addr += (xas.xa_index - last_pgoff) << PAGE_SHIFT;
+>  		vmf->pte += xas.xa_index - last_pgoff;
+>  		last_pgoff = xas.xa_index;
+
+Sounds like we want a Fixes: tag and Cc: stable? :)
 
 -- 
 Cheers,
