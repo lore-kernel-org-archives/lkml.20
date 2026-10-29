@@ -1,105 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793279032;
-	b=GscVirxNZU2O+RQL5y+1Wylsqtv+yFNphxa2ZQ9Y48+5NUA8GAXOvpQmk/zTAw5WEPvy
-	 eckxEMmnrJO1b9Q81OqiQOrZGN5U2Df2ElUAa+ANpRKdAVcHlW9uhONjviWDg3k4QA4E6
-	 Z7zLrxrB52AyaPcDvnLVupdgqFT5TPQnadxQSvkAzI1Td211Tsqqoy5MfhyOZqdMMCe0j
-	 Z9n0DkO3R5blytbP17NCpHF9JFhlorVZPj5QlQSOL5KJVQJ7cvCi050FCvn2at6KLm1Sb
-	 iEZkEKBGB7oauSOj7EpY0cApi/wErI/4tTNuQhthbzRwNHTDXvAAnISVoejCi/f4NKg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793279032;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=KF90/0GARuMWHyMTMB3Xwv0e5GgnH85LGW7qmrj44J0=;
-	b=5dkqjaGsnZqbS/ClxSEq03LwBqJCGrtFbzc/leEOadPHTFKjIqRKiwvwR8ZOzkp+HMsy
-	 jSvT2toIBY8ztRUam0wLIEl0iwVKAE2yj5k5iJWKn939Mh9EwVS+8qjyL98RxzaxXQr87
-	 k3KQynF9iaomSXPCNs/D8d1ll/nTwayfjoYGDVhNkrutIJppX7idVCORqZ2IGjNGKqCTZ
-	 k3EA2uoZIi89PdGtvk1AMMAduY3uiQN66dXpZBQTbly4XOjcU/mMgo27reeF9hpjcP8fE
-	 eWwk8nt8e9uzsHgYs0x+PKUcySzTS3XTl3mDWZ701kHhD/w1zo+ouwWvGxLG94jjntw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C50p55VE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793279065;
+	b=e8V8tIMgKcHuaNzi1ocKTgU35bxYt4WKQ88Ncav7MKGfsByn0FZ9zh7ETxkItT2cTv7G
+	 u8xNSDGlGdeMRH3CP6gL8yOH2nRXSIXEtLeO0jwWAg6n25P4bNsqpmoKP9SCIGGhlYd9w
+	 1ngbUz4c+rhiLGiaj62nvEc8pxobIkmgMe8qnKkFnTyXPBUagRunAIBMrdvPkpQzR53qY
+	 KSTaF0IcZBsyge+C+/q1CSoSSP1puFg9PDD8RTbn9nBzW2O+GwLuudLR01R68BYG7M85W
+	 2gMkk7jC5DGRvXnl4qWSokHMWGAeNyWhJQN0/3OzNXmQtTjb9c4paRbxuEUIwwGwH2w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793279065;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=E2rrldLe2TfvY3mZkpeBUbdafNpEiTljG0GeMKLp0yk=;
+	b=W3cb2CDV1Fmnn3IpPI63+o8EquFW0rHgK6N7gQP/JsJuf+6TGGgLpI5lm2+ksG88cRvW
+	 1jXKAqNIEwtQRDUeffYnO+agnrftAif+AHkY4SOYyCQ/J1D7Ox+UhCyBxPxNxbUvrWwDL
+	 EW0osN3AWj8Rj1+PxUOzO6MObj+ARUw/4WD93DCXOl+UyH7QcFIevSBstKvEGDEo6ExZy
+	 R8CpofB1eCWyXHYH0sIa7avoxCfQyUPuS80w/qO46dQkpioCPPmF8rYS8680cI2/Gk1tZ
+	 kfYSQP9Gq0OWIZHs+drpVCiFOTCKxH5uEGyhcqmRsbZF0VW1XjScNoWTnSdx7OeY8pw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=e1YkCQaD;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47D4606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:03:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A47D4606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F584606A31A;
+	Thu, 29 Oct 2026 13:04:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F584606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=C50p55VE
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-533778ab0bdso26565801cf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:03:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793279031; cv=none;
-        d=google.com; s=arc-20260327;
-        b=p12Y9On6TGWjOsY7fE22bfbFJFsvJdfgepyoba9xpd8OCNUvtTKyTBaDQpbvzBJSd+
-         BJcczij7gbzbeTExf/lkG/xT9017MbzAIny7oA2uGT8hZwtU4w6j2Ates5P9RWFuSK05
-         VKu46X1/l/GaqyiYaM9tsgtxsAvIOPGYN+hlbjx3SNRr2TasRBm/2iXCUBdyLitiIirV
-         /QPIQliXXpWJiBinPmZxwPUjqqw44sn43Zv2aJGOE5JtfRMoHfWU7axLGln1Ew7LJ7TP
-         nD9l3ghMB7JVY2QXyU2fNehPRqvSvKCwVIjJAAmoxW/RaCjLp5Mh4t7l9NeogObiaibB
-         VTKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=KF90/0GARuMWHyMTMB3Xwv0e5GgnH85LGW7qmrj44J0=;
-        fh=PvryXN9lCp4zrmfChmCSzPNFPS9DB4cSw2Pc+vGN0/E=;
-        b=baZrEt37UU6xKbTU2KRscuuPeKIZG56s/GmW/dpkaLfImdzOq0nj9qw4kYXAy8FmL4
-         Oa6JIevFDFHcP9aucc7TDMYbC1TzkqLvMmaHl2tMNEwyNZZkRuLWJ6WKF3eyjMCkBvxa
-         NZCivPAW143Rdy3qAphLE8uR3u77/UgtlHR3Q09i6hxKX7iPBlLfseccbZRPcaKppcVa
-         glRK9McbJa2f5a8cn6uFjpzw1RroyMkCf8GVp7ll2qxPIqMMt0g1kQz+NoKPyR3efrX3
-         7//zddsc7u/QdtcULww+N+b+Za+gJaTxtNIAw5MSSUUlbjhNwur6nL3ok1MVgmDuU8Ml
-         bFXQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793279030; x=1793883830; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KF90/0GARuMWHyMTMB3Xwv0e5GgnH85LGW7qmrj44J0=;
-        b=C50p55VE6UDgdJKjElhLNYeFnq2Z4W8Od9eebfXsNR9VAhMbuaucrBe3v34nD049Xh
-         yXm9F3TtGHSCUfiyL84unodeE/D/DA4pXmQUqEyGn/jbzwUXL1qz7UhjKg7x/77SkPix
-         fsjUQTeybn8SfOvtOZp7Ze23YYniYqtLT1UwOhsEzcphyyhlfKEtsn4tdZBRLgc6VGnn
-         khGCfASslvGnrRTfZsJpLUafVUjMR4da5X1aPxkPViKfkQjA5KDrJs0J0Eq/vsUuWr/y
-         tjS3p/M+jkqfdwuGB0zuj39WLEgzFkDffjSEsV+2WjPvf4qzkU/p2d+HMbeijeMHkNP0
-         cH/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793279031; x=1793883831;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KF90/0GARuMWHyMTMB3Xwv0e5GgnH85LGW7qmrj44J0=;
-        b=gc0CQHjV0I1w0w/IFX+t2djYPFYoFGiW32FPRJuSiT8I+93jRQQW6zpQvqRivzdfJP
-         OCc4OOflDbRqQ7D8I93QoRZ4Y9IvxWDuCw5CmXL+6wGuG/97xbuNgWOJMgLmgV4NjgwC
-         XJPoG5FDqJhIgYaqJOI3CS6BQEf/xck/SHSP2zRGHIsMuwXFkOPC1lNuL3SwuH9YojF9
-         dpi43dfxmnj4EJ+I1F6/Enh6Vgnl/ChUAR79kxmsfAvkxvuijwwsPqaVDTgqk+mTqB39
-         a8X3Foo+b51FmW7G9AMosm6GnHWCaBpRifbgkwH5CUbKyX7WAdBfX23/XAOHgaiaXJ42
-         ylXg==
-X-Forwarded-Encrypted: i=1; AKwUvBwaPwWrLMvMWnqNljrBrBmeekBnVMMk+qTaFKM6mn5Cl7b29o/zHqSCsv05FrZu7cUehXOSQ4Kurp3VZ4Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/XDFHYMNy9a4squLFgBFI65ebosZ+sewscsYJGkpWiIPPEqjd
-	v8tAiGZIjD/rUHoxL89OQgtPEzA+DoFH9LpmVA2n9PxDPjvEKANEPmL4h75ze2nEn9Wcwg4bQ3f
-	wVwBaGEtFK7i6Iy4CckDXj1P7AzZ3mDN75e4Vxoz4
-X-Gm-Gg: AYBFou1QceJpCdSBIV95/fsBcQ9LWrU9Cbghl+OfcnhMMDsaVdW2XFq+cZi5Uy+fDax
-	aNCzwolAmGC1SC7th/fVExfD4zTOO0Rp6eOcUlXzKpSgCJtG5eMl4QruaMfsGoSE9eaEmr5DCAZ
-	9wo+3KG+MgeCbGxrxr5ujqNhaVsiHzcun6McuBrOuuW6Eag0oGhADWfpY2krRWJX70SeNNcECCv
-	CiBbvVz+JJCEorFTScYZVcsSBkcj6a6V/lXi6jutGedmQ+Ttf9xkXNtQwt++nz78Eki05uTgJRl
-	JnKCEe/btnbfkeVoVTT1A32tlAOPea/JaeeIXqanWFcVnbM7FmGjjdQBtHPUF75F+TtGSQycNCC
-	X7iytp1p/vPAI4vz5eVb7I/tfgCzAcDr0MlR0j+G5r4BWTzq1hc8=
-X-Received: by 2002:a05:622a:528f:b0:537:b9f5:e05 with SMTP id
- d75a77b69052e-53fcc7cc0camr87903901cf.69.1793279029444; Thu, 29 Oct 2026
- 06:03:49 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 29 Oct 2026 06:03:47 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20261027154649.91571-14-griffoul@gmail.com>
-References: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com>
- <20261027154649.91571-1-griffoul@gmail.com> <20261027154649.91571-14-griffoul@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=e1YkCQaD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793279065; x=1824815065;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7j/9ifMemQ9Lboj1kWeh8DMVCXOP/dza77a5m0PuCuI=;
+  b=e1YkCQaDiyDk2r2lJ94yJeiKIh+ZulU7JxZ5Jo5694Qmq4vh/gkq3hAK
+   FpJlmlRo2Z+PebBkhZ1PAuqUEqSe91EI2nPzpIaGWnOoK/uUHAWMoPRaC
+   NAxVyntRGmfCxeNRA2ZIgr06DQzKoFwa7lV5owmF2Za869ga5UsTInp9W
+   mvfMpHv+db6bTApm2nobaqyxYgqaAP81+fsoSl0A3vVCIcp9aI1Uv4pZh
+   xVd+TauqX47kEWPwV7yhqm0Sk8lA7E01qcD1dOQVcSssudvtUSN+qX9vE
+   UMZQbXxB38ndkEQUpPZ5EjYtCOnrD/N511jaKpavZCB05Y7oETEUEH8QA
+   A==;
+X-CSE-ConnectionGUID: O/AklY9vSlq4/8ZlCY32wg==
+X-CSE-MsgGUID: mAcq9hWNTaGgTxcV3wOFQQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1902378"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1902378"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:04:25 -0700
+X-CSE-ConnectionGUID: 9yFsFRLlR/6P6dKJVhQ/iw==
+X-CSE-MsgGUID: 5PsaF7zjS5iKwRlik8zs9g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5234308"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:04:21 -0700
+Date: Thu, 29 Oct 2026 15:04:19 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: neil.armstrong@linaro.org, Michael.Hennerich@analog.com,
+	andy@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	dlechner@baylibre.com, jic23@kernel.org, krzk+dt@kernel.org,
+	linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, nuno.sa@analog.com,
+	robh@kernel.org
+Subject: Re: [PATCH v4 3/3] iio: adc: add driver for the MAX34417
+ Four-Channel High Dynamic Range Power Accumulator
+Message-ID: <auNEU_eozTEhRwGN@ashevche-desk.local>
+References: <20261028-topic-sm8x50-iio-max34417-adc-v4-3-d4baaf3ee903@linaro.org>
+ <SN1PR12MB25286BDD49B0947AC40257D1A56F2@SN1PR12MB2528.namprd12.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,67 +84,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Thu, 29 Oct 2026 06:03:47 -0700
-X-Gm-Features: AclHuK_J4_B8WHMj3lc3Bqk_zMBRzyMWVypxyBk9aFiFYwwISWnD_-KRrJmOcto
-Message-ID: <CAEvNRgFYecSKycFLkxwyK7gWZqKTXTPJVetSZm8YBbo0kg9tTA@mail.gmail.com>
-Subject: Re: [RFC PATCH 13/14] samples/kvm: Back absent pages on demand in the
- sample provider
-To: Fred Griffoul <griffoul@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Sean Christopherson <seanjc@google.com>, Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>
-Cc: Alex Williamson <alex@shazbot.org>, Alexander Graf <graf@amazon.de>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Alexey Kardashevskiy <aik@amd.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Aneesh Kumar K . V" <aneesh.kumar@kernel.org>, 
-	Ashish Kalra <ashish.kalra@amd.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Baolu Lu <baolu.lu@linux.intel.com>, Bill Wendling <morbo@google.com>, 
-	Borislav Petkov <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Christian Brauner <brauner@kernel.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Connor Williamson <connordw@amazon.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Dave Jiang <dave.jiang@intel.com>, David Hildenbrand <david@kernel.org>, 
-	David Rientjes <rientjes@google.com>, David Woodhouse <dwmw2@infradead.org>, 
-	Erdem Aktas <erdemaktas@google.com>, Frank van der Linden <fvdl@google.com>, 
-	Gregory Price <gourry@gourry.net>, "H . Peter Anvin" <hpa@zytor.com>, Hugh Dickins <hughd@google.com>, 
-	Ingo Molnar <mingo@redhat.com>, Jacob Pan <jacob.pan@linux.microsoft.com>, 
-	James Houghton <jthoughton@google.com>, Jan Kara <jack@suse.cz>, Jianxiong Gao <jxgao@google.com>, 
-	Joerg Roedel <joro@8bytes.org>, Joey Gouly <joey.gouly@arm.com>, 
-	John Starks <John.Starks@microsoft.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Justin Stitt <justinstitt@google.com>, Lorenzo Stoakes <ljs@kernel.org>, Marc Zyngier <maz@kernel.org>, 
-	Michael Roth <michael.roth@amd.com>, Mike Rapoport <rppt@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Nicolin Chen <nicolinc@nvidia.com>, Oliver Upton <oupton@kernel.org>, 
-	Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Samiullah Khawaja <skhawaja@google.com>, 
-	Shuah Khan <shuah@kernel.org>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Steven Price <steven.price@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Tarun Sahu <tarunsahu@google.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Tycho Andersen <tycho@kernel.org>, 
-	Vishal Annapurve <vannapurve@google.com>, Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, 
-	Xu Yilun <yilun.xu@linux.intel.com>, Yan Zhao <yan.y.zhao@intel.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, x86@kernel.org, 
-	Shuah Khan <skhan@linuxfoundation.org>, Fuad Tabba <fuad.tabba@linux.dev>, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org, llvm@lists.linux.dev, iommu@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <SN1PR12MB25286BDD49B0947AC40257D1A56F2@SN1PR12MB2528.namprd12.prod.outlook.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Fred Griffoul <griffoul@gmail.com> writes:
+On Wed, Oct 28, 2026 at 01:12:40PM -0500, Victor Chernyakin wrote:
 
-> From: Fred Griffoul <fgriffo@amazon.co.uk>
->
-> The sample provider fails get_pfn() for an absent page and keeps its
-> frames on a punch hole, so tests cannot exercise a provider that backs
-> a hole when it is asked for a frame, one that backs more than the page
-> asked for, or one that frees the frames that a punch hole gives back.
->
-> Add MPS_NEW_FILE_FILL: get_pfn() then backs an absent page with the
-> whole 2 MiB block around it, and put_pfn_range() makes the pages absent
-> again.
->
+...
 
-Can what MPS_NEW_FILE_FILL is meant to illustrate be illustrated with
-the ioctl that sets memory present?
+> > +/**
+> > + * struct max34417_data - MAX34417 specific data.
+> > + * @indio_dev:  IIO Device.
+> > + * @regmap:	Device register map.
+> > + * @lock:	Lock for protecting access to device hardware registers, mostly
+> > + *		for reading common accumulator count and control register.
+> > + * @input_correction:	Correction based on the Rsense value from channel nodes.
+> > + * @input_label:	Channel label from channel nodes.
+> > + * @cam_mode:		State of the Continuous Accumulate Mode feature
+> > + * @acc_power:		Saved power accumulator for each channel when in CAM mode
+> > + * @acc_count:		Saved counter for each channel when in CAM mode
+> > + */
+> 
+> All the sentences should have periods at the end
 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Fred Griffoul <fgriffo@amazon.co.uk>
->
-> [...snip...]
->
+Not really. The only requirement is to keep a consistent style (either all with
+periods as you pointed out, or all without).
+
+...
+
+> > +static int max34417_check_ovf(struct max34417_data *max34417)
+> > +{
+> > +	u32 control;
+> > +	int rc;
+> > +
+> > +	rc = regmap_read(max34417->regmap, MAX34417_CONTROL_REG, &control);
+> > +	if (rc)
+> > +		return rc;
+> > +
+> > +	if (control & MAX34417_CONTROL_OVF) {
+> > +		rc = regmap_clear_bits(max34417->regmap, MAX34417_CONTROL_REG,
+> > +				       MAX34417_CONTROL_OVF);
+> > +		if (rc)
+> > +			return rc;
+> > +
+> > +		rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+> > +		if (rc)
+> > +			return rc;
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> 
+> Up to you, but could reduce indentation here:
+
+This makes sense as the function is dedicated for overflow check.
+
+> 	if (!(control & MAX34417_CONTROL_OVF))
+> 		return 0;
+> 
+> 	rc = regmap_clear_bits(max34417->regmap, MAX34417_CONTROL_REG,
+> 			       MAX34417_CONTROL_OVF);
+> 	if (rc)
+> 		return rc;
+> 
+> 	return regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
+
+...
+
+> > +	*val = lower_32_bits(power);
+> > +	*val2 = upper_32_bits(power);
+> 
+> iio_val_s64_decompose(power, val, val2)?
+
+Good catch!
+
+...
+
+> > +		rc = regmap_set_bits(max34417->regmap, MAX34417_CONTROL_REG,
+> > +				     MAX34417_CONTROL_CAM);
+> > +		if (rc)
+> > +			return rc;
+> > +
+> 
+> Can the regmap_clear_bits() and regmap_set_bits() calls be
+> merged into one regmap_update_bits()?
+
+If they are separated, it should be carefully checked with datasheet.
+
+...
+
+> > +static unsigned int max34417_calc_input_correction(u32 rsense_microOhm)
+> 
+> Spell the return type as u32, to match the parameter
+
+If it's going to be used as an input for regmap APIs unsigned it makes perfect
+sense.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
