@@ -1,115 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793289451;
-	b=NJdcisMGGhECOsrcHe5Tfi0yJlXuqnUfxSAlITOeJRsu9OlWYMJWMFx2J3Wz8JDZRQZI
-	 +MZpzIALRMawcW80bt0zYh2JufXamYOUlBxEjgq0ebjJLGXTaNkwvl5xHtfcoXReDUOOy
-	 uJxeMyXWZATXXYt2RIbmSAaVgY3QplH1v0+E9lJNpFd8LwU5FlPTmwALxMl3EfwnbEzII
-	 GSf/Sk6qmTQNHR4k2/azbR0XSV/F6p7toAMCBZoN2wAFquiBQFcXakvndNy/JctJxJgqj
-	 +ljeBImWAbPhbOJSVnHcZCPVwgLY/bla2KwDnEtNFxeV3tEWTTVKoovGByhd4U+oEVw==
+	t=1793289492;
+	b=Os9G0zXP8jOA1zW+vBQGiS865iwGJ8efAvfX24MutUCYCctCwYOs+c0xJJF1HUtWrW/0
+	 +EJreXqCH/9vhAREwBEASnWaVXVjsZnQBJ7+wZUtOCCXeKew4qhGGtYO9gj5anA4dvzvk
+	 W2pl3Er35LVR7TRFUaaXR+ymxICfyC0ufe9ua9rI4xpw1S/ZgrZ3olH8HTaym9IHx3eVk
+	 uELIM37CMlpCJuMziiQPjtXqhd70CVuiC6UcWzWB8ydFY0U6RveVyCY6ebYFnuJ96iZGB
+	 vrF0tvjZFeCNBKweJ50+iicYeIFVcsWJUnoANvSh1Q+jpslVSaYSJUI1MsFxrxmIhHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289451;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Tr83yHUfWmbpaDbNaIgNsrKv+GzdebCxhsuHkRBV/4M=;
-	b=XLB+5hyy+RLtoov4EfTfVYTkIoc+UQK7a+NpF7/k8EOFeX+Cv5OZekJk4mo0yVhZxOof
-	 0X4nim9SDOBZ0sJ4tLH5+jrwWcw2Gp21eogFRhE+od4lO7RPLVd3fq1EPPle8lPJ3lokb
-	 tPuqtfnzmguqOygW5dOkZTrc25q2gmBteEEM5nF7ofYm4ps6olmf6JDo0mvp1K6EzlITA
-	 9XMC56JGJy+ymrwPgyAWr7UnHo8GbZQTNGWmkxEZa20Z6SZowKC59Bz3xqj/gB+z9/iif
-	 oIXFF42xcyzudpGHOGkObQDuYLJ1oecjZRTnKp6IEzGKaaK9s1ao1LZObPD+NlMBHpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793289492;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=k2I63yhJbwmslyvWvc9CH36xBxNme+lVQ3/KYN5XZAc=;
+	b=JGgHzUJVA9O6nOIH3uhDAQXOUzY2CbkQBUjZi0pHLVPsc43pDHexDCvRDzXDE5hsJ+o0
+	 bz+naiLwWrDeBVQDTSZHcfdABatvaqUnR2F2uG+mrS4E7dWp4VTDwmmtU1fYQW2ROWJh7
+	 fpyNWzqf8Y4zxhJxntW3mb5dmVz2r3snukA/MXmuu0m+aLG7ta4potb8ZmA/4Lp3ntofI
+	 bR+W+RYIB8AlM8UkOCAUBoWJGJnCuqX2owbCF/gJJK7LTfM/zn91PyDI5hbKjFpT8DPla
+	 lv777AtRNIJxRMHD99IypZlWQb2URJ+NF24hCu57SC50FSvMfVNxMFDU7BGzYlkSt4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=dU8OModw;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=b0qTM9We;
-	arc=none smtp.remote-ip=202.12.124.149
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40580606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:57:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40580606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZlsZ+lJm;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D8369606A32D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:58:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8369606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=dU8OModw;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=b0qTM9We
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id C0BB41D000B6
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:57:30 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-02.internal (MEProxy); Thu, 29 Oct 2026 11:57:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793289450;
-	 x=1793375850; bh=Tr83yHUfWmbpaDbNaIgNsrKv+GzdebCxhsuHkRBV/4M=; b=
-	dU8OModw4YLinvyCjQLfMbWJqvky+DOyKTGqibF8MUT1Xlgj4mjQV9ArcV5tb9EG
-	XeOl9dfcWm2rfHcDwy+XFIfpRI0J7ayBDpG/YdpjpdNLnGZoz2N74M5ROR0axP7o
-	gAdEaC6yA5A/icJBTerdpa6qahyF6h+ri078/OY50djsw/Sr+PEsj0nIDgwUlThF
-	GWe00FsIRZ/oZY6sfZUFJu5c0pmReSZefBx8oJNXI1beADzI0CvwegBGm4EufyZ+
-	bQmLA44s384i/6UNyOjVsYSg0LzHBhmcFjmZs0LYDx8oa/ohONEmtSJpdK5uvnMB
-	hvgpwpNNcyvXUNNqrdoT8g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793289450; x=
-	1793375850; bh=Tr83yHUfWmbpaDbNaIgNsrKv+GzdebCxhsuHkRBV/4M=; b=b
-	0qTM9WeiMq4uyEuebcevP9SUvIFHLoX9cBOPB+rS0Gb0n+COjsXw4zER2I8mQ3Y8
-	vMkb9WQt50IkgUNWjo8aPQXQKXNgq57IeaZ8YDZk9Ao6Bot6iq5N5KXkEOMvX5Gw
-	LoBU4ZM6x2xc7kB5FDT2jzZYVBd74EmZKuXZSz0m2o1YksTSdz/pNKEe30QTbGEL
-	f+isSB2T4GD08INamB0bjgCZvUjmNeV8fLyiZiPTaeSIHjQhyJe2bwuZVQVn5zra
-	a/CXmc7fgspyrzMUkT0kaZwX8gId5rF2PzIwTXQnCPiImIJzn8CSJMyeNK9E77jl
-	SR5Qb/NNqtO7lg83Or85Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793289450; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:Hzg8YjP7voTmbcveYoigZR4070Cu88Y+o6P8ye14s/f6Fp2
-	7RjMt2+dawaDGNT5mGQ/wqhN1Dtrnup+K3otgH91D13Cu0TMASRavoskpER3R2wC
-	Wf7r8X4vUIMGxJJzkQ+4GMoKhpnru8owj6vNzrNrJRli0nXSKhmh2nIICjvWejqq
-	o3XyS780QPyeatVpNOO8KFfTLPk+BdpL0acbFOlo3Cg75cAh/B2M7XaLSRqaoSSb
-	Yj0gKSl5ID+PbkdWRitAnwk616NZwC1dxtVG9Gh/MsQE2H65hBzW/7zoDcIIw9In
-	l/6VxKDkNQQMdzhXLqH/PqR7nEREBaJzUgLInwg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:hecsQBECakpCXpRprVUuzwjxk8xpMtkmFXMfQRfKLKU=:Uvb0jAgA6zzT764z8xA9jUk7EB9vjtbfSjqSMtrFU2Y=;
-X-ME-Sender: <xms:6WzjatjLCmk0hHAGBk6KUwz90l7Uph_OKpc1NuAlpksePtm_AU2_nA>
-    <xme:6Wzjat4p4INXBLJBFQ_UQSl5G5L78jh5_S1xa0Sp7KA2KC5UVFjzmghGGHfLeoHb5
-    s28L9s1dAt59iF2RzmN0MWhBjho1mOQ9fxpaE1gGUgHU0e4sMcJMZw>
-X-ME-Received: <xmr:6Wzjaokuy7Fs3aaZAhERcMoAuM3JIRqnb859J2Wdwal63SmBVEYhIwUrTS3kzRa9Pr8PeZH3a2kkOGZpzJvFOlLDR-CxgQiu>
-X-ME-Proxy-Cause: dmFkZTFyi+2BXmgCre10T8IqYNpRmOPTBMZFggV21Mp8I45O0utNIcqj4G8U0QngIABQA1
-    06QKSvlDo1XIu7S3avbFB8+h7iId8MOWhyEpY5yfUHRWS7wUy8RbvEtCJuUsewMcrqT0Vd
-    +Y14UbKzLYao27r3p0ci58AJGqujG1ecv5G+5f0gpCiGw7wJ9G3+osXWrN+xzetOtslkGH
-    HqJNK6abeaCylYjvS51S4mrugEZR4wvR8o+hlmNQ21zam8BKulMMPj3mWI8gHFWfvCOt0g
-    zO7ZYbOJk1p9sOuICobrOVanGykmbpoMmkrIBNupvCyzKxVWcutcw25LQvvRFvFzvN+/to
-    y0+lQD9lSrals6hj+Jf5+CMRScECPS1Pg2usfj07ENzboCwv7a0jxpgIn+OvEE9Njo1Dys
-    4glJS3ee+wxYetLu4gy/l870qmhROYYnbm2mqofkn+bWPkJWHZA/LyxoN6kZh1E0c+SzlZ
-    EyB+DY27BkEZEbPybzq5Gs4bHqiXFJ2Ui2Egw4cAsAUhebgoeetEDz/jrPTpgcDA4mvK+5
-    1UUwy/4xCnH8DIdZS5TdCDedtAuELAIeSArDI4k8Cmct1qV+iIJRgscMmIb4++y29j8NmP
-    NL7ekJ9SoV6un5WgLidSOS6CIXpz9yZA2N1Na7iI5MpuURHHxyNtUIlwyFnA
-X-ME-Proxy: <xmx:6WzjamPQEEeLS0xDaZeKusRojgjevAf7IO51pkcpijlMpautSCg6GA>
-    <xmx:6WzjaiplEc6Yeg_fgw0SlnM_JZVxcNyrtfcz-xWZ0xuC-CtIBJFrCQ>
-    <xmx:6WzjantlX83W8n8F-sxPxoyMvQ2R-ptBJPvQlQjAcvCPzFvff_R1uA>
-    <xmx:6Wzjau7Y-GeJLWYBhVtiY2IP7PyzPUo57ZzwRq7l9oSerAB70YTRSg>
-    <xmx:6mzjas3Rea8Omepb9mTNTNlmwVnpmyycnZcP3VxPlpiBQJwQJF2L0GZd>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 11:57:27 -0400 (EDT)
-Message-ID: <63c56460-9b17-415d-b27a-2df7a0308472@pobox.com>
-Date: Thu, 29 Oct 2026 08:57:26 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZlsZ+lJm
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5FC871682;
+	Thu, 29 Oct 2026 08:58:07 -0700 (PDT)
+Received: from [10.0.128.129] (e127648.arm.com [10.0.128.129])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 064583F59E;
+	Thu, 29 Oct 2026 08:58:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793289490; bh=APlMWSZByN0rN/4h418IJMR9VJaO/VjvM+xUFyTpx5c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=ZlsZ+lJm+78mnx59mp3Fr/wdFB+j3yE6brDgcrHapcB0TPzdmhIJ3P4D6f+WvTUJt
+	 G6xv5rirjpnFbwrYYxYMoDKURkjjwRpwXlNpDeDrOwJA73iAT/Rdbs94icH0w4hsjx
+	 LuC26PmEqd7sW+TfM29nrZ540yHh+zjKhjZyKJmY=
+Message-ID: <c4740152-e873-4409-b3a8-16c5a49548dd@arm.com>
+Date: Thu, 29 Oct 2026 15:58:07 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,45 +54,116 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/88] 7.2.14-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261028165942.107695352@linuxfoundation.org>
+Subject: Re: [PATCH v4 1/2] sched/uclamp: Fix race condition leading to
+ imbalanced uclamp_rq
+To: Qais Yousef <qyousef@layalina.io>, Ingo Molnar <mingo@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
+ linux-kernel@vger.kernel.org, Wei Wang <wvw@google.com>
+References: <20261029131354.11030-1-qyousef@layalina.io>
+ <20261029131354.11030-2-qyousef@layalina.io>
 Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261028165942.107695352@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Christian Loehle <christian.loehle@arm.com>
+In-Reply-To: <20261029131354.11030-2-qyousef@layalina.io>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/28/26 9:59 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.14 release.
-> There are 88 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 10/29/26 13:13, Qais Yousef wrote:
+> Static keys are not guaranteed to be enabled atomically across CPUs.  Or
+> across callsites on the same CPUs. Which means when sched_uclamp_used is
+> enabled, some CPUs/callsites will return true for uclamp_is_used() while
+> others won't, leading to asymmetric uclamp_rq_{inc, dec}_id. If we
+> decrement without increment this is safe as documented in the code. But
+> an increment without a decrement is a problem and will leave the
+> uclamp_rq in a corrupt state.
 > 
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
+> The reported case seems to happen due to callsites on the same CPU not
+> seeing the flipped state.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.14-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
+> Plugging the race is hard as discussed in [1]. Take it for granted and
+> do correction actions on going to idle to guarantee this state is
+> transient for a short period after uclamp_sched_used is enabled.
 > 
-> thanks,
+> [1] https://lore.kernel.org/lkml/CANDhNCqyXsZ6G77z+9s=rTO6BZifRG9+hVxMTah+tAv6pB6h3w@mail.gmail.com/
 > 
-> greg k-h
+> Reported-by: Wei Wang <wvw@google.com>
+> Fixes: 46609ce227039 ("sched/uclamp: Protect uclamp fast path code with static key")
+> Signed-off-by: Qais Yousef <qyousef@layalina.io>
+> ---
+>  kernel/sched/core.c  |  2 +-
+>  kernel/sched/idle.c  | 19 +++++++++++++++++++
+>  kernel/sched/sched.h |  3 +++
+>  3 files changed, 23 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index d7c3b43158dea..c6780358a7975 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -2111,7 +2111,7 @@ static void uclamp_post_fork(struct task_struct *p)
+>  	uclamp_update_util_min_rt_default(p);
+>  }
+>  
+> -static void __init init_uclamp_rq(struct rq *rq)
+> +void init_uclamp_rq(struct rq *rq)
+>  {
+>  	enum uclamp_id clamp_id;
+>  	struct uclamp_rq *uc_rq = rq->uclamp;
+> diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+> index 76f3c84ca6846..84301fc49e699 100644
+> --- a/kernel/sched/idle.c
+> +++ b/kernel/sched/idle.c
+> @@ -502,6 +502,25 @@ static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt
+>  	 * lost_idle_time of clock_pelt
+>  	 */
+>  	update_idle_rq_clock_pelt(rq);
+> +
+> +	/*
+> +	 * Due to a race condition when enabling sched_uclamp_used static key,
+> +	 * we can end up with imbalance where uclamp_rq_inc_id() has happened
+> +	 * on a CPU without uclamp_rq_dec_id() on another CPU that hasn't seen
+> +	 * the static key flipped. The race condition is unlikely, but ensure
+> +	 * the uclamp_rq() state is set properly on each entry to idle.
+> +	 *
+> +	 * The reset will cause the uclamp_max from uclamp_idle_value() to be
+> +	 * lost. Since we are imbalanced, hard to know what is right. So just
+> +	 * cleanup. This should be a transient error state once we recover
+> +	 * everything should work as expected.
+> +	 *
+> +	 * We need to be careful of some paths that can force idle with tasks
+> +	 * are still queued.
+> +	 */
+> +	if (uclamp_is_used() &&
+> +	    !rq->nr_running && unlikely(!uclamp_rq_is_idle(rq)))
 
-Tested on 2 amd64 systems and an arm64 virtual machine. Working well,
-no regressions observed.
+just checking nr_running isn't enough as CFS bandwidth throttling (a fun one
+recently!) will decrement it through dequeue_task_fair() without calling
+uclamp_rq_dec(), i.e. it's clamps must remain valid AFAICS.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+> +		init_uclamp_rq(rq);
+>  }
+>  
+>  struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf)
+> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> index 7d2ec527b8a25..d87bdbd2121df 100644
+> --- a/kernel/sched/sched.h
+> +++ b/kernel/sched/sched.h
+> @@ -3704,6 +3704,7 @@ static inline unsigned long cpu_util_rt(struct rq *rq)
+>  #ifdef CONFIG_UCLAMP_TASK
+>  
+>  unsigned long uclamp_eff_value(struct task_struct *p, enum uclamp_id clamp_id);
+> +void init_uclamp_rq(struct rq *rq);
+>  
+>  /*
+>   * When uclamp is compiled in, the aggregation at rq level is 'turned off'
+> @@ -3802,6 +3803,8 @@ uclamp_eff_value(struct task_struct *p, enum uclamp_id clamp_id)
+>  	return SCHED_CAPACITY_SCALE;
+>  }
+>  
+> +static inline void init_uclamp_rq(struct rq *rq) {}
+> +
+>  static inline bool uclamp_rq_is_capped(struct rq *rq) { return false; }
+>  
+>  static inline bool uclamp_is_used(void)
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
