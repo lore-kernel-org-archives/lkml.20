@@ -1,67 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.60.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793302486;
-	b=VhbFgev6QRnxYVA0kayqA3k2Oz0GdMqoZJW66vvb1AVaRKkQoiOf/QZl6uUdgu1CtbCE
-	 NC6ODDuZx5T5ckY8bnD6WLRZ7V8p3QMZFB4DcD+PnVMMR29Wd/9SqY0n3iPxQ3s1lI5Xs
-	 jv9Scz++yEpXXIdI195bXc+NCIDyfK8nGmQKhrZ4nkVLA/QTFUyvQzQAwVpFqHVYMj/YZ
-	 4V2JYilir5/qyvfuot+3uNqgAEptz9wswVCNXzNH+ZgL3DKRtZ8eNhRT7z1jOqEnWmYQ2
-	 7KfrU6Tm645WD//YoeFAPZcvRjfm2GRg4RiB1TbBJTGgYK9wKb2XfnwUhcpwcQTbYmw==
+	t=1793302504;
+	b=V9m+4oD1miXHIFttAn1zjgU+d2x6zLEjjoCCTSNIi6iSfb4nGDYfSvcYJ7ZAuLPUW4tk
+	 P4mvIJ2g+B/Dh9WFmsHrzlpwCiQdbiXwjsC7RlMPQ1lIg8tW3x95CphRWIHRkJ/yXh5b0
+	 AJAMerBZP/8BisTo04ITgJtUWi8KyETATSdbAHsZalNo19MRE+wmtF8ZH6mxGdd+o7Z01
+	 D8o/gpDM24Imicamhp/bVlEDgihHe0Z9pDSYDf2zjzblKe0vpKuqB72n84p2wk7HcYMvC
+	 y3M2rVm0qLP2ju38XhGC/lTVWP1iCmd8dXH6TmvOy6VtAcVHbU30Z2JqG21gqRelDEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793302486;
-	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:From:To:
-	 Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793302504;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=S44wys8E71CePiKvfI/lFmXkBchWBTeDphCEFyFk3Ao=;
-	b=0hFRbO6DHtDCjk5qacIoyp1W4FoY36fyBNpig7oU7+GZ/+mrgEEUiwzCD7zKeTOgG/Os
-	 w0AEbHFENzDzrhGJFulgknDDFn35ddRW6RnJacjbUvaekoJPW0Zx5+WU0DpJYyhNWMrSO
-	 zdIaTum7RynQybDV+ZqUFNawu1PuvocJ+so//E44JOWy74GU9jYiCUfzMaf/pJO2SoB5a
-	 fGbQkU0wCCb38OliAEuJBphdrN0003+kHdAE5YOz5A3oBiBbnT0k+YD+kjYRnzy2CZ1/j
-	 NXmT7BeOvFz3+UpySzKMyvRS4KmWIiwUsxHuch5WHAXm2OxYT7h6GNyfvsjAZJKbXQQ==
+	bh=laioZ8N0OQR8oGU3jFarnfPkuthFm2r6CwyVihbfb8I=;
+	b=H3v4YSTOig3Ae45Z4IAkVXYmvhVnEAV0XR0XWjvQljocrONEQdcO+ZH+lrxaXM6V/jyH
+	 rO1R/LaNoVrlWb1XldtF86kF0GJsbK4avl9Y7SGmFbw8GnCZF30SGNnvo/AgnU1cl+N7K
+	 eqIgVmVGlHmJWZiH9qXpus4uKCddI6x1nT85LtvWA9lMOMSfzGWFvgaCK4XtTaP4l47DP
+	 uWCdFCnjolJsSrF7ff0CHQsglHWqngSGcvF8BGClfG1wOGtpOGBolUj/RJwySgjJ0sppX
+	 yKHvkU5rKOgpHwTZlkeaYyczVOJYqIGe1x3/jgPFPK2gcVyGLTwtM2j168jrus2Pj8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yandex.ru;
-	spf=pass smtp.mailfrom=yandex.ru;
-	dkim=pass header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=W2dKFKVq;
-	arc=none smtp.remote-ip=51.250.60.165
-Received: from forward105d.mail.yandex.net (forward105d.mail.yandex.net [51.250.60.165])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xr4pNwCK;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B952606A31A;
-	Thu, 29 Oct 2026 19:34:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B952606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B70606A32E
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:35:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83B70606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=yandex.ru header.i=@yandex.ru header.a=rsa-sha256 header.s=mail header.b=W2dKFKVq
-Received: from mail-nwsmtp-smtp-production-main-34 (mail-nwsmtp-smtp-production-main-34.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:2499:0:640:3812:0])
-	by forward105d.mail.yandex.net (postfix) with ESMTPS id 398C5100045;
-	Thu, 29 Oct 2026 22:34:35 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-34 with ESMTPSA id NYpk4nSh00U0-MKwfbOCM;
-	Thu, 29 Oct 2026 22:34:34 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1793302474; bh=S44wys8E71CePiKvfI/lFmXkBchWBTeDphCEFyFk3Ao=;
-	h=Message-ID:Date:Cc:Subject:To:From;
-	b=W2dKFKVqr+3QFWQuMeVyDngvIHvQ/l6roqSmT9iWPFhY1mRYcm+d6L4OHR/5u6aws
-	 7XX7/6KB0qvgV9EPPHfAbACdL6mb7fUc5PB9xZP3jho2DIr4iZU2iFKizRMtV/5nh2
-	 z/+P4nGT7tgbsr/EMh1bCMsxCHHVO3nYWoA6kGRk=
-Authentication-Results: mail-nwsmtp-smtp-production-main-34; dkim=pass header.i=@yandex.ru
-From: Kupreenko Danila <keckerz@yandex.ru>
-To: sre@kernel.org
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andersson@kernel.org,
-	konradybcio@kernel.org,
-	abelvesa@kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH v2 0/3] power: supply: read-only CellWise CW2017 monitor for Redmi Go
-Date: Thu, 29 Oct 2026 22:34:14 +0300
-Message-ID: <20261029193417.551058-1-keckerz@yandex.ru>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xr4pNwCK
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e09aa5264so1379867f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:35:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793302503; x=1793907303; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=laioZ8N0OQR8oGU3jFarnfPkuthFm2r6CwyVihbfb8I=;
+        b=xr4pNwCKgYGulSw/az3ibQgRd3q7lIyi9gAtf0ESPFgOodSG05E/NuzpYrS9AdfFJq
+         /3XnLbnR81g0VIcYmNAbug97vSIHtPJoNSreJGScZ+D6+n1Z78pDSeecZp0ARZ8yxZqH
+         ySR0BaGEWVVQv+B6HqFTgKIAFx0ANskp4JqGTrj7rzVYeYttOkZ31xZduzyXAwfSW2ih
+         XSzjfCh99ugHcJbRPc3X5AyaqtFh4YJ7y9RXQUp5EUjP9Bp8EhJEJ4z9p3eh6h2Zr399
+         soNi82h30lyjo8knSvtarMORMcxjDxE8Fpywhu/VDW1XI8pwVNkPu1JITIMBxOj82+Ol
+         dnew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793302503; x=1793907303;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=laioZ8N0OQR8oGU3jFarnfPkuthFm2r6CwyVihbfb8I=;
+        b=jlgYSGi2vqknDleoF7yzNhiP4+QcpbM133zN4IwTgEWgy45DvOIoyBXGazaTeXmdGX
+         3oXlRg5yht6nv3KhKLbvvKl6WebHdiQhIPfL4EmkAUKVJT70B3uimpDioxaLxI57C0M1
+         it0Vv4dx49vP0iu5K6MY4+tmmI8LqWJYz1A8dZz2ictoHY4SLw5ecW/VHnhRbShO2hal
+         WnncNmRUaxDraMFBc4VxnPImiHcz07LP7wMOus3yn3wTZF7A9+5mjBv2fxRLSxfd8uzR
+         A7Ye06RUBsBLN2c7qnu7/WB7mU3T5VSpHEwUch9yxEr0w07qLuDKfBmMeR6eMTx7y5EG
+         2JaA==
+X-Forwarded-Encrypted: i=1; AKwUvBw89jcKXTaFA803jl+Bj6XvWb6Mupvb1Shn93MK9lXmHJtE+a7H62QM80xpvYDOERq9/9+FAC/mtVqS0lE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlkcKyUfwmUcXRE02HRZ1tyIF9pSrSUjsbH4IthCuST7g5Lrf4
+	gOXHJX2R9RUDRGeBS8tRNpMY0+JH44YmJcBlyjvt1b67CekVouiy5oka
+X-Gm-Gg: AYBFou3Vz+xE8/9VoFImFgth6doOigYWF94sXwPkFzEYq3zMdBBNUfjtk2Vbo1qH+Us
+	JX0M0eZAbrVFk5NK4IaACH/yZ3Y8aJuaF2rKV8Ybu2gs4/2vzWMygsKqIYCN/bd9gJKAig2ATFh
+	BonxXbT7nnBg5FxGPZFfb11AooI1AgcCD47g9u3O7GOEn83okoNZCdu0xJj3XtqtVvbFDzM3lwg
+	pnQWiqsp5a+4fk8bc2h71KMOhfde01iJ3gLXyZKD0CCER+ng1RnvQdJyqHv3O9KK96V8FPryCy3
+	q1C+tYk6ysdcGEkGnUi2M2DU08tVkgUBICre/YhstXSh/IPfT2sQwq5poS312ypVBrbnScy6hBy
+	/HkgVJLckl2giT+ztN3Q5hGQyNHBUilDFLVzAyaP7UpKyOJv2RkwHPioa4+7X1pvV2YuenmWBXe
+	4vkrzRqiDPvy1EcA5CJfBW8ENuf89cCDx95ZwR8iNMU4v9y01gpmeezi6kVpqzxP866UnzDT1sK
+	HqdrgbKgICsIzjJvqKkdK9/1DaMJrqDudjoU4SpfDt2ifcGBZpEIStU2N2HwbYesiokx2rzjt95
+	axyttZmiv5jxPZSxrAj+Yn4x
+X-Received: by 2002:a05:6000:250a:b0:48a:f073:336b with SMTP id ffacd0b85a97d-48e6e2fcd88mr842417f8f.23.1793302501851;
+        Thu, 29 Oct 2026 12:35:01 -0700 (PDT)
+Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e6eb81d48sm274585f8f.24.2026.10.29.12.34.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 12:35:00 -0700 (PDT)
+From: Andrey Misiurov <andrey.misyrov@gmail.com>
+To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>
+Cc: Jun Yang <junvyyang@tencent.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-sctp@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Andrey Misiurov <andrey.misyrov@gmail.com>
+Subject: [PATCH net v2] sctp: fix ASCONF address change on single-homed hosts
+Date: Thu, 29 Oct 2026 20:34:54 +0100
+Message-ID: <20261029193454.1028626-1-andrey.misyrov@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,123 +106,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kupreenko Danila <Keckerz@yandex.ru>
+Commit 9b2854f86f0b ("sctp: don't free the ASCONF's own transport in
+DEL-IP processing") refuses a DEL-IP of the transport the ASCONF was
+located by, so that a later wildcard DEL-IP cannot use it after free.
 
-Add a read-only power_supply driver for the CellWise CW2017 fuel gauge,
-its Devicetree binding, and the Xiaomi Redmi Go (tiare) I2C node.
+This also breaks the single-homed address change (RFC 5061 5.3.2). The
+host sends [Address Parameter L] [ADD-IP S] [DEL-IP L], the association
+is located by L, and DEL-IP L is now refused. The sender never gets an
+all-success ASCONF-ACK, keeps src_out_of_asoc_ok set and stops sending
+data, so the association stalls.
 
-Unlike CW2015, CW2017 has a different register map and battery profile
-protocol. The driver requires a gauge already initialized with a valid
-battery profile; it reads voltage, integer SOC and temperature but never
-writes CONFIG, changes the battery profile or resets the chip. Charging
-status is unknown; presence is not inferred.
+Fix the wildcard DEL-IP instead: look up the transport of the packet
+source rather than reusing asconf->transport, and clear
+asconf->transport when a plain DEL-IP removes it. The wildcard delete
+can now free the old asconf->transport itself, so point it at the
+surviving peer; otherwise a bundled chunk would reuse the freed
+transport.
 
-The CW2017 source is an independent implementation assisted by Codex
-(GPT-6). Firefly was consulted later as a behavioral reference, not as
-a source of copied code. AI assistance is disclosed in commit trailers.
+Found by manual code inspection while reviewing a backport of commit
+9b2854f86f0b; reproduced on a two-namespace single-homed renumber.
 
-Hardware testing on Xiaomi Redmi Go (tiare), postmarketOS, Linux
-7.1.3-msm89x7, using the original pre-v2 driver source (R5):
-  - module auto-loaded and bound to I2C device 2-0063;
-  - running srcversion matched the locally built R5 module;
-  - capacity, voltage and temperature appeared in power_supply sysfs;
-  - three consecutive measurements remained accessible;
-  - udevadm monitor observed power_supply change events, including
-    voltage and temperature changes at roughly 30-second cadence.
+Fixes: 9b2854f86f0b ("sctp: don't free the ASCONF's own transport in DEL-IP processing")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrey Misiurov <andrey.misyrov@gmail.com>
+---
+v2: the reworked wildcard DEL-IP branch could itself free
+    asconf->transport via sctp_assoc_del_nonprimary_peers() and leave it
+    dangling for a bundled DATA chunk (sctp_assoc_bh_rcv() ->
+    peer.last_data_from) and the following SACK; retarget
+    asconf->transport to the surviving peer. The pre-existing wildcard
+    SET_PRIMARY / sctp_source() point is left out of scope.
+    Reported by the netdev Sashiko AI review.
+    v1: https://lore.kernel.org/all/20261022163639.2566945-1-andrey.misyrov@gmail.com/
 
-The v2 change preserves the last completed sample across system suspend
-instead of overwriting sample.error with a synthetic -ENODATA. Polling
-is still cancelled synchronously during suspend and an immediate poll
-is queued on resume. The new sample can therefore be compared against
-the actual pre-suspend state.
+ net/sctp/sm_make_chunk.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-Host regression tests reproduced three v1 issues: spurious change
-notifications for unchanged measurements after resume, missing
-availability notifications when the first post-resume I2C read failed,
-and artificial -ENODATA on early thermal temperature reads.
-
-All three cases pass after the fix. Further checks cover valid/invalid
-transitions, temperature reads during a blocked post-resume poll, and
-64 suspend cancellation and 64 teardown cycles in a threaded model.
-ASan/UBSan, ThreadSanitizer, ARM64 PM/thermal build and MODPOST, a
-no-PM build, and sparse checks also passed.
-
-The R5 hardware results apply to the original driver source, not to
-the modified v2 suspend path. The v2 suspend change has not been tested
-on the phone. Mainline Linux 7.3 has not been booted on Redmi Go.
-Hardware PM/unbind, power cost, calibration, temperature-source
-provenance and induced I2C error recovery remain untested.
-
-Early post-resume temperature reads may return a stale cached value
-until the first poll completes. The driver remains a monitor, not a
-battery safety controller.
-
-Open review questions include policy for already-initialized gauges,
-3-attempt probe retries, nominal 30-second polling and up to 300-second
-backoff after failures, and event frequency with small voltage changes.
-
-Changes since v1:
-  - Preserve the cached sample across suspend.
-  - Fix spurious resume notifications and missed availability changes.
-  - Avoid artificial -ENODATA for early thermal temperature reads.
-  - Add host PM regression and concurrency testing.
-  - Clarify the scope of R5 hardware validation.
-
-Link: https://lore.kernel.org/r/179329639684.489944.6322623410181934358.cw2017-first-public-rfc@yandex.ru
-
-Kupreenko Danila (3):
-  dt-bindings: power: supply: add CellWise CW2017 fuel gauge
-  power: supply: add read-only CW2017 battery monitor
-  arm64: dts: qcom: tiare: describe CW2017 fuel gauge
-
- .../power/supply/cellwise,cw2017.yaml         |  52 +++
- MAINTAINERS                                   |   7 +
- .../boot/dts/qcom/msm8917-xiaomi-tiare.dts    |   9 +
- drivers/power/supply/Kconfig                  |  14 +
- drivers/power/supply/Makefile                 |   1 +
- drivers/power/supply/cw2017_battery.c         | 367 ++++++++++++++++++
- 6 files changed, 450 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/power/supply/cellwise,cw2017.yaml
- create mode 100644 drivers/power/supply/cw2017_battery.c
-
-Range-diff against v1:
-1:  450435406 = 1:  450435406 dt-bindings: power: supply: add CellWise CW2017 fuel gauge
-2:  9439176a8 ! 2:  6c76f0f28 power: supply: add read-only CW2017 battery monitor
-    @@ Commit message
-         reference. Host tests exercise the actual driver and mainline uevent
-         helpers with mocked kernel infrastructure.
-     
-    -    The same driver source was built for Linux 7.1.3-msm89x7 and tested
-    -    on Xiaomi Redmi Go (R5). Module autoload, I2C binding, battery
-    -    measurements and kernel power_supply change events were verified.
-    -    The mainline kernel itself was not booted on this device.
-    -    Hardware suspend/resume, teardown, calibration and energy use
-    -    remain untested.
-    +    The pre-v2 driver source was built for Linux 7.1.3-msm89x7
-    +    and tested on Xiaomi Redmi Go (R5). Module autoload, I2C
-    +    binding, battery measurements and power_supply change events
-    +    were verified.
-    +
-    +    The v2 suspend change passed host PM regression tests, but
-    +    was not hardware-tested. The mainline kernel itself has not
-    +    been booted on Redmi Go. Hardware suspend/resume, teardown,
-    +    calibration and energy use remain untested.
-     
-         Assisted-by: LLM sparse
-         Signed-off-by: Kupreenko Danila <keckerz@yandex.ru>
-    @@ drivers/power/supply/cw2017_battery.c (new)
-     +	struct cw2017 *cw = dev_get_drvdata(dev);
-     +
-     +	cancel_delayed_work_sync(&cw->work);
-    -+	mutex_lock(&cw->lock);
-    -+	cw->sample.error = -ENODATA;
-    -+	mutex_unlock(&cw->lock);
-     +
-     +	return 0;
-     +}
-3:  46d6f633f = 3:  1ceaa947d arm64: dts: qcom: tiare: describe CW2017 fuel gauge
-
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
--- 
-2.56.0
-
+diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
+index ddc31a5..9719464 100644
+--- a/net/sctp/sm_make_chunk.c
++++ b/net/sctp/sm_make_chunk.c
+@@ -3151,9 +3151,12 @@ static __be16 sctp_process_asconf_param(struct sctp_association *asoc,
+ 		 * packet MUST be deleted.
+ 		 */
+ 		if (af->is_any(&addr)) {
+-			sctp_assoc_set_primary(asoc, asconf->transport);
+-			sctp_assoc_del_nonprimary_peers(asoc,
+-							asconf->transport);
++			peer = sctp_assoc_lookup_paddr(asoc, &asconf->source);
++			if (!peer)
++				return SCTP_ERROR_REQ_REFUSED;
++			sctp_assoc_set_primary(asoc, peer);
++			sctp_assoc_del_nonprimary_peers(asoc, peer);
++			asconf->transport = peer;
+ 			return SCTP_ERROR_NO_ERROR;
+ 		}
+ 
+@@ -3166,13 +3169,9 @@ static __be16 sctp_process_asconf_param(struct sctp_association *asoc,
+ 		if (!peer)
+ 			return SCTP_ERROR_DNS_FAILED;
+ 
+-		/* Don't free asconf->transport; a later wildcard DEL-IP
+-		 * parameter reuses it.
+-		 */
+-		if (peer == asconf->transport)
+-			return SCTP_ERROR_REQ_REFUSED;
+-
+ 		sctp_assoc_rm_peer(asoc, peer);
++		if (asconf->transport == peer)
++			asconf->transport = NULL;
+ 		break;
+ 	case SCTP_PARAM_SET_PRIMARY:
+ 		/* ADDIP Section 4.2.4
