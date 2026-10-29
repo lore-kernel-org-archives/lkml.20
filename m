@@ -1,68 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.59
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793234335;
-	b=mpiMD4MTo2qeJJhF0x+U4vNYIWO6weU1vz7Y9Hj7rrw0yN3/2t/SYkdfzDOLUlPgN1II
-	 kIPdjH/CaIXZf4CjGMzXiZmA2EgqyiN6DlUIEqEAvV/OzhbQU5pnFfp1ujXQYDzaQdBbn
-	 YhAXxPHmlf/vD9xqUDGQKhZqJz229gz9PnOjkE329AWH1HPi/cALo6H8mUCQd7kFlx4OS
-	 IrdOrYiqwOOlIV+LJryvOzXkLbLu4NvBId9XTNY0FKb4rWYQLJ93qPoTuIl2v9OBRta+3
-	 9PsBkcszmL3WHbCaLnIrKgkalZM0NodzZAEcS3IFf8Gsnpwi4miRoRAUrWQDXrpEtkg==
+	t=1793234410;
+	b=cWcac+bT+gm7+FmYuIcmQA5trKQA6GkHmcJiHyJoxOEW27c+I1J/RDYGlUKAEysxCogH
+	 sx/EANVXeutzKmFLjvr/LKJC+TrXbuhliwOr2HjXGltIB+JmdYhbx0VgZ8WHZmj3GcC/l
+	 NpLcmXjowzpWDYTl68FTkWPEAAAreOh2cN/NuIiuRUxLryswTvlN1qXWvzRwtMr4O4+jU
+	 lSqHveBrcuczrzilY5anrpbblIU6g5fkZZ7zfW1nVjD5kgEC8TTmGf0faPwOaFovrJkn3
+	 le7O8CWX89BC/VXkBgHRl2rSTMzO6L0cINKsyhRBzgvtSZP7STYDN6mVkkjOFJaSAFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793234335;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LGUbBch1/OYdHnTxkjCH2wbrptcygGBhOyaO0PaTRYo=;
-	b=lsNAlRV6ypgN6gzA5dqVcza7cLmU0n2ZCT0O2W/czsVRxKhm383ar9PqTLcxpkLuMGs4
-	 T0MgwhOcX+nlXQ+/BMEaA9I/fLm2d89K777Nnhc/Iz7eola85bhZdIla9/tky4O14Db8N
-	 8+OXXVIaTuT1YpYbsGOISJsuR7CRZsquz5AQzddJGtfVob2iBbYSxVPeGvzQt1utDxqz+
-	 3RFOZjOjJupFcLlwTjt+yAMJ+LwG+48WBM+rNraQ5I9Usd+O8WgDIyghOYgemuNm8RLy1
-	 S/FN1Do3k9TX26TOuCoAL/+ZpAXoFImFfUmroyo2oSQBKzZiK2Cfa4uGWGknT8I+wsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793234410;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=c4iBQ+UwOFy4X5YPlks+jc2xwGHej55He1MgtpRs7Ko=;
+	b=ksW2oPbcNIyhhWaM0CqDmHBnGff0VJYzUxNVhbJrNzYgAZw6FDuSCgf3AKL9G31ptW5X
+	 89YSMxPpdi8ht4B8jx7qhCgzBcYin9sm6c3t9djL0teCc2aeLNhrldIoZ6Bin4PocQIiL
+	 KpsNrbh5j0EhR8mZ4J5qtn4c1w5bEx4pzGCbBxituKX/TnXHTX5vMXXIp6qO7hOJK+34h
+	 /d5BJ6pDRxGiW5yF/Fj9C7ZMTl8WzpKnuBYo2JPTw44biSzbhXsIPuEETp1TL+PjpSF37
+	 0i1shOf7JuqE/xa5ULXgLyva2oZeCdEZ6TlJgizKN95rn5cbhKD1m79Wmt0Ifpj2uOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="A/Eks8PX";
-	arc=none smtp.remote-ip=95.215.58.59
-Received: from mta1.migadu.com (out-59.mta1.migadu.com [95.215.58.59])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=azihWin7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAFB1606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:38:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAFB1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD443606A324;
+	Thu, 29 Oct 2026 00:40:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=A/Eks8PX
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=tmMY9UeHWouXSyJW7uvlBsehOpe1njzsUfCIaw1Ok5Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793234330; v=1; x=1793839130;
- b=A/Eks8PXc7FJckhaxUn8SyM1BRDX9urOaWjFyjZ0PVkxId2TUF3fDEofy/tNUC8tWxU9tOGp
- CkecdiMyfk2J6u56gUFscfMci24BqlNgix3fCfGy5d8pVESriT01AeE2+RYWpcZ9DmVBiULSXqC
- qZx+Of8cixvjNA3MS2HOmrR4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 435ee883788e7d0a;
-	Thu, 29 Oct 2026 00:38:50 +0000
-X-Mizu-Trace-ID: 435ee883788e7d0a
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 29 Oct 2026 08:38:42 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Justin Iurman <justin.iurman@gmail.com>,
-	Shuah Khan <shuah@kernel.org>, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH 0/3] net: ioam6: makes IOAM insertion transparent to IPv6
- ECMP
-Message-ID: <auKVkslL-fBrMl7t@fedora>
-References: <20261028-ipv6_ioam_ecmp-v1-0-9b6715b6f4c0@kylinos.cn>
- <auGryXdPv2mx0qlp@fedora>
- <20261028165812.1b40d1d4@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=azihWin7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ACD41F01825;
+	Thu, 29 Oct 2026 00:40:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793234409;
+	bh=c4iBQ+UwOFy4X5YPlks+jc2xwGHej55He1MgtpRs7Ko=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=azihWin7Fnf/E+YT9dK3r8KdLbROgbTTQp0qkk0Eie87I4Q+6ux586RFYKY9Ge/W9
+	 Wi2xxteAwnF4wC/oT9FGHlCH+Cce/lH7ovEMDBKI1RKqRO4SN7QoWBlQpNR5s/YpYC
+	 pSS63mTXa8/g+gqoxuLcxd9/QSgh5LB1S+qFrDRymrNwZPdUt8DaauOZpWf5dS/mCf
+	 6VhcvGTeiPgVd0LPcHwccRafm6q2vy11vaWm8lwIFO831UHi52eo9zcw/sLT5qhsis
+	 GeA54/IP0mHQyb5n3WOm4dCHLroEBB17XTrmznYkCFV2oTXhJ6Bf3W8Bt7rjXRElha
+	 9cn795m3ZniGw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 814FE3AAFC4C;
+	Thu, 29 Oct 2026 00:40:09 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,40 +53,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028165812.1b40d1d4@kernel.org>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v2 0/4] net: pcs: xpcs: fix runtime PM and clock
+ lifecycle
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179323440806.1500896.10740339691705828424.git-patchwork-notify@kernel.org>
+Date: Thu, 29 Oct 2026 00:40:08 +0000
+References: <20261023075214.1793922-2-coiaprant@gmail.com>
+In-Reply-To: <20261023075214.1793922-2-coiaprant@gmail.com>
+To: Coia Prant <coiaprant@gmail.com>
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, edumazet@kernel.org,
+ heiko@sntech.de, netdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 
-Hi Jakub,
-On Wed, Oct 28, 2026 at 04:58:12PM -0700, Jakub Kicinski wrote:
-> On Wed, 28 Oct 2026 16:01:13 +0800 Hangbin Liu wrote:
-> > On Wed, Oct 28, 2026 at 01:45:28PM +0800, Hangbin Liu wrote:
-> > > This series makes IOAM insertion transparent to IPv6 ECMP, as required
-> > > by RFC 9486 (C2): a packet carrying IOAM options must be forwarded
-> > > along the same path as the identical packet without them.  
-> > 
-> > Sorry, forgot to add target repo "net". I will add it in next version.
-> 
-> CI bot says:
-> 
-> The new selftest added alongside this series (tools/testing/selftests/net/ioam6_ecmp.sh)
-> is failing in our CI on the "Transit input ECMP with/without IOAM" scenario:
-> 
->   TEST: Transit input ECMP with/without IOAM (diverged on seed 1: without IOAM via
->         link A, with IOAM via link B)   [FAIL]
->   TEST: Transit input ECMP with/without IOAM (seed 2..12)                [ OK ]
->   TEST: Encapsulating node re-lookup ECMP with/without IOAM (seed 1..12) [ OK ]
-> 
-> 11 of the 12 "transit input" seeds pass, and the whole "encapsulating node re-lookup"
-> scenario passes on all seeds, so this looks like an edge case in the Hop-by-Hop
-> nexthdr-recovery logic used for the policy-0 multipath hash, rather than a test
-> infra/flake issue. Could you take a look at whether the recovered "virtual" nexthdr
-> (or the padding/option-length walk used to compute it) is correct for all IOAM option
-> layouts/trace sizes, since one specific packet still ends up hashed to a different ECMP
-> sibling than the equivalent packet without IOAM?
+Hello:
 
-Thanks for the report. I run it locally multi times and didn't got this issue.
-I will try reproduce it first and check the reason.
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Thanks
-Hangbin
+On Fri, 23 Oct 2026 15:52:11 +0800 you wrote:
+> This series fixes the runtime PM and CSR clock lifecycle in the DW XPCS
+> platform driver, a misleading error message in the Rockchip glue driver,
+> and the MAINTAINERS coverage for the platform driver and its binding.
+> 
+> The issue was found while using pcs-xpcs-plat.c as a reference for the
+> Rockchip XPCS glue driver (pcs-xpcs-rk.c). On Rockchip the CSR clock
+> (PCLK_XPCS) is required for register access, which exposed two problems
+> in the generic platform driver:
+> 
+> [...]
+
+Here is the summary with links:
+  - [net,v2,1/4] net: pcs: xpcs-plat: fix runtime PM initialization
+    https://git.kernel.org/netdev/net/c/49d8bbc21244
+  - [net,v2,2/4] net: pcs: xpcs-plat: fix clock lifecycle for !CONFIG_PM builds
+    https://git.kernel.org/netdev/net/c/eea365ed283c
+  - [net,v2,3/4] net: pcs: xpcs-rk: fix cleanup action error message
+    https://git.kernel.org/netdev/net/c/e7cccfde6136
+  - [net,v2,4/4] MAINTAINERS: list DW XPCS platform driver and binding under XPCS entry
+    https://git.kernel.org/netdev/net/c/87b88b658b9b
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
