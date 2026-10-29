@@ -1,85 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793288405;
-	b=EynE5lmXVYQxTZlGhsR+/uI3NTe7MkaOJ6mrdLqIGE27SCTd1Cr9O8GbEtXgVmZk8SON
-	 +nAtFO8/Isi3FgY1avkQxXBRXv9TW0HLn3sYU8MbID6k2YE/gEUOBW4GBbyJ65Me2QUUM
-	 lU/naJzZaJKguYmzBxO3XI/rnr5QIdTIBlM10EsHqGxK+SNU3bO66tZJlYwGAhCEJFtme
-	 7OCCKanPMolNGCHUua/f7zc2jol4kFQi67aRvlWpQYwZXOOWF7rGzagtQ0t/QYkwP4472
-	 wgQ5VStCci4SgfvmOlOMSv5rZbVkvjZkMZ9bObqDl/btOaulJ89Cq/Ut//0UP3ASfNA==
+	t=1793288403;
+	b=OAh1gXG84+PQvzba+WeibcVRJlguDXlb1iXelhBLRPO2Un4Mpj8QLJ7TRmFc8Bu0l204
+	 dJkwr/TCU5XZFcoRkKMUiEpRgg0Hm1SgHUvel76VAk7h6a9Ka6fnhUUKiDaTSveHsoLNy
+	 hH+kHze+zVUHBqEfSQ92oi9RNF+FU+4CSLRqb79CaYE/Ukb57Ydav35TxbThIkzVp9FQu
+	 q6FDNCABSlkiGgQDUmkEg0T0rJcM/zRH7qR2MjxIhw7RDC+Y7NGk3Z7esM0+gPRw0mAVl
+	 P20dxvHnja2yvJUWqmHASa11B8+hnThNgZUzn3sZ4J781B2T3rC4L5ZMxtIr/VX2HRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793288405;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=p3YvkGpbJ75egK6OsWORSXS1tksyIAY2QOnekRB2s34=;
-	b=Oh+P4OWDBuGypBxnok4yzGMFSwNzClPSY4tLEeOF29SIyXaOR34Li4HJF+oIlFG1PEFa
-	 yM+hUKh+t4VcfH9D+A6vlPkuw0d2m4lq29v2tueNiPSzmv83y6hA18ss36RANSOkWCW93
-	 n5p4WTevQIAH7UL+7+drHRKVyapzH8hNKDdLSqzkYvANFdkmahdETPpHmgfok3GS22K1Z
-	 lxoZaSkqr8MbCExUnsbN+XsYG8w9hcAgAeKB9TUF7KChgTZi2hLTr6xR3iWT43OxjzdSF
-	 83GlCgu8ZB7qptugtHaIYtnhL2CsL+bLaeL8/NNWUe4YnvK7xBrmWTO/Z5D6XvxSqEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288403;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=YV+w23NqXtPUxzbWxdPwKnpLJ73OpZwUZwdP8XjSzow=;
+	b=Xa39eyJD77N8BMRpyczTEVpflPHYr0xX1Ey0Ri1qQVNtjEYVbYWvDY/gNERL9Uold1cG
+	 BhGcAsKCZNQzdkyDjFSfNGVSTG/zKUAVPuf2tLrBvQc1ciNQt6diCavgxpcWgbdEZ3iZH
+	 rVqCkL0gzplo14RxeGdiKclgEBzUmom7BIex+O0ahhoNYX9i7/yXi8TQpHNOZqMTmUQKM
+	 d7ILaW1lC0z4NR0d0vWuuak9PaNq5YsnHtFmwhBojvL9yJA1rRbx2hdqMQm7RJqYhfkyf
+	 pOEm/kYAIdgySn1ffF/EjdRXe6g7QEeFFxhqV34bOHdQJBvmGQpFq/fPj7G+uD8dRqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linuxfoundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=SlnaW63b;
-	arc=none smtp.remote-ip=209.85.210.49
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDBAC606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:40:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDBAC606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JyiOShVY;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E1400606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:40:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1400606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=SlnaW63b
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-843b6f8e2c7so2554984a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:40:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1793288402; x=1793893202; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p3YvkGpbJ75egK6OsWORSXS1tksyIAY2QOnekRB2s34=;
-        b=SlnaW63b7+BWoAx43Ve1PjR43XZ3s03l14lqyvTO69cYQC4gmjK8QAj+ZP35BkhjaY
-         Z0L/5zN94AxTa63hC9be9zBDjvzCCijanGOYYT7pjjC2TwkKz4QR5aZzt7pvknhHVdM9
-         at/93Zy5JiM5YRV6AGqg6G35glnr1wMZY4E/s=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793288402; x=1793893202;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p3YvkGpbJ75egK6OsWORSXS1tksyIAY2QOnekRB2s34=;
-        b=qhLBVwW1Bq3HVBvR+zHbA7QsGuUJudVANKpHw5pNHCjaxvISbyDCq7vJA660Gs102/
-         4gGqU+6DRG3PPGJPHhuk7DOVVby+3Z5zzoavrH/TiT5s+xuh0i/bbnMgAUCpt6W1u7jZ
-         +Zk6XTX2HoaUlZ1HGUPJw75kgr7RcReSybKiCyZRaUuHHB3ciWB1QxHKXbYZsLB+X1oc
-         zuyl/nujEI5FujMU9Feco4b1rJV0uDLOpRPzhrYdEBos35VOTmEQhGWO95xW7ohELh3A
-         LpMl/HWxGt7V+AZAkz6xoZZcIr6bhhvr/jnfRd3zhQRqfuf0ryZml0fllSSIFsFSQBxS
-         ha9Q==
-X-Forwarded-Encrypted: i=1; AKwUvByKG3ZRiHfdSQc5VWn4GOrziiloMTPTIIsDlz7Pl8tWBAsaKnqAy8uvQvSiOPFzV3BJX+BnZ7/G1qOrxFY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGXe+dxb2gev27ichx0THXFWwSBbLtDeYq+OQgNZcg2K7SrPTc
-	nqSwQT1Rj5+oS1AX4CpARTlaNnVGsur8or/ADYRnS6UXuzxFr2uYnjd3c890qZR25CQ=
-X-Gm-Gg: AYBFou3RQyRLGBsccCCnQR9DB8wKU/kIo6fZH2Jp7CVknghPihJu0XvQGk0rG34a0SB
-	lFJJ76osnVNNTrKBwc55AQLER+V2P+Vpuk3usT4zRSYtPy+uU9hGXDJM3w23XR6ax1X+GGc3mtr
-	8qiR8VGTLUOAvF5kbP0S2UiAXQxRRgF/slR7zjtms35xwzOBr4a+XGaA9xHC+YNyplCaL2dSVcL
-	TiQ0xVnrbgNxDj2AdTtK6XmepN76joQSWnuMxTXM1oswRVTXy9dBZ3Fhqe0uVwzsgBzwJVmwfhu
-	5ZY9K4wHmP0I83wo1VaOQj7gviWmMzMPVJTR4Nw6CaLEEV1Wr9oWFxoK6Cg17k6WlJNzLF/U8z8
-	FRx+bj2UdrQwYrkdfSfX8U2gT7hSKH3bCjLLhIAq/jeUegu+hscMeD2XVF2LVg1EOefWQ241+p0
-	QO5jlBr1c6eZ8RT88/fLpkS8XMc9iC+9VmOVE+TLGsjug5dTWuDEmhSSyanyLLfCsCpRLQK0aEU
-	gjEcb5GBRVHX14Naxwh6+NOPXiz1ZyCUezSF5D7LeXpzbGb2jermqgGyz7JZ6TdE+u+3mNLCagb
-	rvIW9ZWKky/WB6tu7GcE0Utx+DVNF4mFJwWPodqeeTTeP8y0poQYx+kuPc0=
-X-Received: by 2002:a05:6830:b16:b0:845:3cfe:601 with SMTP id 46e09a7af769-85ab2504c5bmr5675751a34.0.1793288402519;
-        Thu, 29 Oct 2026 08:40:02 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d33e3696dsm135839a34.1.2026.10.29.08.39.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 08:40:01 -0700 (PDT)
-Message-ID: <c0500cba-eb48-4421-82ec-b276b1c9453e@linuxfoundation.org>
-Date: Thu, 29 Oct 2026 09:39:55 -0600
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JyiOShVY
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A780415A1;
+	Thu, 29 Oct 2026 08:39:56 -0700 (PDT)
+Received: from thinkpad-e142931.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 86DD63F59E;
+	Thu, 29 Oct 2026 08:39:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793288399; bh=u95ndNvigggwQi3q2TAN5S5kuUVT6f7RZYvAm5JASi0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JyiOShVYAILhlWnkyYvD5iT4yzYZcgaleDs6rVnTCL0XV8eoq/EKzTkeMFkk7EzLe
+	 VDykIKew6nPCqrzrFvebMQdYIjYQZgZuGgF3tMkvvHKjp3YaNK/kKA1mymjZ5ZhFkx
+	 JMMcU8qmj+OR4wZPwHCR5UjOH1U+kf/+SH63Tnts=
+Date: Thu, 29 Oct 2026 15:39:42 +0000
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: Joey Gouly <joey.gouly@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Fuad Tabba <fuad.tabba@linux.dev>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Jonathan Cameron <jic23@kernel.org>, 
+	Mark Brown <broonie@kernel.org>, Sascha Bischoff <Sascha.Bischoff@arm.com>, 
+	James Clark <james.clark@linaro.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Anshuman Khandual <anshuman.khandual@arm.com>, Thomas Huth <thuth@redhat.com>, 
+	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>
+Subject: Re: [PATCH v2 4/4] KVM: arm64: Convert TCR_EL2 to config-driven
+ sanitisation
+Message-ID: <dhd5aaoxaeb43ili6bcr324gs5n7ziasssz4ttx6iprdso73at@jcwxs47m5wd6>
+References: <20260917214215.74135-1-weilin.chang@arm.com>
+ <20260917214215.74135-5-weilin.chang@arm.com>
+ <auM-TnZ0i_1G01ad@e143914.arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,47 +70,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 000/571] 5.15.224-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20261028170008.009143722@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auM-TnZ0i_1G01ad@e143914.arm.com>
 
-On 10/28/26 10:52, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.224 release.
-> There are 571 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Thu, Oct 29, 2026 at 12:38:38PM +0000, Joey Gouly wrote:
+> On Thu, Sep 17, 2026 at 10:42:14PM +0100, Wei-Lin Chang wrote:
+> > Feature dependencies of the fields in TCR_EL2 are extracted from
+> > Registers.json of the BSD licenced AARCHMRS
+> > (AARCHMRS_OPENSOURCE_A_profile_FAT-2026-06).
+> > 
+> > Places where we slightly deviate from the above:
+> > 
+> >  - Stick to the ARM ARM M.c requirement for TCR_EL2.TCMA*, which only
+> >    depends on FEAT_MTE2. This avoids updating ID_AA64PFR2_EL1 with new
+> >    VMTE* definitions that we don't know the meaning of, as they aren't
+> >    present in the ARM ARM yet.
+> > 
+> >  - Ignore TCR_EL2.DS's requirement of needing the effective value of
+> >    TCR2_EL2.D128 be 0. This requires runtime detection of TCR2_EL2.D128
+> >    and we don't have D128 support yet.
+> > 
+> >  - TCR_EL2.AS is dependent on FEAT_ASID16, this information is missing
+> >    from the json.
 > 
-> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
-> Anything received after that time might be too late.
+> In the 2026-9 release, FEAT_ASID16 is now there for TCR_EL2.AS.
+> Otherwise I think this matches the newer release.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.224-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
+> Reviewed-by: Joey Gouly <joey.gouly@arm.com>
 
-Compiled and booted on my test system. No dmesg regressions.
+Thanks for the review!
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+I'm planning to update this series to the 2026-9 release and repost.
 
-thanks,
--- Shuah
+Thanks,
+Wei-Lin Chang
+
+> 
+> Thanks,
+> Joey
+
+[...]
