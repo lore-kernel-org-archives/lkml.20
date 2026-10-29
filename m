@@ -1,115 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793243122;
-	b=gh/ti0hNZiV2qjK9FhhtOL55jiA3obcHtaZQgjZP4dr8KHf//rqgbw8VsZKJIS6thuYH
-	 c5FjEHjHWru2NthPGv9gELar7Um7CLhTYcLF1SfHqXFKIzdTIIkTGXUZLmnnwH6So5n8f
-	 eXwHRhsL7gLlU4sief7u1R2cps2fk1nebBH25iR+/LV/wq6273zsfL/CVhv3KPGyMYWh0
-	 DH3Bnp9txatJR70KdueaNdpqeCzddZcn5hGyCTZpB4BrIBNgYHaN/h9Zx6ruCcskIZxmA
-	 x3lpYsyopMich1/vdfKL965qGQsoWXuDl75WaEGzDQdKmiOGWWv27BmG0C5y3XNrvzg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793243122;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793243207;
+	b=y++epnt7dWEpmXLu3ZjZDmc34e04AS6Qa5iDRoySXKxXQ3St/8LEEcOQcmM0bzn78XCu
+	 IMeEjiVLhS/RL6+boHbitpzHLnxV/IJ8cT5iBAO1kmaRIYY/KS0qaw7V3LmQWy7MFePfg
+	 X8PNS00bxqEPoTeus6VnzcrwG3KWmkWAFghce3MnTLy9lhLSTAMvgyrVhKo6oKOnkge9X
+	 9YVy2fw2C6Oyx9z4x3a3iAX+O3ilIQzzscMH5YO8Ehfpn+bSqPQDyq64q3y+/jz8ek0Ol
+	 Z83Fibj6CIMxRT8KbW8vxL1zmDLqguTQhd4vqip1Y/ZPPlS/lnIN/1U7JC/WH+hxWVQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793243207;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=Qt+rBjELLMxb0qTKo9uNTiwBY/+V4YZH/Ya3Tn3lncw=;
-	b=rvpk5X19Koe22/ngTtVbDhmZX8dOxi3SuTBtSo4wzwPFLBfWxKqLdvKvA8xezwRDfY8C
-	 6vEzA4g+sHPQYfDeXhoCwFeC7b1EDUpKdOVSOhHmXOmhSwNoZW8DjXE+Ehj10VTjtsALf
-	 5YNh8xxZc991ZEVjiN1F/Zn27E5bFLjVG8IACM1MRu+R5T+mTe2NBbt/VQm5PsTk8JzHC
-	 bAtEphVu/adftcEhanGKjKiR8XgqzWvgVcTMRsLV/KN6zFPRTBvKye73jgTg3Hn46XWeX
-	 lhVrm6UwDxVC0yRWBI+GmOiOosaoIQMvtiD5Onl2OPin0o9Q+AS9NXNAn65tv2KaahQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="xHNh2s/Z";
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	 Received:User-Agent:X-Original-From:References:From:Mime-Version:
+	 In-Reply-To:Date:X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=21fFFSCtjvZ+BnQkCcGT5s2MmdQCNwbulDZga2Yp1YU=;
+	b=iBIDiSbOTyyjlvOU8D50yHZxt55Omydx0PAt/6u1eYAP9D57aXdJ54LSCJQPbPpWmR76
+	 K6S+jfXLNMSbDr3kbL2sbvm+Qo9dmO0hRJK/IszYUPYNNMLK4/Pt0MobZCUdw3bSQjhtX
+	 zj5CBx89dsLSYaYt9jsAPLO9aFFBCjhj6APZhMlMlspbr/X32pCb3NKtq/VtGhLXC8mhD
+	 VR2QYRqId3443aK6sw40etSwwgO/CyI/S2bJI26QLUmh7fh76KwYWe45N5+RTT6cgfaxp
+	 SuFWJCcWLwX/y90MawoPHmToN490szBQOpfsG3bQwltayPVyKFqH2KCvIK4NGTZVMDw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=h6ziHXdx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.44
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F9CB606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:05:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F9CB606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D8D606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:06:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16D8D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xHNh2s/Z
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so891717a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:05:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=h6ziHXdx
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so1675259e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 20:06:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793243205; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pYyctCfpHHmrlpm9gQcW5S/pm2lPdm0c4cOzkMG64Iktlj58zpZGXUULv51xLJ61fI
+         3jZUSQoKRzVQdHrhREU6OTa0UuuJfwLLWf0Z3qUXv/CsWkx1HMcACia+GXmNsPTiGpnJ
+         GYJRB3rl23w1posg/GS32/D/xCiRDp7SA6AJ72setG/WDtOlY41aPmXOxbT74BIE6EUP
+         paynitKvr7o+ASHwU5YsJwpcGsrBQ0ZfDGdt5BROeogQE3hh5MXCrjBkJ9IggaNrPbp0
+         5Kg7W5K4fBL5wIBvXODtvVhd6NFLql/IMqIJR74c+inh6M2ZyhtDeLjGSwga0zPkcxtH
+         nSlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:in-reply-to:mime-version:from
+         :references:user-agent:dkim-signature;
+        bh=21fFFSCtjvZ+BnQkCcGT5s2MmdQCNwbulDZga2Yp1YU=;
+        fh=xXnjb7Mx+bfSa+Pbcd842aneRohsoI+6WS/4L5KFGoI=;
+        b=krYICRBni5xrNNLAXbQWNyydXesKAICz9JmLBY4GNi4cxhM6o7ht/bDu+GLdCP3TjM
+         ty3+R52KEpIki5Q5RwjIqD7pg4I6GtX4brrUTO0ll+bKiZvKk2nQNR9Rp2iEr8R2Iea7
+         nOKvLnftMC27JKI43AFfr3TUvM9tVKBhU0VTjDG1tBCqi5bxAsoJbeqbKSsNc4P9aqkI
+         JnJ3JLbA6hxvTDKDOovQlClmx55ydd7/Ntg6K1tK6/7C7uieaFIISLklw4S5yslIwa71
+         DqBr2Fna+pHkjxiLCyk2jUys4qaEXAMlS4/s8MZhtZvu8YUB/rT3nb0SDhTuA8KiJMfe
+         Je5Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793243122; x=1793847922; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qt+rBjELLMxb0qTKo9uNTiwBY/+V4YZH/Ya3Tn3lncw=;
-        b=xHNh2s/ZBjEIdJDX4r+dFuo8rNJ9MVQVAR+r5+cnenMwbZpMBs1xnjBlakkyac9yTO
-         8bMDjuugxd7EriUc3d3oVvtIWW2p3YbNJ6KsEsKfm1ubZUETX0TsFQzRwNVFq/3LHMUv
-         XupBgGrNQPXrLmyVezeYmQp08Rnt+GIf42xgjCkAl2khgayG0W1ZslJ/HRhejgKgtgHn
-         aFTEyIabEusutC3KAy6fFI5jwEfnN1Cwnh8aBLn4XOw3TnjNw0MbYfUpudFWA9sLlVpm
-         eYZpu6l7g4dB6hYU0VRew9uzv8fblmkebY0fmLw8l+APd394gUkEs5tyKa6ZltcieY09
-         Ysow==
+        d=bytedance.com; s=google; t=1793243205; x=1793848005; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:in-reply-to:mime-version
+         :from:references:user-agent:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=21fFFSCtjvZ+BnQkCcGT5s2MmdQCNwbulDZga2Yp1YU=;
+        b=h6ziHXdxperKw0FMhtwDYC/nSyqfN66VH9iz1mtw8jkUEvdOawkjO1VfElLR2jSpP+
+         jqqjO8GakTohp8gam+tBwY1/eCqNz745YmdHtDmysTJhQXVQk1KHkqHBuCjAG80VMoKr
+         UsPvcHWdqdCDP6IdasdeBSbB9R/wSwCgEerazu4r+/iYkH4qZfT3rDsaZKzZ4RWfMayf
+         CQDQBq60IHafmR+XVjCAYc9Aa0nv2+nvmQ2rc7Vfblp0ZCQcn3mnB361DJv5d9I8chlY
+         w+bLmgtYklxeK9Yg/5NDZrStW1Ky6qVVfdEvSOpUq9D9p/9XftRnMGkcVdvm01gl2an0
+         OvKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793243122; x=1793847922;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qt+rBjELLMxb0qTKo9uNTiwBY/+V4YZH/Ya3Tn3lncw=;
-        b=T9K0viUF5o0fS66IBJIgQZQ0tomrIUdCEOOgVx/3ldKOwDoDAfNZTfhwbSBL6cXQ8b
-         5rZK8eoo/1Qfvl9ZmuEwFqS7VXF3eTG0np/l/GilzZaafiWW5iSF21gzuAbvmwGIiP1H
-         HP5HqTR322jPyCYBmNKGESsduaJceggOPm/dJ3BBPvj6d5ZqPoeltroUfXRL4INiKJJ4
-         D5jLnxf2mBmw88SXaC97DKJecX8WRrF4jTQ7TwIeaVC3sUsnrN2ijnzDxtnKLpllsPSy
-         87A0R06TzAxbF0mUdirvPQsPPTrjdR+iWI14mMp6sJJBXWx3ZupvFbQC7xk/3gSCV/Uw
-         yghw==
-X-Forwarded-Encrypted: i=1; AKwUvBzbSrEa5gGB99cw4jKI3vXWXeMZNzqp1VCWt/gKGaXQ54GkdC8/mO3ZZt7Z3PAICP4nOLP9F6LcpmNrXvc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIL5tmWZR9NoiVbWns+y8y9twHeBZXt5M+z+cqHwf6VQJyyhzrJ
-	l2kZIp93Vd/s5YT62I3GzmNhie2ymM5lMpp9YpC/edqdmWIsol67LQm7
-X-Gm-Gg: AYBFou3b6I7rQhOP3MZeTWbBAzw7ywRT8vZXGWmIHky9zaEvTfxBCNDfk7FmqI/JNnd
-	KDcknalYTmdIQQs6R0Ke/ROs/ZVAkcDSlvW2ss4azQGl/M2PuQeJAgixio4rVTmsf8iR9RsMA8g
-	KTmjjtL+UAoTjg9RTOlmQKyYz5oEwJqoUuDLWIRZXgAjqU0sBKGXPbf3/zlcRH5NjoKcWHaFsP7
-	nVVBMp/LPL71rkqPTB07YvSGjx811JoW5DWvdV8Qyq6DGFZnHTSCaoIEcPmZGVL2ZUlJwn8iMi/
-	F7yVNW9TAhK7p3bj9PH+lf7C/3tz26saTS+RGNT7ucPhADtD3JpIybBQTX9W9RIWcdBRSI+qZwh
-	qib9213rYy4hEggf3GnR4hYKdKUQCPYhSRg2Zk1F7NB0pcGyNI4AxVJljEyiHKbLgLtKG0XZ3SC
-	Vhyw0p5jDnwrkmodux++gQML0j4VC8FKpxofo8q6uHK2FRldxPojcRSepHB1olXXqlH2k9jXmIx
-	yYFgZ6u+yqocAwg1UEqFtsSV1ZqfCP0Uea9MCQFIkVD3rDwKfWOCZ5xQjr7VigmJjwL6DkEOaEC
-	5MUPYi616KS1IU3E7rzrm3vZL/pjcjBgqdgYSYwDfSV1n484iVHi8w==
-X-Received: by 2002:a17:90b:3810:b0:3ac:b08a:ed2c with SMTP id 98e67ed59e1d1-3ae5822fb8amr3357641a91.40.1793243121828;
-        Wed, 28 Oct 2026 20:05:21 -0700 (PDT)
-Received: from localhost.localdomain ([101.44.96.6])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9583c1sm1932931a91.10.2026.10.28.20.05.16
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 28 Oct 2026 20:05:21 -0700 (PDT)
-Sender: Yilei Zheng <trilithzheng@gmail.com>
-From: Yilei Zheng <trilith.zheng@gmail.com>
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Muchun Song <songmuchun@bytedance.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dan Williams <djbw@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Pankaj Gupta <pankaj.gupta@amd.com>,
-	linux-mm@kvack.org,
-	nvdimm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-cxl@vger.kernel.org,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Ira Weiny <iweiny@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Matthew Wilcox <willy@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Qi Zheng <qi.zheng@linux.dev>
-Subject: Re: [PATCH 3/4] mm: add shared read-only vmemmap support for FS-DAX
-Date: Thu, 29 Oct 2026 11:05:11 +0800
-Message-Id: <20261029030511.12004-1-trilith.zheng@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <4c9741cf-ac62-41d4-9c7a-7d5ceea4a8e1@linux.dev>
-References: <20260903122128.12264-1-songmuchun@bytedance.com> <20260903122128.12264-4-songmuchun@bytedance.com> <20261027065723.66564-1-trilith.zheng@gmail.com> <4c9741cf-ac62-41d4-9c7a-7d5ceea4a8e1@linux.dev>
+        d=1e100.net; s=20260707; t=1793243205; x=1793848005;
+        h=content-type:cc:to:subject:message-id:date:in-reply-to:mime-version
+         :from:references:user-agent:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=21fFFSCtjvZ+BnQkCcGT5s2MmdQCNwbulDZga2Yp1YU=;
+        b=YOqibBsr7Ibdp6o2cHrnHqTprnwsXZLegIibMAylLvtXMGTC+2TubxQ1GE8Oxjb+0A
+         CNPMOksF1cbJrRvkQUtVnZ/RH7DifMF1p6I/YQJK1EbaR7ZgXK10R+VdkxqEInD2reRG
+         y4G4urA5F/5Pq59JCdPbLTEy/g50MvdQsHfVKiNjMKX7CU1lhaKnrHk6ULr586d3t5YU
+         2MkNqhyI7502M1oC6BMEqGzsWYE8aqrT/blntuW6vz9aNY4P/P+KwZ1wJoUyIaomnGI9
+         wgOHK8dMBM2qj3j0Xawfuc1MDDasa/ML6zII8dBer7IlTkJCMQXwDqw3OEoN/sLLVhEU
+         Q2Bg==
+X-Forwarded-Encrypted: i=1; AKwUvBzytpHdezaJXTTAxli7PepnFnF1Zuz0GiNU6VS1v28n1tiNJz9dqx/dD0pfryfTbmW3JDX5X8k6Rn2mzaQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5LIEhpFzODC6GXm5FL3gWAvvHqjxLJ9nqwbPSNe3YY8FzyudY
+	lT25jjs78KPzGYscpMrdp9NKqqE5wwApuxXRUA9D1n4X/tZUe/BeAsy1Q+bGHzWL6moZ/jAdxCm
+	Hu/XdaVSpKRiJaaAqdxMT4MkTUzzP00KlKDVvfY9jCw==
+X-Gm-Gg: AYBFou21I//CbUDqrFhF9+WzJyKwsQlHJFUDuszrab+UHkMQEHSnGwiaPyRQg0yBbMi
+	yipYuIql7Y+93n0wSNKdLjjyVBNVikW9F6j/0Zwc3HGGaam5s+8cuwJWMFiQosiL+IZu4dCOSoZ
+	59FoMjNVr/aR84SGU94QNJSniB2xdpitxWBZY+IWrc67BzE5UCC7mPIlBVJVY295SSFiruK7P7A
+	/Kg2tybhtby4uJsgMvVNzICbrvmWYudCueZw7OVyJ8AKq1u5iBkO3o18taA/n+LYsmkAEqM6208
+	3wNc4MUK74dbYPu+/CR+83l/zPn5UpJDrw/u/Ba/zK2djL242EU/DG6y9BkJu156Oj6AznRAM3H
+	/tbwM+Oht0ySd/sv3EDwmu/Bg8dUs0eQBr8YS5w==
+X-Received: by 2002:a05:6512:1250:b0:5b8:997b:c606 with SMTP id
+ 2adb3069b0e04-5bfcad9e1a6mr1490725e87.41.1793243205235; Wed, 28 Oct 2026
+ 20:06:45 -0700 (PDT)
+Received: from 44278815321 named unknown by gmailapi.google.com with HTTPREST;
+ Wed, 28 Oct 2026 22:06:44 -0500
+Received: from 44278815321 named unknown by gmailapi.google.com with HTTPREST;
+ Wed, 28 Oct 2026 22:06:44 -0500
+User-Agent: Mozilla Thunderbird
+X-Original-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
+References: <20261028165531.940336-1-anup.patel@oss.qualcomm.com>
+From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,39 +110,89 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+In-Reply-To: <20261028165531.940336-1-anup.patel@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 22:06:44 -0500
+X-Gm-Features: AclHuK_OONCiZpFhomM73vca1DSs-MUlsV-8C6gmVeQhDkNqE4BPqIm0xCP39ic
+Message-ID: <CACnXVncwzQiUN9CO8_Ds7UQJEKzEF29vagsTFrC0WbRZXt7aLw@mail.gmail.com>
+Subject: Re: [PATCH v11 0/9] riscv: add SBI Supervisor Software Events support
+To: Anup Patel <anup.patel@oss.qualcomm.com>, Paul Walmsley <pjw@kernel.org>, 
+	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+Cc: Yunhui Cui <cuiyunhui@bytedance.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, Will Deacon <will@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Conor Dooley <conor@kernel.org>, Anup Patel <anup@brainfault.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Atish Patra <atish.patra@linux.dev>, 
+	Yuanzhu <yuanzhu@bytedance.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Muchun,
+Hi Anup, Paul, Himanshu,
 
-> Thank you very much for the test, so in your scenario, this is also
-> the behavior of your real workload (mainly read/write-based, rather
-> than mmap), right?
+On 10/29/26 12:55 AM, Anup Patel wrote:
 
-Yes. We mount read-only rootfs images over virtio-pmem and FS-DAX. Most
-file access goes through normal read/write. mmap is only used for
-loading binaries and shared libraries at startup, which is a small part
-of the image.
+> [...]
+>
+> Changes in v11
+> ==============
+>
+> Rebased on latest for-next branch of linux-riscv tree (commit a5ae1bf65cee).
+> Also, tested PMU driver with both PMU irqs and PMU SSE events.
+>
 
-> To be fair, it does fix the issue, but it's not very clean. I might
-> do some code cleanup first to solve this more gracefully. I want to
-> move the initialization to where the template page is allocated,
-> similar to what section-based vmemmap optimization does.
+Thanks for rebasing and testing the series. I was a little surprised
+to see v11 posted, as I am still working through Himanshu's v10 review
+and validating the fixes on hardware. It would have been helpful to
+coordinate before reposting so that those changes could be included.
 
-Makes sense. Initializing it at allocation time is cleaner.
+I guess this follows Paul's request to rebase onto riscv/for-next.
+However, there is one change beyond the rebase that I would like to
+clarify: why does patch 4 remove the scoped_guard(preempt) sections
+from the CPU hotplug paths? These were present in v10 RESEND, and
+the local helpers still retain their preemption-disabled assertions.
+Is there a reason this protection is no longer needed?
 
-> Thanks for the analysis and suggestions. However, the reason I
-> haven't sent out v2 yet is that I've been trying to refactor the
-> vmemmap optimization logic to make FS_DAX support cleaner. I think
-> I'll probably do some code refactoring first.
+The changes discussed on the v10 threads are still outstanding in
+this posting:
 
-Understood. It would also help if the refactor could support subsection
-(2 MiB) alignment, so any 2 MiB-aligned device can use the optimization
-without padding to a 128 MiB multiple.
+- Preserve TASK_TI_A0/A1/A2 across nested exceptions.
+- Replace the temporary GUP-based perf user-stack copy with nofault
+   uaccess, following the x86 approach.
+- Address the per-CPU initialization/preemption concern.
+- Split the MAINTAINERS updates into a separate patch.
 
-> I'cc you next time if you'd like to help me test.
+Additional fixes from Sashiko review, the kernel test robot report,
+and our follow-up debugging are also being consolidated:
 
-Sounds good. Please Cc me when you post v2 and I'll be glad to test.
+- NMI-safe entry and lockdep irqflags tracking.
+- The unused-function warning reported by the kernel test robot.
+- RV32 vmalloc synchronization before nofault fixup.
+- Faulting-PC validation in the kprobe single-step fault path.
+- Per-counter STOP handling in SSE error paths.
+- Ordinary IRQ CPU-PM notifier ordering and IRQ cleanup tracking.
 
-Best regards,
-Yilei
+In particular, Himanshu identified the missing preservation of
+TASK_TI_A0/A1/A2 across nested exceptions [1]. Following his review,
+I validated the fix with hardware A/B testing: removing it reproduced
+corruption, while the fixed kernel completed the same test sequence.
+This also gives us a solid basis for replacing the temporary GUP
+workaround with nofault uaccess.
+
+Paul, please hold off on taking this version into for-next until
+these fixes are included. The rebase and PMU testing are useful, but
+there are still outstanding correctness issues.
+
+I will consolidate the changes and post v12 against riscv/for-next,
+with an updated changelog and validation results. Let's coordinate
+the next posting to keep everything together.
+
+Thanks,
+Zhanpeng
+
+[1] https://lore.kernel.org/r/as79MHtNYd-VbUug@hu-himchau-blr.qualcomm.com/
