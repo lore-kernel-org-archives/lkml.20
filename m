@@ -1,63 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793250311;
-	b=Rsb07ZgVirwtSoVb4rvqvSuOP4BmpiZxZaEAFq2uy9fru/E+ZtdmPGWKTW3ujNt91JP1
-	 PhzwW7t11D+mpXJi6y0xS9MaH4E1/mbfU3gSHUvDJv0laTNuMTag1WIMuDLw5R/itwnfc
-	 cyFyxej6QqlekAefg+Gu62BlZ7BPdjVUXwAu1wDsH8kZT19GWnt5NpJuJk3Yv0BRaoSh5
-	 4ZIuVZT6052ZVio2+rEHw6RJRykigl3K4x7WXjxoAwIapBk2z/POhtOu9DPgklsUWl6nI
-	 lAK3Y9S1DN7vIIOwHrs1pNPUlVj+gUk0xcnFiyGpN48BjnDLtmhhTDJFxKIirLFh0ZA==
+	t=1793250356;
+	b=KQCR7Vb6cHNtda3gEFuQxGIQD5wfXXs1TmuetrZXPIB2/9vqU/Dhg5hYV+vpSxqA5724
+	 8MXbBgGwHNTDfePW3Afyc4zbFDqM3Hn9OUCzXxx79nhDHUdCPiwMRQWG9E5Wf6uOaalVA
+	 wFRgFZQE2Be1AS4B/oEN8tVgkJi+l0PmGlNq5kBZgfKXremygtvMPuPW4e9SJbILLfuDC
+	 nXGSphKU0iQfUdlZn4e2PmoBoIXMemUBn7PKi3p7Fp0L8yD4a9GepICWr1FVp3qBPQzhM
+	 Dc5obly4X+QqH8WcG2HQlILnHSW0f+om4Sl66L8ZagwEPqYMf6B0N0pezLMDgKxyozw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793250311;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=fZDwQ6kGiBz8hBwCxjfRm0G3nIJfWu4QxIfmNtwLuik=;
-	b=nzbduXKV0Y6ny36c9e/IbWNz86VG7vNGKijqxoruFDiRf+oNfw7cS1+IBqmv0sp/3xN8
-	 3ehoVWc4lv8MIZwwuvUFXAlgiwAsdkkltDZseTF9NncPpOzSnC3+rqN0T6Oh9WqRp0yUS
-	 NcqnCgLPXt+UblQqzl8exyAPEJYDozunocZa1ZedqbpTlLpOb4xvRkUvRqVU6n1dLet6V
-	 r7jG2BWYlQ/yX0t/FGW7/OV9t6iftWy13IwPq2qCLcjcoeq+LwNTuu+neNqPZPyAbXJt/
-	 ESJw8QvjSSnewioyqtf9pnqtElvzoJWeG2DdG6fEdfVE1eEPMGX3yynN22ZDM7xo/iA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793250356;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=qzyK/sep4k0pgE8m3Kj8rFxd4gj+fEVyhh5FmlJnLT4=;
+	b=xxsn6P6S7SuADd9WorPJ1fDaxOrQPWtIJDQW2xCz5k9giKx8nHD4nXlmt1bMkMIJAL85
+	 EEe5SyP3w3o+wc3JKDet7ympSs8GCYOd8VE7wzQvpRC+AJYtWtHj1iRRxx33D1uOwuMKV
+	 T/CDiTECa9lPtd11TDdN/v4EYaXCmTwnDMGy6D7o/AAESrHIR+4c+15k44hvKHSc6X3/6
+	 bDTfpkZFgLdwNnY1ldUOgcJ7t1yNf17Jsi9ceiXZk31lGCN1kwtQmXAdP+XhhjBtElc7e
+	 iSOl7f+ekDYpcfjEQHpX0hvCxebKimre9zsULHfZqXUgE6IxBucfhc1dIO/LBlIqOyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c53v2q9l;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=If3Xgjta;
+	arc=none smtp.remote-ip=74.125.227.136
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 82F47606A31A;
-	Thu, 29 Oct 2026 05:05:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61398606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:05:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61398606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c53v2q9l
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BA87F1F01825;
-	Thu, 29 Oct 2026 05:05:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793250311;
-	bh=fZDwQ6kGiBz8hBwCxjfRm0G3nIJfWu4QxIfmNtwLuik=;
-	h=From:To:Cc:Subject:Date;
-	b=c53v2q9lhKn/O7SnV03A9TUFaCyJEERfHMbEPI4vquNse/bQxk1ie0xThfDS9X144
-	 atCdkIIDrfsUFwUuRprbe3bhi8nvibAXWhd4oWl6p8BxcrsxedGpH/JPCOhtGKWCfl
-	 SqoN+cJOweCazFHUfPbu4tlzRX+af7pMtyj6Wcl6Yv1P6WMxXzY/0MCX0sUmUY8pIQ
-	 wZK78C3el3XnyM5AmGu/KM1qgWZZimE24C77R6A2coh8tYKKrjS9U73Z7eHRnrIvd0
-	 xAXWvVaI/5qUjzQGQuVwndFTFiEZ2y+Zlc32tm7ee6siq6EVl4GwMvIBmmnIkCiJac
-	 4dnWhMZYDaumg==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: Eric Biggers <ebiggers@kernel.org>,
-	linux-integrity@vger.kernel.org,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
-	Eric Snowberg <eric.snowberg@oracle.com>,
-	Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	linux-security-module@vger.kernel.org (open list:SECURITY SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list),
-	keyrings@vger.kernel.org (open list:KEYS/KEYRINGS)
-Subject: [PATCH v3] KEYS: key_garbage_collector(): process in chunks
-Date: Thu, 29 Oct 2026 07:04:46 +0200
-Message-ID: <20261029050449.3346259-1-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=If3Xgjta
+Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ac6fe4aff0so1665452a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:05:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793250355; x=1793855155; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=qzyK/sep4k0pgE8m3Kj8rFxd4gj+fEVyhh5FmlJnLT4=;
+        b=If3XgjtaRu0jjJanap+LIdclkOSsGDozBMQjUhhi0DZKT6XoadeXOYBixTQ3hbQRIL
+         NBNjcTU09Jc102qL/PavE3OOkzvpbnFyFWhMRb68Es6+JMpgmJc4/izTGUTq90BcXTR3
+         MKd6bgSoe6osDyeEYSwYPa4F3DwL2LHNFW+1vsTfwU8engZ8qtf5sC3tdJyp8e751DM1
+         eesZ7OM6Afhm8vqNxrhRkC8muaarybhUX8uQsOoFIo4PE8H/xzAw8pBJkYCyX7Hz2Zo4
+         p1I3P4zwd0Ysq1u35IdcewQBFN/0NUZtaNzyjy42mRVVKaooyKdiM41Mz7BocsBZlfjd
+         3Oew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793250355; x=1793855155;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qzyK/sep4k0pgE8m3Kj8rFxd4gj+fEVyhh5FmlJnLT4=;
+        b=sYsn0gda3qgmDosdsMt7yYAzY4Iu/ramlkAZFkEl1NCJFBPUXdcbvM+vLeBAUcsTdv
+         xTJxb4pyI/MKi98XsVxUo0WsL64dnEJrFlCGWKNTlAaJhal0h2J3QSwUl1m2e3T2lvY+
+         dclN2a4Ncttc4ZsxZfM5CxStQkd1GxIIweiJ8aflT97XVshHrf9348u0cCPSVlrFWA8i
+         FF58BTx7ESlftV2LRkYNCdd+bELpCi/abpJxKAnLuTthbqdfN6BoFU0kHiftaQvlCKOg
+         DbM/0vVMlrID6ppQhjikR7rNBBshGpmr8grX3XCvvp80Hcrn9+5eeKEreRiXD3lH0dBp
+         Rkng==
+X-Forwarded-Encrypted: i=1; AKwUvBy9aUqRR4K4PrB9Bz9oPgsDMpSAzR4QnFiOeqM9+p+L8tIav7L5SPHeB4PYvJAohZjw0uZBdpmuIoe6IgE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQom6vlpzWAgzyCZ68n4pQKrrKgPmRVdDxtdE4OnAKbP36m/WO
+	u4Dv3VGJt8foop+TZfbcBJNxAxQr25nqjYWI03lCkUYRXXr6iFjAfi3I
+X-Gm-Gg: AYBFou0u1SQWco/vKGme/Z0GImPprT6WXxYUQs/APewi3n/7LpGOQsHHbt7lJQDKPk9
+	PXZPR3tpaSw5pXDZVDO1PRqWqrNJW038gWfUgZJqhR7CXx/Zp3weakVp5hbT/2NCcZUjHfJWWhf
+	V83C65JpWo2OWTGTiacYGWRFVdFI9HQeEBkiGXyFG6Jqj9g+aVR/CBAPHs8xwh6Ps4Nq2nwJZJF
+	upj5W/Bf6bQG5l6ErIQd2kE8QLUYaiclLcM5Vmy8tzXxVqSiZXZ8LC6/tlJBQHV6vQPnP/cjQ2M
+	+QJz8CV79E2+cTW635Lcs/HwGeKWjeMTSHnE2u1Pf+D0lOk78pNcFm19yn61aztQEfxkoqXDrv2
+	S7zDufC8c274+iP5W8sNOb2nxgd8HvMc30LeX8Mj6VyDHqZc27IT9HCwGVqQiOOwdMmNiXMXsgE
+	hPyXUKM0God6JqwXIeuZywyzGWppG6nEjjzHZxDUsiGbgzNHKvCiiPPdHA5cTN4MvW0e8s//xOI
+	oUjViVsNUSVn0e2ylMwNuLR4+kOJcfuJrdaG1wrJnxXWlVljgIMo++Gbai82gh0TRGR1ju3fUkD
+	xcov8+g0f6EK5wvxVFwS3MPvkRcd
+X-Received: by 2002:a17:90b:562e:b0:3ac:9176:e81c with SMTP id 98e67ed59e1d1-3ae580dd6d0mr3805262a91.46.1793250354465;
+        Wed, 28 Oct 2026 22:05:54 -0700 (PDT)
+Received: from [127.0.1.1] ([169.211.140.146])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9d2cesm28159685ad.65.2026.10.28.22.05.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 22:05:53 -0700 (PDT)
+From: Kwanghoon Son <asdfkwang@gmail.com>
+Subject: [PATCH RFC 00/12] Add BL808 UART3 support with a Rust serial-core
+ polling console
+Date: Thu, 29 Oct 2026 01:05:41 -0400
+Message-Id: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,398 +92,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACXU4moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyNT3aLS4hLdpBwLAwvd5Py84vycVF3DtKRUw8Q0YxNjkxQloMaCotS
+ 0zAqwodFKQW7OSrG1tQDtuKqpaQAAAA==
+X-Change-ID: 20261025-rust-bl808-console-1fbe1af3434d
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Paul Walmsley <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Anup Patel <anup@brainfault.org>, Kwanghoon Son <asdfkwang@gmail.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
+X-Mailer: b4 0.14.2
 
-key_garbage_collector() has a design that is not resistant enough for
-workqueue lockups. The duration scales up relative to the number of items
-in the serial tree, which causes a reoccuring theme of being guilty of
-causing workqueue lockups.
+Introduce minimal Rust serial-core abstractions and a single UART3 polling
+printk console for the BL808 D0 and Sipeed M1s Dock.
 
-Resolve the problem by processing in chunks:
+The BL808 is a RISC-V SoC used in boards such as the Sipeed M1s Dock
+and PINE64 Ox64 [1].
 
-1. Declare a static variable key_gc_work, which owns the garbage collection
-   in-flight state, and key_schedule_gc_work() for re-scheduling the work.
-2. Define KEY_GC_CHUNK_SIZE, set to 1024 keys, as the bound for the number
-   of items scanned and destroyed.
-3. Define KEY_GC_DESTROYING to mark resume to destruction without repeating
-   the RCU grace period. Drain the graveyard before advancing key-type
-   reaping.
-4. Define KEY_GC_REAP_REQUESTED for preserving full-pass requests across
-   the continuations.
+The serial abstractions and their BL808 consumer are adjacent patches.
+Port registration is owned and device-managed. The adapters provide UART
+locking for termios changes and normal console writes. Userspace TTY I/O,
+RX, interrupt-driven transfers and DMA are not included.
 
-keygcbench results without the patch:
+I kept the driver limited to polling console output for now, so the
+initial driver and Rust abstractions stay small. Does this seem like a
+reasonable starting point?
 
-unused:   min=3016.754 avg=11859.097 max=28667.645 var=141391574.712
-expired:  min=0.015 avg=12758.165 max=21516.237 var=85158284.646
-combined: min=0.015 avg=12308.631 max=28667.645 var=113477010.596
+The Rust abstractions cover only what this driver needs. Is there
+anything missing that should be addressed at this stage? I'd especially
+appreciate feedback on the port ownership and locking interfaces.
 
-keygcbench results with the patch:
+UART3 is registered as ttyBFLB0, using line 0 of a one-port driver. The
+board selects it through a full stdout-path at 115200 8N1 without aliases.
+Firmware initializes clock routing, gates, reset and pinmux; the board
+provides the existing 40 MHz fixed baud clock.
 
-unused:   min=0.225 avg=13.991 max=853.100 var=858.700
-expired:  min=0.016 avg=30.442 max=2791.695 var=14187.539
-combined: min=0.016 avg=19.249 max=2791.695 var=5177.436
+Jisheng Zhang previously submitted BL808 platform support with a C UART
+driver in 2023 [2]. The UART compatible, bflb,uart, is reused from
+Zephyr [3].
 
-Tests were performed with QEMU/KVM hosted by AMD 4650U (Zen 2) CPU.
+This series depends on the exclusive MMIO reservation fix posted at [4].
 
-Link: https://git.kernel.org/pub/scm/linux/kernel/git/jarkko/linux-tpmdd-test.git/tree/package/keygcbench
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[1] https://pine64.org/devices/ox64/
+[2] https://lore.kernel.org/r/20230518152244.2178-5-jszhang@kernel.org/
+[3] https://docs.zephyrproject.org/latest/build/dts/api/bindings/serial/bflb,uart.html
+[4] https://lore.kernel.org/rust-for-linux/20261027-b4-rust-iomem-origin-master-fix-v1-1-16215ae197af@gmail.com/T/#u
+
 ---
-v3:
-- Added new tests results made by using keygcbench.
-- Added link to keygcbench.
-v2:
-- Fixed typo in the commit message.
-- Drop the local variable gc_state.
+Kwanghoon Son (12):
+      dt-bindings: vendor-prefixes: Add Bouffalo Lab
+      dt-bindings: interrupt-controller: Add BL808 PLIC
+      dt-bindings: timer: Add BL808 CLINT
+      dt-bindings: riscv: Add Bouffalo Lab BL808
+      dt-bindings: serial: Add BL808 UART
+      rust: serial: Add minimal serial-core polling console support
+      serial: bflb: Add Rust BL808 polling console
+      riscv: Add Bouffalo Lab SoC selection
+      riscv: dts: bouffalolab: Add BL808 SoC
+      riscv: dts: bouffalolab: Add Sipeed M1s Dock
+      riscv: defconfig: Enable Bouffalo Lab SoCs
+      MAINTAINERS: Add Bouffalo Lab BL808 support
+
+ .../interrupt-controller/sifive,plic-1.0.0.yaml    |   1 +
+ Documentation/devicetree/bindings/riscv/bflb.yaml  |  21 +
+ .../devicetree/bindings/serial/bflb,uart.yaml      |  57 +++
+ .../devicetree/bindings/timer/sifive,clint.yaml    |   1 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ MAINTAINERS                                        |  13 +
+ arch/riscv/Kconfig.socs                            |   8 +
+ arch/riscv/boot/dts/Makefile                       |   1 +
+ arch/riscv/boot/dts/bouffalolab/Makefile           |   2 +
+ .../boot/dts/bouffalolab/bl808-sipeed-m1s-dock.dts |  18 +
+ .../boot/dts/bouffalolab/bl808-sipeed-m1s.dtsi     |  19 +
+ arch/riscv/boot/dts/bouffalolab/bl808.dtsi         |  70 +++
+ arch/riscv/configs/defconfig                       |   1 +
+ drivers/tty/serial/Kconfig                         |  16 +
+ drivers/tty/serial/Makefile                        |   2 +
+ drivers/tty/serial/bflb_uart.rs                    | 334 ++++++++++++++
+ rust/bindings/bindings_helper.h                    |   2 +
+ rust/helpers/helpers.c                             |   3 +
+ rust/helpers/serial.c                              |  33 ++
+ rust/kernel/lib.rs                                 |   2 +
+ rust/kernel/serial.rs                              | 505 +++++++++++++++++++++
+ rust/kernel/serial/console.rs                      | 107 +++++
+ rust/kernel/serial/termios.rs                      | 104 +++++
+ 23 files changed, 1322 insertions(+)
 ---
- security/keys/gc.c       | 151 ++++++++++++++++++++++++++-------------
- security/keys/internal.h |   1 -
- security/keys/key.c      |   2 +-
- 3 files changed, 102 insertions(+), 52 deletions(-)
+base-commit: b7ac81a9d691d0af65a5e1d3e16ef03d5dc8f2b4
+change-id: 20261025-rust-bl808-console-1fbe1af3434d
 
-diff --git a/security/keys/gc.c b/security/keys/gc.c
-index eda445f815d4..ddf51879971c 100644
---- a/security/keys/gc.c
-+++ b/security/keys/gc.c
-@@ -10,16 +10,27 @@
- #include <keys/keyring-type.h>
- #include "internal.h"
-
--/*
-- * Delay between key revocation/expiry in seconds
-- */
--unsigned key_gc_delay = 5 * 60;
-+#define KEY_GC_CHUNK_SIZE 1024
-
- /*
-  * Reaper for unused keys.
-  */
- static void key_garbage_collector(struct work_struct *work);
--DECLARE_WORK(key_gc_work, key_garbage_collector);
-+
-+static struct {
-+	time64_t start;			/* expiry range start */
-+	time64_t end;			/* expiry range end */
-+	struct rb_node *cursor;		/* serial tree position */
-+	u8 state;			/* state flags */
-+	struct work_struct work;	/* work item */
-+} key_gc_work = {
-+	.work = __WORK_INITIALIZER(key_gc_work.work, key_garbage_collector),
-+};
-+
-+/*
-+ * Delay between key revocation/expiry in seconds
-+ */
-+unsigned int key_gc_delay = 5 * 60;
-
- /*
-  * Reaper for links from keyrings to dead keys.
-@@ -34,6 +45,7 @@ static unsigned long key_gc_flags;
- #define KEY_GC_KEY_EXPIRED	0	/* A key expired and needs unlinking */
- #define KEY_GC_REAP_KEYTYPE	1	/* A keytype is being unregistered */
- #define KEY_GC_REAPING_KEYTYPE	2	/* Cleared when keytype reaped */
-+#define KEY_GC_REAP_REQUESTED	3	/* Another complete pass was requested */
-
-
- /*
-@@ -44,6 +56,20 @@ struct key_type key_type_dead = {
- 	.name = ".dead",
- };
-
-+/*
-+ * Schedule a new GC pass or re-schedule an ongoing GC pass.
-+ */
-+static void key_schedule_gc_work(void)
-+{
-+	/*
-+	 * Order caller updates before setting KEY_GC_REAP_REQUESTED, given that
-+	 * set_bit() is unordered.
-+	 */
-+	smp_mb__before_atomic();
-+	set_bit(KEY_GC_REAP_REQUESTED, &key_gc_flags);
-+	schedule_work(&key_gc_work.work);
-+}
-+
- /*
-  * Schedule a garbage collection run.
-  * - time precision isn't particularly important
-@@ -57,7 +83,7 @@ void key_schedule_gc(time64_t gc_at)
-
- 	if (gc_at <= now || test_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags)) {
- 		kdebug("IMMEDIATE");
--		schedule_work(&key_gc_work);
-+		key_schedule_gc_work();
- 	} else if (gc_at < key_gc_next_run) {
- 		kdebug("DEFERRED");
- 		key_gc_next_run = gc_at;
-@@ -85,7 +111,7 @@ void key_set_expiry(struct key *key, time64_t expiry)
- void key_schedule_gc_links(void)
- {
- 	set_bit(KEY_GC_KEY_EXPIRED, &key_gc_flags);
--	schedule_work(&key_gc_work);
-+	key_schedule_gc_work();
- }
-
- /*
-@@ -119,7 +145,7 @@ void key_gc_keytype(struct key_type *ktype)
- 	set_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags);
-
- 	kdebug("schedule");
--	schedule_work(&key_gc_work);
-+	key_schedule_gc_work();
-
- 	kdebug("sleep");
- 	wait_on_bit(&key_gc_flags, KEY_GC_REAPING_KEYTYPE,
-@@ -134,7 +160,9 @@ void key_gc_keytype(struct key_type *ktype)
-  */
- static noinline void key_gc_unused_keys(struct list_head *keys)
- {
--	while (!list_empty(keys)) {
-+	unsigned int chunk = KEY_GC_CHUNK_SIZE;
-+
-+	while (!list_empty(keys) && chunk--) {
- 		struct key *key =
- 			list_entry(keys->next, struct key, graveyard_link);
- 		short state = key->state;
-@@ -178,54 +206,64 @@ static noinline void key_gc_unused_keys(struct list_head *keys)
- static void key_garbage_collector(struct work_struct *work)
- {
- 	static LIST_HEAD(graveyard);
--	static u8 gc_state;		/* Internal persistent state */
-+	typeof(key_gc_work) *gc = &key_gc_work;
- #define KEY_GC_REAP_AGAIN	0x01	/* - Need another cycle */
- #define KEY_GC_REAPING_LINKS	0x02	/* - We need to reap links */
-+#define KEY_GC_DESTROYING	0x04	/* - We need to destroy keys */
- #define KEY_GC_REAPING_DEAD_1	0x10	/* - We need to mark dead keys */
- #define KEY_GC_REAPING_DEAD_2	0x20	/* - We need to reap dead key links */
- #define KEY_GC_REAPING_DEAD_3	0x40	/* - We need to reap dead keys */
- #define KEY_GC_FOUND_DEAD_KEY	0x80	/* - We found at least one dead key */
-
--	struct rb_node *cursor;
-+	unsigned int chunk = KEY_GC_CHUNK_SIZE;
- 	struct key *key;
--	time64_t new_timer, limit, expiry;
-+	time64_t expiry;
-
--	kenter("[%lx,%x]", key_gc_flags, gc_state);
-+	kenter("[%lx,%x]", key_gc_flags, gc->state);
-
--	limit = ktime_get_real_seconds();
-+	if (gc->state & KEY_GC_DESTROYING)
-+		goto destroy_keys;
-+	if (gc->cursor) {
-+		spin_lock(&key_serial_lock);
-+		goto continue_scanning;
-+	}
-+
-+	test_and_clear_bit(KEY_GC_REAP_REQUESTED, &key_gc_flags);
-+	gc->start = ktime_get_real_seconds();
-
- 	/* Work out what we're going to be doing in this pass */
--	gc_state &= KEY_GC_REAPING_DEAD_1 | KEY_GC_REAPING_DEAD_2;
--	gc_state <<= 1;
-+	gc->state &= KEY_GC_REAPING_DEAD_1 | KEY_GC_REAPING_DEAD_2;
-+	gc->state <<= 1;
- 	if (test_and_clear_bit(KEY_GC_KEY_EXPIRED, &key_gc_flags))
--		gc_state |= KEY_GC_REAPING_LINKS;
-+		gc->state |= KEY_GC_REAPING_LINKS;
-
- 	if (test_and_clear_bit(KEY_GC_REAP_KEYTYPE, &key_gc_flags))
--		gc_state |= KEY_GC_REAPING_DEAD_1;
--	kdebug("new pass %x", gc_state);
-+		gc->state |= KEY_GC_REAPING_DEAD_1;
-+	kdebug("new pass %x", gc->state);
-
--	new_timer = TIME64_MAX;
-+	gc->end = TIME64_MAX;
-
- 	/* As only this function is permitted to remove things from the key
- 	 * serial tree, if cursor is non-NULL then it will always point to a
- 	 * valid node in the tree - even if lock got dropped.
- 	 */
- 	spin_lock(&key_serial_lock);
--	cursor = rb_first(&key_serial_tree);
-+	gc->cursor = rb_first(&key_serial_tree);
-
- continue_scanning:
--	while (cursor) {
--		key = rb_entry(cursor, struct key, serial_node);
--		cursor = rb_next(cursor);
-+	while (gc->cursor && chunk) {
-+		key = rb_entry(gc->cursor, struct key, serial_node);
-+		gc->cursor = rb_next(gc->cursor);
-+		chunk--;
-
- 		if (!test_bit_acquire(KEY_FLAG_USER_ALIVE, &key->flags)) {
- 			/* Clobber key->user after final put seen. */
- 			goto found_unreferenced_key;
- 		}
-
--		if (unlikely(gc_state & KEY_GC_REAPING_DEAD_1)) {
-+		if (unlikely(gc->state & KEY_GC_REAPING_DEAD_1)) {
- 			if (key->type == key_gc_dead_keytype) {
--				gc_state |= KEY_GC_FOUND_DEAD_KEY;
-+				gc->state |= KEY_GC_FOUND_DEAD_KEY;
- 				set_bit(KEY_FLAG_DEAD, &key->flags);
- 				key->perm = 0;
- 				goto skip_dead_key;
-@@ -239,24 +277,24 @@ static void key_garbage_collector(struct work_struct *work)
- 		if (expiry != TIME64_MAX) {
- 			if (!(key->type->flags & KEY_TYPE_INSTANT_REAP))
- 				expiry += key_gc_delay;
--			if (expiry > limit && expiry < new_timer) {
-+			if (expiry > gc->start && expiry < gc->end) {
- 				kdebug("will expire %x in %lld",
--				       key_serial(key), key->expiry - limit);
--				new_timer = key->expiry;
-+				       key_serial(key), key->expiry - gc->start);
-+				gc->end = key->expiry;
- 			}
- 		}
-
--		if (unlikely(gc_state & KEY_GC_REAPING_DEAD_2))
-+		if (unlikely(gc->state & KEY_GC_REAPING_DEAD_2))
- 			if (key->type == key_gc_dead_keytype)
--				gc_state |= KEY_GC_FOUND_DEAD_KEY;
-+				gc->state |= KEY_GC_FOUND_DEAD_KEY;
-
--		if ((gc_state & KEY_GC_REAPING_LINKS) ||
--		    unlikely(gc_state & KEY_GC_REAPING_DEAD_2)) {
-+		if ((gc->state & KEY_GC_REAPING_LINKS) ||
-+		    unlikely(gc->state & KEY_GC_REAPING_DEAD_2)) {
- 			if (key->type == &key_type_keyring)
- 				goto found_keyring;
- 		}
-
--		if (unlikely(gc_state & KEY_GC_REAPING_DEAD_3))
-+		if (unlikely(gc->state & KEY_GC_REAPING_DEAD_3))
- 			if (key->type == key_gc_dead_keytype)
- 				goto destroy_dead_key;
-
-@@ -269,7 +307,11 @@ static void key_garbage_collector(struct work_struct *work)
- 	spin_unlock(&key_serial_lock);
-
- maybe_resched:
--	if (cursor) {
-+	if (gc->cursor) {
-+		if (!chunk) {
-+			schedule_work(&key_gc_work.work);
-+			return;
-+		}
- 		cond_resched();
- 		spin_lock(&key_serial_lock);
- 		goto continue_scanning;
-@@ -281,12 +323,12 @@ static void key_garbage_collector(struct work_struct *work)
- 	 */
- 	kdebug("pass complete");
-
--	if (new_timer != TIME64_MAX) {
--		new_timer += key_gc_delay;
--		key_schedule_gc(new_timer);
-+	if (gc->end != TIME64_MAX) {
-+		gc->end += key_gc_delay;
-+		key_schedule_gc(gc->end);
- 	}
-
--	if (unlikely(gc_state & KEY_GC_REAPING_DEAD_2) ||
-+	if (unlikely(gc->state & KEY_GC_REAPING_DEAD_2) ||
- 	    !list_empty(&graveyard)) {
- 		/* Make sure that all pending keyring payload destructions are
- 		 * fulfilled and that people aren't now looking at dead or
-@@ -297,33 +339,42 @@ static void key_garbage_collector(struct work_struct *work)
- 		synchronize_rcu();
- 	}
-
-+	gc->state |= KEY_GC_DESTROYING;
-+
-+destroy_keys:
- 	if (!list_empty(&graveyard)) {
- 		kdebug("gc keys");
- 		key_gc_unused_keys(&graveyard);
-+		if (!list_empty(&graveyard)) {
-+			schedule_work(&key_gc_work.work);
-+			return;
-+		}
- 	}
-+	gc->state &= ~KEY_GC_DESTROYING;
-
--	if (unlikely(gc_state & (KEY_GC_REAPING_DEAD_1 |
-+	if (unlikely(gc->state & (KEY_GC_REAPING_DEAD_1 |
- 				 KEY_GC_REAPING_DEAD_2))) {
--		if (!(gc_state & KEY_GC_FOUND_DEAD_KEY)) {
-+		if (!(gc->state & KEY_GC_FOUND_DEAD_KEY)) {
- 			/* No remaining dead keys: short circuit the remaining
- 			 * keytype reap cycles.
- 			 */
- 			kdebug("dead short");
--			gc_state &= ~(KEY_GC_REAPING_DEAD_1 | KEY_GC_REAPING_DEAD_2);
--			gc_state |= KEY_GC_REAPING_DEAD_3;
-+			gc->state &= ~(KEY_GC_REAPING_DEAD_1 | KEY_GC_REAPING_DEAD_2);
-+			gc->state |= KEY_GC_REAPING_DEAD_3;
- 		} else {
--			gc_state |= KEY_GC_REAP_AGAIN;
-+			gc->state |= KEY_GC_REAP_AGAIN;
- 		}
- 	}
-
--	if (unlikely(gc_state & KEY_GC_REAPING_DEAD_3)) {
-+	if (unlikely(gc->state & KEY_GC_REAPING_DEAD_3)) {
- 		kdebug("dead wake");
- 		clear_and_wake_up_bit(KEY_GC_REAPING_KEYTYPE, &key_gc_flags);
- 	}
-
--	if (gc_state & KEY_GC_REAP_AGAIN)
--		schedule_work(&key_gc_work);
--	kleave(" [end %x]", gc_state);
-+	if ((gc->state & KEY_GC_REAP_AGAIN) ||
-+	    test_bit(KEY_GC_REAP_REQUESTED, &key_gc_flags))
-+		schedule_work(&key_gc_work.work);
-+	kleave(" [end %x]", gc->state);
- 	return;
-
- 	/* We found an unreferenced key - once we've removed it from the tree,
-@@ -335,7 +386,7 @@ static void key_garbage_collector(struct work_struct *work)
- 	spin_unlock(&key_serial_lock);
-
- 	list_add_tail(&key->graveyard_link, &graveyard);
--	gc_state |= KEY_GC_REAP_AGAIN;
-+	gc->state |= KEY_GC_REAP_AGAIN;
- 	goto maybe_resched;
-
- 	/* We found a restricted keyring and need to update the restriction if
-@@ -353,7 +404,7 @@ static void key_garbage_collector(struct work_struct *work)
- 	 */
- found_keyring:
- 	spin_unlock(&key_serial_lock);
--	keyring_gc(key, limit);
-+	keyring_gc(key, gc->start);
- 	goto maybe_resched;
-
- 	/* We found a dead key that is still referenced.  Reset its type and
-diff --git a/security/keys/internal.h b/security/keys/internal.h
-index b7b622bc36a1..cca936f5015d 100644
---- a/security/keys/internal.h
-+++ b/security/keys/internal.h
-@@ -162,7 +162,6 @@ extern bool lookup_user_key_possessed(const struct key *key,
- extern long join_session_keyring(const char *name);
- extern void key_change_session_keyring(struct callback_head *twork);
-
--extern struct work_struct key_gc_work;
- extern unsigned key_gc_delay;
- extern void keyring_gc(struct key *keyring, time64_t limit);
- extern void keyring_restriction_gc(struct key *keyring,
-diff --git a/security/keys/key.c b/security/keys/key.c
-index e88548f1a704..5c2d0e3b49e6 100644
---- a/security/keys/key.c
-+++ b/security/keys/key.c
-@@ -670,7 +670,7 @@ void key_put(struct key *key)
- 			}
- 			/* Mark key as safe for GC after key->user done. */
- 			clear_bit_unlock(KEY_FLAG_USER_ALIVE, &key->flags);
--			schedule_work(&key_gc_work);
-+			key_schedule_gc(0);
- 		}
- 	}
- }
---
-2.47.3
+Best regards,
+-- 
+Kwanghoon Son <asdfkwang@gmail.com>
 
