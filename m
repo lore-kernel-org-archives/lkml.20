@@ -1,58 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260950;
-	b=i//SC1hqwQeQs5p0hc6+R2y8/pMr/eQdjAwaMakNsv7dzrL5/PAn3zfY+6PZO4BkPSyi
-	 i3BA3tPt6QxZb/+VxH4oIEzRgdtRUouqQ+lC2fZEXAvT6QimltASKdzJeonopp59VV4Oa
-	 NZ3h9Vq5tSW0xXmMecwrUtI+0jtwilqokAgoJTNRKe44nRAV467zmuK8Vl2YtptbgN6Dt
-	 aAPZ0t9NLx5VZW+NKVgCOZgR0mN25+SV5DurqKNrBiOjRNRi2bowYB0AcMG3bxd97ZPXN
-	 2X69JbPqwWsRR3/76RlacsSEzkY6xPguKsVnybBpVGCNm23THx2ObFxQNABVB1c1ttQ==
+	t=1793260954;
+	b=MeYzLiFvbdNoLsEFvJ7+BQGwTSSQ6Ihw/+Pr8vr+kKlvHENueWBp83L7ygQ5XbsZyogP
+	 NvTzV7denQcmT6/ro1djYmgF35SEFdKJKrOcaWXsH1GDDYXBKyCAsMwQFfRWi9fvBd39G
+	 rUBbaDEEcKLkEtGZmRgC5Bkl+CvU1YNjqA8UPXEkHgWKxlmJtgnb4ElAKoxagpf625wuV
+	 WWenSWz73PCCNsgHD/rHjn+TBZYi/urVZ3f/C9iknR4zZBro5zdvcaVll0Tg0KVrTJAVb
+	 X3MPeibCjyPMnLsnCokswg5aRcvWfVCSNeIW7tV3IkgLCoJhaRG/DhErVbsJwrNHwCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260950;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=k7wnMyNHyOO5DHA2rACA7tUOQeKfNwQiXkD2gNMyU+g=;
-	b=eZOIuLhio2Rq1J9Au11197Uisp+oiA+NZcsBfJnsVMUx+TesciRtfF0eIptK5Y1Oee9T
-	 V02pUgUBX91Uk9qtaira/TLCKu8WThY/HP9cqE5W3qGqgJ0wCLReg2lGr1+m85Bur5ZTe
-	 VJdfsqi34UWHsAVKeInPPPwL+HNoWXpqXyvD6aMDll0lY+Ct+HACN/Ua0fLJTB6oysc0W
-	 6KrxuhY4aj1TzC3SWa8FhGpzLiBUxTo3q8lCFF2U9hD+7hvvHz+ItvWam4qufdWPiTDA6
-	 hSViRTz3avoWnGFjeMxLOYtgEYjIpVATjafAmG/1lc4UUAUM5J7wxdLKTR/5TSIzplA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260954;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=St2VWZiXtjKvJRuy6GbzBuRluyE1JtSs8Qqs+pKOUo8=;
+	b=Sv4OQCKRbmz2dWcLD2fiTTXhYnlTVd2DDoJ1ERzhucSmh8VPYXQdXfc+Am7QXzkdEYnT
+	 24FIXgtvYaPC/XJ1294iuVJJ9oTnOKYKrR2UpchSZKUGjY7uIKSSYtK/wjgK72dTt/bn4
+	 WiLQIXQ0iyLsDyvwb90NODUSGm9hxnzLeo+GRDeMeYfUiNaBeTeMqTaR1SzS9u9ddlamM
+	 1y9SHOFYC86s9nls3rRN7+qukcqPmEbjBneRZgWsT9cUZwod+Bg0JTNJdkCzLvQOt8k8B
+	 uqjKtDjqT/QXXK5FXNqNwwCcgNhn4gVHAL82HsqheBfU5kOdpM6KHW13VqI4zt+iiLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RnKH9UKN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Deg+Bpis;
+	arc=none smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30895606A31C;
-	Thu, 29 Oct 2026 08:02:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADD4606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:02:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4ADD4606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RnKH9UKN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 055A11F01825;
-	Thu, 29 Oct 2026 08:02:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793260949;
-	bh=k7wnMyNHyOO5DHA2rACA7tUOQeKfNwQiXkD2gNMyU+g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RnKH9UKNWqvCzAIGT0QRRw1j2UvUkKw9PrY7/7VT7sEar/AGSgrRU8rBFG17owYb7
-	 UEZGWkhOcV9mJ3T/wKHfVuHePeenQ3ZVs5sBlhUqJS8hq1KYG0VoDdjJFiOkrEQM7k
-	 ibkZUgisXHZD5naK2Ih2AMmzEp0pXMc1vvPfnfxOkDqZ1eWyRBdjCL5PXl7G9qiqjj
-	 fhGndGPOAAx+d/gyhmBY1dfixGdl1ENmarFTiW5igjJS7qPJIsAyNSgulA+59uibT5
-	 b2Z1RKUi9yoo946/gCg9DL+j6FVRJCeBlNzmUGSNlewFJPv191XTn6rssOObQUi9Fj
-	 rytuKHkjTvWTw==
-Date: Thu, 29 Oct 2026 09:02:26 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-Cc: linux-usb@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
-	Sriram Dash <sriram.dash@oss.qualcomm.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wesley Cheng <wesley.cheng@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/7] dt-bindings: usb: Add qcom,sa8255p-dwc3 for
- firmware-managed resources
-Message-ID: <20261029-stereotyped-lime-hamster-5ede06@quoll>
-References: <cover.1793212717.git.faisal.hassan@oss.qualcomm.com>
- <3d056785e2168de7fdc238d274d3d993e0f52464.1793212717.git.faisal.hassan@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Deg+Bpis
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8a058315c79so937934b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:02:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793260953; x=1793865753; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=St2VWZiXtjKvJRuy6GbzBuRluyE1JtSs8Qqs+pKOUo8=;
+        b=Deg+BpistlKhDa3ssyrh63JbP2AhhKkJbefjG8vVLi4oMXu028EAimv/YtCOCkg10z
+         AqOrxp9Ci7qRy0p9qqBtXAMcaMr3dAv0IRcaIUfd02eMY0KvvvPCWmrH98OUS8qPZPdB
+         JF0k8Dea2Ty1MHCWfAYGP5u6s7X+HWTZgdecgJJL82UTSUWUgiE5x01ItSUrCQitTOhE
+         stk+6205qqf7B0YDdGXm2scEd2EwyFZ1rsBQvl/5d5pFzU8XZKqTUN3QjxDciLoEGnhr
+         liJmmf3huJGyLQM/enLoXo+kTqqaEWhEDos9XR3XkJGunPnwzRku052ZpE+XkTLSU04G
+         RTTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793260953; x=1793865753;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=St2VWZiXtjKvJRuy6GbzBuRluyE1JtSs8Qqs+pKOUo8=;
+        b=YAUg7eqTfDkQKUzyZMRQs7eva61sdm5mg0VLXkKCWbW3gZHlww2Ve/HW+IZdlvREmC
+         zNg/IDMqXTu5+OksFBH49EgHPEytPdEpWGl7CbdzF9kU0Ea1jCioIv3lAbAfSJqzjSFV
+         O51ccVQuGiu/07o9K8bTEioP0jPpKXy7U8fVXeRYNm1ZifMrp943AjqvNpfo7yrvKhV1
+         Tko57l+0hMiRP4xMPihZwnMy8xByssBbuzJBHHFbC8vaq/S6v2sUCz4A3XVEmlo8XX4j
+         pekgJbLMaesYUlDCAMTlT5i1TJm0q4W8KkXhig0Zm4bZh8qWTjG8F5ivzr+dKIRD6nXP
+         /5FA==
+X-Forwarded-Encrypted: i=1; AKwUvByDDRD4IxzsMPwDel7ZPnO279GcnxeHWxeEsmYoe9Mo298k03xMmss4yuUY0M9b1S1bpeqYm+hzh2gH1nI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKh3/C/meKbr7FNnsHIBOl2nKyQPkF5X/JTm7VwUeWLQ0Xcy3dA
+	AVHaUQBCURf2iltzYFrihgtaG8fzbNcitmHnxJQudomC5FXmKV5YsjtQ
+X-Gm-Gg: AYBFou32xcY75Px0hLoOuE+TrpEylfUG7gklaE4RWfqseU5gQqexx9EwX1JzTn21zDX
+	kQX2q2D4ZKnFA09IkgIvkUj06IdLI6CMWAaGxdG8mVybrE9ab4bmKXZOU7x4Uf8jl3iU3H0OGXL
+	QAyOn7zmOQmuLJmgVUS7AyVKXKWqG78U+GW+i3pIWpdvAeDP1l6l9ZYwHZOt/GYmESFalXdal5A
+	CsugOKYdjmlJMUD5AcFDBGZQfkUCAT/UUPhxg+IGX601T82hEiNrYi2muKGq2Pt2hyEou9Wjrnn
+	uo9y9XM0eBhfVwuhVHfxcu0wSKpIbmfdxPVUv5Pr8betSi1ZjyiTGQB0Zyz1Z9yBWF1via+luY/
+	Mq7oSYqVNJq4wVXFyOgc7DVOuzx4LZRkIRJlMc72iOqkuOgCfvC3uybEz1hYuA9PgB/XSIbRFvk
+	QbPklnlQAhyMWYq+6IbWoLe4R7ZnjXe0Nr+4r4oQQ3GF0ek5EqKQKhakMdON9dCv/8knJqiOLkt
+	Ftdp7INexYg6iEOifBCdS8IpF6RYJAg+SpC70ayPRkn/x8M/s0eslAtxR9IDBATQq5spHiu9tdt
+	NoiAfqFPbp9iPEBOrbY4ZJTuIFMYHLJXKbgZswba/FUJgkSLgIp+a+g2is9sZg4VXhS67cPJSUQ
+	//JU4qdXRRFVjberXXqlDkUq89iN9t5GzFg7AfUXuYrTTfF47pa/iiPo51Og7cNu0wQ==
+X-Received: by 2002:a05:6a00:a243:b0:8a0:3685:23a5 with SMTP id d2e1a72fcca58-8a6e83ac137mr4080730b3a.53.1793260953206;
+        Thu, 29 Oct 2026 01:02:33 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ccc682d8sm5059547a12.18.2026.10.29.01.02.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 01:02:32 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	=?UTF-8?q?Pawe=C5=82=20Anikiel?= <pan@semihalf.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 0/3] ASoC: google: Fix bugs in Chameleon v3 I2S driver
+Date: Thu, 29 Oct 2026 15:01:40 +0700
+Message-ID: <20261029080143.12304-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,34 +101,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <3d056785e2168de7fdc238d274d3d993e0f52464.1793212717.git.faisal.hassan@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 12:29:33AM +0530, Faisal Hassan wrote:
-> On Qualcomm automotive SoC sa8255p, platform resources like clocks,
-> interconnects, resets, regulators and GDSC are abstracted and managed
-> collectively by firmware.
-> 
-> Add a new binding file for firmware-managed USB controllers where
-> access to these resources is exposed as two power domains:
-> - Power domain: Controls power supply (GDSC) to the USB controller
-> - Bus domain: Controls clocks and interconnects for data transfer
-> 
-> The binding makes power-domains and power-domain-names properties mandatory
-> for firmware-managed platforms. Clocks and interconnects are managed by
-> firmware through these power domains and are therefore not described.
-> 
-> Co-developed-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-> Signed-off-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-> Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-> ---
->  .../bindings/usb/qcom,sa8255p-dwc3.yaml       | 114 ++++++++++++++++++
->  1 file changed, 114 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Hi all,
+
+This series fixes a frame size calculation bug, preserves IRQ error codes, 
+and removes a redundant error message in the Chameleon v3 I2S driver.
+
+Compile-tested only.
 
 Best regards,
-Krzysztof
+Phuc
+
+bui duc phuc (3):
+  ASoC: google: Fix frame size calculation in pointer callback
+  ASoC: google: Propagate platform_get_irq() errors
+  ASoC: google: Remove redundant error message
+
+ sound/soc/google/chv3-i2s.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+-- 
+2.43.0
 
