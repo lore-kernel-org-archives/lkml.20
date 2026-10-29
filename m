@@ -1,95 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.227
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793314761;
-	b=Oa1ep+kTC6YiF0Q8jnnDQggdEX6vp7FWk4WOiHNS2jqzcFXa85wRsHWR2EDNZQEBM6O8
-	 /5gqPKPzMXB0z1YiEBv2ctfygDcO1K1dnRymClvswKmUpaFTIWQ4I3KM2ajTkptWT7h8m
-	 X7aD23oE3Kuj3u3HDECJP9AR1s5c3LNrMmqO5lTb6wdjeNK8nJzqObUwGTO0EM9aQpr8s
-	 wzhW4ZEP4WTfFilgcN6whAEcMuSMeZPt2C3ib1cVTZF6o8MeucgKwNun/NGU4GebucqoT
-	 EelGvNf7XLf2mSVj3+hRgDqfEaRSAsZva7BjT0j+RKW5fqnrTIdZLRINPu5idGf99bw==
+	t=1793314853;
+	b=GQLzySOhkeoNzEEgXAfWpxwRS3xWfPYiL9k7drZMm3CHlGqKXHVgblU0Xvd/lzr9gG9B
+	 XEp9bj+oz4AY3JXaTDbe/25MsbJm2MRu9B7AODzCjBwMJd1B6G4jeys9qYOm27KG+wjAA
+	 l5YUxkhsF9eWXikni5T+oXGEN3mpG+uSTEXz4F6qbGEqmBlJIquwhzDipPnVORk+XZTJS
+	 kpFPCchA0nKkIsO5XZNtB+SgZ0OpA2lNN+Y2qe4CIbuBTzMi7qiZ343VOdB80xaUBRSNn
+	 DKRFgWGDq3oLll73UoBqE5XxH+AekRFmQsHjQb37Ip7A/o6W11RCw8fWT9Gae58mJLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793314761;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793314853;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 X-Relaying-Domain:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=LoIbjYHReLG6WDNOTPVhVG9Y8H5GzjW3qhBS6aSgkkg=;
-	b=bnJmKYROrIt1O9QZnkS+D/CIBohW9EYBVkXANfxhGn4/k2M2Zxj7PUTuRX5dxbGAD1XZ
-	 OS8pdBbDEK3mAdP1ErlY7u53406u8vDwoX15lcOvoqE4pYTQb3HUjFMyEl73HmB/OEmRj
-	 gQLe0+zBK0mB9FztN7mX75RnEGdaWCs/5t7/2CEjRpkCJa6lPGxhFiKo12EYG6e2GPOAk
-	 pkI4+hPL/e7UovSu+gL8T5xZ6x70H4oSUp+64dcDfWn+FG3ZdzN62+Sa8c/11N4WS9IiA
-	 +b8TtlgZIxdHBJc34AtoiDKEflG+N0ca+AiB3rGYq/gMupmbj185PdzDS9I/7ttn7/A==
+	bh=wAkmuO04uLZ+w6vmRTOyMcrwMg7+Yeu0ajM/FtCfLDw=;
+	b=WwTd/G2GMUqJgUk3USjFi8sf97NOTqPbYpHxVFyNSU1LVUFJKk/SO5wN6vTgjHoY5udw
+	 07bAGhN1dXHy74sZajcY8S5CgCgX90p3knvou8h5ueoDhZuHpZxSzt0w0XnphB8dNVSdu
+	 h52NckKHpGur5R4UKdwDq4gPiqzEnj1Wikco3iMWBFa05R9/b3T97nqIP5Oh4tRetbBak
+	 5bfQpQfsd75K2IO9E0I5ZcqmoDi00pqzMTi2H7gwfvtnuOOuwNmmL91yk1CSELUFjLfif
+	 tnbMCnQdc06OxjQLndCLUHUxeeiKNNddPX/u0ylWiWACC4HBBhsEz/Aaebm8Y0qX92w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G7NsA0p5;
-	arc=none smtp.remote-ip=74.125.229.133
-Received: from mail-dl2-f5.google.com (mail-dl2-f5.google.com [74.125.229.133])
+	dmarc=pass header.from=everpuredata.com;
+	spf=pass smtp.mailfrom=everpuredata.com;
+	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=GCbi1D1U;
+	arc=none smtp.remote-ip=209.85.214.227
+Received: from mail-pl1-f227.google.com (mail-pl1-f227.google.com [209.85.214.227])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49152606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:59:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49152606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA793606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:00:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA793606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G7NsA0p5
-Received: by mail-dl2-f5.google.com with SMTP id a92af1059eb24-1ac216daf7dso25107c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:59:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=GCbi1D1U
+Received: by mail-pl1-f227.google.com with SMTP id d9443c01a7336-2e8246b13cbso1120445ad.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:00:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793314760; x=1793919560; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LoIbjYHReLG6WDNOTPVhVG9Y8H5GzjW3qhBS6aSgkkg=;
-        b=G7NsA0p5fd/KLkSMaNXs1QyoEcDtA7SSuLtzJRGLXleyUbtLCL0K8yUcVeAlGuTf+X
-         6zc9IQMYX5xptgxuLEDlmexa8j4dwiS9UfUsVJYn+Ql0WSpFr9f5zfPE2HGhMC9vcAIw
-         znsrhkQ81XEzh1Fa1VKJEJSH6pfraJ8zeSz1g3O4M4Yogk6ytIIbOqqUIHNpFDJvA6+N
-         xejnIxBz8NgbRRLhV9ZJmadxoCa1o7v+ktEIgOfg+HQdgPEvlNt1Lk0a6Lqaz0Krjq4Q
-         cs8H2bXMD/N+PTImO+AzRLW4/9lxa85vHoL6o8lvJUcvwbwEHX7ggbdaxOdMt2lan3xo
-         z+wA==
+        d=everpuredata.com; s=google; t=1793314846; x=1793919646; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wAkmuO04uLZ+w6vmRTOyMcrwMg7+Yeu0ajM/FtCfLDw=;
+        b=GCbi1D1UmJ92ke82TBFSwVWyiHVpUnp9ZTyC42iQ4udcBo2eCz0oMhXae06qQwsX+P
+         3oBx8srzu9/J7nk03R0ySyKWycHTO+M3NzGbKv/uVDHnsBdnBDDIz6jnNC9lZK/Pn5Lh
+         kRPv/tigWoF2fkhBDWUXfkSxbIlt60RKTEkdqWLw0UQtSJ4xF3CyqYP6ZAqA93PyqUoG
+         3HrACz/6h768x1TrrVNUTaxhOo4Ze0zrCpCvaHLAewuGOWwqn7UQll1IgIRsXClhhgZ0
+         D1i0NBlWyal5k7cAgRXHqD3BvWWm3BQe3Mcft0g1a+LXnxL41jEA86NxSCFJ1ToF+g7P
+         9Acg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793314760; x=1793919560;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LoIbjYHReLG6WDNOTPVhVG9Y8H5GzjW3qhBS6aSgkkg=;
-        b=maIlfFWYIZ40ACCwvpeXhyvhkCJdvA0T4LZn81mRUiwwDmZR2E5HKOTqYMCPKCqRCz
-         DmircnfQxYjGaYxJIK4If9Fy1slDN4mVW4ifBuFPOGHG3YW9ADyZtTK0BI3++33Hgj5G
-         v8+kI+Vx3nX+SKt7SRb91WROhcP+cZ0oQA9JH9gaNCwbz37GhewnWXpmAiNXHV0zP0yu
-         TAMJMeEZL58ARumn6KPARQa8INMi2lgTIGU0AOdNIJJNPxZt4vWoz0/PIQikYwKlvYB/
-         mSDtxFMAY/2x1EAnDMaBjtCDHXMfsuseZmDnEE+p2D1Q2md/xW1NE2t3k5ASJg8MU+Cs
-         nD7g==
-X-Forwarded-Encrypted: i=1; AKwUvBxumytYO41lSGxBFo+rGvIVHtXg0gXz5GQwtCQFSEji68IO0b3eXR6U6hzyu3RUAopoH0e7Sx5Ik2B4Dm8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbCF4bQuq/8mXmXzzPKruIBsLjrI8UtAHZIsc7+apFkK6U+h0v
-	pINcyYMWYwN9QOP5nltP/Ocm1ZypHN8F+2CmKT3Z2BDvRQQXDzHh0xrB
-X-Gm-Gg: AYBFou0c3UQJJqptMBPMbBFr1///NQ9BLVJIvjsDwUvzYhtYIkMpdZMXn7tIV/56XAn
-	S/KYFxVb6cubx2vpf0F61CCOVZPmeg+g4Hvvm6easZ3a/pp0zZbHhQsbOm8+GUlNEEDmhB8PLPs
-	T8ZsAR839fyd4+RacKFCobUkfX4iAE0oIN6D57cjRspKz0La7pmIArK0DgMvRs88EBG7Tbn6ILU
-	sdqIJGbRNRpE20Y3YRi8EupKQegMVtlimG5BpHGSNYXgoNsOf9kpIaQURproe4j2K5MABsylxel
-	djpdVnX7vo8iGmeQh481MvN1ZlFtrRe3wus9nBHtajY8T42qpxNcJbI4IVa7RM+S8G1jth5dXaZ
-	Ok0eyubuvrvqAbWvsM62j9vb82+JIxA/dX1i9rFuCA/7IHRTRSfpKQuyvyVh+wlsrC/PCcFYrsP
-	XtVRmVG/lhvS8YHuhl6sSnCFqikirIdtk1kdJEQfrHReE1N2I3TC5XcPFnp8LaWUD1lwJuqCVwr
-	n9k/OqlW60upMRblqZ3B9OBomHakzUeTLXiSyF/2YXaMvBZ2W7ObzR5wAnuT+ZmN4+25asBu/0f
-	HCj04gbUn1Z71AKuRdmoSu98BY0XHF1QG4ySaAp2B6MT3XXoBexa3cc7
-X-Received: by 2002:a05:7023:a89:b0:1a8:9857:2102 with SMTP id a92af1059eb24-1ac5f183841mr660166c88.30.1793314760261;
-        Thu, 29 Oct 2026 15:59:20 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c27cdsm2009723c88.10.2026.10.29.15.59.19
+        d=1e100.net; s=20260707; t=1793314846; x=1793919646;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wAkmuO04uLZ+w6vmRTOyMcrwMg7+Yeu0ajM/FtCfLDw=;
+        b=JGze6Ftw0TJEf/O4Oa7gDETGKzRoc3ZcgztUiNEdT2ReGuez3jhAn3Uk5QNsV8Y1vY
+         lY5Q37jjhMTWt2luUWFTH+5Ibg0j3dyQgHpQI9ee8CAu58QefEqcEfLDlMsqFrA5owke
+         /NAz4xLqH3Hf7EL3nQ9jz5nCjFcZ9ol6C/hong+0+4hi75iCtOnzZzwBoiKuCfiP3q88
+         oKXC7MpD1q1c9p4soiYtwvzdwlIHSAyBmgR88zvWQq/zZ6YwzrlxhO2TWdSZf6JCIDI8
+         yhVh47J0QEISnb82X/wcTpSQ+M5/rUKwpnkYAWOokGAkPWPadU8TDWzBoRWPPc+eUeFc
+         1vLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwa99k9Y73qmO/e9w2wJT86f4wLPdWrun/hHLWFmKuHzXhcnaRnGfema81hIGIrkUaP6JTT/2Wa4mUAwb8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIiG2LM2H1MF5Y0v7tMr9/afPTWAqO/LgeFRbLv7yimI2OscFYD
+	48DJ0KKTalkpYzztCm0sNN4PT30NIPTRg+/k7Kf9/KrfDoAVPhF5e1inl0iXgTcfdKrahTpr8HM
+	271oagJeoQE/A3OCNgSmfhDyADDRAnKBfjnQx
+X-Gm-Gg: AYBFou0rOFHSMxqjlggplqAZoKMK+bpiqdMjO8BoWPaLhg1yGglH3iBJ8Mp88SNTGpX
+	ZnnNis3r2ktOjno/wvWz1f2x6Pd90Qa+VwBFZl7C8XeOKyz5zATMsixDEMOypfaGKCmNt/l+KxB
+	VhQXC5Ub8nZazTu306N78rfU2KBBrOZ4y0M3uetkPjpgrgWfU7OMWqDZG+keKSgeRxuFNXro8hc
+	besEfanZFPYHXHRym6mLIe5zJCnkt3Ro9OFjJM2ErqcXSc85gjrw+aYRQUZDQhWq1W4ZlOEdKYc
+	CI6xf3Fgany71YgRc8Iw+aTJkfLEaZwXSWZv3MFgkPBUe7Vu3aHm+0a8mS8DB1sus0j3xtmxlMx
+	YyzKfcceacq/iG2d7OdjjV8V3Bj7sCr+qz7E2NsI=
+X-Received: by 2002:a17:90b:5827:b0:3ab:be66:ddb7 with SMTP id 98e67ed59e1d1-3ae897bae26mr304143a91.47.1793314845971;
+        Thu, 29 Oct 2026 16:00:45 -0700 (PDT)
+Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae6e88749csm2871364a91.7.2026.10.29.16.00.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 15:59:19 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: ntfs3@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
+        Thu, 29 Oct 2026 16:00:45 -0700 (PDT)
+X-Relaying-Domain: everpuredata.com
+Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
+	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 22C0E3417A8;
+	Thu, 29 Oct 2026 16:00:45 -0700 (PDT)
+From: Tim Menninger <tmenninger@everpuredata.com>
+To: sashal@kernel.org
+Cc: broonie@kernel.org,
+	anna@kernel.org,
+	anna.schumaker@hammerspace.com,
+	trondmy@gmail.com,
+	trond.myklebust@hammerspace.com,
+	cel@kernel.org,
+	ymu@everpuredata.com,
+	linux-nfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	xfcyhuang@gmail.com,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] fs/ntfs3: preserve colons in volume labels
-Date: Thu, 29 Oct 2026 22:58:56 +0000
-Message-ID: <20261029225856.1173-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-next@vger.kernel.org
+Subject: Re: [PATCH linux-next] xprtrdma: fix up the nfs/nfs-anna merge of the Write chunk head trim
+Date: Thu, 29 Oct 2026 23:00:44 +0000
+Message-ID: <20261029230045.1259914-1-tmenninger@everpuredata.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261020161346.3711926-1-sashal@kernel.org>
+References: <20261020161346.3711926-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,59 +108,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-With the ads mount option enabled, ntfs_nls_to_utf16() replaces an
-interior colon with NUL. ntfs_set_label() restores the full length, but
-does not restore the overwritten character before writing ATTR_LABEL.
+I applied this fixup and A/B tested it with my reproducer. Both
+configurations pass.
 
-For example, xfs_io -c 'label -s Backup:2026' succeeds on an NTFS3 mount,
-but the label becomes "Backup" after unmounting and mounting it again.
-The same-mount cached label still contains the original input, hiding
-the on-disk corruption.
+I agree with the merge resolution; keeping the head trimming and
+buflen adjustment together in rpcrdma_inline_fixup() makes sense.
 
-Disable ADS parsing when converting a volume label and remove the
-incomplete attempt to undo the split. Volume labels are not stream
-pathnames and should retain their complete contents.
-
-Reported-by: 晓风残月 <xfcyhuang@gmail.com>
-Link: https://lore.kernel.org/ntfs3/CAC_Ok8x21q=Fy4n7V5j78G3rn5ByHpLVRiM4FrYGaJnmdFiP_w@mail.gmail.com/
-Fixes: be310476e886 ("fs/ntfs3: Add basic support for alternative data streams")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
-This applies on top of:
-  [PATCH] fs/ntfs3: preserve colons in symlink targets
-  https://lore.kernel.org/ntfs3/20261029203457.59990-1-dennylin0707@gmail.com/
-
- fs/ntfs3/fsntfs.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
-
-diff --git a/fs/ntfs3/fsntfs.c b/fs/ntfs3/fsntfs.c
-index b06de8566a72..df939ee18904 100644
---- a/fs/ntfs3/fsntfs.c
-+++ b/fs/ntfs3/fsntfs.c
-@@ -2668,16 +2668,10 @@ int ntfs_set_label(struct ntfs_sb_info *sbi, u8 *label, int len)
- 		return -ENOMEM;
- 
- 	err = ntfs_nls_to_utf16(sbi, label, len, uni, (PATH_MAX - 2) / 2,
--				UTF16_LITTLE_ENDIAN, true);
-+				UTF16_LITTLE_ENDIAN, false);
- 	if (err < 0)
- 		goto out;
- 
--	if (uni->ads_len) {
--		/* Undo delimiter parse */
--		uni->len += uni->ads_len + 1;
--		uni->ads_len = 0;
--	}
--
- 	uni_bytes = uni->len * sizeof(u16);
- 	if (uni_bytes > NTFS_LABEL_MAX_LENGTH * sizeof(u16)) {
- 		ntfs_warn(sbi->sb, "new label is too long");
-
-base-commit: 4a77fa820d937fae9fe0bd6a6795c2d749fd4df7
--- 
-2.43.0
-
+Tested-by: Tim Menninger <tmenninger@everpuredata.com>
+Reviewed-by: Tim Menninger <tmenninger@everpuredata.com>
