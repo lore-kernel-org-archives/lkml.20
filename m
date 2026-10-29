@@ -1,89 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267730;
-	b=RIuZYKcr7lzXS/jKbPDSNJRk6bqFy+yMM897HkXWgpOE7SHl5A0ZWZoWEE1GY65TGNUj
-	 EHBUKublNMl64LChpq1fUoWW90GbTVa9/64ZfvHRK76ecjPCiPctZZ8YA6HOhfPiT4qw3
-	 CtAfXBAuLd8xMJLKpAgmuU5Awx/pjqmcH/WkuH+1/1tev1NuRfjgLYKDoUorEluWUS64S
-	 2CK298CRBe1tfNBHjkHrYmYJPErJB6c0LFR97+mtnR0AGpd8Rqd8sR1pWraLG2Z/PrAEV
-	 gsJWV/Ev2Mc8Uns0gXnlod8Es1x1HIhYiiBzpgOjU78CXwiwDJZwBqJK8IWHL7t510A==
+	t=1793267740;
+	b=kJchzGQUJWZUweitC8JUTMeS2xloWKL4G2hnjEyn26t2wcE7fQXeHIbpYgEPDIqSOpGT
+	 IP9Evzu3HQ0xU19YhnVgAiM/ja2bnesPNeaDLqSJ7UC4rPaqU9bizPm/b/bJLr8OCwuHg
+	 0X0LzbVT2uIJEf2YSWueTlfA7sf3aI1aNJyKsLLcNoFD5N6WSpbWXjs7GoiXsIVHGnvWw
+	 hnTgYL9zijgB+2+eF7TWsT+MX8HYFtJJN8x8XHfDGom8TjGCQfkKqC5/GFRraFk+lF9Zg
+	 WsqVsEX5/+BDzzS3PQfV/x8blVaRmA3uiPyd4TK6BufXCLEkbxl2mNTuOnKOXUxFzPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267730;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=naLAUZdz6s6FNp3zuqC/8ffp+u+vsG77MVvqVcrjHjc=;
-	b=oy/kYWEX58scFzZPUkWFiO3nhO7uhUS8HtrCG9iUMOiCVOHc5/SAd2+LOGgcc1osyDvv
-	 MXHzrGrMSQHh5d+qDWCIO3kJsvcJJmCYhl1zwuwr9sZ3yjdq0xCTwSsJtc+cAe8p1yYEH
-	 1N11fE5kuhMZwNqf56YW/RmSrt1YwNwGJU7y0VOZaQbXu/VB+oEV6UKAuI9NRvLDjoJxz
-	 KzNdLprgyrpNTlipyCU6hEIRv2lyNWMP+cCq+jQSSAtTUeDSAlzp8yNsQKJhd13hAFPbc
-	 Di0jTnHN+7bre/3orb4vwMExNjUg5nPHbwO8YebiUIKHTu0Ye+PFFEO4Sk8elopDhQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267740;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RzFJqF8Jcv4yOcd1FfeFGvYT+e/+BIStHA8rSwA8ymg=;
+	b=tIZep4Ouo7RgI6O4+mFnHTYM6ieP12cqcJT0q8M1ya14WxjmWGYKeBJPyJgW+jB5C20s
+	 LDtIhsfXKrhYsZGjTSoblpl7IjMuhdKztiZajAAEzKU8je0T/h0z6TXNV8zPhNagHbrYe
+	 aVtIH8NQyJWkEuYdBQFX1ZVSwHr5U5/CwU6l/EPw1YlFsIQsNxmLlxyhkC1HTd0+vBr3r
+	 DK95pYTZNPfLwzQ39VGG+CHEDxg7OWQzr6B6PeDU7qoRF1qmyefv73CVOoRwXx3qyLvdg
+	 ozrPh+akQNrKWJ4oPqE4ozTSNY4NnH7aZfNGdcfjV7aQ47SJKSK0QJ2gbbP8HiwSnmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Xz7wHT0S;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXqMa1xb;
+	arc=none smtp.remote-ip=95.215.58.119
+Received: from mta1.migadu.com (out-119.mta1.migadu.com [95.215.58.119])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8716606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:55:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8716606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E8F660A263B
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:55:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E8F660A263B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Xz7wHT0S
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so4773365e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:55:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793267728; x=1793872528; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=naLAUZdz6s6FNp3zuqC/8ffp+u+vsG77MVvqVcrjHjc=;
-        b=Xz7wHT0SGii8DazmZR+je2sKds7h1ZfGX5NWILbzHQGDD0eCHT9oCxUET9EkWMu1kP
-         t9aCni+F7WnELj8vypoHIYxFBmBuntkFYc8B+4n5snSfJxvUE8ueQq0iAz/JvG6aEqB2
-         R771CrHz++C75ArY1cx997Tq5GhwAL7wnS2xjQ25iikWt5J1l4mr7Q1kfmTV1MI5O5iI
-         EjerPsYl7gz6NPMBvPnw8MsZbok/j35dFifT5uJGio2YNGiS8fAK5qSt1d/ZMlW5UkYC
-         fekL8YkWdAvgOwAVx3P6uCBl4DB+TcqHX/3UEn3HYe/1vbq4sVcx6OfIuyQdUHWBYzDH
-         efLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793267728; x=1793872528;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=naLAUZdz6s6FNp3zuqC/8ffp+u+vsG77MVvqVcrjHjc=;
-        b=eQSCkrnVM7yN1Ye4af/wqZqNbE5ScMfXcOMFz1gXnz6lD5J60KJCvWfBQa+07szfid
-         7JDwZrpYERmzu87k6ugMOWBKUs3i7GGP2yQDn44t5K26x4v1/yizFR9tlstxFg0Tdf+W
-         wGRlBRT3hK5DLLkNINWxrhozE1uFB3FzQsadvffv9dF6LUuEhkTaLQ7xyZXD51ldqXox
-         TUqnZ/qk4oy+bE/Y4SbIZxY6Zx3usgPH/1V+k+47xpVYuJZh2E+A2hF17xoQP2KzSxDR
-         yQA7uyDiERy7zuSwcOOkTrSp/amSLmB3VPNcjXJjQQwgL5A1jm65hB6XK20Dno7twgDT
-         xXbA==
-X-Forwarded-Encrypted: i=1; AKwUvBy8p2EGvM/4CUEb0DSK/A3WofZhcAU3nw9PvP0wYvEuYSsqq+2Y9OBHaYx7ivt4v4rb8vHABlgjPEHNG3o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIXosg4K66khUb/rXF3QrFV2nDuzb4w282Dxm+jwHNVBMA1Gbo+
-	PvP39Vt0NiaXCcTNrEbo3SehPRc4GH0mqFqjCWGuYPrU9dneXBxldKDx4ZL7duwy5TU=
-X-Gm-Gg: AYBFou36ATOjnB/aJ7Kl/cX2MlVeN3PDuIXm0o2u21V038w9HU9tuKmHWqvrw2uPyZ8
-	j0t80+Rt7yIqnjb5iO+hHV8fEW3VKsYovOwNWHoSo2KqJEao6vzqcvWI/f7SI5zFwoD113vEeBH
-	QB/AbiTXAN4wRVgVm2VjEdP8mK1X8f7VmqYWHTI0oNiqT/vv8yqavyfYdFMjDA2n1RincuuIjRj
-	o7lk9KNXCtOXqzELX4P1+gdeLsNAHzNv1+x55Q78fFHxEl7o6i44r0gVKKHmhxtwTJ14Vpme6uL
-	hKt6+6GiBhbyYuLjyUWliVeR6FzA8JibrW9ugaz6RmL7wNdGPeLs5k/K9+iYJE0eRQPerlVn80Y
-	V8CoRMARKoxeECik9pUzvL9kW33U4nXr4bqJ4ZmiNAREjnu0XtKwBywCJXJ3TnaNMoXiKb10G6e
-	tpiFCYTAFqxi7S8rGFKWd7g5SUOCulbUo4k9H4DSPpQi4+OMPdc15Bk3vuSNJIF3g0nWmF94Th6
-	cumyEZpJZWfF2rBlUgzM5Oyc1IyvZ4f2oiCCz8f/kH8iw0k7J8qNYD9+LNLJGERdhTYa43RuW4E
-	UuJzSYwxrVhQaS/dXrM=
-X-Received: by 2002:a05:600c:3e15:b0:4a2:18c4:61a5 with SMTP id 5b1f17b1804b1-4aa871e8bc9mr57343495e9.6.1793267728239;
-        Thu, 29 Oct 2026 02:55:28 -0700 (PDT)
-Received: from [127.0.0.1] ([64.43.45.156])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd37f4sm40437160f8f.44.2026.10.29.02.55.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 02:55:27 -0700 (PDT)
-From: bryan.odonoghue@linaro.org
-X-Google-Original-From: bod@kernel.org
-Subject: [PATCH 00/14] Add SOF/EOF sequence logic
-Date: Thu, 29 Oct 2026 09:55:09 +0000
-Message-Id: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=lXqMa1xb
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1U+XEIjkXKwRc+nwHK+MaVQmfV+IR0AxSOuypEjxeXI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793267731; v=1; x=1793872531;
+ b=lXqMa1xb4BSU00SY4yVpEOeXQnI2raHRuKidxdwogAvLKhpY+ewany0jCH3EfB2xO/hYnnPy
+ 38Ph3u7O6DlQTc3e4E+H1a48o6Djn+B/nQPRNnouOBJXi8h1lj1Z1yvgmF7agwjKG59RWT/CiMh
+ M77wphAgmJzPzrMyfRlRScgA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2bc237b0898474b3;
+	Thu, 29 Oct 2026 09:55:26 +0000
+X-Mizu-Trace-ID: 2bc237b0898474b3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <610ffd7a-fa8f-465f-99d6-04be1dab02c2@linux.dev>
+Date: Thu, 29 Oct 2026 17:55:13 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,141 +58,479 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrB2IQQJ6FekiiZM6orFkNLSId
- 29al2/x/wlCiUmgr05IlFl4iwVNXYGfbHwS8lgMWmnTKN1hbheNIdmVUD7RoxpNcF1rnSEDpXo
- lCvz+H4fHbTncTH7/beC6vsgSxBpzAAAA
-X-Change-ID: 20261029-v4l2-frame-sync-0d6fb94ab6e6
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4934; i=bod@kernel.org;
- h=from:subject:message-id; bh=ERAGHeKcKTbTc2nwUmjgdvPde825r6Ru7VRRGqkmXO4=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq4xgIzz77L3p8baLvrMnKymCo4QfC63skCfKD8
- pkmEH+pq4GJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCauMYCAAKCRAicTuzoY3I
- OjJYD/sEilC8/4jXKn5ElhLkge4dpZ7nLmEw907+3qCbaJIhTrW95WY17fXhdSiYQ9Ks+42kHXo
- TeXoCFkw7k+DBkqeCI1GjAt3ramOyt+L5h46GXxAPvJd7CQaGMf1pbFbKjAXxUAW+NkrrpICQNk
- v29wXolkP1vyrFK8y7i9uzOSrh/pwpEZ5CnZCcN0RnVmZ72ttWks+vhfolKixV5x02yN6xWZyLR
- G7Oh+g6y22xiffez/sJguj60PXDyr+RWYRsMr0FUVUj6ToE7TkgznOnYa2UZzXSiamCJn8ZTFWg
- JxmbyRVep2ViXkpr/9eoTl8b43U7D94o8KYSIw7mNm9bxpz9xykd3bFDKku4vVrCZ0tFNuxN1N5
- fkrW2qnWmJO1xVKYL1U/STWBUlpHD88nfw8dnZChhNpTd5RgI6yGroAA2wr/7r2sVPwGJFBnPsl
- Hj2DNNvjKR13jc8T1pVQ9i3Wlw5b5fpsy/yRCXPoKOSz3t2GKQzz+GX2fPDm/jHSijfzRTSzlqc
- KY5ujp7Cf2bUapNYSmY4RXk/YxuNkxg2Fz/9FF3EXUP3fX5SmYWhzdp2lmT4FwcnNCHXjXSCkRu
- BPL3p5BldvXPL5jyfietJ95yIFoBDLyjAmTN/dvENO7s3TDJ8jJde665RzG5lxk/o8WMtqLk6hk
- DeNJ5/vFx6aKUNg==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, cgroups@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
+ eddyz87@gmail.com, daniel@iogearbox.net, linux-kselftest@vger.kernel.org,
+ cuitao@kylinos.cn, ameryhung@gmail.com
+Subject: Re: [RFC PATCH v11 0/5] blk-iocost: BPF struct_ops cost model
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>, tj@kernel.org,
+ josef@toxicopanda.com, axboe@kernel.dk
+References: <20261028143534.135968-1-cui.tao@linux.dev>
+ <DMGLGKYOLXFA.12EJEMVN58Y5P@gmail.com>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <DMGLGKYOLXFA.12EJEMVN58Y5P@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This series enables SOF AND EOF event tracking making use of both events.
-Whilst the code is actually very simple the functionality we want to build
-off of that simple code is not.
+Hello Alexei,
 
-- SOF
-  Serves two functions. Firstly. Informing user-space of CSID SOF events.
-  Standard Linux V4L2_EVENT_FRAME_SYNC is trigger from this event.
-  User-space wants to capture this trigger because it allows user-space to
-  better align the time a frame begins to events elsewhere such as IMU
-  event timestamps.
+在 2026/10/28 23:58, Alexei Starovoitov 写道:
+> On Wed, Oct 28, 2026 at 07:35 AM Tao Cui <cui.tao@linux.dev> wrote:
+>> The cgroup callbacks are bound to the iocg policy lifetime and pair
+>> up exactly: iocg_init() is delivered from ioc_pd_online(), which
+>> blkg_create() only calls after the blkg has been inserted into the
+>> radix tree and the queue's blkg list, and on attach to every cgroup
+>> which is already online on the device; iocg_free() is delivered at
+>> detach to the cgroups which still exist then and at pd_free() time
+>> for the rest, gated per iocg on a delivered flag.  The attach and
+>> detach walks go over q->blkg_list under q->blkcg_mutex and
+>> q->queue_lock, the same locking blkg creation and destruction use.
+> 
+> Who needs iocg_init() and iocg_free()?
+> Both example models keep their state in BPF_MAP_TYPE_CGRP_STORAGE.
+> The only user of the callbacks is a pair of counters in the selftest.
+> 
+Agreed. There isn't a model planned that needs them.
+> One struct_ops map is bound to one device. So the cgroup storage of
+> a model is per (cgroup, device) already.
+> The blkg holds the blkcg css until blkg_free_workfn(). The storage is
+> freed with the cgroup or with the map. So it outlives the iocg.
+> 
+Understood. That's already how the example models work.
+> The v11 changelog says that calc_cost() can run before iocg_init().
+> So a model has to create its state in calc_cost() anyway.
+> iocg_init() runs under queue_lock and ioc->lock. An allocation there
+> is not better than in calc_cost().
+> 
+Right. There isn't anything the callbacks can do that calc_cost() can't.
+> v8, v9, v10 and v11 all reworked the pairing of these two callbacks.
+> 
+> Lets drop them. A struct_ops can get new members later, when a model
+> needs them.
+Dropped in v12. If a model needs them later, struct_ops can grow new
+members then.
 
-  That functionality is directly applicable in this series.
+> I'd like to hear from Tejun whether such a model is planned.
+> 
+> Without the callbacks there is no walk of q->blkg_list:
+> 
+>   what                v11                          without callbacks
+>   ------------------  ---------------------------  ------------------
+>   attach takes        freeze, rq_qos_mutex,        freeze,
+>                       quiesce, blkcg_mutex,        rq_qos_mutex,
+>                       queue_lock, ioc->lock        ioc->lock
+>   detach takes        rq_qos_mutex, queue_lock,    rq_qos_mutex,
+>                       ioc->lock to check, then     ioc->lock
+>                       freeze and the same again,
+>                       quiesce, blkcg_mutex,
+>                       queue_lock, ioc->lock
+>   state per iocg      bpf_iocg_inited              none
+>   hooks in            ioc_pd_online(),             none
+>                       ioc_pd_free()
+>   teardown            ioc_bpf_detach(),            ioc_detach_model()
+>                       ioc_bpf_eject()
+> 
+> calc_cost() runs under rcu_read_lock(). bpf_map_put() frees a struct_ops
+> map after an RCU gp. So detach doesn't need to freeze the queue.
+> The rest fits into blk-iocost.c and patch 1 is not needed.
+> 
+Done. The detach freeze is gone in v12, everything is folded back into
+blk-iocost.c, and patch 1 is dropped.
 
-  However we will also build on the SOF event in later patches to allow us
-  to begin programming of shadow-registers for the next camera frame.
+> The diff keeps the map reference, the owning link and the
+> model=linear/bpf switch. It has no docs, no selftests and no tracepoint.
+> 
+> Something like this (compile tested only):
+> 
+> diff --git a/block/Kconfig b/block/Kconfig
+> index 70e4a66..26badf5 100644
+> --- a/block/Kconfig
+> +++ b/block/Kconfig
+> @@ -161,6 +161,10 @@ config BLK_CGROUP_IOCOST
+>  	distributes IO capacity between different groups based on
+>  	their share of the overall weight distribution.
+> 
+> +config BLK_CGROUP_IOCOST_BPF
+> +	def_bool y
+> +	depends on BLK_CGROUP_IOCOST && BPF_SYSCALL && BPF_JIT && DEBUG_INFO_BTF
+> +
+>  config BLK_CGROUP_IOPRIO
+>  	bool "Cgroup I/O controller for assigning an I/O priority class"
+>  	depends on BLK_CGROUP
+> diff --git a/block/blk-iocost.c b/block/blk-iocost.c
+> index a81488c..5e65bf4 100644
+> --- a/block/blk-iocost.c
+> +++ b/block/blk-iocost.c
+> @@ -178,8 +178,12 @@
+>  #include <linux/time64.h>
+>  #include <linux/parser.h>
+>  #include <linux/sched/signal.h>
+> +#include <linux/bpf.h>
+> +#include <linux/bpf_verifier.h>
+> +#include <linux/btf.h>
+>  #include <asm/local.h>
+>  #include <asm/local64.h>
+> +#include "blk.h"
+>  #include "blk-rq-qos.h"
+>  #include "blk-stat.h"
+>  #include "blk-wbt.h"
+> @@ -404,6 +408,22 @@ struct ioc_pcpu_stat {
+>  	u64				last_rq_wait_ns;
+>  };
+> 
+> +enum {
+> +	IOCOST_COST_F_MERGE	= 1 << 0,	/* called from the merge path */
+> +};
+> +
+> +/* bpf cost model of one device */
+> +struct iocost_model_ops {
+> +	/* whole disk, in the encoding of new_decode_dev() */
+> +	dev_t dev;
+> +
+> +	/* used by the completion path instead of LCOEF_[RW]PAGE */
+> +	u64 read_vtime_per_page;
+> +	u64 write_vtime_per_page;
+> +
+> +	u64 (*calc_cost)(struct bio *bio, u64 model_flags);
+> +};
+> +
+>  /* per device */
+>  struct ioc {
+>  	struct rq_qos			rqos;
+> @@ -447,6 +467,12 @@ struct ioc {
+>  	int				autop_idx;
+>  	bool				user_qos_params:1;
+>  	bool				user_cost_model:1;
+> +
+> +	/* holds a reference on the struct_ops map, NULL if none is attached */
+> +	const struct iocost_model_ops	*attached;
+> +	struct bpf_link			*attached_link;
+> +	/* either NULL (linear) or ->attached */
+> +	const struct iocost_model_ops __rcu *model;
+>  };
+> 
+>  struct iocg_pcpu_stat {
+> @@ -669,6 +695,13 @@ static struct ioc *q_to_ioc(struct request_queue *q)
+>  	return rqos_to_ioc(rq_qos_id(q, RQ_QOS_COST));
+>  }
+> 
+> +static const struct iocost_model_ops *ioc_model(struct ioc *ioc)
+> +{
+> +	if (!IS_ENABLED(CONFIG_BLK_CGROUP_IOCOST_BPF))
+> +		return NULL;
+> +	return rcu_dereference_check(ioc->model, lockdep_is_held(&ioc->lock));
+> +}
+> +
+>  static const char __maybe_unused *ioc_name(struct ioc *ioc)
+>  {
+>  	struct gendisk *disk = ioc->rqos.disk;
+> @@ -806,7 +839,7 @@ static int ioc_autop_idx(struct ioc *ioc, struct gendisk *disk)
+>  		return AUTOP_SSD_DFL;
+> 
+>  	/* if user is overriding anything, maintain what was there */
+> -	if (ioc->user_qos_params || ioc->user_cost_model)
+> +	if (ioc->user_qos_params || ioc->user_cost_model || ioc_model(ioc))
+>  		return idx;
+> 
+>  	/* step up/down based on the vrate */
+> @@ -2586,8 +2619,16 @@ out:
+> 
+>  static u64 calc_vtime_cost(struct bio *bio, struct ioc_gq *iocg, bool is_merge)
+>  {
+> +	const struct iocost_model_ops *model;
+>  	u64 cost;
+> 
+> +	guard(rcu)();
+> +	model = ioc_model(iocg->ioc);
+> +	if (model) {
+> +		cost = model->calc_cost(bio, is_merge ? IOCOST_COST_F_MERGE : 0);
+> +		return min(cost, VTIME_PER_SEC);
+> +	}
+> +
+>  	calc_vtime_cost_builtin(bio, iocg, is_merge, &cost);
+>  	return cost;
+>  }
+> @@ -2612,8 +2653,16 @@ static void calc_size_vtime_cost_builtin(struct request *rq, struct ioc *ioc,
+> 
+>  static u64 calc_size_vtime_cost(struct request *rq, struct ioc *ioc)
+>  {
+> +	const struct iocost_model_ops *model;
+>  	u64 cost;
+> 
+> +	guard(rcu)();
+> +	model = ioc_model(ioc);
+> +	if (model)
+> +		return (blk_rq_stats_sectors(rq) >> IOC_SECT_TO_PAGE_SHIFT) *
+> +			(req_op(rq) == REQ_OP_READ ? model->read_vtime_per_page :
+> +						     model->write_vtime_per_page);
+> +
+>  	calc_size_vtime_cost_builtin(rq, ioc, &cost);
+>  	return cost;
+>  }
+> @@ -2908,10 +2957,33 @@ static void ioc_rqos_queue_depth_changed(struct rq_qos *rqos)
+>  	spin_unlock_irq(&ioc->lock);
+>  }
+> 
+> +/* Called by .unreg and by device removal, whichever is first. */
+> +static void ioc_detach_model(struct ioc *ioc)
+> +{
+> +#ifdef CONFIG_BLK_CGROUP_IOCOST_BPF
+> +	const struct iocost_model_ops *ops = ioc->attached;
+> +
+> +	lockdep_assert_held(&ioc->rqos.disk->queue->rq_qos_mutex);
+> +
+> +	if (!ops)
+> +		return;
+> +
+> +	spin_lock_irq(&ioc->lock);
+> +	rcu_assign_pointer(ioc->model, NULL);
+> +	ioc->attached = NULL;
+> +	ioc->attached_link = NULL;
+> +	spin_unlock_irq(&ioc->lock);
+> +
+> +	/* calc_cost() can still run. The map is freed after an RCU gp. */
+> +	bpf_struct_ops_put(ops);
+> +#endif
+> +}
+> +
+>  static void ioc_rqos_exit(struct rq_qos *rqos)
+>  {
+>  	struct ioc *ioc = rqos_to_ioc(rqos);
+> 
+> +	ioc_detach_model(ioc);
+>  	blkcg_deactivate_policy(rqos->disk, &blkcg_policy_iocost);
+> 
+>  	spin_lock_irq(&ioc->lock);
+> @@ -3458,11 +3530,12 @@ static u64 ioc_cost_model_prfill(struct seq_file *sf,
+>  		return 0;
+> 
+>  	spin_lock_irq(&ioc->lock);
+> -	seq_printf(sf, "%s ctrl=%s model=linear "
+> +	seq_printf(sf, "%s ctrl=%s model=%s "
+>  		   "rbps=%llu rseqiops=%llu rrandiops=%llu "
+>  		   "wbps=%llu wseqiops=%llu wrandiops=%llu "
+>  		   "flushiops=%llu\n",
+>  		   dname, ioc->user_cost_model ? "user" : "auto",
+> +		   ioc_model(ioc) ? "bpf" : "linear",
+>  		   u[I_LCOEF_RBPS], u[I_LCOEF_RSEQIOPS], u[I_LCOEF_RRANDIOPS],
+>  		   u[I_LCOEF_WBPS], u[I_LCOEF_WSEQIOPS], u[I_LCOEF_WRANDIOPS],
+>  		   u[I_LCOEF_FLUSHIOPS]);
+> @@ -3499,6 +3572,7 @@ static const match_table_t i_lcoef_tokens = {
+>  static ssize_t ioc_cost_model_write(struct kernfs_open_file *of, char *input,
+>  				    size_t nbytes, loff_t off)
+>  {
+> +	const struct iocost_model_ops *model;
+>  	struct blkg_conf_ctx ctx;
+>  	struct request_queue *q;
+>  	unsigned int memflags;
+> @@ -3535,6 +3609,7 @@ static ssize_t ioc_cost_model_write(struct kernfs_open_file *of, char *input,
+>  	spin_lock_irq(&ioc->lock);
+>  	memcpy(u, ioc->params.i_lcoefs, sizeof(u));
+>  	user = ioc->user_cost_model;
+> +	model = ioc_model(ioc);
+> 
+>  	ret = -EINVAL;
+> 
+> @@ -3559,7 +3634,11 @@ static ssize_t ioc_cost_model_write(struct kernfs_open_file *of, char *input,
+>  			continue;
+>  		case COST_MODEL:
+>  			match_strlcpy(buf, &args[0], sizeof(buf));
+> -			if (strcmp(buf, "linear"))
+> +			if (!strcmp(buf, "linear"))
+> +				model = NULL;
+> +			else if (!strcmp(buf, "bpf") && ioc->attached)
+> +				model = ioc->attached;
+> +			else
+>  				goto unlock;
+>  			continue;
+>  		}
+> @@ -3579,6 +3658,7 @@ static ssize_t ioc_cost_model_write(struct kernfs_open_file *of, char *input,
+>  	} else {
+>  		ioc->user_cost_model = false;
+>  	}
+> +	rcu_assign_pointer(ioc->model, model);
+>  	ioc_refresh_params(ioc, true);
+> 
+>  	ret = 0;
+> @@ -3626,6 +3706,158 @@ static struct blkcg_policy blkcg_policy_iocost = {
+>  	.pd_stat_fn	= ioc_pd_stat,
+>  };
+> 
+> +#ifdef CONFIG_BLK_CGROUP_IOCOST_BPF
+> +static int ioc_bpf_reg(void *kdata, struct bpf_link *link)
+> +{
+> +	struct iocost_model_ops *ops = kdata;
+> +	struct block_device *bdev;
+> +	struct request_queue *q;
+> +	unsigned int memflags;
+> +	struct ioc *ioc;
+> +	int ret;
+> +
+> +	bdev = blkdev_get_no_open(new_decode_dev(ops->dev), false);
+> +	if (!bdev)
+> +		return -ENODEV;
+> +
+> +	q = bdev_get_queue(bdev);
+> +	if (bdev_is_partition(bdev) || !queue_is_mq(q)) {
+> +		blkdev_put_no_open(bdev);
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+> +	/* the order of ioc_qos_write() */
+> +	memflags = blk_mq_freeze_queue(q);
+> +	mutex_lock(&q->rq_qos_mutex);
+> +
+> +	ret = -ENODEV;
+> +	if (!disk_live(bdev->bd_disk))
+> +		goto out;
+> +
+> +	ioc = q_to_ioc(q);
+> +	if (!ioc) {
+> +		ret = blk_iocost_init(bdev->bd_disk);
+> +		if (ret)
+> +			goto out;
+> +		ioc = q_to_ioc(q);
+> +	}
+> +
+> +	ret = -EBUSY;
+> +	if (ioc->attached || !bpf_struct_ops_get(ops))
+> +		goto out;
+> +
+> +	spin_lock_irq(&ioc->lock);
+> +	ioc->attached = ops;
+> +	ioc->attached_link = link;
+> +	rcu_assign_pointer(ioc->model, ops);
+> +	spin_unlock_irq(&ioc->lock);
+> +	ret = 0;
+> +out:
+> +	mutex_unlock(&q->rq_qos_mutex);
+> +	blk_mq_unfreeze_queue(q, memflags);
+> +	blkdev_put_no_open(bdev);
+> +	return ret;
+> +}
+> +
+> +static void ioc_bpf_unreg(void *kdata, struct bpf_link *link)
+> +{
+> +	struct iocost_model_ops *ops = kdata;
+> +	struct block_device *bdev;
+> +	struct request_queue *q;
+> +	struct ioc *ioc;
+> +
+> +	/* del_gendisk() is in progress or done. ioc_rqos_exit() detaches. */
+> +	bdev = blkdev_get_no_open(new_decode_dev(ops->dev), false);
+> +	if (!bdev)
+> +		return;
+> +
+> +	q = bdev_get_queue(bdev);
+> +	mutex_lock(&q->rq_qos_mutex);
+> +	ioc = q_to_ioc(q);
+> +	/* the dev_t can belong to another disk and another model by now */
+> +	if (ioc && ioc->attached == ops && ioc->attached_link == link)
+> +		ioc_detach_model(ioc);
+> +	mutex_unlock(&q->rq_qos_mutex);
+> +	blkdev_put_no_open(bdev);
+> +}
+> +
+> +static int ioc_bpf_init(struct btf *btf)
+> +{
+> +	return 0;
+> +}
+> +
+> +static int ioc_bpf_check_member(const struct btf_type *t,
+> +				const struct btf_member *member,
+> +				const struct bpf_prog *prog)
+> +{
+> +	return prog->sleepable ? -EINVAL : 0;
+> +}
+> +
+> +static int ioc_bpf_init_member(const struct btf_type *t,
+> +			       const struct btf_member *member,
+> +			       void *kdata, const void *udata)
+> +{
+> +	const struct iocost_model_ops *uops = udata;
+> +	struct iocost_model_ops *ops = kdata;
+> +
+> +	switch (__btf_member_bit_offset(t, member) / 8) {
+> +	case offsetof(struct iocost_model_ops, dev):
+> +		ops->dev = uops->dev;
+> +		return 1;
+> +	case offsetof(struct iocost_model_ops, read_vtime_per_page):
+> +		ops->read_vtime_per_page = uops->read_vtime_per_page;
+> +		return 1;
+> +	case offsetof(struct iocost_model_ops, write_vtime_per_page):
+> +		ops->write_vtime_per_page = uops->write_vtime_per_page;
+> +		return 1;
+> +	}
+> +	return 0;
+> +}
+> +
+> +static int ioc_bpf_validate(void *kdata)
+> +{
+> +	struct iocost_model_ops *ops = kdata;
+> +
+> +	if (!ops->dev || !ops->calc_cost ||
+> +	    !ops->read_vtime_per_page || !ops->write_vtime_per_page)
+> +		return -EINVAL;
+> +	return 0;
+> +}
+> +
+> +static u64 ioc_bpf_calc_cost_stub(struct bio *bio, u64 model_flags)
+> +{
+> +	return 0;
+> +}
+> +
+> +static struct iocost_model_ops ioc_bpf_stubs = {
+> +	.calc_cost	= ioc_bpf_calc_cost_stub,
+> +};
+> +
+> +static const struct bpf_verifier_ops ioc_bpf_verifier_ops = {
+> +	.get_func_proto		= bpf_base_func_proto,
+> +	.is_valid_access	= bpf_tracing_btf_ctx_access,
+> +};
+> +
+> +static struct bpf_struct_ops ioc_bpf_struct_ops = {
+> +	.verifier_ops	= &ioc_bpf_verifier_ops,
+> +	.init		= ioc_bpf_init,
+> +	.check_member	= ioc_bpf_check_member,
+> +	.init_member	= ioc_bpf_init_member,
+> +	.validate	= ioc_bpf_validate,
+> +	.reg		= ioc_bpf_reg,
+> +	.unreg		= ioc_bpf_unreg,
+> +	.cfi_stubs	= &ioc_bpf_stubs,
+> +	.name		= "iocost_model_ops",
+> +	.owner		= THIS_MODULE,
+> +};
+> +
+> +static int __init ioc_bpf_struct_ops_init(void)
+> +{
+> +	return register_bpf_struct_ops(&ioc_bpf_struct_ops, iocost_model_ops);
+> +}
+> +late_initcall(ioc_bpf_struct_ops_init);
+> +#endif
+> +
+>  static int __init ioc_init(void)
+>  {
+>  	return blkcg_policy_register(&blkcg_policy_iocost);
+> 
+>>  3/5: selftests with two example models (the full builtin linear
+>>       HDD formula at double cost, and a multi-stream sequentiality
+>>       model) plus a runner and the selftest kernel config entries
+>>  4/5: add an iocost_ioc_tick tracepoint emitting the per-period
+>>       controller state, so model quality can be evaluated without
+>>       drgn (existing events are state-change driven and silent in
+>>       steady state)
+> 
+> Also progs/iocost_model.c in patch 3 has SEC("tp_btf/iocost_ioc_tick").
+> Patch 4 adds this tracepoint. At patch 3 iocost_model__load() fails.
+> Swap the two patches.
+> 
+Swapped: the iocost_ioc_tick tracepoint is patch 2 now and the
+selftest is patch 3, so iocost_model__load() works at every commit.
+The selftest also drives IO through iocost_ms's calc_cost().
 
-  When the EOF event happens, we switch from one shadow bank to the next.
-  This is only possible if you have the SOF event.
+Thanks,
+Tao
 
-  So SOF serves the immediate purpose of timestamp alignment in user-space
-  as well as the 'evil plan' to trigger off of it programming camera
-  parameters for the next frame.
-
-- EOF
-  EOF even on its own is useful because it allows us to increment
-  vb.sequence for each frame as per the spec not just when we have
-  buffer-data.
-
-There is another purpose to having an SOF and EOF event with sequence
-numbers and that is.
-
-User-space submits a parameters buffer. Kernel accepts that parameters
-buffer but can make no guarantee about _when_ the entire buffer will be
-applied.
-
-So when kernel finishes application of the entire params sequence the
-returned buffer contains the sequence number - from the EOF tracking which
-informs user-space _which_ frame vb.sequence its given params buffer was
-applied.
-
-Similarly when kernel produces a statistics buffer that buffer will have a
-sequence number - and that sequence number will align to the frame sequence
-number that the statistics describe.
-
-Thus SOF/EOF tracking is fundamental to passing parameters, returning
-statistics to user-space and for the IPA algorithm in user-space to
-understand which stats, params and frames are related.
-
-The first patch in the series addresses a corner-case when a quiescent
-system can take quite a while to wake from idle, too long in fact such that
-the SOF event is effectively missed.
-
-On 'normal' systems doing lots of things, this is not a problem we would
-see however on my test X1-CRD system running from ramdisk - there's
-basically nothing else happening and the wake-time becomes apparent.
-
-This is not strictly speaking a bugfix since right now nothing in CAMSS
-cares about SOF or EOF so if we take an additional 2.5 ms to process a
-data-buffer on a fully quiescent system, that's not the end of the world.
-
-OTOH as soon as you start to care about SOF/EOF then missing those events
-is no bueno.
-
-The CPU latency value chosen is 100% stolen from IPU7 which seems like a
-good starting point - the stealing obviously - and happens to also work.
-
-This series is really an enabling series for more work to come but even on
-its own is an improvement on the current situation.
-
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
----
-Bryan O'Donoghue (14):
-      media: qcom: camss: Introduce CPU latency QoS during streaming
-      media: qcom: camss: vfe: Add eof_seq to vfe_line
-      media: qcom: camss: Introduce SOF sequence tracking
-      media: qcom: camss: Introduce EOF sequence tracking
-      media: qcom: camss: csid-gen3: Enable RDI SOF driving
-      media: qcom: camss: csid-gen3: Enable RDI EOF tracking
-      media: qcom: camss: csid-680: Enable RDI SOF tracking
-      media: qcom: camss: csid-680: Enable RDI EOF tracking
-      media: qcom: camss: csid-gen2: Enable RDI SOF tracking
-      media: qcom: camss: csid-gen2: Enable RDI EOF tracking
-      media: qcom: camss: Switch on frame_sync_en logic for sm8650
-      media: qcom: camss: Switch on frame_sync_en for x1e/x2e
-      media: qcom: camss: Switch on frame_sync_en for sm8250
-      media: qcom: camss: Switch on frame_sync_en for sdm845
-
- drivers/media/platform/qcom/camss/camss-csid-680.c | 21 ++++++
- .../media/platform/qcom/camss/camss-csid-gen2.c    | 19 ++++++
- .../media/platform/qcom/camss/camss-csid-gen3.c    | 31 +++++++++
- drivers/media/platform/qcom/camss/camss-csid.c     | 74 +++++++++++++++++++++-
- drivers/media/platform/qcom/camss/camss-csid.h     | 31 +++++++++
- drivers/media/platform/qcom/camss/camss-vfe-17x.c  |  5 +-
- drivers/media/platform/qcom/camss/camss-vfe.c      |  9 ++-
- drivers/media/platform/qcom/camss/camss-vfe.h      |  1 +
- drivers/media/platform/qcom/camss/camss-video.c    |  4 ++
- drivers/media/platform/qcom/camss/camss.c          | 44 +++++++++++++
- drivers/media/platform/qcom/camss/camss.h          |  7 ++
- 11 files changed, 243 insertions(+), 3 deletions(-)
----
-base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
-change-id: 20261029-v4l2-frame-sync-0d6fb94ab6e6
-
-Best regards,
---  
----
-bod
+> pw-bot: cr
 
