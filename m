@@ -1,59 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269845;
-	b=xHW3fwMUNzyiAPlCHmbL/B3LyIYdT4fGwH0zD+18aXdevcOfWhEvDLpESFxAZU0aD6il
-	 XJ01jFZRW6N1p9gKzemTcjPJ36oa6RAy81K19otxqB4u1EYyl1iZYPdroP0ve0wGa5fMu
-	 nv4JAyqEWP+oYCWtQqnFRetuFyWnqcjA3tNNueR9vK3g8sRWZFvTDIP0WAXnmo0JExGVi
-	 /wyIzj0R3mRQoqYiBuL4EcKxDdd2nmprB82f7H36uV5DxVUtX3loMWydRqx6e2qtZ4AiY
-	 DUG6PUAiV+aNGIHtOafdHiJnLm1Yc3tDa6itprPe2zPumBJ0JYqAv7XWi22bbGyjcbA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269845;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=37k4SuCznrRROwQPx+TAnrlUwps6gOeYzDwf1eYuuEE=;
-	b=mJuKrsXbvtLFSqmAUGkNT7MpoBhcUIyRHxu8BUX3KpSuqFoU7hHtcE+mZO6KhcMieYVn
-	 20O14oa+Ir0k0/YmizxbFcAu548zP/iq4vmhdDE49VMVVdPMCkIWPEoexcKyWd1K9d09o
-	 xs7n3s8udDo5M6wfP1YYrc88azptVyEhTlf1CBHjiOhO4Z/a+T0R9AIkm+sQ0PClzzPva
-	 uvu3DjXv9JKVgpKBtRDLWV6RMTnnCgGzGhwDYg5FnOxcHVvnanMK1V2X3Hp6q+I1ef42l
-	 yBnz1aqjn2HUzFns4bQitNifte6Na8rncygeRuKkZHHiVsE7JIYZ6HTMrXTxVtOuNUQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Y7xKS6kM;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793269863;
+	b=Gli1gPLc8Q819n+rS8GOb/GXBx/w7GbMTpg4cDM0oKl8R+MHUvNtjpH9LkY0acOgbdoD
+	 2NOCC6GYixSHNeVOIBXrN62CSbX4BiGC5krA/UG/txAp2gCSq44gIJcqbN1Q3cKmwy9ia
+	 ySL4b8N1SqMp6PU5Bdo8gKzP9P7JdgaewDvf3ovjutwChkHc7inhDrthV7LZDcTRJrsxq
+	 qgdEHJG3U2E3cyzxSEvlMQMWd4fgWEDLGmMbfqMZ1NeYnGKNfriCT+rRO4amCa2giZm/U
+	 ReiFD7XjdHcQNcblK2VIhm1I5Z31/2fQoh80IOf/k+J857Qb1LlFshrNmFWUdgRQ4Ag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269863;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=vReinFyJuq/ESO/NM1w8p1Ykf2lFRhtp9bKhJhu9+p0=;
+	b=GyKEoJVrpvFsHGoE7TVP9d6bG8Ddvw2NhZGfxg86I2lERPfx4T//9e273Bge+J7+sHt+
+	 KfLwSaz8c4RdW2ynKQKvJBryCzw21Gh4rpJ9QwKYmv9+CbWKVsrd1iSumfu2+M1ttF3u7
+	 64/xzG4P0JyeWM/JcdImS32KAqsNkkdJmI67M0uD1ek6mTDLuPhLC9Yx7Gl2YjB7t08DD
+	 KWsX3wHHNSaQnkgk/hzi+4rScP4SXOZExPOUu93ZLRM0sEeypdmgjiT7f8nv/qdA6vn/B
+	 +bQkWT9EWINoBLDP7LpxBLCczONeThwqR0hodJe1F/JVGRpRQ0x36DrhkUC+nJYwgYQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=HAHrjgNa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E26F606A31C;
-	Thu, 29 Oct 2026 10:30:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E26F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A154D606A31A;
+	Thu, 29 Oct 2026 10:31:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A154D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=Y7xKS6kM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=37k4SuCznrRROwQPx+TAnrlUwps6gOeYzDwf1eYuuEE=; b=Y7xKS6kMrf8k2TFtPlWjzjJWEX
-	ovwq54zt09HR+k8ZactmRpcRNo7w7ATpt3b3kr0gb/0BVksuiBumA9pPNB30fPCG9z66PPWebYHWh
-	PJMLHc35a/2kzrbhWTvATa7KXaAW50T0fo1Q75kmwRliTC0gs6qgOaHapjwrQ93WPnl1OInEKxu4i
-	l6ax29oYznOkHaupCmTD+4JdztPuHy4Ox6gtv6LVN2L1FftCwUuCZqj3oCf8BmvdDb/77eQIKCYcw
-	AaF8kvPf2L2lyG1ov3ghpLs50eXJs5sUhROWkVEQvw1NWLrxfR49RwnO1gkDaEvojDqhzs/tG/crZ
-	1SRkIg6A==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xMNOy-002xSJ-0Q;
-	Thu, 29 Oct 2026 10:30:32 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Thu, 29 Oct 2026 03:27:23 -0700
-Subject: [PATCH RFC] x86/syscall: Dispatch via sys_call_table when Spectre
- v2 and BHI are off
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=HAHrjgNa
+Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
+	(Authenticated sender: lst@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6E0F52000E3;
+	Thu, 29 Oct 2026 11:30:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793269859;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vReinFyJuq/ESO/NM1w8p1Ykf2lFRhtp9bKhJhu9+p0=;
+	b=HAHrjgNadQOzCFzerIWjXpjCt0BxnmL7Iaxw+OXjvuGf6abeziszPqrl2pXQuWzUWjS+Gy
+	h6ocSJ+SirkfVvo568/YhOabEa7uEaYnsp4nEaLMnnQ8MF51DMtZKblfTwOkkm0jLnrjra
+	+0YYMqp1tgdoK8fhfV+aTFnHw2MrXeYq1DsJ9xnP7q6LLMLGlscW6015mNoOJqQVSEaa6l
+	EaeDPdckz96E0TGJghN2JE6dB0g3mo+2uA64ATN+X4WyOc1j7XfOFS/TIGlysxzGAn9Dyi
+	7zIZQHZcvFegzaRPjahHkFn7ZxJrddTuIk6G+h9AcqpfmDx4asRSmnJq4bleuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793269859;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vReinFyJuq/ESO/NM1w8p1Ykf2lFRhtp9bKhJhu9+p0=;
+	b=KmQzt2pvfrQmPxV9buNk39KBsTE7geM+OZt6fyJi2g2INHwX56KCxa9C4DB+uVY3we5VrU
+	rLWdWPGNt3aM+jIAD3lNKeMufmOmx+eOLLbzHsKCN6Lt/IEbhlSvqvrVEMi6egXIMI9mr+
+	Zswb9+anneeVTCFjxjaMGIBGKvsICvX0NAyUiwfcSjDnin2Dhn4aNL8WmciXULrXejUB9u
+	tZR+/pnTDfkW6gtWS3DHAfmzpND4aIoAmpslzfcXDtivDLuBXdlvpouFnxZ1FEgJXiiG1s
+	46LK8028OHAK0bUUKMqhdnfDK7EkX/tJ13CTIyQwvVCsnHlvm1L0eqGBUAamQw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793269859; a=rsa-sha256;
+	cv=none;
+	b=Kl6fF4e1rilfJxkycY7uZhMMx603SVYKOZTLapb7cXRbXt1nORdwD9gEiFhnUIvoNZgjWx
+	hDCWB8KjybiTFyKXcZmZ6uXj6JhbxjYvdmhKZragSymSMxHNNLI19rnBDYQ4vy68PlrFpF
+	UofZahKaaGl4BW6SluZzFIjTUkbahqDTwQqhwbU9mr41ijyDf4b/wr97I/iv38VDXbd/xA
+	UUD3+h46cvYVI5VY/axoYfGFTuES8eX5EQfkV+QY092tYXqqauYoEMLVBZZ8Jl8XlcHD7a
+	/yKdJJYs2wbw6qyogOY9JvCfjMdqvcmfW2UB4RxhZzdCDkq4/Vt3LspjDmquUQ==
+Message-ID: <4b9c47028821bfcc0969f8ca811360fce096a3d9.camel@pengutronix.de>
+Subject: Re: [PATCH 2/2] drm/etnaviv: Remove deprecated fence_ops->release()
+From: Lucas Stach <l.stach@pengutronix.de>
+To: Philipp Stanner <phasta@kernel.org>, Russell King	
+ <linux+etnaviv@armlinux.org.uk>, Christian Gmeiner
+ <christian.gmeiner@gmail.com>,  David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>
+Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Date: Thu, 29 Oct 2026 11:30:59 +0100
+In-Reply-To: <20261028103129.1036380-3-phasta@kernel.org>
+References: <20261028103129.1036380-2-phasta@kernel.org>
+	 <20261028103129.1036380-3-phasta@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,199 +97,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-syscall-table-dispatch-v1-1-bca9dbb886de@debian.org>
-X-B4-Tracking: v=1; b=H4sIAI0f42oC/x3MQQrCMBAF0KsMf92BJEWp2QoewK24SJPRDoRaM
- kWU0rsLvgO8DSZNxRBpQ5O3mr5mRPIdIU9pfgprQSQEF47ehYHtaznVymsaq3BRW9KaJ3Z96Z0
- fTiUfRnSEpclDP//4huvljPu+/wDJr/2BbQAAAA==
-X-Change-ID: 20261028-syscall-table-dispatch-03d30189dc5b
-To: Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, 
- Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, 
- Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
- kernel-team@meta.com, Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5936; i=leitao@debian.org;
- h=from:subject:message-id; bh=pQ/CU1ObAwKL/q0NRJON0Pf3ttJvWE6vl503eCUpB+Q=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq4yBBKTNV4vhYFJzGFGOnbH3fL/JlxwjpzZswC
- L4NRcBTw6KJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauMgQQAKCRA1o5Of/Hh3
- bRBnD/4lgUpXM6muhA51whX3+3X5Vlh9K/Flonkrg2W1ATBnwAISFUbF3ePfnc/wubvvdYSOoNE
- Ew+kclR7ATYfKwTTDGk4pfl1cUlcP4cPLuVQYDex3kgBbtrUMqH6QMZIhhMRseiazE11+jsL8yc
- bepcz+2fS2rTbdzxW7bgFqUW75dq+1IaDtGlBCqIt4yEowAbD8GJRVh5LUJTr/GSgzyLA7mDUNW
- AAv1vTDX1Olbv6TlENCHa9m0ggHpDhu6eVaj8TLGYYBXqSB3DnH32f9mfgsxphVG+0fpte8J4+U
- 9yHf+8q3WiTb0Y4A866Nq/gpg6utBzxcrym7rZnTPaCm75PiKjjGl8ZVJXBPa3Ky6DgrgcdaCPU
- XQUGz+yaV8UxF/5WF0I3rnwy2ynPe4LRMokbhxfCidJnUIiWkHGVLk3NMZ9lQgj+cMo/wPqyOG5
- Q4A+Sb8jrZipHlJCsYMcRIvSJ+y2BQ7A6jQq1TL0HqZlmYK0OQG/od5F+lNML5oX56ou+oSa1Kk
- lZ30B2s/D+IOf8WGGvNxHkSIiye8hHap5Wzg9qZr8dEIO7abGzgB7Sqwr000ltMhn9CAumvc704
- 7EviW9XBw0v5nFrjuJrIWB9BW842TgiZvkYxq3WO9WkTeefiZkBuhzOEAN0ISREi6Wvu10qBdBi
- nZAYLjg0uJxSleQ==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
 
-Linus' commit 1e3ad78334a6 ("x86/syscall: Don't force use of indirect
-calls for system calls") dispatches system calls with a switch
-statement, so that syscall entry has no indirect branch for BHI to
-target.
+Am Mittwoch, dem 28.10.2026 um 11:31 +0100 schrieb Philipp Stanner:
+> The dma_fence->ops->release() callback is deprecated because it prevents
+> drivers from unloading. All etnaviv does in its implementation is invoke
+> a kfree_rcu() on the fence.
+>=20
+> The fence backend by now also frees fences with kfree_rcu() if
+> ops->release() is not implemented.
+>=20
+> Remove the deprecated callback.
+>=20
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
 
-As noted by Linus in the commit above, the compiler can either
-decide to generate an indirect jump, or just a series of conditional
-branches (which is more expensive).
+Reviewed-by: Lucas Stach <l.stach@pengutronix.de>
 
-With CONFIG_MITIGATION_RETPOLINE, clang emits no indirect jump, and the
-switch becomes a tree of compares and conditional branches. That code is
-built in, so a kernel booted with mitigations=off still walks the tree
-on every system call.
+Please take this through drm-misc or whatever tree is convenient.
 
-When neither the Spectre v2 nor the BHI mitigation is enabled, nothing in
-the kernel protects indirect branches, and the switch buys nothing. Use a
-static key to call through sys_call_table[] in that case.
+Regards,
+Lucas
 
-The compiler emits that call through a retpoline thunk, which boot-time
-patching turns into a plain indirect call when retpolines are off.
-
-On next-20261028 built with clang and booted with mitigations=off on a
-Xeon Gold 6138 at a fixed 2.0 GHz, perf bench syscall basic (getppid)
-and getpgid. Mean and standard deviation of 30 to 45 runs over 2 to 3
-boots, and kernel instructions and cycles per call from perf stat:
-
-                         CPU_MITIGATIONS=n  =y              =y + patch
-  getppid()  ns          131.2 +- 0.2       134.1 +- 0.1    131.7 +- 0.4
-             insns/cyc   310 / 212.1        331 / 218.1     314 / 213.1
-  getpgid()  ns          129.8 +- 0.3       132.5 +- 0.2    130.0 +- 0.5
-             insns/cyc   302 / 209.4        323 / 214.1     306 / 209.8
-
-Kernels that enable either mitigation keep the switch, behind one extra
-jump.
-
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
-The reason behind this change is to make the mitigations a boot command
-line option rather than a compilation option.
-
-It is common to find different kernel configurations where the major
-difference is CONFIG_CPU_MITIGATIONS.
-
-With this patch, CONFIG_CPU_MITIGATIONS can be enabled at build time, and
-when the mitigations are disabled at boot, system call dispatch has no
-performance impact.
----
- arch/x86/entry/syscall_64.c    | 15 +++++++++++----
- arch/x86/include/asm/syscall.h |  3 ++-
- arch/x86/kernel/cpu/bugs.c     | 12 ++++++++++++
- 3 files changed, 25 insertions(+), 5 deletions(-)
-
-diff --git a/arch/x86/entry/syscall_64.c b/arch/x86/entry/syscall_64.c
-index 966d3d1b75868..1da8b6c90171e 100644
---- a/arch/x86/entry/syscall_64.c
-+++ b/arch/x86/entry/syscall_64.c
-@@ -21,9 +21,8 @@
- #define __SYSCALL_NORETURN __SYSCALL
- 
- /*
-- * The sys_call_table[] is no longer used for system calls, but
-- * kernel/trace/trace_syscalls.c still wants to know the system
-- * call address.
-+ * Used for dispatch only when x64_syscall_use_table is enabled;
-+ * kernel/trace/trace_syscalls.c also wants the system call addresses.
-  */
- #define __SYSCALL(nr, sym) __x64_##sym,
- const sys_call_ptr_t sys_call_table[] = {
-@@ -31,6 +30,11 @@ const sys_call_ptr_t sys_call_table[] = {
- };
- #undef  __SYSCALL
- 
-+/*
-+ * Decide about syscall dispatch method: x64_sys_call() or sys_call_table
-+ */
-+DEFINE_STATIC_KEY_FALSE(x64_syscall_use_table);
-+
- #define __SYSCALL(nr, sym) case nr: return __x64_##sym(regs);
- 
- /* The unsigned int @nr argument is intentional as it creates denser code */
-@@ -58,7 +62,10 @@ static __always_inline bool do_syscall_x64(struct pt_regs *regs, unsigned long n
- {
- 	if (likely(nr < NR_syscalls)) {
- 		nr = array_index_nospec(nr, NR_syscalls);
--		regs->ax = x64_sys_call(regs, (unsigned int)nr);
-+		if (static_branch_likely(&x64_syscall_use_table))
-+			regs->ax = sys_call_table[nr](regs);
-+		else
-+			regs->ax = x64_sys_call(regs, (unsigned int)nr);
- 		return true;
- 	}
- 	return false;
-diff --git a/arch/x86/include/asm/syscall.h b/arch/x86/include/asm/syscall.h
-index cfe4251fc1fe3..509449a70febc 100644
---- a/arch/x86/include/asm/syscall.h
-+++ b/arch/x86/include/asm/syscall.h
-@@ -13,12 +13,13 @@
- #include <uapi/linux/audit.h>
- #include <linux/sched.h>
- #include <linux/err.h>
-+#include <linux/jump_label.h>
- #include <asm/thread_info.h>	/* for TS_COMPAT */
- #include <asm/unistd.h>
- 
--/* This is used purely for kernel/trace/trace_syscalls.c */
- typedef long (*sys_call_ptr_t)(const struct pt_regs *);
- extern const sys_call_ptr_t sys_call_table[];
-+DECLARE_STATIC_KEY_FALSE(x64_syscall_use_table);
- 
- /*
-  * Only the low 32 bits of orig_ax are meaningful, so we return int.
-diff --git a/arch/x86/kernel/cpu/bugs.c b/arch/x86/kernel/cpu/bugs.c
-index 000ebee2d247b..1823b4d963de3 100644
---- a/arch/x86/kernel/cpu/bugs.c
-+++ b/arch/x86/kernel/cpu/bugs.c
-@@ -32,6 +32,7 @@
- #include <asm/hypervisor.h>
- #include <asm/tlbflush.h>
- #include <asm/cpu.h>
-+#include <asm/syscall.h>
- 
- #include "cpu.h"
- 
-@@ -2134,6 +2135,16 @@ static void __init bhi_apply_mitigation(void)
- 	setup_force_cpu_cap(X86_FEATURE_CLEAR_BHB_VMEXIT);
- }
- 
-+static void __init syscall_dispatch_apply_mitigation(void)
-+{
-+	if (!IS_ENABLED(CONFIG_X86_64) || spectre_v2_enabled != SPECTRE_V2_NONE ||
-+	    bhi_mitigation != BHI_MITIGATION_OFF)
-+		return;
-+
-+	pr_info("BHI mitigation off, dispatching syscalls through sys_call_table\n");
-+	static_branch_enable(&x64_syscall_use_table);
-+}
-+
- static void __init spectre_v2_select_mitigation(void)
- {
- 	if ((spectre_v2_cmd == SPECTRE_V2_CMD_RETPOLINE ||
-@@ -3371,6 +3382,7 @@ void __init cpu_select_mitigations(void)
- 	bhi_apply_mitigation();
- 	tsa_apply_mitigation();
- 	vmscape_apply_mitigation();
-+	syscall_dispatch_apply_mitigation();
- }
- 
- #ifdef CONFIG_SYSFS
-
----
-base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261028-syscall-table-dispatch-03d30189dc5b
-
-Best regards,
---  
-Breno Leitao <leitao@debian.org>
-
+> ---
+> Just compile-tested.
+> ---
+>  drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 8 --------
+>  1 file changed, 8 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etna=
+viv/etnaviv_gpu.c
+> index e51a310c8d70..e75dab5e407d 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+> @@ -1176,18 +1176,10 @@ static bool etnaviv_fence_signaled(struct dma_fen=
+ce *fence)
+>  	return (s32)(f->gpu->completed_fence - f->base.seqno) >=3D 0;
+>  }
+> =20
+> -static void etnaviv_fence_release(struct dma_fence *fence)
+> -{
+> -	struct etnaviv_fence *f =3D to_etnaviv_fence(fence);
+> -
+> -	kfree_rcu(f, base.rcu);
+> -}
+> -
+>  static const struct dma_fence_ops etnaviv_fence_ops =3D {
+>  	.get_driver_name =3D etnaviv_fence_get_driver_name,
+>  	.get_timeline_name =3D etnaviv_fence_get_timeline_name,
+>  	.signaled =3D etnaviv_fence_signaled,
+> -	.release =3D etnaviv_fence_release,
+>  };
+> =20
+>  static struct dma_fence *etnaviv_gpu_fence_alloc(struct etnaviv_gpu *gpu=
+)
