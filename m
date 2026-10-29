@@ -1,99 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793295561;
-	b=r7wx/DAbSm/3DoHeZmjbxDWMFC4zHN/R/sxqRYzq+jAvVN77mcLvpYzPcqlbsagJAQIw
-	 kCk9zdIlvGfeYA9QPBllWLJ2Ta8Wa0Xb6Ov8zPD3AHTrVfHrDyw9dGnUR0o0tysUmctcI
-	 xQwHF0btxfnq0RoOlrvfZEUuWvY4I5hyOrvVyIpQ5WqQHw3nEi0tt5kXSdnukNx1kyoeJ
-	 1txn0lQQBHqSKmOzDpFraWIpVqg27sXeZevJGZaaHN36QpbfKXd+/WzjYwW2Oa84bPEWy
-	 MC+bLNkTfsn3zCxGwjbhNYhPRfyXklEmeSTyvp1H1A7wc+HTjHZjEknwotY//sutFPQ==
+	t=1793295586;
+	b=HHl0ARqqPnd8iHEeOiJGHGhbdJhdgl3ULBJslk3IrMJugbR7gFbFVoCRZ26vgVIwBWuh
+	 Evg7eYUIaIiLUqER9Auc0QPQSIegubMIkqDNyjuLNUTjAFpEq2SCpuaCnbyIPW0UdOlfr
+	 BZgZDiqRxn6gzlwOjzVybj6o8rYQiaang983xf7GCQ572Mt7JJQCCrLf9KgoeYL1vGfHq
+	 0vefJvrcEDLBd3ciKwItJsdxjORUeDgh4Co5kAi/0xOCnUouXbrlHGc0uN86El2p5S7kP
+	 ZkQxb/xFV061qIwVZueDtpW3c4zMf5zmzahGmUM2nOWK8DYpx1MnnbMiGtkDIicFJew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793295561;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793295586;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=VxKnxxpthVZvnSjcILi92P8UHB/DkKivIP1tzJVYEyI=;
-	b=TQz03W4ybxCyiKPD5rChv8L3Vn2ntC8gNeRyiLdQbsFLbwSDyiZv5ujFDwM7AyYvFTjC
-	 wrvIyYREBZhzS8dMbERr1hjJiw+deDbNymLMWDRr4TFMHBnl4le6aZzfsVCv8uoiGVZvF
-	 afh4gY0eUlumpG+mJKLGb6dCGgla+mVuknt4+NfKZ/RDLY4l1rY+mGMbPWWhHpgCJUcWz
-	 ErT1W2tscHiw08qk31BmEm6MOf7g6iKcNmGpPuB2ecXCi0o6Ofuteq/FrbSRhh9AwCvuK
-	 HUh8Ujb69oABCjRVZ9N3ghu90lDNdGZq9BIQ4ouTInHZgtROnwzJAgT9BiSI7Bk01bg==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=2KFGBRNvis/xUmUAvIOrrCN5aEDyUWLLVbvBnaXFBhc=;
+	b=xE2t5kwQc1WjYuliaxJI0nAEIH8Cl+hh+48Y6R65vhXyO0POVBZIZcvh7Fhf9ctZUuxs
+	 D3JL90eS1INWXS7lb5VHJ8vKMwEu0fjxp388jEQthqUX5/KDMhQ/k6rhRvEKARu3ghzcG
+	 SyPBMnwNAn4i4Zg7+CyzXyPM0zzNQIqmE/nfodXS+tVKV100BGMeFlP/7K/riZkjM4eSI
+	 /6PcoyQ6GSqetm2XTvzQn2jI6RElHQ2IoDL7r7yPuskMQOMDq9RucDNhVOjUW8CH9gaF6
+	 KZnsCbJFG1mgTt4Ilot3bpETzeevQ51IZJz64/kQzOHz2B24p7AOXjvPt7IMllTxe3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bsTu7zHj;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bTChIusW;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3177E606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:39:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3177E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C87606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:39:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18C87606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=bsTu7zHj
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so26995675e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:39:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bTChIusW
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a18fc7a38so4823126eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:39:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793295558; x=1793900358; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VxKnxxpthVZvnSjcILi92P8UHB/DkKivIP1tzJVYEyI=;
-        b=bsTu7zHjbgIVlcHu3NdjzeuSwabHni1qavw0nf+vr+ww9Wf0DF9C5hRTQELcgbXmh9
-         feMgPO+/4tuqfM8ixO/eOgEEjtNreGPgAQFMyJwZGH31gCPA1n74OCu78wEQuUZoxPXh
-         Re0mAy8xwDeFS3W/iijqPr/xJb2HHbT2yciOMm7efix+tZrfT9prkpxTd9JY7KQjvAt4
-         sQg0i8d3h30HmR9+SPa/U/tlmYQ4fkxmwUYoEQ1gPwZKmsX9wyL6HwJJwbzHysHJ75CY
-         FWzJFc/y7kOJL6bmMp5QnxrAGBolDX2zhVB6gPNxL7iaL1nZKqcqSRkz4lxY9EZWDZ6X
-         qotw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793295558; x=1793900358;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793295585; x=1793900385; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VxKnxxpthVZvnSjcILi92P8UHB/DkKivIP1tzJVYEyI=;
-        b=qBNDbRJEuwXQ+JMyECIAq5R3jOGzxG7qfXkyvjsEH66EAT0Mvc9CuT7AD9LT2UQxIt
-         aF2jnaZU4jbwmKpu/0KwP2Ork5VQ1kZVNh3c13IUcvNHZNsDsHvLerzkjr4bwWEH5IQN
-         m8Ql5f9Pbb1ZO4v1sOxvR3pVE12MvvuT2MpHUu0aM6u6DL3N0LvDJx0Y8YD+Tu8reebD
-         l/u2qDPuD5AIMZFjGbG1OiLTrMnUko4iApW3U+i0oxSG+qfyOYps6Zp3jeoMlu2fe11Z
-         6gqotAkc0+A8Q1lEndtaB8N8vvu1cvl39WENaRtcZHIOuFMEf7EKQtS4tKn0IIhQgBA3
-         n2vw==
-X-Forwarded-Encrypted: i=1; AKwUvBx80fk1d/EQfwKnd6XcnWe8RCQenl2G3VzZZ49AIliy/bqERJY89QKSPXpf2E2wSuCKEayO7H1jUQzxId0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYLtPL9wKbBKEAX82r2/2pXI4+Rz+/AZzGULL7mkqF2+A1Td9x
-	WOK3lmVQwNRIs5P8UzJuiATMyWTQfs+OGIJudGEY/DMwuCcQgFAwFWDNwKicPHPyHEs=
-X-Gm-Gg: AYBFou30NAsq7Py1KlVMQDaid16l6FMCYlZ3jJi7XZRZibjJe8rBiEvkrm5Jjrp3sFB
-	oXuwxOk+Hl3LSinZ7bnAe1c3VJex1YpSYuYnhEaIob0xNwjWUALpmBuFzrCWBUGXO3XnF5wSQKL
-	YImILL7McbjM1WQ08svFPkiBFoR82MtNsNivg0bNrR+71aGIZdaDnqKnjMip6zaVa2YjOs3NfqL
-	tdlIIKeYbR0f2BnVZSFrGhnDRCttIp2zJ6MjevQxICqNEbX3LLwjHfBASiu1lviiH4TSw9Kv0R3
-	IayWuOB/NjceX86G6VetLS0u9wF3RAeuRO2GnNlRDE1vq+4UKVHBCYCQEMfqnyg0v0d+XAaMU5H
-	QNvXe+izJAualtMWqmpkGxJHDiM2JzELH+7Lv1f+W+qAF5vBIRo4LoELE+qQWVokMi1ATwL9diZ
-	ic82kiwH7H046sW9B9OGkOvrkYAfMjkLqPV3biNDZcq7SM1MMT+RZNshza0RhCVAmazRcXO48MP
-	yUdOUY4Rqen8BLOLwhZhFXgh9ecmhPcvMGWoZVsFn960GPKTdIJS/9N8RBFqdqKHDgPqEOfagh8
-	MWlPUB+zmVc47jxtZi9PljDTNi8yUZOiH4c=
-X-Received: by 2002:a05:600c:b8a:b0:4a2:b89:b02 with SMTP id 5b1f17b1804b1-4a96667c848mr135986785e9.10.1793295558589;
-        Thu, 29 Oct 2026 10:39:18 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e6df1e458sm627445f8f.5.2026.10.29.10.39.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 10:39:17 -0700 (PDT)
-Date: Thu, 29 Oct 2026 18:39:16 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Johan Hovold <johan@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
-	linux-trace-kernel@vger.kernel.org, Leon Romanovsky <leon@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Michal Pecio <michal.pecio@gmail.com>
-Subject: Re: [PATCH] Revert "driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers"
-Message-ID: <auODHyLrfQylISX2@monoceros>
-References: <20261028-bind_taint-revert-v1-1-7c6b9cef30c9@linuxfoundation.org>
+        bh=2KFGBRNvis/xUmUAvIOrrCN5aEDyUWLLVbvBnaXFBhc=;
+        b=bTChIusWhmWDjhb/gvsYidbtfMSN8BhAoQoTqV2awLxnaSpbKivz/o6b+oh5WEv2HO
+         fXSD9C1lB5FdUuy01Wwl7F4l/wA7GtF/eMIu1FURCn9XG6GFw+3B+0BMuEB5Ofb0Hgpt
+         JXvYvCCAq6uQjhzOW84vuyN+2p15bZg3AOiaVy6a0Idg+p2/IKXPIQQJ1sAeeLMUk7e0
+         HcYcfakIPQX5L9DNef0xqdonwWllXEziBRvF9j2Xks6eWacdkElomVKlvzeM5oNhOebM
+         X0Fw1yBMk3BpWIHLcRFcDueDeMD3tRdPQDZCCfE8WeSQkqFImM7EuhJ/oY4Nqn5XSzk6
+         i3XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793295585; x=1793900385;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2KFGBRNvis/xUmUAvIOrrCN5aEDyUWLLVbvBnaXFBhc=;
+        b=Nm+3VIM8z9PaOuS5839gJYAoTiHV1BZpthPYcAIRGL23xiKXAtwzUvGzjfYtA0D6VK
+         X9NDE8oqVhMrlwfzJLxxXB64iMQ3wjGX47SNDvcUat9KwRICtacN4KbhEmPItROx3EBm
+         oBGsF8riVG0W7/ysqRzcE/d6yqvdaki8p32HhxqaKG/hG+Q+x8V4UsWdYyeDwJN9gEXu
+         a75GHHgrZcQYPzxFhIobjxb3wvwMiE7cDPobdoNnqze8RMkStS2QC+9tQ4WFEvMDr7K9
+         4hyhB6Av8u00B6jFQ/+bt4X75kJTGIBDFoUQcH9YEstNOc+6XvY5P1QNeIhRewr3YZjQ
+         9A1A==
+X-Forwarded-Encrypted: i=1; AKwUvBx58itK5E0FAm0aTaf2/mB/bHPA+JIe9nxMPMlwxGHKUqVILnq5LKUzF0TfGTFg+WmwCV6+Ab9yd6PmbKI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+t6CaYou3OyoT83CkyhIpqGgedZMAevfGJDo7gV5YwPqTuNQX
+	w6PFxUm1ocYAhoV8Yp4PYaSq+JJWge9IrS995bhUqk1BOC8Lz9J2uCSo
+X-Gm-Gg: AYBFou0ML5PXD7/7Ld04/IEsr/FkjVKoo7zKwbzW0PW5J1tvH8Ay1W803XHVwQtLzh7
+	KzwJP89hvNy0xqINhDB6/8XUJdirh4uPUq0ewofXPDZuuTsdA1la1QaPmY9rziUrSjBJeLFXTn1
+	xDrvmUkGMD9m5UF3dl3Y7sUsDPn0DvRKfPeWb2gCkE5B+s06ccz+n1xFFKvKU+ojQYrPZDwrc6F
+	ZVgAqkY2l19T410hN+waWXI9ALyZ5zl1H0IYE8rm9SbOQhCdeJw8xjD7gh3aZrlxw4SsgtEimXo
+	zfCp1T6Fs1k2FUz2D/RG6XYOMbABbtYSyMfEjTnrKGfloFTiGZE8n5mGmQ+HrKUgPBZwCeonVJR
+	bnixedSOHlLmL3pNjt5FJZB8SgAcO72bVDv+5AwSwc3jyd2bzgSUQUnoSVkeGV/VeAnsAHeojDL
+	8Mr1lQg499yrtksXsKuo8XAARzS+x/BRD/HPX4ptNq4/y9lUwa7MtWexEaFtzPOE0y8+SuSnY2S
+	Mjgz42UJ0Hea059tMx7nbp3J3XVaeDFbRLyEJB6Xi+Eb8bTaI2VjH/Qgnj6dj6VwwC5SeR9FAhm
+	kiACwzIyHr/GPB1FEbhX750K9chHiUImiK1zZRHCY7d5ldun/juY6Xsz
+X-Received: by 2002:a05:7301:7306:b0:366:dbf9:32bd with SMTP id 5a478bee46e88-36a4235f4a1mr105133eec.9.1793295584796;
+        Thu, 29 Oct 2026 10:39:44 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4294419dsm51546eec.18.2026.10.29.10.39.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 10:39:43 -0700 (PDT)
+Message-ID: <86ae31a1-381a-4f38-89fb-a19b35d06d5f@gmail.com>
+Date: Thu, 29 Oct 2026 10:39:38 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,118 +92,243 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="l6fyrt6fnoykrkwe"
-Content-Disposition: inline
-In-Reply-To: <20261028-bind_taint-revert-v1-1-7c6b9cef30c9@linuxfoundation.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 10/11] net: au1000: keep the MAC stopped until the PHY
+ link is ready
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, shaojijie@huawei.com,
+ horms@kernel.org, runyu.xiao@seu.edu.cn, mmyangfl@gmail.com, hvr@gnu.org,
+ jeff@garzik.org, danny.kukawka@bisect.de, mugunthanvnm@ti.com,
+ sebastian.hesselbarth@gmail.com, linux-kernel@vger.kernel.org,
+ manuel.lauss@gmail.com
+References: <20261027223140.3774570-11-f.fainelli@gmail.com>
+ <179329052077.3134.10233975410162013013@kernel.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <179329052077.3134.10233975410162013013@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+On 10/29/26 09:15, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+> 
+> Critical: 0 · High: 0 · Medium: 2 · Low: 1
+> 
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwork
+> know by including "pw-bot: cr" as a separate line at the end of your reply
+> (one such reply per series is enough).
+> 
+> - [Medium] au1000_open() now calls phy_start() before au1000_init().
+> - [Medium] Reopening the interface after a PHY status read that changed
+>    phydev->link and then failed can leave MAC RX/TX disabled for good…
+> - [Low] The new au1000_hard_stop() call in the link-down branch of
+>    au1000_adjust_link() runs inside spin_lock_irqsave(&aup->lock).
+> 
+> --
+> 
+> net: au1000: keep the MAC stopped until the PHY link is ready
+> 
+> The patch moves phy_start() ahead of au1000_init() in au1000_open(). It
+> also leaves MAC RX/TX disabled in au1000_init() while the PHY reports no
+> link, and stops the MAC in the link-down branch of au1000_adjust_link().
+> If au1000_init() fails, the PHY is now stopped.
+> 
+>> diff --git a/drivers/net/ethernet/amd/au1000_eth.c b/drivers/net/ethernet/amd/au1000_eth.c
+>> index 8c2dbf72652e9..c616ce616541f 100644
+>> --- a/drivers/net/ethernet/amd/au1000_eth.c
+>> +++ b/drivers/net/ethernet/amd/au1000_eth.c
+>> @@ -458,7 +458,8 @@ au1000_adjust_link(struct net_device *dev)
+>>   		/* link state changed */
+>>   
+>>   		if (!phydev->link) {
+>> -			/* link went down */
+>> +			/* Stop the MAC before the PHY can remove its clocks. */
+>> +			au1000_hard_stop(dev);
+> 
+> [Severity: Low]
+> 
+> au1000_adjust_link() holds spin_lock_irqsave(&aup->lock) at this point,
+> and au1000_hard_stop() ends with:
+> 
+> 	wmb(); /* drain writebuffer */
+> 	mdelay(10);
+> 
+> So each link-down now busy-waits 10 ms with interrupts off.
+> 
+> On close, the sequence looks like this:
+> 
+> au1000_close()
+>    phy_stop()
+>      -> au1000_adjust_link() -> au1000_hard_stop()   /* 10 ms */
+>    spin_lock_irqsave(&aup->lock, flags)
+>    au1000_reset_mac_unlocked()
+>      au1000_hard_stop()                              /* 10 ms again */
+>      two mdelay(2) for the reset                     /* 4 ms */
+> 
+> That is roughly 24 ms per close with interrupts off. The duplex branch
+> already does something similar on link-up.
+> 
+> Is the second au1000_hard_stop() in au1000_reset_mac_unlocked() still
+> needed now that the link-down callback stops the MAC?
+> 
+>>   			aup->old_speed = 0;
+>>   			aup->old_duplex = -1;
+>>   		}
+> 
+> [ ... ]
+> 
+>> @@ -740,6 +741,10 @@ static int au1000_init(struct net_device *dev)
+>>   		control |= MAC_FULL_DUPLEX;
+>>   	}
+>>   
+>> +	/* The PHY may still be restoring its MII clocks after resume. */
+>> +	if (!dev->phydev || dev->phydev->link)
+>> +		control |= MAC_RX_ENABLE | MAC_TX_ENABLE;
+>> +
+> 
+> [Severity: Medium]
+> 
+> Can the MAC stay stopped after a reopen if old_link and old_duplex are
+> stale?
+> 
+> With this change, RX/TX get turned back on after open only through
+> au1000_adjust_link(). It calls au1000_enable_rx_tx() in just one place,
+> the duplex branch:
+> 
+> 	if (phydev->link && (aup->old_duplex != phydev->duplex)) {
+> 		...
+> 		au1000_enable_rx_tx(dev);
+> 
+> Neither au1000_close() nor au1000_reset_mac_unlocked() resets old_link,
+> old_speed or old_duplex.
+> 
+> Here is one sequence that could leave them stale. Assume autoneg is
+> disabled and the link is up at 100/Full:
+> 
+> genphy_read_status()
+>    genphy_update_link()        /* BMSR says link down, phydev->link = 0 */
+>    genphy_read_status_fixed()  /* BMCR read fails with -ETIMEDOUT */
+> phy_check_link_status()
+>    returns the error before phy_link_down()
+> 
+> MDIO timeouts reach phylib since "net: au1000: report MDIO transaction
+> timeouts". The PHY_ERROR handling, and a later phy_stop() into
+> PHY_HALTED, call phy_link_down() only if phydev->link is still set.
+> au1000_adjust_link() therefore never sees the link drop, so old_link
+> stays 1 and old_duplex stays DUPLEX_FULL.
+> 
+> On the next open, au1000_init() leaves RX/TX disabled because
+> phydev->link is 0. When the link comes back at the same speed and
+> duplex, au1000_adjust_link() skips all three branches. The MAC stays
+> stopped while carrier is reported up.
+> 
+> Before this patch, au1000_init() always set MAC_RX_ENABLE |
+> MAC_TX_ENABLE, so this case recovered on reopen. Would resetting
+> old_link, old_speed and old_duplex in the open or close path avoid it?
+> 
+>>   	writel(control, &aup->mac->control);
+>>   	writel(0x8100, &aup->mac->vlan1_tag); /* activate vlan support */
+>>   	wmb(); /* drain writebuffer */
+>> @@ -928,16 +933,18 @@ static int au1000_open(struct net_device *dev)
+>>   		return retval;
+>>   	}
+>>   
+>> +	if (dev->phydev)
+>> +		phy_start(dev->phydev);
+>> +
+>>   	retval = au1000_init(dev);
+> 
+> [Severity: Medium]
+> 
+> Is it safe to start the PHY before the MAC is initialized?
+> Documentation/networking/phy.rst says:
+> 
+>    Lastly, once the controller is ready to handle network traffic, you call
+>    phy_start(phydev).
+> 
+> The commit message says "Start the PHY before initializing the MAC" but
+> doesn't explain why the order has to change.
+> 
+> phy_start() resumes the PHY over MDIO:
+> 
+> au1000_mdiobus_read() / au1000_mdiobus_write()
+>    au1000_enable_mac(dev, 0)
+> 
+> mac_enabled is 0 after probe or close, so this takes the MAC out of reset
+> before au1000_init() runs. That contradicts the comment above
+> au1000_init():
+> 
+>   * conserve power. Thus, whenever au1000_init() is called,
+>   * the device should already be in reset state.
+> 
+> phy_start() then queues the state machine with zero delay, and
+> au1000_init() does:
+> 
+> 	/* bring the device out of reset */
+> 	au1000_enable_mac(dev, 1);
+> 
+> With force_reset set, this holds the MAC block in reset for about 2 ms,
+> including mii_control and mii_data. It takes only aup->lock, not the
+> mii_bus lock. au1000_mdio_read() and au1000_mdio_write() program
+> mii_control, poll with mdelay(1) and read mii_data without any driver
+> lock.
+> 
+> Could that forced reset land in the middle of an MDIO transaction from
+> the phylib worker, for example on a preemptible UP kernel? A read could
+> then return a reset value, a BMCR or advertisement write could be lost,
+> or -ETIMEDOUT could put the PHY into PHY_ERROR.
+> 
+> If the worker runs first and already sees link up, au1000_adjust_link()
+> takes the duplex branch (old_duplex == -1) and calls
+> au1000_enable_rx_tx(). That happens before the MAC address and RX
+> descriptors are programmed. au1000_init() then force-resets a MAC with
+> RX/TX enabled.
+> 
+> There is also a problem with the new check in au1000_init(). It reads
+> phydev->link under aup->lock, while phylib updates it under
+> phydev->lock:
+> 
+> 	if (!dev->phydev || dev->phydev->link)
+> 		control |= MAC_RX_ENABLE | MAC_TX_ENABLE;
+> 
+> genphy_update_link() can set link to 1 for a moment and then clear it:
+> 
+> 	phydev->link = status & BMSR_LSTATUS ? 1 : 0;
+> 	...
+> 	if (phydev->autoneg == AUTONEG_ENABLE && !phydev->autoneg_complete)
+> 		phydev->link = 0;
+> 
+> If au1000_init() reads that brief 1, RX/TX get enabled. The link-down
+> callback never runs afterwards, because phydev->link still equals
+> old_link.
+> 
+> Wouldn't that leave the MAC running with no link, which is the state
+> this patch is meant to prevent?
+> 
+>>   	if (retval) {
+>>   		netdev_err(dev, "error in au1000_init\n");
+>> +		if (dev->phydev)
+>> +			phy_stop(dev->phydev);
+>>   		free_irq(dev->irq, dev);
+>>   		return retval;
+>>   	}
+> 
+> [ ... ]
+> 
 
---l6fyrt6fnoykrkwe
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] Revert "driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers"
-MIME-Version: 1.0
+Agreed on both medium findings. I’ll initialize the MAC before starting 
+the PHY, clear the cached link state on open, and use the driver’s 
+acknowledged link state during initialization.
 
-On Wed, Oct 28, 2026 at 02:42:15PM +0100, Greg Kroah-Hartman wrote:
-> This reverts commit fcbfaffee51a452cc8efcbaa3b88ec4595678424.
->=20
-> Turns out that vfio is a crazy beast and people have been "relying" on
-> the bind/unbind debugging feature as a way to handle passing through
-> devices to guest instances.  Because of this (https://xkcd.com/1172/),
-> let's revert the feature for now until we can figure out a more agreable
-> way to handle this such that normal workflows do not taint the kernel.
->=20
-> Odds are something like what Uwe proposes at:
-> 	https://lore.kernel.org/lkml/cover.1790612298.git.u.kleine-koenig@baylib=
-re.com/
-> will be the best way forward and will be revisited after for after 7.4.
->=20
-> The feature was originally intended to stem the flow of unnecessary
-> fuzzing reports of "broken" drivers where random devices were being
-> bound to random drivers and of course things were going wrong.  The main
-> syzbot tool is now not doing this anymore, and hopefully no one else
-> starts it up again (but in this madness of LLMs these days, you can't be
-> sure.)
->=20
-> Thanks to everyone for telling me just how wrong I was to implement
-> this, I appreciated the feedback :)
->=20
-> Link: https://lore.kernel.org/all/DLIL9H50MALI.3JROXYEEUM3KU@kernel.org/
-> To: Jonathan Corbet <corbet@lwn.net>
-> To: Shuah Khan <skhan@linuxfoundation.org>
-> To: Randy Dunlap <rdunlap@infradead.org>
-> To: "Rafael J. Wysocki" <rafael@kernel.org>
-> To: Danilo Krummrich <dakr@kernel.org>
-> To: Johan Hovold <johan@kernel.org>
-> To: Steven Rostedt <rostedt@goodmis.org>
-> To: Masami Hiramatsu <mhiramat@kernel.org>
-> To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> Reported-by: Leon Romanovsky <leon@kernel.org>
-> Reported-by: Jason Gunthorpe <jgg@ziepe.ca>
-> Reported-by: Michal Pecio <michal.pecio@gmail.com>
-> Reported-by: "Uwe Kleine-K=F6nig" <u.kleine-koenig@baylibre.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->  Documentation/admin-guide/tainted-kernels.rst | 52 +++++++++++++--------=
-------
->  drivers/base/bus.c                            |  3 --
->  include/linux/panic.h                         |  3 +-
->  include/trace/events/module.h                 |  3 +-
->  kernel/panic.c                                |  5 ++-
->  tools/debugging/kernel-chktaint               |  8 -----
->  6 files changed, 28 insertions(+), 46 deletions(-)
->=20
-> diff --git a/Documentation/admin-guide/tainted-kernels.rst b/Documentatio=
-n/admin-guide/tainted-kernels.rst
-> index a208811ad525..3d312bc17942 100644
-> --- a/Documentation/admin-guide/tainted-kernels.rst
-> +++ b/Documentation/admin-guide/tainted-kernels.rst
+I’ll retain the reset-time hard stop because watchdog recovery and other 
+reset paths do not guarantee a preceding link-down callback. Reducing 
+the IRQ-off delays needs separate work.
 
-It's not part of commit fcbfaffee51a452cc8efcbaa3b88ec4595678424, but
-conceptually we need=20
-
-diff --git a/Documentation/admin-guide/tainted-kernels.rst b/Documentation/=
-admin-guide/tainted-kernels.rst
-index 3d312bc17942..fcb8b9734548 100644
---- a/Documentation/admin-guide/tainted-kernels.rst
-+++ b/Documentation/admin-guide/tainted-kernels.rst
-@@ -74,7 +74,7 @@ a particular type of taint. It's best to leave that to th=
-e aforementioned
- script, but if you need something quick you can use this shell command to =
-check
- which bits are set::
-=20
--	$ for i in $(seq 0 20); do echo $i $(($(cat /proc/sys/kernel/tainted)>>$i=
-&1));done
-+	$ for i in $(seq 0 19); do echo $i $(($(cat /proc/sys/kernel/tainted)>>$i=
-&1));done
-=20
- Table for decoding tainted state
- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-in this change which was fixed in commit f1850e443b0e ("docs:
-admin-guide: Handle TAINT_FORCED_BIND when parsing
-/proc/sys/kernel/tainted"), but that commit shouldn't be reverted as it
-contains a simplification that we should keep.
-
-Best regards
-Uwe
-
---l6fyrt6fnoykrkwe
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrjhMEACgkQj4D7WH0S
-/k7pjQf/fZLeX4jg8q6vdwBmv7dGxKbev3ARRZTtVOacOQwftIek8l6UKQWlMwoG
-/tiokVc22lkSxsHq47w6eKUKpucHydGzT8Y7OZvHNjOjZ1o9WS00lJRh6uhVTh06
-MK6k0za6dBbrOWnTBeTGZuWlLCOQKpDB/6t93V1fIYYJSd0ir3GpvVZzfM16Pk0d
-opyBimIxlfjCuxzRbj7DZjzv0I5PbjXdox41VKx2cx60OzFJdN0MKZifLp9yNV4s
-s6Tc4Q1oK/Ih66hhbojNkTp6Xyzsy2m0lvku9N0DitT5/VXqoI/mdedlPK7tFWeh
-qZAoONEgzf9TmSM0/P2g0K+1mpLkrg==
-=/byF
------END PGP SIGNATURE-----
-
---l6fyrt6fnoykrkwe--
+pw-bot: cr
+-- 
+Florian
