@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793290859;
-	b=MRr2ESvNjg2llaWkUkx4gWdVHYjlwde2TADooK0V5O2LT+6nRMxiXpWooezQZsyUgTnG
-	 bm0yJSiB2XnFynMSXIjPzHosart9GHifqC3HZEphtxpRq3HVc0vleSqt6hkWu0jCVgm9p
-	 ikvTbgq6eClarGnI9MjkDbJt6AWsevuVefKCyFSP4nZcK/aU1kl+MkXMhpc7fIgTEGZkL
-	 PJFh0LLoQJIvgXYl93q+LsdFXijFIs0eteWek6W1yzP3aoV/4Zsw+s399TS62KNQyzAVF
-	 TQxvt2ckrldA/QtO6Jgl0A0iXAp42bHMMZUU8MsO5/8V6mPUv740K+bWxwwkX1nRgvg==
+	t=1793290940;
+	b=QBS0/CEabMNrnU2a7c5H/xqq/C4XlPMxWXAqHedD7709LejFiwCVepql3ZVyvQUK1W3N
+	 6lboyh38fMfezUONu6HdeNzrs6ikhnCvNoqN1cHtTad65T6zPQxNwO74k9cOsVihfmmKT
+	 DeTWLX4rlDD+R+Tn46Xb1wuwkWklhi8DvgSxGoUY4MY8gldJMYj7Tiivj7+MU4VItmV31
+	 FwElaEGXhv7J50R9DmuxTHhORwI3rnoIQCzy6E7pl9dYXtYGOhNnI4rxtPtQssirHvxUX
+	 SIqL7bZIjdLsBQcOTq/1NPIP+GhBMQZzmxQuQ3iBCwtsZ3ALsenyIPfNwNSWLJ5RUOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793290859;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=yxnLEz88kcrXq8N3E/2oHjuInKcEQgr1ZtwdFsYS4Cs=;
-	b=ddSIUg95pkIvP/EjJ/oKx4lstO/3RjXhAuaObBGkrMwI6g7VVo+D1OFNVB4qpvivIPVW
-	 9n+lN2yQ3RihIRQiDkIgwD8lOoe5bT5whjFvFqLYaCQmyJIx7DoKhIiDRZc2/jqsKGRHw
-	 FQTCD1l6krZiP1gHq0MR4eLkkuj2HHpXK6IXqYQ4cm0GZoP7CSeUc8zgxF88CWKrlcV/I
-	 eaYPWfMnKyazQZzJf7bsjz8NUIWJeKj025Qau9Rg5ZB25lvj9cHO7qbpQo+hZUOyGcDvK
-	 cbiD2zR09cuwds19ue4mlPJLJNczH96yUnpBDiwIUJzB4uncTvYibNCyznzuSXhe6yA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793290940;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=KgdUnNUWCNlIAgBJdIYDXqo6rzMWK5cU3WZgkhH6N4s=;
+	b=vMBsWvgAZn2X1eP2UTvBJBJrdbdi+O5Qm3k77TbgndqX1CNphkoEuOlRLROhRkg/QX9l
+	 k+GpzlH6pIMhiPMyPoPM3Yiw16vYHoGzfZ/rkqejoeGTXscJFtXuGXK71uv7WhQfl+NL6
+	 dH+Rv5iHRMi/kVcgdHzcmoXDHM0FAbxPHlQYjFObypZ1FjiaxRfI8ggJd3r8VKZ5pYFxo
+	 i/dZOGcJTJ+eYMV2rJBnRsa694MDoUNZqWi3QAzBJBVwZUai1xOiCnJc7CbD7L7ih4bcC
+	 3QTtVna60sqdclJwCjRwkH/z6WtFBvB41C0grx7C+eWSfW92BzPv7OkxZqFtZxmyj0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2vskwra;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FF7606A322;
-	Thu, 29 Oct 2026 16:20:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2vskwra
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1331F01824;
-	Thu, 29 Oct 2026 16:20:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793290858;
-	bh=yxnLEz88kcrXq8N3E/2oHjuInKcEQgr1ZtwdFsYS4Cs=;
-	h=From:Date:Subject:To:Cc;
-	b=S2vskwraZk8gx7DRAFbh3IcnaNYtA4uDUOzrtA7IFr8LlEnFExq0X9Rt4Z4wA+wNF
-	 Ywrg0MT0JxMEDKliV1FzB+PzYgQGPg4UFGaehuwoAVvHeDtySiv6vhKVrooUX00AhP
-	 BjyursJVx36Pgh9iLqPqdbstaCjvgMCmNgF1EgaK49gLT1XHtXuElZ0UoRGvl+yD9X
-	 zF5KelCkcEH6TVi6SXzVmAZKkgwnvecAqQZ1P+IZujXNTz8s4cw+holA2D59aciqjI
-	 dhEMuZPOweNHxjm4Bh9+B6Oi3uAnBk+UCaCf3mXYtOANmHecPmbcot/PuDz3o1WH3B
-	 xx2Bs7+88rkew==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 29 Oct 2026 12:20:27 -0400
-Subject: [PATCH] statx: don't leak STATX_ATTR_CHANGE_MONOTONIC in
- stx_attributes_mask
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC67606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:22:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AC67606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc89e86e4dso3478406b6e.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:22:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793290938; x=1793895738;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KgdUnNUWCNlIAgBJdIYDXqo6rzMWK5cU3WZgkhH6N4s=;
+        b=I6ObpC4q7W57VqXx0xFqsdIEIGoG0msZkGKFjHCqIDAPHuUt9xE/7lhei4xbnwwcPB
+         vcXZTsMUjZDxTtehpIOE9y3MHCepkDgt+dy16aI7/NHjUDpTM1qvNpIPXH1QKa04xvfv
+         j0Her5cLvNRjqUvLBpyc1WkXlXUeSimY3WyrjXj4sbgtoq2k043d3wffQd4cR6zfX8mR
+         uFeqNbYGmrC0dX+quX4R1k1MKeD8qzqZVm299gAFN0qyr9F7dMvzTHQ2FXNuLlAnI+E+
+         2Lhixst7Xu9NQIjw9RjE6f+p6HCzcaAoCOkHg07ypObUGCfrnnnZCjHG2+z5a9zYjvOz
+         Z01Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw3pywCOuWnsCR3vYGwQpVSU0dj9NSLqexRSxEhzhpDEPfk2nubbGWzxWpsnEK305gorwbCgR2aW301N/8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWcUx8kIM+nBmVeTOYcMHnSBJzELcoR2kAyQDd1X5tOURGO6C7
+	+3/xzIAQZLdiiRjyOUH/X3gNNadBj8EIGAEJdFpQ/ONwiiOyPh+K+ho1HW6RkBjqBKRBoVBQm49
+	ItQkUcOzeK8XYBaCcZFYxHIUBcAteCc/IvWhm9rIQ5KExwqgiUSuuwtsIIw4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,68 +58,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-statx-v1-1-9600cdb896b3@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyNL3eKSxJIKXeM0wxSL5BSLFAtzcyWg2oKi1LTMCrA50bG1tQCFhl/
- bVwAAAA==
-X-Change-ID: 20261029-statx-3f1d8cd8d877
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
- NeilBrown <neil@brown.name>
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1216; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=qZjzog2ZYFAKq0ujNtJHYESLhcObfj0GxOsmO0lygSA=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq43Jiye0QYrOee0yZaTVvDZRihbBxxgBEeJeEz
- ag1FP/x87WJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCauNyYgAKCRAADmhBGVaC
- FUa0EACOnsnmxtcenTABbkjOg61+6T8j9VLylMPxKZTipmG84IlpDzlOfUBB/DzlgTplWjWOml8
- ZYJLUxgTiuVVLESAEeKOnrL0LJIMFqGKGjOoIZsIiXwvBrRxnCsJvpwc4t6c54ugJMoTFKy3K4g
- dWqHJ3eMHC+w4SrTrZSwu22nEa5c3u//VwBVbWuWIdvuVyXtQFJaM9SvGxf4XeoubADKaNA0k/4
- YBXrt3sh5qjUAQrFFxz9MCo9lsUm4S8YXE/ooRtxhW9b/EKXFHKO79AjgCoyYkKTQrUH7C5o61B
- w0zfi8/5uYriUowmpL8kod9NtmtnVub3zxniBD0bnRb1N9Ah6XUkRyjDNW12QOPuytDVQAw8/if
- KqWqHdkFRuCcHlw0H696sfZFzApkSc8kSqAkOlMYM/UnIhrdaB84dsTm4j64dNjxMTTZfk8icx9
- V7VnQ5szDx2h0+fDRiVz+5FVs/aopYVki6/M/PHldGd/QCAgVp/QY4pTYAsxA5yGboml0SyDXaU
- pvvIMK402IkMNl6T+bqF0fra9Xv7e7cKwD8G+69kmcWiHzAyF0BI3cHeao8e3e5VzIPOzVskR5+
- iyBUa1tRfzqQmk4EtvMdiLJl7bWcq8ePrBglc9wIXtET80tneOiR+8duIe1L/Ze7B8n58CYhm18
- w736dHVkfopnmIA==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+X-Received: by 2002:a05:6808:199f:b0:4f4:73a9:f831 with SMTP id
+ 5614622812f47-56382187452mr4062396b6e.19.1793290938480; Thu, 29 Oct 2026
+ 09:22:18 -0700 (PDT)
+Date: Thu, 29 Oct 2026 09:22:18 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae372ba.f57e0135.1770dd.0070.GAE@google.com>
+Subject: [syzbot] [kvm?] WARNING in kvm_vcpu_ioctl
+From: syzbot <syzbot+da2a2f350196c7a0a389@syzkaller.appspotmail.com>
+To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, pbonzini@redhat.com, 
+	seanjc@google.com, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-STATX_ATTR_CHANGE_MONOTONIC is kernel-internal. cp_statx() strips it
-from stx_attributes but copies attributes_mask verbatim, so it leaks to
-userland on filesystems that advertise it (nfs, ceph), e.g.
-stx_attributes_mask = 0x8000000000b03000 on NFS.
+Hello,
 
-Mask it out of stx_attributes_mask too.
+syzbot found the following issue on:
 
-Fixes: a1175d6b1bda ("vfs: plumb i_version handling into struct kstat")
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
+HEAD commit:    c339f4010dea Merge tag 'platform-drivers-x86-v7.4-1' of gi..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15f440b1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=119e5f4d0a8d39cf
+dashboard link: https://syzkaller.appspot.com/bug?extid=da2a2f350196c7a0a389
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12952929580000
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-c339f401.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/ff23ecfc810c/vmlinux-c339f401.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/6554a89077aa/bzImage-c339f401.xz
+
+AI-generated root cause summary:
+When a VM is terminated or marked dead (e.g., via kvm_vm_dead() due to an error
+in enter_smm() or migration), the KVM_REQ_VM_DEAD request is raised on its
+vCPUs. If userspace subsequently issues the KVM_PRE_FAULT_MEMORY ioctl,
+kvm_tdp_page_prefault() bails out upon observing KVM_REQ_VM_DEAD and returns
+-EIO. However, kvm_vcpu_pre_fault_memory() in virt/kvm/kvm_main.c considers -EIO
+an unexpected internal condition and triggers WARN_ON_ONCE(r == 0 || r == -EIO).
+In a production kernel without panic_on_warn, execution breaks out of the loop
+and cleanly returns -EIO to userspace without crashing or corrupting memory.
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=da2a2f350196c7a0a389
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+da2a2f350196c7a0a389@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+r == 0 || r == -EIO
+WARNING: arch/x86/kvm/../../../virt/kvm/kvm_main.c:4465 at kvm_vcpu_pre_fault_memory virt/kvm/kvm_main.c:4465 [inline], CPU#1: syz.0.17/6063
+WARNING: arch/x86/kvm/../../../virt/kvm/kvm_main.c:4465 at kvm_vcpu_ioctl+0x156a/0x17b0 virt/kvm/kvm_main.c:4744, CPU#1: syz.0.17/6063
+Modules linked in:
+CPU: 1 UID: 0 PID: 6063 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:kvm_vcpu_pre_fault_memory virt/kvm/kvm_main.c:4465 [inline]
+RIP: 0010:kvm_vcpu_ioctl+0x156a/0x17b0 virt/kvm/kvm_main.c:4744
+Code: 9c 35 8b 00 be 01 00 00 00 4c 89 f7 e8 4f b1 b5 03 e9 c3 f8 ff ff e8 85 35 8b 00 90 0f 0b 90 e9 2c f2 ff ff e8 77 35 8b 00 90 <0f> 0b 90 e9 38 fd ff ff e8 69 35 8b 00 65 48 8b 3d 99 02 36 14 31
+RSP: 0018:ffffc90003957c98 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: 1ffff9200072af98 RCX: 0000000000000000
+RDX: ffff8880355fcb00 RSI: ffffffff81831d69 RDI: 0000000000000007
+RBP: ffff8880459f8048 R08: fffffffffffffffb R09: fffffffffffffffb
+R10: ffff8880459f803f R11: 0000000000000001 R12: fffffffffffffffb
+R13: ffffed1006abf960 R14: ffff8880459f8000 R15: ffffc90003957d70
+FS:  00007f7bf8c946c0(0000) GS:ffff8880d458e000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f0b9aa1ee9c CR3: 0000000037636000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f7bf7d9f559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f7bf8c94028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007f7bf8026090 RCX: 00007f7bf7d9f559
+RDX: 0000200000000800 RSI: 00000000c040aed5 RDI: 0000000000000005
+RBP: 00007f7bf7e36b20 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f7bf8026128 R14: 00007f7bf8026090 R15: 00007ffcdd24ea18
+ </TASK>
+
+
 ---
- fs/stat.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/fs/stat.c b/fs/stat.c
-index a2e63c6c45b7..787c13f378ff 100644
---- a/fs/stat.c
-+++ b/fs/stat.c
-@@ -719,7 +719,7 @@ cp_statx(const struct kstat *stat, struct statx __user *buffer)
- 	tmp.stx_ino = stat->ino;
- 	tmp.stx_size = stat->size;
- 	tmp.stx_blocks = stat->blocks;
--	tmp.stx_attributes_mask = stat->attributes_mask;
-+	tmp.stx_attributes_mask = stat->attributes_mask & ~STATX_ATTR_CHANGE_MONOTONIC;
- 	tmp.stx_atime.tv_sec = stat->atime.tv_sec;
- 	tmp.stx_atime.tv_nsec = stat->atime.tv_nsec;
- 	tmp.stx_btime.tv_sec = stat->btime.tv_sec;
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
----
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-change-id: 20261029-statx-3f1d8cd8d877
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Best regards,
--- 
-Jeff Layton <jlayton@kernel.org>
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
