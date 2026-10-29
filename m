@@ -1,47 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793258264;
-	b=Esn90F/gMdeTwbSpWt3aqKRXJwyFzIUF5Syuslin/2cimDYa5ktCmpsaZFIWwzE/0Omu
-	 a0q1/uue9YXZ6QvBSLbH6l3bRpQfy1CMTsT6FbyrETk2BVi14OT6+IesM83/OFmvaJtAz
-	 XtfUnnpQbREQsMEhOImQ6GdTDsd7Sb4+zaD/pGvx6HGxHlHhsxi7qRq0/6gUqdx4WAavI
-	 oApjtQYOrJGzkwJQQPL5yiR3Wi4IB9+8BqSTCMclRxgyvLw3Hu9sfeWiFnUOr2WPCfxmd
-	 vxkCBnT8RcGj2X+R2xUGQgmnivZ0NoSOaY4pF0pbJd2hOXwHdcdG+JI+0Yg9MhVWhWg==
+	t=1793258268;
+	b=kmPe0OOKDHt8qxeO/zQnCtDwjU2YUTbsR3pnNVwLQxS0G6Wf5tXIgmYwXAECY3e86SEb
+	 k9W1fyFJb63+fO/2Wt9yfsJLI8Ig2JOcM7jFlLbncntpYoUkf36YHghIAaVpXbkBPAZjB
+	 ghZ1E622fxKQWeLBf/WLmVXfoE17TQ3aQCea0Lzd/VJ7we2oeJYRS5MKuxRMBQpmzM1/S
+	 4MrhgPJrGHb4eV/ylBdvW9muO7YnLaJ+3m5o6psBsDAMQ4VPpn6EUXR3m6PGzHC5CQ7nN
+	 AiDdeDB62u1j7qAYdEJOikdo3eIPmmcY5o1pg9/fo/f+rigOBntjOgeLWmK9hYjGi6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793258264;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=OJBSYAu1agTSLj9Xv6QbA109yx+UKkcrUeXFkEu6p4Q=;
-	b=EHZpygRHcw1LCxbTFaEVtp/9n5ERJteQbOLXAKWD4wCapaTPzzNPhr/1cXazC/x/iGB6
-	 ccGaIgTzHMfQztPHHs+a5/GQRdoFt3PE/nu10foA9hRAwUbKf1nTkBGZAB/BNs6bdMb9s
-	 EwZ5LkA+b/hFeZznnYr3ma0CBQ8v8QrJlcGpeiVkySOu2omnJw0U2Pb51E9WVzYXhunEq
-	 lm6n7Zb9ygo8yacv/3/OgS+t0PUj2udXVSf8SdaYTTuhacmMmYv0xwxJF9nweUL/E4a0E
-	 mYbVB3itzi0oA4dBEJPrIf8p8AhabBaSi01nMTvvhQviAzZRZFqJVFmAklRUrxHRGsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258268;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=Yb6gnzqdkBBsBSd+UpHkXdLbbR2C/5ErCbdnEkK4n7E=;
+	b=hHwsGT7nIcbEtYEhIoMvsVFCMYl9KiS8ypfrYReU+y7vIWMVmraxrPGGxqImwL5S6Vbm
+	 1T/r9BfHajrcgNpIEpv/wjywi09GwTnP+E2KYDqSNtU0Ni7TqL/jA4kbbG9sNDIhgicT3
+	 wY4KW4zvQ5q+UXZ4XbJVMyRrEGp+ie6A8xW/OLTEcmfGlfC0jvhOBri1gvwlTCDaC0qdH
+	 aRsMZtL0lN4b0x7GKTNQOXqKL28xMcQuEjHMxUHo1KiJk5d7MbvEJqTlVABv97+n6aSDZ
+	 vehu53HfjtiqeKXNCiXU4+emN9aJp+n8NGx1wN/E41ykKFs39fBND7Gykl5ERocTOLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvkpZmH1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=sidyG9w+;
+	arc=none smtp.remote-ip=209.85.215.178
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BD8606A31C;
-	Thu, 29 Oct 2026 07:17:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA7B606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:17:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECA7B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fvkpZmH1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC8BF1F01825;
-	Thu, 29 Oct 2026 07:17:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793258263;
-	bh=OJBSYAu1agTSLj9Xv6QbA109yx+UKkcrUeXFkEu6p4Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fvkpZmH13wXzma5Q9R+hksrE/M98khDyfXTWpfEf/D8C4UxN6gSstkl0EsLaMZx5s
-	 +NRQvEJi1OD4H9h56Jfe5kNwZDv17533gBw+hfZFEKbKnpmfuflLZS6OgJ9p/t/zMI
-	 P8mVnqVbSuyRZ/sZUhgGhkLvQMVWRRy5W3j4mBLvhdxzYI5GrvIQQXcsm//spR8MqF
-	 9QjCeI+autY5C/bJYGUdZzYbls0EglCvlldPsGT623WQjuoPplO7w3wZQktNYJ6Dgv
-	 tYnMz6gE4mhtxr8WeF8JqUm4q5k/ZS9zraBleMh1RiwZRRDx5hMTad2ht2KYMYVTPs
-	 8tOlF8HnCEIDQ==
-Message-ID: <3f909a67-ffbd-49ff-a51c-e08cc15a5ec0@kernel.org>
-Date: Thu, 29 Oct 2026 08:17:36 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=sidyG9w+
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so951928a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:17:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chrisdown.name; s=google; t=1793258267; x=1793863067; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Yb6gnzqdkBBsBSd+UpHkXdLbbR2C/5ErCbdnEkK4n7E=;
+        b=sidyG9w+YyEKTrAjyjJPBUkzg0e1B5pwEPYWzq3ptIn/wtgRCIw0JLXVWVlPXv6mcq
+         4Pdtk0G697rVMD6KFlXhWcipg38cHZctgLk2L7Smv6nfsaKODNXwba1k9W9ii0VziqWM
+         jkvBBXAVqMBSAQtqrgOkKfP4H2akzvJK8rqdU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793258267; x=1793863067;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Yb6gnzqdkBBsBSd+UpHkXdLbbR2C/5ErCbdnEkK4n7E=;
+        b=KMOtraCD34mWmz7xuCveC9kEjwndKCUsmlJ/m/xBsqxyZLgAG1QJ2w5u6F4xXRLf1L
+         QhqfW5GEbwW+pcesymEsbSCp8Oa2sETZtpFijj2JpgISzAjeNt2nOc+tRQupT5KeaHH+
+         EidXye737mocy9hEYiOPG1VU1KbxaiE51ujWnNh48KrUiOlSGHFpJadH2aKHxIYDoqYA
+         l90SyHyW9bg8D+v10HBfG0Wv/glpa6SnKnFB2IKYUrlm48Pn4MO4b7S9KAxuz6ROHhUr
+         PFORNciltW/FuaWWASJk5hnDLCT9c2NSNM3Gf2JnFdZ/BQkak5ZcSjXCj5FtqQByrJGX
+         VR9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxptpgLw2YfnUkF+Mik/Qi1PYldkW6ZfwcSHGdcytJmfWszZuxoQYqSQJnApEw7hjZ+PBJez+HsSmIku20=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKD418paH+fHxOoU8OKb8iYuEtX2ujLDTfMJxcrXnLxmvMFzJFt
+	2nZwxGtr0g9XuujFsUWpT6WRbDMRm9EyatiAuVwq/dfEhzBBP8mKvY3sAxfMYzSnP94=
+X-Gm-Gg: AYBFou2aqi7pq2aA2uuRIQCTmSoAOtpgU4gh2zxWXKfO3wIaY/Hrcxp5y+in1QlSLmY
+	UL+AYFRHyg2e7EFuGOE3Ez++KVQxKs/BUfm+8gXhGkopILQ8z3YlLsMIX8R4tZJFcmwECHJlJeD
+	UfJ541rlnseuRIbagpRogqo2aHwNMAUEBmNSYZ0cdB7Afakd0u/LeMfKvy2VGSgpbwf+KdgxgjF
+	P4jfDe7+FQ4wi6xAa2FQv+87Ig9j45zQ395/yiaUzPh5P0+MDgBY5oocMVfCqsoYGahU4zuM4ZI
+	IH5MSND0UIY5e87SjX4X74JJlhqxTpEc6BD3boXb/Tq+TSmSz0WJKU8n/OGlY78j4UsNdGMWbIj
+	JqNpbCKGzHoUEC9cRM0rJAotHKUY+fd4sv41sCb3EpFLYVgaTT5nOfyppyCuHWcGiSGHxESrvNG
+	hQ//lBomUxxjYS1AHzqReM1Oh5FC2kWZISy5T55CU20UnSmO0hsZKnv7pzZBThznNr+/sQxL0Sj
+	qwVjjTlOFNrLSIrwfShMf54jchmNnDIlOO8+9m2S0S6ihzFv0ZbYRPEpUlKEhbnZWGT0veECtZD
+	4oettsOXrhxqfHhX08Xogzig0oLBoEtbcv//VOfvJf/R+PTIGdu+4bv7Htl8b30tT4o+WMWIUSL
+	SMyBOtTFsYtekhFRQNgbAuym31hEc2Zgwuy+EUcu9wwwoAtN3Zk0OP5y7jH4NKLm14BmaC+G6
+X-Received: by 2002:a17:90b:4d09:b0:3ac:96a3:77d5 with SMTP id 98e67ed59e1d1-3ae58154d35mr3206654a91.36.1793258267265;
+        Thu, 29 Oct 2026 00:17:47 -0700 (PDT)
+Received: from localhost ([116.86.153.182])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e806323sm2866239a91.9.2026.10.29.00.17.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 00:17:46 -0700 (PDT)
+Date: Thu, 29 Oct 2026 15:17:42 +0800
+From: Chris Down <chris@chrisdown.name>
+To: Petr Mladek <pmladek@suse.com>
+Cc: John Ogness <john.ogness@linutronix.de>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Marcos Paulo de Souza <mpdesouza@suse.com>,
+	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 13/16] printk: Try to register each console as Braille
+ first
+Message-ID: <auLzFtLAUEYKvXIO@chrisdown.name>
+References: <20260929120546.328616-1-pmladek@suse.com>
+ <20260929120546.328616-14-pmladek@suse.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,116 +100,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] powerpc/dts: Add Device Tree for WatchGuard Firebox
- T30 (v6)
-To: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>,
- linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, maddy@linux.ibm.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, mpe@ellerman.id.au,
- npiggin@gmail.com, chleroy@kernel.org, ritesh.list@gmail.com,
- sshegde@linux.ibm.com, sashiko-bot@kernel.org
-References: <20261028194046.49784-1-lefteris.koutrakis@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261028194046.49784-1-lefteris.koutrakis@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929120546.328616-14-pmladek@suse.com>
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-On 28/10/2026 20:40, Lefteris Koutrakis wrote:
-> This commit adds initial device tree support for the WatchGuard Firebox T30
+Petr Mladek writes:
+>Braille consoles are unique: they can only be enabled via the command
+>line and use the preferred console framework for initialization, yet
+>they are never added to the console_list or associated with
+>/dev/console. Because of this, the preferred_console variable remains
+>unset when only a Braille console is requested.
 
-Please do not use "This commit/patch/change", but imperative mood. See
-longer explanation here:
-https://elixir.bootlin.com/linux/v6.16/source/Documentation/process/submitting-patches.rst#L94
+This also changes what happens when the same driver is wanted both ways, which 
+might be worth a sentence in the commit message.
 
-Please wrap commit message according to Linux coding style / submission
-process (neither too early nor over the limit):
-https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
+For example:
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+    console=ttyS1 console=brl,ttyS0
 
-> board and enables building firebox-t30.dtb under CONFIG_MPC85xx_RDB in
-> arch/powerpc/boot/dts/fsl/Makefile. It also documents the watchguard vendor
-> prefix in vendor-prefixes.yaml.
+Here we used to end up with ttyS1 as a normal console and the Braille request 
+was silently ignored. Now ttyS0 becomes the Braille console, and every later 
+register_console() from serial core goes to the Braille round and gets -ENODEV 
+from braille_register_console(), so there is no serial console at all.
+
+I think this is probably fine, but just needs clarifying in the commit message.
+
+>+		 * @try_only_braille and @user_specifified define which
+
+-> @user_specified
+
+>@@ -4033,6 +4061,24 @@ static int try_enable_console(struct console *newcon)
+> {
+> 	int err;
 > 
-> Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
-> ---
->  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
->  arch/powerpc/boot/dts/fsl/Makefile            |   1 +
->  arch/powerpc/boot/dts/fsl/firebox-t30.dts     | 386 ++++++++++++++++++
->  .../arch/powerpc/boot/dts/firebox-t30.dts     | 386 ++++++++++++++++++
->  4 files changed, 775 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/vendor-prefixes.yaml
->  create mode 100644 arch/powerpc/boot/dts/fsl/Makefile
->  create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
->  create mode 100644 target/linux/mpc85xx/files/arch/powerpc/boot/dts/firebox-t30.dts
-> 
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> new file mode 100644
-> index 0000000..c78a53f
-> --- /dev/null
+>+	/*
+>+	 * First, try to enable the console driver as a Braille console.
+>+	 * It would have metadata in the preferred_consoles[] array.
+>+	 * But it won't be counted as @preferred_console because
 
-Not existing? You are sending some random changes to us. Please slow
-down, read the docs how to use Git and how to generate patches.
-Documentation/process (including submitting patches) will be helpful.
+"@preferred_console" is preferred_dev_console now, and it is a variable rather 
+than a parameter, so no "@".
 
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -0,0 +1,2 @@
-> +  "watchguard,":
-> +    description: WatchGuard Technologies, Inc.
-> diff --git a/arch/powerpc/boot/dts/fsl/Makefile b/arch/powerpc/boot/dts/fsl/Makefile
-> new file mode 100644
-> index 0000000..60caf36
+With those:
 
+Acked-by: Chris Down <chris@chrisdown.name>
 
-
-Best regards,
-Krzysztof
+Thanks!
