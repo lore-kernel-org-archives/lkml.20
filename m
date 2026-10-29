@@ -1,52 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269165;
-	b=QuCLBPCgoVx5v10Dd3bEdPBpABa6bQSPfKzOsJgeay7PCIw7pZBvw2pXhav1ph8c96Rq
-	 Rxzviig7o9447hlddt4DLvAvqbhcABRdUwFDE8Qi63reEdtE3vUgy9/almBuvzdCA5i/0
-	 d1JcM/cJfRciDY05Haegt3sQxxLzovUfdxPnbIz7WSTznMZzsWYcUh7zqxpoD4kzMEXET
-	 3KuokYpLB6P9wOEmc45+4+LdT1Ae7U9QmGBHTnOBBCWpJkZsAP/kDrid8WaarHVbbPPzp
-	 fo27I9q8+tFNlL6a9CDOofbxktvbTOTYbLoqSzMbIpD+9vXla7JHW874U/Dn8QXR9mw==
+	t=1793269173;
+	b=XaIw/Q1a3y2BLkCDhOKNOe+0H+MhVaqzaC1aKcvrX6ufQasVAkWACgLJoDqDfLnPU0fK
+	 L1Ht36+AEqodmAmYhI5laOY9Vp2QShbL1Gwo4JItDMynKuBWB74cGuU8/0CyRXD8X60Ou
+	 qjx+KVugQDJ9mTreE1v5p1SzntxU/RGo0j7dZTZ7j4ePcDAN7//+9xu9qqQQbLUrVcc1H
+	 2HCgiS16y0N0l6fdFV7O1rff7SGVjeniePK08YDJ2gJy2X6mUkFNN6C0pmA+H3QmADfh2
+	 gqHXgIxRvJ0rDSJBKIqPqYdW8k7rbfwX8iZtsCzfIUNzAv+yEiUlOWZU6bBbApx3Z1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269165;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=RejfGkQNpjh9rcyauHq9HZresYPxb+nYAB/QnYGgngQ=;
-	b=bR9IuUXKFJLzIoVDLsC4Fa6vTZK/yFkg1t5IrioSZuXXj1ZSiJVF3D02e7fSBAC8M79T
-	 Rm3mP71SHbPz1rfIgwy5hbYFfAI5M+afymmOt8d/Fbf5AQHfYoshfKOn5YVFxAzuyY/0A
-	 dWdef99YwrElBoEboP8sYvSNpGCwZze5K+C16JBhNVEfHItwtPIazAr/KoY3QUBaxsF0E
-	 Qw0FPNe3cppZyEWUjKk922leoh/smZvCgpxnFu9tWHMisSoub6mIpXZveUBhED0v7JJBT
-	 IFNeaeSLhJbcHwkEtY0tkZ1rV0o9rpgNRn71l36lgNOJcdeuzQ+RDdKOGVrA4Wwkj0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269173;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=vtaqbfBX5vfrkQb9nMFdRAxYBFnpk3c4orXF29WeP8I=;
+	b=2YRuCpfDcSzUB0u6y2+9jVLD6v3KDbDdEG/rDMCIAsaWxftn0+432Zu4H9IQunMdkiCj
+	 Y+ALlCia9QqTZLtmb4XfifB1vdU5zZTF4xiL4ln+7CCbpa9ARTgiJu3/xd051X9n2du1/
+	 yf0QEy2KyqQm0TEJkvYomofXEeb5qAztsrmKuI/LDRDHZrkixo2BqZVKpVGQZ2IhENwbQ
+	 RPf06fHrwRn0aPSRDjvvWoxYwD+FGVAc4Inb5Ms5yp+22HpSPmQZw5bcsVtqgY+W8gQ/R
+	 zRaBPrDZfzzEkk8TEiSYT1g9bGLhOab6X6CPUnalbagWxsy5I8ZC0HyYSMMaPxrl5qQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=LYZ9JEig;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=nCws2b9a;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A23C60A2619;
-	Thu, 29 Oct 2026 10:19:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A23C60A2619
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98509606B782;
+	Thu, 29 Oct 2026 10:19:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98509606B782
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=LYZ9JEig
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 825E4929;
-	Thu, 29 Oct 2026 11:17:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793269030;
-	bh=e6jRBVgdc+oosZQIQKj81943CkJYI/pqWNCLy+tx5pg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=LYZ9JEigS8vrdHmuqMBxgC+ts9Mw7GkEhBiQMZk6XLDbNTWvcI9UhU4aNYZ0FwzD2
-	 H0A5us1jMjZxi8aTp6EUe36A5kc2KRJsFRnOvE987HMOzP2dW+iazWhRcdbMpp7d4o
-	 r7R8kMrM4d/OL2kwFOaw7CTnVlPgRDftgbXQvRf4=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 29 Oct 2026 12:18:59 +0200
-Subject: [PATCH v4 13/14] arm64: dts: ti: k3-am62p-j722s-common-main: Add
- support for DSS
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=nCws2b9a
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=vtaqbfBX5vfrkQb9nMFdRAxYBFnpk3c4orXF29WeP8I=; b=nCws2b9aBxAO9qlUADishe8Fow
+	tLBV9d9y3aNbLuedV1Ok5lmUKi8gJSQDjhawzx3IDOMGadYmEJFkfc8uJ3oBAFNnHCmOXkijyTF7H
+	j0+AWSF2XRL2Fb7X/TzSI8UbytP11pmoJdMp+CWqLdgvPqKTRGz2Z0yJ75dZpw/+XEOew/wO0v0sH
+	Dx5zbPocpnGbs4aLaUT/Hg83sMLeYog12NT06PKbeBtAN1b+HR+EfuNFASb+k328BRZmNrinYbmuB
+	ChOGTBFq47+YU9gPz4SV+wQkhBWnFncr2HM1f43uEYbC8fBFi9L9ZH5AieqP6GAjE+8dVIrE2cFhV
+	OpeMjewg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMNEG-0000000EJz0-1vue;
+	Thu, 29 Oct 2026 10:19:28 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 90DEE300312; Thu, 29 Oct 2026 11:19:27 +0100 (CET)
+Date: Thu, 29 Oct 2026 11:19:27 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>,
+	Sandipan Das <sandipan.das@amd.com>,
+	Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>,
+	Ravi Bangoria <ravi.bangoria@amd.com>,
+	Ananth Narayan <ananth.narayan@amd.com>,
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
+	bpf@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>
+Subject: Re: [Patch v5 01/18] perf/x86: Disable LBR if x86_pmu.lbr_nr exceeds
+ MAX_LBR_ENTRIES
+Message-ID: <20261029101927.GB1813469@noisy.programming.kicks-ass.net>
+References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
+ <20261029043914.1395147-2-dapeng1.mi@linux.intel.com>
+ <20261029093845.GI1779021@noisy.programming.kicks-ass.net>
+ <041e5185-ff2d-4423-af5d-aed6628973c5@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,294 +84,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-beagley-ai-display-v4-13-dc7f2b532478@ideasonboard.com>
-References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
-In-Reply-To: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>, 
- Devarsh Thakkar <devarsht@ti.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Jayesh Choudhary <j-choudhary@ti.com>, Aradhya Bhatia <a-bhatia1@ti.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8765;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=FlA6GfZcWzr6GEser/HTv1uKGlxSk5xrX7+l+sQ8Ewo=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBq4x2a8ctHhkV1dJN4PzjO12zQ6p8l0ogPLQK1t
- GJ+WrGEDhyJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCauMdmgAKCRD6PaqMvJYe
- 9YT0D/4vLj9TmoeC1fLLTpyhr+m1qYD6MXT7a+BdQukaHMwNtrSgLDpolHvwlNpJEVxd9KRwywk
- jTosImExfaKF8BH/FJGQk7335MhvAyxJWCI0OHo/4cAT6PELP0+uNkKl8m5nhQMGLQ7uXtXMclO
- xa4ojEOXSxRpMuT5cYTz/RJKax9GhBE4cEkERkPoXr/I3tDt0DNE8N2IvoRrIi7cRiGw7z1rWin
- G/cvcfAi1umVG69kkzOTPa08UrQ9gL+CC7CPvcRmemcKPSr5oTfCWmEuALWPPNUlcgV+DKdl4UF
- 7uNaSwXV2r7wbQxXOKj37mmlt/+yJfeH4ydZyTg3xz4UL44ScjHS8d+3H+Q6vQoOekErIIpV1aE
- F03srMPpM3234JIX2DwiE8sgpHZwrXs+ZBCtNmJ37lRkkNmo8H8VnaJhMdAGT+FgZozu+2eZo7n
- Cjh/PQdpVzPqGcpeCdEnheEbGffOC84Drrhfp6h5E1MHU55COz9RFMKK18zQzWVCKacgA8ByMka
- Z81KCtoU0IWBdkCoStSwccn24VbHZEFEInFB8CIh/y3rfWVfvyShRDB9hqQqGo5NZGdPYV2JQZn
- wHtakpaAF1osEhgpRT01rlWJLceAg9uT5L2xvoITz0TZdyM/gquNxU8MiEkqe14U9RyPlbBhbqQ
- rn5gBs8XB3Pk7MQ==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <041e5185-ff2d-4423-af5d-aed6628973c5@linux.intel.com>
 
-From: Jayesh Choudhary <j-choudhary@ti.com>
+On Thu, Oct 29, 2026 at 05:56:15PM +0800, Mi, Dapeng wrote:
+> 
+> On 10/29/2026 5:38 PM, Peter Zijlstra wrote:
+> > On Thu, Oct 29, 2026 at 12:38:57PM +0800, Dapeng Mi wrote:
+> >> Add a sanity check for x86_pmu.lbr_nr. If the hardware reports more LBR
+> >> entries than MAX_LBR_ENTRIES, disable LBR to avoid out-of-bounds access
+> >> in the cached LBR stack handling path.
+> > Cute, can this actually happen?
+> 
+> Currently it won't happen on real hardware since the maximum LBR stack
+> depth what hardware supports is 32. But it's better have this sanity check
+> assume the LBR stack depth could be extended to 64 or larger.
+> 
+> 
+> >
+> >> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+> >> ---
+> >>  arch/x86/events/amd/lbr.c    | 8 +++++++-
+> >>  arch/x86/events/intel/core.c | 7 +++++++
+> >>  2 files changed, 14 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
+> >> index a55646fcb846..96c5b5e56053 100644
+> >> --- a/arch/x86/events/amd/lbr.c
+> >> +++ b/arch/x86/events/amd/lbr.c
+> >> @@ -433,7 +433,13 @@ __init int amd_pmu_lbr_init(void)
+> >>  	ebx.full = cpuid_ebx(EXT_PERFMON_DEBUG_FEATURES);
+> >>  	x86_pmu.lbr_nr = ebx.split.lbr_v2_stack_sz;
+> >>  
+> >> -	pr_cont("%d-deep LBR, ", x86_pmu.lbr_nr);
+> >> +	if (x86_pmu.lbr_nr > MAX_LBR_ENTRIES) {
+> >> +		pr_warn("LBR entries %d exceeds max %d, disable LBR.\n",
+> >> +			x86_pmu.lbr_nr, MAX_LBR_ENTRIES);
+> >> +		x86_pmu.lbr_nr = 0;
+> >> +	} else {
+> >> +		pr_cont("%d-deep LBR, ", x86_pmu.lbr_nr);
+> >> +	}
+> >>  
+> >>  	return 0;
+> >>  }
+> >> diff --git a/arch/x86/events/intel/core.c b/arch/x86/events/intel/core.c
+> >> index 0a34d674df59..10c694db85ea 100644
+> >> --- a/arch/x86/events/intel/core.c
+> >> +++ b/arch/x86/events/intel/core.c
+> >> @@ -9023,6 +9023,13 @@ __init int intel_pmu_init(void)
+> >>  	 */
+> >>  	if (x86_pmu.lbr_tos && !check_msr(x86_pmu.lbr_tos, 0x3UL))
+> >>  		x86_pmu.lbr_nr = 0;
+> >> +
+> >> +	if (x86_pmu.lbr_nr > MAX_LBR_ENTRIES) {
+> >> +		pr_warn("LBR entries %d exceeds max %d, disable LBR.\n",
+> >> +			x86_pmu.lbr_nr, MAX_LBR_ENTRIES);
+> >> +		x86_pmu.lbr_nr = 0;
+> >> +	}
+> >> +
+> >>  	for (i = 0; i < x86_pmu.lbr_nr; i++) {
+> >>  		if (!(check_msr(x86_pmu.lbr_from + i, 0xffffUL) &&
+> >>  		      check_msr(x86_pmu.lbr_to + i, 0xffffUL)))
+> > Would it make sense to have but one copy of this check in
+> > init_hw_perf_events(), after calling into the micro-arch code?
+> 
+> Yes, that's what the previous version does, but Sashiko complains it's too
+> late.
+> 
+> "
+> 
+> Does zeroing x86_pmu.lbr_nr here in init_hw_perf_events() happen too late,
+> after intel_pmu_init() and amd_pmu_init() have already configured hardware
+> and driver state using the unvalidated x86_pmu.lbr_nr value?
+> 
+> "
+> 
+> https://lore.kernel.org/all/sashiko-outbox-179814@kernel.org/
+> 
+> It makes sense in some ways, so move the sanity check into the vendor init
+> in this version. 
 
-TI's AM62P and J722S SoCs support 2 display subsystems (DSS), DSS0 and
-DSS1, each with two video ports (VP) and two video planes. The outputs
-from the DSS VPs can be routed to two OLDI TXes (OLDI0, OLDI1), a DSI
-TX, or parallel DPI output.
+Urgh. But there are no events yet that early, none of that can actually
+happen.
 
-DSS0 supports:
-- VP0: OLDI0 in single-link mode or OLDI0 and OLDI1 in dual-link or
-  clone mode.
-- VP1: DPI
+If we're really worried about this, change the micro-arch init to spawn
+in disabled state and we call x86_pmu_enable_all() at the end.
 
-DSS1 supports:
-- VP0: OLDI1 in single-link mode, or DPI
-- VP1: DPI or DSI
-
-The DSI is only connected to VP1 of DSS1, but OLDI and DPI are shared
-between the DSS instances. Thus only a single VP can output to DPI, and
-a single VP can use an OLDI block. Note that in single-link
-configuration OLDI0 can be used by DSS0, and at the same time OLDI1 can
-be used by DSS1.
-
-Add the necessary nodes to k3-am62p-j722s-common-main.dtsi, including
-DSS0, DSS1, OLDI0, OLDI1, DPHY and DSI.
-
-An important note about OLDIs:
-
-We have two OLDI hardware blocks. Each OLDI has certain configuration
-that has to be done before it can be used. The OLDI blocks get this
-configuration directly from the DSS block, via DSS registers. However,
-as a single OLDI block can be used either with DSS0 or DSS1, the
-source for the configuration changes according to (probably, this is
-unclear) a DSS related clock mux.
-
-So, afaics, when thinking about Linux device hierarchy wrt. control
-busses, OLDI blocks are children of DSS blocks, and they reside in a
-special DSS bus. And the OLDI parent changes according to the mux. As
-far as I know, there is no way we can represent this in the DT.
-
-Thus the solution used here (and in the driver) is that each DSS node
-contains the OLDI nodes that can be used with that DSS. Thus the DSS0
-node has two child nodes, OLDI0 and OLDI1, and the DSS1 node has one
-child node, OLDI1. The OLDI1 nodes thus refer to the same piece of
-hardware, and they cannot be used at the same time. The selection which
-OLDI nodes to use are chosen in the board dts files, so assuming the dts
-files are correct, no resource conflict can happen.
-
-This is not a very nice solution, but the hardware doesn't make it easy
-to have a clean solution, and, most importantly, this works.
-
-Signed-off-by: Aradhya Bhatia <a-bhatia1@ti.com>
-Signed-off-by: Jayesh Choudhary <j-choudhary@ti.com>
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
-[tomi.valkeinen: various fixes and improvements]
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
----
- .../boot/dts/ti/k3-am62p-j722s-common-main.dtsi    | 110 +++++++++++++++++++++
- arch/arm64/boot/dts/ti/k3-am62p.dtsi               |  16 +++
- arch/arm64/boot/dts/ti/k3-j722s.dtsi               |  16 +++
- 3 files changed, 142 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-index f130c7cb998d..ae8db1bccadd 100644
---- a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-@@ -64,6 +64,11 @@ audio_refclk1: clock-controller@82e4 {
- 			#clock-cells = <0>;
- 		};
- 
-+		dss_oldi_io_ctrl: oldi-io-controller@8600 {
-+			compatible = "ti,am625-dss-oldi-io-ctrl", "syscon";
-+			reg = <0x8600 0x200>;
-+		};
-+
- 		phy_gmii_sel: phy@4044 {
- 			compatible = "ti,am654-phy-gmii-sel";
- 			reg = <0x4044 0x8>;
-@@ -1111,6 +1116,63 @@ dphy0: phy@30110000 {
- 		status = "disabled";
- 	};
- 
-+	dphy_tx0: phy@301c0000 {
-+		compatible = "ti,j721e-dphy";
-+		reg = <0x0 0x301c0000 0x0 0x1000>;
-+		clocks = <&k3_clks 238 16>, <&k3_clks 238 1>;
-+		clock-names = "psm", "pll_ref";
-+		#phy-cells = <0>;
-+		power-domains = <&k3_pds 238 TI_SCI_PD_EXCLUSIVE>;
-+		assigned-clocks = <&k3_clks 238 1>;
-+		assigned-clock-parents = <&k3_clks 238 2>;
-+		assigned-clock-rates = <25000000>;
-+		status = "disabled";
-+	};
-+
-+	dss0: dss@30200000 {
-+		compatible = "ti,am62p-dss";
-+		reg = <0x00 0x30200000 0x00 0x1000>, /* common */
-+		      <0x00 0x30202000 0x00 0x1000>, /* vidl1 */
-+		      <0x00 0x30206000 0x00 0x1000>, /* vid */
-+		      <0x00 0x30207000 0x00 0x1000>, /* ovr1 */
-+		      <0x00 0x30208000 0x00 0x1000>, /* ovr2 */
-+		      <0x00 0x3020a000 0x00 0x1000>, /* vp1: Used for OLDI */
-+		      <0x00 0x3020b000 0x00 0x1000>, /* vp2: Used as DPI */
-+		      <0x00 0x30201000 0x00 0x1000>; /* common1 */
-+		reg-names = "common", "vidl1", "vid",
-+			    "ovr1", "ovr2", "vp1", "vp2", "common1";
-+		power-domains = <&k3_pds 186 TI_SCI_PD_EXCLUSIVE>;	/* DSS0 */
-+		clocks = <&k3_clks 186 6>,
-+			 <&dss0_vp1_clk>,
-+			 <&k3_clks 186 2>;
-+		clock-names = "fck", "vp1", "vp2";
-+		interrupts = <GIC_SPI 84 IRQ_TYPE_LEVEL_HIGH>;
-+		status = "disabled";
-+
-+		oldi-transmitters {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			dss0_oldi0: oldi@0 {
-+				reg = <0>;
-+				clocks = <&k3_clks 186 0>;
-+				clock-names = "serial";
-+				ti,oldi-io-ctrl = <&dss_oldi_io_ctrl>;
-+				power-domains = <&k3_pds 243 TI_SCI_PD_EXCLUSIVE>; /* OLDI0_VD */
-+				status = "disabled";
-+			};
-+
-+			dss0_oldi1: oldi@1 {
-+				reg = <1>;
-+				clocks = <&k3_clks 186 0>;
-+				clock-names = "serial";
-+				ti,oldi-io-ctrl = <&dss_oldi_io_ctrl>;
-+				power-domains = <&k3_pds 244 TI_SCI_PD_EXCLUSIVE>; /* OLDI1_VD */
-+				status = "disabled";
-+			};
-+		};
-+	};
-+
- 	vpu: video-codec@30210000 {
- 		compatible = "ti,j721s2-wave521c", "cnm,wave521c";
- 		reg = <0x00 0x30210000 0x00 0x10000>;
-@@ -1119,6 +1181,54 @@ vpu: video-codec@30210000 {
- 		power-domains = <&k3_pds 204 TI_SCI_PD_EXCLUSIVE>;
- 	};
- 
-+	dss1: dss@30220000 {
-+		compatible = "ti,am62p-dss";
-+		reg = <0x00 0x30220000 0x00 0x1000>, /* common */
-+		      <0x00 0x30222000 0x00 0x1000>, /* vidl1 */
-+		      <0x00 0x30226000 0x00 0x1000>, /* vid */
-+		      <0x00 0x30227000 0x00 0x1000>, /* ovr1 */
-+		      <0x00 0x30228000 0x00 0x1000>, /* ovr2 */
-+		      <0x00 0x3022a000 0x00 0x1000>, /* vp1: Used for DPI/OLDI */
-+		      <0x00 0x3022b000 0x00 0x1000>, /* vp2: Used for DPI/DSI */
-+		      <0x00 0x30221000 0x00 0x1000>; /* common1 */
-+		reg-names = "common", "vidl1", "vid",
-+			    "ovr1", "ovr2", "vp1", "vp2", "common1";
-+		power-domains = <&k3_pds 232 TI_SCI_PD_EXCLUSIVE>;	/* DSS1 */
-+		clocks = <&k3_clks 232 8>,
-+			 <&dss1_vp1_clk>,
-+			 <&k3_clks 232 4>;
-+		clock-names = "fck", "vp1", "vp2";
-+		interrupts = <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
-+		status = "disabled";
-+
-+		oldi-transmitters {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			dss1_oldi1: oldi@1 {
-+				reg = <1>;
-+				clocks = <&k3_clks 232 0>;
-+				clock-names = "serial";
-+				ti,oldi-io-ctrl = <&dss_oldi_io_ctrl>;
-+				power-domains = <&k3_pds 244 TI_SCI_PD_EXCLUSIVE>; /* OLDI1_VD */
-+				status = "disabled";
-+			};
-+		};
-+	};
-+
-+	dsi0: dsi@30500000 {
-+		compatible = "ti,j721e-dsi";
-+		reg = <0x0 0x30500000 0x0 0x100000>, <0x0 0x30270000 0x0 0x100>;
-+		clocks = <&k3_clks 231 2>, <&k3_clks 231 5>;
-+		clock-names = "dsi_p_clk", "dsi_sys_clk";
-+		power-domains = <&k3_pds 231 TI_SCI_PD_EXCLUSIVE>;
-+		interrupt-parent = <&gic500>;
-+		interrupts = <GIC_SPI 86 IRQ_TYPE_LEVEL_HIGH>;
-+		phys = <&dphy_tx0>;
-+		phy-names = "dphy";
-+		status = "disabled";
-+	};
-+
- 	hsm: remoteproc@43c00000 {
- 		compatible = "ti,hsm-m4fss";
- 		/* contiguous regions but instantiated separately in HW */
-diff --git a/arch/arm64/boot/dts/ti/k3-am62p.dtsi b/arch/arm64/boot/dts/ti/k3-am62p.dtsi
-index 9d6266d6ddb8..074dc44ec049 100644
---- a/arch/arm64/boot/dts/ti/k3-am62p.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62p.dtsi
-@@ -144,6 +144,22 @@ cbass_wakeup: bus@b00000 {
- 		};
- 	};
- 
-+	dss0_vp1_clk: clock-divider-oldi-dss0 {
-+		compatible = "fixed-factor-clock";
-+		clocks = <&k3_clks 186 0>;
-+		#clock-cells = <0>;
-+		clock-div = <7>;
-+		clock-mult = <1>;
-+	};
-+
-+	dss1_vp1_clk: clock-divider-oldi-dss1 {
-+		compatible = "fixed-factor-clock";
-+		clocks = <&k3_clks 232 0>;
-+		#clock-cells = <0>;
-+		clock-div = <7>;
-+		clock-mult = <1>;
-+	};
-+
- 	#include "k3-am62p-j722s-common-thermal.dtsi"
- };
- 
-diff --git a/arch/arm64/boot/dts/ti/k3-j722s.dtsi b/arch/arm64/boot/dts/ti/k3-j722s.dtsi
-index ca10c6904b69..dd04accfc518 100644
---- a/arch/arm64/boot/dts/ti/k3-j722s.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-j722s.dtsi
-@@ -228,6 +228,22 @@ cbass_wakeup: bus@b00000 {
- 		};
- 	};
- 
-+	dss0_vp1_clk: clock-divider-oldi-dss0 {
-+		compatible = "fixed-factor-clock";
-+		clocks = <&k3_clks 186 0>;
-+		#clock-cells = <0>;
-+		clock-div = <7>;
-+		clock-mult = <1>;
-+	};
-+
-+	dss1_vp1_clk: clock-divider-oldi-dss1 {
-+		compatible = "fixed-factor-clock";
-+		clocks = <&k3_clks 232 0>;
-+		#clock-cells = <0>;
-+		clock-div = <7>;
-+		clock-mult = <1>;
-+	};
-+
- 	#include "k3-am62p-j722s-common-thermal.dtsi"
- };
- 
-
--- 
-2.43.0
-
+Also, this is before x86_pmu_static_call_update(), nothing really
+'works' yet anyway.
