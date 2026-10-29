@@ -1,69 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271495;
-	b=lOw6xeePPq80qbTIbPzPannDJl3KdiBVQtb+52MSbmtpwV+kUdGsmNu7EzgFWpP/pCrl
-	 81DM4WCdyITgLKRCGu4BX/ISnA0YgH7hBNnzyqCrd7t7nFEkqQNgIX8S4smSDlDXCfszj
-	 syGwVpXkXNS0PZJ8MiYAPT/y50o6qYY6YAsDdqYlAatzgnURoMH9ARrdZFqiIiZVPgEWU
-	 yEyIsVNToFMajnG8kczhWrCpVJPJzDBjWnkIeMP+OEdNzVLtlw0fu/ofYWethoQZxt/CI
-	 R07NqdXNImHmdd/Y8PjcxkAIXYHevn4ZMCIhobFIo/dbNT/ggxxFsbFIraPpJRC6azw==
+	t=1793271488;
+	b=ZlbDgIiphpaKHnXD4TFJiEdMq+Kga+geAQdQahUn/+x2LnQUf6+2+398eDqcSi6Mthdj
+	 4GN7haQ4j1N3p7cFXdayi3+10G3Se+eCUuXPkDarbDlMmTGDz4PRptAK6sS3bEJXMeY0M
+	 swLgHqLN4aj0QieyoRStA5hWaTltqrFuqJJ9n5GFl7GIz57YOQLBjkMEg9a7Qj1cfulAa
+	 o8VrodVOuaaAb6M6fzZdx8ejoJIo79QyaxHJ6RFmUQ3KwDWKKqjvP+/YFCcXNBXXPdE16
+	 q3eKHDLhuG0xMjv1eWKTd+OeSDIa1W0ZRQawtseFCXYqLCcSREnxMSV0BfFc0wlrZQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271495;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793271488;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Debian-User;
-	bh=AVmPmd/rgZTsm982vccuMWQZMWw/wnO5wAJb7t7wqkg=;
-	b=RPv3PMPZeYxiZdTEdyuJh7MMUQzQmTHjKXdl03LHXjL9y61ivOd8NKbFdftHaLqBD4sA
-	 1CJyZNez7qVYwm2ST8F2mP8XC8/AA3G1Sr06Tr/EwC7MB8tUePAK2J4YSuRn7fueppzYA
-	 6dbnimKDXcJhBkTwz96weuSDjXLudQ9dgpfXB4xcK81R+WoRci6+OFQ+aFxgx9EqODCbx
-	 WN+XQNhJTYdRK0hdTuEX8uF+rEsCeZpvOd4SawBn7dNg4HG7SVeKwUdn0gjJVjahv58L9
-	 u1nk3avtpuEeFi2UeUrx7IoWR9IZgrSv+uJw9g11Jzv6ibDB8guFMh3sHqzqsOpg48w==
+	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=XDklzb9gvQ1GspRWCspuPTLVlFG+zCbQzRS72KSJzOc=;
+	b=JhcNEXVQtWGpMvUAt3+clzPkwyT6cVNVhkHfopEgMaLhYKUecjjUyI4PYppmMmmdqNBy
+	 L//eHR9BWCohPilPryo+TAZhjfhUV+pk4PXYIrarzDzexmFOH2x+dqaKYVS5w0+7Xi9Bz
+	 Na+UDl3Wprybe5ALryk85UYoPiO9Fjr8xmig3GMhuL/z5tG5RJF24pCS/RPyIgibhFLlT
+	 X9/vbEFGMzj8YLY94NEcCtZtUNbERsblZI1j4TIeM5Ei9NJzBiclcFwMnWjQAEfQTtMU2
+	 Ka9Ga/giUdmZ5qqK9pyNzDbctWrDPUZ9T0qLNiTepRX0LPO4T6rU3C70/X/FxEAv63Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=SG5hTeXV;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="LEK/lA2c";
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C1D606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:58:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5C1D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7C5606A321;
+	Thu, 29 Oct 2026 10:58:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE7C5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=SG5hTeXV
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=AVmPmd/rgZTsm982vccuMWQZMWw/wnO5wAJb7t7wqkg=; b=SG5hTeXVyxOEMtvBoUXsWEkkXY
-	KbvvSfqsy+9npCPv7XxqNIDsw7xlUbLvEAMWYOAhxau41SUxwqaoeTLtDq14b0euhHvgiYBESWbN8
-	9MX1CofrfYEubgbMCC1w2XMYgyJY+oci5q6eJHcSANouKMbNV0IR62ROM/doB1V4+ME4kvkPBKJPh
-	Y6EFMvChn49ZOHwacI3RYjVIMGeoyuSZrgFeT97rxy1jDkbA7s0RjFW9V3NxgZv+kwQqtS5WS63o+
-	ellrDlx+StQLqptXt0FNSy1Z3HBYZ5l19SOPCAwtoqdgWiiRKvdI9dGXevAVd0w4yjMyvGa6UOB9v
-	sYkUpAkA==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xMNpf-002yIC-1J;
-	Thu, 29 Oct 2026 10:58:07 +0000
-Date: Thu, 29 Oct 2026 03:58:03 -0700
-From: Breno Leitao <leitao@debian.org>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Petr Mladek <pmladek@suse.com>, Ryan Roberts <ryan.roberts@arm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Rio <rioo.tsukatsukii@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v1] panic: Flush unsafe consoles before panic reboot
-Message-ID: <auMmQjcy1A6E0eUm@gmail.com>
-References: <20260915100140.3631650-1-ryan.roberts@arm.com>
- <aqqU3I7d9lMAjSvy@pathway.suse.cz>
- <87bj8kkfwk.fsf@jogness.linutronix.de>
- <auHNz09oyGFJPTKg@gmail.com>
- <8733tphow9.fsf@jogness.linutronix.de>
- <auI40MZlSYO0oAAS@gmail.com>
- <87a4nwyiaw.fsf@jogness.linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=LEK/lA2c
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T9E6vg3962695;
+	Thu, 29 Oct 2026 10:58:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=XDklzb9gvQ1GspRWCspuPTLVlFG+zC
+	bQzRS72KSJzOc=; b=LEK/lA2ct13CJArUK4pj0u5Xaw1CqzCewAXaOqeyryUKNc
+	UCSg+d976WjZqopjAECIsUoPQRnLmh0gJOoqU7UI8jdnyrx/ckw0zXk75rCj7/SL
+	N8ka9b7H1jVfwrGyFZxD7cWbHGk+Bs5D0VCTOrc6mReyK7c3PNUeL2UesL4kPR/0
+	Q3vvzpHce4oml8tr3YHWvExMbT3L3qr+0qcTDnmsVHmts8eAL+zpiNEHbHzujUbL
+	6e3NV1rXYLKEVmDyffUQ1pcpsoxIGuhkoHvWbrYwOi5HnrNTWA2H9TpqkWWAuiA7
+	l9+9+IcRuXeOXvax1AH5pezYkfv7cT+HYLMQHHrQ==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgm649na8-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 29 Oct 2026 10:58:06 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69T9K4KY2914955;
+	Thu, 29 Oct 2026 10:58:05 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hk55pedp4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 29 Oct 2026 10:58:05 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69TAw1Wh36503926
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 29 Oct 2026 10:58:01 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A37752004E;
+	Thu, 29 Oct 2026 10:58:01 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 542802004B;
+	Thu, 29 Oct 2026 10:58:01 +0000 (GMT)
+Received: from osiris (unknown [9.111.38.86])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Thu, 29 Oct 2026 10:58:01 +0000 (GMT)
+Date: Thu, 29 Oct 2026 11:57:59 +0100
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Ilya Leoshkevich <iii@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: Re: [PATCH v2 10/10] s390/maccess: Remove spinlock from
+ __s390_kernel_write()
+Message-ID: <20261029105759.23372B93-hca@linux.ibm.com>
+References: <20261027143030.3154657-1-hca@linux.ibm.com>
+ <20261027143030.3154657-11-hca@linux.ibm.com>
+ <11f7072d-3c4b-4ed5-9954-49c39a012d8b@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,90 +97,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87a4nwyiaw.fsf@jogness.linutronix.de>
-X-Debian-User: leitao
+In-Reply-To: <11f7072d-3c4b-4ed5-9954-49c39a012d8b@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA0MSBTYWx0ZWRfX7XyybQB5fQFh
+ MhWxB913qVex8DOHs+xhI0+wvOunnco46sBOB5hmD9YRlT43/8rbUSuDe5PwcOJwlWAYYkTU4Jt
+ gqcSFZTgOjWtXtVwKwrLd7rCPFxgZQk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA0MSBTYWx0ZWRfX0M+TCopkPeN6
+ IroWBOpMWNV+vr4j2wCsIkstvXu4pGBPtXxVDSb6lyRx6w9Tm3Kvr7cp7svb9wyijyJ7Ny2R7mk
+ nsruuXYjSVFa7F6sZPbuezlmtanbOn+Wb6pPh6M8Vek7aJKaocGK1R6dsBy4Df2wU9egp0/Czh9
+ iVD3mUVULtVTzFTfE7wmRiFtNHUcWCKlGEA/Ok91oLfZ9dqNW7iP79ioSMkfn9Ni1C2vkRgrfDu
+ rePP4y6A7Y9WKEUtnNTqJdzn4UISfxJUv3/LVvYrfZsLNt09xAFoNSt1iTCcWJl+VOqe+zx8fke
+ 9UwL4r5D95EuN4RpmLxAci4kHx652JCXLaeb4wlFj+r1rlfiuvhWdGpJAyyVWzaw5ivIMVENWcA
+ xGpnzGNVAFELOEFfarofaYSbDO1mRyHVp61mM4ZseKVSwtA10I5ngsqyNHudkZJonb2wFw8010p
+ kKCzVSnX5ICiWwvdU+g==
+X-Proofpoint-ORIG-GUID: 3gVxxP-ZTZ6c99rw6w9VsvHfko1ZGLoJ
+X-Authority-Analysis: v=2.4 cv=Uu32pOwB c=1 sm=1 tr=0 ts=6ae326be cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=LVeCw0fSqMdSN_YE6mYA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: 3gVxxP-ZTZ6c99rw6w9VsvHfko1ZGLoJ
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290041
 
-On Thu, Oct 29, 2026 at 10:26:23AM +0106, John Ogness wrote:
-> On 2026-10-28, Breno Leitao <leitao@debian.org> wrote:
-> >>>> For consoles with CON_NBCON_ATOMIC_UNSAFE, the default would be
-> >>>> unsafe_panic:0. Otherwise the default would be unsafe_panic:1.
-> >>>
-> >>> How do you plan to use 'unsafe_panic' order exactly?
-> >> 
-> >> Currently at the end of panic() an unsafe flush occurs by simply
-> >> iterating through the list of consoles. That list ordering does have a
-> >> fixed algorithm behind it, but it is quite hard to follow.
-> >
-> > But is that flush invoked at all on the kdump/kexec path?
-> >
-> > As far as I can see, nbcon_atomic_flush_unsafe() has a single caller,
-> > at the very end of vpanic(). So the unsafe consoles are only flushed in
-> > one specific "kernel ending" case: panic() with panic_timeout=0 and no
-> > crash kernel loaded.
-> >
-> > I think we are mixing two different topics here:
-> >
-> >    1) How to set the order of the unsafe flush (per console, from the
-> >       cmdline and/or sysfs).
-> >
-> >    2) A hook at the "kernel ending" sites (the panic reboot path,
-> >       __crash_kexec(), ...), so we do not forget to flush the unsafe
-> >       consoles there.
-> >
-> > Should we split them? 
-> >
-> > The missing hook in 2) is what drops the netconsole panic output today,
-> > while 1) is policy on top of it.
+On Wed, Oct 28, 2026 at 09:59:46PM +0100, Ilya Leoshkevich wrote:
+> On 10/27/26 15:30, Heiko Carstens wrote:
+> > The spinlock in __s390_kernel_write() was introduced to serialize the
+> > read-modify-write sequence against concurrent callers. Now that all
+> > runtime callers of s390_kernel_write() hold the text_mutex, the
+> > spinlock is not required anymore.
+> > 
+> > Replace it with preempt_disable() / preempt_enable() and sync_core().
+> > Previously, CPU serialization was implicitly done by other
+> > instructions. Make this explicit with sync_core() instead of
+> > relying on that.
+> > 
+> > Preemption is disabled so that sync_core() issues the CPU serialization
+> > instruction on the same CPU that executed the stores. This completes all
+> > previous stores and makes them visible to other CPUs.
 > 
-> They are separate but related. We need to address the missing hooks. But
-> we cannot simply add unsafe flushing to those hooks. We need to allow
-> policy for that.
-> 
-> First we need to make sure all "kernel ending" points are doing proper
-> atomic (safe!) flushing. Ideally these are either graceful endings, so
-> the kthreads are properly shutdown and printk naturally transitions to
-> atomic printing. Or they are emergency situations and printk must
-> forcefully transition to atomic printing. (Netconsole does not yet
-> benefit from this, but we need to be sure that safe consoles are
-> covered.)
-> 
-> Then we need to add an interface to allow the user to specify policy for
-> the points to determine unsafe flushing. I would request that the
-> interface is such that we can extend it to allow ordering of that unsafe
-> flushing.
-> 
-> Note that the interface may involve some significant rework on how
-> netconsoles are managed.
-> 
-> This all needs to be coordinated with other things already in the queue
-> due to the overlap in code and features:
-> 
-> - preferred console cleanup/refactor [0]
-> 
-> - CON_ENABLE cleanup [1]
-> 
-> - introduction of per-console loglevels [2]
-> 
-> - per-console replaying [3]
-> 
-> I am not suggesting that all these things must come first, but we need
-> to keep an eye on the big picture rather than hacking in some quick
-> workarounds for netconsole.
+> Doesn't preemption happen only via interrupts, which always serialize?
 
-Right, thanks for the explanation and the links. Here is my view right now:
+Yes, but again, that's an implicit serialization. The idea of this was to make
+the code not relying on rather subtle architecture details (as written above,
+the "implicit" part).
 
-1) Converting netconsole to NBCON caused an undesired "regression" for
-   users who would prefer the messages go out, even if unsafely. (as
-   Ryan and Meta)
+Even if interrupts wouldn't serialize: when scheduling the task away there is
+almost certainly a compare and swap instruction for taking some lock executed
+on the CPU before the next task runs.
 
-2) It seems the proper solution for this will take a few cycles.
+So this part is more about making things explicit, instead of relying on
+something that is implicitly happening.
 
-3) I would hate to leave users with this "regression" we have today.
+But the main point is of course to get rid of our private locking.
 
-Do you have any suggestion for something doable in the short term?
+> >   static inline void *s390_kernel_write(void *dst, const void *src, size_t size)
+> >   {
+> > -	if (__is_defined(__DECOMPRESSOR))
+> > -		return memcpy(dst, src, size);
+> > +#ifdef __DECOMPRESSOR
+> > +	return memcpy(dst, src, size);
+> > +#else
+> > +	lockdep_assert_held(&text_mutex);
+> >   	return __s390_kernel_write(dst, src, size);
+> > +#endif
+> >   }
+> 
+> I assume #ifdef is required because lockdep_assert_held() is not
+> available in decompressor and there are no stubs?
 
-Would reverting netconsole's NBCON conversion, while we address the
-dependnecies above, be an option?
-
-Thanks,
---breno
+To be honest, I didn't even try; I didn't want to rely on even more things for
+the decompressor.
