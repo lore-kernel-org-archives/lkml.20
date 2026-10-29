@@ -1,76 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793288212;
-	b=kQx8mcUStEeoSKvMguqRHuwwmR1Mk9pTYU8CWdgbBVpUiuGn9m1iHW3edf+WjX2ThPZ3
-	 v18lbolPb4UTAshP2hlzy9xC1FYakXiwsQluD765r7/oXJUuVsf6ufmI0DHWLQHvn81PR
-	 SgviKMSF5fCGNthi3TtIRBIH1RRHUZ4jxbA8yhIm1n1CagUS/iYBCw0CIhEt5tWv6XCgx
-	 WBcRAf4TE1VK875sVfHh/fl8pvzkMdnajEuVUqFz2nGx3wEdh00vhfpeElGNnVhkPqoTM
-	 /KO3eRDgQ6XbS4G7pqFZ33/mU5+WsPL8wL+MI866nRz23MVe+aLL73AZtU8Z7UkPIhA==
+	t=1793288230;
+	b=e3t2yVnIxK7i2sRFtnRW5gzKWK8Nu7GMvxE1sMdV8E820dRfRrjnuxVxH35BgKM4yu5T
+	 yxosehRjMPR9reOaV/kcM5tF8fJOmyL4qNpw/CvgPXzwAUuSLn7HpGCxcr3LET5Qqbwmm
+	 0stdnFl6/eqWAchD9swXNfwRYZyLyLh3MeFntv9H/AHzFbkXqOWWzZGXaAHzOdXbFeBB2
+	 Pp9jvowvFIFqIT7w3rrYWy3pTY2lqYoD/KMMWrYYy6bV+Bi/iaj46j0b5SGo5/mL+dr8e
+	 eTdFUblaro3KON85kjuF7yMEJTxZdO78fGOkrir4KCSKZW2eTEJfJss+DrQHlA15kgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793288212;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288230;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=D6UUa2xNPRVirPhujwvkv6IdDdVKe4P8N23+MP1pK9Y=;
-	b=w+y6deVdpIHh8lvzBwlzEdm29J8USmqBu/EM/Av7ZrEV2NJcOIzwtxjwFQ/WJlGUl6YJ
-	 JH5bc+DA+nJopOJyfBL/v7GVQzXVI9pFTB3lX/ysLocJEh2L6SLiNW2W+thcVHqllhn9/
-	 Cbd0BlRERkZN2BrOvLplHrchq02+9GybxZUFHlFfHczOesNOrEQQsMm26sfyrenmj01Qf
-	 hbANHb03r9awLjfr5mnbZ21QRUUG1uPZNVo/6xFidJ44YEMckWRkVUv+4ka2B5QCUN0I8
-	 5UyCAQLqTclwzi6NhhfLkD5ojyMat0r40CZ9+Kdxu5vJhjvOOo5QDdrvvKspxlygTgQ==
+	bh=7w8z6oU4/4x8U/rb5nvJuW4qpERxGYIwAjYcgMWl1C4=;
+	b=2XDkiNpAszUsmq5d/oyGGLdd79m1/AyugdY+3iFbzyLXbXk4EDCvBt1W34mxeNy1YVpI
+	 Yf/rUmQSQSOZ+6tnw5UQfYnQmiS3xxHZEJXkMQWbmFgCiTubwkKUIfNmLLuX1zuCJT4ut
+	 3/idj+OZOnV+WVncMpXUtchojn9h7RteMx+Su7jP7y840OWS+6VYPDOwgjcGK5Crp3DLL
+	 az3vBWr540XVyec2nA4f/e6MLftqcN5VSN7RfV8WdeHk0O1rDCtxTUHNWlgbMsWOAW7Pk
+	 UfAJn6gLY5MiaAlSkhKyTquvSZ11HZ41b21tE3WR+uAGkrwBgeL0oiQDRgk5i/NjkNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WL0ETLTn;
-	arc=none smtp.remote-ip=209.85.128.70
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=oLSWziy5;
+	arc=none smtp.remote-ip=199.89.1.16
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD00606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:36:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DD00606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE35606A320;
+	Thu, 29 Oct 2026 15:37:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FE35606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=WL0ETLTn
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49953abe51fso17747695e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:36:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793288210; x=1793893010; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=D6UUa2xNPRVirPhujwvkv6IdDdVKe4P8N23+MP1pK9Y=;
-        b=WL0ETLTnu+RzZ+rWl3gTcAoUIOf0QlWu+j8j8nR25Or4M20qZI8CSdNaSCMsp1Ys63
-         Gsvfb0Ni1QbqZoSa9Zr9aHEXCtSRuwI+/IPSLi+CVBRongaCz9fH41a2rDGtFRkn+NiN
-         JNP64rLiHGkJXNN2IaJ+6FFbnoQEwGz16NMaZDJxRcmIMIOmA6n0JDzTIJISwHbCe/Cz
-         wgBnnW3c2lihE6wBFIDZMfRcu2tfZVk/85JjS1bn7MMLhwHqU5Uuq7+eivbJn3DijFRa
-         IVga8pYchEeSis42dqRNBZDmCe7zCDVDTDXTALoIFpCmnvzzsoLJ/NaCKGBbcBDnnvUj
-         wbMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793288210; x=1793893010;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=D6UUa2xNPRVirPhujwvkv6IdDdVKe4P8N23+MP1pK9Y=;
-        b=ppkMSGNucE6ft/Onlflt0ZJnQhk1jfEhUebMvunyy8kdZwYzyMXOWc3OWOYv9mwqeo
-         CcLvmab6t2RKYZ0d261XwpPlWV0qTI9Ph4nDc7B0hMT8qYXGqo5xk2KJnTz3K0AC69a6
-         +yTLmDKoKEOcpzkD2yEMRtcSf1UTHUOi68z2l3MzBvHk6q4ju6tSj8qciobqL20utjiB
-         QyIWgRSx3hYDssrfP+T9Jj2W6affDNYGBTvjrpLrVSUXrG4Vh8lhOLcxyb96REfPign4
-         Po2dyCwSku9KpsipFwo0asW+yqTc1GzL88h1zYxkcjKS5sKw1O1yeYYHhbyh5avGWqgY
-         082g==
-X-Forwarded-Encrypted: i=1; AKwUvByPVjpjCNRDhNO/zsAQ1Ppv63810e41af/Wi/DUcyrDxfFo9zvWF9hxfYaImkDD094TDMctKmUqKtahQC4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFu1Jqjf3yclY0fKy7pBsxgioWp6KAiVugd38NK2rZC43dhr/g
-	zU7Ev+98ld4pK5foqz1g58HyUT6WvYycE1atF1jUOxSGoL5jAKNkjeH10gLBGoiVZjItBdbPKne
-	0w0Z5cSkvHmE6OOi4fg==
-X-Received: from wmap17.prod.google.com ([2002:a7b:cc91:0:b0:4a5:9877:cd58])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:474f:b0:4a1:cd83:b23e with SMTP id 5b1f17b1804b1-4a97452869cmr133905495e9.0.1793288203757;
- Thu, 29 Oct 2026 08:36:43 -0700 (PDT)
-Date: Thu, 29 Oct 2026 15:36:42 +0000
-In-Reply-To: <CAH5fLggAuPdmwOFiOMMRUCP+yLPjmdjYGGfBxZJ=7+bkGODJmQ@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=oLSWziy5
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jFpHz41c6zlfvpd;
+	Thu, 29 Oct 2026 15:37:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1793288218; x=1795880219; bh=7w8z6oU4/4x8U/rb5nvJuW4q
+	pERxGYIwAjYcgMWl1C4=; b=oLSWziy5PwNbh3pn9QWRWOe4vKaAAc8+f1NEd2l4
+	Dn9GVo6ykR01ggc1sBoYV8uNSjkPbODJ75FXkCUhGtOW5SHilOy34bcxmN3OxLtk
+	L0P2Ss26lzYVKxSCtl/YuOD/VKlLh9mf6q7eZ+lDUyi3zCsizBuyMa0YHFgfu6MG
+	9tLxpeNosnrd6zo1/BayXqP6c2YRkHkccdWumN0S6+5W+VSA/uMMrceaO1PXne3l
+	ARCY8Bbb2BdkqCeOc7HsV+Hiy+mtiO2ADT09TdoUMDeFIsXeGOdcKdp+J7h9pAOG
+	ZU9Bvc6luAi3vNCRXACnDSJ87ENnMjBojQoViFCgZqdqlA==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id CZ0FcHmo7fqc; Thu, 29 Oct 2026 15:36:58 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jFpHr6dVmzlfvpc;
+	Thu, 29 Oct 2026 15:36:56 +0000 (UTC)
+Message-ID: <3be5c9ac-44f3-46c0-bb81-6bde6edcba28@acm.org>
+Date: Thu, 29 Oct 2026 08:36:56 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,46 +69,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261020-b4-gpu_info_intobytes-v5-0-3e0c7c93223c@collabora.com>
- <20261020-b4-gpu_info_intobytes-v5-1-3e0c7c93223c@collabora.com>
- <athToIRyTjSB_jVg@google.com> <CANiq72nP1cXVOQp0xciGfBhZZfEfNP5hx8c+1ZPhXwrr=EOUGA@mail.gmail.com>
- <CAH5fLggAuPdmwOFiOMMRUCP+yLPjmdjYGGfBxZJ=7+bkGODJmQ@mail.gmail.com>
-Message-ID: <auNoCpPLYfr6hBu8@google.com>
-Subject: Re: [PATCH v5 1/2] rust: add zerocopy to bindings and uapi
-From: Alice Ryhl <aliceryhl@google.com>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Deborah Brouwer <deborah.brouwer@collabora.com>, Danilo Krummrich <dakr@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, Jesung Yang <y.j3ms.n@gmail.com>, dri-devel@lists.freedesktop.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: ufs: core: Skip completion of SCSI commands owned
+ by the SCSI EH
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+ <mkp@kernel.org>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>
+Cc: Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>,
+ John Garry <john.garry@linux.dev>, "Bao D . Nguyen"
+ <quic_nguyenb@quicinc.com>, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261029040004.2100004-1-stanleyjhu@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261029040004.2100004-1-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 21, 2026 at 01:44:12PM +0200, Alice Ryhl wrote:
-> On Wed, Oct 21, 2026 at 1:37=E2=80=AFPM Miguel Ojeda
-> <miguel.ojeda.sandonis@gmail.com> wrote:
-> >
-> > On Wed, Oct 21, 2026 at 7:54=E2=80=AFAM Alice Ryhl <aliceryhl@google.co=
-m> wrote:
-> > >
-> > > Miguel, is this something we can take through drm-rust-next? Or perha=
-ps
-> > > you want to take both through rust-next? Let me know what you prefer.
-> >
-> > Both sounds reasonable, so whatever it is easier -- do you think there
-> > will be lots of movement in the Tyr side?
->=20
-> If we're able to land JobQueue soon, then yes, otherwise no. But I
-> think we've aligned on how to get it merged at LPC, so probably yes.
+On 10/29/26 12:09 AM, Stanley Jhu wrote:
+> +static inline bool ufshcd_cmd_owned_by_scsi_eh(struct scsi_cmnd *cmd)
+> +{
+> +	return cmd->submitter == SUBMITTED_BY_BLOCK_LAYER &&
+> +	       test_bit(SCMD_STATE_COMPLETE, &cmd->state);
+> +}
 
-It sounds like Deborah does have other changes that depend on this that
-she'd like to land as well, so it'd be great if we could find a way to
-land both once the merge window is over.
+This is a layering violation. The UFS driver has no business checking
+these fields. cmd->submitter checks and cmd->state checks should happen
+by the SCSI core and not by any SCSI LLD.
 
-Alice
+> @@ -6009,6 +6025,10 @@ void ufshcd_compl_one_cqe(struct ufs_hba *hba, int task_tag,
+>   		lrbp->compl_time_stamp_local_clock = local_clock();
+>   	}
+>   	if (ufshcd_is_scsi_cmd(cmd)) {
+> +		if (unlikely(ufshcd_cmd_owned_by_scsi_eh(cmd))) {
+> +			ufshcd_release_scsi_cmd(hba, cmd);
+> +			return;
+> +		}
+>   		if (unlikely(ufshcd_should_inform_monitor(hba, cmd)))
+>   			ufshcd_update_monitor(hba, cmd);
+>   		ufshcd_add_command_trace(hba, cmd, UFS_CMD_COMP);
+
+The problem described in the patch description applies to all SCSI LLDs
+and hence should be solved in a generic way instead of in the UFS driver
+only.
+
+Bart.
