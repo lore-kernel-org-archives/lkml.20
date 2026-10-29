@@ -1,91 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793275272;
-	b=HwXg2fNd2PxyLgVzxGWgQ8ZeW8v7hdf2u34X289bQ/8bAW0/HMZVMy9xDeT3PgyxOVqC
-	 JNKYOKdXnvmzbggSVGbaCTLctuhh9TA7ryKMxMJIoIYFHI6Fj/JwMQzbi7CS7sLYQJ7N5
-	 vICUtMZubkci19kpGLW+ZcoTp4UO2H5qYh4f+YR/fdaEbYw5orxRzLO1fXsB9E69mc7pD
-	 b0vz49HmdI6JvGHIR5AL6srDQgceqvklr1j4IGdIj10Lvvw8XH5Zykgo0culBpBFWe7zF
-	 sgn7A6nEkkX49rvOMGyUtm14Wxj5o3GAR2RCYaQo/AIw3uD0V6xBIvDoVKa5b6swYnA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793275272;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
-	 Content-Type;
-	bh=6ox96XF7TR2O7kzILwg61Yy6ZNx/dN3lPRd2O0EFb20=;
-	b=UqKPxFXsCKDrRPPND9PkLORFHbl3JADcnhsRsdEzYRVUgrO65BBR/1cDIeq1hY/36VXH
-	 rneUtsSn88ufQpJwGhZ9TUp0Wj//sW9OSBhcgMnuOx7zjUL44gz+0+7y3TMBTngOy+q5N
-	 FtxPHT0JvAkPwWkG9PGDhEV+SBljPKXdNn8IHwMOfHJpcnfbKLTqhrcSOXKdt0vbRXa+Y
-	 +rXOy/X+B9283djJIirKfSeMsD07qFh8qE02FU2A1p/C+t5BdPK0LqLy2CPKPS/NIgzCJ
-	 PpIxl7ISuL+qPHJiMsgi/7Y8E80HvsRlNK8gTiKjfUXveqWMgYEpzS18I/fYJxXSh3w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RcQFyetm;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793275351;
+	b=3pJx5qhc/OiR6jTE4+oq1P+aHeqBOwdNn9BXG6WrNALRY7Xj7Kd8zNN7CF4Eu0XNn0xP
+	 dSGIw6gwT+xQYwVmNpdT8J6YPFtPaKWiPztaEyR9CtlxGlX0RC8VLFRKbMleZBYJFIRNs
+	 31+mKCFCBcfditicA2mFi6DEtgVrAkrNBfA+KeLD65GkQZHmjatNUkkr0nLlQ6zN1v6OI
+	 C4FF05xRiWo7PgH9bn+yZ/exH2U9QNDCgKL/MlipoK9sL2U0XEI1ljKx7yKctBUbjmKMg
+	 Ez/GurIz+qaffJNbe4MwmCBHKXHP+zPCaH/CiiSMm6vS9IAkv6wH0jJYzppMBhqo0bw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793275351;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=xl/31tneXRsFAECpWpQO0ou46Tacltc0WW2DLZb+HnU=;
+	b=tnH0WlxZnxKwV5xLIEjFGC7cOjsfNTYJj5zfPzkaPj/43yvPdXZ1/6blHqlTV7+Vr3Lj
+	 V+GD6yBBD+oHXFRnQ7+YlWPt9s18bu3wozbCYrDr2XSksQZr6SMPhy7VkzJds+AKrg52G
+	 NkNKs/bvqR/C4hEq98fF201KKzLp0/oyVPTUk2YNEii80UoiFeTwvpcKW7X8vMV3HuRWo
+	 RL85sn3MgycwQQRtUFplL11KNPj8aEFXsRfrP5HDKrShyeObE/cIDr5Sl5bWFcJyn8EJz
+	 IUrPGJEuBX79A/JY6P8Qio9pamsXVNTgqHpmzfLBY11MhcszuoNFZ94VpFPqPH1T5+w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u3+KFVf6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.41
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46929606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:01:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46929606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 584D6606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:02:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 584D6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RcQFyetm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793275271; x=1824811271;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=Sg99qBSYPrQ/dvhBMnxG7AV2h/mgImJ/LtHy20Vj8R4=;
-  b=RcQFyetmjjAuZ89X/lZqjlnO/9AfaO3FSpcw2YzFyWJ3v+fZLwfAjuId
-   ysqEcSa2pAmhB8R0eS7fPPUPRyVUHggR1dmLbE6ZrnVtbIUNt1NDd1EQK
-   aDGvkYoclQuYFNzIadIvLhf3TyogorTItrpBgY584srh1yzdxM0UP1qXC
-   ARVHOTh9WHs1IrVtKQ0TBK8ERr7LBuCXz2aNjliyqJQqCAy+P7163p7xD
-   jyr1CljPoOpba31KQBbNXnyjhiTPHSdr6QBB5OmtjPa9D4/qJOTQ+1RGg
-   RTJP4dCgxVXuYKfmoYTPjr9T3gx9aXx+UU7SpJUjpd/gFJCALvnCornWY
-   w==;
-X-CSE-ConnectionGUID: 261yX6nFQQS9jDxaHo4mqw==
-X-CSE-MsgGUID: 6tlgMfO8R0ON8nnultAiow==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1908938"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1908938"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 05:01:10 -0700
-X-CSE-ConnectionGUID: 5EX7hURQSrqLzZCP6wxP0w==
-X-CSE-MsgGUID: c117/tVSTQiEeJx+aVTUhQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="6889781"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.145])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 05:01:04 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>,
- dri-devel@lists.freedesktop.org
-Cc: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Maarten
- Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
- <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Patrik Jakobsson
- <patrik.r.jakobsson@gmail.com>, Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dmytro
- Malovanyi <dmitrymalovanyy@gmail.com>
-Subject: Re: [PATCH v2 3/5] drm/bridge: it6505: Use drm_dp_enhanced_frame_cap()
-In-Reply-To: <20261029101826.72773-4-dmitrymalovanyy@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
- <20261029101826.72773-4-dmitrymalovanyy@gmail.com>
-Date: Thu, 29 Oct 2026 14:01:00 +0200
-Message-ID: <77d3b5f1643531134754303befe9ee2c3c13d5f6@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=u3+KFVf6
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91c8fef5ce2so10108936d6.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:02:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793275350; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Bnzz2upXqpq4wW+dfagVpuHD9IpDsYx3K38fg1DUHtvHoYhhm9W3tGRQHWLIPC++tO
+         2y2RPT5N5B9POsuA47w8sgtjIW83YZqqT37B3mX1HYg0lMuwsYk/4Put1tXhYL/4ANnI
+         4k0qXb4ET41OZ4e7xnXH1uolzk5/SKdo5rogR/WQchigwyp5deUZxH1y941NHoprke8h
+         swKXXQ5bolfCCSRFat4PcxTTZgi0C71ARqE+GVfDtpesLh8Jb/jcjC9EkD/qylB/co1o
+         KhmnK6R/PP0F8RiPxFS4fbC+IvpFWqZ0Xp5FKb+veySoAewNRZmydaVcaN/qJf1xzaHl
+         uhqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=xl/31tneXRsFAECpWpQO0ou46Tacltc0WW2DLZb+HnU=;
+        fh=7n5NkPo09NBYicKFvBLeiZ76cI9r6Ygy8OpSz4LbDHk=;
+        b=N3aAdV6bgwL2xmq7nJzm/AuYHL0v6GaEMv3ZmBkxzAK8jv7exstINi/rnMXIbPKZn2
+         8FjrNCFIwvcgduCoIW/sqLHRu9FlZsICSGKwBKY2zUrrL7vDbgM6jw7gCHQIXvbSVq2F
+         fz44pEBRsN2Y+e8YHpkpGF4l+hRz/Re213BmATx/YD5lSVqVl1egqXnAgMROh27QRXkv
+         mFHY6MmNOiW+hQD+/+qcqcDf5pn3yEfd7Iq02AIaPzTKW5YRY6egPNGjGiOLdIFp7UNd
+         O9N2esDgQW3H9VsNlgNH54t+jOcyuVfirYhGc7sprElnez3j5g+Sowjfd6byc/eJchx0
+         WL+w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793275350; x=1793880150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xl/31tneXRsFAECpWpQO0ou46Tacltc0WW2DLZb+HnU=;
+        b=u3+KFVf6fB8k3HAkW7lRJO3f03Gk1Jwe/jLeb9fbPKPfhVgQGc8ihU0vP9Ypl8FvNL
+         Y7nc9TCnhVoYLrN8+QF9dWMnHzREhMmZSTfRRBwlvFET49VVyBdQBAYU2R4I9+VQwypi
+         +AiYzC/0+APmeoAr7Gta6LH94gLhq7D+Oq6pN6Y3umTuRZNrG2X3HM9U/VsuS9UhnHxm
+         qvWNfc53JuUwHptJkc0cEADA94MoGO//C/nCngLT+w5z8KDHuKgz3cEwQbaJ2L0GYJJQ
+         amNG1NME5mcoimCaZpAeVez4lWNEi/SAOvoucD2vHq4Y7ypqgFS8JrBDCsGzj51epp2M
+         zhig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793275350; x=1793880150;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xl/31tneXRsFAECpWpQO0ou46Tacltc0WW2DLZb+HnU=;
+        b=nSlIvCQFZhJnlBoJNmqSOnCPnVjOCjSD1q2dhzwkGihepqMVUWAMNQIMo0W022SiQG
+         Yiku6zPn4ASQzmi7B/AWj1zLq7SeB26gbA7p/RCKtkF9fwNf7qVq7jN3GD+FoV6xB4Ld
+         s2JioZjG23A31iwVVn4V27FGlV805JdhR68QsbAsT47X/NoaqGuwWeBB54GGo0b4pO0e
+         71877SuhKZuvwE+vCQC8iGW2mngLswns6ptIGwR4nesu+7shcX52ItYo7ufTvlSq0X70
+         BJzBQmePvXnQpIwPxUreI9EKR7ZuR+OJUg+rri686v4DITSllHt+HKi0Jjmpl3ZP+chs
+         FmDg==
+X-Forwarded-Encrypted: i=1; AKwUvBwbLAePu+EcdlyPPS9hGFZS4y9o1HuN67LWgbSk9/V0icQFxkKFZxuyIRVuA9yXN3GT5qGsYbcT5K4fCOU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIM/TiuXB0UF/dFUrJyIyELWY8BTeof74gr1uJOPYdK340zB9E5
+	IAFQAPswVZXuwyFiplGiHkt8MnaP27Uyy/fJsNVgZtuhl0h89Rh4CVQkdXDsC7J+5N+4K5prCO5
+	WZ3Caz0hLn1pmD1H4kh7QX24JVa0SX5uO/N8WHdvzLbH6
+X-Gm-Gg: AYBFou3vX3PjzwfxMGoV1H0u8oMl+cHQvdRYcU36V3qEt4dIPMGRH0E28j2DGe9+TIL
+	ShLaM2/DtJjxoHH1YcoKOU2W5mTXUI2G2/2+7RcI/FS/vsC0CXXNwV1q67jmOU+XraTFasUBZSX
+	Dq594sbFcyH8jrMKb3hq1WKkykugv8oxPdSRUxHRERzqi0ecCJkGsJFa1pK05QgipC8xlvBM0t9
+	6LowdIRrSkxkmfcFQEhN0GXej/Sw491uNvClowVADXNtLiBJlQJPt7xxzRM21Ak7MJ6Ry/nQxNf
+	4S+EpnrOocHWzhn0MYm+ydoKeYE6pOKDNlOGz/TjH23MXDpYQBZkKAR7mOkHgEEySipG60fR1i3
+	Sc4Lt5RLww4QgKeKt8/Pjt04VXQsXx7WaL1rqgc8DBb7fpy5k727QL4+G09zbUXsXAxT0GgOZvH
+	9HZB/Rt7PHCkrHSTm2GiAbruokMypDb2t1tn78PM1aWZSM4kfmCJbQS2GU6iuay0Tgd4KHu6jT
+X-Received: by 2002:ad4:5f89:0:b0:91c:711c:27fb with SMTP id
+ 6a1803df08f44-91c7ce3b024mr85020316d6.8.1793275350048; Thu, 29 Oct 2026
+ 05:02:30 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,38 +105,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261028212731.418001-1-ic.gabrielribeiro@gmail.com>
+In-Reply-To: <20261028212731.418001-1-ic.gabrielribeiro@gmail.com>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Thu, 29 Oct 2026 09:02:19 -0300
+X-Gm-Features: AclHuK_MfRHWq4DWz6O_VU6YvJc9e8OWfcm0Att5J0Rnvclat84KH8bE5loBGQ4
+Message-ID: <CAMAsx6cDw-tsyrz-0vY=qVjE0sdukxnRND=KGoF5hG0Tk=V5MQ@mail.gmail.com>
+Subject: Re: [PATCH v2] docs: translations: pt_BR: add maintainer PGP guide
+To: Gabriel Ribeiro <ic.gabrielribeiro@gmail.com>
+Cc: linux-doc@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org, 
+	rdunlap@infradead.org, sashal@kernel.org, kees@kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 29 Oct 2026, Dmytro Malovanyi <dmitrymalovanyy@gmail.com> wrote:
-> Use the helper instead of checking DP_ENHANCED_FRAME_CAP directly, so
-> enhanced framing is used for all DPCD r1.2+ sinks as the spec requires.
->
-> Compile tested only.
->
-> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+Em qua., 28 de out. de 2026 =C3=A0s 18:28, Gabriel Ribeiro
+<ic.gabrielribeiro@gmail.com> escreveu:
 
-Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+> +    tiver uma conta em kernel.org, poder=C3=A1 se qualificar para recebe=
+r um
+> +    `Nitrokey Start gratuito`_ oferecido pela Linux Foundation.
 
-Here too the driver should probably use drm_dp_read_dpcd_caps(), but
-again beyond the patch.
+The original says "you qualify for a free Nitrokey Start ... courtesy of
+The Linux Foundation", which is a statement, while "poder=C3=A1 se qualific=
+ar"
+sounds uncertain. Maybe "voc=C3=AA tem direito a um `Nitrokey Start gratuit=
+o`_,
+cortesia da Linux Foundation"?
 
-> ---
->  drivers/gpu/drm/bridge/ite-it6505.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-> index e136ac71e..d798a3db7 100644
-> --- a/drivers/gpu/drm/bridge/ite-it6505.c
-> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-> @@ -1651,7 +1651,7 @@ static void it6505_parse_link_capabilities(struct it6505 *it6505)
->  	link->rate = drm_dp_bw_code_to_link_rate(it6505->dpcd[1]);
->  	link->num_lanes = it6505->dpcd[2] & DP_MAX_LANE_COUNT_MASK;
->  
-> -	if (it6505->dpcd[2] & DP_ENHANCED_FRAME_CAP)
-> +	if (drm_dp_enhanced_frame_cap(it6505->dpcd))
->  		link->capabilities = DP_ENHANCED_FRAME_CAP;
->  
->  	DRM_DEV_DEBUG_DRIVER(dev, "DPCD Rev.: %d.%d",
+> +de suas considera=C3=A7=C3=B5es sobre hardware e software abertos ou pro=
+priet=C3=A1rios.
 
--- 
-Jani Nikula, Intel
+The original says "open/proprietary hardware considerations". Was "e
+software" added on purpose?
+
+> +- Os tarballs v=C3=AAm acompanhados de assinaturas PGP separadas.
+
+"with all downloads" seems to be missing: "... separadas em todos os
+downloads".
+
+> +verificar automaticamente a assinatura do commit apontado pela tag e
+
+The original says "the signature at the tip you're pulling". Since Git
+verifies the tag signature, "a assinatura da tag que voc=C3=AA est=C3=A1 ob=
+tendo"
+may be more accurate, but your wording is a possible reading too.
+
+> +e pode revelar informa=C3=A7=C3=B5es sobre o cart=C3=A3o caso voc=C3=AA =
+o perca.
+> +sido conclu=C3=ADda::
+> +   commits tamb=C3=A9m ser=C3=A3o =C3=BAteis.
+
+Small differences in strength from the original: "will additionally
+leak" (revelar=C3=A1), "was successful" (bem-sucedida) and "even externally
+maintained trees ... will be valuable" (at=C3=A9 mesmo ... valiosas).
+
+> +sess=C3=A3o do shell. Confira seus arquivos rc e remova configura=C3=A7=
+=C3=B5es que
+
+"You may want to check" became an imperative. "Talvez seja bom conferir
+..." would keep the tone.
