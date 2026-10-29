@@ -1,48 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306571;
-	b=mKYnIS7pk4lb5in5CRuCTN6yguynTXUCskpCXHsR2wzKvtoiurpa0UQ5nX5LRH9cub2F
-	 cQGi07o3EOv5J3S1YXZdQ8kF+7yChhmad8pBkSaW7QLg0Ry80weC1QRUcwyh6E65yE1In
-	 +xxKSElgJ/TqGyAunf7MKwDZjBorMqN98Hjtz52lJqUPts9PER6pADHILvpaS2AVY9e9B
-	 O+nVdRMb0t7XvvIjYGPGKgdXG+ggx1fRwh/JsW0DSKuA9MR6mzzWRN6lRV7/BgV0wz65d
-	 woESz2mlH0BivKaVYBY84UeHXeMvvrjguhSNsoum+ejjfo1KJ48+6rLvdadASXKcm7A==
+	t=1793306582;
+	b=sUtYOSvfomSOZD26uNryaxp/3DskRkKnzaYVkPQKHjjsta4T3N73F4WC13An3QYoMdnO
+	 abqtQCl5UaQR32AiYmbY1/M/Xy8ThMJCXdC++PrtUWyc5nkT5Squnm1iEHwv/g9gYXolN
+	 qkmiB3KeJ5F7Licpqpt/NdUCMfMNFIdrYG6Qjtq5LG1NomAFJJDb2paJo6NGz+UQlpdKM
+	 EQMto4fJI6CpSQQn6zuuiTqPTdwauF17GpZ3A5Amk1ZbgMRTvCZOBWP7Qn7SJzb6bHXDP
+	 YN4MRJ/Dey3RqQ4YaqcWw5BSSlRGB9wXHtKsKUwMVOt1nWqeGDkirPTurhC0V+AAbCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306571;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=kpXCIXpYcOHF2fLMWL00r8Ods+QQon1CvytHhn7VrKk=;
-	b=DFtshfECQNIx5rgRFJbdPCUhX+6UtUv7gnO5NiC6JKylWOaenn9abjUWr+rHswbSCo83
-	 b7mOf6l1qVBWXi8UAUi1prnEohUDYOkS2LqD6FRI9GvB1AIWlREj6/84wkkkb7L3zaY0m
-	 OKUv++96+Hr6cx74rXmE6zx6v2+Iom8BLXM2w2/hZZjDUjzI62zzaB60JJJTRYmyXZ3s3
-	 4BYEwtvS3VxOkYGFj+pabtXW1P5El42OKYL1Cwp8YQe68VDmPGJf1Y36L5O/hPHVC/VUn
-	 iSZU2kSN1HZ577oeLgYLqtC7nyDB0Z7AMDdyFh83H14kH6kn76VCQrP/poXv0qYL7XQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306582;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=8EB6X63HmhBGoe3hO+SAln0p99Qs0qSFgOHbULntMgg=;
+	b=m3z2APl+k+32nUvuhaH/CMxtHA6yRo45vgLeAbDbYZsJ56ZE7y0rs0Yvl2M0XcHTvASN
+	 ROD4e8+9LoDlB8pAvS7Jxn5LvoqC5GyqdUd1FuUqezX1WY77dBA3qth58blchmUwfN+Pj
+	 9xb4yPmh4xDhWzMnBVB5md0VPdfzarGfNXjD5GMMKnnZEjg5z/fdkC68Ed1E9b4iMDjPa
+	 xGzSxhNeLqHi2RVKRS4sDG/l/CLQbmOHXDexFGoFNHQUO8yVyMKoAPkQf49mkTyz8aPYm
+	 FGxbkYg65gkiptGTiEezybf27F1s14Gh+Z1+DaL2LlSRXZFNa2ud9x3+O8E1HuSeZCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDF6T8wd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=goctmxa8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F713606A31D;
-	Thu, 29 Oct 2026 20:42:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953AE606A323;
+	Thu, 29 Oct 2026 20:43:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aDF6T8wd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8818A1F01816;
-	Thu, 29 Oct 2026 20:42:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=goctmxa8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADDF71F01816;
+	Thu, 29 Oct 2026 20:43:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306569;
-	bh=kpXCIXpYcOHF2fLMWL00r8Ods+QQon1CvytHhn7VrKk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=aDF6T8wd0gwxvp1VKLtvbP21SVeKqYd+Z/n9TTKCaj1ks+K8+3/OoymW2Ueh5TISk
-	 beWeu6pQTAma4+FTRF+x4WDQ2l2dQQFKlBuYVyDHOyeYk5BsJvmNNAFU2aMzzB0PEB
-	 aDyJRnnAxKtvQxcbB/gNhwhLir0cVhe9blCW050YcCC18n1aQqPMotNwXP4I4Kxfpi
-	 kgnBntgyeGb0BOAbuhjQoeOIJ+jmxBS/Dz/y6+z9AR9S1l+7cU1nbRAt2NJAeRXlun
-	 asqb7+6a1Z/McyDaGBwEYF5RNmDUc8d44V+kac87/OIskMGtjDSeG4SCTDxKCckUqu
-	 ltWhhFS/uRhtw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:33 +0100
-Subject: [PATCH v2 38/47] mm: fix deadlock of mremap() against UFFDIO_MOVE
+	s=k20260515; t=1793306581;
+	bh=8EB6X63HmhBGoe3hO+SAln0p99Qs0qSFgOHbULntMgg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=goctmxa8iCNCTXPaqmqzpPIfiqon7STyRcvOyHHTijPsV+Fnq7ortlEBHraN1S4Xo
+	 39XZtzStG0wciE448bKaFD+ifVKnWWI2wqq+CgiJbHGJy9FRlJHZk5vX779dqNz/z6
+	 OeujThPuSrlCeCv8DkduIaUJpUJWA1RdTdtIc/oyQmAg0WIS8XLxU90PZv7WILdWjj
+	 wXJQhQ9ELe26EjN+05T5X2rhV8+AChDJNDPTXpriAWtHuEE56tVfEWt/SSg2dyVfiW
+	 b3CQDuaRb9a/p9RMMhMxRtHg6Cx9FECGMsJrp41f1lXqe4XBM8NPRQrMu5kyQ7XB0j
+	 VVw16/3GX/Omg==
+Subject: Re: [PATCH net v2] net: Fix Hole-196 vulnerability by dropping
+ unicast ARP/IP in L2 BMC
+From: netdev-bot+sashiko@kernel.org
+To: starchang@google.com
+Cc: netdev@vger.kernel.org, dsahern@kernel.org, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-kernel@vger.kernel.org
+Date: Thu, 29 Oct 2026 20:43:00 +0000
+Message-ID: <179330658024.3134.909462706253869343@kernel.org>
+In-Reply-To: <20261026144032.1338614-1-starchang@google.com>
+References: <20261026144032.1338614-1-starchang@google.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,425 +63,398 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-38-a64ce7f83abb@kernel.org>
-References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12306; i=david@kernel.org;
- h=from:subject:message-id; bh=btZP0hs2mwmde+kZJSEFtckjPtPT8YReBmzeThVc37A=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer+3MXWF1sH9NzYbJRpu6+oW5Vn00ttB59OxtqJP3X
- stye9cnHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAExk6VOGP9xyhzJOvXM79XXe
- rgOXfWc5cfodENpXtO735x+ilRl29XIM/zPfSrI8vZhn/a7/mrXZ6cOuW6t7zrxfxXnwt56KwKu
- O3fwA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Chris Mason <mason@kernel.org>
+Thank you for your contribution! Sashiko AI review found 9 potential
+issue(s) to consider.
 
-With per-VMA locks, UFFDIO_MOVE can run concurrently with mremap()
-on different VMAs in the same mm. Those VMAs can share page tables, so
-both operations can acquire the same pair of page-table locks.
+Critical: 0 · High: 2 · Medium: 5 · Low: 2
 
-UFFDIO_MOVE orders the locks by address, while mremap() takes the source
-lock first. These conflicting orders can deadlock; mremap() holding
-mmap_lock for writing no longer helps.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Move double_pt_lock() and double_pt_unlock() to mm/internal.h and use
-them for all page-table moves in mremap(). Preserve the source entry
-checks after acquiring both locks. Remove the comments claiming that
-exclusive mmap_lock makes lock ordering irrelevant.
+- [High] The new ARP check in arp_process() (net/ipv4/arp.c) does not
+  stop the ARP-cache poisoning over L2 broadcast/multicast that the…
+- [High] Use-after-free read of a stale IP header pointer in
+  ip_rcv_finish_core() (net/ipv4/ip_input.c).
+- [Medium] The new UDP destination-port-68 exemption in
+  ip_rcv_finish_core() (net/ipv4/ip_input.c) weakens existing protection…
+- [Medium] The documented behaviour of the IPv4
+  drop_unicast_in_l2_multicast sysctl no longer matches the code, and…
+- [Medium] The commit message lists 'Dropped packets were silently
+  discarded without warnings or MIB stats' as a gap it fixes.
+- [Medium] In arp_process(), the new filter drops every ARP Reply
+  received via L2 broadcast/multicast unless sip == tip and tha == sha,…
+- [Medium] The patch adds net_warn_ratelimited() to receive-path drops
+  that any station sending L2 broadcast/multicast frames can trigger at…
+- [Low] The patch is titled 'net: Fix Hole-196 vulnerability' and
+  described as closing gaps in the existing sysctl, but it has no Fixes:…
+- [Low] The new is_valid_garp predicate in arp_process() duplicates, and
+  disagrees with, the existing arp_is_garp() helper in the same file,…
 
-In move_ptes(), make sure to just recheck source and destination PMD
-after taking the locks and drop the overly-long comment.
+--
 
-Fix generated by an LLM and sent by Chris Mason in private.
+net: Fix Hole-196 vulnerability by dropping unicast ARP/IP in L2 BMC
 
-[ david: use new helpers consistently; simplify description and comments;
-         move_ptes() fixup ]
+This patch extends the drop_unicast_in_l2_multicast sysctl to
+arp_process(). With it enabled, ARP Replies and ARP Requests with a
+unicast target hardware address are dropped when they arrive in L2
+broadcast/multicast frames.
 
-Fixes: 867a43a34ff8 ("userfaultfd: use per-vma locks in userfaultfd operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- include/linux/userfaultfd_k.h |  2 -
- mm/huge_memory.c              | 19 ++++------
- mm/hugetlb.c                  | 14 ++-----
- mm/internal.h                 | 28 ++++++++++++++
- mm/mremap.c                   | 87 +++++++++++++++++--------------------------
- mm/userfaultfd.c              | 27 --------------
- 6 files changed, 72 insertions(+), 105 deletions(-)
+It also exempts non-fragmented UDP packets to port 68 from the IPv4 drop
+in ip_rcv_finish_core(). Rate-limited warnings are added to the IPv4,
+IPv6 and ARP drop paths, plus an INHDRERRORS counter on the IPv4 path.
 
-diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-index a14b8a9ffb7b..565e98f342dc 100644
---- a/include/linux/userfaultfd_k.h
-+++ b/include/linux/userfaultfd_k.h
-@@ -153,8 +153,6 @@ extern int mrwprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
- 			    unsigned long len, bool enable_rwp);
- 
- /* move_pages */
--void double_pt_lock(spinlock_t *ptl1, spinlock_t *ptl2);
--void double_pt_unlock(spinlock_t *ptl1, spinlock_t *ptl2);
- int move_pages_huge_pmd(struct mm_struct *mm, pmd_t *dst_pmd, pmd_t *src_pmd, pmd_t dst_pmdval,
- 			struct vm_area_struct *dst_vma,
- 			struct vm_area_struct *src_vma,
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index c5aa0a0a407c..f1b3f744c630 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2646,15 +2646,11 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
- 		return false;
- 	}
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * ptlocks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptl = __pmd_trans_huge_lock(old_pmd, vma);
--	if (old_ptl) {
--		new_ptl = pmd_lockptr(mm, new_pmd);
--		if (new_ptl != old_ptl)
--			spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+	old_ptl = pmd_lockptr(mm, old_pmd);
-+	new_ptl = pmd_lockptr(mm, new_pmd);
-+
-+	double_pt_lock(old_ptl, new_ptl);
-+	if (likely(pmd_is_huge(*old_pmd))) {
- 		pmd = pmdp_huge_get_and_clear(mm, old_addr, old_pmd);
- 		if (pmd_present(pmd))
- 			force_flush = true;
-@@ -2683,11 +2679,10 @@ bool move_huge_pmd(struct vm_area_struct *vma, unsigned long old_addr,
- 		set_pmd_at(mm, new_addr, new_pmd, pmd);
- 		if (force_flush)
- 			flush_pmd_tlb_range(vma, old_addr, old_addr + PMD_SIZE);
--		if (new_ptl != old_ptl)
--			spin_unlock(new_ptl);
--		spin_unlock(old_ptl);
-+		double_pt_unlock(old_ptl, new_ptl);
- 		return true;
- 	}
-+	double_pt_unlock(old_ptl, new_ptl);
- 	return false;
- }
- 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index da5d04edf7c1..84141527fe73 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -5153,15 +5153,9 @@ static void move_huge_pte(struct vm_area_struct *vma, unsigned long old_addr,
- 	spinlock_t *src_ptl, *dst_ptl;
- 	pte_t pte;
- 
--	dst_ptl = huge_pte_lock(h, mm, dst_pte);
-+	dst_ptl = huge_pte_lockptr(h, mm, dst_pte);
- 	src_ptl = huge_pte_lockptr(h, mm, src_pte);
--
--	/*
--	 * We don't have to worry about the ordering of src and dst ptlocks
--	 * because exclusive mmap_lock (or the i_mmap_lock) prevents deadlock.
--	 */
--	if (src_ptl != dst_ptl)
--		spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
-+	double_pt_lock(dst_ptl, src_ptl);
- 
- 	pte = huge_ptep_get_and_clear(mm, old_addr, src_pte, sz);
- 
-@@ -5190,9 +5184,7 @@ static void move_huge_pte(struct vm_area_struct *vma, unsigned long old_addr,
- 		set_huge_pte_at(mm, new_addr, dst_pte, pte, sz);
- 	}
- 
--	if (src_ptl != dst_ptl)
--		spin_unlock(src_ptl);
--	spin_unlock(dst_ptl);
-+	double_pt_unlock(dst_ptl, src_ptl);
- }
- 
- int move_hugetlb_page_tables(struct vm_area_struct *vma,
-diff --git a/mm/internal.h b/mm/internal.h
-index 566cbd2dce48..824c2919a37f 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -624,6 +624,34 @@ static inline void force_page_cache_readahead(struct address_space *mapping,
- 	force_page_cache_ra(&ractl, nr_to_read);
- }
- 
-+/*
-+ * Take two page table locks at the same level in address order such that
-+ * we cannot deadlock.
-+ */
-+static inline void double_pt_lock(spinlock_t *ptl1, spinlock_t *ptl2)
-+	__acquires(ptl1)
-+	__acquires(ptl2)
-+{
-+	if (ptl1 > ptl2)
-+		swap(ptl1, ptl2);
-+	spin_lock(ptl1);
-+	if (ptl1 != ptl2)
-+		spin_lock_nested(ptl2, SINGLE_DEPTH_NESTING);
-+	else
-+		__acquire(ptl2);
-+}
-+
-+static inline void double_pt_unlock(spinlock_t *ptl1, spinlock_t *ptl2)
-+	__releases(ptl1)
-+	__releases(ptl2)
-+{
-+	spin_unlock(ptl1);
-+	if (ptl1 != ptl2)
-+		spin_unlock(ptl2);
-+	else
-+		__release(ptl2);
-+}
-+
- unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
- 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
- unsigned find_get_entries(struct address_space *mapping, pgoff_t *start,
-diff --git a/mm/mremap.c b/mm/mremap.c
-index 1237718848f5..70b7264aa6bf 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -202,7 +202,7 @@ static int move_ptes(struct pagetable_move_control *pmc,
- 	struct mm_struct *mm = vma->vm_mm;
- 	pte_t *old_ptep, *new_ptep;
- 	pte_t old_pte, pte;
--	pmd_t dummy_pmdval;
-+	pmd_t old_pmdval, new_pmdval;
- 	spinlock_t *old_ptl, *new_ptl;
- 	bool force_flush = false;
- 	unsigned long old_addr = pmc->old_addr;
-@@ -234,31 +234,30 @@ static int move_ptes(struct pagetable_move_control *pmc,
- 	if (pmc->need_rmap_locks)
- 		take_rmap_locks(vma);
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * pte locks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptep = pte_offset_map_lock(mm, old_pmd, old_addr, &old_ptl);
-+	old_ptep = pte_offset_map_rw_nolock(mm, old_pmd, old_addr, &old_pmdval,
-+					    &old_ptl);
- 	if (!old_ptep) {
- 		err = -EAGAIN;
- 		goto out;
- 	}
--	/*
--	 * Now new_pte is none, so collapse_scan_file() path can not find
--	 * this by traversing file->f_mapping, so there is no concurrency with
--	 * retract_page_tables(). In addition, we already hold the exclusive
--	 * mmap_lock, so this new_pte page is stable, so there is no need to get
--	 * pmdval and do pmd_same() check.
--	 */
--	new_ptep = pte_offset_map_rw_nolock(mm, new_pmd, new_addr, &dummy_pmdval,
--					   &new_ptl);
-+	new_ptep = pte_offset_map_rw_nolock(mm, new_pmd, new_addr, &new_pmdval,
-+					    &new_ptl);
- 	if (!new_ptep) {
--		pte_unmap_unlock(old_ptep, old_ptl);
-+		pte_unmap(old_ptep);
-+		err = -EAGAIN;
-+		goto out;
-+	}
-+
-+	double_pt_lock(old_ptl, new_ptl);
-+	if (unlikely(!pmd_same(old_pmdval, pmdp_get_lockless(old_pmd)) ||
-+		     !pmd_same(new_pmdval, pmdp_get_lockless(new_pmd)))) {
-+		double_pt_unlock(old_ptl, new_ptl);
-+		pte_unmap(new_ptep);
-+		pte_unmap(old_ptep);
- 		err = -EAGAIN;
- 		goto out;
- 	}
--	if (new_ptl != old_ptl)
--		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+
- 	flush_tlb_batched_pending(vma->vm_mm);
- 	lazy_mmu_mode_enable();
- 
-@@ -317,10 +316,9 @@ static int move_ptes(struct pagetable_move_control *pmc,
- 	lazy_mmu_mode_disable();
- 	if (force_flush)
- 		flush_tlb_range(vma, old_end - len, old_end);
--	if (new_ptl != old_ptl)
--		spin_unlock(new_ptl);
-+	double_pt_unlock(old_ptl, new_ptl);
- 	pte_unmap(new_ptep - 1);
--	pte_unmap_unlock(old_ptep - 1, old_ptl);
-+	pte_unmap(old_ptep - 1);
- out:
- 	if (pmc->need_rmap_locks)
- 		drop_rmap_locks(vma);
-@@ -395,14 +393,9 @@ static bool move_normal_pmd(struct pagetable_move_control *pmc,
- 	if (WARN_ON_ONCE(!pmd_none(*new_pmd)))
- 		return false;
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * ptlocks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptl = pmd_lock(mm, old_pmd);
-+	old_ptl = pmd_lockptr(mm, old_pmd);
- 	new_ptl = pmd_lockptr(mm, new_pmd);
--	if (new_ptl != old_ptl)
--		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+	double_pt_lock(old_ptl, new_ptl);
- 
- 	pmd = *old_pmd;
- 
-@@ -418,9 +411,7 @@ static bool move_normal_pmd(struct pagetable_move_control *pmc,
- 	pmd_populate(mm, new_pmd, pmd_pgtable(pmd));
- 	flush_tlb_range(vma, pmc->old_addr, pmc->old_addr + PMD_SIZE);
- out_unlock:
--	if (new_ptl != old_ptl)
--		spin_unlock(new_ptl);
--	spin_unlock(old_ptl);
-+	double_pt_unlock(old_ptl, new_ptl);
- 
- 	return res;
- }
-@@ -452,14 +443,10 @@ static bool move_normal_pud(struct pagetable_move_control *pmc,
- 	if (WARN_ON_ONCE(!pud_none(*new_pud)))
- 		return false;
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * ptlocks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptl = pud_lock(mm, old_pud);
-+	old_ptl = pud_lockptr(mm, old_pud);
- 	new_ptl = pud_lockptr(mm, new_pud);
--	if (new_ptl != old_ptl)
--		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+
-+	double_pt_lock(old_ptl, new_ptl);
- 
- 	pud = *old_pud;
- 	if (unlikely(pud_none(pud)))
-@@ -473,9 +460,7 @@ static bool move_normal_pud(struct pagetable_move_control *pmc,
- 	pud_populate(mm, new_pud, pud_pgtable(pud));
- 	flush_tlb_range(vma, pmc->old_addr, pmc->old_addr + PUD_SIZE);
- out_unlock:
--	if (new_ptl != old_ptl)
--		spin_unlock(new_ptl);
--	spin_unlock(old_ptl);
-+	double_pt_unlock(old_ptl, new_ptl);
- 
- 	return true;
- }
-@@ -503,16 +488,14 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
- 	if (WARN_ON_ONCE(!pud_none(*new_pud)))
- 		return false;
- 
--	/*
--	 * We don't have to worry about the ordering of src and dst
--	 * ptlocks because exclusive mmap_lock prevents deadlock.
--	 */
--	old_ptl = __pud_trans_huge_lock(old_pud, vma);
--	if (unlikely(!old_ptl))
--		return false;
-+	old_ptl = pud_lockptr(mm, old_pud);
- 	new_ptl = pud_lockptr(mm, new_pud);
--	if (new_ptl != old_ptl)
--		spin_lock_nested(new_ptl, SINGLE_DEPTH_NESTING);
-+
-+	double_pt_lock(old_ptl, new_ptl);
-+	if (unlikely(!pud_trans_huge(*old_pud))) {
-+		double_pt_unlock(old_ptl, new_ptl);
-+		return false;
-+	}
- 
- 	/* Clear the pud */
- 	pud = pudp_huge_get_and_clear(mm, pmc->old_addr, old_pud);
-@@ -523,9 +506,7 @@ static bool move_huge_pud(struct pagetable_move_control *pmc,
- 	/* mark soft_ditry when we add pud level soft dirty support */
- 	set_pud_at(mm, pmc->new_addr, new_pud, pud);
- 	flush_pud_tlb_range(vma, pmc->old_addr, pmc->old_addr + HPAGE_PUD_SIZE);
--	if (new_ptl != old_ptl)
--		spin_unlock(new_ptl);
--	spin_unlock(old_ptl);
-+	double_pt_unlock(old_ptl, new_ptl);
- 
- 	return true;
- }
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index dac696bda19f..169f681f9849 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -1206,33 +1206,6 @@ int mrwprotect_range(struct userfaultfd_ctx *ctx, unsigned long start,
- 	return 0;
- }
- 
--void double_pt_lock(spinlock_t *ptl1,
--		    spinlock_t *ptl2)
--	__acquires(ptl1)
--	__acquires(ptl2)
--{
--	if (ptl1 > ptl2)
--		swap(ptl1, ptl2);
--	/* lock in virtual address order to avoid lock inversion */
--	spin_lock(ptl1);
--	if (ptl1 != ptl2)
--		spin_lock_nested(ptl2, SINGLE_DEPTH_NESTING);
--	else
--		__acquire(ptl2);
--}
--
--void double_pt_unlock(spinlock_t *ptl1,
--		      spinlock_t *ptl2)
--	__releases(ptl1)
--	__releases(ptl2)
--{
--	spin_unlock(ptl1);
--	if (ptl1 != ptl2)
--		spin_unlock(ptl2);
--	else
--		__release(ptl2);
--}
--
- static inline bool is_pte_pages_stable(pte_t *dst_pte, pte_t *src_pte,
- 				       pte_t orig_dst_pte, pte_t orig_src_pte,
- 				       pmd_t *dst_pmd, pmd_t dst_pmdval)
+> net: Fix Hole-196 vulnerability by dropping unicast ARP/IP in L2 BMC
+
+[Severity: Low]
+The subject calls this a vulnerability fix, but there is no Fixes: tag
+and no target tree.
+
+Most of the patch changes what the sysctl does:
+
+  - ARP filtering under a knob documented as IP-only
+  - a new UDP/68 exemption
+  - new logging
+
+Is this meant for net-next? If it is meant as a fix, should it carry a
+Fixes: tag for the commit that added drop_unicast_in_l2_multicast? That
+would keep stable backports from picking up a user-visible behaviour
+change based on the subject alone.
+
+> 3. Dropped packets were silently discarded without warnings or MIB stats.
+
+[Severity: Medium]
+Is this accurate? In ip6_rcv_core() the existing drop already jumps to
+err, which counts the packet:
+
+err:
+	__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
+	SKB_DR_OR(reason, IP_INHDR);
+
+IPv4 and IPv6 also already reported SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST
+through kfree_skb_reason(), so the IPv6 hunk only adds a log line.
+
+The new ARP drops in arp_process() do the opposite. They use goto
+out_free_skb, which is a plain kfree_skb(skb) with no MIB counter and no
+drop reason.
+
+Should the ARP drops use SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST and a
+counter, as the commit message describes for all dropped frames?
+
+> diff --git a/net/ipv4/arp.c b/net/ipv4/arp.c
+> index 1ca4ced280ae..9f6715a5b547 100644
+> --- a/net/ipv4/arp.c
+> +++ b/net/ipv4/arp.c
+> @@ -794,6 +794,35 @@ static int arp_process(struct net *net, struct sock *sk, struct sk_buff *skb)
+>  	    (!IN_DEV_ROUTE_LOCALNET(in_dev) && ipv4_is_loopback(tip)))
+>  		goto out_free_skb;
+>  
+> +/*
+> + * Hole-196 defense for ARP:
+> + * If drop_unicast_in_l2_multicast sysctl is enabled on this interface,
+> + * drop ARP Replies in L2 BMC frames, and ARP Requests in L2 BMC frames
+> + * that specify a non-zero unicast Target Hardware Address (tha).
+> + *
+> + * Legitimate Gratuitous ARP (GARP) and RFC 5227 Address Announcements
+> + * require (sip == tip) and tha matching sha (tha == sha). Only valid
+> + * GARP frames are exempted so they defer to DROP_GRATUITOUS_ARP below.
+> + */
+> +	if ((skb->pkt_type == PACKET_BROADCAST ||
+> +	     skb->pkt_type == PACKET_MULTICAST) &&
+> +	    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
+
+[Severity: Medium]
+Documentation/networking/ip-sysctl.rst still describes the IPv4 knob
+this way:
+
+drop_unicast_in_l2_multicast - BOOLEAN
+	Drop any unicast IP packets that are received in link-layer
+	multicast (or broadcast) frames.
+
+After this patch the same devconf bit behaves differently:
+
+  - It drops ARP Replies and unicast-THA ARP Requests here, and ARP
+    is not IP.
+  - It no longer drops every unicast IP packet in
+    ip_rcv_finish_core(), because of the UDP dport 68 exemption.
+
+The IPv6 entry and ip6_rcv_core() keep the strict behaviour, with no
+DHCPv6 port 546 exemption and no ND filtering. So the same documented
+knob now differs per address family.
+
+Should ip-sysctl.rst be updated as part of this change?
+
+> +		bool is_valid_garp = (sip == tip) && tha &&
+> +				     !memcmp(tha, sha, dev->addr_len);
+
+[Severity: Low]
+This duplicates arp_is_garp(), which arp_process() already calls later,
+and the two disagree. arp_is_garp() requires tha == sha only for
+replies:
+
+	bool is_garp = tip == sip;
+
+	/* Gratuitous ARP _replies_ also require target hwaddr to be
+	 * the same as source.
+	 */
+	if (is_garp && ar_op == htons(ARPOP_REPLY))
+		is_garp =
+			...
+			tha &&
+			!memcmp(tha, sha, dev->addr_len);
+
+The new predicate requires tha == sha for both opcodes. Take a
+gratuitous Request with sip == tip and a unicast tha that differs from
+sha:
+
+  - arp_is_garp() treats it as GARP.
+  - This code drops it as a unicast THA request.
+
+That means it never reaches the DROP_GRATUITOUS_ARP check that the
+comment says it defers to. That check also treats any sip == tip frame
+as gratuitous.
+
+Is the comment right that GARP and RFC 5227 announcements "require
+(sip == tip) and tha matching sha (tha == sha)"? RFC 5227 says tha is
+ignored and SHOULD be zero. The kernel's own
+inetdev_send_gratuitous_arp() sends:
+
+	arp_send(ARPOP_REQUEST, ETH_P_ARP,
+		 ifa->ifa_local, dev,
+		 ifa->ifa_local, NULL,
+		 dev->dev_addr, NULL);
+
+and arp_create() zeroes tha. That frame gets through only because
+is_valid_ether_addr() is false for a zero address. It is not
+recognised as GARP.
+
+On ARPHRD_IEEE1394, tha is NULL, so is_valid_garp can never be true.
+Would every broadcast ARP Reply on those devices be dropped, GARP
+included?
+
+> +
+> +		if (arp->ar_op == htons(ARPOP_REPLY) && !is_valid_garp) {
+> +			net_warn_ratelimited("Drop ARP Reply in L2 BMC on %s\n",
+> +					     dev->name);
+> +			goto out_free_skb;
+> +		}
+
+[Severity: Medium]
+This drops every ARP Reply that arrives in an L2 broadcast/multicast
+frame unless sip == tip and tha == sha. That includes replies to our own
+outstanding requests. The commit message talks about "unsolicited ARP
+Replies". Is dropping solicited replies intended too?
+
+Two cases look affected.
+
+First, RFC 3927 section 2.5 requires ARP replies from IPv4 link-local
+(169.254/16) senders to be link-layer broadcast. Those have sip != tip,
+so they are always dropped here. Would that break link-local neighbour
+resolution and conflict defence when the sysctl is on?
+
+Second, gratuitous replies with sip == tip and tha set to
+ff:ff:ff:ff:ff:ff or zero used to reach the "Update our ARP tables"
+block, where neigh_update(n, sha, ...) refreshes an existing entry for
+sip. Some failover implementations send this format, and they are now
+dropped first. Does that conflict with "preserving VRRP/HSRP router
+failover" in the commit message?
+
+The existing neighbour update code already expects broadcast replies:
+
+		/* Broadcast replies and request packets
+		   do not assert neighbour reachability.
+		 */
+		if (arp->ar_op != htons(ARPOP_REPLY) ||
+		    skb->pkt_type != PACKET_HOST)
+			state = NUD_STALE;
+
+> +		if (dev->addr_len == ETH_ALEN && tha &&
+> +		    is_valid_ether_addr(tha) && !is_valid_garp) {
+> +			net_warn_ratelimited("Drop unicast THA ARP Req in L2 BMC on %s\n",
+> +					     dev->name);
+> +			goto out_free_skb;
+> +		}
+
+[Severity: High]
+Does this stop the ARP cache poisoning described in the commit message?
+The neighbour cache is written from sha and sip, not from tha.
+
+Consider a broadcast ARP Request with:
+
+  tha = 00:00:00:00:00:00 (or ff:ff:ff:ff:ff:ff)
+  tip = victim's IP
+  sip = gateway IP
+  sha = attacker MAC
+
+It passes both new checks: it is not a Reply, and
+is_valid_ether_addr(tha) is false. Since sip != tip, DROP_GRATUITOUS_ARP
+does not apply either. Then:
+
+arp_process()
+  ip_route_input_noref(skb, tip, sip, 0, dev) == 0, rt_type RTN_LOCAL
+  arp_ignore() returns 0 by default
+  neigh_event_ns(tbl, sha, &sip, dev)
+    neigh_update(neigh, lladdr, NUD_STALE, NEIGH_UPDATE_F_OVERRIDE, 0);
+
+That overwrites the victim's entry for the gateway with the attacker's
+MAC. For packets that pass this filter, the "Update our ARP tables"
+block also rewrites any existing entry for sip from sha.
+
+A forged broadcast GARP Reply (sip == tip, tha == sha) is exempted on
+purpose. Later it gets override forced because arp_is_garp() returns
+true:
+
+		override = time_after(jiffies,
+				      n->updated +
+				      NEIGH_VAR(n->parms, LOCKTIME)) ||
+			   is_garp;
+
+The lab test in the commit message sets tha to the victim's unicast
+MAC, but tha plays no part in the poisoning. Wouldn't the filter need
+to act on what is learned from sha/sip, rather than on tha, to close
+this?
+
+> diff --git a/net/ipv4/ip_input.c b/net/ipv4/ip_input.c
+> index 9860178752b8..f863aa293020 100644
+> --- a/net/ipv4/ip_input.c
+> +++ b/net/ipv4/ip_input.c
+> @@ -456,10 +456,33 @@ static int ip_rcv_finish_core(struct net *net,
+
+[ ... ]
+
+>  		if (in_dev &&
+>  		    IN_DEV_ORCONF(in_dev, DROP_UNICAST_IN_L2_MULTICAST)) {
+> -			drop_reason = SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
+> -			goto drop;
+> +			bool is_dhcp_resp = false;
+> +
+> +			iph = ip_hdr(skb);
+> +			if (iph->protocol == IPPROTO_UDP && !ip_is_fragment(iph) &&
+> +			    pskb_may_pull(skb, iph->ihl * 4 + sizeof(struct udphdr))) {
+> +				const struct udphdr *uh;
+> +
+> +				iph = ip_hdr(skb);
+> +				uh = (const struct udphdr *)(skb_network_header(skb) +
+> +							    iph->ihl * 4);
+> +				if (uh->dest == htons(68))
+> +					is_dhcp_resp = true;
+
+[Severity: Medium]
+Does this exemption weaken the existing protection without reaching its
+goal? Before the patch, every unicast IPv4 packet in an L2 BMC frame was
+dropped. Now any non-fragmented unicast UDP datagram to port 68 gets
+through. There is no check for source port 67 or for a DHCP payload.
+
+Under RFC 2131 section 4.1, a server sends replies in one of two ways,
+and neither reaches this check:
+
+  - to IP broadcast 0xffffffff, which is RTN_BROADCAST and takes the
+    earlier branch
+  - as L2 unicast to chaddr, which is PACKET_HOST
+
+During lease negotiation the client has no IPv4 address yet, so
+ip_route_input_slow() fails fib_lookup and takes this path:
+
+no_route:
+	RT_CACHE_STAT_INC(in_no_route);
+	res->type = RTN_UNREACHABLE;
+	res->fi = NULL;
+	res->table = NULL;
+	goto local_input;
+
+and then at local_input:
+
+	if (res->type == RTN_UNREACHABLE) {
+		rth->dst.input= ip_error;
+
+So an exempted DHCPOFFER/DHCPACK is dropped by ip_error() anyway.
+
+What the exemption does allow is unicast UDP:68 injection into
+configured hosts, such as a forged DHCPACK during RENEW, or FORCERENEW.
+The sysctl used to block that. Is this intended?
+
+> +			}
+> +
+> +			if (!is_dhcp_resp) {
+> +				net_warn_ratelimited("Drop unicast IP %pI4 in L2 BMC on %s\n",
+> +						     &iph->daddr, dev->name);
+
+[Severity: High]
+Can iph point at freed memory here? It is only reloaded when
+pskb_may_pull() succeeds, but pskb_may_pull() can reallocate skb->head
+and still return false.
+
+pskb_may_pull_reason() calls skb_might_realloc() before checking the
+length:
+
+	skb_might_realloc(skb);
+
+	if (likely(len <= skb_headlen(skb)))
+		return SKB_NOT_DROPPED_YET;
+
+	if (unlikely(len > skb->len))
+		return SKB_DROP_REASON_PKT_TOO_SMALL;
+
+With CONFIG_FAIL_SKB_REALLOC, skb_might_realloc() runs
+pskb_expand_head() and frees the old head. A crafted UDP packet with
+tot_len=20 and no UDP header then fails the len > skb->len check.
+
+__pskb_pull_tail() can also expand the head when eat > 0 or the skb is
+cloned, and then return NULL in the frag_list path, for example when
+skb_clone(list, GFP_ATOMIC) fails.
+
+In both cases is_dhcp_resp stays false, and &iph->daddr reads the old
+head. The commit message says the reload is there "to prevent dangling
+pointer access". Should iph be reloaded unconditionally after the pull,
+or should daddr be saved before it?
+
+> +				__IP_INC_STATS(net, IPSTATS_MIB_INHDRERRORS);
+> +				drop_reason = SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST;
+> +				goto drop;
+> +			}
+>  		}
+>  	}
+>  
+> diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
+> index d332ec60f915..816ee7874076 100644
+> --- a/net/ipv6/ip6_input.c
+> +++ b/net/ipv6/ip6_input.c
+> @@ -278,6 +278,8 @@ static struct sk_buff *ip6_rcv_core(struct sk_buff *skb, struct net_device *dev,
+>  	    (skb->pkt_type == PACKET_BROADCAST ||
+>  	     skb->pkt_type == PACKET_MULTICAST) &&
+>  	    READ_ONCE(idev->cnf.drop_unicast_in_l2_multicast)) {
+> +		net_warn_ratelimited("IPv6: Drop unicast IP %pI6c in L2 BMC on %s\n",
+> +				     &hdr->daddr, dev->name);
+
+[Severity: Medium]
+Any station that can send L2 broadcast/multicast frames can trigger
+this warning whenever it likes. The same goes for the new warnings in
+ip_rcv_finish_core() and the two ARP drops in arp_process().
+
+net_warn_ratelimited() goes through net_ratelimit(), which shares one
+ratelimit state with every net_*_ratelimited() caller:
+
+#define net_ratelimited_function(function, ...)			\
+do {								\
+	if (net_ratelimit())					\
+		function(__VA_ARGS__);				\
+} while (0)
+
+Couldn't the GTK-holding attacker this sysctl targets keep that budget
+used up? That would hide unrelated networking warnings and fill dmesg
+with addresses the attacker chooses.
+
+RFC 1122 section 3.3.6, quoted in ip_rcv_finish_core(), says these
+datagrams SHOULD be silently discarded. The existing
+SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST already shows them through the
+kfree_skb tracepoint. Would leaving these drops silent be preferable?
+
+>  		SKB_DR_SET(reason, UNICAST_IN_L2_MULTICAST);
+>  		goto err;
+>  	}
 
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026144032.1338614-1-starchang%40google.com
