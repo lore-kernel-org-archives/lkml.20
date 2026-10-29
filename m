@@ -1,85 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281427;
-	b=YybJ3spvuJTiRUA+sGwoNKN1Yf0QFTk7zOFZmWTcCHUGxm6Q6raLOYddtcg4MUqanr4r
-	 U1Voffzvc3OenTscEcsJnerUKVIwSIAY5gXbMbxB2+Yf3u0bNyQ+FlCJ33kyYhre0Lb26
-	 xt0cfh/MkWqxno7yaFHF0fyPNX1GXi8TO4z3d1ZXLhC+799LzZZ15W+HDC0fhOeJQxMgU
-	 +FyQ+j8qookcHnccsBCy4G1t6ngKC5/y9eC+PJC0WONmpBnbjgMCpsJyK1FpWqf2xuJ4j
-	 66ZAzJ+6PShsruH9Zebxa8AYtSxvM2qLipBf823luvnAP1wEGUGjjeHeQ8wUJRZmmRQ==
+	t=1793281431;
+	b=bs1B/rfE25IXPYP7s4QzzVcllIfuuFwarwih98XVJyWAhzST89Z84ZcpeSd/z7u/iMHr
+	 RIrmo2pkOyGOc6So7r5Z0fbbI0D0U6UryaFZxWfu61Ke8nZnEjA2nAk7Sfj3xMFplWpJZ
+	 qIUp1prf5omxr/CMFfLiWZlQWfguUBRu5whW5TccGbD1srSfdTZzrgur3K3hBiwSVNHJT
+	 xtUOKm0/k5J0DsCfeHKkvo9jcWZBPGHaYW69fEI2IptaoMI84vMYWhJvmU0sb7k2qZQuf
+	 Igp3st6FsWco9PZx+HrFXTuqm9r+CPggUwom8MUfwoAXEbgSaAcpMhzQfitEbJfdJtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281427;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=MJn0jfefkcjE8a3q5VwEl1+DWK/Z06yd9iQxNjsHeT0=;
-	b=YmB5Z/5hS0W7tO6q1up3qpNoht+QadCat68eMnX/g6FTf6Zbkdlse7wOjMUXhErv1Y4a
-	 RKI+/zlNiW2e63bp0buZHPtJkkwsetXX1Z5e2fNQbsRolzwMAsgfcCiqsmfl33Ny7TP8d
-	 /IgkGwm3VPU0tJvgcpW0HTgxMxFjfvPXaxmhBKBDUb4a0FAQbtTWOUGc5pmF3/y8ZkSbP
-	 CHjvm0bsFx4GKaZSjsF8J3Zxj8Lekg2RorFStVtYpaild7328QCVyXyjrB2nGpiYua4s0
-	 oAD/vEXek2Ji6c5mWiSljv6dLzqrv7ynCWo3DbBB21GqKbwueO0kvx5wiNElI9Z2o2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281431;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=AeOMU0UVhm1pYfZM16LNB5VdSJefDDC2GiVbKn1hRJM=;
+	b=tADbkJih9up4+X99D28S+eHUJUGy5qqZkXvkBid55vEFfpCxo9uakZ3OHsokmsCB96Qb
+	 VtQPGij+xHeMZ130B+kNJo5wsbj+2uC9UROWkRKnqQyCAYP8wWyjvBme9+HslBqqB/Dv+
+	 //AbMB6/tSjLORU1RdSsf5CSq4FCED4dPZJwAOKtOD02xRVaYdQAE7t9hUaqL7FX8D64u
+	 +TtA9y7PwBefCxfWMW338C279WaS5McfprCUPyZc8NCx7EJoxnkPYhvqacaePs/SCbKEe
+	 aCmADDNJr4taohssrLHZ3kkaN5aVnudDXi2cmwohsKFS/ncuH7v+8g88A1WlCMzu9kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Q//xnx6C";
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0b1pCsm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE8E606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:43:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BE8E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825DC606A31A;
+	Thu, 29 Oct 2026 13:43:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q//xnx6C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793281427; x=1824817427;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=zFZt8PgITT+BpaBniFh8F+LtZH9LpS21POyhExpYbzI=;
-  b=Q//xnx6CPNFDKf3befvtC6ep6vYj87P6Ce1RnCn8eyVNPixl3gbaFGpe
-   lOTnLPw6USpEg16KK/PNaj0m+Tli3Yov+xHG4QxtArskm/XOz4wSFnkjh
-   MB3YzdtJf/KcIE6LdyPYmVk8De6kVO4XNuaXiotc8HLMlbMLnSuM2kKb6
-   LOMzcSGpREWp91aPhCbPBEXosdUShNSGSJ0QHRCOmBiBz1f52Z9SDORtM
-   Wle25zEh9Rcr54h4ftFv6D4btIXaobHx0kZjYMwFSiJWOXIOnUdiB3JkD
-   yll96v8B/YjWy/vTKp9itqjQrxXa9rSx2jHUArx8UzUgtxwUoIOHhQNFb
-   g==;
-X-CSE-ConnectionGUID: i+uT3X30SfCfy84dQu4T6Q==
-X-CSE-MsgGUID: YQ1N6hnqSCeS4pe/cWXVSg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2058291"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="2058291"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:43:46 -0700
-X-CSE-ConnectionGUID: W4dphpgISpy646ilS2SgmA==
-X-CSE-MsgGUID: azdHLBbSTVu7n+GAonnHtg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5489030"
-Received: from gklab-096-123.igk.intel.com ([10.91.96.123])
-  by fmviesa008.fm.intel.com with ESMTP; 29 Oct 2026 06:43:44 -0700
-From: Michal Camacho Romero <michal.camacho.romero@intel.com>
-To: Lu Baolu <baolu.lu@linux.intel.com>
-Cc: Ning Sun <ning.sun@intel.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Michal Camacho Romero <michal.camacho.romero@intel.com>,
-	x86@kernel.org,
-	iommu@lists.linux.dev,
-	tboot-devel@lists.sourceforge.net,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0b1pCsm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99C511F01825;
+	Thu, 29 Oct 2026 13:43:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793281431;
+	bh=AeOMU0UVhm1pYfZM16LNB5VdSJefDDC2GiVbKn1hRJM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=j0b1pCsmoW7HAbGu6HZinrrCP5kH12dPc/1BpyW3BZ6gT3NYfzvNueZVvHlS0elWS
+	 58m5WDiDenpCXmzbl2Yk8dk2k1cV5OAQtGCHKhJ1/+t3YxjcXQ/him2alvmtm2XLUY
+	 e+g+WKyBOn84NkXeivCMxRuR+zZK4txcwzubqAcyehDzxUA/htVrQj3RvyOUrjDa5L
+	 pvOoQQYNKihbfa8n05XNOMj/BbEs74RNndHyFJR+3IxvLzxjT33BYc/GBuIaib9ix0
+	 kcisD0UgazehBkhvBEBsg+5o6JeSq6oBQ7cakdYhQEA6QsgtU/Ysw3TKjxcdGv49Ez
+	 JZiprJMMSMuIw==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
 	linux-kernel@vger.kernel.org,
-	Mateusz Mowka <mateusz.mowka@intel.com>,
-	Adam Pawlicki <adamx.pawlicki@intel.com>,
-	Pawel Randzio <pawel.randzio@intel.com>,
-	Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-Subject: [PATCH v7 2/2] iommu/vt-d: Disable TXT TPRs before enabling queued invalidation
-Date: Thu, 29 Oct 2026 14:41:49 +0100
-Message-ID: <20261029134149.3498677-1-michal.camacho.romero@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <3a78df93-845a-4432-8aa1-fc4939f4f400@linux.intel.com>
-References: <3a78df93-845a-4432-8aa1-fc4939f4f400@linux.intel.com>
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [PATCH 6.18 000/109] 6.18.60-rc1 review
+Date: Thu, 29 Oct 2026 14:43:41 +0100
+Message-ID: <20261029134341.26316-1-ojeda@kernel.org>
+In-Reply-To: <20261028165942.357251485@linuxfoundation.org>
+References: <20261028165942.357251485@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,128 +75,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
+On Wed, 28 Oct 2026 17:59:44 +0100 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 6.18.60 release.
+> There are 109 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
 
-When the SINIT ACM establishes TXT Protection Regions (TPRs), they block
-all inbound DMA to their protected range, including the IOMMU's own
-queued invalidation (QI) ring. If the TPRs are still active when QI is
-first enabled, the first invalidation faults with an Invalidation Queue
-Error and the boot hangs. On systems with interrupt remapping enabled
-this happens very early, in intel_setup_irq_remapping() ->
-dmar_enable_qi(), well before init_dmars().
+Boot-tested under QEMU for Rust x86_64, arm64 and riscv64; built-tested
+for loongarch64 and arm32:
 
-Link: https://uefi.org/sites/default/files/resources/633933_Intel_TXT_DMA_Protection_Ranges_rev_0p73.pdf
-Link: https://cdrdv2-public.intel.com/315168/315168_TXT_MLE_DG_rev_017_7.pdf
+Tested-by: Miguel Ojeda <ojeda@kernel.org>
 
-Tested-by: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-Signed-off-by: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
----
-Changes since v6:
-- Retitled from "iommu/vt-d: Disable PMRs and skip force-IOMMU when TXT
-  TPRs are active", reflecting a substantially reworked approach:
-  * TPRs are now torn down early in parse_dmar_table(), before any
-    dmar_enable_qi() (the real fix for the IQE boot hang on IR/x2apic
-    systems), instead of in intel_iommu_init() after translation is
-    enabled.
-  * tboot_force_iommu() is no longer modified. The IOMMU is forced on
-    exactly as before, so booting intel_iommu=off on a TPR-capable
-    platform behaves as upstream.
-  * All TPR/DTPR/txt_heap states are kept internal to tboot.c. The IOMMU
-    driver now uses only parameterless helpers (tboot_check_tprs(),
-    tboot_teardown_tprs(), tboot_is_tpr_protection_enabled(),
-    tboot_free_txt_heap_mem()). All TBOOT state leaks into the driver
-    have been eliminated.
-  * TPR teardown runs only on a successful DMAR table parse.
-  * Using intel_iommu=tboot_noforce now suppresses the TPR-related panic.
+Thanks!
 
- drivers/iommu/intel/dmar.c  | 19 +++++++++++++++++++
- drivers/iommu/intel/iommu.c | 18 ++++++++++++++++++
- 2 files changed, 37 insertions(+)
-
-diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
-index ba675b08cd208..5e59aa46721e6 100644
---- a/drivers/iommu/intel/dmar.c
-+++ b/drivers/iommu/intel/dmar.c
-@@ -675,6 +675,25 @@ parse_dmar_table(void)
- 	if (ret == 0 && drhd_count == 0)
- 		pr_warn(FW_BUG "No DRHD structure found in DMAR table\n");
- 
-+	/*
-+	 * Only on a successful DMAR parse: if SINIT programmed TXT TPRs for DMA
-+	 * protection, disable them here, before any queued invalidation (QI) is
-+	 * enabled. TPRs block all inbound DMA to their protected range, including
-+	 * the IOMMU's own QI ring, so leaving them active makes the first queued
-+	 * invalidation fault (Invalidation Queue Error) and hangs the boot on any
-+	 * system with interrupt remapping enabled.
-+	 *
-+	 * If parsing failed, dmar_table_init() propagates the error and both the
-+	 * IOMMU and IRQ remmaping preparation will be aborted, before QI will
-+	 * be enabled, so the TPRs are left in place and SINIT's DMA protection
-+	 * will be retained.
-+	 */
-+	if (ret == 0 && tboot_enabled()) {
-+		tboot_check_tprs();
-+		if (tboot_teardown_tprs() != 0)
-+			pr_warn("tboot: Failed to disable TPRs. DMA is still blocked.\n");
-+	}
-+
- 	return ret;
- }
- 
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 2e3b3ab216f8f..8cb9096b8d732 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -2648,6 +2648,15 @@ int __init intel_iommu_init(void)
- 
- 	init_no_remapping_devices();
- 
-+	/*
-+	 * SINIT TPRs (if any were active) should be already torn down during DMAR
-+	 * Table parsing process. If the teardown failed, DMA (including the IOMMU's
-+	 * own QI ring) is still blocked, so refuse to continue a forced launch
-+	 * rather than hang mid-init.
-+	 */
-+	if (tboot_is_tpr_protection_enabled() && !intel_iommu_tboot_noforce)
-+		panic("tboot: Failed to disable TPRs. DMA is still blocked.\n");
-+
- 	ret = init_dmars();
- 	if (ret) {
- 		if (dmar_policy_force_on())
-@@ -2698,6 +2707,14 @@ int __init intel_iommu_init(void)
- 
- 		iommu_disable_protect_mem_regions(iommu);
- 	}
-+
-+	/*
-+	 * Release the TXT heap mapping if it is still held. TPRs (and the
-+	 * heap) are normally torn down in parse_dmar_table(); this is a
-+	 * safety net for paths where no TPRs were active.
-+	 */
-+	tboot_free_txt_heap_mem();
-+
- 	up_read(&dmar_global_lock);
- 
- 	pr_info("Intel(R) Virtualization Technology for Directed I/O\n");
-@@ -2707,6 +2724,7 @@ int __init intel_iommu_init(void)
- 	return 0;
- 
- out_free_dmar:
-+	tboot_free_txt_heap_mem();
- 	intel_iommu_free_dmars();
- 	up_write(&dmar_global_lock);
- 	return ret;
--- 
-2.43.0
-
----------------------------------------------------------------------
-Intel Technology Poland sp. z o.o.
-ul. Slowackiego 173 | 80-298 Gdansk | Sad Rejonowy Gdansk Polnoc | VII Wydzial Gospodarczy Krajowego Rejestru Sadowego - KRS 101882 | NIP 957-07-52-316 | Kapital zakladowy 200.000 PLN.
-Spolka oswiadcza, ze posiada status duzego przedsiebiorcy w rozumieniu ustawy z dnia 8 marca 2013 r. o przeciwdzialaniu nadmiernym opoznieniom w transakcjach handlowych.
-
-Ta wiadomosc wraz z zalacznikami jest przeznaczona dla okreslonego adresata i moze zawierac informacje poufne. W razie przypadkowego otrzymania tej wiadomosci, prosimy o powiadomienie nadawcy oraz trwale jej usuniecie; jakiekolwiek przegladanie lub rozpowszechnianie jest zabronione.
-This e-mail and any attachments may contain confidential material for the sole use of the intended recipient(s). If you are not the intended recipient, please contact the sender and delete all copies; any review or distribution by others is strictly prohibited.
-
+Cheers,
+Miguel
