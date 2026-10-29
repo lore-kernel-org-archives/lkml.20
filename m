@@ -1,95 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793289074;
-	b=EsunX17SmBuS1F70pubJ7wgBlBZgpQNaIzrEI9VrD5F5as8pKyrd2XBMgw1CY4q7gw4a
-	 Oj11Ydvcm6Jpz8ReJ33H9v1d48RdJxe3dTf3yDkiychHRB/a+T5N3YfUBOcAjoKOsoiij
-	 6xDRbJUNQwOmjEbpLD+0rKD6/u23xRwinm9uulnM9Nizb7o9NtR6nbYe95qe3OpMUfGVu
-	 NyPniwXVKIeITHnXop7FT1u3ibFqQBVPVADCgUma6ZRLQW84IWBm5dPeF/mPpokcoD145
-	 Dk4P9F7f9hiH54D0qJz8TQhuMm2f+rc3DUeuAYu4W3TAFwG7Fl3PKB6bYdZ31sKP9Vw==
+	t=1793289075;
+	b=1F8v02Iyk0jxw8dn2czeVGR1jcTNn16vYY2lW0as+HPCsU6IoaOeHutblcrdkT/Ga92v
+	 yROk4wRtTqwLSP9C9IvAbhHZLn6MTmY96siiO3QSifXp1VOdEYPshVfgw8KXpr4gbuwLm
+	 Xxsp48LR9g4UMh6LzfmftwPFYHj8G0+1VMzYfe0/7mNNW7VoK8cqP8iYYpJ5WZ+ijXQuZ
+	 MFMmaOm8imNAk3a3Qe3VdhSKaapnLLJlWlW43WjUaBhmY3MIhZgoBtWR7a3grxTjWcWuN
+	 nJV5U05Cg7H08O7goEuEHZRfOiQ3N2JemXQiwSJXLQtCl5uvcPxBt9tl6IwAYs/tfeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289074;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=mbJfvSboS29jhnmPXsF9OyXPZWVJ9ZMdQ/k6fmGAbq4=;
-	b=pRzVwAxACZ0s2gdr2ZfnIzIIAokljDb5nXro6i95JtwMLqI0aFqeFortdPzat99DUa9e
-	 vcWbZiUtEYNpMvSrMoz5yGWx8BCzbsBH6rmfO18yDkjnvkW8EfFxKON7qSZ3/VbQfghjJ
-	 CFZFUbeB/c5Mxw8dhX2Uj8o8IphtUSrUzFqQjpv6TFtYCp1UtG4sirn1SSaa31ciZ2mJU
-	 6jH5Gz8m659LOTqP1GlQvq7Ylo+yIiJVf8JDzCoBfai8exjapplE7oA6Anoo7xVF2k7sb
-	 CVsxDp8Apepdr+KEyZU4lOhzydE8UB3DRrul5P0qLV7FkuQV9O0wqc2FcVCnvKHhZsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793289075;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Received:Received:From:To:cc:Subject:In-reply-to:References:
+	 Comments:X-Mailer:MIME-Version:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:Date:Message-ID;
+	bh=G8IdhrDXDBt1/l9BcZ1dObhwhVGEgfMLpd+Ls7Sf1zk=;
+	b=FSzpPo4z/PBMD3pyiHqjWY4z+BLx2FMizuNHytuD3M3CQRO9UaOS/tjf2ypZidtRgoqE
+	 +Oz5/DSPolX8T5bOb08DpNg0Znw6uJvOzjdGSv6JQe/NqRoRxbi9fDedWPffocJfkjSnQ
+	 DGfoBiguufJPHQRHBJl8B+U9ZFs2CawKHx107rk1okC0ZEGpAz9+M1LOn8d5BfhaHWvNh
+	 7BVQo8ElK5B5gBvibQ/AQ1QWlZBiTXrvx5el3mYkP9Qvx/ON6QOyufrdwzRNVuSpl5naH
+	 oHA/lMTUu2x3vaijQWBTRv1hkJqey3TzynQtJMpjoGsQMLbPpCb3LCZwaR7T1pcjmrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmpxchg.org;
-	spf=pass smtp.mailfrom=cmpxchg.org;
-	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=o5EDf1eW;
-	arc=none smtp.remote-ip=74.125.224.48
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=jvosburgh.net;
+	spf=pass smtp.mailfrom=jvosburgh.net;
+	dkim=pass header.d=jvosburgh.net header.i=@jvosburgh.net header.a=rsa-sha256 header.s=fm1 header.b="C/ZMR5vT";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="vDen1/UC";
+	arc=none smtp.remote-ip=103.168.172.147
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F3F606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:51:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40F3F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73346606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:51:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73346606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jvosburgh.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jvosburgh.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=o5EDf1eW
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-6768403e9bbso2283753d50.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:51:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1793289072; x=1793893872; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mbJfvSboS29jhnmPXsF9OyXPZWVJ9ZMdQ/k6fmGAbq4=;
-        b=o5EDf1eWBRzY0FZ3GWlOwF8Oug/6kaoD3XsCZbDmtapc7i7H5f4+nE9HAypE/me26c
-         YmBx8LFeel/4KNuY9gepmwbijqbbZFre2HW6zpo9Rz8H1zqbcxtbqNXahjebwL5nxvOW
-         HYtZwhgMOgd7QfQ2z4XonbX/KzkwPMohke3Z0PeR8WHjd+AYZQKskzNSLL/HKqGNoyyx
-         pF0KYMgS/qk/6rwAHu6K/GtDZBbO0vMlr0HmHqGsUBW0AaZl7ePolNK1WUOKP/tnq3Vr
-         iS1SvrjwlOlPIwPXpSkbGEoQt6ocriOTgeshPvpXXa8JPZFjOjt839q29uF5IrW6elgp
-         68kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793289072; x=1793893872;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mbJfvSboS29jhnmPXsF9OyXPZWVJ9ZMdQ/k6fmGAbq4=;
-        b=ZUXDYNpEV4L8yUAZn2Jo7xU9hJs9uV0Mp5f0EwXpDdD8hWJ9h060k2k7yrQgRRbSYT
-         +xgZvziAPz8D2GiXCKr6+OCshgVdW+S5K5Rs1zFODVB2g6UOppsQWfmPQzxX8AZliHVi
-         YEhjBWeiuZTwRcHWEebhM60iJXN/BnL+GfEj+irDNVC/8yRNphj17cd1xw03qwaGVcMO
-         vWDSu3qXtaB6LdBq3iNxZbqHS2drlMhii/IzMmRZZujrOEs+8QhV3Rn8QbldLAMiWH+e
-         vLfbTRZ9/aLdetTM8SiqQhIU+wEg+wODGM7tkIv+OBhCfWvScDU6CnJsY/RIMRkmKQoh
-         HnWA==
-X-Forwarded-Encrypted: i=1; AKwUvBw4jRk6g9rB7HCbuE9CWPEJUJMAwOGNcW/PW58k4T+ViUVZFa6uXw8/+WzLmsAydMNyrDrRVGWziIRhg1Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKx/7XZcUIgGwUtQs8GPPKaJUH16OyPDwy7+f9Pxwnt5O9Dbere
-	0QJFZNhSXATtvaorfjvSNV2dYK69pF0YdTczLAaaW+a5vMs7p6CN0hUNcA77J2tVX04=
-X-Gm-Gg: AYBFou2B16/T/oE1OXSW8hNlnSzO5h/khTZq5hmlNb2LbS+S6ag9WmK2r32nQLqke0A
-	L7JWGLvJiP6Ct3MF6Rt2H1of+Fixmy3hpFCAtCKdELexra0IlTPiK98HDzLUYtOxhtutrnaB5AP
-	aDjodGqQL5RcdaFRxVWSYQC88TnKX2cx6/j3Pp7tWLU3AZy2VjkROO/NBK+Ol1AXuKwQNFxzzsV
-	jKXBlqerQZB/Rf4WBLIsOhBI/CldHa64ohL8aUfsxXvGp34cq4CIsNNs+SL3N4N7aHIxLb+rWoW
-	uI303vt3pBOCXQW3JnZtT917NWHmYfeEo9WODjkGj5nzMRxIZZkr7AQQRSqXi9cn5S3w1udzvK0
-	K1bjHzDT7Kt6ZJ8MMa1WKj/TTWVAjstmaJHwDu7O01CUw5ixCVPEkdwEesI+CVAGQQxwC1b18y6
-	Uj53r79TmIQun6odxJYMryHfd6V6mzlRxT92A43ZRzkHO8PyyfdNjMXz3+UyIFNsC2Krn/OhNs+
-	45XfLtgoRui+qlce+h6IOjXdt82Afxzik8/Ze7vkXcO/3JjWJgA/g6yN+gJms1Y5sMjktcbWaO8
-	Q00CrlmTo2A+m9ddJ0dAMGNvdPIn
-X-Received: by 2002:a05:690e:439b:b0:677:c7f2:ba0 with SMTP id 956f58d0204a3-67a7bd38327mr3431471d50.42.1793289071978;
-        Thu, 29 Oct 2026 08:51:11 -0700 (PDT)
-Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67ba1faaf95sm58501d50.12.2026.10.29.08.51.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 08:51:09 -0700 (PDT)
-Date: Thu, 29 Oct 2026 11:51:06 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
-Cc: akpm@linux-foundation.org, shakeel.butt@linux.dev,
-	muchun.song@linux.dev, harry@kernel.org, qi.zheng@linux.dev,
-	tz2294@columbia.edu, bingfangguo@tencent.com, kasong@tencent.com,
-	linux-kernel@vger.kernel.org, trivial@kernel.org
-Subject: Re: [PATCH] memcg: fix integer overflow in calculate_high_delay()
- bypassing memory.high throttle
-Message-ID: <auNrakxaET8qkuAn@cmpxchg.org>
-References: <20261029073857.974-1-zhangjiao2@cmss.chinamobile.com>
+	dkim=pass (2048-bit key, unprotected) header.d=jvosburgh.net header.i=@jvosburgh.net header.a=rsa-sha256 header.s=fm1 header.b=C/ZMR5vT;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=vDen1/UC
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id A023DEC0190
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:51:13 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Thu, 29 Oct 2026 11:51:13 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jvosburgh.net;
+	 h=cc:cc:content-id:content-transfer-encoding:content-type
+	:content-type:date:date:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to; s=fm1; t=1793289073; x=1793375473; bh=G8IdhrDXDBt1/l9BcZ1dO
+	bhwhVGEgfMLpd+Ls7Sf1zk=; b=C/ZMR5vTYwZ/RWWpIz2WE4Z3aiPWbZTRdeOC4
+	4Rw3BiQzHtkySnRS8Lmq0kbK1KtFsKCaL2go7CRgpOn9hq4AZ8GlF/EV0Jgbck/v
+	vtdVq+Cn+CH6c2rYWGvupFy04viBgfzpvimTTDYzmcCk7ihDQcQvPjf3N8CMH+1G
+	DQ+11g9nGersLuv/h0XLllLkjQsHB5Ur/aOshJ1eUYuRcUbpiL4n3ySfUTJoObyg
+	0Aw1RLbaUHaAMgSiElqlQGogNebDo4tjK5mZHzeFucko0UJ2q4Gk0Ge2ucVWxgoL
+	OuRWSFEYp4freV7cY1fLtiuBZXG8/yv3xckyZglqQ93gEIQyg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-id
+	:content-transfer-encoding:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793289073; x=1793375473; bh=G8IdhrDXDBt1/l9BcZ1dObhwhVGEgfMLpd+
+	Ls7Sf1zk=; b=vDen1/UCG7TL96KKy3PkpyCYmTeR17m6/s9plPLnkPbr5M4j/3J
+	CayrjJXtfz/gUPSk2y33nLAugrjvtCItHudgF5TuKse4WGYFPECR0HDIg6WZIeCl
+	Pwr9d0H8ZA5Arg40DQgE1ALxSbwDIjFJCLQPxds1GFKIKbD4fxMPJQyXtKYt/skd
+	BWJ2xDzFFhvD9csudXAGNkA2tTI9gLVBYf0bJbmCU8UkMiWHmuKWBl5gyZdokMZX
+	RvTR4AuqSdov8RKjcAsSEuVKIJ7YBbR/rpamV3vSO0cHvb7Y/w+MUokznKsIy9I5
+	2NiZcn8HH2U6ynns7/ssnMVAA2CZoWAmdSA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=jvosburgh.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793289073; d=jvosburgh.net;
+	mf=PGp2QGp2b3NidXJnaC5uZXQ+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:Vc/52rFh5LZ+APajoqqtqiOS7ctJCqEXyzS0FKo5QbAl/DK
+	JqhHAR5ln/WP3SBZ8UOBzswQwY7xuSfSmYWiJ35MAjjULldrhMGzxD5oxa52Ii1r
+	mruJHKjB1FN+G8rG8GZK8X217+jXXLba/13Fk3kGNOpzBDK8tjf61EhGyoW5RVK2
+	TF7OHngsCb50MAviiQJmouARmx4GI0VtL6BMt6zZTcy+OmgJ8D5Sw7x9kYJAV9vc
+	Osct2epNE1swUAUvt+f0BM0kcsV7pqDDVi4CyynE79FSOaHgSyKCEpABjk+X+q7l
+	VWNIWQShXmCj+octgJaanH5RsiLF4B1tVlshRcw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,comments,content-id,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:v9WhcfxqeDwZLr4c6RdbsvzcqfHxZ1K8ASUYr7miv0w=:o6TDCgmdPCK+NUxESaCIEHCfqT9yIUqdNOWASZitE+E=;
+X-ME-Sender: <xms:cWvjage6rubdF5JMIX9lOpKXzglO3Z7b89BfHP5FrQiKizZg07yCVA>
+    <xme:cWvjagcFdCa6zDKQBGlegjyAB_zXASaBrFkuZrvRfONQiFCO1NlWq_1oXdoGD7ymr
+    l4GbPpYEI4Pw--qs8nINvWWDv_nNgg-NUu7y82jKfBQTsejyJP8hCTD>
+X-ME-Received: <xmr:cWvjaq2xrEeye0Z467-PP1XcYaQRpPNomHcKOdlhyWnpZyeKCGXCHB3eyjTTBkHpBdY1d2g>
+X-ME-Proxy-Cause: dmFkZTGA0WzT4LB5V2stVAUOkFYZRPVj48xzIzu37ou0BKOlCiDVSYJdNRDlAEpJxXGIEP
+    px6Wp4SzUFld0UYozeDZNV+jOpRxIodr5v3oWp6FIXrrSDgr32bljPPMmZ5BJEmKJFcw7T
+    NnAonehRAip8gusxVF2HDZEOtuhyIo7gjtiYjbKi+C9zJRWdsxEHFagTFzpgH7e4/LeFVl
+    j6nAwRJBmpN/ivEV+k8IoWCUaBlTyHF/qOxJ8p1zoq1Oiwxpw/8TtDKKWxWO+WscP/Bn62
+    nkoJreG7KRtEunOGCgCulikJm2vs8WpHfekSE9xqzjRPpgHmXVshMyB6M+nmKL1j5KRLiN
+    wTBeH1HbDy+UfJq/oQ6TapGmrVzlR3ksnOBBUjTApOiMUsEP2uLTP/pE91BvfoturyYfo5
+    DMT9/woq61mYyZhxMt4mHtoYI6A48kQKXEubNLXoMIz5lVIoTuQyyY9RLG9fDIIxouWj9V
+    E1klpIOYIy3GOWeeI/W+wBS0YbrjOt4dwDtEm29KIeN/dUs+kx34gskqXyWMgh1W6X4vbw
+    hNK3FXSaLTsjvGFOXRRm4VKh58JI7A/jwypt0a+SjJV6vkiVCY3jAIvDmh3LlRDTV5MTZ6
+    vivG5SLUU50jHEN7esoNSV8g6ThqFCnwMc0AAUGQ9dC1M6s6IgHTD8Vd/q6w
+X-ME-Proxy: <xmx:cWvjao_niXTzrWzBEVVTExHm8C0VN0caqheHnmjcaZkrbbqXUA-ZkA>
+    <xmx:cWvjav4sYc44IzxlCUe-YvJLWBQr6jmsG4DQ8O1TjXR6Gomdaq0zeA>
+    <xmx:cWvjagvHJand-nghIxME5yNYixBYwkE1-B0GNKYAS52bPFOYG9ACRQ>
+    <xmx:cWvjah3bXsYyRW2ldbkQezQ_xKDs18XAamsGhSxzZZpPD8_I09td8Q>
+    <xmx:cWvjaomPxLGnQMdZdczDLxBMIvN7qec1EdNvrGJUct0WP2OS69RtRP_W>
+Feedback-ID: i53714940:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 29 Oct 2026 11:51:12 -0400 (EDT)
+Received: by vermin.localdomain (Postfix, from userid 1000)
+	id 92D0C1C03CC; Thu, 29 Oct 2026 08:51:11 -0700 (PDT)
+Received: from vermin (localhost [127.0.0.1])
+	by vermin.localdomain (Postfix) with ESMTP id 920901C0364;
+	Thu, 29 Oct 2026 10:51:11 -0500 (EST)
+From: Jay Vosburgh <jv@jvosburgh.net>
+To: Timur Stukan <timur.stukan.linux@gmail.com>
+cc: netdev@vger.kernel.org, Hangbin Liu <hangbin.liu@linux.dev>,
+    Nikolay Aleksandrov <razor@blackwall.org>,
+    Fernando Fernandez Mancera <fmancera@suse.de>,
+    Andrew Lunn <andrew+netdev@lunn.ch>,
+    "David S. Miller" <davem@davemloft.net>,
+    Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+    Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] bonding: fix missing down path on speed/duplex failure after FAIL->UP
+In-reply-to: <20261028104758.299129-1-timur.stukan.linux@gmail.com>
+References: <20261028104758.299129-1-timur.stukan.linux@gmail.com>
+Comments: In-reply-to Timur Stukan <timur.stukan.linux@gmail.com>
+   message dated "Wed, 28 Oct 2026 12:47:57 +0200."
+X-Mailer: MH-E 8.6+git; nmh 1.7+dev; Emacs 29.0.50
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,94 +137,265 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029073857.974-1-zhangjiao2@cmss.chinamobile.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <91954.1793289071.1@vermin>
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 29 Oct 2026 10:51:11 -0500
+Message-ID: <91955.1793289071@vermin>
 
-On Thu, Oct 29, 2026 at 03:38:56PM +0800, zhangjiao2 wrote:
-> From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
-> 
-> calculate_high_delay() computes the throttling penalty as:
-> 
->   penalty_jiffies = max_overage * max_overage * HZ;
-> 
-> where max_overage is a u64 derived from the usage/high ratio shifted
-> left by MEMCG_DELAY_PRECISION_SHIFT (20).  When a cgroup exceeds its
-> memory.high by a large factor (>= ~4096x), max_overage reaches 2^32
-> and the squared multiplication overflows u64, wrapping to a small or
-> zero value.  A zero penalty passes the 'penalty_jiffies <= HZ / 100'
-> early-exit in __mem_cgroup_handle_over_high(), so the cgroup is never
-> throttled despite being massively over limit.
-> 
-> This is exploitable for denial of service: set memory.high to a small
-> value (e.g. 1 MB) and allocate several gigabytes; the overflow causes
-> the throttling sleep to be skipped entirely.
-> 
-> Additionally, on 32-bit kernels the 'unsigned long penalty_jiffies'
-> intermediate truncates the u64 product before the right-shifts, which
-> can also zero the result.
+Timur Stukan <timur.stukan.linux@gmail.com> wrote:
 
-And then right-shifts by 34, which means the throttling was completely
-inert on 32 bit. Please put this explicitly in the changelog.
+>In bond_miimon_commit(), when a slave is proposed as BOND_LINK_UP but
+>bond_update_speed_duplex() fails in bonding mode that needs speed/duplex
+>(802.3ad, tlb, alb), the slave is set to BOND_LINK_DOWN directly. This
+>bypasses bond_set_slave_link_state(), bond_miimon_link_change() and
+>failover.
+>
+>This is fine for slave that coming from BOND_LINK_BACK, which was never
+>brought up and is not in use. But since commit 1899bb325149 ("bonding:
+>fix state transition issue in link monitoring") the commit phase also
+>handles BOND_LINK_FAIL -> BOND_LINK_UP which means a slave that is still
+>in use and may be curr_active_slave.
+>
+>If the link recovers within downdelay and goes down again before the
+>commit phase reads speed/duplex, the slave is silently marked down while
+>remaining the active slave in worst cases. In alb/tlb the bond MAC stays
+>on the dead port, no failover happens and TLB/RLB state is not cleaned,
+>so the bond stops passing traffic until that link comes back even though
+>other slaves are up. A non-active slave is affected too, in alb, RLB
+>clients assigned to it are not reassigned and become unreachable.
+>
+>Reproduced in tlb and alb mode with miimon=3D100 and downdelay=3D10000 by
+>flapping a slave within downdelay and dropping it again before commit
+>(a longer delay was added between inspect and commit to make window
+>wider and easier to test):
+>  bond0: (slave enp0s3): link status down for interface, disabling it in =
+10000 ms
+>  bond0: (slave enp0s3): link status up again after 3400 ms
+>  bond0: (slave enp0s3): failed to get link speed/duplex
+>
+>procfs then shows the active slave with "MII Status: down" and "Link
+>Failure Count: 0", and all traffic is lost.
+>
+>Fix this by not committing UP proposals in bond_mii_monitor(): UP is
+>already committed by bond_miimon_commit() once speed/duplex are valid, so
+>leaving it there means slave->link still holds the previous state at
+>that point. When speed/duplex update fails for a slave coming from
+>BOND_LINK_FAIL, take it through the regular down path, including
+>failover. Slaves coming from BACK/DOWN keep the current behaviour.
+>The down path is moved into bond_miimon_slave_down() so both callers shar=
+e it.
+>
+>After the fix:
+>  bond0: (slave enp0s3): failed to get link speed/duplex
+>  bond0: (slave enp0s3): link status definitely down, disabling slave
+>  bond0: (slave enp0s4): making interface the new active one
+>
+>Fixes: 1899bb325149 ("bonding: fix state transition issue in link monitor=
+ing")
+>Signed-off-by: Timur Stukan <timur.stukan.linux@gmail.com>
+>---
+>
+>Notes:
+>    Changes in v2:
+>    - Drop link_prev_state. Instead, don't commit UP proposals in
+>      bond_mii_monitor() and let bond_miimon_commit() commit them after t=
+he
+>      speed/duplex check, so no extra state is needed (Jay)
+>    - v1: https://lore.kernel.org/netdev/20261022103821.89552-1-timur.stu=
+kan.linux@gmail.com/
+>    =
 
-> Fix both issues by:
-> 
->   1. Capping max_overage at (1 << 20) before squaring.  Any overage
->      this large already produces a penalty far above
->      MEMCG_MAX_HIGH_DELAY_JIFFIES, which the caller clamps anyway, so
->      the cap is lossless.
-> 
->   2. Using a u64 intermediate for penalty_jiffies so the right-shifts
->      operate on the full 64-bit value on all architectures.
-> 
-> The post-fix worst-case intermediate is (1<<20)^2 * HZ = 2^40 * HZ,
-> which is ~2^50 for HZ=1000 and well within u64 range.
-> 
-> Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
-> ---
->  mm/memcontrol.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index 84f4a8fd4d16..c0ab3940025c 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -2576,7 +2576,7 @@ static u64 swap_find_max_overage(struct mem_cgroup *memcg)
->  static unsigned long calculate_high_delay(unsigned int nr_pages,
->  					  u64 max_overage)
->  {
-> -	unsigned long penalty_jiffies;
-> +	u64 penalty_jiffies;
->  
->  	if (!max_overage)
->  		return 0;
-> @@ -2588,7 +2588,16 @@ static unsigned long calculate_high_delay(unsigned int nr_pages,
->  	 * memcg in question makes it clear that it has no intention of stopping
->  	 * its crazy behaviour, so we exponentially increase the delay based on
->  	 * overage amount.
-> +	 *
-> +	 * Cap max_overage before squaring to prevent integer overflow that
-> +	 * could otherwise wrap the penalty to zero and bypass throttling.
-> +	 * Use a u64 intermediate so the right-shifts are not truncated on
-> +	 * 32-bit kernels.  Any overage large enough to hit the cap already
-> +	 * produces a penalty well above MEMCG_MAX_HIGH_DELAY_JIFFIES, which
-> +	 * the caller enforces regardless, so capping is lossless.
->  	 */
-> +	max_overage = min_t(u64, max_overage, 1ULL << 20);
+>    Sashiko pointed out on v1 that the 802.3ad netdev notifier can set
+>    BOND_LINK_FAIL on a slave that is already down, which then goes throu=
+gh
+>    the full down path again. That is pre-existing and reproducible on an
+>    unpatched net tree:
+>    =
 
-This is a bit of a magic value. The simpler fix is the u64 and then do
-the multiplications with check_mul_overflow():
+>      ip link add bond0 type bond mode 802.3ad miimon 100 lacp_rate 1
+>      ip link set enp0s3 down
+>      ip link set enp0s4 down
+>      ip link set enp0s3 master bond0
+>      ip link set enp0s4 master bond0
+>      ip link set enp0s3 up
+>      ip link set enp0s4 up
+>      ip link set bond0 up
+>      (wait for LACP to settle)
+>      ip link set enp0s3 down
+>      ip link set enp0s3 up
+>    =
 
-	if (check_mul_overflow(max_overage, max_overage, &penalty_jiffies) ||
-	    check_mul_overflow(penalty_jiffies, (u64)HZ, &penalty_jiffies))
-		return MEMCG_MAX_HIGH_DELAY_JIFFIES;
+>    "link status definitely down" is logged twice and enp0s3 ends up with
+>    "Link Failure Count: 2" instead of 1. I will send a separate fix for =
+it.
+>
+> drivers/net/bonding/bond_main.c | 58 +++++++++++++++++++++++----------
+> 1 file changed, 40 insertions(+), 18 deletions(-)
+>
+>diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_m=
+ain.c
+>index 7019e5d8fdc8..9bafcddbb453 100644
+>--- a/drivers/net/bonding/bond_main.c
+>+++ b/drivers/net/bonding/bond_main.c
+>@@ -2779,6 +2779,27 @@ static void bond_miimon_link_change(struct bonding=
+ *bond,
+> 	}
+> }
+> =
 
->  	penalty_jiffies = max_overage * max_overage * HZ;
->  	penalty_jiffies >>= MEMCG_DELAY_PRECISION_SHIFT;
->  	penalty_jiffies >>= MEMCG_DELAY_SCALING_SHIFT;
+>+static bool bond_miimon_slave_down(struct bonding *bond,
+>+				   struct slave *slave)
+>+{
+>+	if (slave->link_failure_count < UINT_MAX)
+>+		slave->link_failure_count++;
+>+
+>+	bond_set_slave_link_state(slave, BOND_LINK_DOWN,
+>+				  BOND_SLAVE_NOTIFY_NOW);
+>+
+>+	if (BOND_MODE(bond) =3D=3D BOND_MODE_ACTIVEBACKUP ||
+>+	    BOND_MODE(bond) =3D=3D BOND_MODE_8023AD)
+>+		bond_set_slave_inactive_flags(slave,
+>+					      BOND_SLAVE_NOTIFY_NOW);
+>+
+>+	slave_info(bond->dev, slave->dev, "link status definitely down, disabli=
+ng slave\n");
+>+
+>+	bond_miimon_link_change(bond, slave, BOND_LINK_DOWN);
+>+
+>+	return slave =3D=3D rcu_access_pointer(bond->curr_active_slave);
+>+}
+>+
+> static void bond_miimon_commit(struct bonding *bond)
+> {
+> 	struct slave *slave, *primary, *active;
+>@@ -2807,10 +2828,21 @@ static void bond_miimon_commit(struct bonding *bo=
+nd)
+> 			err =3D bond_update_speed_duplex(slave);
+> 			netdev_unlock_ops(slave->dev);
+> 			if (err && bond_needs_speed_duplex(bond)) {
+>-				slave->link =3D BOND_LINK_DOWN;
+> 				if (net_ratelimit())
+> 					slave_warn(bond->dev, slave->dev,
+> 						   "failed to get link speed/duplex\n");
+>+				/* Coming from FAIL, the slave is still in
+>+				 * use and may be curr_active_slave, so take
+>+				 * it through the full down path. Coming from
+>+				 * DOWN/BACK, it was never brought up, so just
+>+				 * revert it to DOWN.
+>+				 */
+>+				if (slave->link =3D=3D BOND_LINK_FAIL) {
+>+					if (bond_miimon_slave_down(bond, slave))
+>+						do_failover =3D true;
+>+					continue;
+>+				}
+>+				slave->link =3D BOND_LINK_DOWN;
+> 				continue;
+> 			}
+> 			bond_set_slave_link_state(slave, BOND_LINK_UP,
+>@@ -2839,24 +2871,8 @@ static void bond_miimon_commit(struct bonding *bon=
+d)
+> 			continue;
+> =
 
-I would then also make the function return u64 and make the
-penalty_jiffies in __mem_cgroup_handle_over_high() u64 as well, since
-that's the place where the final clamping occurs, so this function
-does not have to worry about it before the return.
+> 		case BOND_LINK_DOWN:
+>-			if (slave->link_failure_count < UINT_MAX)
+>-				slave->link_failure_count++;
+>-
+>-			bond_set_slave_link_state(slave, BOND_LINK_DOWN,
+>-						  BOND_SLAVE_NOTIFY_NOW);
+>-
+>-			if (BOND_MODE(bond) =3D=3D BOND_MODE_ACTIVEBACKUP ||
+>-			    BOND_MODE(bond) =3D=3D BOND_MODE_8023AD)
+>-				bond_set_slave_inactive_flags(slave,
+>-							      BOND_SLAVE_NOTIFY_NOW);
+>-
+>-			slave_info(bond->dev, slave->dev, "link status definitely down, disab=
+ling slave\n");
+>-
+>-			bond_miimon_link_change(bond, slave, BOND_LINK_DOWN);
+>-
+>-			if (slave =3D=3D rcu_access_pointer(bond->curr_active_slave))
+>+			if (bond_miimon_slave_down(bond, slave))
+> 				do_failover =3D true;
+>-
+> 			continue;
+> =
 
+> 		case BOND_LINK_FAIL:
+>@@ -2919,6 +2935,12 @@ static void bond_mii_monitor(struct work_struct *w=
+ork)
+> =
+
+> 		if (commit) {
+> 			bond_for_each_slave(bond, slave, iter) {
+>+				/* UP state is committed by bond_miimon_commit()
+>+				 * after the speed and duplex check, so that it
+>+				 * can still see the previous link state.
+>+				 */
+>+				if (slave->link_new_state =3D=3D BOND_LINK_UP)
+>+					continue;
+> 				bond_commit_link_state(slave,
+> 						       BOND_SLAVE_NOTIFY_LATER);
+
+	Reading bond_commit_link_state(), for this call site, all it
+really does is slave->link =3D slave->link_new_state, when link_new_state
+!=3D BOND_LINK_NOCHAGE.  The changes to ->should_notify_link only matter
+for the ARP monitor, so that part is effectively a no-op here.
+
+	Therefore, I wonder if it would be cleaner overall to not do the
+bond_commit_link_state here at all, but instead keep what you've added
+in the BOND_LINK_UP part of bond_miimon_commit, and then add calls to
+bond_set_slave_link_state(slave, ..., BOND_SLAVE_NOTIFY_LATER) to the
+BOND_LINK_FAIL/BOND_LINK_BACK case to make the change stick.
+
+	A quick hack patch that I have not tested to hopefully
+illustrate what I mean:
+
+diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_ma=
+in.c
+index 756d79281ffc..5fb215fa85f6 100644
+--- a/drivers/net/bonding/bond_main.c
++++ b/drivers/net/bonding/bond_main.c
+@@ -2877,6 +2877,8 @@ static void bond_miimon_commit(struct bonding *bond)
+ =
+
+ 		case BOND_LINK_FAIL:
+ 		case BOND_LINK_BACK:
++			bond_set_slave_link_state(slave, slave->link_new_state,
++						  BOND_SLAVE_NOTIFY_LATER);
+ 			slave_dbg(bond->dev, slave->dev, "link_new_state %d on slave\n",
+ 				  slave->link_new_state);
+ 			continue;
+@@ -2933,19 +2935,8 @@ static void bond_mii_monitor(struct work_struct *wo=
+rk)
+ 			goto re_arm;
+ 		}
+ =
+
+-		if (commit) {
+-			bond_for_each_slave(bond, slave, iter) {
+-				/* UP state is committed by bond_miimon_commit()
+-				 * after the speed and duplex check, so that it
+-				 * can still see the previous link state.
+-				 */
+-				if (slave->link_new_state =3D=3D BOND_LINK_UP)
+-					continue;
+-				bond_commit_link_state(slave,
+-						       BOND_SLAVE_NOTIFY_LATER);
+-			}
++		if (commit)
+ 			bond_miimon_commit(bond);
+-		}
+ =
+
+ 		if (bond->send_peer_notif)
+ 			bond_peer_notify_may_events(bond, true);
+
+
+	Thoughts?
+
+	-J
+
+---
+	-Jay Vosburgh, jv@jvosburgh.net
