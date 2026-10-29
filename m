@@ -1,49 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793306084;
-	b=18gMC1ELkEjJjFKk3eVbLW/IkzWvZPMrOJ43t9gEIwH0ujkSC62ybln+t/EaJbG9PZ+g
-	 P8IGCaj1ctf90/FH9Xm6i7YW2/5bNjUrCM/V3ghoGFkaG30KMtyGZvGNkZ4Cmqxh62ELB
-	 A58zL92OvR6PjzjzXPw4ZcCHuPWOLeHiWZqnUpU7okgXt9d40I8dlbrnVEgZhiPF6UuHg
-	 EwJlNoRby4lO+DlHH2fsIA3i6T7h8Uy5+SBVFy3qUXb1P5cMYq74ur9P/6k+4KiJXCl1/
-	 k48bJtJLPk5S9u26V8sQrWm2Hwy8438ulbJmPQasq74ps7BAT7iEt5h17FgqPhaEG6g==
+	t=1793306098;
+	b=iYjB8mckp1UCyUjI6VP/bFGjRL63evx9iGgGGSODWg5nq27q67MWD8Hfd8wqAbAHbR5V
+	 48n+845L3cj3/A7m+ODJux/OTH35gVvKH1ORGvDuiJ5UEkqR+fQswLzLvN9N3+gH9LvHH
+	 7LvVFszoSrAWms/zP1pwJbdFlzYkeNC0AmhCkCoy5c0UHJyVbWGi5tXGihr5nK9hMyQTf
+	 M7UKfyq/yVrEmCaB7AmonDO/hOIJz1tfBZoGNMZOZ4OVIyzCCl6jApESoKHMtRPVbfX/j
+	 FGkJ2YYrmT7YDymksT0yXVhcoOVxsHrZQ0Si0yNMmOdY/Q3XJb3iJhqj9lCbAHGzKSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793306084;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=8NeWgKC8rFJYZ7CY//H5MJ8mlDLPVUlB7WRXqG52bhs=;
-	b=NgTxJugN77F+mtgm6HDqm1r3LMhNeCGtjJYKMcyjDU1gsqy9nn4if4PQPJUcMlKPbw1v
-	 cbjLYwxh//r78v8/FSydd5ooVgZEJKnRGpB2NpnZT6QC/j9kkzk5L/GM7HsDhg6dShMAN
-	 weYRHzJn8K/clNr03qJhNtA5rcF68hZmTOBaDrSzSCdVkczTVMHK8XlvaIvKKX8QaUDrx
-	 n97afPQwTG7Hs4moUF/VYXYGTL4OFAgsk5m08YgrvetZyMPNaVDgj6nZ2vZB41ecy9/cP
-	 3lN+lFXPEaI9iTC+H2AvJPlSdz5TVb503K1UGyFl00+8dhiGFwiVN3Vnl0E5pfwDP/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793306098;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=TwBRg8WB+rHpCwRS7eEIPMYRBlJYkgQhXZO2K1xgu0k=;
+	b=mklMAlGzQi3YKT9wNtmbs8bIfYdh3BEcOz2NVjdQGMo/cQgoH/6p3QJLjDo7DX2pY8i6
+	 mla9qCEMNdrj22eMODeo27LaMfiE7R/K4EIlC6g+dK9q7uyNsWGDNKkUEjje/0JqGUy7P
+	 a4ilco6pnBXyYRtjXfmrfpkn0B5Dp4gIR0m32bAla1jxhxGwYldJgP8a7gdnLwI/tDohn
+	 XQYxxNZNjGr8Bvln9gcvWk6oHkaYQu2YTBJ/YByrB1cBjVNI3M1LBxzcfhE1OxUEWyKKs
+	 DkinLnumwrT3e9kijCQ7/s8ibV+9v+aQ+G6nburWOGiuVbo8MB/PCyHoFe4YqyhiwAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5YlBqSR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=CmF6bj5S;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13339606A31D;
-	Thu, 29 Oct 2026 20:34:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3532B606A31F;
+	Thu, 29 Oct 2026 20:34:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3532B606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h5YlBqSR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1371F01825;
-	Thu, 29 Oct 2026 20:34:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793306083;
-	bh=8NeWgKC8rFJYZ7CY//H5MJ8mlDLPVUlB7WRXqG52bhs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=h5YlBqSRsRQCrhmhb7220/BdTpbl1XOfJ22+z1dVZFlRKfbL+drAxRpvK5BSKbiqk
-	 z4Yx0Re+/RHynvRBIbM1ppOnJLhfWmgi513P3ua5Wr9IbSLQ8emJZl3Yi/oNEiOcR3
-	 hej0anVMIrPJH6EUcTvHJWuxdJ+OMBQE2DpDrm0QmaVdek3+JEirmytsKmT42UjcWp
-	 Cto2aIPZHz2WPdzD6lBNoM479P0R+mPiBjCn083hWSKlAH1IBn8toFkmcHR4qEDSMq
-	 3x7FIDUx5x9Hf7AdMTO6otEaq/aNaHmVondhDFgT3OpBGeXkzBP5HUf1Z1lrXn1/5Z
-	 r2urf3Jip4tiA==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 21:33:00 +0100
-Subject: [PATCH v2 05/47] mm/truncate: look again if a folio left the
- mapping
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=CmF6bj5S
+Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id 69D251C3D4B;
+	Thu, 29 Oct 2026 20:34:55 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf16.hostedemail.com (Postfix) with ESMTPA id 885BA20016;
+	Thu, 29 Oct 2026 20:34:53 +0000 (UTC)
+Date: Thu, 29 Oct 2026 16:34:52 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-trace-kernel@vger.kernel.org,
+ oliver.sang@intel.com
+Subject: Re: [PATCH] selftests/tracing: Fix flakiness in
+ trigger-hist-poll.tc by waiting for task exit
+Message-ID: <20261029163452.00d0980c@gandalf.local.home>
+In-Reply-To: <178459323652.354837.10711230683477156733.stgit@devnote2>
+References: <178459323652.354837.10711230683477156733.stgit@devnote2>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,144 +61,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_core-v2-5-a64ce7f83abb@kernel.org>
-References: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-In-Reply-To: <20261029-fixes_core-v2-0-a64ce7f83abb@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3335; i=david@kernel.org;
- h=from:subject:message-id; bh=8zVtiTIPHUHGhLtYGmDF+TjVfOwqhbOhyrdIJGBJe/g=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIer22p+/bitVtd6s75Z3g2zq/IlNg9X5CvRELkVamsm
- V7AxoMfOkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZjI36uMDHfMu/aWOrHVagjM
- 981Tuuth9qL13rEDrMmT/086Jvnv+ytGhh02l8sV7tQmRFyczcXj1TZlj9uXvw4ej0XnNipX1fN
- acwIA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: 885BA20016
+X-Stat-Signature: ggyzxruufnxauyb3j3aq3mzxgwwgmw5s
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18ueHDgSqMIuIlO/7HrgnvuwcrMJfSEhZw=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=TwBRg8WB+rHpCwRS7eEIPMYRBlJYkgQhXZO2K1xgu0k=; b=CmF6bj5SLTT7k3ntF8zoC3ZZD9mMb3EefQXf1TVw1ShSb+HPS5CyjYw7bppuD1QaIc9cu+Pfq2P7NASwyIid8Xlr86Du/bWMFiQu4ZGcNxbN7KNZdVUtpuRMacD81qI9LCsLsJBWxnKSaWL2DIn1+0LlboI4lbDSd9sF80z9IGg=
+X-HE-Tag: 1793306093-155062
+X-HE-Meta: U2FsdGVkX1/z9pktxOiQ1oTJpVo7xAQ9w9fkgWLW8Ny5EyXe9jLs9KM6WIw+eTx72nRd3WtIBp2UKtMRX88minUcBdDgxbh4725G4K1zPUmvyoaLmzJa0YTpY1lCMyPcBpfFkcv63O7IiIUbVH+ZzoPiZM7Xo0kSYp4f3kk193l3ehbLVoIxvLOAXQ9pjM3lQiQs/u4Vo6NcWbS2eIyw7oAG/LrEGqWp7KVzRd6oszfG5FA8Ss+Vn2S+HyyCssg9ghBx7nLjdAs/7iwN17QXTbT1184k8CYiNiakDKqwx5BYuaiTDLcwN5FvabB0Ww83h5uuQhbpOBfi3jLXGDA6dWb+Ac9b2tzH
 
-invalidate_inode_pages2_range() skips a folio which no longer belongs to
-the mapping by the time it has got the folio lock, on the assumption
-that somebody else has removed it from the page cache. But the folio may
-have been replaced, and then there is a new folio with the same data at
-that index.
+On Tue, 21 Jul 2026 09:20:36 +0900
 
-For most cases, like folio migration, that is impossible. However,
-collapse_file() only checks the refcount of the old folios, under the
-i_pages lock, and relies on their folio locks from there on. That works for
-users which repeat the lookup when they find folio->mapping changed.
-The following scenario is, however, possible:
+I'm finally getting around to looking at this!
 
-  CPU0 pwrite(O_DIRECT)               CPU1 collapse_file()
-  kiocb_invalidate_pages()
-                                      read the folio (old data), lock it
-                                      refcount check
-  the write completes                 copy to new_folio
-  kiocb_invalidate_post_direct_write()
-    find_get_entries() -> old folio
-                                      xas_store(new_folio)
-                                      folio->mapping = NULL
-                                      folio_unlock(folio)
-    folio_lock()
-    folio->mapping != mapping
-      -> continue
+"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
 
-In that scenario, the collapsed folio with the data from before the write
-stays in the page cache after the write has returned.
+> diff --git a/tools/testing/selftests/ftrace/test.d/trigger/trigger-hist-poll.tc b/tools/testing/selftests/ftrace/test.d/trigger/trigger-hist-poll.tc
+> index 04eb8546fc07..d54d54f9ec77 100644
+> --- a/tools/testing/selftests/ftrace/test.d/trigger/trigger-hist-poll.tc
+> +++ b/tools/testing/selftests/ftrace/test.d/trigger/trigger-hist-poll.tc
+> @@ -38,11 +38,7 @@ BGPID=$!
+>  ${POLL} -I -t 4000 ${EVENT}/hist
+>  echo 0 > tracing_on
+>  
+> -if [ -d /proc/${BGPID} ]; then
+> -  echo "poll exits too soon"
+> -  kill -KILL ${BGPID} ||:
+> -  exit_fail
+> -fi
+> +wait ${BGPID} 2>/dev/null ||:
+>  
+>  if ! grep -qw "sleep" trace; then
+>    echo "poll exits before event happens"
+> @@ -60,11 +56,7 @@ BGPID=$!
+>  ${POLL} -P -t 4000 ${EVENT}/hist
+>  echo 0 > tracing_on
+>  
+> -if [ -d /proc/${BGPID} ]; then
+> -  echo "poll exits too soon"
+> -  kill -KILL ${BGPID} ||:
+> -  exit_fail
+> -fi
+> +wait ${BGPID} 2>/dev/null ||:
+>  
+>  if ! grep -qw "sleep" trace; then
+>    echo "poll exits before event happens"
+> @@ -72,3 +64,5 @@ if ! grep -qw "sleep" trace; then
+>  fi
+>  
+>  exit_pass
+> +
+> +
 
-This used to be impossible, as khugepaged only collapsed files that nobody
-had open for writing.
+Hmm, any reason for the two added newlines here?
 
-Restart the lookup at that index, like shmem_undo_range() does. The same
-problem seems to exist in truncate_inode_pages_range() as well when
-truncate_inode_folio() fails, so handle it there as well, but slightly
-differently: simply check once more through find_get_entries().
-
-Fixes: 1b6444331beb ("mm/khugepaged: enable clean pagecache folio collapse for writable files")
-Cc: stable@vger.kernel.org
-Reported-by: Josef Bacik <josef@toxicpanda.com>
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/truncate.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/mm/truncate.c b/mm/truncate.c
-index 733d2713a875..9e9bf029635c 100644
---- a/mm/truncate.c
-+++ b/mm/truncate.c
-@@ -475,8 +475,11 @@ void truncate_inode_pages_range(struct address_space *mapping,
- 		}
- 	}
- 
-+	if (start >= end)
-+		return;
-+
- 	index = start;
--	while (index < end) {
-+	while (true) {
- 		cond_resched();
- 		if (!find_get_entries(mapping, &index, end - 1, &fbatch,
- 				indices)) {
-@@ -499,6 +502,7 @@ void truncate_inode_pages_range(struct address_space *mapping,
- 			folio_lock(folio);
- 			VM_BUG_ON_FOLIO(!folio_contains(folio, indices[i]), folio);
- 			folio_wait_writeback(folio);
-+			/* Do not handle errors, we'll do another lookup */
- 			truncate_inode_folio(mapping, folio);
- 			folio_unlock(folio);
- 		}
-@@ -760,7 +764,12 @@ int invalidate_inode_pages2_range(struct address_space *mapping,
- 			folio_lock(folio);
- 			if (unlikely(folio->mapping != mapping)) {
- 				folio_unlock(folio);
--				continue;
-+				/*
-+				 * Folio might have been replaced: look up
-+				 * again.
-+				 */
-+				index = indices[i];
-+				break;
- 			}
- 			VM_BUG_ON_FOLIO(!folio_contains(folio, indices[i]), folio);
- 			folio_wait_writeback(folio);
-
--- 
-2.43.0
-
+-- Steve
