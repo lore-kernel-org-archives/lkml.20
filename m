@@ -1,22 +1,22 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.85.9.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793310394;
-	b=icB4v0uAbwBL2wAhXuADTO3+dwyKlqZPXfArkVsWHQTUKOEE2at/rp7LxJ02cANfgTwd
-	 D2AtxjRAgJqPVuKNUYJC0JQsEuV0LwIpbbzpc6D/2/ce3gl7BdxcaMox5YHcSaFiEP7Du
-	 z0Gr7TQva/A1Lb81Orag8iijTNVjO1GsQ+2AT9bi6cBgPbyElrNKkNMbaVCV4viT/6eUr
-	 N2e5hBmJ/70ukeMzIKiS/2bHHtScC2pouzheW9kT47vIvYKF4fvalNDM9RfOtgP0Sg2dX
-	 Ax1ZRt/m7peAxlgZMvKZn0clxl0wSfq9jQbuQbzSrHH4uUcV5fQcszF7qRbMv6FgaQQ==
+	t=1793310404;
+	b=PSgtkGvCyLq5hjopSokZOcEqK3hhnd6Rh4/DtBIEFr+4e+36NE6qqC1dZf9Dh23hUnL+
+	 QXUteiJJ30A4mJHlAUAhSyP9L/5hd6s3XJvQUtG3onrsaOQu6LoDGawvpfxr6AjJKYoQi
+	 mQIG7U/kDVL5JmRaIOPh0lGWiZklchvZKQAfbC1GxoKoYBk3+JRrI0Cc4dbusfxBQNemt
+	 +mmHLjP/aikWCi8LjNNO9B9dEpVL0WvN5CbnQzUQBrc6ObNNiROXqJVZPE46gkqE/dLsA
+	 hS7xTplN2jXdOVH1xgZ7uL/XrUNMqH/rHkc1mE2RmUHE1hM0MeW/L9rYKPAQZtIN5yQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793310394;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793310404;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mime-Autoconverted;
-	bh=04LMkDhbrL6DP7mew2dKrJK4JmZYGpbNrQFKebWxKY8=;
-	b=Du0G0FOrGQ41Nxl2nweNuuml1IY4IsrehnQitLYi48MhaY8GfBtRlrMRtmEfjXmEU0ed
-	 ztf/PN/Hmq6I0jOhez4RYm1KUpYOX7Ul66kW13hs/FxlgLjztrqOCGLupnwpHSIl9L7Z7
-	 z1qd3raF/ANPymxiVvk6C/HpMaGnB3a6Ow2xoWHHGUObMRkSPbAyDnfvfk8FzKjzTwv61
-	 dQjdCYNGzOPqV1owHU7H5TDM7YCUZ++QYu40kChjxfmRCEzpETCfvTfw+Spje0uTNSlJ/
-	 FA4bvPJzPnrYYvhF7wwYm/eN6GYbHrdYJAM3unoMSb+gQEAjDerjHyUo8xOtBpBttyw==
+	 In-Reply-To:References:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mime-Autoconverted;
+	bh=nokvmFdO/lMAIkL8CGtuOjag9qyiXJpuOJ3k1GovAAg=;
+	b=vDHjLEiXDCFYjUNAkHDa8CsauMqn9+PD2GLP6pMMlX1kJpJguUJpRh7ZQtuPufrGyOXf
+	 hw6B3MLPJbK8WZbV1JC9VAe6Jzenm4AuICnGV+uNj8+C525eHaLVP4vC2+8d24gHFOCmP
+	 iduk5Zxn9/nS3wPeXZmkc3FSobg7nNeaaKr38wpZZaFXFWBSAmpgQLZM7R8j3BMt4ipUf
+	 mwx/AFQNH3sYnp4K3bCboQ+2Md2OxNEoaFDyAXkjaieOsNq1KRISah46G+QqmGt8F7lch
+	 igCuGKKSh1/HbYFdPF9pOtkakzXGrFwGz54NhWSNVXFUD/l0SHD//+XnCaNf1Q7KP/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=irl.hu;
 	spf=pass smtp.mailfrom=irl.hu;
@@ -25,15 +25,15 @@ Received: from irl.hu (irl.hu [95.85.9.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9BBD8606A31C;
-	Thu, 29 Oct 2026 21:46:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BBD8606A31C
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 38E03606A31A;
+	Thu, 29 Oct 2026 21:46:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38E03606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=irl.hu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=irl.hu
 Received: from fedori.lan (51b69268.dsl.pool.telekom.hu [::ffff:81.182.146.104])
   (AUTH: PLAIN soyer@irl.hu, SSL: TLS1.3,256bits,ECDHE_RSA_AES_256_GCM_SHA384)
   by irl.hu with ESMTPSA
-  id 0000000000080988.000000006AE3BEB2.00036878; Thu, 29 Oct 2026 22:46:26 +0100
+  id 0000000000080988.000000006AE3BEC3.000368A5; Thu, 29 Oct 2026 22:46:37 +0100
 From: Gergo Koteles <soyer@irl.hu>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
   Rob Herring <robh@kernel.org>,
@@ -46,10 +46,12 @@ To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
   linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
   phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-Subject: [PATCH v3 0/3] W86224 haptic driver
-Date: Thu, 29 Oct 2026 22:46:07 +0100
-Message-ID: <cover.1793308351.git.soyer@irl.hu>
+Subject: [PATCH v3 3/3] arm64: dts: qcom: sm7325-motorola-dubai: Add vibrator support
+Date: Thu, 29 Oct 2026 22:46:10 +0100
+Message-ID: <ca2fd61b3b0fdf6551cdf6900dd9115a8c31a0fd.1793308351.git.soyer@irl.hu>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1793308351.git.soyer@irl.hu>
+References: <cover.1793308351.git.soyer@irl.hu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,36 +65,44 @@ Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 7bit
 X-Mime-Autoconverted: from 8bit to 7bit by courier 1.0
 
-Hi,
+Add the required node for haptic playback (Awinic AW86224).
 
-This series enables the haptics of the Motorola Edge 30.
+Signed-off-by: Gergo Koteles <soyer@irl.hu>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v3:
+ - add &aw86224_reset_default to pinctrl-0 (sashiko)
 
-The first patch adds the binding documentation for the AW86224, which is 
-compatible with the AW86927 haptic driver.
+Changes in v2:
+ - rebased on mainline (Krzysztof)
+ - order by address (Konrad)
 
-The second one contains the driver. The AW86224 differs from the AW86927 
-in many respects, so writing a new driver seemed the simpler approach.
+---
+ .../boot/dts/qcom/sm7325-motorola-dubai-common.dtsi   | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-The third one enables it in the sm7325-motorola-dubai-common DTS.
-
-I removed Enrico from the v2 recipient list because his email address is
-not working.
-
-Sashiko found a bug in the 3rd patch, which was fixed in v3.
-
-Gergo Koteles (3):
-  dt-bindings: input: Add compatibility for Awinic AW86224
-  Input: aw86224 - add driver for Awinic AW86224
-  arm64: dts: qcom: sm7325-motorola-dubai: Add vibrator support
-
- .../bindings/input/awinic,aw86927.yaml        |   4 +-
- .../qcom/sm7325-motorola-dubai-common.dtsi    |  11 +
- drivers/input/misc/Kconfig                    |  12 +
- drivers/input/misc/Makefile                   |   1 +
- drivers/input/misc/aw86224.c                  | 582 ++++++++++++++++++
- 5 files changed, 609 insertions(+), 1 deletion(-)
- create mode 100644 drivers/input/misc/aw86224.c
-
+diff --git a/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi b/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
+index 3860ab8508a0..a90407a40451 100644
+--- a/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm7325-motorola-dubai-common.dtsi
+@@ -721,6 +721,17 @@ fsa4480_sbu_mux: endpoint {
+ 			};
+ 		};
+ 	};
++
++	vibrator@58 {
++		compatible = "awinic,aw86224";
++		reg = <0x58>;
++
++		interrupts-extended = <&tlmm 47 IRQ_TYPE_EDGE_FALLING>;
++		reset-gpios = <&tlmm 46 GPIO_ACTIVE_LOW>;
++
++		pinctrl-0 = <&aw86224_int_default>, <&aw86224_reset_default>;
++		pinctrl-names = "default";
++	};
+ };
+ 
+ &ipa {
 -- 
 2.56.0
 
