@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793250363;
-	b=1ene3bhHnClzprtj3T4HxdD1QOkDVuqWvT+RWHjlld2pp+P7dif68bnPLntexrPnDptu
-	 EtusN7G9ZPsXJLHd7JLvdvcjAHRNrCiG5dB0XyRt0AiFhrR0yqBRsqJlFtIPexKn3bH8N
-	 O618xA79JKJG+EAwjQPAPHIkT/t+pV3qFl+QTD/uOD1OGGZKTAroL5psuC3fWiz+M10kO
-	 oWOVYjE54kFv2XmvTi2zQarebYAy3oCOFmwj8GYRAbo0zV03RAU16UqbNhiya6pfLJGrL
-	 2yN+OqSd8dbV6Abblu5AFUY0knI1oIY60D9YWGOZHJixOqdbtotnzVZeNTvC6C63gIQ==
+	t=1793250372;
+	b=XiVwHLk7+ttVWSzgy5Ra/cyYl2YskCupkVc8sm39tYGxbtME6KA5+1iHKvRSZuPPZmT+
+	 Vx6W99J1QZw/MnMjaJ29lOuAVTI712ZQZbeT/NDbFfv/fTIcZX3KhQyqUCmgi2Wtzvqf7
+	 11+FzSTjjLUyATBaG7O6FoF5pFhhsxSElCdkwI7US1VbPvHmR5O0UdLigIDs3Pc++2dVZ
+	 rTKQaemyXVL6PMwZBQ/HzjVs2H+Mds6n1cpsWG5g6QLv3Qr/60pOvKkrls3yprCQTtpTz
+	 NU+oFpGXskkj6c4JqWpj8CHxGTO4czUcehWJHfNmcU/f6JrC0VvIPy3DUdOJGTvw3oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793250363;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793250372;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=D8F/HdGuSu6Gc0aayMmmYPmWYbhMQ7jikJBXSJ8mNwQ=;
-	b=b+LnObnybazwYthmPM6zxEQWa274xf/cCjd+XDvEVUJOqckhFAzJxG4ogES3XJugYoPR
-	 9JA7w1hJgtTNVg9LknJoIM3cHYZuKU23giPN57xLgpEA/iXSMNe3PgxkY1c479QlCD72x
-	 z8CW8EM6C41WDmxRrVDCzGa30rlS+H++lT4ZqG+5/ut4C2PhfblP28uG1hNE7LLtUfPn1
-	 CxANH4KH89tmQdAJ4p1qz2Am2GiEyP1Xkxgygz/HXuGYqN2KyN+8a5eCsVVsnzGGrq7qD
-	 DuBzbAy7akqy4ZXnMrRd8EjkRYqtIOM9wXVY5Mv2Ud4klsAPa9eTll593lMP5bHYx2A==
+	bh=JRnZbRztbK3uQmcjPiHrls6jXuhvcHYv7zJm0Q9BEjQ=;
+	b=qnKLDTG1B5i+rGqtnITPRiqRfb284dxyNjaZK9csqjcU1VtZb53fAwtcDRPal1PerqRQ
+	 lAN11Sel9/BEv/X4ZvcDPlETyTu6pLxialX//aFHbKJTTwy6pXqGGO88oVq863yisYTIQ
+	 SnSJYHJa7PzfJG6bHqMHrvoQLxZS0LyJfPfjp7BtixZv2nc+rPQ3OpHNQf9fS53mC5aMf
+	 VlagboQTewIHqaE36NGjuADyMSosGdKXx4lDKZhwlDzZVZ5NWrWGZbfxCtsLBKPDAU7tk
+	 OmU8QE3II4J32zAKRFAGuPAOrNt+lKSL+GsujNTzpyaf6+2sbT3gdJK1rHCuN3hmwxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gl8ey3GB;
-	arc=none smtp.remote-ip=74.125.227.136
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G8fxqTXT;
+	arc=none smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E631606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:06:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E631606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B0D606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:06:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21B0D606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gl8ey3GB
-Received: by mail-pj2-f8.google.com with SMTP id d9443c01a7336-2e93d9c7973so13760645ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:06:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G8fxqTXT
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ea94541adbso7636855ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 22:06:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793250362; x=1793855162; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793250371; x=1793855171; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=D8F/HdGuSu6Gc0aayMmmYPmWYbhMQ7jikJBXSJ8mNwQ=;
-        b=Gl8ey3GBmfht7cSiQpmGNQR7xbwxpuuCKBlHrmofBx3tYVS09O2r0+HnIp4+gY7eQb
-         wVQTGz8djp2TKsDRr7wy8f938wlJDT0gNIDUcgLF0g7YkAixOl1Y0bJJhi82SYVnn8/M
-         TsTd34RjtjMt8hACDdnaHMbxL8GCwep6ZN5HmMiMPTXMqKj/HMx6BDQ9NvDp6qcuiFZ1
-         kS3Zd1977XVul4kACm4u0F0kGNRhBP+YsnyhWmWDNlEyhNLn4phCpAWx/hn+7Qxta/6x
-         uNMlNzL5Ppj1aNieFMykIoMPwGCx1qS2CNO5TldnIcnGVEWizAOyryoFETmlD+L20m9o
-         SYGw==
+        bh=JRnZbRztbK3uQmcjPiHrls6jXuhvcHYv7zJm0Q9BEjQ=;
+        b=G8fxqTXTTNESyQXKDfIY5Xm8WthtTd3j5AumXbjcPreruRzIvJMDLop8TkQXZylU3o
+         IlEvSfcyGjWpqG5HLBexfP/zaWk5YYU3eDReWFuHsG3VrgOxLwqzhNxYvrFdaiwvtCbt
+         /arHNvx02yfHlnSJ1jjO/tDYf/1o3w6+RJ7pGCPCqu3JILVZ05QQ83cPE61xNQHWd5nC
+         HFBB2Q17w4/zRv+jCWFodkiXb3OrHw8kVX9cxRCiYzEr3xxF9zkYljFcUt2R/Yjqq8dg
+         M2CFYURtpKrc4PkoREBYRaO4xVAgS3cWp7BxSi2Uy9RCLdpmE0h3DIPREbo3dcklQkFQ
+         V76A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793250362; x=1793855162;
+        d=1e100.net; s=20260707; t=1793250371; x=1793855171;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=D8F/HdGuSu6Gc0aayMmmYPmWYbhMQ7jikJBXSJ8mNwQ=;
-        b=XGfNjKnw3EDhqAZ8qquhuO/9r3BUsbm2RWhWtdCgqsZKgfKqL4FKdtMmzwKyVj+9kc
-         rKvyr029WkGUSNIFTnKjWOSYdaIbiDxn7T59ZB23Hph6dsMIkg56w1TfUqhaQhBDzlxK
-         FrNGDgUZ5402GuWwf7JlGb+edNb4vHdrEShi/87tpksTbNzysPBFJ0OAY7OCJEvx3uCF
-         3fQtNmQLB1mzc3WOu2cnbHGPvnmBvAFJ32y1ukexWNPWKSWMzyPSnprnHh09bawBTqsI
-         9E1fpQknqxjeTjvMeoRAs2wnwYnRTuAhzOmyiA+9TxruZEqyCJzU+5gokMTngOquQwJs
-         8jgA==
-X-Forwarded-Encrypted: i=1; AKwUvBxmzXM3j60DsLErxt58NuZSEeWz/jhQ1dMU5eMaWIX4O0ve2U8R8ZQMBt+IWVJ5c/l9Rw9YS7CpXmPCXhk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5AvbraBOUbLA20aBHU07xLD+G0jIbmcxx8yUxxwPUX3kZciq7
-	ciUS5LL21uQwf8iwH0ZkRco22nYgn+g0Nf9+F4+H9HhjT4B/GxqFkVV9
-X-Gm-Gg: AYBFou1RgnTlAuhNuHWqQ5NljPjGayWf7rO1b7pNJRxia04FArNhzGNHKG1virox/XI
-	ca23FfHgQw3kas1uRvdOyXpZsaq8+mS+8m1EV/DsBq7ZfZ86RB7ZkscFGv6xYEYjgnXRLrB+9Y2
-	kYBi8uEBpDBlUG8V+9sqvJ+BGG9uCIiGjSSaLUtS1wIAbNXy0Xiidk2wp/IgSDU/YQ8wwmp7WSy
-	AjZfH23fDfABLKL85fOFxqawqvHssEwW7BSjh6Tore5HZih5iTcEYVG6ke333Ato6py1nFY4dq1
-	Tjfz+Pd+6gLe905YYlqoh19nlAXa25V3FmVyCbt27yppUkXL9ePhByuFDfH+mgVNaDllXDQfteD
-	dep6bHvPHVXgir3D7u8shm+g3iW3zdK22Y3lJeYpInmOKnSu4acOKZ/ifmbUvrcKSNODknBCLOf
-	NSa39+GEHFbqE2Z6YK9R5otxqmoFBgiZGNpOWuaeCNrOtxxDrCuHzaLv3bAlrEdWgLTINWLJMuf
-	QAfFZsAmZa46zRUlD8EDQnV3AhVJNrkz+Jk24WveFd1MDEh65yzLQcVdJuUEPO0N0hshbegpH/+
-	36GhtFkFHCKXSw+4rhKqO8bpgXQ+
-X-Received: by 2002:a17:902:e88d:b0:2e9:5714:6081 with SMTP id d9443c01a7336-2eaffcc020bmr39772385ad.0.1793250362514;
-        Wed, 28 Oct 2026 22:06:02 -0700 (PDT)
+        bh=JRnZbRztbK3uQmcjPiHrls6jXuhvcHYv7zJm0Q9BEjQ=;
+        b=Oa6PKg4p/T1NaydcFfnIWfpUQoxQR9bCpGmqwBZLsS9nsab72QfdWR6XISCRpvKlEm
+         u1Z3AEna925kCbpP0a6Onr9BJHC2U3DaFOuEsV12m58r62nOIgz3UOo+T1KLIa7mZNBF
+         vN3qZplnDV3of35P8vNB1Cu4quE+H7VFN4ukl55F75yGxcL7HsbFhgDoKoM6tRIc5aKv
+         16ZwC0AFFRK6h/WWfvFSp+HjOUlKu1I9cMB62jZSpjJ9yeKF3B+wfuh9fuOrYBsLrTYo
+         1PBT3I1WrqDFcnYNeLK0WsYXNFdgH5mibYe5MlYitwqGYyHoiQ6DhaRGPHmBncvbWjZh
+         bpaw==
+X-Forwarded-Encrypted: i=1; AKwUvBx8CgIZLes1o/IwxvnnO9Js63/4rKPqIHwCPQgTbaj5bXZuJTcILR0zXtR/iSNYJnz6MTlXm6EufiJpgjA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5WpLA60vcd4MQumc+sdFAfmjgzwMK8cRic/rOLdWLqnqx/TMo
+	WGay8qU5ujeI/RM+sKXjm4eXh7Mc3C5FrE74iTDN/pbYWHJNaRYEOcYq
+X-Gm-Gg: AYBFou0XNVBMB1vpTJNSDcHSKh05YTkGliQ3jIwWjCVJl0zrjXOIsXvxHr9MghURziv
+	CvGb9ztFkTF6nZGngS//7113Tmk3laap/PgOSRTlObUdHNgOprj3APQjnwBfeG+EZHC/SnxLDRv
+	7PDiatKaA7bE37mJ+wS0vPHlimTsNNFjuxdj7Moepf4aCXwGG7kTkpQotJeNY9RsdU9ZHsL7OeU
+	7GYOaaCJaXhci7XqvYKE2tNgLpWhILf2Vp6PRlCtTHcw17rEjDTYEz7SVzR5418DZOBI2eLGnrl
+	RYjgNOF1RrUT6pw87byrPWHTBe889agcutUxMGAu4yd5ROe6nZQh4g1MBnJtjGQtCFZrOS7D4Oj
+	ty2le1IVX50iY5/6PUUD2sG56B0D+gTd1aOs4mSHnKRTM1AxN2me0HGGcAn4ky+tYyt7niDWT89
+	OsoYRwbDbvJgTkqxZRioItPyUiRGz95KrAVE6mSTyGaL3HFiRWHfe7sPZYRL0hOI7PmNopY7Xn2
+	wgyVoYDwdfMVYKgktx7Kv5ouOnzgY0OoTT7jHtmRnrF9IObES1ST64s2O3KbBGL+Wxo2H949YCs
+	eyeBsXk/UXCtqXc8NuYYnJhm3FT13Q==
+X-Received: by 2002:a17:902:c950:b0:2e9:61bf:6591 with SMTP id d9443c01a7336-2eb0058dfa6mr43576915ad.45.1793250371450;
+        Wed, 28 Oct 2026 22:06:11 -0700 (PDT)
 Received: from [127.0.1.1] ([169.211.140.146])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9d2cesm28159685ad.65.2026.10.28.22.05.54
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6c9d2cesm28159685ad.65.2026.10.28.22.06.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 22:06:02 -0700 (PDT)
+        Wed, 28 Oct 2026 22:06:10 -0700 (PDT)
 From: Kwanghoon Son <asdfkwang@gmail.com>
-Date: Thu, 29 Oct 2026 01:05:42 -0400
-Subject: [PATCH RFC 01/12] dt-bindings: vendor-prefixes: Add Bouffalo Lab
+Date: Thu, 29 Oct 2026 01:05:43 -0400
+Subject: [PATCH RFC 02/12] dt-bindings: interrupt-controller: Add BL808
+ PLIC
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-rust-bl808-console-v1-1-b736ee920078@gmail.com>
+Message-Id: <20261029-rust-bl808-console-v1-2-b736ee920078@gmail.com>
 References: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
 In-Reply-To: <20261029-rust-bl808-console-v1-0-b736ee920078@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -120,29 +121,26 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-riscv@lists.infradead.org, linux-serial@vger.kernel.org
 X-Mailer: b4 0.14.2
 
-Register bflb for Bouffalo Lab Technology (Nanjing) Co., Ltd. Reuse the
-prefix already deployed by Zephyr, including its bflb,uart binding.
-
-Link: https://docs.zephyrproject.org/latest/build/dts/api/bindings/serial/bflb,uart.html
+Describe the BL808 D0 PLIC as a T-HEAD C900 implementation. Its
+interrupt specifier includes the source number and trigger type.
 
 Signed-off-by: Kwanghoon Son <asdfkwang@gmail.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml      | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 5471a06f93f1012f08e26f7f105ad846ab3629ac..24c670ff75b6f482ede1bda3b59c70ed9116042f 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -249,6 +249,8 @@ patternProperties:
-     description: Shanghai Belling Co., Ltd.
-   "^bestar,.*":
-     description: Shenzhen Bestar Electronic Technology Co., Ltd.
-+  "^bflb,.*":
-+    description: Bouffalo Lab Technology (Nanjing) Co., Ltd.
-   "^bhf,.*":
-     description: Beckhoff Automation GmbH & Co. KG
-   "^bigtreetech,.*":
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml b/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml
+index cde4bb6918978b40037774269cee85212d39d4aa..9c625dff1968ae6267b0ab65ed8d4e771c70c3ec 100644
+--- a/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml
++++ b/Documentation/devicetree/bindings/interrupt-controller/sifive,plic-1.0.0.yaml
+@@ -72,6 +72,7 @@ properties:
+       - items:
+           - enum:
+               - allwinner,sun20i-d1-plic
++              - bflb,bl808-plic
+               - canaan,k230-plic
+               - sophgo,cv1800b-plic
+               - sophgo,cv1812h-plic
 
 -- 
 2.47.3
