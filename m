@@ -1,54 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793245305;
-	b=KRE4AzK9U+WBehHn3d8yCDg6EpYuT7FkzzVPs0eNy81/WR9o87ucqWX9GDlNMyJU/bx9
-	 RrwCUJQyg++JrSv0nUCAOIUxSt4KUiaePnqVkiQ5ESsza54Zr7PrQCv5ctJOUTh5UbDlo
-	 xG08KXRnmz5EL4s9j3fjVKYCpmavYhgFQp8lOC/1jfw77Qb62PhYrmx075mgG9jgM8Sfb
-	 XStgBLu0ArPpLOB/HTtxxrrEAlmYRHE11s9OwBuJcGgDz8grEOH/E3pVlnnI7VE9MaLOX
-	 p93Dp5Ip58XOY9AU11StlIgOEk7Nbc1q1hT+P7NSNr5xsprXQoICp0THL2hL7qv6Ppw==
+	t=1793245394;
+	b=ASKRRBintVPlzt1AL1Sxnb6nPh+l5KcjS15nQrAnwTDkOdo2WquoO6xf2BFEg8oYvDuz
+	 9tnsbGS5GktR3E3g5+ERboKct+Yejv846wrlNyvtr+4om59kH2xOUZq3IKpM1J5+8IQJc
+	 0bJEiKsLdWsCxX8Zm90FeR7L3ybGMsh8ChENmyyJCdjx61FZyLpxFzXXN6FAqzG7BABe2
+	 yL5qCVENpFTovMpzCK07fdcaU+xX/04/em4hmR/Qig/d3HM853oQ6n+HmYiS9HgErIlqR
+	 jIdoV4DfRPy1Hv3pmKuBL9X9t1dJCSWJUKeEsM2i8iUGcERtdh+L9lOAdfRw7+ZpSBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793245305;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=SfpksgeRXYSviYFeyWHR5mqkoXxAslF2D1vkefSL3uw=;
-	b=FaGO5BomQhPQxmUE6TSdPVtXLB4qwfTHld2XM2Z3ItlDENtq8YQireWAzqpFh6MpezQw
-	 FpFfuscceogqmjZtS3KVN4svi9i3iC9PZxDCQjMIRa5y9v6MDOywUXmUNVaGfh/WNgTwp
-	 INP8WE1zEh+dvmdO3p3TFM8dPZD7K2sh+QirQYpLXaiGggknQFs9TsBr2XK/8e2Sh9L8C
-	 AfyBkhnMWDE3a+EJErQed/r8qDNyjFHD8MAM20V97pnQCKDPNrExW6DvLsJoD5IXFcUPW
-	 6CqCi8ctCMFzyHnHmffjkkPejj3WN+DND/nyia6l+URnrZFyZuPkgJUv2kUeDv4IBpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793245394;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JekMvStiW/W3yoGDfXVkNrB3ZFspUK0TlSYVErjbeDo=;
+	b=1vDxpYvwLlJ8yFHVT7NeIaO+Z6npNHjdHT3K7i6bizT2g/zT39jmMx8eJoB/MYwyTU9y
+	 ydAylVbSWNFu/36uKZrwD9UT2ofNhYCSN/CFps44qZ046epqEOgCGp47mjhXuXMRIlBh/
+	 t4ljHgjX0DaIxz4A0bpJVIKnh3yPb2xvdfSau7fYLn5LkPPr5FUdfEHnzSdHFII0ab4tk
+	 EixjY+OI+FYcfyjDHGZ+AwQjBIQ972lSwpFchtlGjAxjSXtbd5I6D/iMFKXgZwRx3mXMo
+	 85aMy2wicZTfPFahP5hDh3Uoo3X6HtxbibCtHaTvEI/Nk3L2uwkSeNbM/US9BV9dqEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NxV2zbRI;
-	arc=none smtp.remote-ip=95.215.58.131
-Received: from mta1.migadu.com (out-131.mta1.migadu.com [95.215.58.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=kcDroLBN;
+	arc=none smtp.remote-ip=115.124.30.118
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1B8606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:41:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C1B8606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6C3606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:43:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C6C3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=NxV2zbRI
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SfpksgeRXYSviYFeyWHR5mqkoXxAslF2D1vkefSL3uw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793245302; v=1; x=1793850102;
- b=NxV2zbRImUBwLKbaCg/zWhoTSvWR2eSfQzp5or3rZukb97Uuetb23hfqkeJZqlF/85Uv7SQV
- 14s70j8cLPyw9jp/T7OE1W8F9ax2XsvgOtzbsLJ+K8zxGU3m0hjhT/SGpjNMU8Qv+D01RB5EhgF
- NXXHqIlq3oU27FdrMaowEbaY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id dc9967750c407019;
-	Thu, 29 Oct 2026 03:41:42 +0000
-X-Mizu-Trace-ID: dc9967750c407019
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=kcDroLBN
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793245385; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=JekMvStiW/W3yoGDfXVkNrB3ZFspUK0TlSYVErjbeDo=;
+	b=kcDroLBNmjgkbaAhC/gdDzTPWO/5h/aEBXEnewTFe4qrOSV8TWKHcXS4mqod8ub/BZcghSXWaLTxcID/wRRB22/buD/ZO8wIFKefdT4/Z9g+HPzDNLC47GstglB+4Rli98ri+KO/7MtL9c0UnAyRN6YD5orRgYpT6ukpuSWBjcQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XDiFJuP_1793245374;
+Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XDiFJuP_1793245374 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 29 Oct 2026 11:43:03 +0800
+From: Yuanhe Shu <xiangzao@linux.alibaba.com>
+To: akpm@linux-foundation.org,
+	david@kernel.org
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>,
+	"Kaitao Cheng" <kaitao.cheng@linux.dev>,
+	vbabka@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	ziy@nvidia.com,
+	wangkefeng.wang@huawei.com,
+	tujinjiang@huawei.com,
+	mgorman@techsingularity.net,
+	chengkaitao@kylinos.cn,
+	muchun.song@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	xiangzao@linux.alibaba.com
+Subject: [PATCH v2] mm/highmem: refuse to copy hwpoisoned folios in the !copy_mc fallbacks
+Date: Thu, 29 Oct 2026 11:42:54 +0800
+Message-ID: <20261029034254.2487998-1-xiangzao@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,80 +76,77 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH 03/15] mm/hugetlb: preserve reservations when shrinking on
- HIGHMEM
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261028-fixes_hugetlb-v1-3-a0a033db180f@kernel.org>
-Date: Thu, 29 Oct 2026 11:41:12 +0800
-Cc: Oscar Salvador <osalvador@suse.de>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Mel Gorman <mgorman@suse.de>,
- Andy Whitcroft <apw@canonical.com>,
- Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@suse.com>,
- Rik van Riel <riel@surriel.com>,
- Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dave Airlie <airlied@redhat.com>,
- Jason Gunthorpe <jgg@ziepe.ca>,
- Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Peter Xu <peterx@redhat.com>,
- Breno Leitao <leitao@debian.org>,
- Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>,
- Heiko Carstens <hca@linux.ibm.com>,
- Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Arnd Bergmann <arnd@arndb.de>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- Gerd Hoffmann <kraxel@redhat.com>,
- linux-doc@vger.kernel.org,
- linux-arch@vger.kernel.org,
- linux-s390@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <A4D91A63-87BD-4BFA-A12B-22A8513A496F@linux.dev>
-References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
- <20261028-fixes_hugetlb-v1-3-a0a033db180f@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+The !copy_mc fallbacks of copy_mc_user_highpage() and
+copy_mc_highpage() return 0 after a plain copy.  With PG_hwpoison
+set while the data stays readable, there is no fault to recover
+from: the copy completes, the destination folio carries no poison
+marker, and the poison is consumed silently.
 
+Check the source page with is_page_hwpoison() in both fallbacks,
+before and after the copy, and return PAGE_SIZE, the
+not-copied-bytes convention of the real copy_mc paths, so the
+callers take their existing error paths.  On archs with copy_mc
+this code does not compile.
 
-> On Oct 29, 2026, at 04:13, David Hildenbrand (Arm) <david@kernel.org> =
-wrote:
->=20
-> try_to_free_low() drops the hugetlb_lock while freeing lowmem folios.
-> set_max_huge_pages() then resumes freeing folios using the
-> min_count computed before that unlock. Reservations created in between
-> can consequently lose their backing.
->=20
-> Collect lowmem folios on the caller's existing page_list instead. Keep
-> the hugetlb_lock held through both selection passes, and free the =
-combined
-> list at the caller's existing unlock point.
->=20
-> Likely not stable-worthy.
->=20
-> Fixes: 1121828a0c21 ("hugetlb: call update_and_free_page without =
-hugetlb_lock")
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Measured on arm64, where the fallback code compiles (10 rounds
+each): COW copy throughput 1043.67 MB/s before and 1043.26 MB/s
+after the patch, fork latency 348 vs 359 us, forced migration 57396
+vs 57654 MB/s - all within run-to-run noise.
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+Suggested-by: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Suggested-by: Kaitao Cheng <kaitao.cheng@linux.dev>
+Assisted-by: LLM
+Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Link: https://lore.kernel.org/r/877bjowf9i.fsf@DESKTOP-5N7EMDA/
+---
 
-Thanks.
+Changes since v1:
+
+v1: https://lore.kernel.org/r/20261026025724.1430747-1-xiangzao@linux.alibaba.com/
+
+- Check before the copy as well, so data the flag already
+  condemns is not read (Huang Ying, David Hildenbrand).
+- Use is_page_hwpoison() instead of folio_contain_hwpoisoned_page()
+  (sashiko review, Shivank Garg): the folio-level predicate misses a
+  poisoned tail page in the memory_failure() window, and refuses
+  clean siblings of a poisoned subpage.
+
+ include/linux/highmem.h | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/include/linux/highmem.h b/include/linux/highmem.h
+index d7aac9de1c8a..d0e33cacae90 100644
+--- a/include/linux/highmem.h
++++ b/include/linux/highmem.h
+@@ -473,13 +473,25 @@ static inline int copy_mc_highpage(struct page *to, struct page *from)
+ static inline int copy_mc_user_highpage(struct page *to, struct page *from,
+ 					unsigned long vaddr, struct vm_area_struct *vma)
+ {
++	/* Don't touch data that is already marked poisoned. */
++	if (is_page_hwpoison(from))
++		return PAGE_SIZE;
+ 	copy_user_highpage(to, from, vaddr, vma);
++	/* The flag can also land while the copy runs. */
++	if (is_page_hwpoison(from))
++		return PAGE_SIZE;
+ 	return 0;
+ }
+ 
+ static inline int copy_mc_highpage(struct page *to, struct page *from)
+ {
++	/* Don't touch data that is already marked poisoned. */
++	if (is_page_hwpoison(from))
++		return PAGE_SIZE;
+ 	copy_highpage(to, from);
++	/* The flag can also land while the copy runs. */
++	if (is_page_hwpoison(from))
++		return PAGE_SIZE;
+ 	return 0;
+ }
+ #endif
+-- 
+2.43.7
 
