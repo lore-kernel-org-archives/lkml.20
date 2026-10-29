@@ -1,56 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793242391;
-	b=HIeeF135kDvq29ltjYJg9VQKP82uqP9VMVYrvn7jc8XlYRnZhw5y89Vg9HqkFOnsRVTO
-	 16/uRwF5FUXqWShLZQdFhnN+dEt6P4hF0qlWldXt3sVEmKpqCBXz320WqJ8w90v5KTUek
-	 U8pcyusBnElIMUYrzBIQ0MzZ7fg+IvB3rt920k8kNPJQ4DpjZ9X/CSYwoKz25fytIggCc
-	 5qEuPwlXG0PHyCs3GhTY7/LgpfrdavrY+xq4ECAm3/+SgZRgKCJHKGjdXUZy5WNBF38YX
-	 J6zp6gtVbAJ5AYMdaJCVlcqRQU5m+qn+BOPtkUtzaHAo2/OlSo+ML4cgRU32PTdcXQw==
+	t=1793242406;
+	b=01JshMXtKsc9k9N45NIYkXmrQZ865jFYyRMZdqCZqp7hD0nDSoj9/QJrRhTdDljE8Hqt
+	 PdcnruNEQpLjvNM01powULy6LP3YHohvnPfFgL/WjKGUbMvGGQ2I/GUURuE97UtLytry5
+	 Po5GG0qunRra2d1DgfwYDoDKEX5S/wsWsGJQcqirva1DIUFL+IlepFqZI+4K5lNeey8Vz
+	 NX8PA90qT0aWOoNAGMq9e/WCatK0JVUpvEnMz8axgECMd3xnoPuvgVKElADtlcg4NlXYL
+	 6VguUBv0OiQ2+XQP5OOBLoxTwS3KuV0yLsZCxAGaMoqGhdGovEzeOYdEYEt0uHz7VCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793242391;
-	h=DMARC-Filter:DKIM-Signature:To:From:Message-Id:X-Original-From:
-	 In-Reply-To:User-Agent:Subject:Date:Mime-Version:X-Lms-Return-Path:Cc:
-	 References:Content-Transfer-Encoding:Content-Type;
-	bh=0CbHfJZd9Ouin6+NJRHxk52K7pGc80VMx8HJ0a2GrKE=;
-	b=bLG3Yu7WsdXAAfAib+x8Se24Uz8KgzaNP/4rwWopKSnTstwCehul5mWvHXasL3/cAxJX
-	 wlXb62gDPXJHSV68cchof/iLw0Q8vmw4jI+7Aljs6rC91npuHMMczHS5gy7A+iLRrO8JM
-	 x5G+H27m7+mCznZShk3kKHXlgACb6Hdz7geMPiTcRSsQ5ySQtTHCSXK8RCFiRAhe2pigV
-	 m1i6QW2fWhsN/RcmPkKbCzNywDL2Pkro4bzOmVGSLibKoWyAK/sg508fRBgk97cZqTkHz
-	 NXG1pjNeiJ5rGgKmRQoL43aKX2hGs6Z7DntAb3N05gxlhrn5Fw5ZbLE1ktNssU4oDpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793242406;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=UzCsom1MHdjuVQoOuLgWKxmawdZeBEU/EW+Emz+v9v0=;
+	b=4bKDt9ODwNQqd9zsKag/p6JHi+tho57MEf+htKdgHrpPnPWxZTe3Q+dRCbBai2NwjsWw
+	 zNKWzNM9NG+0/DprrXySdQdbv77Scy9vVl/Ezl8UzD93CRorZOIPN541MjcXo6/f1vy63
+	 NjD+UE6I66M2DMo5N8XsyNctsHy7v+WvhtUcckf8HnUolyT9hyCOwnaAHlAgp4pV9eHtr
+	 o1Uj2xH+uGz9DIJArMwvNOlzvsmDPPeTeUGAOE7UG9FHN7aMuJQ6t2XRR4ghH6zLLLdoN
+	 9BICEM4Y+8LZYLlJJSR1ikd26LG+TKc/wEmKgK/DuIED1vVA1iG1hu1L1LYQzo42cHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=KCIZEWwE;
-	arc=none smtp.remote-ip=209.127.230.113
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=URvirsQi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA5E606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:53:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAA5E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D249E606A31A;
+	Thu, 29 Oct 2026 02:53:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=KCIZEWwE
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793242379; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=0CbHfJZd9Ouin6+NJRHxk52K7pGc80VMx8HJ0a2GrKE=;
- b=KCIZEWwE0Rakwepat3tvgULGutY33z9z8xTks6Z4jojsdN1oalw9VE/v213oiffiEjK+Oi
- Ey/ycif6bDMwscOSk57X8/N7sTJKP8UqS9HaS2rFFEXMvkfEuIQdrb01LMJ++nSLTChxnH
- i6XyUVP9NTtJM7DV7AklU+sTXu4DZ/Xd0yrJsy4l9VwT/EGm1l8v6JapsY4Ck6wZ62HbT2
- 0kxPBqmJDm4Rxgzalc1hravktWQYiwvxVjp6uONgnwfV8F22hQ+IvwN9W4oqpM0Q213D6E
- AzYFMyD8aLvYPEYoTfluP31EWFCk1V9FgRVjo41oKLHME8KS0TJMt7mWPhjHVQ==
-To: "Joshua Hahn" <joshua.hahnjy@gmail.com>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Message-Id: <4c94b526-cacb-4b52-9c28-7344f8ab582f@bytedance.com>
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-In-Reply-To: <CAN+CAwPM=-sRDypP0+ZxX8_CziBRjXbxKEE3UZGLzkmOWrajNg@mail.gmail.com>
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] sched/numa: do not feed tiering promotions into task placement stats
-Date: Thu, 29 Oct 2026 10:52:35 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=URvirsQi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FA361F01825;
+	Thu, 29 Oct 2026 02:53:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793242405;
+	bh=UzCsom1MHdjuVQoOuLgWKxmawdZeBEU/EW+Emz+v9v0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=URvirsQiWXJ7Xm4pBthzWDJwb9Oxq57av5mcQXXbsbwwYjCj1ljj1JHFIXKRKvXMP
+	 Dqz428lScfq5vQtAz4KNVER303uKzXXGY9q88uAs7i0tLcTej7HLqOiu54L2RZ7siE
+	 Ob4ORJHjAsi8TQ+yII3Z9/iGO6A/661eFxZE8o5RpUfXEOZ0NE0fEZuJEnI6KymXDe
+	 KdWD3IPKhSqE6uJSeZrcmhXY23pRyl4AJenbPU74D7eTyT/P27nWSFZPfaKcPLWkxm
+	 hikR6gHZBe7u79P8WxySMEz9MqORw0Qz/UrhkirqfnZTwDJNm6qU90A7arMXXsWrhs
+	 6Os9oMEgLUocg==
+From: Sasha Levin <sashal@kernel.org>
+To: Florian Fainelli <f.fainelli@gmail.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.1 0000/1887] 6.1.191-rc1 review
+Date: Wed, 28 Oct 2026 22:53:18 -0400
+Message-ID: <81c6fc0c56aa4c83a06a.sashal-rc-0001@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <d989cca6-f049-4c87-bacf-8a6a4832dfbd@gmail.com>
+References: <20261028170459.200466217@linuxfoundation.org> <f09f94df-c5e7-45d5-86a6-50be145f6655@gmail.com> <d989cca6-f049-4c87-bacf-8a6a4832dfbd@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,77 +75,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ae2b509+7de3eb+vger.kernel.org+lizhe.67@bytedance.com>
-Cc: <akpm@linux-foundation.org>, <bsegall@google.com>, <david@kernel.org>, 
-	<dietmar.eggemann@arm.com>, <gourry@gourry.net>, <juri.lelli@redhat.com>, 
-	<kprateek.nayak@amd.com>, <ljs@kernel.org>, <mgorman@suse.de>, 
-	<mingo@redhat.com>, <peterz@infradead.org>, <riel@redhat.com>, 
-	<rostedt@goodmis.org>, <vincent.guittot@linaro.org>, 
-	<vschneid@redhat.com>, <ziy@nvidia.com>, <linux-doc@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
-References: <20261028041253.74839-1-lizhe.67@bytedance.com> <20261028041253.74839-3-lizhe.67@bytedance.com> <CAN+CAwPM=-sRDypP0+ZxX8_CziBRjXbxKEE3UZGLzkmOWrajNg@mail.gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On 10/28/26 11:03 PM, Joshua Hahn wrote:
-> On Wed, Oct 28, 2026 at 12:14=E2=80=AFAM Li Zhe <lizhe.67@bytedance.com> =
-wrote:
->> NUMA balancing has separate mode bits for normal task placement and
->> memory tiering. In memory-tiering-only mode, NUMA hinting faults on
->> slow-tier pages are used to detect hot pages and promote them to a top
->> tier. They are not normal task-placement faults.
->>
->> For slow-tier folios, memory tiering reuses the folio last-cpupid field
->> to store access-time metadata. numa_migrate_check() therefore cannot
->> return a real cpupid for those faults. Before this change, it returned t=
-he
->> same all-ones last_cpupid value that normal AutoNUMA uses for a first or
->> unknown access.
->>
->> That can make a memory-tiering-only promotion look like an ordinary firs=
-t
->> private AutoNUMA fault. After a successful promotion, do_numa_page()
->> reports the target top-tier node to task_numa_fault(), so the existing
->> slow-node skip no longer applies. task_numa_fault() then accounts the
->> fault in p->numa_faults and p->numa_faults_locality, and
->> task_numa_placement() can consume that sample to update normal task
->> placement state even though normal NUMA balancing is disabled. In other
->> words, hot-page promotion feedback can leak into the CPU placement
->> heuristic.
-> Hi Zhe,
+On 10/28/26 14:26, Florian Fainelli wrote:
+> On 10/28/26 14:12, Florian Fainelli wrote:
+>> this is due to 341d4e6294d9 ("highmem: add memcpy_to_folio() and
+>> memcpy_from_folio()"). We would need to also back port 00cdf76012ab
+
+That one was already addressed earlier today. Rather than adding
+00cdf76012ab, I dropped the highmem/hfs set from the 6.1 queue:
+
+  - highmem: add memcpy_to_folio() and memcpy_from_folio()
+  - highmem: fix a memory copy problem in memcpy_from_folio
+  - hfs: fix general protection fault in hfs_find_init()
+  - pagemap: add filemap_grab_folio()
+
+> And there is this other build failure caused by 997f9c35fcad
+> ("Bluetooth: MGMT: fix crash in set_mesh_sync and set_mesh_complete")
 >
-> Thanks for the revision. To me, this looks more like a fix than an
-> optimization, since there really is incorrect NUMA balancing behavior
-> happening that could be visible in userspace (unintended
-> task-placement and related accounting). On the other hand patch 3/3
-> doesn't seem like a fix to me despite the name, since this one would
-> mitigate the incorrect behavior.
->
-> How about we pull this one out of the series and submit it
-> independently with an appropriate Fixes: tag and cc:stable, and
-> discuss 1 and 3 later on? Unfortunately this is also not a great time
-> to submit new features or behaviors as we are in the middle of a large
-> merge window, and there are a bunch of fixes that maintainers might be
-> busy looking into : -(
->
-> Regardless, thank you for the fix, Zhe! I don't have a strong
-> preference on the ordering of this against pghot, but if other folks
-> are concerned that this could create more churn, I think it would be
-> reasonable to wait for patches 1 and 3 after we discuss with Bharata.
-Thanks for the review.
+> net/bluetooth/mgmt.c: In function 'set_mesh_sync':
+> net/bluetooth/mgmt.c:2188:36: error: implicit declaration of function
+> '__struct_size'; did you mean 'struct_size'?
 
-Agreed, patch 2 is better framed as a fix.=C2=A0 I will check the exact
-commit that introduced this path and can resend it separately with a
-proper Fixes tag and Cc stable after rc1 is released.
+The 6.1 backport of that patch uses __struct_size(), which on 6.1 is only
+available with CONFIG_FORTIFY_SOURCE enabled, so it breaks the build
+without it. Fixed by dropping the five-patch Bluetooth MGMT cluster from
+the 6.1 queue:
 
-For patches 1 and 3, I agree they are more about the tiering heuristic
-and policy behavior.=C2=A0 I will keep them separate from the fix discussio=
-n
-and continue that part together with the pghot-related discussion.
+  - Bluetooth: MGMT: Fix possible UAFs
+  - Bluetooth: MGMT: Fix dangling pointer on
+    mgmt_add_adv_patterns_monitor_complete
+  - Bluetooth: MGMT: Fix memory leak in set_ssp_complete
+  - Bluetooth: MGMT: fix crash in set_mesh_sync and set_mesh_complete
+  - Bluetooth: MGMT: Fix list corruption and UAF in command complete
+    handlers
 
+-- 
 Thanks,
-Zhe
->
-> I hope you have a great day : -)
-> Joshua
+Sasha
