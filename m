@@ -1,90 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283278;
-	b=jRoBROrIM6ykISksE8i6o3SpHYLurT7HKK5+3SQ+PQ2EJG5f3rlcSoUzxnWjKDi7er+N
-	 o58vuqyM97/VZCKEwYWF1WIyaOrnzApzR6n93RPXPfFyd06rQyP2BeWRXkk+wtWdHf8X1
-	 zFu+IjgQ4hsY88Hitcz9loD54u10RwURngVdTWq+gdsRNea1sIkcqA+6C5QiQm2p+HQ3P
-	 c2D/d4uAnMFvjDJ6a7kPKk7uFhOEjuL+Fu+d4/1TYslbWn67RU/QH5nlD/rtTVxty6Mo5
-	 1mvoMJ1234Q5hmM5q36rC/OePJJeJFIJTVOamMNThIfX53vD33YwWxHASM+tY4c3rGg==
+	t=1793283332;
+	b=wrrJwvTJDruQHCIEeyvNFNAWzxIwT/gBgWxFM6UcB3R5AJ6GF1sMhw2ixh3mEiCWGfz5
+	 tgEqoNBsueQQKwV/wzcY984dTRKdKjXq0u17D6P4Cq+7oF4CHZwz+lawDqigSk/0OYDtp
+	 46cO1RcFKOFfkfAYRfVbeYzqA+fqdJcV6R7FaHi/dZbu7Z53MzR0yjRLc54OW5N88eVh1
+	 1X2AlDb8gtrxxO1azyvssrXilee9fX8RW6pbl6C6MOrSkvzkONWmRsjhi6BGNWo6sCGeH
+	 qlPVngPIc/Xn/PTe3Xf+TuCxMx2AWiPIOHBJvEib6PbeBCE+1+l8OQcSZHOCuXQ6iDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283278;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PLoanciEqh0v4OMWflog1gaphneVoMMUFBR7QXrHrXM=;
-	b=kaYoyrm4iHm782nohYrleD1uHXHeC5kqt4rga2EZu9grbpoD5HZx/d/I6Z5T1t4l9dax
-	 j1JShW2fevZG93YhpL8HZpjZDbBw8eMu40C/46nuxPP+i7j8gOeY/vf42Tf3UCnJiahP2
-	 meQuT44/wOLKubkYO33chl2ATqt59hihLqhIfWEhQhLJX4TRcmc9cF2UYmsTFvURHhaIs
-	 e92KKF5hmu6vCBSFYIFX1fIitu39R1AuZqV+fUmmSIClVkL3nCkotgvpVBV5Ud4ukjYWb
-	 RsuLsZ1JOv5C6o2U/W8Z2ErXELp4RZ6/QV5pJlyBGee0ibSx7q/kYsc+1MUUM3pMI/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283332;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=FXCuaVCpwWottBu6pKn0235JvcEeLrLl5Q+bEkHQaYw=;
+	b=StIYOED3oOisVxy7AsG5C3jWyTp9db2j/2QLoi9WZCx/SQyQfnvTgw1KxUOezMV+YMVi
+	 fI6UnbcCYnmALnuh2EiYP914s8aojJoZaxF/d2qZQhXa5xQG5TZRsC/FJAVoTXwdMVHQc
+	 NcjjJmUePqqoFhuJjJF4iSZxVfZtCg2X3WjqLJdIfHP0ivdq7iIukerWn0I+5Tom3z3he
+	 Jb8q0arUelVyDi/MOIohFGU8tT3Ha7H0nch+AyrEj6eysEhglkzd1vqFRmYVwe5PaWI+r
+	 3CiijQws1pTHIzhkUnKTeNdo92yuAJjr8PNxSkjP2iMXGGDMadjC+V6lICgF9wzJs4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R3BWaixN;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j8pbvOeR;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B76606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:14:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90B76606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDB0606A338;
+	Thu, 29 Oct 2026 14:15:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DDB0606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=R3BWaixN
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-18cdcfc05ffso2954869c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:14:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793283278; x=1793888078; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PLoanciEqh0v4OMWflog1gaphneVoMMUFBR7QXrHrXM=;
-        b=R3BWaixN1eD9vuL/jz8jm13HByyV1w9hNC1cFaaMnRM5wpIGoXaIVvOkyAF54YFdjE
-         Xp4JXOLFK9iQn8gJxYw49o96O9iAMn09C4/j8nrovnE6tVsMkM5jD4qHZP/fhIznFlHc
-         zqvqi0uwe8hpbWdIB6ebhK8Ci+b9ApV4th2A7I8rFovZP9H8fLzWl1+CE9/V+5/WzrRN
-         wgBDF/b49ZHZ8XRBPV4kCwhpg5Tkp6lA9TkQ6KM103jccJTLZveRbZzyZtm1GnZ8Kyk+
-         QagMNnGqqb5ULuP+f5uHiC916YJ2+PtbodXgo1mie6Ajhjv2IFFOea3vg6bTebh8ChFS
-         MYOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793283278; x=1793888078;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PLoanciEqh0v4OMWflog1gaphneVoMMUFBR7QXrHrXM=;
-        b=UYdYasfl1wF2DTfRJCkbpbBa6jE0ZB2hX69vpndVbW1iJ/a/pmyEx5yAiZtnbiitvJ
-         zu6zdUc1NKIs5k3aWlFeO9Tr5aF2SWwx6ZL8zkQ8SffgghBKRSwrAKYaYePiiZU4PzWQ
-         cyqRGrmEzvmviDfO3l/hFgev1MjLoMLIv1UV+MjZ4If9SZVEOWDcG9VbHMLrLEIKhUya
-         TCvB0ORydjeZgHCMPULIRiqmJQFkv0AYf67QglMRp9F8IGewwvkytE5Y0oLJatWE2Mz/
-         M7TlmHqbYgXlICamHpka6aAsE7jCYpnWTXY56ER+riIj32rv5DzcX+jvvW7XWxmiP+jF
-         7j2A==
-X-Forwarded-Encrypted: i=1; AKwUvBx/Ls8fuJPJZzp215+Ol7ZhgT6MHTmS6GoSaiVlzph9rjyzs49DmQiYYn4us35HfTmKCDX5X1H/XCO9kcI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIlrlFRlCOEccKeKjU0NkRpOOlOO1306GtgX129ZbVrungt8b0k
-	uUWAt93YyQpDqxcA7XnJQLCBHBpabHRfzHq1LomNTVus7vfDDG+XefJX
-X-Gm-Gg: AYBFou0CCdagLc8ZDyyhQaxXET3pfdu/Nh9ucmR32Ne5l7POYUy4ZXl5p+JfTwNCabW
-	BBcjSTfOifCJx9b378aTXQ7aSRL5mnQprKMvqMuV3ZxkYuLQc+jBOaLbQye70hPVKJCtGJUiO+Z
-	tNrnuzfksmlgywLJAq54qCGDU6lVaK/HVEAbi/enJLak1l8PNG9Xir+ANqZ7wrvfz9VJg77JOcJ
-	4voeUoH+3UQBzChTA0ZxNN8b8eg+9T0fwN4rl66QUUrIjl/Us1RcBoPbm5rW/ZM6cKEHYVFSKKY
-	tKMXENzuKmuS/URQZfWfIXVEXmWSfVIZN6U5Z/IoebjnFl3vySQCK6NQt7ZEDy2eMYQW2/36Bnv
-	wC8YD9lBF/hi0re6WqpoJv5zxLr4WPwUOe6gvFRRCHn14n/19L9FSRhUqG6LpGkAHl0qz1gha8S
-	lGVCkT60m8XRoEmnc27Cv68D8sgnSmLFcRwCOgGB3Mst4CW9ZotVVd3Vgwg6sIOC9j6m3ylIP97
-	CA6iFhsSxoN74AS3RXv/7qJmrKBl5sc7vn20XRx9GlFeJHT78sUnfxruTGQdHlkZ0C7+b3RCwiP
-	a98nLt3qpIBoTZzElm9+P/YqQVXbJckOYycO8FW65srPXS8GDyKOXByjjd3JMTyQxfY220ix1GA
-	=
-X-Received: by 2002:a05:7022:1102:b0:1a2:1a28:9348 with SMTP id a92af1059eb24-1a6ce2feba2mr6785845c88.37.1793283277417;
-        Thu, 29 Oct 2026 07:14:37 -0700 (PDT)
-Received: from [127.0.1.1] (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d76814bsm15197319c88.10.2026.10.29.07.14.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 07:14:35 -0700 (PDT)
-From: Cheng Yongkang <teel4res@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] io_uring/timeout: count cancelled timeouts in cq_timeouts
-Date: Thu, 29 Oct 2026 07:12:20 -0700
-Message-ID: <179328314078.648427.13761781546953594668@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j8pbvOeR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793283332; x=1824819332;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=paK5BtdnHvkl9MWSDM60ujXzIQ0HaPpBPCelVsr0Pp4=;
+  b=j8pbvOeRjooXJjh6BjtQOdUrPFu/oBz2Yt+k1kiFgoeS/VGlAzmmS3Q2
+   VEu/sEZNXmqah/vNcBD2NHp+KYhlggcxqyH/sf+0HsH4JPuChXVZ9WwoT
+   Lrg1iqll1PLLYcGGV6rbboTUaZ4+eeHR1oBXrRRpWEfttoXje5pTuXZpM
+   1JsnJmyO+bhnmSHEugeodE5dlEig10cnzd59v/UAhG8ZZjTNw9HnDEF9o
+   /R0FzXXZbuX+IDs+Mb/m4av36dz2TFbrsUQu4QSrqiKslJQy6fskFbX1I
+   NYaOxsRRNV45c4UqZdudZ473bkzwyDnDCSO8jOf1nSa9eIA5B7etm+Bwb
+   g==;
+X-CSE-ConnectionGUID: 5CUChUjVQJiXyMdxvmpImw==
+X-CSE-MsgGUID: dD1Xq/jWTy2vrjyL+CFNfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1909669"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1909669"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:15:31 -0700
+X-CSE-ConnectionGUID: gdXbYC5HQWC+X7Xakw3OSA==
+X-CSE-MsgGUID: zDN3ZckETP2ibAHWTm4tWQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="6991104"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:15:28 -0700
+Date: Thu, 29 Oct 2026 16:15:26 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+	Bill Wendling <morbo@google.com>, Petr Mladek <pmladek@suse.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuvam Pandey <shuvampandey1@gmail.com>,
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH] seq_buf: Mark a seq_buf overflowed when terminating it
+ loses a byte
+Message-ID: <auNU_ilniwUpxSor@ashevche-desk.local>
+References: <20261029053250.i.220-kees@kernel.org>
+ <auMwo_T_FsZp5UsB@devuan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,55 +83,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auMwo_T_FsZp5UsB@devuan>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-io_timeout_cancel() posts the cancelled timeout's -ECANCELED CQE without
-advancing ctx->cq_timeouts.  io_timeout_fn() and io_kill_timeout()
-advance it for every timeout CQE they post, and io_flush_timeouts()
-computes the number of non-timeout completions as
+On Thu, Oct 29, 2026 at 12:47:04PM +0100, Alejandro Colomar wrote:
 
-    seq = cached_cq_tail - cq_timeouts
+...
 
-to compare against each off timeout's target_seq.  The cancelled
-timeout's CQE is therefore counted as a regular completion, so every
-cancellation makes an already armed off timeout fire one completion
-early.
+> How about not allowing a full buffer without a NUL terminator in the
+> first place?
 
-A ring with a keep-alive timeout of off=4 completes it after two NOPs
-when one off=100 victim is cancelled through IORING_OP_ASYNC_CANCEL,
-and before any NOP when two victims are cancelled.  The cancel CQE
-should count, but the cancelled timeouts' -ECANCELED CQEs must not: the
-expected counts are three and two NOPs respectively.
+/dev/null is perfectly valid device, although I dunno if seq_but designed
+in a way to support this case.
 
-Advance cq_timeouts when io_timeout_extract() succeeds, under
-timeout_lock and before the -ECANCELED completion is queued, matching
-io_timeout_fn() and io_kill_timeout().  The -ENOENT and -EALREADY paths
-post no new timeout CQE and keep their accounting.  Both the
-ASYNC_CANCEL and the TIMEOUT_REMOVE path go through io_timeout_cancel().
-
-Fixes: bfe68a221905 ("io_uring: off timeouts based only on completions")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
----
- io_uring/timeout.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/io_uring/timeout.c b/io_uring/timeout.c
-index 8a2108a..fa7b0d9 100644
---- a/io_uring/timeout.c
-+++ b/io_uring/timeout.c
-@@ -370,6 +370,9 @@ int io_timeout_cancel(struct io_ring_ctx *ctx, struct io_cancel_data *cd)
- 
- 	raw_spin_lock_irq(&ctx->timeout_lock);
- 	req = io_timeout_extract(ctx, cd);
-+	if (!IS_ERR(req))
-+		atomic_set(&ctx->cq_timeouts,
-+			   atomic_read(&ctx->cq_timeouts) + 1);
- 	raw_spin_unlock_irq(&ctx->timeout_lock);
- 
- 	if (IS_ERR(req))
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
