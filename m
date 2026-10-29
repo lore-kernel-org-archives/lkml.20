@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.1
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793316381;
-	b=4FFbLC+NBTIEEwJLgU6SC/7jmX+zmz8ENCkvZIIPAiYldhQFzbU+6XCa5oUPq1hw6rLo
-	 lOVyU5BWC5pTqCrCspbWielqE9LL3ZeOeVv22VwyrkHv7Ddwl4IiKrtgPrXJx03dUjaND
-	 eYAg0iTlUTf0f6/62mPnqKhXdpEghf45E1v+MmKGE1rJO4baBJigWgfGDres2rH1j4yyW
-	 CnG1XQRzAbwYon0gwx0VGsGBQGmbQaBbH/jIwHfq0PJzcpCKO8LcvS7RQCsjKcDuIPN6A
-	 HhnlmmV+WXgH3o/5wojT1SzMGf5ZNi0/HbFs93SbOSSkyQsI4Y0UyqnKi03n3CQr48Q==
+	t=1793316407;
+	b=WKlNXAXM0WYGTgyPaTi65tRrz04Ka6kWvCrV+OHLVHgVdnW/5OrJbJRsqryDPwRqzq8M
+	 Kni9Umh0hUfEW7KmBdfeyGmjBqTfhuKq3w5eIeovrNAvWz2i2ygQELZXsnzn3bCUFjx1E
+	 RrpVWa8LO77C8C125F0yBTMx3UtAY/m5Ct2rNLPksCjCN29uT1wgW1Q6EF/UDzwRDX741
+	 SlG2NMilvYLrONrxOD3OM1UvMaxhARJlEG8NVXx4nOzcvf6QYB7Y8zn/M46v5IxbC9P+j
+	 sor7O/5Jbi6rr+oAMXY9Zc6837JA7jMcKeqIZ9qXmKsO5mDkTtKTVL99NSv8bYRbE7Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793316381;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=N369J5GrgZp6/Mykx/qdrzWj9nc6gKBW73UGtO8T4Bo=;
-	b=XcrFejwP1Tqpeqvjw9Iv4pofh1xy8qG4jA80zDKPD6MemqcKW36t3f+6j3Q+rdmS6UaJ
-	 Mqp7VC6RJCr3CsrO0Okw2g/TpkSn/pcuY3JlE539lN/dBK0eLqhWMt9t702TP6bEu5EV1
-	 XwQdcg4V9xSkM7tAOf+q3m/0Wldd8ubaz+z6XsadYP7z/2LEzm2k909JR5hZEzxWza2mn
-	 J+7nO2DaLUkXScluqlQFFoPxZKvSl1aSsZLu1SDnyrGvZqMpkxwWLr5BIJ+utPY6vvoGU
-	 5I4rmoGgncN1MrLv6AFmBXLQyOTitx1ki4qYCTT9eV6Sa8iDRE2QIT8FdHAYzwFrBrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793316407;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=yYH3RocyPgWezXrGK54xrpA6RaOriIdgQYE/bOmcp54=;
+	b=0P1rThJEgOYKM4pNA8vedIPIWvTtW58udkVPIP0MB0ymcFnu7ogVnIzqIZ+aarhkuXnP
+	 dQoDXUjboR6nMeHEP89kH3SJGYd5vK5nS8yzO1udHkSuSOO7/1tNFWZ3fh4mXwl5rWKfA
+	 R4OurbGAPcjYTsLvBmWNdd8a2Rp0fLNTihT6OQVWiooGdHDpOA+XLt+IyxT0EmLG9dLZE
+	 rcUjfQn2W97tBOaj4XqUyWyGLiF4KAAMiXYkyyIGfW+3o5BxuHhrK1IGdAAE2625ecoxA
+	 MmYlbKhUDICgIHY95SH5m5lvF0TkHbWRtbsz/gpwEbpgThPOIXB6rRps9s1cPxU264Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XZrBm0xm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.1
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012001.outbound.protection.outlook.com [52.101.48.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GoH8Oosm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A28606A32D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:26:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95A28606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86BB6606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:26:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86BB6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XZrBm0xm
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M14SWfaTB13tUDSvCCzDVV+RD7NoSf9W9245kNSjUwCNUnwZdoEiChwFX+ELIITIKD4zojnQXGm/Wh6xy4CM9GE535wjpVrzRyUyE9LjTZnkUG5JUlxfkDbuVkQPuZxl7DgGYsLn9LHBp+BLwPCf4wf7ZyLew7Zbq3N5xqJpw74eRrixm7K22edMsW1/Dme8uJRl4M5xr67qpqomY1FZ0HAJ4W6mc2kxqLlWne4yXFs6qine6Sz2rv5o/7cLG/3XVjr59k6MCfu6MXiEq2iD0fKjELAAsT0VlDyA8awXRY693pupaNG/xRoqqky+uQXDQvHb5u6XJBXb8IR5YavTKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N369J5GrgZp6/Mykx/qdrzWj9nc6gKBW73UGtO8T4Bo=;
- b=B3yABkBS9C9QUKbm5a0m1peS7Gqi5A9iJ5QD4oZYvz/EENhjAKhQY4TeQCYHMn5NGRIBwGncTMGuxmiG6Bex2E/SwKqI+DjF12ui6OQx7Q1hH5mlQ7I1NM/MmXnTGaET1/kHs3CRREkwo4alrCSWszY5wmzTJZNvg/ROPppal1GbpD6tflVQRCjsx9+SAJ72svFKtNrHBNrG4/YmYt5pfd3TWLurFYzRP38fCxPfWa+6yPSN6tbAUj9uNnfZfZgFQr34/LBf8RxSAcEBNmeL0R0w4vOUj9fSj68KNeuiknYq8OMCi0hgm3E80naeDcg7fQ1ibNcfGTQ3dUtcykzv4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N369J5GrgZp6/Mykx/qdrzWj9nc6gKBW73UGtO8T4Bo=;
- b=XZrBm0xmhUGpcH/BEDulvz75wvAYUoTNZqjNgVlIgj1ZrFMO/afcneFbRkdAvHm47NQgwLKuCKERB+6GX2U26LEz5NK0TIwVI2ZdyXazv14DKBKiCZ1kbPV9eisLyJYLM+VJA/+3ySdIjkCF6EPSi+KRLwpOhRQDDWH3KjogjdPHmvIge0uijK+YTSclpItoRudr/F77w2HsOZsZnrEIvYQ1egrhd8dXKhPBqRHz/QSZuKLCcTCA4/kWR3v7h24sDngoRLATJIqHk8zLmS0DkWE5t5Q3m3okNDp9FyHea7gwKoNHjKVkAhPe6X27GW/SQCs5DtfcZDSlLQZ3qGmQZw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
- by IA1PR12MB6602.namprd12.prod.outlook.com (2603:10b6:208:3a2::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
- 2026 23:26:17 +0000
-Received: from BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
- ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
- 23:26:17 +0000
-Date: Fri, 30 Oct 2026 00:26:07 +0100
-From: Andrea Righi <arighi@nvidia.com>
-To: Tejun Heo <tj@kernel.org>
-Cc: sched-ext@lists.linux.dev, David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched_ext/for-7.4-fixes] sched_ext: Call ops.sub_attach()
- only while the cgroup is online
-Message-ID: <auPWD4tWlxZCv4tB@gpd4>
-References: <20261029222859.3099324-1-tj@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029222859.3099324-1-tj@kernel.org>
-X-ClientProxiedBy: ZR1PEPF000077F4.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:918::456) To BL1PR12MB5174.namprd12.prod.outlook.com
- (2603:10b6:208:31c::19)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=GoH8Oosm
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so5067a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:26:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793316405; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rsiw59yUcdMak+xmsFwsErCZOsATza0dz8+xDTLj8xj8/8Sc9UTzb4EPAlwcgfMHg6
+         SBgxvmC4bvdgoxz8gVTrsqCNJCVFcLsaB1w5MhU5BkVvRZiqqfl2Z19gk1jen05fu2bd
+         jdftnqnEz4Uxzhn4Jea/oOM2RrGHwxJQpeWTO13PpeqFFeQ8NiwgsR04ECb+1blX641a
+         sg4HjB3QOoZ8iA+MkYx3/hMt1VKIofOnRDnEwNnNyVF4R76fOfyXTsqAu/4ISNLhlZOs
+         e2E+YsPWbEYWN0PYrfKYjfvl7/OWu3aUIzKzWV24NYd7IQVjOIDpbmk5k2XobZXdiixY
+         Ml5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yYH3RocyPgWezXrGK54xrpA6RaOriIdgQYE/bOmcp54=;
+        fh=4Qnqzlyu4wPUwZEMaUppu+Cxsu2tVKDPs5hsqJdsy7Y=;
+        b=JkJ6yr04nLZ4uOi3HwPB5cRsA+cOIP5PbllQm6AlTlRvfjMb1u57HgJMDMSdnEm5rq
+         wPY8qJcxcLPNQhaOivMBieu5FN8p/m8qg13FeJr2ID5JkNJWzwiuzkycl+/tZkggqPIz
+         PvgctGWsLSKSGOYdzyDqXVcKXjFUqsIndS2CnkGXFbYl5w+l76CSMap45ulyCj2yaxNT
+         dpYn29pHhqumb/+HggrUN3qt8v/Kc+WdUn3qUhLlfRtS0iqyiVKRu7s4pR1tZ1tGZxQ3
+         jlUq5fQVAllHfeZIU1lTm8KicgD5G1E/HJqPidAoA8IG9bDu2tPIICpSHztf3sVneeQc
+         kMEg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793316405; x=1793921205; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yYH3RocyPgWezXrGK54xrpA6RaOriIdgQYE/bOmcp54=;
+        b=GoH8Oosmkz9B07pQnR6cX7nTZI8hDA1ULa7uTLwGKAPHj24WbOPMX7wEBnG+APx/0k
+         tr+IBvgc3LqD4kWQscyU1PjXkSMGsqTkxf1c6qwvGG7nLJVCh9BwoELCdQVjJ9422ffO
+         MlnqXCeD/5JWLe+7znpgRMuNppJF2PATQmI05v3GeXuYp8OJE5OdJQTOShf7r3qrJgWI
+         Eg5/8u4Lz3CU5G7YWgZTLiMOfvvm3A6N/CdZtDuum9whwY2g5RzEMXwtm4yt8U8M997v
+         MWzGWeTU5t3XpX37E+NrgbmNLL0qZa070TeBQFyLhTdIa2J0QdbsW7QWM5lQTh2zv3ga
+         0rZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793316405; x=1793921205;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yYH3RocyPgWezXrGK54xrpA6RaOriIdgQYE/bOmcp54=;
+        b=naPSk61sjFxlmPMB9LiVLD61l12T375gGnauCogM8fB/e2ZBLduhONp5Dl8bHRM5jX
+         1jyI9RF7qpClOpJVbEmUpmkyXv6ETzUMDtep9XiAAZYGOi56fZKCleQNu4XS+/4VuNOn
+         F6bxf8kgj0f5KDvV3oh2s0gT7Q0kiSA/vFckqL5uBoDUptZ6tvA87yGxmBZUnOMMNAqT
+         UwI1ezi9ZaphJgAYGvgWhBbZz53PamH9NM6cE9wRDZG3far7BW0gu1neDu+z/4pIJ1NN
+         PZdoXFfggz/jkLDP77f+i4Pesv7RDmmwfs7qJ9064yoDHUtftRmUtVrkfwtKe8T0ww23
+         rA9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzPX6aleOvvO1mVnnjqh2qfiMLPmcacKsmgUgfBL6wOEklCISR002SN97BS25vj89T8EXBoXZsO0Z+xCrI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYFumQCBOqXarwNCIpJyclWrGw3vxMf8D5jitcgKWIaKOmvfn9
+	HwnT879CUaqVcRWuxrQRMKlDZVNsUdtSmExYm3fKlVhFNuxnClGSH2TOjx/zF/sWgd9sQkKU2tA
+	qOraNNaSnoA0Mi1p0ldJ/6FOaFn64/nscwMqPubLI
+X-Gm-Gg: AYBFou1twJkDqitZY81Yj2nsD3wkJ8aXyMHsFmJDupLKQQun9D+gi6kwiIyCfJmOdH+
+	pYUA0FbOAiaFEDjjTya/jIB7t4yBeDwAsKASwg2EmJqLUSXC+vQBJToEEyieiH7Q51kvPqCfzzj
+	nmV3fUFnTCOT19KKKwVfvsGqqHSDwl3vZHURachiyYJVweWfxM9FAIJr1hPWURJ1YLnvmZuW/qA
+	rySvjq4mr2/jnuO9kkfAVFLKcSjll+xajSQVFl3vqQRgQM3+F9KTg7IYGN6ZWP9PGgYStyV4yD4
+	qctYdnstYtM0Y8wokAokXLLwZkXZtd6gR7zw/l24ylmam3ZrC/1WGdwl1o0oqjhvwzfVbyC6H+o
+	vj7fT09IxxsgPddVuQhkM7FhadFr8AdF2Kpy5
+X-Received: by 2002:a05:6402:4246:10b0:6b4:2188:97d0 with SMTP id
+ 4fb4d7f45d1cf-6b4b1106ef0mr117279a12.6.1793316404675; Thu, 29 Oct 2026
+ 16:26:44 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,123 +104,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|IA1PR12MB6602:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95c6c8bb-4834-4787-819a-08df361407ef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|11063799006|56012099006|261009223027099003|261026140227099003|10067099003|261022075727099003|261028144727099003|261022105027099003|261021121427099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	3aCq3nrGyRi0inXvARgDnKZaFj1SJlno41ytaRGrA3shRKNIz+DBNyERv1Uwm7KHva2Qf6NMDbPfPHP8ckT/eKkJ+8LR9qqC3XTJFC20MqLN+UbNK08e3Jstn1VCJQlwFRVragcVQao6rjjSUDQxkLQpnnQy6Jfj1uLlv/CjNlXzaXY5T19VnlIiAL08FRVCnr3A1dTmB0TcscCYMrJ/xg/TYomqXLwPaul5hFUEv8YSXccmjS41iVPcxWVwkPo8cqTCOburYCd8NgxefZfK2d+9KR3stDP+A1Uuj+iMuaZhHHvl34HENXyJwtVob4xaVGedZh38/FXeQPu/dQcJirQ+94UBWbNn70uQYFv5GM7ut6QPm2s1xUlOJwhPMrVaZKuZzfrZQn92maR3YOWTzJCV0gWcZDs1tuA/SwzpSaAc5OsFzjE3hK6mi7HvvktMKNWVHt59wmzK+WDeRvIYuQTVDm66So8bFUtcz35N4w18n47H4h9Uum6EV5USc2JQ1CZe3+0bruXZsCitdS4TCMWDdo2jTx9CXfI95NKDyUyaOfnG2vO3lMTnOtbXEpwtP2V12yDZm0WR1VOs0iMLIzB8kQkFx7KgZINx26MUZcJtL4Xk/ROnr4mXxlAbkS8zkgsoI4OpzUEG6PI/Y1ngXjcvyrAQHVJGxjPG2Fu7+CE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(11063799006)(56012099006)(261009223027099003)(261026140227099003)(10067099003)(261022075727099003)(261028144727099003)(261022105027099003)(261021121427099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Q5w1A7PrBQKikQRrOk42lM7BwmvGiwbgZ6Blwf2EkjXEsYH4bQTWus1ThoPw?=
- =?us-ascii?Q?rPA25RrEpp3rkCFLtXYZJ0l5uvK96AuoHQeRRZ917ShqygkHrp/P5u7kL0nl?=
- =?us-ascii?Q?GDIn+7wYMcpPMusFx4bWe/UbvHXf0E4GRPbz4N3IVamUsuYxSUrgnd9zDUbC?=
- =?us-ascii?Q?ECCmp8DJvkFbX8VNCYu7lttLvSgsbICdoaCZ87OnOOSXbeC1Ph65/nTOPGXm?=
- =?us-ascii?Q?z3fYhoqD3k3MhkKy2FXM5faER7/uCI2b0mzdEa1fs+GPD6YVL0zp+uXR58eV?=
- =?us-ascii?Q?mTkDoIJgkAmNg1yjJtt6vzmTQHu12I9uuzAu08fDss29MWohXunexOsJU6Bs?=
- =?us-ascii?Q?TMnniUnbwnaYfpZRC3lCDjQqJKIqA9Gh31ReQywB+klxry328drM/Mlg7CUL?=
- =?us-ascii?Q?N825fOPMQFegh6KdiutsE7n2X62a0AVdb9LHwjHy/EgxpGywgDlvsfVjLY6R?=
- =?us-ascii?Q?MIHNgT1UKe5BlAunYKlleL9I8pbkwObxXpZOPPtNkosX9gmhPvjhO11TLMvG?=
- =?us-ascii?Q?6wemqmLOJ/+/sl1pBEeJO0hrMwkUUrnAxqfrrjPficsIucD0LejO0drFtXrJ?=
- =?us-ascii?Q?YKFNI/rbSf9r5EwSK8L/f/bKaYo5/8UfJi6zkhtHjLftKWn9XYBE+lKq/SpY?=
- =?us-ascii?Q?UNNFeh9zP6AvI4Jx7WeB8zxKN8MnqCWIJEdhhUR7rp8q4Wvb25oT5UJZg5qi?=
- =?us-ascii?Q?lW8vtCu/hxnmqRXCUXMm0HBo/2exM/3B3kB22h75VfNyrkA9DVxk9lHdTXl2?=
- =?us-ascii?Q?3zfJOETGgSnf9VgtZFrsnTq0tMmsq74hEDOYBmGWmCz5UAYgI+P8ez8Gub8f?=
- =?us-ascii?Q?WBLVgi5DnfAq7NZZKlEDKhxGs+677+RPxRpeXkfImxabABjpToa0aJdyxUVa?=
- =?us-ascii?Q?5tR9SivzxsAejYj9jT8VEiOCdsUeWm1xoBho2GDYACnEaUnDNmX9si+MoA/k?=
- =?us-ascii?Q?GgzkWj6MuueZlYB4QVIii/uR+meINtYm1qDXm+QjfD11c7MVnBxbh+pcuZ/q?=
- =?us-ascii?Q?kZ9QzZE056Jye1Rl7mIao1LsyE+tON9q6aGuRp2kuny8nAcXDvWlKGGIb0gu?=
- =?us-ascii?Q?nDcxhAwsHuXW9V/VT8Cf3PFlHRY37MDu6ftfulcpkj96OYRt7TZnGM4bNqHX?=
- =?us-ascii?Q?05rq1gH8NKIbDPtHUaE+iGxe54ADnsD82W3VCe9s5Jpwg1mmYeLPWs+gz/kc?=
- =?us-ascii?Q?hiN+g2c0HKUvl9yp14wGSo5i7KHG5Nvtyv68o191kSjVZhhdWfSmcEMuLGm4?=
- =?us-ascii?Q?BSYaHm8ToWj+9y7yQVZ3Dvqf8zP3WW9xV3BjOch+MK8Fy6NokBnzfFIUOJOh?=
- =?us-ascii?Q?SO4kITZhO3ZpfU1ZiaPI0ieBfjP5/Mbmx5CJHSe5JFqs0c6u9N0wz/IQt4Qm?=
- =?us-ascii?Q?BiTc436cTIO9EC5x4MY3lqETWhmfdXCjyyChfDF9Ai8p0pBK9NS2yjSWhzhw?=
- =?us-ascii?Q?uz3P9YxJ3fBaLN8wH4jP6rbY6pQEdnflwz2A7YNwqwtXvxdD46Oiwb3pNRrA?=
- =?us-ascii?Q?CJKQe8FX1NLBKEADUCOSgk7MzgeErMADxHmgitOqhqHRbKA1vlm7l2/vsjD2?=
- =?us-ascii?Q?b+Jt5wBjJeHTw6piqtEI2LNefCms5Dzl9lu3t8gXHR8Rjb60n6DXrl/2nocB?=
- =?us-ascii?Q?iLcbWrormDPIxLr++kPibAACd518MMT9o4QNaSVkSdZ0nTPkC7rLF0ADdd3f?=
- =?us-ascii?Q?2ext/wXtXzBTejiKxAda9jKozerDI9BmN/C8AW9aegQPEbju?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95c6c8bb-4834-4787-819a-08df361407ef
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 23:26:17.1949
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WfupOfaXwUp0J/pWg4dveYjIMLE995o9czCePQx63SvIuks+eF5JTeKUBOsUNGa+m895h8uqANA8ZZKbgaKIRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6602
+References: <20260918193937.569414-1-zide.chen@intel.com> <20260918193937.569414-6-zide.chen@intel.com>
+ <CAO9r8zOY8W6s5U8O_tZ3dERA4h+mnWWjeS2GDgF=gbo+CQDNLg@mail.gmail.com>
+ <e5e719ec-7012-413c-a446-86fd35aca33d@intel.com> <CAO9r8zOLCBhWZ5P1BEU24p8++3jVLTPSOdNreBk3RUC10Z79TQ@mail.gmail.com>
+In-Reply-To: <CAO9r8zOLCBhWZ5P1BEU24p8++3jVLTPSOdNreBk3RUC10Z79TQ@mail.gmail.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Thu, 29 Oct 2026 16:26:30 -0700
+X-Gm-Features: AclHuK_4QMg9zYzI7j3e-Iti3pLTo86KYlWly6SV-6Z_xIbdZQsthDMnW1g0dY4
+Message-ID: <CALMp9eTOvhiLw7L--DQp_0QaFS=O1TaCQ3q0jPh=70273DA+=w@mail.gmail.com>
+Subject: Re: [PATCH v9 05/12] KVM: x86/pmu: Support PERF_METRICS MSR in
+ mediated vPMU
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: "Chen, Zide" <zide.chen@intel.com>, Sean Christopherson <seanjc@google.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
+	Andi Kleen <ak@linux.intel.com>, Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
+	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
+	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
+	Xudong Hao <xudong.hao@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 12:28:59PM -1000, Tejun Heo wrote:
-> The parent's ops.sub_attach() runs before the enable work checks that the
-> cgroup is still online, so the parent can get an attach for a cgroup whose
-> rmdir already returned. That complicates parents where cgroup cleanup and
-> sub-scheduler attach race.
-> 
-> Check CSS_ONLINE and call ops.sub_attach() under cgroup_lock(), so that the
-> parent sees an attach only for a cgroup that is online.
-> 
-> Fixes: ebeca1f930ea ("sched_ext: Introduce cgroup sub-sched support")
-> Signed-off-by: Tejun Heo <tj@kernel.org>
+On Thu, Oct 29, 2026 at 4:19=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+>
+> On Thu, Oct 29, 2026 at 4:17=E2=80=AFPM Chen, Zide <zide.chen@intel.com> =
+wrote:
+> >
+> >
+> >
+> > On 10/29/2026 5:06 PM, Yosry Ahmed wrote:
+> > >> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+> > >> index 448044a2b121..f4d3801b97bc 100644
+> > >> --- a/arch/x86/kvm/pmu.c
+> > >> +++ b/arch/x86/kvm/pmu.c
+> > >> @@ -806,9 +806,16 @@ static bool kvm_need_any_pmc_intercept(struct k=
+vm_vcpu *vcpu)
+> > >>                pmu->nr_arch_fixed_counters !=3D kvm_host_pmu.num_cou=
+nters_fixed;
+> > >>  }
+> > >>
+> > >> +static bool kvm_need_perf_metrics_intercept(struct kvm_vcpu *vcpu)
+> > >
+> > > The name is confusing, this doesn't control the intercept of
+> > > PERF_METRICS (and it wouldn't be correct to use it for that AFAICT).
+> >
+> > Right, these two APIs do not directly determine whether the mentioned
+> > resources need interception:
+> >
+> > kvm_need_any_pmc_intercept()
+> > kvm_need_perf_metrics_intercept()
+>
+> Jim suggested folding kvm_need_perf_metrics_intercept() into
+> kvm_need_any_pmc_intercept(). The name of kvm_need_any_pmc_intercept()
+> might be confusing as well, but at least it's one less interface to
+> worry about?
+>
+> >
+> > This is different from kvm_need_perf_global_ctrl_intercept() and
+> > kvm_need_rdpmc_intercept().
+> >
+> > How about change them to something like these?
+> >
+> > kvm_pmu_has_unexposed_pmcs()
+> > kvm_pmu_has_unexposed_perf_metrics()
+> >
+> > Or merge them into one single API? kvm_pmu_has_unexposed_resources()
+>
+> I don't like this name any better, but I don't have better
+> suggestions. Since we already have kvm_need_any_pmc_intercept(), let's
+> just use it for now?
 
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
-
-Thanks,
--Andrea
-
-> ---
->  kernel/sched/ext/internal.h |  4 ++++
->  kernel/sched/ext/sub.c      | 13 +++++++++++++
->  2 files changed, 17 insertions(+)
-> 
-> diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
-> index ff0a3d508533..58652370da5a 100644
-> --- a/kernel/sched/ext/internal.h
-> +++ b/kernel/sched/ext/internal.h
-> @@ -869,6 +869,10 @@ struct sched_ext_ops {
->  	 * @sub_attach: Attach a sub-scheduler
->  	 * @args: argument container, see the struct definition
->  	 *
-> +	 * The sub-scheduler's cgroup is online for the whole call. If it goes
-> +	 * offline after the sub-scheduler is accepted, ops.sub_detach()
-> +	 * follows.
-> +	 *
->  	 * Return 0 to accept the sub-scheduler. -errno to reject.
->  	 */
->  	s32 (*sub_attach)(struct scx_sub_attach_args *args);
-> diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
-> index b5d92d89629b..6bc6b93ca63a 100644
-> --- a/kernel/sched/ext/sub.c
-> +++ b/kernel/sched/ext/sub.c
-> @@ -2340,8 +2340,21 @@ void scx_sub_enable_workfn(struct kthread_work *work)
->  		.cgroup_path = sch->cgrp_path,
->  	};
->  
-> +	/*
-> +	 * The cgroup stays online across ops.sub_attach(), so the parent never
-> +	 * sees an attach for a cgroup that rmdir already removed.
-> +	 */
-> +	cgroup_lock();
-> +	if (!(cgrp->self.flags & CSS_ONLINE)) {
-> +		cgroup_unlock();
-> +		scx_error(sch, "cgroup is not online");
-> +		ret = -ENODEV;
-> +		goto err_disable;
-> +	}
->  	ret = SCX_CALL_OP_RET(parent, sub_attach, NULL,
->  			      &sub_attach_args);
-> +	cgroup_unlock();
-> +
->  	if (ret) {
->  		ret = scx_ops_sanitize_err(sch, "sub_attach", ret);
->  		scx_error(sch, "parent rejected (%d)", ret);
-> -- 
-> 2.56.0
-> 
+How about kvm_pmu_incomplete_passthrough()?
