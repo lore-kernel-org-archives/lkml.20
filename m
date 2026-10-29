@@ -1,88 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793246667;
-	b=0lDghMUj3l2BgwDj7w0CBf+2nt959RCRm1hz8OeTVMTqjahGpV6KPnolLOry9EyoOrzx
-	 9f2p2aocC0I8KKIzbpEdaDBYN5WDp90uNikDWCsLnLbZ+lFfub1FkvYcBKkxtdH5qP9r/
-	 8G9AvriPvJRbTP8LUqIv8V0oeAalRewbtZ2/4LJvi+7rkmcjR+JwOuCkRJH5TtMa7gQGd
-	 ATh1Ma5rHHDWWIaN7gVp7+Bx6VDpQSHML0Cw4tKIrnxH+aXFjJdPq1M8Twi1aOVEDAOZ+
-	 8FCN/j6w6fHTK2GGUN1asN26naeX0AoNuXCaK0UxxveQrdojzIcauCoO5HMxFMjBxfg==
+	t=1793246696;
+	b=aGKcRZzSMzStfHReXNM7StJ6WyOgQZO0OhscGafRLCEuENuYBqlONnWqY85e2jnhAJ+x
+	 Xl2Kfp3Zfg8W18quk59ywfEzns/l0zUIFZ/TYlYTJM4q6e3vsZzs8Gpm6ZYatzg9i7lEV
+	 9eZsS7y9qAiC5QNS7I5mo3aXb59aJ4LVZfasSYeYtC+vfPMeKNW6qtQrMFtHBzUI+b3P2
+	 hzJOSOvx0su9DuP6syRWrhtt5zaXeRG4SXt6HliD6NZ7JTd+dK1uh/xgdoeoXhUop6MaN
+	 LXo88/zuD7Vqzs0EuewKa0fOppOtPKST2r/NnO5tWFU6FQFCpD/WckitQh0KwRQmecA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793246667;
-	h=DMARC-Filter:DKIM-Signature:Received:X-Originating-IP:Date:From:To:
-	 Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:X-NTES-SC:
-	 Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	 X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=a1PhFUYdokHoMeeA0WPauot5ThmFVHZSu+ZYJSEfnH8=;
-	b=uM1XiLmBk+DP4wWYbuFhcYSfJJs00i8hS1kLS6kE76jqFNcGws0MzkJA7dBttLmo3pYb
-	 rNwr8VjkC+KUXJcC0r+5cVOHemvt5q5mi+yuYjvKy4tyXrQ4DSkj5BuUG15+CSPswZVtT
-	 jaqV802joPlNfjSfLiHyyFGIcGFvNliNTScF7YJh1ZyOL7Q/wm/bh/OtbYCi0rZjYpKwY
-	 aE/GaV9fezFnlyc8JKo5CRPsE1edc/15o2sJKnzg+/YnjemBTr3hvhcgkyUSezRPg2pKy
-	 tDzsprtn6ltFKI1vDaS9+eTGgztzFbTWOVEiqAm7Y4BAx5etZz80wCkwNnV2eXb2OMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793246696;
+	h=Received:DKIM-Signature:Date:From:To:Subject:Message-Id:In-Reply-To:
+	 References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Xn038JpTYGNFgIUsN47I3TQmCFXaC74gR+B6aNbbr3A=;
+	b=TFqp56zNvhtH3k0fGC4Gcdus0U6wCTeI8GwGBWdDicOp7ZcgBpWi39Hsp45ZVkiM+NiZ
+	 TDd03c+Nkq1VgWXKFyioKI/AqlHhF3O3/t4Nrcla05q48JkARysphYiTZ9KP7/lDV+z/Y
+	 BV7G8drWfFl+emWAblvIKXktRnifxx8SPikuqEqG37fTBIy0yA2c4tNKEZIpEaXIpQscD
+	 qDMilVr3nrMfda8ERGgYsn8M4WELpcFZSyTNKJgcFOc8jYzn4ELgqjcIW+MJyBngB9m3Q
+	 HlS+M+rDYLo1YEHjTihBTBv98XIwS2UJZ5m7DTYMR/KI0qORTonKhnkzPE9a76LsFWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dcHdFK6f;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=aUXUoCXQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9881606A31A;
-	Thu, 29 Oct 2026 04:04:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9881606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F76606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:04:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dcHdFK6f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=a1PhFUYdokHoMeeA0WPauot5ThmFVHZSu+ZYJSEfnH8=; b=d
-	cHdFK6fSwvNTdfGaJ8dUaEcejlQafh68z8Oo0JIUwlbThXosz+AfW/Z07S48kuaV
-	SQSbg4xKWxGm5VtSPwApHDOsKDaqtH3sCq1PPFds1f/8QcTHrNoxX4CbzVQ8Tz3B
-	E8rogBb0+VfPKfLH7kKHOsedmcAxnJhaikG7V2Rbog=
-Received: from 19888972804$163.com ( [2610:150:c001:15:81:7818:302a:b455] )
- by ajax-webmail-wmsvr-40-102 (Coremail) ; Thu, 29 Oct 2026 12:01:31 +0800
- (CST)
-Date: Thu, 29 Oct 2026 12:01:31 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Marc Zyngier" <maz@kernel.org>
-Cc: "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
-	"Albert Ou" <aou@eecs.berkeley.edu>,
-	"Alexandre Ghiti" <alex@ghiti.fr>,
-	"Lorenzo Pieralisi" <lpieralisi@kernel.org>,
-	"Thomas Gleixner" <tglx@kernel.org>, "Radu Rendec" <radu@rendec.net>,
-	"Huacai Chen" <chenhuacai@kernel.org>,
-	"WANG Xuerui" <kernel@xen0n.name>,
-	"Jiaxun Yang" <jiaxun.yang@flygoat.com>,
-	"Anup Patel" <anup@brainfault.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	"Sunil V L" <sunilvl@ventanamicro.com>,
-	"Andrew Jones" <andrew.jones@linux.dev>,
-	"Jonathan Cameron" <jic23@kernel.org>,
-	"Hanjun Guo" <guohanjun@huawei.com>,
-	"Tomasz Nowicki" <tomasz.nowicki@linaro.org>,
-	"Grant Likely" <grant.likely@linaro.org>,
-	"Jason Cooper" <jason@lakedaemon.net>,
-	"Robert Richter" <rrichter@cavium.com>,
-	"Catalin Marinas" <catalin.marinas@arm.com>,
-	"Liupu Wang" <wangliupu@loongson.cn>,
-	"Tianyang Zhang" <zhangtianyang@loongson.cn>,
-	"Jianmin Lv" <lvjianmin@loongson.cn>,
-	"Conor Dooley" <conor.dooley@microchip.com>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org
-Subject: Re:Re: [PATCH 00/12] irqchip: validate remaining MADT records
- before use
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <86qzhaxmh5.wl-maz@kernel.org>
-References: <20261028050039.121080-1-yaojiale02@163.com>
- <86qzhaxmh5.wl-maz@kernel.org>
-X-NTES-SC: AL_Qu2SAf6fuUwi5yGeZOkcn08ShO49XMOyvfoi2YFTc+0EoDzV3BInXF1gPGDxz8mkDT2vlyCFSTp15+JbY6xAaRJ2OZipwy2BT3fMJMqiQA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=aUXUoCXQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CB631F01825;
+	Thu, 29 Oct 2026 04:04:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793246695;
+	bh=Xn038JpTYGNFgIUsN47I3TQmCFXaC74gR+B6aNbbr3A=;
+	h=Date:From:To:Subject:In-Reply-To:References;
+	b=aUXUoCXQnp7qve9tKC/nnyq0NU3kO/IEx9xLRH+xx6QiFjbKysacr1wR0IR/U9Je9
+	 u7NSXwHeQZhMQUXdvPMxG8L//oi2vM3XzHM2BtYhSh4MpdhRSmKK+0HZDknxsUIUpH
+	 QvedKIEVaiN+Ygcv58ku0C3k6nm8Pk3m/B+DehDE=
+Date: Wed, 28 Oct 2026 21:04:54 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: david.laight.linux@gmail.com, linux-kernel@vger.kernel.org, Manfred
+ Spraul <manfred@colorfullife.com>, Davidlohr Bueso <dave@stgolabs.net>
+Subject: Re: [PATCH 05/44] ipc/msg: Fix saturation of percpu counts in
+ msgctl_info()
+Message-Id: <20261028210454.7ff0d43fd57f3546547e0416@linux-foundation.org>
+In-Reply-To: <20261028181502.484379c56878a872899c0f94@linux-foundation.org>
+References: <20251119224140.8616-1-david.laight.linux@gmail.com>
+	<20251119224140.8616-6-david.laight.linux@gmail.com>
+	<20261028181502.484379c56878a872899c0f94@linux-foundation.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,34 +57,100 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Message-ID: <2625137e.39a5.1a185d1f222.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZigvCgD3f90bxeJqMyFjAA--.1040W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzRvKBWrixRsWnAAA3F
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-QXQgMjAyNi0xMC0yOCAxNjoyMzoxOCwgIk1hcmMgWnluZ2llciIgPG1hekBrZXJuZWwub3JnPiB3
-cm90ZToKPk9uIFdlZCwgMjggT2N0IDIwMjYgMDU6MDA6MjcgKzAwMDAsCj5KaWFsZSBZYW8gPHlh
-b2ppYWxlMDJAMTYzLmNvbT4gd3JvdGU6Cj4+IAo+PiBTZXZlcmFsIEFDUEkgaW50ZXJydXB0LWNv
-bnRyb2xsZXIgY2FsbGJhY2tzIGNhc3QgZ2VuZXJpYyBNQURUIHN1YnRhYmxlCj4+IGhlYWRlcnMg
-dG8gY29udHJvbGxlci1zcGVjaWZpYyByZWNvcmRzIGFuZCBhY2Nlc3MgdHlwZWQgZmllbGRzIHdp
-dGhvdXQKPj4gZmlyc3QgY2hlY2tpbmcgdGhhdCB0aGUgZmlybXdhcmUgc3VwcGxpZWQgdGhlIGNv
-bXBsZXRlIHN0cnVjdHVyZS4gQQo+PiB0cnVuY2F0ZWQgZW50cnkgY2FuIHRoZXJlZm9yZSBjYXVz
-ZSBhbiBvdXQtb2YtYm91bmRzIHJlYWQgZHVyaW5nIGVhcmx5Cj4+IGludGVycnVwdC1jb250cm9s
-bGVyIGFuZCBDUFUgZGlzY292ZXJ5Lgo+PiAKPj4gQWRkIHRoZSBtaXNzaW5nIG1pbmltdW0tc2l6
-ZSBjaGVja3MgYXQgdGhlIGNhbGxiYWNrIGJvdW5kYXJpZXMuIFJlY29yZHMKPj4gd2hpY2ggYXJl
-IHBhc3NlZCBmcm9tIGEgcHJvYmUgdmFsaWRhdG9yIHRvIGFuIGluaXRpYWxpemF0aW9uIGNhbGxi
-YWNrIGFyZQo+PiB2YWxpZGF0ZWQgb25jZSBpbiB0aGUgdmFsaWRhdG9yLCBiZWZvcmUgZWl0aGVy
-IGNhbGxiYWNrIGFjY2Vzc2VzIHRoZW0uCj4+IAo+PiBUaGUgaXNzdWVzIHdlcmUgZm91bmQgYnkg
-Y29kZSBpbnNwZWN0aW9uIGFuZCBoYXZlIG5vdCBiZWVuIHRlc3RlZCBvbiByZWFsCj4+IGhhcmR3
-YXJlLgo+Cj5Ib3cgZG9lcyB0aGlzIGNvbXBhcmUgdG8gdGhlIHNlcmllcyBwb3N0ZWQgYXQgWzFd
-Pwo+Cj5ObyB2ZXJzaW9uIG51bWJlciwgbm8gY2hhbmdlIGxvZywgYW5kIG5vdCBldmVuIGFuIGF0
-dGVtcHQgYXQgYSBRRU1VCj50ZXN0IHJ1bi4gSWYgeW91IHdhbnQgcGVvcGxlIHRvIHJldmlldyB0
-aGlzIHN0dWZmLCB5b3UgbmVlZCB0byB1cCB5b3VyCj5nYW1lIGEgdGlueSBiaXQuCj4KPglNLgo+
-Cj5bMV0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvMjAyNjEwMjExNDQ1MjQuMzY0MTQzLTEteWFv
-amlhbGUwMkAxNjMuY29tCgpUaGFua3MgZm9yIHlvdXIgcmV2aWV3LCBJIGhhdmUgYWRkZWQgdGVz
-dCBpbmZvcm1hdGlvbiwgd2l0aCBhIG5ldyBzZXJpZXMuCgpodHRwczovL2xvcmUua2VybmVsLm9y
-Zy9sa21sLzIwMjYxMDI5MDM1MjUzLjIzMzM4NTItMS15YW9qaWFsZTAyQDE2My5jb20vCgoKPgo+
-LS0gCj5XaXRob3V0IGRldmlhdGlvbiBmcm9tIHRoZSBub3JtLCBwcm9ncmVzcyBpcyBub3QgcG9z
-c2libGUuCg==
+On Wed, 28 Oct 2026 18:15:02 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+
+> > diff --git a/ipc/msg.c b/ipc/msg.c
+> > index ee6af4fe52bf..34e607add006 100644
+> > --- a/ipc/msg.c
+> > +++ b/ipc/msg.c
+> > @@ -501,11 +501,9 @@ static int msgctl_info(struct ipc_namespace *ns, int msqid,
+> >  	max_idx = ipc_get_maxidx(&msg_ids(ns));
+> >  	up_read(&msg_ids(ns).rwsem);
+> >  	if (cmd == MSG_INFO) {
+> > -		msginfo->msgmap = min_t(int,
+> > -				     percpu_counter_sum(&ns->percpu_msg_hdrs),
+> > +		msginfo->msgmap = min(percpu_counter_sum(&ns->percpu_msg_hdrs),
+> >  				     INT_MAX);
+> > -		msginfo->msgtql = min_t(int,
+> > -		                     percpu_counter_sum(&ns->percpu_msg_bytes),
+> > +		msginfo->msgtql = min(percpu_counter_sum(&ns->percpu_msg_bytes),
+> >  				     INT_MAX);
+> >  	} else {
+> >  		msginfo->msgmap = MSGMAP;
+> 
+> Added, thanks.
+> 
+
+LLM found another bug in there.  Please review:
+
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: ipc/msg: clamp negative MSG_INFO usage counts
+Date: Thu, 29 Oct 2026 01:43:24 +0000
+
+MSG_INFO can report negative message and byte counts during ordinary queue
+traffic.  For example, ipcs -q -u prints a negative header count and can
+convert a negative byte count into an enormous unsigned used-space value.
+
+percpu_counter_sum() does not take an atomic snapshot of all CPUs.  While
+a third CPU sums the counters, it can read the sending CPU's local count
+before an enqueue and the receiving CPU's local count after the matching
+dequeue.  The sampled total is then negative, even if the queue was
+initially empty and is empty again.  The sum's lock serializes folding
+into the global count, but not ordinary local counter updates.  Queue
+locking does not serialize these updates with the statistics reader.
+
+Use percpu_counter_sum_positive() for both usage counters before applying
+the upper clamp.  Keep the comparison in s64 so the result is not narrowed
+before saturation.
+
+This bounds the reported usage without making the statistics an atomic
+snapshot.  Message delivery and queue-limit enforcement are unchanged.
+
+This is a follow-up to David Laight's "ipc/msg: Fix saturation of percpu
+counts in msgctl_info()".
+
+Validated with a source-extraction regression harness, including a forced
+three-CPU sampling trace and failing old-code controls.  No running-kernel
+reproduction or kernel build was performed.
+
+Backporting: kernels such as v6.1 and v6.6 require matching min() operand
+types.  Use min_t(s64, ...) instead of min() on those kernels.  For trees
+still using min_t(int, ...), also retain the s64 upper clamp; the separate
+standalone variant includes both adjustments.
+
+Fixes: 72d1e611082e ("ipc/msg: mitigate the lock contention with percpu counter")
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Laight <david.laight.linux@gmail.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>
+Cc: Manfred Spraul <manfred@colorfullife.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ ipc/msg.c |   10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+--- a/ipc/msg.c~ipc-msg-clamp-negative-statistics
++++ a/ipc/msg.c
+@@ -501,10 +501,12 @@ static int msgctl_info(struct ipc_namesp
+ 	max_idx = ipc_get_maxidx(&msg_ids(ns));
+ 	up_read(&msg_ids(ns).rwsem);
+ 	if (cmd == MSG_INFO) {
+-		msginfo->msgmap = min(percpu_counter_sum(&ns->percpu_msg_hdrs),
+-				     INT_MAX);
+-		msginfo->msgtql = min(percpu_counter_sum(&ns->percpu_msg_bytes),
+-				     INT_MAX);
++		msginfo->msgmap = min(
++			percpu_counter_sum_positive(&ns->percpu_msg_hdrs),
++			INT_MAX);
++		msginfo->msgtql = min(
++			percpu_counter_sum_positive(&ns->percpu_msg_bytes),
++			INT_MAX);
+ 	} else {
+ 		msginfo->msgmap = MSGMAP;
+ 		msginfo->msgpool = MSGPOOL;
+_
+
