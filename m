@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793246696;
-	b=aGKcRZzSMzStfHReXNM7StJ6WyOgQZO0OhscGafRLCEuENuYBqlONnWqY85e2jnhAJ+x
-	 Xl2Kfp3Zfg8W18quk59ywfEzns/l0zUIFZ/TYlYTJM4q6e3vsZzs8Gpm6ZYatzg9i7lEV
-	 9eZsS7y9qAiC5QNS7I5mo3aXb59aJ4LVZfasSYeYtC+vfPMeKNW6qtQrMFtHBzUI+b3P2
-	 hzJOSOvx0su9DuP6syRWrhtt5zaXeRG4SXt6HliD6NZ7JTd+dK1uh/xgdoeoXhUop6MaN
-	 LXo88/zuD7Vqzs0EuewKa0fOppOtPKST2r/NnO5tWFU6FQFCpD/WckitQh0KwRQmecA==
+	t=1793246716;
+	b=JZinKVS3aSVDhxTazwtM7w+CnC0lHkWJuKkdlb0T9J3KHGxaKW7jkcSrgV3AzIlzVNMz
+	 +WxYlEACrQfXxqD3CgvUpvuqc3objFIdbTS5MU/PrkhwfK8rd7xe5/FWu4T6Fxj8r+Drv
+	 JiW9da05VVRI5W5ufo4laNrw0hpBmyA7Q8odBZ+GvSbl/UXu3I21oavbNYDvZHAyzfmKA
+	 KJSVBq/Js9ie1eKm4/Q3LwqvFhrFLW3jfCy1J2PyF5ROqbXaKVZfKkcA/W2CYgnBe2jdE
+	 DS29A759E7liN4C0xm3MvjjtEYyMHeth32Q5nojE1Cxjoh6Xpxs9K/3m4OROLxaJA5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793246696;
-	h=Received:DKIM-Signature:Date:From:To:Subject:Message-Id:In-Reply-To:
-	 References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Xn038JpTYGNFgIUsN47I3TQmCFXaC74gR+B6aNbbr3A=;
-	b=TFqp56zNvhtH3k0fGC4Gcdus0U6wCTeI8GwGBWdDicOp7ZcgBpWi39Hsp45ZVkiM+NiZ
-	 TDd03c+Nkq1VgWXKFyioKI/AqlHhF3O3/t4Nrcla05q48JkARysphYiTZ9KP7/lDV+z/Y
-	 BV7G8drWfFl+emWAblvIKXktRnifxx8SPikuqEqG37fTBIy0yA2c4tNKEZIpEaXIpQscD
-	 qDMilVr3nrMfda8ERGgYsn8M4WELpcFZSyTNKJgcFOc8jYzn4ELgqjcIW+MJyBngB9m3Q
-	 HlS+M+rDYLo1YEHjTihBTBv98XIwS2UJZ5m7DTYMR/KI0qORTonKhnkzPE9a76LsFWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793246716;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=yEzPsmwW+3MIxwrHJvIgSGqlJx311neyvO8PFzLcW5I=;
+	b=Tkh+Aifxy2AIutFJ/AMzSnKLMpnWhscWJ22DQvrTk3Gg5khfuhr1L7DG/JjmIkW7DSrJ
+	 q3huDlTTh+IrjOqGhvocYRuD72Vg4joi8chMSUyFnf8xw91FfSTPi4rPRPIh4dT/HNice
+	 1cS8BRpdQeja8fn/9To8S5aiFDQxFYQpy52LP1hOg0mSPxNJJNJ8GqefhQJme9QKrFt2m
+	 aZbvn88GIge60cQbNhPpHqJzbkiVafXnAWT7gJAMpkV0qV18TmroXpP/HtmTTtSUn4CdS
+	 bCeF5oYmUODoQPnH5+RoyT3Y99PW2KJf4LwjxvBxC27ox8eKYAY027ctDBnN/WNZpWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=aUXUoCXQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=sFg3Q+WB;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F76606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:04:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B75606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:05:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0B75606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=aUXUoCXQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CB631F01825;
-	Thu, 29 Oct 2026 04:04:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793246695;
-	bh=Xn038JpTYGNFgIUsN47I3TQmCFXaC74gR+B6aNbbr3A=;
-	h=Date:From:To:Subject:In-Reply-To:References;
-	b=aUXUoCXQnp7qve9tKC/nnyq0NU3kO/IEx9xLRH+xx6QiFjbKysacr1wR0IR/U9Je9
-	 u7NSXwHeQZhMQUXdvPMxG8L//oi2vM3XzHM2BtYhSh4MpdhRSmKK+0HZDknxsUIUpH
-	 QvedKIEVaiN+Ygcv58ku0C3k6nm8Pk3m/B+DehDE=
-Date: Wed, 28 Oct 2026 21:04:54 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: david.laight.linux@gmail.com, linux-kernel@vger.kernel.org, Manfred
- Spraul <manfred@colorfullife.com>, Davidlohr Bueso <dave@stgolabs.net>
-Subject: Re: [PATCH 05/44] ipc/msg: Fix saturation of percpu counts in
- msgctl_info()
-Message-Id: <20261028210454.7ff0d43fd57f3546547e0416@linux-foundation.org>
-In-Reply-To: <20261028181502.484379c56878a872899c0f94@linux-foundation.org>
-References: <20251119224140.8616-1-david.laight.linux@gmail.com>
-	<20251119224140.8616-6-david.laight.linux@gmail.com>
-	<20261028181502.484379c56878a872899c0f94@linux-foundation.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=sFg3Q+WB
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=yEzPsmwW+3MIxwrHJvIgSGqlJx311neyvO8PFzLcW5I=;
+	b=sFg3Q+WBdZ48+/4bw7TqUW70sYs5Y9L2aDkoozbdp4cdwiHJ+Rp8ODKv7ejUwNWrAmBZ0U7fO
+	oIYfhG3rWByxMEBpqok5OwAzgsoqYAlUsmT6UXXh0wUk0917NFrA31Zc7i1b/vjiP6yOJhzewLd
+	+Sb1hqaw86NT19lqvgp68iE=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jFVxH2629zpStj;
+	Thu, 29 Oct 2026 12:04:51 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 3437D40575;
+	Thu, 29 Oct 2026 12:05:05 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 29 Oct
+ 2026 12:05:04 +0800
+Message-ID: <2c09e753-728d-46a0-932a-3c31f72333c6@huawei.com>
+Date: Thu, 29 Oct 2026 12:05:03 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,100 +61,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 RESEND 02/15] fs/resctrl: Skip monitor context
+ allocation when force-freeing RMIDs
+To: Reinette Chatre <reinette.chatre@intel.com>, Ben Horgan
+	<ben.horgan@arm.com>, <tony.luck@intel.com>, <Dave.Martin@arm.com>,
+	<james.morse@arm.com>, <babu.moger@amd.com>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <fenghuay@nvidia.com>, <tan.shaopeng@fujitsu.com>,
+	<zengheng4@huawei.com>, <jic23@kernel.org>, <gshan@redhat.com>,
+	<catalin.marinas@arm.com>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
+ <20261020134239.3921377-3-ruanjinjie@huawei.com>
+ <069b920d-b1f9-4074-aee0-1607860dac21@arm.com>
+ <a27fb58a-563b-4c40-8be2-cc9d05f24279@arm.com>
+ <f927b065-3a87-44ec-b092-4ddff877260c@huawei.com>
+ <7bf71a63-fb7d-491a-ae27-b5b72c7a0edc@intel.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <7bf71a63-fb7d-491a-ae27-b5b72c7a0edc@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Wed, 28 Oct 2026 18:15:02 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+Hi Reinette,
 
-> > diff --git a/ipc/msg.c b/ipc/msg.c
-> > index ee6af4fe52bf..34e607add006 100644
-> > --- a/ipc/msg.c
-> > +++ b/ipc/msg.c
-> > @@ -501,11 +501,9 @@ static int msgctl_info(struct ipc_namespace *ns, int msqid,
-> >  	max_idx = ipc_get_maxidx(&msg_ids(ns));
-> >  	up_read(&msg_ids(ns).rwsem);
-> >  	if (cmd == MSG_INFO) {
-> > -		msginfo->msgmap = min_t(int,
-> > -				     percpu_counter_sum(&ns->percpu_msg_hdrs),
-> > +		msginfo->msgmap = min(percpu_counter_sum(&ns->percpu_msg_hdrs),
-> >  				     INT_MAX);
-> > -		msginfo->msgtql = min_t(int,
-> > -		                     percpu_counter_sum(&ns->percpu_msg_bytes),
-> > +		msginfo->msgtql = min(percpu_counter_sum(&ns->percpu_msg_bytes),
-> >  				     INT_MAX);
-> >  	} else {
-> >  		msginfo->msgmap = MSGMAP;
+在 2026/10/29 5:29, Reinette Chatre 写道:
+> Hi Jinjie,
 > 
-> Added, thanks.
+> On 10/26/26 6:33 PM, Jinjie Ruan wrote:
+>>
+>>
+>> 在 2026/10/26 22:11, Ben Horgan 写道:
+>>> Hi Jinjie,
+>>>
+>>> On 26/10/2026 14:08, Ben Horgan wrote:
+>>>> Hi Jinjie,
+>>>>
+>>>> On 20/10/2026 14:42, Jinjie Ruan wrote:
+>>>>> __check_limbo() allocates the architecture monitor context before the
+>>>>> scan loop, even when force_free is set. The force-free path never reads
+>>>>> occupancy and never uses the context.
+>>>>>
+>>>>> If the allocation fails, the function returns early and leaves the limbo
+>>>>> list unflushed. Callers such as the unmount path then silently fail to
+>>>>> return the RMIDs to the free list, leaving stale CLOSIDs in limbo that
+>>>>> are re-interpreted with the CDP state of the next mount.
+>>>>
+>>>> Is this a theoretical fix or is there some way that resctrl_arch_mon_ctx_alloc() can fail in practice?
+>>>
+>>> This does seem a good change to me and we do have to consider that the memory alocation might fail.
+>>
+>> Hi Ben,
+>>
+>> I agree. force_free=true not rely on the allocation of arch_mon_ctx
+>> succeeding, we should directly loop to free the RMID.
+>>
+>> Perhaps a small refactor is needed to split __check_limbo() into two
+>> versions as there isn't much duplication?
+> I agree that a split would look better here. With these additional checks of
+> force_free the __check_limbo() is becoming hard to follow. Even more than
+
+I agree.
+
+> two versions of __check_limbo() this could just be two distinct functions,
+> for example a new "void release_limbo_rmids(struct rdt_l3_mon_domain *d)"
+> that is only called from resctrl_offline_l3_mon_domain().
+
+Thank you! will adopt this naming.
+
 > 
+> The changelog mentions the unmount path but it seems that the issue is with
+> domains going offline instead? As far as I understand the limbo state is not
+> impacted by mount/unmount.
 
-LLM found another bug in there.  Please review:
+You're right, I misunderstood — it's when the domain goes offline.
 
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: ipc/msg: clamp negative MSG_INFO usage counts
-Date: Thu, 29 Oct 2026 01:43:24 +0000
+> 
+> I also think that the "Fixes:" tag should instead be:
+> 	fc16126cc11d ("x86,fs/resctrl: Prevent out-of-bounds access while offlining CPU when SNC enabled")
 
-MSG_INFO can report negative message and byte counts during ordinary queue
-traffic.  For example, ipcs -q -u prints a negative header count and can
-convert a negative byte count into an enormous unsigned used-space value.
+Thank you! I got it.
 
-percpu_counter_sum() does not take an atomic snapshot of all CPUs.  While
-a third CPU sums the counters, it can read the sending CPU's local count
-before an enqueue and the receiving CPU's local count after the matching
-dequeue.  The sampled total is then negative, even if the queue was
-initially empty and is empty again.  The sum's lock serializes folding
-into the global count, but not ordinary local counter updates.  Queue
-locking does not serialize these updates with the statistics reader.
+> 
+> The first two fixes in this series look appropriate for resctrl fs. I'd like
+> to echo Ben's request to submit them separately from this work.
 
-Use percpu_counter_sum_positive() for both usage counters before applying
-the upper clamp.  Keep the comparison in s64 so the result is not narrowed
-before saturation.
+Thank you! I will send it separately shortly.
 
-This bounds the reported usage without making the statistics an atomic
-snapshot.  Message delivery and queue-limit enforcement are unchanged.
+> 
+> Thank you very much.
+> 
+> Reinette
 
-This is a follow-up to David Laight's "ipc/msg: Fix saturation of percpu
-counts in msgctl_info()".
-
-Validated with a source-extraction regression harness, including a forced
-three-CPU sampling trace and failing old-code controls.  No running-kernel
-reproduction or kernel build was performed.
-
-Backporting: kernels such as v6.1 and v6.6 require matching min() operand
-types.  Use min_t(s64, ...) instead of min() on those kernels.  For trees
-still using min_t(int, ...), also retain the s64 upper clamp; the separate
-standalone variant includes both adjustments.
-
-Fixes: 72d1e611082e ("ipc/msg: mitigate the lock contention with percpu counter")
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Laight <david.laight.linux@gmail.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>
-Cc: Manfred Spraul <manfred@colorfullife.com>
-Cc: <stable@vger.kernel.org>
----
-
- ipc/msg.c |   10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
---- a/ipc/msg.c~ipc-msg-clamp-negative-statistics
-+++ a/ipc/msg.c
-@@ -501,10 +501,12 @@ static int msgctl_info(struct ipc_namesp
- 	max_idx = ipc_get_maxidx(&msg_ids(ns));
- 	up_read(&msg_ids(ns).rwsem);
- 	if (cmd == MSG_INFO) {
--		msginfo->msgmap = min(percpu_counter_sum(&ns->percpu_msg_hdrs),
--				     INT_MAX);
--		msginfo->msgtql = min(percpu_counter_sum(&ns->percpu_msg_bytes),
--				     INT_MAX);
-+		msginfo->msgmap = min(
-+			percpu_counter_sum_positive(&ns->percpu_msg_hdrs),
-+			INT_MAX);
-+		msginfo->msgtql = min(
-+			percpu_counter_sum_positive(&ns->percpu_msg_bytes),
-+			INT_MAX);
- 	} else {
- 		msginfo->msgmap = MSGMAP;
- 		msginfo->msgpool = MSGPOOL;
-_
+-- 
+Best regards,
+Jinjie
 
