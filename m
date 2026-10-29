@@ -1,125 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.101.248.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793274637;
-	b=DQDlhLQg/msb+ivKM6gUT+W0bUoos1nNyZMesjfGXWwMFoEUufEj0/qkraC4NM5E6SPa
-	 pZrHLEVXW3UCWnOeo/XUv0q09IfAzKea/kCl3G4v2749oXe2Vojm29wdS9PGd4IZ9n2d9
-	 CfYBGqDLO+kCVzi7xhW5loNyIdqeucghmxTG3nsxBPm5RQoQpSL2h5s/oJXAuqcQKfacy
-	 cbX0dTn/+NsI1vbJ5+bzgmg1yzhxTuX3APHQOvyIukslGFQQCKn7qJx103FR6g0bGypfR
-	 clYiNkKWBK69OH+il9/ya+EnDD1IBLN+j4uw9spRvEnclcWZBsbUZl6LM4KLlxA18Wg==
+	t=1793274664;
+	b=SPlLxZM8DH52KjmLYcyK/Z78t65VpcAqPWCnwt6s9p9iO+Jhp8CxsYGWUAgGaIH+W0UQ
+	 1FlApwdEUluzVFUrRFUgwWr/Iq91zJkvEBYOBSgilAvO5K8iKr1MH1sPLMSCAVPMFhSro
+	 deC+2Qe01gD9Tz5VSD/CLhFMe3KcI1eOvfz30SNmaahPeLlxlVcvEVY6FOtYvf8HaiTAJ
+	 EwR6tTivjMnj35sYeQkQJ/1aal4mX1Ehq9TesJQTXx4KTCaehnHUl9GsVCCKHsDEgpILv
+	 gVJtWznKr/VwqP4BEB6+SVLzW2iHh9xU7nhrxw0IiPBeXBssPQzJhiYD5MAK8J7B6eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274637;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7of7gJ6hhHLxfqWVu016aggtacHAsVPrL8TVctPh1Is=;
-	b=y4UKJB6mbMWzLYZratPB/fC/q/HwKazN7XUeWmTNg5k/EqCFYnysZQv1nw/wzLfRaktv
-	 +I99/5xnhaYh9v/f1d9sweV3b3FSro7Noq+ANdSy2BqOVJGbvzPXd414qsRn05RXO2wgx
-	 kRf4aQDCkVioG/XMVNo188qkp2Gz856iOV//DKeDy2OA5kUlSeV/6fq4MNcxCvObLOZap
-	 7kRWHuak+0zfXDtAWcHj1MsjMSS2VonkO/H3+Izw54gyrALXIkzPFkK2eF3+foQpKqxpK
-	 uEkUmVz6U1M0hLNe83WsLHBNV+47T7fAT6aBLZQ/iMVCShhVxry/rKXAWerNDF0zA5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274664;
+	h=DMARC-Filter:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=6XG/pzNbNAXAbtmesT7YUOxuY9CUklqVFjZE+bYi/+8=;
+	b=ViHDnu+v34ZwyFZwpgOjJXLrCyHZBrvhC9pMTgLYpAYWCWO0fxAZRq6xn0lZNDAaTDo5
+	 7t85G72i/WbxW6qqbp5Wy4c/fngz+5D+hK963+4hpnwVg0BnjAT7rlyJ7xQIiKfHQqHiu
+	 ZwfU8nHifW4CMviXxRB3hEd/KJjYGdLMF1eqjDKr0gbhMRIqWDdm32hJSGBEle8ropHN0
+	 ih6X3MsXr9Z7f9ADvrZ1xBwUU4uOTQnu1Ued53/LbT0GZV/FZCNQg1SieWkwZf6JPgHL3
+	 QffAvEbSnHf9h/JkC7xRJ7HE/Uf+aEolLoeiPXvnzrigDvr2+e5Cy7CboyXQfJ3jinA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=hf4d719k;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFC1606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:50:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EFC1606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=hf4d719k
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e5fb79ce82so12590585ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 04:50:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1793274636; x=1793879436; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7of7gJ6hhHLxfqWVu016aggtacHAsVPrL8TVctPh1Is=;
-        b=hf4d719k0LrMHVs577MOSJVc6Td/tn9WCSkB2cDFEQ//Frx0QtHc2qOVNGdE4HYrEi
-         2lSdT27WBsmI5jWenwfvmWgGPTwwN81Dk69o90/fOQgk1O4pdKMQ/vvVuUF9Sfl6IEpd
-         /dkN6V6DKOYo+s5kerk3ghJkvSo2IEZnszW9vf6FFw+Y0wrNn4t6yUfc3LJ1DoSL4TG6
-         2hqxWj6a90GqBodjf20xDrGxAa9YemH/9oJNo4/BQjlATOOb4+BoAEeGiyAcqETy4QwH
-         BTzUkTpzyWTr0Hu2wQO5jzRoFtcB6Z2QJqBEJEP3Gex/4RMWRXjJhEVH3o/FsYIYkmcy
-         Grsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793274636; x=1793879436;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7of7gJ6hhHLxfqWVu016aggtacHAsVPrL8TVctPh1Is=;
-        b=UvdZsHvgG8X8v4ItRe8gm5pHrclpolYaji/8Q+Fe0BU6/XSIjIuhbJ+sKyYsGFkBJ8
-         ppKqx8t02sh7hPT2E4Mc6w5RqbtuLhgPUqt9+LLCyclpeP7J0UnlSmgbWKNwoXSiX9zd
-         qdbNYfb1/Q4dbRwV32EaF8os/9EHCWAY2DAHgpeUOHKfoZvErntW3A14ifn8eaR+3Wpn
-         xoUkHZnXlpRpv0mQ8vsYF6iWch2smyPTncmDrxMawbT0wveer3HrpUA192T3ByqMIDje
-         MG5cQ0PUfrpAmNlc00DDrJY5aMl9/hp9osS3rfRCP+YQJLFs3pa7m5svNQTEdulKOLz0
-         19oQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw8sFbB1CTLEohWpRkqtowAvzGu+aYkGH/kAFPcKzkWBNYaw/kcF+I7liXCYMw2/E2zRGv+2tG5hwWo1bc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLR8m/KE4VzAaMX1NwiqJF1MLPtaidDl7Rg/HEWsbPzdIgFW6k8
-	Q20M0h7ndrRlgIiHDDPKDXL2Ihw+G06zzzGr1TnfUjBx8pVDHKKgQoO6Y6puouJxMSY=
-X-Gm-Gg: AYBFou17HrN/IN/DACXpQyWKxSU/s2NGAFjegAChl8H1Z7fnaIuuppZ9GaJbVIQegq9
-	05wp14z0engCJhK2uRHU8xyrspprlQbC5ddIVkP+dIB/w+xDEc1wQQZxCplrXBXFzN53f93Zkwq
-	ElfdwV4YxDzH2vSLRdaT3oPR05c+Ks2eu4Sg7SzoXSCs4nS91wA4QXPUAoN4x+/NW8FMKZY5gnn
-	o9pGLtTVdvQiOEvIVZzkEOW6OXCPujzW+9l5HKiuHxfgaWUSRjfm7RMYdhA930G9eM+m99fHvNL
-	J1lVFncuuvCpI445wOIpO0vhGUukL/xInRsZXTipFm+Jp6ETpu/LCIIUYtml3FUMORQYMiy00wt
-	ZdxrzVK6TKhomeOg3SU90SkgokMHdqGIFYmY/+XJzkCzhxS7qPgygSWbYnBe8F+A8D3i+wD36XU
-	+wRzgjAUhPSkanupZztw0LGv86szXyWd46gkg7S/ziHSlfqyrWzz6n10rCRA/9DYlVnFaKnMPaf
-	wXuVQOmnpI7eeqmqRyjVwWB3YnSTPNyFgsQMfeBRQK/VaiQgCxEH0r7pjLGg3nIPNIVz2/M+6+8
-	lexY7hRveZ0hSavEvY5O4e7xz5unjDonZ6iGqcl4tcZxSu+U3pckgiRSTm7KVMj51L0ZbKG0P2w
-	L/1p7iuw=
-X-Received: by 2002:a17:90b:54c5:b0:3ad:4bfc:1e77 with SMTP id 98e67ed59e1d1-3ae58195ed0mr3708525a91.66.1793274635459;
-        Thu, 29 Oct 2026 04:50:35 -0700 (PDT)
-Received: from FJ7FR2JRQ3.bytedance.net ([186.240.245.239])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae55d64c0bsm4151053a91.1.2026.10.29.04.50.23
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 04:50:34 -0700 (PDT)
-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
-	Conor Dooley <conor@kernel.org>,
-	Anup Patel <anup.patel@oss.qualcomm.com>
-Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
-	Yunhui Cui <cuiyunhui@bytedance.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Will Deacon <will@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <shuah@kernel.org>,
-	yuanzhu@bytedance.com,
-	yang.yicong@picoheart.com,
-	yang.susheng@zte.com.cn,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-Subject: [PATCH v12 11/11] selftests/riscv: add perf user-stack SSE copy regression test
-Date: Thu, 29 Oct 2026 19:49:53 +0800
-Message-ID: <20261029114953.27453-3-zhangzhanpeng.jasper@bytedance.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261029074853.35467-1-zhangzhanpeng.jasper@bytedance.com>
-References: <20261029074853.35467-1-zhangzhanpeng.jasper@bytedance.com>
+	dmarc=none header.from=hust.edu.cn;
+	spf=pass smtp.mailfrom=hust.edu.cn;
+	arc=none smtp.remote-ip=46.101.248.176
+Received: from zg8tndyumtaxlji0oc4xnzya.icoremail.net (zg8tndyumtaxlji0oc4xnzya.icoremail.net [46.101.248.176])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C5B54606A31A;
+	Thu, 29 Oct 2026 11:51:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5B54606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
+Received: from hust.edu.cn (unknown [172.16.0.50])
+	by app2 (Coremail) with UTF8SMTP id IQEQrMDW_XYcM+NqQzFkAA--.63937S2;
+	Thu, 29 Oct 2026 19:50:52 +0800 (CST)
+Received: from [100.81.40.43] (unknown [10.12.191.55])
+	by gateway (Coremail) with SMTP id _____wC3sN8TM+NqPDYEAA--.8561S2;
+	Thu, 29 Oct 2026 19:50:46 +0800 (CST)
+Message-ID: <d32825a1-8da4-41f3-964b-8854618890d5@hust.edu.cn>
+Date: Thu, 29 Oct 2026 19:50:43 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,627 +45,425 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs/zh_TW: remove top-level labels from process/
+To: Weijie Yuan <kernel@wyuan.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Weijie Yuan <wy@wyuan.org>,
+ Chen-Yu Yeh <chenyou910331@gmail.com>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <f851e36f0ca9db7a0f71200964fe97a2efa85c13.1793265072.git.wy@wyuan.org>
+From: Dongliang Mu <dzm91@hust.edu.cn>
+In-Reply-To: <f851e36f0ca9db7a0f71200964fe97a2efa85c13.1793265072.git.wy@wyuan.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:IQEQrMDW_XYcM+NqQzFkAA--.63937S2
+Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
+X-Coremail-Antispam: 1UD129KBjvAXoW3ZFyDGFWrWFy7Kr4fJFy3XFb_yoW8AFy7uo
+	Wakw45Cr97Cr1DX3W5Cw48Cr15Gr13CFs7Ar42kw1Du3s2g3WrCa4Ivw1Yvw4S9r45Gas3
+	J34xXw4rWrZ5Ca47n29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UjIYCTnIWjp_UUUOd7k0a2IF6w4kM7kC6x804xWl1xkIjI8I6I8E6xAIw20EY4v2
+	0xvaj40_Wr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7
+	IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK
+	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
+	1Y6r17M2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
+	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
+	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
+	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCY02
+	Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr
+	4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxG
+	rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8Jw
+	CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
+	z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUv6pPUUUUU
+X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
 
-On RISC-V, PMU overflow interrupts can be delivered through the SBI
-Supervisor Software Events (SSE) mechanism. A perf event that samples
-the raw user stack (PERF_SAMPLE_STACK_USER, as perf record
---call-graph dwarf does) then copies a chunk of the interrupted task's
-user stack from an NMI-like context. Non-resident pages must truncate
-that copy through exception-table fixup without entering normal
-page-fault handling or disturbing the interrupted context. Exercise
-this boundary and the perf record layout under SSE sampling.
 
-The existing SSE selftest module exercises the framework (register,
-enable, inject, complete, priorities, stress) but never drives the perf
-user-stack copy that motivated the no-fault path. Add a userspace test
-that closes that gap:
+On 10/29/26 5:26 PM, Weijie Yuan wrote:
+> I happened to notice that there was actually an embarrassing label on
+> this page [*] that had been rendered in HTML.
+>
+>   * https://docs.kernel.org/translations/zh_TW/process/kernel-enforcement-statement.html
+>
+> Therefore let me drop these labels in process dir but leave the cleanup
+> job later.
+>
+> --- >8 ---
+> From: Weijie Yuan <wy@wyuan.org>
+>
+> We can link to these documents by path, so the top-level labels
+> do not buy us anything.
+>
+> Drop these redundant labels from the Traditional Chinese process
+> documents.
 
-  - Sample a child whose stack ends at a PROT_NONE page using
-    PERF_SAMPLE_STACK_USER. Check each sample record for a bounded dump
-    size and require at least one truncated copy at that boundary.
-  - Drive a multi-CPU unix-socket + deep-recursion workload under
-    high-frequency raw user-stack sampling to exercise repeated entry,
-    copying and completion under load.
+Hi Weijie,
 
-The test reports SKIP when hardware PMU sampling is unavailable or
-perf_event_paranoid forbids it, so it is safe to run unprivileged or in
-constrained environments. It is placed under the RISC-V SSE selftests
-because SSE delivery is the RISC-V-specific condition it protects, and
-is wired into the sse subtarget Makefile alongside the module runner.
+Removing these labels breaks existing zh_TW cross-references. The patch 
+deletes 25 labels, but 17 of them are still targets of 25 :ref: uses.
 
-Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
----
- tools/testing/selftests/riscv/sse/Makefile    |   5 +
- .../selftests/riscv/sse/sse_perf_ustack.c     | 564 ++++++++++++++++++
- 2 files changed, 569 insertions(+)
- create mode 100644 tools/testing/selftests/riscv/sse/sse_perf_ustack.c
+Dongliang Mu
 
-diff --git a/tools/testing/selftests/riscv/sse/Makefile b/tools/testing/selftests/riscv/sse/Makefile
-index 7e2677fdce0..646b418de9f 100644
---- a/tools/testing/selftests/riscv/sse/Makefile
-+++ b/tools/testing/selftests/riscv/sse/Makefile
-@@ -1,5 +1,10 @@
-+CFLAGS += -I$(top_srcdir)/tools/testing/selftests
-+LDLIBS += -lpthread
-+
- TEST_GEN_MODS_DIR := module
- 
-+TEST_GEN_PROGS := sse_perf_ustack
-+
- TEST_PROGS := run_sse_test.sh
- 
- include ../../lib.mk
-diff --git a/tools/testing/selftests/riscv/sse/sse_perf_ustack.c b/tools/testing/selftests/riscv/sse/sse_perf_ustack.c
-new file mode 100644
-index 00000000000..9535b6d7ba4
---- /dev/null
-+++ b/tools/testing/selftests/riscv/sse/sse_perf_ustack.c
-@@ -0,0 +1,564 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Regression test for the RISC-V perf user-stack copy taken in SSE
-+ * (NMI-like) context.
-+ *
-+ * On RISC-V, PMU overflow interrupts can be delivered through the SBI
-+ * Supervisor Software Events (SSE) mechanism. A perf event that samples the
-+ * raw user stack (PERF_SAMPLE_STACK_USER, as perf record --call-graph dwarf
-+ * does) then copies a large chunk of the interrupted task's user stack from
-+ * that context. If that copy is allowed to take a nested page fault it can
-+ * corrupt the interrupted task's kernel state and hang or crash the machine
-+ * under load.
-+ *
-+ * This test exercises that exact path:
-+ *   - It opens a sampling hardware PMU event with PERF_SAMPLE_STACK_USER.
-+ *   - It samples a child running on a controlled user stack followed by an
-+ *     inaccessible page, so the copy must truncate at that page boundary.
-+ *   - It checks that every user-stack sample record is well formed and that
-+ *     the dumped size never exceeds the requested size (i.e. the copy stops
-+ *     cleanly rather than faulting on).
-+ *   - It then drives a multi-threaded unix-socket + deep-recursion workload
-+ *     under high-frequency per-CPU sampling and requires every active sampler
-+ *     to make progress without taking the machine down.
-+ *
-+ * The test is architecture independent in what it drives; it is placed under
-+ * the RISC-V SSE selftests because SSE delivery is the RISC-V-specific
-+ * condition it is meant to protect.
-+ */
-+#define _GNU_SOURCE
-+
-+#include <errno.h>
-+#include <poll.h>
-+#include <sched.h>
-+#include <signal.h>
-+#include <stdbool.h>
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <time.h>
-+#include <unistd.h>
-+
-+#include <linux/perf_event.h>
-+#include <pthread.h>
-+#include <sys/ioctl.h>
-+#include <sys/mman.h>
-+#include <sys/socket.h>
-+#include <sys/syscall.h>
-+#include <sys/wait.h>
-+
-+#include "../../kselftest.h"
-+
-+#ifndef noinline
-+#define noinline __attribute__((noinline))
-+#endif
-+
-+#define STACK_DUMP_SIZE		8192		/* 8 KiB, 8-byte aligned */
-+#define RB_DATA_PAGES		64		/* power of two */
-+#define SELF_SAMPLE_FREQ	4000
-+#define STRESS_SAMPLE_FREQ	5000
-+#define STRESS_SECONDS		5
-+#define RECURSE_DEPTH		512
-+#define TRUNCATION_RUN_MS	250
-+
-+static long page_size;
-+
-+static int perf_event_open(struct perf_event_attr *attr, pid_t pid, int cpu,
-+			   int group_fd, unsigned long flags)
-+{
-+	return syscall(__NR_perf_event_open, attr, pid, cpu, group_fd, flags);
-+}
-+
-+/* Prevent the compiler from optimizing away a stack buffer. */
-+static void keep_alive(void *p)
-+{
-+	__asm__ __volatile__("" : : "r"(p) : "memory");
-+}
-+
-+/*
-+ * Consume a deep user stack and keep it live, so a raw user-stack sample has
-+ * many pages to copy. Returns a value derived from the stack so the compiler
-+ * cannot elide the frames.
-+ */
-+static noinline unsigned long burn_stack(int depth, unsigned long *sink)
-+{
-+	unsigned long frame[32];
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(frame); i++)
-+		frame[i] = (unsigned long)depth * i + *sink;
-+
-+	if (depth > 0)
-+		frame[depth & 31] += burn_stack(depth - 1, sink);
-+
-+	for (i = 0; i < ARRAY_SIZE(frame); i++)
-+		*sink += frame[i];
-+
-+	keep_alive(frame);
-+	return *sink;
-+}
-+
-+static struct perf_event_attr sampling_attr(unsigned long freq)
-+{
-+	struct perf_event_attr attr = {
-+		.type		= PERF_TYPE_HARDWARE,
-+		.size		= sizeof(attr),
-+		.config		= PERF_COUNT_HW_INSTRUCTIONS,
-+		.sample_type	= PERF_SAMPLE_STACK_USER,
-+		.sample_stack_user = STACK_DUMP_SIZE,
-+		.freq		= 1,
-+		.sample_freq	= freq,
-+		.disabled	= 1,
-+		.exclude_kernel	= 1,
-+		.exclude_hv	= 1,
-+	};
-+
-+	return attr;
-+}
-+
-+static bool open_skip_reason(int err, const char **why)
-+{
-+	switch (err) {
-+	case EACCES:
-+	case EPERM:
-+		*why = "insufficient privilege for PMU sampling (perf_event_paranoid)";
-+		return true;
-+	case ENOENT:
-+	case ENODEV:
-+	case EOPNOTSUPP:
-+		*why = "hardware PMU sampling event not available";
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool pmu_sse_route_testable(const char **why)
-+{
-+	char *line = NULL;
-+	size_t line_size = 0;
-+	FILE *interrupts;
-+	bool testable = true;
-+
-+	interrupts = fopen("/proc/interrupts", "re");
-+	if (!interrupts) {
-+		*why = "cannot inspect the active PMU delivery route";
-+		return false;
-+	}
-+
-+	/* The SBI PMU driver registers this name only for ordinary IRQ delivery. */
-+	while (getline(&line, &line_size, interrupts) >= 0) {
-+		if (strstr(line, "riscv-pmu")) {
-+			*why = "ordinary RISC-V PMU IRQ delivery is active";
-+			testable = false;
-+			break;
-+		}
-+	}
-+
-+	free(line);
-+	fclose(interrupts);
-+	return testable;
-+}
-+
-+static bool ring_copy_from(void *dst, const void *rb, size_t rb_bytes,
-+			   uint64_t pos, size_t size)
-+{
-+	size_t offset = pos % rb_bytes;
-+	size_t first;
-+
-+	if (size > rb_bytes)
-+		return false;
-+
-+	first = size < rb_bytes - offset ? size : rb_bytes - offset;
-+	memcpy(dst, (const char *)rb + offset, first);
-+	if (first != size)
-+		memcpy((char *)dst + first, rb, size - first);
-+
-+	return true;
-+}
-+
-+static int truncation_child(void *arg)
-+{
-+	int ready_fd = (intptr_t)arg;
-+	char ready = 1;
-+
-+	if (write(ready_fd, &ready, sizeof(ready)) != 1)
-+		return 1;
-+
-+	for (;;)
-+		__asm__ __volatile__("" : : : "memory");
-+}
-+
-+static pid_t start_truncation_child(void **stack_mapping)
-+{
-+	struct pollfd pfd = { .events = POLLIN };
-+	size_t mapping_size = 2 * page_size;
-+	char ready;
-+	void *stack;
-+	pid_t pid;
-+	int pipefd[2];
-+	int saved_errno;
-+
-+	stack = mmap(NULL, mapping_size, PROT_NONE,
-+		     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (stack == MAP_FAILED)
-+		return -1;
-+	if (mprotect(stack, page_size, PROT_READ | PROT_WRITE))
-+		goto err_unmap;
-+	if (pipe(pipefd))
-+		goto err_unmap;
-+
-+	/* clone() starts the child below the inaccessible second page. */
-+	pid = clone(truncation_child, (char *)stack + page_size, SIGCHLD,
-+		    (void *)(intptr_t)pipefd[1]);
-+	if (pid < 0)
-+		goto err_pipe;
-+
-+	close(pipefd[1]);
-+	pfd.fd = pipefd[0];
-+	if (poll(&pfd, 1, 1000) != 1 ||
-+	    read(pipefd[0], &ready, sizeof(ready)) != sizeof(ready)) {
-+		saved_errno = ETIMEDOUT;
-+		kill(pid, SIGKILL);
-+		waitpid(pid, NULL, 0);
-+		close(pipefd[0]);
-+		errno = saved_errno;
-+		goto err_unmap;
-+	}
-+	close(pipefd[0]);
-+
-+	*stack_mapping = stack;
-+	return pid;
-+
-+err_pipe:
-+	saved_errno = errno;
-+	close(pipefd[0]);
-+	close(pipefd[1]);
-+	errno = saved_errno;
-+err_unmap:
-+	saved_errno = errno;
-+	munmap(stack, mapping_size);
-+	errno = saved_errno;
-+	return -1;
-+}
-+
-+static void stop_truncation_child(pid_t pid, void *stack_mapping)
-+{
-+	kill(pid, SIGKILL);
-+	while (waitpid(pid, NULL, 0) < 0 && errno == EINTR)
-+		;
-+	munmap(stack_mapping, 2 * page_size);
-+}
-+
-+/*
-+ * Subtest 1: sample a child whose stack is followed by an inaccessible page.
-+ * Every record must be well formed and at least one stack copy must truncate
-+ * at the controlled page boundary rather than fault or overrun.
-+ */
-+static void test_ustack_records_wellformed(void)
-+{
-+	struct perf_event_attr attr = sampling_attr(SELF_SAMPLE_FREQ);
-+	size_t rb_bytes = (size_t)RB_DATA_PAGES * page_size;
-+	struct perf_event_mmap_page *meta;
-+	unsigned long samples = 0, truncated = 0;
-+	void *child_stack;
-+	const char *why;
-+	void *rb;
-+	pid_t child;
-+	int fd;
-+
-+	child = start_truncation_child(&child_stack);
-+	if (child < 0) {
-+		ksft_test_result_fail("ustack records: create guarded stack child: %s\n",
-+				      strerror(errno));
-+		return;
-+	}
-+
-+	fd = perf_event_open(&attr, child, -1, -1, PERF_FLAG_FD_CLOEXEC);
-+	if (fd < 0) {
-+		if (open_skip_reason(errno, &why))
-+			ksft_test_result_skip("ustack records: %s\n", why);
-+		else
-+			ksft_test_result_fail("ustack records: perf_event_open: %s\n",
-+					      strerror(errno));
-+		goto out_child;
-+	}
-+
-+	meta = mmap(NULL, page_size + rb_bytes, PROT_READ | PROT_WRITE,
-+		    MAP_SHARED, fd, 0);
-+	if (meta == MAP_FAILED) {
-+		ksft_test_result_fail("ustack records: mmap ring buffer: %s\n",
-+				      strerror(errno));
-+		close(fd);
-+		goto out_child;
-+	}
-+	rb = (char *)meta + page_size;
-+
-+	ioctl(fd, PERF_EVENT_IOC_RESET, 0);
-+	ioctl(fd, PERF_EVENT_IOC_ENABLE, 0);
-+	usleep(TRUNCATION_RUN_MS * 1000);
-+	ioctl(fd, PERF_EVENT_IOC_DISABLE, 0);
-+
-+	/* Drain the ring buffer and validate every SAMPLE record. */
-+	{
-+		uint64_t head = __atomic_load_n(&meta->data_head, __ATOMIC_ACQUIRE);
-+		uint64_t tail = meta->data_tail;
-+		bool ok = true;
-+
-+		if (head < tail || head - tail > rb_bytes)
-+			ok = false;
-+
-+		while (ok && tail < head) {
-+			struct perf_event_header hdr;
-+			uint64_t available = head - tail;
-+
-+			if (available < sizeof(hdr) ||
-+			    !ring_copy_from(&hdr, rb, rb_bytes, tail, sizeof(hdr)) ||
-+			    hdr.size < sizeof(hdr) || hdr.size > available ||
-+			    hdr.size > rb_bytes) {
-+				ok = false;
-+				break;
-+			}
-+
-+			if (hdr.type == PERF_RECORD_SAMPLE) {
-+				uint64_t dump_size, dyn_size;
-+				size_t cursor = sizeof(hdr);
-+
-+				if (sizeof(dump_size) > hdr.size - cursor ||
-+				    !ring_copy_from(&dump_size, rb, rb_bytes,
-+						    tail + cursor, sizeof(dump_size)) ||
-+				    dump_size > STACK_DUMP_SIZE) {
-+					ok = false;
-+					break;
-+				}
-+				cursor += sizeof(dump_size);
-+				samples++;
-+				if (dump_size) {
-+					/* data blob then trailing dynamic size */
-+					if (dump_size > hdr.size - cursor) {
-+						ok = false;
-+						break;
-+					}
-+					cursor += dump_size;
-+					if (sizeof(dyn_size) > hdr.size - cursor ||
-+					    !ring_copy_from(&dyn_size, rb, rb_bytes,
-+							    tail + cursor,
-+							    sizeof(dyn_size))) {
-+						ok = false;
-+						break;
-+					}
-+					if (dyn_size > dump_size) {
-+						ok = false;
-+						break;
-+					}
-+					if (dyn_size < dump_size)
-+						truncated++;
-+				}
-+			}
-+			tail += hdr.size;
-+		}
-+		__atomic_store_n(&meta->data_tail, head, __ATOMIC_RELEASE);
-+
-+		if (!ok)
-+			ksft_test_result_fail("ustack records: malformed sample record\n");
-+		else if (samples == 0)
-+			ksft_test_result_skip("ustack records: no samples collected\n");
-+		else if (truncated == 0)
-+			ksft_test_result_fail("ustack records: no guarded-stack truncation\n");
-+		else
-+			ksft_test_result_pass("ustack records: %lu samples, %lu truncated\n",
-+					      samples, truncated);
-+	}
-+
-+	munmap(meta, page_size + rb_bytes);
-+	close(fd);
-+out_child:
-+	stop_truncation_child(child, child_stack);
-+}
-+
-+/* ---- Subtest 2: multi-threaded per-CPU sampling stress ---- */
-+
-+struct stress_thread {
-+	pthread_t tid;
-+	int cpu;
-+	int *stop;
-+	int fd;
-+	void *rb;
-+	size_t rb_bytes;
-+};
-+
-+static void *stress_worker(void *arg)
-+{
-+	struct stress_thread *st = arg;
-+	unsigned long sink = 1;
-+	int sv[2];
-+	char buf[64];
-+
-+	if (socketpair(AF_UNIX, SOCK_STREAM, 0, sv) == 0) {
-+		while (!__atomic_load_n(st->stop, __ATOMIC_RELAXED)) {
-+			/* unix-socket ping-pong: takes the socket locks the
-+			 * original bug corrupted, while sampling nests.
-+			 */
-+			if (write(sv[0], buf, sizeof(buf)) > 0)
-+				(void)read(sv[1], buf, sizeof(buf));
-+			burn_stack(RECURSE_DEPTH, &sink);
-+			/* Periodically consume the ring buffer so sampling
-+			 * keeps delivering rather than filling up and stopping.
-+			 */
-+			if (st->rb) {
-+				struct perf_event_mmap_page *m = st->rb;
-+				uint64_t h = __atomic_load_n(&m->data_head,
-+							     __ATOMIC_ACQUIRE);
-+				__atomic_store_n(&m->data_tail, h,
-+						 __ATOMIC_RELEASE);
-+			}
-+		}
-+		close(sv[0]);
-+		close(sv[1]);
-+	}
-+
-+	return (void *)sink;
-+}
-+
-+static void test_sse_stress_no_crash(void)
-+{
-+	struct perf_event_attr attr = sampling_attr(STRESS_SAMPLE_FREQ);
-+	size_t rb_bytes = (size_t)RB_DATA_PAGES * page_size;
-+	struct stress_thread *threads;
-+	cpu_set_t available;
-+	long progressed = 0;
-+	int stop = 0;
-+	const char *why = NULL;
-+	long started = 0;
-+	long nproc;
-+	long slot;
-+	int cpu;
-+
-+	if (sched_getaffinity(0, sizeof(available), &available)) {
-+		ksft_test_result_fail("sse stress: sched_getaffinity: %s\n",
-+				      strerror(errno));
-+		return;
-+	}
-+	nproc = CPU_COUNT(&available);
-+	if (nproc < 1) {
-+		ksft_test_result_skip("sse stress: no available CPUs\n");
-+		return;
-+	}
-+
-+	threads = calloc(nproc, sizeof(*threads));
-+	if (!threads) {
-+		ksft_test_result_fail("sse stress: out of memory\n");
-+		return;
-+	}
-+
-+	slot = 0;
-+	for (cpu = 0; cpu < CPU_SETSIZE; cpu++) {
-+		struct stress_thread *st;
-+		pthread_attr_t thread_attr;
-+		cpu_set_t set;
-+		void *map;
-+		int ret;
-+
-+		if (!CPU_ISSET(cpu, &available))
-+			continue;
-+		st = &threads[slot++];
-+
-+		st->fd = -1;
-+		st->cpu = cpu;
-+		st->stop = &stop;
-+		st->rb_bytes = rb_bytes;
-+		st->fd = perf_event_open(&attr, -1, cpu, -1,
-+					 PERF_FLAG_FD_CLOEXEC);
-+		if (st->fd < 0) {
-+			if (!started && open_skip_reason(errno, &why))
-+				break;
-+			continue;
-+		}
-+
-+		map = mmap(NULL, page_size + rb_bytes, PROT_READ | PROT_WRITE,
-+			   MAP_SHARED, st->fd, 0);
-+		if (map == MAP_FAILED) {
-+			close(st->fd);
-+			st->fd = -1;
-+			continue;
-+		}
-+		st->rb = map;
-+
-+		CPU_ZERO(&set);
-+		CPU_SET(cpu, &set);
-+		pthread_attr_init(&thread_attr);
-+		ret = pthread_attr_setaffinity_np(&thread_attr, sizeof(set), &set);
-+		if (!ret)
-+			ret = pthread_create(&st->tid, &thread_attr,
-+					     stress_worker, st);
-+		pthread_attr_destroy(&thread_attr);
-+
-+		if (ret) {
-+			munmap(st->rb, page_size + rb_bytes);
-+			close(st->fd);
-+			st->rb = NULL;
-+			st->fd = -1;
-+			continue;
-+		}
-+
-+		ioctl(st->fd, PERF_EVENT_IOC_RESET, 0);
-+		ioctl(st->fd, PERF_EVENT_IOC_ENABLE, 0);
-+		started++;
-+	}
-+
-+	if (started == 0) {
-+		free(threads);
-+		if (why)
-+			ksft_test_result_skip("sse stress: %s\n", why);
-+		else
-+			ksft_test_result_skip("sse stress: could not start any sampler\n");
-+		return;
-+	}
-+
-+	sleep(STRESS_SECONDS);
-+	__atomic_store_n(&stop, 1, __ATOMIC_RELAXED);
-+
-+	for (slot = 0; slot < nproc; slot++) {
-+		struct stress_thread *st = &threads[slot];
-+		struct perf_event_mmap_page *meta;
-+
-+		if (st->fd < 0)
-+			continue;
-+		pthread_join(st->tid, NULL);
-+		ioctl(st->fd, PERF_EVENT_IOC_DISABLE, 0);
-+		meta = st->rb;
-+		if (__atomic_load_n(&meta->data_head, __ATOMIC_ACQUIRE))
-+			progressed++;
-+		munmap(st->rb, page_size + rb_bytes);
-+		close(st->fd);
-+	}
-+
-+	free(threads);
-+	if (progressed != started)
-+		ksft_test_result_fail("sse stress: %ld/%ld samplers made progress\n",
-+				      progressed, started);
-+	else
-+		ksft_test_result_pass("sse stress: %ld samplers x %ds made progress\n",
-+				      started, STRESS_SECONDS);
-+}
-+
-+int main(void)
-+{
-+	const char *why;
-+
-+	page_size = sysconf(_SC_PAGESIZE);
-+
-+	ksft_print_header();
-+	ksft_set_plan(2);
-+	if (!pmu_sse_route_testable(&why)) {
-+		ksft_test_result_skip("ustack records: %s\n", why);
-+		ksft_test_result_skip("sse stress: %s\n", why);
-+		ksft_finished();
-+	}
-+
-+	test_ustack_records_wellformed();
-+	test_sse_stress_no_crash();
-+
-+	ksft_finished();
-+}
--- 
-2.50.1 (Apple Git-155)
+>
+> Signed-off-by: Weijie Yuan <wy@wyuan.org>
+> ---
+>
+>   * Tested with '(make cleandocs && make htmldocs) 2>&1 | grep -F -e zh_CN -e zh_TW'
+>     seems work fine. But please leave an eye on this if available.
+>
+>   * Based on these series on top of Alex's docs-next branch..
+>     - [v2 0/7] docs/zh_TW: remove duplicated maintainer contact information
+>     - [0/4] docs/zh_TW: relocate translations to follow the English layout
+>     - [1/1] docs/zh_TW: remove the unreachable plain-text translations
+>     - [0/3] docs/zh_TW: mark translations that are not kept in sync
+>
+>     which are currently queued here for 7.5:
+>     https://github.com/kernel-zh/linux-zh_TW.git docs-next
+>
+>   Documentation/translations/zh_TW/process/1.Intro.rst            | 2 --
+>   Documentation/translations/zh_TW/process/2.Process.rst          | 2 --
+>   Documentation/translations/zh_TW/process/3.Early-stage.rst      | 2 --
+>   Documentation/translations/zh_TW/process/4.Coding.rst           | 2 --
+>   Documentation/translations/zh_TW/process/5.Posting.rst          | 2 --
+>   Documentation/translations/zh_TW/process/6.Followthrough.rst    | 2 --
+>   Documentation/translations/zh_TW/process/7.AdvancedTopics.rst   | 2 --
+>   Documentation/translations/zh_TW/process/8.Conclusion.rst       | 2 --
+>   .../zh_TW/process/code-of-conduct-interpretation.rst            | 2 --
+>   Documentation/translations/zh_TW/process/code-of-conduct.rst    | 2 --
+>   Documentation/translations/zh_TW/process/coding-style.rst       | 2 --
+>   .../translations/zh_TW/process/development-process.rst          | 2 --
+>   Documentation/translations/zh_TW/process/email-clients.rst      | 2 --
+>   Documentation/translations/zh_TW/process/howto.rst              | 2 --
+>   Documentation/translations/zh_TW/process/index.rst              | 2 --
+>   .../translations/zh_TW/process/kernel-driver-statement.rst      | 2 --
+>   .../translations/zh_TW/process/kernel-enforcement-statement.rst | 2 --
+>   Documentation/translations/zh_TW/process/license-rules.rst      | 2 --
+>   Documentation/translations/zh_TW/process/management-style.rst   | 2 --
+>   .../translations/zh_TW/process/programming-language.rst         | 2 --
+>   .../translations/zh_TW/process/stable-api-nonsense.rst          | 2 --
+>   .../translations/zh_TW/process/stable-kernel-rules.rst          | 2 --
+>   Documentation/translations/zh_TW/process/submit-checklist.rst   | 2 --
+>   Documentation/translations/zh_TW/process/submitting-patches.rst | 2 --
+>   .../translations/zh_TW/process/volatile-considered-harmful.rst  | 2 --
+>   25 files changed, 50 deletions(-)
+>
+> diff --git a/Documentation/translations/zh_TW/process/1.Intro.rst b/Documentation/translations/zh_TW/process/1.Intro.rst
+> index 65c5ae095504..0c1c6709b1cb 100644
+> --- a/Documentation/translations/zh_TW/process/1.Intro.rst
+> +++ b/Documentation/translations/zh_TW/process/1.Intro.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/1.Intro.rst <development_process_intro>`
+>   
+> -.. _tw_development_process_intro:
+> -
+>   引言
+>   ====
+>   
+> diff --git a/Documentation/translations/zh_TW/process/2.Process.rst b/Documentation/translations/zh_TW/process/2.Process.rst
+> index cf9bd1b1444a..85e1444b3be6 100644
+> --- a/Documentation/translations/zh_TW/process/2.Process.rst
+> +++ b/Documentation/translations/zh_TW/process/2.Process.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/2.Process.rst <development_process>`
+>   
+> -.. _tw_development_process:
+> -
+>   開發流程如何進行
+>   ================
+>   
+> diff --git a/Documentation/translations/zh_TW/process/3.Early-stage.rst b/Documentation/translations/zh_TW/process/3.Early-stage.rst
+> index 7d7ecf9658e5..be3dadcf1663 100644
+> --- a/Documentation/translations/zh_TW/process/3.Early-stage.rst
+> +++ b/Documentation/translations/zh_TW/process/3.Early-stage.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/3.Early-stage.rst <development_early_stage>`
+>   
+> -.. _tw_development_early_stage:
+> -
+>   早期規劃
+>   ========
+>   
+> diff --git a/Documentation/translations/zh_TW/process/4.Coding.rst b/Documentation/translations/zh_TW/process/4.Coding.rst
+> index 423d51f4b3de..982735fd6134 100644
+> --- a/Documentation/translations/zh_TW/process/4.Coding.rst
+> +++ b/Documentation/translations/zh_TW/process/4.Coding.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/4.Coding.rst <development_coding>`
+>   
+> -.. _tw_development_coding:
+> -
+>   使代碼正確
+>   ======================
+>   
+> diff --git a/Documentation/translations/zh_TW/process/5.Posting.rst b/Documentation/translations/zh_TW/process/5.Posting.rst
+> index d54b16364474..ba3b8a79f21a 100644
+> --- a/Documentation/translations/zh_TW/process/5.Posting.rst
+> +++ b/Documentation/translations/zh_TW/process/5.Posting.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/5.Posting.rst <development_posting>`
+>   
+> -.. _tw_development_posting:
+> -
+>   發布補丁
+>   ========
+>   
+> diff --git a/Documentation/translations/zh_TW/process/6.Followthrough.rst b/Documentation/translations/zh_TW/process/6.Followthrough.rst
+> index 76082a15677f..e9a70eec850c 100644
+> --- a/Documentation/translations/zh_TW/process/6.Followthrough.rst
+> +++ b/Documentation/translations/zh_TW/process/6.Followthrough.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/6.Followthrough.rst <development_followthrough>`
+>   
+> -.. _tw_development_followthrough:
+> -
+>   跟進
+>   ====
+>   
+> diff --git a/Documentation/translations/zh_TW/process/7.AdvancedTopics.rst b/Documentation/translations/zh_TW/process/7.AdvancedTopics.rst
+> index 392c00213078..fb2e3764802f 100644
+> --- a/Documentation/translations/zh_TW/process/7.AdvancedTopics.rst
+> +++ b/Documentation/translations/zh_TW/process/7.AdvancedTopics.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/7.AdvancedTopics.rst <development_advancedtopics>`
+>   
+> -.. _tw_development_advancedtopics:
+> -
+>   進階主題
+>   ========
+>   
+> diff --git a/Documentation/translations/zh_TW/process/8.Conclusion.rst b/Documentation/translations/zh_TW/process/8.Conclusion.rst
+> index 2436263c6506..82e89d992964 100644
+> --- a/Documentation/translations/zh_TW/process/8.Conclusion.rst
+> +++ b/Documentation/translations/zh_TW/process/8.Conclusion.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/8.Conclusion.rst <development_conclusion>`
+>   
+> -.. _tw_development_conclusion:
+> -
+>   更多資訊
+>   ========
+>   
+> diff --git a/Documentation/translations/zh_TW/process/code-of-conduct-interpretation.rst b/Documentation/translations/zh_TW/process/code-of-conduct-interpretation.rst
+> index 4fc568409198..fbb9fb719b19 100644
+> --- a/Documentation/translations/zh_TW/process/code-of-conduct-interpretation.rst
+> +++ b/Documentation/translations/zh_TW/process/code-of-conduct-interpretation.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/code-of-conduct-interpretation.rst <code_of_conduct_interpretation>`
+>   
+> -.. _tw_code_of_conduct_interpretation:
+> -
+>   Linux核心貢獻者契約行為準則解釋
+>   ===============================
+>   
+> diff --git a/Documentation/translations/zh_TW/process/code-of-conduct.rst b/Documentation/translations/zh_TW/process/code-of-conduct.rst
+> index 0266cd74a0b1..4db8ddc71474 100644
+> --- a/Documentation/translations/zh_TW/process/code-of-conduct.rst
+> +++ b/Documentation/translations/zh_TW/process/code-of-conduct.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/code-of-conduct.rst <code_of_conduct>`
+>   
+> -.. _tw_code_of_conduct:
+> -
+>   貢獻者契約行爲準則
+>   ++++++++++++++++++
+>   
+> diff --git a/Documentation/translations/zh_TW/process/coding-style.rst b/Documentation/translations/zh_TW/process/coding-style.rst
+> index 5778b707503f..166b952cb54e 100644
+> --- a/Documentation/translations/zh_TW/process/coding-style.rst
+> +++ b/Documentation/translations/zh_TW/process/coding-style.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: Documentation/process/coding-style.rst
+>   
+> -.. _tw_codingstyle:
+> -
+>   Linux 核心程式碼風格
+>   ====================
+>   
+> diff --git a/Documentation/translations/zh_TW/process/development-process.rst b/Documentation/translations/zh_TW/process/development-process.rst
+> index 1d22aa0d3711..e3e69882d8f6 100644
+> --- a/Documentation/translations/zh_TW/process/development-process.rst
+> +++ b/Documentation/translations/zh_TW/process/development-process.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/development-process.rst <development_process_main>`
+>   
+> -.. _tw_development_process_main:
+> -
+>   內核開發過程指南
+>   ================
+>   
+> diff --git a/Documentation/translations/zh_TW/process/email-clients.rst b/Documentation/translations/zh_TW/process/email-clients.rst
+> index 272e3073521d..7a5cf79fe4f9 100644
+> --- a/Documentation/translations/zh_TW/process/email-clients.rst
+> +++ b/Documentation/translations/zh_TW/process/email-clients.rst
+> @@ -2,8 +2,6 @@
+>   
+>   .. include:: ../disclaimer-zh_TW.rst
+>   
+> -.. _tw_email_clients:
+> -
+>   :Original: Documentation/process/email-clients.rst
+>   
+>   Linux郵件客戶端設定資訊
+> diff --git a/Documentation/translations/zh_TW/process/howto.rst b/Documentation/translations/zh_TW/process/howto.rst
+> index 1ffc076ce26c..46c7a63398f7 100644
+> --- a/Documentation/translations/zh_TW/process/howto.rst
+> +++ b/Documentation/translations/zh_TW/process/howto.rst
+> @@ -1,7 +1,5 @@
+>   .. SPDX-License-Identifier: GPL-2.0
+>   
+> -.. _tw_process_howto:
+> -
+>   .. include:: ../disclaimer-zh_TW.rst
+>   
+>   :Original: :ref:`Documentation/process/howto.rst <process_howto>`
+> diff --git a/Documentation/translations/zh_TW/process/index.rst b/Documentation/translations/zh_TW/process/index.rst
+> index bd638264bbe4..b27af36ce3bb 100644
+> --- a/Documentation/translations/zh_TW/process/index.rst
+> +++ b/Documentation/translations/zh_TW/process/index.rst
+> @@ -9,8 +9,6 @@
+>   
+>   :Original: :ref:`Documentation/process/index.rst <process_index>`
+>   
+> -.. _tw_process_index:
+> -
+>   ========================
+>   與Linux核心社群一起工作
+>   ========================
+> diff --git a/Documentation/translations/zh_TW/process/kernel-driver-statement.rst b/Documentation/translations/zh_TW/process/kernel-driver-statement.rst
+> index 34bcb6f164cb..e6ff67f75650 100644
+> --- a/Documentation/translations/zh_TW/process/kernel-driver-statement.rst
+> +++ b/Documentation/translations/zh_TW/process/kernel-driver-statement.rst
+> @@ -1,7 +1,5 @@
+>   .. SPDX-License-Identifier: GPL-2.0
+>   
+> -.. _tw_process_statement_driver:
+> -
+>   .. include:: ../disclaimer-zh_TW.rst
+>   
+>   :Original: :ref:`Documentation/process/kernel-driver-statement.rst <process_statement_driver>`
+> diff --git a/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst b/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
+> index d54d20529294..45bb50fd1e6a 100644
+> --- a/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
+> +++ b/Documentation/translations/zh_TW/process/kernel-enforcement-statement.rst
+> @@ -1,7 +1,5 @@
+>   .. SPDX-License-Identifier: GPL-2.0
+>   
+> -﻿.. _tw_process_statement_kernel:
+> -
+>   .. include:: ../disclaimer-zh_TW.rst
+>   
+>   :Original: :ref:`Documentation/process/kernel-enforcement-statement.rst <process_statement_kernel>`
+> diff --git a/Documentation/translations/zh_TW/process/license-rules.rst b/Documentation/translations/zh_TW/process/license-rules.rst
+> index 0a4558b7fc76..8f9b57e223a7 100644
+> --- a/Documentation/translations/zh_TW/process/license-rules.rst
+> +++ b/Documentation/translations/zh_TW/process/license-rules.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/license-rules.rst <kernel_licensing>`
+>   
+> -.. _tw_kernel_licensing:
+> -
+>   Linux核心許可規則
+>   =================
+>   
+> diff --git a/Documentation/translations/zh_TW/process/management-style.rst b/Documentation/translations/zh_TW/process/management-style.rst
+> index 2cef0ef25ede..9908724e37a2 100644
+> --- a/Documentation/translations/zh_TW/process/management-style.rst
+> +++ b/Documentation/translations/zh_TW/process/management-style.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/management-style.rst <managementstyle>`
+>   
+> -.. _tw_managementstyle:
+> -
+>   Linux內核管理風格
+>   =================
+>   
+> diff --git a/Documentation/translations/zh_TW/process/programming-language.rst b/Documentation/translations/zh_TW/process/programming-language.rst
+> index 9aac89e2c23b..04ad22a25a4e 100644
+> --- a/Documentation/translations/zh_TW/process/programming-language.rst
+> +++ b/Documentation/translations/zh_TW/process/programming-language.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: :ref:`Documentation/process/programming-language.rst <programming_language>`
+>   
+> -.. _tw_programming_language:
+> -
+>   程式語言
+>   ========
+>   
+> diff --git a/Documentation/translations/zh_TW/process/stable-api-nonsense.rst b/Documentation/translations/zh_TW/process/stable-api-nonsense.rst
+> index 94748429c182..2e82df8544ef 100644
+> --- a/Documentation/translations/zh_TW/process/stable-api-nonsense.rst
+> +++ b/Documentation/translations/zh_TW/process/stable-api-nonsense.rst
+> @@ -1,7 +1,5 @@
+>   .. SPDX-License-Identifier: GPL-2.0
+>   
+> -.. _tw_stable_api_nonsense:
+> -
+>   .. include:: ../disclaimer-zh_TW.rst
+>   
+>   :Original: :ref:`Documentation/process/stable-api-nonsense.rst
+> diff --git a/Documentation/translations/zh_TW/process/stable-kernel-rules.rst b/Documentation/translations/zh_TW/process/stable-kernel-rules.rst
+> index d182d625728d..bd0a1599dbff 100644
+> --- a/Documentation/translations/zh_TW/process/stable-kernel-rules.rst
+> +++ b/Documentation/translations/zh_TW/process/stable-kernel-rules.rst
+> @@ -1,7 +1,5 @@
+>   .. SPDX-License-Identifier: GPL-2.0
+>   
+> -.. _tw_stable_kernel_rules:
+> -
+>   .. include:: ../disclaimer-zh_TW.rst
+>   
+>   :Original: :ref:`Documentation/process/stable-kernel-rules.rst <stable_kernel_rules>`
+> diff --git a/Documentation/translations/zh_TW/process/submit-checklist.rst b/Documentation/translations/zh_TW/process/submit-checklist.rst
+> index 452fecc7c425..f5b2cb56eec4 100644
+> --- a/Documentation/translations/zh_TW/process/submit-checklist.rst
+> +++ b/Documentation/translations/zh_TW/process/submit-checklist.rst
+> @@ -4,8 +4,6 @@
+>   
+>   :Original: Documentation/process/submit-checklist.rst
+>   
+> -.. _tw_submitchecklist:
+> -
+>   Linux內核補丁提交檢查單
+>   ~~~~~~~~~~~~~~~~~~~~~~~
+>   
+> diff --git a/Documentation/translations/zh_TW/process/submitting-patches.rst b/Documentation/translations/zh_TW/process/submitting-patches.rst
+> index 514903daae25..967e558350c0 100644
+> --- a/Documentation/translations/zh_TW/process/submitting-patches.rst
+> +++ b/Documentation/translations/zh_TW/process/submitting-patches.rst
+> @@ -2,8 +2,6 @@
+>   
+>   .. include:: ../disclaimer-zh_TW.rst
+>   
+> -.. _tw_submittingpatches:
+> -
+>   :Original: Documentation/process/submitting-patches.rst
+>   
+>   提交補丁：如何讓你的改動進入核心
+> diff --git a/Documentation/translations/zh_TW/process/volatile-considered-harmful.rst b/Documentation/translations/zh_TW/process/volatile-considered-harmful.rst
+> index edfc83f32672..a2384b60b874 100644
+> --- a/Documentation/translations/zh_TW/process/volatile-considered-harmful.rst
+> +++ b/Documentation/translations/zh_TW/process/volatile-considered-harmful.rst
+> @@ -1,7 +1,5 @@
+>   .. SPDX-License-Identifier: GPL-2.0
+>   
+> -.. _tw_volatile_considered_harmful:
+> -
+>   .. include:: ../disclaimer-zh_TW.rst
+>   
+>   :Original: :ref:`Documentation/process/volatile-considered-harmful.rst
 
