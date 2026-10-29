@@ -1,90 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283248;
-	b=oVIjHPpygBkWTUv8D+NF+tr0c2CqsXA3hP8yKljykIGeYHwF0iQ3xCqgnMDyULZgVfyk
-	 GNxMvoZA6p5t0P4q0ld1Oirw0HtR7TqMW7k+0PzvvatLtGbeuuYEezccBpNx40USob6rK
-	 S9fzc3GFDbrVq+sS6M/krQiZA/cVtnjpnosnS5ZzM5WfZOLrDOKeUXkYxLaVOO4chfpbW
-	 6SPLOpvcI8qyY4pCsQ8tSxPKlqSRjZbNSTAvooZR9dIBlfrNKQg8j3nSc+3HJ82wMoXHp
-	 Qly2QIeOPNJY/2yLOnbNO8KQi9sS/r9R1AhN94zUb97O1bqTuWujok0woPKLSc3pdPQ==
+	t=1793283273;
+	b=JG4UYDfkBdKvbq5zYbaQ8RPhaPv+KLc6fZueRN1tgaN4EpC+4LWZOIP2V18duvfJ0hIm
+	 FaPFktodZoncqN6ZxpfvzRxrnRKVjTy+FQ7vb+HzM4ZcVx92xyJmKECIIOZjn/+6dlzHC
+	 bMgLFWoZiqkzPL9W8LlWQICRedC+x8Ww3nTlm/IkjmZ0N6vYaLSlSWlGT8S7RC+qZw5wU
+	 tu2xbD4I5STJx6xOYcEIQ/p3OlYqVflDG47dPumUhfP/HLzM6Co0gD10y6jsreXXwlkWO
+	 0C9LMFPgOkORxO/P1kQEn57vWEzNx1IDJuDyx+PeWEVtw7CfP6ftiXO6Ahro/bSYkxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283248;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283273;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=wneFayV8k/HtNzsfaZR2kxbDT08YnIr1bVGtS9YLVJY=;
-	b=Et7kDm2EecN+bPzDQMpM+qOz5jbgWJrNREOGH5M26NBebmwAHr1Cc/zTCYViVJ28HN9B
-	 3rlrFpoXhZWxD8WKNGGMZ7LFEu4hGy/HqLGN5o4rO/B+kSmaFEyJXHkc0tDCtj6ydwu/a
-	 pwPZIl7ZSpy7/HQ1/K2sPjgmGtb5VfVK1c+wx8KqYIq8eT9qLGg0FB4lGRhMl9wzOIkKy
-	 pRe4QCIZ2QgV0uJkbeE3vYIpaTlZ8daUYqK+c1AWtC5W1pDFiYfxCCjBFOoXcxJXleGZG
-	 XgdEK3HxRXKG43dzT+IpaYxbYZvBCn41o+/dCm8XEdez6ouZALyOYfGL6DXm2XaA5mg==
+	bh=00lZgsWW0CT6Uykh+WSJbmsT91YueScgXuLixivUJzA=;
+	b=ywMeQIz+L5Ta3vJXxvQq27f/Pzq6MkO5RGo8RznPo23W0yS8T2zTw00GgpZc/KnBkJvP
+	 0QJEyG8nx2x5U7ErpoKCZB+ld9d+Knue8clh3uwFdBAd4WsVuL5Ic6+JVg5iyJGfnfRPo
+	 zcOTmPqJKxPmfWqcEL7OqW9YUbIFm8vRpcMNbB2wUMq3DcxtsMx6NqQjJRcjf2T+KhpsE
+	 fkkvS6Ikt2V9XTbGgWUILeohpOo6SClYIieyAvzpNBRb1g9/vBm1fjPUIdAffWo3vybQB
+	 LbvdlMVDC0VeBFpFQ/gJIAp1J1fTFDURAY2qwuJPRtBxPrAw1yieX1uK/N6DrXcjwCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tt4jl6du;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uf9Bfqyn;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F192B606A32F
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:14:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F192B606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0931606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:14:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0931606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tt4jl6du
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-18cdcfc05ffso2953855c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:14:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uf9Bfqyn
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1a3c08d6928so2906494c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:14:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793283247; x=1793888047; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793283272; x=1793888072; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wneFayV8k/HtNzsfaZR2kxbDT08YnIr1bVGtS9YLVJY=;
-        b=tt4jl6dutspAaYqtKRMFA/8QObZsHgQVcl6Pf3GKtvE/+dIEuOjFjCoqphIEANyVY0
-         e+R+3dovah4+8y4IFaoWQfLyPuCI+RbZwSFyAtdQJSWuCM7eVOUYyPGMDMeIV2/cHkrF
-         wSpyC8s4VwcTOtANA9hwXwdj46DmpVHR11nfLyheB+qvWiGFdofxR0Lq4iG8yvBiqvQI
-         BDc2ZAeksSLjZJwZWjwWWevMmPcjHtpmhVmDlbYJBK+RPsfgP661UXCr7eiH7bCM1cn1
-         6hFrzG5X8XaZUCskcj7tP+QeQr/c/nlA7vwpF1e7V8TuFo08C5kIrnYd+xtBzRBHXCx/
-         J0Ew==
+        bh=00lZgsWW0CT6Uykh+WSJbmsT91YueScgXuLixivUJzA=;
+        b=uf9BfqynQkU+wiqJVzlGfJjl5YteHO5oj8ASqeDQ6IC12ermeFKj9c8hWsbcd4+P7z
+         Y3vO6lfEVerrSdq9CAulTAn+i6sQeRptE2yiUYHJlzwDS9DSZuKRi40CPal9AiadRpwQ
+         IiAGsSZQRyABq+4Sw/SsIsz2pxfA4zj/IgwK03Av2x27WhvwR86eGQ1LKwoXCTZbMZsx
+         Eda3HYx0Fcaj1Yh3KeKtF6ECDyw/k9AZBWEWg0RNAza7UrXDD0Uq1IhOwmvgKPuy6zxO
+         4qnfr9UiOmkCg9YudsR9TuB7J5cTMHQrw8E7EyJ+gMkasXWvaKNHgpjNwLP7glWZ3G3w
+         kwcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793283247; x=1793888047;
+        d=1e100.net; s=20260707; t=1793283272; x=1793888072;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=wneFayV8k/HtNzsfaZR2kxbDT08YnIr1bVGtS9YLVJY=;
-        b=GDkNnphNq2hRgQhQYz7OUtVeNx1BbJPag4MA1wH4B/clgIJ/3aBhIYX9qJkAM3njXJ
-         Oqg8tRgH3GREnQCKbzd8zMzCCMeh8sYCXx8kA64ZxRmAGxKPDLsvurQ1emh8KsviAuhz
-         fynDMRnFQLvNif3mSVhVjKG03dLFHHzfgOyBCWFtFVcEafP9+TQEArCzyUXCthxMd9JQ
-         RjoBvtmn5h0M+RvXn/uxxpCOXcyn/K2MmM9E/33lOV0qFJIzpls8N1NfACd2VhJEQfqr
-         wliCjGGqm0Bpa56MP50l6CG008ns06J3czeFJ9ICqEDuynBewIKtX8nkeDRJ4y/GtmUs
-         AGKA==
-X-Forwarded-Encrypted: i=1; AKwUvBx4gwzkDuklqGIXEpLSq8paSXXRtBlBgOrBTghNIKOh9cjAu95JtrHN8N7JPZwEQweTK0vlQUAIBFsIBBQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItzyHLJIJMjPz51WQKV81gSRxkCveEJThLngIH4Kba/OmTnwQS
-	cMWYNCiXm3ZwPuB9JpZpvoywcKDopAzo48av5dsYvAuby3DodTx/dAU0
-X-Gm-Gg: AYBFou3Ia8gD7CljyjQGEf6c+z4OEztK27Q8BMBA/mlbPYZncz4w8zpCvPsLyJxrv18
-	agfyp6PlA3T28DU/AaS6QI5K4Tdy/uZfUWNZeNYlw632NqgacDXJhD9ysc7KA2z7qjaZWo22OF/
-	Fc6QBvw09AGhDrKwN8Znw1qft7YYT6XvFn2rj3CKZmHe3uHNibfwM9/kR7BuevT6oZv8c2UkekZ
-	GsWNhB/kxl+Il7fQnZbJ6Q6cZfrk5SZkEG+KqEp7FtlvBWVZv5oYaoHY8hQlm1DR0Ixsyvxg8Oj
-	pSeumoQQeX1VBcSU9Fw3321PYELsnFX2605Mw9KjVRtfNH18FwQp6qmwvEoAnaFKFHscoknhJnj
-	DOiIx2Uu5/1XDVVia7JS4on+qDVp1nSHd8xa0Mm7tiA+aFo/Y2sWnDsXfg2rxqHnVwnKLsAfnhx
-	MdolWl5llyKYcRmel2scj7zD8Jmg9gw/+v93FGuBLXL8OJ4JwPtHDLGCMfLgiGR0bM6lLdwAhX9
-	F/QXzZeL4ZPCMEaQWQBqWUtOILI9Kefz+9HM6kcwgiFSVYgA1kdQCC+/GoE57bCIkVQYKqzyP05
-	zLo0b279bOVAWILNRpOFAwLheY4gQeQNm2WJKNxEJnkPbB57dkzyIg==
-X-Received: by 2002:a05:701b:2511:b0:1a0:b8f5:872d with SMTP id a92af1059eb24-1a6c7d2c428mr7145915c88.4.1793283246851;
-        Thu, 29 Oct 2026 07:14:06 -0700 (PDT)
+        bh=00lZgsWW0CT6Uykh+WSJbmsT91YueScgXuLixivUJzA=;
+        b=lw03tboL2uWS3l7lNBFf2aPY+M5f+aonfjvHwvfwiHo77PJ95F56ZUL2D9B0yFlEFo
+         y4MKNsxE8QjYs0ZA5kAa0G7gtQ/7J998Te7XDZ3m6bYwMF536+uPZXSdJRpCz4Imk7v0
+         aC0HgzY/u0f9VovOWGz8Cf1N/SlWNZJYZHhxbztTQNxGYNC6IhyJTLI+HIsThgPgHkYX
+         6Sqvi2/qv45r3QSKXDKLr+b0BDa+hWZ/RNh6g4ta76KzNm+0NQ4fk0rhiyL3XxTvjExt
+         cbHfhd1CK5zZI14XbnlF775GJW9Fof/FYyRTbK3iRuLgC6IMMYnx3FHZ76/FveCf14bc
+         oJBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzC85dqntp7Hl5Gl4D/fHauPVSLOSvwomtBX3BbnSrb3aa2rsjNY3UncGJ7J18BZ2m/TeTDpn1u0SDVVB8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKoWR09uonq+Y2AHqd+4OABQv1DHxch8K0qpyjNcn58M6vqKdrL
+	8RfutPB4hK3jxqlaiW5fFAS7q7Ow4MEHfGUVLHDnGQqg1Sq346Hw+a7uQ4uFyKDk
+X-Gm-Gg: AYBFou3LSoI6paNJ8zgF8lI3mDkP8B7/LMQlj7yff77SakoNMTA3yriMxFp85aqF0n+
+	D7mXXUPcU6wChMogODqUtbaamgvDi9Fbs5v6BE0iWA4P/qnFl1/gR5lnMz5Nj+8PwkBX6JAoG7f
+	8AQV82whohhm5D2LHul0P9llvP4JJBx3WQBNV2AZ/GzUR/SIvC56n+TTZ7dsybLfueKr32m6sMS
+	uKy7EqZzUcCgHW9bLgO+1p2HF+eh3FDtQggnQy2njyr23CKM10YJLXAOoe4bBzXCX4QsXCh+EPT
+	MFomnVrMxIVk3YJQ2E+R/KtBdOumg6V/mg+lalBMIXywAA/Ox/MIpNSrHAhxtkFvaExiTjacOyX
+	3e1Z1cBIH5mBUKwueNxLa2hwOI4HTqE4ACyQ5GRqBrOH00Fjd1kfbkY83T3j5kIPsQ/QrP4Evzm
+	vmOucHd6kjuCm1XJl0LaVet6sAASLyvBxh10pNraJdTCHp3qgF9IbIpAsPfU9vBpUKFsqBUnZZ2
+	WKKjvXX/gzKRIvDacg5WKxolwETWthA48sx4FPxiHOTZuUvVtehiqucqMVBrhNltcyakc/kuwX/
+	YiV2556fW7mutR2Y4anlz0bNHwXu5Ye8WrML8MeGahk7b9D2+uTz6g==
+X-Received: by 2002:a05:701b:2616:b0:151:2e62:fe4b with SMTP id a92af1059eb24-1a6ce4ebf97mr6501352c88.23.1793283271761;
+        Thu, 29 Oct 2026 07:14:31 -0700 (PDT)
 Received: from [127.0.1.1] (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d76814bsm15197319c88.10.2026.10.29.07.14.04
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d76814bsm15197319c88.10.2026.10.29.07.14.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 07:14:06 -0700 (PDT)
+        Thu, 29 Oct 2026 07:14:30 -0700 (PDT)
 From: Cheng Yongkang <teel4res@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] tty: n_hdlc: fix duplicated prefix on partial writes
+To: Jens Axboe <axboe@kernel.dk>
+Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] io_uring/net: fix multishot recv length limit accounting
 Date: Thu, 29 Oct 2026 07:12:20 -0700
-Message-ID: <179328314077.648427.13745367584859897488@gmail.com>
+Message-ID: <179328314078.648427.10086632105828535293@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,66 +96,64 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-n_hdlc_send_frames() passes the whole queued frame to tty->ops->write().
-When the driver accepts only a prefix and returns a positive short count,
-the current code puts the whole buffer back at the head of tx_buf_list
-without adjusting its length.  The wakeup callback later sends the frame
-again from byte 0, so the prefix already committed to the peer's flip
-buffer is transmitted twice:
+io_recv_finish() debits sr->mshot_total_len with min_t(int, sel->val,
+sr->mshot_total_len).  sel->val is the cumulative byte count of the
+request: on a bundle retry the receive path adds sr->done_io back to the
+return value, and the bundle branch in io_recv_finish() recovers the new
+bytes with this_ret = sel->val - sr->done_io.  The debit therefore uses
+the wrong value after a bundle retry, and the int cast truncates a limit
+above INT_MAX.
 
-  DUPLICATED PREFIX: magic occurrence 5 at offset 19968, frame index 4
-  drained 36864 bytes, target 28672
+For an IORING_OP_RECV multishot request with optlen above INT_MAX, the
+limit becomes negative when cast to int, so the first completion debits
+the entire limit and ends the multishot with IORING_RECV_MSHOT_DONE
+while the socket still holds data that covers the limit.  With 120 bytes
+queued, a 64-byte buffer and optlen 0x80000000, the first 64-byte CQE
+lacks IORING_CQE_F_MORE and 56 bytes remain unread; the same setup with
+optlen 0x7fffffff posts 64 and 56 bytes with F_MORE.
 
-n_hdlc_tty_write() still returns the full count because the ldisc owns
-the queued frame; the short write is an internal transport event.  Drop
-the written prefix from the buffer and requeue only the remaining bytes,
-so the next wakeup continues where the driver stopped.  Full writes, the
--ERESTARTSYS rollback, other errors, and a zero-byte write keep their
-existing behavior.  Clamp a driver report larger than the frame to the
-frame length.
+After a bundle retry, the bytes already debited for the previous
+attempts are debited again, so the limit is exhausted early.  With 1400
+bytes queued, optlen 1000 and buffers of 600, 100, 100, 50, 50 and 200
+bytes, the first attempt delivers 700 bytes and retries; the second
+delivers 200 more, but the debit accounts for 900 and finishes the
+request with a terminal 900-byte CQE while 500 bytes remain unread.  The
+limit could have been reached.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Debit only the bytes received by this invocation, sel->val - sr->done_io,
+and compare as unsigned so a limit above INT_MAX is accounted correctly.
+Non-bundle multishot requests keep sr->done_io at zero, so their
+accounting is unchanged.
+
+Fixes: 0ebc9a7ecf6a ("io_uring/net: Support multishot receive len cap")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
 ---
- drivers/tty/n_hdlc.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ io_uring/net.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/tty/n_hdlc.c b/drivers/tty/n_hdlc.c
-index 895b850..db2103f 100644
---- a/drivers/tty/n_hdlc.c
-+++ b/drivers/tty/n_hdlc.c
-@@ -288,6 +288,9 @@ check_again:
- 		/* pretending it was accepted by driver */
- 		if (actual < 0)
- 			actual = tbuf->count;
-+		/* a driver cannot have accepted more than the frame */
-+		if (actual > tbuf->count)
-+			actual = tbuf->count;
+diff --git a/io_uring/net.c b/io_uring/net.c
+index 66e637a..79af1f1 100644
+--- a/io_uring/net.c
++++ b/io_uring/net.c
+@@ -881,12 +881,15 @@ static inline bool io_recv_finish(struct io_kiocb *req,
+ 		cflags |= IORING_CQE_F_SOCK_NONEMPTY;
  
- 		if (actual == tbuf->count) {
- 			pr_debug("frame %p completed\n", tbuf);
-@@ -304,9 +307,17 @@ check_again:
- 			pr_debug("frame %p pending\n", tbuf);
- 
- 			/*
--			 * the buffer was not accepted by driver,
--			 * return it back into tx queue
-+			 * The frame was not accepted in full: return it back
-+			 * into tx queue. A positive count means the driver
-+			 * took that many bytes of the frame, so drop that
-+			 * prefix and retry only the unsent remainder instead
-+			 * of transmitting the prefix a second time.
- 			 */
-+			if (actual > 0) {
-+				memmove(tbuf->buf, tbuf->buf + actual,
-+					tbuf->count - actual);
-+				tbuf->count -= actual;
-+			}
- 			n_hdlc_buf_return(&n_hdlc->tx_buf_list, tbuf);
- 			break;
- 		}
+ 	if (sel->val > 0 && sr->flags & IORING_RECV_MSHOT_LIM) {
++		unsigned int this_len = sel->val - sr->done_io;
++
+ 		/*
+ 		 * If sr->len hits zero, the limit has been reached. Mark
+ 		 * mshot as finished, and flag MSHOT_DONE as well to prevent
+ 		 * a potential bundle from being retried.
+ 		 */
+-		sr->mshot_total_len -= min_t(int, sel->val, sr->mshot_total_len);
++		sr->mshot_total_len -= min_t(unsigned int, this_len,
++					     sr->mshot_total_len);
+ 		if (!sr->mshot_total_len) {
+ 			sr->flags |= IORING_RECV_MSHOT_DONE;
+ 			mshot_finished = true;
 -- 
 2.34.1
 
