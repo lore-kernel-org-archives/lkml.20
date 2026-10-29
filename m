@@ -1,53 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283538;
-	b=tHaIYKCho5dOlJsgfltzCkexPVWA9dkDOXFdrMsseGYgrLRTZjxOMmo7cb1B7QCQfYoF
-	 MnG7NX6Xpfe+hRlFFP9QI/AUkV1qme+7VAMfKOcsJcj11C0OR/r5P/6g/wCz58YCzGpTf
-	 Hr54WkcCjtknkxYbKVse3iH+f7QtV315UGo8JJpQnzQedjNtG0ti7iRjrHacHpmKnCDfj
-	 AU3f191cxtPPZdpv4Vf3Wacydt/RT0YwYBj5TTU4U5CAvihw3UyDrBW4auWiuuGxPDFOo
-	 f4RcGU0sO0VQXLKa29qD5Enblrh0XoaRpG1IaXRGyGv7nKoUAt8XwWwG8byQ8XRmIIw==
+	t=1793283533;
+	b=We4N96//lSW2cVPMRZ6hQjd5NBjGqy+RHhNB3wkHQwgx8wkPPNE81YfmQESNPVbhZvUP
+	 5tekTThhrCnDrgGtyRD+63ApygeNsJ9HoyobZj+glwhc0wPkFdQYgZYqWQC6XpuNMVm+p
+	 HLMTO+B2MIALjE9aWoaO+39Jfml99Wn9Wap1abfPaotdFexPr/drQZzmCB18zkmkjMbGB
+	 jangU8dj3rcaaFmxMDd5zubop7zljRShv9dg6QcKypJe/qsWCFpraWnzUbJYSaSy4vBLg
+	 9WBPfTyUFUPRrl4J9LLDfSOw9xfHcbR533mxTRpoXwRk6SwF0ubz+asznW//71iYyCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283538;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=LA0Z7C4i6n4Zp39cfwPi7Pw307xQvQwzfqOo6mJbd6w=;
-	b=vL8w0ou2wohjGpiEPl0p7nAYFSJBdnngAHXBXeKRj0jH5+J/S/QHMQpKhmAgLY+xgutW
-	 adkZQuqmYgTSGwTEvKpsAmeGUI3q8kpWzRJ3XtTk6Wo07kgJuzL7QQOThQdjD+MFbkctA
-	 aizpDs23eOZTJ2dsD2YinQRQd6dk7qUWS8Ox4lhyW8bAUacGATZicgVbmpukAgTHd9rPa
-	 iKciW4JwywkJ5iKPV78ymqAxE8hKEgPKoq4XCXv71qVv/ghbGi3mtjfdeNnMSivbw1zum
-	 QN9mzYm/q6c2AzPtIOQJrwkfV/3TGG8CBxo9g65BGLZ2AdPb48otWNAqSJZn8vL7VFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283533;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=djTWxpT1ovKkbA0vbSvCTa6GvH4LLAvCDTO8fermq8s=;
+	b=XaK3Ev4nrbjfkn35FmOykfbxyUwvfTp6X3apfjxVK6mNShgmOqZHVlbNTiRaTeVd4hkQ
+	 PxdE68urQZbPhHnWjjBzPyuyMTHoNsLaOhfmWK2KaCV4wBW5N5VpvEOZXmFzWj103OwTJ
+	 ej8KF7fwnUa541dE4ICP86glPzBNXUWNVVtyETErmERDaiGVyCegkZFJ+p9+fLIAKnC9o
+	 FAoxt81pKoczqTgIOA9aNVrvMPUSPqNVnDAH5yiVlT8QhG8yb7Nw5nw2c2Gh5ZBN30r8+
+	 ZH9GDY1zGMXJ4cNeTI5NI8U8noYGcJQFBDzrhIIbogupU9gyTXWnnH36F6f4GqFPyzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=QhnmnWsU;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E289E606C46E;
-	Thu, 29 Oct 2026 14:18:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E289E606C46E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <304c061aa5fa7f271acfa74c640ab1f0a40e393c.camel@crapouillou.net>
-Subject: Re: [PATCH] usb: gadget: f_fs: Remove deprecated dma_fence->ops
-From: Paul Cercueil <paul@crapouillou.net>
-To: phasta@kernel.org, Neill Kapron <nkapron@google.com>, Greg Kroah-Hartman
-	 <gregkh@linuxfoundation.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Al Viro
- <viro@zeniv.linux.org.uk>, Nuno =?ISO-8859-1?Q?S=E1?=	
- <nuno.sa@analog.com>, Sam Day <me@samcday.com>, Michael Bommarito	
- <michael.bommarito@gmail.com>, Gabriel Prostitis
- <prostitisgabriel@gmail.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Date: Thu, 29 Oct 2026 15:18:51 +0100
-In-Reply-To: <e30a0a03cb7d393cbd88565bf81e156d2f38b293.camel@mailbox.org>
-References: <20261029125143.1744481-2-phasta@kernel.org>
-		 <7fd62daa875e4a3772e980127d368704a849caee.camel@crapouillou.net>
-	 <e30a0a03cb7d393cbd88565bf81e156d2f38b293.camel@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B29606B6FF
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:18:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B29606B6FF
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=QhnmnWsU
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so4099725e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:18:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1793283532; x=1793888332; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=djTWxpT1ovKkbA0vbSvCTa6GvH4LLAvCDTO8fermq8s=;
+        b=QhnmnWsUnRd5bHwtpI5KZOuYEAr3vXbrhyKeTMDPR0RR2Bb/SXnIyYtlgk3WZqHwFz
+         brsf+OiECI4jf1kP3Lwmuy0QHAyQ6ityEuPefx/O7cx2C+sZh5CXhRYHDV1ZuCciE2Jl
+         yObJ/XsNaFN4rPUDOP/Ft5HXC0jL92cfkWctTm/pnX6Z07FN4777+PCTpm2rh2VGqiV7
+         KfEVlcHcoAjBoWrFfU9OsFkTScGslUgkBpRCn5gj2gr0gD34atCUcL1SyM1zncqgjNvS
+         uX3N0w5FVggMYTU4xf24bSvkP9KLwlAvAtpPVRucZmzZmmVvT+5t7zAdpJYLMXEH0qOl
+         ut8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793283532; x=1793888332;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=djTWxpT1ovKkbA0vbSvCTa6GvH4LLAvCDTO8fermq8s=;
+        b=CiZvaot2x0ylYDoJFH3CahyvoHLrzr711Xw+ZV0UWB3qL52LX0/EL4nRCPvyP3B6Gw
+         5j5t2CV5GP+9577DTuRIi6mBO+OdEcH0TKkBwtnwrHU00dGZTyft7W77J4DA+CNiIBwn
+         L40PhmcmhJB6PkSh7C9D+hBLZ9IHNECivvBp9vzIDrZbVj8qh+V675G3S7y+j0xzqpct
+         N8xY3H3EIDFdprpCjB+iGJcGhgwYigE5hDGwj+i+F5FkfP6Ve77No4CeRtsUKf6y8yqn
+         46ATfz5U6iZAWjzNWxcyN7rWcDOPh/0jkOKjUkJFv9m0T4lWy1Xw5gMAZEiZRGu3GQhl
+         H6Kg==
+X-Forwarded-Encrypted: i=1; AKwUvBxVWrUqsicPqAEYQ9n62D6Vyl9wNF1dDR7ymZcgF/jxdezH/vVLi6h8pTfk35CwFAksgZTCoV+EIe6Llqw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQVJX27ApLE77MKD5xS8nacHjXaUKVfXJajXi3ghIwXOGtRcir
+	4G0XYq4G7bewzKnLV7dDwQB25fOJ6dLXZpBOQIdor+e+MajCD1zo1WTJn+gnJ9UMR3Y=
+X-Gm-Gg: AYBFou0RajZaZNnQ4V0WrVfti3xXW/fYHrfgGjE0okt3rxasKdw1OSEAJO445aGaZsQ
+	E0a0D+0+24PaRPR2cf8SiY559hmSZW2HA0YR6zqR5WO4FeSD/hCwVKBdxcVaoarppvnGymzS7sY
+	r4n3DOETFMcb83LHuwFAXpsIg21dGOfpY6Nct45Yolpm2rzlS52SeE27V60Rz6qBtIF4mIk413A
+	cKr+pXWg3ELcAmVwugJLmvtm/X80llbfFfdqdJcGn/nuIGPVuQDFGVfL1btPDAqk9Ry+BG9uA6c
+	7cs2ulR3GZpb4zLb/E1Evb1Q9RUrNjgx4ZWkeqj5Ysk3EBEoab7+Xfk636x0rRpuTjkRsqwmxdv
+	KD4V+bEuiFRQ3qNmI9zIEMX6Ug4I9KPjw0m/jHwacg0TvkJhY/Ku63qyyGbrk9p4HmFVVgWSfr4
+	WS9D0+vtV46pMmAYMFGE4GmriuGapj0eDmX02U7sYKoIWFs2J9W9ZBc0/+PQALnVmX5sngU12DV
+	jgY7iiqc8ItIYS08txDkMLkGFJEcUUhlRUj3CLBIiAcHRprLHjfFDEZNIuRRY8wPWipkvtJrUTv
+	vEyd3KJOKL3n9hHh6l27tvwZyfVxWCc7FRL2rexVL4BC/8WDbvrhZhhDLSZgJK9LsfaN4Yf2H38
+	Dt/9QBJ+/S6hREdEgwabdvKFBjg==
+X-Received: by 2002:a05:600c:8b08:b0:4a2:1960:6fa with SMTP id 5b1f17b1804b1-4aa86a42502mr68687295e9.4.1793283531711;
+        Thu, 29 Oct 2026 07:18:51 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm66702755e9.11.2026.10.29.07.18.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 07:18:51 -0700 (PDT)
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 14:18:35 +0000
+Subject: [PATCH v7 14/18] media: sony-starvis2: Only update bits for window
+ mode
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,56 +93,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-media-starvis2-v7-14-b33a1332fdfc@raspberrypi.com>
+References: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
+In-Reply-To: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Alexander Shiyan <eagle.alexander923@gmail.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
+X-Mailer: b4 0.14.1
 
-Le jeudi 29 octobre 2026 =C3=A0 14:49 +0100, Philipp Stanner a =C3=A9crit=
-=C2=A0:
-> Hi,
->=20
-> On Thu, 2026-10-29 at 14:19 +0100, Paul Cercueil wrote:
-> > Hi Philipp,
-> >=20
-> > For context, this .release() callback was added to avoid the implicit f=
-ree
-> > of
-> > the base class, which IIRC was a request I got during the review proces=
-s of
-> > this
-> > change set.
->=20
-> Can't say anything about the request you got, but fences are reference-
-> counted and the ability to free itself exists since at least
-> 3c3b177a9369 (2014).
+IMX585 requires bit 4 of the WINMODE register (0x3018) to be
+set, whilst the bottom nibble selects between all-pixel and
+window mode.
 
-Yes, it already existed when I wrote the code and I was requested to make i=
-t
-explicit. Not trying to make a point here, just stating the reasons why it =
-was
-written that way.
+Switch to using cci_update_bits so that only the bottom nibble
+is updated, thereby working on all supported Starvis2 sensors.
 
-> From dma_fence's perspective it's certainly the desired canonical
-> pattern since the release() ops prevents fences from the important
-> feature of decoupling fence producer and consumer.
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+---
+ drivers/media/i2c/sony-starvis2.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-ACK.
+diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
+index 645417cc08fb..e64d943369b1 100644
+--- a/drivers/media/i2c/sony-starvis2.c
++++ b/drivers/media/i2c/sony-starvis2.c
+@@ -89,6 +89,7 @@
+ 
+ /* Crop */
+ #define STARVIS2_REG_WINMODE		CCI_REG8(0x3018)
++#define STARVIS2_REG_WINMODE_MASK	0x0f
+ #define STARVIS2_REG_PIX_HST		CCI_REG16_LE(0x303c)
+ #define STARVIS2_REG_PIX_HWIDTH		CCI_REG16_LE(0x303e)
+ #define STARVIS2_REG_PIX_VST		CCI_REG16_LE(0x3044)
+@@ -1460,7 +1461,8 @@ static int starvis2_program_window(struct starvis2 *starvis2,
+ 	int ret = 0;
+ 
+ 	cci_write(starvis2->cci, STARVIS2_REG_ADDMODE, 0x00, &ret);
+-	cci_write(starvis2->cci, STARVIS2_REG_WINMODE, 0x04, &ret);
++	cci_update_bits(starvis2->cci, STARVIS2_REG_WINMODE,
++			STARVIS2_REG_WINMODE_MASK, 0x04, &ret);
+ 	cci_write(starvis2->cci, STARVIS2_REG_PIX_HST,
+ 		  crop->left - starvis2->variant->active_area.left, &ret);
+ 	cci_write(starvis2->cci, STARVIS2_REG_PIX_HWIDTH, crop->width, &ret);
 
-> > I'm personally fine with the change, but do we need a "keep this field =
-at
-> > the
-> > top" comment for the base class in the ffs_dma_fence struct? Or what's =
-the
-> > policy here?
->=20
-> When I got into the kernel I was told that it's common practice to
-> always have the base class as the first element. That also allows for
-> obtaining the parent class by a mere pointer-cast instead of
-> container_of.
->=20
-> But the reality is also that some users are not aware of this rule. I
-> can document it in a v2 if you like.
+-- 
+2.34.1
 
-Let's wait on feedback from more people. I don't have a strong opinion eith=
-er
-way.
-
-Cheers,
--Paul
