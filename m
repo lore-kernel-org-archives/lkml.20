@@ -1,95 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267252;
-	b=QP4lID01Zn2hSDSA8cVmLs42Ot/t0xVBtclAprc4Vwix6YwrF1P4/xu5Unguc2Si/C+p
-	 Dy/1FV6U0WMNUfaZGzFDtQCcN//dXHdcVOZ7c4bvrYzsVJnet0eAMd3N2rSFIRY8Gij8j
-	 RZGIdJqj6yoH6My0Jc+Ga6tqrYCSDT0Ns4kTabEsW24g3GqjbnomRB3sO8ZN9k8Pk77Qi
-	 ZOVnNzI+c3EgeMphraX3sNZUFug4B1W63MfKbgHdordXE05uQeHNbliYh8bNSzSqnp74k
-	 ZmCE1x8Uw3AfM05XKfEwxA47Be2VEtHJEM59ojd2o87eFkrJEN1MLPSUVjSAHWGOl6w==
+	t=1793267271;
+	b=zAMfmdHyYDCaqGvwLPxieDG5tQmsz6xM9Mk6UsgqzX0gweuxA3U6tuUXF3QD9IeCXq7I
+	 kjpv/Lp/Xr3mMk94HJAcgNOcR3ZP6iM8tGQaM2j4ZFxMKtrk1jxnPWkERopCUMHZBzIAb
+	 G6tjfNzIvEOofSoZpVaZs3mm1uEf5O4kaScSsYuKKwvLoHbZMm46BiGsJ0oupwdEvIJM5
+	 J+uT2b2dpfHvnlXb6LiRSSy3/O/9Ux3b3HRU+Y7smlB55pWdq+OE3EZPXMQRD7enXvVka
+	 Qm/oUay1NB4mhQS6tG5oYA5b8IEDFcbX8P66Pnd30TVifLx0Qmzfkjr55+vTz11ejtQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267252;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Ycc/PH2cYi+TSN+J+t9gob/x5tzRRSZ7oT2i12vrEeo=;
-	b=YtCH7pmDjfbV5IxsjbTdxIa7bhu9a6luNAuSZ/o+IZHllzT2wr3SsBI5gp8iVj80J7K9
-	 X1lpLugBS9PJ6mINTGZvoNm80avPVYvtEm+TrtPysQC07eeE1FJ0lpIIoH6n74066Uvmv
-	 X/YNycX1PW2v3JxrpTVDohkeKoGsLyyEIvOglhFR7CIaxOhiiXEKBq+VbdMK4FFZEhI99
-	 bNYSWwdIehjks8nsf3dPBHVAdLTardFFhN0KFOyum23Ye8osWFrO4EimCAlUoFDUvAsHD
-	 9tZzMcpr7iQeWkjzdwuZMRFgrVlGODOAHVCGF2h3vD8kzeB6kxlMbv3BdkZateWvQow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267271;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=JLznhEesXud6u4BhPm2aVn2jx6Uyq7IzPp7BgTwUqZA=;
+	b=l3/R25hAahaChuDYFLF9g8nbRW6U1D6SPCDx8h0tNXWo1uie+XFpjgcguqnUynOoWzmr
+	 kSC6xTq6FXKHkhYCgYg1LPz/AyjplqJLZgZJXlpyYeSwxKQVjiw3t+QfdvAXVuhKohIq+
+	 kFT0V1/hauAu1xoFYd6A0LCEoQjeKZq7R5JO7JLp4LOaLnJa6x8XIvxFXD6kUV3b1WiJN
+	 nr/gBhdcBe6RUCpf9wCXDb16+IoNmlnOYzFhBdoCbIPvZRkQplnKpwQjMMqO+pANZwbZm
+	 VPqwh+ObFVvfvBAKdz01xNdkwiOWmEYe1Lc2fRBoOrWKc3fJKSrTW0+1jjNRKBuEZ8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lgyz8mcU;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="RkNO3YA/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C35606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:47:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32C35606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60273606A31C;
+	Thu, 29 Oct 2026 09:47:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lgyz8mcU
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e20edd106so1482617f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:47:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793267250; x=1793872050; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ycc/PH2cYi+TSN+J+t9gob/x5tzRRSZ7oT2i12vrEeo=;
-        b=Lgyz8mcUhNcUCDD5IEgfORz4mjRCOlDMVVZwXGyb2XgMasHxukqOAIuKTL2qS/xJIP
-         jgZapcJ0sUEYf4GVksTsDeJAqNs6EWdkm8X178i1GQbXOWqA8w8+46IqC0e4+fOnYImb
-         1xhcpRSy2WEn5LddmoGNxnkeQz90AC1DU8lRmAbcT19a4zfE6Pr99gA/ZdyZMbarp68x
-         DRITRdMplt4ZBZ29SiA3eVqwysyChFxjDrvS+njESvzAgLWWEZFfkZc/PDvU0QwbkcbK
-         n+LLceh6Tahq7Tz+dEsN4thuPk7gixUoM9V1KFokDx7Cl6xACPtmGPaxXZirYufIAE9O
-         wT0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793267250; x=1793872050;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ycc/PH2cYi+TSN+J+t9gob/x5tzRRSZ7oT2i12vrEeo=;
-        b=RCQZkYxisGEkGoM9PDXV/YpKDhEmM0LC8JLBLqIY7UIt6mVWw4dRVmPBBn1wiUSP6C
-         roS+kn8ScH63GJQKTRRgTXBsXgNy4KePe6w5YZllLtEk53uk7ZvQj47IfGB+U/C0rFwL
-         C54Dwzrzkn8w0ixov9WEt+8yAj7TvqjLn9AU+GEoEtYf3iI8bMgimGm2M55cJd7UztBZ
-         oFC48h8yCaWmmJWKArTne45hPktmflYNANZdDKv9sqyj6Y0D2VVMIcYqzsw+fqC3E4x+
-         Ce2yrIxqI1VIEinODw3v1cgiI0YetgdCWDys+241kJdQm/cCXyXNV3PHm1auojSwmbQ0
-         OTCw==
-X-Gm-Message-State: AFq9FYLAqe74dA8W9LdP4pY6qa6XcAzY4DB9hkb2bYsCbFxn0O1pcRMs
-	n+2niFGGLX4mrsT/RDq+SuPIKWoT5qX63t/Q+s/42YyHojXxLFCOE71j
-X-Gm-Gg: AYBFou3x1G6Kqnnp31hnU7iEI34d0kdf+dCK/23I+tEzqsr9ak+lxN+Q/9meYkYmNan
-	snci4DkKJgj84Tu34V8Lp4Lrc9fYGEy8+JFhCLPY9cPL7JO+b8dhm+O9UloFp2o9izdxjy9mAGE
-	3dfgUBolgKiMduYXLXOORXHPs52bSUa3fo864ZCWSOvbqcc0P6D47+t73DMZLegg9ynlyhB7V+r
-	eMJAKSij8xO8bexKqaYQAMaHkwF89PeimapZQcWL1jrFnw+BaIoXkEMKtbJ54vA2mDH13aW3kv1
-	DVE4QqBXdxG3UMCI3g79kUj4jKzKCXKg7Q16WZnFaZa+VL1aL2rHev9PU6zWQgGAbtXYAeKsjiF
-	6dQkqEQPinTqEop7byt7gB3IIAx4C2MxGHIK+ZKHFXND2R+3JzSGtm3i+9oBy4VrahCj7AGDwKF
-	UTr238xX3nLCbjpy39vwBmBgeriBd/2sZA7Mrse2Jk0dPHv5Um3/IAzCur1JLWOMjsLH/He0yWt
-	4FW9OcDEy2kIo879qQzmS9ieaC5emtqQI1P668kJt9SfK2zD3QtnYru/lACrEg1ZJ9PcdKtqq7g
-	sOpBw71rrvfPjHez5cQa2cDArlpJP+3Yhu1NHPLkLNLSowC1Rrva8dwGwlAjcFJXVafxdOdSO8+
-	GV0+OJhu5VhtglAhkzmp4fqu92eFFSGVzhOY+5G1JM+3vvHFwfJp74w==
-X-Received: by 2002:a5d:5f92:0:b0:48e:69ed:cb51 with SMTP id ffacd0b85a97d-48e69edcc52mr1562250f8f.38.1793267250355;
-        Thu, 29 Oct 2026 02:47:30 -0700 (PDT)
-Received: from GLaDOS.station ([187.13.215.67])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb851sm28853779f8f.26.2026.10.29.02.47.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 02:47:29 -0700 (PDT)
-Date: Thu, 29 Oct 2026 10:47:27 +0100
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: linux-kernel@vger.kernel.org, pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-integrity@vger.kernel.org
-Subject: Re: [PATCH v1 1/1] tpm: tis_i2c: Add reset delays for ST33KTPM2XI2C
-Message-ID: <auMWL5d6gkdRvrks@GLaDOS.station>
-References: <20261028094504.4256-1-stefano.r@variscite.com>
- <auJb8drL7rpvNMyK@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RkNO3YA/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32D321F01825;
+	Thu, 29 Oct 2026 09:47:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793267271;
+	bh=JLznhEesXud6u4BhPm2aVn2jx6Uyq7IzPp7BgTwUqZA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RkNO3YA/U3bdXgOGg3qaT6s0CRkCmGtMa3IPUXdj7t1NrzXf1n+M7826uasZ34CtD
+	 u3n2IDEKU+VDxWzJTSD4Gesei7glRO5XZhVaxNZcIzYIGR+0DWWHBkrxWdM4jQaPLQ
+	 hpBpcNZ45+GtMjBm6XWjvunXCMZEZLpo88tml1ZGSidQQfWIwSv0FQMMdLQ6Xz0pms
+	 ZEnxxO8bG+Y1txS8gMu+zcnUsVhVW3OYtZKgCH4TIb/kMTkpucUlJdhKWU3ru7sgOn
+	 9SmAB+10cMQVk35G3nN98jR+qkGY/Jl5lxBNWTeRgarb8xaZhLJlHaUbYkZ4UpUwXG
+	 p3AdtdwGwIh1g==
+Date: Thu, 29 Oct 2026 10:47:47 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Cc: Sergiu Cuciurean <sergiu.cuciurean@analog.com>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add lltc,ltc2387
+Message-ID: <20261029-rustling-scrupulous-peacock-5e6b03@quoll>
+References: <20261027134409.76824-1-Nicolae-daniel.Deaconescu@analog.com>
+ <20261027134409.76824-2-Nicolae-daniel.Deaconescu@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,22 +61,176 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <auJb8drL7rpvNMyK@kernel.org>
+In-Reply-To: <20261027134409.76824-2-Nicolae-daniel.Deaconescu@analog.com>
 
-On Wed, Oct 28, 2026 at 10:32:49PM +0200, Jarkko Sakkinen wrote:
+On Tue, Oct 27, 2026 at 03:44:08PM +0200, Nicolae-Daniel Deaconescu wrote:
+> From: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
 > 
-> "Pull the timings from the matched device entry. If they don't exist,
-> fall back to the legacy behavior without delays. Update of_tis_i2c_match
-> with the timings for st33ktpm2xi2c."
+> Add bindings for the LTC2387-16 and LTC2387-18, 15 Msps SAR ADCs with
+> an LVDS data interface, and for the ADAQ23875, ADAQ23876 and ADAQ23878
+> uModule ADCs, which pair an LTC2387 die with a fully differential
+> amplifier front end.
 > 
-> I.e. the last paragraph has the language of a white paper.
+> Conversion start (CNV) and the gated LVDS clock are driven by two PWM
+> channels. Sample data is captured by an AXI ADC IP core, referenced
+> through io-backends. adi,use-two-lanes selects two-lane output, and
+> adi,gain-milli gives the front-end gain: fixed at 2 on the ADAQ23875,
+> set by pin strapping on the ADAQ23876 and ADAQ23878.
 > 
+> Signed-off-by: Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+> Co-developed-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+> Signed-off-by: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+> Assisted-by: Claude:claude-opus-5-5
 
-Hi Jarkko,
+Drop tag. Not correct value for some time and recently checkpatch
+complains. Anyway, your tag is the last one.
 
-thank you for the review, I'm sending the v2.
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
 
-Best Regards,
-Stefano
+> ---
+>  .../bindings/iio/adc/lltc,ltc2387.yaml        | 138 ++++++++++++++++++
+>  MAINTAINERS                                   |   8 +
+>  2 files changed, 146 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
+> new file mode 100644
+> index 000000000000..f912260c8f79
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2387.yaml
+> @@ -0,0 +1,138 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +# Copyright 2022 Analog Devices Inc.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/lltc,ltc2387.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Linear Technology / Analog Devices LTC2387 ADC
+> +
+> +maintainers:
+> +  - Sergiu Cuciurean <sergiu.cuciurean@analog.com>
+> +  - Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+> +
+> +description: |
+> +  The LTC2387-18 is a low noise, high speed, 18-bit 15Msps
+> +  successive approximation register (SAR) ADC ideally
+> +  suited for a wide range of applications.
+> +
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/238718fa.pdf
+> +  https://www.analog.com/media/en/technical-documentation/data-sheets/238716f.pdf
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - adi,adaq23875
+> +      - adi,adaq23876
+> +      - adi,adaq23878
+> +      - lltc,ltc2387-16
+> +      - lltc,ltc2387-16-x4
+> +      - lltc,ltc2387-18
+> +      - lltc,ltc2387-18-x4
+> +
+> +  clocks:
+> +    description: Sampling clock
+> +    maxItems: 1
+> +
+> +  pwms:
+> +    maxItems: 2
+> +    description:
+> +      PWM signals used to synchronize the sampling procedure
+> +
+> +  pwm-names:
+> +    items:
+> +      - const: cnv
+> +      - const: clk_gate
+> +
+> +  io-backends:
+> +    description:
+> +      The AXI ADC IP block (axi_ltc2387) that captures the LVDS data stream.
+> +    maxItems: 1
+> +
+> +  vref-supply:
+> +    description:
+> +      External voltage reference. When absent the device's internal 4.096 V
+> +      reference is assumed.
+> +
+> +  adi,use-two-lanes:
+> +    description: The device uses two lanes for data transfer
+> +    type: boolean
+> +
+> +  adi,gain-milli:
+> +    description:
+> +      Gain of the fully-differential amplifier that the ADAQ2387x modules
+> +      integrate ahead of the LTC2387 die, expressed as gain * 1000. It is
+> +      fixed on the ADAQ23875 and set by pin strapping on the ADAQ23876 and
+> +      ADAQ23878, so it must match the board. The bare ltc2387-* parts have
+> +      no amplifier.
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    enum: [370, 730, 870, 1380, 2000, 2250]
+> +
+> +required:
+> +  - compatible
+> +  - clocks
+> +  - io-backends
+> +  - pwms
+> +  - pwm-names
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - lltc,ltc2387-16
+> +              - lltc,ltc2387-16-x4
+> +              - lltc,ltc2387-18
+> +              - lltc,ltc2387-18-x4
+> +    then:
+> +      properties:
+> +        adi,gain-milli: false
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: adi,adaq23875
+> +    then:
+> +      properties:
+> +        adi,gain-milli:
+> +          const: 2000
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - adi,adaq23876
+> +              - adi,adaq23878
+> +    then:
+> +      properties:
+> +        adi,gain-milli:
+> +          enum: [370, 730, 870, 1380, 2250]
+> +      required:
+> +        - adi,gain-milli
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    adc {
+> +            compatible = "lltc,ltc2387-16";
+
+Use 4 spaces for example indentation.
+
+Please run dt-check-style.
+
+Best regards,
+Krzysztof
+
