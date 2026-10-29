@@ -1,122 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793237330;
-	b=d2SCdFW1kdX645EV/IAQI0AIGESyylLMFkaw3VVoD5PEdojiTwkk1vQV6deIJmIpbdir
-	 /h3eVS60dirqviYjpIrvB4b7kVWN6IH3wSpetiFBVZltR0gC9QqfLMFyp07Tpey7oBVAw
-	 Z+vyJgLVfN3/IqrgeorDltbtvIPhaoFV+V76wTZ900qmEzyh7wH2g+Z0xkcsQy+AlZvxt
-	 HT7GK6qCYSNTvaV1yF4hvSh9oDSB5cWyE9B7S47PO6lLINPz//UPtuZE7qia8zd+BZ9Pu
-	 4egbFJciWMUL2l41zFtjLH7TJgIJ5uiwQG4V1YUbhodb6m3d+NIMSSD7Xgocl+0qBCg==
+	t=1793237347;
+	b=ayKHV7QjT7MHhpFz9hph2z53RJO8rgr30SpxpTB16Z3dl1Rx7k/84J3qA52ajSET5sG1
+	 F7snUYHD69UrDkFwPGQpRoDUFps5lxQ0PblZBp8sF5ylKHpnxI5gUv9Urs10u0OXU8PFw
+	 AiRnEWC6ddMEzDb5WCFsN+vHsTN6k5bOUIuzX5yNjUnaO+8kZHqjSTc1jJfanWuYxE5mb
+	 yW/ETYK1LtSV5U0xVFM2v6wVC/kPp6vG62UhIBPyVNtCSc+GrY28TBYasrYRScAvl3k4E
+	 Gyq64YJdQnvkJ7U5Hr0kftct6CIW/ggorwr+3zYQbDYvDK1DyF3xccHRxSEDh8QvSGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793237330;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793237347;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=/0NO8aBEarmfo6YKVDc+DD/Z8X1yyrLW/Smi80ixpHg=;
-	b=UpgD866bYUAZaRj1Gawk7mxv6IWJht5n3cuB2zUbQFSbvi5Mu49zwkuelOLlz6/SLjhj
-	 dyrX7Lh9VLPAmfwbo/cJhmfhlL2D4fJN/BYizRZMp1hUpVofiq0aa09cDvww7guv1pgO5
-	 Sx98DdNFW0ff+iu1TTxwKgukrH7epQkWOgwARo4Zx8H5hbblgZlEnrw0my0zVQt3HAgpn
-	 LJx9Y/nEBRXzHuYYFGUq3AvPLw2FiqrAMxZnZbY9vUHmMi6Z7PtREiynNj4GHrRv42E3J
-	 HeDRZkA6UnsmvYtfArDB4r3WHPO6gzmTcQeZiZbU2y7owPB9RzWnVGY2D2D5f9dy+aQ==
+	bh=8qwyeiOdfw6vGb0L8uIG6+BGz4UgyPwLOvdoFvPupG0=;
+	b=on/OFM31+t4TzdGJWzzg0Hu4Xvmedv+LFTJOCYXZN2go9yWltJcgvgclOeVisqwNPcBX
+	 mQKWR4l9oZjxkvKULR+bSg12OIcjqAN98z42MkvxqahK+s4hKNiNIobc3pZ2svRJK0lnm
+	 g+0CweMJVRmTnVYpEGEW6A1MOfFyrnXTtqpW5JkYbuH9f6k0JCVillsMrjouo5LPUJ9T1
+	 Usn56rzs1vIBu0TCCfbx3M5Mqp12KFjrdMugxHY5yPFN09jDu8DgzCT2mPdsU/zGBxO+r
+	 1lP0pFTFXvLYMIvMmTnQ4wtqHaGjRKxjev+oNYAO1/KN2IBqYKTUZ9xA6nj06i7dNNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=SC3wafVD;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=amyGc4gH;
-	arc=none smtp.remote-ip=202.12.124.157
-Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=qgv4ByLt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE2B606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:28:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BE2B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A5C606A31A;
+	Thu, 29 Oct 2026 01:29:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=SC3wafVD;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=amyGc4gH
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 1FD5F7A00C6
-	for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 21:28:49 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Wed, 28 Oct 2026 21:28:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm2; t=1793237328; x=1793323728; bh=/0NO8aBEarmfo6YKVDc+D
-	D/Z8X1yyrLW/Smi80ixpHg=; b=SC3wafVDXxz1ON7vmELrqfzSeZWhzb8WK0sLE
-	mI4Da+p6Mu2uMz/eqV3wtE/ACfiHPzopC7AVQ9/rhuSZK4LYKZqNIbjKVk/Ei6RI
-	XDNHLh/GPgYV4VTTxi0VvAo/CFdf0IrPkg2zne6ILz9Y3AUikTwzEcFm9SpWwJLk
-	Y35Fvcd8s/tZZHbVvH8ZcXXwphEEyAFFw8O1EdCFXTj//zerwCoDjL7H+rY5qNZG
-	eRgFpE9i0q6dZaf+LM/T3l6vpy7LkUup7ISCl1733WL3JhXM8Ybh+ZuP0od9ZzoZ
-	A+vezepoCfXKiMwXSvxgTkDq6rqSbXBRCb2N2jLZB+WUcyxOg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793237328; x=1793323728; bh=/0NO8aBEarmfo6YKVDc+DD/Z8X1yyrLW/Sm
-	i80ixpHg=; b=amyGc4gHY34rfVgd+TVzLOQA2vWehbonZ25su7vCc8XyU0rp+9y
-	GjRKUJqhq3qzyifH+MTVCz0ujurLOa+P2LG/AHXMBrrwVuc9S/7QqVv62IZsD1BP
-	zoL6/r0Qn4KkN+BMelui10BdH/nUX1wWq5uCl8qETUhctyEhJWffPkJEDI2wP7Fo
-	qXSpdkHedyTSaotajRTttV3LRq1AYzxrlQ0N+mniNIVJ9tJaUN3Gsl8JVVlgLjzG
-	avDjb8DIfgh7nPHJKJleBTbAW6O7zF6k10guETmM5JfPd4ox/6i4jwH+drdJXqlW
-	mBwwH9w128S/Hkq6i4LByp0cCOiAcU2dQKQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793237328; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:QSPnpnPuvkogTzpYs37sc5bppdef45JwMTLqCvq/mmUkBqz
-	xXigIz1gzefn9XTdBSy9l86zFNzng0I+G0iyFmaxfyRS0EKBvVlSXH1LbUagXK4i
-	biolDUKo8dr/G+2neo4M3td2paIZZmtjUnFO278a63aoUihzpO/hzTQEafNIIKm+
-	GKTu8u6WGwPA9yQCrcE6Blh+HUniEQ5+RI5LvZcurOVtUMOibbGOmsJVE7+CErZ4
-	kXghe1WT1BtuB2KbcoN2XPFM5W1sAoRwxGKaEfm7SJmYsxEuXGT30MP4nUxDdpsg
-	twampRDB+TycjH467W6PoIXRT8ZuFg1rVL/ehgA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:SX2XU/0Pct/2E7vKSdKGIRy9eTJvWb39Quc6weRqn9c=:2vP9M2cTY6YL8ggJBCOc8L8ZIPPy8ZBGxSu2IQbym78=;
-X-ME-Sender: <xms:UKHianUpyjaG2lezwKYj1ew-R403A_IgC_oUEZ5jzcLWDzqnx0WHdA>
-    <xme:UKHiarnC5oMFrUXLZvcTHmGVcsF3iXWtrzo-Qvk40p1NtE6kC62XdxlUwse9OTUPA
-    RnWS7sSLWBDf5BGVkPcLF8Ghmr1XMnYXOU5Ay1vHdGSbT5hyPbGD7Wi>
-X-ME-Received: <xmr:UKHiallvgu9o1ZG0QIWwwcQyJRNmsbgPOmtqSEeByqxrMOjgac1sUVeyXab7yve0>
-X-ME-Proxy-Cause: dmFkZTFzWc3qmEIlBasXPa5sMOcSxC7y9KOy7H0gXrq4ENBBx6T9939ohqk8PgiFZbTTuL
-    /Cq4fZepR/J87gfk2j9+F9/0EQy000f0lgrN0PtIjVfUK30PhfBBkie4bB4DIeoXuRTpOH
-    7yzjBjwYRGVxUYzx40vWiZQIgn0jRydQq0DO1EiI1Lf678uXLm7G8/7nTj+xC0BCwxdlkE
-    FyV0UoNOdLEjetXinPPy2uVbiiIKdsuzFMylz32RM0cCnlZvc+mkI6KQlkwBmEWy054IE1
-    Uf0dhj+FxIbvMETbktjrQQMuDSNK04NUOJuDJMFNPapk0iLkZOUTGFWav3ZHCdqnfLbfs7
-    uH93Qa8do/tCWyOf1ZuNKiQgT5g5Xm6Wb5iY9xHAc9y+rAUZvDsf0kc0nMtNNIt3TKSviM
-    TnrAq0fHCVs/IvhqgwsR4hVdDwW7ouK5jrKJtuiPg5/K5hAkJ/I2caHyq4tB69o5zWAD0m
-    4p6uT7yuF9UEg+2NiJpNGjhcsiY9n9pP/EFxYOXkgbh1MSrpPQwg1wREbqUpWOpn2gchLJ
-    hANvdbQg3dQQwBgfqfRb/7m0X4CdPJYUNBgAw2NfnRKWz07h0HvHwosoZte3l2O/XOz+Iu
-    m0YHTVhZWPZwecLmz0gP22Lf2LKfR7hzXcMXFFwEZ2AUwnBwu9ANCYzMACrw
-X-ME-Proxy: <xmx:UKHiajY_UzGQY1d9wZvaP8zsbrAqTiY8DK_-qz4XjeT4bf55wQFO2A>
-    <xmx:UKHiavRCImz5InWJ8pQVbTnKvSQcpbgheE2Wtw7Hn71BegKneeoOjA>
-    <xmx:UKHialtvOjFYW7ZYQHyEGunsVWy3Oxl-uNP7_1lJPXkeXzEcoW2iIQ>
-    <xmx:UKHiapFbUYn2X-4WUgSCQiVRPlF1pF-NDflYhnm_AZozi22csxNfBA>
-    <xmx:UKHiapcRvNvosLZgElGcoenUTzJNgrnnsKlJSxmp4l3CQ_c7Wk5yGR0N>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 28 Oct 2026 21:28:47 -0400 (EDT)
-From: Ian Bridges <icb@fastmail.org>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: revert fsids on durable reconnect and replay failure
-Date: Wed, 28 Oct 2026 20:28:03 -0500
-Message-ID: <20261029012803.222197-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=qgv4ByLt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65BF61F01825;
+	Thu, 29 Oct 2026 01:29:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793237346;
+	bh=8qwyeiOdfw6vGb0L8uIG6+BGz4UgyPwLOvdoFvPupG0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=qgv4ByLtJAZquTR5cCSx5SeRbA+nAU8G5F0i3qyZkYx0ByYKUvvP97WRdju74FR7J
+	 y0Q2vKypJjTmZA0gN92NrcG+ab1nrvBk7oD56b6cigPnqfoZsgf0gbNaCCPrfRSVIC
+	 8D3ptcD2U9O8dmbdC/z0DsqvVqQDD40Qr5+Rbcb0=
+Date: Wed, 28 Oct 2026 18:29:05 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: kernel test robot <lkp@intel.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org, Linux Memory
+ Management List <linux-mm@kvack.org>, Bradley Morgan
+ <brads@mainlining.org>, Jonas Bonn <jonas@southpole.se>, Stefan
+ Kristiansson <stefan.kristiansson@saunalahti.fi>, Stafford Horne
+ <shorne@gmail.com>, Cc: Arnd Bergmann <arnd@arndb.de>
+Subject: Re: ERROR: modpost: lib/kunit/kunit-example-test.ko: symbol
+ '__mulsi3' undefined!
+Message-Id: <20261028182905.016f44ee406076e80c6e2f5b@linux-foundation.org>
+In-Reply-To: <202610290106.o8Fs3NvO-lkp@intel.com>
+References: <202610290106.o8Fs3NvO-lkp@intel.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,72 +60,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On a durable handle reconnect or a request replay, smb2_open() switches
-to the SMB user's fsids before calling ksmbd_vfs_getattr(). If that call
-fails, the code jumps to err_out2 and skips ksmbd_revert_fsids() at
-err_out1. The user's credentials then stay installed on the shared ksmbd
-worker. Later work on that worker, including other users' requests, runs
-with the first user's fsuid, fsgid and supplementary groups.
-ksmbd_free_work_struct() also warns, because work->saved_cred is still
-set.
+On Thu, 29 Oct 2026 01:59:13 +0100 kernel test robot <lkp@intel.com> wrote:
 
-Jump to err_out1 instead. No path is held at this point, so skipping the
-path_put() at err_out is correct.
+> Hi Karl,
+> 
+> First bad commit (maybe != root cause):
+> 
+> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+> head:   c339f4010dea8b0d754f84ace70cd1b089878ef8
+> commit: 7c3f4d699f34535285d0ceb184927d71543d0064 resource, kunit: stop selecting GET_FREE_REGION
+> date:   2 weeks ago
+> config: openrisc-randconfig-r2306-20261028 (https://download.01.org/0day-ci/archive/20261029/202610290106.o8Fs3NvO-lkp@intel.com/config)
+> compiler: or1k-linux-gcc (GCC) 16.2.0
+> sparse: v0.6.5-rc1-1-gc4640450
+> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261029/202610290106.o8Fs3NvO-lkp@intel.com/reproduce)
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Fixes: 7c3f4d699f34 ("resource, kunit: stop selecting GET_FREE_REGION")
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202610290106.o8Fs3NvO-lkp@intel.com/
+> 
+> All errors (new ones prefixed by >>, old ones prefixed by <<):
+> 
+> ERROR: modpost: kernel/rcu/rcutorture.ko: symbol '__mulsi3' undefined!
+> ERROR: modpost: fs/fuse/virtiofs.ko: symbol '__mulsi3' undefined!
+> ERROR: modpost: fs/pstore/ramoops.ko: symbol '__mulsi3' undefined!
+> ERROR: modpost: fs/ecryptfs/ecryptfs.ko: symbol '__mulsi3' undefined!
+> ERROR: modpost: fs/overlayfs/overlay.ko: symbol '__mulsi3' undefined!
+> ERROR: modpost: crypto/asymmetric_keys/pkcs8_key_parser.ko: symbol '__mulsi3' undefined!
+> ERROR: modpost: crypto/ccm.ko: symbol '__mulsi3' undefined!
+> ERROR: modpost: lib/kunit/kunit.ko: symbol '__mulsi3' undefined!
+> ERROR: modpost: lib/kunit/kunit-test.ko: symbol '__mulsi3' undefined!
+> >> ERROR: modpost: lib/kunit/kunit-example-test.ko: symbol '__mulsi3' undefined!
+> WARNING: modpost: suppressed 1014 unresolved symbol warnings because there were too many)
 
-Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
-Fixes: bb8bf7eb13b5 ("ksmbd: add SMB3 request replay support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+Thanks.
+
+#syz test
+
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: openrisc: export __mulsi3 for modules
+Date: Wed Oct 28 06:24:22 PM PDT 2026
+
+OpenRISC configurations without hardware multiplication fail to build
+modules which contain compiler-generated calls to __mulsi3.  The failure
+is widespread, affecting filesystems, drivers and KUnit tests at modpost.
+
+When CONFIG_OPENRISC_HAVE_INST_MUL is disabled, the architecture Makefile
+passes -msoft-mul to GCC.  The multiplication helper is supplied by the
+libgcc archive linked into vmlinux, but or32_ksyms.c does not export it. 
+Built-in callers can therefore link while module callers cannot resolve
+the symbol.
+
+Export __mulsi3 alongside the other compiler-generated helpers.
+
+The omission predates 7c3f4d699f34 ("resource, kunit: stop selecting
+GET_FREE_REGION"), which the robot identified when reporting an additional
+failing module.  It was already present in the initial OpenRISC export
+list.
+
+Fixes: 616257669e1a ("OpenRISC: Miscellaneous")
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610290106.o8Fs3NvO-lkp@intel.com/
+Assisted-by: LLM
+Cc: Jonas Bonn <jonas@southpole.se>
+Cc: Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>
+Cc: Stafford Horne <shorne@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: <stable@vger.kernel.org>
 ---
 
-Notes:
-    Reachable with "durable handles = yes" or through request replay when
-    ksmbd_vfs_getattr() fails, for example when an LSM denies it or the
-    filesystem returns ESTALE. Later work on that worker runs as the wrong
-    user. The leaked credential is ksmbd's own override for that user, so it
-    is not a privilege escalation.
-    
-    Tested on ksmbd-for-next bd24b89645c5 with the getattr failure forced by
-    a debug hook on both paths. Before this change, each failure trips the
-    WARN_ON() in ksmbd_free_work_struct(). The worker then serves another
-    user with the first user's fsuid. With this change there is no warning,
-    and each user's requests run with their own credentials. An ordinary
-    durable reconnect still works. The natural triggers were not tested.
-    
-    A reproducer is available on request.
-    
-    This fix was developed with LLM assistance.
+ arch/openrisc/kernel/or32_ksyms.c |    1 +
+ 1 file changed, 1 insertion(+)
 
- fs/smb/server/smb2pdu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index f3cd6ff7eb09..b126eda48318 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -4526,7 +4526,7 @@ int smb2_open(struct ksmbd_work *work)
- 			file_info = FILE_OPENED;
- 			rc = ksmbd_vfs_getattr(&fp->filp->f_path, &stat);
- 			if (rc)
--				goto err_out2;
-+				goto err_out1;
- 
- 			goto reconnected_fp;
- 		}
-@@ -4556,7 +4556,7 @@ int smb2_open(struct ksmbd_work *work)
- 
- 			rc = ksmbd_vfs_getattr(&fp->filp->f_path, &stat);
- 			if (rc)
--				goto err_out2;
-+				goto err_out1;
- 
- 			goto reconnected_fp;
- 		}
-
-base-commit: bd24b89645c5fa8283aceda78dbe53aa234e6bf9
--- 
-2.47.3
+--- a/arch/openrisc/kernel/or32_ksyms.c~openrisc-export-mulsi3
++++ a/arch/openrisc/kernel/or32_ksyms.c
+@@ -35,6 +35,7 @@ DECLARE_EXPORT(__divsi3);
+ DECLARE_EXPORT(__umodsi3);
+ DECLARE_EXPORT(__modsi3);
+ DECLARE_EXPORT(__muldi3);
++DECLARE_EXPORT(__mulsi3);
+ DECLARE_EXPORT(__ashrdi3);
+ DECLARE_EXPORT(__ashldi3);
+ DECLARE_EXPORT(__lshrdi3);
+_
 
