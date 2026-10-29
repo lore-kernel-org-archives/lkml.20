@@ -1,116 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793297787;
-	b=IPjSBxZCViCiodlZLDbkmnwmDZjDyLw7neVUTw3PxDk1i9DpeSm+E3ep/zkZLuuzPV32
-	 i7Z6bQNi8pB9X2kDhdjtE6dXZ5OWDR1AXu15P0QiHEd+bnxTYsXx2GGYpoOau3ZVS0i7s
-	 du7MMerAOf984o4FmzF8PZcBSAWqmWS2Y8AxtqLGZl2cCpCsLa5pFDTPUqg3MuVniwL6v
-	 KAWgLnr3DO8W8SBSLUdWLiUNjUVrjtjlUsGU8q67GSqTFPYk4JMKVO056wrT/jYRiCEDE
-	 EpzSnMQjjHkLQWmkL1GtpuwNK2tUSLw7Y4FVqNvbxpUmvkIBA8WgcRKnPdZX2X5cknw==
+	t=1793297778;
+	b=A2qCc6jE6erLIt5NICy8giD4vKdkPlvWA7yMdbw2sXS7/JRiLJRcrEb8HMxDwlVGIMbg
+	 fqEaK2U68sRZ8T2HI7D1y5V21Vh99A3ZSGwR0//W3zLGAzhlCQYTCeMM3D9abYrcHMEOy
+	 W1OR/26QrKu0NkdwcZJqz81IAGXOgR4ZiCi6he9cCsxZuG5jabbvhHbTd97UDfGINr9Sy
+	 j2+JNo7AAs6a/PiTFmfv0ahopW768T42hHso+X0BcfnNj8U9IptrDPvT9O8AImWRpmYwn
+	 Q5YM/4u9+Pfp3MsFdbp3bvyNcBuu0DD13n7wP0fGSz4JAr6MmjC/+9atm00H1ZG+M2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793297787;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=+i6F46/tXcylsBNxFPdwtmDz3b/c8K1JJTOkI+5K2yM=;
-	b=2Rld1Dehpz8+n4crPUhdAC67dJtMc/RrKviVMqctJwaGbEDVyWsBRbd7tddSHVGHdHfm
-	 ZGDSQkPVT3bfa+vGURJojfPskSPZRWks/0L0YF44v3RpUOjXZTg7WjWGyn9u618EfXA+3
-	 nMMLXBo25Kh9KuFhU8AfqW//xDaMQQx6zS2r9XhkFEuZ6mAujTMeuqPWNU8AgCdNFw3Rb
-	 5rLybNH0GEbmSPN7Hq3oge5eeAARdP9dWOjLPOXbobTqqFnBZAvVERC0R6iCGfaKVAH36
-	 KAckJU8kW/aqSHJdKfd22BiI6nxjfT1adirV/5KElynRF6U6AfjpHuk1QTZS+TewzFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793297778;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=/4gAgQ/v/3Bqijm1D2LCxgkMVVLMB4tDzBQLcSYjwMI=;
+	b=JQH6nWAI8CObHlu8/1GJ3YHiN06pezjt/eV3YeQM0sBiGxQYp0xYiuwTV/xnfhsjKTgP
+	 h4kM8MtrF6clDsCHb11Kr2XWqr7Kxi5vCeQpukT35oZagSN9v3zxYiyu/hCT+qI9jCLQc
+	 VMEi1+OuWYV1fr7B7HRmIb/fZ0DWBuOAfk6NTmt0ZVZGZP5NuTw/4KRpaHuz1mpN4i1qo
+	 2fEGmTOsIA6q4wXinHy2ktfJ7ZNc2e44nv8aBJ2vclU5v43daVBoX2Adfuq57g+LsYL1l
+	 kSkvNv1WY/iL153I67NrJ++eKxU+HBXh5c828Be9VaAEWbSHmoFUPc4twiO0BzVRRKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=a4kjX6Hd;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=XHcpRs4v;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ikpslf4Y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33BB60A2618
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:16:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E33BB60A2618
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45909606A323;
+	Thu, 29 Oct 2026 18:16:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=a4kjX6Hd;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=XHcpRs4v
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793297786;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+i6F46/tXcylsBNxFPdwtmDz3b/c8K1JJTOkI+5K2yM=;
-	b=a4kjX6HdafL8Q/bPg2kOymi863GuCiGRKJ6xWJwtYRYQzSLXjtX0vRao9O2qovWYKe2w4r
-	7XcA56d3KDgwGLe8wMOM0vCD5XFvpOuGply5cKfUOXqhYodRaRXL/Qo6traaqI5DJWnD8I
-	OW52nn5q0/pBHG5CZrZqM1ERvtvqGHw=
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com
- [74.125.82.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-570-XWTOAT1uOsqkMhzhc-WJOQ-1; Thu, 29 Oct 2026 14:16:18 -0400
-X-MC-Unique: XWTOAT1uOsqkMhzhc-WJOQ-1
-X-Mimecast-MFC-AGG-ID: XWTOAT1uOsqkMhzhc-WJOQ_1793297776
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-36a190c53a3so1408713eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:16:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793297776; x=1793902576; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+i6F46/tXcylsBNxFPdwtmDz3b/c8K1JJTOkI+5K2yM=;
-        b=XHcpRs4v9e6IKkcg6yPQuamvVd/wXUkndgLdANzw9E3bm2a6nd6YIhzQLmpTlFh1zP
-         rTdXmw9Vkhu4CTiKtv67rrh9VezQGgD1J9KagbhfsrWrDKnERbqlugSObI8I1xIgA/IJ
-         0x5Lzk3H4zSheH39PE+eVupp/XmJT6kjey10ln9NKUpA1WQxIhbjyTDRJvBOyMxf4MPK
-         AxmwgFF30WVoICjLJBsRNXin9e3+buNAZl/HPVGeYUzxvGfQRxj2go52C+H/bjVVLxFf
-         0hsher/8gzcxCuzdTUFlxg4c4tD7W7OWRa8ehXGl8ddAIEki7frvTmiaFQZLorBImmDs
-         hS8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793297776; x=1793902576;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+i6F46/tXcylsBNxFPdwtmDz3b/c8K1JJTOkI+5K2yM=;
-        b=z5N+RdYLhjumYhTC7uN0adAEV3H6v8nkGfEltp2AfD5PcycB/+GyI453ekMzuszUhB
-         +4WBp9rf1rtqrA9N/V1c8WzDoLSvAJ2DvFeec5c+sCh41Svz/YIEvXWS96uZkdQQrOl+
-         cqiim4+xir6XDUK8Exw/MCXMRFS2L6t87a+/PQ//DQj48X6eFlTGsGq7ndVkJkqLZsEF
-         lPCHGoR/7p85e/EeRTkfwRqaE6qc6uCNcLzFD9e0bK/6da37RcCkAMWA57KM0FCxODmL
-         cXlCCl4L/v4+2E8Q26MiLHXADTympclXaiSuSfA/Lqlptuk1WcFLz1++y5hmRU0HywGg
-         VXQA==
-X-Gm-Message-State: AFq9FYLsX22rb+8NbNEIQj3jLw+g5WPshKXAR+9CfgpqSnRqxi4zAukr
-	bKudGI4KP4O5Vqvb83UX2jonmlMCJaC7J6H70ldlziXJVR9+eK5LMIJXYB1rS2QLrLDxwdCPscn
-	4mvps/c/LPadrBxjkhLLz4RboLhP8eyZDTmrHPqASAAWJmkVW7bAIvH8k0aBayvZQDDxaZsuSpN
-	LRG0gEyk1tHTaNkPUh/9ALf8jC1D9YyRZf0mPEKuMc0za+i6jb
-X-Gm-Gg: AYBFou3vd/zlFoYUaU9sJoz43ioc69hgdh2JyQETAF0mZbJf7rm19CVoUpCqVTzlTdY
-	qJDtdeLQhP6X4U8JHjW29yKlUUZzZFPE3xJmxJ2V6hDq5zdcMjqj8xPzpsHFQ47GUDNe48moH0l
-	og3oVgg0tqKLO3MVBcx1G4YxxCAOlMOekDHSe3ViX9hUecKA+AFxmToihCqXjtLkLi5E2QD1fyK
-	xKa13Zxgv89/bk7/cia0RBkv018IwXHIfUZZ9qYscqWugUd3/jN+dwONEirpQmFNaofzwuVD+du
-	V5PWmuVJkrGC/hKmNEDSRf24BIhdnRubxrWnHNgA5IcLS2pk9jPlwnxJNQMnYhoqtwi3/tevjz9
-	IE5bMWxulyw4AnzW7MyvAdpPBhTfpcg5Rg0jb4nSP2fAwbUynpHxRtZaG5dxCd2iJ5SRSNE0LZw
-	rb9tJZvjU2TQRoyQ==
-X-Received: by 2002:a05:7301:301c:b0:367:a092:3c73 with SMTP id 5a478bee46e88-36a3002ed72mr4310898eec.12.1793297776124;
-        Thu, 29 Oct 2026 11:16:16 -0700 (PDT)
-X-Received: by 2002:a05:7301:301c:b0:367:a092:3c73 with SMTP id 5a478bee46e88-36a3002ed72mr4310858eec.12.1793297775404;
-        Thu, 29 Oct 2026 11:16:15 -0700 (PDT)
-Received: from fedora.armenon-thinkpadp16vgen1.bengluru.csb ([49.47.195.13])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm259163eec.4.2026.10.29.11.16.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:16:14 -0700 (PDT)
-From: Arun Menon <armenon@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Jarkko Sakkinen <jarkko@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Peter Huewe <peterhuewe@gmx.de>,
-	linux-integrity@vger.kernel.org,
-	Arun Menon <armenon@redhat.com>
-Subject: [PATCH v5 5/7] tpm: Increase TPM_BUFSIZE to 8KB for chunking support
-Date: Thu, 29 Oct 2026 23:45:39 +0530
-Message-ID: <20261029181541.99505-6-armenon@redhat.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261029181541.99505-1-armenon@redhat.com>
-References: <20261029181541.99505-1-armenon@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ikpslf4Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E2D61F01824;
+	Thu, 29 Oct 2026 18:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793297778;
+	bh=/4gAgQ/v/3Bqijm1D2LCxgkMVVLMB4tDzBQLcSYjwMI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Ikpslf4YPUkOg5LrHDzFgpYpKlX9FjGI+vmKTVrkbTykNdR7VwZu7cuqgx8Yyyf5u
+	 VxZ2apLVqTOJZmkvDA6luWYsH7hWhs45Ws60v8fHW8UN+rdMJn/VBdRw0kDXaw3Jc2
+	 qd1jSc34CrKjp7nDXowZxk3Vp5ciTuDwiLLOQYUPlbiChTCMtKCqVtOkxwHT6ZuaqQ
+	 IGOfQ2Tl1TYNJfzIm56KyHVSrp4E5A/OL9DqlVLuHSQe9r8Al3F4EioOnW4avwZm61
+	 CtL3L3vpbIMk0jI66u/nTOSXxcL/J+3W9yuuoa5JIKprYgm+2NMd4uw61yfTnI8rNf
+	 z683LYB2t5TLA==
+Subject:
+ Re: [PATCH] xen-netback: wait for RCU readers before freeing queues on error
+From: netdev-bot+sashiko@kernel.org
+To: yhlee@isslab.korea.ac.kr
+Cc: wei.liu@kernel.org, paul@xen.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 29 Oct 2026 18:16:16 +0000
+Message-ID: <179329777698.3134.1942941250754899235@kernel.org>
+In-Reply-To: <20261027121438.1266207-1-yhlee@isslab.korea.ac.kr>
+References: <20261027121438.1266207-1-yhlee@isslab.korea.ac.kr>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,52 +64,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Arun Menon <armenon@redhat.com>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-TPM_BUFSIZE limits the TPM2 command the kernel builds before handing
-it to a chip driver's send() callback. TPM 2.0 Library Part 3:
-Commands v185 adds ML-DSA key objects and the ML-KEM
-TPM2_Encapsulate()/TPM2_Decapsulate() commands (sections 14.10,
-14.11) [1]. NIST FIPS 204, Table 2, gives the largest ML-DSA
-parameter set, ML-DSA-87, a 4896-byte private key and a 2592-byte
-public key [2].
-Loading such a key pair with TPM2_Load, plus header, handle and session,
-comes to roughly 7.7KB - more than the current 4096-byte TPM_BUFSIZE.
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-Raise TPM_BUFSIZE to 8192 bytes. It covers this command with
-headroom, and keeps every kzalloc(TPM_BUFSIZE, ...) call in the TPM
-stack at an order-1 page allocation rather than a higher order.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-This matches the largest parameter set defined today. NIST has already
-published PQC families with larger keys and signatures than ML-DSA
-(e.g. FIPS 205/SLH-DSA), so a future algorithm could exceed 8192 bytes.
-CRB chunking, added later in this series, does not change that; it only
-lets an already-built command cross a smaller MMIO window in pieces,
-it does not change how large a command the generic stack can build.
+- [High] The fix leaves the use-after-free open when the very first queue
+  fails, which is every failure for a single-queue frontend.
+- [Low] The commit message names xenvif_get_stats64() as one of the RCU
+  readers, but xen-netback has no such function.
 
-[1] https://medias.cdn.trustedcomputinggroup.org/production/Trusted_Platform_Module_2_0_Library_Part_3_Commands_Version_185_pub_87a5c10230.pdf
-[2] https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.204.pdf
+--
 
-Signed-off-by: Arun Menon <armenon@redhat.com>
----
- include/linux/tpm_command.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+xen-netback: wait for RCU readers before freeing queues on error
 
-diff --git a/include/linux/tpm_command.h b/include/linux/tpm_command.h
-index fc446a1282e2..4ad11068b090 100644
---- a/include/linux/tpm_command.h
-+++ b/include/linux/tpm_command.h
-@@ -434,7 +434,7 @@ struct tpm2_context {
-  */
- 
- #define TPM_DIGEST_SIZE		20	/* Max TPM v1.2 PCR size */
--#define TPM_BUFSIZE		4096
-+#define TPM_BUFSIZE		8192
- 
- /*
-  * SHA-512 is, as of today, the largest digest in the TCG algorithm repository.
+This patch changes the connect() error path in xen-netback. It now
+publishes num_queues = 0 and calls synchronize_net() before it deinits
+and frees vif->queues, which is what backend_disconnect() already does.
+The goal is to stop RCU stats readers from dereferencing the freed
+vmalloc array.
+
+> The net device is registered in xenvif_alloc() during probe, so it is
+> already live when connect() runs. xenvif_get_stats64() and
+> xenvif_get_ethtool_stats() read it through the usual stats paths, taking
+
+[Severity: Low]
+This isn't a bug, but xen-netback has no xenvif_get_stats64(). The driver
+only implements the legacy callback:
+
+drivers/net/xen-netback/interface.c:
+	.ndo_get_stats	= xenvif_get_stats,
+
+The KASAN trace also shows that function (xenvif_get_stats+0x28f). Should
+the commit message say xenvif_get_stats() instead?
+
+> diff --git a/drivers/net/xen-netback/xenbus.c b/drivers/net/xen-netback/xenbus.c
+> index e020f44ac2c71..d1c9e38cfb8ef 100644
+> --- a/drivers/net/xen-netback/xenbus.c
+> +++ b/drivers/net/xen-netback/xenbus.c
+> @@ -835,10 +835,21 @@ static void connect(struct backend_info *be)
+>  	return;
+>  
+>  err:
+> -	if (be->vif->num_queues > 0)
+> +	if (be->vif->num_queues > 0) {
+> +		unsigned int num_queues = be->vif->num_queues;
+> +
+>  		xenvif_disconnect_data(be->vif); /* Clean up existing queues */
+> -	for (queue_index = 0; queue_index < be->vif->num_queues; ++queue_index)
+> -		xenvif_deinit_queue(&be->vif->queues[queue_index]);
+> +
+> +		/*
+> +		 * Mirror backend_disconnect(): publish num_queues == 0 and
+> +		 * synchronize_net() so RCU stats readers finish before the free.
+> +		 */
+> +		be->vif->num_queues = 0;
+> +		synchronize_net();
+> +
+> +		for (queue_index = 0; queue_index < num_queues; ++queue_index)
+> +			xenvif_deinit_queue(&be->vif->queues[queue_index]);
+> +	}
+>  	vfree(be->vif->queues);
+
+[Severity: High]
+Is the use-after-free still open when the very first queue fails?
+
+Earlier in connect(), num_queues is published before any queue is set up:
+
+	be->vif->num_queues = requested_num_queues;
+	be->vif->stalled_queues = requested_num_queues;
+
+If xenvif_init_queue() or connect_data_rings() then fails for
+queue_index 0, the failure branch resets the count. For example, when
+connect_data_rings() fails:
+
+	xenvif_deinit_queue(queue);
+	be->vif->num_queues = queue_index;
+	goto err;
+
+This sets num_queues to 0, so the new if (be->vif->num_queues > 0) block
+is skipped. synchronize_net() never runs, and vfree(be->vif->queues)
+happens with no grace period.
+
+A reader that sampled a non-zero num_queues during the
+connect_data_rings() window could still be inside rcu_read_lock():
+
+xenvif_get_stats() {
+	rcu_read_lock();
+	num_queues = READ_ONCE(vif->num_queues);
+	for (index = 0; index < num_queues; ++index) {
+		queue = &vif->queues[index];
+	...
+}
+
+xenvif_get_ethtool_stats() follows the same pattern.
+
+multi-queue-num-queues defaults to 1, and with one queue every failure
+happens at queue_index 0. So for a default single-queue frontend, a guest
+that supplies a bad ring reference or event channel would still reach
+this vfree() without a grace period.
+
+The new comment says this mirrors backend_disconnect(). However,
+backend_disconnect() calls synchronize_net() before vfree(vif->queues)
+whatever the queue count is.
+
+The commit message says connect() jumps to err: "with num_queues still
+counting the queues already set up". That doesn't hold in the queue 0
+case.
+
+Should the grace period run whenever vif->queues was allocated and
+num_queues was published, and not only when num_queues > 0 at the err
+label?
+
+[ ... ]
+
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261027121438.1266207-1-yhlee%40isslab.korea.ac.kr
