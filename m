@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793315977;
-	b=zW94DdsyusXwWiYv5LuJfpk1q1L3CXU/9OS9TAt8P8fHi7tPXcTbPbV5IsUqCSXRXmRH
-	 2tyhrzDIBQrDHXxXK2HaEIE3CMbsNtOMbc//F6TjETo/OlNc7WEfC7tznt+U0ONzrsc8b
-	 X5DunTTgHcVWfGWby8604cjltpgImOZLiyBrZB0Q1+ifiqFm/TpWfM8A83z+N96p6lGPQ
-	 wZeYKtQkp4wVpG/XrkxMXzpu6tccwkhbMD6D8ZPP735Q74cYsDA5Txm9tSRgCePk1Ag2r
-	 Cz8RZC7Kp5QJLriET91ZIWdpW3p9dtJku/Z0ipeDbBRCoO/tyOfLmmX0F9XWVPhHakw==
+	t=1793316109;
+	b=qWz1EwyOVSv2n27M1j88LennWsuqUGjEuIdaPwEmLzQnxovFfbpnqRhslO46o+nbuhlH
+	 zzg4k4To+bUJlos3YkJFqRRU2R/G6QtV9u9yeE9vncmMrIdTMZ4rtRqsWiJh1S9QpcjAq
+	 ZZjJxp+gcRH4re7ldigH90GzWW/GQ3opUuLwfjWkLhumpXP+zKwAnc5Li7DbLTrJb10Ef
+	 Hrgqq8BH7t09pdXwSmDgUjj+tblk2zl/BRCojCJlmkF4TK+CvJT+oYtVBPKNgkgjmYysV
+	 zCp14bgMt0Br047ePsFyK4E08N1YkhTSkxZA9iay3Kmpr0QUa2QKyLIvViD3gtn+jig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793315977;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=4o4yx6uKrIgl2Ge60xAHsUJZAj2BU5ETNvNPMJDaFcU=;
-	b=1mvWHH8btlNmVnIPMlDc2TIxaQlWe4kFU8unxS24JpsOXdMZdmlsSZ2uMsQAO2RlupDe
-	 XfBtbFTBwbW8Jg6V5sZqGJmrtB8foB+hZH4HLoCTWHDEvfIha8XsxZLcMj1uGYBU1ptD4
-	 BewLXq79U1PVQz0PTSG/1W6Hf6K18Bz90kOxssP4oRwZQboOqIrhN2xQ7BEzLDrCTdNud
-	 iRbU0cLDUI9MwnOvqO2SV9fQa3yE9CI4zBkGEYwRRYcBzx31Alh6pobJHI1bbUuHc2ZdO
-	 XAMJOrNACfXNgBfetu5p48OMLiZdJy1EdJ8KOZwGXXO1KxcDHroOgPXox1ez7S3oLbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793316109;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=9KXT4dHagJhrc5RYxqkBMcxc0mqm0x3wYl4HY30il/o=;
+	b=cUOHpAOCoWUjz+jJbF+P2pTHlvCv+TBo3XvwIk3C/ZNlk/2QiHZELdaxvD6RWszu0GZo
+	 A0nFRTk/lrHxullXcc4TAnMDNhvq0JS6fit9OvAqXpdYmAx57WYADRPI2nayT9hairslk
+	 oPa+TIHaisBpmx8RUifqpkr6iXqtfE9VNy7/VoGBOJrQn2qJFgO8gUxCNn74vhWfhvr5c
+	 02ZDVoFTgXFBaYNkqsFja0HpOCxJvk3e+e0+MoKQDZAPQoHi/my+hVaHrYt8GcyTJyMtA
+	 njhf+agHCUjXnpD0+2QGI/mf15v5pf98/qy/bdPtzNIw6t0uGTldFcj5wS/jyX6+eNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NcwpuPC2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE69606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:19:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NcwpuPC2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CDAA1F01825
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:19:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793315976;
-	bh=4o4yx6uKrIgl2Ge60xAHsUJZAj2BU5ETNvNPMJDaFcU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NcwpuPC2Op2XiOCN3CxK7du7I1HYVo0DRcXSENw650aCofdptif3ICtsFm/lu7spv
-	 NHps+vRbV2EovrEu9aVivxBaNGreLvER/7qObQYGph2Zg6odAVAENlj8+ICNZRNKt5
-	 OiXnxb7VoK6WQQRxY5WINR639bshwUbA0h8spf2O1DKafJbIIaoImrSP2vnYA1fcMr
-	 wwkzj7rhVYy+8tgD5vqQCZEayIe2CKzCL8g1X2NoNihoVxzUL+jklcUDVeYVgk4haM
-	 KnOTuzoidjraKymlIrs2k6jLvrJfqy45hC8gElIP0j3AtL2im2ghSAVxnHfSxTGmSW
-	 IDOp3MrhRCd1Q==
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c43373ae89aso9302466b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:19:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwAcY+eR8wldIPzI87s5J/bKPkLOfw5AYS4Bzag+nx3SjkgwsTWPeJsNO7odYOwdUvUfEgXc7QN/BFWNiE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIysvHMcnDCAVZ1H29J1Yco7Kya/AY41K7smkPxtKXUzcC6JvAk
-	WnZg4C6/RN5rbKL1gOdiu1RuFb0vF9OkSegzabb4VWvoUgSwAvX/cck2ABc9vM0tYi0YDK52taZ
-	zD9lOnAqAaMmDjPGmzEfD5zmJoFe77/Y=
-X-Received: by 2002:a17:907:96a1:b0:c45:d8aa:6ae5 with SMTP id
- a640c23a62f3a-c4ca7b605e4mr47008066b.42.1793315975074; Thu, 29 Oct 2026
- 16:19:35 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC56D606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 23:21:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC56D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4dab94dc3e7so226022b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:21:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793316108; x=1793920908;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9KXT4dHagJhrc5RYxqkBMcxc0mqm0x3wYl4HY30il/o=;
+        b=ynLq3ThQR6ZVtDR6z+C1Pc3UJMA3V5+Z3ynthRIe5n/ijGYv/JOlFH0NMeSer9A5OA
+         GosEystN1eIry6KfI2784Vq2WGOTRwhyJ8o70MBy68dtei4V+RHj5d3F7JCoZO+HxEoj
+         G79Avi9Fi9hQTH2YSu3uleZ7zwm0U2GLj3T7rokD33+vG7XmYsU/jukf7wiULAPsbTtl
+         MwRXiq9AQ2ieA9NpwP4GNlW0lbvcaMRMtjYFc6IHYA5pKcYj7bZhNB243gfX3FYPGOzi
+         SAjwPBC7TsGMiqHqau5Ga0NVWzLW/BQPOoxDhjAFK1nE1F/awF/0PaNOSKmtlQJTycco
+         zMcA==
+X-Forwarded-Encrypted: i=1; AKwUvBxDafz8Df5bOnYw0ezwXFT7UITNPkc29Vz5MY9xtSNgP0rMzbW86QYba44iQRrFLjEpfAoWercK9xjNluM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKitCwA++8eUjqAhDiE56Dje1BiPcUefalvRrax6BAr8XHYSc8k
+	d6VzOLctkmg/cE+9xfPfTGHrb/FITlQgY/8BzFor0jEa1UuuvZMzabJMmkZAw0hRAlvIaV7MvUD
+	EDNX1k6xY6SSjwu2HLUvKJLJeC1EjUVxmWpJWuIBblkRyNGbkfQyZIgBHzy4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,70 +58,180 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260918193937.569414-1-zide.chen@intel.com> <20260918193937.569414-6-zide.chen@intel.com>
- <CAO9r8zOY8W6s5U8O_tZ3dERA4h+mnWWjeS2GDgF=gbo+CQDNLg@mail.gmail.com> <e5e719ec-7012-413c-a446-86fd35aca33d@intel.com>
-In-Reply-To: <e5e719ec-7012-413c-a446-86fd35aca33d@intel.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 29 Oct 2026 16:19:23 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zOLCBhWZ5P1BEU24p8++3jVLTPSOdNreBk3RUC10Z79TQ@mail.gmail.com>
-X-Gm-Features: AclHuK-HIDxM5PvTgWzHqGOjwQ4_GIVyrAYkUpF_p4ww4kQ0W2ZOlnH7mE27Ag0
-Message-ID: <CAO9r8zOLCBhWZ5P1BEU24p8++3jVLTPSOdNreBk3RUC10Z79TQ@mail.gmail.com>
-Subject: Re: [PATCH v9 05/12] KVM: x86/pmu: Support PERF_METRICS MSR in
- mediated vPMU
-To: "Chen, Zide" <zide.chen@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, kvm@vger.kernel.org, 
-	Jim Mattson <jmattson@google.com>, Andi Kleen <ak@linux.intel.com>, 
-	Stephane Eranian <eranian@google.com>, linux-kernel@vger.kernel.org, 
-	Mingwei Zhang <mizhang@google.com>, Das Sandipan <Sandipan.Das@amd.com>, 
-	Shukla Manali <Manali.Shukla@amd.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, 
-	Xudong Hao <xudong.hao@intel.com>
+X-Received: by 2002:a05:6808:23c2:b0:4fb:73e8:5a25 with SMTP id
+ 5614622812f47-5640dee0b4bmr681041b6e.53.1793316107858; Thu, 29 Oct 2026
+ 16:21:47 -0700 (PDT)
+Date: Thu, 29 Oct 2026 16:21:47 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae3d50b.9c6421ad.36baac.0003.GAE@google.com>
+Subject: [syzbot] [sctp?] kernel BUG in __pskb_pull_tail (2)
+From: syzbot <syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com>
+To: davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, 
+	kuba@kernel.org, linux-kernel@vger.kernel.org, linux-sctp@vger.kernel.org, 
+	lucien.xin@gmail.com, marcelo.leitner@gmail.com, netdev@vger.kernel.org, 
+	pabeni@redhat.com, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 29, 2026 at 4:17=E2=80=AFPM Chen, Zide <zide.chen@intel.com> wr=
-ote:
->
->
->
-> On 10/29/2026 5:06 PM, Yosry Ahmed wrote:
-> >> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
-> >> index 448044a2b121..f4d3801b97bc 100644
-> >> --- a/arch/x86/kvm/pmu.c
-> >> +++ b/arch/x86/kvm/pmu.c
-> >> @@ -806,9 +806,16 @@ static bool kvm_need_any_pmc_intercept(struct kvm=
-_vcpu *vcpu)
-> >>                pmu->nr_arch_fixed_counters !=3D kvm_host_pmu.num_count=
-ers_fixed;
-> >>  }
-> >>
-> >> +static bool kvm_need_perf_metrics_intercept(struct kvm_vcpu *vcpu)
-> >
-> > The name is confusing, this doesn't control the intercept of
-> > PERF_METRICS (and it wouldn't be correct to use it for that AFAICT).
->
-> Right, these two APIs do not directly determine whether the mentioned
-> resources need interception:
->
-> kvm_need_any_pmc_intercept()
-> kvm_need_perf_metrics_intercept()
+Hello,
 
-Jim suggested folding kvm_need_perf_metrics_intercept() into
-kvm_need_any_pmc_intercept(). The name of kvm_need_any_pmc_intercept()
-might be confusing as well, but at least it's one less interface to
-worry about?
+syzbot found the following issue on:
 
->
-> This is different from kvm_need_perf_global_ctrl_intercept() and
-> kvm_need_rdpmc_intercept().
->
-> How about change them to something like these?
->
-> kvm_pmu_has_unexposed_pmcs()
-> kvm_pmu_has_unexposed_perf_metrics()
->
-> Or merge them into one single API? kvm_pmu_has_unexposed_resources()
+HEAD commit:    21a7f44fd076 Merge tag 'devicetree-for-7.4' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1299b469580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b92e3106016c03ef
+dashboard link: https://syzkaller.appspot.com/bug?extid=f15a6eff7a53f6eb7dc3
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-I don't like this name any better, but I don't have better
-suggestions. Since we already have kvm_need_any_pmc_intercept(), let's
-just use it for now?
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-21a7f44f.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/9b86d9af9ad5/vmlinux-21a7f44f.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/6f435992c0d2/bzImage-21a7f44f.xz
+
+AI-generated root cause summary:
+When receiving an SCTP packet that is nonlinear (such as an SCTP GSO packet
+constructed with fragments in frag_list), sctp_rcv attempts to linearize the
+packet using skb_linearize() if the sk_buff is cloned (e.g., tapped by a packet
+socket or shared) or not recognized as GSO. During linearization via
+__skb_linearize() and __pskb_pull_tail(), skb_copy_bits() fails with -EFAULT due
+to a discrepancy in frag_list fragment lengths or readable offsets, triggering a
+BUG_ON assertion failure. In production builds, this BUG() results in an invalid
+opcode oops and kernel panic, causing an immediate denial of service.
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=f15a6eff7a53f6eb7dc3
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+f15a6eff7a53f6eb7dc3@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+kernel BUG at net/core/skbuff.c:2903!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+CPU: 0 UID: 0 PID: 8843 Comm: syz.2.816 Tainted: G             L       syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:__pskb_pull_tail+0x1335/0x1920 net/core/skbuff.c:2903
+Code: 61 f8 48 89 df e8 6b 03 fe ff 31 ff 41 89 c4 89 c6 e8 af c5 61 f8 45 84 e4 0f 84 1c f2 ff ff e9 84 f2 ff ff e8 8c cb 61 f8 90 <0f> 0b e8 84 cb 61 f8 48 8b 54 24 30 48 b8 00 00 00 00 00 fc ff df
+RSP: 0018:ffffc90000007870 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: 00000000fffffff2 RCX: 0000000000000101
+RDX: ffff888031daa580 RSI: ffffffff89ac4f84 RDI: ffff888031daa580
+RBP: ffffc900000078f0 R08: 0000000000000005 R09: 0000000000000000
+R10: 00000000fffffff2 R11: 0000000000000000 R12: 00000000000000e4
+R13: 0000000000000180 R14: 0000000000000000 R15: ffff88803a46bb80
+FS:  00007fa1c8fde6c0(0000) GS:ffff8880d44ac000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000000000000 CR3: 0000000037f0f000 CR4: 0000000000352ef0
+Call Trace:
+ <IRQ>
+ __skb_linearize include/linux/skbuff.h:4025 [inline]
+ skb_linearize include/linux/skbuff.h:4037 [inline]
+ sctp_rcv+0x143e/0x3cc0 net/sctp/input.c:120
+ ip_protocol_deliver_rcu+0x44c/0x4d0 net/ipv4/ip_input.c:207
+ ip_local_deliver_finish+0x3fb/0x6e0 net/ipv4/ip_input.c:241
+ NF_HOOK include/linux/netfilter.h:325 [inline]
+ NF_HOOK include/linux/netfilter.h:319 [inline]
+ ip_local_deliver+0x1a3/0x200 net/ipv4/ip_input.c:262
+ dst_input include/net/dst.h:481 [inline]
+ ip_rcv_finish net/ipv4/ip_input.c:492 [inline]
+ NF_HOOK include/linux/netfilter.h:325 [inline]
+ NF_HOOK include/linux/netfilter.h:319 [inline]
+ ip_rcv+0x33a/0x3c0 net/ipv4/ip_input.c:612
+ __netif_receive_skb_one_core+0x197/0x1e0 net/core/dev.c:6405
+ __netif_receive_skb+0x1f/0x120 net/core/dev.c:6518
+ process_backlog+0x487/0x1600 net/core/dev.c:6869
+ __napi_poll.constprop.0+0xaf/0x450 net/core/dev.c:7938
+ napi_poll net/core/dev.c:8001 [inline]
+ net_rx_action+0xa40/0xf20 net/core/dev.c:8158
+ handle_softirqs+0x216/0xa20 kernel/softirq.c:669
+ do_softirq kernel/softirq.c:569 [inline]
+ do_softirq+0xaf/0xf0 kernel/softirq.c:556
+ </IRQ>
+ <TASK>
+ __local_bh_enable_ip+0xff/0x120 kernel/softirq.c:473
+ local_bh_enable include/linux/bottom_half.h:33 [inline]
+ rcu_read_unlock_bh include/linux/rcupdate.h:923 [inline]
+ __dev_queue_xmit+0xa73/0x4a50 net/core/dev.c:5101
+ dev_queue_xmit include/linux/netdevice.h:3483 [inline]
+ neigh_hh_output include/net/neighbour.h:538 [inline]
+ neigh_output include/net/neighbour.h:552 [inline]
+ ip_finish_output2+0xfa4/0x2740 net/ipv4/ip_output.c:236
+ __ip_finish_output.part.0+0x43b/0x6f0 net/ipv4/ip_output.c:314
+ __ip_finish_output net/ipv4/ip_output.c:302 [inline]
+ ip_finish_output net/ipv4/ip_output.c:324 [inline]
+ NF_HOOK_COND include/linux/netfilter.h:314 [inline]
+ ip_output+0x392/0xc00 net/ipv4/ip_output.c:437
+ dst_output include/net/dst.h:471 [inline]
+ ip_local_out+0x193/0x1f0 net/ipv4/ip_output.c:131
+ __ip_queue_xmit+0x876/0x1f50 net/ipv4/ip_output.c:533
+ sctp_v4_xmit+0x91a/0x1070 net/sctp/protocol.c:1061
+ sctp_packet_transmit+0x22fe/0x30b0 net/sctp/output.c:659
+ sctp_outq_flush_transports net/sctp/outqueue.c:1174 [inline]
+ sctp_outq_flush+0xb2b/0x3380 net/sctp/outqueue.c:1222
+ sctp_cmd_interpreter net/sctp/sm_sideeffect.c:1826 [inline]
+ sctp_side_effects net/sctp/sm_sideeffect.c:1211 [inline]
+ sctp_do_sm+0xce1/0x5c30 net/sctp/sm_sideeffect.c:1182
+ sctp_assoc_bh_rcv+0x392/0x740 net/sctp/associola.c:1048
+ sctp_inq_push+0x25c/0x320 net/sctp/inqueue.c:91
+ sctp_backlog_rcv+0x169/0x590 net/sctp/input.c:331
+ sk_backlog_rcv include/net/sock.h:1194 [inline]
+ __release_sock+0x39d/0x440 net/core/sock.c:3341
+ release_sock+0x1e5/0x280 net/core/sock.c:3940
+ sctp_sendmsg+0x1166/0x22e0 net/sctp/socket.c:2091
+ inet_sendmsg+0x11c/0x140 net/ipv4/af_inet.c:864
+ sock_sendmsg_nosec net/socket.c:800 [inline]
+ __sock_sendmsg net/socket.c:818 [inline]
+ ____sys_sendmsg+0xa23/0xc30 net/socket.c:2715
+ ___sys_sendmsg+0x190/0x1e0 net/socket.c:2769
+ __sys_sendmmsg+0x20c/0x440 net/socket.c:2858
+ __do_sys_sendmmsg net/socket.c:2885 [inline]
+ __se_sys_sendmmsg net/socket.c:2882 [inline]
+ __x64_sys_sendmmsg+0x9c/0x100 net/socket.c:2882
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fa1c819f559
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fa1c8fde028 EFLAGS: 00000246 ORIG_RAX: 0000000000000133
+RAX: ffffffffffffffda RBX: 00007fa1c8426180 RCX: 00007fa1c819f559
+RDX: 0000000000000001 RSI: 00002000000004c0 RDI: 0000000000000006
+RBP: 00007fa1c8236b20 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fa1c8426218 R14: 00007fa1c8426180 R15: 00007fff741e8248
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:__pskb_pull_tail+0x1335/0x1920 net/core/skbuff.c:2903
+Code: 61 f8 48 89 df e8 6b 03 fe ff 31 ff 41 89 c4 89 c6 e8 af c5 61 f8 45 84 e4 0f 84 1c f2 ff ff e9 84 f2 ff ff e8 8c cb 61 f8 90 <0f> 0b e8 84 cb 61 f8 48 8b 54 24 30 48 b8 00 00 00 00 00 fc ff df
+RSP: 0018:ffffc90000007870 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: 00000000fffffff2 RCX: 0000000000000101
+RDX: ffff888031daa580 RSI: ffffffff89ac4f84 RDI: ffff888031daa580
+RBP: ffffc900000078f0 R08: 0000000000000005 R09: 0000000000000000
+R10: 00000000fffffff2 R11: 0000000000000000 R12: 00000000000000e4
+R13: 0000000000000180 R14: 0000000000000000 R15: ffff88803a46bb80
+FS:  00007fa1c8fde6c0(0000) GS:ffff8880d44ac000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000000000000000 CR3: 0000000037f0f000 CR4: 0000000000352ef0
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
