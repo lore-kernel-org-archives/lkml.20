@@ -1,55 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793254128;
-	b=yDoL8rztumtMJ4jlb05802eBcUQ5Cscp6VhVJnrxX+JW11SnVhAeIlLWG5v+A/Fpynr/
-	 IauIbPBR7FsSvxjqzETbodKRaLcYHqA7kY5B7Ru7BqnNCfUMoGRiirFhCvo8xfutjkIEo
-	 w/TL0K4wn8RGuxC+JFIi/18YELZ8iyXzC/sV0KP7VtUFfktEJIGBvAhW+RICN2SGXDlYv
-	 PTWCtaHWeImrQPSunCdC5xdy+DC44ynO9nYLm4xRGiJfDRf2HT/7ipKB379xkC9EbULiT
-	 K+wWqckheQtxlzoQsOeemkNaLJQ9/yC8oDhgBv1CBHG32mrenJTVxl10ezpaZ+bEwtQ==
+	t=1793254131;
+	b=ZglPzvvUdONR1VmSbL57cNNMX11oW0iP5gTP7KlOUU+o+KKD9+PtgQXq5GMWi6NAeFRW
+	 quuWZC+91sGwb+EablKmAg897cLLo2lr/SC9wKbuaZjgj+ar8WMpLGMMpPhYeHEZm+uhD
+	 ZBZhCofO+LAxHVuQ6HRTkELhH3vUw4O2T8+giwPdSnfekOyQ76vhmHogUPZXn6urijDjx
+	 C+mDHmPzdX2DDaABwHoCQzvVhvR0EDipCMPC3Q61iltXR+IiClHg30YiBV9m+mi/EwHAO
+	 2HHshtWNv0PALtWrkyDBvCyxonJ96lYfHv/87M+ENFSJ9g7rPcjd/zNCQT46RQIsJmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793254128;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BLsF4wpJIbbZrsEJG2k18QoV1d35CQVAhY/liIukYqE=;
-	b=gEmsS0hqpO/dOoQkZi6exEj+1Sy/1j3COnHrEUUWPC2ZULnNxnxLyJjQHyob2dN5CAeG
-	 tBa4j8HU/ZeE5St+eaJ0evQPWnTpR8AQ2TUcLLtcHaKQS2xFSb9qbmPBbJZIp7Bxe9jid
-	 8nFtolBnceDa+BUnD7g9Whr2CUOoZbIM/Gk5BVgHYYWH2fG2qn7BhK90vVg/sfGnTLPWt
-	 ReQK0kucXWYbq8Y4JcYpbWDTRDKpBwP76TaV82U+mfrv0ZLzW42HrkkFCsiAnaHmgBkbl
-	 aE927HHUKtpU1J1g36Z8VlG2S0Do4TZUhAns8V1fgrfv+PrrrbsVVcSkXL4dAQLvqfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793254131;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=fr6lsRVu7pKC2uMXBLAv6yVcpzLAtilFokqfHYV3ttU=;
+	b=BAQn/BYc/vCnPms/TnJ/zDwOnS0B6liQhS6pHwmDWidvp7YKYJkMMhw3Q2N0kZu0Q4f9
+	 zNDLLcp3ZZpfi0cs0qMQVpg/ypU5C7+ckgeDrObywm2lav1UA1wQpVaeapPhOQQxWqw47
+	 uMshQVf9rWbliZr0QZG97g6m7/Vqe/YYduKUK5A1UU/gSVn54u/WeYWx3Xr1amN6TzMuY
+	 bRwwMHgRvsj7yQshCTqi1cn3BzrvBlIy53QorSERiHkP9c8jCtkeuSLxfJCdRxpXa1DlD
+	 L+hNpMIsO6iM50VbSt5SrkF4QRcaIYq4kEoL02zxCr8f2y+1wCKqq9RbQ8UPPseGL9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQgMrEJZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chrisdown.name;
+	spf=pass smtp.mailfrom=chrisdown.name;
+	dkim=pass header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=T+1CdUOF;
+	arc=none smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0CB606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:08:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F17606A326
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:08:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1F17606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=chrisdown.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chrisdown.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQgMrEJZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62FFA1F031E4
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:08:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793254122;
-	bh=BLsF4wpJIbbZrsEJG2k18QoV1d35CQVAhY/liIukYqE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YQgMrEJZzc8pi4dcwarVaeo2sgT3M/8Our5ktvUS+6+MI7klOA7i8w/DD7odYGRKc
-	 JyCtblT0aCTwoMDTIw+pH0KKAurCdhvGKipsEaebCU7bC0pSuGaC/EI3X4yu1dg3jf
-	 ZI80sS/iNCRBW0aAEVaUFCNZUCLPylNv9xPzcQ9BtIYN8L02TI+Pxs3nnM95Uk9MOP
-	 6FcfF3zqR5M2/5I2XSg1QcOiGR4F1/v25FnBYPg96LrYt/JjS9jnJp/3etHzF4uIv7
-	 5A6WdsbDhcKexNHYMxL4be05zNo47V08PK+OKi48w9R7l+r23+48tC1eyo86jLT+gb
-	 z8HboJsrzRJ1w==
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso300267866b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 23:08:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy5DM89xzT5B8e2c+Dfj/wW5PkTg5T4OE47q7nLrMLNwPRbdEDQwfwPr8zk2P2BBGTDQydRIqLZe+HEJHg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2JJ8tv2PJhebKNZmu13rn22VCUUdn5o8TYchlg1S2prUl1KXy
-	22/KKpsVdfsajxYHEs85wniI4knfPQl39C3jAwszuF76f+IRM8GFvd7F5ohkl0mseOR9bsIDI7H
-	YsDDxIc7k/QjwO2ujLQ0MECDAhtze37M=
-X-Received: by 2002:a17:906:c14f:b0:c43:6d40:4f84 with SMTP id
- a640c23a62f3a-c49bddace89mr391035566b.4.1793254121218; Wed, 28 Oct 2026
- 23:08:41 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chrisdown.name header.i=@chrisdown.name header.a=rsa-sha256 header.s=google header.b=T+1CdUOF
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8a052aff9e9so1354477b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 23:08:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chrisdown.name; s=google; t=1793254130; x=1793858930; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=fr6lsRVu7pKC2uMXBLAv6yVcpzLAtilFokqfHYV3ttU=;
+        b=T+1CdUOF2S0zxP6AiHPqpBdu2vLU9BYmhx/gn9gkkhvXAQRAAiXpd6gZNfA/d/qjQN
+         FLOXc0F5to357dYDzGiDJ4x4fCpUKnNpYaYd0tHwiuVzMV4Q1xyrAkCPwKfaSAGENrsJ
+         YIMaHUc99k4pzEnBCSEzWenp/JPCpyPrHl8pA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793254130; x=1793858930;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fr6lsRVu7pKC2uMXBLAv6yVcpzLAtilFokqfHYV3ttU=;
+        b=D2pOrqsWIyy/xNjBGKxb5YxkefwjOG7RUDJVfIqP8nk7ZZa2rWaHpE4kQPLuusKOZW
+         23p4/hHx4UeqXLVKgh9XdEtQAihATuFBudk2izHqLKnJ+I2TDitGlEoI3rj6ki8lStLX
+         qIX/TPuFBXp0qJfYQDDEIhOnrHuFnCYAXcvpaPZSnk5G3iQqEfPYMDfQ/1eYAgFYFlqF
+         IEPpGE495+ErWkGQP3dgPcDRQfF7nJB1ajGAIcIu/6GFmRUm6SkfMCaqdHgVDsC77DOa
+         C7i60UA7mVYz0F6OT7lnkcAqDKULh0NdxngmBJlKPN59Lo9c6Y4QbTUuOcbPPAJXe3OC
+         s+Sg==
+X-Forwarded-Encrypted: i=1; AKwUvByQDl8G1HsbxAhHJl8ih+0c1Zc/7PmYYFC+ZF5JpVrFTH4s2uEV9wFaMFs2p0tWfXY3SMwML/JhfjXX0P8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImCcem2T7vtmAExWDdlBvW9N9ghQoLrKyZp2OSjNVWJ4y1TTwm
+	NZxObDWlUavw+GgAWgm9GnyMGIjM5Zqwfy4n3FV60OIX/QAjkBMweaUfckDMjBHrU4s=
+X-Gm-Gg: AYBFou0JYK8vgh80QD9fUlVR5nY7mJJxd2ZtEUDQHxNjzEoQob2X8JUkNhyxS2fpBPw
+	BL/Oj82vcwYw7LTlqT48VCXHxRmaZfpLVvawfRC0D50scxw4y8HaYPD5GtGr+a0ux2N+NdwR8yG
+	Cjmb0LgRm/1v1dhDUUcYIpdwn5WozHPFZqAxmhwntYtl06a3FERw5ll9kOF3Go42MBURIYRwisF
+	w9safRXO20wSSPMKmwU1B8uqywGQXISoygWTafmWB21ojXz7QT+WszXNVj9V+hV1zknmRBADlNj
+	h3fPGBeYl4U5gaNXh/ndazuuD9nxZ743rVQacnm2MgCe1Oy09NpGIhUR4INLUSiKFpNsDO0AAl+
+	eZsWkeVbkAHXpF2xM+HtRla5UOEzIzwyMevErrAzsS627ZBOjDN56oW3+6x000w0bRbxZXecxym
+	WiXQxlkymVNHT9QM0MEk8SSh7cQIiemQ3NaRCP67kEcam4LJojpIugIkyEXjICPeoeF7uLbAsMY
+	edp4WTY4ybv0UplHDo5mg76ZI/M6ZtoS+c3SZ/WYyTa+x31FFU6e+mix22Ieh2THt6iA64MANj0
+	a2eIEjTDKL/n+7JjPi5YwZJiGAn++mK01hfKNCyEa2UizcZGHVochoQDQg54yLP0E/qhUVUo2vX
+	0iowTTF86RsdzMpPjnp9PTc6KI8pFiYNEdQjRzC8oe00l1AmxK5f9knVGAAAyn5o1wszrHu8VLK
+	Lqde19qHfZNTY37a2j0g==
+X-Received: by 2002:a05:6a00:4518:b0:89e:37b1:b81e with SMTP id d2e1a72fcca58-8a6e71e1b92mr3812208b3a.31.1793254130054;
+        Wed, 28 Oct 2026 23:08:50 -0700 (PDT)
+Received: from localhost ([116.86.153.182])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a6df0b52sm1840758b3a.43.2026.10.28.23.08.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 28 Oct 2026 23:08:49 -0700 (PDT)
+Date: Thu, 29 Oct 2026 14:08:44 +0800
+From: Chris Down <chris@chrisdown.name>
+To: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Kees Cook <kees@kernel.org>, Marco Elver <elver@google.com>,
+	GONG Ruiqi <gongruiqi@huaweicloud.com>,
+	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org,
+	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: [PATCH v2 4/6] slub_kunit: Add a test for the slab_buckets boot
+ parameter
+Message-ID: <47c0b11109203640122a9b5b030d3f41bfbac609.1793253633.git.chris@chrisdown.name>
+References: <cover.1793253633.git.chris@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,142 +103,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAHCio2jc9++n2Qoa0-sNkObZsWOybSwK1X2aBjFirchjRTBZsQ@mail.gmail.com>
- <CAHCio2hpL+Y0iYdGXs5zKA-81+w_9pHs+tZPe2uaYKs8yOCz_w@mail.gmail.com> <CAO9r8zMBcU_s3Dpc99jse=n7Njhy8Ly-daf6--YXVD+Cw_ed1w@mail.gmail.com>
-In-Reply-To: <CAO9r8zMBcU_s3Dpc99jse=n7Njhy8Ly-daf6--YXVD+Cw_ed1w@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Wed, 28 Oct 2026 23:08:30 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zOmH6yzcNbUOF3FoNsac8rtx47rp5wByOFfGgaBPaLxug@mail.gmail.com>
-X-Gm-Features: AclHuK_-Q0Jz4mRR6smK73VVrzxuJ8LSDbRfF-XrsvhphW8oweFG2CIgPW6zY3w
-Message-ID: <CAO9r8zOmH6yzcNbUOF3FoNsac8rtx47rp5wByOFfGgaBPaLxug@mail.gmail.com>
-Subject: Re: Some options abort RFC: KVM: SVM: Rework ASID management
-To: Jackie Yu <ufo19890607@gmail.com>
-Cc: jmattson@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	mlevitsk@redhat.com, pbonzini@redhat.com, seanjc@google.com, 
-	thomas.lendacky@amd.com, vkuznets@redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1793253633.git.chris@chrisdown.name>
+User-Agent: Mutt/2.3.3 (9073d26d) (2026-06-12)
 
-On Wed, Oct 28, 2026 at 1:15=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
->
-> On Wed, Oct 28, 2026 at 6:37=E2=80=AFAM Jackie Yu <ufo19890607@gmail.com>=
- wrote:
-> >
-> > Hi, guys!
-> >
-> > Jackie Yu <ufo19890607@gmail.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=8828=
-=E6=97=A5=E5=91=A8=E4=B8=89 21:36=E5=86=99=E9=81=93=EF=BC=9A
-> >>
-> >> Hi Yosry and KVM folks,
-> >>
-> >> We would appreciate your guidance on supporting INVLPGB in ordinary (n=
-on-SEV)
-> >> L1 guests alongside the proposed static per-vCPU ASIDs.
-> >>
-> >> The 2025 ASID rework RFC proposed one static ASID per L1 VM and listed
-> >> "enabling INVLPGB virtualization" among its motivations [1]. The June
-> >> 2026 RFC v2 changed the design from per-VM to per-vCPU ASIDs [2]. In
-> >> the October v2 series, patches 2-11 establish static per-vCPU ASIDs,
-> >> while the remaining patches primarily address nested TLB flushes [3].
-> >> Our question is how guest INVLPGB should be supported under the
-> >> per-vCPU design.
-> >>
-> >> Some of our workloads frequently discard and repopulate memory using
-> >> patterns involving madvise() and memset(). Broadcast IPI-based TLB
-> >> shootdowns are expensive for these workloads, so we are interested in
-> >> making AMD INVLPGB available to guests. We use a small benchmark to
-> >> approximate the resulting shared-address-space pressure:
-> >>
-> >>     region =3D mmap(256 MiB, MAP_SHARED | MAP_ANONYMOUS);
-> >>     memset(region, 0xab, 256 MiB);       // Initial population
-> >>     start N workers, pinned across 64 allowed CPUs;
-> >>     each worker repeatedly reads pages in its own slice of region;
-> >>
-> >>     repeat 500 warmup + 2,000 measured iterations:
-> >>         start =3D clock_gettime(CLOCK_MONOTONIC);
-> >>         madvise(region, 256 MiB, MADV_DONTNEED);
-> >>         record elapsed madvise() time;
-> >>         write one page in every 64 pages to repopulate part of region;
-> >>
-> >>     stop and join the workers;
-> >>
-> >> The benchmark uses memset() for initial population; subsequent
-> >> iterations re-touch pages rather than repeatedly calling memset().
-> >> The numbers below measure the advisor thread's madvise() syscall
-> >> latency, not worker throughput.
-> >>
-> >> In our experimental KVM4 configuration with a VM-shared ASID and our
-> >> separate guest INVLPGB passthrough changes, we observed:
-> >>
-> >>                          INVLPGB off     INVLPGB on    Difference
-> >>     64 workers  mean       21.624 ms       12.505 ms     -42.17%
-> >>                 P99        32.760 ms       21.518 ms     -34.32%
-> >>     128 workers mean       29.553 ms       20.459 ms     -30.77%
-> >>                 P99        39.628 ms       28.160 ms     -28.94%
-> >>
-> >> These are single, sequential A/B runs for each worker count, with
-> >> 500 warmup and 2,000 measured calls per run. The process had 64
-> >> allowed CPUs, so the 128-worker case was oversubscribed. The
-> >> measurements show a useful latency difference, but do not by
-> >> themselves establish INVLPGB instruction counts or IPI reductions.
-> >>
-> >> We then experimentally combined the October per-vCPU ASID changes for
-> >> ordinary guests with our existing, out-of-tree L1 INVLPGB/TLBSYNC
-> >> passthrough. With guest INVLPGB enabled, a one-vCPU guest boots, but
-> >> otherwise comparable two-vCPU and 64-vCPU guests fail early during
-> >> boot. Keeping QEMU's +invlpgb setting while adding clearcpuid=3D419
-> >> to the same guest kernel allows the multi-vCPU guest to boot; the
-> >> guest logs "Clearing CPUID bits: invlpgb".
->
-> I imagine for INVLPGB to work correctly with per-vCPU ASIDs, you need
-> to intercept INVLPGB and basically issue an INVLPGB for each ASID used
-> by this VM (nr_vcpus or 2 * nr_vcpus with nested). I can't imagine
-> this would perform well on large VMs, not sure if virtualizing INVLPGB
-> would still make sense.
->
-> Regarding the boot failure, I would guess there are some missing cases
-> due to the complexity of emulating INVLPGB without a shared per-VM
-> ASID.
->
-> >> These controlled boot comparisons identify a problem with combining
-> >> static per-vCPU ASIDs and direct guest INVLPGB/TLBSYNC passthrough:
-> >> the multi-vCPU guest fails to boot when it uses INVLPGB, but boots
-> >> when its INVLPGB CPUID bit is cleared. A one-vCPU guest also boots
-> >> with INVLPGB enabled.
-> >>
-> >> In this configuration, an unintercepted guest INVLPGB targets the
-> >> invoking vCPU's hardware ASID, while sibling vCPUs have distinct
-> >> ASIDs.
->
-> It's neat that INVLPGB will automatically use the current ASID and not
-> ASID=3D0 for guest usage.
+Check that memdup_user() allocates from the memdup_user buckets by
+default, and from the regular kmalloc caches when they're turned off
+with slab_buckets=0.
 
-Hmm, actually, how is this supposed to work with nested
-virtualization? The APM says:
+Signed-off-by: Chris Down <chris@chrisdown.name>
+---
+ lib/tests/slub_kunit.c | 41 +++++++++++++++++++++++++++++++++++++++++
+ mm/slab.h              |  4 ++++
+ mm/slab_common.c       |  4 +++-
+ 3 files changed, 48 insertions(+), 1 deletion(-)
 
-    A guest that executes a legal INVLPGB that is not intercepted will have
-    the requested ASID field replaced by the current ASID and the valid
-    ASID bit set before doing the broadcast invalidation.
+diff --git a/lib/tests/slub_kunit.c b/lib/tests/slub_kunit.c
+index e3b63f0338d5..670645875b27 100644
+--- a/lib/tests/slub_kunit.c
++++ b/lib/tests/slub_kunit.c
+@@ -9,6 +9,8 @@
+ #include <linux/delay.h>
+ #include <linux/perf_event.h>
+ #include <linux/kprobes.h>
++#include <linux/mman.h>
++#include <linux/string.h>
+ #include "../mm/slab.h"
+ 
+ static struct kunit_resource resource;
+@@ -296,6 +298,41 @@ static void test_krealloc_redzone_zeroing(struct kunit *test)
+ 	kmem_cache_destroy(s);
+ }
+ 
++#ifdef CONFIG_SLAB_BUCKETS
++static void test_slab_buckets(struct kunit *test)
++{
++	unsigned long user_addr;
++	const char *name;
++	void *p;
++
++	if (!slab_buckets_enabled)
++		KUNIT_EXPECT_NULL(test, kmem_buckets_create("TestSlub_buckets",
++							    0, 0, INT_MAX, NULL));
++
++	if (!IS_ENABLED(CONFIG_MMU))
++		kunit_skip(test, "userspace allocation needs an MMU");
++
++	user_addr = kunit_vm_mmap(test, NULL, 0, PAGE_SIZE,
++				  PROT_READ | PROT_WRITE,
++				  MAP_ANONYMOUS | MAP_PRIVATE, 0);
++	KUNIT_ASSERT_NE_MSG(test, user_addr, 0, "Could not create userspace mm");
++	KUNIT_ASSERT_LT_MSG(test, user_addr, (unsigned long)TASK_SIZE,
++			    "Failed to allocate user memory");
++
++	p = memdup_user((void __user *)user_addr, 64);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p);
++
++	name = virt_to_slab(p)->slab_cache->name;
++	if (slab_buckets_enabled)
++		KUNIT_EXPECT_TRUE_MSG(test, strstarts(name, "memdup_user-"),
++				      "allocated from %s", name);
++	else
++		KUNIT_EXPECT_TRUE_MSG(test, strstarts(name, "kmalloc-"),
++				      "allocated from %s", name);
++	kfree(p);
++}
++#endif
++
+ #if defined(CONFIG_PERF_EVENTS) || (defined(CONFIG_KPROBES) && defined(CONFIG_SMP))
+ #define NR_ITERATIONS 1000
+ #define NR_OBJECTS 1000
+@@ -489,6 +526,9 @@ static struct kunit_case test_cases[] = {
+ 	KUNIT_CASE(test_kfree_rcu_wq_destroy),
+ 	KUNIT_CASE(test_leak_destroy),
+ 	KUNIT_CASE(test_krealloc_redzone_zeroing),
++#ifdef CONFIG_SLAB_BUCKETS
++	KUNIT_CASE(test_slab_buckets),
++#endif
+ #ifdef CONFIG_PERF_EVENTS
+ 	KUNIT_CASE_SLOW(test_kmalloc_nolock_and_friends_perf),
+ #endif
+@@ -505,5 +545,6 @@ static struct kunit_suite test_suite = {
+ };
+ kunit_test_suite(test_suite);
+ 
++MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
+ MODULE_DESCRIPTION("Kunit tests for slub allocator");
+ MODULE_LICENSE("GPL");
+diff --git a/mm/slab.h b/mm/slab.h
+index e94ac63d10dc..b5b344d6e402 100644
+--- a/mm/slab.h
++++ b/mm/slab.h
+@@ -390,6 +390,10 @@ extern struct list_head slab_caches;
+ /* The slab cache that manages slab cache information */
+ extern struct kmem_cache *kmem_cache;
+ 
++#if IS_ENABLED(CONFIG_KUNIT)
++extern bool slab_buckets_enabled;
++#endif
++
+ /* A table of kmalloc cache names and sizes */
+ extern const struct kmalloc_info_struct {
+ 	const char *name[NR_KMALLOC_TYPES];
+diff --git a/mm/slab_common.c b/mm/slab_common.c
+index b7a46c368ab1..9fe48da12010 100644
+--- a/mm/slab_common.c
++++ b/mm/slab_common.c
+@@ -29,6 +29,7 @@
+ #include <linux/memcontrol.h>
+ #include <linux/stackdepot.h>
+ #include <trace/events/rcu.h>
++#include <kunit/visibility.h>
+ 
+ #include "../kernel/rcu/rcu.h"
+ #include "internal.h"
+@@ -410,7 +411,8 @@ EXPORT_SYMBOL(__kmem_cache_create_args);
+ 
+ static struct kmem_cache *kmem_buckets_cache __ro_after_init;
+ 
+-static bool slab_buckets_enabled __ro_after_init = IS_ENABLED(CONFIG_SLAB_BUCKETS);
++VISIBLE_IF_KUNIT bool slab_buckets_enabled __ro_after_init = IS_ENABLED(CONFIG_SLAB_BUCKETS);
++EXPORT_SYMBOL_IF_KUNIT(slab_buckets_enabled);
+ 
+ #ifdef CONFIG_SLAB_BUCKETS
+ static int __init setup_slab_buckets(char *str)
+-- 
+2.54.0
 
-If any ASID passed by an L1 guest is replaced by its own ASID, then if
-L1 is flushing L2's ASID (i.e. a non-zero ASID), passing through
-INVLPGB would do the wrong thing and flush L1's ASID instead, right?
-
-Seems like if the VM is using nested (on any vCPU), KVM must intercept
-INVLPGB anyway to correctly handle the ASID?
-
-The APM also says:
-
-    Two forms of INVLPGB intercepts, conditional and unconditional, are
-    available to the hypervisor. The unconditional intercept traps all gues=
-t
-    usage of INVLPGB. The conditional intercept traps only
-    illegally-specified INVLPGB instructions.
-
-When I read "conditional", I was really hoping it was conditional on
-the ASID being zero or non-zero, as KVM really only needs to intercept
-INVLPGB with non-zero ASIDs (assuming the ASID is shared to begin
-with).
-
-Am I missing something?
