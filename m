@@ -1,89 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793289559;
-	b=AJE8sracGvw0BmwFvZzW9tS/us9Ht6Ds9cQ0MYERavhK6ZueqAQQr8CbsW0hzFnVrVdx
-	 tvXiiC7m9k+s6njk/BomeINIeo6I4WF7oD89wxD+X+Naj8T37Zo9i6FmGayg+52EUQhnt
-	 7X4Ft8i8A4X8MynxV+ks+f2F/+MF32i2kRh55AG+q8v5Hhm2VkuIuV3VLsSqI5BJ/VS5D
-	 Euk/wnsbVN2f9Eva8FUcUzBog2dB3ciKgy9zp9clXyAArPFftMGnJgGEBoJVGRUlUm32O
-	 riq3ZJ8kWz6Q+vj2/KgKw2jRA70JlaIKuEy1tdXuQNwlNclqrV9Mr/684VeSvA6O6Vw==
+	t=1793289592;
+	b=tNFqLAuLCcbU41B8QIhDHHCoNCZYi08dV/BTS/w0eGNRiK5XfbMTuOIA1uqlbJFB7ehD
+	 dLEbzLwuJE8436oF4xWSLI/r7Kh0HLM+DSi3fQ5kkD4NwjeoOlN/kwgg/AHqyLPs84pVc
+	 KUje4a52LInOCcHpH991MbvWMZx9UHpYTQkjiVJ+67PPwgsBclxz4Jlgwj6fdPpo1vigB
+	 b6xhkA5rWeDgBpwCgi0xmKuP/gv3DAVPZouHyNBnRlGOXTA09aE7q4OO/cDyNQwXDaTJg
+	 sB2SMxxjk9tIGC87iYPk/hmCTYnKbWgb3mhd/34qkc9P3/JxJzdtiOP10nXjzgRgEoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289559;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
-	bh=2Iavpt0xD5+NOsPxR52uOxmq8ZYkCHkAdBvsyZeTFxk=;
-	b=SOzWTKjQ6dmPY3KC/FJKMzepWMaKUhaQPpKYvfprCQu0ghDLdxM+9rjBR0HPPT1TWRv8
-	 PkqCcwVlwu3TPIaUm76wLMLIe2DM1wfyBRNhm86/1vRXGE1qwrVjhp/n1UbWEaOabm3b+
-	 8V81ckla5Z8xVDSLfeZYYhHuACtpvo3y6o8olFREfSdl9BiK7J8D5OLeFmCnDrqMyq9Lx
-	 4u21LoVJqB6tgBEGgaWz93FJeIl7Sn+B4olfp8FJk7nN6rBLnXSEZIQyCSeADRCvgkp+O
-	 tlsDjNFnwmki2Dk6Edgd9GtM6mIlnwjnfv0Cf8Z+qFqhCa3q4D6fYkUVqSIMQzm//sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793289592;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=KKBOz4Zfk+6m41vEtS3t51T/FKzgULQb4qqPsWjpkDY=;
+	b=5jVScc+uN9V7jXLUS/FqRB4eTlJCL9A9OaB4pVHLc41njJE2GxXh87GMPx2svoJlo6CE
+	 4r+9QK5H1u5LQIcmp0qChKpAB6MKLSs9EusCLd9wGkGExZBp6wtwinzTgsHxHPWmmSOpk
+	 J8wAECyU7ONZT+HhPPB06QaU7XHPGfIAI7osog5zWTaFmshM4uvLiDR03v3KNB6xQbT6A
+	 nshrfHHGxTeIyt/qmG3El9nJD2ZGrn/Eom5fHXw1EQyN2TBThv2fhaC+ELzf5+/k9qZwH
+	 OVtWIRmSjZ8F6d9TJI6Ob9Ck5GHdJ9oPQpN5A1G4ovLAJnApAjU2N8QgbLVpnuu7oTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tWycgmes;
-	arc=none smtp.remote-ip=209.85.161.46
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=iWILWxZm;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="Wv3f//OI";
+	arc=none smtp.remote-ip=202.12.124.154
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBB0606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:59:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCBB0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FC56606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:59:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FC56606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tWycgmes
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6f5a0893610so1844728eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:59:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793289558; x=1793894358; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=2Iavpt0xD5+NOsPxR52uOxmq8ZYkCHkAdBvsyZeTFxk=;
-        b=tWycgmesusU8qNEKvjEpEbmDA7XiuXZ/MCK0Vzr8kAHFSXP7g4RCSAzBMh6G+yOkNv
-         2yNnSqeLKkA3bP5+kigG/LC1gRwZtcIMZHKpoaB+06sreUZZZGAvEs2QgDUTCT8lLRy6
-         JQv0RHmO8UkBIFSA/eUqtTNZW0Ivq+LKBSj4P4zDBJRGHW+cxc8hr7nu19HaMh4NB0Qn
-         gxbhd37n5U5iMGXVuYZ+L8R5C9QnBeAunC/VM1UZ6p5V6YYPo5wM8KHjqz1/Ktf99eLT
-         vHMTJn0aHmEtAM80BzzxPeSoEb33tq6Z7BOHLxGsVm2qrldhXqmYbkvfV36uua/i9VPI
-         IlBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793289558; x=1793894358;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2Iavpt0xD5+NOsPxR52uOxmq8ZYkCHkAdBvsyZeTFxk=;
-        b=ZmR/UslcZDZub7p3roTIT2XPOhk+TV7Yr2X+WErCuwdgG7cMJLFUSyKpYvRbEr9aEv
-         bhXOiTILaQYcDx9/GOUQyRBGzRVp+cKJh60wFSfhcRcdL/prw5n8FziRN6AqbwM3OlJI
-         1oalem8IwGrX5yLAqOiy91N410iIyV/D/THR2WILt72B1eK8J021QauI83fELlMzcH2O
-         xD7kSRvr0TYtU55qGyH3tqB04KtoNVQ1ec7Zny0prJsUnsJFWzTVM1X/lp5bsiunp2tf
-         GCFmYWLFFOPy1lQJaH+W0XWe132h65teKZ9OnU/wlnXvciGHEZLT3AL6Z4ChvZiuUmA2
-         8sUg==
-X-Forwarded-Encrypted: i=1; AKwUvBz1MVRunfK/9Ay2Cp1+Ioubaa8Md38AWPu8Y279DTTqjPVvsIzd3gdgV8Z4nbCKkKJTG2sOhoXZx5YKPYI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIVnn61fEnCI3xt40AePHQT0pLFRXfmQFLqqc2zxVkHneyp8Bv5
-	u8rLM0JVG2pdliMDHZbDOLN1vw2tokC1sF4EChgHVSffC3Y9Jk0yv+CI
-X-Gm-Gg: AYBFou08yviv632uxFoxTogN+qD8MtxnxmiszfVAtx3+md6U6GHciteCFbdFdV7jTf0
-	ggrWothrqdKU6rPCx45HbqFwGmAhgIYVcC07cASUYpSkD0mWZB9M9q/sQgRuUXGui796v0tjDOu
-	esaozEDKwqvaz8RZQCZuNtOaOqVNK3H8/UhI9DCxsmd1tbCA2RKFMRPX01GWpX4TZKs2dNcHqRx
-	0rpj1rd2QM+SlqPib/LoiHkuCfgCYTR+euuy1S2Zn+UReYBojqmi6+wCk/nfD7MrNzIIpkLQF7o
-	5QKozVIQP9wjj7HS6LagVDPZwEm8zJrqqKg5bn88wiFPPAqxP0wg8TsZpagJcOAhNXgbPj0Fyot
-	KmHbOMyiOY85NSY7Bcsv86fgqCFcUJvtAdjU04VKt4HAQKrYVZ9vaL8ow0Q+kT9Y72qX/+Ifrjg
-	R5SjD3Rl9EjeUBGbMeftL9DYZwqPY9V3Il7KsPmmbpn6Mj66DhuSZ9qkNOI1JLIijl8z/w6+OQ/
-	6teGiEWBBpEn04zS5ACmqPsc3xD04DinR/3FV2sVgFwG8XxhT55Y4dGR6hYBJW7//9OGZoAtxXK
-	Q9AwpHXhtnKFskk70uVk9hrJJTk=
-X-Received: by 2002:a05:6820:1629:b0:709:529a:478f with SMTP id 006d021491bc7-713ef240bb2mr3244491eaf.60.1793289557756;
-        Thu, 29 Oct 2026 08:59:17 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d33f57805sm182778a34.6.2026.10.29.08.59.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 08:59:16 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Muchun Song <songmuchun@bytedance.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Pavithra <pavrampu@linux.ibm.com>, "Aneesh Kumar K . V" <aneesh.kumar@linux.ibm.com>, Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Muchun Song <songmuchun@bytedance.com>
-Subject: Re: [PATCH] powerpc/mm: fix uninitialized ZONE_DEVICE struct pages with PMDs
-In-Reply-To: <20261029063601.1961415-1-songmuchun@bytedance.com>
-Date: Thu, 29 Oct 2026 21:15:10 +0530
-Message-ID: <h5i4wlx5.ritesh.list@gmail.com>
-References: <20261029063601.1961415-1-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=iWILWxZm;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Wv3f//OI
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 902627A0056
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:59:51 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-09.internal (MEProxy); Thu, 29 Oct 2026 11:59:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1793289590;
+	 x=1793375990; bh=KKBOz4Zfk+6m41vEtS3t51T/FKzgULQb4qqPsWjpkDY=; b=
+	iWILWxZm7HiHP5NTOMqiJ/QnMEMQXJNNW0oz8ui0Kmg/sbq/PoGdjtNLEDxiTOLs
+	9SPewx/vJPnF+9z0+zp9SDsP7q9Gmqs7+grOEBarhYGDIsnAEph5ysMlGBQ1ROZA
+	Efs55h0rEuS8dYa7PVbidLx2OhU8AUOVIiFPoSagxp1Hmt0c8k4IpjxyfCWaSesl
+	7d/1zz1opNP7dR9CI7j9C/lJgYYpo6FxjEqO6kgtpO8LwAymjxOskDgThxd78gyJ
+	yQPbN5x65vvNElS/hq4BXoymyZcqi9OaoDbCJdPfBtj2hY274MKo+J70zC0auL6y
+	VP5rSuYO7GLTn8zw9L/0Sw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793289590; x=
+	1793375990; bh=KKBOz4Zfk+6m41vEtS3t51T/FKzgULQb4qqPsWjpkDY=; b=W
+	v3f//OIvKbfJwdE8tAq9ewB8tIF8wn/n9gysB0cAV0W+j/W7IFHcMDwVWhK1uFql
+	X325+gi1xFs4M0kAd0P+2gVS+7v1tOSY/dibnv7oejvj8xksR3lKNQk6SGp0SU67
+	NjbOLFORhQIy06F6ZLIgLQCTqEgVeZ3rWHjCHoUpwDWhx2mW5UjC50v80wYYgUqj
+	YPe1sdCt8KeD/U9/uQITiFk1KxrHtS/eTUYfKWrO+DbIqBemx0qbNR/pvoMmQqoh
+	Oa2lWZ/o3wdu9cbXCFRsfqyces6QjOyzU+DOwlvD+hP7MjGoU63jq5ner316jLRT
+	Bqf1JbkMTecIeCaHtJv/g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793289590; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:ELfcyfTePQj4XeM+/xIx3nht993vVDg8x3ICxAqiMFLCh/z
+	AhSNQ+pbBnfC4UKP4rk20TRaUZ5cNJC139KvcAMYQAawRSsfeY/CwHMxoYaeI9/e
+	u2twqBOMPnceOi4qf9rry+2N8eTnFG69udb7AFXp25uWSxg0VzMuCVDS2hbKd6Ip
+	ALkyUhmL2Zcfa7i37zTADJAIwXuAFakCnxqwM4TrhXTeqbluTZYlkjB37tAMw0eP
+	8Qfmhj7hbUFEVYEpg02wRQPVSpO7q1Wzn6L67TWGluTKFttkqJGzogAYbb79qiCW
+	nR6VShLV8/hhBBGL10Yde27PCUCM7jVz3jlFIyw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:jFuKupPVcsvJ3QbHOK/1yHyTACi/4we82dXxoT3cHqs=:fyY3jBioryK+3UiLTqRhbOhIRioQgIN+/RdaHrP4w6w=;
+X-ME-Sender: <xms:dm3jas7LaUA9EVUs0SBpgCAF9NaMXQUiLPVnfNaEcSMOy22_haY6YA>
+    <xme:dm3jarnBIgkA52V9wX8TCRTHDO0KJxHEgBSnEor0LcEI1L86zPV-lN1LpSFgsP4AS
+    leJuolGQBDpc3-PsoVGMHuqrcQByVmQF1xVjYTUuzuLzhGvYSFYejpB>
+X-ME-Received: <xmr:dm3jatOb13V5gxjVsL2X9rl7KNV8EACbtFFDtgj-2UQL4SDw0DTketiWtIgF02GhiN3m98mU-vrhzoQuGVXzvgk59NrNZVoN>
+X-ME-Proxy-Cause: dmFkZTFEDXEO2ZoCvDmzlItmMWHToxvfc72qCSQgltnhAXdPW0xVUHpSa1ExhL1s7LZh99
+    eTMVhp2eAqS3rJG+0+N1o0K7z3MtMRog8FLrKg1UnshtbaXD+Xg3vyw9J+eKRYX77E4KMg
+    shq+tbPtV5xrXACry2Wq+SP5YM+QKnGhSFIyayJGMTCfGnACfJxxlzisLnR+qynGcuHfE9
+    5ol/ZUkRxvhA7kB0Rakq56OQF/qpkv1/8JFawlcXbft2WjvMPUsLAz5xljXC1FaRt1+Akb
+    Msz6mIwKnj7pyQuJhHGqp0akAcj0yuHOxkOyYOEDJh9xhx8h7d/u7FC2+1ptrPyHA1WZIM
+    G4Nr2UB3+gOy5hDWTOvt+sWefk/2irobWWfOAAstsjYjDrIyx/JeLnVvX5SMFpb7Qknmpw
+    KQYL2swBwH8NcN7yGxrm+wZoXKad01XCSDdhs9yTvoz9PA9cdFUwowCtRd1Qf9ZT3kJd+a
+    GqOtCw4VTDqpNH0wXG6D3N5dBmqZ3tiRKQUSUpEpFIeJt9bk/u6da0MZo7b5coIAyxQBTl
+    qnYz/zDjyPK7w5cNKVY7YOnxObbLT/QzCp2AWnmAbjUeu2vg2+L7p7cAixyc92IcHQ3b0y
+    X2/EytrU4sy2aB7UWOwhXq4Ir90orOvAu7w1pgHvjvSdSQFPJE8PtfUXDP8Q
+X-ME-Proxy: <xmx:dm3jatqjvP46X4j9vQuEO_JY-cEIw7CVnguR1AT-kEGn0HCw6mErdA>
+    <xmx:dm3jams228rA-HYQkyPDNKsSoYnoPcsJ_S_Q5usF_6aELpAAaFOjtA>
+    <xmx:dm3jah5vqFAAObGvm6dzGtYtbW0DscIa1UdO2GOrMf99gt6pnv4gMw>
+    <xmx:dm3javT3QuljDVVYQguYC5iJpB22j-c7w9FliWRG4DA1Lyrym85Eug>
+    <xmx:dm3jaiXcuR8XqnM35mSth9DvUv3h_lKmrJPw-XH0PzFkXiDYzkjTUCz7>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 29 Oct 2026 11:59:48 -0400 (EDT)
+Message-ID: <9b9685ce-1d28-4d83-ab8f-acf29bfbfca6@pobox.com>
+Date: Thu, 29 Oct 2026 08:59:47 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,74 +118,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 000/571] 5.15.224-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261028170008.009143722@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20261028170008.009143722@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Muchun Song <songmuchun@bytedance.com> writes:
+On 10/28/26 9:52 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 5.15.224 release.
+> There are 571 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 30 Oct 2026 16:59:22 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.224-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Thanks Muchun,
+Tested on 2 amd64 laptops (a Lenovo ThinkPad T14 Gen 1 and an Apple
+MacBook Air 2017). Working well, no regressions observed.
 
-> PowerPC radix vmemmap population can reuse an existing PMD mapping while
-> populating a device DAX range whose section is marked as HVO-enabled. The
-> reused mapping is an ordinary vmemmap mapping: the redundant tail struct
-> pages are not remapped to the shared tail page.
->
-> Leaving the section marked as HVO-enabled makes later ZONE_DEVICE
-> initialization treat the range as optimized and initialize only the struct
-> pages that would be backed by a real HVO mapping. The remaining tail struct
-> pages can then be left uninitialized even though they are still used as
-> metadata for the device DAX compound page.
->
-> This first triggers a zone mismatch warning in __init_single_page(), then
-> faults while initializing the pageblock flags:
->
->   WARNING: mm/mm_init.c:600 at __init_single_page+0xd0/0xf4
->   Call Trace:
->     memmap_init_zone_device+0x164/0x430
->     memremap_pages+0x43c/0x93c
->     devm_memremap_pages+0x3c/0xa4
->     dev_dax_probe+0x264/0x3d0
->     dax_bus_probe+0x140/0x1c8
->
->   BUG: Kernel NULL pointer dereference on read at 0x00001400
->     __set_pfnblock_flags_mask.constprop.0+0x34/0x160
->     memmap_init_zone_device+0x358/0x430
->
-> On kernels without these initialization-time diagnostics, the
-> uninitialized metadata remains latent. When userspace later maps and
-> accesses the affected device DAX range, the kernel operates on those struct
-> pages and panics at that point instead of during device initialization.
->
-> The Fixes target predates the section-based vmemmap optimization
-> infrastructure, so older kernels do not have section state that can be
-> marked non-HVO. Backports to such kernels need to handle the PMD-reuse case
-> in powerpc radix code directly, for example by initializing the tail struct
-> pages that core ZONE_DEVICE initialization would otherwise skip.
->
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Actually that would be totally new code right? It won't be a straight
-forward backport, correct? ... 
-
-> Mark the section as non-HVO when reusing an existing PMD mapping, so the
-> section's HVO state matches the actual vmemmap layout and all required
-> struct pages are initialized.
->
-> Fixes: f2b79c0d7968 ("powerpc/book3s64/radix: add support for vmemmap optimization for radix")
-> Cc: stable@vger.kernel.org
-
-... then should we mark Cc: stable here with the above mentioned fixes
-tag? Because this patch cannot be backported as is to older kernels -
-for the reasons you mentioned above.
-
-> Reported-by: Pavithra <pavrampu@linux.ibm.com>
-> Closes: https://lore.kernel.org/r/97f85592bb78a273be8519e6897e7f9b9bd31469.1793070429.git.ritesh.list@gmail.com
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-> ---
->  arch/powerpc/mm/book3s64/radix_pgtable.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
->
-
-I think, this patch should go via mm tree, due to all the dependencies
-coming from there, right?
-
--ritesh
-
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
