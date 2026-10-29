@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281717;
-	b=w6AlMJvNlzRjEAC9z99QmvpCE9REiWJiYEIJlxCWMU+PZqE4bxLby1MQt7nqjPEy2NjJ
-	 +ULLEicvhT3lnzdAFY6gOKwAPwoZPhLc1P16RfKnlk0NJPjuYwV4oOxzlAYsxpo/VGGkD
-	 OxB7PhvqE+/aguj8nqYXnW/08PVksTHEYUUWu/tfBS/mEaixTNh8fnqXIEnqo9zBFNuCr
-	 mTVdxMhd5Nv4cKMstWLkp+uLJJUAK9IP9pcdrF/+Q8dxv19w4ZqRRVdz/9cCXhbSdeLuM
-	 7OJZCc4RTUspKCwD8rmM8N+05DlEgdU94rNHKBEY+3IuI9pK02tOW/wA9lWrMtVCLnQ==
+	t=1793281723;
+	b=xjemNgVAIdem09l0jmx2sQjUxYQ18PskgM9NFAlk4luvgX9yVP/ou8Qln6Whgr+HYE13
+	 RlnHY+gSckB3MrHHL9Ae3qgxeczw91Pz/4j62Gs5DwzefKx8JthEXmuNmu9ezYYm8iFBM
+	 O0KzaBoN5Juro2XZp2ZtJYtdDjXSR3yXlbZY4c8F+ReQvRM4jeAoFEjxJ5BAlH1Ptv0Iw
+	 txUfW9wytxlY7VpnR/+1C+3XJ0SJC+ROrv3OLyKOLIoOW6cn9Fhg3OK/CqSRoMe1boQp+
+	 Z6nP9pyRk/QsCqL7vzxLllU73taoCr3gY9W4WlOuIXXuaOtm7letvZfBTvNkPTb4Msg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281717;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281723;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=lTNzjj5RXp4oZpl4oAxMzOJeDQHpmOcQuGYre6iPlX8=;
-	b=2/t9c8uP002HBRcpC5Grmfgafh2bxWY9N3Sp/AtxeEMraHbQVQ+EJIdR8tPMmMMd+8Un
-	 k3+YGPO1sz89iyiD1ZReU9aD04s07jNI9QdOzcjVXu7dkAvCQRQM8PsCMYC1B42LS+6OW
-	 9t32hUZEvtQkU8RajQe8rbliAl343PF8cZmfHp43PcDMBj1WTyKEOf2ain1L7HO2v8RDv
-	 9hgu5zu1Icv0OHzyPas70BYw5fwdWunpyeJaWTbsljl4/S8Os8RYnFahXT3JqiZupC83m
-	 +M7ENRmZMvwbsvucdyILe1reVNxhEE1+mazAilAeuYNBGYR5mFcPqn8yQkF9ln4MYMA==
+	bh=Pcc2o31dnyq27UxgXPWW34srR7YdnuSDHgxI+x836g0=;
+	b=Fx/+kTgYO+tvSKx2G6QEF9WV4qxRUF+OT07Cg4J1T59KH6CRpr7iidfayx2JiR/okJcI
+	 1WW5dEgqWp5NqJPRBiPScVZ7vggSglYCYS9nUB18FNE16Ge3B7F+jxGKwzdaKoVCS0i5M
+	 UYfpeIJtVinOQHAGXofmIQR/VffCSKxA+7mGayHrxesmfpQvz/+Z99HsFAexWRA/tw414
+	 7NRTDo51AUqZRmQJA/njt2X2aHMkHpPeS/LxAuww7qVk2ierjupWIjYy+qplsQljqFxxp
+	 6yuqK8FLcu5CMQkdhyUlPLXSUjJ61amfUkt3MR/yUGpXEWVECTYIdVA5hGuW7ofjIYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XHU10XTY;
-	arc=none smtp.remote-ip=209.85.210.182
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ItZl/Yv/";
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A898606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:48:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A898606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3DE606A339
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:48:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A3DE606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XHU10XTY
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a06210b29fso1103885b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:48:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ItZl/Yv/
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc758830601so1413371a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:48:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793281717; x=1793886517; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793281722; x=1793886522; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lTNzjj5RXp4oZpl4oAxMzOJeDQHpmOcQuGYre6iPlX8=;
-        b=XHU10XTYOELX7RDqGgN+sEsm81rhvRClEAGzhxP6NgcUjO91e0vUXDaAEhrTSdHVbC
-         QAahsvwFDV0Ga/bWysK9toNAzPv+05T5MNFinUS1pRsEXLu9UH0/x7ITjFVSSuHhzsS4
-         RIjhCu4jACBALzT5iaBXfbC+vpUL45V9ahl4VeoRPRHZTywM+xzM7+mUkTt+3FpNeuBz
-         tvkEC5t3Wyg4cQB53HVGzMjgDy1CGUSEZvDXWOOfmHqnpqwX1/nuJ5VQHed/5AZndNOG
-         DQW1iaOkeEJ79/c4eLi/QIdXN9owq2FvJ92BT7i3b1njuM9jZik2zwrIzPyF/TxMkcDo
-         NULQ==
+        bh=Pcc2o31dnyq27UxgXPWW34srR7YdnuSDHgxI+x836g0=;
+        b=ItZl/Yv/W94nvvobd8i54XLI7CzdmR/sKxOfCbsu74a4BGm7U7G8osqcwtXctt+lIg
+         G/3Z1eguuRocKS9YdIKz4+S5LjIg0gO7Di21ouyUeemcqfHUZH14QtUC2qKhJXDom3Di
+         8Z5SVRTqNMACU+vE6uXYHTKIT7tyQX987BNTEnUPHYUWj+TzeYwalOWj4aqlFtHDXThp
+         rlb2ZyDiuOlilHuvGMoZUtW3/hbwR1iWp4AbRppM525rCJxgysC8Yh1TADBc/cdbcY+/
+         XN21Rvn9JOBRaKhh71zq+embbid6jh6yT6m37/flfhcUlxFS1FzS1k4Vli5P2PsK7tF6
+         jmPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793281717; x=1793886517;
+        d=1e100.net; s=20260707; t=1793281722; x=1793886522;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lTNzjj5RXp4oZpl4oAxMzOJeDQHpmOcQuGYre6iPlX8=;
-        b=NNHdFaf2A2It2grJsZG4+H4pv73Dv5s2D+qr/f7NqUyST9MKcXqRFGbTlOsulh+MmX
-         NrKCYZwy5MkWRg7WsM2HIjEu9CV8pZOw20wK5ifq0N5Ht+0XUtOQa+JDxGmi7gdQQugQ
-         w2V54x0J3WWdrW3lQyRPc0EfcIcIz5q/O/wUEgtpEkEsvzQacyHbW2d0QfyeMGrC8O3R
-         VCmBDK9eeOdVSgug24HGBSyqLYF0MFNwgzumikbHZ8FP0fw6rJe7KAv1aLOU2lWocuQQ
-         eygVUlgI6oOc3+312c9dV3EbX5Pt/JUHlFBqvcsRX19ixw54VQUZyAQHIXuPE5oZ86I0
-         hWpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxME9W8LvX0dZg50uv8jwP4rob13B0vm85u2mrLirn9Y2xXs+m8uyGEG7459RzGpTNjtagLnRwCEBMK+yk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaXRNp0LcGvXoe+9aAbFYjIy19n2L5imMXa//i17waRuQHGUjm
-	ZUMYuWQFwiSmcgcd6rdrHCOk1FaKBXPrSJLUasLJjbbV0/cUSeepG4KZxchK+87D
-X-Gm-Gg: AYBFou3SblE63aeQUTqSSh2yLM0e5hTkFVPH72HMJRrbDZeXRWYTmrLUziUNGrxizHM
-	68GBiSQ6778GOu8iebjCId+vGHal6jswT0cERlEhotK4AzUP5c78bc3b0ZE8uftAAg9XKyMdcJi
-	YHQwVjNFsftj/4ZmbQ2DgEgOP/kxMLCn4HqxbZhP1x+UILcjTO579ZpVLt852Tt2YgJEdrCqdXD
-	Nq8nrJmYMq9zhr09QVY5BXuAEAZHY9OraswLYcZ14fs63bD44ygZaNP8OGeSwxI33o7QF/zSr06
-	wkMbo1ape+vSzhfbSD+5aESEfN74s3amWmhyCsAK4e8NTpGSlemHFv9B5Yf+eeRxc4D1u6yK0TR
-	4JHfFlhhBUXYRPxE04Ai7YN0Eyu2HMuCQKnunSE7VEbGzSYcVhh6lUncLgfSlgAZpsyzNNsKeBh
-	rPhr5IwGsxMYQLuZ3ZiP/pGRMfMP2A9HRmgvbiHlmYmjgofufLELqVqVvK+UANtEB+DIgDx+OWS
-	wu9VcxmjEXYg2ZXrW4M5oU6sE0dTz0DDWRImMpteN3Xw8TQDCNeRqSYUhb+tYU+PVbCP03odrqa
-	ZZpp9TnbQ4Yp/8yi5e08e8HE2DIF4Oeq8SB0l52vqmSGD78CFMyhrIlg+nJ0bVydQ/RC0VaKcUI
-	BIGHcS13Kuh6bz8A6RqV5ihQgTBnthw==
-X-Received: by 2002:a05:6a00:b56:b0:899:394d:2976 with SMTP id d2e1a72fcca58-8a6e78d158bmr4556674b3a.39.1793281716645;
-        Thu, 29 Oct 2026 06:48:36 -0700 (PDT)
+        bh=Pcc2o31dnyq27UxgXPWW34srR7YdnuSDHgxI+x836g0=;
+        b=RfJDDz4HiPR7j9nkv0/l7l9+vhTR96Vv2VtbWnXDy20UoTQJyuFOfxBeGIv6xqGOMg
+         smEzl7K57wDexeDO5oKzxkH7sjTROEioCXpYDSsNkHkUolPuM3WN3MGr1+WZa19Am+dd
+         unzXEw7gr4J4u+uVqtydwHBFV0FHsgItw+zzIQJUyPVbSNCM+xhQ+cVLEvLSoSLkxgI+
+         J2mVqeadWWzgtVgHqCkf0ACMPcPnOxywuw1CZ6adiQuQqPkn/7IPkGPcx9OQm0s+woTS
+         WgzVUKD7dqqHOVSYbghSTauz2vi3LXr0l3JD82bD2iC/ymKUuYBNDZ+tyOBpqQz2iaik
+         Kw6w==
+X-Forwarded-Encrypted: i=1; AKwUvBy/AVWEP0F/bfg1R+6XLTSSUAGc5bxaLPjU0XhZ+hNCi5MZe1dbChgoqBhIh6+RuE02w63tL9BJ+g4tpOo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwab5PzTG341QrrwIpelboqkYzbhBOTHPJBd+BZHKf2nX0xbAt
+	KIYyIRigNsebvEpSS/LXxVqDgNKU+b76O8d7noNIPBLTaYFNHTwG7IVT
+X-Gm-Gg: AYBFou08XciuBHWR9NMigbO9Q6lgcQ2fE1lWJQrRQpbtfap0jRNl9BHTZKWCSbOHNY2
+	6qLlTL1tIH2w2Ckh8NurhuhwHLzxVafAS0MceTs4UQq++PDvrVhVOzOtpkcX5IUlNtEJ79oaPyn
+	hc+pPfA8YiSNKJn31gURMNBt4fxd+qh8uQ9L+CpjKe3kNjrOK0Z0jKki7oj7jBsZa1IKPhTGqPh
+	V4k9n8SbO4wJcso8PZYTj20UybEzqryedWFcFeDomA9l+j31wsoqQv4F22cwjnwyzSVnsbrhFCA
+	Wlgaxp2RwZm0pUjLrqlye73Tv3kABY/2j/NpDcj1E+dPF0UE96kxb/+El6DHszLiBI73kUFgFVK
+	D+zZlk66wIncy2H8S+hXq+J8y5JJjzZXRZQkiaUr0DoEB0g++OouVUxjcWWhrFEw4sRvrHVKWax
+	wYsw4wWJRXwVX9hppkoUoUhMbm/vD7yq/BQlnnc2dLir5rQBjCHumfyRGTpCgP/UHUdFUgHpgdc
+	wgPGOp5FCsUjXjFct2rtdayFRCEposxjfRKtLZuo0VIY2EWzT6edc6pJPXUoBp8wTlCfVJkP0Bb
+	klD2pIoDPQfcs931JHfjPhqsTevRPWBhJvXzPP+eYExR/t9oWXqlzTxe2/PxH3121mkM8dyJ5Ha
+	hjFMqVhc663r3PMr31UK6rLm/Kx3qzQ==
+X-Received: by 2002:a05:6a20:7348:b0:3e1:282b:b69 with SMTP id adf61e73a8af0-3e9022d6f89mr5409945637.28.1793281721811;
+        Thu, 29 Oct 2026 06:48:41 -0700 (PDT)
 Received: from acemagic-m1.tail4fb79.ts.net ([2401:7400:c804:b668:ab4c:c3be:c4b6:67cd])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a3d5baf4sm2455023b3a.1.2026.10.29.06.48.34
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a3d5baf4sm2455023b3a.1.2026.10.29.06.48.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 06:48:36 -0700 (PDT)
+        Thu, 29 Oct 2026 06:48:41 -0700 (PDT)
 From: Ho Jie Feng <hjf3108@gmail.com>
 To: Stanislaw Gruszka <stf_xl@wp.pl>
 Cc: linux-wireless@vger.kernel.org,
 	Ho Jie Feng <hjf3108@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless-next 6/8] wifi: rt2800: set the mac80211 fast-xmit and aggregation flags
-Date: Thu, 29 Oct 2026 21:47:47 +0800
-Message-ID: <20261029134752.1299130-7-hjf3108@gmail.com>
+Subject: [PATCH wireless-next 8/8] wifi: rt2x00usb: use a threaded NAPI with GRO for RX
+Date: Thu, 29 Oct 2026 21:47:49 +0800
+Message-ID: <20261029134752.1299130-9-hjf3108@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261029134752.1299130-1-hjf3108@gmail.com>
 References: <20261029134752.1299130-1-hjf3108@gmail.com>
@@ -101,28 +101,189 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Enable AMSDU TX/RX support for this driver, which can increase
-throughput.
+GRO makes sense now that RX aggregation is enabled, since multiple
+frames arrive at once.
+
+This code is referenced from commit 5323d3e50c20
+("wifi: mt76: mt76u: use a threaded NAPI for the RX path")
+
+Test results:
+   before after
+TX 30.5   30.5
+RX 80.9   161.7
 
 Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
 ---
- drivers/net/wireless/ralink/rt2x00/rt2800lib.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/wireless/ralink/rt2x00/rt2x00.h   |  7 ++-
+ .../net/wireless/ralink/rt2x00/rt2x00dev.c    |  6 ++-
+ .../net/wireless/ralink/rt2x00/rt2x00usb.c    | 49 ++++++++++++++++---
+ 3 files changed, 52 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-index 032cd6ac345f0..8b4458a74d33d 100644
---- a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-+++ b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-@@ -11861,6 +11861,9 @@ static int rt2800_probe_hw_mode(struct rt2x00_dev *rt2x00dev)
- 	ieee80211_hw_set(rt2x00dev->hw, SIGNAL_DBM);
- 	ieee80211_hw_set(rt2x00dev->hw, SUPPORTS_PS);
- 	ieee80211_hw_set(rt2x00dev->hw, TX_STATUS_NO_AMPDU_LEN);
-+	ieee80211_hw_set(rt2x00dev->hw, SUPPORT_FAST_XMIT);
-+	ieee80211_hw_set(rt2x00dev->hw, TX_AMSDU);
-+	ieee80211_hw_set(rt2x00dev->hw, SUPPORTS_AMSDU_IN_AMPDU);
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00.h b/drivers/net/wireless/ralink/rt2x00/rt2x00.h
+index 5bc077fce9cbf..a120adb18f4b8 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2x00.h
++++ b/drivers/net/wireless/ralink/rt2x00/rt2x00.h
+@@ -955,9 +955,14 @@ struct rt2x00_dev {
+ 	/**
+ 	 * Scheduled work for TX/RX done handling (USB devices)
+ 	 */
+-	struct work_struct rxdone_work;
+ 	struct work_struct txdone_work;
  
++	/*
++	 * NAPI context for RX done handling (USB devices).
++	 */
++	struct net_device *napi_dev;
++	struct napi_struct napi;
++
  	/*
- 	 * Don't set IEEE80211_HW_HOST_BROADCAST_PS_BUFFERING for USB devices
+ 	 * Powersaving work
+ 	 */
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
+index 351e7da178279..4527fdf905b15 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
+@@ -846,7 +846,11 @@ static void rt2x00lib_rxdone_skb(struct queue_entry *entry)
+ 	rx_status->bw = rxdesc.bw;
+ 	rx_status->antenna = rt2x00dev->link.ant.active.rx;
+ 
+-	ieee80211_rx_ni(rt2x00dev->hw, entry->skb);
++	if (rt2x00dev->napi_dev)
++		ieee80211_rx_napi(rt2x00dev->hw, NULL, entry->skb,
++				  &rt2x00dev->napi);
++	else
++		ieee80211_rx_ni(rt2x00dev->hw, entry->skb);
+ }
+ 
+ void rt2x00lib_rxdone(struct queue_entry *entry, unsigned int len, gfp_t gfp)
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c b/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c
+index 4519a20a7f4bc..d11244a2c4f2e 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2x00usb.c
+@@ -341,10 +341,10 @@ static bool rt2x00usb_kick_tx_entry(struct queue_entry *entry, void *data)
+ /*
+  * RX data handlers.
+  */
+-static void rt2x00usb_work_rxdone(struct work_struct *work)
++static int rt2x00usb_poll_rxdone(struct napi_struct *napi, int budget)
+ {
+ 	struct rt2x00_dev *rt2x00dev =
+-	    container_of(work, struct rt2x00_dev, rxdone_work);
++	    container_of(napi, struct rt2x00_dev, napi);
+ 	struct queue_entry_priv_usb *entry_priv;
+ 	struct queue_entry *entry;
+ 	struct skb_frame_desc *skbdesc;
+@@ -368,8 +368,12 @@ static void rt2x00usb_work_rxdone(struct work_struct *work)
+ 		 */
+ 		entry_priv = entry->priv_data;
+ 		rt2x00lib_rxdone(entry, entry_priv->urb->actual_length,
+-				 GFP_KERNEL);
++				 GFP_ATOMIC);
+ 	}
++
++	napi_complete(napi);
++
++	return 0;
+ }
+ 
+ static void rt2x00usb_interrupt_rxdone(struct urb *urb)
+@@ -396,7 +400,7 @@ static void rt2x00usb_interrupt_rxdone(struct urb *urb)
+ 	/*
+ 	 * Schedule the delayed work for processing RX data
+ 	 */
+-	queue_work(rt2x00dev->workqueue, &rt2x00dev->rxdone_work);
++	napi_schedule(&rt2x00dev->napi);
+ }
+ 
+ static bool rt2x00usb_kick_rx_entry(struct queue_entry *entry, void *data)
+@@ -496,7 +500,7 @@ void rt2x00usb_flush_queue(struct data_queue *queue, bool drop)
+ 		completion = &queue->rt2x00dev->txdone_work;
+ 		break;
+ 	case QID_RX:
+-		completion = &queue->rt2x00dev->rxdone_work;
++		completion = NULL;
+ 		break;
+ 	default:
+ 		return;
+@@ -515,7 +519,13 @@ void rt2x00usb_flush_queue(struct data_queue *queue, bool drop)
+ 		 * Schedule the completion handler manually, when this
+ 		 * worker function runs, it should cleanup the queue.
+ 		 */
+-		queue_work(queue->rt2x00dev->workqueue, completion);
++		if (completion) {
++			queue_work(queue->rt2x00dev->workqueue, completion);
++		} else {
++			local_bh_disable();
++			napi_schedule(&queue->rt2x00dev->napi);
++			local_bh_enable();
++		}
+ 
+ 		/*
+ 		 * Wait for a little while to give the driver
+@@ -750,7 +760,7 @@ void rt2x00usb_uninitialize(struct rt2x00_dev *rt2x00dev)
+ 
+ 	usb_kill_anchored_urbs(rt2x00dev->anchor);
+ 	hrtimer_cancel(&rt2x00dev->txstatus_timer);
+-	cancel_work_sync(&rt2x00dev->rxdone_work);
++	napi_synchronize(&rt2x00dev->napi);
+ 	cancel_work_sync(&rt2x00dev->txdone_work);
+ 
+ 	queue_for_each(rt2x00dev, queue)
+@@ -758,6 +768,14 @@ void rt2x00usb_uninitialize(struct rt2x00_dev *rt2x00dev)
+ }
+ EXPORT_SYMBOL_GPL(rt2x00usb_uninitialize);
+ 
++static void rt2x00usb_free_napi(struct rt2x00_dev *rt2x00dev)
++{
++	napi_disable(&rt2x00dev->napi);
++	netif_napi_del(&rt2x00dev->napi);
++	free_netdev(rt2x00dev->napi_dev);
++	rt2x00dev->napi_dev = NULL;
++}
++
+ int rt2x00usb_probe(struct usb_interface *usb_intf,
+ 		    const struct rt2x00_ops *ops)
+ {
+@@ -801,9 +819,21 @@ int rt2x00usb_probe(struct usb_interface *usb_intf,
+ 
+ 	rt2x00_set_chip_intf(rt2x00dev, RT2X00_CHIP_INTF_USB);
+ 
+-	INIT_WORK(&rt2x00dev->rxdone_work, rt2x00usb_work_rxdone);
+ 	INIT_WORK(&rt2x00dev->txdone_work, rt2x00usb_work_txdone);
+ 
++	rt2x00dev->napi_dev = alloc_netdev_dummy(0);
++	if (!rt2x00dev->napi_dev) {
++		retval = -ENOMEM;
++		goto exit_free_hw;
++	}
++
++	strscpy(rt2x00dev->napi_dev->name, wiphy_name(hw->wiphy),
++		sizeof(rt2x00dev->napi_dev->name));
++	netif_napi_add(rt2x00dev->napi_dev, &rt2x00dev->napi,
++		       rt2x00usb_poll_rxdone);
++	netif_threaded_enable(rt2x00dev->napi_dev);
++	napi_enable(&rt2x00dev->napi);
++
+ 	init_usb_anchor(rt2x00dev->anchor);
+ 
+ 	retval = rt2x00lib_probe_dev(rt2x00dev);
+@@ -814,6 +844,8 @@ int rt2x00usb_probe(struct usb_interface *usb_intf,
+ 
+ exit_free_anchor:
+ 	usb_kill_anchored_urbs(rt2x00dev->anchor);
++	rt2x00usb_free_napi(rt2x00dev);
++exit_free_hw:
+ 	ieee80211_free_hw(hw);
+ 	usb_set_intfdata(usb_intf, NULL);
+ 
+@@ -830,6 +862,7 @@ void rt2x00usb_disconnect(struct usb_interface *usb_intf)
+ 	 * Free all allocated data.
+ 	 */
+ 	rt2x00lib_remove_dev(rt2x00dev);
++	rt2x00usb_free_napi(rt2x00dev);
+ 	ieee80211_free_hw(hw);
+ 
+ 	usb_set_intfdata(usb_intf, NULL);
 -- 
 2.53.0
 
