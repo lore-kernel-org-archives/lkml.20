@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793270666;
-	b=yR9AX6DRIpkGu5/OA3BIsUdLIqKUWKu9UfAAWOXuUAZF4F9w/C13GTEnuOxUakVgQyXr
-	 8KyDg5TAtWr/qHPirq7nIjpZ2DFP3DhztBqXnDVKbY9Cvd3Oqb5MC+CxBKUfpBS9rcW63
-	 0rl/0GorY0w/GhYXMSsGaI7q6uPvgysUllQDnMcsq2O9bXZopW9s3ZhUuiOSUAvzdkSMp
-	 zKj5dNg0EnaqBAB4I1ozAdmrKDbyQl5zo7H4NjyR96N3v+8JJDtVFZzRNBGw1jm9+Hrcu
-	 rmbvRhUlN49hPzl0PA+qgYGVgaE1wH6nKE0/LoIf6o8Mps6ILAeH1QtPbRNnNMZ+/kA==
+	t=1793270674;
+	b=HfdiCUTnpijQRZ9cIuwOc5hRtsFuSkgINXMedZZPoqLn3SOPn/8mrs82STVBS8QmATP3
+	 NsLqPuVK8bwfLLDBGRM+HYIi+TA4dW5ZC9yGPiS0bFdCraB5S6W2QDrmPHMjZYXMiapXt
+	 dMgRbXDezZaHQZsQMJ6MpkQgI8RYb6QRabvR7688WvQoKc1j7A46rJ7lBTNtKCTW7BO8s
+	 jU4LUlvW6wdX4bjAQ3ALEEdh9u6D3YSJBq3nzhGSoBO/DAxI2wDBamyTGSNTX+/Ks7IHd
+	 dMXvwjLN6/hRhkKrO+1p0Pxj7onYOM7dSdYpDuNhCAQUDWc9BeJG9eYxgYPvhZ08TRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793270666;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793270674;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=VOPqNjFIyNMjGQIVaFLnlrMyaON98XJ7uGf9Dl7Z5m8=;
-	b=NMzQueQuh6Sb47/rcp145EdgyIuR3VpKgukzU6sQVnBpkjv52F5MG+jHoMXj8b+lZ58Z
-	 qu1pK7u35WbYnSsbR87nbG7ssmxQ6dxxwo0vVNt5BkAh9MRXiWrB6Kt5hVHyC1OdpIU/d
-	 DeTg8t2QBGs0rG/vS0fDNwAljOfUp3DLXj6+2QBOZvtwhgRoxp/u7FoKx3dtEQYm+2cDn
-	 ZgvQPMohDJSAnVN1Vz7Cmszh8Kmt9XkUoHehIL9YQa8mVTjkL72qGj/QLNGnxSXLelYBe
-	 VOAN/56n+f7oVGyzAkGIecxsfMVzVdceFq0fejfebPVB/+Ik1GObOUje5+kUzV3VmHA==
+	bh=CIildARgeqLV5Iv54/CNVDjST3eNjwaUwngHh+RJ76o=;
+	b=VN45YeDfHvmz9vUu12UIEBk+dMK81Li3sYot1I7wy2W6Zp6Ouz49hki/vL7wJj0QkpTK
+	 LyyYbWtMX+V0ulM5oM0kZCUUl3fldtGceaHj5q83JveU+NZpJBwL+/ZpIr+7ciLN5f9e6
+	 bjbj6sBNK6TPr3nSAApuqYCy7J158uHtSAHSiNZD5UIcQrhi3laBgYxra+Ic18y19cveX
+	 Cx41ryfyA7BVLuIzl2BlQkOrPNpMYo9hRZhHC145kYePMXmMWwgkg8w8ugpwwbmqeohtQ
+	 XqJH1G4qbRu1K943zF3T2pUR5zSIzplYmpOprxdoCt8cFpbM9tqCdtIt2hvWodCPoCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Woa2OEJW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AymbEKu/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2544E606A31C;
-	Thu, 29 Oct 2026 10:44:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669EF606A327;
+	Thu, 29 Oct 2026 10:44:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Woa2OEJW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE52D1F031E2;
-	Thu, 29 Oct 2026 10:44:16 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AymbEKu/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389FA1F01829;
+	Thu, 29 Oct 2026 10:44:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793270665;
-	bh=VOPqNjFIyNMjGQIVaFLnlrMyaON98XJ7uGf9Dl7Z5m8=;
+	s=k20260515; t=1793270674;
+	bh=CIildARgeqLV5Iv54/CNVDjST3eNjwaUwngHh+RJ76o=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Woa2OEJWUIPj/92KA5rqxXr9SGac0Zt5MiPs89BmEf5bQ+4UXzu9ad1/4l5qTW6Bt
-	 45qhW6DRWDlZx12I4KR+YUVabee3R54XORAoZkdgDCO3YCuFyBXQSWED8bZv9Q47uj
-	 zqXjMYExLeGPXqm3iJeKhYSrLCTaXmgR7uyZ1jFWqcjTnD30shJy819wtM0tsuyBGi
-	 XbsX2I0yFQHnrvPvBrUjUkwa/WrGkoEjfBzFFiUyTHl5Hu4POWMiH4mISZS+o7acpr
-	 RCF3n8cJetkg0HYUIyyGu5prUbjUdDae2laimJX1w+VbfJ6kt7qEVIjSyrGwVx562n
-	 SHCmJv7qpQDuA==
+	b=AymbEKu/+O141aUXpFJESQYbVO4wuogMwXREBpJyzaJheRuB65aNLVGtrzRJi/VzO
+	 bE12Z6UlB10PYRTAOQsztIYgWy1igjPI8jnJkQUFqkhfNjcGkRLc/D4M0E/19WjV6n
+	 tVVXtBWvT4dkmpHXwnASIfsL00nzHR4ibLjuHCsaVNf0altwI4qCEsWJiI/JQKl33B
+	 RAsvjWT5rIZbdLkRtMRjQjxHfpsffbTpfSX3msFksDMdn73OqZU5ASa81krExVd19G
+	 e8OOgox3sShxjxE5XSQ/H+Cm6KVp3M8+YK+FkxzAFtIfzRe9oPkJ2d6wTM9ftD0mY2
+	 rr2XyAwxhd6Fw==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Thu, 29 Oct 2026 11:43:25 +0100
-Subject: [PATCH v4 04/15] mm/shmem: honour F_SEAL_EXEC when an ACL is set
+Date: Thu, 29 Oct 2026 11:43:26 +0100
+Subject: [PATCH v4 05/15] hugetlbfs: enforce F_SEAL_EXEC in setattr
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-fixes_shmem-v4-4-392fc715d8f6@kernel.org>
+Message-Id: <20261029-fixes_shmem-v4-5-392fc715d8f6@kernel.org>
 References: <20261029-fixes_shmem-v4-0-392fc715d8f6@kernel.org>
 In-Reply-To: <20261029-fixes_shmem-v4-0-392fc715d8f6@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -77,138 +77,71 @@ To: Andrew Morton <akpm@linux-foundation.org>,
  Naoya Horiguchi <nao.horiguchi@gmail.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>, 
- Chris Mason <mason@kernel.org>, stable@vger.kernel.org, 
- Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
- "Pratyush Yadav (Google)" <pratyush@kernel.org>
+ Eva Kurchatova <eva.kurchatova@virtuozzo.com>, stable@vger.kernel.org, 
+ Pedro Falcato <pfalcato@suse.de>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3914; i=david@kernel.org;
- h=from:subject:message-id; bh=UUa1z/yS1KDRKZLH0HFcy68dBr6sHCzKQLNyG+9aTfg=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeK4c5eU05eGOz4elDa27Mbdz0jLfg5YULz547ObGka
- 6w59Xr7g45SFgYxDgZZMUWWoOD7Bi9frqutduNjhpnDygQyhIGLUwAmYl7ByHBE42TAlZo7R0o+
- rllrG1/t1O3z6M3OyZ91pJn1jqvX71FlZDgtNataqFDoUq6M4RbjKw1KD+Zmhs61VAlZPjlaR+P
- lBEYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1864; i=david@kernel.org;
+ h=from:subject:message-id; bh=VibnqfVc/i5QlUy5RzJlhfYS1+yzH9kwQCXwNrw3dIY=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLIeK4d5XZxZu/ixY/Xmvrs8OkxhqziUz4at10y7P+Xxy
+ n+LpjSd6ShlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAit9gZ/mdfrP6WfvHudJHq
+ LZmZi3s3NnV+WfV3wd3MQ5IXF17O+KfA8E836l/mJq3fSrmVGa+ay46uFNuunXbjprXDt0f5JVv
+ /L2MHAA==
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-From: Chris Mason <mason@kernel.org>
+From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
 
-The owner of a memfd sealed with F_SEAL_EXEC can still change its
-execute bits by setting a POSIX access ACL. With CONFIG_TMPFS_POSIX_ACL,
-this lets an unprivileged owner make a non-executable memfd executable,
-bypassing vm.memfd_noexec=2.
+F_SEAL_EXEC is enforced by shmem_setattr(), but hugetlbfs_setattr() does
+not check it. As a result, fchmod() can change the execute bits of a
+sealed hugetlbfs memfd.
 
-simple_set_acl() updates i_mode directly, bypassing the seal check in
-shmem_setattr(). Add shmem_set_acl() to check the resulting mode. Share
-the F_SEAL_EXEC check with shmem_setattr() using memfd_check_seals_mode()
-in include/linux/memfd.h.
+Use memfd_check_seals_mode() in hugetlbfs_setattr() to reject changes
+to execute bits when F_SEAL_EXEC is set.
 
-Fix generated by an LLM and sent by Chris Mason in private.
+This also fixes the memfd_test hugetlbfs SEAL-EXEC subtest, where
+fchmod() incorrectly succeeded after applying F_SEAL_EXEC.
 
 Fixes: 6fd7353829ca ("mm/memfd: add F_SEAL_EXEC")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+Link: https://patch.msgid.link/20260629180247.2343229-1-eva.kurchatova@virtuozzo.com
 Acked-by: Pedro Falcato <pfalcato@suse.de>
 Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
 Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-[ david: use common helper; simplify description ]
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+[ david: use common helper; fixup Fixes:; check only regular files ]
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- include/linux/memfd.h |  9 +++++++++
- mm/shmem.c            | 35 ++++++++++++++++++++++++++++++-----
- 2 files changed, 39 insertions(+), 5 deletions(-)
+ fs/hugetlbfs/inode.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/include/linux/memfd.h b/include/linux/memfd.h
-index c159e40e3f34..272479317cf1 100644
---- a/include/linux/memfd.h
-+++ b/include/linux/memfd.h
-@@ -2,10 +2,19 @@
- #ifndef __LINUX_MEMFD_H
- #define __LINUX_MEMFD_H
- 
-+#include <linux/fcntl.h>
- #include <linux/file.h>
- 
- #define MEMFD_ANON_NAME "[memfd]"
- 
-+static inline int memfd_check_seals_mode(unsigned int seals, umode_t old_mode,
-+		umode_t new_mode)
-+{
-+	if ((seals & F_SEAL_EXEC) && ((old_mode ^ new_mode) & 0111))
-+		return -EPERM;
-+	return 0;
-+}
-+
- #ifdef CONFIG_MEMFD_CREATE
- extern long memfd_fcntl(struct file *file, unsigned int cmd, unsigned int arg);
- struct folio *memfd_alloc_folio(struct file *memfd, pgoff_t idx);
-diff --git a/mm/shmem.c b/mm/shmem.c
-index af21a89abb0f..6df0237832c0 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -77,6 +77,7 @@ static struct vfsmount *shm_mnt __ro_after_init;
- #include <linux/magic.h>
- #include <linux/syscalls.h>
- #include <linux/fcntl.h>
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 01c4d6f44ebe..02e0a65d596d 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -28,6 +28,7 @@
+ #include <linux/folio_batch.h>
+ #include <linux/fs_parser.h>
+ #include <linux/mman.h>
 +#include <linux/memfd.h>
- #include <uapi/linux/memfd.h>
- #include <linux/rmap.h>
- #include <linux/uuid.h>
-@@ -1546,10 +1547,11 @@ static int shmem_setattr(const struct mnt_idmap *idmap,
+ #include <linux/slab.h>
+ #include <linux/dnotify.h>
+ #include <linux/statfs.h>
+@@ -840,6 +841,13 @@ static int hugetlbfs_setattr(const struct mnt_idmap *idmap,
  	if (error)
  		return error;
  
--	if ((info->seals & F_SEAL_EXEC) && (attr->ia_valid & ATTR_MODE)) {
--		if ((inode->i_mode ^ attr->ia_mode) & 0111) {
--			return -EPERM;
--		}
-+	if (attr->ia_valid & ATTR_MODE) {
++	if (S_ISREG(inode->i_mode) && (ia_valid & ATTR_MODE)) {
 +		error = memfd_check_seals_mode(info->seals, inode->i_mode,
 +					       attr->ia_mode);
 +		if (error)
 +			return error;
- 	}
- 
- 	if (S_ISREG(inode->i_mode) && (attr->ia_valid & ATTR_SIZE)) {
-@@ -5404,12 +5406,35 @@ static const struct file_operations shmem_file_operations = {
- #endif
- };
- 
-+#ifdef CONFIG_TMPFS_POSIX_ACL
-+static int shmem_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
-+		struct posix_acl *acl, int type)
-+{
-+	struct inode *inode = d_inode(dentry);
-+	umode_t mode = inode->i_mode;
-+	int error;
-+
-+	if (type == ACL_TYPE_ACCESS) {
-+		error = posix_acl_equiv_mode(acl, &mode);
-+		if (error < 0)
-+			return error;
-+		error = memfd_check_seals_mode(SHMEM_I(inode)->seals,
-+					       inode->i_mode, mode);
-+		if (error)
-+			return error;
 +	}
-+	return simple_set_acl(idmap, dentry, acl, type);
-+}
-+#else
-+#define shmem_set_acl simple_set_acl
-+#endif
 +
- static const struct inode_operations shmem_inode_operations = {
- 	.getattr	= shmem_getattr,
- 	.setattr	= shmem_setattr,
- #ifdef CONFIG_TMPFS_XATTR
- 	.listxattr	= shmem_listxattr,
--	.set_acl	= simple_set_acl,
-+	.set_acl	= shmem_set_acl,
- 	.fileattr_get	= shmem_fileattr_get,
- 	.fileattr_set	= shmem_fileattr_set,
- #endif
+ 	trace_hugetlbfs_setattr(inode, dentry, attr);
+ 
+ 	if (ia_valid & ATTR_SIZE) {
 
 -- 
 2.43.0
