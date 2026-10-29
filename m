@@ -1,77 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.233.34.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.81.229.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793265762;
-	b=z62UXctMb4Q6DctbFQHXaUHhrv9Co/PyWx/uaUpRf8ibm0v1fuhTYOeO0JreHTiavEQy
-	 zMPT+9XJXLlV0GZqSq3BR15d5m5HXnkvb+ISwaKS6ZUyTsTzxgvfOz6wVUnaqbopHIIZA
-	 OWAUQ8hxr2WsGAumiH+vXvG4XuThmEXnh3kpK6Y4Se+YvEergQg1mYq404m6tY56EbZyZ
-	 BFM6Lf7Bprp09R8ZrKLpbjeQ93CPjpi5NlL1sT/hxX8ZF9MQTGcj7BRiZ5YcjgW/DOD3v
-	 QPAyf5Hc+5zSDMNMKw+NI5Pj5/Q6bzWvnNtbqn5p+MRKsyQe5FhkVrTmDjMjdisgeog==
+	t=1793265786;
+	b=xV9DJobInAkt0YGcLdPDUl/zK/e+sroxFy5ZqMfXxehPn68fdLnkRUyJ0J4Yz6f8y5nb
+	 erZHYUArrl+Jez1eVgQxS+8sPYK69Xftj1I9alyTa4rgT80V0Iyrf6e9xEVzUfmrSTcFV
+	 dqIm2iiSDbEpAKlIyC8FiAV7PnCz+Qpyq+ZjN4iaCkfcLBy5Kr/ha7enNBKwQ+Dzjwg1D
+	 g+TJasHJzJL+dtGYP2Oxy7wJ/EdKYUQpl8PNdBP2kugMIhEg6po2B1o5s/ccddKi96QTx
+	 IhLqfJvsLL7N4UD0D6VmloTdtYFh8b5cnsP/Ad+uNSPqTGxah2N/0se3K+VADwn3kJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793265762;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:X-CM-Envelope:
-	 X-Soverin-Id:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Spampanel-Class;
-	bh=lmBuoMUfPtdILzvdThWk+I2StXUMo6PgR05OK0TYJQ4=;
-	b=w1xPIeRs8zpfmLoOaV93bu+u56PSV5jVry8iPpLAjPaSRqxH/lSPtBeb9isUmr/7u1Ke
-	 /g5rpTUZRH0Wvttix3umnbB+b88VvceJFzcOU7uqLKrXoR5Zk1SSnZNhgfjbIjZDO6NBC
-	 JDXj3dFLInVKsQLAQWEF412PXyc/SEomi+3yeS+sVBLBLBXHrIsnV0RAv1C29fFGv+fAf
-	 5NWy9MLMurz+QfDuJWH/IHFRZWZGqgPZAOCKdubFNliLXtvh1xJqNfRnJ3dsFfM2ZF8gl
-	 8DoekMmP1NkfkdDGUAo1sVD12ygU4mmLaQLvL9SXx8QaimaD8Ly3McSjMvUuiTh2pFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793265786;
+	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
+	 Subject:From:In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:
+	 References:To;
+	bh=tjfAbDDo8h+t2m7Oll5N9+sjj2zGWKROZ1OXhj5/7js=;
+	b=P9Vfg+WrHPxv0BemSJ+FkQ0gIaHlkeT39HXcq+j8HVbwBKBxwUTgjDQbinuo/BnGPMbt
+	 cQCbVOHjZVirJ4JffioGgBakkGy6LTSx6sLXI0/56a3uLDfuTtpqEsNuiTMCmGJ7fYASI
+	 kBG8auHjL3u63aOYQ8HYzJv6HybbmI2LBDeOdWPprcQscAngEG0ftJJxL58wr9RFBE244
+	 ltbh8Rr2uVqkAqZjDPO1dOPa4jx35lUzu5kbYE+X2bjyXVzb442hJb/P3NI+dqla0lHjb
+	 3qyFTG4RtgqCrfMG9bk04xOEshBTBM/APpN4csYxJFaxnskvejFW+BEJwDYSPqGzXZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=blackstar.nl;
-	spf=pass smtp.mailfrom=blackstar.nl;
-	dkim=pass header.d=blackstar.nl header.i=@blackstar.nl header.a=rsa-sha256 header.s=soverin header.b=Xp9mItBp;
-	arc=none smtp.remote-ip=185.233.34.18
-Received: from outbound.soverin.net (outbound.soverin.net [185.233.34.18])
+	dmarc=pass header.from=chaosmail.tech;
+	spf=pass smtp.mailfrom=chaosmail.tech;
+	dkim=pass header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=yL2lDRgC;
+	arc=none smtp.remote-ip=77.81.229.115
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AAFF606A31C;
-	Thu, 29 Oct 2026 09:22:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AAFF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=blackstar.nl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blackstar.nl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A7D606A321;
+	Thu, 29 Oct 2026 09:23:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01A7D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=blackstar.nl header.i=@blackstar.nl header.a=rsa-sha256 header.s=soverin header.b=Xp9mItBp
-Received: from smtp.freedom.nl (unknown [10.103.10.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by outbound.soverin.net (Postfix) with ESMTPS id 4jFdzq0gk6z1NH0;
-	Thu, 29 Oct 2026 09:22:31 +0000 (UTC)
-Received: from smtp.freedom.nl (smtp.freedom.nl [10.103.10.152]) by freedom.nl (Postfix) with ESMTPSA id 4jFdzp5lKJz1DBX;
-	Thu, 29 Oct 2026 09:22:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=blackstar.nl;
-	s=soverin; t=1793265751;
-	bh=mPcH9yUJR8Lq6Viwwx8vM8rEwIePxRgjFV0ZYkyNql4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Xp9mItBpjh/pxgWpegBfAurtunamUF70aud0SJXY9Su4c+7JsT/e8y/cqUeqKd+WU
-	 p57x/IAFLS+azpdboKNGY0uxbYhS3pvlYBzWoKSspz7CS3xwAuh93FrsqhVj8suk9/
-	 sFFCD8XHHlFURy1WeXSGryw/gmpKvoiRiC15Icdy3SCl7BKmiROPBfRYd24bFpWzl0
-	 7x31PUXCncoy0PBd8k+G/BYabWRez5vORbqned7QVLs6NOOdEDJ0CNjWoOIlnC1e7G
-	 qgebL2cSyRgA3CZKbJofmA7zfYvRAVVbMHmSx1u1Ug/eHlXrO//HzQJHiNMW/8rdpq
-	 fSIDE0ig6Iu9A==
-X-CM-Envelope: MS4xfMVHYTJlhsrIp3dayFAJ3bdUU8/zYSur98eWcaQArq5n3dIy5cT3GmElwlcF0CZwaDmoiVrHOC4X7Y+eNno2nm2LxBbzj6+glBi0ALh20Iq1ZEPu4pnt aEtV9HJ39eO1tmeyKJ8cgSFehOjFn+FEfovV4DU9VF3bYnckXaDoavC0D4mcXAhTFSFK6JZL7tj3h5fKNiwNRwjwunif7636U3QX0oxMlRZuJSC0yCjYwWfS km3XEDhpGtRSBIpSewYboplHIPVQvYRv5kUfVck7EMjD4CYRxGOEyxkEZ6bj/Tx9F/BxMNlL+62KmsXwVvbSfVXJr9QNEb0+89tnVPtFmooP6tgLdTd8soJi YA4FZoSnlbxiH0U2BkmqMD++I5qQaGenpfi1/kxEVW8sHCQndU+urRLHzBFT/Xb7dvBf06jKNTi6jvGG3KfryjhaCsvyjwfNAKW2GZmnHex+ejxtPahMxE0e Cquv5lHigwcW2heGXACdzbe/mfSe7xO/8ymECn2X1Izf0kTcgA1fOE/6aYP9/undzFzE9Hw+Frk2B26n+13y3NLbh6ZenVmCrkcF7Q==
-X-Soverin-Id: 01a186f7-cff0-7f6d-b1a2-6ab1d5091462
-Received: from blackstar.nl (m17r5.blackstar.nl [192.168.3.127])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.blackstar.nl (Postfix) with ESMTPS id 1C5CA3FA91;
-	Thu, 29 Oct 2026 10:22:30 +0100 (CET)
-Date: Thu, 29 Oct 2026 10:22:30 +0100
-From: Bas Vermeulen <bas.vermeulen@blackstar.nl>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Lee Jones <lee@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
-	Damon Ding <damon.ding@rock-chips.com>, kernel@collabora.com,
-	linux-pwm@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 3/6] pwm: Add rockchip PWMv4 driver
-Message-ID: <auMQVkm3liY6C2GU@blackstar.nl>
-References: <20260420-rk3576-pwm-v5-0-ae7cfbbe5427@collabora.com>
- <20260420-rk3576-pwm-v5-3-ae7cfbbe5427@collabora.com>
+	dkim=pass (1024-bit key, unprotected) header.d=chaosmail.tech header.i=@chaosmail.tech header.a=rsa-sha256 header.s=mail header.b=yL2lDRgC
+Received: by chaosmail.tech (Postfix) id 0122E1C87C3;
+	Thu, 29 Oct 2026 09:22:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1793265776;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tjfAbDDo8h+t2m7Oll5N9+sjj2zGWKROZ1OXhj5/7js=;
+	b=yL2lDRgCJDJpaZDz8pZYltehrxUJx2mB+TmBFD943/OHPwTRwWms3JeGoZZCx75H9dN9TB
+	U9YD8Ti7GkEr4GTe1Eao9vIg9GWutDjjVcKfHlF1Me/XLMdJEgAXiDGW7GzXlVJSwMVyYQ
+	9XzUrTModweKsYsUaE6CyFELP3+Mng8=
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,64 +56,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260420-rk3576-pwm-v5-3-ae7cfbbe5427@collabora.com>
-X-Spampanel-Class: ham
+Subject: Re: [RFC PATCH 14/14] mfd/macsmc: add ioctl to access smc keys
+From: Sasha Finkelstein <k@chaosmail.tech>
+In-Reply-To: <20261029085504.3547-15-atharvatiwarilinuxdev@gmail.com>
+Date: Thu, 29 Oct 2026 10:22:43 +0100
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Len Brown <lenb@kernel.org>,
+ Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Sven Peter <sven@kernel.org>,
+ Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>,
+ Guenter Roeck <linux@roeck-us.net>,
+ Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ =?utf-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>,
+ Griffin Kroah-Hartman <griffin@kroah.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Sebastian Reichel <sre@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Jarkko Sakkinen <jarkko@kernel.org>,
+ Mimi Zohar <zohar@linux.ibm.com>,
+ Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+ Eric Snowberg <eric.snowberg@oracle.com>,
+ Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>,
+ linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org,
+ linux-acpi@vger.kernel.org,
+ linux-gpio@vger.kernel.org,
+ asahi@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org,
+ linux-hwmon@vger.kernel.org,
+ mfd@lists.linux.dev,
+ platform-driver-x86@vger.kernel.org,
+ linux-pm@vger.kernel.org,
+ linux-rtc@vger.kernel.org,
+ linux-watchdog@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <525E5B4D-A947-4567-9FCD-5FFF2CA8B161@chaosmail.tech>
+References: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
+ <20261029085504.3547-15-atharvatiwarilinuxdev@gmail.com>
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
 
-Hi Nicolas,
+On Oct 29, 2026, at 09:52, Atharva Tiwari =
+<atharvatiwarilinuxdev@gmail.com> wrote:
+>=20
+> Add a /dev/smc device so userspace can talk to the SMC
+> directly.=20
 
-On Mon, Apr 20, 2026 at 06:52:40 PDT, Nicolas Frattaroli wrote:
-> The Rockchip RK3576 brings with it a new PWM IP, in downstream code
-> referred to as "v4". This new IP is different enough from the previous
-> Rockchip IP that I felt it necessary to add a new driver for it, instead
-> of shoehorning it in the old one.
+This should either be dropped from the series, or be hidden behind a
+`melt_my_mac`-style module flag, or switched to a whitelist approach.
+We do not know what keys will be introduced in new smc firmware
+versions, and there are already keys that should not be randomly poked
+at.
 
-The same IP block is in the RK3506 (Cortex-A7, arm32), where I am
-carrying this series on top of 7.3. It works there, driving a PWM
-backlight and a pwm-regulator for the core voltage, but two things in
-this patch need adjusting for it to build on a 32-bit kernel and on
-current mainline:
 
-> +	if (rate) {
-> +		wf->period_length_ns = DIV_ROUND_UP((u64)wfhw->period * NSEC_PER_SEC, rate);
-> +		wf->duty_length_ns = DIV_ROUND_UP((u64)wfhw->duty * NSEC_PER_SEC, rate);
-> +		wf->duty_offset_ns = DIV_ROUND_UP((u64)wfhw->offset * NSEC_PER_SEC, rate);
-
-DIV_ROUND_UP() with a u64 numerator is a plain 64-bit division, which on
-arm32 becomes a call to __aeabi_uldivmod that the kernel does not
-provide:
-
-  pwm-rockchip-v4.o: undefined reference to `__aeabi_uldivmod'
-
-DIV_ROUND_UP_ULL() goes through div_u64() and works on both:
-
--		wf->period_length_ns = DIV_ROUND_UP((u64)wfhw->period * NSEC_PER_SEC, rate);
--		wf->duty_length_ns = DIV_ROUND_UP((u64)wfhw->duty * NSEC_PER_SEC, rate);
--		wf->duty_offset_ns = DIV_ROUND_UP((u64)wfhw->offset * NSEC_PER_SEC, rate);
-+		wf->period_length_ns = DIV_ROUND_UP_ULL((u64)wfhw->period * NSEC_PER_SEC, rate);
-+		wf->duty_length_ns = DIV_ROUND_UP_ULL((u64)wfhw->duty * NSEC_PER_SEC, rate);
-+		wf->duty_offset_ns = DIV_ROUND_UP_ULL((u64)wfhw->offset * NSEC_PER_SEC, rate);
-
-Since MFD_ROCKCHIP_MFPWM allows COMPILE_TEST this will also show up in
-32-bit allmodconfig builds.
-
-> +	/*
-> +	 * For referencing the PWM in the DT to work, we need the parent MFD
-> +	 * device's OF node.
-> +	 */
-> +	dev->of_node_reused = true;
-
-struct device no longer has that member: since 7.2 the flag lives in
-the device flag word (commit 4aca5e62f37d "driver core: Replace
-dev->of_node_reused with dev_of_node_reused()"), so this does not compile
-against current mainline. The accessor is:
-
--	dev->of_node_reused = true;
-+	dev_set_of_node_reused(dev);
-
-With those two changes the driver builds and runs on the RK3506 with
-7.3.y; happy to add a Tested-by for that if useful.
-
-Regards,
-Bas
