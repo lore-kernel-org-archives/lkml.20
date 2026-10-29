@@ -1,57 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793259366;
-	b=tYrblb8JsWZU1+jZxSLqUrJyEjHzZf+7hPWIFJH4XEwk84UHRAVbWQz0mkqBD546ozPY
-	 pCvfxP3Zb4UEIOW5F8x+NrLmfckErGjtfIDe4XPW3ccSSQV1LjJi/PwnNxcb5N/2UFROI
-	 DMQkF+6rC4gb/kFbQpJJIgSyiP+AFMlam+b/Cx67b9tKM8YS/V+zP8SHlWz//XF2lzJpl
-	 U8nrqG3eqe848BSclLe1aAZSQxu3NYyGThV2auLDZdXo0WmspvLZOPy/0UR5CBKYhLpXt
-	 gtZ8/S0dXAJrJ9N7sIIdgOOHhLBnHeaNu/auaFNH84B5U3VhUYjQrwzFbTQH+p4tZew==
+	t=1793259368;
+	b=zfC1SdMg7MlIbg04hWgZjQpKzS/Ait4PNaKVSIqkS0q6/47E6P1YkAo/Gf2iZOtAzQUB
+	 m2NnrEA7hZ/Hv0d/1TpLXkCn29/zu3Zl1CivYzlZIbr9zalBzgu8uWKINW0TdpDodfK68
+	 6WoctUcUmrAKfN/yc79P3kvG2t3UjzhZ1gBXgdO1snlHSAxgb3egg93Ww/2tCuMbMFlP0
+	 5kk7mXOs40PvNPbqZB5SFD6+imv/1ivr2DbpIx7tA8aSWbtDQNc5N5C944a3Dwb61GSj5
+	 8Jzg7WruHRo2teJtBT7b8/ApybvnsNd3i9HmAMT9DgwHs+NP1wSkLPmBbaBAJm6qNcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793259366;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=9dgPrzh36HQtv2U6nKZiCZt5EekKbvtdQUbtKRXTdTM=;
-	b=q9hmrtawHYYW97s9EmUl3+Slmz0fNS1WlVUrEn1ybSN0TJ2egu6ZnZKvUeE5kVmOqpPH
-	 GminU5KPvbg5baqvrJHYm+ZgqmEiosZK8kuNMvsl2fF9+0RhmxjRHs9uAeu3+wAv/TeVb
-	 c+kbI8ECLzG0EAYHKaKYl4MpWVHDjHv3gT9ZQhBGTTpKnEjaTj5UKNThUgjUJ9oBz0N6i
-	 2T6IkGzorbCsYv4+90KfTq0WMMX4RdM95SUj0vo10+5YQ+ZvFDyUCXw+5KYDakxovXgUi
-	 YraRej/4ppprY9f6W4KM+Vl7hCTdJ4C7RpVVlerPgDbqkILAGhga4LIyUSpb3jaefmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793259368;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=0gBUd5jJHGj2LvC1m8ir7f7MkneqJ2TxhRwTgxUGW4s=;
+	b=qdZv5mhGx2RjBHA+EJdL4DhNlMA2WSW3N0cgG54ZOiY75mdOT+a1xfCbx4gydDuVxP0T
+	 xDE6Hw4UG8BHCN58YGTGASNJ1Vu0KmqTT5r8UjrGA2Qapg7aylPusxeiQir7AFLsnb3N+
+	 99iUo8Dh8xEFM4m85HKvnLAn6aZjnZeYkRXyi3aP7gFTW64muY8Ln7ba21mV01bJS0YWW
+	 fKJf7erQUXSIJUNdjLJLbFhIwSayPn4QhzIWIIHNiQTF0ZG1ZGw3Vpkybqq7XNO9t6RBF
+	 y1lDKEEqtemDYDbGo2R3fYcI4kKch3nfn1AZpRNO63qo7ee8bya+k4DUtgF4vvactcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RlniipXP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEnPCkwA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F66A606A31A;
-	Thu, 29 Oct 2026 07:36:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB738606A320;
+	Thu, 29 Oct 2026 07:36:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RlniipXP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DF691F01828;
-	Thu, 29 Oct 2026 07:36:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YEnPCkwA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FE051F01825;
+	Thu, 29 Oct 2026 07:36:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793259366;
-	bh=9dgPrzh36HQtv2U6nKZiCZt5EekKbvtdQUbtKRXTdTM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RlniipXPmaOyUi70du+qvaRbwBOIswMw3dOa4xGE/Vt01/p2tKyD45/C9VClVCD4G
-	 u5iWY38pC3Rgo+3UKvhRsYZxxiLmbmxFQvNYghBCjWBNRUCyIg3zLCGX/ccA7wnFMY
-	 N/H7muFCIAwdYbrEvubfmseVYUQRDEzF8RftBZj8CtseBzMIlX0Ebd0Dd3rpk4EsVl
-	 gExY+cRrOiqKcB3yMiFvoT3LrE4UghOHC3B8aD+4YM/KNhk5gny0gDOys9RVrfWeS8
-	 OScVqm2GwuCqYiBVzKLBSb4pLhPi+/ZzInFaJxSpg+ANittbziepEsF2ZPZThPprkp
-	 gogFu+44UA0mQ==
-Date: Thu, 29 Oct 2026 08:36:02 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gregory CLEMENT <gregory.clement@bootlin.com>
-Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
-	=?utf-8?Q?Beno=C3=AEt?= Monin <benoit.monin@bootlin.com>, =?utf-8?B?VGjDqW8=?= Lebrun <theo.lebrun@bootlin.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 3/4] MIPS: dts: eyeq5: add MSI controllers
-Message-ID: <20261029-guan-of-radical-reverence-6346b4@quoll>
-References: <20261028-eyeq5_msi-v1-0-c464752fb55f@bootlin.com>
- <20261028-eyeq5_msi-v1-3-c464752fb55f@bootlin.com>
+	s=k20260515; t=1793259367;
+	bh=0gBUd5jJHGj2LvC1m8ir7f7MkneqJ2TxhRwTgxUGW4s=;
+	h=From:Date:Subject:To:Cc;
+	b=YEnPCkwAU2o1DTOBBoPs8ZS3s6493xl3T1xVf7fVU0LBDzMU7LFXmXZMmgcFZD35W
+	 wV0Iq7lYIhKBNjeiBm+AfAg4wFiAxJw18IO+1LRrCPLnKQ+XbFcfgkpPQlFnqSBBE6
+	 x8cso0m9D2/iv0/2jFlmUHVlDENej0MvwAh5owg4LEbovxjCnTYtL+uekLgROYvDGL
+	 4IRgf0T3rofH6gpPn0e1gMbpz0HAQ6r9vQKFZhdPe9RnEk/DQsfk7UeusdAzUAYwOm
+	 0RBKYq1Go5/jBkYwWDeLNaH7GqNJKVqxCzk5gx5tcjVndgMVroRM6ObucLraFX6f9/
+	 oZ9BV411ONL7A==
+From: Eugen Hristev <ehristev@kernel.org>
+Date: Thu, 29 Oct 2026 09:25:19 +0200
+Subject: [PATCH] PCI: iproc: Fix MSI shutdown operations
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,59 +52,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261028-eyeq5_msi-v1-3-c464752fb55f@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-iproc-shutdown-v1-1-05f828561116@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAN704moC/yXMOQqAMBBA0avI1AZiBEGvIhZZRh2LRDJuELy7U
+ ctX/J+AMRIydEWCiAcxBZ9RlQXYWfsJBblsUFI1lVStoDUGK3jeNxdOL7QxxmItldMacrRGHOn
+ 6hv3wm3ezoN3eC9z3A1e4wtNyAAAA
+X-Change-ID: 20261029-iproc-shutdown-abbbce302daa
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Ray Jui <rjui@broadcom.com>, 
+ Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Marc Zyngier <maz@kernel.org>, Vikram Prakash <vikramp@broadcom.com>
+Cc: Anup Patel <anup.patel@broadcom.com>, linux-pci@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Eugen Hristev <ehristev@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2980; i=ehristev@kernel.org;
+ h=from:subject:message-id; bh=e5i4rIOHYC9b5xjEEnkOG0yjqcJV2VKbsARhJj7+xXg=;
+ b=owGbwMvMwCXWkjcnuXne3fmMp9WSGLIefY8vLihv/frkyqmaySpJRtLzut+4mM5RenRkzcJfk
+ R8aatnudJSwMIhxMciKKbJUm/yrFe7f4X7S1VIFZg4rE8gQBi5OAZhIgyMjQ5v/ndtBcqW17+be
+ mHlir6L0O/N/H5pm93+bcP+4zOVfctsYvukFLTzJ9q+Gz+iMx56yXUKPv0ppzZ7A0lWytdcxpHc
+ rPwA=
+X-Developer-Key: i=ehristev@kernel.org; a=openpgp;
+ fpr=AB184498D27A77B65D7852C81EB31E020EAC2FC8
 
-On Wed, Oct 28, 2026 at 04:58:50PM +0100, Gregory CLEMENT wrote:
-> Add the two EyeQ5 MSI controllers. They use reserved-memory regions as
-> their doorbell windows.
-> 
-> Signed-off-by: Gregory CLEMENT <gregory.clement@bootlin.com>
-> ---
->  arch/mips/boot/dts/mobileye/eyeq5.dtsi | 30 ++++++++++++++++++++++++++++++
->  1 file changed, 30 insertions(+)
-> 
-> diff --git a/arch/mips/boot/dts/mobileye/eyeq5.dtsi b/arch/mips/boot/dts/mobileye/eyeq5.dtsi
-> index cec5ad8752285..be5239d890239 100644
-> --- a/arch/mips/boot/dts/mobileye/eyeq5.dtsi
-> +++ b/arch/mips/boot/dts/mobileye/eyeq5.dtsi
-> @@ -309,6 +309,36 @@ gpio1: gpio@1500000 {
->  			resets = <&olb 0 26>;
->  		};
->  
-> +		msi0: msi-controller@5840000 {
-> +			compatible = "mobileye,eyeq5-msi";
-> +			reg =	<0x0 0x05840000 0x0 0x10>,
-> +				<0x0 0x05840040 0x0 0x20>;
-> +			label = "port0-msi";
-> +			interrupt-parent = <&gic>;
-> +			interrupt-controller;
-> +			#interrupt-cells = <1>;
-> +			msi-controller;
-> +			#msi-cells = <0>;
-> +			interrupts =  <GIC_SHARED 7 IRQ_TYPE_LEVEL_HIGH>;
-> +			memory-region =	<&pci0_msi_reserved>;
-> +			num-vectors = <4>;
-> +		};
-> +
-> +		msi1: msi-controller@5840010 {
-> +			compatible = "mobileye,eyeq5-msi";
-> +			reg = <0x0 0x05840010 0x0 0x10>,
-> +				<0x0 0x05840060 0x0 0x20>;
-> +			label = "port1-msi";
-> +			interrupt-parent = <&gic>;
-> +			interrupt-controller;
-> +			#interrupt-cells = <1>;
-> +			msi-controller;
-> +			#msi-cells = <0>;
-> +			interrupts =  <GIC_SHARED 48 IRQ_TYPE_LEVEL_HIGH>;
-> +			memory-region =	<&pci1_msi_reserved>;
-> +			num-vectors = <4>;
+On reboot, shutting down iPROC leaves MSI irqs enabled and not
+cleaned up. This can lead to IRQs being served after the iPROC
+was shutdown.
+Fix it by implementing an MSI shutdown procedure, and call it
+before the iPROC shutdown.
 
-Continuing my question from the binding - all of the devices have four
-vectors, so why do you need the property?
+Assisted-by: Github Copilot
+Fixes: 3bc2b2348835 ("PCI: iproc: Add iProc PCIe MSI support")
+Signed-off-by: Eugen Hristev <ehristev@kernel.org>
+---
+ drivers/pci/controller/pcie-iproc-msi.c | 16 ++++++++++++++++
+ drivers/pci/controller/pcie-iproc.c     |  3 +++
+ drivers/pci/controller/pcie-iproc.h     |  4 ++++
+ 3 files changed, 23 insertions(+)
+
+diff --git a/drivers/pci/controller/pcie-iproc-msi.c b/drivers/pci/controller/pcie-iproc-msi.c
+index 9ba242ab9596..1d19db67f314 100644
+--- a/drivers/pci/controller/pcie-iproc-msi.c
++++ b/drivers/pci/controller/pcie-iproc-msi.c
+@@ -651,6 +651,22 @@ int iproc_msi_init(struct iproc_pcie *pcie, struct device_node *node)
+ }
+ EXPORT_SYMBOL(iproc_msi_init);
+ 
++void iproc_msi_shutdown(struct iproc_pcie *pcie)
++{
++	struct iproc_msi *msi = pcie->msi;
++	unsigned int index;
++
++	if (!msi)
++		return;
++
++	iproc_msi_disable(msi);
++	iproc_msi_read_reg(msi, IPROC_MSI_CTRL, msi->nr_irqs - 1);
++
++	for (index = 0; index < msi->nr_irqs; index++)
++		disable_irq(msi->grps[index].gic_irq);
++}
++EXPORT_SYMBOL(iproc_msi_shutdown);
++
+ void iproc_msi_exit(struct iproc_pcie *pcie)
+ {
+ 	struct iproc_msi *msi = pcie->msi;
+diff --git a/drivers/pci/controller/pcie-iproc.c b/drivers/pci/controller/pcie-iproc.c
+index afb3aa38ac6b..6f3dc2f81a1c 100644
+--- a/drivers/pci/controller/pcie-iproc.c
++++ b/drivers/pci/controller/pcie-iproc.c
+@@ -756,8 +756,11 @@ static void iproc_pcie_perst_ctrl(struct iproc_pcie *pcie, bool assert)
+ 
+ int iproc_pcie_shutdown(struct iproc_pcie *pcie)
+ {
++	dev_dbg(pcie->dev, "quiescing MSI before PCIe reset\n");
++	iproc_msi_shutdown(pcie);
+ 	iproc_pcie_perst_ctrl(pcie, true);
+ 	msleep(500);
++	dev_dbg(pcie->dev, "PCIe shutdown complete\n");
+ 
+ 	return 0;
+ }
+diff --git a/drivers/pci/controller/pcie-iproc.h b/drivers/pci/controller/pcie-iproc.h
+index c4443f236ca3..54e6e365774e 100644
+--- a/drivers/pci/controller/pcie-iproc.h
++++ b/drivers/pci/controller/pcie-iproc.h
+@@ -114,6 +114,7 @@ int iproc_pcie_shutdown(struct iproc_pcie *pcie);
+ 
+ #ifdef CONFIG_PCIE_IPROC_MSI
+ int iproc_msi_init(struct iproc_pcie *pcie, struct device_node *node);
++void iproc_msi_shutdown(struct iproc_pcie *pcie);
+ void iproc_msi_exit(struct iproc_pcie *pcie);
+ #else
+ static inline int iproc_msi_init(struct iproc_pcie *pcie,
+@@ -121,6 +122,9 @@ static inline int iproc_msi_init(struct iproc_pcie *pcie,
+ {
+ 	return -ENODEV;
+ }
++static inline void iproc_msi_shutdown(struct iproc_pcie *pcie)
++{
++}
+ static inline void iproc_msi_exit(struct iproc_pcie *pcie)
+ {
+ }
+
+---
+base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
+change-id: 20261029-iproc-shutdown-abbbce302daa
 
 Best regards,
-Krzysztof
+--  
+Eugen Hristev <ehristev@kernel.org>
 
