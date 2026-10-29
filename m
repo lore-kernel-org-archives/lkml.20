@@ -1,75 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793292876;
-	b=CC6880ZWp9EHb5MSk1xxd30tvWKwIa+3uOUqRNlBq4b9JvWG2COxsYeqsvwAtI8vSyBI
-	 AndAUGJTmKMvCOn4nlbJTEAhrVuoeyacMvuZxLMvunecRedqaWy2lAoG5VAVrQnH3L8vJ
-	 fAfpgieEcc+neUWCF0Tl+jI1FnYHRCry/CL90KJTWYtAC1YZ6e7A38WH8YZ63UsdPCWm6
-	 nB/br8Sc6ninu2F0e/N2BWZA3GNAWZfhliEwGMYfJBaBuwZm3ocL9sctRb55NtHjwPtwS
-	 QxEL4UlT7+2O32M0vCnGJRtsrflueq7z5DLasrED46+hO2VW5ZbBwGW9f8JEyDmxHXQ==
+	t=1793292866;
+	b=eFVB15Rxn2vgQqA2xnRil2W6QP6/sL1vY65uZJ5j4YN9Tv0W2pvkRamwA7ewdPfhnT0i
+	 uuGrF0xz39wRh2U9ZvqapaG9zoNL6F6eunki7amqkgg7Y2FcfkWErBYjmDgzDaZbfNU5e
+	 MDehz5vVJS/SU1E7MJV88bfOeDBT7mMNm8QRe4W/1Ya5tn2XlBALPMbOGookTsBCq9Tct
+	 dCvoOLvs/2Kbaq3+YBA21jJjQN1HZUvaAN0HrOOKDTsDQGiNhp1hLj16R4o7ByNJXIuZw
+	 2w9GCAC1JlaEkFLLWSMlD6wSYBSjqrq/CkV2aevfW7qI0rs0uYMioGke18L+4gde9Dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793292876;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Queue-Id;
-	bh=Ju225KbHIU2fp8N7PevdwnGpTaCG0uk/rmjsK0tlWc0=;
-	b=K5NSvYRBqcHRzYEjRmMe8PDP2FEoqHPxbxRYE6Iphf090SBSMTPjbBYMKaaZ+P8oiPh9
-	 zaz8ZIjN6sP/YtyJMhBDir9iY2L0MzzYbpRvS8tItBFYITyAWbiPZeUSjZ/Rrr5SSQZXe
-	 qU64bmqMJLs2rUI08bTNtiY2FztpBoQJ80gETxajFbJTdYMxaY5SfiZX777gt6Ju/FXJo
-	 B55c4gwbhK43RhYqCOKToTZovrH2RCgiLhS2S5+1CcLrBMWPRyfXeEiNAKlN64sBPPu2/
-	 L0BSsXjGlqbBqFrB3AikyecHpIhJi8bc+Po+RSdjSJct3lms8baRr2cuUKN8n8ZD+VA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793292866;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Xv/Wsic9BdqTGEwyOS/26vxDRJvcspPIySQAk9h2YQA=;
+	b=4aiY8RPaLQKtaNFpEam/j29R/Tm0MVtC4xpbHcu5YjK6sEIt3PJYP0dix8rOMkeqsQlk
+	 SFp5n7LBdt8BtUvCVh6C1LaNfWrtkdfYyxk+wQeqct72xWFm0KY2dkj3XBpaiuMLOQv/O
+	 zo2wTJZ4z7zI0rS3lupB4h7AZ1taEq5JoGYV833PURxd+9oaMMnFYzd6irTLytr6AfvE3
+	 Kn+miLlv03tJNT95W1Uoc7Pf8N5VqNyhOh1ptlmFSWXKrzhPhZcA0g+PXG/t4/tLptpxb
+	 5FOHaJfTaG2YM/MSUKL9eewHcK7PXUmRNWLR4QTiRBXrUeBqUKCLLSOXjUewwWmx6Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hsal.es;
-	spf=pass smtp.mailfrom=hsal.es;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=thegoodpenguin.co.uk;
+	spf=pass smtp.mailfrom=thegoodpenguin.co.uk;
+	dkim=pass header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=oGMH3GTX;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0BA606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:54:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E0BA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jFr1B0QG0zKnGf;
-	Thu, 29 Oct 2026 17:54:22 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1793292862;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Ju225KbHIU2fp8N7PevdwnGpTaCG0uk/rmjsK0tlWc0=;
-	b=lEyRdwXxW4OJWIXmuBPEw8XY+Z57bHrc6WDQQwp+sirchgsSn3uwKpy/jGj2+Q4+FRbWz4
-	+nt7K3Rn1OVs+p24/MVl25dgOTOgCPWH3kbF4DmkEQ+rEDtd2F40hStK0glOdzOi/RLUsL
-	RA8+f86wfEraBoPgmKdHlJz8eurAdlMvDVyqnnXlRg/oiHekAj9uOISRRlQXw4XNtCUHHD
-	4OsqfD0hsjQ9D2pnbCuukg3C5eM1EmEYOqKcMCOemKv01/jTyTOqPGRvBJVIpv4PEn1MmS
-	VnGlwWacGdP+UlSDyT2zZQZ5wxBkbHqa5dbzdAcac3NhA0m3r5uVgxnUnicLrA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Cc: Ray Wu <ray.wu@amd.com>,
-	Chenyu Chen <chen-yu.chen@amd.com>,
-	Hersen Wu <hersenxs.wu@amd.com>,
-	Roman Li <Roman.Li@amd.com>,
-	Alex Hung <alex.hung@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/display: Take every stream out of self-refresh before a modeset
-Date: Thu, 29 Oct 2026 16:54:20 +0000
-Message-ID: <20261029165420.2255749-1-hugo@hsal.es>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A2E60A2604
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:54:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4A2E60A2604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=oGMH3GTX
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e00eee27dso1741065f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:54:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=thegoodpenguin-co-uk.20260707.gappssmtp.com; s=20260707; t=1793292864; x=1793897664; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xv/Wsic9BdqTGEwyOS/26vxDRJvcspPIySQAk9h2YQA=;
+        b=oGMH3GTX1z/pW+jg8tLErb7okxpGEPfT6Ab7gffQLPzUmwyu65LLNqvIBp4LYvsvIJ
+         g6+G5abQV4DQ2lmaExxrXBNVq3sRVdOHf88uHaafFqinY/Uaaa5ekw0ew5qzhEHz3582
+         8cwepirnyVtootBBKEDJ2oj9sDNmut8FHpiHZ2cQda1uiNB1DzFuSZ2RZUnz4WerPky+
+         YUqov1YAghC8i4wDoQOsPZ0jzBzLTC2VL4tGXxdf7wuekleeGa++vCL4GzezatASMcYe
+         Zuy9JGyJ4BQqXvpRk/UHMoNP2+/8TZd00JiZGQoAZe59OmdGpMEQXx0cEsKqga4Uv8E6
+         yICA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793292864; x=1793897664;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xv/Wsic9BdqTGEwyOS/26vxDRJvcspPIySQAk9h2YQA=;
+        b=iK2VXaT6YciNmK2QrVHihDbGNw9Ubc725gf6DCXrLdwpBL7PhHUBQoH/7VZvA3b7+W
+         K/OgxmH+jnCZCOKeEgiq7dNKquBrdx6mqsnWPp9ag59Nv7a9Jip7KfM/9AbaoWVgE3Ji
+         hMMGGcfZK53sNO3jfnKfqrkH3nQMoJNAkcQMOiUMGMH19UNdQ9J3dowSa2GVlzN7Vep0
+         kXKt7AMkbPMqeIhdCtqnJny1+1GVO+XDelYbXFaPQGkEcdGKoyq/Y8zmsAZup6e4bW7+
+         ZAGskMN9ASSIk89XuZML0i+KfoNQdvKipF0imSXuoORoRNhwNt6STatlAcFDb5qQMr0+
+         67pA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOFZvUCLkO4TInwVCDsgyPAVvfozj2TikXukzysovPdtIiFHAO7LjpRz10pGQ4XPt3eVTmV5Y63FsrOFg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLIuqtAwA2/lsyzvIn5IUBpTpOB8kJV43s3/F8yzzdMqUeHR23B
+	/PzufVdKDiJhU2i8oGS4LoZuVuoD6Tgb4vXZACiE5AmVuMqs0dW7a5Z4t2fhIdJoob8=
+X-Gm-Gg: AYBFou06CF+/VoDxCRwIy+vED/bOyhdsttoBLu8+WENxhoTtPeQX7wn/nj2D5iTdzK2
+	z8TLV2xtzUwRMUoQMMVCd0DNvTJugaoAEcv2IHDpddOjViwE7w2nAfz43wwXhDONz4dyhFRNY2d
+	4qQUmyjkSMmOZxKfsKyi4+Og/pEr7j08FstGnYxP52q4xltvEEKHDLNSTFnC2AiF2ZqR40lUT2N
+	rdgLmaS32pF2JmSzvbjc3HXZ7L5a8EVu8ES124OuoSOMHD9MuK86iDY8WyOrXNttTsOHxB1FXNZ
+	X2HwG4ZyB7L7NI+cpCeU7t03/AUk+3I6ZpXjmOvYIb1VzkgqYhngrR51LXhwYJgCDyoy/yEJ1xJ
+	O252OE+FkfSZ6witVAX2bfNnSHbHVhtp4QuO8ZEx+4OxF13XTZlG3riuyDBJmPaDsv79//vFuCz
+	dGgelXd9d6Wy+HHl0gOb6HJu9GkeaGEjeTmNyrA+NS9SmA5dyCIDg2G8BGNq/ga693qU9wx/hvY
+	Prl0Rpc2gHIGaFzSVJLD08oqut+mgFBpNBi7/PpMdh0KRLXLxzswuoIxQ2kIoyllGEou30xarkb
+	qUUYZO2Daf+l/sevhB8dnGxK4n196bZPW8M8mqDRmns=
+X-Received: by 2002:a5d:4d4c:0:b0:48e:17d1:16c9 with SMTP id ffacd0b85a97d-48e5d5d89b5mr9359625f8f.40.1793292864179;
+        Thu, 29 Oct 2026 09:54:24 -0700 (PDT)
+Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:db5:c0cf:53f4:d20])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e6df87fdbsm310880f8f.13.2026.10.29.09.54.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 09:54:23 -0700 (PDT)
+From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+Date: Thu, 29 Oct 2026 16:54:17 +0000
+Subject: [PATCH 5/5] media: pci: intel: Use named initializers for
+ acpi_device_id
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,181 +93,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jFr1B0QG0zKnGf
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-acpi-media-v1-5-eb50f0a34e36@thegoodpenguin.co.uk>
+References: <20261029-acpi-media-v1-0-eb50f0a34e36@thegoodpenguin.co.uk>
+In-Reply-To: <20261029-acpi-media-v1-0-eb50f0a34e36@thegoodpenguin.co.uk>
+To: Ettore Chimenti <ek5.chimenti@gmail.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Miguel Vadillo <miguel.vadillo@intel.com>, 
+ Antti Laakso <antti.laakso@linux.intel.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Bingbu Cao <bingbu.cao@amd.com>, Bryan O'Donoghue <bod@kernel.org>, 
+ Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>, 
+ Arec Kao <arec.kao@intel.com>, Rui Miguel Silva <rmfrfs@gmail.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, Kate Hsuan <hpa@redhat.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793292856; l=954;
+ i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
+ bh=AFbBBnCTxQZ1izxPgFNYFCBvzIPYR4UFZ2HYCI7UK7M=;
+ b=i8KokLaGr+Ex829OUisNCzM6KX/hsbRTYUDba+KCdAtYoZTJqbJGHxyVHAqneC/RZqOije3FO
+ dNtvpNxJFpKAP3JdqIu1hVILzH6k+AaLftyTdQY5XZJhDgMzj7xFaIQ
+X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
+ pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-Commit 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
-dropped amdgpu_dm_psr_disable_all() and amdgpu_dm_replay_disable_all()
-from amdgpu_dm_commit_streams(). Since then, a modeset only disables
-self-refresh on the CRTCs in the commit, so an eDP on another CRTC stays
-in PSR through dc_commit_streams()
+Use a designated initializer for the acpi_device_id fields which makes the
+code more readable and consistent with how lists are initialized in the
+rest of the kernel code base.
 
-Commit 6ee90e88b976 ("drm/amd/display: PSR eDP p-state warning occurs
-intermittently after unplug DP") added that disable-all for this very
-case. With it gone, turning off or unplugging an HDMI monitor while the
-eDP is in PSR hangs DMUB on a Cezanne laptop (DCN 2.1), on the first
-try:
-
-  dc_dmub_srv_log_diagnostic_data: DMCUB error
-  Error queueing DMUB command: status=2
-
-The eDP then stays frozen until a GPU reset
-
-Do the same through the power module's events. When a CRTC that is or
-was active needs a modeset, raise the PSR and Replay pause events on
-every stream mod_power tracks and wait for self-refresh to exit, before
-amdgpu_dm_mod_power_update_streams() changes the stream set. Clear them
-on the commit's streams after amdgpu_dm_mod_power_setup_streams(), since
-enabling a stream clears psr_feature_enabled until then. Use
-psr_event_pause and replay_event_pause rather than the hw_programming
-events, which a fast update on the eDP can clear in
-amdgpu_dm_enable_self_refresh() while the modeset is still running
-
-Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
-Signed-off-by: Hugo Sales <hugo@hsal.es>
+Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 ---
-Tested on an ASUS ROG Flow X13 (Cezanne, DMUB 0x0101002B) with PSR 1 on
-the eDP. That's the only hardware I have, and PSR there needs
-DC_PSR_MASK and "drm/amd/display: Don't require DMUB PSR caps before
-DCN 3.0", which I'm sending next. With this patch, 50 HDMI unplugs in a
-row with the eDP in PSR went through without a DMUB error. The same
-kernel without it hung on the first
+ drivers/media/pci/intel/ipu-bridge.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Ray, Leo: 3c108046e1d6 doesn't say whether leaving the other CRTCs in
-self-refresh was intended. If newer DMUB firmware copes with an external
-link going away during PSR, I can limit this to DCN 2.1
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 3739c4a2a8c4..31a0161e54ba 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -325,10 +325,10 @@ static const struct acpi_device_id ivsc_acpi_ids[] = {
+  * this list is complete.
+  */
+ static const struct acpi_device_id ivsc_only_acpi_ids[] = {
+-	{ "INTC1059" },
+-	{ "INTC1095" },
+-	{ "INTC100A" },
+-	{ "INTC10CF" },
++	{ .id = "INTC1059" },
++	{ .id = "INTC1095" },
++	{ .id = "INTC100A" },
++	{ .id = "INTC10CF" },
+ 	{ }
+ };
+ 
 
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 101 ++++++++++++++++++
- 1 file changed, 101 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index dfbc384fbbdb4..54eee9e2393fa 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4443,6 +4443,105 @@ STATIC_IFN_KUNIT void dm_clear_writeback(struct amdgpu_display_manager *dm,
- }
- EXPORT_IF_KUNIT(dm_clear_writeback);
- 
-+static bool amdgpu_dm_self_refresh_pause_needed(struct drm_atomic_commit *state)
-+{
-+	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
-+	struct drm_crtc *crtc;
-+	int i;
-+
-+	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state, new_crtc_state, i)
-+		if (drm_atomic_crtc_needs_modeset(new_crtc_state) &&
-+		    (old_crtc_state->active || new_crtc_state->active))
-+			return true;
-+
-+	return false;
-+}
-+
-+static bool amdgpu_dm_is_new_modeset_stream(struct drm_atomic_commit *state,
-+					    const struct dc_stream_state *stream)
-+{
-+	struct drm_crtc_state *new_crtc_state;
-+	struct drm_crtc *crtc;
-+	int i;
-+
-+	for_each_new_crtc_in_state(state, crtc, new_crtc_state, i)
-+		if (drm_atomic_crtc_needs_modeset(new_crtc_state) &&
-+		    to_dm_crtc_state(new_crtc_state)->stream == stream)
-+			return true;
-+
-+	return false;
-+}
-+
-+/*
-+ * A modeset CRTC may have no PSR or Replay, such as an HDMI output being
-+ * turned off, while an eDP on another CRTC is still in self-refresh. Pause
-+ * self-refresh on every stream mod_power tracks before
-+ * amdgpu_dm_mod_power_update_streams() changes the set: the old streams of
-+ * the CRTCs in the commit and the unchanged streams of the new state.
-+ * Unlike hw_programming, which a fast update on another CRTC clears, the
-+ * pause holds until amdgpu_dm_resume_self_refresh()
-+ */
-+static void amdgpu_dm_pause_self_refresh(struct drm_atomic_commit *state,
-+					 struct amdgpu_display_manager *dm,
-+					 struct dc_state *dc_state)
-+{
-+	struct drm_crtc_state *old_crtc_state;
-+	struct dc_stream_state *stream;
-+	struct drm_crtc *crtc;
-+	int i;
-+
-+	if (!amdgpu_dm_self_refresh_pause_needed(state))
-+		return;
-+
-+	guard(mutex)(&dm->dc_lock);
-+	dc_exit_ips_for_hw_access(dm->dc);
-+
-+	for_each_old_crtc_in_state(state, crtc, old_crtc_state, i) {
-+		stream = to_dm_crtc_state(old_crtc_state)->stream;
-+		if (!old_crtc_state->active || !stream)
-+			continue;
-+
-+		amdgpu_dm_psr_set_event(dm, stream, true, psr_event_pause, true);
-+		amdgpu_dm_replay_set_event(dm, stream, true, replay_event_pause, true);
-+	}
-+
-+	for (i = 0; i < dc_state->stream_count; i++) {
-+		stream = dc_state->streams[i];
-+		if (amdgpu_dm_is_new_modeset_stream(state, stream))
-+			continue;
-+
-+		amdgpu_dm_psr_set_event(dm, stream, true, psr_event_pause, true);
-+		amdgpu_dm_replay_set_event(dm, stream, true, replay_event_pause, true);
-+	}
-+}
-+
-+/*
-+ * Ends amdgpu_dm_pause_self_refresh() on the streams of the commit, which
-+ * mod_power tracks from amdgpu_dm_mod_power_update_streams() on, even if
-+ * dc_commit_streams() failed. mod_power keeps events across
-+ * mod_power_replace_stream(), so the replaced streams carry the pause too.
-+ * Runs after amdgpu_dm_mod_power_setup_streams(), since enabling a stream
-+ * clears psr_feature_enabled and replay_feature_enabled on its link until
-+ * then, and the set_event helpers skip a link without them
-+ */
-+static void amdgpu_dm_resume_self_refresh(struct drm_atomic_commit *state,
-+					  struct amdgpu_display_manager *dm,
-+					  struct dc_state *dc_state)
-+{
-+	int i;
-+
-+	if (!dc_state || !amdgpu_dm_self_refresh_pause_needed(state))
-+		return;
-+
-+	guard(mutex)(&dm->dc_lock);
-+	for (i = 0; i < dc_state->stream_count; i++) {
-+		amdgpu_dm_psr_set_event(dm, dc_state->streams[i], false,
-+					psr_event_pause, false);
-+		amdgpu_dm_replay_set_event(dm, dc_state->streams[i], false,
-+					   replay_event_pause, false);
-+	}
-+}
-+
- /**
-  * amdgpu_dm_mod_power_update_streams - update mod_power stream state
-  * @state: the drm atomic state
-@@ -4627,6 +4726,7 @@ static void amdgpu_dm_commit_streams(struct drm_atomic_commit *state,
- 		acrtc->wb_enabled = false;
- 	}
- 
-+	amdgpu_dm_pause_self_refresh(state, dm, dc_state);
- 	amdgpu_dm_mod_power_update_streams(state, dm);
- 
- 	for_each_oldnew_crtc_in_state(state, crtc, old_crtc_state,
-@@ -5370,6 +5470,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
- 	}
- 
- 	amdgpu_dm_mod_power_setup_streams(state, dm);
-+	amdgpu_dm_resume_self_refresh(state, dm, dc_state);
- 
- 	for_each_new_crtc_in_state(state, crtc, new_crtc_state, j)
- 		if (new_crtc_state->async_flip)
-
-base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
 -- 
-2.56.0
+2.53.0
 
