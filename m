@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793312232;
-	b=C4MvwJ844MNA9qeIV4PvMtJ6sSo/GvWE5n8UbxAYm9lqrkQM3/kW4kGsiO4Xmx+AoJOn
-	 +RdFnRU5wtbw4jkBpgB0d8jhEr9dBRZWJt9HpQEWz6sTUnc7CDqnTrUUVcTYuYmGBdakG
-	 URaZGIKnhSTSTpg9zvVgTyT/YSuLOnAYlpO5FP+U9gjSSOHraCoNJv4F8bZjoCvQHdfcF
-	 bVc0hJJ/bVQpo72t5SWhUvy9Hkxx/e1Glgi/4bo2Go1BBTexYHuIxwmeLRIG7Vom5a4H1
-	 YP0Fyx13TIcdamMbDegaGgtY6iuWaW0fAeCtwrUEnltyZseBfDOrGR2d6ycR58mMHAw==
+	t=1793312234;
+	b=QB4zVte2Djj9RvwHscXGnpE86h9db7n9T+kgBwiome10g8b55/PjyNJ7pktSrPMZNZDO
+	 /iWTsruxJdz6oWKznRVD+gGsjELLev4LWqskqMLUCSo5TJY2HkW+qtumcAUCJHDgxBGdp
+	 vBb0Sw0n12zWrw2Nr/WQCBdJZXrEOEsicikoB5/LWT6K0fum/felGYBqCBspwQmyQe7/W
+	 EOhbGUlR3w1jct02w030boXhpWRU+n/GYQWzLlfeXPJPeBYROoxSk2+Tptmq2CLW+6Rzp
+	 7Vu7EwSE8qTNIMkLSWsJaBvAehd8GSx4687QBBg0DDZpl1TmdsCz9XAE0Pz0xnMd7EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793312232;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793312234;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=2Se0uP/IHXwPO2mC7ObXg6kU02G6XXq9OxfYgp8eCAI=;
-	b=ObEZqqFVFB3peVxBaPcG8Mkw++dkZHTky/4tdg9wsLmGUMoY7X99IkeA3J+SccwW5hwn
-	 myN1qme+/vTXJohysxkJRjpuRwik9i40HDLxQ7C/f12QWSuO0IzRsJWF/oHwwVl+84qED
-	 50PsaC5HukpfkWnrp9KKaoX3xHS4Q3y8Js62YvSfAKa6pL3amccuTUP1h/RS1ATJjCIDA
-	 io54b4nuIGbHVioMEM621AzdRabnnGcPPGpbBSfa50ojct/vJSoJBKBa9N+sedLUcIYky
-	 c7fdlKz07C9F9z9ACOJkydKn2R9NoM8AJH9MMMHTscJ6PU2oP8ZGielhdTYLCdN7Z0A==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=29iMnvuhFO/JZRS7pb7tlMMukzGgcfiOEcJ6YX5Nc5k=;
+	b=qTLBsYMrlRf2fn9u6+01ehQeGt0jQ96RNETieXzpfVgYvm4DyrQSg+NKaqdbpEVLBeA/
+	 Ure/8Oh8pn9bjwVpVWIAWdABqk0wX2Fi/nwwew/VyQla17RgseyvpaMJ5d5zjCN4giYox
+	 BRQI3h1WKlo8cM32WfDCnnKBAUpljCwa4GY1XZCaQ2SsDle81bPwZeYBhuRABGgFVCLy+
+	 Y5JPCye2BNxrhlIM+iH8MUWEmpfr+D4GqkDCpf/4d/0yqpKigcJkU/yJ+ShxkdRhuiewX
+	 CarGKNd14udR44dnnfMJ9cUtInJiNRJoZN90yWNbT8eS3GiDSpBOCjpFdr5fkWg3E0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=f2dFy6M5;
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=a7Gxf3tc;
+	arc=none smtp.remote-ip=209.85.214.197
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4CD606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:17:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A4CD606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFA64606A332
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 22:17:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFA64606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=f2dFy6M5
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ea71803effso1063035ad.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:17:12 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=a7Gxf3tc
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e93e2f72bfso1665005ad.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:17:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793312232; x=1793917032; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2Se0uP/IHXwPO2mC7ObXg6kU02G6XXq9OxfYgp8eCAI=;
-        b=f2dFy6M5D6i6UQWOf0dn9Bg04pSuwldRny+4ugbOBuBGOqGwcAMckavLXEqoMbDhTM
-         fQrzdc04feDEPFDvPkWdD9UNwMFvHF4RT+U8Ya05utIUJi+4YA2nN//Wz3uYD95q0rMp
-         rO5jNYZJuiClQ1TEXTXwMXSDPaVwKgT1JOrpK2Wg4EnRBNkQwylCC5carZwCVU0LfN2t
-         jhx/0YskAOOo6s233vKmBBA2njmYX9LJmZag7wW9zQrYCFgCuTCPTz54eYeX/Xk5LGYI
-         zNmN9AO3RP1SGnQ+YOzuZOrLN+yygBb9oR8iV7GLOjG4WCsVkiqzey1iV7LNvxq6H+V4
-         CwNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793312232; x=1793917032;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793312233; x=1793917033; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2Se0uP/IHXwPO2mC7ObXg6kU02G6XXq9OxfYgp8eCAI=;
-        b=t9Gt5KtUDgqLqoW8ajdsU/raBiKo4yHdtRAADSPSHlJpVW2GCXxo3SuYyH8VM8kr0U
-         ksCsMxqM5lS7yI+kdREx6jb4tIQ7INv86j1VpmFr+fVBa2Fco4Le8Cu7tXSraObBIouY
-         N8INO24VCvMQim/SA1V3N1D+8SMsjHIVagsMvW7/BuX5DGUbyD7Y1H723+3mkrdWjSwp
-         u+vdmuWt6aVmPQli+YBeC4ZykkfwZL7hb3SBPGbhw6u8qRpiA1SY6AriDYzkq4snvyBN
-         SKhhzrWU2mACB2madd26TOY4TSjbVGZl7OseH7sm+wBSWSAP8bNrYrJ2RqVL1TfpFg36
-         Bggg==
-X-Forwarded-Encrypted: i=1; AKwUvBwIpFwp08FdbIfle76lEX/rZZbsJs29ff2rAp/koGXlYNKo7FBmk1TLt0RhxizAkmZ7JdILJdnUVNks3kI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+K2s71Fy1TkFn2R6QC8E25wKPxCYj0vggxKzn/nGmOecTK7kq
-	F2B3Zf4mp9ng2Pyf2mqQerlCmkDbO1DosxWEHgdIRSvdi8K+GTIM6cMRhmQkI9kUf05sEthbu/l
-	g0URLoCOD4dRq0A==
-X-Received: from plkk16.prod.google.com ([2002:a17:902:c410:b0:2e9:5f35:6dbc])
+        bh=29iMnvuhFO/JZRS7pb7tlMMukzGgcfiOEcJ6YX5Nc5k=;
+        b=a7Gxf3tcxxY4RappLczdU+SdTbix3jm0oEwGVYuVfwy94d+dBng1+Rjr0ZZk/8p6hY
+         DdQlTgs+cA/nU9X75uOa0hAjs5mP0MN25cft/xDRPshcBliWehT4KNrSra9Cz3XKNrVW
+         acVhKhS1Noi6NsZ77UuLsn/5ZRjGn/1zLPsvU7Rd4jOaJk7owzc3JFqqlEf6lQtyeI+p
+         QlXixtdQ9zezmx3CP4eRlq1LFAJPI9T/slwbLOZsEJcU6cNlUGVZs3EIgR6ly6mP0uy8
+         0SWEsMEM1g6dA3AOC6Ye8jXxrNcuzC+kUviegjKs4YRX+ogBosfhDC08EFHKoG7BFvUk
+         UaUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793312233; x=1793917033;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=29iMnvuhFO/JZRS7pb7tlMMukzGgcfiOEcJ6YX5Nc5k=;
+        b=vZ+3EZFvwgCkZNJv9w2uNNP1fg7GO9CbggkLnv9A+7txDcor4oaUeRLlwppicBd00M
+         CqImgY3AwOwj9S1IyKZ/e8nyLxCZX5yaPudvGF3Cwj38jemBmFEglLtUDfaIkVGxbMwG
+         gOEp6ypSMZKWHCaoLFeQ0ivYAn+2u+0nQNsc+6F5qcnbSVOkKB0PFDPDxDRd/jjYQrk+
+         qSTpNg5iT21bGtikGN8dU1On8mqq/wll0dZxBknWfUpmcTdEOS+49vasmt+RFzAtKcZw
+         sdhDxA+1TFT2dDqr3ZnfGcENyWad/jlNYOI0lkXJOik46ZJx1nYgqCRFTs7X2e3T25w5
+         nj3w==
+X-Forwarded-Encrypted: i=1; AKwUvBxNr3jUZ3DtdqEK752er7MyFyUht/scHuB7iUDE/UF6d3LOBnVDRfwM671Up+Ix9tabJJWmPCz2JC9sATo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXvIEDfvlRVoG1DpUm++Elthtqc3qdiDi3PiLkuzqLnF0rgxjV
+	zmkzyzO1cK4PYnEikfy2r0a60MGktFgy25sF8EgV8DH7N1jfw628iVzItgoswNNUdrvephhG8j0
+	w7YrKdObFcNQyDA==
+X-Received: from plch11.prod.google.com ([2002:a17:902:f2cb:b0:2e2:c684:16fc])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:903:3804:b0:2ea:fb8b:258d with SMTP id d9443c01a7336-2eb36401e95mr7401315ad.6.1793312231450;
- Thu, 29 Oct 2026 15:17:11 -0700 (PDT)
-Date: Thu, 29 Oct 2026 22:17:07 +0000
+ 2002:a17:902:d986:b0:2e4:b112:14d with SMTP id d9443c01a7336-2eb3651ef90mr6403395ad.54.1793312232977;
+ Thu, 29 Oct 2026 15:17:12 -0700 (PDT)
+Date: Thu, 29 Oct 2026 22:17:09 +0000
+In-Reply-To: <20261029221710.1871112-1-dmatlack@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,9 +79,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261029221710.1871112-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261029221710.1871112-1-dmatlack@google.com>
-Subject: [PATCH 0/3] vfio: selftests: Automatically detect the IOMMU mode
+Message-ID: <20261029221710.1871112-3-dmatlack@google.com>
+Subject: [PATCH 2/3] vfio: selftests: Skip tests when the IOMMU mode is not available
 From: David Matlack <dmatlack@google.com>
 To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	linux-kselftest@vger.kernel.org
@@ -86,86 +90,223 @@ Cc: Alex Williamson <alex@shazbot.org>, David Matlack <dmatlack@google.com>,
 	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-This series makes the VFIO selftests library automatically detect which
-IOMMU mode to use, rather than hardcoding iommufd as the default, and
-makes tests skip, rather than fail, when the IOMMU mode they need is not
-available. This was suggested by Sean while reviewing the KVM IRQ test,
-which currently has to probe for the IOMMU mode itself [1].
+Skip tests when the IOMMU mode they need is not available on the current
+system, instead of failing. Add iommu_mode_is_available() to check whether
+a given IOMMU mode (or, if NULL, any IOMMU mode) is available, and
+SKIP_IF_IOMMU_MODE_UNAVAILABLE() to skip a kselftest harness test if not.
 
-iommufd is an optional feature, and VFIO's iommufd support additionally
-requires CONFIG_VFIO_DEVICE_CDEV. On otherwise functional kernels that
-only support the legacy VFIO container, the VFIO selftests (and the KVM
-IRQ test, when using a VFIO device) currently fail with an unhelpful
-assert:
+On a kernel without iommufd, for example, all of the iommufd and
+iommufd_compat test variants currently fail on an assert in iommu_init().
+Skip them instead, with a message that explains why:
 
-  tools/testing/selftests/vfio/lib/iommu.c:448: Assertion Failure
+  ok 33 vfio_pci_driver_test.iommufd.send_msi # SKIP IOMMU mode not available: iommufd
 
-  Expression: iommu->iommufd > 0
-  Observed: 0xffffffffffffffff > 0
-  [errno: 2 - No such file or directory]
+Use SKIP_IF_IOMMU_MODE_UNAVAILABLE() in all tests that run across multiple
+IOMMU modes, and in the tests that let the library pick the mode by
+passing NULL to iommu_init(). Also skip vfio_pci_driver_test, which calls
+iommu_init() from main() to probe the device, if no IOMMU mode is
+available.
 
-Patch 1 makes iommu_init(NULL) pick the most preferred IOMMU mode that is
-available on the current system, and drops the global default_iommu_mode.
-iommu_modes[] is now ordered by preference: iommufd, vfio_type1v2_iommu,
-vfio_type1_iommu, iommufd_compat_type1v2, iommufd_compat_type1. A mode is
-considered available if its container (or /dev/iommu) can be opened and,
-for container modes, if VFIO_CHECK_EXTENSION reports support for the
-mode's IOMMU type. iommufd mode additionally requires VFIO device cdevs.
+Skip from the test via the kselftest harness's SKIP(), rather than from
+within iommu_init() via ksft_exit_skip(). ksft_exit_skip() is not aware of
+the harness, and so would emit a bogus "1..0 # SKIP" plan line in the
+middle of the TAP output, and the harness would report the reason for the
+skip as "unknown".
 
-Patch 2 adds iommu_mode_is_available() and
-SKIP_IF_IOMMU_MODE_UNAVAILABLE(), and uses them to skip tests when the
-IOMMU mode they need is not available. Tests skip via the kselftest
-harness's SKIP() rather than iommu_init() calling ksft_exit_skip(), since
-the latter produces malformed TAP output when called from within a
-harness test.
+Signed-off-by: David Matlack <dmatlack@google.com>
+---
+ .../vfio/lib/include/libvfio/iommu.h          | 26 ++++++++++++++++++-
+ tools/testing/selftests/vfio/lib/iommu.c      |  8 ++++++
+ .../vfio/vfio_dma_mapping_mmio_test.c         |  2 ++
+ .../selftests/vfio/vfio_dma_mapping_test.c    |  4 +++
+ .../vfio/vfio_pci_device_init_perf_test.c     |  2 ++
+ .../selftests/vfio/vfio_pci_device_test.c     |  4 +++
+ .../selftests/vfio/vfio_pci_driver_test.c     |  7 +++++
+ .../selftests/vfio/vfio_pci_sriov_uapi_test.c |  4 +++
+ 8 files changed, 56 insertions(+), 1 deletion(-)
 
-Patch 3 converts the KVM IRQ test to use the VFIO selftests library to
-pick the IOMMU mode, and drops its probe_iommu_type().
-
-This series is based on vfio/next (vfio-v7.4-rc1).
-
-[1] https://lore.kernel.org/kvm/aiIG2L_KdPwuxYA1@google.com/
-
-Testing
------------------------------------------------------------------------
-
-Tested in a QEMU VM with an emulated igb device behind an emulated Intel
-IOMMU, bound to vfio-pci, on a kernel with CONFIG_IOMMUFD=y,
-CONFIG_VFIO_DEVICE_CDEV=y, and CONFIG_VFIO_CONTAINER=y. To simulate
-kernels with fewer IOMMU modes available, /dev/iommu and /dev/vfio/vfio
-were deleted in the VM:
-
- - All IOMMU modes available: All VFIO selftests pass. irq_test -d passes
-   using iommufd.
-
- - Only the legacy VFIO container available (/dev/iommu deleted): All
-   VFIO selftests pass, with the iommufd and iommufd_compat variants
-   skipped instead of failing. irq_test -d passes using
-   vfio_type1v2_iommu, and skips if -t iommufd is passed.
-
- - No IOMMU mode available (/dev/iommu and /dev/vfio/vfio deleted):
-   vfio_pci_device_test, vfio_pci_driver_test, and irq_test -d all skip
-   with a message explaining why, and with well-formed TAP output.
-
-David Matlack (3):
-  vfio: selftests: Automatically detect the IOMMU mode in iommu_init()
-  vfio: selftests: Skip tests when the IOMMU mode is not available
-  KVM: selftests: Use VFIO selftests library to pick IOMMU mode in IRQ
-    test
-
- tools/testing/selftests/kvm/irq_test.c        | 19 +----
- .../vfio/lib/include/libvfio/iommu.h          | 30 +++++++-
- tools/testing/selftests/vfio/lib/iommu.c      | 75 ++++++++++++++++---
- .../vfio/vfio_dma_mapping_mmio_test.c         |  2 +
- .../selftests/vfio/vfio_dma_mapping_test.c    |  4 +
- .../vfio/vfio_pci_device_init_perf_test.c     |  2 +
- .../selftests/vfio/vfio_pci_device_test.c     |  8 +-
- .../selftests/vfio/vfio_pci_driver_test.c     |  9 ++-
- .../selftests/vfio/vfio_pci_sriov_uapi_test.c |  4 +
- 9 files changed, 118 insertions(+), 35 deletions(-)
-
-
-base-commit: 076d7e989cb69f6ded7d60f2a080eb909930061b
+diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h b/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h
+index fb0a681ecc72..04b0377a0f8f 100644
+--- a/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h
++++ b/tools/testing/selftests/vfio/lib/include/libvfio/iommu.h
+@@ -32,11 +32,18 @@ struct iommu {
+ 
+ /*
+  * Pass NULL for iommu_mode to automatically pick the mode most likely to work
+- * on the current system.
++ * on the current system. Use iommu_mode_is_available() to check that the mode
++ * is available before calling iommu_init(), e.g. to skip the test if not.
+  */
+ struct iommu *iommu_init(const char *iommu_mode);
+ void iommu_cleanup(struct iommu *iommu);
+ 
++/*
++ * Returns true if the given IOMMU mode is usable on the current system. If
++ * iommu_mode is NULL, returns true if any IOMMU mode is usable.
++ */
++bool iommu_mode_is_available(const char *iommu_mode);
++
+ int __iommu_map(struct iommu *iommu, struct dma_region *region);
+ 
+ static inline void iommu_map(struct iommu *iommu, struct dma_region *region)
+@@ -81,4 +88,21 @@ FIXTURE_VARIANT_ADD_IOMMU_MODE(iommufd_compat_type1, ##__VA_ARGS__); \
+ FIXTURE_VARIANT_ADD_IOMMU_MODE(iommufd_compat_type1v2, ##__VA_ARGS__); \
+ FIXTURE_VARIANT_ADD_IOMMU_MODE(iommufd, ##__VA_ARGS__)
+ 
++/*
++ * Skip the current kselftest harness test if the given IOMMU mode is not
++ * available on the current system, or if no IOMMU mode is available if
++ * _iommu_mode is NULL. Like SKIP(), statement is executed after marking the
++ * test as skipped (e.g. "return"), and this can be used anywhere SKIP() can be
++ * used.
++ */
++#define SKIP_IF_IOMMU_MODE_UNAVAILABLE(statement, _iommu_mode) do {		\
++	const char *__iommu_mode = (_iommu_mode);				\
++										\
++	if (!iommu_mode_is_available(__iommu_mode))				\
++		SKIP(statement, "%s%s",						\
++		     __iommu_mode ? "IOMMU mode not available: " :		\
++				    "No IOMMU mode is available",		\
++		     __iommu_mode ?: "");					\
++} while (0)
++
+ #endif /* SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_IOMMU_H */
+diff --git a/tools/testing/selftests/vfio/lib/iommu.c b/tools/testing/selftests/vfio/lib/iommu.c
+index 535e6c7cf260..2c7cf6dc919a 100644
+--- a/tools/testing/selftests/vfio/lib/iommu.c
++++ b/tools/testing/selftests/vfio/lib/iommu.c
+@@ -107,6 +107,14 @@ static const struct iommu_mode *iommu_mode_lookup(const char *iommu_mode)
+ 	VFIO_FAIL("Unrecognized IOMMU mode: %s\n", iommu_mode);
+ }
+ 
++bool iommu_mode_is_available(const char *iommu_mode)
++{
++	if (!iommu_mode)
++		return iommu_mode_detect();
++
++	return iommu_mode_probe(iommu_mode_lookup(iommu_mode));
++}
++
+ int __iommu_hva2iova(struct iommu *iommu, void *vaddr, iova_t *iova)
+ {
+ 	struct dma_region *region;
+diff --git a/tools/testing/selftests/vfio/vfio_dma_mapping_mmio_test.c b/tools/testing/selftests/vfio/vfio_dma_mapping_mmio_test.c
+index d7f25ef77671..add7d3881930 100644
+--- a/tools/testing/selftests/vfio/vfio_dma_mapping_mmio_test.c
++++ b/tools/testing/selftests/vfio/vfio_dma_mapping_mmio_test.c
+@@ -64,6 +64,8 @@ FIXTURE_VARIANT_ADD_ALL_IOMMU_MODES();
+ 
+ FIXTURE_SETUP(vfio_dma_mapping_mmio_test)
+ {
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, variant->iommu_mode);
++
+ 	self->iommu = iommu_init(variant->iommu_mode);
+ 	self->device = vfio_pci_device_init(device_bdf, self->iommu);
+ 	self->iova_allocator = iova_allocator_init(self->iommu);
+diff --git a/tools/testing/selftests/vfio/vfio_dma_mapping_test.c b/tools/testing/selftests/vfio/vfio_dma_mapping_test.c
+index 7d0de8c79de1..e42170aecf6e 100644
+--- a/tools/testing/selftests/vfio/vfio_dma_mapping_test.c
++++ b/tools/testing/selftests/vfio/vfio_dma_mapping_test.c
+@@ -119,6 +119,8 @@ FIXTURE_VARIANT_ADD_ALL_IOMMU_MODES(anonymous_hugetlb_1gb, SZ_1G, MAP_HUGETLB |
+ 
+ FIXTURE_SETUP(vfio_dma_mapping_test)
+ {
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, variant->iommu_mode);
++
+ 	self->iommu = iommu_init(variant->iommu_mode);
+ 	self->device = vfio_pci_device_init(device_bdf, self->iommu);
+ 	self->iova_allocator = iova_allocator_init(self->iommu);
+@@ -228,6 +230,8 @@ FIXTURE_SETUP(vfio_dma_map_limit_test)
+ 	iova_t last_iova;
+ 	u32 nranges;
+ 
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, variant->iommu_mode);
++
+ 	/*
+ 	 * Over-allocate mmap by double the size to provide enough backing vaddr
+ 	 * for overflow tests
+diff --git a/tools/testing/selftests/vfio/vfio_pci_device_init_perf_test.c b/tools/testing/selftests/vfio/vfio_pci_device_init_perf_test.c
+index e1a54e153cd3..8a98c86096be 100644
+--- a/tools/testing/selftests/vfio/vfio_pci_device_init_perf_test.c
++++ b/tools/testing/selftests/vfio/vfio_pci_device_init_perf_test.c
+@@ -44,6 +44,8 @@ FIXTURE_SETUP(vfio_pci_device_init_perf_test)
+ {
+ 	int i;
+ 
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, variant->iommu_mode);
++
+ 	self->iommu = iommu_init(variant->iommu_mode);
+ 	self->threads = calloc_assert(nr_devices, sizeof(self->threads[0]));
+ 	self->thread_args = calloc_assert(nr_devices, sizeof(self->thread_args[0]));
+diff --git a/tools/testing/selftests/vfio/vfio_pci_device_test.c b/tools/testing/selftests/vfio/vfio_pci_device_test.c
+index 59a7c1f71804..1b1baa1e1c85 100644
+--- a/tools/testing/selftests/vfio/vfio_pci_device_test.c
++++ b/tools/testing/selftests/vfio/vfio_pci_device_test.c
+@@ -29,6 +29,8 @@ FIXTURE(vfio_pci_device_test) {
+ 
+ FIXTURE_SETUP(vfio_pci_device_test)
+ {
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, NULL);
++
+ 	self->iommu = iommu_init(NULL);
+ 	self->device = vfio_pci_device_init(device_bdf, self->iommu);
+ }
+@@ -121,6 +123,8 @@ FIXTURE_VARIANT_ADD(vfio_pci_irq_test, msix) {
+ 
+ FIXTURE_SETUP(vfio_pci_irq_test)
+ {
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, NULL);
++
+ 	self->iommu = iommu_init(NULL);
+ 	self->device = vfio_pci_device_init(device_bdf, self->iommu);
+ }
+diff --git a/tools/testing/selftests/vfio/vfio_pci_driver_test.c b/tools/testing/selftests/vfio/vfio_pci_driver_test.c
+index f8f99ee6bb1a..710f9e7684d9 100644
+--- a/tools/testing/selftests/vfio/vfio_pci_driver_test.c
++++ b/tools/testing/selftests/vfio/vfio_pci_driver_test.c
+@@ -80,6 +80,8 @@ FIXTURE_SETUP(vfio_pci_driver_test)
+ {
+ 	struct vfio_pci_driver *driver;
+ 
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, variant->iommu_mode);
++
+ 	self->iommu = iommu_init(variant->iommu_mode);
+ 	self->device = vfio_pci_device_init(device_bdf, self->iommu);
+ 	self->iova_allocator = iova_allocator_init(self->iommu);
+@@ -270,6 +272,11 @@ int main(int argc, char *argv[])
+ {
+ 	device_bdf = vfio_selftests_get_bdf(&argc, argv);
+ 
++	if (!iommu_mode_is_available(NULL)) {
++		fprintf(stderr, "No IOMMU mode is available\n");
++		return KSFT_SKIP;
++	}
++
+ 	if (!device_has_selftests_driver(device_bdf)) {
+ 		fprintf(stderr, "No driver found for device %s\n", device_bdf);
+ 		return KSFT_SKIP;
+diff --git a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
+index f3a018b8699d..32a1e651c815 100644
+--- a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
++++ b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
+@@ -90,6 +90,8 @@ FIXTURE_VARIANT_ADD_ALL_IOMMU_MODES(null_uuid, NULL);
+ 
+ FIXTURE_SETUP(vfio_pci_sriov_uapi_test)
+ {
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, variant->iommu_mode);
++
+ 	self->iommu = iommu_init(variant->iommu_mode);
+ 
+ 	self->pf_token = UUID_1;
+@@ -163,6 +165,8 @@ TEST(failed_second_open_does_not_clobber_token)
+ 	struct iommu *iommu;
+ 	int ret;
+ 
++	SKIP_IF_IOMMU_MODE_UNAVAILABLE(return, MODE_IOMMUFD);
++
+ 	iommu = iommu_init(MODE_IOMMUFD);
+ 
+ 	/* Create and bind PF using UUID_1 */
 -- 
 2.56.0.317.g454f8302e1-goog
 
