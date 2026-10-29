@@ -1,124 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793288814;
-	b=4nKnYDRSsbFtO+GfrODwKctaQPyrcbJMdI8x0BiFIej+Jml3iHD1oX0gcZ6sf+qa8wXq
-	 YmObBVQeSb5oVxhFMDCZsyDtUaS3SOnFTPFOgwbH1RychJnvjT8x16HqBJ2Z2ZtB5r3VM
-	 MQ3qgucC/+k1nSW+L69R03TuV8kN2PjClbsnjf5bYZQo+2MPgjdf55JJ5eFvXtBIyFG2a
-	 Nsl1wqNG5cKru+9R1es/3MWwRkQIexR1wYkovA46CP7lOGQnDsjoB1jGGmLTM+2KwjsNu
-	 R9IQzcu5wfsAEsZo9fDTCfuWn4b2YoYIhpkBCxP3rpwKBmYLkuY2Rpf+rQMJVUJltEg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793288814;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=U5k7ep/bgn3vdewOJj/rsgNI+AnmG6o0USKHcFo6h2g=;
-	b=yWQZO9yDT9497PqJWxKvnchTBzynvZl6hYQ0MD2AtGrTtNUBEN4dZOxyzXB4N2cUMuwm
-	 AmW8GnSryCJgHZlXZVeA1DVLVxFyNP4tnJFI3EoECx0o6Dl+p5N3RlgQd9Nk5SLOAg+SE
-	 s4xBGOr30sUxZrP7NtRmJaasUKOjnmszLX/+bvJyLP7X1Ej+FVgVNuQX9NhAROkT3eH2o
-	 S18o64VgY7ofPyaobapZ0JaySjGne68ZamZPMNT79thpe0wMHfwzuchyT/oLYrUiyyM1K
-	 x/lLjmp2bqbcpURxe/fp3dJGgmFiqu2IYELyELCi3LUB1+m068rk4NXL8rJMV6P5QWQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LVsOp0qL;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I0kEtLQZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793288857;
+	b=t7p8bFXRy1ady9zXIY0PZq2pYHydgXAQlse7BTUJCxIwGPXjoLMPsEccAZibVaAbrGZU
+	 nDqSTwt1U3MRfytYs3D+EZO16WuEof1N0B58c+TH3C676dA0HlT7DDa45iEwq0Y0S0/yQ
+	 20szObB1Gt4QjE+pSPIjkWMc4EFH25WeK4asSi0ejurvXzKYNp5SW/adDqq52FPCkKEF9
+	 cF6YXF2RKxOBPERto7Iid4WimMhS3ZFy+hrMQT1T1KFSGCRqo4ZqjkM96vtE5mfdOD3fT
+	 SS/cbDcyGFNP2FqHTlRnNgyDxpyEtsxVshXBz8otp4xGTFTI2YXvTwpLpK+/dpelymw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288857;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=HsTZsAbnOjm+7kjd0LiVGLSB693ohnd2liVr1NWALdI=;
+	b=I2kTCDZ8xsw3re9muIKi6haYcjUfcz4AH0hmgDrckjor0gZfuVlDkNEGCyVE1UPwHYlg
+	 ZZAYErj+I2aQkz2d0cBmKnbBHdIHBDp1KAYpOn1nC7kZhAX1/6Y5Hbh/B2l85ZfRzYHyT
+	 ZYPV9lBgnMlACw/7T5J8IygIcLTIlbdzFj4pmCY83qQQP20N7/hfwRcoEV3nYR5Qt5kdk
+	 H+5SReoF3dYssg5Tojp5F1ObjIO7ypFlcCfx4dJ+M6gGA28Q9kl92HrbAWpDStGTux/EG
+	 1IgowwO1heAo2ZwQJEM5Ry3BCyQcPQ2wUsScgisICKm0cHesCWgtfr+rdfiDCoaMTaA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kPqVAAGG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED86606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:46:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AED86606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E74606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:47:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LVsOp0qL;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=I0kEtLQZ
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TCdx33067947
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:46:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	U5k7ep/bgn3vdewOJj/rsgNI+AnmG6o0USKHcFo6h2g=; b=LVsOp0qLhcYVcsik
-	p9Vh8cqrpVhZ25bJ6bZCNQ4+y29Pji8XE03dp7QH865xOaxNjXUOg7vqhG8OO5pg
-	QFIap1Z6F74gPfv6TL90/UOm4J4E+etmyCZlQJOS/idUSFj6zGiYjYV2HiE5/bOz
-	3Sl2tZNzkRlvKjigaMP4AY81t7Nd4/Gz6IsCWSxJK5WVFx6hL4VRYqT8/86K8dJ3
-	iGXAzmfKNbP0R5tWfZUh9+xQ6EJwnymeJydZK3j3bOOfFb6IwcsC87BmZ9L/s99w
-	v1Y1c8EiZ/wFgMsuFasuVhz4MIpUngOFHfISM2tX+5JLZouy1LieV176OOF0UVEJ
-	wN+bnw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkxshtkc9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:46:52 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-934963b2bc0so405902385a.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:46:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793288812; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GSTIfWsiEYEQmxFkJmhojJi66pB78la7SVTtYeibUq3h9F9mhZDJYlMWk+3LWyxn6h
-         zu5f9NuXsDoaYEqBARWU4bI6lP+t1lhOu4F0MI5X7vSQ1SGcQp06PoXL3dfouIAsHGvj
-         6XRjBXw9gXTiJiQrcg+iVrGhEj/bHZRfvkGmm2j/GfAsz76PYMJiEuIDtzdbIhemtEf4
-         pH/w7Sq/AaIG2hjFphoeff1P99qbPYARS/bJfn9q2WYhc9hrlUe3abKh/XffKFvKwx4w
-         gwfo8rB6kJfQ4J7uaFA4qBpSgFf3JbokE8OrTbZ6gZ87dW2YYVHHUJt/kvdGuLf5xBWq
-         Z0Jw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=U5k7ep/bgn3vdewOJj/rsgNI+AnmG6o0USKHcFo6h2g=;
-        fh=Gj4Q4/B1N6wy1+8bBAfzWT5ys+O+9mngoIXITZT27W0=;
-        b=dJAw0FxJ9c2eWwsjj4uuBQQbd8K0mNBAky/YHjpY5E6a/HuAzoi+14RJUzHIfBOKqy
-         o33xqMwsYVIJ574NzRxUV2Ijh3ssuF86ib985Fv4dnsXnrHa3TYfkaot3aZvfNACWU6h
-         OFHJNljQYkOS4u8OkYmhZ4sxouMjjRQMHMftARauPYe8ymwmaTARpH4KpVOFRCNGVR/Z
-         zWpCIws9KcmlKiqHLUQZsnmeIL/dYKqCLhqwwUEgferaasvfyhcgtergqJQB6HbuXQda
-         0vZPExJrjrs6sjIB43ZVQOJ7EgFci0C4DyoTxYGWjzPhzw1QD7T9FRyJq+TrvbJFHi8n
-         1K9g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793288812; x=1793893612; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U5k7ep/bgn3vdewOJj/rsgNI+AnmG6o0USKHcFo6h2g=;
-        b=I0kEtLQZ5FWySmkoeXx0IjZhmDaiQZm9UIp4C2TF+/dPMcqgvtBuz7I+g/8pEfYn0F
-         D/Lday1v6JXM4l3MBkcgLJTIMcp8jkUtnzdod3S+zXDr/JldwSb7JDbR7th4tDW/PI+r
-         aNk9IVj5Ghe0ivs8i0E3bwdIr2IPtzBHn3qejZ+IICHe39JJgIDOAgMplqRFRauXqqdk
-         TFufWRom815JPyadNASzzddMDlJ1f2Hsu+5mb3Chpfw9lWIP6DuVylpUHHGPpOPgPEUF
-         aeS9LOj4EdsWUpOHwuACqUzWuhjUzVTbIxrq/Nd5hI7zFc2jAZJTn13asD0SHyT6OwKq
-         a/tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793288812; x=1793893612;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U5k7ep/bgn3vdewOJj/rsgNI+AnmG6o0USKHcFo6h2g=;
-        b=Uyg+Z4d5ksseyihpKtkkki/xKtUrtCjvzId+55yr7q6JmNSLD4VQDxRaSqjJrohwFb
-         t44GDSVxRxsyvM4+7SZDJCqIi/CCGe/goy/BM5fy6CtXkXFQpl97W+uvvC3fVQO8XY4n
-         xM2vfKyqp+kf6qrNCJ0lgzRCC+yL5svNRIbLhPPMWB3g0S1bc+EuWaNaZH7ky4pc3kh3
-         XkXUB/6pnORG9dNVpQAFWjGFARrPw/us0FeCUnQpAeQHx1A0pqbtDrMFZ4LeOsNgvrWi
-         lm6ivezW9nmDRrtFdkQ9dcw195sTS0KydkC6j/4lRhXM7adR1vI4LOsS7ht4nvP1vWLv
-         4DQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwdZkjVm/OWxtsqJMAdwKw4KJBzJ0Yc2Gw0ZpYbr2rzg5IDVSPNISIlvmk+Ma6vM85+DoSjDBT6GfwagOw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJePch+5bcZ3VVV60BoM9oy0fKyfhng+pz+9av73b/HV/yG03vt
-	IFRXWC+05/O7akNdOQ8IycODlRN7GSiXlhIhIelwOfyLzIJAmuCv9tNluTqoYWtD3XbUyr+Nrh7
-	iiz8GutvXb/TOuMdsU5s74t4anJtmi9UqIbyUnN1WPDY8PtoZEtUD209e7Am7eOBmaMS3q1uEC3
-	zZ5LXHhvjzSAbeKda21ddwHoFR1qWjHJYo5CsOTrI+MA==
-X-Gm-Gg: AYBFou0TX86NMXK+TufOycnMNO1azxR+KJopomjI5ZUSLztTII3BEZETsDqCBzh2znJ
-	VUlXvL9zNgPUvIfaEgpAGVZBGGk2hBAoVub7z04aNSs0u9cGsN9wmuhvz3cztXCh2yxTX1+rzDN
-	fxt+7EBscBu2bcos63CyP79WvpG1rpE3ym4mTRbX/UzrCwW5iHZf0y9OPAdmioJhLFoS3ybtWU6
-	gwV0sLR9zFc6AizjP1kz+7dclAlE3afTVZseWtDEwcRkdC73UbS71ZancWAe3gZvuFCD7Ykm2Il
-X-Received: by 2002:a05:620a:1a20:b0:93e:592d:f5a2 with SMTP id af79cd13be357-944089303camr914160785a.11.1793288811642;
-        Thu, 29 Oct 2026 08:46:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:1a20:b0:93e:592d:f5a2 with SMTP id
- af79cd13be357-944089303camr914156085a.11.1793288810985; Thu, 29 Oct 2026
- 08:46:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kPqVAAGG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07E841F01816;
+	Thu, 29 Oct 2026 15:47:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793288856;
+	bh=HsTZsAbnOjm+7kjd0LiVGLSB693ohnd2liVr1NWALdI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kPqVAAGGkIKCU4DgEa4KGASh5IaaZBYjqWTq8XXVIa2i/LXmgfr65nhEbZis9yLma
+	 pi+jmXTUv47DsPxG5kbv5ThaOO4ZlLdxrHX4IIntOTMKGQKCLEi1KT0KsW2aaKbMYN
+	 quxGwRm73ICAydKIZdyG6Yc/+WaA/T+MIXJEHERZhRSuAoMfziKFFnXtz3aTxIx6ME
+	 +AiXyBIDGlPd9SDiEiZs7Bschwl+ETBiEqz07BqCgYemmJVBOvU/LKGFSQ7cS28PJa
+	 kqALZQQJqId41hzON38xxvnBKlUS99Ty6/F5oGkcxqbh6ctiRNeSYjhXC+IyjeNF20
+	 JW6QoFxOEj8/w==
+Message-ID: <3c141e6f-dd1d-4e48-bb9b-a94c0554d947@kernel.org>
+Date: Thu, 29 Oct 2026 16:37:23 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,165 +51,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
- <20261029-v4l2-frame-sync-v1-5-d37992559c58@kernel.org> <CAFEp6-2ykusk85REekU3mmFw=4g3yjB=doOi=i=1LS5JEe4T3g@mail.gmail.com>
-In-Reply-To: <CAFEp6-2ykusk85REekU3mmFw=4g3yjB=doOi=i=1LS5JEe4T3g@mail.gmail.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 29 Oct 2026 16:46:40 +0100
-X-Gm-Features: AclHuK_dWimsnhoH0_XzQl8ZjHm1ns8Wq8ivGHA1U2MkUrMeF4i5qln3flFwdlc
-Message-ID: <CAFEp6-1Y=OyFHPnGER0GvGfTpc4o3_wTvXncvLWM81T9M-7+kA@mail.gmail.com>
-Subject: Re: [PATCH 05/14] media: qcom: camss: csid-gen3: Enable RDI SOF driving
-To: bryan.odonoghue@linaro.org
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, "Bryan O'Donoghue" <bod@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: NM47Lb4RXBoXU-NLYS4tkpwqPX5BjwLi
-X-Authority-Analysis: v=2.4 cv=H6BOUOYi c=1 sm=1 tr=0 ts=6ae36a6c cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8
- a=qRbGgoc3eL5JOgqkpqAA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA2MSBTYWx0ZWRfX7XcRBekWIh3K
- t7e62Xhc2OHUjHEMBh51HmjnafzGRdR1xdZXPKX/Bvf9kfjChKRcWwaxTcHOQLE0K+bB+tOVdZr
- xaYZZZOqBViqOhVT7OoK5jBZzTSQlOM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA2MSBTYWx0ZWRfXyeacuHJyvweP
- sg7XXUH0gDJfd7nqYHlA3JL+y7goz1Xdu3cdBKHwxIliQKRXTOL0/OyhbZGIMOdWeKZXOFgAvg6
- DyuD/kCM0H7MCAu8xgBDdJHehWvU2FTHKcoPFmzh471n6vL0mTHPD1R/Uo3cH8/1yTRL+DHf27u
- hZBmkhTnlNrYVgwH7d2VA/H2d3qaKaQrSZeQIzQv6EOo2HiMeR/GBr1/htiGu5nDQ8fQr4urQaN
- CXWfRjOiv/i2/EgWRsU9sN5159TCUMhFtkWNGX4GE0hYV7HBBzcAZk6VkNZHQgE525TXL8ISrRt
- BJPsHwTONScrYv+ruHoI5YY3EhXYJzq/rL3u0Slk41NmzpOYvLUs+TJCVcTQYJfdoxwLeeSr8Y+
- LPDj9u+lO+3GSejof1DQhiy814ObWnA0pJHJ4ogAszpzKSo+gfrR+8za+3/flza7adTB900MS7Y
- MoYn9cjxOA5cOIEoXiQ==
-X-Proofpoint-ORIG-GUID: NM47Lb4RXBoXU-NLYS4tkpwqPX5BjwLi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-29_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610290061
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/sparse: simplify the vmemmap alignment check
+To: Kiryl Shutsemau <kirill@shutemov.name>,
+ Kaitao Cheng <kaitao.cheng@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Kaitao Cheng <chengkaitao@kylinos.cn>
+References: <20261029134521.62146-1-kaitao.cheng@linux.dev>
+ <auNbTHXp4o_Dqww4@thinkstation>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <auNbTHXp4o_Dqww4@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2026 at 4:43=E2=80=AFPM Loic Poulain
-<loic.poulain@oss.qualcomm.com> wrote:
->
-> On Thu, Oct 29, 2026 at 10:55=E2=80=AFAM <bryan.odonoghue@linaro.org> wro=
-te:
-> >
-> > From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> >
-> > Add in silicon enabling code to generate SOF and trigger the routine wh=
-ich
-> > produces V4L2_EVENT_FRAME_SYNC based on SOF per standard v4l2 behaviour=
-.
-> >
-> > Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> > ---
-> >  .../media/platform/qcom/camss/camss-csid-gen3.c    | 27 ++++++++++++++=
-++++++++
-> >  1 file changed, 27 insertions(+)
-> >
-> > diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen3.c b/driv=
-ers/media/platform/qcom/camss/camss-csid-gen3.c
-> > index 0fdbf75fb27db..6a538d825f78b 100644
-> > --- a/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-> > +++ b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
-> > @@ -34,6 +34,7 @@
-> >  #define                CSID_RUP_AUP_RDI(rdi)           ((BIT(4) | BIT(=
-20)) << (rdi))
-> >
-> >  #define CSID_TOP_IRQ_STATUS            0x7C
-> > +#define                TOP_IRQ_RDI(rdi)                BIT(8 + (rdi))
-> >  #define                 TOP_IRQ_STATUS_RESET_DONE      BIT(0)
-> >
-> >  #define CSID_TOP_IRQ_MASK              0x80
-> > @@ -58,6 +59,9 @@
-> >  #define CSID_CSI2_RDIN_IRQ_STATUS(rdi) (0xEC + 0x10 * (rdi))
-> >  #define                RUP_DONE_IRQ_STATUS             BIT(23)
-> >
-> > +#define CSID_CSI2_RDIN_IRQ_MASK(rdi)   (0xF0 + 0x10 * (rdi))
-> > +#define                INFO_INPUT_SOF_IRQ              BIT(12)
-> > +
-> >  #define CSID_CSI2_RDIN_IRQ_CLEAR(rdi)  (0xF4 + 0x10 * (rdi))
-> >  #define CSID_CSI2_RDIN_IRQ_SET(rdi)    (0xF8 + 0x10 * (rdi))
-> >
-> > @@ -219,6 +223,25 @@ static void __csid_configure_rdi_stream(struct csi=
-d_device *csid, u8 enable, u8
-> >         writel(val, csid->base + CSID_RDI_CFG0(port));
-> >  }
-> >
-> > +static void __csid_configure_rdi_irq(struct csid_device *csid, u8 enab=
-le, u8 rdi)
-> > +{
-> > +       u32 val =3D 0;
-> > +
-> > +       if (enable)
-> > +               val =3D INFO_INPUT_SOF_IRQ;
-> > +
-> > +       writel(val, csid->base + CSID_CSI2_RDIN_IRQ_MASK(rdi));
-> > +
-> > +       val =3D readl(csid->base + CSID_TOP_IRQ_MASK);
-> > +
-> > +       if (enable)
-> > +               val |=3D TOP_IRQ_RDI(rdi);
-> > +       else
-> > +               val &=3D ~TOP_IRQ_RDI(rdi);
-> > +
-> > +       writel(val, csid->base + CSID_TOP_IRQ_MASK);
-> > +}
-> > +
-> >  static void csid_configure_stream(struct csid_device *csid, u8 enable)
-> >  {
-> >         u8 i;
-> > @@ -230,6 +253,7 @@ static void csid_configure_stream(struct csid_devic=
-e *csid, u8 enable)
-> >                 if (csid->phy.en_vc & BIT(i)) {
-> >                         __csid_configure_rdi_stream(csid, enable, i, 0)=
-;
-> >                         __csid_configure_rx(csid, &csid->phy, 0);
-> > +                       __csid_configure_rdi_irq(csid, enable, i);
->
-> Is this something that should also be tied to frame_sync_en?
->
-> Also, just thinking out loud, are there cases where we'd want to
-> toggle this dynamically at runtime based on any V4L2 configuration or
-> pipeline path? For example, should it be enabled for the pixel path
-> but disabled for RDI?
+On 10/29/26 15:44, Kiryl Shutsemau wrote:
+> On Thu, Oct 29, 2026 at 09:45:21PM +0800, Kaitao Cheng wrote:
+>> From: Kaitao Cheng <chengkaitao@kylinos.cn>
+>>
+>> sparse_init() is called only once during boot, and the vmemmap alignment
+>> check is outside any loop, so VM_WARN_ON_ONCE() provides no benefit over
+>> VM_WARN_ON() here.
+> 
+> Okay, that's true. But who cares. __init section will be freed anyway.
+> I don't see downside in current code.
+> 
+>> Use VM_WARN_ON() and fold compound_info_has_mask() into its condition,
+>> preserving short-circuit evaluation.
+> 
+> Why? It only got harder to read, no?
 
-Obviously, if userspace subscribes to the related framesync event, we
-should enable it regardless.
+This would be fine as part of some bigger rework, but standalone this cleanup is
+not very attractive :)
 
->
-> I'm asking because one of the appreciated strengths of CAMSS is its
-> relatively low-latency and lightweight capture path. As we add more
-> features, it may be worth preserving that characteristic where
-> possible. Not saying this particular feature has a meaningful latency
-> or compute cost, but more as a general design consideration.
->
-> Regards,
-> Loic
->
-> >                         __csid_ctrl_rdi(csid, enable, i);
-> >                 }
-> >  }
-> > @@ -279,6 +303,9 @@ static irqreturn_t csid_isr(int irq, void *dev)
-> >                         val =3D readl(csid->base + CSID_CSI2_RDIN_IRQ_S=
-TATUS(i));
-> >                         writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLE=
-AR(i));
-> >
-> > +                       if (val & INFO_INPUT_SOF_IRQ)
-> > +                               csid_sof_event(csid, i);
-> > +
-> >                         if (val & RUP_DONE_IRQ_STATUS)
-> >                                 /* clear the reg update bit */
-> >                                 csid_subdev_reg_update(csid, i, true);
-> >
-> > --
-> > 2.56.0
-> >
+-- 
+Cheers,
+
+David
