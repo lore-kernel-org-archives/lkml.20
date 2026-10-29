@@ -1,64 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.60.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793278841;
-	b=lu51RWEDE9IzhaLhDOcF4VvlaINlZSoP+tsy9diPxliORzREDN18wBm3WNTj46S1n36g
-	 42/WdbWW2s7TNMiDFZ+UDDfQmEMMZCn5nw7dfm7UdRgqsUU5SDLwKpCOlqht0/YvAuhTY
-	 dai0N/UGA02JW4+G8KiS8zxjsmHqZfUDikNg433w1r5EqZhm89cUzMYZrbSDRdwIM9OMa
-	 djcbxb81hH+NXqxGDC4kjqTsRSWAFuhVmdQLzmGEICR3iU98vgfArO3ZG9ixUD0GS8+eh
-	 Fdbk1eo1zgjQxmRuvB+vJededKwRs3gRCVH/aQNJ01KG/jhFnFBZziI9cbR0Yvhmv8Q==
+	t=1793278864;
+	b=OTNn0wB7aanYBa6QtFj0YWMubTUlDOMG9gHcv4wAHJx97O/xKsyoFQUmUvr8J5MnsPJQ
+	 wcxjlICTSxmoU/fwEEdesHghYeSX7wn4I5+sURA5BQOlJggEUWVIdCQVH4REQZMjI9OZc
+	 egKJo1dOg7YDCITniAi4u80X1pF74cR70JEXcqs1hkf3DI2Z2d3TDRvFLIosmfemvxDCD
+	 5YgUq1FjuhhzMmCHhnvpguSFUh23jrUxM48+YuTW+IeSmGrpPQg7SrR3Pd95ATLpkcX/v
+	 OqO5LTajvXsJ1UZJu++matddhfGMFNxYAw6E+zig+m4kNUKLzpzMO8CinccVqiOALZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793278841;
-	h=DMARC-Filter:Received:Received:X-Yandex-Fwd:DKIM-Signature:From:To:
-	 Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793278864;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=OUXYjt8dvAsEPE6PsQOQb6gwqlZLQFgR3EWNJ6ptA0E=;
-	b=w+swS1t1z/pksVy2iWvDrNIrEZ5ZYq5WqA/qJv2ESdTF/rMmh/YyH2gzfjehwVXOTx04
-	 t1Pro71znWdFS9Mf4/FyyFyb98gw9f8ohVFAwx/TN/z1OdDB+QXt4JUev1qZBNMnNwNrA
-	 HEsu8NHK3OvWltkymJaOokw6y5GMf2paSdvmOWEoafnfYah77LKlfSOibTQPu8PB+oy3H
-	 0VEwORti8GqVJ72Izbk6A/rPfS2VcjFHRSefebG+gzi2zhG/9rFc9khc4R9SkDgvcoBCc
-	 7oyotXTsnUiIJEUovIYfoYCCogKBE5li2S/e7P51J1DlzEHzI7v3OYK7tSgHsHms8Uw==
+	bh=pqAIggo/SjoAGnKs8jyczcI2Ycl4/WyDK4uIxzW2XA0=;
+	b=Cp9ZH+YJEarTVeOOoagye5ciTdojVogxju1CIc2IzdBSjiE0kPQ8WGA8UCrA14WIha62
+	 cQwiPHDIVVB5Amax3X9dTJrnxroJaLcirhzuzmfvamSeIMIuDh+ypHpi+4Z2ab1Ml9E3k
+	 mYXLPM3BtNHBXYPldqBocih0RWSuHESWwWLbSQSSTdtnZrVNz+RHJujGMcfY02l3h/DLv
+	 ZGv6UsoomvXk2+j+vgnt19kMVDd9Jv+onvjh8gbZOGBYjJbx58NucODkfJinh5K/djRbj
+	 +O1olpf8JeJ7nNj9xuTKVaHuP23nZg1xnwp6UaewrTjOf/2QTLpwIl7zWu19mpRzpfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yandex.com;
-	spf=pass smtp.mailfrom=yandex.com;
-	dkim=pass header.d=yandex.com header.i=@yandex.com header.a=rsa-sha256 header.s=mail header.b=LGzwtka2;
-	arc=none smtp.remote-ip=51.250.60.163
-Received: from forward103d.mail.yandex.net (forward103d.mail.yandex.net [51.250.60.163])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qsl+kL3q;
+	arc=none smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9218D606A333;
-	Thu, 29 Oct 2026 13:00:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9218D606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C215560A2616
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:01:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C215560A2616
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=yandex.com header.i=@yandex.com header.a=rsa-sha256 header.s=mail header.b=LGzwtka2
-Received: from mail-nwsmtp-smtp-production-main-94 (mail-nwsmtp-smtp-production-main-94.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:2501:0:640:a27e:0])
-	by forward103d.mail.yandex.net (postfix) with ESMTPS id E9726C0844;
-	Thu, 29 Oct 2026 16:00:30 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-94 with ESMTPSA id G0j4ICQiIeA0-NuWAJvZs;
-	Thu, 29 Oct 2026 16:00:29 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.com; s=mail;
-	t=1793278830; bh=OUXYjt8dvAsEPE6PsQOQb6gwqlZLQFgR3EWNJ6ptA0E=;
-	h=Message-ID:Date:Cc:Subject:To:From;
-	b=LGzwtka26ZTwj8w/A8gqOP8u+QKep05jpFHjy+bV3NIb5JGQ1N10zm84udaFNNx+A
-	 Sx/hm5s1K06tQH4wk6Cd5q48lv2LF4HlCpM5nrIH5zd/kOaRFoS8IvEZZfoDIYDpEf
-	 nNumWk/X+clpOFjd3ymAaVxLxfmoRT4nkot4tnEE=
-Authentication-Results: mail-nwsmtp-smtp-production-main-94; dkim=pass header.i=@yandex.com
-From: Alex <xnderv@yandex.com>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: Martin Roukala <martin.roukala@mupuf.org>,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qsl+kL3q
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-89ff475a152so945515b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:01:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793278863; x=1793883663; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pqAIggo/SjoAGnKs8jyczcI2Ycl4/WyDK4uIxzW2XA0=;
+        b=Qsl+kL3q8L45e98ETndHKZz15pZIvpRiin4sqLdWC+Ifb5HgzaFfwJP6r87ZGkrC1C
+         vq7uUP3Criz/zcp0CKJArxhRZdpD2BE2ZrZHaUUmXa/Y+UmPze9A6eb8WLGLsWeS/BCo
+         EOEMulabXdbVMzeVNEIhlEx1HB0xYFoe9JeIObHIXPY7rZkP+ARiLGoxOfwCdayUExoS
+         Ivv+TACeCBti0Fz6Krtu+PFcto5HFXb2JLyxrajdMlDx0tYT67aIB5QLjVMlLEY9xqPO
+         0QGOdLMWVxonDKerJCZgrB5vtIrR/eC9w+9etW0jprBsb50EReIhIHoqY5saVP44QMSo
+         am3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793278863; x=1793883663;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pqAIggo/SjoAGnKs8jyczcI2Ycl4/WyDK4uIxzW2XA0=;
+        b=DrCS4V17eZO+k9rtiHZtCh2s6voPA16QgabTFrzHlzx9u4mi2/1cv7zE6Kqpg6lOfQ
+         5b2CdZ/StAVFzZFJUSy96//jDaAAAlqB1gr14aDg3wlM/lk5s/F6hnhp8zjPjbZY+dRT
+         80dtDtv4tPoDsyvXMWbgvoxea8lRmFVb7b+oL5sKObL/wRQ/YYPgpTNr7RhI1o0NQBE0
+         E56vjiJ2CM7uqNTADy2epA4Zse6KQMl5XY2wszOgSG5n8sSERLoz5fqtKFMme3noK8Gk
+         gnf8gW1T0sF3pHQik5KtZAO2Gb03X5O/I5kBrcZJA6fhzxC48putUb+a5a0uMTJo13CG
+         704w==
+X-Forwarded-Encrypted: i=1; AKwUvBxrouoc83n5gcveOMIFgWRWR6shdLgSdqnb/uFWjxPGNCViuRENW2ILmIoQ7qE/jo51XXzwUi+mtmXnbZs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBJZZv//Vga0vwdIbkSsuV4WZBXXAU4wG6OnW7WhenoA7xhlEh
+	lM9bwm+8Dj3Zm6nOFCJOtgBkdWOB75XIL0vlazHdTLo59bpNCaTFXuD8
+X-Gm-Gg: AYBFou1H0kW35mPlupRPQhZca1Jt9ZYwNQuZjicyxXHlEkCRG8oG/1kZMHEoEoWeovh
+	J5OgopxDOgQTJbnuzaTLeWiVB+JPzDc8HvSz1uIF5J90kP9u2qLOt0pFsuJrQ81YXeoPnEq2wF0
+	i0UyzyJiWOuR1vvbGKc2ZbuzXG495yYvTUNUwma5k7AYSY0/k75p7ttilu6gCvB/QQtBmh6iyr/
+	nfXbNWog7bUcKUF4WqlyH8bvH1hiASVrs4ISVVj5L1Z1hOoAmk2gs7siKpGPd0d2DxNlnHqBBmu
+	gaizpzovh4FDlvmddeifuIZPhNO8KsMJifXA63/ksVWAspnHnJf5fMdXtZlT+WFk52Ox8hHEdmY
+	mcjDd4esfgLPVhTAAY4ujJS6H6e+quhfY1VY5f0f7RjO4v5wi6/hv9wI2iGgOAGa1WbB7axEfU6
+	iCh4rvpFcrsWF/HnQF8tt1oqUaOvcUot31+SzaSw4Jj3QZnvu3iiuqN0TQsYuYDjxYrupk3XUgZ
+	JqP72pnDgveMNluS2iDNmW8e58pecTRv+AwRf2N0uJYyyjCZCjn2+fgZXWOJWTXCWcLVJ/3jXts
+	9Zcev5+5A12s6P1hpbZRfoatHUZHkE50T2LYwPxKwL0VPwir+w9qMZvc0mtmG+QeDJDAwu0OajP
+	yYiSk0t31l6w=
+X-Received: by 2002:a05:6a00:3918:b0:89f:c71e:abb3 with SMTP id d2e1a72fcca58-8a6e80ba876mr4394429b3a.50.1793278862696;
+        Thu, 29 Oct 2026 06:01:02 -0700 (PDT)
+Received: from localhost.localdomain ([2400:d802:dd7:8000:180b:d22a:69f7:ac40])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a6a662d96asm2290764b3a.26.2026.10.29.06.01.00
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 29 Oct 2026 06:01:02 -0700 (PDT)
+From: Yuqiang Sun <izaiahsun@gmail.com>
+To: andersson@kernel.org,
+	mathieu.poirier@linaro.org
+Cc: linux-remoteproc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Alex <xnderv@yandex.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] drm/nouveau/therm: mask the update bit when reading back the fan PWM duty
-Date: Thu, 29 Oct 2026 16:00:12 +0300
-Message-ID: <20261029130012.21738-1-xnderv@yandex.com>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH] remoteproc: core: Do not put the device when device_add() fails
+Date: Thu, 29 Oct 2026 21:00:37 +0800
+Message-ID: <20261029130037.5505-1-izaiahsun@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,85 +99,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nv50_fan_pwm_set() and gf119_fan_pwm_set() write the fan duty cycle to
-0xe118 with bit 31 set.  Normally the bit reads back clear, but when
-the register is read back shortly after such a write it can still be
-set, and nv50_fan_pwm_get() and gf119_fan_pwm_get() return it as part
-of the duty cycle.  nvkm_fanpwm_get() then takes divs = max(divs, duty),
-so divs becomes 0x8000xxxx too, and duty * 100 wraps around in u32
-(0x80000000 * 100 == 0 mod 2^32): the fan speed reads as 0%.
-nvkm_fan_update() uses that as the current speed and steps up from it,
-so it writes 3% to the fan and then ramps it back by 3% per bump
-period.
+When device_add() fails, rproc_add() calls put_device() and then
+removes the character device.  The reference it drops is the one
+rproc_alloc() took with device_initialize(), which belongs to the
+caller: after a failed rproc_add(), every driver frees the rproc,
+either with rproc_free() or through devm_rproc_alloc(), and both drop
+that reference again.
 
-Found with the help of an AI assistant (Claude); reviewed and tested by me.
+So the rproc is freed inside rproc_add(): by the put_device() itself,
+or, with CONFIG_REMOTEPROC_CDEV, by the cdev_del() that follows, when
+the character device drops its reference on the parent device.  The
+caller then uses the freed rproc and puts it a second time.
 
-Fixes: cb9fa62671ac ("drm/nv50/pm: add support for pwm fan control")
-Fixes: bc79202f4c8f ("nvd0/therm: implement more appropriate pwm fan control functions")
+With one allocation failure injected into device_add() (failslab
+restricted to rproc_add) while st_fdma probes, KASAN reports:
+
+  BUG: KASAN: slab-use-after-free in slim_clk_disable+0x38/0xf4 [st_slim_rproc]
+  Read of size 8 by task insmod/69
+  Call trace:
+   slim_clk_disable
+   st_slim_rproc_alloc
+   st_fdma_probe
+  Freed by task 69:
+   kfree
+   rproc_type_release
+   device_release
+   kobject_put
+   cdev_default_release
+   kobject_put
+   cdev_del
+   rproc_char_device_remove
+   rproc_add
+   st_slim_rproc_alloc
+
+followed by use-after-free reports in kobject_put() and
+refcount_warn_saturate() from the rproc_free() in
+st_slim_rproc_alloc().
+
+Remove the put_device(): the caller's rproc_free() drops the reference
+and releases the rproc, as it does for the other failures in
+rproc_add().
+
+The problem was found with kbound, a static analysis prototype that
+checks whether callers rely on an object after a callee returns a value
+for which the callee may have released it, on v7.2.12; it is present
+in rproc-next.
+
+Build-tested with x86_64 and arm64 allmodconfig (W=1, sparse): no new
+warnings.  Run-tested on QEMU's arm64 virt machine (TCG) with KASAN,
+using a device tree node for an ST FDMA with a SLIM core, so that
+st_fdma_probe() reaches rproc_add() without the hardware (no clocks,
+MMIO windows only mapped), and failing each allocation in rproc_add()
+in turn with failslab: before this patch every failure in device_add()
+(9 of 9) gives the reports above; with it nothing is reported, and the
+rproc is released once, by rproc_free().  Not tested on remoteproc
+hardware.
+
+Fixes: 7dbdb8bd7c02 ("remoteproc: core: Cleanup device in case of failure")
 Cc: stable@vger.kernel.org
-Acked-by: Martin Roukala <martin.roukala@mupuf.org>
-Signed-off-by: Alex <xnderv@yandex.com>
+Assisted-by: Claude:claude-opus-5-5 kbound
+Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
 ---
-v2: commit message trimmed as Martin asked, the details moved here; one
-sentence on the AI assistance kept in the changelog, as
-Documentation/process/generated-content.rst asks for tools used to find
-a problem; picked up Martin's Acked-by; code unchanged.
-v1: https://lore.kernel.org/all/20261025101640.49779-1-xnderv@yandex.com/
+ drivers/remoteproc/remoteproc_core.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-How it was found: the reads that hit this come from the two therm timers.
-nvkm_therm_alarm() (the 1 s poll) and nvkm_fan_alarm() (the bump alarm)
-both call nvkm_fan_update(), which reads the duty cycle before it writes
-a new one. When the two alarms fire within microseconds of each other,
-the second one reads 0xe118 right after the first one wrote it. On a
-GeForce GTX 560 Ti (GF114, nv50 PWM path) a bpftrace probe on
-nv50_fan_pwm_get() saw 7 of 239 reads in two minutes come 7-25 us after
-the other timer's write with bit 31 still set (e.g. 0x800001e1 with divs
-0x21c), each followed by a drop to 3%. gm107_fan_pwm_get() and the
-PTHERM path of gf119_fan_pwm_get() already mask their duty reads.
-
-Testing: same workload and probe with the fix, no such reads in 155 and
-no fan drops. The gf119 hunk changes the same register in the same way
-but was not tested on GF119 or later hardware. Both files build without
-warnings.
-
- drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c | 6 +++++-
- drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c  | 6 +++++-
- 2 files changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
-index 684aff7..f56e763 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/gf119.c
-@@ -74,7 +74,11 @@ gf119_fan_pwm_get(struct nvkm_therm *therm, int line, u32 *divs, u32 *duty)
- 	else if (indx < 2) {
- 		if (nvkm_rd32(device, 0x00d610 + (line * 0x04)) & 0x00000040) {
- 			*divs = nvkm_rd32(device, 0x00e114 + (indx * 8));
--			*duty = nvkm_rd32(device, 0x00e118 + (indx * 8));
-+			/*
-+			 * Bit 31 is the update trigger set by pwm_set();
-+			 * it can still read back as set after a write.
-+			 */
-+			*duty = nvkm_rd32(device, 0x00e118 + (indx * 8)) & 0x7fffffff;
- 			return 0;
- 		}
- 	} else if (indx == 2) {
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
-index 9cf16a7..9272256 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/therm/nv50.c
-@@ -72,7 +72,11 @@ nv50_fan_pwm_get(struct nvkm_therm *therm, int line, u32 *divs, u32 *duty)
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index b88bf179507d..e4f44a3c8b4d 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -2309,10 +2309,8 @@ int rproc_add(struct rproc *rproc)
+ 		return ret;
  
- 	if (nvkm_rd32(device, ctrl) & (1 << line)) {
- 		*divs = nvkm_rd32(device, 0x00e114 + (id * 8));
--		*duty = nvkm_rd32(device, 0x00e118 + (id * 8));
-+		/*
-+		 * Bit 31 is the update trigger set by pwm_set();
-+		 * it can still read back as set after a write.
-+		 */
-+		*duty = nvkm_rd32(device, 0x00e118 + (id * 8)) & 0x7fffffff;
- 		return 0;
- 	}
+ 	ret = device_add(dev);
+-	if (ret < 0) {
+-		put_device(dev);
++	if (ret < 0)
+ 		goto rproc_remove_cdev;
+-	}
  
+ 	dev_info(dev, "%s is available\n", rproc->name);
+ 
+
+base-commit: 82d0bbd67c42a44f0e18b0b7b0da0f3ace0c9527
 -- 
 2.53.0
 
