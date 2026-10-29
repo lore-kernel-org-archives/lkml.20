@@ -1,54 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287765;
-	b=S8Txj5zKw/i0Bffj1C/CxUcIYOf+QDj+cJbcUj8nZlf1sHOh3PEFWJ6PVocp+Q0UwRc8
-	 Z6AR7CXvbAdANYIcrCaFtJILPh/9iae6LKyJSqfOuZeRO0rDhbJx3+HCKMzoybfQlyuEj
-	 NDnt83cQ1uAwz8ILZT1VO2gZlTfre8pGIqhC23/5Z/cqV3EloIM1ITtpFaE2T6yHcannk
-	 BoL4H9Xrrs+uEzLNZo4n/fZTsrLNCmY90leXz+zXLgdnQXujkhALViBWHVapWgpWWeUUN
-	 Wx7iDuHDK833gdEkbsf7Z3KTODK3BA5q3agEoBNaOdrHNHDofjZULCLuGW+EN6p9hJg==
+	t=1793287773;
+	b=R3hT7U1XhYM4fz46P+7l+3SDLgsYA7EYw6kdXO/QhD9Di0/5FzmUusWIXFdZXfmUKedu
+	 6Amq5zzq82LzRK5l9l/034SfdiVv+EpRQWfiaJx3YhDqg+w0YN5nzdRs+z73Pqqtbu2eP
+	 PrZi0iH0eWJKgO6Zl/suuUwOAeEB5iUF+GRsq9jC+cdTfQL83iPp9vyfv5PhPg4+D0D3u
+	 cWHGdG7FKaA2YBiBlEuMwA6JsFGEfoHC0amx7fZQ6z5StaVmkBSWeH0DjmPwe8tW/VClM
+	 8rNCh0YpLndjXPdGXh/dmLs/TdssEDKp57cpgkrhLoz/NFmQL/QBPPywF8HNFjAGNWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287765;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=744oJqLHibDWboUALGgnird9ud0/SsHRUCImjN81cRk=;
-	b=Qf2l56QtNBLFSSv086kmkuEzrndHbxDpf06Zw4wmQ/a/H+9kJ2N6RmW3abwZM4ge4zxw
-	 NDfo/aJQDi/Xg23k932M7Gfwy0QXc38oWt9dvTLG4OILSn0xLYnjBsF3VQtH4/IvPcg8J
-	 tnXdikj+5qYjjIhM3neq9bXbdZNjoUKzQc7Pvqb/dolZwd3WWOUGxwAzTrVyuD6zGfW+5
-	 M+Fg45vUtygMYyVOJ+O74O1217pwCylHTXgoJP4W2YrspVKiEiz6/nPwEi0LMZj2Dcs/L
-	 vPSRAK/ISiPclqemWIzGXgjJ9E8eZtmkUsBAgKGYVXbDoEuSdeHuGbqN6KrcAv+rkqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287773;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Xz/KjQxYIkaGqYRbTjczSZcjaGYHruf6qA2IzRiuJ9c=;
+	b=aPbm7q7re/THTuJ0Nv4+TeOfoRibLKz+8s5A1x7JDATl10H9wkDy0576hRUlXTWLj/u+
+	 mx0X2rcCl4GYlXYhWgIwS7Tc0KwwDNxEhp/sxgIEGTj3jE7lMJmt8qODGH1dgDIk0wu1R
+	 ESxy9aBI0TPylFN2Lf1rgaHczxrWo5h0YhQW3EzVkT7DTyKxzaFuynViQrCqycXJV6uIH
+	 h2aTD1lmNf9ksUS0zUsA9Uo3WMQWrPrlgPj6X6YEoIOKtRI3jXGbl4tviHBQUSPg1gmcr
+	 pet8WHeL1fWZ4aZQqPtUMthCWl+dsTHcWO/umyqOR3VMNvnBtdDMs8MAmLXIb/8d/5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=GTf4aq+y;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PB09v4er;
+	arc=none smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68830606A31F;
-	Thu, 29 Oct 2026 15:29:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68830606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F77606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:29:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52F77606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=GTf4aq+y
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=744oJqLHibDWboUALGgnird9ud0/SsHRUCImjN81cRk=; b=GTf4aq+yFc/PVJRYup5NFr+zf2
-	lGOnWUsLsK8Lspb7305sg3xuCNsN5nlxil8IXsUGBCK3OYi6nti395wj7xIAKyCMiu13jXcOOx/4A
-	980sm0nP89UAN9Y5ozHoOdOw0iJ8GnH/OcFykhitxhOtqErxBXJAi1nsIVHjeKnTVXffg2WPpVNUb
-	MoCtRZLu9bYvRoBNgn6ajAlz586oH+lg5iG1W3z8YvgWkZ4rgu/d+IBDWD7S3C57w5+rs/RME76qT
-	zEHTgo1NkqLeztCVvZ7OJEwspGK9O69L6n9u+Cs2GqNv9ktEvH8NCxrFFK7yybuTnYIjPsGqHmir4
-	VvckzlXg==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMS4C-00000009dMX-0I8y;
-	Thu, 29 Oct 2026 15:29:24 +0000
-Message-ID: <a9417893-b7ad-4f9b-b8dc-93a41eb7ff46@infradead.org>
-Date: Thu, 29 Oct 2026 08:29:22 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PB09v4er
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c3f04e0e65fso408212066b.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:29:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793287772; x=1793892572; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xz/KjQxYIkaGqYRbTjczSZcjaGYHruf6qA2IzRiuJ9c=;
+        b=PB09v4er9319DUGcwBCws35Y5clXWQvxxyJ316DSeQU0JO1Wm7RuiV9vRNgRNThyF+
+         s9w7f4beT2W0HSldAuNBEEzN416IRQNsFHbP3LbWeYz0M/mEIi2IRCGjUWYwxYMxvxKW
+         ztw9+frsAAU4baJMoV83eH7pWxcmMdKZYb4t/fhqrFrI7knWpHhigDtQ1fvZrAatyXdD
+         WATr83IGprMp5UflmNUjAt/3BRfkzDOyTMwV4aYxx7MMecOC6LW96fXjdVo1OlPMn3wS
+         DSMmACwKyJ3yU9YPhlPiF6l5zgbpYAJqQyqKzQthitf11lc/sPF6Pqj0A2d7L/Dl3sPR
+         Wk4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793287772; x=1793892572;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xz/KjQxYIkaGqYRbTjczSZcjaGYHruf6qA2IzRiuJ9c=;
+        b=bYz9aLUU5+lqyMd4Qq2sRcWlf3daPdkOYdp06bQQxmu3wqXF2+rcwRG1T9DDQt+vff
+         lF5T7VbiCNbCQSl1kfj0WUtb9T1N1qajt7QIHu0R83J6zcxvpX2Xoosz/8qJCSHD/y1x
+         9GNrqiLr8af6ybXpfJhjQZDsd8V7SMUL8x5B+Nd4e4Pee0hiBCj4Y0SRn2AsogiJ2rcN
+         5VTQy/rzBrSHkb9RTIBWmhbTxX/17tFOL1x/6BSLr1pC7RkBHiFeDNj/kHzRGcku6eqS
+         0jC769eKo0m/nRVFITpFjc7769J2Vg443tghHMgdJtCHNmXEJuJwO/uVd/lHbk0EcZPN
+         W6jg==
+X-Forwarded-Encrypted: i=1; AKwUvBw6i0gBihPcwu1uKQYeYA/19PhSlKCps7RJK6JsLbnZJjeLzPf+sl1FJamRBtRVov3XM4zoVON3d09KhMM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGAu4OKscT7GeylP0ft4SvzqZ8dGXuTtmUm8+EtaWIDHuQsONM
+	V1lQQ0RXi6xYjKSiIG4bCJITu35KsG3QRKsXlmligmvLNfbW9YBuk9sd
+X-Gm-Gg: AYBFou2YrH2tsa+73FLQ6kNlGc23Ccarg14MCCOdQyr+4ki3qv1SuCQ+G1CjjDW++EE
+	U2nf32y2ZB6fkHqbiFGoKrcAHEkE0lvClwF2IyKa9nYQq930z+wn1OtoHTFDo77r3jXzWVI6kTb
+	v0g8OECGCwLdbZbnrtcmx6tFtdVaQW/RH2PyLpNKfwLQ4MSKmg6WCuou/h/kcYUFphtVtnEBw/z
+	SHlTEnJmXXIujLmuL2VbownhHDS2yenckbjYdT7MVh89gofprO+16kxOPLHwG/JiF1j6y5Idfu6
+	FWQvp2NihdE6CIb2Ej46mHLmZPPtpW0nabnZ7AmTPT9i09vz77/zgQnx3hjFang7JQOVrhg9OQZ
+	soEVTOsu5FG3x3BCO4DXSxAqY0/oK9CxGbh0C4mVJ/pwR/QU8UmWWEoQudzqUhsN6g4XtAcasfF
+	5Sk95abf499bkTnttdlJYDbGiseP8SaReTYm0tywHwMvuQ6oJ2K5mRZWZTzyrTNHnsMg56Pi9kW
+	PNre/Cfx4QZL1yWzHcKRO03HvYCvGs1AmonIEexNQCmgIscryTpYNhFQ+S76adnVBg0XYPHmuml
+	mjHZCDQitcdphcd+54/QKrh+BxLFDt4yWdvTO9k7+MtCn2dccA==
+X-Received: by 2002:a17:907:a88e:b0:c40:36ca:9d1b with SMTP id a640c23a62f3a-c49be0398aemr530750766b.40.1793287771423;
+        Thu, 29 Oct 2026 08:29:31 -0700 (PDT)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4ca27984f8sm1252166b.80.2026.10.29.08.29.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 08:29:30 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH v5 00/11] drm/tegra: Add support for Tegra20/Tegra30 8-bit CPU interface
+Date: Thu, 29 Oct 2026 17:28:58 +0200
+Message-ID: <20261029152909.234584-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,45 +109,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] docs: Improve wording in Sphinx dependency checker
-To: Dongliang Mu <dzm91@hust.edu.cn>, Jonathan Corbet <corbet@lwn.net>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1793119566.git.dzm91@hust.edu.cn>
- <13b42c47a375e2ccc9f84412c10e7868f7ea7c4a.1793119566.git.dzm91@hust.edu.cn>
- <5a257e68-f1b9-4c50-919a-a85d0df8686c@infradead.org>
- <e0415ef0-205b-442d-8e4c-46b72da9fc83@hust.edu.cn>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <e0415ef0-205b-442d-8e4c-46b72da9fc83@hust.edu.cn>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
+that closely resembles the MIPI DBI Type B protocol and is referred to as
+'8-bit CPU'.
+
+Add MIPI DBI bus support along with 2 DBI Type B panels used in
+LG Optimus 2X which work with the 8-bit CPU interface.
+
+Convert rgb, dsi, hdmi and sor to use atomic versions of
+drm_encoder_helper_funcs needed for bridge state requesting.
+Refactor and expand DC header. Add DC parametrization options
+needed for fine tuning by bridges. Make panel parsing by
+tegra_output_probe() optional and document optional DSI port. 
+Add 8-bit CPU interface in form of a bridge linking to RGB port.
+
+---
+Changes in v2:
+- convert enums in the dc header into definitions list
+- add check in RGB if bridge_state is not NULL, if yes, use default flags
+- inverted FLAG_PIXDATA_SAMPLE flag setup logic since default value is set to
+  be on NEGEDGE while v1 set default to be on POSEDGE
+- 8bit-cpu schema renamed to dbi, removed compaible and set as DC child
+- expanded list of required properties
+- 8bit-cpu bridge remodelled into dbi interface as DC child
+- improve gpio handling
+- rework attach to get drvdata from parent
+- add panel supplies description
+- split panel driver into per-panel drivers
+- get DBI interface from the patent directly
+
+I have deliberately left GPIO parsing from device tree since it seems to
+be the most convenient and mainstream method of working with GPIOs.
 
 
-On 10/29/26 5:51 AM, Dongliang Mu wrote:
-> 
-> On 10/28/26 8:07 AM, Randy Dunlap wrote:
->> Hi,
->>
->> On 10/27/26 10:07 AM, Dongliang Mu wrote:
->>> @@ -784,10 +782,10 @@ class SphinxDependencyChecker(MissingCheckers):
->>>               if not self.distro_msg:
->>>                   self.distro_msg = \
->>>                       "Note: RHEL-based distros typically require extra repositories.\n" \
->>> -                    "For most, enabling epel and crb are enough:\n" \
->>> +                    "For most, enabling EPEL and CRB is enough:\n" \
->> I think that "are" is correct here since the subject is plural.
-> 
-> 
-> From my understanding, enabling XXX is the subject, so I change it to "is". However, this is not very clear.
-> 
-> How about "For most, the EPEL and CRB repositories are enough:\n"? This seems more clear.
+Changes in v3:
+- rgb: fix default bus_flags to match original behavior
+- dbi-schema: remove compatible from required props
+  remove dc@54200000 wrapper from example
+  restrict dbi nodes for tegra20/tegra30 only
+- dbi: remove unused idx from tegra_dbi_priv
+  wrap dbi registration in dc with devm_add_action_or_reset()
+  separate dbi into separate object
+  export tegra_dc_commit() and trace_dc_readl()/dc_readl()
 
-Fine with me. Thanks.
+Changes in v4:
+- reorder patches to avoid errors on checking dbi schema
+- dbi schema renamed to nvidia,tegra20-dbi for consistency
+- fix DC_DISP_V_PULSE0_POSITION_* > DC_DISP_V_PULSE1_POSITION_*
+- add MODULE_ALIAS
+- swap width and height in panels
+- dropped use of init-sequence and gpios
+- dbi driver reworked to use only DC to operate pins
+
+Changes in v5:
+- added commit modelling DBI bus (suggested by Mikko Perttunen)
+- hitachi and lg panels converted to mipi_dbi_driver
+- dc header refactored and completed
+- added commit documenting DSI controller port
+- added commit which converts drm_encoder_helper_funcs to use atomic
+  enable/disable
+- added commit which makes panel parsing in tegra_output_probe() optional
+- dbi command/data converted to enum
+- dc com pins are now backed up into drivers private structure
+- magic numbers replaced with pin defines
+- dropped tegra_dc_readl() from tegra_dbi_pin_set
+- tegra_dbi_pin_set() accepts boolean third argument
+- tegra_dbi_write() second argument converted to use tegra_dbi_dc_signal enum
+- used field_get() to extract pin value
+- extended comment regarding init sequence
+- nvidia,index > generic reg property
+- adjusted tegra_dbi_atomic_enable() to properly handle shadowed registers
+- switched to use of_drm_get_bridge_by_endpoint() since panels are auto-wrapped
+  into bridge now
+- added support for mipi_dbi_host_ops
+- added resource managed helper to register DBI device and provided to DC via
+  header
+- dbi.o built with all other tegra drm files
+---
+
+Mikko Perttunen (1):
+  drm: Add MIPI DBI bus support
+
+Svyatoslav Ryhel (10):
+  dt-bindings: display: panel: Document Hitachi TX10D07VM0BAA and LG
+    LH400WV3 panels
+  drm/panel: Add Hitachi TX10D07VM0BAA MIPI DBI Type B panel driver
+  drm/panel: Add LG LH400WV3-SD04 MIPI DBI Type B panel driver
+  drm/tegra: dc: Refactor and expand header
+  dt-bindings: display: tegra: Document Tegra20 DSI port
+  drm/tegra: Make panel parsing by tegra_output_probe() optional
+  drm/tegra: Convert to use atomic versions of drm_encoder_helper_funcs
+  drm/tegra: rgb: Parameterize configuration based on bus flags
+  dt-bindings: display: tegra: Document 8-bit CPU parallel interface
+  drm/tegra: Add support for 8-bit CPU interface
+
+ .../display/panel/hit,tx10d07vm0baa.yaml      |  58 ++
+ .../display/tegra/nvidia,tegra20-dbi.yaml     | 113 +++
+ .../display/tegra/nvidia,tegra20-dc.yaml      |  22 +
+ .../display/tegra/nvidia,tegra20-dsi.yaml     |   6 +
+ drivers/gpu/drm/Makefile                      |   2 +-
+ drivers/gpu/drm/drm_mipi_dbi_bus.c            | 232 +++++
+ drivers/gpu/drm/panel/Kconfig                 |  27 +
+ drivers/gpu/drm/panel/Makefile                |   2 +
+ .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 294 ++++++
+ drivers/gpu/drm/panel/panel-lg-lh400wv3.c     | 233 +++++
+ drivers/gpu/drm/tegra/Makefile                |   1 +
+ drivers/gpu/drm/tegra/dbi.c                   | 632 +++++++++++++
+ drivers/gpu/drm/tegra/dc.c                    |  15 +-
+ drivers/gpu/drm/tegra/dc.h                    | 859 +++++++++++-------
+ drivers/gpu/drm/tegra/drm.h                   |   2 +-
+ drivers/gpu/drm/tegra/dsi.c                   |  22 +-
+ drivers/gpu/drm/tegra/hdmi.c                  |  22 +-
+ drivers/gpu/drm/tegra/output.c                |  52 +-
+ drivers/gpu/drm/tegra/rgb.c                   |  72 +-
+ drivers/gpu/drm/tegra/sor.c                   |  20 +-
+ include/drm/drm_mipi_dbi_bus.h                | 103 +++
+ 21 files changed, 2372 insertions(+), 417 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/hit,tx10d07vm0baa.yaml
+ create mode 100644 Documentation/devicetree/bindings/display/tegra/nvidia,tegra20-dbi.yaml
+ create mode 100644 drivers/gpu/drm/drm_mipi_dbi_bus.c
+ create mode 100644 drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
+ create mode 100644 drivers/gpu/drm/panel/panel-lg-lh400wv3.c
+ create mode 100644 drivers/gpu/drm/tegra/dbi.c
+ create mode 100644 include/drm/drm_mipi_dbi_bus.h
 
 -- 
-~Randy
+2.53.0
 
