@@ -1,125 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260191;
-	b=1cWNtmoB7zFFFqsFn9SCUG2U/CKcTqU40KsEeLgnzdyOnntccRQzQML1S7xi6KvHCFEv
-	 ydiIup003gbHA3pfG5mlHw+R34IrvlKAs+Ci4ubxGu+O+n7F7GyGoSTQBdwZre0tkQtz0
-	 LNx1PuHoCs48wqCh1fN4h8LvZ0HqeEU82ymKiFhLlOSw+cmFcMOiU74S9U49/wrktNwpt
-	 tp97nR3yr6nP0g2uO4fEOkJmP0Fuqa0LyrnKtq3xsxh/MnSddPSGi+JsSY4rJqBnOFc98
-	 xXDJIgkNeJaqFLHbfb/gVgsQzgVvA+fkDt+EwQe0kC5E6o9pAV4kPryKJ8TjlQrFVpA==
+	t=1793260199;
+	b=oMrifGxSWsDQe+h5klYl5WNDPVOEYmZRKE/v4AJpgAlXOqRh3bw+GXjXq2AOBT7MVtRI
+	 NEVMaTOAuHp8R00hO7NZg6HXzJO+2rJGiV5J+a29CydLVWiaZd1/kLhlgx4x3wzUz6Y09
+	 M4fxgqRJG0OMrcptWb58XaRvFf7JQyn2jGJD8OUmk1Xbll5ZVNhiPE9U95dtQbDlpyAHW
+	 G4TC1Ah/a+3/6KlJMi6mAOvR96IUUVc3YOeUjD1IG2mk+O4w2vpFTRaAH30VKgfSQC5LZ
+	 H0in5LlrQEQO9o2DnwGuj5Kz3rs476ZzMPZDKzMO4DVQ8tRE5Yau818dRdwf4sSnaQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260191;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260199;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=yz8i4WKkbNXEG8JNojJIwkG6eD/QvdmFoULtZaxCats=;
-	b=O2NFj3nJd7JsZ6qTokrRji4NUZs8+e7pwet10/yRHZAJLgbRP5ux/X+aAxsoZqOjrMVf
-	 6eIa61lkPtGPBFHt7+FSXrkYJqDE3mxxACgrTV1Lk/QcytwB5sc0WXurq1oL8XqF0XqN9
-	 7HPkvqlCD0ABjKg1HsrCs83imY2Y2edOyNvvQEwV3vOlTxFreQEDnPVR1gqR4ud1Bjr7w
-	 D3EDTqS+e2bWUO+ta5xkEbz05syZClS6Z/DaSa8iTkJJtqfGuXvabN2lYB4GjWB6vYfv1
-	 fTSgMPnot21NYWCuVvcEF+mvXW14aAbIvRG6OSydFbpaUF2iBXp2QmbBcRhBJmgJwqQ==
+	bh=0Kx5T2Zh6GBBFVRGRo+yPdOYmemlYMbdnEqHarr3OXY=;
+	b=SGWDt6XBzTGw0Np9M/whCU+gW+8gAJg7euAYHNp9pke91tNDwwyk2qqy5rXymLKxIsiA
+	 nMHESEv07f6E9hcAmt3RpGkFLbD0Yv1sg5Sa3/s9/+gXMtopC1mp3dv7ClTuzfEjDC+3x
+	 eFZgb4DZFsb5zDk6CfJ2EtpD8I+UTTbf4h0j/iAAAMtOwUGWoi6zE4moCmcWOcb+gkIiB
+	 rVQCpU9eb5Jxsu6lP7NYEVudsnoB8jBgIk2bNlRcYz2C4x3BO+PULkSbrJ2iqgw5Hx3+c
+	 QdyYDObGYLkzHnnuS5Qbgpcsk69Qg1nSF7/WqQRmL+U+PoNlj1Aj9r9s8F0JoyZyBxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b="JQEhOH/A";
-	arc=none smtp.remote-ip=74.125.227.131
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tE8cC9v+;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4850606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4850606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C085606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:49:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C085606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=JQEhOH/A
-Received: by mail-pj2-f3.google.com with SMTP id d9443c01a7336-2e831901331so14382165ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:49:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tE8cC9v+
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-14394530ec6so2043289c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:49:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1793260190; x=1793864990; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793260198; x=1793864998; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yz8i4WKkbNXEG8JNojJIwkG6eD/QvdmFoULtZaxCats=;
-        b=JQEhOH/AcH+D00whwk5YV2SCmCAIr9A4mreKRfPCO+U5z1fI+gJYKPW0nXRB+YW4/M
-         wFL7MFo5HR0p5w8cXZ36ka+3r39vzeOeGlTLOJzCkuuN602PMe5ohvO1hc1tar0cBIg3
-         R2GZ7e/eDg/0UyBvCQyU8bN8kn8Vpu43pZRnlyxH6BYbdGIRLCAS3dj4qr1iQgvkoCr6
-         ZchzgXu8aKR1VASXb2XRLqKHmWjt9INRnP+y1NGDluZ6jv249/+ml5scLncR3LhI7SrZ
-         9jP25OeZzxQz4gLvPigG25eeQwHoQFzXZHy8OIXdIyBuWKpRIR3RSSzUlZyvqxd1h8+T
-         LMSw==
+        bh=0Kx5T2Zh6GBBFVRGRo+yPdOYmemlYMbdnEqHarr3OXY=;
+        b=tE8cC9v+vwT/2Loi4Wz9xzCZ/GZBX/8g+egr8DRZjNynMG2QjspTrw14jfWHyvtWtB
+         Qzo2kPj6EpVvC7wf26zBh2iN3aOWlXsn8FLdoyyOeh7r6qK1kH6QBz0BFmQy7BgkP7Am
+         bmLvfhKy2lJKjOwm42w6k5LKBB3CKSHnqvdjV30I+cFmds6wk7MzK517GuH+XV1FDNwT
+         gDX5tfpP2/rG+DcDXStCz5PcWho2PXzXBwFWbSN4995fw7a7ewLP7R+MAnFbxvWP8Wec
+         vLeDqPPHRhX+qvRRxFHhLN8I5+dTfU5L4We1xf1gj41s1Rm7dhQ7KuBMvQH26gm/njkz
+         arZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793260190; x=1793864990;
+        d=1e100.net; s=20260707; t=1793260198; x=1793864998;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yz8i4WKkbNXEG8JNojJIwkG6eD/QvdmFoULtZaxCats=;
-        b=aQ1ZU1s13yPgruv1iWi2VKJAtcIms+elj3Y/2YBvD4PTqQQbOCPvSn4mJJOxnbkoca
-         j6n0IJZjyMYNWxncvWp8qj82hZo9LkhINho9TWZmz7CR9CVB2AvO9xa3USzMkLriasal
-         QsqeLyNCtmr2Kkkwp/1Mndz4JYhQsPP3IFRrXyFh4gvOGqwGqlPr/AUoC/uGMXcCTfu/
-         Jswawix+Vmf6L8jcZwd0T+taEw9yzWnfrXI0ZMDJYYBhBjVMg4Vb9ik8fiaI4XUJbfQv
-         hyi9ufIEQ7BcYQSFo2CQHMOw7xIXL64a3pVboD7Ob5eYsiUeVdxV8tdqdhq9hT2NsAGg
-         GRPQ==
-X-Forwarded-Encrypted: i=1; AKwUvByB3m1kO2uujaIMAks2mPtzLzFc/FAHcYxv+kZZoLpG7g9Z7bXPObeBItgiM+owBvCXHBzOWK+SKm6JgTk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLImCAJ4EzbjSqemoJetQTTn0Mt1MJOr5ZhtgKaTBElvS6rhgjE
-	YeOolU0btc0jIaQ4EX77ZwSuR3kuBykNtyeYtS4kCcDJskpyL4BarFfmqOuJc3B0WH4=
-X-Gm-Gg: AYBFou0+9D8aKkXtecxYCtP07m0kn6LTbR4JhwBXidfSHQm0guKYfE5icdio91/YNol
-	YNcZxpaqcl0c6ZXKAS0Jl3/dEiQDJyMvcdlg7AN44AfvJXPZ8DokHDrIIt9QpbptX6VL7d2KEtf
-	K2WfbgAjNjtsbZB4jfjsG0CumoyswVzjpTWGz5vB3TproWEYNxvh35Sap8JGckykr6lqHtP6vKn
-	GxCWOfho7H+YFl/SeVae/PyxKwez26t8CSRAGudpouZlxI1N4JeWKLvp1TqjilUdBB9wVXJIRT9
-	lzGa5DVg32oG6oEqEWjL89CIqK3nKswlf6E5qK3zQFc5AMeccRQtXnuA+/kYoYpZsHn0Puppn1Y
-	HOz5si0yLtxKOL0R6Klb9bZGq0gvFlrfrGx9/nsHeghpNnfJZFp79ZCdpWj4mqJcuMwV53nps3K
-	pW6vO/342OQTq5LNEOKOMOvwfsY8yjD0GNg2Cz352A/zzoKCJ6IIzrZtiacFSGvYegLcvX6+/k/
-	F0hqMKwtstl8qgNNzIIS4CPoGowuCHw4YZbkz5KpY7mplNkqiq42dZeFNCdzhZOGwzx4s5atJME
-	gf1NCqkcKWgoOaEfToh4pNyFygkJEp2b6+Dlkl8faRXYmzAMmbvx4i0P9HgEfViFpEPP37N3DPf
-	YvemOBxc=
-X-Received: by 2002:a17:902:f691:b0:2e9:5eee:e071 with SMTP id d9443c01a7336-2eb00587616mr45487815ad.57.1793260189931;
-        Thu, 29 Oct 2026 00:49:49 -0700 (PDT)
-Received: from FJ7FR2JRQ3.bytedance.net ([186.240.245.239])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eae6bd60desm30598915ad.29.2026.10.29.00.49.37
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 00:49:49 -0700 (PDT)
-From: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>,
-	Conor Dooley <conor@kernel.org>,
-	Anup Patel <anup.patel@oss.qualcomm.com>
-Cc: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@rivosinc.com>,
-	Yunhui Cui <cuiyunhui@bytedance.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Will Deacon <will@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <shuah@kernel.org>,
-	yuanzhu@bytedance.com,
-	yang.yicong@picoheart.com,
-	yang.susheng@zte.com.cn,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-perf-users@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
-Subject: [PATCH v12 03/11] riscv: sse: mask events during shutdown and kexec
-Date: Thu, 29 Oct 2026 15:48:45 +0800
-Message-ID: <20261029074853.35467-4-zhangzhanpeng.jasper@bytedance.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261029074853.35467-1-zhangzhanpeng.jasper@bytedance.com>
-References: <20261029074853.35467-1-zhangzhanpeng.jasper@bytedance.com>
+        bh=0Kx5T2Zh6GBBFVRGRo+yPdOYmemlYMbdnEqHarr3OXY=;
+        b=TPD3e3CrG0chq4YvCQmHloA57EHNFRDbeyvwnjgd7pVk1Y4Ytc1ybsC4rwEmzWELNg
+         1UoKkYGENoTTgS0sJEBqmj19lRqwR0SAJQOvCUGINfqT5rqPwUkFoEu1jdFe8TIFoYgu
+         kcp9TEzmzc09Iq9zZGRaGWbC3S+cagkHGNdK++NXVZdpxnYq6kqQ6P/5bK4PiUTlvSIS
+         HBEtRlKRB9TWR9oTpY48E4GURdpVzX8wKfpaa7mmGy1NDzW9qhUGc4EydmhDrbLmkgZ1
+         pnRUAg8b1mNZct8FDTYgwoTgJyLmi0T+TAuLTxNxRXz0lsfTk3eHT/yrojtHZ9iNvRJs
+         wJJw==
+X-Forwarded-Encrypted: i=1; AKwUvBxfeGCFWvwvYvwztIjvZBY7tNf9IA9ljBvz94H90tEQQSYR4rPHjbBwuy9wCKJkZuTqZoa/zwGR4aSRHss=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5PaMWDmdmElUuks1c2SOBxvuaddEk9CgrJQkpvbvy9DhaOC89
+	oqWXJ7bTiWVI/OA0GrT7zJxA7P+LujaOBIJ3SYmdgfK9uhzDa9cyk4c5
+X-Gm-Gg: AYBFou2joBet1yQTiRhCWfBa+xlMgXLodoFNfI6H+A4r/rYo7VADTSwUIPuU6j95Zt6
+	fkZiz8PCVdaojlj4m6kzPhDOYuKoyHBHHimXMq/3JRB6F/Fu0NFXnxXEDEkMnruQ+sA+XYP+iYH
+	6lQu/LHagMkCBeYc/rWs+hpEGxvVMnGhACg2eIQPgFPQzREz5YWSW1KE2HCEjST7/SYrY8M1HTO
+	rc+KIQyXKkW5d3khpgnWdk61UkdtFWA7By6IT50vGyS+OkAlgR3dYQT5rsEqQjxmNCjE0YQRWoH
+	EqEzoCSMeSMjQWkCWa3X4ICpfwSrKiWQr1/j4zZigrM6fuTtTtfrqfz+JKSm5vbgAxrfxaC/9ke
+	CRGPPsDZj9xMezZ86S95bQLsbGgau7e7TQjS4TuDrLXSzG1wd2ujBi1Cm6EROTsbxKtr6iILWzP
+	IejgnU3roW1Oqf7k7grdH4EfgTyTepJdMpNiwPgRFh8Vx7d23HKaW076szR/LEjv+HkwByyb/uJ
+	yoT5R0uOxilJ6dDbTC5j+gkZfoadCsQmNNT+ldpvMq+IsEUueG+sCq9LvNivW2HI1MirxFFpPlu
+	VE1CfAKOgyp2K2wsHSpXgg+xujAEeVX2pALvfNTNeUG21DXolNPjpo4aF6szGzuhuBdmpbBJNQF
+	kBaa+gC+NOZzmMEe8fXC1A9ZCUcLmcTabaOKyj7tgVZ+ZgUkA9f1m/8zmKqmynbs/eoO0Y+vLIg
+	==
+X-Received: by 2002:a05:701b:2304:b0:1a8:b566:80c2 with SMTP id a92af1059eb24-1a8b5668212mr3515852c88.17.1793260198198;
+        Thu, 29 Oct 2026 00:49:58 -0700 (PDT)
+Received: from ramen-dev-security-2.asia-south1-c.c.ramen-dev-345017.internal (90.156.200.35.bc.googleusercontent.com. [35.200.156.90])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1a75d4887easm12843583c88.9.2026.10.29.00.49.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 00:49:57 -0700 (PDT)
+From: Anil Kaushik <anilkaushikwireless@gmail.com>
+To: Jacob Keller <jacob.e.keller@intel.com>,
+	Jiri Pirko <jiri@resnulli.us>
+Cc: netdev@vger.kernel.org,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	XingWang Xiang <v3rdant.xiang@gmail.com>,
+	Alice Ryhl <aliceryhl@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] genetlink: Reject joining multicast groups no family owns
+Date: Thu, 29 Oct 2026 07:49:51 +0000
+Message-Id: <20261029074951.3413609-1-anilkaushikwireless@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261029062214.3407223-1-anilkaushikwireless@gmail.com>
+References: <20261029062214.3407223-1-anilkaushikwireless@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -131,189 +111,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SSE delivery is independent of normal S-mode interrupts. Firmware may also
-retain an event registration until Linux explicitly unregisters it. A hart
-must therefore stop accepting SSE events before Linux stops servicing the
-registered handler.
+Adding Jacob and Jiri, I missed them on Cc.
 
-Mask SSE on the local hart before panic stop, CPU stop, restart, poweroff,
-and crash shutdown paths. This prevents firmware from entering Linux-owned
-handler state after the corresponding CPU or kernel context is no longer
-valid.
-
-A crash kernel cannot identify or take ownership of registrations
-inherited from the crashed kernel. Reject a later normal kexec while such
-SSE state may still exist, rather than transferring unknown firmware state
-to another kernel.
-
-The restriction is deliberately based on firmware SSE availability, not
-CONFIG_RISCV_SBI_SSE or registrations made by the crash kernel. Disabling
-SSE in the crash kernel does not establish that registrations left by the
-crashed kernel are absent. Consequently, normal kexec from a crash kernel
-is also rejected when firmware advertises SSE but no registrations were
-actually left behind. This conservative restriction remains until a safe
-way to establish or clear inherited firmware state is available.
-
-Link: https://lore.kernel.org/r/as7-3PbWDxygadnJ@hu-himchau-blr.qualcomm.com/
-Reviewed-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
-Signed-off-by: Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>
----
- arch/riscv/kernel/machine_kexec.c | 11 +++++++++++
- arch/riscv/kernel/reset.c         | 18 ++++++++++++++++++
- arch/riscv/kernel/smp.c           | 17 +++++++++++++++++
- 3 files changed, 46 insertions(+)
-
-diff --git a/arch/riscv/kernel/machine_kexec.c b/arch/riscv/kernel/machine_kexec.c
-index 738df176ff6..24e7affae70 100644
---- a/arch/riscv/kernel/machine_kexec.c
-+++ b/arch/riscv/kernel/machine_kexec.c
-@@ -14,10 +14,13 @@
- #include <asm/set_memory.h>	/* For set_memory_x() */
- #include <linux/compiler.h>	/* For unreachable() */
- #include <linux/cpu.h>		/* For cpu_down() */
-+#include <linux/crash_dump.h>
- #include <linux/reboot.h>
- #include <linux/interrupt.h>
- #include <linux/irq.h>
- 
-+#include <asm/sse.h>
-+
- /*
-  * machine_kexec_prepare - Initialize kexec
-  *
-@@ -36,6 +39,13 @@ machine_kexec_prepare(struct kimage *image)
- 	unsigned int control_code_buffer_sz = 0;
- 	int i = 0;
- 
-+	/* A crash kernel cannot tear down registrations inherited from firmware. */
-+	if (is_kdump_kernel() && image->type != KEXEC_TYPE_CRASH &&
-+	    riscv_sse_available()) {
-+		pr_err("Normal kexec from a crash kernel is unsupported with SSE\n");
-+		return -EOPNOTSUPP;
-+	}
-+
- 	/* Find the Flattened Device Tree and save its physical address */
- 	for (i = 0; i < image->nr_segments; i++) {
- 		if (image->segment[i].memsz <= sizeof(fdt))
-@@ -127,6 +137,7 @@ void
- machine_crash_shutdown(struct pt_regs *regs)
- {
- 	local_irq_disable();
-+	riscv_sse_mask_current_hart();
- 
- 	/* shutdown non-crashing cpus */
- 	crash_smp_send_stop();
-diff --git a/arch/riscv/kernel/reset.c b/arch/riscv/kernel/reset.c
-index 14eb08a6db8..fdab37e7ae5 100644
---- a/arch/riscv/kernel/reset.c
-+++ b/arch/riscv/kernel/reset.c
-@@ -6,6 +6,20 @@
- #include <linux/efi.h>
- #include <linux/reboot.h>
- #include <linux/pm.h>
-+#include <linux/smp.h>
-+
-+#include <asm/sse.h>
-+
-+#ifndef CONFIG_SMP
-+void __noreturn panic_smp_self_stop(void)
-+{
-+	riscv_sse_mask_current_hart();
-+	local_irq_disable();
-+
-+	for (;;)
-+		cpu_relax();
-+}
-+#endif
- 
- static void __noreturn default_power_off(void)
- {
-@@ -18,6 +32,8 @@ EXPORT_SYMBOL(pm_power_off);
- 
- void machine_restart(char *cmd)
- {
-+	riscv_sse_mask_current_hart();
-+
- 	/*
- 	 * UpdateCapsule() depends on the system being reset via ResetSystem().
- 	 */
-@@ -30,12 +46,14 @@ void machine_restart(char *cmd)
- 
- void machine_halt(void)
- {
-+	riscv_sse_mask_current_hart();
- 	do_kernel_power_off();
- 	default_power_off();
- }
- 
- void machine_power_off(void)
- {
-+	riscv_sse_mask_current_hart();
- 	do_kernel_power_off();
- 	default_power_off();
- }
-diff --git a/arch/riscv/kernel/smp.c b/arch/riscv/kernel/smp.c
-index eddbc3ad06c..9ad38df4827 100644
---- a/arch/riscv/kernel/smp.c
-+++ b/arch/riscv/kernel/smp.c
-@@ -22,10 +22,13 @@
- #include <linux/irq.h>
- #include <linux/irq_work.h>
- #include <linux/nmi.h>
-+#include <linux/panic.h>
- 
- #include <asm/tlbflush.h>
- #include <asm/cacheflush.h>
- #include <asm/cpu_ops.h>
-+#include <asm/sbi.h>
-+#include <asm/sse.h>
- 
- enum ipi_message_type {
- 	IPI_RESCHEDULE,
-@@ -78,8 +81,18 @@ int riscv_hartid_to_cpuid(unsigned long hartid)
- 	return -ENOENT;
- }
- 
-+void __noreturn panic_smp_self_stop(void)
-+{
-+	riscv_sse_mask_current_hart();
-+	local_irq_disable();
-+
-+	for (;;)
-+		cpu_relax();
-+}
-+
- static void ipi_stop(void)
- {
-+	riscv_sse_mask_current_hart();
- 	set_cpu_online(smp_processor_id(), false);
- 	while (1)
- 		wait_for_interrupt();
-@@ -90,6 +103,7 @@ static atomic_t waiting_for_crash_ipi = ATOMIC_INIT(0);
- 
- static inline void ipi_cpu_crash_stop(unsigned int cpu, struct pt_regs *regs)
- {
-+	riscv_sse_mask_current_hart();
- 	crash_save_cpu(regs, cpu);
- 
- 	atomic_dec(&waiting_for_crash_ipi);
-@@ -253,6 +267,8 @@ void smp_send_stop(void)
- {
- 	unsigned long timeout;
- 
-+	riscv_sse_mask_current_hart();
-+
- 	if (num_online_cpus() > 1) {
- 		cpumask_t mask;
- 
-@@ -300,6 +316,7 @@ void crash_smp_send_stop(void)
- 		return;
- 
- 	cpus_stopped = 1;
-+	riscv_sse_mask_current_hart();
- 
- 	/*
- 	 * If this cpu is the only one alive at this point in time, online or
--- 
-2.50.1 (Apple Git-155)
-
+On Thu, Oct 29, 2026, Anil Kaushik wrote:
+> genl_bind() checks the GENL_MCAST_CAP_* flags of a group only when a
+> family owns it. For a group ID that no family owns, it returns 0, so any
+> user can join it.
