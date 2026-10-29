@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793262970;
-	b=uaaYEb52njQh0IoXENQazVQMxce2rMTy4GWyKY8f37k9K2EJvZyEQ7bOd86j/vzWUYfC
-	 cSNlOtKE88lCikTH8sEGSLvgeU79vPgoxWq7ARTSseU2o0vaFU/G6OT2xp/9s06VYpFhc
-	 Nu8MLAhnGT1Hc40s2xhbjAzxwu2XyDmJTpurUM+TsbhPTJdPH7UnMMLrWC+HiyMObbEOE
-	 U6+uOBw8LuwtT+Yr/uoSUqhLxPzv4kPCbmNcn90k07LmPgIJzb+rII0o48z+rSEL0YwyE
-	 04ns5iccFkwdUiJgqlZ8eAsBIxgv5h3cWxoRKAwnyQuBPzTDgqb4ZNQmry4PGoT8FLw==
+	t=1793262987;
+	b=jpwrv2yefPa/gIGYtZHyI0KJZu8NyO3iUToL0ZnECgJW4c+lc78Hyil0xI1vxIb2sm47
+	 F/Ixt1qKiD+YXhxo0H4lieibKmNkCEQK5+dynFK6JDUO9KTFkREadYi/+18ebfj9im9sg
+	 KmEeHDecmKIfiRIMpSxOyZDIV1QC6XVKU1ZJlZAK6tKztMYr8SSoISB8JtW/vYYfYbMxl
+	 PN6i8Of7dLgxqOs2+9Oz6hk9qxAmbkrUzPA5qDb88ThT9kNF62542kbKcFXwdJa33BD+J
+	 nFACCYTlJPNqYZZ0aSd1PnGOL0Cbz6mI+4FgqzqBNasDRa9rtEmKnsxU3c9DmT1KJ7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793262970;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BqE9F7QHM9W2/QNtBufRNQmznh5NnDhMEtUPQb5xb70=;
-	b=IWzHryAnKLvtxyylnfBvCHL37V6gUTvEjDrzXv+QeZ5pGW1T9748Y9pn2y3u530pL5wv
-	 z0vmZi3BTJ0YjYytL4VheNZtii+xOgk/JKsXW8kE5dm0MvvP9KypTKRLMisDrGRlcylnI
-	 zi1KDwPRIGxH1ijT29mo+N3hPIj6YyvshGqeNs9hnjdSp7ACDfkyUy89/0QH+fk8WElUq
-	 QVkfhRUMMqki96eatIXZSj5Mn41seLJt3e4SZyXyXHY1tD0nlLqK3fG5KSt0d4qp0C2Y2
-	 LftSMApGacHpqIcOOAvVVdDUngbX+i/16yJCGpqchxl1Nm3rfpoICxNKzSVipp08JMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262987;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=jGHh7tdrVyq2AXWUMtXIIJeUPoX3wJOwQpcfx5IJTN5ViYsg44yqaoPH4SQs+UckI16j
+	 jVpdL8a7G3u+HYmLS7GI2hykoa0OAqNIYwzve7dRBtsRHzw0euM0dUU39PSoL1o7s7t+v
+	 iT0Yzs43KjIKvLa81DzUXEopEnuKrQyZTpCD/xLWkGhfziUE5Gtu3HfRdjy0ieJNyJGZV
+	 bDEnBREvb99XmU/c3loIzMUxMYLu4gC8D6P+hmaD8Dhmmr1KH8Yge+CmVxMHHBvqQsnmV
+	 MasBALPKNLC+1f5G/d9WFlgxoV1Odp35Qp9m/FqADoTmAOr5uoL0bOJrFaciP6td4kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bE0Dhn1I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="TLSgdt/j";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E00D606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:36:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F33A606A31C;
+	Thu, 29 Oct 2026 08:36:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bE0Dhn1I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4094C1F01828;
-	Thu, 29 Oct 2026 08:36:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TLSgdt/j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C256B1F01825;
+	Thu, 29 Oct 2026 08:36:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793262970;
-	bh=BqE9F7QHM9W2/QNtBufRNQmznh5NnDhMEtUPQb5xb70=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bE0Dhn1IMt6VsMx5LMilyofuecH4nFB14QMQ/6h/vPnj/2C7gAt+npJjDIXKPQvRI
-	 +/HFdeuId/FdGXWgmB2JMO9a/STDDut3KSQ+gw5wUiW+OULcsf7AZjJG30+cTGA2Oy
-	 DE+dNlnQAU9BVewFKYi5wWxlVAQGeojtt2zXpkVfPkX95Vmh5bcN+OYUKZwyWrvy4u
-	 w1a7yQKPndAKCHznQv7wKQ0yVXz21IHsN+Nikaws0HnabpfiCWCKGsGwsDiQ/KZ7bb
-	 gD4y3nAguwcbGPAwreUnLK98qoqMBta7qn2QZ/HJ18003Rk2NAgHQu0MZ2MRaddzOg
-	 bdatkhCCkXKUA==
-Date: Thu, 29 Oct 2026 09:36:05 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Cc: yaolu@kylinos.cn, jani.nikula@linux.intel.com, rodrigo.vivi@intel.com, 
-	tursulin@ursulin.net, simona@ffwll.ch, chris@chris-wilson.co.uk, 
-	lionel.g.landwerlin@intel.com, intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/gem: Reset err for each fence entry
-Message-ID: <auMDxbKZ-XmRbaUH@zenone.zhora.eu>
-References: <20261027072832.726435-1-yaolu@kylinos.cn>
- <auHeqGZ-hm2lS7Nk@zenone.zhora.eu>
- <179325911095.16507.8295053984620715316@jlahtine-mobl>
+	s=k20260515; t=1793262987;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TLSgdt/jrJsw0eVhQNNN0d3Kt27CDdGtmD1RYWRbrd8CvvFNXrnyNKMk/KFvBgvnD
+	 GvJbJl6eaFpW6rjcQnWRbagc6KqhY0YymgYSm2uI35mCYAynp/M0V7dwFIkrLKGact
+	 P6j8WOLXXPlMqmDaJWabX2ROed2hQkgL2EM/AjshGbZRzQu+KP+TS6r5X+tJN4dkwF
+	 Btuc6/Ee7NkGKPmFrTx9hvTqJw3Sjw1iz1eP8lncgUPCXwsRifUs5iCgz/Or4IWHY1
+	 2K71/HqM5qV4nwY8hehwv5jiqhm5ATCqRCGm77zqK056um0tAwRB8yh/YHhlTzx3ae
+	 9T/vMyqMCpAvA==
+From: netdev-bot+sinfo@kernel.org
+To: Thomas Fourier <fourier.thomas@gmail.com>
+Cc: Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net,v2] net: ipa: Fix double free of the interrupt
+ structure on config error
+Date: Thu, 29 Oct 2026 08:36:26 +0000
+Message-ID: <179326298634.3327.15347965057111904898@kernel.org>
+In-Reply-To: <20261029082100.17722-2-fourier.thomas@gmail.com>
+References: <20261029082100.17722-2-fourier.thomas@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,41 +64,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179325911095.16507.8295053984620715316@jlahtine-mobl>
 
-Hi Joonas,
+Hi!
 
-On Thu, Oct 29, 2026 at 09:31:50AM +0200, Joonas Lahtinen wrote:
-> Quoting Andi Shyti (2026-10-28 13:39:14)
-> > Hi Lu,
-> > 
-> > On Tue, Oct 27, 2026 at 03:28:32PM +0800, yaolu@kylinos.cn wrote:
-> > > From: Lu Yao <yaolu@kylinos.cn>
-> > > 
-> > > If dma_fence_chain_find_seqno() failed once, 'err' will store val in
-> > > the following loop. May causing returns '-EINVAL' even though that
-> > > entry never called dma_fence_chain_find_seqno() at all.
-> > > 
-> > > Fixes: 13149e8bafc4 ("drm/i915: add syncobj timeline support")
-> > > Signed-off-by: Lu Yao <yaolu@kylinos.cn>
-> > 
-> > pushed to drm-intel-gt-next.
-> 
-> This was pushed without any R-b, DIM should have given you a warning
-> when applying the patch.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-I forgot to add it, or rather, I remembered it too late. Since
-it's a simple and straightforward patch (most likely LLM
-generated), I didn't want to make a fuss about it.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-> I've reverted it for now, please use DIM and check the warnings before
-> merging stuff.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-I used dim and apparently dim is not enforcing it.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-I'll push it again with my r-b.
-
-Thanks,
-Andi
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
