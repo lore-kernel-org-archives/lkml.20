@@ -1,102 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793294277;
-	b=if6h9WxmpLj5sOAgDK5HbEjFV97tJbmw+XLJCzeTQJycTl76CWVTS+SRm5ejzUrY/7D4
-	 8IzN0Gjx6n3H/zKXiu+iccAdATA7ZniRd4smS5P+nR4k0rTArUJvTyNDeHfRvICdzibvg
-	 G6jybdTiEYayMWRrzKIjA4zPXIVWuBQmAaCSF8SjhdwRnXDxD3H2PzqxadvcgOQGKHjBd
-	 owg++ZQQHlHWVfI0LwYCg66jzbihCKM2UAkeEZmlrSFsHjYB/Cf13K3/sCOHAJfQOkkAr
-	 0GrUCLOmLMJIN/WxVvSg8zY/MNDDC/BBkPCYmE/nH261e6ns0Ixshqx0+9/qSsG0tag==
+	t=1793294347;
+	b=nRnBzZkrXB7zwic7N0TiPkrQ1rXhIjfdQejscwDQulY9hyxTOzIXRcU9I1WtGirraMB9
+	 hR1CCF+6myJtmADAQqD1rZTMWQTq3uTjJw1AyRPIAL+meYYjOIiIdqeeHEDxcHVBF1hhT
+	 /J9334XCxIUt+GjFQCbXb7SjmD6jO5kR1bPrm1GgFgnsjBzVV/mD+Nlkf5ghyn8jUZf6V
+	 kTwWYj4CeFoKLlDBl5vuemHJ6s1b+oaXWJeuMWqCPcF5CBr+QSY0ZhVpAUjE+FA6JW8aE
+	 ULRiLyEVOY0H2a5TufqMdNr61HhgenJ2POfTjH8A80t3+vjKLLYh7KfgJ57tKJUOdfw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793294277;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=aVYR1R4XUuM03rk5Iesd5QgqyShDDveAkvO74xuMO/4=;
-	b=K9saNV4wV8kLA1oYxUO7sDlhgr4QOLx2BQFwFLsMg25U5nn5fuS77MAx/2XuE0gSDvPJ
-	 ZKl/dmOwXIYYRNVqpSwY8SM8Vp9oa41LU8JLgSzjLxQYOE9tAhJ9qj3/Bd3F2VrFJPo5d
-	 FfU8b/GHTrZ19VQb5+F2YyyIDZmqGYkPIg31SW19KaFl+sjZpyqZuiXtOsKgkLT9ampDo
-	 31gKTe+aLwPmZPjQUUqc7qPbZ0SUcm2Vt5mZ8qpKxvcy9tuwxYmKGG7O5G/1XU1wOPOBt
-	 wmi7RDGtbLZPRzqs9Sc/q1pe6xuOtw1hpXSZZvAlzaX6opUEk4EMRf6ky/l5QZpQ6jQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793294347;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=uysAvzGfnvqlsO0iNyVk0n8cyBRWB53uaIurpjRC7SM=;
+	b=jBeUTk8gkEibO6GUWHCrz8SrZMwEIN+Qd9fPhiulC+Ou/vSKnbWvdrkxmyMe9vv4QAgx
+	 T6pekb02ntgovsA2YApcLyBtG/pF6nvtVkhgYAAgJcYQKh9E+737XebyOH7BuKEk7dO/O
+	 rxqLN7AWcym0/JSn5jSEArM1F7DhArz8V1owKZZtmisY56pWlRBy6LACIhIDzgcwJwP1c
+	 Zz4zHMH+FxNtBezNh8e/IIFHPyVffDaWdnDXJBz9oQEhcicpEN2LyzJvx9T7Z0Ib05NIN
+	 mXnJht8Hcglq9PnLkgRI/k3DugRS3U4RPbrm2ReHzIHDTF5EQGVAJRDCmk+Nf555PKw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U1lodXTO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=ZKyzEVWI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA903606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:17:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA903606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C1B606A31A;
+	Thu, 29 Oct 2026 17:19:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3C1B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U1lodXTO
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so4371952a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 10:17:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793294275; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bLOvzabMQD92oN0aSj3PMahS6TcQds9EWySU/nWMqIIR03xKOa1vNDdUbbLlfaSWQf
-         H3E31/qH7sEphkKephNvTp3GE+bm39rWKDAbiyBPSINThKZa+VkLwh2efbxxlbqdf9Ke
-         1fknRIodajC0tvCK56We89gDTZ1bT2l4C5o1O7QlitDng13jmTulW1r/foPXZ6x+fpTd
-         nIk6SydBgJiQpoJnSMr5dP+y6IjV4I2B2lZTKCxYI7xUD+77r+1xAdXUABNT7x1thOzJ
-         4hsINy89kpzqDLLn0BK/KDehhYUcdYuk3mqhs3L7BcnkOxpnKabfa4wBuAWVmWFJrxw3
-         s67Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=aVYR1R4XUuM03rk5Iesd5QgqyShDDveAkvO74xuMO/4=;
-        fh=cxfjwE2FWU2vPsHSJUcyGj2LvAnnvCPVd6j1UckB/Eg=;
-        b=kK1TThpX+WV0p617lq9wNbEd7MTRDCcO+fjVi09MAhO5IqMwmc0ywjAFf32Tmez0M7
-         L+4AONPNZXJcSm7Lrx3iAZqq+2EY+4J5ssT/hw3ZGk/ZsVqetnZ2L7m0DSIFqEd4m+MQ
-         XePEdspA78mls0vVrOyXFJHUClaCajJyDoeQn5ZktZ2iPwsTRMZJslBkjWcpSxQgT6LQ
-         X5dK5CN3ycTsO6kyJxDtwmA2mFrO22mLDLemZRHTOO2drRsW3eE+B+37f+E+WZlJqj2F
-         HZVwkxY4ddnmcCgHBUUCXLqudotBJph71K+HM2dhKs0ht6tgD757Y20EkmS5qSgfCqHA
-         UAug==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793294275; x=1793899075; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aVYR1R4XUuM03rk5Iesd5QgqyShDDveAkvO74xuMO/4=;
-        b=U1lodXTOQgNfGhx5cmSNfFjyd91hY7J581AuMLFuVn7Zoki1q/ZGT3YuSQ/6YVrbCB
-         JnBOa9Jf+pHpwzbx1kmYhfjTbyAAWJRl3t7wz8ysZW8Jc++T7GJ5p77Gb0CbZnM8rk/r
-         EGCwmAzEW/YCJDg2OzrONhnevtqfHfdQ/uQnM3AH5XEmNBzjux4rjUkRuCUwq0t/ouuH
-         Qy5DMr9Wl/UUj13JYEz+33YmIDMsNl/PywPDoM14lVitgSoWEVrxaGrmU+04FlwJtVvg
-         ucB/aDfiwCAZRlgzG/Sp0eQhMAvkiRfHfBxvQI6gN/r9BCrTI3DMZrnuwxw1VHMHP/5L
-         w61Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793294275; x=1793899075;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aVYR1R4XUuM03rk5Iesd5QgqyShDDveAkvO74xuMO/4=;
-        b=adE77+fMyQYTUXqaLKYkh5Kc2FSCjm2K0yYaizXnsK7T5XwrKr45bxcY05FY8B+9nH
-         6T23nkXerbp33Eyg5yTRcYsK7MEBC9vQRGKoK7XSm+8Y57ZnLqt3iZhJYpt3zF7TzO1h
-         jvJfp+0XycyePwKFwU6IbMoBrbnOO1xnWMQX5bpk/O0ixGJozGB69UTG5I6C4bEb2p5q
-         mRwzLMg0085qbwP149LVmyuVBVCsS8a5Q0CYOmU3a4chlF2cGAzh/vVLojfpHc3CcGke
-         Ily2bRFth9+wCPWc7En2pMSm7QHZDjINZ+cvcnxH/YlUYgifsfKkR+jxwny6AkkGhvwM
-         PKug==
-X-Forwarded-Encrypted: i=1; AKwUvBxLFj6U/L/0PwGTQacsZTnJzjk85Pk3ZFOh4aISmlnulHnIG35Vt8V/m3Q485HSFDY6XwOeC4o7560l3SE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYInuVkZ3WmBEw8jZb8bvPk3q++TFWx9YmoUfEBwDxBQIJXEVHie
-	L+YNavk6qWCFW2wrqYsE4WCEWPBgVsDcwiiTHRdowQYpyZJxoKnKcDpLt71rl6iIDJaOqhf1ATn
-	89vFU7Tv/kR56OTo68pOyEhdM70a/4HI=
-X-Gm-Gg: AYBFou3p9je+uAezDyRgbUxcNqap1CFr0CgcSv39gTcT1oBEC2RW4+JyKV2NZnlJeuf
-	EI91SpkP733m+/Zjkr8duo2vUJKQMdLiv9/yRp4iJol2rb1PACPbTnaiIZaW9wYkbr5ZsyYj0ob
-	T3hq+Vt9ApudlT+2oruHlJ+S6T5o/1qSjjcd+dD9e65QYeBUV1bZv7DRLwG9dMSYdcGSg7j49g4
-	niQvYZ7sUs5ePMSh8nG/iDGJPj5LEn0Qy0snhqIsgvxlLpUSFnMlmgrC+9ryOEEWdKKSKf9RXZt
-	Q+bJQOHpnzIjvgmaR9hjZQoBD5h+3CxySnMhpoXPUZhLY69bdLqZzPc1/phXiMYslL4vl2SRgBg
-	2eYFeoRQCnqzTR9UCMRLGeIl8nllCAHUuDERH1S9VpTjj3EK4sTsr9CY4pQa432f3AszYWEm2w/
-	6BA89wWOqEk/fYb763clYJZIOJ2d9A0uo7falshVOgYVqF1Kru5dVlFkjGkeL6ks6w8StklV8m+
-	3w4U7bnWTGaZylygHgtIo0fAmVdFA==
-X-Received: by 2002:a05:6402:158f:b0:6b1:ba86:5f48 with SMTP id
- 4fb4d7f45d1cf-6b49cb8e221mr4598429a12.36.1793294275082; Thu, 29 Oct 2026
- 10:17:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=ZKyzEVWI
+ARC-Seal: i=1; a=rsa-sha256; t=1793294311; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=UkCQfL5oChRC4OaPEv1j3zfH31YFN7YUmdLPy2R8y2ZwThIG9p2QmaY/z86skHwnrmeoayHPAMrUjNuXTmnPBz6QoONXmJd3Rkgsdex/mGO0EVjzLCB5pevedwSNsrAWvo1aE5VvC23VACeHy/aaw1t8zekZa/JRW23qbvmyZhM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793294311; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=uysAvzGfnvqlsO0iNyVk0n8cyBRWB53uaIurpjRC7SM=; 
+	b=lse2ekdjjCpFYf6gd3o5/g4GWNd5EgN9qldgcOByPGYSBItJ0gR9WE/s8Q7yp0MR3cbvq4PLtsDiq4p0ZLmEuXVyxSXM6q2CIy+xxLFM+qHAB0ht9eMpYzbe6YLcurfG6V94ld6AsTHVfcb4f0K0Al26IJUAanfGOVH444uKTFA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=ZKyzEVWIEuRsaWbobBCP1EAkDr/KjpR3HawmGNnOPTBdpIyL7+AjQ4THdVXpxOL3KRi1NaCz7q+xjzhMGJhax8xwHwh8NrXb2yTxtl4ZF7Y5s23WLJLSmxvK8cCT0bmbHF0lI9ugtWBc6LbysHCITx2RJgS72+cSFQV5JD+FLkHNcM4tcsSa2xb0+5jftGlAci24KH3Ocfpl+AJuCBsxoibtkTGv73KvkuQCAKz5ernnFAVRUj59FX+40ljU8wgveJHzr90qN2WSX1LYsmLftBCzmdXg3iHmjHyyNHQGJUlbs3VRnsxHpHzbl8O/er6PCCoxZmvUPKzS92Wcfi6TcA==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=uysAvzGfnvqlsO0iNyVk0n8cyBRWB53uaIurpjRC7SM=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 17932943100310.48654493677486244;
+	Thu, 29 Oct 2026 10:18:30 -0700 (PDT)
+Message-ID: <c15f1bc47c470036c096689ea1411e324409a971.camel@rong.moe>
+Subject: Re: lenovo-ymc: Yoga 7 14IRL8 keyboard backlight stays on in
+ tablet mode; EC expects VPC 0x2A with posture data
+From: Rong Zhang <i@rong.moe>
+To: Mahir Faisal <mahirfaisalantiq33@gmail.com>, Mark Pearson	
+ <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Ike Panhc <ikepanhc@gmail.com>, Hans de Goede <hansg@kernel.org>, Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?=	 <ilpo.jarvinen@linux.intel.com>
+Cc: Gergo Koteles <soyer@irl.hu>, Andrew Kallmeyer <kallmeyeras@gmail.com>,
+  =?ISO-8859-1?Q?Andr=E9?= Apitzsch	 <git@apitzsch.eu>, Swapnil Devesh
+ <me@sidevesh.com>, 	platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <CAGAHqH6o0TUa1HXMrNV6e+HNYwU3xxHkOM665756n8Cp3AzhVQ@mail.gmail.com>
+References: 
+	<CAGAHqH6o0TUa1HXMrNV6e+HNYwU3xxHkOM665756n8Cp3AzhVQ@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 30 Oct 2026 01:13:21 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,150 +74,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029-submit-serial-8250-dma-cancel-v1-v8-0-3fd56ba352ed@gmail.com>
- <20261029-submit-serial-8250-dma-cancel-v1-v8-5-3fd56ba352ed@gmail.com> <auNWl_thBnE8JqBE@ashevche-desk.local>
-In-Reply-To: <auNWl_thBnE8JqBE@ashevche-desk.local>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 29 Oct 2026 11:17:42 -0600
-X-Gm-Features: AclHuK9p5HgzHs6EyjP74wtBvDwmav_JmQ_V3uuDUu-UaTGXVkbTzXu0Rboi3LQ
-Message-ID: <CADvTj4qR0j7f-79wTUb9LmwWdGKYz32vB3Bgfr9AnEfXMnMBdw@mail.gmail.com>
-Subject: Re: [PATCH v8 5/6] serial: 8250: retire canceled RX DMA before
- reusing the receive buffer
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Raul E Rangel <rrangel@chromium.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Tony Lindgren <tony@atomide.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Richard Genoud <richard.genoud@bootlin.com>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
-	=?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>, Timur Tabi <timur@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
-	linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
-On Thu, Oct 29, 2026 at 8:22=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Thu, Oct 29, 2026 at 01:37:01AM -0600, James Hilliard wrote:
-> > The generic RX timeout path pauses a transfer, copies its data and
-> > terminates it asynchronously. Clearing rx_running at that point lets a
-> > new receive reuse the buffer and cookie while the old callback has not
-> > yet run. Inspecting the new cookie cannot distinguish that callback fro=
-m
-> > the completion of a new transfer.
-> >
-> > Reserve the receive buffer until a worker has drained the canceled
-> > callbacks. Keep FIFO access separate from callback retirement: after a
-> > successful pause and termination, clear rx_running while rx_terminating
-> > prevents another descriptor from reusing the buffer. Deliver the paused
-> > data before allowing the interrupt handler to drain the FIFO through PI=
-O.
-> > Normal retirement only releases ownership and leaves subsequent receive
-> > handling to the UART interrupt.
-> >
-> > Preserve the normal completion-path LSR read and gate DMA resubmission =
-on
-> > the receive interrupt enable, so stop_rx() prevents another transfer wh=
-ile
-> > the status read retains its existing side effects.
-> >
-> > Reject new flush work and PIO receive handling during shutdown, includi=
-ng
-> > late Intel MID DMA timeouts. Stop and drain retirement work before free=
-ing
-> > the channels and buffer. Once RX has stopped, allow the idle flush used=
- by
-> > DesignWare LCR recovery during shutdown. Clear the shutdown guard befor=
-e
-> > startup configures the UART and tests its interrupts.
-> >
-> > Check pause failures before accessing the buffer. A successful pause is
-> > the quiescence guarantee, even when a provider still reports IN_PROGRES=
-S.
-> > Also accept DMA_COMPLETE after a failed pause: completion can stop the
-> > channel before its callback acquires the port lock, leaving nothing for
-> > the provider to pause. Retire that completed transfer normally.
-> >
-> > A failed pause with an incomplete cookie is ambiguous: hardware may hav=
-e
-> > finished while its completion interrupt is still pending. Canceling tha=
-t
-> > descriptor can discard the entire completed receive buffer and switch
-> > permanently to PIO. Retain the transfer and retry pause and status in t=
-he
-> > worker, with receive interrupts masked to prevent a timeout interrupt
-> > storm. The worker copies only after a successful pause or reported
-> > completion, then terminates and drains the old callback before reuse.
-> > The pending-pause guard keeps callbacks from copying or resubmitting th=
-e
-> > transfer concurrently. Retries sleep outside the port lock and stop whe=
-n
-> > shutdown takes over. A provider which never pauses or completes retains
-> > RX ownership until an error or shutdown; a timeout alone cannot establi=
-sh
-> > that discarding the buffer is safe.
-> >
-> > On DMA_ERROR or termination failure, let the worker stop DMA before
-> > handing the FIFO to PIO. Keep the requested enables in the existing IER
-> > shadow and filter hardware writes during pause retries and recovery,
-> > including termios, RS485 and overrun-backoff changes. Apply the current
-> > enables after retirement so stop_rx() and shutdown remain effective.
-> > Hold a runtime PM reference around worker register accesses and keep RX
-> > on PIO until reopen after a confirmed error.
-> >
-> > Abort the DesignWare idle sequence when RX cannot be stopped. Allow
-> > the empty-FIFO timeout workaround once DMA has released the FIFO, inclu=
-ding
-> > while callbacks retire. Exclude FIFO resets during RX DMA recovery. If =
-the
-> > provider still cannot terminate the channel in process context, retain
-> > its buffer and leave receive interrupts masked.
-> >
-> > For OMAP, publish the shutdown gate under the port lock before the fina=
-l
-> > RX flush and interrupt masking. Take the RX DMA lock inside the port lo=
-ck
-> > in the completion callback, and serialize the runtime-suspend flush wit=
-h
-> > the same order. Drain the UART IRQ before releasing DMA state so an
-> > in-flight handler cannot retain up->dma across its release.
->
-> Can this patch be split to smaller logically isolated (to some extent) pi=
-eces?
+Hi Mahir,
 
-The OMAP shutdown and locking changes look like they can be split
-out.
+Thanks for the report.
 
-The generic RX changes are more tightly coupled: the retirement
-state, worker, IER filtering and FIFO-access guards must agree about
-whether DMA still owns the receive path. Splitting those mechanically
-could leave intermediate commits allowing PIO or another descriptor
-to access a buffer that has not been retired.
+On Thu, 2026-10-29 at 03:21 +0600, Mahir Faisal wrote:
+> Hello,
+>=20
+> On a Lenovo Yoga 7 14IRL8 the keyboard backlight stays on when the
+> laptop is folded into tablet/tent/stand mode under Linux, while on
+> Windows it turns off. I traced the difference to a VPC command that
+> the Windows YMC service sends on every posture change and that Linux
+> does not send. Details below; I'd appreciate your view on whether
+> lenovo-ymc/ideapad-laptop should send it.
+>=20
+> System
+> ------
+>   Model:  Lenovo Yoga 7 14IRL8 (DMI product name: 82YL)
+>   BIOS:   LHCN30WW (latest)
+>   Kernel: 7.2.11-300.fc45.x86_64 (Fedora)
+>=20
+> Symptom
+> -------
+> When folded, the EC disables the keyboard (no input reaches a VT) and
+> SW_TABLET_MODE is reported correctly by lenovo-ymc. The keyboard
+> backlight, however, stays at its previous level. Writes through
+> KBLC (via the ideapad-laptop kbd_backlight LED / UPower) are stored in
+> the EC (KBLS reads back the new value) but are not applied while
+> folded, so there is no way to turn the backlight off without
+> unfolding.
+>=20
+> The BIOS changelog suggests this is meant to be EC-driven. LHCN10WW,
+> "EC Notification":
+>   "Fix the issue of keyboard backlight is on when turn on in notebook
+>    mode and change NoteBook mode to Yoga mode."
+>=20
+> The DSDT contains no tablet-mode handling in KBLC, and _Q1B only does
+> Notify (WMIY, 0xD0). WMIY.WMAB just returns PCMD.
+>=20
+> What Windows does
+> -----------------
+> The "Lenovo Yoga Mode Control" package (YMC.exe 3.0.1.5, bound to
+> ACPI\YMC2017) sends IOCTL 0x831020C0 to \\.\EnergyDrv with a 12-byte
+> buffer {0x0C, 1, X}. EnergyDrv is AcpiVpc.sys from "Lenovo Energy
+> Management". Its handler for that IOCTL maps function 0x0C to VPC
+> command 0x2A (VPCCMD_W_YMC) and issues it through VPCW with X as the
+> data byte, using the same VDAT/VCMD sequence as write_ec_cmd().
+>=20
+> Values of X observed in YMC.exe:
+>   0x0A  service start
+>   0x08  posture !=3D laptop (tent/stand/tablet)
+>   0x09  posture =3D=3D laptop
+>   0x0B  service stop
 
->
-> ...
->
-> > +++ b/drivers/tty/serial/8250/8250_dma.c
->
-> >  #include <linux/tty_flip.h>
-> >  #include <linux/serial_reg.h>
-> >  #include <linux/dma-mapping.h>
-> > +#include <linux/delay.h>
->
-> When adding a new header to an unsorted block, try to squeeze it the way =
-that
-> you get the longest ordered chain (yes, interleaved with some unsorted
-> elements, but still).
->
-> >  #include "8250.h"
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+What if:
+
+- 0x0A is not sent on start
+- 0x08/0x09 is sent after sending 0x0B
+- 0x0A/0x08/0x09/0x0B is repeatedly sent multiple times
+
+>=20
+> Current Linux behaviour
+> -----------------------
+> ideapad_laptop_trigger_ec() sends VPCCMD_W_YMC with data 1, and only
+> for models in ymc_ec_trigger_quirk_dmi_table. Booting with
+> ideapad_laptop.ymc_ec_trigger=3D1 on this machine has no effect on the
+> backlight.
+>=20
+> Test
+> ----
+> Using acpi_call against \_SB.PC00.LPCB.H_EC.VPC0, with VPCW 0 <data>
+> followed by VPCW 1 0x2a, then polling VPCR 1 until 0:
+>=20
+>   data 0x0A, then fold      -> no change, backlight stays on
+>   fold, then data 0x08      -> EC turns the keyboard backlight off
+>   unfold, then data 0x09    -> keyboard and backlight work normally
+
+What if 0x0B is sent when the keyboard backlight is on?
+
+>=20
+> I'm currently running a small userspace daemon that sends 0x0A at
+> start, then 0x08/0x09 on each SW_TABLET_MODE change. It has worked
+> reliably so far.
+
+What if:
+- 0x08 is sent when unfolded
+- 0x09 is sent when folded
+
+>=20
+> Suggestion
+> ----------
+> On a YMC event, send VPCCMD_W_YMC with 0x08 when the reported posture
+> is anything other than laptop and 0x09 for laptop, instead of 1. This
+> might also be worth doing outside the quirk table, since it matches
+> what the Windows driver does on every model it supports. I can't tell
+> whether data 1 is still needed on the models already in the quirk
+> table (Yoga 7 14ARB7 / 14ACN6) for event re-arming, so someone with
+> that hardware would need to check.
+
+There is a chance that the 0x0A[start] =3D> (0x08[fold] <=3D> 0x09[unfold])
+=3D> 0x0B[stop] sequence is generic. Derek, Mark, could you confirm if the
+sequence exists in the documentation? If so, I think we can replace the
+quirk table and the module parameter with the standard sequence. I will
+prepare a patch once I get enough information.
+
++CC Gergo, Andrew, Andr=C3=A9, Swapnil
+
+I believe the quirk was concluded by trial and error. Could you test if
+the above sequence works on your devices?
+
+>=20
+> I can provide an acpidump, the disassembly excerpts, or test patches
+> on this machine.
+
+An acpidump would be helpful.
+
+Thanks,
+Rong
+
+>=20
+> Disclosure: AI assistance was used to troubleshoot the issue and draft
+> this email.
+>=20
+> Thanks,
+> Mahir
