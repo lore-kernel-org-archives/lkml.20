@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282016;
-	b=WldL1bcAwI64WA93ZtIsoMlYsM+QSkJjPHLFUqByuMxsquyPyvbDN903eMWQmZ+m8pPo
-	 W4KjWRmxycdddW99/4bDAEsI+v+PLu6YI6ZiW0IhiHytOOcun5hopdJ9wwm0T6kYXhNiY
-	 2mFPLZoqEVkzfGHbwUtmkFmkrfUUghJlYnH5JdnvWHnmIs8wKn+oLCrkxejHcnZhqp8sR
-	 H7khkd9gVGOmLzvXot9hfm8e4TyDlqBMPTFWkACp7opxzTGvlhDAI8dpGIwbYoI16Dap0
-	 NxHp3rY7gU8MOZWlMrXOcgiE5CeynzMwra3m+nHzNC9YOIVNWui3ELMmBZkQp5mYLaQ==
+	t=1793282017;
+	b=A8QnZMM54gDHvjmG2bjnFzJUqQKjqzku3qjorwIczd6PJ2gpRC1YWrXq4BN64/OOJjxh
+	 zzL80Ji8hA+ijASinhUjqHfbIIeayzZeQy8Tksj2k7cpZXyKrxifbAYAL8zDmuHzzJ8Gw
+	 musXhft9A6gNX6HNjZxU47j9WqsTN7SjFRrN+dAP+4q23rrTjDiBgG8Am+qwnN9ZXZX9n
+	 1Ub6sgeAjb0s1EmJPTfEKb+231p6oOUZh1GkCKI4B6SreLIU5FzDrpYLDs/nDurDI2Ohd
+	 TJ6BwRM+pLQ+PZOuj3K2EZu4D/qIXRQVA4EQmTV6TjAK8nvYfT18j1mFzjxrhFevCJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282016;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282017;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=IhFC/E+vn7Ne1GmfoUxjx/snlj06M4a6yUZTElbwzmM=;
-	b=yu0okA2Em3AZo9wpqHbUJgMJUKeKLbd6o5XLmnoV6+GZmYybeNeqlGUTyOCKGKflqUwf
-	 MyJiF5vZqD6VKotTsXuDdb/oXi0UxeAWSkQW8DxjJ+q7LnEnbx2GV/PnGst4Q7LGsQppv
-	 tt3mXp3wAGMlSALT7SCUWUzaT7V9jRV+VjIKAP4Oh/wy4hHdyeMW2Ywy8b/Hlx4kI3Y/q
-	 iHJ4IuqLaeEyMz54FSsS3p+nUmfZMyW8R/b4uXFtnrtTGCdqMgon8xX1x2SgxrX1vHlV0
-	 oSmBOMYk1pcyBDMAZ1VuoitFED7jhsgpc82mi+JepNf1tSappi4PodBimjml67HUCtw==
+	bh=hjD6VzzjtnD3e9erzE1FqqRgAbYyuZXKrgqZLwMhAKA=;
+	b=c+DqYS9FF3QAC7Vtb+QSHrmfP/HvSB7+2xoWveUlXWRG/Joo9f6S8s/cNsr3uewnvcCC
+	 72Z9rTJ3ql7szSK4oA1389DmosTB6RB457e7wUMPl7GXTK7y4fG3qFt96YvjoknXUSrqs
+	 28w69b6t11YunxW5VkxvK14kAvJxjfWHLHaAopAsfmQ5NB2St8um4pXQMWtirGJfHLpn4
+	 iauXdW++wSKhxDam/rd/tZxOn8Kz8uprtnb5p5ZJvVMebp6Ks+ngQPCMo0W5k344Icgcf
+	 Sxs2J3V1kWX4BAafY858ncV1FA1JLAcdsYxhfsq+flM+0MGgEXVJ83Lb2MzPPOZOcjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h+vHwzI+;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hld8WdFU;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF05A606A819
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:53:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF05A606A819
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84794606A833
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:53:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84794606A833
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h+vHwzI+
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e20edd106so1696196f8f.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:53:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hld8WdFU
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso1626261f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:53:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793282014; x=1793886814; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793282016; x=1793886816; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IhFC/E+vn7Ne1GmfoUxjx/snlj06M4a6yUZTElbwzmM=;
-        b=h+vHwzI+H9X2csVamkSfKUUHbALtnKDHtUUA24TsKBK5H9ZDQZfHU1FQwXDhmLEtPE
-         Dr1BA7GbX+S/GMv1HE5p4KXcvVuMUEBO3nAjpaCQFQb6m4TdIWHn/w1E0RVpiLfzQflN
-         nAez3m7HSTCeoZAuuBMJeUPwzNfjYmKEqJBWEXWF7E+4AD0DDcUTj1jIS740Hf76uMjz
-         fOmJWWt6x1qIx11OQM6kvfNdn1re4sfj3X22rQXNoEuHddWn8BOFmZvnzH/mdhdTY42T
-         qpQrN5/tchfxVBD2umWC8BqYUsPBegGq6yOEnKgC5Pp8OhC64QoKMrFABH6NGHzXMdCX
-         tTvQ==
+        bh=hjD6VzzjtnD3e9erzE1FqqRgAbYyuZXKrgqZLwMhAKA=;
+        b=hld8WdFU8iJeyCtWh3V2Ho7fyvq2bd03nxb3Nx3hWjyDrA6+5fRApkMZc6Uct2VfyX
+         f70kgogI9V+CHfRJ1i16vKgQ+RmwJ4bwULneAe59C4t+etSmEk1JX5IBD5arLxiu4yvs
+         kLcG4jH4XkqeJBpodUgbE9xnrb2fwwBBFxpKnm1Uv0P4P1x9wC0a7mm4R8N1rWI4oszC
+         c0pYM7NN0sVZP37MD2AQ3hAlklOonTajnsGRh2rqD4VZNXczAr8jBovQZfuawAH1+i+T
+         H4KgDlPghGW5iWJrZrAE9I24pysLb5rGZwkYdwKZkdVXdAyTsLi7BtkdAUQgw/h4FRdz
+         clBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793282014; x=1793886814;
+        d=1e100.net; s=20260707; t=1793282016; x=1793886816;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IhFC/E+vn7Ne1GmfoUxjx/snlj06M4a6yUZTElbwzmM=;
-        b=QQ8/fLR9feEn9aklfh9CTDKTaqPZDrRDr6D8HgjjEh4rBIiOUGubKp306ySBbKvQjA
-         RovswNW5nW4tOqI3KX4A86CUUoXJsrHbGRNBRRiW2G/wri1aezaWp8tYV5a6Gi0dJ+SD
-         yH5YF9VDlrI/y0KtBCcFwmtt41/p8kdVbiMsRHxoJifemxXDJhyJRLsyyKD2zQcpSQJo
-         1MJJebjRD3zM2V3ohJO6ffHDrl1awj8LponTKcI+g99MnPdZaoyVLq3hK8EWhyt107Ig
-         kIsRS2zwpGWXUT4MwRJ6kx0NVIc2V8KcI8MZnkdV6a2UNl2/wYP6N8uCHDUBEo8mOvyF
-         d2Eg==
-X-Forwarded-Encrypted: i=1; AKwUvBw3b9PYmMUMcBXxdvW2M42eo3vU7sI7tZmaSVgDNVftG//DP5+qYgPPyU7aCbc4vk0tyPXNB14fa6zFuSc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKOdSvjwv5utqSQMqA2RzBrjEJk5MYh+qTJiLNF0sMMP61xIoS2
-	2aiB2+Q1Bly9nb692lLxETS0IxpAzu6pgtITGNNP5eO1KCvMIoQXZ9o=
-X-Gm-Gg: AYBFou1+P3ztNhj3chWcoi2TZNK2QNfk0wIJ1S/ONsLCyazS/kLprlxU+pzV3FZNrFc
-	HykYhwAN7rhjBBex1K1qeiysz8djxAXWW0L5MLHw9+rZVXDMcnpNeHNQI4RTNjHhOnhCqaBmiTq
-	wwk211XLM0RoaXmdrwfM7DG2E9OKlRNurni2Ub/tyZEcYrdi6oAXrEv2KGvaHfLVkRrs+kogpxw
-	jxniYao91TtrsyR764lYGfi+GZ7G+GKFJst+bAWlaQPdjdAG7a/whYL5V3bw5jVXTOekC5VYRP/
-	7/EndSUzFRuIzFNYaPX3TiogWF4iuhU9PY4FcNF5f/KP/Z7q+OAF4JPK5mf2EWlc5ngY4R9Y8IR
-	RTADjQzR/uLp8scwFCaKIdiHmpjF0vWpaAckMQfhFWK3IoXIrAeJr5hkIPccmi40wR7PofTjOAc
-	A84i3zS/FxdSacImGkefY0DT7Ya1uHXrBkhQFxrCXnw6Grk4Mm6N5qImjNCfPAuhilDojgQ1xpq
-	AKXkGp+0d0KpK37TXpKpzwjtnV2bI+JCtGmgOg19Xc1qZT7RgxoG2cBu7oofd+u0Z3bpMIrLjKV
-	Opltwc0YIYIlLjlnyMPzHUTp7tttEeHF92j/i0hA05Sx7A==
-X-Received: by 2002:adf:f491:0:b0:48e:1421:ed49 with SMTP id ffacd0b85a97d-48e5d5909aamr9182569f8f.18.1793282014126;
-        Thu, 29 Oct 2026 06:53:34 -0700 (PDT)
+        bh=hjD6VzzjtnD3e9erzE1FqqRgAbYyuZXKrgqZLwMhAKA=;
+        b=Fzl05seTDCccIxWAJ53MSvtpX0TDDxP9JkxWxg7pOHhKWXr9e9SUgXw4zBiOHzL8/K
+         TX314Qqy+duujS1mNxpnaMtA0ImNXFDPAr9CcZHup9JY0PdN5ILALx1+OFp10NSgkOq8
+         mTbUNs+EOFhRh9iaAJ+dvvol15VmOmmMwf4PqvDe8r0n37esjyKfSNOSaDnUhahlRolK
+         gM5vNPxXQx2J1XGvK73vOo+AMYtewWZBTfqGAjWZDxkYThmX9XWHV+/VpvyYaPcQNaiV
+         NH96l5Wpn9Yv2fn8ZQZS4m2sSWvYwC8eMQrLZIr8s0LOX9BeQlZd4jnE8Pkg+IUD7Sd1
+         XfLA==
+X-Forwarded-Encrypted: i=1; AKwUvBxH1iQkoaFCchUr0Nv81UMishgZrkz/zf9g/9/bQFEJnkceMFS+iy3+DSnc5GkA2EnQJrDLbpY9FFzSGic=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKle8gUTd/LAOcRrIqE4oDI/JPRkn4NrCowbeInTl5/6LHKJaHO
+	VIHD+OsTtDq0S/GKX5AQ0Gf5zGslH+BxCYBuiLNXUkbUTgxk5fo5vkY=
+X-Gm-Gg: AYBFou0uv1cCrVJkddb1wuzl6OM92lVBl8BFiySp4PByxcvkFNbP+U0CvuhzLe2axUi
+	xuSfm8wP68v6TnGCOTfWN3t7QsWlPD1d6eMa8FYFyasHs4TUje5E5EyZ17bJIqJF+GOu65dbmW9
+	Cm4KF3l92+FuWO7dBLJHFp+9GGI/lSK6460QmNei96Mt6PJS2FO5ocHayPQiuynlR8ak58NnyJs
+	NkWQ6qWCcTC+sCuXMA7QFGsLPjHYafTAZxZn52CbZ7euo+ZDBNdvtTPDbY3o0ny4P/xrhOz0EV3
+	xtjZjaGaD03SjHTEazRXpeYhDYCVAIMfo+2gPYhaFNWp0qSXPbOa5QZhS/GrB0LD3BdiPt2NBPe
+	MW9tOBsKCDOGrw/pNyhR/ryn05MG7BPTqyIpxAmEr/rET1nYZy04HiyLswihXTzoEYtyXa1aFpq
+	N9J7P7woNOHcvw0BQhADEmbR99+t21VapOZc65oYNEv3MYyUWHL2hGheFaQv7jl2Kwjkmv3n6+o
+	tgfzTK8OBYygbcsaNIkCsvs9a9KrxKWaQriyjZ/Ypw4tj13qn/i4oPpD4NA0KK46LOYtzpqo9SF
+	5KoYKXtX4qJw9ObV+qGP30/Mar9QpGT2bQpmA0PSiQoIETDOizPkELJYhBm2wAN+Pl4=
+X-Received: by 2002:a05:6000:178a:b0:48e:56fa:9645 with SMTP id ffacd0b85a97d-48e5d5cf38fmr12439039f8f.29.1793282015845;
+        Thu, 29 Oct 2026 06:53:35 -0700 (PDT)
 Received: from [192.168.1.67] ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dcbsm33456468f8f.14.2026.10.29.06.53.32
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dcbsm33456468f8f.14.2026.10.29.06.53.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 06:53:33 -0700 (PDT)
+        Thu, 29 Oct 2026 06:53:35 -0700 (PDT)
 From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
-Date: Thu, 29 Oct 2026 14:52:50 +0100
-Subject: [PATCH RFC v2 13/14] drm/msm: gate lpac behind modparam
+Date: Thu, 29 Oct 2026 14:52:51 +0100
+Subject: [PATCH RFC v2 14/14] drm/msm: enable LPAC on gen70900
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-descriptive-name-lpac-upstream-v2-13-a21a5c850961@gmail.com>
+Message-Id: <20261029-descriptive-name-lpac-upstream-v2-14-a21a5c850961@gmail.com>
 References: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
 In-Reply-To: <20261029-descriptive-name-lpac-upstream-v2-0-a21a5c850961@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>, 
@@ -116,58 +116,38 @@ Cc: iommu@lists.linux.dev, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
  devicetree@vger.kernel.org, Anna Maniscalco <anna.maniscalco2000@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793281977; l=1928;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793281977; l=982;
  i=anna.maniscalco2000@gmail.com; s=20240815; h=from:subject:message-id;
- bh=ZEwODnTsRSIiQzAvYlWfm8pmWhNZkrTmOspw3E7UZvA=;
- b=Z9dhvvnQgx4S38zM+b46UTdfg9SThPOIVSdAoOz7EGATYLcY7dL9exHHWjN9XuX2BOku7wLrT
- FTPWSEv0DrrDpKLv4feGQ8Wj41R/cQfHXOM+Z/TSHsGDJf0un1xYOaN
+ bh=zftBrxFOdArPW4SDW/zPbLM/dW8N0ZZjr0f9slsMd44=;
+ b=drJK44c9MU6MO0yKK3/YNJmZlff0GX8bkfJNHj78s+gEdYZMo0J9ar0ZFCpDUnU9s9p/mTv9U
+ QEVDlUzSQ7wDLCQ28Hd4GN503IJPB36U2UQmXnTQDK6NcMLz/o9Mfkc
 X-Developer-Key: i=anna.maniscalco2000@gmail.com; a=ed25519;
  pk=0zicFb38tVla+iHRo4kWpOMsmtUrpGBEa7LkFF81lyY=
 
-Add a mod param to allow initializing and exposing the LPAC ring.
+When the enable_lpac mod param is left on auto (-1) LPAC will be enabled
+for targets that are known to support it and are known to work.
+
+gen70900 (Adreno 750) is one such target.
 
 Signed-off-by: Anna Maniscalco <anna.maniscalco2000@gmail.com>
 ---
- drivers/gpu/drm/msm/adreno/adreno_device.c | 4 ++++
- drivers/gpu/drm/msm/msm_gpu.c              | 3 ++-
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/drm/msm/adreno/adreno_device.c
-index 6e2333466d7f..51781a2e8a00 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_device.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
-@@ -30,6 +30,10 @@ static bool skip_gpu;
- MODULE_PARM_DESC(no_gpu, "Disable GPU driver register (0=enable GPU driver register (default), 1=skip GPU driver register");
- module_param(skip_gpu, bool, 0400);
- 
-+int enable_lpac = 0;
-+MODULE_PARM_DESC(enable_lpac, "Enable LPAC (A7xx+ only) (1=on , 0=disable, -1=auto (default))");
-+module_param(enable_lpac, int, 0600);
-+
- extern const struct adreno_gpulist a2xx_gpulist;
- extern const struct adreno_gpulist a3xx_gpulist;
- extern const struct adreno_gpulist a4xx_gpulist;
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index 4244d9324cda..f6927c797fa5 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -889,6 +889,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 		const char *name, struct msm_gpu_config *config)
- {
- 	struct msm_drm_private *priv = drm->dev_private;
-+	extern int enable_lpac;
- 	int i, ret, nr_rings = config->nr_rings;
- 	void *memptrs;
- 	uint64_t memptrs_iova;
-@@ -1012,7 +1013,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 		memptrs_iova += sizeof(struct msm_rbmemptrs);
- 	}
- 
--	if (config->has_lpac) {
-+	if (config->has_lpac && enable_lpac != 0) {
- 		gpu->lpac_rb = msm_ringbuffer_new(gpu, nr_rings, memptrs, memptrs_iova);
- 
- 		if (IS_ERR(gpu->lpac_rb)) {
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+index 5ee00eead14c..cd1bdb54429d 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
+@@ -1591,7 +1591,8 @@ static const struct adreno_info a7xx_gpus[] = {
+ 		.quirks = ADRENO_QUIRK_HAS_CACHED_COHERENT |
+ 			  ADRENO_QUIRK_HAS_HW_APRIV |
+ 			  ADRENO_QUIRK_PREEMPTION |
+-			  ADRENO_QUIRK_IFPC,
++			  ADRENO_QUIRK_IFPC |
++			  ADRENO_QUIRK_LPAC,
+ 		.funcs = &a7xx_gpu_funcs,
+ 		.zapfw = "gen70900_zap.mbn",
+ 		.a6xx = &(const struct a6xx_info) {
 
 -- 
 2.56.0
