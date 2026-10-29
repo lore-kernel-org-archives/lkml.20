@@ -1,53 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282208;
-	b=Rjj9nXxy2+McYZ0dFkh6KHAeSIhCAz/hP3oKIEMpuqVC6O4yTu64DpbeAoW/kyH8ZF8c
-	 UCzhzwGo0gSH49ZwXLxR/C89GoAuFXnnO+4lXr6B//BS0mBbmcK0j/cJ6rojPy3R/B/Ph
-	 twmTtJJ7x+Von6VCEY+81PR8wUzUcYZD5eXXJTUc+VdlMNAXKgs+GUae9Ilv+pM8ZLv7H
-	 EeEqoDfcg91BwZ7d6kUkaGX0rPd2Ktsud8iaoKQPMuJp2ITomd0WJI70915dY1VeRqzmQ
-	 RqEbRzCpk6TfxWVPKQLdkG/iDhpkcQ9tHN6NJquKqVrRy2Dsxkf0KDfjPAOFnNk0i2A==
+	t=1793282234;
+	b=g3jsXI7bxLXGcpOkrsvTJc9LVlMZBX+3BQK0uuQHipsBox8uagnuzagvoF4XE1SIss3f
+	 gUiF2NzkcHyuo64LlpIh+a1L7h/R0WrpOh1TmTAVIpOt3LkihYL1VTHH4+LaIgOLOprg6
+	 zh0HrfNLcVxgjCz7i42rKI3JrkqkaVjmEMltlzvTPHbcQlLBL0in5IuFtd2GhBWV0N4CO
+	 gE5WMzrp3Pc2NlmxKomPok7ywAIFPJfJRsMijPCz6fkoRXRIfyDIkGKy8C25bMCQwk0Sf
+	 dTqL5keDlGBnFIeb8c2qGsPn/x2q1LnIzFXDSHIvcP9FsU4et0bVVTjl9HSfr6709LA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282208;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Mfy+MrqgC/u6j99S6NKHJ1FXHCmP3H0+Wet2GvhRJfM=;
-	b=c2w+olMiHfWPdA+npGa7fUvkeUwREWv2gyjTeddXiuP3RL8rQaigM9ospjhfJMEgUBuu
-	 c9rEzN5q5NPp/pHzygBJkckVpJasYQTiHXXCcTsFBYpPFGQKbqPJqSHJk1e9kokts50Dm
-	 HxqtwaChR5ctMeZprnLVKCE7tEf3Z9qiNuA2BPTgrUPODFinVoTUNGDsscLEpnhBDG04Q
-	 00ukSOIbWt4pysqREnWWka0CsAYGIXKmY4C5J+fjA2QBGA4MgdUAbDytylyLZQy6Cycwq
-	 f8rnmjzuN8eODJXSsaUfc+jS7EzsEiIYv7GCtKZqZXMbwyBYDieLqZo1jVuztzFKrPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282234;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=NiX/cLR+QfDZhplLTlVQLvgD5zI9h5feELCeYcvxbYE=;
+	b=bd3p42THB85veCNrslDVTvkp5B5WrVs5X5POMRLEzfdcamD2U9BgmS4uDkc+d70Wn5MT
+	 Lu2bLjjYd5HZsHri+bJ4//dVaqhtgtw43iq2KxY+sy0+WfP33kjp/olJnkEogPmpupfGC
+	 c1S6f5JIxkvtLdNz4jNtPCmH4e3kiKFpqbNAkg8AB66HSKhNTtj9JIQcqeoE9pVk/J2j4
+	 EduQ6A1nXdUl4DBLfpX4LT3MNYrsWSMWUsKZuTumXeKbK5hyFv1v/Iy8GgauhVRtOo8v9
+	 oc7/d8CeW09STLGXpFK8P3Sd/3NopATLZo+qd0E3TJVsfbUe1HZ90fAZAxEKlWFJ64Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.69
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LWh1OtRI;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039BA606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:56:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 039BA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-8468290b866so3188999a34.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:56:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793282207; x=1793887007;
-        h=content-transfer-encoding:content-type:to:from:subject:message-id
-         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Mfy+MrqgC/u6j99S6NKHJ1FXHCmP3H0+Wet2GvhRJfM=;
-        b=Vm9tY4B02HSKRilNnPtfSaj2G6rmCsHeIUNtKAbSgMO/u/y+LDfB6YMT8rbyll/MXn
-         dCicKhMLnhcB5txbDksfhfWNTwcfmVRF962s0nrCS2O9kxC+oRCowktT8sYM2j/8sFwl
-         5MaR95qUGjAjqwA1q+K/Kee/d4rsRlmqOKR2+7O1czpkLlr8/V85R4IbFG4P1IOyEUrQ
-         ifpkx1bGyvtsDTOcfIt4+VpjLi3WgNqzqTSbGSYN7ox2It78sY9DJ6EY3RBmaYPAPI3G
-         WZ9Xuj17BwfCrVN7fdZFhCMnr2KkCHhrs7/NUeYNp3s41fC4iLHBE+cAzbz0XA6uvisP
-         /JKw==
-X-Gm-Message-State: AFq9FYJpgmzy45ZQui9cXWU5ZpvdGFFdakbANWCLCnIBcbPOnfmgYGuh
-	FNQ/2V0jD+DTfhhqM3P5tGyndkM8JrC4uuPp1roPSJ2q4+MmG2M1TXUdyxUeI0V6nKTF+iXKmH2
-	l8m34+/wKJ/PJTBVGlBBAMTStejo0nPXg1TSOnXoxe6V6YLTrB6fg+8HWuyo=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D0D606A31D;
+	Thu, 29 Oct 2026 13:57:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06D0D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LWh1OtRI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793282233; x=1824818233;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UTwuOZzBKT+oSeIKRBmbdLB4Bl52OeZiXuXEIQeBCAY=;
+  b=LWh1OtRIVDdxnDPmaIBw8RNClw1ZA44Tt9nPL2FPVvaifGdZ6/TeO92Y
+   WXdGhy/o/C2Id1deckQW+YTEAOa5bsyLi8yoSzhbKCm1/Kcvrw+sBfD60
+   7+dATvjj8o/LvMazBjR6ivr4vek16MtpLZBD+PRD4E2Pct/oYJrhfkdRY
+   Mi2A/234pABT7nwP4R8vn7QK44pyxDIogvbRoXEVhxaYu+fTCvFwygdNu
+   fn4WXUse0Q0NyPz0YLHSLWGG98i26dEPeJyntLSg7lrKe2CDW2sihxJMs
+   1oZSlCnv1VzZV5AA+RAa31XV9/md88GP15nP6guVCClzZsQMaOfPlkhJK
+   g==;
+X-CSE-ConnectionGUID: uNtvhw8+QGqlkW5EPqFotg==
+X-CSE-MsgGUID: 1IRrpUrYQRGsPvrkFz4ZiQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2022198"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="2022198"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:57:13 -0700
+X-CSE-ConnectionGUID: 3L6qMBxPQHGxrz9O4tQEmQ==
+X-CSE-MsgGUID: 3h8p5xRmSp6MI0Cr4QH+iA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5050203"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:57:10 -0700
+Date: Thu, 29 Oct 2026 15:57:07 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Antoine Pichot <antoine.pichot@gmail.com>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com,
+	mchehab@kernel.org, hansg@kernel.org, dan.scally@ideasonboard.com,
+	djrscally@gmail.com, dmanresa@gmail.com,
+	dave.stevenson@raspberrypi.com, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/9] media: i2c: ov7251: Use in-range PLL1 dividers
+ for the 319.2 MHz link
+Message-ID: <auNQs08xnsmvr8bI@ashevche-desk.local>
+References: <20261028112154.855185-1-antoine.pichot@gmail.com>
+ <20261028112154.855185-2-antoine.pichot@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,148 +83,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:151e:b0:4cb:f21c:a794 with SMTP id
- 5614622812f47-563a264a092mr3594627b6e.28.1793282207089; Thu, 29 Oct 2026
- 06:56:47 -0700 (PDT)
-Date: Thu, 29 Oct 2026 06:56:47 -0700
-In-Reply-To: <6aa95fe1.a211d2ce.1a5198.02af.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae3509f.5f8a1920.22d248.0027.GAE@google.com>
-Subject: Forwarded: #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
- master
-From: syzbot <syzbot+61b202fdc410840f0198@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028112154.855185-2-antoine.pichot@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Wed, Oct 28, 2026 at 08:21:46PM +0900, Antoine Pichot wrote:
+> The 19.2 MHz PLL1 table for the 319.2 MHz link frequency puts a
+> pre-divider of 1 before the multiplier of 133 and a divider of 4 after
+> it, so the PLL1 multiplier output (the VCO) runs at 19.2 x 133 =
+> 2553.6 MHz before being divided down to 638.4 MHz. The OV7750/OV7251
+> datasheet (rev 2.12, table 2-11) limits it to 300 to 800 MHz.
+> 
+> Use pre-divider 4 (register 0x30B4 = 0x04) and divider 1 (0x30B1 =
+> 0x01). The multiplier output is then 4.8 x 133 = 638.4 MHz, inside the
+> range, and the MIPI clock stays 638.4 Mbps, so the link frequency does
+> not change. The Windows driver programs these values for the Surface
+> Book 2's Windows Hello mode.
+> 
+> On ACPI systems this table has been unreachable since it was added,
+> because ov7251_check_hwcfg() selects the wrong index. The next patch
+> fixes the index, so the two must go in together. With the index fix
+> alone, a Surface Pro 7+ (IPU6) had CSI-2 errors in 7 of 10 150-frame
+> runs, 3 of them stalls; with this change 0 of 13. A Surface Book 2
+> (IPU3) streams clean with either table. Dave Stevenson measured on a
+> 24 MHz Raspberry Pi board that the out-of-range tables miss their
+> nominal frequency and proposed the same values. The 24 MHz tables are
+> left alone because nobody in the thread can test a change to them.
 
-***
+> Fixes: ed9566ce1946 ("media: i2c: Add support for new frequencies to ov7251")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/linux-media/6ae0e944.b6db0abd.16b13d.d261@mx.google.com/
+> Link: https://lore.kernel.org/linux-media/CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com/
 
-Subject: #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/=
-linux.git master
-Author: omermetekaya0@gmail.com
+These Links are not referred in the text above, make sure they are being
+referred, otherwise Linus T. becomes grumpy on this. On top, consider
+using Reported-by and Closes tags if applicable.
 
-From c6056a11b2100b30f1ea3b921055a40a48010bfb Mon Sep 17 00:00:00 2001
-From: =3D?UTF-8?q?=3DC3=3D96mer=3D20Mete=3D20Kaya?=3D <omermetekaya0@gmail.=
-com>
-Date: Wed, 28 Oct 2026 21:38:11 +0300
-Subject: [PATCH] batman-adv: batch softirq drain in tt_purge to fix workque=
-ue
- lockup
-MIME-Version: 1.0
-Content-Type: text/plain; charset=3DUTF-8
-Content-Transfer-Encoding: 8bit
+...
 
-Replace per-bucket spin_lock_bh()/spin_unlock_bh() with outer
-local_bh_disable()/enable() and periodic drain every 64 buckets
-to avoid excessive softirq processing during TT purge.
+Code wise LGTM (I followed the discussion).
 
-Add may_sleep parameter to batadv_tt_local_purge() since it is
-called both from workqueue context (where cond_resched is safe)
-and under commit_lock spinlock in batadv_tt_local_resize_to_mtu()
-(where sleeping is not allowed).
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Fixes: c6c8fea29769 ("net: Add batman-adv meshing protocol")
-Reported-by: syzbot+61b202fdc410840f0198@syzkaller.appspotmail.com
-Signed-off-by: =C3=96mer Mete Kaya <omermetekaya0@gmail.com>
----
- net/batman-adv/translation-table.c | 30 +++++++++++++++++++++++-------
- 1 file changed, 23 insertions(+), 7 deletions(-)
-
-diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translatio=
-n-table.c
-index 68f79853032e..915f5589e056 100644
---- a/net/batman-adv/translation-table.c
-+++ b/net/batman-adv/translation-table.c
-@@ -1386,21 +1386,29 @@ static void batadv_tt_local_purge_list(struct batad=
-v_priv *bat_priv,
-  *  inactive or not
-  */
- static void batadv_tt_local_purge(struct batadv_priv *bat_priv,
--				  int timeout)
-+				  int timeout, bool may_sleep)
- {
- 	spinlock_t *list_lock; /* protects write access to the hash lists */
- 	struct batadv_hashtable *hash =3D bat_priv->tt.local_hash;
- 	struct hlist_head *head;
- 	u32 i;
-
-+	local_bh_disable();
- 	for (i =3D 0; i < hash->size; i++) {
- 		head =3D &hash->table[i];
- 		list_lock =3D &hash->list_locks[i];
-
--		spin_lock_bh(list_lock);
-+		spin_lock(list_lock);
- 		batadv_tt_local_purge_list(bat_priv, head, timeout);
--		spin_unlock_bh(list_lock);
-+		spin_unlock(list_lock);
-+
-+		if (may_sleep && (i & 63) =3D=3D 63) {
-+			local_bh_enable();
-+			cond_resched();
-+			local_bh_disable();
-+		}
- 	}
-+	local_bh_enable();
- }
-
- /**
-@@ -2363,11 +2371,12 @@ static void batadv_tt_global_purge(struct batadv_pr=
-iv *bat_priv)
- 	char *msg =3D NULL;
- 	u32 i;
-
-+	local_bh_disable();
- 	for (i =3D 0; i < hash->size; i++) {
- 		head =3D &hash->table[i];
- 		list_lock =3D &hash->list_locks[i];
-
--		spin_lock_bh(list_lock);
-+		spin_lock(list_lock);
- 		hlist_for_each_entry_safe(tt_common, node_tmp, head,
- 					  hash_entry) {
- 			tt_global =3D container_of(tt_common,
-@@ -2387,8 +2396,15 @@ static void batadv_tt_global_purge(struct batadv_pri=
-v *bat_priv)
-
- 			batadv_tt_global_entry_put(tt_global);
- 		}
--		spin_unlock_bh(list_lock);
-+		spin_unlock(list_lock);
-+
-+		if ((i & 63) =3D=3D 63) {
-+			local_bh_enable();
-+			cond_resched();
-+			local_bh_disable();
-+		}
- 	}
-+	local_bh_enable();
- }
-
- /**
-@@ -3750,7 +3766,7 @@ static void batadv_tt_purge(struct work_struct *work)
- 	priv_tt =3D container_of(delayed_work, struct batadv_priv_tt, work);
- 	bat_priv =3D container_of(priv_tt, struct batadv_priv, tt);
-
--	batadv_tt_local_purge(bat_priv, BATADV_TT_LOCAL_TIMEOUT);
-+	batadv_tt_local_purge(bat_priv, BATADV_TT_LOCAL_TIMEOUT, true);
- 	batadv_tt_global_purge(bat_priv);
- 	batadv_tt_req_purge(bat_priv);
- 	batadv_tt_roam_purge(bat_priv);
-@@ -4156,7 +4172,7 @@ void batadv_tt_local_resize_to_mtu(struct net_device =
-*mesh_iface)
- 		if (packet_size_max >=3D table_size)
- 			break;
-
--		batadv_tt_local_purge(bat_priv, timeout);
-+		batadv_tt_local_purge(bat_priv, timeout, false);
- 		batadv_tt_local_purge_pending_clients(bat_priv);
-
- 		timeout /=3D 2;
---
-2.56.0
 
