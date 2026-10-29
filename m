@@ -1,88 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793259445;
-	b=p08dq7vMtf3Ig51NLLSdfq/XECwW/ZUtYsC6gn6SLciWMnODJL5y41Brsyl0xLPvcJYr
-	 Vt/AZVZ0cvpeIyi4abvwnFSMfIKFQXM/1lHzK9aTPTmjby+89fYfrsjOoybJ9mkD5nZsA
-	 TkM/sxmNh2/vMl9FLwWPX3//f21J+W8CcMbIs/YZUuUFJp8NxZHcHzUZ6oVDhvamNx93o
-	 vyoruCirytUaj2Cq3ECWSh71jzvgGQd62zxKGkk3aEY3P+qQJRtP+grFR51R6HmYUAg2c
-	 vnrf4amO3aKW5xjDXfMHw4GCVLuxoMswX66AVoOWSD3WhaF++tE3BgIcJB/T1bQfbZQ==
+	t=1793259468;
+	b=K1MyjvBxNK1GnOSXktc2vWoej7cYZJEnO8mcZCbSUPaSMtbFURXURNyIGph073F5nl6+
+	 BpUyZek3TlqmfYzpvI3TiXBKa1IN18O2Pums28ZaKvnYogPpRnFrYPagId3xlBlufQvPH
+	 cELg+iDSiVRl4FjfLaLLbTy2lvALEC/3TI0u8MBEYt6RZFf6gEPUkCZHkYPtzcDqfExOt
+	 h8sgicnb4E+VKDAv9YjYvh9N+r/2Ky3DG3pIoWaoMt4R6jzg1j+ZONnXV07CiDQpE1HFG
+	 0+IOqFwboTxPVSMJqRgNPyy+GhjZ0gk5xawkEo4/BMUODGctM7Mqgk05nCiuDwq7FMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793259445;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793259468;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=fzUObAd1gPdMT5m6XcBC5Jns8W/Y+lrWpL82WiQ785A=;
-	b=a4GLpehPpDUM0uHiyan43E02LqRcAX7Xt0tk1wbEORlhwV8Dt4o33axrBQkGyoS16wuK
-	 ro+8ViCjOhIqtttqw3OQ38UrLF59+GnOmPEArTdWYh4nOr7Hql15Ykbv2q5OqW9xFOWvs
-	 YH7PgIW7tjfPL4uC08+q2KshIsGD8V46q5V3ltRoVh27du+5mA9MNJFYT+zcHuyUtUQaV
-	 hTHDQskhcLmFS7CVIk2V74MvcoU0hcVUWf9OCsLrsmYH7AOPCXXpipHWXYS4PNek5ikCB
-	 V9pwdwO6dEF5OuOWxrE6zdhmPsAgNzdLNgOMnOC8LV2m6Nouo/iPsw1qu2R7kl7BaxQ==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
+	b=hOKU9cfAqWH45wLmbg1wrOD+TjksQF5jNEAtcqb48IlTUA1o59+MynJv918DZu8O6ptt
+	 xrjfEQ9Fo5l/eUGPrsSHo06c0WIlndHcdf/w2cQRvsz6mFMLJSqaxcJlmg6GOVty5A55l
+	 WCk0SxuPM5ZhvjSMncrwvnr2hJhoRzRL1+aNqQ+jder6/Hma5iFm4Yo7oewDmWf/ctiPe
+	 rl+OtsXe2nf8eo6zE0CmIngFxNEeuSMcx8RxHrYcdzCbjFs9zYpZPOsHJ25L/Zqln1jEZ
+	 oZRbnXpyiVEOFo8e1LWUyV354EpGs0wArbnwlumezgr4tX5/M/CCRuYKThR7kP0Pwxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b="TJhrKm/D";
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0pa3kufE;
+	arc=none smtp.remote-ip=209.85.210.41
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com [209.85.210.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6C5606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:37:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E6C5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2598606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:37:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2598606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=TJhrKm/D
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a210470b49so14196655e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:37:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0pa3kufE
+Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-85a5455bd3cso1139671a34.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 00:37:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793259443; x=1793864243; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fzUObAd1gPdMT5m6XcBC5Jns8W/Y+lrWpL82WiQ785A=;
-        b=TJhrKm/Damb4bsRQwz1SifntKVJJkxhYDgN962GmLP/xy2kCtvUcONSf1d3+6RBcEe
-         lmZNHUhzIB4jgy/hPyIeBvELGo3Zaym0jDYgFFEmFENYa5YnAvR97dRnBaFfypF3m5FI
-         hwNukOS8ezJt9tUz+YtT0U46mKX057MGXy+J3BDUZ17jmN+lesBATi2ZrRG4L1hWpZ5l
-         +ocxI6217Nx2ssWp2SRx1dhZS+Cmciv8QJIM3AlT1PG410DBDeuLf3jIh4eHwjhr48G5
-         +FJRUPMSFEvAhPEyLc22DsORQuXV3TIyt++gg0hf8helkMnlmvaYzG2wDBe3hWMnjDrI
-         iEDw==
+        d=gmail.com; s=20260707; t=1793259466; x=1793864266; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
+        b=0pa3kufEA9c101+XdeoRmqgpAKBUwpsOw57aCaQTMp8NcAvRPGI7CIS4w64XMngd+d
+         g/oT0g88Jwx8f4kKZ4i39rnY0OtCV5kJuIUEPDQcFJJfG/qRVKeSoEmJEbFcdMrRhiY7
+         MbLQoD9bZxrMGn+QOl/jc+dGJS9JdObcoAYCAB8V1eNKCvN10wFoRtiOp7ycLm/9yT9A
+         M+h7bjNeF9E2ZLhuotJ7Ufkq2404MiY/cvhIwppcM3jzi663l1tI97ZHqg+y0E5YtJAM
+         1Zzh46d5u5WMjfdgDJugr+h8YaB2uT3fUMIEad2EOUjfJLTG8wymCHWpbPjPaBHOOGG6
+         GuUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793259443; x=1793864243;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
-         :content-language:from:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fzUObAd1gPdMT5m6XcBC5Jns8W/Y+lrWpL82WiQ785A=;
-        b=QBlg5pxjknAV7KuIxaXb80h8p8bFz/FWoCSW52S+IfJrolHm+GTPGVPJN+mBjCC5yg
-         dev8KYMZdQ5x/wvMXFu9Y+zil5enEdoCdIzAeKKi9je2Ef8yd/SsInEja8TvqGD7NLs9
-         fWYBVMzwYG8n6DaBm+1b5X0MDXtWgxKl4Oohto2BQwLOXlJG8OpBU1AJ8i9e4+mKKDUH
-         a8itORVbpEO1fRAiPBgtNqWydISfBVDJ9HmsY+V5GE2D2Wn3J/1XQAQHixf/f+ZhPi6Q
-         dfOthdKy9XmOJkriuESjMw+OAhJ+KCTnnm6/ZNDlBlGpmXnj4f8Ww0ej4TfrxMM/IXM5
-         5D8A==
-X-Gm-Message-State: AFq9FYISJd8uSpjjaXkR3lxvOwptviw2r0ZbnoLuyBrjKgFNOaLJIDzs
-	dMPvT0bnTMTm1Qq+2br1+EGj2gKR50OVFIQnLI6sKMSItJEtTEejYr5DHb58xUaow2U=
-X-Gm-Gg: AYBFou3kYbBwnNVnu+qc8XviIkayRifiqOC+rSgvay/Tz1xFRSRoHdPc8Wu8N6R6yU7
-	gQdaG0ba67GHKlT2tZ9FufTEd8R3LNMxD0OguYqyBKASFaKaJcRDZTa/zpjcSnoBsXJcH5SsIP/
-	HrvmnWmNoK8lUkhUXVHzxIDoEisaW4sEQx7cG4jfp5BMhcgkDrOdRMOTqoo+ZjEWzFqlDKn/bk7
-	k0JjoQyYkAaIH5YM6X2qwv0BP/AuKIlMVX0zpCMRtFLDe5Rv1Oz6APmB+7M7vLCG3sNKSnifr4L
-	9Wrnf26NgK+ZPPFX2smLFdJf8b2H1I7DJ3b0ePGogMWdTqnOwlmbUWi17TqEp1+8ILb1ApvZ7vq
-	UByjRkep3i5z5W+t84iFAx9kfa+B/zwId9XYt8QitpmRiDBeerQEH1QyttWXo3THrDe5n4EOZT0
-	PUxAY5eX9IsnThIYDmfmqeuSEVyjqykQw1pDV9DtavgzqBdK0u/LrR2/PoJdk9nOH9vR/m4BtgB
-	bavPh0vg0xraSdIspxKsfWI/CLRxLSx/GCG51vzkR7U3hf2xqX4BOHWfMKMA4zuUFdLakpkb7Qc
-	PgTvo9CSUoXTL4UsjUjoE+LIjReLpsJk5orc7dD5flwyIVGds+sH5tULE99Fnz5QXAaclzN5xcQ
-	=
-X-Received: by 2002:a05:600c:4f94:b0:4a3:5a42:b29c with SMTP id 5b1f17b1804b1-4a967202997mr107918525e9.26.1793259442995;
-        Thu, 29 Oct 2026 00:37:22 -0700 (PDT)
-Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.243])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94f05e4e4sm68388545e9.3.2026.10.29.00.37.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 00:37:22 -0700 (PDT)
-Message-ID: <2a2a5d93-1c10-4533-8709-437ceb6a3f94@suse.com>
-Date: Thu, 29 Oct 2026 09:37:20 +0200
+        d=1e100.net; s=20260707; t=1793259466; x=1793864266;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vTCI+nDxJukp6A5kK1BpAWHpCDcT464wzBcHkx0Jj0Y=;
+        b=ssPp7aJpg4ZDd5QYpAQEvaaY78nGNtyg5bZUosbnLCiSgOF4sFIegaxLM4fdFT5ssz
+         EksB21UIPpJsyFL6eKx3AoxYzCW5NlKHCl9Jd4gcT5HN7FAz42IEI8Qbkk7y2f8IATsD
+         hUpUg94oYhr5kK/Bu6Tky6wUOUx41vECihdCKojBPBekhphcDmcUyYSvaF3wi6cBDxY1
+         spVwnwa47JkrC1v3ENRfaksVbebUoz0zLHsN+ib8jrwnWRu3yTcrCEXQtM+r2FXQx7CL
+         WqKGhXTbUWk5+nRRVveWAL3+Y0Up6xEqW8u7w+deTLqUWCHqLQKTNT+ah2UPzaRvMlcV
+         L6jg==
+X-Gm-Message-State: AFq9FYLyX8UK/mNjzXdQ93aisKVGjkykFiK7nvqob21T/W0LVPKiiHTV
+	k8VoY/EbL8PRlo4vlcBoo8moRSu0E4bMr1OMcGHBnOkUsrEAl25DaZnu
+X-Gm-Gg: AYBFou1eYAnFa3yTQU+a0OcwSP6iGfnRZh5KBARn7d4lAMnXbVDvh6grKdudj+2yQH2
+	Sx/OW5Nju8OWhKutQvNgu96LOZ2cSRMeyLu3GOtB+YsZwNka7KqxzpPQ053izfwZwSmYhk2ZJwd
+	6KfS3l/GeII9rSJmTaNiD3EoZn/PxELva8BxYqV1YUX6WLkDgLfpHnsTHK7SeVzgYrM50trhm8o
+	a+06jM0XRuHrrSlUwbVLH6ah18hgo/Gbib6Ae7VQBph+xzJ7kSpfvFvh3VIdd4yI5sdTvw0RAeb
+	sfv3AOkAc/YcLWie0JPLPd1YqABx26e3U4Tx9c4VbRiPfEWhhruZ7BJHWL6WpdqHPxj4YdQPeAF
+	TmuF/bJ5U0+TZ7WLEqCn9uU0uFPzqcpQFcPZC0njwpmGVKCq8luyRM2yQmwOCqgm6a8dW9Q3kyp
+	H7K8/H/3Xfd6h3Hhcuj/+SmLFBhDDMRSGanbFNxtRWjfA+K0MdyBc3CvBVOeBF18NdsZXj4hRTr
+	LFa1/XPPWySXkZy3Q3qm1bBfRbbHB6F3g2ArmqBj7dfHV9ILnQUIkMKfi8Z2461lv3/X21en97F
+	C4n8K7TdlmbiGQxh/iRG1Z3+NIiQLXt0h69/Tmq7V5AF9ZNUgi2XQtSWVZv5zCU43/Ba47W4LzK
+	oi5dsyVYTyZTdn4wOv7pvDabyPHl3lfsL3P45ag/kJQVNTZ5LjUH8Ipf+YbgzpPSvEBXFtaNpxA
+	2Vwn6ReK5SNK64Oxti51a/mXjh/nh/DYg0XWr+Hq+UEZ6s+NHmJaOY6FJT5+7Epp3lxa5HSheH9
+	A==
+X-Received: by 2002:a05:6808:508a:b0:4d5:295c:a831 with SMTP id 5614622812f47-56384191e36mr3343729b6e.62.1793259466485;
+        Thu, 29 Oct 2026 00:37:46 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-563c3638604sm3321976b6e.1.2026.10.29.00.37.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 00:37:46 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Thu, 29 Oct 2026 01:36:57 -0600
+Subject: [PATCH v8 1/6] serial: 8250_omap: separate locked TX DMA
+ completion processing
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,165 +94,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-To: Jiri Pirko <jiri@resnulli.us>, linux-coco@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, linux-api@vger.kernel.org, x86@kernel.org,
- kvm@vger.kernel.org, linux-doc@vger.kernel.org, jgg@ziepe.ca,
- david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
- rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
- drdeeglaze@gmail.com, James.Bottomley@HansenPartnership.com, aik@amd.com,
- jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
- jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
- suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
- elena.reshetova@intel.com, dave.hansen@linux.intel.com,
- sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-References: <20261015145053.3664509-1-jiri@resnulli.us>
-From: Nikolay Borisov <nik.borisov@suse.com>
-Content-Language: en-US
-Autocrypt: addr=nik.borisov@suse.com; keydata=
- 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
-In-Reply-To: <20261015145053.3664509-1-jiri@resnulli.us>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-submit-serial-8250-dma-cancel-v1-v8-1-3fd56ba352ed@gmail.com>
+References: <20261029-submit-serial-8250-dma-cancel-v1-v8-0-3fd56ba352ed@gmail.com>
+In-Reply-To: <20261029-submit-serial-8250-dma-cancel-v1-v8-0-3fd56ba352ed@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Tony Lindgren <tony@atomide.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Richard Genoud <richard.genoud@bootlin.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>, 
+ Timur Tabi <timur@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
+ linuxppc-dev@lists.ozlabs.org, James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
+Separate the port-locked completion processing from the DMA callback
+wrapper. Keep the shutdown check and locking in the callback, and retain
+the existing FIFO accounting, delayed register restore and THRI handling
+in the helper.
 
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+ drivers/tty/serial/8250/8250_omap.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-On 15.10.26 г. 17:50 ч., Jiri Pirko wrote:
-> From: Jiri Pirko <jiri@nvidia.com>
-> 
-> Linux has several attestation interfaces tied to individual technologies.
-> That makes evidence retrieval, measurement registers, device state and
-> kernel consumers provider-specific.
-> 
-> This series introduces a common attestation subsystem. Its goal is to
-> support platform, TEE and device providers through one model, including
-> TPM2, TDX, SEV-SNP, Arm CCA, FIRME, Caliptra and PCI/TSM-backed devices.
-> This first series implements the common subsystem and a TDX provider.
-> Existing native TDX tsm_mr and tsm_report interfaces remain independent.
+diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
+index 4805b644ccb1..b6f108d34854 100644
+--- a/drivers/tty/serial/8250/8250_omap.c
++++ b/drivers/tty/serial/8250/8250_omap.c
+@@ -1080,18 +1080,13 @@ static int omap_8250_rx_dma(struct uart_8250_port *p)
+ 
+ static int omap_8250_tx_dma(struct uart_8250_port *p);
+ 
+-static void omap_8250_dma_tx_complete(void *param)
++static void omap_8250_tx_dma_complete(struct uart_8250_port *p)
+ {
+-	struct uart_8250_port	*p = param;
+ 	struct uart_8250_dma	*dma = p->dma;
+ 	struct tty_port		*tport = &p->port.state->port;
+ 	bool			en_thri = false;
+ 	struct omap8250_priv	*priv = p->port.private_data;
+ 
+-	guard(uart_port_lock_irqsave)(&p->port);
+-	if (dma->shutting_down)
+-		return;
+-
+ 	dma_sync_single_for_cpu(dmaengine_get_dma_device(dma->txchan), dma->tx_addr,
+ 				UART_XMIT_SIZE, DMA_TO_DEVICE);
+ 
+@@ -1123,6 +1118,18 @@ static void omap_8250_dma_tx_complete(void *param)
+ 	}
+ }
+ 
++static void omap_8250_dma_tx_complete(void *param)
++{
++	struct uart_8250_port *p = param;
++	struct uart_8250_dma *dma = p->dma;
++
++	guard(uart_port_lock_irqsave)(&p->port);
++
++	if (dma->shutting_down)
++		return;
++	omap_8250_tx_dma_complete(p);
++}
++
+ static int omap_8250_tx_dma(struct uart_8250_port *p)
+ {
+ 	struct uart_8250_dma		*dma = p->dma;
 
-Wasn't config-tsm supposed to be this common attestation subsystem? Was 
-this discussed when the initial config-tsm was proposed? Why is this 
-coming now?
+-- 
+2.53.0
 
-> 
-> Attestation devices use CTLV, a schema-driven character-device TLV UAPI.
-> Compared with sysfs or configfs, CTLV executes one validated request
-> atomically instead of assembling a transaction through several files.
-> Compared with netlink, an opened device fd directly identifies authority
-> and lifetime, can be delegated normally, and owns its event queue. CTLV
-> also provides:
-
-Assuming we want to go through the route of CTLV, do we really want an 
-attestation-specific  interface, or most of this functionality can 
-simply be implemented as a specific genetlink protocol, utilising all 
-the existing hardening that has gone into netlink's infrastructure to 
-marshal messages from userspace to kernel space?
-
-> 
->    - generated kernel metadata, UAPI constants and documentation;
->    - strict type, bounds, nesting and required-field validation;
->    - runtime operation and schema introspection;
->    - family inheritance and extension points;
->    - fragmented queries with generation checks;
->    - per-fd event subscription, overflow reporting and removal notification;
->    - large input and output blobs.
-> 
-> The attestation family exposes capabilities, evidence, measurement-register
-> topology and operations, an append-only MR journal and journal
-> notifications. This first ABI contains the paths exercised by TDX. Extended
-> evidence classes, dynamic registers, record payloads, verdict recording and
-> device-security transitions follow with providers that need them and are out
-> of scope of this initial patchset. The broader direction is illustrated here:
-> 
-> https://github.com/jpirko/linux_mlxsw/commits/wip_attestation_all_1
-> 
-> That branch also contains additional providers (test and sim),
-> attestation core extensions, libctlv and ctlvctl. With the tools
-> and kernel specifications, an attestation device can be used as follows:
-> 
->    # Discover CTLV devices and their family chains.
->    ctlvctl --spec-dir Documentation/ctlv/specs list
-> 
->    # Inspect the root-family lineage and attestation capabilities.
->    ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 families-dump
->    ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 device-get
-> 
->    # List the measurement registers of the attestation device.
->    ctlvctl --spec-dir Documentation/ctlv/specs query ctlv0 mr-dump
-> 
->    # Read RTMR0 (MR 1).
->    ctlvctl --spec-dir Documentation/ctlv/specs \
->            query ctlv0 mr-read mr.id=1
-> 
->    # Extend RTMR0 with 48 zero bytes (SHA-384).
->    digest=$(printf '%096d' 0)
->    ctlvctl --spec-dir Documentation/ctlv/specs \
->            exec ctlv0 mr-extend --json \
->            '{"id":1,"value":[{"hash-algo":5,"data":"hex:'"$digest"'"}]}'
-> 
->    # Retrieve the RTMR0 journal.
->    ctlvctl --spec-dir Documentation/ctlv/specs \
->            query ctlv0 mr-log-get --json '{"selection":[{"id":1}]}'
-> 
-> The 20 patches are organized as follows:
-> 
->    1-13    add CTLV, its generator and documentation
->    14-17   add the base attestation family and implementation
->    18-20   expose the native TDX service and add the TDX family
-> 
-> Note to reviewers: Please focus on the overall design, UAPI and internal
-> attestation-provider API. The internal CTLV and attestation implementations
-> remain rough around the edges.
-> 
-
-<snip>
-
->   83 files changed, 18084 insertions(+), 28 deletions(-)
-
-That's an awful lot of code to just move certain binary blobs around 
-(Judging by what config-tsm is doing ATM).
-
-<snip>
