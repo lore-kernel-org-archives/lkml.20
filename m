@@ -1,98 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.102
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793286874;
-	b=hNk/pd9559hZ0Q8Lzt769eeLnUKuUMphbWXvgoKNDSLKE3VfGRwUmzO6ryfWVBSc7pPE
-	 dF6hwUKjo6qIFReBjBKQ6C6mMByDABMmGnhMtYnDxcClSRtqud0ooPRcOTCweOr0COr3x
-	 2SkHOI4Mx0mfW+JzsgLnqGi9Xrib0cT6O/tARSPTvRg7GO6EzhKfqb53BQLrKbjgFJ1xs
-	 EPpaWZKs2sXYu0Nmi2cfupo+T8JsMzolj7aT/u6VKxM5DJvGV8qIHbH3kutBJ1X/35fVG
-	 0K39Ls6qZArc7iPP3WuCWzPYeWE++qifqy0VO1cTjsrlm9gnSmwECkiYaN3iPUwbmyg==
+	t=1793286897;
+	b=wciINHznrSkDfQ92MOYhE82pSQYY0kW/vHljcUZringF9aAsZ6Gs1MMg/izMwkwtXnYw
+	 K6Q4alkhW+azpeI9J5MaLZqytg2np9Wv2jPVkzv4NagMsrrqrihXr9Svj1B0jNLICH6tO
+	 +oxsDFY75rsN+1N4R4IUG6XymvzfNNtJ83ZQrffadWn6WTu63+El+WA/44FSHMY6VnRzY
+	 o0PJhsYsL0jyBAIeKUDLFpnzEFsa2zgKZEhd1/Im6f2WDB3CCqxbypAyXV2cXa4XOvX0M
+	 gn8l+I4NNmP4wHPdWNh9/d5KBE64ez+ExZ2uB694ZoAKrzknW8q9ZpYwPe8Fy7+21aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793286874;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=656z9fhQ5cGnqtPuc95+Ef4gq6f7TVUGHYROSC69+kM=;
-	b=eX+hO8y24vc+jjzE46Xdya28dFn/4aUWRQQIfyaClIuBCaEDszc7kheGRGIGAXlseChQ
-	 ddGo2nq178Wr7QE48kXaCRfmh8v8IoCQjfO3T2BzbQ50bDeRkSmBzEECyV9Q/OeA9FIjU
-	 FVGwBiXu8NUmPgwD/pPujZ+0D08HuGhzpJo7QOKX1aL5R8U2/u1YiObTxDSFbBkkP3+5y
-	 k46bHZXXS4iAClSxOK2v+BO2HIyc6JudUTmxsbEkRozX5uWUuOWS2pglMsXTo1OvtL5JF
-	 yC2//m6swPz3KZXNk6ykzxLqrYsuwel38YSIBNchqUjC+y4t0GySvxOeymsXVwTZ19g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286897;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=INlBdwr30Qwd/ZW9mWBPFDdNB/SB5AAR8pLh0+Ir6vE=;
+	b=2jJc6/GOa+rjIbow1pZ/Ke70J4qQPlpnogn93yhH6AWatlLFA+lk5ZnUvLRUhVrox2yu
+	 6zkrdI4G2qBQizlfuJiUEp59VmFAHYR/a/CsfWdSiDbVgWDFnLysoB2yMzl1bh1pWoBYo
+	 t7BMFYQttQF/VqaG/ZJqY3U16/ulDnN86qYvgs2zprMRVJM7wl8b80NY0+hlibV4htvzF
+	 foPPgmCbqmM0mOb878/bcVi4uT8JU0/wgdNvWdajYS6/yZw5BS21C5S8ydI5H4FPN2uQY
+	 Fsp5dqRn4e+N90UcQi4NzVM0YP/4F29j8iTWYLwlNnBKpjRQnaV0qwRbyHaCbG9mzMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=fireburn.co.uk;
-	spf=none smtp.mailfrom=fireburn.co.uk;
-	dkim=pass header.d=fireburn-co-uk.20260707.gappssmtp.com header.i=@fireburn-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Pplmasxf;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dmarc=pass header.from=waldn.net;
+	spf=pass smtp.mailfrom=waldn.net;
+	dkim=pass header.d=waldn.net header.i=@waldn.net header.a=rsa-sha256 header.s=key1 header.b=P3laPw+V;
+	arc=none smtp.remote-ip=91.218.175.102
+Received: from mta0.migadu.com (out-102.mta0.migadu.com [91.218.175.102])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2C11606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:14:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2C11606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 711AD606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:14:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 711AD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=waldn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=waldn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fireburn-co-uk.20260707.gappssmtp.com header.i=@fireburn-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Pplmasxf
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48afbd2c386so1315922f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:14:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20260707.gappssmtp.com; s=20260707; t=1793286872; x=1793891672; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=656z9fhQ5cGnqtPuc95+Ef4gq6f7TVUGHYROSC69+kM=;
-        b=PplmasxfMVqu/03omaiPwWqfYhc/HSspGiptKX9Jplg5TBCNzqTg6WUX4QhaNgtbbO
-         SUrL4uOWc5Qr/W5SQJy3L9OIMcirbqV1fJUAuEnIeu6ZOxAaylRpVT3WLImylqcpsmpA
-         zm5b7yM4fZgLSjF4BJvlgmVPiCoOvhKPFG8tOrlRe2zbN+Uxbsllg4fhpqcmVqTknyI2
-         2kLNYYGK4VvCJUBEIDSIrPzQ+09OFhLyh/uHu8PIJPxIU/lPQypNbcWGY/SRE5GrBx5h
-         YBhrAAqekmtMpYAYLhTS+QdCbSC71gfnIencqH7VFIBXWdzgLzNYi97GER3NZIYeNTgg
-         IvYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793286872; x=1793891672;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=656z9fhQ5cGnqtPuc95+Ef4gq6f7TVUGHYROSC69+kM=;
-        b=fWgtT804MeCNPA2zq+/Z2tjOV+7SifxJmxbm6LIp24ktjHWa8tD1b7eoYeqMtxXNmi
-         7XtcocqB6ENSfq+GaG7Q0+P3kJcUFTXmEI6yCXkP1zG/7pLR03Pw2wAYA+vPQwb984b3
-         tnfKazheQVntyToIZO5G35sLcJ9uOcwevpVoMNaPVD4XoGgSLis0wwSk/MSvWpyh5lHM
-         IiMySHYQWxr0wWbOZBojPtuPF59m3odZdI/P2ukzoMx2/NXKmvFWxeR9LE4oH7SHfMay
-         dtoP6vozeoiL0NORAYJ20+O391TuDapGnfqo0rMIB5IJ4h9d2c69dj4yeMqT0Q9o/1y2
-         uE4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwstX1UEJNUW37Sw7Doe+RgEDhQZQRZ9kD814YDDtEkJcla1OuHpAiXxSOB+nxdmEqmUnhecPOj4zTpBjE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJ8u3o/NlxCHiVS2483kzQnw0TVV9OR2VVvG4DbeAENA6XwPfy
-	tJYFoloEezNmoKq0tchzt1VUcRheZhAza5nJG4Yt1g4gOgoOplCSG5oLpCc2VzjbGA==
-X-Gm-Gg: AYBFou3FN2DMyn3fUK4u3g5f8THAMsZFp/5GmkE+Q8vydHh7nGGGB6M0EapWfSnZHfn
-	miZxOrcMKc+ePFGW51pTtkdpEA8w2DkyEd9QzAhUqwZPS2ccqZzCA4hqI56vAAD6QsUyX1QdWKL
-	0o4Fj1S7xHH68N9XzarOIqi0JJIBG+8qbY8tO7EDU04yKxrR4+PODb1bGIwZ1g1Rd1wKk+YWLE5
-	dos4WGx27hcoYOZWMCp4wXNKJrC19HmOu7im7VsMCXv/gNOB5zilo1oa54g9NHtVhu7mALPAbdM
-	vE0LwP2TH2RayekW79SoVOIHdQOEmjDlIMm1j1F14/kxHLc5CepGSX9A+nYYKDtl63mKPVRB3P7
-	4KdED8k9hhtbNEcaV61qohd+qDnVQmCobqOdqVtWp1uhe0aadFPbmlgIzE0manyfCJoYtYUuvAP
-	Hsg3U767CfX87BQ2XfIQjt6YBvYQo1amZUwtUQXbvPTCX+J/SGe+5SuI//JI/vZsthoXvLoQCXR
-	38V5jtV7wDG0ncn9jwDMpEI0BzyaciJiB96xw3Wkpa6uwG/tYAVDnVNtYBvOVQiUOxeNjwzQn75
-	n2RlpaNsXNypp43uToAe1R/Ucd71yTKAF1WXp3WO90vQKi4OpyZrod/7G27e9J78pB1Ry9LqqXl
-	pXXjM4DbjCTSVbrdUVviL/A==
-X-Received: by 2002:a05:6000:161d:b0:48e:641b:477a with SMTP id ffacd0b85a97d-48e641b47bamr5341390f8f.52.1793286872058;
-        Thu, 29 Oct 2026 08:14:32 -0700 (PDT)
-Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb851sm30191373f8f.26.2026.10.29.08.14.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 08:14:31 -0700 (PDT)
-From: Mike Lothian <mike@fireburn.co.uk>
-To: amd-gfx@lists.freedesktop.org,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: superm1@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] drm/amdgpu: handle broken dGPU hotplug GPE on ASUS ROG Strix G513QY
-Date: Thu, 29 Oct 2026 15:14:22 +0000
-Message-ID: <20261029151422.56791-3-mike@fireburn.co.uk>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261029151422.56791-1-mike@fireburn.co.uk>
-References: <20261029151422.56791-1-mike@fireburn.co.uk>
+	dkim=pass (2048-bit key, unprotected) header.d=waldn.net header.i=@waldn.net header.a=rsa-sha256 header.s=key1 header.b=P3laPw+V
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BMK2by3we2n3OThMsL73+dvYMfzKHbYYZK2Fu/Z47yA=;
+ c=simple/simple; d=waldn.net;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793286893; v=1; x=1793891693;
+ b=P3laPw+V6YYJMok4FBooqwG43XFt8kcJXGILecU0gO6jY0IvOi+0eTBJzQfEOxzmQ7hSxg0S
+ WQqbyztQqjLuu4R4I4enla0Ojx7uwW2MOgdpFClU6DXPXTByIznbN6hXSm4xhFAXiBxRLHPifFi
+ 141REZacnRYgcuH1gKh5T4sQzCaSeYPOMICqPBp9k9ufMFUVir5ZzOs6D1okGm3dLZM1V7+OBFu
+ lzyWYEoEBwZGW/g7PxfxVi+Ffg4t02MRx2aqqojlKxeLDrnT1oWNKWiWVVDgAc7GrVSL+1hCxYK
+ ytpUCUjOiy7+UenGeGUA0TVV+NuF78j4bd9+ul/oSrkiw==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e5b99898d28d580c;
+	Thu, 29 Oct 2026 15:14:53 +0000
+X-Mizu-Trace-ID: e5b99898d28d580c
+X-Migadu-Flow: FLOW_OUT
+From: Amelia Crate <acrate@waldn.net>
+To: Kees Cook <kees@kernel.org>,
+	linux-security-module@vger.kernel.org
+Cc: Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Amelia Crate <acrate@waldn.net>
+Subject: [RFC PATCH v2] loadpin: allow untoggleable enforcement on filesystems which don't appear to be read-only
+Date: Thu, 29 Oct 2026 10:13:45 -0500
+Message-ID: <20261029151432.27642-1-acrate@waldn.net>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261023171508.3460300-1-acrate@waldn.net>
+References: <20261023171508.3460300-1-acrate@waldn.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,195 +76,120 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The AMD CPM D3cold table on the G513QY (BIOS 335) handles the dGPU
-hotplug GPE with:
+Some filesystems, such as composefs created from layers which are entirely
+read-only, can't be easily detected as a read-only file system. In addition to
+filesystems which are read-only without having a backing read-only block device
+I believe this is also useful for cases where immutability of the filesystem is
+enforced by the hypervisor or the host, such as 9p shares or virtiofs.
 
-  Method (_L05) { Notify (\_SB.PCI0.GPP0.VGA, 0x81) }
+It is still desirable to enforce LoadPin and disallow toggling enforcement in these cases.
+This patch gives system administrators a way to disallow toggling LoadPin enforcement even
+when the immutability of a filesystem is unclear.
 
-On this board the Navi 22 sits behind its on-package PCIe switch, so
-the dGPU node is \_SB.PCI0.GPP0.SWUS.SWDS.VGA_ and every hotplug on the
-USB-C DP alt mode port while the dGPU is in D3cold logs:
-
-  ACPI BIOS Error (bug): Could not resolve symbol [\_SB.PCI0.GPP0.VGA], AE_NOT_FOUND
-  ACPI Error: Aborting method \_GPE._L05 due to previous error (AE_NOT_FOUND)
-  ACPI Error: AE_NOT_FOUND, while evaluating GPE method [_L05]
-
-The notify is lost, the dGPU stays powered off and the external
-displays stay dark. Masking the GPE (acpi_mask_gpe=0x05), the usual
-workaround, removes the errors but also the hotplug.
-
-On boards listed in a DMI table, and only when the notify target does
-not resolve, install a handler for the GPE in place of the _Lxx method.
-It requests a runtime resume of the dGPU, which re-detects all links and
-sends a hotplug event, and re-arms the level-triggered GPE from a
-delayed work so it cannot storm while the dGPU powers up. If the
-firmware is fixed, or the path is supplied by an SSDT override, the
-firmware method is left in charge.
-
-Other boards using the same CPM table may need adding to the list.
-
-Link: https://forum.endeavouros.com/t/boots-into-black-screen-unresponsive-amd/49430
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+Signed-off-by: Amelia Crate <acrate@waldn.net>
+Assisted-by: Codex:gpt-6
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h      |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 103 ++++++++++++++++++++++-
- 2 files changed, 105 insertions(+), 1 deletion(-)
+Changes in v2:
+- Move new kernel parameters to LoadPin.rst
+  This is where the existing kernel parameters already were, if its preferred to move everything
+  to kernel-parameters.txt I can do that instead.
+- Make loadpin.force_enforce select loadpin.enforce
+  These are the semantics suggested by Sashiko, I considered this originally but wasn't sure which design
+  would be preferred.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index deb63122828d..d8a7fea8be9a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -642,6 +642,9 @@ struct amdgpu_device {
- 	bool				accel_working;
- 	struct notifier_block		acpi_nb;
- 	bool				acpi_dgpu_notify;
-+	bool				acpi_hpd_gpe_installed;
-+	u32				acpi_hpd_gpe;
-+	struct delayed_work		acpi_hpd_gpe_work;
- 	struct notifier_block		pm_nb;
- 	struct amdgpu_i2c_chan		*i2c_bus[AMDGPU_MAX_I2C_BUS];
- 	struct debugfs_blob_wrapper debugfs_vbios_blob;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index a4041f90b374..182791f4cc86 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -25,6 +25,7 @@
- #include <linux/pci.h>
- #include <linux/acpi.h>
- #include <linux/backlight.h>
-+#include <linux/dmi.h>
- #include <linux/slab.h>
- #include <linux/xarray.h>
- #include <linux/power_supply.h>
-@@ -1297,6 +1298,103 @@ static void amdgpu_acpi_dgpu_notify(acpi_handle handle, u32 event, void *data)
- 	pm_request_resume(adev->dev);
+v1: https://lore.kernel.org/linux-security-module/20261023171508.3460300-1-acrate@waldn.net/
+
+ Documentation/admin-guide/LSM/LoadPin.rst |  8 +++++++-
+ security/loadpin/loadpin.c                | 22 +++++++++++++++++++++-
+ 2 files changed, 28 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/admin-guide/LSM/LoadPin.rst b/Documentation/admin-guide/LSM/LoadPin.rst
+index a90fd9dac960..3f6968063559 100644
+--- a/Documentation/admin-guide/LSM/LoadPin.rst
++++ b/Documentation/admin-guide/LSM/LoadPin.rst
+@@ -16,10 +16,16 @@ boot ("``loadpin.enforce=0``").
+ 
+ LoadPin starts pinning when it sees the first file loaded. If the
+ block device backing the filesystem is not read-only, a sysctl is
+-created to toggle pinning: ``/proc/sys/kernel/loadpin/enabled``. (Having
++created to toggle pinning: ``/proc/sys/kernel/loadpin/enforce``. (Having
+ a mutable filesystem means pinning is mutable too, but having the
+ sysctl allows for easy testing on systems with a mutable filesystem.)
+ 
++Some filesystems may appear to be mutable, but are in fact read-only.
++In this case, ``loadpin.force_enforce=1`` can be set to require enforcement
++of LoadPin on all filesystems. This is disabled by default. When LoadPin is enabled,
++``/proc/sys/kernel/loadpin/force_enforce`` reports the state of this option.
++This option selects ``loadpin.enforce=1``.
++
+ It's also possible to exclude specific file types from LoadPin using kernel
+ command line option "``loadpin.exclude``". By default, all files are
+ included, but they can be excluded using kernel command line option such
+diff --git a/security/loadpin/loadpin.c b/security/loadpin/loadpin.c
+index f71861f98e1a..0014f78799b2 100644
+--- a/security/loadpin/loadpin.c
++++ b/security/loadpin/loadpin.c
+@@ -45,6 +45,7 @@ static void report_load(const char *origin, struct file *file, char *operation)
  }
  
-+/*
-+ * Some AMD CPM D3cold tables handle the dGPU hotplug GPE with
-+ * Notify(\_SB.PCI0.GPP0.VGA, 0x81), but on boards where the dGPU sits behind
-+ * an on-package PCIe switch the node is \_SB.PCI0.GPP0.SWUS.SWDS.VGA_, so the
-+ * _Lxx method aborts with AE_NOT_FOUND and the dGPU is never woken. On those
-+ * boards take over the GPE and do what the notify would have done.
-+ */
-+struct amdgpu_acpi_hpd_gpe_quirk {
-+	const char *notify_path;
-+	u32 gpe;
-+};
-+
-+static const struct amdgpu_acpi_hpd_gpe_quirk g513qy_hpd_gpe = {
-+	.notify_path = "\\_SB.PCI0.GPP0.VGA",
-+	.gpe = 0x05,
-+};
-+
-+static const struct dmi_system_id amdgpu_acpi_hpd_gpe_quirks[] = {
-+	{
-+		.ident = "ASUS ROG Strix G513QY",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-+			DMI_MATCH(DMI_BOARD_NAME, "G513QY"),
-+		},
-+		.driver_data = (void *)&g513qy_hpd_gpe,
-+	},
-+	{}
-+};
-+
-+/* GPE handlers run in interrupt context; the GPE stays disabled until the work re-arms it */
-+static u32 amdgpu_acpi_hpd_gpe_handler(acpi_handle gpe_device, u32 gpe, void *data)
-+{
-+	struct amdgpu_device *adev = data;
-+
-+	pm_request_resume(adev->dev);
-+	schedule_delayed_work(&adev->acpi_hpd_gpe_work, msecs_to_jiffies(500));
-+
-+	return 0;
-+}
-+
-+/*
-+ * Re-arm after a delay: the GPE is level triggered and may stay asserted
-+ * while the dGPU powers up, so this bounds the rate at which it refires.
-+ */
-+static void amdgpu_acpi_hpd_gpe_work(struct work_struct *work)
-+{
-+	struct amdgpu_device *adev =
-+		container_of(work, struct amdgpu_device, acpi_hpd_gpe_work.work);
-+
-+	acpi_finish_gpe(NULL, adev->acpi_hpd_gpe);
-+}
-+
-+static void amdgpu_acpi_hpd_gpe_init(struct amdgpu_device *adev)
-+{
-+	const struct amdgpu_acpi_hpd_gpe_quirk *quirk;
-+	const struct dmi_system_id *id;
-+	acpi_handle handle;
-+
-+	id = dmi_first_match(amdgpu_acpi_hpd_gpe_quirks);
-+	if (!id)
-+		return;
-+	quirk = id->driver_data;
-+
-+	/* Firmware (or a table override) already provides the notify target */
-+	if (ACPI_SUCCESS(acpi_get_handle(NULL, quirk->notify_path, &handle)))
-+		return;
-+
-+	adev->acpi_hpd_gpe = quirk->gpe;
-+	INIT_DELAYED_WORK(&adev->acpi_hpd_gpe_work, amdgpu_acpi_hpd_gpe_work);
-+	if (ACPI_FAILURE(acpi_install_gpe_handler(NULL, quirk->gpe,
-+						  ACPI_GPE_LEVEL_TRIGGERED,
-+						  amdgpu_acpi_hpd_gpe_handler,
-+						  adev)))
-+		return;
-+	if (ACPI_FAILURE(acpi_enable_gpe(NULL, quirk->gpe))) {
-+		acpi_remove_gpe_handler(NULL, quirk->gpe,
-+					amdgpu_acpi_hpd_gpe_handler);
-+		return;
-+	}
-+
-+	adev->acpi_hpd_gpe_installed = true;
-+	dev_info(adev->dev, "handling dGPU hotplug GPE 0x%02x (%s missing)\n",
-+		 quirk->gpe, quirk->notify_path);
-+}
-+
-+static void amdgpu_acpi_hpd_gpe_fini(struct amdgpu_device *adev)
-+{
-+	if (!adev->acpi_hpd_gpe_installed)
-+		return;
-+
-+	acpi_disable_gpe(NULL, adev->acpi_hpd_gpe);
-+	cancel_delayed_work_sync(&adev->acpi_hpd_gpe_work);
-+	acpi_remove_gpe_handler(NULL, adev->acpi_hpd_gpe,
-+				amdgpu_acpi_hpd_gpe_handler);
-+	adev->acpi_hpd_gpe_installed = false;
-+}
-+
- /* Call all ACPI methods here */
- /**
-  * amdgpu_acpi_init - init driver acpi support
-@@ -1343,12 +1441,14 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
- 	register_acpi_notifier(&adev->acpi_nb);
- 
- 	if (!(adev->flags & AMD_IS_APU) && ACPI_COMPANION(adev->dev) &&
--	    adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO)
-+	    adev->pm.rpm_mode == AMDGPU_RUNPM_BOCO) {
- 		adev->acpi_dgpu_notify =
- 			!acpi_dev_install_notify_handler(ACPI_COMPANION(adev->dev),
- 							 ACPI_DEVICE_NOTIFY,
- 							 amdgpu_acpi_dgpu_notify,
- 							 adev);
-+		amdgpu_acpi_hpd_gpe_init(adev);
-+	}
- 
- 	return 0;
- }
-@@ -1369,6 +1469,7 @@ void amdgpu_acpi_get_backlight_caps(struct amdgpu_dm_backlight_caps *caps)
-  */
- void amdgpu_acpi_fini(struct amdgpu_device *adev)
+ static int enforce = IS_ENABLED(CONFIG_SECURITY_LOADPIN_ENFORCE);
++static bool force_enforce __ro_after_init;
+ static char *exclude_read_files[READING_MAX_ID];
+ static int ignore_read_file_id[READING_MAX_ID] __ro_after_init;
+ static struct super_block *pinned_root;
+@@ -60,11 +61,19 @@ static bool loadpin_root_writable;
+ static int proc_handler_loadpin(const struct ctl_table *table, int dir,
+ 				void *buffer, size_t *lenp, loff_t *ppos)
  {
-+	amdgpu_acpi_hpd_gpe_fini(adev);
- 	if (adev->acpi_dgpu_notify) {
- 		acpi_dev_remove_notify_handler(ACPI_COMPANION(adev->dev),
- 					       ACPI_DEVICE_NOTIFY,
+-	if (!loadpin_root_writable && SYSCTL_USER_TO_KERN(dir))
++	if ((force_enforce || !loadpin_root_writable) && SYSCTL_USER_TO_KERN(dir))
+ 		return -EINVAL;
+ 	return proc_dointvec_minmax(table, dir, buffer, lenp, ppos);
+ }
+ 
++static int proc_handler_force_enforce(const struct ctl_table *table, int dir,
++				      void *buffer, size_t *lenp, loff_t *ppos)
++{
++	if (SYSCTL_USER_TO_KERN(dir))
++		return -EPERM;
++	return proc_dobool(table, dir, buffer, lenp, ppos);
++}
++
+ static const struct ctl_table loadpin_sysctl_table[] = {
+ 	{
+ 		.procname       = "enforce",
+@@ -75,6 +84,13 @@ static const struct ctl_table loadpin_sysctl_table[] = {
+ 		.extra1         = SYSCTL_ZERO,
+ 		.extra2         = SYSCTL_ONE,
+ 	},
++	{
++		.procname       = "force_enforce",
++		.data           = &force_enforce,
++		.maxlen         = sizeof(force_enforce),
++		.mode           = 0444,
++		.proc_handler   = proc_handler_force_enforce,
++	},
+ };
+ #endif
+ 
+@@ -253,6 +269,8 @@ static void __init parse_exclude(void)
+ 
+ static int __init loadpin_init(void)
+ {
++	if (force_enforce)
++		enforce = 1;
+ 	pr_info("ready to pin (currently %senforcing)\n",
+ 		enforce ? "" : "not ");
+ 	parse_exclude();
+@@ -436,6 +454,8 @@ DEFINE_LSM(loadpin) = {
+ };
+ 
+ /* Should not be mutable after boot, so not listed in sysfs (perm == 0). */
++module_param(force_enforce, bool, 0);
++MODULE_PARM_DESC(force_enforce, "Always enforce module/firmware pinning");
+ module_param(enforce, int, 0);
+ MODULE_PARM_DESC(enforce, "Enforce module/firmware pinning");
+ module_param_array_named(exclude, exclude_read_files, charp, NULL, 0);
 -- 
-2.56.0
+2.54.0
 
