@@ -1,79 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.47
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793289802;
-	b=2+ZtJGGM4vNvnDjsFo+1U58IwySL/1M0KNxxWFX43izpwxi/A51kqph5U+rnR9nY1C4g
-	 yXw3yncNT4NnmKhvYEaq1nOYpHKaasQ35iLqPweHMP6oBNr9v++7Yh3dxEUkGQyckuIYq
-	 NbFNXYpirLlq32UEFe7TBTlHChP4mPyf1n6jBQjNBISurabe9OXbQGYWnKDOSvquT0FhK
-	 rxfWj77HEnXiaxGxeEUCB5bSfV15x+UN8FYnFKF7aTi0F8ovyCRczFBBhR0NXsHQgja9D
-	 Ww9FoPAtKz26yfL+2nIIem55wxwmdwdRHyuxMR4kvwU8MJWSEVMerlPgvdfdCGc7EXg==
+	t=1793289842;
+	b=R9ft6wEd69SrMhWnGYi5z87PpCgtM22HvICqG3jPmAnSal9ouYOEo9l0iHreRnBZRtac
+	 bEh0sr/HGIsr0vvyfSzym7eYd8/HD8beLUVRfuBoJbYWrFa/uDdmv1gEVvTAZLK/qbhKj
+	 ovAEsw52bIkdXrOMfN++Xg9cMQ5R5knMsr8v7qaZKdqWdUk5eGOF4wrSsYuM6FMdSMy0v
+	 eSXjYZSQkTdVnYXlYTTYnLU4hPvjWiXBgGgBg5BL6VGwqjW0q613D7Dtm7KfgXHe0hYpw
+	 yiOxLYPIh5qGamWJwE+g4i3ESQB7rS0MVzKrky0YkZVTqyeCJBvIgBjvEUFNI+trT9Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289802;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=i0wp/mm6haAP0V/K/nQCNw1NRVKeQLSfU1S8NxuwQDQ=;
-	b=kBcwDg3nbjb2SjrDa+fLx97Ra/NSgusQmWnyPhv1UyX8ERc86qRI6FQpbqFxWoL0mDdj
-	 bhZ69LEBDASeQ8967t9N71j/Nc1N0qO4eKOEw3XB+CjStqjUPV8ECVIFl8ZmqFSsA0UxU
-	 qTa/R8HwV0Bf0/Mqbvn73L6v6bluSgj6KqFuCmd54Tt8v4s0ZhIiBgMI0C8FpnmIRjDmt
-	 RpZa8yntTOv6KcHA5mMktiwFRryXE72rc0hJVIXWg7N/qBm8V6EamDE8qq6gJr1b6ramB
-	 N/SA8mP50MBAmFCpgInjtUn3QRM/og6KUB8e9zLzU6WuSmAwNet0y1xV6YoFeI9MiMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793289842;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=nIgp6vL1AC4inpBW23GiubnUudX86vJkUim+knVvdvo=;
+	b=Wjt5yHAhwQbWr6T56EZ8vNxflcpKdhNlxf1rya+27xlp4BQcnKqV5sJjr8tIx1dub9K8
+	 EUpPHY/n7GGdYEUT9ywtLvfq427yGIbf6LmA5VN8iCATeCNRm7P0QXEfhylYMW3e9Sjzj
+	 KDDzSyk238bMpFiz7vibzCgzbfgV7BMXj5p+7Bhh/LHo+4nNGdmHUkdVwWlvd3IboHwnt
+	 jQ/B2qnLK6Jru3CuKNMXI3cVw/jgJRp1ab+b4y4qrLtbmvBdbgsPaktdh/CifS+v7hESk
+	 YRk59qApB6SZGXRL7DqYoulzF66eQQDJ5MAnQeuFQdOjznh10ulob0tFz0JLLOLRQBg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhJfjsrl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Sh1X1IeX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.47
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011047.outbound.protection.outlook.com [52.101.65.47])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1184B606A31A;
-	Thu, 29 Oct 2026 16:03:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C441606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:04:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C441606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhJfjsrl
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793289801;
-	b=3NouYxLtblll+fibHA640MjR88teZn3wNrBNUceF+tOjHIXZZ/XEtYz7OynPEyE+jjgc
-	 dEP0ko4GRKBpl/RhB44qKjZuhOl3PLXjiUoX90OgcD9Um6G6h5q0GtojZKEptcA8vb9rt
-	 YdEOVXEoSByKhTqtsDdaYEMB6QCd6Q0eoiDKppEe1aW+I1IzcKiW089afWXs/xjgknz64
-	 +3LsjTD1E6Vfl4U4fqw1EMBTfPJyGrXqCntb8C0GYEzWgD/h7G5XBLE+wuxkRGDuDnqWa
-	 ZfTQkyMtGUdY5kS1tyD+Xe7B45CficZylqcLrWe/1jdzfcV7SCQ17+7Yk50WtBB8KDA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793289801;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=i0wp/mm6haAP0V/K/nQCNw1NRVKeQLSfU1S8NxuwQDQ=;
-	b=K8yDwhx0y4kv1sEtmWtrCAkNWQMjzRxYONFpP499PU7LWUYZlslfiifcCnuMnfnDuG7S
-	 +v6lYojilhrCgRGhAX82NKT6F9hu7FKfqcfKFL7bqh4u+skAMJ67BHPQRCPF8fgmks3Xz
-	 TO+943a2yZSXsfnVUXZqY8lBGxtkdn8S5aAAVc8mg9B5g+4YWQ43wVgyqsLDSRvwQcBVm
-	 NN7n9ExCycq77a63fOqyXy8RM3+eG6P5SyESi1rZUvMI4WK/QiKws5GsyTrUg+K0gPNLo
-	 R+eX1iCtq/sY500b6H2MCxu82VaQb2cvSPnWa5h4s/Rq/n8ubn7atw8sLgB16xVyshQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BFCEA1F01816;
-	Thu, 29 Oct 2026 16:03:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793289801;
-	bh=i0wp/mm6haAP0V/K/nQCNw1NRVKeQLSfU1S8NxuwQDQ=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=GhJfjsrlCuCw0OSIETBXxl10iwXWD3c4naGs9sDVveqkd0WJI6zVaWic0JsF0thNA
-	 w4NDwmb4w+2S4ZTjltHhfM9/ZAQvDZ+DiWQ4U0y1X+2FLrVjwvQiEdJUmPPxs0QW+N
-	 8s4j4SHL1CGcomxeC+Te6Mc6ZXHD4/7lq65bQOVsFUxA7wDd+wYp2+4O7CSur3r+12
-	 FqgUUpRCYmvjjtghW2Qtf6LEfNiEJw3YbzSU68XOArTa7JuR6yjqYsaphh2Rce68Ae
-	 dQXU/li8+bt+DaDXjAobwKgnXEIxjKoPCMYF2eIrlyvK/bCOrgbzJlNe/o99C4UI0e
-	 XN3waOn5E8hMA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 42276458F2;
-	Thu, 29 Oct 2026 16:03:20 +0000 (UTC)
-From: Valerii Bokov via B4 Relay <devnull+vlry.bkv.gmail.com@kernel.org>
-Date: Thu, 29 Oct 2026 17:03:13 +0100
-Subject: [PATCH v2] media: rkvdec: vdpu383: configure the reference read
- cache
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=Sh1X1IeX
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=o826O3Zcwo27fzoZWaH0+aeymXkC/OqObYg+qO9h+6MmqjfcTRj3uH+Xa6unjVxVoOnNEwctg7qtNgRe/vXhfNHz+gY6WB2p9AloCHDJyIi9scBj0z4jGUhQawc51XsKWusrwH0NiuATqUnJQmZqROtJtF/JJJDjqLVsYi/RGAB4LjZzL1DCNZB9pyzp91jQKzrmbB2mZu2ZuoNl1qs4xbzXSeDpRTpSI1j70YXjYLvIYl/BjDJqK/N6tCQgkwnmiXcPvRxFNRMAJQF3BsxlDgw2pTnhMgmxrZhO5Dl1pc9KSOjOquLjd4QMizfQceQ6CS8jf3UCEfu0fXEtA/Dzew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nIgp6vL1AC4inpBW23GiubnUudX86vJkUim+knVvdvo=;
+ b=OsYm+47DdPxGqeRr9H4EtW7l5XqGh/8mxddFytwIcpaOJJ9jcMWWmocJOQqFCD1+7U1AlZr/xlXaIUIXwkoJJya3+ggNacJWp4ukQajs9gOYeYfdsQOsEyyK5JGd+uDoxV5oGlQ+1DfXvOZT3032OMTuoCrPPHI3NJsqVRm3NwWRhEhrSphTutZ7jHRwkHYJT6IfcLUCmk96oFSSvFQC8qbGnEcH6Uy5BRV5A/GiNMo1nfJDjMgdVgTkQ9j8rp3iEVb2vIvYo5aobdCMg49PXP8XyDdIP7+GWDTDxf4uC32lBKUBVEmsy8lZLrBwZ3Z0XNHh1A/Go5ZS3KFsrDht8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nIgp6vL1AC4inpBW23GiubnUudX86vJkUim+knVvdvo=;
+ b=Sh1X1IeX7vM79emAdM/pbxws6Ygejaxiz+mALmsBsy4zUkBTjbXJudZkvJWGGTjLAUmMH2ath8kDH2d070GO7errZ1t5ECZScK6h/nu6KFajLGbqH8TapUjlJT5QgSBrZVoTj8Gb96DHxpS3vrqIMwycH2el8Lt6IyfrVGctjT+n+LfZoVAD1lMLZZTSDI/UemgSUOZIAo56zzV7v77FZDnkmlp3TdYrt7bLs81Ho+cPCyG7VoT6GjF7orzrpHwucI33rPE7lNaGoHeyS2fRCd7iiXA3qNVqqzsbTA5rfCVWNmxcoCXx2wYWv3A6KPHbiRXlpVyikro2agtiO2QZkg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by PA1PR04MB10889.eurprd04.prod.outlook.com (2603:10a6:102:491::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 16:03:58 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
+ 16:03:58 +0000
+Date: Thu, 29 Oct 2026 12:03:51 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 06/31] accel: ethosu: Fix runtime PM get error handling
+Message-ID: <auNuZw7mIM2gXfi5@lizhi-Precision-Tower-5810>
+References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
+ <20261029-ethosu-fixes-v4-6-4aa25e22578e@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029-ethosu-fixes-v4-6-4aa25e22578e@kernel.org>
+X-ClientProxiedBy: CYZPR20CA0010.namprd20.prod.outlook.com
+ (2603:10b6:930:a2::18) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,273 +98,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-rkvdec-vdpu383-cache-v2-1-859bb44e03a0@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ6CMBBGr0Jm7RjaEdK48h6ERWkHmCg/abXRE
- O5u5QIu30u+920QOQhHuBYbBE4SZZkz6FMBbrTzwCg+M+hS16rUBsM9eXaY/PoiQ+isGxlN33W
- 9IUXeEuTpGriX95Ft2syjxOcSPsdLUj/7J5gUKvRUXYynjipT34bJyuPslgnafd+/F+3q4LgAA
- AA=
-X-Change-ID: 20261028-rkvdec-vdpu383-cache-8fbbf8313da3
-To: Detlev Casanova <detlev.casanova@collabora.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Valerii Bokov <vlry.bkv@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793289799; l=10924;
- i=vlry.bkv@gmail.com; s=20261028; h=from:subject:message-id;
- bh=vPKssOpH7rm17FJw7zQKtZ43E9tGtwv6Ww4Ilm5fdec=;
- b=NJ2r8ar99fkcqCDQWka9Y8mDyUdUbetqcb3yBxSNBm++tTqt10b7NvOFyN6IcYAyHuR+yUDqP
- NEaAyB+Qip7C6gU9HqEOzAEaHfshR9tDbYZ/dbpHqPIGfYucWdwi5nL
-X-Developer-Key: i=vlry.bkv@gmail.com; a=ed25519;
- pk=u/rk2lx5DMp734XMF4ThLZD2H0AqvfYuikR7wu2iyNA=
-X-Endpoint-Received: by B4 Relay for vlry.bkv@gmail.com/20261028 with
- auth_id=1342
-X-Original-From: Valerii Bokov <vlry.bkv@gmail.com>
-Reply-To: vlry.bkv@gmail.com
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PA1PR04MB10889:EE_
+X-MS-Office365-Filtering-Correlation-Id: db7f3bcd-973e-4906-b14f-08df35d63dcf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|23010399003|1800799024|376014|18002099003|22082099003|56012099006|261009223027099003|11063799006|4143699003|261021123027099003|10067099003|261021121427099003|261026121527099003;
+X-Microsoft-Antispam-Message-Info:
+	/TLmimP2APHEvSTW9YWt1f89jW/gRZAqXJYz+J9c+zKfMy+LfG0tQ3sM7mYe/yyS/b4MAQwbPGGTMbh7XDUK9UtTKuWAYF4vnTGHuiOw75+2N93xdnwZCgTEyRTCB36hIKnr6IRzMal3ciLXc83+n4qT5XuIXP/xGTsEEyLWAvzN6yrIOq9dQ3kxhWkhZxjEjlRETAcKPtsRngPh2krxBTRDkUFxvEuCgy0tQegUFbV8fnS9fYA+AR2VqeTjveqdUR0TSWlGPY2ZOYn/ugVypwFU5xEMwM6eEAM2V4kt4CXQW07bdXno7M/OiK5ap3uK3Pq4lGbY29+1s/kp1EhTIHujH6vzLTR95B8MluaQhqsr9jc+wgZfyYTekYnyxTsz0iFC0lI25yDLNghSQSdqNgzGTsUVhuyIz6DIS/o/l58pfcMF/9btQMsLL8C3dtIcLk2U3HbgVGBjWNnNhMDKV4/zKnI3hKxmp29JgkQhFx9L/hW/8F4IS51Tnc/od1Ag81FBJ/ykgubFh3VzasB/GD7TDBOJht9ZBuCWu/87tSaaiP1BzDZHLO+EWRCigs+rmXHrYnNyTVyMg3IgJuK8jF/fktoDzqpyQpEbKzDg5ESKbF57wm6eToF46fYGyyZDW0azAdrd0xubkiKKZLrAmwcWTNUawxpgnsQcDRMUjRc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(1800799024)(376014)(18002099003)(22082099003)(56012099006)(261009223027099003)(11063799006)(4143699003)(261021123027099003)(10067099003)(261021121427099003)(261026121527099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?NwvG4yLD5S96Xf0Fj4irURu8hKPQ5nkpZzHUYMgGhrqHB6FpNTxba92h1PBp?=
+ =?us-ascii?Q?IXsNDG7UQIrLnmbXraQjeRRbjs0q/VFqXI23xAzQTIkk10+SZqd1FkeUl07S?=
+ =?us-ascii?Q?pkXHszmApU7MqiWVMHmuTmG6kMMF7nHnT79/CByCWm0hvpG+Exhe+3OLbzgR?=
+ =?us-ascii?Q?Pw+rwte51f3UN5/yoi8ynPV08ap7p4E3VCKu4cFMfsTh7qNTLsWxH/2E9UZK?=
+ =?us-ascii?Q?/zKsjXRgsIF4+YOebxqAF+Dey78UUCugBAfMPkPtmceCq/FtwI5QK5QiwtKw?=
+ =?us-ascii?Q?EVLRGcq46XdDIXIJi8MOJozCs9RoA6OE16tmygms3JlK90Hm/Tu1YJP3EnL9?=
+ =?us-ascii?Q?XYfFQEDhD5TL8tBWL4q3G0O9sNGDUXmMAoDO3OYrpS3QA5eVOhR0kWG7vwSu?=
+ =?us-ascii?Q?7ryA8Pm09jMJG8WnKlQBWq8+IL1y2/PLdGnUQKmEljefpRFeEFyEp6Jx3Lnj?=
+ =?us-ascii?Q?/F/9UHYyI8zilQQqlgSl2oujlyZq2z2I8pdVjLxi/gufAxFZ9qypXLWD171d?=
+ =?us-ascii?Q?cMBQzf0NVQA0LDZdzzH1imI2mBrHKSZOZnsRIJYHWkZ8tLx8z62Wtdwyx9ZL?=
+ =?us-ascii?Q?lQ9Z3T+3HZUrDUEYlrPXRvekKCi6DCE2abTmCTyPzws3cUDm2HCGbfRFGk/L?=
+ =?us-ascii?Q?pKEahehhwVJgSVX7sNXsmhQbBCgq70rhl8LFSYlTSblJXYr9yS4KhPFtr7K7?=
+ =?us-ascii?Q?Ruo0HvPViTYjcT/8e1Nh/h0o5ZKMMc+grymoxVhHD8ORpe/4HwHWtIqpOpwt?=
+ =?us-ascii?Q?vfKHCckq5L/cvWuTYAB9KydSmFxV4oNeqkcd05IjlOvcVS8MVzBxm7pk0Tvj?=
+ =?us-ascii?Q?sOD8wR1+v7jesVz33xJGMtTz7CP8i9kqnC+e/LbETan7fyf5KkhtbWs6VPmT?=
+ =?us-ascii?Q?tlXjhlIQuBOk1j0LZBdJ7JlQoMBZJa+KYxDP/mogUfKF2a21uhZxjYEFvJqw?=
+ =?us-ascii?Q?pD120uHQ8g992m41WUjptkEWOV9ZKjuzMkJo6i4eOsLjPwy8kRaExwl5IsJu?=
+ =?us-ascii?Q?ok4EhSkVNhwWYzrZpudi51jgEbmjeqCcXWnJ+OR2OeNFfsk0l46gmcSoAZPt?=
+ =?us-ascii?Q?RdcBR28i2xGTYpCOKlqcYkhFosDD7M+n9u1zE87djnYKE7rzRaC3TwSAezuY?=
+ =?us-ascii?Q?hPl/MpTLNfd+vUrr6920L3m8eoxrpSbJj6nqwTDSM1SUQLNtUHBig3D3JWq5?=
+ =?us-ascii?Q?nHiwD0Frck3e5MolURALej67MrZENJkMMjQDLuWnWGHp3iBSnasTxk6gbrqj?=
+ =?us-ascii?Q?J6Etef7f/lSITtZop0FhL1d5XZBDKdvUdgBfKQgdBvP2Mmigvk0bSHKj5kTh?=
+ =?us-ascii?Q?StllSWIPTspvjRvYbvWv5Si6yI3RkPjKNixIod5YVTJQE9i0GnmJrgCSbQDL?=
+ =?us-ascii?Q?oOzyx4r1AP3SZtTdxo9oNzSA1FwPAhlY4xxM1VXouxX5jMlmhew0CEnxWB6a?=
+ =?us-ascii?Q?Jr7F8svrZao8ODWEZtZ3QI6SwYMBxaPSVS9yrePZ3A1Dk81eBDh2lgUYRZUr?=
+ =?us-ascii?Q?Sx8sShtMhm8SkZ3WJiJErq9SxpS8El2Fz9X3sYqL1knNuSqGKbrQPunK00Md?=
+ =?us-ascii?Q?iJSWLoN77f+vSR1rzv+t519sT3RR3CW9S9oBOLl2AWz9XnGnDhWoxELjZqrv?=
+ =?us-ascii?Q?6P1duhRmoZ9o8SsIcguAKmWuUBf2dz1XpxtVxTFUp5SquhVaCBtppfNxlcpW?=
+ =?us-ascii?Q?DXcVkQEBNkAsEqh2Sa5pJOvdAALe5k7kwosw4EFS/iCuyTDHr7fJZWTNVgZG?=
+ =?us-ascii?Q?c5UhGS6IILstDQSLIz4obYx96CYIKQv/XBJdyTEV9e+eWcBYQvRu?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: db7f3bcd-973e-4906-b14f-08df35d63dcf
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:03:58.7202
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: e6j69Jmlo2k0z3ataNWR3cKBngqRmtHtk0b3oKes1Adh9hChEH9z4DWI1zyBRkJvOpJ0OhX12gVenUAci8IGsG2LZYBntQEKwd2s8NRwjmCDvlBkII3d5GqyLU5/jU6h
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10889
 
-From: Valerii Bokov <vlry.bkv@gmail.com>
+On Thu, Oct 29, 2026 at 08:35:53AM -0500, Rob Herring (Arm) wrote:
+> pm_runtime_get_if_active() can return an error including for !CONFIG_PM.
+> Do not treat that as an active runtime-PM reference.
+>
+> Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+> v4:
+>  - new patch
+> ---
+>  drivers/accel/ethosu/ethosu_perfmon.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/accel/ethosu/ethosu_perfmon.c b/drivers/accel/ethosu/ethosu_perfmon.c
+> index 26f625374f9d..0ae2df3ceac8 100644
+> --- a/drivers/accel/ethosu/ethosu_perfmon.c
+> +++ b/drivers/accel/ethosu/ethosu_perfmon.c
+> @@ -71,7 +71,8 @@ void ethosu_perfmon_stop_locked(struct ethosu_device *ethosu, struct ethosu_perf
+>
+>  	ncounters = perfmon->ncounters - 1;
+>
+> -	if (!pm_runtime_get_if_active(ethosu->base.dev)) {
 
-The VDPU383 has a reference read cache with its own register region,
-"cache" in the device tree, which the driver does not map. Its
-configuration and read limit are therefore left at their power-on
-values, and those differ between power-ups. On RK3576 this makes H.264
-decoding of a 2688x1520 stream take either 22.5 ms or 65.4 ms per
-frame, depending on the power-up, while the values the vendor driver
-programs bring it to 3.6 ms per frame.
+pm_runtime_get_if_active() return 1 when active
+			   return 0 when suspend
+			   return -EINVAL when !CONFIG_PM
 
-Map the "cache" region and configure it statically: enable cacheable
-read-allocate accesses with 64-byte lines and set the read limit
-(MAX_READS in the vendor driver) to 0x1c. The registers lose their
-configuration whenever the decoder is powered down, so they are
-programmed from runtime resume, which also covers the first use after
-probe. As the vendor driver does (rkvdec_vdpu38x_run() in
-mpp_rkvdec2.c), the cache is still cleared before every frame, because
-reference buffers are rewritten between frames.
+!pm_runtime_get_if_active() shoud be correct if !CONFIG_PM. when !CONFIG_PM
+we treat all devices is actived.
 
-The region is optional: on a device tree that does not describe it, the
-driver probes as before and leaves the cache unconfigured.
+I think stub pm_runtime_get_if_active() for !CONFIG_PM return -EINVAL is
+wrong.
 
-Decode time per frame for a 2688x1520 H.264 stream on RK3576, within
-one decoder power-up, with the registers set between runs:
+It should be similar with stub
 
-  MAX_READS  CACHE0_CFG  ms/frame
-  0x0        power-on        65.4  (slow power-up)
-  0x2        power-on        22.5  (fast power-up)
-  0x1c       power-on         7.2
-  0x2        0x13             8.6
-  0x1c       0x13             3.6
+static inline int __pm_runtime_resume(struct device *dev, int rpmflags)
+{
+	return 1;
+}
 
-The decoded output was bit-identical in all five cases. These numbers
-were taken by setting the registers from user space through /dev/mem.
+I will create patch change -EINVAL to 1.
 
-The registers were identified with the help of an AI coding assistant
-(Claude, model claude-opus-5-5), which diffed register dumps of fast
-and slow power-ups and matched the result against the vendor driver.
-It also drafted this patch and its changelog, which I reviewed. The
-measurements and tests were run on an RK3576 board.
+Frank
 
-Link: https://lore.kernel.org/r/20260619111810.564384-1-laszlo.fiat@tuta.io
-Signed-off-by: Valerii Bokov <vlry.bkv@gmail.com>
----
-Testing on RK3576 (Smatek T10PE) with this patch applied, on top of
-6.18.34 with Simon's priming patch:
-- The cache registers are programmed on every runtime resume: zeroed
-  by hand while powered, then suspended and resumed without decoding,
-  they read back 0x1c/0x13 (4/4).
-- 2688x1520 H.264: 4.0-4.2 ms/frame on a 257-frame clip across 8
-  separate power-ups, no fast/slow lottery left.
-- Output is bit-exact against FFmpeg's software decoder (per-frame md5,
-  all 257 frames) for that H.264 clip and for an HEVC Main clip with
-  B-frames encoded from it.
-- 10 minutes of a live 2688x1520 H.264 RTSP stream at the camera's
-  25 fps: 24.4 fps average (23-25 fps in every 30 s window), 14% of
-  one CPU core, no kernel or decoder errors.
-
-Open questions:
-- I have not checked whether the decoder's soft reset (after a timeout
-  or error) also resets the cache registers. If it does, they need to
-  be reprogrammed after a reset as well.
-- Simon's out-of-tree priming patch also modifies
-  rkvdec_runtime_resume(), so the two will conflict textually there.
-
-Possibly related, not part of this patch:
-- VDPU381 (RK3588) may have the same problem. The vendor driver
-  programs three caches there before every frame (CACHE0/1/2 in
-  rkvdec2_run(): cacheable, read-allocate and 64-byte lines, plus a
-  clear of each), and mainline programs none. I have no RK3588 board to
-  check whether its decode speed also varies between power-ups.
----
-Changes in v2:
-- Configure the cache statically from runtime resume instead of before
-  every frame, as suggested in review. The values are constants, so
-  "restore" is a plain rewrite; there is nothing to save.
-- Keep clearing the cache before every frame, as the vendor driver
-  does. Happy to drop it if that is preferred, but I have only shown
-  bit-exactness with a single clear on one clip, which is not enough to
-  rely on.
-- Make the "cache" region optional. v1 returned an error from probe
-  when it was missing, which would make the decoder disappear on any
-  device tree that does not describe it.
-- Map the region only for the VDPU383 variant, since the configured
-  values are specific to it and are now applied from shared code.
-- Link to v1: https://lore.kernel.org/r/20261028-rkvdec-vdpu383-cache-v1-1-d3548d3b3586@gmail.com
----
- .../platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c |  2 +
- .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c |  2 +
- .../platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h |  9 +++++
- drivers/media/platform/rockchip/rkvdec/rkvdec.c    | 46 +++++++++++++++++++++-
- drivers/media/platform/rockchip/rkvdec/rkvdec.h    |  2 +
- 5 files changed, 60 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c
-index 5ec755733..efb1f6975 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c
-@@ -441,6 +441,8 @@ static int rkvdec_h264_run(struct rkvdec_ctx *ctx)
- 	timeout_threshold = h264_ctx->regs.common.reg013_core_timeout_threshold;
- 	rkvdec_schedule_watchdog(rkvdec, timeout_threshold);
- 
-+	rkvdec_vdpu383_clear_cache(rkvdec);
-+
- 	/* Start decoding! */
- 	writel(timeout_threshold, rkvdec->link + VDPU383_LINK_TIMEOUT_THRESHOLD);
- 	writel(0, rkvdec->link + VDPU383_LINK_IP_ENABLE);
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-index 3462d995d..6223b89e2 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-@@ -568,6 +568,8 @@ static int rkvdec_hevc_run(struct rkvdec_ctx *ctx)
- 	timeout_threshold = hevc_ctx->regs.common.reg013_core_timeout_threshold;
- 	rkvdec_schedule_watchdog(rkvdec, timeout_threshold);
- 
-+	rkvdec_vdpu383_clear_cache(rkvdec);
-+
- 	/* Start decoding! */
- 	writel(timeout_threshold, rkvdec->link + VDPU383_LINK_TIMEOUT_THRESHOLD);
- 	writel(VDPU383_IP_CRU_MODE, rkvdec->link + VDPU383_LINK_IP_ENABLE);
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-index 04eb23297..f64d56a22 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-@@ -42,6 +42,15 @@
- #define VDPU383_STA_INT_SOFTRESET_RDY	(BIT(10) | BIT(11))
- #define VDPU383_STA_INT_ALL		0x3ff
- 
-+/* Reference read cache, in the "cache" register region */
-+#define VDPU383_CACHE_CLR_CACHE0	0x10
-+#define VDPU383_CACHE_MAX_READS		0x18
-+#define VDPU383_CACHE_CACHE0_CFG	0x1c
-+#define VDPU383_CACHE_CFG_CACHEABLE	BIT(0)
-+#define VDPU383_CACHE_CFG_READ_ALLOCATE	BIT(1)
-+#define VDPU383_CACHE_CFG_LINE_64B	BIT(4)
-+#define VDPU383_CACHE_MAX_READS_VAL	0x1c
-+
- struct vdpu383_regs_common {
- 	u32 reg008_dec_mode;
- 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index fbcd0f175..405df54cc 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -1158,6 +1158,29 @@ void rkvdec_schedule_watchdog(struct rkvdec_dev *rkvdec, u32 timeout_threshold)
- 	schedule_delayed_work(&rkvdec->watchdog_work, msecs_to_jiffies(watchdog_time));
- }
- 
-+/*
-+ * The reference read cache and the read limit lose their configuration at
-+ * every power-down and come up with values that vary between power-ups,
-+ * several times slower than the vendor driver's. Program them whenever the
-+ * decoder is powered up.
-+ */
-+static void rkvdec_vdpu383_config_cache(struct rkvdec_dev *rkvdec)
-+{
-+	writel(VDPU383_CACHE_CFG_CACHEABLE | VDPU383_CACHE_CFG_READ_ALLOCATE |
-+	       VDPU383_CACHE_CFG_LINE_64B, rkvdec->cache + VDPU383_CACHE_CACHE0_CFG);
-+	writel(VDPU383_CACHE_MAX_READS_VAL, rkvdec->cache + VDPU383_CACHE_MAX_READS);
-+}
-+
-+/*
-+ * Reference buffers are rewritten between frames, so the cache is cleared
-+ * before every frame, as the vendor driver does.
-+ */
-+void rkvdec_vdpu383_clear_cache(struct rkvdec_dev *rkvdec)
-+{
-+	if (rkvdec->cache)
-+		writel(1, rkvdec->cache + VDPU383_CACHE_CLR_CACHE0);
-+}
-+
- static void rkvdec_device_run(void *priv)
- {
- 	struct rkvdec_ctx *ctx = priv;
-@@ -1807,6 +1830,19 @@ static int rkvdec_probe(struct platform_device *pdev)
- 		rkvdec->link = devm_platform_ioremap_resource_byname(pdev, "link");
- 		if (IS_ERR(rkvdec->link))
- 			return PTR_ERR(rkvdec->link);
-+
-+		/* VDPU383 reference read cache; device trees may not describe it */
-+		if (rkvdec->variant == &vdpu383_variant) {
-+			if (platform_get_resource_byname(pdev, IORESOURCE_MEM, "cache")) {
-+				rkvdec->cache =
-+					devm_platform_ioremap_resource_byname(pdev, "cache");
-+				if (IS_ERR(rkvdec->cache))
-+					return PTR_ERR(rkvdec->cache);
-+			} else {
-+				dev_info(&pdev->dev,
-+					 "no \"cache\" region, reference read cache not configured\n");
-+			}
-+		}
- 	}
- 
- 	ret = dma_set_coherent_mask(&pdev->dev, DMA_BIT_MASK(32));
-@@ -1875,8 +1911,16 @@ static void rkvdec_remove(struct platform_device *pdev)
- static int rkvdec_runtime_resume(struct device *dev)
- {
- 	struct rkvdec_dev *rkvdec = dev_get_drvdata(dev);
-+	int ret;
- 
--	return clk_bulk_prepare_enable(rkvdec->num_clocks, rkvdec->clocks);
-+	ret = clk_bulk_prepare_enable(rkvdec->num_clocks, rkvdec->clocks);
-+	if (ret)
-+		return ret;
-+
-+	if (rkvdec->cache)
-+		rkvdec_vdpu383_config_cache(rkvdec);
-+
-+	return 0;
- }
- 
- static int rkvdec_runtime_suspend(struct device *dev)
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-index a24be6638..ab13b880a 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-@@ -136,6 +136,7 @@ struct rkvdec_dev {
- 	struct clk *axi_clk;
- 	void __iomem *regs;
- 	void __iomem *link;
-+	void __iomem *cache;
- 	struct mutex vdev_lock; /* serializes ioctls */
- 	struct delayed_work watchdog_work;
- 	struct gen_pool *sram_pool;
-@@ -180,6 +181,7 @@ void rkvdec_run_preamble(struct rkvdec_ctx *ctx, struct rkvdec_run *run);
- void rkvdec_run_postamble(struct rkvdec_ctx *ctx, struct rkvdec_run *run);
- void rkvdec_memcpy_toio(void __iomem *dst, void *src, size_t len);
- void rkvdec_schedule_watchdog(struct rkvdec_dev *rkvdec, u32 timeout_threshold);
-+void rkvdec_vdpu383_clear_cache(struct rkvdec_dev *rkvdec);
- 
- void rkvdec_quirks_disable_qos(struct rkvdec_ctx *ctx);
- 
-
----
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-change-id: 20261028-rkvdec-vdpu383-cache-8fbbf8313da3
-
-Best regards,
--- 
-Valerii Bokov <vlry.bkv@gmail.com>
-
-
+> +	if (IS_ENABLED(CONFIG_PM) &&
+> +	    pm_runtime_get_if_active(ethosu->base.dev) <= 0) {
+>  		ethosu->perfmon_state.active = NULL;
+>  		return;
+>  	}
+>
+> --
+> 2.53.0
+>
