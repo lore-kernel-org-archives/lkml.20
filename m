@@ -1,64 +1,189 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793240719;
-	b=ePjrtcoP7MQI1TXK4wlfpArWTSw6fU3V1JM1Qwqs622KhchmNlN+N5Jjubtg0D4NFTQE
-	 nMPbg9fVzSLkAgmcrV4ThmHgMcbpJtZayzk8LcN7S97M07sRiCJXbb95EMxpag5+9kNFU
-	 HHEzLPSEqWaTfAeiAq2kB7KXMQ6f67i0STcG5kRsGpvKXYMa5pKW6U938wb1t/4D4daws
-	 tnsbQ7dq4vu3eDqjC7Nb6AMNpgn+azVMRfT1+pny4paBpJk5Dfn/5MuK9t37fAKnEpHxg
-	 1ztmIy7W9dd3Ngukqnwja2RfnG7kzVS5Kk9RC/YYSERgaY7UvEF4u9BXzpnGg8vhRNg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793240719;
-	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=59Lj9v7zWsymBbyhV8+zB+AHvLj/ADjVo5H7WhOhsVI=;
-	b=Qz380Yzs0t+aVj6cAGdREt65ZtyTWXY8pPhtNoZc5BZfx6JV+fLK6dCY57353ZQG9jWC
-	 6IGnch4uCmvE6FyGC85AIJoAnWmZz1SOxskfy+bEGuDU98+L4y8X6W55oa2KxlB6zV9+m
-	 I/JRzxnKRW6Dp/V1sYvj+s7I4Y2sno+RWeWR2huA8Bf/Pu3q1vg3sREciI+tn2Jx2Tgk+
-	 z9KhvugTEJR1CquhYsmuBTLqnWrILMQSD17YQYU1bQb0oh1zaqS0BmhMj2Ak2raL1SFiq
-	 XDxv63Si/IYub7Uh5O7vc4l/7xx6EeAOwV5k0iWv9HyLEaaGLa4dx/+A3VkVdbCGQXw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hygon.cn;
-	spf=pass smtp.mailfrom=hygon.cn;
-	arc=none smtp.remote-ip=101.204.27.37
-Received: from spam01.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 88E08606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:25:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88E08606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jFSk36sClz171YY;
-	Thu, 29 Oct 2026 10:24:59 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jFSk30s5rz171YY;
-	Thu, 29 Oct 2026 10:24:59 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id 482415943;
-	Thu, 29 Oct 2026 10:24:52 +0800 (CST)
-Received: from jianyong.hygon.cn (172.19.20.52) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Thu, 29 Oct
- 2026 10:24:57 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>, Tim Chen
-	<tim.c.chen@linux.intel.com>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
-	<kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld
-	<pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, David
- Hildenbrand <david@kernel.org>, <maddy@linux.ibm.com>, Michael Ellerman
-	<mpe@ellerman.id.au>, <ljs@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, <wujianyong@hygon.cn>, <jianyong.wu@outlook.com>,
-	<zhongyuan@hygon.cn>, <huangsj@hygon.cn>, <wangfengyu@hygon.cn>,
-	<yingzhiwei@hygon.cn>
-Subject: [RFC PATCH v3 00/17] sched: Scale cache-aware aggregation at LLC granularity
-Date: Thu, 29 Oct 2026 10:20:18 +0800
-Message-ID: <20261029022036.4002331-1-wujianyong@hygon.cn>
-X-Mailer: git-send-email 2.43.0
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793240709;
+	b=iZfHd5RtsLs8Y4ZWmk0qN0p904XIgETn2q2/36dDuinq26PUwO/bgeTDPtuE3osrru/c
+	 skp3ciAGuuZXfn2OJGgN7xCLk7Prcke80T38nAVOyWIcM9GLXVPyoS4OTwnk6lL6ahuxy
+	 EUMVMQ72x3/LZWEyRjACM0UC4lhTu5xhA36mt77v6J5p2wgFZhIzGma93pwU+7c6bUNzb
+	 BkPM/KFekKhxlnMHPadM0ay0dtpyZrQXgHWb8BhA+JvnX/HkolA9CJ/rR5THXnSJZ3Ds1
+	 xD+444KPkpeCXXpRTUEN2NkhMLZrnC5v5Q69M27oHApEXIYUI9Cog8YhPmLksxQF4pA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793240709;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=qNy4X+ZG9q4TiBo2cM4WN42JufANHOUw21cPU9r+47s=;
+	b=J93CZbKaGiH3ku6CxVcvT9sHHzEjw490QEdb8WvjZHJEcWyiIdogMkVk3u30QHx4FytD
+	 MVILCI5SO6EQJFeEDVCfSLtMtsSfYxuWIzzrXelj8QULrJ0GjR6Rh0S4aB0+qXmvxlxPD
+	 ewaQ67WwvmX+Kocb7dE/rAYG1xAjyhuPTww4CWae4uvh9sNLMAHSv3XlsJROvzAdDNVNu
+	 JcwW89ripFnBiEz21mDKu6ZVVTDNJGXyTBfI7OXOjWNz3fKP/5PWsDkj4JWM4oIHeojMU
+	 pucF1TR6G53B3qX871XalMyaX+DfoTeRjxxqY/DtOODvjgXV0l6e/abdw9Tzq//UdKw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nfqit7wD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C20606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:25:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59C20606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Nfqit7wD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793240708; x=1824776708;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=qNy4X+ZG9q4TiBo2cM4WN42JufANHOUw21cPU9r+47s=;
+  b=Nfqit7wDnDtxlHOqb6JpUEGIHN2EBxWxZy3WQHZiExPPfHuNi6wk1oUO
+   TMhx5WQDM83vEHItwABSMi4YhnyH39nGGxPHKcjCXv3ID3fNimhdEOvJ0
+   O06i+ebueooJSSvLyaBOlMw728c38KlI382gIcyUZEHgaSoNTCC+Y8FY0
+   wFtTxSe+p8UgC5gcQK/CJfRYoHctnCaupNS9FXRGQIv8/Dm2KxyfncVU+
+   yAgPaWxJRr80Nkwgof1nPwT2IuKWRi1ZBpMKgfqnpN25xkCHFG/AINbbL
+   l1ZCgHEc/Fo87koSZJPhzWSAohVa1CVDrtfBqL6Exp9fFm+5Is/L+UPNN
+   Q==;
+X-CSE-ConnectionGUID: urFNesSqSCivX9p67Me3Sw==
+X-CSE-MsgGUID: PWkeGX9TT3mbJqhqJuHeGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1978221"
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="1978221"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 19:25:07 -0700
+X-CSE-ConnectionGUID: MS743DtLS8Shvz0C71cwWQ==
+X-CSE-MsgGUID: qM9/sOIHSrywqbJ4/Xpukw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,183,1787036400"; 
+   d="scan'208";a="5012441"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Oct 2026 19:25:08 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 28 Oct 2026 19:25:06 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56 via Frontend Transport; Wed, 28 Oct 2026 19:25:06 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.48) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 28 Oct 2026 19:25:06 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y43Pjjf6giACe5HV2Eh6gGpVA3LQlM70ZmlKAge4s2KXTo1XJyoJr9s+ck/i318PWlG8VdCU6qCFlHSJmGyDCk56NY00W9FBL3M6vNuVOyqHUnkLdehEsLRb7bOusqPcqITauE6iPQmF+rgXDhH0b5niUe+JwuGhhAFdXmIcbOwptfrdGtPEJ4+lBVtbjkGGB1l/I4DcGFXCqIvKAKbd3zfHtsIoYrD/UCFdPXVerFjteT/e/4Wqvc3TD/f27ONvdMoyjkL9yKiSH8y7t42I8P8LlcwFWITcWVLat7VMULKOoVLOqgfkWgknxlTYqmdgU3hTLSxYQHW1szt/xPYxWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qNy4X+ZG9q4TiBo2cM4WN42JufANHOUw21cPU9r+47s=;
+ b=S1qNJqETlexI/uxEExbhp9B+4b/w5IaB8ywK91i/0fkOkfL55gSSO70QmcD9L6mw/Py7spB7Nvn+qFF/cqqTgFnFuPNmBsC99VOU0veToG/bq96MnqZ7BIXsSjarbvROJ5TFAmcLNF4DffihkYDu/e1xoPQBaq4zEVYc1jo33NqSBSU3rZc8tK3cvIbapR3JMGuUjhfJr7lICTLtNINPc5jiOf7gvCxY6qXw0Yu7m2qOK5FYx3ZeJK5VKRJy7sVnTcV0hHkxefZuR6jUjIavnDOHUrLxD9Bm89bVNGIEAOF8bekTLbb9k+Yl49IVnonC++GrE1AsKcMRwXPQJ/1gsw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB9136.namprd11.prod.outlook.com (2603:10b6:208:574::12)
+ by LV2PR11MB6047.namprd11.prod.outlook.com (2603:10b6:408:179::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
+ 2026 02:25:04 +0000
+Received: from IA3PR11MB9136.namprd11.prod.outlook.com
+ ([fe80::37b4:37a9:4f3:518b]) by IA3PR11MB9136.namprd11.prod.outlook.com
+ ([fe80::37b4:37a9:4f3:518b%5]) with mapi id 15.21.0546.021; Thu, 29 Oct 2026
+ 02:24:57 +0000
+From: "Duan, Zhenzhong" <zhenzhong.duan@intel.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+CC: "Li, Xiaoyao" <xiaoyao.li@intel.com>, "x86@kernel.org" <x86@kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+	"tglx@kernel.org" <tglx@kernel.org>, "mingo@redhat.com" <mingo@redhat.com>,
+	"bp@alien8.de" <bp@alien8.de>, "hpa@zytor.com" <hpa@zytor.com>, "Hansen,
+ Dave" <dave.hansen@intel.com>, "kas@kernel.org" <kas@kernel.org>, "Edgecombe,
+ Rick P" <rick.p.edgecombe@intel.com>, "nicolinc@nvidia.com"
+	<nicolinc@nvidia.com>, "aik@amd.com" <aik@amd.com>, "aneesh.kumar@kernel.org"
+	<aneesh.kumar@kernel.org>, "seanjc@google.com" <seanjc@google.com>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>, "yilun.xu@linux.intel.com"
+	<yilun.xu@linux.intel.com>, "Gao, Chao" <chao.gao@intel.com>, "Verma, Vishal
+ L" <vishal.l.verma@intel.com>, "Tian, Kevin" <kevin.tian@intel.com>, "Peng,
+ Chao P" <chao.p.peng@intel.com>
+Subject: RE: [RFC PATCH 12/15] virt: tdx-guest: Support Trust Device Interface
+ (TDI) activation
+Thread-Topic: [RFC PATCH 12/15] virt: tdx-guest: Support Trust Device
+ Interface (TDI) activation
+Thread-Index: AQHdS9rXga6cgPHlGUSTJRY7liaL3LcPnPOAgAMakBCAAGQFgIAA5WXg
+Date: Thu, 29 Oct 2026 02:24:57 +0000
+Message-ID: <IA3PR11MB913674E58AD37A67810F542A926E2@IA3PR11MB9136.namprd11.prod.outlook.com>
+References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
+ <20260924041032.1096569-13-zhenzhong.duan@intel.com>
+ <c81b4b51-4412-4d5d-a073-55fb346a766a@intel.com>
+ <IA3PR11MB9136FCB9ABE0B3171BC3A6E2926F2@IA3PR11MB9136.namprd11.prod.outlook.com>
+ <20261028124115.GC2541714@nvidia.com>
+In-Reply-To: <20261028124115.GC2541714@nvidia.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB9136:EE_|LV2PR11MB6047:EE_
+x-ms-office365-filtering-correlation-id: e5f26037-67ef-4398-b69e-08df3563d398
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|38070700021|4143699003|11063799006|56012099006|261022075727099003|261026121527099003|261028144727099003|261026140227099003|10067099003|261022105027099003|18002099003|22082099003;
+x-microsoft-antispam-message-info: n2OAy6ILjz5JgRBjL0v9lHxwkkyEj33cbew2iwkHZ9bSDQl/VjR1jlX9qCRIxg6RSF414YZC1F0hf4mmFL50+Dfl9qxVQM+YJrq4GLJY0I9enBvVaUWaTaQwmpzGuraSL6+B8vCMTApQCSoHZ4UfRSBhEpCKenKZ7XZ74lqe9quSNr9AoBCe+fQaklVFJM4k9EtGwM5vzaRI7V+Zwr4PvM3Dc2kAnICk1YET5PGpcxHOgi4ZpgUQ8qOjrj6BW/vEsKV3bHIXiCTLpERGBuTTOdh2tUXYNiFbHfw049Me032QHhUVPSK8ng5UwJhCHAchUXM5nga/lP9I5noKr5dnrnZRUSnZMgGtNu99wFF5S8JQmctHmSxUAjjOUh6cK8bwSns9SLfbkhnnaQIdXcjZzuOKjIB0xQIm3PHKfkS8bRXT52o/nBQQ6ccNsRvnrJauxfTBN/qGJsmsQV5VbDNFi8C8Q1iK0nTc3VUduGavAHsqBMRbQuB+D5uKMsGpxoSUY7ft2Y0UyZ8ldcNF/FE3d6YivRDT2YKH+qauJwcOd8vfsFUE0cYJJ2l4hhZ9IE+ROHRGi7HTsdxNZtsxzei7P7A2Not8cOUXp2cqh1JoqoeYNdoWke763aoss8lI5gKaeRiefFbz6LnLaSjsUmIi6J4dzr8JHaul7QSk7+/Fsr4MzWAeBsgUepSocRrQDj8sF1x1xi81HQJ8LwUG65iA6DTrO1/Pjl33Sh/SxN4DD6c=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB9136.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(38070700021)(4143699003)(11063799006)(56012099006)(261022075727099003)(261026121527099003)(261028144727099003)(261026140227099003)(10067099003)(261022105027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?q1VBhqxfW9B++gC9RR2S9Hym415rSJiza1810ABO1kofCZPkodLq4kztWXK7?=
+ =?us-ascii?Q?Iuq06TPE+oJLDnvSaW19EHNHTebGGNVLT5y/A9M7RAqgcN6vRylqUjh/T0UG?=
+ =?us-ascii?Q?KC3ohIhktqjPNvMFhrSws921eWGuCd22ag5wSjxE4lNnIwM7waum83n7bFF2?=
+ =?us-ascii?Q?fcEv1ClvdVfmsfUCbZoZmSaLMPlyV0IRe700c1UeTSmifm3xVXShZHXw+v+d?=
+ =?us-ascii?Q?WH3zPb+eDrOHk0ruseFyrmfUroV1OX2Brlsuz6mb9HtmAKayrwrPOqwEyazJ?=
+ =?us-ascii?Q?eETbg/W1UmbdAPvDkQPCrUTofLmvWECaBRp0llFYRgPJLlKiYDWYSq4IEQtW?=
+ =?us-ascii?Q?qTz7IIQiBzn2qgpY4pROxjkozn6eZOL9y+y5hTMXNFJhc51DhrE3E6BOAT3W?=
+ =?us-ascii?Q?Oqh23rGqaNMiDkq2QlcVqWckDNg0xcXOsYjdTZY0gWrRDd26uyQOoN/PiLwB?=
+ =?us-ascii?Q?iuQE0W9fRfcErI81Iryx2pDt/mVCqAYz7O/kXZphngPBwy128/1l9qn8Jew2?=
+ =?us-ascii?Q?I/B9CH1S3zCIJKIgtRrdKcuL4cv94K2cTPjbtoUf/wA+M/t7jtLuFYQbWU8g?=
+ =?us-ascii?Q?zAX6WZ50lOgInF0C611zISoVziUKCMCbo2w4D8CsfFZ6qUjUc4B/+0Y0V5vN?=
+ =?us-ascii?Q?jvMq/oEI5By724NGdD4RsoyAEnnCxjr179v5VrvTOeMD2ivMA9qrQUW6F6u0?=
+ =?us-ascii?Q?9Ah7XpUk818//2WRolnmIjpVS8SB6quonkTEdoLXa8NCgzaAiwcvdV0/CPPw?=
+ =?us-ascii?Q?6P+BiSwvPQcO3C2DVlwJ1vZrq1uqoKyvXi7G/TOs7kZpJXeWiuwcVtddn2k9?=
+ =?us-ascii?Q?LlAULgAF62PcEb7KDOdS6oL8M4F88lF1oHRvBR9wewZd41t9RKiGBWrvwJT+?=
+ =?us-ascii?Q?HSgNAANJZjvUfwizI4NO6+Y+UwSfwBDd6B5jI5cgbcCpPJgEQOXb98irFf+5?=
+ =?us-ascii?Q?6JF6ioEdPcserPhL0d7JttqGG1Sw7FvLOW8WJS/SIkQD4OXx8TXVJzfbtv7A?=
+ =?us-ascii?Q?8fW8pc4+pIN7WXNfQ8o9qyRkdk//VEXqdKC4tCahdvs8jSEod8IoukP01VwL?=
+ =?us-ascii?Q?pdyacb+4Ewyo23ORI/zhtD3MK+PvWitasDvVTid1ZnWy+2/+qhAwC+dFFMCR?=
+ =?us-ascii?Q?RuOo8bl0jozc5PWSEUKHpmXOrqfq1j9rvsZJjQFXLl+SplWcs+2W1N+7l6lT?=
+ =?us-ascii?Q?MGWZVVe5/HmOXgf1zf2dbfNy0QNz281cj+wGuqbMfHJa8hg9ZKnr5Y6n3foD?=
+ =?us-ascii?Q?zkbLzL4nn1qCIQbmTeQsdM4596Hi0t1DefBC0+p/f1+DAGP5QzJ17vGd5Xnf?=
+ =?us-ascii?Q?+reBNSkFS5QA74mfLj4r8TsUlVQaC6tD+9rKd3781fPn5WCGP3j0zxcfOkBS?=
+ =?us-ascii?Q?zsHgx9BmG2AbvtcfLkFJsh0HfiNpdBjVTeLmBQCUVCH8XbG9UzVi+LwOhOf9?=
+ =?us-ascii?Q?T4N7VQa9F6WYv6WVXSHCe5FwbeCfYESVVkL/KO6Xacb6sVaXGmWN9ngEwolU?=
+ =?us-ascii?Q?fjS4NFLlMHbWADlJP2FbYArcTAo8fjWrnm7PjxYj4G0qiZJBLZ1XyZmGFdUK?=
+ =?us-ascii?Q?LosbyxlS2kkiQz89UlnD8uWKc82u4XbSrOn3tVpaO/RH3qcSFNi1whKltg0S?=
+ =?us-ascii?Q?Ry12g1lkMTOKkMqxObrBB1ZIyc61n/XImyyJQ7bum/z4WjE+abEIYJT4aczJ?=
+ =?us-ascii?Q?gwyjoQTYASpFOWCi/5s7FOKxt4hv/U5dhgkLHJgvASgpwSlA4gu1brdXmP7j?=
+ =?us-ascii?Q?+p/SLJGZnQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,305 +193,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
- (172.23.18.114)
-
-[Problem Statement]
-The current cache-aware scheduling implementation adopts an
-LLC-centric task aggregation model. While effective for workloads
-that fit within a single LLC domain, this design is fundamentally
-limited by its fixed aggregation scope and cannot scale across LLCs. This
-is especially important for systems with a large number of NUMA nodes and
-LLCs. On such systems an LLC can be small, e.g. only 4 cores, so
-aggregating threads into a single LLC does not help much.
-
-Aggregating threads across LLCs and NUMA nodes can reduce cache-to-cache
-communication latency. If memory placement follows the threads, it can
-also reduce remote memory access latency and improve effective bandwidth.
-
-[Proposal]
-There are several ways to scale the load, e.g. along sched domain
-boundaries, NUMA nodes or LLCs. Peter Zijlstra suggested scaling resources
-at LLC granularity, and this patch set implements this idea.
-
-To achieve this goal, the first question is: once the preferred LLC is
-saturated, which LLC should take the extra load? For a system with more
-than one NUMA node, the node distance can give us a rough answer. Once the
-NUMA node that contains the preferred LLC, which we can call the
-cache-preferred node, is saturated, choose the node with the least node
-distance as the next node to aggregate threads on. The open question is
-how to break the tie when more than one NUMA node shares the same node
-distance, and the same question arises for intra-node LLCs.
-
-This patchset uses triangular numbers to break the tie at the node level
-and the LLC level; patch 2 gives the details. We can build the LLC
-affinity sequence in two levels: the node level, which follows the node
-distance and also uses triangular numbers to break the tie, and the LLC
-level, which uses triangular numbers only for the cache-preferred node and
-uses just the LLC ID for LLCs across nodes. The sequence for each LLC is
-fixed as long as the CPU topology is unchanged and is prepared at system
-initialization time.
-
-Based on this LLC affinity sequence, we can aggregate threads in the load
-balance part. It can be split into two steps:
-1. find the right source group or rq to give the most affinity
-   improvement. An affinity gain is calculated here as the criterion,
-   since we are not only concerned about the single preferred LLC;
-2. replace can_migrate_llc() with can_migrate_llcs() to support the
-   migration check for migration across LLCs.
-
-Working with NUMA Balancing is the hard part. This patchset changes the
-way to select the preferred LLC among all the effective preferred NUMA
-nodes of all threads inside the group, to reduce contention and make the
-preferred LLC stable. It also relieves some migration limitations that
-were tied to the preferred NUMA node. However, it's not enough and the
-issue is not completely resolved yet. For example, a task with a preferred
-NUMA node that is not in the range of the thread aggregation may wander
-around, as it respects NUMA Balancing prior to cache-aware scheduling.
-
-Changes since v2:
-(1) Drop the artificial node distance and LLC distance and use
-    triangular numbers to build the LLC affinity sequence instead. The
-    affinity gain calculation is changed accordingly to use only the raw
-    node distance as the weight; otherwise the weight is 1.
-(2) Simplify the thread migration decision policy.
-(3) Drop the load utilization estimation as the aggregation range for
-    simplicity.
-(4) No longer limit the task migration functionality of NUMA Balancing,
-    and drop the tunable added in v2 for it.
-(5) Address other review comments on v2.
-
-Changes since v1:
-(1) No longer scale resources based on sched domain boundaries.
-(2) Add a new node distance matrix with no duplicate values within a row.
-(3) Add an intra-node LLC distance matrix to rank candidate LLCs
-    relative to a given preferred LLC within a node.
-(4) Change the way affinity gain is calculated.
-(5) Change the way migration permission is decided.
-(6) Fix saturation issues in some tests like schbench.
-(7) Include all preferred nodes related to the thread group into the scan
-    range.
-(8) Add a tunable to enable/disable task/page migration for NUMA balancing
-    independently. (Suggested by Chen Yu)
-(9) Estimate whole thread-group utilization to derive its LLC capacity
-    range.
-(10) Permit migration to an LLC within that estimated range, even when an
-     earlier LLC in the affinity sequence is not saturated.
-(11) Walk LLCs in the preferred node from the preferred LLC.
-(12) Fix a bug in the debug print patch. (Suggested by XIAO WU)
-
-v2: https://lore.kernel.org/all/20260827122816.756234-1-wujianyong@hygon.cn/
-v1: https://lore.kernel.org/all/20260625030759.25928-1-wujianyong@hygon.cn/
-
-[Testing]
-
-The baseline kernel is 0f23d56f17fd. On each machine, the baseline and
-llc_gran kernels used the same boot command line. NUMA balancing was
-disabled.
-
-Testing was done on both Hygon and Intel systems.
-
-Test on Hygon machine:
-
-Hygon machine with the following topology:
-* 2 sockets
-* 4 NUMA nodes per socket
-* 4 LLCs per NUMA node
-* 4 cores per LLC domain
-* 2 SMT threads per core
-
-Functional test:
-aggr_tolerance=90
-
-Ran a busy loop test program with 4, 8, 12, 16, 20, 24, 28, 32, 64, 96,
-128 threads. The scheduler is able to scale resources at LLC granularity.
-
-Performance test:
-aggr_tolerance=30. With this setting, cache-aware scheduling detects
-workloads whose load exceeds about 100 CPUs and gives up aggregating
-them, leaving their placement to the generic load balancer.
-
-hackbench:
-(lower is better, normalized to baseline; the figure in parentheses
-is the standard deviation, as a percentage of the mean)
-test cmd: hackbench -T -p -f $f -g $g -l 100000
-Each configuration was run 10 times.
-
-fds    groups  baseline          llc_gran          lg improve
-=============================================================
-2      1       1.000 (22.88%)    0.961 (6.80%)          3.92%
-2      2       1.000 (58.74%)    1.018 (16.30%)        -1.79%
-4      1       1.000 (56.23%)    0.732 (15.58%)        26.79%
-4      2       1.000 (19.70%)    0.611 (13.99%)        38.92%
-8      1       1.000 (20.86%)    0.581 (7.84%)         41.87%
-8      2       1.000 (8.65%)     0.662 (9.03%)         33.82%
-12     1       1.000 (13.33%)    0.658 (8.98%)         34.24%
-12     2       1.000 (8.03%)     0.726 (3.47%)         27.42%
-16     1       1.000 (10.21%)    0.684 (5.55%)         31.64%
-16     2       1.000 (5.60%)     0.800 (2.80%)         20.02%
-20     1       1.000 (7.44%)     0.719 (4.88%)         28.07%
-20     2       1.000 (2.72%)     0.890 (3.72%)         10.99%
-24     1       1.000 (6.05%)     0.759 (6.27%)         24.07%
-24     2       1.000 (5.07%)     0.935 (4.41%)          6.54%
-32     1       1.000 (2.61%)     0.813 (7.51%)         18.71%
-32     2       1.000 (2.95%)     0.990 (5.07%)          0.97%
-48     1       1.000 (3.33%)     1.020 (1.73%)         -2.01%
-48     2       1.000 (3.65%)     1.069 (3.50%)         -6.90%
-
-schbench:
-p99 wakeup latency (lower is better, normalized to baseline; the figure
-in parentheses is the standard deviation, as a percentage of the mean)
-test cmd: schbench -m 1 -t $threads -r 30 -w 5 -i 100
-Each thread count was run 10 times.
-
-threads   baseline          llc_gran          lg improve
-========================================================
-2         1.000 (4.60%)     0.888 (8.11%)         11.18%
-4         1.000 (50.00%)    0.538 (6.43%)         46.15%
-6         1.000 (59.38%)    0.676 (25.71%)        32.37%
-8         1.000 (15.89%)    0.332 (31.26%)        66.81%
-12        1.000 (25.56%)    0.375 (19.52%)        62.50%
-16        1.000 (33.80%)    0.326 (14.20%)        67.41%
-32        1.000 (33.04%)    0.198 (5.48%)         80.23%
-48        1.000 (59.48%)    0.199 (2.47%)         80.15%
-64        1.000 (44.07%)    0.525 (6.82%)         47.52%
-96        1.000 (2.43%)     0.665 (4.78%)         33.53%
-128       1.000 (9.60%)     0.709 (15.49%)        29.07%
-
-The baseline sometimes spreads threads across sockets, which may
-contribute to its high p99 latency. Across the ten runs, llc_gran has
-lower run-to-run variation of the reported p99 in 7 of the 11 cases.
-
-llc_gran improves the p99 wakeup latency at all 11 thread counts. The
-largest reductions are at 32 and 48 threads, both around 80%.
-
-hackbench improves in most configurations, with regressions at 48
-fds for both group counts.
-
-Test on Intel machine:
-
-Intel Xeon Platinum 8592+ machine with the following topology:
-* 2 sockets
-* 2 sub-NUMA nodes per socket
-* 1 LLC per socket, shared by its 2 sub-NUMA nodes
-* 32 cores per sub-NUMA node
-* 2 SMT threads per core
-
-Functional test:
-aggr_tolerance=90
-
-Ran a busy loop test program with 4, 8, 12, 16, 20, 24, 28, 32, 64, 96,
-128 threads. The scheduler is able to scale resources at sub-NUMA
-granularity.
-
-Performance test:
-aggr_tolerance=4. With this setting, cache-aware scheduling detects
-workloads whose load exceeds about 100 CPUs and gives up aggregating
-them, leaving their placement to the generic load balancer.
-
-hackbench:
-(lower is better, normalized to baseline; the figure in parentheses
-is the standard deviation, as a percentage of the mean)
-test cmd: hackbench -T -p -f $f -g $g -l 100000
-Each configuration was run 10 times.
-
-fds    groups  baseline          llc_gran          lg improve
-=============================================================
-2      1       1.000 (1.22%)     1.006 (1.10%)         -0.56%
-2      2       1.000 (2.84%)     0.989 (1.17%)          1.09%
-4      1       1.000 (1.17%)     1.000 (1.33%)          0.03%
-4      2       1.000 (3.40%)     0.985 (1.92%)          1.53%
-8      1       1.000 (2.75%)     0.988 (0.74%)          1.23%
-8      2       1.000 (2.48%)     0.954 (0.66%)          4.56%
-12     1       1.000 (3.88%)     0.907 (0.39%)          9.26%
-12     2       1.000 (5.99%)     0.964 (2.31%)          3.62%
-16     1       1.000 (0.34%)     0.981 (0.31%)          1.90%
-16     2       1.000 (13.26%)    0.891 (3.06%)         10.92%
-20     1       1.000 (12.67%)    0.873 (0.68%)         12.65%
-20     2       1.000 (14.32%)    0.739 (1.71%)         26.12%
-24     1       1.000 (4.02%)     1.079 (1.88%)         -7.94%
-24     2       1.000 (20.92%)    0.861 (5.47%)         13.95%
-32     1       1.000 (15.59%)    0.934 (8.75%)          6.65%
-32     2       1.000 (7.64%)     0.905 (6.66%)          9.54%
-48     1       1.000 (22.96%)    0.846 (3.41%)         15.45%
-48     2       1.000 (4.26%)     1.026 (3.49%)         -2.62%
-
-schbench:
-p99 wakeup latency (lower is better, normalized to baseline; the figure
-in parentheses is the standard deviation, as a percentage of the mean)
-test cmd: schbench -m 1 -t $threads -w 5 -i 100 -r 30
-Each thread count was run 10 times.
-
-threads   baseline          llc_gran          lg improve
-========================================================
-4         1.000 (20.56%)    0.882 (0.00%)         11.76%
-8         1.000 (28.63%)    0.811 (0.00%)         18.92%
-16        1.000 (28.63%)    0.811 (0.00%)         18.92%
-32        1.000 (19.76%)    0.938 (0.00%)          6.25%
-48        1.000 (15.70%)    0.930 (0.00%)          6.98%
-64        1.000 (23.42%)    0.625 (11.71%)        37.50%
-96        1.000 (12.80%)    0.893 (7.03%)         10.71%
-128       1.000 (23.37%)    1.185 (30.09%)       -18.48%
-
-For 4, 8, 16, 32 and 48 threads, all 10 runs reported the same rounded
-p99 within each case. This shows stable p99 across repeated runs at
-microsecond resolution.
-Overall, llc_gran reduces run-to-run p99 variation in 7 of the 8 cases.
-
-In schbench, 128 threads show an 18.48% regression and larger run-to-run
-p99 variation.
-
-hackbench improves in 15 of the 18 configurations, by up to 26.12% at
-fds=20, groups=2. With 2 to 8 fds, the results stay within about 1.5% of
-the baseline, except for a 4.56% improvement at fds=8, groups=2. The
-regressions are at fds=24, groups=1 (7.94%), fds=48, groups=2 (2.62%)
-and fds=2, groups=1 (0.56%). llc_gran also has lower run-to-run
-variation in 17 of the 18 configurations.
-
-The regressions in both tests need further investigation.
-
-The baseline did not consistently aggregate threads within a single LLC
-in these tests. This may have contributed to its higher latency; the
-cause needs further investigation.
-
-Jianyong Wu (17):
-  sched/topology: Add llc_to_node() to translate LLC ID to NUMA node
-  sched/topology: Build NUMA node affinity sequences
-  sched/topology: Add an iterator for cached NUMA node affinity rows
-  sched/topology: Build triangular affinity orders for LLCs in a node
-  sched/topology: Walk LLCs in NUMA node
-  sched/cache: Prioritize cache-preferred node selection over LLC
-    selection
-  sched/topology: Add per-sd scratch for cache-aware load balancing
-  sched/cache: Introduce helpers for task migration decisions
-  sched/cache: Introduce rq affinity gain calculation
-  sched/cache: Pick the source rq/group with the highest affinity gain
-  sched/cache: Drop prefer_sibling restriction for llc_balance
-  sched/cache: Apply multi-LLC aggregation policy to task migration
-  sched/cache: Allow active balance to spread load from a full LLC
-  sched/cache: Consider LLC load when selecting a single-task source rq
-  sched/cache: Include recently used preferred nodes in LLC scans
-  sched/cache: Drop stale preferred LLC checks
-  sched/debug: Show cache placement and preferred LLC in
-    /proc/<pid>/sched
-
- arch/powerpc/mm/numa.c         |   4 +
- include/linux/mm_types.h       |   6 +-
- include/linux/sched.h          |   1 +
- include/linux/sched/topology.h |   7 +
- include/linux/topology.h       |  11 +
- kernel/sched/core.c            |   1 +
- kernel/sched/debug.c           |  28 +-
- kernel/sched/fair.c            | 883 ++++++++++++++++++++++++++-------
- kernel/sched/sched.h           |  97 ++++
- kernel/sched/topology.c        | 538 +++++++++++++++++++-
- 10 files changed, 1400 insertions(+), 176 deletions(-)
+X-Exchange-RoutingPolicyChecked: qU926xhZJjoDMxMi4BuSdMq8DKHgnZJsdVcei1BPAAHMQc2LAlstvV1pNDAabc6kChTi4jICMyNluca0MPad9D3jGl53zpUJTuUU++c2jyppg/5BKLYJC87pRcdQZ0n1sccKUJ1T+Wws3NZ7sy2t1QElDukRsCD77APalBIRTQ15LFKRsyM13dikuUNZniF6uHLjpvAPzJONDMzaoya8dadbrInh78oxiWvZdGKo6G/AhDViaUYK5oq63tqxYQ/UtxFiNKUh0JVMPLtmbTNOkEbqnPOPQ6VahAJur90gQLnt+XFQh5GqEIxjKf9IPnmcDxeSk7aN9yfEY/cbe7H9DQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB9136.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5f26037-67ef-4398-b69e-08df3563d398
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Oct 2026 02:24:57.7403
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2MhclzOcTW3J+l45p6AGgQztDuSQg1qgOkv+EYjbNpia9sF5R4xUJI2mH2wKt5HUx3WTUquh3uHKTbY9DlDGaQDe60JSb4ZdISLSJT8I9xo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR11MB6047
+X-OriginatorOrg: intel.com
 
 
-base-commit: 0f23d56f17fdfc7db69d51f64c8b91bbab947aa9
--- 
-2.34.1
+
+>-----Original Message-----
+>From: Jason Gunthorpe <jgg@nvidia.com>
+>Subject: Re: [RFC PATCH 12/15] virt: tdx-guest: Support Trust Device
+>Interface (TDI) activation
+>
+>On Wed, Oct 28, 2026 at 06:44:57AM +0000, Duan, Zhenzhong wrote:
+>> >But this patch already calls dma_set_cc_private(). Will it cause proble=
+m
+>> >without
+>> >the following patch? If so, it has bisect issue.
+>>
+>> Agreed, it make more sense to move dma_set_cc_private() call into
+>enable_dma() callback.
+>
+>I would be happier if the tsm drivers don't try to do anything with
+>DMA API. Let the core code do it.
+>
+>The drivers should just implement the PCIe side of things, lock,
+>unlock, run.
 
 
+Yes, that would be ideal.
+
+Thanks
+Zhenzhong
