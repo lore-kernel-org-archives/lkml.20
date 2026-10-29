@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793300771;
-	b=es/mPKRSaxa8IVMKVsvjU/TY4vSRDHKR9x8lSkuzISlSSbwYvB4Y9WthJMn2zJROeyxr
-	 fqcp+20dPwngEww/mkvpP4+lc4J0Fpn/6KXSO0epBAMzlLh4ylAQ41xN2EQjkSZVhfNOY
-	 wKhtIX8zjTpSmQ0kBI1JXh55o71t7R4sMQe3zAJmr/IOy8VCX4aif3zai4cEpyVYkeXh5
-	 ZQ3x61uOHSjS8W6SdDoVSbSnMJ8E7su1JpYkCZ6/01N3u6hU9WSrGv5x4YyhGdXTFBloV
-	 UU4q/IzZzRlQvPMmvyDPdf4Jzysw2la2znEaN3Iuvb5ISx25g/UI9nl6DVGDMhpY6LA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793300771;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=bBTbamxbWpUfuRTsty77JvkRbw0GaSMSTgPsfguDsxk=;
-	b=U0Q8MPmIRApuqQsaSpHIyPbbvqZS7yjd0MvIR6vFzhP90v4Cci8GrWFxS1fCsaRNmyfM
-	 CuW+NJj6KV8b4VJEt6SOQ0MYY2wZyaWhe1aXij7hjP0Vuej39k7j5vgemiKe0I6XoUGjw
-	 0zdI9FuhtMc7TomnUwRcQ0ccU1cnbZW0GtbPNT2vDVUsC10AvrNRTDqcr1FAD6tTMWJhv
-	 VpcH74z29I+OCoV3HNw4hcTFhNRprukkXKj04HOaCZciJAT5SnWvl8/2sH5qKgX79Cjb8
-	 u1gTST1b3o+q7mf7LRc20IKLUuhuSHWLkVestCZPXkRJkmaH7cyJQEcWT5BeEb3lwRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQan5TN4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33013606A31F;
-	Thu, 29 Oct 2026 19:06:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hQan5TN4
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793300770;
-	b=MYp6jrllrEgymK0XGC2oJJmf1PAIBNJXa+0rD9GLREyPEvt/suogksdsUyaF5B1OmqJP
-	 E7WOSs+GzmAN9tneZC3Aa6lWgh0AVmPBiqvtm2d+NHA/4K/SXC0QSodh2cDjQYON7bUmB
-	 l8LNuf4uLATfYIkhzJGWYu7D9I/vPr8wpzL3AbR+2vM+p38WNIcPaHqvt8JMc0bxdef+O
-	 6yqEU0L7SS0hAvjwBPch95nGJmto6FOfy7sr0yWiutYVUxfK/vRh3+QA2NFdrgHK8pNQL
-	 57AqyIZJ9n9XenRw2dCj16flEfI2tpOdiWTtYx3LmJTllYU1I0M9zH0U84WN4xY3MQw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793300770;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=bBTbamxbWpUfuRTsty77JvkRbw0GaSMSTgPsfguDsxk=;
-	b=ViQOhNup+WMl2x6JTjkH67tHzjgSE8bef+pqrTqGsF+D1IvBM6G69u47wm9r6QujmqJY
-	 FQSVPXITeIcI0ezQC8m3JzZ553xFEdspm+HM7ACukxDSCHV2mMFfFU76Sn8SG0iUR1/Mt
-	 igY27aYCZaNo963fYOLV1nK0anOENiSxcCIOBAoUNQIURdLw+3GpPiuESMwr3iwKqX3g8
-	 xF3fXAbtfe1yNHcDk1gOnmlkBUgPn1LFrUHcKjoDatuNuFPwhM6Ru9hGNwwevq9CM532c
-	 AVy/GIY928gxaZprKZ/i3DtPyn7pIpXuRdgleFs7vtdxuvMtdoZule8n13TajdtUyJw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793300814;
+	b=Wy5fWeIRUl+Hh28TR8wS5Wi7zjJBpJTpBtlMMdmP16EAQnuK0WJIHlARDvg4eRWkF1BS
+	 XtITdD7Y8fpNSpqh6gMruVZfg5+TlkJ+sJ993zmL7F9c1bUD6bqS3Q32s8FScSKdve1R3
+	 JAQwzePNWv/w4iSMmSayIjPwjUHML0ZObILfXAI2o8fVCMNGfYH0+07h1WS+MreF5BfQm
+	 Z66YQrQFqRL6rWIcbRNY4qNLWAivi1/SxT0ceds7WUs0TAIbUy26C9QiS84aKlLf7809c
+	 PwlqRmoRp9q1ASv3pNjfatoqeSp8c4U9te3nu0XqIv8ftLdc44Pl2o4FplYA62Wll+Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793300814;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Content-Disposition;
+	bh=EP9nzlx+H2sk50SyAzN5S+n1xSKA5s/U/jjen9Qb6t8=;
+	b=phJiq6ZlHF1pHvSlFDJev+TZ17MMluyDxwL6D+b2awqfE18PJTCtkVLPpM+OfYfn7bse
+	 Mmv8hcqzxCjO3FzCg6FhRMPjMj1CL31vcgmc1a3jtTogTQVybLWInibBszmB61l4wc1Yk
+	 vXW5SgQdGN7v3KWbPGqITnNecfqSgceNEDXrVWGZa2RWSKHgSLvTB883D+jl0afDhZtjT
+	 LWr2f4QCcIQxKBCCgYv0p2XjSpxZlzm1vQYYvBRSR5Quyce8humgC4WfSMH+03WTJeXE9
+	 HNlyxJmNCK2ejJyyT6Fp73MZVHf0lqnEAS9uZzIu/E/Fpaji3uroUOl1wskXH+5gpvw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sUCGZhLU;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 509331F01816;
-	Thu, 29 Oct 2026 19:06:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793300770;
-	bh=bBTbamxbWpUfuRTsty77JvkRbw0GaSMSTgPsfguDsxk=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=hQan5TN4T1uUWc9oz/ab/vCcrnnpwxtLy9VGRpjlvO4Ph36vUXNDUSky7ac2MKpZ2
-	 yq4Ai8cJE6QLUMj29x6aT1trXvY8H90leX5Sw9WGQSy4lAIox+0+aXJ+HYyjnJvszW
-	 S5nIREEC7rZJ2gwHNI4YWVgsSITMjS0Tklh0wSVF3R3WS2OwAlX9YE6bVc/Zp6uSXb
-	 wml3rVj1t9QYs6XiJ4xXcmB07uEMt7ygUF+2IwdVYXiA92GO+ejQ/RMWE4UHFwfo2A
-	 N8eDBINuZQ0KCuicEId7Y/NnhHBFN6TwG5x5mEL7vtF4F1TGUfztZ69qJv/owskxIw
-	 55UOSMibQmE1Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C52574597A;
-	Thu, 29 Oct 2026 19:06:09 +0000 (UTC)
-From: Jacob Lefkowitz via B4 Relay <devnull+jlefkowi.akamai.com@kernel.org>
-Subject: [PATCH 0/2] perf jevents: Add IOMMU PTW & device entry metrics
-Date: Thu, 29 Oct 2026 19:05:49 +0000
-Message-Id: <20261029-perf-tools-next-v1-0-a75a2b64a15e@akamai.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6053606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:06:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6053606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sUCGZhLU
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-353804b591eso24955eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:06:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793300813; x=1793905613; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EP9nzlx+H2sk50SyAzN5S+n1xSKA5s/U/jjen9Qb6t8=;
+        b=sUCGZhLUgkrJa6LcpnFAjUi0KZ0UNBhyd29LD+BS3JUsrWzKFXGsQlqTNkLltIqiSo
+         mfd5wLdi8VA4TV/rYjdALme2PysjVDVvV8BFIkQK9aCCr6rk/jIMEZe0m419NR2lo1KO
+         webr2YxaqRMbHEQV6WaaTx6SlasyGq42m90aeBfL4X+FgrYcgyFMKSWXjRMfBTuK8QAh
+         0jABwzKWmMj1hqeTVp1qmfMD2MeeG04Pk6VC4V/evUvRrT4106DBo1xZv9OWmiyqG/uE
+         waTnra9hzwxe7Bj41TjMpSjVngpTD9zBZ+fxtcB8lmqgNrAJGEUiah3IHSkZo4+oDu7V
+         0yXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793300813; x=1793905613;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=EP9nzlx+H2sk50SyAzN5S+n1xSKA5s/U/jjen9Qb6t8=;
+        b=y+oFwxIPU//dJWIUbwgXgRI3BjB4BioL7l6Bbm2dADdsz+Mm3AeI8RwrpIsLwUPSTh
+         lNWqwgwbLQJA/wYwUMbIqqUlGnGB6WVmbgSGKXmsua1tPndwEUhweT02Hxsp7x6HRkJT
+         sik2k9m0u86GROmxt3b7FcEY9d9+A9ShWQe6TjfVst51gERb+qAy6E/NRUUeoHQsI2Z1
+         rf8DTe/UKYfzlGp7koSTMBy1m7b5v1J+s7/qc6Ep5XYe7Ows0ArR6+7ivr5nunjfYdoH
+         OgFEByMBOBta5Is44MQNM7Ra0dIKSXkDzdOMkbNm4FUtwFDbrhKE97A+20rfKPwDOFm0
+         VAQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxBEicPlpgeSNVwjWHxChXmMgxQzL6OBnxDM+bFCtMdizdvz3AftKMmyVsxtZAMPn/F7nfOkp/Yn5MzbF8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqRr3dKoisHFbYKKMdrAbD2see4GjogKPTVkHFQmZobxlytze/
+	kbatUW0XgIh90OrZVEJVx+TbP6xomB+hoA2fNEaharJgy0MZmVKtwpFc
+X-Gm-Gg: AYBFou1H5gsiYfNW7ZoBOZqrimTwOx6VDYMPr6uuKoVy9gzOj6Iw2PVG+YI4n5P8r6y
+	OqGqkvI7f/zmHcU72zWWOWKIlFIj7NNzJX2Ezj+V0zKnoBArG5gSefc5EzssxWP769PkbovhFch
+	I6XUty/YS/hJhmVxxLI56j1iuYpZH1W0iplE9pIVTd4m3YexZN/xdLUWHyogL9yOfSdsvb2kkzs
+	qB0mJyIKMLg3yZ6uyjwlendJICc19OxjidZQa2BahGtrup+bGT0GKXpJg9udTcBMp/w/b9z/3U9
+	BtG6WLzcrcwYIHXx3tgdtasfhKQBASGzrrC9JrHxr9hZop1u/rJ5jdCZoPgZVH/psdSt8D+95fb
+	wR/LAn9yDojLhCEThgNnqs6cKC9ZT4uLXIfV3rQsQVyJR4gjqMuA9GLXBi2imKei89fmHFaI6wP
+	7xzPydMQpqrxVfT3glADzwcwqqzEkSVLAbSgMBBH1gscXMsekjinR8K84tSIDyDXGtY5T9O8YXN
+	vRoRtcdAD8jkBAWal5RtLQbkseZwe+Kl9FNWwhr2COR2W5Gdbks/YGji3J7uJZJADPvL0tEK5ZX
+	/eqmyrKAxVEX5IIz1NoZZLEh666JSZLTKeLIa+qLQwPQqiEJn5jZNVZ8AIAK4dRHX/+bzw==
+X-Received: by 2002:a05:7022:ea8b:b0:1a0:f970:4f5d with SMTP id a92af1059eb24-1a6ce4ea2a3mr7493584c88.17.1793300812571;
+        Thu, 29 Oct 2026 12:06:52 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2ebe:8:8310:80a5:1043:3f70])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c2e9dsm766922c88.9.2026.10.29.12.06.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 12:06:51 -0700 (PDT)
+Date: Thu, 29 Oct 2026 12:06:50 -0700
+Message-ID: <a23c924469bdccf3417141c904713a6a@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Guenter Roeck <linux@roeck-us.net>,
+	Russell King <linux@armlinux.org.uk>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	soc@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	"open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH 1/4] gpio: sa1100: register software node for GPIO controller
+In-Reply-To: <8bc1c573-bd4f-4dfe-9d7b-8b17d386ada7@app.fastmail.com>
+References: <20260706-sa1100-swnode-v1-0-332759bbd930@gmail.com> <20260706-sa1100-swnode-v1-1-332759bbd930@gmail.com> <2a561a27-a3bf-4cac-a4dc-bfbc5c859f45@roeck-us.net> <8bc1c573-bd4f-4dfe-9d7b-8b17d386ada7@app.fastmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,81 +104,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avIrBvwJ0S6SrSIHGsgVFQiiO6et
- PwW7z1QqTBVmMQDhS6unGKHGgRsxxp3QvbdoKW2SmqHmUrAltJZMdLd0AWv/GiMUXaFXuVCge/
- /OC/v+wF/0kB8YQAAAA==
-X-Change-ID: 20261028-perf-tools-next-8fd1d433316a
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ben Chaney <bchaney@akamai.com>, Matt Pelland <mpelland@akamai.com>, 
- Jacob Lefkowitz <jlefkowi@akamai.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1370;
- i=jlefkowi@akamai.com; h=from:subject:message-id;
- bh=9W/7zSoftzSW5mCuATcSpLhTLtAaT6I/Mh4CFqig25w=;
- b=owEBbQKS/ZANAwAKAdLKfgzjwTS1AcsmYgBq45kgZpFbvA6GVbT+n9Qw6F1Ls6vUDYXekCgN9
- hINXOkM2XeJAjMEAAEKAB0WIQQKFmVpIhg7hFI7scTSyn4M48E0tQUCauOZIAAKCRDSyn4M48E0
- tSzXEAC4mq191t8r5p0TM73BaVqAZBdeswKU93lCq78nfvzsw7XwUeMm2HpZiHAS/0rK9sOHDXx
- vfBbuKWCy+QSZFtkc8qm0meHnjb95LO0dD4G3E1qogF16hJ9suDLyD9h+tw4nnMazslmSpM/5X2
- trjfp9yEG8Is75WjlRDXn48E1HscT29gmp//ziK2+Gzx90IBOTiyMmIkNIZpaf5JcoMUmt1Jar3
- ZK1rHwODaaukrGFHUzw3Yqw1f9xGUGZqq9G7FhHPtL53lx12yJx+VOZigDRKu8mz6g8+tN82ysY
- lsIIYaK7EFTLaRD8+ATRdK4P1HSeFmVuIyOpXVW37KVkZIYWKzpCUo3pWXdmkc5DDiCyuhMUVW4
- fk6wPfd0vEgisRx0wxSY7vF6nxbn57aNqeXZRaiW6E8Qn2F4nvEj0Of+e16oIlunbGls9dbqDJH
- ge3u3rlG7XMvfaS1RZLlnwLYgeiUQT5nc7wxB1P3jZsSbwR/EfVuVZAXhxEmF2OaqC+2Vs2u+M9
- k7VyWnoyj6KU0HhNTt0VUJz8AFG+FXXfGGuWeeE9aE7CML6hfUJncOXb8MlAQhE0+7+1ND9LSNf
- TV6RfXSU5oDySHBuxKtg9K7sBzmAH8B+okx/GWV9Yl03q3d6HXwHlSpfmdf29YRQUy0rLjZtD4A
- PiLqHBVfBvMJKHw==
-X-Developer-Key: i=jlefkowi@akamai.com; a=openpgp;
- fpr=0A16656922183B84523BB1C4D2CA7E0CE3C134B5
-X-Endpoint-Received: by B4 Relay for jlefkowi@akamai.com/default with
- auth_id=1357
-X-Original-From: Jacob Lefkowitz <jlefkowi@akamai.com>
-Reply-To: jlefkowi@akamai.com
+Content-Disposition: inline
 
-Adds AMD specific metrics for the IOMMU with respect to page table
-walks and device table entires. The metrics cover ratios, rates, and
-percentages with respect to any event which might be triggered during
-a page table walk or device table entry lookup.
+Hi Arnd, Guenter,
 
-The metrics target Zen 2+ processors and use the standard amd_iommu
-PMU events. They have been tested with a benchmark C program that
-purposefully thrashed the TLB as well as with 'sleep 10'; both of
-which work as expected.
+On Thu, Oct 29, 2026 at 10:26:05AM +0100, Arnd Bergmann wrote:
+> On Thu, Oct 29, 2026, at 05:23, Guenter Roeck wrote:
+> > With this patch in the tree, the qemu "collie" emulation no longer works.
+> > There is no console output.
+...
+> Hopefully Dmitry can spot an obvious fix for the regression, otherwise
+> a revert is probably best so we can leave collie working in the LTS
+> kernel and not spend much work on that.
 
-The changes are split into two patches:
-1. perf jevents: add iommu page table walk metrics
-2. perf jevents: add amd specific device table entry metrics
+sa1100_init_gpio() runs during init_IRQ(), before driver_init() sets up
+swnode_kset, so software_node_register() crashed dereferencing a NULL
+kset pointer before the console came up.
 
-The specific metris added are:
-- lpm_iommu_dte_miss_rate
-- lpm_iommu_dte_lookups
-- lpm_iommu_ptw_reads_per_tlb_miss
-- lpm_iommu_ptw_nested_read_ratio
-- lpm_iommu_ptw_guest_read_ratio
-- lpm_iommu_trans_per_sec
+Only the GPIO IRQ setup needs to happen in init_IRQ(), so I posted a fix
+deferring the software node and gpiochip registration to
+postcore_initcall (verified with qemu collie):
 
-Signed-off-by: Jacob Lefkowitz <jlefkowi@akamai.com>
----
-Jacob Lefkowitz (2):
-      perf jevents: add iommu page table walk metrics
-      perf jevents: add amd specific device table entry metrics
+https://lore.kernel.org/r/20261029-sa1100-swnode-fix-v1-1-112f4d83d191@gmail.com
 
- tools/perf/pmu-events/amd_metrics.py | 81 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 80 insertions(+), 1 deletion(-)
----
-base-commit: 1c90f0a3c8a1c4e38f9edd97af9e20848805a7fb
-change-id: 20261028-perf-tools-next-8fd1d433316a
+Thanks.
 
-Best regards,
 -- 
-Jacob Lefkowitz <jlefkowi@akamai.com>
-
-
+Dmitry
