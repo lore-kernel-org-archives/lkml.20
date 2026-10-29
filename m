@@ -1,54 +1,148 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267838;
-	b=GcqYyiV6gjjnlA8Os7cQF/ho9odXkSytNyCytnMuiIc2cPOlZnM3O+Rwdbn2G2KZDKI3
-	 ZyOyFT06Xmky0ZDimp7FrcdMKhCJHfGCrv4rP/5psXV+FzI5OCc47yT8KlfDXNF2eBU+a
-	 wn8JVhx5BHVegjOORV9zOvLHsotixGvgPk4zBg4gMJdBiFFOw7gXfunnuhoPhbYLog3F2
-	 JXkZPD1i6A0RQ3+4tT1qV0lybZtVIchXWaGH8uHRzRZsd6ivLkA7fOUh+hviqpBCb5b+A
-	 hJKOHAC0fCiMPHZlbtrP3MbxP7PgAevXycXvt3J0nqKOwJUGwy/tGsTHgonG2b1mtOw==
+	t=1793267915;
+	b=QTI7p51ynBMs2mLb/WT00Bdm7IoLt+DjKOcRc1YtdMcIXDy7C7+LcAAgXcYdDluYIrHD
+	 aElOX12JDansrk2VOfWxAACu0IhgW/kJTynvmyAstU/R/eqUq8BWVAfcT1AafyV+ZTklK
+	 /9mB4D74kKFzlG/NAxwjsb/GwsPDgV+Du6mC1LBQq84AkWZTngFqn5Dnbgb6XCk0sr6h1
+	 XLxBq0eSBbivfGqeH8BMcIfOSOybg+kzUC6MjM1Vl2BRZnRit8W47VmT4VodFliQIGAzx
+	 sw3ffJCQ2SIdHoHdpFyQaWgInzDCFiN0p9DgXSNB9sxN71J3CQqXX+RT3OZRkdc8wbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267838;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hWaXPrGDhyWCEUeKdoM63o7PKlFaYUkm9xCkqBAxeQ8=;
-	b=U5TzrgPiAspyn9/WUY9y9I4vla9Hyg9CkKuPfJLjec8Obs+aA/A7b98RhqOogl+My8f6
-	 FlzWU3PS5mJB58j2Yw6GVU3DApg6C2ImBVbn8VAiW8atwz+khwACvHpKbjzMi6p+6ussG
-	 Jnj7mFYnU9u8MyA6fPK2AMd6ut8/D5kO2gDrFVjB0IdmW+UHxHCg1OUra8rwXM7c/YlMp
-	 DwpJPusQXF7j8Ly9vAIx9LVC/hx+ppIp00CrXdnevl1DFD1JWUHU0nlDDkJKa4Pi2eIBa
-	 l93lWInY0JIV2Cp2vY4Egt79r3fK+KK6Y4Hkt0i9tfAIPa0eh3ASImdfMhUBCjkVVdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267915;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=pvyVptf34gNXi8Bay+Y0wQ1+su1zbi4JW/reYBgb1VQ=;
+	b=iXWipHfQ9P8yqBpD1L+ahnnTIzBFtQ7ppqeF9S6cpC9TBDMCC9eQ/2GMzz2KM9H6EUhg
+	 6G7RWEZxcq6f2/Jr60SFJJjBUvWbY4jQJbPgCGMJAmxzuSlD0w7/BJ40ndvsucV9BrQvS
+	 iejOUI4ddT/0uxjaK4/vTFQx338G7xmI21OdUZZ7v6SpeYsM3I/IGCgzI9JKm4bMSBJ8G
+	 XIbZ8I4Dj3Q6cGQsigL3VhiHO2+Cs8aXbD1Zbse0sTqapXYnptvIa2NddeJZZaR860pjq
+	 Z2FxYFZCMoguMfYqseNBTip+zeJTmHrUUdn2PLs9+AA1OqUTR+JnqcHRRZ7IU0v8WRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=W+8t3+4h;
-	arc=none smtp.remote-ip=91.218.175.23
-Received: from mta0.migadu.com (out-23.mta0.migadu.com [91.218.175.23])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9blAECY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E68C606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:57:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E68C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E047606A31C;
+	Thu, 29 Oct 2026 09:58:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=W+8t3+4h
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Io8Za75LZDFiHR23Q0ReXlDPmUPWVZA1pjzJJhGltWs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793267835; v=1; x=1793872635;
- b=W+8t3+4hzBuvDinHlL4/EKDxfKXJ4cubc1EvEM0vXLoktC0n9sSWJmPduSJC7rgYYU5smwZQ
- cSW/Bh7BxQrBADVQivNj+JWahrOFiESZrj9Jr4N8UEwkwbshany87jIUJB9D8FfYbLD5aTZGoO+
- WzvPqaCenb7HrvGiHq/D6bi0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1cb8ab88aefdeb15;
-	Thu, 29 Oct 2026 09:57:15 +0000
-X-Mizu-Trace-ID: 1cb8ab88aefdeb15
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <9145109e-0030-451b-9cca-d23eab30a826@linux.dev>
-Date: Thu, 29 Oct 2026 17:57:05 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9blAECY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D52E1F01825;
+	Thu, 29 Oct 2026 09:58:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793267915;
+	bh=pvyVptf34gNXi8Bay+Y0wQ1+su1zbi4JW/reYBgb1VQ=;
+	h=From:To:Cc:Subject:Date;
+	b=E9blAECYp6KG8AN9sCB1a35WZl4tql7Y8ZXp0RDyDE91uhItcOlCubJTDFxxfFQ1c
+	 FQ1oLcDZUFCI5NNc2ysWVgB/YRzMjzSxsJmTuSY+45io7wuL8LjueztYWrgRcpOECH
+	 VewapS1H9J02mVTfUi3oCFQKKGmnMRyzM3asO2oNSoHkcLOi0Td6e3tzSkHmyLmid0
+	 hdfX9MCzFdHpolJc2F/hD/ot11Mq8ijC0ZN/oRoyiR3cb6617vJjq0MXOsWWjMlgvu
+	 0oeqVetAnnaBq4kfE+Rq5DaPVbXmQggZR+obBEtf/xce5dNpC92pf3UDffILLhhSf6
+	 rLTIHQ1YDRYGA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Min Ma <mamin506@gmail.com>,
+	Lizhi Hou <lizhi.hou@amd.com>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Karol Wachowski <karol.wachowski@linux.intel.com>,
+	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Felix Kuehling <Felix.Kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Russell King <linux+etnaviv@armlinux.org.uk>,
+	Christian Gmeiner <christian.gmeiner@gmail.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Alessio Belle <alessio.belle@imgtec.com>,
+	Luigi Santivetti <luigi.santivetti@imgtec.com>,
+	Qiang Yu <yuq825@gmail.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	=?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Dave Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Natalie Vock <nat@pixelcluster.dev>,
+	Arun Pravin <arunpravin.paneerselvam@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Melissa Wen <mwen@igalia.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Zack Rusin <zack.rusin@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sunil Khatri <sunil.khatri@amd.com>,
+	Kees Cook <kees@kernel.org>,
+	Jesse Zhang <jesse.zhang@amd.com>,
+	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+	Kexin Sun <kexinsun@smail.nju.edu.cn>,
+	Prike Liang <Prike.Liang@amd.com>,
+	David Rosca <david.rosca@amd.com>,
+	Krzysztof Karas <krzysztof.karas@intel.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Shixiong Ou <oushixiong@kylinos.cn>,
+	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Neill Kapron <nkapron@google.com>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	Sam Day <me@samcday.com>,
+	Gabriel Prostitis <prostitisgabriel@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org,
+	etnaviv@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	imagination@lists.freedesktop.org,
+	lima@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: [RFC PATCH 0/6] dma-buf: Phase out is_signaled() race
+Date: Thu, 29 Oct 2026 10:55:37 +0100
+Message-ID: <20261029095542.1526750-3-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,48 +152,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, josef@toxicopanda.com, axboe@kernel.dk,
- cgroups@vger.kernel.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, andrii@kernel.org,
- eddyz87@gmail.com, ast@kernel.org, daniel@iogearbox.net,
- linux-kselftest@vger.kernel.org, cuitao@kylinos.cn, ameryhung@gmail.com,
- alexei.starovoitov@gmail.com
-Subject: Re: [RFC PATCH v11 0/5] blk-iocost: BPF struct_ops cost model
-To: Tejun Heo <tj@kernel.org>
-References: <20261028143534.135968-1-cui.tao@linux.dev>
- <07deddf44be391f58d6c3f2e4843582b@kernel.org>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <07deddf44be391f58d6c3f2e4843582b@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hello Tejun,
+dma_fence_is_signaled() can return true *while* the fence is signaling.
+This has caused explosions before and I guess we can agree that it's
+just not ideal.
 
-Thank you for the review.
+The fundamental issue is that the fence-signaled-bit is set under lock
+protection but read without it.
 
-在 2026/10/29 04:09, Tejun Heo 写道:
-> Hello, Tao.
-> 
-> Besides the restructuring agreed in my reply to Alexei, dropping
-> iocg_init()/iocg_free() and moving everything into blk-iocost.c, the
-> series still has problems, which I replied to on the patches. 
-I'll rework the series accordingly: drop iocg_init()/iocg_free(),
-remove the detach freeze, fold everything back into blk-iocost.c and
-drop patch 1, reducing the series to four patches.
+So ideally, we would read it with the lock. This would not change the
+relative order, i.e. the bit would still be true in the fence callbacks.
 
-The cover
-> letter is still long and narrates mechanics, and it still carries the
-> v9 and v10 changelogs.
-> 
-I'll shorten it, focus on the motivation, and drop the v9/v10
-changelogs.
+Christian informs us that taking the lock causes people to complain
+about performance regressions because the lock-taking shoots down copied
+cache-lines. (which is weird since it would mean that someone is
+repeatedly polling on fences instead of just registering a callback to
+notify himself once it signals)
 
-Thanks,
-Tao
+Let's accept the potential for regressions as true for now.
+Nevertheless, I think I can propose a path towards removing the race:
 
-> Thanks.
-> 
-> --
-> tejun
+This series suggests taking the lock in dma_fence_is_signaled() *unless*
+the driver explicitly asks for a check with a race-condition.
+
+As a preparation, I allow drivers to set flags when initializing fences.
+Then, we add a flag with which the driver can switch locking off for
+that particular function.
+
+By default, we let all drivers take the lock.
+
+Should we then, in the kernel release process get reports about
+regressions, we can set the race-flag for the affected driver and
+restore the old behavior.
+
+Should there be no reports, we could phase the flag out again after a
+few releases, always taking the lock.
+
+New users would always see the lock.
+
+I put all potentially affected parties on Cc. Please point out if you
+can already foresee your driver being negatively affected by this.
+
+P.
+
+
+Philipp Stanner (6):
+  dma-buf: dma-fence: Add flags parameter to dma_fence_init()
+  dma-buf: dma-fence: Add flag for using 64-bit seqnos
+  dma-buf: Port users of dma_fence_init64()
+  dma-buf: dma-fence: remove dma_fence_init64()
+  dma-buf: dma-fence: Close race in dma_fence_is_signaled() by default
+  drm/nouveau: Remove hacky fence check
+
+ drivers/accel/amdxdna/amdxdna_ctx.c           |  2 +-
+ drivers/accel/ethosu/ethosu_job.c             |  2 +-
+ drivers/accel/ivpu/ivpu_job.c                 |  2 +-
+ drivers/accel/rocket/rocket_job.c             |  2 +-
+ drivers/dma-buf/dma-fence-array.c             |  2 +-
+ drivers/dma-buf/dma-fence-chain.c             |  4 +-
+ drivers/dma-buf/dma-fence.c                   | 44 +++++------------
+ drivers/dma-buf/st-dma-fence-chain.c          |  2 +-
+ drivers/dma-buf/st-dma-fence-unwrap.c         |  2 +-
+ drivers/dma-buf/st-dma-fence.c                |  2 +-
+ drivers/dma-buf/st-dma-resv.c                 |  2 +-
+ drivers/dma-buf/sw_sync.c                     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
+ drivers/gpu/drm/drm_crtc.c                    |  2 +-
+ drivers/gpu/drm/drm_writeback.c               |  2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
+ drivers/gpu/drm/i915/i915_request.c           |  2 +-
+ drivers/gpu/drm/i915/i915_sw_fence_work.c     |  2 +-
+ drivers/gpu/drm/i915/i915_vma_resource.c      |  2 +-
+ .../gpu/drm/i915/selftests/i915_sw_fence.c    |  2 +-
+ drivers/gpu/drm/imagination/pvr_ccb.c         |  2 +-
+ drivers/gpu/drm/imagination/pvr_queue.c       |  2 +-
+ drivers/gpu/drm/lima/lima_sched.c             |  2 +-
+ drivers/gpu/drm/msm/msm_fence.c               |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_drm.c         | 13 -----
+ drivers/gpu/drm/nouveau/nouveau_fence.c       |  4 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
+ drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
+ drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
+ drivers/gpu/drm/radeon/radeon_fence.c         |  2 +-
+ drivers/gpu/drm/scheduler/sched_fence.c       |  4 +-
+ .../gpu/drm/scheduler/tests/mock_scheduler.c  |  2 +-
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+ drivers/gpu/drm/v3d/v3d_fence.c               |  2 +-
+ drivers/gpu/drm/vc4/vc4_gem.c                 |  2 +-
+ drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_fence.c        |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
+ drivers/gpu/drm/xe/xe_oa.c                    |  2 +-
+ drivers/gpu/drm/xe/xe_preempt_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_tlb_inval.c             |  2 +-
+ drivers/gpu/host1x/fence.c                    |  2 +-
+ drivers/iio/industrialio-buffer.c             |  2 +-
+ drivers/usb/gadget/function/f_fs.c            |  2 +-
+ include/linux/dma-fence.h                     | 48 +++++++++++++++++--
+ 52 files changed, 115 insertions(+), 105 deletions(-)
+
+-- 
+2.56.0
 
