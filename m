@@ -1,94 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793275438;
-	b=mc5a2oIQejcOvTgc3DKRks0K7p/SAcRwUFIorxTaZIsSTSqPB9zAz21Wz4liXOTPxleX
-	 Szj+fO4gyC9CYGj7S37pQ4loaPoP/56p6jVEHJOSh3hUK/QN/lu9s8yxs8NdHFJvQ9spA
-	 +sADqeGIQl8O8TPUk/Puqzz5oVQeQLshHUKyfHjdam3sM4imWq+6Qo3kkPRJx8rjgEBWu
-	 JzjIoNE7JlPa0bvKH9YAdBwse4ZmLXic0LxtECholitFve6lCDn7LEwOeeUl3b3VzOLhM
-	 9LJmBvOG4O01u27SKy2e6hEM3gr8epoVEcTHkEJvIK1WtnuR6kKXCBsklORbJlZhqwQ==
+	t=1793275443;
+	b=Ppphvf2fPzt+fhp+WypK9+x+6Dqd7XRPus2bVzqasNPUdiCYBpFE05MD2AUs+lCvR+Kj
+	 r9b/MTW0NcMtK++08YOSmsMok9o54pUZOg8ABykC9oAAIuDOm2NkEY4LHigpquDYpwqx/
+	 0UK1Kt92geZiGh4FZjbJU5YZi/9FrJgGxrn/8Mb/O5WmyK7XC/qLBBwEG7gZQlGTVwT/3
+	 Z3HF1W344rcZ8ZyMGY2imlrN4PcEDyFrbRC5BwfbFNDwdUUOvajqMWyOmUZtD33tEcRQS
+	 m8Rw4vpO0jqAARJyi1BjTQVCNAd2MkJ6OKXX1b8MRaH+gP+alR6CNUuocgJXHelaKSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793275438;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=R99c13rJmmVI5HHtTBBCwH1hsxjSn5bH0+cO75Pba6I=;
-	b=azHWpWVttE52T+Q18EtDObDpnv8Tw3x5wUtmvtfNb6YYyQ1zCt7xnBTEPBbaAhbDT9nS
-	 MotVpG+3MjqmWTlhcFvLhbF76VxhYEA0Kf0zR/Xu5x9JthwRz6AAYlY+m1SnwIgENiPiJ
-	 4Y3iy1wP79kvrWYhGZwt9NhpUDRilaPjEbBaSKModSnUWO7+AlMVhuOBzq2nf6O0oYZhF
-	 YviYuDI1K+LmL5sYBZ11L4RwLEMTr/7nACcu4ZSgvlQ1yQftDHjdVBj+yYWC5KaWOiD36
-	 n42CYcNMx3xbDaoSQYeit8zEAjYRRp6rgcEFvxLcEHCIWKITpg0qaGEEnt4YT++/IFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793275443;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 In-Reply-To:Organization:References:Date:Message-ID:MIME-Version:
+	 Content-Type;
+	bh=aoaaiqgG+MuPX1i302u4z5cKAwdcZoyJSA3p5kyjrws=;
+	b=cx76U9wrUcWnU/fQaTpNzlOYZTXs62wtA5VBxhS3/87liv8oaFjn8uen3CTiFDPAxf/I
+	 tcENrHI6ZziqJ5y1l+avud8ATSiKrUaSeE6VXu3KegcDeAASD/g73AkVuQjWsjP6Z60WA
+	 I8iIfQKRmAT+R2hHJeADf9SGuHhFGgVSzleJskP2Nl4GXu5XbiXskKx6ki4oyDwihr5Cu
+	 oZA2TdOnWDg3D/KM9NN+G9ff6TDJrkQ1E/Dpk+79L3DeMbZcKbpupohtN3KogtJFdekio
+	 kwhT0MQAEycBYPMLK84h3bgF694KW0Wx+cRfzRCyDfxCZ/7Ww/0uQwtQDNRjXIC+b5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Bas1/oCy";
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QtlXh4HB;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D53606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:03:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22D53606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB37606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:04:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CB37606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bas1/oCy
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-881269371acso317359b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 05:03:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793275437; x=1793880237; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R99c13rJmmVI5HHtTBBCwH1hsxjSn5bH0+cO75Pba6I=;
-        b=Bas1/oCyz1qehEL8K13H3zpuGtpX7Xvg7nETbi2LyQMQq0bKMCoyoJ20TsJyTd4vIS
-         tuR6qWORPZmwyR33/RQRvhOxerkJ0vxi7L86QrrX1Gq5UhlTPNBsn9OeBI3sRDrqJnTH
-         43gAl9+wwpt7ASsGvRirCnLBapuWIvdSdjasHyEpVBZWDP5bdKu0QEs9KNOPz/K6/Bhk
-         wxKQ73DKkesMkSepbjbCNwJG8lwtaYd9qSusxQK/aujgGfj82P3wQ8Xg/SiQ80G8Uscr
-         az1ndANFn0sNZ2BLxN4uuOpvnyLgyxEqyKIXhvvfxMQ5eMq4AkJCfwObjWfDT8EfnE7V
-         EVrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793275437; x=1793880237;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R99c13rJmmVI5HHtTBBCwH1hsxjSn5bH0+cO75Pba6I=;
-        b=ykgvS9UbrRb3HVvBnZYnotw/5JaPOqNpxPFSIQ+CF4mHaRh7XDyQwfNLF5YuQinDKt
-         3v52JxhcokrQK4h+WSoYuqOQv5J7J4JGF95a3pl8VnrdsOwWVa7ebDxmCuFLLygrii10
-         xNoL6qsqDBhqoUUINJ+97/IPagFsNi46xlaQe3rUxFDWl24toDggRzyY+37ltLLXEVzP
-         EeGX/wSVrqt0M2fQX4gLLvls162R6Kd4bKzSN9CHzcnWEtwhd5I6SPHOQcbsXhMu8pdF
-         LkpKhHoljhWk0gdH9UPjLIsUGMy/U4dJfTO0g6IuqyCvuZh5njQL9fax6CjVbEmeeeUl
-         7fkA==
-X-Forwarded-Encrypted: i=1; AKwUvBxcCGJBhAEpnj7g+Mfmq5x/NlxhWhQc/QzQbKk9Ku0yd+RbAZXwrW8JLV+EvM3tJpSFvO8t9wnAXQkwVmA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQT3U8M+Fh9zECn1Rqa+LJyEJtRC9hCNhbVUedYTS/rnFVQJzN
-	LPF3ZdWLvti58EpPf99lT1WREGZYoVrf1eeQ+lWpf4tAZpgZA65IGQM=
-X-Gm-Gg: AYBFou1So+HlyPs9kfn2vOW+HN3PT9RB6vnEDVzgrlC1N1GQv8eNy5e+bQCCFq2D79k
-	UCPq4CsBbUxGErkVGeqyO289z1nR5RfEtF/98DfjIxIjcurDRUbxOCEMRBJoShAcr9UpgYao7pB
-	vkN73EgwSPrbYtpxybrbFdVTQZCKE+40eMAMoYFOAeT7fsqpel80utnTqiYuOuPvzU0g/AnE2Ic
-	NXVpI/oHeCYwbgtT5BOzJB0v8zlCV4UvX5JSC+CX9RAoYAgsgF4Nd0++zCpoQo7M1knuIfXaaNG
-	3WMYO+ASGA3y0y47fycBgDVIoax2HUGnIOv+EQrA3AGMw44Zif68IsLXeTxarkjywIL4PrxEzQ/
-	BEW25xcumKk5nm25MqAFQwdY75Hf5uIjHtzdbVKccqFqh3jwdt8jWPMB5YUGCHXcvbAuj+HQ2VA
-	c3O/J689DXV/awrpR4Xj/6WH7UWEKY7Lkcgpeu/EMRo9fXVI1M7DtbGfEx7p3HZ51vcCTfFkyyg
-	AofG3WxxQu5qWMEb1XkNtBWBKG2Jvsh6lRNjkudeEcvq3pGa9sBpH2oeWn/4ENHoUqlz0OKiSKk
-	3+cl8uge2nNJ7dXgyf/wYUempb/fB1049sk0+5GRc77CSgDCs5RZauijPSvQxUfctE4f
-X-Received: by 2002:a05:6a20:3c8e:b0:3e5:5ba7:2e7e with SMTP id adf61e73a8af0-3e913da5fdfmr1811507637.51.1793275437374;
-        Thu, 29 Oct 2026 05:03:57 -0700 (PDT)
-Received: from localhost.localdomain ([2406:3003:2002:639c:7583:67d7:1072:ccc0])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8cccbaaa9sm5188758a12.23.2026.10.29.05.03.54
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 05:03:56 -0700 (PDT)
-From: Yige Jiang <yigejiang86@gmail.com>
-To: linux-mtd@lists.infradead.org
-Cc: Yige Jiang <yigejiang86@gmail.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>
-Subject: [PATCH] mtd: rawnand: omap2: release the ELM device node reference
-Date: Thu, 29 Oct 2026 20:03:47 +0800
-Message-ID: <rc-review-20261029-ai12-12-5b57d6320701@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=QtlXh4HB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793275443; x=1824811443;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=/oBe4m0YLZywxlXPUaO71KbtVZmDBPNp0Bo+RUOGUyA=;
+  b=QtlXh4HBcZRMd6Hqk470+0P9ZUNkHdg289pJ5GghCQOXNal92q83XyUK
+   abWMFXUBUDGO+yCIkw9ezuzNB0oyU3vm6APenpcBHZyf983TAW0e8Nphb
+   sqSmoKUJUHGxXRfLd5ZXthaygjEaGbnC2IWG3BLIjlS5tNVCvLExVAuB/
+   wxygBk2BbYZZNMcNpSdGpOPDaf2+2Uuz/kNT3xW82xGCZp0LeiqiF4GYI
+   vPkXgrh874+naHdJoYnM8Nr672Qc/RYkPduuhHIkonEgOc7lzjQ6vuSaa
+   sVeSFvwheoxOXvyNrJSRwHspcRQRIbKKdkJtyHOQCkt4PJ5yNnn8Shahz
+   Q==;
+X-CSE-ConnectionGUID: j2+C7q1ySZu2MqfmvXcBvw==
+X-CSE-MsgGUID: 6ApJ9Ao9S52StlzFwO1dSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1921902"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="1921902"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 05:04:02 -0700
+X-CSE-ConnectionGUID: o3cZccRnTY6iVlX7c2yjog==
+X-CSE-MsgGUID: MwZM0ZfbRSO/mxbxVGNxYA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5252995"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.145])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 05:03:56 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>, Maarten
+ Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+ <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
+ Ceresoli <luca.ceresoli@bootlin.com>, Patrik Jakobsson
+ <patrik.r.jakobsson@gmail.com>, Lyude Paul <lyude@redhat.com>, Danilo
+ Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Dmytro
+ Malovanyi <dmitrymalovanyy@gmail.com>
+Subject: Re: [PATCH v2 4/5] drm/gma500: Use drm_dp_enhanced_frame_cap()
+In-Reply-To: <20261029101826.72773-5-dmitrymalovanyy@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+ <20261029101826.72773-5-dmitrymalovanyy@gmail.com>
+Date: Thu, 29 Oct 2026 14:03:53 +0200
+Message-ID: <ffac172bea7c82b9fddf8fa3949d62e9f62af497@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,56 +95,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-omap_get_dt_info() acquires an ELM node reference through ti,elm-id
-or the legacy elm_id phandle, but never releases it. The existing
-put_device(info->elm_dev) releases a separate device reference.
+On Thu, 29 Oct 2026, Dmytro Malovanyi <dmitrymalovanyy@gmail.com> wrote:
+> Use the helper instead of open coding the check, so enhanced framing is
+> used for all DPCD r1.2+ sinks as the spec requires.
+>
+> The helper takes DP_RECEIVER_CAP_SIZE bytes and gcc warns about reading
+> past dpcd[4] (-Wstringop-overread), so read the full receiver caps like
+> the other drivers do. That is 15 bytes, it fits in one AUX transfer.
+>
+> Compile tested only.
+>
+> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
 
-Register a managed of_node_put() action immediately after parsing the
-phandle. This releases the node on later parsing and probe failures
-and after NAND cleanup on unbind. If action registration fails,
-devm_add_action_or_reset() releases the reference immediately.
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
 
-Fixes: c9711ec5250b ("mtd: nand: omap: Clean up device tree support")
-Assisted-by: LLM
-Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
----
-Based on linux-next next-20261016 (2efb7a11f1aa).
-Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_OF_DYNAMIC=y.
-COMPILE_TEST=y.
-The object was built from this exact base with the patch applied.
-No full kernel or module-link, hardware or runtime test was performed.
+Ditto about drm_dp_read_dpcd_caps() usage.
 
- drivers/mtd/nand/raw/omap2.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+> ---
+>  drivers/gpu/drm/gma500/cdv_intel_dp.c | 8 ++------
+>  1 file changed, 2 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/gma500/cdv_intel_dp.c b/drivers/gpu/drm/gma500/cdv_intel_dp.c
+> index 8d0626ddf..0973598c7 100644
+> --- a/drivers/gpu/drm/gma500/cdv_intel_dp.c
+> +++ b/drivers/gpu/drm/gma500/cdv_intel_dp.c
+> @@ -262,7 +262,7 @@ struct cdv_intel_dp {
+>  	uint32_t color_range;
+>  	uint8_t link_bw;
+>  	uint8_t lane_count;
+> -	uint8_t dpcd[4];
+> +	uint8_t dpcd[DP_RECEIVER_CAP_SIZE];
+>  	struct gma_encoder *encoder;
+>  	struct i2c_adapter adapter;
+>  	struct i2c_algo_dp_aux_data algo;
+> @@ -1070,11 +1070,7 @@ cdv_intel_dp_mode_set(struct drm_encoder *encoder, struct drm_display_mode *mode
+>  	intel_dp->link_configuration[0] = intel_dp->link_bw;
+>  	intel_dp->link_configuration[1] = intel_dp->lane_count;
+>  
+> -	/*
+> -	 * Check for DPCD version > 1.1 and enhanced framing support
+> -	 */
+> -	if (intel_dp->dpcd[DP_DPCD_REV] >= 0x11 &&
+> -	    (intel_dp->dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP)) {
+> +	if (drm_dp_enhanced_frame_cap(intel_dp->dpcd)) {
+>  		intel_dp->link_configuration[1] |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
+>  		intel_dp->DP |= DP_ENHANCED_FRAMING;
+>  	}
 
-diff --git a/drivers/mtd/nand/raw/omap2.c b/drivers/mtd/nand/raw/omap2.c
-index 4fa89aee934ebed9d04dd37e441243b6779af042..25414390af6174bc5f5e4b6b6c4fe516ac646cb8 100644
---- a/drivers/mtd/nand/raw/omap2.c
-+++ b/drivers/mtd/nand/raw/omap2.c
-@@ -1669,6 +1669,11 @@ static const char * const nand_xfer_types[] = {
- 	[NAND_OMAP_PREFETCH_IRQ] = "prefetch-irq",
- };
- 
-+static void omap_put_elm_node(void *data)
-+{
-+	of_node_put(data);
-+}
-+
- static int omap_get_dt_info(struct device *dev, struct omap_nand_info *info)
- {
- 	struct device_node *child = dev->of_node;
-@@ -1691,6 +1696,10 @@ static int omap_get_dt_info(struct device *dev, struct omap_nand_info *info)
- 			dev_dbg(dev, "ti,elm-id not in DT\n");
- 	}
- 
-+	i = devm_add_action_or_reset(dev, omap_put_elm_node, info->elm_of_node);
-+	if (i)
-+		return i;
-+
- 	/* select ecc-scheme for NAND */
- 	if (of_property_read_string(child, "ti,nand-ecc-opt", &s)) {
- 		dev_err(dev, "ti,nand-ecc-opt not found\n");
-
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+-- 
+Jani Nikula, Intel
