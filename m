@@ -1,53 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793256846;
-	b=vHkaPmdgPuhxxAfJNNHfVqW1DBDJx57HEvSDnUSQosuWQY2nGXcAiAAdLHL9UHu0YHWM
-	 Urn2A93JxwdJx2lrqutCIxm/waBAq+LUSRlbSzZ6Pr4sXmoTks5K2A4cZDrCrh/qtCGPp
-	 +ca0LA4/bGCnBZ6auxrt1BIZvAdj62qGKs3SzhGdtI2kY7JlwnVBBIViPJS+aPY3YSBsA
-	 PkcKvHemo2nUGuDoedAwDJE5GC5rWdisalbaXh2CihjaQcxwTbA0ACFYnIeNW6D1QV2nA
-	 0wrFGvSmBl2kt5Gg5G7bG402y1lRIGVepiWIXNkcNiXxKd3Y6C+6MozMW6tZKzdpPQw==
+	t=1793256944;
+	b=Qg9eslJZxFPWXn5vvg61wYzstbqQF/PEOiPQ71A1UBXnSEMyuj7y95yeSfzE3BApj9TE
+	 uMYmj0lvtBnCOlk2w/am7jgh5PkJaKbevqhwEbE6DOHDtW9ejvXRpBYWmnG+mJDnCLQcw
+	 0lmIIZpdAJ/7ZQ/6zwsI7qDTbrSIxmR5XDVgHslnh2r0QPNh1IBGrntwcj7PcCgp83S10
+	 vDXsJ6/rpJ3ajDfo1rVVsV+cxiXyB7qvRNNbjLAx/QaZ0dDGiBFME4bJtrbeHYTSzdsy3
+	 tnzMigaVu+1kvOzjQAADO+ZiNMsXozSUuPms0oCOJf11lNzen1O9RwSuTw9bXoLN53g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793256846;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793256944;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Nrt2MHmmyL0EGLrj5sKuJiNd3KbCufFNQHr5Yh2LzD0=;
-	b=FzoKcSsIuei3Kf4nPXHAumy62TF2TABckKobj7cT/0hbdYbg7T/Gex+58QHjbxnkv6MX
-	 Qmps97HxzX6UHU7mswd9IEbJpq42tGkzj9Ho6raPD1M4uBcxuTQAElL52TaU3cXMcpfrE
-	 aaDyKE9oLqDtgJ5krv0pq2TRJvrJpqaKxF2fjsDeflA60fDCZ3/w3YdsW0SLy78Owd55M
-	 Cvl+7CKz0XCS7jO+SDgYgu4/SL9XdrkNmxS/bvbExZQB3eahhbtXnJQCSP+nF2Guht9yW
-	 S8Wifkcsg2ZqAehI0f/RogqIXz1I58s7xq1y8Wah9FVPSrd47CSxLWMqk/UgtUILyEg==
+	bh=UOhqmpD4X7Kw07Ng1ggleQiy306bjRMLXhpTJKa1eDA=;
+	b=qMvi3ac1rdbIqzz/yFonrJJ5JIU6TFmhIi+iBfNRu6Q/jtWjA3zcUw1ToHdzqsiN1z51
+	 mYrfyGnPOwzS1kOLikV6HYOhyiAVyfX+i4+yMpfnPSx4pvwpf+J9WlASaf6yORtQUZjJ0
+	 3JiMV9ZQ79OAK+6EZnspl7Qh+2cTnodGXgoOH9lnNhTo8uDHrudyK6iSLdT6W6+WyitcR
+	 HvjtZPaVjuKdkRjMPbnTs16af/b2bcrqLAYg4IdQb9ZKN5TOhYIVLbmJSG4Zml6A4ATOH
+	 1uGgJX+Gpo5ff3r5kZ2LDAj7nhL7vQNLymcKdfZd/vvTx+9n6xHAsGh/t3cShAxKiAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=p7KrGyiy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WUETKudL;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC974606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:54:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9DD606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:55:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A9DD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=p7KrGyiy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F28891F01825;
-	Thu, 29 Oct 2026 06:54:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WUETKudL
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so12534875e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 28 Oct 2026 23:55:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793256845;
-	bh=Nrt2MHmmyL0EGLrj5sKuJiNd3KbCufFNQHr5Yh2LzD0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=p7KrGyiyFbD9sM4Rlwusp5lHcU8a08mSX+AQ093gw0/dLPiWE0vPL4ZX2HX3RRCvv
-	 6beyLoiZw1o2Uelx6CBDIt5rgfXwnQkEh0/V/ZjsSdFVSNDOTuQ4Hs4/44vpCy4smO
-	 F3vs9lsyRx0CeZR/3tObC2FxvHNaZhdG82aANyJY=
-Date: Wed, 28 Oct 2026 23:54:04 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: mt4022@columbia.edu
-Cc: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>, Oleg
- Nesterov <oleg@redhat.com>, Christian Brauner <brauner@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, tz2294@columbia.edu
-Subject: Re: [PATCH] exit: use READ_ONCE() to read mm->owner
-Message-Id: <20261028235404.2a24aa50c06556eaf77a033b@linux-foundation.org>
-In-Reply-To: <20261027-kcsan-exit-v1-1-7c0429a29bc0@columbia.edu>
-References: <20261027-kcsan-exit-v1-1-7c0429a29bc0@columbia.edu>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gmail.com; s=20260707; t=1793256943; x=1793861743; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UOhqmpD4X7Kw07Ng1ggleQiy306bjRMLXhpTJKa1eDA=;
+        b=WUETKudLdsxInqGaecGL7sRWIH7KxLIW2z1l3gYvlkMRE7/ykm6SHCTg4LEtGghEBO
+         2OGUWkI2GDNHIbNRZcyror9edt+l7slA4g79GXJOZzRMXF1UzaPLxUTtGfSlVWuJqToh
+         HQwuRSVz9M6Q5UNemeSFnnU6fro0dysngavrymgXeIatasRC53el25kEaW6Ozb0TQHpy
+         xogHkLocdkJb2bhDXfSbD3DsxwyOioX7/WPrMCO84kcUH5mLJHQg45Bd+NIFVnmuhNy/
+         804Ik80SVw7TtHQfbP/e0sjn6Wpd9JTZ52QwnPjPRGni99kjTCMPEHGnK1+WlzF/n2D5
+         D3/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793256943; x=1793861743;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UOhqmpD4X7Kw07Ng1ggleQiy306bjRMLXhpTJKa1eDA=;
+        b=ACiu36kMb0F/+Guh7XVJv19q8pmNbx66uW9wHTCGmJXCAj75shb+ZTN1Ov6a9mbrv8
+         uIEdtUxWSRW/pjHvA8sJ/+0U7x4GHwDGifgPUc0LKQ3rt/PqBf42ysZCWrf4fb3xRSb1
+         hDL8JPbCpZekkK7ka089YAlfkNAPFH/C+GYs30h/4Sub9PYeCnjfnJkmyeM3M+/fSshy
+         tcSExOb9AMa7r8Qerdw+vVmV5pvtPc1wZdC/ypQFO5MXqDwCHwPrydscQFbPC1zi/z9S
+         JbWogGFDnjnb1oAYZAGVpoXfD2nBAycpIULIo10R96+MoTjYqXagxponogDEmblDBqNH
+         7JQg==
+X-Forwarded-Encrypted: i=1; AKwUvBy+IEEfxEu164nbd8Vuu06fUGUVNHRe1llRu3inz4DCWt7zHMrGW+DZ3e4Q3TOjE3BedDQBUmN2ncxJ8Dw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKj6T8vrB3EECY3gq8CyIN4MYsG/6Ud2ellZFOCUC7CpfOOtBz3
+	oLMDzUgjUV4pWGJtzMvc5S3LBCeUtz4cKIlGy9mEoH6JIrWLaG9PLBWH
+X-Gm-Gg: AYBFou1Lu8PfU1JiJRemn6EXcDuHq+asRWZhRRQWO9VDaLU4BiQ2hArkSqEyeUyatvb
+	rWKaMCNZn/VZrMXlTsy613E2bQQW9pcU1QmKR5R1pQjX5OsbdfkJMiFI1WgAMQfy2uTyhrAXM4d
+	RR7+cmwRsJVyGwPfgMCyFb8y9ZspQCDh0AhYAnxED/Htu9zdLGzf9/XdmQ9NyYDXD+8IFYV983b
+	C8peLc7Ve5DB2MOKYpD5XJUrwq9aJxyjy7Ei4N+Dab/xnFLiP62CGtssZt9g3SICi0JS6fahrgS
+	JDa4qz+kZWMk/9Ig+ZOhEv2z6aJg/7k0ZPyG03EvXB1pbKPpp2PLoD4W1Aj2PAWiDBUqOJitUro
+	KOKituqXFIxyR4yED3Z7gesC7LRgJ4Kl0Z0LO26GLiz3LhCIwcwhXlV2bEoqoA6ylVqiQ6nmTwp
+	uiq5uoX34gV40NS6A5laXHVR1UKiMIZP3itTva+iMMvFqCovyWCwwGM4n8v1pa9ynjtmRJIlJdf
+	iI40om8uW/PJmfdYIPBbueO4pOmk2dvoCeoVYevAR2Lhf54m7bKWakvgJZDd1TZpEFKu5LsAJqK
+	ENIvzp5nvNdaN7kSAJakUxiWiXifdRtPkMd7oMAqwpMWwFnRO2I7knMCGLqDKtZbc99XQ8cm1jw
+	mGqQ+Iujsmw==
+X-Received: by 2002:a05:600c:34d6:b0:4a1:d675:b031 with SMTP id 5b1f17b1804b1-4a9660b54e8mr101112445e9.6.1793256942680;
+        Wed, 28 Oct 2026 23:55:42 -0700 (PDT)
+Received: from [192.168.68.70] (host-87-10-175-32.retail.telecomitalia.it. [87.10.175.32])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a930a63eb3sm87590825e9.1.2026.10.28.23.55.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 28 Oct 2026 23:55:42 -0700 (PDT)
+Message-ID: <2a1eb85c-8a30-4594-bdad-8a1dec17b141@gmail.com>
+Date: Thu, 29 Oct 2026 07:55:41 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,34 +92,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: dts: imx8qm-ss-conn: add usbotg3 iommu
+ information
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Xu Yang <xu.yang_2@nxp.com>,
+ Frank Li <Frank.Li@nxp.com>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ Francesco Dolcini <francesco.dolcini@toradex.com>
+References: <20260720-qm_smmu-v1-0-3689fbd8b516@nxp.com>
+ <20260720-qm_smmu-v1-1-3689fbd8b516@nxp.com>
+ <b911ff91-ce7b-462e-a7fb-f8c6d682c85b@gmail.com>
+ <auJWI1bqt4kX70pZ@lizhi-Precision-Tower-5810>
+ <auJjlYWf2JCa22Ai@lizhi-Precision-Tower-5810>
+Content-Language: en-US
+From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+In-Reply-To: <auJjlYWf2JCa22Ai@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Tue, 27 Oct 2026 16:09:23 -0400 Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org> wrote:
 
-> mm->owner is written with WRITE_ONCE() when ownership moves to another
-> task, but mm_update_next_owner() reads it with a plain load.  The race
-> is expected, so read it with READ_ONCE() to match the writer.
-> 
->   [   14.915975] BUG: KCSAN: data-race in mm_update_next_owner / try_to_set_owner
-> 
->   [   14.916154] write (marked) to 0xff11000004471b80 of 8 bytes by task 71 on cpu 0:
->   [   14.916204]  try_to_set_owner+0x100/0x140
->   [   14.916302]  mm_update_next_owner+0x177/0x300
->   ...
-> 
->   [   14.917246] read to 0xff11000004471b80 of 8 bytes by task 75 on cpu 1:
->   [   14.917293]  mm_update_next_owner+0x2a/0x300
->   [   14.917396]  do_exit+0x575/0x18b0
->   ...
-> 
->   [   14.923906] value changed: 0xff1100002ec04180 -> 0xff1100002ed3a0c0
-> 
-> Found with KCSAN while fuzzing under a deterministic hypervisor that's
-> currently under development.
 
-We don't want older kernels doing this either, so I suggest
+On 10/28/26 22:05, Frank Li wrote:
+> Does it only impact superspeed? High speed work?
 
-Fixes: cf475ad28ac3 ("cgroups: add an owner to the mm_struct")
-Cc: <stable$vger.kernel.org>
+No, it's not even enumerated, on the Dev board.
+
+> 
+> Thank you report this problem. Suppose below patch should fix this problem.
+> 
+> I have not time to test it today.
+> 
+> 
+> Frank
+
+Tested, it doesn't help.
+
+xhci-hcd.1.auto has no fwnode, so platform_dma_configure() never calls
+of_dma_configure() and the new code in of_iommu_configure() is never
+reached.
+
+Emanuele
