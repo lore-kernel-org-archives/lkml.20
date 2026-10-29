@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.135.140.105
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793299361;
-	b=3D+cs0MP2NqVFAn7/Tk8r9gCxmJ6zYhs0474J9GhDJJ7glzXqDfIlfuUJ13Uv27PqSax
-	 dgZTAdBvGG+6o6oN7nfUi9c+kXuZswq+JMmn4dEgQWNB9Bq7VxCxavXbNQrhmYV68zjHm
-	 3kQc6uccPFh3bxYTpfkwI1tQKosq91iab0u4a902vqHPYdjl4Lzl91GuzYegcLqWLmmne
-	 CbhSENEJv+37JEGjQdkya6AlL2URiFBFNQEsnAgJtxh9UtucmedBPZij21eHUIk3c1hdj
-	 rOqAG7eumlaix+BIYw3piCzz0BjmRRSmld9uugp+9u4sjm5dCT5+Qa1B8vwH/eTq3FA==
+	t=1793299347;
+	b=FEwk7sl0uJpjD1Zr13LpQWP39oXD5559FVRYLWK3MKPHYJnodaQseFGcx+jV5HXzudZz
+	 MW06ydlqYbZkucCp4UJKQzHwuqz4/EG/rWrVnEWz7Id4cAT7GvGAE/uoTkM9B1yjWpXGU
+	 XPiDGbtK8DN18HlezZASsq5m+f+u2DiakUR0ed4iSFCgdMZDr/rt6LG+giFv2f2g+8fJd
+	 azLUuOviwDltJ9z+gFNDRrCO4jENGZ2qBG/BJapfg1/h9Wi9daLNZeLTBol+dbrbk+DPC
+	 JX2QPkFJsDFFgzYT8PwQpOt57rsMQJKD6iCpfOp5GuxqnlYX9Bq1a8TJAL2csccF+GA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793299361;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793299347;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-Id:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=y1QUnLMzQA9qZBFqnAYy720sjw2bb3qb84XY0QmjRBw=;
-	b=ezzua6zRlHiPJosiAE0ZjcgQgXYtwvGBKJ1SpT7uztuUPLQ2ojd72zqQkgEEK1/zhW0G
-	 iP3AQ1IcKXlEMRZx6Yh8yN49WxtdKFqAwtWOZc4dy2dVRtHphZ5UIx9ghTNjmqp3NF8mc
-	 2evoGha1BhnncPdhs6CkwES6c+pDjpaO/yEUYE790hRoA4knen7D61EhFAua+SXBcMKWT
-	 YpxYAVvbYF5GfakPt0yL0U1v9TR42mXm21c1Jbu68L2o6rR1Ig14LStN6AHH7EOQH2qAD
-	 +T7k7GP4BL75q/0W68kTQ+UV6Y/Idr/HumROFNGIs287O3RSdWbBcbbUZ8HjtR3Uv7w==
+	 Message-Id:MIME-Version:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=og4tBGqFvRDzJbCD/irW7S0M6xxL79ugE1pS6Vzr5B8=;
+	b=cnjURNwEkz47MtDmIqv/sLpxaRnwOQw5xcL8p9cx6YLqvi6fwsKPvbNoj3/nrFSCe145
+	 EYduAOCpQef2dcOrUGNnV68HX+RWMcRgHqHs9ELlLgRt4dxybed14ONk/HX7aOe1MaytC
+	 sGmpfEIcVpRH9Im/eBWaRrlvbx9cVj8Mz+WtTcok4Lir9RavqOFazo9sAkEBbZQcDAFTG
+	 XxvH0FCvh8f2B75RwQ7e3MD8xlVud4H6wmnDRSUAfGXoX9lHdPGAKV0zmjJRJ3zq1twxU
+	 dC2R7F4m5VpK/b0xLTnLVcou45zp5h0koPhbvjz2m43IK5PHWyr6SW8jSZoCqZ4HBbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cjdns.fr;
 	spf=pass smtp.mailfrom=cjdns.fr;
-	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=hKxwh3vX;
+	dkim=pass header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=iTQWdFyG;
 	arc=none smtp.remote-ip=5.135.140.105
 Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5C760A2603;
-	Thu, 29 Oct 2026 18:42:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E5C760A2603
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18594606A31A;
+	Thu, 29 Oct 2026 18:42:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18594606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=hKxwh3vX
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9D6931A60F1;
-	Thu, 29 Oct 2026 19:42:35 +0100 (CET)
+	dkim=pass (2048-bit key, unprotected) header.d=cjdns.fr header.i=@cjdns.fr header.a=rsa-sha256 header.s=dkim header.b=iTQWdFyG
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C31E1AA48F;
+	Thu, 29 Oct 2026 19:42:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1793299358; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=y1QUnLMzQA9qZBFqnAYy720sjw2bb3qb84XY0QmjRBw=;
-	b=hKxwh3vXnopJLRNNpY+11Nshcb51DHgjhVEA4h09oYoYrRENuf8zOq0NfngLI/KDjQn/mM
-	xsxAYlLMF6GrKDhJQGLa4+WTzkT9OloxTC6yl34FxwJMuw8jTOMD6L+82qKhvQCQiXCy6+
-	T2dJspxl6ROWzWlnIC6y2Hf+STY22+V2Vh6hBx5rzD6M9rwY7R8YvfXgFLbRQP8LRD6j6t
-	miQjK2ThWcRQOD43TqsOZCJowalNWSEDAOviG5xqz/ogZNn6/027jj/yLbykAOJw/0LHhv
-	9mbovcFzntO9uLl6DDu17sGYBajq6/DuZkKieXUMHxRF+FkJW0gE2SeQ+3J4cA==
+	t=1793299336; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=og4tBGqFvRDzJbCD/irW7S0M6xxL79ugE1pS6Vzr5B8=;
+	b=iTQWdFyGso2A5Zj5jV1SBQjLPhnldAOYaYW7VCXyDd9PRckEcLZIBfCiF4TrrOySewpE8T
+	B0lkTzKfOnEi2BJHc7atPq3z3ouszD9sxPF/BqTFkBALdqzfKBuHprR7yEhZ2ZNX/l4nCc
+	6RTh9xldedGxxIzfSCRFrI7vxWHTc7mRKz/sb4IkpU7mttlnLnUr36BQ5I3HqY1RetUd10
+	qPyQh7tjHQLDIiheY3vkjSaDLN259+AlihRAD07D+26g+Pmtfs92pIuYOZG76x6JKrqJE2
+	ruCH2UgviulIPx6PTtNf71OY1qRl91jaW6MIGKzd6hiwIdN8WJ50EepT1YOfpg==
 From: Caleb James DeLisle <cjd@cjdns.fr>
 To: netdev@vger.kernel.org
 Cc: andrew@lunn.ch,
@@ -71,11 +70,9 @@ Cc: andrew@lunn.ch,
 	naseefkm@gmail.com,
 	b.larsson@gmx.com,
 	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH v4 6/7] dt-bindings: net: dsa: mediatek,mt7530: add EcoNet EN751221 switches
-Date: Thu, 29 Oct 2026 18:42:01 +0000
-Message-Id: <20261029184202.1859843-7-cjd@cjdns.fr>
-In-Reply-To: <20261029184202.1859843-1-cjd@cjdns.fr>
-References: <20261029184202.1859843-1-cjd@cjdns.fr>
+Subject: [PATCH v4 0/7] net: dsa: mt7530: support EcoNet EN751221
+Date: Thu, 29 Oct 2026 18:41:55 +0000
+Message-Id: <20261029184202.1859843-1-cjd@cjdns.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,113 +85,99 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-The EcoNet EN751221 MIPS SoC integrates an MT7530 switch memory-mapped
-in the SoC register space. It is similar to the econet,en7528-switch
-except that ports 0..3 are 10/100 only, port 4 has a gigabit PHY, and
-port 5 has no PHY, but is in some implementations connected to a
-downstream MT7530 multi-chip module via a TRGMII link.
+The EcoNet EN751221 has a unique switch configuration. Every chip made
+with an EN751221 die has at least one on-die MT7530 that is MMIO based.
+This switch has 3x 10/100 ports and 1x gigabit port.
 
-The downstream MT7530 is similar to the MT7621 multi-chip module and
-has all gigabit ports.
+Some popular chip packages such as the EN7513G and EN7526G have another
+MT7530 implemented as a multi-chip-module that connects to port 5 of
+the on-die switch and is controlled via the MDIO controller integrated
+in the on-die MT7530.
 
-Add the econet,en751221-switch compatible with the same constraints as
-the other built-in switches and also add the econet,en751221-gswitch
-multi-chip-module switch whose port 6 is configured as a DSA link port.
+In this configurations, the upstream switch is put into a "passthrough"
+mode in which all traffic is forwarded between port 5 and port 6
+without altering its DSA tags.
 
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- .../bindings/net/dsa/mediatek,mt7530.yaml     | 43 ++++++++++++++++++-
- 1 file changed, 41 insertions(+), 2 deletions(-)
+Furthermore, since the DSA core does not call mt753x_setup until all
+switches are present, and the downstream switch only becomes available
+when the upstream switch has configured its MDIO controller, the MDIO
+controller setup on MMIO implementations must be done before
+mt753x_setup, or else it will never complete.
 
-diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-index f98b9113ad12..011c94ef9554 100644
---- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-+++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-@@ -29,6 +29,12 @@ description: |
-   and the switch registers are directly mapped into SoC's memory map rather than
-   using MDIO. The DSA driver currently doesn't support MT7620 variants.
- 
-+  EcoNet EN751221 SoCs have a memory mapped MT7530 with 3x 10/100 PHYs and 1x
-+  gigabit PHY. Some EN751221 chips such as EN7513G and EN7526G have a multi-chip
-+  module implementation of the MT7530 as well as the on-die switch. In these
-+  packages, the multi-chip module is connected to port 5 of the on-die switch
-+  via a TRGMII link and allows for 5 gigabit ports.
-+
-   There is only the standalone version of MT7531.
- 
-   Port 5 on MT7530 supports various configurations:
-@@ -109,6 +115,14 @@ properties:
-           Built-in switch of the EcoNet EN7528 SoC
-         const: econet,en7528-switch
- 
-+      - description:
-+          Built-in switch of EcoNet EN751221 SoC
-+        const: econet,en751221-switch
-+
-+      - description:
-+          Multi-chip module gigabit MT7530 in EN751221 SoC
-+        const: econet,en751221-gswitch
-+
-   reg:
-     maxItems: 1
- 
-@@ -158,8 +172,8 @@ properties:
-   mediatek,mcm:
-     type: boolean
-     description:
--      Used for MT7621AT, MT7621DAT, MT7621ST and MT7623AI SoCs which the MT7530
--      switch is a part of the multi-chip module.
-+      Used for MT7621AT, MT7621DAT, MT7621ST, MT7623AI and EN751221 SoCs which
-+      the MT7530 switch is a part of the multi-chip module.
- 
-   reset-gpios:
-     description: |
-@@ -221,6 +235,20 @@ $defs:
-                 phy-mode:
-                   const: internal
- 
-+  mt7530-passthrough-dsa-port:
-+    patternProperties:
-+      "^(ethernet-)?ports$":
-+        patternProperties:
-+          "^(ethernet-)?port@[0-6]$":
-+            if:
-+              required: [ link ]
-+            then:
-+              properties:
-+                reg:
-+                  const: 6
-+                phy-mode:
-+                  const: trgmii
-+
-   mt7530-dsa-port:
-     patternProperties:
-       "^(ethernet-)?ports$":
-@@ -328,6 +356,7 @@ allOf:
-             - airoha,en7581-switch
-             - airoha,an7583-switch
-             - econet,en7528-switch
-+            - econet,en751221-switch
-     then:
-       $ref: "#/$defs/builtin-dsa-port"
-       properties:
-@@ -335,6 +364,16 @@ allOf:
-         mediatek,mcm: false
-         reset-names: false
- 
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - econet,en751221-gswitch
-+    then:
-+      $ref: "#/$defs/mt7530-passthrough-dsa-port"
-+      required:
-+        - mediatek,mcm
-+
- unevaluatedProperties: false
- 
- examples:
+Finally, the on-die switch and the MCM switch connect via a TRGMII link
+which requires calibration. In order to calibrate this, PLL adjustment
+must be possible on the on-die switch, necessitating changes to the
+core_(set|clear|write|rmw) functions to support MMIO implementations.
+
+Solve all of these issues, add the TRGMII calibration, and add support
+for both switches.
+
+Since this patchset will probably be subject to some discussion, please
+consider accepting any patches that are non-controversial since it will
+make future re-submissions easier.
+
+Thanks!
+
+Changes since v3:
+* Fix "econet,en751221-gswitch" not correctly used in driver
+* "support MDIO switch downstream of MMIO switch" - clearer comments
+* mt7530_port_change_mtu prefer moved function to forward declaration
+* dt binding "passthrough mode" documentation, clarify it is a
+restricted case of switch hierarchy
+* Use different dsa_switch_ops for passthrough rather than short
+circuiting in each function.
+v3: https://lore.kernel.org/netdev/20261028011317.1557238-1-cjd@cjdns.fr/
+
+Changes since v2:
+* The MCM switch previously identified as econet,en751221, similarly to
+mediatek,mt7621, however since econet,en751221 is already used for the
+SoC compatible, is it changed to econet,en751221-gswitch. The name
+"gswitch" is chosen as there's apparently no standard and for EN751221
+this is intuitive because it is the gigabit switch used in
+implementations with a "G" in the chip name.
+
+* Do not use a special mt7530_switch_ops for passthrough mode, instead
+detect passthrough mode in each function and exit early so as to avoid
+errors when trying to make a configuration switch-tree wide.
+
+v2: https://lore.kernel.org/netdev/20260915174643.253660-1-cjd@cjdns.fr/
+
+Changes since v1:
+* Move mt7530_setup_mdio_irq out of mt7530_setup_mdio because
+mt7530_setup_mdio may be called before mt753x_setup
+
+* Do not return error in mt7988_probe if mt7530_setup_mdio fails because
+doing so leaks the DSA switch registration, and in any case
+mt7530_setup_mdio will be called again.
+
+* default_taps_ondie not being used en751221_trgmii_cal_ok unused args
+
+* Use clk_drvp / clk_drvp instead of drvp / drvn (typo)
+
+* en751221_set_tx_drive ext values too large for fields - values taken
+from reference implementation, reduced from 16 to 15.
+
+v1: https://lore.kernel.org/netdev/20260909140346.2861572-1-cjd@cjdns.fr/
+
+Caleb James DeLisle (7):
+  net: dsa: mt7530: get ctrl phy addr using a function
+  dt-bindings: net: dsa: mediatek,mt7530: describe 'passthrough'
+    hierarchy
+  net: dsa: mediatek: add support for passthrough mode
+  net: dsa: mediatek: support PLL setup on MMIO MT7530
+  net: dsa: mediatek: support MDIO switch downstream of MMIO switch
+  dt-bindings: net: dsa: mediatek,mt7530: add EcoNet EN751221 switches
+  net: dsa: mediatek: support EN751221 switch
+
+ .../bindings/net/dsa/mediatek,mt7530.yaml     |  48 +-
+ drivers/net/dsa/mt7530-mdio.c                 |   1 +
+ drivers/net/dsa/mt7530-mmio.c                 |  17 +-
+ drivers/net/dsa/mt7530.c                      | 800 ++++++++++++++++--
+ drivers/net/dsa/mt7530.h                      |  46 +-
+ 5 files changed, 824 insertions(+), 88 deletions(-)
+
+
+base-commit: 734bef548a96e8774d6eef5dfa2026c6edc4e80b
 -- 
 2.39.5
 
