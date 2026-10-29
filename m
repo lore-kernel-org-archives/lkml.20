@@ -1,49 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267233;
-	b=LeWjCaBkSY3TPeQ8DFg2pxig8Fp3Xit3fHXcdpsZYRZzo++YHXv73EfFCk277OXcSnOi
-	 V48N+CrEiPniJVIWp3b/0KihCM7VXzVbFlJCf2aIktMZXlLBTZQKRbF6VJ1dfXehcx+1Z
-	 hWBn5egWq8Xzli3o7aAdMYZMM9AQJrlH0jqPExkLTci9dQiRWLV2Gy6Bng+k1RT/nxjch
-	 9GPi3mbW/3K7Wm1EbQHRh/rIHIGW2jsSKKZKQBvw/qj0Y2AtGLW1PbjFUszU3Abdm7d0R
-	 vkmZ7iCVnsRQg7nfo4MZf9HIC007fTQAMjdGjTVGc3V/p8NcJPbA8ElWMlMmFcSKvog==
+	t=1793267252;
+	b=QP4lID01Zn2hSDSA8cVmLs42Ot/t0xVBtclAprc4Vwix6YwrF1P4/xu5Unguc2Si/C+p
+	 Dy/1FV6U0WMNUfaZGzFDtQCcN//dXHdcVOZ7c4bvrYzsVJnet0eAMd3N2rSFIRY8Gij8j
+	 RZGIdJqj6yoH6My0Jc+Ga6tqrYCSDT0Ns4kTabEsW24g3GqjbnomRB3sO8ZN9k8Pk77Qi
+	 ZOVnNzI+c3EgeMphraX3sNZUFug4B1W63MfKbgHdordXE05uQeHNbliYh8bNSzSqnp74k
+	 ZmCE1x8Uw3AfM05XKfEwxA47Be2VEtHJEM59ojd2o87eFkrJEN1MLPSUVjSAHWGOl6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267233;
-	h=DMARC-Filter:DKIM-Signature:From:Mime-Version:X-Lms-Return-Path:
-	 User-Agent:In-Reply-To:Content-Type:References:To:Subject:Date:
-	 Message-Id:Cc:Content-Transfer-Encoding:X-Original-From;
-	bh=F4gvnh7LFe+Aif3PBPP0ropSW63VFqrhI2+JK0JsQWE=;
-	b=A3oJYj867wTZlfCKMqCq2yU4xgPCnuyWVqkQxo+58T8UlVGE3R0unAln9cPZRN2v+Tpe
-	 +v9LD42HRtMJvyCgpMId8GM0azX+9Wt1/d8JhZZqGcpCYTe6+n5pRK3nLp/0ixnJNBilb
-	 /zFi/MYJNoV8DUGAY+6ctXQ2l0ctoGvOjjdFr8buKsA86R2sKU/+PFuKP43tiI3sNx8BO
-	 mRYHk3kmAI19vvFb1Wv22p63jo6l3eucczd/oirZzHXHtj2zAz+a2EMm6F/Xmfu08mI3r
-	 f7AJYB9SrsFQMHaUwTA/okZjvxbys7Bf/x4dAT9dL5fcllcfCEXfBQjKJyp4PmTcgnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267252;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Ycc/PH2cYi+TSN+J+t9gob/x5tzRRSZ7oT2i12vrEeo=;
+	b=YtCH7pmDjfbV5IxsjbTdxIa7bhu9a6luNAuSZ/o+IZHllzT2wr3SsBI5gp8iVj80J7K9
+	 X1lpLugBS9PJ6mINTGZvoNm80avPVYvtEm+TrtPysQC07eeE1FJ0lpIIoH6n74066Uvmv
+	 X/YNycX1PW2v3JxrpTVDohkeKoGsLyyEIvOglhFR7CIaxOhiiXEKBq+VbdMK4FFZEhI99
+	 bNYSWwdIehjks8nsf3dPBHVAdLTardFFhN0KFOyum23Ye8osWFrO4EimCAlUoFDUvAsHD
+	 9tZzMcpr7iQeWkjzdwuZMRFgrVlGODOAHVCGF2h3vD8kzeB6kxlMbv3BdkZateWvQow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=SKkaSY8C;
-	arc=none smtp.remote-ip=209.127.230.113
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lgyz8mcU;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24908606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:47:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24908606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C35606A31C
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:47:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32C35606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=SKkaSY8C
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1793267226; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=F4gvnh7LFe+Aif3PBPP0ropSW63VFqrhI2+JK0JsQWE=;
- b=SKkaSY8Cr57dDZjYFbF5aGDtSPstlNfCSFJedb9DWTWJx/fSKdPW9k+OwI11XLfztD2olT
- arW7Ec64JknSolPL2Kp7kHZSMJ/Lzoz5Pd+Xrj3jUNJmey+MG9INMbMdoKDJ7wWLmkyKWr
- WBC+eGghbzKf6K92PnJjh5LUeYq+4L0D8CbQCwz2T8LTi3FZ4Kc7KfYj6ovYShTrZGfDLT
- caVNuUwcj1pgcN0gcKqm1cmNfTkxww8sHbNAeeJGmVu5krU9afy4gUPXOHxNoojo14ipAF
- DCBsRhXCj68LjFXMk4IijV0ROBYGXaKpcLYTjJoHvRpZGaw7lheGG6ZY0sHhpw==
-From: "Li Zhe" <lizhe.67@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lgyz8mcU
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e20edd106so1482617f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 02:47:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793267250; x=1793872050; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ycc/PH2cYi+TSN+J+t9gob/x5tzRRSZ7oT2i12vrEeo=;
+        b=Lgyz8mcUhNcUCDD5IEgfORz4mjRCOlDMVVZwXGyb2XgMasHxukqOAIuKTL2qS/xJIP
+         jgZapcJ0sUEYf4GVksTsDeJAqNs6EWdkm8X178i1GQbXOWqA8w8+46IqC0e4+fOnYImb
+         1xhcpRSy2WEn5LddmoGNxnkeQz90AC1DU8lRmAbcT19a4zfE6Pr99gA/ZdyZMbarp68x
+         DRITRdMplt4ZBZ29SiA3eVqwysyChFxjDrvS+njESvzAgLWWEZFfkZc/PDvU0QwbkcbK
+         n+LLceh6Tahq7Tz+dEsN4thuPk7gixUoM9V1KFokDx7Cl6xACPtmGPaxXZirYufIAE9O
+         wT0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793267250; x=1793872050;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ycc/PH2cYi+TSN+J+t9gob/x5tzRRSZ7oT2i12vrEeo=;
+        b=RCQZkYxisGEkGoM9PDXV/YpKDhEmM0LC8JLBLqIY7UIt6mVWw4dRVmPBBn1wiUSP6C
+         roS+kn8ScH63GJQKTRRgTXBsXgNy4KePe6w5YZllLtEk53uk7ZvQj47IfGB+U/C0rFwL
+         C54Dwzrzkn8w0ixov9WEt+8yAj7TvqjLn9AU+GEoEtYf3iI8bMgimGm2M55cJd7UztBZ
+         oFC48h8yCaWmmJWKArTne45hPktmflYNANZdDKv9sqyj6Y0D2VVMIcYqzsw+fqC3E4x+
+         Ce2yrIxqI1VIEinODw3v1cgiI0YetgdCWDys+241kJdQm/cCXyXNV3PHm1auojSwmbQ0
+         OTCw==
+X-Gm-Message-State: AFq9FYLAqe74dA8W9LdP4pY6qa6XcAzY4DB9hkb2bYsCbFxn0O1pcRMs
+	n+2niFGGLX4mrsT/RDq+SuPIKWoT5qX63t/Q+s/42YyHojXxLFCOE71j
+X-Gm-Gg: AYBFou3x1G6Kqnnp31hnU7iEI34d0kdf+dCK/23I+tEzqsr9ak+lxN+Q/9meYkYmNan
+	snci4DkKJgj84Tu34V8Lp4Lrc9fYGEy8+JFhCLPY9cPL7JO+b8dhm+O9UloFp2o9izdxjy9mAGE
+	3dfgUBolgKiMduYXLXOORXHPs52bSUa3fo864ZCWSOvbqcc0P6D47+t73DMZLegg9ynlyhB7V+r
+	eMJAKSij8xO8bexKqaYQAMaHkwF89PeimapZQcWL1jrFnw+BaIoXkEMKtbJ54vA2mDH13aW3kv1
+	DVE4QqBXdxG3UMCI3g79kUj4jKzKCXKg7Q16WZnFaZa+VL1aL2rHev9PU6zWQgGAbtXYAeKsjiF
+	6dQkqEQPinTqEop7byt7gB3IIAx4C2MxGHIK+ZKHFXND2R+3JzSGtm3i+9oBy4VrahCj7AGDwKF
+	UTr238xX3nLCbjpy39vwBmBgeriBd/2sZA7Mrse2Jk0dPHv5Um3/IAzCur1JLWOMjsLH/He0yWt
+	4FW9OcDEy2kIo879qQzmS9ieaC5emtqQI1P668kJt9SfK2zD3QtnYru/lACrEg1ZJ9PcdKtqq7g
+	sOpBw71rrvfPjHez5cQa2cDArlpJP+3Yhu1NHPLkLNLSowC1Rrva8dwGwlAjcFJXVafxdOdSO8+
+	GV0+OJhu5VhtglAhkzmp4fqu92eFFSGVzhOY+5G1JM+3vvHFwfJp74w==
+X-Received: by 2002:a5d:5f92:0:b0:48e:69ed:cb51 with SMTP id ffacd0b85a97d-48e69edcc52mr1562250f8f.38.1793267250355;
+        Thu, 29 Oct 2026 02:47:30 -0700 (PDT)
+Received: from GLaDOS.station ([187.13.215.67])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebcb851sm28853779f8f.26.2026.10.29.02.47.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 02:47:29 -0700 (PDT)
+Date: Thu, 29 Oct 2026 10:47:27 +0100
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: linux-kernel@vger.kernel.org, pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-integrity@vger.kernel.org
+Subject: Re: [PATCH v1 1/1] tpm: tis_i2c: Add reset delays for ST33KTPM2XI2C
+Message-ID: <auMWL5d6gkdRvrks@GLaDOS.station>
+References: <20261028094504.4256-1-stefano.r@variscite.com>
+ <auJb8drL7rpvNMyK@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,82 +98,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ae31618+2eb6f0+vger.kernel.org+lizhe.67@bytedance.com>
-User-Agent: Mozilla Thunderbird
-In-Reply-To: <0676993f-c04c-4e4e-9f8d-1650c8fd6d6e@amd.com>
-Content-Type: text/plain; charset=UTF-8
-References: <20261028041253.74839-1-lizhe.67@bytedance.com> <20261028041253.74839-2-lizhe.67@bytedance.com> <0676993f-c04c-4e4e-9f8d-1650c8fd6d6e@amd.com>
-To: "Bharata B Rao" <bharata@amd.com>, <akpm@linux-foundation.org>, 
-	<bsegall@google.com>, <david@kernel.org>, <dietmar.eggemann@arm.com>, 
-	<gourry@gourry.net>, <joshua.hahnjy@gmail.com>, <juri.lelli@redhat.com>, 
-	<kprateek.nayak@amd.com>, <ljs@kernel.org>, <mgorman@suse.de>, 
-	<mingo@redhat.com>, <peterz@infradead.org>, <riel@redhat.com>, 
-	<rostedt@goodmis.org>, <vincent.guittot@linaro.org>, 
-	<vschneid@redhat.com>, <ziy@nvidia.com>
-Subject: Re: [PATCH v2 1/3] sched/numa: make free-space tiering promotion bypass configurable
-Date: Thu, 29 Oct 2026 17:46:40 +0800
-Message-Id: <010b2b6c-8f1b-4c3b-913f-cc2e8b957759@bytedance.com>
-Cc: <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<linux-mm@kvack.org>
-Content-Transfer-Encoding: quoted-printable
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auJb8drL7rpvNMyK@kernel.org>
 
-On 10/29/26 5:34 PM, Bharata B Rao wrote:
-> On 28-Oct-26 9:42 AM, Li Zhe wrote:
->> Memory tiering normally promotes any recently accessed slow-tier page if
->> the target fast-tier node has enough free space. This preserves the
->> existing policy of filling available fast memory before relying on
->> hotness and rate-limit control.
->>
->> That is not always the desired policy. Some deployments may intentionall=
-y
->> keep part of a workload's memory on CXL-attached memory, for example to
->> preserve a desired DRAM/CXL capacity split or bandwidth distribution. Wi=
-th
->> the free-space bypass, short cold accesses and bursts of hot accesses ca=
-n
->> refill the fast tier and pull the workload away from that distribution
->> whenever DRAM has free space.
->>
->> Redis testing exercises this policy issue. On a CXL system with node0 as
->> DRAM and node3 as slow-tier memory, a Redis test was run with
->> memory-tiering-only mode enabled. The test used a Redis dataset with 12
->> million 4KB values. It reclaimed memory until about 85% of Redis
->> anonymous memory was on node3, used a Redis benchmark configuration with
->> a 10% hot-key working set, and then issued a short 256MB access burst to
->> cold keys outside that working set. The cold-key burst mainly touches
->> memory outside the hot working set, which is expected to remain mostly o=
-n
->> the slow tier.
-> Can you please clarify if 85% of redis memory ended up on lower tier natu=
-rally
-> due to overflow from toptier? I ask this question because, if it is a nat=
-ural
-> overflow/demotion, then it will be hard to find head room in the toptier =
-to
-> allow promotions that bypass hotness or rate limit checks."
+On Wed, Oct 28, 2026 at 10:32:49PM +0200, Jarkko Sakkinen wrote:
+> 
+> "Pull the timings from the matched device entry. If they don't exist,
+> fall back to the legacy behavior without delays. Update of_tis_i2c_match
+> with the timings for st33ktpm2xi2c."
+> 
+> I.e. the last paragraph has the language of a white paper.
+> 
 
+Hi Jarkko,
 
-It was not a natural overflow from a full top tier.
+thank you for the review, I'm sending the v2.
 
-The test intentionally reclaimed/demoted Redis memory to the lower tier
-to model a deployment that keeps only a limited fraction of the workload
-in DRAM and leaves the rest on CXL memory.=C2=A0 In that setup the top tier=
- can
-still have enough free space, so the current free-space bypass can promote
-short cold accesses back to DRAM.
-
-Those pages are not hot enough to be promoted by the normal
-hotness/rate-limit path, but the free-space bypass can still promote them
-when the top tier has enough free space.
-
-Thanks for pointing this out.=C2=A0 I will clarify this setup in the commit
-message.
-
-Thanks,
-Zhe
-
->
-> Regards,
-> Bharata.
+Best Regards,
+Stefano
