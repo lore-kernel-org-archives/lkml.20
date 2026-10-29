@@ -1,88 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793299077;
-	b=4ZbaJAlqOPAFCuPmotq9HheMmgfz/HfsD1QGqp3uDAA9SWLWhbU9XC2cjwTYXtmVlnt2
-	 ijbFNWYJx9tQ712OUC5pS1uYDLQMm1vktwXSwvvNkSASxO4y9IT1xYUfKK+2sctwjRTwE
-	 cJLbKivvzy4nz547bFTjAHa7BmELj0SJBct2XXe7jHIEdw8IttcoNusY1UELsRLtYfqVE
-	 EguVIRMtHKzufpBeT0L6//H+hwFjyyhVS4gBtW6O1OwmHcErnUYui2dCudJPN6BJTMS36
-	 AJWoR3Eee0WHtyNSvKxh1k/+Y3+gJiJumZs2jms7moxiHAPFbgVbio5zwExosMa0GeA==
+	t=1793299090;
+	b=h3+swn5eI5rmncsMZXhks5cJoq8KDmZz3Hp+Vnl5IQgkdgJytxLG/2IX84++zzjyYzU+
+	 B9z7YGrg78umtrBeiCZw6NrBOHt8+M/GmW1AXf2YjBm1NV8FYvJcTZh6xeCTjrjHhXmOY
+	 VvwzGCmEjyQTVSE3WvD3vQ1JAvLAiMhx3QpGi6KX3mDsCFU07Z3V1G6D7HA7qPg8wzQxs
+	 JTA14g+Mv3jFFDQ2rmZcpDUSh6eoKbPq4nWj5d4qzi5B2DE7sKv9BhopbKRSfPhIprmvJ
+	 UdGlcR545M7TE76K2hqTPsadzF/hPnlFJ7Ia6CseP4/RUYdhh05XVso/nb9pGmdBYZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793299077;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=DCSLRnb0vtBw+c3BivhCF1ac7dx2yv+/JlPhFH01Ir0=;
-	b=2Mq2nHNQm3ekUKme9aR2tSGTLuyrywOFMRNbV1gx9ySMtkp4VNifETSoFCJOird9tstp
-	 lgtCUKp+HGiuk1lkqaLuj3Fy5ru2toanu07y0QfvNDGpmr3tmQkpO70VvekwFvUZKd88d
-	 1fkfRFe91EGNcwA79PC1ZOOs+WnORSvVmPejymI1JldePyHUSItcIFGytMLUbh8hJEEls
-	 qVu7h28NF7VpKDzm0zEFEyuDa0EdCsvlc+SPLo8ECzyU/2vzmapFI+6FAh1lCjV62Y3CS
-	 x0WuskuIoY52960B8r9Ra4R+05AQK3v4kwwGOKO3uTzYkaZ3bRRFZ0F+X5xqF9YW9jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793299090;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=b2w+vj8iicPlV6jF/HQkqNrcUN/p+IVy0qQbtmQn7Pc=;
+	b=aJpK/A4JhMOrvYIy1dfOVegOP2X/Pzq/ekLig2Ny630RzFaZVu7/WGtTghm4jv5XjVcv
+	 bL0uHY2m+zzYI7Y1OSX23MAgN2lh55uy7Fr8tWy7smLx8gsfhxlDocy5emc+LtGOigW7m
+	 W6+t+czch+S8hKNoNW/aYGCLbuGRDeqdb6XvFM+pijocvWkDCfewm5E0CE1M23jbbfVYd
+	 w3OAwAx75sLbZe6V9HGOvXYICIz1bxalTY56JwNZrblfEr9Xm4DsRL/7lnNvxHp2X389z
+	 jUpyOnucmyZCF7lb83AJf7a30T4Ekvd+PrcT/rRVwCrEI+tfA2PhKJQQgm7xuiDGE7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PtRlp9Hi;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAkEs8EJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC08606A330
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:37:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8CC08606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F76B606A324;
+	Thu, 29 Oct 2026 18:38:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=PtRlp9Hi
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso19483235e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:37:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793299075; x=1793903875; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DCSLRnb0vtBw+c3BivhCF1ac7dx2yv+/JlPhFH01Ir0=;
-        b=PtRlp9HitDBZUFMr/Mb1qE3zNnxZYXubCstEyiWpdLTsCbtOuug/umH9VSHiw4vl6u
-         8tWV4xexXjwsu2qbHGIOgvKvq+t6rcxXZ53HidIIqS/LiEkYvUoL6oV08ynAKkwHDF5v
-         w0/XvAaW4Brh+Gt81HKfzuaU6R9tQ95fq4vJJOqztZqw5s21NAMHAckqIZGjYAzDoZEn
-         EpDH425E2W7CDVfDzrNCXxFIiCMM8P9/Zny32mKXCNd31GlLmEHWsNm9h7uI/FXCwNi3
-         9ty9Qtr42YXgqhuvHCpEQ9ncTpFhBSMRL3qaRbN8txhQvxQah35JAby+D+APMus9Nmep
-         4B1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793299075; x=1793903875;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DCSLRnb0vtBw+c3BivhCF1ac7dx2yv+/JlPhFH01Ir0=;
-        b=h9IXQvwjWlD73zGaeX3W4k/JLKeWqyjROb+bkWeezI1eX10j/XyUQm0y6VnmnF0AK4
-         yi4rjYuCh1S9EqziO5A2299M9q+CW/bDYcNOJIIJHLzGfUp+ePWXSBq0oHoJZZmRb7um
-         l4fQJbHyAJQAudiQsjL0L5o4CajdrXi1v9bAskeZjco4qmWFiXInHZjSijOAs0ACnz5d
-         olA3imI8QlaQki1ylSmsJPDzb0HRj7ZQ9SIHs20o7po2vFPNZYnYwTRISobEjVK0jmTJ
-         aurjEjQIVtdpHpkMDB6GFc67XdOHa5BPlQv5c5kmxWuiZdGXFof5rdKVRwVt//y73eiT
-         bYQg==
-X-Forwarded-Encrypted: i=1; AKwUvBx5sHAa46tAIr4QEuH2zbuSBGpgQw9qZo50r6JLyk/vtThHs9L4Wj9LcZbphaHNdB1zbdqd1HlihzHO6R8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYSzxQGO6L5vCuXa7D0V1gwfqrKlt3/MUqMF4irq3EWbCt6gMf
-	7G21O5V06jxL6D24gxYsbEntbiaSP5YRpNZKiuT5gG6uNpKwQGW2L2hKHreJjoa9QhQ=
-X-Gm-Gg: AYBFou3CRjltjfyvod6/Or3n3GJ2V1tdUtW+kW35SNQ+3+vvStRGCiM5JlSEWy7lEjX
-	ErbEB0yabEd5ushwgCFk4MDMHD8b3kKW0WKY4dvwrToisEDNPmslTPMe50Eszy8QQhwgGxu2np2
-	SjkZTSn0GvDBq7hj7HQ+AqDUNOY3vqPppAHega1jns4nP2S/oYy7ogSO8HU5Sjkl0J52jo/C9+2
-	+LxGNQtWE5acvN7us4L42Bn1b+gVgRmgnhEOXsombr6+ZvCVeD5hbcMdpI8NlYnMEN0Vlugcqnx
-	3NfPVR+5XTqGlOMK2s+lb7QxsX1AwbroHTU3GofKZrRwUPKkisTFIVX3e3JYB+codC9QfWBeX06
-	n6cscoSUo0HK/LTreUjGdEZVaRq/By57oHBhsRXNxoVBrTJgftoreHMC09uj+sTxcXGUri9fMxG
-	Yug8HUJCzBblXAynrwRWgYPZAYipv69/zU1oxvVv/BDE4xF/p37mneApLS5yzX6uY5xQ6BCrQx7
-	HSlBjdSetmELLLBKAxU5bw2EK1ryXo2MLRr+JsmAgu0LCxObRBWrRVgsNyAQjGxXlmB21UDQ8eb
-	OlvuUaYTsdMpZPDvvSW99ficx1MoJ+9kWbHzEcocyBIPBNcJfBZCWxl3Cot5szZY4jhGDeyk3W1
-	PKXcnMBwShZtU4wCu+2I=
-X-Received: by 2002:a05:600c:c8f:b0:4a6:42cc:bf6c with SMTP id 5b1f17b1804b1-4a9661ab555mr157927155e9.7.1793299074975;
-        Thu, 29 Oct 2026 11:37:54 -0700 (PDT)
-Received: from [127.0.0.1] (host-95-246-144-141.retail.telecomitalia.it. [95.246.144.141])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa820492cesm90118305e9.13.2026.10.29.11.37.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:37:54 -0700 (PDT)
-From: Carlo Caione <ccaione@baylibre.com>
-Date: Thu, 29 Oct 2026 19:37:36 +0100
-Subject: [PATCH v2 3/3] clk: meson: s4: fix ENCP clock selection
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JAkEs8EJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83B9C1F01824;
+	Thu, 29 Oct 2026 18:38:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793299089;
+	bh=b2w+vj8iicPlV6jF/HQkqNrcUN/p+IVy0qQbtmQn7Pc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JAkEs8EJN/Bf+qs1JTnsMxvRL/eLDI1l4ogYKabyXSaVDPvfJZ4MEqwwUb9CgTxZ3
+	 RyVM2Dn2/3LUABGZIwEtv1WQBw4sx3e6AkGAjuxw06pnMyz8lRpeduz3NSrd4iDeEy
+	 /P4Z20NH+ukg4wAuV2eqT65X6irMgULu1xgV69x9BVq2ENh1X0x8S85IwzocdcQpcv
+	 1L0wCM/h0RnVMCQ+PyPhgedehge2oEiiFrH9imJBRpGH/9jUVLyadiodkKi6W2CFh2
+	 NwoHJZwrjy9L4+5XRXl8AlqPEmFRS3zSIJLmG6Hq5K0OvS3s5LGaM5LF6XJ5R5bL3t
+	 PRZNrzaIL+OMg==
+Date: Thu, 29 Oct 2026 18:38:05 +0000
+From: Conor Dooley <conor@kernel.org>
+To: xianwei.zhao@amlogic.com
+Cc: Junyi Zhao <junyi.zhao@amlogic.com>, Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Xianwei Zhao <xianwei.zhaol@amlogic.com>,
+	Junyi Zhao <junyi.zhaol@amlogic.com>, linux-i2c@vger.kernel.org,
+	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: i2c: add Amlogic A9 I2C controller
+Message-ID: <20261029-survivor-dubbed-16d6567b1a68@spud>
+References: <20261029-a9-i2c-v3-0-7b30ccc00533@amlogic.com>
+ <20261029-a9-i2c-v3-1-7b30ccc00533@amlogic.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,47 +63,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-upstream-clk-encp-sel-shift-v2-3-31ffbb6b82af@baylibre.com>
-References: <20261029-upstream-clk-encp-sel-shift-v2-0-31ffbb6b82af@baylibre.com>
-In-Reply-To: <20261029-upstream-clk-encp-sel-shift-v2-0-31ffbb6b82af@baylibre.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Jian Hu <jian.hu@amlogic.com>, Yu Tu <yu.tu@amlogic.com>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Carlo Caione <ccaione@baylibre.com>, Chuan Liu <chuan.liu@amlogic.com>
-X-Mailer: b4 0.16.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="U/zaVfmhbMdnWLNK"
+Content-Disposition: inline
+In-Reply-To: <20261029-a9-i2c-v3-1-7b30ccc00533@amlogic.com>
 
-The ENCP clock uses the wrong selector bits. Change them from [23:20]
-to [27:24].
+--U/zaVfmhbMdnWLNK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-See the S905Y4 datasheet v0.7, Table 7-58.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Fixes: 57b55c76aaf1 ("clk: meson: S4: add support for Amlogic S4 SoC peripheral clock controller")
-Reviewed-by: Chuan Liu <chuan.liu@amlogic.com>
-Signed-off-by: Carlo Caione <ccaione@baylibre.com>
----
- drivers/clk/meson/s4-peripherals.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+--U/zaVfmhbMdnWLNK
+Content-Type: application/pgp-signature; name=signature.asc
 
-diff --git a/drivers/clk/meson/s4-peripherals.c b/drivers/clk/meson/s4-peripherals.c
-index ba41fcd90588..33573eb85927 100644
---- a/drivers/clk/meson/s4-peripherals.c
-+++ b/drivers/clk/meson/s4-peripherals.c
-@@ -1114,7 +1114,7 @@ static struct clk_regmap s4_cts_encp_sel = {
- 	.data = &(struct clk_regmap_mux_data){
- 		.offset = CLKCTRL_VID_CLK_DIV,
- 		.mask = 0xf,
--		.shift = 20,
-+		.shift = 24,
- 		.table = s4_cts_parents_val_table,
- 	},
- 	.hw.init = &(struct clk_init_data){
+-----BEGIN PGP SIGNATURE-----
 
--- 
-2.56.0
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauOSjQAKCRB4tDGHoIJi
+0jzsAQD6EoqJcpsiitqmxnGDZSuKqITsWNdf9GYZdOEpvBqkegEA9b+UlUZT82iG
+bj8rtXcmBXBPFkb2mzUl9lmprEjgNgY=
+=NgBQ
+-----END PGP SIGNATURE-----
 
+--U/zaVfmhbMdnWLNK--
