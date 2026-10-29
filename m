@@ -1,60 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793274090;
-	b=zWxH0EkQB1KoSgX0i88Ffn4Ypc4fSRkBsazRwqMzKZjYKi94yL1Izv1OenmDyk2wvVEs
-	 +LVlDkhLb8HLWPot3m2Q4bdA9hFa3wom9YRDeEz1uyyZGCD9zydE++CQXkJww+hCFuOQc
-	 vjx8quR1ARLoddkQci1W2ojLT4eOvelGAh1VfmuvfAZiue8kG6cDNwzJ6wg4wqwol7C9v
-	 sqoGK+SO2duCdB3plNBj9UwQ9Srn5AOIT/rWgue0nBMNZtNjWI4EDdk6Nlk+L8JAz0LOO
-	 TUW/G1pSuV9mm1ZGrYAkryyarcYH4d16DO5nmNtmJHCAzn4jV54EqgQHtCy1MhkR90Q==
+	t=1793274283;
+	b=xE4OfFgkiAxfHt2G+bTVcCTpRYTPuqIcr5w4dyGwcaBgxZRBbu+rxgu0iIqVIiGxXrL2
+	 IG9z6dAwgWVAZ248P1F1UAssh7+7xzUON60OvqMNOrS4df2mAXs8mbJMKUxPCiF11tLjh
+	 wqtsqVTKvCvIHtCQtUBAm0cbmQTjbVrRnRhQV3QR2rTz/0O+KsiYnKt5aOwcqnAisXJdf
+	 j5gYs5XcS2VxL3EKLgKPjhBOTpwEWM0XateRy359lA0rlet9qCd6qjMJy6JawpoT1Blod
+	 6jNihIltKVJj/+3neb1KF0yD7VVC2GrcDZo4IeOk0Rj3uRoUq44Gula0nS/XyKyUUcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793274090;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=pi2nVApqlKwx0joef1xugg5ItvXufYozQ1yREpi+wtk=;
-	b=IG+gSQIRAZUZZmMBNH2xoSbAHuMoqpoGd8uebsSHOIHB/zrh+oe818kCQDk4EpkM4T2i
-	 1H1N951tfU+C4heFWsAwXkLFnj0uqlr1B+EtG8HP1mbEPgKWX/ZTSyTLfibZurRjU8c2q
-	 4srWo5Wmw4bYkudUfUBRGNp0yS4p3tt3pZNEVFOuKDbnxVc16v3qKQkbHWW0mxNLcUx1j
-	 sshG+HhrB7P7rtuNm4xzA8kwup7nRhHnk570eknZb63V3i1EmdCpXlL9+nuuaFL7oui2d
-	 nMX7MAsRSlRy8TpYMXsxA654hCLtA4dVVRckUhfvsN9/8C9zyju5TNDg+8/YIYerBtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274283;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=1olh1yaYuceUzaPW/siuAgly8uR+9SdKb+iCWXFA720=;
+	b=LHwLYNvtJhY6LZfp8q2dEzYsK0Sxgrjx8ZM+UrZYL+8edIgk2BGdIPHG45XjJH3J4ZEf
+	 y/TlXA7i7f5QB34jlMUXQrugUy3PB0M+uMCwM4Jvr9iq+CtMlEekyNAwtXSMFgpTo/Bcn
+	 PaEobjk0IHzQVKuSSuM+w1PXNwcVSFdHRlAY+0j07LSRaLkZQn8Tm+toLof7h9zpQkFiZ
+	 SIgiLkqHgymAqcegr9qFuVgBzIxO2N3wnTh7K4ndIbs0KWeaZ9+Q8+W0QZMeTkSNwUbYs
+	 2J2Vcp5RFSZg2kkCZzaNk2WxIsKksZNAui7ColVxsVsjbgDQ7u8xufNvoBC4f6uC72A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gihb8kIs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L7CGHQB4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74CA1606A31A;
-	Thu, 29 Oct 2026 11:41:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BA2606A31C;
+	Thu, 29 Oct 2026 11:44:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gihb8kIs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C73EF1F01825;
-	Thu, 29 Oct 2026 11:41:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L7CGHQB4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AB991F01825;
+	Thu, 29 Oct 2026 11:44:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793274090;
-	bh=pi2nVApqlKwx0joef1xugg5ItvXufYozQ1yREpi+wtk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Gihb8kIscXZQaR+6XpnWpr2udrlNsTsIhNfVuRRa969B9agMDR9LmItW9XyVcFMf0
-	 ZuBRARQqtrjUDKUuyEFzHSvpdFlNjUD9AeiDsXeLY/eLncnuRrBf6xINMALu3ZnS9i
-	 IBTa+sDCvx9cakUTStbcvsuwUlMCjMzIey5fE7LugsDePlQeLfYWe7XSByr8eyuH1h
-	 ZW2J3rbABl9+ivFiwWaBQy9iArDMMo7UnzRTQQIdmwbWMWdTxzwRpZwRNb32QLJONc
-	 Vi3RAptSULVoDFvNhFGznyH1jY3SogNC4mfuYbolxtJrmn1Be7jcjyjseC1heYLJFb
-	 VQF6x1Dcs2IAw==
-From: Mark Brown <broonie@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Sasha Levin <sashal@kernel.org>
-Cc: Bard Liao <yung-chuan.liao@linux.intel.com>, 
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
- Daniel Baluta <daniel.baluta@nxp.com>, Takashi Iwai <tiwai@suse.com>, 
- Jaroslav Kysela <perex@perex.cz>, sound-open-firmware@alsa-project.org, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261028144446.992948-1-sashal@kernel.org>
-References: <20261028144446.992948-1-sashal@kernel.org>
-Subject: Re: [PATCH] ASoC: SOF: Intel: hda: Stop the controller before
- freeing its DMA buffers
-Message-Id: <179327408341.62540.12883770899649017703.b4-ty@b4>
-Date: Thu, 29 Oct 2026 11:41:23 +0000
+	s=k20260515; t=1793274283;
+	bh=1olh1yaYuceUzaPW/siuAgly8uR+9SdKb+iCWXFA720=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=L7CGHQB4JZmofADxWOMliaIc6ThxHm11/fgV+M1P5QJGmfj0/9dtndktTu+W6l7y5
+	 qJweaULviPZxLdJoklAPo2WymTE8HD/MVf3LEuy7MZ3jPkRQ5lt/b0ghCIIkR+kbCD
+	 jp62hdv4Skuvt0sMvNZHrfRM1wGYcHtp248vky/JStR/f39eDVXGMVXpWjhCtmpk4u
+	 QSm5672u5Aej2InelJ4OC55KzM6ozGRN41pmtnDvwM2badRqi8bS0bVceeBFdO10If
+	 DKeM4BJzWJ2rvyt4HgkX0CHC6lkoFJOtxcRPNqGjxm8h5tDdl1UK/NMqAbFqpzdvgg
+	 HFsPnC6WWPa5Q==
+Message-ID: <d92115f1-92fd-4c2e-8a8c-1c4f3779b4f6@kernel.org>
+Date: Thu, 29 Oct 2026 12:44:36 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,46 +51,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] powerpc: dts: Add support for WatchGuard Firebox T30
+To: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+Cc: linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, maddy@linux.ibm.com, robh@kernel.org,
+ conor+dt@kernel.org, mpe@ellerman.id.au, npiggin@gmail.com,
+ chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
+ sashiko-bot@kernel.org
+References: <20261029112742.10238-1-lefteris.koutrakis@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261029112742.10238-1-lefteris.koutrakis@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1163; i=broonie@kernel.org;
- h=from:subject:message-id; bh=VoP8bYW+khu29xNYswZNHpexAi0sI2RFBpRM67cmIR4=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLIeGzwNexQZmX+4PuEh99IM62PBTX8e7ze+Y/k+1k9XI
- VXmzbLmjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEzkORMjwyRFDZGPsr0i125/
- Xns//klO4orZuU4XJty3FWByEvN2u8zIsLN28+HHtsd1C2qUGw+K+T9izVb4LRjj45D/asOEq9/
- 4+QE=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Wed, 28 Oct 2026 10:44:46 -0400, Sasha Levin wrote:
-> ASoC: SOF: Intel: hda: Stop the controller before freeing its DMA buffers
+On 29/10/2026 12:27, Lefteris Koutrakis wrote:
+> Add initial device tree support for the WatchGuard Firebox T30 board.
+> Enable building firebox-t30.dtb under CONFIG_MPC85xx_RDB in the
+> arch/powerpc/boot/dts/fsl/Makefile. Document the watchguard vendor
+> prefix in vendor-prefixes.yaml.
+> 
+> Signed-off-by: Lefteris Koutrakis <lefteris.koutrakis@gmail.com>
+> ---
+>  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+>  arch/powerpc/boot/dts/fsl/Makefile            |   1 +
+>  arch/powerpc/boot/dts/fsl/firebox-t30.dts     | 386 ++++++++++++++++++
+>  3 files changed, 389 insertions(+)
+>  create mode 100644 arch/powerpc/boot/dts/fsl/firebox-t30.dts
 
-Applied to
+Why are you sending v2 after you sent v7 already?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+> 
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> index 5471a06f93f1..75fe4bcbe5f9 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -2017,3 +2017,5 @@ patternProperties:
+>  additionalProperties: false
+>  
+>  ...
+> +  "watchguard,":
+> +    description: WatchGuard Technologies, Inc.
 
-Thanks!
+I think you are making random changes. You sent it now, but v7 sent
+yesterday was quite different. This makes no sense.
 
-[1/1] ASoC: SOF: Intel: hda: Stop the controller before freeing its DMA buffers
-      https://git.kernel.org/broonie/sound/c/11ae63bd9030
+I propose to slow down and learn to interact with Git, before you send
+anything to the mailing lists.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Best regards,
+Krzysztof
