@@ -1,71 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793273791;
-	b=uJW+yd4wzzjPXKvafoxH+v9wrvPIyVAMLNo61L3oezWzmVvkX4bPDXvc+10KstXAZEsJ
-	 s4XZNcSnScWR92EU6pwGemGi6bYg/460X7i2sVHpFAGOnC2Il7lYxS4frcSlAP3vfgPQP
-	 BDxdugbiZuPY5MJeMZ1WbOVtQK7kp4bthSpKL4LVMSPGvEuybtCqmlAmtnBjDejvem0yd
-	 ixsNkU2egv8h1JY0HwelE5a6aQLZHsvj9fFZHr+BRrBn3NbQWle9PmtZQvctLPw9fGpVx
-	 fOdHS2Zs5xHMAZ2hOv4QH3wOFUOTtyJshalyFbz/qTt27R1u5MXe4T8rx+BpRYeuIjQ==
+	t=1793273855;
+	b=uD+rSsKI7LYrGftf5MmOOuC3EcSLy21dcP2q/txZ1dD/vbFl2tKJhyglPETffGnCEDAw
+	 Edirm8qM6gyaeqp/44tJLHWw9jg9Zm+k6OB5tJw0qm/EtuXt26P7p6WqKQNQlPlbhxYFY
+	 vcX+LxXiAytEyB5IrDVhx6+AMRXyXpplhGjuQvGb5zpIQw6msV/GWPHi4ReKOSPPPnjfq
+	 bdbnMrYr0dnqVV1Olc46dzni3AH/jZDmh4iextmnGvh4fEhXPu/4q7raZL2BbAfu8tJKE
+	 aTeFhXTcFHLH6mMyl0w8aHwOqG2hicRTICSTqTOyXldfd4+39/DFTQ+v4dey4cETPMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793273791;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793273855;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=EONOj0OHaUwSYU9N/VrCCNs20gpUnplCCd7yehPjBGA=;
-	b=VApR5chG3gAZwtnis6suLV+c0GlTH+YskforeaLz2pXEgcqiBqHLDjtkgV2ZIWjsp4bH
-	 uYiXkpcJ1UFAowjwMsNuTI6504iil0tz5pilieW2xTpLXi1HnAj46PDBYnz5TvTw0E5fg
-	 9MjN2SHROXPPRpIAF5r+mIkrBEXRDkrl8UCyYXlXx3Dj85Sj2fHwld9Vz9W1C4QlP9URE
-	 hWcKyOErOlvMlopS11seXPWP+Yi6DZQHfGKpNhrHyJuR0L8Ipz3sUY+Tz0K7zD+vA4aCL
-	 n2J83mrvYTrLk5W0u/E2W4iH7SLj0vLQtzJudstVgpISjc7SzQE1QaPtVQ7RjTvanhw==
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Infomaniak-Routing;
+	bh=eHfZE4PHAumKVw00FNrKGZ/KoE0eh/vNsiLYomKpEgw=;
+	b=qiB7W1QntilehQO/vEaQdu4Y3odfRzoXVN+0NS0cr03yoByM5s/RVQc+Ejtb/eD9pUGj
+	 2ljM25im1zlJ/5H1O5xujfRffWeOMfZbgT1c8+fqCtWIxxUTid7qCwt+5Td7q1nOLMKv2
+	 RoRrTk9zbyF7lJL7MZJot65jVB5qD7QNqNpmuI3XIfTWJ7fzSvTfo+2GRyPsvrwIhJg7h
+	 wjaQY6Cr9Xi42sv+G6vg1AU2OY9A0VwUZgyEMqzMY/fFcTvjt5EVyXpldDToc3CTcnPJo
+	 bDlhz2+9CzGKwEY8fPU+SD7AsO70nSF43VmcDybXuUnKHjWvA2sPPjhlz44mdq7Bjuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="KjZbwEu/";
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3EDC606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:36:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3EDC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=none header.from=digikod.net;
+	spf=pass smtp.mailfrom=digikod.net;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=qws1AYFs;
+	arc=none smtp.remote-ip=83.166.143.173
+Received: from smtp-8fad.mail.infomaniak.ch (smtp-8fad.mail.infomaniak.ch [83.166.143.173])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FC7606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:37:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0FC7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=KjZbwEu/
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E03931BB2;
-	Thu, 29 Oct 2026 04:36:25 -0700 (PDT)
-Received: from e143914.arm.com (e143914.arm.com [10.2.213.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7F6E83F59E;
-	Thu, 29 Oct 2026 04:36:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793273789; bh=dTGDCsCEyj7FTwEr3QOxyYhJdKuSWQypWjxORP+0gqw=;
+	dkim=pass (1024-bit key, unprotected) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=qws1AYFs
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jFhzR5v8nzt0C;
+	Thu, 29 Oct 2026 12:37:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1793273843;
+	bh=eHfZE4PHAumKVw00FNrKGZ/KoE0eh/vNsiLYomKpEgw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KjZbwEu/7pDEST1UcOZipx4PNL9nNtV9k4JfrRVNhaXNfLarV45iCTWV4XZJHtYBg
-	 7Qp8V4vg0BATp9y3eKpby/88Kdy0oRFzOenzdRcLRn8qQk5gAomlm+R8fdT7xSPCqV
-	 SKKx4Ybb/qFPlXDLhYwX4++/hczTt+/4/Xj4mTiw=
-Date: Thu, 29 Oct 2026 11:36:17 +0000
-From: Joey Gouly <joey.gouly@arm.com>
-To: Wei-Lin Chang <weilin.chang@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Sascha Bischoff <Sascha.Bischoff@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Thomas Huth <thuth@redhat.com>,
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>
-Subject: Re: [PATCH v2 3/4] KVM: arm64: Reset TCR_EL2 according to guest's
- E2H mode
-Message-ID: <auMvsSOJ7canv8lh@e143914.arm.com>
-References: <20260917214215.74135-1-weilin.chang@arm.com>
- <20260917214215.74135-4-weilin.chang@arm.com>
+	b=qws1AYFsJRAFrEibfRJMw6vRg1RddQFeLYZXo/dFV6qTtr2iUnKM1pIjCmJI4kda4
+	 Gha+sg06kqltmryQZ2HwEdjmuONSjezZzJeiopU5f/fR0VmNz8XuWMCnJVE9r6yPtN
+	 yqjz5rjdDMl5FG1E3bZQddWAqWSkmZBEuia7KoAE=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jFhzQ1yLXzGM3;
+	Thu, 29 Oct 2026 12:37:22 +0100 (CET)
+Date: Thu, 29 Oct 2026 12:37:20 +0100
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, Serge Hallyn <serge@hallyn.com>, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, Jann Horn <jannh@google.com>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] userns: don't drop the exec securebits
+Message-ID: <20261029.Yae2Nohsheun@digikod.net>
+References: <20261026-work-securebits-userns-v1-0-b35473fa1a34@kernel.org>
+ <20261026-work-securebits-userns-v1-1-b35473fa1a34@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,61 +65,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260917214215.74135-4-weilin.chang@arm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261026-work-securebits-userns-v1-1-b35473fa1a34@kernel.org>
+X-Infomaniak-Routing: alpha
 
-On Thu, Sep 17, 2026 at 10:42:13PM +0100, Wei-Lin Chang wrote:
-> From: Marc Zyngier <maz@kernel.org>
+On Mon, Oct 26, 2026 at 09:53:29PM +0100, Christian Brauner wrote:
+> SECBIT_EXEC_RESTRICT_FILE and SECBIT_EXEC_DENY_INTERACTIVE tell script
+> interpreters to only run what AT_EXECVE_CHECK allows and to refuse
+> interactive input. A service manager sets them together with their lock
+> bits so that nothing below it can turn them off again.
 > 
-> Previously vCPU TCR_EL2's reset value didn't consider TCR_EL2's
-> different formats based on the value of HCR_EL2.E2H. It always resets to
-> the E2H == 0 version.
+> But set_cred_user_ns() resets all securebits to SECUREBITS_DEFAULT. So
+> any task that can create a user namespace sheds the locked exec bits
+> with a single unshare(CLONE_NEWUSER) and joining one with setns() does
+> the same. The lock is pointless if anyone who may create a user
+> namespace can drop it, and that is pretty much everyone.
 > 
-> This didn't cause any problem because the bits set in the E2H == 0
-> version (TCR_EL2_RES1) all reset to UNKNOWN for E2H == 1 per the
-> architecture.
+> Resetting the other bits is fine. They are about how capabilities are
+> computed and a new user namespace starts out with a full set of
+> capabilities anyway. The exec bits grant nothing though. They are
+> restrictions a task placed on itself, just like no_new_privs which a
+> user namespace doesn't touch either. So keep them and their locks.
 > 
-> Still, it's better to fix it. Choose the correct reset value by checking
-> KVM_ARM_VCPU_HAS_EL2_E2H0.
+> Reproducer:
 > 
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
+>   // SPDX-License-Identifier: GPL-2.0
+>   /* Lock the exec securebits, then create a user namespace and look at them again. */
+>   #define _GNU_SOURCE
+>   #include <sched.h>
+>   #include <stdio.h>
+>   #include <sys/prctl.h>
+> 
+>   #define SECBIT_EXEC_RESTRICT_FILE		(1 << 8)
+>   #define SECBIT_EXEC_RESTRICT_FILE_LOCKED	(1 << 9)
+>   #define SECBIT_EXEC_DENY_INTERACTIVE		(1 << 10)
+>   #define SECBIT_EXEC_DENY_INTERACTIVE_LOCKED	(1 << 11)
+> 
+>   int main(void)
+>   {
+>   	int bits = SECBIT_EXEC_RESTRICT_FILE | SECBIT_EXEC_RESTRICT_FILE_LOCKED |
+>   		   SECBIT_EXEC_DENY_INTERACTIVE | SECBIT_EXEC_DENY_INTERACTIVE_LOCKED;
+> 
+>   	if (prctl(PR_SET_SECUREBITS, bits, 0, 0, 0)) {
+>   		perror("PR_SET_SECUREBITS");
+>   		return 1;
+>   	}
+>   	printf("before: 0x%x\n", prctl(PR_GET_SECUREBITS, 0, 0, 0, 0));
+>   	printf("clear locked bits: %s\n", prctl(PR_SET_SECUREBITS, 0, 0, 0, 0) ? "refused" : "ALLOWED");
+> 
+>   	if (unshare(CLONE_NEWUSER)) {
+>   		perror("unshare(CLONE_NEWUSER)");
+>   		return 1;
+>   	}
+>   	printf("after unshare(CLONE_NEWUSER): 0x%x\n", prctl(PR_GET_SECUREBITS, 0, 0, 0, 0));
+>   	return 0;
+>   }
+> 
+> On v7.1 this prints "before: 0xf00", "clear locked bits: refused" and
+> "after unshare(CLONE_NEWUSER): 0x0". With this patch the last line
+> reads 0xf00 as well.
+> 
+> Fixes: a0623b2a1d59 ("security: Add EXEC_RESTRICT_FILE and EXEC_DENY_INTERACTIVE securebits")
+> Cc: stable@vger.kernel.org # v6.14+
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Reviewed-by: Joey Gouly <joey.gouly@arm.com>
+Thanks!
+
+Reviewed-by: Mickaël Salaün <mic@digikod.net>
 
 > ---
->  arch/arm64/kvm/sys_regs.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
+>  Documentation/userspace-api/check_exec.rst | 4 ++++
+>  kernel/user_namespace.c                    | 5 ++++-
+>  2 files changed, 8 insertions(+), 1 deletion(-)
 > 
-> diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
-> index 44aae52c473d..62c059747fbb 100644
-> --- a/arch/arm64/kvm/sys_regs.c
-> +++ b/arch/arm64/kvm/sys_regs.c
-> @@ -3275,6 +3275,14 @@ static u64 reset_mdcr(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
->  	return vcpu->kvm->arch.nr_pmu_counters;
->  }
+> diff --git a/Documentation/userspace-api/check_exec.rst b/Documentation/userspace-api/check_exec.rst
+> index 05dfe3b56f71..0904810e1d8d 100644
+> --- a/Documentation/userspace-api/check_exec.rst
+> +++ b/Documentation/userspace-api/check_exec.rst
+> @@ -99,6 +99,10 @@ This secure bit may be set by user session managers, service managers,
+>  container runtimes, sandboxer tools...  Except for test environments, the
+>  related ``SECBIT_EXEC_DENY_INTERACTIVE_LOCKED`` bit should also be set.
 >  
-> +static u64 reset_tcr_el2(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
-> +{
-> +	__vcpu_assign_sys_reg(vcpu, r->reg,
-> +			      vcpu_has_feature(vcpu, KVM_ARM_VCPU_HAS_EL2_E2H0) ?
-> +			      TCR_EL2_RES1 : VHE_TCR_EL2_RES1);
-> +	return __vcpu_sys_reg(vcpu, r->reg);
-> +}
+> +Both secure bits and their locks are inherited across :manpage:`fork(2)` and
+> +:manpage:`execve(2)`, and they are kept when a task creates or joins a user
+> +namespace.
 > +
->  /*
->   * Architected system registers.
->   * Important: Must be sorted ascending by Op0, Op1, CRn, CRm, Op2
-> @@ -3853,7 +3861,7 @@ static const struct sys_reg_desc sys_reg_descs[] = {
+>  Here is the expected behavior for a script interpreter according to combination
+>  of any exec securebits:
 >  
->  	EL2_REG(TTBR0_EL2, access_rw, reset_val, 0),
->  	EL2_REG(TTBR1_EL2, access_rw, reset_val, 0),
-> -	EL2_REG(TCR_EL2, access_rw, reset_val, TCR_EL2_RES1),
-> +	EL2_REG(TCR_EL2, access_rw, reset_tcr_el2, 0),
->  	EL2_REG_FILTERED(TCR2_EL2, access_rw, reset_val, TCR2_EL2_RES1,
->  			 tcr2_el2_visibility),
->  	EL2_REG_VNCR(VTTBR_EL2, reset_val, 0),
+> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+> index 50c374ed4687..cd748e1cbace 100644
+> --- a/kernel/user_namespace.c
+> +++ b/kernel/user_namespace.c
+> @@ -46,8 +46,11 @@ static void set_cred_user_ns(struct cred *cred, struct user_namespace *user_ns)
+>  {
+>  	/* Start with the same capabilities as init but useless for doing
+>  	 * anything as the capabilities are bound to the new user namespace.
+> +	 * The exec securebits grant nothing, they are restrictions the task
+> +	 * placed on itself. Keep them and their locks.
+>  	 */
+> -	cred->securebits = SECUREBITS_DEFAULT;
+> +	cred->securebits = SECUREBITS_DEFAULT |
+> +		(cred->securebits & (SECURE_ALL_UNPRIVILEGED | SECURE_ALL_UNPRIVILEGED << 1));
+>  	cred->cap_inheritable = CAP_EMPTY_SET;
+>  	cred->cap_permitted = CAP_FULL_SET;
+>  	cred->cap_effective = CAP_FULL_SET;
+> 
 > -- 
-> 2.43.0
+> 2.53.0
 > 
