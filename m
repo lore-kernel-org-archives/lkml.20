@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.97
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793277725;
-	b=pypg4B+5AHwtRSdd6WS9Crz1mSR5V942N1hTWQR5GJI0HKgkgFwhNqG5cDEmCeylkXAd
-	 wVI96SOkfcWIbeC+VjEY7QiRwUEjEA7iXfX1YWT1PqVQ0ZZpthi3K89ABRofWrlHVhCUj
-	 SetHItgoHe3OoRaZzAhi2q0Qt4hV6a/43bWAx1gh/ozFkO9Mbu633eGlwUf2HcHge21fP
-	 iUVBh8DWhvrDKxyFvB/arGXome2qRf7cdTkm420FK56IWmqKO1jjNZ2g+XGssi7bkm9Gi
-	 Tmt94TmBJTUdLcOieD+iA/XrxXMzOy3qMk/FfrBLS7mg/oXkd7q61g+6cy/pJD8+NnA==
+	t=1793277729;
+	b=Owq1svje0Wrh/Mpi0TCcIKSgm2q2q8sKri7rpsHlodHuImV/bxWxz7l/JqZcEaRN0Vj3
+	 fVPjR9BmnXII4T8jaYPw3cgmEp/ECIKHvgQDvOhcsFKPJzNpzYyn3s7vdKoL9/fgUGiY3
+	 hSgvRr1ttmM3p18OiwoWYkPLTmb0SHJlLiL16M3MpEe1DI7znkGf+xXREfBxmGeqqjbnI
+	 JlRwttMIpw9omh3wz+YZMRB7plmb+Xun0BQ8euGY5k2UvzBOoDAqpgvPD8jL88gXRZAmO
+	 /4sI169GNO3jy8QOFMBnFEmhj8pub9PUPskKOFHaWh5wrJRiy6CxGQfvCBxpPfTgEjg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277725;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793277729;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=IlfCkaxrTaB5puTFuxoOhA7Sw2Q92nX/SaX+B99HdMU=;
-	b=vw5Sk3t8GjC4wvl7ZW4OR4OK3upjQdKMhpWc7GZb+Rink7BbGEY7MDFefODWA4IzDZYV
-	 fEHvttm6vB1ceaI4ld64CLEdxBXU4crjXU8b8TCZULldC+gITdnmqvA6HzK9o1C/0Fgec
-	 5J5KP6SGKqhlrPF4T4uCt0ihwv+DW75LE902B/y2/OF5NEeC8lbtjppJU07PWHHUwU6Rj
-	 MpKIv1rAI+EAt20HD697wq75RfeN2dOaC3SaZ7OXr7erSX3JXqyOuWBZvu2moumsKdomA
-	 a+UUMUHrwwcdbQxxQXhcPIBIY5+7xjFzF2Hz2hKi+1DTesQh1vg9cGTu1AuusWJ9FWQ==
+	bh=yL5B9w2fd33NoSP+kcRsaKmbMe4jGgNs82wbIhiis7g=;
+	b=SDSZFVA0Ue7ThuKW2DP/RlEMZyEqvFvl2UnvxONkK23xOjapKm6OgwF4+k7eQt5pU8oV
+	 djvWspXvNUS+e4RyQtJVD6PjqfL3s5NSln2PQe3G4iDZWYiAdEzlUdlQrdtCQnyqkYpPb
+	 /+U7+bWrqaMM0A78uk1xU73zUfOsgrKfaGAz9zuTeOacSfeIyFqV3+R6tF6RYK4heeL7E
+	 mP3ANo8YjgcS07K5cwMLy5Nhhv6W2Wvo2BNH0noe6W6mK4fW2VIVTgeh0/6/4Jow5O4xO
+	 c5P1UGt/w0F8kByB/PbGU/BwtkvkQ93dmUYLR0MksUBXDkJMZez+BEySrgaMxRiLqsA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zohomail.eu;
 	spf=pass smtp.mailfrom=zohomail.eu;
-	dkim=pass header.d=zohomail.eu header.i=@zohomail.eu header.a=rsa-sha256 header.s=zoho header.b="Z1U5hFl/";
+	dkim=pass header.d=zohomail.eu header.i=@zohomail.eu header.a=rsa-sha256 header.s=zoho header.b=NHWjp1jG;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.97
 Received: from sender-pp-o97.zoho.eu (sender-pp-o97.zoho.eu [136.143.169.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13476606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:42:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13476606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35494606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 12:42:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35494606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.eu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=zohomail.eu header.i=@zohomail.eu header.a=rsa-sha256 header.s=zoho header.b=Z1U5hFl/
-ARC-Seal: i=1; a=rsa-sha256; t=1793277698; cv=none; 
+	dkim=pass (1024-bit key, unprotected) header.d=zohomail.eu header.i=@zohomail.eu header.a=rsa-sha256 header.s=zoho header.b=NHWjp1jG
+ARC-Seal: i=1; a=rsa-sha256; t=1793277700; cv=none; 
 	d=zohomail.eu; s=zohoarc; 
-	b=jZm/8o3IRNLR3MMAIs1KqAMSNxmCgqKm1sa6HzDm8xJmCbxf8685lAneencYwKjUX/gaw2PMqttidgZtq8zpCRWu8Xv3VS3FrIUujt2Lvf4/83n2qeq2J8tYLIUg4m2b9gftY2Pyu679h5oSS8heCzXvLlZcr1lMafOgKapABgk=
+	b=NN+BpUhje+RSB6yukgnrLYY9dCC8ggRPVuaWsr1EEEGUu68TdlLcEAtK2xEtZo+ohZ5ewi4Hum8sxSvSakyUlWfw/WLG/Aws0li/OhlMPxixzXHTxDqsQvBA80RbtaLYgO6G7Dq3GnFPRbyHeuPDjrmx7+gsxwcGHREuZPeGcIs=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1793277698; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=IlfCkaxrTaB5puTFuxoOhA7Sw2Q92nX/SaX+B99HdMU=; 
-	b=HfDz2x7e0Fb+JxwwZ+rYJ3gX3j3LiFonmUtfsSL4+CwtJhkFiEyU2PFpfsM+FuJQPKTm3u5G5xsPKYw3KYYdQ+GdwTHFaiGjMImHN64tpJ8RaSztC8DTqM0E6vp4nEsW4iJge7Hk8I7JBUUicAUmOzDGxR0XyrTkay99f/cocaU=
+	t=1793277700; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=yL5B9w2fd33NoSP+kcRsaKmbMe4jGgNs82wbIhiis7g=; 
+	b=kf6trDP4RF87vm+oqf7S2LmwGDv1F90r95pdxh32h4dlXaIqKadO6eVsqeXyfu4SCWRH0kW3WtrLKzs1zn5hihss28UU0biqrJ2Ac/Y6kBRp1B5JySL4RkhGPXZvc3ZYtnPx72W9zSyKJ1JNv7ggh2EperVOkYBmlKSnyMVT/sU=
 ARC-Authentication-Results: i=1; mx.zohomail.eu;
 	dkim=pass  header.i=zohomail.eu;
 	spf=pass  smtp.mailfrom=harukak@zohomail.eu;
 	dmarc=pass header.from=<harukak@zohomail.eu>
-DKIM-Signature: a=rsa-sha256; b=Z1U5hFl/B4IpEM9YQo+HAq/WOk7UCXOo6lYnF9m2TzV8+OqC7lG9bjhxJxHiHiWUY1ifcV4775CGh+3+FpxksjouqtkqzwoV/g/FNcSiOP9vFPpqhFQ/L6XTIgr9Ed4v+Nxn0L+vBDKFF6gafYe1jOgisNJj93sHqBKSvCKgCJU=; c=relaxed/relaxed; s=zoho; d=zohomail.eu; v=1; bh=IlfCkaxrTaB5puTFuxoOhA7Sw2Q92nX/SaX+B99HdMU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1793277697278378.4156436187916;
-	Thu, 29 Oct 2026 13:41:37 +0100 (CET)
+DKIM-Signature: a=rsa-sha256; b=NHWjp1jGfK/Ur+0Ss4G99PuFNuTWQE8EjZ1fsgetR9Ee/pYS4xsuKGK0dwYz2gf1s7rjLMhyxkUyZ/5Ewa8x8/zasJ+cc5GuNIrY50wft+51LVcyrizGNthPtpvinWBU2A2rz2nkykgeoCc3LuzUu2xYudkogcPp2YqnfnKHyyI=; c=relaxed/relaxed; s=zoho; d=zohomail.eu; v=1; bh=yL5B9w2fd33NoSP+kcRsaKmbMe4jGgNs82wbIhiis7g=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.eu with SMTPS id 1793277698427206.32998434140995;
+	Thu, 29 Oct 2026 13:41:38 +0100 (CET)
 From: Haruka Kuze <harukak@zohomail.eu>
 To: Jens Wiklander <jenswi@kernel.org>,
 	"Michael S . Tsirkin" <mst@redhat.com>
@@ -63,10 +63,12 @@ Cc: Arnd Bergmann <arnd@arndb.de>,
 	virtualization@lists.linux.dev,
 	op-tee@lists.trustedfirmware.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] rpmb: add virtio RPMB driver
-Date: Thu, 29 Oct 2026 21:41:30 +0900
-Message-ID: <20261029124132.2354314-1-harukak@zohomail.eu>
+Subject: [PATCH v2 1/2] rpmb: stop the routing after unregister
+Date: Thu, 29 Oct 2026 21:41:31 +0900
+Message-ID: <20261029124132.2354314-2-harukak@zohomail.eu>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261029124132.2354314-1-harukak@zohomail.eu>
+References: <20261029124132.2354314-1-harukak@zohomail.eu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,65 +78,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-This adds a driver on top of the rpmb subsystem for virtio-rpmb devices.
+From: Haruka Kuze <harukak@zohomail.eu>
 
-Alex Bennée had an earlier virtio-rpmb driver in his RPMB series [1]
-but that stalled due to the user space API.
+OP-TEE has a reference of RPMB device it used. So, it can route
+frames through the device after rpmb_dev_unregister() is called.
+Therefore, the parent device passed to route_frames() can be
+already freed, for example, mmc_blk_remove_rpmb_part() drops the
+last reference after rpmb unregister.
 
-The one that merged later has no user space API and OP-TEE routes frames
-through it so this driver only needs to implement route_frames().
+This patch clears the route_frames when the device is going to
+be removed by getting new rwsem and makes rpmb_route_frames()
+return -ENODEV if the device is gone.
 
-I added patch 1 to fix a use-after-free that I hit while testing
-removing the device (OP-TEE can still route frames after driver unregisters
-the rpmb device).
+Fixes: 1e9046e3a154 ("rpmb: add Replay Protected Memory Block (RPMB) subsystem")
+Assisted-by: LLM
+Signed-off-by: Haruka Kuze <harukak@zohomail.eu>
+---
+ drivers/misc/rpmb-core.c | 14 +++++++++++++-
+ include/linux/rpmb.h     |  4 ++++
+ 2 files changed, 17 insertions(+), 1 deletion(-)
 
-I tested this with UML (virtio_uml) and a vhost-user backend I wrote
-for this on top of rust-vmm's vhost-device with KASAN, lockdep:
-
- - key programming
- - write counter
- - single and multi block write and read
- - MAC and counter failures
- - max_wr_cnt
- - unbinding the driver when the rpmb device is held
-
-With OP-TEE 4.11 on QEMU virt arm64 the secure_storage example TA keeps
-its objects in RPMB through the driver and an object written to in one
-boot is found in the one after.
-
-I have added myself in MAINTAINERS. I would like to maintain the driver.
-
-Changes in v2:
-- Use guard() and scoped_guard() for the locks in both patches (Greg)
-- Call virtio_device_ready() before vr->vq is set, so a request on
-  restore can not kick the queue before DRIVER_OK (sashiko)
-- v1: https://lore.kernel.org/all/20261029081317.2264887-1-harukak@zohomail.eu/
-
-- haruka
-
-[1] https://lore.kernel.org/all/20220405093759.1126835-1-alex.bennee@linaro.org/
-
-Haruka Kuze (2):
-  rpmb: stop the routing after unregister
-  rpmb: add a virtio RPMB device driver
-
- MAINTAINERS                      |   7 +
- drivers/misc/Kconfig             |  10 ++
- drivers/misc/Makefile            |   1 +
- drivers/misc/rpmb-core.c         |  14 +-
- drivers/misc/virtio_rpmb.c       | 286 +++++++++++++++++++++++++++++++
- include/linux/rpmb.h             |   4 +
- include/uapi/linux/virtio_rpmb.h |  56 ++++++
- 7 files changed, 377 insertions(+), 1 deletion(-)
- create mode 100644 drivers/misc/virtio_rpmb.c
- create mode 100644 include/uapi/linux/virtio_rpmb.h
-
-
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+diff --git a/drivers/misc/rpmb-core.c b/drivers/misc/rpmb-core.c
+index ecf14acf230a..0ae018d1a276 100644
+--- a/drivers/misc/rpmb-core.c
++++ b/drivers/misc/rpmb-core.c
+@@ -45,7 +45,7 @@ EXPORT_SYMBOL_GPL(rpmb_dev_put);
+  * @rsp:	rpmb response frames
+  * @rsp_len:	length of rpmb response frames in bytes
+  *
+- * Returns: < 0 on failure
++ * Returns: < 0 on failure, -ENODEV if the device has been unregistered
+  */
+ int rpmb_route_frames(struct rpmb_dev *rdev, u8 *req,
+ 		      unsigned int req_len, u8 *rsp, unsigned int rsp_len)
+@@ -53,6 +53,10 @@ int rpmb_route_frames(struct rpmb_dev *rdev, u8 *req,
+ 	if (!req || !req_len || !rsp || !rsp_len)
+ 		return -EINVAL;
+ 
++	guard(rwsem_read)(&rdev->lock);
++	if (!rdev->descr.route_frames)
++		return -ENODEV;
++
+ 	return rdev->descr.route_frames(rdev->dev.parent, req, req_len,
+ 					rsp, rsp_len);
+ }
+@@ -126,6 +130,10 @@ EXPORT_SYMBOL_GPL(rpmb_interface_unregister);
+  * This function should be called from the release function of the
+  * underlying device used when the RPMB device was registered.
+  *
++ * Once this returns, rpmb_route_frames() no longer calls into
++ * the driver, even though the users might still hold a reference
++ * to the RPMB dev.
++ *
+  * Returns: < 0 on failure
+  */
+ int rpmb_dev_unregister(struct rpmb_dev *rdev)
+@@ -133,6 +141,9 @@ int rpmb_dev_unregister(struct rpmb_dev *rdev)
+ 	if (!rdev)
+ 		return -EINVAL;
+ 
++	scoped_guard(rwsem_write, &rdev->lock)
++		rdev->descr.route_frames = NULL;
++
+ 	device_del(&rdev->dev);
+ 
+ 	rpmb_dev_put(rdev);
+@@ -165,6 +176,7 @@ struct rpmb_dev *rpmb_dev_register(struct device *dev,
+ 	if (!rdev)
+ 		return ERR_PTR(-ENOMEM);
+ 	rdev->descr = *descr;
++	init_rwsem(&rdev->lock);
+ 	rdev->descr.dev_id = kmemdup(descr->dev_id, descr->dev_id_len,
+ 				     GFP_KERNEL);
+ 	if (!rdev->descr.dev_id) {
+diff --git a/include/linux/rpmb.h b/include/linux/rpmb.h
+index ed3f8e431eff..0a976572d1cd 100644
+--- a/include/linux/rpmb.h
++++ b/include/linux/rpmb.h
+@@ -7,6 +7,7 @@
+ #define __RPMB_H__
+ 
+ #include <linux/device.h>
++#include <linux/rwsem.h>
+ #include <linux/types.h>
+ 
+ /**
+@@ -51,12 +52,15 @@ struct rpmb_descr {
+  * @id               : device_id
+  * @list_node        : linked list node
+  * @descr            : RPMB description
++ * @lock             : protect @descr.route_frames which is cleared when this
++ *                     device is unregistered
+  */
+ struct rpmb_dev {
+ 	struct device dev;
+ 	int id;
+ 	struct list_head list_node;
+ 	struct rpmb_descr descr;
++	struct rw_semaphore lock;
+ };
+ 
+ #define to_rpmb_dev(x)		container_of((x), struct rpmb_dev, dev)
 -- 
 2.55.0
 
