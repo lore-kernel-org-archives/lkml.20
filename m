@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793280990;
-	b=nLuFHUdC3jACQfqZRixjDYzdLBHWIx90csQCko9uinlVvu0ieGOOjzGurSNI9j8zxPpt
-	 97di56s/m1Wt+9dOhe5iPCUTZpK4+rpf2Zf1riXheXvVr33bgsC0YCcBkB35mbn8TVPb4
-	 2AeN52WjV5G5b3p5GKTXpFf1QyteMeOBypnClO4nOTwuy5rw3pKCHHG7JrzjIngzGdt3z
-	 7aK0oNjhSbKb+XWfzRsXfkUKAsSuWbWs/xeGS6+VuK3fV2F4Fn3f24jZDdkt/1OqFE/ya
-	 8pGChjfgIzfaMfBYM/Bz8z4mDzJb5anb7rVRb/qa9TKZG5/uXQT3/THOSeda3hfZgPQ==
+	t=1793281001;
+	b=z/jbIyfWW1hUY5V4GyVP0Qxe0C6uVOmr6azjQM5+bSnrheWbtyNIP+re1d1qurT6cYB+
+	 guusLV/32veLEX6o2mx5DJXWnDOnTmMLy9saqXxYMZbMgFJs/bjm49Qj7vvkmIP1wFHt8
+	 MmkS3+c/tRCgkXZ8smE5dik2l9eLANOtJs+iOZykmoJAvtO9kxm3yKgNdtNOzCQZPChlM
+	 JSaO8bqCDaWWG04fFI8d7GlM7cGdA5f9CCvQoXlc8UJTl5F7AXkkzXDyfkhq8gOSOfCMl
+	 zwbIsJCyw3wxyhpXXx13Z4yWycUbzH83nxjuiW+iywLX7x2EY9z1v2kO4IzdmHUo9kA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280990;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793281001;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=4QT94RyaHPw6EM3Dp1dEOIctJpO/QfGuObnPzpqRrVM=;
-	b=4wT+/4BBJbdcC0ye009IlfyBC58Q8lVxfHCoPoNx+cs8ldCwMAYsiYSCFJ8MJ1uPviaj
-	 JFp36hax2WH03VFd9Mqs3sZbiSnS3FPhyzL07ilLUI/Lwm4h/JC54v/vxf/lKPAtpcCzA
-	 0TL7m/I+/oLfkBN/T5SqANMz897wpjW+Tn9I21NU4Ynm/ziifFAKvq1aOp7Gdgib0944g
-	 fR3MR0ECCpDia0E2zY+om9Y83RAg8r9TK/gqRI/fqOXGyFsN0PDPjNaAHhD4vRI3HClLM
-	 OTkf3YQCHtpxhhjJ1vzgvXb0OZ0Z0GdN8erSPgrhVIRGMb5BqUyPoYpnQhOS+5PbfMQ==
+	bh=77trVxyKnux39gneimvVW1eMxqF6fzx5+oISfaMgLYI=;
+	b=H4tZw0lN+RuXt+ECfm75aQMNOW4iGzzeKjIQRy/llrONgMvINRrTkIhsR5ddCWKxcgbq
+	 OOGOJ1ZjIMMEXu936geSjJ6udczXm3xvSGvZAJU3jECDYjwtYNFBgNBks+D3XNt1fCfj+
+	 U3HrGjC1m/gY6HvePh1aPdq2hSenQUAuJ3KmfYKwefBbAk+WHQwUllFu/jQ5A+Nm9LDjw
+	 wDDlwRuBWN5f1RjAdkg2eQQsbAo9kevjc55N0CGrWKLqN2FSYReVodDSdW/LBvMC7kww5
+	 GcvbdHJWbn8U+B7LiFNGqVdU+VANWw7nWyuj2bXqxcVBkC/YXdChL4L8nI5w+KJbiNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiDB9fTO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQj1QmBm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B01D606A33B
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C2B360A2629
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RiDB9fTO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C81B71F01825;
-	Thu, 29 Oct 2026 13:36:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQj1QmBm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAC111F01825;
+	Thu, 29 Oct 2026 13:36:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793280990;
-	bh=4QT94RyaHPw6EM3Dp1dEOIctJpO/QfGuObnPzpqRrVM=;
+	s=k20260515; t=1793281001;
+	bh=77trVxyKnux39gneimvVW1eMxqF6fzx5+oISfaMgLYI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=RiDB9fTOrSaRqHtFvF8kb8jvU0IuHbukl2G2LT6CLD0sEQGFYVhbPuMjMGjLL9qYG
-	 jkXa0Qapa3t3c4DqmlehcIMEw2Nj7TtFjIpYyAS37YHL+9eZg+WvrvWx4CO96BJbaq
-	 rkJQo9/6dnY5mJaBD4fqbkNU5jXKQhlTqSIVqAcBUQKCgMYGYep+D/xTEQ6iAZBU9h
-	 Rj1SiWwcUHXmCXUdQV/TtYPOfI0T+Ufsya846mNO4YMUAI6r+2KyTlbKY1m3S+4MrN
-	 gNgX9sg840kO/1ySI5+82Y8CAWpYX36CNFpqp2BCALE2IXtIW83OUL81XNHbG3ks/T
-	 3vf3adrWmFq3g==
+	b=EQj1QmBmvTE4O9FQ44adDi+BQf3aK1lAqMTVEQT+y5uM9wF20LjvQZyrzGcDwVkYz
+	 fDUBX2Q9ZXRP5odtVEZmu4aKoaRj7qyiOdF1kXm5fG0BsIYAGMbK53LFJENoDj7y2k
+	 1sYJATcuOJb32i/c6MWAsJ4I5gUg6SVGErhaqM5lg426bpgcrRxuIwFSSYgqaaZjL5
+	 QmO9OD7snY2cx9YKmXcHVPCnbWa5FDCkxM210eR33nig/uPMgteQMRvh1eLPBXUJ7v
+	 r/NUfznSdoSKHhxJ8fukz4FQlD57JecdAa+AgQrhTdLdH0njQX/eUZ5AvR6qceyiUA
+	 HZWkjn2ov+FyQ==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Thu, 29 Oct 2026 08:35:57 -0500
-Subject: [PATCH v4 10/31] accel: ethosu: Keep scheduler after unplug
+Date: Thu, 29 Oct 2026 08:36:04 -0500
+Subject: [PATCH v4 17/31] accel: ethosu: Fix NHCWB16 bounds calculation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,338 +54,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ethosu-fixes-v4-10-4aa25e22578e@kernel.org>
+Message-Id: <20261029-ethosu-fixes-v4-17-4aa25e22578e@kernel.org>
 References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 In-Reply-To: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
  Frank Li <Frank.Li@nxp.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ sashiko-bot@kernel.org
 X-Mailer: b4 0.16-dev
 
-Open DRM files retain scheduling entities after the device is unbound.
-Defer scheduler teardown until the final DRM device reference is released.
-
-Track open scheduling entities so removal can stop each entity and signal
-the active job. Then leave the scheduler alive for postclose handling.
+The Ethos-U NPU inherently processes NHCWB16 data in 16-channel bricks.
+The NHCWB16 address calculation uses the final channel of the last
+accessed brick. If the channel depth modulo 16 is less than 15, the
+hardware will still read or write the full 16-element brick.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-Cc: stable@vger.kernel.org
+Reported-by: sashiko-bot@kernel.org
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
-v4:
- - New patch
+v3:
+ - new patch
 ---
- drivers/accel/ethosu/ethosu_device.h |  4 ++
- drivers/accel/ethosu/ethosu_drv.c    | 12 ++---
- drivers/accel/ethosu/ethosu_drv.h    |  4 ++
- drivers/accel/ethosu/ethosu_job.c    | 98 +++++++++++++++++++++++++++++-------
- drivers/accel/ethosu/ethosu_job.h    |  5 +-
- 5 files changed, 98 insertions(+), 25 deletions(-)
+ drivers/accel/ethosu/ethosu_gem.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/ethosu/ethosu_device.h b/drivers/accel/ethosu/ethosu_device.h
-index 51d5bc5d6137..1a90d0ebe5d9 100644
---- a/drivers/accel/ethosu/ethosu_device.h
-+++ b/drivers/accel/ethosu/ethosu_device.h
-@@ -6,6 +6,7 @@
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 24f88696c18b..67c7cbbd39b8 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -415,9 +415,10 @@ static u64 feat_matrix_length(struct ethosu_device *edev,
+ 	case 1: //nhcwb16:
+ 		element_size = BIT((fm->precision >> (ofm ? 1 : 2)) & 0x3);
  
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/list.h>
- #include <linux/mutex.h>
- #include <linux/spinlock.h>
- #include <linux/types.h>
-@@ -197,6 +198,8 @@ struct ethosu_device {
- 	struct drm_ethosu_npu_info npu_info;
- 
- 	struct ethosu_job *in_flight_job;
-+	/* Protects @in_flight_job. */
-+	spinlock_t job_lock;
- 
- 	/* For dma_fence */
- 	spinlock_t fence_lock;
-@@ -204,6 +207,7 @@ struct ethosu_device {
- 	struct drm_gpu_scheduler sched;
- 	/* For ethosu_job_do_push() */
- 	struct mutex sched_lock;
-+	struct list_head sched_entities;
- 	u64 fence_context;
- 	u64 emit_seqno;
- 
-diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-index 91b2c2ab0a03..ee50e7db36ad 100644
---- a/drivers/accel/ethosu/ethosu_drv.c
-+++ b/drivers/accel/ethosu/ethosu_drv.c
-@@ -271,7 +271,7 @@ static int ethosu_device_resume(struct device *dev)
- 	return ret;
- }
- 
--static int ethosu_device_suspend(struct device *dev)
-+int ethosu_device_suspend(struct device *dev)
- {
- 	struct ethosu_device *ethosudev = dev_get_drvdata(dev);
- 
-@@ -377,7 +377,7 @@ static int ethosu_probe(struct platform_device *pdev)
- 
- 	ret = ethosu_init(ethosudev);
- 	if (ret)
--		goto err_job_fini;
-+		return ret;
- 
- 	ret = drm_dev_register(&ethosudev->base, 0);
- 	if (ret)
-@@ -389,20 +389,18 @@ static int ethosu_probe(struct platform_device *pdev)
- 	if (ethosudev->sram)
- 		gen_pool_free(ethosudev->srampool, (unsigned long)ethosudev->sram,
- 			      ethosudev->npu_info.sram_size);
--err_job_fini:
--	ethosu_job_fini(ethosudev);
- 	return ret;
- }
- 
- static void ethosu_remove(struct platform_device *pdev)
- {
- 	struct ethosu_device *ethosudev = dev_get_drvdata(&pdev->dev);
-+	bool clocks_disabled;
- 
- 	drm_dev_unplug(&ethosudev->base);
--	ethosu_job_fini(ethosudev);
--
- 	pm_runtime_barrier(&pdev->dev);
--	if (!pm_runtime_status_suspended(&pdev->dev))
-+	clocks_disabled = ethosu_job_stop(ethosudev);
-+	if (!clocks_disabled && !pm_runtime_status_suspended(&pdev->dev))
- 		ethosu_device_suspend(&pdev->dev);
- 
- 	if (ethosudev->sram)
-diff --git a/drivers/accel/ethosu/ethosu_drv.h b/drivers/accel/ethosu/ethosu_drv.h
-index f59c845c758b..6d4ef8ce9378 100644
---- a/drivers/accel/ethosu/ethosu_drv.h
-+++ b/drivers/accel/ethosu/ethosu_drv.h
-@@ -4,18 +4,22 @@
- #define __ETHOSU_DRV_H__
- 
- #include <linux/mutex.h>
-+#include <linux/list.h>
- #include <linux/xarray.h>
- #include <drm/gpu_scheduler.h>
- 
- struct ethosu_device;
-+struct device;
- struct drm_device;
- struct drm_file;
- 
- int ethosu_device_reset(struct ethosu_device *ethosudev);
-+int ethosu_device_suspend(struct device *dev);
- 
- struct ethosu_file_priv {
- 	struct ethosu_device *edev;
- 	struct drm_sched_entity sched_entity;
-+	struct list_head sched_entity_list;
- 	struct xarray perfmons;
- };
- 
-diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index 8ffdc83d06f9..ef95a8abd61e 100644
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -6,6 +6,7 @@
- #include <linux/genalloc.h>
- #include <linux/interrupt.h>
- #include <linux/iopoll.h>
-+#include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- 
-@@ -13,6 +14,7 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_gem_dma_helper.h>
-+#include <drm/drm_managed.h>
- #include <drm/drm_print.h>
- #include <drm/ethosu_accel.h>
- 
-@@ -149,6 +151,15 @@ static int ethosu_job_push(struct ethosu_job *job)
- 
- 	ret = pm_runtime_resume_and_get(job->dev->base.dev);
- 	if (!ret) {
-+		if (!try_module_get(THIS_MODULE)) {
-+			pm_runtime_put_autosuspend(job->dev->base.dev);
-+			ret = -ENODEV;
-+			goto out;
-+		}
-+
-+		drm_dev_get(&job->dev->base);
-+		job->keep_device = true;
-+
- 		guard(mutex)(&job->dev->sched_lock);
- 
- 		drm_sched_job_arm(&job->base);
-@@ -188,12 +199,19 @@ static void ethosu_job_cleanup(struct kref *ref)
- {
- 	struct ethosu_job *job = container_of(ref, struct ethosu_job,
- 						refcount);
-+	struct drm_device *ddev = &job->dev->base;
-+	bool keep_device = job->keep_device;
- 
- 	pm_runtime_put_autosuspend(job->dev->base.dev);
- 
- 	dma_fence_put(job->inference_done_fence);
- 
- 	ethosu_job_err_cleanup(job);
-+
-+	if (keep_device) {
-+		drm_dev_put(ddev);
-+		module_put(THIS_MODULE);
-+	}
- }
- 
- static void ethosu_job_put(struct ethosu_job *job)
-@@ -357,6 +375,8 @@ static const struct drm_sched_backend_ops ethosu_sched_ops = {
- 	.cancel_job = ethosu_job_cancel,
- };
- 
-+static void ethosu_job_fini(struct drm_device *ddev, void *data);
-+
- int ethosu_job_init(struct ethosu_device *edev)
- {
- 	struct device *dev = edev->base.dev;
-@@ -372,7 +392,20 @@ int ethosu_job_init(struct ethosu_device *edev)
- 
- 	spin_lock_init(&edev->fence_lock);
- 	spin_lock_init(&edev->job_lock);
--	ret = devm_mutex_init(dev, &edev->sched_lock);
-+	ret = drmm_mutex_init(&edev->base, &edev->sched_lock);
-+	if (ret)
-+		return ret;
-+	INIT_LIST_HEAD(&edev->sched_entities);
-+
-+	edev->fence_context = dma_fence_context_alloc(1);
-+
-+	ret = drm_sched_init(&edev->sched, &args);
-+	if (ret) {
-+		dev_err(dev, "Failed to create scheduler: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = drmm_add_action_or_reset(&edev->base, ethosu_job_fini, edev);
- 	if (ret)
- 		return ret;
- 
-@@ -388,45 +421,76 @@ int ethosu_job_init(struct ethosu_device *edev)
- 	if (ret)
- 		return ret;
- 
--	edev->fence_context = dma_fence_context_alloc(1);
-+	return 0;
-+}
- 
--	ret = drm_sched_init(&edev->sched, &args);
--	if (ret) {
--		dev_err(dev, "Failed to create scheduler: %d\n", ret);
--		return ret;
--	}
-+static void ethosu_job_fini(struct drm_device *ddev, void *data)
-+{
-+	struct ethosu_device *dev = to_ethosu_device(ddev);
- 
--	return 0;
-+	(void)data;
-+	drm_sched_fini(&dev->sched);
- }
- 
--void ethosu_job_fini(struct ethosu_device *dev)
-+bool ethosu_job_stop(struct ethosu_device *dev)
- {
-+	struct ethosu_file_priv *priv;
-+	struct ethosu_job *job;
-+	bool clocks_disabled = false;
-+
-+	guard(mutex)(&dev->sched_lock);
- 	drm_sched_wqueue_stop(&dev->sched);
-+	disable_irq(dev->irq);
- 	cancel_delayed_work_sync(&dev->sched.work_tdr);
- 
--	if (READ_ONCE(dev->in_flight_job)) {
--		WRITE_ONCE(dev->in_flight_job, NULL);
--		ethosu_device_reset(dev);
-+	scoped_guard(mutex, &dev->perfmon_state.lock)
-+		ethosu_perfmon_stop_locked(dev, dev->perfmon_state.active, false);
-+
-+	list_for_each_entry(priv, &dev->sched_entities, sched_entity_list)
-+		drm_sched_entity_kill(&priv->sched_entity);
-+
-+	job = ethosu_job_clear_in_flight(dev);
-+	if (job && ethosu_device_reset(dev)) {
-+		ethosu_device_suspend(dev->base.dev);
-+		clocks_disabled = true;
- 	}
- 
--	synchronize_irq(dev->irq);
--	drm_sched_fini(&dev->sched);
-+	if (job)
-+		ethosu_job_cancel(&job->base);
-+
-+	/* Let drm-sched release the cancelled in-flight job. */
-+	drm_sched_wqueue_start(&dev->sched);
-+	flush_work(&dev->sched.work_free_job);
-+	drm_sched_wqueue_stop(&dev->sched);
-+
-+	return clocks_disabled;
- }
- 
- int ethosu_job_open(struct ethosu_file_priv *ethosu_priv)
- {
- 	struct ethosu_device *dev = ethosu_priv->edev;
- 	struct drm_gpu_scheduler *sched = &dev->sched;
-+	int ret;
- 
--	return drm_sched_entity_init(&ethosu_priv->sched_entity,
--				     DRM_SCHED_PRIORITY_NORMAL,
--				     &sched, 1, NULL);
-+	guard(mutex)(&dev->sched_lock);
-+	ret = drm_sched_entity_init(&ethosu_priv->sched_entity,
-+				    DRM_SCHED_PRIORITY_NORMAL,
-+				    &sched, 1, NULL);
-+	if (!ret)
-+		list_add(&ethosu_priv->sched_entity_list, &dev->sched_entities);
-+
-+	return ret;
- }
- 
- void ethosu_job_close(struct ethosu_file_priv *ethosu_priv)
- {
-+	struct ethosu_device *dev = ethosu_priv->edev;
- 	struct drm_sched_entity *entity = &ethosu_priv->sched_entity;
- 
-+	scoped_guard(mutex, &dev->sched_lock) {
-+		drm_sched_entity_kill(entity);
-+		list_del(&ethosu_priv->sched_entity_list);
-+	}
- 	drm_sched_entity_destroy(entity);
- }
- 
-diff --git a/drivers/accel/ethosu/ethosu_job.h b/drivers/accel/ethosu/ethosu_job.h
-index 8988edd00eed..6d4622dfac43 100644
---- a/drivers/accel/ethosu/ethosu_job.h
-+++ b/drivers/accel/ethosu/ethosu_job.h
-@@ -29,13 +29,16 @@ struct ethosu_job {
- 	/* Fence to be signaled by IRQ handler when the job is complete. */
- 	struct dma_fence *done_fence;
- 
-+	/* Keep driver state alive while a killed job waits on dependencies. */
-+	bool keep_device;
-+
- 	struct kref refcount;
- };
- 
- int ethosu_ioctl_submit(struct drm_device *dev, void *data, struct drm_file *file);
- 
- int ethosu_job_init(struct ethosu_device *dev);
--void ethosu_job_fini(struct ethosu_device *dev);
-+bool ethosu_job_stop(struct ethosu_device *dev);
- int ethosu_job_open(struct ethosu_file_priv *ethosu_priv);
- void ethosu_job_close(struct ethosu_file_priv *ethosu_priv);
- 
++		/* NHCWB16 accesses the complete final channel brick. */
+ 		if (check_mul_overflow(c / 16, (u64)fm->stride_c, &offset) ||
+ 		    check_add_overflow(addr, offset, &addr) ||
+-		    check_mul_overflow(16 * x + (c & 0xf), element_size, &offset) ||
++		    check_mul_overflow(16 * x + 15, element_size, &offset) ||
+ 		    check_add_overflow(addr, offset, &addr))
+ 			return U64_MAX;
+ 		break;
 
 -- 
 2.53.0
