@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793288857;
-	b=t7p8bFXRy1ady9zXIY0PZq2pYHydgXAQlse7BTUJCxIwGPXjoLMPsEccAZibVaAbrGZU
-	 nDqSTwt1U3MRfytYs3D+EZO16WuEof1N0B58c+TH3C676dA0HlT7DDa45iEwq0Y0S0/yQ
-	 20szObB1Gt4QjE+pSPIjkWMc4EFH25WeK4asSi0ejurvXzKYNp5SW/adDqq52FPCkKEF9
-	 cF6YXF2RKxOBPERto7Iid4WimMhS3ZFy+hrMQT1T1KFSGCRqo4ZqjkM96vtE5mfdOD3fT
-	 SS/cbDcyGFNP2FqHTlRnNgyDxpyEtsxVshXBz8otp4xGTFTI2YXvTwpLpK+/dpelymw==
+	t=1793288860;
+	b=HgxkvUxRhpul+BiNmvlGWhjUxfXlv9W2b3z9Pxbgvvjmt8QsKhE16muZBBtgxSUibWsO
+	 HsqJQ1H36t1/oHXbzrta0PldDvpqmzH2WL9x8tBU4VPIJr9CvO7ctGO5JPXpsupTQrily
+	 b5GvaAa4nr8QP94XLyOjUqaAg+DUH9Fm9TLnJunAPInIqtZuXw/W+xFM0rxy2iFxWfonG
+	 emVyVF31LT4Svnra1+6mAiH3Wl9luwLjH8ojiEEI73RQIsMZL5SuWyo2RaLG1fdHJ2ydd
+	 98JYqzGGOD1VFnoFP/R/iZb/xIXte2iM0M2fe/RVQX01obZJtIglxvGPPht4bKTjFSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793288857;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288860;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=HsTZsAbnOjm+7kjd0LiVGLSB693ohnd2liVr1NWALdI=;
-	b=I2kTCDZ8xsw3re9muIKi6haYcjUfcz4AH0hmgDrckjor0gZfuVlDkNEGCyVE1UPwHYlg
-	 ZZAYErj+I2aQkz2d0cBmKnbBHdIHBDp1KAYpOn1nC7kZhAX1/6Y5Hbh/B2l85ZfRzYHyT
-	 ZYPV9lBgnMlACw/7T5J8IygIcLTIlbdzFj4pmCY83qQQP20N7/hfwRcoEV3nYR5Qt5kdk
-	 H+5SReoF3dYssg5Tojp5F1ObjIO7ypFlcCfx4dJ+M6gGA28Q9kl92HrbAWpDStGTux/EG
-	 1IgowwO1heAo2ZwQJEM5Ry3BCyQcPQ2wUsScgisICKm0cHesCWgtfr+rdfiDCoaMTaA==
+	bh=QeBdTykJBJ5zP35pEpq30uLA6gbbI1i43t2r5osi4yI=;
+	b=wu6GxDl3c5OKmRNru5JUXLDsTOAC1w5/AJe7iE3agQk6vyde0XEjxeLaEZjMQxH6dANI
+	 RY+xdonSHTfdi/AtFrOHhMLThe7EvZp1ywko+ydW9hk31m7Sy4FEJHDInqyc2J2v/1Jmr
+	 fhGLf+VcxWMmWEEkGLDNQBLZ4X/U/drQwj53r2D8XCICCFgzELSNCJAjaxoPMQAR9rceu
+	 YuOUfZeil6ZKSiTxD7H1ffZHjKSyKUytrwyGpcfLaEIfhVXDu/HRU8dMafMKDOR4GC6c+
+	 1+dtBwrYjtKwE/H040OJ52cHgcLs1Ch3vXo1/OPvG9XGKq3oFcMt8Yv1glqjsOx5I4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kPqVAAGG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fTqsP2PA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E74606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:47:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A07606A332
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:47:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kPqVAAGG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07E841F01816;
-	Thu, 29 Oct 2026 15:47:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fTqsP2PA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2F4D1F01816;
+	Thu, 29 Oct 2026 15:47:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793288856;
-	bh=HsTZsAbnOjm+7kjd0LiVGLSB693ohnd2liVr1NWALdI=;
+	s=k20260515; t=1793288860;
+	bh=QeBdTykJBJ5zP35pEpq30uLA6gbbI1i43t2r5osi4yI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kPqVAAGGkIKCU4DgEa4KGASh5IaaZBYjqWTq8XXVIa2i/LXmgfr65nhEbZis9yLma
-	 pi+jmXTUv47DsPxG5kbv5ThaOO4ZlLdxrHX4IIntOTMKGQKCLEi1KT0KsW2aaKbMYN
-	 quxGwRm73ICAydKIZdyG6Yc/+WaA/T+MIXJEHERZhRSuAoMfziKFFnXtz3aTxIx6ME
-	 +AiXyBIDGlPd9SDiEiZs7Bschwl+ETBiEqz07BqCgYemmJVBOvU/LKGFSQ7cS28PJa
-	 kqALZQQJqId41hzON38xxvnBKlUS99Ty6/F5oGkcxqbh6ctiRNeSYjhXC+IyjeNF20
-	 JW6QoFxOEj8/w==
-Message-ID: <3c141e6f-dd1d-4e48-bb9b-a94c0554d947@kernel.org>
-Date: Thu, 29 Oct 2026 16:37:23 +0100
+	b=fTqsP2PAmZAEPesNIu77yJzu2WgeScvhiTz4nuD8H279nZSvE1OezRAHKmk3C7WWz
+	 ry5/blQJFAbCPKWI+sJwySf45jzT5wkQMFvYNiJQw2Gk2HPZMrpGS+ZWU9lkExsmxx
+	 Y8Zy0x2D/lqP9Yijad7uSZlsbBZHv2Uysvd6aA6Ay/n71gBHzpegm42Ss10IrRKNrM
+	 9KVoPh02+y+wuWPGs7ZbBPvHyUh4fumznfY+Brt4k/NiUpM2Rwj0IMMNAaneRJx/oQ
+	 +4/ZdjVOEpzVR9S6ZEU+py0Bwcs8Y6hi1nO5nl6S+AgLivD6kYQpYGitL1O8nrOX8t
+	 GT2SC5bE3/BNw==
+Message-ID: <bf163c58-a884-4164-bede-974b78f032b3@kernel.org>
+Date: Thu, 29 Oct 2026 16:47:31 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,17 +52,16 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/sparse: simplify the vmemmap alignment check
-To: Kiryl Shutsemau <kirill@shutemov.name>,
- Kaitao Cheng <kaitao.cheng@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Kaitao Cheng <chengkaitao@kylinos.cn>
-References: <20261029134521.62146-1-kaitao.cheng@linux.dev>
- <auNbTHXp4o_Dqww4@thinkstation>
+Subject: Re: [PATCH] selftests/mm: fix uffd move-pmd test crash on 64K base
+ page systems
+To: Zenghui Yu <zenghui.yu@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ akpm@linux-foundation.org, rppt@kernel.org, peterx@redhat.com,
+ ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, surenb@google.com,
+ mhocko@suse.com
+References: <20261011163527.95988-1-zenghui.yu@linux.dev>
+ <67c30e4c-3576-4ded-a71f-b49075ed42e3@kernel.org>
+ <2162e5c9-58f4-427f-984d-0099d9b515fc@linux.dev>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -109,28 +108,44 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <auNbTHXp4o_Dqww4@thinkstation>
+In-Reply-To: <2162e5c9-58f4-427f-984d-0099d9b515fc@linux.dev>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/29/26 15:44, Kiryl Shutsemau wrote:
-> On Thu, Oct 29, 2026 at 09:45:21PM +0800, Kaitao Cheng wrote:
->> From: Kaitao Cheng <chengkaitao@kylinos.cn>
+On 10/29/26 14:37, Zenghui Yu wrote:
+> Hi David,
+> 
+> On 10/13/26 3:39 PM, David Hildenbrand (Arm) wrote:
+>> On 10/11/26 18:35, Zenghui Yu wrote:
+>>> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+>>>
+>>> uffd_move_pmd_test()/uffd_move_test_common() splits the test area into
+>>> chunks of chunk_size and moves them one by one.  On arm64 with 64K base
+>>> pages the chunk_size (read_pmd_pagesize()) is 512MB, which is larger than
+>>> the whole 32MB (UFFD_TEST_MEM_SIZE) test area:
+>>>
+>>>   step_count = nr_pages / (chunk_size / page_size) == 0
+>>>
+>>> Because chunk_size > page_size, the test then aligns both areas up to
+>>> 512MB, which points far outside of the 32MB mappings, and decrements
+>>> step_count, which underflows to ULONG_MAX.  The verification loop then
+>>> runs away and the first dereference of area_src faults with a SIGSEGV.
+>>>
+>>> Skip the test when a single chunk cannot fit into the test area.
 >>
->> sparse_init() is called only once during boot, and the vmemmap alignment
->> check is outside any loop, so VM_WARN_ON_ONCE() provides no benefit over
->> VM_WARN_ON() here.
+>> That leaves 64k untested, though? Why not adjust the chunk size accordingly?
 > 
-> Okay, that's true. But who cares. __init section will be freed anyway.
-> I don't see downside in current code.
-> 
->> Use VM_WARN_ON() and fold compound_info_has_mask() into its condition,
->> preserving short-circuit evaluation.
-> 
-> Why? It only got harder to read, no?
+> Right. Apparently this has never been tested on 64k :)
 
-This would be fine as part of some bigger rework, but standalone this cleanup is
-not very attractive :)
+Yeah. And if we start supporting it we should properly test it :)
+
+> 
+> I agree that scaling the chunk size is the better approach -- it gives us
+> actual test coverage on such configuration, instead of bailing out early.
+> 
+> If anyone is interested in it, please feel free to send a patch. Otherwise
+> I'll work on it when I get some spare time.
+I guess no rush on this one.
 
 -- 
 Cheers,
