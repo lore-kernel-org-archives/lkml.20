@@ -1,61 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.77.101.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.243.244.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793262006;
-	b=dTXvzOEgICVTyUrj47QfLkcR9uL5fy1nEQoi9wY7qjNO3S2hi4UR/+Uof9ozn3Iflxsy
-	 S1l6kp0lEMDgCZfvM6wAFyzMmbzf9qnHCZitooLkr2Qwk6BSIks5ADnfXfE1rNLdnzZNR
-	 wxoFNPTV6CyE0Hue1cJ5t0m0a2+Ox6nQnnA5V7LXr5lujbIfahdTYyhKSbONf87vKS47r
-	 DMFCHiS62oBm1h9DsjABxzemm6F/7FFMOov/1BQY9i5N3DJrTqYE43S8XM4Gh/aR2FJCf
-	 9nbAiUtUOAb1tHGkSCTEf5Max0te7Y6GqYKBX3hIwEYBiXqwndUySx85Oc+KkO0bvdg==
+	t=1793262075;
+	b=TOGO/Qd/iE74VFp9pl6xc4teiCK9wbUHY+lEwsTvT+5oqRpH33ThwcxAiXq6hRfJAUV6
+	 qDa0ZFmraFoKh8c/mxixORSUxFMPafSJ6GmVI/TvvWMBRvlhwMTjaKVPIPGoBK6DMLq7g
+	 EFHXtl5JWHUHw1TS5NVkOV3zEbUDvQ8kx8dwO0XmD/tdHtofsD1Q2+zEFdGj3QphYy8iM
+	 jD53GdCw4ynJA2HE8oelOdx3e2is957tFi7pv4J2QUeU5f6VhSNdYboeOyBKeuE5cpPSc
+	 +gX01ROTnvyorPiP9x6FRIcTmet8RMVqIBo/yfferN0LOpjqXucPAmgJLr5lpyqXzeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793262006;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-WP-MailID:X-WP-AV:X-WP-SPAM;
-	bh=hq49hLBHa7UxfN5Y7PY1/zeZc0Rq/8U/5K7+yWJjlb8=;
-	b=yT5iOZYCqSvTo4BEgX29yI8dHaLkPRjl11+00OPYaUxO9BLaGTYZfqCqvJcDKSQTRE/3
-	 htTrCK2IlNifHvfU4C+deRVaZ2pNh7VMOv+1J0yG6eCg3jXQlDJHHLMegys6aWMwis9Zt
-	 /Pfw35tl6C1o36PwZS95811fQsrJbX9vM1SaKDmXeZGmfDcwx0qh2uhRH0uC5xPlTLbNq
-	 qiSk6I0+TMx87Gq9WOyt2s+RQthK0fDl2VRI5iFtJo4JFpZcGoxQS2fBdAJgEqaaYvQ0v
-	 7rZa01hJ8CNdLVen0dz/9bLG58RcjFstYFqJo0G2hLOe90e8bfRqyEg8CfHRG7/izWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262075;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=v8LUTXRwXjrnk8rvFZ0Edc1FBfASGtQZlVn+pZ0Os80=;
+	b=z66/3upSWeSsdYYMsUe//wtOksugWP1KUxBecu9Ay892+A0k6docjQevzHGosQF9sC+N
+	 YeA2A9W3Smpk3pelMl0dTJIW2YHuwS1sOxL8LhNXlwkh94Ddl+NajwT6vmeyOcuEdMXNy
+	 ZTWkeOPeic7AZr6ma4Irt+YDcyC2rBKd6A+MpX7GuwGWgOqHp7CpkzuIs7GyiI7Es/mSO
+	 ar8XvBC/Hy0pqNkypMP8b/097K50ix7XK2EHX+3x7aMAFQnf6jtqlfCxOu3sHN5PzTIWp
+	 g79VLQsxAc15d6Jl/JFxOtvGQj/zNVlaOKklaJD+LTPQIdTmQu5lb2Z6XT2r5BG6N0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wp.pl;
-	spf=pass smtp.mailfrom=wp.pl;
-	dkim=pass header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=QIMHzxMr;
-	arc=none smtp.remote-ip=212.77.101.9
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=airkyi.com;
+	spf=pass smtp.mailfrom=airkyi.com;
+	dkim=pass header.d=airkyi.com header.i=@airkyi.com header.a=rsa-sha256 header.s=altu2504 header.b="gLe6/uwh";
+	arc=none smtp.remote-ip=54.243.244.52
+Received: from smtpbguseast3.qq.com (smtpbguseast3.qq.com [54.243.244.52])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA7B606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:20:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCA7B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B65606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:21:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84B65606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airkyi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=QIMHzxMr
-Received: (wp-smtpd smtp.wp.pl 19003 invoked from network); 29 Oct 2026 09:19:56 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
-          t=1793261996; bh=hq49hLBHa7UxfN5Y7PY1/zeZc0Rq/8U/5K7+yWJjlb8=;
-          h=From:To:Cc:Subject;
-          b=QIMHzxMrXKyvbvSPf9r3zdRNpzdUXlqA9y9T+e0eXS1souqtzoh16entuXwVA90XY
-           M3fNHWJ7hzfryk1SjVAppe86hzO9mafjrdFxpQpW+uCSr77xtdbvxySibggXUMA1Hn
-           luhOT3bkTrmlVbqFPYxAVh9t25uH4kUISSUcSWnrsGn9e93jg3AGs9Cm0jFwp68v1M
-           ZUcM80POHLdc0k/otEl3iGEaPLRy+ykIVPdx9/Ln6VTShgOUvDcAu5moUZ6elDPwCS
-           BOO8kSRl0nvlV6WVHM6aJbPN3lAtRN1Ti9JkI8YCxkM5pnzVT/GU63v19qkImA1KdI
-           yZeL0RKr1ySrQ==
-Received: from localhost (77-236-11-144.static.play.pl [77.236.11.144])
-          (envelope-sender <stf_xl@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <enderaoelyther@gmail.com>; 29 Oct 2026 09:19:56 +0100
-Date: Thu, 29 Oct 2026 09:19:55 +0100
-From: Stanislaw Gruszka <stf_xl@wp.pl>
-To: Zhao Li <enderaoelyther@gmail.com>
-Cc: Wey-Yi Guy <wey-yi.w.guy@intel.com>, linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: iwlegacy: unregister the LED if 3945 hardware
- registration fails
-Message-ID: <20261029081955.GA10212@wp.pl>
-References: <20261028142328.18560-1-enderaoelyther@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=airkyi.com header.i=@airkyi.com header.a=rsa-sha256 header.s=altu2504 header.b=gLe6/uwh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+	s=altu2504; t=1793262062;
+	bh=v8LUTXRwXjrnk8rvFZ0Edc1FBfASGtQZlVn+pZ0Os80=;
+	h=From:To:Subject:Date:Message-Id;
+	b=gLe6/uwhCw8XDHck7eMXupy1+U417jwSb/6OHkuWB+8x6dhWB1ivkfuG6ZH3gBgJR
+	 f1g5i9LqFeES/W2C0RORQAf1p1Vg3vURV5qIHRoFJJwvFn5fUgjhg4Mp1lYMp3nGFa
+	 rOPQpyVjW1X96MnvBqkuJcjEt7NRGnyqT6T0yfJU=
+X-QQ-mid: esmtpsz17t1793262058tcd08bff6
+X-QQ-Originating-IP: 5nmMROT/a8dp6xGiJN0AOp1fNoNeWk2QJEtSMkElQ10=
+Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 29 Oct 2026 16:20:56 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 6006500186905104022
+From: Chaoyi Chen <kernel@airkyi.com>
+To: Sandy Huang <hjc@rock-chips.com>,
+	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+	Andy Yan <andyshrk@163.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: [PATCH v2 0/3] drm/rockchip: vop2: Add 8K support for RK3588 vop2
+Date: Thu, 29 Oct 2026 16:14:26 +0800
+Message-Id: <20261029081429.862-1-kernel@airkyi.com>
+X-Mailer: git-send-email 2.17.1
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: OWE7vHvMOJtS55tiTH5KxrP6I1/+0+ZTpdSAWH4spBsb20aQl7G+JsEC
+	Eu4/PL+URSiCLMSvEeumlRli20vaW9klVlYAYC7coFrxx0O42YUdv+vxM3ijE3uOFjgZp3+
+	MxYw8wrkKx6GYDC3NtQCmA/g3LQ3E5TIIHVGgHoKhl3Ui7PrmMOXrt3KXMOI2Z39Lfp58eJ
+	5slsHTbpPWz98lajvXCMu7pm+JGxldqLmEWpHDNccfGrdjRvOy2Gx+74NFKm1uksPcrIK3s
+	OIRhsXztoTkH5p2HaPtohHAN0nbp7yzCFLJTXGyfGnXHOpc1t6vcbg9nrYzbDnLu36nV3xB
+	oMgXJsrgfdP8dwx0WW+Fn3rSf8/RVzgZOH7uOIxvQ1kzpXNUw/LMNup9ygS80cBkWBKbtLT
+	a12PJLwOnfj4oyqC4jwswsLK5MVyp0/9ef9umQvHXKoHdNYVkOcVdQzghIqTuEYEVxwqSKU
+	Nx7BaZolbC0bQmwCxUVfW9VJjbcupIJkc5XixMD42g87281tM3RlfgmKycQeQCVLMKSJNz8
+	Zuh4VffPhuU783iz/3wUXHN5F3Y/JJ2v7MwSCyRDaJYUdShHPgSufjS5MiSDOro8iPun5qc
+	G97C3hHEmryQZg68tcllUd2oAFY+EAKWlHs4XJjxCN28R1eOo7T25WQH1vlyZ4FrZn5KMjv
+	f9mnjKMnjsoH5BE4QorOKWzCxLdV+7pi40p5u9VORQl7s17uguyIX81C5/JDD9rcKlqGsBP
+	cChztumhQt+EXwAGPaK06SFTtFtG9+z3ZJWo4XABfWPk/Gc9z8H6xyCtZpxUE28hnRkH+Gg
+	QJ0J2oEZeagnl3FiCMTaGRu1kng7iSI+zLqNlXoHKWHMdfiKLU+hRZs7BRK4CfcQz/Huuut
+	BH9ZAf2O7VELOgLV9Wh0z4KyKMelhfSVc5BN7bIMtsqSIKNMlrDOeDxrL7gjpxLcjoH+Tdx
+	XJgHx/3Q6/o+bSGiD6SVML7X+JGwBGU7gL65dcKYkwKmCAUhiCrcAIGgeYp+3fpvAf+3iow
+	aJyeDFyJJUKfQpk+NgumLH9lujPP0=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,58 +96,56 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028142328.18560-1-enderaoelyther@gmail.com>
-X-WP-MailID: 075bfac9a22155880d5d6a0228c06ea4
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000001 [4eLx]                               
+
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
 Hi,
-On Wed, Oct 28, 2026 at 10:23:28PM +0800, Zhao Li wrote:
-> If ieee80211_register_hw() fails during 3945 setup, later LED callbacks
-> can access hardware and driver state that probe has already freed.
-> 
-> il3945_setup_mac() registers the LED before the mac80211 hardware, but
-> its registration error path does not call il_leds_exit(). The analogous
-> 4965 failure releases the driver and reaches its existing remove cleanup.
 
-Could you explain exacly how this is fixed in 4965?
-I do not see this in the code.
+This series adds support for 8K output on the RK3588 VOP2. HDMI is not
+ready yet, but I believe many people might be interested in this.
 
-Regards
-Stanislaw
+8K output on the RK3588 is done by splicing two VPs together, with VP0
+outputting the left half of the screen and VP1 the right half. In
+addition, 8K planes have to be split in half as well to stay within the
+width limit of a single plane. Similarly, there are a few post-processing
+details that need to be handled.
 
-> Unregister the 3945 LED before unwinding a failed hardware registration.
-> 
-> LLM assistance was used to find the bug and review.
-> 
-> Fixes: 5ed540aecc2a ("iwlwifi: use mac80211 throughput trigger")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
-> ---
-> Validation: A W=1 module build with MODPOST passed. Not
-> reproduced; 3945 hardware was unavailable.
-> Sparse C=2 passed. Targeted Smatch introduced no new diagnostics.
-> 
->  drivers/net/wireless/intel/iwlegacy/3945-mac.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/net/wireless/intel/iwlegacy/3945-mac.c b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-> index f7ca182d1494..5e11f0597255 100644
-> --- a/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-> +++ b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-> @@ -3529,6 +3529,7 @@ il3945_setup_mac(struct il_priv *il)
->  	ret = ieee80211_register_hw(il->hw);
->  	if (ret) {
->  		IL_ERR("Failed to register hw (error %d)\n", ret);
-> +		il_leds_exit(il);
->  		return ret;
->  	}
->  	il->mac80211_registered = 1;
-> 
-> base-commit: 25e73f1d6868c759c8eb56cad4e411692c5341b4
-> -- 
-> 2.56.0
-> 
+Note that splice mode is not only usable for 8K output. This means the
+mode can be tested at 4K and even lower resolutions, by simply changing 
+this one line:
+
+-#define VOP2_MAX_VP_OUTPUT_WIDTH    4096
++#define VOP2_MAX_VP_OUTPUT_WIDTH    (3840 / 2) /* for 4K test */
+
+And yes, this has been tested at 4K over HDMI on the RK3588 EVB1 :)
+
+Changes in v2:
+- Link to v1: https://lore.kernel.org/all/20261022071737.508-1-kernel@airkyi.com/
+- Missing removal of the replaced line(Heiko).
+- vop2_win_get_pstate(): use the left window's state only in splice mode(Sashiko).
+- Reject splice windows already in use by another CRTC(Sashiko).
+- Check the splice partner via drm_atomic_get_crtc_state() instead of the runtime flag and unlocked read(Sashiko).
+- Set splice_mode_right/left_vp before the error paths of vop2_crtc_atomic_enable()(Sashiko).
+- Validate each split half against the min width 4 and max input width; align NV20/NV30 like NV15(Sashiko).
+- Latch overlay registers at the left VP's vsync; don't wait for the partner's own cfg-done(Sashiko).
+- Program the color key on the window actually being updated(Sashiko).
+
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+---
+
+Chaoyi Chen (3):
+  drm/rockchip: vop2: Use drm_format_info_min_pitch() for plane offsets
+  drm/rockchip: vop2: Skip UV plane setup for packed YUV formats
+  drm/rockchip: vop2: Support 8K output by splicing two video ports
+
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.h  |   5 +
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 535 +++++++++++++++++--
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  66 ++-
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 204 +++++--
+ 4 files changed, 721 insertions(+), 89 deletions(-)
+
+-- 
+2.53.0
+
