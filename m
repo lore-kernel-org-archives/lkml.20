@@ -1,121 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793291803;
-	b=gdNalJ3QjfxIRnj04SpjDhKanWGyY/UHc5TCvky6Aj0f+PafnztM92XG/hJ2reAEemss
-	 lsI4IKhxqWNspZS407X2EHO8Wna8/fmlA6Bs2SWuyPuH2YDL1RLUB0L6K9nS4+mYIlGto
-	 dbkBt6ZDkREiB0cLe9wfawIpCwSJnAwhyPEjeA47O5BovYSKwSXqPBV+ebLjq5BYY2FVy
-	 y/cZwAX3eXonVSQNfm3/zZ6iO05qE3wHLkfxsow31/vwneWTTDZU/YQaVNS8pisP/1pnG
-	 xVJw6PJa4lp17Ykq5+Hyo+mJTBW6GlDddwgZkA6m7em9GGHB3HblBcmNjB2jR/qHB2w==
+	t=1793291847;
+	b=leKX1lrsX5c+wbDKnVNtuC1KROkTJfHOVKTa0w+WWSlU/dqiaEymilLcWNzTYyOsZows
+	 8DjFjRYwYTn50sRWHm929oeSafXyRPMCqRkKX6Gp5X0ZWEdpPkawu7iOV0k1zEuj4MhtP
+	 0DYqvufXSbuQA6qURkmRUynpWxbFBAGdZf7UsBiND3f3tbgmssTFSP/vsrglftsuDTTUU
+	 KyUVFupLWlFg8wcfxcp02E4vtfCU1EgoDGMVkdPzqLdlFjIWlUvOKrN8oMi9uzaoUrF9T
+	 /srgPQFNqHKpZFKYjpqBnZqNrDiehlD6JRODA0PKRppKyLxYkrk75BLXzwOFr+0QEOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793291803;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version;
-	bh=Xh5GwzoMNDORSahml54f6zY7X7ZcIcv/dWobqKgZ/mM=;
-	b=dkmTy4rXfqUZBHvw6foUKqHk/TK7TEzX1wIUiTfuIUriqfsGUS2eNBoB1EOwfqBsU12U
-	 SaK5UxqE0n71CvUJZ+Jc3e6X4j0cLlkVVIjp3SN7F7nkYtmXocs8oGbKHjkln66Wy3zDw
-	 mqD+gSymBJRf2NRyP+f2+1AM4lAN+mGFEH/fyPo99gKdAMg+aqtfEukpliS52fdx0iKpJ
-	 5QgWLTdAmNcf/1qtmbXcrfQxmTAwrupldhCdG83XrHMewebwu3TUsZ6bgMk6FFQWd5+ET
-	 thx7xShkalxYcyrkq3lejlxNl8Z/F6eJl9p48kM/iaOQkP9bBXvsp5MLdhkFvBcIfTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793291847;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=CZ8plerL2syrMlfnumjH2jJdKKGHOC/035TXmxh2S2I=;
+	b=S0C7A6tmRpADV4K+wFnkwWDk12D9jZX1Bo2nG7AsaqqtKsTk5ClAJ24gUZIFwKcPwuiV
+	 1WkjjLJBw/lfDX0cQzZZSldFUvtQiUZwDy9sbYSVN1dnSgfNGmzE+CtjCYV+JlwTCORYZ
+	 kq5De29CjrmWiudBgfBRPGOYjJ/DXcb1NBs7MEAZAEDASchqRfeM+hXZNtlBnvuEqpnNq
+	 TnizzxRRRgpY/F/ZrS675pGoQW5XB9mqQ74un+QUWvCdbfpe8esxr2p9gufm06Y6foVXT
+	 r4HxVitlPi1rvPgA2OiCQBPAVAHEBnlYgLyUrMCdjifyPfbyjfSuPMo5OGTJx55Cagw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YA6WUPkU;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=B9sXz07p;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=nCGH2zWV;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AA9606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:36:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98AA9606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C38606A31A;
+	Thu, 29 Oct 2026 16:37:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97C38606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YA6WUPkU;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=B9sXz07p
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793291801;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Xh5GwzoMNDORSahml54f6zY7X7ZcIcv/dWobqKgZ/mM=;
-	b=YA6WUPkUH2VubiO6dRSVe36456q3Oo2A09tPc+b9F2Vp7t7qp6nqHtiF/FyncMiFfC/jxo
-	37yBMQJejGeg9QkxqDfzS1D1UVlMlpRmovYxmbzYvyws3v//vLQ8UdZtxYM15uOv9lxlfx
-	4KXXJJwrNwXzsCd/IcvuK1H/+Ty5dW0=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-552-4ihGom6gOSuEbkwwSC92-w-1; Thu, 29 Oct 2026 12:36:39 -0400
-X-MC-Unique: 4ihGom6gOSuEbkwwSC92-w-1
-X-Mimecast-MFC-AGG-ID: 4ihGom6gOSuEbkwwSC92-w_1793291799
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-917a7c17166so51338846d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 09:36:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793291799; x=1793896599; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Xh5GwzoMNDORSahml54f6zY7X7ZcIcv/dWobqKgZ/mM=;
-        b=B9sXz07pKESqyGR7JHQOLqWP2l8Hktxn8N9gBhXQGahhdRoB5KWScnd0VlxgmJA5rF
-         b42xRFTZQL2brWPazu2Uw85LcIcTWNEQMcKyXXIT4ZrWAe3e/emdJtQ1Ws5P+Af1xuJE
-         WuY83zjy+vQ1QY7UC4unJqjPDKAHP9KGPAbb3j7zYsHTJJGflfrNoIgZI2du1790Gvu/
-         sJ+HE4uqNlDwahpkfl6rHhtuOiNhxLeow3yeARX7K6+b8pmja5uF7O1fQcDT/Sw5aec3
-         PN7LG5qGl15+qkqeSIP37HVlhChQsG8xBQVwieO3M9W9GqdflAdOdgktLhTsksxPvsOO
-         LLkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793291799; x=1793896599;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xh5GwzoMNDORSahml54f6zY7X7ZcIcv/dWobqKgZ/mM=;
-        b=PHOkoQq/E1saTJNl0F+iMx8u9tiIgp3GcNm4U1y5ddN7YZMDOCsad5KdAH6ZKMQMr9
-         nxRgvS+qQ+OQigxOr04y/DeNBeL0BnNxpUN0x+OKqKwKm7JNzcRradfXDlvHSooIZGET
-         Jj+W0U3PoGnli+nqD+9ug1eqrHYM1rX98pi1TVJIaMAOQTblh3R7XiqWD7jdswS40FfP
-         f27wP4WlQ/JpT9tP2UNfmZa3/+FoE/Nw7b9ejBcLNM4ax+l+W611rUnwTDEHJ5taGABW
-         T+oZZnb6JgStAi1+qWsgGmoFQH78bDxNuwCwYDGPdfFeE0S3IadzQq092uPL/6OXDXrU
-         66JQ==
-X-Forwarded-Encrypted: i=1; AKwUvBynEeeaLrXSP3xXxWCPESxoTx1bdK7BD+tWBH4G87Ygh5bsRhU5AZtXYaL+bV8N7ZITxszULKid0FLkI74=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQyRu7j4XhxvLaDbglKZES6Wav72QWGUIOelThYejLo1Tbl0PB
-	M8g4n4+BcJzcAVy8bBjtd/o7iPI3/bfRwtPIYOkmAgn41UN5qCKPE1dFCxviMbJu8Cm4uA3TlRI
-	6WDCbagZqEja0OLUT15VPZOjimWpmAIyQJKzxGviaayLtEG/Ia2Sj0Y6lv42VYg5clA==
-X-Gm-Gg: AYBFou3HQMXDsJQ5cuzMGDGyztcU21mS/Rs3O/f8qLeWL8MhrMvT47nqU4T9N/9HD2l
-	cuXM2g45rvTTJht7xoSo/ay7QC3LJLO9w8Pm2Bs3y5n10OJMSd1KtrhuM6RxXbu2yq0Wy2GS45T
-	deEZqKTDKgIZqQFZJ+97AqlE53ziR02mRmJTUH6kPXDuTHGhungG2hF9qaeRwPavdDXGWjMNnC3
-	Nlq23nNW95nSayrKZkfReggU17yf5GgrxntdypsIugAfnDbd47qMEVnJ5pgYHHTRpc+EXBLoBfr
-	eMKWyODGXIORym5r1Xd/cIIAClx+hbNdd3uP8910EBqJd3SiXJaOyfoyAGqKWw1f9o1CX33vBPO
-	PJhvcMunTmGUmadps6VH5wH1TgPIjDtv8IeTy5/JQU+M0NIY0KRaPxfi/EMfCirU5urnzPEjl5H
-	ZOq1gAUy0LB8KOpjonJRDuCYw9PBULEUQRGQFU/63d8+plCaF94MEqVKiw9ww3MA+kY80WqUU=
-X-Received: by 2002:a05:6214:4609:b0:91c:7b54:b19f with SMTP id 6a1803df08f44-91c7d1ff57bmr83917696d6.45.1793291799068;
-        Thu, 29 Oct 2026 09:36:39 -0700 (PDT)
-X-Received: by 2002:a05:6214:4609:b0:91c:7b54:b19f with SMTP id 6a1803df08f44-91c7d1ff57bmr83917396d6.45.1793291798472;
-        Thu, 29 Oct 2026 09:36:38 -0700 (PDT)
-Received: from loberman-thinkpadp16gen3.rmtusma.csb ([2600:6c65:2440:d8c:aa2b:ddff:fe88:da74])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca3131f9asm416106d6.26.2026.10.29.09.36.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 09:36:37 -0700 (PDT)
-Message-ID: <8f2bf8761328abfd3ebcda9fd227fc0abff212e8.camel@redhat.com>
-Subject: Re: [PATCH] scsi: qedf: Remove unesseary function call
-From: Laurence Oberman <loberman@redhat.com>
-To: Jesse Taube <jtaubepe@redhat.com>, "Martin K. Petersen"
-	 <martin.petersen@oracle.com>
-Cc: linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, "James E.J.
- Bottomley" <James.Bottomley@HansenPartnership.com>, Nimal Prabudoss I
- <nprabudo@redhat.com>, 	jmeneghi@redhat.com, Nilesh Javali
- <njavali@marvell.com>, Manish Rangankar	 <mrangankar@marvell.com>,
- GR-ETH-Storage-Upstream@marvell.com
-Date: Thu, 29 Oct 2026 12:36:36 -0400
-In-Reply-To: <20261029160443.904468-1-jtaubepe@redhat.com>
-References: <20261029160443.904468-1-jtaubepe@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=nCGH2zWV
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TGEBEr3505090;
+	Thu, 29 Oct 2026 16:36:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=CZ8ple
+	rL2syrMlfnumjH2jJdKKGHOC/035TXmxh2S2I=; b=nCGH2zWVl/QFsd6CvM+af8
+	A3chTRPpnZpiID2fFo8Pnr6pmnQni8LmJgPLkKkuQ5iPEEDbObktE3FRH8U6yBXU
+	AI0tqR5nLc7tYzkqpFYvPOT3fBHd7oPLYTvzqAaadYVlUdqUlCNmj6nEfcOi/YOq
+	3PkQqz1n210WhlgucoJUn6YyLW+V/O/+fFn8ojfo2Pg28r+0GsAZNQ9r6qTrVkQ8
+	MuR0ntWvM60rHaEbUCr6i0Xp5zx5p8KF8uoTmPW0dXubd/LDjKy2ynkvNR0Z7ZE+
+	fLIkOCzxxzJ6fntYhSL2VSGY7E4MuoihUsvpnTAf0y/LMCGCW8J2+i9biqIkGxVA
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hgk3gb89c-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 29 Oct 2026 16:36:39 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69TGJtve2213552;
+	Thu, 29 Oct 2026 16:36:38 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hk010s3mx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 29 Oct 2026 16:36:38 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69TGaYp845285848
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Thu, 29 Oct 2026 16:36:34 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 49A242004F;
+	Thu, 29 Oct 2026 16:36:34 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DF8CC2004B;
+	Thu, 29 Oct 2026 16:36:29 +0000 (GMT)
+Received: from [9.87.137.195] (unknown [9.87.137.195])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Thu, 29 Oct 2026 16:36:29 +0000 (GMT)
+Message-ID: <b83e2d2f-681d-4e19-a680-c076493b3edd@linux.ibm.com>
+Date: Thu, 29 Oct 2026 17:36:28 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,33 +86,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 04/13] cpumask: Introduce cpu_preferred_mask
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        mingo@kernel.org, peterz@infradead.org, juri.lelli@redhat.com,
+        vincent.guittot@linaro.org, yury.norov@gmail.com,
+        kprateek.nayak@amd.com, iii@linux.ibm.com, corbet@lwn.net,
+        tglx@kernel.org, gregkh@linuxfoundation.org, pbonzini@redhat.com,
+        seanjc@google.com, vschneid@redhat.com, huschle@linux.ibm.com,
+        rostedt@goodmis.org, dietmar.eggemann@arm.com, maddy@linux.ibm.com,
+        srikar@linux.ibm.com, hdanton@sina.com, chleroy@kernel.org,
+        vineeth@bitbyteword.org, frederic@kernel.org, arighi@nvidia.com,
+        pauld@redhat.com, christian.loehle@arm.com, tj@kernel.org,
+        tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org,
+        rdunlap@infradead.org, kernellwp@gmail.com, linux-doc@vger.kernel.org,
+        jgross@suse.com, virtualization@lists.linux.dev,
+        sunlightlinux@gmail.com
+References: <20260928053728.797539-1-sshegde@linux.ibm.com>
+ <20260928053728.797539-5-sshegde@linux.ibm.com>
+ <4605dad5-aab2-49e3-b919-bf9897181834@linux.ibm.com> <auN0GKVMNvXbNdCN@yury>
+Content-Language: en-US
+From: Mete Durlu <meted@linux.ibm.com>
+In-Reply-To: <auN0GKVMNvXbNdCN@yury>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: 9lqEBvvs7gzC6DkqD5lU8d1OxFLpQkgh
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA2MyBTYWx0ZWRfX6WBcxdgMKUDo
+ h37iJT9VaH2+Fmruih3d4KNT0Zga7F3Gibbjuh0KNOmbApUASxzZtRvpEpTlpgg+eyIz2i6hfEb
+ XghuijwKrgEm2i4mYxCZZWZpA3l4aW/5indrmbiHu7bK1EQtbBNbl0rQXU9BmTZT65O1Vt48LXa
+ Z5O0sqvTZnfQXdETjBBW+cn0FTr0I1863s+Kgky6OReCDmCkSNQunhhngLEDh+GiAnbUOsXdtB3
+ pnwpoDCDu0ehYRZFK1eqsBw6eYapRfBdJAJtG5wfP31DRwloUIFnw+DLAlRXl2xTuPKflSvRSeZ
+ fGiYUuNbLk/9+pxLDAmv2fHKjIbcANeX5RgRuSgfeXjzclxpVPuEsVpK1ni0gK3d4+KikV3BSl/
+ 9BcKG7SwDFL4o3Ndh70ey3WVua/rhw==
+X-Authority-Analysis: v=2.4 cv=BOMmP1QG c=1 sm=1 tr=0 ts=6ae37617 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=NEAV23lmAAAA:8
+ a=VnNF1IyMAAAA:8 a=PUpFx_WVMNND69PTjbIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: uH0D07jxJuGJFGnKTapMZ_5XyfkvOLip
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA2MyBTYWx0ZWRfX6XDD5fdTB6UU
+ cs7G/bBoZ1HXKQ0mH4vrVLQZ5GfhU6ZjpKzHByV1hGfwOTgPNBjX4/rAzvVk5p4xN6MpEvRb3p9
+ PgekaDfWJI62/C+qhhptARwaIiMhZbM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 malwarescore=0 adultscore=0 phishscore=0
+ spamscore=0 lowpriorityscore=0 classifier=typeunknown authscore=0 authtc=
+ authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2610190000 definitions=main-2610290063
 
-On Thu, 2026-10-29 at 12:04 -0400, Jesse Taube wrote:
-> The result of `skb_transport_header` was unused. Calling this
-> function
-> warned when `skb_transport_header_was_set` returned false causing a
-> panic on debug kernels.
->=20
-> Signed-off-by: Jesse Taube <jtaubepe@redhat.com>
-> ---
-> =C2=A0drivers/scsi/qedf/qedf_main.c | 1 -
-> =C2=A01 file changed, 1 deletion(-)
->=20
-> diff --git a/drivers/scsi/qedf/qedf_main.c
-> b/drivers/scsi/qedf/qedf_main.c
-> index da429b3a4283..f2bc0ac684e0 100644
-> --- a/drivers/scsi/qedf/qedf_main.c
-> +++ b/drivers/scsi/qedf/qedf_main.c
-> @@ -2496,7 +2496,6 @@ static void qedf_recv_frame(struct qedf_ctx
-> *qedf,
-> =C2=A0
-> =C2=A0	/* Pull the header */
-> =C2=A0	hp =3D (struct fcoe_hdr *)skb->data;
-> -	fh =3D (struct fc_frame_header *) skb_transport_header(skb);
-> =C2=A0	skb_pull(skb, sizeof(struct fcoe_hdr));
-> =C2=A0	fr_len =3D skb->len - sizeof(struct fcoe_crc_eof);
-> =C2=A0
+On 29/10/2026 17:28, Yury Norov wrote:
+> On Thu, Oct 29, 2026 at 02:32:08PM +0100, Mete Durlu wrote:
+>> On 28/09/2026 07:37, Shrikanth Hegde wrote:
+>>> Provide the preferred CPU infrastructure. Define get/set macros
+>>> which could be used to get/set CPU state as preferred.
+>>>
+>>> CONFIG_PREFERRED_CPU will be selected by the driver which handles
+>>> steal time values. It is going to set/clear preferred CPU state.
+>>> This driver will be called steal_governor and it is introduced in
+>>> subsequent patches. It periodically computes the steal ratio and
+>>> decides on preferred CPU state.
+>>>
+>>> A CPU is set to preferred when it becomes active. Later it may be
+>>> marked as non-preferred depending on steal ratio by the steal_governor.
+>>>
+>>> Always maintain design construct of preferred is subset of active.
+>>> i.e. preferred ⊆ active ⊆ online ⊆ present ⊆ possible
+>>>
+>>> With CONFIG_PREFERRED_CPU=n, ensure set_cpu_preferred is a nop and get
+>>> method returns the active state in that case.
+>>>
+>>> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+>>> ---
+>>>    include/linux/cpumask.h | 24 ++++++++++++++++++++++++
+>>>    kernel/Kconfig.preempt  |  4 ++++
+>>>    kernel/cpu.c            |  6 ++++++
+>>>    kernel/sched/core.c     |  5 +++++
+>>>    4 files changed, 39 insertions(+)
+>>
+>> [..snip..]
+>>
+>>>    #define cpu_is_offline(cpu)	unlikely(!cpu_online(cpu))
+>>> diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
+>>> index 985aea617cfe..edc067a0c422 100644
+>>> --- a/kernel/Kconfig.preempt
+>>> +++ b/kernel/Kconfig.preempt
+>>> @@ -194,3 +194,7 @@ config SCHED_CLASS_EXT
+>>>    	  For more information:
+>>>    	    Documentation/scheduler/sched-ext.rst
+>>>    	    https://github.com/sched-ext/scx
+>>> +
+>>> +config PREFERRED_CPU
+>>> +	bool
+>>> +	depends on SMP && PARAVIRT
+>> FWICT, PREFERRED_CPU mechanism can work perfectly fine without PARAVIRT
+>> selected. It would be annoying to enable it and implement a dummy
+>> paravirt_steal_clock() just for that.
+>>
+>> Shrikanth, would it be possible to drop that dependency?
+> 
+> Do you have a non-paravirt case in mind?
 
-Looks good
-Reviewed-by: Laurence Oberman <loberman@redhat.com>
+s390 LPARs are exactly that. s390 does not select PARAVIRT by default
+but enabling PREFERRED_CPU is strongly considered.
+
+I removed the PARAVIRT dependency and gave the whole thing a quick
+spin. Builds and functions w/o any issues on s390!
+> I'm actually about to submit an RFC that drops the PARAVIRT dependency
+> and provides write access to the preferred mask. But I want to make
+> sure that we need it, and we've got no reasonable mechanism to put
+> unneeded CPUs on idle already.
+
+You can mention s390 LPARs as valid case on your RFC if need be.
+Thank you!
 
