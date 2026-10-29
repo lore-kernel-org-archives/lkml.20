@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793300319;
-	b=Wc7PUF6D/UuuecBxX8LJc538gYja+PG9RmmjchGirkpWfVhene/pLMxeYuoveHWccdkb
-	 OWxRXHy3+Rd2qoPSR/0++IPjneg4FSR6dtdlAqwfRrWROu3SdSlSBEfQFTnsA5ZqtxRoP
-	 49oApSfHEaFkdKkf8Co6hSFylq1ii89+T8s+SMYaGC/k/Gbjara18puIaJW0l2OcExv75
-	 LQWcnbmftam2UXdEcFGLaO2y2/RuduZ5gktOxKdQJLogpQ96SgWO5xSDDv94lvHW6rXqc
-	 AL15kT76SXeUjVEBe58Yg5y+VUk5Y09uIX0ipK3+zVUXyaNODQdYLAN4atNsvIrnDlw==
+	t=1793300307;
+	b=tkUN/X+r9jfGbUsk+iZ6kLM6z8n/Ey77L45n0D+UEQyGpgdbSRFJoHAnkzfhwflRt+Be
+	 EXiMWI3IJkW1qlrxS+XWgpWkQ3hkXCzeVA+ng49AyXpthTRLccv7b4TsLaciNqFvZJq7y
+	 wT8QkcrTM6kdG61Ccxq0mYTrTBfB9WIxgXaAevqVLmYd6W5o9401xM7wQejCuWoTDXmGc
+	 xJJbMod8QwDObypQshzzi/jad8WTj8dsxuQlfO9cvV4jkQkPu2y211TU68iVUd6+mkmkD
+	 0d8EkBrM8eUD7lTumfDMaeJ0D3mWaMEMKTu6BFgIUApOxwSL9U6N/AF3HTNs4NCKTJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793300319;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793300307;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=XE6ycAnMXu1bQU/ooZUSiqmjYw2pSbI0uNI5n7hv+8Y=;
-	b=q+qkg8K6Za2mTZBkh7No05S5twsHeNWUSgiW2Fo5taJccCFSBcO6J1mLiFf3mxtke4yc
-	 yh/FTirKKOyqSLm0pAuY9J7+Mhk0bjsftqN11jxLH0sK2yqbY/b/fEzKmPydKRTMQzU8C
-	 8xpFEhTBIehhyw04D4FU5DA6jq9CyeaD1sA1KZQX3nKW9ADfMlhpmBkOW8/zVdx/57xLp
-	 sDCxdNA0Fz376Fe7MOz3F82s3ZzZxpSVeIgAg5Mk2QcV3HZyeqV36N5t7xZB0LjRBXzSR
-	 n68imXiwJuZF8gfpq8rSttl8Q8TP6lyQR8tlcl/zczhC+xUedhMhduMVi2s09SriKAg==
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=AC5QClsrz1XRA48HDyLQf18t6aBzWu8gJH35sp8Hs1s=;
+	b=3UaurhKU8FSET68GR0ksAAC8pO2xL+RoOOta63mHy0jbDEAZEDihI6t8VhbWQkCcf8rH
+	 rItN5TLB+TEiX79kGiqJEL6P5lSt8a0qnnYzhxNi7EVRvQgkZLgdVCQanCA+16mj4w1SX
+	 E/4NbYUQGvLUi1oSuaFPTDxFfA6Vuka/mLzSdUreUhexkeKyuivQ9NBk3wdI1aiSrdnR/
+	 lRaOFLqeWDa/ASiA50dwUhj3/6PnWRPj6//pt4a0HGrar+0mqAgXxJXrq7ctCJlTWT4Cw
+	 203CbEeeZesqvXz68tYoXe/KET47m+I4T9hmE7O544l0Axc1OPAP0WbdQ81+xFVdqxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SHGEAkqW;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i2g4LzHv;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED1C860A2620
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:58:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED1C860A2620
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2F6606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:58:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF2F6606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SHGEAkqW
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-14394530ec6so2892731c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:58:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i2g4LzHv
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48e20edd106so1988005f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 11:58:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793300313; x=1793905113; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20260707; t=1793300305; x=1793905105; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=XE6ycAnMXu1bQU/ooZUSiqmjYw2pSbI0uNI5n7hv+8Y=;
-        b=SHGEAkqWPsT/YfAZqG1IaYNh/Bv6h62Oq9yHdJ8L3qMsjd8lyuM6qKjkLlqT4UXNS7
-         Zf2sxePWISw+KvpcI8uv0soEzjR0e7DgqtAgGBvBNy8BkwFdwIPEuOOT/AMyMFllBvlF
-         uvZu8/0tVUifVKo8chRZuPqM4Gj61Y38pa4LAKzBrjIUZ1F+YLgDp0ccem0OPDXwGMqQ
-         6aGV6/TSroLOdjc6GQNYgpYWheQgsQaPv5aAvGr7lN5D4RkZhy23kBtQXQGNza2Kwe2e
-         4LyD3LGciVw+u0+MLIPxrr2hyk2viQfhvu/jCJaQUYi+ea0FMCROZBh1rXsr20Lhmb58
-         NPRA==
+        bh=AC5QClsrz1XRA48HDyLQf18t6aBzWu8gJH35sp8Hs1s=;
+        b=i2g4LzHvhEhfgP+kSGpxME33yyHT6bNO4CAOLS1de+ubq5u0E3qJZLxTJCu97A6fbW
+         dp6/GWDsuu3RWqSrQGIMvwI/b58TWpQ7oJYQjdSVNCmtcOsKPQs7rZZRw39n4km8wAqI
+         +FyA3/aeuLs9Zf+lAuYLq5z2v1vFS5/i2VDK2B+IOHjKElET37icbLOc4Binsk0DGdw+
+         BEbx9xwiHF2gRuslQKF8vD7/wMPymnypmxmdADCSet5eTJIeRy/kLePxgs9LRhg/nov1
+         l4sKa9dDTVWQWDrR/KMkHC+imSj3+RqreT9+3X9NGtEPjTsE8cX7avF9ldTT2r50cS+4
+         00UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793300313; x=1793905113;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=XE6ycAnMXu1bQU/ooZUSiqmjYw2pSbI0uNI5n7hv+8Y=;
-        b=iQ59oPKGiMq3AMfgGwQZTaz/a6ktedLPx81bYuGGddIfbVMsTeDjhcNcT1G9X1l5vp
-         XhbDGVAwosoOss0q4hn0Xe2gd7wbQ0UdUR0yWatOsT8AxUzwwHC70VjF00xbw4tuLv6B
-         YHqAaC7T33QFt9yNSjDku/cgvpqpf30vobBT/kFw8dfj+DNM5GDmcmJzBrYKhqh7vnEn
-         XFBXGRkhyo/kKUiVu7Ei+u6h5hdHqpk2ndyM8DEwnQ3/t6WGuTnRAt46IZ2ZM7QWsVbD
-         spDVvnmyfL6Ap0otEmTMb3nSSOCtt3XLDWKTgTFWw4AMugoiYOS0JlVP75uQsnQnHO72
-         +cqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzdEVTNxYNOmtTL4amUZ5wv/QcH/yjNzfhldRYRcJp3kmxWKGWpvzgSivdHPBLEeSdKK75ur6ovVyCENkM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIvUGHa7dlMC+WHD0cxev3XF81fMn+oO45cet5sdCdDZgFo8oKM
-	oT5Hnnt9VAxNvWNTir+6G5r3it8tpQSmR0LSmFcPVq1HUSBFBa4Xztzt
-X-Gm-Gg: AYBFou0BQMV894D3HWyHfmqsXZ46iyNDzdd7FHJ3m0G2Et00PbCNtIPQ7BQj33jPmp4
-	GJIrQQerXdz9q8iGRquaUr0lrOfLzLgqJ4RSJklGlGR4uJANbe0j89hPuMoAY8XgloywRCHxB4O
-	K8ExC+3+fN6b5EF9WSuONfXKO4izPjn/IuPwT8K/6F5J8bjVYxsjmTItXuWbeZPp3bH8Ulw1+oq
-	Rk3+8Q0EvX11ZJ7k/wsbUIBr/rreNXrpB9FzcYysowWbeT4f+/ORYWYcani4q4M97E4gdh8yn+z
-	BAnPTlIu5suHMpdtYZzHjfInj0hCVIFBfsu93LB3EyAjqKyYYwVQgKT30YSW2e08MXxPqygDccd
-	Gk8ZdHxz8JGcrlYm5VB6e8W6pJYEfTkEfHJpBaa5XlpMUYajQXd0es9YkONnEp2qwVPHuiuUhKR
-	YVxYUSJ+R8IGDdYC9JMZD2FaiZf4Dp5XeXee3NqLxXQ42u1fgNWh9GB07Gz8ZXu+ELyeqlMcrje
-	EC1wHSdRUUnzeXwb+R1AMe+d2DifQktfO6R81hQaobzGERk5ojV2RAn4akyNOgKr1eV2PYjstxD
-	vn8iNYo9iOn8sgJXZTCiyTuejw36QHhS5wSYA/xKxIjt1GIQMEpj1V0LH6G8yeomXtMfnMCQFpt
-	89/IomgSYV6mzSb8LPw==
-X-Received: by 2002:a05:701b:4589:b0:14b:cf58:ce15 with SMTP id a92af1059eb24-1a6d208add6mr7430450c88.43.1793300312786;
-        Thu, 29 Oct 2026 11:58:32 -0700 (PDT)
-Received: from dtor-ws.sjc.corp.google.com ([2a00:79e0:2ebe:8:8310:80a5:1043:3f70])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458fa3sm603891c88.4.2026.10.29.11.58.28
+        d=1e100.net; s=20260707; t=1793300305; x=1793905105;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AC5QClsrz1XRA48HDyLQf18t6aBzWu8gJH35sp8Hs1s=;
+        b=Ar/v8vG0yrGYK0rl1+rALeW9y843ryXrACFN+14qcMX9ztbdz0Hon8x7M1P1jVHyx/
+         NgUEpJE7V9vP8weSyUo6ScgedRFRL4FYk/UdlwlA6rOyNQ9iHu49vd/CQApxnm78fzcc
+         k8RJS2Vnum1S/dSjlMY529GLl0yhvhlqqTZyX3LYGH3m9bq2r/I56zd5zoeHe4wgpwNO
+         8AzaJD9rrjxMcQreVqMsv6BCTRiNGyNiApbkgWhkUGtX+B9Vjh5+Oy55gEF2xMKxVvP3
+         gelAZ60/yn3yjbwXNtCc15NojwtvCPZDH7Hc7Lc+Q3r68SjZQ2JmEe4jgbsE1DIgDF7+
+         VdgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzKefcz8pFGpJNe+r416X50eqp9JCLxfXVtmu2e8sOFQXvtuPU/iU8I5ZJ4raKUpqpOZ7nEN4f4s+d4o0k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAHixNw2n6F+lptCGyEKxFVhBIBNj1kYpVS5XnCX+c+tNvKtay
+	Lp2zuuF1Hq0c5Dug1xWBE4WwFpfz6dnSGcjNerJP3NedbQqWqKAhR5wp
+X-Gm-Gg: AYBFou3PNv3gxmqD45yTgIAUoWuiEN/jBYTS17yXtTm+BYyDU5rr16bguGK9NcNNlma
+	0Xz09a4pmiQjpEJ2BSC4Ln6VhxHYMvoeEZfT8ai7CL8H/Z3l0ur9RFQMLDNJc7Y3kXmCKI94DDd
+	8e6bpyT0mbymcyzqfeaAwFW62bZYv3Q+Op5hIJ+mj/GUSXW0rHaqKF+s8XaQ1c3sTHdrCb7NrW8
+	GGr8SHDfI5CF/WaRjb0I4Q+xo/0M+DwO1awbhDcbWune/eufzvJw/7qvqnl3hySuOOsCUCVCVcl
+	uPpwknGeWWdmFrE4gJiNDe1fYSBcOdPyFJNCd457RRALcznSJ9ejduV37FkaivKjatoTPcN0EJ8
+	bkLnK1AoSd4wza79ZkMfVpvfNj133SjTwrb+MIzrMh8Tdk8VKXlPJCYBCYPY2Z/glfM/ZGrUDUC
+	82HfuIZgEKmI2Akkkqt3rixlJnYzy9O/0B03UlP3u5iAR2UFzGwQrRJuT92G6zp0XHABFLD3dmz
+	Oq15lpufTeYz85UrYxZoCDzEjBNC0zqKgll5tvJjAlmC3P3oFLueEOAh/4rfSJ+KEaS9VZXWvO8
+	T9wlV8NNbR3r2Bq5ohnqmkScIlZh55PNU6SbnUYi3I576ZuzYp11tPeL6/Uh31vJeQ==
+X-Received: by 2002:a05:600c:37c3:b0:4a2:1867:10e8 with SMTP id 5b1f17b1804b1-4a96701830cmr143370895e9.25.1793300305012;
+        Thu, 29 Oct 2026 11:58:25 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:23c4:a702:d301:eafc:6fb2:6c68:5ae0])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm94291535e9.10.2026.10.29.11.58.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 11:58:30 -0700 (PDT)
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Date: Thu, 29 Oct 2026 11:58:15 -0700
-Subject: [PATCH] gpio: sa1100: defer GPIO chip registration to
- postcore_initcall
+        Thu, 29 Oct 2026 11:58:23 -0700 (PDT)
+From: Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v9 0/7] Add Renesas RZ/G3E GPT support
+Date: Thu, 29 Oct 2026 18:58:21 +0000
+Message-Id: <20261029-gpt_rzg3e-v9-0-f3a5520388d3@bp.renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,109 +94,156 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-sa1100-swnode-fix-v1-1-112f4d83d191@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAEaX42oC/yXMywqDMBCF4VeRWTuQSYsSX6W4SHS000WUjJeC+
- O5NdfkdOP8ByklYoSkOSLyJyhQzqCyge/s4MkqfDdbYiox1qJ7IGNQ9Tj3jIF8kejpX04ND7SH
- /5sR5vpqv9rau4cPd8g/Bef4AD6TQWXUAAAA=
-X-Change-ID: 20261029-sa1100-swnode-fix-11499713eb7a
-To: Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
- Guenter Roeck <linux@roeck-us.net>, linux-gpio@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-e56a4
+X-B4-Tracking: v=1; b=H4sIAE2X42oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyLHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyNL3fSCkviiqnTjVF2zRAtLs1TDlOQk8zQloPqCotS0zAqwWdGxtbU
+ AsTDA3FsAAAA=
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+ Biju Das <biju.das.jz@bp.renesas.com>, 
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793300303; l=6413;
+ i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
+ bh=c8wDrcdQOd2pMDrdrwfnWxCUIIg51PMtaa0aLHC9stw=;
+ b=BbmXptapsN/+aukxD1j5qQ7naQl2PPP5WZElv/bLbBIZctqW/biXkTurrb5DDAWa+ygwy6bs7
+ mOyuSSLTxY6C/e0C20JC7e8dWaGgiUvDW+2ep17BTa6tmzBE1A80FwI
+X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
+ pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
 
-Registering the software node and the GPIO chip for the SA-1100 GPIO
-controller during early IRQ initialization causes boot hangs on
-SA-1100 platforms because the software node subsystem has not yet
-been initialized. At that early boot stage, attempting to register
-software nodes dereferences a NULL kset pointer before console or
-driver model initialization.
+This series extends the RZ/G2L GPT PWM driver with RZ/G3E SoC support.
 
-Nothing on SA-1100 platforms requests GPIO lines via gpiolib during
-early boot before initcalls run; only the GPIO IRQ controller and
-domain must be initialized during init_IRQ(). Defer registering the
-software node, assigning its firmware node, and registering the GPIO
-chip with gpiolib to postcore_initcall, running after driver and
-gpiolib device initialization and before board consumers register.
+The RZ/G3E GPT has a number of hardware differences compared to RZ/G2L:
+it exposes 16 channels (across two GPT instances of 8 channels each),
+uses a 4-bit GTCR prescaler field (versus 3-bit on RZ/G2L), and has a
+discontinuous prescale sequence with powers-of-2 scaling rather than the
+continuous powers-of-4 sequence on RZ/G2L. It also has additional clocks
+and resets (bus clock and rst_s).
 
-Fixes: e4671f292ebb ("gpio: sa1100: register software node for GPIO controller")
-Cc: stable@vger.kernel.org
-Reported-by: Guenter Roeck <linux@roeck-us.net>
-Closes: https://lore.kernel.org/r/2a561a27-a3bf-4cac-a4dc-bfbc5c859f45@roeck-us.net
-Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+POEG support is dropped from this series and will be added later.
+
+v8->v9:
+ * Updated commit header for patch#1
+ * Dropped fixes tag from patch#1 as there is no functional change.
+ * The prescale always initialised (reuse cache only if the sibling is
+   running)
+ * The round_waveform_tohw() no longer writes the prescale cache.
+ * Disabling an idle channel no longer touches the shared registers/
+   counter in rzg2l_gpt_write_waveform()
+ * The shared registers are only written (and the counter only stopped/
+   restarted) when no sibling is running -> no glitch on a running
+   sibling in rzg2l_gpt_write_waveform().
+ * The rzg2l_gpt_write_waveform() re-validates, under the lock, that the
+   sibling still uses the same prescale/period (returns -EBUSY otherwise)
+ * Redundant "enable &&" removed in rzg2l_gpt_write_waveform().
+ * The rzg2l_gpt_is_ch_enabled() fills *gtcr before the early return.
+ * Updated commit description in bindings channel->channels and
+   '8channels' to '8 channels'
+ * Retain the tag as the change is trivial.
+ * Updated a comment in limitation section '8 Channels'->'8 channels'.
+- Link v8: https://lore.kernel.org/all/20260825154847.197947-1-biju.das.jz@bp.renesas.com/
+v7->v8:
+ * Cached prescale value.
+ * Updated rzg2l_gpt_write_waveform() for caching the period, If the
+   channel is already enabled and the user changes its period.
+ * Updated rzg3e_gpt_calculate_prescale() with >= 64.
+v6->v7:
+ * Reordered the patched moving POEG support to last.
+ * Replaced USEC_PER_SEC->NSEC_PER_MSEC for period/duty cycle
+   conversion.
+ * Avoided recalculation of prescale, if is_small_second_period == true.
+ * Moved `wfhw->gtccr = 0` into the if block in rzg2l_gpt_config().
+ * Added rzg2l_gpt_poeg_link_channels() and used __free for deallocating
+   device node pointer.
+ * Replaced dev_err()->dev_err_probe() in rzg2l_gpt_poeg_link_channels().
+ * Replaced local variable cells with num_poeg_pairs in
+   rzg2l_gpt_poeg_init().
+v5->v6:
+ * Added patch for fixing period_ticks overflow.
+ * Added patch to add missing newlines to dev_err_probe() messages.
+ * Dropped extra space in poegs variable assignment in
+   rzg2l_gpt_poeg_init().
+ * Updated the comment sections of rzg2l_gpt_poeg_init() with POEG and GPT
+   in upper-case and replaced configure->configures.
+ * Format specifiers in dev_err() changed from %d to %u in
+   rzg2l_gpt_poeg_init().
+ * Dropped local variables pv and dc from rzg2l_gpt_round_waveform_tohw().
+ * Dropped blank line in rzg2l_gpt_round_waveform_tohw().
+ * Moved assignment of rzg2l_gpt->period_ticks[ch] to *_write_waveform().
+ * Restored clamping of duty_ticks with period_ticks in
+   rzg2l_gpt_round_waveform_tohw().
+ * Simplified rzg2l_gpt_write_waveform() using else if statement.
+ * Dropped local variable gptr in rzg2l_gpt_write_waveform().
+ * Moved mutex after early return in rzg2l_gpt_round_waveform_tohw().
+ * Dropped extra parameter rzg2l_gpt from rzg2l_gpt_calculate_prescale()
+   in rzg2l_gpt_round_waveform_tohw().
+ * Updated comment in rzg2l_gpt_calculate_period_or_duty().
+ * Updated rzg3e_gpt_calculate_prescale().
+v4->v5:
+ * Merged GPT linking POEG patch series here.
+ * Dropped suspend/resume patch; will be added later.
+ * Updated commit description for patches #2, #4, #5, and #6.
+ * Replaced return type of rzg2l_gpt_poeg_init() from void to int and
+   probe() check this return value.
+ * Added more error checks in rzg2l_gpt_poeg_init().
+ * Added a patch to drop the unused rzg2l_gpt_chip parameter from
+   rzg2l_gpt_calculate_prescale().
+ * Updated rzg2l_gpt_round_waveform_tohw() to initialize gtccr when the
+   period of the second channel is smaller.
+ * Replaced period_ticks with RZG2L_MAX_TICKS for the duty_ticks maximum
+   value check in rzg2l_gpt_round_waveform_tohw().
+v3->v4:
+ * Added wave form callback conversion back to this patch series.
+ * Updated rzg2l_gpt_is_ch_enabled() fit into 80-character limit for
+   consistency with other functions.
+ * Dropped field_{get,prep} as mainline now support it.
+ * Updated commit description for patch#3
+ * Retained RZG2L_GTCR_TPCS bit definitons
+ * Replaced gtcr_tpcs_mask->gtcr_tpcs
+ * Updated commit header and description for patch#4
+ * Renamed prescale_pow_of_two_mult_factor->prescale_mult
+ * Added RZG3E_GTCR_TPCS bit definition for RZ/G3E and added to
+   rzg3e_data.
+ * Added error checks on suspend() and device set to operational state
+   on failure().
+ * Added Rb tag from Geert for SoC dtsi.
+ * Added SW_GPIO9_CAN1_STB check to gpt0 node.
+v2->v3:
+ * Added Rb tag from Rob for bindings patch
+ * Dropped wave form callback conversion from this patch series as
+   it is covered in another series[1]
+ * Added suspend/resume support.
+v1->v2:
+ * Created separate document for RZ/G3E GPT.
+ * Updated commit header and description for binding patch.
+ * Added waveform callback conversion to this series.
+ * Collected tag.
+ * Added link to hardware manual
+ * Updated limitation section in driver patch.
+
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
- drivers/gpio/gpio-sa1100.c | 32 +++++++++++++++++++++++++++-----
- 1 file changed, 27 insertions(+), 5 deletions(-)
+Biju Das (7):
+      pwm: rzg2l-gpt: Update macro used for period/duty cycle conversion
+      pwm: rzg2l-gpt: Convert to waveform callbacks
+      pwm: rzg2l-gpt: Add info variable to struct rzg2l_gpt_chip
+      pwm: rzg2l-gpt: Add prescale_mult variable to struct rzg2l_gpt_info
+      pwm: rzg2l-gpt: Add calculate_prescale() callback to struct rzg2l_gpt_info
+      dt-bindings: pwm: Document RZ/G3E GPT support
+      pwm: rzg2l-gpt: Add RZ/G3E support
 
-diff --git a/drivers/gpio/gpio-sa1100.c b/drivers/gpio/gpio-sa1100.c
-index e4f3bf949b87..1916200ebbd5 100644
---- a/drivers/gpio/gpio-sa1100.c
-+++ b/drivers/gpio/gpio-sa1100.c
-@@ -8,6 +8,7 @@
- #include <linux/init.h>
- #include <linux/module.h>
- #include <linux/io.h>
-+#include <linux/printk.h>
- #include <linux/syscore_ops.h>
- #include <soc/sa1100/pwer.h>
- #include <mach/hardware.h>
-@@ -322,7 +323,6 @@ static const int sa1100_gpio_irqs[] __initconst = {
- void __init sa1100_init_gpio(void)
- {
- 	struct sa1100_gpio_chip *sgc = &sa1100_gpio_chip;
--	struct gpio_chip *gc = &sgc->chip;
- 	int i;
- 
- 	/* clear all GPIO edge detects */
-@@ -330,10 +330,6 @@ void __init sa1100_init_gpio(void)
- 	writel_relaxed(0, sgc->membase + R_GRER);
- 	writel_relaxed(-1, sgc->membase + R_GEDR);
- 
--	software_node_register(&sa1100_gpiochip_node);
--	gc->fwnode = software_node_fwnode(&sa1100_gpiochip_node);
--	gpiochip_add_data(gc, NULL);
--
- 	sa1100_gpio_irqdomain = irq_domain_create_simple(NULL,
- 			28, IRQ_GPIO0,
- 			&sa1100_gpio_irqdomain_ops, sgc);
-@@ -342,3 +338,29 @@ void __init sa1100_init_gpio(void)
- 		irq_set_chained_handler_and_data(sa1100_gpio_irqs[i],
- 						 sa1100_gpio_handler, sgc);
- }
-+
-+static int __init sa1100_gpio_init_chip(void)
-+{
-+	struct gpio_chip *gc = &sa1100_gpio_chip.chip;
-+	int error;
-+
-+	error = software_node_register(&sa1100_gpiochip_node);
-+	if (error) {
-+		pr_err("failed to register sa1100 gpiochip software node: %d\n",
-+		       error);
-+		return error;
-+	}
-+
-+	gc->fwnode = software_node_fwnode(&sa1100_gpiochip_node);
-+
-+	error = gpiochip_add_data(gc, NULL);
-+	if (error) {
-+		pr_err("failed to add sa1100 gpiochip: %d\n", error);
-+		gc->fwnode = NULL;
-+		software_node_unregister(&sa1100_gpiochip_node);
-+		return error;
-+	}
-+
-+	return 0;
-+}
-+postcore_initcall(sa1100_gpio_init_chip);
-
+ .../devicetree/bindings/pwm/renesas,rzg3e-gpt.yaml | 323 +++++++++++++++++++
+ drivers/pwm/pwm-rzg2l-gpt.c                        | 354 ++++++++++++++-------
+ 2 files changed, 565 insertions(+), 112 deletions(-)
 ---
-base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
-change-id: 20261029-sa1100-swnode-fix-11499713eb7a
+base-commit: 4e7443d29aa19bc779a2a485622cf92f1c7145e5
+change-id: 20261029-gpt_rzg3e-6a896e1dcb7f
 
-Thanks.
-
+Best regards,
 -- 
-Dmitry
+Biju Das <biju.das.jz@bp.renesas.com>
 
