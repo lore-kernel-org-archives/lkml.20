@@ -1,50 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.245.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793303089;
-	b=1HgkScXsnhjinLnLdkhpXpUNDlciiIE7gnD/GIKs+8V26491t5J77wA7CVIAW3tcH2xx
-	 s5bxec7ua2mhRqvgT3llLUFq74wHYRGiv6Vj1l7vA7gE63dzSdlB2Mabhf6DGR/2/N9Qs
-	 oUQTypRG3MjFLQKxN6RqWgra1wzJSdksmYWS6jsVNlgysZaThKAf/bhy39fIYi0J1Rm4C
-	 /9ziI3aUOo0BGcs36mb5dNDAST9pw6kbYyhOg/acmaqklBHbhv+GFtxDSwdMIQioR66Vq
-	 s7HLSpDhVc0v3k++10M/HEc8MlgnTaTogQnxNtNfpTaVel2/CZ23u6eN4RW70qelkHg==
+	t=1793303164;
+	b=DuQwZViyI1fsWPZBStYvVv3EItsGMihwWk0krLQJC/q/rovDT2wfFI3vKUzQmoGf8/+H
+	 x64VHODODiWleJjcj5WE5shFjfDxQfDiejXmoEsBWDvn97ZURJNo+w1ZgQ9hLCR22Oi+K
+	 /vhS5UWxD1/QJqhgqICqJVWRK3Fu7MSNCf/O8bjwN9VYbne9uUIQS9p57xVARnIZEc0sP
+	 CFkwiqsARF5rdlggxNZAI7t95Zr0SLmkfHcxxGn1SHR1RaHhBE6Pp6tswAOFotKNfM3cm
+	 dCiSkpdL9WPVsCFELNMhyfxyReBAqeBFWiyMLfPqs1JBfQQlkO5fd1cy1VWJp2qiiqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793303089;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=x6f0DlTTrO8DceGjxWUVN1xDkxoEdvbta7Vsujrj9zc=;
-	b=K1UKz4mnzCpCQ4wpM8Ff6TBWvSgYPMyOZPTDZPjrRPYvb/FyHligd3IXG7/IwqTvKJ/K
-	 skU0nIOvSwoGi4vLYqOs65RyzUbFEr3Qm4QN/QmZbbb3sDonJrUB1MBtKnrIAuzYEE+uQ
-	 JOX3nHUgdEv5rnx7IVf5WmlTXplnCgD2ZXGIKuU5b2mnxKZaoEiG8FbN5Ua9mR8xhPMlh
-	 ELI5UDRfcjvIcZViW/Xl9BohVLIHvkuMDr3rI38b3POOo0U5QeGgt01JCSrvIPrpN98E6
-	 eqZJmai6GzNabIJW7kL7thBQKprduhwkqhZNs0fmurOFARkNJYBWUpjwFo1v9hHmf4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793303164;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=T//p5dzd+nUs6RGkT9FOPq6XfHPBSykpDW6FOc0lNR4=;
+	b=r00pEz/gUfYNWhm7yXw/8rFxhfLccIteoGjI4+8KBK0XuvVQTYUfo2yviOrWEtJg9Mlc
+	 pc+m7jFkFxr5Ndmzj2yTd9f/C7TqAdqtS/oXyGmW957bUHdMUnsRTrfQqBoAqw2ie6s02
+	 oC69hfzAiF2kGGqwz9TBQnbHuM2QP8tOMESAQ7odkHhPLsdQifReDMg862SAMvrzgV5wf
+	 6d9VA7Myfat4KBjjsfBKK4QZJ5n1iFK76C68OMVi6Mx5HsOc5vwmurFny2VsjovwHbgBT
+	 TbuuDemjOl2q2RqkYbUUnAIm2p65QSBcKlKa4tsn3VuSsZCHmvxDf9UvIQxBW/beZLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=strlen.de;
-	spf=pass smtp.mailfrom=strlen.de;
-	arc=none smtp.remote-ip=91.216.245.30
-Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GulK2+NY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0F5606A31A;
-	Thu, 29 Oct 2026 19:44:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D0F5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
-Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
-	id 8CE5B609D0; Thu, 29 Oct 2026 20:44:44 +0100 (CET)
-Date: Thu, 29 Oct 2026 20:44:37 +0100
-From: Florian Westphal <fw@strlen.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: fangxy@xiaopeng.com, pablo@netfilter.org, phil@nwl.cc,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	liuwb@xiaopeng.com
-Subject: Re: [PATCH] netfilter: xt_policy: add NULL check for skb_dst() in
- output policy match
-Message-ID: <auOiJdDR7tkMzYAf@strlen.de>
-References: <20261026125313.14810-1-fangxy@xiaopeng.com>
- <179330010531.3134.10986246344071690394@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565E1606A31A;
+	Thu, 29 Oct 2026 19:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GulK2+NY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0821F01816;
+	Thu, 29 Oct 2026 19:45:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793303163;
+	bh=T//p5dzd+nUs6RGkT9FOPq6XfHPBSykpDW6FOc0lNR4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GulK2+NYu6OXLKnYDvVei/xi4VxfmAbmwxCtDEiTHb/8vs+0OVId/fFcGBEFATnow
+	 yZA/8vcNf3pTFb+2lLOJgTW4husYkV8NNGxrDLFYQGZTIHXRYHSoJDYVHWBfYyGAnj
+	 yHWsqZz2XQH0dzK+2GEaeLyQ/NdaEWgjXPSvd+zjoL2axQbey7kZ7wf++0Ol0AxRLG
+	 lqgzq4bJMekgaEw03n7nUU7HO8awdq6P7W3olyFZW12dk4Rm0we+anS7RWK3absPDR
+	 zR5l4M8hdWhcGbFHKpc7hoOeAzFh/tjCpFrYk//Shd3e+DjTBjeSr0pTjkC9WSKhnu
+	 H/ZA3qzeh1SPw==
+Date: Thu, 29 Oct 2026 19:45:54 +0000
+From: Conor Dooley <conor@kernel.org>
+To: gaohan@iscas.ac.cn
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Drew Fustini <fustini@kernel.org>, Icenowy Zheng <uwu@icenowy.me>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Vivian Wang <wangruikang@iscas.ac.cn>, Yao Zi <me@ziyao.cc>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-gpio@vger.kernel.org,
+	Paul Walmsley <paul.walmsley@sifive.com>, linux-clk@vger.kernel.org,
+	linux-serial@vger.kernel.org
+Subject: Re: [PATCH RFC 11/18] dt-bindings: firmware: add A210 SCMI clock and
+ reset IDs
+Message-ID: <20261029-lazy-salami-cabba2657632@spud>
+References: <20261027-a210-scmi-v1-0-74d58ce85bd8@iscas.ac.cn>
+ <20261027-a210-scmi-v1-11-74d58ce85bd8@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,76 +85,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="j1YaT5ntQHv0iC48"
+Content-Disposition: inline
+In-Reply-To: <20261027-a210-scmi-v1-11-74d58ce85bd8@iscas.ac.cn>
+
+--j1YaT5ntQHv0iC48
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <179330010531.3134.10986246344071690394@kernel.org>
+Content-Transfer-Encoding: quoted-printable
 
-netdev-bot+sashiko@kernel.org <netdev-bot+sashiko@kernel.org> wrote:
-> Is this statement accurate? There seems to be a reachable path through
-> br_netfilter on a bridge port that has vlan_tunnel enabled.
-> 
-> net/bridge/br_vlan_tunnel.c:br_handle_egress_vlan_tunnel() {
->     ...
-> 	tunnel_id = READ_ONCE(vlan->tinfo.tunnel_id);
-> 	if (!tunnel_id || unlikely(!skb_vlan_tag_present(skb)))
-> 		return 0;
-> 
-> 	skb_dst_drop(skb);
->     ...
-> 	tunnel_dst = rcu_dereference(vlan->tinfo.tunnel_dst);
-> 	if (tunnel_dst && dst_hold_safe(&tunnel_dst->dst))
-> 		skb_dst_set(skb, &tunnel_dst->dst);
-> 
-> 	return 0;
-> }
-> 
-> This drops the fake rtable that br_nf_pre_routing_finish() attached. If
-> tunnel_dst is NULL or dst_hold_safe() fails, the skb continues with no
-> dst.
-> 
-> The delete side runs under RTNL, and nothing orders it against the
-> softirq reader:
-> 
-> net/bridge/br_vlan_tunnel.c:vlan_tunnel_info_release() {
->     ...
-> 	WRITE_ONCE(vlan->tinfo.tunnel_id, 0);
-> 	RCU_INIT_POINTER(vlan->tinfo.tunnel_dst, NULL);
-> 	dst_release(&tdst->dst);
-> }
-> 
-> So a forwarder can read the old non-zero tunnel_id and then find
-> tunnel_dst NULL, or holding a dst that dst_hold_safe() rejects. The skb
-> then goes on like this:
-> 
-> __br_forward()
->   br_handle_vlan()
->     br_handle_egress_vlan_tunnel()   <- dst dropped, none attached
->   NF_HOOK(NFPROTO_BRIDGE, NF_BR_FORWARD, ...)
->     br_nf_forward()
->       br_nf_forward_ip()
->         NF_HOOK(pf, NF_INET_FORWARD, ...)
->           ipt_do_table() / ip6t_do_table()
->             policy_mt()
->               match_policy_out()     <- dst == NULL
-> 
-> br_nf_post_routing() does the same for POSTROUTING, and
-> policy_mt_check_hooks() allows --dir out in both hooks.
-> 
-> The trigger needs a VLAN-filtering bridge with a vlan_tunnel port,
-> bridge-nf-call-iptables (or ip6tables) enabled, a "-m policy --dir out"
-> rule in FORWARD or POSTROUTING, and a tunnel mapping delete racing with
-> forwarded traffic. Given that, the pre-patch code would oops in softirq
-> context.
-> 
-> Could the commit message describe this path, so the change is not taken
-> as purely defensive?
+On Tue, Oct 27, 2026 at 11:37:02PM +0800, Han Gao via B4 Relay wrote:
+> From: Han Gao <gaohan@iscas.ac.cn>
+>=20
+> Define the SCMI clock and reset IDs for the A210 UARTs, pad controllers
+> and AON I2C1. Each UART has separate serial and APB reset lines, so
+> they get separate reset IDs, numbered like the matching clocks.
 
-No.  This is the wrong place.  We don't work around bugs in bridge by
-adding random skb->dst == NULL tests in random xt or nft parts.
+Drivers will never use these, it's all just passthrough - is it actually
+a binding at all or should it be in the dts directory as a header there?
 
-If this bug is real, it has to fixed in either bridge itself or
-br_netfilter.  Calling inet stack from bridge was never a good idea, and
-the onus is on br_netfilter to satisfy ip stack preconditions.
+Given this can change with firmware versions, and isn't fixed, I don't
+think it is actually a binding.
 
-inet netfilter land should not have to cater / cope with bogus skbs
-originating in bridge layer.
+>=20
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> ---
+>  include/dt-bindings/clock/zhihe,a210-scmi.h | 15 +++++++++++++++
+>  include/dt-bindings/reset/zhihe,a210-scmi.h | 13 +++++++++++++
+>  2 files changed, 28 insertions(+)
+>=20
+> diff --git a/include/dt-bindings/clock/zhihe,a210-scmi.h b/include/dt-bin=
+dings/clock/zhihe,a210-scmi.h
+> new file mode 100644
+> index 000000000000..b8f6441ac650
+> --- /dev/null
+> +++ b/include/dt-bindings/clock/zhihe,a210-scmi.h
+> @@ -0,0 +1,15 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +#ifndef _DT_BINDINGS_CLOCK_ZHIHE_A210_SCMI_H_
+> +#define _DT_BINDINGS_CLOCK_ZHIHE_A210_SCMI_H_
+> +
+> +/* SCMI clock IDs; existing entries must not be renumbered. */
+> +#define A210_CLK_UART_SCLK(n) (n)
+> +#define A210_CLK_UART_PCLK(n) (10 + (n))
+> +#define A210_CLK_PERI1_PAD 20
+> +#define A210_CLK_PERI2_PAD 21
+> +#define A210_CLK_PERI3_PAD 22
+> +#define A210_CLK_AON_SYS 23
+> +#define A210_CLK_AON_I2C1_IC 24
+> +#define A210_CLK_AON_I2C1_PCLK 25
+> +
+> +#endif
+> diff --git a/include/dt-bindings/reset/zhihe,a210-scmi.h b/include/dt-bin=
+dings/reset/zhihe,a210-scmi.h
+> new file mode 100644
+> index 000000000000..53e108c15407
+> --- /dev/null
+> +++ b/include/dt-bindings/reset/zhihe,a210-scmi.h
+> @@ -0,0 +1,13 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +#ifndef _DT_BINDINGS_RESET_ZHIHE_A210_SCMI_H_
+> +#define _DT_BINDINGS_RESET_ZHIHE_A210_SCMI_H_
+> +
+> +/* SCMI reset IDs; existing entries must not be renumbered. */
+> +#define A210_RESET_UART_SRST(n) (n)
+> +#define A210_RESET_UART_PRST(n) (10 + (n))
+> +#define A210_RESET_PERI1_PAD 20
+> +#define A210_RESET_PERI2_PAD 21
+> +#define A210_RESET_PERI3_PAD 22
+> +#define A210_RESET_AON_I2C1 23
+> +
+> +#endif
+>=20
+> --=20
+> 2.55.0
+>=20
+>=20
+
+--j1YaT5ntQHv0iC48
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauOicgAKCRB4tDGHoIJi
+0nRKAQCSAL2ueiPMHjMObm/56vK9Z9iz6fiHz92RtC5Jf8QRIwD/YIsAtrtE4TAM
+quUITnSpm7b/sphBMJW2Zw6RLTkZmAQ=
+=RNBV
+-----END PGP SIGNATURE-----
+
+--j1YaT5ntQHv0iC48--
