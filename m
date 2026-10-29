@@ -1,58 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793280936;
-	b=mWxNliTp0wrZ9VzIFZ2oCKKTDB0joe9BH18ACHVfayxD/bgwZjklNG6sJLkg++MEOfOA
-	 5bTSpxxGaGIFuSK2JjwXGmwWi8hpffMjy9jMLWKYTNjz5RP3R9dfAxefrZkMkW5V/Cl73
-	 rq3Bm7mz1oQ0+vGbCEakFxDP1MyZgV3L7moh3lvJqx5sMJcMuhWRRC+mR1fnleSROHwcH
-	 ABwjNuj2XACt3WdX7etZppZ+5wC1Y0XaCnHK665iB0cWhkUEEWfyaTmHLkAv3IhuaDG5b
-	 oM52wTk9LxmTUpWIxhEgz9YRQczMc+7OcShKADgaUxdz19sFgPCp1ps0Jt1HtjsbPsA==
+	t=1793280974;
+	b=GJfS0XtIaNUR2VOXbSvBhkiWQUiOXvFk8pXirGigv2vx4pn2PD3ClMv5aKjcVkTyEhfr
+	 NpRzu1xPryuYATeCoaTe+0kjRvzeqdEK71tVAf85BEUFNXKGoXwKC+HZYBAzwHrhBCgfK
+	 TSYFI6cmW7v1/QITe6VHK8lHV0a0+FXYCPoI6VRskGT4gmQ13ForntayVb4zCZA5cfyGu
+	 qppCG+7z8KfY8V+e318Gi1RNLAKQWjallphmbusd9Fr7ExJPiUv9H/UjXfk7+H70CeTeY
+	 /VzxLRrPY5tyFA6lZT33LoO9Av3kp2RDnIC77JyC3CrzqtpXUkOjEohxxJJl9ZyFrdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793280936;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Stat-Signature:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=cpfF8iBPA4nr7a3PiDLkAoIOARyOru5ZKTKo03tTteg=;
-	b=bF8RiYqkWITOjB0j07dAGmHMdIKGuw5niq9ZIRK6jMbev7Hu44ZMWZLMRdpH0lDlqtif
-	 88DE02DY/ixo1R3LvO5mlLKdHfvNyHdd+Jyi4MLTVO4cyKPLPD7B2VQEapNh2029DDjEy
-	 kB2xkaYASsxQEmW807kYyHEYF+Vj0jgkfs1F7Qx8SPCAuohYksH1guNK8uG2eerSTecL5
-	 bwm0LeWYOTqSBGDEQoTg7MDZ45wguOpkrDsjO/mIJVhA9iXTCUPKAxOetu6wP7tUkqEg7
-	 avWSXLIqsMNj9h+Xclhw2DqogpZycjt4sPDQzaHvxdVBMYFygpeB7mVv2uWtDt3UBpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793280974;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=YtfL+KmftQRDXEG9A8HUqiME9C/gwzCOqzjr/edIS24=;
+	b=deZImX2iUh69YcnKnnflNZY/ivjaBc8FZ4emQQGzEZ2b/OtoFdShXnPNmub6GMr0m6Cq
+	 wKiJm72gyGPUJAYIDlv+RhDHB3vEZ/q//QqjjVjbqufoySaxUtOkIW2JhbFyquUpUIPq3
+	 UBGgxK/vYXoajYDutU6dFgNkmGA+N8SEK7q+OP4sRbADUVbTzokwGrbWMQOXgNUT1MFPc
+	 8A5GHG3eC/NLbsQIEf+QxvU0MiKlnU4Ee7eeOml4vB/lVmrL9SAmxHEcUXlit+ObcT/cn
+	 /ytIP1U+obp3TPjtVeJEyo9Xlk1zi+bl/Rg8S9Nj06FD9YyMOpqG6pjp7OCSTY+3/fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b="Mk1gkUE/";
-	arc=none smtp.remote-ip=216.40.44.12
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIgwOcU3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70801606A31C;
-	Thu, 29 Oct 2026 13:35:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70801606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C60606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 13:36:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=Mk1gkUE/
-Received: from omf05.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id 95D15A03FD;
-	Thu, 29 Oct 2026 13:35:33 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf05.hostedemail.com (Postfix) with ESMTPA id 61B7320016;
-	Thu, 29 Oct 2026 13:35:31 +0000 (UTC)
-Date: Thu, 29 Oct 2026 09:35:30 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Anvik Loitongbam <permissiontogallop@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Pavel Begunkov <asml.silence@gmail.com>,
- Olivier Langlois <olivier@trillion01.com>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, io-uring@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- stable@vger.kernel.org
-Subject: Re: [PATCH] io_uring/napi: fix list use-after-free on PREEMPT_RT
-Message-ID: <20261029093530.78de06dd@gandalf.local.home>
-In-Reply-To: <20261029102244.141621-1-permissiontogallop@gmail.com>
-References: <20261029102244.141621-1-permissiontogallop@gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIgwOcU3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E0B21F01825;
+	Thu, 29 Oct 2026 13:36:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793280973;
+	bh=YtfL+KmftQRDXEG9A8HUqiME9C/gwzCOqzjr/edIS24=;
+	h=From:Subject:Date:To:Cc;
+	b=eIgwOcU3gB+Hc4pdOPgG15AfCe1PRg0nfjyKQTDpssmi+NxAG2p5+hZt7uT0OUptZ
+	 iaFjSQKHUfVvPJmS1YXSxwa63dZb3S21cnjjR6RLvDfqK4fU0nElGB1H++8IrMa3my
+	 hL1LsqhO5IOriepu4EEAPfQSTHrNIVDgDwtCIAnY3kugJ9Ml6Qpv8SyHSKzZom2TL7
+	 b1+td4/Zs+LoaDiwpmjaoJyvnvcNfY8hHA6hbJpFpZQ3yaX9K41GoBOeT0n0zSQyUE
+	 UsVHfmuOWu4JdAQujlXmHzNXkLe4VEEunM4HxUIMQ++8kmDHApU+dGCzDFzebK0+aq
+	 kz99gzT+CGCuw==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Subject: [PATCH v4 00/31] accel: ethosu: Another batch of fixes
+Date: Thu, 29 Oct 2026 08:35:47 -0500
+Message-Id: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,94 +53,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Stat-Signature: z3o9sp9xj5pat4efzsx4pkcn6wc7amb8
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: 61B7320016
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+tgncKmmzR1u6rusjOetrrCY/NV7JPxUA=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=cpfF8iBPA4nr7a3PiDLkAoIOARyOru5ZKTKo03tTteg=; b=Mk1gkUE/B7a0e7zTlK/5P25Vln+QhIjz3k7tKgwH96qdvgjCT+dqH+wSNxvcPiFKuiEkcHvK8sGNnTsBd1NWKznXeFobHnWk7kY+zgC5rtlMqrIWts1/V2LlvGzawsEJ5nhXHX4qJJhgutwCu1vFkKbuETk8MAhhC7dp2pkz1dU=
-X-HE-Tag: 1793280931-685578
-X-HE-Meta: U2FsdGVkX1/0LCuIv5h0CVc6QDc99JixsO5iV5r8bFdhvFOiaM+YSUt4xiguwAk/1yK0YY5JiTtSR2fnO9YhEITi7P48a9zmv4m3UavIJKv7TLcC4awwaSovBgcQn7w/+iBL4P6P6xKvcIxxi7Rc/I0laSkA5nXJozK/tSUM21EsIj/Qh1QXCE95XjmFUOEKLlouldTJFAgpjDv6MZv3uni2tuqC1laM/c34bEp5jZMIFwd8R+r4QPZvyduaEuI704Qmit9CBKZKX5gifeCwau3mt5Hfi/62gSAOmko9Xyj/ViU1GsCPM4SxkVpNx4eeRXEmwLYBAwTQOGzohSmIknpKjWs2KzfhQu0mFI8cRg4rLCu6iJt72IKmmCbu9k3CtC04Ig3yW17gWou3qwtK00+kXFCpieZp0BkgV51aNz4=
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNTQ7CIBAF4KsY1mIoUH5ceQ/jotahRU0x0BJN0
+ 7sLdaHWuHyZ970ZUQBvIaDtakQeog3WdSnw9QrVbdU1gO0pZUQJFURRiaFvXRiwsXcIGKBUTAn
+ QhBCUyM3DfEhif3jlMBzPUPd5IzdaG3rnH/O/WOTen+lYYIIZF0ZDpaQu6t0FfAfXjfMNytuRv
+ rUmfKFp1lJIyZQsRcV/NPvUaqFZ0lwTA7QoqRLmS0/T9AQJMHZaNwEAAA==
+X-Change-ID: 20260827-ethosu-fixes-ee58386e9000
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ sashiko-bot@kernel.org
+X-Mailer: b4 0.16-dev
 
-On Thu, 29 Oct 2026 15:52:44 +0530
-Anvik Loitongbam <permissiontogallop@gmail.com> wrote:
+This is another series of fixes to the ethosu driver. It's mostly probe 
+error paths and cmd stream validation fixes. It's a mixture of 
+AI reported issues, different solutions to other posted issues and 
+fixes[1] and my own fixes. The last 2 patches are additional operation 
+support.
 
-> Commit 45b3941d09d1 ("io_uring/napi: fix io_napi_entry RCU accesses")
-> converted the NAPI list teardown to list_for_each_entry() and
-> kfree_rcu(), with a comment claiming that list_for_each_entry_safe()
-> is not necessary because kfree_rcu() defers the free to the next
-> quiescent state.
+The series adds rejecting OFM tranpose in cmd stream, but then a later 
+patch adds support for it. I did this so the rejection can be 
+backported, but maybe supporting OFM transpose is small enough that it 
+should just be backported too?
 
-Not to mention, depending on the internals of list_del_rcu() and
-kfree_rcu() is just not good design, regardless that it only breaks under
-PREEMPT_RT.
+Sashiko keeps raising issues about IRQs, but the h/w only generates an 
+interrupt if a job was submitted. The scenarios sashiko talks about are 
+not possible.
 
-> 
-> This assumption only holds while the surrounding spinlock section is
-> non-preemptible. On PREEMPT_RT, spinlock_t is an rtmutex and the task
-> can be preempted while holding ctx->napi_lock. The raw lock inside
-> kfree_rcu() only defers the preemption until it is released, and the
-> release still happens before the iterator advances. Once the task is
-> switched out, the context switch is an RCU quiescent state, if the
-> preemption lasts long enough for the batch to be flushed and a grace
-> period to complete, the callback frees the entry, and the iterator
-> then reads e->list.next from freed memory. The same pattern exists
-> in io_napi_free(). I did try to produce a uaf on an rt kernel
-> build, but it did not work.
-> 
-> All list mutators are serialized by ctx->napi_lock, so the entry after
-> the current one cannot be freed before its own iteration. Caching it
-> first with list_for_each_entry_safe() in both loops might be a more
-> safer and correct approach.
-> 
-> Fixes: 45b3941d09d1 ("io_uring/napi: fix io_napi_entry RCU accesses")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Anvik Loitongbam <permissiontogallop@gmail.com>
+Rob
 
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+[1] https://lore.kernel.org/all/20260717061145.1478139-1-zhaoguohan@kylinos.cn
 
--- Steve
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+Changes in v4:
+- More patches added for existing issues raised by Sashiko in v3 and 
+  local runs
+- Combined the 2 patches for unknown cmds and unhandled parameters into  
+  one patch 
+- Link to v3: https://patch.msgid.link/20260908-ethosu-fixes-v3-0-490fe215286f@kernel.org
 
-> ---
->  io_uring/napi.c | 14 ++++----------
->  1 file changed, 4 insertions(+), 10 deletions(-)
-> 
-> diff --git a/io_uring/napi.c b/io_uring/napi.c
-> index 7e698720cd51..d299c89cfc3d 100644
-> --- a/io_uring/napi.c
-> +++ b/io_uring/napi.c
-> @@ -110,16 +110,10 @@ static int __io_napi_del_id(struct io_ring_ctx *ctx, unsigned int napi_id)
->  
->  static void __io_napi_remove_stale(struct io_ring_ctx *ctx)
->  {
-> -	struct io_napi_entry *e;
-> +	struct io_napi_entry *e, *next;
->  
->  	guard(spinlock)(&ctx->napi_lock);
-> -	/*
-> -	 * list_for_each_entry_safe() is not required as long as:
-> -	 * 1. list_del_rcu() does not reset the deleted node next pointer
-> -	 * 2. kfree_rcu() delays the memory freeing until the next quiescent
-> -	 *    state
-> -	 */
-> -	list_for_each_entry(e, &ctx->napi_list, list) {
-> +	list_for_each_entry_safe(e, next, &ctx->napi_list, list) {
->  		if (time_after(jiffies, READ_ONCE(e->timeout))) {
->  			list_del_rcu(&e->list);
->  			hash_del_rcu(&e->node);
-> @@ -264,10 +258,10 @@ void io_napi_init(struct io_ring_ctx *ctx)
->   */
->  void io_napi_free(struct io_ring_ctx *ctx)
->  {
-> -	struct io_napi_entry *e;
-> +	struct io_napi_entry *e, *next;
->  
->  	guard(spinlock)(&ctx->napi_lock);
-> -	list_for_each_entry(e, &ctx->napi_list, list) {
-> +	list_for_each_entry_safe(e, next, &ctx->napi_list, list) {
->  		hash_del_rcu(&e->node);
->  		kfree_rcu(e, rcu);
->  	}
+Changes in v3:
+- Address Sashiko comments
+- Another runtime-PM fix for driver remove()
+- Add a fix for NHCWB16 bounds calculation
+- Link to v2: https://patch.msgid.link/20260904-ethosu-fixes-v2-0-3767738756a4@kernel.org
+
+Changes in v2:
+- Dropped first 5 patches which are already applied
+- Patches 11-17 and 19 are new patches with more cmd stream validation
+- Add fix to diable clocks on PM setup failure
+- Rework the runtime-PM to suspend after initialization and before 
+  drm_dev_register(). This simplifies the error clean-up in probe.
+- Handle quiescing jobs before scheduler teardown
+- Rework the cmd stream register initialization tracking to use a bitmap 
+  of registers instead of relying on initial state values.
+- Handle U85 DMA 2D/3D modes correctly
+- Link to v1: https://patch.msgid.link/20260827-ethosu-fixes-v1-0-346f9ea8791c@kernel.org
+
+---
+Rob Herring (Arm) (31):
+      accel: ethosu: Suspend after initialization
+      accel: ethosu: Ensure suspended on removal
+      accel: ethosu: Fix probe error cleanup
+      accel: ethosu: Disable clocks on PM setup failure
+      accel: ethosu: Quiesce jobs before scheduler teardown
+      accel: ethosu: Fix runtime PM get error handling
+      accel: ethosu: Limit perfmon counters to UAPI
+      accel: ethosu: Serialize job completion
+      accel: ethosu: Guard operations after unplug
+      accel: ethosu: Keep scheduler after unplug
+      accel: ethosu: Clear SRAM before submission
+      accel: ethosu: Validate timeout command offset
+      accel: ethosu: Prevent command stream export
+      accel: ethosu: Move DMA mode to src/dst struct
+      accel: ethosu: Track command stream register setup
+      accel: ethosu: Factor buffer bounds checks
+      accel: ethosu: Fix NHCWB16 bounds calculation
+      accel: ethosu: Validate secondary streams
+      accel: ethosu: Reject unsupported commands and params
+      accel: ethosu: Validate all feature map tiles
+      accel: ethosu: Account for feature map element size
+      accel: ethosu: Validate convolution parameter
+      accel: ethosu: Account for kernel dilation in IFM size
+      accel: ethosu: Validate accumulator input
+      accel: ethosu: Restrict dynamic IFM2 weights
+      accel: ethosu: Split U65 and U85 DMA length validation
+      accel: ethosu: Validate OFM transpose
+      accel: ethosu: Validate resize operations
+      accel: ethosu: Ensure cmd stream is multiple of 4 bytes
+      accel: ethosu: Require active weight streams setup
+      accel: ethosu: Support U85 IFM upscaling
+
+ drivers/accel/ethosu/ethosu_device.h  |  40 ++
+ drivers/accel/ethosu/ethosu_drv.c     |  56 +-
+ drivers/accel/ethosu/ethosu_drv.h     |   6 +
+ drivers/accel/ethosu/ethosu_gem.c     | 951 +++++++++++++++++++++++++++++++---
+ drivers/accel/ethosu/ethosu_job.c     | 236 +++++++--
+ drivers/accel/ethosu/ethosu_job.h     |   5 +-
+ drivers/accel/ethosu/ethosu_perfmon.c | 123 +++--
+ 7 files changed, 1236 insertions(+), 181 deletions(-)
+---
+base-commit: 9a96e169c9267af918d28fb291df948d83112807
+change-id: 20260827-ethosu-fixes-ee58386e9000
+
+Best regards,
+--  
+Rob Herring (Arm) <robh@kernel.org>
 
