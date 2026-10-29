@@ -1,64 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793239388;
-	b=E6O+8ILoqfbazEbG4fRg44/F2tZnDsprcyIkdyavyjhWaSEwC6WxGqra7TgJiH5mXTqQ
-	 xpM9StHlmlY09KIIRxFulUFvvnQLB9JR3P/GQxtBBZqqwGJvtyX/xWpvbmJYttr383Ll6
-	 Cd/skiUbLAvf/kBBkeHxiSXopCRCK0DQShC8trgUZcXMG3nd4EhyIW1Q0NOnuJOodUcob
-	 AKMPqb5B20iy2mwyJey42cnWjIDMJxtd+8I2gcvrgSONd1LS/R0Z91dZBIPPIeBtSnv8m
-	 5aR9bdiLv6braMDW9nSwBkcPXzjjbGLQO6gQ8zULRmGJ1HlDYgpHnZhj7Jfhp2cOu7g==
+	t=1793239404;
+	b=m6SxWvCdzvBLlWlkkp6o/xaZBLaTjYnpMsIvpOV18ArfmyMa33o+t3Tl+J4HOLuSAuL6
+	 957be2DmiSs55qZ4di57CZMe0s/7e7AvtueSAmz76CLinFHyRMzdITnWuIIMBJYzEORGT
+	 U+J7u3V0LkTXYBlUNH2lskRw37fBQRz9BjAyjmX2WLTYGELNGc0DjL9BGoEywRYBwOp2D
+	 pD1f9jUgRymxVLZlX2Uh3+qLl5EDU36FsbEG75J929ctLmKevHsXRKC/gX6TFnQSFD32T
+	 NUYBarLuhZ7FtRJzym4AB/njbtD7EgRVHiu/kR3oeiK7CgPACTR/MHk3RayParfWjyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793239388;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=hsjzbJh0YAhA7aU91BVufRu1UhrX9+xX2rsFcUjkoRE=;
-	b=lkSAwRhDyZjaV6xEZPHgcAgaeFaOfMvrHcXjHvtIM1kBPAD4ahk2nPL2Ns3aboWMF75d
-	 fPVWIc9t8732fA/Ek/6ehgz09XvGLplMqY4NjIX+2bggsxdVuZ9M899BEkCKFFy/KJ60A
-	 j067qhNzC5BpgdFtgIt7k9h9JhAyRALTScXrcVLNz65tfYqUegeoQzrR/BD+1q0JZpuEn
-	 ZWI9/7uDmPg12z9n4i26nWSBGLO7PXwBtOqB/7pPr5GtOloAv3bxxWfaLgcqOGP8DrlVx
-	 rEQwc3oq+dyh4dzuygYcN5PlAEwPNn1QWUalsEKjtWcbCrn/F/MXeyXIcWcrUHR5NSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793239404;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=heCZ3eMofqJRMaoiKgFonBBuGwXdpA0ncbgdWxOVWmI=;
+	b=lWseqUZ0MM2sFYghyufyyO1/1pgGndSnN30iqTEGhaUH1pwmpZ8O8inevZRJaT7PVdym
+	 +k42ZT43sa70/HnmlbFnKVF69l9bDDSv72Xplf8AZiQz/3Lb1Ixd7GeV1iXNTP68qrXCc
+	 s5VEQTMToLX1YeFp3j+/LmvphoHu8TBJsa6q8Xf9/HFBF+TdBd35j3McoOANvqIuCZdm1
+	 yoQy5JBgMneKslO60aHwxbdNwT0gmb/cwTTb/8lqxCo4d/s4fCWN3RGq7TkLuGDxcmvtI
+	 FiTnfzPfmCq3oxd9ebKpqFoKORfKsf75V8JVdWBRK72wcElU6Hm1+QgapUh3fYd0Xwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BhyW3HU5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqWHOhTT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31ED606A329;
-	Thu, 29 Oct 2026 02:03:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 39F0C60A3804;
+	Thu, 29 Oct 2026 02:03:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BhyW3HU5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 016201F01828;
-	Thu, 29 Oct 2026 02:03:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqWHOhTT
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 673CF1F031EB;
+	Thu, 29 Oct 2026 02:03:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793239388;
-	bh=hsjzbJh0YAhA7aU91BVufRu1UhrX9+xX2rsFcUjkoRE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BhyW3HU51R1W0N1kp8nr9+0HbArY2fdiqtHKdkCZMaom2TO8N3ppO1ACicN8tIHOQ
-	 lNLYyfATDJkfx8hkrKZ72FHifFU0fMmNmoQ8QOS0xT0tcoGC+FZtoijVyvLyGud88r
-	 GpygPEm8zISLgBpLwhgtyal+bY7DZ+W7c3PW9hvEwmwxEfgDWMBqwYRc9935qh1gU9
-	 jEHK6AJbhjC/QSTqWXGip0izUq+qUIZp7vr1O2CrKFxHOIT7LqUcr8l9EEY6TekoxY
-	 omhu9GtdZLJSPHPoLaVZoPfslfSzESDEcZzl9Nlx/ypCi1YSHf4eD9qXdaZVkFjh9C
-	 VZuirgcZD3/Iw==
-From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Alexander Koskovich <akoskovich@pm.me>
-Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] scsi: ufs: qcom: Power down UFS during system suspend on Milos
-Date: Wed, 28 Oct 2026 22:02:45 -0400
-Message-ID: <179323465394.491807.15697827904056465787.b4-ty@b4>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261005-milos-ufs-suspend-v1-1-a6f8b89d5b63@pm.me>
-References: <20261005-milos-ufs-suspend-v1-1-a6f8b89d5b63@pm.me>
+	s=k20260515; t=1793239403;
+	bh=heCZ3eMofqJRMaoiKgFonBBuGwXdpA0ncbgdWxOVWmI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dqWHOhTTcf6QIuZcK/x0TMs+EcUhDMPp11aPWuxXPxZnyr0IXjFBvYMG+LHgVZ8pe
+	 omDP4ow7pGQx3zhqQWu4Gh8ytUqqD3TlVrwTUR+oAVMK+ntDyPIvCRoYf8l4k1UYBD
+	 fE60x3cb9sdzKump8KVfJcVLpi6jwHu/DFdYgXTvaQ0XQetezeRL4yVqpShyLef1yo
+	 grFjlR7qvJktrnLPyjepzb7BUiqpXd0S9SeDVXrT/zIAhmbz6fkBveZm878qYfaeUC
+	 y1Fe1PBiheKQ28IYyF5rJRIVN91wbkzR419xzOCKXqty+ffSt6t1XvMT0Oh5ePxfBG
+	 Ezy7vNJAJjLzQ==
+Date: Thu, 29 Oct 2026 04:03:19 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-integrity@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>, Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	"open list:KEYS/KEYRINGS" <keyrings@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] KEYS: key_garbage_collector(): process in chunks
+Message-ID: <auKpZ-BAJ3B18DiX@kernel.org>
+References: <20261028025306.2063007-1-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,24 +62,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028025306.2063007-1-jarkko@kernel.org>
 
-On Mon, 05 Oct 2026 17:02:06 +0000, Alexander Koskovich wrote:
+On Wed, Oct 28, 2026 at 04:53:04AM +0200, Jarkko Sakkinen wrote:
+> - x86-64: chunk max: 125 ms, total time increase: 5%
+> - aarch64: chunk max: 235 ms, total time increase: 6%
 
-> On Milos the UFS PHY GDSC is turned off on every system suspend and the
-> PHY loses its register state, so exiting hibern8 on resume fails:
-> 
-> ufshcd-qcom 1d84000.ufshc: pwr ctrl cmd 0x18 with (MIBattribute 0x0, mode 0x0) failed, host upmcrs:0x5
-> ufshcd-qcom 1d84000.ufshc: ufshcd_uic_hibern8_exit: hibern8 exit failed. ret = 5
-> ufshcd-qcom 1d84000.ufshc: __ufshcd_wl_resume: hibern8 exit failed 5
-> 
-> [...]
+Oops: those are for unused and expired on x86-64.
 
-Applied to 7.4/scsi-queue, thanks!
+For emulated aarch64:
 
-[1/1] scsi: ufs: qcom: Power down UFS during system suspend on Milos
-      https://git.kernel.org/mkp/scsi/c/fb2a238f15f0
+- unused: chunk max: 388 ms, total time increase: 8.2%
+- expired: chuk max: 1372 ms, total time increase: 1.5%
 
--- 
-Martin K. Petersen
+Br, Jarkko
