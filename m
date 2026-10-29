@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793255410;
-	b=kWZz8P+aTFC4MQn0DjBO+dkGQOkQJ1Y3Z2OPrqxpX29YQEZAyza1NBYcbW7R/Hd9S9vg
-	 as6S1OArnihY2r9U5AyD27bYaEkFavP1ptP5wdzUYP3bCqdzk7B70zhuK2bsgSggVDUdG
-	 u87yYppOVFUzSjLPLnAtZy1jyOvDaCcmi0ERohJmXY4gnRBpcHcBqToUZjvr5q3/R7E91
-	 wn5kwNI49zPV2+a9NG7efynwhqJfe9GedtBBKc+WYiuPjWwgtfgyZV2N6lhqX2lHTf2F4
-	 4RH4si15WW61w14IYZLt0/jusIzbkiHjFePqmy/qlGwx3oZB9P1AZe+0X4uYvVCqNOA==
+	t=1793255421;
+	b=QI6zKE7ROj5Rr58ipVbRezD8cm+Bp/WUoT8HuPVD5FcEqF3V6te+9wyrhgbW8A1tdhGB
+	 20J7XfGqWWl2Zj30ekq7yLaiZXAgG9ShONbeKClSoVIgbV4tBsutbjkn4nW3bN8XsCoCJ
+	 LLpqQbS9N2SYCPOKd1ySvMA+0Z8Apg2QdSVwIEztOA/NL8DqXq+6E6yeTV3SppHVME22c
+	 qLSjgcN5rjTC/1biLBLIdgt3sSsHOnhO1kfiNvfP6UE7NnDg2l3OVjUccHU6xHpcAqkxe
+	 ezjGqEYXmvGefaL0I/5cYgPqKJIT2+LaKth8UqC75eKyPZ5YxpOQI3WEJmhjzqz8IKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793255410;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Subject:
-	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Originating-IP:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info;
-	bh=uuEVDIgbZf0bSssQ8k9hdaljgY8GdwL+ca2pghb6P4U=;
-	b=Jqt1QC3jDmLLVh7WwI3AXTkF1FqUwhBirjM3Gu9jW16BgvlQSCMO1ADBxdT9J1At/5uc
-	 CGXZczhMcMZiTYJEcxuaUKFXvUNGjw54JRiKh5JRp4evYeE5UwMxpCxb4rdGkgbtNDqtR
-	 jfj6U/tzKIFF/33QZNWyVBCIdDzh1OZhgB8fJwYnl24v+DPenJJJSSYRD+WE+drl2bNCT
-	 jPw/R6HhVMyurujcHesde9NhQWZXX9ZkjZsop+Nnme+vRchfxQVTpDzGXqt7e5eO46O0B
-	 vdeDwmVf9O+qZR/ULR+iXjJTDCA3qZM6X0NpmZPKgOWp0L7joBNgMyVy1bW3z2xgYTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793255421;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis;
+	bh=Alre/IHPJ8k5mOkK/a+YYsD1HXKHoZakyw5kYUyBP90=;
+	b=islRtIsJ0pCms+owpg+l4QCLB+p4j/GOBDkmLL4z8zB+a6nVsiNwU8kRmrdQhKxEVAUo
+	 9rP9Fwn2DnO7PnWXYVlZp86BkauzyBG1vm+OSfIvMjoYoPFbNOLmzVxNgPdsVcvcprYrO
+	 ay5JEXTw+jT25NdQBh7EMmC32xHVBd3u35DH5APBpTkYg0TqSHNzEjB6Uj34Hm0AdLiOv
+	 X7DdBjU6xNbEUvJTK56KhhNO+Yi0jKT/zfJBpEr2eqnK6N5ilBtvL5IX8aac/6UFsM07p
+	 h9UJfpgwLYIXmYlvY+E64uPAp6+E+uD5c8n0ceLElHtCVrFNSUhELITz9/lerqq6pZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=imgtec.com;
 	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=CR9VczUV;
-	arc=none smtp.remote-ip=91.207.212.86
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b="fo4BAhF/";
+	arc=none smtp.remote-ip=185.132.180.163
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C00606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:30:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88C00606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4243A606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 06:30:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4243A606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=CR9VczUV
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5nLs13019385;
-	Thu, 29 Oct 2026 06:29:43 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=fo4BAhF/
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T5qRTq1893761;
+	Thu, 29 Oct 2026 06:29:46 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=dk201812; bh=uuEVDIgbZf0bSssQ8k9hdal
-	jgY8GdwL+ca2pghb6P4U=; b=CR9VczUV3/TJkeYuKMronC0utGzyGnsRt78RNoC
-	6IRmeGHugvoAUUSYnNEJH+PI/K7mbcESeRhLTy7UnwtBBMq/1EAiRZBNzwmrbQFx
-	Q0TUDq9/YDdMNJTHlQLRu7GD9GBSCyNkzTvKEMGlGtuzj9iwzF4TcR7xJj4r9KS9
-	uQ44iB1FJRiJEbWALshqQCffmS+1cJhxRvOa0+U9cXsOPgY85viMCH99FwR/WKFy
-	ia/mBwjIbolXvQc1KqtHPdD8LBoZeyKmWPB1/M06h3Mkf9ttcgHKheILiclB688l
-	fDrxxF33bsxAhcK0j6iANXs/bTUfSvNpd0u73N6n18qQ32w==
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=A
+	lre/IHPJ8k5mOkK/a+YYsD1HXKHoZakyw5kYUyBP90=; b=fo4BAhF/+ol0QHyHA
+	HPAwoSPwgU6o0eBX/8d+071ye5qxAYSYTmQyDC/G/cmlf9qz/X9QNjPpt/GBXWQt
+	YgFJm3kIRwxmBe85sbcKOpYIkaSDm1MM9lU+Jzkb3/xitf/kMecu4KVAdzOgmkfN
+	8o5CEgaueHYkZRjheGDLAI8SpRqHOCf59PKiZhv1PaTbU8UY2rVlpcIvyBqwj72F
+	uvdazxUbWmiOwBxAMyEM8nC96rG/kc+zwfHrNIC4AXfvKSYzcO31ToCuSM758Zu8
+	ZnpoPurrOzhPJe3E0e9iHX0tdkdKb1rtznrVsRpCyHvCTSIcif2ZGrrMWX0EhvxM
+	BV/fA==
 Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hkvd104j4-1
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hkvbj85ap-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 29 Oct 2026 06:29:42 +0000 (GMT)
+	Thu, 29 Oct 2026 06:29:46 +0000 (GMT)
 Received: from [127.0.1.1] (172.25.10.25) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 29 Oct
- 2026 06:29:41 +0000
+ 2026 06:29:44 +0000
 From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Subject: [PATCH v2 0/5] drm/imagination: RISC-V and META firmware interface
- updates
-Date: Thu, 29 Oct 2026 08:29:21 +0200
-Message-ID: <20261029-prep-meta-fw-arch-independent-v2-0-b9f5d69b7a52@imgtec.com>
+Date: Thu, 29 Oct 2026 08:29:24 +0200
+Subject: [PATCH v2 3/5] drm/imagination: Make the RISC-V firmware header
+ arch-independent
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,11 +72,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMLn4moC/42OQQrCMBBFr1Jm7UgyQiquvId0UZNJO0LTksSql
- N7dtF7AzcCDx/uzQOIonOBSLRB5liRjKECHCmzfho5RXGEgRUYrOuMUecKBc4v+hW20PUpwPHE
- 5IaP3zjjrDBmnoDSK7eW992/Nj9Pz/mCbt+hm9JLyGD/7A7PevH+3Zo0K6xNrbbwiXdNVhi6zP
- dpxgGZd1y+a6NZ/3QAAAA==
-X-Change-ID: 20261028-prep-meta-fw-arch-independent-ffd6dcd626d0
+Message-ID: <20261029-prep-meta-fw-arch-independent-v2-3-b9f5d69b7a52@imgtec.com>
+References: <20261029-prep-meta-fw-arch-independent-v2-0-b9f5d69b7a52@imgtec.com>
+In-Reply-To: <20261029-prep-meta-fw-arch-independent-v2-0-b9f5d69b7a52@imgtec.com>
 To: Alessio Belle <alessio.belle@imgtec.com>,
         Luigi Santivetti
 	<luigi.santivetti@imgtec.com>,
@@ -95,95 +93,143 @@ CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  Dadu" <alexandru.dadu@imgtec.com>,
         Matt Coster <opensource@mtcoster.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793255380; l=2736;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793255380; l=3948;
  i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=QH2paCe+vB1bSUQgP4/pJ/+jbIK3RY1rt4Lb0CassCI=;
- b=8wBqxmSHfr6uk/zDVuHay9Xyrio2xrCmE0LX0zfcuwD7MV0raJgr/vsRyj6k4B8n9Jg58n+e7
- VxjawpOnWh7ASkwpKXwvteUH/lC/3hxuPzktwAcjjBs7lPectw/Wjst
+ bh=xaDxJsckcKXS2GV1K4jHcoAaZKs+PzJ4HMQyaTe7cq4=;
+ b=gdBxhSWrYUfUk6D4vvSXzZHjpspY5u35sA3v6b0qe/2UbCSMPMGL8v6mXhI+LEfTF5ldMU0GB
+ PnQOHL2tviXDMQHtiVjOEqHzv0csg0tGd5y9iNf2QZ4Ov0gEbWWTdTx
 X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
  pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAyNCBTYWx0ZWRfX5cQkNusAN8PG
- KYtLDLtHEt6JSovsQrrsikkk2MWP3/BbLwO0f76R6arp+YHSKCTC9YGe76WQBiQp4QxjxlA6OjY
- aVaxYJ9WRhzskOPK/+27MmuvnJqw5HpShu3zIdgDETArW72CzBJf8vWWmgOs+1DdwfltEDhZKlp
- A4T24gdIXH4EtYHCb2OKvRkUpEcjj91UWpdZOwXkkEBDJVSskbzNIjyoGu/x+/c1wE534yvO3vO
- oiMNhztE90LMckwjFfUZLlvgXcgaDo9QSNMfJrusLUzEteniAunwN1z+qMDvb2WQr5FSbNVTnCN
- MnAhEiA4n+pk2AeohzbVpuet9qMSn6wdUY0KcJGtsdc7kIoNBg0oabuQjikaNcFe7QGtnDDFhrG
- j//6YszA+hGpdpZ+VVvsZDhACbCToX9Z7TpEDkWSSBR84R9PJJZ2vJY0jvx7eMV3sBQhG0brPQB
- w9TbJYMTJzath9gIDnA==
-X-Proofpoint-ORIG-GUID: r1C44_Jg5H93K0Em3-8lPogMQfSqTPgO
-X-Authority-Analysis: v=2.4 cv=RdgFmFtv c=1 sm=1 tr=0 ts=6ae2e7d6 cx=c_pps
+X-Proofpoint-ORIG-GUID: U5Y97TanqLtKxgpku0U06jYpENhwIqmU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAyNCBTYWx0ZWRfXz2JxlHvToJNN
+ 1MIOBxkvqdgSbN9ChIr2WXB/CxH6xSpF4Zz9iX3mCrKXrzauF/Meu75EkVUVTBkXM0+rQAYqn1t
+ WT7nKnqRsEFcM9aubXbv4JqRqN9tbmB3csDW6Wju45+Ixm7Gv9iaKfPgQ3yqbJIf73V7fuazhxC
+ lHfXOjCL1jpmKMf/RD7H6JUHFo3IETU9rSWIdPuOcjTQqSRo5DUvr+BQyzQvnE4BksHWj5enzkO
+ UpHBG6E5C5LQcWtEcBZ2ehw0Stwd4OWQNIcHJ+lsPWMeNSZR5qALA008YFWKU4XgDq9tcDGNZlN
+ 8RiWSzkbVboXnPFFnIgbonE21Uo990S4C1Zbf2WUIfnCkysj6+wgllrwjmCgbuKj+lZrYvoSwE1
+ VW3qDK37D0ntoyNV4xt267PWbWo2DLJnLB4EiVVT5ewn1m4k3gsxIuc0fH4eGx03F+qbkcPgTeV
+ E1ShoY3ZKMnWw0KO4lg==
+X-Proofpoint-GUID: U5Y97TanqLtKxgpku0U06jYpENhwIqmU
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAyNCBTYWx0ZWRfX1uPXXy8aNTe1
+ VkK7ahY9OEeFhX3gfEuofHaKkNQfEZwtJTQXvC6pAkKNi77uqZEgcyeU1nvjRUqTigmjDkxAvD2
+ 8oJIH0y4gFAr+CHt/TxIbHhkm6woV+g=
+X-Authority-Analysis: v=2.4 cv=NvdE4MdJ c=1 sm=1 tr=0 ts=6ae2e7da cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=1spURiKJc90A:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=_O3DOGVWAAAA:8 a=e5mUnYsNAAAA:8 a=JfrnYn6hAAAA:8
- a=gXtLJ4WPg2CJrXxS_-4A:9 a=QEXdDO2ut3YA:10 a=FO4_E8m0qiDe52t0p3_H:22
- a=t8nPyN_e6usw4ciXM-Pk:22 a=2TKV-7w1aU1AVAwN0oqT:22 a=Vxmtnl_E_bksehYqCbjh:22
- a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-GUID: r1C44_Jg5H93K0Em3-8lPogMQfSqTPgO
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAyNCBTYWx0ZWRfXxlR3boUk1t0h
- l4b6/vExm0E7rj7MKkuEYUrDp2MB2XljKCdtAJAAMU3QSh84AW/LVDBSscolYrZF31qtJxptKMm
- VZ3uHgJiDK0oK33zuH3ozD7Zz5Znr6A=
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=3lCh05eebIrLBntq_2wA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
 
-Refactor RISC-V and META firmware interface headers to have a more
-generic and architecture independent approach:
-1. Limits access to the RISC-V and META firmware respective interfaces.
-2. Aligns RISC-V and META firmware headers with the other processor
-headers.
-3. Add "_fw_" component to the headers filename.
+From: Alessio Belle <alessio.belle@imgtec.com>
 
+This header file contains definitions common to all PowerVR
+architectures starting from Rogue, so rename both the file and its
+contents to reflect this.
+
+Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
+Signed-off-by: Matt Coster <matt.coster@imgtec.com>
 Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
-Changes in v2:
-- EDITME: describe what is new in this series revision.
-- EDITME: use bulletpoints and terse descriptions.
-- Link to v1: https://patch.msgid.link/20261028-prep-meta-fw-arch-independent-v1-0-73e116f02172@imgtec.com
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c         | 14 +++----
+ .../gpu/drm/imagination/pvr_fw_riscv_internal.h    | 43 ++++++++++++++++++++++
+ 2 files changed, 50 insertions(+), 7 deletions(-)
 
-To: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Paul Walmsley <pjw@kernel.org>
-To: Palmer Dabbelt <palmer@dabbelt.com>
-To: Albert Ou <aou@eecs.berkeley.edu>
-To: Alexandre Ghiti <alex@ghiti.fr>
-Cc: imagination@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-riscv@lists.infradead.org
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
+index 0d4dd45520a9..2b24c40bc20f 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
++++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
+@@ -6,10 +6,10 @@
+ #include "pvr_fw_info.h"
+ #include "pvr_fw_mips.h"
+ #include "pvr_gem.h"
++#define PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
++#include "pvr_fw_riscv_internal.h"
++#undef PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
+ #include "pvr_rogue_cr_defs.h"
+-#define PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
+-#include "pvr_rogue_riscv_internal.h"
+-#undef PVR_ROGUE_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
+ #include "pvr_vm.h"
+ 
+ #include <linux/compiler.h>
+@@ -43,13 +43,13 @@ pvr_riscv_wrapper_init(struct pvr_device *pvr_dev)
+ 
+ 	pvr_cr_write64(pvr_dev,
+ 		       PVR_CR_REPEAT_X(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG,
+-				       ROGUE_RISCV_REGION_BOOTLDR_CODE),
++				       PVR_RISCV_REGION_BOOTLDR_CODE),
+ 		       code_addr | common_opts |
+ 		       ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_FETCH_EN_EN);
+ 
+ 	pvr_cr_write64(pvr_dev,
+ 		       PVR_CR_REPEAT_X(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIG,
+-				       ROGUE_RISCV_REGION_BOOTLDR_DATA),
++				       PVR_RISCV_REGION_BOOTLDR_DATA),
+ 		       data_addr | common_opts |
+ 		       ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_LOAD_STORE_EN_EN);
+ 
+@@ -132,9 +132,9 @@ pvr_riscv_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
+ 
+ 	/* RISC-V cacheability is determined by address. */
+ 	if (fw_obj->gem->flags & PVR_BO_FW_FLAGS_DEVICE_UNCACHED)
+-		fw_addr |= ROGUE_RISCVFW_REGION_BASE(SHARED_UNCACHED_DATA);
++		fw_addr |= PVR_RISCVFW_REGION_BASE(SHARED_UNCACHED_DATA);
+ 	else
+-		fw_addr |= ROGUE_RISCVFW_REGION_BASE(SHARED_CACHED_DATA);
++		fw_addr |= PVR_RISCVFW_REGION_BASE(SHARED_CACHED_DATA);
+ 
+ 	return fw_addr;
+ }
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h b/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h
+new file mode 100644
+index 000000000000..abcbb4ef06fe
+--- /dev/null
++++ b/drivers/gpu/drm/imagination/pvr_fw_riscv_internal.h
+@@ -0,0 +1,43 @@
++/* SPDX-License-Identifier: GPL-2.0 OR MIT */
++/* Copyright (c) 2024 Imagination Technologies Ltd. */
++
++#ifndef PVR_FW_RISCV_INTERNAL_H
++#define PVR_FW_RISCV_INTERNAL_H
++
++#ifndef PVR_FW_RISCV_INTERNAL_H_EXPLICIT_INCLUDE
++#error This file may only be included if explicitly defined
++#endif
++
++#include "pvr_rogue_cr_defs.h"
++
++#include <linux/bitops.h>
++#include <linux/sizes.h>
++#include <linux/types.h>
++
++#define PVR_RISCVFW_REGION_SIZE SZ_256M
++#define PVR_RISCVFW_REGION_SHIFT __ffs(PVR_RISCVFW_REGION_SIZE)
++
++enum pvr_riscvfw_region {
++	PVR_RISCV_REGION__RESERVED_0 = 0,
++	PVR_RISCV_REGION__RESERVED_1,
++	PVR_RISCV_REGION_SOCIF,
++	PVR_RISCV_REGION__RESERVED_3,
++	PVR_RISCV_REGION__RESERVED_4,
++	PVR_RISCV_REGION_BOOTLDR_DATA,
++	PVR_RISCV_REGION_SHARED_CACHED_DATA,
++	PVR_RISCV_REGION__RESERVED_7,
++	PVR_RISCV_REGION_COREMEM,
++	PVR_RISCV_REGION__RESERVED_9,
++	PVR_RISCV_REGION__RESERVED_A,
++	PVR_RISCV_REGION__RESERVED_B,
++	PVR_RISCV_REGION_BOOTLDR_CODE,
++	PVR_RISCV_REGION_SHARED_UNCACHED_DATA,
++	PVR_RISCV_REGION__RESERVED_E,
++	PVR_RISCV_REGION__RESERVED_F,
++
++	PVR_RISCV_REGION__COUNT,
++};
++
++#define PVR_RISCVFW_REGION_BASE(r) ((u32)(PVR_RISCV_REGION_##r) << PVR_RISCVFW_REGION_SHIFT)
++
++#endif /* PVR_FW_RISCV_INTERNAL_H */
 
----
-Alessio Belle (4):
-      drm/imagination: Limit access to the RISC-V firmware interface
-      drm/imagination: Make the RISC-V firmware header arch-independent
-      drm/imagination: Limit access to the META firmware interface
-      drm/imagination: Make the META firmware header arch-independent
-
-Alexandru Dadu (1):
-      drm/imagination: Prepare heap config header for multi-arch support
-
- drivers/gpu/drm/imagination/pvr_fw.c               |   7 +-
- drivers/gpu/drm/imagination/pvr_fw.h               |  26 +++
- drivers/gpu/drm/imagination/pvr_fw_meta.c          | 104 +++++++-----
- drivers/gpu/drm/imagination/pvr_fw_meta.h          |  14 --
- .../{pvr_rogue_meta.h => pvr_fw_meta_internal.h}   | 175 +++++++++++----------
- drivers/gpu/drm/imagination/pvr_fw_mips.c          |   1 +
- drivers/gpu/drm/imagination/pvr_fw_riscv.c         |  13 +-
- .../gpu/drm/imagination/pvr_fw_riscv_internal.h    |  43 +++++
- drivers/gpu/drm/imagination/pvr_fw_startstop.c     |  61 +++----
- drivers/gpu/drm/imagination/pvr_gem.h              |   3 +-
- .../{pvr_rogue_heap_config.h => pvr_heap_config.h} |  26 +--
- ...vr_rogue_riscv.h => pvr_rogue_riscv_internal.h} |  10 +-
- drivers/gpu/drm/imagination/pvr_vm.c               |  18 +--
- 13 files changed, 296 insertions(+), 205 deletions(-)
----
-base-commit: 6e375de99d0c420169481fcd36064177ab55b09d
-change-id: 20261028-prep-meta-fw-arch-independent-ffd6dcd626d0
-
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
+-- 
+2.43.0
 
