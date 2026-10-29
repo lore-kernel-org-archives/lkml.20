@@ -1,62 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.226.149.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793310037;
-	b=pS455EX6gjXYTb1pUEtoT8TPvE6hdv4OYa9oeIc+FtPAgGPACW7vatYpVnXNxuSFi2X3
-	 qb9ZC6IwtzrX/PcqVg1SpdF0UHCp1QimBZcP4XbOe4I1ZFhLPv0AGtpwseo1AcFWH0EFZ
-	 DxWurBnposYfu3gwYYy1DbQiM/N7ZQfe010PoEn4xmOXVX1RdXanG0NWlF1AH/tfGgK5g
-	 ULtGpepbdr5694Q65tGZsQlMVRjrFsUClLLzJyRavZVp/IXxvOc1l3cLu10+uBXKGaXU5
-	 R/F+BVTiIkJujqK+wMXshpvXSJdLNk9tkmM0U13ClPJTqg/qVNc5AMIsmEHliHaOBlw==
+	t=1793310281;
+	b=SzYRG8smv6w64vDKfSFpeRUeNeYX5aUEYSpDTKJc5YQA7fKs4ZzIm57Lw71sVqETKB3W
+	 wUXWTqQPq6bBsUVV3bY/DKEkLn72vP7J+i2rYhTMDgeaHV3y2CTKPB++HY7jWlct9laz+
+	 V44MTjCkp6H4CPovMd3fKZiWITjRV6dcymBUkpm8XPfuUS4XIbtI4gTULLrxVYKikurCm
+	 fFhUgnNq7n9qk2FN/O4s7/H4PFB4RcP9cs2utttn+ffL7bBUbpIK3eNyQyXb9/Lu8YZdJ
+	 +7fOE+A4fCbOmeyW/erWG9gr8/zwp3GPFDMD2t4v6GI0VkmXsgDQTeNHchk60krvUxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793310037;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=MZvzDpBPwEa2xjmhJpCaescetJXwNLlVXAcXe0UAq8M=;
-	b=v8eJODtL/J2WuAftzhjw1PqRroRTw2OTOAN1a+aXmhK96S2DJY0011+0nxC3is2Lop7V
-	 ShNxy5wRWJcXF5AY2QBI1wSyCvGHW4Rc6eK02jOYAXP30G6sz25cYxBdf2lu3aHeU/nG4
-	 yI0ILOnOXOllf2PU01S2kezR++C/CfbSTpGdgkjwwB7MPK6922M4vbl7r7hIm1lOQHkgV
-	 49IAqB27vFKkxKbiS39SCwIzrRkWFROxl73U0yd1li6+VM3kfz50TpFpXMgMZv6FXU75N
-	 guDvTryXuJIfoi7ZYxSJk5mhSBM8D/d4VuHIbkWUuDDP7ihnPePzBnov4RHASKq/dsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793310281;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Xrs5nmJVJab8tRZxFKVKeWjGi/2IO56BZp571uVAax4=;
+	b=pNEHa/gnu2BiHoElEH3NHDYk/gflaUTJxYL16ERsk3kx+G8+kOpV8oC0aIh6SVXqCzQK
+	 vwszstnpacE31Ydd4klvhKG+0QZ3bj1aHBBjE/BBN5JIRaMKTGtGtC4MNk0VRmMQISZmV
+	 Hu8wV/qkrfDvg5cgx/q2RuqcAqfA+yHI83au6pWiJCmJhDSGyuyiLsSxXNTAS31oqG+xX
+	 tTRk+nkps/ADZv/KHfYOfJD3fwZhSafbK1Jab7sWGjRTgOxgI8cjIVQllN9jo8ILZbUKE
+	 AFfTKpa2YL4RVqsLsR9lYXw8QEDgc/3tsMcbWhIKc5D926AEUJ6mraYYN4R9XRcHi7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rbox.co;
-	spf=pass smtp.mailfrom=rbox.co;
-	dkim=pass header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=DJ9gkgJ2;
-	arc=none smtp.remote-ip=185.226.149.37
-Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E61B6606A31C;
-	Thu, 29 Oct 2026 21:40:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E61B6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZvaTBnXw;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65903606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:44:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65903606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rbox.co header.i=@rbox.co header.a=rsa-sha256 header.s=selector1 header.b=DJ9gkgJ2
-Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
-	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <mhal@rbox.co>)
-	id 1xMXr9-00Gcqs-C6; Thu, 29 Oct 2026 22:40:19 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
-	s=selector1; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:References:
-	Cc:To:Subject:From:MIME-Version:Date:Message-ID;
-	bh=MZvzDpBPwEa2xjmhJpCaescetJXwNLlVXAcXe0UAq8M=; b=DJ9gkgJ2mHgUKKUfDwDDCCU7a2
-	fY3qUzdAHPf+1mgtIxttXFG8oYMrGk8IPq37+NOgMbA7ITXr9SeRSTwb7mazn9bnla/u5roR31Zw3
-	qu34bdMib+teJwEVATRjhpWBCLDl332CxeCq704J595bVN8Po3498i1F3u9x5kGT7cXmlh62HGYEL
-	DPRtHkEcgoH4iY5YsicYidSkk5rKcp0+JVbgxkW7oS9KlIm61ipQqj5a+C2LqUdtSAa68zXic8/Bq
-	+z1WmX5Ef/A82aBvUnJ4M1F1Tn/fDZVXZ5Ws8k3XBQj37hfD+iQSNkTr3oXcbSUORSmeSXooj6hjg
-	/OW/lTmw==;
-Received: from [10.9.9.74] (helo=submission03.runbox)
-	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
-	(envelope-from <mhal@rbox.co>)
-	id 1xMXqv-0006P1-3W; Thu, 29 Oct 2026 22:40:05 +0100
-Received: by submission03.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.95)
-	id 1xMXqh-001Zdr-J4;
-	Thu, 29 Oct 2026 22:39:51 +0100
-Message-ID: <d946003a-8bec-4e8b-89a3-05eeb96780cc@rbox.co>
-Date: Thu, 29 Oct 2026 22:39:50 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZvaTBnXw
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7CBD11682;
+	Thu, 29 Oct 2026 14:44:36 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 807CA3F59E;
+	Thu, 29 Oct 2026 14:44:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793310279; bh=1Jc6BQnB39kf9zB+DQFACw/SOjdeZK68FOMqJEkdGZw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZvaTBnXwk4vEh9RGdEieYrP+lcbbLQFeswH4ozshE0llEbLfdUJT22PqsrlbpTnwp
+	 RPeiQtuyX1sWs06Kh6O1kM+aQZudBXMLuPvlUaKRZ5/1cxj3tLJSYILv7GVESBB/H/
+	 MsCtUL3cBXEqH4nzkhbDr5bv3ZjwFLSEy4lCwIq8=
+Date: Thu, 29 Oct 2026 21:44:31 +0000
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>, Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Yang Shi <yang@os.amperecomputing.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] KVM: arm64: Clear the whole hugetlb folio when
+ sanitising MTE tags
+Message-ID: <auO-Pzqy-bp8fT4m@arm.com>
+References: <20261021110700.493315-1-fuad.tabba@linux.dev>
+ <20261021110700.493315-2-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,180 +71,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Michal Luczaj <mhal@rbox.co>
-Subject: Re: [PATCH net-next v4 4/7] vsock: add a netlink command to assign
- the g2h device to a netns
-To: Stefano Garzarella <sgarzare@redhat.com>,
- Bobby Eshleman <bobbyeshleman@meta.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Stefan Hajnoczi
- <stefanha@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
- =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
- Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- Donald Hunter <donald.hunter@gmail.com>, Eric Dumazet <edumazet@kernel.org>,
- virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, sargun@sargun.me,
- jlinbox@meta.com
-References: <20261020-vsock-guest-ns-v4-0-047527cfccfc@meta.com>
- <20261020-vsock-guest-ns-v4-4-047527cfccfc@meta.com>
- <atjZZP2ebhXKzMxL@sgarzare-redhat>
- <atld3+5LKmGxJ8+s@devvm29614.prn0.facebook.com>
- <atnjOZjKUBagRVWq@sgarzare-redhat>
-Content-Language: pl-PL, en-GB
-In-Reply-To: <atnjOZjKUBagRVWq@sgarzare-redhat>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021110700.493315-2-fuad.tabba@linux.dev>
 
-On 10/22/26 12:47, Stefano Garzarella wrote:
->>>> +/* Move @vsk to TCP_ESTABLISHED and into the connected table, unless the device
->>>> + * has moved to a namespace @vsk cannot reach. Returns false without doing
->>>> + * either in that case.
->>>> + *
->>>> + * The reset sweep walks the same table under the same lock, so an assign
->>>> + * cannot land between the check and the insert: either the sweep finds @vsk
->>>> + * and closes it, or @vsk is never added.
->>>> + */
->>>> +bool vsock_maybe_set_connected(struct vsock_sock *vsk)
->>>> +{
->>>> +	struct list_head *list;
->>>> +	bool reachable;
->>>> +
->>>> +	list = vsock_connected_sockets(&vsk->remote_addr, &vsk->local_addr);
->>>> +
->>>> +	spin_lock_bh(&vsock_table_lock);
->>>> +	reachable = vsock_g2h_reachable_sk(vsk);
->>>> +	if (reachable) {
->>>> +		sk_vsock(vsk)->sk_state = TCP_ESTABLISHED;
->>>> +		__vsock_insert_connected(list, vsk);
->>>> +	}
->>>> +	spin_unlock_bh(&vsock_table_lock);
->>>> +
->>>> +	return reachable;
->>>> +}
->>>> +EXPORT_SYMBOL_GPL(vsock_maybe_set_connected);
->>>> +
->>>> +static bool vsock_g2h_should_reset(struct vsock_sock *vsk,
->>>> +				   const struct vsock_transport *t)
->>>> +{
->>>> +	return vsk->transport == t &&
->>>> +	       READ_ONCE(sk_vsock(vsk)->sk_state) != TCP_CLOSE &&
->>>> +	       !READ_ONCE(vsk->close_work_scheduled) &&
->>>> +	       !vsock_g2h_reachable_sk(vsk);
->>>> +}
->>>> +
->>>> +static struct vsock_sock *
->>>> +vsock_g2h_next_unreachable(const struct vsock_transport *t, unsigned int *i)
->>>> +{
->>>> +	struct vsock_sock *vsk;
->>>> +
->>>> +	spin_lock_bh(&vsock_table_lock);
->>>> +
->>>> +	for (; *i < ARRAY_SIZE(vsock_connected_table); (*i)++) {
->>>> +		list_for_each_entry(vsk, &vsock_connected_table[*i],
->>>> +				    connected_table) {
->>>> +			if (vsock_g2h_should_reset(vsk, t)) {
->>>> +				sock_hold(sk_vsock(vsk));
->>>> +				spin_unlock_bh(&vsock_table_lock);
->>>> +				return vsk;
->>>> +			}
->>>> +		}
->>>> +	}
->>>> +
->>>> +	spin_unlock_bh(&vsock_table_lock);
->>>> +
->>>> +	return NULL;
->>>> +}
->>>> +
->>>> +/* Close every connected socket of @t that can no longer reach the g2h device.
->>>> + */
->>>> +static void vsock_g2h_reset_unreachable(const struct vsock_transport *t)
->>>> +{
->>>> +	struct vsock_sock *vsk;
->>>> +	unsigned int i = 0;
->>>> +	struct sock *sk;
->>>> +	bool reset;
->>>> +
->>>> +	lockdep_assert_held(&vsock_g2h_assign_mutex);
->>>> +	lockdep_assert_not_held(&vsock_register_mutex);
->>>> +
->>>> +	while ((vsk = vsock_g2h_next_unreachable(t, &i))) {
->>>
->>> can we reuse vsock_for_each_connected_socket() ?
->>>
->>> If not, maybe a comment here will be nice and maybe I'll try to merge
->>> vsock_g2h_next_unreachable() here if it's not used somewhere else.
->>
->> I think we would need a variant that returns the socket, since we need
->> to be able to acquire the lock_sock after releasing the
->> vsock_table_lock.
+On Wed, Oct 21, 2026 at 12:06:57PM +0100, Fuad Tabba wrote:
+> sanitise_mte_tags() clears the tags of the pages about to be mapped at
+> stage-2 before marking them tagged. For a hugetlb folio the flag covers
+> every page in the folio, but the loop only covers the mapping being
+> installed. Stage-2 maps a folio in pieces for the contiguous hugetlb
+> sizes, and for any size under dirty logging. The first fault then marks
+> the whole folio after clearing only its own piece, and the rest keeps
+> its previous owner's tags for the guest to read.
 > 
-> That would be nice if it's not too complicated.
+> Clear the whole folio, as mte_sync_tags() does.
 > 
->>
->> Maybe the callback could return a bool, if true then return socket
->> otherwise skip. Then the cb could also grab the sock_hold ref under the
->> table lock.
-> 
-> Yeah, looks promising to me!
-> 
->>
->>>
->>> I find these functions a bit hard to read.
->>
->> Yeah its all kind of a pain. The problem is that we need to hold
->> sock_lock to set sk_state and sk_err, but can't acquire it under the
->> table lock. Instead, we grab the socket ref sock_hold under the table
->> lock to guarantee it stays alive between releasing the table lock and
->> grabbing the socket lock.
->>
->> I was really tempted to not do this lock_sock dance though. The race
->> condition I'm avoiding here is that if this reset races with an RST
->> receive, then the socket could end up with TCP_CLOSING + sk_err
->> ECONNRESET... but I'm not sure this actually propagates up into a real
->> problem for any potential user.
+> Fixes: 25c17c4b55def ("hugetlb: arm64: add mte support")
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-Right, vsock_connect() is fragile. Two things to be cautious about:
-1. Don't let it reset the already connected socket. Because that would
-allow user to "re-connect()" and make mess in connected_table.
-2. Don't let it re-assign transport of an already connected socket. Because
-that breaks the contract in few places.
-
-State 1 is not an issue: vsock_g2h_reset_unreachable() calls
-__vsock_remove_connected().
-
-State 2 may be problematic: if vsock_g2h_reset_unreachable() sets TCP_CLOSE
-when connect() is scheduled out, then after the wake-up sock may get reset
-to SS_UNCONNECTED. Then user re-connect()s and hits the transport
-re-assignment logic. I'm worried that, as we re-assign, someone may be
-holding a reference to such "connected" (even if not in connected_table
-anymore) vsock.
-
-So I don't know, maybe it's vsock_connect() that should be fixed/hardened
-instead?
-
-Or at least disallow transport *re*-assignment? Does the "re-" part have a
-use case?
-
-Hope it's not too off-topic.
-
->> It also avoided some racing with the tx path, but now that send_pkt()
->> also checks reachability I think that path is safe.
->>
->> What do you think about doing the below hunk (TCP_CLOSE, ECONNRESET,
->> sk_error_report) with no lock_sock?
-> 
-> Looking at the code, it seems that in all the places where we close all 
-> connections (virtio_vsock_reset_sock, vhost_vsock_reset_orphans) we do 
-> with no lock_sock but with vsock_table_lock.
-> 
-> So, makes sense to me.
-
-virtio_vsock_reset_sock() and vhost_vsock_reset_orphans() are my pet
-peeves: state switcheroo without taking lock_sock(). Which, again, races
-vsock_connect().
-
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
