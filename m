@@ -1,54 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793286121;
-	b=Zm2ZK+em/kzcTZwjQDxzIpk44d1DKBFdvEaqupXmejBDdntrtZM4Ld2gi/VT77SRhPQG
-	 3O+tyRoYM/PMYxYgBBnXQ61FtBPd4SsS9Gbb3l0f9d1XXjxfONTrSAu1S7LIufonnKJKy
-	 I9XPq840417moL1fk5spjfy/gW6aHWLdjD3EVnNC/sm7wxNyZhrZ8HYIWNu+YaosX/hCI
-	 qArt1f3XKYJJygIWaoeROaOZ55B1BGfUhfSvhKyZYUugdcCa71taec4jKKMSkR+0O/ofY
-	 tQhwwVJOJSTC+Zvj1Y5jIYQyOMILP2/6Jzz1/ev3dWRUhhDf7+98T9f/ZtBYTNKK/bw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793286121;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=tlm0i/X00g3mnPKVrqb6Nd424jvsp5LSqDun6WcTekQ=;
-	b=1z/SyxL6cenUMcA6bFuiI5ybBL3JWWpBTY3rKpXs4Zawz+JcL8EhSiGQA6HTIJ/fqj6W
-	 AN40cCyEC5OJLZo3dLEMVYjdSPgqzt6lXQwdqls11EU1b0n3w4qW3VGuuw/914R/hLANd
-	 JQg15A3LPlx3l/9p4afO3MtdNHNpPhTrAqUPpEmAnVopg2sW56qsAoAy640O8TnfKQwr/
-	 oZrIcJHoxv53FkH4X9/CcbnRfWmodkpM8L0nMeb5z5Xt6kG5I3rYKI4xAVAGtcR+yfR0r
-	 uP27j4Ey/e5jU5SeHGgIsEH++nloa/V/Ly1zJ3HJNvbVpzc2jNA3KMKeZhyiY+HOCzQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793286127;
+	b=4hQhEzE7IlX3M0XvihtGoqw23YfKEURU7rXfwnyaQO4AEEvWmStEO9TThW9MRID6Of7Z
+	 wbu0153C1W4e2tsY5seJ1fu+FatPIo8vkqL+AZoMKZn2y6Fe5kmhki7HoVYufOPfihHsQ
+	 2CvlN4wBWnaXLXSFQ0GP2xSQ3qIagZ5a/OBGqiP6vtZsCV3XzNx23aDk3dmvRzpXXW9wi
+	 nC+IPrAFvJO7mwOikGdHjsPAgUDx4jLonI5l5+0R8vjQTWvu6tZ2H/aKtxvAVZPF7KT4f
+	 oq8raiuerGXhYjpMv5K5l1oUo0ko9lTbPNrahJwZdRIg/b6RHW5rtM2lsnZ8bo5c89A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286127;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=3pv54lpPQ42UJPfl7NiVIVr5xpTo5h1NIoL6uWP0Qlk=;
+	b=gA7K9bShNQK2oTGDJTw0w2ly3wINmcTdJ+25OpdWS7T5QOdSodpfNSTMFiaZJNBT4lms
+	 /laVjaw6FtYiMHCeWFXCVPYRwXxvGyl9rzz0oSGJrmKhS4n+T4yR7D9x/B3txSomw/wmP
+	 m9ZINfL3mU0iWLehA1TsZL3vxzb2LT/0ltygRR788ko/dsL+U4RRcz0w9/d9MerpH++AC
+	 6YyGRSDUzJ3E35FIQxy+9P2f6WEu0N5LIMwevIT/kJnQ7P5nrjAwxv227VPHhYM5ZG6Np
+	 Sa2rhY9PFyf7Df55lTK8l/6ARprVqDFEkIWn2LT0iOBNVDV00h6tnkz43D/1CFOtt6A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=At8KQKvW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7617A606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:02:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7617A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b2d1eb484aso2839024b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:02:01 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6DE606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 15:02:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D6DE606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=At8KQKvW
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c40f29667e6so303613766b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:02:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793286125; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Fg4wlWeQ96qyJQqkXKc5n7tLbKqqfCEqGIt81QXiKyCGDXh2n9hDAfaKQJamARCRO8
+         Mj7o2+J5jf/lVdELQ0oebH4JEX5f6Chxe8edJoS2GJvvn46Cni6PxRR56f+f/xVVqPgz
+         j7ovZO3Oqnak16kjVWOkkRDcXymi/9AEr3cgxRkf9GqyMrNyPGKlQifNHBduRpy+IAjt
+         d2AOqccJTsF8DPU3u/iwEYHwzbvS2i+ETLiXoh/J8Feu3dRk1YTLa1BsxSqtAutSCpdh
+         3H29uTX5ef+jvBWCHxwAtruoFkuUww637iw99X23Is0paXx4uGuQqHGSuOYeT8NkTbRa
+         dP+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3pv54lpPQ42UJPfl7NiVIVr5xpTo5h1NIoL6uWP0Qlk=;
+        fh=jhrYOcTmilC/awejfgh0SAigwh1z8+2rsfhaE5X4MNI=;
+        b=Sn/l/rNwZbowE9uy9wOaJCWSeKDbDgKDUiAo7cVO/VaF9XpViE4V6r7cuid3YV/8OK
+         iyjuHgaHGiZCN68I0pBYjIn/59dFtV2r7V8jyYKilBN5SH39U47P7rxzZeY4rQx3esdi
+         2pJcmg+Vwh8b8on7EUgiBZqeE5MK/f9GD4z+XnS5lc6ZoNyHnesICdA45UsKXhF9nxUg
+         sVEWn6lsqqC+DE0C4nYd8Ly2UHoefSC5tIuK3daXL7pw2vJpjXT1FadeO5PIluAxp5GS
+         MRQobND++JOegenAaFU1XcLw4PNRCz9M48jmjbFQsFMQcidnvAugFSTyzrnPFWIMFp9B
+         LRPA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793286125; x=1793890925; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3pv54lpPQ42UJPfl7NiVIVr5xpTo5h1NIoL6uWP0Qlk=;
+        b=At8KQKvWo8fhNk7ywdT7FNDhpC3ba7IwiYlI7QmFy7Zh3uJJY4cGFeNFCR7BjY9ix0
+         Z0LycXeX1d7ozowebTUnosQYM3e0PA4OBDFuKc8XhQQWprwTpYgrRgeFq5c5YRtM+/J1
+         APL9/PifUoPMDSW0FVca4S4a4DhjU85h6eVasm15MpBB4SSd/uFe9e2USgS0tVMxtSom
+         N/qyqp6LogRmNVZxui1J90unNeWqvpYBjFg8EMdUWe/bycEmgEEmkx8XeMd2U5/u01EQ
+         3KuGQZpZJe+HCxk16t3EEUK9x/XgzJHEVq2C7X7nbLxwzAcE2FV8kKPE3ctva+3ZPMP1
+         7V8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793286120; x=1793890920;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1793286125; x=1793890925;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tlm0i/X00g3mnPKVrqb6Nd424jvsp5LSqDun6WcTekQ=;
-        b=QqHNv6lj42qJ6wQ2jzZFHcogxNaWZmjReqI5qeTUgmoe/pP0Vcl8dX674kh7anF6Vx
-         5VBVhptiJ8FlAQVH/FFAiwfTi8XHX0XTVG0WaE3TtgNSCGDNX2Xj55L7iRe2LuYTvTJd
-         h8xRvK9naI0+tQwQBSTIOhEdWh61Ah9ZlMvHnF4edk7EWJUJb/GALACdG/udZvOPKhO/
-         bKCfw5uFJzBdXjfmoBCNtvfJcb00KXNjmziYlnBgH2MKKIR1bbUBX06+LytzHNzkug1n
-         ktxDFpKXa3F5ROtWz1hMwgGqilGr6HHZjyI47aTfTjPmWHOSfuh/tdwFbgp9U8tZgj6T
-         dFWg==
-X-Forwarded-Encrypted: i=1; AKwUvByzMqhKoXomHu7xLzrRohmipi4SDOo326FTAGO9p5rxVrC0ZECGu+4ka2t5nYe0X5XeeKnThuirA8Tg1dE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEHBRLzBMhjmHKODJwZ2M6sRrxl2vzMkQDI4av7UNn1x0uJk98
-	unZVfBK/3tA5h+NT9TxmRhN9o9NgI+cMbvyuqrxoStVdmAIK+JaZWIl89zq6rg9DNKRRWqHJ3ba
-	7MeSrhUXGjESzFMbK2qlamiog2O2legh6wZM+PesThY0a2SF6wV5ZjOvMnBA=
+        bh=3pv54lpPQ42UJPfl7NiVIVr5xpTo5h1NIoL6uWP0Qlk=;
+        b=Mamk7O3wTHdBvIUboZ9hf32d3ZFFGoL+VQ7ftjegl4OKSs/resir9c6mhuVxsG+eIY
+         BeIIBxzaeJqL/AwJVyu7pNz5jU6VTla8Y8arzD81dFnWfZ+h6Gy8bSDp6MWnY616y3bE
+         qKr+TeLDNvckysBnoVyKKgvERs4GSVeern1K0uwuogAkCoTX9tah9r9rkoK4MyK4q1GO
+         IEi+7bmVAn4SVhlJJlajFTw58bfKf/DmD+sNKzsIV7BxuhKmbhn4a0dSQoYX2FKvikMl
+         D1uvSDVeA6CPL4l2aaG5EWkzBtBGLyxFA1O5NES2nAIa3GMZfK4Q26X1o0DwMfS9C71G
+         yAeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzzoDgfrxLLRBa5DY9KxLl4Re4MoBAtq0QSbyme7t142SidZ9puwB50QcI80WHGD9/qVa0TakALw72NAiU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJP8grakrJd/1PifejvjHshYVjO+z+6dFCfSFGylf+nlwGnUPro
+	ZPEqK2yXUBdR/uXeN9oJ3rcmdfzaFD2S0DH4NT7cI+N1B2uzVIqDFZqWZfulYCdV27KvA+D1/ZL
+	ealAZJYBbK2x4XPXmFbGXi6NgsE8ADG0=
+X-Gm-Gg: AYBFou3NFEZXV+jNbpIlk5rUJHv2bILWRy7i/zrljsVfeKK8gvieqiUaqmqNIkKA6GB
+	MK5MVDs4b2dn9pwPS9Tqi+kKFeQt3MJ6owflzj0O0z+QXIEFmAreHsph28TTOEWz8yBEk+e6LKJ
+	0tGo9jE43S/YlokjS+IL3z4po+7T5qyYFv/9OTNxtad4u/uiTSTbPEkCcAN5Q2xR9JCsWU3kU3m
+	gd1hcikpG3uWDzVo7mPKWG8YUY/vL+LYHxgNFgGBOmgLxYuwB10Pu6MG4NPbOp3OXedap2fda/o
+	nj1ewP7A9VXUVlH7f720th50yFoTBO1u8bjW0NHwglh5bHztBy9q9OC1lFKC6oe/FJoUX3yqcdC
+	vMEJbw7XmhGWtzImvsIYbA1Z97SG78M4YlfSTFoP/My+shtIGVKIq2PSDicR8/6eUUntN
+X-Received: by 2002:a17:906:794e:b0:c33:ae8b:817d with SMTP id
+ a640c23a62f3a-c49bdf9016cmr515625366b.46.1793286125001; Thu, 29 Oct 2026
+ 08:02:05 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,236 +104,169 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6408:b0:4b3:3e1:4a25 with SMTP id
- 5614622812f47-56385c45dc6mr3774403b6e.11.1793286120516; Thu, 29 Oct 2026
- 08:02:00 -0700 (PDT)
-Date: Thu, 29 Oct 2026 08:02:00 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae35fe8.ca891901.26044a.014c.GAE@google.com>
-Subject: [syzbot] [dm?] KASAN: slab-use-after-free Read in dm_put_device
-From: syzbot <syzbot+9519233e6d144970bbc2@syzkaller.appspotmail.com>
-To: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, mpatocka@redhat.com, snitzer@kernel.org, 
-	syzkaller-bugs@googlegroups.com
+References: <20261028-alpha-profileme-v1-0-d44b52bf2500@gmail.com> <20261028-alpha-profileme-v1-5-d44b52bf2500@gmail.com>
+In-Reply-To: <20261028-alpha-profileme-v1-5-d44b52bf2500@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Thu, 29 Oct 2026 16:01:53 +0100
+X-Gm-Features: AclHuK-GNrjKeGtxUttAzHxHHU9r3Wn59K2y6AwVpRTg9_F9nYsnOjJyieFCY_M
+Message-ID: <CA+=Fv5S5S3o1=2LetFuLQNqjtuw0DTgxVWAYAiAVvsdUNgNEyQ@mail.gmail.com>
+Subject: Re: [PATCH 5/5] alpha/perf: optionally randomize the ProfileMe
+ sampling interval
+To: Matt Turner <mattst88@gmail.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+Hi Matt,
 
-syzbot found the following issue on:
+On Wed, Oct 28, 2026 at 7:09=E2=80=AFPM Matt Turner <mattst88@gmail.com> wr=
+ote:
+>
+> A fixed sampling interval can phase-lock with a loop whose length divides
+> it, so that the same few instructions are profiled over and over while
+> the rest of the loop is never seen. DCPI avoided this by randomizing the
+> interval.
+>
+> Add a randomize config bit that varies each interval by up to 1/16 of
+> the period in either direction. Only ProfileMe events accept it, since
+> Aggregate mode samples already land a variable distance from the
+> instruction that overflowed. Counts are unaffected, because prev_count
+> already records the value actually written to the counter.
+>
+> The jitter comes from a per-CPU prandom state rather than
+> get_random_u32_below(), which takes the batched entropy local lock and
+> triggers an invalid wait context report from lockdep in the PMI.
+>
+> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> ---
+>  arch/alpha/kernel/perf_event.c | 33 ++++++++++++++++++++++++++++++++-
+>  1 file changed, 32 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
+t.c
+> index 06c9afeb7c05..da8262c74d04 100644
+> --- a/arch/alpha/kernel/perf_event.c
+> +++ b/arch/alpha/kernel/perf_event.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/kdebug.h>
+>  #include <linux/mutex.h>
+>  #include <linux/init.h>
+> +#include <linux/prandom.h>
+>
+>  #include <asm/hwrpb.h>
+>  #include <linux/atomic.h>
+> @@ -33,9 +34,11 @@
+>  /* Layout of attr.config for PERF_TYPE_RAW events; see format/ in sysfs.=
+ */
+>  #define ALPHA_PERF_CONFIG_EVENT                0xffULL
+>  #define ALPHA_PERF_CONFIG_PROFILEME    BIT_ULL(8)
+> +#define ALPHA_PERF_CONFIG_RANDOMIZE    BIT_ULL(9)
+>
+>  /* hw_perf_event.flags */
+>  #define ALPHA_PERF_FLAG_PROFILEME      0x1
+> +#define ALPHA_PERF_FLAG_RANDOMIZE      0x2
+>
+>  /* For tracking PMCs and the hw events they monitor on each CPU. */
+>  struct cpu_hw_events {
+> @@ -59,6 +62,9 @@ struct cpu_hw_events {
+>  };
+>  DEFINE_PER_CPU(struct cpu_hw_events, cpu_hw_events);
+>
+> +/* For randomizing sample intervals from the PMI, where locks are not al=
+lowed. */
+> +static DEFINE_PER_CPU(struct rnd_state, alpha_perf_rnd);
+> +
+>
+>
+>  /*
+> @@ -246,10 +252,12 @@ static int ev67_raw_event_valid(u64 config)
+>
+>  PMU_FORMAT_ATTR(event, "config:0-7");
+>  PMU_FORMAT_ATTR(profileme, "config:8");
+> +PMU_FORMAT_ATTR(randomize, "config:9");
+>
+>  static struct attribute *ev67_format_attrs[] =3D {
+>         &format_attr_event.attr,
+>         &format_attr_profileme.attr,
+> +       &format_attr_randomize.attr,
+>         NULL,
+>  };
+>
+> @@ -360,6 +368,20 @@ static int alpha_perf_event_set_period(struct perf_e=
+vent *event,
+>                 ret =3D 1;
+>         }
+>
+> +       /*
+> +        * Vary each new interval by up to 1/16 of the period either way,=
+ so
+> +        * the samples cannot phase-lock with a loop whose length divides=
+ the
+> +        * period. The count stays exact because prev_count records the v=
+alue
+> +        * actually written.
+> +        */
+> +       if (ret && (hwc->flags & ALPHA_PERF_FLAG_RANDOMIZE) && period >=
+=3D 8) {
+> +               long jitter =3D period / 8;
+> +               u32 r =3D prandom_u32_state(this_cpu_ptr(&alpha_perf_rnd)=
+);
+> +
+> +               left +=3D (long)((u64)r * jitter >> 32) - jitter / 2;
+> +               local64_set(&hwc->period_left, left);
+> +       }
+> +
 
-HEAD commit:    330517c63aa9 Merge tag 'char-misc-7.4-rc1' of git://git.ke..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13608531580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b03c85f3988bfcd5
-dashboard link: https://syzkaller.appspot.com/bug?extid=9519233e6d144970bbc2
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11bd638e580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15bd638e580000
+One minor corner case? This  multiplication can overflow for very
+large  sample periods. I guess normal sampling periods are not
+affected, is it worth using overflow-safe multiply/shift to avoid this
+limitation?
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-330517c6.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ecb230491807/vmlinux-330517c6.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ace3132a7acc/bzImage-330517c6.xz
+>         /*
+>          * Hardware restrictions require that the counters must not be
+>          * written with values that are too close to the maximum period.
+> @@ -715,7 +737,8 @@ static int __hw_perf_event_init(struct perf_event *ev=
+ent)
+>                 return -EOPNOTSUPP;
+>         } else if (attr->type =3D=3D PERF_TYPE_RAW) {
+>                 if (attr->config & ~(ALPHA_PERF_CONFIG_EVENT |
+> -                                    ALPHA_PERF_CONFIG_PROFILEME))
+> +                                    ALPHA_PERF_CONFIG_PROFILEME |
+> +                                    ALPHA_PERF_CONFIG_RANDOMIZE))
+>                         return -EINVAL;
+>                 ev =3D attr->config & ALPHA_PERF_CONFIG_EVENT;
+>                 if (!alpha_pmu->raw_event_valid(ev))
+> @@ -740,6 +763,14 @@ static int __hw_perf_event_init(struct perf_event *e=
+vent)
+>                 return -EINVAL;
+>         hwc->flags =3D profileme ? ALPHA_PERF_FLAG_PROFILEME : 0;
+>
+> +       if (attr->type =3D=3D PERF_TYPE_RAW &&
+> +           (attr->config & ALPHA_PERF_CONFIG_RANDOMIZE)) {
+> +               if (!profileme)
+> +                       return -EINVAL;
+> +               prandom_init_once(&alpha_perf_rnd);
+> +               hwc->flags |=3D ALPHA_PERF_FLAG_RANDOMIZE;
+> +       }
+> +
+>         /*
+>          * We place the event type in event_base here and leave calculati=
+on
+>          * of the codes to programme the PMU for alpha_pmu_enable() becau=
+se
+>
+> --
+> 2.55.0
+>
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+9519233e6d144970bbc2@syzkaller.appspotmail.com
+I'll report back once I've done some testing on real hardware.
 
-==================================================================
-BUG: KASAN: slab-use-after-free in string_nocheck lib/vsprintf.c:650 [inline]
-BUG: KASAN: slab-use-after-free in string+0x471/0x4d0 lib/vsprintf.c:732
-Read of size 1 at addr ffff888030bb3db4 by task syz.0.17/6012
+Thanks
 
-CPU: 0 UID: 0 PID: 6012 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- string_nocheck lib/vsprintf.c:650 [inline]
- string+0x471/0x4d0 lib/vsprintf.c:732
- vsnprintf+0x422/0x1300 lib/vsprintf.c:2948
- vprintk_store+0x3b3/0xbe0 kernel/printk/printk.c:2307
- vprintk_emit+0x139/0x6b0 kernel/printk/printk.c:2455
- _printk+0xcf/0x110 kernel/printk/printk.c:2504
- dm_put_device+0x2fa/0x3a0 drivers/md/dm-table.c:467
- pool_ctr+0x3b8/0x2380 drivers/md/dm-thin.c:3431
- dm_table_add_target+0x58b/0xee0 drivers/md/dm-table.c:749
- populate_table drivers/md/dm-ioctl.c:1602 [inline]
- table_load+0x3b9/0x7b0 drivers/md/dm-ioctl.c:1645
- ctl_ioctl+0x4d2/0xcc0 drivers/md/dm-ioctl.c:2221
- dm_ctl_ioctl+0x22/0x30 drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fcd6159f559
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffcc68ce338 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007fcd61825fa0 RCX: 00007fcd6159f559
-RDX: 00002000000004c0 RSI: 00000000c138fd09 RDI: 0000000000000003
-RBP: 00007fcd61636b20 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fcd61825fac R14: 00007fcd61825fa0 R15: 00007fcd61825fa0
- </TASK>
-
-Allocated by task 6012:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:426
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_node_noprof+0x30c/0x710 mm/slub.c:5699
- _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
- open_table_device drivers/md/dm.c:733 [inline]
- dm_get_table_device+0x2fc/0x820 drivers/md/dm.c:821
- dm_get_device+0x525/0x7e0 drivers/md/dm-table.c:388
- pool_ctr+0x2a8/0x2380 drivers/md/dm-thin.c:3329
- dm_table_add_target+0x58b/0xee0 drivers/md/dm-table.c:749
- populate_table drivers/md/dm-ioctl.c:1602 [inline]
- table_load+0x3b9/0x7b0 drivers/md/dm-ioctl.c:1645
- ctl_ioctl+0x4d2/0xcc0 drivers/md/dm-ioctl.c:2221
- dm_ctl_ioctl+0x22/0x30 drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Freed by task 6012:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:264 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:296
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2780 [inline]
- slab_free mm/slub.c:6630 [inline]
- kfree+0x22b/0x6d0 mm/slub.c:6923
- close_table_device drivers/md/dm.c:798 [inline]
- dm_put_table_device+0x2bf/0x380 drivers/md/dm.c:841
- upgrade_mode drivers/md/dm-table.c:326 [inline]
- dm_get_device+0x3f1/0x7e0 drivers/md/dm-table.c:399
- pool_ctr+0x362/0x2380 drivers/md/dm-thin.c:3336
- dm_table_add_target+0x58b/0xee0 drivers/md/dm-table.c:749
- populate_table drivers/md/dm-ioctl.c:1602 [inline]
- table_load+0x3b9/0x7b0 drivers/md/dm-ioctl.c:1645
- ctl_ioctl+0x4d2/0xcc0 drivers/md/dm-ioctl.c:2221
- dm_ctl_ioctl+0x22/0x30 drivers/md/dm-ioctl.c:2243
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff888030bb3d80
- which belongs to the cache kmalloc-96 of size 96
-The buggy address is located 52 bytes inside of
- freed 96-byte region [ffff888030bb3d80, ffff888030bb3de0)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888030bb3c80 pfn:0x30bb3
-flags: 0xfff00000000200(workingset|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000200 ffff88801d442280 ffffea00008fef50 ffffea0000ba1e50
-raw: ffff888030bb3c80 0000000000200016 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 446, tgid 446 (kworker/u33:10), ts 8752841003
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1854
- prep_new_page mm/page_alloc.c:1862 [inline]
- get_page_from_freelist+0x1113/0x35e0 mm/page_alloc.c:3933
- __alloc_frozen_pages_noprof+0x2f6/0x3190 mm/page_alloc.c:5429
- alloc_slab_page mm/slub.c:3384 [inline]
- allocate_slab mm/slub.c:3499 [inline]
- new_slab+0xb1/0x6d0 mm/slub.c:3550
- refill_objects+0xe3/0x410 mm/slub.c:7539
- refill_sheaf mm/slub.c:2917 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4811
- alloc_from_pcs mm/slub.c:4887 [inline]
- slab_alloc_node mm/slub.c:5021 [inline]
- __kmalloc_cache_node_noprof+0x517/0x710 mm/slub.c:5695
- _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
- __get_vm_area_node+0x124/0x350 mm/vmalloc.c:3237
- __vmalloc_node_range_noprof+0x2ad/0x1440 mm/vmalloc.c:4079
- __vmalloc_node_noprof+0xad/0xf0 mm/vmalloc.c:4180
- alloc_thread_stack_node kernel/fork.c:359 [inline]
- dup_task_struct kernel/fork.c:930 [inline]
- copy_process+0x80b/0x84c0 kernel/fork.c:2141
- kernel_clone+0x176/0x9d0 kernel/fork.c:2783
- user_mode_thread+0xd1/0x120 kernel/fork.c:2860
- call_usermodehelper_exec_work kernel/umh.c:169 [inline]
- call_usermodehelper_exec_work+0xcb/0x180 kernel/umh.c:155
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
-page last free pid 446 tgid 446 ts 8752713246 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1401 [inline]
- __free_frozen_pages+0x7b4/0x1110 mm/page_alloc.c:2952
- __kasan_populate_vmalloc_do mm/kasan/shadow.c:393 [inline]
- __kasan_populate_vmalloc+0x1ea/0x210 mm/kasan/shadow.c:424
- kasan_populate_vmalloc include/linux/kasan.h:580 [inline]
- alloc_vmap_area+0x963/0x2bc0 mm/vmalloc.c:2145
- __get_vm_area_node+0x1ed/0x350 mm/vmalloc.c:3248
- __vmalloc_node_range_noprof+0x2ad/0x1440 mm/vmalloc.c:4079
- __vmalloc_node_noprof+0xad/0xf0 mm/vmalloc.c:4180
- alloc_thread_stack_node kernel/fork.c:359 [inline]
- dup_task_struct kernel/fork.c:930 [inline]
- copy_process+0x80b/0x84c0 kernel/fork.c:2141
- kernel_clone+0x176/0x9d0 kernel/fork.c:2783
- user_mode_thread+0xd1/0x120 kernel/fork.c:2860
- call_usermodehelper_exec_work kernel/umh.c:169 [inline]
- call_usermodehelper_exec_work+0xcb/0x180 kernel/umh.c:155
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
- process_scheduled_works kernel/workqueue.c:3578 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Memory state around the buggy address:
- ffff888030bb3c80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
- ffff888030bb3d00: 00 00 00 00 00 00 00 00 00 fc fc fc fc fc fc fc
->ffff888030bb3d80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-                                     ^
- ffff888030bb3e00: 00 00 00 00 00 00 00 00 00 03 fc fc fc fc fc fc
- ffff888030bb3e80: fa fb fb fb fb fb fb fb fb fb fb fb fc fc fc fc
-==================================================================
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Magnus
