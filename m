@@ -1,96 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.40
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793290858;
-	b=1MrWzLRsLaTxw5Wv6RydVPsaLmpvqDSnC+e7hQlEBCNeO3HiwBh+TqaPyJwrdlIlmDXm
-	 /KsGHqdZqVSrUpua2N+DgF8NCMJW2j+CSMODp79OKoaE/uqyeSD9PzySeUjgWAJ1u/JC6
-	 0cv0IGW7iIrkpygExV3Qqn2rn3FqmZI8C5NXJAj9n8+Z1+0WBXLXZLPxlRy4TCYvZFemk
-	 3I/dBpTom3F7NHH4TeHzX26X36cyT7tQV0vZBDOFeE+gINwO/zbD5WCoh0pySppABwHAC
-	 8oIt4hZqY5UYL71V/N4h2BBrV+fMfonu0m9GQMCIUr+xMkbz7dFTRgwvqlMz3ZO7c+Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793290858;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=9pbSWmbmq9yuURK2Z3xuj+VpTbBl2FUfkC5rskEW1ow=;
-	b=JxFlXlgptoMnZ9o7n62dSljymCtkefitxsQokKrMuwBqE93gOlthwVCsiVjIcGWUVuGm
-	 3/wscSqJUEEOf1hTH87dj37F+5Wv143WyfyMwN+xMHc7ysEnKK4U0iw5hjy51+D1rlO2+
-	 Gyicjbw8TmAqtgDYIPq5RwhpF4x1sXJeb5HShJBbgxqMGWosBtrYDNvPLmG3XobbYB8j4
-	 A1VrkzqDkSVf47NG+CLD75dq+HHtcQo+e0Sm8OSgvmVNVQKJlMKSQ/Wgb/S5LnLSAGQ8h
-	 z6tV3NFRNsBbPxmWbp42Orgvt9Zd4hJMv0wWH90Q6m2uDwe4cHsLEq0eHRnUZaYOS6g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=a4wdTxSJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.84.40
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010040.outbound.protection.outlook.com [52.101.84.40])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793290859;
+	b=MRr2ESvNjg2llaWkUkx4gWdVHYjlwde2TADooK0V5O2LT+6nRMxiXpWooezQZsyUgTnG
+	 bm0yJSiB2XnFynMSXIjPzHosart9GHifqC3HZEphtxpRq3HVc0vleSqt6hkWu0jCVgm9p
+	 ikvTbgq6eClarGnI9MjkDbJt6AWsevuVefKCyFSP4nZcK/aU1kl+MkXMhpc7fIgTEGZkL
+	 PJFh0LLoQJIvgXYl93q+LsdFXijFIs0eteWek6W1yzP3aoV/4Zsw+s399TS62KNQyzAVF
+	 TQxvt2ckrldA/QtO6Jgl0A0iXAp42bHMMZUU8MsO5/8V6mPUv740K+bWxwwkX1nRgvg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793290859;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=yxnLEz88kcrXq8N3E/2oHjuInKcEQgr1ZtwdFsYS4Cs=;
+	b=ddSIUg95pkIvP/EjJ/oKx4lstO/3RjXhAuaObBGkrMwI6g7VVo+D1OFNVB4qpvivIPVW
+	 9n+lN2yQ3RihIRQiDkIgwD8lOoe5bT5whjFvFqLYaCQmyJIx7DoKhIiDRZc2/jqsKGRHw
+	 FQTCD1l6krZiP1gHq0MR4eLkkuj2HHpXK6IXqYQ4cm0GZoP7CSeUc8zgxF88CWKrlcV/I
+	 eaYPWfMnKyazQZzJf7bsjz8NUIWJeKj025Qau9Rg5ZB25lvj9cHO7qbpQo+hZUOyGcDvK
+	 cbiD2zR09cuwds19ue4mlPJLJNczH96yUnpBDiwIUJzB4uncTvYibNCyznzuSXhe6yA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2vskwra;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90A7606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 16:20:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B90A7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FF7606A322;
+	Thu, 29 Oct 2026 16:20:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=a4wdTxSJ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IhdgjnKDQO8vqaC6J0HR4bkmgn0360/IkktBLccrmb/1L+qn9beSWHc1Ww8X1DX6fwjWdCTG/Jn7Rnyh9exa0+6EWLoaICidm0+n13zuoFHOCcdpaT0n7egsv2cq+N43NHket/5UdfM7DKLPG9rMuo1rMIhgQslZqN3PqTXV2JO4C8eJEeVtlWhK3y5ZNd3nKGHxZdPf8HY9L6xU0dvPy/STydrV//RJfIPVaMUJaLmSbDinqKeex0aPrUFa9l0raGpx4pGeJN0kfbpJgapP+3XAR1PNt6E/Z7Bbrho/CHinGCwe2Y7j7lM2Q8ItOX/VCkzVJs84AFi7mJZacL4JJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9pbSWmbmq9yuURK2Z3xuj+VpTbBl2FUfkC5rskEW1ow=;
- b=QxB78WgkCyvnlEBvcpKy8MoqzGFA4cc1fP8t+S1RcC3lurztru1VsvJ41wI9hQGlNL5nzdt5BNn2R6mAdEdO8mKDFRRnZEOS5JfCWQ28JEx2UbWa3lpkiTKq5VmtO6LRgSkXjFIHZvW9d/J0c+gpPlWmDFxi1ENJ02x84+KJ768fhV85mdR1Aedq/2Dk5Hua3qA+gwsFmFYW0wSlOatP8rMU3MXymjKCcFImS+Sef//FC10K4cCM7XeWQiI6R58ivde14zRwosBIQNTyyKwCVlaVuQL8etbfe2KV28aho4Yikvz+xsJxX7pnhZHCGputbwlkh0vy6atsK6/Y3Rfcew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9pbSWmbmq9yuURK2Z3xuj+VpTbBl2FUfkC5rskEW1ow=;
- b=a4wdTxSJ9WjJ0j5IAxoxqogN7D6fL22sSGTXoZAv/0pSJALwugn+epPZbRRLmBbRUj29gnpxmmYbUVmaaszlpwgtgXw5Vdbj++1UxmCbcU9PR2Sh9H7rKcMSYWmxoBg1psnTylrBhSefbXyVdJ+yTc8qDiWbd2DUaQc44263zQtZh8pIAIf+jIhEQZe5g61cj80ftj18MseKNo9Ve0YWSeDWBAd8y56ltYDq7RDz2Xs8V5C9aiRdmqm14d/Msit7YDfdlV3z3ba1TWTPnA/KHbCz4Qm3b1EsXrXSpU0vQnXb0D97J7UN59s3Dm8wv52TZrhb85EhmoqqJHhCBD91oQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM9PR04MB8439.eurprd04.prod.outlook.com (2603:10a6:20b:412::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Thu, 29 Oct
- 2026 16:20:55 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.007; Thu, 29 Oct 2026
- 16:20:51 +0000
-Date: Thu, 29 Oct 2026 11:20:42 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 03/31] accel: ethosu: Fix probe error cleanup
-Message-ID: <auNyWqEBu3F0mHlz@SMW015318>
-References: <20261029-ethosu-fixes-v4-0-4aa25e22578e@kernel.org>
- <20261029-ethosu-fixes-v4-3-4aa25e22578e@kernel.org>
- <auNrrlOyKRzSp6vv@lizhi-Precision-Tower-5810>
- <20261029160058.GA1232511-robh@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029160058.GA1232511-robh@kernel.org>
-X-ClientProxiedBy: PH5P222CA0002.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:34b::9) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2vskwra
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1331F01824;
+	Thu, 29 Oct 2026 16:20:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793290858;
+	bh=yxnLEz88kcrXq8N3E/2oHjuInKcEQgr1ZtwdFsYS4Cs=;
+	h=From:Date:Subject:To:Cc;
+	b=S2vskwraZk8gx7DRAFbh3IcnaNYtA4uDUOzrtA7IFr8LlEnFExq0X9Rt4Z4wA+wNF
+	 Ywrg0MT0JxMEDKliV1FzB+PzYgQGPg4UFGaehuwoAVvHeDtySiv6vhKVrooUX00AhP
+	 BjyursJVx36Pgh9iLqPqdbstaCjvgMCmNgF1EgaK49gLT1XHtXuElZ0UoRGvl+yD9X
+	 zF5KelCkcEH6TVi6SXzVmAZKkgwnvecAqQZ1P+IZujXNTz8s4cw+holA2D59aciqjI
+	 dhEMuZPOweNHxjm4Bh9+B6Oi3uAnBk+UCaCf3mXYtOANmHecPmbcot/PuDz3o1WH3B
+	 xx2Bs7+88rkew==
+From: Jeff Layton <jlayton@kernel.org>
+Date: Thu, 29 Oct 2026 12:20:27 -0400
+Subject: [PATCH] statx: don't leak STATX_ATTR_CHANGE_MONOTONIC in
+ stx_attributes_mask
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,113 +53,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PR04MB8439:EE_
-X-MS-Office365-Filtering-Correlation-Id: 297832bd-9c9d-4d3c-904b-08df35d89992
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|19092799006|261009223027099003|261028144727099003|261026121527099003|261021123027099003|261026140227099003|261021121427099003|261022075727099003|261022105027099003|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	OMow5K/owid7DvmoUjonsLQD2zVGPjYejZnmq8JZlcjQfos0semk4dHhr9t5KjF9CbNsd8BtuDTJvboueaeFoAZnO0bK0fqTVbQDwUX0d77TBD2Zd87hj3/Qb0hFE/Phcw0/ZKk0EedShFXKxVjZgCdW3LCBr4jpWHDnn2cXrZY/qGbIUyAGs/lUgbuZUtA78YuUB4yaVsOZDehVvGGtUK/a42iuWW7ZxNlDE6yDN/cOHA6BlLCdK3Y184DyLMKiNx+ci5gf5bbOSXkvRE2BGck9V1g/Er0Kl7k81YkySC0ACJ+HsjlGqIFVmve4zbIBi63xgYSS8WMzm02nqWyVWb5jf3b+4z5YhdBBTvt1pDE0usWXsO7jTDWrlao2QbT9MLyBVVOsy2rUJXxcst4kG57yYP/leZhHGvAbbzURA1CzYjP5K8uKCOSvID8t4yYBYQ7qzytu4p4qSmSB5Vx6Q/cWL4dekWTAr7HoJ8+wrW+14QS3cibOdUu4zDBV20MXG6/o7qNGLYtRIroCBl+3SXGXh4Kj3j01t+Ql5HSM04OkZJU3SWhsL41lh/Lg1yBBYLcgAuN85gPFpzUHoDlbOfsP0U/dSKHB3i9Cs5l0j26xOnaYgsS1j38OVAUEhCW+FMqwfHbsqVPGHyDxcSBjZ2rAWWY3neLRtXPdz+flpIA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(19092799006)(261009223027099003)(261028144727099003)(261026121527099003)(261021123027099003)(261026140227099003)(261021121427099003)(261022075727099003)(261022105027099003)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Mh8Ew6RGuuOAio2Jy9YZWjs57iWoIGDEcmBYEG6r6ER1rGO20h0RN3zzZ3DN?=
- =?us-ascii?Q?d9e9btSb01LEEW44qPsHNQ/WH0DlQMhsvooY9DC2ENdy1enQRZ0ATIIYiyZM?=
- =?us-ascii?Q?uFvlmU8UyugY4OKtSw8w6giglbQ1hAPFGkKOEZmYYhwhQhyBj3P8rzX52zKl?=
- =?us-ascii?Q?xg+SAmNgT7GFP/7wsTCx0gpB0/cDuXF7rR1BZ9E0jLheInwJ9p1/hbdxmVtY?=
- =?us-ascii?Q?+ZWvWsmYRnwvY5x8bjZ64tUKOq4eISiNtMtNpoxgqRYfh4TfZ/tAn2utE1zU?=
- =?us-ascii?Q?Bl6f3XFmjqhbM1ZJUoDcsqxbVwv58N1u39/2fmvMLiVRiYU5WMSDxHyW+Vx6?=
- =?us-ascii?Q?7lXsfCCiCxwQnFh0czRwOJIHpzBpmB2kNxcoXmF5yZANxltZELe13NzUT9+8?=
- =?us-ascii?Q?DNyauXTaAng2W2SfU9UW6PC/lyUWreRc/6qc9O2Sey+s7xNdkxXQOcua+N0A?=
- =?us-ascii?Q?UlvNw6szXN5ryKUX9FJkXO+pUueU3bGLMdYRN4V5xlmc8vezg8VtZnW4Sgwx?=
- =?us-ascii?Q?zvuEFv6p7NnntqD9/ReOnpbH6AzeEjIsrRTrNx455U67AZa3DU6bzO1fVGG9?=
- =?us-ascii?Q?RqoLnhslEGGsF0hVaZbJJ6qPB3oMU142kJQI+VvLB/h8pIeL1WcOub98isdq?=
- =?us-ascii?Q?JAkVj/ytyEx1OJmqJG+e562nQZdUXhEhfU1tKQ4yVYOd4DVHN7G3ViwN47yK?=
- =?us-ascii?Q?ffdJ2ZxeuO3hvfLmWKeNCoUbDWDBKcFHxzpj+1aDPP2hCJTAGjQFyKdQSFGG?=
- =?us-ascii?Q?exAyZR6MzYmVTxB0mdwp9vws3zvVA6I5L3DkYs1QdPdfzyxuoDhUrOgZ5Ici?=
- =?us-ascii?Q?3JTZdljgBKOQQkLFSaX0JEwLLOZ78jVeb9VBqQGLGuERRzErwKsNG1lIivBv?=
- =?us-ascii?Q?h3MYJ7hd/tV6Q6RC8Sb6f2PF81nDCdmslruLpuofFbRhatGBMgoqdn233Hu1?=
- =?us-ascii?Q?+nuezftjU/nPhnWHwHRQm9L/zqzBE5euPxPj++OFDqsU0NeKly+duRDBE2NG?=
- =?us-ascii?Q?iLgyCqnHEWZrtO0pHgP/3K4onPZdr641buJqmC0JRZXLGiEWVaQncHH9qTpr?=
- =?us-ascii?Q?sDauloInxxLQt6TLDB65+I6VqVdKl0E8+VO4fpcLBNayCH60DOcFdWcljj5b?=
- =?us-ascii?Q?xuVKJrlBdT8iMPH8Hyc+ioM1IOxbWQ3Y6xHxhJFtP2uAyiOjgFKqkCy1+HOd?=
- =?us-ascii?Q?ZMxDq8/YOL2OHVzH1sNBDabyZS735Xgosj+EWIpPUpfsSrATULZBhRlbjDYO?=
- =?us-ascii?Q?P7/eM2gUycaprx5DDMWab/NHwOlMG8f345z5pQJ8Af0npKSF3MN4rlTKgxDA?=
- =?us-ascii?Q?NIUfle5UQ8Lb8F2SWdQk+kUgVC4lEIv7AsQr+Vujar3noB+SLl9l2DyUy84T?=
- =?us-ascii?Q?KsY0cTKVLMTb0f+tnRKdFfMVwdhwmZo0wvR7juHZbgQUAg0SVexUaSGQ1QMA?=
- =?us-ascii?Q?nTBS7ilPQ97R4RmKdtItO07ef7Gp3mQLAeXRY5ZtLBkWH8D38tIeoeeCFVdQ?=
- =?us-ascii?Q?/yH7WuD8ZFI/pP59XQTjp4pWQwQV/eJhp+uXzocoxT1Vg/YQry0XZfEm/G9+?=
- =?us-ascii?Q?gb0L1HVmO7CmNw/cXDzabsCzltizqund2OL4WU/+R33LJB57pYwAy48J24fr?=
- =?us-ascii?Q?UEb79rPtAQ4DPb9XlbxgMbf9D6H6baYLYfsXT7WjpetCHBKmwGv+pFjFZ1HI?=
- =?us-ascii?Q?Nb9pyyzsdUThvVRLhlaLuLqDdfEzXJjBO4Na+b13ClsREit1ypnssJEh2cQF?=
- =?us-ascii?Q?10Iu4Ip/YQPuErRRZoKPvdHhPOJc3LWphkl9eVSOckhBSeVqqxTu?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 297832bd-9c9d-4d3c-904b-08df35d89992
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 16:20:51.8171
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZMMoMlX8n1rPmYlqnHStIaijcZOdSjmHPQQN2w0mNRFTfOM7P/BORhXof8rCmT7hY1jgVS5xUyVGI2N7CxiQVFrIMIb/1baGXydh5JKkaQYYv/+tOsKgGifY88dstK5d
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8439
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-statx-v1-1-9600cdb896b3@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyNL3eKSxJIKXeM0wxSL5BSLFAtzcyWg2oKi1LTMCrA50bG1tQCFhl/
+ bVwAAAA==
+X-Change-ID: 20261029-statx-3f1d8cd8d877
+To: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ NeilBrown <neil@brown.name>
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1216; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=qZjzog2ZYFAKq0ujNtJHYESLhcObfj0GxOsmO0lygSA=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBq43Jiye0QYrOee0yZaTVvDZRihbBxxgBEeJeEz
+ ag1FP/x87WJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCauNyYgAKCRAADmhBGVaC
+ FUa0EACOnsnmxtcenTABbkjOg61+6T8j9VLylMPxKZTipmG84IlpDzlOfUBB/DzlgTplWjWOml8
+ ZYJLUxgTiuVVLESAEeKOnrL0LJIMFqGKGjOoIZsIiXwvBrRxnCsJvpwc4t6c54ugJMoTFKy3K4g
+ dWqHJ3eMHC+w4SrTrZSwu22nEa5c3u//VwBVbWuWIdvuVyXtQFJaM9SvGxf4XeoubADKaNA0k/4
+ YBXrt3sh5qjUAQrFFxz9MCo9lsUm4S8YXE/ooRtxhW9b/EKXFHKO79AjgCoyYkKTQrUH7C5o61B
+ w0zfi8/5uYriUowmpL8kod9NtmtnVub3zxniBD0bnRb1N9Ah6XUkRyjDNW12QOPuytDVQAw8/if
+ KqWqHdkFRuCcHlw0H696sfZFzApkSc8kSqAkOlMYM/UnIhrdaB84dsTm4j64dNjxMTTZfk8icx9
+ V7VnQ5szDx2h0+fDRiVz+5FVs/aopYVki6/M/PHldGd/QCAgVp/QY4pTYAsxA5yGboml0SyDXaU
+ pvvIMK402IkMNl6T+bqF0fra9Xv7e7cKwD8G+69kmcWiHzAyF0BI3cHeao8e3e5VzIPOzVskR5+
+ iyBUa1tRfzqQmk4EtvMdiLJl7bWcq8ePrBglc9wIXtET80tneOiR+8duIe1L/Ze7B8n58CYhm18
+ w736dHVkfopnmIA==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-On Thu, Oct 29, 2026 at 11:00:58AM -0500, Rob Herring wrote:
-> On Thu, Oct 29, 2026 at 11:52:14AM -0400, Frank Li wrote:
-> > On Thu, Oct 29, 2026 at 08:35:50AM -0500, Rob Herring (Arm) wrote:
-> > > Once the job scheduler has been initialized, failures from ethosu_init()
-> > > or drm_dev_register() return from probe without tearing it down. The
-> > > registration failure also leaves the SRAM-pool allocation in use, because
-> > > the platform remove callback is not called after a failed probe.
-> > >
-> > > Unwind the initialized resources on both paths. Also do not call
-> > > drm_sched_fini() after a failed drm_sched_init(): the scheduler initializer
-> > > already unwinds its partial setup, while drm_sched_fini() requires a
-> > > successfully initialized scheduler.
-> > >
-> > > Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> > > ---
-> > > v2:
-> > >  - Adjust for previous patch reworking runtime-PM suspend
-> > > ---
-> > >  drivers/accel/ethosu/ethosu_drv.c | 13 ++++++++++++-
-> > >  drivers/accel/ethosu/ethosu_job.c |  6 +-----
-> > >  2 files changed, 13 insertions(+), 6 deletions(-)
-> > >
-> > > diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-> > > index ae7ebf29cb2f..9ee144c41550 100644
-> > > --- a/drivers/accel/ethosu/ethosu_drv.c
-> > > +++ b/drivers/accel/ethosu/ethosu_drv.c
-> > > @@ -375,9 +375,20 @@ static int ethosu_probe(struct platform_device *pdev)
-> > >
-> > >  	ret = ethosu_init(ethosudev);
-> > >  	if (ret)
-> > > -		return ret;
-> > > +		goto err_job_fini;
-> > >
-> > >  	ret = drm_dev_register(&ethosudev->base, 0);
-> > > +	if (ret)
-> > > +		goto err_sram_free;
-> > > +
-> > > +	return 0;
-> > > +
-> > > +err_sram_free:
-> > > +	if (ethosudev->sram)
-> > > +		gen_pool_free(ethosudev->srampool, (unsigned long)ethosudev->sram,
-> > > +			      ethosudev->npu_info.sram_size);
-> >
-> > Does worth add devm_gen_pool_dma_alloc()?
->
-> We want this backported to stable, so I think we want it as-is and then
-> perhaps later add a helper.
+STATX_ATTR_CHANGE_MONOTONIC is kernel-internal. cp_statx() strips it
+from stx_attributes but copies attributes_mask verbatim, so it leaks to
+userland on filesystems that advertise it (nfs, ceph), e.g.
+stx_attributes_mask = 0x8000000000b03000 on NFS.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Mask it out of stx_attributes_mask too.
 
->
-> Rob
+Fixes: a1175d6b1bda ("vfs: plumb i_version handling into struct kstat")
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+---
+ fs/stat.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/stat.c b/fs/stat.c
+index a2e63c6c45b7..787c13f378ff 100644
+--- a/fs/stat.c
++++ b/fs/stat.c
+@@ -719,7 +719,7 @@ cp_statx(const struct kstat *stat, struct statx __user *buffer)
+ 	tmp.stx_ino = stat->ino;
+ 	tmp.stx_size = stat->size;
+ 	tmp.stx_blocks = stat->blocks;
+-	tmp.stx_attributes_mask = stat->attributes_mask;
++	tmp.stx_attributes_mask = stat->attributes_mask & ~STATX_ATTR_CHANGE_MONOTONIC;
+ 	tmp.stx_atime.tv_sec = stat->atime.tv_sec;
+ 	tmp.stx_atime.tv_nsec = stat->atime.tv_nsec;
+ 	tmp.stx_btime.tv_sec = stat->btime.tv_sec;
+
+---
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+change-id: 20261029-statx-3f1d8cd8d877
+
+Best regards,
+-- 
+Jeff Layton <jlayton@kernel.org>
+
