@@ -1,76 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793246061;
-	b=5B1hNTk4dfRMG8bTEkou2GnR0r8TB0ksiMppqNOJRUILwBJV6ShEEMAiqtkvZGYBZE5z
-	 JjDEuNmqbJygSeIsM40DYMOrUQaVE5QRFOTpbg9WOJ0kHMxDYK+F3XmcDCJr9MzwOXou/
-	 qQ4tJCGR49lLCSN27pOx+ACf1NdTMH/uR3mGx795+Xy1takV4IfjN5QIpPBVapMZRrh0M
-	 Y3hOeFDQmeZs0slai+6XjNyIMOr1VKFJMP2zaLEdm9HUGmpOV6IcPxHTVanxlKQJkHg6r
-	 1p5UR1YJdgVxgFwN7Cm1qs2xu3N3nxGvPKHLvuJR8Wj9sTgd5wJttbFIUvknXekLMkA==
+	t=1793246079;
+	b=46gUXOadX621RkBGs51F97yPxAKynsLr5R6hD7XaB4/sdYNpjWllo1w0TdT9149ameMr
+	 n5L2ymKXryVRnqzTOCrkSNPtnW3U2G9CMg0QrRbgmyF2bBE0Ga8TwkFdWZFa6Lr4TFVZ+
+	 qjV3HvpVcNYTZIBzI/nxZG32eSyy+vbeMHvPUWtr2hufp4QdcFYKvsVUUEXROHXMtMJg+
+	 JQ0SKCv21CrQQRLP6qFoEDCQftBp2kSlgWMMn2HsRR9hgvMRdgk7TzqztGNb4q7jW4qE2
+	 Pdn8MdnPXU7IMRY2znKt7WNRrkha3ZXg/RFR0lwghyStBP4oJx0ckQWsRN1tBYDfH3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793246061;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=GCRdeDN62FtM+yUKFqnoHrimE/0T6e/08Vo8UYITXVc=;
-	b=s/FfuAJacUbq0JnxLoS4G/2XZ632cy6P+Eg+HbQ3HWmj3W2sfQ4eVOauAwdn+51L+mbt
-	 sdx8viATX8XIy+wCv8xrdZ3VoxmvK0RiZfn4HCsXvWpNFLqlbl1gXOUjfKT8Dn9dzGZdD
-	 qO1Eb+i3T90TLxqwBKfqky39dNOj2NHYqqbhrzONaCZJkoqi0Tf+E/RvUR63E4YmAG0Yc
-	 7Ac40o7uSskEOauH58KeoZdePA2La9HQ9cE2n3og5vEvzmTQiWIlvNXGk/D48AeLi3etn
-	 CSptjB92X9BTST4x34++2xR8jL0jwCdQArqXsM9ZyJG+TSZ75pJinDxlznJ6xJ8O64A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793246079;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=lIae9g6zUSH+1q+S1sfHr4ypk6wH2cztDIz5qjRcM/w=;
+	b=O/zTTuT1l9pFYyGUcnzLvnVINtn6ms0gih81S9+NSohYi/HgkfZ2kkJ2BcCDSrz7dS+x
+	 Fu8SDL/Hw6FbHi09lq+UrwEwa1tnoAOUwhEo/mjaWT8xV6XEGZYlaNXWxduukLoWQwoej
+	 6BZCre+uXC4rb5DlpwnCApbGIAn4HOTF5+85wBbhFChGeIZNRc5IC6vsWnTs9k70v87/4
+	 72fSlJCLhwvOMcTswomBUZIYQJNCnVgv+gs8n7L3RxniBRDw/z4fqIqntKf2h1RijVP5u
+	 jFGLBdldYBXpaWZSytF+Zna4bFtyWRHRfTMPKd5HrUIebE5xl3tMrIwng+ezrps/cog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=jLDKTZQo;
-	arc=none smtp.remote-ip=162.62.57.49
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Kh5txQsg;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03ED1606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 03:54:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03ED1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB96D606A31A;
+	Thu, 29 Oct 2026 03:54:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB96D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=jLDKTZQo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793246056;
-	bh=GCRdeDN62FtM+yUKFqnoHrimE/0T6e/08Vo8UYITXVc=;
-	h=From:To:Cc:Subject:Date;
-	b=jLDKTZQo3hony35N2hVGdYpjedFzNno/eqLVSi0yhdh5UycrAiVLQcLFvDRprHwaD
-	 QINfcNYRsPR0f6Nq3Hvvhy/+JvAu36M5TkOduzJ8NpHD8uV2UkoAd/7BoDs0GUIRiZ
-	 eh4TdeuPJxKV/MjrUFQhZtwDaG9Otsof7u3YgWpE=
-Received: from HAPYCAO-MC1.tencent.com ([61.151.228.151])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id D8E8B299; Thu, 29 Oct 2026 11:54:14 +0800
-X-QQ-mid: xmsmtpt1793246054toafabjvx
-Message-ID: <tencent_A595E3D79A2F77C2BA5A45A9874C46D55508@qq.com>
-X-QQ-XMAILINFO: NzvgoOffVB4juEhLEFihLMH707naN8V3KpzDpqzqNjQYFUULDkSLrugGjog4v4
-	 yAZTHzQFbl/jNdfIYXGZRAtXj6U1kRGh9rpLPq7mGJ2PIX1S1qmaO3ZLIabnRN3GKfpBe0SjgsLZ
-	 G3fRYNU5PEfcpe+12VIm5Kmaxa5FJZqSD/wCe3nRv374La8XNTnPXdkx2lB+xkIrimMrfe/disDb
-	 26YaOQ4lWiicIFSIkaV9q4od/2gTAMRFswnXWpH749L3a1fNMMZEHDGle8VvigWWSgrFuN63CLsd
-	 9JVeyHwPilXw5Uixca+UmJOfrfoO4Et8ibfeLQvvt06IunVZAeJW7eAy10iGgyBP+58nnCVS9+7J
-	 1ngCwhNloF4OQsnWG/5HfsdUX5w6k1oIFmk6IzBh8wCuoSEsh3BnJs8Jcxa11W3Gh/mUmcF5J4AE
-	 yr41wma7wnrYhn5wDDy6rl2ToUZzSg533MWKdTnNIhkDxgmrs9KKSzyvMkJgINg9aQ08UdrYSV6I
-	 PPOt4ILE267hCzdsfjPAy9XxTkhr+WfD1Z4L0kqe2jX4fpZE6NS00h+gqorbRlG12Dtt4ZtFfYnh
-	 Nsm37K2SZUfUZXrhWzlLggytnVrPYwRvx6yZ4Iw+LFs3mQU3ipo4MsTwze+SwTgyDssQLuKUvLiQ
-	 mg3CrhkwtNpG43N8xxWqlkLE3ID4tCXY4mrDjo/VTNSBTGxQ7Rfh+CwKV1VeTJBt4fdvBg+Ha4e5
-	 seDyFkXeGmQBOokjVEs3kZiNpXtMlldk/PSOUZRWfYmUa7MnfMRM2+V1uzRmSMMuNk/j05tds7rG
-	 WbqOL7cJ8DTUjAvOHQk9NH/IGjCydc7nxqOHVyABI/o+DVMZ4IsQVYfoHbbmopOGkiunq8Xcw1tC
-	 LteqEW9ddlWaIsGDZaHjOfRviWEKmSSwhRZAOfax5pD6ZO8yy0XNJ/7tivrc9NojI8p4OR37y2xC
-	 Z6jUCnev9ckJp8FQlcLUuU/KjNSWHFG6utL2KZ9JXzFhHiFPX55TS8p5vNoHQQDgyfz+n6m+GBbG
-	 a2ppMymPFswYrm80JHiHahYqztXZ9pkrE/oJ4oUu9vTG4yvNBes+NLOR/UIOIfv8u845AVRyh/xO
-	 M1HM9OdkUc4e1ATaY4j+eyd7fm0NY6Qz1/lvfXrmAjAOno5vz55Kigf/UIdD0gFhGmEPQHk6+w3Z
-	 Xlg8w+5XSepWzyVw==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: bo cao <treebacker@foxmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: arnd@arndb.de,
-	gregkh@linuxfoundation.org,
-	bo cao <treebacker@foxmail.com>
-Subject: [PATCH] char: uv_mmtimer: prevent read-only mapping from becoming writable
-Date: Thu, 29 Oct 2026 11:54:13 +0800
-X-OQ-MSGID: <20261029035413.46318-1-treebacker@foxmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Kh5txQsg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=lI
+	ae9g6zUSH+1q+S1sfHr4ypk6wH2cztDIz5qjRcM/w=; b=Kh5txQsglmC1/36ksT
+	kf5+/X6xELqoJ/vbHx2IpP4oR9DvdGs6m/lGENOliaxI9b5C2bJ5dd0KIr9bC2Js
+	k+Jcx1nBXC4vi3m+zItTFr3Nh9V9v+iXXP1Qxv49A6uxheJh8WbbZ0lpnWLYgjCZ
+	ntbPOsWtZEuO/TuEQApTidz0k=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgCnsSkVw+JqTWv_Cg--.16381S2;
+	Thu, 29 Oct 2026 11:52:55 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Sunil V L <sunilvl@ventanamicro.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Anup Patel <anup@brainfault.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Tomasz Nowicki <tn@semihalf.com>,
+	Julien Grall <julien.grall@arm.com>,
+	Christoffer Dall <christoffer.dall@linaro.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jianmin Lv <lvjianmin@loongson.cn>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Andrew Jones <andrew.jones@linux.dev>,
+	Grant Likely <grant.likely@linaro.org>,
+	Jason Cooper <jason@lakedaemon.net>,
+	Robert Richter <rrichter@cavium.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Tianyang Zhang <zhangtianyang@loongson.cn>,
+	Liupu Wang <wangliupu@loongson.cn>,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org
+Subject: [PATCH v2 00/20] ACPI/irqchip: validate MADT entries before use
+Date: Thu, 29 Oct 2026 11:52:31 +0800
+Message-Id: <20261029035253.2333852-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,44 +92,140 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgCnsSkVw+JqTWv_Cg--.16381S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3AFyxCryUKrWkWr1fXrWUurg_yoWxJF18pF
+	WUua4rtr4xGr4xAwnxAw18ZFy3Jr93JrW7tFZ5ta4fZrWkKF1DXa1IvFyFqF13Jw1fW3Wj
+	9F4FgFyxCFyDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UrrcfUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhpKhGriwxpqzwAA3u
 
-uv_mmtimer_mmap() rejects writable mappings but leaves VM_MAYWRITE
-set.  Userspace can map the clock's MMR page read-only and then
-upgrade the mapping to writable with mprotect(), gaining write access
-to the UVH_RTC register that the driver explicitly declares
-read-only.
+ACPI interrupt-controller setup passes firmware-supplied MADT subtables
+to architecture and irqchip callbacks.  The common table walker only
+guarantees that a generic subtable header is readable.  A number of
+callbacks cast that header to a larger controller-specific structure and
+read typed fields before checking that the complete record is present.
+Truncated records can therefore cause out-of-bounds reads during early
+CPU and interrupt-controller discovery.
 
-Clear VM_MAYWRITE, as fixed in vfio/platform (commit 420bed9131db),
-drm/vc4 (CVE-2026-68445), drm/panthor (CVE-2024-53071) and
-ptp/vmclock (commit a5edadbae57e).
+This series combines the previously posted generic/irqchip series [1],
+the RISC-V series [2], and the remaining MADT callback checks into one
+set.  The common irqchip probe path first rejects entries whose declared
+range leaves the table.  Each parser then validates the minimum size of
+the concrete record before its first typed access.
 
-Note this is defensive hardening on two counts: /dev/uv_mmtimer is
-created with the default 0600 mode (exploitation requires root), and
-the driver only exists on SGI UV systems.
+Testing
+=======
 
-Fixes: fbd8ae106850 ("drivers/char/uv_mmtimer.c: add memory mapped RTC driver for UV")
-Signed-off-by: bo cao <treebacker@foxmail.com>
----
- drivers/char/uv_mmtimer.c | 3 +++
- 1 file changed, 3 insertions(+)
+The RISC-V cases were tested with qemu-system-riscv64, EDK2 pflash
+firmware, a KASAN-enabled kernel, CONFIG_ACPI_TABLE_UPGRADE=y, and an
+uncompressed initramfs containing an overriding MADT.  The malformed
+table is one page long and ends with a three-byte RINTC entry, while a
+complete struct acpi_madt_rintc is 36 bytes.
 
-diff --git a/drivers/char/uv_mmtimer.c b/drivers/char/uv_mmtimer.c
-index 956ebe2080a5..98b9c85c6529 100644
---- a/drivers/char/uv_mmtimer.c
-+++ b/drivers/char/uv_mmtimer.c
-@@ -151,9 +151,12 @@ static int uv_mmtimer_mmap(struct file *file, struct vm_area_struct *vma)
- 	if (vma->vm_end - vma->vm_start != PAGE_SIZE)
- 		return -EINVAL;
- 
-+	/* Prevent the read-only mapping from being upgraded with mprotect() */
- 	if (vma->vm_flags & VM_WRITE)
- 		return -EPERM;
- 
-+	vm_flags_clear(vma, VM_MAYWRITE);
-+
- 	if (PAGE_SIZE > (1 << 16))
- 		return -ENOSYS;
- 
+On an unpatched kernel the override was accepted and setup_smp() faulted
+in acpi_parse_rintc() while reading processor->flags four bytes from the
+start of the truncated record.  The record starts three bytes before the
+end of the mapped page, so that read entered the following unmapped page:
+
+  Unable to handle kernel paging request
+  epc : acpi_parse_rintc+0x46/0x206
+  cause: 000000000000000d
+  Kernel panic - not syncing: Attempted to kill the idle task!
+
+Applying only the old arch/riscv/kernel/acpi.c and
+drivers/irqchip/irq-riscv-intc.c checks produced the same fault because
+the setup_smp() parser runs first.  With patch 7 moving the existing
+BAD_MADT_ENTRY() check before the flags read, plus patches 9 and 20, the
+out-of-bounds access disappeared.  The malformed table was rejected and
+the kernel later stopped at the existing acpi_init_rintc_map() BUG for a
+machine with no valid RINTC entries.  This is the current fail-closed
+behavior; it is not an out-of-bounds access.
+
+The LoongArch LPC-PIC case was exercised with an overriding MADT ending
+in a three-byte LPC-PIC entry.  Temporary diagnostic instrumentation in
+pch_lpc_parse_madt() reported:
+
+  decl_len=3 sizeof=14 beyond_end=11
+
+This confirms the field accesses covered by patch 19 extend eleven bytes
+beyond the supplied record.  LoongArch maps this early table directly,
+so the read did not itself cause a page fault.
+
+Dynamic test coverage by patch is therefore:
+
+  7       RISC-V RINTC fault reproduced; the early check prevents it.
+  9       The malformed RINTC is rejected in acpi_init_rintc_map().
+  19      LoongArch LPC-PIC over-read observed with instrumentation.
+  20      Included in the complete RINTC fix; the boot stops at the
+          existing fail-closed BUG before irqchip probing reaches it.
+  1-6,
+  8,
+  10-18 No dynamic claim.  The required GICv5, AVEC, redirect-int,
+          HTVEC, and related controller models are not available in the
+          QEMU configurations used for this test.
+
+All twenty patches were checked with scripts/checkpatch.pl and were
+applied both individually where independent and as the complete series
+to the base commit below.
+
+Changes in v2:
+- Combine and supersede the six-patch irqchip series [1], the two-patch
+  RISC-V series [2], and the remaining MADT checks.
+- Add the RISC-V QEMU/EDK2 truncated-RINTC reproduction and fixed-kernel
+  result.
+- Retain the setup_smp() RINTC fix: testing showed that the later RISC-V
+  checks alone do not prevent the early boot fault.
+- Document the LoongArch LPC-PIC instrumentation result and the QEMU
+  hardware-model limitations for the other callbacks.
+- Rebase on the current tree and keep Fixes and stable trailers on every
+  patch.
+
+[1] https://lore.kernel.org/r/20261021144524.364143-1-yaojiale02@163.com
+[2] https://lore.kernel.org/r/20261016141249.2791819-1-yaojiale02@163.com
+
+Jiale Yao (20):
+  ACPI: irqchip: validate MADT entry bounds before probing
+  irqchip/gic-v3-its: validate MADT ITS entries
+  irqchip/gic-v3: validate MADT records before use
+  irqchip/gic-v5-its: validate MADT translate frames
+  irqchip/loongarch-cpu: validate MADT LIO-PIC entries
+  irqchip/loongson-eiointc: validate MADT BIO-PIC entries
+  riscv: validate RINTC entries before use
+  ACPI: riscv: validate interrupt controller MADT entries
+  riscv: acpi: validate RINTC entries before use
+  irqchip/gic-v5-irs: validate MADT GICC entries
+  irqchip/gic-v5-irs: validate MADT IRS entries
+  irqchip/gic-v5: validate MADT IRS records
+  irqchip/gic: validate MADT distributor records
+  irqchip/loongarch-avec: validate MADT MSI-PIC entries
+  irqchip/loongarch-ir: validate MADT MSI-PIC entries
+  irqchip/loongson-htvec: validate MADT BIO-PIC entries
+  irqchip/loongson-htvec: validate MADT MSI-PIC entries
+  irqchip/loongson-liointc: validate MADT HT-PIC entries
+  irqchip/loongson-pch-pic: validate MADT LPC-PIC entries
+  irqchip/riscv-intc: validate MADT RINTC entries
+
+ arch/riscv/kernel/acpi.c               |  3 +++
+ arch/riscv/kernel/smpboot.c            |  6 +++---
+ drivers/acpi/riscv/irq.c               |  6 ++++++
+ drivers/acpi/scan.c                    |  7 +++++++
+ drivers/irqchip/irq-gic-v3-its.c       |  3 +++
+ drivers/irqchip/irq-gic-v3.c           | 15 +++++++++++++++
+ drivers/irqchip/irq-gic-v5-irs.c       |  6 ++++++
+ drivers/irqchip/irq-gic-v5-its.c       |  3 +++
+ drivers/irqchip/irq-gic-v5.c           |  3 +++
+ drivers/irqchip/irq-gic.c              |  3 +++
+ drivers/irqchip/irq-loongarch-avec.c   |  3 +++
+ drivers/irqchip/irq-loongarch-cpu.c    |  3 +++
+ drivers/irqchip/irq-loongarch-ir.c     |  3 +++
+ drivers/irqchip/irq-loongson-eiointc.c | 10 ++++++++--
+ drivers/irqchip/irq-loongson-htvec.c   |  6 ++++++
+ drivers/irqchip/irq-loongson-liointc.c |  3 +++
+ drivers/irqchip/irq-loongson-pch-pic.c |  3 +++
+ drivers/irqchip/irq-riscv-intc.c       |  5 ++++-
+ 18 files changed, 85 insertions(+), 6 deletions(-)
+
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
 -- 
-2.39.5 (Apple Git-154)
+2.34.1
 
