@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283870;
-	b=MlqJ5bHOwlrqqfpfC/rarbMppTWN5HGx1a/qk8q9OuGPbE2MFJbTKyAuHKiqPPukDizD
-	 hyYWz7j9sHahS5NMR/zXQKodF/fJn7BYyx0xe/zsyUJBzqcMoLvM2YLqE3utIQuQod00M
-	 b2jJqPXj6Nt5Z91nyRwEHD/yzyVrNSSFLtRgLu++cy+kg+nSRJSVgYK/TzPuIEcsIXW/N
-	 3RzQjVpYwT02BzGx6a7885ImKk7nKH47mGiw1FW19Y2TkpgKrAVVNgZL99DdTCObMrvJN
-	 Ks8bQlygy13Owkx7Ldubnl78IpXsSaQ/PB0uzDBSDG4kBR1ZIJU67BtPygGOaQEfqBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283870;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.178
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793283896;
+	b=frF83CN0GN436MptaHExAEWhCDC7v//MDxSa/PL0sSdSFkgNE2iqF0tipzFo8sbZkZ9l
+	 WffY6L10F+a9xsDEQuFriv6+joqCXFw7IxYtKUeN670dTjN+Uo4BYtZNa4olj1gpl0ROB
+	 FaTCNJnA2fh7ESeug9p49pK7XEC3WjQWD8MXa9mWHPzyLf0Wo9+ePPaIBpSEoRa8t0OuY
+	 0KlRC+sVFD/62yE37NLpjkVzjtKCoANuDXrq1e/Lc4h44lNBCwv+ek8m6bH15TCraWaCM
+	 Jk/Pfv/8nPr9ebHYBT7H8svrrB53Jt2dmlZ7N2neo5oConG8ZeN4O6PSofBIZ/snlsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283896;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1pA3DY9nQInHYQwlk8Wnkgx76yLI3u5rBh/HejZE858=;
-	b=aSfvAbPpbwm5RR2dXai220WXAZUL6t6sbPv4eNJH9fL96iQAdGDxWYlwaVaB9PVVLAM7
-	 4sazIrYIBk/DVMEoRPAq5gLpLyh1GNlQ3eIVi5mO3LGDXdRHkliCzWHFzWLN2r0JcawoD
-	 Cakih79+8dy4gSoV61/wRF5K4bF1iNEjXvsjPrOlP88oWarcMXNbTiuhsfYNrCtTn/S5z
-	 zqzE9+Ei3pMYkhzEclTwY6ovA/0Uwh1aOCRYEUFiSlVwjRxiPz7cLT/hGA7ptP1Nz2bZL
-	 B65XpzKWKbE3peZuXP4beONPI4iQfKWgF+qVeoLXkaFGAH61+Y+176R4pPCwyn3BuMQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=b1HUff2KBmgxmH6yjfASlYTd1KUp0LIqOs90e6k8hDs=;
+	b=IkShrHrmpmG7Ew2T2EQ6LU9IN5iKpYiiKZxRJ/8L+19c6auVolKjTDnzRu5BpkSl1oRl
+	 0n8aetxGXSAwM9c3MM6DD7+ih9NDwaxHuMagCIC3QRJP9cXeFigx0ELICe22oiMI+u0dl
+	 s/ck/trvnHsbdpkECOM05vONeJAaQIeDwE7o1Uitxk9WMFDGCjXB2Mo1HAqWeWNjn4Sdo
+	 UgA5ijnXjpOahvxOu771oRhPnlUUWO0SNaQ/mRVKKu53HSSKf9iu0EQp9FhDWU3TK2Fuh
+	 v4yiN/SS2AKiKiidtpYaQPpKoFosF8fRIRF7jA7oobwSiD8Ok4fWKsO+r/aLGMfS2JA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WeRS5xwe;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wPMV2lYJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C801606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:24:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C801606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD6A9606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 14:24:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD6A9606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WeRS5xwe
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab98332238so1339293a91.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:24:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wPMV2lYJ
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-363cd582f45so243787eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 07:24:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793283895; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YiqKIrAxo0fY8s1GU2MwIvYLbbUCRJ5Ij5sJ3Quw9QMQEVlU4zxc+0gm2TTfcPhwBI
+         BGN3svGzqdoMnx8jfq9F8c62IRhOBec+VXblNb32nR4szrd1bsArbODDpw6CelKUQhoW
+         Whyu4lbtNp9m3gWKEQPNJkQcLZp9iTQInUAyUeE9no1Uvls3HZjrjR/Ut58/+RcZRxII
+         M/d7uUIn88Ms2eFaxD+a1VrXhxUlqMU6wm7Qj64blbobxVdvfwKENT9k5e58e6xawCp+
+         jnEFKtFSZByZPN4DxY/JX7vEGxfqdcYE/xn33iFz1NSwLLmhyW7J0ZXLvdBKi2hTGZJ3
+         tVOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=b1HUff2KBmgxmH6yjfASlYTd1KUp0LIqOs90e6k8hDs=;
+        fh=zGeneNdgg8MisLBPPSm01f8p8G3hhW4hMr0eZvXBncE=;
+        b=mjuYmPM8LMakeQNwblcbmK8zCjSThqWXGaihYgNxU8BHKsLqOgmxSCV9+c56Fo53fk
+         wU+Sb0/QqMx3JyuC+ucRBtKGH+3n8wtoGeAictHhGaFufFDgMLZYHAuZJd/eAaP74z/f
+         zvc2cIfKqZGHs/Jz+A65SFJKPWLHBrP8aNpXSaWxt4zwuacRGeFTfpmsx45H8WqeEf5g
+         BwJKvPIZMu261633juSU/NO7di7c5wzoTCkUK4G01p6QCcInRFQjjH1fXmMcwg3NYE7f
+         MA4eZafRi+MXq/fl8w1MREcNzHjrwUSpkC6z6+y4e4W3sixHyAVlrinetQkE3CdMewiV
+         1c9g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793283870; x=1793888670; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1pA3DY9nQInHYQwlk8Wnkgx76yLI3u5rBh/HejZE858=;
-        b=WeRS5xweJrCPfHAVsJ84vdSOreP4nbG3hoz9M2Oz4HfEbCDi8eFSIGatj9A3zTpaDU
-         e0Xb1CR9mOasKFnmkH4s0q4rxR1l3VaHPpPEFCPplPCvgeXF3x5UKJaBVSO6xRzIm6ai
-         18bGbUTir6UDPtH2If9oz1KovGWFEb0ADOc+3L8fqwB6yy5043o/LIWB7ILqUBBECEPT
-         l/2ticNxD4e+xcQTwCUurzwk01S0NyNGViDpnRQxpSqTI2yo+1d0kONgR+pFnFUe/iNM
-         o+3EkCsald3/H4ODpuovHFss3zyM45Vu1kxYeE7PbZTzla5crd2yIcJzGopbHxdw38Xp
-         cibA==
+        d=gmail.com; s=20260707; t=1793283895; x=1793888695; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=b1HUff2KBmgxmH6yjfASlYTd1KUp0LIqOs90e6k8hDs=;
+        b=wPMV2lYJzWa0tpgECLtiR4xSA7Ib9NyOpFFaHjQLw1kdLghJaZo5jp5oSPzBBe/YJH
+         mWo9SGKH49rwasYjhlRQOv66FeIAKjsSlpmGFNZtV/O5plIxPy3TFHaop1vitWNw0/yW
+         ELheEJ8R7OV6Sge965L0jI/KRKWwuZvILBncPo72h6FwqNzg97DmilTO01VUViJuNou9
+         CpS+HFZlkJCYEFLWE9VSxkxFhcuJu6BlwNRfyhuCUqjGtQacHikin5+Nt5D8Lk8xV4WQ
+         0PhW8SkWrSSeddonWFjrhWuQMGuMvhvkb3VnigBOLojJM22dRDKu4PvjgCkkE9YqBxCX
+         C4Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793283870; x=1793888670;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1pA3DY9nQInHYQwlk8Wnkgx76yLI3u5rBh/HejZE858=;
-        b=1bjxM6d4H6vmryTzytkxutw8vAsqLiPJbw+AruGkavRZZd3AA6kjP0SDIaqvjM1dhF
-         RhGo0w7nZ++tffgyEjCLla7o2rKthbmP5bnXhIB9Zhe8O/uYC+CN1d9j8+ekDLzY0v/A
-         aDQQQ0a41bx5w4hrbmJ6gV+TRpuU3uXQFpdZGmlMCH5TUtgvzzZ+zJ5TTTskfYbT3ksG
-         Cwd58mXypR+Xr3XI1nNhG0hU8+tZUxpjASXvXFJJrsdL1PZY4wwO2hUgHEynkenfRcbg
-         I2YJQnECrfAEYOYLlg/18qxUgxIHAXe8pJm11V/UIx8AGzoLMbvFI3Z9Va4vEURgeFdH
-         feRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBykmLSTtBzu2Bw0RdVCgGgXQrExjAbo8sR3Sd6lkxxCKa4i0RRnATaQM2m3eOPfYgMWu7ThEFxvzRQMfMk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIpKviGSv60UjWDcQ9HPej9HQtwpkFPEIVez2v3Lcsm0f3pSIKK
-	KR47Tj8tL5RfM/vAvF8uZdBT8eCVaFAl0AUSv8PeNGPlrvyNv4XbIoYIpsTDVw==
-X-Gm-Gg: AYBFou0p4ztFz7qKsudzMZl+Qf/muY+5VjfL5hXXcE6DIRWCd0fUab4Rg4Uqy7+v3Pu
-	4szk5oUqsQAuYRptt7hm42Xcg5paI7KiFKJtntyudXasiQ3Q6rgobftrhGhw2QitgkFP9X/27/H
-	Yk9pkKjiO2sVisNXCMJQYtb+nNhgSnMgMyoFfnlhOSjyTGm2V3c48XfAw7LUKdUK/N6/mJ7GLI0
-	YZjsBkSOowvMSCYvDELI5qJjdnxEyP7CN5yVHUIP2EllRnyA5XJDSyqXro3ZH2qpqkttaxY6M/a
-	gDyopgAxevQGAR9xMGMN23nMcQrnJ7Vs08XIsJnDnlW2NYfD+uzLHzzWgDKAxHoPEkmQafNOoIb
-	mZPNSYAMZlRNTBUM9HCavwvaWTvoZnw6nI51q8Y346kwuVmwtINXnIJz7w68KAbSC8C+5pQdEIq
-	llyr7zieaBHE77Mzwn1UyIDeTNuQQIsO5CPDDPwoqTNmRl2qHWdhorLArsJPvBh31F8N4c1N5s+
-	AakgQ/XCgDYjFam2X5+i06S6f3uVH595Yd1WPEtRxmcr91QRWtqd6Yl9qtplqLVmizAC6gu1ZKP
-	lyt6ZrHH8DUKM7lFXg9yqt0HdzqmTYE=
-X-Received: by 2002:a17:90b:1a86:b0:3a7:a463:54c2 with SMTP id 98e67ed59e1d1-3ae580a0233mr4500501a91.35.1793283869733;
-        Thu, 29 Oct 2026 07:24:29 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2a09:bac5:d459:16d2::246:73])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae8441a6f0sm16691a91.1.2026.10.29.07.24.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 07:24:29 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Kory Maincent <kory.maincent@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+583f42a41879bb60de32@syzkaller.appspotmail.com
-Subject: [PATCH net] net: phy: don't require RTNL to detach a PHY from an unregistered netdev
-Date: Thu, 29 Oct 2026 21:24:23 +0700
-Message-ID: <20261029142423.93573-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1793283895; x=1793888695;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b1HUff2KBmgxmH6yjfASlYTd1KUp0LIqOs90e6k8hDs=;
+        b=jAsO+ODy6wJSZBUMinnfpczUV8GahkWSlwzJUiSh7eyvFoFqE6gsRUhmTVHDsZIotk
+         W4LDEkIYspeBcHc+e404YIHBrJfW+iJtU6aahhBhcdTXsRPIzUeF1n8DB3Q2nQomQ1eK
+         6FB7Ghk/6h8/RsM9kQBMbBGioNSpzPfOt+PdDxCwNz1217sTrLgdG+nMhQ6YEzl8Bmpb
+         RDXaUegXVz9Ax6Eahat72b3hPOfEcKkSAyQ9vra8xrXlqsd30x8dQZYuFL3xktNnuZbb
+         NMMuPCLaLsxuP7FJTcOshee5rTskQ1t1svn7p5h/kRbDqa9ERwu8P8RkGLiXkzs+jymw
+         3PHA==
+X-Forwarded-Encrypted: i=1; AKwUvByyGCfCiNV/XojrZwxKI12+GhI3CoebXM2u1rctd+C9Fh2JZsVjVQOu8entZbebK0T33CcsMSS3z9u62yY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBKE5jW5hCLRp8x3ZVkrvrKlJ/bHJvVmw7EOtIPdgWrseshbLu
+	lFskepWnc75yKJ5W6FBqeEL/w72bBvCzZmW5EOXp8Le1MtqqtCqMmH0cfKg/bmiofgb+hutAqaD
+	/hQS2pLRj0GQeWMyT5ahBapZHL6O+L2o=
+X-Gm-Gg: AYBFou2ZA/GkCjfk/QTjH5zKwxEMxCP010k0uKhYxv1/sOBH8dxWwtLsCwl1PRVmwXt
+	0vmeaBg5GR+X+KEWEwd3L610rQlhFw3qtJf5jocbH5kJHWlrAIgSkk+KpcNhkPV2nUxu1/VDfVP
+	WadGxPrCOynueIfM9KwTiUB0PzgD/OXYdFMITf3f9GpbG8fgy+X42XgaHlVAN2sDUizriziQS7c
+	3vSGdc0eNcsI3XvRR09pv3jzIceGfx8QbJWG41zM4ADvtBvrmDDpblYysa1dK8gxrLOyUWrEBoD
+	lgg/4wY3nguT8VuqK2F3iRPTruko5ZJFMXWtkjBzVamfss6wGnINlOp50xisq6t+m0DQ34Sjokd
+	Z+CiyYhlBESHxVrZhe2u/Fsn6pNjHtRGrtWxZeaSNDHLrpqQSr3k6x55FSUyNAauoCwA27Jlw+k
+	biBammicx2LZRUVIbYzBuQTfllRmbP2Q==
+X-Received: by 2002:a05:701b:2803:b0:16b:4f52:a08 with SMTP id
+ a92af1059eb24-1a6c26adc43mr10411808c88.0.1793283894754; Thu, 29 Oct 2026
+ 07:24:54 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,67 +105,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <auNVlhF6DGyFYx10@sirena.org.uk>
+In-Reply-To: <auNVlhF6DGyFYx10@sirena.org.uk>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 29 Oct 2026 10:24:43 -0400
+X-Gm-Features: AclHuK_UPbQmPV7BBnSvAVPIEEtQb5W89rkm229lBE0fVYRMBexHzxOVe-By28Y
+Message-ID: <CADnq5_N=r+BDQbEo7EeX6oYMuBUe8QGNTz_QWSUHKZLZOC=GHg@mail.gmail.com>
+Subject: Re: linux-next: manual merge of the amdgpu tree with the origin tree
+To: Mark Brown <broonie@kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Kenneth Feng <kenneth.feng@amd.com>, 
+	Kevin Wang <kevin.wang@amd.com>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-phy_detach_internal() reads dev->hwprov with rtnl_dereference(), but
-MAC drivers commonly attach and detach PHYs while their net_device is
-not registered, without holding RTNL. Before register_netdev(), a failed
-phylink_connect_phy() or phy_attach_direct() unwinds through
-phy_detach_internal(). After unregister_netdev(), a driver's remove path
-may call phy_disconnect(). Both trip lockdep:
+On Thu, Oct 29, 2026 at 10:18=E2=80=AFAM Mark Brown <broonie@kernel.org> wr=
+ote:
+>
+> Hi all,
+>
+> Today's linux-next merge of the amdgpu tree got a conflict in:
+>
+>   drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+>
+> between commits:
+>
+>   a2eae9f4fa1b0 ("drm/amd/pm: add zero fan stop temperature support on sm=
+u 14.0.2")
+>   44d0d3031e479 ("drm/amd/pm:restate all customized OD features on every =
+table upload for smu 13.0.0/smu 14.0.2")
+>   af52c8fd45fbd ("drm/amd/pm: add zero fan stop temperature support on sm=
+u 14.0.2")
+>   9b0890e72d19b ("drm/amd/pm: preserve committed OD features for SMU 14.0=
+.2")
+>
+> from the origin tree and commits:
+>
+>   f990c94a2633d ("drm/amd/pm: add zero fan stop temperature support on sm=
+u 14.0.2")
+>   1b63bb397db20 ("drm/amd/pm:restate all customized OD features on every =
+table upload for smu 13.0.0/smu 14.0.2")
+>   d2c1e98658b6c ("drm/amd/pm: report smu energy accumulator updates")
+>   8d4ce79aff1cd ("drm/amd/pm: preserve committed OD features for SMU 14.0=
+.2")
+>
+> from the amdgpu tree.
+>
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
+>
+> diff --combined drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> index dda435f19ca66,62f16d17e22bc..0000000000000
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
+> @@@ -2277,8 -2277,11 +2277,11 @@@ static ssize_t smu_v14_0_2_get_gpu_metr
+>                                                metrics->Vcn1ActivityPerce=
+ntage);
+>
+>         gpu_metrics->average_socket_power =3D metrics->AverageSocketPower=
+;
+> -       if (mp1_ver =3D=3D IP_VERSION(14, 0, 3) && smu->smc_fw_version >=
+=3D 0x00685000)
+> -           gpu_metrics->energy_accumulator =3D metrics->EnergyAccumulato=
+r;
+> +       if ((mp1_ver =3D=3D IP_VERSION(14, 0, 2) &&
+> +            smu->smc_fw_version >=3D 0x00664800) ||
+> +           (mp1_ver =3D=3D IP_VERSION(14, 0, 3) &&
+> +            smu->smc_fw_version >=3D 0x00685000))
+> +               gpu_metrics->energy_accumulator =3D metrics->EnergyAccumu=
+lator;
+>
+>         if (metrics->AverageGfxActivity <=3D SMU_14_0_2_BUSY_THRESHOLD)
+>                 gpu_metrics->average_gfxclk_frequency =3D metrics->Averag=
+eGfxclkFrequencyPostDs;
+> @@@ -2600,14 -2603,9 +2603,10 @@@ static int smu_v14_0_2_od_restore_table
+>                 od_table->OverDriveTable.FanZeroRpmEnable =3D
+>                                         boot_overdrive_table->OverDriveTa=
+ble.FanZeroRpmEnable;
+>                 break;
+> -       case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
+> -               od_table->OverDriveTable.FanZeroRpmStopTemp =3D
+> -                                       boot_overdrive_table->OverDriveTa=
+ble.FanZeroRpmStopTemp;
+> -               break;
+>         case PP_OD_EDIT_FAN_ZERO_RPM_STOP_TEMP:
+>                 od_table->OverDriveTable.FanZeroRpmStopTemp =3D
+>                                         boot_overdrive_table->OverDriveTa=
+ble.FanZeroRpmStopTemp;
+>  +              od_table->OverDriveTable.FeatureCtrlMask |=3D BIT(PP_OD_F=
+EATURE_ZERO_FAN_BIT);
 
-  WARNING: suspicious RCU usage
-  drivers/net/phy/phy_device.c:1831 suspicious rcu_dereference_protected() usage!
-   phy_detach_internal+0x6a5/0x830 drivers/net/phy/phy_device.c:1831
-   phylink_connect_phy+0x22e/0x2b0 drivers/net/phy/phylink.c:2452
-   ax88772_bind+0xbb1/0x1520 drivers/net/usb/asix_devices.c:925
-   usbnet_probe+0xbb3/0x27e0 drivers/net/usb/usbnet.c:1812
+I believe this should be dropped.  The FeatureCtrlMask updates are
+handled in smu_v14_0_2_od_edit_dpm_table() now.
 
-syzbot hits this with an emulated asix device. phy_eee_rx_clock_stop()
-fails on a USB MDIO error, so phylink_bringup_phy() fails and the PHY is
-detached from inside usbnet_probe(), before the netdev is registered.
+Thanks,
 
-hwprov is only set through ethtool, under RTNL, on a registered device.
-reg_state also changes only under RTNL. So if the device is not
-registered, no one else can reach hwprov, and RTNL is not needed. Tell
-lockdep that. A detach from a registered device without RTNL still
-warns.
+Alex
 
-Fixes: 35f7cad1743e ("net: Add the possibility to support a selected hwtstamp in netdevice")
-Reported-by: syzbot+583f42a41879bb60de32@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=583f42a41879bb60de32
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-Tested in QEMU (x86_64, syzbot config, KASAN + PROVE_RCU) with the syzbot
-C reproducer on 6b4b543fa187:
- - before: "WARNING: suspicious RCU usage" at phy_device.c:1831 via
-   phylink_connect_phy() -> phy_detach_internal() from ax88772_bind()
- - after: 11/11 runs hit the same "Could not connect PHY" failure path
-   with no lockdep/KASAN report
-
- drivers/net/phy/phy_device.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 5d4508bcfbe9..06c5a8c8cc2a 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -1826,9 +1826,13 @@ static void phy_detach_internal(struct phy_device *phydev, bool notify_bus)
- 		struct hwtstamp_provider *hwprov;
- 
- 		/* hwprov may technically be protected by ops lock but
--		 * not for devices with a phydev, see phy_link_topo_add_phy()
-+		 * not for devices with a phydev, see phy_link_topo_add_phy().
-+		 * Drivers may detach without RTNL while dev is unregistered,
-+		 * but then nothing else can reach hwprov.
- 		 */
--		hwprov = rtnl_dereference(dev->hwprov);
-+		hwprov = rcu_dereference_protected(dev->hwprov,
-+						   lockdep_rtnl_is_held() ||
-+						   dev->reg_state != NETREG_REGISTERED);
- 		/* Disable timestamp if it is the one selected */
- 		if (hwprov && hwprov->phydev == phydev) {
- 			rcu_assign_pointer(dev->hwprov, NULL);
--- 
-2.43.0
-
+>                 break;
+>         case PP_OD_EDIT_ACOUSTIC_LIMIT:
+>                 od_table->OverDriveTable.AcousticLimitRpmThreshold =3D
