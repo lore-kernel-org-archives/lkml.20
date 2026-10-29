@@ -1,99 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793263559;
-	b=1/Hnv3hXlzAH33Fd+UjsfzzBDswWHLkomSqOQdVmWIi+RJNtEDaqxK2OFG2v5iGIg2tZ
-	 FDH1EPP7SIUCV9pYEmBKcFE+gIg3+1Xlb7DUVJzQ2T27I1OLx3qrsExB0d2Zsqa15LCZk
-	 V6RN1K1gVJBdsW6/3HqYRTztjfgKYW5SpndEU75fuXcz5pdsF/W6rYjHnIb61ht8UdaD1
-	 bTsOAspGW9lL3Wufz2h0UW/s6XNWZmxglCtvvqB7H1zVA8v60TkLR57+GzvMlH2/gzv/u
-	 MrrStQt4lZm9zV0vFvwoLQTZSklefKxRbg4+O7qZi6cV++xCrql9cQlcs63cDyLB1aA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793263559;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=PAqiTMoWWwPC+iS0a6+A9B2UUx92tJTBgbIRi8GYKxc=;
-	b=h735s2/4G8+QrJ4dqfPs2KbDYWzSWiHTSqcKhxu4Vq7x9coSKE3v/QS4tRGbICqCPXx0
-	 j1vo4FczoiZP6YqXM6zJoF8K8fEPFO4sMu7kmiOUwqBdfWkTrD0LhVHB9CI8fc1UXqdj4
-	 75nkBM1udZitdXguymwFzeqR9G3ZXRSaiISfwGn4drsoyYzS7nA21PzVD6kQHiZ4UukMt
-	 wr57Azm/XOIQtK/smSWnyrGNmsgQ1+7uUZMwnvOo+3u7nzC1c7OUkcEynzh7XvM1B7GZp
-	 C9oHUbVbBZrTEg/iFrgaftBtW+X/CTKjMsKvgzE1xrA4jljmPW9GtVLIFTPb4bOxKdA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=au0UfRoZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793263564;
+	b=TJ9pW2/BXXIl87+4unYkySf0Hur5AFXPRR7ZR0fT9DaFU6c8tQyVsUNDYN8K34YFLl3L
+	 4lVHTJ3XXis3zlkLhziC1QB4JU78JG6rQVmpJFoV//EXZWylHB7hQpHEes2cFAU/3QOIT
+	 yU4n2x6zj1KHghtTvpl3cE/VHGcBAMp41BWqX1ZqPw4f10u28xP09O+Gn4fm22cR/ZD76
+	 6XFf7dgGRekUtmSWLn5onUeJO7Tn235I2C3fv4jUAYyWIlETqYCwCjZdMY2kP8n9580Ze
+	 smLlodpm1XFOY1LSCsl5HnEnZ4hEzTcj3eFkB2wmy2aAQeIXmlHb0gvuMqDgp48IdvQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793263564;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=MPYG+Fviw9Kir/qJCzSTQG7LTDlKBETDMXGxhQ8sSH4=;
+	b=Pi7uZO8dUeTYd5118MdKlYoACIMMkW4yk3DecFOrrI4Q6n0AuxH44wVlVydbSBiWaStF
+	 vhzaS1yWuSkB4q8KXIYdzbJr/AyaveRsUakKt0nKkGTZFcClzkZz8qS3EMNJer5TKw0KK
+	 vkJcdJglhVII3DK9edEWnrSy4ZlikHuYhoO1J7e3fZ0nABnQRdTojtlEI23FdudDelzLD
+	 Q0gr3vvsC3sNsZfaF4CcKM5E6whlkGVp5X6dyQ6pC1O1dBFxO1f6meqXDFJ0ahpoK3DSe
+	 bzG66fCIc0deF5NO5UXXhIf4+liINykL87OnpWKMKEZkoQG8nJV5c2d3opknfflDwuw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=160.30.148.34
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2322F606A31C
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 08:45:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2322F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=au0UfRoZ
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-8470d7d430fso849900a34.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 01:45:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793263558; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bHN+DKf84DIm+8JFz6jmZMEx8x07SWzcBtgV7cCCoWymeZKlC/AWT3BBZDsjFximp2
-         0J2hZ0GOdCsBh9JSqBauP/Mm5Yi6x4PjQkaxnGKAWzfWyrDZMp5Xe7ZFNnMSeODOk61p
-         U9tFWb3D5uyCOBdrLCHqyS7iR2PaIOZ8Ant5ZVLdA4hftvCjn3i9LYisAlJWrUQmN8le
-         tgKUEc6Qv5XJAY/cDL0kpdK252VSjxLwDsPvuL6W+XNXIkz58OF91Cu4ToeIrA3I1zdu
-         OwV8ui8nZ10WSIk6FeWs3cZBJzYGbAPFOp429fIq7pfvnH2qXqBGZPArluEXCFVJG9yy
-         K13w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=PAqiTMoWWwPC+iS0a6+A9B2UUx92tJTBgbIRi8GYKxc=;
-        fh=ztpYN5f53DNTlQrfPU6SqENMCwbfunfm7haWtlFEmMk=;
-        b=C5sUCq50u0ekhdJVfT1L/2TRRlSgCGmbiVIXZ53hJyUejFcVhFcLKQKHa4YgyHr/tW
-         tQmmDhVNoxm5O6USk30LtNoTUoAIbeCtKs7xbeAA98p3/5P0aeyHDHqkqvjCzxgJO8TV
-         LdKeCiWTvfui82GxDqeuSwCCicooTVbROYC3EAVBDhFwF5zXnJLIAP1YyOMVTC2JMfWp
-         IlSvt/LDjk5o6zhvLsdsbuMNAWPFP1ZbFK756gC8eweT8iwPgyZvfugipl+Tpn1emtcQ
-         HeuErlBYduYTB9lCoBrN4TqlGhYadTepWoSMgKKwa7NISiWgcOeVKpnhkDUIw19mC8tI
-         MvtQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793263558; x=1793868358; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PAqiTMoWWwPC+iS0a6+A9B2UUx92tJTBgbIRi8GYKxc=;
-        b=au0UfRoZT9OZ+PogXKMiA/a4a83jjA29tx9LOXcH9z6NDNHLMfjOwwveXDPGNs2LCK
-         I2hkmGMaPmoMZZnrglEFIFGXRWYhyGowSoMs0ZwlWNWYIJL5VqKo2p67y4Ni5ouO9+xj
-         AUBt/yhhEV0Rjots/ox7C5fw/JvfzQMQ6qLqbbc1nP6ijbLbGUoa4cSyboqDSsCTSSPp
-         SAWcQFZWU2rvqV44Igv+sGf2zpyt/XU5ylZHGjYwPEhK1Gf4rSj6phkcwNpjQSWOUUbg
-         gnB+obPQ1DJMaIcPgS5iQatWb0gpH3K1SP41tpP4rcxE1w22oXLjG0w9tlk+j7Ct0KiG
-         f1dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793263558; x=1793868358;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PAqiTMoWWwPC+iS0a6+A9B2UUx92tJTBgbIRi8GYKxc=;
-        b=jmYJtD9mOZKzBR8JdyW0AGtYi/k9tnjAjIhLfEY0XGm7Xd5YDmEVOCsJvnQFzoGbmb
-         MFjwKEyWhhBHuaHOs0MqbzJVw8c9SXcV4y7sC1Bi+5U3NT3PX9m37ipqnUFiY/2L4vPa
-         +sNOVv/b98YdMqO0IMOiyp2A4ahkJgrzO3OyxAe1RQUd9tchCoC1aesvN1V151Wh4HP3
-         p9CAVCkhurp82pFhKAbL/STmLeF5/K3QmUe8oQRSHCOBPQDN4lEeBFI/zDf3p4ZwPfwB
-         pisZ8zb7TVCGCTRIb9lZeLJ9zX/uT/i6jVR7Y4nuy/Mei/LZEV7J0sLi38RyQxfHBr8t
-         Ba5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxIYRW3BKMpgzVD020a6y1EqIrVHlcUHUQPMIb3iIhZGZU630W5KFtNbOVlEK6WK/X9TmKakCPePftrf6E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZnvSot/POsDfAwDs1gHQpmonedgLMIP6mGXuOB8Dc0jm8QJJ6
-	zS9iyWW1xK3z7bn0BGT3NxkmnNSq1GiRSqA1gKhGhzEzCS1XVknK2J/ITy1ZXBgHUXxh+pyQ6a5
-	ZPS/Cs+hY+PjOdLfFNQP6t/ALS226Y0YShMfsooc=
-X-Gm-Gg: AYBFou3ySV2jYbaEr3ERx3EFUWjGfTRkyh10i40JSLtL7ob0I4ayvBrs6PzctDB1yfi
-	qXcMVzfiCapEiKLH6ytSMS0LKFnNLHuhTAqbB9TGbaPdPOt1QS0fQPFpXJk+taafDwrHnB7l67c
-	qMjrgktRYAd5McIkbk8oq6XpB7ezwXj5mSBvAS/OqvIjfBJzycSO0lrSDuR0Roi9chOQcCwptKU
-	ipcLNQXxG3CLjqtwytFCiS8+NAXw+f3h5nQZ2/Tg/pgzJKaLOVzXLradpCVwAedQCqitFHKKA6R
-	MgJAso9WAU1ETqTu9y8Tf9vVMCVaEaCCVJx+9LSFAUrCrU4y7+sl00LGNb4bdsZN08j8J7YclaM
-	r4ZaXXStFOxRtYRiRN1cpnZH7qkJIzF3XcxQB1ieFnW2CEn4io10/F2MTLOcxtR+mvxNCwv0=
-X-Received: by 2002:a05:6808:15a4:b0:4f1:5068:b95a with SMTP id
- 5614622812f47-56382c84c84mr2564899b6e.23.1793263557980; Thu, 29 Oct 2026
- 01:45:57 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F9C606A31C;
+	Thu, 29 Oct 2026 08:46:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9F9C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jFd9h5HF4z5PkGk;
+	Thu, 29 Oct 2026 16:46:00 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl1.zte.com.cn with SMTP id 69T8jlsK055908;
+	Thu, 29 Oct 2026 16:45:47 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp02[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Thu, 29 Oct 2026 16:45:49 +0800 (CST)
+X-Zmail-TransId: 2afa6ae307bda81-28cfc
+X-Mailer: Zmail v1.0
+Message-ID: <20261029164549455vmvRvpHkZ8cVjNxAzoyoO@zte.com.cn>
+Date: Thu, 29 Oct 2026 16:45:49 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,63 +56,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261027073719.4010659-2-thnkslprpt@gmail.com> <undine-1793236109048848648-013753fe98f18601@undined.local>
-In-Reply-To: <undine-1793236109048848648-013753fe98f18601@undined.local>
-From: Avi Weiss <thnkslprpt@gmail.com>
-Date: Thu, 29 Oct 2026 10:45:45 +0200
-X-Gm-Features: AclHuK-zrLquvdqJ3SzSpP7uOV6gERwOur8Jmu30wRw3AWJ2QAkVsioGlaIaVTY
-Message-ID: <CAKOB7-ZixMNzdcizYL9Re+zp1HMO1kfr87PHytAmwmBOx7zKEA@mail.gmail.com>
-Subject: Re: [PATCH] init/bootconfig: pass init arguments in documented order
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <richard@nod.at>, <linux-mtd@lists.infradead.org>
+Cc: <chengzhihao1@huawei.com>, <linux-kernel@vger.kernel.org>,
+        <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIXSB1YmlmczogZml4IGZzY3J5cHRfbmFtZSBsZWFrIHdoZW4gcHVyZ2luZyB4YXR0cnMgZmFpbHPCoA==?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 69T8jlsK055908
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Thu, 29 Oct 2026 16:46:00 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE307C8.001/4jFd9h5HF4z5PkGk
 
-Cool no worries. Makes sense.
-Thanks Masami
+From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-On Thu, 29 Oct 2026 at 03:08, Masami Hiramatsu (Google)
-<mhiramat@kernel.org> wrote:
->
-> On Tue, 27 Oct 2026 09:37:20 +0200, Avi Weiss <thnkslprpt@gmail.com> wrote:
->
-> Hi Avi,
->
-> Thanks for fixing this! This looks good to me. Let me pick it.
->
-> > start_kernel() appends command-line init arguments before
-> > bootconfig init arguments, while setup_command_line()
-> > places them in the opposite order. As a result, the
-> > arguments passed to init do not match the saved command
-> > line, reversing the intended precedence of options.
-> >
-> > Parse extra_init_args before after_dashes so command-line
-> > init arguments are passed last.
-> >
-> > Fixes: 1319916209ce ("bootconfig: init: Allow admin to use bootconfig for init command line")
->
-> BTW, the Fixes: tag should point to commit b66fbbe8d482 ("init/bootconfig:
-> Reorder init parameter from bootconfig and cmdline").
->
-> In commit 1319916209ce, both setup_command_line() and start_kernel() placed
-> extra_init_args after command-line args. It was commit b66fbbe8d482 that
-> reordered setup_command_line() so that command-line init arguments come
-> last (to allow cmdline to override bootconfig), but missed reordering
-> start_kernel().
->
-> Thus I will change the Fixes tag as below.
->
-> Fixes: b66fbbe8d482 ("init/bootconfig: Reorder init parameter from bootconfig and cmdline")
->
-> > Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-> > ---
-> >  init/main.c | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> >
->
-> Thanks!
->
-> --
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
->
+ubifs_unlink() and ubifs_rmdir() call fscrypt_setup_filename() and
+then ubifs_purge_xattrs().  For an encrypted directory the former
+allocates the buffer holding the encrypted on-disk name, and every
+later error path of both functions releases it through the out_fname
+label.  The purge failure path returns directly instead, so that
+buffer is leaked.
+
+ubifs_purge_xattrs() only does real work when the inode claims more
+xattrs than UBIFS allows, in which case it deletes them one by one.
+That can fail, for example with -ENOSPC from ubifs_budget_space() or
+with an I/O error.  Every such failed unlink() or rmdir() then leaks
+one buffer of up to NAME_MAX bytes, so repeated attempts leak memory
+without bound.
+
+Jump to the existing cleanup label instead.  do_rename() is not
+affected: it purges the xattrs before it calls
+fscrypt_setup_filename().
+
+Fixes: 9ca2d7326444 ("ubifs: Limit number of xattrs per inode")
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
+index c67954f6bee0..73594d476fe3 100644
+--- a/fs/ubifs/dir.c
++++ b/fs/ubifs/dir.c
+@@ -846,7 +846,7 @@ static int ubifs_unlink(struct inode *dir, struct dentry *dentry)
+
+ 	err = ubifs_purge_xattrs(inode);
+ 	if (err)
+-		return err;
++		goto out_fname;
+
+ 	sz_change = CALC_DENT_SIZE(fname_len(&nm));
+
+@@ -955,7 +955,7 @@ static int ubifs_rmdir(struct inode *dir, struct dentry *dentry)
+
+ 	err = ubifs_purge_xattrs(inode);
+ 	if (err)
+-		return err;
++		goto out_fname;
+
+ 	sz_change = CALC_DENT_SIZE(fname_len(&nm));
