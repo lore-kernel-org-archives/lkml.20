@@ -1,49 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356126;
-	b=obXqURpIrluoCPiLPj61uIsJV3/RYAAy+Vw8hDvCLmRaWjw8fepEGGRK9PgIO28zdCdI
-	 720CvLErPeavHf4ufN8EYlfjQVAKMu3lAoezE8+Zft36YqGdIwnEOBU0Ke+LKcWpo3RXK
-	 7tTQIKvvIKJ6jR7RS7ifnXfM5SoVu4zvziD/Lu5h4duL+ZSPqQ+5nFHQU7VwjkmygSf7t
-	 4KVKFN8A6hGat72qAtPmaY6LBnjY0lIgF9lAB9oek6r04S22dXJTaPZa9QrnMUPb8WnkI
-	 PpWDVHUUYwlcuLXPu23XqSbrQrMMkmFYYio0SP5XUYTNQ2qBpKvwfCuZU0+WDGxh8FQ==
+	t=1793356131;
+	b=UD9gFtalaeha5XzWhHvAECZZGZEvWA2Jl+WcQYnvK0QBXZOPIhw8Bh26lOMgRPwTqQYY
+	 s0j6hxJLIOrUA1ye6r0BXL6/khzys6TKVPRvGvPHEKza3az8BZynS0g+7ijV7s60pMU5O
+	 Uo/HTHg/kxciYTzF76aKYSNHdlxJxSg4ZXCflPHGx1T8LXlJSJxljtMwRNyDkRKMlPf9Y
+	 HvuF8WejLzYqQIDympSkIewwK1xgHf5yZ5lnUEuF0TCouC2ZlxaWP8iPJoBxDhFbk1cdL
+	 289z5ajW7zv/pfmNtBp0tikGusQZTBiw2M4vsCjREmP2esU24Pql5je+PG6vhHUg9cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356126;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=hYAhdRZ346GdySQVm8ErITnE75pewwTHH/p/a0LZ4bg=;
-	b=4gqjioUCJKBn1dZE/LBJROBu4R3KO11tgnhvzdqhm/ZzbeFAXmnvPCtSJ9X0jUi6gGcd
-	 VyyMlNR7Kq5+8T9tbkeNAXW194aJ8G0Vam2dU4FTsOapeUlQD0NQZdh1mjRvVz1M7C2UZ
-	 c1Eu4OOcbhyucp8q2KsKYCj8ZQc5RaQJhkVZ/P3zyNmEkdq51MyemkgU4CqfOUkpEpIWF
-	 ZkoKEzUEdwMeUHKFyA0pchYsXi9ee/x1LOtnS0MgueKdG6weJQ+vDjjjHRuLHEOnSoYfR
-	 1mfMNMPO2E2FrTuiaG7mRm/94jXmnZnCt0rhKzCTJLwsP6J1Inq8owYXpgYiBoOQ8ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356131;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=mGS4GI/jAb9ZPIqUcHBrz7HIHg2WVEdgOBXskoS5LME=;
+	b=qgzy85JQ8XB9dYZQQPWUwtA65+cpl5IQoOhf0OE+G2GYWOgGVbpUzy3HZCBmPqdNzzeR
+	 AJKwYaWqS71KOiLbegmggjGe5diQAJcF9JfQlYstFag6AedwxL7SANdNuLrJACQIHrpHO
+	 c8teMuAMNfCkaglhqrYEDivBEz4SYV8S02aKkE+kglda3vF+OxhEalZgFRl/4i40y6HHI
+	 xYXjC6bf+dGhTlgQYRpo9bGOHSAvHYpDQGXwJrxnyJRNmC1CnZhAyn54vIFOrZlQZhmQF
+	 925CBGNOBizUaj21mQPanrRd1Cu5f9PHAd1HO1+SJNUb7ERLK7zcxTKBa+v8dewQYSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+m2EnOP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c51QBABz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D55160A5BE8
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:28:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B9D860A261A;
+	Fri, 30 Oct 2026 10:28:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c+m2EnOP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25FD1F00A18;
-	Fri, 30 Oct 2026 10:28:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c51QBABz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 680811F00A16;
+	Fri, 30 Oct 2026 10:28:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793356126;
-	bh=hYAhdRZ346GdySQVm8ErITnE75pewwTHH/p/a0LZ4bg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=c+m2EnOPb8OK7O4swq2CfBj9Iox+6LlHTZbAr9HaSDJq8HSohtS8Gj74v2LPH7KKg
-	 Z7Yd0elZ2zUDwmt3jCSxft4QsQdFq2s/BbuHtfVUeXPIXDj7JMnBQFPQUm1PYkZqTh
-	 hViBmH/mXwfhaWCYXuZ7PSXikEVYIMVIQGnelia3S1rP72UoPY/BfrV8NhMifoFNnu
-	 FTejHgHUDBctmIerGksjm7dUt9wFsfYC0EbBNTbPh2ArufJvbLHCiO0oYE4nHKRzsN
-	 FxeE0OjMBZ5lQR2kdD2JNdZ19TMOE5rygIeny2wHFF8QXAe/0Tk1sfCozdOxNem9l9
-	 a11APFqOe4RPg==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 11:27:48 +0100
-Subject: [PATCH v7 16/16] drm/vkms: Add driver-specific plane property for
- testing
+	s=k20260515; t=1793356131;
+	bh=mGS4GI/jAb9ZPIqUcHBrz7HIHg2WVEdgOBXskoS5LME=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c51QBABzlB1Z0L7tkhHFjdXxIEvBUzlTIrGg5pqBlRLYGH3ZtTsTHI1pnjKlD8zVT
+	 bJqu78k8kaH4rA6Cz1BgopPQ79CxJbvHU+zpDEQJXASmYM+enIwCgWGR+JfXrqzjZh
+	 XUPlLgwMvM/Fm3FVPxcHeXZEHpczGVGJYSFSX9GTkKgsZ5m0sM6pbkj29sZhsYBIYZ
+	 EyTHGZs9IVXf7t1A81a5dp5BvLnG8B9yU7JNrYJJFguN5UVXsNWayOr0X6UKB5ouLk
+	 TmOOxU7AjBRkngMFvKt6YSgpIHodyu9DhDM0+ih6ys21rd8mC0Oq3H9Bi3emo+AAkY
+	 OBO4HUZzXLUww==
+Date: Fri, 30 Oct 2026 11:28:47 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev
+Subject: Re: [PATCH v5 6/8] dt-bindings: serial: snps-dw-apb-uart: add
+ Allwinner A523
+Message-ID: <20261030-chital-of-pragmatic-enthusiasm-837a0e@quoll>
+References: <20261029-submit-h616-uart-fifo-v1-v5-0-53b433aebbf8@gmail.com>
+ <20261029-submit-h616-uart-fifo-v1-v5-6-53b433aebbf8@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,188 +64,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-drm-reset-state-flag-v7-16-4e55eaeae683@kernel.org>
-References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
-In-Reply-To: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Melissa Wen <melissa.srw@gmail.com>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5674; i=mripard@kernel.org;
- h=from:subject:message-id; bh=PzcuUCLqW+hrny0SdJ5K+Atc69gzwY7AsRho41Hd/pk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCuUOnwpLKtGbtHnn7TsmpU+bvt1zXdJR7dpy5Zn8v
- jd7ZDMcO6ayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEpl5jbPjw9OaG2mdn4u6n
- NqZMY2p5ydd0e8mUdAcn/7pPzRqPr+WJT9GWVZvf+SXl7teP3/IyOxgbfs6Zt/+xkp7zqZWHuJj
- 3P6/qW5p66e23wop7WUyaUhfjT7lWb7z++oGWllxAdPA0hZVLAQ==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261029-submit-h616-uart-fifo-v1-v5-6-53b433aebbf8@gmail.com>
 
-The DRM_MODE_ATOMIC_RESET flag allows userspace to reset all object
-states to their defaults before applying new property values. Testing
-that this mechanism works correctly requires a property that the test
-can set to a non-default value and then verify is properly reset.
+On Thu, Oct 29, 2026 at 12:47:27PM -0600, James Hilliard wrote:
+> The A523 UART integration has different FIFO depths across its controllers
+> and reports each controller's depth in the FIFO Clock Control register.
+> Its receive thresholds are fractions of that depth, and its optional
+> register layout differs from the generic DesignWare integration.
+> 
+> Add a compatible for this integration, also used by A527 and T527, with
+> snps,dw-apb-uart as a fallback.
+> 
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Using a standard property for this is problematic: compositors like
-Mutter enumerate and track all known properties, making it difficult
-to isolate the reset behavior from the compositor's own property
-management.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Add a "vkms-test-do-not-use-in-prod" range property to vkms planes.
-The property is stored in vkms_plane_state, duplicated across state
-copies, and initialized from its registered default in
-atomic_create_state via drm_object_property_get_default_value().
-
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/vkms/vkms_drv.h   |  3 ++
- drivers/gpu/drm/vkms/vkms_plane.c | 63 +++++++++++++++++++++++++++++++++++++--
- 2 files changed, 64 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index dea6cad3f1b9..384616095b45 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -147,4 +147,5 @@ struct conversion_matrix {
-  *		     struct vkms_plane_state must ensure that this pointer is valid
-  * @conversion_matrix: matrix used for yuv formats to convert to rgb
-+ * @vkms_test_do_not_use_value: driver-specific property for testing only
-  */
- struct vkms_plane_state {
-@@ -153,8 +154,10 @@ struct vkms_plane_state {
- 	pixel_read_line_t pixel_read_line;
- 	struct conversion_matrix conversion_matrix;
-+	unsigned int vkms_test_do_not_use_value;
- };
- 
- struct vkms_plane {
- 	struct drm_plane base;
-+	struct drm_property *vkms_test_do_not_use_property;
- };
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-index fd3d34dcf0fe..42513cb462ac 100644
---- a/drivers/gpu/drm/vkms/vkms_plane.c
-+++ b/drivers/gpu/drm/vkms/vkms_plane.c
-@@ -12,8 +12,12 @@
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_print.h>
-+#include <drm/drm_property.h>
- 
- #include "vkms_drv.h"
- #include "vkms_formats.h"
- 
-+#define to_vkms_plane(target) \
-+	container_of_const(target, struct vkms_plane, base)
-+
- static const u32 vkms_formats[] = {
- 	DRM_FORMAT_ARGB8888,
-@@ -55,4 +59,5 @@ static struct drm_plane_state *
- vkms_plane_duplicate_state(struct drm_plane *plane)
- {
-+	struct vkms_plane_state *old_state = to_vkms_plane_state(plane->state);
- 	struct vkms_plane_state *vkms_state;
- 
-@@ -61,4 +66,6 @@ vkms_plane_duplicate_state(struct drm_plane *plane)
- 		return NULL;
- 
-+	vkms_state->vkms_test_do_not_use_value = old_state->vkms_test_do_not_use_value;
-+
- 	__drm_gem_duplicate_shadow_plane_state(plane, &vkms_state->base);
- 
-@@ -86,5 +93,7 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
- static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
- {
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
- 	struct vkms_plane_state *vkms_state;
-+	u64 val;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
-@@ -96,12 +105,51 @@ static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
- 	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
- 
-+	if (!drm_object_property_get_default_value(&plane->base,
-+						   vkms_plane->vkms_test_do_not_use_property,
-+						   &val))
-+		vkms_state->vkms_test_do_not_use_value = val;
-+
- 	return &(&vkms_state->base)->base;
- }
- 
-+static int vkms_plane_atomic_set_property(struct drm_plane *plane,
-+					  struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t val)
-+{
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+	struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		vkms_state->vkms_test_do_not_use_value = val;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int vkms_plane_atomic_get_property(struct drm_plane *plane,
-+					  const struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t *val)
-+{
-+	const struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+	const struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		*val = vkms_state->vkms_test_do_not_use_value;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- static const struct drm_plane_funcs vkms_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.atomic_create_state = vkms_plane_create_state,
--	.atomic_duplicate_state = vkms_plane_duplicate_state,
-+	.atomic_set_property	= vkms_plane_atomic_set_property,
-+	.atomic_get_property	= vkms_plane_atomic_get_property,
-+	.atomic_create_state	= vkms_plane_create_state,
-+	.atomic_duplicate_state	= vkms_plane_duplicate_state,
- 	.atomic_destroy_state	= vkms_plane_destroy_state,
- };
-@@ -284,4 +332,15 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
- 					  DRM_COLOR_YCBCR_FULL_RANGE);
- 
-+	plane->vkms_test_do_not_use_property =
-+		drm_property_create_range(dev, 0,
-+					  "vkms-test-do-not-use-in-prod",
-+					  0, U32_MAX);
-+	if (!plane->vkms_test_do_not_use_property)
-+		return ERR_PTR(-ENOMEM);
-+
-+	drm_object_attach_property(&plane->base.base,
-+				   plane->vkms_test_do_not_use_property,
-+				   0);
-+
- 	if (vkms_config_plane_get_default_pipeline(plane_cfg))
- 		vkms_initialize_colorops(&plane->base);
-
--- 
-2.55.0
+Best regards,
+Krzysztof
 
