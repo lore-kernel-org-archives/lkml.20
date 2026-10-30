@@ -1,97 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793368980;
-	b=ujMEHqUxFbEOcLz0vpXUDVesOxKUoP0Xilxcjmw+QEcPYlwDn052yoE1heZmtD17E4vt
-	 pmF113aCUgcVGqq7N2wmxMt7Luw+V5fqWM7ySo+gQdf511YzvpxvxF2W2x90WohOrWqMB
-	 TffDFsQKQuBZrr2/NKggpmCESnz65BiV9yUcNUuIqKp62Mt74cRlTXGpD1NQXO/Y0PCNC
-	 Sr8YFVK/BfqYbYnpuQ9BzadeHn72SgmIzgEsYkjUmhD7ITz5WHKXCmXLx0104xBxVcxaa
-	 AfHNKStGTmah3cMqzrOGNPXL24h/8B6iebjgIyW5kQCZ9kFfrSWx5u+TN83jWsq+kGg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368980;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=xStrK9E8kQ84HOqKghD273ii2ItB0D83WuD1/iC0dus=;
-	b=iFWA6EdIAEACmjqG2fUkKMwvgcDljZRpThbAqVmmwJLppBm565iMrMTd3WjP9ry5a/Ba
-	 ToNE93sUpbPqs8ZydmhjNuOji7jRX32kc3sddOqMM6jO1U3cmey05J4kw4dlm6QotTXZg
-	 i2RboydKtHkjEpSRK+mUf482wVSNsR4AEqqvmia/YtS+UjGiJv4EHudyFYfhv2qHm655B
-	 X0+/g3ygoU6z3QbrTPtXwu8GVqpwIeeDjWwSUErts3FKZ6sHRK1JxO3fd6bplzqDsZFhH
-	 trQOC6x/YP6a9qcoKwLJ/QCFt55FOVWIXYxKpKr1mjcEC0z77bPgC00HYzwmPHnIO+g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uber.com;
-	spf=fail smtp.mailfrom=uber.com;
-	dkim=pass header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=rrn6lIPd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793368976;
+	b=qpzDFn0HSr921iK6Xv90SJw9XwQOtE5VlqUUzPiqiupZKrrKBOi0U+n67J/bPaAs+gX7
+	 yrPgs7dsnF2lVYdo+g4ALr4jwyuM//GSSVe21VWmoySHPKgTkXdgZMwcMnMb0A5bYjiMy
+	 0MwE2Uz8+eFRV43IVA7Z2cAJhgJPoqymNUQp00rvxlSUFPWe+Vqsyv/utc4JGILnQaXR4
+	 Bhh4y1tcypT/pcPwgN0mwBHYYq10W/zX9YbPicFzqaj6Ezg4aJ6ovIHvJPfbGWsuB1khA
+	 FaGg4oGkrKbHhSacu1FqMz1VjAYypY6PIh8YWy+7XHPvamvYiwuSKXcFS5uTqgC1juA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793368976;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
+	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=IFjgsi/GRlis4bzhLMHvpJ/jURFZy6HO4rYGSHjoXuo=;
+	b=Rb+cFzn//KoI7qlbhVD0fRoBNCdqCJzWiXj+xU6RzZJJTAHD3tyQXO/vtgH6q/Xxj0bI
+	 0ZuMmmcT/8l8vxDQ1cCFZqliYvHhQqH5Ep2ZIzfAfD09NKhVJEPzovg+C5XPlAusI52NZ
+	 CklgGs1j0qjpTwOI4NAqxxJglhcjnkmZ6duP0bQHXC1rHb8qcO2pUDvZmrcYC+BwP0say
+	 SejKnacoPTLZ6Yba5aTx9sT1IVEICvrPGmFx4zUnEIlREv+oXgrqu+bqkvOYzUVUzM3nS
+	 uAEw7lKHIgtV8ngVXDeSiSAXVGF8GUJOaAnPjPdMVqVjobgK+5L5Hl4GBaYNpEtJCLg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WI4N3ImJ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ai44VMbi;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0E15606A32F
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:02:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0E15606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=uber.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=uber.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C3F606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:02:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03C3F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uber.com header.i=@uber.com header.a=rsa-sha256 header.s=google header.b=rrn6lIPd
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-675676afc3cso723666d50.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:02:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793368979; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jEHX9GZ6YNHQ2YBWw3oPfoscHkp+zcm0c3AMaFykyewi39qTMmloI62qgAjPNJ+WZU
-         yEaVk3DOHT1IoIqZke2AGTT/z8SNxMVHwI0KgCPS9rRTb+kfzgwnlLcDGht4zTAM0DsH
-         NH6OnzAN/gtwL/nirOoHuKBClmgQAcTIw7LqBJhqQ+Fh+fM9g1FnfItrL1hTWvZlsrNr
-         Rr96qMRZHj+S+nzit2Aj+6t2RCVibGxLrkEccJrY1GwjD3mUSb1krsANFiK82MZ+ccD5
-         BAOOpAHdBf3lpWTddiRKIeYGE07aDWDK5cHO9Ylk0dwMPEqZSuFWyQRn+OwGV/yq0TlY
-         /fnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xStrK9E8kQ84HOqKghD273ii2ItB0D83WuD1/iC0dus=;
-        fh=yM8aJf4tcDaeQyJ5t1ekHJWpemy6rFL55pBfngdXjdM=;
-        b=rzZWdeeTsviBaVxx3dFni/Kl8/lHSmeWFcWz62cNRmBP6WjAuMDoMHzBNJxouI4pgK
-         zOYqRTFY/5ECGaAPn0DCeAx2d8Dt2HVMk1tmCyfEGvnQzoRyFDa07rCyVoS7Nd44DbLW
-         P6J+2CnWkPi+tJgtCJc+CVWDiOz4jwmMfL4v+zRVJYQlc++wo9H8GPO7DXFv8vZxHOil
-         y7DIymPuQnbSLbKYfs7cbMQqsq2AXGmP3ZJ0UUzJdPp2+IuIa8eq8F++RPXBkvcs5L+3
-         96/l7tRDGMctqbVXTOag+WwbtI0I2K7uFCrm39p5+e1hm94Jc4PZYmg5LJjlRV6pFdFj
-         Yv0A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WI4N3ImJ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ai44VMbi
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UDn9aC263305
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:02:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=IFjgsi/GRlis4bzhLMHvpJ/jURFZy6HO4rY
+	GSHjoXuo=; b=WI4N3ImJpfIaQ2wEpfmHv9zPO6aOB8ROutVdbRWf6l1oNMX0KMr
+	ayHgnh/HbpgRTktmGVXPoVheO2IJfoqyN+BfGxsAAFu0lknSPym2atWBQ8v2ZoAu
+	01Jk2LpEblNKn6Kvqyo9sm1g3eDJ1kg+AFxUGeb0nsLXobVMUwaFkiWJHlsKU7XK
+	6+sAB7wGfvNBPAya6HAS8VV6ub3UifixLyX9uKaVGgnynMD+k/auco7izI5l9SQV
+	KqTfvLA8tKcYTbg/l/cBYS11ntCFULvDCBss0QpcV81Hdl5/CfbFV91yXTUT3MfO
+	gvKTXdGK2E5nwx0LES0WYwH9Bm4lRFp9gWw==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6rkfjw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:02:55 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-7c10b8abe29so513058137.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:02:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=uber.com; s=google; t=1793368979; x=1793973779; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xStrK9E8kQ84HOqKghD273ii2ItB0D83WuD1/iC0dus=;
-        b=rrn6lIPdfTi4ivuU/87smaCCtJM0b4ZSCe2vGQGZcGwuFXoThkEAYM6WpkXFNce1PJ
-         RObuMZSc8bx1bnvAEOjhR8GVrK8yFS6n7Fw/KP9TubKLfdKPhkW/hSHJrCjwOoAbl5Gi
-         N1IMQZy3rW3CpGrE4AGoWGoKpMumHQdBuO1D4=
+        d=oss.qualcomm.com; s=google; t=1793368974; x=1793973774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IFjgsi/GRlis4bzhLMHvpJ/jURFZy6HO4rYGSHjoXuo=;
+        b=Ai44VMbi+Y42yNn8S36tVqpm/2tDze970e7/fCuVjrATTpf3MQ6Dj/H5AamcCEpLL7
+         g21ACg93wScf8e5ZUHc3Fi/KoOv792NO/XxoeI5xct5g+4yo4z03bAkMebJgGLjRmQYg
+         K4ZxtfSoBqx2KCYePPqz9rYdsdAqcdu653GBNZWZlnWXnGwvQ2MYP/zFEHf2QeDhWgcQ
+         1PtyeFUHZFh2L/vmx4CbK5aCZfTWWNx1igsxrwL9kPc7x42hJxbGm5NXmQnzTEJbd7E6
+         ubcq7JnvGmhKBB0CPUenYSHgQGrfH0XcEOD2/rSU7NPybG5GIZvFJ7egEdiDPFUfUJKA
+         GeRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793368979; x=1793973779;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xStrK9E8kQ84HOqKghD273ii2ItB0D83WuD1/iC0dus=;
-        b=IuRWtq4Rs2NxvBaU+xWO0QQN1JWFWY6PKLKRDKj/XTQwIZHtgq/lUvV/SVGkrYH1MJ
-         tz1t0xNzk2jnm4H5BgPMPlpEa+dZQJoTT/5FKEqS8TG1Y1bowLL9HcSFWdeuG/ERpugj
-         h23X32hjgjR6hNry2yvKd25L5NlicDo77T0XAdC4v34ENGCuO/fVaJW0bkVGwhMCr2OW
-         wrNbBVFfeEZDAj542TJSGvsfgfhd9paMpanPQm4KS/jcNFKMCj//n3m0GKxyB0rsDJNB
-         qU32cxen/mRZu4It1ndgubi62dy6MrESk31dRNPJ4Uqk/7EG1IyFXDFNs6ivMPO7w5Jd
-         uDLA==
-X-Forwarded-Encrypted: i=1; AKwUvBx3QUpV6KBBr7zu/J469uEtZTNCXJSsFQ1v77LfvkIVH+qhQKr7G0bcPKj6b37NaaO6UhQuTg3ga4utWjE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfKCtzT1BkV5Iom5HgK8mMcTYt5VJVjDi5pHX3BUOo8grFoHAn
-	xQOi3rQCgfCo+CzMtJDGvZC2WcfRXDr1+Xe570U/MrbMbXccn3G2RhrgXLLm/9J8f03IhGTnql2
-	+zOfIw4yeMORPxSYkczk+GhDnz16aJRZa9SvNaOejKQ==
-X-Gm-Gg: AYBFou07gwgMH72ecaTUx+OU1DTFxZvdyGC0dOPmMy3+/rUKmWAl8ppBJzp3jSZTitA
-	AyBE6gSjIquIdKACEla+5aDhNe/14dULUUqxlk/9vCdrpzoTAHKlEzwtGFXTE2psVMl1YhAQQ+6
-	yjvpjvqB1pti0IQS6Iic8H+aXggkcMfXUN/LRZv42lyxaxvakgm8vkEbdby8vWmMWBA8YKi+7V4
-	xHEwoVeb+/10MWrrxFM7IiuCP51ZPaiAcA6VojJUXMGIn6j/Skpl9J6RmpAeAKFAIK9n/EmDwbt
-	xpBX6G5IUexEDQrr45asQW2pCjBKl5+M7ZKn+xwDk4TnhenY7wmydLnO2dAYmgL+Wnj1YGFq14N
-	OmPDxAuw09mCVklr0w+poUQyQuS+CZ2Xq7EWrf/v3DPSXGRZmjsu0VkYpKea3MKLj4ca06g==
-X-Received: by 2002:a05:690e:801:10b0:675:2f4a:53fc with SMTP id
- 956f58d0204a3-67ba4fbad81mr1132986d50.19.1793368978306; Fri, 30 Oct 2026
- 07:02:58 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793368974; x=1793973774;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IFjgsi/GRlis4bzhLMHvpJ/jURFZy6HO4rYGSHjoXuo=;
+        b=UH7KfhLQi7p+XoOKSvMt9+0U6QGhPkwNmRjL1YhITwLl+0Di3WE88JCX5afsQFdRSR
+         hS/UEne9Sy62DFzeGNF2AgYzLq1hsF0v+WdWxrPE8qhH2xTgY9bvFV0jTeulZyOFaBNP
+         DqkyrUJm9DFtsEJQ9Q6Z965xRy49ZsJQrjj7V5xIxGYhmUYRcxsvsNV2UN8PMJaeUxCN
+         gMIyrC1xTDV9MggaWWVZCQBpRkw159EExCtt+BqJEh1MP6ya5nNkxFvsh+z93l9MPtl9
+         VKoGDZya7PLwO9HHGnSzNWw/pXTFn+xpsWR2s72A5f3VSAAO2LufTQnEGd3fhX5hhN/u
+         vaLw==
+X-Forwarded-Encrypted: i=1; AKwUvByXw5xFFy9U3zSQ20xCFeMEpNymi6+BdGGD4TfoOuGD+bHSI3G725iiG2GOjSGf1rJfAsOI/v9wKHNYrjE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjtoHXvrdidpoPZVNRPGJ2vqQOVsvqRODh4JNGC0sRiHJTLJP5
+	C+jT3s1RbYsvIql1OIAMTSqhMfVsYNwJql5siXXYSB56as/tTYhpR9VmWS+LPGQUT7ibeBtleAc
+	AbCr0HXLYQwwkqJIQn6KZ5XxnOWGo+oYA1SmMuiYagr1fxnz6CY69QuSVv8lvAfpbX2U=
+X-Gm-Gg: AYBFou1lcxhkXm4DPV8X1kJaQgWtQpQtksnhN2KB4w7PnqYtdHZYw8Fs/+FAnWoCGj2
+	JanYM0C70gSlV26xvnscCjr2mOEt6w67yioSjGUVCcZcEil4ew5vpAHaySFCNF/bg+pseewcZql
+	ovy6N1nR3Gx36bObLyQIpA46vrzoKAj+GKDrliQpOFWAxkm4qbz2L6FoNwtYlmWnvQBcEOTfH3M
+	qZ3kluP7Ta2PYgaVu+Hc/E3fBIi/07IfKuUaBsdjea0JMmyqREyRGZ6uBY1OJWzwA+C1TuEdgSk
+	leswi6nkKYEBl1bt6QGZcFy6JuJ1Fa8xnca8gK0cNDETdZZomjSAIYmnBqtkHbmeK6ErLB9SwG4
+	+ws5dqoTiempui4Z6bhZ4KoaT1M05BuISFC05j2Dfb/RAi98qbUvxhyZP9cXkAQ==
+X-Received: by 2002:a05:6102:5809:b0:7c3:872c:8be6 with SMTP id ada2fe7eead31-7d0727248a5mr1300586137.25.1793368973748;
+        Fri, 30 Oct 2026 07:02:53 -0700 (PDT)
+X-Received: by 2002:a05:6102:5809:b0:7c3:872c:8be6 with SMTP id ada2fe7eead31-7d0727248a5mr1300332137.25.1793368971551;
+        Fri, 30 Oct 2026 07:02:51 -0700 (PDT)
+Received: from quoll ([178.197.218.7])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896ecsm146146995e9.9.2026.10.30.07.02.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 07:02:50 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Lee Jones <lee@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+        Thomas Richard <thomas.richard@bootlin.com>,
+        Andy Shevchenko <andy@kernel.org>,
+        Chanwoo Choi <cw00.choi@samsung.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Andreas Werner <andreas.werner@men.de>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>,
+        Matti Vaittinen <mazziesaccount@gmail.com>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Liviu Dudau <liviu.dudau@arm.com>,
+        Sudeep Holla <sudeep.holla@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>, mfd@lists.linux.dev,
+        linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org,
+        linux-stm32@st-md-mailman.stormreply.com
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: [PATCH v2 1/2] mfd: Constify mfd_cell arrays
+Date: Fri, 30 Oct 2026 15:02:41 +0100
+Message-ID: <20261030140240.211786-3-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,401 +133,361 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260928075237.3055101-1-irogers@google.com> <20261027231513.816148-1-irogers@google.com>
- <CAP-5=fUpji7seZpsxh0BN05oAA6nMUyM-bNdHBg4YfkeNAT00A@mail.gmail.com>
-In-Reply-To: <CAP-5=fUpji7seZpsxh0BN05oAA6nMUyM-bNdHBg4YfkeNAT00A@mail.gmail.com>
-From: Alireza Haghdoost <haghdoost@uber.com>
-Date: Fri, 30 Oct 2026 07:02:41 -0700
-X-Gm-Features: AclHuK9L55dtmknuOLxAAr9xuWmR5QC8l5_v06c-eIMTLFdmut2VrtfBK30Uy4A
-Message-ID: <CA+w=M=TEYScc9rDyzthN75Ym41ATXoNLNu8_yj0dsjymb+m7jA@mail.gmail.com>
-Subject: Re: [PATCH v2 00/18] perf symbol: Reference counting, sorted arrays,
- and memory shrinking
-To: Ian Rogers <irogers@google.com>
-Cc: acme@kernel.org, namhyung@kernel.org, adrian.hunter@intel.com, 
-	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Developer-Signature: v=1; a=openpgp-sha256; l=11016; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=EWIm3544qpQQKeJj+/fAFQXHPlPP2luT+MUHI1/vUow=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq5KOAOln00t9A7RhXWH7gHS5bSpR8Rw5ik8jtP
+ Gf/8s+8riGJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCauSjgAAKCRDBN2bmhouD
+ 14r2D/9/Dkt85cLMU8CIES/4xAfvTDALI/eE49ZK5xnM2GUrwAltfCjqZCyGDT171axS0naD52e
+ dJ8ZtrHCKSVa7b/YqWD8Aqmu26E9cpqFnByM5HI38WYkgn1TxSPDE86ylI6onH23pRMCUNaN27S
+ Zzo3yFdzGDNCfkU83lmMxwWS5xKqAnoXVm+Otw1YUYwVt8U6CzKaNfvlcBy/9OWCA2RXqs+FnG2
+ BgijlyOoJkJZYjLDPneGF9tCvdZ0Xe33/e9hEJRO1rR7JIHI5u8zJq3GY06sPjdi+Dny+OctXHp
+ HuoVkcFjW3csK5fyyfmoKZUpa4e6cFaehv+RE3BGfaQzPR2KYRd0aBaPXnvdIxIZI91aPdYwZFp
+ jkUDxHsVfNVdtpifFPIYHa3wO68rRzfXlRVUqr13Oo39c8VdrciwmuWM3vM1/M5G3YgWtf2zz+P
+ koiXhLRKvh+m9yo+LpsiDhcM3j9XFm2YOO/aGS5E98VimUPWO6fxrS8e3pECxa/UEQOeGuA8RYR
+ aZPmt6WzJ3aN8PSBe2ljgzV+LRO0JV0XrROr8q6OQSLUB8ZdvSvQqkHaDCkG2f5KyjpNSigfkv4
+ z9c/1L6d/ulrKwVu90uTlRg+uxev4U8oFaYsqnNh5V9Pn6aJ3b2srY56JQEJs6daRJaZfJpLkQf tggO7Py57jexoXA==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: z0UTvh-OauEJqm6vnVht5rs3S1iLj_1B
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1NCBTYWx0ZWRfX17lHo3pMhaau
+ ocu6BYOeP2CDHV1Lz6rrUx+Wj2UaIKubq+a3NmkaGBBYu/4KyhB5s66bvoNNLFoq7/eEkcOq1dx
+ kdrBcsNp0bcgneIEph+cPishx4lv2v4=
+X-Authority-Analysis: v=2.4 cv=PIqaavqC c=1 sm=1 tr=0 ts=6ae4a38f cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
+ a=w1d2syhTAAAA:8 a=P-IC7800AAAA:8 a=EUspDBNiAAAA:8 a=_gzb5aec3OYO3pdMjf0A:9
+ a=gYDTvv6II1OnSo0itH1n:22 a=d3PnA9EDa4IxuAV0gXij:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1NCBTYWx0ZWRfXwxUBXukfKcrq
+ XeR6Ryr+YjRTU6gC7W8JM99CnB+oF/DLNwUaoYo1QbzTurSvHfIoF2JhZpKojEtFu8F2yStk563
+ e+mGfK5F2uOXBsey+UKUBdOJeSpFkoYNTSDEAkcwhjGvaX7buw9uPP24XWBOtgNNGrEuIYU/ILR
+ pHHRKEYre3DCVsNdI3hjakye9zIQVXrryz6l3HJDjj7e2jOBGBI5DwWAAPB1HIXWKXJAksOcr8m
+ 7GdG1LzWEgfpacEthIo4zUs0/JyFJhoitKDbKmonqoT0KoLzXfvmVAjnthNyuu5EDTMsNQWNRbT
+ jXf7MPMYXjl8/JhW/e3gSngif4zIMwWdLtuwfXnGNLQIKjVVwTB6dQuDYv2DE6Lzk7NZTAmAh3G
+ SEk5uEOhkR2ipU08mfaLgehNFABChQ9NMiO3WGKYmyQ94XH7H1b5tTJNbUmxWaXaMRwRyztrjjs
+ 4643tMXSA7Iuanlt+tw==
+X-Proofpoint-GUID: z0UTvh-OauEJqm6vnVht5rs3S1iLj_1B
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 bulkscore=0 impostorscore=0 spamscore=0
+ lowpriorityscore=0 suspectscore=0 phishscore=0 adultscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300054
 
-Hi Ian,
+mfd_add_devices() takes pointer to const, so 'struct mfd_cell' arrays
+can be constified whenever driver does not modify it in the probe.
 
-I applied v2 on perf-tools-next e74880764bf9 with the ELF_C_READ_MMAP
-fix and your three fixes, and compared it with the same tree without
-the 18 patches. I posted comments are on the individual patches; this is th=
-e
-summary.
+Acked-by: Chen-Yu Tsai <wens@kernel.org> # ac100 & axp20x
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Acked-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com> # cgbc-core
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-On a profile of a large C++ service, about 1M symbols, perf script and perf=
- r
-eport output is byte-identical and roughly 22-32% faster:
+---
 
-Execution time and peak RSS before and after:
-perf script                                3.3s 334 MiB vs 2.25s 332 MiB
-perf report --sort dso,sym       3.0s 389 MiB vs 2.25s 386 MiB
-perf report --children -g caller 4.6s 706 MiB vs 3.60s 703 MiB
+Changes in v2:
+1. Add tags
+2. Drop wm97xx-core.c, it was not intended to be committed
+---
+ drivers/mfd/ac100.c                   | 2 +-
+ drivers/mfd/axp20x.c                  | 4 ++--
+ drivers/mfd/cgbc-core.c               | 2 +-
+ drivers/mfd/cs5535-mfd.c              | 2 +-
+ drivers/mfd/intel_soc_pmic_bxtwc.c    | 2 +-
+ drivers/mfd/intel_soc_pmic_chtdc_ti.c | 2 +-
+ drivers/mfd/intel_soc_pmic_chtwc.c    | 2 +-
+ drivers/mfd/intel_soc_pmic_crc.c      | 6 +++---
+ drivers/mfd/max77705.c                | 2 +-
+ drivers/mfd/menf21bmc.c               | 2 +-
+ drivers/mfd/mxs-lradc.c               | 6 +++---
+ drivers/mfd/rohm-bd718x7.c            | 6 +++---
+ drivers/mfd/rsmu_core.c               | 8 ++++----
+ drivers/mfd/stmfx.c                   | 2 +-
+ drivers/mfd/vexpress-sysreg.c         | 2 +-
+ 15 files changed, 25 insertions(+), 25 deletions(-)
 
-Peak RSS barely moves. sizeof(struct symbol) goes from 48 to 32 bytes,
-but the address array adds a pointer per symbol back, so the net is
-about 8 bytes per symbol before malloc rounding. That is under 1%
-here.
+diff --git a/drivers/mfd/ac100.c b/drivers/mfd/ac100.c
+index 8f47c392cbd1..51b4d468c51d 100644
+--- a/drivers/mfd/ac100.c
++++ b/drivers/mfd/ac100.c
+@@ -75,7 +75,7 @@ static const struct regmap_config ac100_regmap_config = {
+ 	.cache_type	= REGCACHE_MAPLE,
+ };
+ 
+-static struct mfd_cell ac100_cells[] = {
++static const struct mfd_cell ac100_cells[] = {
+ 	{
+ 		.name		= "ac100-codec",
+ 		.of_compatible	= "x-powers,ac100-codec",
+diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
+index 50df66de24e0..4d770e718716 100644
+--- a/drivers/mfd/axp20x.c
++++ b/drivers/mfd/axp20x.c
+@@ -1055,13 +1055,13 @@ static const struct mfd_cell axp152_cells[] = {
+ 	},
+ };
+ 
+-static struct mfd_cell axp313a_cells[] = {
++static const struct mfd_cell axp313a_cells[] = {
+ 	/* AXP323 is sometimes paired with AXP717 as sub-PMIC */
+ 	MFD_CELL_BASIC("axp20x-regulator", NULL, NULL, 0, 1),
+ 	MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
+ };
+ 
+-static struct mfd_cell axp717_cells[] = {
++static const struct mfd_cell axp717_cells[] = {
+ 	MFD_CELL_NAME("axp20x-regulator"),
+ 	MFD_CELL_RES("axp20x-pek", axp717_pek_resources),
+ 	MFD_CELL_OF("axp717-adc",
+diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
+index 2becaf797646..3460c50047ea 100644
+--- a/drivers/mfd/cgbc-core.c
++++ b/drivers/mfd/cgbc-core.c
+@@ -231,7 +231,7 @@ int cgbc_command(struct cgbc_device_data *cgbc, void *cmd, unsigned int cmd_size
+ }
+ EXPORT_SYMBOL_GPL(cgbc_command);
+ 
+-static struct mfd_cell cgbc_devs[] = {
++static const struct mfd_cell cgbc_devs[] = {
+ 	{ .name = "cgbc-wdt"	},
+ 	{ .name = "cgbc-gpio"	},
+ 	{ .name = "cgbc-i2c", .id = 1 },
+diff --git a/drivers/mfd/cs5535-mfd.c b/drivers/mfd/cs5535-mfd.c
+index f3becbef19f5..d91d60dc5416 100644
+--- a/drivers/mfd/cs5535-mfd.c
++++ b/drivers/mfd/cs5535-mfd.c
+@@ -37,7 +37,7 @@ const struct software_node cs5535_gpio_swnode = {
+ };
+ EXPORT_SYMBOL_NS(cs5535_gpio_swnode, "CS5535");
+ 
+-static struct mfd_cell cs5535_mfd_cells[] = {
++static const struct mfd_cell cs5535_mfd_cells[] = {
+ 	{
+ 		.name = "cs5535-smb",
+ 		.num_resources = 1,
+diff --git a/drivers/mfd/intel_soc_pmic_bxtwc.c b/drivers/mfd/intel_soc_pmic_bxtwc.c
+index 117517c171b5..5aa9e52401f0 100644
+--- a/drivers/mfd/intel_soc_pmic_bxtwc.c
++++ b/drivers/mfd/intel_soc_pmic_bxtwc.c
+@@ -245,7 +245,7 @@ static const struct resource tmu_resources[] = {
+ 	DEFINE_RES_IRQ_NAMED(BXTWC_TMU_IRQ, "TMU"),
+ };
+ 
+-static struct mfd_cell bxt_wc_dev[] = {
++static const struct mfd_cell bxt_wc_dev[] = {
+ 	{
+ 		.name = "bxt_wcove_thermal",
+ 		.num_resources = ARRAY_SIZE(thermal_resources),
+diff --git a/drivers/mfd/intel_soc_pmic_chtdc_ti.c b/drivers/mfd/intel_soc_pmic_chtdc_ti.c
+index 6daf33e07ea0..8412a25d37ff 100644
+--- a/drivers/mfd/intel_soc_pmic_chtdc_ti.c
++++ b/drivers/mfd/intel_soc_pmic_chtdc_ti.c
+@@ -53,7 +53,7 @@ static const struct resource battery_resources[] = {
+ 	DEFINE_RES_IRQ(CHTDC_TI_CCEOCAL),
+ };
+ 
+-static struct mfd_cell chtdc_ti_dev[] = {
++static const struct mfd_cell chtdc_ti_dev[] = {
+ 	{
+ 		.name = "chtdc_ti_pwrbtn",
+ 		.num_resources = ARRAY_SIZE(power_button_resources),
+diff --git a/drivers/mfd/intel_soc_pmic_chtwc.c b/drivers/mfd/intel_soc_pmic_chtwc.c
+index aa71a7d83fcd..f27985a58c87 100644
+--- a/drivers/mfd/intel_soc_pmic_chtwc.c
++++ b/drivers/mfd/intel_soc_pmic_chtwc.c
+@@ -50,7 +50,7 @@ static const struct resource cht_wc_ext_charger_resources[] = {
+ 	DEFINE_RES_IRQ(CHT_WC_EXT_CHGR_IRQ),
+ };
+ 
+-static struct mfd_cell cht_wc_dev[] = {
++static const struct mfd_cell cht_wc_dev[] = {
+ 	{
+ 		.name = "cht_wcove_pwrsrc",
+ 		.num_resources = ARRAY_SIZE(cht_wc_pwrsrc_resources),
+diff --git a/drivers/mfd/intel_soc_pmic_crc.c b/drivers/mfd/intel_soc_pmic_crc.c
+index 627a89334908..ce4c9ef59198 100644
+--- a/drivers/mfd/intel_soc_pmic_crc.c
++++ b/drivers/mfd/intel_soc_pmic_crc.c
+@@ -54,7 +54,7 @@ static const struct resource gpio_resources[] = {
+ 	DEFINE_RES_IRQ_NAMED(CRYSTAL_COVE_IRQ_GPIO, "GPIO"),
+ };
+ 
+-static struct mfd_cell crystal_cove_byt_dev[] = {
++static const struct mfd_cell crystal_cove_byt_dev[] = {
+ 	{
+ 		.name = "crystal_cove_pwrsrc",
+ 		.num_resources = ARRAY_SIZE(pwrsrc_resources),
+@@ -93,7 +93,7 @@ static struct mfd_cell crystal_cove_byt_dev[] = {
+ 	},
+ };
+ 
+-static struct mfd_cell crystal_cove_cht_dev[] = {
++static const struct mfd_cell crystal_cove_cht_dev[] = {
+ 	{
+ 		.name = "crystal_cove_gpio",
+ 		.num_resources = ARRAY_SIZE(gpio_resources),
+@@ -142,7 +142,7 @@ static struct pwm_lookup crc_pwm_lookup[] = {
+ 
+ struct crystal_cove_config {
+ 	unsigned long irq_flags;
+-	struct mfd_cell *cell_dev;
++	const struct mfd_cell *cell_dev;
+ 	int n_cell_devs;
+ 	const struct regmap_config *regmap_config;
+ 	const struct regmap_irq_chip *irq_chip;
+diff --git a/drivers/mfd/max77705.c b/drivers/mfd/max77705.c
+index 2e9b81f26414..771015c229c8 100644
+--- a/drivers/mfd/max77705.c
++++ b/drivers/mfd/max77705.c
+@@ -15,7 +15,7 @@
+ #include <linux/regmap.h>
+ #include <linux/of.h>
+ 
+-static struct mfd_cell max77705_devs[] = {
++static const struct mfd_cell max77705_devs[] = {
+ 	MFD_CELL_OF("max77705-rgb", NULL, NULL, 0, 0, "maxim,max77705-rgb"),
+ 	MFD_CELL_OF("max77705-charger", NULL, NULL, 0, 0, "maxim,max77705-charger"),
+ 	MFD_CELL_OF("max77705-haptic", NULL, NULL, 0, 0, "maxim,max77705-haptic"),
+diff --git a/drivers/mfd/menf21bmc.c b/drivers/mfd/menf21bmc.c
+index 0f24de516d72..252d5c81db6b 100644
+--- a/drivers/mfd/menf21bmc.c
++++ b/drivers/mfd/menf21bmc.c
+@@ -17,7 +17,7 @@
+ #define BMC_CMD_REV_MINOR	0x81
+ #define BMC_CMD_REV_MAIN	0x82
+ 
+-static struct mfd_cell menf21bmc_cell[] = {
++static const struct mfd_cell menf21bmc_cell[] = {
+ 	{ .name = "menf21bmc_wdt", },
+ 	{ .name = "menf21bmc_led", },
+ 	{ .name = "menf21bmc_hwmon", }
+diff --git a/drivers/mfd/mxs-lradc.c b/drivers/mfd/mxs-lradc.c
+index 64afc7631790..71ad5184f7e0 100644
+--- a/drivers/mfd/mxs-lradc.c
++++ b/drivers/mfd/mxs-lradc.c
+@@ -90,7 +90,7 @@ static struct resource mx28_touchscreen_resources[] = {
+ 	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH7_IRQ, "mxs-lradc-channel7"),
+ };
+ 
+-static struct mfd_cell mx23_cells[] = {
++static const struct mfd_cell mx23_cells[] = {
+ 	{
+ 		.name = "mxs-lradc-adc",
+ 		.resources = mx23_adc_resources,
+@@ -103,7 +103,7 @@ static struct mfd_cell mx23_cells[] = {
+ 	},
+ };
+ 
+-static struct mfd_cell mx28_cells[] = {
++static const struct mfd_cell mx28_cells[] = {
+ 	{
+ 		.name = "mxs-lradc-adc",
+ 		.resources = mx28_adc_resources,
+@@ -128,7 +128,7 @@ static int mxs_lradc_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	struct device_node *node = dev->of_node;
+ 	struct mxs_lradc *lradc;
+-	struct mfd_cell *cells = NULL;
++	const struct mfd_cell *cells = NULL;
+ 	struct resource *res;
+ 	int ret = 0;
+ 	u32 ts_wires = 0;
+diff --git a/drivers/mfd/rohm-bd718x7.c b/drivers/mfd/rohm-bd718x7.c
+index 0b0f8e27e329..bd087004dde8 100644
+--- a/drivers/mfd/rohm-bd718x7.c
++++ b/drivers/mfd/rohm-bd718x7.c
+@@ -19,12 +19,12 @@
+ 
+ #include "rohm-pwrbutton.h"
+ 
+-static struct mfd_cell bd71837_mfd_cells[] = {
++static const struct mfd_cell bd71837_mfd_cells[] = {
+ 	{ .name = "bd71837-clk", },
+ 	{ .name = "bd71837-pmic", },
+ };
+ 
+-static struct mfd_cell bd71847_mfd_cells[] = {
++static const struct mfd_cell bd71847_mfd_cells[] = {
+ 	{ .name = "bd71847-clk", },
+ 	{ .name = "bd71847-pmic", },
+ };
+@@ -113,7 +113,7 @@ static int bd718xx_i2c_probe(struct i2c_client *i2c)
+ 	struct irq_domain *irq_domain;
+ 	int ret;
+ 	unsigned int chip_type;
+-	struct mfd_cell *mfd;
++	const struct mfd_cell *mfd;
+ 	int cells;
+ 
+ 	if (!i2c->irq) {
+diff --git a/drivers/mfd/rsmu_core.c b/drivers/mfd/rsmu_core.c
+index fd04a6e5dfa3..02bfb84653ae 100644
+--- a/drivers/mfd/rsmu_core.c
++++ b/drivers/mfd/rsmu_core.c
+@@ -22,7 +22,7 @@ enum {
+ 	RSMU_N_DEVS = 2,
+ };
+ 
+-static struct mfd_cell rsmu_cm_devs[] = {
++static const struct mfd_cell rsmu_cm_devs[] = {
+ 	[RSMU_PHC] = {
+ 		.name = "8a3400x-phc",
+ 	},
+@@ -31,7 +31,7 @@ static struct mfd_cell rsmu_cm_devs[] = {
+ 	},
+ };
+ 
+-static struct mfd_cell rsmu_sabre_devs[] = {
++static const struct mfd_cell rsmu_sabre_devs[] = {
+ 	[RSMU_PHC] = {
+ 		.name = "82p33x1x-phc",
+ 	},
+@@ -40,7 +40,7 @@ static struct mfd_cell rsmu_sabre_devs[] = {
+ 	},
+ };
+ 
+-static struct mfd_cell rsmu_sl_devs[] = {
++static const struct mfd_cell rsmu_sl_devs[] = {
+ 	[RSMU_PHC] = {
+ 		.name = "8v19n85x-phc",
+ 	},
+@@ -51,7 +51,7 @@ static struct mfd_cell rsmu_sl_devs[] = {
+ 
+ int rsmu_core_init(struct rsmu_ddata *rsmu)
+ {
+-	struct mfd_cell *cells;
++	const struct mfd_cell *cells;
+ 	int ret;
+ 
+ 	switch (rsmu->type) {
+diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
+index f683fdb6ece6..b0db33c0a7f2 100644
+--- a/drivers/mfd/stmfx.c
++++ b/drivers/mfd/stmfx.c
+@@ -73,7 +73,7 @@ static const struct resource stmfx_ts_resources[] = {
+ 	DEFINE_RES_IRQ(STMFX_REG_IRQ_SRC_EN_TS_OVF),
+ };
+ 
+-static struct mfd_cell stmfx_cells[] = {
++static const struct mfd_cell stmfx_cells[] = {
+ 	{
+ 		.of_compatible = "st,stmfx-0300-pinctrl",
+ 		.name = "stmfx-pinctrl",
+diff --git a/drivers/mfd/vexpress-sysreg.c b/drivers/mfd/vexpress-sysreg.c
+index f49cee91f71c..c5f375cd22ae 100644
+--- a/drivers/mfd/vexpress-sysreg.c
++++ b/drivers/mfd/vexpress-sysreg.c
+@@ -69,7 +69,7 @@ static const struct software_node vexpress_sysreg_sys_flash_swnode = {
+ 	.properties = vexpress_sysreg_sys_flash_props,
+ };
+ 
+-static struct mfd_cell vexpress_sysreg_cells[] = {
++static const struct mfd_cell vexpress_sysreg_cells[] = {
+ 	{
+ 		.name = "basic-mmio-gpio",
+ 		.of_compatible = "arm,vexpress-sysreg,sys_led",
+-- 
+2.53.0
 
-Thanks
-Alireza
-
-On Wed, Oct 28, 2026 at 1:29=E2=80=AFPM Ian Rogers <irogers@google.com> wro=
-te:
->
-> On Tue, Oct 27, 2026 at 4:15=E2=80=AFPM Ian Rogers <irogers@google.com> w=
-rote:
-> >
-> > When profiling large binaries or long-running workloads with many DSOs =
-and
-> > threads, symbol and DSO tables frequently dominate perf's memory footpr=
-int
-> > and startup latency. Currently `struct symbol` has several structural
-> > limitations:
-> >
-> > 1. Every `struct symbol` embeds a 24-byte `struct rb_node` for the
-> >    `dso->symbols` address rbtree, plus an optional negative-offset
-> >    allocation prefix (`symbol_conf.priv_size`) for TUI browser indices,
-> >    `db-export` IDs, or `struct annotation` state even when only a tiny
-> >    fraction of symbols are ever annotated or exported.
-> > 2. Unlike `struct map`, `struct dso`, and `struct thread`, `struct symb=
-ol`
-> >    is not reference-counted: once loaded into a `struct dso`, symbols c=
-an
-> >    never be safely evicted while `hist_entry`, `callchain_cursor_node`,=
- or
-> >    `map_symbol` references exist, and `dso__symbols()` has no internal
-> >    synchronization against concurrent readers/writers.
-> > 3. ELF symbol table loading (`dso__load_sym_internal()`) repeatedly
-> >    invokes `libelf` section/program header lookups per symbol, calls
-> >    `elf_sym__name()` before filtering out non-function/non-allocated
-> >    symbols, runs Rust/Java demanglers on plain C symbols without fast-p=
-ath
-> >    prefix checks, and resorts `dso->symbols` with `qsort()` even when E=
-LF
-> >    symbol tables are already largely ordered in ascending address runs.
-> >
-> > This series modernizes `struct symbol` to match the rest of `tools/perf=
-/util`
-> > (`DECLARE_RC_STRUCT`, `struct rw_semaphore`, sorted pointer arrays) and
-> > introduces symbol/DSO memory shrinking and faster ELF symbol loading:
-> >
-> > - Patch 1 adds `perf bench internals symbols` and `perf bench internals=
- maps`
-> >   to benchmark ELF symbol loading, bulk symbol insertion/sorting/lookup=
-,
-> >   incremental symbol appends, ascending map insertion, and incremental =
-map
-> >   appends.
-> > - Patch 2 adds fast-path prefix checks in `dso__demangle_sym()` (before
-> >   calling `rust_demangle_demangle()`, keeping `demangle-rust-v0.c`
-> >   unmodified relative to upstream `rustc-demangle`) and in
-> >   `java_demangle_sym()`.
-> > - Patches 3-6 encapsulate `struct symbol` field access behind accessor
-> >   functions (annotated with `__attribute__((nonnull))`) and replace the
-> >   negative-offset `symbol_conf.priv_size` allocation prefix with on-dem=
-and
-> >   browser index calculation and per-DSO/per-exporter hashmaps for
-> >   `db-export` and `struct annotation`.
-> > - Patch 7 replaces `dso->symbols` (`rb_root_cached`) and `dso->symbol_n=
-ames`
-> >   with a locked `struct symbols` container backed by sorted pointer arr=
-ays
-> >   (`symbols` and `symbols_by_name`) protected by a `struct rw_semaphore=
-`,
-> >   removing `struct rb_node` from `struct symbol`.
-> > - Patch 8 wraps `struct symbol` in `DECLARE_RC_STRUCT(symbol)` with
-> >   `refcount_t` (`symbol__get()` / `symbol__put()` / `symbol__zput()`) f=
-or
-> >   sanitizer-checked reference counting across `map_symbol`, `addr_locat=
-ion`,
-> >   `hist_entry`, `callchain`, `thread_stack`, and `db-export`.
-> > - Patch 9 replaces `qsort()` in `struct symbols` with a natural-run mer=
-ge
-> >   sort and galloping merge (taking advantage of pre-ordered runs in
-> >   `.symtab`/`.dynsym` and `kallsyms`) plus an in-place binary insertion
-> >   fast path for small incremental appends.
-> > - Patch 10 applies the same incremental binary-insertion sort and an O(=
-1)
-> >   tail-insertion fast path to `struct maps` for `/proc/<pid>/maps` synt=
-hesis
-> >   and runtime `PERF_RECORD_MMAP2` / JIT map insertions.
-> > - Patch 11 caches ELF program and section headers during
-> >   `dso__load_sym_internal()`, defers `elf_sym__name()` string table loo=
-kups
-> >   until after symbol filtering, and runs `symbols__fixup_end()` /
-> >   `symbols__fixup_duplicate()` once per DSO load.
-> > - Patches 12-17 add `down_read_trylock()` / `down_write_trylock()`, pro=
-tect
-> >   `machines->guests` with a `rw_semaphore`, implement `symbols__shrink(=
-)`,
-> >   `dso__shrink()`, `dsos__shrink()`, and `perf_session__shrink()` (with
-> >   transparent on-demand reload in `dso__load()` that preserves pointer
-> >   identity for retained symbols), and provide `perf_session__malloc()` =
-/
-> >   `zalloc()` / `calloc()` / `realloc()` / `strdup()` wrappers that
-> >   automatically shrink unreferenced symbols and DSOs on allocation fail=
-ure.
-> > - Patch 18 adds unit tests in `perf test symbols` covering sorted symbo=
-l
-> >   insertion, symbol/DSO shrinking, transparent DSO reload after shrink,=
- and
-> >   session allocation wrappers.
-> >
-> > End-to-end benchmark results across the series:
-> >
-> >   perf bench internals symbols (perf binary):
-> >     Average DSO load + sort:      7.348 msec ->   5.324 msec (-27.5%)
-> >     Average DSO memory usage:        1401 KB ->      1308 KB ( -6.6%)
-> >     Average bulk insert + lookup: 1453.95 us -> 1161.00 us   (-20.1%)
-> >     Average append + lookup (200 interior inserts into 10,000 symbols):
-> >       rbtree: 42.85 us -> array+qsort: 40429.75 us -> array+binary-inse=
-rt: 152.70 us
-> >
-> >   perf bench internals symbols -b libLLVM.so.21.1:
-> >     Average DSO load + sort:     81.196 msec ->  62.582 msec (-22.9%)
-> >     Average DSO memory usage:        9530 KB ->      9164 KB ( -3.8%)
-> >
-> >   perf bench internals symbols -b libLLVM.so.21.1 --no-demangle:
-> >     Average DSO load + sort:     32.675 msec ->  19.122 msec (-41.5%)
-> >     Average DSO memory usage:        7589 KB ->      7229 KB ( -4.7%)
-> >
-> >   perf bench internals maps:
-> >     Average ascending insert + lookup:   63.37 us -> 58.97 us ( -6.9%)
-> >     Average append + lookup:           7477.45 us -> 96.67 us (-98.7%, =
-77.3x faster)
-> >
-> > Net performance and memory trade-offs:
-> > - Replacing the per-symbol rbtree (`struct rb_node`) and negative-offse=
-t
-> >   `symbol_conf.priv_size` allocation prefix with a contiguous sorted po=
-inter
-> >   array reduces per-symbol heap overhead by 16 to 24+ bytes (saving 3.8=
-% to
-> >   6.6% of total DSO symbol table heap memory unconditionally, and allow=
-ing
-> >   unreferenced symbols and DSOs to be shrunk on demand under memory
-> >   pressure).
-> > - For the dominant symbol workloads=E2=80=94loading ELF binaries (`-22.=
-9%` to
-> >   `-41.5%`) and bulk symbol insertion, sorting, and lookup (`-20.1%`)=
-=E2=80=94the
-> >   contiguous array, natural-run merge sort, ELF header caching, and
-> >   demangler fast paths yield substantial speedups over the rbtree basel=
-ine.
-> > - For synthetic single-symbol interior insertions interleaved with imme=
-diate
-> >   lookups into an already-large 10,000-symbol DSO (`dso__insert_symbol(=
-)`),
-> >   an rbtree rotation takes ~0.21 us/op (`42.85 us` for 200 ops) whereas
-> >   shifting the contiguous pointer array tail with `memmove()` after bin=
-ary
-> >   search takes ~0.76 us/op (`152.70 us` for 200 ops, down from `40429.7=
-5 us`
-> >   with naive `qsort()`). In real workloads, symbols are either loaded i=
-n
-> >   bulk (`dso__load()`) or inserted into small per-prog BPF/JIT DSOs whe=
-re
-> >   the array fits in a few cache lines, making this sub-microsecond
-> >   difference negligible in practice.
-> > - Overall, the series reduces memory consumption across all workloads w=
-hile
-> >   significantly improving=E2=80=94or remaining neutral on=E2=80=94runti=
-me performance.
-> >
-> > v2:
-> > - Rebased onto perf-tools-next (dropping "perf symbols: Fix broken
-> >   ELF_C_READ_MMAP fallback guard", which was merged upstream, and split=
-ting
-> >   "perf libdw: Optimize fallback logic for missing DWARF" into a separa=
-te
-> >   fixes series).
-> > - Added 'perf bench internals symbols' and 'perf bench internals maps'
-> >   benchmarks (Patch 1) and included before/after numbers in the optimiz=
-ation
-> >   patches.
-> > - Added __attribute__((nonnull)) annotations to struct symbol accessor
-> >   functions (Patch 3).
-> > - Split the symbol_conf.priv_size removal patch into three separate pat=
-ches
-> >   for map_browser (Patch 4), db-export (Patch 5), and annotate (Patch 6=
-).
-> > - Added dedicated optimization patches for Rust/Java demangler prefix c=
-hecks
-> >   (Patch 2), natural-run merge sort and binary insertion in struct symb=
-ols
-> >   (Patch 9), tail-insertion and incremental binary-insertion sort in st=
-ruct
-> >   maps (Patch 10), and ELF program/section header caching and deferred
-> >   symbol name lookup (Patch 11).
-> > - Replaced periodic heuristic LRU shrinking and windowed ELF symbol loa=
-ding
-> >   with on-demand shrinking (symbols__shrink(), dso__shrink(),
-> >   dsos__shrink(), perf_session__shrink()) triggered on allocation failu=
-re via
-> >   session-scoped allocation wrappers, plus transparent DSO reload prese=
-rving
-> >   retained symbol pointers (Patches 12-18).
-> >
-> > v1: https://lore.kernel.org/lkml/20260928075237.3055101-1-irogers@googl=
-e.com/
-> >
-> > Assisted-by: Antigravity:gemini-3.1-pro
-> > Signed-off-by: Ian Rogers <irogers@google.com>
->
-> So Sashiko failed to apply the patches (local Sashiko runs were clean)
-> because I had these four patches applied locally:
->  - Alireza's "perf symbols: Fix broken ELF_C_READ_MMAP fallback guard"
->    https://lore.kernel.org/linux-perf-users/20261005-perf-symbol-memory-s=
-end-v5-1-165dceb2b049@uber.com/
->  - My fixes in "perf: Fix libdw addr2line fallback, pr_debugN
-> overhead, and cumulative hist decay"
->    https://lore.kernel.org/linux-perf-users/cover.1792995775.git.irogers@=
-google.com/
->
-> Hopefully the patches above won't take too long to land, so I'll hold
-> off sending v3 until then.
->
-> Thanks,
-> Ian
->
-> > Ian Rogers (18):
-> >   perf bench internals: Add symbols and maps benchmarks
-> >   perf demangle: Add fast-path prefix checks for Rust and Java
-> >     demanglers
-> >   perf symbol: Add accessor functions for struct symbol fields
-> >   perf map_browser: Compute symbol browser index on demand
-> >   perf db-export: Store symbol database IDs in a hashmap
-> >   perf annotate: Move struct annotation to a hashmap and remove
-> >     symbol_conf.priv_size
-> >   perf symbol: Switch backing storage from rbtree to struct symbols
-> >     array
-> >   perf symbol: Add reference counting and DECLARE_RC_STRUCT(symbol)
-> >   perf symbol: Optimize symbol sorting with natural-run merge sort and
-> >     binary insertion
-> >   perf maps: Optimize tail insertion and small-append sorting
-> >   perf symbol-elf: Cache ELF program/section headers and defer symbol
-> >     name lookup
-> >   perf rwsem: Add down_read_trylock() and down_write_trylock()
-> >   perf vdso: Constify dso parameter in dso__is_vdso()
-> >   perf machine: Protect machines->guests rbtree with a rw_semaphore
-> >   perf symbol: Add memory shrinking for symbols, DSOs, and machines
-> >   perf session: Add dso__session() and session-scoped allocation
-> >     wrappers
-> >   perf symbol: Use session allocation wrappers in symbol, DSO, thread,
-> >     and hist paths
-> >   perf test symbols: Add tests for symbol shrinking and session alloc
-> >     wrappers
-> >
-> >  tools/perf/Documentation/perf-bench.txt       |    6 +
-> >  .../arch/powerpc/util/skip-callchain-idx.c    |    2 +-
-> >  tools/perf/arch/powerpc/util/sym-handling.c   |   40 +-
-> >  tools/perf/bench/Build                        |    2 +
-> >  tools/perf/bench/bench.h                      |    2 +
-> >  tools/perf/bench/maps.c                       |  186 +++
-> >  tools/perf/bench/symbols.c                    |  239 +++
-> >  tools/perf/builtin-annotate.c                 |   22 +-
-> >  tools/perf/builtin-bench.c                    |    2 +
-> >  tools/perf/builtin-c2c.c                      |   14 -
-> >  tools/perf/builtin-diff.c                     |    4 +-
-> >  tools/perf/builtin-kallsyms.c                 |    9 +-
-> >  tools/perf/builtin-kmem.c                     |   82 +-
-> >  tools/perf/builtin-kwork.c                    |    4 +-
-> >  tools/perf/builtin-lock.c                     |   25 +-
-> >  tools/perf/builtin-mem.c                      |    2 +-
-> >  tools/perf/builtin-report.c                   |   14 -
-> >  tools/perf/builtin-sched.c                    |    6 +-
-> >  tools/perf/builtin-script.c                   |   18 +-
-> >  tools/perf/builtin-timechart.c                |    2 +-
-> >  tools/perf/builtin-top.c                      |   24 +-
-> >  tools/perf/builtin-trace.c                    |   23 +-
-> >  tools/perf/tests/builtin-test.c               |    1 -
-> >  tools/perf/tests/dlfilter-test.c              |   12 +-
-> >  tools/perf/tests/dwarf-unwind.c               |    2 +-
-> >  tools/perf/tests/hists_common.c               |    9 +-
-> >  tools/perf/tests/hists_cumulate.c             |    8 +-
-> >  tools/perf/tests/hists_filter.c               |   10 +-
-> >  tools/perf/tests/hists_link.c                 |   16 +-
-> >  tools/perf/tests/hists_output.c               |    9 +-
-> >  tools/perf/tests/kallsyms-split.c             |    5 +-
-> >  tools/perf/tests/maps.c                       |   58 +
-> >  tools/perf/tests/pe-file-parsing.c            |    1 +
-> >  tools/perf/tests/symbols.c                    |  454 +++++-
-> >  tools/perf/tests/vmlinux-kallsyms.c           |  187 ++-
-> >  tools/perf/ui/browser.c                       |    3 +
-> >  tools/perf/ui/browsers/annotate.c             |   10 +-
-> >  tools/perf/ui/browsers/hists.c                |   35 +-
-> >  tools/perf/ui/browsers/map.c                  |   88 +-
-> >  tools/perf/ui/gtk/annotate.c                  |    6 +-
-> >  tools/perf/ui/stdio/hist.c                    |    6 +-
-> >  tools/perf/util/addr2line.c                   |    8 +-
-> >  tools/perf/util/addr_location.c               |    4 +
-> >  .../perf/util/annotate-arch/annotate-alpha.c  |    5 +-
-> >  .../perf/util/annotate-arch/annotate-arm64.c  |   12 +-
-> >  .../util/annotate-arch/annotate-loongarch.c   |   15 +-
-> >  tools/perf/util/annotate-arch/annotate-s390.c |    6 +-
-> >  tools/perf/util/annotate-arch/annotate-x86.c  |   14 +-
-> >  tools/perf/util/annotate-data.c               |   12 +-
-> >  tools/perf/util/annotate.c                    |  211 ++-
-> >  tools/perf/util/annotate.h                    |    6 +-
-> >  tools/perf/util/auxtrace.c                    |  111 +-
-> >  tools/perf/util/block-info.c                  |   12 +-
-> >  tools/perf/util/bpf_lock_contention.c         |   35 +-
-> >  tools/perf/util/c2c-function.c                |   32 +-
-> >  tools/perf/util/call-path.c                   |   15 +-
-> >  tools/perf/util/callchain.c                   |   23 +-
-> >  tools/perf/util/capstone.c                    |   22 +-
-> >  tools/perf/util/data-convert-json.c           |    4 +-
-> >  tools/perf/util/db-export.c                   |   99 +-
-> >  tools/perf/util/db-export.h                   |    8 +
-> >  tools/perf/util/debug.c                       |    3 +-
-> >  tools/perf/util/demangle-java.c               |   23 +-
-> >  tools/perf/util/disasm.c                      |   69 +-
-> >  tools/perf/util/dlfilter.c                    |   12 +-
-> >  tools/perf/util/dso.c                         |  257 ++-
-> >  tools/perf/util/dso.h                         |   94 +-
-> >  tools/perf/util/dsos.c                        |   76 +
-> >  tools/perf/util/dsos.h                        |    3 +
-> >  tools/perf/util/event.c                       |   12 +-
-> >  tools/perf/util/evsel_fprintf.c               |    2 +-
-> >  tools/perf/util/hist.c                        |   70 +-
-> >  tools/perf/util/intel-pt.c                    |   74 +-
-> >  tools/perf/util/libbfd.c                      |   14 +-
-> >  tools/perf/util/libdw.c                       |    5 +-
-> >  tools/perf/util/llvm.c                        |    8 +-
-> >  tools/perf/util/lock-contention.c             |    8 +-
-> >  tools/perf/util/machine.c                     |  189 ++-
-> >  tools/perf/util/machine.h                     |    9 +
-> >  tools/perf/util/map.c                         |   27 +-
-> >  tools/perf/util/map.h                         |   18 +-
-> >  tools/perf/util/map_symbol.c                  |    4 +-
-> >  tools/perf/util/maps.c                        |  284 +++-
-> >  tools/perf/util/mutex.h                       |    3 +
-> >  tools/perf/util/probe-event.c                 |  148 +-
-> >  tools/perf/util/python.c                      |   36 +-
-> >  tools/perf/util/rwsem.c                       |   20 +
-> >  tools/perf/util/rwsem.h                       |    2 +
-> >  tools/perf/util/session.c                     |   78 +
-> >  tools/perf/util/session.h                     |    8 +
-> >  tools/perf/util/sort.c                        |   47 +-
-> >  tools/perf/util/srcline.c                     |   22 +-
-> >  tools/perf/util/symbol-elf.c                  |  311 +++-
-> >  tools/perf/util/symbol.c                      | 1438 +++++++++++++----
-> >  tools/perf/util/symbol.h                      |  187 ++-
-> >  tools/perf/util/symbol_conf.h                 |    1 -
-> >  tools/perf/util/symbol_fprintf.c              |   37 +-
-> >  tools/perf/util/thread-stack.c                |   18 +-
-> >  tools/perf/util/threads.c                     |   17 +-
-> >  tools/perf/util/unwind-libdw.c                |    4 +-
-> >  tools/perf/util/unwind-libunwind.c            |    2 +-
-> >  tools/perf/util/vdso.c                        |    2 +-
-> >  tools/perf/util/vdso.h                        |    2 +-
-> >  103 files changed, 4557 insertions(+), 1389 deletions(-)
-> >  create mode 100644 tools/perf/bench/maps.c
-> >  create mode 100644 tools/perf/bench/symbols.c
-> >
-> > --
-> > 2.56.0.313.g2479322e68-goog
-> >
