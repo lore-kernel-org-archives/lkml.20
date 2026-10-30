@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793353603;
-	b=2ThE+JjDsHX5BHkbvjfsk9gfEX2HzyVkUpXdlnzQWWsCgkimgIYew76BzoMUPV1fpfSq
-	 rEQw33fJPx2zHPdDl/c17rN/nuIArGVdHtUoX8mX9+ZPgPBKoKBM1X4EnyO2rJrWRr54B
-	 URDIvnlyZLN4n6zR5JPl3rIz7c6Kl7TkBYiAfzdp6HUEKMW7Gd/bKCNGo4Hf181VNkZCX
-	 HlZ3LUwHXc9fC+VZxNwAvgUCs3aQcj4DaYkXVzfxkZfWL2iwtCSKonFSZJTJltQ1C5CSt
-	 v4aVeInFkAicm4x/l6hx3BmQoCPWoLCLYG0Kz52sDS7df/9ddWLtiOoSKoZbR6ktuxw==
+	t=1793353646;
+	b=HlwdLBxIo/EpPX2MjN8e2JK9+Mq/rTOvyVFoiv9giWrNElGs8mMffzVD+WtCI5GEL6m2
+	 RWoA/8FY5QsNyKL1fEBw2qfUu9657Sn4aebey+9yNgHPuFAJ3WqTTJLi7HhYoLoRXPgPf
+	 HIP4NBS3AYypMEgCr2jPBdaZ3WwT848nHPf4x7N2C2Zh+ZHOkjyf1iEP4uxuKRbTsgkmO
+	 TbREfdav9kzPncd9lgHOD+Z320IuFblVodbFxodX2/G14i/L7r5JVViwhud9SMtK9Ezou
+	 GhBAjDnP0PQilFMijjXZjslPouYTn8Zg2kUcZdZZ4CRuPWFvb0hwp41QNtS4JoJ0rJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793353603;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=IOz4ue54IuUUiPM1zk33V1FdxBfzHmxJTDRmhyQa7XU=;
-	b=bHxubpEabvAKv4K9jbeTI1lUX5AnZxGqCs6Vb4AERUENDjmBcS5AGESisjjl2QAdykVn
-	 6UvBunHjW+B8iTDpXUc1Y4ZgYr3w3PFFLJ3ZFO7UR8CF+jam+/IBgQe/WgtMlV7AtJIXa
-	 DaErV0dkVamd9rxi0q1WSRJJXDIFHrK5bdghzvshpj++pnryYpnU5+yPA5iF7CSq161m+
-	 UjvT6FCDpOjgIYcoNEKpbU/bnmVcHzAjp/d9IaaEIJ/yJcxEylS82I0Lq8NUlcQpn2UES
-	 JI+aPb20vGynMSEq1rNDJmxDf7L5JmGXxthD56vHt3oVoGWnhJXk6978l35bXA6t90w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793353646;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=QaZJzYnrmgn/3/+MnWVhC1pUB6YQ4dkPpe2aqBqfGes=;
+	b=azpemxHAb2E/cjcpHWX8p29QxBUsSs352L9Qa8VZ9W7SvBNxC4Icq7xQrGEOqn24OFEl
+	 3pD6wFv5nXgQqd5q9vWDnb9g0bwzQBZhA4aSQlOcn6kxNTE03EIZ5T/WBNtKGMVgSMnQ2
+	 bJgkPBkjjAJlcrohNFHJXnVVhSRqtSvwRdVI7pppVXTzZ5XB6t9zbHrg7XTLUxTGVzil7
+	 7DJ1hHBWts39gZzD9xa6GkTXqPs1L8OPKQLer5LHK1wkV2SnRte1/DBTmsq6nExOXMuoz
+	 wviKYEWwkfoa/t0t6MxTDYS0w/wi7QGjplFJMyKvF9hKYnizI6WwrEU+Meae6coxzWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0kQNarSx;
-	arc=none smtp.remote-ip=74.125.227.130
-Received: from mail-pj2-f2.google.com (mail-pj2-f2.google.com [74.125.227.130])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RYK8qgmF;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A3E606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:46:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9A3E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C94606A31C;
+	Fri, 30 Oct 2026 09:47:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3C94606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0kQNarSx
-Received: by mail-pj2-f2.google.com with SMTP id d9443c01a7336-2e651c30dcbso2873525ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:46:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793353602; x=1793958402; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IOz4ue54IuUUiPM1zk33V1FdxBfzHmxJTDRmhyQa7XU=;
-        b=0kQNarSxZeE3Cgu1GV71IQdek42/dUZi3/owzf5Vhn4qSxRd1DyUIgfdlVEZ4HBb/C
-         VYM32ZLAbj4dljoJS/GPhetwNEkkYloNNXA9XdW28TQUKhX4pJl2aOPcutJ2jPZWxPZJ
-         mA6uT/BkIi0JbMbAHv7iJAMvQWG2CgRcaYFqne5jC4z/7mQcojmPslt2/MvEyFG43Sgv
-         uWg7TF056NBGJI33kAGa0OSnk5APUaPUzs5z0ECZD5fukdrTttMeZCjrH5IQ1zNCrBjj
-         B4R1XvC2/XOhfJiEEGil+7LysefNDT2yzXI9kEBdXd4K2FOw+x+AqPbqaPAPhvfMbWNl
-         bN2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793353602; x=1793958402;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IOz4ue54IuUUiPM1zk33V1FdxBfzHmxJTDRmhyQa7XU=;
-        b=mOqb7qZazhxndb34pQfCjz0eiQvPIIQ+dpww8mz/LKT9SWUorY2o8YVj/xsmnu1/yt
-         1QnGczNV0Ij4VwFhew1VdCkTtPYaJxMFjc9rBL9wMtyOB0zno/b7fqcRgGEJw0nSebSM
-         fY4F1l1GmjYj0vmwuNPN94MX0w8DFFqcu3uEtXdJ5CPardaPFMw9T4OScwcDuXJvHOZf
-         +b7ja45mTPoL4PsKO3ci3pjhduqbM89i3EaUn46a4bR7g/L6akhhV9QQAAMklZc5J+DV
-         CpR3oTKskr+vMq+bXoWTzg3YYnH+RWOgoSWjwwj7nAgcobDrYGraHc79UMXb1Pv9VKLj
-         6vBg==
-X-Forwarded-Encrypted: i=1; AKwUvBy1Sdfk9OPWOSvLmMi13OSzD88bT62YczTgfjbOwGHymnv/F6HnIjqY+JbBSWJ1wBQC6uHkPfCxmzKn6hM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkNeEqY/gYwjovjyIM1fdP4d/EAr5cyIUd5ah7uxbokJVrKM63
-	yoZg05QMbGyPuciOJgSO0fxA6DkafA8XKyk409lz1doH6IGDQ3683XUTJqo9TT1/uO4EhQ==
-X-Gm-Gg: AYBFou1M4384MtEzS+TJqGIb/zM4XAMJJ2ChNBAcWmP76Ue8ONIvwF9XZaRY82vE5RA
-	5uh0ldM2cBth4nnS4eh99xLxkTxMZQFDwf+ffX3isDQDLhPx4soVRz81eTE6HS/yn5GXLf/vzi+
-	ozZCjFNyo+u0MM+MXvo1/8V0FCoxG/gqMJSI8xIkdAsHmfptorrBqWdu6tmoKHZNDOP9OOi1HnU
-	S6N9Bm1cy4X8UMbXC4uplNm2Kn+lXY+tzQmHj3AG+01r91iB1NoER3S3Jt/gts69jLL0C7wHrqz
-	YfTIlNVttu0wHWAxrikq5k0RtPVVDd7uv5k7y89FPVFk1lm1hTC0TDaJwxL9SV8xPlj879+OwLy
-	oyESNYffFsnnD4B95fVBIAT93oS38y8PV2kqHqvhh716e8x5WFqoq4aD6yZuNmIHgVDVpC7sLR/
-	Nrr5+Dzk1AeyrIFflOGYV/nqF5Ki2Ekks7RJhVeWrs56iLoeyEceWvaXn0PN0Ui+qwIpSSPHxPM
-	mekCh6GYNXBHOjUZsUmxMGa5msgUeMiqYh9eLd2baum8zMmPzVQHhqlFY5BKtdtWJbL+P7VrZWp
-	5gFAHT7f+vG1uTuJKeYO7fH9QdTCF1VKMcuJlkPDFWcrnubQeYpnkQCjKDgIvK0=
-X-Received: by 2002:a17:902:ef03:b0:2e9:460e:ca49 with SMTP id d9443c01a7336-2eb3649be5bmr20449825ad.18.1793353602042;
-        Fri, 30 Oct 2026 02:46:42 -0700 (PDT)
-Received: from localhost.localdomain ([240e:46d:2600:2f3f:68c5:29e3:ffaa:7181])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392aa7bcsm4998055ad.67.2026.10.30.02.46.38
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 30 Oct 2026 02:46:41 -0700 (PDT)
-From: Rongzheng Wang <testwrzwrz@gmail.com>
-To: Jason Xing <kerneljasonxing@gmail.com>
-Cc: netdev@vger.kernel.org,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	Magnus Karlsson <magnus.karlsson@intel.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	stable@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v4 1/2] xsk: defer software checksum until the skb is complete
-Date: Fri, 30 Oct 2026 17:46:33 +0800
-Message-Id: <20261030094633.27910-1-testwrzwrz@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <CAL+tcoBThTe7299eVU=tsUdi392dS9cioXX5RA5AKRsYAGbdVg@mail.gmail.com>
-References: <20261030023248.78802-1-testwrzwrz@gmail.com> <20261030023248.78802-2-testwrzwrz@gmail.com> <CAL+tcoDUGqk-KfMBqdG4RBURHQc=9J+Ce7B7CZZWRN5yN7pRrw@mail.gmail.com> <20261030084017.16202-1-testwrzwrz@gmail.com> <CAL+tcoBThTe7299eVU=tsUdi392dS9cioXX5RA5AKRsYAGbdVg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RYK8qgmF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793353644; x=1824889644;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cWBxoB6m9qlpzRPldiJg4DoVUNnWvIe79hiZSg3Ps1E=;
+  b=RYK8qgmFnWsXl/OstC1O+MrmBKc6wCBCFdBcoZbXRvBt0W1D04/v/9GJ
+   1Tpt7fOgWRbYYqLq3Fk20/POHgLcGe5Zboo6v7B22zCjHcOGNfuZhP0Fr
+   5j8das1ThucUAR+5E1LhC0YB7XasUWzYpNBtVc1AC+eFFp42u7cRmmeA5
+   3p+bKAKs8elqMVP0bMMu9svz7710TY2deLA/zSbm0NW4XLWmUQeHi+bKm
+   EYAZAtajNOb+VFphsJjv+WXz1cwbRC7zdj4iwOSp4L1IknFYnnBIR/7Gn
+   Y2ad6CkDBhTYJd/aFGFnizsk5CHD5ZlPy7mY7U95SKYaHBbPZWk1mIeGX
+   g==;
+X-CSE-ConnectionGUID: COEFM0R5Td6TRZIXAYEIPw==
+X-CSE-MsgGUID: b7BjjgCASD6zUiK3sVgbfA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1996164"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="1996164"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:47:11 -0700
+X-CSE-ConnectionGUID: Co0TvGOiQ9CACnqcrqQWtA==
+X-CSE-MsgGUID: eY5aRmYBQ9qhKHVYjMhA7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5520571"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.247])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:47:09 -0700
+Date: Fri, 30 Oct 2026 11:47:06 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Marius Cristea <marius.cristea@microchip.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: Re: [PATCH v4] iio: adc: pac1934: validate ACPI _DSM return type and
+ bounds
+Message-ID: <auRnmh6129P7WY5i@ashevche-desk.local>
+References: <20261029165602.3265518-1-tristmd@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,13 +83,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029165602.3265518-1-tristmd@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Jason,
+On Thu, Oct 29, 2026 at 04:56:02PM +0000, Tristan Madani wrote:
 
-Makes sense, thanks. I'll wait for their feedback on the selftest patch
-before sending v5, and fold it in together with the rest.
+> pac1934_acpi_parse_channel_config() calls acpi_evaluate_dsm() four
+> times to read channel configuration but does not validate the returned
+> object type or array bounds:
+> 
+>   1. No check that the returned object is ACPI_TYPE_PACKAGE.  If
+>      firmware returns a different type, accessing rez->package.count
+>      and rez->package.elements on a non-package object produces
+>      unpredictable values.
+> 
+>   2. The loop bounds use rez->package.count directly without capping
+>      to PAC1934_MAX_NUM_CHANNELS (4).  A package with more elements
+>      than expected causes writes past the fixed-size labels[],
+>      shunts[], and active_channels[] arrays.
+> 
+>   3. The bipolar and sample rate DSM calls access elements[0] without
+>      verifying package.count >= 1.
+> 
+> Use acpi_evaluate_dsm_typed() with ACPI_TYPE_PACKAGE to validate the
+> return type at evaluation time.  Cap loop iterations to
+> PAC1934_MAX_NUM_CHANNELS, and verify package count >= 1 before
+> accessing elements[0].
 
-Thanks,
-Rongzheng
+...
+
+>  static int pac1934_acpi_parse_channel_config(struct i2c_client *client,
+>  					     struct pac1934_chip_info *info)
+>  {
+> -	acpi_handle handle;
+> -	union acpi_object *rez;
+>  	struct device *dev = &client->dev;
+>  	unsigned short bi_dir_mask;
+> -	int idx, i;
+> +	union acpi_object *rez;
+> +	acpi_handle handle;
+> +	unsigned int count;
+>  	guid_t guid;
+> +	int idx, i;
+
+No need to touch lines that are unrelated to your change. Just make sure that
+your change tries to keep reversed xmas tree order as much as possible.
+
+...
+
+> -	for (i = 0; i < rez->package.count; i += 2) {
+> +	count = min(rez->package.count & ~1u, PAC1934_MAX_NUM_CHANNELS * 2);
+
+What is the purpose of 'u' suffix? In case if you want to keep that 32-bit
+value this might be even wrong (I haven't checked the promotion rules for the
+values with suffix, though).
+
+> +	for (i = 0; i < count; i += 2) {
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
