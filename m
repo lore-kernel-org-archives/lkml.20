@@ -1,89 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793382299;
-	b=cyhEkS2w+7PBMtgcNAk+2ZhJbBloS8jYEk5lrgCAYQUtiy36QdPU0NixcVr+rPxb59k8
-	 H48wIqNClzssUDYzL5eBIlZ9grAhn3ZGArrE+APwkf5SmZVE1H+BXJQ6fNyG7Hfs4Rn44
-	 yOb9wlS7gBa328W2N2+gSrznxGIRUc0lW1+JGbbXkzGAFpgDGI8I8RFcbIeW6oGhYiITc
-	 8uc/LMWqsnfgUCP6LPqbkkV4oU8a2Xej2ckbOdwf9Rre+nyKZWds6duUFfxw8v6rW5l3D
-	 awrdooqgbxv37b37qhxBBmWQVhb6knV2mU361lJGV8eX1HBAaTzDm2zk5MrKb9Dwy7Q==
+	t=1793382336;
+	b=m1nZZnRAAHIZH8bZyhNr6qRjB/rE8nD8rBfDJmswLfPV+Utq3SU5232FSF3Is0akqSq2
+	 O0pHYAvPn0JHRFAVSfZEDi4bM+6g7ThocsTOyv5R/zOQ4KXFMmjmHVW9AnjTZ82ELRgdO
+	 Tvl65yRBM9JwkkRM+Ix/tshLEPd+yzTHfTb7L1VCyD0yiSQJPvH/9RTUGuEnkyIgeVQU8
+	 YQDoJwtGm//UkTLJ4WeO4XmiR/3SgaqA83LGbWI22tuj2zrwlduSEAzoBCEuW72h08nMM
+	 XlXhc+hPe25mdFdhxk4jWM7vqNKOb1SNsYDxNgW+MMoL3vfeCtsvpT3mChKE7ewyjwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793382299;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=6g5elUdeGVozBVRB/uIpu9t+eT/QLwJb6+mCEOi3sU0=;
-	b=hWsrdsHAe+vydBJ/1d3Pt5na7zuc+E/Be+qT+IrUx5fyHm2P22/bqskQjhXILWENbKZ3
-	 FhDyZASQ2zkZ1D8n4DC1uRroSfNEdmpnungq1gAWj13NBSqXZqoW80IFBmZEIZB8OdGMI
-	 73gFkW1TNFD0jEWgu6aaeQucyG0hC8K28Tg3LtwNtEuwz55jygKqOIoDJduqvq6dQ+HG4
-	 bgiT6Uwq192gNOX/hR43gxacZSgz8y890+lrrMIrock3AExawzVKmgxBpVm9B0dK9CtFY
-	 9s+NgBiiLqXRz7112OXO6LNlmdJfxSOzyWnHgJUZHOIuXlBIulzB4KhVLIfsACPOaeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793382336;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=2go0p9yvpcIObJSf0p5k000x9/NneUIJMnzDKOu9y1g=;
+	b=MTaVD2QV3KG5uTXKQVdUhPjJ87e46R7HEPTT2cvVCu2oVXlfH3QOrNu77pMALThXVMq3
+	 QV8YPM+Kkp80rodfqdkwNlLTOJwieRwwEBqD65TZ79CsYZkm1pv7ZxXUiKwi9Dm7pJ3GO
+	 3B179vYc5p4nYEIonAfhALizVoPTa9ImJJX7BpsFdM4JvRG7e4LuMnVEJhGre0aHv20pc
+	 quPJdg8LYwlnbpe6oJN2ROSd0XEWjvYXOORKRgLL0stxYZa5dxdfjvfXmqnHnROI/eT2J
+	 N/6JyfJzrSVtPIVlmElB52AT/wVVDmKlI6St9uiukwHCwNcDL5C9uArFeABWsqhL9zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=McnVzDrA;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GIHQ6q94;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D26E606A31A;
-	Fri, 30 Oct 2026 17:44:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D26E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A04606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:45:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75A04606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=McnVzDrA
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=6g5elUdeGVozBVRB/uIpu9t+eT/QLwJb6+mCEOi3sU0=; b=McnVzDrABheU2AO7yOCTA46Wnj
-	OQAwr+mr7ut6IbkprUPAK3ZO73I8BNz6LgFRR0aLlWHWPdUxhqs+MyYI9QPusA0ppO9RpQAMByt+5
-	kyQi4QZP4qr+kz0nBCHCewJpFTEI6sDQeU3G5eEMsnuLEJk7VMmGugR6rq8fGrfIfJ9B3oBmvF6eP
-	zELkXz7C+gAmcKlmoUwpzrhgc3kqCPOPrd9WUA4jiFVAN+rZtcCsCMBRn7kzFI1SitdZDm4XVeYaz
-	1U/XNHSlGHiXrIKUKIzzBzY7SNDRlbZHnKrkm6fsARi4ILdgUjZcpjAMO3zBbK/YAQAl2gCTDFylv
-	RgxT8d+w==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Dominique Belhachemi <db@domibel.de>, Andy Yan <andyshrk@163.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Yakir Yang <kuankuan.y@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- Conor Dooley <conor@kernel.org>, William Qiu <william.qiu@starfivetech.com>,
- Xingyu Wu <xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Maud Spierings <maud_spierings@murena.io>,
- Graham Markall <hello@big-grey.co.uk>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Joshua Peisach <jpeisach@ubuntu.com>,
- Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>
-Subject:
- Re: [PATCH v6 02/18] drm/bridge: inno-hdmi: Don't dereference a NULL
- drm_device on hotplug
-Date: Fri, 30 Oct 2026 18:44:24 +0100
-Message-ID: <2261991.3Lj2Plt8kZ@phil>
-In-Reply-To: <1844578.vCJZsxu672@phil>
-References:
- <20261029-jh7110-clean-send-v6-0-759594e43acf@samsung.com>
- <20261029-jh7110-clean-send-v6-2-759594e43acf@samsung.com>
- <1844578.vCJZsxu672@phil>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GIHQ6q94
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id BF6F71A13C4;
+	Fri, 30 Oct 2026 17:45:32 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8A8B5603C2;
+	Fri, 30 Oct 2026 17:45:32 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 45BA210328D09;
+	Fri, 30 Oct 2026 18:45:28 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793382331; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=2go0p9yvpcIObJSf0p5k000x9/NneUIJMnzDKOu9y1g=;
+	b=GIHQ6q94ShdZBB+aACiDcuq+6rAeERoLG6WWWVgqVMDIBfA/FhayllF/jBOW7wCk7ia2Hf
+	orwEeKQ1pGppWUkci3TflBtAUeLAY7xbNtzHVM2ZFSr0+fOg8M7L6x7hBmY9jn7Gwegdvu
+	7B2Iju8gEi5uvVOrifmkjhDheA8XCNCqMOWqgRZJ4fi1l5trDecSpXyBTo/N927E3eA7A0
+	uoKVMJDvKNioSHZ0vLovtZosuxy592H81ILxJms/TzwwFaGy+6ZNKT+6DXqeQVbuPu565X
+	h0oKGYjVC2zK8hBimIy+/lycLNcn9DlEXaoFbpKZDoD5vTtlczMoikcO8GjqCg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH 00/13] mtd: spinand winbond: Add support for W25NxxLV and
+ W25NxxLW chips
+Date: Fri, 30 Oct 2026 18:45:24 +0100
+Message-Id: <20261030-winbond-master-w25nxxlvw-v1-0-91f67407dc8b@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,77 +63,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqDMBBA0avIrB1IIlrbq0gX0UzsgB1LIiYQv
+ HuDy7f4v0CkwBTh1RQIdHLkXSp028DysbISsqsGo8ygVacwscy7OPzaeFDAZHrJeTsT6uc4O9t
+ Z/1gM1PwXyHO+19P7uv6d4YQoagAAAA==
+X-Change-ID: 20261030-winbond-master-w25nxxlvw-198bda3af7c2
+To: Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, 
+ Daisuke Mizobuchi <mizo@atmark-techno.com>, 
+ Dominique Martinet <dominique.martinet@atmark-techno.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <stlin2@winbond.com>, linux-mtd@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-Am Freitag, 30. Oktober 2026, 18:43:47 Mitteleurop=C3=A4ische Normalzeit sc=
-hrieb Heiko Stuebner:
-> Am Donnerstag, 29. Oktober 2026, 08:53:36 Mitteleurop=C3=A4ische Normalze=
-it schrieb Michal Wilczynski:
-> > inno_hdmi_irq() passes hdmi->bridge.dev to drm_helper_hpd_irq_event(),
-> > which dereferences it in its first statement:
-> >=20
-> > 	if (!dev->mode_config.poll_enabled)
-> >=20
-> > bridge.dev is assigned only by drm_bridge_attach(), but inno_hdmi_bind()
-> > unmutes the hotplug interrupt in inno_hdmi_init_hw() and installs the
-> > handler well before it attaches the bridge:
-> >=20
-> > 	inno_hdmi_init_hw(hdmi);		/* unmutes hotplug */
-> > 	devm_request_threaded_irq(...);		/* handler goes live */
-> > 	...
-> > 	hdmi->bridge.ddc =3D inno_hdmi_i2c_adapter(hdmi);
-> > 	devm_drm_bridge_add(dev, &hdmi->bridge);
-> > 	drm_bridge_attach(...);			/* bridge.dev set here */
-> >=20
-> > The bridge is allocated by devm_drm_bridge_alloc(), which kzalloc()s it,
-> > so bridge.dev is NULL for all of that window, and a hotplug event
-> > arriving in it enters drm_helper_hpd_irq_event(NULL).
-> >=20
-> > Before the conversion to a bridge the ordering was safe:
-> > inno_hdmi_register() called drmm_connector_hdmi_init(), which set
-> > connector.dev, before the interrupt was requested.
-> >=20
-> > Drop hotplug events that arrive before the bridge is attached.
-> >=20
-> > Fixes: 969325a2597e ("drm/rockchip: inno-hdmi: Convert to drm bridge")
-> > Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> > ---
-> >  drivers/gpu/drm/bridge/inno-hdmi.c | 8 +++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridg=
-e/inno-hdmi.c
-> > index d7c33b92e2ddf4ced84d17304463f44be52270b8..d29832249b942dec84fb9d0=
-7a0b21ee751fc0486 100644
-> > --- a/drivers/gpu/drm/bridge/inno-hdmi.c
-> > +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-> > @@ -929,7 +929,13 @@ static irqreturn_t inno_hdmi_irq(int irq, void *de=
-v_id)
-> >  {
-> >  	struct inno_hdmi *hdmi =3D dev_id;
-> > =20
-> > -	drm_helper_hpd_irq_event(hdmi->bridge.dev);
-> > +	/*
-> > +	 * The interrupt is requested before the bridge is attached, and
-> > +	 * bridge.dev is only set by drm_bridge_attach(). Drop hotplug events
-> > +	 * that arrive before then rather than dereference a NULL drm_device.
-> > +	 */
+These chips mostly reuse the existing infrastructure and have been
+tested using the mtd-utils test suite. In particular, I wrote and
+contributed a new tool to ease continuous read testing:
+https://lore.kernel.org/linux-mtd/20261030144108.2211604-1-miquel.raynal@bootlin.com/T/#u
 
-nit: I don't think that huge comment is necessary for that
+A bit of reorganization and renaming is being done as well as
+preparation.
 
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Miquel Raynal (13):
+      mtd: spinand: winbond: Fix an OOB layout inconsistency with W25NxxLW chips
+      mtd: spinand: winbond: Generalize the KV OOB layout
+      mtd: spinand: winbond: Generalize the LW OOB layout
+      mtd: spinand: winbond: Rename the ->set_cont_read() helper
+      mtd: spinand: winbond: Rename the ->ecc_get_status() helper
+      mtd: spinand: winbond: Add 1S_1S_1S continuous read variant
+      mtd: spinand: winbond: Add basic support for W25N02LV
+      mtd: spinand: winbond: Add basic support for W25N04LV
+      mtd: spinand: winbond: Add basic support for W25N02LW
+      mtd: spinand: winbond: Add continuous read support for W25N02LV
+      mtd: spinand: winbond: Add continuous read support for W25N04LV
+      mtd: spinand: winbond: Add continuous read support for W25N02LW
+      mtd: spinand: winbond: Add continuous read support for W25N04LW
 
-> > +	if (hdmi->bridge.dev)
-> > +		drm_helper_hpd_irq_event(hdmi->bridge.dev);
->=20
-> Reviewed-by: Heiko Stuebner <heiko@sntech.de>
->=20
-> Most other callers of drm_helper_hpd_irq_event() also do exactly this.
->=20
->=20
-> Heiko
->=20
+ drivers/mtd/nand/spi/winbond.c | 187 +++++++++++++++++++++++++++--------------
+ 1 file changed, 126 insertions(+), 61 deletions(-)
+---
+base-commit: b243a89e1b1e8ead7b44fc4eb0d0d4df0c9e3f4b
+change-id: 20261030-winbond-master-w25nxxlvw-198bda3af7c2
 
-
-
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
 
