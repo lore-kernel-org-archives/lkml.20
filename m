@@ -1,92 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793363813;
-	b=NGQZ+aoHlGeW7LzwsZA4q15HjamEcMM1GWlqHJ4c2u7XgfT+P00+Mi6UmI7zdar/PgZT
-	 1S1OWls7LsQTJRtDJhjOYLaCnhr0OZpCK9mXHSVoaUqz81dJmKVDUZ+MQ8Wmh3zfz6ngG
-	 rXemXBL3ZHbjj54GZ10mhlQrsVXcZL6zVeHd5yryMxQi2R/V+k9pY5RfPVk/hJly+UYaY
-	 RLHMKT7DQ1/itUryUDWvhuzKd8KVYYqDJoZ9dASeqoqbd0O+uzIhpitSK7NSYKoQiV2Zy
-	 i7TxxgKfwBj7zhFFhoQZ4BgGB4V0qqLa25o3EGDnJWawh+1ChFvDuWRlAbhi/kwt6FA==
+	t=1793363807;
+	b=s72GHHtylpynSG6/zr6oo4wmOZLyf5Nyy46EuK0LUYYX8RIyB2GFWOI97xHsyICgzFwI
+	 xF/Zd5R4Cbexz2mMdMGqTRSHc+dEbiPXxa0yanQqERjx2mKs2PGxD/38upq5sO/0DKebP
+	 8y0fNZp7NialqaZc0HiF9RkvM/K496El274n/tfQUU44FEo9WGJD4pjJTEGHmbHRTXECu
+	 928JFiO6M2pN2+yb/jvs0kw6BrJNiOXWe4LSnXj3BfKG/TWXEcQ9C6e57GC4rWEd6ANB/
+	 hoZzH8OkeSWMVel2nnpEQIreR216jjGvb7KI7DteamS47bYF4G/eOqlU4EST5+WFOuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363813;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363807;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=nK1hzdrqWbwHzyd6WzVscvUMgy8BAnwRp/DeubL9foY=;
-	b=Vs/X3HZG2NnJxwR7KAO2DLIsyNRsTKRloGJ7bRr4JnQc/BKbqG5ory4nibuxkMSxS9LD
-	 CEQ5Tkg8DqOoJXZUyspdxPgIvPdl3coX3zu1TGJVfEOEdH6VMEEtOnqHAuxhELvkA6hcz
-	 K2zTO/0duLn+8cvcDh6QSI7sz5TGskoOW9PEGA5WnMJMO+mq1WPXDFpodzUl42wffMYij
-	 wnLFxQwLoVz9vLPAYVsBVIlkM88d9BcMw+/4Jrx8D60DxYEUZ/yI7zPFkB+51xdGJIZzz
-	 hE4Y+71RZ2TMcLOV1Dp5ax0axhps11v+8z3biGf0wXIfjo7iebKgPOZSqEVnZlfFfdg==
+	bh=pQElCk2k12jaC6kpnqjAIZ7YfARLoAsxq+ZYdTzaT7U=;
+	b=rKyf9yvt1rQ26erDT+ZKWNg1HsVRXTOpHU0av6z6T+CC+DG2/h06ng86KmdqkRhP46sY
+	 J6XYjSthf0+b0oJbnNFyX4C/pyqexkRnzMqGr9Rei/DzyvxPhXrhPopd/jUDw5p8dJIr0
+	 uWVmKWYXXbrbDLNkVOvswfJCOnD6McokjgXNFsmjCbyFEmrakzh5ppR6KuAiR7TqrXR0q
+	 l9Y5Q2HssabeSt2DLHIIvhzPiyLzOmBLMUmZ7UYhgpzFTomChhKOhMNUwEqFvov8S+BxY
+	 NdJU7jhuBs8TCD/0DGePhE96Lm98JTh9EQu/xbuPF7e0M0STRzEj97KMDESojSsN5PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=itXUZYaB;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fj3ZP9Cf;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D59606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:36:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3D59606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7827C606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:36:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7827C606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=itXUZYaB
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48c4d870d54so395703f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:36:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fj3ZP9Cf
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35b2c599f43so1552388eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:36:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793363811; x=1793968611; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793363806; x=1793968606; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nK1hzdrqWbwHzyd6WzVscvUMgy8BAnwRp/DeubL9foY=;
-        b=itXUZYaB23SNEJBFGa83mQJ1QxVbDAtdEpAm+he6uriB122kbFUHBZuM2lN/ZWYkck
-         9xcM2z7nj3NyejMpRmHml9c6Qe7YhU+gM1VTgKcqWpzwdb0GrVqa03/zfh0pO2KbT0KQ
-         3yqJxnOHVVlyLd/hz+7pYjYldmGxhslFaCLoSrTtROxzZYhLtoNCHH+mS3qlprRvEqIm
-         xR+5Hm+vkXyqyGVS4NIe15ag5a5NX5hK+QYL+tlIqTzEEb20pLWtApT+cUNWL/m3Mr8Q
-         WtuMDwLM/HrCGSeODIMsm4DOANp5NxJSkev98Fv1aFBhVEYQvXsrTTXb2JH3ZDi5DYfv
-         0U5w==
+        bh=pQElCk2k12jaC6kpnqjAIZ7YfARLoAsxq+ZYdTzaT7U=;
+        b=fj3ZP9Cf5Y+e7SRaimUSFagvNtkpeoPKFhmaUN/TOWxv6iWzE/oJaP4Li4NwNzjOSF
+         YwditmzupbjQkaHhRBJK9P642j5o13rhvL2p2Xmh/RysNjrrSRaHtVDudU528cNZNRzm
+         ndAZVJ9IrDhDAlLg07xslGNbl/1VLsnxzZ/jlRAKdsFsth8qhq0p8IZq+vACSXKox5oZ
+         blxBPKgiWHn/p0w5vxI+udQejA6fBo6JKV7jdXSromfqxshAuHWOZB20pnGBOowFX1lT
+         YFSb1tsVgw/XP/alZzIfMOkIetsIXRWL2AO6Ob3Aemg3ByvLsDjGHUKqICWJB5JF1me/
+         AkYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793363811; x=1793968611;
+        d=1e100.net; s=20260707; t=1793363806; x=1793968606;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nK1hzdrqWbwHzyd6WzVscvUMgy8BAnwRp/DeubL9foY=;
-        b=iseAYQVJc+hQfpociB7hf0GeFVQlXdVYHHnPpd9VfPitV8TzDn8yo1j3FXgWKNIJns
-         GIWHvB9P6sNWL5zgiRUjVizWCdECS1cpTXqILQn3HFZS/C0uPtu2lWZDtrHqrX4GY4IV
-         NcW+7d8oki9wggyCUu/JhVI2jHY3t7cDVi8yrmzmpiPeYMBe8fWjGqfN/ZNybEqTCWZn
-         IUuiiFMvyuAidIwBzKx/0l0KvUEg5j0mydhsustBxzGahqBOXxYlXHKrMWfJ7NhNFZcw
-         EZyR5VTbbhM25ApbxWh6SyA2hMRgAQ7/ZA0AplyocyRXMry1IKI8w/F38wLXBsBF41O7
-         aGiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwmP0p/132f7ngERV5KmPfC+ZnmoEPwtux5OdMgbEtZYJ+JyHw8Tojv+p5etfTz1PZQBClDM3xluHOTUE4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIifbNYOIeEbBlJHx3JinmmGjXG2FSpmiEqRdaVrvMqiZ9hGpgk
-	k0TQO/jSr4L3WDhu4LL4qX8KJ9tyCiqV0r6jiCG1KXrMZ/ivG0v1mfep
-X-Gm-Gg: AYBFou1TD83tSUeUimdGnhtyH63Uw6mEQwsFiNSIsE/H0k3voBZNlswDMpYPb+QOxbW
-	qFyINVi1kE186cL2HeuBwHnI1yLrP2oB9xTMV5i4rVQjH7MjkQzkut9afaIbtGkTRyPuOWvjX6l
-	x10xypcgsKBamp/Dkhp9EfRz1kiQLX6JKghJwRKpWmQq2t5UZVqVwnFgZHoUmpp/h1o7zYR97aC
-	UCYT6147SAho2B2c/CrhDX34bkhv+/PcBmBb3mtoVa7GIzNhTe4SzBX3anmmpeKz74FhAk3/Cue
-	T1XWVDCuUDt7cEqKlaZfTZ88taRyTf/ncdtQ/oGXdvMboQB6kHu8yBPh+FUtnfzdG08KNGE+w7N
-	/i6NQm+RqqQYADsYcBKC1EZIkeJnKuOexBmRiOxN2MexJvX8kou+XprRCCJxjtlp/JR0rdUnSer
-	NE+8uG7IW4wtfwgql/xi7lLOCL2kZLR2dBfPgZdj48ig0o0MB4494zCY1yNvtzhEyZivOr/7+b1
-	Q+rin2ypIp4W7TMmnQsJRIaF+hv+dlLoY3SBIo8ksuBbL8B27ZZfIKEERnciQBuGlqXTs4qjLL5
-	LlcR/RfqpOxUZhu7LfPsQ5wwtPfpHXB1nWBR+eVwNEp86A==
-X-Received: by 2002:a05:6000:1785:b0:48e:3767:d885 with SMTP id ffacd0b85a97d-48e6e4f8c42mr5742675f8f.53.1793363811249;
-        Fri, 30 Oct 2026 05:36:51 -0700 (PDT)
-Received: from localhost.localdomain ([2a06:c701:4773:6f00:5a44:fb2c:3845:1154])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8a84esm3218339f8f.39.2026.10.30.05.36.50
+        bh=pQElCk2k12jaC6kpnqjAIZ7YfARLoAsxq+ZYdTzaT7U=;
+        b=zqwP2rGF1dtLZ6TdN5kr60Cd7s/Ddxxv7pyjGmCD0/h4W5xDbA6us4vi30Py2mdk1R
+         Ljxkt7vYz4C86ajl8c/+W2aLQDCDsfwJNNtcbNeWuRYJXbcW1Y7oAmZOwGvy3hR+C39K
+         ZyWdaKFuaAg6d+2O9q+jyCNJkvijjGJ1q6l/BDyJWEJ8ANmuOquyozlce4+WErfRODz5
+         ndreaH/DeQHS99RL9DWvd1uZow2rdydz/H+/dB9seoI1/LNVx3cE2nMauvwk6W9ztvFy
+         PTDL3EscjvR007DRBJkcnjxkElMFJq+OCmchzhyOhNgMgunuwFUnZuTe7bPCIBctERai
+         0FEA==
+X-Forwarded-Encrypted: i=1; AKwUvBy72BdGynE4E9sh+3DEflPyNWzgPhkwdaYDeh9uGZDI3IgCzrGTDjC8UkE3fh7df/lAQZg4SSUT0XSt8Mw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcw0zV4AGOGNdI7RqaVQjYb+mMRs6IBWLeY+Bs+xnk38KewyVK
+	756gEkaHEmHYoFZmMI9r1aOI1M1Guztc0SGvQSz8jOt8tnoOTthhSlOV
+X-Gm-Gg: AYBFou1kqBu7EOMB0UN+mO+spNRnGrOaah9/Xp32Nsp56GAjaHExD9VblZtyNzk48Rm
+	cxc+f93Q2e1uwFWrKTLk/NVm/kHvYmacKEGKFS5nk0GFRirwxXmosoFzAznqnfxdPKAv8X0rolb
+	wh+VBzCJojbIYXfvHKnK/hTf/GbpqkHwut1FUxUfCX6PUlnGyf+3fsm5jun4uJ80Cn5TCJX2Avt
+	JI+nqDOmmi86NW3B8wpJWA0OgYY1IIy4Z8TckD46S5106KzV4X6Bn1aJdjjNOm5o5Q9rhYWvINp
+	MvNK9m20WxZ7q0rGL3a9WZVY+6bHMstbYGguM+GbgPyW476aJAzXeCSoU8WfSKX2vYMuZ2WSuKb
+	idepFhMT3ejJl3j0cWM1tcyZRtXhKjejKpjjGZfZ2f4lqRHRSUxy8AMjiMStOflF3KzizdGdEHQ
+	U/yunwrEY3qkg0BFiCrk16eJMMBcOiHN/CwlKS7OgoGp+3LsU/P89lr4bFGzevZ8yWMfqGxcv7h
+	9LTmBuzL4QD5qqgCQiqZ9T9DqmxfgzYC/hHTV5dvo3FwOk7QpQV234lbO2o9OGGkvr6gXSdt5m3
+	MSDEehYlM4QN5cXNZAOKvjWAO5KjoP4AiTCZs28FpZs6PgqCl7mteEUCq4LllCSRYno=
+X-Received: by 2002:a05:693c:6092:b0:361:7ab9:479d with SMTP id 5a478bee46e88-36a423ee70bmr4018459eec.27.1793363806237;
+        Fri, 30 Oct 2026 05:36:46 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af4e6sm6382373eec.4.2026.10.30.05.36.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 05:36:50 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Alex Dubov <oakad@yahoo.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: Maxim Levitsky <maximlevitsky@gmail.com>,
-	linux-mmc@vger.kernel.org,
+        Fri, 30 Oct 2026 05:36:45 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org
+Cc: dmitry.torokhov@gmail.com,
+	mathieu.poirier@linaro.org,
+	linux-serial@vger.kernel.org,
+	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] memstick: tifm_ms: use the correct DMA direction on removal
-Date: Fri, 30 Oct 2026 14:36:48 +0200
-Message-ID: <20261030123647.2356647-2-thnkslprpt@gmail.com>
+	zhanxusheng@xiaomi.com,
+	stable@vger.kernel.org
+Subject: [PATCH v5] tty: sysrq: clear the old reset sequence when reset_seq changes
+Date: Fri, 30 Oct 2026 20:36:40 +0800
+Message-ID: <20261030123640.263164-1-zhanxusheng1024@gmail.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,36 +102,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tifm_ms_issue_cmd() maps READ requests with DMA_FROM_DEVICE and
-WRITE requests with DMA_TO_DEVICE. When a request is active during
-removal, tifm_ms_remove() unmaps it using the opposite direction.
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-Use the original mapping direction when unmapping an active
-request, matching the normal completion path.
+Changing reset_seq at runtime does not work on a keyboard that already
+used the old value, because each keyboard adds the new keys to its own
+copy instead of replacing it:
 
-Fixes: baf8532a147d ("memstick: initial commit for Sony MemoryStick support")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+  echo 56,29,111 > /sys/module/sysrq/parameters/reset_seq # Alt+Ctrl+Del
+  (press any key)
+  echo 59,60 > /sys/module/sysrq/parameters/reset_seq     # F1+F2
+
+F1+F2 then does nothing; only all five keys together reset.
+
+Clear the old keys when the copy is rebuilt.  If sysrq_downtime_ms is
+set, also stop a reset the old keys already started, since releasing
+them no longer cancels it.
+
+A key pressed while reset_seq is being written can see a partial
+sequence.  With this change that can happen on any keyboard, not only
+on ones that never used a sequence, but the window is a few
+microseconds and not worth closing.
+
+Fixes: 154b7a489a5b ("Input: sysrq - allow specifying alternate reset sequence")
+Cc: stable@vger.kernel.org
+Assisted-by: Kiro:claude-opus-5.5
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
- drivers/memstick/host/tifm_ms.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+v5: Dropped v4 1/2 and rewrote the changelog.  Tested in QEMU with a
+uinput keyboard: the new sequence resets, while the old one and a reset
+armed before the rewrite do not.
 
-diff --git a/drivers/memstick/host/tifm_ms.c b/drivers/memstick/host/tifm_ms.c
-index 0a54586aa54e8..171aadd4ec71a 100644
---- a/drivers/memstick/host/tifm_ms.c
-+++ b/drivers/memstick/host/tifm_ms.c
-@@ -606,8 +606,8 @@ static void tifm_ms_remove(struct tifm_dev *sock)
- 		if (host->use_dma)
- 			tifm_unmap_sg(sock, &host->req->sg, 1,
- 				      host->req->data_dir == READ
--				      ? DMA_TO_DEVICE
--				      : DMA_FROM_DEVICE);
-+				      ? DMA_FROM_DEVICE
-+				      : DMA_TO_DEVICE);
- 		host->req->error = -ETIME;
+v4: https://lore.kernel.org/all/20261030045854.153556-1-zhanxusheng1024@gmail.com/
+
+ drivers/tty/sysrq.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/tty/sysrq.c b/drivers/tty/sysrq.c
+index f4571d05b496..a90e97a6d7aa 100644
+--- a/drivers/tty/sysrq.c
++++ b/drivers/tty/sysrq.c
+@@ -689,6 +689,11 @@ static void sysrq_parse_reset_sequence(struct sysrq_state *state)
+ 	int i;
+ 	unsigned short key;
  
- 		do {
++	/* A reset armed by the old sequence must not outlive it */
++	timer_delete(&state->keyreset_timer);
++
++	bitmap_zero(state->reset_keybit, KEY_CNT);
++	state->reset_seq_len = 0;
+ 	state->reset_seq_cnt = 0;
+ 
+ 	for (i = 0; i < sysrq_reset_seq_len; i++) {
 
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
 -- 
 2.43.0
 
