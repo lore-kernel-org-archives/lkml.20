@@ -1,97 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371456;
-	b=pQLC6w4a4tvbstXFFq45RYdCh60i8z9YfedC/QyMfzwAZK49LOV+NEOAbU2ExXG2x+K4
-	 S4DsU112mnQHm7g1GnbIhF2EwPV9EBDZo+rAu+8P+Uaz4Duvc8g8ATAyGv3XIJaKhEQma
-	 RlA5UGLgkho+Hd7RwxrSj4YPbLYF5KjBlYHj3F7lknhvpTykoi82S74aZp01GCa2wXPx4
-	 7ThqvAua+d6Un3WtKATmmDfw/45FLK+HagP06YldrJx6KwkQxuTqkgBOM66M1C7L5D2n9
-	 qXF18uh5Gg54qFSqZPFD81GoCJfhbAzaB+zAr4RhEQAeV+J1VFbhzj4hqc9RupvAVlQ==
+	t=1793371459;
+	b=QqnHnACkSvxdYxsVJB1qXrya2xVvttocKpBoIaSG64bbgG3NUFXlTcSRQnbl7hTYGPOw
+	 BgZ1JGIiM8qxRNoCdd+LEBAWzi18rZaNlXDttvq8ajQ4nhBaL8AAfrJpVPFfo/gREfYFi
+	 Us+X1V9ynhy8kRcqeZLeDTYFkNSk8I2RwBPUlh5zBS7WXej+8cs+Ltop8mk4lJ9UGNW5e
+	 2kV6LeuYHR4HZeSGRPq4xrjTBvkLK95pGcwuGjQOXBCYMBjJizveJFzV6hBzNZjMGdSNk
+	 SXQvNK/EpoZsqSLLknVtChKHpCYjz+aLepDMcZTIEavPAX5giVTlnVqFiA7ieOMAGXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371456;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371459;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=OLXR5bxf335QArRLonAy8cTjfPgGhnj1frBiqxjC+BE=;
-	b=SkMfN0pWIJr1LveDrz165yi7yEcQrdXt2Ou0d15n3cyXrqG6DRJ0Unf+p6YV8WWFhRs+
-	 Vd//XTf22LhOTBBWbui4zrpn14GruVjabByKKUZh1EA6oeA8tv4JiZGID3D9exrBEmb3L
-	 6slacBNU9+kqfcql4UrG3dnt4NECUmDqEW2YFDe2K4ooS4iAhOWnlO/Z8lF/mDG/TyGaE
-	 PwZ6fguI0BK2w2XimVZ4nF+0KnAByhJgivQwwNzJoya21AbTjsUzKxCCONYwIkEQWJjOT
-	 K+BFQ06hCKosKeRu57tmx9yNVffJjZX34g8SDvRDe9nK/vG8e2shGnLnSPfI7bfol4Q==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=UtnA/zteumxQwftTkhrGmioZkrzpjA4GBLPRv/xbLwQ=;
+	b=buey4zuP1AKtiRSf5d3Y4EK8RWWOv8ZkWQmd0FjlXHswKO++mQgdoCQ5PduK8KW+2wPO
+	 qMv5HXmkUjaYZd4+yhJTPPMWPLjytv1KjD1SyoZQ7jAaSz3kvPByJKZbPseu2goLU19A2
+	 Zf2hor5zZNJ7vmIOvJg1Z1S7RItBKbtDyK5TumERhqKev4Bri/P6NklcVrSrGCstqN0GZ
+	 97edTMjF8P322/+07D6mqvlzDuXBWCB/IXdj7uHYDbQHCZr/XXsWKHVxzWg0riUgI01oj
+	 kvHlifUnulZzgnOMhNBOOh4n2yvvox/Z9DuKKv3lcTDp0bYExpODSmaubqs3lELWRvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="NMO4uqc/";
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f9myn3CC;
+	arc=none smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB80606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:44:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFB80606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486C5606A32A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:44:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 486C5606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NMO4uqc/
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3acd21ba21aso620316a91.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:44:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f9myn3CC
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c418e215671so98787466b.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:44:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793371455; x=1793976255; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OLXR5bxf335QArRLonAy8cTjfPgGhnj1frBiqxjC+BE=;
-        b=NMO4uqc/LRYUOZduHZQRmnaVcMb68rQkZKt5vWgZSCKMR5C4bFLK8mX0rVDRXlrJmm
-         Ywg7t2Vk3k8wa1692bECU6GahfEyQDI/YdbMVa1aQRWCEmr5ilAGwsYEnZhpLjLN0orn
-         uT5uppzvl1lPDNbygUBynOFPyB3nlFBjFaXKNx1PWBSnFB66mQJ7iVk5zJQu21DPwFa7
-         E3YCGXt1KeeJHdp5lD/7stXHT3RXwOp+1eIBDQ3y09hfGMoxUXsudCi/gz04jMWzfOud
-         5OyNGfMNWLFpAwpgikbr11b5M4rMYPGIu+P12Fm+CTvIflVY0jUPwYogZr9XHcoHu2yS
-         hY5Q==
+        d=gmail.com; s=20260707; t=1793371457; x=1793976257; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UtnA/zteumxQwftTkhrGmioZkrzpjA4GBLPRv/xbLwQ=;
+        b=f9myn3CCW4N0lbI48oVnjVSSZMzwSTxiGbyDRuu0vD5aaLVeRGBZuc9E0UJEPpnyJ/
+         U7O3Vm3GoJu94PKkS2L3pVRgEk/AhZJ7Dqfjmu3XX2kxkGECHyIiHzVTq151ZeL+vLyG
+         OGQADnIdAq5if05tHC0uYdpHkwKwMogr/gyfk7hMJN5xsGDp4ZVNPDXuu836EtNKBYtc
+         E7CO104x+cYw6KXrQf23tqfJEEsyy4BhYXxTBnSYrxniYLmInjxiBw7Y58SGiK1GHBVZ
+         F4iZiBjVh3XQ0RZzmOd9ZwGeOkbB9UKDmHyIoWzljAMjMFezfB9TlFN0GeTrsqPLP92R
+         osbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793371455; x=1793976255;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OLXR5bxf335QArRLonAy8cTjfPgGhnj1frBiqxjC+BE=;
-        b=23LtCTK5HhWVfnXPUL8moQWkjFtnzuUKgQlNziWOvSBMqkxyJ9/yfROM+NdgnooysT
-         rb8pak6A4czpjtktEsFaZSY21WxpsMHbbeb/UKlMlkbcB+LTJCzcSP1H5TCCWB6wdpbZ
-         imBndKJ0jYMOtZWvaFHbOZ7kpux8y1iR0k2dS4qInvsf9WG4/Gb3okegFZb2ff0igWI2
-         2izRZJEI9UFb5bH6ZuT7ujc1hKxcKZv9B5bc2V+TK+QyB7MQQMgHCRLHanIBUqcUuv0t
-         z0wnKuq8c2n4BI7m57AAWAyXYQapXcd0mtcu0oRTz8s2O+NPCwSoIN8AMzt5T/JRy6RV
-         /YYw==
-X-Forwarded-Encrypted: i=1; AKwUvBzBL7IZyIKTQc/B7t9zxfc5Oqcfsm1cBDK8PSLIqFsgnbL2JzykWVSnADhOR0kufDDWHOQYkzVoPumS0aY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMAgPPVjlxeokSt9fXKsuab88bVfAIMYcrScai1fV+fY27ErQc
-	d2NrrRx0UzH207tKPIAn7HibbFJNTu79Iy4VOq9T+wvtt/eL7Jh+ebsa
-X-Gm-Gg: AYBFou3+W68YN+JzqU821A5NFt302RPAMjGbC5LrzdU9HeF7gFRE57DK2RPBxwHuV+S
-	Q39peHfiRaDM6cOSRJalOKDYeI7Qp7nmqPre/Cmt2sEihEHenQUNXViVzJN3UqTAhheM8Xo9CqZ
-	pj2qiK7at+jkIIVtDSESiJ3WWb7/E/cGsPg001CoHJRzkStXuKCywm0JW7hf+2Sq2U+4ns2+COK
-	4OAuZt7azrTP4pLyQtfjTrfSwoAEJCPKkCVVRfX5nlrYUAadRwg3j3SzkZRlPniRYIWSKCLO+U3
-	70seXDjTgVJCHlfu7Wa3r2Hll3SMwSBWVL7e9LJquGoRZU8+4oyChNiWziSh0xpyCA6qe3BUhOi
-	eKPn07+qqiqpuyyZ3HHL/f0UIIu8nvXzk8YvHRKViEE4K7qU4SPO/e0G9RUeaYSR/w68ZDYQses
-	mFsU9Whm/Y11ZVwd1qWFDhJ1V6It9UuPvH3D3+a9DvygSPiUQwFt+4ULSmAemrlFWXwoqeLhQIj
-	WR2ri2rbhaG4QXfIlb5HarRs/FIov1vh1iHDif2oYfs6LRbq8S9Jk/6MRlHJfTLKgJUWi4a4IV6
-	jZTsT5LCeZPGhajM3SuM2Cbc
-X-Received: by 2002:a17:90b:2549:b0:3ac:4e18:238e with SMTP id 98e67ed59e1d1-3ae89847e94mr1975072a91.46.1793371454831;
-        Fri, 30 Oct 2026 07:44:14 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845d5e62sm4610922a91.13.2026.10.30.07.44.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 07:44:14 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH 2/2] Bluetooth: SMP: Serialize root channel replacement
-Date: Fri, 30 Oct 2026 22:43:57 +0800
-Message-Id: <pm-bluetooth-objects-candidate-0184-v7-c26e53b52c260063ab6a-2@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <pm-bluetooth-objects-candidate-0184-v7-c26e53b52c260063ab6a-0@gmail.com>
-References: <pm-bluetooth-objects-candidate-0184-v7-c26e53b52c260063ab6a-0@gmail.com>
+        d=1e100.net; s=20260707; t=1793371457; x=1793976257;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UtnA/zteumxQwftTkhrGmioZkrzpjA4GBLPRv/xbLwQ=;
+        b=MCnDHpr3G7mSafZYJTuxi/olgpJ1fuoM6GRLL2vAJrRrQpRsy+9xNrcupRPoj8MB4F
+         YNtYIdRd125U94uTvnTs3l6Mq/sF3lEFmaMJEdP8LNk+gJAJ9XTnrfgsq4ww7FVqkARS
+         9wXbAhAAdsdj+N+cKlqJYCmIZPrP/MdR244VoWyvgFOt4nHUW5yoECFkdAFCAgFtGUOd
+         1WKCvDGl9u40PnnZcwGp20SeTyrTb8dslceOzA6KlyxgaqTPxlPMD85fpi8TuuM9RuT/
+         AvcFwLzkpoyIqk26oPCK3LsjdCQj/7dxVNCtL/4MHphPjSf2sgCoMy2voNm/o0UR+mrl
+         KO8Q==
+X-Forwarded-Encrypted: i=1; AKwUvByHoNDAy5sfWDWypmJki6owmDbuhoNiTg6fwrtwpnePkbBS2Y6fkt8r9eSfJWDi/rtTiBi6JTLN7x/VLn8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbYOtSbGaaym87cBstMe85OVkGPDIwzJeThVg03hahXzRRrP2/
+	xIl7kBob9/O31Fl7+T+ZMSSjtabYOufZynfeR+THTHO5tQzhoT1z8cfT
+X-Gm-Gg: AYBFou2ouESupf9JPwA93DSn51Q+ac4td/xBlploFbcyaJ13IZbufB0AgYWf5pm5f3M
+	90mfMY85B2BtiSlfXXpvnL5t5znoBNRl08M9zt9M3MErEaSKLICS6LH7crGo/gLcNYE9MIizOOW
+	GLtcUEM102JP9iA0IJqadXciSIHj0sMWWp7/1pXEr6ipwm8a5PAZETrODqD56Jsd82MXxLpf4ZC
+	e3PquWgwi7kDJPeG/Z+mpKR6sZbhRVfa+umTvuI6Ej9knaez8YvNnWaSHnehB+G8WUIHju4YgMa
+	ShTNi0MJQsqM7uVIZ+7Yx3vOdLio7VeQ545s3e3Nm0fuLHCBDsjfOkAId5vXzXVCxvRDDgNuWjc
+	L1SNSXbCV3cI+/2LBK3zUAxkSihkZNYu8BCXKdI2JkOZBpDL6Bfozr3upIFZYcu9cobLYhoTWme
+	qs7QspaDnn65iv11f6uPX8zqSqZhm2PvVv0JFQzVUvSPJ4mEicCa8Gkx9E4xU0ez3PY88PA5HXE
+	XRSVfEMt3rQLf879H0FC6IYjaGzVzCIeoc8xPrXX5VS/V8vqxSX0TvrTqVA+v28trZXLd9payUK
+	U6VkNb2z4HzHNHT7PGP34EfFumyyosIBRNJU1ZDvh5vLdAx0e8EWqQVmbMT2zvNB9wyM6IHzYsI
+	=
+X-Received: by 2002:a17:907:3e0c:b0:c37:c0dd:6642 with SMTP id a640c23a62f3a-c4ca7ad13ebmr240192666b.37.1793371456921;
+        Fri, 30 Oct 2026 07:44:16 -0700 (PDT)
+Received: from [10.142.16.156] (62-101-160-75.telecomgroupservice.com. [62.101.160.75])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe5006dsm69844266b.64.2026.10.30.07.44.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 07:44:16 -0700 (PDT)
+Message-ID: <c18fe7d6-c738-4049-ab88-c12817f0108e@gmail.com>
+Date: Fri, 30 Oct 2026 17:44:13 +0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,379 +93,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mfd/rk8xx: fix sleep during RCU read side critical
+ section
+To: Eric Anderson <ejona86@gmail.com>
+Cc: lee@kernel.org, mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261029192223.462367-1-paskripkin@gmail.com>
+ <CAFyMnzbvDVvDuNfYgD26ThSyWDqt5u0TLHxF+Tp4=h8fkyepug@mail.gmail.com>
+Content-Language: en-US
+From: Pavel Skripkin <paskripkin@gmail.com>
+In-Reply-To: <CAFyMnzbvDVvDuNfYgD26ThSyWDqt5u0TLHxF+Tp4=h8fkyepug@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-smp_register() replaces the SMP root channels when they are still
-registered from an earlier power-on. This happens when management
-powers on a controller that is already up with HCI_AUTO_OFF set:
-hci_power_on_sync() clears the flag and runs hci_powered_update_sync()
-again, which registers SMP so that the channels use the identity address
-chosen for this power-on. The WARN_ON() in smp_register() fires on this
-path, and the old channels and their SMP data are freed while two kinds
-of users can still hold them.
+Hi Eric,
 
-HCI event handlers read hdev->smp_data under hdev->lock, for example
-smp_irk_matches() when resolving the target of a directed advertising
-report:
+Eric Anderson <ejona86@gmail.com> says:
+> On Thu, Oct 29, 2026 at 12:22 PM Pavel Skripkin <paskripkin@gmail.com> wrote:
+>> SPI does not support atomic transfers, so it's dangerous to call from
+>> atomic notif chains, since it can cause stall during reboot on
+>> orangepi5 (see trace below).
+> 
+> For my curiosity, is the hang during reboot/shutdown random or consistent?
+> 
 
-  HCI receive worker              Power-on request
-  hci_dev_lock(hdev)
-  smp_irk_matches()
-    chan = hdev->smp_data
-                                  hci_powered_update_sync()
-                                    smp_register()
-                                      smp_del_chan(chan), chan freed
-    reads chan->data
+They are basically the same, since they both trigger sleeping SPI I/O. I 
+agree, I should have used studown/reboot more consistently in commit 
+message...
 
-SMP receive callbacks run on hdev->workqueue without hdev->lock and use
-the ECDH transform of the root, for example smp_cmd_public_key():
+> You are explicitly mentioning reboot, although the stack trace is for
+> shutdown. I'd have expected reboot to have always been broken for you.
 
-  HCI receive worker (SMP)        Power-on request
-  smp_cmd_public_key()
-    tfm = root's tfm_ecdh
-                                  smp_register()
-                                    smp_del_chan()
-                                      crypto_free_kpp(tfm)
-    compute_ecdh_secret(tfm, ...)
+Likely. I've just bought it, so cannot say if it was always broken. 
+Based on code I believe that it was indeed broken from the beginning. 
+Also I've found previous attempt to fix it [1], so looks like problem is 
+known for quite a long time
 
-Before commit 2ff13894cfb8 ("Bluetooth: Perform HCI update for power on
-synchronously") moved it to the request worker, registration ran from the
-completion callback of the power-on request in the HCI receive worker,
-which serialized it with both users.
+> In my change I noticed that reboot and shutdown didn't agree on
+> whether to use _PREPARE, and my change adjusted shutdown to agree with
+> reboot. Since you apparently need the opposite, prior to my change I'd
+> assume shutdown was working but reboot broken.
+> 
+ >> I don't have rk3288 board to test. However, I strongly suspect 
+that>> patch does not affect your case.
+> 
+> I'll test it this weekend. I suspect it would work fine on Veyron/rk3288.
 
-Run the registration on hdev->workqueue again and hold hdev->lock while
-it replaces the channels. smp_register() waits for the work and returns
-its result. Its callers hold the request lock but not hdev->lock, and no
-work on hdev->workqueue takes the request lock; hci_dev_close_sync()
-already drains this workqueue with the request lock held. Users that run
-under the request lock, such as smp_generate_rpa(), stay serialized by
-that lock.
 
-The reports below come from test kernels with scheduling hooks that
-widen these windows. The WARN_ON() in smp_register() was printed before
-each of them.
+[1] 
+https://lists.infradead.org/pipermail/linux-rockchip/2024-July/049312.html
 
-KASAN report as below:
 
-    ==================================================================
-    BUG: KASAN: slab-use-after-free in smp_irk_matches+0x2fb/0x310
-    Read of size 8 at addr ffff88810c35f4a0 by task kworker/u17:0/520
-
-    CPU: 0 UID: 0 PID: 520 Comm: kworker/u17:0 Tainted: G        W           7.2.0-rc6-pmb-bt-functional-v1+ #6 PREEMPT(lazy)
-    Tainted: [W]=WARN
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Workqueue: hci0 hci_rx_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? smp_irk_matches+0x2fb/0x310
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? smp_irk_matches+0x2fb/0x310
-     kasan_report+0xe0/0x110
-     ? smp_irk_matches+0x2fb/0x310
-     smp_irk_matches+0x2fb/0x310
-     ? __pfx_smp_irk_matches+0x10/0x10
-     ? __mutex_lock+0x182c/0x2590
-     ? hci_le_direct_adv_report_evt+0xe4/0x4c0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_adv_report.part.0+0x2ce/0x1680
-     ? __pfx_process_adv_report.part.0+0x10/0x10
-     ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
-     hci_le_direct_adv_report_evt+0x2f8/0x4c0
-     ? __pfx_hci_le_direct_adv_report_evt+0x10/0x10
-     hci_le_meta_evt+0x30c/0x5c0
-     hci_event_packet+0x4e8/0xc70
-     ? __pfx_hci_le_meta_evt+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_hci_event_packet+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? free_zapped_rcu+0xd0/0x1e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lockdep_hardirqs_on_prepare+0xea/0x1a0
-     ? trace_hardirqs_on+0x18/0x160
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     hci_rx_work+0x367/0xf00
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-
-    Allocated by task 522:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     l2cap_chan_create+0x47/0x930
-     smp_add_cid+0x120/0x4f0
-     smp_register+0xa7/0x400
-     hci_powered_update_sync+0x88/0x720
-     hci_dev_open_sync+0xae0/0x2060
-     hci_set_powered_sync+0x2a9/0x720
-     set_powered_sync+0xaa/0x150
-     hci_cmd_sync_work+0x1b3/0x450
-     process_one_work+0x908/0x19c0
-     worker_thread+0x65c/0xe40
-     kthread+0x34f/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
-
-    Freed by task 522:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x307/0x580
-     l2cap_chan_put+0x273/0x3a0
-     smp_del_chan+0x9f/0x170
-     smp_register+0x2e8/0x400
-     hci_powered_update_sync+0x88/0x720
-     hci_set_powered_sync+0x5e5/0x720
-     set_powered_sync+0xaa/0x150
-     hci_cmd_sync_work+0x1b3/0x450
-     process_one_work+0x908/0x19c0
-     worker_thread+0x65c/0xe40
-     kthread+0x34f/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
-
-    The buggy address belongs to the object at ffff88810c35f000
-     which belongs to the cache kmalloc-2k of size 2048
-    The buggy address is located 1184 bytes inside of
-     freed 2048-byte region [ffff88810c35f000, ffff88810c35f800)
-
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x10c358
-    head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-    flags: 0x200000000000040(head|node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000040 ffff888100042f00 dead000000000100 dead000000000122
-    raw: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
-    head: 0200000000000040 ffff888100042f00 dead000000000100 dead000000000122
-    head: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
-    head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-    head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000000
-    page dumped because: kasan: bad access detected
-
-    Memory state around the buggy address:
-     ffff88810c35f380: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff88810c35f400: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    >ffff88810c35f480: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                   ^
-     ffff88810c35f500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff88810c35f580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    ==================================================================
-
-KASAN report as below:
-
-    ==================================================================
-    BUG: KASAN: slab-use-after-free in compute_ecdh_secret+0x856/0xa50
-    Read of size 4 at addr ffff8881071f4f00 by task kworker/u17:2/500
-
-    CPU: 0 UID: 0 PID: 500 Comm: kworker/u17:2 Tainted: G        W           7.2.0-rc6-pmb-bt-functional-v1+ #2 PREEMPT(lazy)
-    Tainted: [W]=WARN
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Workqueue: hci1 hci_rx_work
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? compute_ecdh_secret+0x856/0xa50
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? compute_ecdh_secret+0x856/0xa50
-     kasan_report+0xe0/0x110
-     ? compute_ecdh_secret+0x856/0xa50
-     compute_ecdh_secret+0x856/0xa50
-     ? __pfx_pmbd_hold_maybe+0x10/0x10
-     ? __pfx_compute_ecdh_secret+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     smp_recv_cb+0x3acf/0x93b0
-     ? __pfx_smp_recv_cb+0x10/0x10
-     ? __pfx___might_resched+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __mutex_lock+0x182c/0x2590
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_sched_clock_cpu+0x10/0x10
-     ? __pfx___mutex_lock+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_l2cap_chan_hold_unless_zero+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? l2cap_recv_frame+0x13cc/0x8830
-     ? __pfx_smp_recv_cb+0x10/0x10
-     l2cap_recv_frame+0x13cc/0x8830
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __mutex_lock+0x182c/0x2590
-     ? __pfx_l2cap_recv_frame+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? find_held_lock+0x2b/0x80
-     ? l2cap_recv_acldata+0x1eb/0x10e0
-     ? __pfx___mutex_lock+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __mutex_unlock_slowpath+0x147/0x920
-     ? __pfx_l2cap_conn_hold_unless_zero+0x10/0x10
-     ? __pfx_hci_conn_enter_active_mode+0x10/0x10
-     ? l2cap_recv_acldata+0x13d/0x10e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     l2cap_recv_acldata+0xe9f/0x10e0
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     hci_rx_work+0x5a6/0xf00
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     process_one_work+0x908/0x19c0
-     ? __pfx_process_one_work+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? lock_is_held_type+0x8f/0x100
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     worker_thread+0x65c/0xe40
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __kthread_parkme+0x175/0x220
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_worker_thread+0x10/0x10
-     kthread+0x34f/0x460
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork+0x659/0x940
-     ? __pfx_ret_from_fork+0x10/0x10
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __switch_to+0x74f/0xf80
-     ? __pfx_kthread+0x10/0x10
-     ret_from_fork_asm+0x1a/0x30
-     </TASK>
-
-    Allocated by task 497:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_node_noprof+0x2f2/0x7b0
-     crypto_create_tfm_node+0x92/0x390
-     crypto_alloc_tfm_node+0xf5/0x220
-     smp_add_cid+0xc1/0x4f0
-     smp_register+0x9d/0x430
-     hci_powered_update_sync+0x82/0x680
-     hci_set_powered_sync+0x4f4/0x750
-     set_powered_sync+0xb8/0x210
-     hci_cmd_sync_work+0x1b3/0x450
-     process_one_work+0x908/0x19c0
-     worker_thread+0x65c/0xe40
-     kthread+0x34f/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
-
-    Freed by task 497:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x307/0x580
-     crypto_destroy_tfm+0xdd/0x230
-     smp_del_chan+0x8b/0x180
-     smp_register+0x29d/0x430
-     hci_powered_update_sync+0x82/0x680
-     hci_set_powered_sync+0x4f4/0x750
-     set_powered_sync+0xb8/0x210
-     hci_cmd_sync_work+0x1b3/0x450
-     process_one_work+0x908/0x19c0
-     worker_thread+0x65c/0xe40
-     kthread+0x34f/0x460
-     ret_from_fork+0x659/0x940
-     ret_from_fork_asm+0x1a/0x30
-
-    The buggy address belongs to the object at ffff8881071f4f00
-     which belongs to the cache kmalloc-128 of size 128
-    The buggy address is located 0 bytes inside of
-     freed 128-byte region [ffff8881071f4f00, ffff8881071f4f80)
-
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff8881071f4e00 pfn:0x1071f4
-    flags: 0x200000000000200(workingset|node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000200 ffff888100042a00 ffffea00041c77d0 ffffea00041c7bd0
-    raw: ffff8881071f4e00 000000000010000b 00000000f5000000 0000000000000000
-    page dumped because: kasan: bad access detected
-
-    Memory state around the buggy address:
-     ffff8881071f4e00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-     ffff8881071f4e80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-    >ffff8881071f4f00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                       ^
-     ffff8881071f4f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-     ffff8881071f5000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-    ==================================================================
-
-Fixes: 2ff13894cfb8 ("Bluetooth: Perform HCI update for power on synchronously")
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
-Assisted-by: LLM
-
- net/bluetooth/smp.c | 36 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 35 insertions(+), 1 deletion(-)
-
-diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
-index 0e442cc2a35da..552b6b3713c3a 100644
---- a/net/bluetooth/smp.c
-+++ b/net/bluetooth/smp.c
-@@ -3369,7 +3369,8 @@ int smp_force_bredr(struct hci_dev *hdev, bool enable)
- 	return 0;
- }
- 
--int smp_register(struct hci_dev *hdev)
-+static int __smp_register(struct hci_dev *hdev)
-+	__must_hold(&hdev->lock)
- {
- 	struct l2cap_chan *chan;
- 
-@@ -3419,6 +3420,39 @@ int smp_register(struct hci_dev *hdev)
- 	return 0;
- }
- 
-+struct smp_register_work {
-+	struct work_struct work;
-+	struct hci_dev *hdev;
-+	int err;
-+};
-+
-+static void smp_register_func(struct work_struct *work)
-+{
-+	struct smp_register_work *reg =
-+		container_of(work, struct smp_register_work, work);
-+	struct hci_dev *hdev = reg->hdev;
-+
-+	hci_dev_lock(hdev);
-+	reg->err = __smp_register(hdev);
-+	hci_dev_unlock(hdev);
-+}
-+
-+int smp_register(struct hci_dev *hdev)
-+{
-+	struct smp_register_work reg = { .hdev = hdev };
-+
-+	/* HCI event handlers use the root channels under hdev->lock, and
-+	 * SMP receive callbacks use them from hdev->workqueue. Replace the
-+	 * channels from that workqueue while holding hdev->lock.
-+	 */
-+	INIT_WORK_ONSTACK(&reg.work, smp_register_func);
-+	queue_work(hdev->workqueue, &reg.work);
-+	flush_work(&reg.work);
-+	destroy_work_on_stack(&reg.work);
-+
-+	return reg.err;
-+}
-+
- void smp_unregister(struct hci_dev *hdev)
- {
- 	struct l2cap_chan *chan;
+With regards,
+Pavel Skripkin
