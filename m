@@ -1,117 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793352285;
-	b=J63w72Wa5f3p26+UuQXlnZi5dCQYLqdcCyJke5DIkOKFBrQfJIPG95vjDefSemPrIQEy
-	 ps4NQW4RZMUaGJhOSKslFxwbdxzGPbhIu4Qkn8fyrD6fufPeNvzRtERseH36LTB47Gsze
-	 OzSfsVVUHHGqwJrb0G90/L3Zd3yAlbd/2DPUkVeB4I9YBYlyCUAbYYcqKKoyYdNcPQlSM
-	 OHJvNi4ZKh2ljM9hxJwLuy79cA4Y4s/+lOZ5HherDxr/qLznp15lq6rp5uXV5W16U5OE3
-	 d9HyfytYfGMUjx77aBHhfVGwP199QyLkZMDvf5fcz1L9FUEwaWkiS+ambK8pDO6N03Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352285;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
-	 Content-Type:X-NV-OnPremToCloud:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=I0TLv7ZDq9a03FaqNPiNkYaeS8EGCNNAs77bhaYWY4w=;
-	b=aEh21sAAOcWkfWMJZVo+NWBbMf2Sw3p/klYRW4tLfLxc14EBuO4/MIEZfmW2Zl7vAqZs
-	 64raZ22ycxAsJmTJ0+f1Q8eCzCymeeADvBCthVnkvWM3ZGPyrPZOc9Wp7MuBjQWWfSVCg
-	 O19ujVnSHtxLlWKHM6cI6ALRL14A52b6Od52rTmv/X31mNyPCN0s5fX/knZbLICEmxbib
-	 v1xUOP9pbbkXup9Ag6RGfPfPkHaNUhUra+16X0dqxiQ5m8iB3czMye+xslXmjKeehd/ga
-	 GzJ6Qn+2Nig4NXcnrYnJWEw7jjFFPtzhTioDk2GDMOYbqRuRyt6ICLcacndJsa04ZRw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=HliqrH+y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.53
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010053.outbound.protection.outlook.com [40.93.198.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.182
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793352290;
+	b=XcmW9ZzhIXun8XXKNheOgJkiJ5bMVxUchJjGHlnw/GgIB45kzlU+4A+cP0GNUvILmkgO
+	 6PXoku4k9SYEw83IotIHJXkhg2LysWctIYNcAn0T3dl4Iye6mCyZEESvswVVkXwYe1wX9
+	 OvURtF5S07cvx4tbm9bouceojJIR1I9HogI0VLlSBjM+Qb4hSUJZx0RpC/i1X7BQxANOB
+	 icjnPbt6LM0qIcQJrZvwLFWllIAL3DlDTUqggr4Afh9vqKXLBtnMeIqv31tbW9nS1zdJs
+	 ryj/AsvgUOcapPE1QzO12uzSw7Pl8k8/t8MuLGivpSQlA9Tm1519A1nvVH7aUY2iilA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352290;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=RapgeB9lnSOOHM+Q+Ek+TouLYSIIJBsaMcxUoOZ7Uqg=;
+	b=XyF0kgFXxLX3R+l2XpkmG9hKvrMRkzqsqzVAdLwdmT40di4puAg13XULPWUj5NdKjfT4
+	 JVIiC7xEsafBB1uRA4NHMqKVkh9Q3HlekhNRFaG4ohDlO82HHVzF7ZA1sq8UiAGDbCPEY
+	 flMEvGPQHiQ4tURqiOzVJoVaFJs76TjXuyijVRt/82ZfppWiy2DyejHeJVFur18mG3O++
+	 qxVYwU2UhaI89EGtQ/VFgCbys0BqADVqsTVXfpwtc0B8kCVLRm05Ci+bc9A0zpcQ0Q8ft
+	 cuWNMy/26KWsh8q1XO87878/udzEFRN8RlwPr+k/YdVvb0KyJlyTAb9NGDcVkkiHKtw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b="M9/OslpQ";
+	arc=none smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727E3606A31A;
-	Fri, 30 Oct 2026 09:24:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 727E3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3776606A324
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:24:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3776606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=HliqrH+y
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HVRtqt1T1ZFadPfgF8FUWKv9jDLNWWliUwtYkbUVqPXI84B5du2UWJFdGwHYsyFW+gqSJDUBzLhv8MRE3IGvBvUuIcqxgMEdf17/XM/m/h30cufGtdI9tMSuHtHMd+W9dJf1M2L1OjunQZkC4nAVdmNNKb+BhlntLTXHWEexj3hG5D//TadDqYjJXfoT5WWHbrdC3VP1qIh0HmyXA6PwWPrAcKjxwgwrQgVLmfejWDpMMjLvOtHj1Fr5R/dg73j97XoINvgnYc9ctFXeEH9jVvYAxUKlgt5FFYqAefAKo5eG3Zp1Y7hXWYH7yw11N0EmpQKDqO/r/x3EzPa7eiVc0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I0TLv7ZDq9a03FaqNPiNkYaeS8EGCNNAs77bhaYWY4w=;
- b=m73cI6IkUlDphUuMDvgcIX5yB69w6U/OEq07VmxIsYH6JrxvH+3oaFcXnXqlcWug7697WEsc+rOLRHoYzJuL9XaxVcm6dl6WHP6o3BpKAE9hua1kOCi7Tweq8xgbrBoKN7mszjbZ68vESl6fPUQK65gJeM1+/9C+GdEFe6BBym5nv7dAZzpNh3EJAZqpr8WGO0csp8SefKsXgSUM4Ijmvca/stBEN5YFx2NSgldtd6WLjp9/7CKm0CHv7n47OjNNRXe8flVI6HRDZu8P1tdaY4i3FvGK+X3hFK19WR9w1xXV0gEyWC6A2b87JyWmIsr2kX+OhKuaTOrgWNPivDtk+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I0TLv7ZDq9a03FaqNPiNkYaeS8EGCNNAs77bhaYWY4w=;
- b=HliqrH+yhPC2KkP4KSZ9yPnA5/diuqfoej57LCBemr1GyvyT9fCDsSTzp7fhfhjASub95Ci4CkWG4oguQjgiAaPtJGnXoWILDd+GLFgZEolRUyV+0jRgj5xeWU7qKUAz+pC0/Z78MAArPSuTebe8EAhbwmRM4gJuhv/ZxEDKbmhRllGcU7++ErvPWqnJbDIZWo4DnfAsRBiv+AYS0JnrZHG7wvQ1TP61EqMY7LyZ8oKF+yMC9uKYaAIPnt7+A3J458JMd3/0+Kmdh4mAwwY/yGyc8fSHxXXWnaxt9ew50E6bh4pM8KTZmF9wta44AW4hYbECQvKg0eqhkUD1AqZRHA==
-Received: from BN8PR04CA0039.namprd04.prod.outlook.com (2603:10b6:408:d4::13)
- by IA3PR12MB575744.namprd12.prod.outlook.com (2603:10b6:208:61d::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 09:24:41 +0000
-Received: from BN2PEPF0000A892.namprd04.prod.outlook.com
- (2603:10b6:408:d4:cafe::64) by BN8PR04CA0039.outlook.office365.com
- (2603:10b6:408:d4::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.7 via Frontend Transport; Fri, 30
- Oct 2026 09:24:41 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN2PEPF0000A892.mail.protection.outlook.com (10.167.248.184) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 09:24:40 +0000
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 30 Oct
- 2026 02:24:25 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail203.nvidia.com
- (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Fri, 30 Oct
- 2026 02:24:24 -0700
-Received: from sumitg-l4t.nvidia.com (10.127.8.14) by mail.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server id 15.2.2562.56 via Frontend
- Transport; Fri, 30 Oct 2026 02:24:18 -0700
-From: Sumit Gupta <sumitg@nvidia.com>
-To: <rafael@kernel.org>, <viresh.kumar@linaro.org>, <pierre.gondois@arm.com>,
-	<christian.loehle@arm.com>, <ionela.voinescu@arm.com>,
-	<zhenglifeng1@huawei.com>, <zhanjie9@hisilicon.com>, <lenb@kernel.org>,
-	<ray.huang@amd.com>, <mario.limonciello@amd.com>, <perry.yuan@amd.com>,
-	<kprateek.nayak@amd.com>, <maciej.wieczor-retman@intel.com>,
-	<pawel.chmielewski@intel.com>, <linux-pm@vger.kernel.org>,
-	<linux-acpi@vger.kernel.org>, <acpica-devel@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>
-CC: <linux-tegra@vger.kernel.org>, <treding@nvidia.com>,
-	<jonathanh@nvidia.com>, <vsethi@nvidia.com>, <ksitaraman@nvidia.com>,
-	<sanjayc@nvidia.com>, <mochs@nvidia.com>, <bbasu@nvidia.com>,
-	<sumitg@nvidia.com>
-Subject: [PATCH v7 0/5] cpufreq: CPPC: Preserve OSPM-set registers across hotplug and unload
-Date: Fri, 30 Oct 2026 14:54:12 +0530
-Message-ID: <20261030092416.1993889-1-sumitg@nvidia.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=M9/OslpQ
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5367cc15121so5772591cf.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:24:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1793352289; x=1793957089; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RapgeB9lnSOOHM+Q+Ek+TouLYSIIJBsaMcxUoOZ7Uqg=;
+        b=M9/OslpQ2iWiPNnVacSyrTONqsDdV7XepJ8yNTeTlisIJU+N2zQzmJDwLU+wgcleOL
+         +mOvyk8VBDCv3PnlITOWQdW/xntxHpXYuRjJP67kmBzXAelwgXQeSTPyfaeeFnbiI/fT
+         5e9r06ZahMJDOskNQcXsiMSQC6pL1vPom0YVK9MxrSMufJ5svO1s/uSrtOISek/AD2aD
+         ijkv1JKsUH3+sVoM4Qs5SU0H9HSHgdTAh6xv8nmSBVyYZi68SRM8sftAZNqwkixIXIXa
+         5jtjyEbaQ/fd9qLwI3uXl0MEZHyjlGB7n+Okp3AWNq9Lrl8JBrxY87ECN/KNp00nDdzL
+         eueQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793352289; x=1793957089;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RapgeB9lnSOOHM+Q+Ek+TouLYSIIJBsaMcxUoOZ7Uqg=;
+        b=CJQRCgtna0qcl3G1t7K8D0iDVCJyBRf56rpcnwEethO/IMEgmTAok8ppP23hU+RzAk
+         VrI7eNotI3qh/hKq1JLD2jL040o6AtcjoKjbsd8/YDr8k0WHyBmF+d2uZAYUIW1XIz+S
+         B2SlftpaI7WqDV5JLih+CtlW/S0IUXtACbv7l7Q2bEAFlnBjV5qeA7H7EeR/mDN+KgAV
+         vXlbmIiGLqZn+XutvhGoZsEv1/xWKOcov873PqcCopT2qoOSz8Ky1Xv25yhK4yamymjn
+         AdQxtiFns3tbyHO7o7TjFzmATubxkX8Ro8bn60A66fE/q+0D7YcGCwRxOdrUHdTOlkfp
+         txmw==
+X-Forwarded-Encrypted: i=1; AKwUvBzxgCsnMtamV/2Ax1Np6NQ7pDgX8V5zmLDV4Y3dgIpTBJvU5PeLHf/EupmSIpU6WgnRJfUOFLcUHu/0Li8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9IMvcTv+F5aBfw2fEWkQvwC7oFFKmM2yRUffnrE3o5RnugqK7
+	10IWS54dPCPYtxZUbt9sik984lKhF73vBzFcfPNtNS+JiaNXpFnQnNASPxHmXBT7Ww==
+X-Gm-Gg: AYBFou0N2JLR6o3irr7dSttbnyYQgE2/fHBCixTdMYqSAdhJxCipkTJd9CPt4fgYGhb
+	GSkoAB1bu+D83oarYUSN2TwjjeguSXCnEfytpO0FC5OHXBaUrzmlF6nDaUUSYwkepEHvdB9adGK
+	hJxDdrcLaIE9/EdIYyKyeMVrPOyZEeP1puUgQkJTUrBErANRkJxi0kI6psF8ei4vNn54hvyjPpt
+	g8cnHXnkyJzniJbea3PXzFy7DgGNFYCRqXWlzcy1ZxhgvluLSVR4X4rlSSLXJmoq8BD336Pkk2L
+	KoGkkgQZO7dt6yVQWVRd1lb48sgAzoUlWTEOCqRv9cK8avfkQxf3AQPwrMv3BLbknUlcJFGWXBd
+	tWttmfRj/TTTZl7A/OSuYyubn2SoFjhgI9Dsoo4kC7nXGgtqpYHrnbPeJVwmEuF+vicJfJfXS8L
+	17EqY3gCgHH0k75dlIhUhpiGJR3hAAAEkunsbh4PlFT19Xmvl5/tR7dfsTJ0kSbPrK6+LnShOEr
+	eY57EN0Tnnlaa8paJtg2h+dO4/M+GN92+FECOY9MkXx+xN1pZE38T7/xl6KY5wtBwzGQdUWWl3a
+	At5jN0gR5bwoTJiLDK7x6eTtA/MxihHKayexLcnTAGc2OjagLywc
+X-Received: by 2002:a05:622a:1f12:b0:537:deab:afe0 with SMTP id d75a77b69052e-542b3e68d89mr22133521cf.10.1793352288578;
+        Fri, 30 Oct 2026 02:24:48 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54311f775a2sm8848351cf.14.2026.10.30.02.24.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 02:24:48 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: tzimmermann@suse.de
+Cc: x86@kernel.org,
+	bp@alien8.de,
+	mario.limonciello@amd.com,
+	aaron.ma@canonical.com,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] x86/video: Preserve the default VGA fallback for legacy modes
+Date: Fri, 30 Oct 2026 05:24:21 -0400
+Message-ID: <20261030092422.300856-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <4379fd92-ac4f-45c2-9f4a-eaabe4b7f981@suse.de>
+References: <20261029162311.3389523-1-hengyul@cs.unc.edu> <4379fd92-ac4f-45c2-9f4a-eaabe4b7f981@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,110 +103,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-NVConfidentiality: public
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A892:EE_|IA3PR12MB575744:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d55c86b-498a-4451-db16-08df3667a05b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|36860700016|82310400026|921020|10067099003|11063799006|56012099006|261009221227099003|261009223027099003|261026121527099003|261026140227099003|261022105027099003|261028144727099003|261022075727099003|261021121427099003|261022113327099003|261021123027099003|18002099003|6133799003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	9FZKDqhWVWXSh4r183pTk7kbMe5HAOezB7QDivPwdnfViC4MKG9q2BRaOazwet+aVjFY8L2jwmkyapww+/g2u3Igmds1AYEz/pG0kryCuT0NoMKBvvHFWihks8ZEWUFuy13bZUuKYOdempkuwJ6zrOL888nzFLknlkn+T/pJX71JKdwRYi5xAf95UdbB8G7WMs8GY7YVHjb3yAEpmpyAz0K9SHELPj4zjulKDhzyr8t5L9VHB9271w2YHpsaC16e8XYcyZL81zKhfX+0rGV318+zePXN/CSW1Yur63oNZpzcacp5nhUuY6vcB1djL4Oy8ZjDeM4iaZd5ZxdYkPgIsNy1pOERwTrtjojYcMPgeNqfPP8BlWcspJOUYr9APYiIBrt1l4gPwHL+kMAvvxarPMgamXTI+S72tuyssw1rTv+Y4dginvNQVYYRr8/59gw+ummY6VEV+mBchheodYC5oC71AhAdSEwXERkT8UH3TshS11BWRHVj5BwFz6jAF2rholt4dZQSRQgccS9CdQUN8zBHVjKrEeuJIG1+KT+kED0DL6xkqyrqUEqKdGkkI9/UG0xakMD2igz7xEKGuI+/dwVEv4hANuYiaj0z8tzzY7DfYecXVfdOWJedHAwWHMR0K5zooVuqzLWq5sPkJI5d/ALgBYwpZUcydyew8COGjmHuf2BV2ryZKW/afZ7Ef9VX6hsfdeLZkzGtwELK4HycIheJLd0WwKMfiUSKMjNPfEB8gbyAcZ9S5TbIlUOwyc8f
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(36860700016)(82310400026)(921020)(10067099003)(11063799006)(56012099006)(261009221227099003)(261009223027099003)(261026121527099003)(261026140227099003)(261022105027099003)(261028144727099003)(261022075727099003)(261021121427099003)(261022113327099003)(261021123027099003)(18002099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ErvT4p6w+YdlnzlHvPQoDax79A22XrNUKNtv16e/Sa58TDqLozINyyikwmnc/bCXVGJXRU3/x/jrrxk0aOGchV8umrackVmszAhHWkd+U6P9yh+zGHkr6ZbIhA+W4ufiLw5P+lIqqw2mMlZQ/s1xtW1W0wYPImWTtbJIiMOWYUkQH43sxeYQDlpkzixSaAz64dFlJvoGdB8vokGSMwmw3EF360SO6845ebY3jfTBrRa3zrGVR0S/dLai3ZfSZRk4cuUq4Fd0hRIcS45z582fGnnb9r6wIr8FvLFBZ0ZBA0VSJMzkEWFKin2SMweXaUnhYR4ubyxT6aHmfUhbq33cvzR0WcN6XJtlauIURWwloQgrBz8U194SPZ43FXstRpjEiS0rDbjKsJpC4F904kpfgb0imGBhtHh1Fbli+LMMW+EpmxhVqUDThQDL3Mr2Rpd5
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 09:24:40.8111
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d55c86b-498a-4451-db16-08df3667a05b
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A892.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB575744
 
-This series preserves the OSPM-set CPPC registers (Energy Performance
-Preference, Autonomous Activity Window, Autonomous Selection - set via
-sysfs) across CPU hotplug and suspend/resume. On driver unload, it puts
-back the values they had before the driver loaded.
+Hi Thomas,
 
-To do this, it keeps the CPPC cpufreq policy alive across CPU hotplug.
-It also orders the performance-control writes in cppc_set_perf(), so
-that restoring them after a platform reset never sends an invalid
-request.
+On Fri, Oct 30, 2026 at 09:48:19AM +0100, Thomas Zimmermann wrote:
+> Am 29.10.26 um 17:23 schrieb Hengyu Liang:
+>> However, screen_info_resources() also returns legacy I/O and memory
+>> ranges for VGA text modes. These ranges are not PCI BARs, so the resource
+>> lookup fails and the default VGA fallback is skipped.
+>
+> If the BIOS booted in text mode or VGA graphics mode, the rsp device is
+> still the primary display device. So the current matching code is not
+> necessarily incorrect. (But also not necessarily correct either. :)
 
-Without online()/offline() callbacks, the core tears a policy down when
-its last CPU goes offline and rebuilds it on the way back, re-reading the
-CPPC capabilities each time. The values written to these registers can
-be lost:
+I agree that the device is still the primary display in text mode. The
+patch gets that from the vga_default_device() fallback, since the legacy
+ranges can't be matched against BARs.
 
- - Across CPU hotplug or suspend/resume: the platform may reset them
-   while the CPU is offline or suspended.
- - On driver unload: the driver-written value is left in the register
-   instead of returning to its pre-driver state.
+>> diff --git a/arch/x86/video/video-common.c b/arch/x86/video/video-common.c
+>> index 8ed82fff7638..b8f83346dfe8 100644
+>> --- a/arch/x86/video/video-common.c
+>> +++ b/arch/x86/video/video-common.c
+>> @@ -45,7 +45,7 @@ bool video_is_primary_device(struct device *dev)
+>>
+>>  #ifdef CONFIG_SCREEN_INFO
+>>  	numres = screen_info_resources(si, res, ARRAY_SIZE(res));
+>> -	if (numres > 0) {
+>> +	if (numres > 0 && __screen_info_has_lfb(screen_info_video_type(si))) {
+>>  		for (i = 0; i < numres; ++i) {
+>>  			if (!(res[i].flags & IORESOURCE_MEM))
+>>  				continue;
+>
+> Further below in that code is a call to pci_find_resource(). [1]  Why
+> does it match with vkms?  Vkms is not even on a PCI device.
 
-Handle these with:
+It doesn't match vkms. As you say, vkms isn't a PCI device, so
+video_is_primary_device() returns false for it at the dev_is_pci() check.
 
- - Patch 1: orders the Desired, MIN and MAX writes in cppc_set_perf(), so
-   that the platform never sees an invalid request. Christian proposed
-   it in [7], and this version adds fixes found in testing.
- - Patch 2: adds online()/offline() callbacks so the core keeps policy
-   alive across CPU hotplug instead of tearing it down and rebuilding it.
- - Patch 3: makes the autonomous selection register helpers take a u64.
- - Patch 4: saves each register's firmware value at init() and each
-   successful sysfs write as the requested value. offline() restores the
-   firmware values, and online() reapplies the requested values.
- - Patch 5: extends the same restore and reapply to system
-   suspend/resume.
+The problem is on the bochs side. In text mode, screen_info_resources()
+returns the legacy VGA ranges, pci_find_resource() doesn't find them in
+the BARs, and the function returns false there as well. So no device is
+primary, and fbcon stays on the first registered framebuffer. In this
+setup that is vkms (fb0), so the console is never remapped to bochs (fb1).
 
-v6[6] -> v7:
- - Patch 1:
-   - clamp Desired into MIN and MAX instead of rejecting it. (Sashiko)
-   - store_auto_select() updates its cache only on success. (Sashiko)
- - Patch 2:
-   - exit() only frees the driver data. (Sashiko)
-   - online() continues if enabling CPPC fails, as init() does.
- - Patch 4:
-   - save the requested value on each successful sysfs write, instead
-     of reading it in offline(). (Christian, Rafael [8])
-   - init() fails if a firmware value cannot be read. (Christian)
-   - split the auto_act_window store from perf_limited.
- - Patch 5:
-   - suspend() no longer reads and saves the registers.
+vkms only makes the console part visible. Without vkms, tty1 has the same
+size with and without the patch, but boot_display is still missing without
+it.
 
-Christian Loehle (1):
-  ACPI: CPPC: Order performance-control updates
-
-Sumit Gupta (4):
-  cpufreq: CPPC: Keep the policy across CPU hotplug
-  ACPI: CPPC: Make autonomous selection helpers take a u64
-  cpufreq: CPPC: Preserve OSPM-set registers across hotplug and unload
-  cpufreq: CPPC: Preserve OSPM-set registers across suspend/resume
-
- drivers/acpi/cppc_acpi.c       | 318 +++++++++++++++-----
- drivers/cpufreq/amd-pstate.c   |   2 +-
- drivers/cpufreq/cppc_cpufreq.c | 530 ++++++++++++++++++++++++++++++---
- include/acpi/cppc_acpi.h       |   9 +-
- 4 files changed, 729 insertions(+), 130 deletions(-)
-
-[1] v1: https://lore.kernel.org/lkml/20260623095403.3407436-1-sumitg@nvidia.com/
-[2] v2: https://lore.kernel.org/lkml/20260716153820.2007095-1-sumitg@nvidia.com/
-[3] v3: https://lore.kernel.org/lkml/20260724215937.3368276-1-sumitg@nvidia.com/
-[4] v4: https://lore.kernel.org/lkml/20260806200857.601152-1-sumitg@nvidia.com/
-[5] v5: https://lore.kernel.org/lkml/20260916103820.1760297-1-sumitg@nvidia.com/
-[6] v6: https://lore.kernel.org/lkml/20261020121846.691218-1-sumitg@nvidia.com/
-[7] https://lore.kernel.org/lkml/1be30b2b-e1e5-41ed-a0dc-0dd5ad3c47cd@arm.com/
-[8] https://lore.kernel.org/linux-pm/CAJZ5v0iXip_5Ywk3EkrGL_u2w_hOcGKA1XvrubLPb3diWHx5Lw@mail.gmail.com/
-
--- 
-2.34.1
-
+Thanks,
+Hengyu
