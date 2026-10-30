@@ -1,96 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377889;
-	b=Vup0i+82Yi1E2+nBng4LQk5UqnlXtldgUNi7CwHoftsQWVJN41SP9UNNziRJbN6r8Gss
-	 uZZ9RCLtB8baIsiiV//EQ8L/TQJPzBHFvu7hMbrq4qp/1iDyv+RuqgvkWLKKXjkXMiMr7
-	 ffvcGljRUTpayYrf6GwgwzJWHWGbpGV+LKtuY12X3VlzjeKx9MNVW+8Y8bRDZxLcRd6/m
-	 rJo/LS7+GID9nrQjj7tYtPaty2wWyH7Et2OcMMMvAa2x89rhJfSdU3zi4sRxweL+rnZ+H
-	 yV7wNLOOP56N8CPIug2H1FmIqTPM/gAT2tRYbci/5C72qG2i07E2ult84Ooht7MsAwQ==
+	t=1793377895;
+	b=S7MRlIM6TCMfA9+zeEpKuDAStmUIh684Xb0RZzW9HGHQWyekw7XeAxYbuy+M0+ezGnkD
+	 H55PQzMTNYKA8NPK/WEqNJE6xgIqhK3YyjHJZrTEEsV8AyAnMc+izqWlJkDdX8xc+3EhA
+	 0hjqjzzdab6K0Vrk8Mpb1+MlAtEaL4DxotbLI6At6GoEb8J3OyZeIF8UKb+p9Iva8a44Z
+	 beceRN5sbztQsN4b2eLvk/D8isGKDCcoi7TGgqjG8jehda18HfxKvsyWS9jMmGpeX1E7B
+	 V4pkvkc4BzYcxuInYTq7sdcjszkUhEVNuc0ufsg0jFR7/fIEQaD7whoQnPbGiLOjLqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377889;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377895;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=trsHnVMI6YDWj7rsoQPF0JN2z6GWW+nTgXWERqdG0yk=;
-	b=oi9S31+1DrZeAjaLn7B20aXPlMLXWY68xhec2VU9tl5a0+NZ/3Nqdh1mNmUS5zc0h/7Z
-	 76JsE9AbAx70sipaaa3MQvvekKRaO15bMh2t/NJtkvSGrJg6rD+xcCwF4XVv/NC2q1don
-	 RXRytZ6RvwDKnJbFd1ylrzCvJ8WDvvtEcJucm1ZmqSoj/IvUgetY+vJuJ0RF860p3Nt03
-	 kuWL56pegsBO5Fmx/ToPSYlhcMQraYVex+abB4QfOtaRb7jo/278qAuaR1EqOacR8Pcqj
-	 5rEhA0DhDzNGIul50oqo6cUPCWQ9RmLE4KFeVJm/HYgHKLJW7JVuA6+GbzGKcCODlRQ==
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=1gGF1mtAr/lwTqIAotY13/mj9rw+PP7UFZyG/jdv9hY=;
+	b=hbJGAgmZtX1GJFHU1bXDmfLQU12qA3EThH9CavSiZeIjuZXVycDg/sitoxOFaVcg41c8
+	 XopJT4NgMzWBDbGHJgFu0a30Njs6JQ+6cMtdC8Z5pcRl45hYc67vpYEB7nQMlObQsmxC/
+	 /1lqP3R4+UQuA05aIJ/Ousk9x/t7v0ScORo9tzDzsBNgsbkl1mBHP7FQEGsI03A8qQdHt
+	 8yHmFgz7YDPVT6ofoB92ERFC1JaqE7060kendc5A7P5I7Yt1R5x1cOdCUyYySZQcuItKS
+	 J7n1LB7pNcs8G144duiwCUInXaD0Tv5kdjYvwI+ITGcksojgmjE2Q7hwLVtv00/n1mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GEHo4ZEB;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hdprGwCS;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AF2606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:31:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4AF2606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEA4606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:31:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AEA4606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=GEHo4ZEB
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48df54150dfso458264f8f.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:31:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hdprGwCS
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so10334705e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:31:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793377887; x=1793982687; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793377893; x=1793982693; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=trsHnVMI6YDWj7rsoQPF0JN2z6GWW+nTgXWERqdG0yk=;
-        b=GEHo4ZEBbPgIqvKH/esYl4bKEwIgrqYul6cG5ju2hvDLzsBHXTbzLIiQof86MeshRT
-         0ccaU+Crjup3egqCgGqPwbBMF/SS5dnC+03U0HRLqdK8p6QCiKO7dEQFBlnPlS0xfXZj
-         SbBbAE9WGm2wyHttP9/9yCtzN9YFhBUPOdvJIRMwxZgFLqcwzm8jmeYRExcBIGXaXWwk
-         uB6rnPnnxrsmdrLUEg7DRr9LI7bOjPuFmI3t7aMuh6GeX/gg0Fy+aG4w8iHa64aeeDb4
-         3y1LRVwrhxbt2pHJ0H8U9bIWcLF8FU3QjUR3HvgyEZMQuQS9JcJoYOOZ7s6gXaykSEdc
-         yZvg==
+        bh=1gGF1mtAr/lwTqIAotY13/mj9rw+PP7UFZyG/jdv9hY=;
+        b=hdprGwCSzXf7PRKQ/V5wvfaVkpaM2GmUVffQo54E2zGDxNlDOBku6jVRQrBvOEGPw6
+         os5QkDVc5h5REpSPb+OJH/0yxAl9ymggDnYFOn4pUmDwgvn+kjTlv6nTaErQzZHXHGfO
+         NvfrNDuU6i/W9D9XQ68WspWENQMBFPh0poo7f9kjoV40fMjuWt1VGQQ3V5CH4uaNdp99
+         BDf+G0piQkL8K2u8K5xFRHm28dB1YLroHCLaoW1zvMgSirm0rIfjWpzEKUGrkw4QIusM
+         Q7OXVBfjO2rFU0sg1y78nmoid9RwPqeLOMbm/jBjxhqkgsQFkMrokIb0SzzO9BIjLOzV
+         XS9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793377887; x=1793982687;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793377893; x=1793982693;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=trsHnVMI6YDWj7rsoQPF0JN2z6GWW+nTgXWERqdG0yk=;
-        b=if20jpyaEQw6iJb0iIqpbSYNr6Qkflznane49HBsuSCXtzE4XSVLCM+KJexu15t3GC
-         wAMd/mq00V3NqeGqJyz50dE90V7GHUK4IBm72/P1TDWRc1MfQjZnd/lq1MeBUIyQIF9A
-         wctEb/4JiMPGUHjUOUIlHBjOFz9SQCnmj0F1iayVJx75TSlIpll0KYoNkgkV3Vt+nhzN
-         Mhtpm5Hzqezh4Pxc1x+SR1FzrvrNywtis3sk/vrsVuQu53a6H0960449exz1O4Cvhpw8
-         +QJYfB1zqCTwENEEBVUmFybHrPX7drwPwazQ2ufaDrX2ucipz4XYTHzYlADc9ksC8I6S
-         TDjw==
-X-Forwarded-Encrypted: i=1; AKwUvBwLCCzmzGj5NZRVmF48kpAAok4H+h9wkqcyZS8WYcwHoys00GxlNcq5LTPY25MXpYhGmoHF8s/2KiPVOSc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrom3xL9IdZeCJP2oSaJK15JAJRdWF41CN1wgNGq4yeg5Ax8cu
-	qp51oykHY1zcZRznnNRdUZMrTiwjD8lqZ+Ca7RRsOhQbUqtwCN+VcXRhQCShRsLW5jk=
-X-Gm-Gg: AYBFou3HS7PdSsvjdsF8w9/jMbAY6kxz9ol7S9mlQoM55Qe0A2IRCUb6tXVpHThzdcJ
-	1UNbHYaEHXt74FNGQtoc0jE35iNO/KFPfcapLaWQgnqH74f6eDrPJqdFnw5e/uEcidN3PPtUSS9
-	j6IeEE2Cpn/HoyOwjU9U0Dst+mHOqONHqZUjK8F7ITG6g1f2AGMcoSgCJTonxTgFfPLv2cjtgr5
-	URrUKXrWufhCmoW8tIgLYDmHnfJaiQ4FHsmxnGkTL9nDxxzR4dbbLj6mtlc1zkKZxYAfLviCR0n
-	oyp0QbwduUEu0Ig8KzBH7K4VN1Ca7+VZVbnBzPtj2yoibqPv2bhna01FF3edi+Rt2Tn8OTOFJjk
-	0s6WT3lFyMH7vvFcc1PCNRhyoLZ38CdVirub3vmDAh0Ha37UmmzHgnW4w1cflbSf+dnjJTX5h1i
-	keqWAQjjKf44Ih6xFPMSA0rj14WHWwhj65UU58rc01pFONUqCp9y18NcLD/U1UQDwHwngKGiLAX
-	VRrX31fo8yDROq7lJ7xhyDq8Gje/OD8VfNBxBjIJ+KfISrr01ss5UBMOGA1/0vl7PoWTp5C9vId
-	Q+KC61igE4b+X3yaPrCLbUkG2jmzk5bqTFpcArHxrGmnP3nD9bbEv/cV1S45l9W/
-X-Received: by 2002:a05:6000:2282:b0:48d:f14a:9188 with SMTP id ffacd0b85a97d-48e73851611mr3804299f8f.17.1793377887133;
-        Fri, 30 Oct 2026 09:31:27 -0700 (PDT)
-Received: from localhost (109-81-92-234.rct.o2.cz. [109.81.92.234])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b728ddsm4025629f8f.9.2026.10.30.09.31.26
+        bh=1gGF1mtAr/lwTqIAotY13/mj9rw+PP7UFZyG/jdv9hY=;
+        b=MuR3GyYJAiEfn3T0jy1PUaKHcNGbf9nXrWyVv8tusl7/u0vW45mBUQCBIutm6jvThj
+         /lrrYfGdJOze+77QZUbpOLI/sFBWXhtJDvdOKRFUtBhw9qG39bhImgPz6vR3WYiCxUlD
+         rWxjNXMzpF5/orsANe3FMIM3m5kW2MBQZO7hpJVlzMNclule3D9lw0QXEswgehsLUOd0
+         kmYm7A/QIW36KgMxtcrY79ZLBKdW5kgh5cA6bZfj/qbubWi+AUrXRWgy08T5+pJOy/u0
+         Dl4W6wJ1dCAenXVkN1PV6KhV+uVYhlPYVTl+1sNwy+ehOJ/VrhLS0/NfT26g9cNPd7Ct
+         LhpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx20noTSU+4tT/8UWInk6jd1siZOFry3kthXLFypQbQ2VbZNPLidNJt40tSBkyt37YeaDD1vXTjgkH8POA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJObd/eQFl7bmM4eXIHQkINJ4xjBaC7dk2b5vu9anfpIf75rKEt
+	mokif688HjSwhEr2k+GYG4tIAJZl9VdaIgtn60dBHi6dzPBFmUHwiAcI
+X-Gm-Gg: AYBFou0ji2iTVyjJgsn7FhY26wP9AAf7HynLgVUpWYge4VvgKqaNdO4gz5q5nK8+F+p
+	II6Hc/Oq+bny5h9yPOnVt+bWa2gRPu9NZKat+3zwKPA1wOnzbfUhKXCIZx4H8qe3QpTOjayWul2
+	wfGBmX5RlzoUt9w5r9SO7ZyimtVj/zCGl0C9df97ulTwY0iBIEe1JnPbX5TguplW7Go/jfF6zgL
+	3+xbB01SXbXcw7E7iTob5GUFbckq+6RIs0bChjinME+Jj+lBaDhLHXt1c4IIlN0rIJXd9rvb2+G
+	47vD9eCXit+xjrtZK9p44r4AzmxHAh2uJIst1eYjfQS4EDAYUr7KyGIUno0wmRDwd5DTo7DFCeS
+	Z3qQx5WijhCz9PFu4hzWf8n0G0F17SoWZ8U4/NLy3hJHMoolMcxE+Rmj/DSH0HG476ehB9DymDR
+	DfQQGD48plqd71Ry+wv0tArsRnMrlcTm4R02uNZoC4yfYShZXu9wUCsHUll50W8y1PBVyH+U2sf
+	mpHdBGdsEvMp8K3OYY3tBIgTFvGNpWZn2FiMgE3Bg/0qvlIQYTlh8IIa4tFYFPa7LcbGcIS/boS
+	KSQGVsUDk4HS2sgEurklw24OjyNDrorlCiTw+8hd8xUfJfkeZeqmgw5jKSJvqoau4g==
+X-Received: by 2002:a05:600c:1c0f:b0:4a2:150f:1601 with SMTP id 5b1f17b1804b1-4ac1709a7bdmr62699895e9.12.1793377893396;
+        Fri, 30 Oct 2026 09:31:33 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d4f9sm4141958f8f.2.2026.10.30.09.31.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:31:26 -0700 (PDT)
-Date: Fri, 30 Oct 2026 17:31:25 +0100
-From: Michal Hocko <mhocko@suse.com>
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: hannes@cmpxchg.org, roman.gushchin@linux.dev, shakeel.butt@linux.dev,
-	muchun.song@linux.dev, zhengqi.arch@bytedance.com,
-	jp.kobryn@linux.dev, akpm@linux-foundation.org,
-	cgroups@vger.kernel.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] mm: memcontrol: fix NULL pointer deref and UAF from
- high_work_func() on dying memcg
-Message-ID: <auTGXWh2uGK_slxF@tiehlicka>
-References: <20261029201858.2932905-1-tjmercier@google.com>
+        Fri, 30 Oct 2026 09:31:32 -0700 (PDT)
+Date: Fri, 30 Oct 2026 16:31:31 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>, ardb@kernel.org,
+ Jason@zx2c4.com, linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] lib/crypto: aes: use memzero_explicit() instead of
+ memset()
+Message-ID: <20261030163131.21d8f0ff@pumpkin>
+In-Reply-To: <20261029173119.GE1862@quark>
+References: <20261028142636.5888-1-raizudeen.kerneldev@gmail.com>
+	<20261028155134.GA4041913@google.com>
+	<20261028205633.7625d789@pumpkin>
+	<20261029173119.GE1862@quark>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,126 +102,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029201858.2932905-1-tjmercier@google.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu 29-10-26 13:18:58, T.J. Mercier wrote:
-> When memory.high is exceeded in non-task context, try_charge_memcg()
-> schedules memcg->high_work without taking a reference on the memcg, and
-> high_work_func() invokes reclaim_high() without pinning the memcg.
-> 
-> With obj_cgroup reparenting, introduced in commit bf4f059954dc ("mm:
-> memcg/slab: obj_cgroup API"), objects charged to a child memcg are
-> reparented to its parent in mem_cgroup_css_offline() instead of holding
-> a reference on the child until uncharged. Subsequent uncharges of those
-> objects go to the parent, which can leave the child's memory use
-> permanently above its high limit, so any later charge on the offlined
-> memcg in non-task context schedules high_work. This was later widened
-> from kernel memory to LRU folios when commit f1cf8d2f36dc ("mm:
-> memcontrol: eliminate the problem of dying memory cgroup for LRU
-> folios") converted LRU folios to use obj_cgroup reparenting.
-> 
-> cancel_work_sync(&memcg->high_work) only runs at the end of teardown in
-> mem_cgroup_css_free(), so high_work_func() can start or still be running
-> reclaim_high() after mem_cgroup_css_released() or shrink_many() has
-> called lru_gen_release_memcg() and unhashed lruvec->lrugen.list. If
-> reclaim tries to rotate the memcg, lru_gen_rotate_memcg() dereferences a
-> NULL pprev pointer. This issue is specific to MGLRU and was introduced
-> with the memcg LRU in commit e4dde56cd208 ("mm: multi-gen LRU: per-node
-> lru_gen_folio lists").
-> 
-> With either traditional LRU or MGLRU, css_free_rwork_fn() calls
-> css_rstat_exit() which frees per-CPU rstat data before calling
-> mem_cgroup_css_free(). If reclaim_high() is still running, rstat updates
-> via mod_lruvec_state() -> __css_rstat_updated() cause a use-after-free
-> on the per-CPU rstat data. This was introduced when commit 5da3bfa029d6
-> ("cgroup: use separate rstat trees for each subsystem") moved
-> css_rstat_exit() ahead of ss->css_free().
-> 
-> Fix both problems by acquiring a reference with css_tryget_online() in
-> high_work_func() before calling reclaim_high(), and by resetting
-> memory.high and swap.high to PAGE_COUNTER_MAX in
-> mem_cgroup_css_offline() so that charges via references on an offlined
-> memcg do not trigger high_work on the dead child and skip checking live
-> ancestors in try_charge_memcg().
-> 
-> Acquiring the reference in high_work_func() rather than before
-> scheduling high_work is safe because mem_cgroup_css_free() calls
-> irq_work_sync() and cancel_work_sync() which cancels pending work and
-> waits for an already running high_work_func() to complete before
-> mem_cgroup_free() frees the memcg. css_tryget_online() uses
-> percpu_ref_tryget_live() and is safe to call after percpu_ref_exit()
-> before the cgroup is freed unlike css_tryget().
-> 
-> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
-> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-> CPU: 1 UID: 0 PID: 27 Comm: kworker/1:0 Tainted: G    B   W           7.3.0-rc5-g2bba28e98578 #284 PREEMPT(full)
-> Tainted: [B]=BAD_PAGE, [W]=WARN  <-- Taint from lru_gen_rotate_memcg() VM_WARN_ON_ONCE
-> Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1 04/01/2014
-> Workqueue: events high_work_func
-> RIP: 0010:lru_gen_rotate_memcg+0x1a3/0xe90
-> Call Trace:
->  <TASK>
->  ? read_ctrl_pos+0x22f/0x3f0
->  shrink_lruvec+0x16cb/0x1b80
->  ? ret_from_fork_asm+0x1a/0x30
->  ? lapic_next_event+0x15/0x20
->  ? clockevents_program_event+0x2bb/0x6f0
->  ? lapic_next_event+0x15/0x20
->  ? __pfx_shrink_lruvec+0x10/0x10
->  ? __pfx_clockevents_program_event+0x10/0x10
->  ? _raw_spin_lock+0x84/0xe0
->  ? __pfx__raw_spin_lock+0x10/0x10
->  ? kasan_save_stack+0x30/0x50
->  ? psi_group_change+0x381/0x740
->  ? __pfx_sched_clock_cpu+0x10/0x10
->  ? save_fpregs_to_fpstate+0xc4/0x2c0
->  ? finish_task_switch.isra.0+0x1de/0xac0
->  ? __schedule+0xf62/0x42c0
->  ? __pfx___schedule+0x10/0x10
->  ? __pfx___irq_work_queue_local+0x10/0x10
->  ? shrink_node+0x626/0x31e0
->  shrink_node+0x626/0x31e0
->  ? ring_buffer_unlock_commit+0x11d/0x5c0
->  ? kswapd_clear_hopeless+0xa0/0x150
->  ? __pfx_shrink_node+0x10/0x10
->  ? 0xffffffffc0000095
->  do_try_to_free_pages+0x255/0x13b0
->  ? ring_buffer_unlock_commit+0x11d/0x5c0
->  ? reclaim_high+0x10a/0x1b0
->  try_to_free_mem_cgroup_pages+0x1f9/0x5a0
->  ? __pfx_try_to_free_mem_cgroup_pages+0x10/0x10
->  ? irqentry_exit+0xc6/0x670
->  reclaim_high+0x10a/0x1b0
->  ? __pfx_reclaim_high+0x10/0x10
->  ? process_one_work+0x5ff/0x1030
->  ? __pfx_high_work_func+0x10/0x10
->  process_one_work+0x6e2/0x1030
->  ? __pfx___schedule+0x10/0x10
->  ? __pfx_process_one_work+0x10/0x10
->  worker_thread+0x422/0xbb0
->  ? __pfx_worker_thread+0x10/0x10
->  kthread+0x2cd/0x3a0
->  ? recalc_sigpending+0x15c/0x200
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork+0x368/0x590
->  ? __pfx_ret_from_fork+0x10/0x10
->  ? __switch_to+0x588/0xf50
->  ? __pfx_kthread+0x10/0x10
->  ret_from_fork_asm+0x1a/0x30
->  </TASK>
-> 
-> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
-> Fixes: 5da3bfa029d6 ("cgroup: use separate rstat trees for each subsystem")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-> Acked-by: Muchun Song <muchun.song@linux.dev>
+On Thu, 29 Oct 2026 10:31:19 -0700
+Eric Biggers <ebiggers@kernel.org> wrote:
 
-Acked-by: Michal Hocko <mhocko@suse.com>
-Thanks!
+> On Wed, Oct 28, 2026 at 08:56:33PM +0000, David Laight wrote:
+> > On Wed, 28 Oct 2026 15:51:34 +0000
+> > Eric Biggers <ebiggers@kernel.org> wrote:
+> >   
+> > > On Wed, Oct 28, 2026 at 07:56:36PM +0530, Mohamad Raizudeen wrote:  
+> > > > aes_gcm_decrypt() and aes_ccm_decrypt() use plain memset() to wipe the
+> > > > output buffer when authentication fails. But the compiler can optimize
+> > > > that wipe away, so use memzero_explicit() instead of memset().
+> > > > 
+> > > > This matches every other sensitive wipes in this file, which already
+> > > > uses memzero_explicit() for keystream blocks, tmp buffers, ctx
+> > > > teardowns.
+> > > > 
+> > > > Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+> > > > ---
+> > > >  lib/crypto/aes.c | 4 ++--
+> > > >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > > > 
+> > > > diff --git a/lib/crypto/aes.c b/lib/crypto/aes.c
+> > > > index e1c191551736..7814ef525239 100644
+> > > > --- a/lib/crypto/aes.c
+> > > > +++ b/lib/crypto/aes.c
+> > > > @@ -1733,7 +1733,7 @@ int aes_gcm_decrypt(u8 *dst, const u8 *src, size_t data_len, const u8 *authtag,
+> > > >  		 * Clear the inauthentic decrypted data so that callers won't
+> > > >  		 * receive it even if they fail to correctly handle errors.
+> > > >  		 */
+> > > > -		memset(dst, 0, data_len);
+> > > > +		memzero_explicit(dst, data_len);    
+> > > 
+> > > This isn't for "zeroization" (making the data unavailable in ramdumps),
+> > > though.  It's just so the caller doesn't accidentally use the
+> > > inauthentic data, as the comment right above it states.  
+> > 
+> > It is also a parameter so has to be zeroed anyway.
+> > memzero_explicit() is used to clear on-stack buffers.  
+> 
+> Well, that assumes link-time optimization is not done.  The kernel
+> supports being built with link-time optimization.
+> 
+> I guess the motivation for this patch would be:
+> 
+>     (1) Shut up LLMs that think the use of memset() is inconsistent
+> 
+>     (2) Maybe the caller really does want "zeroization" for the dst
+>         buffer, even on failure -- and this guarantees it for them, even
+>         if LTO is enabled, without having to do it themselves.  (Though
+>         on success, they'll have to do it anyway.)
+> 
+> So I'm tempted to apply this patch anyway.
+> 
+> But the zeroization stuff is getting kind of annoying at this point,
+> when it's unreliable anyway (it's not like we zero out the registers,
+> which can then be spilled to the stack and/or written to the task_struct
+> on context switch) and can even be counterproductive (by forcing data to
+> be written to memory so that memset() can run on it, instead of kept
+> entirely in registers).  And Sashiko likes to flag them as Critical
+> issues, which is not at all accurate.
 
--- 
-Michal Hocko
-SUSE Labs
+OTOH, if someone does a memset() then maybe the compiler should never
+throw it away?
+
+David
+
+> 
+> - Eric
+> 
+
