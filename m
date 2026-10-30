@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379786;
-	b=10W3HzFvKJ8HTtAjN8Z28vCNVPHPxILtdN6hH2C216gS/BICbWA3Ew4ir0ZgdKM8kYIq
-	 xt6IBKGexqMCS42dV/FLw+CGE3AjZdoIo5OCIET6gNyvpO2OQd1bGMxCoZuHURU4P9UsG
-	 SSHTa0QyvGcVUZ99GwqjMV9sTPD+mIsmSh9Fhvfftt7CQjckdMAXAJ/eVrkyu1W28JCfC
-	 uhEzytRFIfzgyqDYzakFFa9bRW8hGIQtoyjwe+Ny1LvOgATfDtrg4F085EVraIqbVF3nl
-	 PpWlHNxKxBe5JcegLIzrd7Bof4+bDxL0Oz0SpgOcYzhSOW2T6SrlRtHnoNXVXmLUQiQ==
+	t=1793379843;
+	b=3qGq2yANPv8bZpbGOOxRRQAzaleN2DMZw8es+5uHOCasX17Jez7PGZeOVtfz0n65NJph
+	 Wd78zk4fgOuzmK1iD7tHkc24YPVGXjHQ7YOGtPaQ6to41qlbX7XGtGxYpzCeP8MWBVVRa
+	 TvSNQZRyqjdD5OSTiQmdKcj49rg+HYyX6vSV/OERkWcRDLZ4ETxiEkVZfz/ovYW1h8urp
+	 KHJfCXh17XNi4jkHrayOuwloNAPxc+bED7w5ySEWpgdwt3ScevzYuhvSRH7cgcx4cMUTS
+	 HRUUpnHVmbceMmKAJvIWQW+K3NmsIu2A6eGoGFsThgFDXEP42PH/PZcr2Xw6IlqLh+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379786;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xsarIZJL4PEc9Bxn42jOu8TJETM+T2V8nUbleqFixHE=;
-	b=as5SPJXIzuV6N/VcfT9E/GzTlxoC5S7tFOGYb8MnitV69R0/emDPgFBC8YG0MK7PfEuC
-	 q8txE6kWKF9ltw84/99Dc5YwE1MTb1+wmmESOb/If3R+1fSDewg2F5LUVHXl4FcZ9J4iP
-	 xlyOq0FukDzAPmN9d5K+WIuk/rpPQY7Tt5gu3+dmsFbQvurwUUGx+mgGPWJ3f1uzGZZ28
-	 FR2XWhO6WSoDTPlwehUbIGxPo3sleNLo9bk4cjgPqm0iB/4YafjMz2dWvee4adFXWuFbP
-	 ArUGF2UXz3XgATRYx+9J5TWPMJD8zd0eS1vyJzlPPYltgHVHaBHB/YTbb3w3AxTmETA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379843;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=BmTjShnS2Rn+rNXZzO3ooF/r+penKcloUzDopqkf33w=;
+	b=Ae+wdemhpNkYFuF8WqFi4U7qk3I3TJJ/F6WLslUiAKvAlalMQQF2faoZ/M6SxIU9qvvl
+	 +mYZ+rvWA9GJKk+vgpvq1EUB1pJ6GWNGWSzy3NZeyv/5G7hioNAhIb4io0+1EB9inDOLh
+	 zTGeXAo1dxC+cxeGSrPUHffY+mgQUH2/lwNnq3Y39gv5kWxy1JgHffBH+rxU6gbkZbn5i
+	 mn5yT6/1au1GJ/FKge7R5oJXwlAC4UdryXKLg7jUgmTW2/xS0SbdTniz8i+TLVB4LP2zp
+	 pf1dlbhe6fBaYk9YuGi3tSh7WU1seML+MW25YTK98TyoL4L4nixEot5YYosDscfmH6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BaCdGxpI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2632D606A31A;
-	Fri, 30 Oct 2026 17:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BaCdGxpI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8DD51F0093A;
-	Fri, 30 Oct 2026 17:03:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793379786;
-	bh=xsarIZJL4PEc9Bxn42jOu8TJETM+T2V8nUbleqFixHE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BaCdGxpId/gMQjXhzIEWh4taJZzC1v4DRG0gg8E43qkw07Rv3yW3BvtakGav2a2dI
-	 +tsT6KlAuQPRfrlQUmEDQ++wiSjh3oL/1G7V2AGQSLpfmXbknma4B6SA5f6SajBy/H
-	 PMNf4PxgUFXkMhQZQ1RDxH1YtTyWnXBHa6UWepe4qm25dU4Qj56p95ALEj7/VzpZRr
-	 OkFtso6ZHZbCibRn8fHfQenEeDBBY7W5GCoUZnVBhqzEL7FF8l9QXLSKFo9D1ebxTf
-	 tuQh6e87oDfEhBucVEdX83CE49zlxJwG3sOJTEUm8J92VGXJIr7/aHbe8UdHc51GUT
-	 czucnDKw3Ajbg==
-Date: Fri, 30 Oct 2026 10:03:04 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Yao Zi <me@ziyao.cc>
-Cc: Han Gao <gaohan@iscas.ac.cn>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Jisheng Zhang <jszhang@kernel.org>, Guo Ren <guoren@kernel.org>,
-	Fu Wei <wefu@redhat.com>, Han Gao <rabenda.cn@gmail.com>,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] riscv: dts: thead: add Milk-V Meles
-Message-ID: <auTNyLqjBVgt2enA@thelio>
-References: <20261001-rv-meles-v2-0-c61052262f84@iscas.ac.cn>
- <20261001-rv-meles-v2-2-c61052262f84@iscas.ac.cn>
- <asbBtj3fL0PUNGJ-@pie>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3184F606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:04:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3184F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc89e86e4dso1376050b6e.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:04:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793379842; x=1793984642;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BmTjShnS2Rn+rNXZzO3ooF/r+penKcloUzDopqkf33w=;
+        b=kYt7w7J8VBAbdMG6LLPPOU54cwGV61of0oZuqQJ2kAL8VnQD8xutDFpyHPcSoBHmfA
+         vVpAH94GTiSWeuqOMQKHBsn0kVV/M6828bpS+FrHS3u9binf7YidIGgk1EdhPRnGG085
+         aOupsvnOb+dj1nKfHkqiS8+xgmrEsVTg2vznIOzQedqVIgir5IIFy/zJE5pwGMN1nw/l
+         V295scS69M6/X4wJZSlOtSJSs6+P0qRmzgXBADP1JfQTj83TVBpXlW2jpq2yEXSHGhyC
+         ZbddEtxgs191IOUGoO0KknxtGZNX7jbHWke36beoUgoqgL20nnuba04+nygSRsns0xFW
+         pu1A==
+X-Forwarded-Encrypted: i=1; AKwUvBz/bFEpXrBaXhmtgLoGctLTWIHtFLYEsWAgg0PeVcnw9cB1j38zkRHGGLDP7c9cKV/QtTKCrprklPlDn1E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIB2U0uWcCYG8p6AwbxXY203/XA4r4M2JQEVjzw0vHni9WzDOIs
+	ZjtQcb/QEwLtv8VfLz3dHcrBCarTHaw5gxKxvP9acxGOavEQZH6GbqzoNAurwZNeK0Qs88nHO0H
+	svNmGeLn5k63fnh+tyEuBYgBUjUmDy7ZfS8L5ZnlZ466HnCrQcsuynkRfx4I=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,73 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asbBtj3fL0PUNGJ-@pie>
+X-Received: by 2002:a05:6808:1b2b:b0:4f5:5cdc:84c9 with SMTP id
+ 5614622812f47-5640de8b99bmr2026033b6e.62.1793379842093; Fri, 30 Oct 2026
+ 10:04:02 -0700 (PDT)
+Date: Fri, 30 Oct 2026 10:04:02 -0700
+In-Reply-To: <20261030163834.396986-1-gowtham398gs@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae4ce02.b7bd089a.283bc.0004.GAE@google.com>
+Subject: Re: [syzbot] [spi?] [usb?] WARNING in spi_register_controller (2)
+From: syzbot <syzbot+41172204e7323356ecdb@syzkaller.appspotmail.com>
+To: gowtham398gs@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, syzkaller@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 07, 2026 at 10:03:34PM +0000, Yao Zi wrote:
-> On Thu, Oct 01, 2026 at 03:44:11PM +0800, Han Gao wrote:
-> > Add the Milk-V Meles board with UART0, eMMC, SD, Ethernet and the PWM2
-> > fan. Describe the board pin assignments and the PHY on the GMAC0 MDIO
-> > bus. Give GPIO banks aliases and name the exposed 40-pin header lines.
-> > 
-> > The eMMC I/O supply is fixed at 1.8 V. Enable DDR52 at that voltage and
-> > retain the 52 MHz board limit. Describe 8 GiB as the default memory
-> > size; firmware updates it to match the detected RAM capacity.
-> > 
-> > Reviewed-by: Drew Fustini <fustini@kernel.org>
-> > Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
-> > ---
-> >  arch/riscv/boot/dts/thead/Makefile               |   1 +
-> >  arch/riscv/boot/dts/thead/th1520-milkv-meles.dts | 227 +++++++++++++++++++++++
-> >  2 files changed, 228 insertions(+)
-> > 
-> > diff --git a/arch/riscv/boot/dts/thead/Makefile b/arch/riscv/boot/dts/thead/Makefile
-> > index b55a17127c2bc06cbfb06d5f7c92dc7296e98437..25f7fe068368c97df2490bedc3eae70276a2e442 100644
-> > --- a/arch/riscv/boot/dts/thead/Makefile
-> > +++ b/arch/riscv/boot/dts/thead/Makefile
-> > @@ -1,2 +1,3 @@
-> >  # SPDX-License-Identifier: GPL-2.0
-> >  dtb-$(CONFIG_ARCH_THEAD) += th1520-lichee-pi-4a.dtb th1520-beaglev-ahead.dtb
-> > +dtb-$(CONFIG_ARCH_THEAD) += th1520-milkv-meles.dtb
-> > diff --git a/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts b/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts
-> > new file mode 100644
-> > index 0000000000000000000000000000000000000000..3714047190789bfccd8ff6810342d7ff865e74e4
-> > --- /dev/null
-> > +++ b/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts
-> > @@ -0,0 +1,227 @@
-> > +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-> > +/*
-> > + * Copyright (C) 2021-2022 Alibaba Group Holding Limited.
-> > + * Copyright (C) 2026 Han Gao <gaohan@iscas.ac.cn>
-> > + */
-> 
-> ...
-> 
-> > +&emmc {
-> > +	bus-width = <8>;
-> > +	max-frequency = <52000000>;
-> > +	cap-mmc-highspeed;
-> > +	mmc-ddr-1_8v;
-> > +	non-removable;
-> > +	no-sdio;
-> > +	no-sd;
-> > +
-> > +	status = "okay";
-> > +};
-> 
-> Could you please explain the 52MHz limitation? This doesn't match what
-> I saw at RevyOS' downstream kernel, which seems the only distribution
-> supported by Milk-V officially.
-> 
-> Regards,
-> Yao Zi
-> 
-> [1]: https://github.com/revyos/th1520-linux-kernel/blob/a092d55649279e1c9bcda2769b8f6b4370fa2c94/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts#L1012-L1023
+Hello,
 
-Sorry about not following up on this sooner.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Han Gao - could you explain what the motivation was for 52MHz?
+Reported-by: syzbot+41172204e7323356ecdb@syzkaller.appspotmail.com
+Tested-by: syzbot+41172204e7323356ecdb@syzkaller.appspotmail.com
 
-Thanks,
-Drew
+Tested on:
+
+commit:         d89e1d18 Merge tag 'fscrypt-for-linus' of git://git.ke..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=126b65a5580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=4a49f7c2815c8df7
+dashboard link: https://syzkaller.appspot.com/bug?extid=41172204e7323356ecdb
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1350b935580000
+
+Note: testing is done by a robot and is best-effort only.
