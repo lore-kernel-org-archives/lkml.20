@@ -1,48 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793363930;
-	b=GwmnjgoOiQUe2NM0GzNKxDytufjIXaT5bsYzkkJ+fTfW/kOh3S8Wr8pU6+Mp33l4sbfa
-	 RLi5uVs9J2gXZVmOkl9FoZ7eis18ijx+Gh7xmpKE1lnTbtwY7ECsIlg6CcsDLgdefjz/D
-	 UJZGC5ot1u60JOE6zFhjqfGxtCjsxD8jiFpTISNTbz8+pOSZ4BXKNh0zohGplL7DK8Gi8
-	 KKTjcSwKfa7aBGCWcACzdOzNF/HFvY8ti1WpRNBwcDgMuOs8CguuXa/c7OH4jNYDvQU6y
-	 0eTjtXIJFcMVflu6nZZl1jItSjQjPEHCUubjhWES/8oqcoPJnrUCfDgewfbXeRq5n2w==
+	t=1793363948;
+	b=nzFT/8mGjUhK06tvXJL844C3ZBE07JJE5B0f6ai49Mf3l6VZ4Y309IiNmtg/hgmtORs9
+	 YRK8y80cFrEgcMQhHYg3Fi2vFbWV6dRF0ftbWj+sKG95XX+g0IhAN0PzPBlG3sPSVNwoP
+	 QXTiFc3pu+SNFtKIu5Qfvjgv8QDoq/LayQIZvLYFfrMXtTApJSrCmIXXJq8TLCz8cyQ5i
+	 aAiYBxLd4LPm/u5xnP2JsRMlbGEOq3XMdvvHCuOBK+cQKxeeOEPwI1CDPscmKlWbM23Gc
+	 oRnLJSye8zYpxj0yTlFNHq48DGDFjTVpMQx6+IoTD0ZL5/VgwV0L/8d8krIymEemsvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363930;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=W8Bqt19jQKnBl13PUewVE+0aaIqmV/mxnsKiXjHXnqg=;
-	b=tJHVSMOs47eBIOS1k7VXjNsgf+DhPxjdISS79p81Dp7+knqHH/VOX6pVzTYX9CH7/eph
-	 Z4ox0U/yRlxAKirvKvkmXZ/Wek3wLaQf5A272MacCx/neuESakvEUus0sDyUTQtmvK1EH
-	 15GXyLcIEZifBYOQuMQ7huBczxPxJguSxXrv0pZHCqc5of904rFWXWq95fRGdu/W+ShbH
-	 rM+Lf32pQjJ/H5Ptc77x2zt0W54WsIbR4c7o6zvXpnWT7lKY62vcPzpovQaOOVblYsvLX
-	 Ea8gjWKBeo9f+pexQxv3AhaYjojutQ0U7GQMREElJme50T23CXg5LWzm35t1jNQijQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363948;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=uI4r/lNnWWRwm5efiSfVrEkVa0m10ZlmU3jditRFSTw=;
+	b=Pz/RlgxWBTIBt7W1AMoppNfo62lOVkn3FzCtmBoTiEgZ5ShyS6ixIn3o/6fod0KXTmyq
+	 QFkclMVXus7qeiERGtgMiFKLYhLN4bo64kB9Tp0eJ2Er5WUIcMK67GOwYVyp6ve5gJfFv
+	 jgawzwdmR7jpy+xGOxxdArVem4IY9zkiFyuQi0auXIGEP65RnUlnVY4C13bgmwdSdwMBO
+	 2CHwCiDdP2SKaBkAFvIdrZQEnVvlcQv6/2NpHK4yyf7GtOra0KO+fAjRu1Cqi7fWdoLnj
+	 9psZTQQ5ou6rKBqCxqhppUEIQi2agz14T1S+CnVCPekGn1r0K6sFGBGZw8eYxGctdiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJggAzD4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mC0J45hG;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=elNaCSBA;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82CF8606A31D;
-	Fri, 30 Oct 2026 12:38:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1812A606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:39:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1812A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJggAzD4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A6C51F00A16;
-	Fri, 30 Oct 2026 12:38:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793363930;
-	bh=W8Bqt19jQKnBl13PUewVE+0aaIqmV/mxnsKiXjHXnqg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=HJggAzD4PQlB3X8f1gUJXNR9jMvWPP/c3TuCsgFnPKu8HdBBRi6GwVbV83RqoX81E
-	 hyzzdN7Nb8RbFWP711f1e1OP3zoUwcKJ3oPt1Vbr0IbC0qXFlsjG/RExkF/kA44fpv
-	 kkIJ11CvT5YO18P7T58lBD7PrwXTYed1zDnSVhwBIg1a/a3JbM4p/+jdbzYGXQi2Jc
-	 KMiVL20k2vnuqpZwZmVI3lBUvGuEEym1a8fiU/qjfbBcC6xMNIiu6ghCF4aUwzT/k9
-	 mmX1sOflvoZDI/GJU1HS6AR3cxEgCKnUR4BioPQOoKF+fiKHyi3nFz3cIv4dNnYVnd
-	 NGREWXPEqZH9w==
-From: Christian Brauner <brauner@kernel.org>
-Date: Fri, 30 Oct 2026 13:38:24 +0100
-Subject: [PATCH 3/3] dcache: let umount find a disconnected ex-mountpoint
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mC0J45hG;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=elNaCSBA
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UBGWR93679082
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:39:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	uI4r/lNnWWRwm5efiSfVrEkVa0m10ZlmU3jditRFSTw=; b=mC0J45hG10XRaLaO
+	EcAVtMoij+nwFFtZV/OXNULSfZwT+TLTfm1ZUnSMBel980CA84cNPUitVVTUoMe5
+	ZNLuUSo+l4mwTPEbdL9abC0T/Oz639N6flK/jYkfO910xfilHW1GHuOS4/35p8gC
+	UmG8CeFxi8XPjzgU4R6Z6i9s9Fb7G6Bb9fHkGVe6ZSa45roSBGhLvlJcPivCjmRg
+	V/bajZF9rGd/+FTVehXE3sBgY7ihmjEE+0/N2I6m5ozYfHXKmTbUi2GC5XehbnTC
+	BBsMgeuQijD6/H+Xaxp7KPKcj/n+KxmvRZgGbq1S1PskCU9Xv18WI0WUny9xkbZi
+	5knCDA==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qk22p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:39:06 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5eaabe26601so42476e0c.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:39:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793363946; x=1793968746; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uI4r/lNnWWRwm5efiSfVrEkVa0m10ZlmU3jditRFSTw=;
+        b=elNaCSBAnTAYmnBl3a+fpOVZVy2wTI05+w4A2Eh/OHg+xlSNmCzH29s1d/l60Tbw80
+         smz8loLL4ugQwK6WMA59VAlXGZu78zwhDbBr9ehMmuvqImyCQCkhtGBPISYaoPkdswFw
+         i6tuEdEplXrW9MdowcH9ddxMpbybBNRBI+bmktRsOnbzrkQwgusOfNjFm0wI1SXY4Xrz
+         P/8cCIjJjsTazDAaD3xuJxrpZlqSNpIKE4aqzT85D1rTOjU08lHBqsMgzm31M8p6xl8E
+         ZnnpFWVF77LOjCDeiQuKRyzVk9uN7L4xGrHwV6E2+oKZRKgNddyX7DiMWDTeMMk/uBkY
+         CFyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793363946; x=1793968746;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uI4r/lNnWWRwm5efiSfVrEkVa0m10ZlmU3jditRFSTw=;
+        b=o63djq4wid0RA0QrKwXFXf7FsTQGtDfwyP3e/ma0hkp1BL41yq4NowDbt96VxcgaLl
+         JrZs1TnXpqLWliDnBvWvvNsxoNk2GAv+8SbunqnxEWMqfP+lszzR2gKYqTyBCGHr0d2A
+         cLD8GeuqLqOf7Jy7L3E3Fvv9XNzckIwX5uDc0fAJM2dEdTak8NSel8+fowciPVqCO+VW
+         Glp2Kk22RnhrKnqgkANMy2kF134mOu0jbOKdN0Qlqp3uh81kKQbVKaT/fj0cycTzIGuW
+         J39QJZqErtQ9IDaL6/I86H8RiiBdkret5/kTYN0p3u98k1FSWwYrJlgwdnvR4fnM754t
+         gK3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxpL3zmeasOvL0lFMMDTP3WxwPF0yDs0k28GRpNMOFFILbrdTQSGpiU1kanCTsNX8bDQYiZ7dBP82U/5NI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5JK8Hr+hSMyQWpW34hq5erLquNz9oYsvmaDzCEIvQc1q2KHlS
+	E8uijBzfUVYrjbI3W3wEcqdSGdPH/4uC06NBf4GS11cRljw1XbHF3kTIGvduvAa7V2XYBn/Xa+8
+	1zMGDaACM7WSfwS2DK/JZ3EU41q9JuBukdghP2v3HX4K2S++MlHZrdtdhVpkKPkSaw8c=
+X-Gm-Gg: AYBFou0hf3rV3Liajl5WxgMaMAn4Br3W7iB7U7QGRBmC2RRhoAgWgff7dzzq5KRcdrw
+	qdfVcsoHXtY49mg4/KiXH/I0QOxNynBJqwGhdZDMRCQZgPUYPP7AA8cFP6Yx9fu5udC3ROoTXOH
+	c8El5WtmK6TWCiReTOohFnSYCsXEcOkQbWiM4tTuUIp9LJgaviccnZntPqIdMChSSoECFKa/Hzg
+	iZYSVfLVuMvldw0gxh9oiuXtj29jRZ8wjjmuw5apbfZ0N17DYNv1fKmjIZLpX+kLvpQRoQXuQmp
+	zl6dA+sML5eeHgUqKXS0VV04TXVqujjr8ZzkPYTRgynNEkRoxkbPVCUDKgbgB2tiU05czedeSO2
+	TdkjBC5HnuHCxT0oByo+Ebu/bQM7rMVDX2XNeMTdYFTX5V4TuSx3M/VqNpGrGVCT9Jpaq5fc=
+X-Received: by 2002:a05:6122:2b01:b0:5cf:ad27:3a67 with SMTP id 71dfb90a1353d-5ec6897ccbamr998357e0c.5.1793363946172;
+        Fri, 30 Oct 2026 05:39:06 -0700 (PDT)
+X-Received: by 2002:a05:6122:2b01:b0:5cf:ad27:3a67 with SMTP id 71dfb90a1353d-5ec6897ccbamr998229e0c.5.1793363945761;
+        Fri, 30 Oct 2026 05:39:05 -0700 (PDT)
+Received: from [10.169.205.110] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabf26b72sm60608366b.83.2026.10.30.05.39.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 05:39:04 -0700 (PDT)
+Message-ID: <aa2f2311-d913-4b90-802c-e414764be169@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 13:39:03 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,123 +115,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] soc: qcom: pd-mapper: Add support for the Qualcomm
+ Shikra SoC
+To: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261030-shikra_pd-v2-1-09bd0394629b@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261030-shikra_pd-v2-1-09bd0394629b@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-work-dcache-ai-v1-3-cd6b86e0ccc7@kernel.org>
-References: <20261030-work-dcache-ai-v1-0-cd6b86e0ccc7@kernel.org>
-In-Reply-To: <20261030-work-dcache-ai-v1-0-cd6b86e0ccc7@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- linux-kernel@vger.kernel.org, Karl Mehltretter <kmehltretter@gmail.com>, 
- Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4036; i=brauner@kernel.org;
- h=from:subject:message-id; bh=6409oWCeBJepy7ZP27TjzDxlqAoguHTVft15pL8mJ8U=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ96T8f/yozfkXtA2PObKWgnJOd/F84S26s+ijsM2vfS
- j2W2z6vO0pZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACby7igjw6uVoTO5j506sNCC
- 5YG/0oOFLiHtJTqv19ZvFm31+brYyo2Rocm3tkk3IWv5qQ1L+P3kV3/Vdn6aa9H1e+aaj4FPbC+
- uZwIA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1MCBTYWx0ZWRfX4YiXFd/ts3CA
+ ywov2M5dPr4NUFJ5I+OeXM7esx5FA9pitY0d/zY5kHqRLjzXghZZwo7+0r2zSNmdukXAWh+G/oe
+ u/ote9suCNE/clWXtfr6EbqFbjtw3RiE6kmhMu/Q+4tQYk+QGeYYHPuQPcJuKCZ1V8VPfoNLAzS
+ fb+nmIidJPwV6vbuPZpxR/Z3DwU4xWSyBWV+y/wvjCCkJy2Nll8qXzyqwp1V2F3pRUdF8TGMQ9g
+ DKNmymUk5IAonMxtSVkCQY8zGgg/cwfSNrylEF4LljxSTpZ3V15h3Ii70igNIGSxYcknVw71LAi
+ sKiZsbdb7fUZzfcEBSjCgSNEIgqpneLBcL4APBNQrmxZPdYmYvVt9dCA73ZEynet63teH3gPzuC
+ Nrl9hx+6vfEZsPS1zGRSZR4XrQGY8UDkK0pXhu2EqDYiyaKL1tZdTEUY+mMmchUbue9mvvEXnuZ
+ Erb6j6HW/re5V9kV6gw==
+X-Proofpoint-ORIG-GUID: dlkIeqU3dYsoK-LbF2Tl4X9IBp7S7msG
+X-Authority-Analysis: v=2.4 cv=IeoSymqa c=1 sm=1 tr=0 ts=6ae48fea cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=7yfVbiq-ooDmJZbsBGkA:9 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1MCBTYWx0ZWRfX5GT8IxBXq3pN
+ S9LXU10ZZPLCt93uFbSQ5Aexwmle9GTxrwKf1mV2lzcJk1t+sdmR+jxKDMlZdzydIUciHsXsx9T
+ u8W8mpUL7zdwso3/MIsplcr/6aNcK8Y=
+X-Proofpoint-GUID: dlkIeqU3dYsoK-LbF2Tl4X9IBp7S7msG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300050
 
-From: Josef Bacik <josef@toxicpanda.com>
+On 10/30/26 1:33 PM, Anurag Pateriya wrote:
+> Add support for the Qualcomm Shikra SoC to the protection domain mapper.
+> 
+> All Shikra SoC variants (CQM, CQS, IQS) share the same protection
+> domain requirements: cdsp_root_pd, mpss_root_pd, mpss_wlan_pd.
+> 
+> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+> ---
 
-When a mount goes away the reference to its mountpoint is dropped with
-dput_to_list() and namespace_unlock() evicts the dentry after dropping
-namespace_sem. Nothing pins the filesystem at that point so it can be
-unmounted at the same time. That's fine as long as
-shrink_dcache_for_umount() finds the dentry. It then either evicts it
-itself or waits for the eviction to finish.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-But it can't find a disconnected root as those are neither in the tree
-nor on ->s_roots. And they can be mounted on:
-
-  fd = open_by_handle_at(mnt_fd, handle of a file with no dentry, O_PATH);
-  tree = open_tree(AT_FDCWD, "/tmp/x", OPEN_TREE_CLONE);
-  move_mount(tree, "", fd, "", MOVE_MOUNT_F_EMPTY_PATH |
-			       MOVE_MOUNT_T_EMPTY_PATH);
-  close(fd);
-
-  thread A                              thread B
-  umount2("/proc/self/fd/<tree>", MNT_DETACH)
-    namespace_unlock()
-      up_write(&namespace_sem)
-                                        umount of the filesystem
-                                          shrink_dcache_for_umount()
-                                          evict_inodes()
-                                          "Busy inodes after unmount"
-      shrink_dentry_list()
-        dentry_kill()
-          iput() of an inode of a superblock that is gone
-
-So put such a dentry on ->s_roots when it's put on the shrink list. From
-then on it's a secondary root like any other.
-
-This needs the previous patch. Otherwise do_one_tree() takes the dentry
-off ->s_roots and umount doesn't wait for an eviction in progress.
-
-The stable tag is narrower than the Fixes tag on purpose. Before commit
-e9895609cb7f ("wind ->s_roots via ->d_sib instead of ->d_hash") umount
-doesn't wait for a secondary root that is being evicted either.
-
-Fixes: 4edbe133f851 ("make struct mountpoint bear the dentry reference to mountpoint, not struct mount")
-Cc: stable@vger.kernel.org # v7.2+
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- fs/dcache.c                    | 16 ++++++++++++++--
- include/linux/fs/super_types.h |  2 +-
- 2 files changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/fs/dcache.c b/fs/dcache.c
-index c1d8b398b2d1..f902936e38d5 100644
---- a/fs/dcache.c
-+++ b/fs/dcache.c
-@@ -45,7 +45,8 @@
-  * dcache_hash_bucket lock protects:
-  *   - the dcache hash table
-  * s_roots_lock protects:
-- *   - the s_roots list (see __d_move()/dentry_unlist()/d_obtain_root())
-+ *   - the s_roots list (see __d_move()/dentry_unlist()/d_obtain_root()/
-+ *     dput_to_list())
-  * dentry->d_sb->s_dentry_lru_lock protects:
-  *   - the dcache lru lists and counters
-  * d_lock protects:
-@@ -1102,7 +1103,18 @@ void dput_to_list(struct dentry *dentry, struct list_head *list)
- {
- 	if (likely(fast_dput(dentry)))
- 		return;
--	__move_to_shrink_list(dentry, list);
-+	/*
-+	 * The list owner need not pin the superblock, so make a disconnected
-+	 * root a secondary one for shrink_dcache_for_umount() to find.
-+	 */
-+	if (__move_to_shrink_list(dentry, list) &&
-+	    unlikely(IS_ROOT(dentry) && hlist_unhashed(&dentry->d_sib))) {
-+		struct super_block *sb = dentry->d_sb;
-+
-+		spin_lock(&sb->s_roots_lock);
-+		hlist_add_head(&dentry->d_sib, &sb->s_roots);
-+		spin_unlock(&sb->s_roots_lock);
-+	}
- 	spin_unlock(&dentry->d_lock);
- }
- 
-diff --git a/include/linux/fs/super_types.h b/include/linux/fs/super_types.h
-index 72f4288e16c5..6ce105fe8359 100644
---- a/include/linux/fs/super_types.h
-+++ b/include/linux/fs/super_types.h
-@@ -173,7 +173,7 @@ struct super_block {
- 	struct unicode_map			*s_encoding;
- 	__u16					s_encoding_flags;
- #endif
--	struct hlist_head			s_roots;	/* alternate root dentries for NFS */
-+	struct hlist_head			s_roots;	/* alternate root dentries for NFS and ex-mountpoints */
- 	spinlock_t				s_roots_lock;
- 	struct mount				*s_mounts;	/* list of mounts; _not_ for fs use */
- 	struct block_device			*s_bdev;	/* can go away once we use an accessor for @s_bdev_file */
-
--- 
-2.53.0
-
+Konrad
