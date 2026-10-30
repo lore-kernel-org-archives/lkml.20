@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793396407;
-	b=FnEVbCAlA5pwQeKqLmhAYYuj4NP1iv8cyHr3wUa7RaAOwMxb6dt7gEL3EkEnEuzzGNeE
-	 52cCxXve+PL3fgDLRZVbBd9ixlM0/a+i01bfcoS22D7hIKsbIaSmq7EiptwGWBlZtfwVc
-	 tpUiXPV1kUfiFlofHZrK3v8qHiOcRcWXaC1UIKG2JMZtPY0gpXW2BUotWoS3frsbTpKLq
-	 beDiN48opMUMGf7l6kNy5hxmoeOmIWIkx2eZbEylXH4MsG6G1aRPe71srWJNyqgu1PKhc
-	 ECTXvMcRdtF6hbNg+6DHx6j2XknupolGX4NzbA3EBEzaopQV66nlk4egLLL2tTHNfPw==
+	t=1793396464;
+	b=yAplJwxq2CusQz6GrDx+EEfjm+aFGXFfkmGGP0tw2QQCp2VvbTZK/Chj+fskzGJ7aWrj
+	 ApCGPYmoxqHANRSECqhF+w6TRHVh/uD9pV2Lh/DC1tc8mpXPgVC/1rasEZ28r/zCOqNsN
+	 JoUF3WLwbfLrlUJLCdCCN8/PWbouS7NCKm8zuckwnrDT8uZVrHWah6ElnYU/yRQAN1C6P
+	 8o5bCt9pwxMLcNii6+IDV3ZelStiSnXVAtjdwskjcnIM8NSN5nJdC/RT5IX3kytgqLsi8
+	 MhE5ATRO1xLy3UPZuA4UU8nz+aMzKjr5hMaSjw4WS7/dwU7HExWai97hy2Mrz9t1PsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793396407;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=NdQCtHgXHon/pkAvjlHuvOoNN5Yh+NVemupI+L597I4=;
-	b=yb15CkzqSCGZnvEeK/WMvZIo0axbdJIjzzWDNR02O0SratAPRn6r/CBtwp+raXqpQv8E
-	 i2iQVrRtQCaCAgw7+0lSlFvExCwSyk5e56zbi7ShPkTPK5mPNieVkR7kLOa/IyoDek1x/
-	 qdigZKQl6jrmtYlSosA9KY5B2MKi6JeXTa0g0o5/kdyoq2EQRWYlwvtEtFxSzR3/tqTae
-	 DD0gvhhw+QChvhC6y0KTOkWagMfzXchqjR2rINwLDmxFfvLUvm35U8CUsnvT0f3Fhkqyr
-	 UXv9C/w9IcX6U1zCktmwF+BqoPY8pEDiQp21vvb68Y+KgT8O/+o5QlDDMgVL6ow084Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793396464;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=u+kQTwmmQkuSa9uIdNOEJJryCQJjJhjE9NL8bvJf1pI=;
+	b=znf9awccioyvyyqeujqbDfk8FPrNYzaQnOVaFFkt9dD5RVHqW2dJKGfs5198p3D7KJvX
+	 u9UBrRJ+HzIP+arrsqG447C00C42PbyiDzuJ8qoLQSwKaIFI92ZD4oPibxZrhbDNgOqNA
+	 wXYMHt6lTM3UotfS16SvutJCDRVHw3HkoonXSvfqyVgrzLlSyIYwaA0BUEo5ZNSXGmcu4
+	 9whuuI4qTsE11xdX7v130WtIrxXRekV3DDlNg29n9HKzqaUrJuNX3cnFzYtqDXe31hUfC
+	 KyisZXXS/QO5agoXJUsZfhaCB22FZyk8HvyJIcQ2iBguu0YxfJmEgIQrWpSWiTd2iLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dwrX051i;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEE1606A31D;
-	Fri, 30 Oct 2026 21:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dwrX051i
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AEBB1F000C1;
-	Fri, 30 Oct 2026 21:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793396406;
-	bh=NdQCtHgXHon/pkAvjlHuvOoNN5Yh+NVemupI+L597I4=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=dwrX051ix7iadJ16BVoZCtQEJyj5FOkCQHRMcs+zpQO4EmgMu1mN7WVWQkIbatAId
-	 YJoUwc1uIoU+1wBVYnIL74jmu8rDp0r1h62575E2Wi3pQaTx+Q3HEM3OqvhRfDqHYb
-	 KDraTEqvvpNhjw7StqKfbpF7m4zTcCGYP9pfk9R3raa0sABh69tcX1WVpBrapnVU8e
-	 x6VAyd31z29N6vIED0rJ1F8PiduPZCBPGk112M85+6md3Un5zwao60gdeHtOFv3vKf
-	 U82R9VMHWC38dh+/Xd+2K/YCoBBUi5HuogGCTfkwbkyKGc7CXHN/JXt3rqaxZjpZAt
-	 +s1FNhngcfyYA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4019E3800478;
-	Fri, 30 Oct 2026 21:40:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3137606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:41:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3137606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b37620eb73so1994528b6e.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:41:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793396463; x=1794001263;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=u+kQTwmmQkuSa9uIdNOEJJryCQJjJhjE9NL8bvJf1pI=;
+        b=P8S7X7Rpdbn1YB32U/xvmmGOTmgimn8hzv308aAO06TozBtpXu1q3DfLtGufjqL5Dx
+         D7HPVUh4jAoLcb1eV2qvOUV34MYJR9BuTNea+Yltftmnuo6f5NMswJg/Cr2+4vGGcBGz
+         cLluSoSYOyRIhwpu+i5otg+I5WxfVnPpQwI/DPFg76TmRRpX18HOQPkIa8ossv/zE/5A
+         HRJAanyqxzR80P16N+isKdAgHnXEu/3zGiCr+en5kZin9IFcWUHPgsqy4kik+f798nGj
+         5vrDvce8Wh69Mq7NurcOe1ulSyymfK1C0JCdWwvTCdrb1BP4i0XNBmG9hB0I/pzHSgcr
+         SfIg==
+X-Forwarded-Encrypted: i=1; AKwUvBw92DWDrUJhhBU+wnbXyGa4ZcLQyF5XjR4h3mQWdNMqTjL7EI3RlTQoKo289z1omo4XdFgTC/FhvTbHIWI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBRoYdB2XxqUVC5vMqbl/+0OwKb+mNITn0lYgKhOCMt3AP1xuk
+	NEvTpEP7BrPzosJIWPhiyUjKrxcHuc60h1qV/nj8hBI7ecS4SAZzINXVApKOol6kCz2B9sY/2zS
+	bw3/CQeNwLqIGLa6iUeHAJqMH+NqHkhCcm/d9hb3+ES466wGQlWJsG0sb+is=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,53 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf v2] bpf: Fix jited line info off by the CFI preamble
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179339640506.1785640.8958890304775889953.git-patchwork-notify@kernel.org>
-Date: Fri, 30 Oct 2026 21:40:05 +0000
-References: <20261030-b4-arm64-bpf-linfo-cfi-v2-1-4eac83435d4b@linux.dev>
-In-Reply-To: <20261030-b4-arm64-bpf-linfo-cfi-v2-1-4eac83435d4b@linux.dev>
-To: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, iii@linux.ibm.com, hca@linux.ibm.com,
- gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
- svens@linux.ibm.com, john.fastabend@gmail.com, pjw@kernel.org,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
- peterz@infradead.org, puranjay@kernel.org, bjorn@kernel.org,
- mbland@motorola.com, will@kernel.org, samitolvanen@google.com,
- bpf@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- pulehui@huawei.com, sashiko-bot@kernel.org
+X-Received: by 2002:a05:6808:11cb:b0:53e:42e4:47c with SMTP id
+ 5614622812f47-5640ddafe6fmr2769876b6e.34.1793396463061; Fri, 30 Oct 2026
+ 14:41:03 -0700 (PDT)
+Date: Fri, 30 Oct 2026 14:41:03 -0700
+In-Reply-To: <3e3zm77hj5j5gpppgtq4fkppndx3dl4oslst4rlt7vuztucyxi@p4gwnjufokx6>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae50eef.78e51036.124520.0000.GAE@google.com>
+Subject: Re: [syzbot] [usb?] [media?] general protection fault in dvb_usbv2_generic_write
+From: syzbot <syzbot+f9f5333782a854509322@syzkaller.appspotmail.com>
+To: immersa.bartosz.chronowski@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+Hello,
 
-This patch was applied to bpf/bpf.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-On Fri, 30 Oct 2026 18:14:22 +0000 you wrote:
-> With CONFIG_CFI=y, every jited line info entry after a function's
-> first is cfi_get_offset() bytes too high on x86-64, riscv64 and arm64,
-> so tools that use it show the wrong source line.
-> 
-> The JITs count the insn_to_jit_off[] offsets from the start of the
-> image. Since the CFI commits below, prog->bpf_func starts
-> cfi_get_offset() bytes into the image, and bpf_prog_fill_jited_linfo()
-> adds the offsets to prog->bpf_func. s390 corrects its offsets before
-> the call, the other three JITs do not.
-> 
-> [...]
+Reported-by: syzbot+f9f5333782a854509322@syzkaller.appspotmail.com
+Tested-by: syzbot+f9f5333782a854509322@syzkaller.appspotmail.com
 
-Here is the summary with links:
-  - [bpf,v2] bpf: Fix jited line info off by the CFI preamble
-    https://git.kernel.org/bpf/bpf/c/3e4279dc5144
+Tested on:
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+commit:         c03c1a14 Linux 7.3
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=121580be580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=bc22e3bf9a6ffd73
+dashboard link: https://syzkaller.appspot.com/bug?extid=f9f5333782a854509322
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=122785a5580000
 
-
+Note: testing is done by a robot and is best-effort only.
