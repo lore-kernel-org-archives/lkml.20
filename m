@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793336393;
-	b=ndWi5oWzN3ocUnblHFOc1sbflfC3iaqCGqZtZKsOyn3rJRLhamWzoi3coq0NEgmQvnJ0
-	 VkHTJ7Slvv0Q5K16EaArFzDA3dU4poi0Qa/UD2PJfogbcnGk+N88nYK8y6tKQZ4KHW16q
-	 eKuz0jvZdEHBVDikjNJ9ists6UTLXnvfvOsXwjOXI0C6Fz3nRzzPlCPb9lSr4E/I0VFVK
-	 +R2Q3Nt4w9Ryf/uGa9SkvzqG0smQnrU4/zWZ3ojq2KyYWCJCP6y9SGAx091mPBjy6MLrq
-	 H05PIg2aCVm0k9r6fdkY+JC78t0NxpQhv4cwymEbkJdzqkzEUj3CQ6SsZevcHLYTzSg==
+	t=1793336403;
+	b=11JShElfCAxpuBnUV1pnouZ76e/ha12H7SUHy8vDD/rWILPgPQ+uxCUJXbskisBXaCsl
+	 PbG08GliU3vTEnMG/6t6EFOTF3kSs1I9JyYx0KrxQtNXET+olq66Aq8z25lk70atem58r
+	 /Va6QropevTm53u7p9hxLYHAHiYWQhNwNs8sswMK+GYVEWlcQ4XsSB1YVnHAHnuXbn2no
+	 jsAN+6tAsf2Vp4fB8o8ZL1PmQP77XOJnrdJl/NkbZqJG4o829MhiPPa+BYWDjeCqt88NM
+	 EWZ2lDgyKZPetxEP3CPuSaSp+k5e/IqbPc6irf7eS4cZiWUARpebju5w8ve9H8RNHaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793336393;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793336403;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=e7tEpwtIn4tmjp4Z0Nv9H81+oDdUJIUZCkg7ifmKdAE=;
-	b=h/Y+/7InZtb1zqnDx6uEQC7WM5S7MtRNxeR1nF0MWR3kfEcnxZo5cXLFdpFB91kjq6dA
-	 38L+/jvXp7I9IU8FDeeLJe+D3LxcJcWOGnnrQjn6PZ/B5JAK8XR2X/O1KmmbddkIYCT3N
-	 WHgWrm0K3Wxb83kQObPyQpeTXsI3xXRo4eSCPfv00wkAgEA5MUS7sUEzT32WermesjgJ/
-	 Nt7upqO0dUHamaqifB2LaIhsZixNWv3ScrjqXxBM4nG/amVhJgVa4LQljnmkw7nYVYSyi
-	 KX4h9L8KuLKxH5HWeqZ2nlfOLnBPkGG1rJFi6fKjn2qv48A+I9LmXlaaZRHXpFAMOXg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=O43DouaR+6QC59kKBqLDg9/2ia0lX3P10sgZIeVmCEY=;
+	b=HHy8zr1BnEGo5FMkTlO495n3c4sJ24K34jJzAp9+MQDhXq8dDAFQ8+3n9S1boJwZlmEE
+	 i7ENrAaZskpnQpvC/0pmntN6ZStV8HbgFBCdXBS/gc7FRkvBLzr0Jemy/HYtqzQHFweoq
+	 /j3sqmdpvPJjurGI3fBsbjvIc1TMeStIDLEsv/HvG/5R9/8v554vew92FIgPiVCta9o+R
+	 aHD8QCaL2dx2yji/IolW8dbxKwI5cx9CrqoyRMVFf8cWivcPPEd1JDJF8UjvOPxhFHQHu
+	 egel3TQRFIHAuF2izAv+uibNXOwauyGeF4IOlnpdbbwyQWisfchgW6LxgixAmWtkVGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AMHzS26m;
-	arc=none smtp.remote-ip=209.85.210.200
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fQST8scd;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27633606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:59:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27633606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687F2606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:59:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 687F2606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vamshigajjela.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AMHzS26m
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a05c820ecbso413486b3a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:59:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fQST8scd
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ae73921fd1so296945a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:59:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793336392; x=1793941192; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e7tEpwtIn4tmjp4Z0Nv9H81+oDdUJIUZCkg7ifmKdAE=;
-        b=AMHzS26mzD9JmjdaN1nWBXCyR8Q2auTjDhCiW/4NIimnCZvUO9/BuNbEfpzFicz4zd
-         IwP6Kgh2K53SN1PGJg5ULG1CRrYcz2NVT+q/BedGgIKst0ZStBV4rKwbMA5zevZi3Kzv
-         zkXkIOf7Q3nkRiXpuVscopy75Y39Y5aq51R2EdWBzMY4PSqEdD7W6ASr6nv4x99P4qtt
-         RUAtKSZHhH4X+Kw0sfPF0z1lRxeqjVFKQKzOR9+Lmf8QpoWRahaQhsztK9J3JnlKELGP
-         k1L4+Pwq7CHssWOah1qKcpn9eALcj1yfkBZwg9hS6QPGHXWLW/kJS0hsTzTjpBBHPkSy
-         deKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793336392; x=1793941192;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793336398; x=1793941198; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=e7tEpwtIn4tmjp4Z0Nv9H81+oDdUJIUZCkg7ifmKdAE=;
-        b=TzFDmEgSGhy+HBu6a/oNNpgyatF5UTtiz0nk08dh/d8wEi/4GasgtLkYS+wxgjh6EI
-         NhVOfr9s4vsOlqaEpqqxwaibf5nB0Po28o16H7Ku+iRRXKsQpEqac7KRhqxSyEdtiyXM
-         HU2ylR2i75QwjWl2e8ANOBDdtKKV4pB95slfjtSMtWyS7+juWmjnNdBQTniP8wXyDROY
-         H7L/0jteR4P9VzPzBn3ZHz35diLFhZUQ9wt45lTEf+QSbOfxX3yKKUDA4xUnKWbQC5nK
-         2R8cMZ9C+lSxXQEfSY0ZRoYS13MkuCVyjHzKa6WYgdCxkeBa39L6iSv0ajVQkY6Zc1mR
-         l9rg==
-X-Forwarded-Encrypted: i=1; AKwUvBwt8PlPYrmx//PiwrfLGtfcloxeX20aKyM04SA7UqTjblGnf9DsbR+vdxiqGmIXlIWBqTr9IZZ2KJhrJxI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfRQ+P3sb9RICDvkY1ZTkk+K+Snobu4Wc1Zhz87NLWNFJ2fSoE
-	7TIYoM+DifNM7cbpRafSmNnhR/6ovmfAnAYWQzAhwjqsg334eQotafcvx1y56cF8/X1wvxmgl+w
-	vGY7+Ir32ieNYzdhwerwo75qXT5WJBD94vA==
-X-Received: from pfaj11.prod.google.com ([2002:aa7:928b:0:b0:8a5:a56c:9408])
+        bh=O43DouaR+6QC59kKBqLDg9/2ia0lX3P10sgZIeVmCEY=;
+        b=fQST8scdnI4f8qfDPFCkUgZkblPWEVB3+5WDBdwZoKCKTMyVCakqweog0+0D+FVVAv
+         h9sgeiQD0KWrrfWMs3AcUWAXG0rLxTEgt0fpPGFETcFrRegOBzy+n1+3BulDCRpnegWR
+         4LC6pGRlwY6nWrk38vdYVRMrOCL8mmWBOPnHcYoIaGI+xSzMB3aqoUftUTx8T+tI66xe
+         Y5eZrXXn03cyuFK299ELhBRnIss1IDgXV14LuAYT0Jylfvfv+AZ36dj2BL1K0g0dyS6V
+         yJ96//juWUgOZqDkYPYTwkzYTlusmxHkd9aCjXpOhYZGFv8FrgAf5DvSDTBChXyKRThd
+         Ic6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793336398; x=1793941198;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O43DouaR+6QC59kKBqLDg9/2ia0lX3P10sgZIeVmCEY=;
+        b=gzMg/U5A+YtSimVSGraeNMhFh5GE+1wQHS3/rIemjau/BlCOTJBF5a2F+79oTGVEgd
+         K7h8JlZ0yX96w5meEn9XI+nQ2CXF1BgJIusKBIDaNkYcQ9JraqA1IwYOXJfYydcmz84R
+         lnjCPEEM4/EMSVvukPqvi5fMaqf8nvXC5WODruHUCs5ZvmyrEXb6QGZVjmiXWVVIMx2P
+         JQjikqDVKpIDVKLS8YebU5UF1M7WRZ+S27QetC3bnFP2yoTkRLjMkNWfvEH+GLjxFtO3
+         WTC8eopLwgeLQ5ZEleMh2jJkUnT6Cspl7DTupxGA8SsL2s5JEylQv3+XqBWOHD3jvHT+
+         /NcA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4vzDJ0e6T3J8Vq5LRASEQBJjHmc3ikdaFFIRCNblhcFll1p28ptA71W09eCAMzcBM9Wk4Eqyn/30jAA0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIJC9EI6AvZllAdAns1MUegIJxJbhepG0fdRGDgWWHSQmxBU2G2
+	RzOC43Xhvkyv2PbVbgB1t5riOQJhIVUyx+efqydK+oJ9wmfGuyK1DJmQNEVhSTF3JbaTQ2B611O
+	+FOTob1pUMk+OlFVAuXfvBacxL/WdBAmilA==
+X-Received: from pgbj18-n2.prod.google.com ([2002:a05:6a02:61d2:20b0:cd8:c6c2:d403])
  (user=vamshigajjela job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:1785:b0:892:fc00:6e68 with SMTP id d2e1a72fcca58-8a9ba22a4a0mr1167146b3a.3.1793336392054;
- Thu, 29 Oct 2026 21:59:52 -0700 (PDT)
-Date: Fri, 30 Oct 2026 10:29:45 +0530
+ 2002:a17:90a:c2d0:b0:3ae:533e:7e3c with SMTP id 98e67ed59e1d1-3ae8981bf57mr831249a91.35.1793336397445;
+ Thu, 29 Oct 2026 21:59:57 -0700 (PDT)
+Date: Fri, 30 Oct 2026 10:29:46 +0530
+In-Reply-To: <20261030045947.3049598-1-vamshigajjela@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,9 +79,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261030045947.3049598-1-vamshigajjela@google.com>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261030045947.3049598-1-vamshigajjela@google.com>
-Subject: [PATCH v4 0/2] spmi: core: Add generic DebugFS interface for bus inspection
+Message-ID: <20261030045947.3049598-2-vamshigajjela@google.com>
+Subject: [PATCH v4 1/2] spmi: core: Rename spmi.c to spmi-core.c
 From: vamshi gajjela <vamshigajjela@google.com>
 To: sboyd@kernel.org, abelvesa@kernel.org
 Cc: abel.vesa@oss.qualcomm.com, jwylder@google.com, 
@@ -87,74 +91,33 @@ Content-Type: text/plain; charset="UTF-8"
 
 From: Vamshi Gajjela <vamshigajjela@google.com>
 
-This series introduces a generic, controller-agnostic DebugFS interface in the
-SPMI core under /sys/kernel/debug/spmi/spmi-<nr>/ to inspect registered
-controllers and perform SPMI transactions during board bringup and debugging.
+Rename drivers/spmi/spmi.c to spmi-core.c and build it into the
+composite spmi.o object to allow linking multiple files into the
+spmi core module.
 
-Patch 1/2 renames drivers/spmi/spmi.c to spmi-core.c so that the core driver
-and optional debugfs support can be linked into the spmi.ko composite module.
+Signed-off-by: Vamshi Gajjela <vamshigajjela@google.com>
+---
+ drivers/spmi/Makefile                | 1 +
+ drivers/spmi/{spmi.c => spmi-core.c} | 0
+ 2 files changed, 1 insertion(+)
+ rename drivers/spmi/{spmi.c => spmi-core.c} (100%)
 
-Patch 2/2 adds the DebugFS interface (name and xfer) along with its ABI
-documentation under Documentation/ABI/testing/debugfs-spmi.
-
-Changes in v4:
-- Rebased onto spmi-next (8f70c729e68c).
-- Split the rename of drivers/spmi/spmi.c -> spmi-core.c into a separate
-  preparatory patch.
-- Removed the 'detect' debugfs entry as MIPI SPMI does not mandate a universal
-  register address across all slave devices, and probing 0x0000 fails on
-  controllers with channel/register access policies such as Qualcomm PMIC Arb.
-- Dropped redundant Runtime PM calls from spmi-debugfs.c since SPMI controller
-  drivers manage their own runtime PM inside their transaction callbacks.
-- Gated raw write ('w') and command ('c') operations behind
-  #undef SPMI_ALLOW_WRITE_DEBUGFS (matching regmap-debugfs.c) so that the
-  interface is read-only by default unless explicitly enabled in source.
-- Updated Date and KernelVersion in Documentation/ABI/testing/debugfs-spmi.
-- Link to v3: https://lore.kernel.org/r/20261019202107.888262-1-vamshigajjela@google.com
-
-Changes in v3:
-- Move internal SPMI core command helpers (spmi_cmd(), spmi_read_cmd(),
-  spmi_write_cmd()) and DebugFS prototypes out of the public
-  include/linux/spmi.h header into a local drivers/spmi/spmi-internal.h
-  header.
-
-Changes in v2:
-- Rename spmi.c to spmi-core.c and link spmi-debugfs.o into the composite
-  spmi.o module so CONFIG_SPMI=m builds cleanly with CONFIG_DEBUG_FS=y.
-- Route DebugFS bus operations through spmi_read_cmd(), spmi_write_cmd(),
-  and spmi_cmd() instead of calling controller callbacks directly,
-  preserving SPMI tracepoints and core validation.
-- Allocate a per-open-file struct spmi_xfer_ctx in open() instead of
-  sharing a controller-wide buffer, avoiding races across concurrent file
-  descriptors, and store struct dentry *debugfs directly on
-  struct spmi_controller.
-- Reset *ppos = 0 on register read commands so repeated transactions on
-  the same open file descriptor work without manual seeking.
-- Restrict SPMI_CMD_ZERO_WRITE at address 0x00 to 7-bit payloads
-  (data[0] <= 0x7f) per the MIPI SPMI specification, falling back to
-  SPMI_CMD_WRITE for 8-bit values.
-- Parse register addresses with kstrtou16() so values above 0xffff are
-  rejected instead of silently truncated.
-- Update Documentation/ABI/testing/debugfs-spmi to document per-fd xfer
-  buffers and 7-bit Zero Write opcode selection.
-
-Vamshi Gajjela (2):
-  spmi: core: Rename spmi.c to spmi-core.c
-  spmi: core: Add generic DebugFS interface for bus inspection
-
- Documentation/ABI/testing/debugfs-spmi |  68 +++++
- MAINTAINERS                            |   1 +
- drivers/spmi/Makefile                  |   2 +
- drivers/spmi/{spmi.c => spmi-core.c}   |  20 +-
- drivers/spmi/spmi-debugfs.c            | 341 +++++++++++++++++++++++++
- drivers/spmi/spmi-internal.h           |  28 ++
- include/linux/spmi.h                   |   6 +
- 7 files changed, 460 insertions(+), 6 deletions(-)
- create mode 100644 Documentation/ABI/testing/debugfs-spmi
- rename drivers/spmi/{spmi.c => spmi-core.c} (97%)
- create mode 100644 drivers/spmi/spmi-debugfs.c
- create mode 100644 drivers/spmi/spmi-internal.h
-
+diff --git a/drivers/spmi/Makefile b/drivers/spmi/Makefile
+index 38ac635645ba..190d560f692e 100644
+--- a/drivers/spmi/Makefile
++++ b/drivers/spmi/Makefile
+@@ -3,6 +3,7 @@
+ # Makefile for kernel SPMI framework.
+ #
+ obj-$(CONFIG_SPMI)	+= spmi.o spmi-devres.o
++spmi-y			:= spmi-core.o
+ 
+ obj-$(CONFIG_SPMI_APPLE)	+= spmi-apple-controller.o
+ obj-$(CONFIG_SPMI_HISI3670)	+= hisi-spmi-controller.o
+diff --git a/drivers/spmi/spmi.c b/drivers/spmi/spmi-core.c
+similarity index 100%
+rename from drivers/spmi/spmi.c
+rename to drivers/spmi/spmi-core.c
 -- 
 2.56.0.317.g454f8302e1-goog
 
