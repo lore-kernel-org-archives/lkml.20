@@ -1,68 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793354187;
-	b=IL2muCWxwuDZNiokL1K3eP/B7/qO1VxTeMnS+6Ldd0QqbCcuIbSWC4Q3IdFx+4SYNCW5
-	 ILAkNXlqd71n3TGignxmvLx57TC9IsVVJhKnQ3K14OnzJllwPlEgqetDG1n60KHHT79zl
-	 N9ji3Qwjr2DFNc/kjFZ7d0zVb8uBxo3s0PuOQLxS5x2bJI2ecoUfCoUoCjF4+TjP+x1qN
-	 B6N1GrogjYd3zMRTTYZYU9Vl3iU0Gvmx3EkN1LQVObLrCjNlLx+2vkCZaS050+6sPJ5fa
-	 e0enhPJSG/tl7mXW12gBuDEdS6wpQUeaDEbi33vvj/jJ8QgZSvUP6AoV53U1aOMzgdg==
+	t=1793354201;
+	b=WxumnVjAF9xX5qt4iJtmOc0DKL4QWAnMurVq6n6M3m225JOb6CiBnPGGq35/leOi5jP1
+	 RMWiUPn3IEj9E5Frpkakg8z1KI7F5lw1T8UFU6BMX8EPFrZUqfER9vspIWFps5lJHGGno
+	 XtpJLk2wH++OKFs8YwYcFJbNTxjfnYcrVGsFmcjNVJrkrIpQHdOEiEhT80JfnyhoHko+7
+	 lOTKiLCz6SaXtnPBATs9MzMA4v4qxHi2sSkRJZm3pV9k5TBVi7wWVgzCbEE1ialNvwMtr
+	 JMMKMB8QOx7EO/EevgDsDWQFWqaAOl+ONJ6/gaSJHJjSnrCeRnA+oupNat2/nTFNiHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793354187;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=qKvtHqmAnWh7jrzVhAmBXGE1jVfwGOGfObLDn64oZ8A=;
-	b=daY7FkIBD732ooe5oFyDldPXn9rx+2SFlDCN0ufn6qkr8KE+uVYQCwGXIr+020XpF1uL
-	 LMIRhw6cKymn2hWlBeBT2/pebINryU0xYlAdhZ3ALJVJRsrV+Vt8fTZ6hbW8gjzEQgpo4
-	 hDy8DrBdpm3kgTgbTphOapOxVvkd3B4Fnv+tB1Ty6B6MD3+Z9BZzHPJVAkA3iljLGh0wo
-	 sgxwwMCQaOCcSIb8DxVnXqdK0xDjnqllYKOo8nAEZvrCyJRwXSBQVoNbaJ4dR3Hvccutk
-	 IpTYPjbaMvvP41pI36RmxmjWQYvEuVjjRCOyr+zD1pCkPmT5g/5wvz/wZnFdz9H2LUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793354201;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=5xiejaFvgYu1bZJnBCs0ytrTR8vL1a3ZrRscchf483o=;
+	b=lpT8iaEkQwTDBAcKgFs3Z6GCesrnykzNQWTf/umQWY2h0lSxjirx7cYuxchgw9zms2Ol
+	 kZmiMPpz873VQszIkGzeSnRqDS3NmMB4kYeerT038Emebg8Ji7rTyQ9yZgqOLAyF2lKdw
+	 Zfdnn6Htzrxm/+HMctyEY7+SBPVyMNKbusyXhFEbQW8p3VgYA/lO1I6rub0AF03pGiTZq
+	 +CwfzMos+NkLiwEkb3DAhQgAsATQIRBsdyWLXMk5mKLDuD2k2svMlSd3qrB91HLfZxW7G
+	 Pc2LN0AswcHwD+3DmBMPj2WDP9xSZ2vTm1qCSK/a/UJBnZ2Jaby+znInp1n3gGadEng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=idVcZe+a;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b="Ywe4/hep";
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660DF606A321;
-	Fri, 30 Oct 2026 09:56:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 660DF606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE581606A325
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:56:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE581606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=idVcZe+a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793354186; x=1824890186;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=dnHareNJED8u8bx64z5ln4QTw+6nV9eOXs3XlfsAUTI=;
-  b=idVcZe+aDj5brND6UiZU4/XD2KIpLBwZOxR8XqqdOR2stOmKHK0rWnvN
-   UCpMza+hPXO9NLKSURBd+qaGLBW8aCwZIGCDLDThYReUlrIFjb6xENTyr
-   AiV2phhmRB/Zoe0ryFFYkeSvBpNm4PpJMgUGN2zjmjPYjGFbdBgTBQqVy
-   70i9HScfEphwcHhhSN5qSCHOYlr+Qv2Hx7ivAs6Ksf3I0hC/NSv4CZvxk
-   81SSFUi694XS7gejmg5t8mwKDzgRaQOCh/XBzutR3h1Drtl1+rCgS8dcH
-   vAVrha+NjsA8ncFBcD8SWfOTF8NB1xlWUmYgsBpMr4PbehMb7SowxHfS4
-   w==;
-X-CSE-ConnectionGUID: wTXite3zRfOqnq0dM3Okgw==
-X-CSE-MsgGUID: UHVByK9pTJK+KUiRvaWlLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1994367"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="1994367"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:56:26 -0700
-X-CSE-ConnectionGUID: vXAQfDwpT5iDiZlGfbNaUg==
-X-CSE-MsgGUID: ZS64ffXnRtq8cRjMHCAMrw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="7221831"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 02:56:21 -0700
-Message-ID: <d9577c81-ce88-4e21-bd68-d770d394c68f@linux.intel.com>
-Date: Fri, 30 Oct 2026 17:56:18 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Ywe4/hep
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=5xiejaFvgYu1bZJnBCs0ytrTR8vL1a3ZrRscchf483o=; b=Ywe4/hepCn13MWag7VEpyxVe9S
+	RqxxW31FBFOdjP/8Eu2Tg50YiAPYoJcg0s8JjmsDF7x2OrVcVYKjmTwfZILGw2gsEZPIijr5LYT9H
+	FO2HzY/l3NMlc+y5ZpMHUDreYQ//VrdSUe7LYsvZ4goxgUCiqubAzxDoic09em32Xx4+EMoQvRQ8+
+	qp+Xo7Ofi1FWyJpLz3qoWIowc5GSfMCPXGNi27u5zg8FwbIXDwU50HAdsi/k/RErtpZ/pyWvq2RD6
+	kIK8pljsGNxJvSPOqi0iXz5o48Jme4nWQ2ZxyDa3zqwwueZ/C4luYaPhtGYUU12HTuXl+l3JLpj9O
+	3nVuYqcA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMjLb-00000004pKS-1YHe;
+	Fri, 30 Oct 2026 09:56:31 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 61736300329; Fri, 30 Oct 2026 10:56:30 +0100 (CET)
+Date: Fri, 30 Oct 2026 10:56:30 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Qing Wang <wangqing7171@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Davi Chaves Azevedo <davichazbh@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] sched/fair: Replace random newidle_balance with
+ Bresenham accumulator
+Message-ID: <20261030095630.GJ2668200@noisy.programming.kicks-ass.net>
+References: <20261030091946.2498870-1-wangqing7171@gmail.com>
+ <a0dc959a-a05f-4725-86c9-1b7299d9b2a3@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,67 +77,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [Patch v5 13/18] perf/x86/intel: Refresh LBR stack for non-PEBS
- LBR events if needed
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>,
- Sandipan Das <sandipan.das@amd.com>, Andrii Nakryiko <andrii@kernel.org>,
- Song Liu <song@kernel.org>, Ravi Bangoria <ravi.bangoria@amd.com>,
- Ananth Narayan <ananth.narayan@amd.com>, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, bpf@vger.kernel.org,
- Dapeng Mi <dapeng1.mi@intel.com>, Zide Chen <zide.chen@intel.com>,
- Falcon Thomas <thomas.falcon@intel.com>, Xudong Hao <xudong.hao@intel.com>
-References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
- <20261029043914.1395147-14-dapeng1.mi@linux.intel.com>
- <20261029110046.GO1779021@noisy.programming.kicks-ass.net>
- <16441880-1831-4741-ac90-02e5f662435d@linux.intel.com>
- <20261030093013.GM2668804@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20261030093013.GM2668804@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a0dc959a-a05f-4725-86c9-1b7299d9b2a3@amd.com>
 
+On Fri, Oct 30, 2026 at 03:16:13PM +0530, K Prateek Nayak wrote:
+> Hello Qing,
+> 
+> On 10/30/2026 2:49 PM, Qing Wang wrote:
+> > diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+> > index 919d0fb00bd9..79c477b47510 100644
+> > --- a/kernel/sched/topology.c
+> > +++ b/kernel/sched/topology.c
+> > @@ -2002,6 +2002,7 @@ sd_init(struct sched_domain_topology_level *tl,
+> >  		.newidle_call		= 512,
+> >  		.newidle_success	= 256,
+> >  		.newidle_ratio		= 512,
+> > +		.newidle_window_pos	= 0,
+> 
+> nit.
+> 
+> I think this value should start in a way that allows newidle balance to run at
+> first attempt and then stabilize. Maybe '512; is a good number if not higher?
 
-On 10/30/2026 5:30 PM, Peter Zijlstra wrote:
-> On Fri, Oct 30, 2026 at 09:54:02AM +0800, Mi, Dapeng wrote:
->
->>>> @@ -4012,8 +4023,14 @@ static int handle_pmi_common(struct pt_regs *regs, u64 status)
->>>>  
->>>>  		perf_sample_data_init(&data, 0, last_period);
->>>>  
->>>> -		if (has_branch_stack(event))
->>>> +		if (has_branch_stack(event)) {
->>>> +			if (lbr_need_update) {
->>>> +				intel_pmu_lbr_read(&cpuc->lbr_stack,
->>>> +					cpuc->lbr_entries, cpuc->lbr_counters);
->>>> +				lbr_need_update = false;
->>>> +			}
->>>>  			intel_pmu_lbr_save_brstack(&data, cpuc, event);
->>>> +		}
->>>>  
->>>>  		x86_pmu_clear_perf_regs(regs);
->>>>  		x86_pmu_update_perf_regs(event, &data, regs, false);
->>> Or... you move intel_pmu_lbr_read() from handle_irq() into pmi_common()
->>> after we done the PEBS things?
->> Yes, I ever tried to do that, but I found it would break the PEBS LBR
->> sampling on the platforms prior to ICE LAKE. The PEBS doesn't support
->> snapshot LBR stack on these old platforms, so PMI handler has to snapshot
->> the LBR stack before draining the PEBS buffer.
-> Argh; we have so many variations :-(
->
-> Still, re-reading those MSRs seems wasteful, esp. if most modern chips
-> will be affected.
->
-> Can't we have a toggle between early and late LBR read or something?
-
-Hmm, yes. I would refactor the code and eliminate the duplicated LBR
-reading. Thanks.
-
-
-
+Funnily enough, treating this as an independent variable and using a
+random number works and 'fixes' the slope change problems.
