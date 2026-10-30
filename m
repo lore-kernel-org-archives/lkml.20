@@ -1,90 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793386595;
-	b=eT+rpaZrhVryyYs0Wl9DHQcRK7lwvYjBRBvIl9yJPZ5O/C8SgY31WdMTsZfrr5kdOXws
-	 GAUjBGAUkCukEsZG42jtbFMJ2C3QhWx7E/d2moFZ7UkxvJVD7Qmb/f2J5mdwyt7Ms3IeI
-	 3kpCsWxnv71Kxl518Tmsk3hTjV4oux7ZLq7NSBXJyb/yyKwdMQsu6d9xwe9FO/oA1gsb7
-	 Z1Dr4uFQxEUf6LNU34oNWkOoa69tbJsVBo3do0YSA6VuAqgDRGHjEUg2txfpPsW6FLS4h
-	 5Me22qqCOhYu6fu6FK8HAu/vBalczdU65dsFZPkibAmgHv9o6XDu8G5qmOUikixviwA==
+	t=1793386632;
+	b=wo9QGUHoalbDMan/tvUDSRwVWYd1SJOvY/5VyPjCT86rkciVGRTdurIqQ9tBYkRXIEc+
+	 kgCddnKrI4G20GPyp4JiPC/V/T2k0jjCeuTjHfS8bkaazWVxiP4v2MXVdkpFoS3eGBPBw
+	 lqfjyT8ofJhsdvY9n7CV8MbA0DbqWQfBpvrjofUkEfeSFJ30r1S0sKuy/qNVgCcb+pcXp
+	 Ju8sHaN5l+AGJsx9QyikCdN0YHU85tYU689lZBH7sSuaUxwxCVz6K/THxuVemyB5RG5eb
+	 j2VSwM0MI1C/3RlbBvToEi7NT4z3MOJxTQ/Ntx0KByxtKBX0sLu6H2gCL4zQByq+C7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793386595;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793386632;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=qwJWwP3g6tAfkz/cEaB4qEA59hJRgAI++mvseIiCl4E=;
-	b=El1ucSSm3OTVBpE3cQ8QKxbvCgVbVTxgPAhg3PM4KLi6c0CvT/8a/NOUW/onhu1D1mR6
-	 S+7rdiAt9mOyx88srYFyeIcQSiedu2KWWcvd59/MGL/0czksM6KskSn5a3R3KgnNTZ5LT
-	 isak6tys4IthwUZl0BS214dh4BFkYUDwTYS1TY4b1JWDDduA8VOQZQDwdu1HuFt5q/glJ
-	 glU21kaKafNGvRrAVA9aDQ7uizMC9qoArt+ciucbY8T9Xx+rhBxFUZQdG5znu5szTsuzs
-	 KNrAF1uLrFlK4Ip7iDa6sQaJYCH+KM3ezHheBbLncpJpHeKaFMKFv8ls9hN7sqIPu5Q==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=AqsM43MOtFOSSZV0EEwrjw089w0rw12SYsGwf7bUH9w=;
+	b=Hh6CAKwhLsHT4xIvEyEooS1EuwizeO9WjlWs5tPYx7xgM1QSOZ505wwJcbvJxlOLcv2o
+	 Ugce/FLvXHkwUfkZwWp97W2Clm8kgHvNmCH8y2/U6yIKdUBDdEEIjubVYoC9+DKXsBeCy
+	 dOuHf+9rH3QTqmbgeYVtG/aV/xxT8VzW9CxjZnd8P7XCCJfUCW2uitD7wWH13yUQZz4Y3
+	 t8/Tw9cmmOZ+oAydMoS6e6hYapcxVy4+f6bz77734xVPzrd0xD0IcNAfHeygfuctkT2ab
+	 Kq9zcmDjsO9pybyaliAq/G6qyEdLqZL/2yShnuCew44vTh4U5dIW7hw3CLn3ALt82vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=E4LRcNlf;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KGbcCTq3;
+	arc=none smtp.remote-ip=209.85.216.71
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD900606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:56:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD900606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62EC606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:57:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D62EC606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=E4LRcNlf
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so168665566b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:56:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KGbcCTq3
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ac7a4ba546so1593637a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:57:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793386592; x=1793991392; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793386631; x=1793991431; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qwJWwP3g6tAfkz/cEaB4qEA59hJRgAI++mvseIiCl4E=;
-        b=E4LRcNlfE2+52z5vPu+T7/wb58o9xN5u1++Y0JDwp6OvubvCx6kkoQJlczlFlzKTc6
-         PD7PWjfd0zRkiI//43+AP4JUbAGNTt7jzs1EeMNhUqJLG6pf4Mb2aXVYf6rjyTSWFBVB
-         q5YcX+fUbUqZ42yC6ius9Mw6FyfYb5N72BPYM=
+        bh=AqsM43MOtFOSSZV0EEwrjw089w0rw12SYsGwf7bUH9w=;
+        b=KGbcCTq3/YKhRrX1UNf7Ho4eL476BVmg9txOYH/svCVz6IiaE6aABPJBZY9TV0MDLu
+         EwdjM1CqURyrxWWE78SIO2SAfw2XROkXNMSZRFaie+TolrQaGOTn/IwGs8CJAAPvx3uq
+         rSZiRDbKarXCKtUcTuqWMLxiXg+dIyeCbXVT3Gabdju8Tnjv7MEULhI52uT+ME/T5Xfv
+         Umq3zMQlrqUao1CzOqyNXt8QEBzDhGZvoKu0F2Ormzv+fJIw++NhRjV5ofr6tGNoKwPj
+         pOSmkuylFhQSblVQVtsohxGsX6qghDIcik3c9VsBAuJ/RdE2WznezUukCTqrOmLnOBWq
+         WzKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793386592; x=1793991392;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qwJWwP3g6tAfkz/cEaB4qEA59hJRgAI++mvseIiCl4E=;
-        b=XprnaCyPohsgEXR6RI5b/fvAt/1ZbEJk0Zhew3OXSJBad4gGe2OjYCEq2s7p8eKpaG
-         +lzuHBgpj5skBRcVyw/vxzoJg4wwhPrLTzwMvRZF2ZPJllc863wCXq3vzwf7cJZgqY9B
-         KNkHO2xdw+JVgYmmUd3fPq3TeEOi5S5nRRDC+xDpfOBl2xtvL1C2Hcp+wz4rS0Lw6Ugq
-         FxbIgezZCXpw0sitLX3yySQuFmAhQAxpakLsWBPPN/rrmAa1mkWQOJkzXSf3a28pC7ED
-         WX2cUZDuU3Jp/wiXipleFXlLleBA9YxznGH036Q80jFdWc4GwWD3G1YAFBG/gKRl1ywz
-         5/bg==
-X-Forwarded-Encrypted: i=1; AKwUvByHmL5ijxVcapI++vcODBks08SrFDAajL913Ia8ukU7e+nzr94Mg1Ss4Tk66oR1ynfwX41dbT0NrtzmoVM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLI4ZKk1An1WamIbaI5IZqjQMj09PF4SHp44PYlFP9F901Jggbz
-	UXgXOsnFcsz3M0Sqe8klShD02DVrp3/N05dYokfJb/ntSLpFH41/C2/EaShcAE9BE2LXwihCfBp
-	MNty8Rk5+fQ==
-X-Gm-Gg: AYBFou0le5KSlTqAZ6khj2JWW0+N6VhBQEFUWHomEUfEuV39OPCItfeaGOdFp8alrzF
-	j9ONqBsfGoU0Wvh1DZE9HWGxWsvoTP0fhnBtvaVV0uhXOJli6/IH2sjwtS60N4FmI+uhAseXvY2
-	qYlSiJG3L7TmqFPLXmIxF5wZX4pf9RGWlezgNBUrWPNIJ5A2IR8j9XEvKKzLHRzws5lljP3NjDD
-	1tM+9cZeR5DheLm+ay6Hqx1rJGwtUx0sDcxuLMnH3Ri7YnX8OIZp+BloiYcTyh/hrRbFo8EwsQr
-	qj6bODEBuCYAS2R9q54TJXc8kt91hN1QfnxJiimRV4g/cECGbcs7vdWXvxZFmfAokCUZHJ8O89I
-	Veyi08RfuzZ/2jwFhD4bnk86ot4Z8XIwPuZG7boYm3IWRg6N9b8Yv3CbjZb3S00loWaRG6ZjCtg
-	x3QDjGGacpA4+vuVvvuaBsIGMFFEQ+r7OK6NnxvL5i+F48K1LU9t63QFCa2osqH/Y3PADproWqK
-	kza2eA9HefpAJ5yt8NhiT4YOfCPdMks0Ub+i39UwRNWLgjm5bDqFQ8ut633D//92L54GLlaXh3U
-	oN2pd0fTzOq/pyidcxpFPlSmxkglOM+DRLvY7V39KOVOfU5+TEj9G98S3vxcdeNWdNekET9jjQs
-	0gfM=
-X-Received: by 2002:a17:906:99cd:b0:c46:50c6:f737 with SMTP id a640c23a62f3a-c4ca7a8459cmr296339166b.31.1793386591967;
-        Fri, 30 Oct 2026 11:56:31 -0700 (PDT)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com. [209.85.218.42])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabc174d0sm102435366b.4.2026.10.30.11.56.31
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 11:56:31 -0700 (PDT)
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so168663766b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:56:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBybn8gMOHYVrNQqthjbLVbgFaW1QSMYdLe+lNukD+E48WwKwHsq6noSr/ULgm8oS4X8SMxUdkzizLAnjEk=@vger.kernel.org
-X-Received: by 2002:a17:907:868a:b0:c2e:2baa:a642 with SMTP id
- a640c23a62f3a-c4ca7a820acmr296788566b.30.1793386591702; Fri, 30 Oct 2026
- 11:56:31 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793386631; x=1793991431;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AqsM43MOtFOSSZV0EEwrjw089w0rw12SYsGwf7bUH9w=;
+        b=LMlOoj5+W1EkK13HIZSCTGZF5Yt8tuhMwnHycmsZZ4ubXqpdoZizDX7+c+kRWNGZC/
+         yBD9aWYiD6D7Av4idTVnZY8AdP9Vdv9w67UdDASWNb+1UBg6DonaGMv/hbkMv/n5BEhN
+         AMQZfO6EdEUPcr3FA3ZJN6zuMAcxf6LZaXERBr/XHFIR3J5dVtUNb94bxIZXT0cRTff9
+         FJ/i4mwjObCtEMxAa3kcNK3BfRHDA3BGYoBrfVY+x5Zhcahyva9zBeU2pWrJR6jHF1eC
+         bTwydMxEOZ2RXtyKyjl9+51EG7iR5844qkwxehmwZn8wc04ifm18F4zhWhd5gnob12rE
+         yFKA==
+X-Forwarded-Encrypted: i=1; AKwUvBxR8qDsL14UOnSg9Tmw0S9qQYsxf92AcLz/kD5Cyz7W9xKOt5OGQjrBqKtUt22jSU+mjBfleejcMQo30yU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRdG5VM2wEAq1oDtW45stofF18YeKIBl7tocdJ0z0uJ/mv2PGi
+	IgrupqCxG0VKpuAzL1RR1dmQJ3sduqJX0V4KzFbt16dtqBBwKGgG/On+GIG/dTVKk6ldDQNrXtt
+	cohg0kw==
+X-Received: from pjbbo5.prod.google.com ([2002:a17:90b:905:b0:3ac:24b3:3484])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:c2c6:b0:3ac:b3c7:de04
+ with SMTP id 98e67ed59e1d1-3ae897aa752mr1800362a91.34.1793386630946; Fri, 30
+ Oct 2026 11:57:10 -0700 (PDT)
+Date: Fri, 30 Oct 2026 11:57:10 -0700
+In-Reply-To: <auStM0rbFol79h5o@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,60 +77,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261029-syscall-table-dispatch-v1-1-bca9dbb886de@debian.org>
- <20261029104938.GC1813469@noisy.programming.kicks-ass.net> <auM6mSXz-BVIjYBc@gmail.com>
-In-Reply-To: <auM6mSXz-BVIjYBc@gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Fri, 30 Oct 2026 08:56:12 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wjg-mre6diNHCTYUtc=X26462GGxgJMw8cE20Wh1-5qBQ@mail.gmail.com>
-X-Gm-Features: AclHuK_EBJ3wPAnKsa-UdINhCLjKmdtp9kbTuYP5pivJG48qq7NWVv3lpi6gafk
-Message-ID: <CAHk-=wjg-mre6diNHCTYUtc=X26462GGxgJMw8cE20Wh1-5qBQ@mail.gmail.com>
-Subject: Re: [PATCH RFC] x86/syscall: Dispatch via sys_call_table when Spectre
- v2 and BHI are off
-To: Breno Leitao <leitao@debian.org>
-Cc: Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
-	kernel-team@meta.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+References: <20261028190259.1819571-1-seanjc@google.com> <20261028190259.1819571-4-seanjc@google.com>
+ <auStM0rbFol79h5o@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
+Message-ID: <auTohixp3V5-vNsB@google.com>
+Subject: Re: [PATCH 3/7] KVM: PPC: Explicitly force IPIs when directly kicking vCPUs
+From: Sean Christopherson <seanjc@google.com>
+To: Gautam Menghani <gautam@linux.ibm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, 
+	Huacai Chen <chenhuacai@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Nicholas Piggin <npiggin@gmail.com>, Atish Patra <atish.patra@linux.dev>, 
+	Alexandre Ghiti <alex@ghiti.fr>, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On Thu, 29 Oct 2026 at 02:30, Breno Leitao <leitao@debian.org> wrote:
->
-> With "x86_64/entry: Unconditionally use -fno-jump-table", x64_sys_call()
-> becomes a compare tree on every x86_64 build, so system call dispatch is
-> the same whether the mitigations are disabled at boot or at build time,
-> which is basically my end goal.
+On Fri, Oct 30, 2026, Gautam Menghani wrote:
+> On Wed, Oct 28, 2026 at 12:02:55PM -0700, Sean Christopherson wrote:
+> > Explicitly force an IPI when invoking kvm_vcpu_kick() directly instead of
+> > relying on kvm_arch_vcpu_should_kick() to unconditionally return 1/true.
+> > This will allow dropping kvm_arch_vcpu_should_kick() in favor of
+> > kvm_request_needs_ipi().
+> > 
+> > No functional change intended (1 || 1 == true).
+> > 
+> > Signed-off-by: Sean Christopherson <seanjc@google.com>
+> > ---
+> >  arch/powerpc/include/asm/kvm_ppc.h | 13 ++++++++++++-
+> >  arch/powerpc/kvm/book3s.c          |  4 ++--
+> >  arch/powerpc/kvm/book3s_pr.c       |  2 +-
+> >  arch/powerpc/kvm/booke.c           |  6 +++---
+> >  arch/powerpc/kvm/e500_emulate.c    |  2 +-
+> >  arch/powerpc/kvm/powerpc.c         |  2 +-
+> >  6 files changed, 20 insertions(+), 9 deletions(-)
+> > 
+> > diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
+> > index 169ea6a7fbad..bbe7378ad0ef 100644
+> > --- a/arch/powerpc/include/asm/kvm_ppc.h
+> > +++ b/arch/powerpc/include/asm/kvm_ppc.h
+> > @@ -30,6 +30,17 @@
+> >  #endif
+> >  #include <asm/inst.h>
+> >  
+> > +/*
+> > + * TODO: For unknown reasons, KVM PPC has historically ignored vcpu->mode when
+> > + *       determining if kicking a vCPU needs an IPI.  Either document why that
+> > + *       behavior is necessary, or drop this helper and the @force param from
+> > + *       __kvm_vcpu_kick().
+> > + */
+> > +static inline void kvmppc_vcpu_kick(struct kvm_vcpu *vcpu)
+> > +{
+> > +	__kvm_vcpu_kick(vcpu, false, true);
+> > +}
+> > +
+> 
+> AFAICS, there is no reason for PPC to always return 1. I was looking at
+> the old patches on mailing list and found this - https://lore.kernel.org/kvm/0FEE585F-5E21-47F2-A3F0-AD0DE05EBB43@suse.de
+> 
+> ```
+> How about we return 1 for kvm_arch_vcpu_in_guest_mode() on !x86 always, just
+> like it's done today basically? Then we can worry about needless IPIs later
+> and don't regress from the respective current kick implementations.
+> ```
 
-You're basically saying "with that patch, both cases do equally badly
-whether disabled at boot or build time".
+FWIW, I found that as well, but there are a metric ton of kvm_vcpu_kick() calls
+that have been added since then, and they scared me.
 
-That's not a good end goal. You want both cases to do equally *well*.
+> However, I'll do some testing and get back by mid next week to make sure
+> there are no suprises.
 
-I do wonder if we could do computed jumps. It would be lovely if we
-could basically do something like
-
-      # syscall number in %rax
-      leaq table(%rax,%rax,4),%rax
-      jmp *%rax
-table:
-     jmp syscall0
-     jmp syscall1
-     jmp syscall2
-    ....
-
-and avoid any indirect memory lookup or indirect branches (outside of
-the one computed one). And no extra call/ret frame.
-
-It's possible that the branch prediction hardware hates those kinds of
-very dense jmp patterns, though. I don't know.
-
-We could have a single static jump that picks between this one and the
-"conditional branch tree" version, as in your patch at the beginning
-of the thread.
-
-             Linus
+Thanks!  If we can drop the PPC behavior, that would be wonderful!  Though if
+we do that, it should be for 7.5 in a follow-up (this series really should go
+into 7.4 due to the SNP issue).
