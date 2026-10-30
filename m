@@ -1,62 +1,77 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357423;
-	b=mEehNuCOejY/OAkeCFVXpiQf1WSBDoo82Vs5a38M/49t62F7kKDaDQKhBhwo32oK+Hoe
-	 SpVthxBEDCt56mLr5lq1B/UeK3+XmrOazDkM/srG12NAxIjBTzDzLFGF2Ia8JipXZtD51
-	 NjcuBSClBrrP1Bsq+O7obXOuQ3wlhBgPWFrIzrwAgZIxiyBymBC5GrbbJvWw8XxIUCVLJ
-	 0mi9PP07QqqGyMOnWMuavPF3ghQbgDKgkcptMI2lkANM5V40l70mk3TmqVC35is0lL/l9
-	 hoyGKaJGwU8dU/B3cQB6zSgvC3QyE4PClMsbTrKQ2SVMM+VIJVLnqOaYhSfrsqgQnwQ==
+	t=1793357415;
+	b=31tzaXYwDK+Hpck3aoMtPtrXbpfosGbW196SgKKVjwwdW5W2yNG8FBlghEy1PtWyB6jD
+	 HjesgdUeCC/JbCtNWjlo7Tt4ydCzL2dEBmCGO9KkwQQ56fFhAED0Wc2CzZ6DX0d/eEzpZ
+	 mSauIk3q70GmJXnA18/Ur7oBDSbZsvqZlTzEFofP2cvHYyEErAXo7g7KBgLnhdgXXHaSc
+	 aujNffstfSQtPFx2ra1TsosUdTfodc82nF1MyjdHKhOMaxb37L5xh4hY4pHW3743wMZBH
+	 A05YuJbHY0eX209YV8KionNLbbmLfFuMhWW5Rrfus3dQC+VfgCDTFf3PHE1Dp0aQZ2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357423;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357415;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DjtoL8ZtCz0GQZpX57ulkcLnwiYsE5MZAt/R4gtCuDU=;
-	b=1yZlo5ZlAsre3afZNmEWaClvOdQbylcLs2A1SUEEs2mv117RE1p0Tsi/IQtwIM62ntfh
-	 QMMmWb6Xj4V+SmZygZtZSNPLDzqNnPSu7VDUvlt5AFZWBrFfAsJJ5ghYC0g2rIckP6A8e
-	 zMI9ngr1V+8tsTc0jQMkw378OSeKi/L31VDA5tA2BiTTsggBC1191eC6U8alwY7evovRg
-	 MLhXXBM526oo3e/uilo1glA7b998u5DmgcqCl1ikaemXwD9yePmImP2VL9bL8mphECMBu
-	 ituLhKyw09M9jftYtIDfsMzOVGFEDOMntZijOElNtmKULSf7yDxpPKKonh/VlIBe8zw==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=P0WdyH6Nza1mVSXLS79+OENSiygKvnIpHHnvtKyQpUg=;
+	b=F9+7bz/mmnXzLc7aDP8o1RYdH0BJmZVUIo/WdGIzh0LUNcEtOqQiRg23nKrxBfuGiPbc
+	 0w96pKeuzxq5vsRKRC+xazzlRrnqeD/4yvekAL9Bu8O3u4ubbHH9SAX+Ey+FRMBiXpx8p
+	 BxeHsUJ6nyhLMlxVPuvB9wBCQmWJmW7ijzSqVrCChPHt7o5Er2SbHFEo/KImDlCa4FE/N
+	 aL1iByYjFh6SkcATpJ/UXrLW8kAXbOn0CsL6e0EDksTbBfhEy+8Vp4+BK4y5SkesTk1Yn
+	 iQFqKqN4+nOMuutT51N7LioGVit8ea93TkBtTOdaToyU3ZcjCe1VVPK21SXRzFUYC6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EPgT3h7T;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KC15/jhz";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291D9606A8E1;
-	Fri, 30 Oct 2026 10:50:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3622460A6F5F;
+	Fri, 30 Oct 2026 10:50:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EPgT3h7T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FAEA1F00A16;
-	Fri, 30 Oct 2026 10:50:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KC15/jhz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF78C1F00A1B;
+	Fri, 30 Oct 2026 10:50:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357422;
-	bh=DjtoL8ZtCz0GQZpX57ulkcLnwiYsE5MZAt/R4gtCuDU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EPgT3h7ThJM3qPhWKv9VEhEHiyJcgoTRyug24Hv6vbldYncqzljke4bEm/FZjFK3b
-	 qeJ8fDNJB/iL+aB7nLvUeP8MVDoGOsMLfQOS9apx4qQO1ftoKYsgRIuLakePMNPNSk
-	 uIDFNfNn1mf84Alv/DeI9bcvHQqcI2+W3UQp7iuWxkAcDspuZTiNmhKTQ01WRB0IrV
-	 z9z5qU6F33txSYcKok0vgX6h1a9ZMO3qYoztNfsUrD1xHVZ+wOravylpXE1e+KLI87
-	 03Z+U5zToyJeY5qm1+WLBpR3NPYd6ctR/HYnuD99WkDxs6CEc1doeox/p63SPwVZZk
-	 SOXBmaln8LHAQ==
+	s=k20260515; t=1793357415;
+	bh=P0WdyH6Nza1mVSXLS79+OENSiygKvnIpHHnvtKyQpUg=;
+	h=From:To:Cc:Subject:Date;
+	b=KC15/jhzJgSv+LiTqdANORTVig7LtqUGk0LJb1or/C/WK0S4lSzmDwfekP4BJ5aUx
+	 8C/LWaqirPkQKpCwu9P/2kaYC0RJHTt81SbteYTtbqAPvHmispGM81wz74+GTTrIRr
+	 nM/JxvMQtLovoXyDbOfJyk1qLkku5qiCaLnCYDRWzTzKCXktx3ELY0XkwUXetB6uDe
+	 MUw96UugLiKjK2vkSKS/BkWa/+wVnv/Wj4YdhWXdEQHcXPvB7fJQ6HryfzFnyylj/C
+	 a8rWp8yW04UIMe0cz84js8Dd6K7fpuPM1xmKEHlZuMQ+kFZ0zcG/2b90rD1Ej3r98V
+	 9E0XxenVH2F6g==
 From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Vinod Koul <vkoul@kernel.org>,
+To: lee@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
 	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Philippe Ombredanne <pombredanne@nexb.com>,
-	Sanyog Kale <sanyog.r.kale@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Hardik T Shah <hardik.t.shah@intel.com>,
-	Takashi Iwai <tiwai@suse.de>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	linux-arm-msm@vger.kernel.org,
 	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 01/21] soundwire: bus: Hold bus_lock when looking up slave devices
-Date: Fri, 30 Oct 2026 10:46:40 +0000
-Message-ID: <20261030104840.3361217-2-lee@kernel.org>
+	Mark Brown <broonie@kernel.org>,
+	Mastan Katragadda <Mastan.Katragadda@amd.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Rander Wang <rander.wang@intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Sanyog Kale <sanyog.r.kale@intel.com>,
+	Simon Trimmer <simont@opensource.cirrus.com>,
+	sound-open-firmware@alsa-project.org,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Takashi Iwai <tiwai@suse.com>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+	Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+	Vinod Koul <vkoul@kernel.org>
+Subject: [PATCH 00/21] soundwire: Fix Critical and High issues reported by Sashiko
+Date: Fri, 30 Oct 2026 10:46:39 +0000
+Message-ID: <20261030104840.3361217-1-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-In-Reply-To: <20261030104840.3361217-1-lee@kernel.org>
-References: <20261030104840.3361217-1-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,64 +81,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-sdw_get_slave() iterates over bus->slaves and requires bus->bus_lock to
-be held by the caller.  However, sdw_handle_slave_status() and
-sdw_clear_slave_status() drop bus->bus_lock immediately before calling
-sdw_get_slave().  If a concurrent slave teardown unlinks the node via
-list_del_init() and frees the slave while bus->bus_lock is dropped,
-sdw_get_slave() can spin forever on the self-referential list entry or
-dereference freed memory.
+These issues were reported by Sashiko.
 
-Keep bus->bus_lock held across the sdw_get_slave() lookup in
-sdw_handle_slave_status() and sdw_clear_slave_status().
+Cc: "Uwe Kleine-König (The Capable Hub)" <u.kleine-koenig@baylibre.com>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Daniel Baluta <daniel.baluta@nxp.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Hardik T Shah <hardik.t.shah@intel.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-sound@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Mastan Katragadda <Mastan.Katragadda@amd.com>
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Cc: Rander Wang <rander.wang@intel.com>
+Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Cc: Sanyog Kale <sanyog.r.kale@intel.com>
+Cc: Simon Trimmer <simont@opensource.cirrus.com>
+Cc: sound-open-firmware@alsa-project.org
+Cc: Srinivas Kandagatla <srini@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Cc: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Cc: Vinod Koul <vkoul@kernel.org>
 
-Fixes: b0a9c37b0178 ("soundwire: Add slave status handling")
-Closes: https://sashiko.dev/#/bug/linux-b0e65a93-dfd4-4e3d-a96c-8f13ba0aafd2
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/soundwire/bus.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Lee Jones (21):
+  soundwire: bus: Hold bus_lock when looking up slave devices
+  soundwire: sysfs: Use sysfs_emit_at() in array show callbacks
+  soundwire: stream: Prevent m_rt_count underflow in
+    sdw_stream_remove_master()
+  soundwire: stream: Clean up allocated runtime resources on config
+    failure
+  ASoC: SOF: Intel: hda-sdw-bpt: Stop active DMA before closing BPT
+    streams
+  soundwire: intel_ace2x: Protect bus.bpt_stream with bus_lock
+  soundwire: qcom: Prevent pconfig buffer overflow in
+    qcom_swrm_stream_alloc_ports()
+  soundwire: qcom: Disable runtime PM and avoid clock underflow in
+    qcom_swrm_remove()
+  soundwire: qcom: Check clk_prepare_enable() return value
+  soundwire: qcom: Serialise ctrl->intr_mask updates
+  soundwire: qcom: Prevent stale broadcast IRQ from completing
+    subsequent command
+  soundwire: amd: Check for NULL manager drvdata in sdw_amd_startup()
+  soundwire: amd: Check ping command response for timeout
+  soundwire: amd: Preserve lane control bits in amd_sdw_port_enable()
+  soundwire: amd: Avoid static port offset leak in
+    amd_sdw_compute_params()
+  soundwire: amd: Initialise and cancel IRQ work around manager lifetime
+  soundwire: amd: Resume manager before hardware teardown in
+    amd_sdw_manager_remove()
+  soundwire: amd: Synchronise parent IRQ and disable work on manager
+    removal
+  soundwire: amd: Cancel pending work before suspending manager
+  soundwire: amd: Check clock resume timeout in amd_resume_runtime()
+  soundwire: amd: Disable interrupts if enabling manager fails
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index aeaae5a57c89..15c66effbf4f 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -1907,9 +1907,9 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
- 			mutex_unlock(&bus->bus_lock);
- 			continue;
- 		}
--		mutex_unlock(&bus->bus_lock);
- 
- 		slave = sdw_get_slave(bus, i);
-+		mutex_unlock(&bus->bus_lock);
- 		if (!slave)
- 			continue;
- 
-@@ -1954,9 +1954,9 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
- 			mutex_unlock(&bus->bus_lock);
- 			continue;
- 		}
--		mutex_unlock(&bus->bus_lock);
- 
- 		slave = sdw_get_slave(bus, i);
-+		mutex_unlock(&bus->bus_lock);
- 		if (!slave)
- 			continue;
- 
-@@ -2052,9 +2052,9 @@ void sdw_clear_slave_status(struct sdw_bus *bus, u32 request)
- 			mutex_unlock(&bus->bus_lock);
- 			continue;
- 		}
--		mutex_unlock(&bus->bus_lock);
- 
- 		slave = sdw_get_slave(bus, i);
-+		mutex_unlock(&bus->bus_lock);
- 		if (!slave)
- 			continue;
- 
+ drivers/soundwire/amd_init.c        |  13 ++-
+ drivers/soundwire/amd_manager.c     | 130 +++++++++++++++++++++++-----
+ drivers/soundwire/bus.c             |   6 +-
+ drivers/soundwire/intel_ace2x.c     |  36 ++++----
+ drivers/soundwire/qcom.c            |  97 +++++++++++++++++----
+ drivers/soundwire/stream.c          |  40 ++++++---
+ drivers/soundwire/sysfs_slave.c     |   6 +-
+ drivers/soundwire/sysfs_slave_dpn.c |   8 +-
+ sound/soc/sof/intel/hda-sdw-bpt.c   |   6 ++
+ 9 files changed, 267 insertions(+), 75 deletions(-)
+
 -- 
 2.56.0.317.g454f8302e1-goog
 
