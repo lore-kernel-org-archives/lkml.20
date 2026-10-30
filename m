@@ -1,47 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358937;
-	b=vdtHArWPuSeon8J1V7wPelNxm6D1oOzdmW2edcHUxhG96pTTI1pW1FirJs0rZPux1Mi/
-	 yhFTjMhkQvkX8eR8AUAgBB6feabOgbmTWzXasOjGpnZcTp9y3p1ahORrmMweV+fAzpFOJ
-	 /x2FmHF0HcBxf70BRACfyAmHM+Dq8l3Tmy2xUKZ9ahxVRwzTA6mGuutKstMw9gMYpwBPk
-	 Jl6ErYo/tS4I5CFiKs26+mA1MMQ2qO0T1xr/kxVHG6UhkZRQaoHdh+bIT0rRdGgiskFL8
-	 xG/2QG/NRQh1gWgsfX18HXP0mVg/YZCiXfgUffS1jGIlyogI3gkMZn3W9XWf0KkUHnA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358937;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jcFVnDvIZ8heZvYaiF3eCzfDTR74GY+V/2n+TMcTvAs=;
-	b=EpWLnvWvZ74/gnYYZW/8DY+pexfcS5kJG4eFXk5cL4o7XxLUryYn9/gwKjK0y6UNWYNm
-	 2jJ62P3nmZJUFOXaj1efAS6TV9GoXnzipaSsPQuYBzZMZBcyN8978qw/snEz0pneEy5DH
-	 cu8DKMk2RKDxpwb/K6Edo0SQ3r6MNTGVFQ8MnjAEz2M5ugPeVVbLV7xgBEnaG3Djz6qqU
-	 vwsWEFMMIdYuWzzN7USAgaSHooOQE1yXKSQOSn6wrWcpPILhDwCzFnuwbXtsuq+zEMOqz
-	 RjNQW3+j7fcNWz9WY8LVcK9wG8qM+sMCk3w3kJ7zLX+OJjikNbUGOTVLAUQFANkbS0w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0Z5bJ43;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793358942;
+	b=wZwp3BqTO3tEbRkHMz5s0Q5xpFLCrATWRN/r5wUhujx/FiM7k7gyahZFa51AiCooasWD
+	 6ZV3KdZMZycCsvIPOstcYMJEFx77BupqJVPiwyuW1ByKYiW6V1anN5rpzCMdo0N2M6PHX
+	 9MkhErgVQzKX6Q6gfJmGkO/Ske/OMJk77cq/8Ao6cDMjXth4ekGlVnAVDDEBYlGCeyG+c
+	 Sh3/0ESJmjZRf3UlCbAo+QUEPVUFJhnbXYpzfNdDR88MTKnaCeMVA3jkHc5tZMYvud7U4
+	 6kWJ0+yx2gx9uLvFmLMcDKjn60k5wF8/KgEx0aMZcaMLlH031F1VN5wRJMlaCV1O/Nw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358942;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=pEI1DAwF3qERQ460nxeTIehetKY+Po8snZJ24ugK+74=;
+	b=e1CQbLH6hRcE/pv3qxl36QHV/JH4PEv1SzYXDoVshEhr2FeJ4hJRFIc+rNpi8DmiQ+f9
+	 2l+/CJBZiawct5el8JBatrR7h6HbCX3BheNnT87TB+6IVWXcKLPVt7M0R2KxLUeid8ngM
+	 2JQHU7t9AeV9FSk9WMcUZf2vjjVFrCOONmEGuplde/x2FdUD8jbDbtOwMPRvcAhaDZ674
+	 4oUUp9azG3r7y20y9dxvJTJw+OrURsqMA7bTGuIrzpPCeodnsXrdFE5q5SB0hiy/kO8R5
+	 qhlX7W/g9fLaDZ8ZrQsBUsJkwGJ4SY7ykoxUin3oTwR4AxmalxvTec1aqHh3DVIQiVA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FK9e3th2;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WSuDuuj9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C983606A32C;
-	Fri, 30 Oct 2026 11:15:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C415606A325
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:15:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C415606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0Z5bJ43
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9548D1F000C1;
-	Fri, 30 Oct 2026 11:15:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793358937;
-	bh=jcFVnDvIZ8heZvYaiF3eCzfDTR74GY+V/2n+TMcTvAs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=X0Z5bJ43M9j+dsxw0EOfb2RfVAPvTOOq7wzfRja5C/mo0S5QFye2IEgPAlORI4c3g
-	 ifImjUhJwdI8WKJ5YsmZzwNO9T/m0kviNcNKqqlF1HggGNZPwAWIf5tuKcs2oU5XVz
-	 izKsKdkgcOFL5wt8C5/w8BeHHulb+7ldzTHu+6qfcHg6P136wlJ4Zt/a0lQGMSi3hY
-	 KM0nA2fT0xAsx3g4kOpikLMdyV+GVhDasUmL3YTRLy61zlRQukgrzzF1OnpaAKinvF
-	 CdRbd2dFS6Ly6QcLF/O4Pob9/Zy+lYtZgiUY62l/mQIs9T+8HMZdWboQ0mM+HSpbiP
-	 UY5gtheZjBa1w==
-Message-ID: <48a66134-3522-4b81-adca-4e76d52dc391@kernel.org>
-Date: Fri, 30 Oct 2026 12:15:19 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FK9e3th2;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WSuDuuj9
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8FTWF1663393
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:15:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	pEI1DAwF3qERQ460nxeTIehetKY+Po8snZJ24ugK+74=; b=FK9e3th2cphJBcYI
+	efuZCh8LkaH7+cuHiHZXumNFSSDyFFUCqmMsbM5bdpv2TxlGmn8nmuj2sAJ0Bzmo
+	E3anLE8Nct+GtKg05G+wziT3gy1Jh+7w9HxLJAs6MKDpv0VtfGIbt3BSKo4a6824
+	4ETnvAMOt0IVMm2/047L9g8hMSWXu61iW5weLEN0sMBsZUpjKhyQ/qjMsyz6Eyqt
+	OOfnp/OTgW+0E79W5MGutswuLqQCrD9dnvaFlWzuZAId1uM8vTHc4sF0PTkLbt3u
+	3mDDZlWHR77owFZQIkNOWbc7bwLGDi+DU/brsXCLOQEmJ+6HMNgJrlGNQL2ixuCF
+	NRpYlQ==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6p2r7m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:15:40 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7bf5c02f7a3so125205137.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:15:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793358939; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pI7l1/kLrbbuXpt/gf3x9QTQPFev3EYtsqv14s5o3q9kruc0ZrtpclvFL2g5tnL6Nk
+         uVkgjRlKeV/2jZlL1TybxQYjyfzPHUn0A8Z9MAyc0XVYLlVP1Wg/Lovy9T/b+3Jd8MwL
+         B1k/dqytY9tcqRxnc4pkz2rWbENH2rfy0ewR+n/HM4zitrA0Tvp5H72csUYDPdFfYsPV
+         vzVhUaRCxrvRBTBlxt8SXOlTAD7M20KOcWLUrcWdBIwQLbbraz3wI4NL7vwsSrQ8tsrr
+         A39CEPoQ32fWmTbFCbsL5C8yhDuQtnblZOE4Tmbprwlesq2SbNCdu1yPvGv/7P8sYM2o
+         TnQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pEI1DAwF3qERQ460nxeTIehetKY+Po8snZJ24ugK+74=;
+        fh=WbvhRTtWXl5Dl2d4N9w5zBzyqI0RKLKXweyrtx6+w1U=;
+        b=KkmLpaQL6n0kFBylzla+1cGlghHoU09NBWnfkRWBgTjMmI3NEA4i9f6XHfMdmUA6Cr
+         zhvwCrpbIE1XvYJeHqc8s3Fe32O70VsyPyUkpR+8Aw0Sro6nb2q3ySaeSatdsQI6RfFw
+         D8LhlEDBiLUjTh8NUOZmJ+Yt60eKRilSC/h5m6M6bWvtk7UPvY2GxjrOxEkPhNH+TOGc
+         IKIMnrScMPw9OIB6o1IdODxt0qJByn6mW/NxWfJJvnwMVzbLPttTMvKHlznuKWQOc41M
+         vwgVH5VgPQaja2XaNHuAlI2L3QmEi+7WvZdanN3Mfz6AY1rfdABnxmYc/67m33NwWLuJ
+         cKjg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793358939; x=1793963739; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pEI1DAwF3qERQ460nxeTIehetKY+Po8snZJ24ugK+74=;
+        b=WSuDuuj9lJSx660xvAOMUJRzs/6bHvs5Xdwx2nADTk6TqQcO3Jc2qxN/muSJgHEvmR
+         g0pEKnuhVaQV5XAayDJ5z5i4Ghu3qnJicpKe8D5XBFXHtlOP+rhjFvyxlu/PLoy7IWDE
+         i8ga7pgu3LNG9c4Voxzur5TsQQ0YplDBGDgX4g7hNynmnYbHyPbILkmzOF+t3t6eaQ6e
+         Ns6je+44UGjI/oANCUkZBsY0sG3ckLAE6dKJ2m4J6SC6OBZFKoNrAbUSI74hnrpQuaZP
+         C34hFDZ07yFXWieX1IFrjy0z6friAZSn9zzNOgCtK3MttQjdsQMCJbccoG4WegujRgjC
+         jMDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793358939; x=1793963739;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pEI1DAwF3qERQ460nxeTIehetKY+Po8snZJ24ugK+74=;
+        b=xVlCx7jesvmFw4SU9Z8xHk26XJQ/cRfkysTI0UI5Dls2R6XLQTKlh9dllWrYfltP19
+         brHMIk1KGngAYgwDcNsvxasD4jMjhe4COBn4bjam35JhEFEqOisYjsynjbJChSMtaPZD
+         XZEN4pcc8oo/zIIQwbeK9Udo4rXJJRbAq7twOIoLetY7pf7i5EA0hzX4RiIU5lJptN1n
+         uoeveoy5JduoUVRDYMqkaByHkvzFJe0npbjzY/XvF8oftn5WIp25vVOP8onPaHfX10Bm
+         GkBPHCS5bXW571W06ZNPVE81Rglexoza/5Q9qrH6WlsBTfc02wvDmDegstQ7Z8gmesBw
+         5q7A==
+X-Forwarded-Encrypted: i=1; AKwUvBwnzszOUk/JCaqoLN85CecawVsLV6CPZdKaihQdXHQd5992J/BhFbK+isI0o6cTRtwwMEL/QnRpz6cM3Pk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJHOSfBuOlp3f9b6qeJfsoVRxzlD5RzpWE95e+Bl93SrE3+ZXg
+	b/EcTgwrFplMF8aoeW3auMpdJsza+r9pJ0jrNUp3AvBUK5ioSfFDr7W2aEsSCMiQLehZgcOOxAk
+	90qVUZqo/s6CfgluTBcbsX+SkDOUwXmCySGsw4UsIDNwh5gfNCuflkRBR0moh3KMz0t42baqfg6
+	JUsfIuFh3s3K+/6Xlj/y/+A1QPyEoKCOOieNsbydGcmw==
+X-Gm-Gg: AYBFou3wuyrDTLWVaqUYs0igb3nQiW9h3xxhxwHj2biLik4zI8YB1TzTXzbrCOt3Xhe
+	PSZtmTPMJx9YuLLn0RajHLRsJzn1wVKxp+ZxpTydqK/Z+dh9BfOFJeado0bw3l/N2Bx5mvLDU6A
+	G0k2vPnQpdojAy3VQ36Mr4VZdhU/s+8gXu//KAtPFVogXq+ADXYbbuJokiGw==
+X-Received: by 2002:a05:6102:3fa1:b0:7b5:4700:3a58 with SMTP id ada2fe7eead31-7d072658d05mr823543137.31.1793358939453;
+        Fri, 30 Oct 2026 04:15:39 -0700 (PDT)
+X-Received: by 2002:a05:6102:3fa1:b0:7b5:4700:3a58 with SMTP id
+ ada2fe7eead31-7d072658d05mr823528137.31.1793358938946; Fri, 30 Oct 2026
+ 04:15:38 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,148 +127,204 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 27/47] mm/mmu_gather: fix flushing ranges with 4 GiB or
- larger
-To: SJ Park <sj@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>,
- stable@vger.kernel.org
-References: <20261030005726.155279-1-sj@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261030005726.155279-1-sj@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261027144051.249211-1-ulf.hansson@oss.qualcomm.com>
+ <CAKekbet7B=EvD+3Q9PFJAOJZvpz_hCn_dU__e+3=qhsFet=FVQ@mail.gmail.com>
+ <CAPx+jO_HUTrMnzNw-Ev0FWfJdgUQ1nU16knY=qC6oCTQh-=Yfw@mail.gmail.com> <CAKekbes0y4uXUsnF3r40ZMj9_bN4q34ci8LNQhaJCDsFQmo8YA@mail.gmail.com>
+In-Reply-To: <CAKekbes0y4uXUsnF3r40ZMj9_bN4q34ci8LNQhaJCDsFQmo8YA@mail.gmail.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 12:15:26 +0100
+X-Gm-Features: AclHuK9eu7OAWbQYCNIi-bIV-iy89JUshpmDN-s_EFR5uqMBG_3j37KWwfhmof0
+Message-ID: <CAPx+jO9sM4AtP7Es5_EDHVden9Z7rEuN+wOy2=ZWaoxH0AZG2g@mail.gmail.com>
+Subject: Re: [PATCH v10 0/6] mmc: core: Keep the card powered across suspend
+ when firmware needs it live
+To: Kamal Dasu <kamal.dasu@broadcom.com>
+Cc: linux-mmc@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
+        Adrian Hunter <adrian.hunter@intel.com>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Wolfram Sang <wsa+renesas@sang-engineering.com>,
+        Oleksij Rempel <o.rempel@pengutronix.de>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA0NCBTYWx0ZWRfXxycAb7rhgzZc
+ 571/W9mCCZpJmJbZzWUCMnOCxgYS3Yd83+8BtWl/HFs4qxitVuSRJvaRefxro9sxurhc0t/PAL9
+ gdzRQYpJU2XAZjP3NpnrBTSCulE7RpJIY7doN0ibJYR/7R2BGFtD2wtY4rq+DMKOfKUP1zNOxy8
+ KcWeOWfJ47ZILJNWLo7nlfNHMxt0z7GAgxU+02IifEkZiMKHvXbC7zwjdXM+qfXVR8C4/NghcWE
+ F2YlXuYQ0f/zW/HNdZYCYPclQJBGnGaoEi1OL8gzEvl3x8Gf2uRgpBX4ZkbSMxUD1vI8fYOsXUs
+ zOO6LQx+MvRKIfD42u/6itjEWfA+FECN34BcOo04vnSLo90xXDEXJRsLOWpJOPkGYvEN6NB+TDk
+ UQPAAwsPlGEc/B0E12/AdZ0m7J6xkslua7RaTVBsYnNuPwT2I6XLauukNSqztrLCIxUoLsNeicr
+ MvbOUUuG2O5TvwqvLpA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA0NCBTYWx0ZWRfX6vZTBb3atQmk
+ OyPIidOZhcTtbsj390MY7Abh33sKQDuK30wXoPSvdeVAMNDLpo91GZghdsmNTyjWoAcmt0xjxfG
+ /Qx6jqueERL5N3JIQqLFualsAswr4mo=
+X-Proofpoint-ORIG-GUID: MtcIYaCelCr5vk-ekDFm9fiIRvlzwE9o
+X-Proofpoint-GUID: MtcIYaCelCr5vk-ekDFm9fiIRvlzwE9o
+X-Authority-Analysis: v=2.4 cv=TL3Q2Fla c=1 sm=1 tr=0 ts=6ae47c5c cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=Q-fNiiVtAAAA:8 a=EUspDBNiAAAA:8
+ a=BsvTkdZz1TzsLWSvFMkA:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 clxscore=1015
+ adultscore=0 bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610300044
 
-On 10/30/26 01:57, SJ Park wrote:
-> On Thu, 29 Oct 2026 21:33:22 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
-> 
->> From: Josef Bacik <josef@toxicpanda.com>
->>
->> __tlb_adjust_range() takes the size of the range which has to be flushed
->> as an unsigned int. Its callers, tlb_flush_{pte,pmd,pud,p4d}_range(), get
->> and pass an unsigned long. Consequently, a range that is 4 GiB or larger
->> gets truncated, possibly to 0.
->>
->> On arm64 with hugetlb, a 64k kernel can have 16 GiB hugetlb folios
->> mapped contiguously at the PMD level and flush them when unmapping, and a
->> 16k kernel can flush 64 GiB PUDs through tlb_unshare_pmd_ptdesc(). So
->> at least these two scenarios are affected.
->>
->> Fix it by flushing the proper range instead of the truncated one by
->> properly using "unsigned long" for range_size.
-> 
-> Makes sense to me.
-> 
->>
->> Fix generated by an LLM and sent by Josef Bacik in private.
->>
->> Fixes: b528e4b6405b ("mm/hugetlb: add tlb_remove_hugetlb_entry for handling hugetlb pages")
->> Fixes: 8ce720d5bd91 ("mm/hugetlb: fix excessive IPI broadcasts when unsharing PMD tables using mmu_gather")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
->> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->> [ david: use two-tab indent, simplify description ]
-> 
-> It seems the convention [1] is to put the above modification note right before
-> the last S-o-b: of David.  Maybe you forgot moving it after adding R-b: and
-> T-b: from great reviewers?
+On Thu, Oct 29, 2026 at 8:14=E2=80=AFPM Kamal Dasu <kamal.dasu@broadcom.com=
+> wrote:
+>
+> On Wed, Oct 28, 2026 at 5:35=E2=80=AFAM Ulf Hansson
+> <ulf.hansson@oss.qualcomm.com> wrote:
+> >
+> > On Tue, Oct 27, 2026 at 8:53=E2=80=AFPM Kamal Dasu <kamal.dasu@broadcom=
+.com> wrote:
+> > >
+> > > On Tue, Oct 27, 2026 at 10:41=E2=80=AFAM Ulf Hansson
+> > > <ulf.hansson@oss.qualcomm.com> wrote:
+> > > >
+> > > > Background: on brcmstb boards with a Kioxia 016G01 eMMC, firmware a=
+ccesses the
+> > > > card directly during resume from Suspend-to-DRAM, before the kernel=
+'s own
+> > > > resume path runs, in order to load boot code using hard wired logic=
+ that is not
+> > > > field updatable. The card needs to stay powered and responsive for =
+that access
+> > > > to succeed, and since it is never power-cycled, it also needs to be=
+ reset
+> > > > before the kernel reuses it after resume.
+> > > >
+> > > > Changes in v10:
+> > > >         - To help out with the implementation I offered my help to =
+try to move
+> > > >         this forward.
+> > > >         - The DT patches are good to go so I included them from the=
+ previous
+> > > >         versions.
+> > > >         - Patch 3 to 6 are new, but based on the work done by Kamal=
+ Dasu.
+> > > >         - This is completely untested from my side, please help to =
+test it.
+> > > >
+> > > > Kind regards
+> > > > Ulf Hansson
+> > > >
+> > > >
+> > > > Kamal Dasu (2):
+> > > >   dt-bindings: mmc: Extend keep-power-in-suspend beyond SDIO
+> > > >   dt-bindings: mmc: Add reset-card-at-resume property
+> > > >
+> > > > Ulf Hansson (4):
+> > > >   mmc: core: Add option to keep an eMMC powered on at system suspen=
+d
+> > > >   mmc: core: Split sdio_set_host_pm_flags()
+> > > >   mmc: core: Move reset functions for eMMC
+> > > >   mmc: core: Add support for resetting an eMMC at system resume
+> > > >
+> > > >  .../bindings/mmc/mmc-controller-common.yaml   | 10 +-
+> > > >  drivers/mmc/core/core.c                       |  9 ++
+> > > >  drivers/mmc/core/core.h                       |  1 +
+> > > >  drivers/mmc/core/host.c                       | 10 ++
+> > > >  drivers/mmc/core/mmc.c                        | 95 ++++++++++++---=
+----
+> > > >  drivers/mmc/core/sdio_io.c                    |  7 +-
+> > > >  include/linux/mmc/host.h                      |  1 +
+> > > >  7 files changed, 92 insertions(+), 41 deletions(-)
+> > > >
+> > > > --
+> > > > 2.43.0
+> > > >
+> > >
+> > > Hi Ulf,
+> > >
+> > > Test results for this series on a Broadcom STB board with the Kioxia
+> > > 016G01 eMMC,
+> > > which reproduces the problem during S3 suspend/resume with two DT var=
+iables:
+> > >
+> > >   keep-power-in-suspend  reset-card-at-resume  Result
+> > >                             no                     no
+> > >   enters suspend, board resets
+> > >
+> > >       at resume
+> > >                             yes                    no
+> > >   enters suspend, board resets
+> > >
+> > >        at resume
+> > >                             no                     yes
+> > >   suspend aborts, -EINVAL
+> > >                             yes                    yes
+> > >   s3 suspend/resume works
+> > >
+> > > Changes applied to Kernel: v7.3 + 7.4 merge window (linus/master
+> > > d135ab453a74) with this
+> > > series, plus the one-line fix I'm sending in reply to patch 6/6
+> > > (details in my reply to that patch):
+> > > mmc_resume() calls _mmc_hw_reset() without claiming the host, which
+> > > triggers WARN_ON(!host->claimed) for every command sent during the
+> > > reset. Claiming the host around the reset removes the warnings..
+> > >
+> > > The -EINVAL in the third row comes from mmc_host_class_prepare(), sin=
+ce
+> > > MMC_PM_KEEP_POWER is not in pm_caps without keep-power-in-suspend.
+> >
+> > Yes, that was actually intentional as we can't allow the system to
+> > suspend in this configuration, as we may not wake up correctly, right?
+> >
+> > Although, perhaps we should also log a warning earlier during the
+> > probe of the host, when we are parsing the DT properties for it. To
+> > upfront say something isn't correct.
+> >
+> > >
+> > > In the working case I also checked the md5sum of the first 5 MiB of
+> > > /dev/mmcblk1 before and after suspend, and it is unchanged.
+> > >
+> > > With the fix applied:
+> > > Tested-by: Kamal Dasu <kamal.dasu@broadcom.com>
+> >
+> > Thanks and thanks for the fix on top!
+> >
+>
+> Hi Uffe,
+>
+> While testing I noticed an error message printed on every resume when
+> both properties are set:
+>
+>   mmc1: cache flush error -110
+>
+> It comes from the _mmc_flush_cache() call at the start of
+> _mmc_hw_reset(). That call was added by Adrian in 437db4c6e798 ("mmc:
+> mmc: Attempt to flush cache before reset") because a reset may
+> invalidate the cache, and it is now also reached from mmc_resume()
+> through patch 6. At that point the card has just been accessed by
+> firmware, so the flush times out. Resume and data are fine, it is only
+> the message.
+>
+> The cache has already been flushed in _mmc_suspend() before the card is
+> kept powered, and the queues are quiesced by then, so the flush at
+> resume looks redundant. But I don't want to drop a safeguard without
+> knowing whether it was meant to cover this path. Do you think it is
+> fine to skip the flush when resetting at system resume?
 
-It's "b4 trailers" that apparently messes this up. I don't think it really
-matters (some move it above all trailers), but I'll fix this up when applying.
+Yes, the cache flush at resume seems redundant.
 
-(++ on all the great people around here)
+>
+> I tried that, by moving the flush from _mmc_hw_reset() into the
+> ->hw_reset() bus op and calling _mmc_hw_reset() directly from
+> mmc_resume(). That removes the message. I tested it on the same board,
+> booted from the eMMC.
+>
+> Would you like this as a patch in the series, or should I leave it as
+> it is?
 
-> 
->> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
->> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
->> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
->> Reviewed-by: Dev Jain <dev.jain@arm.com>
->> Reviewed-by: Muchun Song <muchun.song@linux.dev>
->> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> Reviewed-by: SJ Park <sj@kernel.org>
-Thanks!
+Please make the change as part of the series.
 
--- 
-Cheers,
+I suggest we extend the preparation patch (patch5), from "mmc: core:
+Move reset functions for eMMC" to "mmc: core: Move and split reset
+functions for eMMC"
 
-David
+Kind regards
+Uffe
