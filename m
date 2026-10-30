@@ -1,48 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793396189;
-	b=rM/vubHB/4WtsKxIFs8YommuymZgSmI+XANnI6R5YqPmeQ4rkecs+k2SHjBgo3TuRIj4
-	 ouD/F45arRnMsmpFR5nc+pNeVrI0NYo+MWdCY6ySIP7E50tOA7htmjFgMprJkix+QU4Ms
-	 ATxUYe/ZbBADRRtW4A41EgNBN3pIEbghePGf6bzkCkoDsKl8TaiVykReBSslBRiJ61y3J
-	 X5A4Yr99xq0nAGpt0/9BMFICDDnsNzLpOPWdtHw/wMk5bYspXmWSbWWrs7TNt/Vzj7AOh
-	 ZMYCBohN7NFU7ujYdhR4+lBZByeTxjNgKANTT/pKF6jJLzQuYZLY++PDOxC1Jl0VtIA==
+	t=1793396194;
+	b=OuUAcT4BoZVVjnGUkIGyds+ErBsAeb7CWhZXySGP4untadmqU3lrhnJz55BWl4Zb/Pak
+	 GJ1OHgsfzvuyBfLSv9YXL2J93rEmcPJ8zhN/hulrsOOOhyjDQEs5jO7pLHhVx6bauZkpB
+	 PFCDMiBM9lfoB9oEXmToS8/my7VWAR+75hLG9oFVL0ZRHt+AijfGIuth45ZVMWELWM5pX
+	 edo6Ae3DIoLBQHtjpkW2eBX793KIM9X7j4arWiGkRsVs3iKFjII7ffnfgr0vIGWkamBF9
+	 k7Qsu1nq9ZE2X6XJ6PtfQLiOtY4zOh/+JQiUd2pnlfnZOvRQ7fS0pR2vqn6VDqP1g+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793396189;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=T5gGHYa8/3ZSDrDzjG47LXEHqwXjR4aNi9uDI+Wl1v4=;
-	b=Eu+nnqEqmCaXCFO6/kqTkQ1vJq6s1pZXSjHxX/yLv5sKBq8pssfbM8jO9ReirfOX7sRM
-	 UxmqOJIP20QKnNa3fOjSD0uqJDO4u/ToUbvrWBrn4RnKLOzCygjUM3k/v1a0d+dz59/S1
-	 9x5jU91UOlewA9f6UO2BxowSsobBYe7fHBxEa8jl2pwJKzIMsJBbdW3DioLgeo7z3Tybi
-	 ZWdU9Nz1cXgWnyC4AWlmN77JInMuwEDWl4654f2ujSHVmfBU2Ozglv+EPxNYMzjww0Fd6
-	 w/258IgwdGRbnCPR47idfQhdOQb8WQf639PEszuPFE0EI+F+gLaC84Itj7x2UTIqf7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793396194;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=oE0Ccbr5yPAfVWX0+h/q9Kt+558GBYavtTp5xHQ+Vuk=;
+	b=K3VJ2V7v7KhgsH6JIbM9Cf2sILBpYilgGdSdwDBM4Xd+6Vs7dF4RD/xFGW3MV1FiBBqp
+	 EaG79huG5oJtMs8MHh1ydqf/r7INdRbu/oFGoOBeUk7Cd+TLSMqk7gJTZaEZyRq/mmIX9
+	 rYhGHyjrKlHR4BiwyHTFRvX+NEJrAFtc/WsSmvEP/hd/218rzaBgganQx6VTF6JOYqKgn
+	 t8L5wA+8NKo/6zV7fAPS29kbbHqkf38cZbtDzmx2Ct3X7bzbTtc3Yy7OJF/grx2tNpavJ
+	 Q1d33FLhNu64MIGatoBArXu59tVb7kW7edKXjgLpU2DrAe4aG+IdduR5QTqhTdRJlkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTHyEEbc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=QmnpfjVN;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=I4s6ucNT;
+	arc=none smtp.remote-ip=103.168.172.146
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2735C606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACCE606A31F
 	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:36:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ACCE606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WTHyEEbc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0750B1F000C1;
-	Fri, 30 Oct 2026 21:36:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793396189;
-	bh=T5gGHYa8/3ZSDrDzjG47LXEHqwXjR4aNi9uDI+Wl1v4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=WTHyEEbcbegkAzQNqS+qLh6emD95B9J9wVKGhDIwcgWf5F8lJWZdfyI0EIGx7t0PA
-	 CLIrl2pGpUQymS/G96WQ3mOODZzMVRcCTiS5mFhNQmSyVWOqwN+OlY3Pkvjckp8bgD
-	 WyjUfPjxuE1XOeckTK3s6l3nebvEDikF4qBk97iTUUJmy9fniGx5C4VZ3XmP8maIRU
-	 /vUYJ9Z0i/IWL6pFcvmDFXr+B1vWrob7wjSHre7K/9bz2BEoOmyr7IJxS/55+NjcAk
-	 9glhknNOZ13YewU89v0O7eRsFn6UVLINn1nxkzndIE8WRW+pfZqVuFiv3kuMiw0ArJ
-	 +S6eAtGEi6Tkw==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Fri, 30 Oct 2026 22:34:31 +0100
-Subject: [PATCH 7/7] MAINTAINERS: route more MM changes through mm/core.git
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=QmnpfjVN;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=I4s6ucNT
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 41696EC00A9
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:36:28 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Fri, 30 Oct 2026 17:36:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793396184;
+	 x=1793482584; bh=oE0Ccbr5yPAfVWX0+h/q9Kt+558GBYavtTp5xHQ+Vuk=; b=
+	QmnpfjVNb5PXtxkjQ3UfhXQ4o0SvEsjyn7V0+caN/qbtfHRXESD5RTKYvbzZsMBo
+	N6QilYQT74A7Hx7q31WKAYj/3K9dBmZzizD2a+qYzCdWLU0/Adthf7gC5X86mdKv
+	JGZ3v8nlD1n3XQVzoPy0I0J1p8WpXUxH5FeXHflbczfM2ISqm1vPlQmmGp0FoooJ
+	vrbgFD1EgFMx/cnmYgG4crMhUyxdGaGUHR7GGepJ41yA6BWbbkXqudqWqfXcAsM2
+	+wCycCwu/0/KB7VvcMy1p+y4D4VyYj+TWy5zzGdmdknRH2jgJmOacFNcoJQxh0S5
+	xg/C4i0snQ8pdLkPK767Rg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793396184; x=
+	1793482584; bh=oE0Ccbr5yPAfVWX0+h/q9Kt+558GBYavtTp5xHQ+Vuk=; b=I
+	4s6ucNT0OpQGltlw/h/IkCTcLN6YqujL7bLXr8rGedbS420TBCOfhKYc24uEaN5i
+	f0dyJj2Gn4XWMW4diuZS+PhRHWIMgZRLDXnrrDTiFyqGsR/td41nTxy9FPm65lxw
+	q25fRkA6u/AFLgfd74l+O/VpbAKWWpMfXDVT9mpxWbeFu85Vdbdh2scH2DcPk6FX
+	RuGPSzo2UySDGJlUWWcvHUFgu4Siq+V0xy7T3PwSwslXDXWSfjoAfP/+EEJ5trYC
+	Zuda8n37Rh2gPq83ueOceo69C5cUZkriWFHQhlZKoy0TpN3Bsb5pKA+Y6kvPiG+e
+	ippXTr6hH6U/iyzA4djsg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793396184; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:i6WTw4O3dMWP7BgxoFzDzhBr6+Dhkyx91+a4xvFwSs1vcNQ
+	NiL6S5nYqesfTDBcLbLRJOrDeTGqGOQlQPGDQWJwm8oK5yLgvZ+nIYdsjgIQXw+j
+	u/xbpPXRr5kfcAp2lBb1vYncyykXMmQlcnrFFS0m8M1BrYi2AGeQcGEmVuhc8Zdw
+	JHIu66nExEIGAIQ9lrJuWPVVmwdqIliWaaBcnL02iBAf31F9gIbb/YSzTIzSqXZs
+	k6N3AsvsSAvZWhDD+R9SyvI1fwoqEchs1rj5DUg8GeVvvcCwr55MakSJkpf2KM7C
+	B08AFhy8d1yxYyRIz0tSG1auBJAR2z2ln0rXMXA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:YjdUR5jCf6CjMO0+1WbAwxi6QqFcALkLZWjqCdv+dcU=:pBZXxo+rCnq0x6xDr1cY3qhidvDU5DP2DXZEtcqtZs8=;
+X-ME-Sender: <xms:1Q3laipJfgN2WInhuzFVKtohAghkocsfPS7uiLCraWZ8ji4gZVEP5g>
+    <xme:1Q3lare2x6zOCX8YOFF0ic5K_dgi10zFWYFVccZ69DNIo3yhDHjScWZwCjdVajqHW
+    klc0khOIEIRDDNaxjmVxc9cKB1pa9EqMDj0bzTvAqyT25QiJxlzl8wA3Q>
+X-ME-Proxy-Cause: dmFkZTGUd5/iMN2OMhfaJ26juaq7IE2rBPXg7DztrvCvjbx5YO48EAz/0qrk50laxyF6V4
+    BpHj+L/0zigYN+dd2FqR85zk+puHQvwqHZwCrCjIJS5scqSsPNYZbmnAz3pZ9gQnNJgqz4
+    qR+dkgsbrsYNJ1kCDdM3cDQirs82a7YUELotdxvyARVaYGqegdjrqXZTIlBItc3gUah1+I
+    LoZoIEpjze+CkB57ofs85o25dD1AH6lY9KF6MRoq4GQqy1NQ/mnMrlOb8tgeuuXDShbXw/
+    ALk65+CCens+NJLxICTHolv0gf74lmQMLkWgISvAgUotRrvsqezLCq3zuaYfhLj8kiPMBb
+    Hq8hK1ZcR7+WQUGkK1xNKhCjAMrE6fNTe7aqJ0Wl3Uu7maczhAywzeIyxF1bPFmHgANBct
+    dQNrN6SWqEaPS1S4zRyuNcBlbblte16I6+y0AC9Q2/QdBXRPzuxUcJfShI0X92EAI/1j/A
+    RxOOzZmgBUCgmgA4j97KN7hcRSaQPPvLy0enI1P+fOrxD8bbbNxu/Yf7KSBNoB5zpI47tH
+    AprzbWLkx1NhrGdnrbj07ksxdHavsR6zyeMYD49BNIA0kPfbTYmzJzRaf+eL6HfyXSE2lR
+    zvc5jfe/iOrOHilz+6Np8tMaOpMUP1+Fp7W3a8EdNpJBl6jJWordvuKNdYuw
+X-ME-Proxy: <xmx:1g3lapZIrhjgDU9w0EFAes4_xwS2wYEqX6aRYLBJqrmegBKSW4j8rg>
+    <xmx:1g3lai-MZ0iZvFndWav1FxS6a8XRtOW7u7EDRGLbxEBkPlTAmbQ0xg>
+    <xmx:1g3lavm-emB2RSY8iJlop2Du48NG9roLQHmuyKNYqYnNUlqpKAjIsg>
+    <xmx:1g3lany772SX77tf-3-5KM0RnnPSe7i7teX5KFzMmdcx-_dLb_A7mQ>
+    <xmx:2A3lamG4l-BrpFSVsyCzMMkofxQoTQviPK25Ox2SCMtIjYmSaY7acsnn>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 4ED5232A0097; Fri, 30 Oct 2026 17:36:21 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,239 +115,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: Ar2juRASE0hJ
+Date: Fri, 30 Oct 2026 22:36:01 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Thomas Huth" <thuth@redhat.com>, "Andy Lutomirski" <luto@kernel.org>,
+ "Thomas Gleixner" <tglx@kernel.org>,
+ "Vincenzo Frascino" <vincenzo.frascino@arm.com>
+Cc: soc@lists.linux.dev, shuah <shuah@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Message-Id: <256fea10-f0c9-411d-a6b6-a82cad357b57@app.fastmail.com>
+In-Reply-To: <20261030174323.370687-1-thuth@redhat.com>
+References: <20261030174323.370687-1-thuth@redhat.com>
+Subject: Re: [PATCH] selftests: vDSO: Fix header search list for vgetrandom-chacha.S
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-maintainers-v1-7-97278f8a5f54@kernel.org>
-References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
-In-Reply-To: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
-To: Alistair Popple <apopple@nvidia.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Byungchul Park <byungchul@sk.com>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>, 
- Christoph Lameter <cl@gentwo.org>, Dave Chinner <david@fromorbit.com>, 
- David Rientjes <rientjes@google.com>, Dennis Zhou <dennis@kernel.org>, 
- Dev Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>, 
- Hao Li <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>, 
- Hugh Dickins <hughd@google.com>, Jann Horn <jannh@google.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Kiryl Shutsemau <kas@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
- Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>, 
- Nick Piggin <npiggin@gmail.com>, Nico Pache <nico.pache@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, Pedro Falcato <pfalcato@suse.de>, 
- Peter Xu <peterx@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>, 
- Rik van Riel <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>, 
- Uladzislau Rezki <urezki@gmail.com>, Usama Arif <usama.arif@linux.dev>, 
- Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, 
- Xu Xin <xu.xin@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7103; i=david@kernel.org;
- h=from:subject:message-id; bh=Dx5n2gC6vMVcK5ExSX/u5sA+ugWevXNulOkIL7Nyokg=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKe8ubJuxixPY+ZK/eQ45wOxwLexuppvHkdVYb5TawGN
- ieNJed1lLIwiHEwyIopsgQF3zd4+XJdbbUbHzPMHFYmkCEMXJwCMJGlxYwMXc8Z34qu1/BuSZZ+
- vPlXdfaqZz/qpytv5OS1nlC5wuXQPkaGn/dDV8a8Sxae7/8xh+/LZ6YTF84FLQtXWy/M7qpzn0W
- bHQA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-Let's start routing more components I (co)maintain through mm/core.git.
-Update the git trees by pointing them at the for-next branch:
+On Fri, Oct 30, 2026, at 18:43, Thomas Huth wrote:
+> On aarch64, vgetrandom-chacha.S includes the assembler file from
+> arch/arm64/kernel/vdso/vgetrandom-chacha.S, and that includes
+> <asm/assembler.h> which in turn includes lots of system header files.
+> For this, we should make sure that the kernel headers of the
+> *current* kernel are in the search path of the compiler, otherwise
+> we end up including headers from /usr/include of the current distro
+> instead, and this is calling for trouble! Thus use $(KHDR_INCLUDES)
+> here to make sure that we are using the right header files.
+> (This issue has been found in a patch series that replaces __ASSEMBLY__
+> with __ASSEMBLER__ in the various kernel headers and finally stops
+> defining __ASSEMBLY__ in the kernel makefiles - when vgetrandom-chacha.S
+> now tries to include a header from /usr/include the compilation fails
+> since those headers still require __ASSEMBLY__ to fence away the C code)
+>
+> Signed-off-by: Thomas Huth <thuth@redhat.com>
+> ---
+>  See this link for the build failure:
+>  
+> https://lore.kernel.org/oe-kbuild-all/9e294bfd-4704-42a5-a704-f301f4afe042@app.fastmail.com/
 
- - MEMORY MANAGEMENT - BALLOON
- - MEMORY MANAGEMENT - CORE
- - MEMORY MANAGEMENT - GUP (GET USER PAGES)
- - MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
- - MEMORY MANAGEMENT - MEMORY HOT(UN)PLUG
- - MEMORY MANAGEMENT - MIGRATION
- - MEMORY MANAGEMENT - NUMA PLACEMENT
- - MEMORY MANAGEMENT - RMAP (REVERSE MAPPING)
- - MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
+Tested-by: Arnd Bergmann <arnd@arndb.de> # (build tested)
 
-Leave out MISC for now.
+If you like, I can add this to the asm-generic tree to avoid the
+regression from your series, or Shuah can pick this up the normal
+way as a bugfix for kselftest.
 
-This change doesn't imply that all changes to these components will
-immediately be routed through that tree; in particular changes that cover
-other components, or severe conflicts will require coordination with
-Andrew's tree.
-
-So this marks merely the start of "mm/core.git will start picking
-relevant material for these components".
-
-Remove Andrew from these components to set the expectation that he won't be
-the primary person picking stuff for these components; he is listed as
-maintainer under the generic "MEMORY MANAGEMENT" and will get CCed on most
-changes, and can keep an eye on stuff that falls through the cracks
-(thanks!).
-
-While at it, drop the link to http://www.linux-mm.org: it's not
-particularly useful in 2026.
-
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- MAINTAINERS | 31 +++++++++----------------------
- 1 file changed, 9 insertions(+), 22 deletions(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0adc674304987..b68bc36267091 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17446,18 +17446,15 @@ F:	mm/alloc_tag.c
- F:	tools/testing/selftests/alloc_tag/
- 
- MEMORY MANAGEMENT - BALLOON
--M:	Andrew Morton <akpm@linux-foundation.org>
- M:	David Hildenbrand <david@kernel.org>
- L:	linux-mm@kvack.org
- L:	virtualization@lists.linux.dev
- S:	Maintained
--W:	http://www.linux-mm.org
--T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
- F:	include/linux/balloon.h
- F:	mm/balloon.c
- 
- MEMORY MANAGEMENT - CORE
--M:	Andrew Morton <akpm@linux-foundation.org>
- M:	David Hildenbrand <david@kernel.org>
- R:	Lorenzo Stoakes <ljs@kernel.org>
- R:	Liam R. Howlett <liam@infradead.org>
-@@ -17467,8 +17464,7 @@ R:	Suren Baghdasaryan <surenb@google.com>
- R:	Michal Hocko <mhocko@suse.com>
- L:	linux-mm@kvack.org
- S:	Maintained
--W:	http://www.linux-mm.org
--T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
- F:	Documentation/admin-guide/sysctl/vm.rst
- F:	Documentation/core-api/gfp_mask-from-fs-io.rst
- F:	fs/proc/meminfo.c
-@@ -17526,15 +17522,13 @@ F:	include/linux/execmem.h
- F:	mm/execmem.c
- 
- MEMORY MANAGEMENT - GUP (GET USER PAGES)
--M:	Andrew Morton <akpm@linux-foundation.org>
- M:	David Hildenbrand <david@kernel.org>
- R:	Jason Gunthorpe <jgg@nvidia.com>
- R:	John Hubbard <jhubbard@nvidia.com>
- R:	Peter Xu <peterx@redhat.com>
- L:	linux-mm@kvack.org
- S:	Maintained
--W:	http://www.linux-mm.org
--T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
- F:	Documentation/core-api/pin_user_pages.rst
- F:	mm/gup.c
- F:	mm/gup_test.c
-@@ -17544,14 +17538,12 @@ F:	tools/testing/selftests/mm/gup.c
- F:	tools/testing/selftests/mm/gup_longterm.c
- 
- MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
--M:	Andrew Morton <akpm@linux-foundation.org>
- M:	David Hildenbrand <david@kernel.org>
- R:	Xu Xin <xu.xin@linux.dev>
- R:	Chengming Zhou <chengming.zhou@linux.dev>
- L:	linux-mm@kvack.org
- S:	Maintained
--W:	http://www.linux-mm.org
--T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
- F:	Documentation/ABI/testing/sysfs-kernel-mm-ksm
- F:	Documentation/admin-guide/mm/ksm.rst
- F:	Documentation/mm/ksm.rst
-@@ -17566,6 +17558,7 @@ M:	Oscar Salvador <osalvador@suse.de>
- L:	linux-mm@kvack.org
- L:	linux-cxl@vger.kernel.org
- S:	Maintained
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
- F:	Documentation/ABI/testing/sysfs-devices-memory
- F:	Documentation/admin-guide/mm/memory-hotplug.rst
- F:	Documentation/core-api/memory-hotplug.rst
-@@ -17614,7 +17607,6 @@ F:	mm/vmscan.c
- F:	mm/workingset.c
- 
- MEMORY MANAGEMENT - MIGRATION
--M:	Andrew Morton <akpm@linux-foundation.org>
- M:	David Hildenbrand <david@kernel.org>
- R:	Zi Yan <ziy@nvidia.com>
- R:	Matthew Brost <matthew.brost@intel.com>
-@@ -17625,8 +17617,7 @@ R:	Ying Huang <ying.huang@linux.alibaba.com>
- R:	Alistair Popple <apopple@nvidia.com>
- L:	linux-mm@kvack.org
- S:	Maintained
--W:	http://www.linux-mm.org
--T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
- F:	include/linux/migrate.h
- F:	include/linux/migrate_mode.h
- F:	include/trace/events/migrate.h
-@@ -17698,7 +17689,6 @@ F:	mm/numa_emulation.c
- F:	mm/numa_memblks.c
- 
- MEMORY MANAGEMENT - NUMA PLACEMENT
--M:	Andrew Morton <akpm@linux-foundation.org>
- M:	David Hildenbrand <david@kernel.org>
- M:	Gregory Price <gourry@gourry.net>
- R:	Zi Yan <ziy@nvidia.com>
-@@ -17707,8 +17697,7 @@ R:	Rakie Kim <rakie.kim@sk.com>
- R:	Ying Huang <ying.huang@linux.alibaba.com>
- L:	linux-mm@kvack.org
- S:	Maintained
--W:	http://www.linux-mm.org
--T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
- F:	Documentation/ABI/testing/sysfs-kernel-mm-memory-tiers
- F:	Documentation/ABI/testing/sysfs-kernel-mm-mempolicy
- F:	Documentation/ABI/testing/sysfs-kernel-mm-mempolicy-weighted-interleave
-@@ -17782,7 +17771,6 @@ F:	mm/vmscan.c
- F:	mm/workingset.c
- 
- MEMORY MANAGEMENT - RMAP (REVERSE MAPPING)
--M:	Andrew Morton <akpm@linux-foundation.org>
- M:	David Hildenbrand <david@kernel.org>
- M:	Lorenzo Stoakes <ljs@kernel.org>
- R:	Rik van Riel <riel@surriel.com>
-@@ -17793,6 +17781,7 @@ R:	Jann Horn <jannh@google.com>
- R:	Lance Yang <lance.yang@linux.dev>
- L:	linux-mm@kvack.org
- S:	Maintained
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
- F:	include/linux/rmap.h
- F:	mm/interval_tree.c
- F:	mm/page_vma_mapped.c
-@@ -17850,7 +17839,6 @@ F:	mm/swap_table.h
- F:	mm/swapfile.c
- 
- MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
--M:	Andrew Morton <akpm@linux-foundation.org>
- M:	David Hildenbrand <david@kernel.org>
- M:	Zi Yan <ziy@nvidia.com>
- R:	Baolin Wang <baolin.wang@linux.alibaba.com>
-@@ -17864,8 +17852,7 @@ R:	Usama Arif <usama.arif@linux.dev>
- R:	Kiryl Shutsemau <kas@kernel.org>
- L:	linux-mm@kvack.org
- S:	Maintained
--W:	http://www.linux-mm.org
--T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
- F:	Documentation/ABI/testing/sysfs-kernel-mm-transparent-hugepage
- F:	Documentation/admin-guide/mm/transhuge.rst
- F:	include/linux/huge_mm.h
-
--- 
-2.43.0
-
+      Arnd
