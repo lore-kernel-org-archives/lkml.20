@@ -1,89 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793366122;
-	b=MMFuPRwZzhJU1EQs/sVSMdkTwBBKFdyjfQtaTzBs1VCY7wQD59/agl67eAUvzc8cU01w
-	 M2VW7cZ6jVHfW7R1zUKm9QrzPKXV/69hoX68pbwMLlZt6SX5kDojCf/+hlFNPN8zgBVQs
-	 m3DueHvbtKKRyw/QqDPeAWeT8/HngTKw8rs8Y4zO4sB2SH4HipqRkf9V7RU/lHAXgSzk4
-	 aiXlPphxCx4Oxn7Zw87LwVzcrivLfvqhA3gCm5Q7BjgvBCYd+jfuof3W10Pp72cIbwtZL
-	 o1ptwruw8pJS+fhg2s95M+DbuYLrOayG5mKTVd2vVbPzu0G13oxWMpCgVEE6cY8xgcg==
+	t=1793366127;
+	b=CLrG+a3vfe0ZCAj+2sDzQMbC/42GBUBLzIJpgUmaomDxFSNT7T5UgDsQO7X00w57w6O+
+	 FjUJnLU7Ym5q3zyHMqrRVQ0+xVHl3p5pU7HOwsd/cBgXZn1ekanPwB2ocV4adEmARiL7a
+	 NATbtG5zsdBlLFYqJiSaQvr0mhYN5AGJH5X5xiuYjjJ0pmK+0FwJhLbyQ3TFJwHyzQGBa
+	 lCdadoNPm6wJa5pEx80FUkyMFE/eviElUxs4i2yoIufhbWN1B2ucG8Qb5uMkLh3sNf+kZ
+	 klwIgtpHntK35Xdi7k5LNkDKZEMEY7tkjCbh6nTMU989h8SNOchK8as/cxsEDZl/Asg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793366122;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
-	bh=flSyLSnr13yYjOEHTPxlFf/254Itc/t+WXiaXgORDKY=;
-	b=0QV6MTsBfhAVgHJHLWqYP/2jStkHCqxVpDa6vMxTS8AhgRY0N2NEYiSsGhjYjF4IXsu8
-	 K4b9SKnpKyJLalLClJ0YCBTfJRbtTH4ik75mJ2Den8es/Vb5QB0v53+4U2FZDavQGonto
-	 57Gm7GnYSvfrADvqhOSPjrJCipCD04cIGx+xHMBCaVegEhSrfh0eLjOwWOPDLFQBnTHCm
-	 mmhjQurbfq13+qvdZgNP1E9PiKLKkNOgrkrKrzvBQ5PQsfzh6wG/mNrIH3C3V96Rg7i/5
-	 nHunaeQ3pQ8BcJ7LkV74irzUx0Q47I/vYi59Nsrawavsz7a0PUkDGDfrpfsXer+1HCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793366127;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+2nvKM88jwoLfLwwyKqMT179aru67saPys7pTH9M+hw=;
+	b=ex5GpYctn41SE9oHArkg9v6PzDfHTWC3N3iItKMRYf3UkmSWphWJSJjBPgI9acXj138L
+	 +skvZ5O0xJRr14ejP+mZmKbnG8CKBtMrXO9F1DZptX96//+FPBii9tUC1qunAhqgizZJ8
+	 GjfgEQAuOcBTuHAhufb/KbDgCv9PvM/OutqyXWw31lnqOlW9wpvFI4uqgpz50jzL5YqLh
+	 jquu75Q9DDEN7IeLxGaiLMmN0ELlrI3mudjgj89BcLijDlHa15YtIxvz3jpxLtLvKn+rI
+	 NBi7koqED29QXM5CW3nhlyuxPbSdvZnb5YY61+aVt28Fdzz5HU/cNu69rZ5z1Jipikg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XmP75mV3;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=qbXUnsaY;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45EC0606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:15:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45EC0606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19FB4606A32C;
+	Fri, 30 Oct 2026 13:15:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19FB4606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XmP75mV3
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-369f3e9e431so568503eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:15:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793366121; x=1793970921; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=flSyLSnr13yYjOEHTPxlFf/254Itc/t+WXiaXgORDKY=;
-        b=XmP75mV3neSqZ22BCv35kRM/Wm3vPyca4tPolWX1a69c/hYMeB4QTg//T+7dyBId7J
-         9kTrfUoQzQgh7Fv67xnr8TRo2oZ6DnGTuh0RJrQsMUJsvl5MGRki3phVoa10KhO6uLOQ
-         HPKQ2Gknd8SkAtmVZJVKe1M/MiwnhMt5pB0Ot7VCXPqLwcJeMOmUv+xmLt9Ep1dhtv2F
-         FTGw00XcOZC8XWJMdqeuVppo9LkVY20+uHvGckz3QFPbgS4qQzy+Nub8qDvbUaTWrdL/
-         7HIe853SBAp1UF5XhHNpO4RkYDmr4a0H2fJaxobMV/Y6ZYFXSrfsl4C3O/g2dBw1yrEq
-         GJ2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793366121; x=1793970921;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=flSyLSnr13yYjOEHTPxlFf/254Itc/t+WXiaXgORDKY=;
-        b=Um4b/WHPj5vTTr6EKEJBYwV9x5uh9oSj2U2JDPTEKmDl6Kb2WtDYL26aSM6X0P17+N
-         zT56s7Gpg0KMS5VgRqav4U9MKCveEPxk3sszxxd7twWyNNixw5ZzfRCLhm/XFVNoVS9J
-         zCqHyHM3t3otws8U/P4ZE2nTurPNwRUCTUDuB1mpotT4ZSUCrIlVxD4c/k3DPsflWQh5
-         95f0wOpjxc+ASraqpW5q2SEb4IZwpDj/dQ+jr4p18gizxTQgUp+j6pMHotUBMa26w+0p
-         FVmjMRwcGF2sXo8BYZvMupiIljJMhkp9Hd6/iYQ1k+0rs99cDn1/VYl8oFuoFy3knGnV
-         g6lA==
-X-Forwarded-Encrypted: i=1; AKwUvBxDaFXcij1UkIpO6pNJ3XhdUIhi3TrosYaCHd5GOKHgris3/ugdcv6AK6cPVRFc3i+veCsY4sC9E7rKnWo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI1u15jE8/nAX+nwNpfuUo3HgFRR0h9VvB2JnuY0WcTwhhJTtsk
-	zLmPyTzJHH0Aru/9UtIcOj8IsfbUeO1hnS2/wVWdOodVm5UhPACkkv4h
-X-Gm-Gg: AYBFou2OM5YEE/0HJX/zXSOodINLzgAlylKQJ6wgwUs0uxy7ZgwuRYayrM2lvzidVic
-	rxXlRc8AXEA6U2wtkF3PJ4pSMdDnF8YCGxUVEb3NtButEPye+NIpgTWzGQ67icC43pRqdXi2ULg
-	elq4zEO39MmI6SHQuS7IFbKTnKmvgLr6vMRqqCv7nvFmsTtdHYof4V6/dyfx6Zt7HaJzlnYpbk+
-	buHWdO7CQ5rJ1Mg5vR6i/gShwgYqatrp130A1yn1+aAUPFoc6e7uUNPuYtd9QHajPjukDRcIl/n
-	asvJ49clSSmw5nNRoz8lH78ysBQORlvTIQ+g0+G5Nl+NinqK1ZrROV67cagtjWTg8y23S71ZtP8
-	pR2HIXDEkLkBLF1v2yYphaM7vcVPsdVUNUMvlWwyDVHS1jXuAjihX2jZNdWzM0aIW7howmZqBcs
-	/fCOPoRY9I3iv/XEhYX4PKkLNMzVLGr/1WPBWTtxJzLFLFrAFfZaBQ+HiaCG6iTg7LPpMzQh77y
-	9L/SMPsG0IvujL1hS6xNtngpwpqSRUMKFzuIQQOGcQmXoYKRLZ4rAnn4rvW3VNpYMgwqyMGQKyH
-	2eCWlbyqscKifJmOwqipL0J4Md0=
-X-Received: by 2002:a05:7300:3d0a:b0:35e:2c6:d462 with SMTP id 5a478bee46e88-36a2fc203c3mr7157186eec.0.1793366121263;
-        Fri, 30 Oct 2026 06:15:21 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a426681aesm10056827eec.1.2026.10.30.06.15.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 06:15:19 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Gautam Menghani <gautam@linux.ibm.com>, maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au, chleroy@kernel.org, sshegde@linux.ibm.com, amachhiw@linux.ibm.com
-Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/4] KVM: PPC: Book3S HV: XICS: Update irq_type for cleanup to work
-In-Reply-To: <20261012082922.218799-3-gautam@linux.ibm.com>
-Date: Fri, 30 Oct 2026 18:43:54 +0530
-Message-ID: <a4nvwctp.ritesh.list@gmail.com>
-References: <20261012082922.218799-1-gautam@linux.ibm.com> <20261012082922.218799-3-gautam@linux.ibm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=qbXUnsaY
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=+2nvKM88jwoLfLwwyKqMT179aru67saPys7pTH9M+hw=; b=qbXUnsaYgGJOKfhy4lCxY4koQE
+	ApDfE9QjUvUWKCd6RJ0OLR/qfKLzgHi6TGSwEVRh/qXkKQnpRAguHcNN3ccGRVeKPVVHO3veK7zeY
+	wakKwef63z3j13AauGS0WDZnDPNjv6ZgGVFjfcLydZ0+XfjvUJ80Oknu4ApmCqdi99xquCV5DJG7K
+	xwhPKVHtg60jR+FberxrUCX3IUfIJzWFcjmJD14i9RbPXhl3Cig3Ub6bQuOZoIp18NyfvV77B6QWt
+	g1XLhwgCwkySfAbihuxHfDMJd9TB0yFZN3QwzkjGgx57wTBl4XQsz5zEV2zGasisC9ExMeTp27bPB
+	88PbPhzg==;
+Received: from [179.105.94.163] (helo=prince)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xMmRi-00Ezw7-59; Fri, 30 Oct 2026 14:15:02 +0100
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Lucas Tanure <lucas.tanure@neat.no>
+Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Dom Cobley <popcornmix@gmail.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/3] drm/vc4: hdmi: enable scrambling before the TMDS clock starts
+Date: Fri, 30 Oct 2026 10:13:48 -0300
+Message-ID: <179336602325.1953359.580164990520983023.b4-ty@igalia.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261026164028.78792-1-lucas.tanure@neat.no>
+References: <20261026164028.78792-1-lucas.tanure@neat.no>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,25 +75,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Gautam Menghani <gautam@linux.ibm.com> writes:
 
-> In kvmppc_xive_connect_vcpu(), if any failures are encountered, the
-> control flow jumps to the 'bail' label where kvmppc_xive_cleanup_vcpu()
-> is called. This cleanup function exits prematurely since
-> vcpu->arch.irq_type is set to KVMPPC_IRQ_DEFAULT at this point. This ends
-> up resulting in wasted memory.
->
-> Fix this by setting irq_type to KVMPPC_IRQ_XICS before vcpu configuration
-> starts. This makes XICS initialization symmetrical to XIVE
-> initialization done in kvmppc_xive_native_connect_vcpu().
->
-> Fixes: 5af50993850a ("KVM: PPC: Book3S HV: Native usage of the XIVE interrupt controller")
-> Cc: stable@vger.kernel.org # 4.12+
-> Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+On Mon, 26 Oct 2026 16:40:25 +0000, Lucas Tanure wrote:
+> HDMI 2.0 asks the source to set TMDS_Bit_Clock_Ratio in the sink while
+> the TMDS clock is stopped and to start the clock at least 1 ms later.
+> vc4 writes the bit, and enables the scrambler, at the end of the enable
+> sequence, long after the PHY has started, and clears it before the PHY
+> stops. A sink that samples the bit when the clock appears never locks
+> a 4K60 signal from a Raspberry Pi 5, while laptops that follow the
+> order work on the same sink.
+> 
+> [...]
 
-Mainly fixes the error handling / cleanup routine in
-kvmppc_xive_connect_cpu(). The fix looks good to me, feel free to add:
+Applied to drm-misc-fixes, thanks!
 
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+[1/3] drm/vc4: hdmi: power down the BCM2712 PHY when the output is disabled
+      commit: a59a60e6e9e3a1d5177b28577d935d5ee37ace66
+[2/3] drm/vc4: hdmi: always cancel the scrambling work synchronously
+      commit: 2e47848f0d076dec66df3bc403214073cd2214ac
+[3/3] drm/vc4: hdmi: enable scrambling before the TMDS clock starts
+      commit: 81383bd290a18f06ccf9b0bfb29e1a3ef73d9357
 
+Best regards,
+- Maíra
