@@ -1,80 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352620;
-	b=awNIUxMJhfzowIxaLDY9Dyy2aoR6hUF26dkjzsbMwStXf3y7fS/VSeZKk9Bwgg9/ecsr
-	 6v2HxkeCd6+WCmtYgz7RZ4bKFlU/MPsQt0pItB9Ccv3ZPDKhvfVxjHYkxd8A/4tPB+knT
-	 uzeywKF0gesWimGbTCPQPWRu+kv8yX2WEeSbYMbioaWYDMVEExzxgE60zSkKJ5JrzVVMh
-	 IaIjGcvhXgQwCC122Zks5b79y1FD2dhW8C5h9/qt/AzUO5UYFgjPw5mc0yRmuK6Sck9NN
-	 aeLxh7HE8zuz/cpold+X2ZzH1d+Y6iCMiti+p1Z4xVQxKrK2Aqs1zY3xv1xn3KzB/+w==
+	t=1793352740;
+	b=YCVrlP1d/X4/FrNE27GEwuO2lqAogqhE9eql7cfxX2RQA4ulejTOtAiXWrIF5AxGYQXd
+	 OsFxuGjRjE9bMI/JqV6R0rJwmbePaATM/MgpCdVO34v/kBMyf2C/f4zqYK+bnsVhFKvZy
+	 mw0vD9at5D+3F4sroRrQ1mwEysfgoFqLAXsur41V76xVcEJgCXWyZ1rDOzgzGtJgu8UGn
+	 M0xMyDFyLuZvHpe58pYjhSWxTgeleKPN36pdTB2cQOnsJnEc31Jj4Ep3r4dPQ4UlaNgkL
+	 x5FUVWPbGB/sj9p5qpmpemwh41d8YYY46qvWIAAw6ibPAVztfJf3CeUkjEi35ifOHpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352620;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=iHCN2Ghkn6TNzamyqwkzKubIIg2CrJLoUEljP3EOIRY=;
-	b=WVOncx2MGQDp7XoZbb7poLewebyDplMazJ0PZZVjYT/X0HSn/PvCW/rt7vEzw2efkQ3l
-	 YfpLq5Mfco3TFlgHKPoM9Gr56DnEPZmM8wiBPEWVVvqEs4zwPKd+3kaws17sPgsILMHdl
-	 6VEfijTUZfOtdcAsIHf3gF/sF7moCgccWZODAbbFtkPpcwVp1lM4aE4pArUb5ra+lCScX
-	 tOHur7FplG4Io5TVuBXSCHiZgExILbYp6s5jHrnumkBGbvvgZB1COu93Uk9XozoJXLHIb
-	 kw/kf1QbPEP1BxCcQ+NVuAVP1MUfswzxt4g+gmovSHngN+y7SGxEKnizw44qHyQwoGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352740;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=vglUYMqRsBfRkgFk2PnznDRUjloE9O9KIkcFHk2fc3c=;
+	b=hC5gGDpSGF93rJmw8NUv+4M9aeocbbGDsHCzTGTptI7LmA8I8oZlBV7CjFYD6Q4SBmkN
+	 C6nZIsfS+TMJI8YpPcmaxUhePmapiPIt0ZIM/cv4+7e6LkA9lEXj7mf52VCeTwACPa1zy
+	 4PnEbygSinf/D2f6B5NmGDFOMnO5gNOg3zEzLfUYUTmFK+xMfo0f/KjZDGs3kjFGBaGpW
+	 +31yjSnPC/KxNlKdLUHgY2PyNSVoNs/9NEDzV0a1G9nsAaK/7sUbsrVy3jJbtAE6opw/n
+	 pjl2Mu6uxhfa4DoldVfhmIIiy7Ye460KUH7zLZ8H2E91K5ykGfJtAOtDwJ8uef+ehrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=INVyZoPI;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FLoxoJQn;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="kXc/cDkO";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3332E606A322;
-	Fri, 30 Oct 2026 09:30:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3332E606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF18606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:32:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAF18606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=INVyZoPI
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=iHCN2Ghkn6TNzamyqwkzKubIIg2CrJLoUEljP3EOIRY=; b=INVyZoPINRKB5eckC6/bbZQaZ7
-	jbrGGpj+GvdE5dp3TUwfZ+ePeBgH+aXozdCRn5Qgn/lL2FI4ZtHxWsQOlb0hzE4G28SZytj7WPw1x
-	eio35IVHVuliSgVJH/f2lZZlt7Yga/4eQH/z9BcfVjJtTKOdvMLKW1XBLzSp8mh3gceP09jztXxIS
-	wUMpunwRClHfdPYD2+ZYWi6lqfMahpbzRN2p9EJy7obNWc1vZYUJ9LjOr5H5R5WqzqUmQJCtfhC8S
-	ZAFCJjCIW7JmOIYdb5xgDqo5looADIpcH9aIwn5qpIY9Pnyrim0TYow30qLT4Nl8rEniv/uAt4Aa+
-	4N8U0Zcw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMiw9-00000004Zgj-3TDE;
-	Fri, 30 Oct 2026 09:30:13 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 6014E300329; Fri, 30 Oct 2026 10:30:13 +0100 (CET)
-Date: Fri, 30 Oct 2026 10:30:13 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>,
-	Sandipan Das <sandipan.das@amd.com>,
-	Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	Ananth Narayan <ananth.narayan@amd.com>,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	bpf@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>
-Subject: Re: [Patch v5 13/18] perf/x86/intel: Refresh LBR stack for non-PEBS
- LBR events if needed
-Message-ID: <20261030093013.GM2668804@noisy.programming.kicks-ass.net>
-References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
- <20261029043914.1395147-14-dapeng1.mi@linux.intel.com>
- <20261029110046.GO1779021@noisy.programming.kicks-ass.net>
- <16441880-1831-4741-ac90-02e5f662435d@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FLoxoJQn;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kXc/cDkO
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8FIq62374410
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:32:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vglUYMqRsBfRkgFk2PnznDRUjloE9O9KIkcFHk2fc3c=; b=FLoxoJQn7kxkMHJy
+	OUE+6G5KiudaIUeA6hPjgKAbndLuYMHO8oFKkpxZOQcHkLgx4esZH8dyG3Atx4C5
+	a3J2p0onqxWv5f7lxHCQbvhp+BgIAX8/GSUVHnfPRvD/TNqaXZqy/apbcBwfW16f
+	+Yd5kCdAWR2sU9USQAqsoiQ8h0/ZEn33s9EtBTmUwINtMpRgJYRsUE1FQCz6KIt3
+	x99YGFA8oEgYIqfxvTQuMEtFD2bR/RFsG1oXQb//mDcZisnqOU3Rr2uL0ZgZIAUT
+	GSb4CLCiZgJvbURNFGQACqat2Qiw4fMRhCE8iRgPBipprGVlRIu1uo04yfxaVpxW
+	vki17A==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qj84m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:32:18 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cbf2fd504so76064085a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:32:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793352738; x=1793957538; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vglUYMqRsBfRkgFk2PnznDRUjloE9O9KIkcFHk2fc3c=;
+        b=kXc/cDkOJOgAmi4YTeN4hM3TSgUOA1AVCwI6nsEBqA9TD73CzwHOaP0bWgY081ZLzO
+         ZdLTQFA40oY1Dg4es9mO9IBYmtt5LIOTPOFHyPNEUb1FAZP2DpuMk/pk2SedBvK6O35o
+         IyJ7qJuXUtCE5KOsmDh+tl7Ef1Yjp86dke2BhpKmUCXY912n21NbtiYK63FVV2PNuuCU
+         bXybNsn2HlOI/M6C53CofZ9dfkxGYVGQJFhBH5rFhDHT2cLHlpaWKhuskbalUHjuc6GY
+         EixfyCbQyGAG8otlluSk6bC+wg9CsPgZiUwoqhIFaIhiA3RqPEBn/z2nQ27noNkBdPEg
+         hfAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793352738; x=1793957538;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vglUYMqRsBfRkgFk2PnznDRUjloE9O9KIkcFHk2fc3c=;
+        b=QnEIfhWaELpRrVXzHvJcFnhME4Pjo8c1jmV0gtZhKwHUNkSY0BQm64Od+v8obVISx7
+         rhfsXC6rYD0jLfYyLqX6GR5jzJoMmyg/NYe0XF56OhDwCyLYzCLcRtXl2GeKb2R2hVx1
+         rsNEAPShenmUJlLT6lufFPG80i+hTeOwaVj7TwalYnvgmhyTPpDbWxYXkhq5f0snqEHM
+         J0E92GjTzgTM0OckMXuCr89rn6owG8Sl8iXtmGvkH3qvNkJ/OUOkLq5YDs+CXlmfTA+z
+         /Ooq1r9q2AhVm/EDHJyEkzJgwwyurOJ4YjpsJCLUjpH66aBRfG0ch5v08Q4iFeGwEKV+
+         htYg==
+X-Forwarded-Encrypted: i=1; AKwUvByu/TFhvahcZ4nS+G7kzB6m4PWXQtTdpFuqliuad5NkNBVme6mjc3oPncsrLkRwUUE6KP9HTm/D1K8AB6w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIl7LwyLz0kki66Bb8dRTnjWeVU8AM81S0MGQFe1OBcZT2LM2lF
+	29OdkLJhjdUi8HSssuoM4859WAwueH0u2q0JExi6R8mu+7DsPXuNZBaHJ1ToQaIljzGtdMV03CE
+	ef4QfXqtMZVE4sdVSkjU/SgxC3rSB/QblXPmG8EacxrhQzttLlFDr6HAe0ou4ldB5kJA=
+X-Gm-Gg: AYBFou2aOXZ0TElGJi9bL1UXUOwOdreXiO2KAUWLljF6n1AJf/ISNrJ6d8y/xYtYv13
+	YDVkNgIYHgmjXQfjqCsz80XWUPBiI6nUQ+/xUXRY4oOhEe3OVNbFVlNYROZdN8NNvcUHkSeCflw
+	EPFr3rAUyU6rUfxFqOpmSja4aWpHH5pB4OCXP/3cU8P+BCBvEqA2WvQMQnj6vtZ56sBfEXHphuK
+	W5uwM1jeCYCIk3jY9J1sca6JkvGiU5+1g18Hr4fs9O7OwyA4aUvJ0tyJ0aH17S+Vw5EgBX5aOsJ
+	r/ndniWePs0/s6dMdUs/GUNw1nQWEi+/s7NNsC/UFICNIukxJuQGSUl1BEuClfysQhSYFSbTyHW
+	5PJLaqlNeKcujA+GQP0tN90rys6hogQS9cuqPICJ97YtAb5uqoU7ZgWOwFTYt44kcXnnFo4O3N2
+	Jb
+X-Received: by 2002:a05:620a:19a5:b0:940:f224:5a85 with SMTP id af79cd13be357-944217ea7f2mr281323785a.71.1793352737962;
+        Fri, 30 Oct 2026 02:32:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:19a5:b0:940:f224:5a85 with SMTP id af79cd13be357-944217ea7f2mr281320485a.71.1793352737488;
+        Fri, 30 Oct 2026 02:32:17 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf0b36853sm43532305e9.0.2026.10.30.02.32.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 02:32:16 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+        Grygorii Strashko <grygorii.strashko@ti.com>,
+        Avi Weiss <thnkslprpt@gmail.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Linus Walleij <linusw@kernel.org>,
+        Santosh Shilimkar <ssantosh@kernel.org>,
+        Kevin Hilman <khilman@kernel.org>, linux-gpio@vger.kernel.org,
+        linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpio: omap: Propagate runtime PM failures in probe and request
+Date: Fri, 30 Oct 2026 10:32:14 +0100
+Message-ID: <179335272848.12642.3929434225128874772.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261029103626.1527919-2-thnkslprpt@gmail.com>
+References: <20261029103626.1527919-2-thnkslprpt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,40 +127,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <16441880-1831-4741-ac90-02e5f662435d@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=KsrYSmWN c=1 sm=1 tr=0 ts=6ae46422 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=nNi_UgyaDUgUb-MLmQ0A:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: MXfu0C81BqCuRjSj8Ro_9GSemjJapCwB
+X-Proofpoint-GUID: MXfu0C81BqCuRjSj8Ro_9GSemjJapCwB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAzNyBTYWx0ZWRfX/dbJ6/WBoySk
+ S7LX3PhMqKKI4c7bJeiViAXn3R7AXoGlNvyB2zTz6biuK15PuFY3lb2IhJHEj/zdu3SIgnptAiy
+ 906o5xAjxbMAZiFpbGkFUCdJK2JLcktsqMcCJhB3A30lLJXJbhbMsfLO3goHxssqdXbgr8f+QYD
+ xEsvs4E+/wKtGzTxQmHA03pCCMnS6pGzGxqo1PMGwiEsB+ChsDda5PTzKtvUwpeLDnx4LE2Lf7G
+ i5AHNJYHPZervyGbrRNmki6d9tTX+1rlwuyjfmN5/n+buoHa2sKZrssHzftaSa0nxV+vnavzzkm
+ 599oMeMkz7MudBsLuVc81uNQ6xpA3yZsNawsT0bMVGe2W4iqFWNRSbhojq6bwqCww+uQOH/1ZUU
+ 9AEo2CTsl+exT7WEvlK2CcGcA9E6EuGYUY8WSuInpsnmyWdR8oOT+PpzBJ1UAcnQ9YN02BEE4qF
+ QPwysnhLzdFPt3IXrrA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAzNyBTYWx0ZWRfX5bA7OsNkzSZJ
+ TsAYyE8grI+L4l6MePtkZKq0lbfj/M90kt2NcJeYS83bESdwxErJlAZIECUP9IAMLjYxYg+r1L5
+ RiMp7AhNjiRRSMIjpF4xt0A7MQxAseE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
+ lowpriorityscore=0 impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300037
 
-On Fri, Oct 30, 2026 at 09:54:02AM +0800, Mi, Dapeng wrote:
 
-> >> @@ -4012,8 +4023,14 @@ static int handle_pmi_common(struct pt_regs *regs, u64 status)
-> >>  
-> >>  		perf_sample_data_init(&data, 0, last_period);
-> >>  
-> >> -		if (has_branch_stack(event))
-> >> +		if (has_branch_stack(event)) {
-> >> +			if (lbr_need_update) {
-> >> +				intel_pmu_lbr_read(&cpuc->lbr_stack,
-> >> +					cpuc->lbr_entries, cpuc->lbr_counters);
-> >> +				lbr_need_update = false;
-> >> +			}
-> >>  			intel_pmu_lbr_save_brstack(&data, cpuc, event);
-> >> +		}
-> >>  
-> >>  		x86_pmu_clear_perf_regs(regs);
-> >>  		x86_pmu_update_perf_regs(event, &data, regs, false);
-
-> > Or... you move intel_pmu_lbr_read() from handle_irq() into pmi_common()
-> > after we done the PEBS things?
+On Thu, 29 Oct 2026 12:36:26 +0200, Avi Weiss wrote:
+> pm_runtime_get_sync() can fail when the OMAP PM domain cannot
+> resume a GPIO controller, but omap_gpio_probe() and
+> omap_gpio_request() ignore its return value.
 > 
-> Yes, I ever tried to do that, but I found it would break the PEBS LBR
-> sampling on the platforms prior to ICE LAKE. The PEBS doesn't support
-> snapshot LBR stack on these old platforms, so PMI handler has to snapshot
-> the LBR stack before draining the PEBS buffer.
+> Consequently, probe can register a GPIO controller despite a failed
+> resume, while a GPIO request can report success and modify GPIO
+> state even though runtime-PM acquisition failed.
+> 
+> [...]
 
-Argh; we have so many variations :-(
+Applied, thanks!
 
-Still, re-reading those MSRs seems wasteful, esp. if most modern chips
-will be affected.
+[1/1] gpio: omap: Propagate runtime PM failures in probe and request
+      https://git.kernel.org/brgl/c/05be1a99d6d68b24cbe24a191e1af67c70193ac3
 
-Can't we have a toggle between early and late LBR read or something?
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
