@@ -1,86 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793359329;
-	b=OlIFKoOlsTGxSZ6szdhB1GPiQ88Veg/2RhIYlwsh9EiY0QACmPo5+dIAO/MiRzQb9rke
-	 0DgaJvSk3MbNQyVdciNW1BCBc6oD2fOIK9QnJMX1LWvga6xRNsFZcn4TrZsrSzhcYrxOs
-	 dP3vpMYytYxMKzDFpxi2J6Gp+4eR6R6xgG+heTgGk/ns8ePEmnfQZuZGN+elWZlg9dfQd
-	 LRpHAtxBgSzc0xi9Gr6GiiIfkNpyfUkM/TiSE/CsXttG6A04I9SbhQHU6vQeSxeS7LsJD
-	 kuXq3nFjDwD4q3YFtTL9cWzkX3xbBGnv6E0eLWzoPhe0+GN+umaYqg8XXApWlfWxYTw==
+	t=1793359359;
+	b=vvWfgsQSkBCMwMqgt1xPoPTGIgcew/gM9Sl0KYJP4QtuZTkceCaAmigqrppif2YIgDvf
+	 /1VKInz/Jd5B8pIL+HzERwOQ0i0IE8Ox/wM/DjqeKAdWCN9BV2ovv9L+2uEJTuK7olWfY
+	 n87z1PgxHWP8mt4qxTujYTWFNziEHQEtLW2CiT5ujSSI//oxhRz4wXjIE/KV6vhDQSy5+
+	 DZVhhoh0tbImAOFFP2zFgu9qCVWQtVHg+0OhXbjm2SGuElbjjDQ+mVDXTetybxRMPfMHS
+	 ztDL1Y1PWk7iJ55Gd3tQ5RMF/L8R4XNcpt/w6LBK2PKf1ull9HiQEqB8YE80exdzdaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793359329;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PMxo0tKZ2uNq7UfgPU1pBYHsL5dtAg8inp26p5xVDiU=;
-	b=ZCQmQ9TDLe2pXxkwDLfGGXvWDJCP2Qbme+MSGefAB9nT6MRRdy8NhjW930EGpciOKUus
-	 VrbidddxcjXt9D5B5zMXcWZb279y+cQhQWUaqMg7z86YHoU4MNvExPCIeRXC6i8++k57D
-	 eHvFFy7OjVZfbqmlOUFJsu+qdDi6Przaft70CdaHKdn/JlNdt3GfP5ICn7yHUSNx2+uM0
-	 jd4dxKRgpzTrZcAz+BPzHFII6oODCDfyEoX7J1CyZOEXz4ooq8OcFJbfuRAyymUjZ4WPV
-	 eI0e0HOIXlSbrsDFi+Fh//WPjDwA4Ae5M50CV9kUEoBNVwuMSu5Cs9ikr5lY1fIBRUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793359359;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=yJqDl0TWWpvU7A0NfZvQiMiQvyoQM27Wt5aSa3fPKKo=;
+	b=DOXsFWdI7/U87GBqgqikaMXeKGO6v/AlQ7Xj+D9Blhn5k1yHbbDqVWDHEFyK6yMVn2q0
+	 fEFrxtNjEjneN/c8iCIGKo5nEavSxO/pYEMNeICinzP9NfeT0R0qzstXCMjB+MYz5aqF4
+	 ZiBb49jIBoChoWkm9c31TMEkbryuSBwgwhIBJLqYoVn9k6+BtZbt5oPVdNIY9cxaPES4t
+	 iT8RNfKEoOKTn+n0HayLpQoWaMSHYRGec8b+4KlX/5guZcHVFZagKRpijDfSIen3UKqSz
+	 LippAFME+MFDGcE5yYNAv18yvFI650/282ub5E3woHgzUA7quesgHuhzBUeY5dL7mLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=R0daRYv2;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a3BSZfY+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC18606A321
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:22:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FC18606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4218C606A31C;
+	Fri, 30 Oct 2026 11:22:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=R0daRYv2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793359328; x=1824895328;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=z3NhLfj1UqbvTSE1LMM7BgBTAVJZugHpz+h0zX3Mjy8=;
-  b=R0daRYv2EtEYmU0NIL6dYvKBKLYHaguT4EucPrXLJasW0S7XvRDnDj4G
-   ssI/g+DkFREPV9OC3kC0rAvFJ6GKFeu5poBEIucjGJW+JbLpJ1+Qa4h6u
-   qkwx0g2KN6mZkVNOCrvQJsZCLDgRG/t62+TjRyOTYTEG4lFBkGA/KW+nS
-   UnMQO0yMQpbTIjIcr+fMiG7VltNbJvYU+3kLznuX+pNqAvncwwQ2kspOb
-   P1b7Rx517exbMxhtSJh0fIVsvUUwhBt3tcEtrR2N3NwlW0V/iywNaEPAT
-   u/a6IXmSU5vAxiC9i4deHm8lbD6ioq9HZvQx7kzJKN8SW700WuH223khR
-   g==;
-X-CSE-ConnectionGUID: 8Lfx9u4BR1afoR3HMhxLgw==
-X-CSE-MsgGUID: o6f7VfhlT3iNsP1l7qsghQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2135255"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2135255"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 04:22:08 -0700
-X-CSE-ConnectionGUID: h15cKfcnSFem9lFJqm1q/w==
-X-CSE-MsgGUID: 1+IA4HZFR4SYpFsHB4gPhg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5375432"
-Received: from gklab-096-123.igk.intel.com ([10.91.96.123])
-  by orviesa001.jf.intel.com with ESMTP; 30 Oct 2026 04:22:05 -0700
-From: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-To: Lu Baolu <baolu.lu@linux.intel.com>
-Cc: Ning Sun <ning.sun@intel.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Michal Camacho Romero <michal.camacho.romero@intel.com>,
-	x86@kernel.org,
-	iommu@lists.linux.dev,
-	tboot-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Mateusz Mowka <mateusz.mowka@intel.com>,
-	Adam Pawlicki <adamx.pawlicki@intel.com>,
-	Pawel Randzio <pawel.randzio@intel.com>,
-	Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-Subject: [PATCH v8 2/2] iommu/vt-d: Disable TXT TPRs before enabling queued invalidation
-Date: Fri, 30 Oct 2026 12:20:09 +0100
-Message-ID: <c7c6a9e88e0ce6ef0e4bf868b87e1f388b04bc9e.1793357321.git.michal.camacho.romero@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261029134149.3498677-1-michal.camacho.romero@intel.com>
-References: <20261029134149.3498677-1-michal.camacho.romero@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a3BSZfY+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3E3B1F000C1;
+	Fri, 30 Oct 2026 11:22:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793359358;
+	bh=yJqDl0TWWpvU7A0NfZvQiMiQvyoQM27Wt5aSa3fPKKo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a3BSZfY+Y1EQAwV6Wq+uGYr94s4Hno6DW3nPAPWNAt3qF07f9yM3Gh2YsZUee1ngI
+	 9xqNwU3PhvvAmOutw2yA/nQ3r3UuHZNgmvtFml45qPHvAZIEaQztd8Jp9ObQ+vmP/p
+	 xlQqoZdorP5J0zm+HFlAwpCCu2goVvBuJdwwaxxhrHCexYdIg/AMu68Nfl8JkHh61Z
+	 BNeEexvORDA/R64QAJM28/4KLP8pWXPj2DnGjERiV4SKZUE+yDCDqNVZXRAsuh9C3g
+	 DeTuBQgMGtkD6JDS4i7Exscr0gF1SvzgrzGB0xDqOGoE/M8wy6B814On0OUmwefOYU
+	 lRxz27NWojIAw==
+Date: Fri, 30 Oct 2026 12:22:33 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
+	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/4] gpio: shared-proxy: Fix race between concurrent
+ first users
+Message-ID: <svjb2ivlopgphqueanfjykfedqejyr4akxbo4y4eycuf5qesxq@3efk7hu6xeft>
+References: <20261028123448.510401-1-shengchao.guo@oss.qualcomm.com>
+ <20261028123448.510401-2-shengchao.guo@oss.qualcomm.com>
+ <CGME20261030095806eucas1p1227bd86bd46487d5dfdbe36bd4df8e94@eucas1p1.samsung.com>
+ <01841455-880c-4477-ac69-ea8c117cc6cd@samsung.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,103 +61,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <01841455-880c-4477-ac69-ea8c117cc6cd@samsung.com>
 
-When the SINIT ACM establishes TXT Protection Regions (TPRs), they block
-all inbound DMA to their protected range, including the IOMMU's own
-queued invalidation (QI) ring. If the TPRs are still active when QI is
-first enabled, the first invalidation faults with an Invalidation Queue
-Error and the boot hangs. On systems with interrupt remapping enabled
-this happens very early, in intel_setup_irq_remapping() ->
-dmar_enable_qi(), well before init_dmars().
+On Fri, Oct 30, 2026 at 10:58:05AM +0100, Marek Szyprowski wrote:
+> On 28.10.2026 13:34, Shawn Guo wrote:
+> > The proxy lets a consumer set the line direction and reset the
+> > default value and vote tally only when usecnt == 1, i.e. when it is
+> > the sole requester. But request() and direction_output() take the
+> > descriptor mutex separately. When two consumers probe concurrently,
+> > both request the line before either configures it, both see
+> > usecnt == 2, both fall into the shared path, read back the still
+> > unconfigured direction (input) and fail with -EPERM.
+> >
+> > On Nord RRD the two DAC supplies are reg-fixed-voltage regulators
+> > sharing tlmm GPIO 41. They probe asynchronously and intermittently
+> > both fail, leaving the codecs without supplies:
+> >
+> >   reg-fixed-voltage regulator-3p3-dac: setup of GPIO (default) failed: -1
+> >   reg-fixed-voltage regulator-5p0-dac: setup of GPIO (default) failed: -1
+> >
+> > Requesting the line is not evidence that a consumer has claimed it.
+> > Instead, count proxies that have actually configured the line (set its
+> > direction or voted for a value) in a new cfgcnt, with a per-proxy
+> > configured flag, and allow (re)initialization only while no other
+> > proxy has done so. A consumer obtained with GPIOD_ASIS that votes via
+> > gpiod_set_value() without ever setting the direction counts as
+> > configured, so a later user can never reset def_val/votecnt behind its
+> > vote. The count is dropped when the proxy frees the line.
+> >
+> > Fixes: e992d54c6f97 ("gpio: shared-proxy: implement the shared GPIO proxy driver")
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> 
+> I've hit the same issue on RUBIK Pi3 board, see:
+> 
+> https://lore.kernel.org/all/20261028222803.2682808-1-m.szyprowski@samsung.com/
+> 
+> This patch fixes it, so feel free to add:
+> 
+> Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> 
+> 
+ 
+Thanks, I'll queue this instead of your patch as it's more
+comprehensive.
 
-Link: https://uefi.org/sites/default/files/resources/633933_Intel_TXT_DMA_Protection_Ranges_rev_0p73.pdf
-Link: https://cdrdv2-public.intel.com/315168/315168_TXT_MLE_DG_rev_017_7.pdf
-
-Tested-by: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
-Signed-off-by: Michal Camacho Romero <michal.camacho.romero@linux.intel.com>
----
-Changes since v7:
-- Renamed tboot_free_txt_heap_mem() to tboot_unmap_txt_heap() to match
-  the rename in patch 1.
-
- drivers/iommu/intel/dmar.c  | 19 +++++++++++++++++++
- drivers/iommu/intel/iommu.c | 18 ++++++++++++++++++
- 2 files changed, 37 insertions(+)
-
-diff --git a/drivers/iommu/intel/dmar.c b/drivers/iommu/intel/dmar.c
-index ba675b08cd208..5e59aa46721e6 100644
---- a/drivers/iommu/intel/dmar.c
-+++ b/drivers/iommu/intel/dmar.c
-@@ -675,6 +675,25 @@ parse_dmar_table(void)
- 	if (ret == 0 && drhd_count == 0)
- 		pr_warn(FW_BUG "No DRHD structure found in DMAR table\n");
- 
-+	/*
-+	 * Only on a successful DMAR parse: if SINIT programmed TXT TPRs for DMA
-+	 * protection, disable them here, before any queued invalidation (QI) is
-+	 * enabled. TPRs block all inbound DMA to their protected range, including
-+	 * the IOMMU's own QI ring, so leaving them active makes the first queued
-+	 * invalidation fault (Invalidation Queue Error) and hangs the boot on any
-+	 * system with interrupt remapping enabled.
-+	 *
-+	 * If parsing failed, dmar_table_init() propagates the error and both the
-+	 * IOMMU and IRQ remmaping preparation will be aborted, before QI will
-+	 * be enabled, so the TPRs are left in place and SINIT's DMA protection
-+	 * will be retained.
-+	 */
-+	if (ret == 0 && tboot_enabled()) {
-+		tboot_check_tprs();
-+		if (tboot_teardown_tprs() != 0)
-+			pr_warn("tboot: Failed to disable TPRs. DMA is still blocked.\n");
-+	}
-+
- 	return ret;
- }
- 
-diff --git a/drivers/iommu/intel/iommu.c b/drivers/iommu/intel/iommu.c
-index 2e3b3ab216f8f..3ad6542f83e41 100644
---- a/drivers/iommu/intel/iommu.c
-+++ b/drivers/iommu/intel/iommu.c
-@@ -2648,6 +2648,15 @@ int __init intel_iommu_init(void)
- 
- 	init_no_remapping_devices();
- 
-+	/*
-+	 * SINIT TPRs (if any were active) should be already torn down during DMAR
-+	 * Table parsing process. If the teardown failed, DMA (including the IOMMU's
-+	 * own QI ring) is still blocked, so refuse to continue a forced launch
-+	 * rather than hang mid-init.
-+	 */
-+	if (tboot_is_tpr_protection_enabled() && !intel_iommu_tboot_noforce)
-+		panic("tboot: Failed to disable TPRs. DMA is still blocked.\n");
-+
- 	ret = init_dmars();
- 	if (ret) {
- 		if (dmar_policy_force_on())
-@@ -2698,6 +2707,14 @@ int __init intel_iommu_init(void)
- 
- 		iommu_disable_protect_mem_regions(iommu);
- 	}
-+
-+	/*
-+	 * Release the TXT heap mapping if it is still held. TPRs (and the
-+	 * heap) are normally torn down in parse_dmar_table(); this is a
-+	 * safety net for paths where no TPRs were active.
-+	 */
-+	tboot_unmap_txt_heap();
-+
- 	up_read(&dmar_global_lock);
- 
- 	pr_info("Intel(R) Virtualization Technology for Directed I/O\n");
-@@ -2707,6 +2724,7 @@ int __init intel_iommu_init(void)
- 	return 0;
- 
- out_free_dmar:
-+	tboot_unmap_txt_heap();
- 	intel_iommu_free_dmars();
- 	up_write(&dmar_global_lock);
- 	return ret;
--- 
-2.43.0
-
+Bart
