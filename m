@@ -1,73 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348339;
-	b=vWARb85smxwlSnP3RkjeqZ++7SLkxrFlL+eN/q+ggc/L5Q+QUd9W/dq517hcJgwkoAty
-	 Fco2LZ1ykVmZk+FHZY7v1XVEWbFRXotWbaVLuY2/lnxa3nUsiuctec1JxhpZ8FAE4ajUk
-	 5NtqDsPCN6AF3XfmSzEHQ3+F5FXc3ivXEXEPLWonuI7udLYBkmMRR01TnIB+KaV9vXfai
-	 bSfeVBfU6aZIEKv14pUPR6FXi9ud0w0kvDyS1L6O0hFet6WnLeQVFUnqZw7kEbD2DXNCw
-	 P8SD1LTZbe1HxlfqKcIDRxzZR5kmTvzB8VYK1XwuBKbXn5PdIlzV7no6YP5R5JUzZhg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348339;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793348358;
+	b=KKVCnRT5TtVWUhDBQp7EkSxLQ+ajDtVjlqxt+wb4HsWTF8zr3WiE3r8EfyWGvHWU01AS
+	 pj8tVZoSWSkNM3irauCSMSLHNw9yn61Hw4awZmj+hvr5bxZvQ/auOaMZTDjddGD5C88r5
+	 lnEmepGEr3xM2PZfW6bDRHGAvaSlaCI3Awdd7IEX61aji7HqpvHb472dsoL5MtxEc3bPi
+	 82gSUrbZOyeBszw3XrPkniOy17rLlh1Lj0AV6CLlgQ6JVct3rtGURxHAJwjIynXSBEhVu
+	 4/Bd+LVjBN/vamfjYBKgp7Cd/6LLGumULt5t3XJ2nIczgCN7pijxnWc6j1SyWb2o5iw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348358;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Mb9nK7C88AA0XX7+dkq9DLF84KPAyUNf2hmpuTFCm7A=;
-	b=wTR2UaW2wQQigE1RsMhiREjrW31u3f9Ef0Y/u6urDt+OiDxOhhMtIeSn9M3ilsAilmzo
-	 XWk4GSHL4QYE897dULFiazTydWOZlpGmlSi2EfcPpO9faNStybrabG6fzIt7Zr2KrjWyt
-	 xBEH7aVnmJ72ZF9S5RDctKwb/DxsNEG/t6XVUYVGWraRUFmG/xY6l8bWvgpQp2SkDaA7g
-	 53LjvHu4r3OLgrQ30npwHZACFC5p8tJ6b8yUrSLPw1Q3lwMtEyhKlhqd8HjEMgG2KccFg
-	 52FMXqX1RLL5yiH/Esl8KNb3pZR476S68MB4y/fWBTndueDWAyqQakP2fOJVyM8tnWw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aGi+krf7;
-	arc=none smtp.remote-ip=100.103.45.18
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=l9nRtv/g4rXlyc2OHJmDGEK0B7e/zuJG39yjSylvfqg=;
+	b=aGCN9sb+5HUKbKPf7N1B/zKRGVEmw9s6jiMLT3ctzEmx0aOzlSw/Pz9wSE15rkW6ZPZI
+	 WVoDomsqO1SFNzyKawRSHvrg9daNDLsIwZ9xryux0w1WVmVa/NCa9TUGmgr53FdUzUIaG
+	 X5QMDMSxBMZWSL1HZlEJc7pYostD2nIGwovn+vFRW0D1fVMYaG9BiQeBMu2WJux3BztGe
+	 Nl42Cw9DXMLH7uzyPwn2gxBKs4Is8AweULwUVuDlhUe1Ul+Pa0dkz4y195IDItFb9QFpB
+	 rcL7X9jgRDXdDy367QhVtzq5Flgcn01U4Mtu0rYBBp39pT5FpvsM9OR2FF/7k+SZatQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CbMz8dRC;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888C7606A31A;
-	Fri, 30 Oct 2026 08:18:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40602606A31A;
+	Fri, 30 Oct 2026 08:19:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aGi+krf7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDAB71F000C1;
-	Fri, 30 Oct 2026 08:18:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CbMz8dRC
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793348357;
+	b=w7+78jFYhHv78P056Y9YSXDMgxI+P53lRVJ0ln4yY3gca0RWqH+rwlpGyanAeCNaYlo+
+	 spHQX1Og42vcBBDacldsl9pMN8P9A7ImQ5VD0u0AjKpivctdtpOH7O8XdhUzCKQ4cDtQi
+	 J/VWtw+d5RHj5ZUjAMo+Ew+9DB4LCQU5gcLW6T4z34BaKid27GKQIXXVTXZMmfh3/tnq9
+	 WXQPB32/1s+z11UsVW3ON4WwJ6CswDd7p8G0cN0OZ4PQv9JSqhPdp1h1PUPcF9RKff5FG
+	 gHVqc9pT2p3slY9+NlGKNdrNCv6HRGCVECe2KwPmBcuEFX8ybjcGKF3I1z/dubK7WpQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793348357;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=l9nRtv/g4rXlyc2OHJmDGEK0B7e/zuJG39yjSylvfqg=;
+	b=qdv9AcdtDmrpNWeR5kdaYC7PLiu2FIFm6RAfgfjJGNaJTs0+ZNm9mZLRt/Bw8MWZnVTs
+	 RaM0CR/4/wa6wxg7ruM3wI9pBiTEiXbi9MsR8+OLSD2CuVfWFeCHbLO5Hq/6d53kHAbPo
+	 kl2KOICO8qJN5aEigUWTTY2wkqyHEwnHcnK7YAWMvouaAUa3eDO7x/D8Kd9mGBVdzGvH5
+	 7gX5TWC4M+EQn9XDQNkLF85ucQtjIAtUB7gPKXM6Z1Gqt5Gkju/gvpT54/uRpJ7E9cWNP
+	 nvCLkangsj8PezPtwFobj6OGghXa8CDCJK29mNxrvBhSGQLEmE3MXk/lA0y7iNnIdfA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id 49D5C1F00A1C;
+	Fri, 30 Oct 2026 08:19:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793348339;
-	bh=Mb9nK7C88AA0XX7+dkq9DLF84KPAyUNf2hmpuTFCm7A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aGi+krf7xcDXjZG+aCrcGgkyMEdP0I3fr312ylcIHL5Et2iKMPq8Fw7kIY64ar+uR
-	 KoIYVG7NZPLH+o7p19hommRYKC4Nz90DVmSr4bGhrvD1k+njk7BD0EIemrLvqkAcl6
-	 dAAKbGpEfLhQF/63qbcJv/CnWcp6jdJcxYnCaI4SFLeDS/x5YEhEXxkDoEeCRgxvD0
-	 cy/G3LljTTFpRAKYc36ayAwb6RKh15aYm8qnKjwC+juFRSnioV2XLb6CUnDtLnVtQB
-	 ZhXHPJdE63+YBhHN6LHdXdnLnK5stfFGsL5S94nkKjGosdRlpyVVTGSkHfj0NDhViZ
-	 KmZQI/iHYHJ9A==
-Date: Fri, 30 Oct 2026 09:18:55 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Rajendra Nayak <quic_rjendra@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Jassi Brar <jassisinghbrar@gmail.com>, Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Krishna Manikandan <quic_mkrishn@quicinc.com>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
-	linux-watchdog@vger.kernel.org, linux-clk@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, linux-remoteproc@vger.kernel.org, linux-input@vger.kernel.org
-Subject: Re: [PATCH v7 03/11] dt-bindings: watchdog: qcom-wdt: Document
- MSM8952 watchdog
-Message-ID: <20261030-encouraging-diligent-kudu-dbd1a7@quoll>
-References: <20261030-msm8952-initial-support-v7-0-ad748ace375d@mainlining.org>
- <20261030-msm8952-initial-support-v7-3-ad748ace375d@mainlining.org>
+	s=k20260515; t=1793348357;
+	bh=l9nRtv/g4rXlyc2OHJmDGEK0B7e/zuJG39yjSylvfqg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=CbMz8dRCfREeWqfUGLF4esTO1azW1tsZfQBktWGVhryw2z4avKQJxCCZfMHyjLanq
+	 S4MVLxnJkHLz3wmnsbMQ25ZEhcAs9mgBVHzppT6f2TeTfxP2CT91A8RU8Y6uEdUL5w
+	 edhqFuTMcQf6lVhzj8K0HRz3FUW0vMLfTAq0Bjxx6s8HzLkYRjvIKb40H6OkBTqIrD
+	 g1OlLc/O/kQKb50QUrPgC7o5+MTMUqYSBywBW4vzNlEwaFnFdkmzmcphiZV6llZ5ev
+	 gHrSmOaCKl1AygSNhk38V/sy15oWt+swdYslrT9NRNTsHqUlGkjXITyezNbzqQD3Jo
+	 aGs6+Qffz8EVg==
+Date: Fri, 30 Oct 2026 09:19:07 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Rupesh Majhi <zoone.rupert@gmail.com>
+Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>, Joel Stanley
+ <joel@jms.id.au>, Jonathan Cameron <jic23@kernel.org>, Nuno
+ =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, Paulius
+ Zaleckas <paulius.zaleckas@gmail.com>
+Subject: Re: [PATCH 2/3] iio: pressure: dps310: reset the chip at probe
+Message-ID: <20261030091907.0000709e@kernel.org>
+In-Reply-To: <20261029220635.18816-3-zoone.rupert@gmail.com>
+References: <20261029220635.18816-1-zoone.rupert@gmail.com>
+	<20261029220635.18816-3-zoone.rupert@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,20 +89,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261030-msm8952-initial-support-v7-3-ad748ace375d@mainlining.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 30, 2026 at 12:02:34AM +0300, Muzaffer Kadir wrote:
-> Document the watchdog found on MSM8952.
+On Fri, 30 Oct 2026 00:06:34 +0200
+Rupesh Majhi <zoone.rupert@gmail.com> wrote:
+
+> The chip keeps its registers across a warm reboot, and probe changes
+> only the shift bits in CFG_REG. A reboot during a FIFO capture leaves
+> FIFO_EN set, so the ready bits never come and every raw read times
+> out. The timeout reset does not clear it either, since the CFG_REG
+> update that follows writes FIFO_EN back from the register cache.
 > 
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> Reset the chip first, as remove already does.
+> 
+> Fixes: 90f0d1016398 ("iio: pressure: dps310: read buffered samples from the hardware FIFO")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260921183132.233136-1-zoone.rupert%40gmail.com
+> Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
 > ---
->  Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> Cc: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+> 
+>  drivers/iio/pressure/dps310.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
+> index b6aa5dbe2bcd..29778f25bb33 100644
+> --- a/drivers/iio/pressure/dps310.c
+> +++ b/drivers/iio/pressure/dps310.c
+> @@ -1445,6 +1445,11 @@ static int dps310_probe(struct i2c_client *client)
+>  	if (rc)
+>  		return rc;
+>  
+> +	/* The chip keeps its state across a warm reboot */
+> +	rc = dps310_reset_wait(data);
+> +	if (rc)
+> +		return rc;
+> +
+>  	rc = dps310_startup(data);
+>  	if (rc)
+>  		return rc;
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Joshua Crofts <crofts@kernel.org>
 
-Best regards,
-Krzysztof
-
+-- 
+Kind regards,
+Joshua Crofts
