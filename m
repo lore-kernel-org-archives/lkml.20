@@ -1,107 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793353980;
-	b=aGe80zk5PGB1OWE56ZqohAdLhcmmSErWeUdv42M3KsOvE4Rg+93SD++E1wnJOWEN3v16
-	 usPNKdN498YrEyeK9iZiQ8IR5yIxDACPg3cHGXAs7eDk/w5I5vs2YXxBFoyEwFdBHc18e
-	 Pl9AmaAA4qQaTYczOdXJUwqUslJj8d0XRzFfgUx6npj8bOecmXvaO40VeYvuoaFoDkuZG
-	 Bl6Nx8sthEUGdfYtyqA3qlzfjHSa87iAG+ks01zBmGMWoC4BBHOxyfMzafxbsO1GeGDjw
-	 kEFARDAQu1ycVGJQV6gDK4iPgyS6SarxMwFoAoIRUSdI92GLe2qSxad8okOaiHmHKig==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793353980;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Subject:Date:
-	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=nHCxTEWDNETUxhv+yZAo1HbpAOGjCmJXlsDreFMCp/8=;
-	b=I/TgdKuU8X9UKx1GMivRsiGtaYHqKLXsZNNwZ1TAtsdOae1Sp93Kj1auMS7pJJhACsI4
-	 lhPSMszfQG+KxqldQURgPQYDm8U1FmpmJHr1SXU6kOy+PSWE73VB6CZpXL3Zs+ccD6p8Z
-	 pLqR1pxKQlwdk0Kz3IUlQvQy09nuQ4UHmjCAeNp4OQWPQQrxZ6bpcT6fG30LBNjAYN33X
-	 wRZJdHq+tjhpkybB/laFn3SBwUIRkfr1EdzXJgHpwVZbvJDCXjy1HDEE3FElIY9mki6VF
-	 43/d4iBVkrPioSeTrD3//GZtFjGZL0KQrbtk3oGIMY+ShYjLQ/THxxuhJriSeS2A9wg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=ItQERvYk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.72.50
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013050.outbound.protection.outlook.com [52.101.72.50])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.242
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793353983;
+	b=3Bj9m3bzL48Kt0YnD9gpY8QzMkMUWOMBvBmcSm6gjkU8FVCR8pmWa1XTTxVcfwNuLiLE
+	 G0IKZCdLBen0UlJeUOwSBBrGxxIGvCaHBJBCY7CVZVnUhwNm861DvFGxXruuHxYTElufx
+	 WFtCUMKtVsBCnPT4xBKMVqRDSQ5+bPehNymA4emxFZUzCauqf27EwRPDsaexJB0+QGx7T
+	 mFBDRUS+fjgDz1ZGQt7I/aLLsa6nPN80quoc1qrhpHqWL0OUVrXKNvhi/+LZwsiuKEYC7
+	 KDBGaR9gVziTPGGbqV0loNYguWKz+5Fv6A+guQ2DzUL3UidbE6ALRU13EruPlilLVvw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793353983;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xpf18pDcFg7YI4Q/hA2kdDPSsZmQs/Zw5I1QxGAxjTA=;
+	b=bFa2qbRJzP2AGDVWTBpqB9JYhOSv31zJVgxOZm7eVbuxXo4374UzcsOFK+VTs/TPfPTA
+	 X2W5/p2g/Zbva4z39PFSBWMU8+grqfPwX2yRyl5PHB/kesdYovE9PazJH8txFHvrFG6NA
+	 rOovjwtYW6RxM8D4E7UocqzuffoHh0bL1mzmu08VR5pTYu005l+CjlPdX9WzMtW9Orgkw
+	 934OqwdwE5Eez8r6YaFSqAJ0gFFywmGqhC6+1Z/fJgrWOl+AFQbDIyKAXItQ+mNIPO3jx
+	 BOFcir59t/f+03qhreSZSIZ3k8zpyDLGP0WFr3BCO88+ynA23ivfIHDQmaRVqfekzFA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g0zDV5og;
+	arc=none smtp.remote-ip=95.215.58.242
+Received: from mta1.migadu.com (out-242.mta1.migadu.com [95.215.58.242])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95537606A31E;
-	Fri, 30 Oct 2026 09:52:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95537606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2E3606A334
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:53:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B2E3606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=ItQERvYk
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IfGkmh89Q9iN9U6MkbPKpcfFedVdVhYlJNFJzgFAhjrr0jUZ10TQw+wWXaZ5g0o+Bu0IweVWIVFBu5QRugRIZoNmkno1Css60AaMsr9FD92tkJ7lgu5Zs6ztQcpc1O9xbim7qY0/5au3CUcKi1fejAYV3NpyrPjxF8dprTG+jbdBpyjngrdtI7wCSF98dac7y241cBh7JQc3mi7EA7I85f43rAgOepY+gWPF6NSCpBkI2Ed5o6K+mezqXVzjif6BwEUqxu56hmlqwAO/cUwlC/xxxquNHnXe2nutnqJj1lY4M4FLANGGtAmYV5TdoZ8dOhvPdxR8iHLXf64LyM6jlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nHCxTEWDNETUxhv+yZAo1HbpAOGjCmJXlsDreFMCp/8=;
- b=mRrABArCmwOq35kv0zvxrbCWdPoQ+GPTxhJDctPd5HF0RnbnEO/KosTkNBtt0M3BJrPsroyzHD3cdmH7fYcs3vqMqrMZ1oyl9+6MJ24TdYHCjq65Ck2isl1MG0tiFuCkJPHTrxpZ81DmlaUfpHWZu98+ysin9lautTDCybbUCqz/i+s+1XeVhWZXIWumCbsG6vhlbRQWezAS81/uwWAghXdiHUIeHbz1CXvse9Hftzi8F8VkPqVHK1m0lkB0vWfxFwXxZCb2jPvtJfKM04G0Zblq0E6OGELCFRXuNJruz5S8lhm/CRPioIfe6k701Q3lI25khzQVv9i7Y8ez4ODCKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nHCxTEWDNETUxhv+yZAo1HbpAOGjCmJXlsDreFMCp/8=;
- b=ItQERvYktdk1oedFNmz00JjUfz6RyMTkZLzCmVnU+m0+cGNHm+9xD2S0tqPusL5spme+exVrX2z8qBEvo1mQadtDTnX2CuUSkLF+P72g4gFfoNTZNVrGddzjTB99HyurXtP46DAQUQaWJdm2SXL/yUVpFqe0jrJvjtvLdsbGJF3z5Ht2KQBOSmCjVVuEza3X3ohbnuh+vCTzaHUF+Sj80ll4tNR2QiSOHKjOU3PZp4yxl74o3HKpv5lXrAPuBxpzs34fKbY+ttr5wsq82Y542Za4/72htmkxn77/e0mc0iFSUZX54dbosujkP/JhT/pUbP9f5dNcFTn0AIUcfL7zrw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by MA9PR04MB839208.eurprd04.prod.outlook.com (2603:10a6:250:103::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 09:52:54 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 09:52:54 +0000
-From: Liu Ying <victor.liu@nxp.com>
-Subject: [PATCH v8 00/15] drm/imx: dc: Use prefetch engine
-Date: Fri, 30 Oct 2026 17:54:24 +0800
-Message-Id: <20261030-imx8-dc-prefetch-v8-0-c4f81afd4533@nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFBp5GoC/23QTW7DIBAF4KtErEs1/A3QVe9RdWEPULOIHdmR5
- Sry3YsjJbVblgP63jzNjU1xzHFib6cbG+Ocpzz0ZXAvJ0Zd039FnkOZmQRpwILi+bw4Hohfxpj
- ilToO0kUFaLwgZIVtH3m5R358lrnL03UYv+8bZrG9PsL0/7BZcODWaQKVAmqT3vvl8krDmW1Rs
- /zlXla6zLJwE9AH8g251hy52nNf4apwAhEAwTUhyCPXTy5AYIXrwkMKjdKWWkV/tpsdl7bCTeE
- 6UouEQXstjhwfHMFXT4eFS0StokpIrT1y++Rle628LbyB1gCRToS78uu6/gDGP4UvKAIAAA==
-X-Change-ID: 20250703-imx8-dc-prefetch-028e306591c6
-To: Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
- Alexander Stein <alexander.stein@ew.tq-group.com>, 
- Liu Ying <victor.liu@nxp.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: SG2PR01CA0186.apcprd01.prod.exchangelabs.com
- (2603:1096:4:189::14) To MI9PR04MB350878.eurprd04.prod.outlook.com
- (2603:10a6:290:c0::7)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=g0zDV5og
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3SGQa6//mCID9yoxC+UtR/mi1QnzOZbaQcTixVLqPKc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793353981; v=1; x=1793958781;
+ b=g0zDV5og8UfzQ7yDKA+h1Y4kEfNO9TI5hoEXIablzlHYTL98hfzIotsPo3M+1TkrpuqZhylj
+ 9Lc3CTK/RWhqItsCVIbhFnrQT/CquUjLlSsas3v7suPTqDfHPGqbSUb0By1EUZX1tXC7OLSqeAf
+ ddmPv3WW22wH3s06bNqLqdDA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ec9f5d29722253b4;
+	Fri, 30 Oct 2026 09:53:00 +0000
+X-Mizu-Trace-ID: ec9f5d29722253b4
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: linux-mm@kvack.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH mm-new v1 2/2] mm: vmscan: skip anon folios zswap would refuse when writeback is off
+Date: Fri, 30 Oct 2026 17:52:18 +0800
+Message-ID: <20261030095223.325309-3-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030095223.325309-1-jiayuan.chen@linux.dev>
+References: <20261030095223.325309-1-jiayuan.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,203 +89,211 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|MA9PR04MB839208:EE_
-X-MS-Office365-Filtering-Correlation-Id: d8aba44f-e1f7-48b0-1649-08df366b9184
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|366016|1800799024|10067099003|18002099003|3023799007|921020|56012099006|5023799004|11063799006|261028144727099003|261026140227099003|261026121527099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	HvKEn9vgFGbMB8FiQPFykU58zBRJDIyjNvlbeYDIE+q+m1SIfxO2VGSz7NeQbpFUI5Tkkvson6A4MpaypR6ZfxyVOyKI4jAdKIxxK057fvyffxpBLr+kBN6oDaTrZjz4B4mg9XwtBWer25LUco/uuo+9fcK0jHld20M04oLs4Pa73Ll7rkgmwedW3fRLGKNpvGlKAalcQGYrutd4aWCd2Pdk1f+Cdd4/D2zqxUHm/02fKq3JuYZOGYzHbcKCuAMdzApC1NVEJFgZ66c0TcqgRMxPefKVnLkDCWE2vYzlEDFv+sxhFYogNzX1P114iRQNkchdUVpMtBdBqEivvPQiouYd8uXv9sUzOlJJ+HGVcajxqlpDNtxHpWC3X4PuQ7Bnlc4O4aCPVc1+6UsroaXudocvy3bSbwc3DtA0o3doAN42Dr7FGRze4jDFKYPzzSPvXjAurMNx1iM979xb21xj9aGBK3nONA0utf1T8hJv0qbW+RlNx+9m01LG5z8aA8qCTF0GTp/33D2DtjG4+TMw/q91wEXKiql9Lm0yTnT2tD7L7cURdvBS0kqOUoHvzUGXm/ovpzsh8NGHvqWXjaxV4kMWOBUjWNSGTYnh/HVH1LlZVE5XcTeEHDH+axs7DsilV3OT7jabG7KUwqUtA32o6476oILKu7+gq2gqL+avLOA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(366016)(1800799024)(10067099003)(18002099003)(3023799007)(921020)(56012099006)(5023799004)(11063799006)(261028144727099003)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TW1qSlluSlp2VWRsNUpkSHQveFdGK2sra0RPRHpsWGZtY01McjBla013ZEJD?=
- =?utf-8?B?NHJhZjUwek1HZS9vazk2dGUrSXZ0NCtnZHVtdDFJRGdHQy94TXNGa1RDRm9E?=
- =?utf-8?B?N1FPM3NHQmdISjJESW80ZDhVSFI5TXFsZm5WMGtvQzRPYzNlRG9jNTh1WnpI?=
- =?utf-8?B?bGd5b0RiQkluRVk5a0xJN0dlOUkvSkZXVnlrNG1EY000a2tDczByUUdCU00r?=
- =?utf-8?B?QmJSRklORVVwdnFYSklXaWlKRTJMb3pjZkZwajY5U0xIMUtDSGdzYnZhamdR?=
- =?utf-8?B?M2c5NlJDZVd4RnB1YVJIaEd3VjJaamFNemJRa1FUUXdaOUtFR3B2OGdNRDJo?=
- =?utf-8?B?dWw1bWlzTGw3bFMzVDlodDdVWm5FMnAxTjJjbXptQi9uc3JGSUR5MnE5SGV0?=
- =?utf-8?B?ZVlYZksvTkJXaW4yaW5tU210T2NRbEozZFBzbWxSWks4dGxHWkJWK3R2SDVS?=
- =?utf-8?B?OXU4R1RmdjJBNm5RV0l5WWM2R0h2c0xZK3BqTDFLRytMT3RQVElaZE9WdU9B?=
- =?utf-8?B?cW8zQkxwbW5PZDNOcmhjWE5BckRmS0loQXZHMThZTXdEVEdKRFF2S0lOVXNZ?=
- =?utf-8?B?T1VGSllWaHcyWWM1aHBPSmYyYWdoVG5SYzNYOFR6R253YWIvekxWZ0k2ZHdW?=
- =?utf-8?B?NitLd0VlZDh2MjFCRkhvRmV6SUlNZUFDMmQ2MS9meHFzT0t5eHpIYm40cU9K?=
- =?utf-8?B?NUk1WnNUWVlHU2QyRlRCZ0VIbWFNbjBsWllKdWR2T1VsRVFrMUpaZ3VNenBi?=
- =?utf-8?B?YjNZV0xZbTFlUUZaUExUTHRteFJ6eGhzZDVVOWtwNHFCRDFRNmFEM1BBVkJN?=
- =?utf-8?B?RnFMQjVGdnViRDJCTXBmUGVicC9KZm5ReUlMRk1xZFROdXVJRUYxaUNtQU8v?=
- =?utf-8?B?a29CbnF3MWE2YnhJUHArUGd6RnhYNkRYV0s0bjlPeXJTckJGZGNYajFPeU5q?=
- =?utf-8?B?K29ZSFB5aFh3SjBFZGtwUFAwYTd5S1Erb2w3cXJ1ckpFcUd6VVI1akZOemxG?=
- =?utf-8?B?eHBkZDBlVDlCUEQwcllWRktKTjh2T1VWNXhKNnp6dzFsK3ExclRDSUtIWXVn?=
- =?utf-8?B?ME9zdThWd0hadmtWSnI3Q0d3UUljSGV6dHBiREdmY2ZDZVhKVGNSWi9ScFRn?=
- =?utf-8?B?bGFZZVZoSmJ4WnZVY3FYQmkzSjc0VENHaVo4azF3UW05QmJYWlpNUHN3dFB6?=
- =?utf-8?B?bWN4dVY1RUxvRHA1Mlp3L2VFL1Q1eVE4dzhoSW5aSFhhQ21vaTBhV2ovd244?=
- =?utf-8?B?L0o0U1AyWmRYeDJkMVZrRmEwOVkrN2JVN1hwM2w0L1lGVzRsNnFyY05oS093?=
- =?utf-8?B?aHFiYnNwbU5pcVNoL3hlYjJvZnphcGZmYmdjRVJibC81YlM3cW5XMG10MDdt?=
- =?utf-8?B?cHl3U0orWldrbVZVZngvR1lFaytFQ2Z1dVhrK1VKWi91Y04zYngvN25tT2hV?=
- =?utf-8?B?VWpuMFFZWWJtb09URHlWbVVOUmI0WUljeUdBbGRVOHpJOEZ0cjRRUVA4ZVlC?=
- =?utf-8?B?TFN2bVRMY01SWnhPc0JvQTlGSFQxRzRaamZzMjVnUHlxME9WWGpTMDRzZ1FK?=
- =?utf-8?B?K3lkdnRiZmNXcHhudFh3eU5lOWRBb1EwMWUvM0FGNzlsdmpwVWhMRGoyUjFS?=
- =?utf-8?B?TkFCQ3pESVUzTXRObDhKWnVLR25mVUxzLzVLUjJUN2R3TVJzWmxBempOTVVF?=
- =?utf-8?B?UUhzVW5IT0Y4OURFTkVkRi9sZjdXVWRVbnVUdnJOcTlCa0ZqNWhwVThycDcx?=
- =?utf-8?B?ZmU0Uk45SnMxRTNkWkQwRGhhSGQ4TXk2ay81N2xOWkpOb0h2dFVTNGFmZWJa?=
- =?utf-8?B?OHgydmI2SzdSVzBJaW8wRnpYUFBNZEpxZlFTYVlITGVVdjIzbE5PM3FDREFM?=
- =?utf-8?B?WEFsYTZFSE04RFN1YWZGUFRRQ1FDRXdkQ3p2aTRFeU5KQTlRYk81YW1xTHBu?=
- =?utf-8?B?MERualYyZmU4WnUrcGp0UXQ3ZE9FeEtmdkw2bnpsbGJvTmZlUmlNaFdNbVJZ?=
- =?utf-8?B?bWNqYXlnYVFEOHhCazlHY2p1NVhNRmQ4MDFZeG1rM1dKVVphZWlnVzRPaU16?=
- =?utf-8?B?UjBZTHlQWVpYWExncVhjWmFqVHpYTGQ0U0hLVFZ5MXNHVE5yZ2VXeFdKREdE?=
- =?utf-8?B?SHdhWndvQ0hpZnVWZlU4bGE3M0N5NEZNdHNvYnBNaHRvcnJ2UXcwaDRHb1ht?=
- =?utf-8?B?UXozKzFYdHhrc1hIL0VlQ1pHSHVMYldLMXpUMnZUcXJIRlg3Z09MNUxEL2dT?=
- =?utf-8?B?K2hpNjFNNmVZVTVvbjYza1daSkMzZUdKbFVSV0FjTm9FaVhYUFM4L2xVWXN6?=
- =?utf-8?B?TUNpUExLejUxR3lNQVZXS1dsUUdabk1Ud3hEaVFqNkczUzZSWEhQdz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8aba44f-e1f7-48b0-1649-08df366b9184
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 09:52:54.2809
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SLNcAkZfAKND1tNn7xE9B32vuJUqVdOqEpdmT9h5wA/hcbOMiTSVET3+mFgobi94ChpCAy56VpTmjT1h7gFSwQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA9PR04MB839208
+Content-Transfer-Encoding: 8bit
 
-Hi,
+A memcg with memory.zswap.writeback=0 can only swap into zswap. Once
+zswap stops taking its pages, because the pool is at its limit or the
+memcg is at memory.zswap.max, swap_writeout() has nowhere to put a
+dirty folio and returns AOP_WRITEPAGE_ACTIVATE.
 
-This patch series aims to use prefetch engine in imx8-dc KMS driver.
+shrink_folio_list() only learns that at the very end. Every folio it
+picks gets a swap slot, is unmapped, fails in swap_writeout() and goes
+back to the active list, to be aged and tried again. Each round costs
+a slot, an rmap walk, a TLB flush and a minor fault for the owner, and
+frees nothing. The folio also stays in the swap cache holding its slot.
 
-One prefetch engine consists of one DPR Channel(DPRC) and one or two
-Display Prefetch Resolve Gaskets(PRGs).  It prefetches data from
-DDR, resolves data in tile formats if needed and outputs the result
-data to FetchUnit(s).  When one PRG is used, a prefetch engine supports
-processing pixel formats with one planar, e.g., RGB formats.  When two
-are used, pixel formats with two planars are supported, e.g., NV12.
+The obvious place for a zswap check is can_reclaim_anon_pages(), but
+it cannot go there. Zero-filled folios never reach zswap:
+swap_writeout() marks them in the swap table and returns before
+zswap_store() is called. They need no pool space, they are common, and
+a memcg-wide "no anon" decision would keep them in memory for as long
+as zswap is full. With zswap full they must still be reclaimable.
 
-For now, this patch series only supports prefetch engines with one PRG
-because it is enough for XRGB8888 which is the only pixel format
-supported by imx8-dc plane driver.  Two PRGs would be supported by
-future patches.
+So decide per folio in shrink_folio_list() instead. When
+swap_writeout() is bound to return AOP_WRITEPAGE_ACTIVATE for a folio,
+activate it right there, before it costs a swap slot and an unmap.
+Zero-filled folios go on as before (that check reads the whole folio,
+so it comes after the zswap one and only runs when zswap is blocked).
+A swap cache folio with a clean flag may still be dirty in the page
+table; it goes on too, unmap settles it and the next round sees the
+dirty flag. An unmapped swap cache folio goes on as well: nobody holds
+its slot any more, so swap_writeout() drops it in folio_free_swap()
+and the folio is freed without a store. Large folios go on too. They
+may still be split, before the swap allocation or when it fails, and
+the base folios then come back through this check, zero-filled ones go
+on, the rest is stopped. Keeping the split path as it is keeps the
+change small.
+zswap_store_blocked() asks zswap_check_limits() itself, the same call
+zswap_store() makes first, so the pool-full state keeps being updated
+while vmscan turns folios away and pool_limit_hit counts once per
+batch instead of once per folio. A refused store would have kicked
+the zswap shrinker to make room, so zswap_store_blocked() does that
+too.
 
-Patch 1 and 2 add dt-bindings for DPRC and PRG.  They were reviewed
-by Rob[1][2].  I slightly modified the patches' commit message to use
-imperative mood.
+The check is made once per batch, at the first folio it could stop,
+and the whole batch goes by it. A batch of file folios never asks
+zswap anything. zswap can change state under us while the batch is
+being worked through, that is fine: at worst the tail of one batch
+takes the old path and is refused in swap_writeout() as before, or is
+activated once more. Most folios are still stopped early, and the next
+batch sees the new state.
 
-Patch 3 fixes invisible plane issue reported by Sashiko AI bot in v6.
+Only anon folios are handled. shmem splits large folios and zeroes
+fallocated ones on its own way to swap, that is not for vmscan to
+second-guess.
 
-Patch 4 fixes FetchUnit dimensions as related to prefetch engine function.
-
-Patch 5 flags CRTC status in GERNERALPURPOSE register as needed by patch 6.
-
-Patch 6 disables CRTC at boot if needed to support prefetch engine better.
-
-Patch 7 and 8 add PRG and DPRC drivers.
-
-Patch 9 to 14 do preparations before using prefetch engine in imx8-dc KMS
-driver.
-
-Patch 15 uses prefetch engine in imx8-dc KMS driver.
-
-[1] https://lore.kernel.org/lkml/20201207165945.GA430214@robh.at.kernel.org/
-[2] https://lore.kernel.org/lkml/20201207170206.GA434964@robh.at.kernel.org/
-
-Signed-off-by: Liu Ying <victor.liu@nxp.com>
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
 ---
-Changes in v8:
-- Collect Laurentiu's R-b tags.
-- Collect Alexander's R-b tag.
-- Fix Sashiko AI bot's comments.  See detail changelog in each patch.
-- Fix Alexander's comments.  See detail changelog in each patch.
-- Fix Laurentiu's comments.  See detail changelog in each patch.
-- Trivial tweaks.
-- Link to v7: https://patch.msgid.link/20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com
+ include/linux/zswap.h |  5 +++++
+ mm/page_io.c          | 15 ++++++++++++++-
+ mm/swap.h             | 12 ++++++++++++
+ mm/vmscan.c           | 17 +++++++++++++++++
+ mm/zswap.c            | 11 +++++++++++
+ 5 files changed, 59 insertions(+), 1 deletion(-)
 
-Changes in v7:
-- Collect Maxime's A-b tags.
-- Fix Sashiko AI bot's comments.  See detail changelog in each patch.
-- Trivial tweaks.
-- Cc Alexander.
-- Link to v6: https://patch.msgid.link/20260904-imx8-dc-prefetch-v6-0-26643e3f6cb7@nxp.com
-
-Changes in v6:
-- Rebase onto the latest drm-misc-next and resolve conflicts in patch 4&7&13.
-- Include "dc-drv.h" in patch 5&6 to avoid build warnings with C=1.
-- Fix PRG BYPASS programming in patch 5.
-- Link to v5: https://lore.kernel.org/r/20251027-imx8-dc-prefetch-v5-0-4ecb6c6d4941@nxp.com
-
-Changes in v5:
-- Squash MAINTAINERS file update into patch 1&2.  (Krzysztof)
-- Link to v4: https://lore.kernel.org/r/20251016-imx8-dc-prefetch-v4-0-dfda347cb3c5@nxp.com
-
-Changes in v4:
-- Rebase onto the latest drm-misc-next and resolve conflicts in patch 4&10.
-- Sort bits and bitfields in descending order for register PRG_CTRL in patch 6.
-- Cc Marek as stakeholder of the driver due to recent i.MX95 DC patches posted.
-- Link to v3: https://lore.kernel.org/r/20250929-imx8-dc-prefetch-v3-0-c01d0608add2@nxp.com
-
-Changes in v3:
-- Call dc_dprc_enable() only when start == true in patch 7.  (Frank)
-- Collect Frank's R-b tags.
-- Link to v2: https://lore.kernel.org/r/20250923-imx8-dc-prefetch-v2-0-5d69dc9ac8b5@nxp.com
-
-Changes in v2:
-- Rebase the patch series onto next-20250922.
-- Collect Alexander's and Frank's R-b tags.
-- Manage PRG's and DPRC's clocks with bulk interfaces in patch 6&7.  (Frank)
-- Sort variables in probe function in reverse Christmas tree fashion in patch 7.  (Frank)
-- Link to v1: https://lore.kernel.org/r/20250704-imx8-dc-prefetch-v1-0-784c03fd645f@nxp.com
-
----
-Liu Ying (15):
-      dt-bindings: display: imx: Add i.MX8qxp/qm PRG binding
-      dt-bindings: display: imx: Add i.MX8qxp/qm DPR channel binding
-      drm/imx: dc-plane: Disable plane when it is invisible
-      drm/imx: dc-fu: Fix dimensions
-      drm/imx: dc: Flag CRTC status in GERNERALPURPOSE register
-      drm/imx: dc-crtc: Disable at boot
-      drm/imx: dc: Add PRG support
-      drm/imx: dc: Add DPR channel support
-      drm/imx: dc: Use TCON operation mode
-      drm/imx: dc-ed: Support getting source selection
-      drm/imx: dc-lb: Support getting secondary input selection
-      drm/imx: dc-ed: Drop initial source selection
-      drm/imx: dc-lb: Drop initial primary and secondary input selections
-      drm/imx: dc-fu: Get DPR channel
-      drm/imx: dc: Use prefetch engine
-
- .../bindings/display/imx/fsl,imx8qxp-dprc.yaml     | 100 ++++
- .../bindings/display/imx/fsl,imx8qxp-prg.yaml      |  60 +++
- MAINTAINERS                                        |   2 +
- drivers/gpu/drm/imx/dc/Kconfig                     |   1 +
- drivers/gpu/drm/imx/dc/Makefile                    |   6 +-
- drivers/gpu/drm/imx/dc/dc-crtc.c                   | 244 +++++++++-
- drivers/gpu/drm/imx/dc/dc-de.h                     |   2 +
- drivers/gpu/drm/imx/dc/dc-dprc.c                   | 534 +++++++++++++++++++++
- drivers/gpu/drm/imx/dc/dc-dprc.h                   |  37 ++
- drivers/gpu/drm/imx/dc/dc-drv.c                    |  88 ++++
- drivers/gpu/drm/imx/dc/dc-drv.h                    |  12 +
- drivers/gpu/drm/imx/dc/dc-ed.c                     |  27 +-
- drivers/gpu/drm/imx/dc/dc-fg.c                     |  11 +-
- drivers/gpu/drm/imx/dc/dc-fl.c                     |   7 +-
- drivers/gpu/drm/imx/dc/dc-fu.c                     |  59 ++-
- drivers/gpu/drm/imx/dc/dc-fu.h                     |  11 +-
- drivers/gpu/drm/imx/dc/dc-fw.c                     |   7 +-
- drivers/gpu/drm/imx/dc/dc-kms.h                    |   7 +
- drivers/gpu/drm/imx/dc/dc-lb.c                     |  27 +-
- drivers/gpu/drm/imx/dc/dc-pe.h                     |   2 +
- drivers/gpu/drm/imx/dc/dc-plane.c                  | 102 ++--
- drivers/gpu/drm/imx/dc/dc-prg.c                    | 330 +++++++++++++
- drivers/gpu/drm/imx/dc/dc-prg.h                    |  39 ++
- drivers/gpu/drm/imx/dc/dc-tc.c                     | 119 ++++-
- 24 files changed, 1771 insertions(+), 63 deletions(-)
----
-base-commit: cf61bef3801c3c9d0d8c39026b7b2fb242898a3a
-change-id: 20250703-imx8-dc-prefetch-028e306591c6
-
-Best regards,
---  
-Regards,
-Liu Ying
+diff --git a/include/linux/zswap.h b/include/linux/zswap.h
+index df6cafbe95dc..b64fcdeda575 100644
+--- a/include/linux/zswap.h
++++ b/include/linux/zswap.h
+@@ -33,6 +33,7 @@ void zswap_swapoff(int type);
+ void zswap_memcg_offline_cleanup(struct mem_cgroup *memcg);
+ void zswap_lruvec_state_init(struct lruvec *lruvec);
+ void zswap_folio_swapin(struct folio *folio);
++bool zswap_store_blocked(struct mem_cgroup *memcg);
+ bool zswap_is_enabled(void);
+ bool zswap_never_enabled(void);
+ #else
+@@ -62,6 +63,10 @@ static inline void zswap_swapoff(int type) {}
+ static inline void zswap_memcg_offline_cleanup(struct mem_cgroup *memcg) {}
+ static inline void zswap_lruvec_state_init(struct lruvec *lruvec) {}
+ static inline void zswap_folio_swapin(struct folio *folio) {}
++static inline bool zswap_store_blocked(struct mem_cgroup *memcg)
++{
++	return false;
++}
+ 
+ static inline bool zswap_is_enabled(void)
+ {
+diff --git a/mm/page_io.c b/mm/page_io.c
+index c6824fcd483e..b4a9fe401a3c 100644
+--- a/mm/page_io.c
++++ b/mm/page_io.c
+@@ -125,7 +125,7 @@ int generic_swapfile_activate(struct swap_info_struct *sis,
+ 	goto out;
+ }
+ 
+-static bool is_folio_zero_filled(struct folio *folio)
++bool is_folio_zero_filled(struct folio *folio)
+ {
+ 	unsigned int pos, last_pos;
+ 	unsigned long *data;
+@@ -197,6 +197,19 @@ static void swap_zeromap_folio_clear(struct folio *folio)
+ 	swap_cluster_unlock(ci);
+ }
+ 
++/*
++ * True when swap_writeout() would only activate the dirty folios of @memcg:
++ * zswap refuses them and they may not go to the device. Zero-filled folios
++ * are the exception, see swap_writeout().
++ */
++bool swap_writeout_blocked(struct mem_cgroup *memcg)
++{
++	/* The device takes the folio, also when zswap is off */
++	if (mem_cgroup_zswap_writeback_enabled(memcg))
++		return false;
++	return zswap_store_blocked(memcg);
++}
++
+ /*
+  * We may have stale swap cache pages in memory: notice
+  * them here and get rid of the unnecessary final write.
+diff --git a/mm/swap.h b/mm/swap.h
+index d5bf21f517dc..51d00e37870c 100644
+--- a/mm/swap.h
++++ b/mm/swap.h
+@@ -259,6 +259,8 @@ void swap_read_submit(struct swap_io_ctx *ctx);
+ void swap_write_submit(struct swap_io_ctx *ctx);
+ int swap_writeout(struct swap_io_ctx *ctx, struct folio *folio);
+ void __swap_writeout(struct swap_io_ctx *ctx, struct folio *folio);
++bool swap_writeout_blocked(struct mem_cgroup *memcg);
++bool is_folio_zero_filled(struct folio *folio);
+ 
+ /* linux/mm/swap_state.c */
+ extern struct address_space swap_space __read_mostly;
+@@ -428,6 +430,16 @@ static inline int swap_writeout(struct swap_io_ctx *ctx, struct folio *folio)
+ 	return 0;
+ }
+ 
++static inline bool swap_writeout_blocked(struct mem_cgroup *memcg)
++{
++	return false;
++}
++
++static inline bool is_folio_zero_filled(struct folio *folio)
++{
++	return false;
++}
++
+ static inline int swap_retry_table_alloc(swp_entry_t entry, gfp_t gfp)
+ {
+ 	return -EINVAL;
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index daa7e37c2236..d732cd378b55 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -1169,6 +1169,7 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
+ 	unsigned int nr_reclaimed = 0, nr_demoted = 0;
+ 	unsigned int pgactivate = 0;
+ 	bool do_demote_pass;
++	int swap_blocked = -1;
+ 	struct swap_io_ctx ctx = {};
+ 
+ 	folio_batch_init(&free_folios);
+@@ -1355,6 +1356,22 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
+ 			continue;
+ 		}
+ 
++		/*
++		 * swap_writeout() would only activate this folio. Do that now,
++		 * before it costs a swap slot and an unmap. Zero-filled folios
++		 * are marked in the swap table without a store, an unmapped one
++		 * may only need its stale slot dropped and a large one may still
++		 * be split, let them go on.
++		 */
++		if (folio_test_anon(folio) && folio_test_swapbacked(folio) &&
++		    folio_mapped(folio) && !folio_test_large(folio) &&
++		    (!folio_test_swapcache(folio) || folio_test_dirty(folio))) {
++			if (swap_blocked < 0)
++				swap_blocked = swap_writeout_blocked(memcg);
++			if (swap_blocked && !is_folio_zero_filled(folio))
++				goto activate_locked;
++		}
++
+ 		/*
+ 		 * Anonymous process memory has backing store?
+ 		 * Try to allocate it some swap space here.
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 572075bb1c1c..468bdec6931a 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -566,6 +566,17 @@ static bool zswap_check_limits(void)
+ 	return zswap_pool_reached_full;
+ }
+ 
++/* True when zswap_store() would refuse every folio of @memcg right now */
++bool zswap_store_blocked(struct mem_cgroup *memcg)
++{
++	if (zswap_check_limits()) {
++		/* A refused store would kick the shrinker, do the same */
++		queue_work(shrink_wq, &zswap_shrink_work);
++		return true;
++	}
++	return !mem_cgroup_may_zswap(memcg);
++}
++
+ /*********************************
+ * param callbacks
+ **********************************/
+-- 
+2.43.0
 
