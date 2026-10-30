@@ -1,95 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.38.247.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793347432;
-	b=tROs4K0TTPkQROxEoQUhmxpjpWllM4bZbeBhDu5+KvKKXG1JIReBiM9KTTc6xXfRcnzx
-	 Rkl2U6rUHv7L8WtHE7xsz0gqoM02r+ZCFOzAXX5chKhLmUCDFEr8WzfSMpmTVlbrLMqyS
-	 o5CVMI4Fhf8KIVblR4aXixivi0aw+ZOVl01hZP0CJao2rMLBOkddv24y5TeWA18Wp/wpv
-	 FWbQqULdJ+c1lphfkUv1Y4dEwZBGzLccBnDYAVGakr0ExsygH4847QqeKzhwYlD/SvHau
-	 HRxU0COx+51giaV8aeK62VHcAC+Glgk1/3N1F5SEWFJmZJSfsCFyNJ6luEcCAWFZsmg==
+	t=1793347434;
+	b=k99LdfuRxM4DQL+W2AcwDp9VxIhbpu93Rk8CSKWQ/+R8RSdwVR6P6rJEXG2LtuuwRn4M
+	 ejayO97UQ9YbeBN0eyQzB9kXsUuCscfuQ1vVk4gdsgc7KOAIBNt59qieXlWiL46LJq1cJ
+	 F+iFzt7riK/JDSTTEuuQ0R/E2VM2fS0mFGK2hQCzoSaHHkCKhLCTDyptvv2ab/51SCIiU
+	 f8dBiTMW9qcFJ5i4gqXhayLHlXncnh5Tj1ZHKU1VCLYIgsGalnjgXxXFTcwI3AqQm7stB
+	 wCn/luCzOxFvxr4/LYOP0Qd+tX5oCxQDdDukRUbgeVJCAZVMh3yg6QLEcR/Y+5iHcBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793347432;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Q6QB/49NRyPAoCN2vd2BzB0Ebs4MdUiS/1UntiQymG4=;
-	b=zzhJAKeUC4vXCAsQsKyNsmyvSwMykYsw6nq+aantF0AcFommoLCKzUVuSZZVeAU20nUH
-	 bmxxSwGnu8yAZkwH6+Jm9dSv3x8qowUf9p78JmqxdCmTSoDpddQmG9AR2K/t+po39Pu/e
-	 1XNEYdr3r0JWaRvKsuGgU8RuVrerkR29+lp6Y4yTDejPQ4nypy5G93J5/acfqHFpMJlcb
-	 pxZK/okXc4crNlAF6EuUa7/i+Hf7MBVbxWVgSkSBuovEx4NLARlG51R5eXeWPN7uuCxic
-	 JohMob+K5vWbKyOy2RxZzliUE+ewkL2bhxeLK15qkTR0lYnUCgclAfx7JLoRvZyr+oQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793347434;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-NC-CID;
+	bh=27glQ701BXXOZ3tvcgViKU0UyTiCkefglF1mL3SW7VI=;
+	b=gmsIwwD4sEn+lu4yMTLWLl2vZjq3y0GLveOPFABD57dvM3KM87qzB36GnDi4aoqjLBdx
+	 8YBVlNxVdmw8p5neFFX7f+bJRS4lCtmmPOxaOriC0CUGnX3UPDZMnTWZZJzKyhgXYDtmK
+	 d11uqjSqwXx6iPZ7v420Sm8jN2kwuw9kH+wElNBUAYdphz2omf0lirT1Ms+s+adumT0/P
+	 pemP3EhOVW2Xs4NEs7Yg6IIdDMLjiRMIxyfC7YTbvPfTgtFWMZYHAYWmpw/1KE4KH43PQ
+	 UM5PU6y/zIRjD1+xYnSYdCdV7R2zjwzXPEyHZt4NYpwx/1ScOBUHPkFoXhSm9s00/gA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KXjqaw7G;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	arc=none smtp.remote-ip=46.38.247.119
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [46.38.247.119])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7C6606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:03:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE7C6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KXjqaw7G
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso156418a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:03:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793347431; x=1793952231; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q6QB/49NRyPAoCN2vd2BzB0Ebs4MdUiS/1UntiQymG4=;
-        b=KXjqaw7GiZQ1Zenb93UyM8Fd4N32AwQfBcLIv/nMxX3/AvLNLBysoLbH3Y8VMYIB3M
-         TrB1hg2jpJ9pfHbvD5wpBNe6Itb+GGs1PmDAHlmOVXLjCh0KSGHmDVPG/3SJuurzF592
-         ie2dNkHDFZzOILzA+bTAidoyJggp31NLNmZC0FuvWTMAhlHGmRCnlBKuUng2d5bGUk+d
-         x/0g3OQB1TzGUDZ2nMb33YA/IZjjKh7yPTkk1AEsXoTfnydvk5itRVX996GFh/xUWLrl
-         7I9rPinvf84UKRlvpkDyg6dSOUCPAWREixcbiYDnWXgaWr+jZgGbfVYsQ/uEARaMc4Mr
-         Hsqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793347431; x=1793952231;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q6QB/49NRyPAoCN2vd2BzB0Ebs4MdUiS/1UntiQymG4=;
-        b=X+lSX6gDqlc80rzhDE4UsnTSiuyaimQjPv4mpMmfZWLc+j/7pujwYm8Dt4i0XzmVth
-         22z930SBd12o4yGTkkN6XtPmGeM3zLlYQN447J7/QDYJKwdQ1vlkMUxZAHIEfKwoZbpd
-         E+ezh2x8+73Rzemav7nljCgtWYPikXgqn6t7t2Bsc366NxOwWjGnY/ZkBG0m0DOB5lxW
-         pj6fdRh/pZ5vjVpPLS6QH3LFKlrsPV0aMS07vzSKt4hxe/SXoz9/9YoCMHwDM6gIIR2l
-         AQBhDYw1h2p4aKgIY6/C/V4qeQfsNxYQhOp/3+dt3S6eflQkPF4IXb4MkWA5JlJsK0V4
-         AvVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwVXTJt/ePbSP6DsWyMC/zV0/+JdAhLo1aaZPYACiO6cLXNYSr8H78uWX3i0fOux0UbvkavCqee2f4ZQCI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkn5L0/HYqUYFtlaYZqghvfJuWTBHWUS0PWDWraw1JH4l536r2
-	uIyEsIECdZsEx5zkWKOeW9KrvVgS+A30xDJJJJ9UZgo1vLYXIW8wK3l6ScCgmZ/E
-X-Gm-Gg: AYBFou3pm5su9pEi2ab3I5WvuWZXH2SukLg6f3ezedQ+RtyiYS3BPN0oEhQTCgoWQNr
-	mh41ffej8gqWHuEfJuYgP1+9cNY5YX5ctYmVzukBE01plf7Danwpoy1PEgQixB3qlQUtdSjD6P/
-	rJcm3o8szCiJ/8sAO+kIuAHQsyB15SXQmDMymh+U3TkzC2AeTutOsawUfHp08WEA/KLSHVLOr5M
-	8au2aFbbzzJHrc3qVSkZL1Z1msQW2+Ddv4dGpb3JE1IEZYEnZ1ArUvQjkwNAaUQ/4qb+h+9FV9U
-	GUOBZ7hEYejx69T7FYTG0PJaNMfvf5c/JsB4ToMpkG8LoqCdEyiAKwJIbeMjWkpGCwhCl0VHKTB
-	g15XHOdlD1qIxRa6yABotCeIyNBWDZcCVKQXmHTkpODXso/UD9XrAwj/CTO077IiNNmNVeOD2jd
-	dSLdvFzrDOGrmpZgGdHZQzpWFRdEAiNv+3WaFyqN3fUUuhvsRDq/ED/SC6ces+MiZwVlwjQ2xIX
-	bikgJl0/XwG/pkIgCZpEEuo0rN+oPI98xRuXDEXE9q6208CV+gQPewCUQNrGqJM5erjIo7lPo+r
-	pqGd3nAMmcXMzKeC08oiAWqT
-X-Received: by 2002:a17:90b:3881:b0:3ad:5c64:c7a0 with SMTP id 98e67ed59e1d1-3ae89814e7dmr1181473a91.38.1793347431081;
-        Fri, 30 Oct 2026 01:03:51 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae84577911sm3073035a91.7.2026.10.30.01.03.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 01:03:50 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tiwai@suse.de,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v3 0/5] ALSA: hda: Wait for PCM files on codec teardown
-Date: Fri, 30 Oct 2026 16:03:38 +0800
-Message-Id: <pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-0@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3370606A31E;
+	Fri, 30 Oct 2026 08:03:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3370606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jGDB61h9Fz8hrJ;
+	Fri, 30 Oct 2026 09:03:26 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1793347406;
+	bh=LCrTFa7rbBF1FSzAjhtS8uZts2i3nZ9PKlQn0INEoNE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XTJ2BORLrV1kjCP/VO49ctAFItX2aHxSoW2w7zu4gF2k8Sx/g3QaK0GnFdHM9PxtZ
+	 TpKa8yAPaLJqkh6+073Q4juzBl+n40oCtfcCJy3lw10QPSpxLEc+kxe3K5Tul2enm3
+	 XMJbCn9LeRyH4n8R71u/Cknn2NL9tSe2Op04wXr4cFX3DuaDQFYxJQLKmgtl6wrQZg
+	 qe3H7n+FMpLi7p/LHNeq9dif+TwcEXgTFisZ4YBEgOi9YQ9mTe+gKurWXikztLs3xc
+	 LMeVp6frRb3L6H3VoOqFn2x/6PH5c7HQkFn/dlT2GmXK7RxczpDlSshp66OuX/cZcp
+	 VYTj1X9dKrvuA==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4jGD9Y752Mz50nC;
+	Fri, 30 Oct 2026 09:02:57 +0100 (CET)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jGD9X6cRVz8svZ;
+	Fri, 30 Oct 2026 09:02:56 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id B60025F98C;
+	Fri, 30 Oct 2026 09:02:49 +0100 (CET)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <8debe9f6-4ad2-4b02-83c2-3884a2394858@leemhuis.info>
+Date: Fri, 30 Oct 2026 09:02:47 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,63 +71,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] PCI: Fix Renesas uPD720201 hang after the RCB Link
+ Control write
+To: Stefan Roese <stefan.roese@mailbox.org>,
+ Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?H=C3=A5kon_Bugge?= <haakon.bugge@oracle.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Lukas Wunner <lukas@wunner.de>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+ Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+References: <20261002091029.2225203-1-stefan.roese@mailbox.org>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20261002091029.2225203-1-stefan.roese@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <179334737019.873731.16074367389338197624@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: B60025F98C
+X-NC-CID: 3r+oDmltqckJl+CUtaSea57BPK4M0u966VhmgDQv0HRhvbJa64c=
 
-When an HD-audio codec is unbound while the card stays registered, the
-codec remove frees its PCMs while files can still use them, and the
-probe and remove of codecs on one bus can run at the same time.
+On 10/2/26 11:10, Stefan Roese wrote:
+> Since commit 1a6845aaa6de ("PCI: Initialize RCB from
+> pci_configure_device()"), which went into v6.18.14 as dbe723b480e4, a
+> Renesas uPD720201 xHCI (1912:0014) behind the CPM Root Port of an AMD
+> Versal SoC hangs the system on every boot. The first access to the xHCI
+> BAR after the firmware download runs into PCIe completion timeouts.
 
-Following Takashi's suggestion on v2, this version fixes both in the
-HD-audio layer: patch 1 serializes the codec probe and remove on a bus,
-and patch 5 makes the codec teardown wait until the files opened on its
-PCMs are closed.
+Is this regression fix still in the "to review" list of anyone, or did
+it fell through the cracks? Or was this solved meanwhile and I just
+missed it?
 
-Patches 2 and 3 add the file to the card while the PCM minor is looked
-up, so that the wait does not miss an open between the lookup and
-snd_card_file_add(), and record the device a file was opened for. The
-teardown waits only for the files of its own PCMs, because the card
-files also include the control device, which a sound server keeps open
-for as long as it runs. Patch 4 makes an open fail once its PCM is
-disconnected, so that a late open does not get a working stream and
-hold off the teardown.
+Ciao, Thorsten
+> The chip comes out of reset with LnkCtl 0x0003 (ASPM L0s and L1
+> enabled), although the Root Port supports no ASPM. pcie_aspm_cap_init()
+> returns early for such a link and never clears these bits, which leaves
+> the link in a state that PCIe r7.0, sec 5.4.1.4, calls undefined. This
+> went unnoticed so far because the chip clears ASPM Control itself during
+> the firmware download by xhci-pci-renesas. Once the host has written
+> Link Control, even with the unchanged value, the chip no longer does
+> so. pci_configure_rcb() does exactly such a write for every endpoint.
+> 
+> Patch 1 fixes the ASPM state: on a link without common ASPM support,
+> clear ASPM Control where a device has it set, and update the saved
+> state.
+> 
+> Patch 2 is Bjorn's set-only RCB change. It also avoids the Link Control
+> write on this board, which matters with pcie_aspm=off or
+> CONFIG_PCIEASPM=n, where patch 1 never runs.
+> 
+> Testing on the Versal board, v6.18.40 (AMD linux-xlnx) with the patches
+> backported, 3 cold boots each:
+> 
+> - patch 1 alone: good, "clearing ASPM Control" for the xHCI
+> - patches 1 and 2: good
+> - patch 2 alone, pcie_aspm=off: good, the chip clears ASPM Control
+>   itself again
+> - patch 1 alone, pcie_aspm=off: bad, completion timeouts
+> 
+> On pci/next the series builds without warnings (W=1, arm64 and x86_64
+> defconfig). I could not boot test it on pci/next, as this board does
+> not run a mainline kernel.
+> 
+> Changes in v2:
+> - Make the aspm.c change patch 1 and the actual fix (Bjorn)
+> - Update the saved state after clearing ASPM Control (sashiko)
+> - Reword the clearing message to "link has no common ASPM support"
+> - Cite PCIe r7.0, sec 5.4.1.4, in patch 1 (Bjorn)
+> - Replace "write RCB only when it changes" with set-only RCB, now
+>   with Fixes: and stable because of the pcie_aspm=off and
+>   CONFIG_PCIEASPM=n cases (Bjorn)
+> 
+> Similar reports with this chip and ASPM, possibly related:
+> - Qualcomm RB3Gen2 needs pcie_aspm=off: https://lkml.iu.edu/2603.3/02364.html
+> - RPi CM5 "HC died": https://github.com/raspberrypi/linux/issues/6849
+> 
+> v1: https://lore.kernel.org/r/20260930144650.3701516-1-stefan.roese@mailbox.org
+> 
+> #regzbot introduced: 1a6845aaa6de
+> 
+> Stefan Roese (2):
+>   PCI/ASPM: Clear ASPM Control on links without common ASPM support
+>   PCI: Set RCB only when the Root Port has it set
+> 
+>  drivers/pci/pcie/aspm.c | 23 +++++++++++++++++++++--
+>  drivers/pci/probe.c     |  7 +++----
+>  2 files changed, 24 insertions(+), 6 deletions(-)
+> 
 
----
-Cen Zhang (5):
-  ALSA: hda: Serialize codec probe and remove on the same bus
-  ALSA: core: Add the card file while looking up a minor
-  ALSA: pcm: Add the file to the card while looking up the minor
-  ALSA: pcm: Refuse to open a disconnected PCM
-  ALSA: hda: Wait for the files of the codec PCMs before freeing them
-
- include/sound/core.h     |  7 +++++
- include/sound/hdaudio.h  |  1 +
- include/sound/pcm.h      |  1 +
- sound/core/init.c        | 61 ++++++++++++++++++++++++++++++++++++----
- sound/core/oss/pcm_oss.c | 19 ++++---------
- sound/core/pcm.c         |  3 ++
- sound/core/pcm_native.c  | 37 ++++++++++--------------
- sound/core/sound.c       | 34 ++++++++++++++++++++++
- sound/core/sound_oss.c   | 21 ++++++++++++++
- sound/hda/common/bind.c  | 24 ++++++++++++++++
- sound/hda/core/bus.c     |  1 +
- 11 files changed, 168 insertions(+), 41 deletions(-)
-
-
-base-commit: a4311e9447bbb219044db38897f95be112f46a8a
--- 
-2.43.0
-
-Changes in v3:
-- Fix the codec teardown in the HD-audio layer as suggested by Takashi,
-  instead of retaining the PCM in the PCM core: serialize the codec probe
-  and remove on a bus, and wait for the files opened on the codec PCMs
-  before freeing them.
-- Add the card file while looking up the PCM minor, so that the wait cannot
-  miss an open, and wait only for the files of the codec PCMs instead of all
-  files of the card.
-- Refuse to open a disconnected PCM.
-- Drop the Assisted-by tag, which has been removed from the documentation
-  and checkpatch.
-
-Link to v1: https://lore.kernel.org/r/pm-pmb-a4703edca61d34aa679b-v6-680f350d78e44f9de7a7@gmail.com
-Link to v2: https://lore.kernel.org/r/pm-pmb-a4703edca61d34aa679b-v9-c4f3df026f28aea10fd1-0@gmail.com
