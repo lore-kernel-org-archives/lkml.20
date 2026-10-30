@@ -1,74 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348422;
-	b=DBfs9Qi+eIvdHwIrwW5E/ASLqVf3Ih1PfKwhK6QEpiCMTbSmL/BfP8t8+jpnxS7CZC9v
-	 l5ezbV3v3lzkG5luJdqTCJLNWkwNFB4jNSahrWxuQsUIpZGArE15WFtgHqfrXctIS3aKf
-	 jqTi/mFafJejIxYyC+cLxaJ6QhrKybB1iW8OM1LSEPRBMdjlTMYIDVxl7nDBzzhpkpFeK
-	 prgHZ9IwaHAubp/iS4hZuoEODGxxl3DDyspJX/Khrs8+L9CQXy2nIDQszkTIH47YvXgB3
-	 ioPamX80JTfU9wo08Noc2chxjiLO6n68UhJ8xErWCIrH58nxaNScOD/cahKOHl3meAg==
+	t=1793348433;
+	b=KFeUPxAxqF/2FsFG8ebfg+UwWSIq3V52kMDeGyp2nZmvwRrPX7zBAv95LCmBV9Xp3r3x
+	 U5Z2InnQQZ5YSKExBmtE/YqW2bRFk40sOyhBLFhvH0OwZOjaKv21YPKVVCcrV3stlpgJG
+	 ISzbfeRUVSSnJlf22lV9qLnuvwA7bISSxokwbfiuFv7YocYLeOwdUP2F67cN2LhK7SpJc
+	 USA+MR6CXyzU+gmmETF0Omc3TyZTHJBe3hUv0xJe0RSMf/TnegjlN1FmLbUED2jeEkCfM
+	 lZInbBMnmkA7cDMfWKZnF1ZtbOOCsZj2tvBYLh0IM0ys58+rtGAA1D8HmGc+cPvynlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348422;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=nCHeps+CijbslSPpm8J23zvNgLSPR1Nf4YTEZZ8kbIs=;
-	b=tQo8IzATaHaPiwVFj8neWkRQe/JWtslxaJe2BDLMj6v15rXd3DMupMXKEbb2DSZ2GyBQ
-	 uxDzU9xP72kAkQEIUgCJsPQLp9GvbMh16wpSKFZ9T5AMiUEb86OUfE+IqX0wu3042eK3Y
-	 eQq3rFYeCcV9rXJ3meS0mVLmraEhdpD9is+eeSlyr3EYbj2XDJiFaQtFcduzJt1gbvcUe
-	 VqgP5nCH0RjZZbHVvyI/ifrAgYHlwdPMl+IxpkNaz4kEJpJSCK9gQxJQcVmxvMBhp8g6I
-	 0bqIvfRmVglIMwXk8aVayCs7U9FjKrzRsIJzu6cFGWXlYfNGUugC7O0FrvKEUS/WNrg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348433;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type;
+	bh=eMw0Tsc5hY6DqmDs0szKnY0CQ5h9hvbZXBJZty/2/ZY=;
+	b=MMkOchM3/1CjcUemjJ5jQl77UrO/q/Vozvnwp9zPi8eC7R+Y3lK++B8rkTKnbe0hrRMv
+	 V6Lk/gVzamXmAgPqw8p0YnFI8bFQQCLa013tAlipf54uq15zb+22SHBhRnS7rpIJKpXyi
+	 XpO38q15IXZYyVFd79z4gAG7UMocF/gz+y6mKZmh63KAu+vD4/s8MJBY79xvmXJrTPKEt
+	 +gFWXquSskuePOaEpfbRvqlagm+XAZMUu2br5a7Sls3ruTdHVT4eJJcgTPjIjCrfpOg7w
+	 dJ5LqfO5gKvK1Qyz4stRX9+YUVcQAn+0DENZKK33GnqDE4qB3wKDWWeK08h7PWYjujA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=kh3Ak2fO;
-	arc=none smtp.remote-ip=162.62.57.137
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=aTFFpxxh;
+	arc=none smtp.remote-ip=185.70.43.22
+Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84410606A31A;
-	Fri, 30 Oct 2026 08:20:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84410606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DBD606A333
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:20:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77DBD606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=kh3Ak2fO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793348416;
-	bh=nCHeps+CijbslSPpm8J23zvNgLSPR1Nf4YTEZZ8kbIs=;
-	h=From:To:Cc:Subject:Date;
-	b=kh3Ak2fOT47MvdLkrRSzVj2sEnVZgRYVlhLpC4sxwdFMHih003w+S5S6jGEoeW9Vh
-	 BXzGyqAvgCXmySV+JJp0i1Ia9PFCkJj55iv+M2dSI6AYgYrDIumXJzRKsm93belAln
-	 odBmrmF1mr9jH4Qqr1Mcjk3Wqqe4j0WY9u7JM0x8=
-Received: from HAPYCAO-MC1.tencent.com ([101.226.143.246])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 50EAD0B3; Fri, 30 Oct 2026 16:20:14 +0800
-X-QQ-mid: xmsmtpt1793348414taayzalkl
-Message-ID: <tencent_BA84E1B456527B98F8AB612A15AE6F5FA409@qq.com>
-X-QQ-XMAILINFO: MRMtjO3A6C9Xk/01pfTpsZ3Pes5tlgIwrpb4NA4GBHeStZVL8aOjr6TmFuHgMo
-	 iWO8CZnsbudzFvZ7K27WgxBUBWdz6gvouXPK1hnEPR2l5TYK8s+eLWcB66au5HLn5wImWfkldFYS
-	 3Y172rV/LsdvniJ83usHaP7h5bIdhv6cZS172s+8l97yy7rjlZ4CXQy4KqS+LYVl+fJ73ccbO2+w
-	 UFgtAxr463IZEJ7Jx1Wjb2xT3e6mNdCOp1sdtp3loFCNPB57Cqo4rA3KGf6zxYJLpGHi6tJKi2Yb
-	 uqBSxWiFc1V9yrdjjXvIi0Ocu5Or18YVIZKnp6fjd7vD2YFQP8uNDJQd+4EhD5kAbQs8o2oNjNvF
-	 ZTyQzFu3hAFLN43LW3TYzsw5BqywOCeJlWcsq1iLSwTzSmzLEuAvTu0RNryAf2wlz63PN+8OpyEt
-	 cNrswotgaQxQxh+nEzUS07bbtFQf4H7bDOLDpYIR5nnFfG7hPigzst0rRRbUGFJHCHYIlUcfccu5
-	 S2qMFY2aCTVW5JqXHtkTvWzTBBTzSspkMQYwThzwyQNmaVKlRs+YgsHLIpOC+zaBamdwepKeSSZh
-	 jwHT7Zsu/j43RxJRN4bOkVGi/ssQ1xfphATWuQKFAnazG4SZQS1u5v1jHUKd0bXowy7DVOSC1WWK
-	 Dty4lfiCOAOBUEcyFJQjy/rFDHKAsmsf7l5wCNZ9shrlefEZqS9sERb/SxDmpGUe2asGFYGkYHIK
-	 QiVcUXqBtTTvXFbmrvgGc/h4tqvtB7yASOB7D24DeaLqRgot+HGwv9FTJuGsZvjeE4JIyWySHYtZ
-	 c5PgpIldP6fNiSh7xqNQ96/E01Jzy1wkyk207W+W56PZahuuXCOl7OWgs/Kyq6Ox8huV4S1JBRbv
-	 8TW9FWFkqar1LsO7oZNRSTxp0xVbw1c6iw28OkI3h3C8MFAz3YCVaPI+fO3WLp+XkmuvIPxCy6EY
-	 KogkyH9p3p9G+RL4CVgZb2eVWE4qmsqEOoJRS97cKW2lfTpB4Uss3aMoXnxHN0ylaLPrHbDpYv6G
-	 ydpgp9J4rP0UkLJoU631tq8TnVh3FBw/hK8zs1km0ul4AMFsET8PUwQBE/YynsIFDKVHlGIw==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-From: bo cao <treebacker@foxmail.com>
-To: srini@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] misc: fastrpc: consume in-flight reference exactly once
-Date: Fri, 30 Oct 2026 16:20:14 +0800
-X-OQ-MSGID: <20261030082014.34249-1-treebacker@foxmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=aTFFpxxh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1793348430; x=1793607630;
+	bh=eMw0Tsc5hY6DqmDs0szKnY0CQ5h9hvbZXBJZty/2/ZY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=aTFFpxxhvkz0apQitjCI++GPp1sNBCa5jWnWyXYFtz1GKCM+9ohYEg83HdgIiZiff
+	 0KvYohZZJ9NHir8hk7O1KmwAnaLp42qpwZ10UltJy9alQ3bdCBl3+ERqdUmp0dAIZk
+	 MXgrUAgXOIIBmtcYsP4k+OjmPARdPdipTAXBtiebXQ2v+570qUTCUMhSZTUz7UlG06
+	 pLZ4qyavffn3G22B3YniS687Nc60WSfa6Mzy4a2fwEACWyaCllKftcsC5q1qAEcubD
+	 UFVvaDw+7uNwzf3qnnS+QhB79cv3773dTfsOm83etzYEyQaEnxRxFK8EJ0IalDVIxv
+	 EQDh7PRa+bNyQ==
+Date: Fri, 30 Oct 2026 08:20:25 +0000
+To: linux-i2c@vger.kernel.org
+From: Yazoudi <Yazoudi@proton.me>
+Cc: linux-kernel@vger.kernel.org
+Subject: [Linux I2C/SMBus] AMD FCH SMBus controller fails to bind on Gigabyte B850M FORCE WIFI6E
+Message-ID: <70db7519-da14-4b59-a196-27f5b67c84bd@proton.me>
+In-Reply-To: <defea8da-35df-478e-8c07-226db605bb1d@proton.me>
+References: <defea8da-35df-478e-8c07-226db605bb1d@proton.me>
+Feedback-ID: 197040310:user:proton
+X-Pm-Message-ID: f6cb6cce089e0a0c6e4fed18b1de0a903a89c4c0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,80 +64,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed;
+ boundary="b1=_tas4pBrJGPaOHPqnjwdzTAuh5bgQkqaAUyBar8YW1vc"
 
-The response path is supposed to drop the in-flight reference taken
-by fastrpc_invoke_send() exactly once: fastrpc_rpmsg_callback() calls
-complete() and schedules fastrpc_context_put_wq(), whose worker drops
-the reference.  Nothing enforces this: a second delivery of the same
-COMPLETE response (identical ctxid and sequence, so it passes the
-sequence validation) re-queues put_work after the first worker has
-run and drops the in-flight reference a second time.  The context is
-then freed while the invoking thread is still processing the first
-completion, and the second fastrpc_context_free() also drops the
-fastrpc_user and channel context references a second time.
+--b1=_tas4pBrJGPaOHPqnjwdzTAuh5bgQkqaAUyBar8YW1vc
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Track the first delivery with a plain bool checked under cctx->lock,
-together with the sequence validation, and drop duplicates.
 
-Fixes: c68cfb718c8f ("misc: fastrpc: Add support for context Invoke method")
-Cc: stable@vger.kernel.org
-Signed-off-by: bo cao <treebacker@foxmail.com>
----
- drivers/misc/fastrpc.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+Hello,
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index c77048076aee..f56ba5e44e1f 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -271,6 +271,8 @@ struct fastrpc_invoke_ctx {
- 	bool is_work_done;
- 	/* process updates poll memory instead of glink response */
- 	bool is_polled;
-+	/* first response already consumed the in-flight reference */
-+	bool responded;
- 	struct kref refcount;
- 	struct list_head node; /* list of ctxs */
- 	struct completion work;
-@@ -2725,6 +2727,7 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 	unsigned long flags;
- 	unsigned long ctxid;
- 	bool stale = false;
-+	bool dup = false;
- 
- 	if (len < sizeof(*rsp))
- 		return -EINVAL;
-@@ -2749,8 +2752,13 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 		ctx = NULL;
- 	}
- 	if (ctx && FIELD_GET(FASTRPC_CTXID_SEQ_MASK, rsp->ctx) !=
--		   FIELD_GET(FASTRPC_CTXID_SEQ_MASK, ctx->ctxid))
-+		   FIELD_GET(FASTRPC_CTXID_SEQ_MASK, ctx->ctxid)) {
- 		stale = true;
-+	} else if (ctx && ctx->responded) {
-+		dup = true;
-+	} else if (ctx) {
-+		ctx->responded = true;
-+	}
- 	spin_unlock_irqrestore(&cctx->lock, flags);
- 
- 	if (!ctx) {
-@@ -2773,6 +2781,14 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
- 		return 0;
- 	}
- 
-+	if (dup) {
-+		dev_dbg(&rpdev->dev,
-+			"Duplicate glink response ctx 0x%llx, dropping\n",
-+			rsp->ctx);
-+		fastrpc_context_put(ctx);
-+		return 0;
-+	}
-+
- 	ctx->retval = rsp->retval;
- 	ctx->is_work_done = true;
- 	complete(&ctx->work);
--- 
-2.39.5 (Apple Git-154)
+I am investigating an SMBus controller that does not bind to the Linux=20
+i2c_piix4 driver on my Gigabyte B850M FORCE WIFI6E (revision 1.0)=20
+motherboard.
+
+The PCI device is detected, and i2c_piix4 is listed as a candidate=20
+module, but no driver is bound to the device. The kernel also logs an=20
+ACPI resource conflict involving the SMBus I/O range and the GSA1.SMBI=20
+operation region.
+
+System details:
+
+  *
+
+    Motherboard: Gigabyte B850M FORCE WIFI6E, revision 1.0
+
+  *
+
+    BIOS: F8a
+
+  *
+
+    Distribution: Arch Linux with zen kernel
+
+  *
+
+    Kernel: 7.2.11-zen1-1-zen
+
+  *
+
+    SMBus PCI device: 00:14.0, AMD FCH SMBus Controller [1022:790b],
+    revision 71
+
+  *
+
+    PCI subsystem: Gigabyte [1458:5001]
+
+Relevant observations:
+
+ 1.
+
+    |lspci -nnk -s 00:14.0|lists |i2c_piix4|under Kernel modules, but
+    does not show a Kernel driver in use.
+
+ 2.
+
+    |/sys/bus/pci/devices/0000:00:14.0/driver|does not resolve to a driver.
+
+ 3.
+
+    The kernel logs:
+    |ACPI Warning: SystemIO range 0x0000000000000B00-0x0000000000000B08
+    conflicts with OpRegion 0x0000000000000B00-0x0000000000000B0F
+    (\GSA1.SMBI)|
+    followed by:
+    |ACPI: OSL: Resource conflict; ACPI support missing from driver?|
+
+ 4.
+
+    |/proc/ioports|lists |0b00-0b0f : PNP0C02:03|.
+
+ 5.
+
+    Reloading i2c_piix4 does not bind the driver, and no SMBus adapter
+    appears among the available I=C2=B2C adapters.
+
+I originally investigated this because OpenRGB cannot detect my KLEVV=20
+CRAS V RGB DDR5 modules. The |spd5118|driver loads, but no SPD devices=20
+are instantiated. I understand that SPD access and RGB control are=20
+separate issues; my immediate concern is the SMBus controller not binding.
+
+I found a related patch discussion concerning an ACPI resource conflict=20
+on the Gigabyte X870 EAGLE WIFI7:
+https://lkml.rescloud.iu.edu/2608.1/09152.html=20
+<https://lkml.rescloud.iu.edu/2608.1/09152.html>
+
+That is a different motherboard, so I do not know whether the same=20
+underlying issue applies here.
+
+Could you advise whether this looks like an ACPI resource reservation=20
+preventing i2c_piix4 from binding, and what additional diagnostics would=20
+help establish the cause? I have not forced the driver to bind or=20
+disabled the kernel's ACPI resource protections.
+
+I can provide the full kernel log, PCI configuration, and other=20
+diagnostic output if needed.
+
+Thank you.
+
+
+--b1=_tas4pBrJGPaOHPqnjwdzTAuh5bgQkqaAUyBar8YW1vc
+Content-Type: text/plain; charset=UTF-8; name=diagnostics.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename=diagnostics.txt
+
+PT09IEtlcm5lbCA9PT0KTGludXggWWF6b3VkaVBjIDcuMi4xMS16ZW4xLTEtemVuICMxIFpFTiBT
+TVAgUFJFRU1QVF9EWU5BTUlDIEZyaSwgMTYgT2N0IDIwMjYgMDA6Mjg6NDIgKzAwMDAgeDg2XzY0
+IEdOVS9MaW51eApMaW51eCB2ZXJzaW9uIDcuMi4xMS16ZW4xLTEtemVuIChsaW51eC16ZW5AYXJj
+aGxpbnV4KSAoZ2NjIChHQ0MpIDE2LjIuMSAyMDI2MDgxMCwgR05VIGxkIChHTlUgQmludXRpbHMp
+IDIuNDcpICMxIFpFTiBTTVAgUFJFRU1QVF9EWU5BTUlDIEZyaSwgMTYgT2N0IDIwMjYgMDA6Mjg6
+NDIgKzAwMDAKCj09PSBEaXN0cmlidXRpb24gPT09Ck5BTUU9IkFyY2ggTGludXgiClBSRVRUWV9O
+QU1FPSJBcmNoIExpbnV4IgpJRD1hcmNoCkJVSUxEX0lEPXJvbGxpbmcKQU5TSV9DT0xPUj0iMzg7
+MjsyMzsxNDc7MjA5IgpIT01FX1VSTD0iaHR0cHM6Ly9hcmNobGludXgub3JnLyIKRE9DVU1FTlRB
+VElPTl9VUkw9Imh0dHBzOi8vd2lraS5hcmNobGludXgub3JnLyIKU1VQUE9SVF9VUkw9Imh0dHBz
+Oi8vYmJzLmFyY2hsaW51eC5vcmcvIgpCVUdfUkVQT1JUX1VSTD0iaHR0cHM6Ly9naXRsYWIuYXJj
+aGxpbnV4Lm9yZy9ncm91cHMvYXJjaGxpbnV4Ly0vaXNzdWVzIgpQUklWQUNZX1BPTElDWV9VUkw9
+Imh0dHBzOi8vdGVybXMuYXJjaGxpbnV4Lm9yZy9kb2NzL3ByaXZhY3ktcG9saWN5LyIKTE9HTz1h
+cmNobGludXgtbG9nbwoKPT09IE1vdGhlcmJvYXJkIGFuZCBCSU9TID09PQpCODUwTSBGT1JDRSBX
+SUZJNkUKeC54CkY4YQowMy8xMS8yMDI2Cgo9PT0gU01CdXMgUENJIGNvbnRyb2xsZXIgPT09CjAw
+OjE0LjAgU01CdXMgWzBjMDVdOiBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuIFtBTURdIEZD
+SCBTTUJ1cyBDb250cm9sbGVyIFsxMDIyOjc5MGJdIChyZXYgNzEpCglTdWJzeXN0ZW06IEdpZ2Fi
+eXRlIFRlY2hub2xvZ3kgQ28uLCBMdGQgRGV2aWNlIFsxNDU4OjUwMDFdCglLZXJuZWwgbW9kdWxl
+czogaTJjX3BpaXg0LCBzcDUxMDBfdGNvCjAwOjE0LjAgU01CdXM6IEFkdmFuY2VkIE1pY3JvIERl
+dmljZXMsIEluYy4gW0FNRF0gRkNIIFNNQnVzIENvbnRyb2xsZXIgKHJldiA3MSkKCVN1YnN5c3Rl
+bTogR2lnYWJ5dGUgVGVjaG5vbG9neSBDby4sIEx0ZCBEZXZpY2UgNTAwMQoJQ29udHJvbDogSS9P
+KyBNZW0rIEJ1c01hc3Rlci0gU3BlY0N5Y2xlLSBNZW1XSU5WLSBWR0FTbm9vcC0gUGFyRXJyLSBT
+dGVwcGluZy0gU0VSUi0gRmFzdEIyQi0gRGlzSU5UeCsKCVN0YXR1czogQ2FwLSA2Nk1IeisgVURG
+LSBGYXN0QjJCLSBQYXJFcnItIERFVlNFTD1tZWRpdW0gPlRBYm9ydC0gPFRBYm9ydC0gPE1BYm9y
+dC0gPlNFUlItIDxQRVJSLSBJTlR4LQoJSU9NTVUgZ3JvdXA6IDEwCglLZXJuZWwgbW9kdWxlczog
+aTJjX3BpaXg0LCBzcDUxMDBfdGNvCgoKPT09IEkvTyByZXNvdXJjZSByZXNlcnZhdGlvbiA9PT0K
+ICAwMDAwLTAwMDAgOiBQTlAwQjAwOjAwCgo9PT0gUmVsZXZhbnQga2VybmVsIG1lc3NhZ2VzID09
+PQpPY3QgMzAgMTA6NTE6NTkgWWF6b3VkaVBjIGtlcm5lbDogQklPUy1lODIwOiBbbWVtIDB4MDAw
+MDAwMDAwYjAwMDAwMC0weDAwMDAwMDAwMGIwMjBmZmZdICBkZXZpY2UgcmVzZXJ2ZWQKT2N0IDMw
+IDEwOjUxOjU5IFlhem91ZGlQYyBrZXJuZWw6IFBNOiBoaWJlcm5hdGlvbjogUmVnaXN0ZXJlZCBu
+b3NhdmUgbWVtb3J5OiBbbWVtIDB4MGIwMDAwMDAtMHgwYjAyMGZmZl0KT2N0IDMwIDEwOjUxOjU5
+IFlhem91ZGlQYyBrZXJuZWw6IGU4MjA6IHJlZ2lzdGVyIFJBTSBidWZmZXIgcmVzb3VyY2UgW21l
+bSAweDBiMDAwMDAwLTB4MGJmZmZmZmZdCk9jdCAzMCAxMDo1MTo1OSBZYXpvdWRpUGMga2VybmVs
+OiBhY3BpIFBOUDBDMDI6MDM6IFJlc2VydmVkIFtpbyAgMHgwYjAwLTB4MGIwZl0KT2N0IDMwIDEw
+OjUxOjU5IFlhem91ZGlQYyBrZXJuZWw6IHJ0Y19jbW9zIFBOUDBCMDA6MDA6IFJUQyBjYW4gd2Fr
+ZSBmcm9tIFM0Ck9jdCAzMCAxMDo1MTo1OSBZYXpvdWRpUGMga2VybmVsOiBydGNfY21vcyBQTlAw
+QjAwOjAwOiByZWdpc3RlcmVkIGFzIHJ0YzAKT2N0IDMwIDEwOjUxOjU5IFlhem91ZGlQYyBrZXJu
+ZWw6IHJ0Y19jbW9zIFBOUDBCMDA6MDA6IHNldHRpbmcgc3lzdGVtIGNsb2NrIHRvIDIwMjYtMTAt
+MzBUMDY6NTE6NTEgVVRDICgxNzkzMzQzMTExKQpPY3QgMzAgMTA6NTE6NTkgWWF6b3VkaVBjIGtl
+cm5lbDogcnRjX2Ntb3MgUE5QMEIwMDowMDogYWxhcm1zIHVwIHRvIG9uZSBtb250aCwgeTNrLCAx
+MTQgYnl0ZXMgbnZyYW0KT2N0IDMwIDEwOjUxOjU5IFlhem91ZGlQYyBrZXJuZWw6IEFDUEkgV2Fy
+bmluZzogU3lzdGVtSU8gcmFuZ2UgMHgwMDAwMDAwMDAwMDAwQjAwLTB4MDAwMDAwMDAwMDAwMEIw
+OCBjb25mbGljdHMgd2l0aCBPcFJlZ2lvbiAweDAwMDAwMDAwMDAwMDBCMDAtMHgwMDAwMDAwMDAw
+MDAwQjBGIChcR1NBMS5TTUJJKSAoMjAyNjA0MDgvdXRhZGRyZXNzLTIwNCkKT2N0IDMwIDEwOjUx
+OjU5IFlhem91ZGlQYyBrZXJuZWw6IEFDUEk6IE9TTDogUmVzb3VyY2UgY29uZmxpY3Q7IEFDUEkg
+c3VwcG9ydCBtaXNzaW5nIGZyb20gZHJpdmVyPwpPY3QgMzAgMTE6MjQ6MjUgWWF6b3VkaVBjIGtl
+cm5lbDogQUNQSSBXYXJuaW5nOiBTeXN0ZW1JTyByYW5nZSAweDAwMDAwMDAwMDAwMDBCMDAtMHgw
+MDAwMDAwMDAwMDAwQjA4IGNvbmZsaWN0cyB3aXRoIE9wUmVnaW9uIDB4MDAwMDAwMDAwMDAwMEIw
+MC0weDAwMDAwMDAwMDAwMDBCMEYgKFxHU0ExLlNNQkkpICgyMDI2MDQwOC91dGFkZHJlc3MtMjA0
+KQpPY3QgMzAgMTE6MjQ6MjUgWWF6b3VkaVBjIGtlcm5lbDogQUNQSTogT1NMOiBSZXNvdXJjZSBj
+b25mbGljdDsgQUNQSSBzdXBwb3J0IG1pc3NpbmcgZnJvbSBkcml2ZXI/Cg==
+
+--b1=_tas4pBrJGPaOHPqnjwdzTAuh5bgQkqaAUyBar8YW1vc--
 
