@@ -1,81 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352369;
-	b=nINW/6uJ+J7/wLXLwA8eGk1CA5uArxdNFzCPo7eTrYg2Gia5bXBC81xHrEexFMT8X+N4
-	 bCUUIZqk529Z4Z3+myZxBGdTra5TUOaWhH/SRxRWmrsJJF6HG/ogFN7rLFISIVvPkKmiq
-	 GbLYy4q5SV2A5pliYscnR/U0pvsF4UH2Fb2PRai+XkQjcoJGX3qDN+teRvX8l5EuyR8gP
-	 hqaq4qtclI/jn6mlvyshim0fYs0Ux3qzefQlvFPBxtGrQ83VbBWjfZlrfKniANl7rT1Js
-	 EQguY3nKjwaoExJYSeICqAs4hkX8yzgpt5rwLl6YQiNJRlrUn7VK24mFc82NFabvx6w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352369;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.59
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793352392;
+	b=SOzKO6+OJaqLHv8WTlQv/iECDdHWDGj7Q5lqripu1KJfJ2cX8+fCqfRcJ05KwkxahEWT
+	 gSaYDKXkdm1NkzBJLrKuaxeR4fsSxWrlVd7E8Nt8D3GG+jmroisqij3g7V4aqf3hhE79W
+	 U4aTdsn81VSBhyX0OeGnwCOPAsRr4bopzeGGhD8fUlUHQX70XZA9sl2lk1ht6ZewNWNbi
+	 YYEYebkckEWGZmgLfRMd3AjrySKYqX0u6O1VIj4dkArcvj8DC0z/h4bcAeo5Ir9HNrOKu
+	 tTjScRMQtcK/DXT6p9SqsipIBjAoWjrREPWTxD8HnAncnSOQmt7gY6p04NGD/w6hwFg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352392;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=jJa4JjR84XK4CG4QDpFtPsBLhALKFEqWPRvqeff2yFg=;
-	b=sC0snG1/4Fjkb2nncYeMAwTPNEh3AU/Jq1f74QUTL4v97ucFqP9hnWsCuIzPAtAfOHPn
-	 uX6E5XDuU1DxYFYsILrRZj4BF7PFSZO6dqGA+7pSYybcgNKqOfjHcjGMrozoHXdd/15iQ
-	 oPlNYKK+s3y8etn8wv29dd8SNjlxafw51rS380aUDPgb53RU2cAGNo+E2I0SYsxWp2qNy
-	 2B3nklzqdHPftIVaRhXFtcLy1rRH1/0CKf8B/9iFyWCthBiJMbDQPpYnWJg+WlpS6YXg0
-	 7S0//+mgt6GJIT3GmdyWQAp+Enz1FIVlo+KiuP5i7ImTMa4IbhGtU3t4Q6J0ZCtHwEg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=a2J8pzb3;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=ahy0xUmJw7Iw8hPoCL1y6gFlmd60i7ViCyX0v8RePWE=;
+	b=aVrI6ndYBIxxygH61yBa2SemccgHN0n1QNBHH8KuXTiRj1cXOpckZB4OW3A8+T0mr71J
+	 3qTT+vNWziXjUSGZkyjXHN6GYB8X53h1dgtBUIG2Zxb8hdr/KUW21yLQSoRjntkPidwhC
+	 bcHfN8VALC7wcp6d4DJdJmFuCYG8zTFl2yrKDG0oPQb1l1fkdFuHpzn40yW/N9x39JQKV
+	 FbR4XuT5sp+upUxAyUAhm8c3V1xqOo/oh1UeLqG2i05GEDwrLO0voUVJeDohWFtLqx/Sp
+	 MM3f32lIrYU+EbH9/eTXfunuk/KQADaV0mdBfYL489e8IyJQG/vT0KhZma5hUzAmwTw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=D1FrHBuD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.59
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011059.outbound.protection.outlook.com [40.107.130.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E25C606A325;
-	Fri, 30 Oct 2026 09:26:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E25C606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 684C2606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:26:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 684C2606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=a2J8pzb3
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=jJa4JjR84XK4CG4QDpFtPsBLhALKFEqWPRvqeff2yFg=; b=a2J8pzb3GO3BZR51NFC9hp0pWX
-	C6lisJRWCnujq5nxZNaZSREFr+44tWN4EfRRkdMFGhKrqMNMTPuZpwrXFRzQktHNPFY4GcSboaKcj
-	Aoow/VK/3oe9C2LAia1r256M6tR/pUnDgqA/juDF8kW+2NqL1JCUu4pF+NBE4zJRq2PgMwLFTGF0b
-	cq6KCffuhMD0v06TpbWvF+Kxt+RWTWSARpKlU86jw7jjlGW2qlvZsq5rBUkTnDXr/aI+5yIlwapPM
-	LMBWnluOTiR/6XdurS09Gsjlr86KV2WhFtvis760yhYpVATaLTtGBNvSCOXUr1J7t+D/PloFGzEbA
-	JStBm2Zw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMis5-00000004X5i-4AOm;
-	Fri, 30 Oct 2026 09:26:02 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 00E15300329; Fri, 30 Oct 2026 10:26:00 +0100 (CET)
-Date: Fri, 30 Oct 2026 10:26:00 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>,
-	Kees Cook <keescook@chromium.org>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Eranian Stephane <eranian@google.com>,
-	Sandipan Das <sandipan.das@amd.com>,
-	Andrii Nakryiko <andrii@kernel.org>, Song Liu <song@kernel.org>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	Ananth Narayan <ananth.narayan@amd.com>,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	bpf@vger.kernel.org, Dapeng Mi <dapeng1.mi@intel.com>,
-	Zide Chen <zide.chen@intel.com>,
-	Falcon Thomas <thomas.falcon@intel.com>,
-	Xudong Hao <xudong.hao@intel.com>
-Subject: Re: [Patch v5 10/18] perf/x86/intel: Allow LBR read helpers to
- operate on explicit stacks
-Message-ID: <20261030092600.GL2668804@noisy.programming.kicks-ass.net>
-References: <20261029043914.1395147-1-dapeng1.mi@linux.intel.com>
- <20261029043914.1395147-11-dapeng1.mi@linux.intel.com>
- <20261029103857.GL1779021@noisy.programming.kicks-ass.net>
- <e7bb28e7-cf1a-44b3-9ce9-3e6ab228d34f@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=D1FrHBuD
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IqCfx3BmpiSjNom04IoA734vP04dWtIsahr2ZNVrDzmHjKXQmJGZk5LndcMQdgbGjMpzZhtP4WZJlHwqpToCVLAXvF06qkx23v06cKUSAlnRSX6E0DegC1FScP8BRJfS8pF+v4H1EGpAylpeHkj7O3vG4FWNW80FXGSuvWlgBATKdAspQjNzYsILZ6pHkVw9BV5zpHGlFFTTVCPKcONm6HkUWwVcsVQUzaDyigrEweXYEvey7BjnIqhf1Skbl4blfv4kFzrIpkbX1uhWlp2hFVMKSmCoyAAAPyHOs2EJGvIseX1AB+6ZrcYndyWz1tGtMJ0l/EWqtpSe7VRJDVm+Zw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ahy0xUmJw7Iw8hPoCL1y6gFlmd60i7ViCyX0v8RePWE=;
+ b=IwEmdE1TQ6CCuT6gzIsoXamnnOKsoKtOS2nk4hEonaTORj1j4/vuLVpeUW7HnuA+3jRI30O6xT2yWLtkHP0MMZ528K7ufe5LKInZFtrkpk7L/5ZE7OSV/+U2RcUn8cEQ3rRBWNrrqDNLkc9/fqOxBxkHgyBST+heKvzdaVKpzYOsnlsQ2fS47V3/Cn2QzpNtseXHPXJkHLiBPchEtq1SgazTLrCfvJXA1baaNoNwcUlSZCuCvdoMZY21mAVhf+0D3EDupwd6nGqZqEWC2OousEWqq8Quuwe9rLpzw+cALUWHKmijxOCE2ER65Jj57UsGCQLo3zST/RzCK/Hhiz8uIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ahy0xUmJw7Iw8hPoCL1y6gFlmd60i7ViCyX0v8RePWE=;
+ b=D1FrHBuDgljUQgAEQVhifap1l8cXIo6Um6z18geQEzDNE1OQxx4CIj5B5Q3K9fr3n2i5jEVg6UrMPcFBgPY99brkVBiJ8iBzRwYm9r6vdp6WlTXa4qFTzGHwZ7CK6xzBT2j5FSpiZXlu4/HDIkZpWNLIkgrBn0+YS1pDBN49N64AMjBXTsCITExz79QzOO57HlKhZ8YJf9N8ZK2y4tL1gkG10mLX0f6aYIfAcMDKeyT/suyGgOZinRWdY5qPg0w2qDzNwsIS+tcseeSymWS7B7k8lrQdTlRCqWHPctoC1CnTaYk9oKa56FonwYMidwb1CRSyMxV9nTTaHhzzf7V6Uw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by AS8PR04MB7701.eurprd04.prod.outlook.com
+ (2603:10a6:20b:293::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 09:26:26 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 09:26:26 +0000
+Date: Fri, 30 Oct 2026 11:26:22 +0200
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: laixiangwu <laixiangwu@cmss.chinamobile.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Lucas Stach <l.stach@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	dri-devel@lists.freedesktop.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/imx/dcss: Fix clock leak on blkctl init failure
+Message-ID: <auRgElrEh0YlUaKc@vm>
+References: <20261030083342.1531-1-laixiangwu@cmss.chinamobile.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030083342.1531-1-laixiangwu@cmss.chinamobile.com>
+X-ClientProxiedBy: FR2P281CA0093.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::18) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,544 +102,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e7bb28e7-cf1a-44b3-9ce9-3e6ab228d34f@linux.intel.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|AS8PR04MB7701:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38fdd46f-ae0f-444a-e9d9-08df3667df11
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|376014|7416014|1800799024|366016|10067099003|22082099003|18002099003|56012099006|11063799006|261026121527099003|261028144727099003|261026140227099003|261021121427099003|261021123027099003|261022105027099003|261022075727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	kqemCdIkRSuYdX5McsLZRmz/vsyDAYBiIpFtBdKeM5a7L1aCFeD/nn1vs6JN6v0WzZyooa/Q63luhOcLafTyRy6osfmJk677Kyyx8XhqeaGMwWQgFjqKOawUX2f+VmHvZQQ70HZtK7FRqLqIRiF9BS6qrjMVbl5SUJA/pKiXIkBIvbXFAlDFhgTEkSl1XInYRQvEvk8MECachvWolNoPMszllRacvomAo9Bg5iI4FcUv3ojf+rHKMOTBgQp+I9E7zaioPhfp+9fXmCZuXE8gdxE38R+a3BKZh81qA7hUNJF6zeKG9UbFW3YXHqgDSRpwjAGuEV/zLVVQ+Q/WPeVoYH1JadeIbAaj0jPt5lL3X949zQx+5nLbZKLSO2xOBPbWvnYSQAHkdJFqWZ++COLoR8DoDL5+j0Wd/CSQqz+Asvg/iUYWiINTPguydBPDaY6oiBvtXpXbj+xaRMmr3MsYBrdxEUfIzotyitw0NH7LA6/Ti/J4tIS8s3/i9ueKeOPN3yrkLhyytp/HriiJHnohXyMSzT731fcF6PKcILqFK8kwVMKxGGoMDnCfhN+DCrzncjjjoftUCFS1rsAYRE8Q/ZOynqIx+GwseqTbVnUk4q3rK7VcoEj4d1WBFHcYE5JTWfE6JTS5AoCWde6he+LGPjPl88qjQErr//oqkbDrS20=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(376014)(7416014)(1800799024)(366016)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(261026121527099003)(261028144727099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?F1Fh9nFmidJmNz0ySM4557Z2v9lNfiU82T/Ct+lxY8clbLKOJMVrK3JHPbXC?=
+ =?us-ascii?Q?zuvfa/WOe9lhFwt/a/EIXH4lVcwgHFeAdgZiwPdzUyzvSXk8DVAaHUHavIs+?=
+ =?us-ascii?Q?NzUKXoNSO9ogRQUONYzEGnUSyuEw6BNJKgth42a/UF52M8WtsFcK5qNCJuxu?=
+ =?us-ascii?Q?FhZeVIc4aaxt7GiOnY2hT3tGbSiCHPgv2yfNU7ayU1GUngMcN/OpdmQ7pKNp?=
+ =?us-ascii?Q?Ri9WWLwWFB7xhZQo4r1708wpYSR3OsqksVPDKRNHx3iNCIIzLJoBDJFtOUFZ?=
+ =?us-ascii?Q?Cm0LjJ0h6Hpa4bvBr6V5hCXPc8oDf38ZGHffFztZVN3H6wxf3BRiXwdNau+Q?=
+ =?us-ascii?Q?uVgR7O1wba3CeoozRYqUKe66OZhyqLTycA8h/6a7ZTH1m51jdXuauQ4Dp6Gx?=
+ =?us-ascii?Q?YMggaA8OKq5ngdTvj9WiPGfb7gt/SUhWd3ndQgLQMoLvnkOTEieaZfntCWm+?=
+ =?us-ascii?Q?WuDJZNTaLskWGj+g8PwE94H488KSl1EZBLV6Tp3h5fJ7nJWIXNXHhBmcXTp8?=
+ =?us-ascii?Q?uFudc6Z6uEcpk65IH4PyafRxaj3MWveMJsdnppITfZ58eDg4M5jz98cRbIAi?=
+ =?us-ascii?Q?BsBUqqY9ESJZcWRkIgqDFF17Wm1xtntcyvvgGYdrA4O1B1VNGGdzcrMzj5za?=
+ =?us-ascii?Q?E3ktqI8eV4ymnKAdIAsLSz0TD2AFDQ4E+4zWig15mZ99gyB2Tt0Knh+sSF83?=
+ =?us-ascii?Q?zNVyU0Afc9jrCHCgOhI0skLrvusN568nyJKgWCKrw25xI7tZpH4tG1FbVaUv?=
+ =?us-ascii?Q?i1yWtQU9fdZfPlfqUErGgtfVi2Hiiv9OyN2G/gO8jZvqfQX4bYCEk3ZY7GPu?=
+ =?us-ascii?Q?GgO44ifeAFtfMbV/al+0QBygsKJUa6rpLo05/33lhqUOUufCHF7OqZaE1duM?=
+ =?us-ascii?Q?1ljiBSn6kqiJBDXtJQJ5Bk46ZlYqhmMel9HvCQzUzP1U8H7n6siNup9dur9r?=
+ =?us-ascii?Q?oK8G1Cn64ozcPkcZ8Kl2S0WpDn3QAuSr1lW17WdvEppdsY/ZgP5W7Skc+iv/?=
+ =?us-ascii?Q?Vzs4J1jakmB37ro7BfE8r8r0BIWtZauWYbyV0i4Hgy8PMHiUvubNHf8h67av?=
+ =?us-ascii?Q?sFSWIrVAt8lfaZ5O+JLwb9e4weE2ThxhFp3DRi1QbwfSUqmOnSM2/qaUe3P0?=
+ =?us-ascii?Q?r4wPf2WyWK71C3RTPRjF18eVkrH8A2s+rIZLk0lRqy1vV7ahy3xo2b88Hvt2?=
+ =?us-ascii?Q?paclpLcPs8wi94zgyTdDyYEneVyIfdmaL1Z4sEkM7YzOlvrYt4cxnedGQS/t?=
+ =?us-ascii?Q?zq3nwS8vPwgFhzixr82oQ2AM6W/j1rF8f5UDOqorV7uBCTbaNqshPyHsFTu2?=
+ =?us-ascii?Q?uaamQoxc64aZl/+vb6OZ0ETy2D2kVM8tMYk+XLOsEhWn29HwcwY+u6nfYoGK?=
+ =?us-ascii?Q?geqInicWItDNf219zQIYyAtm9FWz0v5dJsnTGvmjL6/j1MNUUr+BbWT4kGO3?=
+ =?us-ascii?Q?uMGACsFuZzAW5PUrz2X0TlLpN205Z9eA3Pfu418waScDuixRpJP09OgeKJ37?=
+ =?us-ascii?Q?pvrEMuxU4+3rS2BixcSGrAevnFOhFjfyd2JNhKwA6B2Q+sTnCmnAeTOXdmQZ?=
+ =?us-ascii?Q?9Xo4X9UdHUufTKzEmPSZYstYzeuk9BmYyQIbLSdwMSWOFCqaKSXBbxCaZolD?=
+ =?us-ascii?Q?z5VIs4Q8r5Rf9G112T3f7mM0d5f7dexCh34cUQvrdkYFc0eBZReEpogmVYUK?=
+ =?us-ascii?Q?yhwVuwQhDritnMBsm5vXy0O7v25YZIyrYcMaN0jBQFojJA4D0x/tEG3n+5dV?=
+ =?us-ascii?Q?fZSSOM4dJw=3D=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38fdd46f-ae0f-444a-e9d9-08df3667df11
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 09:26:26.5039
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hHYHlR15ksNwxrCdR31gD1S7qaHYn/5yTlXK4rVRXjX7nhVBDWDvFpNO6NDcgMS6DnTolGfbTsbBU44ST2yUag==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7701
 
-On Fri, Oct 30, 2026 at 09:05:59AM +0800, Mi, Dapeng wrote:
+Hi,
+
+Thank you for the fix.
+
+On Fri, Oct 30, 2026 at 04:33:42PM +0800, laixiangwu wrote:
+> dcss_submodules_init() enables the DCSS clocks before initializing the
+> submodules, but if the first submodule (blkctl) fails to initialize the
+> function returns directly, without disabling the clocks again. All the
+> later error paths already jump to ctxld_err, which calls
+> dcss_clocks_disable().
 > 
-> On 10/29/2026 6:38 PM, Peter Zijlstra wrote:
-> > On Thu, Oct 29, 2026 at 12:39:06PM +0800, Dapeng Mi wrote:
-> >> diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
-> >> index ee724b28d90c..63f0504f9d2a 100644
-> >> --- a/arch/x86/events/intel/lbr.c
-> >> +++ b/arch/x86/events/intel/lbr.c
-> >> @@ -105,7 +105,10 @@
-> >>  
-> >>  #define ARCH_LBR_CTL_MASK			0x7f000e
-> >>  
-> >> -static void intel_pmu_lbr_filter(struct cpu_hw_events *cpuc);
-> >> +static void intel_pmu_lbr_filter(struct cpu_hw_events *cpuc,
-> >> +				 struct perf_branch_stack *lbr_stack,
-> >> +				 struct perf_branch_entry *lbr_entries,
-> >> +				 u64 *lbr_counters);
-> >>  
-> >>  static __always_inline bool is_lbr_call_stack_bit_set(u64 config)
-> >>  {
-> >> @@ -741,10 +744,12 @@ void intel_pmu_lbr_disable_all(void)
-> >>  	}
-> >>  }
-> >>  
-> >> -void intel_pmu_lbr_read_32(struct cpu_hw_events *cpuc)
-> >> +void intel_pmu_lbr_read_32(struct cpu_hw_events *cpuc,
-> >> +			   struct perf_branch_stack *lbr_stack,
-> >> +			   struct perf_branch_entry *lbr_entries)
-> >>  {
-> >>  	unsigned long mask = x86_pmu.lbr_nr - 1;
-> >> -	struct perf_branch_entry *br = cpuc->lbr_entries;
-> >> +	struct perf_branch_entry *br = lbr_entries;
-> >>  	u64 tos = intel_pmu_lbr_tos();
-> >>  	int i;
-> >>  
-> >> @@ -775,11 +780,13 @@ void intel_pmu_lbr_read_32(struct cpu_hw_events *cpuc)
-> >>   * is the same as the linear address, allowing us to merge the LIP and EIP
-> >>   * LBR formats.
-> >>   */
-> >> -void intel_pmu_lbr_read_64(struct cpu_hw_events *cpuc)
-> >> +void intel_pmu_lbr_read_64(struct cpu_hw_events *cpuc,
-> >> +			   struct perf_branch_stack *lbr_stack,
-> >> +			   struct perf_branch_entry *lbr_entries)
-> >>  {
-> >>  	bool need_info = false, call_stack = false;
-> >>  	unsigned long mask = x86_pmu.lbr_nr - 1;
-> >> -	struct perf_branch_entry *br = cpuc->lbr_entries;
-> >> +	struct perf_branch_entry *br = lbr_entries;
-> >>  	u64 tos = intel_pmu_lbr_tos();
-> >>  	int i;
-> >>  	int out = 0;
-> > This makes no sense; why do you keep passing lbr_entries around when we
-> > have lbr_stack.entries[] ?
+> Since the clocks are only devm-managed for their reference (devm_clk_get),
+> a blkctl init failure leaves all five DCSS clocks prepared and enabled.
 > 
-> Yeah, that's actually what I did at the beginning. But sashiko raised the
-> warning below. :(
+> Jump to ctxld_err so the clocks are disabled like on the other error
+> paths.
 > 
-> "
+> Fixes: 9021c317b770 ("drm/imx: Add initial support for DCSS on iMX8MQ")
+> Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+> ---
+>  drivers/gpu/drm/imx/dcss/dcss-dev.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> Does this trigger a CONFIG_UBSAN_BOUNDS panic when intel_pmu_store_lbr()
-> is inlined?
-> The lbr_stack pointer points to a struct
-> perf_branch_stack embedded directly in struct cpu_hw_events. Because it
-> is an embedded value-type struct, the compiler considers its size to be
-> fixed (16 bytes), treating the trailing flexible array member entries[]
-> as having 0 elements.
-> Accessing lbr_stack->entries[i] where i >= 0 can trigger strict array
-> bounds violations under -fstrict-flex-arrays=3 and CONFIG_UBSAN_BOUNDS.
+> diff --git a/drivers/gpu/drm/imx/dcss/dcss-dev.c b/drivers/gpu/drm/imx/dcss/dcss-dev.c
+> index 7fd0c4c14..551786060 100644
+> --- a/drivers/gpu/drm/imx/dcss/dcss-dev.c
+> +++ b/drivers/gpu/drm/imx/dcss/dcss-dev.c
+> @@ -70,7 +70,7 @@ static int dcss_submodules_init(struct dcss_dev *dcss)
 > 
-> "
+>         ret = dcss_blkctl_init(dcss, base_addr + devtype->blkctl_ofs);
+>         if (ret)
+> -               return ret;
+> +               goto ctxld_err;
 
-So I'm generally in favour bounds checking; but:
+With this change, now the label names I chose when I first developed this
+driver don't feel right. Could you please send a v2 and rename those labels
+below as well?
 
- - it really should get removed from UBSAN;
- - this flex array nonsense is absolutely insane.
+I'm thinking:
+ctxld_err -> err_clocks
+dtg_err -> err_ctxld
+ss_err -> err_dtg
+dpr_err -> err_ss
+scaler_err -> err_dpr
 
-There is this TRAILING_OVERLAP thing, which is complete and utter
-batshit insane crazy and I will refuse to use it.
+Update those 'goto' lines accordingly.
 
-So one, we already violate this, and two, if we want to fix it something
-like so will probably do.
-
----
-
-diff --git a/arch/x86/events/amd/brs.c b/arch/x86/events/amd/brs.c
-index 54b13faba116..8a103ff631e5 100644
---- a/arch/x86/events/amd/brs.c
-+++ b/arch/x86/events/amd/brs.c
-@@ -282,7 +282,6 @@ void amd_brs_drain(void)
- {
- 	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
- 	struct perf_event *event = cpuc->events[0];
--	struct perf_branch_entry *br = cpuc->lbr_entries;
- 	union amd_debug_extn_cfg cfg;
- 	u32 i, nr = 0, num, tos, start;
- 	u32 shift = 64 - boot_cpu_data.x86_virt_bits;
-@@ -343,7 +342,7 @@ void amd_brs_drain(void)
- 		if (!amd_brs_match_plm(event, from, to))
- 			continue;
- 
--		br[nr] = (struct perf_branch_entry){
-+		cpu_lbr_stack(cpuc)->entries[nr] = (struct perf_branch_entry){
- 			.from	= from,
- 			.to	= to,
- 		};
-@@ -351,7 +350,7 @@ void amd_brs_drain(void)
- 	}
- empty:
- 	/* Record number of sampled branches */
--	cpuc->lbr_stack.nr = nr;
-+	cpu_lbr_stack(cpuc)->nr = nr;
- }
- 
- /*
-diff --git a/arch/x86/events/amd/core.c b/arch/x86/events/amd/core.c
-index 49b6b8fce566..1115457c12f4 100644
---- a/arch/x86/events/amd/core.c
-+++ b/arch/x86/events/amd/core.c
-@@ -945,7 +945,7 @@ static int amd_pmu_v2_snapshot_branch_stack(struct perf_branch_entry *entries, u
- 
- 	amd_pmu_lbr_read();
- 	cnt = min(cnt, x86_pmu.lbr_nr);
--	memcpy(entries, cpuc->lbr_entries, sizeof(struct perf_branch_entry) * cnt);
-+	memcpy(entries, cpu_lbr_stack(cpuc)->entries, sizeof(struct perf_branch_entry) * cnt);
- 
- 	amd_pmu_v2_enable_all(0);
- 	local_irq_restore(flags);
-@@ -1014,7 +1014,7 @@ static int amd_pmu_v2_handle_irq(struct pt_regs *regs)
- 		if (!x86_perf_event_set_period(event))
- 			continue;
- 
--		perf_sample_save_brstack(&data, event, &cpuc->lbr_stack, NULL);
-+		perf_sample_save_brstack(&data, event, cpu_lbr_stack(cpuc), NULL);
- 
- 		perf_event_overflow(event, &data, regs);
- 	}
-diff --git a/arch/x86/events/amd/lbr.c b/arch/x86/events/amd/lbr.c
-index a55646fcb846..faa6d4893375 100644
---- a/arch/x86/events/amd/lbr.c
-+++ b/arch/x86/events/amd/lbr.c
-@@ -110,9 +110,9 @@ static void amd_pmu_lbr_filter(void)
- 	    ((br_sel & X86_BR_TYPE_SAVE) != X86_BR_TYPE_SAVE))
- 		fused_only = true;
- 
--	for (i = 0; i < cpuc->lbr_stack.nr; i++) {
--		from = cpuc->lbr_entries[i].from;
--		to = cpuc->lbr_entries[i].to;
-+	for (i = 0; i < cpu_lbr_stack(cpuc)->nr; i++) {
-+		from = cpu_lbr_stack(cpuc)->entries[i].from;
-+		to = cpu_lbr_stack(cpuc)->entries[i].to;
- 		type = branch_type_fused(from, to, 0, &offset);
- 
- 		/*
-@@ -121,33 +121,33 @@ static void amd_pmu_lbr_filter(void)
- 		 * actual branch
- 		 */
- 		if (offset) {
--			cpuc->lbr_entries[i].from += offset;
-+			cpu_lbr_stack(cpuc)->entries[i].from += offset;
- 			if (fused_only)
- 				continue;
- 		}
- 
- 		/* If type does not correspond, then discard */
- 		if (type == X86_BR_NONE || (br_sel & type) != type ||
--		    (!(br_sel & X86_BR_KERNEL) && kernel_ip(cpuc->lbr_entries[i].from))) {
--			cpuc->lbr_entries[i].from = 0;	/* mark invalid */
-+		    (!(br_sel & X86_BR_KERNEL) && kernel_ip(cpu_lbr_stack(cpuc)->entries[i].from))) {
-+			cpu_lbr_stack(cpuc)->entries[i].from = 0;	/* mark invalid */
- 			compress = true;
- 		}
- 
- 		if ((br_sel & X86_BR_TYPE_SAVE) == X86_BR_TYPE_SAVE)
--			cpuc->lbr_entries[i].type = common_branch_type(type);
-+			cpu_lbr_stack(cpuc)->entries[i].type = common_branch_type(type);
- 	}
- 
- 	if (!compress)
- 		return;
- 
- 	/* Remove all invalid entries */
--	for (i = 0; i < cpuc->lbr_stack.nr; ) {
--		if (!cpuc->lbr_entries[i].from) {
-+	for (i = 0; i < cpu_lbr_stack(cpuc)->nr; ) {
-+		if (!cpu_lbr_stack(cpuc)->entries[i].from) {
- 			j = i;
--			while (++j < cpuc->lbr_stack.nr)
--				cpuc->lbr_entries[j - 1] = cpuc->lbr_entries[j];
--			cpuc->lbr_stack.nr--;
--			if (!cpuc->lbr_entries[i].from)
-+			while (++j < cpu_lbr_stack(cpuc)->nr)
-+				cpu_lbr_stack(cpuc)->entries[j - 1] = cpu_lbr_stack(cpuc)->entries[j];
-+			cpu_lbr_stack(cpuc)->nr--;
-+			if (!cpu_lbr_stack(cpuc)->entries[i].from)
- 				continue;
- 		}
- 		i++;
-@@ -164,7 +164,6 @@ static const int lbr_spec_map[PERF_BR_SPEC_MAX] = {
- void amd_pmu_lbr_read(void)
- {
- 	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
--	struct perf_branch_entry *br = cpuc->lbr_entries;
- 	struct branch_entry entry;
- 	int out = 0, idx, i;
- 
-@@ -202,7 +201,7 @@ void amd_pmu_lbr_read(void)
- 		 */
- 		idx = (entry.to.split.valid << 1) | entry.to.split.spec;
- 
--		br[out] = (struct perf_branch_entry){
-+		cpu_lbr_stack(cpuc)->entries[out] = (struct perf_branch_entry){
- 			.from		= sign_ext_branch_ip(entry.from.split.ip),
- 			.to		= sign_ext_branch_ip(entry.to.split.ip),
- 			.mispred	= entry.from.split.mispredict,
-@@ -212,13 +211,13 @@ void amd_pmu_lbr_read(void)
- 		out++;
- 	}
- 
--	cpuc->lbr_stack.nr = out;
-+	cpu_lbr_stack(cpuc)->nr = out;
- 
- 	/*
- 	 * Internal register renaming always ensures that LBR From[0] and
- 	 * LBR To[0] always represent the TOS
- 	 */
--	cpuc->lbr_stack.hw_idx = 0;
-+	cpu_lbr_stack(cpuc)->hw_idx = 0;
- 
- 	/* Perform further software filtering */
- 	amd_pmu_lbr_filter();
-diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
-index 4e344fb1ae3e..edfcc28dbe00 100644
---- a/arch/x86/events/core.c
-+++ b/arch/x86/events/core.c
-@@ -2197,7 +2197,7 @@ int x86_pmu_handle_irq(struct pt_regs *regs)
- 
- 		perf_sample_data_init(&data, 0, last_period);
- 
--		perf_sample_save_brstack(&data, event, &cpuc->lbr_stack, NULL);
-+		perf_sample_save_brstack(&data, event, cpu_lbr_stack(cpuc), NULL);
- 
- 		perf_event_overflow(event, &data, regs);
- 	}
-diff --git a/arch/x86/events/intel/ds.c b/arch/x86/events/intel/ds.c
-index 8444670cee4a..b2a4b4e87f5f 100644
---- a/arch/x86/events/intel/ds.c
-+++ b/arch/x86/events/intel/ds.c
-@@ -2010,8 +2010,8 @@ void intel_pmu_pebs_disable_all(void)
- static int intel_pmu_pebs_fixup_ip(struct pt_regs *regs)
- {
- 	struct cpu_hw_events *cpuc = this_cpu_ptr(&cpu_hw_events);
--	unsigned long from = cpuc->lbr_entries[0].from;
--	unsigned long old_to, to = cpuc->lbr_entries[0].to;
-+	unsigned long from = cpu_lbr_stack(cpuc)->entries[0].from;
-+	unsigned long old_to, to = cpu_lbr_stack(cpuc)->entries[0].to;
- 	unsigned long ip = regs->ip;
- 	int is_64bit = 0;
- 	void *kaddr;
-@@ -2026,7 +2026,7 @@ static int intel_pmu_pebs_fixup_ip(struct pt_regs *regs)
- 	/*
- 	 * No LBR entry, no basic block, no rewinding
- 	 */
--	if (!cpuc->lbr_stack.nr || !from || !to)
-+	if (!cpu_lbr_stack(cpuc)->nr || !from || !to)
- 		return 0;
- 
- 	/*
-@@ -2318,7 +2318,7 @@ static void setup_pebs_fixed_sample_data(struct perf_event *event,
- 	if (x86_pmu.intel_cap.pebs_format >= 3)
- 		setup_pebs_time(event, data, pebs->tsc);
- 
--	perf_sample_save_brstack(data, event, &cpuc->lbr_stack, NULL);
-+	perf_sample_save_brstack(data, event, cpu_lbr_stack(cpuc), NULL);
- }
- 
- static void adaptive_pebs_save_regs(struct pt_regs *regs,
-diff --git a/arch/x86/events/intel/lbr.c b/arch/x86/events/intel/lbr.c
-index 0b446d8912e4..c0058ee7f30f 100644
---- a/arch/x86/events/intel/lbr.c
-+++ b/arch/x86/events/intel/lbr.c
-@@ -740,7 +740,6 @@ void intel_pmu_lbr_disable_all(void)
- void intel_pmu_lbr_read_32(struct cpu_hw_events *cpuc)
- {
- 	unsigned long mask = x86_pmu.lbr_nr - 1;
--	struct perf_branch_entry *br = cpuc->lbr_entries;
- 	u64 tos = intel_pmu_lbr_tos();
- 	int i;
- 
-@@ -756,14 +755,13 @@ void intel_pmu_lbr_read_32(struct cpu_hw_events *cpuc)
- 
- 		rdmsrq(x86_pmu.lbr_from + lbr_idx, msr_lastbranch.lbr);
- 
--		*br = (struct perf_branch_entry){
-+		cpu_lbr_stack(cpuc)->entries[i] = (struct perf_branch_entry){
- 			.from	= msr_lastbranch.from,
- 			.to	= msr_lastbranch.to,
- 		};
--		br++;
- 	}
--	cpuc->lbr_stack.nr = i;
--	cpuc->lbr_stack.hw_idx = tos;
-+	cpu_lbr_stack(cpuc)->nr = i;
-+	cpu_lbr_stack(cpuc)->hw_idx = tos;
- }
- 
- /*
-@@ -775,7 +773,6 @@ void intel_pmu_lbr_read_64(struct cpu_hw_events *cpuc)
- {
- 	bool need_info = false, call_stack = false;
- 	unsigned long mask = x86_pmu.lbr_nr - 1;
--	struct perf_branch_entry *br = cpuc->lbr_entries;
- 	u64 tos = intel_pmu_lbr_tos();
- 	int i;
- 	int out = 0;
-@@ -847,7 +844,7 @@ void intel_pmu_lbr_read_64(struct cpu_hw_events *cpuc)
- 		if (abort && x86_pmu.lbr_double_abort && out > 0)
- 			out--;
- 
--		br[out] = (struct perf_branch_entry){
-+		cpu_lbr_stack(cpuc)->entries[out] = (struct perf_branch_entry){
- 			.from		= from,
- 			.to		= to,
- 			.mispred	= mis,
-@@ -858,8 +855,8 @@ void intel_pmu_lbr_read_64(struct cpu_hw_events *cpuc)
- 		};
- 		out++;
- 	}
--	cpuc->lbr_stack.nr = out;
--	cpuc->lbr_stack.hw_idx = tos;
-+	cpu_lbr_stack(cpuc)->nr = out;
-+	cpu_lbr_stack(cpuc)->hw_idx = tos;
- }
- 
- static DEFINE_STATIC_KEY_FALSE(x86_lbr_mispred);
-@@ -903,7 +900,6 @@ static_assert((64 - PERF_BRANCH_ENTRY_INFO_BITS_MAX) > LBR_INFO_BR_CNTR_NUM * LB
- static void intel_pmu_store_lbr(struct cpu_hw_events *cpuc,
- 				struct lbr_entry *entries)
- {
--	struct perf_branch_entry *e;
- 	struct lbr_entry *lbr;
- 	u64 from, to, info;
- 	bool mispred;
-@@ -911,7 +907,6 @@ static void intel_pmu_store_lbr(struct cpu_hw_events *cpuc,
- 
- 	for (i = 0; i < x86_pmu.lbr_nr; i++) {
- 		lbr = entries ? &entries[i] : NULL;
--		e = &cpuc->lbr_entries[i];
- 
- 		from = rdlbr_from(i, lbr);
- 		/*
-@@ -925,7 +920,7 @@ static void intel_pmu_store_lbr(struct cpu_hw_events *cpuc,
- 
- 		mispred = get_lbr_mispred(info);
- 
--		*e = (struct perf_branch_entry){
-+		cpu_lbr_stack(cpuc)->entries[i] = (struct perf_branch_entry){
- 			.from		= from,
- 			.to		= to,
- 			.mispred	= mispred,
-@@ -946,7 +941,7 @@ static void intel_pmu_store_lbr(struct cpu_hw_events *cpuc,
- 		};
- 	}
- 
--	cpuc->lbr_stack.nr = i;
-+	cpu_lbr_stack(cpuc)->nr = i;
- }
- 
- /*
-@@ -972,15 +967,15 @@ static void intel_pmu_lbr_counters_reorder(struct cpu_hw_events *cpuc,
- 
- 	WARN_ON_ONCE(!pos);
- 
--	for (i = 0; i < cpuc->lbr_stack.nr; i++) {
--		src = cpuc->lbr_entries[i].reserved;
-+	for (i = 0; i < cpu_lbr_stack(cpuc)->nr; i++) {
-+		src = cpu_lbr_stack(cpuc)->entries[i].reserved;
- 		dst = 0;
- 		for (j = 0; j < pos; j++) {
- 			cnt = (src >> (order[j] * LBR_INFO_BR_CNTR_BITS)) & LBR_INFO_BR_CNTR_MASK;
- 			dst |= cnt << j * LBR_INFO_BR_CNTR_BITS;
- 		}
- 		cpuc->lbr_counters[i] = dst;
--		cpuc->lbr_entries[i].reserved = 0;
-+		cpu_lbr_stack(cpuc)->entries[i].reserved = 0;
- 	}
- }
- 
-@@ -990,11 +985,11 @@ void intel_pmu_lbr_save_brstack(struct perf_sample_data *data,
- {
- 	if (is_branch_counters_group(event)) {
- 		intel_pmu_lbr_counters_reorder(cpuc, event);
--		perf_sample_save_brstack(data, event, &cpuc->lbr_stack, cpuc->lbr_counters);
-+		perf_sample_save_brstack(data, event, cpu_lbr_stack(cpuc), cpuc->lbr_counters);
- 		return;
- 	}
- 
--	perf_sample_save_brstack(data, event, &cpuc->lbr_stack, NULL);
-+	perf_sample_save_brstack(data, event, cpu_lbr_stack(cpuc), NULL);
- }
- 
- static void intel_pmu_arch_lbr_read(struct cpu_hw_events *cpuc)
-@@ -1216,21 +1211,22 @@ static const int arch_lbr_br_type_map[ARCH_LBR_BR_TYPE_MAP_MAX] = {
- static void
- intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
- {
--	u64 from, to;
- 	int br_sel = cpuc->br_sel;
- 	int i, j, type, from_plm, to_plm;
- 	bool compress = false;
-+	u64 from, to;
- 
- 	/* if sampling all branches, then nothing to filter */
- 	if (((br_sel & X86_BR_ALL) == X86_BR_ALL) &&
- 	    ((br_sel & X86_BR_TYPE_SAVE) != X86_BR_TYPE_SAVE))
- 		return;
- 
--	for (i = 0; i < cpuc->lbr_stack.nr; i++) {
-+	for (i = 0; i < cpu_lbr_stack(cpuc)->nr; i++) {
-+		struct perf_branch_entry *be = &cpu_lbr_stack(cpuc)->entries[i];
- 
--		from = cpuc->lbr_entries[i].from;
--		to = cpuc->lbr_entries[i].to;
--		type = cpuc->lbr_entries[i].type;
-+		from = be->from;
-+		to = be->to;
-+		type = be->type;
- 
- 		/*
- 		 * Parse the branch type recorded in LBR_x_INFO MSR.
-@@ -1242,9 +1238,9 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
- 			to_plm = kernel_ip(to) ? X86_BR_KERNEL : X86_BR_USER;
- 			type = arch_lbr_br_type_map[type] | to_plm;
- 		} else
--			type = branch_type(from, to, cpuc->lbr_entries[i].abort);
-+			type = branch_type(from, to, be->abort);
- 		if (type != X86_BR_NONE && (br_sel & X86_BR_ANYTX)) {
--			if (cpuc->lbr_entries[i].in_tx)
-+			if (be->in_tx)
- 				type |= X86_BR_IN_TX;
- 			else
- 				type |= X86_BR_NO_TX;
-@@ -1258,27 +1254,27 @@ intel_pmu_lbr_filter(struct cpu_hw_events *cpuc)
- 		 */
- 		if (type == X86_BR_NONE || (br_sel & type) != type ||
- 		    (!(br_sel & X86_BR_KERNEL) && (from_plm & X86_BR_KERNEL))) {
--			cpuc->lbr_entries[i].from = 0;
-+			be->from = 0;
- 			compress = true;
- 		}
- 
- 		if ((br_sel & X86_BR_TYPE_SAVE) == X86_BR_TYPE_SAVE)
--			cpuc->lbr_entries[i].type = common_branch_type(type);
-+			be->type = common_branch_type(type);
- 	}
- 
- 	if (!compress)
- 		return;
- 
- 	/* remove all entries with from=0 */
--	for (i = 0; i < cpuc->lbr_stack.nr; ) {
--		if (!cpuc->lbr_entries[i].from) {
-+	for (i = 0; i < cpu_lbr_stack(cpuc)->nr; ) {
-+		if (!cpu_lbr_stack(cpuc)->entries[i].from) {
- 			j = i;
--			while (++j < cpuc->lbr_stack.nr) {
--				cpuc->lbr_entries[j-1] = cpuc->lbr_entries[j];
-+			while (++j < cpu_lbr_stack(cpuc)->nr) {
-+				cpu_lbr_stack(cpuc)->entries[j-1] = cpu_lbr_stack(cpuc)->entries[j];
- 				cpuc->lbr_counters[j-1] = cpuc->lbr_counters[j];
- 			}
--			cpuc->lbr_stack.nr--;
--			if (!cpuc->lbr_entries[i].from)
-+			cpu_lbr_stack(cpuc)->nr--;
-+			if (!cpu_lbr_stack(cpuc)->entries[i].from)
- 				continue;
- 		}
- 		i++;
-@@ -1292,9 +1288,9 @@ void intel_pmu_store_pebs_lbrs(struct lbr_entry *lbr)
- 	/* Cannot get TOS for large PEBS and Arch LBR */
- 	if (cpu_feature_enabled(X86_FEATURE_ARCH_LBR) ||
- 	    (cpuc->n_pebs == cpuc->n_large_pebs))
--		cpuc->lbr_stack.hw_idx = -1ULL;
-+		cpu_lbr_stack(cpuc)->hw_idx = -1ULL;
- 	else
--		cpuc->lbr_stack.hw_idx = intel_pmu_lbr_tos();
-+		cpu_lbr_stack(cpuc)->hw_idx = intel_pmu_lbr_tos();
- 
- 	intel_pmu_store_lbr(cpuc, lbr);
- 	intel_pmu_lbr_filter(cpuc);
-diff --git a/arch/x86/events/perf_event.h b/arch/x86/events/perf_event.h
-index e274802ef062..29a43a04fcd8 100644
---- a/arch/x86/events/perf_event.h
-+++ b/arch/x86/events/perf_event.h
-@@ -447,6 +447,8 @@ struct intel_excl_cntrs {
- struct x86_perf_task_context;
- #define MAX_LBR_ENTRIES		32
- 
-+#define LBR_STACK_SIZE		struct_size_t(struct perf_branch_stack, entries, MAX_LBR_ENTRIES)
-+
- enum {
- 	LBR_FORMAT_32		= 0x00,
- 	LBR_FORMAT_LIP		= 0x01,
-@@ -524,8 +526,7 @@ struct cpu_hw_events {
- 	 */
- 	int				lbr_users;
- 	int				lbr_pebs_users;
--	struct perf_branch_stack	lbr_stack;
--	struct perf_branch_entry	lbr_entries[MAX_LBR_ENTRIES];
-+	u64				__lbr_stack[LBR_STACK_SIZE / sizeof(u64)];
- 	u64				lbr_counters[MAX_LBR_ENTRIES]; /* branch stack extra */
- 	union {
- 		struct er_account		*lbr_sel;
-@@ -587,6 +588,11 @@ struct cpu_hw_events {
- 	struct pmu			*pmu;
- };
- 
-+static __always_inline struct perf_branch_stack *cpu_lbr_stack(struct cpu_hw_events *cpuc)
-+{
-+	return (struct perf_branch_stack *)cpuc->__lbr_stack;
-+}
-+
- #define __EVENT_CONSTRAINT_RANGE(c, e, n, m, w, o, f) {	\
- 	{ .idxmsk64 = (n) },		\
- 	.code = (c),			\
-diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index eb3f7bab498c..19de3f1cbd6e 100644
---- a/include/linux/perf_event.h
-+++ b/include/linux/perf_event.h
-@@ -115,7 +115,7 @@ static __always_inline bool perf_raw_frag_last(const struct perf_raw_frag *frag)
- struct perf_branch_stack {
- 	u64				nr;
- 	u64				hw_idx;
--	struct perf_branch_entry	entries[];
-+	struct perf_branch_entry	entries[] __counted_by(nr);
- };
- 
- struct task_struct;
+-- 
+Thanks,
+Laurentiu
