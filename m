@@ -1,49 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793370049;
-	b=qRZbYCIcvawpYlkrcBrXisJlnzQZaferfKt+jcOdOIx4v3tufd0yYH5PgHA02pULCUtA
-	 M+6iA+CG1Oqad9Ua/VNLeZxvaApKIdGoRPI/qKmnqIz5SxWECCu+r67E0++mL/sNTTIZv
-	 boer2JfK0DQJdrcNYnhmr6qSI/yxuYHnFzBAPfow9nVE9TPd3/+iYTOv9+KE5klBrGwW/
-	 ZN6JAw2ozueM7of+oF6wCHfxZ9ICOGQggiJEcjQB3R/9qEl2THppyvBRz8mt99n/27svz
-	 kn5GYE1G4CYx89Be9Mfj7VZ7oE7WNt6/WFrrmbrYsGzEgerMnprvCtgiCNz3t+yaR9g==
+	t=1793370080;
+	b=AFoqdgqWWITZaC2732yLCQECFKIgHww5SmKGRHfRTkktvH8ot2/2nt3LNIP/ARHbhTqG
+	 EawRl2I82wn1fUujrbtDeA6xvuGKl7ycePqZHszrCdLsEObXelSPuodiQDgxvd6nxJU6a
+	 6Mnc35bKyBaK4fAzRyVK/g/RnpNeOOwaejTFuz3A9vPWux8J2Nu7MbrG/QK4MiaGDKY5C
+	 P6e31qVyyGlRJNj8pfBQ6M0HPuv1GhV5fQUW3QyinLBKO9PT5SNnoZNxIl6wLOIRf/cnz
+	 4TBC5CmJVBvSYveNySy4p4vyb+bMOM6tV0ITn/txx81yjPqjquG9YV37dIgP20CV/1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793370049;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=MSaO26kWHJz53oXNK/ooSoR5p7kapKpTBftLSJ7Kq90=;
-	b=10mtj4iRIhI1Y7XWRYx/VQZbSQwWxHRG/0EaQbIPZlWDIwOg5/rJkKrlHF6spAilPGC5
-	 v5H/hI6T9HQvNHoHDC//wI3xuqskWs4T7Ekx9NvGAi2FteDIGOjjx5HHkJqHoMLTYrTnt
-	 3eTo2rAkyeEMYOvywoB46hZWdE+DMZAunsTNvs6BoQ3ud2GXt6GXOEusKVBpwnh7s5WuX
-	 iCOvMHb8hbJRyBSJFdrDPAYDggsxF4g8EHPJ+KI6Uc+rvje//WkLsWGc0TfMkKxVIaRM6
-	 F+gIUCc7VfTsHb1zOE2xyDEkA05lMhMiWZl5L+QMIb7v7zlVb4VFlQ904crzMiYi5yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793370080;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=fEfp8kxzeB0lYyMGgIvcUMd83vVWKlsFB9jWk+Wz83o=;
+	b=fsYS7q85jVMtCvquRz6t5Mg4AUhQ/N6qptNI35HlsikT06iBhZPgvsZGTEBj5KHE/ZfS
+	 zpSeAD5Oes48beRPxmQ5ixuRIap3d2FRvtxI/OOa0V7gIrFE3l8YvVfi4SJ9LSfGDfX43
+	 yplEl+mo0kxc3fqRrCzsxeG4cWAfkJW6UaZ4b1+RhWuClf+S0t2GFtiOuK7WwZsmZbrxf
+	 Fs8PEUtnPNXy+j5KSwbKDOQNsfiSCqS2qG1sPcIjjhnCO2l5uviCNjYrNTMh/LCapVXYF
+	 qr/VY/iEGxav4cSHjjYARvNxpC1PZCC7JtqZW/zNMf3sjgNjrPzJSji8aQoCRHm11/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NMLyfmu+;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B2928606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:20:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2928606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jGYqoRLG;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MCOGZNHK;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AEA0606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AEA0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=NMLyfmu+
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CC3BF1CE0;
-	Fri, 30 Oct 2026 07:20:44 -0700 (PDT)
-Received: from [10.163.155.53] (unknown [10.163.155.53])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 79FE63F673;
-	Fri, 30 Oct 2026 07:20:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793370047; bh=LvFZHPc5AjvmFfcnhOAcfYM00twt/E4D7ePpqxI4RHg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=NMLyfmu+3qgBioBF8DPIpA0YdV971kcjPpR8H9920pmFHpKx+W8EpM4oJyHFyKev5
-	 yF0OlMWEphWAWXlnh8EIKY6K7Eg4mD58l+bMnr+4DDyVpSpX81cwoSsqg8a0Z8W8oc
-	 ipF3rlY/vHHH/M4U3q6PK9OOFRQm9ikxZsahEc1Y=
-Message-ID: <e8a2a42d-e424-4366-8a68-e39167f62276@arm.com>
-Date: Fri, 30 Oct 2026 19:50:38 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=jGYqoRLG;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=MCOGZNHK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793370078;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fEfp8kxzeB0lYyMGgIvcUMd83vVWKlsFB9jWk+Wz83o=;
+	b=jGYqoRLG0CEg/NftlvRjVJveHcyR+ApDZQjuS0/HO80L4embutAVPovvGk37sVd4B+STFS
+	GXqVLsCswKbkTqfZlLko7+yv6dJVXTyuxQziXGzEmktoMLLyT+sJW2Z7L1IVDGUKgnvd2a
+	pdj+oUrSI8Z+28OQ4w23Z89fDEH24dA=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-564-y9y4trCeMb2JdfULRin5hA-1; Fri, 30 Oct 2026 10:21:16 -0400
+X-MC-Unique: y9y4trCeMb2JdfULRin5hA-1
+X-Mimecast-MFC-AGG-ID: y9y4trCeMb2JdfULRin5hA_1793370075
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a4654add56so6868515e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:21:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793370075; x=1793974875; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fEfp8kxzeB0lYyMGgIvcUMd83vVWKlsFB9jWk+Wz83o=;
+        b=MCOGZNHKyinRet/jCbzWKHznRh6CjHpYaEKUC6ONb8hpjrun8+iobJnYxpSdv1xslb
+         abmQLY3FGx+Xsi9+23teNcbMQiJhkZZFiPnsTJ3h/qbOpeErF9xTRjeG/nAJifVghZ6N
+         TYb43YUdScHZ1etxXGzK4PJe6bVMI0XV+uOPILj8nDpH57D4Vstc9oMvkCjgXbDk1F/0
+         7yakolSfPaG2VpnXC6SIQ6gxYFw6WibkfvAVQN0oggwvoJBZgg0ohSXtyASgn86x+jYo
+         U+MdSi6zHeAS9mPig6C9D778qaaMX51CuxSVrsRbgnJ3EOMccVC6jfedaL+7UhgZhRVq
+         XHEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793370075; x=1793974875;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fEfp8kxzeB0lYyMGgIvcUMd83vVWKlsFB9jWk+Wz83o=;
+        b=pkwz/n8BRqzyatCWecR8hoKZTxgqbTSRQh8/JV8tleMrWf+8yMxKAWNRefStj2OOpa
+         n6oeMlZpREPVhK1ipjW7nvMmcXEOXtWh9kq8tcG0ZKsEo+f9idBymEzRWwScK3LsEtrC
+         7uYewOXAf/Z8Hx7hJrSrCiALYJkcs8QQ/+zBo6rjkUFzTUAUUJDF+uPkqfInWSLHKxyz
+         bbYhAob/plXg+W/32NwdCIDMqKUjhU/EW0KrOMyGQM6TMiX5pj3OMNb8JexpNy7M3sPs
+         Q+2hGFGBINIKJl0d0FUOOA9ittXeEeVNHqJlCtAsK+kXXCM6HnJGkVXfOL8Kea8572yD
+         XIeA==
+X-Forwarded-Encrypted: i=1; AKwUvByVUAs99JNleioj6OLgUnBKI441SqWjzGKj0y4SHRymH9YcSnSm1poAW1BwZNgcp50G5Ku63+YQmXQlDpU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYINKqqjJrifefiLW1xVWJ06SlUPRDo0CTFIfmo2vAiXWxtihNFZ
+	Bog67Vw/SrngLEY/kh3T7uUgphCq2rEY7WQMOcQfWEULZvPDj2voek48QZnyvBZM0RYLwHnGaaU
+	dFutqzgc8dPBiUXBKlrPsaT8aJbQZY/3dDiOhA/MpkOU7LFLoLtCq+wSlIB1zthh8iA==
+X-Gm-Gg: AYBFou21iivKUh4ielmiVNznl7nrwQgoKMubqJkMH+dHmGyTiEggRsidiyCOhfWNk6x
+	v8xlNvlBaLxHSvJ6gEGrKxxtdGetU21X6sSQOaw45+r0YKKqWGZH8+DKp1ZCKDW/IqieTbRtPqt
+	pCsoKn3eDJj4CJJ9xnVwoqlPTzZOXnkAZ9jvdMrUEvxHkDcj3MzsTX19jwOT7gvka0ERW5v3OWW
+	jXMJeeYVyxcRy1XDSTUQTjhtE+9Dk0JnLUUMPwUHHy1WC6vU8ldBZOTPsIKCxEu4KpE79uuCm72
+	6zVO0wQJsIuN6yOXw6aIdpRR+/5/PDRuReuwpyyOxHYHfTKaAEsZ5uFLYksCdKXAPzeZBWvUCVi
+	FYufpeCTZJrM/60RVYzVlMKp4R/1rw3RoqvsTEk0=
+X-Received: by 2002:a05:600c:630d:b0:4a1:fae2:a8ab with SMTP id 5b1f17b1804b1-4ac150b38abmr52841635e9.3.1793370075020;
+        Fri, 30 Oct 2026 07:21:15 -0700 (PDT)
+X-Received: by 2002:a05:600c:630d:b0:4a1:fae2:a8ab with SMTP id 5b1f17b1804b1-4ac150b38abmr52840155e9.3.1793370074228;
+        Fri, 30 Oct 2026 07:21:14 -0700 (PDT)
+Received: from redhat.com ([187.40.250.61])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3cesm3743741f8f.7.2026.10.30.07.21.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 07:21:13 -0700 (PDT)
+Date: Fri, 30 Oct 2026 10:21:09 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: jrmmhm.kernel@eldare.de, Stefan Hajnoczi <stefanha@redhat.com>,
+	Bobby Eshleman <bobbyeshleman@meta.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, virtualization@lists.linux.dev,
+	kvm@vger.kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] vsock/virtio: clear vqs[] to avoid a UAF on a
+ failed PM restore
+Message-ID: <20261030101918-mutt-send-email-mst@kernel.org>
+References: <20261028-vsock-restore-uaf-send-v2-1-675aad6da714@eldare.de>
+ <auSZtMqcTz3r1nRk@sgarzare-redhat>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,133 +125,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 03/10] mm/vmalloc: clamp an unaligned range in
- vunmap_pte_range()
-To: Hao Ge <hao.ge@linux.dev>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-mm@kvack.org,
- Sashiko <sashiko-bot@kernel.org>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Andrew Morton
- <akpm@linux-foundation.org>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Uladzislau Rezki <urezki@gmail.com>, Suren Baghdasaryan <surenb@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-References: <20261026080329.140244-1-hao.ge@linux.dev>
- <20261026080329.140244-4-hao.ge@linux.dev>
- <99f529e8-06f7-4a20-a60b-0330c5d3d91c@arm.com>
- <5452d555-82f9-45a6-b443-ee732b1874ba@linux.dev>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <5452d555-82f9-45a6-b443-ee732b1874ba@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auSZtMqcTz3r1nRk@sgarzare-redhat>
+
+On Fri, Oct 30, 2026 at 02:51:26PM +0100, Stefano Garzarella wrote:
+> On Wed, Oct 28, 2026 at 07:22:43PM +0100, Jerome Mohm via B4 Relay wrote:
+> > From: Jerome Mohm <jrmmhm.kernel@eldare.de>
+> > 
+> > virtio_vsock_vqs_del() frees the virtqueues via del_vqs() but never
+> > clears vsock->vqs[]. If a later virtio_vsock_restore() fails to
+> > reallocate them (its error path is a bare "goto out" that only unlocks
+> > and returns), the driver is left bound with a dangling vqs[]. The next
+> > virtio_vsock_vqs_del() - on a second freeze or on remove/unbind - then
+> > passes a freed vring_virtqueue to virtqueue_detach_unused_buf(), a slab
+> > use-after-free. KASAN on a guest with a virtio-vsock device on
+> > virtio-pci, after a restore made to fail by fault injection:
+> > 
+> >  BUG: KASAN: slab-use-after-free in virtqueue_detach_unused_buf
+> >  Read of size 4 at addr ... by task repro
+> >   virtqueue_detach_unused_buf
+> >   virtio_vsock_vqs_del (net/vmw_vsock/virtio_transport.c:785)
+> >   virtio_vsock_remove
+> >   virtio_dev_remove
+> >   ... unbind_store
+> >  Freed by task ...:
+> >   kfree
+> >   vp_del_vqs
+> >   virtio_vsock_freeze          <- the preceding freeze freed the vq
+> >  Allocated by task 1:
+> >   vring_create_virtqueue
+> >   virtio_vsock_vqs_init
+> >   virtio_vsock_probe           <- original allocation at probe
+> > 
+> > That second virtio_vsock_vqs_del() also repeats del_vqs(), which not
+> > every transport tolerates. virtio-mmio's vm_del_vqs() always ends in
+> > free_irq(), but after the failed vm_find_vqs() the device no longer
+> > holds its IRQ, so on virtio-mmio the second call also warns:
+> > 
+> >  Trying to free already-free IRQ 51
+> >  WARNING: kernel/irq/manage.c:1894 at free_irq+0x23e/0x840
+> >   vm_del_vqs
+> >   virtio_vsock_vqs_del
+> >   virtio_vsock_remove          (or virtio_vsock_freeze)
+> > 
+> > virtio-pci's vp_del_vqs() is idempotent, so the PCI case shows only
+> > the use-after-free.
+> > 
+> > Clear vsock->vqs[] after del_vqs() and when virtio_find_vqs() fails in
+> > virtio_vsock_vqs_init(), and treat an empty vqs[] as "no virtqueues
+> > are live": virtio_vsock_vqs_del() then still resets the device
+> > (virtio_dev_remove() expects a reset device) and purges the send
+> > queue, but skips the detach loops and del_vqs(). find_vqs() cleans up
+> > after itself on failure, so skipping the second del_vqs() leaks
+> > nothing. Clearing the stale pointers follows virtio_blk
+> > commit 0739c2c6a015 ("virtio_blk: NULL out vqs to avoid double free on
+> > failed resume").
+> > 
+> > The use-after-free was found with the help of an LLM coding assistant
+> > (Anthropic's Claude); the free_irq() warning on virtio-mmio was reported
+> > by the netdev Sashiko AI review of an earlier version of this patch.
+> > 
+> > Testing: on a private VM with a KASAN fuzz kernel, over virtio-pci and
+> > over virtio-mmio (QEMU microvm). The restore allocation failure was
+> > forced with CONFIG_FAILSLAB steered by the fault-injection stacktrace
+> > filter to the virtio-vsock restore path only; a guest-root program
+> > drives a pm_test=devices freeze/restore cycle (so .restore returns
+> > -ENOMEM) and then unbinds the device, or runs a second freeze/restore
+> > cycle. Without a fix (v7.3-rc5 based) the PCI run reports the
+> > slab-use-after-free above. With only the vqs[] clearing (v1 of this
+> > patch, on net 363c8c79220d) the MMIO runs report the free_irq warning on
+> > remove and on the second freeze. With this patch on the same base,
+> > restore still fails with -ENOMEM on both transports and neither report
+> > appears; the device works again after a second, successful
+> > freeze/restore cycle and after unbind/bind, and a normal freeze/restore
+> > and unbind/bind still leave a working device. A find_vqs() failure after
+> > some virtqueues were set up was not exercised (each restore attempt
+> > failed at its first allocation, before any virtqueue was set up); that
+> > clear is covered by code reading only. The three single-VM tests of
+> > tools/testing/selftests/vsock/vmtest.sh (vm_server_host_client,
+> > vm_client_host_server, vm_loopback; 44 vsock_test cases each) pass on
+> > this tree, as on net; on both kernels the host-side runs skip the SO_INQ
+> > cases (SO_INQ not supported by the host kernel). The ns_* tests of
+> > vmtest.sh were not run (they need root on the host). checkpatch.pl
+> > --strict is clean and the fuzz-config build is warning-free. The
+> 
+> Do we really need to write in a commit message that checkpatch.pl --strict
+> is clean?
+> 
+> Descriptive commits are great, but we're going a bit too far here.
+
+It's just what AI writes if you tell it to make it checkpatch.pl
+clean in the prompt.
+
+> Please
+> include only the relevant information; for example, I think the part after
+> "Testing:" could be summarized in a few lines or removed altogether.
 
 
+Yea please write it yourself and make it concise. My eyes glazed over
+in the 1st paragraph.
 
-On 30/10/26 2:00 pm, Hao Ge wrote:
-> Hi Dev
+> > reproducer needs guest root, CONFIG_FAILSLAB with
+> > CONFIG_FAULT_INJECTION_DEBUG_FS and
+> > CONFIG_FAULT_INJECTION_STACKTRACE_FILTER, and CONFIG_HIBERNATION with
+> > CONFIG_PM_DEBUG for pm_test; it is available on request.
+> > 
+> > Fixes: bd50c5dc182b ("vsock/virtio: add support for device suspend/resume")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Jerome Mohm <jrmmhm.kernel@eldare.de>
+> > ---
+> > The use-after-free was found with the help of Anthropic's Claude; the
+> > virtio-mmio warning comes from the netdev Sashiko review.
 > 
-> Thanks for your review.
+> This is already in the commit description, no?
 > 
-> On 2026/10/30 15:14, Dev Jain wrote:
->>
->>
->> On 26/10/26 1:33 pm, Hao Ge wrote:
->>> commit a739e6b557af ("mm: vmalloc: WARN_ON if mapping size is not
->>> PAGE_SIZE aligned") made vmap_pte_range() warn and bail out when the
->>> size is not a multiple of PAGE_SIZE. That loop steps in page
->>
->> Why are we checking the alignment so late into vmap_pte_range? Why not
->> simply do
->>
->> if (!IS_ALIGNED(addr, PAGE_SIZE) || !IS_ALIGNED(end, PAGE_SIZE))
->> 	return; (or return -EINVAL);
->>
->> at the start of vmap_range_noflush and vunmap_range_noflush?
+> > 
+> > Changes in v2:
+> > - Skip the detach loops and del_vqs() in virtio_vsock_vqs_del() when no
+> >  virtqueues are live, so the teardown after a failed restore does not
+> >  free virtio-mmio's IRQ a second time (Sashiko review).
+> > - Use an empty vqs[] as the 'no live virtqueues' marker instead of v1's
+> >  per-loop NULL checks, and purge the send queue before the early
+> >  return.
+> > - Commit message: cite only virtio_blk 0739c2c6a015; drop the wrong
+> >  virtio_rtc and virtio_console references (Sashiko review). Drop the
+> >  commit ID from the code comment.
+> > - Tested on virtio-mmio (QEMU microvm) as well as virtio-pci.
+> > - Drop the Assisted-by trailer (removed upstream); tool use is
+> >  disclosed above instead.
+> > - Link to v1: https://patch.msgid.link/20261001-vsock-restore-uaf-send-v1-1-5da60f707506@eldare.de
+> > ---
+> > net/vmw_vsock/virtio_transport.c | 24 +++++++++++++++++++++---
+> > 1 file changed, 21 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+> > index 4f9aa9c4c3aa..bba594b7fc14 100644
+> > --- a/net/vmw_vsock/virtio_transport.c
+> > +++ b/net/vmw_vsock/virtio_transport.c
+> > @@ -714,8 +714,14 @@ static int virtio_vsock_vqs_init(struct virtio_vsock *vsock)
+> > 	atomic_set(&vsock->queued_replies, 0);
+> > 
+> > 	ret = virtio_find_vqs(vdev, VSOCK_VQ_MAX, vsock->vqs, vqs_info, NULL);
+> > -	if (ret < 0)
+> > +	if (ret < 0) {
+> > +		/* On failure virtio_find_vqs() can leave freed virtqueues or
+> > +		 * error pointers in vsock->vqs[]. Clear it: an empty vqs[]
+> > +		 * tells virtio_vsock_vqs_del() that no virtqueues are live.
+> > +		 */
+> > +		memset(vsock->vqs, 0, sizeof(vsock->vqs));
 > 
-> I think adding that check at the entry of vunmap_range_noflush()
-> goes against its design intent. Its job is to tear down the mappings
-> of the given VA range, so even when the caller passes a size that is
-> not page-aligned, we still have to unmap whatever is mapped within
-> that range.
+> Should we move this in the virtio_find_vqs() ?
 > 
-> So the patch clamps end down to the last full page and keeps
-> clearing. A buggy caller still gets its mapping torn down as far as
-> it goes, and nothing is left behind. The check here is just for
-> protection. 
+> Maybe not for this patch, but for long term it could be a good idea IMO.
 > 
-> This is just my preliminary understanding; I may be mistaken.
-
-Hmm I get you, but this is very ugly. We are trying to tolerate
-a blatant bug in the caller with not-so-nice code. But see below.
+> > 		return ret;
+> > +	}
+> > 
+> > 	virtio_vsock_update_guest_cid(vsock);
+> > 
+> > @@ -781,6 +787,15 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+> > 	 */
+> > 	virtio_reset_device(vdev);
+> > 
+> > +	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
+> > +
+> > +	/* No virtqueues are live, e.g. after a failed restore: they were
+> > +	 * already deleted, and a second del_vqs() is not safe on every
+> > +	 * transport (virtio-mmio would free its IRQ again).
+> > +	 */
+> > +	if (!vsock->vqs[VSOCK_VQ_RX])
+> > +		return;
+> > +
+> > 	mutex_lock(&vsock->rx_lock);
+> > 	while ((skb = virtqueue_detach_unused_buf(vsock->vqs[VSOCK_VQ_RX])))
+> > 		kfree_skb(skb);
+> > @@ -791,10 +806,13 @@ static void virtio_vsock_vqs_del(struct virtio_vsock *vsock)
+> > 		kfree_skb(skb);
+> > 	mutex_unlock(&vsock->tx_lock);
+> > 
+> > -	virtio_vsock_skb_queue_purge(&vsock->send_pkt_queue);
+> > -
+> > 	/* Delete virtqueues and flush outstanding callbacks if any */
+> > 	vdev->config->del_vqs(vdev);
+> > +
+> > +	/* The virtqueues are freed: clear the stale pointers, so that a
+> > +	 * virtio_vsock_vqs_del() after a failed restore skips them.
+> > +	 */
+> > +	memset(vsock->vqs, 0, sizeof(vsock->vqs));
 > 
-> Thanks
-> Best Regards
-> Hao
+> Same above, should we introduce a virtio_del_vqs() to do both and call it in
+> all drivers?
 > 
+> Or skip del_vqs() if vdev->vqs is empty.
 > 
-> But that's just my understanding, happy to be corrected.
+> I guess this issue could be spread around virtio drivers, so would be nice
+> to add common API in the virtio core to be used in all of them.
 > 
+> That said, for a fix, this patch LGTM, my comments were more for a long term
+> work.
 > 
->>
->>
->>> multiples and stops only at addr == end; with an unaligned size addr
->>> never lands on end, so the loop cannot terminate and walks off the
->>> end of the page table.
->>>
->>> vunmap_pte_range() has the same loop without any guard, so an
->>> unaligned range would clear PTEs past end without ever stopping,
->>> walking off the end of the page table.
->>>
->>> Add the check there too. The range is clamped down to the last full
->>> page rather than dropped, and the loop is skipped when nothing is
->>> left, so a buggy caller still gets its PTEs cleared as far as they
->>> go.
->>>
->>> Reported-by: Sashiko <sashiko-bot@kernel.org>
->>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->>> ---
->>>  mm/vmalloc.c | 5 +++++
->>>  1 file changed, 5 insertions(+)
->>>
->>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->>> index 44e0eb32708f..7131f60d1a8e 100644
->>> --- a/mm/vmalloc.c
->>> +++ b/mm/vmalloc.c
->>> @@ -393,6 +393,11 @@ static void vunmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
->>>  	pte_t ptent;
->>>  	unsigned long size = PAGE_SIZE;
->>>  
->>> +	if (WARN_ON_ONCE(!PAGE_ALIGNED(end - addr)))
->>> +		end = addr + PAGE_ALIGN_DOWN(end - addr);
-
-For simplicity assume PAGE_SIZE is 4, start is 3, end is 10.
-With your code we will get
-
-addr = 3, end = 3 + ALIGN_DOWN(10 - 3) = 3 + 4 = 7.
-So the range becomes [3, 7) clearing only two ptes, the one covering
-[0, 3], the second covering [4, 7]. I feel we should rather make
-the range from [3, 10] to [0, 11], clearing three ptes.
-
-So, at the start of vunmap_range_noflush we could basically
-WARN_ON on non-alignment, and then clamp the start down, and clamp
-the end up to PAGE_SIZE.
-
-And with this also throw in a patch to bring the -EINVAL bailout
-in vmap_pte_range to the top, in vmap_range_noflush and check
-both start and end alignment.
-
->>> +	if (end == addr)
->>> +		return;
->>> +
->>>  	pte = pte_offset_kernel(pmd, addr);
->>>  	lazy_mmu_mode_enable();
->>>  
->>
+> With a fixed commit message I can give my R-b.
+> 
+> Thanks,
+> Stefano
+> 
+> > }
+> > 
+> > static int virtio_vsock_probe(struct virtio_device *vdev)
+> > 
+> > ---
+> > base-commit: 363c8c79220d0db4d65dcd570529ddda15067cb5
+> > change-id: 20261001-vsock-restore-uaf-send-1fc7396fa1bd
+> > 
+> > Best regards,
+> > --
+> > Jerome Mohm <jrmmhm.kernel@eldare.de>
+> > 
+> > 
 
