@@ -1,95 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793378517;
-	b=XzMGQzCGPrerjSsJzCPg24fYukR5G2DQ0q96/tOwA0Hr85s1w1agu6NkVMHfLJqSx6yT
-	 6wJRON789OncAMIsGMApL57P/mgCtgl/wGZ/fZWE3pikmPx8LzwdfOkNfXvT/EtcfPsyz
-	 1m3u0lNfn0yL6y48AUzkyaixPjFSZ/iD+i6zZbr8ZaIDDW5K98NMrrgEY1P4FzUwGJn5Z
-	 E2BTTRLSZlf7ck4xvgovNLvwubD68fCoAmJdZuQ5eAHwsoPF4GOOeaK4wLMf+XhSmbiAG
-	 eYp5DEIEnZpEcVktImHncymTXRen/DP8mNAxCsKI2W7zTxXxAUOeUR+ywUNoIG7IWAg==
+	t=1793378532;
+	b=KCoSjZG1LIg6ANp7d7OpnBmuiGahAR3Ve8/lGfDqh/o/bstrQXdvIWoPbFLLaaPihl4t
+	 3ANBwCSR161uhxTFG3KebzBRJ/q1PpnMSIyGWAbhoIfZAWb6jfn7aKIEuW/syXDOCIWER
+	 tZVt3Ts9vgNpX13ufF+pyL/+Ro/brZmeMS+IHRfLAizeIktQ5ReRSYq2+yc9sSsCiju/W
+	 2V/jIEHh3nL6WSu+mGlfSxkaYF5Ibu7nNi5be520zbFpA8oNuPWDNV51wqrclJq/M8XGp
+	 EY4I22KvzhkvOCPs1vVIpUClFyEbSN+5xcSZqGFkApit4u6Wqy84+5ks6FeyIkvW0Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378517;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=AKRiR21tiEzQNQfnibDihocnDjftGBvWd8nI+L+S9UI=;
-	b=YWNRdXQ8OYYZGc1rMTWz5YCrqwmg6hBq33IpT6CxrUP21vpr57QF4VFpG4sFlwh/OlAD
-	 swAen98QMtzbkkOVcl1DQ9U+xSskNGXsfkyUHh3Plx6FqlnzAJ5FeqC9Cl/8xrhynKeV2
-	 89XLitGNwHbP/MPrO1fK9PIhNRQWsT4ImNQdcR45FzpiQQXG4Lw3/vnl6sD+o2fualWz6
-	 EnAQIIOurF4vZYCdUDNxW7aWmLcPz13cF2ai6jrEIcYlCXPqo60ynD+teAEOr0p2CIKIL
-	 ItbGCfVkEGNhcJ1+iSrcGb4X8CLBaqPgnNpL8gX09SrkNFM/AQ9cauL3qbjSliiAANA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793378532;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=EDOt2CyO7Y0XuK7dg+yAlTQVBFn3g9zwKwOPs+uHpIc=;
+	b=odgNlUSJcbQ31o/ZsyllTu6Yp/NawfvWcTYi49s8UwTvVQ0ReF64dslBai5AVtA8dUBb
+	 HcTL1hsDy0CgrjM4WROlHSY09zMSaW1yA4iNSEQRZAS/R3U6LPqPPLocFGYbG0dg5VQzx
+	 Q3qIhi0kv5a+LFBvnyOjQeS19JhnY9WePMZWm0Yb9Grq1Ppau0wehUMVWTNhVgOok3460
+	 1VWobbQOEklGZWRf3N7zfegmAH8LX9cGl0aSdSigzuDsLq8ixSIHUofoV+0AT2SdZQNQS
+	 mWIMW2TXf47JO46hosveARNVelgGv8yLQB3+rxuGJ12AxYJQCw33C0oHHQfdZUBUBXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=ElBOp89e;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtLCzOyE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28EE606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:41:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B28EE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B0E606A31A;
+	Fri, 30 Oct 2026 16:42:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=ElBOp89e
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e10a70540so612335f8f.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:41:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1793378515; x=1793983315; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AKRiR21tiEzQNQfnibDihocnDjftGBvWd8nI+L+S9UI=;
-        b=ElBOp89e0uVofDkjh8qcXAFrcQUrDhGRp1WMTx3X1j7EWXnyeWzLOPNO0kS6Nso9+x
-         vgEzGoodQIDzhtDaJ2Jrq9dendfG0JhD4+SMenTfU/TcmQ6dcVBzHXGmm9F8J2H4o9PZ
-         GG1Ox+N3Gls+kRIkJMNXGdngkOSlHaSlDaJf7P5DuF50NAeakS4cyeTJsnjpUFMNXH0A
-         WeBjiTpTXb/vVnR4bol+7Hw0dYsjD/oeqigmoZVxdP7sIGw7vTvOovJJS2wqeYSIg+PY
-         7afXzLFPy8yxfNBMY8XE3TS22BaG21rYrMTXYojKbuJaqn7jm8pmJyRAQaIwmpL35SLd
-         +CYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793378515; x=1793983315;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AKRiR21tiEzQNQfnibDihocnDjftGBvWd8nI+L+S9UI=;
-        b=yEhfpb/3xFDDZ/Hg9cw9kqFyUHNelSV1cjFBp1y5P6+EXXewedH/pkdMbtRE3n6TuX
-         LNhBrJTMVy59Wxm0gQfjarfrLkaOa00rntg/aKCZhDGysqkPiFGq3+M4A4w1BGqUEr+h
-         ujFTeyqfsYKIAkGQk8sNs/6dVECwtRr8Uy1Qg+hxIzF6W2g5HTajFlw6mjCsr291P+wx
-         C/yHXmx6D5UPSx/XY95nC2MJoClAU/vLZgkpRthSpNZ61p4m0gdSLq+6H9o5gdXc1RIq
-         pKAquwrlRaEaEfYJskZ7wY0jRt3uxjiMGaG059fK8t96NQ57e01cTmikBpfd+hrQWNgR
-         m6pA==
-X-Forwarded-Encrypted: i=1; AKwUvBzX7y4hNTTuKu0rdqEKvdVeSSl589vDyfKX1+lFUzmtkZGhtF8cuVJjOMkJeRc+co50DH7veVj7fgdJkqI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKE3uL36h0kW9gBy/SjN4wP1VHwFwXtQtVQWq3cclikrk5SUxCY
-	2qCL9KI1Ubt9XCcPreEsZyYTsmMbUFsY2ac2dUxHIYUcaGYVYr0/BcwjofvB+naLjk4=
-X-Gm-Gg: AYBFou09QRHf7Y77S+SmckHxWgEjvc9e7SM0q5R8ojNvLC8L4y/mmPllUy2dYo5zRTp
-	ae1/jnGZrvUfcQg65774l1Vn/fzL1v6nR9+JZskNRFIXOi6TLBEageTBaiPS/CMKlI3tBwKewlf
-	6mfuzG1MZ7lYkroDQJw2Wg1a8TX5NDEm9PLzVT/ZfHukcwhuKh/vMsdOo8wfVxsBeetuF+UPL2P
-	AlNtJhEFmLCn8IWdp4IY5yRcVypd+23u3ptHfXZIYUvQBbjngwNAzuAJCq4hOT8UVhcBjVtfKh7
-	QFA9FJYD52ATAxIJxsmsud2osA33/gOjtKUtbobBCc0Ic8MTXNCQCJu+p4q0PRLhIfELS7mSGRd
-	dTFp1O55xIuCejgwirTrD/yobWnM/kTLELC1G20eY4jeTDaNUBakdkYHuNw2wLX3w0risnpGwmf
-	kgdzMVYOR/36+SPEqyzfw54gM+kSU/KoppsGq6mVXuWkdwf5Fe4yBlilgw7ojEmAnLu3I352ZmT
-	f5SGSr6gR11lo2HXd1vbhfPQsDAWg8vbmWlaqDw2JGcmaUIIb0JWulTY6HWRUOLcQgl/VR91/Lb
-	dxbIuv+orZPn1e/tvm6JYpwaC5uLW2aZNc/Hote1nw==
-X-Received: by 2002:a05:600c:5397:b0:4a4:7a8d:c736 with SMTP id 5b1f17b1804b1-4ac16acfceamr63192545e9.9.1793378515124;
-        Fri, 30 Oct 2026 09:41:55 -0700 (PDT)
-Received: from pathway ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81b7fe80sm165061125e9.11.2026.10.30.09.41.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 09:41:54 -0700 (PDT)
-Date: Fri, 30 Oct 2026 17:41:52 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: John Ogness <john.ogness@linutronix.de>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Derek Barbosa <debarbos@redhat.com>, printk@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH printk v2] printk: Avoid multiple unregistration in
- unregister_console_locked()
-Message-ID: <auTI0Dv01budMJv0@pathway>
-References: <20261030135802.663893-1-john.ogness@linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtLCzOyE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D24E41F000C1;
+	Fri, 30 Oct 2026 16:42:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793378532;
+	bh=EDOt2CyO7Y0XuK7dg+yAlTQVBFn3g9zwKwOPs+uHpIc=;
+	h=From:To:Cc:Subject:Date;
+	b=BtLCzOyEjLTIJGf/OMYjbmmoJLRRdONTxBSw4WaUTC2Zau65RyZvHYNjybPaKwGQ3
+	 0Oc+nEUPaawRWhkOflr0HA8ZSazdamTKVzHOHYeBLoB5KMtjG+F+w1gnLVcDmCvhOc
+	 ZCQ/SuIvj4fd0J6mEiLKJLkmO5ng7UOoEm1O2CulEDmiDxLG3wb3y4KClGGvenmYcf
+	 GyGS+/q+VrIgf4jIxW+WlBJLaldS7Wb6XVW8pjkUeNfkkF2SA8J5rmPowY1YajM2dJ
+	 8B58FL2pD/Q4PKnZJFEeYSjgZWb0EDwOTIWWqxG/tw/mc2rBgDQLLH5FwPE8itDutD
+	 n2ToMsm9GuLgQ==
+From: Tejun Heo <tj@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>,
+	Breno Leitao <leitao@debian.org>,
+	Tejun Heo <tj@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH wq/for-7.4-fixes] workqueue: Fix drain_workqueue() missing work items chained across pwqs
+Date: Fri, 30 Oct 2026 06:42:10 -1000
+Message-ID: <20261030164210.3735018-1-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,44 +58,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030135802.663893-1-john.ogness@linutronix.de>
+Content-Transfer-Encoding: 8bit
 
-On Fri 2026-10-30 15:03:55, John Ogness wrote:
-> unregister_console_locked() is called from within
-> hlist_for_each_entry_safe(console_list) loops. This would be safe if
-> unregister_console_locked() only unregistered the specified console. After
-> all, that is what the _safe variant is for.
-> 
-> However, unregister_console_locked() calls printk_kthreads_check_locked(),
-> which can unregister _multiple_ consoles if kthreads fail to start. This
-> could lead to hlist_for_each_entry_safe() use-after-free scenarios because
-> not only was the list entry removed, but possibly the following entry as
-> well (the @n temporary storage of the next entry).
-> 
-> Move the call to printk_kthreads_check_locked() outside of
-> unregister_console_locked(). Add comments to both functions to clarify
-> if they are safe to be used in hlist_for_each_entry_safe(console_list)
-> loops.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/lkml/87ik31iz4x.fsf@jogness.linutronix.de
-> Fixes: 76f258bf3f2a ("printk: nbcon: Introduce printer kthreads")
-> Signed-off-by: John Ogness <john.ogness@linutronix.de>
+drain_workqueue() flushes the workqueue, then checks each pwq under its
+pool's lock and returns once a pass finds every pwq empty. Only chained
+queueing is allowed meanwhile, and a chained work item can land on a pwq
+other than the one the queueing work item is executing on. The pass misses
+it when:
 
-Looks good to me:
+1. The pass finds pwq A empty.
+2. A work item executing on pwq B queues a work item on pwq A.
+3. The work item on pwq B finishes.
+4. The pass finds pwq B empty.
 
-Reviewed-by: Petr Mladek <pmladek@suse.com>
+drain_workqueue() returns with the work item on pwq A pending, and
+destroy_workqueue() can then trip WARN_ON(pwq_busy()) and leak the
+workqueue.
 
-Now, I am not sure whether to queue this for 7.4-rc2 or 7.5.
-One one hand, it is a potential use-after free. On the other hand,
-it is rather a corner case which is hard to hit. And it would likely
-happen during boot where it is not that dangerous.
+Add wq->drain_seq, which counts chained queueings while the workqueue is
+draining. drain_workqueue() reads it before each flush and retries if it
+changed by the end of the check pass. Flushing once more after an empty pass
+is not enough, as a longer chain is missed the same way.
 
-Well, I am rather confident with the fix now. So I personally
-prefer 7.4-rc2 to be on the safe side sooner. And there are
-already two more changes in the queue for 7.4-rc2 anyway.
+Verified with reproducers of both shapes: self-requeueing work items on an
+unbound workqueue and chained queue_work_on() of another work item on a
+per-cpu workqueue.
 
-Best Regards,
-Petr
+Fixes: c8efcc258946 ("workqueue: allow chained queueing during destruction")
+Cc: stable@vger.kernel.org # v2.6.38+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+---
+ kernel/workqueue.c | 68 ++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 51 insertions(+), 17 deletions(-)
+
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index f2e8071a6f4e..955bf021f042 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -386,6 +386,7 @@ struct workqueue_struct {
+ 	struct worker		*rescuer;	/* MD: rescue worker */
+ 
+ 	int			nr_drainers;	/* WQ: drain in progress */
++	atomic_t		drain_seq;	/* see drain_workqueue() */
+ 
+ 	/* See alloc_workqueue() function comment for info on min/max_active */
+ 	int			max_active;	/* WO: max active works */
+@@ -2432,22 +2433,31 @@ static void __queue_work(int cpu, struct workqueue_struct *wq,
+ 	 * allowed. The __WQ_DESTROYING helps to spot the issue that
+ 	 * queues a new work item to a wq after destroy_workqueue(wq).
+ 	 */
+-	if (unlikely(wq->flags & (__WQ_DESTROYING | __WQ_DRAINING) &&
+-		     WARN_ONCE(!is_chained_work(wq), "workqueue: cannot queue %ps on wq %s\n",
+-			       work->func, wq->name))) {
+-		struct work_offq_data offqd;
++	if (unlikely(wq->flags & (__WQ_DESTROYING | __WQ_DRAINING))) {
++		if (WARN_ONCE(!is_chained_work(wq), "workqueue: cannot queue %ps on wq %s\n",
++			      work->func, wq->name)) {
++			struct work_offq_data offqd;
++
++			/*
++			 * State on entry: PENDING is set, work is off-queue (no
++			 * insert_work() has run).
++			 *
++			 * Returning without clearing PENDING would leave the
++			 * work in a weird state (PENDING=1, PWQ=0, entry empty)
++			 */
++			work_offqd_unpack(&offqd, *work_data_bits(work));
++			set_work_pool_and_clear_pending(work, offqd.pool_id,
++							work_offqd_pack_flags(&offqd));
++			return;
++		}
+ 
+ 		/*
+-		 * State on entry: PENDING is set, work is off-queue (no
+-		 * insert_work() has run).
+-		 *
+-		 * Returning without clearing PENDING would leave the work
+-		 * in a weird state (PENDING=1, PWQ=0, entry empty)
++		 * Pairs with the two smp_mb()s in drain_workqueue(), which
++		 * retries its check pass if @wq->drain_seq changed.
+ 		 */
+-		work_offqd_unpack(&offqd, *work_data_bits(work));
+-		set_work_pool_and_clear_pending(work, offqd.pool_id,
+-						work_offqd_pack_flags(&offqd));
+-		return;
++		smp_mb__before_atomic();
++		atomic_inc(&wq->drain_seq);
++		smp_mb__after_atomic();
+ 	}
+ 	rcu_read_lock();
+ retry:
+@@ -4464,6 +4474,8 @@ void drain_workqueue(struct workqueue_struct *wq)
+ {
+ 	unsigned int flush_cnt = 0;
+ 	struct pool_workqueue *pwq;
++	bool drained;
++	int seq;
+ 
+ 	/*
+ 	 * __queue_work() needs to test whether there are drainers, is much
+@@ -4474,21 +4486,42 @@ void drain_workqueue(struct workqueue_struct *wq)
+ 	if (!wq->nr_drainers++)
+ 		wq->flags |= __WQ_DRAINING;
+ 	mutex_unlock(&wq->mutex);
++
++	/*
++	 * A chained work item can land on a pwq the check pass below has
++	 * already found empty. __queue_work() counts chained queueings in
++	 * @wq->drain_seq. Retry if it changed across the flush and the pass.
++	 */
+ reflush:
++	seq = atomic_read(&wq->drain_seq);
++
++	/*
++	 * Pairs with smp_mb__before_atomic() in __queue_work(). For each
++	 * chained queueing, either the read above doesn't see its increment or
++	 * the flush sees the queueing work item and waits for it.
++	 */
++	smp_mb();
+ 	__flush_workqueue(wq);
+ 
+ 	mutex_lock(&wq->mutex);
+ 
++	drained = true;
+ 	for_each_pwq(pwq, wq) {
+-		bool drained;
+-
+ 		raw_spin_lock_irq(&pwq->pool->lock);
+ 		drained = pwq_is_empty(pwq);
+ 		raw_spin_unlock_irq(&pwq->pool->lock);
+ 
+-		if (drained)
+-			continue;
++		if (!drained)
++			break;
++	}
+ 
++	/*
++	 * Pairs with smp_mb__after_atomic() in __queue_work(). For the earliest
++	 * queueing the pass missed, either the pass sees the queueing work item
++	 * in flight or the read below sees its increment.
++	 */
++	smp_mb();
++	if (!drained || atomic_read(&wq->drain_seq) != seq) {
+ 		if (++flush_cnt == 10 ||
+ 		    (flush_cnt % 100 == 0 && flush_cnt <= 1000))
+ 			pr_warn("workqueue %s: %s() isn't complete after %u tries\n",
+@@ -6179,6 +6212,7 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+ 	wq->saved_max_active = max_active;
+ 	mutex_init(&wq->mutex);
+ 	atomic_set(&wq->nr_pwqs_to_flush, 0);
++	atomic_set(&wq->drain_seq, 0);
+ 	INIT_LIST_HEAD(&wq->pwqs);
+ 	INIT_LIST_HEAD(&wq->flusher_queue);
+ 	INIT_LIST_HEAD(&wq->flusher_overflow);
+-- 
+2.56.0
+
