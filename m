@@ -1,60 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.117
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793378869;
-	b=Hfq+PEWbTJcfe2p+QZU9fROrkByZ3uXPbHtfkEAvWswH+C0XGxfSmK51ZlT/OV4+AGD3
-	 nL1GP5z5Qdkz7qucQHlNAaEErsMXsXsAQgETRqyklUmwqL1apBhuXTIQjDTbGtGrAw/KI
-	 D0UHRjbsH47Fcs6RmPVLcwoRtE8hv6vnDqw5rvgfiKExzRDU9AwgFRwjJs3elU5qF19jx
-	 PxCHmIeYM3NfD3aq3VUTXu4Nz0WWzsS9xJgxfj0hZwB+pNqZG7mTuFQwAl9hG2l9n4HYx
-	 2u2lAen/auefX1HTOcP+wGEdQB+ww0eiXfpJiNHWdOO/3ALJH+WAr53Druf5sHTaEEQ==
+	t=1793378896;
+	b=ch5YeKS2Uji0i4xuJ9nzvy+YIGU5Tf+Yd9VK0w+Qg6Cv0LQeeWmU3GANOzxGWabY7HdF
+	 11T+vn2G0PdX/90a8D/LX4rlTU6RCTDSHZBxblOUosHir5LMNM3COt/kTb9irWNbUc3PA
+	 vAL3oGwbypI2fyFZkh2llLnpoqpKqBXLdDcE5J/aOObeqHi+2x0hdfxYLuWvytDaLwDvf
+	 A+szp2rJK39u/os94gYxvURa2dh8tKt0v5P/MhZQkg6iL/anCXeCIf9ecL3Lf9Whre8tM
+	 k56MVlu+Mee3wR1qfaOJctbK1NSyYhwgYvwc88GfZtQKm/M9zDuHyHQten+k/v844Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793378869;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=PQ4G7FWKXf3yOQR/cwzdiaA0meyXV45WbDf7zl6Ty7Y=;
-	b=u4Xx3XQUU1viYm3bpHLuRReBBaa5ZePUddwNNa4Vgd2hvbXSnnF/OyyG75ejA/cd6Ewq
-	 rorqJOR+rS4T2c9cVQjcD9S38pAU4hv+l9Ws9PpYDXilagZQUlkZwEBrayvhQ8F75cTIG
-	 FFw3g+LgyYjUrLKaetuqymjFsAR+3Ti/AI0CyXXP8ActdyYlNmsswzj0w6C2D8mtzhcoV
-	 9GCOrOz1aL4Mk5zVa8fgzPgtuKGm9hsnv3woQIPpaUS+2wUBjxT89QBe6AbhKhXOvHXNc
-	 +M4UDwdYi6IIbdb9MgxGQEh1irag/TvOvc5IUs8Xg0Rjyk++xRHMhGpFfsT7Z4uLleg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793378896;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=HfJEb3O4xS3Qn2t0Em3EptnBENG/IpkIjGo/eRBHy8s=;
+	b=WGp/twVSXJZWLjKqHGndVLfWAPeKJGLtbgi3EyV4iOEnuDilB3HtrNgz0SR05Q+eHFZI
+	 erHSaZRuED13kPnJmTDYjPBLxyrZQAdN+a9ceE+VbA+x6NBSJ8L+0Jr2g0EW9aBJO8vQw
+	 IF/+h/M83wTFurQumLXidFxu4l6AkghF1pAR1qzQmGBaFQUnIrICCU0ITXXnK8RXXB6BO
+	 m6We7OPcvCDSr8ziuXStd3twBhT+AQgsI2wE4hS9vGu77fwfRQCjRkV7IWBw1cSnGkiD0
+	 M5RlAKKXPA0LdQZLgbyTCUWzwPnHtfmUgLv8yVdPMBzEdAfTdunE0KzAuj/tH8ialVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b="FVn/2D+f";
-	arc=none smtp.remote-ip=79.135.106.117
-Received: from mail-106117.protonmail.ch (mail-106117.protonmail.ch [79.135.106.117])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=kHvoU0oI;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFC7606A31C;
-	Fri, 30 Oct 2026 16:47:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DFC7606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A11A606A31A;
+	Fri, 30 Oct 2026 16:48:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A11A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=FVn/2D+f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1793378865; x=1793638065;
-	bh=PQ4G7FWKXf3yOQR/cwzdiaA0meyXV45WbDf7zl6Ty7Y=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=FVn/2D+flZn6H8vP2GLlWJUdJLMxbEZltl2dwzm79NEaRK/Z8naG14DvxyU87xkwk
-	 wJO5ki6kmYY5rUMMh3rZcD9lXOQ6Eywmf3ICN9PhejJ6h0yjmtQZ0am8E6+jtSZF+N
-	 ALA6WuLnApuJghH8566r/GXuGLyN66TtU75wZKR+/9AHzEda5jNO85vpBRxQ0OEjHa
-	 c8dYnXKlVocWkNRmD2v1i386uaAVdDfFukRaqgMxIE9hz0Hccsq/FL66gTMUZhZDQL
-	 hxiuA1cIhwUm/R7BUPmewtmLU6RtBFQTwxLKFBVUhKxWZZpda5w1hbOn54MWJi9bUx
-	 knwa1R4xP7qpQ==
-Date: Fri, 30 Oct 2026 16:47:36 +0000
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-From: Paul Moses <p@1g4.org>
-Cc: netdev-bot+sashiko@kernel.org, intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me, vedang.patel@intel.com, jithu.joseph@intel.com, andre.guedes@intel.com, aleksandr.loktionov@intel.com, avigailx.dahan@intel.com, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v3 1/2] igc: only strip RX timestamp header from first buffer
-Message-ID: <K-58hRuSyY_aSjvzkpmwBMeDzvfjQyLMRjMsDlEL1M60FHZJTS1WXTaTrh79pf1igf7bt5MCaORbxYVJJliJ0FhGCzjtiEVvagd50w65Ssg=@1g4.org>
-In-Reply-To: <auSDQtz8l8hzzr86@boxer>
-References: <20261028083344.3047350-2-p@1g4.org> <179331704005.3134.12545545223659652020@kernel.org> <auSDQtz8l8hzzr86@boxer>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 4c2a5fe1fa4764ac796a6e023df421e8b58cd007
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=kHvoU0oI
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=HfJEb3O4xS3Qn2t0Em3EptnBENG/IpkIjGo/eRBHy8s=; b=kHvoU0oIXcmfqcYfTo5+uh8Cza
+	bBEbBBovaPWR3w2hXS4be3mAKw4bCFR9uXQb5CzN0uU/ytbpx1QACIU/Tq9EMZo93iF6PV8FGuVNu
+	mytZwl46M+tgIVXr5sjte5ITX7LfGGO6KeWLxtpGem2sdWvZBb1B8l8wloNs/liKw7Vg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xMplX-00DPbf-T1; Fri, 30 Oct 2026 17:47:43 +0100
+Date: Fri, 30 Oct 2026 17:47:43 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Birger Koblitz <mail@birger-koblitz.de>
+Cc: Emir Beganovic <beganovic.emir@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>, Eric Dumazet <edumazet@kernel.org>,
+	Jianhui Xu <neuromoments@gmail.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>, linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev
+Subject: Re: [PATCH net-next v19 00/13] ax88179_178a: Add support for
+ AX88179A-based chips
+Message-ID: <e7603c1d-4b1a-48be-a9da-9f9cf888cff6@lunn.ch>
+References: <20261010-ax88179a-v19-0-7475173cfb56@birger-koblitz.de>
+ <20261029005809.19405-1-beganovic.emir@gmail.com>
+ <2a66e94c-0fd0-4c90-bc1c-9e5699f80737@birger-koblitz.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,167 +74,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2a66e94c-0fd0-4c90-bc1c-9e5699f80737@birger-koblitz.de>
 
+> > - After a WoL wake the link goes down and up twice within about 2.5 s,
+> >    where a normal resume shows a single link up. It comes back fine
+> >    either way.
+> I see this, too. It is not triggered in any way by the host or the link
+> partner, I checked. It appears that this is due to the firmware on the
+> device trying to optimize the link settings further, the out-of tree ASIX
+> driver displays the same behaviour, although it works very differently.
 
+phylink/phylib might be playing a role in this.
 
+It takes about 1 Watt more energy to have a 1G link vs a 10Mbps link,
+even when there is no traffic. So during suspend with WoL enabled,
+phylib tries to reduce the link speed to the lowest common speed,
+hopefully 10Mbps, by only advertising that one link speed. On resume
+it goes back to advertising the full link capabilities.
 
+So one of the down/up you are seeing might be this.
 
-On Friday, October 30th, 2026 at 6:45 AM, Maciej Fijalkowski <maciej.fijalk=
-owski@intel.com> wrote:
-
-> On Thu, Oct 29, 2026 at 11:37:20PM +0000, netdev-bot+sashiko@kernel.org w=
-rote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential
-> > issue(s) to consider.
-> >
-> > Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
-> >
-> > If you believe none of the issues are legitimate, please reply to each
-> > issue of Medium severity or higher and explain why the AI is wrong.
-> > If any of them are legitimate and you plan to respin, please let patchw=
-ork
-> > know by including "pw-bot: cr" as a separate line at the end of your re=
-ply
-> > (one such reply per series is enough).
-> >
-> > - [High] At this commit by itself, the new first-buffer test `!skb &&
-> >   igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)` in igc_clean_rx_irq(=
-)=E2=80=A6
-> >
-> > --
-> >
-> > igc: only strip RX timestamp header from first buffer
-> >
-> > igc_clean_rx_irq() used to subtract IGC_TS_HDR_LEN from every descripto=
-r
-> > with TSIP set, which truncated multi-buffer packets. With this patch th=
-e
-> > timestamp header is only stripped when skb is NULL, which the commit tr=
-eats
-> > as marking the first buffer of a new packet.
-> >
-> > Link: https://lore.kernel.org/all/20260625-igb-rx-ts-fix-v3-1-99b3efa08=
-dca@aweta.nl/
-> >
-> > > diff --git a/drivers/net/ethernet/intel/igc/igc_main.c b/drivers/net/=
-ethernet/intel/igc/igc_main.c
-> > > index 1fb5f3cbe93c5..41b293dc10c3a 100644
-> > > --- a/drivers/net/ethernet/intel/igc/igc_main.c
-> > > +++ b/drivers/net/ethernet/intel/igc/igc_main.c
-> > > @@ -2639,7 +2639,8 @@ static int igc_clean_rx_irq(struct igc_q_vector=
- *q_vector, const int budget)
-> > >
-> > >  =09=09pktbuf =3D page_address(rx_buffer->page) + rx_buffer->page_off=
-set;
-> > >
-> > > -=09=09if (igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)) {
-> > > +=09=09if (!skb &&
-> > > +=09=09    igc_test_staterr(rx_desc, IGC_RXDADV_STAT_TSIP)) {
-> > >  =09=09=09ctx.rx_ts =3D pktbuf;
-> > >  =09=09=09pkt_offset =3D IGC_TS_HDR_LEN;
-> > >  =09=09=09size -=3D IGC_TS_HDR_LEN;
-> >
-> > [Severity: High]
-> >
-> > Is skb =3D=3D NULL a reliable first-buffer marker when an XDP program i=
-s
-> > attached? The commit message says:
-> >
-> >     Only consume the timestamp header when skb is NULL, which identifie=
-s the
-> >     first buffer of a new packet.
-> >
-> > Suppose igc_xdp_run_prog() returns IGC_XDP_CONSUMED, IGC_XDP_TX or
-> > IGC_XDP_REDIRECT for the first, non-EOP buffer of a multi-descriptor fr=
-ame.
-> > Then no skb is built, and igc_clean_rx_irq() moves on to the continuati=
-on
-> > descriptor with skb still NULL:
-> >
-> > =09=09/* fetch next buffer in frame if non-eop */
-> > =09=09if (igc_is_non_eop(rx_ring, rx_desc))
-> > =09=09=09continue;
-> >
-> > The continuation descriptor still has TSIP set, so this check strips
-> > IGC_TS_HDR_LEN a second time. If that descriptor holds fewer than 16 by=
-tes,
-> > can the unsigned size wrap here?
-> >
-> > The continuation buffer then goes through the new-frame path:
-> >
-> > =09=09if (!skb) {
-> > =09=09=09xdp_init_buff(&ctx.xdp, truesize, &rx_ring->xdp_rxq);
-> > =09=09=09xdp_prepare_buff(&ctx.xdp, pktbuf - igc_rx_offset(rx_ring),
-> > =09=09=09=09=09 igc_rx_offset(rx_ring) + pkt_offset,
-> > =09=09=09=09=09 size, true);
-> >
-> > In that case the XDP program would see a data_end about 4 GiB past data=
-.
-> > On XDP_PASS, the same size would reach igc_build_skb() or
-> > igc_construct_skb(), and the __skb_put() there does not check it.
-> >
-> > At this commit, XDP with multi-descriptor frames looks possible on kern=
-els
-> > with PAGE_SIZE >=3D 8192. igc_set_rx_mode() only clamps RLPML under the
-> > small-page #if:
-> >
-> > #if (PAGE_SIZE < 8192)
-> > =09if (adapter->max_frame_size <=3D IGC_MAX_FRAME_BUILD_SKB)
-> > =09=09rlpml =3D IGC_MAX_FRAME_BUILD_SKB;
-> > #endif
-> > =09wr32(IGC_RLPML, rlpml);
-> >
-> > On large-page kernels, RLPML therefore stays at MAX_JUMBO_FRAME_SIZE wh=
-ile
-> > igc_rx_bufsz() returns IGC_RXBUFFER_2048. igc_xdp_set_prog() only check=
-s
-> > dev->mtu > ETH_DATA_LEN, not the hardware receive length limit.
-> >
-> > This needs RX hardware timestamping enabled, an XDP program that return=
-s a
-> > non-PASS verdict for a first buffer, and a peer that sends frames large=
-r
-> > than about 2032 bytes.
-> >
-> > The next patch in this series, "igc: fix AF_XDP receive buffer size for=
- 2K
-> > UMEM chunks", adds igc_set_rlpml(). It caps RLPML at 1526 bytes wheneve=
-r
-> > XDP is enabled, whatever PAGE_SIZE is. It is called from igc_setup_rctl=
-()
-> > and igc_xdp_set_prog(). With that change, XDP frames always fit in a si=
-ngle
-> > descriptor, and skb =3D=3D NULL becomes a correct first-buffer marker.
->=20
-> Wow - finally.
->=20
-> >
-> > This patch is tagged Cc: stable and could be backported on its own. Sho=
-uld
-> > it depend on that follow-up change, or should the two patches be swappe=
-d in
-> > the series?
->=20
-> How would we make sure both commits from this set get actually backported
-> together?
->=20
-> >
-> > --
-> > Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/pat=
-chset/20261028083344.3047350-1-p%401g4.org
->=20
-
-I did forget to tag yours for stable, so maybe the will satisfy it?
-
-I think ultimately, it sees all related bugs as one big problem in
-an effort to catch adjacent. My understanding has been that unless
-there's true interdependence of patches, ie. kernel will be left broken
-unless taken together, a series in itself adequately satisfies this require=
-ment.
-
-Should I do a v4 to add the tag? Or can this be rectified through=20
-intel's process?
-
-Paul
+   Andrew
