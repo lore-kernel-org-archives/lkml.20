@@ -1,123 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793365841;
-	b=Yjs/AcSHd/fB96eP4X5sHRUgDSS+eKKWWWX4WT09SjlAzqJhyioDqAdfvFhhZZdk1Phd
-	 w7U/vhXsDkcVSg+f7P3TC76rHldp9QAW6ftgnCskNdWacH2ffMhKCo4qUazB1EVsdtTDr
-	 bueCgh9O66/myI4kOqiwZ45ADBCN/SAVjGycrlhVrWTpp/XPb6G5Ez/7hqERnDKIeeUmd
-	 YY3XXSGyCjidJ7U11Fq7INK2cxR1BmHCxSAP1tzzSF9mTEulhJZ7+jKLnGIEEw+sGOLWR
-	 GYr7a/u7YYgSiq72pW02bRSxcp7dWUxfPW4l5inhXqJaQ75prFBzfzwzPwtWy3OVRAQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793365841;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=fsCPpPD5U9nNBpuQWRCxqec/1B3N7vDFnL3Qo+9kNSw=;
-	b=qqPLICOBp9qIke2LcqJ5T1+Yn7txAWxS1fp3veaNObrNyx06D5xCbtu9TElxRSIhSVs4
-	 OptVbv9bAXDRopu8a6pVzsxxvtG27lDclgEliewi3cywubhn61w2zzKQ5WF/IRrjkgEvR
-	 nIsYnCUoTx/xL/umwkunVmITZn+XgwhkcXLsn9MSu8uY8jKcG3L1wvZWpX0i8GLlNnXzF
-	 lNvdZ+WWbOEpkIr4+yH7z7tr1kvyT8f6y4AFwrbxfYdkBNfk8DFypI371ywD+K0y2JkPj
-	 Fr4wBXAlt80PeMA/b+KJjYUsJzyJMg6hsfZgloVcJE9T/sm5qR6M4nsY4NSKUf/YKaQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kifoh7G0;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=THl1cyq7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793365881;
+	b=TL4XxJcsaBOAMHxjx8NV2JAJpNooPPMp6pyEUHep3O56daCt3SfWprVGIuT21iYv9O8l
+	 QvYqDBu7gZ++9kfb3DmkRTTxWXUNkZjSw/E26uq9T8vlf303bmikU39FQ7TyQjA/BtYYW
+	 5kpek5dW3JwE+wNw2P2VNn9vw9O7yXBFoo+5nkFIrJA5TRkiQajlqu4T6wgswPmc19yJf
+	 jY/W+0mfkju15C6khxBntaeB6/qGeyxrg17PhEyEycc82jn6uCUOWs0LNHOU2SdKIn3ms
+	 tBjp0u9b9P8EEi6qZixaWKyenchqH5498sHyQzaHqIZkTgdQSjgelAHYAJBCLgXqH7g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793365881;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=FxHf4D5kUWAMyfU6NrhreiIzxj/H3uAUX9nEcHq4etA=;
+	b=IfjMLSwBookoKNicfqkLmsd+yJuQmW8UK38wJ5LReBFhM9qhpukvTO4yO4QZh/Qu2ddO
+	 LnVQt0vw/dWzXHY3MndVUHcfCy00rT8X8N4yHYPnIb1WUHJdupXCiLFmYwe+zoRqbQdY6
+	 eSIJIBAYOjjzbUoq3daOQTHYeOrY6EcznJZXeGvo8OusYctpquznnIjGzWczTnmtoPVs+
+	 zuzLfXvUuNA0Q824VINbaUcyUeL5R56LgQxurXTvoo/omhn5dfL1d3kuoD+Bnr5/zCgJh
+	 5VzqLVQU0y8f9rEuoP+7BoyjQhtYdKH/PjUocAZSiNEK+DL+tMBuTaMoOncVbPRncEg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4O8eM5b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03823606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:10:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03823606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA9C606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:11:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kifoh7G0;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=THl1cyq7
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UBGErQ2784136
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:10:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fsCPpPD5U9nNBpuQWRCxqec/1B3N7vDFnL3Qo+9kNSw=; b=kifoh7G03Kc7/228
-	GK2O2Kkc+AkuUb1qaMVS165NeIlZ89dp1r6GvJDGR+UxIZ/wM7W5KjopaNP2TtaU
-	eUm8QRLbrVPBxV0bAJXrkDej8ARO6aIvLmicS8Or2RglPkMY9gfnyg4MG0NMfVoi
-	QPbDgkqDalnLetl+B3fNejIcLiB3CqHfvnkOOJYlInJqrh1AqKf0WpYL01fOW9em
-	hHqD8Q3ROl8BluZtdEKiwbAG9jzjNjxfKrOMTvQUOmW+kGn3Hst1jFn8GHym4xgV
-	mKsIg3DjhTar9uT0IvJqx26thHAjmq4r9BEIKN8ufe9L2aWzngL0V7rCDVV8DWtZ
-	XsFKfw==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qk56t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:10:39 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a064f294cbso512210b3a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:10:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793365839; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ztq4KAvjwhj5G3uzUg4cFJE4GzN/BMDnfqcRY/rduuAcCSMbQfv6rLY9qYMb6o1aGM
-         nNcnXzGj9Dsay/279x6jo0tl4gs2AiOdKNBHWfi1G4HIjLdRSWLnp5PImvYIukb0DIOJ
-         abGgaOL8F2bytsrZRcV1ptmGXCV3bulxR4hh6IchK/xWWoWdH0QwPAUnE4cK1he6VhQS
-         5arSPAXry+9Q7OBFahwn/1wdW6COULTGDc8QSJ5QT8o1GjB4rcw/bBKuOv687cQZM4ry
-         nQAOoeznRBCNgOC7IgK0JwKazzDjqiPAEs0Y9XoB0oaquJ6LCox71CI2lr1yfZCd4MjC
-         DiBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fsCPpPD5U9nNBpuQWRCxqec/1B3N7vDFnL3Qo+9kNSw=;
-        fh=JMKnQ0qCmF7sy7MZi2kOrjXqEqyg+8fEX18E6wJIk3U=;
-        b=Nqeu9nMCNJMZMfh3m0N6VILqH6v8XkjUL9jhKMHlygdTH8y68kxinp6x0JRsQxIB/5
-         t0ZajuLbC4LXXC47lia/xlt37DN0euv7qzVWKU51gOPFaNI8bYzTbrHVeU47cI6J9HW0
-         NrlkufbDbZ1/b6krVrpwVflqdUd7eXh/hLxcpLM6y4V+jYYUyPU0Jgx0uQ5hD+mqNhlf
-         QznykiWIKpEtgW+h6DmrCDLyR7zvxJOusViLmze+MXOO4mgiSD+UNW8x2Gihf6bNdvQx
-         EhYfv7GrihaOeh2mNMC2zayME4hlyJ8sM8pvUzImz9Q4WLSMNVBjPJdo1lHFv9EWs5Tl
-         d0Jg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793365839; x=1793970639; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fsCPpPD5U9nNBpuQWRCxqec/1B3N7vDFnL3Qo+9kNSw=;
-        b=THl1cyq7k4BKQN2TP5BY/QiSiPjkI6ZfVN8L2I2UvLFFwOox8MgPFJmp9dyNA03iCF
-         pbddaL/VPMVl4F9WBZUTQM/ojY55IuRDxbkXzJqGw5Rs/0YJZZ19OjPOfXQVCkhUdnfx
-         8P00F1w/QTF+XsA34+g6XsM1MRFHzMyiY4OOWR/DrFw9Yo/hS+FWG6xnA8x+8m6BeLz+
-         rXsKMD0WeyZQAux/X6Ic4A5JkWRYVxEukSD00FBPNBDumfeXOFjw8q6mih3U+lp7PmRK
-         V+BWeyKhXiH5jJlP8eOjvMJzKNmsKeYEqZWV5jkSIapcQTkOjqf9J7ufcIh8JlnuSZ8i
-         9BJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793365839; x=1793970639;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fsCPpPD5U9nNBpuQWRCxqec/1B3N7vDFnL3Qo+9kNSw=;
-        b=YwGlVmAVuYLdbKRYKzkElDsl7J0mnX5mtKURajTZuo5IOGG0e80tZQhda1kcEvttiK
-         LWilJHX8pNDcpxRPma7o0Ur+jkG8OwhRDs2zusV3llGQUsrLQHv7EgD+hu4Wpgah1eIG
-         TpuyKt57wrgbpa1nguGQr2zWoeKclPA+4wKNi3cESJGNQq7kEPR3TndEokFU9QarhqGv
-         Tgdh4VLne5IzyT6q5+JjwO5n3b6c+EqI1shPWr4CHpG+8nHPu5XQ/y6V2NNyUCyBAl60
-         5ZUbA+KvXCucXYnlPJ+4fYP5T/YidDu0s8jpCKDWUPwY6RwNv7+lOzh7ZgP5ks9nGcYb
-         Af8Q==
-X-Forwarded-Encrypted: i=1; AKwUvByQq081RwIfhuOsqfRfHMPyOo3NNKiLgAISxTPA089nNSAAAQviOHYRSEFI8ZiB6c+EjhVWPiviomRV9pA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKpLcRkhrKBy66Sa6b9E//yiTsxln2B8oc58IaXf4aDdFJlozu2
-	SnGZZR1b2+0+JU9npcAtnS2ZZjvthHycPxqhOJJLd6PVhkHjKzyJtrUuTMgHOE2D4QtfLHVHTQr
-	SVb/xnbxL+JWG66/3xdHiQLZs1WKb/RkINMcmZ9iGbK07cW7yfpZDw/sdp03nblsorxsaP87/0V
-	Tw8VoW3dqBZTrj7DjfPcVWo4Bfd5rFDfCWmG1BPztA1StDrZJPW45i
-X-Gm-Gg: AYBFou1CM+0OHUxCQtZEjlUAv3/Tr5dU+SR+dGj9hC8tn+hnxor0SBoTu4RO+C/+cCa
-	VI7UNBIWMs0LSndosNGf+93vfa+kkI4Er+GhVFUIi+qV9UOCVloQP376viC55Sf782m74gWJKtG
-	0uipfvM95CzLLPJ+SstG4Mqq3wXszQPWoR9cClBamhAhrOAh/f0PLp1Wj/nQ==
-X-Received: by 2002:a05:6a00:600d:b0:898:9b2:605b with SMTP id d2e1a72fcca58-8a9c079a97amr1958332b3a.56.1793365838949;
-        Fri, 30 Oct 2026 06:10:38 -0700 (PDT)
-X-Received: by 2002:a05:6a00:600d:b0:898:9b2:605b with SMTP id
- d2e1a72fcca58-8a9c079a97amr1958300b3a.56.1793365838423; Fri, 30 Oct 2026
- 06:10:38 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b4O8eM5b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0918B1F000C1;
+	Fri, 30 Oct 2026 13:11:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793365881;
+	bh=FxHf4D5kUWAMyfU6NrhreiIzxj/H3uAUX9nEcHq4etA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=b4O8eM5bZibeHmXv+WMmmV9Qoo4LtytZKFLjo8L0Rpd6Y8ujJLxKn3jy6U/GPS9Fi
+	 em7xConY9TKa8Xl8Z2ZQx5715Ol4f5/LTRX7fPrxRVn4x6UqyuGVoOo/5DOggQoT8d
+	 3WfLobLPkm3grpJ6suq9AkL6svp8/T8qx1NtfwY1j1aXOys5qLPYeGljdEorbM0mAq
+	 Mz4hw6G1B/guE04vXo/wyHt12Rlhl6cWfJx44g0HFY/ZUcf/X2SxA2OX5oeg8yRr3Q
+	 i7JP/n9AJuGkhp0DLGprT4GOmHBnz9gOgA+rRMovs+UHTLbBR99rOI+6Sk8qFmeaI/
+	 cm86FIuJ69fYw==
+Message-ID: <02a46235-4fc2-4ace-8e12-02d2f8ff44cc@kernel.org>
+Date: Fri, 30 Oct 2026 14:11:17 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,118 +51,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027122417.954133-1-rojer@rojer.me> <20261027122417.954133-2-rojer@rojer.me>
-In-Reply-To: <20261027122417.954133-2-rojer@rojer.me>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 14:10:26 +0100
-X-Gm-Features: AclHuK-f04QOKVsOKTCid1138RFgbSpIdyKV4SVuLgzWJk-mOLcmCEvz3IZlzQE
-Message-ID: <CAPx+jO-SrC-8DKEfOC9KTMY=zHyiNVqNwiZyf7ipvX1=ZzZ1iw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] mmc: core: sdio: retry without UHS if UHS init fails
-To: Deomid rojer Ryabkov <rojer@rojer.me>
-Cc: ulfh@kernel.org, linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
-        shawn.lin@rock-chips.com, llj@rock-chips.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=KsrYSmWN c=1 sm=1 tr=0 ts=6ae49750 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=ZpdpYltYx_vBUK5n70dp:22 a=s8YR1HE3AAAA:8 a=KMjSppSA2jvgilID46QA:9
- a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22 a=jGH_LyMDp9YhSvY-UuyI:22
-X-Proofpoint-ORIG-GUID: shNQPNlBCgPRz71VhbP-7075C_PmbUk8
-X-Proofpoint-GUID: shNQPNlBCgPRz71VhbP-7075C_PmbUk8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1MiBTYWx0ZWRfX+5SqOp0muqpq
- JIhBC0kKqsME9Sy2djP9DRb6arNSYAfXh57BGqE//azT3B5miSVktbYSknyOlysgiUBwLHSxuul
- bzqWt8slum0WPfjPqpgqSI41PMtjFUJnRhaDAl4KYPvxFPosqwaPaHyY97hYElM/H4rf1g1JM9M
- hIbXFEP8tC98zdl4WgreEQh/dTKPjlvvRn3iLbjwlhF+AFnbArvfLM3R+HonWKoVANPEWp/uKxK
- DQfa5YYRh2ONgyiiUQbaxfJ2LnAY/EOBqEFPwrBGIQle87dZmovaOePh+w9udg7/I6a7qqE2vLR
- sMcvHtd7NABiNDK6XIwkikF3Ox/72l9CMHlWMTstvtvYqT5xmQNBrB/XoQxqHQ61BVXH+l735bt
- NTv+MUR7hA+knAdmTy72INuMgAGK6S8Ad+4ULY3xDqC8UaU2YNLcM/FbNF9YYv2A/PYtDz/JjyM
- MRj3otIjiuJ0VVf0SRQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1MiBTYWx0ZWRfXzbg0IX6herek
- ZuKgM+tfCwjvzEnp/zVvIratm71KsuhdaPvItHUuknRPcDXoJ2yKAeZx66h5+EZ/LHL6axHrouW
- 4ptUe+jj8waKct75rjpHs444FUnEdYM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 priorityscore=1501 malwarescore=0 suspectscore=0
- lowpriorityscore=0 impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300052
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/9] w1: ds2805: use the bus mutex to talk on the bus
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
+ stable <stable@kernel.org>
+References: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
+ <20261027-llm-char-misc-w1-v1-5-d2e6bfafb6a4@linuxfoundation.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261027-llm-char-misc-w1-v1-5-d2e6bfafb6a4@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 27, 2026 at 1:24=E2=80=AFPM Deomid rojer Ryabkov <rojer@rojer.m=
-e> wrote:
->
-> If mmc_sdio_init_uhs_card() fails, e.g. because tuning finds no
-> working sample phase, card initialisation fails and the card is not
-> usable at all, even though it would work fine in high-speed mode.
->
-> This happens for example on the FriendlyElec NanoPi R2S Plus when the
-> SDIO pins of the RTL8822CS Wi-Fi module are left at their default 4 mA
-> drive strength:
->
->   dwmmc_rockchip ff5f0000.mmc: All phases bad!
->   mmc2: tuning execution failed: -5
->   mmc2: error -5 whilst initialising SDIO card
->   [... repeated for every init frequency ...]
->   mmc2: Failed to initialize a non-removable card
->
-> There is already a fallback for a failure to read the CCCR in UHS mode:
-> reset the card and restart the init sequence without R4_18V_PRESENT.
-> Do the same when UHS init fails, so that the card comes up in
-> high-speed mode instead:
->
->   mmc2: UHS init failed (-5), retrying without UHS
->   mmc2: Skipping voltage switch
->   mmc2: new high speed SDIO card at address 0001
->
-> The fallback is taken at most once, as the retry doesn't request UHS.
->
-> Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-> Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
-> ---
->  drivers/mmc/core/sdio.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/mmc/core/sdio.c b/drivers/mmc/core/sdio.c
-> index 83085e76486..6787fdf1c53 100644
-> --- a/drivers/mmc/core/sdio.c
-> +++ b/drivers/mmc/core/sdio.c
-> @@ -867,8 +867,14 @@ static int mmc_sdio_init_card(struct mmc_host *host,=
- u32 ocr,
->         /* Only if card supports 1.8v and UHS signaling */
->         if ((ocr & R4_18V_PRESENT) && card->sw_caps.sd3_bus_mode) {
->                 err =3D mmc_sdio_init_uhs_card(card);
-> -               if (err)
-> -                       goto remove;
-> +               if (err) {
-> +                       pr_warn("%s: UHS init failed (%d), retrying witho=
-ut UHS\n",
-> +                               mmc_hostname(host), err);
-> +                       mmc_sdio_pre_init(host, ocr_card,
-> +                                         card !=3D oldcard ? card : NULL=
-);
+On 27/10/2026 17:04, Greg Kroah-Hartman wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
+> 
+> Since commit b02f8bede217 ("W1: split master mutex to avoid deadlocks.")
+> the slave drivers serialise their accesses to the bus with bus_mutex.
+> This driver takes the mutex of the master in the callbacks of its eeprom
+> file instead.
+> 
+> That mutex is held while a slave which has disappeared from the bus is
+> removed, which waits for the sysfs callbacks of the slave to return.  A
+> callback which is waiting for the mutex at that moment never does: both
+> tasks are stuck, and with them the thread of the bus master.
+> 
+> Besides, it does not keep the other slave drivers off the bus, so that two
+> transactions can get mixed up on the wire.
+> 
+> Fixes: f6887531c0c6 ("drivers: w1: Add 1w slave driver for DS28E05 EEPROM")
+> Cc: stable <stable@kernel.org>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-Is this really correct?
 
-If there is an oldcard we should *not* pass the card (since it would
-be equal to oldcard) to mmc_sdio_pre_init() as it would remove it.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-If there is no oldcard (oldcard =3D=3D NULL), we should pass the card to
-mmc_sdio_pre_init() to make it remove it.
-
-In other words, how about just:
-"oldcard ? NULL : card"
-
-> +                       retries =3D 0;
-> +                       goto try_again;
-> +               }
->         } else {
->                 /*
->                  * Switch to high-speed (if supported).
-> --
-> 2.53.0
->
-
-Kind regards
-Uffe
+Best regards,
+Krzysztof
