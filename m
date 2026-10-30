@@ -1,64 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793352112;
-	b=CSDFnVTsDpQlv6uRlqzr80NCObDUJ08R3SjhjohOUC+zOnMLO+vsmvMJ8SHBPpo3C2U8
-	 YpDIX8Kf5OwtDL45tfLosg9/YJ94SgxVQ0U1Ugq56EwiJ/i1mRYWig7ZXrNq4sVK9G0TA
-	 R+5HWOqbSbeh0Q04H5UvH0/hK/44NnMYw9LuwQAGZgZjPP/cPq+M0z+hIYG4Z0XI+kem5
-	 sdvlnmOY9DSkYySQYCTsjcKgsFMmFky+fLuuOvnbYBchaKxiel+XbvPi90p2KTxRAuaJM
-	 +2q3Cb9BiCA6n/MI7KO5PB3OMxPx2N6+XBP/kwygB1li2+dBpZ0ctoajGcPMYRRKTrA==
+	t=1793352130;
+	b=IueUsypJgyf82bIVCaCBUFKe1+TWdjblQMgjlqKymv4+CpKHcZR8A1RL2v4mellxFpjf
+	 bRAOttvnBjQcASe+PAtibBYosigFsQHUbhHh83jRG+trWL7Rwi2OwIyBSPL/osJfMOCkW
+	 8ZUz0MoF+x+foHf93JFzaYYZrExbepQpxwP2HOx6bNVcqg1Rk7otDqTdrC9eGjjbPPjZH
+	 1c1HhmWVRQVss3q5L/zQpkfoMiNCsoNftWH4XrzNeg9IN1Jdbe00mRScjj7iS2EK6hYjQ
+	 /faRtC9Ez12/jcjma+vBAPU1Ypm21sXz7MQgGrVFUJqdPXR0AlgB7mVpwiW6ubis9AA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352112;
-	h=DMARC-Filter:DKIM-Signature:Cc:Date:X-Mailer:X-Lms-Return-Path:
-	 Received:X-Original-From:References:Content-Transfer-Encoding:
-	 In-Reply-To:Content-Type:To:From:Subject:Message-Id:Mime-Version;
-	bh=K3LEbG6xwteKsvtNo2f/L8YJueuoW81IhHXhpa5L5K0=;
-	b=poY8i2B96SGmQpoMqPwWO7+V+RLUkUtvIBNrPpCYWczd5drgECRFj+KE1/zE5Sf+op8s
-	 1e+3siR+jSlous31F46fNfRs1Q+BrQvRJlxMXrEZe3bXCQucFhOREnpHIsUi3RDOD3+pa
-	 GmZkPe/CA0GMXNWNSHiO2OytFq51V+qmlMRdMw2YKHBr/JXf3fisKZNYjkqB7aEd11Ltb
-	 dv5Pn4WyBrKjZ37fzFvBSVZlXXGW2lrypewgzSDcMOsZAOK3uVOL7kN4wiCPXpGWJc7aQ
-	 m28YIkG8fZRQquL66uz0h6l+iyWgRsJ17cY6M+DP6jM1FhkkkkHenfSpjDLuX8dZicg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352130;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=ZDPkJs/skkAjJj2aTicdtXz8aIFCjTrORnb5MkomVp4=;
+	b=MfH6dKRQXShBGecocFnOexu5PCGKih6fOE7dkuvcSmCDDEEVgSdvpBMqJaIDrcyGv8HZ
+	 XaMaufgfe7uSTHoGhrnw9+FC9bhmYVhdlac7n6AmaCMrQgeGMXxcFxeIl72R+ZB+qgcHt
+	 qtfKq693aMoT7kxR5j+6asCESGxAijj9Y79E47TZzAn6nEXiL7xZsK9LCkkGu8t4ZuWYN
+	 6sFYLrMxtxmqSKKx71h5xHH7PHwwiGRTDpP3LKfhjibooCVopIebUXtSrR3jpQ0TfYdZu
+	 XEljMR+Q7OvP7F57nqRlP64oFN7L3M5POY9HpUHmfTQMcpom0JPNTck08qgsfogcnTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=fnnas.com;
-	spf=pass smtp.mailfrom=fnnas.com;
-	dkim=pass header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=C7N3y0gC;
-	arc=none smtp.remote-ip=209.127.231.28
-Received: from va-2-28.ptr.blmpb.com (va-2-28.ptr.blmpb.com [209.127.231.28])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=FEb+4nEa;
+	arc=none smtp.remote-ip=113.46.200.219
+Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852B1606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:21:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 852B1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fnnas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fnnas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5383606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:22:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5383606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fnnas-com.20200927.dkim.feishu.cn header.i=@fnnas-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=C7N3y0gC
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fnnas-com.20200927.dkim.feishu.cn; t=1793352106;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=K3LEbG6xwteKsvtNo2f/L8YJueuoW81IhHXhpa5L5K0=;
- b=C7N3y0gCtMfzV/zraP6OcrBS60XTdzX+Jp6BJpjinNpfVPfXF2kIcixjGR8KFTc138iqDy
- vzEJThm4GhY/scsF90IPo5C1GZ/5XNzc3iSkmOuJZEi+Re9WHvR/a9Aundt18YEdMO+rex
- jiUDqPqldVV9I4zOOmbRPpakAtFrEIUVHIF9YVKMAr4oRNX8xemBIiDbUffpsnOs76RJNo
- pkQuYHcmJ/S8PBJqriag5iNbFA5OoKrLvCv5ugor+QM1D2ESNGjwBZxPnG2waXdC+Wssjq
- tkX37K83gMQXw22551mxVrh2Gu3TGLweSM/ovLezwv4HnrDZ8gyn/sN3ceap0g==
-Cc: <stable@vger.kernel.org>, <yukuai@fygo.io>, <chencheng@fnnas.com>
-Date: Fri, 30 Oct 2026 17:21:29 +0800
-X-Mailer: git-send-email 2.56.0
-X-Lms-Return-Path: <lba+26ae461a5+575cf4+vger.kernel.org+chencheng@fnnas.com>
-Received: from fedora ([183.34.162.132]) by smtp.feishu.cn with ESMTPS; Fri, 30 Oct 2026 17:21:40 +0800
-X-Original-From: chencheng@fnnas.com
-References: <20261030092129.1671254-1-chencheng@fnnas.com>
-Content-Transfer-Encoding: 7bit
-In-Reply-To: <20261030092129.1671254-1-chencheng@fnnas.com>
-Content-Type: text/plain; charset=UTF-8
-To: <dm-devel@lists.linux.dev>, <linux-kernel@vger.kernel.org>, 
-	<agk@redhat.com>, <snitzer@kernel.org>, <mpatocka@redhat.com>, 
-	<bmarzins@redhat.com>
-From: "Chen Cheng" <chencheng@fnnas.com>
-Subject: [PATCH 2/2] dm snapshot: fix discard writing into the next COW chunk
-Message-Id: <20261030092129.1671254-3-chencheng@fnnas.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=FEb+4nEa
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=ZDPkJs/skkAjJj2aTicdtXz8aIFCjTrORnb5MkomVp4=;
+	b=FEb+4nEay15Lw8EWXPrKN7cxjcJzcUvS5j0FH9+3jvKrpG774M5/5sX97UBCZ3/UFLilcs5GC
+	nIHc0dfXYGiP9JKxPlH+w1DPJOwNu3ZrVQg8ocAsRCRNqDDQlsfRyLyLj/8rLLBwhluZ1zSfb8o
+	tliwrFtDXyWqZhCPvch6idU=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jGFwr4dccz1prlp;
+	Fri, 30 Oct 2026 17:22:04 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 43B6040537;
+	Fri, 30 Oct 2026 17:22:06 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 30 Oct
+ 2026 17:22:05 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
+	<james.morse@arm.com>, <babu.moger@amd.com>, <bp@alien8.de>,
+	<tan.shaopeng@fujitsu.com>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v2 0/2] fs/resctrl: Fix RMID limbo handling
+Date: Fri, 30 Oct 2026 17:21:41 +0800
+Message-ID: <20261030092144.1233551-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,107 +68,34 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-From: Chen Cheng <chencheng@fnnas.com>
+Fix resctrl RMID allocation to report a retryable -EBUSY only when the
+target CLOSID actually has RMIDs in limbo, and split the domain-offline
+path out so it releases busy RMIDs without allocating a monitor context
+it never uses.
 
-zero_exception() zeroes one chunk of the COW device and takes the start
-sector from bio->bi_iter.bi_sector.  remap_exception() has already set
-that to the COW chunk start plus the offset inside the chunk.  That
-offset is needed for reads and writes, but for a discard it is wrong:
-the zeroing window is shifted, so the head of the target chunk keeps
-its old data and the tail lands in the next COW chunk, which holds a
-different exception.
+These two fixes are split out of the v10 Narrow-PARTID series below.
+        https://lore.kernel.org/all/20261020134239.3921377-1-ruanjinjie@huawei.com/
 
-io_overlaps_chunk() should have caught this, but it only compares the
-length.  "maps to entire chunks" in snapshot.rst also means the discard
-has to start on a chunk boundary.
+Changes in v2
+- Update the commit message as Reinette suggested.
+- Link to v1: https://lore.kernel.org/all/20261029081513.924019-1-ruanjinjie@huawei.com/
 
-A discard that is not a full chunk has a second problem: after
-remap_exception() it is sent to the COW device, where it hits a chunk
-that still backs a live exception.  After a discard the contents are
-undefined, but the exception stays in the table and keeps pointing at
-that chunk, so a later read returns whatever the discard left instead
-of the snapshot's data.
+Jinjie Ruan (2):
+  fs/resctrl: Report a temporary RMID shortage per CLOSID
+  fs/resctrl: Do not allocate a monitor context when releasing limbo
+    RMIDs
 
-Reproducer:
+ fs/resctrl/internal.h |  2 +-
+ fs/resctrl/monitor.c  | 87 ++++++++++++++++++++++++++++---------------
+ fs/resctrl/rdtgroup.c |  2 +-
+ 3 files changed, 60 insertions(+), 31 deletions(-)
 
-	truncate -s 4M o.img c.img
-	o=$(losetup -f --show o.img)
-	c=$(losetup -f --show c.img)
-	dmsetup create snap --table \
-		"0 8192 snapshot $o $c P 512 1 discard_zeroes_cow"
-
-	# write two chunks, this creates two exceptions
-	head -c 256K /dev/zero | tr '\000' '\252' > pat
-	dd if=pat of=/dev/mapper/snap bs=256K seek=1 count=1 conv=notrunc
-	dd if=pat of=/dev/mapper/snap bs=256K seek=2 count=1 conv=notrunc
-
-	# shift the snapshot by 8 sectors, so a discard that is aligned on
-	# top is unaligned inside the snapshot
-	dmsetup create top --table "0 8184 linear /dev/mapper/snap 8"
-	blkdiscard -o 262144 -l 262144 /dev/mapper/top
-	sync
-	echo 3 > /proc/sys/vm/drop_caches
-
-	# chunk 1
-	dd if=/dev/mapper/snap bs=512 skip=512 count=8 | od -An -tx1 -N1
-	# chunk 2
-	dd if=/dev/mapper/snap bs=512 skip=1024 count=8 | od -An -tx1 -N1
-
-Before: aa 00  <- chunk 2 was zeroed although it was not discarded
-After:  aa aa  <- nothing written, a discard is only a hint
-
-Fix it by requiring the discard to start on a chunk boundary in
-io_overlaps_chunk(), and by finishing a discard that is not a full
-chunk with bio_endio() instead of passing it down to the COW device.
-
-Fixes: 2e6023850e17 ("dm snapshot: add optional discard support features")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chen Cheng <chencheng@fnnas.com>
----
- drivers/md/dm-snap.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
-index e49427bdbeef..6968e806eb84 100644
---- a/drivers/md/dm-snap.c
-+++ b/drivers/md/dm-snap.c
-@@ -1946,12 +1946,12 @@ static void zero_exception(struct dm_snapshot *s, struct dm_exception *e,
- 	dm_kcopyd_zero(s->kcopyd_client, 1, &dest, 0, zero_callback, bio);
- }
- 
- static bool io_overlaps_chunk(struct dm_snapshot *s, struct bio *bio)
- {
--	return bio->bi_iter.bi_size ==
--		(s->store->chunk_size << SECTOR_SHIFT);
-+	return bio->bi_iter.bi_size == (s->store->chunk_size << SECTOR_SHIFT) &&
-+	       !(bio->bi_iter.bi_sector & s->store->chunk_mask);
- }
- 
- static int snapshot_map(struct dm_target *ti, struct bio *bio)
- {
- 	struct dm_exception *e;
-@@ -2007,15 +2007,17 @@ static int snapshot_map(struct dm_target *ti, struct bio *bio)
- 
- 	/* If the block is already remapped - use that, else remap it */
- 	e = dm_lookup_exception(&s->complete, chunk);
- 	if (e) {
- 		remap_exception(s, e, bio, chunk);
--		if (unlikely(bio_op(bio) == REQ_OP_DISCARD) &&
--		    io_overlaps_chunk(s, bio)) {
-+		if (unlikely(bio_op(bio) == REQ_OP_DISCARD)) {
- 			dm_exception_table_unlock(&lock);
- 			up_read(&s->lock);
--			zero_exception(s, e, bio, chunk);
-+			if (io_overlaps_chunk(s, bio))
-+				zero_exception(s, e, bio, chunk);
-+			else
-+				bio_endio(bio);
- 			r = DM_MAPIO_SUBMITTED; /* discard is not issued */
- 			goto out;
- 		}
- 		goto out_unlock;
- 	}
 -- 
-2.56.0
+2.34.1
+
