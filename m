@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793377934;
-	b=SbEXel5uHf8FQaRVB6sNt27lXKZPUyyTo4KK7owI+4+DSWxn7mgEc5pmoOqGNuuCMDGW
-	 4xhB5g/YmHCgZsfS1ZclfIe5/LWb1ADXUDi/XwLe9fk+Zyl4kxJ0/I9QmFo2i9f4q7h/Q
-	 0XxJzWJCfbRPDleuTFmXlD6Vrz79YXdTIX2kM+mNpQWuLFV6aDHlNr/rVIgeZlUMtCcvf
-	 cWurPC95QV2ycaAEiPfrfR/ktTWJ71NsAC/fnRoJma4VOKDSLbcqNtU7CMWnWQHHDsBke
-	 h3ISLDDQCx2zEUBkfvXI3TCvTV/P4KzFgnrEJMkXc5QLDKyxEratdzJhwDzpAyhmyGw==
+	t=1793377970;
+	b=jMIWqvNlX2WeCQUpJzVIIpvJdAheUrLai1GDUdoWGGkIDy+RSFjhJLdX2f1dx/U1lvDJ
+	 IkJ98yH6d9z7PPeRTBM2jdlZiYPhuf+vomWPL+GF7BNY8BIHDauxkoOFbl3rM7TbeWDHd
+	 UXoX9GkTEsRSffxyMcDYJUBL1Wy6U3iCxijlt3cXiFb61kuEFCAOE2xnyDeJTnwlzB641
+	 kDlCFD1oZpK55zg9UhXYVDeII9fzwSSstCJSyGCubwOwTWkBUs9CIYRBIrSeYEIY4MMfB
+	 U3GHyzzHgnSvjCiJvfrifrRKMFbK8+KrdkDnbnHULACMXgcFrPuQKVzsVthWtKFMgBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793377934;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
-	 X-HE-Meta;
-	bh=Q3hWuY0n/HyANKWSzNqNRab0TPULld/Jg3zuybcMvq4=;
-	b=i2BjPfEYPr7yi6aHvsV9RnafXow+GDxtNpbi1YNBUDmIF/WnSqNzik2Xf47M+0178/lp
-	 e5MCvjrwtzvCauijjqYpqedayKDJaRjCXHDo2ouKolbv7nCqX7fG4Psyvxa1q3mTa75ln
-	 mJCiyGfAjnwp/D1APZOruKL45nD5BET5gep3po22cQ/v/7pGcUiyA31bKaj153LWZ8eyL
-	 AwEBeQZh/AeKNvzYsr6zSr3k4FhLGIb0LOipM+Op4g5tJhZWo7K+3xdKDWm50vHrZEbPu
-	 4Hbh8Cf1cv2ZoGvIIKZifCqvp3HfrqyhkXkBcTi4cjVFlgzH039Xu+S7uwEMz680QGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793377970;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=4g4bBa15TQcCRqdP6/C6ogyt9YDhoGubfZMQbJjSRhc=;
+	b=yiZsC6JDqXGezWh59IOTkLkkaKoW181WvRw0Qc76lx+jnIxwIV0AqIaL6ssY6m/qjt/M
+	 bv5+9YU3hx7GmK8upfFIKApuDA5dr0Tps3pIglxvzSpgxGrtLlzPpmX5wAs9G2Zpmho99
+	 Z2+zr9ipT7fKsd9lltUqhFs80gP88l/O7os/rXiOFRIfDbctYCJLc9OZnjsudaf/oD3DT
+	 9dIZIL9t1nfhSAe6TqR9DaAKTtVwFSv0SjFeinpmgrLtDI49e/2qCqfoHBJEYKiB1Gp39
+	 +FbG3NtCCsBZh+Bmgtj9KLan/deUKmXIE09phNaJe+w4SFHQxDWTCJzALWnFo47Wxog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.14
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b="kBiqrbk/";
+	arc=none smtp.remote-ip=209.85.221.50
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2224F606A32A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:32:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2224F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf03.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id 8926B14077B;
-	Fri, 30 Oct 2026 16:32:12 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf03.hostedemail.com (Postfix) with ESMTPA id 74C156000B;
-	Fri, 30 Oct 2026 16:32:10 +0000 (UTC)
-Message-ID: <1ad2ae74e3257578cac561f19af63ccb94fce85a.camel@perches.com>
-Subject: Re: [PATCH] get_maintainer: lazy load JSON::PP only when --json is
- used
-From: Joe Perches <joe@perches.com>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Sasha Levin <sashal@kernel.org>, Andrew Morton
- <akpm@linux-foundation.org>, 	linux-kernel@vger.kernel.org
-Date: Fri, 30 Oct 2026 09:32:09 -0700
-In-Reply-To: <auTDEy_vyMixVRTU@redhat.com>
-References: <auS7NOsyw7pJ7rbF@redhat.com>
-	 <eb8d1fb4e2a8a32ae1b71df686ed65be800e2918.camel@perches.com>
-	 <auTDEy_vyMixVRTU@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F4AE606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 16:32:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F4AE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=kBiqrbk/
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48bbb06e746so470344f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:32:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793377967; x=1793982767; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4g4bBa15TQcCRqdP6/C6ogyt9YDhoGubfZMQbJjSRhc=;
+        b=kBiqrbk/dCQYNigE3JuppVC+5aXOMm3uDwohrN1p4hZSNpp1loTbvBmm+94OAVszBr
+         t13ZJekGenonoNiPNUc7DZboP6mtCGnri5Twx+GRKwowegQbHPXP2pK6+Lg1Itz0pyAW
+         q+k6+cboSWo48+n49U+IKM+Z9OfaDxHtlTxY0cAvDGvNG4AzyfiatrnAC5Zwu1ppXa9T
+         z1ccX3bE2Gv96J4BH9qz8pJSIGaSgTkL0/HGSkEO1ASpKvlu3vvfLuqUZ2/+z8v6XKTN
+         KSN1vRYOcCVQwvERkX5/oVtWZUU1ecU26j7kHnlnO+i76bniya3kLO3/9iFyE3MToNfV
+         o6qQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793377967; x=1793982767;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4g4bBa15TQcCRqdP6/C6ogyt9YDhoGubfZMQbJjSRhc=;
+        b=Q01oSqhI+t3fvQUKITQfrJt7rGILP8Oc6k9S09NasN8+uTh6JKfACauY1ytFI+rD8R
+         orc+Y7kWGwt8ynwTC/cL4xUO1nqxlJHc/8q5wcAdDeLJtQHDRO0ecbvmXF7vQTRYaWPz
+         U8/AR28fSXYqG38ulsgh6+W6lVX0RoTUNtrui48sEHAQsftQx8PGOMgV9e+gy9yR1GDu
+         +EPqTFjx0PuCih4cjatE/OnIo8wVJMRheYwJWBpzGL/RiYHvIeKEOjDxPtTNgtCXtvyD
+         6C1ile46iUTsxMk6hcN9Ud/uQDRcu499MMExNF48xKoBS/JMWg6XRRywHqqVFjI5lk0n
+         6j8w==
+X-Forwarded-Encrypted: i=1; AKwUvByTcjKQpW4KI9ir0Q32LtKrPfgSkROHTK6XqZQQhqfledpF0saUd/vuitMdXWy5G1RelH3GJCczWYXyhRE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKc0ymymH1GffU2qLcc+Dpc9PyMtX+l6kGa2yMv/p41UQwlwGV1
+	A+W2LGzaZhVbq6+BSNFwLw54kKMynG3a3FqgoAUfsHa4B6F699H3jCenor+uay3egl0=
+X-Gm-Gg: AYBFou1OFimygA4/rsj+9m8cgYMsPAkcZV0007BSFJwwKSZN0O0UXyne59is6E/OvCT
+	5dg5JwKzl9Gm9IDUnUGOc5joZQ6RvSAvf7vIMlZyj4D+fkXKzSbezff0BIiZZMWvUZEeLlcYMRp
+	oIidAp8rJVCQioFgmmarZT/UMLuWOWV28sNYA9lxxGmbuA89OcGafGbaJ0evNpK+7NzV9NfRmXb
+	9KgHmKXmEu9/+2z6l9m6rLs5vDOW637rIIYHXatkZnbQwSg3n0FictaXtFG2a7sgpuGRcYWbTLW
+	ksfsP/lYoqSUiD7/gmFvJHG04KkZNKyvLPvdqoEjvmGuwMMN1owAjVmSvEP3IquX5VPpqiD/jFe
+	jGRYyw3wrMb4ZQVRKXQ/D2HreEf65N9KLuTl7IpITm73rcYnBZDSwLiUd3us1T6N7wZFPtQ7E3c
+	e1jzGV3gXx9KMQBg9kc6sZhUYtaPoABrhpQIDbvpeGX1b5uI3DmLBAu46LLJ9EPtmvVej7+9hed
+	Wboadp0xHsp4/XIb81RydQRigrNJKCjBDehawvLtU1rEs6hdfFZ6DrGYIyIuph4hvk6LZ0zU+5u
+	Kb0cZiwDfzoDEsx612sfQ+hnbo44v/34SCpY5e4sgiBW6R8gJVCiWa7TSFrNgKdy8ueOEw==
+X-Received: by 2002:a5d:588e:0:b0:48e:6bbb:c3f3 with SMTP id ffacd0b85a97d-48e6e2fd071mr6553038f8f.28.1793377967347;
+        Fri, 30 Oct 2026 09:32:47 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71bae25dsm3528697f8f.59.2026.10.30.09.32.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 09:32:46 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+Subject: [PATCH 0/2] ASoC: meson: card: fix driver remove
+Date: Fri, 30 Oct 2026 17:29:52 +0100
+Message-Id: <20261030-meson-card-register-fixup-v1-0-6474985e94f6@baylibre.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,70 +92,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout02
-X-Rspamd-Queue-Id: 74C156000B
-X-Stat-Signature: fc6nczt4irs695msydbzuxy9dykujrof
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX19Ngc9tV9Jnao8SVBjdArxFkh+VTirkb1w=
-X-HE-Tag: 1793377930-539499
-X-HE-Meta: U2FsdGVkX1/dnLf6IWtRUOoq8bEK+2JAvewD+VY35LNbg3+ZDZCmeY7CG+kYNKICnnti8thdyfhKdjM9jjDSslyjubXVdXzy5joef4QM7MoLkyr7vi3rMWbM++HmksD4mHcIN5FhmeaoJLE0uUo15o/07q/rraZo/YyBIF1+x7yeUEfvld9h/raS6IWOiJiWYQ1W9RQJcHV0kaTgmlgKLB4myLZpbfWJQ7kLM7D86Rl2evTPpCxdiqvKi2JibG393xniDaA++Fjy7xrSJfXfJepOYrIZkz0yQMnvH7J5yYDiPvcyG8HeZluVCJ41AGP2
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCQBAEvxLm7ICbiFG/Ijlkd9s4gpswk4gQ8
+ ndHPfShaKpWMqjA6FKtpHiJyVgcwq6idO/LAJbsTPW+PgYfP2Fj4dRrZsUgNkP5Ju9l4ibE9nx
+ qcnuIgdyfFH782tfuz7bEB9L8DdK2fQA9Y8sMfQAAAA==
+X-Change-ID: 20261026-meson-card-register-fixup-31b7983d74b1
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Jerome Brunet <jbrunet@baylibre.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=660; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=fXalk+osyG8+ZDMUyak0NQXBdifxrSPFw4QoLcm/1KM=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlPjq27xpM6JbNrbZS+3gUH2UWJRwWXvzs54T53dvrNP
+ OsuwaMqHaUsDGJcDLJiiiw13NXi7yS1vsyarnMbZg4rE8gQBi5OAZhI83FGhmOy6VOFZrpkt/9+
+ JvZO33RJ8RuX5D19jk84d99jdl62dDUjwz/NL/wOz9/2mnOfb741b3nRzpd8yhcs538x/+P47b+
+ dDAcA
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-On Fri, 2026-10-30 at 17:17 +0100, Oleg Nesterov wrote:
-> On 10/30, Joe Perches wrote:
-> > On Fri, 2026-10-30 at 16:43 +0100, Oleg Nesterov wrote:
-> After commit 09d8b39563e8 ("get_maintainer: add --json output mode"),
-> > > I can no longer use get_maintainer.pl; it fails at compile time
-> >=20
-> > Just verifying that you mean when using perl directly and
-> > not something like perlcc.
->=20
-> Yes,
->=20
-> > > if JSON::PP is not installed even when --json is not requested.
-> > What version of perl are you using?
-> v5.42.3
-> > I believe JSON is bundled since perl 5.14
-> Well, JSON::PP is not installed on my Fedora release 44
+meson_card_remove() reads the wrong drvdata and frees the card links
+before the card is unregistered, which crashes when the driver is
+unbound. Fix both.
 
-Hmm.  Odd.
+---
+Jerome Brunet (2):
+      ASoC: meson: card: leave the device drvdata to the ASoC card
+      ASoC: meson: card: unregister the card before freeing its links
 
-> > > This module is only needed with the --json option. Use "require" to
-> > > load this module dynamically inside the "if ($json)" block instead.
-> > The patch may be sensible but could fail the same way
-> > if you used the --json option with your version.
->=20
-> Of course, "./scripts/get_maintainer.pl --json ..." will still fail
-> the same way without JSON::PP. But with this patch get_maintainer.pl
-> works without the --json option.
+ sound/soc/meson/meson-card-utils.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+---
+base-commit: 11ae63bd9030349a0136fb2edd1622a4a029edc8
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+change-id: 20261026-meson-card-register-fixup-31b7983d74b1
 
-What does that failure output?
+Best regards,
+--  
+Jerome
 
-> > > diff --git a/scripts/get_maintainer.pl b/scripts/get_maintainer.pl
-> > []
-> > > @@ -21,7 +21,6 @@ use Cwd;
-> > >  use File::Find;
-> > >  use File::Spec::Functions;
-> > >  use open qw(:std :encoding(UTF-8));
-> > > -use JSON::PP;
-> > > =20
-> > >  my $cur_path =3D fastgetcwd() . '/';
-> > >  my $lk_path =3D "./";
-> > > @@ -685,6 +684,7 @@ if ($json) {
-> > >      $result{web} =3D \@web if ($web);
-> > >      $result{bug} =3D \@bug if ($bug);
-> > > =20
-> > > +    require JSON::PP;
-> > style nit:
-> > I likely would have placed this require immediately after the
-> > if ($json) {
->=20
-> I am fine either way... should I send V2 ?
-
-Dunno.  Depending on the current failure output
-maybe adding something like the below is better:
-
-use Module::Load::Conditional qw(check_install);
-
-if (!check_install(module =3D> 'JSON:PP')) {
-    die "$P: --json not available - missing perl module JSON:PP\n";
-}
