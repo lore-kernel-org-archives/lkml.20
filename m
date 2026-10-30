@@ -1,61 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357293;
-	b=Ia/UHGjVqrr19Cm3gcG1k768hrGKZQGak/aXx5MMtxxFaAYqFi47BYR1cUfzL0+ny2r7
-	 3t3LFr5q+7Vm+92OUpZy0r8V1mSHZgkHkq+znZKPkH63fbkrlyUs9+K0OODOdvdyxnrf9
-	 GbVETjKaMnYsCc6RmNujTKX4Nbrm4+7ZPNS00cahGY3XRc/c8Yd85NYhPT0JcNHAOBuxA
-	 xiYq6xXs+ya6Wmz2UKS22An/TEur2LHjq9OtH9ryg53eBFuia6MQHwPZMYCoFpinO1lfg
-	 93cna8A+Gni6QEzasKDuBwMe8YGBTVIII0VFBkY7/01X7uRIwWfRYEQgw/T5rIdPkFA==
+	t=1793357302;
+	b=THYXRUa+Jnjgf0OCb3ZHv5glI1sO4YeT9DEApW+aNWj3dODnuvY41LtF2+GyD6IKiwuC
+	 vTeBSb317ruwUeMqCCgzw7/OlHG35/to0hzvynzx9p3BjQoWAoYC/fjT9qA2FoF7ehWdJ
+	 i0P4LkDyE9sEty5wIDFqKaxfQxVfmDvzJD3JOy1o7km+K+MKHbt//kULFxK7KDpeEWnKM
+	 VLFwcwnZV1DzSURGdo1+E7/paJAwLHaak3x0A3GmWiR56pEU5cLKb3XP0Pq+KOC5mNRsH
+	 01cP2vgWdOcTXGdsZEbJgCAvVun6rzGWzKSTNyoZ8bwKAnqsI3Yf1OnYDBwQRij1LNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357293;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Y/EYB0/9MsM5P2ptIQrhRFyMMNFz7gDKfR7zADjLWVc=;
-	b=PTk21ETlW7UlE1OoT/TDnrysU3nBc0ZiOn47pPw/+uyQ7745oyR8+yTQp4kivSmOesCo
-	 FqDBoXvGPlBByB1Bihd4EF04wbqeatMG8bV/ECitE7NuIAHLOgXR8ToRVGfSIdDh1bnip
-	 WkZo9h0672SM855zMfAeADlU+hcVdc5IjriN+1WbAFHScr6irOJTlOHSKzMkCKCQSumci
-	 8yBwsleJNN4OWadGlo4p9pykczlHRlOL6dVXEAU0VMY9ecx6Bj8Zxv26TmU6wJ+4HfCg7
-	 hINYC99/YXn+rEo4PhGWJ4V2UGArYRgGz9Oyac3Vh7rwL5ecxz5erGQmtv0iA/5kItQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357302;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=QpStEmyGQQsu84SS4INTHakUVlKWH4EpwsSW4OFxdxk=;
+	b=DwywNANyP+lsrgdn5XFQxZGEGhERcqDeckp2ob9tbbwsUltBAuHVSuAHNAVYKCfnn4v2
+	 0d1CwsipAn9vFeRdXcqkm9UDujpV+pHf7lufCKtXEpPj7HdT13bJlBB1zHDtQiSMp1ahT
+	 MEJIBcyf9YIgR2p7XAmnrCJO6TX6BwXVAmA5V8klO43WfvYuTuXQ+gs74pK6UN5GDvJk2
+	 TOdKg+G0AbNpX3SraRcJZG9/Hn2Ryh/xCG5NV1uc41CQQo6q5EO2noi3eJH6JzS5GRVeH
+	 gLSu1nrHOb4v4Y+UZHwENBX7W57LrS9TxjTU5AZIgWFWb7CJibPZwDMhMDg/JJXO5qQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+ErgFMb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TgD7EExM;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF7A606A31E;
-	Fri, 30 Oct 2026 10:48:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6C0606A322
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:48:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E6C0606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+ErgFMb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41BA91F000C1;
-	Fri, 30 Oct 2026 10:48:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357292;
-	bh=Y/EYB0/9MsM5P2ptIQrhRFyMMNFz7gDKfR7zADjLWVc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n+ErgFMbwCPIcU9V0z9/u98FGG20OmGSFWjLu7X2sPtSYYyhk3dpHEWEJ5hT4a+JO
-	 1a6+nIShM1Llo5RSqey0aIE8YsfOzC/xC9EK2cVElujM4rmoDtmzQgziyxbwhcCc1Y
-	 68lfBTE8fh4KjEeH2yzvNNuWTwC+/ZmAzOIr32XAQ5NPFDIv4GwZyrSM9ZtEvJq2e5
-	 u/ocT1pa6p/z92jJRcSOs/uzs7J15RikjKWtmy+IU11cn6DfdLjM7fP+seGLP+gE+n
-	 f3n7ydd0+uPcBX8m0isufuo1SC2qEsb+AjCMDtRTseWMwEkrlrv7tlkTw1nIVZyGVe
-	 ox90c8Te5gsxA==
-Date: Fri, 30 Oct 2026 10:48:06 +0000
-From: Lee Jones <lee@kernel.org>
-To: Andreas Kemnade <andreas@kemnade.info>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Kai Svahn <kai.svahn@nokia.com>, syed khasim <x0khasim@ti.com>,
-	Peter Ujfalusi <peter.ujfalusi@ti.com>,
-	Samuel Ortiz <sameo@linux.intel.com>, linux-omap@vger.kernel.org,
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 13/27] mfd: twl-core: Clear twl_priv pointer on
- teardown and probe failure
-Message-ID: <20261030104806.GC3774906@google.com>
-References: <20261027093306.2812695-1-lee@kernel.org>
- <20261027093306.2812695-14-lee@kernel.org>
- <20261028165003.60d0c033@kemnade.info>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TgD7EExM
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso517019f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:48:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793357300; x=1793962100; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QpStEmyGQQsu84SS4INTHakUVlKWH4EpwsSW4OFxdxk=;
+        b=TgD7EExMtyLX1qNBHnezhB8JBhjJjNtwS9ret5xVef7xr1FZxQuVCJBSL8QXqaWLPh
+         Pa2KsJ1BUKSAm7e2GHVtKOE+L3TqU3tq5yRoge6i1E24PkiIocgQfexJ6bv2ZVy7/5PN
+         2SEdlTV8QmhWQdwsJNwWGFeSxzR42/QEz6IdOuxLum+hxvgoorU3j/lxqQumzs88zOaf
+         Bs165BifaTvp7zvnFilHIDVSairKJDJk4MGH9YY5jq0nvYv+NJaipzT4fzEu4/eq0Gys
+         1w0EQbazUBPYw976ABPowMYajY9jsaZA84nCI2axFc2g0z1TH3/6R7v8v88kV/Pb2fWZ
+         4PEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793357300; x=1793962100;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QpStEmyGQQsu84SS4INTHakUVlKWH4EpwsSW4OFxdxk=;
+        b=ciVjtMc4fHuZHoOsvRQZKj/Fcp2eXRh6MxWz4mHxe5C+BMP3bKDc3adSqG4vpnhJT0
+         LgRQhTz84tt3aetIO+/YTxmJC1MwRMj9jvdRZ0a+vImr/9Ugbc66guq+b6aOviPdybeX
+         mmzLE+6OmFcVGU0WcFF9p3f11MUIOlqiO+PjkhItOO/kKVpvmO0cdNFKsXDP6gqI1aje
+         2dBfAWS/GQm5OxOVEY/M8R91w9AFOXdPkl/tOf/n3+HvCGgICoTrhN+XByYwVZRcledp
+         519l4igF7ku4jkbjDkUgDML00Kn0sze3m3Z2Ab5qZnkhARRpRt8GfBmAgXrJ7KooBPjU
+         9OLw==
+X-Forwarded-Encrypted: i=1; AKwUvByX+YkVmNrjwToLWIHU4pymFjYhdnTfm4TpZCLh6nj3OpFT2LYbSqmVsELxLO5/pAyd8We5d8j9ZXJ2Y0o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcj+z1hdrIcY+7KLSLp4vIsFYrH5/mLRGczXeq9UDDeFT8haEr
+	MRUGoRm2PwNLo+8zcLq3A06tlTsNECLBgGuein8cay5BDK+3rkqZ0dVW
+X-Gm-Gg: AYBFou04lueTLo7Pa8ychkfR61H3TAb9edy9ljFGZkzhDlOst+XMhwbX/guz1wBBVxW
+	QDOJRV/08j+SXtUmfeJSqW4SqpvDhRlhmzuAExfROp3ceY4bK4tu5iwN4gLqlfsXGZai9Uve3JQ
+	nkBqWbqUfEcbVAF2ylvv3v+DiVRy1skhrKjP3nbP1rnRj5F6jZJmmHSXb3KoiXXfnX8I1Q/Oe+x
+	JFK/qdHxWiUSDhcEmAgz8jhekDAwnSBN03J2YYerl3jjLA+l5lJUdSPQBg0sj6Zg6Uomxu2nXmp
+	7IdVrsddLtOufIuXrWK47IvXqqT1wz/O6Oh5s5Bbpc21EFG5RKqBhvnAG1y/fmoSzmsu3x+8en5
+	cXFwXjDb3b8pyTXgCSf2BbJM7EURCYMbpb7qZe0k30k4PyVoqY2hlJY4L0ld3dO9cGgAUGKTp0B
+	7hR8FebfrLxjBXWjLcaj51n3vBlwzuHnH1o8NqMPvcj1eM5YVDfmZP1Dzwy3EQD6P+lINjsP5ar
+	hkijE1KAnQcsx1tKSAtWco4LZiJOIE05xuN7axlpnBq03Qpy3O/hfrcpKnM75655yeFZHiXXSTo
+	6d4OlJxP+/qGOx7mnPoD+i1RdZGMerwuuT0XLqw=
+X-Received: by 2002:a05:6000:26c5:b0:48b:e50:714e with SMTP id ffacd0b85a97d-48e6e50d8a5mr4237079f8f.36.1793357300391;
+        Fri, 30 Oct 2026 03:48:20 -0700 (PDT)
+Received: from fedora ([154.183.179.146])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71bae25dsm2240473f8f.59.2026.10.30.03.48.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 03:48:20 -0700 (PDT)
+From: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux@analog.com,
+	linux-kernel@vger.kernel.org,
+	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+Subject: [PATCH v2 1/2] staging: iio: addac: adt7316: replace kernel.h with bits.h and kstrtox.h
+Date: Fri, 30 Oct 2026 12:47:44 +0200
+Message-ID: <20261030104745.16693-2-abdelnasserhussein11@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261030104745.16693-1-abdelnasserhussein11@gmail.com>
+References: <20261030104745.16693-1-abdelnasserhussein11@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,43 +105,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028165003.60d0c033@kemnade.info>
+Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026, Andreas Kemnade wrote:
+Drop the proxy header <linux/kernel.h> and explicitly include
+<linux/bits.h> for BIT() macro and <linux/kstrtox.h> for
+kstrtou8(), kstrtou16(), and kstrtoint() conversions.
 
-> On Tue, 27 Oct 2026 09:30:42 +0000
-> Lee Jones <lee@kernel.org> wrote:
-> 
-> > twl_probe() allocates the file-scope twl_priv state with devm_kzalloc()
-> > and checks for a non-NULL twl_priv at entry to reject multiple device
-> > instances.  However, twl_remove() and the early error paths in
-> > twl_probe() never reset twl_priv to NULL, a failure when adding MFD
-> > child devices bypasses twl_remove() by jumping to free instead of fail,
-> > and twl_remove() tears down the IRQ domain and dummy I2C clients before
-> > child devices are unregistered.  After devres frees the underlying
-> > memory on probe failure or unbind, twl_priv remains a dangling pointer,
-> > causing subsequent exported API calls to dereference freed memory and
-> > blocking future probe attempts with -EBUSY.
-> > 
-> > Unregister DT-populated and MFD child devices at the start of
-> > twl_remove(), ensure mfd_add_devices() failures unwind via fail, and
-> > reset twl_priv to NULL in twl_remove() and on probe error exit.
-> > 
-> > Fixes: 80a97ccd33be ("mfd: twl-core: Collect global variables behind one private structure (global)")
-> > Closes: https://sashiko.dev/#/bug/linux-73e82f84-94de-4d08-82a4-f22d42a1dedf
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lee Jones <lee@kernel.org>
-> 
-> Hmm, couldn't we use devm_add_action_or_reset() for resetting the
-> twl_priv pointer? Feels more clean for me.
+Signed-off-by: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
+---
+ drivers/staging/iio/addac/adt7316.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Nice!  Thanks for the suggestion.
-
-To keep this fix minimal for Stable backporting (and avoid resending a
-27-patch series), I'll take this one as-is and send a follow-up patch
-converting twl_priv to use devm_add_action_or_reset().
-
+diff --git a/drivers/staging/iio/addac/adt7316.c b/drivers/staging/iio/addac/adt7316.c
+index 20f6052cc7fb..d4b759ef637c 100644
+--- a/drivers/staging/iio/addac/adt7316.c
++++ b/drivers/staging/iio/addac/adt7316.c
+@@ -10,7 +10,8 @@
+ #include <linux/irq.h>
+ #include <linux/workqueue.h>
+ #include <linux/device.h>
+-#include <linux/kernel.h>
++#include <linux/bits.h>
++#include <linux/kstrtox.h>
+ #include <linux/slab.h>
+ #include <linux/sysfs.h>
+ #include <linux/list.h>
 -- 
-Lee Jones
+2.56.0
+
