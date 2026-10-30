@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.29
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793338343;
-	b=Jv5MmAq41CW2+jzHii1Gy7aCs+fTcjx7Y39pL0b/iGjnN54/Rkz4z5zZ53UAujMKDrww
-	 Gpq3s2dQUtr7gx4u6ekhn+bPQsiLGJqJ6NOO5qSrYZ+Y4KvBnSYGnnZ85vIqolNLOk/OA
-	 Maj0dRzxpWFgY0swtDISETf7FdOpPaoymgveG1Eedso47okMcekk9y0d3FxPJIDzqgPZg
-	 eexSpveVTgn3OTut1s+uhSofKgy11FLrSGfAW0cDFDKhh2rpwTCyZCieYcl+34nPQn6qC
-	 hMzSw9w/Hdu8SH63FpUNAAbPuckgDifTzWOqPlZK1ijJOXhONFtC66N+pCZnjXebzRw==
+	t=1793338351;
+	b=uDRyA0Tq+otIzh0wSCdFv55k+oCTHH3aUGvo6EzJh6mtCPjsb5QgZuigcf3oHoE/q5/3
+	 RuMfwdLXhHgD3Vd7M1o0i0roIqKfmCAjYilqevCJMuEKfsU+4Um8tIjsIst11gZJk3/5N
+	 ukt4g9AV08UTaXXt/CBHjHLG5x9yvsWVWwW+Jp7xGtsyOXLW/U9L31bAY98/vt6t+qGS7
+	 UbcEvzW4G3+m6mkZKhm5tlvj2/sRstucIrXHIlHlQc/Bu2IfI5oNfMGkoVo+9sglwPR7s
+	 LfYcCVt3ObHIU/3JLC/oyCUuoXvxToJ21skDgJHmvcxVB3afdx/6r+EntRSRgH5JJOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793338343;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iqzvhuQcnt+M1uy6q8ZgEZg+92jJlmTF/zBz9tyaOXw=;
-	b=S11yUm6POSdMigMDjkWvkARK12OWAC4SWzols8nsit8fWpD7z36D9r6fz7LQOfYY7fOf
-	 /OOUMCu04Nu6NOX9rGL0JAMtDcqq2ppFz8oT4+UN2KNPzfWy43M6Pfvk+8dwzvONbcxjc
-	 sL1ugcvB+pdxsYbCYTvFBNn3wwk+s5j6e8cyFqzQ4O21dEX8eaSeyASXK6jdbWLWdHvpj
-	 Et5YcGfW7I1ApI4GvqQtrY2SV0GLi5zjaIlxYjFMTclwUvj/2D+qlLwLb9olmcNfJrh/X
-	 72DWM4z5rozfySf7Nr2ChCRWJy76XEIzeCCjTmmr2wPx3fqO788uqAIV50qJn4mrybw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793338351;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=VTDrdrBuAyTJnkqjgvXYYtVwc9zTl+F88XwMGcc4YDE=;
+	b=TpLu4Wyb3NdSdew6ZAhx4q5AM3z6Vl0Qw+DQ4IYHLPk4QZHO4wedDx4zgcZq34qyUQDc
+	 06dlw/+9YSeyKkw1mBajnio5SgqxwVDLR/dwW387UCBwGadWoUNUNaEr0IgoId3/oSQLi
+	 SDUwBuRsXEtXrjiGNOzzJVUcth1eblhVxbP9eiWqXvx4bZo4I63I/h/Ly/A9VaPndlnki
+	 1VEWv20Lcr9AMdTJ0/pHfvuq6mo0IOQVd/ZwrQEzzGbot3Wkj7sNvioz8MHBy2xESY6wI
+	 oJS51+aLERWKHHU3jFWm6WbpQwZl6EAbszDKrCzBnZL9GpBZjGzJeskAz3aZWPyPcag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bB5zxCnA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vHfRjYMT;
+	arc=none smtp.remote-ip=91.218.175.29
+Received: from mta0.migadu.com (out-29.mta0.migadu.com [91.218.175.29])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68390606A31A;
-	Fri, 30 Oct 2026 05:32:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E0E606A334
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:32:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E0E606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bB5zxCnA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7441F000C1;
-	Fri, 30 Oct 2026 05:32:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793338341;
-	bh=iqzvhuQcnt+M1uy6q8ZgEZg+92jJlmTF/zBz9tyaOXw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bB5zxCnAMbRDPFIf7fH+qrDq6h84IYsxZwVp/YP9NhScXxtWDfbNqfwjiKxGmNH6/
-	 LJbMP6M3xBtjNQz4LZ/Gfws6cMsl48OR4Uw+XmriiFRAMPHJ0IIEW0l/0BHbAAjG9X
-	 /GRLLc8J6d4wmcFL6VBaQHGcG5HCbgIsVWfyQ8fA=
-Date: Fri, 30 Oct 2026 06:32:18 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jeremy Kerr <jk@codeconstruct.com.au>
-Cc: Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
-	Donald Shannon <donalds@nvidia.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	Mark Brown <broonie@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
-	Corey Minyard <corey@minyard.net>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>, Lixu Zhang <lixu.zhang@intel.com>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Oliver Neukum <oneukum@suse.com>,
-	Quan Nguyen <quan@os.amperecomputing.com>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-leds@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-spi@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net,
-	linux-acpi@vger.kernel.org, linux-doc@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Bart Van Assche <bvanassche@google.com>
-Subject: Re: [PATCH 00/11] Add NVIDIA LSTP USB adapter drivers
-Message-ID: <2026103015-stained-shudder-1582@gregkh>
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
- <2026101310-scuttle-unison-d4c3@gregkh>
- <c569c912141e9da7530121b8b2fc81527e0518a4.camel@codeconstruct.com.au>
- <f3f305a0f3195948bd25ca7eea4348113f998ee2.camel@codeconstruct.com.au>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vHfRjYMT
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Bf0WWkeJSETIqyNNL0Tk2W1KhY+0SCl/fI1XWH+Qygc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793338342; v=1; x=1793943142;
+ b=vHfRjYMTLE8GNmV/NQ930J2ywQJhyanjVI75XVY+Rep9T7tsczB1jt3b7nefwWbYQQHhTYpb
+ iqzg8eNAu1Xwp0lliVRb1Bc0n0dDbxlw7ENRHSVJ1UOiue1mIXVgC4W1E5mOo6hJME16DhnrQBq
+ go8H6oQ4AOnRkh5x1foQvjtU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 9f9ebc0d777873bb;
+	Fri, 30 Oct 2026 05:32:22 +0000
+X-Mizu-Trace-ID: 9f9ebc0d777873bb
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,115 +57,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f3f305a0f3195948bd25ca7eea4348113f998ee2.camel@codeconstruct.com.au>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH] mm/hugetlb_vmemmap: Fix usemap overrun on nodes with
+ multiple ranges
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261029212137.3141875-1-tim.c.chen@linux.intel.com>
+Date: Fri, 30 Oct 2026 13:32:06 +0800
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Frank van der Linden <fvdl@google.com>,
+ Mike Rapoport <rppt@kernel.org>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ Mohini Narkhede <mohini.narkhede@intel.com>,
+ Pooja Jain <pooja.jain@intel.com>,
+ Doug Nelson <doug.nelson@intel.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <0611C182-4A76-4751-A04B-0849EC31DAD3@linux.dev>
+References: <20261029212137.3141875-1-tim.c.chen@linux.intel.com>
+To: Tim Chen <tim.c.chen@linux.intel.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On Fri, Oct 30, 2026 at 12:06:15PM +0800, Jeremy Kerr wrote:
-> Hi Greg,
+
+
+> On Oct 30, 2026, at 05:21, Tim Chen <tim.c.chen@linux.intel.com> wrote:
 > 
-> > FWIW, we did raise greybus as an approach to various HW vendors; I
-> > assume there were reasons behind OBMF-ICP, and assume some prior-art
-> > assesment was involved, but I don't have specifics for those reasons.
-> >
-> > HW peeps: This would be an excellent opportunity for elaboration on the
-> > motivation there, either for LSTP or OBMF-OCP.
+> sparse_init_nid() allocates one usemap slot (struct mem_section_usage)
+> per present section in [pnum_begin, pnum_end), and
+> sparse_init_early_section() hands them out in order, with a BUG_ON() when
+> they run out. hugetlb_vmemmap_init_early(nid) however initializes the
+> sections of every bootmem gigantic page on the node, including pages
+> outside the range being initialized. If a node's memory is split into
+> more than one range, sparse_init() calls sparse_init_nid() once per range,
+> and this takes more slots than were allocated. The same happens if a
+> gigantic page straddles a node boundary.
 > 
-> I have been doing some asking around, and a few items came up around
-> motivations for OBMC-ICP over Greybus. My motivation here is entirely
-> around OBMF-ICP; the NVIDIA contributions for LSTP somewhat comes under
-> this, and so we're working on composing a unified solution.
+> For example, with this SRAT layout every node has a small range below 4G
+> and a large range above 4G:
 > 
-> Collating some of those items here:
+>  Node 0 PXM 0 [mem 0x00000000-0x2fffffff]          768 MB  (low)
+>  Node 0 PXM 0 [mem 0x100000000-0x80cfffffff]               (high)
+>  Node 1 PXM 1 [mem 0x30000000-0x5fffffff]          768 MB  (low)
+>  ...
 > 
-> As a bit of background, the typical use case for OBMF-ICP is for
-> platform pre-boot environments, with limitations in capabilities of both
-> the hardware and software stack. Microcontroller and mask-ROM
-> implementations of either side of the protocol are potential targets.
->
-> This leads to the structure of OBMF-ICP being intentionally
-> light-weight; the channel configuration (ie, definition of the
-> encapsulated devices) is static, and the channel-level messaging is kept
-> simple, mainly through a requirement of only one message in flight per
-> channel.
-
-greybus is very light-weight, you don't need to have more than one
-message in flight.  That's not a real answer :)
-
-> [Greg, this is related to one of your points around why not use a
-> multi-function USB device for individual, separate devices: the typical
-> device-side hardware does not have support for enough USB endpoints to
-> do so. Like greybus, the intention is to be able to support multiple
-> downstream peripherals without constraints from USB hardware on existing
-> SoC devices]
-
-That's for LSTP, and USB devices are dirt cheap, multi-endpoint ones
-should also be very cheap compared to the system they are attempting to
-control here.  Don't place this on a "it would cost too much so we are
-going to fix that by making the software a complex beast and having
-someone else solve our problem for us" solution driven by a hardware
-designer.  That's not acceptable these days, you all know that...
-
-> There are a few design points that lead to the preference for OBMF-ICP:
+> In 128 MB memory sections (x86_64 SECTION_SIZE_BITS = 27), node 0's low
+> range is sections 0x00-0x05 (6 present sections) and its high range is
+> sections 0x20-0x1019. The low ranges of the other nodes are 4 or 6
+> sections, all smaller than the 8 sections of a 1G page.
 > 
-> The front-loaded configuration mechanism means less state to manage on
-> both sides of the protocol; the channel set and channel-specific
-> parameters (like individual GPIO descriptors and flash geometry) being
-> stable over the lifetime of the device means simpler core protocol
-> support and channel driver implementations.
-
-What state needs to be managed here for Greybus?  And given that there
-is firware and kernel code for greybus already written and working for
-10+ years, that feels simpler to me.
-
-> The simpler channel communication protocol is better suited to
-> lower-complexity interfaces that are needed for the pre-boot
-> environments (GPIO control, uart, IPMI, flash access) than the greybus
-> targets for mobile device runtime, with higher-bandwidth communication
-> requirements (camera, audio, display). For example, typical platform
-> management functions generally involve a lot of short i2c operations -
-> ICP messages for these are around half the length of greybus
-> equivalents.
-
-You don't have to do the high-bandwidth devices, just be a low-bandwidth
-device.  and "size" of an operation doesn't make sense here, it's just
-bytes in a buffer that you have plenty of on both sides of the
-connection.
-
-> For the platform-boot use-cases, we would need to provide a bunch of new
-> channel definitions for greybus. This certainly isn't a showstopper in
-> itself, but the specification does not appear to be in active
-> development; last change was 10 years ago, and the spec repository has
-> since been archived as far as I can tell (and so is read-only).
-
-There are new proposals for the spec, see the mailing list.  And what is
-missing for your needs that isn't currently present?
-
-I haven't read all of OBMF, as obviously that isn't what is being
-proposed here, I was just complaining about the madness of attempting to
-create a device tree representation for a single USB device that wanted
-to be carved up into different virtual devices because no one decided to
-learn from history.
-
-I have other objections about OBMF-ICP, but that's not what this thread
-is about, sorry.  Please propose your own patch series for that and I'll
-be glad to criticize it there.
-
-And all of these seem to be OMBC answers, not LSTP answers.  There's
-still no excuse for LSTP to be designed like this :)
-
-> With OBMF-ICP's super-minimal core protocol, and the use-case
-> appropriate channels, seems like a suitable approach to me.
+> Node 0's first range has 6 sections, so 6 slots. With "hugepagesz=1G
+> hugepages=400", hugetlb_vmemmap_init_early(0) then initializes node 0's
+> 1G page at 0x67c0000000 (sections 0xcf8-0xcff, in its high range), and
+> the 7th section hits the BUG_ON() (seen on v7.2.6):
 > 
-> The USB-IF has a class ID allocated for OBMF-ICP interface descriptors,
-> with the intention that we have multiple vendor implementations of the
-> common protocol; we would like Linux to be one of those.
+>  kernel BUG at mm/sparse.c:268!
+>  RIP: 0010:sparse_init_early_section+0x9f/0xb0
+>  RAX: 0000000000200000 RBX: 0000000000000cfe RCX: 0000000000000020
+>  RDX: 0000000000000cfe RSI: ffd7e1d09fc00000 RDI: ff252cb28ffb3f50
+>  R10: ff252cb28ffb3d40 R13: 0000000000000d00
+>  Call Trace:
+>   hugetlb_vmemmap_init_early+0xe1/0x140
+>   sparse_init_nid+0x56/0x370
+>   sparse_init+0x192/0x2b0
+>   free_area_init+0x7f/0x690
+>   start_kernel+0x64/0x540
+> 
+> Here RDX is the section number, and R10/RDI are 6 slots apart: the start
+> of the usemap buffer and its current position, which is the end.
 
-It's always fun to make a new spec and protocol, but getting an ID
-doesn't mean that usb-if says "this is how it shoudl be done."  Anyone
-can get an ID :)
+A detailed analysis.
 
-sorry,
+> 
+> Pass the section range to hugetlb_vmemmap_init_early() and only pre-HVO a
+> page whose sections are all present and within it. Ranges are disjoint,
+> so each page is handled once, in its own range.
+> 
+> Skipped pages are not marked HUGE_BOOTMEM_HVO. Their sections get a
+> regular memmap from sparse_init_nid(), and the pages are optimized later
+> by hugetlb_vmemmap_optimize_bootmem_folios().
 
-greg k-h
+Thanks for fixing this.
+
+However, the master branch has already switched to section-based vmemmap
+optimization, it has been already fixed. So this fix should target the
+stable kernels (6.18, 7.2 and 7.3).
+
+The change LGTM. So:
+
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+
+Thanks.
