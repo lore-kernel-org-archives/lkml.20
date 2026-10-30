@@ -1,54 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.117
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793355554;
-	b=F63CsL4K0LfJPrMZIoPLa4DJPur53RKiB0wSHK630G1sAEQ6qU00F6YxL6ohqliGGabO
-	 DCiyXlXqTUG0VEjMSYVV9AhbBddEpbNJnkzZ2HHiwVw12fXoi5NRC01EwBIyKSRkp1ZDb
-	 yjkYJTxyD1ocOsDjc+pflmTu/LL3jCwECQqaKYuDCR7axUkTaa2ooMnB9QMnbKK48Qghp
-	 bvEfxJTX9EsiLiwc3ZIBCUadrPvroNFaF9kmGn4dBBpQ3Og3/efh6Pqc7RCkKSu4SUgcm
-	 lGF6Nf4qvZStsE77ZG0sOb0zWBwhwofQIvhMHru/BhfeUG4jNascZVqPYrMEawJqiiw==
+	t=1793355625;
+	b=XvGcv66+P9Q2SSNu7eL6Vpd+wv8Kt9LFxUX/Pa9ul0oHluGYA6JahectixsMuUjTt+HU
+	 3G/MATD6skWy1QSi14G2uN7knS3EReH48NZK016OVQi39bwfOzpCpt3zQtHAmKl885G/O
+	 Hx3D4NFJmtxeXCdIr7DnnxIiWN9vxGxxq37w1otQbFTi7C4jTkgztJ+zFjldP0AWrJD3Q
+	 heduztZtJKc9x8D0rkhvl9EMbkXLScQ5AO4ZSewbW63iPd+0QW5FiPkHOxz4nVYnb/KA6
+	 yHT0LgIZoEil46xP+BvOJhFwtJqtNCNpaJTsQa/fNlq6B1wjLFku8uDwH1ZEdfO2wXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793355554;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+UyhghDqbkh6Fs4bKf9cC/vT2//GoTRNOpMJ8SvItkI=;
-	b=TTm4cCggQzj6/LSdlw0w9E9MlMgywWi6bdap0qN1gkpAwNTKzei0IoBSj7tFJJH4HkDy
-	 8eTA0bgiNh37jGMcaC/E0OcG3nrlbm8kpTP13RN3ifBo4YA6kQAqQDBHHG7C6F/VSCv19
-	 S9HWr0sqodRAL0BEzz4PGsyIGBEs/abRMZpKR7PR06zhhQMSulkPqz/FpEzOTiXXAv5ij
-	 wWulRRFpYnx+KJnR60FsJsc7XIAtlYVtCPF4FYGEICy5NYnJ4NCkO4dH701O/ChTeQp76
-	 hUm7gShKyjmGJKvydrIq36jaoD+wpGbUP43o8LUH7AszRovY/3N2OtInyynSBIODc1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793355625;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
+	bh=47HRSEMYaHZPzJWzqw3IojT1EDL4QQpT831/3j+yFnA=;
+	b=enP3Qa3Rg6uSnmvUb2F24IIcF8ZYrkfeEVgzj3Rxd6+bXNEc1pN8uYXAu9lJOvbfCyNC
+	 jq8X8PLZcYXZ8Ye5i7XVhr+G7YEEvQWAaIXhHrSBq3EU8F8xSOzfvdNaXqY/ca3fbmSCz
+	 XBo9BWOkxbv0LsxUWIwI1TnKXnebAIOm0w+OT105uQxZsU1SGz0+4bn5kWrA9DHsUr+BK
+	 QSrCC1rP4oYNCO6KtMKtVNpg0BXNuUjiquOBLgWP99GUaX7l7Tgd7C13rrl/1hAO8vIMV
+	 EEDevqd48a+XT+eyaSg7pZfV0bbpCa2T2ui/NbwWSMEfQOWBbyf4LvzUPrajdhz6BCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Phsnf3OJ;
-	arc=none smtp.remote-ip=91.218.175.117
-Received: from mta0.migadu.com (out-117.mta0.migadu.com [91.218.175.117])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i+kranZz;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17481606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:19:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17481606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76DCB606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:20:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76DCB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Phsnf3OJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2h88SG0HENwuhHsaFHjwKEoGobN7MhTMT5AdNQYTdWM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793355551; v=1; x=1793960351;
- b=Phsnf3OJA12Yb93IF69DCa72LskXapSWk35l29hO5xHgsrvXVCidMhaDo84fxQiDsUgDzLuq
- MmMv1DgwoBH6UiFa5Qo5VgKUE4JJ8trRT2D5EPcFDamxOqjyP8ggOHwfdsGIVgRXWgDuRTKQZuJ
- aYjx+KfkUijH7SB4nPvWAAgA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 67ac1b4e1752f144;
-	Fri, 30 Oct 2026 10:19:11 +0000
-X-Mizu-Trace-ID: 67ac1b4e1752f144
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <3ae9717b-ed65-426e-b06f-e25e7c2fb5f9@linux.dev>
-Date: Fri, 30 Oct 2026 18:18:58 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i+kranZz
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35c76e9614aso873963eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:20:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793355624; x=1793960424; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=47HRSEMYaHZPzJWzqw3IojT1EDL4QQpT831/3j+yFnA=;
+        b=i+kranZz3+N3wrwCi0QJX6kfOFtU1BA7n46lgt/nrdQWfr3++/a6bOCuDIPHAB3rwv
+         45da1JxdxmrGPnFyyX+VvrkauWCq70BTYEn8LtvarUb35uEOCb+NlpunwmTzCw9dGxi3
+         ly3HBY3p38TptshfHIA0f/4VhpWiALVZl/fWc5a9GZSPIMQFgCwoak/jMaUJA4qjxKmm
+         akjJGrwbh80aHsbLie19fCpqpxwrrkAqaa++Py/dMFwyK9AbZ4ibbhzFwxosDxFRSByO
+         adueFdMWqmIRCdpVsK4OMuEPVbWPkoAu4G1zo5bPWuummXU2ZXfttkZ9iWf+NAE6G/mB
+         5MJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793355624; x=1793960424;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=47HRSEMYaHZPzJWzqw3IojT1EDL4QQpT831/3j+yFnA=;
+        b=n9SVrE4mXeIgbQ2mY84YlR5eAJjd7FYwV9xxjWqd98Zi2BxQXTQXkJw39EfxFs3+QI
+         9dMjAjeu48LNHYx+9Bj9b538VcS1nv3eULPZq7H8aEmLLS+FemzI33dizupYuV9eY7ds
+         4CptzpruBcjGSyQHmvbiT5C1igFwXH1dJDqPVNlQynS+tigC5yse9B8JB1BtejGeMNPG
+         54dTMGHPaSjTt7aKVIMx/pDzsk29L9Do5yFRKkgvepcFXMJSS7aBpQrsramCsjsflOI7
+         a0YDO+Q764OBuUe6CDlpMIRJvw4IcYwncdmU1epMbW5R3jsHYlQUuZWLQA21nsrolOgR
+         lPgg==
+X-Forwarded-Encrypted: i=1; AKwUvBzL58lrnvNC6zZB6ambE6SkSCWIxQ3hqqHMmFsYSvcnrYwss7lsVhFaTNZRV60fHddQXQz3YOh7O8EjoCg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNzC3I3c1a6DOKT+So0IXG4U8rTik06HOjkagEKOJIqWIMUcaB
+	BtHpW2VzzikPYmRnLXM7ZEpK0Ro/ckyBNLYK6u9H2PF6niQFT7hEnTid
+X-Gm-Gg: AYBFou17E8Qsu4z68ESacsAZYjuX73/IW1oKMJjsgk4tskzNt1H+vZp93TQCbEg4h23
+	BFI1ZIOlsPcG+F7Mag0k5T+SO3O9PsmMkeqiU37yI+w4TqA7qHepG/DdIIg48wDPXQow0SlTzMx
+	ofzXZ4fTSjwXPW5EpGG/EGxwiqNWxPovwCTVBcgfN3EjjSqrm6PaRiJvrNOGcd7G92ZUqtpkrSY
+	QR+rXAjk0IwU92tPog+UcMPPb18pquekZH4tY1KHRuYY9pMAsSc/o+DaDahZwZOGgL7b9XgNpCe
+	0MxwLcvA7lkX4t7OZqGar1TIuZYMqBmgX9j5hv6sbtJS2mN7avxMpG4P29eTi8EYXx4sn3LI4Ab
+	owEwW4T3NLwBpJVGTiZyl24JCOAU9Nnjrbi2h39q/LTKuEzf7rLqz10TIijAyE9aFsIwb+sAwhf
+	ZgQIlWzAIvW93f4ppObA+EHbdZs4gWHJ9JoyOsg5SSLe5iJ9lL4lkMrpqL0Pu/xShuVjT2Voba9
+	HI5oFNqQu4bm8rUy/hYbtHNBEjVipDzD78dm4wOFExJFmdimhu0ULDx2j+FCO4Pwiq8+37aRQks
+	C0aNo1t2yNNW6uVhR2q9iPYMsWc=
+X-Received: by 2002:a05:7300:c00f:10b0:36a:1470:da0e with SMTP id 5a478bee46e88-36a423bececmr3563726eec.29.1793355624408;
+        Fri, 30 Oct 2026 03:20:24 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42662f23sm7607181eec.2.2026.10.30.03.20.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 03:20:23 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, Muchun Song <muchun.song@linux.dev>, Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, Pavithra <pavrampu@linux.ibm.com>
+Subject: Re: [PATCHv2] mm/huge_memory: set the mmu_gather page size in zap_huge_pud()
+In-Reply-To: <19012a9f-7a8d-4eb2-a441-cdb04184890b@kernel.org>
+Date: Fri, 30 Oct 2026 15:45:04 +0530
+Message-ID: <cxsrwl3r.ritesh.list@gmail.com>
+References: <8b853e5f9f16145859407b28af654b0f79e12642.1793318297.git.ritesh.list@gmail.com> <19012a9f-7a8d-4eb2-a441-cdb04184890b@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,178 +92,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH mm-next] mm/swap: free swap cache folios the zap path gave
- up on
-To: linux-mm@kvack.org, Kairui Song <ryncsn@gmail.com>,
- Nhat Pham <nphamcs@gmail.com>
-Cc: Jiayuan Chen <jiayuan.chen@shopee.com>,
- Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
- linux-kernel@vger.kernel.org
-References: <20261014090821.227366-1-jiayuan.chen@linux.dev>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261014090821.227366-1-jiayuan.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+"David Hildenbrand (Arm)" <david@kernel.org> writes:
 
-On 10/14/26 5:08 PM, Jiayuan Chen wrote:
-> From: Jiayuan Chen <jiayuan.chen@shopee.com>
+> On 10/30/26 01:07, Ritesh Harjani (IBM) wrote:
+>> Unmapping a device-dax mapping with 1G alignment on powerpc radix kernel
+>> built with CONFIG_DEBUG_VM triggers this warning on every munmap:
+>> 
+>>     WARNING: mm/mmu_gather.c:176 at __tlb_remove_folio_pages_size+0x38/0x230
+>>     NIP [c00000000063d508] __tlb_remove_folio_pages_size+0x38/0x230
+>>     LR [c0000000006fb688] zap_huge_pud+0x1b8/0x2d0
+>>     Call Trace:
+>>      zap_huge_pud+0x170/0x2d0 (unreliable)
+>>      __zap_vma_range+0x1604/0x1e20
+>>      unmap_vmas+0xa0/0x1f0
+>>      unmap_region+0xb0/0x130
+>>      vms_complete_munmap_vmas+0x120/0x310
+>>      do_vmi_align_munmap+0x1ec/0x240
+>>      __vm_munmap+0x148/0x220
+>>      sys_munmap+0x28/0x40
+>> 
+>> To trigger this - it is enough to mmap() /dev/dax0.0, touch the first
+>> byte so that the whole 1G is mapped by a single PUD and then munmap()
+>> it.
+>> 
+>> PowerPC needs MMU_GATHER_PAGE_SIZE in which mmu_gather needs to record
+>> the page size for which tlb flush is needed. zap_huge_pmd(),
+>> zap_pte_range(), change_huge_pud() etc all do this already. However,
+>> since commit:
+>>   dbe54153296d ("mm/huge_memory: add vmf_insert_folio_pud()")
+>> 
+>> a device-dax PUD maps a real folio and zap_huge_pud() now hands it to
+>> tlb_remove_page_size(tlb, page, HPAGE_PUD_SIZE). At that point
+>> tlb->page_size is still whatever the previous user left behind, which is
+>> 0 for the fresh gather set up by munmap() and so the check fires.
+>> 
+>> Fix this in the same way like how other similar paths do.
+>> 
+>> Fixes: dbe54153296d0 ("mm/huge_memory: add vmf_insert_folio_pud()")
+>> Reported-by: Pavithra <pavrampu@linux.ibm.com>
+>> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>> ---
+>> [v1]->v2:
+>> =========
+>> - Split the 2 part patch series. Patch-1 is now superseded by a different patch
+>>   from Muchun which he already posted [2].
+>> - No difference in this patch from v1.
+>> 
+>> [v1]: https://lore.kernel.org/all/97f85592bb78a273be8519e6897e7f9b9bd31469.1793070429.git.ritesh.list@gmail.com/
+>> [2]: https://lore.kernel.org/all/20261029063601.1961415-1-songmuchun@bytedance.com/
+>> 
+>>  mm/huge_memory.c | 2 ++
+>>  1 file changed, 2 insertions(+)
+>> 
+>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+>> index bd44d58e8684..7e589a2fb02d 100644
+>> --- a/mm/huge_memory.c
+>> +++ b/mm/huge_memory.c
+>> @@ -3040,6 +3040,8 @@ int zap_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
+>>  	spinlock_t *ptl;
+>>  	pud_t orig_pud;
+>> 
+>> +	tlb_change_page_size(tlb, HPAGE_PUD_SIZE);
+>> +
+>>  	ptl = __pud_trans_huge_lock(pud, vma);
+>>  	if (!ptl)
+>>  		return 0;
+>> --
+>> 2.39.5
+>> 
 >
-> On our production hosts we saw swap cache only pages keep growing for days:
-> on a box with a 500 GiB swap partition, 250 GiB of RAM and 250 GiB of
-> swap slots were held by folios that no process mapped any more, charged
-> to cgroups whose workloads had long exited. The only way to get them
-> back was swapoff, and with other services actively swapping on the
-> same host that is not an option.
 >
-> Such a slot has swap count 0 and an unmapped folio pinned in the swap
-> cache, left there after a process exited or did MADV_DONTNEED. No page
-> table holds its swap entry any more, so nothing comes back for the
-> slot; LRU reclaim drops it eventually, and the allocator only reclaims
-> such slots once swap is half full. The growth stopped exactly there:
-> at 50% of the device, where vm_swap_full() becomes true.
+> Matches zap_huge_pmd().
 >
-> The race is readahead against a zap in a neighbouring thread. Readahead
-> works on virtual addresses, so a fault at the end of thread A's range
-> pulls in the entries at the start of thread B's range:
+> I will wait a bit  and then queue this shortly.
 >
->    thread A                               thread B
->    do_swap_page()
->      swap_vma_readahead()
->        swap_cache_read_folio(B's entry)
->          folio locked, added to cache
->          swap_read_folio()                MADV_DONTNEED
->            zswap_load() / bio in flight     zap_nonpresent_ptes()
->            .                                  swap_put_entries_cluster()
->            .                                    swap count 1 -> 0
->            .                                    __try_to_reclaim_swap()
->            .                                      folio_trylock() fails
->            .                                      gives up
->            folio_unlock()
->        folio_put()
->    -> slot: swap count 0, folio in swap cache, not mapped, never freed
->
-> The lock is one reason it gives up. The other is writeback: with a block
-> device as backing store, B's own PAGEOUT leaves the folio in the swap
-> cache under writeback, and when the DONTNEED comes __try_to_reclaim_swap()
-> gets the lock but folio_swapcache_freeable() refuses. The write
-> completes, nobody frees the slot. The present-PTE side has the same two
-> outcomes through free_swap_cache().
->
-> Options considered:
->
-> 1. Fix it on the readahead side: after the read, check the swap count
->     and free the slot. Covers the lock, not writeback, and the
->     asynchronous read path unlocks in the bio completion where the slot
->     cannot be freed. Two places to patch, neither clean.
-> 2. swapoff/swapon clears it, as does memory.reclaim on the right cgroup.
->     That is a workaround, not a fix.
-> 3. Have the side that gives up come back later. This patch.
->
-> The zap runs under the PTL and the fault path takes the folio lock
-> before the PTL, so waiting there is out; a worker has to do it. On a
-> lost trylock or a writeback refusal under TTRS_UNMAPPED,
-> __try_to_reclaim_swap() schedules si->sweep_work. The worker walks the
-> in-use clusters and, for every slot with swap count 0 whose folio is
-> unmapped, calls __try_to_reclaim_swap() with TTRS_WAIT, which takes the
-> folio lock and waits for writeback instead of giving up.
-> free_swap_cache() now calls __try_to_reclaim_swap() as well, so both
-> paths give up, and wake the worker, in the same place.
->
-> For now the worker scans every in-use cluster of the device; marking
-> the clusters that need it can reduce that later.
->
-> Cc: Jiayuan Chen <jiayuan.chen@linux.dev>
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@shopee.com>
-> ---
->   include/linux/swap.h |   1 +
->   mm/swap.h            |   1 +
->   mm/swap_state.c      |   9 ++--
->   mm/swapfile.c        | 101 ++++++++++++++++++++++++++++++++++++++++++-
->   4 files changed, 104 insertions(+), 8 deletions(-)
->
-> diff --git a/include/linux/swap.h b/include/linux/swap.h
-> index 4f686709d71f..5777f10e9aa4 100644
-> --- a/include/linux/swap.h
-> +++ b/include/linux/swap.h
-> @@ -267,6 +267,7 @@ struct swap_info_struct {
->   					 */
->   	struct work_struct discard_work; /* discard worker */
->   	struct work_struct reclaim_work; /* reclaim worker */
-> +	struct work_struct sweep_work;	/* frees swap cache only slots a zap gave up on */
->   	struct list_head discard_clusters; /* discard clusters list */
->   	struct plist_node avail_list;   /* entry in swap_avail_head */
->   	const struct swap_ops *ops;
-> diff --git a/mm/swap.h b/mm/swap.h
-> index d5bf21f517dc..f62f36c0ce5c 100644
-> --- a/mm/swap.h
-> +++ b/mm/swap.h
-> @@ -309,6 +309,7 @@ static inline bool folio_matches_swap_entry(const struct folio *folio,
->    * - See the comment of get_swap_device() for more complex usage.
->    */
->   bool swap_cache_has_folio(swp_entry_t entry);
-> +void swap_reclaim_entry(swp_entry_t entry);
->   struct folio *swap_cache_get_folio(swp_entry_t entry);
->   void *swap_cache_get_shadow(swp_entry_t entry);
->   void swap_cache_del_folio(struct folio *folio);
-> diff --git a/mm/swap_state.c b/mm/swap_state.c
-> index ebef568cd62e..99708f149b25 100644
-> --- a/mm/swap_state.c
-> +++ b/mm/swap_state.c
-> @@ -598,16 +598,13 @@ void swap_writeback_dropbehind_folio(struct folio *folio)
->    *
->    * Its ok to check the swapcache flag without the folio lock
->    * here because we are going to recheck again inside
-> - * folio_free_swap() _with_ the lock.
-> + * __try_to_reclaim_swap() _with_ the lock.
->    * 					- Marcelo
->    */
->   void free_swap_cache(struct folio *folio)
->   {
-> -	if (folio_test_swapcache(folio) && !folio_mapped(folio) &&
-> -	    folio_trylock(folio)) {
-> -		folio_free_swap(folio);
-> -		folio_unlock(folio);
-> -	}
-> +	if (folio_test_swapcache(folio) && !folio_mapped(folio))
-> +		swap_reclaim_entry(folio->swap);
->   }
->   
 
+Thanks David, however, looks like Andrew might have queued this up in
+his mm tree [1], right?
 
+[1]: https://lore.kernel.org/all/20261030021905.2DCA71F000C1@smtp.kernel.org/
 
-I spent some more time on this and I'm not happy with any of the
-options I have. Advice welcome.
+> This sounds like stable material?
+>
 
-   1. Trigger the worker where the zap gives up (this patch). On the
-      swap entry side that works, __try_to_reclaim_swap() has the si.
-      On the present PTE side it doesn't: free_swap_cache() lost the
-      trylock, so it can't read folio->swap to find the si, as Kairui
-      pointed out. And that trylock-and-give-up is not in one place,
-      free_swap_cache(), do_wp_page() and __uprobe_write() all have
-      their own copy. Chasing every one of them doesn't feel right.
+Sorry, my bad. Yes, we should have this Cc: stable@vger.kernel.org.
 
-   2. Clean up at memcg offline. Doesn't cover the root cgroup or a
-      cgroup that stays alive, and on mm-new the folios are reparented
-      at offline anyway, so there is nothing left to find there.
+Kindly let me know if I should update the tag and send v3, or can it be
+taken care? Thanks!
 
-   3. A swapon flag, say --clean-cache, that enables the cleanup.
-      Pro: covers everything, and the cleanup can live in its own
-      function without touching the existing paths. Con: we know to
-      turn it on because we hit this, others won't. Needs util-linux
-      too.
-
-   4. A per-device worker that walks the device on its own, say 1024
-      clusters per second, backing off when a pass finds nothing.
-      Pro: same as 3, and nothing to turn on. Con: a worker that wakes
-      up on its own for this, I expect objections.
-
-   5. A sysctl (or a drop_caches bit) to kick the cleanup by hand.
-      Pro: same as 4, all in the worker. Con: same as 3, someone has
-      to know to poke it.
-
+-ritesh
