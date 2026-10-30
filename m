@@ -1,116 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793390846;
-	b=1QccE3kIl8auXTs+FHdJ4yw2PJH5vweomxYJgGp6WD9Ig6CUuUhp3qDFTVhD/7dBB8dX
-	 StWhBtS5C1LDOwKN8ld+9n4BjsX1VYQ9d/gKcxhhJNy4K2w4NPnretLHatA7XjRXnp56i
-	 +6MMPwxRmLNuyFh6dGLSKpurrH7p4WRCVmSTcje/uXF0dPk8NkuW2xRf4DLTqARn1oH+t
-	 A46IOTtz3lbhYfO8AR1Vhg1J0+7eojApvSjDciaBJx9U3faSZ8sInb6u6hqQIP2mf5Y/B
-	 4bFJKbHag9IMZv2a77WlGykaMDBjbC1QsevIEM1QLfhd2f5pbxKkpwgMI+IvLf2Y5lQ==
+	t=1793390915;
+	b=jv76KVDCcWoHj2XsOgczXXr74dZVaMBzFQTfVkweODFKZmHcOMgvE2iGjfukqHw3veyd
+	 xb4GpSu5DhTwztrr63hobI0Qupk1JSgzWEUR7Zg8xSxhsFyYqKVWB98lXjl2ZKACcSlTU
+	 ce5hYmC4ZBU21jxiKgNWfj1sM1HK76/UKih7KLf92PWB2LO9L4adNrpexm/dBNhlsmnr5
+	 +s7Vfco9XRzXrqepWxzouxSBVmMpAQeXJVE7PiA3CSC1zHsnKGkwJjAOHIVDmtz7lfw9p
+	 hWVmGUPMkXE2rn9lmva5dNkLrlwGKIyTQ8RKOblzZbCCJOG7GkXuLjVFhBWi4ZzyYwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793390846;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=FIyfL9uDvA5G877TsSUJf5DkfdA8JI9LDiyEiEfndPA=;
-	b=I8Ak4hsZ6tWFnTaxhX8XyMQTp6DZofvKqelfHEBOec1uCkQkgjQVwJoat3gcQJB2LQB7
-	 ON4QZxlnjRBQTp5mJauPQHMDA1zpcoJRXFySYU5qGaGvjvici5SLFT1H5yguGL+qJY7vx
-	 ROA1U1BUH/w19l5WXQSU1HoP6Zbim1GV831DA5WXZ6XbVkAd+rBN77OqxMbzB10Pn+19F
-	 cXpQWiA5EcUHjE3SPWpEipdaeJxYIBMKOh69anbEzclE7Wh5C6NHqCSDRf+a0Xb+zpLLM
-	 SABRoMNYXctuLkJYqEl4jZ4K2xHW2dhWSbnAvhQ6kK3IEvOSzK6VR3wTV2nNHGUzxow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793390915;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GY1dOc+sIQV6eOH7fOm7uU7Ssi1Yk8CqdFR46ek8fNI=;
+	b=gGbSRRM9GIHIlyCVEZdTK6GWDIrr19cEa0yKxqxioTpL+HEMhrKBlI7dx5gZJIF+odTM
+	 4LcN1XyKJJk89VNQDJGwPr+1D/gtHvgKr9Cf4nNGlApFunaaO54gO7E7RIQ8+mFrnXvBE
+	 MyMCBviAYN/KO+k2tydwI0tgsr0vLFDqRO05JLnz1PcRBcPEoSDJuODPh9FxA2MpiQal9
+	 K8BSRO5bPLdtnT5WVmcscHQazlmqcV/bp5z9+J6VMN1+xqspvPfKE+32pw1K135ZtemXD
+	 9G/H4psHIZ0rtsz6M0UeaUfgvAAkihoOFwRQr0BYEeak5s62HE67E86OxhREizF0nXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AvKRvKB0;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=h73yL+5U;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D7SAVhHO;
+	arc=none smtp.remote-ip=209.85.217.53
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com [209.85.217.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A47606A329
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:07:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51A47606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9DB606A320
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:08:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D9DB606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=AvKRvKB0;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=h73yL+5U
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793390845;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FIyfL9uDvA5G877TsSUJf5DkfdA8JI9LDiyEiEfndPA=;
-	b=AvKRvKB0Frc2x2wseuYGH1KUxvhIqClJMVby1eIv1/OynSTvBzyV+uDWjwf/Ky7JBvCqV6
-	zp8+ZsXm0zo4DswT0VchUw/moMoqWFKWYS8ri8oJP/o6BM5EOS0UUx7A4C1GjhHcbvc0go
-	svuRxwqSU8Mcxl48tbkMUBeeBl34nrU=
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com
- [74.125.82.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-456-3Crag1D3My6QJr2wXrGcOA-1; Fri, 30 Oct 2026 16:07:23 -0400
-X-MC-Unique: 3Crag1D3My6QJr2wXrGcOA-1
-X-Mimecast-MFC-AGG-ID: 3Crag1D3My6QJr2wXrGcOA_1793390842
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36637676140so1611720eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:07:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D7SAVhHO
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7ce6cb4c6faso652849137.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:08:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793390842; x=1793995642; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793390913; x=1793995713; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FIyfL9uDvA5G877TsSUJf5DkfdA8JI9LDiyEiEfndPA=;
-        b=h73yL+5U76mQsZP2K/+5fJ6sHJQwJdbxg5zD8+M8wAfYl5Mao9OPqwADr0D12sz8I2
-         Sbh+OhzsZEylCJSV2hgU76j10exz+KjHUUkXN7z+Z6GPoI2cPvw5E1thAPGketavHCGG
-         IO/sRvwkIhZGStg2vneC4JASsf2jnBajvDzRKq5T4vkgMSHabRLDO0+0NKlTLcCOQ3PF
-         1bz6FLl3OteUk4ir2IF4Wc4vv3/6B+IQz8QAn77g92Uu0tsLkTOgmFwRta3+mVoViiuG
-         yuSMVtdMSy5q90022FjHoj9VOiO1bXtr/raSUX8+qks8MIwo4GPsrLCwEXz86nzDfufv
-         rj1Q==
+        bh=GY1dOc+sIQV6eOH7fOm7uU7Ssi1Yk8CqdFR46ek8fNI=;
+        b=D7SAVhHOi28Ioy3WF/EWn85cFtZrYbbr5DiJaoFuqe4GREHCscRY03cfrX1LIW/UER
+         hR/6ySqB4OHXZV+Y1ORmuJHCmryZT4vL/3sRP91M4L9dxIfLShSH3pza0AamkpLW6+3f
+         s6aQx9VSGBxsnWSpzLC/8cz9gBHZ/udO70BPefyeUy45U7m47rmAKP0IomK5pw/gH5H/
+         8Jz2dDCER58szfVsyX+76O6b1yPbA5LBMVHltqeV24/U/zmtSS74xbdDFgvk02Rd5oS2
+         bMmSTQTSvkBjMDeYUst94gM94vCLJ2NsOWUZ5dYR4P/0FadZPhdkgKrRcwNVtPhhDCgV
+         T9uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793390842; x=1793995642;
+        d=1e100.net; s=20260707; t=1793390913; x=1793995713;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FIyfL9uDvA5G877TsSUJf5DkfdA8JI9LDiyEiEfndPA=;
-        b=fijG03MLYtpnC+SxWl/ot9xqVOT2e3QBh60lKcMLpb6b3yTVsZE4sURLZ8VbXjE0uq
-         NV/eVFZR6+k3hNHTx6vyfO6C9LNuzKGm+95hS7hT4HcOK9p9oyFp/zPDrVlYMAwMWACs
-         c0dao7+Rx/v6teizKxd7AR1Eu3BZNWh7MAyfEOsIz98KUAjiVhXxX2O0MPeXzcCAQFQc
-         25sZ+nLV3wR9yRmgquomFESVLBoQ8bH1QYnI+xg3lIdwKUREsJprFgkePl03FliCD4SU
-         i27bOOjI34rQ3tCGsCjUET6SckVE1aawA6FdSURhgXVr5PyYaV/AivzOQMAyWwShOLM6
-         efaQ==
-X-Gm-Message-State: AFq9FYLRDbeiyjCcD5gQHdEm6kg8JZGE8qHyfoPaHnyooHp8m3LAcVlR
-	VXtWPf7tknWYAUOdY/6V5uEAun7vFc4rztmMkvXea5f2Nldq/1Ye4ouf48quAE2BxsK5OLgdyWg
-	t5bU6NVieMl0zrKyqonLWoNDKV38v2lcNOzwbOjOZB6mpWkadwbnliu1R8xYicUqjFWTfWEJx5i
-	sUPx/vEunyysAngQXCNsVIgU5dZfNLHiC866FBa/mpKaqeTqYp
-X-Gm-Gg: AYBFou2Lf7AM6h0IE1SWRiTXay4dJw38/t3M5n0KfioE+6wvEkpn2O+JJvEWpIYF1Nd
-	D38fkPmMY9rBX8TZGkngcPKkkeNrrajjrwbii44zHxA1WwoQnFTDVZTGt3/JoTFold/al/e4QeT
-	q3KvijG2xjxdRRFF9XEkqMhhfcHfpmZuGgT7DNRskLnV/x5qKt29OPXGjfv9urRKpl3Feb5br2t
-	rkPNu+XUS41PzemcJLoa2dGZqjERTGeQNUrILHkXSVLh3/SaaQJn1V/pMyz4816x/yB4u7hu0hx
-	q1SASu/wUAqJq/e+Epe0lSxxP1bSUSicwgVxU4nWj5alRogah283pENrzFDVA1/bF5Ff1pNvb3n
-	wZcCzXCJ9O+fWQZeoWjVGn02KLN99ooO7sLLnY1t1tZeYAYGqEVmoJPH3rpDC985pNwsZDGBpPh
-	VpdH7rqdvze5CaJQ==
-X-Received: by 2002:a05:693c:87c6:10b0:351:4a80:d94c with SMTP id 5a478bee46e88-36a423e1f4cmr5460216eec.21.1793390842043;
-        Fri, 30 Oct 2026 13:07:22 -0700 (PDT)
-X-Received: by 2002:a05:693c:87c6:10b0:351:4a80:d94c with SMTP id 5a478bee46e88-36a423e1f4cmr5460147eec.21.1793390841207;
-        Fri, 30 Oct 2026 13:07:21 -0700 (PDT)
-Received: from fedora.armenon-thinkpadp16vgen1.bengluru.csb ([49.47.195.13])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42aa8999sm10581834eec.29.2026.10.30.13.07.17
+        bh=GY1dOc+sIQV6eOH7fOm7uU7Ssi1Yk8CqdFR46ek8fNI=;
+        b=RGhLddq/u42Ng5bFKTaKpPq1NFnNVrxic0nw8DxnAAd5JXYJvwyhmJk263dI2sj9h2
+         41qEqzqAd6A0D51cRZEMFbLFlnOISJCJjCa4pkY6CGR86kSBe/qwrpl8XX50TkQE7S5R
+         BYUWR/KM96g+OLWc78qL7VOnkYh3An8gTIrShyjA9EvEl6FMMds4qk44ZaVU1m2Ys+DN
+         UozGEc8FWuyR/edcX3IAzr+NGMnL4dqkyKL3maIiPAjoyO3/yXRCxQ6dQ2dSYOjTENUH
+         NeRo+Nw7hJRqs4zBEiqHGpw+K5TGoRqCVV4va2A+/YXFIQQLrg2+Tf/KYmjjP47mxu1n
+         aB+A==
+X-Forwarded-Encrypted: i=1; AKwUvBzmlQioX9otIczc+5xV4/tpzA7t0kJTOvIMvrIjzJUOvZXWBllHO2c7iucn6BeNiL/gMdcYwQi6ogDNhnY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5bkUlEJ0QVp718RQSS2OO9jBRMAkxFqLMWs0anD923WM9W+I4
+	AQkq4+tzYhswXGAmR28/b7/h+//+vCLKarskudyJXwJolOy6mzBB0udz
+X-Gm-Gg: AYBFou3eRtMF74VvfNavLRHRvQIsp0KdjuLoNqz/kPjobuzd2ua3U8MS/+FBcmukiiL
+	KxoaOMExYdQy8NbOVerJgBcVIHc/eUjUhC+ra4NlMc/6Dj/dx4X0Kaw0x5eJjoxb1V3e6nVW2GG
+	UyayyHuylHpz1JydrjHS22M2/xVTINHA3OqPF1kHURy3pWNg5BXyOn0pwbfgdreo2cJzAKJeLBi
+	nwzwLJ2giFFCVJR56TGIVb5e9YTxnOGTP2TguHt42VTxhcxhG8Kh/xC6lsxSoTMpENSADoBM4lr
+	2w9HvogMzPrZdhCTqW1ALCWziGt9z4+QVbfAfdHqYWG+mZKAf3Zv/uGhDig9xULwvwicXDzuQ9y
+	sgsW3lCyKgP+88xKYmETxoTOL//kN5ZVOvtFteATzGrZuwj8Aq5r65q+IHR+CRM5Fv11KnaO5lG
+	z2l3ftlYcbK1x9s2lIh8Ma5unLHWdMRVKp692aOwufYSdtdoTXGMtHsWJmmXiXsJF2OSfnpwpVn
+	WEfvskeoGFsw/6pAGe6Ksi+zmb4UC8MwynDvdq8e3qBZ4Y0czGft1kBd5tPgxJyjxPrjKxRmkjo
+	1z3Nt1Odkb7EYtv20gvokan++rUxqEESKHLrtVU=
+X-Received: by 2002:a05:6102:8086:b0:7cc:32ce:4c5e with SMTP id ada2fe7eead31-7d0726b4e19mr2004616137.16.1793390913530;
+        Fri, 30 Oct 2026 13:08:33 -0700 (PDT)
+Received: from munique-a520 ([2804:3bf0:fe29:ac41:2d94:706:4bfd:852e])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d07768d366sm3315699137.10.2026.10.30.13.08.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 13:07:20 -0700 (PDT)
-From: Arun Menon <armenon@redhat.com>
-To: linux-kernel@vger.kernel.org
-Cc: Peter Huewe <peterhuewe@gmx.de>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	linux-integrity@vger.kernel.org,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Arun Menon <armenon@redhat.com>
-Subject: [PATCH v6 7/7] tpm_crb: Implement command and response chunking logic
-Date: Sat, 31 Oct 2026 01:36:49 +0530
-Message-ID: <20261030200649.357508-8-armenon@redhat.com>
+        Fri, 30 Oct 2026 13:08:33 -0700 (PDT)
+From: Munique Feitoza <muniquefeitoz4@gmail.com>
+To: Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>,
+	Linus Walleij <linusw@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sashiko-bot@kernel.org,
+	Munique Feitoza <muniquefeitoz4@gmail.com>
+Subject: [PATCH v2] pinctrl: amd: Clear interrupt enable bit on spurious GPIO IRQ
+Date: Fri, 30 Oct 2026 17:08:27 -0300
+Message-ID: <20261030200827.24648-1-muniquefeitoz4@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261030200649.357508-1-armenon@redhat.com>
-References: <20261030200649.357508-1-armenon@redhat.com>
+In-Reply-To: <20261030195025.5153-1-muniquefeitoz4@gmail.com>
+References: <20261030195025.5153-1-muniquefeitoz4@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,245 +103,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arun Menon <armenon@redhat.com>
+When do_amd_gpio_irq_handler() detects a spurious interrupt on a pin
+that is not configured as an IRQ line (!gpiochip_line_is_irq()), it
+currently only clears BIT(INTERRUPT_MASK_OFF) while leaving
+BIT(INTERRUPT_ENABLE_OFF) set. Unlike amd_gpio_irq_disable(), leaving
+INTERRUPT_ENABLE_OFF enabled allows the pin interrupt status bit to
+keep asserting in WAKE_INT_STATUS_REG0/1.
 
-TPMs implemented with the CRB address map in the TCG PC-Client
-Platform TPM Profile (PTP) for TPM 2.0 are limited to a 3968-byte
-command/response buffer (v1.07, March 2026, Table 36 and section
-6.5.3.9) in [2]. This is smaller than the 7.7KB ML-DSA-87 TPM2_Load from
-the previous patch. PTP 1.07 adds a chunking mode for exactly this case
-(sections 6.4.2.2, 6.5.3.9, 6.5.3.10 in [2]), usable by any CRB TPM that
-implements it.
+Clear both INTERRUPT_MASK_OFF and INTERRUPT_ENABLE_OFF when disabling
+a spurious GPIO IRQ on both the main and RGPIO banks.
 
-Send and receive the command/response split into pieces no larger than
-priv->cmd_size/priv->rsp_size. Write CRB_START_NEXT_CHUNK to
-ctrl_start after each piece but the last, and wait for the TPM to clear
-it before sending the next; use CRB_START_INVOKE on the last piece, same
-as the non-chunked path. Read a response back the same way, in reverse.
-
-On top of the previous patch's tpm_crb_send_no_chunks()/
-tpm_crb_recv_no_chunks() split, add:
-- rsp_size: response-direction counterpart of cmd_size.
-- intf_id: interface ID register, read once at probe time.
-- CRB_INTF_CAP_CRB_CHUNK: capability bit in intf_id; crb_send()/
-  crb_recv() only reject an oversized payload when it is clear.
-- tpm_crb_send_chunks()/tpm_crb_recv_chunks(): drive the chunked
-  transfer described above.
-
-This corresponds to the backend implementation in QEMU [1], which
-reassembles the chunks before handing the command to the TPM emulator.
-
-[1] https://lore.kernel.org/qemu-devel/20260506075813.120781-1-armenon@redhat.com/
-[2] https://medias.cdn.trustedcomputinggroup.org/production/PC_Client_Specific_Platform_TPM_Profile_for_TPM_2p0_v1p07_Pub_5643562943.pdf
-
-Signed-off-by: Arun Menon <armenon@redhat.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Link: https://lore.kernel.org/r/20261029181541.99505-8-armenon@redhat.com
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+Signed-off-by: Munique Feitoza <muniquefeitoz4@gmail.com>
 ---
- drivers/char/tpm/tpm_crb.c | 121 +++++++++++++++++++++++++++++++++++--
- 1 file changed, 117 insertions(+), 4 deletions(-)
+Changes in v2:
+- Drop the early return on !ret before writing EOI_MASK to
+  WAKE_INT_MASTER_REG so that spurious GPIO interrupts disabled in the
+  !gpiochip_line_is_irq() path still receive an EOI signal on the
+  controller.
 
-diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
-index f0bac9e1f1e8..affca5e95067 100644
---- a/drivers/char/tpm/tpm_crb.c
-+++ b/drivers/char/tpm/tpm_crb.c
-@@ -105,11 +105,13 @@ struct crb_priv {
- 	u8 __iomem *cmd;
- 	u8 __iomem *rsp;
- 	u32 cmd_size;
-+	u32 rsp_size;
- 	u32 smc_func_id;
- 	u32 __iomem *pluton_start_addr;
- 	u32 __iomem *pluton_reply_addr;
- 	u8 ffa_flags;
- 	u8 ffa_attributes;
-+	u32 intf_id;
- };
- 
- struct tpm2_crb_smc {
-@@ -369,6 +371,13 @@ static u8 crb_status(struct tpm_chip *chip)
- 	return sts;
- }
- 
-+/*
-+ * tpm_crb_recv_chunks() below needs to drive CRB_START_NEXT_CHUNK through
-+ * tpm_crb_start(), which is defined later in this file next to the other
-+ * platform-specific start methods it dispatches to.
-+ */
-+static int tpm_crb_start(struct tpm_chip *chip, u32 start_cmd);
-+
- static int tpm_crb_recv_no_chunks(struct tpm_chip *chip, u8 *buf, size_t count)
- {
- 	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-@@ -388,12 +397,55 @@ static int tpm_crb_recv_no_chunks(struct tpm_chip *chip, u8 *buf, size_t count)
- 	memcpy_fromio(&buf[8], &priv->rsp[8], expected - 8);
- 
- 	return expected;
-+}
-+
-+static int tpm_crb_recv_chunks(struct tpm_chip *chip, u8 *buf, size_t count,
-+				unsigned int expected)
-+{
-+	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-+	size_t offset = 0;
-+	size_t chunk_size;
-+	bool expired;
-+	int rc;
-+
-+	if (expected > count || expected < TPM_HEADER_SIZE)
-+		return -EIO;
-+	/*
-+	 * Without this, a bogus zero-sized MMIO window would never make
-+	 * forward progress below.
-+	 */
-+	if (priv->rsp_size == 0)
-+		return -EIO;
-+
-+	while (offset < expected) {
-+		chunk_size = min_t(size_t, expected - offset, priv->rsp_size);
-+		memcpy_fromio(buf + offset, priv->rsp, chunk_size);
-+		offset += chunk_size;
- 
-+		if (offset == expected)
-+			break;
-+
-+		rc = tpm_crb_start(chip, CRB_START_NEXT_CHUNK);
-+		if (rc)
-+			return rc;
-+
-+		expired = !crb_wait_for_reg_32(&priv->regs_t->ctrl_start,
-+						CRB_START_NEXT_CHUNK, 0,
-+						TPM2_TIMEOUT_C);
-+		if (expired) {
-+			dev_err(&chip->dev,
-+				"Timeout waiting for backend response\n");
-+			return -ETIME;
-+		}
-+	}
-+	return expected;
- }
- 
- static int crb_recv(struct tpm_chip *chip, u8 *buf, size_t count)
- {
- 	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-+	unsigned int expected;
-+	u8 header[8];
- 
- 	/*
- 	 * A sanity check that the upper layer wants to get at least the header
-@@ -409,7 +461,18 @@ static int crb_recv(struct tpm_chip *chip, u8 *buf, size_t count)
- 	if (ioread32(&priv->regs_t->ctrl_sts) & CRB_CTRL_STS_ERROR)
- 		return -EIO;
- 
--	return tpm_crb_recv_no_chunks(chip, buf, count);
-+	/* Peek at the first 8 bytes to determine the response size */
-+	memcpy_fromio(header, priv->rsp, sizeof(header));
-+	expected = be32_to_cpup((__be32 *)&header[2]);
-+
-+	if (expected <= priv->rsp_size)
-+		return tpm_crb_recv_no_chunks(chip, buf, count);
-+	if (!(priv->intf_id & CRB_INTF_CAP_CRB_CHUNK)) {
-+		dev_err(&chip->dev,
-+			"Response larger than MMIO and chunking not supported\n");
-+		return -EIO;
-+	}
-+	return tpm_crb_recv_chunks(chip, buf, count, expected);
- }
- 
- static int crb_do_acpi_start(struct tpm_chip *chip)
-@@ -502,6 +565,46 @@ static int tpm_crb_send_no_chunks(struct tpm_chip *chip, u8 *buf, size_t len)
- 	return crb_try_pluton_doorbell(priv, false);
- }
- 
-+static int tpm_crb_send_chunks(struct tpm_chip *chip, u8 *buf, size_t len)
-+{
-+	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-+	size_t chunk_size;
-+	size_t offset = 0;
-+	int rc;
-+	bool expired;
-+
-+	while (offset < len) {
-+		chunk_size = min_t(size_t, len - offset, priv->cmd_size);
-+		if (chunk_size == 0)
-+			break;
-+
-+		memcpy_toio(priv->cmd, buf + offset, chunk_size);
-+		offset += chunk_size;
-+
-+		/* Make sure that cmd is populated before issuing start. */
-+		wmb();
-+
-+		if (offset < len) {
-+			rc = tpm_crb_start(chip, CRB_START_NEXT_CHUNK);
-+			if (rc)
-+				return rc;
-+			expired = !crb_wait_for_reg_32(&priv->regs_t->ctrl_start,
-+							CRB_START_NEXT_CHUNK, 0,
-+							TPM2_TIMEOUT_C);
-+			if (expired) {
-+				dev_err(&chip->dev,
-+					"Timeout waiting for backend to consume chunk\n");
-+				return -ETIME;
-+			}
-+		} else {
-+			rc = tpm_crb_start(chip, CRB_START_INVOKE);
-+			if (rc)
-+				return rc;
-+		}
-+	}
-+	return crb_try_pluton_doorbell(priv, false);
-+}
-+
- static int crb_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz, size_t len)
- {
- 	struct crb_priv *priv = dev_get_drvdata(&chip->dev);
-@@ -512,7 +615,7 @@ static int crb_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz, size_t len)
- 	 */
- 	iowrite32(0, &priv->regs_t->ctrl_cancel);
- 
--	if (len > priv->cmd_size) {
-+	if (len > priv->cmd_size && !(priv->intf_id & CRB_INTF_CAP_CRB_CHUNK)) {
- 		dev_err(&chip->dev, "invalid command count value %zd %d\n",
- 			len, priv->cmd_size);
- 		return -E2BIG;
-@@ -522,7 +625,10 @@ static int crb_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz, size_t len)
- 	if (priv->sm == ACPI_TPM2_COMMAND_BUFFER_WITH_PLUTON)
- 		__crb_cmd_ready(&chip->dev, priv, chip->locality);
- 
--	return tpm_crb_send_no_chunks(chip, buf, len);
-+	if (len <= priv->cmd_size)
-+		return tpm_crb_send_no_chunks(chip, buf, len);
-+
-+	return tpm_crb_send_chunks(chip, buf, len);
- }
- 
- static void crb_cancel(struct tpm_chip *chip)
-@@ -748,6 +854,11 @@ static int crb_map_io(struct device *dev, struct crb_priv *priv,
- 		ret = PTR_ERR(priv->cmd);
- 		goto out;
- 	}
-+	if (priv->regs_h)
-+		priv->intf_id = ioread32((u32 __iomem *)&priv->regs_h->intf_id);
-+
-+	if (priv->intf_id & CRB_INTF_CAP_CRB_CHUNK)
-+		dev_info(dev, "CRB Chunking is supported by backend\n");
- 
- 	memcpy_fromio(&__rsp_pa, &priv->regs_t->ctrl_rsp_pa, 8);
- 	rsp_pa = le64_to_cpu(__rsp_pa);
-@@ -786,8 +897,10 @@ static int crb_map_io(struct device *dev, struct crb_priv *priv,
- 	priv->rsp = priv->cmd;
- 
- out:
--	if (!ret)
-+	if (!ret) {
- 		priv->cmd_size = cmd_size;
-+		priv->rsp_size = rsp_size;
-+	}
- 
- 	__crb_go_idle(dev, priv, 0);
- 
+ drivers/pinctrl/pinctrl-amd.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/pinctrl/pinctrl-amd.c b/drivers/pinctrl/pinctrl-amd.c
+index 9fa752f55..92a08f240 100644
+--- a/drivers/pinctrl/pinctrl-amd.c
++++ b/drivers/pinctrl/pinctrl-amd.c
+@@ -671,7 +671,8 @@ static bool do_amd_gpio_irq_handler(int irq, void *dev_id)
+ 			raw_spin_lock_irqsave(&gpio_dev->lock, flags);
+ 			regval = readl(amd_gpio_pin_reg(gpio_dev, irqnr + i));
+ 			if (!gpiochip_line_is_irq(gc, irqnr + i)) {
+-				regval &= ~BIT(INTERRUPT_MASK_OFF);
++				regval &= ~(BIT(INTERRUPT_MASK_OFF) |
++					    BIT(INTERRUPT_ENABLE_OFF));
+ 				dev_dbg(&gpio_dev->pdev->dev,
+ 					"Disabling spurious GPIO IRQ %d\n",
+ 					irqnr + i);
+@@ -722,7 +723,8 @@ static bool do_amd_gpio_irq_handler(int irq, void *dev_id)
+ 			raw_spin_lock_irqsave(&gpio_dev->lock, flags);
+ 			regval = readl(amd_gpio_pin_reg(gpio_dev, pin));
+ 			if (!gpiochip_line_is_irq(gc, pin)) {
+-				regval &= ~BIT(INTERRUPT_MASK_OFF);
++				regval &= ~(BIT(INTERRUPT_MASK_OFF) |
++					    BIT(INTERRUPT_ENABLE_OFF));
+ 				dev_dbg(&gpio_dev->pdev->dev,
+ 					"Disabling spurious GPIO IRQ %d\n",
+ 					pin);
 -- 
 2.56.0
 
