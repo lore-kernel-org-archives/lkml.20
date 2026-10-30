@@ -1,76 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793395303;
-	b=ydxq0UtPOC3rEIHjkJ5CSxrrzhk6pyq04jzIVAqm/D7fYts9svBSe9DMQZYQ6XdfI7UY
-	 U+0ZwFta2a4xLKFQ2uR0KXJeiI9fy455USeGTqA5HfvYH1/BvjttgFmr87yjBJ4r8BnNr
-	 gTKZwiWUWwEiC6pjT56LKFRytEQBfNdxa8E5Bf8SMcsXPXd2FCpXuNqGDZ+RLxn4TtFiJ
-	 gWQwAQKeFICl4QoHcT1eQKI18vihzEovrVo2XblRc+Xc/AVCMiB8yD/dCiJqSGVZUxcqk
-	 rG9Vag/tqG92zhhj1gZwEIB317iU/8Znd48ypgY6ELUgrozuWRLXyLFN2ntVz2eXTRw==
+	t=1793395284;
+	b=xhnogB/R7jkD6V8yDxyWVpSiYxIcVaBN/6pVk//thu7KK/CswwHMvBoFfXtc4/7N03IB
+	 TTT6elrKS4w3sd4NfzYte8ljby42fd7CSJAavggIV6GMQVcKtoOVyE1euVxPQ2h649ZdV
+	 jhdY4Zl0T0a1aYO+gL62PDrgSj3wGZNrgJ2ZUgMBKi3RQtfmwxIKkSEEkUf8EH3Nq2fZn
+	 SZzAbd5g7fepXOVQRTQl+yi/DX64GulBTUn3ubG0U5ddUrEqo0/MwyYLTWdeATYOGDtzN
+	 a8IHGoQjx4V/kJuMuD1aWlQK6Lb7NGL8O9rhFixhzvjYDqkxQ4HJcYe0QgzF4nxcIgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793395303;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
-	 To:Cc:Content-Type;
-	bh=QOulOknncDj+wvkIw4OOGY1O6DdQV3bVqwj3fNEp63M=;
-	b=dqEdr7zFiezpu8Ft02bIgw/4DUmb5oOjZOdETTyxXIKlG47dQw6jstqvTnpS0KdGp0Nv
-	 /LEpb/PcGdLBIPLU7EOYB+bMGkQLNmIoJxjcUvHWMqh8yjIaJkxYTYfV1gWsDDBX3M8JE
-	 FyovZJCgR7vP/alX7HAzmz8eRd4WtFUXbQy9EYXE1J/OTH2vAWjxHHSPe8oUzUk6tWsVG
-	 y16WTOuB4xgVElWngAe3p4qe1A8mZ3zeJI9y6bJ9MUc8OhkQZS2tSIpiCCLXa1akhJmmA
-	 nd0tHgc9m6M+aBg3nArCp3UiIppWlCBWKPL5V2Lu9vJggclCRYZ26aMW/r9//pNiT7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793395284;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=HQX9cJw2kzgbRp5ZXfT3vcd1PI1jMq0ASyGe44SgcLI=;
+	b=g/TeYNn5fT/Kr3PQkr8JcJnYIlmF/U6O3/eibRyLanyWbdSUCpFa5RZb07KNk394YMzB
+	 wo6uOqK+n4kL3iSj8cHeXudGsBAJRgS4YF4/USZQLkXjO5d9h0QzuHhgPYQ2Y2QAhG3UC
+	 raiDhU7/48Fv7HI8rbLYmHnSSn28/s/vLaeOxL9WPgnVeSv4yGXhenGensLhBhGmfQLSc
+	 kUwrxTVjTn6rbwSG+bjcm0VRksrnl6Wp10d0FFsYS6sfQfyX5AqGDUrUKSHWo4geVe0gj
+	 qscrd8N7uoIjFhT/UIvZmnPx+xITEqtP9sKBkU5pEW2136aqCogeh9s5SJFojikPVjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BOoqCSXE;
-	arc=none smtp.remote-ip=209.85.210.199
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=shazbot.org;
+	spf=pass smtp.mailfrom=shazbot.org;
+	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=EtigL5D7;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wn6wGwFZ;
+	arc=none smtp.remote-ip=202.12.124.152
+Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EBC60701F0
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0EBC60701F0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1808460A6F55
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:21:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1808460A6F55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BOoqCSXE
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-89e96c03cd0so987057b3a.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:21:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793395302; x=1794000102; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=QOulOknncDj+wvkIw4OOGY1O6DdQV3bVqwj3fNEp63M=;
-        b=BOoqCSXE9ZPDiFh2POxPx+Ow6FvMl6K9ztXpQUAPLKIL0GBQ0DYZmZCNIxqrKUfJvx
-         cwtACtI9dx8I1ZeqaW6/viuj5ikI+ztSgGdUxffrH+nmTGV4wbQs5VoSKczn3nFmCQZx
-         l+kDnt9N8XEmIbYm78rFxbgW/8lV18+qNBTM5QdVhFQWYwJYNLBibkn0rc2RblOYjGln
-         nhsX0M73RxwDf7812tFeg6I1cKps/4TCvIMPqky3MmtJRsTY8W6VfQ5AMWy9zh7HGRNi
-         Sf6hchA0qhpzON5ofg6rBNNQhOSYCJY6bQAK4gTM+3G8vWYKvbn2SsbePrUsqj3RUlYa
-         MLIA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793395302; x=1794000102;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QOulOknncDj+wvkIw4OOGY1O6DdQV3bVqwj3fNEp63M=;
-        b=tjVZsvTD4pG0dQIT1I3ZrWRfGrNgK23yBjx1Y3u9uHy1ZXrdbxRndmZ8kYD2EkmyI3
-         mNqtt4Lu7XblCmF9vM2Fh6MeN2b5mLnVXkjvoGFkxDV20QIOgYyxgbj2ez9aZwFJQg3g
-         4Pq8blaXrR3xqdlQrFDTFN6fk6i3WTNYN3qlN9CTD3v3ETjF9FBplMXRtkt55feyBFLS
-         dfpGW2D0exCTaijYCf92XuQDb7SRQdaafCIBpCQqEQiZVc9dpO4xgr6yo9k7iFOwcwZ7
-         vbwKQ2bMFbbyDo+ZroMW0DjRNrHi5W0LSioV9JT9r10fMeOKLntEwLUfnOv8HBNVZAYM
-         eG9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz/GExduUbR+GfOCo5N29qiuavJkl0n4Qe/kSSf17ad6AeTmRrmi6XXlvR0+4SyBjTLfkNe4mXHOuIQ4V4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKrg0tVgv+e66CCdsmnYQ4LTrQp7UB7Lz5Yve60C6NZSPJ+7TtG
-	7ShHpPs7jgGbcRHMEpsW4QTmtA0CcktIZ5+2x6MwLLqxMhCLpEdj99ySSolKQScSKWGolyfRFck
-	RIE9KOA==
-X-Received: from pfbay8.prod.google.com ([2002:a05:6a00:3008:b0:89f:6242:b2d2])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3e01:b0:3e2:5d77:4bf3
- with SMTP id adf61e73a8af0-3e92884d686mr2608559637.0.1793395301941; Fri, 30
- Oct 2026 14:21:41 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Fri, 30 Oct 2026 14:21:11 -0700
-In-Reply-To: <20261030212112.2598640-1-seanjc@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=EtigL5D7;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wn6wGwFZ
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 5032D7A0145
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:21:22 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Fri, 30 Oct 2026 17:21:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793395281;
+	 x=1793481681; bh=HQX9cJw2kzgbRp5ZXfT3vcd1PI1jMq0ASyGe44SgcLI=; b=
+	EtigL5D7X3Ci0fdiYSyY6w7E2heYOCP4KYtQm64NUT1PLaPa4z3vESeUztDNJzGt
+	iZvEY9sPTHbAqlOd4AydzcBTOsoKwse/lUfrhh+nIQ0WtE3+bGC8EX7iD7BCbDX0
+	Ex5V4jQbKmmnOLTRi1JJZmG5uo3YS25LjpAPyAXRXHkhnFLvF5R5qBGhvtjPVfPz
+	dM3ppSYsfgIEtWpoO8WVa6ydMsdPEMPUMe8LU43E4Ki/M/kgl3SnmOsM1kl0JZ0u
+	GDr2p5040VOF69X3lGI7R5LNg9ddJpvW1PgecuPpUCAypDYVlbb9zOxX1PIT1LzM
+	07Kuum3c7mVvqPYGu+UKKg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793395281; x=
+	1793481681; bh=HQX9cJw2kzgbRp5ZXfT3vcd1PI1jMq0ASyGe44SgcLI=; b=w
+	n6wGwFZzDf8z8hu4ZTzBEmHruyIYa7EKwLy9q6Jxhyiova0T0pka1Y/hD+eBIFmJ
+	9c63wqYYVhgVXiukrJ+rdoZW7Cou+Al8jRbf1+Rg/j0ZlPYxl1ouIiGhJ9cuI2S0
+	2yEuiRW1XmuQFvXbnIlnLlDc3+M3UDj0JDpRSUiR3q57kuT3ez5sn8spmNoKhX2R
+	r0qn0W0DqOax1CVIkA2Z0k2t70jAOwZ/RXucBVR2LU7nAlyw1xhCJaPGLIgyJDda
+	ozEfARV2JK9BS68/sZVbYnJdGD2JXONSB/Rv1SzDcutiKDVIwRfR8pUaNC56O3/d
+	k3JuDsDIjx0PCXZdXymRA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793395281; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:RkUQHwhkyp67oYHQPYpeiLwwq/NR7l4+QHgEAZ9yntcPmOs
+	jyJ+4tbfEaJP8UGEgXytOsR25F9pBS8QDyKOMrsUT9Yb+1RTBGJxc6oipt8JV+/D
+	qRzqllCKwzFHptM5huMdRAj1tsrT9DHhtlXciPsCuWlipQkgTqPz8DPSOnpfPYH3
+	YxvV67sQmBG7c9nJJD0SOG5H4LOUesHJJeOtO6dmYAoauz4VQ54hxbdCTPq+SlS9
+	xB4iKxp2k9Fn6eHrPtR72Q4wMm2T8tYs8LMR2KVfFBm4QosAJu2hdXxLBEIv08Ti
+	u2pGW5cbcsv21iUYLWJS4JjgXGW2Zm/8PDKJOZg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:mv4aGPcAwkiXx8VjHMnj2do5S6mOFkP/wTto/isqEDQ=:CkHN/CEk7RtqsrgxCKdks+dxaIj4YkGXmvUoGunDtU0=;
+X-ME-Sender: <xms:UQrlamwQ0wp5NMTR8_DkMZw9udTOE_0tE6HKXbSDPbQCe6LxeGaOZg>
+    <xme:UQrlaqbXLTPCgqL0wurDeYBMCdb2hzT4WAEGyzpX5IyZh75w4EhKMSPpn_4cMBKre
+    pGcGenKkvQjP_EmyMkl9eSCUrmm2AMCUKfV4OZ2DqZqxHyJS8DDDw>
+X-ME-Received: <xmr:UQrlan0D5YSzqL_fNh7UuDr1gQ6aYa5K9HKpctWhkRzEhX087R6MjslZvgAadQ>
+X-ME-Proxy-Cause: dmFkZTE9Qh59DEx5nBSxZ4EeJRHFHQUhtDF7/XkmVFDFZ1f8L9mJVueb32IcXNnhguBPcy
+    oVhHboeHNk9hdJEswRPzUXFTt4r8VkNlA/hsFSvMf/O5KTL7M5hFrbG5vNZ3om0ctjr+7U
+    08HiGDASsNv4o8fW4CNazOXJF/nasRc+CmXNe4E7KbEgewlslmUiXMUwmD5KhBCj9WWwMS
+    T6Wkb+meTa/IhB01JPwRkyqEpj1gT820d6i0HSXfnkS/JNLfbF8t4EkjpkYi8irYjUxdse
+    kMJKsuE9nUEvzkblcySo/ojLVkWWzPeH7dm0err5Aarel59lew26uF2QYMwNHhYI0Ag0Kp
+    TDk6xIhPWm4yKaA3f6hGs18C4XZUop54Wl2swPD53gjeTdt2Fdm0mdCrT8bxKUmcOkEdhS
+    QtD6N3scm8JyelIiJycBKlif3ZPP4S3OoVyAlmcgvHMU0m+TS/8bBfrcWbFiWbmvrKwBZy
+    4i97X7yHFchoUYyqDXS7tP6qutvr5B7sYeoyiuCFelEYj9UVmOZorlfiGI9aP/cI9eMPXM
+    cY1Z7V1EaYt7N3aAREmyuySkfTGRaerZ7HLBWlbfhRbbRmmr9WhdhuPf+AgbzTZw3oIbcl
+    MKgqHOV3B4jBz5xroZpDePlLg2LylNHdjAm5e4E4mqv3HNCqTvPcw85jj9Sw
+X-ME-Proxy: <xmx:UQrlasdIS0aBLRAipTfkHYbCnkUaoh4aSD9-QQLubmqqPHa_oICRMQ>
+    <xmx:UQrlakLo1Lfzqrx-r37RRIV5xqNZ6x6utW1nyG18F2fyRqCdWZQPRg>
+    <xmx:UQrlaqrPl0x1b85hwT7y5l-0AfdHkOBSkYMR8xoNvEM5R3CachtbzA>
+    <xmx:UQrlaisy2HZxZ7svPUW0si3-gyZMFUUxhdawqML4YW_Bje2PmyYaVQ>
+    <xmx:UQrlavZgftgP_iY9aDoLfI03lmwiLeIAG6BtAMIf-TOJLJFkfAcRq5t8>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 30 Oct 2026 17:21:20 -0400 (EDT)
+Date: Fri, 30 Oct 2026 15:21:18 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>,
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org, Kevin Tian
+ <kevin.tian@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ stable@vger.kernel.org, Ankit Agrawal <ankita@nvidia.com>, "Ritesh Harjani
+ (IBM)" <ritesh.list@gmail.com>, alex@shazbot.org, David Matlack
+ <dmatlack@google.com>
+Subject: Re: [PATCH v1] vfio/pci: pass FAULT_FLAG_WRITE to
+ vmf_insert_pfn_pmd/pud()
+Message-ID: <20261030152118.72b62a9a@shazbot.org>
+In-Reply-To: <20261024015540.538758-1-almasrymina@google.com>
+References: <20261024015540.538758-1-almasrymina@google.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,159 +129,82 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261030212112.2598640-1-seanjc@google.com>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261030212112.2598640-24-seanjc@google.com>
-Subject: [PATCH v4 23/23] KVM: x86: Rename __x86_set_memory_region() => x86_set_internal_memslot()
-From: Sean Christopherson <seanjc@google.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>, Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>
-Cc: Nicholas Piggin <npiggin@gmail.com>, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jim Mattson <jmattson@google.com>, 
-	James Houghton <jthoughton@google.com>, Chris Mason <mason@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Rename __x86_set_memory_region() to x86_set_internal_memslot() and add
-double-underscores to the existing x86_set_internal_memslot(), so that the
-x86 APIs better align common KVM's kvm_set_internal_memslot().
+On Sat, 24 Oct 2026 01:55:40 +0000
+Mina Almasry <almasrymina@google.com> wrote:
 
-No functional change intended.
+> vfio_pci_vmf_insert_pfn() unconditionally passes write=false to
+> vmf_insert_pfn_pmd() and vmf_insert_pfn_pud().
+> 
+> In insert_pmd() and insert_pud(), write=false skips marking newly
+> inserted PMD/PUD entries dirty/young via pmd_mkyoung(pmd_mkdirty()) and
+> maybe_pmd_mkwrite(). Furthermore, when vma_wants_writenotify() is active
+> on a shared writable VMA (for example, after CLEAR_REFS_SOFT_DIRTY
+> clears VM_SOFTDIRTY and calls vma_set_page_prot()), vm_page_prot is
+> downgraded to read-only so insert_pmd()/insert_pud() with write=false
+> installs a write-protected huge PMD/PUD. Subsequent write faults enter
+> wp_huge_pmd() or wp_huge_pud(), which invoke vma->vm_ops->huge_fault()
+> to upgrade the entry in place. Because vfio_pci_vmf_insert_pfn() passes
+> write=false, insert_pmd() and insert_pud() see !pmd_none(*pmd) with
+> !write, do nothing, and return VM_FAULT_NOPAGE without setting the write
+> bit or splitting the huge page, causing an infinite write page-fault
+> loop.
+> 
+> Pass vmf->flags & FAULT_FLAG_WRITE to vmf_insert_pfn_pmd() and
+> vmf_insert_pfn_pud() so write faults properly mark huge PFNMAP entries
+> dirty and writable.
 
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kvm/lapic.c   |  6 +++---
- arch/x86/kvm/vmx/vmx.c | 12 ++++++------
- arch/x86/kvm/x86.c     | 14 +++++++-------
- arch/x86/kvm/x86.h     |  4 ++--
- 4 files changed, 18 insertions(+), 18 deletions(-)
+This seems correct to me, but the commit log misses the human
+practicality portion of the argument, or at least buries it too subtly
+for me in the soft-dirty references.  AIUI, this is effectively only
+reached by something like CRIU twiddling clear_refs via procfs on a
+running process.  That's the kind of thing someone evaluating this for
+stable would want to know.
 
-diff --git a/arch/x86/kvm/lapic.c b/arch/x86/kvm/lapic.c
-index c20e2a25834f..b4a7f02f5c48 100644
---- a/arch/x86/kvm/lapic.c
-+++ b/arch/x86/kvm/lapic.c
-@@ -2917,8 +2917,8 @@ int kvm_alloc_apic_access_page(struct kvm *kvm)
- 	    kvm->arch.apic_access_memslot_inhibited)
- 		return 0;
+Given this unique use case, this also looks like a selftest candidate
+(Cc +David).  Thanks,
+
+Alex
  
--	hva = __x86_set_memory_region(kvm, APIC_ACCESS_PAGE_PRIVATE_MEMSLOT,
--				      APIC_DEFAULT_PHYS_BASE, PAGE_SIZE);
-+	hva = x86_set_internal_memslot(kvm, APIC_ACCESS_PAGE_PRIVATE_MEMSLOT,
-+				       APIC_DEFAULT_PHYS_BASE, PAGE_SIZE);
- 	if (IS_ERR(hva))
- 		return PTR_ERR(hva);
- 
-@@ -2943,7 +2943,7 @@ void kvm_inhibit_apic_access_page(struct kvm_vcpu *vcpu)
- 	if (!kvm->arch.apic_access_memslot_enabled)
- 		goto out;
- 
--	p = __x86_set_memory_region(kvm, APIC_ACCESS_PAGE_PRIVATE_MEMSLOT, 0, 0);
-+	p = x86_set_internal_memslot(kvm, APIC_ACCESS_PAGE_PRIVATE_MEMSLOT, 0, 0);
- 	if (IS_ERR(p)) {
- 		kvm_make_request(KVM_REQ_APICV_UPDATE, vcpu);
- 		goto out;
-diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
-index 1f9e43c5b4c4..00fb9459de59 100644
---- a/arch/x86/kvm/vmx/vmx.c
-+++ b/arch/x86/kvm/vmx/vmx.c
-@@ -4055,10 +4055,10 @@ static int init_rmode_identity_map(struct kvm *kvm)
- 	if (!kvm_vmx->ept_identity_map_addr)
- 		kvm_vmx->ept_identity_map_addr = VMX_EPT_IDENTITY_PAGETABLE_ADDR;
- 
--	uaddr = __x86_set_memory_region(kvm,
--					IDENTITY_PAGETABLE_PRIVATE_MEMSLOT,
--					kvm_vmx->ept_identity_map_addr,
--					PAGE_SIZE);
-+	uaddr = x86_set_internal_memslot(kvm,
-+					 IDENTITY_PAGETABLE_PRIVATE_MEMSLOT,
-+					 kvm_vmx->ept_identity_map_addr,
-+					 PAGE_SIZE);
- 	if (IS_ERR(uaddr)) {
- 		r = PTR_ERR(uaddr);
- 		goto out;
-@@ -5295,8 +5295,8 @@ int vmx_set_tss_addr(struct kvm *kvm, unsigned int addr)
- 		return 0;
- 
- 	mutex_lock(&kvm->slots_lock);
--	ret = __x86_set_memory_region(kvm, TSS_PRIVATE_MEMSLOT, addr,
--				      PAGE_SIZE * 3);
-+	ret = x86_set_internal_memslot(kvm, TSS_PRIVATE_MEMSLOT, addr,
-+				       PAGE_SIZE * 3);
- 	mutex_unlock(&kvm->slots_lock);
- 
- 	if (IS_ERR(ret))
-diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-index 8cb58040dd81..85dd52c6beca 100644
---- a/arch/x86/kvm/x86.c
-+++ b/arch/x86/kvm/x86.c
-@@ -10007,8 +10007,8 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned long type)
- 	return ret;
- }
- 
--static int x86_set_internal_memslot(struct kvm *kvm, int id, int as_id,
--				    gpa_t gpa, struct file *f, u32 size)
-+static int __x86_set_internal_memslot(struct kvm *kvm, int id, int as_id,
-+				      gpa_t gpa, struct file *f, u32 size)
- {
- 	struct kvm_userspace_memory_region2 m;
- 	unsigned long hva;
-@@ -10038,7 +10038,7 @@ static int x86_set_internal_memslot(struct kvm *kvm, int id, int as_id,
- }
- 
- /**
-- * __x86_set_memory_region: Setup KVM internal memory slot
-+ * x86_set_internal_memslot: Setup KVM internal memory slot
-  *
-  * @kvm: the kvm pointer to the VM.
-  * @id: the slot ID to setup.
-@@ -10059,7 +10059,7 @@ static int x86_set_internal_memslot(struct kvm *kvm, int id, int as_id,
-  * address, i.e. its accessibility is not guaranteed, and must be
-  * accessed via __copy_{to,from}_user().
-  */
--void __user * __x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
-+void __user *x86_set_internal_memslot(struct kvm *kvm, int id, gpa_t gpa,
- 				      u32 size)
- {
- 	struct file *f __free(fput) = NULL;
-@@ -10081,12 +10081,12 @@ void __user * __x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
- 	}
- 
- 	for (i = 0; i < kvm_arch_nr_memslot_as_ids(kvm); i++) {
--		r = x86_set_internal_memslot(kvm, id, i, gpa, f, size);
-+		r = __x86_set_internal_memslot(kvm, id, i, gpa, f, size);
- 		if (!r)
- 			continue;
- 
- 		for (i--; i >= 0 && size; i--)
--			x86_set_internal_memslot(kvm, id, i, gpa, NULL, 0);
-+			__x86_set_internal_memslot(kvm, id, i, gpa, NULL, 0);
- 
- 		return ERR_PTR_USR(r);
- 	}
-@@ -10097,7 +10097,7 @@ void __user * __x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
- 
- 	return (void __user *)(slot ? slot->userspace_addr : 0);
- }
--EXPORT_SYMBOL_FOR_KVM_INTERNAL(__x86_set_memory_region);
-+EXPORT_SYMBOL_FOR_KVM_INTERNAL(x86_set_internal_memslot);
- 
- void kvm_arch_pre_destroy_vm(struct kvm *kvm)
- {
-diff --git a/arch/x86/kvm/x86.h b/arch/x86/kvm/x86.h
-index cfe96962a4e4..c467d7347145 100644
---- a/arch/x86/kvm/x86.h
-+++ b/arch/x86/kvm/x86.h
-@@ -529,8 +529,8 @@ static inline void kvm_inject_gp(struct kvm_vcpu *vcpu, u32 error_code)
- void kvm_inject_nmi(struct kvm_vcpu *vcpu);
- int kvm_get_nr_pending_nmis(struct kvm_vcpu *vcpu);
- 
--void __user *__x86_set_memory_region(struct kvm *kvm, int id, gpa_t gpa,
--				     u32 size);
-+void __user *x86_set_internal_memslot(struct kvm *kvm, int id, gpa_t gpa,
-+				      u32 size);
- int memslot_rmap_alloc(struct kvm_memory_slot *slot, unsigned long npages);
- 
- bool kvm_vcpu_is_reset_bsp(struct kvm_vcpu *vcpu);
--- 
-2.56.0.385.gac671c819a-goog
+> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+> Cc: stable@vger.kernel.org
+> Cc: Ankit Agrawal <ankita@nvidia.com>
+> Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Assisted-by: LLM
+> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> ---
+>  drivers/vfio/pci/vfio_pci_core.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
+> index fcbb2da860e2..204d959086e9 100644
+> --- a/drivers/vfio/pci/vfio_pci_core.c
+> +++ b/drivers/vfio/pci/vfio_pci_core.c
+> @@ -1745,6 +1745,8 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
+>  				   unsigned long pfn,
+>  				   unsigned int order)
+>  {
+> +	bool write = vmf->flags & FAULT_FLAG_WRITE;
+> +
+>  	lockdep_assert_held_read(&vdev->memory_lock);
+>  
+>  	if (vdev->pm_runtime_engaged || !__vfio_pci_memory_enabled(vdev))
+> @@ -1754,10 +1756,10 @@ vm_fault_t vfio_pci_vmf_insert_pfn(struct vfio_pci_core_device *vdev,
+>  		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
+>  
+>  	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PMD_PFNMAP) && order == PMD_ORDER)
+> -		return vmf_insert_pfn_pmd(vmf, pfn, false);
+> +		return vmf_insert_pfn_pmd(vmf, pfn, write);
+>  
+>  	if (IS_ENABLED(CONFIG_ARCH_SUPPORTS_PUD_PFNMAP) && order == PUD_ORDER)
+> -		return vmf_insert_pfn_pud(vmf, pfn, false);
+> +		return vmf_insert_pfn_pud(vmf, pfn, write);
+>  
+>  	return VM_FAULT_FALLBACK;
+>  }
+> 
+> base-commit: 076d7e989cb69f6ded7d60f2a080eb909930061b
 
