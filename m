@@ -1,58 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793340116;
-	b=J9xMRm4s497Gn0a6kJvJo4MblRlzON3Yx2lK8+YnsNgS2ZVA8nr/bpOm4qN5SuiD0pUd
-	 SGjWuneqornIYs6tiUkLTEEeACC3rM7LdClYB57kNX54N0FLDQTvkLFDmrzlaGvfD2cwQ
-	 zrk4iV7f26txsXbhUSe3nh+8u5clTtpAXi3AhMeF51cj40HcptTMFRAVH/r24S+4pGuqq
-	 0PKxcjfoGlKRMkNNWdPsrrp0CX3R8jlAAd7kglrl92DAljaH67+7pXWRyQ6wLWbzIqSW3
-	 3DGwnfm24cc35SeWjHBBTFqaxcORqOXHpik/yVDdHLpwKJJyJJal+kfx3IL46A257wA==
+	t=1793340113;
+	b=jh8Tz3eTL/JEzlquSN9yMW6jOGVtsiIK9eEX76Qh0aIOK2t8wvtYY2coK9qZB4zQj1Mp
+	 FJFVv6JM7gEv2SMcoIfP0XCTDChqXz9/cKRS2O8kV+uEjiHdk/0sPQZhCn4uC8mzSfAnn
+	 bfFarizZA+lKtKl+GTOFEGwgT/4vxobL8KNTzEn7aXS0Z1Bmsop/YaDrKEbTNa19W9Cnu
+	 Rr1M8FpnjHvzx0hEZ7J7cuGIaA2B5TEDy5jmhNHCFIiqbxmYugEhFodTzrNBPxC3Q2b50
+	 iBmuON4O0HFsdR8c5phEbf7aBpFuDUHtdZ25sb/9H+wRuf2Xtj7cZlQ5AfMbaQy1aOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793340116;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=QV64RGtqfAWvcrVEQ/J8fVuvfalRZ9xgiHmT8AuAPYU=;
-	b=Fq9CBlMVL1XbFcouOO/mAX474ph5JYO1HiFhOJjBngne9hkyEz6QZav6WHhCqJav0a+E
-	 viFOtKgCAwfmPAjJ1JpmtVZEREBZeuh2ba8wtL25Ox5GxNKFrALILuWAxUXbkb9M2cFoB
-	 uVdE3+zTvt9BvzwoaXmXp6d4Z27P6f7WuEEA4JoIUQOSdS6eNg6jeNa5GXKh054P+n0aq
-	 FBcxWBs2qUKEZgGbeluAXqi8tBEvHeDwxsglfYX+S5b9gLdRYkDsr9iYwDkra/bdoSmqg
-	 +ROBqq1KEcrxRuJQOJ7cX9R8GpIE782jupWZOR/HS0SaoFI2fQsG+K6GfyHOhAy5WLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793340113;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=3+yMgOHJoCI4m0B8wh7JCOWSOxNAOkqliA1eIXX27jY=;
+	b=p/pCrPp99ovU1sLANXXXsMBBz6mR+mUpZUsndyQZ3TQaE9z3A4EvH5RzCQTW6WqMlHIw
+	 s3SPVr/xZhXcPmqS4Wp7dW05KR6g3uXGP2rBZaER5pMv0qvPqWH4rD+JahBPpDiOalb7I
+	 hoTJ22Df9u7UscmDz3FQ254YGE/I1upHKRx2o/dwL83a4hqILqFk9NYeAxQaek9E1k82u
+	 HIro+VsK/LbgLcg3gnuIc0lIm6hVC/grMHkO8K74OG6aCqlfdbPWzE0TKTZE12AFCU+HA
+	 q+A4CRNdipFZMfzCKEjjByaR2FtQxIjqhrQQ4Am12gFkGX3h2rY4n2XHY8JilLmqnqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=WrESf68H;
-	arc=none smtp.remote-ip=113.46.200.224
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5E9606A330
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:01:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A5E9606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=WrESf68H
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=QV64RGtqfAWvcrVEQ/J8fVuvfalRZ9xgiHmT8AuAPYU=;
-	b=WrESf68Hs0YRccK+XTYqrJfLNsgVzD1tFRK4UfgJfK6v9eiCHydujqzBqR/Bwks32HSm99JSJ
-	yvt1zNYgJBR5nwE/R2ciu1QBW/2WrpfgPrq3hPiw3I9XbIs1YCBbapoRe4nlDW26KEOxSrwn3Pt
-	DdlrRNDetKULhgh6Sk4aBhw=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4jG9Tg2GvTz1cySS;
-	Fri, 30 Oct 2026 14:01:43 +0800 (CST)
-Received: from kwepemr100010.china.huawei.com (unknown [7.202.195.125])
-	by mail.maildlp.com (Postfix) with ESMTPS id 3C4D840563;
-	Fri, 30 Oct 2026 14:01:51 +0800 (CST)
-Received: from [10.67.120.103] (10.67.120.103) by
- kwepemr100010.china.huawei.com (7.202.195.125) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 30 Oct 2026 14:01:50 +0800
-Message-ID: <b8f76a0a-8b1e-4167-81cc-b3a4ee79fb6b@huawei.com>
-Date: Fri, 30 Oct 2026 14:01:49 +0800
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AC0F4606A31F;
+	Fri, 30 Oct 2026 06:01:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC0F4606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:MIME-Version:
+	Content-Transfer-Encoding; bh=3+yMgOHJoCI4m0B8wh7JCOWSOxNAOkqliA
+	1eIXX27jY=; b=KEmvw/au0zs8lv0SOcZbxiVqKw6oMFpFHanlX4zjR86qqs0iVB
+	TSsJS7ANR2CW5bHE/HEgitaKiE8TvobEh1DnQ2F2oMmLLM4xHTI/WcQErAb7zI0x
+	gR0YS7Kxd8SbiExYVqjpl3urAJ6E+q4dtboArlZRQCsdGrXFUb5VyB7Po=
+Received: from localhost.localdomain (unknown [223.160.172.89])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkB2ev3NMuRqZQYHAQ--.6649S2;
+	Fri, 30 Oct 2026 14:01:50 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] media: az6007: stop CA thread on probe failure
+Date: Fri, 30 Oct 2026 14:01:35 +0800
+Message-ID: <20261030.pref-06.a2ac6da0394b4f0c@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.45.1.windows.1
+In-Reply-To: <20261013144717.1621-1-25031212351@stu.xidian.edu.cn>
+References: <20261013144717.1621-1-25031212351@stu.xidian.edu.cn>
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,71 +62,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 5/5] KVM: arm64: Enable HAFDBS for guests not on
- migration
-To: Leonardo Bras <leo.bras@arm.com>
-CC: liuyonglong <liuyonglong@huawei.com>, Oliver Upton <oupton@kernel.org>,
-	Marc Zyngier <maz@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly
-	<joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose
-	<suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas
-	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Mark Rutland
-	<mark.rutland@arm.com>, Raghavendra Rao Ananta <rananta@google.com>,
-	<linux-arm-kernel@lists.infradead.org>, <kvmarm@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, Zhou Wang <wangzhou1@hisilicon.com>
-References: <aqneWnlsdpocLIl6@kernel.org> <aqqhDs3NyjtkZzXK@LeoBrasDK>
- <aqsl1_IqnV2r8kUL@kernel.org> <aqvt2gnlBZeNsaf4@LeoBrasDK>
- <as-mH36YSMxAosND@LeoBrasDK>
- <3e464bef-8dfe-44a3-afea-3c276ae87cd8@huawei.com>
- <attMtUqxNsuPooix@LeoBrasDK>
- <8eaaba87-7881-49c4-a76a-51dec2f29ffc@huawei.com>
- <auCPEQmnFwWldTaM@LeoBrasDK>
- <52945586-8c5c-4991-bd92-fe02aaf79fbe@huawei.com>
- <auM0CWJTPzYUTknh@LeoBrasDK>
-From: Tian Zheng <zhengtian10@huawei.com>
-In-Reply-To: <auM0CWJTPzYUTknh@LeoBrasDK>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemr100010.china.huawei.com (7.202.195.125)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkB2ev3NMuRqZQYHAQ--.6649S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYJ7k0a2IF6F4UM7kC6x804xWl14x267AK
+	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1I
+	6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26r
+	4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vI
+	FxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2I
+	x0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8
+	JwACjcxG0xvY0x0EwIxGrwCY02Avz4vE14v_GF1l42xK82IYc2Ij64vIr41l4c8EcI0Ec7
+	CjxVAaw2AFwI0_JF0_Jw1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWU
+	JVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7V
+	AKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42
+	IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU4jXdUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUCD2rjY8F8yQADsX
 
+Hi Mauro,
 
+Could you please review this patch?
 
-On 10/29/2026 7:54 PM, Leonardo Bras wrote:
-> On Thu, Oct 29, 2026 at 10:54:24AM +0800, Tian Zheng wrote:
->> Hi Leo,
->>
->> I've read your discussion with Oliver on DBM RFC v2. As a suggestion,
->> maybe we should go with Oliver's approach, i.e. revert to the v1 scheme
->> and continue fixing from there.
-> 
-> Hi Tian,
-> I have been reading a bit more about permission indirection to try figuring
-> out a way that the change may work for both ways.
-> 
-> The problem with the previous approach is that it assume DBM=write at all
-> times, which is not architecturally correct. Having DBM=write only on
-> HAFDBS=on as suggested would require us to transverse the whole pagetable
-> to convert encodings when we enable/disable it, which can be quite
-> expensive.
-> 
-> One option would be to always enable HAFDBS when system supports HDBSS, but
-> I still have to figure out if that causes any performance regression before
-> suggesting.
-> 
-> The option I am pursuing is thinking on an unified code path for direct
-> permissison (both HACDBS=on and HACDBS=off) so we don't have to convert
-> between them, neither worry about the impact of HAFDBS=on on performance.
-> 
-> I will reply on the thread once I figure one of those options out.
-> 
-> Thanks!
-> Leo
+  [PATCH] media: az6007: stop CA thread on probe failure
 
-Hi Leo,
+It stops the az6007 CA polling thread on probe failure before the device
+state is freed.
 
-Sounds good. I'll wait for your next version and review it once it's
-posted.
+The patch is unchanged. I am copying this address for visibility.
+
+Original submission:
+https://lore.kernel.org/r/20261013144717.1621-1-25031212351@stu.xidian.edu.cn
 
 Thanks,
-Tian
+YuanZhe
+
