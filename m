@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356115;
-	b=dt7smZ+nrHzyaoc2pO+I9WOKtZQBchvx3UP4TzBm3ve8+qRyWE+DDFgsz/WXC7WhhnUe
-	 nvk8RaB0iY52lp8TKs+bkSYFMflg3nQt134Giztx8XORB1tGR6SJAfBYMbtMe2RocEe4x
-	 gI/e+4iyfP1d0srmRzKOZMo7gt+jJ/zUWc1c1kj1Hbmn3sSBq+4vXmAdqJb6baGPPR2qz
-	 HSuA+LBWyiluwjn0MP0b083BSGYCAHFOGSDT3o1BclV4BbVEwXY2/ayV7YiA08EA4WKTz
-	 lSwldhhvJNVag5TVzIPd4a8IxkZulV3T4frOeHSnYlJqMasB6gNMY6rUqnUskZRTq7Q==
+	t=1793356119;
+	b=3rh4QWjuJnco9ssjgaZ9c0w0eDJEF1kEUSY8bDS/6SdkS7l1hGZkZ03pu9Yt2zA20pJz
+	 tNkOub+uCm6nY0Q8IK8otl/amPKHalzsjypDCMIkF4p0pikNarNHgz0IVvUJMPZ/te5Dt
+	 HCuI2zzW3svdrcszvUoUPJoNaVTEQRHha11975CtdVumzs+XAZ164j/6sG4HMf8Rk38wz
+	 8eVg0l6wGm9KUYmjBqe3Q5QRfq/y8ViJ4l7mdjpGzoAJRGnStTnrvqvtet7Xv5DN9r5p9
+	 s1Hq3KAce/Tp+D2+rroUFtNbOOuc4PQGrBsOUVY0z59JdXYv3ozQJgc0/SOiFJFsq/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356115;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356119;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=rXcxTxNBWwy/kWAc4+5gvgz7Qwjmbu+dR6mg5XTAMeM=;
-	b=GlKeqilfjpssuFK+bBywnF51hSGbdMN2roU7NuQVZS41b93rL67WiL1ns5VwaUKb3uoy
-	 qI+J3J2fCnsLBJrimtvz643Kx4m3JEsVuL4/HXdeu+f807W0xw53IvZ1V40cOG7Hwe/JR
-	 N5NfzgtROzN1uccmp2Gl9Uk+pYRWFu71oTp8fKU8g2WabuCxA+IfmpBDy28H5+m5RfbDa
-	 8CtNNfeTemNopP4WF7HJY3wUC5RhUGUqAAlk/uzdO7rmmjfew18w+DHraSHWOGk/VYZ3Z
-	 kvBsL3Jn9tF2K80l9lJ1ZiRCN5ybATHy8qMa8T5elvj/DKXmJZw9DF6t1GLlnleWdig==
+	bh=KwoZ95bpvHODf/63+PHl3/81B2oAWSzOw276xKK+Ugc=;
+	b=kx9mX/QujdbFH26Uwng/V9zwIboC7VR8URfOS9CztU++2V3nkRpEvuYBG2Sl7pWn+OMh
+	 SaJ3DGBWkgLXUc0IMdIw/mEwb6/JJxP3Yz3bDCrJtcA4ZjmAb6+jhUfjBQ/LMBk/MDxMF
+	 AB65T3x+uGQHtPXqx7JE+u41FbIznDZPQrMG2aQdtTtR4WaNJKs4obJjjaGH1227sTfEW
+	 jbVOt4nWFsZYND/U9kMreFW7QKnrzMutU7JtalsPBqJIUjNhfZpjN80P78nugOtfjEf0S
+	 6HPrg2PA6ubpXp244Cf+BtS0ogSL+6iSJmVmgtdx0hMysT/NGvlp7kn0fjx5n43hfPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SiWy6t8C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wp8Wt5fq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1FB606A32C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:28:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD32F60A2611
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:28:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SiWy6t8C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58A031F0093A;
-	Fri, 30 Oct 2026 10:28:34 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wp8Wt5fq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C971F00A15;
+	Fri, 30 Oct 2026 10:28:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793356114;
-	bh=rXcxTxNBWwy/kWAc4+5gvgz7Qwjmbu+dR6mg5XTAMeM=;
+	s=k20260515; t=1793356118;
+	bh=KwoZ95bpvHODf/63+PHl3/81B2oAWSzOw276xKK+Ugc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=SiWy6t8CFJYaAz10gPw0bp7SDUO5gQQMM5T4ErxEzfGOYpjZImgZF/v06r2uHRKS/
-	 aHfGOVZ7Sg/I/ALwCkhhVSwqi1rlrocZ03wRqjvHaTw1wfERJL1PB7WByoIHDLNeEf
-	 V/AMPKhr2rO+cV6Vh/M/ejqM5zNQGUUURVu9rXe7xjPUsvP7sp1JMG2VHUQHYgP/sf
-	 127PkC23gwsaHcyJRpvVq6ngv+ydHkfjqS+AaizLDHaTNXOlmEvSLUu2HBztQmLrBl
-	 3KaPpwFZx159mHZsnUSkDcXdjRQbO7RyNYHpxCvOGgs5gG9jthLH7rcT0sC3RFPwYo
-	 pgHuGqTmGIJmQ==
+	b=Wp8Wt5fq4MTT8MQ1DXltiXZF8/IevynaWFt02BCMqc2xkvbIgr4v8/dtvW8lcE9IZ
+	 2T0BOOOJdySqnpOMMfe9jPi+n5DRjRy99ocNkqWEN4kPUMx/XzK1fEJzbRYV0qqpDm
+	 jI/KgDTDeurIhk05xZ2S073/I0djK5CGwkb7B/MKzJiUV4h8KbM8kXeFwZFMUMCfqS
+	 kDmwIsIaUbYWvnHIDzV/mMtJ9+1YeSxN/7AzGFxhcfNoxXWdfeC1WQrgp7aE85ujsa
+	 +0y74Pg2gVQaCiVM0SQ1PrqDd1Fw4YypM1hsQUG4SkdWtXdF8WvsWEHtGlaI/IYAsY
+	 GD+piO/GBshww==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 30 Oct 2026 11:27:45 +0100
-Subject: [PATCH v7 13/16] drm/tests: atomic: Add tests for
- drm_atomic_commit_fill_with_defaults()
+Date: Fri, 30 Oct 2026 11:27:46 +0100
+Subject: [PATCH v7 14/16] drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-drm-reset-state-flag-v7-13-4e55eaeae683@kernel.org>
+Message-Id: <20261030-drm-reset-state-flag-v7-14-4e55eaeae683@kernel.org>
 References: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
 In-Reply-To: <20261030-drm-reset-state-flag-v7-0-4e55eaeae683@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -72,367 +71,204 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
  Victoria Brekenfeld <victoria@system76.com>, 
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
- Daniel Stone <daniel@fooishbar.org>
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=11528; i=mripard@kernel.org;
- h=from:subject:message-id; bh=JMLCc9z4Vw9KB6i+P0XefHJ3rOdSe+xuKk86HWtSDBU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCmUuuEo/ld1gpnN349o9Phe+mT6d/lektKeO/Ujp3
- m3LXrF+7pjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQATUcxnbFjZOul2I9cZU85w
- uTkGzA8PLXvbPXeV5Ls1EyXsCreZ39qy4lJt9ix3w+oG2ab/ya+ZMhgbPke6/83wmdDtNG26d9z
- u0DVPtKpCfkg8O7Ftl1+ekk/c1JkSDTtZ3qh5va7iO/991osdAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7053; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=1bmsvKp4SagmrtjjvhX0gFa2fW9KcqjtQVArbwyJ5YI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlPCmVL3+36ufys3ULBkz9tXjI8Eln08IpH1uVtO4pNF
+ gpaTxaS6pjKwiDMySArpsjyRCbs9PL2xVUO9it/wMxhZQIZwsDFKQAT8RZmbNjrKb8o5sOPgLwT
+ zD9rUowzbk6vWjfLtnQty65ZN0WqniZXHBTR+r7IpDUvpVxguuiSR4wNc3IjvBtfeDCvWC+5W2W
+ 185ylLk/N+cUXbXCR2Dq/Md4zZ8dD2+QaFvezT3cJeQapXboAAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-drm_atomic_commit_fill_with_defaults() is used by the
-DRM_MODE_ATOMIC_RESET flag to bring all objects back to their pristine
-state. However, it has no dedicated test coverage.
+From: Sebastian Wick <sebastian.wick@redhat.com>
 
-Add two tests that verify the reset cycle. The first enables a CRTC,
-plane, and connector, then calls drm_atomic_commit_fill_with_defaults()
-and verifies all objects return to their disabled state: CRTC inactive,
-plane disabled with no framebuffer, and connector unbound. The second
-goes further and commits the default-filled state to verify the
-init -> enable -> reset -> commit sequence completes without errors.
+Userspace currently has no atomic way to reset all KMS object states
+to their defaults. To bring a display pipeline to a known state, a
+compositor must explicitly set every property on every object, which
+requires tracking which properties exist and what their defaults are.
 
-Suggested-by: Daniel Stone <daniel@fooishbar.org>
+Introduce DRM_MODE_ATOMIC_RESET (0x0800) which, when passed to the
+atomic ioctl, fills the commit with default states for all KMS
+objects before applying the properties supplied in the request.
+Properties not explicitly included in the commit remain at their
+defaults (CRTCs inactive, planes disabled, connectors unbound, and
+so on).
+
+The flag cannot be combined with DRM_MODE_PAGE_FLIP_ASYNC, since a
+full state reset is incompatible with an async flip.
+
+Since the commit contains every CRTC of the device or lease, including
+the ones that are disabled before and after it, no page flip event is
+attached to those: they can't report a flip, and drm_atomic_crtc_check()
+would reject the whole commit. Such a CRTC doesn't count towards the
+CRTCs that can signal either, so a commit that leaves them all disabled
+while asking for an event is still rejected instead of waiting for an
+event that would never come.
+
+Signed-off-by: Sebastian Wick <sebastian.wick@redhat.com>
+Co-developed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tests/drm_atomic_test.c | 313 +++++++++++++++++++++++++++++++-
- 1 file changed, 311 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_atomic.c      |  3 +++
+ drivers/gpu/drm/drm_atomic_uapi.c | 44 ++++++++++++++++++++++++++++++++++++---
+ drivers/gpu/drm/drm_ioctl.c       |  4 ++++
+ include/uapi/drm/drm.h            | 10 +++++++++
+ include/uapi/drm/drm_mode.h       | 17 ++++++++++++++-
+ 5 files changed, 74 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_atomic_test.c b/drivers/gpu/drm/tests/drm_atomic_test.c
-index 5e156d09e56f..160de1aa3ec2 100644
---- a/drivers/gpu/drm/tests/drm_atomic_test.c
-+++ b/drivers/gpu/drm/tests/drm_atomic_test.c
-@@ -9,4 +9,5 @@
- #include <drm/drm_kunit_helpers.h>
- #include <drm/drm_modeset_helper_vtables.h>
-+#include <drm/drm_property.h>
- 
- #include <kunit/test.h>
-@@ -143,5 +144,4 @@ static struct kunit_case drm_atomic_get_connector_for_encoder_tests[] = {
- };
- 
--
- static struct kunit_suite drm_atomic_get_connector_for_encoder_test_suite = {
- 	.name = "drm_test_atomic_get_connector_for_encoder",
-@@ -149,5 +149,314 @@ static struct kunit_suite drm_atomic_get_connector_for_encoder_test_suite = {
- };
- 
--kunit_test_suite(drm_atomic_get_connector_for_encoder_test_suite);
-+/*
-+ * Test that after enabling a CRTC and connector, filling with defaults
-+ * produces a state where all objects are disabled: CRTC is inactive,
-+ * plane is disabled, and connector is unbound.
+diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
+index 6bc0d6339f14..16530ce62455 100644
+--- a/drivers/gpu/drm/drm_atomic.c
++++ b/drivers/gpu/drm/drm_atomic.c
+@@ -1614,4 +1614,7 @@ EXPORT_SYMBOL(drm_atomic_get_new_bridge_state);
+  * drm_atomic_helper_colorop_create_state() and do not have a per-driver hook.
+  *
++ * This is used to report the %DRM_CAP_ATOMIC_RESET capability to userspace,
++ * and as a precondition in drm_atomic_commit_fill_with_defaults().
 + *
-+ * This is done without any lease, so all objects are expected to be
-+ * reset.
-+ *
-+ * The plane is not explicitly enabled with a framebuffer here, so
-+ * this validates that fill_with_defaults produces a consistent
-+ * disabled state rather than testing an active plane teardown.
-+ */
-+static void drm_test_check_fill_with_defaults(struct kunit *test)
-+{
-+	struct drm_atomic_test_priv *priv;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_connector_state *new_conn_state;
-+	struct drm_crtc_state *new_crtc_state;
-+	struct drm_plane_state *new_plane_state;
-+	struct drm_atomic_commit *state;
-+	struct drm_display_mode *mode;
-+	struct drm_device *drm;
-+	int ret;
-+
-+	priv = create_device(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
-+
-+	drm = &priv->drm;
-+
-+	mode = drm_kunit_display_mode_from_cea_vic(test, drm, 16);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mode);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+retry_enable:
-+	ret = drm_kunit_helper_enable_crtc_connector(test, drm,
-+						     priv->crtc,
-+						     &priv->connector,
-+						     mode, &ctx);
-+	if (ret == -EDEADLK) {
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_enable;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+retry_fill:
-+	ret = drm_atomic_commit_fill_with_defaults(NULL, state);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_fill;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	new_crtc_state = drm_atomic_get_new_crtc_state(state, priv->crtc);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, new_crtc_state);
-+	KUNIT_EXPECT_FALSE(test, new_crtc_state->enable);
-+	KUNIT_EXPECT_FALSE(test, new_crtc_state->active);
-+
-+	new_plane_state = drm_atomic_get_new_plane_state(state, priv->plane);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, new_plane_state);
-+	KUNIT_EXPECT_NULL(test, new_plane_state->crtc);
-+	KUNIT_EXPECT_NULL(test, new_plane_state->fb);
-+
-+	new_conn_state = drm_atomic_get_new_connector_state(state, &priv->connector);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, new_conn_state);
-+	KUNIT_EXPECT_NULL(test, new_conn_state->crtc);
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
-+/*
-+ * Test that after enabling a CRTC and connector, fill_with_defaults
-+ * produces a state that can be successfully committed.
-+ *
-+ * This is done without any lease, so all objects are reset.
-+ *
-+ * The plane is not explicitly enabled with a framebuffer, so this
-+ * validates that fill_with_defaults produces a consistent disabled
-+ * state rather than testing an active plane teardown.
-+ */
-+static void drm_test_check_fill_with_defaults_commit(struct kunit *test)
-+{
-+	struct drm_atomic_test_priv *priv;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_atomic_commit *state;
-+	struct drm_display_mode *mode;
-+	struct drm_device *drm;
-+	int ret;
-+
-+	priv = create_device(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
-+
-+	drm = &priv->drm;
-+
-+	mode = drm_kunit_display_mode_from_cea_vic(test, drm, 16);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mode);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+retry_enable:
-+	ret = drm_kunit_helper_enable_crtc_connector(test, drm,
-+						     priv->crtc,
-+						     &priv->connector,
-+						     mode, &ctx);
-+	if (ret == -EDEADLK) {
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_enable;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+retry_fill:
-+	ret = drm_atomic_commit_fill_with_defaults(NULL, state);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_fill;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	state->allow_modeset = true;
-+
-+	ret = drm_atomic_commit(state);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_fill;
-+	}
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
-+/*
-+ * Test that filling with defaults reports the color management changes
-+ * on the new states through color_mgmt_changed, so that drivers
-+ * reprogram the color management hardware when a LUT is being cleared
-+ * by the reset.
-+ */
-+static void drm_test_check_fill_with_defaults_color_mgmt(struct kunit *test)
-+{
-+	struct drm_atomic_test_priv *priv;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_crtc_state *new_crtc_state;
-+	struct drm_plane_state *new_plane_state;
-+	struct drm_atomic_commit *state;
-+	struct drm_property_blob *gamma_lut;
-+	struct drm_device *drm;
-+	u32 lut = 0;
-+	int ret;
-+
-+	priv = create_device(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
-+
-+	drm = &priv->drm;
-+
-+	gamma_lut = drm_property_create_blob(drm, sizeof(lut), &lut);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, gamma_lut);
-+
-+	/*
-+	 * Attach a gamma LUT to the current CRTC state, like userspace
-+	 * setting the GAMMA_LUT property would. The state takes ownership
-+	 * of the blob reference.
-+	 */
-+	priv->crtc->state->gamma_lut = gamma_lut;
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+retry_fill:
-+	ret = drm_atomic_commit_fill_with_defaults(NULL, state);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_fill;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	new_crtc_state = drm_atomic_get_new_crtc_state(state, priv->crtc);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, new_crtc_state);
-+	KUNIT_EXPECT_NULL(test, new_crtc_state->gamma_lut);
-+	KUNIT_EXPECT_TRUE(test, new_crtc_state->color_mgmt_changed);
-+
-+	new_plane_state = drm_atomic_get_new_plane_state(state, priv->plane);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, new_plane_state);
-+	KUNIT_EXPECT_FALSE(test, new_plane_state->color_mgmt_changed);
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
-+/*
-+ * Test that a reset on which userspace re-applies the exact same
-+ * configuration doesn't need a modeset, and thus doesn't require the
-+ * DRM_MODE_ATOMIC_ALLOW_MODESET flag.
-+ */
-+static void drm_test_check_fill_with_defaults_no_modeset(struct kunit *test)
-+{
-+	struct drm_atomic_test_priv *priv;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_crtc_state *new_crtc_state;
-+	struct drm_connector_state *new_conn_state;
-+	struct drm_atomic_commit *state;
-+	struct drm_display_mode *mode;
-+	struct drm_device *drm;
-+	int ret;
-+
-+	priv = create_device(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, priv);
-+
-+	drm = &priv->drm;
-+
-+	mode = drm_kunit_display_mode_from_cea_vic(test, drm, 16);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, mode);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+
-+retry_enable:
-+	ret = drm_kunit_helper_enable_crtc_connector(test, drm,
-+						     priv->crtc,
-+						     &priv->connector,
-+						     mode, &ctx);
-+	if (ret == -EDEADLK) {
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry_enable;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	state = drm_kunit_helper_atomic_state_alloc(test, drm, &ctx);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+
-+retry:
-+	ret = drm_atomic_commit_fill_with_defaults(NULL, state);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry;
-+	}
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	/* Re-apply the exact same configuration on top of the reset */
-+	new_conn_state = drm_atomic_get_new_connector_state(state, &priv->connector);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, new_conn_state);
-+
-+	ret = drm_atomic_set_crtc_for_connector(new_conn_state, priv->crtc);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	new_crtc_state = drm_atomic_get_new_crtc_state(state, priv->crtc);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, new_crtc_state);
-+
-+	ret = drm_atomic_set_mode_for_crtc(new_crtc_state, mode);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	new_crtc_state->enable = true;
-+	new_crtc_state->active = true;
-+
-+	/* Modesets aren't allowed and shouldn't be needed */
-+	state->allow_modeset = false;
-+
-+	ret = drm_atomic_check_only(state);
-+	if (ret == -EDEADLK) {
-+		drm_atomic_commit_clear(state);
-+		ret = drm_modeset_backoff(&ctx);
-+		if (!ret)
-+			goto retry;
-+	}
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	KUNIT_EXPECT_FALSE(test, new_crtc_state->active_changed);
-+	KUNIT_EXPECT_FALSE(test, new_crtc_state->connectors_changed);
-+	KUNIT_EXPECT_FALSE(test, new_crtc_state->mode_changed);
-+	KUNIT_EXPECT_FALSE(test, drm_atomic_crtc_needs_modeset(new_crtc_state));
-+
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
-+static struct kunit_case drm_atomic_fill_with_defaults_tests[] = {
-+	KUNIT_CASE(drm_test_check_fill_with_defaults),
-+	KUNIT_CASE(drm_test_check_fill_with_defaults_commit),
-+	KUNIT_CASE(drm_test_check_fill_with_defaults_color_mgmt),
-+	KUNIT_CASE(drm_test_check_fill_with_defaults_no_modeset),
-+	{ }
-+};
-+
-+static struct kunit_suite drm_atomic_fill_with_defaults_test_suite = {
-+	.name = "drm_atomic_commit_fill_with_defaults",
-+	.test_cases = drm_atomic_fill_with_defaults_tests,
-+};
-+
-+kunit_test_suites(&drm_atomic_get_connector_for_encoder_test_suite,
-+		  &drm_atomic_fill_with_defaults_test_suite);
+  * Returns:
+  * True if all objects implement atomic_create_state, false otherwise.
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 1eebcf6f5e05..77d0713c7e2d 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1441,8 +1441,27 @@ static int prepare_signaling(struct drm_device *dev,
+ 	for_each_new_crtc_in_state(state, crtc, crtc_state, i) {
+ 		s32 __user *fence_ptr;
++		bool page_flip_event;
  
- MODULE_AUTHOR("Maxime Ripard <mripard@kernel.org>");
+ 		fence_ptr = get_out_fence_for_crtc(crtc_state->state, crtc);
+ 
+-		if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT || fence_ptr) {
++		page_flip_event = arg->flags & DRM_MODE_PAGE_FLIP_EVENT;
++
++		/*
++		 * A commit with the DRM_MODE_ATOMIC_RESET flag contains
++		 * every CRTC of the device or lease, even the ones that are
++		 * disabled before and after the commit. Those can't report
++		 * a page flip, and drm_atomic_crtc_check() would reject the
++		 * whole commit, so don't attach any event to them.
++		 */
++		if (page_flip_event && !fence_ptr &&
++		    (arg->flags & DRM_MODE_ATOMIC_RESET) &&
++		    !crtc_state->active) {
++			struct drm_crtc_state *old_crtc_state;
++
++			old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
++			page_flip_event = old_crtc_state->active;
++		}
++
++		if (page_flip_event || fence_ptr) {
+ 			struct drm_pending_vblank_event *e;
+ 
+@@ -1454,5 +1473,5 @@ static int prepare_signaling(struct drm_device *dev,
+ 		}
+ 
+-		if (arg->flags & DRM_MODE_PAGE_FLIP_EVENT) {
++		if (page_flip_event) {
+ 			struct drm_pending_vblank_event *e = crtc_state->event;
+ 
+@@ -1495,5 +1514,6 @@ static int prepare_signaling(struct drm_device *dev,
+ 		}
+ 
+-		c++;
++		if (page_flip_event)
++			c++;
+ 	}
+ 
+@@ -1674,4 +1694,11 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 	}
+ 
++	if ((arg->flags & DRM_MODE_ATOMIC_RESET) &&
++			(arg->flags & DRM_MODE_PAGE_FLIP_ASYNC)) {
++		drm_dbg_atomic(dev,
++			       "commit failed: reset cannot be combined with async flip\n");
++		return -EINVAL;
++	}
++
+ 	state = drm_atomic_commit_alloc(dev);
+ 	if (!state)
+@@ -1689,4 +1716,15 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
+ 	num_fences = 0;
+ 
++	if (arg->flags & DRM_MODE_ATOMIC_RESET) {
++		if (!drm_atomic_implements_create_state(dev)) {
++			ret = -EOPNOTSUPP;
++			goto out;
++		}
++
++		ret = drm_atomic_commit_fill_with_defaults(file_priv, state);
++		if (ret)
++			goto out;
++	}
++
+ 	for (i = 0; i < arg->count_objs; i++) {
+ 		uint32_t obj_id, count_props;
+diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
+index 0dbf04d4aa9e..f666a13da6bf 100644
+--- a/drivers/gpu/drm/drm_ioctl.c
++++ b/drivers/gpu/drm/drm_ioctl.c
+@@ -306,4 +306,8 @@ static int drm_getcap(struct drm_device *dev, void *data, struct drm_file *file_
+ 			     dev->mode_config.async_page_flip;
+ 		break;
++	case DRM_CAP_ATOMIC_RESET:
++		req->value = drm_core_check_feature(dev, DRIVER_ATOMIC) &&
++			     drm_atomic_implements_create_state(dev);
++		break;
+ 	default:
+ 		return -EINVAL;
+diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
+index bc7ef7684099..b6e2f2edd122 100644
+--- a/include/uapi/drm/drm.h
++++ b/include/uapi/drm/drm.h
+@@ -796,4 +796,14 @@ struct drm_gem_change_handle {
+ #define DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP	0x15
+ 
++/**
++ * DRM_CAP_ATOMIC_RESET
++ *
++ * If set to 1, the driver supports the &DRM_MODE_ATOMIC_RESET flag in
++ * &DRM_IOCTL_MODE_ATOMIC commits. When supported, userspace can pass that
++ * flag to reset all KMS object states to their defaults before applying
++ * property changes.
++ */
++#define DRM_CAP_ATOMIC_RESET	0x16
++
+ /* DRM_IOCTL_GET_CAP ioctl argument type */
+ struct drm_get_cap {
+diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
+index ed1a660a3dfd..1ab5c0fb3804 100644
+--- a/include/uapi/drm/drm_mode.h
++++ b/include/uapi/drm/drm_mode.h
+@@ -1329,4 +1329,18 @@ struct drm_mode_destroy_dumb {
+  */
+ #define DRM_MODE_ATOMIC_ALLOW_MODESET 0x0400
++/**
++ * DRM_MODE_ATOMIC_RESET
++ *
++ * Reset all KMS object states (CRTCs, planes, connectors, color operations)
++ * to their default values before applying the properties in this commit.
++ * Properties not explicitly included in the commit will remain at their
++ * defaults (CRTCs inactive, planes disabled, connectors unbound, etc.).
++ *
++ * CRTCs that are disabled before and after the commit won't send any
++ * &DRM_MODE_PAGE_FLIP_EVENT.
++ *
++ * This flag cannot be combined with &DRM_MODE_PAGE_FLIP_ASYNC.
++ */
++#define DRM_MODE_ATOMIC_RESET 0x0800
+ 
+ /**
+@@ -1341,5 +1355,6 @@ struct drm_mode_destroy_dumb {
+ 		DRM_MODE_ATOMIC_TEST_ONLY |\
+ 		DRM_MODE_ATOMIC_NONBLOCK |\
+-		DRM_MODE_ATOMIC_ALLOW_MODESET)
++		DRM_MODE_ATOMIC_ALLOW_MODESET |\
++		DRM_MODE_ATOMIC_RESET)
+ 
+ struct drm_mode_atomic {
 
 -- 
 2.55.0
