@@ -1,103 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793389347;
-	b=LgLFHt++Gl6UV3Pdbo9EorWd0gsjSv34l8sZysiJgN24Q4qYQ1pGjC25ueXwX3gWI1jU
-	 HdQPpzXhctWa77LIfG+QmpnW18tUueHDWXX5wqcQB4IMRkg78/GbE1hTjByTaEPrLDIGe
-	 zK56UHR8pqbQVm50LOM3A08LfAFjC1RMF/Ej757k+sgeauiXR8UPvbQlCq8nTLW71e5cf
-	 sPyrCW+YedAXwfe1XuJEonSc1q3i4Adg/xYvsWGuwlHi7HSn+nRJzbysCcsvgyxhSUp6Q
-	 q/O3ioDG591PZ7DK+NNoRrLb6o7+xI5c7LN27G8jld2hwOfFYdwcHGQnlcUTzTgZh/w==
+	t=1793389355;
+	b=nwyJPFz+/hfgKp4yZj0AkrVy0emf3Ild56VtIJFKmCBFQSGKwhJOKcWcIELnHuU9nhgU
+	 OH1hSIS5P0RtnjqRYB4kTZ/lAADrgbQWZcNaU0S/sakhVtbNC21X7pToumKHaota5YJbM
+	 9ekcU8AtGP/Z9Q0QZIcJJLdz9lfB8PtxBf6MaVq168wiZQRQ3wEnxrTfE6ZbCnd6hBUhU
+	 VpupO0cTXdtpX5OPfzGSJv1t9TSkV8TtLWly+kIRcV+myT1XISCyTvcnhMUIpG0UQrkDV
+	 jDYYDxjNakaLbQ12vyfhoTP14CMbkMG/Cu9rLsED88L3uYsAL7GpLIpwMn/+i/j/doA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793389347;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793389355;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=vK8srcbyjFHPzlTR1mgLENgg8K+rOF0C+tBALqScXrA=;
-	b=2j966xdLvX8EEoTIkOmbcEbu/46ihKk170yHSoB96XdmMhO329D5KKpX9ZJXoi3ZlA6X
-	 KHm6YpMn38m4Bs7cS4XGaehh5VLwwp9xv2Jee5Ox0KUqtjIxCHTRpD78GkIlPge7dcVL6
-	 K3AUQAubaBpIFBBOOxFGHGEehcykU8lwpUWegEBJUK/AeeJ47ZNn4UuwqV1wJtQl+Q/tY
-	 p6lN9PC5tJvKpXmqBn+ZJTxs3w4R4jKr8RDDyEgYC4IXjORkb5O5tH9myVBv/cKv4CELr
-	 wIfQnzIYodKIZ7lBqW1mJGKYygxVRAAyT84S44OL/DQjxDqAt6M6zXHioJDBGJsVfKw==
+	bh=RuhD0zPFUxb19Y1B4pQUQNr0PVSFn6leg17qgS+Gj0E=;
+	b=YcuCVSMyoHdOzFP0EXStUkWg7WU95Pu2d17BThOKyHpXj8IF17WaOjniq2KI411i6ev+
+	 DY4yAZ9lQhjPfWGX20k37MfXn9vfrnf2aFhhX4pb4GVyNcPt+2f74F40Tr1FYWlaaG9Eu
+	 ZGrjZ3fyqn9XBXyFBHie9mX16O4WgCtJJiXxWwE7Bt0wu2w8lU8nsw7052eMztmwQx5Eb
+	 /yEhAE/zAzUA8dI+46G52n1VchT+9tazpUIAsWTaOO3yJXSzMaGqamvoVeliCB0dH9OqE
+	 L4uaH256CzO46hbjIwm7VBfTN3HEuQDJ9MmXEcg/GbQquMDsln3SpO/RQqQ5ZrlbBzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n+cR8LUT;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=DEBvE53l;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A806606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:42:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A806606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F7B7606A32E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:42:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F7B7606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=n+cR8LUT
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ea7f9c11e6so11695ad.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:42:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=DEBvE53l
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so1636380eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:42:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793389347; x=1793994147; darn=vger.kernel.org;
+        d=purestorage.com; s=google2022; t=1793389354; x=1793994154; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=vK8srcbyjFHPzlTR1mgLENgg8K+rOF0C+tBALqScXrA=;
-        b=n+cR8LUTPsSYyEztW1Xd53zSgs2w5fEda/2TDsvkFHyDtU5r2EN1NbVU2uEfYkDMR0
-         gYcVpLgx4PJ8WsOAix7AkB9wVd1t6sOBxNpuDXy6A2+UoFD/dxUQtSQ3kdh3Yea2F5el
-         yf5U1o4qYS5E3eftNezUY6nejAsLwvjVaa8RXHRICCVR5A9iaxY6aUO0IbJKZvaPkChU
-         VpeASB4YKj01XOkZ7airupCqXro5NF0YWdK029qG6gxFlFDr6/lz/eUq8PF/WNCCvcwQ
-         jk9R94w6ZMQSznUdt7K0wpVjo/mtPPxxRDkcwM1l6pXHV/a2yx8DHFgP9U9dxDMsakI0
-         NNvg==
+        bh=RuhD0zPFUxb19Y1B4pQUQNr0PVSFn6leg17qgS+Gj0E=;
+        b=DEBvE53lZN3bE8JXXEl/8MAcF9uLI7A2MYbfv0Yf2a9I5+oWk5ltALHv9wZ4ZIRXQb
+         4SqpZ2a8CYz8GGcB9AZ+wlCK8V9wczjrimysEpOGlQUj2bZIM+zlyIh8GMe/MyvewQW1
+         VgSKRsaveFamrOB67qeq2kEowWq/Cib4vOKMxdB0VgDyAkZeJ/dmpYZA1XvtHLoRyIz4
+         wrd/11run7xzEF3oPaBjJZ9P0Y56fA3qeZSg5qUq+fRUzK/JKXVOhqK+5VDpPGLnT5ni
+         J2i51wu1ZL8YVhRc/grfhV7pQBiZk1Vu0VTDhDmyL/oJhOknV+iyIOyX+y25LxMPmc6N
+         dvyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793389347; x=1793994147;
+        d=1e100.net; s=20260707; t=1793389354; x=1793994154;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vK8srcbyjFHPzlTR1mgLENgg8K+rOF0C+tBALqScXrA=;
-        b=klij1drq94gYZEXs3l3cQTmaWnmd3Pl1ntThbQ0+mic4L6gv6iMDftQ0hBiGjCXco0
-         /TDCisL64gxy9pQJmGOaqdw9QeLJf11EWoo06nnx9XfhgwXb1JRo0X1Sny+gcq0LDOhV
-         pk+BGZGJDGxYAhN+//ZKG/v9UEs//t4xQFfBnIf5S+/lWSFTPhrbLty4H9KO8WW5Exj6
-         SeTJYAQ5XNxiWtRAx87fU1tGSpXUB8UEf2v0e6jIZHgg/dOPkDlDT2Rxj99PbcxxC4yZ
-         ppx+xuGhd3OeRXSi+cD2DjXqWXI1Q8AHyxsOonvRGDDG2go8uNvIpGPatK69C8/wfWkA
-         r2QA==
-X-Forwarded-Encrypted: i=1; AKwUvByVMQTJYP1Ydi/SkklAVXDP3mM/SwToLgyLrRyBVnICawZS2QYEzzQmOLXy7imCIr/fn0kIGCoxl+Zxz7A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLB3hFjAqfrUzSBhluOiOqouC0smo0bK+JbcF0WBFtU87zkx4GE
-	PYBMAYTdliiorcgkNw7hw197/ooEHQ453538bKFsclpFZ/WWE2G3oBOQ2vsnwPXaPQ==
-X-Gm-Gg: AYBFou3FJHVQoMsyyT9DTTvsS6TVID27ppjZoJfiI8YF91/UYxzDmtG32yWeX5xOqxV
-	o9qZ8PAyhPApWl269DlQGbVQvRze3ghCRnAliBAuhEpg69tzFARbXjYpoZ94IiYrLT00j76yZe6
-	5X9Yab9DYwCq/8jr17HBBp2Eoj0YfFwHh9AL7sPaoPFjAkdug/BkABhYS5fBbCWe9FfKc1QjRk3
-	qEF4AImLD3cJgfS7ck+1g5zn8LKwX4dLsjeiXCBHYTxx3Pa9yDWw+knX3RiUI0mBPMBL/e3wJjI
-	ZTwocNcJtnAjunDSN7yTx1AFlUsUWaUuulbg/1KpVT7ZFq6NFbz1F/4MYWClYFoT8UMgYxLPkMV
-	yrLhNoMuRwKSF5YVmUT1nqSvl8fk7KZDbXRK2A7f/C+8gttUn4RF3IlUJ7QqSde4fyGlkScZtDV
-	IbpktWkOUAcHD+cyyGtYiqOgphhHmT+3lUfGKx0X8uLfTg1epfgtKmhp2S4hMXVrirgpLABD8Z5
-	f80sMw01tlCK4Q8GZ3EzWl34GCpwryUmaVr+hGWvlXng/QaG/O962398FT3JCH/wS5RLrceiY5P
-	UBulKyotowIufHFvP8hm4fNGnpeEekgHJyI32vACUqIqY5gYqpTkiUVH2ch7LHvx+MSDfX1AdrS
-	4IqB+XqcoL7l+ZUUi4iLqSZnPf3Y0NMcKZaOKZn3M4R4=
-X-Received: by 2002:a17:903:19cb:b0:2e6:23e5:4934 with SMTP id d9443c01a7336-2eb1ec7beb1mr12096545ad.14.1793389346146;
-        Fri, 30 Oct 2026 12:42:26 -0700 (PDT)
-Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39052bb1sm12148735ad.1.2026.10.30.12.42.23
+        bh=RuhD0zPFUxb19Y1B4pQUQNr0PVSFn6leg17qgS+Gj0E=;
+        b=MjX9LX1q5A6/IHZApA2vBX4b/fTxMH42j2jLjPx6cyCJag0DUBsUhNZAdRet7ssFZC
+         ESEYcJFKMXNjPmVmdGF4eNWx0i97FEN/yjKTIDVeIxDMHlFvozvl+QFPVnphP72pjYrG
+         7aAgZ03S269X133J8TuvI36Tg4E02ez1Z2q7BDZS9y7qB90wihnywB0bjkSIv5THLHJC
+         L+n8EKQ/k8dFKNqAkoabSj5mMLQ6n40GJ42t/zor7GYtoeomVEJXnaq7w7fLZPVM7h79
+         jcGvVy6BCdD9moU7In0SYnBktXQkaE/fzYbQ28GfePeTBBMpELBIn6KAVXzYZ7YfA0ie
+         0z/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwKAmUQmkbVPTU02BwM7FT/TInRBagrlSMfhpNV295n/E1Py+BJPHBoTIPvDrrSi+B4pn+1tOh+xOgFRLg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhggE3zz6nzWPz6xtnt56BA+XWEPT6r8JoBF7fBZXZ0DsUytnA
+	A+PX6y9IPluXYfShOhamyiHbwHUPc7hCPLYKErr/6muoqQ7n+fqFSzL6GUh9a0942ns=
+X-Gm-Gg: AYBFou3azdqqJmLKp9QdJ20MKndqhRQI60vvlPpudZSW1HQcpsp0rgFZ9hnH6gd19Ej
+	9Ade/3dpZD9+0Ih6AEtHYXNLT8J5mrKBd8Qrhi1Hj6ToxFQVhtM2wgnYhwixoyIYUAt6jjUhpVR
+	sxjmufYh8gp39BgMI/9KGxPGlvyaZa/HJ4H7H32FpJVDbu+3/VDTT5iXMAPqmFo9v0hixd0/KEV
+	C0wVGPaYelBjzY62DNmsQBU53+e1P++NUPFUCYjBbr8aJFNxvBfXgwQcExw9YFzOtkk2Z6dhDTU
+	/53wSQe785L9j9mymZzFqgD49odvTsivfi9vzgkzq/0qaSnjGcs0NBAEvmkyOGLHEMrNgdK66Is
+	QKjVh4ZOVRgfFwt+ozDC2iMzFkFm8MlUrKZL5AbIGhnppZfzOWLD1aNnztyriQ7BG82p8mYPzFn
+	z43cVkXWWUJPtfFIIQ7agtv9+qKKPhRb+vQwrEXhNyVFFjpZQy5XM+5pcMHO1feWHb8/T6eDxvi
+	byImkSfEeks9e+KRG1Jk2jtciO07bV/ORTeiQ+c5rrHoIDuvDaNAzLhmTIXn7zv3zjK6Rcqu4Ps
+	MxSI++2Hx/R64aRstP2Y/3p3bqHQwoGlzsigL1acLabZAeWpzg==
+X-Received: by 2002:a05:7301:e112:b0:369:a113:7578 with SMTP id 5a478bee46e88-36a42217af0mr4015746eec.1.1793389353243;
+        Fri, 30 Oct 2026 12:42:33 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-36a429467cdsm9307441eec.19.2026.10.30.12.42.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 12:42:24 -0700 (PDT)
-Date: Fri, 30 Oct 2026 19:42:21 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Baolu Lu <baolu.lu@linux.intel.com>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>, Ankit Soni <Ankit.Soni@amd.com>, 
-	Nicolin Chen <nicolinc@nvidia.com>, John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v6 03/18] iommupt: Implement preserve/unpreserve/restore
- callbacks
-Message-ID: <auTzCsfpkxOWRPHJ@google.com>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-4-skhawaja@google.com>
- <14cf71cd-35cd-45b1-a0fe-94d4a76e9e06@linux.intel.com>
+        Fri, 30 Oct 2026 12:42:31 -0700 (PDT)
+Date: Fri, 30 Oct 2026 12:42:29 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Hannes Reinecke <hare@suse.de>
+Subject: Re: [PATCH v6 06/18] nvme: Rapid Path Failure Recovery read
+ controller identify fields
+Message-ID: <20261030194229.GD122209-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-7-mkhalfella@purestorage.com>
+ <179242896496.3619480.12975259904515722687.b4-review@b4>
+ <20261019211849.GM2931-mkhalfella@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,38 +108,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <14cf71cd-35cd-45b1-a0fe-94d4a76e9e06@linux.intel.com>
+In-Reply-To: <20261019211849.GM2931-mkhalfella@purestorage.com>
 
-On Fri, Oct 30, 2026 at 11:07:20AM +0800, Baolu Lu wrote:
->On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
->>Add iommupt ops for presevation, unpresevation and restoration of iommu
->
->... preservation, unpreservation ...
+On Mon 2026-10-19 14:18:53 -0700, Mohamed Khalfella wrote:
+> On Mon 2026-10-19 18:56:04 +0200, Daniel Wagner wrote:
+> > > TP8028 Rapid Path Failure added new fields to controller identify
+> > > response. Read CIU (Controller Instance Uniquifier), CIRN (Controller
+> > > Instance Random Number), and CCRL (Cross-Controller Reset Limit) from
+> > > controller identify response. Expose CIU and CIRN as sysfs attributes
+> > > so the values can be used directly by user if needed.
+> > 
+> > What's the use case for it? This is an public/stable interface,
+> > it needs a justification and documentation
+> 
+> CIU and CIRN identify an instance of an NVMe controller. For a given
+> CNTLID different values of CIU and CIRN identify different controller
+> instances of the same controller. The justification is that the values
+> allow the user to identify a specific controller instance.
+> 
+> host# grep . /sys/class/nvme/nvme0/{cntlid,cirn,ciu}
+> /sys/class/nvme/nvme0/cntlid:1
+> /sys/class/nvme/nvme0/cirn:42541d24813bb536
+> /sys/class/nvme/nvme0/ciu:57
+> host# nvme admin-passthru \
+>   --opcode 0x38 \
+>   --cdw10=$(( 0x1 | 0x57<<16 )) \
+>   --cdw12=$(( 0x42541d24813bb536 & 0xffffffff )) \
+>   --cdw13=$(( ( 0x42541d24813bb536 >> 32 ) & 0xffffffff )) \
+>   /dev/nvme1
+> Admin Command Vendor Specific is Success and result: 0x00000000
+> host#
+> 
+> One usecase is to use the values to issue CCR command manually. Not that
+> I imagine one would want to do that, but if they want to do it they need
+> this information. CIU is also present in CCR log page. Someone reading
+> the log page might want to correlate a log page entry with a specific
+> controller, so they need the information to be exported somehow.
+> 
+> diff --git a/Documentation/ABI/stable/sysfs-nvme b/Documentation/ABI/stable/sysfs-nvme
+> index a2f5d0710db4..ebc3634c1a96 100644
+> --- a/Documentation/ABI/stable/sysfs-nvme
+> +++ b/Documentation/ABI/stable/sysfs-nvme
+> @@ -9,6 +9,17 @@ Description:
+>  		of the NVMe controller, as reported in the Identify
+>  		Controller data structure.
+>  
+> +What:		/sys/class/nvme/nvmeX/cirn
+> +What:		/sys/class/nvme/nvmeX/ciu
+> +Date:		October 2026
+> +KernelVersion:	7.5
+> +Contact:	Mohamed Khalfella <mkhalfella@purestorage.com>
+> +Description:
+> +		Shows CIRN (Controller Instance Random Number) and CIU
+> +		(Controller Instance Uniquifier) of the current instance
+> +		of the NVMe controller as reported by Identify Controller
+> +		data structure.
+> +
+>  What:		/sys/class/nvme/nvmeX/cntlid
+>  Date:		February 2016
+>  KernelVersion:	4.6
+> 
+> How about a diff like the one above for a documentation? I can add
+> something similar to the one above assuming the change will be merged in
+> 7.5. Or I can add it later on? Maybe in an -rc after the change is
+> merged?
+> 
+> What do you think?
 
-Will fix.
->
->>page tables for liveupdate. Use the existing page walker to preserve the
->>ioptdesc of the top_table and the lower tables.
->>
->>Preserve top_level, VASZ and FEAT Sign Extended to restore the domain in
->>the next kernel. On restore, the domain has only the preserved features
->>enabled and all the other features are zeroed. This is ok since the
->>restored domain is made immutable and can only be freed. A kunit test is
->>added to verify that the IOMMU domain free can be done with trimmed
->>features.
->>
->>Signed-off-by: Samiullah Khawaja<skhawaja@google.com>
->>---
->>  drivers/iommu/generic_pt/iommu_pt.h       | 155 ++++++++++++++++++++++
->>  drivers/iommu/generic_pt/kunit_iommu_pt.h |  30 +++++
->>  include/linux/generic_pt/iommu.h          |  30 +++++
->>  3 files changed, 215 insertions(+)
->
->This patch looks good to me,
->
->Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
+Added the diff above to the patch. Let me know if you want me to modify
+it.
 
-Thanks for the review,
-Sami
+> 
+> > 
+> > > Also add the nvme_fence_timeout_ms() helper that derives a fencing
+> > > timeout from the controller keep-alive timeout (kato).
+> > 
+> > There is no user in this patch, introduce it when you use it.
+> 
+> Moved the hunk to patch "nvme: Implement cross-controller reset recovery"
+> where the function is actually used.
+> 
+> > 
+> > -- 
+> > Daniel Wagner <wagi@kernel.org>
