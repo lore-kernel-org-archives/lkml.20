@@ -1,100 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379676;
-	b=s+oVm+UpjzaL8FehBrQ+8/iuS6usUT3GG9BN5w9hJNmGHHnhmpjNiXK0q2yJyaCRIGwJ
-	 i8tnYMgzJFdqaUDjyOTbqRBax1/ABKs8K4zWClOudzCqRkNQfU//KkKrcG2VmimqUUxh/
-	 +w8yuo1LrT0c0er9AUCh1SRd2Nny5ybhBpi+MHy9a4KfHMYxfnhQ4ZgbVJY7glVUhpRMc
-	 meylfUpljCGfyQz5/UmxYMc7jUAhHAy0EAVBFv5CQ7Rs6VJAx17Cnp4kBVnJ7mcJDCcN7
-	 +FaXKZyFZd2soNr8ZdkHWeNjW9KkWjFchl66yzhPEIXY+ycjhnAwNOczANyrFPSVD7g==
+	t=1793379685;
+	b=wjvsmMV3mbYwHvTuBQTlACaTJB+uf7/pYYbjgRfpcPbhEailSmxA6CY+ibcM/LNGJQ8s
+	 KC33puxtqVAFp2waYY4mVGe25/cyWF7ocEfgOAnqj4MRc+/XrOZ2UTO6DcatbESA+4/cd
+	 NFr9U3YRq2MbBAO3mCxXgkzIS8gddS588zE24hbZimhJ6lHO+0PqDYELZDcC7bGGCrDck
+	 pNHJ6BhNTTnuqS4OgnJv1oqkCcHiBBFIXvd0REvhl6f/pztl7PSZQGF/UZyAApJBirK03
+	 pkr7cuvRXh5AUVwOgUAmgyPNU16MErjS3UzuhZuLm321ZTw3kKwwfBRZ3rPdubzzZ5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379676;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=xvrYZ0vevd0WRZhsvkJLTJASZ1aW+K5RqejugueGri8=;
-	b=40kacLeLaBZ7e3l8/mNMLnODvsUeRNx2UE8oSB2J3p8CbVqc3ZA147c2PdJGHtVNMmLT
-	 cAYvC5sh8oeoYgvuMak0adso5x6pSHILwSDsj0To9e1K5Mm2s6QSl0+49hroSaMO1FnpW
-	 2Jqeg3s9ps04XptK/5kTsKbKpBFfultwLaS2NUgD5vkwljWUqxbbzWrWmsyElF3cJoPWU
-	 7gFWEU4NHNgO9YFNUKwYC+e1g06604QpUXPdWV36Jb1IUzOVCVlvwI1W5kZcQXrxpWHBR
-	 iMspx+ysgx65E0JAUwL6x7tDMri6hXjCK7YKy+eTG9lHU4KB9oZ9jKa1Zu/eFuzDecw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793379685;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Provags-ID:
+	 X-Spam-Flag:UI-OutboundReport;
+	bh=s9cX1gFD+Bkpd+UNN+SfPrifSgjVPXj9Sgn1HdQ/tGE=;
+	b=nze3O/sEsmbFBuOrrQUAHfNWJ+kwk4I4dOWW6wmUc4z3tk0VrZjV0IDCvQqO0AOxPt0G
+	 dhUzIY7hEmsAG9/AXrqrk8oD8k/Ko+sHaD4g6zHp9dHLMjlRySFM8o5dadtMnDZJSizGx
+	 TWOyjKfX/o/uOJnSpaYzif4VMgk7VLjwxRLIttEjD6yXdZMpuWT1+wtIH13vs3GyvPhkT
+	 xX3tTfVx/FwRDle92cBTRtU2U/K0Gzq6pXXpp8up8jnB2BT+jqf3gXPcUuGKTJEdu/rsj
+	 Tv76l8u5Nf1UZmFrWLNVsfo32RT4sfpNzUOlts3bRwuYcWEhMPwQmXPfxO/nBUs0cXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vCI0n2IM;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmx.de;
+	spf=pass smtp.mailfrom=gmx.de;
+	dkim=pass header.d=gmx.de header.i=efault@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=RMhhYJHl;
+	arc=none smtp.remote-ip=212.227.17.22
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B572606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:01:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B572606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91222606A324
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:01:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91222606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vCI0n2IM
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so8854535e9.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:01:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793379675; x=1793984475; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xvrYZ0vevd0WRZhsvkJLTJASZ1aW+K5RqejugueGri8=;
-        b=vCI0n2IMs6f1/m4oAwZMYbB6AmZ4zJ06ZuJ3NozUy5Bnky+PzmWf1Ib/3Sqpk41WuA
-         nrIk7GPnpMsynrOAY0jnXCIEsc3ikPaYOyxzJAcU+69vYeI4X4j8egFbQ7tdCKNq4HH6
-         JE2FboTRfgwIwyDDdPPd9KAGkypdItM0amDJLI2ZBo4in+Ocj2PYFEJchjZ7aO+eLXUb
-         djiCLinru5PRvk8AXZkYVpc7LbnIs6lhvXp0PwMJ2pEiH2VOa/xZ+ILm5wXbmUq8wvTT
-         sAFnz7lNS+85f4B2oM28iOXNO2QLeGNYuzkBgEfmM+3Q7DiQX7DqIjYWj/nZDITuxC5z
-         rf1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793379675; x=1793984475;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xvrYZ0vevd0WRZhsvkJLTJASZ1aW+K5RqejugueGri8=;
-        b=QzhbPD5fpb9GIMGaHNoHyPhuTRDvUTKRpa8oRFobCxNiVj0fWT1olWIRKtrfAJ4A7n
-         IOeFHHKzUyTr+OWTg0O/n2V9QJdt39W2yWww90RdOAsVKoGgbXGvBBc7LTKrmyKaz11B
-         iWv9qllfs4GN8cSskP7Fmr83eU0WSHV9MalcrUrVSJSIFzkpE9KHgeiENHLeUKRQHsNJ
-         PKsY/M5UMG7OVh0CsX+VvhytSZXPgldCrdpWzzn6oQ/qQ/w3EHR5jBaTjb841BtjukOw
-         mOoBHPabsTXjsHez+THZM8T4sr5njszp9KUOSBsSBtalMsBUY4TRhhvc75+XsSjjkp1w
-         l2AQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw0Diwuy4HYMnavYhQ8VQ3jP+VM+OIur+K0i0ozsIvYv1itR93z4CV4O65BJxDgLeqy46Z4Nmbx+0qb3tI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJ16pL2rkjWU9EWJABPd+h3qKbQybsyCWXtkeO2LeF0eTSQPiw
-	mLJPFO+FF8Rpw58owiDhPr/67lXDnbWZ8IkCOJtDSR54Kk3i1NReOyy+Oiy49Ow9edG/UQ==
-X-Gm-Gg: AYBFou3mGufAw8wU0xlit+GfRYMjLnfbuSErqGvYPCTAP7Pp6mXhIJ7NV5+Cz0ITk5i
-	yRF6qFmUuOQyuIME3zTz2V1FW7+H6Pp+SU06iaHUIUvPAwPLb06C0fntwH3htAZ6/kcy+V+xcS5
-	NZLgwnJ6kTgnscXZwZREBiDvRORqvCSKHpybsY5+Vrci4mRVLBvmIFHnCdbijesm/y9NZxyEHRm
-	5KbPqQWVT5x16l8fbn0xWrsV3CQwFSuXvnq86u281drYZ/CsCQU7bvxhBZz1BAZkIH9yJkMlJqC
-	/fQRhY2M6dNXaFyV+LJUKuqNRQ+jyFfxJ165e/PyUqYBkDsnBcj3++jwn0u9iwFCKtTipra9E49
-	KK0wN5J3FpWKFiRboVcXky4Rf9Qt/DxCmlfiDJ0tdv+d0425NWlGGZt3UY0G3E6MMxLMn0TqDKr
-	iqrMJ9BtToj7+B6PMSouyUWrZhirJIOpLBtUUqEJbAIJSBCEGeD8dFXr/GJno/PwAnVDZIf/C52
-	F+bz2ONoT0BD8ErZnq9paJZVbuI+V7h7KoacpJZAgHgFq7Kckh/Y4rl5Fj26tHWDs0iig+H1At9
-	4w489vtC/5TAJ7H5BZXpueOyz0clr8tqMka2uOyiq6tSz0S8DHbDmiqzbVC3K/f3nSk=
-X-Received: by 2002:a05:600c:8b4c:b0:4a5:1cf1:b7b8 with SMTP id 5b1f17b1804b1-4ac17b2cf8amr65565185e9.28.1793379674473;
-        Fri, 30 Oct 2026 10:01:14 -0700 (PDT)
-Received: from unix.. (244.red-81-44-253.staticip.rima-tde.net. [81.44.253.244])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac0950d533sm41126555e9.3.2026.10.30.10.01.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 10:01:13 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kselftest@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmx.de header.i=efault@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=RMhhYJHl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1793379673; x=1793984473; i=efault@gmx.de;
+	bh=s9cX1gFD+Bkpd+UNN+SfPrifSgjVPXj9Sgn1HdQ/tGE=;
+	h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=RMhhYJHlpcRW96ntX5m37HCj7PqYqHAM1QJj2JAuOPHYUCliluMPYfSs+lUArYVC
+	 B8+CjGsmqoH2GIHmyFLVPH1mp+KnhX/ueR3yDpa5G+8W9acikn0fzzjRpNy6nN1ZH
+	 ynw3GJUIfiGXH61kJ+UI5OfMDFdYFSMo4yf9S6qClpRzGRTmfRyLj3THHUJCCNatp
+	 ck807bHrXNrqC6Hab0DTYMTsTMxL5SYvR6T0KFVZABJzzhh2UXj/EpYHw3feFmOP8
+	 XTm46fqukCPszrHphuC6aAsXBazAUHZqy5PW5hellxjw+qS8h1BVJ/iLUiR8m4EaZ
+	 BF0MIoHLVaLP/WkO3w==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N5VHG-1wUEK31Mdu-00w0Ps; Fri, 30
+ Oct 2026 18:01:13 +0100
+Message-ID: <5ab06e4740bb0fd177a96e0a31f933a27d081012.camel@gmx.de>
+Subject: Re: [PATCH v3 7/7] sched/eevdf: Move to a single runqueue
+From: Mike Galbraith <efault@gmx.de>
+To: Chengfeng Lin <lin2530632123@gmail.com>, Vincent Guittot
+	 <vincent.guittot@linaro.org>, Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>, 
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] selftests/arm64: GCS must survive io_uring SQPOLL worker exit
-Date: Fri, 30 Oct 2026 14:00:46 -0300
-Message-ID: <20261030170046.439736-2-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261030170046.439736-1-ivanrwcm25@gmail.com>
-References: <179330742036.2531571.12603232226357262067.b4-ty@b4>
- <20261030170046.439736-1-ivanrwcm25@gmail.com>
+Date: Fri, 30 Oct 2026 18:01:12 +0100
+In-Reply-To: <CANGjgd=yr4Zy+SMUsDnBSw05hhn9086NVc9g9SaG0y804=WWrg@mail.gmail.com>
+References: 
+	<CANGjgd=yr4Zy+SMUsDnBSw05hhn9086NVc9g9SaG0y804=WWrg@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,298 +74,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Provags-ID: V03:K1:hJpkW40HkwBUg/7TIocFzWlAnJHKl1Eg8/cXIDOm4RAnIYonq36
+ Hg8ayTmg+ygj+gyiLvuhdLQ7lOBhbKauFqXLz4mj1ZXZvPSMTj3SLAeEffbgyt3OapsVdl+
+ 3Q2bSHCT3/yJG0GJhxgEmxFdLRNRaJ862XBEWP03sAcCUqDw3DfxoCKk2z+tcQThu8LQ1FC
+ O0erCO0jcP1B+Kz7m/9hQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:4EXphsqUL/U=;y1HS8X/3R5k9gTgbpCaPycxIlV6
+ 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
 
-SQPOLL threads are create_io_thread() workers (args->fn + CLONE_VM).
-They inherit GCS tracking via arch_dup_task_struct(); without
-gcs_reset_thread() their exit runs gcs_free() on the parent's stack.
+On Fri, 2026-10-30 at 21:03 +0800, Chengfeng Lin wrote:
+> Hi Vincent, Mike, Peter,
+>=20
+> I have additional pipe-handoff throughput results for 333238da9a19
+> ("sched: Update time before requeueing delayed entities"), which Mike
+> identified in his wakeup-jitter test [1]. With 15 workers, will-it-scale
+> throughput on v7.3 is 15.69% lower than v7.1.3 in thread mode and 14.82%
+> lower in process mode. Reverting this commit on v7.2 in a separate contro=
+lled
+> comparison improves 15-worker thread throughput by 13.65%; the 2-worker
+> control changes by -0.48%.
 
-Create a SQPOLL ring, wait for iou-sqp-* to appear and leave
-/proc/self/task (close only queues async teardown), then check the
-parent ss VMA count is unchanged. QEMU: pass with the reset, SIGSEGV
-without it.
+After much crawling over trees etc, and way more yacking than intended
+for a datapoint, I think I know what's up, and it's simple: there's a
+good reason those "now" updates are event driven.  That one was added
+in the DELAY_DEQUEUE machinery, where it expends and *banks* precious
+fastpath cycles, shifting bean counting enough to make DELAY_DEQUEUE
+measurably less effective.  It looks completely broken with a 20% util
+probe, but more measurement shows that it's not dead, just a bit sad.
 
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
----
- tools/testing/selftests/arm64/gcs/Makefile    |   2 +-
- .../selftests/arm64/gcs/gcs-uring-worker.c    | 254 ++++++++++++++++++
- 2 files changed, 255 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/arm64/gcs/gcs-uring-worker.c
+Test probe sent another signal in virgin flat in __dequeue_task(), and
+I think it's valid for that update_curr() too. It seems to be in
+keeping with placement strategy, but with flat changes, we just updated
+the cfs_rq where all the action is, and hierarchy update is right below
+it.. looks like redundant overhead.
 
-diff --git a/tools/testing/selftests/arm64/gcs/Makefile b/tools/testing/selftests/arm64/gcs/Makefile
-index f1365eea31c9..a427041f8cd1 100644
---- a/tools/testing/selftests/arm64/gcs/Makefile
-+++ b/tools/testing/selftests/arm64/gcs/Makefile
-@@ -7,7 +7,7 @@
- #
- 
- TEST_GEN_PROGS := basic-gcs libc-gcs gcs-locking gcs-stress gcspushm gcsstr \
--		  gcs-clone-pidfd
-+		  gcs-clone-pidfd gcs-uring-worker
- TEST_GEN_PROGS_EXTENDED := gcs-stress-thread
- 
- LDLIBS+=-lpthread
-diff --git a/tools/testing/selftests/arm64/gcs/gcs-uring-worker.c b/tools/testing/selftests/arm64/gcs/gcs-uring-worker.c
-new file mode 100644
-index 000000000000..737e1a14177b
---- /dev/null
-+++ b/tools/testing/selftests/arm64/gcs/gcs-uring-worker.c
-@@ -0,0 +1,254 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * io_uring SQPOLL uses create_io_thread() (args->fn + CLONE_VM) and
-+ * inherits GCS tracking via arch_dup_task_struct(). Without
-+ * gcs_reset_thread() on that path, worker exit runs deactivate_mm()
-+ * -> gcs_free() and unmaps the parent's GCS.
-+ *
-+ * close(2) on the ring only queues teardown; wait for the iou-sqp-*
-+ * thread to leave /proc/self/task so gcs_free() has finished before
-+ * counting VMAs.
-+ *
-+ * After enabling GCS, do not return from main() through libc frames
-+ * that were pushed before enable.
-+ */
-+#define _GNU_SOURCE
-+
-+#include <dirent.h>
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <linux/io_uring.h>
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/auxv.h>
-+#include <sys/mman.h>
-+#include <sys/syscall.h>
-+#include <unistd.h>
-+
-+#include <asm/hwcap.h>
-+
-+#include "kselftest.h"
-+#include "gcs-util.h"
-+
-+#ifndef HWCAP_GCS
-+#define HWCAP_GCS			(1UL << 32)
-+#endif
-+
-+#ifndef __NR_io_uring_setup
-+#define __NR_io_uring_setup		425
-+#endif
-+#ifndef __NR_io_uring_enter
-+#define __NR_io_uring_enter		426
-+#endif
-+
-+#define SQPOLL_WAIT_MS			5000
-+
-+struct uring {
-+	int fd;
-+	struct io_uring_params params;
-+	void *sq;
-+	size_t sq_len;
-+	struct io_uring_sqe *sqes;
-+	size_t sqes_len;
-+};
-+
-+static int count_ss_vmas(void)
-+{
-+	FILE *f;
-+	char line[256];
-+	int vmas = 0;
-+
-+	f = fopen("/proc/self/smaps", "r");
-+	if (!f)
-+		ksft_exit_fail_msg("fopen /proc/self/smaps: %s\n",
-+				   strerror(errno));
-+
-+	while (fgets(line, sizeof(line), f)) {
-+		if (!strncmp(line, "VmFlags:", 8) && strstr(line, " ss"))
-+			vmas++;
-+	}
-+	fclose(f);
-+	return vmas;
-+}
-+
-+static bool has_iou_sqp(void)
-+{
-+	DIR *d;
-+	struct dirent *de;
-+	char path[96], comm[32];
-+	int fd, n;
-+	bool found = false;
-+
-+	d = opendir("/proc/self/task");
-+	if (!d)
-+		return false;
-+
-+	while ((de = readdir(d))) {
-+		if (de->d_name[0] < '1' || de->d_name[0] > '9')
-+			continue;
-+		if (snprintf(path, sizeof(path), "/proc/self/task/%s/comm",
-+			     de->d_name) >= (int)sizeof(path))
-+			continue;
-+		fd = open(path, O_RDONLY);
-+		if (fd < 0)
-+			continue;
-+		n = read(fd, comm, sizeof(comm) - 1);
-+		close(fd);
-+		if (n <= 0)
-+			continue;
-+		comm[n] = '\0';
-+		if (!strncmp(comm, "iou-sqp-", 8)) {
-+			found = true;
-+			break;
-+		}
-+	}
-+	closedir(d);
-+	return found;
-+}
-+
-+static int wait_iou_sqp(bool want, int timeout_ms)
-+{
-+	int slept = 0;
-+
-+	while (has_iou_sqp() != want) {
-+		if (slept >= timeout_ms)
-+			return -ETIMEDOUT;
-+		usleep(1000);
-+		slept++;
-+	}
-+	return 0;
-+}
-+
-+static void uring_close(struct uring *r)
-+{
-+	if (r->sqes && r->sqes != MAP_FAILED) {
-+		munmap(r->sqes, r->sqes_len);
-+		r->sqes = MAP_FAILED;
-+	}
-+	if (r->sq && r->sq != MAP_FAILED) {
-+		munmap(r->sq, r->sq_len);
-+		r->sq = MAP_FAILED;
-+	}
-+	if (r->fd >= 0) {
-+		close(r->fd);
-+		r->fd = -1;
-+	}
-+}
-+
-+static int uring_sqpoll_open(struct uring *r)
-+{
-+	size_t cq_len;
-+	int ret;
-+
-+	memset(r, 0, sizeof(*r));
-+	r->fd = -1;
-+	r->sq = MAP_FAILED;
-+	r->sqes = MAP_FAILED;
-+
-+	r->params.flags = IORING_SETUP_SQPOLL;
-+	r->params.sq_thread_idle = 100;
-+	r->fd = syscall(__NR_io_uring_setup, 8, &r->params);
-+	if (r->fd < 0)
-+		return -errno;
-+
-+	if (!(r->params.features & IORING_FEAT_SINGLE_MMAP)) {
-+		ret = -EOPNOTSUPP;
-+		goto err;
-+	}
-+
-+	r->sq_len = r->params.sq_off.array +
-+		    r->params.sq_entries * sizeof(unsigned int);
-+	cq_len = r->params.cq_off.cqes +
-+		 r->params.cq_entries * sizeof(struct io_uring_cqe);
-+	if (cq_len > r->sq_len)
-+		r->sq_len = cq_len;
-+
-+	r->sq = mmap(NULL, r->sq_len, PROT_READ | PROT_WRITE,
-+		     MAP_SHARED | MAP_POPULATE, r->fd, IORING_OFF_SQ_RING);
-+	if (r->sq == MAP_FAILED) {
-+		ret = -errno;
-+		goto err;
-+	}
-+
-+	r->sqes_len = r->params.sq_entries * sizeof(struct io_uring_sqe);
-+	r->sqes = mmap(NULL, r->sqes_len, PROT_READ | PROT_WRITE,
-+		       MAP_SHARED | MAP_POPULATE, r->fd, IORING_OFF_SQES);
-+	if (r->sqes == MAP_FAILED) {
-+		ret = -errno;
-+		goto err;
-+	}
-+
-+	return 0;
-+err:
-+	uring_close(r);
-+	return ret;
-+}
-+
-+int main(void)
-+{
-+	struct uring ring;
-+	unsigned long gcs_mode;
-+	long rc;
-+	int vmas0, vmas1;
-+
-+	ksft_print_header();
-+
-+	if (!(getauxval(AT_HWCAP) & HWCAP_GCS))
-+		ksft_exit_skip("GCS not supported\n");
-+
-+	rc = my_syscall2(__NR_prctl, PR_GET_SHADOW_STACK_STATUS, &gcs_mode);
-+	if (rc)
-+		ksft_exit_fail_msg("PR_GET_SHADOW_STACK_STATUS: %ld\n", rc);
-+
-+	if (!(gcs_mode & PR_SHADOW_STACK_ENABLE)) {
-+		rc = my_syscall2(__NR_prctl, PR_SET_SHADOW_STACK_STATUS,
-+				 PR_SHADOW_STACK_ENABLE);
-+		if (rc == -EOPNOTSUPP || rc == -EINVAL || rc == -EBUSY)
-+			ksft_exit_skip("cannot enable GCS: %ld\n", rc);
-+		if (rc)
-+			ksft_exit_fail_msg("PR_SET_SHADOW_STACK_STATUS: %ld\n",
-+					   rc);
-+	}
-+
-+	rc = uring_sqpoll_open(&ring);
-+	if (rc == -ENOSYS || rc == -EINVAL || rc == -EPERM ||
-+	    rc == -EOPNOTSUPP || rc == -EACCES)
-+		ksft_exit_skip("io_uring SQPOLL unavailable: %s\n",
-+			       strerror(-rc));
-+	if (rc)
-+		ksft_exit_fail_msg("io_uring_setup SQPOLL: %s\n",
-+				   strerror(-rc));
-+
-+	rc = syscall(__NR_io_uring_enter, ring.fd, 0, 0,
-+		     IORING_ENTER_SQ_WAKEUP, NULL, 0);
-+	if (rc < 0)
-+		ksft_exit_fail_msg("io_uring_enter SQ_WAKEUP: %s\n",
-+				   strerror(errno));
-+
-+	if (wait_iou_sqp(true, SQPOLL_WAIT_MS)) {
-+		uring_close(&ring);
-+		ksft_exit_fail_msg("SQPOLL thread did not appear\n");
-+	}
-+
-+	vmas0 = count_ss_vmas();
-+	if (vmas0 < 1) {
-+		uring_close(&ring);
-+		ksft_exit_fail_msg("expected a GCS VMA before worker exit\n");
-+	}
-+
-+	ksft_set_plan(1);
-+
-+	uring_close(&ring);
-+
-+	if (wait_iou_sqp(false, SQPOLL_WAIT_MS))
-+		ksft_exit_fail_msg("SQPOLL thread did not exit\n");
-+
-+	vmas1 = count_ss_vmas();
-+	ksft_test_result(vmas1 == vmas0,
-+			 "parent GCS VMA survives SQPOLL exit (%d -> %d)\n",
-+			 vmas0, vmas1);
-+
-+	ksft_finished();
-+}
--- 
-2.43.0
-
+	-Mike
