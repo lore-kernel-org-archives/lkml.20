@@ -1,79 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.238.174.39
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793386025;
-	b=pBISSswhSgLYIxN2ImrzAAL5K8T6r9aTD8AUdqr8xvSk4vBfTdrEh6rUeECN2JldJ6u0
-	 iI+XpCGOoz/Kdc4bVqbhV84PtcEq8R5IR+1xr7S3SbIuvPKfXuSV6CT9s+fMUWE5HtHNm
-	 tYJY8NvBVIpFvJnH6t9dvAGe6imT+Qu8XXNV+Kkq9WUSYdjQM9IyaWAVDEw5Io+j45xD2
-	 Ck0iThe+w14vbUziqfvHj4cHRzU1wFtk7lHFb/Asa1ZoczX4xN3mu2WoKZOLM6X9u7HMC
-	 xAGcV3HsChQfpPcKz4XEFYfj1xmMQAbifDo7cEnw7sqd9Vju5AiCLXt4NRNFFTOdJOQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793386025;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:Date:
-	 From:To:cc:Subject:In-Reply-To:Message-ID:References:MIME-Version:
-	 Content-Type;
-	bh=tmFJTDvtKn4g2hsRLOIIPO6ilZ/8ju1fOi4oViychXk=;
-	b=SDlnwjQPYLuplPTAIKUHjD1J8lPN4cyeQvpq5BP5Zkt9t9xp5iYmvFUPx/P3GEu9r/gW
-	 9YjJxbcfnykpnXfaa68IzE84nljdRh8lsfB6YrOuRumZgxSIk6RoUcjNnyxGBiXr26wwS
-	 BJstaWmaKw8NHTwAaOVYJB7Q4NcgyxuVeXT8/MTMBCRstus/SdCPLS+uQYdKY8S+Bo5Cy
-	 1RcDn5Bq22FBDthtCXuP9/fzU2XRJ9nxwl7t0Z28CZsiREqdm6g4Yf21hHWbeJxtlwnCd
-	 kSj/p9DWTk6tyc6M7LaLSGCKYTQi87KK9tiZXWQUwpCjjbv4Jg+5G14dmQTrzjD5Y8A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ssi.bg;
-	spf=pass smtp.mailfrom=ssi.bg;
-	dkim=pass header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=6HuVJG3F;
-	arc=none smtp.remote-ip=193.238.174.39
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793386081;
+	b=Wx2LaEEgo7o8ap5+iAc84dd6fwFJsYYIOO2uaMXYh2uTNVho2zfWvf/JT0ItiXA66m8h
+	 5cppAje+b6LkLCRznI+2IrAU3Hxj2VFiJ+01znx2nENqQrsIccx0JlxBa6ZO4eQPiMcd4
+	 KBNrYnuxZwnkmWGJHoQ5ZMuKP1wvpMXLXvhFR7gJNTFqudZ4WdKzx1ewdntPnob6ty3ip
+	 QqQEOE4Xf0t5sUkD36UzDlNbcVcZKhMPYqdpctfNC3mNGTwNbpeAN/WsY9lJN5cOojdV7
+	 xm6gJlouZHbdKUeH81ntyfLX0bifQO2yU0t4rS1T23Bql0lAU4Yzd9ZhWqh5fH8MmBg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793386081;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ys5StJHbRjlo+Q3/UfxHPtT29K5285J7qEPolXBBHPg=;
+	b=L2EP5Ci75m1SW9LRGs/7OIlyP+UE2KqeUVUEts4HJiKHe77rHUyn9GDpu2QLd22EuiCX
+	 eA1khHcVoJqlh8aUkfKKf4T6YwFzFFDLH5IVyGI5iarCxFZ6oI+1OsnJd5gUCIxpbmvVt
+	 vzgENTntsU2UAAYWOpdJIyGKXkHUVr37COPKDBnYwq6H/c8+AoUaDxzmqbUbjQeMLJykW
+	 ylRa7gjTxR8McSJFuYa/pUN+MkGy446ARgl7vXvNDRrl9/1Ox/m5/gPaduKUOIV0gISb9
+	 OeWs1zkDjqtVQvjChN6smW6otUgFVitC2SSMZuvOHwkh+FGsBJHF0XqfAonz9gU8WKw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QkUVMLMG;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=uOvjAOLw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864C2606A31A;
-	Fri, 30 Oct 2026 18:47:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 864C2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A189606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:48:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A189606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=ssi.bg header.i=@ssi.bg header.a=rsa-sha256 header.s=ssi header.b=6HuVJG3F
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 9228F21F7C;
-	Fri, 30 Oct 2026 20:47:00 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=tmFJTDvtKn4g2hsRLOIIPO6ilZ/8ju1fOi4oViychXk=; b=6HuVJG3FBfxg
-	KJn40TJUZZlKKu48G5zQuzNOPWiPp6hmjwwAuHiA5TIYnrY5KtdHkv7+SSDXqNbJ
-	8h74abPZtR7BBgAK9YxjBqJpEDaTktsVO7dVG5oGF5+kYa5gFiEm0mclxFQAQYSa
-	XdhwbjMRNeRNh1IZx8vg/LI3SryFHSK3Zm3P0unYHAtgNPLbMWeXmIfwqc/MFI8J
-	Dr9cvCQPzXFnFghUK5E88UvPd7+I1dVWNO5G49wniv6TI4tymQQSwjPGB30yswQ8
-	73fvhYE6dybh83qY+ElOY62JFB7GFy2iNwmQ6WMjzOFHZtHtbZe+9cyKq7iCYZ4+
-	q3oAg8wsBXsIf/CV0CLf/NbihcUkP+3aP6PsiFu6zB6KKOvAz+r4GGEOxuJsO1rK
-	K9Kkm8EceUsiRYUFPu+Lwt58J3OR9h38DpeX4KB6H1fjc+Tmgx11+GrFWTFlEHUz
-	2clDT/D+CJBovsBFKI/ff0RK36bc8A0nyQEIeYY+yIWmKZsooBWOP+cPWfFGn02i
-	CqyQtfMBzC45oJrvxTHxXIc0JjS+xb127WXYSXYMDxUx0D1GuU4nrfCMXbZTu5+R
-	wz5KOuVO3OE0IZBwySQEMLOm8c6CTS1YgvD/KrpOj/SZUQ7YPtIiNR7jLRSuug5z
-	dEGaMmm8/qkydgCny34h/vir51trkgI=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Fri, 30 Oct 2026 20:47:00 +0200 (EET)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id D2D54609F8;
-	Fri, 30 Oct 2026 20:46:59 +0200 (EET)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 69UIktnU063584;
-	Fri, 30 Oct 2026 20:46:56 +0200
-Date: Fri, 30 Oct 2026 20:46:55 +0200 (EET)
-From: Julian Anastasov <ja@ssi.bg>
-To: Star Chang <starchang@google.com>
-cc: netdev@vger.kernel.org, dsahern@kernel.org, idosch@nvidia.com,
-        davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-        pabeni@redhat.com, horms@kernel.org, johannes@sipsolutions.net,
-        johannes.berg@intel.com, linux-kernel@vger.kernel.org,
-        wangroger@google.com
-Subject: Re: [PATCH net v4] net: Fix Hole-196 vulnerability by dropping
- unicast ARP/IP in L2 BMC
-In-Reply-To: <20261030065258.818406-1-starchang@google.com>
-Message-ID: <ed3b982c-ff5f-79e7-6c72-0b2899c84cb6@ssi.bg>
-References: <20261026150539.1357037-1-starchang@google.com> <20261027015619.1745984-1-starchang@google.com> <5c1fe870-39ff-e83e-e479-0e1f0fed6a83@ssi.bg> <20261028061644.2997812-1-starchang@google.com> <f631e178-d9ec-f335-9163-c44a9e6c58af@ssi.bg>
- <20261030030715.604215-1-starchang@google.com> <20261030065258.818406-1-starchang@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=QkUVMLMG;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=uOvjAOLw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793386079;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ys5StJHbRjlo+Q3/UfxHPtT29K5285J7qEPolXBBHPg=;
+	b=QkUVMLMGFjZL3qIZizo+o0p211z4C6c07t4+wA7y9gePGUVt3hL2OwL7uFdvKa1Kd7XveZ
+	kaWRkWUWz6MhMiD3Ju0eWhMXyqgzF3Dd9E2Nj+5M/8TUNx9SUH7rIXqGFfKyTxgMjklmu2
+	6u7mJM8520HfM/nY0rymbfSfgIGCWaQ=
+Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
+ [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-645-KetCp2XROgKr78XYIwjqpA-1; Fri, 30 Oct 2026 14:47:58 -0400
+X-MC-Unique: KetCp2XROgKr78XYIwjqpA-1
+X-Mimecast-MFC-AGG-ID: KetCp2XROgKr78XYIwjqpA_1793386076
+Received: by mail-lj1-f198.google.com with SMTP id 38308e7fff4ca-3ab3ab11921so5008481fa.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:47:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793386076; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UcpnlGMxb66F/tzsRJ6W4dtSwpvdfD8hpSQLcWlJuvHRJGYdynubc2n87kIoiptBj5
+         wTxoO8Z6/VWgzulgcXSvMwjdLQDv1Mp9UQY28ATxbbdi4Yc0swPJFN4FCSRYtowCTn9W
+         vBygVUxUQV1qdkCDSAw6SVrjFc8VlQgF4zpvsvP3pQUO+KcZ83xL/jo83P3Mn1DZhcVt
+         ennCNYVigawp6pfY17L3dYkEPsR1C5Mu9dpd2Hq8k+H/UGKQI33ro+LmZ6ByRk3UTjua
+         CoX9A9D6OHn0GEf5BBOuOTzgEtKYrRSD7nK4+cWGGy5uDonlrs0bE5dnYy8kUlcjFQ1F
+         sW3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ys5StJHbRjlo+Q3/UfxHPtT29K5285J7qEPolXBBHPg=;
+        fh=2xIrDR2HdTfRLEcu/FyH4yPn8FT4xFcrmp4Krh/N/+Y=;
+        b=ZOqgtGV2rU+LbWB01LUm+kr8T+jx86eF7u//btCgxFdBHt4YQtYoRAoVdeMEcSRyfG
+         bSna5qhaa2k9kAK9DtV8Wkle0cWCbS744cNhFRWnyIE4w9yMRIKNK9WA/MY106ibERa1
+         57HGtbGrMdVmfGOjUBITP/R+afJQyoLEaH+X7aAFGNdMUa/0ALf2La/NT8RNEChhH29K
+         L8bVr3zAfjAY1gmj72MwSWenSogu6uAwqAFhM7X/yI64TEVvL2NCnxYXlgVnHae4Rdad
+         V4xEzbJWF87CVj0G5n98WwWCnMHDdYrEklhkQlBFiGPVZhI42PUCu1rFgH+Ftz+xQbZV
+         76Qg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793386076; x=1793990876; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ys5StJHbRjlo+Q3/UfxHPtT29K5285J7qEPolXBBHPg=;
+        b=uOvjAOLwUMDghHaF9j9/+UIj9JUMSBOHYxxqo25CcmbZOKNtPocX3VB4YBUysAr8EE
+         wgLghiPdboM+eHBLyJkKioLIsSIZ34NjlMiT6nxM2LCvTBNy/5ekh5DW/662JaVrloDA
+         J+OQgiflSmjXctGPTBCIvGIQ6nbjVlXwZpa+s+CTca/RS7dHMy5ZCNGuNzyas6yfaptO
+         PP0eUqVK1wL5u4HGoEd1q/+LEukeczQDk8WXbXDfAu9OkR9ld8QNjISnr6y6LHiXb/t/
+         471ewd8JsKjOyqcTHflXD1QC6Uz/SibDWbbejMNdv4lzz1MZ5Pvh5RxZZZPN/2SpsCSx
+         vObg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793386076; x=1793990876;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ys5StJHbRjlo+Q3/UfxHPtT29K5285J7qEPolXBBHPg=;
+        b=tHPRhh2hMGjpnvuDM0rbWEj2oPLfBc5CVVn0zH7rhw0/s/viuxbGDIXBOIXYa57tCw
+         L7vYEKSg/eQ2xxxub0kkyOJUa43GRXF9dB2BjORxDyZ1D+14wBENY03tQgCL/8S+GI5v
+         Uh0pewapfZVOUrHsut1PC/qpbRjZKBoP9WHYjI4L+gCUHsrYqiihdIqjUW+U1F/4jdZ2
+         +kby+HAs/+lgkz3DantNiB4TqPzOZy1ISTgg1NkespPcJ3Zt6n5OdKl2FJ4lkc3Ps3aM
+         +g8z3IGtBFNhBE9/cfoXXAzOesfb1PxPslUpCNvlc3L3+SnrQbCy+GFj48+vGflLy/sU
+         aXrA==
+X-Forwarded-Encrypted: i=1; AKwUvBzNmzWZCP3mHu5JetXoG0MZPlvc274OgXRzlqTC+DnVhPaWHH5fyZ3HY5S8EQl+QJ5GYle/Nc+0Ndg4lec=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQu9rjTnguBj+zmPvvH3rO7WQMSWndOl/l0MgnmPUSKNbyGVpa
+	Os8NMaHe1FiT3VrKJK/coyYZRxTR2TT87Kg9KM0A2773TnTLrN/NB1GsJhzfdfkpHq/isOc5B7f
+	q7rFqc/FjIqjzvuxG7QmVT/l+XnMTfbt3WcXNtnUXeDGry1qO24GPHfuUUFY7EHrDHy6reloT5d
+	EcY982rmllYWSNgXypsfWWkyJL53hvhMePyydfYtI=
+X-Gm-Gg: AYBFou2+kjTmEFathydubjWEWTk4E2Gs+imXwfQVNRNetAsyYCvH3kVMTJAXSELzE/L
+	49yctKnQPf0uXEXlANrNTmwgts4LwPt+AL4z8U2jTSO4yV16pPyl+e5mGhnOcD4t5n0iH0Iaz/Q
+	sOe4gNYHBStnhyNs1UzZSaej7X5Y53pcUabW2u+Q2baAUIY2yHZkXF6QLC0w==
+X-Received: by 2002:a2e:be26:0:b0:3ac:429f:6d93 with SMTP id 38308e7fff4ca-3acb7b981d1mr7655471fa.29.1793386076322;
+        Fri, 30 Oct 2026 11:47:56 -0700 (PDT)
+X-Received: by 2002:a2e:be26:0:b0:3ac:429f:6d93 with SMTP id
+ 38308e7fff4ca-3acb7b981d1mr7655371fa.29.1793386075916; Fri, 30 Oct 2026
+ 11:47:55 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,59 +124,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20261026110402.103622-1-shreeramrahul94@gmail.com> <auGBLzpQBLvds2vl@redhat.com>
+In-Reply-To: <auGBLzpQBLvds2vl@redhat.com>
+From: Ming Hung Tsai <mtsai@redhat.com>
+Date: Sat, 31 Oct 2026 02:47:44 +0800
+X-Gm-Features: AclHuK_1KqIJvnT0dQOX_UUGdRcV1FJXwQB4bAFNbSQTpJYwGPiCkY6oYBd1XCo
+Message-ID: <CALjSBEs6qTsyFPCrDnL0GZ=WUojdEeOq9wVhEXJrgDr0N0kDyQ@mail.gmail.com>
+Subject: Re: [PATCH] dm thin: prevent use-after-free when metadata and data
+ devices alias
+To: Benjamin Marzinski <bmarzins@redhat.com>
+Cc: Rahul Rao <shreeramrahul94@gmail.com>, Alasdair Kergon <agk@redhat.com>, 
+	Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
+	Joe Thornber <thornber@redhat.com>, dm-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Oct 28, 2026 at 1:10=E2=80=AFPM Benjamin Marzinski <bmarzins@redhat=
+.com> wrote:
+>
+> On Mon, Oct 26, 2026 at 04:34:02PM +0530, Rahul Rao wrote:
+> > pool_ctr() takes separate specification strings for the metadata and da=
+ta
+> > devices. However, different strings (or format representations such as
+> > /dev/ram0 and 1:0) can resolve to the same underlying block device.
+> >
+> > When the read_only feature is requested, the metadata device is opened
+> > read-only before the data device is opened read-write. If the devices
+> > alias, the second dm_get_device() call upgrades the existing device's
+> > mode. upgrade_mode() replaces the dm_dev and drops the old table device=
+,
+> > leaving pool_ctr() with a stale metadata_dev pointer. The subsequent
+> > metadata_dev->bdev access triggers a KASAN use-after-free report.
+> >
+> > Acquire the read-write data device first so that acquiring the metadata
+> > device cannot trigger this mode upgrade. Then reject matching block
+> > devices, including those specified through different names, and release
+> > the devices in reverse acquisition order on error.
+>
+> What this patch fixes looks good to me, but there is still an issue
+> here. There is a similar problem in thin_ctr() if the pool and origin
+> device name strings are different but they alias. Unfortunately, this
+> style of fix doesn't work as well there. It is only a valid fix for a
+> thin-pool target because that is a DM_TARGET_SINGLETON. That means there
+> can't be another target that's part of the same table. This isn't the
+> case with the thin target. There can be other targets in the table, and
+> you can't force correct dm_get_device() ordering between them. Like
+> Mikulas said about a similar issue with dm-snapshot, this is probably
+> something that is better fixed in dm_get_device() than in its callers.
+>
+> -Ben
 
-	Hello,
+Agreed. Fixing in dm_get_device() looks like the right direction. A
+possible approach is to avoid upgrade_mode() and allow a
+dm_dev_internal to hold multiple references to table_devices of
+different modes. This way we can fix dm-thin by simply comparing the
+block_device pointers in pool_ctr() and thin_ctr() after
+dm_get_device() returns, and reject the table if they alias.
 
-On Fri, 30 Oct 2026, Star Chang wrote:
+dm-snapshot already has the block_device comparison, so once
+dm_get_device() is fixed it is covered too.
 
-> Hi Julian,
-> 
-> Thank you! Your point is spot-on: in a shared-key Wi-Fi network, an attacker
-> can simply broadcast a forged GARP reply (sip == tip == gateway_ip) to poison
-> the gateway MAC for all peers. Giving GARP an exemption indeed leaves a door open.
-> 
-> We verified the Android / mobile use case and confirmed that completely
-> disallowing neighbor learning from L2 BMC is safe:
+I have a rough WIP that seems to confirm the idea, though the approach
+still needs refinement.
 
-	The only purpose of neigh_event_ns() is to flood the
-cache with NUD_STALE entries that on confirmed traffic avoid the
-ARP probing:
-
-1. If entry was missing => create NUD_STALE entry with the hwaddr
-
-2. If entry was present => update it only if hwaddr changes,
-if hwaddr is same => do nothing
-
-	Same is for the neigh_update() after arp_accept() for
-broadcasts.
-
-	So, if we do not want to keep STALE entries with
-wrong address learned from broadcasts, we should not call 
-neigh_event_ns() and the neigh_update().
-
-> - Gateway validation: Android relies on NUD (Neighbor Unreachability Detection)
->   unicast probes and unicast replies (PACKET_HOST), never on broadcast replies.
-> - Wi-Fi Roaming: Roaming clients *send* GARP to notify the AP/switch; they do
->   not need to receive broadcast GARP.
-> - Router failover: NUD naturally detects stale neighbor state and re-probes
->   via unicast, recovering within seconds.
-> 
-> For v6, following your guidance:
-> 1. L2 BMC ARP Replies:
->    Drop all of them unconditionally (including GARP) with
->    SKB_DROP_REASON_UNICAST_IN_L2_MULTICAST.
-> 2. L2 BMC ARP Requests:
->    Process and send replies as usual, but suppress updating/creating neighbor
->    cache entries.
-> 
-> Does this match your vision for v6? If so, I will prepare the patch accordingly.
-
-	I don't know IPv6 well, so I can not help here.
-
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
+>
+> >
+> > Reported-by: syzbot+83827f9a59abe148bff4@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=3D83827f9a59abe148bff4
+> > Fixes: 991d9fa02da0 ("dm: add thin provisioning target")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Rahul Rao <shreeramrahul94@gmail.com>
+> > ---
+> >  drivers/md/dm-thin.c | 22 ++++++++++++++--------
+> >  1 file changed, 14 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+> > index 59392de7a477..52e47874048d 100644
+> > --- a/drivers/md/dm-thin.c
+> > +++ b/drivers/md/dm-thin.c
+> > @@ -3326,18 +3326,24 @@ static int pool_ctr(struct dm_target *ti, unsig=
+ned int argc, char **argv)
+> >
+> >       metadata_mode =3D BLK_OPEN_READ |
+> >               ((pf.mode =3D=3D PM_READ_ONLY) ? 0 : BLK_OPEN_WRITE);
+> > -     r =3D dm_get_device(ti, argv[0], metadata_mode, &metadata_dev);
+> > +     r =3D dm_get_device(ti, argv[1], BLK_OPEN_READ | BLK_OPEN_WRITE, =
+&data_dev);
+> >       if (r) {
+> > -             ti->error =3D "Error opening metadata block device";
+> > +             ti->error =3D "Error getting data device";
+> >               goto out_unlock;
+> >       }
+> > -     warn_if_metadata_device_too_big(metadata_dev->bdev);
+> >
+> > -     r =3D dm_get_device(ti, argv[1], BLK_OPEN_READ | BLK_OPEN_WRITE, =
+&data_dev);
+> > +     r =3D dm_get_device(ti, argv[0], metadata_mode, &metadata_dev);
+> >       if (r) {
+> > -             ti->error =3D "Error getting data device";
+> > -             goto out_metadata;
+> > +             ti->error =3D "Error opening metadata block device";
+> > +             goto out_data;
+> > +     }
+> > +
+> > +     if (metadata_dev->bdev =3D=3D data_dev->bdev) {
+> > +             ti->error =3D "Metadata and data devices must be differen=
+t";
+> > +             r =3D -EINVAL;
+> > +             goto out;
+> >       }
+> > +     warn_if_metadata_device_too_big(metadata_dev->bdev);
+> >
+> >       if (kstrtoul(argv[2], 10, &block_size) || !block_size ||
+> >           block_size < DATA_DEV_BLOCK_SIZE_MIN_SECTORS ||
+> > @@ -3426,9 +3432,9 @@ static int pool_ctr(struct dm_target *ti, unsigne=
+d int argc, char **argv)
+> >  out_free_pt:
+> >       kfree(pt);
+> >  out:
+> > -     dm_put_device(ti, data_dev);
+> > -out_metadata:
+> >       dm_put_device(ti, metadata_dev);
+> > +out_data:
+> > +     dm_put_device(ti, data_dev);
+> >  out_unlock:
+> >       mutex_unlock(&dm_thin_pool_table.mutex);
+> >
+> > --
+> > 2.43.0
+>
+>
 
