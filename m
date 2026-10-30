@@ -1,47 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793367391;
-	b=RXigKXXjoB4+Bzz9TYgC6woGJK/1HqBx9uuWb+iBg79W/pLU3wL6+uRa4VkvtT+r00ZM
-	 m46Al5V0ZkdAbAb39jmJ0TnhVLtRJUSWjNQoCY2x8Zjpslihnx3/aZEF3sTBrCX6/NCpL
-	 2Yyd7RagmQ6ZW5q614RbKhzBjygIEafD+jYsc9J5Oo62GdAjd9++mSobOpZ5kX4b00lVA
-	 ofDu+3yjiZHBpaUNSFOzR7IhG+/iq3Pu85a9jXnrlmg5t4Lz0OT3DDmxfal5yPpb8hJNs
-	 4FVGyp8Q3M1hUWM5hIyG4dfgKgLt9bZ5lICkjaDL/1rVJvAbAgE0Dzs1+DzES5bQiRg==
+	t=1793367436;
+	b=Pn22/D0gU4/OX1RWK2G/+AA1GB0RUlC2VKAZasH0ShnL5Fv0dbBa+JmBvGglDxaZ3K3E
+	 hVsY3YR6m4/nLyB3UA4zwrWfmRM4Xblbks2waguQvTaandIJrZiAx1eggRAC8KsiWdlfV
+	 qfdmSVva++Z38YXSXG2VJHwoEX1ica5h3qgUS9iUDIvNlfrHp5vS600tWyqUNbJ/8GGYU
+	 nFw7udRe2dDfflG1jNEhcp2Xx+ihcEXuupZwFZ3yKG26smT8nPwtrofJk0P7RsVWAxJWO
+	 451e/jfQZMDDHvULXckCNp64WT/p6/MtWLNYYsNtzGlA8tRg/+qlI2YrToo9b+IM+eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793367391;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bDw/seaI0N+rrlS6TXD0Zx/J/W0wD25HCs9aCm/Vs80=;
-	b=e24cmkKYi0RX3k0oNaFILUaEaeC5fCEJ47FJHS0Lp8rI6BuQoDHGRiKXLxdSZXdkQTOC
-	 HJX+Zn4miPlPWZQvLWpO9u9nhKCUXUwzeoDQ/vU07zfxwhvh48vxY5RVnsT/oYozrLtRw
-	 +Ek/0iPeHNNCsnqBRBCgGikZ9uvzNFjLciGQ04HsMkrq3JDooaFmNHPXGeFNRZC2Z8b5V
-	 98+Ep2EsMDc30gqNbyA9HrNJ9U4N7iPkJvl+viI8wOfpqOMQ0GoBnx9mWhJ2mObkfOztY
-	 shvhjCHbcK9c2UHTMey7lC/3QRZ/b9DIsQbaerO+R+PU+xH2G3Je2bBWbaI1mb4HiJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793367436;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=8tJ3mHvsCbcK0uC2z5FiKSUzFDveTQLdd2jjhlDidfw=;
+	b=A+E5JpqGeAgrWxQ4DmqdOdmUqIFuOPr7+drp3yeOWweuxNDgzTpEfjNrISakdWHZWp7l
+	 WXDI19Z47WthgziNXLrszdmFotoReWP4IdKg8gsycPsa4hCVkqlBhnHYeDPr5Ux0ZC5BK
+	 bOl/h28kDq7gyTkFxJQhWBvhAGLE1N5SfRYz8ljuIzD74UrV6r5SW1GRFouKTc0sKuGxA
+	 7UOEvb4PvNdAmywxI3rMBInv/Smtl150Ci5h+hdXAHqrqHMDuYZDotPP8APZOdhNjzdiv
+	 TdrBDv/EwmvkSMsRc+O7mvfnfNRG4Yx3G/DK5wAuosIwdEX7yXuTv571BRDl2i5JIpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfnwA6ex;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNgiXmC1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84CC606A31D;
-	Fri, 30 Oct 2026 13:36:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A2F606A31A;
+	Fri, 30 Oct 2026 13:37:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfnwA6ex
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884971F00A16;
-	Fri, 30 Oct 2026 13:36:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gNgiXmC1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EED6A1F00A02;
+	Fri, 30 Oct 2026 13:37:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793367390;
-	bh=bDw/seaI0N+rrlS6TXD0Zx/J/W0wD25HCs9aCm/Vs80=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kfnwA6exaXecOku2Q6ROHnNqmyEoUwg6tUDjh5jtDWyFplS/0GdpjgNtnrDmlUT4C
-	 LB4unvXILyfbx8m5Rc/bYxZlNDP4D5AZsjV3pxKh4nS1tFBBc509NOsafAl+tcPncK
-	 czGuEyv03P7FXeDBCb4EEg32AGmZaSNL2en5XKNysaDn1wxxsyvFP1C26QqMtM/nlO
-	 mhsQRlRBdN/jQ3rbe3LFjcfoNDC4j07udZSxsl/vpUOI6k9StdKq0U9HNJI5d5Dd5q
-	 Scq/lcQXo6YB09hZ1yUxKlnG27/vTfqgA6xJzQiXt9iY4x7TcyWfgAoXwNtyUWZsuU
-	 GgbAfSydfwsFA==
-Message-ID: <f71369ca-5963-41c7-9103-dd39a7369e38@kernel.org>
-Date: Fri, 30 Oct 2026 14:36:23 +0100
+	s=k20260515; t=1793367435;
+	bh=8tJ3mHvsCbcK0uC2z5FiKSUzFDveTQLdd2jjhlDidfw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=gNgiXmC1hJbmntbn8phJg0ee50nGdaXjCJiFZtfcwCb84nlmG2+I+G+swfz1cbYwA
+	 mY70cuTfDvF9VNaKUyVrakM6NBJiqWEIGKYaMwvHjmZ8tmc8Ysz/j4uBRznu8hRT/I
+	 yN+BnVieh5JO7BlbF2r/8BXu/3H84N0fyGavQlBlcQ0RGHLqG0nWL03rxTQ/AU2rZU
+	 QQDVFy4ogb/lpeX7tmDxNJCLMsHGEdkqw1oYI/6W66inTlQnbxY1OE5C9U9OPbyk8I
+	 TCxIi/nnjTP0BRsxVDY274yuz+Jp43YGCHVJkJ1h4+j+kXRmcE+IB2cjxwVFvPnSVV
+	 3UlzcFxZ75wPA==
+From: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+To: Marcin Knap via B4 Relay <devnull+marcin.knap.vecima.com@kernel.org>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel
+ <przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Magnus Karlsson <magnus.karlsson@intel.com>, Maciej
+ Fijalkowski <maciej.fijalkowski@intel.com>, Stanislav Fomichev
+ <sdf@fomichev.me>, Simon Horman <horms@kernel.org>, Alexei Starovoitov
+ <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, Jesper Dangaard
+ Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
+ jtollet@cisco.com
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, Marcin Knap
+ <marcin.knap@vecima.com>, Joshua Washington <joshwash@google.com>,
+ Harshitha Ramamurthy <hramamurthy@google.com>, Sunil Goutham
+ <sgoutham@marvell.com>, Geetha sowjanya <gakula@marvell.com>, Ratheesh
+ Kannoth <rkannoth@marvell.com>, Subbaraya Sundeep <sbhatta@marvell.com>,
+ Bharat Bhushan <bbhushan2@marvell.com>
+Subject: Re: [PATCH bpf v2] xsk: Do not free ZC Rx buffer when the Rx ring
+ is full
+In-Reply-To: <20261030-xsk-zc-rx-double-free-v2-1-cf01d4a9f3f7@vecima.com>
+References: <20261030-xsk-zc-rx-double-free-v2-1-cf01d4a9f3f7@vecima.com>
+Date: Fri, 30 Oct 2026 14:37:11 +0100
+Message-ID: <87jymz48e0.fsf@all.your.base.are.belong.to.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,77 +73,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: spi: qcom,spi-geni-qcom: Document QSPI
- support
-To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261030-qspi_dt_binding-v1-1-5249111cf870@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261030-qspi_dt_binding-v1-1-5249111cf870@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 30/10/2026 14:30, Jyothi Kumar Seerapu wrote:
-> Add the "qcom,geni-qspi" compatible to identify GENI Serial Engine
-> instances configured for QSPI operation.
-> 
-> The compatible also allows the driver to select the appropriate protocol
-> firmware when the Serial Engine is unconfigured (GENI_SE_INVALID_PROTO),
-> distinguishing between SPI and QSPI firmware.
-> 
-> Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
+Marcin Knap via B4 Relay <devnull+marcin.knap.vecima.com@kernel.org>
+writes:
 
-Where is any user of this? You speak about driver, but there is no driver.
+> From: Marcin Knap <marcin.knap@vecima.com>
+>
+> When an XDP program redirects a zero-copy buffer to an XSK and the
+> socket's Rx ring is full, xsk_rcv_zc() frees the buffer and returns
+> -ENOBUFS to xdp_do_redirect().
+>
+> A failed xdp_do_redirect() leaves the buffer owned by the caller, and
+> most drivers rely on that: mlx5e treats the failure as XDP_DROP and
+> releases the buffer when the Rx WQE is refilled, while i40e, ice,
+> ixgbe, igb, igc, stmmac, idpf and others free it themselves. The
+> buffer is therefore freed twice. It gets reused for another Rx
+> descriptor, the second free puts an in-use buffer back on the pool
+> free list, and the same UMEM frame is later handed to user space
+> twice. ixgbe and igb keep the buffer in the ring on their need_wakeup
+> -ENOBUFS (XDP_EXIT) path and run it through XDP again on the next poll,
+> after the core has freed it.
+>
+> Leave the buffer with the caller on both the single-buffer and the
+> multi-buffer -ENOBUFS paths, as xsk_rcv() and xsk_rcv_check() already
+> do. A few drivers relied on the core freeing the buffer, so make them
+> free it:
+>
+> - i40e and ice consume the descriptor on XDP_EXIT without freeing it.
+> - gve DQO counts the redirect error without freeing the buffer.
+> - octeontx2 returns false on a failed redirect, so the caller goes on
+>   to build an skb from the already freed buffer. Free the buffer and
+>   report it as consumed instead.
+>
+> Seen on Mellanox ConnectX-6 DX MT2892 (FW 22.47.1026) with AF_XDP
+> zero-copy on 7.3.0-rc6 when the user-space consumer could not keep up
+> with the Rx ring. With this change no duplicate frames were seen with
+> striding RQ on or off.
+>
+> Fixes: 269009893146 ("xsk: recycle buffer in case Rx queue was full")
+> Signed-off-by: Marcin Knap <marcin.knap@vecima.com>
+> ---
+> Tested on mlx5 (ConnectX-6 DX) in zero-copy single-buffer mode.
+> The i40e and ice changes and the multi-buffer path are build-tested
+> only, as I don't have that hardware available.
+> ---
+> Changes in v2:
+> - Also free the buffer on zero-copy redirect failure in gve DQO and
+>   octeontx2, which relied on the core freeing it (AI review).
+> - Audited the remaining zero-copy drivers against Bj=C3=B6rn's table.
+>   ixgbe and igb no longer run XDP on a freed buffer after
+>   XDP_EXIT; making them drop and consume the descriptor (R2) is
+>   left for a follow-up unless you prefer it in this patch.
+> - Rebased on current bpf.
+> - Link to v1: https://patch.msgid.link/20261019-xsk-zc-rx-double-free-v1-=
+1-2aa19f6628fb@vecima.com
 
-Best regards,
-Krzysztof
+Thank you for catching, and cleaning up the drivers.
+
+I can follow-up with the documentation [1], or if you respin, feel free
+to add it yourself.
+
+Reviewed-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
+
+
+[1] https://gist.github.com/fb-bjorn/d6835c49650bc3433b427a9c9708fbe2
+
