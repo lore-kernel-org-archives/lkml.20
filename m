@@ -1,89 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793320085;
-	b=mCEFz1Ms4UlUH8wu4S6sScMNslqDOS8GdcmCjqmNGOp3ZJ5m2kSf2hVCjpYxwLSIl7A+
-	 7SDDuIZyr2kV3zHXqfMZr7TgK/pJqDgF7Jv3YXr7SlyaK9qy3nQecY25BKZv/200Tk5m2
-	 gLBYefiyCXUqfwNjmspJS+L5aN/hx29BUUvpatQ1Ov9XIavWD29Mce+6ypXMeSGEdLBRG
-	 UWm8dqsMc5a0jtp3i3+hh3krpr/oBxsaByVYlVYq8U647gesbnX/jwa26FxAprMdhmZ4J
-	 MSDJ0VJtkP/t7CwhSUxzjJiFepB4eM7Jtt2GPQ8HVtSCU/kcopJXXqlsXhS2BEhWnKA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793320085;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.218.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793320095;
+	b=lNQE/HQgXyA7i+ZmwPZj9Sx2tPhQ8W+uzrOVAD+9lkq2LtWU/qMN+SdtLX9RpVjcvVG4
+	 wAo1ZYhxBSCzX7JyfLObxBt+smlYd3aDTQtDkqpQNCOIFBhJKIO/DXFhF+EleMLUIqor8
+	 Hjkz6P5xKCp+PByXak/ZbqBOiJUaTOKe5zPYeLCtqHAmoZPPBEh6jFgCGHXVAgAm8poKU
+	 3Kc8Z/y22vt8DEPD8nE7439K3ECM1n9jEIJPJUVwbJLJ4fVZBtO/Cn66us5oMC9jwy7yi
+	 2/ukDJhzgI1M9Ci+UHVDO7CFcDk+mOkUEG35wlITjChSNrNfWhUMIMVilwAZ26xvlfw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793320095;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
-	bh=ux1Gd4wJ4i6CbO5kAuUr+fRClS71fFbOF44xw5i7O6M=;
-	b=OHEH/fgQbeuhH33oeK0cUb8ip8mA3dFbrpNAcjD/26Pj7VHvWiPetppjrrdxO8uqaKlm
-	 cZgh6IIDDcfTwShN/Sm9kVxlHKSpvR7xz0kZ5qjPll/abHMiAeD2xdBmTdN5wbCO4Iqk8
-	 JbujNv33WYesCamPqyjVPAZXCbpMgx9dmtG5D3aInDhMXf9yhhiDhUh9H696OA5ygdu8i
-	 Z5TcHea8JrtxNnFWECwPqP1WBVceafhzxhQgy8zLQ2ZublUpwpL9Xe9poWznevbvzaSjX
-	 Bi14e3VEdyZs40un0EAM1AOlLFWoGLQM67IU6eE4J/8KAkNI7HY4VNom5t4eccKu/2A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L3+GOBRP;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=brgLj6lJ9qrzkbEmy6aUespMxR1HwV6CvzIg1+zIkpE=;
+	b=UO7JM0HaYalmn5f7Xe3Nyjkx9SgUMKlpZ1K9MIxlZ6kbG0AuWqcXKLof29FvCgeGKV6f
+	 V1xmU1vbLbcfuyl7gjnDTxHxjE0GmUw0pgKg/cjyHprBVMe3+MCU3Bz7HwXD/5ESIutFL
+	 C7RsQebOK6ZCpBTw6NwYNNosvUldBYRiqXg00hH/rTmLYe7hNkRX36iXGqiPyOuru+p0Y
+	 5B0weRzUILtGtn90gdyhhCzxhKxu7Vnvaxvq6fdVHrSxGVdWqcI2buch4SYy2Ly0cAAjg
+	 V/N9gAhHLn9fcOhXrM++ezZ5YGUk6CQboq9IrhyZbQA8QrIexfY1MlzQxA+0aDmJqmA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EPx92SD2;
+	arc=fail smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A4AD606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:28:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A4AD606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E9B606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:28:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54E9B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=L3+GOBRP
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36a315ed211so237892eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:28:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=EPx92SD2
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4682977f9aso12707766b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:28:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793320094; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Jv95CrCAduxJgo0FcDlvBwELvwhujL0QmhroDwHdNhuI5DPJf5m6H2ijawYe6dT/KW
+         aO8Y/DAN2U6XnpvYugxEUGxVLbnkHlGR9MzmGgJA9t+wnMyJ4fEZX+4oDHVa/OaY7KVW
+         EEL2bJ2RZSq69MkjNGqxyh2K5Rfwk5e0BUx6b0ImluY9HREEGwz+c7i4pzlZ7TY06Qo6
+         mBABI0bSVVz40e2uSsqRROKG2BHmfDgo2ksaLNhDxoY9sqRv4FXes5+5gzmsaCgZwF6f
+         wIEncEZXKoX+jImi9hC2jElkCm3AErlsjqFWn7wulH1eKbv+viiIEHR082gA8FlpIhPk
+         KJnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=brgLj6lJ9qrzkbEmy6aUespMxR1HwV6CvzIg1+zIkpE=;
+        fh=lDhr/mLXjLWmJMclqBzBrjjX7F0z7dL4+P8b2VtOXog=;
+        b=QTTurk8Gnckcs4DiXcWXlnIt0XQWd2wIKqNv25142jWGEOVdTsJUWeAwUfrFyS2qxm
+         3hnpurw2F0QMdhqazHKHBBbbKvtUDvS3h2iYn3StXyUftfIjO+4cXFyjoTHjhKNjF3Aq
+         Q0Tz4jStXElz/qiw31cjDAZ8xr2DiPAM5oYGomDkNi7Kb3ZYi2UMVZOgD8vvU6zbtQEq
+         qzE8u9qPY2I/8QUeomyb6ne9WSIfepjRgzvAzoLsuOo7mqbGyg2DgFXNhcsz/cCh2bva
+         /epm8Yp94/xK7aiUyI++ys4Mo0Dg/+Vt9/2SB7INfgEzPFXi1QmxASVweGOEJwYT+MTs
+         8/vQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793320084; x=1793924884; darn=vger.kernel.org;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ux1Gd4wJ4i6CbO5kAuUr+fRClS71fFbOF44xw5i7O6M=;
-        b=L3+GOBRPTYRzjFBeLhfr170NmUzssfs5NiKPaDyA7W0VzQOvDy6EneHxWu7dx5UZM6
-         Vd76mGp6zpdGPMOWyytLUcjxhWAQxnc/mr88KiN2S6H9hjCLMgZQnDZbJVZsU/yPh/Wk
-         Y7t3XRVlZa9QwZhlS6tRojs3JYLCO37ZRjBn48oOqwUv6R1FY149WhynsS0KISfAUKKC
-         hi+iqmRBoQ6Ounxl+scBgcdvE+9BaLP5iua0pqY3ZboOVfDOxrTQIBfYqmu+0Zs/EWaW
-         corrJwYSotZi8BW/t9TQ6pvXdBrXT+V6oufqTC4cDTyn/fuYuFB3Kg+RgN6OWM8aYhUE
-         mEpw==
+        d=google.com; s=20260707; t=1793320094; x=1793924894; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=brgLj6lJ9qrzkbEmy6aUespMxR1HwV6CvzIg1+zIkpE=;
+        b=EPx92SD2/nlj7Gy51oiGKSuUhEEV6f/QjPP90GOkDFVvLeS6MkjDeipocwNmUYAOHo
+         Nma4hshQFzy8X4MAfiLVXTjTch8fzebGbKsTHtFJVZmvtcJ/XLqiU+X5MXeqsCMVmIYv
+         Za79hAeh1NeJmDlCqaGo8wCd2EdswfqWUwrXH4+pxbUG3u1MGAduayGdfH3uUrZKg2FG
+         eri6QEgtNhdn53F3TkjFc1eyvmQSMpWYENciLq1Xsp6jUql6lXYYI0BBLIWwe3DleuAP
+         Gnl0sybHD7FswrWEWSln9OeTt7tTQs+RyhYAc6FCxYbGnZJZKGP3TlK3uV0H5AyQZyiV
+         9+1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793320084; x=1793924884;
-        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1793320094; x=1793924894;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ux1Gd4wJ4i6CbO5kAuUr+fRClS71fFbOF44xw5i7O6M=;
-        b=S0SBmzONWGvrc2mqRI+jF5QfkbBrjSmju3SK/yp0OqZjuTHnlwOPWOBAad9L9tH2G3
-         dYonMo81hfO+dbtYc6DtW+BZ51rX8Uy95UcVtvD24fVRqsgpI9DciybjzhWjFFsMpFmF
-         Sw6HPtd19tBIZcF44L8vtGzEeDCs7Vc70UcJEFRemT/rnYYBJwzaaGoZgN7G4LFy77lW
-         SUMiNCycUk4YEsKeaLY/PkKe4b2py3+v5okiPicxLMXcObb8ojCqrmFTnsBwhMsxd6Ki
-         +xFqDKGTD1qDWwsz7VOxOWWdyMNUar6hLwwaN8SWhVdrWKzo+FYiAkw2ptN60gDxHi4k
-         QPGA==
-X-Forwarded-Encrypted: i=1; AKwUvBzvkd3qV7RZ58ggyF2+dc/9xVXoz9o6ECkEizP/lYQPDCuWbJE3IoxGy38SXqAzIIQUJru/aNCeWRybLA0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxwnUvf6h9v6BRXulGGt5NafBrbJ4uLMgPp/NmsWonpQK5G+Aa
-	f7cXJ0d/Wlj1R8GAC1eZb5vONR+b/Ml85nGW4jZG+NCuwCo4zkig2emg
-X-Gm-Gg: AYBFou3ChitIvYJ0Ki8VN8mTMXjjBQ1rsk6mYKqLzqAmi7+yBeSM31Jo22Nci1OTSr1
-	zwtzKwFv3MY1csPRgGZrEWaZpUdn6NCUwfUKWcaZ4v2b7rYd0nxsYhe3V2eNJHXjwQkz4eOkziL
-	MC/wgtXI+0RLx/LUZLxLWXF0VK/QXxrywmBqrfx2Awh7IZn2ev9xl4WzWmgLJaleYAHMHnK+tGE
-	TKp1eWrvBjbmfgWEkzAnFTiY80RaXwncBuD+MWocci3wEI2Dg0vkkewqr/NryMMKDWS8xhPOcaw
-	dM34zj0zfwCMsnN2BHzys+iFe0avUv/ZCivbTahHtU9x0uqMa3d/nMeQ8euKVFV4LfHSydRSLEw
-	R/g8ndC0cSII+2as2FsE4KaE2heAkobgHnzi9fUxy/6PN7nZPPVvDWh8hugl7cN5h4KrItSDQ02
-	SF/USNF4BuABVO3Aj03yPCHV4TgQ0UHdRM2TQiZp8EYBbFP9AVLt0tzjG9JxYbEOyCCYFprVBBU
-	QlqOqig4IAXLCai1hRAe9hS7ZJJUkvJD86d0Y3Hly0XMf1Z0nfmg98HOTN/0Av5lLrNxT0y+Sal
-	dfsN8BNn2cLBxfrU4x0ffLwKv6pUW0KzoG2a9oxg+NiQJ9+V
-X-Received: by 2002:a05:7300:d20f:b0:353:5d7a:cabe with SMTP id 5a478bee46e88-36a3002ea6amr5283586eec.13.1793320083521;
-        Thu, 29 Oct 2026 17:28:03 -0700 (PDT)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1easm1883940eec.5.2026.10.29.17.27.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 17:28:02 -0700 (PDT)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: Muchun Song <songmuchun@bytedance.com>, Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, Jonathan Corbet <corbet@lwn.net>
-Cc: Muchun Song <muchun.song@linux.dev>, Lance Yang <lance.yang@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Shrikanth Hegde <sshegde@linux.ibm.com>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Qi Zheng <qi.zheng@linux.dev>, linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, Muchun Song <songmuchun@bytedance.com>
-Subject: Re: [PATCH 2/4] powerpc/mm: map shared vmemmap tail pages as read-only
-In-Reply-To: <20261019090830.1917657-3-songmuchun@bytedance.com>
-Date: Fri, 30 Oct 2026 05:56:16 +0530
-Message-ID: <fqxovxsn.ritesh.list@gmail.com>
-References: <20261019090830.1917657-1-songmuchun@bytedance.com> <20261019090830.1917657-3-songmuchun@bytedance.com>
+        bh=brgLj6lJ9qrzkbEmy6aUespMxR1HwV6CvzIg1+zIkpE=;
+        b=hvuAMgAchSueH3Xn1Dd7GUyu4crZ7jlRVoY2h8A7Z8Yc9QJGwGDQpmyVibyLEUe2La
+         jw9W7NFmmtWcspuYvetU8fQ1Ayqhd8hSZcktneJiMVQdsRS7tRgp9WXlNMFVS6ogr1NM
+         S8S1h/JhhyTIsqiGnoCxgyXA+Zv9db3DlKKcOdZNaXuw+CcE/GhQd4ipGLIzwUkusgVB
+         v/s25JYgdQ9PQiReUjTBeqQ20OFk/GTwvPl3e6m2KSX+7PfXmLCdwFzmP51hye0frHdE
+         NFXdgYsh/DvY+wYXGygl9B96MiEQhGz15cH9m0a8KDF+CUVxTDN2VZZ01XP3Or42nPET
+         LeQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBynOlPitzodYbcAknJuxGwxZCF1Iz+X8WSII8OpXfi1SMHQ4YB37CCGz8geznA/we1QIxtgMr3RwRPacCE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7I8qWuKI/aXtxpuCbCLYf0IqhjuI4I2L9ePrrsKgO96hQSf9r
+	3X+Ct4+RepnoAQ2C++pcmQ+WASJ+YS2Xd3EV1OTaEZnmDk8ECgj6TVuP+PCI0E3GZxCtlojb4y2
+	AJaEGPfsTYV+SZW9gTDydNAoMLbpz8+iWaM5FCPex
+X-Gm-Gg: AYBFou2ZEVNaCAC3vfm3j8LZ+ns4LALLkeea3F0Xt9FyCZgN0WXKw1DV4yo1y32XhfS
+	7qwMI9Ikqs/I6thpqajqyiPXgwdG52Y2TbSPTnRc/NyVvsjmt2WMx/ZztvJmzSvK+sXk7Y5yhmY
+	wxm63P2GGFu5bctNbVE2XIzCjd4cB5KvOvn0Z2hOrTJKruQl9IuUUSJz4QUs1l+8syKb2yREFL+
+	1Ci9F9pgMlTofvQ9b8Vu8XFpWc+7j6bUoVEnuCr0KUAjO36swZadvnSGS9end/RHXq0PvQBw+J3
+	2TSZHxj5OyD571OcOYQmQXngTkeGSV0qm5arrIK9izkGGZWLCPtdsQ7XKr6p3jOJpnHWW/Zg+bO
+	yz5+A7WCQS+y0ig/pqRmxH7+63hWJBojSvacmo72skAVgF6JRn+G117Lq2bnzAKnK9OIxdPw=
+X-Received: by 2002:a17:906:730f:b0:c49:a849:cb90 with SMTP id
+ a640c23a62f3a-c4ca7a9b33bmr56944566b.39.1793320093443; Thu, 29 Oct 2026
+ 17:28:13 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,23 +103,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+References: <20261023001603.560210-8-wusamuel@google.com> <20261023001603.560210-9-wusamuel@google.com>
+ <20261028134012.01d52e94@pumpkin> <CAG2KctpGPHo-S3AEvBhK5HPUnDHfoJu6Z-r+cS1hQ4Ps=B3DmQ@mail.gmail.com>
+ <CAEf4BzYT4rvKwbOJ6UQ3zcp4wdsSBqRsMz-2=U1DA2RyUA3XSg@mail.gmail.com>
+In-Reply-To: <CAEf4BzYT4rvKwbOJ6UQ3zcp4wdsSBqRsMz-2=U1DA2RyUA3XSg@mail.gmail.com>
+From: Samuel Wu <wusamuel@google.com>
+Date: Thu, 29 Oct 2026 17:28:01 -0700
+X-Gm-Features: AclHuK9TILtLrldY6faAGXZBT-kc2c2frEEMYWdaANb8mW26TierZlqcroORRGk
+Message-ID: <CAG2KctrwzWGFRs6CZcSRaFOWx49WbH9LQVQJunWsPD3MOXn_iw@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: David Laight <david.laight.linux@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Muchun Song <songmuchun@bytedance.com> writes:
-
-> PowerPC radix uses an architecture-specific vmemmap population path for
-> shared tail mappings, so it does not inherit the read-only protection added
-> to the common path.
+On Thu, Oct 29, 2026 at 3:16=E2=80=AFPM Andrii Nakryiko
+<andrii.nakryiko@gmail.com> wrote:
 >
-> Protect these mappings as well so illegal writes fault instead of
-> corrupting metadata shared by multiple tail pages.
+> On Thu, Oct 29, 2026 at 3:06=E2=80=AFPM Samuel Wu <wusamuel@google.com> w=
+rote:
+> >
+> > BY_NAME matches names exactly, like kallsyms_lookup_name(), so they
+> > would be different symbols at different addresses. Please correct me
+> > if I'm missing something here!
+> >
 >
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
->  arch/powerpc/mm/book3s64/radix_pgtable.c | 3 +++
->  1 file changed, 3 insertions(+)
+> foo and foo.constprop0 are different functions with different
+> arguments, so I think we should distinguish them. The only special
+> case is .llvm.<hash> because that suffix is added by compiler for LTO
+> and I don't think the function itself is any different from the
+> original
 
-Looks good to me. Thanks for taking care of powerpc path as well.
-Feel free to add:
+[...]
 
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> I do think it would be good to spend a bit of thought on how to
+> support at least one-by-one pagination from the get go. The same
+> mechanism can then be used by batch version. I.e., think what can we
+> use to provide data back to user which they can use to continue search
+> after the symbol we just returned (at least for fixed set of symbols
+> in vmlinux and modules; we also have dynamic symbols added for [bpf]
+> "module", etc, we should support those as much as possible with the
+> least possible deviation, IMO)
 
+Let me sit on this a bit and figure out how to distill all of this
+into a clean interface. I'll keep the .llvm.<hash>, pagination, and
+batching in mind for the design.
+
+[...]
+
+> user code can be easily written by always setting buffer size, even if
+> kallsyms_query is reused. This is the pattern with PROCMAP_QUERY,
+> let's keep it consistent.
+
+Ack, will have size in the struct for v3.
+
+> also, returning actual size even if buffer is too short is a good way
+> for user space to "probe" and increase buffer if necessary. unless it
+> adds tons of complexity, this is a good and flexible UAPI
+
+Ack.
