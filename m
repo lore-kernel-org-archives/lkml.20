@@ -1,79 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793398128;
-	b=hIk06vKeOlN30C6SuPAp1bD092V+5rwi9w2MiK/BoVNw8lMQzHN/IJ8Jk+wy5uW9Ywbq
-	 2ZDTGfh7eIDMNrk6s1DY8UDF1UNp2rWfmR9TytkOv2uSduMEqyKkSnowtJCsEvx0cEXAo
-	 An+vwsi592buUcSvg1x+lciqNbNL8vyUDMMuiQ4owcMJL57F/Y2oeU+vOKi22m01GFTWg
-	 LJOS7G0msh4ya0YH1RunPtFgOTlYve6BRUanvtN3uBNaNgNGv1T+uduBZ+qtUvrKkTLFq
-	 /tKtaV+tyeFpLWenFQcVd7k64PB7oIO8ghl2F0AYeNrHQgkEF/IFOEuq4kMBR/UM6qw==
+	t=1793398132;
+	b=MYHNvaCLDkMzQSJqifrSNrtTzKIHUJR+zur/wy64qv2cFaYaVF1qT0/2/LoneptXs7SE
+	 CKgBZsxwMGHi8qi0dONK/Xyq60JffJX/5kXepfynQDHw2KzVIk9Kp3jc0eXaKZyoZm3+k
+	 sgk07BKPMVKQ5zu94+dIncwrR6Yjsc4F2/ui6F+Vf2Qo5+2o9/pgpfbKBt2E7rRryYocS
+	 P5GAoFRiTdPjEuHpKeVLKf0Fg+rt9O4/WxAaxBwLAQIHa83n/Jf7Np/pvCXmxtvWBhWnp
+	 tJnxbu6WRoz1ooEVHqCc1LvVk6VfRv8lJozTe6NMdQ5AAVdl7+0bZjMCI8oBbZNSIlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793398128;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 CC:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Originating-IP:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version;
-	bh=IICohW+gXVTtyus0Zx3MeKtRFKP0xbPml/xUyCDOv9s=;
-	b=n1mMHCREfJu9P5Sx/o/W1t1lD8xSGL1Wn0g0H49lKnkagMkrPBvmKrZP7iYIkCYHdJH9
-	 KsQ4b2g3lGGW96WhcMrnnTtxXIjz50bWXurUPbUCw30wVcT6xAVw1QZVb6JC0lOAWIQay
-	 dGYnE7adOIe7y8y4wnw9QPbbOB0EiB14cOn/twLI9hfkP2E1DRaO1OI4LmlemproS2e3H
-	 GpLiRBhgpaYsRyVF3V0rzAeRAknEEwBVRlpF/Q62QBubzKJksLmn9YEindLBPDTZmjEcq
-	 MlFNGIGhgF0d70e0spi6Zo9IjRQMBUx4ig9m/icjvZRpc46CPd2X24WnSeN6ga9Ke9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793398132;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=5Y4WIvJDYTWJv68p7KaCr9/OdFM6n4ms38ALF2iW0Oc=;
+	b=C77AMZR2T5uNFtNCUBTVRSSKOTT83M8O2ohuimlezrZGwf1TfASvYjIiX1pnhAxO1eZo
+	 Rrv34xcbiX8NZTGUxZm1Cq2UY7eLGNDbe38jZFbuDqx/H/WyvTHreJcWTcJ1Ao+OKbSCF
+	 C48VsXb1YbKW4PDcSAxC5XM1Xo8OLWs9IJTaRw+mIPEj8Kc8W/H/epCkRyzx6Vn0ZMcHi
+	 dvLDm/cc6hxE1y4VGDUk855HZg9Va0mhSK+dK9OpDamZ+mT7JL6Aesg577nOX8gQHi9dU
+	 YOeiMOMEbBd6q9r4hlF7jXb8zyWZ+Rp+rDGiJd5kTwSIPIrb7x/4uSM+qXYracnNSkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=VNaMJH8W;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WGqc7XOc;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3463A606A32C;
-	Fri, 30 Oct 2026 22:08:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3463A606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2280B606A32A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:08:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2280B606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=VNaMJH8W
-Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69ULuIu63232843;
-	Fri, 30 Oct 2026 15:08:41 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pps82601-s2048-2026-q3; bh=IICohW+gXVT
-	tyus0Zx3MeKtRFKP0xbPml/xUyCDOv9s=; b=VNaMJH8W1qAXMgaK9QFqxOnGKfV
-	KRbHYwrd92+9z5CesSdl54DmSlguoQJKICFhLsbM2F5omxvdYGVT9MOoQKt9veEJ
-	yKrUeW3/Q7cwsTidwGG2X4xzkyoPOg1Oq7A6EGS3drqoY990Kn7wu7HqG9PANsbE
-	0dc3yLp+5i9NPnvK0bHbZN6+a7FKWSsfFdG17gs1pINX9DYQBQVN1RfVE6fELtca
-	DuLtO8TS/Jx+pGl6GqAcU7hfEwMsLE+tCCAErEFagTCMfuzyHD42n5alUTWbMeLU
-	j+BdMJ1wDRDTvRCOgFmn4uRz8lU/GomY5cfxc0YcZpzJYsVSaZPX2e2ByeA==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hn2wd8avy-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Fri, 30 Oct 2026 15:08:41 -0700 (PDT)
-Received: from localhost (2620:10d:c0a8:1b::2d) by mail.thefacebook.com
- (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Fri, 30 Oct
- 2026 22:08:40 +0000
-Date: Fri, 30 Oct 2026 15:08:39 -0700
-From: Bobby Eshleman <bobbyeshleman@meta.com>
-To: <phind.uet@gmail.com>
-CC: Stefano Garzarella <sgarzare@redhat.com>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman
-	<horms@kernel.org>,
-        George Zhang <georgezhang@vmware.com>, Andy King
-	<acking@vmware.com>,
-        Dmitry Torokhov <dtor@vmware.com>, <virtualization@lists.linux.dev>,
-        <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] vsock: reject negative tv_usec in
- SO_VM_SOCKETS_CONNECT_TIMEOUT
-Message-ID: <auUVZ67KRrDLUF45@devvm29614.prn0.facebook.com>
-References: <20261030064428.73930-1-phind.uet@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WGqc7XOc
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so11035785e9.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:08:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793398122; x=1794002922; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5Y4WIvJDYTWJv68p7KaCr9/OdFM6n4ms38ALF2iW0Oc=;
+        b=WGqc7XOc0E0qsd7/OwyF5TfYzrtkzudDHUIXfC3R5ZKXfviFMHazCARavIbMHu3OJD
+         dFYAEoZPEsvtJcOjXNojB7QboDiA+WpiEoupeKNXCCVhruOfzLjSa4I9oT19O4MjV+Pg
+         n0tT8YtK6Oc0j7j/Ba2usYKcEH9wGgtSFxyF3SgwtD2C0jQ0N1xy4q9m2Am/oyWBUZXh
+         pyRvI5K2PNYmYMTMIteM6qt3R+y0Zbl5Gqak0Ao59FfwZH4w9+EBy9K2y1RFsISXJiun
+         LN36Y9UJY2Y288iNhvHKaRj6CT7OSHGr5wWC6ElCAlfCTPgFfjmhaWx5P01l5e5ZKvsJ
+         jjeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793398122; x=1794002922;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5Y4WIvJDYTWJv68p7KaCr9/OdFM6n4ms38ALF2iW0Oc=;
+        b=jMNNw75UKDv/LoXqA6/h5OaJH/FKDkjzESsOMqB4lOBMenCCk1+nQQTpRhHwBQQF+s
+         54wgyNCZXNCovyrV7F3esScpA+BZrB1B9SpgAAkCBdI2IgoMToKprKcS1rImRaszIpz+
+         vqZLIhFoFQrHh66jGy7CQ5UoF8U4Kmh7Uz2Ix3h7DgUS7qedR4DW2PLatbHbvxCtoCV/
+         3mU6X+5HGYp48pJqBlN/0uDEuFP8o0jZRFaFGxwsf+HQDXi1n10A/03x/2fQbkgxIkbT
+         m1WXKlmmCzan28VUDi3Bf4ZL58MFYoJNLAeO2+qUMuwbzRYlSIIfIGxrCiHn6hiymEHr
+         IAfA==
+X-Forwarded-Encrypted: i=1; AKwUvBylBF37VMkKahAZo9oW5e6h2FK1ftwBPaD57zGlrOxCx0x9tRBqN8DpvvGuIy+F98V3I/aBJNM0WTf9c78=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQc+/OmZHbAmbWXoInAbxYKabfVdrM4wW9mtBN21xLW1Oprz0U
+	uu9XTX4xw2WiGVkuo40T8Fmg6G1pRyyuQtrOFHzvPY7LTgR63X1Y4cVagGjsbXrx
+X-Gm-Gg: AYBFou3eh9bEgM+Rgw/Qkdk0TtzayTA2eGC8VHgJ/W4esyLb93Ovdnni6QUDY5/uxtp
+	50HjuJ0iM7KA1MxzGfWzdurLPf1+JX2g3p/cyHnm7uRhgAARN5bzCg3vfEE2PQUGLmPECCYeyVa
+	LyMSwwRd87LjxXnnjs9AfNqMtQOpV7Jdnl4kAP1xBwlMe31nAJCKs/QjHb0UOeQNXGponjaJtHu
+	EUVTcPQVQAnP4TgOKFSFo7iet3ZgBhgHBw+71sFvfoRcJNW0U/ioSre/34tLhNgHR3Y8iX4jZ35
+	XrbgZ3Q5alJLla+gYwhxYNGOrf81vEGGj1UsXj1gFpsQzL5bE+FJAAuCeuHag3FWWflk2KeXRcn
+	c7ug90B016PebcgK87bcmfxzRC1UiZf2sIj2jrYdlcvpufE4swKKc5fqmrtVD2u0pjEQC5Spo3a
+	680HVct0juO9ZAlielvsRZwPkzMsLDrPc5FBi8WBtE4x27OOPXW7svXpq/9sGYSD5jnFS9SH3C9
+	RZS8s2chwaGwUukYW/bqajcmbpnRfz3sish4S93X1gUhV1R16zySvrQtk6NQfhnvwEHmZi4fltj
+	1w0dW2XYPdw1TWhSJQHPw8G5R4FETcxjgWiIJBcw4yPVnpt1QwmUs5j0gUJ6aROGiJIj4d+e7gi
+	NjRHYmUZi/oVVy9l2xUTmYQOiabgZexoCO8srSvLeTESE+UuFazxh9+U5Uw==
+X-Received: by 2002:a05:600c:474f:b0:4a1:f8cb:7d70 with SMTP id 5b1f17b1804b1-4ac1793ed87mr83381555e9.24.1793398122427;
+        Fri, 30 Oct 2026 15:08:42 -0700 (PDT)
+Received: from u1804.home.lan (152-43.dsl.iskon.hr. [89.164.152.43])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe7706516sm56230305e9.0.2026.10.30.15.08.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 15:08:42 -0700 (PDT)
+From: Goran Sustek <gsustek@gmail.com>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH ath-next 3/3] wifi: ath12k: name direct buffer ring modules 2 and 3
+Date: Fri, 30 Oct 2026 23:08:24 +0100
+Message-ID: <20261030220824.915760-4-gsustek@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030220824.915760-1-gsustek@gmail.com>
+References: <20261030220824.915760-1-gsustek@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,63 +99,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261030064428.73930-1-phind.uet@gmail.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA4OCBTYWx0ZWRfXw0MuiDwjz0Em
- krBRGsa3nTSm1kW+UAGL7bTZzIjswi/bXtO5JB39aPVjzr5rM4QwzRpx0hmYL049gOTcV0cqo24
- h3h6NmKV9ne8+vuNRyfQD3xd0Wib8C8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA4OCBTYWx0ZWRfX5XlPcq/AhTfp
- LqgTIbPtHMrXuVbks5Txu4lsosGvte0EYTz2EzznVsQOMfHo2pfOdLvIzl1QeoMWIdYw8jImaPr
- gDozDyp1qASdlWbG9ZHbsWpPPRGmTWu2Q2Y+wUam4vzViyu8rLk/S1KYtL8WrmkCoLUlw/QNDVK
- CSc+uZ92OV23h9vnHn43c2u7iBHav1GqGQeliFLu2d474ODLdC7NR/Y5J2s4EmewsabCptiq+Py
- jIxElougHKc6uaknh4DC4mNEvOLXlCA1qph3/q1d9xroz0omgEfsSDGkFo7JzmIyUEHZ0h4uOp6
- 52fqCbfqB7WUUYnmYBSlGzXMX9acRf0+lLdsQPNRuh1ZJ8lq7QDSSomA04la4qiLhzP+DkguTbb
- sT1AJl6LG/gUfljfDNgD/JqbReCc+POdryNB2bKXKQg0qMzqx+jDpzRdR5oplPtBO0UTdg7ZH84
- sEZXmmDXGOvHWp77fmw==
-X-Authority-Analysis: v=2.4 cv=V9joQuni c=1 sm=1 tr=0 ts=6ae51569 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=7x6HtfJdh03M6CCDgxCd:22 a=8elwO82fXORLTBIkMd32:22 a=pGLkceISAAAA:8
- a=zogz89TECfafHexjI6IA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-ORIG-GUID: ZkVbhWJaWa3dwnSBsflV5sQnJr0JF7Sk
-X-Proofpoint-GUID: ZkVbhWJaWa3dwnSBsflV5sQnJr0JF7Sk
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_07,2026-10-21_02,2025-10-01_01
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 02:43:50PM +0800, phind.uet@gmail.com wrote:
-> From: Nguyen Dinh Phi <phind.uet@gmail.com>
-> 
-> The timeval validation checks tv_usec < USEC_PER_SEC but not
-> tv_usec >= 0, so a negative tv_usec makes the timeout computation
-> wrap into a bogus value, later tripping "schedule_timeout: wrong
-> timeout value" instead of being rejected.
+Qualcomm's WMI interface definition (WMI_DMA_RING_SUPPORTED_MODULE in
+fw-api wmi_unified.h) lists direct buffer ring module 2 as CV upload
+and module 3 as Wi-Fi radar. QCN9274 firmware WLAN.WBE.1.6-01243
+advertises module 2.
 
-BTW, this does need the 'net' prefix.
+Add both to enum wmi_direct_buffer_module so their capabilities are
+kept instead of skipped. No ring is set up for them; that needs the
+features themselves.
 
-> 
-> Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
-> 
-> Signed-off-by: Nguyen Dinh Phi <phind.uet@gmail.com>
-> ---
->  net/vmw_vsock/af_vsock.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
-> index d0508887a2fb..1d7d53542724 100644
-> --- a/net/vmw_vsock/af_vsock.c
-> +++ b/net/vmw_vsock/af_vsock.c
-> @@ -2156,7 +2156,8 @@ static int vsock_connectible_setsockopt(struct socket *sock,
->  					     optname == SO_VM_SOCKETS_CONNECT_TIMEOUT_OLD);
->  		if (err)
->  			break;
-> -		if (tv.tv_sec >= 0 && tv.tv_usec < USEC_PER_SEC &&
-> +		if (tv.tv_sec >= 0 && tv.tv_usec >= 0 &&
-> +		    tv.tv_usec < USEC_PER_SEC &&
->  		    tv.tv_sec < (MAX_SCHEDULE_TIMEOUT / HZ - 1)) {
->  			vsk->connect_timeout = tv.tv_sec * HZ +
->  				DIV_ROUND_UP((unsigned long)tv.tv_usec, (USEC_PER_SEC / HZ));
-> -- 
-> 2.43.0
-> 
+Tested as part of the series.
+
+Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
+Signed-off-by: Goran Sustek <gsustek@gmail.com>
+---
+ drivers/net/wireless/ath/ath12k/wmi.h |    2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/net/wireless/ath/ath12k/wmi.h b/drivers/net/wireless/ath/ath12k/wmi.h
+index b508aa759bd8..9444a1f29813 100644
+--- a/drivers/net/wireless/ath/ath12k/wmi.h
++++ b/drivers/net/wireless/ath/ath12k/wmi.h
+@@ -2378,6 +2378,8 @@ enum wmi_beacon_gen_mode {
+ enum wmi_direct_buffer_module {
+ 	WMI_DIRECT_BUF_SPECTRAL = 0,
+ 	WMI_DIRECT_BUF_CFR = 1,
++	WMI_DIRECT_BUF_CV_UPLOAD = 2,
++	WMI_DIRECT_BUF_WIFI_RADAR = 3,
+ 
+ 	/* keep it last */
+ 	WMI_DIRECT_BUF_MAX
+--
+2.47.0
