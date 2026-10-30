@@ -1,101 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793331935;
-	b=YYn6E+e2afI/dyalNoOCJarkqqOQvHgK6fiU3HnONPRV+YINgJh7Ee6dAEIFO/pUT+x8
-	 HrcJ5NqYKi+O3l9VQ7r9qo2C5/2hJUh9qh9EbriPn4qcMwjhszZMvAMeV/IgAQHlxu3EO
-	 kog3xAlWvyrFtdKx4QpgmcdPUaYrDZr0tfPY5Y3E7lTi9WrnQuj5v+6qGR2cxuYZDsPYD
-	 jYN2JLK4EvsIwS6T3ZKXlEg4V43LuuaLakBbBnEAARuQauomqmzlNkg232D46Yy7aUCfa
-	 wFuzNOfxbpbhsUG7XcFUu7xskJCNMXUWS6onCysk4uX18Exau8X9Vcc7xOevtTLNl6w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793331935;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 CC:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=IikUAO8lSmNSAkvhUkTrh9Ju9HI1G1d2+VF79RdPZh4=;
-	b=LmJIoX5qDDrge23YzY03s69gt20+Uof3Q8IeVuqeh7eafvLFc5o2uiP5j7DiuaeHgwcE
-	 9+ZvGUDuKlLZR8eLRoWNafcqa7j0+T8vezEsDuPhfQSwdzKh3mub/pBpTOpCsvDMD6Opx
-	 LoIoTqn5dRXFZ5j9YoWaN2ATpxVNSoxq5egQfBlE61ZTnpEDcAuhloGy1EZcE9Vca8BOS
-	 zcOCB8DnTfLOn9w1rb9I2L/CBUHozZchNbG+UtxrQI7+dJjyk4WFuAicTg8dnXzkMA76S
-	 PSVHB5d7t19R9tZIvlRZ7GnvoFBK/zDyAh31WIaDTPj0KIKfJcRv8IuiwNNE+DhhWGQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=h9yowQd5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.52
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010052.outbound.protection.outlook.com [52.101.61.52])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793331949;
+	b=DN/S2hbJ4+IXi7xgSyuW4AuT777W4aoEjeccvsI9DX93NH39OqJcp6D/VyBVBCXaYAmB
+	 vOg0UXH/ZDOuZ3KHsHU+x0aFALWMTkz8WnfM0Ga5aY8An7enaDNktmyAFpDEHdVPSNUyA
+	 M8CDAZcZqjLrTYfzPoIil7S44ZAH62AV+1rSYp0RLQYvzp9zapIjzQB+toOBnGaU1xWRO
+	 54BSwZ+SqXD0JtNy3HH3CjNH7M2eVYESrVyPCRBV6Gi6mESB13pgcnKNxWwkODqWrZEzc
+	 3z+bjxXIGUxK3dipo1W/8HmgedPQdWhopDrHeGrSSrhKZ7cXqEk49T+Mb+UjqGZ3oHA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793331949;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=qgQm7ashLUnSOdoquZ1ErioZR99PXf0f4V9MA38eZSA=;
+	b=E6oX6dmDxFfpCypJ5t+BNWT4rpAu442LB0m6krF+WpAuKgeizSpz6m7XGuO6FhlQk4M2
+	 oN+UUoSm7RvWVmPArMP5inuo8Ca1017uWvp0hfWcch18R7JKg6lCZ3ox8/IqSyQb23gmD
+	 G8oEA6jDYWNDuRo//yrnNlfK7vJ4uqhJ6hk03lB7Wlp6aNXDep7vvjjduaRPFps9mnMtO
+	 L+bIOZ8RRWUXabpwJ4Mqamb7vetYJLg3f/Sc2wTWw7Il2V3RqNlPgZEWRFwu3YRdymQ3U
+	 SocLrI4Uo/i763m73kAnJBuUGGgsUuKuBYVwxR6WGLjzBUhH5hxnTwUCzO3Go7BSF1A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VuzlyWyo;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 648AC606A322;
-	Fri, 30 Oct 2026 03:45:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 648AC606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6495C606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:45:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6495C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=h9yowQd5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wZC6iE4zn/trnSrz8oDKWUMrNxhkpYVnkJ2IYYclzNUV4WGUUeGzgRF2dP8aXW25RjmhWtjFtIW9aGudSKBgXeNDjoyyElD2937hbe5MQOjkClD/J+NJxfCL0UuxeRd6u82h6u+yJXduVAiclaA0Yx8VdgJEK0jaM2vpYxmjjBMfr61HGXu1p2djc6QduVWpszE49QdMRK33KACl9XssrMrubIRVs9meM1WpgHP3tlXOZllQ8cCMUFFEMlahQaRG40pD78R0Mj2JPkOvaGshGkfq0RjC88n+m9PFbq3EnnUuxzTkEt5spViNGEcUg7K9Js50k0TMFNvjFHiodNfDTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IikUAO8lSmNSAkvhUkTrh9Ju9HI1G1d2+VF79RdPZh4=;
- b=ghiRmtpVejJsLUwmoFJiAXlZ09lxRlL6DLlyKlxYDeBqbeopcGZIzwEIg4yYHZVAkpjrT0V3XSw32SSwZB8jLkpOO6BnvTfLytvkUykVYNOFTLZOXO5EJQSiUAIHI5fIPN18mPMDGYcVoTWcnTKEhQ9s7UAD6eV8WsXcd7YOdpZYg27uz0irOoy4RQZR04b+SG+xxrJQkwFiZ0w4knWeiDiy+z1kfHMd7RavGiZDA+4U7AwNAdtMujrv5ybbQX2pz7H9DwUbSX6oGCZ0d7qWrrQ7slclJBBN7v8eSAxru0uLheHCMiWmzrQE42xfa3emhriNQ0FdOoAL+WOzYXT+Dg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=bytedance.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IikUAO8lSmNSAkvhUkTrh9Ju9HI1G1d2+VF79RdPZh4=;
- b=h9yowQd5RFO57r3Y1TK82DNALJkPb+BXstHYz/RhhD97ccO9ktaLFOMukJ3kcAKFRlG53my2TQS9Q/AzC0t8HrIRTCxMZ1c7rUqgOncPk+dH0pU+qKed5aysZeXOWxyjzkwbMh1GlZkaaMhrTwIDgBsEiWkVUfouTvjOEpXFURY=
-Received: from BY5PR04CA0027.namprd04.prod.outlook.com (2603:10b6:a03:1d0::37)
- by BL4PR12MB9507.namprd12.prod.outlook.com (2603:10b6:208:58d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 03:45:05 +0000
-Received: from SJ1PEPF0000231A.namprd03.prod.outlook.com
- (2603:10b6:a03:1d0:cafe::30) by BY5PR04CA0027.outlook.office365.com
- (2603:10b6:a03:1d0::37) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.8 via Frontend Transport; Fri, 30
- Oct 2026 03:45:04 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF0000231A.mail.protection.outlook.com (10.167.242.231) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Fri, 30 Oct 2026 03:45:04 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
- 2026 22:45:03 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 29 Oct
- 2026 22:45:03 -0500
-Received: from [10.136.40.60] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 29 Oct 2026 22:44:58 -0500
-Message-ID: <c9cf96bf-f3b1-47da-b22a-9600b5fb01be@amd.com>
-Date: Fri, 30 Oct 2026 09:14:57 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VuzlyWyo
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc502d509c0so63778a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:45:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793331949; x=1793936749; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qgQm7ashLUnSOdoquZ1ErioZR99PXf0f4V9MA38eZSA=;
+        b=VuzlyWyocAndgzMv8w2hgWlLmtgAvOiB08ElchtFaAuKPnZL4GK6rfeUqmtRgOceEk
+         2gHVhop/QldRJJ96sp48wm0/rJA2LAqhGgT8z2c+wehjCH5DBjRhxFms5ZjGDGcvASTE
+         FELTMTcPyVgR/6TWhkkpx34XDGrYDkliM3eePdK/M5vAELqp5B3/rUHD/JqNVkmUBVaw
+         y0hmNtuI4+roiIhczLEsK67GfInFP22t/cO0qHP5r9dQpU9NlB3TiGgnwbAfjkbSC8Um
+         XbpTtap0uvQebRPyp5hGiXUiRbPhVib9DtOzJPRU3o6DajrS9LQULbHCfvK/I0gVHE4k
+         +/JQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793331949; x=1793936749;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qgQm7ashLUnSOdoquZ1ErioZR99PXf0f4V9MA38eZSA=;
+        b=nQMTFMIgjP2Jp4lZrqxU/kHBSgUfeQ69EBw1DYXVigZnwk72zz0aFsuFhuHFnD5zbg
+         KJ/BZ+kBqzTk6zwaFdb5FA1hsjYoWIbE4v9oqcTzbFZKKUJfGcWZO7PMuUuMN1Yczdeg
+         oKnEuYOp9qPPWJDKyUjAV36ZRPh1oXOfJllJXe3MMYGRguvu5M/cMnnzOzHpM2WWeErN
+         5NKTkpZdGJuTfvqIb2oKN/+jLUdbI0P+D5AAqO2u2Kt5L07HGUp9YKiP2AfMtxAvlR0l
+         GaX0xojnPrL8nlahChxgtj+PLO5tOiwsQp/GsApv5KGg0s9Iv9bDQYmoPYgbRYfVmFGA
+         0NjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw0IwXwVrcqHI6RiOyp2UDY21Af6gcIZrrchg+ZhbhVFuXuincRn/U0afAZ6IxPZmpb8UkE27WfwVt1V1k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJh2ork5xcySzF5MTcvPyNxGMljUHpMu6mSqOO5b8RCLJu4bSKX
+	XP71x8GVz74RU5pfleu90025GYJl8xsx05NxYjYdUvAqkyuDiQcopnUe
+X-Gm-Gg: AYBFou3TsqDJCFt79Edblhxm5fuITTGaY9w4JXwefVRkEJ4fXnHLS8TpxqDVc63Vb+d
+	6FGWYU7uuFw4o793hn1WT5TWGFHVG4EmvOuk+MOlG7hE5lL4aEm8bQGPoXEG9XI/WjC/i6dPTD/
+	V8ukDGtgOrWxdHa+BOuosKcS3UDY5gtLpXWQ3ZusthrEJWQ3iN3VY96/YW/bUtlbiST3HoQchgt
+	DfzSUzlpVDbznDz2kvhS7UqiwBRKvjgODfxYOL1OT0plywuUfp3pw1wqI2xObyxg40yePjSWzFQ
+	aGdagMaN3V1VktnYCrCN88sCW5THU2+4pNJyNsGJeXph8yOR7xkTNe8fEc33KVNFJl0mwQ0UICV
+	r374wdxFJMPxVGQ9wH4QeVSN0W55jRo/QdcjnP6X/Wyq7xuSdmbTadm+D4EzHhguszCaYHOspRu
+	dC4MC4cZadRUAV2FCSEmIitss5ENbcMSueoklTiKEO3RkI0AGPKlPHogkuYIjvwwNjs3plESUYU
+	wzno+rivdyj6G3N8WuWuM5PNj3wt5wo2l7HLaWQXIyPZcbGpSIqvnZP7eQRHhXEWgQ6fdDFXYbm
+	cIl2UXk9MIHKN7El8CsQmObM64jlq3FJfXCS1pMkwuw=
+X-Received: by 2002:a17:90b:1d05:b0:3ac:80dc:f40b with SMTP id 98e67ed59e1d1-3ae897f55cfmr690403a91.33.1793331948698;
+        Thu, 29 Oct 2026 20:45:48 -0700 (PDT)
+Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845e71a7sm2023216a91.15.2026.10.29.20.45.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 20:45:48 -0700 (PDT)
+From: Daehyeon Ko <4ncienth@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched/autogroup: Fix task_group UAF during thread creation
+Date: Fri, 30 Oct 2026 12:45:34 +0900
+Message-ID: <20261030034540.2074077-1-4ncienth@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261026115707.GF2668200@noisy.programming.kicks-ass.net>
+References: <20261023013631.881730-1-4ncienth@gmail.com> <20261026115707.GF2668200@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,73 +101,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] sched/numa: make free-space tiering promotion
- bypass configurable
-To: Li Zhe <lizhe.67@bytedance.com>, <akpm@linux-foundation.org>,
-	<bsegall@google.com>, <david@kernel.org>, <dietmar.eggemann@arm.com>,
-	<gourry@gourry.net>, <joshua.hahnjy@gmail.com>, <juri.lelli@redhat.com>,
-	<kprateek.nayak@amd.com>, <ljs@kernel.org>, <mgorman@suse.de>,
-	<mingo@redhat.com>, <peterz@infradead.org>, <rostedt@goodmis.org>,
-	<vincent.guittot@linaro.org>, <vschneid@redhat.com>, <ziy@nvidia.com>
-CC: <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>
-References: <20261028041253.74839-1-lizhe.67@bytedance.com>
- <20261028041253.74839-2-lizhe.67@bytedance.com>
- <0676993f-c04c-4e4e-9f8d-1650c8fd6d6e@amd.com>
- <010b2b6c-8f1b-4c3b-913f-cc2e8b957759@bytedance.com>
- <a6bcd771-fcf7-4fe4-8c21-5e65bd579de7@amd.com>
- <1bab234e-8914-4694-b0aa-f265fa49c6d3@bytedance.com>
-Content-Language: en-US
-From: Bharata B Rao <bharata@amd.com>
-In-Reply-To: <1bab234e-8914-4694-b0aa-f265fa49c6d3@bytedance.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231A:EE_|BL4PR12MB9507:EE_
-X-MS-Office365-Filtering-Correlation-Id: 306498a5-3563-4331-8617-08df36382ee0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|36860700016|82310400026|921020|4143699003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261021123027099003|261021121427099003|261022105027099003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	GdzPgUNKan1dEr+SsMKZvP4L1DAy+brnTdNfyIuXAzv2lMsnjFqInjDQJosTKH7E8dvxaunECqK9AxIJgSbDv7Z60qt296RRYwqBnVh6wsWPLH1sOQqkfR8HjscysamM30mrnXo7gQeRZMctj7XEaHOVk0vqYyY57o3mIuqaF8hHEb7vBpsuqexM4KiYuzLUTXS6H7MFbTskI3kZuOYocHp34r1Fs6HXZw20LpSsEInitFKbqytXFnRghbsVA+wPw0vFO8a7hg0Y0M0EEWoPj0fTFjNAneVcO/M4QWFun+OaXaAC9zqx/9iJo20Lb8hPgXWCjv4hCj86Zy2GPJe1JNTemIobz+VlpnWyKdKUfaF5Li1TGOGLPx2vgzDkOWxJnXE71v9PaWII3hS0zcMOKYcTgNYXSH0eIhOTHdslfiGiS5sn4Ral68w2FRvQZFmnfYujJ8jfGFlPB7w+svXn4uNAXxA0h8OQSG81D16xejYRGEweOKGBxZa3AdEFfi+i2WctkLJ1CMcrt+QKY/WDgtxPXeSeJD7HKJ/OeQNrGYaDGfsGXKR4aknAkUy5oBwwrjeQmmXK+FDwhWCGBxFGFrMWwRJbnG1JjasGIYEuuJyKeNqhLKu3DpCmkLVr2KiiYojGd46FVtaf7oluZDLxn1pbaUsZ74d14vFmREfCjzK0HNHEG3BJtRv496uK6kI0Z4PRleFsD//87zA7uA0yGeC9YCcxanGVnEO0ejOlIZiHzcEJDiqdhZmgky3AtVFo
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(36860700016)(82310400026)(921020)(4143699003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261021123027099003)(261021121427099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	iZjg/17YPA5A84SHf7aDRDN2/YVjvn04u2f6PkmtGTyO0QntStciLuNEd/VDlCSVcA4smx2FBh9UabTTYNYYxHsMMzymUOtjaJNp5MFuhpa/FVBgCPPNe3GWdFdFaFjdUYjfw8UdttKZts0kB9nwlpJwksqQNK8jc2wP5SbDrbC6c2BmcnBUDUXv7yegTFvPgHbTjirY1naK3lhR9FRYv4NmOmPQrmtKdKDitRYcA/p6LZV2J06jTT+5vHtPhCqxianwAfXD6mHQx49EldupyQHvNFNYlBsCE6ofhfjZlUeE6JGWJCP7ARLZrpUAizLEBR3nEh+fCo+flfzL4l8Zjuqy9VIWk8aLVLvllTjYYZO+68cYKZh4KbJkOZhshBtqWPS3SwUjyJOl2tvRKqBSAkS8v97kUcRo5F8lczUw/NVpYvw/+MmTs2TPUbYE7eb1
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 03:45:04.1161
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 306498a5-3563-4331-8617-08df36382ee0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF0000231A.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9507
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 29-Oct-26 5:03 PM, Li Zhe wrote:
-> Yes, the case I am trying to cover is closer to the non-overcommitted
-> case.  We do have deployments where memory is intentionally placed across
-> DRAM and CXL memory, instead of relying only on natural spillover from a
-> full top tier.
-> 
-> For example, the orchestration layer may want a cgroup to use a planned
-> DRAM/CXL ratio, so that DRAM capacity remains available for later
-> placement decisions or other workloads.
-> 
-> In such setups, the top tier can still have free space, but we may not
-> want short cold accesses to refill it simply because the free-space
-> bypass is available.  The intent of this patch is to let those
-> deployments keep using the existing hotness and rate-limit checks even
-> when there is top-tier headroom.
+On Mon, Oct 26, 2026 at 12:57:07PM +0100, Peter Zijlstra wrote:
+> I'm not sure this works; afaict this will result in a NULL deref
+> instead.
 
-Thanks for this information about the deployment model. This is a useful
-conclusion to reach.
+Thanks for taking a look.
 
-Regards,
-Bharata.
+The NULL previous cfs_rq should be handled by the existing set_task_rq()
+contract. __sched_fork() initializes p->se.cfs_rq to NULL, and the normal
+sched_cgroup_fork() path reaches set_task_rq() through __set_task_cpu().
+set_task_rq_fair() returns when prev is NULL, before
+cfs_rq_last_update_time(prev), and set_task_rq() then installs the new
+cfs_rq, parent, and depth.
+
+> Can't we make ksys_setsid() more complicated instead? Have it create the
+> autogroup in advance, move under the tasklist_lock and destroy on
+> failure or something?
+
+I don't think moving the autogroup move under tasklist_lock alone closes
+the window, because sched_cgroup_fork() runs before copy_process() takes
+tasklist_lock:
+
+  clone(CLONE_THREAD)              setsid()
+  -------------------              --------
+  sched_cgroup_fork() -> old tg
+                                    create new autogroup
+                                    lock(tasklist_lock)
+                                    move listed threads; child is absent
+                                    unlock(tasklist_lock)
+                                    drop old autogroup reference
+  lock(tasklist_lock)
+  publish child with old tg
+
+The ordering trace hit this pre-publication sequence seven times. The
+final revalidation is intended to cover precisely this interval.
+
+Am I missing another ordering which excludes this interleaving?
