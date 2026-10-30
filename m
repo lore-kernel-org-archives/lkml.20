@@ -1,98 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793347451;
-	b=VkKWCtn+1+zkDt7OItfFEycj3tCiyHmCovmjH6GffZbwjHQmXx0LXt1fuwSnmomVWUVU
-	 5oVcKRcuYktiAWJqEVuJhhrQ7X7Vz/6/+T0rpma8hbrq08/awLbQOMXQv8ns6h6wW7HJX
-	 QZJB5UWlrf0GhXUP/gO2jJ0n0Qan9rHEwWBrPc9TCPE9yK7TMXDLRYnjc5Ceu+ISys/5F
-	 ra5uABaIJZQmlZswGKeUkXzEy88Ek1IJUa+LDy3Aitl4B+KW/6G4pa1SLce3UAxIuMCSe
-	 wMp+Fd26kJewJSynziHpczhxhyGevDvofUd9qsi9eLq4Ku6YsdyRljrp8kSY9GK2X0Q==
+	t=1793347628;
+	b=t5PlhDdBSd7CYdBX3w74x3dgStv98YcgmBUzlx9jVDvdGg4O4G4lJllYIOUkOkXo5wog
+	 0KMkbPfqVXhOrz87J/BSEJGjApO9gwYt02uWaIvEMJt1PZs0NX/b3BbWcsdE8bUfNxrg+
+	 SeVjUkToBk9tQzWLMTocW8RFj+wPELJ+QCt+CHfnHYjRAVWCygB30J4X+jGkrlxvbvT4z
+	 0p6EY396YSIyPf/Wq5LBpcT5up56fO1PwQQdB/FV0XRbvUFKpchqGrLksGl+JHsETvuyS
+	 ilyb7xiDZIT2Bo66UlSo+tBXYa56l9dyD6RsY+YbeIYri2tQusGkPfNZVIdj1YdNtFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793347451;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=60r0/FILtbDSMoz4R6RLu8Lfo3Bak5PRq0PiVqNRm/g=;
-	b=BSe2pNDfqI8Gk9QKhZ1bVlKO3WO4X5Y2E41DcS2h2Cd3klkgSltzqMv1NtlUtb8ci1rS
-	 oORx4OUAQIDaPQRHLOjHoLnanlj7ca/Gr8HTHC8hmtolP3nFNq9zK57T1hmsYhYr+tC4G
-	 bWh+1b3qfb2//KPQGHawO0gL9687r3K9oPcF1oGZMFO4snY/aOnBTHmA6iyDLd7bXe94r
-	 iSlDOYD7aEoB5m80sq0UhTLnD2XI1QgZGRfe7UDxilYo1i/pCT9Ugejix326LvS5pEF1P
-	 AVnV64ps65FGrWEjamKTltjmOSOWNapVgf9/BBHpYCLM1Up+BCHrAEMuYKV5kuS389w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793347628;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=+v8siQbRKd/hqcz0jYUhtmBmjHu6PnjE9DNLi9cq2d0=;
+	b=zYqb5nCSbbMbtECy3tx4z2yrQ/HSlJS4MTYVVKgzXhBNv8ANFCqQDBIrLITMP1PeFTIR
+	 tz5MgYIYaml2Ylu1UpzJ4GGiQ249jgeUCYDkYG3teRjNtHnWc1LBDO8v+m2Kt84eVgEl8
+	 vXlMzlR5sfeoe99+b4Su0YgFE7WFaJ2Ix0WuBYGaVacwgVf4lfNMZMTKMvH20OlLizofK
+	 l+vt+86F+h8yqAKt58k44tG0r4uIj/8wstgf75jM76cBf0I60q1MF9O+9drNa4oiOtquM
+	 WwkryfKDEJCvY5TBJ6CX7dUatCytu211pWWj2KE6m5B/pRs21I/bv22x2Y+YcYRdCxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FCQ8wPfK;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=X04yed1E;
+	arc=none smtp.remote-ip=113.46.200.220
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8A5606A326
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:04:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A8A5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29623606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:07:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29623606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FCQ8wPfK
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ada8bc2380so164579a91.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:04:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793347450; x=1793952250; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=60r0/FILtbDSMoz4R6RLu8Lfo3Bak5PRq0PiVqNRm/g=;
-        b=FCQ8wPfKwiI8JOvjeuZmg01veGDbuKZQ/jUPRolC56qaoXCKR5RvQm450VzncTpF/S
-         YXMQYscZyl43WY8vCpluzP3lvL76Uf4ATXygJmD6aAMw3dkY0lGi0D6EM3SYI63Sklyg
-         XsK1cuYUvN2DDyuhpNhkopHOe5mYfd9aLU/BStbSUvKn+4tf9HMhFnrcb+evM+i6fwsc
-         HS4qTWzmfa6erEvaumcIGNfOCed/hCaz7O1yI+h42CaEB5OkrPEDHPq9+qEMM4koorK8
-         5JIJsCs3Y38KHo/PgH0gzhje5v2zEBFJJnk2YGv2ClnY1pPDNRUK7daGMAsW0cwnV/Ev
-         s5pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793347450; x=1793952250;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=60r0/FILtbDSMoz4R6RLu8Lfo3Bak5PRq0PiVqNRm/g=;
-        b=amKyiA2qkRo3SkZFhNjqo06NyWD/4otLmih8stoMvKaMX2sHJu2DBSJgR2r3hJpui7
-         ZsLBRBczFUqjCSnk5o4ys4MLL8Rf9ERIVWmczBHe7DdKeA2BcC4m4XjD95uEP2XyB//X
-         PW/7QNqcBNUWKYTOiW3Wqw6c3fXzz40fF8xyFG4N1jMF1bdAj2dF/ik5uLzVhxFxyAjD
-         G+6UdnIg+NOd6yIMdkLEC0fJxHyJpIs2r9ZQFmioFYtMJbAjAMP0vetHbUJisrDvGUPG
-         dkNB0nQB+KfHoK0Zri+zGNbbaYWSDm/5fNE+iMIc1q+pEy7TF5Bg9xLh3GvXKmVQL+eO
-         szgw==
-X-Forwarded-Encrypted: i=1; AKwUvByPvW/xAYgaWHmv60sLIMFKtWGelntpIiRBXcdQz0ZjNeJzuiTDEWtKxTzGaysp87B6R12e21pyCtXJ+9I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0tkqzmX7VSlA89oO/5YhRINB6eqvAz5eR4A0h6Go31cVi+GAQ
-	azruvnPN8/9QrVP9VNuXGo6pUts/rN7JpUQhMBRrzfF88rYoOf40YRqB
-X-Gm-Gg: AYBFou2ruxIT+6YTbMlupmPdoMY20MOLqjrw5dlbPogZvZKh4IqJsN9t/2GHSlnmapM
-	h8GPGmaCXXrSI6qojLcdJkjcWREVjIQM9ndGAQ2cnWAUpyavrI/+FF2aWua5gOFgdpp7CbM42KT
-	k/EG7CCaKKc3Pp765/Aom2nUhJM2g6923ly6KwPIdwD20Y8T29GQm9SerJcXOhhdxSwxjVWjJmU
-	ZRYteVORWOzzB3rNuZLxYy7Djgwjw/pwlF0aN9RyJ2bGMN1OCaODGJJg2P7kL321V6B8YON6PJW
-	V8DJ3rvh244I7YUG3w5rO+vqbvOBcySQ5b70m0ue/+F6N3cMyk5vX408hPxzxNNfHLeCTZ3ShlB
-	j7n6OOt+TGt1gW4S0owDBbHOgXIl2zt4nUz6soJvkU3Pg90xp2UlMpOPmjhDT/2zDCXMtUVF1HZ
-	DAVH/+unpQ3Y4TwCaHpnf4zXElzpQhoK4rOLIrRXAJBPDyQbWY8cD1xjTUZh7BWXcOQO/9ZydQu
-	EO4oRqnzzD54UaYHkAy+kIeaeaA+0nRgSvAlISwEP+EZeAjqH5wp8nm1iuS6ImHwOTccaXX7yhw
-	Mp1ABz38qN+7nHmbCtwrgQmr
-X-Received: by 2002:a17:90b:17c1:b0:3a6:fc30:ce16 with SMTP id 98e67ed59e1d1-3ae897dc114mr965698a91.51.1793347450014;
-        Fri, 30 Oct 2026 01:04:10 -0700 (PDT)
-Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae84577911sm3073035a91.7.2026.10.30.01.04.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 01:04:09 -0700 (PDT)
-From: Cen Zhang <zzzccc427@gmail.com>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tiwai@suse.de,
-	baijiaju1990@gmail.com,
-	jjzuming@gmail.com,
-	zzzccc427@gmail.com
-Subject: [PATCH v3 5/5] ALSA: hda: Wait for the files of the codec PCMs before freeing them
-Date: Fri, 30 Oct 2026 16:03:43 +0800
-Message-Id: <pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-5@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-0@gmail.com>
-References: <pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-0@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=X04yed1E
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=+v8siQbRKd/hqcz0jYUhtmBmjHu6PnjE9DNLi9cq2d0=;
+	b=X04yed1Ey5Xf0lCLEZqp+dNtsSmaHb4mdY4tc7Z3xKj1dDGa1LOQBStwbfes1yI9iWJ8W1fSQ
+	ksF4VP+fcyfRN543TLKqWWI1BPthh47s5wJ+gHCZwpvRgAMZEkFIxw/2gApjVuklPuDO3eSxi6N
+	IeneDSHB6Anq/LmRxjQwV/o=
+Received: from mail.maildlp.com (unknown [172.19.162.223])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4jGDGD51mCz12Ld1;
+	Fri, 30 Oct 2026 16:07:00 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id BCB7740561;
+	Fri, 30 Oct 2026 16:07:02 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 30 Oct
+ 2026 16:07:02 +0800
+Message-ID: <d1a81d20-3458-49ef-9adf-316b7574424c@huawei.com>
+Date: Fri, 30 Oct 2026 16:07:01 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,100 +62,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] fs/resctrl: Return -EBUSY when per-CLOSID RMIDs are
+ in limbo
+To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
+	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
+	<bp@alien8.de>, <tan.shaopeng@fujitsu.com>, <x86@kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20261029081513.924019-1-ruanjinjie@huawei.com>
+ <20261029081513.924019-2-ruanjinjie@huawei.com>
+ <0f6c4323-0ffb-414d-92be-e8515e05ab0e@intel.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <0f6c4323-0ffb-414d-92be-e8515e05ab0e@intel.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-The codec remove waits for codec->pcm_ref, which only counts the streams
-opened through the HD-audio PCM ops. A file uses the PCM before that:
-snd_pcm_open() takes pcm->open_mutex, and an OSS open walks the setup
-list of the PCM, before a substream is opened. snd_pcm_release() also
-still takes pcm->open_mutex after the close callback has dropped the
-reference. When a codec is unbound through sysfs while the card stays
-registered, the remove can free the PCMs under such a file:
 
-  PCM open                           codec unbind
-  --------                           ------------
-  snd_lookup_minor_data()
-  snd_card_file_add()
-                                     snd_hda_codec_disconnect_pcms()
-                                     snd_refcount_sync(&codec->pcm_ref)
-                                     snd_hda_codec_cleanup_for_unbind()
-                                       snd_pcm_free()
-  mutex_lock(&pcm->open_mutex)
 
-Opening the PCM while the codec is unbound and bound in a loop triggers
-it:
+在 2026/10/30 2:12, Reinette Chatre 写道:
+> Hi Jinjie,
+> 
+> Thank you very much for these fixes.
+> 
+> On 10/29/26 1:15 AM, Jinjie Ruan wrote:
+>> resctrl_find_free_rmid() returns -ENOSPC when no matching RMID is
+>> found. With CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID the target CLOSID may
+>> have RMIDs in limbo rather than permanently exhausted.
+> 
+> Just a quick note about customs around resctrl fs and x86 patches that relate to
+> both of these patches:
+>   The resctrl patches need to follow the tip requirements documented in
+>   Documentation/process/maintainer-tip.rst. Of particular note is the "Changelog"
+>   section that needs fixes to be described in a particular format consisting
+>   of a context, problem, and solution.
 
-  BUG: KASAN: slab-use-after-free in mutex_spin_on_owner+0x94/0x2b0
-  Read of size 8 at addr ffff888005d52a58 by task hdatest/90
-  Call Trace:
-   __mutex_lock+0x16a4/0x24a0
-   snd_pcm_open+0x230/0x600
-   snd_pcm_playback_open+0x5e/0xb0
-  Freed by task 94:
-   kfree+0x2e5/0x510
-   snd_pcm_free+0x9d/0x150
-   __snd_device_free+0x121/0x370
-   snd_hda_codec_cleanup_for_unbind+0x219/0x920
-   hda_codec_driver_remove+0x1a7/0x2b0
-   unbind_store+0xd1/0xf0
+Hi, Reinette
 
-An open can also get past the wait and call into the codec driver after
-the remove has cleared its state, which ends in a NULL pointer
-dereference in playback_pcm_open().
+Thanks for the reminder.
 
-After disconnecting the PCMs, wait until the files opened on them are
-closed. Do the same on the probe error path, which frees PCMs that a
-late probe may already have registered.
+>   Apart from this the changelog should avoid narrating the code and instead
+>   describe it at a higher level to support understanding without needing to
+>   refer to the code and the impact.
 
-Fixes: bcd96557bd0a ("ALSA: hda - Build PCMs and controls at codec driver probe")
-Suggested-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
----
- sound/hda/common/bind.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+I got it.
 
-diff --git a/sound/hda/common/bind.c b/sound/hda/common/bind.c
-index abbb3b64ec09..514f6d581b33 100644
---- a/sound/hda/common/bind.c
-+++ b/sound/hda/common/bind.c
-@@ -84,6 +84,20 @@ int snd_hda_codec_set_name(struct hda_codec *codec, const char *name)
- }
- EXPORT_SYMBOL_GPL(snd_hda_codec_set_name);
- 
-+/*
-+ * A file opened on a codec PCM can use the PCM until it is closed, also
-+ * after the PCM was disconnected.  Wait for those files.
-+ */
-+static void hda_codec_sync_pcm_files(struct hda_codec *codec)
-+{
-+	struct hda_pcm *cpcm;
-+
-+	list_for_each_entry(cpcm, &codec->pcm_list_head, list) {
-+		if (cpcm->pcm)
-+			snd_card_file_sync(codec->card, cpcm->pcm);
-+	}
-+}
-+
- static int hda_codec_driver_probe(struct device *dev)
- {
- 	struct hda_codec *codec = dev_to_hda_codec(dev);
-@@ -151,6 +165,8 @@ static int hda_codec_driver_probe(struct device *dev)
-  error_module:
- 	snd_hdac_device_disable_unsol(&codec->core);
- 	cancel_delayed_work_sync(&codec->jackpoll_work);
-+	snd_hda_codec_disconnect_pcms(codec);
-+	hda_codec_sync_pcm_files(codec);
- 	if (probed && driver->ops->remove)
- 		driver->ops->remove(codec);
-  error_module_put:
-@@ -180,6 +196,7 @@ static int hda_codec_driver_remove(struct device *dev)
- 	guard(mutex)(&codec->bus->core.codec_bind_lock);
- 	snd_hda_codec_disconnect_pcms(codec);
- 	snd_hda_jack_tbl_disconnect(codec);
-+	hda_codec_sync_pcm_files(codec);
- 	snd_refcount_sync(&codec->pcm_ref);
- 	snd_power_sync_ref(codec->bus->card);
- 
+> 
+> Even though the changelog mentions CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID
+> it is written for somebody very familiar with the code and it is possible to
+> state the impact more clearly without needing to go look where
+> CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID is set. I also think that it would be helpful
+> to describe all scenarios of the issue to help support the shape of the fix.
+
+Ok, will add them.
+
+> 
+> As an example that aims to address all comments above, consider a changelog
+> like below:
+> 
+>   fs/resctrl: Report a temporary RMID shortage per CLOSID
+> 
+>   An RMID that is freed is held in limbo until its cache occupancy drops
+>   below the threshold, after which it returns to the free list. A
+>   request that fails because of limbo is thus temporary and worth
+>   retrying, which resctrl reports to userspace as -EBUSY. A request
+>   that fails because every RMID is in use is permanent and reported as
+>   -ENOSPC.
+> 
+>   Where an RMID is only meaningful together with a CLOSID, a request can
+>   only be satisfied by an RMID belonging to the requested CLOSID, so the
+>   distinction has to be drawn per CLOSID. Instead it is drawn system
+>   wide. -ENOSPC is reported when the free list holds no RMID for the
+>   requested CLOSID, even when that CLOSID has RMIDs in limbo. -EBUSY is
+>   reported when the free list is empty and another CLOSID has an RMID in
+>   limbo, even when the requested CLOSID has none. Userspace is thus
+>   told to give up on a shortage that may clear on its own, and to retry
+>   one that cannot clear until it removes a group itself.
+> 
+>   Architectures where the RMID is independent of the CLOSID always match
+>   the first entry on the free list, so neither case arises there and only
+>   MPAM systems are affected.
+> 
+>   Draw the distinction from the number of RMIDs the requested CLOSID has
+>   in limbo where the RMID depends on the CLOSID, and from the system
+>   wide count otherwise. Drop the separate test for an empty free list,
+>   which the search handles on its own.
+
+Thank you very much for your example.
+
+> 
+>>
+>> Check closid_num_dirty_rmid[] for the target CLOSID before returning
+>> -ENOSPC, and return -EBUSY so userspace can retry.
+>>
+>> Cc: James Morse <james.morse@arm.com>
+>> Cc: Reinette Chatre <reinette.chatre@intel.com>
+>> Cc: Babu Moger <babu.moger@amd.com>
+>> Fixes: c4c0376eefe1 ("x86/resctrl: Allow RMID allocation to be scoped by CLOSID")
+> 
+> We should take care here. Even though this "Fixes:" commit added support for
+> RMID allocation to be scoped by CLOSID this issue only impacts MPAM systems,
+> and MPAM support landed after this commit.
+> 
+> Do you think this needs a "Cc: stable" tag? Have you heard complaints from
+
+Yes , this need one.
+
+> users or is this just something you noticed? Having a benefit to users may
+> be sufficient justification for adding a stable tag. Accuracy of
+> "Fixes:" tag is then very important, or the stable tag self can have extra
+> information on which kernels need it.
+> 
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> 
+> Please re-order the tags based on "Ordering of commit tags" found in
+> Documentation/process/maintainer-tip.rst
+
+Thank you very much! I will check it.
+
+> 
+>> ---
+>>  fs/resctrl/monitor.c | 15 +++++++++++----
+>>  1 file changed, 11 insertions(+), 4 deletions(-)
+>>
+> Patch looks good to me.
+> 
+> Thank you very much.
+> 
+> Reinette
+
 -- 
-2.43.0
+Best regards,
+Jinjie
 
