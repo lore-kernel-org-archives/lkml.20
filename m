@@ -1,112 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793368747;
-	b=EWeSji1HxIl238w5+Yz9j0tXP09ffOnFQ/0+xO3joQNwdUHTXwfPQ8zJav0zQUoddtk3
-	 3ke1vuSLFgr7LtYg3IHGmuSnJe1RElHdT2PEkWQ1VTdcLKbucoS6pfV2qfNpcE10fBGQo
-	 /PXTirdTZCzGmBh6W5U7uWfvDY7ThoqHusnwwM5g34WzI3sXzmobs2LC1OdBOrzTyW5Qa
-	 xkEGRbo/HzrpBNnREu3Q2CSxfA4GucaSFOeKiVeN02BIci7vqRZd4mCbxNI3YWQlYxHY4
-	 SKaeK7O4VohiIGYdq5PoSouqQ/a8pj4yFfOwtlgmk3fi5Dw4nFWYfI2TqjBaTfWXAww==
+	t=1793368769;
+	b=rYif5AP6sAjoWm0aYOqUkviWF3GfPkE1jPjo5G28yX0IY6LadTU/9nr0iyYxDdUB55wg
+	 Co9xgkBT3lAm5WIgPO54qu03BYSx0glF1/1kjHIn1L8ptLig9b3hR6uOLZErHOFZPB6jp
+	 3EkeBNFkPo82EUVTvda0VrdPnmiT79fTsmUTfMFV02az1jqVfRApuVkqz9sj7klpHgr0O
+	 cg1JhBZQbJVqG1vxoXjF56zypbt+rpfXqHzc+Bzjva1kPZGB6L6gSbOAq+g2lMYxA82Tm
+	 HyhrTQ/xv1XgRFDy/QE6s9BvEKXRI9d/A/Gi33aIVR8dvykVsGhUwP7gYMg+7+XkmIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793368747;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=LTlv+L2o+ahLzJI1GsFG74mV78r8zqw3baE9fGpkQVY=;
-	b=BS6nmW/DIOXTMFE90+eVKBRr43Ql5VVr2OAXkgz3Hr5hMzfi6TS0Dmam3FBBh7BI+stu
-	 5qhnhcvt89uA+KnfAUyDJk8v+0bqrVUUU+j+RYiWHByXlOE6kNZBjBLyk31lNXppVA6fH
-	 wJsIQkwzoH4U5xqH3ZpG17ZVolqNvDmeXgWrbvRlK3CHggSRXv6gjJs2ZOpf+62na2j14
-	 o0VMzSV0hBj6LsKbUSJl3mwuc9001RznCE6LNsNFbtLL6aIcfFPwAmEOqVx6FCOFcIkH4
-	 Kqi6FgjMKlrclw1aRYzcFNVFMfwmceCcBm1g//43R4ItNvnKP1cfqU6iOYFybmH9Nyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793368769;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=KYmy3sRt/faOsbCv/Pv2gEQsPwyqQf5kSJCsjXwcJ14=;
+	b=W7l5NO8SpscntC+6n8nUKYmXWG6rm+f0kvpA1L8IrGu9LFiGkAfB4jqO+YWlEGq7jqcr
+	 WmNBZZKnLnJ+4o6fOedfdSKU9xCi2Z/uD+oB/AAUsHx9du/CP4JofFsxbnpCi+16m4SG1
+	 9pbCXuuaxOxJVWTZlNCBMv269h6SM04NF1wd9JYigJAvbdGUHW2lISr4LWwtZoBVmbh4X
+	 ANHUviMzyK3j48i28dGnYhrkzR2jfTqTVrAT4zlbmCsowlkCSbXaHe0hwvZkDH8Lrz/Qz
+	 PwvS32ndqn5dMoSPT91ov6p7DzJgAujzlRu4O4+5h4Go8jTCzhbMEC81Zd7LWOBv4uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HlDwZ3KO;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FncZsuYW;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZSXQblqV;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A73606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1A73606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A55606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:59:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0A55606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HlDwZ3KO;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FncZsuYW
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UDnh1M4057879
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:59:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LTlv+L2o+ahLzJI1GsFG74mV78r8zqw3baE9fGpkQVY=; b=HlDwZ3KOkdTPzGNO
-	jok7HtwaaL/VhEXI9VX8+t7EhGByaWgNGAuCqjl+1NxLxFDkuFO8J21qU2p9IrMW
-	8fhX5vy2CjE7hT6y4AJ5VEKcgBNA4RDbOfBB9jblPgbxke38E1l+PQUMNKMASf1w
-	Fl42YIk72iNoDVOGX96ktdJYeE5EN2dGgDQNkYNzenOeFq/fQ6SBW5kkNJsI1Wuv
-	DibsI6lI4aL7QYdIeKqrYEIxVF8KVBnz+JpR0n0nBlUfIXBs5WdNTVWr7T7XkS3Q
-	UFFLOAkmVnPPLR4/ruKUX6OPqfC+aANWOGUI9vh32PZ1rqDPX8bHIwlOoOZFibk1
-	r2LUhA==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6quan8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:59:05 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8a05c820ecbso975290b3a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:59:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793368744; x=1793973544; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LTlv+L2o+ahLzJI1GsFG74mV78r8zqw3baE9fGpkQVY=;
-        b=FncZsuYWmaEcChOpkMxfqC88o8kfaTx+Eng5k/s/DvDJJWPOkBLO+1J5Z7HnnV5yDH
-         Rz0dkZZN1uzmeEbVaP5cbyLwYrcQrOT3obqxpk8xYjWbkXR72bhs1ML2S6Oj9ImWl3By
-         V/JpChRYPTOjWGgDu4noF05akraS4YoaawZcWFwzCpMrcdBORw19vWoCkQBc9WqjAqRE
-         iXQw2Mdzt6U2EE3EGt1pRbtq9tmZmhFW3Rx86ccWgPldlBn4bn+4JmlCm4JhhiAbs6ft
-         K7HUN/tgMztzB6CxCUPDBFW3I583NwEBcX5k2WktHixu17KsSNJrni6J2/Ctzt3HfkSD
-         O62w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793368744; x=1793973544;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LTlv+L2o+ahLzJI1GsFG74mV78r8zqw3baE9fGpkQVY=;
-        b=RNCn+W95tLCKeWdfjx+VPYWsy6mff7gRdy9l1FhYMujWOMcq8tXoVL19tTdvF1FhPn
-         zlCwVApawI65GQgRPPc7ATe6FMLtpfCH+9YSSXAri13Vwo/1u9MvEBuLtS9fBsJoRTqu
-         wj6Z1CwJZq9uB7BJJbcSo6kPc9XMysTGCxAHvfyjD/O2Y3V4LLehDRV1l+NI8M5sDwHX
-         7M6EJDc1Z7KhgHAhjyLHP0P3VuKuTzuNBX5w18UpK4yalkC9OWfAoVSygR8rluH3861w
-         zE+MtEZCfcXcVq26q9DU05hOOmBKgk8Ync7le5Xqs3ns4mwFvhxDQCcG8JzjHDRoyEmq
-         O9Ig==
-X-Forwarded-Encrypted: i=1; AKwUvBzQz2xXVeD4eSfs1imwfmAg/Ugc/zpMxN5BrG1Lq1RCosazTPFX4Rbv2yasEKzEemqLGshdn4fB+2f2FMU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7SM7VFneyYgrHhJdQhRlibSZUOGz+QJSt2Ds2+AqV+b5W1qqX
-	6nHqa3/lIxNk9F2qak0B9csW8rVPcnlKSZMdVSJHHefKtxlq76iScF4C2rKugsJNPh5vnbNZ6q8
-	Btqv3bpeCmgKSLn59e/PjvqlzxHytqQq2eMtLk4fkX5MaFqjh+mQMGH35ADKknoKWAnQ=
-X-Gm-Gg: AYBFou1Eex5tr8gLcqzLbLTe4HeCg7kFem2Cr+x0kpfzRXy8unxjjk7XO1PM00vgEwZ
-	ZY3OVdnbjsFS6x71UcipUPwo0qEZq1fVZZZTPehfOWL7FuHsjjx3w1OIP7Ii9CBtEjVOTu/IdPK
-	DL8VA4fXUGc3/G9RUqraP8Pn/Vli7TEhXMdxu0iPkYqtd7Nvui5WWkgu+h8feWZl93FBqUsP+XK
-	UXn54MNgY7LhIH1AVEhM1NMx/IHkwLD8pSh00EC1lYdALVC2f/Wm8GMlTd3BfbiTrQ+6ZDckJZs
-	fMfP2avG6VtDc85WmNX1mfaQ7SWtLfVsPl+qVQBY5/sMnWk0vMShXYI/zj2/DpPIOMp5EqgqTAt
-	IxST21DRC/yDKvIO6z4GFLjd0xpd/9KEPMdsrDH04DzHLgptj4aau8rJz775WY6ic8XVCscCz/c
-	aT6r0=
-X-Received: by 2002:a05:6a00:1783:b0:89e:37b1:b81e with SMTP id d2e1a72fcca58-8a9bea5c399mr2307943b3a.31.1793368744417;
-        Fri, 30 Oct 2026 06:59:04 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1783:b0:89e:37b1:b81e with SMTP id d2e1a72fcca58-8a9bea5c399mr2307921b3a.31.1793368743970;
-        Fri, 30 Oct 2026 06:59:03 -0700 (PDT)
-Received: from [10.218.50.86] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad7801a53sm12882b3a.2.2026.10.30.06.59.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 06:59:03 -0700 (PDT)
-Message-ID: <53640a9c-395f-4faf-bbac-20c47013cec4@oss.qualcomm.com>
-Date: Fri, 30 Oct 2026 19:28:57 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZSXQblqV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793368768; x=1824904768;
+  h=date:from:to:cc:subject:message-id;
+  bh=rdCJgTSrci0gACAC2YDiLQxJYLQKEdF1lEVzBwfIChg=;
+  b=ZSXQblqVO8HfpLJuhjt6zrwbo6DLh46xXR1nMrdSf5ZMELwIun+9aL6Z
+   X3Khr9i/LY8BGJt1nZabsrTVOzkYZEigNS/722LRiBNz6HX5NIcL8d1lR
+   S9QRkV7PxUKQzcI9/4+mLaIrI4iUnyj8vz0p82J+X+MMcrVlTBWq7ikwN
+   Ex8+eC2JZiGbCz//01p/DbWerjVlhCRBicrj1udHJ9X2BLQ351l8zz5PF
+   1MIEa5i8kiZFY+mUtBYLmBRSNwVWzPcz0/cH4+wLbmSzNlChHYIo4OPIF
+   dY8Q2Ywr9Ny/4+qfk+msCLkHWrgHSkl0iYxA5S1SQuMKS6fI2YBkrw3zJ
+   g==;
+X-CSE-ConnectionGUID: QFVVrsHAQoaKMQsEty7nQA==
+X-CSE-MsgGUID: +0SPGMijSmi+ctuO92EoJA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2224465"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2224465"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 06:59:27 -0700
+X-CSE-ConnectionGUID: pVgpvH5MRc+BkUsSvgvN+w==
+X-CSE-MsgGUID: DJAdOBjhRA2ZQVr71xGrOA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="7273580"
+Received: from igk-lkp-server01.igk.intel.com (HELO 58ca8a381a5c) ([10.211.93.152])
+  by fmviesa011.fm.intel.com with ESMTP; 30 Oct 2026 06:59:25 -0700
+Received: from kbuild by 58ca8a381a5c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xMn8c-000000005b1-1RfG;
+	Fri, 30 Oct 2026 13:59:22 +0000
+Date: Fri, 30 Oct 2026 14:58:29 +0100
+From: kernel test robot <lkp@intel.com>
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>
+Subject: drivers/phy/mediatek/phy-mtk-pcie-sphy.c:483:2-3: Unneeded
+ semicolon
+Message-ID: <202610301438.XGYx3jyK-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,70 +80,155 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: spi: qcom,spi-geni-qcom: Document QSPI
- support
-To: Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261030-qspi_dt_binding-v1-1-5249111cf870@oss.qualcomm.com>
- <f71369ca-5963-41c7-9103-dd39a7369e38@kernel.org>
-Content-Language: en-US
-From: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-In-Reply-To: <f71369ca-5963-41c7-9103-dd39a7369e38@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: AtaJH9EJGZc3sV1V2rcj7rGYBeMoa7Ij
-X-Proofpoint-ORIG-GUID: AtaJH9EJGZc3sV1V2rcj7rGYBeMoa7Ij
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA1NCBTYWx0ZWRfX+q4H8efAYb3Y
- uTPWzs+8s+DgnJTtjxs/8MxoPnC7nDUivEj/ZM33yYr5N7/yIppyaeZvNbi5eALBxTQlwj4BiV5
- pBS9oEijSkfIzmb+cQQAxaKGwN79VwJkH0DwHWr68pxkIj/oVty7du06tVrhZthqgA+vAtqPubM
- iFp1YY5IVyviGvZ80R/7lqSzThbDCCfa16k21c2Wxg04oS1HQvECTQtGKc3cWdE+IjfnNpHha7D
- EdJqH9IGi391GZMX1HjiwO9al5vWe3KkNCUJ/G8plgRKbIfdqJ9vh9Gbj5/QhukBUeSElREDUYF
- Zf6JgDNJGDcFjiOzqUykZMvOU4nD039v98jZEGvq7/vLRX11SyU38PK8PDVIoSMciL8DfwaHun/
- jKroB+HzKyuzwIJ7lcjW8ramyr1zEHEHhq7e0Sr9BukUdlOP19TJGJSBnQFaLiFUS19VF0Henaj
- NxsSsDmQ9k6lUHG49+w==
-X-Authority-Analysis: v=2.4 cv=dPgzC+Zb c=1 sm=1 tr=0 ts=6ae4a2a9 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=O4LJdId_ek-TerMgtbYA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA1NCBTYWx0ZWRfX09ryAZ7qrh1q
- jtTPLthm4FdLagTtAG24A3mhIhXM7EjPmJ5ugWilTI9YVyED4LBXAUdIPqj50dpo44lvD5syeO4
- G4fgm80eb4Oo5sfgOQhmAmlwTihuaSY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 spamscore=0 malwarescore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 phishscore=0 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300054
 
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+commit: e9434ed4effaf46351fce729380d3c8d7d918f20 phy: mediatek: Add support for PCI-Express Gen4 S-PHY
+date:   4 weeks ago
+config: hexagon-randconfig-r2110-20261030 (https://download.01.org/0day-ci/archive/20261030/202610301438.XGYx3jyK-lkp@intel.com/config)
+compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: e9434ed4effa ("phy: mediatek: Add support for PCI-Express Gen4 S-PHY")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610301438.XGYx3jyK-lkp@intel.com/
 
-On 10/30/2026 7:06 PM, Krzysztof Kozlowski wrote:
-> On 30/10/2026 14:30, Jyothi Kumar Seerapu wrote:
->> Add the "qcom,geni-qspi" compatible to identify GENI Serial Engine
->> instances configured for QSPI operation.
->>
->> The compatible also allows the driver to select the appropriate protocol
->> firmware when the Serial Engine is unconfigured (GENI_SE_INVALID_PROTO),
->> distinguishing between SPI and QSPI firmware.
->>
->> Signed-off-by: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>
-> 
-> Where is any user of this? You speak about driver, but there is no driver.
-> 
-Thanks for the review. This patch only adds the QSPI binding change. The 
-corresponding driver changes to add QSPI support will be submitted in an 
-upcoming separate patch.
-  > Best regards,
-> Krzysztof
+cocci warnings: (new ones prefixed by >>)
+>> drivers/phy/mediatek/phy-mtk-pcie-sphy.c:483:2-3: Unneeded semicolon
 
+vim +483 drivers/phy/mediatek/phy-mtk-pcie-sphy.c
+
+   360	
+   361	static int mtk_pcie_sphy_get_calibration_data(struct mtk_pcie_sphy *pcie_sphy)
+   362	{
+   363		struct mtk_pcie_sphy_efuse *cal = &pcie_sphy->calibration;
+   364		struct device *dev = pcie_sphy->dev;
+   365		u8 version;
+   366		int ret;
+   367	
+   368		if (pcie_sphy->num_lanes > MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES) {
+   369			dev_info(dev, "Skipping PHY calibration for more than %u lanes.\n",
+   370				 MTK_PCIE_SPHY_CALIBRATION_MAX_DATA_LANES);
+   371			ret = -EOPNOTSUPP;
+   372			goto end;
+   373		}
+   374	
+   375		ret = mtk_pcie_sphy_get_one_cal_para(dev, "int-r",
+   376						     FIELD_MAX(RG_XTP_GLB_BIAS_INTR_CTRL));
+   377		if (ret < 0)
+   378			goto end;
+   379		cal->int_r_ctrl = ret;
+   380	
+   381		ret = mtk_pcie_sphy_get_one_cal_para(dev, "xtp-vtrim",
+   382						     FIELD_MAX(RG_XTP_GLB_BIAS_V2V_VTRIM));
+   383		if (ret < 0)
+   384			goto end;
+   385		cal->xtp_vtrim = ret;
+   386	
+   387		ret = mtk_pcie_sphy_get_one_cal_para(dev, "cktx-pmos",
+   388						     FIELD_MAX(RG_CKM_CKTX_IMPSEL_PMOS));
+   389		if (ret < 0)
+   390			goto end;
+   391		cal->cktx_impsel.pmos = ret;
+   392	
+   393		ret = mtk_pcie_sphy_get_one_cal_para(dev, "cktx-nmos",
+   394						     FIELD_MAX(RG_CKM_CKTX_IMPSEL_NMOS));
+   395		if (ret < 0)
+   396			goto end;
+   397		cal->cktx_impsel.nmos = ret;
+   398	
+   399		ret = mtk_pcie_sphy_get_one_cal_para(dev, "cktx-r-mid",
+   400						     FIELD_MAX(RG_CKM_CKTX_IMPSEL_SW));
+   401		if (ret < 0)
+   402			goto end;
+   403		cal->cktx_r_mid = ret;
+   404	
+   405		ret = mtk_pcie_sphy_get_one_cal_para(dev, "rxfe-lanes-rl-ctle",
+   406						     FIELD_MAX(RG_XTP_LN_RX_LEQ_RL_CTLE_CAL));
+   407		if (ret < 0)
+   408			goto end;
+   409		cal->rx_leq_rl_ctle = ret;
+   410	
+   411		ret = mtk_pcie_sphy_get_one_cal_para(dev, "rxfe-lanes-rl-vga",
+   412						     FIELD_MAX(RG_XTP_LN_RX_LEQ_RL_VGA_CAL));
+   413		if (ret < 0)
+   414			goto end;
+   415		cal->rx_leq_rl_vga = ret;
+   416	
+   417		ret = mtk_pcie_sphy_get_one_cal_para(dev, "rxfe-lanes-rl-dfe",
+   418						     FIELD_MAX(RG_XTP_LN_RX_LEQ_RL_DFE_CAL));
+   419		if (ret < 0)
+   420			goto end;
+   421		cal->rx_leq_rl_dfe = ret;
+   422	
+   423		ret = mtk_pcie_sphy_get_one_cal_para(dev, "rx-lanes-imp",
+   424						     FIELD_MAX(RG_XTP_LN_RX_IMPSEL));
+   425		if (ret < 0)
+   426			goto end;
+   427		cal->rx_impsel = ret;
+   428	
+   429		ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-lanes-pmos",
+   430						     FIELD_MAX(RG_XTP_LN_TX_IMPSEL_PMOS));
+   431		if (ret < 0)
+   432			goto end;
+   433		cal->tx_impsel.pmos = ret;
+   434	
+   435		ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-lanes-nmos",
+   436						     FIELD_MAX(RG_XTP_LN_TX_IMPSEL_NMOS));
+   437		if (ret < 0)
+   438			goto end;
+   439		cal->tx_impsel.nmos = ret;
+   440	
+   441		ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-ln0-rswn",
+   442						     FIELD_MAX(RG_XTP_LN_TX_RSWN_IMPSEL));
+   443		if (ret < 0)
+   444			goto end;
+   445		cal->tx_rswn_impsel[0] = ret;
+   446	
+   447		if (pcie_sphy->num_lanes == 2) {
+   448			ret = mtk_pcie_sphy_get_one_cal_para(dev, "tx-ln1-rswn",
+   449							     FIELD_MAX(RG_XTP_LN_TX_RSWN_IMPSEL));
+   450			if (ret < 0)
+   451				goto end;
+   452			cal->tx_rswn_impsel[1] = ret;
+   453		}
+   454	
+   455		ret = mtk_pcie_sphy_get_one_cal_para(dev, "cal-version", 15);
+   456		if (ret < 0)
+   457			goto end;
+   458		version = ret;
+   459	
+   460		/* Quirk for eFuse calibration table versions 0 to 4 */
+   461		if ((version <= MTK_PCIE_SPHY_CALIBRATION_LAST_QUIRK_VER) &&
+   462		    cal->rx_leq_rl_ctle == 10) {
+   463			cal->rx_leq_rl_vga = cal->rx_leq_rl_ctle;
+   464			cal->rx_leq_rl_dfe = cal->rx_leq_rl_ctle;
+   465		}
+   466	
+   467	end:
+   468		if (ret < 0) {
+   469			/*
+   470			 * If any of the calibration values is missing, or if there is
+   471			 * no calibration at all in the eFuses, this is not a problem,
+   472			 * as the PHY doesn't require one to actually work.
+   473			 *
+   474			 * Note that if even just one of the calibration values is
+   475			 * missing it would not be safe to trust the correctness of
+   476			 * the others as this may be a different eFuse layout.
+   477			 */
+   478			if (ret == -ENOENT || ret == -EOPNOTSUPP) {
+   479				cal->supported = false;
+   480				return 0;
+   481			}
+   482			return ret;
+ > 483		};
+   484		cal->supported = true;
+   485	
+   486		return 0;
+   487	}
+   488	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
