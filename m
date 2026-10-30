@@ -1,122 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793321923;
-	b=DXTQ/uDOxcfBb7B7SiI2LsjSDgmT93yRmXaiBluHkNeofnunStMdzFsPtlNaISxzlVgS
-	 MfymczhvHnbPFLu8aE571ACBhZG5WM0dpLR5IQ+ZG6gGNjebSxj7VS4iwmFjAZYVXPw/0
-	 RDwmmq/a+slDitWBKVIC8wFX+80gA5R+M3JzMkS6nSRzzOR598PiDq6kq4dPuVk2yHJ8h
-	 qhGlqlgVvzH968RB0hwn9w5/hb3ItP026ODcRVvedSj6uDlXy22T0NDQDXY9eCUdUz6nB
-	 aIb7/zDLkw32VBx3PnkmM7Gu+RfVYJGuIXDjD039avvAAtRdn3HG0zcFZUHUgwMYk1w==
+	t=1793322083;
+	b=j6vCZ+nUjgUC5QSY5fMi+5M1kHu06cAAhOfWHDmRyir2wU61IsXSaZni14eptESkE8Qf
+	 YeB13V9QabtQJcE7I6bwYPLqqJMuXt09KWFU6SrM+Zu26yTsNggvqSwYz/hCD3r0ov0af
+	 rDRW5n4Aum20NcZHG2GNsI2/XzhoWIuoS2gKkQVyQQl72Pt+FsDOaoiKoMY85YPCP6Dfv
+	 O7KDV/Tj3KH6CaIbHPz1g+RXBK2CwuLszZbXzlazuMgUeUQJ4gZ/jNt4TqBUv1nz2yvKd
+	 0uYSCoMKSgGfoIOlUHkeH4rJ5Rn5Dd/+KAOALdpqHdUzZ9BOyGb2wce8nUM+9ZxteEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793321923;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793322083;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=DEFn2XHjOLlJM5OoS27zxetNuXFbNoAKNCQVpNeJL1k=;
-	b=41w0sefQKBcghjX1qlsbNfCMC7lowyKW82zZ1+OubXDwKCKOw6OkbEt2dMt87/cV5jKv
-	 22/0jABqKcRRRiyIL1xujSeT5DVySz1fKfXcqYjFmiTyGEQukLOM+KPscqWvbpXqB12kd
-	 hXi05H+A7NceIi1l6OV8BgYUCyNej5WHvcutyp6c+fG6Ppq8/7DyC9Br0C9vNqV67VqxE
-	 h4yId8uyEYUEWk6Npm7wu/D1mxsrLzrZc7ckK+6xqWqFeWPFC8by1M1X9mnoycf5toXl+
-	 ugZrTRA+eMsaS9VsjujsDwHp/w8YjWFg8Frxgvnt4NLPTb8hcdBDYeY1svZtgVMdM4g==
+	bh=Vdd3kyoZA+FmufzVBQTN+34rF4mMwG7QhmRXSycjpqg=;
+	b=DN093DefWg9nGGckgTUpuxUjUtikypmce7OUd3E2GWsHyN1b2NRC2VSGUM0wWv5To0GH
+	 uiGRnNHr8jYhUYcpC+Q53cXibOK/mp87l24HAINlUiqRTikbmSPIn0++eloo8CAUlE57j
+	 QjB0lxbJefII5s4I4OZZQTpZF1FZBV3wwjAoiAu0nRbA4YJuzNWxiOn7BVIJMMLfBNT8+
+	 L8i7jUTjXHptlhgfNUvN7bEvLJSLV99u4Qpw3axMCagUleyOEjhlgtHiyO+JVU7sOjANf
+	 nH7COPPvxVELi1jWTV8qm8OxBuTimR2K1f4bvT66tNmMt4uh4/WmGNQnGjQljtQKHRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=exultantmonkey.co.uk;
-	spf=pass smtp.mailfrom=exultantmonkey.co.uk;
-	dkim=pass header.d=exultantmonkey.co.uk header.i=@exultantmonkey.co.uk header.a=rsa-sha256 header.s=fm1 header.b=S6e35Ojw;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wcRvKNDt;
-	arc=none smtp.remote-ip=103.168.172.153
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RsjXuMl4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A175F606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:58:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A175F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=exultantmonkey.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=exultantmonkey.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FE8606A31A;
+	Fri, 30 Oct 2026 01:01:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=exultantmonkey.co.uk header.i=@exultantmonkey.co.uk header.a=rsa-sha256 header.s=fm1 header.b=S6e35Ojw;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wcRvKNDt
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id D73FC1400138
-	for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 20:58:40 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Thu, 29 Oct 2026 20:58:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	exultantmonkey.co.uk; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:subject:subject:to:to; s=fm1; t=
-	1793321920; x=1793408320; bh=DEFn2XHjOLlJM5OoS27zxetNuXFbNoAKNCQ
-	VpNeJL1k=; b=S6e35OjwSP1IiFlVkJNaVVwhl/1xWPOVw3iurCKXkCsIXw6OrxA
-	uJvm878c6HIWXOFWtJjC2AJF5Qp7M4MPMl2z6nteBxEjhDDR2bIdeeugivB8FCEN
-	iQfU2BchMzUDkkFoForRaPX7hBNJGPD8BGRTd2fwNierYHp4WT64upajVg78144E
-	z+Hc6KBW3iKs4Rgu40IGGpO3GzENJfu24IjJu0X77oQ7F0w2ccnyP9KXmAmlddtQ
-	xKUapVUgywbvhKvwSawtzuoGiDGR33pUpUQqnwpqbMDRErsWRY70CQQsEEntBBGl
-	9yFC5tQTGah5orNwaTBFj+hZxupkVxf/6SA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793321920; x=1793408320; bh=DEFn2XHjOLlJM5OoS27zxetNuXFbNoAKNCQ
-	VpNeJL1k=; b=wcRvKNDtbRB8KgMxWOAnDcLTu+qjQ0nykABt+qUekz4kvS6Lm9a
-	ZM6k8Cu2CsJ1BBHVLO9RHktXBdhrmeZOIviuDdn8tS186LjDykL5Sn2Bw91615D8
-	9ADl/0NpFCR2/g3ChVIiNlbIGZdAFR+cXR0A9bwOPrpz5ry9BtayZ8cmd1faoI0K
-	8n+/Ynn4neRja8I/aQwv+f34Qs2l4bbY0Y2WRwhFy214c+cM8D+Duqs6Dzc28r8L
-	RzXEEA39Z1F+i+loeyS2OEItg20zu3cbaaKjMqdBxZx+3Ke4rr5U55mmVmjUNWSQ
-	sh9DMGfC1hF/Az+cDSNDMOh8EAvX8Q/5v9w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=exultantmonkey.co.uk a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793321920; d=exultantmonkey.co.uk;
-	mf=PGRhdmlkQGV4dWx0YW50bW9ua2V5LmNvLnVrPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:TQJle07nMZXAMf1eVXmdE1ar5YMFsnz+DC2KNGpf+r6467G
-	a4pUQBQI/9PECF+zg+jfopeHpkGFRyhrHPwgc2A2XA0RYvJngfTzBT7mbzYhL6rK
-	jJEFg4+oZnLllCVVjqEvNeyQ56G7HtgCriG6G4R7rS3W+6/7ksQm1pm6prN9uY6L
-	fPOGdjrkao6Jy2GcengMgGpLVAcLnafeP97jvkqfxV4wBoMoYppi9D4ElSmsqOF9
-	ACplFeKon02iIiBj4D5/kpP3McmmFSDyMVe6geuKRumMXsRhHhfrLkPQYms+n89y
-	jcVd4Jua7znUCbu7R9JYE0gYEQLrGgOXUuqoAIg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:lG5dIxXvAoTaAxrV4F/bLJKy9M6bwtYUDIOIr4ZJYEk=:LUxHGxcxVAdimMLBgUrrKkv9xtsmDEDmHT5VHMx7i8I=;
-X-ME-Sender: <xms:wOvjajO4_1aBKWvKPDdKbwh7FFXi1zdYb-KYBvMLGLkC4oKhzGR3ww>
-    <xme:wOvjan9dTEhJnfoUSXSLWB6vHxjx1NPDFFETiZqCfvJ_iu4dl95qdXY_pUJ7LtNig
-    s3WZIAmzuga6GLvF8KC75MyZqEjSrEPqE-7YEHrrH6MIh4oqgTX-aYOHg>
-X-ME-Received: <xmr:wOvjao531t_rWtM6okrAuutGwC-OogKNicOmFMjKsdmBZ6dgXq7JMurg6AoDM_Vbq09itC4>
-X-ME-Proxy-Cause: dmFkZTFrExGWSUNaf0sWNZj86zZAAbAdxjqIyM4qts/6KLSgrk2qMd2x0qF9bmUPVHy25S
-    P0UvOaN/qlWt0Hes7xh8PwwUqKyYrVFvLzknayokZYx9B4V/RMHwNlm2amxrYoteZHr8d/
-    /+NOaK1J/yq2a8YW23UKVhmlHn6ZRJN0XhrTME7qgs2Z2lACdo74Cb/bQCUuuxQM61JYjL
-    DPquJzTuGYAMMTi4wjgqh6eOgZcRicKgvjQnmnaLAlp0vY5BaX+hg+GnVe7cxgrt4pjc/w
-    Tpo9rYHJBj3F7hh4o0aZn7tDxjExF/cfHXUdfbI/ZnOldaMlGSddEFPkkuWsp5MwXwy9ne
-    AzUzy5XClCveYkj0i6/nidUeo/u2mMC9Arl9f0R3J0IlfFVcYZ/6R81mnmKPWe+6H+A01u
-    0d8WySRNA3G1W6Z8gDELeGSpGXXqLXbtOjF+TMVnm38euyIRsWgb01p+8qkJU4FJ4aQ2lh
-    TUwM8upQUbC3mi45LEWQCJkNVFEFK/rvGJw5MyfY3teThQ5l/R8wuQFeWcSsrkQXoUbfgD
-    CaXggBteu9DbVkaZyRuGbM7stNEgFxq0y8xwOlEaRALd68HAWyuR66r3i44KW6HO9zzJr2
-    zRyVwJn4D5J8F1CxNf48Jegjhnmv6fm6DeX6/AQyc7IwF1f37X+XCgRnpMQQ
-X-ME-Proxy: <xmx:wOvjal55WjlCZuJqO5zGvSSV6k2CTOvRfW1FhfJTvamVVS0Z41446g>
-    <xmx:wOvjappx-52fF0T9c1QUtYgGnMtuQl8jCRM9qyhN6F4Q4YP0yb2Zug>
-    <xmx:wOvjauOay6STYXtzJ3foMtC-FLj1yR7lw5NmWcydnwolR3_IDK48gg>
-    <xmx:wOvjap25OkIeowWYEerAWNeCeVjA0k59YUg3lErP51y5w88hWrcECQ>
-    <xmx:wOvjahUpb8uAX0mnWBvU7kRHW9CFxzVNuhFjoBauUdxckwgcPc8ec74T>
-Feedback-ID: i8d5147ae:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Oct 2026 20:58:39 -0400 (EDT)
-From: David William Richmond Davies-Jones <david@exultantmonkey.co.uk>
-To: platform-driver-x86@vger.kernel.org,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Krishna Chomal <krishna.chomal108@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	David William Richmond Davies-Jones <david@exultantmonkey.co.uk>,
-	stable@vger.kernel.org
-Subject: [PATCH] platform/x86: hp-wmi: Enable cTGP in performance mode on OMEN 15-en1xxx
-Date: Fri, 30 Oct 2026 00:57:24 +0000
-Message-ID: <20261030005724.84507-1-david@exultantmonkey.co.uk>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RsjXuMl4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D496E1F000C1;
+	Fri, 30 Oct 2026 01:01:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793322082;
+	bh=Vdd3kyoZA+FmufzVBQTN+34rF4mMwG7QhmRXSycjpqg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RsjXuMl4Ih9wcfsL7qU6JllcpPOZ1JmvI+yMRM3kER+FrkvdeUdXdm4St3Qbem0/b
+	 HQFc4fNsJkIWAhRUwYGdri2dnqDan1D66LF4/17DxiKRwa9Kii85qFaVRDigJFWC7M
+	 D0zpFU928h4JYShARwF6ssLrJtKSk+yakPevcgoGKCXoJIrdUPijR2Fu3tUKJUdaXg
+	 fAIkQ6idKJESnWP6Gm+p02JW5dcV4t/VXMDlOFVdjHKRlsGunX+UYsYz/4al2KjQ6L
+	 wYq1YFinfjH8lHTg73UGXqHFWR4LgPui8+oLxqfxcO0lyUFwa0azA89El7JICgSUp+
+	 N//uAczFsn9RA==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, Mark Rutland <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Andrew Morton <akpm@linux-foundation.org>, Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH 1/2] tracing/selftests: Fix instance test to actually test races
+Date: Fri, 30 Oct 2026 10:01:19 +0900
+Message-ID: <undine-1793322079170721165-fee1052e7bb8c899@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <20261029203205.757392992@kernel.org>
+References: <20261029202849.245864353@kernel.org> <20261029203205.757392992@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,119 +58,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On the OMEN 15-en1xxx (board 88D2) the GPU power limit stays at its
-80 W default in every platform profile, including performance.
+On Thu, 29 Oct 2026 16:28:50 -0400, Steven Rostedt <rostedt@kernel.org> wrote:
+> From: Steven Rostedt <rostedt@goodmis.org>
+> 
+> The instance selftest creates and removes the "foo" instance while
+> enabling sched_switch event and reading its trace file. The issue is that
+> the read of the trace file prevents the removal of foo, and it constantly
+> fails to remove it. The stress test is not really stressing the situation.
+> 
+> Instead of running the creating and deletion in a loop as a separate
+> process and sleeping for one second, call it directly in a loop that forces
+> it to happen 10 times.  Also update the removal to keep trying until it
+> removes the instance, otherwise if it doesn't remove it then the next mkdir
+> is a nop.
+> 
+> Convert the reading of the trace file to use "head" instead of "cat" so it
+> is limited in how much it reads and add a .1 sleep in between reads. This
+> gives the removal of the instance time to succeed.
+> 
+> Fixes: 91e6f1ce86577 ("ftracetest: Add instance created, delete, read and enable event test")
+> Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+> ---
+>  .../ftrace/test.d/instances/instance-event.tc | 26 +++++++++----------
+>  1 file changed, 12 insertions(+), 14 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/ftrace/test.d/instances/instance-event.tc b/tools/testing/selftests/ftrace/test.d/instances/instance-event.tc
+> index 42422e425107..b0e9d3abbf2f 100644
+> --- a/tools/testing/selftests/ftrace/test.d/instances/instance-event.tc
+> +++ b/tools/testing/selftests/ftrace/test.d/instances/instance-event.tc
+> @@ -25,15 +25,16 @@ if [ $result -ne 0 ]; then
+>  fi
+>  
+>  instance_slam() {
+> -        while :; do
+> -                mkdir foo 2> /dev/null
+> -                rmdir foo 2> /dev/null
+> -        done
+> +	mkdir foo 2> /dev/null
+> +	while ! rmdir foo; do
+> +		echo could not rmdir foo
 
-The firmware's SET_PERFORMANCE_MODE handler (GM1A in the DSDT) stores
-the mode byte in EC register 0x95 (HPCM) and enables NVIDIA cTGP through
-the NPCF device only when that byte is 0x01:
+nit: If we retry this, do we need to warn it?
+(maybe we can add a limitation of continuous failure and make the
+test fail if the failure exceeds it.)
 
-	If ((HPCM == One)) { NPCF.CTGP = One ... }
-	Else { NPCF.CTGP = Zero ... }
+> +	done
+>  }
+>  
 
-0x01 is the thermal policy v0 performance value. This board reports
-policy v1 (byte 3 of GET_SYSTEM_DESIGN_DATA is 1), so the driver sends
-0x31 for performance and cTGP is never enabled. NPCF only reports the
-cTGP offset to nvidia-powerd (ACBT = 0xA0, i.e. +20 W) when CTGP is set.
+Thanks,
 
-For boards in a new omen_ctgp_boards[] list, set cTGP explicitly with
-SET_GPU_THERMAL_MODES after setting the profile: enabled in performance,
-disabled otherwise, with Dynamic Boost (PPAB) left enabled. The Victus S
-code already uses this command. platform_profile_omen_set_ec() is also
-called at probe time and when AC power returns, so cTGP follows the
-profile in those cases too.
-
-A report for the Victus 16 board 8934 shows the same HPCM check in its
-GM1A method, so other v1 boards may be affected. Only 88D2 has been
-tested, hence the list.
-
-Tested on an OMEN Laptop 15-en1xxx (board 88D2, BIOS F.20, RTX 3070
-Laptop GPU) on AC: nvidia-smi reports a 100 W power limit in
-performance and 80 W in balanced and cool. Without this change it
-reports 80 W in every profile.
-
-The firmware analysis and this patch were prepared with the help of an
-AI coding assistant (Claude Opus 5.5 in Claude Code). The result was
-reviewed and tested on the hardware by the submitter.
-
-Link: https://lore.kernel.org/platform-driver-x86/CA+LW3S2g4E971by7WhfFZGuyLT47141_Zn+eJ=wyqxB_+4G95A@mail.gmail.com/
-Fixes: 286e937efbc7 ("platform/x86: hp-wmi: support omen thermal profile policy v1")
-Cc: stable@vger.kernel.org
-Signed-off-by: David William Richmond Davies-Jones <david@exultantmonkey.co.uk>
----
- drivers/platform/x86/hp/hp-wmi.c | 34 ++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
-
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 52077833ac89..e09a6d261144 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -235,6 +235,14 @@ static const char * const omen_timed_thermal_profile_boards[] = {
- 	"8BAD",
- };
- 
-+/* DMI board names of Omen laptops whose firmware only enables NVIDIA cTGP
-+ * from SET_PERFORMANCE_MODE for the v0 performance value. With v1 values cTGP
-+ * stays disabled, so it has to be set with SET_GPU_THERMAL_MODES instead.
-+ */
-+static const char * const omen_ctgp_boards[] = {
-+	"88D2",
-+};
-+
- /* DMI Board names of Victus 16-d and 16-e laptops */
- static const char * const victus_thermal_profile_boards[] = {
- 	"88EE",
-@@ -2035,6 +2043,17 @@ static bool has_omen_thermal_profile_ec_timer(void)
- 			    board_name) >= 0;
- }
- 
-+static bool has_omen_ctgp_control(void)
-+{
-+	const char *board_name = dmi_get_system_info(DMI_BOARD_NAME);
-+
-+	if (!board_name)
-+		return false;
-+
-+	return match_string(omen_ctgp_boards, ARRAY_SIZE(omen_ctgp_boards),
-+			    board_name) >= 0;
-+}
-+
- inline int omen_thermal_profile_ec_flags_set(enum hp_thermal_profile_omen_flags flags)
- {
- 	return ec_write(HP_OMEN_EC_THERMAL_PROFILE_FLAGS_OFFSET, flags);
-@@ -2045,6 +2064,10 @@ inline int omen_thermal_profile_ec_timer_set(u8 value)
- 	return ec_write(HP_OMEN_EC_THERMAL_PROFILE_TIMER_OFFSET, value);
- }
- 
-+static int victus_s_gpu_thermal_profile_set(bool ctgp_enable,
-+					    bool ppab_enable,
-+					    u8 dstate);
-+
- static int platform_profile_omen_set_ec(enum platform_profile_option profile)
- {
- 	int err, tp, tp_version;
-@@ -2096,6 +2119,17 @@ static int platform_profile_omen_set_ec(enum platform_profile_option profile)
- 			return err;
- 	}
- 
-+	/*
-+	 * Enable cTGP only in performance mode and keep Dynamic Boost enabled.
-+	 * dstate 1 means 100%, as on Victus S.
-+	 */
-+	if (has_omen_ctgp_control()) {
-+		err = victus_s_gpu_thermal_profile_set(profile == PLATFORM_PROFILE_PERFORMANCE,
-+						       true, 1);
-+		if (err)
-+			pr_warn("Failed to set GPU cTGP state: %d\n", err);
-+	}
-+
- 	return 0;
- }
- 
-
-base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
 -- 
-2.56.0
-
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
