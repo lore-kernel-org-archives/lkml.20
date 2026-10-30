@@ -1,47 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358547;
-	b=K4lWfXjjD3pJViET7s7S6w2nqMFXr2UacHeLIx9gtf6HxSmcj+6rTkphJuFDTXVsV7bN
-	 +3Eg8tkkDi36TzMUpOEh/W1UN36nuODgyQD30D5LXNucKNZ8jyemDNcwVk8566YlfEWCf
-	 DCEmebd7oeJj9+rRycx+XQ4Ynf4dyp/MYsIDcM2h5Ns56NpiGLWVTbqovw4dkJeKXp2ar
-	 WIPIAbFXQdKXeh/4gqBkhHu9oFBKx0Gc26MceuCvnPzqAMNEvQXllR9lZC0o0fpF6k9/v
-	 K5YxJxEAU+OoJ2SYZKCz7C8AUjgaUHNAn6Gu5hIdOtNvcweWDM0xjPjzoeZVvP1ETkw==
+	t=1793358652;
+	b=ac5y325M99NyfqYkkh/S9uUiCugreZX/sIXzEjdV1J5qaZoLcWrVoslNxBakchzG3wTC
+	 5dwHkhGv5GjnAGy/8LYl6BRC26MZaRUYaaJiBJ4+d2fAKpL3yhwzWOsZUT01Y89bE7qyX
+	 mdw9kxaUuU5Y//RYsFX8QzECOT5j832YuajqggLy3DdOdM3dzHnePnPOyM3jygCxijlFq
+	 TGve8gN6tq6FDnYokx/eqJsI0U+NOeADK8DhTEdKWJZCqck7a1yLbNzCoCPgSFsngSygo
+	 98velxNLzWNw7cok6KALzkw+FpGu8jZpYtyE4oGcmlqPwBJ0LCnkUGWIhSk0sLYe+kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358547;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bkc30PrXE7NoTD9uYcKfNgc6wV2Fj3rIUgm/AIyfBvc=;
-	b=5T8e+oIWkzWAlCtREd9vmj/octHC4A7pIa2L0lYsLtBLA1mK+ukIn3dC446rD45z2n3s
-	 HDRo8ftlapYJVuO+lrJA89Gx3SwFo7ssV2RWyqUPgSFwBB70NFaQxlJSJDkMMqAxiw4GE
-	 PlxTZAhD5b384b7H/i23wToBFySiykB8pJv8uEW9eUsp44GEVgRuw3QFwyfgHvb/iQb7K
-	 etlg6f0BzLpvQScZV53XxtOKfXYiEZ0udO27GLZcwUHop1ki98a5ZggrKlH/gU8uajLXA
-	 LMnEJK9XDrJIDxrdLBjxbFJDMWoKJC2JO656SQYI4zdsTzgzil2kP7+lc0c+aW4kfuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358652;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=3K77XNkfMH7a8onwpIoaohwCSVh2S30EXP1W1PCwgg8=;
+	b=XL4Xl2Dqc9D+i8N85mlpK1sN3x4gaNpMd1ZynWYT9x0KRn4wTfLCdVwF7pNuqZxdRiu2
+	 ZYFmxLyr0rPNFTAuwZsFrXruhODe6gv2KN5B7eWXpyNGLRcspbQfwF9qULcde0r8t91HS
+	 q97qepNi2uE2AD5VGyXqJTu08HirgNxAO1/lKdwmAqBfrykKGR95tMDTImCUzb6OUoKR3
+	 9WquIH+DLITcNTw01HrTSnYxONOCZTIpyoTO9z9zpUav3QHF58zWMSa6KYA9h9SV/EDD4
+	 3MAHRr4GMldY2tpEYq66vEFNOS4f7GJjqM4yUoqtf6RKnFL84wPLGZd1QdW+321SHkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WgwvLHrG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Op+K9gir;
+	arc=none smtp.remote-ip=209.85.217.44
+Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com [209.85.217.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B283D606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:09:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D0E7606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:10:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D0E7606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WgwvLHrG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D22D71F000C1;
-	Fri, 30 Oct 2026 11:09:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793358546;
-	bh=bkc30PrXE7NoTD9uYcKfNgc6wV2Fj3rIUgm/AIyfBvc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WgwvLHrG1rnaa6zIaTWYYVChMqH+LvTLd0/7d6Sp8KnDUXr6GQ+eOzdfIrIQfGeus
-	 /QXwIhlV9z6X9uxq6Y6wUyJ7DVeYBvVsq0OEilMrxYN0TLhswXdKXjp4Ybl5QojXio
-	 AXFfWCpUQTqTQcLZIyMMq7x+VWijPcoOe2Tr2QIHtOs4ZaAqbmig8bwwLDbEe2/V5E
-	 MQSbYloRwuwX5c2zNxa0KWgEEzNRWqCSvAeCoznLyJoWWKKYD5sLshWPQzwAfD+i3p
-	 80FlJAJRnGTtHZMJHdt1Gd2Mhq3zt+DqkVO3/13tRt0Ms0lWU4j5w1LcMifPXOZmk/
-	 RT3OFbg7E5qPw==
-Message-ID: <6591722a-d841-46ef-85d4-e7a3243344c2@kernel.org>
-Date: Fri, 30 Oct 2026 12:09:01 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Op+K9gir
+Received: by mail-vs1-f44.google.com with SMTP id ada2fe7eead31-7cc2bb73cd9so112140137.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:10:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793358651; x=1793963451; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3K77XNkfMH7a8onwpIoaohwCSVh2S30EXP1W1PCwgg8=;
+        b=Op+K9girD6S4wCdakdfLsogm7mwuSirVskruFOu89qb11mi+oFCrsYh32/RHot1jvF
+         5gSOe3BcwsMBh4MoCZD2X+LktUSxwDY6mH3vlDr47d8RoVpGenvO47qxJPab6m5AS0vV
+         InGmUtmB15fUSz2hZxBOKURp2LWvp++46FsRAXyzxhZu9ehgLUlsrnX4rlEUNZ5e0VP7
+         ZgmbHkZID5oS7e2gvnzl8TBNR+ec+nKREpgJJVhU4ZyqPgSrsxDrh1jcFinhgquAvnU5
+         RMObtQlUxJ6p86d3HymhL/2lgDY+/WvtMZK9jaN2kZM4HY7UZIDI5OQdmkLFg84D83no
+         4Mvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793358651; x=1793963451;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3K77XNkfMH7a8onwpIoaohwCSVh2S30EXP1W1PCwgg8=;
+        b=SfNyKkH5x8coK2O2ceB/VdXhZydwdvwuPErZ0YrIxdjYjc9n0EI8yDRTzklOmyw6bG
+         zNJWWhnvMVpwmlVQKXkUmyLGvIuxAnGoLC+CxGpOvtqYjZTId/GFw/WXO7FBnBTL+mJI
+         SLlOfhFASZkajwg5eEucVZh8a0cixk7p9OqYnJtU4GAlMoKqulL5n7tlJpAoluYYKE+n
+         71b3oxxPLPRk3BWLAbr4lVXqlWEp16+u67nhQ1dgXYw+wO6b81q7hWq8gYVkkbkJRS5k
+         RDadiOscqeEPBNDR0k9OFEHeL9qtf+rM/44VM7sigQXWXMrnFWL9a315f8msY+9aea6p
+         13GQ==
+X-Forwarded-Encrypted: i=1; AKwUvByBwjiqbtMFzNbledjOTY3F3dRs3gPL8WRGE0bLdxCbi6ucFO+nuOrto2DJdDmw5YnqQongN+p8NUXERY8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDQH5lwKbR+f5RqbsnttPagbwEYagp9X+qIabKKkayxy0xwUsL
+	wf2ogaa01UAFvE8W6/qOMeVSRxTZRqtJXRMIoMWOUnmJQaUoQP31FOtx
+X-Gm-Gg: AYBFou3hjTW82tzddcm53jgR4SWdm40d+zbZnmaFeTfIN7ctUsxZ2UZt143InbhKt5x
+	AoNSON1ZLQL5GbpJfyzsOPOH27KqdULip7vzD+Hg67uW36zT6t9GxEx8J8AffowZGOlUUkA+4FM
+	UbJ/BUF9E/xzTPMOojNSdLWmgc474hEubwYnEcsdWGFNdvEbgc6xcV8eHBAD2Ovwf0vUbA+IloN
+	+oNXKjBjklYUYOUohEjkeKlqBpZBpXjUGi9D4ByM9+0JGA7k1dLxCuMTHAU7W9BfYUXHG7YTg0y
+	YHPHCAI1/UXoblikfdWmxIkZ9dwH7JDMO5BlfpRnQ/GWDqqMdjV4a6ksVBtIhacwFn+mtPOhFRq
+	XJh1vhDD1Ox9mpksPVBrT96/AkGOKvR6eJyerM/BV6LVbRpaKFrywiM75w6WEijFv6SLloziuEh
+	gR0kaSPw0lR0HQ9acQnTa9csYRxCKUBYkS0nS7BrtK3G1mlcVnrzOJDe7Wpk5byJ1mFY57+3LUB
+	K8maCtLrPuAzyYywoKramVdhItLdNfCXHsOaZnS2SVzqDt3lXK8veuJyxqnEce527ChZnzJ3FNA
+	TKFZiZVYLUbJ/Kgjp9sl3lCxGahe7mfuyRB7t+C4BSJBcrr9gPAVJv5AkWBk/xBQDH7aeja2gVp
+	vUdqqlAsMxDvi2+UA/Cc=
+X-Received: by 2002:a05:6102:3590:b0:7cc:2152:4f79 with SMTP id ada2fe7eead31-7d072c1571dmr826528137.16.1793358650948;
+        Fri, 30 Oct 2026 04:10:50 -0700 (PDT)
+Received: from 1.0.0.127.in-addr.arpa ([191.34.116.20])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d07754c1b4sm1841044137.4.2026.10.30.04.10.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 04:10:50 -0700 (PDT)
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+To: David Heidelberg <david@ixit.cz>
+Cc: David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, oe-linux-nfc@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH net 0/3] nfc: fix skb leaks in LLC nop and in data exchange
+ error paths
+Date: Fri, 30 Oct 2026 08:10:42 -0300
+Message-ID: <179335864271.64596.805818095553030218@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,171 +100,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2] mm/huge_memory: set the mmu_gather page size in
- zap_huge_pud()
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, linux-mm@kvack.org,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
- Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, Muchun Song <muchun.song@linux.dev>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Pavithra <pavrampu@linux.ibm.com>
-References: <8b853e5f9f16145859407b28af654b0f79e12642.1793318297.git.ritesh.list@gmail.com>
- <19012a9f-7a8d-4eb2-a441-cdb04184890b@kernel.org>
- <cxsrwl3r.ritesh.list@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <cxsrwl3r.ritesh.list@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 10/30/26 11:15, Ritesh Harjani (IBM) wrote:
-> "David Hildenbrand (Arm)" <david@kernel.org> writes:
-> 
->> On 10/30/26 01:07, Ritesh Harjani (IBM) wrote:
->>> Unmapping a device-dax mapping with 1G alignment on powerpc radix kernel
->>> built with CONFIG_DEBUG_VM triggers this warning on every munmap:
->>>
->>>     WARNING: mm/mmu_gather.c:176 at __tlb_remove_folio_pages_size+0x38/0x230
->>>     NIP [c00000000063d508] __tlb_remove_folio_pages_size+0x38/0x230
->>>     LR [c0000000006fb688] zap_huge_pud+0x1b8/0x2d0
->>>     Call Trace:
->>>      zap_huge_pud+0x170/0x2d0 (unreliable)
->>>      __zap_vma_range+0x1604/0x1e20
->>>      unmap_vmas+0xa0/0x1f0
->>>      unmap_region+0xb0/0x130
->>>      vms_complete_munmap_vmas+0x120/0x310
->>>      do_vmi_align_munmap+0x1ec/0x240
->>>      __vm_munmap+0x148/0x220
->>>      sys_munmap+0x28/0x40
->>>
->>> To trigger this - it is enough to mmap() /dev/dax0.0, touch the first
->>> byte so that the whole 1G is mapped by a single PUD and then munmap()
->>> it.
->>>
->>> PowerPC needs MMU_GATHER_PAGE_SIZE in which mmu_gather needs to record
->>> the page size for which tlb flush is needed. zap_huge_pmd(),
->>> zap_pte_range(), change_huge_pud() etc all do this already. However,
->>> since commit:
->>>   dbe54153296d ("mm/huge_memory: add vmf_insert_folio_pud()")
->>>
->>> a device-dax PUD maps a real folio and zap_huge_pud() now hands it to
->>> tlb_remove_page_size(tlb, page, HPAGE_PUD_SIZE). At that point
->>> tlb->page_size is still whatever the previous user left behind, which is
->>> 0 for the fresh gather set up by munmap() and so the check fires.
->>>
->>> Fix this in the same way like how other similar paths do.
->>>
->>> Fixes: dbe54153296d0 ("mm/huge_memory: add vmf_insert_folio_pud()")
->>> Reported-by: Pavithra <pavrampu@linux.ibm.com>
->>> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
->>> ---
->>> [v1]->v2:
->>> =========
->>> - Split the 2 part patch series. Patch-1 is now superseded by a different patch
->>>   from Muchun which he already posted [2].
->>> - No difference in this patch from v1.
->>>
->>> [v1]: https://lore.kernel.org/all/97f85592bb78a273be8519e6897e7f9b9bd31469.1793070429.git.ritesh.list@gmail.com/
->>> [2]: https://lore.kernel.org/all/20261029063601.1961415-1-songmuchun@bytedance.com/
->>>
->>>  mm/huge_memory.c | 2 ++
->>>  1 file changed, 2 insertions(+)
->>>
->>> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
->>> index bd44d58e8684..7e589a2fb02d 100644
->>> --- a/mm/huge_memory.c
->>> +++ b/mm/huge_memory.c
->>> @@ -3040,6 +3040,8 @@ int zap_huge_pud(struct mmu_gather *tlb, struct vm_area_struct *vma,
->>>  	spinlock_t *ptl;
->>>  	pud_t orig_pud;
->>>
->>> +	tlb_change_page_size(tlb, HPAGE_PUD_SIZE);
->>> +
->>>  	ptl = __pud_trans_huge_lock(pud, vma);
->>>  	if (!ptl)
->>>  		return 0;
->>> --
->>> 2.39.5
->>>
->>
->>
->> Matches zap_huge_pmd().
->>
->> I will wait a bit  and then queue this shortly.
->>
-> 
-> Thanks David, however, looks like Andrew might have queued this up in
-> his mm tree [1], right?
-> 
-> [1]: https://lore.kernel.org/all/20261030021905.2DCA71F000C1@smtp.kernel.org/
+Three skb leaks in the NFC core, found by LLM-assisted code review while
+auditing the HCI drivers that need real hardware.
 
-No worries, one of us can drop it before sending it upstream.
+Patch 1: with the LLC "nop" engine (used by the MEI attached pn544 and
+microread) every frame sent to the controller is leaked.  Confirmed with
+a test-only module that registers st21nfca with LLC nop on a virtual
+phy and a userspace controller emulator: 20 device up/down cycles leak
+598 skbuff_head_cache objects without the patch and none with it.
 
-I'm about to send out the MAINTAINTERS update in a bit, so right now it's still
-confusing.
+Patches 2 and 3: the HCI core and the HCI drivers (pn544, st21nfca,
+microread) hand the response skb to the data exchange callback together
+with an error when the controller reports a failed exchange, and NCI
+does the same for a frame interface status error, but the raw socket
+and LLCP callbacks only free the skb on success.  These two are compile
+tested only (W=1); the leak follows from the code: __nfc_hci_cmd_completion()
+gives the skb to the callback and never frees it itself, and
+nci_add_rx_data_frag() passes it on with the error.
 
-(but also there is no harm in having it in two trees temporarily)
 
-> 
->> This sounds like stable material?
->>
-> 
-> Sorry, my bad. Yes, we should have this Cc: stable@vger.kernel.org.
-> 
-> Kindly let me know if I should update the tag and send v3, or can it be
-> taken care? Thanks!
+Joas Antonio dos Santos (3):
+  nfc: hci: free the skb sent through LLC nop
+  nfc: rawsock: free the response skb when the data exchange fails
+  nfc: llcp: free the response skb when the data exchange fails
 
-I would just apply that when picking, no need to resend.
-
-Thanks!
+ net/nfc/hci/llc_nop.c | 11 ++++++++++-
+ net/nfc/llcp_core.c   |  2 ++
+ net/nfc/rawsock.c     |  4 ++--
+ 3 files changed, 14 insertions(+), 3 deletions(-)
 
 -- 
-Cheers,
+2.43.0
 
-David
