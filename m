@@ -1,54 +1,149 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.23
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793322387;
-	b=hfoNa4l9Ctj1AuVp6pB4XUzOdCgFxueTOxfyFwYBq9yuFu5eOmbBYLal4yvjjU3rj7Wj
-	 B2Nf+3C/y7C8/urUtytoZ5jnXS+BkxqX18JRs5BO2Jydpf06+8Xus6k9siEo4gWdo5ZPZ
-	 J8CvvAQt1HG62FlONRpPGcdkxkTMEasCpPrN23o2G/ojktYBr1kE+NFnGbmZM0xpkfQ7I
-	 2VN6zs4mF69GKkFpZ8zoF+Mb6FJ5vVlCPOYQDfC8ari0E/AzfTbyWT2igmpIxjt5eWpRT
-	 sVUs8f1FKYT0Brm2+ps/j9aJWzNeTsD+9fFMd1zKlwRIOM+YjkvyPAzuoQcj9tyF+kw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793322387;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=JzgFJMOLFYwvePlKh+I1EU5zI0SF2rYepqzNiEMGBak=;
-	b=hG/vaMs1xsp/35N2aUxxjnHsvL3OgCHU9JqL72YKjFipQpmrcWV26PXBsM2djD0LLu9j
-	 YM6b9Qyf/X822HkZ72SBc6pNL6RqukfE6967w5DKWtI6CmX8kJ29TzrB/Ynt4o9oO3jpm
-	 DidEvyAQ2UsmnVm/sCUpf3wNIsR86ONRvDWyHdgz72bbt5zdW+BrTq5GmD2MNyu8PRbwR
-	 JwmJHxVnyMMr7NOe90uYtUGqP5z3NmYJvHscW/DBRekBqwwN2w9p7cEnrrO5ijmYMgd8h
-	 yXwof3rEb+3kkG8C3SySabXdhzBZveOOwEMG93Dxt+IjPowR/FA05x71z3oFSf5XJPw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bh+gNGsN;
-	arc=none smtp.remote-ip=95.215.58.23
-Received: from mta1.migadu.com (out-23.mta1.migadu.com [95.215.58.23])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.100
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793322401;
+	b=AeeyP75svHJ+YbEfG8lrf7SpuisKKbJgP83vA1qadi45XmaFVR7jBB+PT+XlWsYzLWBj
+	 vdBYPSx+RO6HafTe/kdWqECSbeMpzPOVgfFzeewyiaJCabI+d2tqhFwEBt7o+fA/ft8RD
+	 iLbk/BuXTS/+JJeiBNS9tue81PSTb7Z1FaY70sZ7O9KPTBFE//Z4hqzqYoCxsMsPp7gxb
+	 rmdEyiO+PgY55rnOZD+W1oghEayBR3eGppWkNzsQyUx7TfdKlP53suDaEb+kXmQiSF2vC
+	 TD7OwfN6OLfMphCkGCudKsl1x9FxQ2SADwzXrDpX04pWbT9HllmzXSh+f4zULWiiP9A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793322401;
+	h=DMARC-Filter:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=uy1BP/z/1iwouwiqXH4itqLb/MmjN7H+EmIsJ6KYHjI=;
+	b=LzzWRz8MuJJsm30OTzN/T1y5Wfm3GjMdNAbga5PlSS+6sSgpsQ0kwoqb+nHChEAiutD9
+	 Mnhqi3Ii4Yv/uVcS7KghFplNC3VFEiDiWwbPUhD7E3tvaKyPCNErhVhtDVkBfVRASRSYJ
+	 K/v7RgJ2kF8bTrKpumwjrtWGhHnRj60T1+Q6rRvM8GMbnnVcILh32FcqE0GXv2jNc+zdX
+	 ab39+a5qxKL/AoGSRP7lXcn1AFPYHYhl6AXyPveUnzVNnaGhE7dK++bD/fmSnNo21qXiw
+	 j7YLFfULEQ6/qB0jQ5XkMpYGiMQN51vlhrhnDUVXP3F6cs4wE1/3yoiScnLJ3DJxYYw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=starfivetech.com;
+	spf=pass smtp.mailfrom=starfivetech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.100
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2100.outbound.protection.partner.outlook.cn [139.219.17.100])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26011606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:06:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26011606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bh+gNGsN
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yTADy1/D7Gqq4qD3lyh7cKLqinNvU24JT1mwLdBDAKg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793322384; v=1; x=1793927184;
- b=bh+gNGsN9m954p2h69Wnh64hxtjv47C2klg8ffzZfp38+nttBCUMP4ijrw9J1LVmiabnGZAV
- WhMSbWhJSRLuu0khtxqaBg0miHmIrQuETpXdbCxld3ipmkxzehjaOlJiDrr7r0KRhFM/+PpbUzB
- DprvSrL92AhCAVmB002tH3sE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2b9a7a775910b620;
-	Fri, 30 Oct 2026 01:06:23 +0000
-X-Mizu-Trace-ID: 2b9a7a775910b620
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <2dd076bf-cd4a-4d07-a5b2-a0529a61281d@linux.dev>
-Date: Fri, 30 Oct 2026 09:06:15 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F44606A31C;
+	Fri, 30 Oct 2026 01:06:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88F44606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ll1fphk4VJF/f6oA4NrwFAmAUz3R+0oRIPJ2Zs4hTodjZHQAQ6LyM0KDdaShuxPFIA/fYUVYeVsIZYdds188I0lt0K0e+OYzlJONnmvnP12mAdu/fVz1RvS5BKR8KtJHyRcCeHkkCHVM8/m3NFsvOdtQUjXhRvozSZ+kHCgfDVFGObTVCVQivFdN4jKgg07yDRrH1CSXBukfmAzKI4EZE/i38aiQKCxVVBUwEITcK++gbwY7Zwt4JurWebABrr9HwjYA7NGpPLUoe90g0RkSWmDr2x6ZYq/sKV8Elo/sDdfE+PwhHRCiBdJLm9k0xEhN4OV/jw7A0+qxGJ9JgYZyCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uy1BP/z/1iwouwiqXH4itqLb/MmjN7H+EmIsJ6KYHjI=;
+ b=kwBvwUqT+wqcHb/Gdhd7Cwypao+z2IZqwU+ihdaGyV7UTNaCAF13gLukr21maqp9C8MAe6aDkkK3j8IbMbvF/GrP7tKmkvx+nF4jaRA1PMAn+lskvuYXRTltTb3l9oddb2qMS1vEAu3vLvceB3Zgp51pCnc9LKYUBqZXi6ua3u8GIuR2+gpm3PhkEOB7+y17PBg34aA/bam/cc6bFaYFds9oUp2tphzKRi+qwpDYi3NI+d2HeU5vTnMj3eVSmUJ9ejFt+kd8pwXtkz4As0QuTPIJWIrMRW+i0/gr0ftTzrHFRz4W5dIrFaSdPYXjhtrg26L1E4hKM33kb5OaLOyEvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1201.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:13::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
+ 2026 01:06:28 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0569.008; Fri, 30 Oct 2026 01:06:28 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Linus Walleij <linusw@kernel.org>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Bartosz
+ Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, Lianfeng Ouyang
+	<lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v1 6/8] pinctrl: starfive: Add StarFive JHB100 emmc
+ controller driver
+Thread-Topic: [PATCH v1 6/8] pinctrl: starfive: Add StarFive JHB100 emmc
+ controller driver
+Thread-Index: AQHdXff3MLQEsB7Aa0qNDpNd5DKM97cUjviAgADK3vA=
+Date: Fri, 30 Oct 2026 01:06:27 +0000
+Message-ID:
+ <ZQ4PR01MB1202E5FC8229FF60B53B495EF26D2@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20261017052534.115203-1-changhuang.liang@starfivetech.com>
+ <20261017052534.115203-7-changhuang.liang@starfivetech.com>
+ <CAD++jLmtOcNMZsXWgH5Q1fHk1A3vAZx3OnX3=RDvOjKpcefCcA@mail.gmail.com>
+In-Reply-To:
+ <CAD++jLmtOcNMZsXWgH5Q1fHk1A3vAZx3OnX3=RDvOjKpcefCcA@mail.gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1201:EE_
+x-ms-office365-filtering-correlation-id: f31110c0-58e1-4b4a-ea6e-08df362206c4
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|22082099003|18002099003|56012099006|4143699003|10067099003|38070700021;
+x-microsoft-antispam-message-info:
+ gDFaTtjt+V+4UBNCQdzhUF8xtbhJLmj5ff4h1Kalm2BU22iXYOHRRAAe7b4r44TfRTMcY2lPe9RpSHiurl5b7ciaCbmWXx4utSpx/C6y5iycAQ/aWddt1MEMSeRmv8vAFIGqLV+VQt9t+/0xjxVj7AQFllHb/Z2iIBhAYfkqvOOBL5aZ5szPMZgCDGp9uUvx1nxFKeGP6L8I57Q1tiPmHT8F3oc80fVqbjm9juvGkyR917RwlxlqIgAbCWu255a84JVCbBtiNW/JKyaiYqSRNNdv3SwqFFa7VE9/K6ba3fq4au2eAwJ7ocHJZkQrs0zfUXLHj3O7vBlIQt7T6DiOOwkYKwb4/k078vhEZPQ2Cucg3mczWP+r1rqyPyv+Fws6ErV8cJkpUUuY7InJCaMw9/Gm1crJr3Rf7F/w1900qvRER/LVz7J137I+6YDbaDrWFJqdrJR61ob23jE74jq8pUDwnIxMAe59o4QZXQCppBsGHesSW8+Sbk/0go0dE9VXGasqQ1BIPayLKLA+6sRZbzUvbx8A0+vSFUbj4zoRTQpxgWXw9vV9X3F/TLEDX8Mi
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?cTdsOUtSRENVbEcrdTFvZFNRSzBRR0hYK2RhYlI4ZkFTVHJWaEkyYVZYenVK?=
+ =?utf-8?B?a0RhV2FpUXJpellZbHJTMHhjSGtYbFVtUVhxQ1JjdWVEMFN5UlVleENKYkpx?=
+ =?utf-8?B?UjJ0Mkx3cVpFU29MMVVsd2NCT3FFbGpXdW5rUC94d2tpOHhwcy9uOEJ3M2tJ?=
+ =?utf-8?B?VzBoejE1cHJuVStjaTZ0ZXNOK0MvZEFHb21zbU5mUUZHaVM2MUZPUnI2Nldj?=
+ =?utf-8?B?OFdXSGorb1ZjWG1aaUVWLzhjaTFwUEJlSEMzU2dJQlBNKzNIU0hMWFdPalV2?=
+ =?utf-8?B?WkMzazYxZ3JtdFBreW84ajhVSk16bHJ3REg3TGlrZWdOWjVudnZrZisxd2tZ?=
+ =?utf-8?B?RzdxcGMyVXI4YS8vcVVURkFzWEY5VElIYk0vTWpMV2NRK0Jsd1hKMDhmMlpF?=
+ =?utf-8?B?ZThjcE9zeVJicklid0R0ZzNLbkNwY3lSRDlYckZ6VkwwS1ZWcE1uNUJWam1I?=
+ =?utf-8?B?bjJTeE53aTZCR1hZeUdSaHZvd2xPS1dJbkp4NFhmR3pOWXhLdEtzdlZZYkov?=
+ =?utf-8?B?S0VhMkZMYjZ2UFN5aGdveTFBZjUreFpCRUxSamE2eGRvV0dBQVA0VFJnVmM0?=
+ =?utf-8?B?cStLa0dZeE51eXZWdWJvMXhmekFldHBhZU1icUNDenF4ZlFtQUtYWGljMnVR?=
+ =?utf-8?B?VEs4MGVsQmZvN0V5d0tpdzlsN2MvbE5tZGZ2Y1hoS3VEd2JrRGRwZGZUZlRq?=
+ =?utf-8?B?TWlOVHNncnAzK25YeWMyU2dvNmtHY2xuRHZRZi9MVE02NkYwYU02TXJUMTd4?=
+ =?utf-8?B?Um9JVFZFdk4wVlh6OWJhVVh4bW9qVTN1R1hzNjMwZDdoM0p6STRxdHRWVWV3?=
+ =?utf-8?B?V1c4NVEvcE9NbW0vMFNibTNWZFU4b0ROREJzNUpQcEl0ZFltVWQxdE0rYTJ4?=
+ =?utf-8?B?UmExdmZQSVJUeE9jSTU1Misvb0ZVaFMyWUJTeVN3bko2dlFaOTZzNW12YWlK?=
+ =?utf-8?B?andIV01ONDFXM1FJZHJpdFFMeVBnVm9TVFJhMjd2bFNjd29vWlpPMVcyTkFT?=
+ =?utf-8?B?NVZyWTNmc250aW5iNWhRVEZMZ0NZOHlqY0Y2SDZYL0dGai90RVliZzM5cmNH?=
+ =?utf-8?B?VnpRaTlvQkpDNEh1UFNJWW9LTE1lMzQrdWtIYkpTakQvN3dzMFo0THY0clNz?=
+ =?utf-8?B?VlFValFtYUphdEo1MFJVTXRadlNlbTUyeE5jV1hwRUVNZTFrazB5OG5QelBj?=
+ =?utf-8?B?VWtZSVNnYXhjNjZjb0ErL2kxNkJFeFRkbVJRYVN6S3UyOWhrTVEyNlVrWDVq?=
+ =?utf-8?B?b2xwbTN5dzQ3VGp6RzJUQVVVTnlIVERWdFJyODNrWmI1dDhuMnIxQU5MWnRZ?=
+ =?utf-8?B?enJHL280TmdEOHQwR1RjNnNFOHAxc0gxTnBBSU0vSUFBc1ZwWWRSMkFId2k5?=
+ =?utf-8?B?VGFhbDJKRE84ZHc2UTBmVEpvMGNWRlJxZzJxcWoraEFvejZjOU42Wmh2M2dU?=
+ =?utf-8?B?cUZDYkY5T3ZLSDdVZDBoekE5MUp2UVcwQ0Z0a0o1c0lMdHB6dzRvSkRPNWhh?=
+ =?utf-8?B?VlJBUG9ndzFCNi8vdVNYZkhVK0lOdDNSV0IzZkE1bDljRnQ4NGkzR1Voalln?=
+ =?utf-8?B?MFQ5R3N6WFRib1BRVFBaOWZzOEZnUDJ5d2RtYUpBeEh5SXhYR2luQSs4dDk0?=
+ =?utf-8?B?aU5TU1BnKzJOdHRzNU1rUVRSZU5SeHQ1T0E1dlBValdIZjZlNTRHNWxlMnVw?=
+ =?utf-8?B?bTFEVmJ5OG9OcThIZHVTaWpOeGdMS1pmb084ckdnQUx3NlI0WGJJU3NlaFZu?=
+ =?utf-8?B?amxyakNRd1ZBRmd1UnJiRGRaS3BPYzZ2b28vK0ZhTlMrSjVsNitWcEJIU0lU?=
+ =?utf-8?B?T1dXSDk5TnEwQVhSMEk3THVHVkZBY1V0a0cwdXorZUViTzRPVC9PaWJmUWQr?=
+ =?utf-8?B?M1BlNlljbWdOOU5oUFA4RExhdktqc0p6Y252aEZGaXVnNkxXUlRrUmgyKzM4?=
+ =?utf-8?B?V3dWandnT0J0NjNCUXZlbldPTzN1cGZjcjQyL2RiMFlnd25ac3dRTHhFeWJk?=
+ =?utf-8?B?bVBFSWE0cHJSdm1XcFE1cUppbkRiUm1yL1lXQk5wb0RhT3ZHU0w3S1VsNVZY?=
+ =?utf-8?B?V1ozb0ZXT3NWK1plNXpPd1RRdmw3VERXRnJUc2hYV3VaSWdSczJKc3JVUmd2?=
+ =?utf-8?B?anMxbVFydmYyNHNzd0dGbUY1R0ZRVVZCKzdWajBzQ1R4T2lUc0FFVS9FMDJM?=
+ =?utf-8?B?dHpCQzRkaEJ1N1VjMzl6S29sNEphcEI2WisxMExZWFQzd1VJUGlHS1ZoRkxR?=
+ =?utf-8?B?cHcxUU9UUlYwSDBSZGRSSm9hUUF5aEsvWUZ1RWc1VElDeTB3NlJiSGpqSjc3?=
+ =?utf-8?B?VUlrSGJja204QmlzbHoxSU5LZWkvaHd1d2tqNlJUdG51QUNRWC9ucnViWmY5?=
+ =?utf-8?Q?Jx6BMHIQICSMxtWw=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,149 +153,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/9] docs/zh_CN: update magic-number to match upstream
-To: Dongliang Mu <dzm91@hust.edu.cn>, Alex Shi <alexs@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Weijie Yuan <wy@wyuan.org>,
- Chen-Yu Yeh <chenyou910331@gmail.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261029124429.294868-1-dzm91@hust.edu.cn>
- <20261029124429.294868-6-dzm91@hust.edu.cn>
-Content-Language: en-US
-From: Yanteng Si <si.yanteng@linux.dev>
-In-Reply-To: <20261029124429.294868-6-dzm91@hust.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: f31110c0-58e1-4b4a-ea6e-08df362206c4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Oct 2026 01:06:27.9449
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rAQSJQFvtv0qIw6StPCtqCdokJy9cy4JrUfOOOtFplQ2NHo7JNZUC6hPcDFrATr1KED8vxyZCQE5OIsrvhT09Fnn5dPo/R7pd7Rlpuj1p/LfYY7Da9xYlKPnKi63ljXb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1201
 
-
-在 2026/10/29 20:44, Dongliang Mu 写道:
-> Update the Chinese magic-number guide to match its English source.
-> Move it from process to staging and update the staging index.
->
-> Synchronize the translation with upstream revision dd8d4bc28ad7.
->
-> Signed-off-by: Dongliang Mu <dzm91@hust.edu.cn>
-Reviewed-by: Yanteng Si <si.yanteng@linux.dev>
-> ---
->   .../translations/zh_CN/staging/index.rst      |  6 ++--
->   .../{process => staging}/magic-number.rst     | 33 +++++++++----------
->   2 files changed, 17 insertions(+), 22 deletions(-)
->   rename Documentation/translations/zh_CN/{process => staging}/magic-number.rst (58%)
->
-> diff --git a/Documentation/translations/zh_CN/staging/index.rst b/Documentation/translations/zh_CN/staging/index.rst
-> index 6d68fabce175..896734ade5eb 100644
-> --- a/Documentation/translations/zh_CN/staging/index.rst
-> +++ b/Documentation/translations/zh_CN/staging/index.rst
-> @@ -1,8 +1,6 @@
->   .. SPDX-License-Identifier: GPL-2.0
->   .. include:: ../disclaimer-zh_CN.rst
->   
-> -:Original: Documentation/staging/index.rst
-> -
->   :翻译:
->   
->    李睿 Rui Li <me@lirui.org>
-> @@ -13,14 +11,14 @@
->   .. toctree::
->      :maxdepth: 2
->   
-> +   magic-number
->      speculation
->      xz
->   
-> -TODOList:
-> +Todolist:
->   
->   * crc32
->   * lzo
->   * remoteproc
->   * rpmsg
->   * static-keys
-> -* tee
-> diff --git a/Documentation/translations/zh_CN/process/magic-number.rst b/Documentation/translations/zh_CN/staging/magic-number.rst
-> similarity index 58%
-> rename from Documentation/translations/zh_CN/process/magic-number.rst
-> rename to Documentation/translations/zh_CN/staging/magic-number.rst
-> index 05ee75cf4346..e8fdf9a7fbdd 100644
-> --- a/Documentation/translations/zh_CN/process/magic-number.rst
-> +++ b/Documentation/translations/zh_CN/staging/magic-number.rst
-> @@ -1,7 +1,5 @@
->   .. include:: ../disclaimer-zh_CN.rst
->   
-> -:Original: Documentation/staging/magic-number.rst
-> -
->   :翻译:
->   
->    贾威威 Jia Wei Wei <harryxiyou@gmail.com>
-> @@ -13,13 +11,13 @@
->   Linux 魔术数
->   ============
->   
-> -这个文件是有关当前使用的魔术值注册表。当你给一个结构体添加了一个魔术值，你也
-> -应该把这个魔术值添加到这个文件，因为我们最好把用于各种结构体的魔术值统一起来。
-> +本文档登记当前使用的魔术数。给结构体添加魔术数时，也应将其登记在这里，
-> +因为不同结构体使用的魔术数最好互不相同。
->   
-> -使用魔术值来保护内核数据结构是一个 **非常好的主意** 。这就允许你在运行时检
-> -查一个结构体(a)是否已经被攻击，或者(b)你已经给一个例程传递了一个错误的结构
-> -体。最后一种情况特别地有用---特别是当你通过一个空指针指向结构体的时候。例如，
-> -tty源码经常通过特定驱动使用这种方法用来反复地排列特定方面的结构体。
-> +用魔术数保护内核数据结构是一个 **非常好的主意**。这样可以在运行时检查：
-> +（a）结构体是否被意外覆盖，或（b）是否向函数传入了错误的结构体。后一种情况
-> +尤其常见于通过 ``void *`` 指针传递结构体指针时。例如，tty 代码经常这样
-> +在驱动专用结构体和线路规程专用结构体之间传递指针。
->   
->   使用魔术值的方法是在结构体的开头声明它们，如下::
->   
-> @@ -28,30 +26,29 @@ tty源码经常通过特定驱动使用这种方法用来反复地排列特定
->           	...
->           };
->   
-> -当你以后给内核添加增强功能的时候，请遵守这条规则！这样就会节省数不清的调试
-> -时间，特别是一些古怪的情况，例如，数组超出范围并且覆盖写了超出部分。利用这
-> -个规则，这些情况可以被快速地，安全地检测到这些案例。
-> +今后扩展内核时，请遵循这一做法！它能节省大量调试时间，尤其是在数组越界并
-> +覆盖后续结构体等难以排查的情况下。使用魔术数可以快速、安全地发现这些问题。
->   
->   变更日志::
->   
->   					Theodore Ts'o
->   					31 Mar 94
->   
-> -  给当前的Linux 2.1.55添加魔术表。
-> +  此魔术数表已更新至 Linux 2.1.55。
->   
->   					Michael Chastain
->   					<mailto:mec@shout.net>
->   					22 Sep 1997
->   
-> -  现在应该最新的Linux 2.1.112.因为在特性冻结期间，不能在2.2.x前改变任
-> -  何东西。这些条目被数域所排序。
-> +  此表现在应已更新至 Linux 2.1.112。由于目前处于功能冻结期，在 2.2.x
-> +  发布前不太可能再发生变化。条目按数值字段排序。
->   
->   					Krzysztof G.Baranowski
->   					<mailto: kgb@knm.org.pl>
->   					29 Jul 1998
->   
-> -  更新魔术表到Linux 2.5.45。刚好越过特性冻结，但是有可能还会有一些新的魔
-> -  术值在2.6.x之前融入到内核中。
-> +  将魔术数表更新至 Linux 2.5.45。虽然刚进入功能冻结期，2.6.x 发布前
-> +  仍可能有新的魔术数进入内核。
->   
->   					Petr Baudis
->   					<pasky@ucw.cz>
-> @@ -66,10 +63,10 @@ tty源码经常通过特定驱动使用这种方法用来反复地排列特定
->   ===================== ================ ======================== ==========================================
->   魔术数名              数字             结构                     文件
->   ===================== ================ ======================== ==========================================
-> -PG_MAGIC              'P'              pg_{read,write}_hdr      ``include/linux/pg.h``
-> +PG_MAGIC              'P'              pg_{read,write}_hdr      ``include/uapi/linux/pg.h``
->   APM_BIOS_MAGIC        0x4101           apm_user                 ``arch/x86/kernel/apm_32.c``
->   FASYNC_MAGIC          0x4601           fasync_struct            ``include/linux/fs.h``
-> -SLIP_MAGIC            0x5302           slip                     ``drivers/net/slip.h``
-> +SLIP_MAGIC            0x5302           slip                     ``drivers/net/slip/slip.h``
->   KV_MAGIC              0x5f4b565f       kernel_vars_s            ``arch/mips/include/asm/sn/klkernvars.h``
->   CODA_MAGIC            0xC0DAC0DA       coda_file_info           ``fs/coda/coda_fs_i.h``
->   CCB_MAGIC             0xf2691ad2       ccb                      ``drivers/scsi/ncr53c8xx.c``
+SGksIExpbnVzDQoNCj4gT24gU2F0LCBPY3QgMTcsIDIwMjYgYXQgNzoy4oCvQU0gQ2hhbmdodWFu
+ZyBMaWFuZw0KPiA8Y2hhbmdodWFuZy5saWFuZ0BzdGFyZml2ZXRlY2guY29tPiB3cm90ZToNCj4g
+DQo+ID4gQWRkIHBpbmN0cmwgZHJpdmVyIGZvciBTdGFyRml2ZSBKSEIxMDAgU29DIGVNTUMoZW1t
+YykgcGluY3RybA0KPiA+IGNvbnRyb2xsZXIuDQo+ID4NCj4gPiBDby1kZXZlbG9wZWQtYnk6IExp
+YW5mZW5nIE91eWFuZyA8bGlhbmZlbmcub3V5YW5nQHN0YXJmaXZldGVjaC5jb20+DQo+ID4gU2ln
+bmVkLW9mZi1ieTogTGlhbmZlbmcgT3V5YW5nIDxsaWFuZmVuZy5vdXlhbmdAc3RhcmZpdmV0ZWNo
+LmNvbT4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IFNvbyA8eXVrbGluLnNvb0BzdGFyZml2ZXRl
+Y2guY29tPg0KPiA+IFNpZ25lZC1vZmYtYnk6IENoYW5naHVhbmcgTGlhbmcgPGNoYW5naHVhbmcu
+bGlhbmdAc3RhcmZpdmV0ZWNoLmNvbT4NCj4gDQo+IE92ZXJhbGwgTEdUTQ0KPiBXaWxsIHlvdSBy
+ZXNlbmQgdGhlIHBhdGNoIHNlcmllcyBhZnRlciB2Ny40LXJjMT8NCg0KWWVzLCBJJ2xsIHJlc2Vu
+ZCB0aGUgcGF0Y2ggc2VyaWVzIGFmdGVyIHY3LjQtcmMxIGlzIG91dC4NCg0KQmVzdCBSZWdhcmRz
+LA0KQ2hhbmdodWFuZw0K
