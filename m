@@ -1,54 +1,32 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.117
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793340374;
-	b=LSJJJAyFkBEUr++xSj/Ckl91yJ3N2U9OfQrefhDgnOBrWjwDFHXkbWvF6CTbbHuQEbSv
-	 90OFmNnVrrhyichCfXrjEkdiSd7otdCMPUnuBW5dJF3lMTB+tlatT/4riEzd6+K7jRl7g
-	 zdGT/a5wa9nV+TMIZDtLA5YslfNnjCia1ae0VY0ydL6c9UCmAHYa8c09Lc3p08sW2jlpO
-	 5E+SzAt+tSBgbuATAkqNCUhUG5ScIG+IOBKHvgDB450bjywepIZDsoULKA0RVbA9Qlv2W
-	 fYg2kdyNXQ5c425dEPZHSlI6kHCDE4l0qi3sDtC94lrNzEtkfLKIeGSWwXkdVDZJBFQ==
+	t=1793340432;
+	b=v9Kvxx8D96E7xRy/h5N4FmxWJ9n8yd3X51/cfsn8uqcud6IqpNaNrCmYpjwMCqj5Nb+O
+	 aZQUXMFHpijKPTYdnJ2R1XaKM8nBAhnR2iBD6byzJ9sBYRLwCyO29ktEgAiYybBKq9ptn
+	 4fdxelEE1iCSvOTr1By/68VZL/UMTIgvXas6PSyW6krmlS20EWhdLwIXLZTFPwx3cwfYk
+	 nRZYEhMkDxxLkPdoCxW4FZm66ID70bK51jiOT5nzRb4LMHP7wnAJqgLUmIyzr846xyYfX
+	 MXjlZuMIGM3M3BIX3oNoEhuUeOnyMvUCRSrWuwj9iKSU74XtiVxAdre3JS6NFIOQMnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793340374;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Content-Transfer-Encoding:
-	 Mime-Version:Subject:From:In-Reply-To:Date:Cc:Message-Id:References:
-	 To:X-Mailer;
-	bh=fbxoQX/plT7MQ1IcvaeIBbt38pbNjazi3Wk4GqeaYLY=;
-	b=rOus+ydrs5jhsBB90GfKwPixhuW4MtAyyeb+RbaSuaFvoEiFs3kcPOHjv2qISt7qT6xw
-	 RTto5gjMq8/XIFXunKG2lkwRICnseNKS6CkvQp7xIkKrax6RTDXkilfFOXQZE+NyVRhRs
-	 aBTEwzt7lx7sb5qrspEEXkkSrWyc1BKSiYCfuZs5qHMyTqelxlRdZhv+tKpfNnx5VDiGI
-	 SJUF6TjxwCVEP+w/4zI4KBNR7Uv/N6SZmANPndgWgRj/3HBnW2dJVZfcpWEJ6+MGsnLor
-	 Llk9CZXcpNAsG0Ug13lRxzr4lJk/iJok1sYhPLlbOXFu1yPzTQmH/SzF8ze/5rw3FcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793340432;
+	h=Received:MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:
+	 From:To:Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=MjJjLX/qV1+lyxi0iixx5duL/lrS5HdRSjax3k0IDWQ=;
+	b=gI7kMNtEHsKIlgeNG0qmPwhaaddRmslOQFjc/DgwwqOAMeFDHRlJHgI1b2CbuEWlPUKL
+	 wipmPzZjP/tqyyNV0EFIMV9U+98kdTtXetjuaKradyT2rWBDFiWu36C5GT92NAzMEh0GN
+	 fbzzWVePkYBquoGRrTiCKNX8i86AZiZ2yD+psTKuLneCx4cbqr23tHn9RWGZObCP07NNC
+	 yLnZceHemNcDc3Qxxf6KrHCdsAvVm5EO9V0eq+BuBdpxv1+FwZy9KJnApxnFLfQ6ponIn
+	 3B5wC/fKRoXfzgRWvCKFxF3sFPXS6Bc+skMfOO8oK5GgbKEW/yAD/e0tS+LjOS3jATQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=t0v8f46z;
-	arc=none smtp.remote-ip=91.218.175.117
-Received: from mta0.migadu.com (out-117.mta0.migadu.com [91.218.175.117])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43722606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 06:06:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43722606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=t0v8f46z
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WkTwqX/0WclNwP9VVkIpT9VytTtOvvnnIOTZf6eqCbs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793340370; v=1; x=1793945170;
- b=t0v8f46z1mKbxTItQepNAtSI47ayWXEAaP+PY8lg8jqxIdr7G3U6RsRtPH6ssB50JfFIw5k2
- Ss7W+Z/NZVb/M4I1vsFrjo4MvRdV2OmuHSK3QQJR45zylFcAnH3PInz9gORBiBQwN7YOUkO5hiO
- d73EuxQdrK+sDU6Vfg+KsyBg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 70b245d929eee882;
-	Fri, 30 Oct 2026 06:06:10 +0000
-X-Mizu-Trace-ID: 70b245d929eee882
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5A2606A31A;
+	Fri, 30 Oct 2026 06:07:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC29F1F000C1;
+	Fri, 30 Oct 2026 06:07:03 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,86 +35,86 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (1.0)
-Subject: Re: [RFC PATCH 0/3] mm, memcg: isolate deprecated v1 state from struct mem_cgroup
-From: Roman Gushchin <roman.gushchin@linux.dev>
-In-Reply-To: <b36ab4a7-b692-49e8-92b5-1dc4d76dee00@linux.dev>
-Date: Thu, 29 Oct 2026 23:05:53 -0700
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>,
- Shakeel Butt <shakeel.butt@linux.dev>, muchun.song@linux.dev,
- cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Tao Cui <cuitao@kylinos.cn>, cui.tao@linux.dev
-Message-Id: <0BEF7489-16EC-44EE-847B-A6AA380BE11F@linux.dev>
-References: <b36ab4a7-b692-49e8-92b5-1dc4d76dee00@linux.dev>
-To: Tao Cui <cui.tao@linux.dev>
-X-Mailer: iPad Mail (23G90)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] PCI: rcar-gen4: Isolate 256B MRRS limit only to R-Car
+ Gen4 SoC PCIe controller
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-pci@vger.kernel.org, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+In-Reply-To: <20261028172208.20948-1-marek.vasut+renesas@mailbox.org>
+References: <20261028172208.20948-1-marek.vasut+renesas@mailbox.org>
+Date: Fri, 30 Oct 2026 11:36:42 +0530
+Message-Id: <179334040211.5551.2573230628622674128.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2036;
+ i=manivannan.sadhasivam@oss.qualcomm.com; h=from:subject:message-id;
+ bh=4edNlj4hhxIn12ce5F/wVnHs7h2/NapSUJQfe8DP0lo=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5DQBPrEWzsVqr9VNbSLmlTUCdQKwXi+BG4lKw
+ MN5aHrzsfeJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauQ0AQAKCRBVnxHm/pHO
+ 9ZIwCACiov7Ld7Mb4yli0vS5531D50cP0nq2vYpavxqmIm7S9AkB0tXBACbuDl5QiweQ+29fkGh
+ 4Q/LskrsSQfg8Uwn91FIjMDeq61kQaR3AAZAffLB9/p3cYv/+Qa0b2Zsegjy6ah0bvosAqYgpab
+ 7F57Vsweo8IshJbVCVHvUU1ZrfjvTmbN9biN8SNQrnHAJACTjH9mXIInVmlfR6Yhlq9GCOExsYt
+ KSinPu+I/Is+bPUKBz4aR34mwBrtgY4f1KyrtBJmXRpgPOTDCT4woF8R2aZUMDA19VXqDXrpa3S
+ /VTXzq7sztb4djdXE5EsYLLvskXoXiN0ogJEZpVgBtYmk8Dr
+X-Developer-Key: i=manivannan.sadhasivam@oss.qualcomm.com; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-I believe we want to delete this code sooner than later, why would we rewrit=
-e it before that?
+On 2026-10-28 18:21 +0100, Marek Vasut wrote:
+> The R-Car Gen5 SoC PCIe4 controller is not affected by the 256B MRRS
+> limitation that was present on R-Car Gen4 SoC PCIe controller. Apply
+> the 256B MRRS limitation workaround to R-Car Gen4 SoC PCIe controller
+> only. For details of the 256B MRRS limitation, please refer to commit
+> f0a5c6bd797c ("PCI: rcar-gen4: Limit Max_Read_Request_Size to 256 Bytes") .
+> 
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+> Cc: Magnus Damm <magnus.damm@gmail.com>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+>  drivers/pci/controller/dwc/pcie-rcar-gen4.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> index 9a64a9f4ab0d1..1e4405181eef3 100644
+> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> @@ -99,6 +99,7 @@ struct rcar_gen4_pcie_drvdata {
+>  	int (*ltssm_control)(struct rcar_gen4_pcie *rcar, bool enable);
+>  	int (*speed_control)(struct rcar_gen4_pcie *rcar);
+>  	enum dw_pcie_device_mode mode;
+> +	bool mrrs_256b_limit;
+>  };
+>  
+>  struct rcar_gen4_pcie {
+> @@ -663,7 +664,7 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
+>  	if (ret)
+>  		return ret;
+>  
+> -	if (pp->bridge)
+> +	if (rcar->drvdata->mrrs_256b_limit && pp->bridge)
+>  		pp->bridge->enable_device = rcar_gen4_pcie_enable_device;
 
-> On Oct 29, 2026, at 10:40=E2=80=AFPM, Tao Cui <cui.tao@linux.dev> wrote:
->=20
-> =EF=BB=BFHi Johannes, Shakeel, Michal,
->=20
->> =E5=9C=A8 2026/9/19 00:24, Johannes Weiner =E5=86=99=E9=81=93:
->>> On Fri, Sep 18, 2026 at 11:41:09AM +0200, Michal Hocko wrote:
->>> On Thu 17-09-26 13:26:40, Shakeel Butt wrote:
->>>> On Wed, Sep 16, 2026 at 08:57:34PM +0800, Tao Cui wrote:
->>>>> From: Tao Cui <cuitao@kylinos.cn>
->>>>>=20
->>>>> The legacy cgroup v1 memory controller has already been moved out of
->>>>> the shared implementation at the file level (mm/memcontrol-v1.c) and a=
-t
->>>>> the Kconfig level (CONFIG_MEMCG_V1, default n since 6.11).  Its
->>>>> per-cgroup state, however, still sits as individual members inside
->>>>> struct mem_cgroup, guarded by #ifdefs.
->>>>>=20
->>>>> This series isolates the deprecated implementation from the shared hot=
+I'd suggest moving this check inside enable_device() callback to make it clear
+where exactly the skipping happens.
 
->>>>> structure: all v1-only members are grouped into a dedicated
->>>>> struct mem_cgroup_v1, and every access goes through memcg->v1.X.
->>>>>=20
->>>>> With this in place the v1 implementation is self-contained: its
->>>>> interface in mm/memcontrol-v1.c, its state in struct mem_cgroup_v1, an=
-d
->>>>> its eventual removal becomes a localized deletion of this struct
->>>>> together with mm/memcontrol-v1.c, instead of unwinding
->>>>> ifdef-scattered members across the shared header.
->>>>=20
->>>> Sorry I don't see any benefit of this code churn. The code is already b=
-ehind
->>>> config. What exactly this code churn is giving us?
->>>=20
->>> The only arguable upside is that this would make it ever so slightly
->>> easier to track v1 specific stuff (once that s@v1@memcg1@ or similar).
->>=20
->> I had the same thought. It's kiiind of nice to see which members are
->> completely specific to memcg1.
->>=20
->>> I am not convinced this is sufficient to justify the churn either.
->>=20
->> IMO it helps that it's mostly in memcontrol-v1.c where the chances of
->> interfering with other work are pretty slim.
->>=20
->> The patch 1 + patch 2 split is a bit bothersome: indenting everything
->> into a union, only to then move it out in the next patch.
->>=20
->> Tao, if you folded these two patches to make it one clean extraction
->> and changed over the sites at the same time, I would probably lean
->> supportive on this.
->=20
-> Sorry for the late reply.
->=20
-> Thanks for the feedback.  Looking back, I think Johannes' point about
-> the patch split is fair.  I split the first two patches to keep the
-> initial step semantically neutral, but it also made the series look
-> like churn for the sake of churn.
->=20
-> I'll fold the first two patches into a single extraction in the next
-> revision.  That should present the change more directly and hopefully
-> make it easier to judge whether the resulting boundary is worthwhile.
->=20
-> Thanks,
-> Tao
->=20
->=20
+- Mani
+
