@@ -1,88 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793397592;
-	b=AKiMSBvh9W/dPvm6jgIzENWj3vlm410XgxWWju4RY1NBYkEQQmtFLXAFphnJi5S+ZdXA
-	 6QCENG+3jVU+fUKS25ENPhA0frcm6frfp1dg7VGd4ntkshNdTQQQTy+zb3b1qk/xoOXQg
-	 gzjxtWv3VwhquOB/DnQ0Jm+aNKST6uEZCH4Fu9Qii0kPMTm07Ul9Z2PjtD5c9XHV1ldIU
-	 z22op8JK5BNANn9HoQbl3PmOss5dggOubWrwxihZDn0T7ggw3maM1SWMO10PGSrlqll3Q
-	 5ti5jgQKxYM5vaIMjF73VPIpUEyc/bes0Le/T+mpyqu+EGsriMv6j6Kx2WPUZRCCY/Q==
+	t=1793397594;
+	b=L5tQ+GmpbJnXaZlvQ/iJa0rNo8UuvxyIjMi2gvx8yX4Iq866eps8xq377cLvKlltPa/U
+	 axNTlPB+eJPXmG6fYFvCPJmMPjrIJ/0lcxTi1sOe95OCHxZP7Wa/RHVQqj8sKyACjWMse
+	 XkXAdsvsiIkZxRzI7nyY94LQI91sLlSqXgyeEKssqfTPEajz99ywB79VvyxnPwX0mdneH
+	 nidgNYfLSDA6n3z6zeZW8VAg8169FbO9GG/9gvO8oXXWRq58nlHNbaLj88JQNNIDLmQuD
+	 3cSzG0JDfUmH339CujA7g3kpcQ20wCJdR82Cd/a5fnf2uFHCcsRDCo9rOBWWOKB4JCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793397592;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793397594;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=HnOFnygv5yOSl1HLMfs9WsIC+5M5o8+ReDWT9KOBRGU=;
-	b=5DkwIjK9LiARyB+FXabXuh7jhQT6uhW9cPTkoBNqkqnm71t9SzWqol7sy/DVx3LqN7lI
-	 fNgppw4zSfyghYU61i7AQx3pazZ9YpnUjjA6704yzHVhn2uWfftVaDOjAuAGEsLfkwIVI
-	 7Vsid57U/I+8k0O1juJWYFNWmfi9WaRk5IF0OsEbYveVp1ZgdRtrKsA69Q2yLzPBpIyRZ
-	 b85PiYykw3KNrna7sGo2s8dNsICpytgH8kZKiYymTjC/qL1O4S/UvrMCZHeg4URMfGL1e
-	 7ARq2iHAfpZh5Ptxn59ECN5F1BsPziVFUVhoM//VdLrdgxfHRr6f/p1/D0I0ui5xR8Q==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QltZYn6auahTUDtzxOtywDg1k8+vm4MZICPJZD5dPW4=;
+	b=BAmhShb6AU/3VJQoByhwphC2krFH/ayVy/PhCY6UgauK5fwaYfivVCPH67b9mLdmi4sY
+	 lx9fwifKheIB/1PAR1ohjppUqGQ9qbJ0ADYWdvUSy+jDfA9AET9K6C7NOHOcUaXp7aOaF
+	 d6/sh6p+mWI/SGs7fKd1nGk9AMkvGymFfvDrxsEZ2zMSzdRxmgIY1yHEh2/bPH0KToHDa
+	 UtipVc+CXIw8lx3fMacS+/XC5KyQd8HhLTFnX5OvjZUkDKu2ya4Ez3vDiJLR4psSym2Gm
+	 zIv/pULwTWnAPNEi7CBAAUvhwTPJ0N1Di6b05TZmzBjryUKy+a8xMfpsxQL4Q+gg+6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qYRHSMZ4;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hizwtS13;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB604606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:59:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB604606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22180606A321
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:59:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22180606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qYRHSMZ4
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so9874795e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:59:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hizwtS13
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so12567435e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:59:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793397590; x=1794002390; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HnOFnygv5yOSl1HLMfs9WsIC+5M5o8+ReDWT9KOBRGU=;
-        b=qYRHSMZ4SpGnsNf/EFABndKTuiuilCxUPc07JXhHkXGsEbUYR9SrKPr9v4FLiXHnbg
-         7XiM9tjvj2C1gRqON5p1+yIJBsULQsV154tlv4V06nmGkCAet9mnls4M8+GhceGIbyH2
-         T0f0VDgAEnX85hhsdQ1k5K2MViDPc0wbvM74oZH3Al65ZfxKksYDNLMGwJgRlHyN33vV
-         gJa/v2HulmiCLkK/UhCvmE1SAfLe2rid4y89DRaiNutLlWBADi9Ly00AssaCuelbsauG
-         aEFH53WQzGvt9Hq2ubnDzdaeNS/97Bwvl94EQpmV5mg1pp3g+7DHGa6rsl8V3uYD5RPu
-         luKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793397590; x=1794002390;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793397592; x=1794002392; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HnOFnygv5yOSl1HLMfs9WsIC+5M5o8+ReDWT9KOBRGU=;
-        b=jFSlKodF7GZ62bgDOJdmtiDCCsuwHH7bghFMcjYfpOE7ibnvbV07uoqJ2R0UYWR/LF
-         JORVhorLcaD1RFVyRZdgqAcLVa7XpNRMVIhgziYhildF6zJvkGlQeFQnWwzZbGl15LB7
-         sh+RJ6YmP/HflLfDy/qKrc7QgXTsKijzow+omenVVIeOomAWK/WRfS0ngFYPf/i+O3fr
-         z5lJyv6OkAJoWTYOVRlxjb6eC68mWXVVjv1xuY70eUAM0PPPuMEczFcF7jLN4Cq9zekV
-         KnF5wqebq/PAk46DBOtKgkFAiiiHrw0Q1/frhu/dAUQmNBiJ3CQ+EPnLgWjwLqWty6Lj
-         PEGA==
-X-Gm-Message-State: AFq9FYINEc+/mOqxbrG13jj+W00PF/t7Fw1dvl17TGOfGwOREgGxHSPq
-	cwkh0pwu1aeG1vz0sqakgjgeB1w9Ch6BTRS1DIKN+0Ba5xLcx/1LpA+r00zaH76seRhPOw==
-X-Gm-Gg: AYBFou3QpMkcdkt80lJka3Wmyb/1TuVY6d6+BSEsvExpNlZtonURYlRJmMii7eGbzJB
-	2XMH87RRuHe0je9skZItbFXsFVGCHMNhio6FMEks87dp9KFijgUxX+ONYr1LSgN0cQhNHJ9QwL+
-	2JAZUu1Wygic+D90N3f45ZmTYnhxtu54w3Kb7RJAOUABKbIIc4zrIMUXV7p0K6CQsLuGfpnqec2
-	F1CsYNfDesqoWGoQ1tN+f6DSH2aAfkZPFCu1cg9aUSUqqa4aKo9E3hoWluHsKF6jILv3bozNecw
-	1JVqjRI8jqsEhPwv3ZhvZs2J/cmOCMD4gsgc0KcQfQ8CGA0+yZuisj1uApFfGmRUcHMJb9Hf6lr
-	lOGuf8+YFNnwZkxibQP/XLIwktxou04/jTZMr4Se/bCPA/MVcK0bGAPVqQfF/biwLQbhp04mw9p
-	gguwHjXF6iHobALeHxTxs3RttGa3jmBXzE6jNBweey9Z6wFOuKUPFqku9S6/pBhy+33FUwpzZhe
-	WuhEACC1GpZOSJZQEXub90XHkaDORTAGyU5Ey2Pq5ovEqKV9CkQNstMDAr/ZhRGxgvZ5BGO9HgF
-	mCqRWsrEmf8S5pc/r+9ZJx0cR/+ualLMKAYN+tZF6ch4jA==
-X-Received: by 2002:a05:600c:83c5:b0:4a1:88de:9e8b with SMTP id 5b1f17b1804b1-4ac17191074mr71942865e9.5.1793397590225;
-        Fri, 30 Oct 2026 14:59:50 -0700 (PDT)
+        bh=QltZYn6auahTUDtzxOtywDg1k8+vm4MZICPJZD5dPW4=;
+        b=hizwtS136f4+TNn3viT1XFdGGrZdkOybQnQ4sX2m64ESiaQhjw+8x91QauVq+8veu+
+         iOl2Km/NutN9rYMEYxl7CDwHk/U7G04++d4UIzZ7O3av0/HfNCqhsQDHKlQPXt3PLVRL
+         rr0BkCPRUVxzMAnCNuxHU5uEbRaUfycAiIZRXHEyHj9JUaqqjPcGMHAR7uqzC5cL0hHl
+         Qi8oQHNxTEl23acaSZHWw+ZGxYbYeN5BfaGYaM89Hzwi8zUU1KvxrtEBJjj+Fyjq5Mdr
+         F7dHp0lKMlPu2BpGYC+AhcEUgMb11LucOxO3DgDYW3VuYL/0kPxzegbcm3xDfjZgXLaC
+         DB1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793397592; x=1794002392;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QltZYn6auahTUDtzxOtywDg1k8+vm4MZICPJZD5dPW4=;
+        b=bQqo200SyI99sf1QwCcX1FlgJezyPp7RCIx/TxlRc2qipcxyeaxM6h1lrpJp9Qz3LO
+         /n2fRz4F19qaJ0Gbfr27caNR+Bu+uTiY+JKmn4dy4V8Mqqn4yU08szCRGjlnzOLxw3tV
+         OaixjYTFZocgr5pKyheuMkzkw7Y3no44krrHPTGwfAQB0e771htPNP3qKJhgC7FJjJ4s
+         Q1p35oHH1kPlEuFSm+434arpZKrBs6+4Jnri/YEw8UjQy8QfaSOJDCNmWvVeAPCHNLNk
+         KMcRX2nZyxp76hFSFU+ezJdNZj+QkeDq1RnQ3OfHwuo+3hlCbWm9NEbnNHJH+lq8rBF9
+         WHTA==
+X-Gm-Message-State: AFq9FYLYwSdqirFx8VJX/+qHk8+a45emjMXVVL7QuytiinEqcRwuG1jv
+	Lv4NweMj9oIvPJ8+dgSzbC2+nydJd1n+IUdkvq4bPTWFjuB9jKnQUh1p
+X-Gm-Gg: AYBFou1Hu84E3N0h8d1IWqNQBHy4QYjJ7wLT0yOx/e0uGNglJL9C9QR2jN2z9xjFZGD
+	te8e03xm+HtxunIrIrKF6QmjzX00rbFp7vBjIeaxJTLwsQGDg5ahPQ+72b7rw39xiqERLvjqPRY
+	dM6Xp5FYyx9hr97ytmiaOIxGmWej4gYXS756qP4r1a7JDZDZqFAWUk2kJzw+tqQaX0SlKac4kMO
+	E9NAQrmjEy++qCISJ8RfSIUrE8Mr7oHwyAz7NPHmSlFOcZp1XNtHlfOoVtesoqhmhwUdm+Od4K8
+	tZSpmpiIEj6iqFzyxZ95p58INaLjNlMD0liyXrXOUYE99eBnnXcQGUGvp02fykZB4njOS/7plUW
+	IIl+sfyEgLDqGuLl4DOvTvdAyZOXLMr3GqL9ua78CP/I7J8CP4Ukx+G+i6zhKwVdhxf4XgvDtDU
+	v4OQv4u/Q1DX2p1EY4F9hxoUPBrCu2EGOCOJZDpc5aL20FXGKBC3xR7wahV+XRMoS+rQJkm9gZu
+	4/H07NFwUIfMzIBSMsoPGdEoFaQwlgxrI7QGHCuvlmJBcfOgCLKEq80WB0zFrSdRQfKe3SFjxSL
+	JRtWXLOatBSPJT7ufZcsw1dlAlhPtjqGKJtIX1corEJy
+X-Received: by 2002:a05:600c:a012:b0:4a2:150f:1609 with SMTP id 5b1f17b1804b1-4ac17b2cdffmr76571995e9.8.1793397592474;
+        Fri, 30 Oct 2026 14:59:52 -0700 (PDT)
 Received: from linux-virtualbox ([176.123.27.73])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf723b5dcsm87207155e9.14.2026.10.30.14.59.46
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf723b5dcsm87207155e9.14.2026.10.30.14.59.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 14:59:49 -0700 (PDT)
+        Fri, 30 Oct 2026 14:59:52 -0700 (PDT)
 From: Salah Ahmed <haddad2inc@gmail.com>
 To: Johannes Berg <johannes@sipsolutions.net>,
 	linux-wireless@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] wifi: mac80211: make the phy tpt LED indicate real traffic
-Date: Sat, 31 Oct 2026 00:59:35 +0300
-Message-ID: <20261030215937.18103-1-haddad2inc@gmail.com>
+Subject: [PATCH 1/2] wifi: mac80211: count the tpt LED trigger from delivered data only
+Date: Sat, 31 Oct 2026 00:59:36 +0300
+Message-ID: <20261030215937.18103-2-haddad2inc@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261030215937.18103-1-haddad2inc@gmail.com>
+References: <20261030215937.18103-1-haddad2inc@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,28 +98,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An access point's phy throughput LED currently counts frames that are never
-delivered to any local interface, and keeps blinking on the broadcast an idle AP
-bridges, so it cannot answer the only question a user asks of it: is anything
-actually being transferred?
+The phy tpt trigger adds every received frame with the data-present bit
+set to its RX byte count in ieee80211_rx_list(), before the frame is
+matched to a BSS or delivered to an interface. On a busy band an access
+point with zero associated clients still hears data frames from
+neighbouring networks, so the throughput LED blinks continuously and
+gives no indication of actual transfer. Management frames such as
+beacons are already excluded by the data-present check, and the TX side
+only counts data submitted through the interface transmit paths, so
+overheard data is the only remaining source of idle blinking.
 
-Patch 1 counts the trigger from delivered data only, moving the RX accounting
-past BSS/interface matching in the rx path. Patch 2 keeps the LED resting in its
-baseline state below a small idle threshold, so the residual broadcast of a
-zero-client AP no longer produces the slowest blink step forever.
+Move the RX count to the two places where a frame is actually handed to
+an interface, right next to the dev_sw_netstats_rx_add() calls in
+ieee80211_deliver_skb() and ieee80211_rx_8023() (the latter also covers
+the fast-RX and the 802.3-offload delivery paths). The trigger then
+counts exactly the data delivered to the wiphy's interfaces, in every
+mode - AP, client or mesh - which matches what the per-interface
+counters report and what users read from a throughput LED.
 
-Both were exercised on ath9k (QCA9563) and ath10k (QCA9888) access points,
-including a zero-client idle-solid battery and a link-flap battery over several
-weeks of production uptime.
+This scopes the RX side only. The TX side is untouched, and an access
+point still transmits the broadcast and multicast it bridges with zero
+associated stations - measured at roughly 2 KiB/s on a quiet LAN - which
+keeps the counter moving and the blink table stepping, so an idle radio is
+not solid yet. Treating a rate below an idle floor as no traffic is a
+separate change.
 
-Salah Ahmed (2):
-  wifi: mac80211: count the tpt LED trigger from delivered data only
-  wifi: mac80211: keep the tpt LED solid below an idle threshold
+Monitor copies are deliberately not counted: they are clones of frames
+whose original delivery is already counted once at its own interface,
+and counting them would double the reported rate whenever a monitor
+interface is up.
 
- net/mac80211/led.c | 16 ++++++++++++++++
- net/mac80211/rx.c  |  7 ++-----
- 2 files changed, 18 insertions(+), 5 deletions(-)
+The deleted block was the only user of the local hdr pointer in
+ieee80211_rx_list(), so drop its declaration too - mac80211 is built
+with -Werror=unused-variable and the file would not compile otherwise.
 
+Signed-off-by: Salah Ahmed <haddad2inc@gmail.com>
+---
+ net/mac80211/rx.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/net/mac80211/rx.c b/net/mac80211/rx.c
+index 905fd7049..559cc2101 100644
+--- a/net/mac80211/rx.c
++++ b/net/mac80211/rx.c
+@@ -2756,6 +2756,7 @@ ieee80211_deliver_skb(struct ieee80211_rx_data *rx)
+ 	xmit_skb = NULL;
+ 
+ 	dev_sw_netstats_rx_add(dev, skb->len);
++	ieee80211_tpt_led_trig_rx(rx->local, skb->len);
+ 
+ 	if (rx->sta) {
+ 		/* The seqno index has the same property as needed
+@@ -4970,6 +4971,7 @@ static void ieee80211_rx_8023(struct ieee80211_rx_data *rx,
+ 	skb->dev = fast_rx->dev;
+ 
+ 	dev_sw_netstats_rx_add(fast_rx->dev, skb->len);
++	ieee80211_tpt_led_trig_rx(rx->local, skb->len);
+ 
+ 	/* The seqno index has the same property as needed
+ 	 * for the rx_msdu field, i.e. it is IEEE80211_NUM_TIDS
+@@ -5583,7 +5585,6 @@ void ieee80211_rx_list(struct ieee80211_hw *hw,
+ 	struct ieee80211_rate *rate = NULL;
+ 	struct ieee80211_supported_band *sband;
+ 	struct ieee80211_rx_status *status = IEEE80211_SKB_RXCB(skb);
+-	struct ieee80211_hdr *hdr = (struct ieee80211_hdr *)skb->data;
+ 
+ 	WARN_ON_ONCE(softirq_count() == 0);
+ 
+@@ -5727,10 +5728,6 @@ void ieee80211_rx_list(struct ieee80211_hw *hw,
+ 	if (!(status->flag & RX_FLAG_8023))
+ 		skb = ieee80211_rx_monitor(local, skb, rate);
+ 	if (skb) {
+-		if ((status->flag & RX_FLAG_8023) ||
+-			ieee80211_is_data_present(hdr->frame_control))
+-			ieee80211_tpt_led_trig_rx(local, skb->len);
+-
+ 		if (status->flag & RX_FLAG_8023)
+ 			__ieee80211_rx_handle_8023(hw, link_pubsta, skb, list);
+ 		else
 -- 
 2.53.0
 
