@@ -1,56 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793372775;
-	b=4WYxNhuuXNHzRyiVQS1UCdRC9feoMriQ9Dz0esK1KdjAKxibZf40/7vjN2aMFeLH/CXy
-	 tuWGJy608JzDfciXUoATw2ik4OHBGNEe2szVMsn6+gHwieVqfNyHhql2sAjinKk08MqSh
-	 EKLwa0YN4iL5s6/pFCVuVSckGksmy8jEBtjdiQVLceALG0ZoFRx1NciUWk4SBHifsHWPo
-	 na83H/2OyP5iNrdxMasaygFzchGPJCRwYLSkNX7HXCESBXkt5ggcCkmyyyPs6F9ynG4/3
-	 K4bxrTM2iuD2gtet+Z/KoEkoX/2ktQLMvuQO60IBNqjFTDCdsM6BbUYsYsY0zuu5yIA==
+	t=1793372824;
+	b=RtxJ6OSpipsoCPxq1FgoXV9kdq8O1MjYdzCcDxEwPhq0ruyiuub+rjhA2ohXOq1m+mFY
+	 Kni/uD82gWdxfiN9Tf+nlU0lVt3Ekn3XtfZz0bzoeObq56cO1ZL5RCFKTe84s+cPjvtfK
+	 13ShiYo5lHkwMJdXuGIsyUVGqWuhrEtyA/UeRxUZ48I8HyacH0SIh/QC7EY6B556H4dx0
+	 TVAlidpjev8ASUe4TqDH7gqJYIhS+k+JURnw8TnmsI2K669TfoL/79haiZ0XzPQRGUtpd
+	 1mVSJt2G4DrGIMSU2oQ2vQ9dyL+E2HVf53ZGCNKrV0ryjA+HLDAJRLgNP2LoWUqefOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793372775;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=Va4KXTHeJA5guykEvZxhkC0KQ++llU8oxL81Jkrl0QM=;
-	b=iiZryTB1HbvkSflm2iVjcS6/cipHkbO3X9UX9I/HAR5hTnMUraxhLEIOuQ+60BBQsNlI
-	 Y6HI7I3RDCS5lONL3DqNfZzXnKE94HrWcY6TLCdc+CNYB3RBB4/OccAMOU4rsQNk1mqAO
-	 wAOKm05zAG17cEqOuYGuMmBAcGEyilRUyG1LvneGIb10rh+LtzC9FdgheK0Ac+bOmkfOO
-	 H0L7l1ZLCFY3EgVJ46Uj9/1sSIoszM85MxgPwbUZmnpNA+CZ+pmp4YV9ldtkEIXVMsbg/
-	 RZQexxGfTLwlx3HpkU0K0tcRu8tSmaB+ZEh2PpIyKduDcvCUy4XIWjemFdXT9Ni0BnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793372824;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=czilngxYr4DCa8qp6+h+f369XEDq6BL7zSm3xrFlL/g=;
+	b=PkzWYHg1P6NexWsxjaX3xMKKUmxNDW1YKHMGb3sTQJSV7vfIGTBM7WroPqxSHwXgvc6S
+	 gmvjfZZ10+/Dt97tsllojzftaPX+Ymzi8FBunRg4Wj7IitNIG/AfqcmL+MBRhhYoR9m+N
+	 5hl4elNa3iCAhlrvRCuhgSO/T9BvXCVisjj2flG64jjw4QDXQ2eXj6T/E1/nJEpmk/4NS
+	 oEuHU/1SyyoTj+zsBzAa1eFKppeW9nQPq5NzSdiJ7BCfk0zow3mfc3ODp+qVsnG/7SHF7
+	 RjF8L4e3J8UMIkqEkC9PWFK5DFpqbi+4uww4NHhWEJD5fUqu00XL/cpME/03EzB/Nng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AEW02O3L;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ttEBhIGg;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FCE606A321;
-	Fri, 30 Oct 2026 15:06:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8811D606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:07:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8811D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AEW02O3L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A061F00A15;
-	Fri, 30 Oct 2026 15:06:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793372774;
-	bh=Va4KXTHeJA5guykEvZxhkC0KQ++llU8oxL81Jkrl0QM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=AEW02O3LMy3L7p6547tJ93TiXeeeXRFON111pjP3v/X/jhESDSfoKe6zeufn5xfea
-	 4xflEpEKVpCbONOT+wcaBtISS7EzZz3PlonUhM9/LuDa51R0RyLfix98GZI2rDg4Yy
-	 vfaZLJDMBff9xSFx9Gjx44cgSQPqrenII+EU1jsFfWQPpkGxM66uY9cYd2ob+au7Ps
-	 Bb9wr8HxsXzs76wn5yG2zyKCapLg24EB0PCObg53MEb2HNx4yNClQg6K/ZCltJ8IKG
-	 q8uueKMEl/knPstwuAkIS+W7KRRfNaP3US4MzcM4LQlwrp/0x4XtPYU+jy8N29W1Wm
-	 ElVi1dkLBN5Gg==
-From: Christian Brauner <brauner@kernel.org>
-To: viro@zeniv.linux.org.uk, Hungyu Lin <dennylin0707@gmail.com>
-Cc: jack@suse.cz, djwong@kernel.org, amir73il@gmail.com, 
- dchinner@redhat.com, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261026015738.46230-1-dennylin0707@gmail.com>
-References: <20261026015738.46230-1-dennylin0707@gmail.com>
-Subject: Re: [PATCH] fs: skip copy_file_range write limits when there is no
- data
-Message-Id: <20261030-bohrmaschine-postschalter-erleben-caf22a079c0e@brauner>
-Date: Fri, 30 Oct 2026 16:06:11 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ttEBhIGg
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-15dd124bbe7so1399606c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:07:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793372823; x=1793977623; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=czilngxYr4DCa8qp6+h+f369XEDq6BL7zSm3xrFlL/g=;
+        b=ttEBhIGgwoNvjx79/PnN3j6bkh0veJHsN0NCUiD1G6OGelKk+m8zlOzI8KgifA5hf0
+         HAmP1raP5o7zE0mKZ/OnOyWImdgTnu26FK5NBppRfUFQzp0vK2Gn7zATfGc/KL5xKZv/
+         fLpCnZxFFeVX6UmfimRD1W0d/hTWFkhMuha16q2ZIi1ilRfkVWLTzqdCvCw+EoO5P8tt
+         PHXFZx1lTmKvIiQU3xRv6bOg7htydx0D0EVG81JgSmiZjxyFzBFf/kqjw7xRGLIjGit9
+         Y+zLHChz4ZEfIUbdU5aIELn8eQq5ufzsiOo9ZIDvT55GNR8YBd+1jOqQAvmgn8KW9hm2
+         PYFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793372823; x=1793977623;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=czilngxYr4DCa8qp6+h+f369XEDq6BL7zSm3xrFlL/g=;
+        b=DXdNDQcC3CghplKhZ5VZECUOxLrLJPe17jlYFiIx3yO5NP2hkFFj8BcslVCOMaDdnZ
+         ksPSih0JocuIKQ5x/kPtueCl4YZDQCNfHvrsGMuNoBAJZroxDfqoMsitAS5Q2hqOrzTv
+         afH8Hs3841XtW+uo+GtmnXp/uEspkITZkCiJxzT/6HIuaz6AjKu0LEZbf6fyOeztYvHQ
+         a0vkn2IZeVKaSuuWNadQdYhPHVcQej/5qhdQfBsZnhzutnoTDAhsr3bc16knfhuSmrdZ
+         mCUdw7I8bOr2vG0cpsV2rD1cBoe9+LdMnBwBcxrWE0DYeqqKPceyyP3JUieM6krrjKvU
+         /xpg==
+X-Forwarded-Encrypted: i=1; AKwUvBzQf7rIxONli7J5kQOyA2guXmmGe+ahXGjDzslZETaYFvM6N9hPRB/duL2JrqxfdG+IzlJQmyZOnmbRHUs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMN52YgHvOYSAZ+o5Yg+ITcKV7MjUGziMwX6B+QYRpBTr/OdM5
+	uX4vtZoNne63kQVEeBGCVwPhd4vqff52e6v8gZFlWq8leCERkFgcI/3jNzGvxx0C/D3Xug==
+X-Gm-Gg: AYBFou3H1342pQMnMvkCunVT8XoMON6ni5s68svWkZCzEgqGsQcIuDJ15K5RzcwLsZU
+	qFqFBxjxWl8yNEeswT1Fl+PeOBoBvN7nwahRcuB4n/516Gj35egsekRCjAPW/FQ3VaOyeoREq6U
+	nmLMWQwMafjgDqGGFU6+cxQrrXiEvDnyVBjpF9QzKuMGD7htWiH63PViygGuYdHPz5cCJbeUuyR
+	4TyJf5Mx7VPSKsozr/bm4MWt+SwH0QANpP0lkTswky7yTLC8SEgpjvzLQmefxWXTFcDncD1ysOm
+	zB6NqnnfHCArqw1fw8Dn9gtmpsu3OFjcHTYcyy+ihJOKyXqI9rRUSk+Hl4ilAymin93VSTEof2S
+	smtzwDqYZ6XB++oZPjqua9l4iaPGV2h/mUdgPdAeSqkoNlh1HnAl+l5d7e2geGioo04NEOA763U
+	CnwoGc7uoQaP5Twv7S528g3PmQP2ClZi1otrY1GxVuwddZlGYXzFZv1OOmqYVl65z2kfMD/C6D6
+	wIi6xt/lRoGcw1uOm4b+gUFAwP/PvzFZBU1isRFDDYy0ijWXVmlD2R/Nb4Gpg0GxSj3Q+c0RKTz
+	yKz7SowZX9M6t833r8O3B6mYuaVCjLAPgnqXN/jaCGew8GXBPhhr0dwZhJX9DRmyr0mBw44YDJJ
+	i3zLmbb9OyyAtWGZL2S9ZjiIq0w0FdUD5dWEFOfgEc1YdhCdtqwNWMHKfJ2ZDVAfMIkmDhQFESx
+	w3k/w0WZkAz2wHsGaa07B6GBICANghYTpDQ1c=
+X-Received: by 2002:a05:7022:1113:b0:1ac:9da7:e86e with SMTP id a92af1059eb24-1ac9dc67128mr2995647c88.30.1793372822378;
+        Fri, 30 Oct 2026 08:07:02 -0700 (PDT)
+Received: from brev-9gdpyq8lp.ap-south-1.compute.internal (ec2-3-110-210-194.ap-south-1.compute.amazonaws.com. [3.110.210.194])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b38ac58sm7475171c88.23.2026.10.30.08.06.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 08:06:52 -0700 (PDT)
+From: Samarth Narang <samarth.colleges@gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: Richard Weinberger <richard@nod.at>,
+	linux-mtd@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Samarth Narang <samarth.colleges@gmail.com>
+Subject: [RFC PATCH] mtd: nand: qpic_common: terminate DMA channels on transfer timeout
+Date: Fri, 30 Oct 2026 15:06:46 +0000
+Message-Id: <20261030150646.2942368-1-samarth.colleges@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,38 +101,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-ce4c1
+Content-Transfer-Encoding: 8bit
 
-On Mon, 26 Oct 2026 01:57:38 +0000, Hungyu Lin wrote:
-> generic_copy_file_checks() reduces count to zero for a source offset at
-> or beyond EOF, but still checks the destination write limits. If pos_out
-> is at RLIMIT_FSIZE, this sends SIGXFSZ and returns -EFBIG even though
-> there is no data to write.
-> 
-> For example, GNU cat copying a 1024-byte regular file to another regular
-> file with RLIMIT_FSIZE=1024 copies all bytes and is then killed by its
-> next copy_file_range() call at EOF. A zero-length request can fail in
-> the same way.
-> 
-> [...]
+When DMA completion times out in qcom_submit_descs(), the driver unmaps
+the descriptors' scatterlists without stopping the BAM DMA channels.
+Since the issued descriptors may still be active, the RX and TX channels
+can continue accessing the caller's buffer after it has been unmapped
+and returned to the NAND core. The ADM path has a similar issue when
+dma_sync_wait() times out.
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+Terminate the affected channels with dmaengine_terminate_sync() before
+unmapping, ensuring that outstanding DMA transfers are stopped before
+their mappings are released. On BAM, termination resets the pipe and
+discards pending descriptors.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Fixes: 381dd24539a8 ("mtd: nand: qcom: add BAM DMA descriptor handling")
+Fixes: c76b78d8ec05 ("mtd: nand: Qualcomm NAND controller driver")
+Assisted-by: LLM
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+---
+Questions for the maintainers: BAM pipe resets may raise a fatal error
+if the attached engine remains active, so it is unclear whether the NAND
+controller must first be stopped or reset. The success path also assumes
+that completion of the final command descriptor implies completion of
+the RX data descriptor, which may require confirmation of the hardware
+ordering guarantees.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+This issue was identified by a research static analyzer for DMA
+lifecycle ordering and has not been validated on hardware. The patch has
+only been compile-tested on arm64 with W=1.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+ drivers/mtd/nand/qpic_common.c |   11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
+diff --git a/drivers/mtd/nand/qpic_common.c b/drivers/mtd/nand/qpic_common.c
+index 4f3e4dd76..250154a08 100644
+--- a/drivers/mtd/nand/qpic_common.c
++++ b/drivers/mtd/nand/qpic_common.c
+@@ -592,11 +592,18 @@ int qcom_submit_descs(struct qcom_nand_controller *nandc)
+ 		dma_async_issue_pending(nandc->cmd_chan);
+ 
+ 		if (!wait_for_completion_timeout(&bam_txn->txn_done,
+-						 QPIC_NAND_COMPLETION_TIMEOUT))
++						 QPIC_NAND_COMPLETION_TIMEOUT)) {
++			/* Retire every issued pipe before unmapping its buffers. */
++			dmaengine_terminate_sync(nandc->tx_chan);
++			dmaengine_terminate_sync(nandc->rx_chan);
++			dmaengine_terminate_sync(nandc->cmd_chan);
+ 			ret = -ETIMEDOUT;
++		}
+ 	} else {
+-		if (dma_sync_wait(nandc->chan, cookie) != DMA_COMPLETE)
++		if (dma_sync_wait(nandc->chan, cookie) != DMA_COMPLETE) {
++			dmaengine_terminate_sync(nandc->chan);
+ 			ret = -ETIMEDOUT;
++		}
+ 	}
+ 
+ err_unmap_free_desc:
 
-[1/1] fs: skip copy_file_range write limits when there is no data
-      https://git.kernel.org/vfs/vfs/c/81dfa035891f
-
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
