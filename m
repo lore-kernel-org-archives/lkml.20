@@ -1,52 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362487;
-	b=a/hRb3BYfL73QrSe1ipjXscIOFzR55TEa9DzeG40wpFavfbmRz0shUrB89qdSs8RLWCG
-	 RhMuGDoDXSDMoM2lT8+aQuWFfyVo3BijZH/RgIVqDz4cFv3m/Oq26pbYVZP8sCxShE9rn
-	 5q+QODOGeOne31kfqT66Rku+5ZhiQA2k0X32BeGI8xGMMimxvobcPLu1RfoRNQLt9flFd
-	 Yrw4hAO5nan+0FS1njMJUat84NSPNQu5wIX4EHM/GajMoGBaAR24LNkCvR3vkwG6hQuX4
-	 fW78ES1bR7G+NoJFUDCPc1ifI7LTWaKaDDbNe15nqPCmZxIIaRAd/lob3sFfIGYXOgQ==
+	t=1793362525;
+	b=Wc+qd/67+nqA0SzKysRGUHTswbpB1jBcgKOvctzD97HkxrG7zD01UlFhiNDm6lOhDh1U
+	 rX9OCblQCMLx2lel78aw+fTPxg9sMYnYuO+FCmGQyg5eqDsy8FAAipTDL2tUlB8EUWDIj
+	 TLka0iAO23Nx+tDRvz+aUjPzOws0LyzvSnm/kL9RD7kOfnMgOCX3nxB87JMzhGdsIVgvV
+	 nrY/xBYU4KnhBDGUXCbQ46fxh6A6XFCHXZ2C7oSHvwEVoYjqk7s6Rw/ZokOIqLF6dh/zd
+	 uVQ7hg4H/mUzvaNUkXsAszS99eGKg2RKBciJ0XbLsPDt0Fim++xulpQPA3M7JCp/aqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362487;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
-	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
-	 In-Reply-To:References;
-	bh=h2ip5SvFQXMjskOPscXy3MGP8bE0cs7x1URhQqE3CrM=;
-	b=s9D6+Zq6M+y77oyVDhiOxlSzHERsr5O3aZOyxXnuV5ZZyKinGJjZzcSBvemYXIgcVw3T
-	 liGlSm2sgkQLmgtPMC34ITulCpeqhVDYI0z5gqVWn1tUmtMXa7hj+ANzBC5mNCPlbrM+V
-	 BswmpwmcTi6TYkAynvAxtoKrnkCot0nrkvUUlfAEp+laThJnIOc5z4KQY9REtFhZcOHd/
-	 dWvadaEZDtN7drBGGd6BIpxScJGS3Vm9oxk0JtaP8C7ufd/eIhvszcNSAulmQmzGAhSCb
-	 2XgEl1wIgVDrV9Vzgi6vug/6E5OvtM6ehaHqLLbkoq2PTM03pdgrortEdY1ABSqPZZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362525;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=M6vrpTbfwaCimuJf7xEfcbD93enR29jER9mfIcBXf4o=;
+	b=IBP1146mZcozpKPJDL9FUsKJ26gLlcQsU0ORScIUUPP/jlZ+Zo0CxnNoXCTYa6nBEmYF
+	 3eZ+SaYCK79qjBElwfxSyrsPKfqFrxm6BgSJ8wvA61SlAzndVwL10OTEFfUj++xDJ9XeU
+	 pKHSx4Bv+IAisDJb8MymIr5AG5Q/sk8KIZ5OY5iWasjPVrNn8kdy+sXFVpvMFdIQ231ID
+	 kwqZ6xyn0x5ms5hE0fqXP0j5btkCjlDMN/bU7vxBn3GP46hOyNNovl0D9696Fjo+61KCC
+	 9ykeLezuaq+4zvv2dS+7/8eH+CcLPvQ1468e251sHxumF11hcpoFmOBt29+Yf7QX8zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q98j0faV;
-	arc=none smtp.remote-ip=91.218.175.53
-Received: from mta0.migadu.com (out-53.mta0.migadu.com [91.218.175.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=iuKGw6pv;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DACA606A338
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:14:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DACA606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C707606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:15:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C707606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=q98j0faV
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HCRBN2Dk48Rcr6GaXJ+oqaIPUyAM1rumz9TPvTLc5b8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793362484; v=1; x=1793967284;
- b=q98j0faVFE3L4eZwCTVkdjEkvxFeGPMpErXgdQ/V4ut1+C47ljzXQwzS8NjA4boc9aFAH6JI
- MQPIYDCAmts/RzJwaLm+DbhxU+cSRSc4nGYfEbWl1fqAhBK0RgoIxbDBOvG9nK5GuB6VrzJEfoG
- p5HzlaW67kKbQv9P1HGFCxfQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e7652bde6c35a393;
-	Fri, 30 Oct 2026 12:14:44 +0000
-X-Mizu-Trace-ID: e7652bde6c35a393
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=iuKGw6pv
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=M6vrpTbfwaCimuJf7xEfcbD93enR29jER9mfIcBXf4o=; b=iuKGw6pvyPH0U/Wm1hYpuMNVEZ
+	r2ReXV3Ir/s0akOOyvBxVkQYgGDeAxx0TCy3uAzN+G86zYduTzrhhviKIzcQ2oLsYHpDNjoqWjFqK
+	T8UdxtrfBa+T+B8svIVhhtgg30UWa6wThD7vQ0M+JswT5nqZExh/An8nRrV7ZW+I8xYEobeuKB1aP
+	F2vpDN6QZOqqiN1QpK2m8fzL8XQnZ1uJBGn/Tq0xlo2la6q5wFf1ZsJDRIYxL6HbbGDfoPZfZEjOx
+	bCmofoNpLwmCTTedWHPS3C86aUQrc9OqoW/8we9nenEr32PkPelA2wvD2eSoqGhtwtTqrH5nSxJm2
+	FHtbg1nA==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xMlVw-00000005tvF-06Y2;
+	Fri, 30 Oct 2026 12:15:20 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id ACE30300578; Fri, 30 Oct 2026 13:15:18 +0100 (CET)
+Date: Fri, 30 Oct 2026 13:15:18 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Qais Yousef <qyousef@layalina.io>
+Cc: Christian Loehle <christian.loehle@arm.com>,
+	Ingo Molnar <mingo@kernel.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	John Stultz <jstultz@google.com>, linux-kernel@vger.kernel.org,
+	Wei Wang <wvw@google.com>
+Subject: Re: [PATCH v4 1/2] sched/uclamp: Fix race condition leading to
+ imbalanced uclamp_rq
+Message-ID: <20261030121518.GE1813469@noisy.programming.kicks-ass.net>
+References: <20261029131354.11030-1-qyousef@layalina.io>
+ <20261029131354.11030-2-qyousef@layalina.io>
+ <c4740152-e873-4409-b3a8-16c5a49548dd@arm.com>
+ <d944d543-1756-43d8-aa08-bcbbf6df712f@layalina.io>
+ <75772ae5-d297-4894-971a-683f92fb87a4@arm.com>
+ <20261030112825.z7k57twgua27p2vu@airbuntu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,118 +77,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Fri, 30 Oct 2026 12:14:43 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Zqiang" <qiang.zhang@linux.dev>
-Message-ID: <746fe313c43392e69e99e4f9e9301abda3800a28@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH v2] rcutorture: Avoid create fwd_prog_tasks for
- tasks-rude and srcu-atomic
-To: paulmck@kernel.org
-Cc: frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
- urezki@gmail.com, boqun@kernel.org, rcu@vger.kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <5cb8b0cb-c7ea-4f2c-a9f9-3ccbab1bddc3@paulmck-laptop>
-References: <20261023093716.25717-1-qiang.zhang@linux.dev>
- <5cb8b0cb-c7ea-4f2c-a9f9-3ccbab1bddc3@paulmck-laptop>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030112825.z7k57twgua27p2vu@airbuntu>
 
->=20
->=20On Fri, Oct 23, 2026 at 05:37:16PM +0800, Zqiang wrote:
->=20
->=20>=20
->=20> When running the tasks-rude and srcu-atomic tests, the fwd_prog_tas=
-ks
-> >  kthread is created because the default value of fwd_progress is 1.
-> >  however, the two RCU flavors not support ->call():
-> >=20=20
->=20>  1. tasks-rude: commit b428a9de9bba ("rcutorture: Stop testing RCU =
-Tasks
-> >  Rude asynchronous APIs") removed .call and .cb_barrier from tasks-ru=
-de,
-> >  but left the .cbflood_max =3D 50000.
-> >=20=20
->=20>  2. srcu-atomic: srcu_torture_init_forbidden_apis() sets ->call to =
-NULL
-> >  for SRCU_READ_FLAVOR_ATOMIC runs, but leaves ->cbflood_max untouched=
-.
-> >=20=20
->=20>  In both cases, the non-zero ->cbflood_max fools the check above in=
-to
-> >  creating the fwd_prog_tasks kthreads, even though those kthreads can=
-not
-> >  possibly carry out any forward-progress test:
-> >=20=20
->=20>  1. The rcu_torture_fwd_prog_cr() returns immediately due to cur_op=
-s->call
-> >  is NULL:
-> >=20=20
->=20>  [ 68.022674] rcu_torture_fwd_prog_cr: No ->call(), so no forward-p=
-rogress test 0
-> >  [ 129.462046] rcu_torture_fwd_prog_cr: No ->call(), so no forward-pr=
-ogress test 0
-> >  [ 190.902123] rcu_torture_fwd_prog_cr: No ->call(), so no forward-pr=
-ogress test 0
-> >  [ 252.343809] rcu_torture_fwd_prog_cr: No ->call(), so no forward-pr=
-ogress test 0
-> >=20=20
->=20>  2. The rcu_torture_fwd_prog_nr() is never even invoked, because it=
-s caller
-> >  requires cur_ops->stall_dur, and neither tasks-rude nor srcu-atomic
-> >  provide ->stall_dur (only rcu_ops does).
-> >=20=20
->=20>  Therefore, creating fwd_prog_tasks kthreads is pointless, this com=
-mit adds
-> >  ->call and ->cb_barrier to the forward-progress check, rejecting fla=
-vors
-> >  that lack the cbflood_max set and a positive ->stall_dur.
-> >=20=20
->=20>  simple verification output:
-> >=20=20
->=20>  [ 3.062959][ T1] srcu-torture: rcu_torture_fwd_prog_init: Disabled=
-, unsupported by RCU flavor under test
-> >  [ 2.922323][ T1] tasks-rude-torture: rcu_torture_fwd_prog_init: Disa=
-bled, unsupported by RCU flavor under test
-> >=20=20
->=20>  Suggested-by: Joel Fernandes <joelagnelf@nvidia.com>=20
->=20>  Signed-off-by: Zqiang <qiang.zhang@linux.dev>
-> >=20
->=20Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
->=20
->=20It would nevertheless be good to run tests demonstrating that
-> forward-progress testing happens and does not happen on the same
-> rcu_torture_ops structures as before. Just in case I lost my
-> way through that boolean expression. ;-)
+On Fri, Oct 30, 2026 at 11:28:25AM +0000, Qais Yousef wrote:
 
-Ok, I see. thanks Paul ;-) .
+> Peter/Vincent, what do you think? It seems we have a schrodenger task that is
+> both enqueued and dequeued simultaneously in these throttling paths. Shouldn't
+> this be fixed? If yes, any thoughts on the right approach? Should we throttle
+> if there are no other tasks on the rq too? I didn't realize the semantics are
+> that strong for enforcing the quota.
 
->=20
->=20>=20
->=20> ---
-> >  kernel/rcu/rcutorture.c | 5 ++---
-> >  1 file changed, 2 insertions(+), 3 deletions(-)
-> >=20=20
->=20>  diff --git a/kernel/rcu/rcutorture.c b/kernel/rcu/rcutorture.c
-> >  index 968343be4e0d..92ff197f4789 100644
-> >  --- a/kernel/rcu/rcutorture.c
-> >  +++ b/kernel/rcu/rcutorture.c
-> >  @@ -4007,9 +4007,8 @@ static int __init rcu_torture_fwd_prog_init(vo=
-id)
-> >  } else if (fwd_progress < 0) {
-> >  fwd_progress =3D nr_cpu_ids;
-> >  }
-> >  - if ((!cur_ops->sync && !cur_ops->call) ||
-> >  - (!cur_ops->cbflood_max && (!cur_ops->stall_dur || cur_ops->stall_d=
-ur() <=3D 0)) ||
-> >  - cur_ops =3D=3D &rcu_busted_ops) {
-> >  + if (!cur_ops->sync || ((!cur_ops->call || !cur_ops->cb_barrier || =
-!cur_ops->cbflood_max) &&
-> >  + (!cur_ops->stall_dur || cur_ops->stall_dur() <=3D 0))) {
-> >  VERBOSE_TOROUT_STRING("rcu_torture_fwd_prog_init: Disabled, unsuppor=
-ted by RCU flavor under test");
-> >  fwd_progress =3D 0;
-> >  return 0;
-> >  --=20
->=20>  2.17.1
-> >
->
+Urgh, nothing is ever straight forward is it ...
+
+Bah, so this is because the core does uclamp (for classes that have it
+on) but then the class does the throttle without going through the core
+{en,de}queue.
+
+Does it make sense to have throttle_Cfs_rq_work() and tg_unthrottle_up()
+do uclamp_rq_{dec,inc}() respectively, along with the
+{de,en}queue_task_fair() they're already doing?
