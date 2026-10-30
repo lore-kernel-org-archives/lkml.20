@@ -1,90 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793384253;
-	b=ZLIqwcl71CDNK+7XF5nHJZSOnSyHQVglqsQdOZEtFZ1KVR0tEHkp+fUrQTdddlURT397
-	 bgjwXTkTped7YiUXbrq/NtuRZoykmApX73vUgO0M6+lLzA/3YKkCi04TJa1e2e1QfnNdn
-	 zkRw2A33I76tZY6xiMFxmHSzhDltUAPEKfV6f0yRHstD8RAbfvqBSNPBIM3mpT4O6TE8Y
-	 B56i1r9cCUSCZ2qOO7VsL8lhDZtEI7VgB7vwpUHnNprcSyr/89psn1sfG9gfrSVjEQzOh
-	 ESEa3SvLhfcNu75UlvEVefcWW2S4UC5yn34ZWIptDWAWUwenlF14qJ5h+xJFxMPovrA==
+	t=1793384297;
+	b=Ghvv7Skl5gE9RzPsOrt53mCkh426sNPQ75qP2Qrgzck+f5cO4DHoM2mRWmptvAM6EPnH
+	 AR3gnZYlWLSYjbCZBoyS5lZfxMZR7hvITaA5+J9HeXgtQhseJQXJKfRPyikfHdVxcB8Qs
+	 f56splUjo9UIaeUpLUPAN2j/6GSIZDbImCYlEEcJXqyBarYoDgnbPeWMDJKHHYsVXjIRf
+	 ydO0thvUpClfGZCOjbh1AzqCyCWTSbbr7uDYt7JjY5YmD12MJn1VtN+MooTwKTlYms8o3
+	 JTuB80zsI5EcuGmVr594G4usKsNJf0Tiki5JAgq/HinXxnJL7/8rX6RORuaKNVYtxOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793384253;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793384297;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=X5x7xBzSu9MQJx0VW5rlzSeRxFUOvmHNtGRPFRc0mBI=;
-	b=teIp1lRicFI8Hml4k8QZThoduiRANQo8Kz8904dagDzYfkKn1/RFp2LZqd4aiTcUSgx6
-	 8GkxPDq7W9jnC12/X6V77fn6EJePSjsRfyHTNAwS7PynWTfwnfN32tu3HFR7qKauX6DHA
-	 6lYaIUviabZpOhXcLlFy3KR80+ah528lEb2sg5kv0HDBPvSnE/IhKT4MWRSnxnwcyXhI0
-	 Vj3PnKsd320pZeXA03C9/sJcDUO+swBG4BaZwHoLovB0jAiTn1t7GKQ2nyWVNeV3+ymZO
-	 0JvqD9w5N+mTR+aOtuJ/1nmf2kQrhk954QfsdAFH7vO38sWOU1V2rM6FiK4t+e/Flfg==
+	bh=0oJND6e7p/41BF94Xli4Q3w1gwBLk8Sl1xYufIRgeVw=;
+	b=w8k93rJTguN7gZ1zsI9iN4Sw20uS5kcSZq4GU52j4jomcoNQOWnvpY8Jz+1ECOTbrwwB
+	 m77p6ulPYspongnI7VnllwDNJlwj3cwO8f5//pb6pGk03AOctAxHaGsIFPi17JAbFFr+h
+	 h2etc3Db8TIy9Zt6okJm1gKNd6OVjoEitlftv4N80/+VegX4ZfdT3jt7M5HudXSZ2ls7p
+	 dMRGKbFsrgZhPjD1vqO2dt3TF1FcFyj4A5bAL6dzku3Y4svfbAAest5p72c7QNSYu2hpt
+	 uZmkMFSjlhmxJLaSXgJDTLOTkQyUAQCohYdC2MoX2ZYeFt2u6doUtK9H0Hb5I+yuquA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m1+tweTA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZM7bRbW1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DEB606A325;
-	Fri, 30 Oct 2026 18:17:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E4150606A31C;
+	Fri, 30 Oct 2026 18:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m1+tweTA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A90241F000C1;
-	Fri, 30 Oct 2026 18:17:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZM7bRbW1
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DBF571F000C1;
+	Fri, 30 Oct 2026 18:18:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793384253;
-	bh=X5x7xBzSu9MQJx0VW5rlzSeRxFUOvmHNtGRPFRc0mBI=;
+	s=k20260515; t=1793384296;
+	bh=0oJND6e7p/41BF94Xli4Q3w1gwBLk8Sl1xYufIRgeVw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m1+tweTAyDL+KzKUMPs4dGwRjv+e38a0bJy8T2f9MRPJqMUJdetcYqltW7co3sQLO
-	 6uare3isNFNyCc057oyfIbeQxzQVz5ReHHOWiJWDTKKTcP4Ah3Bpw/KyAHTcrPiQU3
-	 ivIZPnmfsM934Ejwl5FUp6jACqhsqgI09YPpDmq+k47eKhC93J1dU9+EhzL9K8PJC8
-	 jcEkg8jBgib97x7RuNt0KkA9/5e/Wm16Xr7D9lmFtu2EtSqKZbZRZ8rre8u68kJA6C
-	 n8PBZdVdlJ97ogHIhBHMPxU+l3kJK4w6GE7TlVSTGW760S0BBNCWz5AA3NOF1mOXUs
-	 /K81BO/2wxgOA==
-Date: Fri, 30 Oct 2026 13:17:29 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Cunhao Lu <1579567540@qq.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-usb@vger.kernel.org,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Manivannan Sadhasivam <mani@kernel.org>, netdev@vger.kernel.org,
-	Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org,
-	linux-mmc@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
-	Elaine Zhang <zhangqing@rock-chips.com>, linux-pm@vger.kernel.org,
-	linux-i2c@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	devicetree@vger.kernel.org, David Wu <david.wu@rock-chips.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>, mfd@lists.linux.dev,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Conor Dooley <conor+dt@kernel.org>, linux-phy@lists.infradead.org,
-	linux-gpio@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Zhang Rui <rui.zhang@intel.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>, linux-clk@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>, Jisheng Zhang <jszhang@kernel.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jaehoon Chung <jh80.chung@samsung.com>
-Subject: Re: [PATCH 19/27] dt-bindings: phy: rockchip-naneng-combphy: Add
- RK3572
-Message-ID: <179338424846.1186130.13019984691130046587.robh@kernel.org>
-References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
- <20261022-add-board-ok3572-c-v1-19-0b0fd85a31ee@qq.com>
+	b=ZM7bRbW1rIAhx89d7oAG7MOv2oBHD2jsurHIdrLr7DkrPtO/S2JU/nK6I1aITh1YG
+	 dAtqFtAD5tMivuMd+5kG6hkv9usgsOqHijCTpp+LX/2OsiF+F4iVjE/ztA9eScl/cs
+	 AO5Emb1HOxQj1V/0XIBZopCIIW+U26yDjjtSbPeuj40nOPF0rlJ+Lg16HYDPD7eMhK
+	 fMQkuXxH6CcstR5kklPxzp0N/d/MVRaIv52DaNwkXFDSNP+kqfVncFFXYGD+Pi7eYL
+	 0JctbfttZ9ainuCvEZe8StrIyKmgB4wPXxfYN9ek09+RqPyEP3vVqIOq9Vxy/LEv/F
+	 /6JvhEpTAO9CQ==
+Date: Fri, 30 Oct 2026 20:18:12 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Anvik Loitongbam <permissiontogallop@gmail.com>
+Cc: keyrings@vger.kernel.org, David Howells <dhowells@redhat.com>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KEYS: request_key: enforce keyring restrictions on
+ constructed keys
+Message-ID: <auTfZL8RjQqT8uiW@kernel.org>
+References: <20261030173930.40948-1-permissiontogallop@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,17 +60,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261022-add-board-ok3572-c-v1-19-0b0fd85a31ee@qq.com>
+In-Reply-To: <20261030173930.40948-1-permissiontogallop@gmail.com>
 
+On Fri, Oct 30, 2026 at 11:09:30PM +0530, Anvik Loitongbam wrote:
+> construct_alloc_key() pre-links a newly allocated key into the destination
+> keyring with __key_link(), bypassing __key_link_check_restriction(). If
+> the request-key helper instantiates the key with ringid 0 (or any keyring
+> other than the restricted destination), the key becomes positive while the
+> provisional link in a restricted keyring remains, so the restriction never
+> sees the payload, potentially resulting in a policy violation, where a
+> user with write access can inject keys which are restricted on the restricted
+> keyring.
 
-On Thu, 22 Oct 2026 00:11:16 +0800, Cunhao Lu wrote:
-> The RK3572 combo PHY uses two input clocks and one reset.
+What does "key becoming positive" mean here broken down?
+
+Also I have really hard time on reading the second paragrah as it is,
+let me count, over five lines long. I honestly cannot say that I
+understood what I read. I tried it three times.
+
+If you understand your fix, you should be able to nail it.
+
 > 
-> Signed-off-by: Cunhao Lu <1579567540@qq.com>
-> ---
->  .../bindings/phy/phy-rockchip-naneng-combphy.yaml  | 23 ++++++++++++++++++++++
->  1 file changed, 23 insertions(+)
-> 
+> Restricted destinations lose the provisional-link deduplication while the
+> key is being constructed. Callers that pass
+> KEY_ALLOC_BYPASS_RESTRICTION keep the existing provisional-link behavior.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+The second paragraph should be reformatted and there is no rationale
+or descriptio for the code change.
 
+Br, Jarkko
