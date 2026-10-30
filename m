@@ -1,91 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334136;
-	b=uB7G2BBl+auLomL1Lg15jO6nqEKljsGTlwZgizuOxh4xayMUOhRhUpsCBrvaIkhmRAiB
-	 QyukukdAujlZuz8g/x9EMFfRHH7/qlrSAXt8OprRW861K6937jNiHIAjHGCrz4PoiEFhn
-	 1w7T7SqG+z4GJM6vyD8PUJdbJCNgexJkabCZ/qzi3csPWVo/suwqLmDBmzEjD9GWdlOcE
-	 uqwUgg/ikLq05f2bQYoDKzgHOFY3R+cpqCaALSxHd62RD4Vp8klRbcXanSGgNd43/TX6b
-	 7X2bH0Fu/IeK1Exav1/g2GogupjrPMg0R++y3Y/2JFlZjtmU54k5Zxc3zWB407jMOYg==
+	t=1793334144;
+	b=nHNPX7H+fLTZwXSY2X6Lu1Ol5GKZFszFkuXiTYlBADJqH+wyC8Bw5IbXZIurAtOgmR2Y
+	 q9TxSPtrMQIAS/7mB3MmZBrae2ep5AolB1meckHf28lJdeAlNcKlspRA02TvySTrKlr0f
+	 cQJxuXn74sZVaOigCa5YY5567FGpYIXc9TAxisdIaq8mrRJqqLvHAMIlp1xuRoWdcVoG+
+	 Ggz2DwA9kz/kTT0bBAGngTl7pCCOJE6ik2FGb5Si2t9xjTqhRiWXM315WyvoMm/mwwWVl
+	 gfMb0DqLcdY/hoYp9mWS4JZ1KA1JlirNUmjkKCyxGi+hI8VHOAB0XXWUmUZZBZrp0LA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334144;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=sCvGqwNU2SK55VH1hMa7Zsh/VqV4FJcT/3+6mrPnc1I=;
-	b=GOec9CMj6rXUq7vq6NX7ZezGT5UNRq+yuJiATd3dnU0F5jF9V67KtqcnQSHhP6QKrH5F
-	 DK8kY8vKyQ/6NF3pKnWuQCasfES2/s5kzt7EDamJv/9vDUQlujF+W7LV4zgQgxISDevxm
-	 igOpehAz1YckSMxt9/RGeqoq5H9wrFcQTVGUubZn7irOBgVmp4HhgS9Cp9QlFsxxGbbkr
-	 HVCwH+VAqYmoHzLnSW7NqbuDAdjyQV11Qb0onT3GCQwt1zvjWnfSNfAMytur/akRUxDEw
-	 Py5ZVBVeLvPyuAY2IeJ9A2QM24CV+kjleW19+3+B9rVd5jnIAM7rzFxnnv0G8VWo8aQ==
+	bh=3hxk8649SkhtYbceP5bCvTVG9m2eHm+fN4Hc1Hzwp+A=;
+	b=vN4ni6NZO869claW18SU7yiE3zh1PgwFf8ejBLVyBvg4a0CUcykzgoNRlFOhnV9mnajW
+	 ejqpopj8XAAE18oK5/OPZFbo6gaHdPQd8cRCXtxKaJtTyxqZpyaaW01nqG6qMfFwTbKe7
+	 6GGrRzocJ+512DN3P2cNeqARV0mONQG5ASWUsTyrpLfgIYzqLG0dEv5ZJbyu7rgG31285
+	 ERfFrf2xKJdn2LZp8wamrjiNmSGKJ/x0DHTQVLDVchEfyanScPQhhwHENl8rcMuI2j4GF
+	 NmKRMMtrPL2IYVEotROTbCsl8fA4c0DMQVy8JDxzym5Sb/7xM9Dj1yoB45BzB73J46A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=openai.com;
 	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=P8lKyUii;
-	arc=none smtp.remote-ip=209.85.161.42
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=PG3pL5zo;
+	arc=none smtp.remote-ip=209.85.160.48
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05581606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:22:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05581606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68EB4606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:22:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68EB4606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=P8lKyUii
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-70bf1671c21so184902eaf.1
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:22:15 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=PG3pL5zo
+Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-48ed188ee81so152029fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:22:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1793334134; x=1793938934; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1793334143; x=1793938943; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sCvGqwNU2SK55VH1hMa7Zsh/VqV4FJcT/3+6mrPnc1I=;
-        b=P8lKyUiinJFj9J1uUz/gfUWezrUvE+7Q9L3hNaeXF6KDvmFv52jq6UhMQ5FQrjYJu+
-         0WqVgdsANMCVYZmQrkcVpxZvNtOep8UBVU0+adLSJnrZOFh8kZS7Vvi90GFB+nftq0vb
-         JSywjRD0v+3QBgYY/82hpv9oUbcFN3djvrjpg=
+        bh=3hxk8649SkhtYbceP5bCvTVG9m2eHm+fN4Hc1Hzwp+A=;
+        b=PG3pL5zoX4SQwnml5tmfvXQ5UQ/7jf0o5+CpeisrSd5QgzbQ/Nl5Qq3ZwXXz4VnJjt
+         FMzmZIPqHbTL5y5yLcFE6XR2l+CpI8MtoDEVC8TPeWzzkOhvySH1nOWkEAI4xEHYuDD4
+         Kb3BeHkNgoMdMnRyA4tTK7XduGFmzblIkwctY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793334134; x=1793938934;
+        d=1e100.net; s=20260707; t=1793334143; x=1793938943;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sCvGqwNU2SK55VH1hMa7Zsh/VqV4FJcT/3+6mrPnc1I=;
-        b=Vr8S5FBNZbe2Toey7kM8eSX163fs1Wl5nYv3xiXgVfZXL+VsrIlvO3RzbhaIwZWUbI
-         xudu4d6QxBC3nXChx3006acmHXnw02J2fR5KSL0aRUy4ah3vSBbI0eJuA9nGG4W9oq6V
-         qiQiirR6sDmHINOBOaEgrT4zJVqWfppzkPH8afVAAZkmgwzcQZXc5jcqDWukvoay7nfz
-         iHabjmcs9ZIn8D8hEBKc5o6Z4IfqachN5xML7XZnAQyVNR0WPVJeSw0mWBxYvY3Ad9wm
-         FojGb/o6GStaCfSnoLH6PClMR3tKTmkolfwn8rqbJuAF6HlZvhVH1yvOT8s5Wjeiy67E
-         Lysw==
-X-Forwarded-Encrypted: i=1; AKwUvBySRuRAIFq5JNkh7mKPyaQE7eJP6YHlbbDz4r8uc1PEywIAzTOJWu/MPdzkBJgT8GQV3oOgIWfcLC9oo3g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLe6Nmb4A3i8zehgHbGi6yVrvjrjwgyqp7HIy60kQveT5rlPwAO
-	i3Yl1Sx3Zpx5vQ4vmWDaaIT3IinfQkM254XFKPjHGV6Ejro60o0CT9oA3/V9UUlFgHE=
-X-Gm-Gg: AYBFou30Ly5YjleJe4yW7yzoBQH9gpYRfD6SAF6K/eifKeNLTytyJ4d1y0dnIofo1+E
-	S3AtB1uBhdwLtkUOGhoIpmIadnYgA6V4ttAq2tZuDyYxda0nkkwLcmuPpHJGBB/bEQ7uJeNJUL/
-	7PhD7skj+OIvwTPvDfuaJ+pP5HFCnFP5FshDWYt8vVuNRnG2vZsW3m4fTHGCgTvTGerFaVKDUbT
-	2uNEQn8YL+CANX+zCjVJUl3fqfd6dFfcr76n4xYposhCmoPbfjLXLjFG2xhtn9YuH8h3eRxli7j
-	Lo00AmTddZU0AkIPeszkRfxIM9Vu8ZSuwgOVuW8W8Q1DX9J1JSiRSQE8DQtUkhMd+e5MPh+Zwqy
-	rR9KRPc2j8QxGVRL1dFY+jbEfc24hGOB6cWtoCcGmoar2YvCXtfSpPe1Ydx8RhlDsC4LPxSCVIX
-	P+27pGG2gYpB//6+nF19oz7qD9LX+XDWHWoFy5XRfBV7pqjwNo5EyLK74OALEGNetYUZf6rIaNi
-	Gt75fJStbBakQfXLLWPFl+RkwMDx8dIlaUQ7wTvgo58+g5SspQi2i2fbOE1ozB4JGrZxptiOJ86
-	mezpi30evbFCszh97Icl5HuNf8Ehx6rUgOiwVfxWO5b2Q191dOrm0aKAvzBDD2j1jKgVEok8day
-	LKHeyK/xhPhQYlrL01IfHx3BPnmPPIA==
-X-Received: by 2002:a05:6820:1346:b0:70b:1217:4a8e with SMTP id 006d021491bc7-714f20a0acdmr892156eaf.0.1793334134520;
-        Thu, 29 Oct 2026 21:22:14 -0700 (PDT)
+        bh=3hxk8649SkhtYbceP5bCvTVG9m2eHm+fN4Hc1Hzwp+A=;
+        b=Gco4d4q4RB6kXP/P+OIfQenRMDtgOMwB4Ud9sFHBycK7hXSXqb2tbhTs8wALTCjICK
+         tFmvjEihUdh11c+efA8xnZMY33BpQeB+pwT6jJlCl1iQEuwBfp0q5zt//ThYdqM4ZRGL
+         SVq28/fEP5ytAbh/vGH36W32wqYiEmVG9sYi+VTk0b/aO0AZJFgMxcykth3TpcWtDJLp
+         o4yCIPU0UZRb/rGkpHZ/Y2ClsQZLhI013EFp0vMx0jOvVXc6Q0BsP570bl+EcYQsJ8y/
+         FWv7JHcHcayULue8SesNdvimX4nkx4YFM4OEr6xv9GL+GDP+Lcwz5b/B9p30S/xRNKoY
+         RJgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwmYG7vuZdf95mWt3lAi1a9HWWja0r5eLiwVNv6l9+BoATKvwfpDnYNGMuvHQ1EvZZb8XY95u+zWpfjkrs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKONyQRqge65lcUQkv/shdamkXV6RNa30t6vrU6oiptNx7UhVOf
+	FjoD0DSOWYPr8SZIeVvkEPORZ/fFIi2oY4UcNN3QMLcfHxPKAAoQQZKPuOLpUZR+NbDSqNisMdS
+	2K6bjSVM=
+X-Gm-Gg: AYBFou0yv56gsJen5zHDbksjSKHCcFDoAi73trEUN7NyEfLs+Rb7nvBMMKbe41+W/ML
+	myfcz/mlYLy6mJVVJCPWUo6qZzUCdgQWe9FOp+WiZ5Y1KtCB4foC9i0eKU8MEHIRXyt4FtCGG0U
+	b+iOKEeQulSq+6tvMyyF7WdLkdGU1xfnOS3YMJb75Wdr6ssF3hrire3Ucfz8dSRGpb0x+cyAvnX
+	1L5SKRV6J/SgXzyG31PTLUyB1RdxrcyFc3W8LqfhUSzwhuiubhSR9Y7P1Y+brB2vWSJZ6cwii9V
+	9SGPY9zaFcWhc2wG1RIy5IXzlTpJ9OhPM0QzVxzCy04E530bQOtFBXRe4OLyjC1xMaZ7boPXtig
+	ekQN1ZQfkM8CHCpGHK0K0JXqzYFaGSeA5UFnlQFvBSZCN8LWy8MqZUxLuGdxvMJ75CTYUvuB37/
+	TRTcsn2g+QSl7f27iEPWsG/cuzOETqv1NLdYo7Y30G9uB6r3YDwJiN49KPW8jZcVs5gj+Gj8x5x
+	em+ZP+4UkhKerp6QSXpv89sTASHOW6eW/5OXjh7XMpf6xJModd/ag09IpUglVAruCqK9nMTbSQk
+	zWuWZYaE9odLYfl8zCEtvPqZgqF2EpOfHDbhPSUR2PKfMNx2VXLQXbHhNcoYKP5WjdHeE+qKs+Q
+	j8bUaiWuQa3Fy/cAv+HJb8qo1R4WGCg==
+X-Received: by 2002:a05:6870:8092:b0:447:a816:9328 with SMTP id 586e51a60fabf-4a9072faa72mr850834fac.6.1793334143209;
+        Thu, 29 Oct 2026 21:22:23 -0700 (PDT)
 Received: from com-75606.corp.openai.org ([199.47.143.5])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d354cd9bbsm1127984a34.16.2026.10.29.21.22.13
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a90aee8c5csm810431fac.10.2026.10.29.21.22.22
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 21:22:14 -0700 (PDT)
+        Thu, 29 Oct 2026 21:22:22 -0700 (PDT)
 From: Kyle Zeng <kylebot@openai.com>
 To: netdev@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
 	linux-kernel@vger.kernel.org,
 	outbounddisclosures@openai.com
-Subject: [PATCH] net: gro: avoid parsing headers from shared fragments
-Date: Thu, 29 Oct 2026 21:22:12 -0700
-Message-ID: <20261030042212.73949-1-kylebot@openai.com>
+Subject: [PATCH] ip6mr: Serialize multicast router socket ownership
+Date: Thu, 29 Oct 2026 21:22:21 -0700
+Message-ID: <20261030042221.73996-1-kylebot@openai.com>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,46 +97,106 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an skb has an empty linear head, skb_gro_reset_offset() can expose
-the first page fragment directly to GRO header parsers. For a
-SKBFL_SHARED_FRAG skb, those bytes may still be writable through a file
-mapping. Headers validated during receive can therefore differ from the
-headers later copied into the linear head and used during completion.
+MRT6_TABLE checks whether the socket owns its current table before
+acquiring RTNL. MRT6_INIT also looks up its table before taking RTNL.
+Consequently, concurrent TABLE and INIT calls can initialize the old
+table and then change the socket's selected table. Another INIT can
+register the same socket in the new table.
 
-For example, changing an IPv6 destination-options length between the
-short and full header fetches in ipv6_gro_pull_exthdrs() can make
-ipv6_gro_complete() pass an out-of-bounds offset to udp6_gro_complete().
-This is reachable with an ordinary TCP GSO skb containing spliced file
-data, without an skb zerocopy destructor or a second GRO packet.
+rawv6_close() calls ip6mr_sk_done(), which clears only the first table
+owned by the socket. After the socket's RCU-delayed free, the other
+table retains a dangling mroute_sk pointer. A subsequent multicast cache
+report passes that pointer to sock_queue_rcv_skb_reason(). This produces
+a KASAN slab-use-after-free in sk_filter_trim_cap().
 
-Keep the direct-fragment fast path disabled for skbs with externally
-writable fragments. With an empty linear head, frag0_len remains zero,
-so skb_gro_header_slow() pulls each required header into the linear head
-before it is inspected. Subsequent pulls preserve the already validated
-prefix. This covers both gro_receive_skb() and napi_gro_frags() while
-leaving the existing linear-head and private-fragment fast paths alone.
+Look up the selected table in ip6mr_sk_init() after acquiring RTNL.
+Likewise, re-read the current table and check its owner under RTNL in
+MRT6_TABLE before updating the selection. This preserves the single-table
+ownership invariant shared with ip6mr_sk_done(), without changing the
+locking of the other multicast socket options.
 
+Fixes: d1db275dd3f6 ("ipv6: ip6mr: support multiple tables")
 Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
 I have a reproducer for this issue and can share via DM
 
- net/core/gro.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ net/ipv6/ip6mr.c | 36 +++++++++++++++++++++++++-----------
+ 1 file changed, 25 insertions(+), 11 deletions(-)
 
-diff --git a/net/core/gro.c b/net/core/gro.c
-index 1b033855a20d..d6cf2d497934 100644
---- a/net/core/gro.c
-+++ b/net/core/gro.c
-@@ -413,7 +413,8 @@ static inline void skb_gro_reset_offset(struct sk_buff *skb, u32 nhoff)
- 	headlen = skb_headlen(skb);
- 	NAPI_GRO_CB(skb)->frag0 = skb->data;
- 	NAPI_GRO_CB(skb)->frag0_len = headlen;
--	if (headlen)
-+	/* Shared fragments must be pulled into the linear head before parsing. */
-+	if (headlen || skb_has_shared_frag(skb))
- 		return;
+diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
+index af968a2c2a78..01a1087bc7c8 100644
+--- a/net/ipv6/ip6mr.c
++++ b/net/ipv6/ip6mr.c
+@@ -1623,12 +1623,20 @@ static void mroute_clean_tables(struct mr_table *mrt, int flags,
+ 	}
+ }
  
- 	pinfo = skb_shinfo(skb);
+-static int ip6mr_sk_init(struct mr_table *mrt, struct sock *sk)
++static int ip6mr_sk_init(struct sock *sk)
+ {
+-	int err = 0;
+ 	struct net *net = sock_net(sk);
++	struct mr_table *mrt;
++	int err = 0;
+ 
+ 	rtnl_lock();
++	mrt = __ip6mr_get_table(net,
++				raw6_sk(sk)->ip6mr_table ? : RT6_TABLE_DFLT);
++	if (!mrt) {
++		err = -ENOENT;
++		goto out_unlock;
++	}
++
+ 	spin_lock(&mrt_lock);
+ 	if (rtnl_dereference(mrt->mroute_sk)) {
+ 		err = -EADDRINUSE;
+@@ -1644,6 +1652,7 @@ static int ip6mr_sk_init(struct mr_table *mrt, struct sock *sk)
+ 					     NETCONFA_MC_FORWARDING,
+ 					     NETCONFA_IFINDEX_ALL,
+ 					     net->ipv6.devconf_all);
++out_unlock:
+ 	rtnl_unlock();
+ 
+ 	return err;
+@@ -1745,7 +1754,7 @@ int ip6_mroute_setsockopt(struct sock *sk, int optname, sockptr_t optval,
+ 		if (optlen < sizeof(int))
+ 			return -EINVAL;
+ 
+-		return ip6mr_sk_init(mrt, sk);
++		return ip6mr_sk_init(sk);
+ 
+ 	case MRT6_DONE:
+ 		return ip6mr_sk_done(sk);
+@@ -1872,16 +1881,21 @@ int ip6_mroute_setsockopt(struct sock *sk, int optname, sockptr_t optval,
+ 		/* "pim6reg%u" should not exceed 16 bytes (IFNAMSIZ) */
+ 		if (v != RT_TABLE_DEFAULT && v >= 100000000)
+ 			return -EINVAL;
+-		if (sk == rcu_access_pointer(mrt->mroute_sk))
+-			return -EBUSY;
+-
+ 		rtnl_lock();
+ 		ret = 0;
+-		mrt = ip6mr_new_table(net, v);
+-		if (IS_ERR(mrt))
+-			ret = PTR_ERR(mrt);
+-		else
+-			raw6_sk(sk)->ip6mr_table = v;
++		mrt = __ip6mr_get_table(net,
++					raw6_sk(sk)->ip6mr_table ? : RT6_TABLE_DFLT);
++		if (!mrt) {
++			ret = -ENOENT;
++		} else if (sk == rtnl_dereference(mrt->mroute_sk)) {
++			ret = -EBUSY;
++		} else {
++			mrt = ip6mr_new_table(net, v);
++			if (IS_ERR(mrt))
++				ret = PTR_ERR(mrt);
++			else
++				raw6_sk(sk)->ip6mr_table = v;
++		}
+ 		rtnl_unlock();
+ 		return ret;
+ 	}
 
 base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
 -- 
