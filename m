@@ -1,76 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793357114;
-	b=ndAqRY8hA9dv1UGEhcXk/VkWJgZCmZo4Iqtu278qDliZVzEMBE4IlKDpOJvpCn+Teh3W
-	 lLU2ZQXK3e24foubp23xa1ToB0AmAl8nkvnLqmgA2xilse0GjZPEmglh90tdO1//p4xyw
-	 Lhr25HOPe6cIrGjQ46D1oEGpvIa8wXehp2uCwmNU9eZ3CKUTbcIzGygHUbFkRkeeeWcAt
-	 BctT0MgePM1z14DCIfiZZ/MMCFigyOXbnhAtG/8gj8Z2eaWAvHfShsitZ3crVLVYmLUFj
-	 ZShzt47prFMY9DhGHkXPIFGcdwhi2bqo6rDWcoK31gq/7idM5UKgKQR++Y+t2r+lkaQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357114;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=HWHo1VyMeZVdvGG1MXQHMJUz3uY5Ij7QXNRfTATnvTc=;
-	b=Hd+emQ/f9epib9Q/4Q+CWezsyPhDrRHM4ScRSBiuZtbcGJxXW5+m90Oa54IpSChCsazm
-	 9vECIee4hfcjmLo0aNEXHnFcQGVhwTD/5EGVn29hF3CAxfBxLkXyvzdnM4z0i7u/zsM+T
-	 rsolSbyn1khy6TFOX7cRCijbtzZ1OcdaBNG7cuKVRwahu5URDEaimkk8T0y4/lmlzYTgF
-	 83mrRJlHXNeEjchiuRwd7yqgG9TEkqbgjE+sL4fVn7FGk9yQDebl3Fx3VY90dshF3gAVS
-	 tq5sT31QpDZfkmzZEUFVaFluBM9fypdZrZ1lnbNLd8+2Q1zl8RqthTCMNzWpTZZXu4w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.87.157.213
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793357110;
+	b=4afpmiWml2OfK+4G7SkS5virnTMWzGRG9HJYYJvvghba9z6LCzv7e9w4ToOobPu4uXFN
+	 Pli8GsPS9XZTF307iX0cyIfUuzxbuHMLWwj+nfKoLwJC0wEiXfr3+60AnAk8zLowZVHbx
+	 CpSg/QovRZ35qPKBPb5SgP5S8twzhwqCPTf0GHNOw0mwQ9oW+U8EAFpFCVJVJGjp/9H0G
+	 NBEVeuYpAau8DmFzMz942vR37CwtYTiqiTHiIdU094r+/bJWw8peb9mruxIahVpnIjQEn
+	 /1wzh5Y7OfrRcZuQMDJksf0SCiYMpKStJdp7rmP5XpUMl1jAEkh2YTxLfLmoLdbSntA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357110;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 Received:Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-originating-ip:x-tm-snts-smtp:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-MAIL;
+	bh=daErkqpEX2p+EHTwW1aJ5d2AIBfSMk8MVtEa4tl2eZo=;
+	b=E2etAiVbzKPY0ceRval/M70VCaeivDggEteZZ0d+CaH7kAxs89Q/64i6xkiAzHMz5Rn0
+	 qJzFV52b2y/jAol6fmDVlQqItNECH0gsYssUq3VkcBESuF2wj3L3uK1Jn3TQXyLabmAJh
+	 Hc+XgcvVhg/i6KzBA+/O1xFeuIq1kJSrU3altW03In/NQ0alEsCkxSEJtRWLPzmQmJvrY
+	 EW9mJwnMOHftPDVt74JwxCaxXzkMINhtt/9F2e1l/3sfUMr46OV9DsN/BGHV9Zs5vEGqA
+	 v7rV+YPqAPCIKuQQykJ/Uy+sb0PnWmspucjy5XcVBGZYY62LERyalkwVond31hTYBhQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ite.com.tw;
+	spf=pass smtp.mailfrom=ite.com.tw;
+	dkim=pass header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=GDJEY1hS;
+	arc=none smtp.remote-ip=219.87.157.213
+Received: from ironport.ite.com.tw (unknown [219.87.157.213])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C3260A2636;
-	Fri, 30 Oct 2026 10:45:09 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793357109;
-	b=HCUHdtKV97DeFFxhwQdebhAW9c2ri9k+2vEAjF6ZvK9cfvSuqIV/Cb6YjdFC6vhQa+3S
-	 YBlrw9whfsCzeWjKaGIZ4MhtNfX6RNQsx2WobEYGjlKYIQRFqxbTFUhzykXGiHGJRmjMV
-	 UPYXofgeamL2BQlAVDiIbKoNGYpHObFqTuOi6MDSxGRBulPuYIBCdoNqUuG4uJxgRRfPo
-	 c9xI2dUtpl+1i3KcLP6CRR3V2h2GE0N79C05/wKd288b9TFpgodvHVN5Z+V8txxD2CvJC
-	 Zm53eqSNGp3qpZhy7q9+MlPT73HQPfRF8aNg6KRyLh/6QuzMVPh7R8kFSKeaAGfcUSA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793357109;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=HWHo1VyMeZVdvGG1MXQHMJUz3uY5Ij7QXNRfTATnvTc=;
-	b=XJXA+Po/3sUvdurdEM+iYMrhq5rspCYEfXmrGx8UaynFRYCEgCOok69ebwvZ1Z+5JM+E
-	 uVr7ILnxJECkNFdOe2ntydbiW/mNGIS0hMyAdnPyC2HILkP/PBaT8jhNVgQPXBjUDTIBd
-	 LuV8r2IzGUcyaPclKK5VBf076dNIxRkh1MZj/HTZtQuleC/UZuK/zuVR3b1sBsY02T9wG
-	 NgtNV5moU7e5IpY4DRE6n0H9qHEH2c0xnnQK6pDzXZYrew5nsqguTiQ5aSzKECZ9tRInK
-	 ousj2Vdx6h5uhvxmhdaM2ao7DISeGG0gePMYepsG8rnPtby0/rsHuRzvVmUNLuJja2g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7C4901F00A17;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74383606A33A;
 	Fri, 30 Oct 2026 10:45:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793357109;
-	bh=HWHo1VyMeZVdvGG1MXQHMJUz3uY5Ij7QXNRfTATnvTc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WllIHEpzix5anS+2kOV/4BefMYFkMZRIqptRtqxlUMWhtyDQO7v7QM7s0LLKptOnz
-	 gMRQqRYps+4CAmLpdTg1qCAtN25ygD7MjxYwULl6C3vBxFsiTyyA3GQZVDHeW6PT1H
-	 JM0NZyQghmLqFMHfdKi8Nr18oPw+tbJ/UcUmOOJ5kenLOBZRGtxpY5oBPSLz4pL1va
-	 9I0lvF9JGJitrVW/W1/pSZ5R24iE/en6Difa/uUj21CCkU2hU5xhX5LPLXpf6WjHGU
-	 Jbd+Vi/cVIHf5t/7jeV1vyeaiFNnS8/8+MxDkUHIubZQrsHngmctcGWc9cxXRkVGkH
-	 8OROrNv7JXGDg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A46E243752;
-	Fri, 30 Oct 2026 10:45:04 +0000 (UTC)
-From: =?utf-8?q?St=C3=A9phane_Grosjean_via_B4_Relay?= <devnull+s.grosjean.peak-system.fr@kernel.org>
-Date: Fri, 30 Oct 2026 11:44:57 +0100
-Subject: [PATCH v7 08/13] can: peak_usb: reject records for unset channels
- in PCAN-USB Pro
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74383606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=GDJEY1hS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=daErkqpEX2p+EHTwW1aJ5d2AIBfSMk8MVtEa4tl2eZo=;
+  b=GDJEY1hSLQhdkEcazYTp4lB+N9qq5W5tjrHuuORHCKXMnbFT2TD7ux3a
+   2ryy3k+Qd5nw2X7NefRkRHDr+KGutJGC1Zw5EYO2Q6g2EuRSHA3ba6FNl
+   HyYu/knsUHrflOCYHd82NC6isH3O1S7xONr84DBDURZcR8YHcyOALvO5F
+   PmmtPkJRxGyiofRioZfJbzlGHUaFcnz28KSqXc2ue02oJLzFq9RcLTd92
+   WKT/7h4BBupEf3se8BGGGz3y5ZK+qD1G7VO+Dx6HbbNFWPqJIMcV3nH0/
+   XICMO44QuSJKaUUeCdZn4CI0LuVJJqIo6KVZHHlKwZFSAEGVXCXQ09GFd
+   w==;
+X-CSE-ConnectionGUID: epbCxJEMQKWlJNew/+d0Qg==
+X-CSE-MsgGUID: 0o7rfbV0RXSS4wmGldWTbg==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 30 Oct 2026 18:44:59 +0800
+Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
+	by mse.ite.com.tw with ESMTP id 69UAivJC090845;
+	Fri, 30 Oct 2026 18:44:57 +0800 (+08)
+	(envelope-from Hermes.Wu@ite.com.tw)
+Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
+ TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 30 Oct 2026 18:44:56 +0800
+Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
+ TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
+ 15.02.2562.046; Fri, 30 Oct 2026 18:44:56 +0800
+From: <Hermes.Wu@ite.com.tw>
+To: <krzk@kernel.org>
+CC: <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
+        <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
+        <jernej.skrabec@gmail.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+        <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+        <tzimmermann@suse.de>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <luca.ceresoli@bootlin.com>,
+        <Pet.Weng@ite.com.tw>, <Kenneth.Hung@ite.com.tw>,
+        <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <dmitry.baryshkov@oss.qualcomm.com>
+Subject: RE: [PATCH v5 1/2] dt-bindings: display: bridge: Add ITE IT6162 MIPI
+ DSI to HDMI bridge
+Thread-Topic: [PATCH v5 1/2] dt-bindings: display: bridge: Add ITE IT6162 MIPI
+ DSI to HDMI bridge
+Thread-Index: AQHdaFTsxo4HRmH1TUmF9BCuflkFHbcV46rQ
+Date: Fri, 30 Oct 2026 10:44:56 +0000
+Message-ID: <436b4159ce1247c6ab3974f573ca6037@ite.com.tw>
+References: <20261029-upstream-6162-v5-0-8369f9e5afe6@ite.com.tw>
+ <20261029-upstream-6162-v5-1-8369f9e5afe6@ite.com.tw>
+ <20261030-jolly-mantis-from-betelgeuse-2f0db1@quoll>
+In-Reply-To: <20261030-jolly-mantis-from-betelgeuse-2f0db1@quoll>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-snts-smtp: 1E8508BF7AEC2E79E2DEE24730B3D461F8F4DCD4F42440042CB5FAD9DAFFB7272002:8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,109 +100,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-canfd_check_channel_idx-v7-8-fc4a3faf3acf@peak-system.fr>
-References: <20261030-canfd_check_channel_idx-v7-0-fc4a3faf3acf@peak-system.fr>
-In-Reply-To: <20261030-canfd_check_channel_idx-v7-0-fc4a3faf3acf@peak-system.fr>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>, 
- Wolfgang Grandegger <wg@grandegger.com>, 
- =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>, 
- Dan Carpenter <error27@gmail.com>, Lukas Magel <lukas.magel@posteo.net>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Tristan Madani <tristmd@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793357103; l=2985;
- i=s.grosjean@peak-system.fr; s=20261020; h=from:subject:message-id;
- bh=yBztvgADc0ldOVnmTjUXpwFq1BHCu2CwKsqgDlYlkCY=;
- b=kLe91agd8a1idE19d5n3X35jozBHOmB5U6n7cXcIa8SEUlM68nD7INS0WcRzPB83nBWNv0U6Y
- DFnmfJPXov9BgLFPObYo2hNloLqNsog4vaaoUUByn+YGIs1YMEk8+Js
-X-Developer-Key: i=s.grosjean@peak-system.fr; a=ed25519;
- pk=bP7QV2zvvAKAfConZlUOGKGEcXL64SNUpVUm++Ai+/c=
-X-Endpoint-Received: by B4 Relay for s.grosjean@peak-system.fr/20261020
- with auth_id=1250
-X-Original-From: =?utf-8?q?St=C3=A9phane_Grosjean?= <s.grosjean@peak-system.fr>
-Reply-To: s.grosjean@peak-system.fr
-Content-Transfer-Encoding: 8bit
+X-MAIL:mse.ite.com.tw 69UAivJC090845
 
-From: Stéphane Grosjean <s.grosjean@peak-system.fr>
-
-Records received from a PCAN-USB Pro device carry a CAN channel number
-used to index the CAN device table usb_if->dev[]. The decoders only
-check this number against the size of the table.
-
-The slot of channel 1 stays NULL until that channel has been
-initialized, while the RX URBs of channel 0, which share the same
-bulk-in endpoint, may already be running. A record for channel 1
-received in that window leads to a NULL pointer dereference in URB
-completion context. Moreover, when probing channel 1 fails after its
-slot has been filled, the slot keeps pointing to the freed channel.
-
-Reject records for a channel whose slot is empty, and clear the slot
-of a channel in pcan_usb_pro_free(). Slots are published with
-smp_store_release() and read with READ_ONCE().
-
-Fixes: d8a199355f8f ("can: usb: PEAK-System Technik PCAN-USB Pro specific part")
-Assisted-by: LLM
-Signed-off-by: Stéphane Grosjean <s.grosjean@peak-system.fr>
----
- drivers/net/can/usb/peak_usb/pcan_usb_pro.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-index cbc23953ce61..151c5ea2859b 100644
---- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-+++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-@@ -543,7 +543,12 @@ static int pcan_usb_pro_handle_canmsg(struct pcan_usb_pro_interface *usb_if,
- 	if (ctrl_idx >= ARRAY_SIZE(usb_if->dev))
- 		return -EINVAL;
- 
--	dev = usb_if->dev[ctrl_idx];
-+	dev = READ_ONCE(usb_if->dev[ctrl_idx]);
-+
-+	/* reject records for a channel that is not (or no longer) set up */
-+	if (!dev)
-+		return -EINVAL;
-+
- 	netdev = dev->netdev;
- 
- 	skb = alloc_can_skb(netdev, &can_frame);
-@@ -590,7 +595,12 @@ static int pcan_usb_pro_handle_error(struct pcan_usb_pro_interface *usb_if,
- 	if (ctrl_idx >= ARRAY_SIZE(usb_if->dev))
- 		return -EINVAL;
- 
--	dev = usb_if->dev[ctrl_idx];
-+	dev = READ_ONCE(usb_if->dev[ctrl_idx]);
-+
-+	/* reject records for a channel that is not (or no longer) set up */
-+	if (!dev)
-+		return -EINVAL;
-+
- 	netdev = dev->netdev;
- 
- 	/* nothing should be sent while in BUS_OFF state */
-@@ -933,7 +943,8 @@ static int pcan_usb_pro_init(struct peak_usb_device *dev)
- 	}
- 
- 	pdev->usb_if = usb_if;
--	usb_if->dev[dev->ctrl_idx] = dev;
-+	/* publish dev to the decoders */
-+	smp_store_release(&usb_if->dev[dev->ctrl_idx], dev);
- 
- 	/* set LED in default state (end of init phase) */
- 	pcan_usb_pro_set_led(dev, PCAN_USBPRO_LED_DEVICE, 1);
-@@ -981,6 +992,9 @@ static void pcan_usb_pro_exit(struct peak_usb_device *dev)
-  */
- static void pcan_usb_pro_free(struct peak_usb_device *dev)
- {
-+	/* clear this channel's slot: dev is going to be freed */
-+	WRITE_ONCE(pcan_usb_pro_dev_if(dev)->dev[dev->ctrl_idx], NULL);
-+
- 	/* last device: can free pcan_usb_pro_interface object now */
- 	if (!dev->prev_siblings && !dev->next_siblings)
- 		kfree(pcan_usb_pro_dev_if(dev));
-
--- 
-2.53.0
-
-
+SGkgS3J6eXN6dG9mDQo+DQo+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj5Gcm9tOiBLcnp5
+c3p0b2YgS296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+IA0KPlNlbnQ6IEZyaWRheSwgT2N0b2Jl
+ciAzMCwgMjAyNiA1OjU2IFBNDQo+VG86IEhlcm1lcyBXdSAo5ZCz5L2z5a6PKSA8SGVybWVzLld1
+QGl0ZS5jb20udHc+DQo+Q2M6IEFuZHJ6ZWogSGFqZGEgPGFuZHJ6ZWouaGFqZGFAaW50ZWwuY29t
+PjsgTmVpbCBBcm1zdHJvbmcgPG5laWwuYXJtc3Ryb25nQGxpbmFyby5vcmc+OyBSb2JlcnQgRm9z
+cyA8cmZvc3NAa2VybmVsLm9yZz47IExhdXJlbnQgUGluY2hhcnQgPExhdXJlbnQucGluY2hhcnRA
+aWRlYXNvbmJvYXJkLmNvbT47IEpvbmFzIEthcmxtYW4gPGpvbmFzQGt3aWJvby5zZT47IEplcm5l
+aiBTa3JhYmVjIDxqZXJuZWouc2tyYWJlY0BnbWFpbC5jb20+OyBEYXZpZCBBaXJsaWUgPGFpcmxp
+ZWRAZ21haWwuY29tPjsgU2ltb25hIFZldHRlciA8c2ltb25hQGZmd2xsLmNoPjsgTWFhcnRlbiBM
+YW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVsLmNvbT47IE1heGltZSBSaXBh
+cmQgPG1yaXBhcmRAa2VybmVsLm9yZz47IFRob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBz
+dXNlLmRlPjsgUm9iIEhlcnJpbmcgPHJvYmhAa2VybmVsLm9yZz47IEtyenlzenRvZiBLb3psb3dz
+a2kgPGtyemsrZHRAa2VybmVsLm9yZz47IENvbm9yIERvb2xleSA8Y29ub3IrZHRAa2VybmVsLm9y
+Zz47IEx1Y2EgQ2VyZXNvbGkgPGx1Y2EuY2VyZXNvbGlAYm9vdGxpbi5jb20+OyBQZXQgV2VuZyAo
+57+B546J6IqsKSA8UGV0LldlbmdAaXRlLmNvbS50dz47IEtlbm5ldGggSHVuZyAo5rSq5a625YCr
+KSA8S2VubmV0aC5IdW5nQGl0ZS5jb20udHc+OyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnOyBkZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVs
+Lm9yZzsgRG1pdHJ5IEJhcnlzaGtvdiA8ZG1pdHJ5LmJhcnlzaGtvdkBvc3MucXVhbGNvbW0uY29t
+Pg0KPlN1YmplY3Q6IFJlOiBbUEFUQ0ggdjUgMS8yXSBkdC1iaW5kaW5nczogZGlzcGxheTogYnJp
+ZGdlOiBBZGQgSVRFIElUNjE2MiBNSVBJIERTSSB0byBIRE1JIGJyaWRnZQ0KPg0KPk9uIFRodSwg
+T2N0IDI5LCAyMDI2IGF0IDA2OjEyOjMwUE0gKzA4MDAsIEhlcm1lcyBXdSB3cm90ZToNCj4+IEFk
+ZCBkZXZpY2UgdHJlZSBiaW5kaW5nIGRvY3VtZW50YXRpb24gZm9yIHRoZSBJVEUgSVQ2MTYyIE1J
+UEkgRFNJIHRvIA0KPj4gSERNSSAyLjAgYnJpZGdlIGNoaXAuIFRoZSBJVDYxNjIgaXMgYW4gSTJD
+LWNvbnRyb2xsZWQgYnJpZGdlIHRoYXQgDQo+PiBzdXBwb3J0cyB0aGUgZm9sbG93aW5nIGNvbmZp
+Z3VyYXRpb25zOg0KPj4gDQo+PiAgIC0gU2luZ2xlIE1JUEkgRFNJIGlucHV0OiB1cCB0byA0SyBA
+IDMwSHoNCj4+ICAgLSBEdWFsIE1JUEkgRFNJIGlucHV0IChjb21iaW5lZCk6IHVwIHRvIDRLIEAg
+NjBIeg0KPj4gDQo+PiBUaGUgY2hpcCBhbHNvIHN1cHBvcnRzIHVwIHRvIDgtY2hhbm5lbCBhdWRp
+byBvdXRwdXQgdmlhIDQgSTJTIGRhdGEgDQo+PiBjaGFubmVscy4NCj4+IA0KPj4gQXNzaXN0ZWQt
+Ynk6IENsYXVkZSBPcHVzIDUuNQ0KPg0KPkRyb3AgdGhlIHRhZyBub3csIHJ1bGVzIGNoYW5nZWQu
+DQo+DQpUaGFua3MsIEkgd2lsbCBkcm9wIGl0IGluIHY2Lg0KDQo+UGxlYXNlIHJ1biBzY3JpcHRz
+L2NoZWNrcGF0Y2gucGwgb24gdGhlIHBhdGNoZXMgYW5kIGZpeCByZXBvcnRlZCB3YXJuaW5ncy4g
+QWZ0ZXIgdGhhdCwgcnVuIGFsc28gJ3NjcmlwdHMvY2hlY2twYXRjaC5wbCAtLXN0cmljdCcgb24g
+dGhlIHBhdGNoZXMgYW5kIChwcm9iYWJseSkgZml4IG1vcmUgd2FybmluZ3MuIFNvbWUgd2Fybmlu
+Z3MgY2FuIGJlIGlnbm9yZWQsIGVzcGVjaWFsbHkgZnJvbSAtLXN0cmljdCBydW4sIGJ1dCB0aGUg
+Y29kZSBoZXJlIGxvb2tzIGxpa2UgaXQgbmVlZHMgYSBmaXguIEZlZWwgZnJlZSB0byBnZXQgaW4g
+dG91Y2ggaWYgdGhlIHdhcm5pbmcgaXMgbm90IGNsZWFyLg0KPg0KSSByYW4gY2hlY2twYXRjaC5w
+bCwgd2l0aCBhbmQgd2l0aG91dCAtLXN0cmljdCwgb24gYm90aCBwYXRjaGVzLiBUaGUNCm9ubHkg
+cmVtYWluaW5nIHdhcm5pbmcgaXMgImRvZXMgTUFJTlRBSU5FUlMgbmVlZCB1cGRhdGluZz8iIG9u
+IHRoaXMNCnBhdGNoLiBUaGUgTUFJTlRBSU5FUlMgZW50cnkgdGhhdCBjb3ZlcnMgaXRlLGl0NjE2
+Mi55YW1sIGlzIGFkZGVkIGluDQpwYXRjaCAyLzIsIHNvIEkgd2lsbCBrZWVwIGl0IHRoZXJlIHVu
+bGVzcyB5b3UgcHJlZmVyIGl0IGluIHRoaXMgcGF0Y2guDQoNCj5SZXZpZXdlZC1ieTogS3J6eXN6
+dG9mIEtvemxvd3NraSA8a3J6eXN6dG9mLmtvemxvd3NraUBvc3MucXVhbGNvbW0uY29tPg0KDQpU
+aGFuayB5b3UgZm9yIHRoZSByZXZpZXcuDQoNCj5CZXN0IHJlZ2FyZHMsDQo+S3J6eXN6dG9mDQo+
+DQoNClJlZ2FyZHMsDQpIZXJtZXMNCg==
