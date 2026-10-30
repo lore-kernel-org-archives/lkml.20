@@ -1,76 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793355785;
-	b=3/WsUvd6n48eSYPxciNfFpm8dPcBbyuoFok3hMRtsCRfRm14sf1YUUg3jueDQZrXakGV
-	 94S/f0zCkxb/LaHdd8YmO3Pu1QHpPj/+PZYdWGsrefnEgW8esU2AHjMcX5ziRE3TYLzJ3
-	 7tNKKbJPNFg+5MTSFA7qGrFSQWEs4qA7gkHLJBlmB0IaJ6K7rVRZcG8Z4lUxxFDK+RpCG
-	 CbXALfLxIbDXV38K1FqbucSamVWlC4Qtyv9NrDt+NqPpufwPbfAKN4KhPMKMbW1y3+5u9
-	 fw+AVPAc5mh3S6xSA/BEnjLzXDBiASlhA8eMvsUltI6F4QAxOWy0dNzkGrI2EQ3KgCg==
+	t=1793355888;
+	b=T98CmvlNbbVOC7DZuACeS6oH1SHV+RoViQIrLtl5HaHCn1eLBMgx1XqDjyhupHWTM8BC
+	 JvKfGTYWSB9Aeob8eJczCtsxYvPpCUVRGHyW9wvedR6Id7eRDE955/pyY/d8u+qjFFj/G
+	 jX5wpv2fjlml204VJADtQKBYoN9U3HXlMyLevtpLnoaHETKNCVO2ogDv7M47UdKhi2Ya8
+	 0HCeUXum583v307DBsx32GRrRpzEfdFk2rm5WkMI3QAdYwMY85H9HGjnl4QFs3pDTpu6m
+	 yQ8tL5XMlDFeuPvmBcLlg8A1dtNw54wvaTqjBM5/36omZo9diZ/y26pS9oaFcyzn6/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793355785;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=MoAghpZzhMWka6buBPWIBz9Jz+B7Jbd30cQS0OP8bSY=;
-	b=M9Uz86qnj3b8dmENi4ONJo7197LeDrM3pYVvDaCovG3AZckIKqFKD7QIOzkNNCg3yXWD
-	 JZ+BwuHIVoJJXHusBwkbA5hNCIHeTLIBgd11z58Hk2q1HswAyvpg1Bf9Ps/81r3/32Zea
-	 yx02tinKtrRiTdwuXIk6N5a6Mo+GzDRByuzH9OczAIEQyi7PaVb0aW1bjcOCLfwy027FM
-	 hPNiDMctCZRin0ti+r+Addu6p0Iq2hCcN+Ep57hgNpufXA4IZf2AfaJCL5ltwHwztIstF
-	 XLDyBZ5R+pZUEAVv5qiOYh0+rccKf1/bCGOxag/he/a31K32NTS3a0QM6r/WUjQcaiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793355888;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
+	bh=CwWE7UOGE7vvkgiGMpiO2wb6+EIxQ8HXhg/iR90K5xU=;
+	b=vQGOHSTPvUGAZ3K1DyJDfgOCBOP1lVgYsXBWRffv9oST5yOT2O2UNKrxgA3AC90ukTuO
+	 5mK4waa6LKAA+8+wWolJTjXooIaGzE7pj32OZgOUCx2Z3UgWAwBeTB9/iNhOzNAfvEjOm
+	 BlgrqnbBesYlSm/gmebDRN83Ow8kDNA4KRtuKrn8ApTwhOLXCl9OOKNiZJOj2mUMkadZP
+	 +4D4i5Hgz6iEwQzWhY8YKruPgbwy3e6EMBlJCsvc2j7xxBEEYLvuCqKrWNbhR1k4mKE2s
+	 o2IyYN9gftTCxv0pvHPcqshzAVUY5BsBxqut8+BxBeQ6MD5hgH6UAZIdsc/uABvNjOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=CL2Ou8qH;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WuaPdODR;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690F3606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:23:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 690F3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A2D6606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:24:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A2D6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=CL2Ou8qH
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B5D114E41396;
-	Fri, 30 Oct 2026 10:23:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7BBF9603C2;
-	Fri, 30 Oct 2026 10:23:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D7AA9103287DA;
-	Fri, 30 Oct 2026 11:22:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793355781; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=MoAghpZzhMWka6buBPWIBz9Jz+B7Jbd30cQS0OP8bSY=;
-	b=CL2Ou8qHtleTe62SzBLW7vbfcRTy7bXMr0HJ/6B8Wso+cJjQ72BwU3zWfGXZtcUDYwRoL6
-	JGyGL1kdp5WYuhZRHsiOx+nDHt7k8ZXNQRU2ZAn4mtxUAFtRO2drnurQ7/XjafNVa+G3km
-	ykfVUmOmQ6GqOWw7N6mL4ETShxWpqRyNvDRckGSDYPRWrr19Li7+W/yjzQDHQukznxVGa3
-	Vp2uS3GDSteydhURZZkOQelGDjTKozhbSw4XmVLu/ugi8DhF4U6o9GvgjaQn40vL1TbJtA
-	5ZvKh4Pf57SJf5g1xaR6dTGa0Jg9h2lKlK2TtgqajLE4jDJUYMziIy7XexLKtg==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-	Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	thomas.petazzoni@bootlin.com,
-	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH net] net: stmmac: Clear DMA errors for multi-channel interrupts
-Date: Fri, 30 Oct 2026 11:22:49 +0100
-Message-ID: <20261030102251.208929-1-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WuaPdODR
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1a2af4c8d00so1022387c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:24:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793355887; x=1793960687; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=CwWE7UOGE7vvkgiGMpiO2wb6+EIxQ8HXhg/iR90K5xU=;
+        b=WuaPdODRsRMFiI8tCzDGLtIWj/t3kmU7toTjs7yU4HCs2ivVqxGQQvm6C7+DRbmp2c
+         mytF4JZUfqc8tWgTYXVYiq/EntpFK58ycgKy6BHzSPT/xPNddavbvn/15l7RoYj4rzJ1
+         GHcJcCJvZ/nc80BsfpqAoyfDNpOoOIgczkvsBDoVQlFvsr+bbifzjM+LbtU87kjL8cRI
+         8D5odWnPRckICnn9cHmMoPWDChpmRdV7BN+4koQaYRRf1EQg9k4pbSmDh6F1YQ3uc3/O
+         LDtoIX9o2xiZ/xLZE0g3/sl4xa5l5+9Ds3mVpMbnuJMzJTFpChsV+mTWN20OEHtNRp+a
+         o4hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793355887; x=1793960687;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CwWE7UOGE7vvkgiGMpiO2wb6+EIxQ8HXhg/iR90K5xU=;
+        b=x5dG04sRWV4IEAQ9O36ikMA7cAlg3rUnrh3fDYQ0JOwc3EZzez1SEilDcjBlzNsv9I
+         wN0wXeETt6865Wug+8/wSZCbbJ5g9CbRidh1dOv/9cWlQnaRAOHn+ID7PK+HNYv5DCJa
+         2pgJjXKfb0CB6k38z1Ombh5/hAYR2FzUx+w3ch1Y6lIN3Z9cGqo+LLHF12x71B21me7U
+         n3/GNcLeMw0/38ACjUkPpnoFtX3IlOolEX7a8CiNYgOZJ1jpP7x8BVWUBMNWzR+tKCd2
+         2J0fFFhTFO7QrQWqiPkBX5UEno1anKsThziSw1vAPuva4ujUjInHMl/Y9EUR/ZgCcmz+
+         qWJw==
+X-Forwarded-Encrypted: i=1; AKwUvBxpcvPpBIB9bUOM4ckAnqKSq88BRi/JIXtXl4/vL4Ji5t+cDbBA3f6k4Ca0S5UC5vX4VMgAS856ShGKJ9w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3g775kcf3ZIknR9wTiDnFea8bkC+I5ELaGfr2WTdqmQYGSm3A
+	GDxO9hQPwK9V4oadvnUkXz7lqYk1MdwFN7J80j2l5nrtOec5m5rc26i0
+X-Gm-Gg: AYBFou2ccMNTtoeplEHkdraAFUd+wxsFGJ9j8QX+dQoJvJ6/sJeC5SS+vHfrXMU7lcF
+	p9V2+tgHQtZ/fca2rPt56p6EISg3WuEYfzHPniDCh+csedN4zLHUSmF8pzoWe9K8elW+Eo/yv3e
+	ZuDRaiQgj+tJnIoZEHGwvo1ItCo8BMAS8aLjW7rXjBWms5G47dk4s4ud/S+t6PmX83v6HVhNODJ
+	lkF8p5KA9NXckNr7foR2nuMumP7FlC9v606dG8zVcPajrwhkfhRfY1IZa4m42H1Xd3dOltcHwo7
+	yYVOthoVExMcduAWSvITzlQbtnW5Fm6km7ByTeHUFgDdyg2lDgnhxLDp5xgA22Sv9CUID5ODSJ7
+	4Q22EyTIpPfHL5kholwLRBnBIMlKwkvrCVdzLWfEEsyzKdkqQ4VYvwmLZS+NWlBSa7tZj0Gr6p5
+	E+Cj7dY+1e63Yuo6doIPHLHoUKM9LCCMNkamTNBm6Rqb9FMYjqNdQGHadxDkxJBLHnncGIbuswK
+	eZitl9taYL/Q+085AqAcPvK8SrvhoE5kqcbiMRzSkkSbkGLDj5Y001qo8nbfI4YGLj/GIhKCEYB
+	fRXiCyt/IzlafS7Tg+lTsV3qaQs=
+X-Received: by 2002:a05:7022:3b87:b0:196:d6e1:108b with SMTP id a92af1059eb24-1ac59fbfd13mr2589413c88.10.1793355886505;
+        Fri, 30 Oct 2026 03:24:46 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b0a628bsm5805067c88.22.2026.10.30.03.24.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 03:24:45 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Muchun Song <muchun.song@linux.dev>
+Cc: Muchun Song <songmuchun@bytedance.com>, Madhavan Srinivasan <maddy@linux.ibm.com>, Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Pavithra <pavrampu@linux.ibm.com>, "Aneesh Kumar K . V" <aneesh.kumar@linux.ibm.com>, linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] powerpc/mm: fix uninitialized ZONE_DEVICE struct pages with PMDs
+In-Reply-To: <20FE1232-A48B-4F72-8F18-89EFF70EE0FE@linux.dev>
+Date: Fri, 30 Oct 2026 15:50:40 +0530
+Message-ID: <bj8bwkuf.ritesh.list@gmail.com>
+References: <20261029063601.1961415-1-songmuchun@bytedance.com> <h5i4wlx5.ritesh.list@gmail.com> <20FE1232-A48B-4F72-8F18-89EFF70EE0FE@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,168 +92,121 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-The Multi-MSI interrupt handler doesn't clear the DMA error interrupts,
-and this leads to interrupt storms when one of these interrupts starts
-firing :
+Muchun Song <muchun.song@linux.dev> writes:
 
- - The RBU (rx buff unav) which triggers under high traffic load
+>> On Oct 29, 2026, at 23:45, Ritesh Harjani (IBM) <ritesh.list@gmail.com> wrote:
+>> 
+>> Muchun Song <songmuchun@bytedance.com> writes:
+>> 
+>> Thanks Muchun,
+>> 
+>>> PowerPC radix vmemmap population can reuse an existing PMD mapping while
+>>> populating a device DAX range whose section is marked as HVO-enabled. The
+>>> reused mapping is an ordinary vmemmap mapping: the redundant tail struct
+>>> pages are not remapped to the shared tail page.
+>>> 
+>>> Leaving the section marked as HVO-enabled makes later ZONE_DEVICE
+>>> initialization treat the range as optimized and initialize only the struct
+>>> pages that would be backed by a real HVO mapping. The remaining tail struct
+>>> pages can then be left uninitialized even though they are still used as
+>>> metadata for the device DAX compound page.
+>>> 
+>>> This first triggers a zone mismatch warning in __init_single_page(), then
+>>> faults while initializing the pageblock flags:
+>>> 
+>>>  WARNING: mm/mm_init.c:600 at __init_single_page+0xd0/0xf4
+>>>  Call Trace:
+>>>    memmap_init_zone_device+0x164/0x430
+>>>    memremap_pages+0x43c/0x93c
+>>>    devm_memremap_pages+0x3c/0xa4
+>>>    dev_dax_probe+0x264/0x3d0
+>>>    dax_bus_probe+0x140/0x1c8
+>>> 
+>>>  BUG: Kernel NULL pointer dereference on read at 0x00001400
+>>>    __set_pfnblock_flags_mask.constprop.0+0x34/0x160
+>>>    memmap_init_zone_device+0x358/0x430
+>>> 
+>>> On kernels without these initialization-time diagnostics, the
+>>> uninitialized metadata remains latent. When userspace later maps and
+>>> accesses the affected device DAX range, the kernel operates on those struct
+>>> pages and panics at that point instead of during device initialization.
+>>> 
+>>> The Fixes target predates the section-based vmemmap optimization
+>>> infrastructure, so older kernels do not have section state that can be
+>>> marked non-HVO. Backports to such kernels need to handle the PMD-reuse case
+>>> in powerpc radix code directly, for example by initializing the tail struct
+>>> pages that core ZONE_DEVICE initialization would otherwise skip.
+>>> 
+>> 
+>> Actually that would be totally new code right? It won't be a straight
+>> forward backport, correct? ... 
+>
+> Right. Because it's impossible to backport the whole section-based vmemmap
+> optimization infrastructure (48 commits).
+>
+>> 
+>>> Mark the section as non-HVO when reusing an existing PMD mapping, so the
+>>> section's HVO state matches the actual vmemmap layout and all required
+>>> struct pages are initialized.
+>>> 
+>>> Fixes: f2b79c0d7968 ("powerpc/book3s64/radix: add support for vmemmap optimization for radix")
+>>> Cc: stable@vger.kernel.org
+>> 
+>> ... then should we mark Cc: stable here with the above mentioned fixes
+>> tag? Because this patch cannot be backported as is to older kernels -
+>> for the reasons you mentioned above.
+>
+> The comment following the trailer is used to guide stable maintainers to
+> backport proper prerequisite commits. It's hard to do that. So I choose to
+> mention the alternative in the commit message. But with the help of LLM,
+> I found the alternative is also not the right solution. The reason is as below.
+>
+> That pmd_leaf() path only creates or reuses the vmemmap mapping. After it
+> returns, sparse_add_section() calls page_init_poison() on the whole memmap,
+> which overwrites any page state initialized there.
+>
+> Therefore, older kernels must pass the PMD-leaf information to
+> memmap_init_zone_device() and let it initialize all real tail struct
+> page entries. Initializing them immediately in the PowerPC pmd_leaf()
+> branch would be too early.
+>
+> Another solution is making vmemmap_can_optimize() range-aware by passing
+> the vmemmap start and end addresses.
+>
+> On PowerPC, reject the optimization when any part of the range is already
+> covered by a PMD leaf. This ensures that an existing PMD mapping is reused
+> normally and that all real tail struct page entries are initialized later
+> by the core code.
+>
+> Maybe it should be a separate patch for old kernels? Thoughts?
+>
 
-   This triggers easily with iperf3 and small udp packets, and shows
-   when running the netpoll kselftest
+yes, I think we can do a separate patch later for older kernels. I
+will look at your suggestions to see what can be done in that case.
 
- - The RPS (rx process stop) which triggers when we stop the DMA RX.
 
-   This one shows when restarting the RX logic without doing a down/up
-   cycle, like when attaching an XDP program. The XSK kselftests
-   triggers it.
+>> 
+>>> Reported-by: Pavithra <pavrampu@linux.ibm.com>
+>>> Closes: https://lore.kernel.org/r/97f85592bb78a273be8519e6897e7f9b9bd31469.1793070429.git.ritesh.list@gmail.com
+>>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>>> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+>>> ---
+>>> arch/powerpc/mm/book3s64/radix_pgtable.c | 11 ++++++++++-
+>>> 1 file changed, 10 insertions(+), 1 deletion(-)
+>>> 
+>> 
+>> I think, this patch should go via mm tree, due to all the dependencies
+>> coming from there, right?
+>
+> Better. I hope Andrew will pick it up once I send a v2 version with more
+> proper commit message changed.
+>
 
-Let's make sure we clear these interrupts for multi-MSI cases. It's
-already properly done for the single-chan interrupt, and for that
-introduce an "ERR" DMA dir, as we don't want to touch the RI/TI bits
-when handling these interrupts.
+I think we can add an explicit comment like this then?
 
-To avoid duplication, the DMA TX error handling is factored out in a
-dedicated helper (in the same commit to ease backporting).
+Fixes: f2b79c0d7968 ("powerpc/book3s64/radix: add support for vmemmap optimization for radix")
+Cc: <stable@vger.kernel.org> # see patch description, needs a different fix for <= 7.3
 
-Both of the above storms have been found on dwmac-motorcomm (YT8601),
-and are triggered by the xdp.py, xsk_reconfig.py, xdp_features.py,
-ring_reconfig.py and netpoll_basic kernel selftests.
-
-This seems to only affect dwmac4, there's no multi-msi mode on
-dwmac1000, and on dwxgmac these interrupts are masked as of today.
-
-Fixes: 6ccf12ae111e ("net: stmmac: use interrupt mode INTM=1 for multi-MSI")
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
- drivers/net/ethernet/stmicro/stmmac/common.h  |  1 +
- .../net/ethernet/stmicro/stmmac/dwmac4_dma.h  |  5 ++
- .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  |  2 +
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 46 +++++++++++++------
- 4 files changed, 40 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index c74bc7c9750e..a972bee66504 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -382,6 +382,7 @@ enum dma_irq_dir {
- 	DMA_DIR_RX = 0x1,
- 	DMA_DIR_TX = 0x2,
- 	DMA_DIR_RXTX = 0x3,
-+	DMA_DIR_ERR = 0x4,
- };
- 
- enum request_irq_err {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-index 43b036d4e95b..a7caac3c98e6 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-@@ -173,6 +173,11 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
- 					 DMA_CHAN_STATUS_TI | \
- 					 DMA_CHAN_STATUS_MSK_COMMON)
- 
-+#define DMA_CHAN_STATUS_MSK_ERR		(DMA_CHAN_STATUS_AIS | \
-+					 DMA_CHAN_STATUS_FBE | \
-+					 DMA_CHAN_STATUS_RPS | \
-+					 DMA_CHAN_STATUS_RBU)
-+
- int dwmac4_dma_reset(void __iomem *ioaddr);
- void dwmac4_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
- 			   u32 chan, bool rx, bool tx);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-index a0249715fafa..02aa1a3dd1e2 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-@@ -150,6 +150,8 @@ int dwmac4_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
- 		intr_status &= DMA_CHAN_STATUS_MSK_RX;
- 	else if (dir == DMA_DIR_TX)
- 		intr_status &= DMA_CHAN_STATUS_MSK_TX;
-+	else if (dir == DMA_DIR_ERR)
-+		intr_status &= DMA_CHAN_STATUS_MSK_ERR;
- 
- 	/* ABNORMAL interrupts */
- 	if (unlikely(intr_status & DMA_CHAN_STATUS_AIS)) {
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 9ded31150fbe..2068b57df8d5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3141,6 +3141,16 @@ static int stmmac_napi_check(struct stmmac_priv *priv, u32 chan, u32 dir)
- 	return status;
- }
- 
-+static void stmmac_dma_tx_error(struct stmmac_priv *priv, u32 chan, int status)
-+{
-+	if (unlikely(status & tx_hard_error_bump_tc)) {
-+		/* Try to bump up the dma threshold on this failure */
-+		stmmac_bump_dma_threshold(priv, chan);
-+	} else if (unlikely(status == tx_hard_error)) {
-+		stmmac_tx_err(priv, chan);
-+	}
-+}
-+
- /**
-  * stmmac_dma_interrupt - DMA ISR
-  * @priv: driver private structure
-@@ -3165,13 +3175,24 @@ static void stmmac_dma_interrupt(struct stmmac_priv *priv)
- 		status[chan] = stmmac_napi_check(priv, chan,
- 						 DMA_DIR_RXTX);
- 
--	for (chan = 0; chan < tx_channel_count; chan++) {
--		if (unlikely(status[chan] & tx_hard_error_bump_tc)) {
--			/* Try to bump up the dma threshold on this failure */
--			stmmac_bump_dma_threshold(priv, chan);
--		} else if (unlikely(status[chan] == tx_hard_error)) {
--			stmmac_tx_err(priv, chan);
--		}
-+	for (chan = 0; chan < tx_channel_count; chan++)
-+		stmmac_dma_tx_error(priv, chan, status[chan]);
-+}
-+
-+static void stmmac_dma_err_interrupt(struct stmmac_priv *priv)
-+{
-+	u8 tx_channel_count = priv->plat->tx_queues_to_use;
-+	u8 channels_to_check = max(priv->plat->rx_queues_to_use,
-+				   tx_channel_count);
-+	int status;
-+	u8 chan;
-+
-+	for (chan = 0; chan < channels_to_check; chan++) {
-+		status = stmmac_dma_interrupt_status(priv, priv->ioaddr,
-+						     &priv->xstats, chan,
-+						     DMA_DIR_ERR);
-+		if (chan < tx_channel_count)
-+			stmmac_dma_tx_error(priv, chan, status);
- 	}
- }
- 
-@@ -6466,6 +6487,9 @@ static irqreturn_t stmmac_mac_interrupt(int irq, void *dev_id)
- 	/* To handle Common interrupts */
- 	stmmac_common_interrupt(priv);
- 
-+	if (priv->plat->core_type == DWMAC_CORE_GMAC4)
-+		stmmac_dma_err_interrupt(priv);
-+
- 	return IRQ_HANDLED;
- }
- 
-@@ -6500,13 +6524,7 @@ static irqreturn_t stmmac_msi_intr_tx(int irq, void *data)
- 		return IRQ_HANDLED;
- 
- 	status = stmmac_napi_check(priv, chan, DMA_DIR_TX);
--
--	if (unlikely(status & tx_hard_error_bump_tc)) {
--		/* Try to bump up the dma threshold on this failure */
--		stmmac_bump_dma_threshold(priv, chan);
--	} else if (unlikely(status == tx_hard_error)) {
--		stmmac_tx_err(priv, chan);
--	}
-+	stmmac_dma_tx_error(priv, chan, status);
- 
- 	return IRQ_HANDLED;
- }
--- 
-2.56.0
+-ritesh
 
