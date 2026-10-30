@@ -1,85 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793348853;
-	b=XJn4MVxQRRSvIXHvtUJXf3Gwf1e0gHNZLQ0z7nNTcR8M4KlqW6Vt88lxCjrxc1rmIqCG
-	 +HBa0PcBk6AMtaQWsB5mxn4mivKxHQbBuoAmWHgTBmP8ENzShaxdJ2785GiKQ2jWjcmiR
-	 dHdtMIPAvJM38dAjIlDa3V/PIwbYH6IF5zz4DrpSPydANF8VQg7/Q3o7QKXWR0A70xRso
-	 TaocdIcgXMIK2WajS+w+AJgNYvsNF+mTTtQGxAo8c8HqvJlDPZrp4teoGkHqWd28pzWVL
-	 fvv2AY3VXAsk+5eyoqr/LetOsT1T2jdKRvgG4HoYbI2u7aBNe2dyFT+zUMwPYnKkEAw==
+	t=1793348919;
+	b=cs0mLLKAFwDbp/sHpsM6PBmKYEye5qcdPu5b/W0ljm9zIQiw5a2s9zmGye6ZG5qMh+T/
+	 SpTUW0aHFXCy9xo06eUabsXiMdcdwFoqTGxzFnD/AHZL/y4vp1HF7oVDYMKOHEZqis80c
+	 41XwZ2mec1zKRN2XnumErL4nkM8bnuClX0jSvhO49hm2Tu16mk9jzabV6HG9po4O9v8zR
+	 NNaVLPxZOHzlX36EFikoX8om/+SwvP0OR8sA/+BNgucoP4YuxXk9qgoMBJ3lTWWVHRiRU
+	 W7hS09Gq+Aj70Oah36PjYFmtUkBr7FTcJksd2dPgBNEiak8LUoc/U0Q3hlqDRWH8NwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348853;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=DuycpNs03sYP9ydt7WVrX2PCxcSg8L4E7hZlxQgjiS4=;
-	b=iHjdCFvtdB5OHBf+QF4/O0Ddq6jyKECRxpSYcy7hcm9BjvvGrbtAWQVVfaZRq1RumEBf
-	 GTKhx4zQoZgQ6i5ZGhSIRauPJqemv/cBKALzKPW1c/hh9WkI73u9YbwwdlDZk9UtRbqNW
-	 K/b+fipB+X+qJmf52Iz4H4P1tfYA0J7g3mlhs9oKTLPC8lEXwcsLj/Du3MxfPaQurmkz1
-	 t8syGEShikvEfD8f4ZbzE+XBAzB4HdNUOzJLmEF5cyezgkZdA4YllbZJd2uYKwTl4wo2n
-	 pUHzONjeEWGkq5wcfygn0F6Ew7+erscC4szjsIHDOpFrGWmmzKl4zhoBsHBaimFgSdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348919;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=rXWAnJklskrL51buwljdoNJx6PYiigvCkhTJL5aPkJo=;
+	b=jrdfNPRuzeVNWKGM9zhvU9ALO5yx9m8BJaMIF72HpgjRwgpyO7v+DZDr8DE2xwoN3ZZE
+	 DH6UrSjyZ8pMIfKTmYcq/hXieSBLNNGjs7+UAkGOpsrD8ylf9Xn/bmj8gQGdOe2NaJCVC
+	 rIe1fexdPBzFlQaZ+HCtmHAlingHRgi4acGAhEo9s+OIX+rwdSroamB1OPpzqkwmKJe3+
+	 97InfpzwnXD0S1vMToEb8E+YHabUztiZEFUZyKpeOymUNxJtvoXZok7o3OEbRTEQMDqXb
+	 cWqAG4+/ABZHJs44A5P8iF0OqJ2PzaAWlGC5takibLLPAxjiTgPzq+hE5YlppLPma9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=eTrGAT8S;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313DA606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:27:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 313DA606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ohBY4CfC;
+	arc=none smtp.remote-ip=111.22.67.135
+Received: from cmccmta2.chinamobile.com (cmccmta2.chinamobile.com [111.22.67.135])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8DAD4606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:28:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DAD4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=eTrGAT8S
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 0CB234E4139E;
-	Fri, 30 Oct 2026 08:27:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CCDC8603C2;
-	Fri, 30 Oct 2026 08:27:28 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 72906103286AD;
-	Fri, 30 Oct 2026 09:27:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793348847; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=DuycpNs03sYP9ydt7WVrX2PCxcSg8L4E7hZlxQgjiS4=;
-	b=eTrGAT8STLItJqcniH/UbKWcFCTwjL3yAw/OgOMWgPOAfvQJkY+nz/Pr8yA7oX+vg0alyA
-	n9nfeOayX89kj/Ws56JndFquD/ivnKTFTXwd1Ash5/zOnFORffGVy+mmYFTJrnfRqtOq2u
-	vw0Oh8/4ntgM8RRK7/RIIW2jxxG38BHlmVa60Xhp2BF0GEPWp7/eBS5UnZxRjlKkBbJuJU
-	Q1Q89XfDkbG/9s82iG2Jk0O9JXhuiceXm+VPtkbCZUVtjOXR7I93+HuA3CYliBZNzCdMHq
-	5HhAOQIw7HScppL+8RCtHh7MUeEbA8zFS7HzlM5hUXVIkjQ2q1pfvZ8zpY03Ow==
-Date: Fri, 30 Oct 2026 09:27:17 +0100
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
-Message-ID: <20261030092717.2039a8b4@bootlin.com>
-In-Reply-To: <auQFaTMTTMFZtia3@gractus.seuss>
-References: <20260826083146.304291-16-herve.codina@bootlin.com>
-	<arDMhoNNXcPi81sR@gractus.seuss>
-	<20260925152157.511dc65c@bootlin.com>
-	<as3ZWBr3wRonkxXF@gractus.seuss>
-	<20261013190347.4f1d9b9d@bootlin.com>
-	<atGzdxETQZ9ovJFh@gractus.seuss>
-	<20261019151121.26d99f30@bootlin.com>
-	<atgi4rMsw5W6kKkS@gractus.seuss>
-	<20261021155923.55e48904@bootlin.com>
-	<20261030010228.34d9daca@bootlin.com>
-	<auQFaTMTTMFZtia3@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=ohBY4CfC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=ohBY4CfCdfNMfNxcKYYNAhE9WjRmH3Bef0DiveadKDnmWi98cA9TBe7jAqwidcmZDuKgqSD/jS3Jm
+	 1axd+tfu8i/PSA5syweKrxUgTtQUlb0k2W100V6CkGCC0/i8hrhotmqReDWUoe4gszgeAuWc4xJG7F
+	 WgULhl1gFEQRAGsE=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app07-12007 (RichMail) with SMTP id 2ee76ae4552aeab-73f7c;
+	Fri, 30 Oct 2026 16:28:26 +0800 (CST)
+X-RM-TRANSID:2ee76ae4552aeab-73f7c
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.101])
+	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6ae45529408-0243f;
+	Fri, 30 Oct 2026 16:28:26 +0800 (CST)
+X-RM-TRANSID:2eea6ae45529408-0243f
+From: laixiangwu <laixiangwu@cmss.chinamobile.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	laixiangwu <laixiangwu@cmss.chinamobile.com>
+Subject: [PATCH] drm/bridge: analogix_dp: Fix runtime PM refcount leak in set_bridge()
+Date: Fri, 30 Oct 2026 16:28:20 +0800
+Message-ID: <20261030082820.1457-1-laixiangwu@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,126 +79,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+analogix_dp_set_bridge() calls pm_runtime_get_sync() to power up the
+DP core, but if the subsequent analogix_dp_init_analog_func() fails it
+returns the error directly, without the matching pm_runtime_put_sync().
+The two other error paths in the function already jump to the
+out_dp_init label, which drops the reference.
 
-On Fri, 30 Oct 2026 13:48:25 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
+Every failed bridge enable therefore increments the runtime PM usage
+counter, and repeated failures (e.g. during hotplug storms) prevent
+the device from ever runtime suspending again.
 
-> On Fri, Oct 30, 2026 at 01:02:28AM +0100, Herve Codina wrote:
-> > Hi David,
-> > 
-> > I know you are busy but if you could give me your opinion on this last
-> > message that would be greatly appreciated.
-> > 
-> > I've started to prepare the next iteration of the series adding support for
-> > "structured" tags and their definition need to be stable to move forward.
-> > 
-> > The question to answer to complete the definition of the "structured" tag
-> > format is: Should SAFE_SKIP bit be re-introduced?  
-> 
-> Sorry, I lost track of this one amongst all the rest of the activity.
-> 
-> > IMHO, it should.
-> > 
-> > Best regards,
-> > Hervé
-> > 
-> > On Wed, 21 Oct 2026 15:59:23 +0200
-> > Herve Codina <herve.codina@bootlin.com> wrote:
-> >   
-> > > Hi David,
-> > > 
-> > > On Wed, 21 Oct 2026 13:26:49 +1100
-> > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > >   
-> > > > 
-> > > > Correct.  Btw, I know I suggested "skippable tag" as a term, but given
-> > > > how that gets kind of misleading in the case of writes, I'm coming to
-> > > > prefer the orignal "structured tag" term.    
-> > > 
-> > > Ok, no problem to switch back to "structured tag". On my side also, I prefer
-> > > this term.
-> > > 
-> > > Now I think that the bit indicating if a structured tag can be skip or not
-> > > should be kept. I know the we can use "old" tag format when a tag cannot be
-> > > skipped but I thing that using structured tags for those tags can lead to some
-> > > benefit. For instance, in fdt_tag_next() we can benefit of the data size
-> > > encoded for structured tags for all king of structured tags (skippable and not
-> > > skippable) and retrieve the next tag without the need for parsing data related
-> > > to a tag. When tag has a string as data, without the length we have to scan the
-> > > string to find its end. Of course we can add the length if the tag definition
-> > > but this is automatically implied if we use a structured tag.
-> > > 
-> > > So for structured tag, I can propose:
-> > > - bit 31: 1 to identify a structured tag
-> > > - bit 30: SAFE_SKIP bit (1 if we can skip, O otherwise)
-> > > - bit 29..24: Data lendth encoding
-> > >    0b000000: No data
-> > >    0b000001: 1 32bit word of data
-> > >    ...
-> > >    0b111110: 63 x 32bit words data
-> > >    0b111111: varlen encoding (1 32bit word added after the tag to encode the
-> > >            data length in bytes.
-> > > - bit 23..0: Tag id
-> > >
-> > > Without the SAFE_SKIP bit, all structured tags must be skippable. IMHO, we
-> > > could regret this limitation in the future.
-> > > 
-> > > The cost of the SAFE_SKIP bit is not a lot. When we check to see if an
-> > > unkwown tag can be skipped, we are going to move from
-> > >   if (tag & 1<31)
-> > > to
-> > >   if ((tag & (1<31 | 1<<30)) == (1<31 | 1<<30))
-> > > 
-> > > IHMO, this is acceptable.
-> > > 
-> > > Of course, if the SAFE_SKIP bit is re-introduced, I will also re-add the test
-> > > checking that unknown structured tag that cannot be skipped leads
-> > > to an error.  
-> 
-> So, I'm not entirely convinced either way.  However, I have a
-> semi-related thought that might sidestep the question for the time
-> being.
-> 
-> I think it would be a good idea to leave some bits reserved, in case
-> there's some more structured information we want to put in later.  One
-> candidate might be "invalidated-when-X-happens" type bits which we
-> considered when discussing the versioning.  I think we can spare the
-> bits, since both tag and especially id fields are pretty generous at
-> the moment (23 bits when our entire current existing tagset fits in 4
-> bits with a bunch of spare room).
+Jump to out_dp_init like the other error paths so the runtime PM
+reference is released.
 
-Yes, I agree.
+Fixes: 3efe2ace7f5b ("drm/bridge: analogix_dp: move basic controller init into runtime PM")
+Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
+---
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> For reserved bits to be safe to use later we must insist and enforce
-> that they be 0 for now.  That means setting any reserved bit
-> effectively makes it a non-skippable tag for the time being.  Or to
-> put it another way, that means we can amongst other things add an
-> (inverted) SAFE_SKIP bit in future if we discover we want it.
-> 
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 6df696374..c9c1375a9 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -998,7 +998,7 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
+ 
+ 	ret = analogix_dp_init_analog_func(dp);
+ 	if (ret)
+-		return ret;
++		goto out_dp_init;
+ 
+ 	/*
+ 	 * According to DP spec v1.3 chap 3.5.1.2 Link Training,
 
-Yes indeed.
 
-The structured tag definition becomes:
- - bit 31: 1 to identify a structured tag
- - bit 30..24: Reserved (7 bits)
-               Those bits are reserved for future use. They must be cleared (0 value).
-               If any of these bits is set, an error should be reported.
- - bit 23..18: Data length encoding (6 bits)
-     0b000000: No data
-     0b000001: 1 32bit word of data
-     ...
-     0b111110: 62 x 32bit words data
-     0b111111: varlen encoding (1 32bit word added after the tag to encode the
-               data length in bytes).
- - bit 17..0: Tag id
-
-Is this mapping ok on your side?
-
-Best regards,
-Hervé
