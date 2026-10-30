@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793396106;
-	b=TP3PPSpEBbmZyFfa6OBmqDppv+ccjDABuFGDD/nOzvf7Ud5URbcfjjliOPfRXbTg6jZ6
-	 1cdr6zvvTHKneS++2FERnZu3EevdqgPKx2BeO96pVQALlpaTPFmTY40OPNpgQJJlwuAnG
-	 Ntdb2r6EcKWNjcA5coS8VrHBdhpKPnmf8IOpE9iEpBShKiKEoHO2AsIaa7oCy5LwJ9Esc
-	 ZXOgn8NT+GI56LwRaNV7dbDSizb9qD0FrWiRqiVtbjCDT+mJOKfRFfJcAW5oWz2b3zpUa
-	 5/t6J3Xtr+0kvW58zLRiks4+iu0XRZ4NbUQRKqj5NHY0k1CteVTbLrWMB9OCc1HvejQ==
+	t=1793396119;
+	b=IA+dQiQ4WcrFInl699qKrLXAHjDJNUdk4a/oJCEaJ6Hl5BG49Qoq2fLdKwkXdRqVi6CY
+	 PDzVr77J0OVCnC5cK8VuanIE++LPO1jKzoy0zAVGvDYs+oFqetp4p5Vcdx48ehor0Emge
+	 lFL8I8avSQgJhWXTzvjxdhpadLMin3xlQkRahGUAEgjsGvQ5d2bCou1hSQXQgbSeHkBa6
+	 bfi6pzb8D2D47lWYDmnGhMk5FVUzyveBBZPTRAvYE+qFjJ0s1XIWCEWatU+agF/nsKF57
+	 k1dyKR9M5p0pcCFBY1D3ncWx+rnWbMxpTKV0/tp9S4m7HvxZ8p+qhg02YV2Nw4ckWtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793396106;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793396119;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=1+5veRcUECUHly0A5XA/CEflolz9T2ehe39P3T8hUGg=;
-	b=V4zrhtWi0r4HVYWyPUdcbpH+eFRi4qr4eyrcdyRS/U913SMDrPUdRjsD1YMm4E7ykuAl
-	 HWRU07KpKUIHX6d8Ot6AmZw/U2BOWGwsGdyzAGtlYOUn8Vo/gneJe5VXkkzDf98UMPzVb
-	 auY5lIZEbvwzElQXXKDA8H2/scscj2fjmV6gBIuAhwfGAR42gBZxoAF8IaSJGEfO2dWFE
-	 73PHoUA9YtHwuO6Ct45eXL7LnnfyBgGyqbSWM8zc+cS+8Cg9YH721v6Y0JqjSu9LRTsqw
-	 c3yhQ2ebGKZMGWrmn4kJYg8AEX37Bzg1LQWt+nlTdBIv3ZtqCbTVjhWj8OcEkSLmoig==
+	bh=q0ROzhyVWpaAD+zcRsivDjlq++3aMe3aJhf6SnEDbsg=;
+	b=AD0J52Ez8vNFxvxF+cqzt4Jf1zdZPiYPgzDHVwqp9Ojf+mBQQB1T6eW1h3xvQxVjvChl
+	 6Ss4mmTdhGPHvATc6eM9Sxqz4XDdhBE3LoH6E7yPdE36OMAS6zgPHgx7KAp51s68eXiL3
+	 zPaqGQrwklgAJGpxPitY9Qp+lI4xEQOxLMAV5oeVITO2F9yWCm7d5EENX7qNLS/Q18hv4
+	 XezfOyaBWBXhruxqI+dOB3CyoElMC48MPHvGcbnbOfJ9wykNBB6vuxLcqfNjRuTBgE/Bv
+	 KQIwDmUR35ac/9p6rV1H3S93jnBYvlOwnAM4uUVkdOXbFYS9nyAZp2LLzJNFC1dTBgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJUUy5Wj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZoTtl5Wn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BE8606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:35:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F673606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:35:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJUUy5Wj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3C271F00A17;
-	Fri, 30 Oct 2026 21:34:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZoTtl5Wn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F10001F0093A;
+	Fri, 30 Oct 2026 21:35:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793396105;
-	bh=1+5veRcUECUHly0A5XA/CEflolz9T2ehe39P3T8hUGg=;
+	s=k20260515; t=1793396118;
+	bh=q0ROzhyVWpaAD+zcRsivDjlq++3aMe3aJhf6SnEDbsg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PJUUy5WjqOFEOxxPslcS9cq4MRpfXs039oRUc7R6QiTbVXF82widIkdQ8Pp4EF62s
-	 3fDDxpyXa4VvrI5WI1oZcH3kM0gxdCtz1/nzGt64w3YVK/DcZn4ePMllnHx5uA7UZD
-	 fVWkW/Pa8lpw8MUnexfi3Lw50bZlecr54soRm4itbXSJPISr/dPv7efWoyWemgNwVu
-	 Qyjd1gzv62LrwQoud9q/diiIdAn8Nygg/Yal9ASP/pHLt3SDon0LS1frQBDdE1Ckl9
-	 uS33/S4QNRkZHcM4Ml6EXoCkQJbTyf729p4IX+pbI7Idfmf7vblYdIsMIilaeu7Vg9
-	 5dNUfZMBkDCEQ==
+	b=ZoTtl5Wn+RQqFla8r3LjDKV+bAtFXOeegK5eNCIUCgycmQVrcSSjkYE9jQ+AC/9v3
+	 xYHrgenAy3jbwXbjPeZiHCVacwTobYW7Di5R/FSNKH7BVJqE+eIkvGpbyT98IFq0Gz
+	 96p6zIwxsTabga3thwvR8w/dl//OuCo6xapDVJacUt/Lk0F2Mf1bBsB2tiVMYo50Sj
+	 8ZLTCgrchSkz4EwF6OPUCgw/8dolpsJFlRT/EauLpyLe+tKnH/AlpMaBfcoC/Deicm
+	 77P0HQAgmAQ69rF6/V2oW8OVFE+dOBK4+Ume4mPw38dvbw4cvMyYcsjPg18plX2CjM
+	 gSBwSyAE4GIoA==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Fri, 30 Oct 2026 22:34:25 +0100
-Subject: [PATCH 1/7] MAINTAINERS: mention for-next branch in MEMORY
- MANAGEMENT - MEMORY MAP
+Date: Fri, 30 Oct 2026 22:34:26 +0100
+Subject: [PATCH 2/7] MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-maintainers-v1-1-97278f8a5f54@kernel.org>
+Message-Id: <20261030-maintainers-v1-2-97278f8a5f54@kernel.org>
 References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
 In-Reply-To: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
 To: Alistair Popple <apopple@nvidia.com>, 
@@ -94,41 +93,88 @@ To: Alistair Popple <apopple@nvidia.com>,
 Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
  "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=987; i=david@kernel.org;
- h=from:subject:message-id; bh=7LhecTsls3AZLNquyQvMAAtG4l+9TG1hurjRyz/UVtU=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKe8ub+msSa2L//3hX1pffWrdjklXMk1MiGd+tJyaXWV
- d5ldkU9HaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzEqZbhr/yM3p1tOh/jhVfG
- 9u3q/LiNq3HPsZfmnpbZMg/1uA54uTH8Zouca3uz/EPdvIWb54h08/Cp/sydcORc3DOBUMsOQY0
- yLgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2535; i=david@kernel.org;
+ h=from:subject:message-id; bh=YpR5XrhWeYStaaeRtOb6nKhSn1uNGhC94VBBnUzwKd8=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKe8ua9aA2fIvM4ZMvmI2+X/D96bZLdRFajH5NDJz8wa
+ j9xa8mNlo5SFgYxDgZZMUWWoOD7Bi9frqutduNjhpnDygQyhIGLUwAmsqiKkeEaD8Oilid6KywW
+ Zd/2MC+yz/Ioc14i/CBu1sGktzEqMi2MDD2f/rBO3rR0964/H/4+cy+TMVnblruv99eP/J/c+gq
+ q0twA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-"memmap" will be used as a prefix for branches, but not as a branch
-itself. "for-next" is the integration for all these things against which
-people should ideally send patches.
+I am not really the best shmem/tmpfs/memfd expert around, but it should
+be good enough to judge when something is ready to be picked up, to then
+pick it up. I'll have to heavily rely on Hugh and Baolin on judgment
+for the more involved and more controversial bits.
 
-Not mentioning a branch makes them assume "master", which is wrong.
+Rename "TMPFS (SHMEM FILESYSTEM)" to "MEMORY MANAGEMENT - SHARED MEMORY
+(SHMEM/TMPFS/MEMFD)" and move it accordingly. Add myself as a MAINTAINER
+so people know whom to CC.
 
-So just mention the right thing, which is "for-next"
+Add mm/core.git as the target git tree. Once shmem becomes a high volume
+component we can dedicate it a separate tree and have dedicated people
+pick it up.
+
+While at it, add some more shmem/tmpfs/memfd related files+directories
+we missed so far.
+
+There is also "kernel/pid_sysctl.h", which includes some of the pid
+namespaced sysctl vm.memfd_noexec. But that's really more of a proc/
+namespace thingy, so it's not a good fit here.
 
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ MAINTAINERS | 30 +++++++++++++++++++-----------
+ 1 file changed, 19 insertions(+), 11 deletions(-)
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 7a162e9bcab10..dbb5582ec1c74 100644
+index dbb5582ec1c74..0baeb37b0dcdc 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -17566,7 +17566,7 @@ M:	Mike Rapoport <rppt@kernel.org>
- M:	David Hildenbrand <david@kernel.org>
- L:	linux-mm@kvack.org
- S:	Maintained
--T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git memmap
+@@ -17772,6 +17772,25 @@ S:	Maintained
+ F:	include/linux/secretmem.h
+ F:	mm/secretmem.c
+ 
++MEMORY MANAGEMENT - SHARED MEMORY (SHMEM/TMPFS/MEMFD)
++M:	Hugh Dickins <hughd@google.com>
++M:	David Hildenbrand <david@kernel.org>
++R:	Baolin Wang <baolin.wang@linux.alibaba.com>
++L:	linux-mm@kvack.org
++S:	Maintained
 +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
- F:	Documentation/mm/memory-model.rst
- F:	arch/*/include/asm/sparsemem.h
- F:	include/asm-generic/memory_model.h
++F:	Documentation/filesystems/tmpfs.rst
++F:	Documentation/mm/shmfs.rst
++F:	Documentation/userspace-api/mfd_noexec.rst
++F:	include/linux/memfd.h
++F:	include/linux/shmem_fs.h
++F:	include/uapi/linux/memfd.h
++F:	mm/memfd.c
++F:	mm/shmem.c
++F:	mm/shmem_quota.c
++F:	tools/testing/selftests/memfd/
++F:	tools/testing/selftests/tmpfs/
++
+ MEMORY MANAGEMENT - SWAP
+ M:	Andrew Morton <akpm@linux-foundation.org>
+ M:	Chris Li <chrisl@kernel.org>
+@@ -28202,17 +28221,6 @@ S:	Maintained
+ F:	Documentation/hwmon/tmp513.rst
+ F:	drivers/hwmon/tmp513.c
+ 
+-TMPFS (SHMEM FILESYSTEM)
+-M:	Hugh Dickins <hughd@google.com>
+-R:	Baolin Wang <baolin.wang@linux.alibaba.com>
+-L:	linux-mm@kvack.org
+-S:	Maintained
+-F:	include/linux/memfd.h
+-F:	include/linux/shmem_fs.h
+-F:	mm/memfd.c
+-F:	mm/shmem.c
+-F:	mm/shmem_quota.c
+-
+ TOMOYO SECURITY MODULE
+ M:	Kentaro Takeda <takedakn@nttdata.co.jp>
+ M:	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
 
 -- 
 2.43.0
