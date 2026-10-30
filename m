@@ -1,73 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793357782;
-	b=UpPuAkqqi9E++v+vOdRNKYw7cUa15Asv1zQae10XvCh/aK4wz5K/KpMskk7qePuwnVpW
-	 x38QmLhWdYW3u54YP3CMnEnsV+Sq58uj/iCeKpY/rm833v13ANngUUEMJlI/wXy7sGZi/
-	 ql33v/Hn1r3lxHgtP+Oxa++9CioOpuF9f49KjraPUIiG4/ePFvp0Cf9MiI2VjOZ5HBGmU
-	 DpHybU4ZbimmiI22gtoHk7gvceLxHUuudsQNUq4XQA3dEQlm4uJ+0vw0r+G7YODxRbbO8
-	 RyNGIG9WBFzXxDTzpNq9dtpRqBiYxCZrSxPMXycnM2vh57G1Q2MNlDvuFgW2ThMEXdQ==
+	t=1793357808;
+	b=EOlu0/Jbia/aG4uyzZl66flImRx8YgEc7Tn+anICWh6f5eMxUH0evQhCzyX1TMagGUXG
+	 ES92XtYYwH2YLfItl88lgUtjXSVKGSzJiFG0hRVZnwk2eXP/aWWV3TdgpHiRShl/ySihY
+	 w9IqtFjij8xyBmxJ3rn7v6jbO9PsqoeEoCMDOO+Um5gI3uRjSIx9dJZhCPcGrPhMqBFm1
+	 a8NAO1ndOyi8daVlZfgNugflPGbyHAxOsIwkdES4GHrq1h8JgQUp4s3BCfDM6c5ot1lV8
+	 dA4CGBF22jhTwjnuyl//U0NMzoqzCEQj8uv12zAUOq1VjQsac0DnYHBMd4rHNBOu7xQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357782;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wJe0umuqp0gpxHBN0e/q3xGdapc1vXFbfr7ab2zgNnY=;
-	b=ZEAfcNaEupMh8rQ3ZhyhKc+eMSzN1RqYkKnJ46jG2CxpZKl4k/fsetv/+9wr4xSpAQPl
-	 0xltt/yMoKKtKyl5GsnQS5F63f0pRRnsGvhYN4mpfHzLsXfSZ+XocXrNpR74o/sVih/qP
-	 qXzBUVvHK79UC4NIWV9yzxdbodHNP/+Cwti7itfw7bpuCu6F2huKP7WDEGxJ8Cx0tZpn0
-	 fTGk8Z3fw8+tce1/TfXCQ8aiTqRuIxt4Fag36jIc9CWH51lCL0HPccm5wUIVXFxRRDEDf
-	 Xb5WeS3QcLa4Q4m1KPinzcrxDPx/qWwoT+6uU4H1efYVtV94vs1pBCrgyu7Xknlh1PQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357808;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=zZxX8pTnMO9FXNUIpz1udUKFf4OKo2nsyK1cnYF7t/M=;
+	b=Tytdals111sox9TLKw5FbBLst5kzBJ2lrhvIosTsZdhbNuZEHh3HLR3rsBNgyTZ4E+CJ
+	 M/WOJLMh4vKKi/HLMuEscGizQnh4IvXcBnhIfRvk/Y+OKu8BPZyv3ffySN/dkRkVo2SXA
+	 ue+y3oBXgoLnmiXcG09+J7Am/FGb49qTIDJeF6w2NTgAH3rrPYHj+KSyR71Gfwz0vxPKD
+	 qR0D/5CfRHsIpUlu76pSSaWwiUS+qWDz8sYe0eJB+s9Rgkvzhmc8YaMyhvKQPMoj4z8lq
+	 lvGeqLuoZwXQu/AefOAd/dhAPVz2RXnmE5sTNWMr9V63Qgg8d6FfVJnkH1on6CoNwWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=XTgJLUgq;
-	arc=none smtp.remote-ip=202.108.3.163
-Received: from mail3-163.sinamail.sina.com.cn (mail3-163.sinamail.sina.com.cn [202.108.3.163])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.172
+Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A55A5606A320
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:56:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A55A5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=XTgJLUgq
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793357779;
-	bh=wJe0umuqp0gpxHBN0e/q3xGdapc1vXFbfr7ab2zgNnY=;
-	h=From:Subject:Date:Message-ID;
-	b=XTgJLUgq29WwtrpcWjhkHZkYS0skahFwDGsnhHs5yEHrvlQiVQRbDFo0YebfuvlRm
-	 /RZFYbdBPe28KmD0pkgv1fzU8uoZizUVu22+q/8mt0NWJ8NCKTFm/YgufZ7LGFRrQ1
-	 RgtrFRLcxuhcqmP02hLC43pJmF6M5KTplSzCndPc=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6AE477CE0000480D; Fri, 30 Oct 2026 18:56:16 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 7359056291668
-X-SMAIL-UIID: FC006E671CDD47A2B1D2E33C0B859FAF-20261030-185616-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+08318698e045b4b85f51@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	peterz@infradead.org,
-	syzkaller-bugs@googlegroups.com,
-	tglx@kernel.org,
-	bigeasy@linutronix.de,
-	song@kernel.org,
-	yukuai@fygo.io,
-	magiclinan@didiglobal.com,
-	xiao@kernel.org,
-	linux-raid@vger.kernel.org
-Subject: [PATCH] md/raid5: Cancel remove instance if adding it fails
-Date: Fri, 30 Oct 2026 18:56:14 +0800
-Message-ID: <20261030105614.378971-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6ae34c61.bc88765f.313a3f.00b3.GAE@google.com>
-References: <6ae34c61.bc88765f.313a3f.00b3.GAE@google.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A3EF606AC10
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:56:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A3EF606AC10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5ead32bc7d8so547902e0c.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:56:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793357807; x=1793962607;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zZxX8pTnMO9FXNUIpz1udUKFf4OKo2nsyK1cnYF7t/M=;
+        b=fQVqqB411gpJZuxEJF7l8LRMld/ioEwJ0iqeRdBh04zQjkeG1rxKjAGAxkfLv5fMI3
+         9qadUVQIVYC3iDb0OXWwZJsA+iai2FEnJrqdK9zlOkZPmZSTsu85ECx5LMOm+WXfEreh
+         gZDH4xpl3byULyVz9+4Lw3vzckmuJLNdsENlXEZmJCZ5zJx5Ek4pSdjbNTRKXh97B9uC
+         3fF+vsrr8T2OFKLdYVnBvJZrb4ynqzYmejpjZFhclthsfX6qR3qfBDQia5tdbHZlYmFk
+         T0I3wNEzNGL1y4r9todEQaR4Btvyd7Lw3L5GTZEyIVVbkCHJs37cYLsnLxFImGhh4Odg
+         4h4Q==
+X-Forwarded-Encrypted: i=1; AKwUvByAK89b9GubzPDTg1tvXYmwfuS9cxvxEXQFrflp+3hbTEsm307UJyB5a3yoQX00hfTzpOY8h0m/ukfyo2g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIG/Csg/g5mjDZ7xPZiNoqsOATO2REyR14VRuO1AyAS27GSJFaO
+	gt0LxT7MjB44pt5ig2ISjrZMqilwXFnAHwvr/faW3F6Jx3UXTmfsOZyiXHNd/rdM
+X-Gm-Gg: AYBFou3Iq7PVQN0McX8rGN+17ds+6+U9Dh5RDpWUKr0Zpjp8VWomdAu9IUZMtvY+5mg
+	6cylrmi4W1EpeNz0oUyZ68v7/kR0+2f4HBJ/R+gXc4Oc2WwHXWLB/sYbE0dNLNS+NJYUgbqoqnO
+	ei+g9ME07ytIdG1HSVXlP/9wfB3ooBvGUp27a0a1jFnDimbDzTXLN811c1qZOAwwYSN3DKhHjnn
+	LBt1e49gjt5B3whZg+wMuFSICSpRxWnT3ePfEVg7UZ+GF1y9GusT68sTNGED8Lud4bDW+2kZy0k
+	tCuDV3Y/vC/SUuYDFlfO1W3nMBoKPRYPZG9wKvTpKyZLicvpopw4pUPJkzHF/XtHHWCQ/CQS3Ur
+	VwgUdq2ivVSyRyNyZKHBzck5VB0wDmynBpfkamC5qPPJFthIymz6yfM+U78PM5CMEU1oKV1MnIk
+	PkK4f60efwdT7p0rCr0vZW6zofBQi5uM+tvMNRW13wFJMA4YG187qJZdOfl0IGRezyLdOXEa6tD
+	ThB66X9tlufveIrVwLW7PcG4dC+A9LNHB3P+rY4x9uisleWTXwmJGkbYrAiRk5L7RF0OpsC6Cqw
+	oxINtyEOvU1Spc7Qe8nkXwtWoXTAjmV/nqt1J7rlSEV/Jb+OFsl3A4PJo7jhw3EJ7/Y=
+X-Received: by 2002:a05:6122:4892:b0:5c9:a7af:8178 with SMTP id 71dfb90a1353d-5ec6851cd6cmr934765e0c.2.1793357807371;
+        Fri, 30 Oct 2026 03:56:47 -0700 (PDT)
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com. [209.85.217.48])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69bf54casm1971043e0c.9.2026.10.30.03.56.47
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 03:56:47 -0700 (PDT)
+Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-7c3b75caad1so406076137.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:56:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwnW4n9qAzuABEQeeNMS/bu3cyyK+GiNgIO91JyaWceXZTPvsSl6xMxtL5nbLSUmdbCzx57ah/Fn4ZgD8s=@vger.kernel.org
+X-Received: by 2002:a05:6102:2906:b0:7d0:57e3:d480 with SMTP id
+ ada2fe7eead31-7d072bc7545mr969116137.11.1793357806982; Fri, 30 Oct 2026
+ 03:56:46 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,75 +80,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261022051021.322705-1-artem122novak@gmail.com>
+In-Reply-To: <20261022051021.322705-1-artem122novak@gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 30 Oct 2026 11:56:35 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXjtb6JeQzQEGtOUZDBTdkbrqn74prgXjs834oM6VH-MA@mail.gmail.com>
+X-Gm-Features: AclHuK-raKkavqAnXA5yb8ziHt_cunR7fYe8AA3WmHlqSjTPKtCXGrUItohDcxw
+Message-ID: <CAMuHMdXjtb6JeQzQEGtOUZDBTdkbrqn74prgXjs834oM6VH-MA@mail.gmail.com>
+Subject: Re: [PATCH] sh: sh7305: add TMU0 module clock gate
+To: Artem Novak <artem122novak@gmail.com>
+Cc: glaubitz@physik.fu-berlin.de, dalias@libc.org, linux-sh@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The failure of raid456_cpu_up_prepare() to allocate memory causes
-cpuhp_state_add_instance() to fail; consequently, the corresponding
-instance is not initialized, potentially hitting [1].
+Hi Artem,
 
-Additionally, there is another null-ptr-deref issue: conf->mddev is
-assigned too late, meaning that any error-handling exit occurring before
-this assignment, which jumps to the abort label, potentially hitting [2].
+On Thu, 22 Oct 2026 at 07:10, Artem Novak <artem122novak@gmail.com> wrote:
+> Register the SH7305 TMU0 module-stop clock using MSTPCR0 bit 15.
+>
+> Provide the fck clock lookup for the sh-tmu.0 platform device.
+>
+> Signed-off-by: Artem Novak <artem122novak@gmail.com>
 
-[1]
-KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-Call Trace:
- cpuhp_state_remove_instance include/linux/cpuhotplug.h:480 [inline]
- raid5_free_percpu drivers/md/raid5.c:7541 [inline]
- free_conf+0x238/0x710 drivers/md/raid5.c:7554
- setup_conf+0xd80/0x2a20 drivers/md/raid5.c:7885
- raid5_run+0x1260/0x1670 drivers/md/raid5.c:8129
+Thanks for your patch!
 
-[2]
-BUG: KASAN: null-ptr-deref in free_conf+0xfd/0x7e0
-Read of size 8 at addr 0000000000000028 by task rp0/9459
-Call Trace:
- free_conf+0xfd/0x7e0
- setup_conf.cold+0x6e/0x4a1
- raid5_run+0x1260/0x1670
+> --- a/arch/sh/kernel/cpu/clock-cpg.c
+> +++ b/arch/sh/kernel/cpu/clock-cpg.c
 
-Add a check before removing an instance, if the instance was not successfully
-added, skip the removal process. Move the assignment of conf->mddev after the
-memory allocation for conf.
+This file is only compiled if CONFIG_SH_CLK_CPG_LEGACY=y.
+Probably you should not use it for new SoC support.
+E.g. the similar sh7724 has:
+arch/sh/kernel/cpu/sh4a/clock-sh7724.c: CLKDEV_ICK_ID("fck",
+"sh-tmu.0", &mstp_clks[HWBLK_TMU0]),
 
-Fixes: 29c6d1bbd7a2 ("md/raid5: Convert to hotplug state machine")
-Reported-by: syzbot+08318698e045b4b85f51@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=08318698e045b4b85f51
-Signed-off-by: Edward Adam Davis <eadavis@sina.com>
----
- drivers/md/raid5.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+> @@ -58,7 +72,15 @@ int __init __deprecated cpg_clk_init(void)
+>         clkdev_add_table(lookups, ARRAY_SIZE(lookups));
+>
+>         clk_add_alias("fck", "sh-tmu-sh3.0", "peripheral_clk", NULL);
+> +#ifdef CONFIG_CPU_SUBTYPE_SH7305
+> +       if (!ret) {
+> +               ret = sh_clk_mstp_register(&sh7305_tmu0_clk, 1);
+> +               if (!ret)
+> +                       clkdev_add(&sh7305_tmu0_lookup);
+> +       }
+> +#else
+>         clk_add_alias("fck", "sh-tmu.0", "peripheral_clk", NULL);
+> +#endif
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index b91545ce090d..e1f9ec8f25be 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -7538,7 +7538,8 @@ static void raid5_free_percpu(struct r5conf *conf)
- 	if (!conf->percpu)
- 		return;
- 
--	cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
-+	if (!hlist_unhashed(&conf->node))
-+		cpuhp_state_remove_instance(CPUHP_MD_RAID5_PREPARE, &conf->node);
- 	free_percpu(conf->percpu);
- }
- 
-@@ -7675,6 +7676,7 @@ static struct r5conf *setup_conf(struct mddev *mddev)
- 	if (conf == NULL)
- 		goto abort;
- 
-+	conf->mddev = mddev;
- #if PAGE_SIZE != DEFAULT_STRIPE_SIZE
- 	conf->stripe_size = DEFAULT_STRIPE_SIZE;
- 	conf->stripe_shift = ilog2(DEFAULT_STRIPE_SIZE) - 9;
-@@ -7743,7 +7745,6 @@ static struct r5conf *setup_conf(struct mddev *mddev)
- 	ret = bioset_init(&conf->bio_split, BIO_POOL_SIZE, 0, 0);
- 	if (ret)
- 		goto abort;
--	conf->mddev = mddev;
- 
- 	ret = -ENOMEM;
- 	conf->stripe_hashtbl = kzalloc(PAGE_SIZE, GFP_KERNEL);
+... and thus there is no need to sprinkle #ifdefs in this file.
+
+>         clk_add_alias("fck", "sh-tmu.1", "peripheral_clk", NULL);
+>         clk_add_alias("fck", "sh-tmu.2", "peripheral_clk", NULL);
+>         clk_add_alias("fck", "sh-mtu2", "peripheral_clk", NULL);
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
 -- 
-2.43.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
