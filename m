@@ -1,60 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793358154;
-	b=1ocjEMn8HqvQ2SOXvRT2XJiuguI03x6z4wSIi4gDjSjAMSPyq9WXFcsM48KaduRevNNd
-	 9Wtx9C7mAUD44tfqnH+SP9nP3H5VYTJFRBB/OCJh2iRJ1JDOdA3COfYZluqWhh87s7/Hv
-	 +i6thwajfoZvSxjP9pdhmFnTcLPHCMERxWsHyQc9u/Jpd38ZQo7iXX3lb/c3KY0AMMQ1k
-	 HoZvuT5R2U5+NK+jYeaCeFe9kB7ovmvxr0aq3w1Xpc1frmZabKyZNqtT0CWUHnuoiSsWY
-	 unz5tD5NCQhXv/1QkqWBs/pz5K+K4K0LYDRrkLMzOZmMOT2HmlxW+PwbDB1YmOezPLA==
+	t=1793358168;
+	b=a9wLE28WXCfLtAzPt4Qa2fficHMCpWCTiWs8ZR22q1vTu6xmMnT4lRMEUB2WlKJgRz6h
+	 IY4baQSBVMEbNRb/BcnSlHKrAeNV31Qoekat1gNRWi1CuqSvmwprbPLqu0sep/a477+Zs
+	 SveCEinM6svMRDDodZqzBrQmbc4NsErkZEZEQ1aOJjYjrdw/BIuofgUlCKHUuqDZfAgcS
+	 wtUJHwlB5FGb0cYjJvwFFrmoKcGmqTSPDDkgWThylL4DCixf88CPWVpbo8ZLmGrFlxoVS
+	 eAHnR0JJ3rXjdgmwsMOU8ynO+GH3qt75rg2jH6UwjcL3oWbfGDE4Ddm5Po9vwaScCQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793358154;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=n/U4UFdhwELj1O+Vs6zyp8TwuLl7zda066w0LeaYSGQ=;
-	b=OWFYlESIgrrK++qMMaMgP36tS5FpzqWyQYN0csHkhPNDy02SjeSuwJ3pU0E81Nojl+Xj
-	 fD6huR1Ouqb8I2tE6jIwMNZzibA0PjgZbEF7eAhTw4VPsWdwPjxFrVE5c5FWL90pnCRxG
-	 zvUAy1m3cHmx3y873LdRZ1O98EsBtwbDiyCVEyfzm8TvE1nf6I0tlis3VenvvmKxhRFi9
-	 PuFZfAOgOb+lUSXdMunEFZ5xHRGlOa/UDmSz+x4CWTtSbTrsFaOun+S6DrsNBoYKe3icZ
-	 +bONnCGnml/s2B1ERJjAuDSxN6LkX7pILYEcZJLOXeMhfV3w3rVozlOKjaG+xfskl9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793358168;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=H9TixdvCYfAxhdujwN74ql2Wvj86XbJl7rH8qpd1rDs=;
+	b=FlOcCINOM3OL+BpUBdvaljTueRl4hJL5k2cq6BMeujK7/1+0uyMvsojEoSExWVKZTJnS
+	 tDpuVr9emkfwFjVxmqnJrr+/U/Xh8gB8l198lmiJzGQNUYuOiS8+Zf415IaiRvp6FnPsa
+	 iVn8oTxRs3c/P1S9YoW/4g4ujVXqaQ6eSNOOZOMkkJCMCT1U2p7nx7EH5X+LkZnKA3P6j
+	 g+2ZCJyiXTIg2ba6GgMMsLaAR2r8utQ0lwZSFegO1FIMq7V+Z5uBJTMPxfaSSDLkkXp0s
+	 p0u5Zw1lSgdUoAt+dUYYCeU+yoaFlEp7GtjIyufcakPLpfPnRPyEjjEV5pxtEOKR52g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxsw.ie;
-	spf=pass smtp.mailfrom=nxsw.ie;
-	dkim=pass header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=SZUIkM2+;
-	arc=none smtp.remote-ip=185.70.43.17
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=JE4+caH8;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5944B606A335;
-	Fri, 30 Oct 2026 11:02:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5944B606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F72606A335;
+	Fri, 30 Oct 2026 11:02:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26F72606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=SZUIkM2+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
-	s=protonmail2; t=1793358150; x=1793617350;
-	bh=n/U4UFdhwELj1O+Vs6zyp8TwuLl7zda066w0LeaYSGQ=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=SZUIkM2+aqn1kcSOJTL0DRdGbW6vqyDRYAdQwHuCrQ7NcnO5Qe5zQ36kUXeTpjfdE
-	 hyS4fnVlw/edLaq6DljE5GgmA4VNPxF2KNUMO7FSx1gIct4gS18aniUORsuqovnSlT
-	 dagJgcNh/J2G6uoloGn+0KyGbTj1DeYOHW+siR2BAMJg0QNu0YpqnbAfA0sqO1IP0k
-	 waRrrwFs+rHmZ/AYFWvH7JM+qKkQop+yVQwXT0QMiLUyiynI0lL4H979kJ8deNFGgn
-	 cu/Pc/whOiDTcsDEIwOcICS0amGRK1WgqHH8YmkI1TySvkJZBUS1Gv+wrgFdgElqPB
-	 LCVhXWKjo3J7g==
-Date: Fri, 30 Oct 2026 11:02:23 +0000
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Todor Tomov <todor.too@gmail.com>, Hans Verkuil <hverkuil@kernel.org>
-From: Bryan O'Donoghue <bod.linux@nxsw.ie>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v2] media: qcom: camss: vfe: Clear active buffer pointers after flushing
-Message-ID: <2e978b38-bfeb-4120-8ffe-285d7afc8195@nxsw.ie>
-In-Reply-To: <20261030-camss-fix-v2-1-51fe96b348cf@oss.qualcomm.com>
-References: <20261030-camss-fix-v2-1-51fe96b348cf@oss.qualcomm.com>
-Feedback-ID: 136405006:user:proton
-X-Pm-Message-ID: bb788ac2e24ef4863756b9a446a9821755acd510
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=JE4+caH8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1793358162;
+	bh=jUFlfZP4fmlVy7cT7aawURCBbnI/ZDRP3SAo3SZoNDc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=JE4+caH8RmJhWsRV8AgvtaobgG8GjmvBHbGh4RknMFvSUjEXHuSsdDoAJN0ZEuorP
+	 Zq7coXNLdaGgHE3hRkyqLdmU/dHDRo2jIbXwheiMyDXgClt3br7j0U5mgQ0Yq95wpM
+	 qitKd0PNdxPXmMKNHvGCiRyEWV0yHug5bELWOcVG/KJjNLTqJAAQhQM/iJXxBH2qRD
+	 NIzjaSR1tArrLcuVC5/U9oHlLBQaE/EJu5uGg1oe0PiMmAHbZHthDBDAyZiFCok5CO
+	 hy5FAetUlGlnpcxdyPZObnH58upp3Z2ikVOHoCz/TvTSyG5gRg3MHFyv2ZcbxJ877r
+	 ELO2wqhQwQYJw==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id B347424E8A;
+	Fri, 30 Oct 2026 14:02:42 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Fri, 30 Oct 2026 14:02:25 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.26.228])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jGJ6z1V40z1V2r;
+	Fri, 30 Oct 2026 14:00:59 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Luxiao Xu <rakukuip@gmail.com>,
+	Ren Wei <enjou1224z@gmail.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	bpf@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Vega <vega@nebusec.ai>,
+	Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>
+Subject: [PATCH 5.10/5.15] bpf: Check sk_state before sk_protocol in bpf_tcp_*_syncookie
+Date: Fri, 30 Oct 2026 13:59:48 +0300
+Message-ID: <20261030105949.1538-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,68 +105,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected, bases: 2026/10/30 10:30:00
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {Tracking_uf_ne_domains}, {Tracking_from_domain_doesnt_match_to}, 127.0.0.199:7.1.2;lore.kernel.org:7.1.1;astralinux.ru:7.1.1;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1;new-mail.astralinux.ru:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207136 [Oct 30 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/10/30 08:35:00 #28764057
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected, bases: 2026/10/30 10:30:00
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-On 30/10/2026 09:47, Loic Poulain wrote:
-> vfe_flush_buffers() returns all active buffers to vb2 but it leaves
-> output->buf[0] and output->buf[1] pointing to the completed buffers
-> despite the lost of ownership.
->=20
-> This can lead to subsequent flush or completion paths operating on
-> stale state and potentially completing the same buffer more than once.
->=20
-> Clear the buffer pointers explicitly.
->=20
-> Note: vfe_enable_output_v2 is supposed to overwrite those pointers with
-> pending buffers when streaming is restarted, but nothing guarantees that
-> enough pending buffers will be available to overwrite all entries.
->=20
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/bug/linux-e617a776-3d96-47cb-8d60-a769340c2=
-5a7
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> Fixes: 4c98a5f57f90 ("media: camss: Add VFE files")
-> ---
-> Changes in v2:
-> - Remove unrelated changes/diff from this patch
-> - Link to v1: https://lore.kernel.org/r/20261030-camss-fix-v1-1-ecc170342=
-d0d@oss.qualcomm.com
-> ---
->   drivers/media/platform/qcom/camss/camss-vfe.c | 8 ++++++--
->   1 file changed, 6 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
-a/platform/qcom/camss/camss-vfe.c
-> index 2680a9914765fa2c8f3c2b38a5f4f0e0bcf4d873..8e297e2bcafcbf30b09fc2ad6=
-e57f484a4e41898 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-> @@ -1187,11 +1187,15 @@ int vfe_flush_buffers(struct camss_video *vid,
->=20
->   =09vfe_buf_flush_pending(output, state);
->=20
-> -=09if (output->buf[0])
-> +=09if (output->buf[0]) {
->   =09=09vb2_buffer_done(&output->buf[0]->vb.vb2_buf, state);
-> +=09=09output->buf[0] =3D NULL;
-> +=09}
->=20
-> -=09if (output->buf[1])
-> +=09if (output->buf[1]) {
->   =09=09vb2_buffer_done(&output->buf[1]->vb.vb2_buf, state);
-> +=09=09output->buf[1] =3D NULL;
-> +=09}
->=20
->   =09if (output->last_buffer) {
->   =09=09vb2_buffer_done(&output->last_buffer->vb.vb2_buf, state);
->=20
-> ---
-> base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
-> change-id: 20261030-camss-fix-4972697ef90e
->=20
-> Best regards,
-> --
-> Loic Poulain <loic.poulain@oss.qualcomm.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+From: Luxiao Xu <rakukuip@gmail.com>
+
+commit 31a420a822ff92e2090bd5d65efe8e34e2d6d9b8 upstream.
+
+bpf_tcp_gen_syncookie and bpf_tcp_check_syncookie accept a socket pointer
+'sk' with argument type ARG_PTR_TO_BTF_ID_SOCK_COMMON. However, they access
+sk->sk_protocol without validating whether 'sk' represents a full socket.
+
+Fix this issue by checking sk->sk_state != TCP_LISTEN before inspecting
+sk->sk_protocol in both bpf_tcp_gen_syncookie and bpf_tcp_check_syncookie.
+Since mini-sockets are never in the TCP_LISTEN state, the condition
+short-circuits and prevents dereferencing fullsock-specific fields.
+
+Fixes: 399040847084 ("bpf: add helper to check for a valid SYN cookie")
+Fixes: 70d66244317e ("bpf: add bpf_tcp_gen_syncookie helper")
+Reported-by: Vega <vega@nebusec.ai>
+Signed-off-by: Luxiao Xu <rakukuip@gmail.com>
+Signed-off-by: Ren Wei <enjou1224z@gmail.com>
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://lore.kernel.org/bpf/6218aa3534d0d2d3f448fde70a8dc2769d7a8201.1785823138.git.rakukuip@gmail.com
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-80738
+
+ net/core/filter.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/core/filter.c b/net/core/filter.c
+index b885b8b..b8b8dd3 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -6626,5 +6626,5 @@ BPF_CALL_5(bpf_tcp_check_syncookie, struct sock *, sk, void *, iph, u32, iph_len
+ 
+ 	/* sk_listener() allows TCP_NEW_SYN_RECV, which makes no sense here. */
+-	if (sk->sk_protocol != IPPROTO_TCP || sk->sk_state != TCP_LISTEN)
++	if (sk->sk_state != TCP_LISTEN || sk->sk_protocol != IPPROTO_TCP)
+ 		return -EINVAL;
+ 
+@@ -6701,5 +6701,5 @@ BPF_CALL_5(bpf_tcp_gen_syncookie, struct sock *, sk, void *, iph, u32, iph_len,
+ 		return -EINVAL;
+ 
+-	if (sk->sk_protocol != IPPROTO_TCP || sk->sk_state != TCP_LISTEN)
++	if (sk->sk_state != TCP_LISTEN || sk->sk_protocol != IPPROTO_TCP)
+ 		return -EINVAL;
+ 
+-- 
+2.51.1
 
