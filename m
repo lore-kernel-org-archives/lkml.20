@@ -1,45 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793324104;
-	b=1UKSU99KJtQ4rq/rgfsKk6rcpXMvYMIAvamkofLT6CEH4HHbDGgewdfMQCm6q0frWkfo
-	 Luc62sOYHbaOtjmmVGyOQBCdZXO+azPIKijN671AeuWJ/8gq6m3RjudpMwk82kr4jwyab
-	 xpD2dcusghmuoLS5abnKABO4L4xzWvcecEyKKBi2Z7ExT9aVdpDlwEeOIaRl9gwYFgoqU
-	 ne+pCzfcXOK9ZAQYKf/v7opnytjRb55U7KLp81cAgsAxqayjV2Se3NCKhYSHYD+Q5pgwa
-	 xAJYtVPtWXpQerxMsVmdiWtx+uLy56eQLV4EUcmy8GtctoNYu+k9kqYoCWndu3lJSNg==
+	t=1793324231;
+	b=3EpnyFHd4cM5uv4sTOaXQ+wIc+oSaEDPgpvmjpuN/W5qBBEmqogrc4rds1TTZEaYXG+v
+	 vuXozFWcauZsTLCtGBjQiSA6VNx7gaI5fR3TltjQfuby/6HihkXNmrHiz7dr5Y5jBOMBQ
+	 dxWCJsOtb+9zSNDeX15D6gyT1J6JEI55jvqlv69Kapx/qEblP22skyVJiGDvCQ/L0VhJM
+	 lKz0cx2pihzKHy1K3dETpWuDbbO/A/vs9QVAGfH4xKvXveZlYuStWOevJ6EcE67riTPgT
+	 Mlg3b5TSXQH3pFUw8f6APVR0l3YPUuABnrbniyLRQ8dNk8QbsOEpU9ege1qsOMol5nQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793324104;
-	h=DMARC-Filter:DKIM-Signature:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:X-CM-TRANSID:Message-Id:
-	 X-Coremail-Antispam:Date:X-CM-SenderInfo;
-	bh=9e4lgZghiS+2oM0i0i15GCTwnUhRyMlYh9IxBOSYsWw=;
-	b=BrO0VOozyls3FgyPTMbCzAwnPF9+TWWgSeA4Obb6HmY+E83DURBWpbgA5f9Na+qZ54YE
-	 WRLIvOyCXGNeXvfaF7ekPP8jD0+PNB7j+Uo5qdm9EMuNH1rIGb88GWtKYJtAJ9JeDso2Z
-	 XBDgaoYo18TckVwYt5ynCXAdIjjTiMopRHrY2el7M1aEv89pTph9xz1A5AtSwjSovQnM8
-	 7Rz0UXnJMtS7Pd0KzCYETFwOvmu0v6tqtcsron9+HtKd5slVgDz7fPBXRtUI5vhWk2XOH
-	 ZXhP5CNOSIIxZ+uct7Q5MLhA4hNJwLNXJEqTWZePrvNhYxw9kwwCoYrkx1B1Rm7aNJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793324231;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=Zcy8/R0qg4/tLGENoHwYrpvlh1ufL01JT/JeD2hu+48=;
+	b=EnbMX+boOOCxFL521EJNMmz1RgWwjNuce0XDgg08WhqWymeO1wDOnsUno+rgl3L9Xso+
+	 iBfOicIZqIZ8wCc4hAdpjFvHmyibBlHrDXZ2My3ODnmT5K7dTiwCMjh3tiwx6Md4oZ9EF
+	 vCdRRxy7B/LE2mlpqeS6/t8SC6mOeXlzod8CySbW/qa0YOPlNgl3TyOFl9zJbHsC3UVIf
+	 mq7O4l/g7Bx4LSRCAeRcMmL6CZe+Ec21E5lsI3Ryk+Osjz5ZaerHS69qU8vcvI5iU9WvT
+	 rzuQle3mWY9O7qQXNWqFLq8QnRhSQaJ6jHi3jXyprSLAEyNemLr47BxsbO70vZwScxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PRMKuwCj;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=HxEU9kgz;
+	arc=none smtp.remote-ip=209.85.219.50
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33AB606A31A;
-	Fri, 30 Oct 2026 01:35:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E33AB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B18606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:37:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75B18606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PRMKuwCj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Content-Type:MIME-Version:Subject:From:To:
-	Message-Id:Date; bh=9e4lgZghiS+2oM0i0i15GCTwnUhRyMlYh9IxBOSYsWw=;
-	b=PRMKuwCj2I1evs50XImV1QVD1+6l+Nv4YhdB0ZFhu7J2YXmTew2yoGfpecqMOr
-	wOrLh/Pa8u2I+4kCq/XkMOem/rDJOD5lwXUxF3Y2hyGHyNQq/DSvmU0WdMbnOYMO
-	p/pak4SZ5n8RoINyGAOE749eLaots/3cs/T8vLUcOaVLU=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=HxEU9kgz
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91b8306b9f8so3652596d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 18:37:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1793324229; x=1793929029; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Zcy8/R0qg4/tLGENoHwYrpvlh1ufL01JT/JeD2hu+48=;
+        b=HxEU9kgzclioL8FU7fxb6+tNSW8e1VmpFOYUvyNCpEzIkeazTh8LQxy9XgtmweR8LY
+         lR/zan6g5bKT8xd787YPTNv7KFLq3ltBlZVZXMABLRLeKIxaM7atqkPguDTs+suZ0Txy
+         RLH9nOiFJk0qLagIyLOicT6Re+KKqfATM5bhTIo6x6wA33o1BgHGaTTawOkknVQszU2B
+         f3ldl8gzxipFvxc6NoGKV7zLq7l5KCvMS7uXDZeh7Titg1daBD4XbAJMkvlHnCO0mEHN
+         qnjI6IXSRMWYcmgSX7LxW+8iMRqaSH6wENidPmlIpHiVYH3WABaw57QYix+pnm9EHEQX
+         etGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793324229; x=1793929029;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Zcy8/R0qg4/tLGENoHwYrpvlh1ufL01JT/JeD2hu+48=;
+        b=jR/erb1zNo9J/7QHPSbvLUJM4HqCEiu26VXdbGcZEn9hwnk0ObyA9PZBpo+5L0p3qw
+         5F8ylp/fvUJra8Tvf82xuuAEWw2BZl6yV64bRz7k+/bggBXrKsQxKUDwtf5Rrcw2tLDW
+         LcTJDwP+JT34MpVHweBX5rTu4DvGHGJv6qZgQyuPV+f1tTEGz8V/EV2G7VVTiDPl6wrd
+         cT7KsatBr8FgX601SEbecv3edKqUzhGvnH9E1kStmJjJ+3bpo586a5uYBnRzFVSEH1em
+         SQUjOO2VxMmPvZhdLaTgH4T4La/n/SLozE0Gg+GllZiIyvlOxa2OqRnXgE/pjHS1CiG5
+         JR/g==
+X-Forwarded-Encrypted: i=1; AKwUvBwzTbWDYh5OtdhFz01LLUWjoFA+Fvm3I6QHkqYTctu2gs1RpVBksJsfb2gZjzjgiyyFaq1cf3Lk6A40N/c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJUw8nJbJJOwUAOaUQ64sGxDqT1IwmE/LmtDyE7JVnzF2YzPQ5y
+	ItzruRUFXSrIj69GqxN6YQvNtRSu4O4pVvhdIDPvQDqZhNhNFhB0ILzNT4w+VisKagI=
+X-Gm-Gg: AYBFou0qtIs8XQHxJuDHGoPwUnyvZQIB3pkCWPdP8SSyhy0poBJDUERwy4RmtvpTuOD
+	+B7DJeL6+zE+VlyTq0dSM8RJ0r58bmt6Itaw8pkfqdhd63Odsc29JhaLi5SbERXmafyhakVIKYF
+	aSpdSi36YqpsVx9YL2WuZoiLDTrSG276VvFJL8XZg2YoNO5uVXxaqHVM5/qwGgunw80ODpfCGbH
+	w+8xuOxwFLszrTwQgjpkFXE5nf8yzyzWWavDaJxIWp/q0wE1qn+algGklFlCMlwL059m7i2rxGs
+	eJO+yFHDQmKeMA/EciaFvb5aNBOI+DhjJYZeuD3EJO0E+CFbkN2I7A9ADc5gneiUYAKkJ1CfE2E
+	wEw8Qqi5Di8omoJIfZ7K7SgxwFyDDdl4z/qDXDgMtKgVSIh++mIMQMHTexcAemgdn6db1m686mK
+	E3dr2Au8Tm/m0l+C0Cd02ZoNa3UhVrLIZy+N3JnC+RcGNoy2lo7y0Xfa9VvGD6E08WpeoheucS2
+	Q1cKg6fvA2NkUs0X/4oPcTVhhlUhmiDlEEcedWdyi4kVNeZ7/Z4E1irqdFBYJo+b0yLha1Jl3xk
+	/Wb/h4oTxVvoSytWRJ8F/SxU+wKXs0/w6AwqBV0V4EE4szjmPENzMa+gI3JPrXhLfNIcyuFGpJ3
+	J
+X-Received: by 2002:a05:620a:800a:b0:93f:43a4:a47e with SMTP id af79cd13be357-94421759f60mr164999285a.43.1793324229423;
+        Thu, 29 Oct 2026 18:37:09 -0700 (PDT)
+Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca806aeeasm1672456d6.35.2026.10.29.18.37.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 18:37:08 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,67 +89,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Subject: [DISCUSSION] ALSA: usb-audio: Card naming for composite devices
-From: RenPanpan <rppxj178543@163.com>
-To: alsa-devel@alsa-project.org
-Cc: tiwai@suse.de, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-X-CM-TRANSID:_____wD3l0U79ONqJX5XEA--.7196S2
-Message-Id:<6AE3F43C.0F8E64.00008@m16.mail.163.com>
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWrWxCFy3Xr48tr43try8uFg_yoW5Wr1rpF
-	9xKa9Fyrs8Gw1xGw1kXw4fGr9xtrZ3A3WUGryDWr18Ka98ur1jya47trZYqa48C3s5uFy2
-	yrWjqry0kws8AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j8yCJUUUUU=
-Date: Fri, 30 Oct 2026 09:34:52 +0800 (CST)
-X-CM-SenderInfo: huss5yirxykkqt6rljoofrz/xtbC6Rzf3mrj9DyCRAAA3z
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 6/8] mm/hugetlb: retry the pool walk when the
+ zonelist is rebuilt
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, muchun.song@linux.dev, 
+ osalvador@suse.de, david@kernel.org, akpm@linux-foundation.org, 
+ ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, 
+ ying.huang@linux.alibaba.com, ljs@kernel.org, liam@infradead.org, 
+ rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
+ brendan.jackman@linux.dev, hannes@cmpxchg.org, mgorman@techsingularity.net, 
+ anshuman.khandual@arm.com, stable@vger.kernel.org
+In-Reply-To: <fe658b1b-4011-4197-b228-fd4bb6c412bc@kernel.org>
+References: <20261028211930.3504634-1-gourry@gourry.net>
+ <20261028211930.3504634-7-gourry@gourry.net>
+ <fe658b1b-4011-4197-b228-fd4bb6c412bc@kernel.org>
+Date: Thu, 29 Oct 2026 21:37:07 -0400
+Message-Id: <179332422799.1311000.12794841959006150077.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-SGVsbG8sCgpJJ2QgbGlrZSB0byBkaXNjdXNzIGFuIGlzc3VlIHdpdGggVVNCIGF1ZGlvIGNhcmQg
-bmFtaW5nIGZvciBjb21wb3NpdGUKZGV2aWNlcyBhbmQgcHJvcG9zZSBhIHBvc3NpYmxlIGltcHJv
-dmVtZW50LgoKUHJvYmxlbQotLS0tLS0tCgpGb3IgVVNCIGNvbXBvc2l0ZSBkZXZpY2VzIGNvbnRh
-aW5pbmcgYm90aCBub24tYXVkaW8gYW5kIFVBQyBhdWRpbwpmdW5jdGlvbnMsIHRoZSBBTFNBIGNh
-cmQgc2hvcnRuYW1lIGlzIGRlcml2ZWQgZnJvbSB0aGUgZGV2aWNlLWxldmVsCmlQcm9kdWN0IHN0
-cmluZywgd2hpY2ggZGVzY3JpYmVzIHRoZSBlbnRpcmUgZGV2aWNlIHJhdGhlciB0aGFuIHRoZQph
-dWRpbyBmdW5jdGlvbi4KCkZvciBleGFtcGxlLCB0aGUgQ1ZUIFRvdWNoIERldmljZSAoMWZmNzow
-ZjMzKSBpcyBhIGNvbXBvc2l0ZSBkZXZpY2UKd2l0aCBISUQgdG91Y2ggaW50ZXJmYWNlcyBhbmQg
-VUFDIGF1ZGlvIGludGVyZmFjZXMuIEl0cyBpUHJvZHVjdCBpcwoiVG91Y2ggRGV2aWNlIiwgd2hp
-Y2ggaXMgdGhlIG5hbWUgZm9yIHRoZSB3aG9sZSBkZXZpY2UuIFRoZSBVQUMKT1VUUFVUX1RFUk1J
-TkFMIGRlc2NyaXB0b3IgZGVmaW5lcyB0aGUgYXVkaW8gZnVuY3Rpb24gbmFtZSBhcwoiTUFYSFVC
-IFNwZWFrZXIiIHZpYSB0aGUgaVRlcm1pbmFsIHN0cmluZyBkZXNjcmlwdG9yIChpbmRleCAxNCku
-CgpDdXJyZW50bHksIHRoZSBBTFNBIGNhcmQgbmFtZSBzaG93cyAiVG91Y2ggRGV2aWNlIiwgd2hp
-Y2ggZG9lcyBub3QKaWRlbnRpZnkgdGhlIGF1ZGlvIGZ1bmN0aW9uLiBUaGUgVUFDIG1peGVyIGNv
-ZGUgYWxyZWFkeSByZWFkcwppVGVybWluYWwgZm9yIG1peGVyIGNvbnRyb2wgbmFtZXMgKGUuZy4g
-Ik1BWEhVQiBNaWMiIGZyb20gdGhlCk1pY3JvcGhvbmUgSU5QVVRfVEVSTUlOQUwncyBpVGVybWlu
-YWw9MTcpLCBidXQgdGhlIGNhcmQgbmFtaW5nCmZ1bmN0aW9uICh1c2JfYXVkaW9fbWFrZV9zaG9y
-dG5hbWUpIGRvZXMgbm90IHVzZSBpVGVybWluYWwuCgpQcm9wb3NlZCBhcHByb2FjaAotLS0tLS0t
-LS0tLS0tLS0tLQoKV2hlbiB0aGUgVVNCIGRldmljZSBpcyBjb21wb3NpdGUgKGkuZS4gaXQgaGFz
-IG5vbi1hdWRpbyBpbnRlcmZhY2VzKSwKcHJlZmVyIHRoZSBTcGVha2VyIE9VVFBVVF9URVJNSU5B
-TCdzIGlUZXJtaW5hbCBzdHJpbmcgYXMgdGhlIGNhcmQKc2hvcnRuYW1lLCBpbnN0ZWFkIG9mIHRo
-ZSBkZXZpY2UtbGV2ZWwgaVByb2R1Y3QuIElmIGlUZXJtaW5hbCBpcyBub3QKc2V0ICh6ZXJvKSBv
-ciBub3QgcmVhZGFibGUgdmlhIHVzYl9zdHJpbmcoKSwgZmFsbCBiYWNrIHRvIGlQcm9kdWN0Cihl
-eGlzdGluZyBiZWhhdmlvcikuCgpOb24tY29tcG9zaXRlIChkZWRpY2F0ZWQgYXVkaW8pIGRldmlj
-ZXMgYXJlIG5vdCBhZmZlY3RlZCBhbmQgY29udGludWUKdG8gdXNlIGlQcm9kdWN0LgoKVGhlIGNv
-bXBvc2l0ZSBkZXZpY2UgZGV0ZWN0aW9uIGNoZWNrcyB3aGV0aGVyIGFueSBpbnRlcmZhY2UgaGFz
-IGEKbm9uLUF1ZGlvIGNsYXNzLiBUaGUgaVRlcm1pbmFsIHJlYWRpbmcgdXNlcyB0aGUgZXhpc3Rp
-bmcKc25kX3VzYl9maW5kX2NzaW50X2Rlc2MoKSBoZWxwZXIgdG8gcGFyc2UgT1VUUFVUX1RFUk1J
-TkFMIGRlc2NyaXB0b3JzCmluIHRoZSBBdWRpbyBDb250cm9sIGludGVyZmFjZSdzIGV4dHJhIGRh
-dGEuIFRoZSBpVGVybWluYWwgZmllbGQgaXMKdGhlIGxhc3QgYnl0ZSBvZiB0aGUgZGVzY3JpcHRv
-ciwgY29tbW9uIHRvIGJvdGggVUFDMSAoYkxlbmd0aD05KSBhbmQKVUFDMiAoYkxlbmd0aD0xMiku
-CgpBcyBhbiBpbW1lZGlhdGUgZml4LCBJIGhhdmUgYWxzbyBwcmVwYXJlZCBhIHF1aXJrIGVudHJ5
-IGZvciAxZmY3OjBmMzMKdG8gb3ZlcnJpZGUgdGhlIGNhcmQgc2hvcnRuYW1lIHRvICJNQVhIVUIg
-U3BlYWtlciIgZGlyZWN0bHkuCgpRdWVzdGlvbnMgZm9yIHRoZSBjb21tdW5pdHkKLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLQoKMS4gSXMgdGhpcyBhcHByb2FjaCByZWFzb25hYmxlIGZvciBj
-b21wb3NpdGUgZGV2aWNlcywgb3Igc2hvdWxkIGl0CiAgIHJlbWFpbiBhIHBlci1kZXZpY2UgcXVp
-cms/CgoyLiBBcmUgdGhlcmUgY29uY2VybnMgYWJvdXQgY2hhbmdpbmcgY2FyZCBuYW1lcyBmb3Ig
-ZXhpc3RpbmcgY29tcG9zaXRlCiAgIFVTQiBhdWRpbyBkZXZpY2VzIHRoYXQgaGF2ZSBpVGVybWlu
-YWwgc2V0PyBGb3IgZXhhbXBsZSwgVUNNIHByb2ZpbGUKICAgbWF0Y2hpbmcgb3IgUHVsc2VBdWRp
-byBkZXZpY2UgaWRlbnRpZmljYXRpb24uCgozLiBXb3VsZCBpdCBiZSBwcmVmZXJhYmxlIHRvIGFs
-c28gY2hlY2sgdGhlIElBRCdzIGlGdW5jdGlvbiBmaWVsZAogICBiZWZvcmUgZmFsbGluZyBiYWNr
-IHRvIGlUZXJtaW5hbCwgb3IgaXMgaVRlcm1pbmFsIHN1ZmZpY2llbnQ/Cgo0LiBBcmUgdGhlcmUg
-a25vd24gY29tcG9zaXRlIFVTQiBhdWRpbyBkZXZpY2VzIHdoZXJlIHRoZSBpVGVybWluYWwKICAg
-c3RyaW5nIG1pZ2h0IGJlIGVtcHR5IG9yIGNvbnRhaW4gdW5leHBlY3RlZCBjb250ZW50PwoKSSBo
-YXZlIHRlc3RlZCB0aGUgcXVpcmsgYXBwcm9hY2ggb24gYSBNVDgxQyBkZXZpY2UgKEt5bGluIFYx
-MC1TUDEpCmFuZCBpdCB3b3JrcyBjb3JyZWN0bHkuIFRoZSBpVGVybWluYWwgYXBwcm9hY2ggY29t
-cGlsZXMgYnV0IGhhcyBub3QKYmVlbiB0ZXN0ZWQgb24gbXVsdGlwbGUgZGV2aWNlcyB5ZXQuCgpB
-bnkgZmVlZGJhY2sgd291bGQgYmUgYXBwcmVjaWF0ZWQuCgpCZXN0IHJlZ2FyZHMsClJlblBhbnBh
-bgo=
+On 2026-10-29 19:08 +0100, Vlastimil Babka (SUSE) wrote:
+> >  
+> > +unsigned int zonelist_iter_begin(void);
+> > +unsigned int check_retry_zonelist(unsigned int seq);
+> 
+> ... is it possible to inline these here instead?
+> 
+
+Reasonable, let me take a look.
+
+-- 
+~Gregory
 
