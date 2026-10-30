@@ -1,93 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371273;
-	b=kPlvoA3CYdx+YEEosbPqqWC32P5TIes7EUL4j/JbcKQxNVhwuhKeiCidrXRf77Jhz1iw
-	 5s5YC1/toGe9MbPp4uTZ1Beuv1q4Sk9H17ZXO2DznKxCTEBXSbS9ExjMF8w1jYtk80Ro6
-	 lFfHw33VdGwzgE3Iv8pgSz33Spmdm1EbRTMG0XjS+CJXitAozBLZCo9nTU2nWfjkzb/dq
-	 KN8elYMnUvkFpSyhqzg1rAkFojC7TTqq/rOAP0G641aR6K/8x7uATWI3RARTquSqVV92j
-	 vk7QCPyzp9PHfrZhBJ8TDI+cgt5tLirL4Bnp77NUu46ba3LTxjjMsVEFi6IZ5RsoYZg==
+	t=1793371294;
+	b=zm+QVmQJUov69gJPUSyOMJHmVXQE7x8xxeyIxOTwJfkDQ23gkI5hABoApaVa/ql+Ibfk
+	 WxJ85/KEti9g8Tln3FK2wKFE1uzUExFUDzk5eTO3gm1jDN4T6fwlLOElyRhbMUpI342eo
+	 I7j0hDYuC7sKJV90RzrRrkLb1g1TaPD4dch5KhOcl6BTMI5hSPmbx5pXVc4HgrysYsjLV
+	 7WtU8oLyckmeFWv24M7FfEAkuYAvjN7iIn0IW/PFOGZ2U7NEwSuB442f/RMrk1c5mQ4u/
+	 av8+QxJVqhLLOOk4TdoD+zz2m2kqPKGjOg0a5uYZHuWQya+UQMR0H4ZRvjoAwkWk0WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371273;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JYDByPlXdBCMoWh06kXDkmMOZ6sNKAX+n+p5n+W5BHw=;
-	b=rdyLFs8GYjaMx/CZp4ev9d52O7EH4E5X7OUmedlN4izpaD/YcSb1xdLDtm5nxAfnjxDe
-	 cN7Gmk+Mxag8J7Z4KejWnlJGzbC9RBNkTElh1lO8oVqHrBxJPEmik2vAB5HInsJX4bPrS
-	 I+ipvjX/7W2vTza7Cl9ZX2jlyajfoL+ZPJf86KUiC96q7+nSJI/BMtHVnXuGrE7OAAReF
-	 IN5X9/IxsjFJ28HaIYoY+yzS3QhJv4UV1sJ8xPunJ1t4BEg7cx0Hz/keXU+6YjBmegIL1
-	 Lo4KXek+XcygcLRyotFGbeP954KrTCt4sBgK+d9CENJC8+Lusey26Tl8v9pRaHFXnKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371294;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=iGt6RSK7yWWj55giIGgQVyqxXAu4XvXBM5uzKbjCTkI=;
+	b=isLvWe1xj7B8sYWbzFIOmF3LoNN4fOPi3LyHqcYlAyREfaP8Yzxqwqi8k+asm78p0fpa
+	 qVo8d/rBCWQQHxUoXtfNEHvQZa2Xul9/Pf5uHF104J3qN9op+oD5Kwn3euhgYoXJTy7hY
+	 QESLTKQYJBhQaS4pmbq6epvWvfy6PTnhX27M9kqK21jauTJvXXfgV1u2IPUkIIin8DZYZ
+	 yDKXtijvfMTRk4ZYjFH94vWs5M12QCqojkuwfQ2VXA+QrH2kv1RSSYimmH8WTj12uCSsA
+	 9W1q8/BCOeeZMZe1LKcbbFHfjPpt3g2idM0tQ5ZknzPr9doVv7IGYPIsBPlq8h3zemw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=simpleble.org;
-	spf=pass smtp.mailfrom=californiaopensource.com;
-	dkim=pass header.d=simpleble.org header.i=@simpleble.org header.a=rsa-sha256 header.s=google header.b=b4n7FTdD;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JAYwn9tM;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCAA0606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCAA0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simpleble.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=californiaopensource.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA80606A31A;
+	Fri, 30 Oct 2026 14:41:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EA80606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=simpleble.org header.i=@simpleble.org header.a=rsa-sha256 header.s=google header.b=b4n7FTdD
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a8cc11ac42so690310c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:41:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=simpleble.org; s=google; t=1793371272; x=1793976072; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JYDByPlXdBCMoWh06kXDkmMOZ6sNKAX+n+p5n+W5BHw=;
-        b=b4n7FTdD4EXyOMPh9aZC1ysyPEDFBd5REsefd/7xjRQ3aHpWou+Cs8GrVQroNBykXY
-         k5o97v9L8p8paf3OBblLO6Vmbi2MwHCtJUVyMcBnH8BNSUUbQcNh4oeAeZtmu8VyT1Vi
-         kgvWDYr96MmKGj9T3lVJ92M+GeIQE+gENmnN+l8XqftorSNpPe/esD8RW5VIvCJUy0gB
-         Su707uCBNVftPHZqechmH58n5HuYnjLa5GZLglIBTYsprYVDlfgy+u/2T9E4bcGdiGuO
-         DxsJib4o2kW/9HzKE+erq9eEkQRCV2HMK4lmRw1KCTMAdm76yn9/QvzqctL9l9Id+Xa2
-         gXfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793371272; x=1793976072;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JYDByPlXdBCMoWh06kXDkmMOZ6sNKAX+n+p5n+W5BHw=;
-        b=tmTw+F7+NEeQzQRlHwIkre4Yf8G8h0oXfzOjIE+d46UofU3KG8HIaiUmgAkxBr+Y4O
-         zPhi3uUYETO+48qvBljltVPAHiL3v/bwxUdM7o+6iIiNyeefNHNgaqYPdxW0iByrJWPG
-         1zvO3RmlmUuTzw6csdLKRE1z01SaCSfWcfqZT4yTbL+yLVlDTf+BK7ZmMssOQe6W1yfS
-         xizbmgIaj7pxTwt5V2QmhRGdV0fpP9G/lgc/ccTWg3uwUardPC+zTkszOdxlqzKa2Mlg
-         IMbW36rbL2LoifAeCXAPSJ0NB+pCqALklfTYVJncE6MgsZNM/09Iu/VjCCrZCsYq11dP
-         7rkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxSK/zAEgXpHW+loeoW7T2emn2zdo/yGFWhptCjTpIgzfGyinIGgn4TEJ9XouuwFBABvooSv8k2T5bQpuI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJL/SQQDJSOdubnkGZlEuSHpF7UunoY15KBdonhUU4Ff1wO3WNC
-	zGLhRGYIo7GYhAxquctYeuq0LkvXwxZBByosYGFKY+zhnCBR/YeVFFV/eYKjU1Gwt2M=
-X-Gm-Gg: AYBFou0SOaUKMgm9ECQq3m2ugVKuFcWip1ItFuXK9wHhi3ypAa1QEZ+ntNgtYRi+4gX
-	/KQs1BIBCZ+eo/iOObKt6DYcbJ7BOFZ7jfmCxTO30qfk6fC//YdIVI1BQuEaqSDmWS/fCxmzHVr
-	17sKVRyj+BBUOtghgvvor0NP1c7jUzKRSrbRuXZW6z6/UvuHrjknc7jn5Y23BNbp0QcgcEnV3EW
-	BK9a9pJPojOaCcUADLR/zM/v1vd9lTYctS3mARJBVqqM5SEo0LxV0lWkBYdP+569E61ss8aVi7B
-	If47s5jhiWXcS1Svg6XC6VqjV75m/1v8Yw9ANq+cwu+/gMCLQchXCv1DDUlrF/vA6mTY6t+l5ta
-	rl4FrEMQAyTdxuZsu3uqaRgjfv3uRfozJ2IFoOLbJ+QficL0BuWZPaX4wvrWa8MyhpJLtNIJ5i5
-	EM8miK0kaG8fiJ1NcPBBWWSW5KvukAjau2cm9JniydWmFjjTQyqKn9H7zeviugvuCOQS/6B3sk6
-	CfXcVFE7n32RSFMFuC4HQPdG5cedAueOXk1pPTWjMNa2mgLPie7TAcbNH265/nW2BkdqAXsCGit
-	0OcQKFvMOq1B74S0GX+5WNB1pOGY+AQxnsBJbr5dAli5uBdfj7wP9gWu6b5u+A6KbzABAQ4cMrJ
-	rlAa80a0kZyjxogE3Z1+bT/bEjzLxd5QJpbzQxrcenLN30FGJuL4J3hWbq7hSBtjV/K4sfdM=
-X-Received: by 2002:a05:701a:c907:b0:185:33ab:4d55 with SMTP id a92af1059eb24-1ac5f1810d2mr3139800c88.29.1793371271677;
-        Fri, 30 Oct 2026 07:41:11 -0700 (PDT)
-Received: from localhost.localdomain ([147.185.47.151])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19f4a04esm7640002c88.15.2026.10.30.07.41.10
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 30 Oct 2026 07:41:11 -0700 (PDT)
-From: Kevin Dewald <kevin@simpleble.org>
-To: linux-bluetooth@vger.kernel.org
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Kevin Dewald <kevin@simpleble.org>
-Subject: [PATCH] Bluetooth: MGMT: Send Connection Subrate on LE connection and update
-Date: Fri, 30 Oct 2026 07:41:06 -0700
-Message-ID: <20261030144106.75414-1-kevin@simpleble.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JAYwn9tM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793371293; x=1824907293;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=A8iFghOosTD4Zm3Vh31UnlE/E9aYofFplatSiUbIcZ8=;
+  b=JAYwn9tMiXM8RczKU26WtzookRi3zp0yP7LTsqi6vk+yJeHVCsmCQHU3
+   Lk8URCHEgrFzkm8M3N+LYiJLxtCMAd/gV/0LJk77EW4mtpTr1nYMslm3T
+   WkbYGonjgU9LEJ8O1n00s3Mhv2KwtkemhwQ0+GBKG4gTAaoghsVRzAS55
+   NJFykB9FlGk+F8MH0wCQVzBd7x5adxuiU8tco7FOoPEautKI87Q9BxsqR
+   CnuExKS/QzknUihsI2MIsr6D5C7B4eBkiWEWHkJ7m6OVbwbA7KL6eQslU
+   U8Cx6GACCA/4QXJQ623qS/q+VvrM4pJBiHar/hqne9l2i6afoBzVEoPaD
+   g==;
+X-CSE-ConnectionGUID: /MCn0M1fTcOzOf9B7C7a5A==
+X-CSE-MsgGUID: tkVtFpoRSLG1376lsfriDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2036854"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2036854"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 07:41:33 -0700
+X-CSE-ConnectionGUID: A7+PJm9qRr+DudHh8+7fug==
+X-CSE-MsgGUID: 7XZUW5h2TvWNZj4iep0niw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5792399"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.247])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 07:41:30 -0700
+Date: Fri, 30 Oct 2026 16:41:27 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
+Cc: sergiu.cuciurean@analog.com, jic23@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, ukleinek@kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org
+Subject: Re: [PATCH 0/2] iio: adc: add LTC2387 and ADAQ2387x support
+Message-ID: <auSsl5_xQNXCNphJ@ashevche-desk.local>
+References: <auDJu8u85flQ9bjo@ashevche-desk.local>
+ <20261030100808.217874-1-Nicolae-daniel.Deaconescu@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,115 +82,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030100808.217874-1-Nicolae-daniel.Deaconescu@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Userspace is not told the parameters of LE connections: the Connection
-Subrate event is only sent for LE Connection Rate Change, which needs
-the Shorter Connection Interval feature, and nothing is sent when a
-connection is established or updated with LE Connection Update
-Complete. Applications that need the connection interval, e.g. to
-estimate throughput or latency, have to read it from HCI traffic
-instead.
+On Fri, Oct 30, 2026 at 12:08:08PM +0200, Nicolae-Daniel Deaconescu wrote:
+> On Tue, Oct 27, 2026 at 17:56:43 +0200, Andy Shevchenko wrote:
+> > Why have you written a brand new driver?
+> 
+> ad7625 is the closest existing driver, and it shares the transport:
+> CNV PWM, clk_gate PWM and the AXI ADC backend. The converters differ
+> in a few ways though. For instance, the LTC2387 is DDR on one or two
+> lanes. ad7625 is one bit per clock on one lane. Also, the ad7625
+> clamps the period to 100 ns (10 MSPS). The LTC2387 runs at 15 MSPS.
 
-Send the Connection Subrate event when an LE connection is established
-and after each LE Connection Update, with the interval converted to
-units of 0.125 ms. As these do not report subrating, keep the subrate
-factor and continuation number of the last connection rate change, or
-1 and 0 if there was none.
+But these difference doesn't explain why you need a brand new driver.
+Is hard to configure this at run-time by choosing the respective driver
+data based on the compatible string?
 
-Assisted-by: Claude:claude-opus-5.5
-Signed-off-by: Kevin Dewald <kevin@simpleble.org>
----
-bluetoothd already registers the Connection Subrate event, and only logs
-it for now. Once this is merged, I'll send the BlueZ side: it exposes
-the parameters as properties of org.bluez.Bearer.LE1 (Interval, Latency,
-SupervisionTimeout and Subrate), and documents the new cases of the
-event in doc/mgmt-protocol.rst.
-
-I reused the Connection Subrate event since it already carries the
-interval, latency and supervision timeout. If you would rather keep it
-for the connection rate procedure, I can add a separate event instead.
-
-Tested in test-runner with the functional tests of those BlueZ changes:
-with this patch both hosts report the parameters once connected and
-after a connection update, and without it neither does. The kernel
-testers and the HoG tests, which also watch this event, pass as before.
-Only tested with the emulator.
-
-The PHY in use could be reported the same way, but the kernel does not
-know which PHY a connection starts on, so that would also need LE Read
-PHY after connecting. I left it out for now.
-
- include/net/bluetooth/hci_core.h |  1 +
- net/bluetooth/hci_event.c        |  2 ++
- net/bluetooth/mgmt.c             | 20 ++++++++++++++++++++
- 3 files changed, 23 insertions(+)
-
-diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
-index 9d5d3ab4a0..89aaae4be5 100644
---- a/include/net/bluetooth/hci_core.h
-+++ b/include/net/bluetooth/hci_core.h
-@@ -2589,6 +2589,7 @@ void mgmt_adv_monitor_device_lost(struct hci_dev *hdev, u16 handle,
- 				  bdaddr_t *bdaddr, u8 addr_type);
- void mgmt_conn_subrate_notify(struct hci_dev *hdev, struct hci_conn *conn,
- 			      u8 status);
-+void mgmt_conn_update_notify(struct hci_dev *hdev, struct hci_conn *conn);
- 
- int hci_abort_conn(struct hci_conn *conn, u8 reason);
- void hci_le_conn_update(struct hci_conn *conn, u16 min, u16 max, u16 latency,
-diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index d05934fef4..13a8adccb3 100644
---- a/net/bluetooth/hci_event.c
-+++ b/net/bluetooth/hci_event.c
-@@ -6032,6 +6032,7 @@ static void le_conn_complete_evt(struct hci_dev *hdev, u8 status,
- 	conn->le_conn_interval = interval;
- 	conn->le_conn_latency = latency;
- 	conn->le_supv_timeout = supervision_timeout;
-+	mgmt_conn_update_notify(hdev, conn);
- 
- 	hci_debugfs_create_conn(conn);
- 	hci_conn_add_sysfs(conn);
-@@ -6296,6 +6297,7 @@ static void hci_le_conn_update_complete_evt(struct hci_dev *hdev, void *data,
- 		conn->le_conn_interval = le16_to_cpu(ev->interval);
- 		conn->le_conn_latency = le16_to_cpu(ev->latency);
- 		conn->le_supv_timeout = le16_to_cpu(ev->supervision_timeout);
-+		mgmt_conn_update_notify(hdev, conn);
- 	}
- 
- 	hci_dev_unlock(hdev);
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index 3cb4f9ece8..385c4c543f 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -11071,6 +11071,26 @@ void mgmt_conn_subrate_notify(struct hci_dev *hdev, struct hci_conn *conn,
- 	mgmt_event(MGMT_EV_CONN_SUBRATE, hdev, &ev, sizeof(ev), NULL);
- }
- 
-+void mgmt_conn_update_notify(struct hci_dev *hdev, struct hci_conn *conn)
-+{
-+	struct mgmt_ev_conn_subrate ev;
-+
-+	bacpy(&ev.addr.bdaddr, &conn->dst);
-+	ev.addr.type = link_to_bdaddr(conn->type, conn->dst_type);
-+	ev.status = MGMT_STATUS_SUCCESS;
-+	/* The connection interval is in units of 1.25 ms and the event uses
-+	 * units of 0.125 ms. Connection updates don't report subrating, so
-+	 * keep the values of the last connection rate change, if any.
-+	 */
-+	ev.interval = cpu_to_le16(conn->le_conn_interval * 10);
-+	ev.subrate = cpu_to_le16(conn->le_subrate ? : 1);
-+	ev.latency = cpu_to_le16(conn->le_conn_latency);
-+	ev.cont_num = cpu_to_le16(conn->le_cont_num);
-+	ev.supv_timeout = cpu_to_le16(conn->le_supv_timeout);
-+
-+	mgmt_event(MGMT_EV_CONN_SUBRATE, hdev, &ev, sizeof(ev), NULL);
-+}
-+
- void mgmt_exit(void)
- {
- 	hci_mgmt_chan_unregister(&chan);
-
-base-commit: 1081a6ef8f1e0661fd52eb3f878691b0b96cdff9
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
