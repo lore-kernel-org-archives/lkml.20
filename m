@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793327805;
-	b=L4BrhCmRRjol/K6hCx9Uh15xyi+3f+gVjgj0Jr4tNMB6E8r9NMF5MLku/kyqzlxBb6Fr
-	 NRQMhNLD84Hhk3Xn7x5AQdj9CMbgI1FqrSnJPjCS8nSUWLXTrdJyJNtFtvaSTosjxD+8d
-	 Kb5LnFhRx1u0R51s4Z8c/YhlILIDPvUL9cXb09aCeKeWXkNQJZHI59Wg1xEvvEVAj2Ili
-	 oszDf26+Uy0FrbBqFG5bo5yVVP6phoJbIFF0Q60304ZpTul07ne6dt70B6l74mk6spXB2
-	 BEJ1yTKkscXRzhRJHpTTgsLsCRpgrVLNGUYgwNGl4FbLmm2P22kQAHvwQY/TbQaaeaA==
+	t=1793327804;
+	b=d3qewpg5QVCgt1IHWgW7H47dQAji0fFV6DI9AvGekpZkUgGIcBkxqDrNSeGTPqt/PWJF
+	 +4F1MUq3eljQ25aqk5Akke3HuwpcdQxtpYmC17al5h/rAZlf4lrieHidU8rq5SkYw6bap
+	 KNb1//b+R/2c8RqXuX9Y5uYGTyX1++yHhH7zHPQzbi7lY74IngoJrWi0zIYwjAME8dGea
+	 1m1avmdriNAEU/Xqh2a+HLs0lo8r0FSspMrn+e/5DX7MTdGETCjTI9/4NdyHjUQT4Tnwr
+	 N7mfs8atsmor210nBoczl9o5KZo6Wpo29To1LaHEGBGwKhwthEzm9j2s3rjuyittFBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793327805;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793327804;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:MIME-Version:X-Received:Date:
 	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
 	 Subject:From:To:Content-Type;
-	bh=nzg7svtxDTS64P/SYLljyKCWug0ZFvOK1tCQQbwdXGo=;
-	b=yz/s9pq6RVULD/C7uNSCmH7ZrFI1Zmy1g+HbVUEjUVdEOoHtxMTV76nMWG83z1gRlJUz
-	 5pjhal6gFOZx6rbm1CFLuXhpXhxbf+eHlJxgfgcoYmAZvxeB6O6qb2wH/IKwoPgkAFMJr
-	 /APoclGRzKBXLrOJyx2h3QWOLcxXvdKUEEFNVslaX2U2wXlTpoZnq5hdysSqcYeLkNvMO
-	 D3EaExUDhBnfLW/kua10oPe5hFkQquPREuxFhpUHiEXYzT0r7MavK/R84pHRCm0xlekZl
-	 bbYOz2ElyMPAL+CfO8n2Xl0kJ1wcdbC2yQQyq2t0EvMDZaA0q09t71byrki6/rXHtUQ==
+	bh=LZpY3C/W3YVvnLmO3CF3zYjfsRgXkvzAHK5Myqx7bt8=;
+	b=1eahlQ3JSCyem5mmfGvb8X4pKNKdWT/O4fQVfQ59J04+KGLGB1M7qPuqRKeYKhOUiBmv
+	 OI9VHw+xCCT459flmCDBSC7/QFoOWsgFZ6bWB818GDkspn7jfVO6g/vaMG5aXrkTpT+Np
+	 AO2vJHfC5/PLLIE4NaEsPsk3+9w8K3GA4SnB/lrm7TAfqNhk3+uq2g8bADeAc5IxiUOc9
+	 7iIShargInU5IS9ID8U/hjS0PLZsFzs5FUy7h24mxTIMiCGnoRt4PsJ5W62QK423oc7qM
+	 3JTZJU4g6fMMBXynUYJNlvwVUe5JFckpqWB0P4gI54Frr/7OogBV4oRsqXWu5P0OWLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 964F3606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43422606A31E
 	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:36:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 964F3606A31C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43422606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ab4f652f9bso217359b6e.0
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4e778acdbc6so308341b6e.3
         for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:36:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793327803; x=1793932603;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nzg7svtxDTS64P/SYLljyKCWug0ZFvOK1tCQQbwdXGo=;
-        b=QNLs1kfCunR2jMOKoxxH523pJVI6MrX4AW4unDr+TMJQskpO4552ZbtH2NRhJ8taoZ
-         LZpK1o6xJXnNIwRNe/szlevPJotCo+ALrIqwJVY/uYcn170ayR4Nw3jp99v2W6tC1RQp
-         iKQOJXzp9HfY0AvzsXiSb9A3ZY6ZFhi0+azTIzMsR/My4gi2+oxeqeFi+gpa4xgprIgy
-         86sZfTZ6e1PoxtIfffKgH5WlA5qSnqnGR8MFB/Szfry1IcTTBtNMh4DnspxFj63kSsCl
-         ETac8b0nOfpbGoDza0LML3JGfB5FvIMxug0/vlJsdIeXyqU1oQpaOaQYCQKrjw278tBC
-         iaGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBznM/TU2wvtqQWmA6Pyi99/R66L3/bFP1uJi4LIcqmbBopTbGqhhpzgVjwE+/u4EUF+V04CFmHHC4JBmFU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZwPMjaCdLE0HSSKYW/fej7iR83HdlTuESWxQsJLGdj1oqwfWi
-	2CTalQrEirUwqrbCmjdX6RgBS1mGth6bXR5Ewz/EC+niuqaqlVc1q18RGPStc6un+yf2a4EA8I4
-	Ztv1wIolSCIQ8hpCNXR6MHZvo6ExFqaZir0wZ9q7qrLBp8fQxW5JqcbIT9vQ=
+        bh=LZpY3C/W3YVvnLmO3CF3zYjfsRgXkvzAHK5Myqx7bt8=;
+        b=j45aJGwbLRfW2gecgQD3Mt5UPDPykj//1YjZ4qBCuBHsFOUsGU1/WlRl5h0zGtX3Qf
+         FdIHvz7aHIRMDJIIfH4/r1P/iJ1nJgs4RktFR4QgoXRQWsUCPJaBsRO3H0WDeQ3Ls+bG
+         N4GBod2dOP20C6r07rMui3pcOSbDMUqqNK/Ucm4BObx+Ls19/iQYgA3s2HmP6rea9eyM
+         LiBuaExpZ/Z37yY55Ds+e0WRVJgMBKZt7MKFBgfF0Nv4JdEQI29i6AbPpZO5X2pPehIn
+         5ONEAC4hYuufmlgR8qv1gL1R5kwpvO/mv1bz/qv3PFXQNwWv5ZV1ZKRj69ulXJ1qh87+
+         uk3g==
+X-Forwarded-Encrypted: i=1; AKwUvBwoJeEUc1zLqL7CLF19HJG8jR9RPx8ndXupIpcIbYKOgUhOb5JRyWBsHivcm8d7NXRoSTI14rPU67IRmyM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9ZtcD6mXDj+R3UXmUKA87HvgSwbVHkMKSO9F8HpjWR9r6WEf/
+	a7pwqtZVtwgKaS3H+hMaLkehsGRmbGfbhMrIxTbUKxBnDVz74vvhkSflRNsdtE+Fs83unXxiNDu
+	clWF7MXsmGIUkp/6tFcEWVh2Uf96tSyuG1e4rMcavQwmNHbZwfgV0bQ4exF4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,76 +58,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f6a:b0:4b9:a88b:8884 with SMTP id
- 5614622812f47-5640dc8f99amr783868b6e.26.1793327803631; Thu, 29 Oct 2026
+X-Received: by 2002:a05:6808:6508:b0:4f5:4780:582 with SMTP id
+ 5614622812f47-5640dfeff32mr678119b6e.50.1793327803370; Thu, 29 Oct 2026
  19:36:43 -0700 (PDT)
 Date: Thu, 29 Oct 2026 19:36:43 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae402bb.0c1d3ab6.e3d48.006d.GAE@google.com>
-Subject: [syzbot] [iommu?] memory leak in iommu_fwspec_init
-From: syzbot <syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com>
-To: iommu@lists.linux.dev, jgg@ziepe.ca, joro@8bytes.org, kevin.tian@intel.com, 
-	linux-kernel@vger.kernel.org, robin.murphy@arm.com, 
-	syzkaller-bugs@googlegroups.com, will@kernel.org
+Message-ID: <6ae402bb.0c1d3ab6.e3d48.006c.GAE@google.com>
+Subject: [syzbot] [f2fs?] memory leak in f2fs_apply_options
+From: syzbot <syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com>
+To: chao@kernel.org, jaegeuk@kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    65ba8f34ec88 Merge tag 'xtensa-20261027' of https://github..
+HEAD commit:    c339f4010dea Merge tag 'platform-drivers-x86-v7.4-1' of gi..
 git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15067d31580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=fbf447a1375a1948
-dashboard link: https://syzkaller.appspot.com/bug?extid=fe84fc6a684e0beb86e2
+console output: https://syzkaller.appspot.com/x/log.txt?x=15fbdd95580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=73ec643490576dec
+dashboard link: https://syzkaller.appspot.com/bug?extid=6c000dea1a93b4f5905c
 compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10b22a3c580000
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13c1448d580000
 
 Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/b4e738ce5f2b/disk-65ba8f34.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/1de9d1ecbbb6/vmlinux-65ba8f34.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/8a3d79b65181/bzImage-65ba8f34.xz
+disk image: https://storage.googleapis.com/syzbot-assets/533212b95d17/disk-c339f401.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/5cb62d3629c7/vmlinux-c339f401.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/12da5b4ca87c/bzImage-c339f401.xz
+mounted in repro: https://storage.googleapis.com/syzbot-assets/546324936b23/mount_0.gz
+  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=17480929580000)
 
 AI-generated root cause summary:
-A memory leak of `struct dev_iommu` occurs when `iommu_fwspec_init()` allocates
-`dev->iommu` via `dev_iommu_get()`, but subsequently fails on allocating the
-`iommu_fwspec` structure (e.g. via fault injection) and returns -ENOMEM without
-releasing `dev->iommu`. Furthermore, callers such as `iommu_mock_device_add()`
-do not invoke `dev_iommu_free()` on error from `iommu_fwspec_init()`. When
-device initialization fails and the device is released, `dev->iommu` remains
-allocated, causing an unreferenced object memory leak.
+In F2FS, when remounting a filesystem with an empty journalled quota option
+(such as 'usrjquota='), f2fs_apply_quota_options() overwrites
+F2FS_OPTION(sbi).s_qf_names[i] with NULL without freeing the previously
+allocated quota filename string. While __f2fs_remount() duplicates the existing
+quota file names into org_mount_opt via kstrdup() at the start of remount and
+frees them upon successful completion, this only frees the temporary backup
+copy, leaving the original allocated string orphaned. This results in a kernel
+heap memory leak on every remount that clears a journalled quota filename
+option.
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=fe84fc6a684e0beb86e2
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=6c000dea1a93b4f5905c
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+fe84fc6a684e0beb86e2@syzkaller.appspotmail.com
+Reported-by: syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com
 
 BUG: memory leak
-unreferenced object 0xffff88812bad6bc0 (size 64):
-  comm "syz.0.26", pid 5965, jiffies 4294941985
-  hex dump (first 32 bytes):
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace (crc 0):
+unreferenced object 0xffff888128b26a10 (size 8):
+  comm "syz.0.17", pid 5977, jiffies 4294944034
+  hex dump (first 8 bytes):
+    66 32 66 73 00 00 00 00                          f2fs....
+  backtrace (crc 49a76b1f):
     kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
     slab_post_alloc_hook mm/slub.c:4733 [inline]
     slab_alloc_node mm/slub.c:5033 [inline]
-    __kmalloc_cache_noprof+0x35f/0x3f0 mm/slub.c:5676
-    _kmalloc_noprof include/linux/slab.h:991 [inline]
-    _kzalloc_noprof include/linux/slab.h:1312 [inline]
-    dev_iommu_get drivers/iommu/iommu.c:408 [inline]
-    dev_iommu_get drivers/iommu/iommu.c:399 [inline]
-    iommu_fwspec_init+0x20d/0x240 drivers/iommu/iommu.c:3086
-    iommu_mock_device_add+0x29/0x90 drivers/iommu/iommu.c:385
-    mock_dev_create drivers/iommu/iommufd/selftest.c:1026 [inline]
-    iommufd_test_mock_domain drivers/iommu/iommufd/selftest.c:1068 [inline]
-    iommufd_test+0x1a97/0x2ec0 drivers/iommu/iommufd/selftest.c:2104
-    iommufd_fops_ioctl+0x1ed/0x370 drivers/iommu/iommufd/main.c:556
-    vfs_ioctl fs/ioctl.c:51 [inline]
-    __do_sys_ioctl fs/ioctl.c:597 [inline]
-    __se_sys_ioctl fs/ioctl.c:583 [inline]
-    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
+    __do_kmalloc_node mm/slub.c:5530 [inline]
+    __kmalloc_node_track_caller_noprof+0x3e0/0x530 mm/slub.c:5662
+    __kmemdup_nul mm/util.c:64 [inline]
+    kstrdup+0x3c/0x80 mm/util.c:84
+    f2fs_apply_quota_options fs/f2fs/super.c:1661 [inline]
+    f2fs_apply_options+0x99c/0xb70 fs/f2fs/super.c:1804
+    f2fs_fill_super+0xfc4/0x43f0 fs/f2fs/super.c:5288
+    get_tree_bdev_flags+0x1c0/0x290 fs/super.c:1883
+    vfs_get_tree+0x30/0x120 fs/super.c:1943
+    fc_mount fs/namespace.c:1282 [inline]
+    do_new_mount_fc fs/namespace.c:3910 [inline]
+    do_new_mount fs/namespace.c:3986 [inline]
+    path_mount+0x5a9/0x1580 fs/namespace.c:4337
+    do_mount fs/namespace.c:4350 [inline]
+    __do_sys_mount fs/namespace.c:4565 [inline]
+    __se_sys_mount fs/namespace.c:4542 [inline]
+    __x64_sys_mount+0x1a3/0x1e0 fs/namespace.c:4542
     do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
     do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
     entry_SYSCALL_64_after_hwframe+0x77/0x7f
