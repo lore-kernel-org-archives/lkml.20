@@ -1,47 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793363011;
-	b=WUOfbUloZ1GGszWZq0hhi0GVtDkh9TDTwqo5qSJI3B3nsBhhTOlp8s8Z9lMGflew2KVb
-	 y/jcxaWpMUrgZH6Wzm3VsIcxT69PGNXV/i9IS3VsRzclcKy3Y3u3d9StMjwd/fg45CyGg
-	 J/r5u9mC9OC9yt0GGdPWq6HsZ9HcD9hvFTzFUsG1F1lA+lzyvufn+YwhLO2KI5Zp76mnf
-	 IUbm7xh/Xla8TCX+sGmSu+Tivy6k7alOtL9JHpR5Y6ABwYpP8D2DhVf4p603wC+z18v05
-	 EWsE7XCFrYCZlPoV7Uod8dNUdSqpU/L8A6ux+m2Ffzd34phrm1kyKI95505++N+Bh0Q==
+	t=1793363074;
+	b=28zFWBo+4U9+d8n/+2mtl7Xo85jrLU8wo7BLxE38aRMcjE5TyZDmwrZeeVQenIVeaX/U
+	 T2crBv1YndYgvfmDOGELXVKLqfQkZS/HrCB7Qr3aKDEqRrWGlE9mlP+cX5dmNnhf/HtbA
+	 NyTbdBGiM+FqcV4SMo6F2rDd4mIE80G02y8IYodMDYl5uMIWZm2MOJBInQSneHNilDvu5
+	 EURDK983wZExq6wltAY8wClQgGnCMWSQtDhNRn92Zp5jrsr3bRsTW8eBKHuV7XfjWdUxs
+	 7vF292CYtUsz5c8iIVdcMOubX6HU+MGoE8W1UggQjkLJSUEruPqdJLoIf2npswn5GtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363011;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=6lG9R4lJJPALXaPZSnu7JMLL8FE4c58m/VBFEDfgMwM=;
-	b=cHMt8sIacqoP6SWXH7NPIyTZ2mhhTLFRtR4eSTijjMhT/pKRL470k8A/MFDS+tEoiE2J
-	 ypVDkoLq/lkIXgoQt/jS3fKU1PthonE8joCKSk2gwwKxIM3KRRp5xjzFvPLcBNJnm1LMb
-	 XZDSruq+MRVmgHgIQ9NXaC/WsmiXHp+k1t3SbMnNH+e4C3fRvhccUUMGhJEiVy44qpJkQ
-	 Ds+msF+U/bbNmiz3jzGKxZRWcLF7GGsy0XvaMwAwvt6O2o/DP8ewdSEgr2vrH7wq9loFQ
-	 4GaRrKjoU17BNbbHA9ShdUFjQeNIKRMdDXwUiQFDkEv3rXwR15/OhkpVs5rbt0oxLIw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363074;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=/MXVaTgY+OR2LvT2eXa5bdJi/4faMVw3UstafV7VsU0=;
+	b=c5fCLZkEufzVSdLbAIGX5Oaq4T/1DnfZsZQZCrwdgf3TcB94WBhNCyvltXLWlUqp6XM/
+	 nVP0U8M8FW3RYLcc7o8b5IFHykIyQ/FQ64NLvoJX1OpyTGkIYhIaHFH3PYKkY6dDvOEpk
+	 vwygwWJuKIwamS/nWV32vVJ/1W+gP9Ms8LDtNaU/tf8m1o1+/Az19iEYajT8IDz6GeE+w
+	 lUjyWSj07+Y7V6BiStfon9ipWlS8VpRGCMchumLLxyh7KfoOtH4Ux6NGo/NCLxnzPFfud
+	 W8TAYKcAj27z/bQTTAnNb0VK6F28Myvse7jY50GC11lHeJ5uSCqvxnTfnrNtnN1DhFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CZXtbGi8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f0oVWitw;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07709606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:23:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D06606A323;
+	Fri, 30 Oct 2026 12:24:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3D06606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CZXtbGi8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE761F000C1;
-	Fri, 30 Oct 2026 12:23:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793363010;
-	bh=6lG9R4lJJPALXaPZSnu7JMLL8FE4c58m/VBFEDfgMwM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=CZXtbGi8RUOcHn3Nk0VxGeJCgtXUC60eLfbKUaZmEDjndHKvUIm9tFHo++B1Ynhhb
-	 hGunlzO2jAKFUDlSnFUfb5XwF/av7rwQg4KEcCQPO6YnWIRn7RZHMWdbr9kofx+kmh
-	 tgiiF0rL4H9zR7bG59z+Ki8IXjV0Oy0ci+URtGCFyD25c8zMKDBUED82kW2MYopcfU
-	 LWIL9OPh+QmsqHR7BcB0a6up+/jUVNqtkSgTh2hrRzEjrd+NURbTbYYJTG+4eufadQ
-	 sc/XnkOgeqqJF45hHUo0142yyME3aOQcCClB0j7hE7VyZeHEDZNx9QALB6153ai9zj
-	 SyzP2RjgtLqAQ==
-Message-ID: <34280aad-a01e-4f84-ada7-c715b2958cb1@kernel.org>
-Date: Fri, 30 Oct 2026 13:23:27 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=f0oVWitw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793363074; x=1824899074;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=2Xg0v6nWvINBmo9px4PhZ7L6GRxGud0XGYXsRIPPo8w=;
+  b=f0oVWitwyQUWit4Ncs+eaxW/DB/ZBsDJmi9+n97dQA6+RdsHxM8EPuHU
+   9t3WIaq/gi1Br+aEV+mGV/acdQfSdayB61/nBt34dUeiRw4vun9JZQuFL
+   nvPHBHw1dVenIUspaQaG20Dmzs8bZNsmni1mxEJzVKGWRdfQ93svxTqX8
+   LqQiynSgfhemBaqNL8DT+UZk9OD21PmAk1EKFcqoay/8fa9H9DKjF7RiQ
+   qzTTmHiyKkHMmurwC+k9eWRUuVldXLoKxwzDkYvCZov7mFf3cig8RECuN
+   8l7QRPUEvcx4R30l+En04tQ41mz7EUI6eoFCJQxA5K2g7qp/m6N216h6y
+   Q==;
+X-CSE-ConnectionGUID: Lyq5IQP7Q9y6yIRXjZaU6A==
+X-CSE-MsgGUID: OK5berg7ThODyQKDwdV8NQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2008390"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2008390"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 05:24:34 -0700
+X-CSE-ConnectionGUID: KA7TjK6zT7+r9k3zzz9msQ==
+X-CSE-MsgGUID: Vg8pKREISQyKO8uSRBTOVA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5825649"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO [10.245.245.230]) ([10.245.245.230])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 05:24:30 -0700
+Message-ID: <b8d821ee-9208-4429-a459-6270b31db191@linux.intel.com>
+Date: Fri, 30 Oct 2026 14:25:04 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,99 +73,71 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] w1: use the bus mutex for the "rw" file
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
- stable <stable@kernel.org>
-References: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
- <20261027-llm-char-misc-w1-v1-1-d2e6bfafb6a4@linuxfoundation.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH 05/21] ASoC: SOF: Intel: hda-sdw-bpt: Stop active DMA
+ before closing BPT streams
+To: Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Mark Brown
+ <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Vinod Koul <vkoul@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ sound-open-firmware@alsa-project.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20261030104840.3361217-1-lee@kernel.org>
+ <20261030104840.3361217-6-lee@kernel.org>
+From: =?UTF-8?Q?P=C3=A9ter_Ujfalusi?= <peter.ujfalusi@linux.intel.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261027-llm-char-misc-w1-v1-1-d2e6bfafb6a4@linuxfoundation.org>
+In-Reply-To: <20261030104840.3361217-6-lee@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-On 27/10/2026 17:04, Greg Kroah-Hartman wrote:
-> From: Josef Bacik <josef@toxicpanda.com>
-> 
-> Commit b02f8bede217 ("W1: split master mutex to avoid deadlocks.") gave
-> the bus a mutex of its own, because the lock which protects the list of
-> slaves is held while a slave is removed, which waits for the sysfs
-> callbacks of the slave, so these must not take it.  It converted all the
-> slave drivers, but not the "rw" file of the default family in w1.c,
-> which still takes the mutex of the master to talk on the bus.  That has
-> two consequences:
-> 
-> - A deadlock.  w1_process() holds the mutex of the master while it
->   searches the bus and detaches the slaves which have gone:
-> 
->     w1_process()                        read() of .../rw
->       mutex_lock(&dev->mutex)             kernfs active reference
->       w1_search_process()                 rw_read()
->         w1_slave_detach()                   mutex_lock(&master->mutex)
->           w1_unref_slave()                    waits
->             device_unregister()
->               waits for the reference
-> 
->   The file is readable for everybody.
-> 
-> - The accesses through this file are not serialised with those of the
->   slave drivers, which take bus_mutex, so that two transactions can get
->   mixed up on the wire.
-> 
-> Take bus_mutex here as well.  It also excludes the search, which takes it
-> for every pass.
-> 
-> Fixes: b02f8bede217 ("W1: split master mutex to avoid deadlocks.")
-> Cc: stable <stable@kernel.org>
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+On 30/10/2026 12:46, Lee Jones wrote:
+> When sdw_enable_stream() fails in intel_ace2x_bpt_send_async() after
+> hda_sdw_bpt_send_async() has already started the TX and RX DMA streams,
+> intel_ace2x_bpt_close_stream() invokes hda_sdw_bpt_close() directly
+> without calling hda_sdw_bpt_wait().  As a result,
+> hda_sdw_bpt_dma_deprepare() tears down the DMA buffers and BDL while
+> the DMA hardware is still running.
+> 
+> Disable any running TX or RX BPT DMA stream at the start of
+> hda_sdw_bpt_close() before unmapping channels and depreparing DMA
+> resources.
+> 
+> Fixes: 4c1ce9f37d8a ("soundwire: intel_ace2x: add BPT send_async/wait callbacks")
+> Closes: https://sashiko.dev/#/bug/linux-ff0012de-abdd-4796-875e-b1fbbf47235f
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+
+Acked-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+
+> ---
+>  sound/soc/sof/intel/hda-sdw-bpt.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/sound/soc/sof/intel/hda-sdw-bpt.c b/sound/soc/sof/intel/hda-sdw-bpt.c
+> index ba9fbd662b85..9d97d8676251 100644
+> --- a/sound/soc/sof/intel/hda-sdw-bpt.c
+> +++ b/sound/soc/sof/intel/hda-sdw-bpt.c
+> @@ -456,6 +456,12 @@ int hda_sdw_bpt_close(struct device *dev, int link_id, struct hdac_ext_stream *b
+>  	int ret;
+>  	int ret1;
+>  
+> +	if (bpt_rx_stream && hdac_stream(bpt_rx_stream)->running)
+> +		hda_sdw_bpt_dma_disable(dev, bpt_rx_stream);
+> +
+> +	if (bpt_tx_stream && hdac_stream(bpt_tx_stream)->running)
+> +		hda_sdw_bpt_dma_disable(dev, bpt_tx_stream);
+> +
+>  	/*
+>  	 * In the case of SoundWire we need to reset the PCMSyCM registers.
+>  	 * Need to continue depreparing the DMA buffers even if this fails.
+
+-- 
+Péter
+
