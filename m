@@ -1,91 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334110;
-	b=vIQdIt257vWUoFSqMt5NLmobkbd1RyaZG43kuy5jbrKRmIPx0e9sTh0mZ1dCzv4GP7kg
-	 KqsExQBmb8tfwAGXlYh09G7XAyNfXNNmyaHXgCpq6kCoK4dTLfA032OwihPnYMNUdkczi
-	 otTVZvam5vpYfj8Vhp805R+JF3aTn+n30B6HpmOVHS/9m/+Hrl7YXAyVtE6GVSAI15Kx/
-	 068gSDo84dZ1OZnNzoY7noi1IzqOejSMrXXGwpu5wDN7ggPCvSYREe3kgf9GjNplNeGL0
-	 tEtZORR8Xnf4n8w0NEQOZNz6KoOeFL9YYY3IUUO2R5FbQk+UM04rdd9XS1Kag4aLHwA==
+	t=1793334101;
+	b=z/hWIimCpT3lgAELSn2kmgMGhhDtxUYJpZ3ASBxWEpwXooyT9VxvZRneGW897Yq/lIhs
+	 vUEB2OuENI58+ivXPblhaJoe5TEtbbnmLhl6QFcp1dsrm6nW/xlCvmWXU0fwwJ0GWCUtu
+	 fkfrrIQqdCxhUSFrrSY9bT78aR13UEtLLPvV7nszh4xknbNnrwqUO0kf19CyIJk1vECSk
+	 yp3vkiKdvxye5nMfkWId15b/UIUNEgYw1Dq3e1JKjzzM7r3Vh3xw8CFauWPzPYUe0PUo6
+	 JIBqWoHTzUMV/tnnNFrXeJOfVXIPjlch3JcTsUByE/od5SyQQX2lMzQQY/jF9DzcGrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334110;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334101;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=sQmqYXwhPEoOIU+cSSlto5ZT2a+PGkxqqNn7RgX5NXs=;
-	b=EghdgGLNMV/b5ZQ939rgQd3qFNfardVcDM1UNBNlYN4V/aO99InqnDSdiggLQBxIAHqL
-	 ifDfNIZGTRNDPm2bl1bBBv/RcSwXr5f2GVqPzg/RE82UlnkQtIKo0ezEUAIHXas6sWtq6
-	 IDNXXHTu9Xu0BL9O+QwmjImj53k5ggu4UG94hRpjJfYOId9qXXJ4SMj9BGJhaSSb75kEY
-	 zZrx4/zt8n8DINzNuZ4TXP2xAtKWwlwh8oRikXHBFVrtLOqvXSOx2sn6A3jvGX05QZUiL
-	 VIen0xvIcg59V7WA6H1bW4Ta4HcwmQEc4xf7YJ1srj/TcM8BbmJYaA2OVtMqbCr3Mpg==
+	bh=PMpIblKmZXt8BOY3Honm+2Ww2wYw3iNTalEqXhUNRCc=;
+	b=k0ylS3bJs6CLXrKGhBGkDcnlU+xvNnBCm4IlqV6NoBViBNMB5hooucvLRm8c4VIXfVOd
+	 REyTgSlMYGe1OEZX7Q/hnp/Rb8vuNkjRCJTpviSHA9G5HHhLt92RSc2Na0f2PG7tRcISg
+	 pJ/fVDtOunpK0tMmKUmsOsqYtVWJ4T7Ca9z68fhH8jRxx9nPusdLVZ+zRNmWQgQx/d7/I
+	 hEM2+64F/yVk5oVXIxFVDAaJiluXf3E1hn6HFR67cAMC12CDC5a/x2d0PeP9toxM4gTte
+	 j7QvvvYMXVLY/+VXPhrmsvYh9vWjPnyhaz7zmuQQby92XN7gJjjJb78Ulm5eJ6Oandw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=openai.com;
 	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=Wifjvk9Q;
-	arc=none smtp.remote-ip=209.85.167.170
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=V2Tu+7XG;
+	arc=none smtp.remote-ip=209.85.160.48
+Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C87606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:21:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2C87606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F00B606A322
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:21:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F00B606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=Wifjvk9Q
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4b28d9537bcso232556b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:21:49 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=V2Tu+7XG
+Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-4a75a5fa32dso57751fac.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:21:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1793334109; x=1793938909; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1793334100; x=1793938900; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sQmqYXwhPEoOIU+cSSlto5ZT2a+PGkxqqNn7RgX5NXs=;
-        b=Wifjvk9QHpX3sDnV1u9EjAM+z8pfyMKSggxgf12jYYnhxtPnNR0PmmJFV2VFx79Ccv
-         mcceEvSRLAEp0EqiHIFMr21tfvtlgQhFfqVRRktD/E6r34jadH3vcaaBLvA0dqG+B1Qy
-         1HsQmobNCqUjc8tLHwKwgJDipuOWsgoeihM9k=
+        bh=PMpIblKmZXt8BOY3Honm+2Ww2wYw3iNTalEqXhUNRCc=;
+        b=V2Tu+7XGLweuI6JuW4q0Atp29krGpuRTqzaj3uF28jN846RWoygzoK6hQsvoo1UC9X
+         knJAdo9MZNzSZj+rmkB/s1YKmt1kHg8xySqg/Y7Ilb8KXauOASd9C4O2nnuE4TRK807M
+         J6rcR7iWe6FJEElVS0i4BdLAwdMFYZoYnAJMc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793334109; x=1793938909;
+        d=1e100.net; s=20260707; t=1793334100; x=1793938900;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sQmqYXwhPEoOIU+cSSlto5ZT2a+PGkxqqNn7RgX5NXs=;
-        b=m/sJOSWK4ACiw+PPi12uWkHBS0WN2UTkrFDpf1pwnXZlyO9wJqJ8gM+Vz4kIyuqc2n
-         z9hejS78ISWpH1zHUGVUWn7v9QQ+u2YCo9KxrOccscEnQ3zxgdEkhbtsl8ed1t4rhTe4
-         WkEzUQ3TPYKqkLP6xqU/ujjkbJFUcbDsVp7H7TqJX89wYN/j5vVVzKrfWlfug7bQKmsg
-         B+6fOpCrxdIGayGLIiATy/gT8hOvmgZcSUX7S5LmFzWm8DleWAitGGcwVPy67B0xTxCT
-         BhlIG1WtJZAqI/Bq///GOPH6nNX1G6sA6MmmiNA7VresSkz6JLfQk8g4DTrfQfs772aw
-         p2qQ==
-X-Forwarded-Encrypted: i=1; AKwUvByxXHuwBVbhDYUu41WSRXgV2WZcI5UyJ98Hngro9waFF9GFi2zWOVZNJmxJtbeqapunKYVjGqslAmUV5OY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNzPekQQK+qvAn2QWU+MYvEFspLeQ1AETxtNILDUEI5wTxG4nw
-	gQbWO7IE2LGmj+UimmtHbxRe4ipdVxfhAoOAAtUvPkiJaPmLQkA6pQH2pHD+NL/PAfU=
-X-Gm-Gg: AYBFou1TTxlkt3Ls8fDOTPyThG/a5kXufhjZXiNUd2nO8KsbArccI9tOM9vp9WcID5D
-	ubay0cjl2avBYpQBAicVhHLEGc0DYVrZm4qvx/uPKFpXLLh5QXaqtfF2Y4cKtbjZ92w9hBI/qog
-	gOvj49p6WT+NVEZQ4adr0V80aPSWNUBUeCQwCQZJMsxgdFA3GBMFXSs7BoGESZergyHtNR7TOel
-	XH9BXGb3NcN25g8qd58gtj5sVZH1MYvrLlJ1VSpHjR/BUGWaES1tBVT4e0E7nR4ODsI6W3tutMu
-	sa9u8nhXPhkDkROLYo9NKtFEOYhUvxROaDLVy5sE/8bXjwEAFdcYHvFKIHKglc9Z5v03L4MK5WG
-	ZyQHxyp7cEehbuC01z+vLmDvJ1xafRdNV1z8cM2++CELQFXRwCEbVdAw2fxHq+QnXKxKY3ywYhu
-	HBCjVrrTtILt8A3Her4q4SRvp+rsiYpViDd4LM5b5ZOn3+w109CmUhHcYicP4rMHdg+KzIddbNf
-	ZAyjzxZeyVLxiVikv0j24elTGUmjohgF4MBJCYjGNBLqPxrdN9jnaFnDUyoct6sVJU5Lb76j7f+
-	xP+uE0zSytdm9QbWTz3BOwjc1Fm3Lv422iqzk0Mfj3ERC6K3lGsPQjaV8FDGHZFVmSCcd8zprXN
-	Xd9nuvZ803kz+UNosvtk4msC2Cn5gNg==
-X-Received: by 2002:a05:6808:c122:b0:4c5:38f1:80cf with SMTP id 5614622812f47-563ef9c93bdmr2524160b6e.21.1793334108882;
-        Thu, 29 Oct 2026 21:21:48 -0700 (PDT)
+        bh=PMpIblKmZXt8BOY3Honm+2Ww2wYw3iNTalEqXhUNRCc=;
+        b=AYE+jYxDdR6SE7aiXlT+kdRNl6z7ZgnhGuEz9dTmfbA/oT0RDW8qJrXjDBxCDw1F+e
+         zu9lcWPT5/KQIA5/4YN+OjldJxqyexL0hgZvMH5fXvovV2jmvryKyexFuLOg8s/G1fL/
+         LY13JHkuDgCXWTk7pKYAMDW+qbIbQeILQ4jAvgGl+WQdKN1jr9vKIO6q/sM3HPuqkwIK
+         pzI0QqJ1hX72It3U7kHesrlR46PrvI5tV0HXRxH85JHdVTqubHzXbQ1qm6So2NTGG+RF
+         hGlz4w7fko74ZEP9zE8lfsArsDGjbJ3VeVddd3y333C9s6z6mB9zEjrCO+dJFA1NEBUZ
+         TBmA==
+X-Forwarded-Encrypted: i=1; AKwUvBwdZqzULTgKEifTPTUEoHPs+FlrVgDmE0y19sb20HU9WKoPD+vjt115DwvE+OHu0a7x82JfIS8v2Hts4ao=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/31JQNAfLxYuiZIg5NZyLOkSt+LCnFf9WWwI0T/pPiqTGXn/j
+	6RzOGlnOlnJPv2743xLVLn/xyMMb9xRdKCbMiLMf0Bzn+VVstxRogVsFZPeeeCEVQOA=
+X-Gm-Gg: AYBFou2PI+ObX9N1UelnSZXdISmnEqm1M/qF91LL1L1ZcR+CYMfnx89CIdd8ft/CNhJ
+	8DXuUYlOtDGXxBpNOVB8rlH7J23m7k4t1G4c6yLMyzXRk/tHrpTAK46VeilMNzHlWkcpuPbv8n4
+	w2okjmD+WQPeVS84xGvv+/+T0JVfX81gYFlR+EFem7Gy6gdPfYZZK+cGcX08QZK88FR9oZML9nf
+	0VHqnrKB00+IxlGPBM0nCyfgQ9XwipoAIP9bM1Qv9PMDZsV8rdhlEp9tx6RjYHIB7zMKa32Cs9D
+	u7CrplJHmYYVPOPNcnnvzzugdrVn2ud+waMqAzZ8LEcbXGSbDIaJQ65BJkFWAFE28luwHJKixlg
+	KiVyeJN0xJDLMbQwMJWN/UC17LB9UtIVczJuT3pCCcaV1ZiVek3uv+pz8W1zWsMwTQOzOJr+LP7
+	l3Kv818DcyLqrJqIfPUMniMsD9R3SL6kCF2mKXMPKeMCE2KYctGJ343YBZxFtsKt5PWGw7R17OE
+	mw05QnkfJEqoIwQjh+41D9uPBPE9k7d83PafOVJDepJQHabmsM7+Zeel84UBl2tgc+loGxOhZFo
+	IP2fBZqK10v1gmxXRmcro2aYt/tuvDdsaeyGPzzAK9CmQPFvEPhOJ0YQ5MBO5MLpWH7A1y+JER7
+	Blc2mke/sJtZ546zwQOwBhjyRdoScsw==
+X-Received: by 2002:a05:6870:1f0a:b0:49d:c8ab:967b with SMTP id 586e51a60fabf-4a907775750mr775519fac.47.1793334100321;
+        Thu, 29 Oct 2026 21:21:40 -0700 (PDT)
 Received: from com-75606.corp.openai.org ([199.47.143.5])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fd93451sm704647b6e.3.2026.10.29.21.21.47
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a90af650a1sm769349fac.15.2026.10.29.21.21.39
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 21:21:48 -0700 (PDT)
+        Thu, 29 Oct 2026 21:21:40 -0700 (PDT)
 From: Kyle Zeng <kylebot@openai.com>
-To: b.a.t.m.a.n@lists.open-mesh.org
-Cc: Marek Lindner <marek.lindner@mailbox.org>,
-	Simon Wunderlich <sw@simonwunderlich.de>,
-	Antonio Quartulli <antonio@mandelbit.com>,
-	Sven Eckelmann <sven@narfation.org>,
+To: bpf@vger.kernel.org
+Cc: John Fastabend <john.fastabend@gmail.com>,
+	Jakub Sitnicki <jakub@cloudflare.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	outbounddisclosures@openai.com
-Subject: [PATCH] batman-adv: mcast: validate tracker padding before forwarding
-Date: Thu, 29 Oct 2026 21:21:46 -0700
-Message-ID: <20261030042146.73797-1-kylebot@openai.com>
+Subject: [PATCH] net: skmsg: fix copy cursor when coalescing clones
+Date: Thu, 29 Oct 2026 21:21:38 -0700
+Message-ID: <20261030042138.73739-1-kylebot@openai.com>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,47 +98,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A multicast tracker with an even number of destinations needs two
-padding bytes after its destination list. batadv_mcast_forw_packet()
-currently only checks that the count field and the addresses fit in
-the tracker TVLV.
+A splice or zero-copy append can leave the destination copy cursor at
+sg.end. If sk_msg_clone() subsequently coalesces with the last entry,
+sg.end does not advance and the cursor still points at an unused slot.
+sk_msg_memcopy_from_iter() can then walk around the ring and write into
+older entries, including file pages spliced from a read-only descriptor.
 
-If an unpadded even tracker is compacted to an odd number of
-destinations, batadv_mcast_forw_shrink_update_headers() includes those
-missing padding bytes in the amount to remove. The subsequent memmove
-can then write two bytes past the old packet tail. With no tailroom,
-this corrupts skb_shared_info.
+Software TLS can reach this with an ordinary MSG_MORE send after a file
+splice and a splice from another TCP socket. Both TCP and the TLS
+encrypted-message allocation can use the sending task's page fragment,
+so the TCP-sourced plaintext can be contiguous with the next cloned
+encrypted-message range.
 
-Include the required padding in the existing tracker length check.
-This rejects the malformed tracker before either received or locally
-generated packets can reach the compactor.
+When coalescing with an exhausted destination, move the copy cursor to
+the tail and set copybreak to its old length before extending it. Find
+the actual tail on each iteration using the ring iterator, including
+when end wraps to zero. Leave an existing copy cursor unchanged and
+preserve the normal coalescing, reference counting, and memory charging.
 
-Fixes: 2dfe644a1ce0 ("batman-adv: mcast: shrink tracker packet after scrubbing")
+Fixes: fda497e5f5b8 ("Optimize sk_msg_clone() by data merge to end dst sg entry")
 Cc: stable@vger.kernel.org
 Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
 I have a reproducer for this issue and can share via DM
 
- net/batman-adv/multicast_forw.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ net/core/skmsg.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/net/batman-adv/multicast_forw.c b/net/batman-adv/multicast_forw.c
-index ac97cd8b81dc..9ffed1f237b6 100644
---- a/net/batman-adv/multicast_forw.c
-+++ b/net/batman-adv/multicast_forw.c
-@@ -950,8 +950,11 @@ static int batadv_mcast_forw_packet(struct batadv_priv *bat_priv,
+diff --git a/net/core/skmsg.c b/net/core/skmsg.c
+index df385a5a961e..0e9ff4be78ba 100644
+--- a/net/core/skmsg.c
++++ b/net/core/skmsg.c
+@@ -103,16 +103,26 @@ int sk_msg_clone(struct sock *sk, struct sk_msg *dst, struct sk_msg *src,
+ 	}
  
- 	dest = (u8 *)mcast_tracker + sizeof(*mcast_tracker);
- 
--	/* check if full tracker tvlv is within skb length */
-+	/* check if full tracker tvlv, including padding, is within skb length */
- 	tvlv_len = sizeof(*mcast_tracker) + ETH_ALEN * num_dests;
-+	if (!(num_dests % 2))
-+		tvlv_len += 2;
+ 	while (len) {
++		int last = dst->sg.end;
 +
- 	if (tvlv_len > skb_network_header_len(skb))
- 		return -EINVAL;
+ 		sge_len = sge->length - off;
+ 		if (sge_len > len)
+ 			sge_len = len;
  
+-		if (dst->sg.end)
+-			sgd = sk_msg_elem(dst, dst->sg.end - 1);
++		sgd = NULL;
++		if (dst->sg.size) {
++			sk_msg_iter_var_prev(last);
++			sgd = sk_msg_elem(dst, last);
++		}
+ 
+ 		if (sgd &&
+ 		    (sg_page(sge) == sg_page(sgd)) &&
+ 		    (sg_virt(sge) + off == sg_virt(sgd) + sgd->length)) {
++			/* Start copying at the newly cloned suffix. */
++			if (dst->sg.curr == dst->sg.end) {
++				dst->sg.curr = last;
++				dst->sg.copybreak = sgd->length;
++			}
+ 			sgd->length += sge_len;
+ 			dst->sg.size += sge_len;
+ 		} else if (!sk_msg_full(dst)) {
 
 base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
 -- 
