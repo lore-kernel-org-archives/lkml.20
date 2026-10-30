@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793399850;
-	b=o8nrm+5gpiNN4uvtUdkaoFV1UQEuQvG15A6MVq2PJrCJfWnrZKXixD+T1MPuOdDfGgI0
-	 jiBXt3o8DqguG/LvHdxITtrYaHXmXaiQ0NNoLbhTLpxOfKcHM+yV8GesZReQzYBVGukJx
-	 R2h3xdiRy1ETT8ksjY7PwFwi3LFMwsLSaNztNpUz6nnfYgkcvjUO5dclvfEXsdT4otK1f
-	 2mePWyJFgebEE+NNcM9sKo1+5M/HNaiVVXvCzlExF8GCrudyDJ0ZFsKqoOX4XtSKHypop
-	 4OqFTn9FLnZQe4Si5+x/aHEjq464AYgxuQmA46vk6r2vJk26T0yh7fYxk2m1dkGlgzQ==
+	t=1793399844;
+	b=Uo4okgMDUCu1xQyvchR9Ush5CwwlTytfGin3pjG+eNngC/BALw9wE+xBTbL4JUChKyL0
+	 f8OzTQwV6x3SCr0IGH5pzyKad2FNvVT1Sztp/u2bqYTymfze7dfQ9BPnP01PvVcRJXmIj
+	 VUSh+LXQrlEx45LxUkdmv259xBT4IwbTFBsOW4GHMZvsYmPlTXFz8x/qnVNXvnvjc5i+U
+	 UGF0w77VaHoC0TVMGgyJb2frly694hgvbrrWGm80SmWvzsOVnvvppcBzKOm4FBd9aYAdZ
+	 lH//e5QQ8e+ihWzUB+/dbgdqEmjsUGFtLrc2uYLak4bgjLEn4hHkAghppTL/JU8XOSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793399850;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793399844;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=fU5eVFfcbBj5t8UtgLFsfacRqMKeyGT7y6OrNdnpgM0=;
-	b=jwajq+OgVezdbkZxfpfO+AI6GjmOBuK+65TzOVywNPusLsScOcjYHwzchRFCLnP9jpSI
-	 phcuvxWMexR9QfYD2U+T8PyJfXuxNAb5DxL8sUJOGlrfzFXPoei7zxe0RZkfljQ2dfNje
-	 hfc4W6fZOGoO27QUeMTixVMrrM/QEaYLgjip7DxLdVfzVNmOuOY88prI1fpMtoTi7/k3T
-	 Xcx1lxi6Bw0GXo7psr/xPyqDCJrZbfbL5mTN+UL3/3GBv8tpofIjcSZ2Lvu5OyrZ+ATMs
-	 flto4co5ZdHmyisDSRTQNclZUiG/krYmFzXvVNVcPCncXtX/Y73CXQc0oGWKjbj237w==
+	bh=iy2vWnAv47fFBVaJTkHBzmpFs80GGZb6KnvE0IocUHo=;
+	b=2ZQZdvAIOoHw6aviOHmcOcG+ecUQZhngn5ymh7khuV3wvQ3W05PbtA0XhHyA+i1iY6dF
+	 HLuHIT1eSQo5DnE3HNKksCHAcT89Kv8D8CVptW+VAxpgPKaoIohd7KO3icpqXlt4X+mM+
+	 J5UrWkO0+J3UJO7G7OP7UtPQ41GXyOxr3xV4Ws99upfVsAt2hxeiEWaH024xn3wq4pyob
+	 xsY7rFqIbq74Kfw7Jh+XakzF8z7jVInOJpI9Ez6IrT8mDCIJ0GE7d/ZLlPMV8PlRDARmI
+	 7bLbn+IoGcI4pGsG17AyMAWxLJmeMmykUSkRzoU5ZVMbSjF/Krm6WfSBO5jgID6dX6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OlQQps6H;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=liDP2yMk;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5253860A3810
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:37:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5253860A3810
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD9E606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:37:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CD9E606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OlQQps6H
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a208d93758so12994225e9.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:37:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=liDP2yMk
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so664105f8f.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:37:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793399849; x=1794004649; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793399841; x=1794004641; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fU5eVFfcbBj5t8UtgLFsfacRqMKeyGT7y6OrNdnpgM0=;
-        b=OlQQps6HfJ5IqFc8Mpj1yKcd1VMIXM7AnBE/wDZykR1J1RQXDuytx4PrSHL+vLxH4U
-         fCSNLbo8nGNbx3D2GwQtwZdO14J2sPp+wr744WAnGN3q7GgeECUYdbgByij7xnOetg8q
-         ZdIoRYW8fJkBTwfEMyC/NLXZU+SI9V/yxmKtBYkFc4OCg1XhwR5QNwn2SwSimiGPxVFE
-         OgVBgMeIT3m0AreQNAxUJAu2cQIlMd8HrCVPH+yGNSCCSMKbzthJ4nIPdttfDAtStVZV
-         +QwusS1Z2pEKvmewjaSh6SJpYU+SbqAgInc7XyMQB0kaflpheQVAuObNoMvaM2fYlD0f
-         +oqQ==
+        bh=iy2vWnAv47fFBVaJTkHBzmpFs80GGZb6KnvE0IocUHo=;
+        b=liDP2yMkAQsavocyDzM8xkVy8FVhK/1vLsOoln2jfsx66BKSp/9TY4gurQ/Piuq3FM
+         grR5p7cpB/cPdLjeoJzFH3adEg01Iu5lOImrTIYTiGOJ1eBlVZ8kwW61QZ8EdamNIL4z
+         IJfjV+BuWfoKUWXm44zxmi17oKU8AnxMuNclGjomM5yeFzm6n4dr/WKn3bUEUid4SLQj
+         tp0MVn5eyQERzWvEVnf9JAjWJ7YgL7a5ckdURnvOk/Z4pJhLIzkH5dXoZ2FEQOI43FkT
+         likNs1IiIZooAPlglJzC4/Y6r6lw/ReOGdfUra7UET4eWUUgCI1EchqdPBqRUqI4KBcW
+         WgVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793399849; x=1794004649;
+        d=1e100.net; s=20260707; t=1793399841; x=1794004641;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fU5eVFfcbBj5t8UtgLFsfacRqMKeyGT7y6OrNdnpgM0=;
-        b=W3Fu9XbmvRvxoOtkHcfCgPmsfNB79tY7iQq6aeJQ97AOpAkbCjRz5POc7ss02m6OZT
-         Z5G8MSEWmz65KMrDON6SUeNorFRLvYMCprqODz+lAgRPyDen6agAiPjGJFd36v5Ez5rA
-         Yd3g4Vdhe3oUTq3vGRrkcnLmukcQH40Zz3hnzHiDmvD3It4KtY82Uj8/NVjfOC9QsInx
-         tJ6gFce2xd1K0lPzkEFwMistKeMYBzUN3wj3+o8yr+YoaRx28dxChi34eeirpziXm26L
-         oeDu477W0zznmDpyErB+UvWBOIFs6g1ZZR3jvLdVHjG/t2EX6TwUGciVYmMkcBYE6hO0
-         tTrg==
-X-Forwarded-Encrypted: i=1; AKwUvBwjLTUBpYhxPjNIDvzqqZcyWXNTqkR3p21z0oq+hrvKFqr+adgZ+LLuCUe8FoGqWYR5YmnTTPDjRpCBm0M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3gPTGn0q9eNwy2nOfoi5I/OalonkcyrTqzwZR3WJD1Rnf+2E+
-	sb5yqfPQMjmphYJ9CMSPAi+inVqC4kFb9EL4fgApZA+AruLgLc1xZNjH
-X-Gm-Gg: AYBFou1b8vjWghqYfAnToJlNWeFmdn8FOqzr71YIbtwU8REiBsfqT9j1CaYH4wmw9lz
-	aSnlTnlXGA21Ba8FghpkjzSvdn+EuFjl59yJJMjqb0/JsR05JVohVvF+WwlfB/5YWNVU84bYIhi
-	oTJBZXkbtbaj8NV4C7cmDFUDumfhXWMm7UiSKrx/GlgvdFXC4CSVuVuB3o12+8jtqbD2FaodlYU
-	MIbrGaQ4mO5ONSpvV5uSpJ2f2BQPO2tptnRZLJhIIARUoLLzUJ4OE/WjK5svwo1eJ8Sw6xCONb7
-	aSZvGxLg1uBKne3i6WxxDlM1KVLdcWezvrlOy8x2qoT63zBXH21HzPKrinJSo5L/+iWWAnWBJ2E
-	j5XkpuVVDCp+ImAYP9a/TStTEOFYHagItRIpeGRAx0tZWvzOqMl70c9UDUYcrVg6e6g2C2Y+lMh
-	6Nyri8UpYc8YkfMLZvCYoCuCNrZcybpMLmT5ddL+bHaFuCOkc7YBZQvJ3TQ90A7e/KYsJXFlK8s
-	wUUzpo7qVRIKOk33LJkHSufg/wK5RVNAb20Aax/4eWcDc5cqcyj4fNIYZets473xdy7OmZhdbDJ
-	kfmD6/Rg1WY1BkausJxnT05K9gr6
-X-Received: by 2002:a05:600c:3b18:b0:4a1:c5eb:b445 with SMTP id 5b1f17b1804b1-4ac1932b542mr84346665e9.35.1793399848715;
-        Fri, 30 Oct 2026 15:37:28 -0700 (PDT)
+        bh=iy2vWnAv47fFBVaJTkHBzmpFs80GGZb6KnvE0IocUHo=;
+        b=gwdcAlxn89p8LN/n0b8z+qKY5/BdqRvmi4Fw7oWD1KqsB5Vs33/+2rc3PgA4GgR8Uq
+         NM0iwbD1b8xdN/WPjTb5CKC8fDd4RIjnH7WcEDhJ3vi6zpq/hWwc6Dx6jUROyKXWFR9v
+         ImC8PJu1eA+zZqka5wYowtmJUNusK/GC+asssKmol0niqZOuygk901IqispFbD8znDl3
+         iGU7u2QxMZ7h0OOXF+kmmKaiAo4YsacbZ+oH9C1J35vkeQoMfj7lHPdxYnlzadaK+V+k
+         +jrmHMyxaZt6v21NIzCa72OmOEHaEPbb4pfGMSFegIBTQKHhM8AdZlEU5ETtxJN6k8FN
+         UU4w==
+X-Forwarded-Encrypted: i=1; AKwUvBz7poSaavAvyDR4zi4fmEompoTJEczwrVPJtNg9vOdXyaN7IFO7fRVsU+ri1rBvHWrWdOXjbwJ9jtL3dPI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKG3wxOpdi8MjNgC9x33zvYelGMK9OkJsRTqT/HXY/23sVZwb4q
+	/C2iEseV9xUChx4IhMx4xmT03k4bL6Ti2miGdP0RuVgWyG83lPY8ZRwE
+X-Gm-Gg: AYBFou2+XNwz/tc3/JnPCkI37XfdUwZ9r0e4PgKgilDPHbzjqMt0EsbwvpeBIORAQPW
+	oZ8C7u8UDuNfnh2Rdmp8PFmHA4doCGZHQBWA+CdGX3w08J1Bzr6fHYIaYDsDkTjXowtVdPMWbVM
+	JDriSX2UJURmL6zrx3xZ1DOw0S4gWKumStu0JlEsoj4IuH/Jkf3WEHtnz0Wf1xLZnl/iiAXv/Da
+	emThVZTbjqmG8MazjbdXjIn0jf0klXr7VHpOGqljOhNG4wornv5EPQuCUbBmOvi2jIM1IBi/2KF
+	XZHmDLlaisLyoh6WYdf1KmOghclclx3lbysbHLMMbH3VYXsoOV5QN0EkYMnj3aEcHSb8+tmcRAg
+	ha8mUn6Lx3i/HXeo34Tav1ejnNrj0zypqVKtFR/0z/t2bsT38GI5ZFt9dJlY5JaYgAMsX8j9bqx
+	FeTTyMrLtB6hygFGTSsl1Yckco93L7BDzXDVgoQ7WgZnNPw7JLEPUja8CXMew7PZTq5zRlgIppU
+	NTOyShcYMv/Mu82nPDOM+Asdp2hSjm9vWoDlIeaoCG8ZkxeCyYLl9Q5QHy0AUmZ8W9gajXOHpIy
+	GFT6k39XBqK5kgLFZFP+QwLKRpm7Zg==
+X-Received: by 2002:a05:6000:2c0f:b0:48d:faf4:54a8 with SMTP id ffacd0b85a97d-48e6e2eb434mr8052401f8f.11.1793399840783;
+        Fri, 30 Oct 2026 15:37:20 -0700 (PDT)
 Received: from m2.. ([37.142.145.227])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e71b959c1sm5457300f8f.45.2026.10.30.15.37.26
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48e71b959c1sm5457300f8f.45.2026.10.30.15.37.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 15:37:28 -0700 (PDT)
+        Fri, 30 Oct 2026 15:37:20 -0700 (PDT)
 From: Michael Zaidman <michael.zaidman@gmail.com>
 To: Jiri Kosina <jikos@kernel.org>,
 	Benjamin Tissoires <bentiss@kernel.org>
@@ -95,10 +95,11 @@ Cc: Linus Walleij <linusw@kernel.org>,
 	linux-gpio@vger.kernel.org,
 	linux-i2c@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Michael Zaidman <michael.zaidman@gmail.com>
-Subject: [PATCH v2 15/15] HID: ft260: i2c: recover a bus held by a slave
-Date: Sat, 31 Oct 2026 00:36:37 +0200
-Message-ID: <20261030223637.86907-16-michael.zaidman@gmail.com>
+	Michael Zaidman <michael.zaidman@gmail.com>,
+	Andreas Boose <Andreas.Boose@almex.de>
+Subject: [PATCH v2 11/15] HID: ft260: workaround for TN_189 errata endpoint STALL after enumeration
+Date: Sat, 31 Oct 2026 00:36:33 +0200
+Message-ID: <20261030223637.86907-12-michael.zaidman@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261030223637.86907-1-michael.zaidman@gmail.com>
 References: <20261030223637.86907-1-michael.zaidman@gmail.com>
@@ -113,350 +114,363 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-An SMBus block read takes the first byte the slave sends as the block
-length. An EEPROM has no length byte, it answers with stored data, and
-ft260_smbus_xfer() rejects a value above I2C_SMBUS_BLOCK_MAX. That
-count phase carries no STOP, so the slave keeps SDA low while it waits
-for the next clock. FT260_SET_I2C_RESET restarts the controller but
-does not clock the bus, the chip cannot put a STOP on the line, and
-every later START ends in arbitration lost.
+FTDI errata TN_189 (Section 2.1) documents a silicon bug where the
+FT260's USB interrupt endpoints are occasionally halted right after
+enumeration. When this happens, Clear-Feature ENDPOINT_HALT does not
+recover the endpoint and the only known recovery is a USB device reset.
 
-A 24c02 holds 0x68 at offset 0x80, so on that bus
+This patch implements an in-driver workaround:
 
-  i2cget -y 0 0x50 0x80 s
-  ft260 0003:0403:6030.0011: smbus block read: invalid count 104 from slave 0x50
+  1. ft260_check_intr_ep_health() observes the STALL by attempting an
+     actual interrupt IN transfer. The FT260 does not honestly report
+     its halt state via USB_REQ_GET_STATUS (returns 0 even when
+     STALLed; confirmed separately by FTDI engineering with a USB
+     analyzer trace), so we cannot rely on it; instead we let the
+     host controller return -EPIPE when it sees the STALL handshake.
 
-killed the bus: every transfer after it failed with bus_status 0x72.
-The sysfs i2c_reset, unbind and bind of the HID interface, and rmmod
-followed by insmod all left the status at 0x72.
+  2. ft260_check_dev_responsive() catches the broader broken state
+     where the interrupt endpoint may look healthy but the device
+     still fails to respond to control transfers. A USB_REQ_GET_STATUS
+     to the device with a short 500 ms timeout fails fast on a broken
+     device, preventing later probe stages from hanging on usbhid's
+     default 10 s timeouts and starving the usb_hub_wq workqueue.
 
-Nine SCL pulses free the slave. Switching the I2C controller off gives
-GPIO0 and GPIO1 back their GPIO function, so i2c_generic_scl_recovery()
-can clock the line and make a STOP. ft260_i2c_abort() reads the status
-after the reset and calls i2c_recover_bus() when BUS_BUSY is still set.
-The error bit is no use there: the chip reports 0x60 right after the
-reset and only shows 0x72 at the next START.
+  3. When either check fails, probe schedules a deferred work item
+     and returns -ENODEV so that hub_event releases the device lock
+     quickly. The work item retries usb_lock_device_for_reset() up to
+     10 times (~10 s; each attempt already polls for up to one second)
+     before giving up, then calls usb_reset_device() and explicitly
+     unbinds/rebinds all USB interfaces to force usbhid to recreate
+     the HID devices and trigger a fresh ft260_probe(). The
+     unbind+rebind step is needed because usbhid's pre_reset and
+     post_reset both return 0, so usb_reset_device() alone keeps
+     usbhid bound to stale HID device state.
 
-ft260_gpio_pin_set() and ft260_gpio_read_all() are the bodies of
-ft260_gpio_direction_set() and ft260_gpio_get_all(), split out because
-the recovery needs them without the gpio_en check, SCL and SDA are no
-GPIOs while I2C runs, and without dev->lock, which the abort path
-already holds.
+FTDI engineering tested this on a Raspberry Pi 4 Model B Rev 1.5
+running Linux 6.12.62-v8+ on an xhci_hcd host, with the FT260 connected
+at full-speed through a downstream USB 2.0 hub. Across 28,684
+re-enumeration cycles, 350 cycles triggered the recovery path. Two of
+those required two consecutive USB resets before the device returned.
+All 28,684 cycles recovered to a fully functional state with I2C and
+UART working end-to-end.
 
-With the patch the same i2cget still fails with -EPROTO and the next
-i2ctransfer succeeds. A full i2cdetect scan of 112 addresses logs no
-recovery, so an address NAK does not take this path.
+Queue the work on a driver-owned ordered workqueue flushed on module
+exit. Do not treat a GFP failure as a TN_189 stall (reported by
+Sashiko). Leave the reset requeue uncapped: that is the recovery FTDI
+tested.
 
-Fixes: 2d68d67151eb ("HID: ft260: fix SMBus block read protocol handling")
+Reported-by: Andreas Boose <Andreas.Boose@almex.de>
+Closes: https://github.com/MichaelZaidman/hid-ft260/issues/40
+Link: https://ftdichip.com/wp-content/uploads/2026/05/TN_189-FT260-Errata-Technical-Note.pdf
 Signed-off-by: Michael Zaidman <michael.zaidman@gmail.com>
+
 ---
- drivers/hid/hid-ft260.c | 193 +++++++++++++++++++++++++++++++++-------
- 1 file changed, 162 insertions(+), 31 deletions(-)
+v2: flush reset work on unload; do not reset on -ENOMEM (reported by
+Sashiko). Reset requeue left uncapped (FTDI recovery path).
+---
+ drivers/hid/hid-ft260.c | 245 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 245 insertions(+)
 
 diff --git a/drivers/hid/hid-ft260.c b/drivers/hid/hid-ft260.c
-index cd1117c170e1..faa1e12cd2d5 100644
+index 65835e13fa2a..923ce6ee9dcf 100644
 --- a/drivers/hid/hid-ft260.c
 +++ b/drivers/hid/hid-ft260.c
-@@ -188,6 +188,8 @@ enum {
- 	FT260_GPIO_DIRECTION		= 0x01,
- 	FT260_GPIO_DIR_INPUT		= 0x00,
- 	FT260_GPIO_DIR_OUTPUT		= 0x01,
-+	FT260_GPIO_SCL_OFFSET		= 0,	/* GPIO0 */
-+	FT260_GPIO_SDA_OFFSET		= 1,	/* GPIO1 */
- };
- 
- /* GPIO bit masks */
-@@ -554,6 +556,22 @@ static int ft260_i2c_reset(struct hid_device *hdev)
- 	return 0;
- }
- 
-+/*
-+ * Enable or disable the I2C controller. With the controller disabled
-+ * GPIO0 and GPIO1 carry their GPIO function instead of SCL and SDA.
-+ */
-+static int ft260_i2c_set_mode(struct hid_device *hdev, u8 enable)
-+{
-+	struct ft260_set_i2c_mode_report report;
-+
-+	report.report = FT260_SYSTEM_SETTINGS;
-+	report.request = FT260_SET_I2C_MODE;
-+	report.i2c_enable = enable;
-+
-+	return ft260_hid_feature_report_set(hdev, (u8 *)&report,
-+					    sizeof(report));
-+}
-+
- static int ft260_hid_output_report(struct hid_device *hdev, u8 *data,
- 				   size_t len);
- 
-@@ -575,10 +593,46 @@ static int ft260_i2c_stop(struct hid_device *hdev, u8 addr)
- 	return ft260_hid_output_report(hdev, buf, sizeof(buf));
- }
- 
--static int ft260_i2c_abort(struct hid_device *hdev, u8 addr)
-+static int ft260_i2c_bus_status(struct ft260_device *dev)
- {
--	ft260_i2c_stop(hdev, addr);
--	return ft260_i2c_reset(hdev);
-+	struct ft260_get_i2c_status_report report;
-+	int ret;
-+
-+	ret = ft260_hid_feature_report_get(dev->hdev, FT260_I2C_STATUS,
-+					   (u8 *)&report, sizeof(report));
-+	if (ret < 0)
-+		return ret;
-+
-+	return report.bus_status;
-+}
-+
-+/*
-+ * I2C reset does not clock the bus. A slave left in the middle of a
-+ * byte keeps SDA low, the chip cannot put a STOP on the bus, and every
-+ * later START fails with arbitration lost. The chip reports this as
-+ * BUS_BUSY once the reset is done; only driving SCL as a GPIO frees the
-+ * slave, so fall back to bus recovery.
-+ */
-+static int ft260_i2c_abort(struct ft260_device *dev, u8 addr)
-+{
-+	int ret;
-+
-+	ft260_i2c_stop(dev->hdev, addr);
-+
-+	ret = ft260_i2c_reset(dev->hdev);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = ft260_i2c_bus_status(dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (ret & FT260_I2C_STATUS_BUS_BUSY) {
-+		ft260_dbg("bus_status %#02x, recovering\n", ret);
-+		return i2c_recover_bus(&dev->adap);
-+	}
-+
-+	return 0;
- }
- 
- static int ft260_xfer_status(struct ft260_device *dev, u8 bus_busy)
-@@ -680,7 +734,7 @@ static int ft260_hid_output_report_check_status(struct ft260_device *dev,
- 	if (ret == 0)
- 		return 0;
- 
--	ft260_i2c_abort(hdev, addr);
-+	ft260_i2c_abort(dev, addr);
- 	return -EIO;
- }
- 
-@@ -829,7 +883,7 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
- 		timeout_jiffies = msecs_to_jiffies(timeout);
- 		if (!wait_for_completion_timeout(&dev->wait, timeout_jiffies)) {
- 			ret = -ETIMEDOUT;
--			ft260_i2c_abort(hdev, addr);
-+			ft260_i2c_abort(dev, addr);
- 			goto ft260_i2c_read_exit;
- 		}
- 
-@@ -843,7 +897,7 @@ static int ft260_i2c_read(struct ft260_device *dev, u8 addr, u8 *data,
- 		ret = ft260_xfer_status(dev, bus_busy);
- 		if (ret < 0) {
- 			ret = -EIO;
--			ft260_i2c_abort(hdev, addr);
-+			ft260_i2c_abort(dev, addr);
- 			goto ft260_i2c_read_exit;
- 		}
- 
-@@ -1027,7 +1081,7 @@ static int ft260_smbus_xfer(struct i2c_adapter *adapter, u16 addr, u16 flags,
- 				hid_warn(hdev,
- 					 "smbus block read: invalid count %u from slave 0x%02x\n",
- 					 count, addr);
--				ft260_i2c_abort(hdev, addr);
-+				ft260_i2c_abort(dev, addr);
- 				ret = -EPROTO;
- 				goto smbus_exit;
- 			}
-@@ -1237,34 +1291,23 @@ static int ft260_gpio_set(struct gpio_chip *gc, u32 offset, int value)
+@@ -12,6 +12,7 @@
+ #include <linux/hidraw.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
++#include <linux/workqueue.h>
+ #include <linux/usb.h>
+ #include <linux/serial.h>
+ #include <linux/serial_core.h>
+@@ -2396,15 +2397,229 @@ static int ft260_uart_probe(struct ft260_device *dev,
  	return ret;
  }
  
--static int ft260_gpio_direction_set(struct gpio_chip *gc, u32 offset,
--				    int value, int direction)
 +/*
-+ * Set the direction and the value of one pin. Takes no lock and does
-+ * not look at gpio_en, so the I2C bus recovery can drive SCL and SDA
-+ * while it holds dev->lock and while the pins are not GPIOs.
++ * FT260 errata TN_189 Section 2.1: the USB interrupt endpoints are
++ * occasionally halted right after enumeration. When this happens:
++ *  - Standard Clear-Feature ENDPOINT_HALT does not recover the endpoint
++ *  - Subsequent communication with the device is dead
++ *  - The only known recovery is a USB device reset
++ *
++ * A separate finding from FTDI engineering (confirmed by USB analyzer
++ * trace while testing this workaround) is that the FT260 does NOT
++ * honestly report the halt state via USB_REQ_GET_STATUS: it returns 0
++ * even when the endpoint is STALLed. Detection must therefore observe
++ * the STALL handshake at the host controller level rather than ask
++ * the device.
++ *
++ * Recovery is performed by a deferred work item that resets the USB
++ * device and unbinds/rebinds all interfaces to force usbhid to
++ * destroy stale HID devices and create fresh ones, which triggers a
++ * new ft260_probe() that succeeds.
++ *
++ * https://ftdichip.com/wp-content/uploads/2026/05/TN_189-FT260-Errata-Technical-Note.pdf
 + */
-+static int ft260_gpio_pin_set(struct ft260_device *dev, u32 offset,
-+			      int value, int direction)
- {
- 	int ret;
- 	struct ft260_gpio_read_request_report buf;
- 	struct ft260_gpio_write_request_report *rep;
--	struct ft260_device *dev = gpiochip_get_data(gc);
- 	struct hid_device *hdev = dev->hdev;
- 
--	if (offset >= FT260_GPIO_TOTAL) {
--		hid_err(hdev, "%s: invalid offset %d\n", __func__, offset);
--		return -EINVAL;
--	}
--
--	ft260_dbg("offset %d val %d direction %d\n", offset, value, direction);
--
--	mutex_lock(&dev->lock);
--
--	if (!(dev->gpio_en & BIT(offset))) {
--		hid_err(hdev, "%s: wrong pin function %d\n", __func__, offset);
--		ret = -EIO;
--		goto exit;
--	}
--
- 	ret = ft260_hid_feature_report_get(hdev, FT260_GPIO, (u8 *)&buf, sizeof(buf));
- 	if (unlikely(ret < 0)) {
- 		hid_err(hdev, "%s: cannot get GPIO: %d\n", __func__, ret);
--		goto exit;
-+		return ret;
- 	}
- 
- 	rep = (struct ft260_gpio_write_request_report *)&buf;
-@@ -1298,12 +1341,36 @@ static int ft260_gpio_direction_set(struct gpio_chip *gc, u32 offset,
- 	ret = ft260_hid_feature_report_set(hdev, (u8 *)rep, sizeof(*rep));
- 	if (unlikely(ret < 0)) {
- 		hid_err(hdev, "%s: cannot set GPIO: %d\n", __func__, ret);
--		goto exit;
-+		return ret;
- 	}
- 
- 	dev->gpio = rep->gpio;
--	ret = 0;
--exit:
-+	return 0;
-+}
-+
-+static int ft260_gpio_direction_set(struct gpio_chip *gc, u32 offset,
-+				    int value, int direction)
-+{
-+	int ret;
-+	struct ft260_device *dev = gpiochip_get_data(gc);
-+	struct hid_device *hdev = dev->hdev;
-+
-+	if (offset >= FT260_GPIO_TOTAL) {
-+		hid_err(hdev, "%s: invalid offset %d\n", __func__, offset);
-+		return -EINVAL;
-+	}
-+
-+	ft260_dbg("offset %d val %d direction %d\n", offset, value, direction);
-+
-+	mutex_lock(&dev->lock);
-+
-+	if (!(dev->gpio_en & BIT(offset))) {
-+		hid_err(hdev, "%s: wrong pin function %d\n", __func__, offset);
-+		ret = -EIO;
-+	} else {
-+		ret = ft260_gpio_pin_set(dev, offset, value, direction);
-+	}
-+
- 	mutex_unlock(&dev->lock);
- 	return ret;
- }
-@@ -1321,11 +1388,10 @@ static int ft260_gpio_direction_input(struct gpio_chip *gc, u32 offset)
- 					FT260_GPIO_DIR_INPUT);
- }
- 
--static int ft260_gpio_get_all(struct gpio_chip *gc, int item)
-+static int ft260_gpio_read_all(struct ft260_device *dev, int item)
- {
- 	int ret;
- 	struct ft260_gpio_read_request_report rep;
--	struct ft260_device *dev = gpiochip_get_data(gc);
- 	struct hid_device *hdev = dev->hdev;
- 
- 	ret = ft260_hid_feature_report_get(hdev, FT260_GPIO, (u8 *)&rep, sizeof(rep));
-@@ -1342,6 +1408,11 @@ static int ft260_gpio_get_all(struct gpio_chip *gc, int item)
- 	return ret;
- }
- 
-+static int ft260_gpio_get_all(struct gpio_chip *gc, int item)
-+{
-+	return ft260_gpio_read_all(gpiochip_get_data(gc), item);
-+}
-+
- static int ft260_gpio_get_direction(struct gpio_chip *gc, u32 offset)
- {
- 	int ret = ft260_gpio_get_all(gc, FT260_GPIO_DIRECTION);
-@@ -1360,6 +1431,65 @@ static int ft260_gpio_get(struct gpio_chip *gc, u32 offset)
- 	return (ret >> offset) & 1;
- }
- 
-+/*
-+ * I2C bus recovery. Turning the I2C controller off gives GPIO0 and
-+ * GPIO1 back their GPIO function, so i2c_generic_scl_recovery() can
-+ * clock the slave out of the byte it holds and put a STOP on the bus.
-+ * A pin is released by making it an input, the bus pull-ups then drive
-+ * it high.
-+ */
-+static void ft260_i2c_set_pin(struct i2c_adapter *adap, u32 offset, int val)
-+{
-+	struct ft260_device *dev = i2c_get_adapdata(adap);
-+
-+	ft260_gpio_pin_set(dev, offset, 0,
-+			   val ? FT260_GPIO_DIR_INPUT : FT260_GPIO_DIR_OUTPUT);
-+}
-+
-+static void ft260_i2c_set_scl(struct i2c_adapter *adap, int val)
-+{
-+	ft260_i2c_set_pin(adap, FT260_GPIO_SCL_OFFSET, val);
-+}
-+
-+static void ft260_i2c_set_sda(struct i2c_adapter *adap, int val)
-+{
-+	ft260_i2c_set_pin(adap, FT260_GPIO_SDA_OFFSET, val);
-+}
-+
-+static int ft260_i2c_get_scl(struct i2c_adapter *adap)
-+{
-+	struct ft260_device *dev = i2c_get_adapdata(adap);
-+	int ret = ft260_gpio_read_all(dev, FT260_GPIO_VALUE);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	return (ret >> FT260_GPIO_SCL_OFFSET) & 1;
-+}
-+
-+static void ft260_i2c_prepare_recovery(struct i2c_adapter *adap)
-+{
-+	struct ft260_device *dev = i2c_get_adapdata(adap);
-+
-+	ft260_i2c_set_mode(dev->hdev, 0);
-+}
-+
-+static void ft260_i2c_unprepare_recovery(struct i2c_adapter *adap)
-+{
-+	struct ft260_device *dev = i2c_get_adapdata(adap);
-+
-+	ft260_i2c_set_mode(dev->hdev, 1);
-+}
-+
-+static struct i2c_bus_recovery_info ft260_i2c_recovery = {
-+	.recover_bus		= i2c_generic_scl_recovery,
-+	.set_scl		= ft260_i2c_set_scl,
-+	.get_scl		= ft260_i2c_get_scl,
-+	.set_sda		= ft260_i2c_set_sda,
-+	.prepare_recovery	= ft260_i2c_prepare_recovery,
-+	.unprepare_recovery	= ft260_i2c_unprepare_recovery,
++struct ft260_reset_work {
++	struct work_struct work;
++	struct usb_interface *usbif;
 +};
 +
- static int ft260_gpio_init(struct ft260_device *dev,
- 			   struct ft260_get_system_status_report *cfg)
++static struct workqueue_struct *ft260_reset_wq;
++
++static void ft260_reset_and_rebind(struct work_struct *ws)
++{
++	struct ft260_reset_work *rw =
++		container_of(ws, struct ft260_reset_work, work);
++	struct usb_interface *usbif = rw->usbif;
++	struct usb_device *usbdev = interface_to_usbdev(usbif);
++	struct usb_host_config *actconfig;
++	int ret, i, attempt;
++
++	/*
++	 * Retry the device lock for up to ~10 seconds. The lock is held
++	 * by hub_event for the duration of device enumeration; with the
++	 * fast-fail responsiveness check in probe, both interfaces should
++	 * abort within ~1-2 seconds, after which the lock becomes free.
++	 * Each usb_lock_device_for_reset() attempt already polls for up to
++	 * one second internally.
++	 */
++	for (attempt = 0; attempt < 10; attempt++) {
++		ret = usb_lock_device_for_reset(usbdev, NULL);
++		if (ret >= 0)
++			break;
++		if (ret == -ENODEV || ret == -EHOSTUNREACH) {
++			dev_dbg(&usbif->dev,
++				"device gone before reset (%d), abort\n", ret);
++			goto out;
++		}
++		/* -EBUSY: someone else holds the lock; retry. */
++	}
++	if (ret < 0) {
++		dev_err(&usbif->dev,
++			"failed to acquire USB device lock for reset after %d attempts: %d\n",
++			attempt, ret);
++		goto out;
++	}
++
++	ret = usb_reset_device(usbdev);
++	if (ret < 0) {
++		dev_err(&usbif->dev, "USB reset failed: %d\n", ret);
++		usb_unlock_device(usbdev);
++		goto out;
++	}
++
++	/*
++	 * usb_reset_device() keeps usbhid bound (its pre_reset/post_reset
++	 * both return 0) and does not re-trigger HID-level driver probing.
++	 * Unbind and rebind all USB interfaces to force usbhid to destroy
++	 * stale HID devices and create new ones, which triggers fresh
++	 * ft260_probe() calls.
++	 */
++	actconfig = usbdev->actconfig;
++	for (i = 0; actconfig && i < actconfig->desc.bNumInterfaces; i++) {
++		struct usb_interface *intf = actconfig->interface[i];
++
++		if (intf && intf->dev.driver)
++			device_release_driver(&intf->dev);
++	}
++	for (i = 0; actconfig && i < actconfig->desc.bNumInterfaces; i++) {
++		struct usb_interface *intf = actconfig->interface[i];
++
++		if (!intf)
++			continue;
++		ret = device_attach(&intf->dev);
++		if (ret < 0)
++			dev_err(&intf->dev,
++				"failed to rebind USB interface: %d\n", ret);
++	}
++
++	usb_unlock_device(usbdev);
++out:
++	usb_put_intf(usbif);
++	kfree(rw);
++}
++
++static int ft260_schedule_reset(struct usb_interface *usbif)
++{
++	struct ft260_reset_work *rw;
++
++	rw = kmalloc_obj(*rw, GFP_KERNEL);
++	if (!rw)
++		return -ENOMEM;
++
++	usb_get_intf(usbif);
++	rw->usbif = usbif;
++	INIT_WORK(&rw->work, ft260_reset_and_rebind);
++	queue_work(ft260_reset_wq, &rw->work);
++
++	return 0;
++}
++
++/*
++ * Detect whether the device's interrupt IN endpoint is in the STALL
++ * state described by TN_189. GET_STATUS is unreliable on the FT260
++ * (returns 0 even when halted, confirmed by FTDI with a USB analyzer
++ * trace), so observe the STALL handshake by attempting an actual
++ * interrupt IN transfer. The host controller returns -EPIPE when it
++ * receives a STALL handshake.
++ *
++ * Must be called before hid_hw_open() so it does not race against
++ * usbhid's own interrupt IN URB.
++ */
++static int ft260_check_intr_ep_health(struct hid_device *hdev)
++{
++	struct usb_interface *usbif = to_usb_interface(hdev->dev.parent);
++	struct usb_device *usbdev = interface_to_usbdev(usbif);
++	struct usb_host_interface *iface_desc = usbif->cur_altsetting;
++	struct usb_endpoint_descriptor *ep = NULL;
++	unsigned int pipe;
++	u8 *buf;
++	int ret, actual_length, i;
++
++	for (i = 0; i < iface_desc->desc.bNumEndpoints; i++) {
++		if (usb_endpoint_is_int_in(&iface_desc->endpoint[i].desc)) {
++			ep = &iface_desc->endpoint[i].desc;
++			break;
++		}
++	}
++	if (!ep)
++		return 0;
++
++	buf = kmalloc(FT260_REPORT_MAX_LEN, GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
++
++	pipe = usb_rcvintpipe(usbdev, ep->bEndpointAddress);
++	ret = usb_interrupt_msg(usbdev, pipe, buf, FT260_REPORT_MAX_LEN,
++				&actual_length, 100);
++	kfree(buf);
++
++	if (ret == -EPIPE) {
++		hid_warn(hdev,
++			 "interrupt IN ep %#x halted (TN_189 errata), scheduling USB reset and rebind\n",
++			 ep->bEndpointAddress);
++		return -ENODEV;
++	}
++
++	return 0;
++}
++
++/*
++ * Quick check that the device responds to a standard control transfer.
++ * When the FT260 is in the buggy post-enumeration state, control
++ * transfers initiated by later probe stages (chip version retrieval,
++ * UART/I2C configuration, etc.) can hang for very long periods,
++ * starving the usb_hub_wq workqueue and preventing the reset work
++ * from acquiring the device lock.
++ *
++ * Issue USB_REQ_GET_STATUS to the device (any compliant USB device
++ * must answer immediately) with a short explicit timeout. If it
++ * fails, treat the device as broken and bail out before reaching
++ * anything that can block.
++ *
++ * The interrupt-endpoint health check above only catches STALLs on
++ * the interrupt IN path; this check catches the broader broken state
++ * that affects the other interface even when its interrupt endpoint
++ * happens to look healthy.
++ */
++static int ft260_check_dev_responsive(struct hid_device *hdev)
++{
++	struct usb_interface *usbif = to_usb_interface(hdev->dev.parent);
++	struct usb_device *usbdev = interface_to_usbdev(usbif);
++	__le16 *status;
++	int ret;
++
++	status = kmalloc_obj(*status, GFP_KERNEL);
++	if (!status)
++		return -ENOMEM;
++
++	ret = usb_control_msg(usbdev, usb_rcvctrlpipe(usbdev, 0),
++			      USB_REQ_GET_STATUS,
++			      USB_DIR_IN | USB_RECIP_DEVICE,
++			      0, 0, status, sizeof(*status), 500);
++	kfree(status);
++
++	if (ret < 0) {
++		hid_warn(hdev,
++			 "device unresponsive to GET_STATUS (%d), suspected TN_189 errata, scheduling USB reset and rebind\n",
++			 ret);
++		return -ENODEV;
++	}
++
++	return 0;
++}
++
+ static int ft260_probe(struct hid_device *hdev, const struct hid_device_id *id)
  {
-@@ -2331,6 +2461,7 @@ static int ft260_i2c_probe(struct ft260_device *dev,
- 	dev->adap.class = I2C_CLASS_HWMON;
- 	dev->adap.algo = &ft260_i2c_algo;
- 	dev->adap.quirks = &ft260_i2c_quirks;
-+	dev->adap.bus_recovery_info = &ft260_i2c_recovery;
- 	dev->adap.dev.parent = &hdev->dev;
- 	snprintf(dev->adap.name, sizeof(dev->adap.name),
- 		 "FT260 usb-i2c bridge");
+ 	struct ft260_device *dev;
++	struct usb_interface *usbif;
+ 	struct ft260_get_chip_version_report version;
+ 	struct ft260_get_system_status_report cfg;
+ 	int ret;
+ 
+ 	if (!hid_is_usb(hdev))
+ 		return -EINVAL;
++
++	usbif = to_usb_interface(hdev->dev.parent);
+ 	/*
+ 	 * We cannot use devm_kzalloc here because the port has to survive
+ 	 * until destroy function call.
+@@ -2432,6 +2647,27 @@ static int ft260_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		goto hid_fail;
+ 	}
+ 
++	/*
++	 * TN_189 errata workaround: bail out fast on a broken device so
++	 * that hub_event releases the device lock quickly, allowing the
++	 * scheduled reset work to acquire it and recover the device.
++	 */
++	ret = ft260_check_intr_ep_health(hdev);
++	if (ret == -ENODEV) {
++		ft260_schedule_reset(usbif);
++		goto err_hid_stop;
++	}
++	if (ret)
++		goto err_hid_stop;
++
++	ret = ft260_check_dev_responsive(hdev);
++	if (ret == -ENODEV) {
++		ft260_schedule_reset(usbif);
++		goto err_hid_stop;
++	}
++	if (ret)
++		goto err_hid_stop;
++
+ 	ret = hid_hw_open(hdev);
+ 	if (ret) {
+ 		hid_err(hdev, "failed to open HID HW\n");
+@@ -2621,6 +2857,12 @@ static int __init ft260_driver_init(void)
+ 		goto err_reg_driver;
+ 	}
+ 
++	ft260_reset_wq = alloc_ordered_workqueue("hid-ft260-reset", 0);
++	if (!ft260_reset_wq) {
++		ret = -ENOMEM;
++		goto err_reg_driver_unreg;
++	}
++
+ 	ret = hid_register_driver(&ft260_driver);
+ 	if (ret) {
+ 		pr_err("hid_register_driver failed: %d\n", ret);
+@@ -2630,6 +2872,8 @@ static int __init ft260_driver_init(void)
+ 	return 0;
+ 
+ err_reg_hid:
++	destroy_workqueue(ft260_reset_wq);
++err_reg_driver_unreg:
+ 	tty_unregister_driver(ft260_tty_driver);
+ err_reg_driver:
+ 	tty_driver_kref_put(ft260_tty_driver);
+@@ -2640,6 +2884,7 @@ static int __init ft260_driver_init(void)
+ static void __exit ft260_driver_exit(void)
+ {
+ 	hid_unregister_driver(&ft260_driver);
++	destroy_workqueue(ft260_reset_wq);
+ 	tty_unregister_driver(ft260_tty_driver);
+ 	tty_driver_kref_put(ft260_tty_driver);
+ }
 -- 
 2.43.0
 
