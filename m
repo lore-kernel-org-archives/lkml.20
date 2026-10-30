@@ -1,97 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.16
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793371851;
-	b=ewX1YmRiu43NAiNHF1gOBLAYwgX+KWxcuNf5KNUR2XGC/im6kNits8mekxtpmTjg9Jza
-	 vfeiH4u1uCuvAkD53oF593F4u03JrjDPymK14jQ86ed0yBo2/kdth2NQYwAUSyXO8xUl3
-	 lrFXxE0KeqPmCHw+G8aRqES4tnrd30pCxJiljGalPds79E1dLzP7oNx6XbDUz0GJfSgvQ
-	 +5LxafjpXK++nRWy/bU/8+gxSDrbHcjRAiXrCjh2xtHnXjficCinZTbrlMf9U0ln/YnkO
-	 K83lNY+Hm/0/aTG7h0rj8n1uzoBFhYfO1EM4JxGZ4akJaN/t1cigPQFwxdtJf7L7XHg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371851;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=iG51RddM0VbejHEn6/2dEi0PvCvF7i4r5vi+URC0sn4=;
-	b=zC2ESnE/3S9yiW/3CKo+0ej1tTZAhH4CQhSbwezHyOND5P58lDJisnXiyspsjXB+4cMu
-	 ry/hp883VJ+STlzuDLrwBQ0NKRB3yyqnT43LDn6m6RcAUOeb/IPqdvBh/7OtB5iDP/PTz
-	 faxS2WTf5ZTupptrGlk7Bzix/bVh/E9bUrWJbo18xfQTuA2T9ZDcjoXdSpbXr8sRLxqAm
-	 jw+6A620KQFSxliaO9XSTCoogY4r4vL/x1MRR8aZt0T7Gv/k8+u03n/57xcAa1ozGHRjB
-	 HwPoJ0treKtQwyx0VT3+DZpwVx6Z2KZoy5jgQzVejzR2swWM/dWtm2ScUzt0rs8MTpQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fya6609Z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.16
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011016.outbound.protection.outlook.com [52.101.52.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA871606A31A;
-	Fri, 30 Oct 2026 14:50:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA871606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793371858;
+	b=U34CgxEZa8UAtgqL10Ls9YrHgAimhDkKbh7Jdr3krDsQLZ2dNoerebezujBNLWBDw+26
+	 MZg7tnEoi6QxgqIz0uqoagOJWKHanGC+FO9duRdVa0GsPrt6BYjeSmKZZhaG16U9lJPwp
+	 0JJskaEQODUM+t56F+73wcGFxmSxmY5w0/eCZc7OvGKdYPQBefkWjzavMjP833jwq1sIs
+	 M1k9N9M4rHl/cb+XbED+f+6YUjUMg4aR6ZxeMWpAKo7wGOKctjMyB8PsiSU8Yw7f9k1sl
+	 8PNC8k+4UBgbR1mVCZvsVB/ibEAFrjc4vUa8reTj7DT8UbjS8j3+PjBBct+fPYG+Ocg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371858;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=jGWtdlbWMHGNgloX7EqfHV279r2fDcsDj1Rd/d1NoRs=;
+	b=NVs2nUTRPhqD4iZqdk6vsTy9mZSSiUbozNVaLtQqlM3b6B3Jn2B0WuNjk28X+ICV5FdU
+	 2wLn4RzaLjexRVR9tus8l0kTrID6d4fjlYatGlVdYvQTQCp7ikHePHMmwL3uE1S14etCV
+	 wkVSqE2LA6vfunORo6LOHxrGPt3S5dLUyh5JaodUHoKJua6DdkTfHKe9+H/8ue26x1DEz
+	 M/mtN3TUoL37qJfEkSugNcBXc/NCHi9AESqhqmGUj26BT9bdJ5bnxXTzUznOuSUgPbJ12
+	 6bUt1S8VEp0RFRJb8KUBEQ2LNOprFYeI4qHwZQW3sigWEa7OgNXzZj0y15Sr1YDTZDA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Tsrq+bJK;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id CA389606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:50:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA389606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fya6609Z
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XyuIWuSSmpwVzb6VurZtc61qoWP4FUL/VoVCDn4oWkqz9bGJX7lQu8tNm0k+Zm0paGQ3VjRIzX5znix9nASBZAhFSIxvLBAxFK+/P9ZLTdUoIYooRMB/CLhJj8DP5b7vZcNXl59V4sCp1Ke22W3kzjRxAeca2G0V96O9yOKGgZvvI0VZGj3Z4R6QGTClL/XxaSDk47t712xsXq5R3dBGkKYxOB41xjiAk9FXceFlDM9CywLNpH12UAozJmys7/XSGvBsBySU6AejMvD0y8iHLTPx2knBtZi5u4Qk7e0eYdiR8ATRkPFoy/i8seeZgL0xz3ZIy+o2PxYzoh5jSo/PmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iG51RddM0VbejHEn6/2dEi0PvCvF7i4r5vi+URC0sn4=;
- b=aWzAuhzMSNa2dalKR9O0gCSuI8+dmXzScfpKvAt4PHUV2SM81CbFmLpAzeADQi6JXonaTzDZyOt7JTdOowYN39avySzU8YKpG3fim7XBzNbGFXC8AMpcnPg9bwCaIkpaTm8elZBgw4PiaxmO29jkUZM+hVMKawFY/Dq2f93GWbE93lDKSL9g+L0UWhvoctT5cOov41C6ZL7UbhcGmqry421pGykLSSUCTH0p+qhNPMUiDfaTzNFzaHtTjtGs1rQB8wuVXqB3EWhWykMCu+LM8L1SNXRzaR3EffNRYTSKkQLv1TUTjskeRtuxsjHnL4UStPur8obgCKq9gWf0udwjIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iG51RddM0VbejHEn6/2dEi0PvCvF7i4r5vi+URC0sn4=;
- b=fya6609ZNFbokk6lfB/b7IfNt5kgQ3OFoPp0XpHpaJ4i0kg1RTACol1+GT2Ia1dGQ/3BepuGQOHVqwXia/kMVsQ5tXg7T4ovzRAN7JX1EfDRbYdRRGWtjQDsCpQpSNXh+mDoiGbFkaBiGm29GujkSjTfNUZvWGzxObLU52InxiQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4283.namprd12.prod.outlook.com (2603:10b6:5:211::21)
- by LV8PR12MB9205.namprd12.prod.outlook.com (2603:10b6:408:191::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 14:50:45 +0000
-Received: from DM6PR12MB4283.namprd12.prod.outlook.com
- ([fe80::9eab:812b:ad20:6087]) by DM6PR12MB4283.namprd12.prod.outlook.com
- ([fe80::9eab:812b:ad20:6087%6]) with mapi id 15.21.0546.016; Fri, 30 Oct 2026
- 14:50:44 +0000
-Message-ID: <2b16b50f-6d36-4867-87fe-d76c3f8a58e9@amd.com>
-Date: Fri, 30 Oct 2026 14:50:41 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v4 2/3] sfc: ptp: serialize host and MC
- synchronization transactions
-To: netdev-bot+sashiko@kernel.org
-Cc: ecree.xilinx@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- richardcochran@gmail.com, alucerop@amd.com,
- pieter.jansen-van-vuuren@amd.com, netdev@vger.kernel.org,
- linux-net-drivers@amd.com, linux-kernel@vger.kernel.org
-References: <20261026123023.3566549-3-alex.austin@amd.com>
- <179336481081.3134.5405870739856758840@kernel.org>
-Content-Language: en-GB
-From: "Austin, Alex (DCCG)" <alex.austin@amd.com>
-In-Reply-To: <179336481081.3134.5405870739856758840@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0368.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18e::13) To DM6PR12MB4283.namprd12.prod.outlook.com
- (2603:10b6:5:211::21)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Tsrq+bJK
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 24C761595
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:50:54 -0700 (PDT)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 15C303F673
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:50:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793371857; bh=ZS2k+FypBHiuo5+SFtfW7Gv767dr3RvQc3r5rKZYMBo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Tsrq+bJKI+7eXIgqLRe1DWEU1E6G6rN/vxwPVWrLSDZfx1mu5XOdz4c4Fc8/z2lgP
+	 v7VOWtPpHhaq0K49f0cVXsyhiipMllCkSJOwANoJ1o/Pc9ea6KAZMlcaQlqDqGeG2e
+	 j9p0TH/C6GHiCmwyS/eSLCrjCno9le/C3vSNo/Sc=
+Date: Fri, 30 Oct 2026 14:50:35 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Andreas Werner <andreas.werner@men.de>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH v2 1/2] mfd: Constify mfd_cell arrays
+Message-ID: <auSuu45DB5QTQuUX@e142607>
+References: <20261030140240.211786-3-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,178 +75,341 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4283:EE_|LV8PR12MB9205:EE_
-X-MS-Office365-Filtering-Correlation-Id: 270f231f-ae0a-45d5-a49c-08df36952d3a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|22082099003|18002099003|56012099006|4143699003|5023799004|11063799006|261026121527099003|261026140227099003|261028144727099003|10067099003|261022075727099003|261022105027099003|261021121427099003|261021135927099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	a7O5uHU2ISTdTeuIo1/Re5kABT1eDWEey2MIGyeIMiOheOgNxMGNN9hQUUUmLzXqerU/zbwaEJ5IkQl1uql6TUtZdkhBL3RE04op3cvYzRZgblvtFwC5WgUHveyssxMHGjIA4cXE0jatWsYcHabWfZDjD02Tc2Og7o+2ppr4JErxrUePlW6v/kTsBob0MEgppPWk8NvndxDjUrdvJ0JMj+Hk1Gn23RuM4Tuj7r2S2t/I58LvBXdAqJ5wtG5EQgqtDNZwGh2T46xDXVLO6ovgXfDasvDyOxe8JX+yLCiMkftXK+cj7+gxU1NCxQQqUE0u2AMMWEuA0waDPAys76UNqXN5JBEXePRs8PNbwX4kxxKN/RSZ+r1Ny2ArYdMCsDhpJcKMA+kXWzt9jcfZtp9HxFz3DaWtRBgD1NQWYeVzeTJwniCbSDbkkKbIw0acmN3T/hEz+N4E7soqqqhDZFpoCDQi6fuYI2sbEN8aG3btQe0b11mLf3hshHyno6Nc6+bPlXRmRteZ1gIKqSoEg05mBkqTVC7qGz7+PiO314ejJYdu+V3ChmM0v4gQUUsHEj1rl3mJiqrC2F612Xy5vO0qgvevsMDt2FuBlEEXO+YuwzH+pYXmOAyz2pLs2P5RForQ
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR12MB4283.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(22082099003)(18002099003)(56012099006)(4143699003)(5023799004)(11063799006)(261026121527099003)(261026140227099003)(261028144727099003)(10067099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021135927099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bUtId0FsZlg2K1ZEMGV0ZUcrbm4zbW5sbWhLalUyeFNRNVJ6ekdZN1M0Z3JH?=
- =?utf-8?B?cEJ4aXNTY0pYUjhlN0NjMGh0YzB2S0FtMW5sWXoxZUlZQlc4aXBSWEFEU0hR?=
- =?utf-8?B?MmxKUnF3dnNOT3pMUDNBK0ZhRHNQSC96ZitFcmdORXNNckJEK0x0OTZRMWVv?=
- =?utf-8?B?c1dnK04vczZwYmpJcDA2Vy94NnFucStGbmxHeDRVYzNPZzQ1a0tuYWVMT0Fk?=
- =?utf-8?B?ekpNekdHRUdUc0kvbUc0TW92M0JVR1JlRjRvWnZzSm9zeXZuUlFraWJjblQx?=
- =?utf-8?B?VVVOYS9ma3o5YS93ZzVkWXl0L2xHV24xVTFHZitlemVhdXBqZjFNWlpJUGgy?=
- =?utf-8?B?ZVJXQXl4YXlRUkQwQ29QZkJFa0hnMktKMmFpY0RqOWJRUmdoaTBPT0lPaDhn?=
- =?utf-8?B?QWFEKzBQMFI4L2tDMTFpQmNxbjliMFFJOFE2c29hNzRjOEJnNGZKVXE4YWh6?=
- =?utf-8?B?a2hHdGNYU3FOUnRWeEVMSkQ2K1ZFV0JUWFhWUklFM1hWVE13VVZvQmM5b1hX?=
- =?utf-8?B?ODhDL1FNN0N4dXVYSE9MenQwMENQMExMcVJocVl5OTkzL1FwWXBER0JHZnpY?=
- =?utf-8?B?Uk8rTnRZZlpRU0lHUlBzdG9HMGwrTC9keERHRUg4aW43VE9vYlRDWlpJL0Qx?=
- =?utf-8?B?NzAxN2xZREF2bDFyODA0TjhER3RjVENEcVFjdlkvMG8rc0t3elVQcHZycm5m?=
- =?utf-8?B?YnozQkdkU24zRnVmN2pBQSsrVE5nU25GNVhab0d4bHZaZzVtbjJWOWZ5dndy?=
- =?utf-8?B?d3MwOVRsYm1XaVpHNW9jRXVGbHllTHZoWnVZeFBLcmQ1d1FoUm1nMWRITGp6?=
- =?utf-8?B?cWMyYTd6Q2RqcHZlTGR1TFU4QjhURG5aUWo5eEdnd1BMc2NjaitKb0F4ZTBW?=
- =?utf-8?B?RHVxK29Mc2pvSnFTSGFOZnVEK2xuZkNPVWN0dk9EUDcyZXlSdTBndEpUd01U?=
- =?utf-8?B?RVNnTXJqZWU4WE9pbHBycjBoT3VZUXRKek1EWFpaWEN2R0tZVlJ2N0svYk5F?=
- =?utf-8?B?OVZDYUpYeThuQ2JWYmpFLzcrMUJrSXExVTUwUEdzSzREa05OTzBMdEtScEdW?=
- =?utf-8?B?VWE0elBsa0k4VVRQS2lBTVdLanNzMTlMS0Y0UHNTSmlMRGNRVGh3VDR5V1R0?=
- =?utf-8?B?YzdLTXdneE9KNmwySzdpSU5iand4L3o4TUFoWFJlaHdyWnJzSjcxeDJ5QmVl?=
- =?utf-8?B?WUU3c2kxVURKSG5vV1kwQkdUbkVoRDRXdjU1cUhZcHVEbUJlTkU3Mmp2ZVRH?=
- =?utf-8?B?RkxoQVZOc2R0T3Y1QldKMUhJKzA4QlBmRER3UC9iWUxhRHgzVGgvT1FGaWs4?=
- =?utf-8?B?UDgrdU5UZ3AyN2RXRU1PYmQvWHVBZnNyVTZUSWU4NmNna2dhb2xReWRVUkxH?=
- =?utf-8?B?dGJqdkVQYVpNbURUYjRKVlBnRFd5OXFkZnpEVWl0STRoMUZYR1dhb0tMclhq?=
- =?utf-8?B?MG9Eb0tTWmpwK1hxL1hHUm9IcWpDcXJYZldmVHJLUjBEOFlyemhFWXMyZjMv?=
- =?utf-8?B?OElKM1ZubWxrVFREc0hYZkhjUmhFblJQdnRqMXJvdGZCN1grcXpScG43bXhT?=
- =?utf-8?B?Ry8xaTV5Y1BCR3Y2ZjhCeUpPSExCVWIrQ3FFbnlXMGdBdW1ZV25DRk1yOTFZ?=
- =?utf-8?B?UVFkUitvVkgrZjMyQ0xLVk81YTJTaG4rVUNwdFRsRzhxSlpmeExRd0pKZllk?=
- =?utf-8?B?UXFMRkU4SXlBdHlQekhlUWk4TmFneW83elp4SlJoUkU3NkNUc2N6enhmR1d1?=
- =?utf-8?B?Ny9uZnYrdk5NdUhmRkgxTC9XdjYvUU95UkxXZDJqMXdCNEI0R2xKV1hBM3B1?=
- =?utf-8?B?ZXQ5ODR2VURZSENvU0dJRGl3dTZuUWdkTkpvOVgzaGpPZ1pvYWMrNlIwSjQ4?=
- =?utf-8?B?QzhpYzFUenRjRy8yZHVNQmFGalZDTUhaMTFYQ0M2aDNlenFsN25iLzNpd3Ux?=
- =?utf-8?B?SzVQYnBUdEQrNEVESWI5bS9INHhuc2dMTXNCQ3htQVR2elhZaFBjUFByKzJk?=
- =?utf-8?B?M0ErbU9sd3A4U252UkdSVUllWmkyT0RZTWRDRStWSG9xWHRlTUJDTHlpRTdU?=
- =?utf-8?B?SDk5QzVkcEdpUGVaTWNORE8rYVY5WGpHcG9XOEJMd0dtSk5xTzRRV3RHT21x?=
- =?utf-8?B?eVdJSHhTdWxCc3ZSa0FiSFhOLy80eldVUE1Gb3N4ZmIxdGhuL3lZUCs5QjU3?=
- =?utf-8?B?aWJBN1NmVXhkTUJBWWpMZThFMzNuMHFXTHIwODR0aVJ1QWRIaVpnaUxlR3NW?=
- =?utf-8?B?MDU2OTVWNXpBVlI1aW10b28vUzVyeHNBUFlDYmZ6OW1ka3NCUEdqNmhqK2xV?=
- =?utf-8?Q?CVJmFA8Sm5DlH67YUP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 270f231f-ae0a-45d5-a49c-08df36952d3a
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB4283.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 14:50:44.8960
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +6yvRondpivi84q3Xn7xsAo3fyNgy5meSfusrGcINuq5WK1cbsoFYHDReAzivLkWn+ovrzhUD1xy7qSOjouq/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9205
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261030140240.211786-3-krzysztof.kozlowski@oss.qualcomm.com>
 
+On Fri, Oct 30, 2026 at 03:02:41PM +0100, Krzysztof Kozlowski wrote:
+> mfd_add_devices() takes pointer to const, so 'struct mfd_cell' arrays
+> can be constified whenever driver does not modify it in the probe.
+> 
+> Acked-by: Chen-Yu Tsai <wens@kernel.org> # ac100 & axp20x
+> Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> Acked-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com> # cgbc-core
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> ---
+> 
+> Changes in v2:
+> 1. Add tags
+> 2. Drop wm97xx-core.c, it was not intended to be committed
+> ---
+>  drivers/mfd/ac100.c                   | 2 +-
+>  drivers/mfd/axp20x.c                  | 4 ++--
+>  drivers/mfd/cgbc-core.c               | 2 +-
+>  drivers/mfd/cs5535-mfd.c              | 2 +-
+>  drivers/mfd/intel_soc_pmic_bxtwc.c    | 2 +-
+>  drivers/mfd/intel_soc_pmic_chtdc_ti.c | 2 +-
+>  drivers/mfd/intel_soc_pmic_chtwc.c    | 2 +-
+>  drivers/mfd/intel_soc_pmic_crc.c      | 6 +++---
+>  drivers/mfd/max77705.c                | 2 +-
+>  drivers/mfd/menf21bmc.c               | 2 +-
+>  drivers/mfd/mxs-lradc.c               | 6 +++---
+>  drivers/mfd/rohm-bd718x7.c            | 6 +++---
+>  drivers/mfd/rsmu_core.c               | 8 ++++----
+>  drivers/mfd/stmfx.c                   | 2 +-
+>  drivers/mfd/vexpress-sysreg.c         | 2 +-
 
-On 30/10/2026 12:53, netdev-bot+sashiko@kernel.org wrote:
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
->
->
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
->
-> Low priority / nit picks for your consideration:
->
-> - [Low] The new kernel-doc for `@phc_lock` in struct efx_ptp_data
->   (drivers/net/ethernet/sfc/ptp.c:275-276) says the lock "Serializes PHC…
->
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but
->   `_efx_phc_adjtime()` in drivers/net/ethernet/sfc/ptp.c (line 2144)…
-> - [Medium] Baseline decision: not a defect of this patch (pre-existing,
->   Medium, in a driver the patch does not touch).
-> - [Low] Baseline decision: false positive, fixed later in the series.
->
-> --
->
-> sfc: ptp: serialize host and MC synchronization transactions
->
-> This adds a phc_lock mutex to struct efx_ptp_data. The mutex is held
-> across the whole efx_ptp_synchronize() transaction and around the PHC
-> adjfine/adjtime/settime operations, so the PPS worker and the hwtstamp
-> enable path no longer clobber each other's handshake flag and timesets.
-> It also bails out of efx_ptp_synchronize() when efx_mcdi_rpc_start()
-> fails.
->
+For the vexpress-sysreg.c:
 
-[...]
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-> [Severity: Medium]
-> This is a pre-existing issue, and it is not in a file this patch
-> touches. The Siena copy of this function still has the same pattern:
->
-> drivers/net/ethernet/sfc/siena/ptp.c:efx_ptp_synchronize() {
->     ...
->         WRITE_ONCE(*start, 0);
->         rc = efx_siena_mcdi_rpc_start(efx, MC_CMD_PTP, synch_buf,
->                                       MC_CMD_PTP_IN_SYNCHRONIZE_LEN);
->         EFX_WARN_ON_ONCE_PARANOID(rc);
->     ...
-> }
->
-> It takes no host lock around the handshake flag. When rpc_start fails
-> it still goes on to efx_siena_mcdi_rpc_finish(), and it processes
-> results into ptp->timeset[] after the MCDI interface has been released.
-> Both racing callers exist there as well: efx_ptp_pps_worker() and
-> efx_ptp_change_mode().
->
-> The Siena efx_phc_settime() also still does an unserialized gettime
-> followed by adjtime. current_adjfreq is written in efx_phc_adjfine() and
-> read in efx_phc_adjtime() with no lock.
->
-> Would it make sense to send a separate sfc/siena patch with the same
-> fix?
+Best regards,
+Liviu
 
+>  15 files changed, 25 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/mfd/ac100.c b/drivers/mfd/ac100.c
+> index 8f47c392cbd1..51b4d468c51d 100644
+> --- a/drivers/mfd/ac100.c
+> +++ b/drivers/mfd/ac100.c
+> @@ -75,7 +75,7 @@ static const struct regmap_config ac100_regmap_config = {
+>  	.cache_type	= REGCACHE_MAPLE,
+>  };
+>  
+> -static struct mfd_cell ac100_cells[] = {
+> +static const struct mfd_cell ac100_cells[] = {
+>  	{
+>  		.name		= "ac100-codec",
+>  		.of_compatible	= "x-powers,ac100-codec",
+> diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
+> index 50df66de24e0..4d770e718716 100644
+> --- a/drivers/mfd/axp20x.c
+> +++ b/drivers/mfd/axp20x.c
+> @@ -1055,13 +1055,13 @@ static const struct mfd_cell axp152_cells[] = {
+>  	},
+>  };
+>  
+> -static struct mfd_cell axp313a_cells[] = {
+> +static const struct mfd_cell axp313a_cells[] = {
+>  	/* AXP323 is sometimes paired with AXP717 as sub-PMIC */
+>  	MFD_CELL_BASIC("axp20x-regulator", NULL, NULL, 0, 1),
+>  	MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
+>  };
+>  
+> -static struct mfd_cell axp717_cells[] = {
+> +static const struct mfd_cell axp717_cells[] = {
+>  	MFD_CELL_NAME("axp20x-regulator"),
+>  	MFD_CELL_RES("axp20x-pek", axp717_pek_resources),
+>  	MFD_CELL_OF("axp717-adc",
+> diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
+> index 2becaf797646..3460c50047ea 100644
+> --- a/drivers/mfd/cgbc-core.c
+> +++ b/drivers/mfd/cgbc-core.c
+> @@ -231,7 +231,7 @@ int cgbc_command(struct cgbc_device_data *cgbc, void *cmd, unsigned int cmd_size
+>  }
+>  EXPORT_SYMBOL_GPL(cgbc_command);
+>  
+> -static struct mfd_cell cgbc_devs[] = {
+> +static const struct mfd_cell cgbc_devs[] = {
+>  	{ .name = "cgbc-wdt"	},
+>  	{ .name = "cgbc-gpio"	},
+>  	{ .name = "cgbc-i2c", .id = 1 },
+> diff --git a/drivers/mfd/cs5535-mfd.c b/drivers/mfd/cs5535-mfd.c
+> index f3becbef19f5..d91d60dc5416 100644
+> --- a/drivers/mfd/cs5535-mfd.c
+> +++ b/drivers/mfd/cs5535-mfd.c
+> @@ -37,7 +37,7 @@ const struct software_node cs5535_gpio_swnode = {
+>  };
+>  EXPORT_SYMBOL_NS(cs5535_gpio_swnode, "CS5535");
+>  
+> -static struct mfd_cell cs5535_mfd_cells[] = {
+> +static const struct mfd_cell cs5535_mfd_cells[] = {
+>  	{
+>  		.name = "cs5535-smb",
+>  		.num_resources = 1,
+> diff --git a/drivers/mfd/intel_soc_pmic_bxtwc.c b/drivers/mfd/intel_soc_pmic_bxtwc.c
+> index 117517c171b5..5aa9e52401f0 100644
+> --- a/drivers/mfd/intel_soc_pmic_bxtwc.c
+> +++ b/drivers/mfd/intel_soc_pmic_bxtwc.c
+> @@ -245,7 +245,7 @@ static const struct resource tmu_resources[] = {
+>  	DEFINE_RES_IRQ_NAMED(BXTWC_TMU_IRQ, "TMU"),
+>  };
+>  
+> -static struct mfd_cell bxt_wc_dev[] = {
+> +static const struct mfd_cell bxt_wc_dev[] = {
+>  	{
+>  		.name = "bxt_wcove_thermal",
+>  		.num_resources = ARRAY_SIZE(thermal_resources),
+> diff --git a/drivers/mfd/intel_soc_pmic_chtdc_ti.c b/drivers/mfd/intel_soc_pmic_chtdc_ti.c
+> index 6daf33e07ea0..8412a25d37ff 100644
+> --- a/drivers/mfd/intel_soc_pmic_chtdc_ti.c
+> +++ b/drivers/mfd/intel_soc_pmic_chtdc_ti.c
+> @@ -53,7 +53,7 @@ static const struct resource battery_resources[] = {
+>  	DEFINE_RES_IRQ(CHTDC_TI_CCEOCAL),
+>  };
+>  
+> -static struct mfd_cell chtdc_ti_dev[] = {
+> +static const struct mfd_cell chtdc_ti_dev[] = {
+>  	{
+>  		.name = "chtdc_ti_pwrbtn",
+>  		.num_resources = ARRAY_SIZE(power_button_resources),
+> diff --git a/drivers/mfd/intel_soc_pmic_chtwc.c b/drivers/mfd/intel_soc_pmic_chtwc.c
+> index aa71a7d83fcd..f27985a58c87 100644
+> --- a/drivers/mfd/intel_soc_pmic_chtwc.c
+> +++ b/drivers/mfd/intel_soc_pmic_chtwc.c
+> @@ -50,7 +50,7 @@ static const struct resource cht_wc_ext_charger_resources[] = {
+>  	DEFINE_RES_IRQ(CHT_WC_EXT_CHGR_IRQ),
+>  };
+>  
+> -static struct mfd_cell cht_wc_dev[] = {
+> +static const struct mfd_cell cht_wc_dev[] = {
+>  	{
+>  		.name = "cht_wcove_pwrsrc",
+>  		.num_resources = ARRAY_SIZE(cht_wc_pwrsrc_resources),
+> diff --git a/drivers/mfd/intel_soc_pmic_crc.c b/drivers/mfd/intel_soc_pmic_crc.c
+> index 627a89334908..ce4c9ef59198 100644
+> --- a/drivers/mfd/intel_soc_pmic_crc.c
+> +++ b/drivers/mfd/intel_soc_pmic_crc.c
+> @@ -54,7 +54,7 @@ static const struct resource gpio_resources[] = {
+>  	DEFINE_RES_IRQ_NAMED(CRYSTAL_COVE_IRQ_GPIO, "GPIO"),
+>  };
+>  
+> -static struct mfd_cell crystal_cove_byt_dev[] = {
+> +static const struct mfd_cell crystal_cove_byt_dev[] = {
+>  	{
+>  		.name = "crystal_cove_pwrsrc",
+>  		.num_resources = ARRAY_SIZE(pwrsrc_resources),
+> @@ -93,7 +93,7 @@ static struct mfd_cell crystal_cove_byt_dev[] = {
+>  	},
+>  };
+>  
+> -static struct mfd_cell crystal_cove_cht_dev[] = {
+> +static const struct mfd_cell crystal_cove_cht_dev[] = {
+>  	{
+>  		.name = "crystal_cove_gpio",
+>  		.num_resources = ARRAY_SIZE(gpio_resources),
+> @@ -142,7 +142,7 @@ static struct pwm_lookup crc_pwm_lookup[] = {
+>  
+>  struct crystal_cove_config {
+>  	unsigned long irq_flags;
+> -	struct mfd_cell *cell_dev;
+> +	const struct mfd_cell *cell_dev;
+>  	int n_cell_devs;
+>  	const struct regmap_config *regmap_config;
+>  	const struct regmap_irq_chip *irq_chip;
+> diff --git a/drivers/mfd/max77705.c b/drivers/mfd/max77705.c
+> index 2e9b81f26414..771015c229c8 100644
+> --- a/drivers/mfd/max77705.c
+> +++ b/drivers/mfd/max77705.c
+> @@ -15,7 +15,7 @@
+>  #include <linux/regmap.h>
+>  #include <linux/of.h>
+>  
+> -static struct mfd_cell max77705_devs[] = {
+> +static const struct mfd_cell max77705_devs[] = {
+>  	MFD_CELL_OF("max77705-rgb", NULL, NULL, 0, 0, "maxim,max77705-rgb"),
+>  	MFD_CELL_OF("max77705-charger", NULL, NULL, 0, 0, "maxim,max77705-charger"),
+>  	MFD_CELL_OF("max77705-haptic", NULL, NULL, 0, 0, "maxim,max77705-haptic"),
+> diff --git a/drivers/mfd/menf21bmc.c b/drivers/mfd/menf21bmc.c
+> index 0f24de516d72..252d5c81db6b 100644
+> --- a/drivers/mfd/menf21bmc.c
+> +++ b/drivers/mfd/menf21bmc.c
+> @@ -17,7 +17,7 @@
+>  #define BMC_CMD_REV_MINOR	0x81
+>  #define BMC_CMD_REV_MAIN	0x82
+>  
+> -static struct mfd_cell menf21bmc_cell[] = {
+> +static const struct mfd_cell menf21bmc_cell[] = {
+>  	{ .name = "menf21bmc_wdt", },
+>  	{ .name = "menf21bmc_led", },
+>  	{ .name = "menf21bmc_hwmon", }
+> diff --git a/drivers/mfd/mxs-lradc.c b/drivers/mfd/mxs-lradc.c
+> index 64afc7631790..71ad5184f7e0 100644
+> --- a/drivers/mfd/mxs-lradc.c
+> +++ b/drivers/mfd/mxs-lradc.c
+> @@ -90,7 +90,7 @@ static struct resource mx28_touchscreen_resources[] = {
+>  	DEFINE_RES_IRQ_NAMED(MX28_LRADC_CH7_IRQ, "mxs-lradc-channel7"),
+>  };
+>  
+> -static struct mfd_cell mx23_cells[] = {
+> +static const struct mfd_cell mx23_cells[] = {
+>  	{
+>  		.name = "mxs-lradc-adc",
+>  		.resources = mx23_adc_resources,
+> @@ -103,7 +103,7 @@ static struct mfd_cell mx23_cells[] = {
+>  	},
+>  };
+>  
+> -static struct mfd_cell mx28_cells[] = {
+> +static const struct mfd_cell mx28_cells[] = {
+>  	{
+>  		.name = "mxs-lradc-adc",
+>  		.resources = mx28_adc_resources,
+> @@ -128,7 +128,7 @@ static int mxs_lradc_probe(struct platform_device *pdev)
+>  	struct device *dev = &pdev->dev;
+>  	struct device_node *node = dev->of_node;
+>  	struct mxs_lradc *lradc;
+> -	struct mfd_cell *cells = NULL;
+> +	const struct mfd_cell *cells = NULL;
+>  	struct resource *res;
+>  	int ret = 0;
+>  	u32 ts_wires = 0;
+> diff --git a/drivers/mfd/rohm-bd718x7.c b/drivers/mfd/rohm-bd718x7.c
+> index 0b0f8e27e329..bd087004dde8 100644
+> --- a/drivers/mfd/rohm-bd718x7.c
+> +++ b/drivers/mfd/rohm-bd718x7.c
+> @@ -19,12 +19,12 @@
+>  
+>  #include "rohm-pwrbutton.h"
+>  
+> -static struct mfd_cell bd71837_mfd_cells[] = {
+> +static const struct mfd_cell bd71837_mfd_cells[] = {
+>  	{ .name = "bd71837-clk", },
+>  	{ .name = "bd71837-pmic", },
+>  };
+>  
+> -static struct mfd_cell bd71847_mfd_cells[] = {
+> +static const struct mfd_cell bd71847_mfd_cells[] = {
+>  	{ .name = "bd71847-clk", },
+>  	{ .name = "bd71847-pmic", },
+>  };
+> @@ -113,7 +113,7 @@ static int bd718xx_i2c_probe(struct i2c_client *i2c)
+>  	struct irq_domain *irq_domain;
+>  	int ret;
+>  	unsigned int chip_type;
+> -	struct mfd_cell *mfd;
+> +	const struct mfd_cell *mfd;
+>  	int cells;
+>  
+>  	if (!i2c->irq) {
+> diff --git a/drivers/mfd/rsmu_core.c b/drivers/mfd/rsmu_core.c
+> index fd04a6e5dfa3..02bfb84653ae 100644
+> --- a/drivers/mfd/rsmu_core.c
+> +++ b/drivers/mfd/rsmu_core.c
+> @@ -22,7 +22,7 @@ enum {
+>  	RSMU_N_DEVS = 2,
+>  };
+>  
+> -static struct mfd_cell rsmu_cm_devs[] = {
+> +static const struct mfd_cell rsmu_cm_devs[] = {
+>  	[RSMU_PHC] = {
+>  		.name = "8a3400x-phc",
+>  	},
+> @@ -31,7 +31,7 @@ static struct mfd_cell rsmu_cm_devs[] = {
+>  	},
+>  };
+>  
+> -static struct mfd_cell rsmu_sabre_devs[] = {
+> +static const struct mfd_cell rsmu_sabre_devs[] = {
+>  	[RSMU_PHC] = {
+>  		.name = "82p33x1x-phc",
+>  	},
+> @@ -40,7 +40,7 @@ static struct mfd_cell rsmu_sabre_devs[] = {
+>  	},
+>  };
+>  
+> -static struct mfd_cell rsmu_sl_devs[] = {
+> +static const struct mfd_cell rsmu_sl_devs[] = {
+>  	[RSMU_PHC] = {
+>  		.name = "8v19n85x-phc",
+>  	},
+> @@ -51,7 +51,7 @@ static struct mfd_cell rsmu_sl_devs[] = {
+>  
+>  int rsmu_core_init(struct rsmu_ddata *rsmu)
+>  {
+> -	struct mfd_cell *cells;
+> +	const struct mfd_cell *cells;
+>  	int ret;
+>  
+>  	switch (rsmu->type) {
+> diff --git a/drivers/mfd/stmfx.c b/drivers/mfd/stmfx.c
+> index f683fdb6ece6..b0db33c0a7f2 100644
+> --- a/drivers/mfd/stmfx.c
+> +++ b/drivers/mfd/stmfx.c
+> @@ -73,7 +73,7 @@ static const struct resource stmfx_ts_resources[] = {
+>  	DEFINE_RES_IRQ(STMFX_REG_IRQ_SRC_EN_TS_OVF),
+>  };
+>  
+> -static struct mfd_cell stmfx_cells[] = {
+> +static const struct mfd_cell stmfx_cells[] = {
+>  	{
+>  		.of_compatible = "st,stmfx-0300-pinctrl",
+>  		.name = "stmfx-pinctrl",
+> diff --git a/drivers/mfd/vexpress-sysreg.c b/drivers/mfd/vexpress-sysreg.c
+> index f49cee91f71c..c5f375cd22ae 100644
+> --- a/drivers/mfd/vexpress-sysreg.c
+> +++ b/drivers/mfd/vexpress-sysreg.c
+> @@ -69,7 +69,7 @@ static const struct software_node vexpress_sysreg_sys_flash_swnode = {
+>  	.properties = vexpress_sysreg_sys_flash_props,
+>  };
+>  
+> -static struct mfd_cell vexpress_sysreg_cells[] = {
+> +static const struct mfd_cell vexpress_sysreg_cells[] = {
+>  	{
+>  		.name = "basic-mmio-gpio",
+>  		.of_compatible = "arm,vexpress-sysreg,sys_led",
+> -- 
+> 2.53.0
+> 
 
-As before, I think we should tackle Siena issues in a different patchset.
-
-[...]
-
-> [Severity: High]
-> This is a pre-existing issue, but should this be
-> ptp_data->ns_to_nic_time() rather than going back through
-> efx->ptp_data? The ptp_data argument comes from container_of() on the
-> registered phc_clock_info, so it is always valid here.
->
-> efx_realloc_channels() clears efx->ptp_data while it tears down the old
-> channels, and the PHC stays registered for that whole time:
->
-> drivers/net/ethernet/sfc/efx_channels.c:efx_realloc_channels() {
->     ...
-> out:
->         efx->ptp_data = NULL;
->         /* Destroy unused channel structures */
->         for (i = 0; i < efx->n_channels; i++) {
->     ...
->         efx->ptp_data = ptp_data;
->     ...
-> }
->
-> A clock_settime() or clock_adjtime(ADJ_SETOFFSET) on the PHC that runs
-> at the same time as ethtool -G could then do:
->
-> efx_phc_settime() or efx_phc_adjtime()
->   mutex_lock(&ptp_data->phc_lock)
->   _efx_phc_adjtime()
->     efx->ptp_data->ns_to_nic_time()    <-- efx->ptp_data is NULL
->
-> The PHC ioctl path does not take RTNL, and efx_realloc_channels() does
-> not take phc_lock, so nothing seems to stop the two from overlapping.
->
-> With this patch the oops now happens while phc_lock is held. Would that
-> leave the mutex locked for good? Every later efx_ptp_synchronize() call
-> would then block, both from the PPS worker and from
-> efx_ptp_change_mode(), which runs under RTNL for SIOCSHWTSTAMP.
->
-> Since this function is already being reworked here, using the ptp_data
-> argument would avoid the NULL dereference.
->
-
-Ed, are you happy if we tackle this in a follow up patch since it is a
-pre-existing issue?
-
-> --
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261026123023.3566549-1-alex.austin%40amd.com
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
