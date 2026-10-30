@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793383882;
-	b=aTxCmZ8pbByCyI5k+ZrxIT8u2VTMUnTvZzZM9ihfj1axGBbIlL/8M+gHUCHU3WWMh4hs
-	 FoER7h7zdIOUYXn0uVH7h5tu5VwVNjWI/T4bCG9ood01jXappwBlattcGNFlbKOoJU4YR
-	 mg6ZCdG3yzPCm1W0YXA+c8f55G8Eg52IUmZUMnDQ4WvYZs0G8LmDadau6RFJu+8sdQpet
-	 wZcnZoxmQ1yGDZIR1pKyAhErAtmzt2LGi0sMZG88Ujff1jU9EpR0iKnRYXPSWRCWhXiB9
-	 ia9/fsTQhMmjr6hWqPKzmvGGh09cnO/WPlkvM/Zk9mAB3QmGWgIZbsVyn6jYtX1NEMg==
+	t=1793383879;
+	b=qJG2mM8fQpvsMTmy1utObRIIHHHlpvZ5fosI0q22lcy/87/e1Oyasbjk1ozhFTqUhTSc
+	 G+xC43KEm2pLnayvFoG/GUPof/ONhCN4GXHMIZgsq7AWb6tMQYBP/CfPSYSP6wxlh6+XR
+	 /KBXLz3R/M4r621dfw0cU56cUOdDVfsN5UOpRZ2MmehH0EmpzLylCGO406IiQhucFNzNJ
+	 yejw/XpwSDtJ3UxB59MewTkbxKInlJjnstfw4Db1tzKimknqrlnUpjUGAVxtWOQ/LmH8u
+	 DlyUxedxIqpheWqEP62j91nxMb1miOoiYvSBqXDpQ9yatouWQJ9fGHz5C4W0g3VZ+Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793383882;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793383879;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=0+uaoRo5l36iC7XTBrb03pfY3TZLNhetIMMz75SoQNo=;
-	b=tMpBXDEf1OyaEojRDC4MmiQYIwtO3oBTLNHPUWbzJlvJIpig3pnINH2JqEZpv/VOBMr4
-	 Ci5suKYEGgwnaV1pn5ci82bzc+b6M/4RBsuBNW4+Y3WHGMEYMKxjJ1Y0RLN1EeIit3rJd
-	 HfeuT9nn6Gww/AxYGW+khi1KqJn1Qrcc/UWvK0WDQxHqPcE1hdq3cYeRzrHNZltbgxT8b
-	 yxAV+ESp0cwpnbCAfdPsYkroOMS66RkujKFecX5XdLd7WrVhaklrLKRe2rRIbqXDCX1XW
-	 Ha9BIOmKNsXdbpcoUUv3Pieb1tufhcc5IZX3fxN+ZGf8hV0RVRVaXEWdTkkBFqnLlTw==
+	bh=KX9VsWiwW35a++SYtlTrxjs9sLoEMITslby8aUNfDtY=;
+	b=Y78WXsmCwYamMaHzXILQ49+pKSt2QWLR2N3gmUmR3ZkvJMdqiEJGcbBEPcNemib9dcgh
+	 jLoN2v2MYrwILV45fOOo1Kec/Wth8zW3RpIJZPomdDqGBKGRiT8tTAQagOBx9EagbL1XM
+	 C5dWHCQkbUulEEmOqGyt2rakrbFrn2912lZGvyXmR4Zb97rz2EKot+daOHCHQiejRo+QB
+	 ocumXv0irVKrxBoKXA8KFMpLpQVAphya0ISqcCogae3nL1oCMPGSFDBaud2YGC8eyGCVe
+	 gY0CRuHqGSoO/5YxXw3/DLl65WSfljL5Qhi8hqcCmzpeiPRPf2rsBgzTRo3tvqZlZfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Lj5YJ6v5;
-	arc=none smtp.remote-ip=209.85.222.225
-Received: from mail-qk1-f225.google.com (mail-qk1-f225.google.com [209.85.222.225])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Y+lUk9S5;
+	arc=none smtp.remote-ip=209.85.216.97
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B4860A260B
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:11:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44B4860A260B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D98B9606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:11:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D98B9606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Lj5YJ6v5
-Received: by mail-qk1-f225.google.com with SMTP id af79cd13be357-93f2493c28bso89994385a.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:11:22 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Y+lUk9S5
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so1467364a91.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:11:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793383881; x=1793988681;
+        d=1e100.net; s=20260707; t=1793383878; x=1793988678;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0+uaoRo5l36iC7XTBrb03pfY3TZLNhetIMMz75SoQNo=;
-        b=iXwX4vpLAmidL+sjw7B2xl7s4z96TYeucV5yI7pJG2l8izt10Kh3JrtrcQ7pidDEFn
-         NosHSu6Yh3/ySk9Mg8b7L3Ed0s3PyDr+IqkSG47rf0v5cT4SYIPyZmJq0c03yRloBsHg
-         Y28l7G9CYCk+KrfY7l3rAThZAUU2lKqUJ5tYHxN3MN0+bofxN1HRgWEN4j7GS/YT0pFE
-         ppuCjetKL/pTZIQDL2u5M8j8y16Npn76keBCi5Rq9r84iGDddXfYuAZdVd0MbAlq35Xf
-         UINcG24RwFFKsZQOPe3n3n0w/cJmUHusSphoCHWyMgDm8SeIVI5oVfXHTFWedQGEfTZP
-         4myw==
-X-Forwarded-Encrypted: i=1; AKwUvBw1JkB5i5Ty+IYhtSep5dhEKXNAVHm37n6wSU8P1/CIGSaksG59fwYoV+okiwyYp5izSK5KhP28mQYuP3M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZW8jVghNCMAHxROlpYw9QtKMB0Se9YwWUz7Af4v6ePpX7xVIW
-	lgVRQCnhEVD4lQhTHOpUv9rDP8yXvd+3i2NkJfBW9Z+RF4DI7UWxe7a1YEK2KajTtFbyPO0bwy9
-	pNl/akVWgIsmHkLIQYnq27YV1l3CrO4aX6NvLNT1CIDA3fpedP2lnXurEdfpEvfRpsh9jO3j/tV
-	C/wud0Hj+tHiQO4FQXQ33xfTg1QrKVMgDrWydwJ1LLbrD5uijH+BD6sDW9OfMRtBHNeAqK2uPme
-	TEUZzpqJQwV0CpL
-X-Gm-Gg: AYBFou3u1XT/EK2nySyZFubqSECiqLPM3Z2uwXvPg/nSRUo8jTw/RFhJ4pp/EQZaxkx
-	Jg2KlOUNT65Te1ETnndyZe0/DhtLcNhvBL6kQ1NkuESh/X1rYbOVCpwTZ4sYspFrE/+ZG+du3cZ
-	f06l95KK+wCO2gwdDbugrfh1/iBswDXwMEjHqRNQxx1ojaDNOhwUQq9AXnZKiypqfgP9bjAlZfJ
-	uAIcUFc+1CvPaG43E12ATZbLkamjbBnOorsTzl41L8UBB726YjeRHN8cDl1GdFSaUPhnLdFHqPH
-	hfbHJr2yI5FBmFNdLaJq2nykixT486b88VIUEdP7CgNiAbIEKfHR2opGAy5Xna04w259dDk9fY+
-	N3O1+OvlD8sZkqvr7V8KN5Ivtl6GH2dNt9vhmgZrzK3pCyTopIc8ZutGSbu7EzQcOS+q5ESgdTR
-	f4VGrYP/FSa/dBQaRdv/OYB6kZSF1mis3o
-X-Received: by 2002:a05:620a:19a3:b0:93f:33a8:8e84 with SMTP id af79cd13be357-944217a46ffmr532314585a.56.1793383881156;
-        Fri, 30 Oct 2026 11:11:21 -0700 (PDT)
+        bh=KX9VsWiwW35a++SYtlTrxjs9sLoEMITslby8aUNfDtY=;
+        b=nRMM9ooOoABhY13QnwzpwdwQh8OJayAcdPoh9DP4QNJCCO3obiS8JV+QC59GWquh38
+         YB2XLOGrYvHfGVwspz6Czjo/Lx7q+Tz2SkK3jQOMHneDlKqft/kl0GF55GMI5pMrOrRX
+         ZhSjYpGlT+V7h73a8+wbI2FQ1SmdhJOZXzgs9Y+OExxyVXZqnxrdn1mC9MROtSHXoZVB
+         8k56Lh4/wj4TBxly7iYi9BuTdz9s3c+M9/Si3MgbQwnSpFYNgg8XLY2ogGaUDlALbtNq
+         ibhtsUeuuMkYTeLyUTA7S6jnZ4pY6CvpbVs3xyUsTfXtfLbOdaustRYfkbu3spoJW4NL
+         1qVA==
+X-Forwarded-Encrypted: i=1; AKwUvBx5pPxop3J/TcXIItXpNPkZ0L/Y04aqxvU4Iq083ix6HY8i/qdoV3Xe1Nr8D5gkVXuM+BnkOsuehWYtTtY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJBNPurWzD0RAMzpYL3Xnq/JE2oZ47dcKuKLsRgf/ubeFHdShPO
+	bLbcNy3ZLEsuDxI3w/8N0ucIcDvxdoYT5OapPE8Wf3wQKE5Z4QBKX9UNFN25TwrM9iIUmNbcBkv
+	eZhMxQYymkct6YwhHOwC2I6OKCIl4OIm0OWlZn+bhOMpHa8qYYyOyt4o/bxEax0cyDkgxOBvJdH
+	bU/xAmcAbJYOmqfQYG6jK0xaV3In+XbHhEFMZu+t4FMSvIe5Z4GdEbjnvdhmSv6UUJDmqWFSI3Y
+	qlYLBPqpCXQv2VB
+X-Gm-Gg: AYBFou1cpfcJ8ZFsEcm3BNghhdnKIIZLt4EM3DHeVOV44nOJqQReRBIcvZKvWm5rrn+
+	REybPvzbDTfMpXbgO8NgpZVRrr1D3BrneaS5sFH+WJgp3YNLupxh1OSHbw7wJ/eZ2PSkJ0LCFW3
+	EuUzGFFbBI4NWBrN4ohBlztqMDzbhrLYGXn0/Ck7VfIkBjVv/wQZ6sjIioI57XwXObyTm32WaTi
+	RiEcNQY9kYJoXgzKKCTvkm5WoMHJNdaGTiXmLyUnfToyBpdgHuFJgIPa02qWggvPKbVv2YI+yLN
+	uNYR+CaPKtcScS7+yJ4Bqh1E2Fne4UAOgMst2PbkeHJglRb1f3VOVCZu4EGqTZmh7/SCoqr+6/b
+	iN2cAkY1MwojvGGi7whcMK67eiHpsfY24iw9mPlNzWw73Y9MDqYzAgUMPS53BMWbRgobWc+TJLP
+	hfpIqFc/ZEonAjwjgvo8mSBzSQ878RShy+
+X-Received: by 2002:a17:90b:1d03:b0:3a8:49f2:8ddb with SMTP id 98e67ed59e1d1-3ae8984de33mr2635453a91.60.1793383878088;
+        Fri, 30 Oct 2026 11:11:18 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
-        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-9442582a2cfsm23834585a.15.2026.10.30.11.11.20
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae85eb5999sm741736a91.1.2026.10.30.11.11.17
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 30 Oct 2026 11:11:21 -0700 (PDT)
+        Fri, 30 Oct 2026 11:11:18 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1acbaf81bebso1089517c88.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:11:20 -0700 (PDT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-18eb2616974so3039514c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:11:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1793383879; x=1793988679; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1793383876; x=1793988676; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0+uaoRo5l36iC7XTBrb03pfY3TZLNhetIMMz75SoQNo=;
-        b=Lj5YJ6v5jl9irQB/CVxMAEs4E75x08Vkbg/50xpvYKukWvA73aWmC31gyrddXHC3TZ
-         P+TPJk0Wuzqe9DAaD0OrMSK/Wq0q9fbDeN92SfIx5QN6ZBz0KCIzkFSVIAfAWCFWUTwc
-         EG2sgsqGXXtDOzK9KXgz5alXelShvq6zTAI94=
-X-Forwarded-Encrypted: i=1; AKwUvBx8a4ZGj6AG3Y6yZEaxDW22KTeTYk25Q/tT4KCoxljer5J+QixmxDp831rYHTZMqp8XZQM26ZTz3lzKpfs=@vger.kernel.org
-X-Received: by 2002:a05:7022:38b:b0:1aa:47e7:97e3 with SMTP id a92af1059eb24-1ac5c45fd1dmr4838121c88.15.1793383878402;
-        Fri, 30 Oct 2026 11:11:18 -0700 (PDT)
-X-Received: by 2002:a05:7022:38b:b0:1aa:47e7:97e3 with SMTP id a92af1059eb24-1ac5c45fd1dmr4838041c88.15.1793383877613;
-        Fri, 30 Oct 2026 11:11:17 -0700 (PDT)
+        bh=KX9VsWiwW35a++SYtlTrxjs9sLoEMITslby8aUNfDtY=;
+        b=Y+lUk9S52GpgSqkFxmpOfwNnhOpqBRdpXpu1/8vLyKaJGY07IortaOe0UY4bTFVUq5
+         Bm3LbOqSgh+5UyjNsRbMx/sQIGHPm1rou/dSCabXxtaffBO2XI8WpeRc8e1720IiSvNP
+         aFKWSqGxxcJrjWQ8gTm4FXYTQEf9/dsH6bAkY=
+X-Forwarded-Encrypted: i=1; AKwUvBytUfkM86y/T8fBTipYNiJa+XJPsFubvQnS+ikOcy3pntEnB+yTTyqQBiw5FWO7oyr2/xpvJSdix/Ac9KQ=@vger.kernel.org
+X-Received: by 2002:a05:701b:2910:b0:184:5f2e:aa52 with SMTP id a92af1059eb24-1ac5a0b4358mr3869604c88.16.1793383873730;
+        Fri, 30 Oct 2026 11:11:13 -0700 (PDT)
+X-Received: by 2002:a05:701b:2910:b0:184:5f2e:aa52 with SMTP id a92af1059eb24-1ac5a0b4358mr3869550c88.16.1793383872956;
+        Fri, 30 Oct 2026 11:11:12 -0700 (PDT)
 Received: from mail.broadcom.net ([192.19.144.250])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac193b8179sm9974062c88.11.2026.10.30.11.11.15
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac193b8179sm9974062c88.11.2026.10.30.11.11.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 11:11:17 -0700 (PDT)
+        Fri, 30 Oct 2026 11:11:12 -0700 (PDT)
 From: Kamal Dasu <kamal.dasu@broadcom.com>
 To: linux-mmc@vger.kernel.org,
 	Ulf Hansson <ulfh@kernel.org>
@@ -109,9 +109,9 @@ Cc: Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	Shawn Lin <shawn.lin@linux.dev>
-Subject: [PATCH v11 5/6] mmc: core: Move and split reset functions for eMMC
-Date: Fri, 30 Oct 2026 14:10:32 -0400
-Message-Id: <20261030181034.3811225-6-kamal.dasu@broadcom.com>
+Subject: [PATCH v11 3/6] mmc: core: Add option to keep an eMMC powered on at system suspend
+Date: Fri, 30 Oct 2026 14:10:30 -0400
+Message-Id: <20261030181034.3811225-4-kamal.dasu@broadcom.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261030181034.3811225-1-kamal.dasu@broadcom.com>
 References: <20261030181034.3811225-1-kamal.dasu@broadcom.com>
@@ -129,124 +129,77 @@ X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
 From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
 
-To prepare for a subsequent change and to simplify review, let's move the
-function for resetting the eMMC card a few lines up in the file.
-
-While at it, split the cache flush out of _mmc_hw_reset() into a new
-mmc_hw_reset_recovery() function and use that for the ->hw_reset() bus
-operation. This keeps the flush for recovery, where it was intended, but
-allows the card to be reset without it, by calling _mmc_hw_reset()
-directly. That is needed when resetting the card at system resume, as the
-cache has already been flushed at suspend and the flush would only fail
-with a timeout, after the card has been accessed by firmware.
-
-There are no functional changes.
+The DT property keep-power-in-suspend, allows us to specify whether the
+platform is capable of keeping the power to the card during system suspend.
+Up until now, this has been restricted to be used for SDIO cards only, but
+let's add the initial support to allow this for eMMC too.
 
 Signed-off-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Co-developed-by: Kamal Dasu <kamal.dasu@broadcom.com>
+Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
 Signed-off-by: Kamal Dasu <kamal.dasu@broadcom.com>
 ---
- drivers/mmc/core/mmc.c | 73 ++++++++++++++++++++++--------------------
- 1 file changed, 39 insertions(+), 34 deletions(-)
+ drivers/mmc/core/mmc.c | 24 +++++++++++++++++++++++-
+ 1 file changed, 23 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/mmc/core/mmc.c b/drivers/mmc/core/mmc.c
-index c936272bcd81..026003ba507d 100644
+index a02b04938e1a..c936272bcd81 100644
 --- a/drivers/mmc/core/mmc.c
 +++ b/drivers/mmc/core/mmc.c
-@@ -2271,6 +2271,44 @@ static int mmc_shutdown(struct mmc_host *host)
- 	return err;
- }
+@@ -38,6 +38,7 @@ enum mmc_poweroff_type {
+ 	MMC_POWEROFF_SHUTDOWN,
+ 	MMC_POWEROFF_UNDERVOLTAGE,
+ 	MMC_POWEROFF_UNBIND,
++	MMC_NO_POWEROFF_SUSPEND,
+ };
  
-+static bool mmc_card_can_reset(struct mmc_card *card)
-+{
-+	u8 rst_n_function;
-+
-+	rst_n_function = card->ext_csd.rst_n_function;
-+	return ((rst_n_function & EXT_CSD_RST_N_EN_MASK) == EXT_CSD_RST_N_ENABLED);
-+}
-+
-+static int _mmc_hw_reset(struct mmc_host *host)
-+{
-+	struct mmc_card *card = host->card;
-+
-+	if ((host->caps & MMC_CAP_HW_RESET) && host->ops->card_hw_reset &&
-+	    mmc_card_can_reset(card)) {
-+		/* If the card accept RST_n signal, send it. */
-+		mmc_set_clock(host, host->f_init);
-+		host->ops->card_hw_reset(host);
-+		/* Set initial state and call mmc_set_ios */
-+		mmc_set_initial_state(host);
-+	} else {
-+		/* Do a brute force power cycle */
-+		mmc_power_cycle(host, card->ocr);
-+		mmc_pwrseq_reset(host);
+ static const unsigned int tran_exp[] = {
+@@ -2157,6 +2158,15 @@ static int _mmc_suspend(struct mmc_host *host, enum mmc_poweroff_type pm_type)
+ 			goto out;
+ 	}
+ 
++	if (pm_type == MMC_NO_POWEROFF_SUSPEND) {
++		if (host->retune_period) {
++			mmc_retune_timer_stop(host);
++			mmc_retune_needed(host);
++		}
++		mmc_card_set_suspended(host->card);
++		goto out;
 +	}
-+	return mmc_init_card(host, card->ocr, card);
-+}
 +
-+static int mmc_hw_reset_recovery(struct mmc_host *host)
-+{
-+	/*
-+	 * In the case of recovery, we can't expect flushing the cache to work
-+	 * always, but we have a go and ignore errors.
-+	 */
-+	_mmc_flush_cache(host);
-+
-+	return _mmc_hw_reset(host);
-+}
-+
- /*
-  * Callback for resume.
+ 	if (mmc_card_can_poweroff_notify(host->card) &&
+ 	    mmc_host_can_poweroff_notify(host, pm_type))
+ 		err = mmc_poweroff_notify(host->card, notify_type);
+@@ -2193,9 +2203,15 @@ static void mmc_remove(struct mmc_host *host)
   */
-@@ -2319,39 +2357,6 @@ static int mmc_runtime_resume(struct mmc_host *host)
+ static int mmc_suspend(struct mmc_host *host)
+ {
++	enum mmc_poweroff_type pm_type = MMC_POWEROFF_SUSPEND;
+ 	int err;
+ 
+-	err = _mmc_suspend(host, MMC_POWEROFF_SUSPEND);
++	if (mmc_card_keep_power(host)) {
++		pm_runtime_resume(&host->card->dev);
++		pm_type = MMC_NO_POWEROFF_SUSPEND;
++	}
++
++	err = _mmc_suspend(host, pm_type);
+ 	if (!err) {
+ 		pm_runtime_disable(&host->card->dev);
+ 		pm_runtime_set_suspended(&host->card->dev);
+@@ -2260,7 +2276,13 @@ static int mmc_shutdown(struct mmc_host *host)
+  */
+ static int mmc_resume(struct mmc_host *host)
+ {
++	if (mmc_card_keep_power(host)) {
++		pm_runtime_set_active(&host->card->dev);
++		mmc_card_clr_suspended(host->card);
++	}
++
+ 	pm_runtime_enable(&host->card->dev);
++	host->pm_flags &= ~MMC_PM_KEEP_POWER;
  	return 0;
  }
  
--static bool mmc_card_can_reset(struct mmc_card *card)
--{
--	u8 rst_n_function;
--
--	rst_n_function = card->ext_csd.rst_n_function;
--	return ((rst_n_function & EXT_CSD_RST_N_EN_MASK) == EXT_CSD_RST_N_ENABLED);
--}
--
--static int _mmc_hw_reset(struct mmc_host *host)
--{
--	struct mmc_card *card = host->card;
--
--	/*
--	 * In the case of recovery, we can't expect flushing the cache to work
--	 * always, but we have a go and ignore errors.
--	 */
--	_mmc_flush_cache(host);
--
--	if ((host->caps & MMC_CAP_HW_RESET) && host->ops->card_hw_reset &&
--	     mmc_card_can_reset(card)) {
--		/* If the card accept RST_n signal, send it. */
--		mmc_set_clock(host, host->f_init);
--		host->ops->card_hw_reset(host);
--		/* Set initial state and call mmc_set_ios */
--		mmc_set_initial_state(host);
--	} else {
--		/* Do a brute force power cycle */
--		mmc_power_cycle(host, card->ocr);
--		mmc_pwrseq_reset(host);
--	}
--	return mmc_init_card(host, card->ocr, card);
--}
--
- /**
-  * _mmc_handle_undervoltage - Handle an undervoltage event for MMC/eMMC devices
-  * @host: MMC host structure
-@@ -2410,7 +2415,7 @@ static const struct mmc_bus_ops mmc_ops = {
- 	.runtime_resume = mmc_runtime_resume,
- 	.alive = mmc_alive,
- 	.shutdown = mmc_shutdown,
--	.hw_reset = _mmc_hw_reset,
-+	.hw_reset = mmc_hw_reset_recovery,
- 	.cache_enabled = _mmc_cache_enabled,
- 	.flush_cache = _mmc_flush_cache,
- 	.handle_undervoltage = _mmc_handle_undervoltage,
 -- 
 2.34.1
 
