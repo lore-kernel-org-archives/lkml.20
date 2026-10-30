@@ -1,62 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793359246;
-	b=V7KowBUiw/dcAr2lBcPaXfPmYeztIXNR+y80vpCMLt44P8uVTZnIBm0X2gTRtDsai2k2
-	 v2Go8cXR5ZZaidPz1UEdjdmU7YtwdtyFe+l9F+MiSuMS/yLmPdXePu0EyABe/1iYweb1y
-	 GdDWgUhiOJ/DYmdaEEShtsA0yWBUsgBBP1R3enIqQwA7ja2LiVjhSF+YwN8pxhMeQWjIF
-	 +ueT0vSmvMdKqGm3w3nOv34P7mEFn7BP2SEqbktk3KpzGAlSB61aMJiyEu7tDdx6I5zBM
-	 RhLvnjp3h0iFMAYmaDy8IwX1Lou20x89yospKv38htKoVJl8e0LfdfAPJ2MrRx7MSMw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793359246;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5CuUDHSZWz+erT0w+UfPQPNxS4F/uosSHNPefWZBdyg=;
-	b=eUMhHhOGyJd9IX6c6CTPr/diOqHwJ8rn//OiKIwPAJzpWjtBNKZXQJnmJ+HfCy/tk6vX
-	 0Nn3J0LN9E6AMZpmxnL449JBEo6NLcjUlZEoNbzuuDDowPA2a1HdVxol4PcZ9KSUHHkE6
-	 hsRnti8PDGaC7C8P4fYt3PU7VADmdBvDUlimvbyNPWh4QdGB0OlxMbqm6EUpaIMDQ0pf2
-	 azly9nH5voGM46aBW5rnF6tdnf+Dqps114sxhabnh1+VKTDJMknnMMVWMDmgdh5xCWJ5D
-	 xd0f194WwNzCkvXhPygW1TEuUVbQiVEJExFU+fNLZna7KmJ74SZ237q8+9SdNSEIDmQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YWKXDREp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793359304;
+	b=WsZWc9W2YDM6xk/aimfRAXwGYt0qAlSvR98rk5hfzr3KRluBFPbFdRsyINbmGedamhn5
+	 FfCzLZvv8zDzjfkGxI0MrHAdhUsKUsNbbODXmvuzUbXZsrdzOv5J24WZCFUsLmUGlnKSB
+	 jE4bVhlnbxSJ8kvrMJI0ZDpGj9SLUJtkt9Ns3yEsrIUjUAUTQlDpUW7+Yn06DTKLBoKB3
+	 yerhkch/Toe/AyD3H0On8Nazgcba4hsMkWQtPFRH+5Illn4Io1VqO+iuH8dMIILYNII/K
+	 Wa+bh3HnA9vHHKHDWYVcTd6BSbJHk3IyDqATJnDYHA2eruQYdTp6uY5gEQyoVB8v+Uw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793359304;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=IhotsZMujGgxWB8wogYX7M/QNYLtJDwXry3FOoC6GuE=;
+	b=Ah/6vtkBFaNICakQt95Jt/sv2nk4eOxKpZFACo12SQ/5jlmVa1nqm0U/MtkjldOrfQc9
+	 jiPBLH52tnSO50249eFCjXtVV2/tI+h3bWDJq0TYPiKNq1mupBTPwAsVp0kBi0AlUQiPY
+	 gD1woyUZ+nY7ACTwvbz7bm9YFDNSL8BcEIGzthndC/5dPeQAg4cy4bbKnOPK47T+16c80
+	 BP+Zg1qKqnrWFWa5n0MTM23AtsHfaTOHMREAZGBryw23aXSMYOemK0kE0pbmaIIOo4Tmb
+	 Qb3YSEnsBDktPYLpKraYtaVqbOE4aAdKN93RlVBHQoAd8fna3y4yo246bLfC80ogvHg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=fooishbar.org;
+	spf=pass smtp.mailfrom=fooishbar.org;
+	dkim=pass header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=ST3TiZBV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416E0606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:20:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C04D3606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:21:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C04D3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YWKXDREp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9BC01F00A02;
-	Fri, 30 Oct 2026 11:20:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793359245;
-	bh=5CuUDHSZWz+erT0w+UfPQPNxS4F/uosSHNPefWZBdyg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YWKXDREpHohFhFm/tgSgP271KsCBtGJ+juwgbl/qrlz1PNqk7lv3ChHCD8OrNiS5Y
-	 DAnK6FDSSRb4ka31uJ7B3X6BB3YE3oBzbdMtVg79oZwdzcnI7puSmEWHj8molXBHWR
-	 aPxAK4nlU6erZtS0QyO2mZ/2UeYPTdNpgAu4Mw1pojP7XtEl+UVJLAavpiM1M+WP8d
-	 TmB7aOFiUVDQZgBtjm1N+ZYKaoyZgoOhAVw7vcBE2irOcBYPVEVx4TROUQL2AyD1gP
-	 rkWFH1pbIIyJD71FjpFDjjuYkyULGQJ+LjBMCl6fLg/XpnjERoAaIsmDobBGHwBcH7
-	 z2ivjfZCLxryQ==
-Date: Fri, 30 Oct 2026 11:20:40 +0000
-From: Will Deacon <will@kernel.org>
-To: Usama Anjum <usama.anjum@arm.com>
-Cc: Linu Cherian <linu.cherian@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Kevin Brodsky <kevin.brodsky@arm.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Yang Shi <yang@os.amperecomputing.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Huang Ying <ying.huang@linux.alibaba.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	maz@kernel.org
-Subject: Re: [PATCH v2] arm64: tlbflush: Don't broadcast if mm was only
- active on local cpu
-Message-ID: <auR9iDfUxqz3ExP8@willie-the-truck>
-References: <20260523134710.3827956-1-linu.cherian@arm.com>
- <b6f0d10a-d098-43cc-b923-0245af5f51f0@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=fooishbar.org header.i=@fooishbar.org header.a=rsa-sha256 header.s=google header.b=ST3TiZBV
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a089dfee18so1010274b3a.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:21:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793359303; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TX0zLEp8l3pKstXLjAR5rejFpK0/ISAnYu9NKAJZ5LTRtIlpdESJRrrp80YkBtl/HY
+         LidCZE4oDJF5txmmkvWpnbkMHn7Et+Yznfny/Nbh9dAYfzi7q5vRkT4g3VykhwKTG2I+
+         iY97KrmnS1tH8Tzf7L/jqGbIUZyCH159KAEJVPhvivX4jLUaeM+EZc3NFSVwYSSZ1K/Z
+         JqquEbDhp1d6RtRQGnyCEiMmNZgXYKGbGKbRwhSzyW9M8i7i9hfBWgW8ifGbtK1fYZOx
+         3tcIL/nthOI09ZZFq1fOjf5jYmoeZaKCoOd7mtAXjRZneqnxg8qClqGTrGHaqCXugPoJ
+         I/pg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=IhotsZMujGgxWB8wogYX7M/QNYLtJDwXry3FOoC6GuE=;
+        fh=E1aAeS90fswB2GgAKYAV+anARg1xKWU3gl7jy5PtMN4=;
+        b=ROqolCj3BfcVSj2VGxxTIBkWOfYEN9ufuCiJ8gaA4T5HMvEN9leY7RChFOzrnLw0YH
+         i6Lk4B+Y4k+DiUgmb90+rj0bMkkHUQDSi/cl5SAIRBhH4gf9l1LutqBx/epNNJMgfQs8
+         XKA+MQlF6YI1GoKR5EGkFgq7rUwJnfVguotv34Psq0ZeDzCrdh9VwND5aHQghYr0XHZm
+         LlRMGZbrf/4oXMkhW8pLNsnoYfQBdrvWw/QoXVPxiVuCY0u+In7M1mVpkdosbI4kWJeD
+         eYr0SubIo9GO+hvQsw+MP7f54UHiOkYnTdINctqdFCXqKRZTV11/KD4f+pd3nIr/exvY
+         DJmg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fooishbar.org; s=google; t=1793359303; x=1793964103; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IhotsZMujGgxWB8wogYX7M/QNYLtJDwXry3FOoC6GuE=;
+        b=ST3TiZBVYOQ3EPnlZadMfv/II96obcR45eIj4UK4HcNzxNShEHyAS48R1hFH9o81Ph
+         fMSni7TQWL8TVQn+JDrv/h+B6WRS3LQxQmJw+x7/UvSKJLllNHaZ2fZdMQA9XnW3RfnP
+         AkgYYS4DHVlrogob8pY8CpohjE57tGcT1fC43Z2aBVQz1HrSkL78ZNG+wZKjyuZ7Orv9
+         OZhK/agd8JhQvpGY3XDAJd5+w9oJ36a5Nz/ZPW/8+mvXH/3Q60U2Ft/0yTqfk6cslCOm
+         OWJ3QWJX60qysCjeRDBKSizqo1I5ARjWy4KwmvLsDtGFW4//80z9TNjKMPS0yog8YjXg
+         JDMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793359303; x=1793964103;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IhotsZMujGgxWB8wogYX7M/QNYLtJDwXry3FOoC6GuE=;
+        b=mEctlRZSDmy3xI9cravynytv8wrEa9YJdROovGqpyN+w9jP0KNCAGTQcmXE+HBONxX
+         RUILlYpV/59lHogUZYzkiCvlbvD957qABW9d0EddXqbrz7gZSZdPsy61dsCU546Hvq+H
+         qYY/QgxREv+I3yqQpH4615uLCiwGekA1pLA2dD7ZyyhbLuOl+Fixb9kniOE0dAD0dq7x
+         VhIa6wHU74Axff7TDdJ8bLBHuixjXb9N0myEei15Xm/UJokltj0cmwTQgAU6fFlAzjTO
+         Iq4gbECbLELcezoLe7WwcsQNaY07GSxUu4slDkc4F9U/IFYxbeTHPOMhXYPr8/dCAb4k
+         rJ9g==
+X-Forwarded-Encrypted: i=1; AKwUvByc3P1uAiZKnoI+hEb8WaUQhiifIDvjAqH15NyeBjlvkykUeVi64VCsD0mOzO9hm4K5OV+l01Bl0Z5Am2w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKOjAiqqQi9edH1/JxqcKYZbzTS+EC4Upa46pp/BQtQIhphfYHq
+	mO6IDpNQyhSmAiZgpv6YV09fuOd60GEVIvvOpDdrvsk3YyvkO42VrsI+OaK2z8DTSlu6Zp0sDdo
+	XUJu8qLZA648t3V3angd2gMvxSeBI1hSPsuKsX5Hxcg==
+X-Gm-Gg: AYBFou2pzXlqDdKfp4enVKfBT/aWKfOYcxZDp/aq2XG/xkYDQkzE4fNXLty5lfBde2e
+	FHpxOtjMddfxVfi9NGHQgjFq4gZeHgvzratkeE1GrVUWYuyFCqVhxPsWT1U/p4MthzjrE1kgJAt
+	5Zq+0cLj8WEoy9f5XABNRCxlCwRzZJOjtCULSiqq1zMPUsKYTHRbo3VHERMx2qUxKh2FJwcptS7
+	lirm4F+AEe6Z2TBcmzGof/4DMSX02zystBGp3tqAtEGuVVi/ISDSdVL2fE1BhQEmd/5fasXXA0/
+	DctHgYmmkpf5Q438zJbo7wLTMzCm6kwDdWtvPUpzN0hUCIomIvBKyID3BMBTo5fN22/6rGZ0U4g
+	OpNnJstjOClmlyiMgyEGKB3G6dU0bdTwmgfZP
+X-Received: by 2002:a05:6a00:12dc:b0:8a0:18bd:ddb0 with SMTP id
+ d2e1a72fcca58-8a9bf71b34fmr1264612b3a.26.1793359302995; Fri, 30 Oct 2026
+ 04:21:42 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,87 +103,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b6f0d10a-d098-43cc-b923-0245af5f51f0@arm.com>
+References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com> <20261014-dw-hdmi-qp-yuv-v5-4-6fab0fe43a9b@collabora.com>
+In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-4-6fab0fe43a9b@collabora.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Fri, 30 Oct 2026 11:21:32 +0000
+X-Gm-Features: AclHuK_sZpu_OHKEsqb49igvHOjsFenvWY6XU2UJTZwHMq2AAjoVYXumXoLt9p0
+Message-ID: <CAPj87rN1rzjDMPvVJytwmvHGipCCuYOyX3abTRqYp4Vq5PyrYQ@mail.gmail.com>
+Subject: Re: [PATCH v5 04/15] drm/rockchip: vop2: Send pending event when
+ atomic_enable() fails
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+	Andy Yan <andy.yan@rock-chips.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Daniel Stone <daniels@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, kernel@collabora.com, 
+	Andy Yan <andyshrk@163.com>, dri-devel@lists.freedesktop.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>, Igor Paunovic <royalnet026@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 28, 2026 at 02:47:19PM +0000, Usama Anjum wrote:
-> On 23/05/2026 2:47 pm, Linu Cherian wrote:
-> > From: Ryan Roberts <ryan.roberts@arm.com>
-> > 
-> > There are 3 variants of tlb flush that invalidate user mappings:
-> > flush_tlb_mm(), flush_tlb_page() and __flush_tlb_range(). All of these
-> > would previously unconditionally broadcast their tlbis to all cpus in
-> > the inner shareable domain.
-> > 
-> > But this is a waste of effort if we can prove that the mm for which we
-> > are flushing the mappings has only ever been active on the local cpu. In
-> > that case, it is safe to avoid the broadcast and simply invalidate the
-> > current cpu.
-> > 
-> > So let's track in mm_context_t::active_cpu either the mm has never been
-> > active on any cpu, has been active on more than 1 cpu, or has been
-> > active on precisely 1 cpu - and in that case, which one. We update this
-> > when switching context, being careful to ensure that it gets updated
-> > *before* installing the mm's pgtables. On the reader side, we ensure we
-> > read *after* the previous write(s) to the pgtable(s) that necessitated
-> > the tlb flush have completed. This guarrantees that if a cpu that is
-> > doing a tlb flush sees it's own id in active_cpu, then the old pgtable
-> > entry cannot have been seen by any other cpu and we can flush only the
-> > local cpu.
-> > 
-> > Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
-> > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-> > Tested-by: Huang Ying <ying.huang@linux.alibaba.com>
-> > [linu.cherian@arm.com: Adapted for v7.1 flush tlb API changes]
-> > Signed-off-by: Linu Cherian <linu.cherian@arm.com>
-> > ---
-> > Changelog from RFC v1:
-> > - Adapted for v7.1 flush tlb API changes
-> >   No changes in core logic
-> > - Collected Rb and Tb tags
-> > - lat_mmap benchmark showed dsb(ishst) performs better than dsb(ish),
-> >   hence retained dsb(ishst) in flush_tlb_user_pre	
-> > 
-> > 
-> > Testing with 7.1-rc4 :
-> > +-----------------------+---------------------------------------------------+-------------+
-> > | Benchmark             | Result Class                                      |  Improvement|  
-> > +=======================+===================================================+=============+
-> > | perf/syscall          | fork (ops/sec)                                    |   (I) 3.25% |
-> > +-----------------------+---------------------------------------------------+-------------+
-> > | pts/memtier-benchmark | Protocol: Redis Clients: 100 Ratio: 1:5 (Ops/sec) |   (I) 2.70% |
-> > | 			| Protocol: Redis Clients: 100 Ratio: 5:1 (Ops/sec) |   (I) 2.13% |
-> > +-----------------------+---------------------------------------------------+-------------+
-> 
-> I tested this patch using a synthetic Firecracker benchmark on a 192-CPU
-> arm64 host, with Linux v7.3 on both the host and guests. Each worker
-> repeatedly creates a fresh 1-vCPU microVM, boots Ubuntu, verifies an echo
-> response over the serial console, and shuts the guest down, waiting for
-> Firecracker to exit before starting the next VM. Each guest has 256 MiB of
-> RAM, with two VM slots per workload CPU.
-> 
-> With 4 KiB guests, the unpatched workload stops scaling between 64 and 96
-> CPUs: throughput falls from approximately 68 to 65 completed lifecycles/s
-> despite the additional CPUs.
-> 
-> Applying the patch to the guest substantially improves throughput at higher
-> concurrency. At 128 workload CPUs, I measured:
-> 
->   Guest pages  Unpatched  Guest patched only  Host patched only
->   -----------  ---------  ------------------  -----------------
->   4 KiB        73.83/s    108.55/s (+47.0%)    74.09/s (+0.4%)
->   64 KiB       86.46/s    105.04/s (+21.5%)    90.15/s (+4.3%)
-> 
-> The host uses 4 KiB pages throughout. The host-only difference with 4 KiB
-> guests is small enough that I would regard it as essentially unchanged.
+Hi Cristian,
 
-Sorry, but I haven't understood the setup here. If each guest ("microVM")
-only has 1 vCPU, then why does this patch have any effect in the "guest
-patched only" case? Additionally, the non-broadcast TLB invalidation will
-be upgraded to broadcast by the hypervisor.
+On Tue, 13 Oct 2026 at 23:51, Cristian Ciocaltea
+<cristian.ciocaltea@collabora.com> wrote:
+> vop2_crtc_atomic_flush() stashes the CRTC completion event in vp->event
+> and relies on the frame start interrupt (VP_INT_FS_FIELD) to deliver it
+> later via drm_crtc_send_vblank_event().  Since atomic_enable() runs
+> before atomic_flush(), bailing on an error path makes it skip
+> drm_crtc_vblank_on() and leave the video port disabled.  atomic_flush()
+> still traps the event in vp->event, but since the port never scans out,
+> the frame start interrupt does not fire and the event is not delivered.
+> Userspace waiting for the flip completion then blocks indefinitely.
+>
+> Note the event cannot be flushed from atomic_disable(), as userspace
+> waits for the completion before committing the next state, so the
+> disable does not arrive and draining it there would deadlock.
+>
+> Use the newly added vp->enabled flag to detect this in atomic_flush()
+> and send the event immediately when the port did not come up, rather
+> than deferring it to an interrupt that will never occur.  This also
+> avoids the spurious drm_crtc_vblank_get() WARN previously hit on the
+> failed enable path, where the vblank is not on.
 
-But I'm certain I'm misunderstanding what you've tested here, as the
-numbers indicate that something did change.
+I really don't know how I feel about this one.
 
-Will
+atomic_enable() is not supposed to fail at all, hence returning void.
+(Obviously, there are scenarios where it will fail, which Sashiko
+keeps 'helpfully' pointing out ...)
+
+I don't like how this just papers over the issue. It turns an eventual
+WARN on vblank timeout - which surfaces the issue - into a silent
+false-success. Userspace just sees commit completion requests arrive
+as soon as it's posted the commit, so it keeps on going on and
+everyone's happy. Having the flips time out is a messy splat of WARNs,
+but at least that messy splat points at the exact issues, rather than
+the screen just going black and userspace blithely trying to continue
+on.
+
+Cheers,
+Daniel
