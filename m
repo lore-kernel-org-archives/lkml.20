@@ -1,92 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793388698;
-	b=fW1EbOrsPY+9cG6PGZaloDjMcq/hzENtdhd2mMuC+/Sh5UrTNbF28IMcksk7/Z6p9hk7
-	 XhDgrBg7+XxLhzgSD8V7K+L2INiMIqJl7zP57tV/me+vVzTem2JpPVKCHtNyC0lp08Hyc
-	 YQ7JtMpBzMWl9hkowMYD7LTc4Exro20KpQC1AKnnb0A7hK3KfDq2pDqrU75RbZLptC2BI
-	 OT25DoJ+YcVGz7po+KivbiN1tQu+MPwFmpyDimuiNE5KK81Mr4/1K5gIL/PyUfra2246l
-	 j5PonZmDCekqMeeOS930rTih9sPf/Rqa+ERg5dpaBhi9GX071RWy0VIOPpI6ARY+ZOg==
+	t=1793388760;
+	b=4hE04kru4wKR8GXwcTPeRTz6MRTnR5qiYnKPB/ikIZomtBNhXU4kEmSnk/Bau9aCJ/YV
+	 bQxGst1n0GJdkm/UQH37Ypr705fFH05fMQ8VokRHprnbFtWfiNBBM9dxitOqDX+7U2F4L
+	 eQ1exkiBbawnFMe1MN754I3UdfHKLvs/inH/3XbBEsOsTN1uLMJAK4BVIamNV+g7aqMZ9
+	 cSsSXueaKZSVhepBpfnbK9epLs+s5oYYquSbuMo3JBHf5Bg5+IlRoXFXETYUp2i9i9XGd
+	 qL2lXR0zLJP9GC9t8LuSiOmZ6cXYsl8QeNtKtSmC8RgnVtkbyon4UZ0fjux7mtWiEFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793388698;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793388760;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=if2lsNwuFNgP9iiP+gqcgFzaOaNYnTJU5/abbjeRaD8=;
-	b=xOmTCs7j/keOHehQpa4BGL0zyEss9Byd+Q1kDt8+Vg3HfMD2ho/RvF2KuWuBYwXtYKnq
-	 x4rAaIFt9HEVao41SEJBODgLG42dujiyc7Qr2CP6pVSoK5bYfJQCCwJjSoHc4415hplLo
-	 /TQ2zs5SNUFNp82TDbAR07F3ODAwTsQKfTAWJnK1/L6WNyGzcxB6nwpqnDr8CISXXLn8p
-	 C1Z9J/Hl9zVmbid60bZ2yX4AO4NH6TVy+sUpEnmhowrjKAYwS7ThggYXhGKOaenwFrpdw
-	 kFhR9cW0+WTiZOPexPXDdkSPit4uaNc+20AqUKzH6fR6FCp90u2oyV0WO22cnTwVn/A==
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UricF8dhHQUK8+p9bWTkhzvIESEgdx4WPZL4PB3uCxs=;
+	b=xVzBZxsmz+T4sT1wXQ4duUOIflEZwIlaqTWtiZZefFhMkn70WTgmFGCXvG39E1f0iIYB
+	 o1F0BBAfiJuE1ogPPkoBtAqOw55dNF/8C9QBTQ7BYjbJqOZX8Dc+YlHy6Y5pwONs6PybL
+	 EABFX6/+6NsAy5EKKA11+nU7+V2v5kJybtzfpUYsOVMB+fBAZAZzc1IQWrv9SfNTZ9kRd
+	 46+TI16yGzVn1372eprXLHJJkBuyK4mkYzyunqMh4p8dRl4AuroRT+sS+ygHOO8vfC3Sw
+	 9iX6YpcA17aDQtuwj6yuR/Epzll1S45pho8f4MHgM2LOH0gA+YxjVZ1GGSUDJ+QOSbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b8Yq7Q9R;
-	arc=none smtp.remote-ip=209.85.221.172
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fcnx4+Rr;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A0C606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:31:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94A0C606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC87606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:32:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EC87606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b8Yq7Q9R
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5eac3b6b2ceso267066e0c.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:31:38 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fcnx4+Rr
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c4d870d54so702292f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:32:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793388697; x=1793993497; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793388759; x=1793993559; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=if2lsNwuFNgP9iiP+gqcgFzaOaNYnTJU5/abbjeRaD8=;
-        b=b8Yq7Q9R9sqFjCVOktBmyhjKXL1Vf4v9VIfIHqJeZAEKwFqFGLiDdLEff1vqscpzGO
-         rjRlccjbwf4CIVsLtInbTqQmJ1VNeljPg7ZFgRNCv6mgzyVfmY8BI93Z+8P65gx8pBhd
-         Q3fKeGszXYO6fi+pI2yqg3eA+QnoCQvQNpGT47pZw4yTwzvCE/RYiZ29SKEF5Hnv9CfL
-         vtWF0fKigSTyp7ZUUnQStbvyAXbXrGzamd3DqN1dlEPULFmmJYPp2JqcXbWx9YEV5JKR
-         uZcAv30VyEqLv7T6/KjaIQQBU/9xLcTKz25bkEWVsxzoRehRHBKJpmT9LWnRsYEEhGoM
-         /RFg==
+        bh=UricF8dhHQUK8+p9bWTkhzvIESEgdx4WPZL4PB3uCxs=;
+        b=Fcnx4+Rrjm/nDD6WRKlaJ/WARw8uNp8dwMJ8dIK2HrDazIIxcNwGPqJYgQReAIIYZp
+         923FMZkGWT45Hw5bE0d3rw0vckjors7BLX52pO+3Td0x4Svb4WybDyyfL5NHykodrDVi
+         JvbBN1DstKTvCagQOTCT/doNsjyybEF1DsDxMviyPE1r64cght6GZzG418wE7Ec8dmdb
+         nlHm37TVAG0GA/dJCeaikSZbZyFGR+cAG7LZvVQFlMfNSdT797XvhSOgu/TDnM/qLYVd
+         mVj2h+9/xRbB8hTYNpl7KHCB9g1lecWiGvIIWU/lIJbGQCMxzgsQv2a3IWkywnhCKDRV
+         MZuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793388697; x=1793993497;
+        d=1e100.net; s=20260707; t=1793388759; x=1793993559;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=if2lsNwuFNgP9iiP+gqcgFzaOaNYnTJU5/abbjeRaD8=;
-        b=LCF1akwkO+Tvnx9BoEQbLKhwRmT1S1K2GQ7j+X5ABU62K4RmQoJIlc70sKoVtZnTl2
-         LHO/rXjOE1q+8/inFGOWRQ1uVl0X69FviJEYDnTNHTrSgMxMiHAjXu+gSxjO01O9i1Sy
-         8xSJVlX9qrs/fPmrZ0idw9bZSR6QPAASpggneTBaOj2CD8npD6Izo2zb9ACAp34OuCaQ
-         myelIAHO3zBJyBAFAeeampAeNZuDACsjyKqCC5reoZZHfaCQdzdThO3lECVricQxIDc/
-         5QmRlsn3q+fLwQr2Sv6ZteB5aS9crv33V/9ZxGnZzcRnoC0KHtFcPYSPYYDGxYirkgvI
-         08WA==
-X-Forwarded-Encrypted: i=1; AKwUvBxvKne2cTVxS//3VTfcQm/4tPlGTRHqcvnOurk/8W5l4uRca9OTSlyCafOMaxP61tg6AXhUBCfRiuhg4mc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXvUHjL0hHwGalHfo5H+GJXFM2c7wSawsOEZNcuPvZTEuY8oGG
-	zjuPM3pr/SCniE8IrCgY8njynD9XX/wOrSilpmtHGHxeuqZBATiXGrWp
-X-Gm-Gg: AYBFou3JVZfJr1OE7dUA5Lpz2Cbm33jhwPmmPPVxFsrlQLjqkcYFPDDIIMqtYSL8PVl
-	nteawwrKVF8QvbzkE6OE7/gKy20dCR5LPwAA3RUFTN+00mRK+l98ekcLAah0YAHs27gU5UkW4PD
-	xy1mBOaYy3Wpz10cNqAkeGGZLSAmRZrFD/XUwxfzm/sVKV8HvCC6bneq+9vnYtuH/BKEs3tv6JQ
-	CxMHOX2Uk3M9RW3caLP/xzXavgfS7o/wNBJ85PED99AoPTxSZZMgA5k/9Bnd84c8lrMhpIlg3/y
-	fg+myxKgElfKu6QK/TApls8Uh9ZZvrKFAgAA1hzOratpufmqQRdB3YBLJJpOKyz/G1/JbpEyuyQ
-	eDhfed0viLuhrfEFCMGGvAAiuIgYGkWtFxL9EseIpfteCj27W4EpyGpKCSMxqWpW+dENIwSOcEo
-	QA/i9hFU+wz3ExAB/+BMiljo0QQCxPclMRyoUUFZqat9+hG6g7h6GtByJkQjDQfdGXBqMLGqAdG
-	sUizCB+K4MtOK71/ewKOrOkEOS8Ebea5e9W9SNkyviGd7rAUnR3KfIwNSnAuMSXG63d7R4ZBgFt
-	BFedqtsXIOYXforf1Rg3nuAnBm3GakRW2fFSQ8s6LG+AExAmsHhiWL6NiBfi
-X-Received: by 2002:a05:6122:8b0a:b0:5e1:c1c8:9ff9 with SMTP id 71dfb90a1353d-5ec68515f92mr1845617e0c.2.1793388697480;
-        Fri, 30 Oct 2026 12:31:37 -0700 (PDT)
-Received: from munique-a520 ([2804:3bf0:fe29:ac41:2d94:706:4bfd:852e])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69bb872dsm3671250e0c.6.2026.10.30.12.31.35
+        bh=UricF8dhHQUK8+p9bWTkhzvIESEgdx4WPZL4PB3uCxs=;
+        b=QAMJ6QlCGDYFHwx9wvCiXGmy1wCrJs0l27gxcEottBJvgg73Sp0YOzHxak/pI4HX04
+         8cD5WpTsD70VPLWqExwCGJPRGHBKOq2vjaYq6OfkDtfkCqNumX99kamIqxrp/CofJHBR
+         BsUOmVGapo9qvSlV15IORcn4InPBVBi8QrGn8KjSbkH5pm9wHKuYl4O/jO0UCOVRI3CX
+         9nKfy3oTmPs5cse/vwx60d8kNr8f67aYRLFjv3rvmbwDnfsZpPldOS8Hom21PErY3TOS
+         SE5HF0MPHC9ZCe6/Tq8fOo6HEj5VbsU0ot/g/g+FUTFq2jMuWJADFY7IxhmsqdhMjBOC
+         ncJg==
+X-Forwarded-Encrypted: i=1; AKwUvBzscj9MeH35vh5Qgo299YOJnr09/iBrMvYJeN9fRJgi5KYe5Bqz/vQd8feoAKNenxyqf80rRr9kRwnUgBY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLklRXj5IfF0g4WaoB8QwoLNH5KI7mhTbcrgMGSEd1NxnexbM2Z
+	1Tpu8g0NHigZKeOn1lFOnTgIgTHsU6hyhVvLupZ5QPpidNyXmorYGaI=
+X-Gm-Gg: AYBFou3DaMDFBYu9ihefm4s9uUD9Sy2niIUdnw20819zYvmpup5zpT5CMdwWEWkmAYY
+	T6Vqs6Y5png5YeS7XEgnb///qRfMJ4icMaq4/L4K3PcHXrPVz+uEwR90sfzk2Jhfl6+LIMHpsYg
+	gKDqpn/e07K55uZmWnKuevgSeaQonsSmzpz03s1IhEXR8KGPuIir2UvqKeB6tcBPc6JOxUzhI/O
+	LG8Nn5EzqfFW6NCVwvtNAqgw0BSqaikS6DE6l3zRN0q6nekY4IzHTgaraG7ljXw7NY3bQWQ8w/D
+	VFUs3VhBUZ1K7iF5FzxfMK+iCxfDuq0zt7c90zP77ApKZTROW4XFV60guwwJ9WVXN9dIfHV7BqN
+	Eo9f3cPH5Hh3pyHkBvDY3941GhT1GMfx0lJ785I28JbcCIjdZ9czn/HcLOPISCjNCpmLxyn/LEq
+	jOZZzMQHr5I9BW+8RgLu0taLBB5vWI+vsFf1iDw0itPEC4ULUxqQLjMxroKWgi+xjAp4zeX5/kI
+	hC2LofJIqe9Pmxp81UFW2dQJV83KjjU6eypIgttQ6wMH9RqBt7bgVGQVSu+DvpPyZk5r/DdogrM
+	DQhTAlo3zRU=
+X-Received: by 2002:a05:6000:615:b0:48e:5b50:9c52 with SMTP id ffacd0b85a97d-48e6e4fca88mr7640794f8f.57.1793388758641;
+        Fri, 30 Oct 2026 12:32:38 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a6bsm4799150f8f.27.2026.10.30.12.32.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 12:31:37 -0700 (PDT)
-From: Munique Feitoza <muniquefeitoz4@gmail.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>
-Cc: linux-acpi@vger.kernel.org,
+        Fri, 30 Oct 2026 12:32:36 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Zhu Yanjun <zyjzyj2000@gmail.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Munique Feitoza <muniquefeitoz4@gmail.com>
-Subject: [PATCH] ACPI: processor: idle: Add DMI quirk for HA0QING A520
-Date: Fri, 30 Oct 2026 16:31:28 -0300
-Message-ID: <20261030193128.19493-1-muniquefeitoz4@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v10 0/2] RDMA/rxe: copy send WQE to kernel buffer (TOCTOU hardening)
+Date: Fri, 30 Oct 2026 19:32:33 +0000
+Message-ID: <20261030193235.3470653-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,37 +101,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On the HA0QING A520 motherboard paired with AMD Ryzen 5000 series
-processors (such as the Ryzen 5 5500, Cezanne), entering deep ACPI
-C-states (C2/C3 mapped to I/O ports 0x414/0x415, corresponding to
-hardware C6) causes severe system instability, random hard freezes,
-and memory corruption ('BUG: Bad page state' and list_del corruption
-in page allocator / LRU paths) during idle transitions.
+The SoftRoCE (rxe) send queue is mmap-ed into userspace, allowing
+the requester and completer to process work queue entries (WQEs)
+whose fields can change between kernel reads.
 
-Restrict max_cstate to C1 via processor_power_dmi_table for the
-HA0QING A520 board to prevent the processor from entering broken deep
-C-states and ensure system stability.
+This series copies each WQE to a kernel-private buffer before
+processing: patch 1 for the requester, patch 2 for the completer.
+Both paths validate opcode bounds and SGE indices after copying,
+preserve DMA progress across multi-packet operations, and write
+back updated fields to the shared queue via WRITE_ONCE / smp_store_release.
 
-Signed-off-by: Munique Feitoza <muniquefeitoz4@gmail.com>
----
- drivers/acpi/processor_idle.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Changes since v9:
+  - Patch 1: check dma.resid != sizeof(u64) instead of just > to
+    also catch undersized resid that leaks uninitialized pad bytes.
+  - Bisection fix: move qp->comp.comp_wqe_valid invalidation from
+    patch 1 to patch 2, where the field is first defined.
 
-diff --git a/drivers/acpi/processor_idle.c b/drivers/acpi/processor_idle.c
-index e113bcbbb..49768b176 100644
---- a/drivers/acpi/processor_idle.c
-+++ b/drivers/acpi/processor_idle.c
-@@ -105,6 +105,10 @@ static const struct dmi_system_id processor_power_dmi_table[] = {
- 	  DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK Computer Inc."),
- 	  DMI_MATCH(DMI_PRODUCT_NAME,"L8400B series Notebook PC")},
- 	 (void *)1},
-+	{ set_max_cstate, "HA0QING A520", {
-+	  DMI_MATCH(DMI_BOARD_VENDOR, "HA0QING"),
-+	  DMI_MATCH(DMI_BOARD_NAME, "A520") },
-+	 (void *)1},
- 	{},
- };
- 
+Tristan Madani (2):
+  RDMA/rxe: copy send WQE to kernel buffer before processing
+  RDMA/rxe: copy send WQE to kernel buffer in completer path
+
+ drivers/infiniband/sw/rxe/rxe_comp.c  | 76 ++++++++++++++++++++++++++-
+ drivers/infiniband/sw/rxe/rxe_qp.c    |  2 +
+ drivers/infiniband/sw/rxe/rxe_req.c   | 72 +++++++++++++++++++++++--
+ drivers/infiniband/sw/rxe/rxe_verbs.h | 12 +++++
+ 4 files changed, 155 insertions(+), 7 deletions(-)
+
 -- 
-2.56.0
+2.47.3
 
