@@ -1,92 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334237;
-	b=HiC4k1MjNEm+UnaOfDaRVclb/cKOL2WczOU8LhZsiDAWhHQuFvBsgvSF1pQUqKl0gx2z
-	 75X/lp3TqBBU0TjwHHfzFPMtupJ9CKxToh54joLvJ2G5X6EwyNKt+06bdoydSyHa5dwsL
-	 IuX2Zcl+FRoy6hpRfG3SY9bhGYlw82Q+R7Ttos+eBWIOJ/S59sVbO/duT+WeFsfYtOoLk
-	 +T90nxCFwqeObxbTo/iS/SQv07727tTkwX0gL7pjrfq+ij5xhEu8935Jxpq5b7tdMP0Wm
-	 FCtVwMR9gjB3zfABUCRMbf7qpu/IYFbZkQuRjNIzuf772nKQj6Gi5Bz8BmNbYdBZW1Q==
+	t=1793334236;
+	b=w455+BXgHd2aXPRZeGL8Q0KZAVWPVUq7NXDpcLABV8eCt5G6QLHNKd6lr4bK644FS3kJ
+	 a5dssrEAK94sU3S5HnsQU9e0jJRPXI8/wuw1N39t4escPqyPP6mLX1ZvfjEvyQ4iF8NqP
+	 EPbcNAQ0hPS4GGCw1XwIMm05I9lR7aoF1MxP2Cq01w6JNV6tRA9BB9/Hb/YKIeD8JE3d1
+	 tReYPvsC89H/jZ/4I2tyXw1WvKRqA9siZ6nYNNx373iM5e1+P54e7QtHIWVXcb25Jf1Xu
+	 ua545X/GUjpCOhmSqHEFvbn1X6oghwVqxnYv2FyRWP5MZ0AjBJZTVEJsprsMWni8Cog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334237;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=RfmKHAdchvYOHXCySZuZqltZmMbPaWi+EET0Jg95xlI=;
-	b=1q/UksrmAv9V88ExaJ/DCnDKXQ0e9s352zHzsPGiDDh6JQMALbp2AHkz+UVOfl8233nW
-	 rZDaU4Lp/ykaKAlF7n5HGp+wFWW6UEieEti+hRUCmPrdogoaHmPuJIwvtimuHnU1DOPpu
-	 utIs5Cw/ktA7mMho3LlKIonh3CjA9uZfxEaEceYpQFN9iHmzIESaE5acMUiv4W2rQV8qu
-	 4QZK4ZOWKKGSftAUM5FUmezY1EU+RtNxyOAq8q/JSj/LJ39lgCd+YQRX3RJBBokNnwGfn
-	 OTuxuP6IgVlEzB4MRxMrwcqQVl6crw6Vee6hFh1vozY4QIyKbbxMJoCtl7a37X+qZsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334236;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	b=M7VSPrJrJHCbE1kMHDzisJy0nh0mZ6eBvdUfX+4DD+9iVtsNPvy/+Lps55LiLd/SaM/q
+	 M37QpKK4+VNUguPOhPIY4oY9UidHl0xnVODVTgBqWRx4EW8aipSAbLTadmidk3jVbMUMf
+	 dsae7WyFHAXfuXwLr9lWt7tnn+5JbPfEMEn6hz5bRwTsIe641aDm+nD2HNTfijHhXPya4
+	 fqRIdYQ/e7ZlT5YsV5phagD0yLULA4bE2DtqlW1+LUv3IMmfaQgS1kHI/jAz5Yb1h8R4P
+	 OOcxUf9M0qAx8wd/PoJVAvpABhoUczXbeBdZZVzfWLyA3LzEcMzPdhrFXbwMYTOiUNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openai.com;
-	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=Uf43vrHO;
-	arc=none smtp.remote-ip=209.85.167.170
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldLwaeWc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5394606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:23:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5394606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7139606A32E;
+	Fri, 30 Oct 2026 04:23:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=Uf43vrHO
-Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4a451915d8aso215384b6e.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:23:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1793334235; x=1793939035; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RfmKHAdchvYOHXCySZuZqltZmMbPaWi+EET0Jg95xlI=;
-        b=Uf43vrHOpujmfbCf1JhLmSAnNn73CszTnAWFJtS6hZr9W9yuEmdD9OIfRZwBaMGkjM
-         obaGsFNR6Pd9PtDvAWv4w81adS4+S+e48LAaI523Tc2ks7O8N1PO+d8T9IIYkrNRaLQL
-         EsUnd5Z0a74CNQgYgB7XffH+WLTPilsfRa41I=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793334235; x=1793939035;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RfmKHAdchvYOHXCySZuZqltZmMbPaWi+EET0Jg95xlI=;
-        b=n3My7AFdI81IPwsgRLyo888nx5adA6pDlUJQHiP+/xT4ArfFQstDgLSF4ouei4hVyR
-         tau9Ls2BRAzzH4fbXIRJPU7dL5kIDpa6ZgfAvf8D+B3ohSD3Thf6uHKPeHCEJCPDrcVt
-         1+XPwPuoExaWVyXKcmewQ6U2F3EoX9MK68gT2HyMz82t7lblFQEUsqQAXMzskB38faak
-         W5XCpE7xj4cx2De8/CFCdv0q4M2JCfd882zG7gHJtqQQGuH+DYnL1nGuKqgYU0lP5tEC
-         Oue/HRsOxvXYA0rKoATco23LKelpdljs7ZvxS0ntwHDiXRT8Cj7Vk5KlUnpP5GUUeN+1
-         /7Zw==
-X-Forwarded-Encrypted: i=1; AKwUvBy+YR5N6J3CM7HYqA/5T55+/7e96VXDPm51uYX6R7ysU73yu2k7CBKpWghXC/LxN2mrtHj3zfRczk3KjPI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeAYwviUfWhEd71Vo6SI3VNwrYK+3XhbqjUMPmNkvOniB8cwf3
-	G1RTEnarRZjC+QAuWzZRT6QeycMIqR6M2kBP9OprRYxaxrLZG8QxN1M055Ynao1u/AIy88T+U8z
-	k2s437QI=
-X-Gm-Gg: AYBFou0FQYOktx47HoZKjzkUvJ7Re6T6KRkVsEImW/uZqj48I2oSqHCO9KOT/QKaYhE
-	ZGgrFeyzXnunlfyY2/PDgeUhxBeA3ZBbppRiaNZkRHDqXWFvmR/ZqlWcLZSl35jKzpJFN6URI24
-	kRX75qt0HEfDJtxQTbQechKEHj7WG5l5VerP96g7UwenBdrhWyxUCWO+Ch9A7/I986EaJ4Skp+u
-	nY5CjTw9agj6WSF0zEdnO9lSrnE1DF9gLu1KtEE68pmD/neqCpg4FKtBI/Ln3JBslVcpYFhJkpn
-	tXIwmeRPjvpfdCEZHAHrVhpcFSUHT8zPl9i7hwhOAx2OBhOMbCvy6mZdbQ/inZ/GeE03O1GlG48
-	lDifdsmhQgwsu9gE31CxK50lNqrHn7l8yHHhQqZO/kd6Ma/pnmu3S0WOpc8epF/whnu+8q8f/yT
-	VZsRFKSDmB6lxAwNQYXQ6r25c1p+6suB1o5PHYUjra1bkRtXr1SDVO1KUu+pj+THps/RfPVdlwC
-	0R8Day5ZVHt5jtxs5fnq7VDudR3B+zFdNAweEirHa6YgHyBHh5ebRifYkzCeqKemmfU+8JtvYCv
-	j5bi9CNhjm7FQZTJAUqTxaZHVX22/ENE7p1ji+S8Cq0HFM74+8pp/qE5tXmbmp8o0JAouGAzs4b
-	XC3SFUvnyexPk5JrkCtluzNxv7JDFYfypy/0OOT7iZ2EMynIZqXM=
-X-Received: by 2002:a05:6808:6508:b0:4e7:851c:23f5 with SMTP id 5614622812f47-5640de97eacmr799218b6e.59.1793334235579;
-        Thu, 29 Oct 2026 21:23:55 -0700 (PDT)
-Received: from com-75606.corp.openai.org ([199.47.143.5])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fc49880sm783863b6e.2.2026.10.29.21.23.54
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 21:23:55 -0700 (PDT)
-From: Kyle Zeng <kylebot@openai.com>
-To: netdev@vger.kernel.org
-Cc: Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-kernel@vger.kernel.org,
-	outbounddisclosures@openai.com
-Subject: [PATCH] xfrm: serialize SA activation with state deletion
-Date: Thu, 29 Oct 2026 21:23:53 -0700
-Message-ID: <20261030042353.74606-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldLwaeWc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04CC71F000C1;
+	Fri, 30 Oct 2026 04:23:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793334235;
+	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ldLwaeWc42S5001onPTjBkccHn8RWV07Twd9qsnHprVeqYkPGDHvTBuCfq5qzoJg1
+	 n0QX13t+Y2g9QwOgs6RMzagXHyYGwR/Yew3NqN0ny99DSVO6w/n7Ks4jcqkbzpvgP3
+	 bcbsF49lWQl4yiBPz3dlh/ETlzO8L2QYjDyLk8xEb805H+ZJEcEHxUtjzZZ5SfVET4
+	 sNCaJ8l/jbPCYd4xOAN0s2CoNlnRBjfZA3pU2Yo9+X3vbEzAP5bNFuucNTb2i/ehk9
+	 MiCVp2HC/5p9CcTjG4Ka2xvoT8X9pcQz1hA6hguILmfEz6uvvfDzYGmSsqi6PYg7NH
+	 FYSqxhDZEaw2Q==
+From: netdev-bot+sinfo@kernel.org
+To: Kyle Zeng <kylebot@openai.com>
+Cc: netfilter-devel@vger.kernel.org, Pablo Neira Ayuso <pablo@netfilter.org>,
+ Florian Westphal <fw@strlen.de>, coreteam@netfilter.org,
+ bridge@lists.linux.dev, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ outbounddisclosures@openai.com
+Subject: 
+ Re: [PATCH] netfilter: br_netfilter: reject unsafe neighbour devices for DNAT
+Date: Fri, 30 Oct 2026 04:23:54 +0000
+Message-ID: <179333423450.3327.5812474548450706778@kernel.org>
+In-Reply-To: <20261030042155.73844-1-kylebot@openai.com>
+References: <20261030042155.73844-1-kylebot@openai.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,47 +64,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-xfrm_add_sa() publishes a newly constructed state and arms its lifetime
-timer before marking it VALID. The final VOID-to-VALID test and store
-are not serialized with state deletion. If hard expiry deletes the state
-between the test and the store, the store resurrects the unlinked state.
+Hi!
 
-An input lookup which found the state before it was removed can then add
-it to the per-CPU cache after deletion has removed the cache entries.
-Once the remaining references are dropped, the cache points to freed
-memory.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Take x->lock around the conditional transition, with bottom halves
-disabled as in xfrm_state_delete(). This preserves DEAD if expiry won
-the race. The same protection covers UPDSA when it installs a replacement
-for an ACQ state.
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Fixes: cc01572e2fb0 ("xfrm: Add SA to hardware at the end of xfrm_state_construct()")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
-I have a reproducer for this issue and can share via DM
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
- net/xfrm/xfrm_user.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/net/xfrm/xfrm_user.c b/net/xfrm/xfrm_user.c
-index a2587c7e796b..b47e5952f619 100644
---- a/net/xfrm/xfrm_user.c
-+++ b/net/xfrm/xfrm_user.c
-@@ -1068,8 +1068,10 @@ static int xfrm_add_sa(struct sk_buff *skb, struct nlmsghdr *nlh,
- 		goto out;
- 	}
- 
-+	spin_lock_bh(&x->lock);
- 	if (x->km.state == XFRM_STATE_VOID)
- 		x->km.state = XFRM_STATE_VALID;
-+	spin_unlock_bh(&x->lock);
- 
- 	c.seq = nlh->nlmsg_seq;
- 	c.portid = nlh->nlmsg_pid;
-
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
--- 
-2.56.0
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
