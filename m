@@ -1,109 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793319843;
-	b=3jqURfYpJbvkC04nYg7SCLBS8uBEfy9Y1mqCEJfcerFN4qM0+umh1B9FvHwkK+QQyx1H
-	 4DfEjF050uCRoFWdNWpOTEdRt1Ad2d4lcilJSt55Z9fKFgTFjy2n7aFci3jd87UuplnVi
-	 9UKA2Uj5KczWWyuc1eHduUHGFYndm6MgveXtkCWoc+RXQceNu7MCVRbySdANlONuZxPR9
-	 MeMa+ixK67s/rKl8ONaZwHJSbrE2j/YqTh2JvyIkY9m1oVr/gNW1rNUSfaKh1WX2y+roE
-	 EKNm41t7YP0XlA3YWGh63tKqJJBw8mzZzLBDAqXeozcOntvTj6pKzwcblPBgu0aae3A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793319843;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793319844;
+	b=TmH0iBpowwAef7OyXtduqYMW2yTLsMo3U1TLUju92QqP9Sq4j86qhA45Dlh5b/DRhNZA
+	 ZWAlncALHgEVT886zrTXNvV4/UtMqO1PzeKSXeyc0XEy9V7ZP3TIRzBJaV7VXwpx8CPtI
+	 DScMEpY1mQLRjbPspxY6APqFf5K8zABoS+p+gksfTuJTBWumVhvT2E8CalyujzPVfrCn8
+	 DSTB+uJmzgG9N+jIpOcD17REd9ZP+N8hrrmVnqL2AKbrKBXj+Y/ytnnNiINWNp3Cq6rB2
+	 sL2qwsUTvykFOWkVGdRtvryXVbzhtT4Yz+4m/BMAVhCXSWeGUVebBN6Uw1zJZYhjeaw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793319844;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KkjXI6XREDZgMovozjWwMnBiOd6uNUe+5PisGTE2NV0=;
-	b=2bRyJvBWC+oWJ2wRUGPzJOUPJnesa+HQq5eOGOz5+AOPPm/O4zsVspLndDTz+FjwG21j
-	 mdo2XV7/1KpPCG8ZdBa+3frxxLzWMdR1imPZf+t91WUMKlcUQ9jx9+Jt9pVEOx5Ha6mxD
-	 HZLRnDRKhZn9A/rM+MxNQ+4aGAS+ZwIgZOpe/VAR0itWhlUN8NiYfr28zJ1Q6jUHZKEBk
-	 MhKFLk6FxO8yj0rTE5FwJMiONKEecKuM9I2TkRirYibCbC60o1zKx3qMtodwum69wndIq
-	 /lcm4vYZUdoGz/jPUPB5k4pcZZ8DKu2eW0loa4KvscB124wh0IQNsGzMIMWBtxPmtVw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crusoe.ai;
-	spf=pass smtp.mailfrom=crusoe.ai;
-	dkim=pass header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=fepJCQ+g;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=VMmqUl9uJsPT0M2OBCk5mwHznWO8pexQECw7k6bATJE=;
+	b=3yxoRneVZdTHovPwXVmuT1avzYI38WnnaFkAy7OUeMZ3OO11NuN5xZd/29BaiW9BoQAn
+	 GybyZF1hOC4mpncFGKK1skTj93zXmiU5sVAYyuN4XNzoBLNuodNynLaYWKDWy1H05OSK3
+	 NT/s8zrAXKEx2I0heXJwdIZ+VcPm1ORCQGK1Z8eP6SYxY/ZLi7MWZlfmX5UbD+7mRCg2+
+	 K/BgHIgnHFt8noij04oOFM5ehSelK/7/ezNdTBTuLeHbLYReCBG4mtPkoWkgg9dFt73Eh
+	 R4dq4KCukAcvVChYiKqswPKUh6xJmlZDRjYnrpHBFN78PofgmroR972p1NI55HiY1Ew==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LpGlNmog;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D898606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:24:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D898606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56244606A326
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 00:24:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56244606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=fepJCQ+g
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso297096eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:24:02 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=LpGlNmog
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c40f29667e6so15190466b.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 17:24:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793319843; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SH/vNpjp3wYiW3t78TlD+msirtuHxNgCq/WlR14ZmrmlbXuIaCyXTvgU+c9RlgWQuV
+         j+jcJQ7q1cMhbtAhWh4wkWeckK2nY99Xb8sPKPvGffXPrE1dI6ATEmLz9N+zKFqT4tup
+         W3fvyo/nMcsycTWZhe+4yM9iVcCNpSeiZTb89JKRSQtqI+jasNg580qUT2sdOgMtTWSi
+         H5Ss0HWUamn/z7nDdzz40x6JYlGNCW/0ohhArPfYXMH44T8r1auj73XEo/UV+ejt2IGM
+         gH1x+AxYkj5HlNfbxaQ69suvHqvt/wvHf9v7Q6KAH2JRVern/CCsST8Hq+scynY646aJ
+         yoNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=VMmqUl9uJsPT0M2OBCk5mwHznWO8pexQECw7k6bATJE=;
+        fh=lQ6BOEgtFSe5IuP3BBKTfxqGBVUNudQfsjjH96K4w6c=;
+        b=hwCjZEf/1yVQdvxKgDtrb16Msxulv7sYijRJOwLIHf76QCJavGzv4ShBZDQG2enluA
+         vJbjS7SC3yGQDGYPxD+XP6X3De3LSzpHDgjw7L+KaL9Sptok6ZfeZvx5Sl8n9jQa3k+R
+         hP4kSHPT3vzoInaRudqnS77r9O2pN5eDiKLlP6rBwRuB8bHBDNHVhwTRHUK7p3G6zLRe
+         +lrR8aYEBF5swHiruHqb0P9ugdfkrh7OhLLxG0ksNVRe9dLaOrC+4uCNzIwRbDioMX5F
+         M2vFSGoOl74yu6UonF6LzMnciGO76YAY4RvMFtg/4EnNTt48eeAqma+0D6ZfV0CMN9IH
+         hiLg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1793319842; x=1793924642; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KkjXI6XREDZgMovozjWwMnBiOd6uNUe+5PisGTE2NV0=;
-        b=fepJCQ+gqlT0HyBElz7OVjk3QQmv0GPv5GYS8oH29ml1mT0SpKH8HwChSXag30WKxK
-         iRimiOCgYS4l7xp0AMdYebg38Szg9+B7lswlzycBjqn2ocxcjLFPf5RP6TX/8GMkAJFs
-         xyNdo+/cYnoxVPquuRFBqbf2L/FZBD3Aju/Gh4JAk07YWRbIBVGtBqPlQrRMi2+gmfsa
-         5kw0KycMWUl2LXvDkWGVwXTGe3Vq7nasZ0uX+TR/E0CsA1k9YZoLzzyh5v9y0A/h1Ghp
-         xqrjK1Il0GnyBGldC+hphae2udyO6X6GhxX/VJX/aEdmc2r4oOwqxQwl3WjB3DO16Zyx
-         DCQw==
+        d=google.com; s=20260707; t=1793319843; x=1793924643; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VMmqUl9uJsPT0M2OBCk5mwHznWO8pexQECw7k6bATJE=;
+        b=LpGlNmogTRImOIcoGkVK6kX1FwvGGuvBqIqbOQmm5KJ3xSt2iFKkzmTKCxMImHdVaB
+         aDfTjwZqyoMW2Iv2ufgeHFBdYwUo31Cysp7oHlTZ5mddkgutsSip90Yu0xuL4dwsjPlG
+         H2d2o1NYWkpAmpZotlXfjCTbgYadKtl2mltD866hVzSHDvqBS7/xSgXNB9gCvo5NaMp6
+         UR5LppzANcnsvAThS9ZzZ+t3lqd2cQjUINGMXJlzmHMLf95KKq7TGISjrOlO8RGNlmd6
+         PEsSvEAPMgc2Des3Z6s7C7VBy/qcyKQWcN9VLLn5h9MLqOJtFhjlOBczCmc7Ss729Ap1
+         cjAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793319842; x=1793924642;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KkjXI6XREDZgMovozjWwMnBiOd6uNUe+5PisGTE2NV0=;
-        b=x0ICUkegJkUemXaaInnGGDTUU3T8BI0PT0b+cu1RwVMv4oI1Cbm3KmldLt+QYUgtq2
-         aBJ5NVO4J/yN96nUwRT2EUl9M1JKi+pwaT47kQEO+L9GId2sMb+ZUAquH/007zYuSJAp
-         ozR+GU0SxIpXUIhyYgr4EPqFM6k6DOIqyCOVpjgGxUFRTRuB+shJk+q0IgAGfNqBAb21
-         nZpxuvdF8Y+z74uC+olWVFUFq8hkkkzhcSD2gXwVJQbt6UyfSr6+Oei/CmLdqp6ryKaV
-         trjHRchnbUTopZjHHFzt2/8hb6nJYzIsBQk91vDBRDMq4AApQQv8iQqhqYvC9UlaBRI/
-         rIyg==
-X-Forwarded-Encrypted: i=1; AKwUvBwFsdvqSYpMuX9ahQFZEITDO2wHyMQQSg2fmKOFJQTd6jupgaJMOMZMMcet6hqBQ9B+7+ajBL8F6z/7MAs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImNXGZTjPOHhiX9gLZ2v+YWMaO+ln/E+U9N7T3viQGroQgyGZ6
-	R1FcG3qLj1QvdIDI9lX9or+552fmT+OK/SNRMjVhDhb5ldk06yF5/wUFnVVQK3MylkI=
-X-Gm-Gg: AYBFou0gwFMb3JbS/P9J4pHtZSpzzODJVUzUrYsA1JM0jQ7iSbq9sqR+3WdEVwUwWpz
-	OF5X6aXidtGffq34vwBSsChx9SfNGtMDHEqYf8YA9oe2lob5wM8iCJCFp5TLfP1RHfjlJ8a1w9/
-	S4XEh5KQ2i4QlThmwYqUX6Q/kypvfd5/tl4L40Zh0fInpVdYgQV5m07jTBPOnts7z37/OmJTZ5m
-	ne+lfIoFXn3gJeDuhxQL93OsKRCEM0Nw+tsAdIS0LLJdMZu9z/HLgSMOsK/h8bBa80hxMuwSdS2
-	PmNVdtnjKgIPbLjKg7sqYt2c3ojpat6lTTxkny+nh4aYnzRT2/rFwDYkzmtvBFBoKmQW2hJlbhx
-	a8/uk43DdPxpiRRvoET1Jf9DQui/54ipE6YT3kHlXfLBjhXB0VAHx5Fwhv6MJEN6cOtV0CjvMNP
-	5o74joFSkup7R2nBO3bRwj923ZqImxHsUTTgKEkZiEcq6cXfogj/KRMtef5DlbGf6pBLcVR/3oV
-	C7QsBwbD0VGu+AtCDE+Rvo3jyWKwhM/Pqb/GKH+TobB5IABQrTpJyqejON0PLnrU9Jaux+Zj6P0
-	3RTS3nrMe+M8bw71TI/BnRevFR6B7/oqNWmMXV+p247/hQeOCp3ON3/0GcJlUU83COpa4sYzUaa
-	TFBRhfaKlisKnqkijbxnB
-X-Received: by 2002:a05:693c:83cf:10b0:36a:1427:3933 with SMTP id 5a478bee46e88-36a4236e7bemr1488656eec.16.1793319841432;
-        Thu, 29 Oct 2026 17:24:01 -0700 (PDT)
-Received: from MBP-Saravanan-D.civet-hops.ts.net ([67.208.231.220])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm2241458eec.26.2026.10.29.17.23.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 17:24:00 -0700 (PDT)
-From: Saravanan D <saravanand@crusoe.ai>
-To: linux-nvme@lists.infradead.org
-Cc: Saravanan D <saravanand@crusoe.ai>,
-	kbusch@kernel.org,
-	hch@lst.de,
-	sagi@grimberg.me,
-	axboe@kernel.dk,
-	nilay@linux.ibm.com,
-	dwagner@suse.de,
-	sgogte@purestorage.com,
-	hare@kernel.org,
-	hare@suse.de,
-	linux-kernel@vger.kernel.org,
-	iyamahata@crusoe.ai,
-	kiyer@crusoe.ai,
-	ganbalagane@crusoe.ai,
-	sjpark@crusoe.ai,
-	bchen@crusoe.ai,
-	shinichiro.kawasaki@wdc.com
-Subject: Re: [PATCH v6 0/2] nvme-tcp: allow setting per-queue io_cpu through sysfs
-Date: Thu, 29 Oct 2026 17:23:40 -0700
-Message-ID: <20261030002344.92839-1-saravanand@crusoe.ai>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261023230426.6425-1-saravanand@crusoe.ai>
-References: <20261023230426.6425-1-saravanand@crusoe.ai>
+        d=1e100.net; s=20260707; t=1793319843; x=1793924643;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VMmqUl9uJsPT0M2OBCk5mwHznWO8pexQECw7k6bATJE=;
+        b=0TtAHGUd1crZGpfpfpSh8VFSExHFHo/UBMZNanrG+bmyXQBi77LxlLd5V6npAbVvvf
+         BcOp4yFf4bq1NQFIf+Qb8IBdFgXpgWjoCerJbuIc3kmqrGKuXyzow/Ro0loPFcImnkxM
+         Uikm2iZp1gJDYC1YLnwREgimODk6uAPU0Y06R2bHN/DjQFcd/d/TCuqmtCnazuKEbBTN
+         Re865Q25J+ycWG+AHXdVwMzcnLa8RH9EUbDNRsQJQXnY24Q34kvaLWgoctgc5EOw2wE9
+         hL3tmD2PmOClBQ4b8VsOWFwURlLtTFq58g9XOScE4GUsAN5ex2OlRaDZ6Glv1+KPV2kq
+         9vRw==
+X-Forwarded-Encrypted: i=1; AKwUvBwYfD8AatjDQoXqMSuPpw92dMyYsFusPX/zuULNJ1+HMn9rZDcx2toxQp8XUZleADtYkwvjbrWY6YH7qaA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBZ3ondBiPkg3+3ZYJ5kdRsCBlpovDPRFfH6VKBdfXEjIWJT5f
+	SjUoVaU/K6Au/o6W/lTkXD3B13xTXoumObFP0GhLwUS1SJ1fFn3+/YKleuOq9GzT+ZsMhg4MX5V
+	LWrt0Ed0nbm9ag3UqO/GPDbRph1W7MQOvoW1YXjz4
+X-Gm-Gg: AYBFou20YMBdklvkt8hmkXNnwCgc9sAbe1nFyWtPnwNDKSHh8Zf23Z9OvUaZRD0EQ/L
+	eL2a4Xyf4rS3a5tnMKHSN0vJMQTIyhqmJ6Yulnbrh8pdLLvRNobJ3ytEjP1Mag6HHRoodTsg874
+	mOkAmEV18roFdqJIzFSq9Ei6FxQGEl6WCnthcUpMQrz+VLGFfdFalk8uKT99/QCyl81Yp26Hb8o
+	kUH0OwH0d+TizLOTINoEcygfGhkTBkZDzw2pgFNenkHhxNwpNgd6wqpb2fsvsvIcpOw7AxVjbeT
+	gdpD5xVjTIRtVqdV8mtq/bK69JJDeVgE4vVEdgvIOAJ3hfUGWn3FPjQThm5SQvO0sYEssmUVWtH
+	4eXYGNUbbOssLH8F+ZDn3mTuyBFvKRWxvGgzeMTiwSSaEM9T52I2tCBUbweKt2p3H0ef64F0I/Z
+	ti4yY+9gStRfDCNQ3J
+X-Received: by 2002:a17:907:6d20:b0:c46:7643:ae91 with SMTP id
+ a640c23a62f3a-c4ca7a08673mr59997166b.8.1793319842360; Thu, 29 Oct 2026
+ 17:24:02 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,15 +105,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261023001603.560210-8-wusamuel@google.com> <20261023001603.560210-9-wusamuel@google.com>
+ <CAEf4Bzb--Jzz696u057G9_CgQN7zf6ksvoL80KJacKO2CorsnQ@mail.gmail.com>
+ <CAG2Kctojb7xiOqTmwWqoAKFaNUECjOzXVc_t6KbG13Pqm2dbng@mail.gmail.com>
+ <CAEf4Bzbs8F1DPBz=WXVTExrrNjzvaFsi4L+HEj+zbUTpPSTX5g@mail.gmail.com>
+ <CAG2KctpSTCyWQHgJ8GyFEhHPdFawUa6zy0g7rkfCcujJRN6f6w@mail.gmail.com> <CAEf4BzbyqPC=RQGWEdpkqu1WDQ2_S0H8pZU2i=_gLuSDQtpFbg@mail.gmail.com>
+In-Reply-To: <CAEf4BzbyqPC=RQGWEdpkqu1WDQ2_S0H8pZU2i=_gLuSDQtpFbg@mail.gmail.com>
+From: Samuel Wu <wusamuel@google.com>
+Date: Thu, 29 Oct 2026 17:23:50 -0700
+X-Gm-Features: AclHuK_8kDb2R9N0iMUoVO0Y5pzDVtS-1XOT4NszWcH8axoYKkVXrpd6hnWmpKQ
+Message-ID: <CAG2KctrkKOTdsjWVRBEHuH45-9xpYsxDTk8PpZ4Gu6Ygq1Azew@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v2 1/6] kallsyms: Add KALLSYMS_QUERY ioctl to /proc/kallsyms
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A short status update on v6. The Sashiko review of v6 came back without
-findings [1], and Shin'ichiro confirmed that the blktests case nvme/075
-passes with the series applied [2]. The blktests patch linked v5 by
-mistake, the version under review is this v6 thread.
+On Thu, Oct 29, 2026 at 3:54=E2=80=AFPM Andrii Nakryiko
+<andrii.nakryiko@gmail.com> wrote:
+>
+> On Thu, Oct 29, 2026 at 3:36=E2=80=AFPM Samuel Wu <wusamuel@google.com> w=
+rote:
 
-[1] https://sashiko.dev/#/patchset/20261023230426.6425-1-saravanand%40crusoe.ai
-[2] https://lore.kernel.org/linux-nvme/auMw5Gxg6toa8GD2@shinmob/
+[...]
 
-Thanks,
-Saravanan D.
+> > I envision ALL_MATCHES to do some form of lower_bound() +
+> > upper_bound() on vmlinux since it's sorted, and then linear scan of
+> > all modules. Of course, just one of the two or both aforementioned
+> > things depending on the module filter (any, vmlinux, module).
+>
+> no point in upper_bound() if it's sorted, you just start at
+> lower_bound and go linearly from there. I don't think it's realistic
+> to assume large number of duplicates, so I wouldn't optize for that,
+> one log(N) lower bound + linear scan will be faster in most cases,
+> probably
+
+Ack, lower_bound() + linear almost certainly will be faster in practice.
+
+[...]
+
+> > My understanding is that the size is encoded in the ioctl command
+> > itself: _IOWR() puts sizeof(struct) into the command number when
+> > userspace is compiled, so _IOC_SIZE(cmd) is the struct size of the
+> > header the caller was built against.
+> >
+>
+> oh, interesting, I didn't realize we embed struct size into ioctl cmd
+> and match it exactly. I see that pm_scan_arg has the same __u64 size
+> in the struct approach, I'd stick to that, and when we extend any of
+> them we'd need to make sure to either ignore or hard-code the size
+> part, hm..
+
+Ack, will include the size in the struct for v3.
+
+[...]
