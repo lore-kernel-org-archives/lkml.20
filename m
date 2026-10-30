@@ -1,79 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793371878;
-	b=Pz1CG2eaj6SNtdS+Q8YZpbVy29SpBdIiwHD5g7mA/hIanbVvGCEQhb0VTxko8OjEQDin
-	 dZNYuwxV5qAn05XIb9uPjmY1jGEgjG48B0AsM7OmP4OpWU+f+YQ569VDmBNjTOrpzKb7J
-	 244FWJPYhelSEf5nw5BE+E3ZkqDE4P6CVXHE9AoFBuKY7iO7DzFBLc5XXQT1dm+N+uDFY
-	 pG7IzAfq/miJrmTqffs0x68cAsOXQAUL+llC9VdfhwZJyBX6GsoOX69zJlnTgKX17Kiwp
-	 wfVjAszhPa8poqT2rUpzxsKs6inJT50XI3WleMs4MvOVwRdmRGY6JAiMmbDAdWWJl/w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371878;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kTNKMRgD6VzzUEFGclRk4teYR/w2kpaalYljeMm93Do=;
-	b=P7MnjXOM6w7PIYofATKqBTzUnBAId5smCtQCVr19EWSoj/9P8ygujNjHaGy1x1GP6LH4
-	 Lyny6IAq2l/9tjnRbKXzAWjoxBozh4B/wMRitC5bAWT1dSMb1/X4HOStZuaROIh8L5WNV
-	 FYBgn9kEIf9hgDjJKA+yotdeYfey7vYGtBmdYmZp5FTdBxQPvYVEEFtbCmZO1DGgW0h2J
-	 duRnfxx4/tLqElQzk7RzeRrRz9w/a9ZMZQyVyWMOHbWlrSnxLpM7YASP4D4Wc7akmRbjG
-	 7AOmbOI2hvtg8wJto3QYUEQ9/0QwGvdB5mnTjyYjmXqroU4YXKPAzzS5a1xNd49guEQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O7zHzp06;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84551606A31A;
-	Fri, 30 Oct 2026 14:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O7zHzp06
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793371878;
-	b=c68xaOmflaeFL8+svJ6xgVNXpi6tXi0PmHQPgmnQjLEqkrP3eTR0ojGTjPibXsQEAlYN
-	 7GgB0N5ZFI199UeKhItgbZcbuxDaiC4/RAKw5INnjqGsT8E01WTOnuM3l9TJMiYqg8DHo
-	 1lE+xMLHWN0uhLYBGyQt41Bq5Q/TmObNgqvbyCcHsA06HU0P5y026KSw+EJIWXLWzYTbM
-	 sWZCHLKhgIPvuuelP2OCl21Y6V788GrKkMXPxWj7wgofvg8Pd4d6jxhLKt1SZNrvGZGzr
-	 P/5sKoVDfx2ppct5iBsDGQfspLcoKOU3lSAqeqoRZUC3qWKcLWQpbTIH00M14APoAMw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793371878;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kTNKMRgD6VzzUEFGclRk4teYR/w2kpaalYljeMm93Do=;
-	b=l/u/9xMBp17SBLzMgEEE5aoPs0WgX/ZX7k0MrFZgPplvZHeRuSfJwr5haV2W1WaSGQ50
-	 ab6j/X5KwDhrHL9ecAer2Ki5xAdcr7YKCEaMh28jWqHx1Gblvpbf9f9GFGtQNDcRv4ISU
-	 Jn+bTW0J82bSkxivm22pNqbfLNm7iwV5hlO1HhwS2i0oPMYjn8kor6ncuLZjSC7+6O7ev
-	 DBf28hz4q/AmJDYnhcQ6UpEpTRON8cTdnxbB2jH/SyW7tXf3IgdSGhW/EBvvc55HXymU0
-	 eMbWwZmg0md45doFwQVp3niIsvfpX6qipTSvdmovpfpZQ+OwFJvETs9vWF04RFksoFw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793371895;
+	b=JIuTh1ELtweKvZE6vD+uDOnIzIQGs7I4DanpZPEYUrhcGDGW7winEQmmJD4iV1wwNjYC
+	 09kTiziV2Z3hxpesUAf41jYxyUnu7uyP3nb2KzKa62UEsTjUsdMRgq6bKRwftbsx3FOeD
+	 F77q0InhCDgNf1DtXpAAi+zVpxpErzSlEfOEzBDOn2f528suZBN/znWFRaa2yJiMlCD4A
+	 wE6IdvEAbmFLt0qfnnWIp179wqkDIJJzDTOb14e92fANNo9w6JAph5z20wczyRjXz1g5c
+	 E9avoLxsoC/WNgWKS8tiIbssyk1autH3/m3xC6Mk2S9zbxtn8gvDDFitQDH09LwZfXA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371895;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=pLvKcTKjDVfUs9yaIS0jokit+OyX7v31xpCWqoHULN8=;
+	b=YjYyLIh2lPJY/yJ93eoNRERhl7sA1K1LPTxFegr9hX56IcKZ0XyZBEUUnm8UrRe3uH9B
+	 qq+MUh8Qerm63z4rC2PlQmjmRJKs5fIN2IUCb3PblJ1zpP6HhUlx6PvMUlAq+/KNMFJxw
+	 gouICb3dgcDEetAtJm9xQcWt/ifbEhb7wDbm4Nd7HA65srD6xc3t//PLtprGdfARy0Vpm
+	 sUR1oBcECTNNZ99yjvz/+S6ZEN0S5bqJdFIFCo9sEJ2hY1xDLyr1WrkqZL/W724k1OslO
+	 zWu9DLFwi2Ag8ZTg3whSPRI5/OStQk3kdXFSJc1kgEEvkUxjho/G1r7Z+B4mh5p75DQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Laa3b9gC;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D11C81F0093A;
-	Fri, 30 Oct 2026 14:51:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793371878;
-	bh=kTNKMRgD6VzzUEFGclRk4teYR/w2kpaalYljeMm93Do=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=O7zHzp066hwyF0Eum5Eb2c4HqiVp6DQWrO0nFj72fAtn8EUqaKd4tfmwVQRYDIpsL
-	 UX/EwRnemRzyR15ERqCwuyhs4JGdiQucr89D+aUTy78kYR2DveACqq8y9XdqKf2ULB
-	 GTiBJzm4qztmg4awatWHh+bVVWqX3DvWUIUsHgqjcubwRi5fxJydfrWlWZxY6RWzgX
-	 tu/jedD6le1snREZvllhgDol6h63v+DFRxJkEnkW4SuG1TYoqiHZFRUWlz8gy60Mmv
-	 9WK4hA0Ja7ekVYOoKHWLvtCHZsEz42IGp3ZPdHqEblC5Kdgz2w66Ei0n388L90xnyi
-	 iWSzMTZhSfQqw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 57EDE4380C;
-	Fri, 30 Oct 2026 14:51:17 +0000 (UTC)
-From: Ramses de Norre via B4 Relay <devnull+ramses.well-founded.dev@kernel.org>
-Date: Fri, 30 Oct 2026 15:51:16 +0100
-Subject: [PATCH net v5 2/2] bonding: give a slave that starts UP a full
- arp_missed_max window
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D007B606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:51:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D007B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Laa3b9gC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793371893;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=pLvKcTKjDVfUs9yaIS0jokit+OyX7v31xpCWqoHULN8=;
+	b=Laa3b9gCb8HraG9OeNz/mgp2T7qctGBUwBsdPQrFvfsfUZ1GKDqbcGwGySfM+Z7SVmJTXD
+	/BCaJ7qqkNU50+xWs5G4F9qwk0/sJePW0jIbO5fBkn/EXjT/s9PdzOX/NW43LnKUNrEn1p
+	u5ic6Vt1fLD0fzaENn/STTh5653jkpA=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-354-DjTMm6CZMrC0_JLTKYO5sg-1; Fri,
+ 30 Oct 2026 10:51:30 -0400
+X-MC-Unique: DjTMm6CZMrC0_JLTKYO5sg-1
+X-Mimecast-MFC-AGG-ID: DjTMm6CZMrC0_JLTKYO5sg_1793371889
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4C0E21955BFC;
+	Fri, 30 Oct 2026 14:51:29 +0000 (UTC)
+Received: from tglozar-thinkpadt14gen5.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 803E61956089;
+	Fri, 30 Oct 2026 14:51:26 +0000 (UTC)
+From: Tomas Glozar <tglozar@redhat.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Tomas Glozar <tglozar@redhat.com>
+Cc: John Kacur <jkacur@redhat.com>,
+	Luis Goncalves <lgoncalv@redhat.com>,
+	Crystal Wood <crwood@redhat.com>,
+	Costa Shulyupin <costa.shul@redhat.com>,
+	Wander Lairson Costa <wander@redhat.com>,
+	LKML <linux-kernel@vger.kernel.org>,
+	linux-trace-kernel <linux-trace-kernel@vger.kernel.org>
+Subject: [PATCH] rtla/tests: Get rtla PID correctly when system shell is not bash
+Date: Fri, 30 Oct 2026 15:51:11 +0100
+Message-ID: <20261030145111.238098-1-tglozar@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,87 +80,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-bonding-last-rx-v5-2-0b9b653f2f94@well-founded.dev>
-References: <20261030-bonding-last-rx-v5-0-0b9b653f2f94@well-founded.dev>
-In-Reply-To: <20261030-bonding-last-rx-v5-0-0b9b653f2f94@well-founded.dev>
-To: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Jiri Bohac <jbohac@suse.cz>, 
- Eric Dumazet <edumazet@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nikolay Aleksandrov <razor@blackwall.org>, 
- Hangbin Liu <hangbin.liu@linux.dev>, 
- Ramses de Norre <ramses@well-founded.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793371876; l=2527;
- i=ramses@well-founded.dev; s=20260817; h=from:subject:message-id;
- bh=Jz6XOf8wK/vTGG6FZBTatFH3vzBsN5U/CtOmPMLqDGk=;
- b=ud5UqZ2PLRoXHmclyAZZgFGIviPMEZlhFDBxo3uAxdNCzS98Svhl/pTlmP6yrpxt29Y9qiksT
- dbIMi1U6s/fAHsNXkverOD/afPHF/CnkXgtyU04JK6SzZpMnAoyhgKi
-X-Developer-Key: i=ramses@well-founded.dev; a=ed25519;
- pk=1vBXHBVeJBMaC+2Zuonl0QQhEgGIQHERyF5RZNnrCmw=
-X-Endpoint-Received: by B4 Relay for ramses@well-founded.dev/20260817 with
- auth_id=957
-X-Original-From: Ramses de Norre <ramses@well-founded.dev>
-Reply-To: ramses@well-founded.dev
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-From: Ramses de Norre <ramses@well-founded.dev>
+There are several places where rtla runtime tests call a script with
+"--on-threshold shell" to verify the trace configuration in the middle
+of tracing. Some of these checks require the rtla pid.
 
-The ARP monitor marks an UP slave DOWN once jiffies passes
-last_rx + arp_missed_max * arp_interval + arp_interval/2. bond_enslave()
-seeds last_rx one arp_interval (plus a tick) in the past, which brings
-the down deadline of a slave that starts UP forward by one interval
-compared to what arp_missed_max promises.
+Currently, the tests assume that rtla is the parent process of the
+utility script. That is, however, only the case when the system shell is
+bash, which optimizes the invokation of "sh -c script.sh" used by the
+system() function into just one process executing script.sh. On systems
+where the system shell is not bash (including all Debian-based systems),
+the system shell is the parent of the script, not rtla, and the checks
+fail.
 
-Active-backup mode hides this with a grace period after enslavement in
-bond_ab_arp_inspect(). Load-balance mode has no grace period after
-enslavement. With arp_missed_max=1 the deadline is half an interval
-after enslavement, and the first monitor run checks the slave before it
-sends the first probe. If that run lands in the second half of the
-interval, a healthy slave is reported "interface is now down" and comes
-back UP on the next run.
+Pass $PPID resolved in the system shell to rtla's --on-threshold option
+and use it as the PID for rtla to make the tests pass on all
+distributions.
 
-Seed a slave that starts UP with last_link_up instead, so it gets a full
-arp_missed_max window for its first reply. bond_arp_rcv() and
-bond_na_rcv() only trust ARPs seen on backup slaves once the active
-slave's last_rx is after its last_link_up. A seed equal to last_link_up
-keeps that check false until a real reply arrives, as it is today.
+Note that some of the tests (the cgroup test, for example) were
+intending to use rtla's PID, but work with the system shell's PID as
+well. For consistency, all scripts are updated to use $PPID.
 
-This only covers a slave enslaved while the ARP monitor is running.
-When the monitor starts later, from bond_open() or when arp_interval is
-set at runtime, the seed is still as old as the time since enslavement,
-as it was before this patch.
-
-Fixes: 5944b5abd864 ("Bonding: add arp_missed_max option")
-Signed-off-by: Ramses de Norre <ramses@well-founded.dev>
+Fixes: d18fd5a34ff3 ("rtla/tests: Add get_workload_pids() helper")
+Fixes: 7f7ad23bced9 ("rtla/tests: Check -c/--cpus thread affinity")
+Reported-by: Steven Rostedt <rostedt@goodmis.org>
+Closes: https://lore.kernel.org/linux-trace-kernel/20260810210425.61435b0b@robin/
+Signed-off-by: Tomas Glozar <tglozar@redhat.com>
 ---
- drivers/net/bonding/bond_main.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ tools/tracing/rtla/tests/osnoise.t                   |  8 ++++----
+ .../tracing/rtla/tests/scripts/check-cgroup-match.sh |  6 ++++--
+ tools/tracing/rtla/tests/scripts/check-cpus.sh       |  4 +++-
+ .../rtla/tests/scripts/check-housekeeping-cpus.sh    |  5 +++--
+ tools/tracing/rtla/tests/scripts/check-priority.sh   | 10 +++++++---
+ .../rtla/tests/scripts/check-user-kernel-threads.sh  |  5 ++++-
+ .../rtla/tests/scripts/lib/get_workload_pids.sh      | 12 ++++++++----
+ tools/tracing/rtla/tests/timerlat.t                  | 12 ++++++------
+ 8 files changed, 39 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index 2f5638f4d3a78..84eafb607c370 100644
---- a/drivers/net/bonding/bond_main.c
-+++ b/drivers/net/bonding/bond_main.c
-@@ -2158,9 +2158,13 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
- 		new_slave->last_rx = jiffies -
- 			(2 * msecs_to_jiffies(bond->params.arp_interval) + 1);
- 	} else {
-+		/* Give a slave that starts UP a full arp_missed_max window.
-+		 * Not seeding it later than last_link_up keeps bond_arp_rcv()
-+		 * from trusting ARPs on backup slaves before the active one
-+		 * got a reply.
-+		 */
- 		new_slave->last_link_up = jiffies;
--		new_slave->last_rx = jiffies -
--			(msecs_to_jiffies(bond->params.arp_interval) + 1);
-+		new_slave->last_rx = new_slave->last_link_up;
- 	}
- 	for (i = 0; i < BOND_MAX_ARP_TARGETS; i++)
- 		new_slave->target_last_arp_rx[i] = new_slave->last_rx;
-
+diff --git a/tools/tracing/rtla/tests/osnoise.t b/tools/tracing/rtla/tests/osnoise.t
+index 352b302372453..53a6a23514d73 100644
+--- a/tools/tracing/rtla/tests/osnoise.t
++++ b/tools/tracing/rtla/tests/osnoise.t
+@@ -16,15 +16,15 @@ check_top_q_hist "verify the --trace param" \
+ 
+ # Thread tests
+ check_top_q_hist "verify the --priority/-P param" \
+-	"osnoise TOOL -P F:1 -c 0 -r 900000 -d 10s -S 1 --on-threshold shell,command=\"$testdir/scripts/check-priority.sh SCHED_FIFO 1\"" \
++	"osnoise TOOL -P F:1 -c 0 -r 900000 -d 10s -S 1 --on-threshold shell,command=\"$testdir/scripts/check-priority.sh \\\$PPID SCHED_FIFO 1\"" \
+ 	2 "Priorities are set correctly"
+ check_top_q_hist "verify the -C/--cgroup param" \
+-	"osnoise TOOL -C -c 0 -r 900000 -d 10s -S 1 --on-threshold shell,command=\"$testdir/scripts/check-cgroup-match.sh\"" \
++	"osnoise TOOL -C -c 0 -r 900000 -d 10s -S 1 --on-threshold shell,command=\"$testdir/scripts/check-cgroup-match.sh \\\$PPID\"" \
+ 	2 "cgroup matches for all workload PIDs"
+ check_top_q_hist "verify the -c/--cpus param" \
+-	"osnoise TOOL -P F:1 -c 0 -r 900000 -d 10s -S 1 --on-threshold shell,command=$testdir/scripts/check-cpus.sh" 2 "^Affinity of threads: 0$"
++	"osnoise TOOL -P F:1 -c 0 -r 900000 -d 10s -S 1 --on-threshold shell,command=\"$testdir/scripts/check-cpus.sh \\\$PPID\"" 2 "^Affinity of threads: 0$"
+ check_top_q_hist "verify the -H/--house-keeping param" \
+-	"osnoise TOOL -P F:1 -H 0 -r 900000 -d 10s -S 1 --on-threshold shell,command=$testdir/scripts/check-housekeeping-cpus.sh" 2 "^Affinity of threads: 0$"
++	"osnoise TOOL -P F:1 -H 0 -r 900000 -d 10s -S 1 --on-threshold shell,command=\"$testdir/scripts/check-housekeeping-cpus.sh \\\$PPID\"" 2 "^Affinity of threads: 0$"
+ 
+ # Histogram tests
+ check "hist with -b/--bucket-size" \
+diff --git a/tools/tracing/rtla/tests/scripts/check-cgroup-match.sh b/tools/tracing/rtla/tests/scripts/check-cgroup-match.sh
+index fdc2c68c5957a..dd9bcb6e43e22 100755
+--- a/tools/tracing/rtla/tests/scripts/check-cgroup-match.sh
++++ b/tools/tracing/rtla/tests/scripts/check-cgroup-match.sh
+@@ -1,10 +1,12 @@
+ #!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
++# check-cgroup-match.sh <rtla_pid>
++# Check that all workload threads are in the same cgroup as rtla.
+ . "$(dirname $0)/lib/get_workload_pids.sh"
+-rtla_pid=$(echo $(ps -o ppid= $$))
++rtla_pid=$1
+ rtla_cgroup=$(</proc/$rtla_pid/cgroup)
+ echo "RTLA cgroup: $rtla_cgroup"
+-for pid in $(get_workload_pids)
++for pid in $(get_workload_pids $rtla_pid)
+ do
+     pid_cgroup=$(</proc/$pid/cgroup)
+     echo "PID $pid cgroup: $pid_cgroup"
+diff --git a/tools/tracing/rtla/tests/scripts/check-cpus.sh b/tools/tracing/rtla/tests/scripts/check-cpus.sh
+index 0b016d4a79459..dc0f146bf2dc5 100755
+--- a/tools/tracing/rtla/tests/scripts/check-cpus.sh
++++ b/tools/tracing/rtla/tests/scripts/check-cpus.sh
+@@ -1,8 +1,10 @@
+ #!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
++# check-cpus.sh <rtla_pid> - print affinity of all rtla workload threads
+ . "$(dirname $0)/lib/get_workload_pids.sh"
++rtla_pid=$1
+ echo -n "Affinity of threads: "
+-for pid in $(get_workload_pids)
++for pid in $(get_workload_pids $rtla_pid)
+ do
+     echo -n $(taskset -c -p $pid | cut -d ':' -f 2)
+ done
+diff --git a/tools/tracing/rtla/tests/scripts/check-housekeeping-cpus.sh b/tools/tracing/rtla/tests/scripts/check-housekeeping-cpus.sh
+index 4742f34efb494..3f282fdd7fbf6 100755
+--- a/tools/tracing/rtla/tests/scripts/check-housekeeping-cpus.sh
++++ b/tools/tracing/rtla/tests/scripts/check-housekeeping-cpus.sh
+@@ -1,4 +1,5 @@
+ #!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
+-pid=$(ps -o ppid= $$)
+-echo "Affinity of threads:$(taskset -c -p $pid | cut -d ':' -f 2)"
++# check-housekeeping-cpus.sh <rtla_pid> - print affinity of the rtla process
++rtla_pid=$1
++echo "Affinity of threads:$(taskset -c -p $rtla_pid | cut -d ':' -f 2)"
+diff --git a/tools/tracing/rtla/tests/scripts/check-priority.sh b/tools/tracing/rtla/tests/scripts/check-priority.sh
+index b51d5232a8688..8896bde77fd5c 100755
+--- a/tools/tracing/rtla/tests/scripts/check-priority.sh
++++ b/tools/tracing/rtla/tests/scripts/check-priority.sh
+@@ -1,8 +1,12 @@
+ #!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
++# check-priority.sh <rtla_pid> <sched_policy> <sched_priority>
++# Check that all rtla workload threads run with the given scheduling
++# policy and priority.
+ . "$(dirname $0)/lib/get_workload_pids.sh"
+-for pid in $(get_workload_pids)
++rtla_pid=$1
++for pid in $(get_workload_pids $rtla_pid)
+ do
+-  chrt -p $pid | cut -d ':' -f 2 | head -n1 | grep "^ $1\$" >/dev/null
+-  chrt -p $pid | cut -d ':' -f 2 | tail -n1 | grep "^ $2\$" >/dev/null
++  chrt -p $pid | cut -d ':' -f 2 | head -n1 | grep "^ $2\$" >/dev/null
++  chrt -p $pid | cut -d ':' -f 2 | tail -n1 | grep "^ $3\$" >/dev/null
+ done && echo "Priorities are set correctly"
+diff --git a/tools/tracing/rtla/tests/scripts/check-user-kernel-threads.sh b/tools/tracing/rtla/tests/scripts/check-user-kernel-threads.sh
+index bb7ac510a7358..27064cb845e7e 100755
+--- a/tools/tracing/rtla/tests/scripts/check-user-kernel-threads.sh
++++ b/tools/tracing/rtla/tests/scripts/check-user-kernel-threads.sh
+@@ -1,10 +1,13 @@
+ #!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
++# check-user-kernel-threads.sh <rtla_pid>
++# Print counts of kernel and user rtla workload threads
+ . "$(dirname $0)/lib/get_workload_pids.sh"
+ kthreadd_pid=$(pgrep ^kthreadd$)
++rtla_pid=$1
+ cnt_kernel=0
+ cnt_user=0
+-for pid in $(get_workload_pids)
++for pid in $(get_workload_pids $rtla_pid)
+ do
+     if [ "$(echo $(ps -o ppid= $pid))" = "$kthreadd_pid" ]
+     then
+diff --git a/tools/tracing/rtla/tests/scripts/lib/get_workload_pids.sh b/tools/tracing/rtla/tests/scripts/lib/get_workload_pids.sh
+index d10a4e3b321dc..a18f6698dd413 100644
+--- a/tools/tracing/rtla/tests/scripts/lib/get_workload_pids.sh
++++ b/tools/tracing/rtla/tests/scripts/lib/get_workload_pids.sh
+@@ -1,11 +1,15 @@
+ #!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
++# get_workload_pids <rtla_pid> - print PIDs of all rtla workload threads
++#
++# Kernel threads are children of kthreadd. User threads are children of
++# the rtla process itself, so its PID is needed to find them.
+ get_workload_pids() {
+-    local shell_pid=$$
+-    local rtla_pid=$(ps -o ppid= $shell_pid)
++    local rtla_pid=$1
+ 
+     # kernel threads
+     pgrep -P $(pgrep ^kthreadd$) -f '^\[?(osnoise|timerlat)/[0-9]+\]?$'
+-    # user threads
+-    pgrep -P $rtla_pid | grep -v "^$shell_pid$"
++    # user threads, excluding this script and the intermediate shell
++    # running it, if any
++    pgrep -P $rtla_pid | grep -vE "^($$|$PPID)$"
+ }
+diff --git a/tools/tracing/rtla/tests/timerlat.t b/tools/tracing/rtla/tests/timerlat.t
+index 1d317c851a0fa..6001c7a09be50 100644
+--- a/tools/tracing/rtla/tests/timerlat.t
++++ b/tools/tracing/rtla/tests/timerlat.t
+@@ -41,19 +41,19 @@ check_top_hist "disable auto-analysis" \
+ 
+ # Thread tests
+ check_top_hist "verify -P/--priority" \
+-	"timerlat TOOL -P F:1 -c 0 -d 10s -T 1 --on-threshold shell,command=\"$testdir/scripts/check-priority.sh SCHED_FIFO 1\"" \
++	"timerlat TOOL -P F:1 -c 0 -d 10s -T 1 --on-threshold shell,command=\"$testdir/scripts/check-priority.sh \\\$PPID SCHED_FIFO 1\"" \
+ 	2 "Priorities are set correctly"
+ check_top_hist "verify -C/--cgroup" \
+-	"timerlat TOOL -k -C -c 0 -d 10s -T 1 --on-threshold shell,command=\"$testdir/scripts/check-cgroup-match.sh\"" \
++	"timerlat TOOL -k -C -c 0 -d 10s -T 1 --on-threshold shell,command=\"$testdir/scripts/check-cgroup-match.sh \\\$PPID\"" \
+ 	2 "cgroup matches for all workload PIDs"
+ check_top_q_hist "verify -c/--cpus" \
+-	"timerlat TOOL -c 0 -d 10s -T 1 --on-threshold shell,command=$testdir/scripts/check-cpus.sh" 2 "^Affinity of threads: 0$"
++	"timerlat TOOL -c 0 -d 10s -T 1 --on-threshold shell,command=\"$testdir/scripts/check-cpus.sh \\\$PPID\"" 2 "^Affinity of threads: 0$"
+ check_top_q_hist "verify -H/--house-keeping" \
+-	"timerlat TOOL -H 0 -d 10s -T 1 --on-threshold shell,command=$testdir/scripts/check-housekeeping-cpus.sh" 2 "^Affinity of threads: 0$"
++	"timerlat TOOL -H 0 -d 10s -T 1 --on-threshold shell,command=\"$testdir/scripts/check-housekeeping-cpus.sh \\\$PPID\"" 2 "^Affinity of threads: 0$"
+ check_top_q_hist "verify -k/--kernel-threads" \
+-	"timerlat TOOL -k -c 0 -d 10s -T 1 --on-threshold shell,command=$testdir/scripts/check-user-kernel-threads.sh" 2 "1 kernel threads, 0 user threads"
++	"timerlat TOOL -k -c 0 -d 10s -T 1 --on-threshold shell,command=\"$testdir/scripts/check-user-kernel-threads.sh \\\$PPID\"" 2 "1 kernel threads, 0 user threads"
+ check_top_q_hist "verify -u/--user-threads" \
+-	"timerlat TOOL -u -c 0 -d 10s -T 1 --on-threshold shell,command=$testdir/scripts/check-user-kernel-threads.sh" 2 "0 kernel threads, 1 user threads"
++	"timerlat TOOL -u -c 0 -d 10s -T 1 --on-threshold shell,command=\"$testdir/scripts/check-user-kernel-threads.sh \\\$PPID\"" 2 "0 kernel threads, 1 user threads"
+ 
+ # Tracer option tests - verify that rtla correctly sets tracefs options
+ # Default tests: poison tracefs with wrong values, verify rtla resets to defaults
 -- 
 2.56.0
-
 
