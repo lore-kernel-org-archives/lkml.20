@@ -1,54 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362476;
-	b=YXwHHcLxkItZrnDix3iQMcQm7ANr1YQv3vs1xUP8P1NhBCaF2HjQgEgxwDm+oQVhT08f
-	 4oRixv5Kcc1Kasd3A5EKxTPjdQnO6fCUmGrH/nYquITPpxXh9dDeu9yjFbA0bHOC2msOl
-	 AW/lbog6qPzqGoUg7x15iqEAonK/Ts8OzAj4g4IRquWA5BBmRXK02lxt0bZ+Qmbrv0s2/
-	 QVbIb3kgr0+bMHcrv+414U+xX1gmxmvfnhSgRc1G8QbtHBD4nwahCq9PLDMwRBj8UX4Ir
-	 AseeV1RiSPmYYaqnCYgXyxw7tjb8Jb3LUuGvH6ShdP/+2ZcyFT/hHDKcGk7RdDD4uZA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362476;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=fIsZN7+4fkQBsb9F8HsQdpPNVBhUbbSPmwMZcGaHUyM=;
-	b=EKP2o8UZ1lQ/qFe526bIyyZkNl9Kb/vS/iTizdtcq5/2HOmeSTE5Q3iGwSYHMP7p8nqF
-	 azALB1k/uOMOmTBs00hvf1BSokIW/dDMJjKX9Q494q/LN6T+BDZWukyWkZzkX1OcTflEk
-	 ZvCHgGzY8mY7gpDV5+kANkHTxA1mjNjWH5o+LEERfRQs8i5xIs4sHdLKwbSHfRMD4tvXE
-	 U+p3fw7JriTtbrc2zGkerhEBemZAvFyG74v7pXLwZqwpewV6J/mKQL3swu4P9sinU+Lit
-	 zq8xAdXtXrKCH0HGAlPz/WU9V8pwiZpemLLpr+2H80jz3UrhwlPGsa0dpquwu9enn+A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.61
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793362479;
+	b=kUE5f8LYVYAAestjLynszq0koB5EjOzQG+7sTZqI72KBigbax+4cKd6domckGn++oYym
+	 g0HUYKf9FJVfrBkBBu938j5x7XniE1VHMDDFJkq4gljyUO1BORdvRhj3B/6yAGSfwrH08
+	 IM2s1TxUZMrLZ3cnM0EsVQvUgfD5E1amrQkAEYJejkvvOrjsJ7plU15jUeu8RlN2XaZAo
+	 jrEEsYAjTiYiLitShFSPiCNCIgnguv0QcguGXSJ6/NgnrkTix2EICOv6INQuXIZ2qmd1Y
+	 HS/kQO1M0ZTto45uBWp88RSvyMnqCisioIcFxGFPHvpXCBVav/Yellm5FwT0FpSGOeQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362479;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=WEILxpHy8XVM5V1lZLKFx5DW1yJ07XSEf/vL+KhDXQM=;
+	b=mSCmSnvecX/KlpH1oV1W9tYmqgdJLRoGesAIJBp6Grb3Dhp3KnBoBKpc6sQ98j8DBoIe
+	 NVQICL5fThNhRWlX5dUYjimf8kPYBG284/4Rus2SZkcFuIXmjiHynZbItWGEUeGWLiOxF
+	 5D/2GbY+jsm5DN/wktYS9rcFPJM83Hw2sdaznZ6+DexQV5OWeMpZAvUVhHTOSZhscNGGx
+	 5fjkuih74GU9xruMV60rkAKG+T6CX4uqBjkoSgXndOs7iRXrX8OahA7//61TvOLoAeQuf
+	 G5CiD4YZBpZGv+rPmSbKPzI0qu/f1chEbAOetpUoS0WcCzNGHMaG2J1DrSQ1/EmcNzA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="dvBe/WN8";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.61
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013061.outbound.protection.outlook.com [40.107.201.61])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46DF0606A32E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 12:14:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46DF0606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b597558c4cso805669b6e.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 05:14:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793362475; x=1793967275;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fIsZN7+4fkQBsb9F8HsQdpPNVBhUbbSPmwMZcGaHUyM=;
-        b=fgQ6wbGOuBH14fQ1nyzPG6XP3nTtM7xVwX5nayo271fcUHBu93aW821/12Jk+x57pE
-         rdGXWwEel0Z2sRvfAMwnlC6120HWnKoJKdSHX4qhQT/tdfrn0fgdrKq/W1Yq1dXIW549
-         eULFhkn+s4FtTHWrcjHRq15E3J+y2ZCFUnKmDlvJlQQaozH9Q0JTKZkLfmybuDdBg7vg
-         SWRSope1r+i6/t5i9wa99I4wXasaI2ycNC0SXU7kZOlVkMqEmeA6Pxa67cnAZBlG7kz3
-         02cRgPS5I5w5EeFOm3eURXV6k6LNx3t2bylGGSlHfpZ8Jbz4cJXkysHQ+GMQVf5ajbxj
-         Kxwg==
-X-Forwarded-Encrypted: i=1; AKwUvBzQjq0UBVlT8Ns2EewEliKSPGjBhL7ckmCCVf1wUG0xgR2XpiMC0qlZwYb1ThN5jvHnPmwMKpx2FTuKFVc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKy0pj/oaR+7SXY9xO7QnrMrgTMXGwbQPsuFsc0JAycgsD8nwZc
-	TsmRtlDaLy52EfSrYQ91gh6fOisDkG2M+Z7FyecGTunmL4gceSzdFWSSJtQjsmzxDriDN1E7Gcp
-	/F5EWj3642Ycad5fuXqSsieWMtEmA8dgLN3I27RRvz4nWX8BYPvVGyr6WGA0=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1516606A329;
+	Fri, 30 Oct 2026 12:14:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1516606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=dvBe/WN8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lxmcIigFZDk9Sq84lW+oWU2rEtU1HBxUstPljl3oRINdWCZ/Z/xjW/v8Zg3dfk3UxyyMmq/eF6RMkJ0EbO4exDvhSzihcAO+tHQYdovB5VvNxUe6JWmj6WKDUsuEgHNyDttp2WARcRmdaAeU7a2TFjEyp3xABVPWUvCoXSYjDP4pXtEYt0W1E5t3oLMf43c3XXIjSZlBZSCI0VsXUjtuozxoS5oRF1MNuETrPjNdbFPvlcw2IVfaEsZg/AVGkIZFXj0IOCffmsfA71cN8tlHw9/Ym9qmK3dIfX97nW4jBI005v/rlqRHjjcGt0KVd/vRa+MCqBhVgRDBCDb84V3+kg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WEILxpHy8XVM5V1lZLKFx5DW1yJ07XSEf/vL+KhDXQM=;
+ b=q3ERiDJ5jgzqfzV4oJi63DtszlNQz1dQQ73DLtM3fNbAtpyTnjKB09muQSET3I1FEpzL/UqzEjz2oU3isYUNPoDxA6oiWeJk/Q2L0VTPDZbPHWQOBG4hWPiie7WnbwHQVAOgLBIY7h2NXV7lhxZxp5x0080qh+9S4QcTGWHOCmgVZoKbr+wce9vWHAI8eo6dJszgYAx7xCU/3k/3NM2GMN+yscWXnp4L+LuUNmIcTm/1DvOpbv0EEcmbD9FLK8CXtKfEaKK5N28wlANuyUhTmPR+muD3lbaROZAcbGRBaKhvREFeO4TQum6y5GXLjnLpeBCwqhLvty5Ttw9qK4SNRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WEILxpHy8XVM5V1lZLKFx5DW1yJ07XSEf/vL+KhDXQM=;
+ b=dvBe/WN8Lavc2plfqLEuNeVhmhwxRH/beLVwu4VbFrYsqpAvNopHyjSfVYpHO/gRQ4gBGkJmFsTotxt4zat8W0PAQ+1O3t2lW2/kGYmxdV1ItU22PtwcIGZtgWPq5I/x9JeUbMAmBmhVF3AiX0yMSQu3/4vRFfv6Co9Zb0mTN8k=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY5PR12MB6252.namprd12.prod.outlook.com (2603:10b6:930:20::17)
+ by IA1PR12MB6211.namprd12.prod.outlook.com (2603:10b6:208:3e5::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.19; Fri, 30 Oct
+ 2026 12:14:35 +0000
+Received: from CY5PR12MB6252.namprd12.prod.outlook.com
+ ([fe80::ab00:d77:6014:64a2]) by CY5PR12MB6252.namprd12.prod.outlook.com
+ ([fe80::ab00:d77:6014:64a2%4]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 12:14:35 +0000
+Message-ID: <43cae78b-8a9f-4528-982c-85c0049b1414@amd.com>
+Date: Fri, 30 Oct 2026 17:43:30 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 16/21] soundwire: amd: Initialise and cancel IRQ work
+ around manager lifetime
+To: Lee Jones <lee@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Mastan Katragadda <Mastan.Katragadda@amd.com>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Mario Limonciello <Mario.Limonciello@amd.com>,
+ Syed Saba Kareem <syed.sabakareem@amd.com>,
+ "Prasad, Prasad" <venkataprasad.potturu@amd.com>,
+ "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+ "N, Poojitha" <Poojitha.N@amd.com>
+Cc: stable@vger.kernel.org
+References: <20261030104840.3361217-1-lee@kernel.org>
+ <20261030104840.3361217-17-lee@kernel.org>
+Content-Language: en-US
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <20261030104840.3361217-17-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PN3PR01CA0094.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:9b::18) To CY5PR12MB6252.namprd12.prod.outlook.com
+ (2603:10b6:930:20::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,149 +105,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4704:b0:4f1:6c9c:78d3 with SMTP id
- 5614622812f47-5640df39312mr1305526b6e.26.1793362475290; Fri, 30 Oct 2026
- 05:14:35 -0700 (PDT)
-Date: Fri, 30 Oct 2026 05:14:35 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae48a2b.6713f5d0.92cad.0001.GAE@google.com>
-Subject: [syzbot] [wpan?] general protection fault in ieee802154_llsec_dump_table
- (2)
-From: syzbot <syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com>
-To: alex.aring@gmail.com, linux-kernel@vger.kernel.org, 
-	linux-wpan@vger.kernel.org, miquel.raynal@bootlin.com, netdev@vger.kernel.org, 
-	stefan@datenfreihafen.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    c339f4010dea Merge tag 'platform-drivers-x86-v7.4-1' of gi..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=15a3dd95580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=119e5f4d0a8d39cf
-dashboard link: https://syzkaller.appspot.com/bug?extid=9ea34da5ca6100593c90
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=151a448d580000
-
-AI-generated root cause summary:
-In net/ieee802154/nl-mac.c, ieee802154_llsec_dump_table() iterates through all
-network devices in the namespace and assumes any device with dev->type ==
-ARPHRD_IEEE802154 has a non-NULL ml_priv pointing to struct ieee802154_mlme_ops.
-However, devices such as TUN can have their link type changed to
-ARPHRD_IEEE802154 via the TUNSETLINK ioctl without initializing ml_priv (leaving
-it NULL). Consequently, ieee802154_llsec_dump_table() dereferences
-data.ops->llsec at offset 0x38 of a NULL pointer when dumping LLSEC tables,
-leading to a general protection fault / kernel crash (Denial of Service).
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=9ea34da5ca6100593c90
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
-
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000007: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000038-0x000000000000003f]
-CPU: 0 UID: 0 PID: 6025 Comm: syz-executor400 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
-RIP: 0010:ieee802154_llsec_dump_table+0x204/0x5d0 net/ieee802154/nl-mac.c:778
-Code: 89 f8 48 c1 e8 03 80 3c 18 00 0f 85 d3 02 00 00 4d 8b be b8 07 00 00 49 8d 7f 38 4c 89 bc 24 98 00 00 00 48 89 f8 48 c1 e8 03 <80> 3c 18 00 0f 85 a5 02 00 00 4d 8b 7f 38 4d 85 ff 0f 84 b2 01 00
-RSP: 0018:ffffc900031ef4a0 EFLAGS: 00010202
-RAX: 0000000000000007 RBX: dffffc0000000000 RCX: 0000000000000000
-RDX: ffff8880314ccb00 RSI: ffffffff8b9ff162 RDI: 0000000000000038
-RBP: 0000000000000026 R08: 0000000000000324 R09: 0000000000000324
-R10: ffffc900031ef40f R11: ffffc900031ef520 R12: ffff888036830610
-R13: 0000000000000000 R14: ffff88805d7a8000 R15: 0000000000000000
-FS:  000055558d27f400(0000) GS:ffff88812248e000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fff8aa5bff8 CR3: 000000002ce9b000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- genl_dumpit+0x125/0x230 net/netlink/genetlink.c:1026
- netlink_dump+0x53b/0xd00 net/netlink/af_netlink.c:2351
- __netlink_dump_start+0x6d6/0x990 net/netlink/af_netlink.c:2466
- genl_family_rcv_msg_dumpit+0x1e2/0x2e0 net/netlink/genetlink.c:1075
- genl_family_rcv_msg net/netlink/genetlink.c:1191 [inline]
- genl_rcv_msg+0x471/0x800 net/netlink/genetlink.c:1209
- netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2576
- genl_rcv+0x28/0x40 net/netlink/genetlink.c:1218
- netlink_unicast_kernel net/netlink/af_netlink.c:1335 [inline]
- netlink_unicast+0x668/0x950 net/netlink/af_netlink.c:1361
- netlink_sendmsg+0x9ac/0x10c0 net/netlink/af_netlink.c:1920
- sock_sendmsg_nosec net/socket.c:800 [inline]
- __sock_sendmsg net/socket.c:818 [inline]
- __sys_sendto+0x492/0x4e0 net/socket.c:2283
- __do_sys_sendto net/socket.c:2290 [inline]
- __se_sys_sendto net/socket.c:2286 [inline]
- __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2286
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f0fada8d8b7
-Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007fff8aa5c1d0 EFLAGS: 00000202 ORIG_RAX: 000000000000002c
-RAX: ffffffffffffffda RBX: 000055558d27f400 RCX: 00007f0fada8d8b7
-RDX: 0000000000000014 RSI: 00007fff8aa5c220 RDI: 0000000000000004
-RBP: 0000000000000003 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007f0fadac9d23
-R13: 00007fff8aa5c390 R14: 000000000000001d R15: 0000000000000002
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:ieee802154_llsec_dump_table+0x204/0x5d0 net/ieee802154/nl-mac.c:778
-Code: 89 f8 48 c1 e8 03 80 3c 18 00 0f 85 d3 02 00 00 4d 8b be b8 07 00 00 49 8d 7f 38 4c 89 bc 24 98 00 00 00 48 89 f8 48 c1 e8 03 <80> 3c 18 00 0f 85 a5 02 00 00 4d 8b 7f 38 4d 85 ff 0f 84 b2 01 00
-RSP: 0018:ffffc900031ef4a0 EFLAGS: 00010202
-RAX: 0000000000000007 RBX: dffffc0000000000 RCX: 0000000000000000
-RDX: ffff8880314ccb00 RSI: ffffffff8b9ff162 RDI: 0000000000000038
-RBP: 0000000000000026 R08: 0000000000000324 R09: 0000000000000324
-R10: ffffc900031ef40f R11: ffffc900031ef520 R12: ffff888036830610
-R13: 0000000000000000 R14: ffff88805d7a8000 R15: 0000000000000000
-FS:  000055558d27f400(0000) GS:ffff88812258e000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffdac0fedc4 CR3: 000000002ce9b000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess):
-   0:	89 f8                	mov    %edi,%eax
-   2:	48 c1 e8 03          	shr    $0x3,%rax
-   6:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
-   a:	0f 85 d3 02 00 00    	jne    0x2e3
-  10:	4d 8b be b8 07 00 00 	mov    0x7b8(%r14),%r15
-  17:	49 8d 7f 38          	lea    0x38(%r15),%rdi
-  1b:	4c 89 bc 24 98 00 00 	mov    %r15,0x98(%rsp)
-  22:	00
-  23:	48 89 f8             	mov    %rdi,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1) <-- trapping instruction
-  2e:	0f 85 a5 02 00 00    	jne    0x2d9
-  34:	4d 8b 7f 38          	mov    0x38(%r15),%r15
-  38:	4d 85 ff             	test   %r15,%r15
-  3b:	0f                   	.byte 0xf
-  3c:	84                   	.byte 0x84
-  3d:	b2 01                	mov    $0x1,%dl
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6252:EE_|IA1PR12MB6211:EE_
+X-MS-Office365-Filtering-Correlation-Id: 137c5b07-09b8-42d2-f633-08df367f5c7e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|366016|261021121427099003|261022105027099003|261009223027099003|10067099003|261022075727099003|261021123027099003|56012099006|22082099003|261026121527099003|18002099003|13003099007|261028144727099003|11063799006|261026140227099003|4143699003|921020;
+X-Microsoft-Antispam-Message-Info:
+	xHnZr9+qqdL9y90mLWaER1Zw4iDKsS6Z8k29u/SZ1OjSnJu2RrwEvM0gFaosFmt7oRp8vX2XtyEf0+N2hnuGLVYQlAz+wLrxEVGcjxpiE6jpoDb3VzmuePQ54L0Y0YkhrhkJMU3sCnnTE5BZ1ffixMsZsE+u9oLmnjtGAnEacS0mzs7T5so7M/0bYUyxWWG1KW95vKWT9tY+ye+HXbfEOL4/wyKjVjCtJdm23mA2Oq7BYB35zK0M7E8E13ZFdsrm3Lc50GM8v8+cifumW2mAY6qXwqoCCh9iuqRuQiPHFumje5yWJlLSDtMFxshq0JD9gb+tgmuO/GUbeOn60KJ3yLffOytw0KE1ubXqYL9TGMUX3zEtIFtZmci+yqlnUqF8W/brY418od+iNtBz/x5ss+DrwzYVRObeWuAGUmzL6DkJQGn4eqXWl/FkUjDPdj+UdJwXpG2oFMipZmjFcQUK4UIOxZcvCqIzliSwdBJ82Pimjgt3zaMIatCqmABgv9OM/R05uiVhyaiusaMieIylXk/QpahRXXbKABYFLs2cSMFKWgbSyt/0aShA+gGgaaIimXcYjCZ9qKMHsmmbaS/wGKSgWh0KFGxUDMq7YikD6aO3b9G+FPgRKiETRUdBWPnhY5el46gAerulIzXrq0tu5Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6252.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(261021121427099003)(261022105027099003)(261009223027099003)(10067099003)(261022075727099003)(261021123027099003)(56012099006)(22082099003)(261026121527099003)(18002099003)(13003099007)(261028144727099003)(11063799006)(261026140227099003)(4143699003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T0xsb2xMOGZLVDF1MXZjS0RpeEdpU1MyM0JwNjhUYWtVTXVFcFZHWmUydXVM?=
+ =?utf-8?B?cHF4a1pMUkIyL2VyQnNBcmRnT1ZYaWJIbHFGbHFIMzEwbmx4S0ZVdnc2WUJY?=
+ =?utf-8?B?c1ZkUFEwYS9Gc1ZZeEVSMEV1NVNya1ZPRzE1dE1NcFNEbTZMdWxGNldQMUk3?=
+ =?utf-8?B?bDBlOHZDTlRJMi9XTzlabEZFNWVubDliMWxTN1U0L1pVbUNndTh5ZjR3SWgr?=
+ =?utf-8?B?S0UxVDFwNk1tU0ZVTGp4RnB5aDVUaEtuVENEODFLcXZ3d09CcEhBTUZzRlZt?=
+ =?utf-8?B?RTNEWHRSYWc0elRjTXhiRkN5R2QwempsYnFDVnhGMGZIeTFHMVpBR20wcEY3?=
+ =?utf-8?B?RVhSb0N0bGVBTUVFUXFHOWtSNnFxcHRUVTdtMUtkYVdCekQvYWkwbzFoVTZ2?=
+ =?utf-8?B?RTNyaHFrcmlPcG12b1VKK0J2ayszMkduMnp3dk90TjdWMytXY1A0QzNBeDg2?=
+ =?utf-8?B?WGZDWVFDRm5CMXRUblJXYlg2VkViRFl5aTZLL1dvNEJOQ3Rla3ZSS1pSTW84?=
+ =?utf-8?B?QUpuaHJ1T2lVQ25TQ0NXM0F4QXg0RVhaYWNWSWJaMEFVcHM4czJPYjRTOEEr?=
+ =?utf-8?B?MWc0azIzZ0o3bjA4ZVFFbmhGMFp1MEc4STJFTnRhZjE5VkdwU21pUVk3ZGJN?=
+ =?utf-8?B?V3c0d3RFQXI0blA3TFJud2lDS21scUNjSjdjRWRtczY3cU1XZHBFNTBFK3Rt?=
+ =?utf-8?B?UTVLWlRxVU93dEkzVGJRTzNXcUhWQTM3UjdqdGc2bW5vcXJoVkNucTFMR0li?=
+ =?utf-8?B?ZmJENzZhbDVHcHZZTlNOMGpwbVlpTWJkN2ovSlJybUZwcnhCN3FGNWNSWnRi?=
+ =?utf-8?B?a21uc2N3eEtydzNiY3JWUzRMVE5WRkFsZEo2OExKUzJrdkVZeUVFSktDNzlV?=
+ =?utf-8?B?RCthMEdrc3c0WVBLR2ZLR0dCdUV0T2VJUnhtV2xlL1V2ZTB5bmtnRkp2dFBE?=
+ =?utf-8?B?MkY2Sm5qNFNUdFdkQ3dOaHdnSWZ0dFkvL3QrRi9lclM2cjJXQ3BtRlRjQ20y?=
+ =?utf-8?B?Nm95a3FpKzBlLzREZms2QUFBVkVlTndNRy9INUd6TmtwekpVWkNUdEdLRU5J?=
+ =?utf-8?B?QmhnRzB1Q1RNT1EzV0VLamtLekRvZnZsanFHemw1WC9ZYkhGY0ZqRGdyWDRx?=
+ =?utf-8?B?ZysrRGhtdTlzOGM4Qm95QldMbmVKREFvNWVHcjQ5bXlMa1h6MVlIUTk4cnVG?=
+ =?utf-8?B?VEJQSFZGbWlEaEpyeUV2cHBlc0l1U1JWQTUxYVdIWW96a3A3R0duT1o5Z2h0?=
+ =?utf-8?B?Mkc1VjJxSmF5bkVGRWJ1bTMrM3pZdmtOckdhdUx0cDBCTHFtSFora1VLcVNN?=
+ =?utf-8?B?K01wQUNOZ052TTcxa0VNem9jejJvaDhEeS9FaHlGZHpvN2g5VG5tSXgyRGZp?=
+ =?utf-8?B?cG1ZYnJGZGhmR1JhT1QycHY0bjdFZVZ3TFJiZW1LWjAxUFdPbFp3ZCttNVVQ?=
+ =?utf-8?B?WHBZMU9XVHhicGNDbzJtc21wOWF3b1kxOEdFZTU3aWZtWTcvNGF4cUJKUEJE?=
+ =?utf-8?B?b1lRMyttd3BXTjJ6YkVnVFBKYTFQL2VNSzd1NlVmUENIOTgvcGE1VzdzN042?=
+ =?utf-8?B?QmRXbGp1ZFRaMWt4Q2NhNXh6WXBqbkhuQ3pJOUJCczB4dWc1R21Odi9YRDl3?=
+ =?utf-8?B?aTN6eHdkUnhDNHFDRFpncTJ2Zm9rRkRCSEg5Rm5rQXpPVHl1VFpUdCtIUFRI?=
+ =?utf-8?B?eGl1NkU2Q2lwUnl0a0hXbDc4QzNidUQveVRnc2x2M2JQZ0VZM0M0WEdOUDBk?=
+ =?utf-8?B?ZWhvZWgzeVRYeDQ4VG4vcnRRa2gvMVM2cUIvNEliMFY4ZkdUU29NR0RoSHg5?=
+ =?utf-8?B?R05mVUZWTVlkUC82cjdDM2s3MGlXRVZiL2JobmtNNlFNUXB2UG9IeXQ4cGZj?=
+ =?utf-8?B?OTRFczArckJTOUd5dVlDcmowWERnRlF0WWIvWHVxZ0pzVWhoUnd0MjhadlJP?=
+ =?utf-8?B?TXJaV0hKY0F4WlJNZ3M5NkZmQS9oeHBqS0JtQXk2dTA0N2NGajdWdDRaclY1?=
+ =?utf-8?B?amRUZ3R1bXRUVXJScWdaNStNQ3pTK1pmZFJabExQOEZpdG5LQlR5ajZWT21y?=
+ =?utf-8?B?bGhrek10YzBJVTd6WGUwcXVnUEk0R095ZW5NamdZNkU2STNMREcyVnAybXly?=
+ =?utf-8?B?bjNseWoyTjVLbFVlUlZuL2hsUjVyYXBuSCtaMXZ1YUpHNGZONWlZRjFyY09t?=
+ =?utf-8?B?RFRCQnlhekhPWVNMYlVFOFVQVTFFdmJLMW5KRW5yVXRtTmVVeExvMEdLeThh?=
+ =?utf-8?B?aVowQUdIa1hxWWNOUmcyT0tVNmhRODZ5STJ5ejhCVDdSSjlacnNjSEUyaGxz?=
+ =?utf-8?B?UVpSR0N6ZFI5aG4vcnhXUnU5SForSGJvMXc0WlowL0ZJRlZ0bTJ1Zz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 137c5b07-09b8-42d2-f633-08df367f5c7e
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6252.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 12:14:35.4143
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 25HOB5sDHUSPg0By9htV2B3iOjk4MD3oLNm0l5A6hftlOvRhlNM4LSLU7Davdw0oqN3XaOekPb1frVv5IxvjGw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6211
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+On 10/30/26 16:16, Lee Jones wrote:
+> [You don't often get email from lee@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> amd_sdw_manager_probe() publishes amd_manager via dev_set_drvdata()
+> before initialising amd_sdw_irq_thread and amd_sdw_work, allowing an
+> early interrupt to schedule uninitialised work.  During removal,
+> amd_sdw_manager_remove() only cancels amd_sdw_work without first
+> cancelling amd_sdw_irq_thread, allowing deferred IRQ work to re-queue
+> amd_sdw_work or dereference amd_manager after it is freed.
+>
+> Initialise both work items before calling dev_set_drvdata() in
+> amd_sdw_manager_probe(), and cancel amd_sdw_irq_thread before
+> amd_sdw_work in amd_sdw_manager_remove().
+>
+> Fixes: 65f93e4096a0 ("soundwire: amd: add SoundWire manager interrupt handling")
+> Closes: https://sashiko.dev/#/bug/linux-9890e8dc-4b7d-44d3-bfb0-171dc421e28c
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
+>   drivers/soundwire/amd_manager.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
+> index 98b09d81f3b8..2e1038ea0f36 100644
+> --- a/drivers/soundwire/amd_manager.c
+> +++ b/drivers/soundwire/amd_manager.c
+> @@ -1185,9 +1185,9 @@ static int amd_sdw_manager_probe(struct platform_device *pdev)
+>                  sdw_bus_master_delete(&amd_manager->bus);
+>                  return ret;
+>          }
+> -       dev_set_drvdata(dev, amd_manager);
+>          INIT_WORK(&amd_manager->amd_sdw_irq_thread, amd_sdw_irq_thread);
+>          INIT_WORK(&amd_manager->amd_sdw_work, amd_sdw_update_slave_status_work);
+> +       dev_set_drvdata(dev, amd_manager);
+The probe-side ordering issue is valid — an interrupt arriving after
+dev_set_drvdata() but before INIT_WORK() could schedule work on an
+uninitialised work_struct.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+The remove-side fix is already posted as part of our v3 patch series:
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+https://lore.kernel.org/alsa-devel/20261013085111.2009061-6-Vijendar.Mukunda@amd.com/T/#m60177687bb84758efdd6f5f09eba8ad32f0e4631
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+The probe-side fix will be included in our upcoming v4 patch series,
+which contains major driver restructuring and customer-critical bug
+fixes. Merging this patch independently would conflict with v4 and
+complicate the review process.
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+Could you please drop this patch? Both issues will be covered by our
+v3/v4 series.
 
-If you want to undo deduplication, reply with:
-#syz undup
+>          return 0;
+>   }
+>
+> @@ -1197,6 +1197,7 @@ static void amd_sdw_manager_remove(struct platform_device *pdev)
+>          int ret;
+>
+>          pm_runtime_disable(&pdev->dev);
+> +       cancel_work_sync(&amd_manager->amd_sdw_irq_thread);
+proper fix already posted as part of v3 version.
+https://lore.kernel.org/alsa-devel/20261013085111.2009061-6-Vijendar.Mukunda@amd.com/T/#m60177687bb84758efdd6f5f09eba8ad32f0e4631
+
+>          cancel_work_sync(&amd_manager->amd_sdw_work);
+>          amd_disable_sdw_interrupts(amd_manager);
+>          sdw_bus_master_delete(&amd_manager->bus);
+> --
+> 2.56.0.317.g454f8302e1-goog
+
