@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793371141;
-	b=m9KYGSB/ft//nDdQzPzegyM4caZwX9vtFMHvLsPtTaaY7aagLl/Rk4VUJ3Ia3LLfJV0a
-	 0BFsgnRyGOZpy/ekHLlU1w5VhF4EV5U5fiUTPylOWc+yNTvlMyQJq+U1FVQBOal/cdHwh
-	 j2Q6793AepBfZ+xd1E7dYGMY4zQxT6LXQrQqTy31s1QWbkNzQbJlPjruKLF7uBUZv4UwJ
-	 6yvfX56htDPtT7FZQeTdpqJeBgDlhlaSKic8GvkudjHKZ3u+aGS+78TBtSdIneQiybxow
-	 R4MCAOtUvReOt4ti37kwExHFGaZgRg2By5IDIpz+gXDyIwAQTCKNoa0DFwpAikgIv4w==
+	t=1793371192;
+	b=gJVsiJVRKNSZWB5UsjAlaH6kgxL+SDA8Mt/mfLCslZpvh4bG7uUXH6wf834K2d4ULzNT
+	 CTumtMyi1fVUNSzDbDdbSM8s/ncOaw7zK+LWAzGeyGKWjEBkwIOKjhr+rXEUwSCd00Ydq
+	 +S4o/srj6p+YREBr/0/cMNKHznMk/78iI4Gct80O/SvflpAwRGGf+l95A21dAsCHNc0mb
+	 mK1GHhGPClH+hWQcVBkruJRMph8duJfTb3+g/cMKKtDFcAXgvfPHSnA6jGUt6xxP6tZy9
+	 rU0by8nIt7ErI7LjOgBbRfqF6f1+9jLU7U+2SD003f7QplCWevF0j2GD36DzYPCs8IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793371141;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=X+jL5QP1zfJdaJr6lj9TVIyYJXOirbw2bMK3zOxIKfs=;
-	b=WAMpWE8gXLj1GKXmU+CXEEPXwLbg6rDOc7MmoDyxXTOx9pnsm1uaCUboKPzg89gkQ5ov
-	 KHzae3NpPt+XDmJ+ytJuIlG94tgOcXgWXU5nSTUAsFc5n5IACXXmevzHqEuewYU25idHs
-	 96LQl89gmG1P7QglYDgtXWJmHXHQ1tmfuon4QoC3Cp2vJxaGRHk35oP2IdJQL2NT2un3d
-	 FMpfp5nrD0HYxhecFDy6dS23ohHMRVG4ht8Pieg5boe3JBsovn1awZQuOlXoJt9T90FY9
-	 qRUMIDzRODmpLP4etiBvYc/WXnN7/6MytQAKRdllOa9lYz4Pjhr5AGsgRb/EVEmazXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793371192;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=R2HclnRmIvT2ikyO/43sxrVPfYW6Mo/iFT1div/Cdnc=;
+	b=n6geFK4K3OcKtfHzXZFgXIqtPBlgkzp8JnvGbsfDkgpUpk8xThE6QU9+ibxNMmd9zUjg
+	 1iJXut9HC91ol9mY5ER2wO77vcG54ywr9te634I+lJyph0fVLoXaMGJOkFM0q2ZSJH65V
+	 69l7I6bp490dC48LIddsGqNf5eQYwnAqLmYfuZZ4wFOPHlXwJ2fDrVpn1IauS+1BcEZX0
+	 Su+8vDIU7c2etVdn0yymhNjBLaXxnVdd0EA5RP6BHUhmYcx2gpMUvZH5xUsxiz1ZmUNe7
+	 3UlaDZaXilx8ilo6PY/4EDaesafLuwtnm9yoKgUlLNjmKOkPXtCD1CEWCcWy2fu2Jnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="KxZxh/Ba";
-	arc=none smtp.remote-ip=91.218.175.218
-Received: from mta0.migadu.com (out-218.mta0.migadu.com [91.218.175.218])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VUeAWBmK;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F251606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:39:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F251606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4708B606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 14:39:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4708B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KxZxh/Ba
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CZy0RET86SHEJl5kUZciGQmm2ZhwcBOzdF3dtCdmBiY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793371138; v=1; x=1793975938;
- b=KxZxh/BatzLytPQ4Nb0VSLv/tPnefBqmyi4sECimMXtm3nlOfeKd1lXx1YArst4FDcNsGO6R
- C7Ml88uWIf1o1dxG6+GLyqeXIqcDVFM4DyPIo4wnAFwOAVdeD0N/CAF+O55vpuoK16Nktr3JNJc
- vIOgxmRqKxkoVeIU4sr4ybr0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id aa867f3a93bbc39b;
-	Fri, 30 Oct 2026 14:38:58 +0000
-X-Mizu-Trace-ID: aa867f3a93bbc39b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6361f6a6-3cfb-4eaf-babf-be548f28f2c0@linux.dev>
-Date: Fri, 30 Oct 2026 15:38:57 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VUeAWBmK
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-15943c9c005so1350176c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 07:39:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793371191; x=1793975991; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R2HclnRmIvT2ikyO/43sxrVPfYW6Mo/iFT1div/Cdnc=;
+        b=VUeAWBmKJTYSVv+3tkoGdgC0kw1Z6smznse9NT6R9o7F4AeKZ1im9xwU8/6lKtpcbr
+         XZltaVjjfZtKb/Ky0rkMvTLIWI6XA6dLAlcIdzzXKDkO/VxjkL7TzTYtMJAm1qK6BhXQ
+         xNlCCzpQYPixb36E4fmzXeOL5afJq+BiGs4EGXYysOzGh1cv3QninlBT7g+pFG7BryOm
+         DpAkCmp01MvK+5PI2PwdNXnKlUsoy/PWYES2UW2g8r5hgUuta4IgBhTLZh0UtaGYYlVb
+         XL8PPm1buO+9cAVzsH6jhLCB+NiaoZ0LA1+ixORVNE6qkeM+FglPCaRrs+qOyodS/ura
+         9x7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793371191; x=1793975991;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R2HclnRmIvT2ikyO/43sxrVPfYW6Mo/iFT1div/Cdnc=;
+        b=qJc06HqSiSFLguhchG1yHAAJmg7xOZSY3PKs5wu0ZXLsoAtLI88kPVV8Xm1MmvJmGC
+         CHUjk8hJdRNRkdWCwQuOBEI8kQne53qCGbKVLNn9M9Eeoa7oOprG5NlczGt399gKj5KH
+         BWa07iObJtaiEwaopob49aQFuwdaddzaQtG61KwR+/zKKayu3HQqdqEDPca/6C0TUQeM
+         baRTk1/joSHVcD2KxeWQs/yS4J88NzcV5MjknN445nBPXzF9zLQ5NzhpNCpH4KTZDCgz
+         FpX9R23c3+Unat7pDFpqcpkQ8Q0Bwzo+Xg7L6hd75aD/HBzUgEwl6NvW6aMFe0E9o8Km
+         x5xg==
+X-Forwarded-Encrypted: i=1; AKwUvBwyvTUwcgz0G2TAUazyjt9DUyVcbsBBMsw8f9YSiYea+DVblAcJCiBFMDxM8+7LkL2a/oBayYt1HIizutY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQrBwinUB/yZmmTg73TFOfBzsvHuYXv4Za785hOqQqnrCJkAnE
+	i/ZajqTyHFH9/ZLl4Ky5XtHPw2yUahd54h1R3le0/A99Ecs8c7xQbYbw
+X-Gm-Gg: AYBFou1QML/W4F7c8ultd4hB+JOlYhY6oDgnJbp1RKAw3LV8EdW5JWaEE47mrrhRYtz
+	LmrC//0+0coRzzzKNyy9YIY5qTn5Lut7shWd1Vqk+IK/jYA2Pte4Ln/L3X6zyTucSWNDydBEWAR
+	3Wzf9KNA74GLxcKHhVoDFeIDQ8cUdLW3hlvIIL24BqFV5/lryvwztCV2HUu/zUsPW23L44RhOxz
+	HFOvnn8SIGL8aup03XU+tZlBPoatrFb/nELqdlkbU/KvtOb4hrZgTi1KGVH7cEfWj+JRGxayBLD
+	XOTXYmgeBkCW1J4w1IjCiEYmcDVUiXDArGTyedDVYDpNpR40ln+fZjysK319D7LVd1lIzg9RvZf
+	5/9Snb+x2HMiqUA942j0+Hagv6qCtcUsvQ3Y8K8zntuFZ0yYcuazReHOv/GOq/hY0FrN55ZA46o
+	J7Kkr8ZKSUyWSptho0J1OeGXcSVe8ogm648DQgXu90dYt1JyDHPOs7aiUM8wSHZpnbolJZGlE6a
+	22upLkIqUVdPgoVM13ETtbFW9hiajt8Z7HID3ExopVkukO/Pu3ClPE6ZjQFDHcDk3MqfNh9ctbi
+	aG24vgP4bTDUzvTm3CvskXaw5rcCA5yEFxh37SNYFaJmIXez/1qEmf1pOJFTHTtOnHTSM3hdKpC
+	rcUDmAvhNLq7zDJUhtCeTLU76jLMAAFgMGGQX3pOm7PyDvU3PhugujgaHiIF/cMyK06Y4msTezZ
+	JL3ZDh5Bg3oC5uag==
+X-Received: by 2002:a05:701b:2411:b0:194:9e7a:3ba2 with SMTP id a92af1059eb24-1ac557770edmr3026667c88.2.1793371191299;
+        Fri, 30 Oct 2026 07:39:51 -0700 (PDT)
+Received: from brev-9gdpyq8lp.ap-south-1.compute.internal (ec2-3-110-210-194.ap-south-1.compute.amazonaws.com. [3.110.210.194])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1845817csm7399020c88.5.2026.10.30.07.39.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 07:39:50 -0700 (PDT)
+From: Samarth Narang <samarth.colleges@gmail.com>
+To: Han Xu <han.xu@nxp.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Richard Weinberger <richard@nod.at>,
+	imx@lists.linux.dev,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Samarth Narang <samarth.colleges@gmail.com>
+Subject: [PATCH] mtd: rawnand: gpmi: terminate the DMA chain on completion timeout
+Date: Fri, 30 Oct 2026 14:39:45 +0000
+Message-Id: <20261030143945.2923554-1-samarth.colleges@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,68 +101,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 07/18] HID: asus: add support for response curve
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, platform-driver-x86@vger.kernel.org,
- linux-input@vger.kernel.org, kernel@lists.opengamingcollective.org,
- Benjamin Tissoires <bentiss@kernel.org>, Jiri Kosina <jikos@kernel.org>,
- "Luke D . Jones" <luke@ljones.dev>,
- Mateusz Schwartz <matthew.schwartz@linux.dev>,
- Denis Benato <benato.denis96@gmail.com>, Jonathan LoBue
- <jlobue10@gmail.com>, Khamunetri Clark <khamunetriclark@gmail.com>,
- "Derek J. Clark" <derekjohn.clark@gmail.com>,
- Joshua Leivenzon <hacker1024@users.sourceforge.net>,
- Nathan Chancellor <nathan@kernel.org>,
- =?UTF-8?Q?Rebecca_Mara_M=C3=BCller?= <rebecca.mara@posteo.de>,
- Ivan Levchenko <me@livan.pro>, Corentin Chary <corentin.chary@gmail.com>,
- Hans de Goede <hansg@kernel.org>
-References: <20261025235232.129945-1-denis.benato@linux.dev>
- <20261025235232.129945-8-denis.benato@linux.dev>
- <7688fc40-c439-005f-6a78-efdc39356694@linux.intel.com>
-Content-Language: en-US
-From: Denis Benato <denis.benato@linux.dev>
-In-Reply-To: <7688fc40-c439-005f-6a78-efdc39356694@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+When DMA completion times out in gpmi_nfc_exec_op(), the driver unmaps
+the operation's buffers and returns -ETIMEDOUT without stopping the APBH
+DMA channel. Since mxs-dma leaves the channel in DMA_IN_PROGRESS, the
+pending descriptor chain may resume after the timeout, while a
+subsequent operation can append new descriptors to the stale chain and
+cause the old DATA_IN transfer to execute again against an unmapped
+buffer.
 
-On 10/26/26 14:06, Ilpo Järvinen wrote:
-> On Sun, 25 Oct 2026, Denis Benato wrote:
->
->> ROG ally devices allows configuring the response curve of both joysticks,
->> therefore add the ability of userspace to modify the response curve by
->> exposing relevant sysfs attributes.
->>
->> Signed-off-by: Denis Benato <denis.benato@linux.dev>
->> Signed-off-by: Luke Jones <luke@ljones.dev>
->> ---
->>  drivers/hid/hid-asus.c | 297 ++++++++++++++++++++++++++++++++++++++++-
->>  1 file changed, 294 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
->> index b4bc89ec28bc..e1883ee20413 100644
->> --- a/drivers/hid/hid-asus.c
->> +++ b/drivers/hid/hid-asus.c
->> @@ -22,6 +22,7 @@
->>  
->>  #include <linux/acpi.h>
->>  #include <linux/cleanup.h>
->> +#include <linux/ctype.h>
->>  #include <linux/device.h>
->>  #include <linux/dmi.h>
->>  #include <linux/hid.h>
->> @@ -185,6 +186,18 @@ struct asus_touchpad_info {
->>  	int report_size;
->>  };
->>  
->> +struct ally_joystick_resp_curve_param {
->> +	u8 move;
->> +	u8 resp;
->> +} __packed;
-> Add include (if I didn't mentioned it already with some earlier patch,
-> I don't recall anymore :-)).
+This can result in DMA writes to memory that has already been released,
+including buffers freed after ONFI parameter page detection in
+nand_onfi_detect().
 
-Which one? I only see drivers either not including it directly or highly hardware-coupled including the one
-for the architecture, what about a driver that must work for x86 and arm64?
+Terminate the channel with dmaengine_terminate_sync() before unmapping
+so that outstanding transfers are stopped and subsequent operations
+begin with a fresh descriptor chain.
 
+Fixes: ef347c0cfd61 ("mtd: rawnand: gpmi: Implement exec_op")
+Assisted-by: LLM
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+---
+This issue was identified by a research static analyzer for DMA
+lifecycle ordering and has not been validated on hardware.
+Compile-tested only.
+
+ drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c |    2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
+index 527165ccc..a8106de2c 100644
+--- a/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
++++ b/drivers/mtd/nand/raw/gpmi-nand/gpmi-nand.c
+@@ -2659,6 +2659,8 @@ static int gpmi_nfc_exec_op(struct nand_chip *chip,
+ 	if (!to) {
+ 		dev_err(this->dev, "DMA timeout, last DMA\n");
+ 		gpmi_dump_info(this);
++		/* Retire the APBH chain before its buffers are unmapped. */
++		dmaengine_terminate_sync(get_dma_chan(this));
+ 		ret = -ETIMEDOUT;
+ 		goto unmap;
+ 	}
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
