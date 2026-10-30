@@ -1,64 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362668;
-	b=OdY6wJKP0jjDjSGQlLhLEXgH2+hQ+DDLX3EY6clIB2ZhW2n5uxUJzJRSrXW2xLdafFxw
-	 hz84ygFHIHb+MkKKxj4HHJTI6zl47Rmy6eppnTdFysjhkR5LMbptR7zDyNbaWktiz0DPj
-	 IzHKTMKbQTkQaH6Ns/jdfwAygNjF3hxvJ/8bZmoqxN05Z2RnBd/mEodmZe8lgMAzOupp8
-	 EN36bZkJFLHP6uD3ojlOl0PstWypY3YnFgZuD0yee2KlaErjj3bloerdc+Nt+pcfzbj5e
-	 12buH9fFDgXefXozgq1qhAjNbaFESWNZtgUxBts7yY2S8CHbhm3l+EdGufGw+30cTfw==
+	t=1793362677;
+	b=QUlnpip/odxYGNPBdzvG4DMKnjtDD7VpVXY+wdPQFhd4HSpg0b/xiJKCEuz936Ro+h7m
+	 kkRB/ck/77o9WXlAEOnWGEXNFlse80LFRe7zoOgRxPPER/rdkQVrWvus6cPY2yIQOwkq4
+	 zxIbnPkXns4nn81cjkVArQyHxU2HeJJ1+4QwRlvZwoQ3gILKmJYtxc1ul3pCv4MSATfry
+	 ON9tYJCA5r0TAFmfAy5xvE6bthjglA/A2iAxR1LVnsGxO5xW1YX28Q88tQ5jQlzXgJcz9
+	 bZGcZ5yU84jMZd61BfvBdfWQU3QvfYVlFpdEFCzrXH55easF05GcrleLJ/kagnxNjiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362668;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=UK6y1rvEetP4GeIpkkcT7eGv8kcGn/z16mpoP5T1g04=;
-	b=V3y2oCBYHCdbsuZ91grUPLAMMqpLn+yFEW9it0tFdidM6DKZthNnihMp/oqHu7g/Y2qd
-	 vlqFqgb/p0aOSeczIo2hldv4e2ukfcDuQY53yadiIdInZ796FwbCRswKHu2YwOndCjOXC
-	 AEm4qQLepe4GIejUIoGnv8o+CFcOJnU93QaLEB4YLi2qpbtq2YiB0UvWtrcXV79Mvd5gP
-	 pV75towuTgRHW60aAp8+6D5/A5JZuifIyfPu9E1IYSgU01emxBD+ZILr8xiQJDtvsj5f7
-	 howpF6O0eiUnDnAEcrKKIDW1BGOpKoAnPpKJnYRcIH56KNGxEDtC3Y538YwS0XUVUzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362677;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=gpcEkWZksGGfj9XjEwCf+DBg2I4p4de0sWgxlYdGmn8=;
+	b=h1qlRHy0Y1TGaPRGrrJ9fD7iCjJgSOQFOFIlVVQuyJacD0B8UgBu/Xxi4/8xm0i6A1OV
+	 4B7ZY6WH1QWd0Qg+4mLt8zDSeBSjMKhWJQzcV7RCodM24rs7s13TbZx/8qkC9eJsTo+kx
+	 6oRc1c/tIl9qWAO9QAPqS69XnWI3RUKxQc89FdFTOGG7tLBkrmlrKmfd6gWo9rLbVsmrC
+	 bdsmTQkIwCMf7w6TcKT/+qrl2sEB+lZ8G+LaEKldBI9Sgs/kkx3ZXvUrYiy9UMrIbMnZH
+	 nn6NpskiDaQSRnEPh/ZO17EDqhF9Fs0Ryix/9KojZDtyWXjkoc7yU2bHCP5zCElChHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XraIJ6OR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mr5Tufi3;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9EA606A31A;
-	Fri, 30 Oct 2026 12:17:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B3A606A323;
+	Fri, 30 Oct 2026 12:17:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0B3A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XraIJ6OR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C16C1F000C1;
-	Fri, 30 Oct 2026 12:17:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793362667;
-	bh=UK6y1rvEetP4GeIpkkcT7eGv8kcGn/z16mpoP5T1g04=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XraIJ6ORxhn6aOLNJ1PzJuMnPc8UhPpMsnkW3aeRyNbbmlBmryRlydRPYjJrKOaFt
-	 ipXhvkqGlCIx70HIow2DVaPIS7NFY2OQStQHqM442z5SEWSw7Xo1dk2h6a459dkIbJ
-	 bYUGabJzgA1cZ+1OEJ/jj39U64gFxztd/BwD5UBJBFTvJ7Shjkqalaq8m86o213aVx
-	 FR/Bp6BZrrvCUmH1cPR8jaLgirSMeIChIcj2t6x3wtFZ94Z82KA8tVNbiu6VX3COEn
-	 qPPvNlfZ9s9Fqs1RTDisWAW7/uWEAKFYhCIfp0XOkgQ8o8zKyZ9ndP2YO/n++l3fp+
-	 V7vRAuFTLdaTA==
-Date: Fri, 30 Oct 2026 12:17:41 +0000
-From: Lee Jones <lee@kernel.org>
-To: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Mastan Katragadda <Mastan.Katragadda@amd.com>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Mario Limonciello <Mario.Limonciello@amd.com>,
-	Syed Saba Kareem <syed.sabakareem@amd.com>,
-	"Prasad, Prasad" <venkataprasad.potturu@amd.com>,
-	"Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
-	"N, Poojitha" <Poojitha.N@amd.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 16/21] soundwire: amd: Initialise and cancel IRQ work
- around manager lifetime
-Message-ID: <20261030121741.GI3774906@google.com>
-References: <20261030104840.3361217-1-lee@kernel.org>
- <20261030104840.3361217-17-lee@kernel.org>
- <43cae78b-8a9f-4528-982c-85c0049b1414@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mr5Tufi3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=gp
+	cEkWZksGGfj9XjEwCf+DBg2I4p4de0sWgxlYdGmn8=; b=mr5Tufi3GMgVAuq27S
+	jWAfb4B3uAh5SStm6bix00bOes6SQKzovR2BwsVqzk6bbINbA3UO/xfFpKjWyK0k
+	VVS6pMQKshrfheRowcoQbxJ09yqHkX5NXy5HJ4nanqtXVhOlu1yu/pYGCu4aaLfT
+	evsQmpTGifQsUMNtWwlQrVut8=
+Received: from pan-u.. (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgDXXQ_kiuRqoPk9Cw--.24194S2;
+	Fri, 30 Oct 2026 20:17:40 +0800 (CST)
+From: RenPanpan <rppxj178543@163.com>
+To: alsa-devel@alsa-project.org
+Cc: tiwai@suse.de,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [DISCUSSION] ALSA: usb-audio: Card naming for composite devices
+Date: Fri, 30 Oct 2026 20:17:39 +0800
+Message-ID: <20261030121740.250336-1-rppxj178543@163.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,66 +60,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <43cae78b-8a9f-4528-982c-85c0049b1414@amd.com>
+X-CM-TRANSID:PSgvCgDXXQ_kiuRqoPk9Cw--.24194S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWrWxCFy3Xr48tr43try8uFg_yoW5Wr1rpF
+	9xKa9Fyrs8Gw1xGw1kXw4fGr9xtrZ3A3WUGryDWr18Ka98ur1jya47trZYqa48C3s5uFy2
+	yrWjqry0kws8AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j8AwxUUUUU=
+X-CM-SenderInfo: huss5yirxykkqt6rljoofrz/xtbC6gSvrmrkiuRZuQAA3v
 
-On Fri, 30 Oct 2026, Mukunda,Vijendar wrote:
+Hello,
 
-> 
-> 
-> On 10/30/26 16:16, Lee Jones wrote:
-> > [You don't often get email from lee@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> > 
-> > amd_sdw_manager_probe() publishes amd_manager via dev_set_drvdata()
-> > before initialising amd_sdw_irq_thread and amd_sdw_work, allowing an
-> > early interrupt to schedule uninitialised work.  During removal,
-> > amd_sdw_manager_remove() only cancels amd_sdw_work without first
-> > cancelling amd_sdw_irq_thread, allowing deferred IRQ work to re-queue
-> > amd_sdw_work or dereference amd_manager after it is freed.
-> > 
-> > Initialise both work items before calling dev_set_drvdata() in
-> > amd_sdw_manager_probe(), and cancel amd_sdw_irq_thread before
-> > amd_sdw_work in amd_sdw_manager_remove().
-> > 
-> > Fixes: 65f93e4096a0 ("soundwire: amd: add SoundWire manager interrupt handling")
-> > Closes: https://sashiko.dev/#/bug/linux-9890e8dc-4b7d-44d3-bfb0-171dc421e28c
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lee Jones <lee@kernel.org>
-> > ---
-> >   drivers/soundwire/amd_manager.c | 3 ++-
-> >   1 file changed, 2 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/amd_manager.c
-> > index 98b09d81f3b8..2e1038ea0f36 100644
-> > --- a/drivers/soundwire/amd_manager.c
-> > +++ b/drivers/soundwire/amd_manager.c
-> > @@ -1185,9 +1185,9 @@ static int amd_sdw_manager_probe(struct platform_device *pdev)
-> >                  sdw_bus_master_delete(&amd_manager->bus);
-> >                  return ret;
-> >          }
-> > -       dev_set_drvdata(dev, amd_manager);
-> >          INIT_WORK(&amd_manager->amd_sdw_irq_thread, amd_sdw_irq_thread);
-> >          INIT_WORK(&amd_manager->amd_sdw_work, amd_sdw_update_slave_status_work);
-> > +       dev_set_drvdata(dev, amd_manager);
-> The probe-side ordering issue is valid — an interrupt arriving after
-> dev_set_drvdata() but before INIT_WORK() could schedule work on an
-> uninitialised work_struct.
-> 
-> The remove-side fix is already posted as part of our v3 patch series:
-> 
-> https://lore.kernel.org/alsa-devel/20261013085111.2009061-6-Vijendar.Mukunda@amd.com/T/#m60177687bb84758efdd6f5f09eba8ad32f0e4631
-> 
-> The probe-side fix will be included in our upcoming v4 patch series,
-> which contains major driver restructuring and customer-critical bug
-> fixes. Merging this patch independently would conflict with v4 and
-> complicate the review process.
-> 
-> Could you please drop this patch? Both issues will be covered by our
-> v3/v4 series.
+I'd like to discuss an issue with USB audio card naming for composite
+devices and propose a possible improvement.
 
-Yes, no problem.
+Problem
+-------
 
--- 
-Lee Jones
+For USB composite devices containing both non-audio and UAC audio
+functions, the ALSA card shortname is derived from the device-level
+iProduct string, which describes the entire device rather than the
+audio function.
+
+For example, the CVT Touch Device (1ff7:0f33) is a composite device
+with HID touch interfaces and UAC audio interfaces. Its iProduct is
+"Touch Device", which is the name for the whole device. The UAC
+OUTPUT_TERMINAL descriptor defines the audio function name as
+"MAXHUB Speaker" via the iTerminal string descriptor (index 14).
+
+Currently, the ALSA card name shows "Touch Device", which does not
+identify the audio function. The UAC mixer code already reads
+iTerminal for mixer control names (e.g. "MAXHUB Mic" from the
+Microphone INPUT_TERMINAL's iTerminal=17), but the card naming
+function (usb_audio_make_shortname) does not use iTerminal.
+
+Proposed approach
+-----------------
+
+When the USB device is composite (i.e. it has non-audio interfaces),
+prefer the Speaker OUTPUT_TERMINAL's iTerminal string as the card
+shortname, instead of the device-level iProduct. If iTerminal is not
+set (zero) or not readable via usb_string(), fall back to iProduct
+(existing behavior).
+
+Non-composite (dedicated audio) devices are not affected and continue
+to use iProduct.
+
+The composite device detection checks whether any interface has a
+non-Audio class. The iTerminal reading uses the existing
+snd_usb_find_csint_desc() helper to parse OUTPUT_TERMINAL descriptors
+in the Audio Control interface's extra data. The iTerminal field is
+the last byte of the descriptor, common to both UAC1 (bLength=9) and
+UAC2 (bLength=12).
+
+As an immediate fix, I have also prepared a quirk entry for 1ff7:0f33
+to override the card shortname to "MAXHUB Speaker" directly.
+
+Questions for the community
+----------------------------
+
+1. Is this approach reasonable for composite devices, or should it
+   remain a per-device quirk?
+
+2. Are there concerns about changing card names for existing composite
+   USB audio devices that have iTerminal set? For example, UCM profile
+   matching or PulseAudio device identification.
+
+3. Would it be preferable to also check the IAD's iFunction field
+   before falling back to iTerminal, or is iTerminal sufficient?
+
+4. Are there known composite USB audio devices where the iTerminal
+   string might be empty or contain unexpected content?
+
+I have tested the quirk approach on a MT81C device (Kylin V10-SP1)
+and it works correctly. The iTerminal approach compiles but has not
+been tested on multiple devices yet.
+
+Any feedback would be appreciated.
+
+Best regards,
+RenPanpan
+
