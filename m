@@ -1,54 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793327804;
-	b=d3qewpg5QVCgt1IHWgW7H47dQAji0fFV6DI9AvGekpZkUgGIcBkxqDrNSeGTPqt/PWJF
-	 +4F1MUq3eljQ25aqk5Akke3HuwpcdQxtpYmC17al5h/rAZlf4lrieHidU8rq5SkYw6bap
-	 KNb1//b+R/2c8RqXuX9Y5uYGTyX1++yHhH7zHPQzbi7lY74IngoJrWi0zIYwjAME8dGea
-	 1m1avmdriNAEU/Xqh2a+HLs0lo8r0FSspMrn+e/5DX7MTdGETCjTI9/4NdyHjUQT4Tnwr
-	 N7mfs8atsmor210nBoczl9o5KZo6Wpo29To1LaHEGBGwKhwthEzm9j2s3rjuyittFBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793327804;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=LZpY3C/W3YVvnLmO3CF3zYjfsRgXkvzAHK5Myqx7bt8=;
-	b=1eahlQ3JSCyem5mmfGvb8X4pKNKdWT/O4fQVfQ59J04+KGLGB1M7qPuqRKeYKhOUiBmv
-	 OI9VHw+xCCT459flmCDBSC7/QFoOWsgFZ6bWB818GDkspn7jfVO6g/vaMG5aXrkTpT+Np
-	 AO2vJHfC5/PLLIE4NaEsPsk3+9w8K3GA4SnB/lrm7TAfqNhk3+uq2g8bADeAc5IxiUOc9
-	 7iIShargInU5IS9ID8U/hjS0PLZsFzs5FUy7h24mxTIMiCGnoRt4PsJ5W62QK423oc7qM
-	 3JTZJU4g6fMMBXynUYJNlvwVUe5JFckpqWB0P4gI54Frr/7OogBV4oRsqXWu5P0OWLg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793327883;
+	b=aURmJBKGq3k1844h4wuDWH77WJrzTmEyG4n/H+rQ+GMCCAGfOk+RPmv/448MU0Gi4OvI
+	 iUAddbPFXQcQFYoLr5U2gQdQM3iuuuCFxO/grayXC7PhTxduEuLWuPh3h+HPizzIqumVn
+	 JsBsPq98eSMPLgm/eeOqt4hcQ02YpaNajBnqGfcfhEp91khDnkBNS/nVQnJnkU0Pkbdx8
+	 +FQw1w3gChTmK8OIIo/YALrE5IP8qb9skjFQ1JjZl4+CNVkdLBu2mq5GYfd3TwP/wEKyJ
+	 e2fEnXbeagH/kd7vQh5XE/MKnIjq0BGRnlDUzRMNZ7Mi9Eqa5nY+M8Ihgo3HByukPJQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793327883;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=wc1eNZc+fY71rAknGBOCWvV2tYF3Dw+MSjlv5iF/Gt8=;
+	b=FKawKlW6WPJK0+VBJJTuoD3BhwOBffh0EudE2b1HW4goZLSHyHjUsGOmoWB1SKvhgi3/
+	 N9mQnBxsORga8Q2WKl2Bpg8TYPhE8mBOTiacT2bw55ET2db6xqFUYm2E5SrIpdrD1CWbf
+	 KSs6Ew9Hd+x1rf0HmlBDzZ5QoVdnvSWEOXBeS9eSoYqr04+JDXjUs+jGNRXNLjNpeF9xj
+	 sSsQ4z9RKvviEAdVgXfVd6EpO8+bVPIHkTbXcn2g+Y5n3kv9c8OUITN9ZBTk/naWv30Ng
+	 VWuTzbzsOhWED9p/Mz9o8/SWuEk/kJP5Xh8nkYDN0xwwPjyqgft9Nt7VKEQWkppo3GA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=o6kb7Etk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.47
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010047.outbound.protection.outlook.com [52.101.201.47])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43422606A31E
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 02:36:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43422606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4e778acdbc6so308341b6e.3
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 19:36:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793327803; x=1793932603;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LZpY3C/W3YVvnLmO3CF3zYjfsRgXkvzAHK5Myqx7bt8=;
-        b=j45aJGwbLRfW2gecgQD3Mt5UPDPykj//1YjZ4qBCuBHsFOUsGU1/WlRl5h0zGtX3Qf
-         FdIHvz7aHIRMDJIIfH4/r1P/iJ1nJgs4RktFR4QgoXRQWsUCPJaBsRO3H0WDeQ3Ls+bG
-         N4GBod2dOP20C6r07rMui3pcOSbDMUqqNK/Ucm4BObx+Ls19/iQYgA3s2HmP6rea9eyM
-         LiBuaExpZ/Z37yY55Ds+e0WRVJgMBKZt7MKFBgfF0Nv4JdEQI29i6AbPpZO5X2pPehIn
-         5ONEAC4hYuufmlgR8qv1gL1R5kwpvO/mv1bz/qv3PFXQNwWv5ZV1ZKRj69ulXJ1qh87+
-         uk3g==
-X-Forwarded-Encrypted: i=1; AKwUvBwoJeEUc1zLqL7CLF19HJG8jR9RPx8ndXupIpcIbYKOgUhOb5JRyWBsHivcm8d7NXRoSTI14rPU67IRmyM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9ZtcD6mXDj+R3UXmUKA87HvgSwbVHkMKSO9F8HpjWR9r6WEf/
-	a7pwqtZVtwgKaS3H+hMaLkehsGRmbGfbhMrIxTbUKxBnDVz74vvhkSflRNsdtE+Fs83unXxiNDu
-	clWF7MXsmGIUkp/6tFcEWVh2Uf96tSyuG1e4rMcavQwmNHbZwfgV0bQ4exF4=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24ECA606A31A;
+	Fri, 30 Oct 2026 02:38:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24ECA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=o6kb7Etk
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xMFOdZPNgaq3s/ZTNQ07lC6kqfAFe+95f3H+yAyBUuhxQPKgGDq8mmOBuE1vpgih6ZyaUfEDCcgLQTuVs8bo2yNQ/FWUeozdko2OOGsYd6DAjo9TmYe78k01JwrEP1f171WdaGBt2UvVz6UvFcB1JwUetyRb6Vu0r8PbF8RN4q6OWm4Cayxge3folXp22pPgDiYgF8rfcSGnUNgAf5H5OV7c0C8f2MphWjb0vWx1NgDipEL1q7mKZxUDsAaOy9Wn5En4PX9ckLS+ioeOa7eIzlkvGv7rZh3KIxvcAzAUtcd48iNSmI4nb8LzkWFYss2DaBQBOuhfHiX9otnSbb8XRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wc1eNZc+fY71rAknGBOCWvV2tYF3Dw+MSjlv5iF/Gt8=;
+ b=JLGrHKtuDNApjT7yEre0O7XUxSsh3syU5fv0r1W5j0AQmMUPzqICsrdfVXTyCOJkPhvaoEa2k0VKBUE24ZjNCScPJrdkfnmysQNeZbJwBSbZWbAt4jqsEwbFXYfSMhrn2eMxG1oMW9HcqMFNk7fuMJ2rTxrGeNr45UG6WfkD16MFtk4GtCC4hG7z9knXjLBrN+3VQ7wqDRPIdWaZr3czroj9/uk9RA926FFO5U3NrdRL18XoEQApYtGa9HDGvXlQuFQRWg52aNz0h8PkCyN30sRscS+MQsVSjhAky5x66zY1+ScuVz3+vK14gGE+aOBjZedvYYkKzha0og236c2l2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wc1eNZc+fY71rAknGBOCWvV2tYF3Dw+MSjlv5iF/Gt8=;
+ b=o6kb7EtkQ4tug7GcTePWNKbYExtTT5ypVe8qLqmbf+hIkaUUxv/Xd1J01dPpEcYwuizY+RTW8dmAgF6qd18N8TzRUEdmLM7C+Hvjf7JkUkSzsbk1FuRM9357OmUOkrdAMSNl2gQLdqqBtdWChZ7f8oBLLHNLu11hhPGPiCy9zPJderd6K/V2pyLk0ykQG+xPpZ9FJjhso27ffkaCRnJzlFgnXLARqFsGTXLY1SenFSD96ZsSuLwtVSmffOPva3ZCF31mhlOKg9cURiTTeEYoGGV1z0WLDe2qH3tlEh1EGgdd12lDMoaS/21qJSWoZxkS1B9kINJojYISB885X5MipQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by IA0PPFD4454CAA9.namprd12.prod.outlook.com (2603:10b6:20f:fc04::be5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.21; Fri, 30 Oct
+ 2026 02:37:59 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 02:37:58 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: linux-tegra@vger.kernel.org
+Cc: Robin Murphy <robin.murphy@arm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>,
+ Thierry Reding <thierry.reding@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Krishna Reddy <vdumpa@nvidia.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Yong Wu <yong.wu@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ Christoph Hellwig <hch@infradead.org>
+Subject:
+ Re: [PATCH v3 00/10] Make the 32-bit ARM DMA API work with normal IOMMU DMA
+ default domains (+ Tegra PoC)
+Date: Fri, 30 Oct 2026 11:37:53 +0900
+Message-ID: <wbo9prdIQW6DX3kU4aWbuA@nvidia.com>
+In-Reply-To: <auM2FAYVK192RzHb@infradead.org>
+References:
+ <20261026-b4-arm32-iommu-dma-cookie-v3-0-3901d74b1ff2@nvidia.com>
+ <auM2FAYVK192RzHb@infradead.org>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCPR01CA0143.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b7::15) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,109 +116,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6508:b0:4f5:4780:582 with SMTP id
- 5614622812f47-5640dfeff32mr678119b6e.50.1793327803370; Thu, 29 Oct 2026
- 19:36:43 -0700 (PDT)
-Date: Thu, 29 Oct 2026 19:36:43 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae402bb.0c1d3ab6.e3d48.006c.GAE@google.com>
-Subject: [syzbot] [f2fs?] memory leak in f2fs_apply_options
-From: syzbot <syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com>
-To: chao@kernel.org, jaegeuk@kernel.org, 
-	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|IA0PPFD4454CAA9:EE_
+X-MS-Office365-Filtering-Correlation-Id: 410846b4-3b56-4410-3688-08df362ecedb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|366016|23010399003|7416014|376014|1800799024|18002099003|6133799003|261026121527099003|22082099003|10067099003|11063799006|56012099006|5023799004|261021130227099003|261028144727099003|261022113327099003|261022105027099003|261021135927099003|261021121427099003|261022075727099003|261026140227099003|261022115727099003|4143699003|261021123027099003|261026130827099003;
+X-Microsoft-Antispam-Message-Info:
+	XxBr/7LokCXcmaWmdjkw7yVudUcWYfo8DA50AlJCY7978V70nRqYsfCqwFS+H7kdoKxeGo7WQZ3lbv1J0kQ74pzJopDd1WyT3U/tc6JG4xDKiworoheok/QPT79vu0WJE/QB9kr45ian0Q5q6bdqXblTt2MGJsnXxc3fXVlirF2t1J6f0C9pd6sGdyX24DvucUwsXg+A3WF5MOEwDA7npkNW3vUiwSNUovLFnoswe9Bi/xi+eXpVPPMuw1mWRiK7pOu39k9gIiEvo1Bc5L0XjNHlCO8dRdAtr6Ea0ZHPq1fEc/S/YXMrXZx3YvMV7jE0JdYsFUDMSWcVnWKuIX/n/45cTJNhKMTQZigd8XKQLoqAyqO52LlFL0zCnU+NNWw6eQqQZGonYIEBShoA9/4XumgnMiu8uWlv1UH+p1eoCqf9HzTS7RRx7irFfPrHYI6s4z+yJdhWTWYqUCVxDKWjzcffBzGp3rhbSIY0UDE68jz4YF0CQxSMwtlPu7FrIKmnKAK2o97Jo+VCm0KZ6ZoC9XlG8pMHHL/YOTv7h+I5I+WSuoGq2p3vhzknrcMtcvCCeREOSgJuyYOB4LKE9WGqoUWRj3e0HpXM5gcIf8G2u3yO7D3bAY4z5B4UhX6hfwKJ9REJ9odDJ+IYswjdeL2WtMRQevogwqU8HYwqNPL9rGE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(23010399003)(7416014)(376014)(1800799024)(18002099003)(6133799003)(261026121527099003)(22082099003)(10067099003)(11063799006)(56012099006)(5023799004)(261021130227099003)(261028144727099003)(261022113327099003)(261022105027099003)(261021135927099003)(261021121427099003)(261022075727099003)(261026140227099003)(261022115727099003)(4143699003)(261021123027099003)(261026130827099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cWd6U1UzVXNEU1M0SWtwN3FjNXNNQWNzQ2d0TTRBRG80MENKWUVBZ0FHOFJQ?=
+ =?utf-8?B?Wi9NRDlGT1Z1eGZ3QzFTeDU2clFQT29NUElVMjEwbjdXWHk2S21hVEF2VCt3?=
+ =?utf-8?B?dDR5ODljVVhBMkhJWEFPTHVoZ2NlREZ6emM2VFFNMGFoNnd1ZHJxcVJ6SU5a?=
+ =?utf-8?B?NHBYNTd3RVpHN0lJVHFBZ0tHTFU2QjUxL2xXbWIrTDJGRUVNTjhrOEZESzE2?=
+ =?utf-8?B?RjJxa3RVRHFGVDU4VmdWRWl3U3dBY2lKZzVUZ1Z2OTgzWkVNdzlvVG9PK2dG?=
+ =?utf-8?B?N0tlU1F6cGtYcDhFR25MZnFUVTFPRGdGYTBOTWM3eEdTVG5XeGdvYW1pcXlx?=
+ =?utf-8?B?Um9RT0Yrei9rQy8vZDU1WUZEcEx3bzVIczJtRXRXRlNWNTREKzVBSUtsWXo5?=
+ =?utf-8?B?N1pra1NOeC95VVZLQTZrQk1sTWFmdHRwVFlZZG9uYmlpV1ZJeHUrZFM5RjdI?=
+ =?utf-8?B?NEJvdDc4TDl1aVhqTFd3OWZMRDYxRXFMUFJXVjFFc0ppOFVjdmlueWk2WHQ5?=
+ =?utf-8?B?MVprMS9oUjJjaGY0cU9hYmszaEc2bXdyM3dpVDRpcWR5RDBOd2ExRUlzL05P?=
+ =?utf-8?B?R21JbDg3UGpKU3psYTdqNU0zZ2Q5b2pnNzdMRmhIb0QyN3owckZuRjFEM05k?=
+ =?utf-8?B?dnZpajAzbWUzTHBFOTJvL1JzNFM5cjdlbmU0c3NORVRzdmplL3M0emF1TGFH?=
+ =?utf-8?B?SkYxS01XWklFVkpuT1dCc3lZb0txb0srWUcyOWN5TmJEV0FlczB3ZGxRYXNM?=
+ =?utf-8?B?c2lKUUR3K3pXSHNlZWdEM2hkdWkzNk5ycnZadmw3VTlQRXNSYjFjclVMV0hO?=
+ =?utf-8?B?RDJQVkVhd1d3QkNuOGgxQnY2d2YwQWhXanNjWWtFTVFXZ0ZPVVZVVlJlRmpY?=
+ =?utf-8?B?SzNEWjN0QzFiZEhycjl6T3VuWkZ5akd1UWZ0OTRKV0pDQjczckxnMHBINTFo?=
+ =?utf-8?B?MUNLKy9JSjNKM2JDVzRLVk1CbzRLazV6SzdtK2VXa0NZelVNNkNpQVVWVFBn?=
+ =?utf-8?B?TW9WU09wOWIyaXRzU3g1WlpBRnFkRE16a2FyaGE4akRVc01RRW5Ka0lLOWRO?=
+ =?utf-8?B?eE43dXZBQ3Zodlh4N2ZOTi92UjVPWmFYWW5RaEYzNzZPZGxqRjc0akIvMVhH?=
+ =?utf-8?B?MjBiUzd4c1lQTWhRRzJKaHppYUFIc2xWTVAvQXdCelV2TEtFUERCZXZXM1dC?=
+ =?utf-8?B?WnBuQmZLTVdmQXBuUEZTeFN1K2lCbk1oUzVoMU1vWWZ2Mk5hZTVheTRub2VM?=
+ =?utf-8?B?NmJuQ0RtWFZmUXoxbXV3eGt3d2hFenlRYUQ0V2c3N1J1RHFuTE96dlFubUFr?=
+ =?utf-8?B?RkI3dDZETU5ERXhrR3d0Ky9iRUhILzZoMmZHQm1ndnpsenFXK3luc1ZOK20r?=
+ =?utf-8?B?dHlkUkNoUDBnYkxyQ3lIY3FBTXcrQjZSbjh4RTBSK2pLeHcwWVRheS91bEpY?=
+ =?utf-8?B?QnlpWElxYXRjT3RCODVOcDd2RjNraitmbDdKTnk2NEwrbWJRbnVnOVUrRktB?=
+ =?utf-8?B?ZnRiSDVFREFUUXczNzVweXJDVnAwMVJCQStITXV0b2dwazdkZmRUTWIxZUI2?=
+ =?utf-8?B?eEp3SjNGMXNHcnBKUWsvVUU2WlBSREZ1aWNvUEJqUjBtQUxacWFmL3QzYi9z?=
+ =?utf-8?B?YVVVMEdqSGsySGxCd05tUm9VT1c5eHUrTHRaaGNQT3FINHAzeUVIZ1luZHdL?=
+ =?utf-8?B?ckpaUk5sLzl6ODFaMCtvSVNRMmRaK2FqVUF4QkFUVzlWYmo3VkhkSEJKQUNu?=
+ =?utf-8?B?MGJUdEJGWVFHVnRNaXI0cS9IRCtIRGhPbC9YZkFFZmlqM2RjRXdFaVdQRS82?=
+ =?utf-8?B?REM3dlVLRVVuQTF2eTRoYnE0T2lLU1AxYkxBK1EzVDhYZjdBTkdzR05Cd25t?=
+ =?utf-8?B?YkpkTGRqTk5RWU5QRzlQcGtacEtKT0tTZ2RjcCtFSWVwQWpyMlFqUHZ2UW5u?=
+ =?utf-8?B?VEV5UHg2SE1Kd2NGNjRZNWxibVZ3NTBQZ0VxMWk0b1JnTThrV0dYZzV4b3U5?=
+ =?utf-8?B?b3ozK1dqZUFIM2VtVmVUd2VxWWQxT0MyRWxMcXdNWTd5bDFlUnNhYndWS3lp?=
+ =?utf-8?B?WVZLQXlmc3VSekVPMFZHaVcyRDdpbSt5R0I2RldqbWM1elYrY3NYTVdpTVh2?=
+ =?utf-8?B?QlhtWG8vdGF1L0pxWDRWNlNTM3o3RGV0ZVVva21KcnVqNkZSaEw0OVNaM0s4?=
+ =?utf-8?B?cFRoWkNGWDJyOVlhSWt5dkc5Vlo2Yyt2OGIrOXJpOUsvY0wwR3dzSm9vTzJI?=
+ =?utf-8?B?RzZ0THlDbmh4Y0JmWnJpQ1JxTmxUWDJCNXBCUTJ4SUplVGo5NndCa3lBbk01?=
+ =?utf-8?B?Z3UrVFZmRm5nUDlRUU9DVlE0UHk3dzQrWUpsYkcxdjArZGZJMUVQcWdORGx5?=
+ =?utf-8?Q?olnoEmRB6hcusETnPFohlcEEpPuNFG6QW/C2Heow7tuLL?=
+X-MS-Exchange-AntiSpam-MessageData-1: dhZ/qs2HuY1k6A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 410846b4-3b56-4410-3688-08df362ecedb
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 02:37:57.9195
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1ubgFdf+iq7eKQ+Z1IYVvlJA0lM+UNiOn1EjaEiy18SxOA7PciZN7crfZopuRyXMc9agyzCz42nim7z0lcF0bg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFD4454CAA9
 
-Hello,
+On Thursday, October 29, 2026 9:03=E2=80=AFPM Christoph Hellwig wrote:
+> On Mon, Oct 26, 2026 at 06:19:25PM +0900, Mikko Perttunen wrote:
+> > Robin suggested [1] that instead of teaching the legacy path about
+> > groups, we should explore modernizing the 32-bit ARM DMA code a bit by
+> > making it use domain cookies and have the core code own the domains, as
+> > is the case on other architectures. Still, ARM's own DMA code is kept t=
+o
+> > support existing drivers and APIs that expect it, and because dma-iommu
+> > is considered too big and unnecessary for 32-bit ARM.
+>=20
+> Now that the different domain handling is gone, what speaks against
+> just using the generic dma-iommu code for arm32?
+>=20
+>=20
 
-syzbot found the following issue on:
+Copying Robin's comment --
 
-HEAD commit:    c339f4010dea Merge tag 'platform-drivers-x86-v7.4-1' of gi..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15fbdd95580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=73ec643490576dec
-dashboard link: https://syzkaller.appspot.com/bug?extid=6c000dea1a93b4f5905c
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13c1448d580000
+> TBH I rather feel like the time for converting ARM to iommu-dma has=20
+> passed - there are drivers which rely on specific behaviours of the ARM=20
+> IOVA allocator which iommu-dma does not match, and meanwhile iommu-dma=20
+> continues to grow more server-specific features which would be nothing=20
+> but bloat on ARMv7 systems with <=3D2GB of RAM and no virtualisation. At=
+=20
+> this point I'm inclined to treat the existing DMA ops as legacy code=20
+> like with alpha/sparc/etc.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/533212b95d17/disk-c339f401.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/5cb62d3629c7/vmlinux-c339f401.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/12da5b4ca87c/bzImage-c339f401.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/546324936b23/mount_0.gz
-  fsck result: failed (log: https://syzkaller.appspot.com/x/fsck.log?x=17480929580000)
+Aside the bloat, it's indeed not a switch we could do in the short term=20
+given all the platforms that rely on ARM32 specific APIs or behavior.=20
+This series already opts out four platforms from just the default=20
+domains and sashiko implies we need to add more to that list. There=20
+could be an incremental path of removing existing hacky behavior and if=20
+we manage that, eventually code sharing could be considered.
 
-AI-generated root cause summary:
-In F2FS, when remounting a filesystem with an empty journalled quota option
-(such as 'usrjquota='), f2fs_apply_quota_options() overwrites
-F2FS_OPTION(sbi).s_qf_names[i] with NULL without freeing the previously
-allocated quota filename string. While __f2fs_remount() duplicates the existing
-quota file names into org_mount_opt via kstrdup() at the start of remount and
-frees them upon successful completion, this only frees the temporary backup
-copy, leaving the original allocated string orphaned. This results in a kernel
-heap memory leak on every remount that clears a journalled quota filename
-option.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=6c000dea1a93b4f5905c
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+6c000dea1a93b4f5905c@syzkaller.appspotmail.com
-
-BUG: memory leak
-unreferenced object 0xffff888128b26a10 (size 8):
-  comm "syz.0.17", pid 5977, jiffies 4294944034
-  hex dump (first 8 bytes):
-    66 32 66 73 00 00 00 00                          f2fs....
-  backtrace (crc 49a76b1f):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4733 [inline]
-    slab_alloc_node mm/slub.c:5033 [inline]
-    __do_kmalloc_node mm/slub.c:5530 [inline]
-    __kmalloc_node_track_caller_noprof+0x3e0/0x530 mm/slub.c:5662
-    __kmemdup_nul mm/util.c:64 [inline]
-    kstrdup+0x3c/0x80 mm/util.c:84
-    f2fs_apply_quota_options fs/f2fs/super.c:1661 [inline]
-    f2fs_apply_options+0x99c/0xb70 fs/f2fs/super.c:1804
-    f2fs_fill_super+0xfc4/0x43f0 fs/f2fs/super.c:5288
-    get_tree_bdev_flags+0x1c0/0x290 fs/super.c:1883
-    vfs_get_tree+0x30/0x120 fs/super.c:1943
-    fc_mount fs/namespace.c:1282 [inline]
-    do_new_mount_fc fs/namespace.c:3910 [inline]
-    do_new_mount fs/namespace.c:3986 [inline]
-    path_mount+0x5a9/0x1580 fs/namespace.c:4337
-    do_mount fs/namespace.c:4350 [inline]
-    __do_sys_mount fs/namespace.c:4565 [inline]
-    __se_sys_mount fs/namespace.c:4542 [inline]
-    __x64_sys_mount+0x1a3/0x1e0 fs/namespace.c:4542
-    do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-    do_syscall_64+0xe9/0x530 arch/x86/entry/syscall_64.c:84
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
+Mikko
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
