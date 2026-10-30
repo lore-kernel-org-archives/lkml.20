@@ -1,102 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793380207;
-	b=JnUp+uZi2rXWb9IX0uLI8ndlAcsjysvCWR0vOB4WK7hzo/YGKW9K+A4tEJ9MpqouLnoT
-	 gE1bOFKyWGQDq6yvontcVJxh2hz6YuSCeCucpCn5eTeS5UQTYd3TWCqUEfWsCcl3zuuPq
-	 Ez4yWKZsppXFasU2yP73q2iy0aqFmTR+oxbmxmZGAAgrhfYx0ZZOkcAzLJKaesMFrO/9C
-	 WgS7idrv7KdvAonKX6OfbLjRt2S0PmzwoVJYsRdb3nUYf4UtlX8wneY3jiyJM3Wc2xYtS
-	 Bd9BSQ0H6MUOf8WNQH+olALjj85Ag/+tLYhjQ9hPoRsBBE5kloPhqZKjOONm/6kPvwQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793380207;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793380220;
+	b=nMTVCuz8zrW7SmhdUOdRhNEhU3Ur67UYl5I/3MmtFwIfgIQDJDKBBN9asqSKyjQ2m32F
+	 vJbXiZvvILJ3bIioLAZPO4uJsnfdj2Fg29bQy7wDC10Q8vYDduNr8dpJKwQOZt/zyaMYk
+	 8WCcSt0V0p4ygCU3n9VfLx4mgw6vtbRhJVzlaMJA9NNqWIn+Bc7fKDr2Y544k2iV7mauV
+	 9N0H/IlnrF9P0dhaHhs2xV58Qh/KB7BJd20govHwemnxOUtf6h3Ktjs2CkzrR5AOpbYmx
+	 0WUPv5K60+7eRGGPHUGHA/EaGowRa9QzDjEPYbPnNo0kxnXkIs70ms5ZfScE2iJlGPw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793380220;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=upOYi42AukgDUPkY3CbfHszXdyIJTLIGDSDpKiK4vxs=;
-	b=RLHwgddF0fLrV+M6tED7t3zyoB0uTtpPqy0Fneiey4GgURaSSH52QM09F8Y99LtDkemK
-	 LqFtv61F2M3KObMB/4syFw1tOXS4Zjw3BByfmfCPwxTNg36W3U2OlOEqaKK9Y6UbiTlwY
-	 Ru89vHK/EpQxOtsyeQz5J+0wONTe9VoUlg5Ih9cnf7hlC+o9WYUjipTl/9MIrfwrmXliw
-	 PBYUWI4hZVPxj9FaBxfZGsvDNPnwOp7v9yiaJ4VA140C0OXLMwio0PdXMX4tXFaWwjOS3
-	 Fqcq6/Fyw4QSpZeyeHdg+neAlY0wVfbJ5ZteaEUKqpfAKsmyTIuHG3V/HFVKX+Jb5aQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References;
+	bh=RVLcv6zKH1BoTG3sQqbFYNoEzC22RlRRF312R8k02Ag=;
+	b=VgOTrxMi7Lh6mWw3qUAoCVL0qA3zySZ+REUo/ueDMyZjhxpF1uOhCJRJvk4iJ7bmJg8R
+	 b0FZnZoXZiVrRka7NvD7uiD1ga+thUM+k8jtgk2hADB2fCaI5jR6Rk4M0sdS+D5pI9wTM
+	 DJi57zIoLS2HVfGsyxgiDkioMVPA/5qu+qnC64yPUd8QHLyCN8Su3ZP57UAIHnTEFW5Ia
+	 upKuS21MC52x685EPBhvyMbKiXNeZjMmqxJZqE7cN4jxpPThseihhTVhpkYhMuGrzRS3I
+	 xlDLt/nDlCMjS4LoqtocPkIa0t/aaNncu0JmrHlTaAFxt45LGK+cW8C+40a2zZQjdmw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DemFTicz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.47
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HBdRe2a2;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC8B606A331
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:10:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EC8B606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3F1606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:10:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B3F1606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DemFTicz
-Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-988bb309c2bso640350241.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:10:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793380205; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aLAYJQPmLIQNShWWdJAtsrk7BzowwWuWtTGhkaP3mP7g11mToCvY0gQJlbZPO4/+2n
-         rm8InLOlBXklesw4AWwf2XUryMEfb85SA1+ivlOdT6gDjBtIMthqWc6Lau0WMM9g6FLu
-         kPtlUVJoqZ2057Q+krfAbdMJ4VaAH1iH8xvdKETzL3rnRSYfSgnk0+QA2q1qZL7mt+sN
-         fxmwO1gvoV2YHNHRocmfeNevV1QUBwj4c0EgxMW6cZUfIBJOmMkH5a5tK5LxeFyQV7kb
-         wGQYgQn6HVtn4S5CL3o7KYrLr7bxltRAV5I9JzoPGPFKCqbluPkrhAYNjgmbQlmMCuc6
-         Rh/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=upOYi42AukgDUPkY3CbfHszXdyIJTLIGDSDpKiK4vxs=;
-        fh=gxLN+5Ycx9EZ8K91EFgMBoAXZQFG5UkTd4skWqsefHM=;
-        b=ZyI50Q+plha++a6b+foc+O/F+6SLncCpaqVn4mSDsafGiG5DwdOgaXCJcZCsAb8mcw
-         2EIHWTooTbJBdSB/nDFIyx9WdQbVkEJU6naYsA1muyZu5m84H8a1cvoLzebkyi/Sip86
-         aBb2BmJiUUxbUdQsK1QnA3EUA4tTKhSQh7Wmn4+YKx70vVhauDi5/Ldwdnl4MFqECneM
-         kS5KV/8h+ZT/J1QZKpr/ozOWerI2ZKZ9K0zAazy+h5HzKCw9yxlRdXMm0xyTgUbTWfNY
-         nZNV9j0QLiUX8modtexnsC9PMRbeT0Qne8Hp6rTO99+nRpNc3ddSeGBtDZJHu1vU6dLf
-         F9HA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HBdRe2a2
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1a3c08d6928so1208017c88.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:10:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793380205; x=1793985005; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=upOYi42AukgDUPkY3CbfHszXdyIJTLIGDSDpKiK4vxs=;
-        b=DemFTicznQxVZXTaJqrmTwFkB0xJ6lEUFxHpwmNImLDy850dl7+VXftJcJQf7Onq5O
-         GroBdy3enaQIkt31MQMYL1qfTE5b23BuM1znvZPmy59K9LdETYiFoN+XCv5PnMN0E7RE
-         h9F2ahqPxfFqNHuUNl2NatAYWx+XTWbkiDXNm+BszIp135BOpEflxPMGfNp0sRR24gBb
-         EAp0wR1izJev1c5hlE7pFNvxzpWXs3r4oVnrDBjENpjYIskLgv5RoE1dZUDJN+odYOXt
-         uNQyqmnDQ9PsTUq5Hky3JNUqmbNzfQuM3gSh6Z6s5YfJesUYUf66PkH66EryscXXrFq9
-         tBGQ==
+        d=gmail.com; s=20260707; t=1793380219; x=1793985019; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=RVLcv6zKH1BoTG3sQqbFYNoEzC22RlRRF312R8k02Ag=;
+        b=HBdRe2a2f7EIshTi+8RVNrPz3n1fFzKWMKeDPsbmeZZNYqbOZ4f69JQIUoXVMI2BfZ
+         lCFtly6CQfm4kgvLUgVKhFNczqZrZnrDz8fBiSvd3Okl5ts9dtdX/dhN/h/+sBUAyBBw
+         iqjRKOrFHCmNSblqrS/JqshhkWL7JkcKqGg7//ePnrK4gRKSFhlCW2A8utLisbAKFFf8
+         cwiUbPP1+yRko2XMipJ98XVCSXWvgh1sQCE3yXk04/+AHPv08wKlRD5EbcGH6jT4uWpT
+         nOEjkMRGg1zUSSsycWspUpW9HIKRj2zuvtga1wclJNOI1STsLDXB+yyoTB78AXptYvR9
+         3Reg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793380205; x=1793985005;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793380219; x=1793985019;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=upOYi42AukgDUPkY3CbfHszXdyIJTLIGDSDpKiK4vxs=;
-        b=vOkK4jm9CZcFrdadW12rqAMV9rjUOcK7vdn0imZNs+8McHjzpbUthU2qExSDVcAmtz
-         KFlQ7jnChIE2qlIurNyT2GWGeIWdj5dA8cHtRDAxr4tAUTdCqwSqYHgev0leMhefFgy0
-         k0KO0w6Z7HwIbzvm1bRhxUtVRVQo5P0NicmQonluSUs9cxdRH00lJBI1F/pC4y8hWJ7f
-         aOftxy6dfAG9mvecpT9WyjcIlAKe4hcNLrcLbGNaXQ7Jvxgfvcik+ZFLTmtbe5sYlmCa
-         eVul2ewH6pRM1Z90dMhv/hNSHBVcjaCKyAoeBr3mfLqTRO8VasV+/rBI1/SrzX4tKsSG
-         ccdA==
-X-Forwarded-Encrypted: i=1; AKwUvBxiEjH262KUaL3dJiqJB47ZDOQf4nuEd+tET6AyXUnVhlJIovMHc7qxFvjk/D+9C2caPOLYOlweBEyrdW8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKk57qen+lwMdsR0jjExYMTfFUZ8Bq/rz0Gi5AhkrG0UXsCIE8r
-	PXTjdPb3AplggfZSLnddMhlPt1KBkDtjY0YGhp3BNi1A03RREajNB9etMYqPtgaL/74YdjuV6sn
-	2019aUZzy/Cv4xT7w6S1bsIwE+wTkpS4=
-X-Gm-Gg: AYBFou2rNldHk51Fy/YTYD5rwluZ9p5yhtBcKd6VjjXJ84kG9SMbcIIVer4wugl78QU
-	9TsIrI3i4tQjs/caASoiGoa0hA07Hm3NWAzmMn5N8RJEXckjarOgU1nmZEaKlsjZHsvaoVKJVZU
-	f/W3RR39BlzOh6bmtaB5FAMNJls4UYUgnNzAbJ+q+gx2YG2x9b+kzsV62QmpYrXhHuMSbtGh+nm
-	DoNnKCJ9kZNBdKTewYo59SZ8uIFCdGVphnmbgvYJC2MmsT6DzOVbDhrAKG04DuvG82pW2O/oD3W
-	ywOLjP0Pa3lwkc7elm0n4XbDcWohIdl260lxScCzKbr8WU8uxPzlmgAj0Ej8khkWMEaTHIjV378
-	f2FBwNMTR39IcolEctYSYFJUl6VfdWflbbQNsNopX2RuOLIWru3jHNi9n97if/cpERuIe5zpdxA
-	bkuUjeKYrfyOIOkuIEeZifPJHbBzTDlV/9kqMdsqXT97nJVYztgAB8gTGrmpFiOrpGynSwl+/7r
-	teiRw9yEj3gegQLqlzAmPYXhRifSTI=
-X-Received: by 2002:a67:e10d:0:b0:7cc:1a41:20fe with SMTP id
- ada2fe7eead31-7d072cae2c9mr1521484137.25.1793380205451; Fri, 30 Oct 2026
- 10:10:05 -0700 (PDT)
+        bh=RVLcv6zKH1BoTG3sQqbFYNoEzC22RlRRF312R8k02Ag=;
+        b=d/08i1C8c4REED5WUDhkFstzvZoWJI17FVcPCMufZvFGpd5e/zC3Beubtqpq538my6
+         cRwcFGg5V0yf70CfuX0cYPjWgTmjL+JOf7MOgttWtFgkxtDvCJjhSgclslrUDd3ZY4F3
+         tby/zXBnrQvM3qQ2u/C0tEJUvkXT9jLYBtapquBOhkgZ8dby3EEZupzIC7LzT2irSg07
+         FdJet3rS3SPEXmIozCPF3XH91b+N7SBc2pJFViV0elgYsBNl7JMc1C5Ys5Dtc6rDJyoT
+         2w3r8q4dCm31nE2Ba1Pj7JFbOjoxeKVRQrnSgMy0jTCfzScuDxyLaHBLLRo0KINsW5Wv
+         k38Q==
+X-Forwarded-Encrypted: i=1; AKwUvByIxGdtoVqNnDxqrdbDLSqJFXsQ1wcWEeSnO138u+be7zCE5D8N2XwW4iNcDL3RoLM+Ee+7WYXioVU/jdI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLP6e3wDj/GEYHnTiZvV6l+3/+PtEWU6iG4q46ifPbj4qszDrSo
+	qmRKa112EgLkBksVFeZTop7VGbuZGF0zN2HmhYopxk6GH/dlTdTNUaYY
+X-Gm-Gg: AYBFou1vrkDx2DcP2SPFf+QJ8LDkK3aCMEeuIjuZDBCUOBbn325IE16msVQhHCyesOv
+	z78nrgMpZ/0CyIpdqUQPS77Zlgem0wEoQvdUXwBdHYc5nEnbgeHqwrxt/zT7Zkj2C2WDFkrZLfn
+	p8NXDmkC/LmzCoe7Or+G6TKjVuC1Sc9nzLz+wG7ISKmv1qPU1Agym82rsj0VswH16rRN+Uk+PGF
+	iRk7Za1QF8S4skIE1tl/41R6KMOK6d+h6kzgxC2hbGunoW1tMEROdghHgYhM33upDqq93M/8Y6k
+	2CF5+VMtE3SxKUAMrPxtK8uxqId4JoBHWu9FH6jmAXUn6Q2udCbGzNkY87jZ9kfaeJw4cEvtAc6
+	AYJpHyFFNEO+gSp52V1LULIgKnBF1NTPTH6+q2WZXpXz2NUtS4dGEWGh+f14GlqWpUYF6Y9Jtjv
+	MNBQJIt9MocwYfx8zPPhNjulMlk1m77uoWtaoknLC3+SqD73j6Mz3CXVUjLHihuWQACqrpDNQwU
+	ffOPtjrYjRf8ehE9QI6QuxwBmN3QZ+xZ3Lq+VFmzMbASEoJ6NaYXEjof45/DXDDR8DfxsxD+hOa
+	g4aCzTGfsyeIqA22gi1WDE9/8Hw=
+X-Received: by 2002:a05:7023:d0b:b0:144:e535:3ef6 with SMTP id a92af1059eb24-1ac5de53bbdmr4084875c88.41.1793380219122;
+        Fri, 30 Oct 2026 10:10:19 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c2e9dsm10616964c88.9.2026.10.30.10.10.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 10:10:18 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>, maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de, Vishal Chourasia <vishalc@linux.ibm.com>
+Cc: sshegde@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org, msuchanek@suse.de, harshpb@linux.ibm.com, gautam@linux.ibm.com, amachhiw@linux.ibm.com, venkat88@linux.ibm.com, nnmlinux@linux.ibm.com
+Subject: Re: [PATCH 2/2] KVM: PPC: Replay pending interrupts before entering the guest
+In-Reply-To: <20260928110411.844582-3-sshegde@linux.ibm.com>
+Date: Fri, 30 Oct 2026 22:00:50 +0530
+Message-ID: <zevvup51.ritesh.list@gmail.com>
+References: <20260928110411.844582-1-sshegde@linux.ibm.com> <20260928110411.844582-3-sshegde@linux.ibm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,122 +92,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261029-submit-serial-8250-dma-cancel-v1-v8-0-3fd56ba352ed@gmail.com>
- <20261029-submit-serial-8250-dma-cancel-v1-v8-6-3fd56ba352ed@gmail.com>
- <auNW_Oc-Ao5Iw-Gw@ashevche-desk.local> <CADvTj4pOg4w5LpFW_E3qzP7FZDnDgpB8LyR9xxhT_mZre21vFw@mail.gmail.com>
- <auRl9ztbav4nHi7U@ashevche-desk.local>
-In-Reply-To: <auRl9ztbav4nHi7U@ashevche-desk.local>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 30 Oct 2026 11:09:53 -0600
-X-Gm-Features: AclHuK8FtznzJujmH4YHgrWNDCpi98ee8eK0vX_qbau-y3ULhcsZAztidkT31Us
-Message-ID: <CADvTj4p8tjwdftg+H11ob0iaBZKxXrTdkSmhfZHjOYunm5tr9w@mail.gmail.com>
-Subject: Re: [PATCH v8 6/6] serial: 8250: retain DMA resources when
- termination fails
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Raul E Rangel <rrangel@chromium.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Tony Lindgren <tony@atomide.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Richard Genoud <richard.genoud@bootlin.com>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
-	Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
-	=?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, "Maciej W. Rozycki" <macro@orcam.me.uk>, Timur Tabi <timur@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev, 
-	linuxppc-dev@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026 at 3:40=E2=80=AFAM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Thu, Oct 29, 2026 at 11:19:59AM -0600, James Hilliard wrote:
-> > On Thu, Oct 29, 2026 at 8:24=E2=80=AFAM Andy Shevchenko
-> > <andriy.shevchenko@linux.intel.com> wrote:
-> > > On Thu, Oct 29, 2026 at 01:37:02AM -0600, James Hilliard wrote:
->
-> ...
->
-> > > > +     while (rx_ret || tx_ret) {
-> > > > +             dev_err_ratelimited(p->port.dev,
-> > > > +                                 "DMA termination failed: RX %d, T=
-X %d; retrying\n",
-> > > > +                                 rx_ret, tx_ret);
-> > >
-> > > > +             msleep(100);
-> > >
-> > > Huh?!
-> > >
-> > > > +             if (rx_ret)
-> > > > +                     rx_ret =3D dmaengine_terminate_sync(dma->rxch=
-an);
-> > > > +             if (tx_ret)
-> > > > +                     tx_ret =3D dmaengine_terminate_sync(dma->txch=
-an);
-> > > > +     }
-> > >
-> > > This is unacceptable. Sleeping is okay, but value should really match=
- the
-> > > baudspeed and other parameters of the transfer.
-> >
-> > This sleep is backoff after dmaengine_terminate_sync() has returned
-> > an error, rather than an estimate of UART transmission time. Each
-> > retry asks the provider to stop the channel again; elapsed time is
-> > never treated as evidence that the resources are safe to free.
-> >
-> > The particular 100 ms interval has no hardware-derived justification.
-> > However, I don't yet see a sound way to derive the retry cadence from
-> > baud rate either. RX can be waiting for input, TX can be held by flow
-> > control, and callback retirement is a separate requirement from
-> > moving bytes through the UART.
-> >
-> > Do you have a particular provider failure mode in mind where retrying
-> > termination should follow the serial transfer timing? I'd like to
-> > base the interval on the condition that can make termination succeed,
-> > rather than substitute a wire-time estimate for an arbitrary delay.
->
-> Termination of DMA sometimes require to clean up internal FIFOs and other=
- state
-> machines. That's what happens on HW side. In the software waiting for too=
- much
-> may lead to the very big undesired latencies. The value of 100ms sounds i=
-nsane
-> to me for the HSUART cases (megabaud range of speed). Also note, not ever=
-y PCB
-> design uses HW flow control, so this may be even worse for them.
 
-The 100 ms interval can add unnecessary teardown latency if a failed
-termination becomes retryable much sooner. There is no hardware-derived
-justification for that particular value.
+Hi Shrikanth,
 
-The FIFO/state-machine draining is part of the provider's stop sequence.
-For example, DW performs its FIFO-empty polling inside
-dwc_terminate_all(). If termination succeeds, this patch proceeds without
-the retry sleep, regardless of baud rate. The sleep is only reached
-after an error during DMA release, not during normal RX delivery.
+Shrikanth Hegde <sshegde@linux.ibm.com> writes:
 
-Baud rate can influence how quickly a transmit FIFO drains, even without
-flow control. However, the termination error does not tell 8250 whether
-that drain is still progressing, how much remains, or whether the
-controller needs a different recovery operation. That distinction matters
-when choosing a retry interval: a shorter interval reduces the added
-latency, but does not establish that retrying can recover the channel.
+> After applying preempt disable patch, i.e PATCH 1/2, Christian reported
+> a subsequent warning stopping his board to boot properly.
+>
+> WARNING: at .kvmppc_fix_ee_before_entry+0x10/0x28, CPU#0: qemu-system-ppc/4667
+> CPU: 0 UID: 1000 PID: 4667 Comm: qemu-system-ppc Tainted: G        W           7.3.0-rc4-2-powerpc64-smp #1 PREEMPT
+> Tainted: [W]=WARN
+> Hardware name: varisys,CYRUS5040 e5500 0x80240012 CoreNet Generic
+> NIP [c00000000005dc3c] .kvmppc_fix_ee_before_entry+0x10/0x28
+> LR [c00000000005f298] .kvmppc_handle_exit+0x5b4/0x5e8
+> Call Trace:
+> [c000000086587780] [c00000000005ee10] .kvmppc_handle_exit+0x12c/0x5e8 (unreliable)
+> [c000000086587830] [c000000000062068] .kvmppc_resume_host+0xb8/0x10c
+>
+> It triggers below warning...
+>
+> static inline void kvmppc_fix_ee_before_entry(void)
+> {
+>         trace_hardirqs_on();
+>
+>         /*
+>          * To avoid races, the caller must have gone directly from having
+>          * interrupts fully-enabled to hard-disabled.
+>          */
+>         WARN_ON(local_paca->irq_happened != PACA_IRQ_HARD_DIS);
+>
+> This happens since kvmppc_prepare_to_enter does first local_irq_disable
+> followed by hard_irq_disable. This leaves a small window where interrupt
+> may occur and it could set the irq pending bit in PACA. When that
+> happens replay that interrupt before entering the guest.
+>
+> Fixes: 12013e3d4695 ("KVM: powerpc: Use generic xfer to guest work function")
+> Reported-by: Christian Zigotzky <chzigotzky@xenosoft.de>
+> Closes: https://lore.kernel.org/all/b8f82519-9ae5-c247-e020-e79c627e57df@xenosoft.de/
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
+> ---
+>  arch/powerpc/kvm/powerpc.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/arch/powerpc/kvm/powerpc.c b/arch/powerpc/kvm/powerpc.c
+> index 9194cf492d1c..847ff07c364b 100644
+> --- a/arch/powerpc/kvm/powerpc.c
+> +++ b/arch/powerpc/kvm/powerpc.c
+> @@ -147,6 +147,19 @@ int kvmppc_prepare_to_enter(struct kvm_vcpu *vcpu)
+>  			continue;
+>  		}
+>  
+> +#ifdef CONFIG_PPC64
+> +		/*
+> +		 * Interrupt arrived between the soft and hard
+> +		 * disable. Replay it and retry guest entry.
+> +		 */
+> +		if (unlikely(local_paca->irq_happened != PACA_IRQ_HARD_DIS)) {
+> +			local_irq_enable();
+> +			local_irq_disable();
+> +			hard_irq_disable();
+> +			continue;
+> +		}
+> +#endif
+> +
 
-There is also a specific API detail here: dmaengine_terminate_sync()
-returns immediately if device_terminate_all() fails, without reaching
-dmaengine_synchronize(). Consequently, an error leaves callback draining
-unconfirmed as well. The retry cadence can change, but resource release
-still requires successful termination and synchronization.
+I looked at the commit which causes this regression, I see there are few
+more call sites which can hit the same WARN in kvmppc_fix_ee_before_entry().
 
->
-> > Regardless of the retry interval, shutdown cannot release the buffers
-> > until the provider establishes that DMA and its callbacks have stopped.
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+So what I was thinking was - while we are at it - do you think we could
+use the following helper instead of {local|hard}_irq_{disable|enable}()
+pair and ...
+
+
+/*
+ * Hard disable interrupts before entering the guest.
+ *
+ * On 64-bit don't use local_irq_disable() here. It only soft-masks, so
+ * an interrupt can still come in before we hard disable. That interrupt
+ * gets marked pending in irq_happened and kvmppc_fix_ee_before_entry()
+ * then throws it away. hard_irq_disable() clears MSR[EE] first and does
+ * the irq tracing itself, so there's no such window.
+ *
+ * On 32-bit there is no soft mask and hard_irq_disable() doesn't do the
+ * irq tracing, so use local_irq_disable().
+ */
+static inline void kvmppc_irq_disable_for_entry(void)
+{
+#ifdef CONFIG_PPC64
+        hard_irq_disable();
+#else
+        local_irq_disable();
+#endif
+}
+
+... and then update the other call sites too which the following commit
+added - which can cause the WARN.
+   Fixes: 12013e3d4695 ("KVM: powerpc: Use generic xfer to guest work function")
+
+Thoughts?
+
+-ritesh
+
+>  		guest_enter_irqoff();
+>  		return 1;
+>  	}
+> -- 
+> 2.52.0
