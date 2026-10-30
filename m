@@ -1,78 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.30
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793397666;
-	b=HRnxOfJBRtSxYSMqaWcGY7rLRfZQbmubRQsAYNGI/Iwu7bSKcfcnWsrA7+3gQlA30Eek
-	 WspavLilwPybLqD5tL7eYhAWmBKmLTJxsyuq2Xb2LUQWpe9x1NzWpYu6X8IBfn2BrfIEX
-	 zWViDz8yGK8ax9KHc905AYHFkPzN3ddASA+vvquKaLXkoj2AWGHvQYet61dq3SD8CICq9
-	 OkqonBS6TtLZC8A0U7DaKjlJn9falns3V+ti83XMrfPFQbF9sXcn/FPl+xiKFjjlVmboy
-	 2OayDrPjATSM/4gIOWHAXFlCFVr+CTwLVysEEHdIdCQPgDyBmCJD/bQ14HcRD1h+4+Q==
+	t=1793397744;
+	b=LxhZfq8rE2UWrDLWr8Dz5b9nAz6OcR4HkggT0fmxlBQkddyRY40OTUMmictkoK9VCPIB
+	 o1bOQpXGBItz7XjaBHzVCwDAzqAEJUFYe1k/DViH54VL3yoVnf6JAtO2Rs3GWy13wigNy
+	 crtgrW3qrKj1fk74tA1kdhFhO2tNfLV+Xsj8/e2b84eeiAQBuGejz+QznJVCToRG2D2+l
+	 hg0cz7r/ax7+/YDDqX6EtT23HwRIV1e0gHaEJRlVkrn2qt8kf93RdoCbuJ8Atoh9sPa6c
+	 72Eokp816Bln0/1xMRL3N3c99CihvnyJGizQFrP1CspnZ8MB3rmsn9iBkEymWG3u38A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793397666;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=HJ2Gm8VlByqZOvURjQ7L/LFHBQaSpl11FSGZzAYNCLw=;
-	b=wHQ3wdGmeRi1wnD32vUzgUV8wFxho+YEWDbrTM33vxjNWLE/9wv4SLkhVzrsJKksJWDU
-	 TZXTj2yt+fYcrLmQwO/7bhsH0v9xyCP/X9ZrQ24wjZTfqyUvYvoYvyNoc7h36Hag2bNJV
-	 vGS+7iuLu1+A9f1w7rz31KC5kIFXkg8kVHGTYF6JNbQTA5GHUI1pGsv2DJKmzM5syImh7
-	 hISaHaZA8mzw1yPJHYHiAu1stH9ntcrtCIYku82FnjN+h0PPPzDZpG2HMviU5gvh8K+HN
-	 jdmpuf4iFvah8N7Q4NgOKcIFR17J57tJuJ1KsNXBiiapdQszHuLcWQ5ovp17UzO6mtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793397744;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
+	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=HQceay80JDe3GT8M34tIz6aAAkVUQipEXZ0DTu/4tCY=;
+	b=Ir2T7741ZYn5XbM+QQ6MwT2XUpJG6Dmjkt/5ZniuO2JU7vihMQE16nocVEhdsxeliGdt
+	 Th+L8S3vDS2FbhtkuzV+g6kz6zNhgWmF0xRWvh6o/rO1otjBDqMmkXPnwTaN+QmNKJEIR
+	 s7rb5tvoHeEYZuE7KXC04j9DrmaaTnsXCSptqPheF2me+qPbr8gUlgZgNbMtiw2rOuT2B
+	 MIWz+iACjfsx1u0c2LZkIQz7Kkp6t6lKzZQC6fpKHhTnE9tcv0Lshj/CJLEdretNkyFeK
+	 Bc6gz4f0ZG7lb7VhBBuq7h1blRqTaZQAUqv2b/GWQAQFaiGGESDo4zlHaN5lizCYxzA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcsMaIVG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DyXAHFmS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.30
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011030.outbound.protection.outlook.com [52.101.57.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733A1606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:01:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A87606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:02:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51A87606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IcsMaIVG
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793397666;
-	b=1kUCYUf0MZQ3jDaSZ3UMO+6AdDZea3LmoUdVgzj+6CxtSj4DIsV7hLJx56K9vBZb4afR
-	 2sGF2teaSc7vVqk1W6aQCniR+HwLajro0cPvRcrQJ/nME/N5uloMOMzQc7sTT4ehLka+J
-	 y+5MOslnY0B2mn436/xbETMYNdH3Iy2opKbUZDkkTLQ9RsWOzzQfQBGH2SzFkOJEoqpyA
-	 q0aXCxWiVO2uaXDcqF5XhUQJRrGnKo2RSXIBKOoAxYpSm8bXpwQwv/0wl4BpzR7HIz3dX
-	 fJX5NAmZWD/MbRmLta09MBj1m7Gt18JHYONDkr0ci8uZm4NN07RmacO4K2l3GpUHCDw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793397666;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=HJ2Gm8VlByqZOvURjQ7L/LFHBQaSpl11FSGZzAYNCLw=;
-	b=0DMsEGHoJbfp/SLhysZFVQnn0zFUu9JC8AeEaXqlxfScO28DIxN0cg5TVBQRpJ6j8tFG
-	 dLtN1/wmzwoonxG8Masqlu0Gymxgh9526tLsbqLAIB4MOum0xkkKkUYrD1jK31wWx8Th4
-	 Ap0qiQ2IGx4BHbv+RUq6VyS6oXLzPd0BotSDYXJ3Q8PFsd/N/2Ga+Ot8ONnLAUW5XPw7y
-	 ZJFdRLlMl04ELin0Urogqxw3661OHIVuJZpKKmKKNXuj2TMa4lJwMKAX3w9DnRWRwKXDa
-	 TZakscdUy5OsXK9Ic1ukzVeGJjJTFkGWkkM4k5kvynW6Gzg3C7tN9yaMDBEZ6P7oF1Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 24D601F0093A;
-	Fri, 30 Oct 2026 22:01:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793397666;
-	bh=HJ2Gm8VlByqZOvURjQ7L/LFHBQaSpl11FSGZzAYNCLw=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=IcsMaIVG89HmI995/PI5mrz7QeYTTn9KsloDc92C2qF/7UCTSYD2klhYM89+PCJkM
-	 E10r2maO37KyEY1qIFvG9bKwEag/MNWODWFTRYWcJTHMptt5I9HqfEgFZlHsaYrv7s
-	 RpqtQhAxBOjqMPCtJLwKBIh2RQlljdAY3S1/2S782doH5Irj4cMWOBmliCERuGVV+o
-	 mqK0TijQGQtQbhNHhBaokNzcsqujr9ZzAgajn0NmBkbJ2EJj5XInTBijhSKUAYjTsD
-	 wI93o+GXELHqzIyKgLpyAGfFF6VGRv5UydrLMS6Rvn/sUyFvDVLYIZ3+zlL0fj83Ex
-	 MgImpJdMRNVdQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 78D7E442BA;
-	Fri, 30 Oct 2026 22:01:04 +0000 (UTC)
-From: Shivam Kalra via B4 Relay <devnull+shivamkalra98.zohomail.in@kernel.org>
-Date: Sat, 31 Oct 2026 03:28:50 +0530
-Subject: [PATCH] drm/amd/display: use atomic commit for panel power savings
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DyXAHFmS
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VeY83hTFwJIMK8USIkKNePsP+qxSaz8gCYEWlSDoFJfbVBSTmvB46l6t+xt7Wi8oixGVWEZfPDPn72qJlxPAFWV7GYwDW3vCnsSqKDXf/xWKbfYWV5e58zRovKcz/zQulT6ZIrLHZYInIVaBB5yw1sess6O2Bsxrlnxqey2c8dICO5qss4cJDrmFcYfaAnbMr8XSFG65MX1JVJkKrKPgXEZ3AgziiKamJM8k2C1H8Pqrm5Vem1aaLK+ocn/guz4O3GLCURueVzq46f2hENio+YAM9zOvgENO9/FW6Rzhg6ESfb5Zs5XaqkN8g/S4GjdqKSyRLXTYj9Gpn4RQXH1/5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HQceay80JDe3GT8M34tIz6aAAkVUQipEXZ0DTu/4tCY=;
+ b=sU3jGXpUQL3oIsucaLY/ydRcRhbzgfKa8BpSUh8DoOnpuTeIXxpn0IxLSSSmjVeLq661IjuogrCrHraLe7kzcy5IRDgJPL7oKtS2jRQhjpQfbAaugTvjXMmkN4KHZwcXBPxnqBUZIJGRWAHI9SXoDYsJxhMERflUEBVLpA2TthAs/0rnQDJcQDsgmHmH8pT11VrgUucw9b/dF+1I5T9NogpOm/6tx/iZM/K/x6oF0R0IvGgoPYPM3vJX06Q0rN5yE7sE4NvhLhbxoyHn7L88rnXVgA9DUZb+QAUuxPtQvjQXPOPnWl5Sx7ta/GAHsfCvYWgnz4NK9/xVPTKj0Kdu+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HQceay80JDe3GT8M34tIz6aAAkVUQipEXZ0DTu/4tCY=;
+ b=DyXAHFmSPKDGfZb7Ze984Wqpl/sRhq92GyS30QdTcrmO8gYu0lIA/TwAThI9korr/VeBkqZd/L3QmMMfMvZd+x5ocMyQoOCOrtcxijQsadxpd3CCm9cpTmuEG1myYIIhjSzXyj4xGN8hph5As8VGP2EubAc9kLfyipJIC4y5kENi9ZzPKiRR0XosHEQToJaL0MVCqdFPt/m/SFjlQuzs9Mt/UY5mEL2gtNfdNns0yqfobkzU07vGmQ6OuGYklBt2fK+YeJsVg5OO5JoqBXq08UfxgKkBAWdMaoTrazBmFyAKlDoFJjz4dk8U1zi3ZRq29h+QJmDpk9aiW66ZHa8C7w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by LV3PR12MB9236.namprd12.prod.outlook.com (2603:10b6:408:1a5::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 22:02:14 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 22:02:14 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Byungchul Park <byungchul@sk.com>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Dave Chinner <david@fromorbit.com>, David Rientjes <rientjes@google.com>,
+ Dennis Zhou <dennis@kernel.org>, Dev Jain <dev.jain@arm.com>,
+ Gregory Price <gourry@gourry.net>, Hao Li <hao.li@linux.dev>,
+ Harry Yoo <harry@kernel.org>, Hugh Dickins <hughd@google.com>,
+ Jann Horn <jannh@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ John Hubbard <jhubbard@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>,
+ Nick Piggin <npiggin@gmail.com>, Nico Pache <nico.pache@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, Pedro Falcato <pfalcato@suse.de>,
+ Peter Xu <peterx@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>,
+ Rik van Riel <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
+ Uladzislau Rezki <urezki@gmail.com>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
+ Xu Xin <xu.xin@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Youngjun Park <youngjun.park@lge.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 0/7] MAINTAINERS: MM updates
+Date: Fri, 30 Oct 2026 18:02:12 -0400
+X-Mailer: MailMate (3.0r7038)
+Message-ID: <9F491125-3214-420E-AE00-AA62E7EEE8A7@nvidia.com>
+In-Reply-To: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: MN2PR11CA0024.namprd11.prod.outlook.com
+ (2603:10b6:208:23b::29) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,372 +127,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261031-abm-sysfs-atomic-v1-1-a99068f3b49c@zohomail.in>
-X-B4-Tracking: v=1; b=H4sIABkT5WoC/yXMQQqDMBBA0avIrDuQRGLRq5QuYpzoFNSSUVEkd
- ze2y7f4/wShyCTQFCdE2lh4njL0owA/uKkn5C4bjDKVVqVG144ohwRBt8wje/TP2iobqtIZgpx
- 9IwXef8vX+29Z2w/55f5AShdvtFx9dAAAAA==
-X-Change-ID: 20261031-abm-sysfs-atomic-c79505f63a2e
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>, 
- Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, David Weber <weber.aulendorf@gmail.com>, 
- Shivam Kalra <shivamkalra98@zohomail.in>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793397663; l=12858;
- i=shivamkalra98@zohomail.in; s=20260402; h=from:subject:message-id;
- bh=jACiQwIUkVzip4GOIHF0xLWEFouP+BbAsfe/i/JrkeI=;
- b=YlU+jkoRUFl1QWKkiZLwFHxNq1W9Ny88KCYR5dgFIH8NS6DbxvdxRYD/BlEIStZhf2QMJGRQq
- EpagiSbvMY5Dw/8IstrIPbInl7iuj2RhIwY4W8T+xGrFvkc+hZBiAKi
-X-Developer-Key: i=shivamkalra98@zohomail.in; a=ed25519;
- pk=U8kQSxcte8P8iZ6zB7phIj+Yl+i/5ntifBGuclgypx8=
-X-Endpoint-Received: by B4 Relay for shivamkalra98@zohomail.in/20260402
- with auth_id=716
-X-Original-From: Shivam Kalra <shivamkalra98@zohomail.in>
-Reply-To: shivamkalra98@zohomail.in
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|LV3PR12MB9236:EE_
+X-MS-Office365-Filtering-Correlation-Id: e02bd59f-7beb-4c38-bf34-08df36d174d3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|18002099003|22082099003|11063799006|56012099006|261009223027099003|261021121427099003|261026140227099003|261022105027099003|261028144727099003|261021123027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	xB9qx4fHPIdmL31pxNX9A3gQewZboBclCE9nCi2rLZLZ1OhbrZMYByOtCleCEc1mMvyP4Er5mdCifbqQYPcx48dmFegIycLeou7IVrUqOg3f8NO5EW9RfBQJyDAFj88FlU8ciG1tqfZgbVOh2sMhbEa5E+MC5yCswLiDlqFkFTM9UjaATo4MnXxp66JnaZb554/ivr11D6IJ1xELTIEGAapaZhzoHgEthFiQqB+fbnavWJB7ZAeuicDQMyYk53u/PMx6rO8iTbItDgPRHZxnwcL/yiaKdH+G4Y/oV4Jc7eEAmsxDVVfBHsVXlVHZl0Cvsa1jP4ZD4twjrGV5m75LR6u4ikDzk7UtO5p2XNewbDL/9YhiTF+P9c6340OkR9Xnx5IrZsPbJX7oRsf6mD8jwI7HwHAOIEWVPQwGJQvtdfd/yDz9SzQcnujesVDBreQguAp6pkecFJJ1BKdwp6S8ACdmCSaQnTaFKMAFVG0xj+6jh/GCylAHbkw16G5ezwh3RBofsetLMCmIh5E9Yjh0Fkr/MG1Ypw0Jn6lxEBQoymZ0R5ngm2JVSOZ7gIJ2021GbKcMs6nXElxfUSb193NEuqh1YrMRIEvSASJs4LNX+Qk18J1D328Ez3x9NdLCuf8wI8h+JfljD65YPergpOkIsLOEVpJZj3tESHz7NI6kw4Y=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(11063799006)(56012099006)(261009223027099003)(261021121427099003)(261026140227099003)(261022105027099003)(261028144727099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XCU1Dyr4A2lnAdeSJXbkJxnZkFyRhtrznbN6E7hdxDvjKu3EfPFqnx2B/+df?=
+ =?us-ascii?Q?2lT44r4Fx0y+IV45++R0L4noUAIcuNQvLHFk1tgS9h43Vty2FD/1i+k8yyxV?=
+ =?us-ascii?Q?nNxVmcyGLRW5pn4iGGOaNrFKMltP/eSSOQ9p9uOVbEZq6htFJh+bsSPXef2s?=
+ =?us-ascii?Q?SLzC6VJpZg2GviN73mwQAPb9ZMuVVKBABrFTfIkgF/oIzskRvCYVT0vWBWZp?=
+ =?us-ascii?Q?Wf0rewWhGwFZPf1GVDZbfw2oSzglnFXpc4/V0p6Ai3HHTjzwBpvHCiwRQGC8?=
+ =?us-ascii?Q?BHRmaFrtotEflcMM01cfOc8Lno0pHQLPz+jvDHsA4GBdFa0viiFGh/+N74jc?=
+ =?us-ascii?Q?edm2fpIEZE44VX4vWIB5+vp0awGJfK6uEB1yNjbQFNGcgLLt2PGH6ZfU0xTf?=
+ =?us-ascii?Q?ddvqs4oeWmRRiprhCSok8nglAv+EQBhNnFY5OLc869iyJ/77liLo5SraBKmw?=
+ =?us-ascii?Q?w6onZLbm/oML6Sq0EOT64GIiYXbZpIj0UwzNrLxtmjek+HrMQRJe+rPJAggM?=
+ =?us-ascii?Q?pF9VA9X8WqNWy6jff5/x5Yd24OWDiHaDm29ttm3wbMeXvbTRSamFtk80lBvR?=
+ =?us-ascii?Q?Pnqlnfs0mQ30TfUawgxHIin4yNg9TURtFPGyZdQuebNPfIYP5V19PoZ4rwgq?=
+ =?us-ascii?Q?B824NhRXQNNzjgrApjKZScq5hAZ4+BuLU5PHZvunx4EyOnOnskI3a6TpJt6j?=
+ =?us-ascii?Q?TiZYenCocqS6zoRbzb01QtEXGGQ2wpX/VuLmxcGKSJTBlKN3dEWVa8kCce88?=
+ =?us-ascii?Q?Nw/eZov5pjwSxd/XmkdJqG78w3+0SWc4DbjfdYvmqB1cYn5+o6B9Buwq6Hp0?=
+ =?us-ascii?Q?+IWh0YEh6Sfw0+ooiTuThdJBNl1UgDqDyP7zCZII9tUZoAq3gLjQWl/Plxg5?=
+ =?us-ascii?Q?Tk2qSsfHtLKPI6z9FdHcqDE6DwXinKX2kiBn2tZcF5mj0ttdAUf1RDbCWtqZ?=
+ =?us-ascii?Q?EqQds4MA5RZMR3zKdM4Np4PwQlr88reOUuC5FKZoIG5zMLh4FSmxl8TlCZE4?=
+ =?us-ascii?Q?Ie2hEAYm6B/Nb36Zb/cHDf2J4MDLGebQNDoFJGkg+EZ5smGREBYOsjmNH6P/?=
+ =?us-ascii?Q?Bzq0Bdi1pXv7C+30hjL66KtF3Y9n1vQegG6ah9KTXPEdfD4+xNpFGD2tTtBN?=
+ =?us-ascii?Q?MfUrNC9Z+H3etib6wxvI4oWpA2Vx4h/87TeoWFBrZlaWx397b9vHdbJEIoD5?=
+ =?us-ascii?Q?6uamdF6bLmOepm00bnTi31gfksfYIDympHhW1BGzOONmO+6VqXkvwNo8NdaH?=
+ =?us-ascii?Q?h0PfADG6vcqhgfXeNtMbYM6ti9kO49s2PyfF0QQ1XmfGfQdkFdNygDMGawzS?=
+ =?us-ascii?Q?5wGu/4/E0Zdoe/F+f9emx+XdDMgkryQyaM8tbbJNTflEaKF9AKjPyEriCaUE?=
+ =?us-ascii?Q?+VFlHtNgKtnK/xBwQxnxbqgFdtEr1AoLSJlIm5MEld46doCit6hy6Rw9mLbY?=
+ =?us-ascii?Q?E40IMSuuBVTwGffj5ZT4Twof6X1z0mHRS7qTjiayWRuA8/GLKq3TFOh+X7u9?=
+ =?us-ascii?Q?BtqMMJgk5R2NqXzRYG/NWM1hFk0YyyLpkdEWYICpEpGKt381pMVQsqXT9+H9?=
+ =?us-ascii?Q?wK9ZZXYqI8NfPHSExFxKnohbmnkFrSbrqn8AXKm443B+E5kZJGpwqc2Cul3B?=
+ =?us-ascii?Q?KTVHdI9xWdIyYKyNezOb0EgFKVoWYFM//iA2P2P+RKU2sp2mmu4a81NpGIiL?=
+ =?us-ascii?Q?XZUd1TZdXeueRuo++9QRzrXHuZl8XtRRl4ztevvDXHIybrBg?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e02bd59f-7beb-4c38-bf34-08df36d174d3
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 22:02:14.7393
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DdllCIOb1L/yiqZfQAAChjH9gnh4kqJ2iR1+s6iHVZc7629of91YABNgY6V6YOxt
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9236
 
-From: Shivam Kalra <shivamkalra98@zohomail.in>
+On 30 Oct 2026, at 17:34, David Hildenbrand (Arm) wrote:
 
-panel_power_savings_store() mutates connector->state directly and sends a
-hotplug event. This bypasses atomic commit handling, so the new ABM level
-is only applied when userspace happens to perform another modeset, and it
-races with concurrent commits.
+> Hi,
+>
+> several MM updates:
+>
+> Make Zi Yan a THP maintainer (thanks for all your hard work over
+> the years and thanks for taking on this responsibility), and perform some
+> MM MAINTAINERS cleanups.
+>
+> Then, start the next step of the transition from Andrew's MM tree to
+> separate component trees that all get integrated into the mm-next
+> integration tree.
+>
+> Start routing shmem through mm/core.git, adding me as a maintainer
+> primarily to pick patches.
+>
+> Then, target the following components for the mm/core.git tree that I
+> (co)maintain:
+>
+>      - MEMORY MANAGEMENT - BALLOON
+>      - MEMORY MANAGEMENT - CORE
+>      - MEMORY MANAGEMENT - GUP (GET USER PAGES)
+>      - MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
+>      - MEMORY MANAGEMENT - MEMORY HOT(UN)PLUG
+>      - MEMORY MANAGEMENT - MIGRATION
+>      - MEMORY MANAGEMENT - NUMA PLACEMENT
+>      - MEMORY MANAGEMENT - RMAP (REVERSE MAPPING)
+>      - MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
+>
+> More details in the last patch.
+>
+> In the upcoming cycles we'll then route more of the other MM components
+> through different trees.
+>
+> Let's see how this goes, in particular with the continuous stream of
+> fixes. But getting these in in a controlled way has highest priority
+> right now wither way.
+>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+> David Hildenbrand (Arm) (7):
+>       MAINTAINERS: mention for-next branch in MEMORY MANAGEMENT - MEMORY MAP
+>       MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
+>       MAINTAINERS: add Zi Yan as co-maintainer for MEMORY MANAGEMENT - THP
+>       MAINTAINERS: sort entries in MM sections
+>       MAINTAINERS: add missing files to MM component sections
+>       MAINTAINERS: rename and move MEMORY HOT(UN)PLUG
+>       MAINTAINERS: route more MM changes through mm/core.git
+>
+>  MAINTAINERS | 165 ++++++++++++++++++++++++++++++++++++++----------------------
+>  1 file changed, 105 insertions(+), 60 deletions(-)
+>
 
-Build an atomic state, set the level on the connector state and commit it.
-If the connector is not attached to a CRTC, keep the level in the current
-state so the next modeset picks it up, as before.
+For all the changes.
 
-A previous attempt to avoid the modeset by calling into DMUB directly was
-reverted because it broke the abm_gradual IGT test (8d20a066fa9b,
-95aaa207e9ef). This version instead uses the normal atomic stream update
-path.
+Acked-by: Zi Yan <ziy@nvidia.com>
 
-Expose the atomic state update helper for KUnit and extend the tests to
-cover the atomic update and the inactive sysfs path.
-
-Fixes: 63d0b87213a0 ("drm/amd/display: add panel_power_savings sysfs entry to eDP connectors")
-Signed-off-by: Shivam Kalra <shivamkalra98@zohomail.in>
----
-Note: This patch works standalone (applying ABM changes via a modeset), and
-pairs cleanly with David Weber's unmerged series [1] ("drm/amd/display: Skip
-connector updates without a stream" and "drm/amd/display: Avoid modeset for
-ABM changes") to allow non-modeset ABM updates via the stream update path.
-
-[1] https://lore.kernel.org/amd-gfx/20260813112634.11455-1-weber.aulendorf@gmail.com/
-
-Testing:
-- KUnit: the amdgpu_dm_backlight suite passes on amd-staging-drm-next
-  (75/75 tests passed), covering the new atomic update and inactive sysfs
-  tests.
-- Hardware: tested on a 7.1.13-based kernel backport alongside [1]. Before
-  the patch, the store called drm_kms_helper_hotplug_event(), produced two
-  HOTPLUG=1 uevents (triggering 36 GetConnector probes / 20.8 ms stall in
-  Xorg), and the backlight PWM sweep stayed flat at 6998 for levels 0..4.
-  With the patch, ftrace shows panel_power_savings_store() ->
-  drm_atomic_commit() -> amdgpu_dm_atomic_commit_tail() ->
-  dc_update_planes_and_stream() -> dmub_abm_set_level_ex(), with no hotplug
-  event or connector reprobe. The PWM sweep tracks the requested level
-  (11130, 8304, 5782, 3815 and 2782 target for levels 0..4; 75% target
-  reduction at level 4, 73.8% measured).
----
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    | 85 ++++++++++++++++---
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.h    |  3 +
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     | 95 +++++++++++++++++++++-
- 3 files changed, 172 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index 27546febf90d..f8d797324319 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -712,6 +712,31 @@ ssize_t panel_power_savings_show(struct device *device,
- }
- EXPORT_IF_KUNIT(panel_power_savings_show);
- 
-+static int
-+panel_power_savings_set_level(struct dm_connector_state *dm_conn_state, long val)
-+{
-+	if (dm_conn_state->abm_sysfs_forbidden)
-+		return -EBUSY;
-+
-+	dm_conn_state->abm_level = val ?: ABM_LEVEL_IMMEDIATE_DISABLE;
-+
-+	return 0;
-+}
-+
-+STATIC_IFN_KUNIT int
-+panel_power_savings_update_state(struct drm_atomic_commit *state,
-+				 struct drm_connector *connector, long val)
-+{
-+	struct drm_connector_state *conn_state;
-+
-+	conn_state = drm_atomic_get_connector_state(state, connector);
-+	if (IS_ERR(conn_state))
-+		return PTR_ERR(conn_state);
-+
-+	return panel_power_savings_set_level(to_dm_connector_state(conn_state), val);
-+}
-+EXPORT_IF_KUNIT(panel_power_savings_update_state);
-+
- STATIC_IFN_KUNIT
- ssize_t panel_power_savings_store(struct device *device,
- 				 struct device_attribute *attr,
-@@ -719,6 +744,9 @@ ssize_t panel_power_savings_store(struct device *device,
- {
- 	struct drm_connector *connector = dev_get_drvdata(device);
- 	struct drm_device *dev = connector->dev;
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_connector_state *conn_state;
-+	struct drm_atomic_commit *state;
- 	long val;
- 	int ret;
- 
-@@ -730,20 +758,57 @@ ssize_t panel_power_savings_store(struct device *device,
- 	if (val < 0 || val > 4)
- 		return -EINVAL;
- 
--	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
--	if (to_dm_connector_state(connector->state)->abm_sysfs_forbidden)
--		ret = -EBUSY;
--	else
--		to_dm_connector_state(connector->state)->abm_level = val ?:
--			ABM_LEVEL_IMMEDIATE_DISABLE;
--	drm_modeset_unlock(&dev->mode_config.connection_mutex);
-+	drm_modeset_acquire_init(&ctx, 0);
-+	state = drm_atomic_commit_alloc(dev);
-+	if (!state) {
-+		ret = -ENOMEM;
-+		goto out_ctx;
-+	}
-+	state->acquire_ctx = &ctx;
- 
-+retry:
-+	ret = panel_power_savings_update_state(state, connector, val);
-+	if (ret == -EDEADLK)
-+		goto backoff;
- 	if (ret)
--		return ret;
-+		goto out_state;
-+
-+	conn_state = drm_atomic_get_new_connector_state(state, connector);
-+	if (!conn_state) {
-+		ret = -EINVAL;
-+		goto out_state;
-+	}
-+
-+	/*
-+	 * Without a CRTC there is no stream to update and nothing to commit.
-+	 * Keep the level in the current state so the next modeset picks it
-+	 * up, matching the behavior of the sysfs interface.
-+	 */
-+	if (!conn_state->crtc) {
-+		to_dm_connector_state(connector->state)->abm_level =
-+			to_dm_connector_state(conn_state)->abm_level;
-+		goto out_state;
-+	}
-+
-+	ret = drm_atomic_commit(state);
-+	if (ret == -EDEADLK)
-+		goto backoff;
-+
-+out_state:
-+	drm_atomic_commit_put(state);
-+out_ctx:
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+
-+	return ret ? ret : count;
- 
--	drm_kms_helper_hotplug_event(dev);
-+backoff:
-+	drm_atomic_commit_clear(state);
-+	ret = drm_modeset_backoff(&ctx);
-+	if (!ret)
-+		goto retry;
- 
--	return count;
-+	goto out_state;
- }
- EXPORT_IF_KUNIT(panel_power_savings_store);
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-index 9ad888d3ae7b..d92ec0789f15 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-@@ -34,6 +34,7 @@ struct device;
- struct device_attribute;
- struct drm_connector;
- struct attribute_group;
-+struct drm_atomic_commit;
- 
- #define AMDGPU_DM_DEFAULT_MIN_BACKLIGHT 12
- #define AMDGPU_DM_DEFAULT_MAX_BACKLIGHT 255
-@@ -65,6 +66,8 @@ ssize_t panel_power_savings_show(struct device *device,
- ssize_t panel_power_savings_store(struct device *device,
- 				 struct device_attribute *attr,
- 				 const char *buf, size_t count);
-+int panel_power_savings_update_state(struct drm_atomic_commit *state,
-+				     struct drm_connector *connector, long val);
- int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
- 			 unsigned int *min, unsigned int *max);
- void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index c6d15fb8ad98..a482261e85d2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -514,6 +514,37 @@ static void dm_test_register_backlight_device_success(struct kunit *test)
- 			adev->dm.backlight_dev[0]), 0);
- }
- 
-+static struct drm_connector_state *
-+dm_test_panel_power_savings_duplicate_state(struct drm_connector *connector)
-+{
-+	struct dm_connector_state *state;
-+
-+	state = kmemdup(to_dm_connector_state(connector->state),
-+			sizeof(*state), GFP_KERNEL);
-+	if (!state)
-+		return NULL;
-+
-+	__drm_atomic_helper_connector_duplicate_state(connector, &state->base);
-+
-+	return &state->base;
-+}
-+
-+static void
-+dm_test_panel_power_savings_destroy_state(struct drm_connector *connector,
-+					  struct drm_connector_state *state)
-+{
-+	__drm_atomic_helper_connector_destroy_state(state);
-+	kfree(to_dm_connector_state(state));
-+}
-+
-+static const struct drm_connector_funcs dm_test_panel_power_savings_connector_funcs = {
-+	.atomic_duplicate_state = dm_test_panel_power_savings_duplicate_state,
-+	.atomic_destroy_state = dm_test_panel_power_savings_destroy_state,
-+};
-+
-+static const struct drm_mode_config_funcs dm_test_panel_power_savings_mode_funcs = {
-+};
-+
- static struct drm_connector *setup_panel_power_savings_connector(struct kunit *test,
- 							 struct device **device_out,
- 							 struct dm_connector_state **state_out)
-@@ -527,6 +558,7 @@ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *t
- 	adev = dm_kunit_alloc_adev(test);
- 	ret = drmm_mode_config_init(&adev->ddev);
- 	KUNIT_ASSERT_EQ(test, ret, 0);
-+	adev->ddev.mode_config.funcs = &dm_test_panel_power_savings_mode_funcs;
- 
- 	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
- 	device = kunit_kzalloc(test, sizeof(*device), GFP_KERNEL);
-@@ -536,7 +568,11 @@ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *t
- 	KUNIT_ASSERT_NOT_NULL(test, state);
- 
- 	connector->dev = &adev->ddev;
-+	connector->funcs = &dm_test_panel_power_savings_connector_funcs;
-+	connector->index = 0;
-+	kref_init(&connector->base.refcount);
- 	connector->state = &state->base;
-+	state->base.connector = connector;
- 	dev_set_drvdata(device, connector);
- 	*device_out = device;
- 	*state_out = state;
-@@ -614,10 +650,40 @@ static void dm_test_panel_power_savings_store_sets_disable(struct kunit *test)
- 	setup_panel_power_savings_connector(test, &device, &state);
- 
- 	KUNIT_EXPECT_EQ(test, panel_power_savings_store(device, NULL, "0", count),
--			 (ssize_t)count);
-+			(ssize_t)count);
- 	KUNIT_EXPECT_EQ(test, state->abm_level, ABM_LEVEL_IMMEDIATE_DISABLE);
- }
- 
-+static void dm_test_panel_power_savings_update_state_sets_disable(struct kunit *test)
-+{
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_connector_state *conn_state;
-+	struct drm_atomic_commit *atomic;
-+	struct dm_connector_state *state;
-+	struct drm_connector *connector;
-+	struct device *device;
-+	int ret;
-+
-+	connector = setup_panel_power_savings_connector(test, &device, &state);
-+	atomic = drm_atomic_commit_alloc(connector->dev);
-+	KUNIT_ASSERT_NOT_NULL(test, atomic);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+	atomic->acquire_ctx = &ctx;
-+
-+	ret = panel_power_savings_update_state(atomic, connector, 0);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	conn_state = drm_atomic_get_new_connector_state(atomic, connector);
-+	KUNIT_ASSERT_NOT_NULL(test, conn_state);
-+	KUNIT_EXPECT_EQ(test, to_dm_connector_state(conn_state)->abm_level,
-+			ABM_LEVEL_IMMEDIATE_DISABLE);
-+
-+	drm_atomic_commit_put(atomic);
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
- /**
-  * dm_test_panel_power_savings_store_forbidden - Test forbidden update
-  * @test: The KUnit test context
-@@ -633,6 +699,31 @@ static void dm_test_panel_power_savings_store_forbidden(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, panel_power_savings_store(device, NULL, "1", 1), -EBUSY);
- }
- 
-+static void dm_test_panel_power_savings_update_state_forbidden(struct kunit *test)
-+{
-+	struct drm_modeset_acquire_ctx ctx;
-+	struct drm_atomic_commit *atomic;
-+	struct dm_connector_state *state;
-+	struct drm_connector *connector;
-+	struct device *device;
-+	int ret;
-+
-+	connector = setup_panel_power_savings_connector(test, &device, &state);
-+	state->abm_sysfs_forbidden = true;
-+	atomic = drm_atomic_commit_alloc(connector->dev);
-+	KUNIT_ASSERT_NOT_NULL(test, atomic);
-+
-+	drm_modeset_acquire_init(&ctx, 0);
-+	atomic->acquire_ctx = &ctx;
-+
-+	ret = panel_power_savings_update_state(atomic, connector, 1);
-+	KUNIT_EXPECT_EQ(test, ret, -EBUSY);
-+
-+	drm_atomic_commit_put(atomic);
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+}
-+
- /**
-  * dm_test_panel_power_savings_store_rejects_invalid_text - Test parse failure
-  * @test: The KUnit test context
-@@ -1939,6 +2030,8 @@ static struct kunit_case dm_backlight_test_cases[] = {
- 	KUNIT_CASE(dm_test_panel_power_savings_show_reports_level),
- 	KUNIT_CASE(dm_test_panel_power_savings_store_sets_disable),
- 	KUNIT_CASE(dm_test_panel_power_savings_store_forbidden),
-+	KUNIT_CASE(dm_test_panel_power_savings_update_state_sets_disable),
-+	KUNIT_CASE(dm_test_panel_power_savings_update_state_forbidden),
- 	KUNIT_CASE(dm_test_panel_power_savings_store_rejects_invalid_text),
- 	KUNIT_CASE(dm_test_panel_power_savings_store_rejects_out_of_range),
- 	/* amdgpu_dm_backlight_get_device_index */
-
----
-base-commit: ba496bb837882eb1af58f41572fc289e46c77b8c
-change-id: 20261031-abm-sysfs-atomic-c79505f63a2e
-
-Best regards,
---  
-Shivam Kalra <shivamkalra98@zohomail.in>
-
-
+Best Regards,
+Yan, Zi
