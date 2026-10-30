@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.120
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.121
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793373213;
-	b=ZPzWlQSfw69Be0aAnmTFuVlzMvx9X7oC/b/fKSMvUPRPY+Kdr2myHAUzGLfGgdxByX+Z
-	 ql+euaC4jdXAVilaRRobvuQ/f+GvIPfAx3gwPUDyRQ/Qx7173r6PKl+huQQJj3A0gR6Kz
-	 i4D5g1OPPWsNNDwasEkexwkb1TQjlpjLEOJniEH/8BoJSD6uAVzSxO5GFBds5Wsl62Ua6
-	 QEHQ7ocgvr/XWRHNNISCLpTU1brm7lDbnv99FNRNWi91SJg5C1UvroM24nuZ0vVllBQw2
-	 29HUOv3ht8Z/LX9+od0zCdc7xlZLGewON32kzS6vLImJnBd2gNWH7/JXjHGF3YOhRIw==
+	t=1793373220;
+	b=bSULTZd2LjZ4/b/K/4+/7wvXzx4y6TBxsqOy492fAWDqws1ecbPRi7T37PICrGouje0e
+	 xNCi7BNjR9z/tO7Of/9LLcDX4FIW2o+EFooj8vxXUWUIIK2wcnWKbcrtAeQQ0mBgjinM0
+	 HAI75LKbes3uWCaix/IUQZ/YT1Je8hMcEOPb0JcByUoHu7LR+zjMnnswGoZCSSlwFljKO
+	 mJUmzBDYS6YawNSayg8SG5IsZ4PhgFxSy9HUkHo+MQn9IPtZ31hAv/y7ybYsBkTOPsI4I
+	 EZ4zvOhDIUBTpUdmCHQTm7cy397zIpnpSsa38/iJUr2XnieXNn8nbpRT8wkhmjPjWHA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793373213;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793373220;
 	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
 	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
@@ -24,31 +24,31 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mkpD0wIrDWEIDW62EulZFq8uH60gx2K0ZOG9dMVyDoA=;
-	b=H0MpenwYt70BSwVnuuEKjl8MrpYLinpQtB3cU5pf15rPaq4qqLuFwkJfLESvVkUy3C4r
-	 rdn0ylfmTZxDz6+K+n7dfwp1TRt+YweQA9dVtuw61fT6OI0aB7gI9VW1Z96y4UAolJZdg
-	 jPeTHoCm3yWCQ00yy2UgsA0PKZUaG+PV0eZuJOGPTpdrU/bBVt8dSW3Jj42wBkTMqi3lM
-	 Adx41ChkTu/VXnW01fqDRxMt++J66OLGr5jpk4cNDO/BkCX3tGJ2HiVlY7j0MmAZuRqY+
-	 Wyh+SR1jWT3pwELH8UTWGrHngAPe2OVGtSiOL/cGkuhSXz1Q8kRlaxWlRNhIassTcUQ==
+	bh=7qT/hVGgUYbHKSpmS//528fK0tVsQfH8L0vOg0VOQGo=;
+	b=YtUs1xtWCHe3nx7ogbrghGoonw8e1QeNKCJSlywuuU4LIJd4KBgY2zad0jIQ1pOHfqXb
+	 qgiZdBFVy2lKEqz9DEwZKShiV1D9foe9ds28y+4BEChwJYzeqbdP4m9zst8ZYrX55ntRo
+	 2BhF7qgNdRoujxp04S793K2lKcFUPNu0Mlcbn1DhgEbL5g7hVEYmDQfaHKAAaSsvcYTUL
+	 SUoi2KA72Kyr18PI86SUvph/EHQapbd77Q9aBLXf/n+QcK4SATx+zX23/Tb/im+ha4Rue
+	 IRdh5b8+r38xdXm1l8NrC9cTit8mpR2NNVHqZywJj3YPf60KJqRb0SN9j0J0qJluyzg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=atomlin.com;
 	spf=pass smtp.mailfrom=atomlin.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.96.120
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022120.outbound.protection.outlook.com [52.101.96.120])
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.121
+Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022121.outbound.protection.outlook.com [52.101.101.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2EEB60A2600
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:13:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2EEB60A2600
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADE860A2601
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 15:13:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ADE860A2601
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VPi5SoeeAuc5dCRj4CkJ0Wkd8BTdKNYzVcAEiKl8qiQAsSigc+bDubcKkR5j7qduiGXExUrEpc+2MpLnkUpimv1O2wI083JN+273LOi1DctbbrD2xDL6RF/lj+dXUy6O0tCe4GtAz1QBnmIuHhgfpvnZI9rHRpbH626QU3Jv1gfgTH3agdZz8hVga4Yz9QO2eK3rCcg5ORYyO8V+Af03OI06Q3cmjwtxdiSVnXUAACfvAqGyUtR4wDQEUMlYHlLS83xUkZ3yYM7ARfB6383D6v3KsGLY3LUf7/KWEiF58wmtgkOzTKhTZMcXaSvZrGd+/3DzNNhsB6cLf+72e0x5fA==
+ b=nXZttDYSgPwaEfpCH2bkyliXR4cn6KFg1Tl5UjWa/+nXjrrCJJXBjb7ELaXDtvDGqfLGFyBwNvppdIZpkt86Bp9QUjfYpz9aMxFZ5p3AQtUWzrSlBV8epLEF10u50JBTGqn4RCJq3NK3GQ/v7ImfYSCI7zhZPvE4nUZoUMx2JLRKWNu+yLGqdyHpDA4anDNQq332PJp2Cg6MrtZRg4EIdEex44h/2sfcCaXu8L9IZVriVdpM7dE3fPSlI+AU23cfRhqIIlly+WfggZIGjOfjlVdcR/xD7wxTELxn9NwPKCE4w/yiyDqDcf7hqGYBJLQTyKFE+r8lJlkfxqzkacFodw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=mkpD0wIrDWEIDW62EulZFq8uH60gx2K0ZOG9dMVyDoA=;
- b=SElcu9VW3dvBZcLodaEvQAKvxkThOWMZ2fg9V7glr0jUNKzDRC7KsoJx7nontlrJfI31mCRF262TRj7kZk5iGw2bcTTNhWvtQRp6jVrqLMUJFSfzjgYpDdV+QLiXyAy6azs6Vxo8SevznCz6UIykyiMDFIhvBGtOVBBNUwMM/9F/zwN4t7FoJy5RcFXrYQC8YGhjfbsjheJkyvUXJz3aheYvX4LJverTNk6/Dk1lxNmzPc+PhsJ1sMqwhG2L3oQFHO/yEsxz0wlQYnDjG6Q/P2Cd2pjccFCb+1tnWR9MNtZQS9WB7woelmOuy8aX7B3OH92jSju9kmQhx0SFCGnKsw==
+ bh=7qT/hVGgUYbHKSpmS//528fK0tVsQfH8L0vOg0VOQGo=;
+ b=rFMMz84C6ulhuH9+HnnEaehaYMoLl2axL7kozMjqpj/lt/QGi02ruF3JDOJ5xDomAK8kaWD/Iyh7EqSCoM4qyXJv0oqW+6fpAzWe2eIndSI9hCIUaAbnIkxHUP8FoGYucjhHpJJGgoZ7KUSB2QABSzxbueu6CSQmyDT3A6GP1H0FQC3pRsxTgaRhG3WXsvKC7YM79wojXd1bjYrDVIoPe0XoSgdK5jg6xNKWMd5DkDrn45fyGEkxih5SjCwJgjn1onSDTsOx4T/ihVxEH0cl8tzKg6Nj6Mqesq9tt94iuHAjAOy3+3+ou9RirHivUb3VaFe/q+iWwKjDl3kfn4cvpA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
  dkim=pass header.d=atomlin.com; arc=none
@@ -58,11 +58,11 @@ Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
  by LO6P123MB6488.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:2b0::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 15:13:30 +0000
+ 2026 15:13:34 +0000
 Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  ([fe80::cec4:77ab:262e:d230%5]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
- 15:13:30 +0000
+ 15:13:34 +0000
 From: Aaron Tomlin <atomlin@atomlin.com>
 To: mingo@redhat.com,
 	peterz@infradead.org,
@@ -84,16 +84,16 @@ Cc: paulmck@kernel.org,
 	steve@abita.co,
 	rishil1999@outlook.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v11 tip/sched/core 5/6] sched/fair: Use list_for_each_entry_rcu() in print_cfs_stats()
-Date: Fri, 30 Oct 2026 11:13:06 -0400
-Message-ID: <20261030151307.768523-6-atomlin@atomlin.com>
+Subject: [PATCH v11 tip/sched/core 6/6] sched/debug: Introduce per-CPU debugfs files
+Date: Fri, 30 Oct 2026 11:13:07 -0400
+Message-ID: <20261030151307.768523-7-atomlin@atomlin.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261030151307.768523-1-atomlin@atomlin.com>
 References: <20261030151307.768523-1-atomlin@atomlin.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: MN2PR22CA0016.namprd22.prod.outlook.com
- (2603:10b6:208:238::21) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
+X-ClientProxiedBy: MN2PR08CA0011.namprd08.prod.outlook.com
+ (2603:10b6:208:239::16) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:400:183::5)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -106,305 +106,145 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LO6P123MB6488:EE_
-X-MS-Office365-Filtering-Correlation-Id: faaba41b-67f8-473d-bf33-08df36985b6c
+X-MS-Office365-Filtering-Correlation-Id: 962ac6ae-eeb6-4b49-45de-08df36985d88
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|261028144727099003|261021121427099003|261021123027099003|261022105027099003|261022075727099003|261009223027099003|261026121527099003|261026140227099003|10067099003|3023799007|6133799003|22082099003|18002099003|56012099006;
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|7416014|261028144727099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003|261026140227099003|10067099003|5023799004|3023799007|22082099003|18002099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	QB+vvQltwoyTnfSACMg1e6KZTtNJaxDJrlpESx7VyEaEVslY8zKFPkn7DtfKOyhVfhgrpZ1jodYTqosXPpx7u+kEeLTW4RQgXJJa6NmrBZ8JUF92JrgqXr4flk7U7lzx2D6ZzRxkF6926+KvrLD17iE2WDZWOB6/sb8Hx/mb400ZFWsfwDQZTDuf/Qfj2shtw5yTgQIpd2CWIz2VefvhnBZOexMRz3wTXXKhnu71vayxqkyGNK1cBni7JVIT5XeotydBCADUkDIFZCBoTTraiwGmbmzsN7R2tlKPLrbZnu6v7wjtVQOCGo/XFYBJ385kC09DqUT5bSjI8UWoiUqjJwJCLbdbxdydtiNueJbZtZJWMHFk2Ol+Qsid9w2QNxTyvsFz2ps+ufdAIt3xzwV67R30TtPOxywBiGLSJ1/eZTRau8YcuNCcGwwwEuOO0f4uwZHFrn+OLZ6a05I5m19dLiMRnTcMIVB9I1XlgLtS+752ETMxX5N7UFaUIgJ3Qw7jLb3Q2AUSGkGj9d15A5Itz30UW6EbhelfPahFO10HV7DWfoXZJxll6/IS/kgF2iSWEsEI6aUuLx19l131u438e0Mf5zYhElXguPnug7Px1PAmJm0HR4wOGsAiE9XEcF0Vr+iHTqRR8YxWyYZ9xW9JNPTvaJm0G+zG4Uv65di4rXc=
+	pPLvZ2xU4fUrnAMn0VCHPCtqvtSH/dP99O2eTSvsHdMfBOq/GHMrM4yF5m4O6XawSRdy+s2ySn9JNFgNsDeRKHb9wl8riMU9TE9n92w76X2v7O1cOVlNQ8sJtwYe+9n7I5wNvCb2lqjHahWDOYZl8snoA0vIsDMkfGS2TV9//8zycw2qfQedGwupx+kYWFKiVOUcwEVgxDqnSgdD7h+XvRpe3PJTzcWrYJJcplhJun4rsHYBQRWrjff/zy8vBkg0iSSYpUH3sZN0khtddUfFSlugS9Po3jW82aDoSNdGgvHgLPwg/L0m8P0jhzi+ltwceT86FK/2NKc9gQ7KZv4Yl90oXQXTi7kkh+MfvteCNYjAq8ojp815hmgGMimkaPyRwcVv6kHwFpfTFWQ3/Yvru8jSk3LfnR7Z5hD1+Xcutle55eSD6m56l2fB1pD+fPLKvB2BFX6Hld8Px/VPwB/M0onk3gq66X7quBAgkFo15uWzCQw9pQATEW5Fm9TnAmR/fIqApr6fbKp4bp4Zpd8CoTC4JM3Y4ZNyfuo0hJo/tRpTwtuySYXia1Qx8yfci2uBrGfFRoAI80ER5yOnpqhsfogW99Buxe9edZcrYg8RbNdR7eK09B/rRq5F9RB82FNihVZ3V/zPVBJ1990HdggVr4UiHj8Gc69ULLuGMevAPq0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(261028144727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026121527099003)(261026140227099003)(10067099003)(3023799007)(6133799003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(7416014)(261028144727099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026140227099003)(10067099003)(5023799004)(3023799007)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?jTy/mwdFnYfFTCCUW8YfNDCTxDau1eihOL+sZceJbnMrnsY3HprKGr5gyS5q?=
- =?us-ascii?Q?bVLz/8a2qUQFcVRSO4XoF7WiRfSrv5BJvtNXBv//7M7Kg2Evmy4Oja6fcdma?=
- =?us-ascii?Q?jnW0Kj36+QZei6hKRRoaf+EhwU/J75DClTclLWPOU5hjlBdR671Z1LPhQPcR?=
- =?us-ascii?Q?q6XIPm2kkTlbtcqXSKQHoRqog8uz+Y0eEcaYUwac0t0o9yjgnIhcF0eQdFx7?=
- =?us-ascii?Q?HDyXh4MHVazd98Sl03BEyUahl2IlAIQtwSN6Wvp9X6zqDD5ZlXtAQl5Q7/b+?=
- =?us-ascii?Q?R4rh2d5S4f99YtwuJxCR1tBrU8/maQX2CN8HlSzsU8CXS3MS3et6T8ocIfDd?=
- =?us-ascii?Q?Fvzw1s9y4OuQnVn6a4QxCApRnLs13SU6C8xPt91a7eNLan0PbA6t2s+NgO7f?=
- =?us-ascii?Q?+SGNaHoy90XdnfG4ytEzIYo692O3WsR0hKd7OaHioeveoiW/RYNOkIsLZ6WA?=
- =?us-ascii?Q?AvTduikYLbdEImxriNlw1E2lp/hngEGKf40xxeeap1jGnwJIaBRVL7Lj2WAb?=
- =?us-ascii?Q?oiKAX7LWz4CDMObmE4C1XblXr0RD+Mq53DiP92Sf/kCpbJ5azjmYbovKtA3I?=
- =?us-ascii?Q?5Vs4KKzxk2jOfNvqYPPUvIpPgUamfBxhx8le1GEOKcy+RJdYafX8FV+Zs7jB?=
- =?us-ascii?Q?lT3a4pX+i+jJRE8TjC5ZbU6zpBorH7S13AU3fn3Yy/zSn9ursVo1dOaInxV/?=
- =?us-ascii?Q?DPIQkbWBWYJ8KeoqF9v7tNrHgxo2LaVKHibzR2jF4+WX7lBa8pEEB68EnkCZ?=
- =?us-ascii?Q?SZzWmmx1kvqg36NeD3qClIkTdcXvA63wDTpxSM85jOC3VDww34r2eVGIedIR?=
- =?us-ascii?Q?WTcSKBWCQpa/A1y8WOUhd6073qGMKeeMEZm3U1RO93UxjOZZBXzJI77nIxyk?=
- =?us-ascii?Q?hNEWjepwHsXsUqxRtIC62VF9otzzQwVwY1BN3wjW4SWuxwGm39ynLg9S4l16?=
- =?us-ascii?Q?BUVIQOKTSmudBa8Yl1ZGkbk1gyX+VOxgcDuPe+VLTPs4ziJYNE8aMxTEP0LN?=
- =?us-ascii?Q?ouecGD6Fopr4pFP7+q3u/2Je5tvSOQ0cjlWk7cP5GPlmIhvVsl7OqXnX2sMR?=
- =?us-ascii?Q?31jgocEms1WTXU7+sTar9dL9t6G3BNAPQqOf2xWDniB/voB1eV4Eps6wZf0F?=
- =?us-ascii?Q?+APbXE+OdZ9nMO2leDHaMr8Qf9/6+LHeqY3Glrgf930gjK27xrOUgqAzP5VZ?=
- =?us-ascii?Q?DiEFLSYpLmGoNQEZmUk0Xv60ishuVCTnOV4IGBpgpgNEjywSYgJGGOLVrFMq?=
- =?us-ascii?Q?2T49sisE4P37RWAYR+ygZLKnmhrdRxxKihu0Zb4yK3Ols+EXz4khtrdhYF1l?=
- =?us-ascii?Q?LDjXt/B1mOEVkhJDWpgJBdrpmUndxVLPBwaThHZPGA9Pr72CMo92c2/dvESf?=
- =?us-ascii?Q?Iny/O34qYdZOBSMY8NYXAFzjXqHvdAFe4T5aexwg90ex+braJlp8HiAQMlH/?=
- =?us-ascii?Q?2jNHzPa8IYFUZcx3Us2bhuy+114dQNfvhtXwOtVPIFlrYJnXEy5QjLNY9uKv?=
- =?us-ascii?Q?juCyiO7NHZZDEuVFtD/E5XJvr45bFyoRHZg7z3MijziPHFDi5mPHJsSTK9RZ?=
- =?us-ascii?Q?fJdWD9gTTFDsFjPJpJD6lneclWn5bcvmg2XnckhxWqzE2YdbBffdkNyozFPe?=
- =?us-ascii?Q?XSmI8XXKTYGyoXW+d1jqfgk1s8UlwvMg6B5JJZMWxM+EM8jgjhvCfiFrZzjW?=
- =?us-ascii?Q?5V6f/gDC1sprACRi3gu40eQ/SjYl99DC63qTQlKdxLCfrDmkvxaSKOY/m3gB?=
- =?us-ascii?Q?RlzjRuRvhA=3D=3D?=
+	=?us-ascii?Q?yE0A0r49fAUf1gO62exO9nfNAAQ9r8KLyPcLNdcesvFl7UnEWramjEM7CANY?=
+ =?us-ascii?Q?WtT/E+ShvClTuYDc6tU7ha9vyyp7tLtU6+wtNCMrEjudNPIcv9Hr0hGoIYme?=
+ =?us-ascii?Q?JDUf4dRw9rPzrX4KGdkRKS8Z1NuspA5jrt5In066V62MKKXETCZ/EfN/LjJs?=
+ =?us-ascii?Q?kQmJHMmsP0PAHCZgqvLPPGrGIVpwLY4WUnUZ06eBgp3YHTpp1PhklqirI/AG?=
+ =?us-ascii?Q?h6t5eJxeBB8sKVAxyeWJvLxPUvHC0T+GHpR+klp9soQ+YghjLWfNMKDGkLDV?=
+ =?us-ascii?Q?w1Fxa02iqQ4XqESFH3Tlwu6WcBc5gaAlCK0/ADFx/MvHt+HBgerbfjnJqq4b?=
+ =?us-ascii?Q?KQAblzkrYUAUjVzKeahEMYuoWfouuvOCgbhk6xhSjT0rB8Qsb6WQRtUgmNEd?=
+ =?us-ascii?Q?klNMJhUHpkDLgDw5w6fRU7r2N/kI9dCan0RnXFaUeJCRfmX2M8gU6EKbgAK9?=
+ =?us-ascii?Q?Rgl8Pp9O9BE2GqediMmqsKf2Y17kM4aF5KEXa4Z0VkU7O4fyJ917S7OCH2Zh?=
+ =?us-ascii?Q?6xlE8FTlyjtzKULN8HC/t3Gauto+ZhpVlf0N0xGI2v/+Z3MpK1p+aWTYVjMO?=
+ =?us-ascii?Q?al0cgkVTD2XkiskT2egWQ9cFGNVT3Ne6GyLxsl/R2q8qH8Vx60nJTSVG30m6?=
+ =?us-ascii?Q?UZR71fKokwjd0fY/+MosL1ZztHG76dJUhZOFyb4Df1qA3pY69oxX1YZOx59B?=
+ =?us-ascii?Q?QVttya10es7N6/RuSZcGVIKfd4ZpaSvDABK9J8pyGe4ov5Y+1u0ZRAr+8R6D?=
+ =?us-ascii?Q?rrJSZMLU/FXK9/BXnrpu5g2W/Jy8V+js7r4NqfBL5jCA5T/iFHkDp0apmgIg?=
+ =?us-ascii?Q?PpYZpEGhs3PLmMBAqQCsKfUsTVQcoh5K6ZwvArE7D1HodID8SjNJq45c8b8o?=
+ =?us-ascii?Q?SpDtzFYH8isjQL9GOYIy7AvvByG3vPopkeht+F2xzMU69Kzvyo0qvR7lYoyu?=
+ =?us-ascii?Q?8FUE2fDEvGrEKai5WY+gpHpZlynt97Yl4plACMu/oGWF/kEGf0vRNoNaeY75?=
+ =?us-ascii?Q?5NOC94vrWIwxKUnmmRhvZVf0joB8TOjdc3g4edCmmOv0oOJVEPblXeoDdY/o?=
+ =?us-ascii?Q?RZQ8E+ppx7eZew7KpRYHt24qDF3mZjswZsn79Ip6EvBrXSCO8tzKnlFaP4XX?=
+ =?us-ascii?Q?k9EfocKUgXvmL7SzZltDeAaASuOZlQElBnA6PRmBVHX7Y4Bsmml5J8fX/sc/?=
+ =?us-ascii?Q?b0cMpOW2vZypCHTf2zwsPeJySN0aVlFwtE3BTU2YLm3fy+voHmP6SXjBLTy9?=
+ =?us-ascii?Q?JTHKzXhbN6zmW4KAISlp6kQqY0isp4n4jR/6bAj+ZP9YaRM2j7juqH2MvVn0?=
+ =?us-ascii?Q?8umeOxqy8+ghhXz/6GzjZgBdwdwc9VWA3txZJ6B+m0JT9rqwalWI0N4orojJ?=
+ =?us-ascii?Q?zzJMqQpv0sSmBIgksApwArBWnblFWDCt6j/akIDiPL8t8mdSfr2Kb/7uhzF2?=
+ =?us-ascii?Q?br/rXqDuWNOvoyGq1QgKu67096WW0C1KUJe6EsASpIshbgtoayYtpBu5BLEt?=
+ =?us-ascii?Q?jsCqJVeruXG14VsDvFR9qrx43OOX9ywWFD0C+R//wyFWR8qWX8BEFXMmuAVY?=
+ =?us-ascii?Q?tkthwqXpFN+AZK4Nr5UFVFEj1IvBu2ZwXOetsF3kaq7fnEyBuDaQ2ncfDcoP?=
+ =?us-ascii?Q?VJbnVrzjbISxRYuGDaNoUCDPFlu3ssdtaT1KSiCpEfOyE3q+iBu62Isp0fMK?=
+ =?us-ascii?Q?Zn/wOh6IsBJOLh1HniqlX+oun+4f9uNT3WOt3lXxnGFZjcNcGpxyV91wqv2y?=
+ =?us-ascii?Q?jI24z4rvog=3D=3D?=
 X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: faaba41b-67f8-473d-bf33-08df36985b6c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 962ac6ae-eeb6-4b49-45de-08df36985d88
 X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 15:13:30.7891
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 15:13:34.3684
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z1VGalb548M729lzskVAXi7anPTPph3DpQbzt2ClQX40DTEMbdtfNxw3/WEX1pCqMDFQVLcWaY7YdU0fidp/Xg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: c3ngkrhdlH+doLRvohfoBajW98T9o4TNJLbwY42/gcG36KssTIvHIQBIatV1H9gerF2zkZ4/jhWPvcRlbuc41Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P123MB6488
 
-In print_cfs_stats(), rq->leaf_cfs_rq_list is traversed locklessly under
-RCU using for_each_leaf_cfs_rq_safe(), which expands to
-list_for_each_entry_safe(). Although rq->leaf_cfs_rq_list is modified
-using list_add_rcu(), list_for_each_entry_safe() is a non-RCU iteration
-macro that dereferences pointer links without READ_ONCE() and pre-fetches
-the next pointer without memory ordering guarantees.
+Currently, accessing scheduler debugging details for a specific CPU
+requires reading /sys/kernel/debug/sched/debug, which outputs
+information for all online CPUs. When investigating a latency anomaly or
+scheduling issue isolated to a specific CPU, accessing
+/sys/kernel/debug/sched/cpu/cpu<N>/debug provides an immediate, targeted
+view of that runqueue.
 
-Without READ_ONCE(), the compiler is free to re-fetch pointers or reorder
-instructions. As a result, a lockless reader can observe a newly inserted
-cfs_rq's pointer before its internal fields are fully visible, leading to
-reading uninitialised data or dereferencing invalid pointers.
+Add support for per-CPU debug files under:
+/sys/kernel/debug/sched/cpu/cpu<N>/debug. Reading
+/sys/kernel/debug/sched/cpu/cpu<N>/debug calls print_cpu() specifically
+for CPU <N>, exposing CPU-specific runqueue details on demand. If the
+target CPU is currently offline, reading its file returns -ENODEV.
 
-Furthermore, in the core scheduler, cfs_rq structures are embedded in
-struct task_group and are enqueued/dequeued dynamically on each CPU's
-leaf_cfs_rq_list during task wakeups and throttling. Because this occurs
-in atomic fast paths under rq->lock, deferring list deletion with an RCU
-grace period or allocating dynamic proxy nodes is not feasible. While the
-underlying task_group/cfs_rq memory backing each node is safely reclaimed
-via call_rcu() (i.e., sched_free_group_rcu()), immediate node
-re-insertion can modify cfs_rq->next while print_cfs_stats() is
-executing locklessly. Under continuous list churn, lockless readers
-could experience backward jumps, resulting in unbounded list traversal
-inside the RCU read-side critical section and triggering an RCU CPU
-stall warning.
-
-Address this by:
-    1.  Introducing for_each_leaf_cfs_rq_rcu(), which expands to
-        list_for_each_entry_rcu(). This enforces READ_ONCE() and proper
-        data-dependency ordering on all architectures during list
-        traversal
-
-    2.  Using guard(rcu)() to ensure the backing task_group/cfs_rq
-        memory remains valid throughout traversal
-
-    3.  Capping the lockless list traversal with a per-CPU
-        circuit-breaker ceiling. This represents a generous upper bound
-        for active leaf cfs_rqs on an individual core while guaranteeing
-        loop termination and preventing RCU stalls under list churn
-
-    4.  Emitting an explicit truncation notice if the ceiling is ever
-        reached, ensuring transparency in debugfs
-
-Fixes: 039ae8bcf7a5 ("sched/fair: Fix O(nr_cgroups) in the load balancing path")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
 Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
 ---
- kernel/sched/debug.c | 39 +++------------------------------
- kernel/sched/fair.c  | 33 ++++++++++++++++++++++++----
- kernel/sched/sched.h | 51 ++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 83 insertions(+), 40 deletions(-)
+ kernel/sched/debug.c | 43 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
 diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
-index a22d64647bbf..b29159513e2a 100644
+index b29159513e2a..ac4971cfbfbe 100644
 --- a/kernel/sched/debug.c
 +++ b/kernel/sched/debug.c
-@@ -11,17 +11,6 @@
- #include <linux/log2.h>
- #include "sched.h"
- 
--/*
-- * This allows printing both to /sys/kernel/debug/sched/debug and
-- * to the console
-- */
--#define SEQ_printf(m, x...)			\
-- do {						\
--	if (m)					\
--		seq_printf(m, x);		\
--	else					\
--		pr_cont(x);			\
-- } while (0)
- 
- /*
-  * Ease the printing of nsec fields:
-@@ -927,38 +916,16 @@ static void print_cfs_group_stats(struct seq_file *m, int cpu, struct task_group
- #endif /* CONFIG_FAIR_GROUP_SCHED */
- 
- #ifdef CONFIG_CGROUP_SCHED
--static DEFINE_SPINLOCK(sched_debug_lock);
--static char group_path[PATH_MAX];
-+DEFINE_SPINLOCK(sched_debug_lock);
-+char sched_debug_group_path[PATH_MAX];
- 
--static void task_group_path(struct task_group *tg, char *path, int plen)
-+void task_group_path(struct task_group *tg, char *path, int plen)
- {
- 	if (autogroup_path(tg, path, plen))
- 		return;
- 
- 	cgroup_path(tg->css.cgroup, path, plen);
- }
--
--/*
-- * Only 1 SEQ_printf_task_group_path() caller can use the full length
-- * group_path[] for cgroup path. Other simultaneous callers will have
-- * to use a shorter stack buffer. A "..." suffix is appended at the end
-- * of the stack buffer so that it will show up in case the output length
-- * matches the given buffer size to indicate possible path name truncation.
-- */
--#define SEQ_printf_task_group_path(m, tg, fmt...)			\
--{									\
--	if (spin_trylock(&sched_debug_lock)) {				\
--		task_group_path(tg, group_path, sizeof(group_path));	\
--		SEQ_printf(m, fmt, group_path);				\
--		spin_unlock(&sched_debug_lock);				\
--	} else {							\
--		char buf[128];						\
--		char *bufend = buf + sizeof(buf) - 3;			\
--		task_group_path(tg, buf, bufend - buf);			\
--		strcpy(bufend - 1, "...");				\
--		SEQ_printf(m, fmt, buf);				\
--	}								\
--}
- #endif
- 
- static void
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 201864ef8c61..860a04ab060c 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -419,6 +419,10 @@ static inline void assert_list_leaf_cfs_rq(struct rq *rq)
- 	list_for_each_entry_safe(cfs_rq, pos, &rq->leaf_cfs_rq_list,	\
- 				 leaf_cfs_rq_list)
- 
-+#define for_each_leaf_cfs_rq_rcu(rq, cfs_rq)				\
-+	list_for_each_entry_rcu(cfs_rq, &(rq)->leaf_cfs_rq_list,	\
-+				leaf_cfs_rq_list)
-+
- /* Do the two (enqueued) entities belong to the same group ? */
- static inline struct cfs_rq *
- is_same_group(struct sched_entity *se, struct sched_entity *pse)
-@@ -472,6 +476,9 @@ static inline void assert_list_leaf_cfs_rq(struct rq *rq)
- #define for_each_leaf_cfs_rq_safe(rq, cfs_rq, pos)	\
- 		for (cfs_rq = &rq->cfs, pos = NULL; cfs_rq; cfs_rq = pos)
- 
-+#define for_each_leaf_cfs_rq_rcu(rq, cfs_rq)	\
-+		for (cfs_rq = &rq->cfs; cfs_rq; cfs_rq = NULL)
-+
- static inline struct sched_entity *parent_entity(struct sched_entity *se)
- {
- 	return NULL;
-@@ -15897,14 +15904,32 @@ DEFINE_SCHED_CLASS(fair) = {
- #endif
+@@ -339,6 +339,7 @@ static const struct file_operations sched_verbose_fops = {
  };
  
-+#define SCHED_DEBUG_MAX_ITER 4096
-+#define SCHED_DEBUG_TRUNCATED_MSG \
-+	"stats truncated at " __stringify(SCHED_DEBUG_MAX_ITER) " iterations\n"
-+
- void print_cfs_stats(struct seq_file *m, int cpu)
- {
--	struct cfs_rq *cfs_rq, *pos;
-+	struct cfs_rq *cfs_rq;
-+	int max_iter = SCHED_DEBUG_MAX_ITER;
+ static const struct seq_operations sched_debug_sops;
++static void print_cpu(struct seq_file *m, int cpu);
  
--	rcu_read_lock();
--	for_each_leaf_cfs_rq_safe(cpu_rq(cpu), cfs_rq, pos)
-+	guard(rcu)();
-+	for_each_leaf_cfs_rq_rcu(cpu_rq(cpu), cfs_rq) {
-+		if (--max_iter < 0) {
-+			SEQ_printf(m, "\n");
-+			if (IS_ENABLED(CONFIG_FAIR_GROUP_SCHED)) {
-+				SEQ_printf_task_group_path(m, cfs_rq_tg(cfs_rq),
-+							   "cfs_rq[%d]:%s ... "
-+							   SCHED_DEBUG_TRUNCATED_MSG,
-+							   cpu);
-+			} else {
-+				SEQ_printf(m, "cfs_rq[%d]: "
-+					   SCHED_DEBUG_TRUNCATED_MSG, cpu);
-+			}
-+			break;
-+		}
- 		print_cfs_rq(m, cpu, cfs_rq);
--	rcu_read_unlock();
+ static int sched_debug_open(struct inode *inode, struct file *filp)
+ {
+@@ -692,6 +693,47 @@ static const struct file_operations sched_cgroup_fops = {
+ };
+ #endif
+ 
++static int sched_debug_cpu_show(struct seq_file *m, void *v)
++{
++	unsigned long cpu = (unsigned long) m->private;
++
++	if (!cpu_online(cpu))
++		return -ENODEV;
++
++	print_cpu(m, cpu);
++	return 0;
++}
++
++static int sched_debug_cpu_open(struct inode *inode, struct file *filp)
++{
++	return single_open(filp, sched_debug_cpu_show, inode->i_private);
++}
++
++static const struct file_operations sched_debug_cpu_fops = {
++	.open		= sched_debug_cpu_open,
++	.read		= seq_read,
++	.llseek		= seq_lseek,
++	.release	= single_release,
++};
++
++static __init void debugfs_cpu_init(void)
++{
++	struct dentry *d_cpu_dir;
++	unsigned long cpu;
++	char buf[16];
++
++	d_cpu_dir = debugfs_create_dir("cpu", debugfs_sched);
++
++	for_each_possible_cpu(cpu) {
++		struct dentry *d_cpu;
++
++		snprintf(buf, sizeof(buf), "cpu%lu", cpu);
++		d_cpu = debugfs_create_dir(buf, d_cpu_dir);
++
++		debugfs_create_file("debug", 0444, d_cpu, (void *) cpu, &sched_debug_cpu_fops);
 +	}
- }
- 
- #ifdef CONFIG_NUMA_BALANCING
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6607963efa30..93c1f4399a23 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -777,6 +777,18 @@ struct cfs_rq {
- #endif /* CONFIG_FAIR_GROUP_SCHED */
- };
- 
-+#ifdef CONFIG_FAIR_GROUP_SCHED
-+static inline struct task_group *cfs_rq_tg(struct cfs_rq *cfs_rq)
-+{
-+	return cfs_rq->tg;
 +}
-+#else
-+static inline struct task_group *cfs_rq_tg(struct cfs_rq *cfs_rq)
-+{
-+	return NULL;
-+}
-+#endif
 +
+ static __init int sched_init_debug(void)
+ {
+ 	struct dentry __maybe_unused *numa, *llc;
+@@ -753,6 +795,7 @@ static __init int sched_init_debug(void)
  #ifdef CONFIG_SCHED_CLASS_EXT
- /* scx_rq->flags, protected by the rq lock */
- enum scx_rq_flags {
-@@ -3485,6 +3497,45 @@ extern struct sched_entity *__pick_root_entity(struct cfs_rq *cfs_rq);
- extern struct sched_entity *__pick_first_entity(struct cfs_rq *cfs_rq);
- extern struct sched_entity *__pick_last_entity(struct cfs_rq *cfs_rq);
+ 	debugfs_ext_server_init();
+ #endif
++	debugfs_cpu_init();
  
-+/*
-+ * This allows printing both to /sys/kernel/debug/sched/debug and
-+ * to the console
-+ */
-+#define SEQ_printf(m, x...)			\
-+do {						\
-+	if (m)					\
-+		seq_printf(m, x);		\
-+	else					\
-+		pr_cont(x);			\
-+} while (0)
-+
-+#ifdef CONFIG_CGROUP_SCHED
-+extern spinlock_t sched_debug_lock;
-+extern char sched_debug_group_path[PATH_MAX];
-+extern void task_group_path(struct task_group *tg, char *path, int plen);
-+
-+#define SEQ_printf_task_group_path(m, tg, fmt...)			\
-+{									\
-+	if (spin_trylock(&sched_debug_lock)) {				\
-+		task_group_path(tg, sched_debug_group_path, sizeof(sched_debug_group_path)); \
-+		SEQ_printf(m, fmt, sched_debug_group_path);		\
-+		spin_unlock(&sched_debug_lock);				\
-+	} else {							\
-+		char buf[128];						\
-+		char *bufend = buf + sizeof(buf) - 3;			\
-+		task_group_path(tg, buf, bufend - buf);			\
-+		strscpy(bufend - 1, "...", sizeof("..."));		\
-+		SEQ_printf(m, fmt, buf);				\
-+	}								\
-+}
-+#else
-+static inline void
-+SEQ_printf_task_group_path(struct seq_file *m, struct task_group *tg,
-+			   const char *fmt, ...)
-+{
-+}
-+#endif
-+
- extern bool sched_debug_verbose;
- 
- extern void print_cfs_stats(struct seq_file *m, int cpu);
+ 	return 0;
+ }
 -- 
 2.55.0
 
