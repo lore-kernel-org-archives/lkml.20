@@ -1,96 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.23
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793348982;
-	b=mXfFCTZ9rV42fKlhedutGhMIQ/W9SPAVt2jb3kfCB0egt/RvNGHUVdDbZ2hIaeJwkn/t
-	 rsgyC1oep4vNMqZCXcqfLrGXqrdcGVzrdducY18dYigDWyJRUFtT9g6w8uluy3vQisw0V
-	 /BNJqi/P2Aygy9J88r4akeGW8VzMo3c5Z3GCfkC5P0AaCVJ7BYGt928IrQT99T5B/6uy4
-	 hiS3iNIXf5XOsxvtviitasv8lciiIU+vSSKAEQDUbx4ta12pFNyS+1R7T3T6c6hk7gcqA
-	 7rJCASGV4i3BWO0RlKrveMOpTWIOlOKipTl0R2oaqDaZLls57x5sjZwKTHe0z89pUjQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793348982;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=+UfxfAj5AhCtq4HcXmGAqALsIonnT5XRHjEbBTgxzUU=;
-	b=dxaxe/KykvKv7Twcnfm86MRti6WYG9UWrFc/zCD63hJJsgLQFxwZXNuF/aepCFy4OXb/
-	 TzNq7qz7t6fBSZr1mfl4AS1AvUQFXsrH4BI2oaURILaOztgJ9eQPMy/pEM7+qWI2THBPS
-	 /hRBo/1mA9H9YWTFhRd8meD4fgrUGMtBAopbwxgFufiws+VYXMgXFutUZOo9//oFvZ+1P
-	 2bmGUR47ZO7lufImIM0ufWPWx/RT+QFV+YP/oEjA6xvEn10rOrzVWLMZ01PG0bNaJG6OG
-	 OgIQ2GkNaw1XN2PRXKE6sCXA2LPd4PIT0GW5hVqfhLC8gWSYippeW9v+dtU9yG1uRhg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=outer-limits.org;
-	spf=pass smtp.mailfrom=outer-limits.org;
-	dkim=pass header.d=outer-limits.org header.i=@outer-limits.org header.a=rsa-sha256 header.s=strato-dkim-0002 header.b="snhkS/ic";
-	dkim=pass header.d=outer-limits.org header.i=@outer-limits.org header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=4dIw4kaO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.23
-Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de [85.215.255.23])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793348994;
+	b=ENjzdEByKl0RF70+oMofrZsO2ggckjQI9oCkqpf+ZToHco2A+Psyp5x5RBAjorrfHyqD
+	 AnFJUY7Eqbc/XoWLAhYkAdRk12BXGlXPNBw64eETszGEUN/ecAFc0wzUP2nB4Z9keSurb
+	 YCvf85jRO/AII3F8rNZXhK471m0a/H10PZlt8JkdPbkXQsr66pliNU7B3vbm1tM8WxmfD
+	 hMx2+f9ietwqSvGUdZFAA+2BfeZIBUZneAa5fKevx4hwhX//x+368QPOB/D+ltBMzOqzd
+	 PSsOjWOP1tiMpNc7oqADw7+En62AqBX8gO3VifOapARZcG8hHVLeCNd+Gy4ye/dhxJQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793348994;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=vn07bY4uFq8PBN9qP0CTPo9LlrFGbj9n/s2CEOTDmkk=;
+	b=AkPW+tOaETPswQcz/uOWX7m8O8riJ5c0vzTjoL+pNSApNzNmXCMsy4AnF+Cj80n8rY61
+	 kvB1nIp37oYxloRzLjrsfP5tFPUZ/YJjxa+/vwKrM5H2JRvnCzGLFLcBIpbD3oisL8SgS
+	 r/UM0Bl8P9nRrul9wnY3lqymabAIjwCNrY2QgBad4JCN3RltmuPmpM9xm38wKb7zaDMF3
+	 X2u70xhp9XfzP1xEWnzb4T0wfqP3ffKnn2ZvNHEvIIs+nZx9rz039IeBrbR1qL9zITpI1
+	 opknmO/HCwNMlNjS4wefhwtEhuGq869Z9eqTnHAPcbCrlFmAefIJNjGjYpIDVovDSXw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1YVGmnIV;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCED606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:29:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CCED606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=outer-limits.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outer-limits.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE08F606A326
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 08:29:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE08F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=outer-limits.org header.i=@outer-limits.org header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=snhkS/ic;
-	dkim=pass header.d=outer-limits.org header.i=@outer-limits.org header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=4dIw4kaO
-ARC-Seal: i=1; a=rsa-sha256; t=1793348978; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=rYx4kIkoFq76G5Y7UPv8ncfw0x6N0vseRIn3fDGX3I7hcDbeJbu5mx+jITfEdBJ0BY
-    yfgfn6JgqP3UElK2LuBUov8/nX9MhPZ6gmPJP0/u+BCsX9Dcbr3QUxAwuhETua6IEbJW
-    WVCWMWXBbf5JPNq2FxEtHHq1NzULfOBJZD4tHYN7bjzx5eAdDHiqwEm1Vckw8CAfTrPi
-    rWgxozOgIQCm+xznUf3G8nkdKvI64U9q2oK5rPOUprmp3PdRRIdTzOfLfJ5sWz/r1gjw
-    Y4SDD0RrZeYWZe5psETCieWUmoLnJ+HyplDNIsppNXEP/zgD4dUV1MV3UUUr6g8hRuiB
-    tmCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793348978;
-    s=strato-dkim-0002; d=strato.com;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=+UfxfAj5AhCtq4HcXmGAqALsIonnT5XRHjEbBTgxzUU=;
-    b=fwFdBT/49AoSDBIatiyr5WKrbA9VoSbwG/qTcilmbueX/NAXNTMB5gpVo53/FxKXB2
-    4Wevw/QzgiMna6dvhnRusJs4wZ31Vjuc+it/C4CYki++57YYfngtyQWUtDokudd8Wv37
-    hM0E0B0cbEzHYzIHs2MquQwIfrU/VF1luVicnSrPJTrZfLpUhdIX3FqkuKYOorbFBzN5
-    YkitmeJje0wgrsdBhiZfoktZvnCctcW90Sd2bZcQy+243pRTu6Ify1OfrxSSI5kmt5as
-    9bQXmVb7Rhs8ZSIwxN+HuQ+3FwZlFovzb+HWWfr2C6KVukgtBkHD2VftSjZvWesiK90B
-    khDQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo00
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793348978;
-    s=strato-dkim-0002; d=outer-limits.org;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=+UfxfAj5AhCtq4HcXmGAqALsIonnT5XRHjEbBTgxzUU=;
-    b=snhkS/icHI6iE4y++VpYmUuzfD20bb8PR47FXYzEbE19SU+RQ2h6zpY0DVkpUrvVYP
-    cOazogWSGAFqOThiNYlugCjIOuWdfRWlWZNywoJ+13toAwtdVknk7pnHtBUPcQXohZ5V
-    eAMWGZ2CcFNVcHcMUpQsWHKNxt2GYXSxzgVAGTKFANngNUnsjJHM2E8ZFNdJH0zcLn44
-    pVmWYZY3dLRdScz0CXnaQzT/U6jMuEO5Zdzqjrog5bvpYaW4uT9fqXhabloADEnFQ8cj
-    fK43Y89mBqKnVthYhAUop/dXUbX/rpVuVFikGhh8BRtpvGctDchrBIuVAiZ4yf73Tdra
-    ogYQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793348978;
-    s=strato-dkim-0003; d=outer-limits.org;
-    h=Message-ID:Date:Subject:Cc:To:From:Cc:Date:From:Subject:Sender;
-    bh=+UfxfAj5AhCtq4HcXmGAqALsIonnT5XRHjEbBTgxzUU=;
-    b=4dIw4kaOx+qCcDHlUUPhJHLnZ9RmWtMKksk2TnilTUx0KmRBOuu0UdfrosBowZXTtJ
-    VIC1xN5V7mx1KRoCHeBw==
-X-RZG-AUTH: ":JnkIfEGmW/AMJS6HttH4FbRVwc4dHlPLCp4e/IoHo8zEMMHAgwTfqBFXdk1Z5IDmIqDY7xpnOs6mGD64frXxHtrE3e66udIGwZnWwLgga9o="
-Received: from julian.home
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id J82cde29U8Tc7Ek
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Fri, 30 Oct 2026 09:29:38 +0100 (CET)
-From: Julian Vetter <julian@outer-limits.org>
-To: Russell King <linux@armlinux.org.uk>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Julian Vetter <julian@outer-limits.org>
-Subject: [PATCH] ARM: fix big-endian check for IO memcpy and memset
-Date: Fri, 30 Oct 2026 09:29:32 +0100
-Message-ID: <20261030082932.193164-1-julian@outer-limits.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1YVGmnIV
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id B19B0C49F5B;
+	Fri, 30 Oct 2026 08:30:53 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C8F2C603C2;
+	Fri, 30 Oct 2026 08:29:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E481D103287DA;
+	Fri, 30 Oct 2026 09:29:42 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793348988; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=vn07bY4uFq8PBN9qP0CTPo9LlrFGbj9n/s2CEOTDmkk=;
+	b=1YVGmnIVJ/VGw/8am2qtF4gVWmQOXXUdPRTBtWLffB2F4tD0J/gsCNEb2wgBpm+ERAjaCK
+	t7cxm0wENSDDmcaZLo7LYOaGIX7EzMua+cqumo/4wpKpuZe0eHkPcd4Y2q1Vsv1UaUUnJX
+	wGX8RAla0NvRuq1i2KuP36tDaSjiXtbW9DDMQKJmBVd/lwW3YFteIkrEZm5fv7sIqaecS/
+	p2fZ2e+YTh+AH+gvnY+FhqbWKlAm656hNCLl6m9VM+LQ9MiOmhJJu1iXxoIrzk0+b0GSaG
+	XuRcEa5Y8w4fDVljtFV7e2v7S3D7KkHe9jmn01+VA7LQRczCbylGL7n2nr2J8A==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,56 +59,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v10 2/9] drm/bridge: fsl-ldb: Get the next non-panel
+ bridge
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Cc: Ying Liu <victor.liu@nxp.com>, Frank Li <frank.li@oss.nxp.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ linux-clk@vger.kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20261006-dcif-upstreaming-v10-2-bcfb28de0aae@oss.nxp.com>
+References: <20261006-dcif-upstreaming-v10-0-bcfb28de0aae@oss.nxp.com>
+ <20261006-dcif-upstreaming-v10-2-bcfb28de0aae@oss.nxp.com>
+Date: Fri, 30 Oct 2026 09:29:39 +0100
+Message-Id: <179334897994.680709.5849266352850173475.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-The commit 7ddfe625cbc1 ("ARM: optimize
-memset_io()/memcpy_fromio()/memcpy_toio()") switched little-endian
-builds to mmioset()/mmiocpy() and intended to keep the byte-wise
-_memset_io()/_memcpy_fromio()/_memcpy_toio() for big-endian builds.
-However, the check uses __ARMBE__, which is not defined by GCC. The
-define used throughout the kernel is __ARMEB__ for big-endian ARM. So,
-big-endian builds have been using mmioset() and mmiocpy() ever since.
+Hello Laurentiu,
 
-This is a problem on ARMv5 BE32 platforms like IXP4xx, where word
-accesses to IO memory can end up on different byte lanes than byte
-accesses. Fix the typo, so big-endian builds use the correct byte-wise
-implementations again, as originally intended.
+> The next bridge in bridge chain could be a panel bridge or a non-panel
+> bridge.  Use devm_drm_of_get_bridge() to replace the combination
+> function calls of of_drm_find_panel() and devm_drm_panel_bridge_add()
+> to get either a panel bridge or a non-panel bridge, instead of getting
+> a panel bridge only.
 
-Switching big-endian builds to the generic implementation from
-lib/iomem_copy.c instead is not an option either, because it also uses
-word accesses for the aligned parts of a buffer and thus has the same
-byte lane problem on BE32. ARMv6/v7 BE8 mode would work with both, but
-it is marked as broken and is expected to be removed, so it is not worth
-treating it differently from BE32.
+Since commit b7797081ccfe ("drm/panel: embed a drm_bridge into every
+drm_panel") there is no such thing as a panel_bridge. Now every panel just
+embeds a bridge, and there is no reason to use the panel_bridge API. All
+bridges/encoders/whoever needing to interact with "the next component, be
+it a bridge or a panel" should just use the bridge API.
 
-Signed-off-by: Julian Vetter <julian@outer-limits.org>
----
-This replaces my earlier patch that removed the byte-wise helpers:
-https://lore.kernel.org/all/20241203083838.3260036-1-jvetter@outer-limits.org/
+The old panel_bridge APIs are deprecated [0] and by now they are just
+complicated wrappers to the bridge API.
 
-I have done a compilation test with ixp4xx_defconfig and see that
-drivers/pci/pci-sysfs.o and drivers/mtd/maps/map_funcs.o now call
-_memcpy_fromio()/_memcpy_toio() instead of mmiocpy(). This is however
-untested on hardware. I think the problem didn't show up on Linus' hw
-test, because platform doesn't use those drivers.
----
- arch/arm/include/asm/io.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I'm addressing the conversion to bridge API and eventual removal of the
+deprecated panel_bridge API as time permits (but pathces would be
+welcome). This driver has already been converted by commit 802372cf316a
+("drm/bridge: fsl-ldb: don't create a panel_bridge"), so this patch is
+basically not changing anything: it's still getting a pointer to the next
+bridge, but switches to a slightly more complicated implementation.
 
-diff --git a/arch/arm/include/asm/io.h b/arch/arm/include/asm/io.h
-index e6bd9e79737c..50e142f817f5 100644
---- a/arch/arm/include/asm/io.h
-+++ b/arch/arm/include/asm/io.h
-@@ -308,7 +308,7 @@ extern void _memset_io(volatile void __iomem *, int, size_t);
- #define writesw(p,d,l)		__raw_writesw(p,d,l)
- #define writesl(p,d,l)		__raw_writesl(p,d,l)
- 
--#ifndef __ARMBE__
-+#ifndef __ARMEB__
- static inline void memset_io(volatile void __iomem *dst, unsigned c,
- 	size_t count)
- {
+So I'd drop this patch.
+
+Still it's good to get rid of the obsolete "panel" wording because now we
+don't interact with a panel aymore, see below.
+
+[0] https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/Documentation/gpu/todo.rst#remove-panel_bridge-api-functions
+
+>
+> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+>
+> diff --git a/drivers/gpu/drm/bridge/fsl-ldb.c b/drivers/gpu/drm/bridge/fsl-ldb.c
+> index 7ec84c81cd78..52ae7f5b63c7 100644
+> --- a/drivers/gpu/drm/bridge/fsl-ldb.c
+> +++ b/drivers/gpu/drm/bridge/fsl-ldb.c
+> @@ -294,8 +294,8 @@ static const struct drm_bridge_funcs funcs = {
+>  static int fsl_ldb_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev = &pdev->dev;
+> -	struct device_node *panel_node;
+
+This could be renamed remote_bridge, or next_bridge_node, or the like.
+
+>  	struct device_node *remote1, *remote2;
+> +	struct drm_bridge *next_bridge;
+>  	struct fsl_ldb *fsl_ldb;
+>  	int dual_link;
+>
+> @@ -318,19 +318,16 @@ static int fsl_ldb_probe(struct platform_device *pdev)
+>  	if (IS_ERR(fsl_ldb->regmap))
+>  		return PTR_ERR(fsl_ldb->regmap);
+>
+> -	/* Locate the remote ports and the panel node */
+> +	/* Locate the remote ports. */
+
+This is OK.
+
+>  	remote1 = of_graph_get_remote_node(dev->of_node, 1, 0);
+>  	remote2 = of_graph_get_remote_node(dev->of_node, 2, 0);
+>  	fsl_ldb->ch0_enabled = (remote1 != NULL);
+>  	fsl_ldb->ch1_enabled = (remote2 != NULL);
+> -	panel_node = of_node_get(remote1 ? remote1 : remote2);
+
+I'd leave it as is, it's just less code (and more efficient FWIW)
+than... see below (*)
+
+>  	of_node_put(remote1);
+>  	of_node_put(remote2);
+>
+> -	if (!fsl_ldb->ch0_enabled && !fsl_ldb->ch1_enabled) {
+> -		of_node_put(panel_node);
+> -		return dev_err_probe(dev, -ENXIO, "No panel node found");
+> -	}
+> +	if (!fsl_ldb->ch0_enabled && !fsl_ldb->ch1_enabled)
+> +		return dev_err_probe(dev, -ENXIO, "No next bridge node found");
+
+This can be simplified by using a clenaup action on panel_node (or whatever
+the new name will be), so the of_node_put() would disappear. See for
+example commit 23bc92902edd ("drm/mxsfb/lcdif: simplify ep pointer
+management using __free").
+
+
+> @@ -339,10 +336,14 @@ static int fsl_ldb_probe(struct platform_device *pdev)
+>  	if (of_property_present(dev->of_node, "nxp,enable-termination-resistor"))
+>  		fsl_ldb->use_termination_resistor = true;
+>
+> -	fsl_ldb->bridge.next_bridge = of_drm_find_and_get_bridge(panel_node);
+> -	of_node_put(panel_node);
+> -	if (!fsl_ldb->bridge.next_bridge)
+> -		return -ENODEV;
+> +	next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node,
+> +						    fsl_ldb->ch0_enabled ? 1 : 2,
+> +						    0);
+
+(*) ...this code.
+
+> +	if (IS_ERR(next_bridge))
+> +		return dev_err_probe(dev, PTR_ERR(next_bridge),
+> +				     "failed to get next bridge\n");
+> +
+> +	fsl_ldb->bridge.next_bridge = next_bridge;
+>
+>  	if (fsl_ldb_is_dual(fsl_ldb)) {
+>  		struct device_node *port1, *port2;
+
+Luca
+
 -- 
-2.53.0
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
