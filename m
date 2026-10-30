@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793367868;
-	b=ma9mOMetPinaqzze0QElCrZCqxV5hWdjgJMYQhKwzzxYB1USxSQNt74dR0XJsz2d9MWO
-	 u6+MxaOzKfUV2SzRGYMizap0kvtWovhRfiOob/4b3QJDYeUwcuaMFsw0gExhMllk14AHI
-	 PfjNhdVmvmzLGw+0ST56tf+9EpQcgSTRojxfTmOuMa5TMe9oAZem8FdX0LJhRmbpcFcPh
-	 N8y3gmSX/ez9E4969nVxhPRuBJ0olUCiyLNLSORjwa5mwO82wbiSG6u/5ZmP2cctnsURt
-	 O1P8u1CU7hjRF6/36p96EpBREh5j9a6bNixTAw2Kg7q8sU2u4P/7X/bCJqHcIpfszAg==
+	t=1793367913;
+	b=Hv/fqlFFI+j0aDLWBUVB7pZAp7ChBYjMxfwePE52H5KPvPfI3LCDAMIJaY5ifhMj1LCl
+	 aEQ1pKEz0A0vpFq59LEdGiI+IYxkBN6VS9adnJfgllQsqRJTJw78/GUblXSDkdvLAjlc2
+	 0gbQ+PMwoT9lnlFtiFdu7MptHVewHrtQIjYF4NIiwZz9zeGzk+/uEojYJe94WZ2XnqMjk
+	 tUh+cY9Apj+qhm8yy3hehmL0TaIphMdtjYREnHaDz0FO8Krw+QvFJ7HGLedHGyKwqFUSz
+	 uqJsV/5LUjeMql2W9CmG0wvM9WIQanYMXvA/gDHSW7STyYGAuVdbmLfxV1y/Kxmq9Yw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793367868;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793367913;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=3yYWD0QhgQsG/WixxGKk2eNbb1uyI52blWUwFwhhebw=;
-	b=MLPGg7L4k8b/bzeco6Y4OFddyJzElNoWno9B3u9bjv3ZWWpzVJH4z1vfLgvwwXUFzCDM
-	 XK1yRmjoNvarKvnsYtdETR6splJT7/mzk+SD0AxXETvCPFLlTioLI2Z624AVqGQBfIpEf
-	 EYf53HjaxNw27CzpwTDwUuJP/S7NSpYr/BaaQjYn3ERCY5AeeDfGA5rwFwXcMtmjDhzoR
-	 wb8el35STgCf3voaX+HbPdz+cBlwuxUfmoyYuXFm0N0FMKky9uVqrXXwOyepzAvrozUrl
-	 r5o0jPcanSpMsIOf4ppWFcJIdqA7c0z46ShHCQl/hR12YdSEosg2PIvdn4rbLTb7guQ==
+	bh=Ua86DBE7K2w9MgwViH777WjOtVhTW1SGSXoQsfO9QYo=;
+	b=qNI7Fx6rKt9TScK4tcjQRWxFx4/qMZS47o+xXkZyU1ymGfApOG/2NQ15S09eMDTpGxMW
+	 sImyYQ24cIMyGdjNRO5apYbl5Y8a+eZV357S5/8CYomnpuZ/NHib7ffpSFHjKZwSaWZFn
+	 QBdk4Ry90V+oo2kFOHVwWknJ70ikZiqCmg6SI3O3HbjCStINY26J96WwrRDhnzQaTfFdt
+	 LCI+EQtKn5TGzb7RLWNl2JJBKZ890q9j4AUnXo5zdS93nXIXvZ+542Jvja47Gm09qTSNz
+	 RAZZxWWhv842B3NT/xgExs4sPloG9Z9RmoX9AL+vCmiikzIs8Sob7iTIqHwENsKhGZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8BYqDfX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VOUtw6Nb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FD79606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:44:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93EC5606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:45:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J8BYqDfX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6399A1F000C1;
-	Fri, 30 Oct 2026 13:44:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VOUtw6Nb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DC0D1F000C1;
+	Fri, 30 Oct 2026 13:45:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793367868;
-	bh=3yYWD0QhgQsG/WixxGKk2eNbb1uyI52blWUwFwhhebw=;
+	s=k20260515; t=1793367913;
+	bh=Ua86DBE7K2w9MgwViH777WjOtVhTW1SGSXoQsfO9QYo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=J8BYqDfXIUOcLP8sJ1WRHOTxXuhlRR1MyKVbp4MhxIzdR7TePuANHWjCarhSpnIy5
-	 Ki1s2op3iRA+bd4FxFCOCaAk+zvGSRfuxJk/BmLp/iJWuyri9Z5VJUWNfGtcmzT421
-	 RrHS1oH6+WqB2X0m5jexnOByGRbEM3rMqmlVqlylAaPFq7ddBndlE3d1MztgU6Mux5
-	 87pKQuKHi1MGuzXlzGzMCh16n58UoEbpJ8VIxPy6qy4o0RmmA+jzLBBL71UFCUcWBT
-	 n5Fuyc810/3r7THni1BGfKVGDmft9eLeQWgsMj0xaLS7JVmDVqi5youendX22WWCs1
-	 tH6xePN3jPIuA==
-Message-ID: <0ce4ed99-7a8a-4547-9e01-cb20d514c594@kernel.org>
-Date: Fri, 30 Oct 2026 14:44:23 +0100
+	b=VOUtw6NbYviCEjsCFBP4JbDCcUZIUA5u6+Uyjavq22uCtmqVmIPGdExOTTEKx7QGi
+	 5Eoowd6DsD3aME/PmJKyhELwcP0IrPFTWF9RgoeyOH6u92epgg6b2F/xJ3GSPf2Coo
+	 9oseda28OJb6GDqwIKKBlJzhPiVKDw3dRjimbfxuRuycNPLPoAYbmOVnOs2ce7dDNV
+	 XArkC6cGYhUe4mN9CLWiTZNv8/Crdxx/Fev57MsP8vExJ5KElxuMG55J8OKfyJz67s
+	 NSiCGBmqfEq0EG0Yzxij6zeYbt2d03n/oAJrQANQ2x2OTmgAf/4zl5o9/2yC4UhgPe
+	 Ys45InIwyIVtg==
+Message-ID: <93c32c13-712b-43cb-9dcf-5f900227a2ed@kernel.org>
+Date: Fri, 30 Oct 2026 14:45:09 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,13 +52,13 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 8/9] w1: w1_therm: lock the list of slaves for the bulk
- read
+Subject: Re: [PATCH 9/9] w1: w1_therm: leave the slaves of other families
+ alone
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Josef Bacik <josef@toxicpanda.com>, linux-kernel@vger.kernel.org,
  stable <stable@kernel.org>
 References: <20261027-llm-char-misc-w1-v1-0-d2e6bfafb6a4@linuxfoundation.org>
- <20261027-llm-char-misc-w1-v1-8-d2e6bfafb6a4@linuxfoundation.org>
+ <20261027-llm-char-misc-w1-v1-9-d2e6bfafb6a4@linuxfoundation.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -104,18 +104,37 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261027-llm-char-misc-w1-v1-8-d2e6bfafb6a4@linuxfoundation.org>
+In-Reply-To: <20261027-llm-char-misc-w1-v1-9-d2e6bfafb6a4@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 27/10/2026 17:04, Greg Kroah-Hartman wrote:
 > From: Josef Bacik <josef@toxicpanda.com>
 > 
-> The callbacks of the file therm_bulk_read walk the list of the slaves of
-> the master, trigger_bulk_read() three times and therm_bulk_read_show()
-> once, without the list_mutex which protects it.  In the meantime the
-> thread of the master may find out that a sensor has gone:
+> The file therm_bulk_read belongs to the bus master.  Its callbacks walk
+> all the slaves of the bus and look at sl->family_data as if every slave
+> were a temperature sensor.  A 1-wire bus can carry other devices too:
 > 
+> - The family data of a slave which is driven by another driver, such as
+>   w1_ds2433, w1_ds250x, w1_ds28e04 or w1_ds28e17, is a structure of that
+>   driver.  bulk_read_support() takes whatever is at the offset of
+>   specific_functions for a pointer and dereferences it, and if the
+>   result happens not to be 0, the callbacks write the state of the
+>   conversion into that foreign structure.
+> 
+> - For a slave without family data, which is the case for most of the
+>   other drivers and for the default family, trigger_bulk_read() gives up
+>   with -ENODEV.  A single serial number chip on the bus is enough to
+>   make the bulk read unusable for all the sensors.
+> 
+> Only look at the slaves whose family is one of ours.  A bulk conversion
+> now works on a bus with other devices.
+> 
+> Fixes: 57c76221d5af ("w1_therm: adding bulk read support to trigger multiple conversion on bus")
+> Cc: stable <stable@kernel.org>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
 
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
