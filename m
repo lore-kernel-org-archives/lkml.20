@@ -1,50 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793363924;
-	b=pwAVhuKtaccIhwc0p64B9VjKDKLYOVjhBPgFbPyHr++ZFraehsDNbrWi0u16SIc00VhW
-	 sB0IkWEdadWsGsyorNliIT4GfJ6/YynH5zCZx1NgerB1N06j4JRavgnlNDCqx4YYUiMkV
-	 7x4mx59jpPX1MQ72ZE55wHLO0Ot4de5kjbYZskPHUqNM+7DI7NhYKPBEHvv7CjBJ73ox6
-	 gQmg3qvfAbaXfqXmmi/NF+YB4QjjcX06EkeQhzTBeMnfNhJfB+DfE2EPepQOMpddRjB0P
-	 i1CPrX5N7pZ3i4ePiCA37doRxrhWO771NqK4REFt+/TvoJXNHirYdNiOTJEB3SvlCGQ==
+	t=1793363928;
+	b=X1igFZWEkClpQ46XXOpNsilPkybQUXulL/P3X4dCPchjqcY1bwnrf0CQuObHfACrfItk
+	 08G9iIvsEbFViAQk5lqVanAc7ijpqXpBGdMpRqRYToOe0RV88oI3xx12Mcjvsry7RqivH
+	 44YhWMODfD+PMb2hYNMBp2u+6p5yphOx2tAvdwnl1iidv0/7pjWL+hzwwqvoT+i9kOvZx
+	 TYnC+nIVam9F+vr8zgMXZlMPykipjWsraIbj9UhT7d1xxHH41TGDkwnqQOufS8VQUY4Je
+	 g63mbjrIdHPJa8AzE9S4rFnQZSbIfknWqjpPlXL/rMCwsNmZ++aOWbVdT+5zcb0M5qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793363924;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=EveTgauBKukpDZW+Dz1ddOxtSk6q8JCAmZ75KYsbri4=;
-	b=zN/8r/0FAVTMJNgEu8d67KaeLUqbtvxIJKwpnZh7RIoKKWpTGNsvRrJfN3OkSo7ivnq5
-	 0BtrLvzwErCa4lC1Cxk8GzDkvq1dDg2UcBn2evZPWYctNS7wa1CEngExibuzri+XgYjID
-	 +DS02TFpVEW3RZVBZf9RdScksSQq7OUjEsrQQOcEsvFxgsdX7XNRx5JooI7n9kEl1QM9j
-	 +Tl1yNSn2KkuxbPFqQtVsX+3UbInJM+vnoyO4vwuKeLKAPy/1Spb7B/wtltcaXrGHauqS
-	 zotnZ/yCWrgrVrPSCYtdiXCqfzLtleKdawTpMXR9d7KlLzsrw9E6V7eIjNWrPyzrxLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793363928;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ziOfu0jPUaZe3izXGQ3C/gcI8fjlmmUUDSSBtGTjLaU=;
+	b=zJIxj/KYQz82/Q1ag9wvLjPUmKP0brthl5ZobHOp0OhdTUB9q68G9bc14XGUgmzq4EuT
+	 HDK4Vy446MXvEIC627h9f/TRz6GlqiKxpXFapIbwm6/pyrKSSf3udpyhkVgSaOnYDisJ6
+	 9MHau7YN65lWAFmKSrv/yIKB51n/2YCbdh3RHAeo/nq11wkN16NUbpNMUfHuO7DttSvR8
+	 0V3kRFk6EtrANAeFucVQl9BPlXWEtFmIjeBcOLYe0EsuyhClP58YOWNaoHmEBnwx2yx6z
+	 Id8YaNcvohM20peQXNKxV+++NYXGG+t6MtPJ652fgGA0P1Aw2rNLwKI4nmCJM6mmyBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cGI6TE6t;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Vkg6mU/s";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16C6606A31A;
-	Fri, 30 Oct 2026 12:38:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C82606A322;
+	Fri, 30 Oct 2026 12:38:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cGI6TE6t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 554751F000C1;
-	Fri, 30 Oct 2026 12:38:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vkg6mU/s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D2EE1F000C1;
+	Fri, 30 Oct 2026 12:38:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793363923;
-	bh=EveTgauBKukpDZW+Dz1ddOxtSk6q8JCAmZ75KYsbri4=;
-	h=From:Subject:Date:To:Cc;
-	b=cGI6TE6tyrqkZlDLAqhBB5vOOEcF97X2AJ0QASUcFzWPOpzKJHg0A4NULm1B0K5gN
-	 lZiPKd5HRB2ZRXIuuoqcNlk3Sc96ws85QIVl4l2R1K7/T1i5iNl+y7HwPbW/O8SDOA
-	 w6uqlgu45JvNdzgjj+8PHUJJw/em8Xf+tMQJ2F+FAgwMBBrye/Bn4NO6YjZQVJy0/3
-	 Hu8utMsmRS1a0bKxRAQVE3KRkgZ/FBt58pWjWkTShYl+7+NC5rw8ZqwYhIoKLe6POQ
-	 g/ag1vZe55ldmFzl8zn1Rpfd1XKA45NE3NdKpPp1wFiqBXDj235TOX4pn4qPvQ6iBJ
-	 yCAUpVTjcqxXg==
+	s=k20260515; t=1793363927;
+	bh=ziOfu0jPUaZe3izXGQ3C/gcI8fjlmmUUDSSBtGTjLaU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Vkg6mU/sQduW1pOzDPWBIxAZuuXKm8Ocu4QNqoNruX6lmN6XhzjmLaoKmSpMz/BbM
+	 5VUpcZG/a2F6r4fF0d6qOL81515OP74UsqPC1dGJ9KSt+29+Vs6QilaELofkBZ+KIF
+	 5XE/GBdoDdZPVjlTlNl23T2kxZV9VCpiKzP82T2Zt+k1h6z8jsRGCRTbboZbydbhfA
+	 7UfuYXbai5SwwbvXV20NM2NQww1SO1rWmel3BzaBiZ+ozxaNYwmDs/B4MoG1l0sUJL
+	 hBMga8dls553lq0cZS3RkCLRG3kQ3eTmInD++vDzZ/osR3x8UpWGi2tHGNnTBQdbEx
+	 4A63tc7mSN6og==
 From: Christian Brauner <brauner@kernel.org>
-Subject: [PATCH 0/3] dcache: fixes for mountpoints racing d_invalidate()
- and umount
-Date: Fri, 30 Oct 2026 13:38:21 +0100
-Message-Id: <20261030-work-dcache-ai-v1-0-cd6b86e0ccc7@kernel.org>
+Date: Fri, 30 Oct 2026 13:38:23 +0100
+Subject: [PATCH 2/3] dcache: wait for a racing eviction of a secondary root
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,69 +54,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM0QrCMAxFf2Xk2chWdEN/RXxI08xGoZNGpzD27
- 7bu8VzuOQuYZBWDc7NAlllNp1Sg2zXAkdJNUENhcK3ru9ad8DPlBwYmjoKk2MtA4SjuMLBAkZ5
- ZRv3+g5frxvb2d+FXrdSHJxP0mRLHOs2j7TdjXX/CaVxnjgAAAA==
-X-Change-ID: 20261029-work-dcache-ai-6e7ad5e247ce
+Message-Id: <20261030-work-dcache-ai-v1-2-cd6b86e0ccc7@kernel.org>
+References: <20261030-work-dcache-ai-v1-0-cd6b86e0ccc7@kernel.org>
+In-Reply-To: <20261030-work-dcache-ai-v1-0-cd6b86e0ccc7@kernel.org>
 To: linux-fsdevel@vger.kernel.org
 Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
  linux-kernel@vger.kernel.org, Karl Mehltretter <kmehltretter@gmail.com>, 
  Chris Mason <mason@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2221; i=brauner@kernel.org;
- h=from:subject:message-id; bh=wzIdJyLdAb9Oqp1TbNk8YrAEQRUm+AaS0bEEP3YYEYQ=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ96T9XX+XssD0l931wo6ppv/p7uc9vs8MWvfnxnonXv
- Vjwgs3ZjlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgInENzL8T7JnlnhzZf3fvdHZ
- dW9O5+n8WZqjl7altnT1m+lr5a/MEGX4H2H39frzqQrPDri+uqR5rTtdu734D1e6+d7l71V3/Xn
- QywoA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2975; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=dnyoa6CFYP5zOXTYJQjMp7VrCxTByWk2uIxJCf0Q1fI=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWQ96T93oacxtzQ4c1crG5Oz39T73XtC18Z/Z5O6wnV+2
+ vzW/96JHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABNJr2T4n1LRtGNt6NFLX79o
+ +W/9JjAlOyNW7eh+Hn2nmvQ9AffCTjMyHE7s+3b4XPbhJiu2q6/rIlg231mwSfYZx59XckfmpL3
+ uZQEA
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-d_set_mounted() hasn't bumped the seqcount of rename_lock since v6.17
-and the lockless walk in d_invalidate() neither waits for nor retries
-against a concurrent mount anymore.
+From: Josef Bacik <josef@toxicpanda.com>
 
-So a mount below a directory that is being invalidated can end up below
-the unhashed directory. Nobody can reach it anymore and it pins the
-subtree until the mount namespace goes away. Giving d_set_mounted() a
-seqlock of its own that d_invalidate() waits on after its unhash closes
-that without going back to bumping the seqcount.
+Commit e9895609cb7f ("wind ->s_roots via ->d_sib instead of ->d_hash")
+keeps a secondary root on ->s_roots until dentry_unlist() so that
+shrink_dcache_for_umount() can find one that another thread is evicting
+and wait for it. But do_one_tree() takes every root off the list before
+its dput() which breaks that:
 
-The second one is from v7.3 and was backported to 7.2.6. do_one_tree()
-now takes every secondary root off ->s_roots before its dput(). If
-another thread is evicting the root at the same time umount loses the
-eviction to it and doesn't wait for it. That ends in busy inodes after
-unmount and an iput() on a dead superblock.
+  thread A                              umount
+  dentry_kill(root), refcount is 0
+    lock_for_kill()
+      spin_trylock(->i_lock) fails
+      spin_unlock(->d_lock)
+                                        shrink_dcache_for_umount()
+                                          dget_dlock(root)
+                                          do_one_tree(root)
+                                            unlink_secondary_root(root)
+      spin_lock(->i_lock)
+                                            dput(root), refcount is 0
+                                              lock_for_kill()
+                                                trylock fails, waits
+      spin_lock(->d_lock)
+      refcount is 0 again, go on
+    lockref_mark_dead()
+    dentry_unlink_inode()
+      drops both locks
+                                                root is dead, give up
+                                          ->s_roots is empty, done
+                                        evict_inodes()
+                                        "Busy inodes after unmount"
+      iput()
 
-The third one is old. With CAP_DAC_READ_SEARCH a disconnected dentry
-can be mounted on via open_by_handle_at() and move_mount(). When that
-mount goes away while the filesystem of the dentry is unmounted, umount
-never sees the dentry. Same result as the second one. The fix makes such
-a dentry a secondary root until it's evicted. So it needs the second
-patch and it only goes back to v7.2.
+Thread A evicts without pinning the superblock. namespace_unlock() does
+that for old mountpoints after dropping namespace_sem, and a secondary
+root goes with its last child.
 
-I reproduced all three in a VM. With a FUSE directory 3000 levels deep
-151 of 200 bind mounts racing FUSE_NOTIFY_INVAL_ENTRY ended up below the
-invalidated directory and none did with the fix. The other two need
-delays in the right places to trigger. With them both reliably end in
-busy inodes and a GPF in iput() and with the fixes they don't.
+So only take busy roots off the list. Leave the others to
+dentry_unlist() so that shrink_dcache_for_umount() finds them and waits
+for an eviction in progress. A root that becomes busy after the check is
+picked up again and taken off the list then.
 
-This goes into vfs.fixes.
-
+Fixes: 78db93943210 ("dcache: keep shrink_dcache_for_umount() making progress on busy roots")
+Cc: stable@vger.kernel.org # v7.2+
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
-Christian Brauner (1):
-      dcache: let d_invalidate() wait for a d_set_mounted() in flight
+ fs/dcache.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Josef Bacik (2):
-      dcache: wait for a racing eviction of a secondary root
-      dcache: let umount find a disconnected ex-mountpoint
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 72b8e0adab0d..c1d8b398b2d1 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -1817,8 +1817,13 @@ static void do_one_tree(struct dentry *dentry)
+ 	d_walk(dentry, dentry, umount_check);
+ 	spin_lock(&dentry->d_lock);
+ 	__d_drop(dentry);
+-	/* A busy root survives the dput() below so don't leave it on ->s_roots. */
+-	if (unlikely(!hlist_unhashed(&dentry->d_sib)))
++	/*
++	 * A busy root survives the dput() below so don't leave it on ->s_roots.
++	 * An idle one stays until dentry_unlist() so that umount can wait for
++	 * a racing eviction, see lock_for_kill().
++	 */
++	if (unlikely(dentry->d_lockref.count > 1 &&
++		     !hlist_unhashed(&dentry->d_sib)))
+ 		unlink_secondary_root(dentry);
+ 	spin_unlock(&dentry->d_lock);
+ 	dput(dentry);
 
- fs/dcache.c                    | 44 ++++++++++++++++++++++++++++++++++--------
- include/linux/fs/super_types.h |  2 +-
- 2 files changed, 37 insertions(+), 9 deletions(-)
----
-base-commit: 172658cf600904ff6121e240f69a0ccb36e65d6b
-change-id: 20261029-work-dcache-ai-6e7ad5e247ce
+-- 
+2.53.0
 
