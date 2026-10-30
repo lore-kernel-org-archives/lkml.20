@@ -1,84 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793333186;
-	b=nhJNCfRsCGodx0/DCc2AH9WdxAI1FKGGIYskSwSIgqv9D0k1QcndYc4mtqzU8dpv7lIM
-	 PvcdfgYNXolGwyCp3fyl4D13PjNg5j9+dO0iBrQNIbbRDYZMpJiKZTLw3pVJ6OAwj5LeA
-	 ADsby87dcFGrkmHnbGcUBS0QxNTg4znOiypNvIdzupkjgFT+20nzTfJhFY4LbOdGQ24Q3
-	 Xgpu3ovWK5mE9RhetQ1ZhtqQQk348JRjRBJIYhKJYWpKRl+3EsUeNfKi2T9SrbIcaNxQ0
-	 9uWiXdCHFaT2bnjF/UPKihCHn78TKiogdCiciUB7SSyn60S6n1DHU5HQ+3trH8czZVA==
+	t=1793333190;
+	b=M6stxyEEjbqxK9ulrfm7JQ+JP410LrC3wuHlkOg0z6NG3UlimAJfpGm4KRxFEZVZe0Jw
+	 KVYRPnsqqfJt40cRazKM0ZeVPLS08QP75M2BYMTTgMehqz0HGU0844u1kL8IuXOBto5KE
+	 vvXEI3qfhacWJIGv7JulFnUQDdEQHGOWNDhN5FOvNtEGEdgJPHNh0yZkvl1Kp1VYJE28P
+	 OcXN19X7Ce9pAnDLG6gGFbQyQ6KBmv/X5MwiYoZ33FGWltnDiRp38Ydff3Sf8/blsxYBi
+	 y3ofyR7iCPSJC1Zl3+xwsZ6RPBYp8YeuUqht4om6vF7mjyUzV4N8kFjNeLJNaDXHZYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793333186;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=grdHjhMd7QvaUC0XVPHxOaowqqDmcsmw2rXkQG3QSuY=;
-	b=p5IwRt9xXXFcUVbokMtt8i2NuT7ezLxx+tiNvYyB9bnADr2xxI5LUbgVmCeyvy0cUV/L
-	 4uSpsmGSmuBruijVgiyl9OFB2nBCv1xSMMdUSxvxTsNm2Bh3PKt2qZiWbmNAH3GCt3G8S
-	 U48ZJeSAzKoNO2frzp/2r1tN4p+1/F5bYMxcUORKazl8/LC98pYd4A1Y/pIvedpIKUqyU
-	 MrRXet0MIh+9tvPQJsyhOKsSrtv9dtlpu3VrM1i6oyeh1dzGPC9DZFUnZrkAoo+SVM9kG
-	 6JbpLbj40mX42eTcBzEhduCgq+pB5o9aDN2d2bB9ykkFao6gFo6r5NE8HKPQ+tuYGLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793333190;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=uWhG69hUkv8+lJDJp2Q5DGOfAlOtWL0/OT+J3s73WV0=;
+	b=jGEJeuYu+XdZuEM7Cm+Ch933bzLNNXDp/DsjU+7mN+6yvPaO8dtYszwSTbFl1eHQEIsP
+	 POpq9On60F4apSGSPtfnA6TCZp/lL8GlFM6q4ySD7qbo/+wwjn2/yxxOj3Hni4sHXKvQm
+	 uRShHNEITv3zwYGIq4ChFERVoAKr0bW7LtuWRX/jfxoBdaNFuvBVsP79EInMh+iTy15nP
+	 D/Y6cfYnx0WVB0KDdTvl3cVcWBLKrbibw2884E575Z2D1UYq/2C9jmaHquLm1qF4zKkZe
+	 jOBTbtmnchxj1CYePWozwrkOYSRyKOShfETj0UGqBvINHhQePXHVN1p176w54ov8SmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codeconstruct.com.au;
-	spf=pass smtp.mailfrom=codeconstruct.com.au;
-	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=gP4O6XbB;
-	arc=none smtp.remote-ip=203.29.241.158
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=naBneU0i;
+	arc=none smtp.remote-ip=74.125.82.41
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9C6606A31C;
-	Fri, 30 Oct 2026 04:06:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C9C6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5D4606A331
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:06:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A5D4606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=gP4O6XbB
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=naBneU0i
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1438d9363fbso235582c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:06:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1793333177;
-	bh=grdHjhMd7QvaUC0XVPHxOaowqqDmcsmw2rXkQG3QSuY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=gP4O6XbBNP3E0tCn55RYSkni7rxRKdrPd+cAyKq7Q7ka6AX+fl+13CnYSbEz7qfEV
-	 LUM/eSwndXbzayTZMnEAp911V2klLbt5RdolBTtGj9AJTcE18qFP1hOh1I7GA16LN9
-	 PECOUTfLQgdUDd06Osrb37D8zntZ+Lgd9AICm5Z3Z9dkLnvotzrpcjxQseRVizJ4Ja
-	 5Ht44VRDHFQXUOgBigtuRcLyXFEmMcx7oavVBo3fsC6Yih5Gp6XxAiuSXecPSpLKUg
-	 lTfO1PMhHtvMi6NObu4pDTT21lbh/vev1DcBDlJCjrCS0cRbkFOrTlFJFvpNXcQ1Jn
-	 7NZqQTlVp2x1w==
-Received: from pecola.lan (unknown [159.196.93.152])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 8496470E87;
-	Fri, 30 Oct 2026 12:06:15 +0800 (AWST)
-Message-ID: <f3f305a0f3195948bd25ca7eea4348113f998ee2.camel@codeconstruct.com.au>
-Subject: Re: [PATCH 00/11] Add NVIDIA LSTP USB adapter drivers
-From: Jeremy Kerr <jk@codeconstruct.com.au>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Adrian Ambrozewicz
-	 <aambrozewicz@nvidia.com>
-Cc: Donald Shannon <donalds@nvidia.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Linus Walleij	 <linusw@kernel.org>, Bartosz
- Golaszewski <brgl@kernel.org>, Lee Jones	 <lee@kernel.org>, Pavel Machek
- <pavel@kernel.org>, Andi Shyti	 <andi.shyti@kernel.org>, Mark Brown
- <broonie@kernel.org>, Jiri Slaby	 <jirislaby@kernel.org>, Corey Minyard
- <corey@minyard.net>, "Rafael J. Wysocki"	 <rafael@kernel.org>, Len Brown
- <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,  Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?=	 <ilpo.jarvinen@linux.intel.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>,  Hans de Goede <hansg@kernel.org>, Lixu
- Zhang <lixu.zhang@intel.com>, Danilo Krummrich <dakr@kernel.org>,  Johan
- Hovold <johan@kernel.org>, Oliver Neukum <oneukum@suse.com>, Quan Nguyen
- <quan@os.amperecomputing.com>,  Andrew Jeffery
- <andrew@codeconstruct.com.au>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, 	linux-gpio@vger.kernel.org,
- linux-leds@vger.kernel.org, 	linux-i2c@vger.kernel.org,
- linux-spi@vger.kernel.org, 	linux-serial@vger.kernel.org,
- openipmi-developer@lists.sourceforge.net, 	linux-acpi@vger.kernel.org,
- linux-doc@vger.kernel.org, 	driver-core@lists.linux.dev,
- linux-kernel@vger.kernel.org, Bart Van Assche	 <bvanassche@google.com>
-Date: Fri, 30 Oct 2026 12:06:15 +0800
-In-Reply-To: <c569c912141e9da7530121b8b2fc81527e0518a4.camel@codeconstruct.com.au>
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
-		 <2026101310-scuttle-unison-d4c3@gregkh>
-	 <c569c912141e9da7530121b8b2fc81527e0518a4.camel@codeconstruct.com.au>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+        d=gmail.com; s=20260707; t=1793333189; x=1793937989; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uWhG69hUkv8+lJDJp2Q5DGOfAlOtWL0/OT+J3s73WV0=;
+        b=naBneU0iFArIi8eqr15ZeHE2r6fXY4sAd/jMYwWUqKEfJ4URpBQDycYcimswKQEL/L
+         xULs8W2YWVcJ+buOF71p+LlkpLMO9OfgnA+PonDj99//Uf6h0V6CBE0cfqltgdR4S1oX
+         vxX7kzYLECZHT44TEdA+MT9lnpq70obLs4xS0j33mzTBNQ17ijO0rL0caBCoSlhdEqzW
+         gx8VrIuzCibPrsVuQmwAZ7T6BiVf54vGvHOinKLNTFKgh8tG2lb8Y1Bd5zXRFG34Txf/
+         1745NZPHkTCmod+I097nJLFts98YmLHHFWnAIoJfTqZFQzQcSi5rGRlQDNHd8Uf20xPt
+         v3cA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793333189; x=1793937989;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uWhG69hUkv8+lJDJp2Q5DGOfAlOtWL0/OT+J3s73WV0=;
+        b=benG849KhxmJU6tGcp5Y8GKw8RnP2DzY+NaAzk71snqNW8OsPBU75Tt6fPv7AskwaK
+         oMBQOAGDCMEc7EnVlQ+HBg9Wh9NmosLfd3DA57zKZjyfLzBa1BGh+BPYgHKSykiCyAGf
+         uLtW1cJfYTOo7yuwVNXNZ0zhZ3ySpYESiLNiOupm5kctgNMwC6/IJH28ztYaidI9iWBv
+         Sa6t3y7Kj9WfooUiwIh1mBwswtCJotEurTm7NOl/1J3U54xAZ88i2PThokbEUv0lX7hT
+         pmwOMipyjUIYYVr1duZ+q7pnAUyG8omi6rFa9j7ee0h77DpbvOaCyf5QNVtS30NjlISP
+         QEDw==
+X-Forwarded-Encrypted: i=1; AKwUvBy+VSLrjLaqgkX8LdBIgB44WYvxBHUA8rj2YckJ7LGTqAwcyE16vAttFi2Add9sYvrJAv/PpD0vOl8s6y8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9DydOQMV3AikfX1wFmMhCvCCX07waGah2Ls0b8YJQOCOaWMvq
+	0Ig8+NKXjEvmzfs9zPSh1xqOuF0fzJ9DxRtrbyc/a3zOngj1e6iMqWmd
+X-Gm-Gg: AYBFou3Bf/PqxPDy7j/xcXKmt9Pd3o2XpCpkVZYGkXlBdh2r60JzG4CiY5gYJZESkb3
+	VoYQTKhaeUzD6n7ZNRQtxPZb1X9hOqBO3GCxQJIWfHnQ4hETaKGe2HwJKVAmzxxYxxRowH5yZqM
+	KjpZeJd5ee42lPruhXmzhmD50gs/nYoPqsmhgmIGsv8DNLnI7JGtJ3cXsIlo3Z0UW+bvYdbb9Cm
+	so8xaIH3sYiwHoRfrIjkEvoEvsA4LN4ERzxI9mog/5yMgnUV/aR7c9Cz4xykOH5sPentI9CfeSf
+	Uy+S2LLD6ach6o1sVf0BPyDDfc+CkYYalXTC3hVYeJTIlW/iz1EywGT/CYTe5HkZCLmRq7Hvhye
+	0quLGM2W7VKaDCca533do/+UygJE0g0BxI+6VlNApvhNGSiJnz5/CDzQyPc4b2SHLkzSsiallID
+	mm9OfEypw2ZtulHy2+YbSuFAaDxAPfiP//m8cmx0LATIAw09cN+vUF3TVmvGgkucOn0APUK3/Yt
+	7KCRL+XgDB4FU72ra/ewjiTuaHhmYcPceE9upDYTDEBgp8PMaRiy/a3mzcr+EQxOCyRQjOaNyKh
+	zV5J3cnk9hZdZIY0tX/CaXD0m+Wyp9mCutsGS9EX/mn8Knt3jSK/2jNwd3m+a/x5kyqFDNtaxh4
+	=
+X-Received: by 2002:a05:7022:ec2:b0:19f:cc98:f603 with SMTP id a92af1059eb24-1a9420e4a4emr7161417c88.1.1793333189327;
+        Thu, 29 Oct 2026 21:06:29 -0700 (PDT)
+Received: from [127.0.1.1] (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42902649sm3410984eec.11.2026.10.29.21.06.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 21:06:28 -0700 (PDT)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: Nikolay Aleksandrov <razor@blackwall.org>,
+ David S. Miller <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>,
+ Horatiu Vultur <horatiu.vultur@microchip.com>, bridge@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: bridge: flush FDB again after unregistering the
+ RX handler
+Date: Thu, 29 Oct 2026 21:06:18 -0700
+Message-ID: <179333317813.2102764.11838518621146184655@gmail.com>
+In-Reply-To: <20261025081919.GA53797@shredder>
+References: <179268538303.70821.8213834342995341232@gmail.com>
+ <20261025081919.GA53797@shredder>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,71 +107,38 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Hi Greg,
+Hi Ido,
 
-> FWIW, we did raise greybus as an approach to various HW vendors; I
-> assume there were reasons behind OBMF-ICP, and assume some prior-art
-> assesment was involved, but I don't have specifics for those reasons.
->
-> HW peeps: This would be an excellent opportunity for elaboration on the
-> motivation there, either for LSTP or OBMF-OCP.
+I'm sorry for not getting back to you on this patch sooner — I only found
+your reply when I went through my spam folder.
 
-I have been doing some asking around, and a few items came up around
-motivations for OBMC-ICP over Greybus. My motivation here is entirely
-around OBMF-ICP; the NVIDIA contributions for LSTP somewhat comes under
-this, and so we're working on composing a unified solution.
+I tested your suggestion.  I applied exactly the reorder from [1] (move
+br_mrp_port_del() and br_cfm_port_del() before br_stp_disable_port()),
+and ran the same reproducer: a diagnostic switchdev endpoint keeps
+del_nbp() between br_fdb_delete_by_port() and
+netdev_rx_handler_unregister() for 1.5 s while a flood keeps sending
+frames; the test then waits for destroy_nbp_rcu() and sends frames to the
+learned MACs.
 
-Collating some of those items here:
+On an unpatched v7.3 KASAN kernel the port stays in BR_STATE_FORWARDING,
+new entries with dst == the dying port are learned in that window, and
+the trigger reports:
 
-As a bit of background, the typical use case for OBMF-ICP is for
-platform pre-boot environments, with limitations in capabilities of both
-the hardware and software stack. Microcontroller and mask-ROM
-implementations of either side of the protocol are potential targets.
+  BUG: KASAN: slab-use-after-free in br_forward+0x55/0x3c0
+  Read of size 8 at addr ffff8880200bf038 by task mrp-poc/9420
+  ...
+    br_forward
+    br_handle_frame_finish
+    br_handle_frame
 
-This leads to the structure of OBMF-ICP being intentionally
-light-weight; the channel configuration (ie, definition of the
-encapsulated devices) is static, and the channel-level messaging is kept
-simple, mainly through a requirement of only one message in flight per
-channel.
+With the reorder the same window is still exercised in all six cycles
+(the 1.5 s hold is reached every time), the port is disabled before the
+synchronize_net() and the FDB flush, and there is no KASAN report.  A
+normal (non-MRP) bridge regression (two veth pairs in separate netns,
+ping, FDB learning, port detach and bridge deletion) also passes.
 
-[Greg, this is related to one of your points around why not use a
-multi-function USB device for individual, separate devices: the typical
-device-side hardware does not have support for enough USB endpoints to
-do so. Like greybus, the intention is to be able to support multiple
-downstream peripherals without constraints from USB hardware on existing
-SoC devices]
+So the reorder is sufficient and the second flush is not needed.  I have
+prepared a v2 implementing it and will send it as a separate patch.
 
-There are a few design points that lead to the preference for OBMF-ICP:
-
-The front-loaded configuration mechanism means less state to manage on
-both sides of the protocol; the channel set and channel-specific
-parameters (like individual GPIO descriptors and flash geometry) being
-stable over the lifetime of the device means simpler core protocol
-support and channel driver implementations.
-
-The simpler channel communication protocol is better suited to
-lower-complexity interfaces that are needed for the pre-boot
-environments (GPIO control, uart, IPMI, flash access) than the greybus
-targets for mobile device runtime, with higher-bandwidth communication
-requirements (camera, audio, display). For example, typical platform
-management functions generally involve a lot of short i2c operations -
-ICP messages for these are around half the length of greybus
-equivalents.
-
-For the platform-boot use-cases, we would need to provide a bunch of new
-channel definitions for greybus. This certainly isn't a showstopper in
-itself, but the specification does not appear to be in active
-development; last change was 10 years ago, and the spec repository has
-since been archived as far as I can tell (and so is read-only).
-
-With OBMF-ICP's super-minimal core protocol, and the use-case
-appropriate channels, seems like a suitable approach to me.
-
-The USB-IF has a class ID allocated for OBMF-ICP interface descriptors,
-with the intention that we have multiple vendor implementations of the
-common protocol; we would like Linux to be one of those.
-
-Cheers,
-
-
-Jeremy
+Thanks,
+Cheng Yongkang
