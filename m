@@ -1,65 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793335088;
-	b=tEUVbLvQqYHesDFpgwijGZsGOI5/Mc6bKVXs1TrXKATF+h7VcymRCWiEb1HhQM3IPSnF
-	 LDOXbgyC1+2fDoUVkS+HnceHTPFf3D/ovu7wzJQafCbS/oeKWwNOSXd6ZZejLRpo+jaks
-	 xXK6s0KIKzAkVJcndBAHu5ympcbJ/O3q3/BOPA7AoOekowEAm+yGb5PxZ0/ZpLdwJYxaU
-	 xz6eYDRV1YDguQqevJa2YUhg8i2Jyy4wbz3N4m2TTO+1K+JD0WTdb3UbB76zLMl2pwxRv
-	 qj8gHmyw32b6FBtXQ3idral9Do4MmdUt7NdYOBQv370OKOVrqixv2tmKgYkBQhsM9xg==
+	t=1793335221;
+	b=YYP9DkuSmvbt9f9yI7Re94lWnvoUAjQ/LpS2pHXC+8PPFCzD852xfvMTEJQNDS8dQ4Xr
+	 /ciOFYzjHA7UiKENnmL3MSudvnvmk/n2fUaDEGQkS5oaBTwztlo64gppvSI6iFSqDUzBJ
+	 8ycEbFdRm8v17DCmBhaiK8No6e1zQKGv4Y3cUn4XmGW4TRiEvQJ6ZA2GflZN+gkoUfEwr
+	 DmCiQD5+hemGpaSGiInkXVqbt61H5FYbAMJhv8+tI4b0AmwWdNCVPPsrWAnHYaSpK8Gqo
+	 Kf+iuBWW1b1vVa3aO85X2DFbokVduPbgUMpUsUMkjbR45GU2HRv+924dYSkNH1kYAAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793335088;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
-	bh=WwvcOsEObJ8qzzuuobsmrvvwKxGTjF3cc2+TTpbW1e0=;
-	b=xXia2cN3vuYKVkgWNl64MDPty6ldAebpE5dQSF2F6CLB6GKdqLjx5Nk0rFmmpQcfuKAS
-	 VSo28wBbHDA0uIFsWWwYXcO0z1X36ASkMnEqpav9mN41Kr43zpRAZzT+/1B5ss2y3QA+H
-	 AmTL2xGVq9yQ7zD1q5GpoeXYGB0rkVXEZqipRVZWawhFtBYNj/DDpOWTKELQRSyJnmfXA
-	 UoPvbQImCmxkgAtaS84s21KB6EeUd6ZUG8z6ngQGbBPzshIuUbwXxW1P70Gj56O32+4Ys
-	 jh755UUmjK75F5UUix8OkGUXj6BTCh4E09IJnzXvkSe5+E5sFE0YPaqzYY0Rawe34zg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793335221;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0pxIDWqNP9QlFHJneHeVIH00VqBfWsrjURorHdYn0cc=;
+	b=h/6zdU7ixu3+tA+I8NPz0NcCueagWY4Ewc3o4/cFXkVoRga1TT2oK60OhPQ4Qy/BnqCa
+	 zj1yiho5PGfvdgpKGpeGH/DUo4Vddzs77YcDJerG3xNXJmhdYjtS5Gl1rJApa13ibX/aZ
+	 CHFozknpMfikTmeXSO4qV8u90O/yjAwed0HSg7Bpqu1IkgB777h8joLCuO/2Ue3zBQccI
+	 fPu/7a5NxcKjnQwjTgEzDwoEmKulti6Zdmoo0t1GUP+PudphlBUaGSPiRRUXY6OJAf95K
+	 ubAdxWtNVo/Lsd9tPGCFppTzlTHIDel6ZVz0zU5d0pw0a54fugsQyJKsUgS4xOwLX5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=NJPsdvAy;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B74A0606A31C;
-	Fri, 30 Oct 2026 04:38:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B74A0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wsyE4d4u;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD25A606A31C
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:40:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD25A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=NJPsdvAy
-Received: from kali (unknown [4.213.232.17])
-	by linux.microsoft.com (Postfix) with ESMTPSA id B148C20B7166;
-	Thu, 29 Oct 2026 21:37:48 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B148C20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793335074;
-	bh=WwvcOsEObJ8qzzuuobsmrvvwKxGTjF3cc2+TTpbW1e0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=NJPsdvAyMdl07uIfgdrypurLmehiQZeL4zrhUYZxR96TMW5UhWVD/k6TDPncHWr08
-	 HBDhGEi+B7G362mYoL0sIW0o2+nYfbIXv9oTWCTovARis9B9tYry7LlUyDoTTX9uPX
-	 WKbEfCrsL3+VJgHmXIOzVAcYs4vOqZdpgIkHgEhs=
-Date: Thu, 29 Oct 2026 23:37:54 -0500
-From: Sahil Chandna <sahilchandna@linux.microsoft.com>
-To: Ankur Arora <ankur.a.arora@oracle.com>
-Cc: linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-	bpf@vger.kernel.org, arnd@arndb.de, catalin.marinas@arm.com,
-	will@kernel.org, peterz@infradead.org, akpm@linux-foundation.org,
-	mark.rutland@arm.com, harisokn@amazon.com, cl@gentwo.org,
-	ast@kernel.org, rafael@kernel.org, daniel.lezcano@kernel.org,
-	memxor@gmail.com, zhenglifeng1@huawei.com,
-	xueshuai@linux.alibaba.com, rdunlap@infradead.org,
-	david.laight.linux@gmail.com, broonie@kernel.org,
-	boris.ostrovsky@oracle.com, ashok.bhat@arm.com
-Subject: Re: [PATCH v16 00/16] barrier: Add
- smp_cond_load_{relaxed,acquire}_timeout()
-Message-ID: <auQfIuQdpd2i2IrX@kali>
-References: <20261016070837.440748-1-ankur.a.arora@oracle.com>
- <auLHZnaCIajW1kxX@kali>
- <87v76lezeq.fsf@oracle.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wsyE4d4u
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3514b90bb89so664761eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:40:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793335220; x=1793940020; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0pxIDWqNP9QlFHJneHeVIH00VqBfWsrjURorHdYn0cc=;
+        b=wsyE4d4u2kSup272juIJcOdXxrmp3tLhWNSx5Dxjau/usYM/LbvXq/R3mOrtj0JkF2
+         uHyMzBA0bvVhH0sBF+4GeZM6iP/EMQA/H2jG4HxSHFlzUNKBXAYr3nyoT35OK1VEDTyT
+         2ovsznb8q/PeZ66P1ry3PXuisJ3fq8uHzPkzwZDDYPBbGrszjQ3/AH2+4CiXMhfU6znf
+         Gy3NI9EBrrLpq2ECd8B3XJOQl5Q8s+kVF+aEFVjU1rZCsTlaJGSQQ23kRpqX/7Mysl/N
+         2NvpK2c9hmp29lOuAklEr63DDDwQrSJimmi2boLoXa080ycUfhg+HpPqfh59OJ9gmsnU
+         NIpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793335220; x=1793940020;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0pxIDWqNP9QlFHJneHeVIH00VqBfWsrjURorHdYn0cc=;
+        b=C1dHexAc3hjRCwI9Sq/qu8ebP0bac5m/EYix7Mhal3lp6FBlsiAl6VLptp8fNURPEo
+         Jexw3X67foKTJ1jZGhZMHyDQX0k1c3Lsw/HUANmO+Mf64thW+wBbV7amqWNur05XnhO3
+         CHwz78ebxifigSsl6op3fcIksWbeELiJqVVkmhQ/bD+1buyUz5OqNrlMcE/O9BtNlarJ
+         HlvTkhyLLplzOT1bI/8/iWyqL3MLJ/9AEiG3HjDKCPiFxft1Dguu9tZ6GsaSxrfIuyTq
+         s9yGssoEZfiueK8cJOBIKchjGM1XSvfle0p0fNRyV1nCiMGIrd8K/VT+LKO51GMogvqh
+         ejLg==
+X-Forwarded-Encrypted: i=1; AKwUvByia8l1z8G5j/ZBwymUyG8sHbJhzlw5kCc9Lx3mqmRTdoC6JQ16S+s+pNy9rUujcDvNOIj2Kqkyczm5dzE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+B0Cv3KKntY4WWMDsjZzqLV8fTyBzqja/bDToHOuxhJ+6cmUm
+	GbP6gOW74dBvZ+2s85BBaVCg0hy8I3Q+mC1Z271J9hhNvWsTK9ZzzH2+
+X-Gm-Gg: AYBFou0/nHVAYk7QBtxrxahM2DIeM3CjcLn872CZQNhwiMn0spNKPms1S6/a+Javv4B
+	gX9dGb96UQZRSNSL+9CGBv7hScNI63MVEIloZSWxaVF6zPPg2KUL4Dnb+d/9tjr57FLKR8HK835
+	5oijb3FcjmDk2buBw96+fP3y3i4d0lY9pRlcqtFv3EFzqHXXWFE78Zi3f46vvHy4wgufMVaRCNx
+	XWaGxjFz7eN2wduxsA75tOQttXqLQkOXHAf5YSJXGpDrIqNuWYi+n6es5HZcFB4HdmbG9rItsMY
+	dzZ3v7/lQw77xme+3qc0P3XeYu6ObdiusZ92Xxu2f/EZKs7ZtydR/Mi1ZzRANDftgjUKlSJYQ9z
+	F2I7MsODZvudIqTJB1FmZAIYBQQXBWVmMu1kx4ZA9P2Rclw1fle7RRkdNrlGFq4d6VQEUaZaKO+
+	isV2OxI+8FWKnD9gMfW+/2qafYo76I2c0g89stY4uG5Wsf5NUzQCD2Hmt6MUqVtpnL6FrBeX8Op
+	FbBR4OeXM4ObrTbQxWjCnjk2+OaP9IKUa/5m67q7PCWMQ0nGLtBOk9iLbfZLUs//wUOZDaPZTDp
+	3a9NMWJ9JuAe8+FU0hCHLNgL+iLTkmnAgWudiq9Dk/l62nXS
+X-Received: by 2002:a05:7301:640b:b0:33c:16f1:2e11 with SMTP id 5a478bee46e88-36a42363ef8mr1827511eec.7.1793335219596;
+        Thu, 29 Oct 2026 21:40:19 -0700 (PDT)
+Received: from spidy ([2401:4900:51d6:8e8c:242c:3f96:88a:43dc])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42669128sm3710509eec.3.2026.10.29.21.40.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 21:40:19 -0700 (PDT)
+From: Gowtham S Bhushan <gowtham398gs@gmail.com>
+To: song@kernel.org,
+	yukuai@fygo.io
+Cc: magiclinan@didiglobal.com,
+	xiao@kernel.org,
+	linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+fc26c366038b54261e53@syzkaller.appspotmail.com,
+	Gowtham S Bhushan <gowtham398gs@gmail.com>,
+	syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
+Subject: [PATCH v2] md/raid1: reject out-of-range raid_disks in setup_conf()
+Date: Fri, 30 Oct 2026 10:10:08 +0530
+Message-ID: <20261030044008.34293-1-gowtham398gs@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261028152755.383821-1-gowtham398gs@gmail.com>
+References: <20261028152755.383821-1-gowtham398gs@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,67 +103,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87v76lezeq.fsf@oracle.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 12:31:09AM -0700, Ankur Arora wrote:
->
-> Sahil Chandna <sahilchandna@linux.microsoft.com> writes:
->
-> > On Fri, Oct 16, 2026 at 12:08:21AM -0700, Ankur Arora wrote:
-> >> Hi,
-> >>
-> >> Changes in this version address sashiko comments [17]. The major change
-> >> is the change in the exit path in __smp_cond_load_relaxed_timeout()
-> >> which allows us to simplify providing ACQUIRE semantics in
-> >> smp_cond_load_acquire_timeout():
-> >>
-> [ ... ]
-> >>
-> > Hi Ankur,
-> >
-> > I tested this patch series on an Azure Cobalt 100
-> > (neoverse-n2 on 64-vCPU Hyper-V guest (Standard_D64ps_v6),
-> > on v7.2.12 + this series + arm64 cpuidle-haltpoll enablement[1]
-> >
-> > cpuidle-haltpoll loaded with force=1, guest_halt_poll_ns=200000.
-> >
-> > Baseline: no cpuidle driver(only WFI).
-> >
-> > Workload: PostgreSQL 16.15/pgbench scale 100, client and server in
-> > the same VM over a unix socket, with single run:
-> >
-> >             with (-S)                         TPC-B-like r/w
-> > clients  base TPS  haltpoll lat avg   base TPS   haltpoll  lat avg
-> >    2       38658     +89%   52->27us     5299     +86%    378->203us
-> >    4       72987     +99%   55->28      10305     +87%    388->208
-> >   16      300895     +91%   53->28      42035     +83%    381->208
-> >   32      590987     +93%   55->28      78319     +85%    410->221
-> >   64      987749      +0%   65->65     130675      +3%    490->474
-> >
-> > Tested-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
->
-> Thanks Sahil. That's very helpful. Btw what's the (-S) option with
-> in your first heading?
->
-Hi Ankur,
+mddev->raid_disks can be set from user space with SET_ARRAY_INFO and
+is not bounded before RUN_ARRAY reaches raid1_run(). With a very large
+value, setup_conf() asks the allocator for more than KMALLOC_MAX_SIZE
+when allocating conf->mirrors, and the allocator warns:
 
-This is the -Select Only option running one statement per transaction,
-more info captured in [1] [2].
+  WARNING: mm/slub.c:5459 at ___kmalloc_large_node
+   setup_conf+0x15d/0x700
+   raid1_run+0x109/0x250
+   md_run+0x6c3/0xec0
+   do_md_run+0x27/0x3b0
+   md_ioctl+0x163f/0x1ca0
 
-TPC_B like runs small bank transfer transaction.
-> Just to double check: was the VM  created with any special option
-> such as kvm-arm.wfe_trap_policy?
->
-No, the host in my case is Hyper-V. The cmdline does not have any idle
-related parameters.
-console=tty1 console=ttyAMA0 earlycon=pl011,0xeffec000 panic=-1
-> --
-> ankur
->
-Regards,
-Sahil
+The array fails to start, but machines running with panic_on_warn
+crash and syzbot keeps reporting it.
 
-[1] https://www.postgresql.org/docs/16/pgbench.html#PGBENCH-OPTION-SELECT-ONLY
-[2] https://www.postgresql.org/docs/16/pgbench.html#TRANSACTIONS-AND-SCRIPTS
+Fail early instead. Version 1.x metadata can describe at most 1920
+devices, so use that as the upper bound, and test the sign before the
+value is used. At that limit the allocations that scale with
+raid_disks (conf->mirrors, the r1bio mempool element and the resync
+buffers) stay well below KMALLOC_MAX_SIZE.
+
+Reported-by: syzbot+75f49ec552cc74d9d69b@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=75f49ec552cc74d9d69b
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+
+Signed-off-by: Gowtham S Bhushan <gowtham398gs@gmail.com>
+---
+ drivers/md/raid1.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
+index f0646fb24371..1cfe983167de 100644
+--- a/drivers/md/raid1.c
++++ b/drivers/md/raid1.c
+@@ -48,6 +48,13 @@ static void allow_barrier(struct r1conf *conf, sector_t sector_nr);
+ static void lower_barrier(struct r1conf *conf, sector_t sector_nr);
+ static void raid1_free(struct mddev *mddev, void *priv);
+ 
++/*
++ * Version 1.x md metadata keeps a 256-byte header and then 2 bytes per
++ * device in a 4096-byte block, so no array described by it can have more
++ * devices than this. Arrays created through the ioctl alone have no
++ * on-disk limit, so apply the same cap to them.
++ */
++#define RAID1_MAX_DISKS	((4096 - 256) / 2)
+ #define RAID_1_10_NAME "raid1"
+ #include "raid1-10.c"
+ 
+@@ -3051,6 +3058,11 @@ static struct r1conf *setup_conf(struct mddev *mddev)
+ 	size_t r1bio_size;
+ 	int err = -ENOMEM;
+ 
++	/* raid_disks comes from user space and sizes the allocations below */
++
++	if (mddev->raid_disks <= 0 || mddev->raid_disks > RAID1_MAX_DISKS)
++		return ERR_PTR(-EINVAL);
++
+ 	conf = kzalloc_obj(struct r1conf);
+ 	if (!conf)
+ 		goto abort;
+-- 
+2.56.0
+
