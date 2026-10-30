@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.3
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793352213;
-	b=404jvvy985Oq1luH0oyI98WuH1RkMo0qTDH0fZtufoH9kifXCM2yhY9mP5aSec6ko0T+
-	 CvCf5NfDdCKFmsLaLiRqszdCzEEUMXZWXb/oN10yPDE4Qq+TcpoRqRSn0/vC8EBpkfvNY
-	 /Z0+BIvDUE4tBQVKZM84I6wYlClkuBBHWqf1SON4c5lO6drZphbqF9Hkmw8swRsTyyeu7
-	 yPhzP8QMfgejd47IfHrKgZP9I4sgDDjTDcHR9Q3Byvv3osKgx2aJA1rkt1VGj7c9+qoh3
-	 GQdlNhHH5HCo5RA8RzTPKfevJ1TUTIsLjzYii4jkn0t9BKllyaZWxS6lbvpZCfUMBkw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793352213;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=e49ZIpdacen+euhKghU0zuc7lLWM4WCit6PNxCgSJp4=;
-	b=mpt/S77HmR2LzteIZfgwn2QtEgXqi/iYtPbZqPGLq0gf52vLQzATx/iaFeT5EABQ/hxl
-	 0AnmuP8dGj3P5x/dp8H0rT+xQVVfyP2nMyt4+gI7Pwmd4AIYXPuYER/ucRmhWsWpArOxF
-	 onV+a343P3EwsuvBCEcccnkYw1kcy3Uat9xyRftvv3VbbUJRLi+EkWkVZEDji/Y8DxavZ
-	 0sp0MAGp5BUHBq8+xl614WPi2uvJAG+iqUqQiqxyLkI985twKWQQgrmt1y8dtarRlP7ig
-	 lDMYamY8aZr+KTp0S4fpSYWfJAYYIHm1uhK59Gf2kt0SouIJGj+Zaxfro4Ag6ruuLdg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PdpgmCJe;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.3
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012003.outbound.protection.outlook.com [52.101.53.3])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793352215;
+	b=Rbn5OfrZgdDyJko0aV91AehcMXbByG5pev1TgqZD+3MZcpoiNhi0NirfOPw5BJ/GSmgH
+	 RbLDxdXouBEkaN0M7rvVHqxyDUkhnRLL7KBm0lbea5TH/Q8zkAeFS3mOPUYlP/9O/mUQ4
+	 sm2uohBb86K3PGP2fNJ08cd9io+pfQaMJNIxw4C6v5f3sMTY9UtXP49YyZ4S6nU5l67J5
+	 p4buXF7n8S8N8two9iIPrDkAvtjMU0teogCmieFALdbeykSWbotHgHGdkVSYraulGLObr
+	 JBwmh2N67iXCVOz6jt9hpio56vi6LDG5X4mPNbtAvz1il86O0Pq2iKIYd++UxlGsurw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793352215;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=KaYjOPsAP+zlSY31b5kmtktFHEHWELAnshXsQjT6SZk=;
+	b=s48f+zM2nFWiYxH6FmmYtoxkwBnSDuJq8UMIaUQvIVzMFpFhlctye1zfQbLnaj/zboHI
+	 CiVROO6cHi1u1v3IoGN8MFCVKWNaJRoTSF8N7KD1KWCP4TMmaLXR9Iy+NE+ovdXS9cA2E
+	 yXtg+4a71uK5mQkmBp53PbSdrBF8Iinn9a1cIVMgNuCarQwjJ9YkK6TZLt5tSnefwaugG
+	 QopN5TBiFgEe9Vkn55EnVs36i77R6CWmdfd+ocSNfBVj4X28rlsLsoDJrsaF5ptCpHQuJ
+	 oJux+2GIbS0nHOJ+6cWm2tV70HTB7qmkWr2/9n5ahwamF0DNJgef7YmPELc8pjmppmA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=uyNdHHuW;
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DCE606A31C;
-	Fri, 30 Oct 2026 09:23:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88DCE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6DB0606A31F
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 09:23:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6DB0606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PdpgmCJe
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gxIjaMCvZYA2Bvn1Wy0Ym+0ETV8wOznf861XMHj9IJQXPMjiOmc6c41F5MSPwoPAA7eT9TBJ70GKajDmMIXgp43mQh9NyoiODnT/vATD1bP8LY6YxOUXzSYi1PqTQcikFsU9mcsXzXAX1QBjvywAfJZzo0ZSD6QggB/1wEvB84xOjSx3rnzslXvjdnWmT6LIHzaXbrgyiOPeEccrUW/fHFHtbv6zC+b0QaI3CWl4vZAHSJfXzHKBjNHJmK/nbK+pCQx5PLeA5dfGuW3CVajuFJXxyemuLR7OcqVAq441EAgGN6AxOmlbe2LtRP0fo9OK8bb6EjPK6bviSS8jWBwsEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e49ZIpdacen+euhKghU0zuc7lLWM4WCit6PNxCgSJp4=;
- b=vrEF6IGJR9zs55RpmkFC6iZXF6y7JCxSfeliR6wDM+VZ1CMyP5AZSUE1fVtBP8OQ7cJGLceUppJ6ZQqP4Pui5eqi/oIh0hzL/C+ZMtFJYSNBuq6GJQ853jGxt2hxXHtv1iG6KwYaxfhLDrxOdwqr/G6ZOgoHV8r9/ox2jDSJqxy0kTC0oKCaGK4reKxfR+ey10uy/J/V9UjoJeFwXBQTzqhafgbRmQ3tNWXfQUgaYA0UT8oAsWc5bqJcpRXdf4Qp+dY6HVcSy67bVd7iYG/ppr3/naLhq/daHm2aav8pl1/m0bXOR+I6sO8kkfkN7GUAyEOa9bus70W7w51b7zIHmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e49ZIpdacen+euhKghU0zuc7lLWM4WCit6PNxCgSJp4=;
- b=PdpgmCJe+prfh7JuaqkyDrnVt8UEWuaPYCqwvrVmipvCaewgVc1AJHsZZ6JZMjhl+YUNjPMeYUdHMVUrJNDrkAMZSsa5GqKhStWVriCDzSfWcBdgpbvQx/OWAD1dcpu34cqtiWqKZPi9GO1wSEEOZSGXt9aKhIRh7EPjv3BaTi0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB7293.namprd12.prod.outlook.com (2603:10b6:806:2b9::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
- 2026 09:23:25 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Fri, 30 Oct 2026
- 09:23:25 +0000
-Message-ID: <b1e52411-e866-469d-943f-87922fd31068@amd.com>
-Date: Fri, 30 Oct 2026 10:23:20 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: gadget: f_fs: Remove deprecated dma_fence->ops
-To: Paul Cercueil <paul@crapouillou.net>, phasta@kernel.org,
- Neill Kapron <nkapron@google.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Al Viro <viro@zeniv.linux.org.uk>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Sam Day <me@samcday.com>,
- Michael Bommarito <michael.bommarito@gmail.com>,
- Gabriel Prostitis <prostitisgabriel@gmail.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20261029125143.1744481-2-phasta@kernel.org>
- <7fd62daa875e4a3772e980127d368704a849caee.camel@crapouillou.net>
- <e30a0a03cb7d393cbd88565bf81e156d2f38b293.camel@mailbox.org>
- <304c061aa5fa7f271acfa74c640ab1f0a40e393c.camel@crapouillou.net>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <304c061aa5fa7f271acfa74c640ab1f0a40e393c.camel@crapouillou.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0180.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=uyNdHHuW
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=KaYjOPsAP+zlSY31b5kmtktFHEHWELAnshXsQjT6SZk=;
+	b=uyNdHHuW1nf/ASJJ3pPByNMnQEt9sJyQHIjOVGrUh8e33boJIoMhJUMmlsMT6wmvIMD3bug0Q
+	+HekYZqkdVF6iIs1U+NRG+/LFU5cqTBGOlAvdatzmccrYNdbXRIIJjWd0I3w6STNwUFBWJ3DUI6
+	uJtAQtatWf/o+24uIa1YGRY=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jGFyT0Cn4zKm4X;
+	Fri, 30 Oct 2026 17:23:29 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 8934240572;
+	Fri, 30 Oct 2026 17:23:31 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 30 Oct
+ 2026 17:23:30 +0800
+Message-ID: <35cf1ff3-5e83-423f-9f6d-0f337e539206@huawei.com>
+Date: Fri, 30 Oct 2026 17:23:30 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,121 +62,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB7293:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a4fe8d4-1262-4183-9e96-08df36677363
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|18002099003|22082099003|921020|11063799006|4143699003|56012099006|261026140227099003|261026121527099003|261022105027099003|261022075727099003|261028144727099003|261021121427099003|261021135927099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	t6PNaQewTFuci7tKS1y8TFdab3Bk3sgPvvdufXLgQDG3KslZuT3z+gmideelasZ8bftEnsIY6DDrEpDplgOp2xsfw1wb8f/K5eS98Mb+HbhNm+DPDi2sUzSDBWoUPKsbpZU9dw3eSFCAye7TlFPJP4Yum5o+v2r9fVVdq7lEyTX2ttzhPK0JPyTbjCDkXxbq9pKuaHYO4n/4uEsJ8g57srbLXTIpX7Lxr6B3Tn9oseNRzlJjnooNxwa1h6MI3gfD4jUohTSP+8sSb+hrVByZY3rob1UejNDwoUeqw76gVC9pw5/h1R6vqzlLWjb+XynAZnQYehhfDmWIeF9Bcocq+dXjMmPR+MP2XplBUGl2VUkRAUebrtwlFzKT2e/qJLXQBv3Nifd1pHzDy0sgxFsv0RblMGMonBCw+ESavyPNU0L0rcL/E286LJ1b45/976IvlqXq2fUZBbK2KPmkgGRHUaBtxSr6w4KEDNPNhRIMKdgqqMjX2k6LP/jwT+3hr61WR52H0LHITB1JWTPruJNs2wBQcDC0iDS+1vKXAOlM9cgmINQ2tWeINvQt4Dpff2YJZfUOP4zkeH9EJHCC2xh6Jpzh5poZ2AB+3NKTkwNqVR536ynzxCfneHeiW8adofOsWmxwaymTYuaSQ2gv+HYFKYp7qM1JOSi43wagESOuUZI8sQlioZFCU/EU5JoMzc2iDxKG2OWDKFpetyB9ahLkJw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(18002099003)(22082099003)(921020)(11063799006)(4143699003)(56012099006)(261026140227099003)(261026121527099003)(261022105027099003)(261022075727099003)(261028144727099003)(261021121427099003)(261021135927099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N1Q2ZUtNTDRhRU11RTA5ZUtVeDhQSlp3ekRsR3BzeXlwUzRmNDdtdExKVXFv?=
- =?utf-8?B?T3RlZWxnMENxa28yZ2RxcU5uSUlYNVU4TUx6VHExajJGaXgwT0Y4RGFXTjBO?=
- =?utf-8?B?QkY0NTZxVWw1dWtGWS9yYUtMM1BQS0dLUm1HT3B3QjFKQTJFYmNEYlNmdEJm?=
- =?utf-8?B?dzhoaWZyNlRKa1ZVclVDTDNHVnBObitMbCtXR2Z0a3FvQmhONGxxeGt0Vmg5?=
- =?utf-8?B?SGFEV3hMaE9TZUw1R1ljaEZ0T0wxbFllcDFKMk9iODVGU1pKdlpGWlF3OWNo?=
- =?utf-8?B?NmhGZ0dkOHhiNTRSTXpCcEczN1Q5RjAxOTlqOEhaV1VuUmJCYWV6Z1NTK1pK?=
- =?utf-8?B?TE55cFA3Z0k0Sm02ZDNlTWxodHJKQWZFM2Ivcms0T1VCa25NdHRiL2VMQ0hj?=
- =?utf-8?B?aCtuY0tzWitDblUxMGprQ2EwczlIWG9OekU3YmtqUDRvV2RqNnNDY1hXN3Rh?=
- =?utf-8?B?Vk1mQXdlV04xbFE0cEJTK2J1RVV4UEh2WmV0dVpYVTkxZVNPMmNJQ2hLZUFZ?=
- =?utf-8?B?UFY3MmVsRmlrRUFoZFZaa2RaVUx2MFdhTTRuRVl4aHZiaC9Kem1SeVg2V2RM?=
- =?utf-8?B?SUhSU0dtaUJSUkpBMXlRRjR4UE0vdWpnMSs4c3grOGdJdWVpT3ZsRnJrM2Fv?=
- =?utf-8?B?S2JZRWNadCtrSStkWXF1SURyN0lzYWRuWUxqTkljNlZ1blYwdkhCWkJsU2U0?=
- =?utf-8?B?ZVZBV3IwbE8yNW1DZlVnckxWUUJpaHI2dmwrdVZ6U2F1bDhVMHlEZ0hLdjRq?=
- =?utf-8?B?RzNDR2kvazIrRHhvNnM0c2YwT2ZPUHFPU2tiOTNMdFJNbjRsWmxwOGdpbjBs?=
- =?utf-8?B?bUF2Z3NFR1JXaExtNkYwOUFha0dSS2NnWGlEcTdWRllMZllZM3hVSjR3dUNr?=
- =?utf-8?B?L2RlVG5nd21lSEZwVTdtcW05ejlHeVJxQW9KSFN5U29sRlBLNEN0a2NtdlNW?=
- =?utf-8?B?VG91UDNCaWYvM2plbjZrZlQ4QVdBU3dKTVdic2JDcFd4eUtzT1VSVTZ2N1VL?=
- =?utf-8?B?RlZYVzhjRUhEVnl6Yys0R0tHUFlsY0hFM2VIamcxWnVlcHRySTNFSVhUOFlW?=
- =?utf-8?B?Q3JObU8zcUlMTDlPWjlVNlA1aVQ0OEpzVEMxbVFaVWQ5U1RuczRLRVZoRkht?=
- =?utf-8?B?ajVBVlBIREREZ3d6REJRWmI5VE9NQ3hFdnV0LzY4S045ejljYmZJYVk1RUow?=
- =?utf-8?B?M0pudHVkRDZOeVVJbnNSdXFVa25NWER0MnI3Z09IelFNZjFZS0JndnRvVjh0?=
- =?utf-8?B?dnlnT1Q5Z3lFZ1dCZWpIMHQwd29pN0pTTTYxd0dhL0c2bndiM21pSUhXTnlh?=
- =?utf-8?B?b1RjaVN3MHZ2RTIrS0hFdXE3L0NXNzVFUWw3ampqbThQTlh6eUFjWG1YQXFh?=
- =?utf-8?B?dlF4ZGlzNDJYT0RpVUJLUGdaTTF3MzBWOGpoVzJNZkp0VVRudm5KbFhhZ0pO?=
- =?utf-8?B?ZTVFTGFNQzVrYS8yYUtQYXRWNVE1dExZK3lJUUprMThFaGY5d080V3BLcERJ?=
- =?utf-8?B?ejBzMGIrRmsrQ2FIVHVQeGxQV1JVMDV3bVArdTNYY3VITXpEWFdhWW8yN09C?=
- =?utf-8?B?eGpYenZGejRaalpPbzhQZ015eXJ6UmRnKzU2WXVoVmovT0dkM2JIRGJPSU0v?=
- =?utf-8?B?RTh3SzJSdUlzcnJJUHBJUGhNQkFMcWlpSXRmamlvbFZBWGdObExyVnhqK2tP?=
- =?utf-8?B?aGZsTHE0dGdzY0htVUVzUnRpY1p3aEt4WHI0dGNkd2dCU3d0RW82RC9EeEha?=
- =?utf-8?B?c3VYS3EzQjJmejNVUnVZREFNd1JBSFdvS2V4eXVGMmVLRUl6NEQ1WG1mT0Fi?=
- =?utf-8?B?M20wNVFzSE9jdVg5Q29aeHd0LzdYNmFZVEZlaGl6QUpib2NBSFBQY0ZVM3dP?=
- =?utf-8?B?ZHJJNnVHM1pBSVdLZWVPRFcvUXdPcVlUQzJZYm9zSnVSMDduekJtclY2c1Jq?=
- =?utf-8?B?VlJQUVdmckFSTWpHNGRwdlZ1dUlLVTlBQWw0TWprVERHWjJlOHBFeFBrNDdW?=
- =?utf-8?B?Z1RsM2Y2SjZGSHBCaHVDMEdPL01Yc3RQYVp4NlZnR3NyMG41UDg4YlJ0RDk4?=
- =?utf-8?B?NFhuSWU2c3BZbCtiaEY4N0FlT1c1L3FuZG9iYVJtQlp5cTFGeVVpb1RDZjEz?=
- =?utf-8?B?ZlRYWVYzQWRXcmhRN2VnYmpWVUpOOVdMZnpZcEJRYk5qY0YreUIxdk9pdWUw?=
- =?utf-8?B?ZTB6cG5zUjBUcEwvdHBtTXFDYVoxNjdaN2R1VTVNVVBrNDlaZnJQaFowUVJt?=
- =?utf-8?B?aTA5TVlJRFpmaEtRZGlyZGM3ZEMrdFNHRnBJd0R4dkRnajFlcHhIaFhWVWYy?=
- =?utf-8?Q?w6yAKbrhwB6E+DnAMb?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a4fe8d4-1262-4183-9e96-08df36677363
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 09:23:25.6584
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tvrutkKmtGg8UVN3DKr2y8vvgSjqC8yN+M/Bj9Lvxys1MNzqnS7XHkrQAKBsvBM2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7293
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs/resctrl: Do not allocate a monitor context when
+ releasing limbo RMIDs
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
+	<james.morse@arm.com>, <babu.moger@amd.com>, <bp@alien8.de>,
+	<tan.shaopeng@fujitsu.com>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261030092144.1233551-1-ruanjinjie@huawei.com>
+ <20261030092144.1233551-2-ruanjinjie@huawei.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20261030092144.1233551-2-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On 10/29/26 15:18, Paul Cercueil wrote:
-> Le jeudi 29 octobre 2026 à 14:49 +0100, Philipp Stanner a écrit :
->> Hi,
->>
->> On Thu, 2026-10-29 at 14:19 +0100, Paul Cercueil wrote:
->>> Hi Philipp,
->>>
->>> For context, this .release() callback was added to avoid the implicit free
->>> of
->>> the base class, which IIRC was a request I got during the review process of
->>> this
->>> change set.
->>
->> Can't say anything about the request you got, but fences are reference-
->> counted and the ability to free itself exists since at least
->> 3c3b177a9369 (2014).
-> 
-> Yes, it already existed when I wrote the code and I was requested to make it
-> explicit. Not trying to make a point here, just stating the reasons why it was
-> written that way.
-> 
->> From dma_fence's perspective it's certainly the desired canonical
->> pattern since the release() ops prevents fences from the important
->> feature of decoupling fence producer and consumer.
-> 
-> ACK.
-> 
->>> I'm personally fine with the change, but do we need a "keep this field at
->>> the
->>> top" comment for the base class in the ffs_dma_fence struct? Or what's the
->>> policy here?
->>
->> When I got into the kernel I was told that it's common practice to
->> always have the base class as the first element. That also allows for
->> obtaining the parent class by a mere pointer-cast instead of
->> container_of.
->>
->> But the reality is also that some users are not aware of this rule. I
->> can document it in a v2 if you like.
-> 
-> Let's wait on feedback from more people. I don't have a strong opinion either
-> way.
+Please ignore this patch.
 
-As far as I know It is indeed common practice , if you want a comment or not on your structure that the base class needs to be the first element or the dma_fence release will break is totally up to you I think.
-
-On the other hand it is maybe possible to provide a dma_fence_alloc_obj() macro which wraps kmalloc_obj and compile time asserts that the member you give for the base class is at offset 0.
-
-Regards,
-Christian.
-
+在 2026/10/30 17:21, Jinjie Ruan 写道:
+> Busy RMIDs of a monitor domain are normally released by the limbo
+> handler once their cache occupancy drops below the threshold. When a
+> domain goes offline, its busy RMIDs are released without checking
+> occupancy, since the domain is going away and the RMIDs must not be
+> left behind.
 > 
-> Cheers,
-> -Paul
+> On the monitor domain offline path, __check_limbo() allocates
+> the monitor context that an occupancy check needs before it scans
+> the busy RMIDs, but without using it, and returns early when that
+> allocation fails. Then the caller destroys the domain's monitoring state,
+> including the bitmap that records which RMIDs are busy, so nothing can
+> clear those bits afterwards and the busy counts never reach zero. Those
+> RMIDs never return to the free list and, where the RMID depends on
+> the CLOSID, the dirty count of their CLOSID never decreases. The allocation
+> can also wait for a monitor to become free, which stalls the CPU offline
+> path on a context that is not going to be used.
+> 
+> Only MPAM systems are affected. An architecture that can always read an
+> RMID allocates nothing for the monitor context, so the allocation can
+> neither fail nor wait there.
+> 
+> So move the release of busy RMIDs into a separate function that does
+> not take a monitor context and leave the occupancy check to
+> __check_limbo().
+> 
+> This is not a revert of the fixed commit. It preserves the original fix's
+> intent of not reading a counter in the offline path.
+> 
+> Fixes: fc16126cc11d ("x86,fs/resctrl: Prevent out-of-bounds access while offlining CPU when SNC enabled")
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: James Morse <james.morse@arm.com>
+> Cc: Reinette Chatre <reinette.chatre@intel.com>
+> Cc: <stable@vger.kernel.org>
+> ---
+>  fs/resctrl/internal.h |  2 +-
+>  fs/resctrl/monitor.c  | 72 ++++++++++++++++++++++++++++---------------
+>  fs/resctrl/rdtgroup.c |  2 +-
+>  3 files changed, 49 insertions(+), 27 deletions(-)
+> 
+> diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
+> index e62a277dee85..1c85e06f09bf 100644
+> --- a/fs/resctrl/internal.h
+> +++ b/fs/resctrl/internal.h
+> @@ -405,7 +405,7 @@ void cqm_handle_limbo(struct work_struct *work);
+>  
+>  bool has_busy_rmid(struct rdt_l3_mon_domain *d);
+>  
+> -void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free);
+> +void release_limbo_rmids(struct rdt_l3_mon_domain *d);
+>  
+>  void resctrl_file_fflags_init(const char *config, unsigned long fflags);
+>  
+> diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+> index 88674e28b2f8..3c9f65888004 100644
+> --- a/fs/resctrl/monitor.c
+> +++ b/fs/resctrl/monitor.c
+> @@ -124,18 +124,42 @@ static void limbo_release_entry(struct rmid_entry *entry)
+>  		closid_num_dirty_rmid[entry->closid]--;
+>  }
+>  
+> +/*
+> + * Release the RMIDs that are marked as busy for this domain without
+> + * checking their LLC occupancy. Cache lines may still be tagged with
+> + * these RMIDs and will be accounted to the next user of each RMID.
+> + */
+> +void release_limbo_rmids(struct rdt_l3_mon_domain *d)
+> +{
+> +	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
+> +	struct rmid_entry *entry;
+> +	u32 idx, cur_idx = 1;
+> +
+> +	for (;;) {
+> +		idx = find_next_bit(d->rmid_busy_llc, idx_limit, cur_idx);
+> +		if (idx >= idx_limit)
+> +			break;
+> +
+> +		entry = __rmid_entry(idx);
+> +		clear_bit(idx, d->rmid_busy_llc);
+> +		if (!--entry->busy)
+> +			limbo_release_entry(entry);
+> +		cur_idx = idx + 1;
+> +	}
+> +}
+> +
+>  /*
+>   * Check the RMIDs that are marked as busy for this domain. If the
+>   * reported LLC occupancy is below the threshold clear the busy bit and
+>   * decrement the count. If the busy count gets to zero on an RMID, we
+>   * free the RMID
+>   */
+> -void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free)
+> +static void __check_limbo(struct rdt_l3_mon_domain *d)
+>  {
+>  	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+>  	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
+>  	struct rmid_entry *entry;
+> -	bool rmid_dirty = true;
+> +	bool rmid_dirty;
+>  	u32 idx, cur_idx = 1;
+>  	void *arch_mon_ctx;
+>  	void *arch_priv;
+> @@ -161,30 +185,28 @@ void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free)
+>  			break;
+>  
+>  		entry = __rmid_entry(idx);
+> -		if (!force_free) {
+> -			if (resctrl_arch_rmid_read(r, &d->hdr, entry->closid,
+> -						   entry->rmid, QOS_L3_OCCUP_EVENT_ID,
+> -						   arch_priv, &val, arch_mon_ctx)) {
+> -				rmid_dirty = true;
+> -			} else {
+> -				rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
+> -
+> -				/*
+> -				 * x86's CLOSID and RMID are independent numbers,
+> -				 * so the entry's CLOSID is an empty CLOSID
+> -				 * (X86_RESCTRL_EMPTY_CLOSID). On Arm the RMID
+> -				 * (PMG) extends the CLOSID (PARTID) space with
+> -				 * bits that aren't used to select the configuration.
+> -				 * It is thus necessary to track both CLOSID and
+> -				 * RMID because there may be dependencies between
+> -				 * them on some architectures.
+> -				 */
+> -				trace_mon_llc_occupancy_limbo(entry->closid, entry->rmid,
+> -							      d->hdr.id, val);
+> -			}
+> +		if (resctrl_arch_rmid_read(r, &d->hdr, entry->closid,
+> +					   entry->rmid, QOS_L3_OCCUP_EVENT_ID,
+> +					   arch_priv, &val, arch_mon_ctx)) {
+> +			rmid_dirty = true;
+> +		} else {
+> +			rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
+> +
+> +			/*
+> +			 * x86's CLOSID and RMID are independent numbers,
+> +			 * so the entry's CLOSID is an empty CLOSID
+> +			 * (X86_RESCTRL_EMPTY_CLOSID). On Arm the RMID
+> +			 * (PMG) extends the CLOSID (PARTID) space with
+> +			 * bits that aren't used to select the configuration.
+> +			 * It is thus necessary to track both CLOSID and
+> +			 * RMID because there may be dependencies between
+> +			 * them on some architectures.
+> +			 */
+> +			trace_mon_llc_occupancy_limbo(entry->closid, entry->rmid,
+> +						      d->hdr.id, val);
+>  		}
+>  
+> -		if (force_free || !rmid_dirty) {
+> +		if (!rmid_dirty) {
+>  			clear_bit(idx, d->rmid_busy_llc);
+>  			if (!--entry->busy)
+>  				limbo_release_entry(entry);
+> @@ -843,7 +865,7 @@ void cqm_handle_limbo(struct work_struct *work)
+>  	if (cpumask_empty(&d->hdr.cpu_mask))
+>  		goto out_unlock;
+>  
+> -	__check_limbo(d, false);
+> +	__check_limbo(d);
+>  
+>  	if (has_busy_rmid(d)) {
+>  		d->cqm_work_cpu = cpumask_any_housekeeping(&d->hdr.cpu_mask,
+> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+> index 5dcbb0a964e8..20c800e678d5 100644
+> --- a/fs/resctrl/rdtgroup.c
+> +++ b/fs/resctrl/rdtgroup.c
+> @@ -4592,7 +4592,7 @@ void resctrl_offline_mon_domain(struct rdt_resource *r, struct rdt_domain_hdr *h
+>  		 * the RMID as busy creates RMID leaks if the
+>  		 * package never comes back.
+>  		 */
+> -		__check_limbo(d, true);
+> +		release_limbo_rmids(d);
+>  	}
+>  
+>  	domain_destroy_l3_mon_state(d);
+
+-- 
+Best regards,
+Jinjie
 
