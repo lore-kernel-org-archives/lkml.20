@@ -1,106 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.166
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.50
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793367703;
-	b=J2sGNrCKl7IEq12xbtzvOm2sVkomUDIphI61JdiZiXQcJwso2mDnwcpYCD9NKXXa0UQV
-	 L2u09Ym2/c8vTyhDdZaRJKZoFECEmNDB6jhvIFO1li880LeiF2mPhRNRU3EspikIQRgwR
-	 4FaV6YNsjP3wV5IwkG7thEfzdsXLx98Ta+LhicJ/snQVqUSLixW5sAt6aVcCDtIpBHuk4
-	 of8rOavtkAIsMUNaP5210m3dYlKL330MGqlqu7ABDIvtMHVRyJNSZ7PAAxJYrup8YTXR+
-	 Mio8+SMo+vzSrBAoWO+gdQlA5XS3cwDnAvXv3BRypbl1lB2yIMk8sGu5/ze+n5NtXSw==
+	t=1793367745;
+	b=B6lVkgqpMVp56Pbos8F0ZPaQUJYGuHglHdMnAssnmKOemyYm3VYXsrrMINeoZ5JP4yih
+	 DB/0b+DVGdZE7Gyg1mwOLhE1uSFh0VhTqQTEWZL5pzAamma//X4XflYBGVFnPTkCgtubh
+	 GKVVQUHk+LVKqwu1Tf5Q3T7FF9ZUO0VluK+KeKma8bP5dl2rCjA/IQrphl6eJJBKJ8gZ8
+	 Wn4zFa4jAM9NyNwLSGFpUV/caJ2jic0nHlbwRcDShG1JtEJw2u3dyRuBKU7TRayGcrUXv
+	 rP0TCXaVMpX+ky6SihKGM1Qwe7I9iNc2iFwi+uoBstk0SSrxlYC/nZqoulPeSX3NW1g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793367703;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=eoFocFLZvVXbjfcmuUeSDY1L+9vu4B3vE+nKBC2kn5U=;
-	b=uBgQEWje8ELArzwYnKDQ4i2D3Q42u2dcQJruvqEvsHvk+WB8UE5+64Y8jDZ5PmT8VHDv
-	 tvwm8i7MHuxPw7I9e/xY05b4Atp3TUS2rEuMDAmzd/IsrWS34+F0tdbrTE3iGwdr4ICXg
-	 thP6X1B04nNHvBY/sWuxcVw3ail4gEHx+nPPdcDRf+iuirePoBmJBIz0tJDzDTnKg4axv
-	 5mMalQlAnHv12pvnp4QjBqYuV0/voFFyJ/RdnZmbVxhZ5RhkRZNmHD/L7ZEw9yyHS62px
-	 RmpsSwcxAsqwkB1iWx+aFTvPQ0JvAXAZ4BZkj17mkr82YhCEzPnUKB8jPGlnG5nz2GA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793367745;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=QajgQ3m8sW51c5RcS/pooZjG7k7Q7MFc2VdADBywgSI=;
+	b=IbX6NAZ2zKEpkYDXKDbdyCosCg0Wf5JLzonUfmHdN7ypfCPrrZR7WzqZjql7ZbhDVpIG
+	 LmNYjyNswGzNdynQ3g4Bnff2R9sNuKc1jfmNW2vUhSRV3+Ilb4S/gf+BlfLebPO3Ed6HN
+	 BYJYpCz7NjEfE7g0KFOQzfOY8+B0ODRQB06GRxVdGdv/LvxVzLaVmq5ZKCZdJQwnlnrcS
+	 2IUZts56SrFBqzAMZoS7haicBdBSUXslHEJVC312G+6u9D4UfXylTGUP9bOE6behn2kOm
+	 MmgfC84XAOGpDhxhazdkhTHaSWo5MTRk8KAMxbszBro677Ju585ENrqJzOjiBmU0rQA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=iokpp.de;
-	spf=none smtp.mailfrom=iokpp.de;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=o7awYZnN;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=UjBo7i28;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.166
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.166])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=F0yaP9uR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.50
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011050.outbound.protection.outlook.com [52.101.70.50])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985BF606A31D;
-	Fri, 30 Oct 2026 13:41:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 985BF606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=iokpp.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=iokpp.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28931606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 13:42:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28931606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iokpp.de header.i=@iokpp.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=o7awYZnN;
-	dkim=pass header.d=iokpp.de header.i=@iokpp.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=UjBo7i28
-ARC-Seal: i=1; a=rsa-sha256; t=1793367670; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=DVOMDQUK4jA02A6LX4M7KnttCg1+TxIU6G/YnkbzQzQaz5wJDzG2bWqjsDoGiU/G9l
-    Ied32jS/F+wpXvhvCd1eNYXRh/yPEU24hMBXC4SeIfWXDUA8SuFlfk5xbIL9pDSzcgbQ
-    5R2rLlgPHCrqxesMzkafltEqXS61tmenZmzIuul0GL+zyNVRyznG+ZhVU/c13qL1EUrF
-    G1meQ7KSzIVHn5s/cuCGZYyB7U45y+xTgfTigCTSsKK7VSWgYCg994lCE/RzhGT8TPFd
-    9Oe6xq6klq013VJtv2tfvGVJrx+G5NPdVefRj440WSZF+detP9Gog4aeWsjzwEvH8a9f
-    9S0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793367670;
-    s=strato-dkim-0002; d=strato.com;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=eoFocFLZvVXbjfcmuUeSDY1L+9vu4B3vE+nKBC2kn5U=;
-    b=r3qd/vIMOpVJg8RGeXhBxmPKNtU0iPm0AVa4FRP5Qgmqke9zTde0iTPtzPR1BmVEl/
-    JNR53N+cxXmzLRktwn3EbTdDWPxEr2qj96n43DOslpVJjprlyD3cdJj2/sBQrBXB/Zsa
-    zYVk6424GLMoL/h0r2KICrf+AIgCfg53lq9Snr88ba5p/C9nVdUyaAHCvU0vRG3ckdkN
-    9n+132vddRwTTocJM3O+eymT00c51s1KCJZvRLtdb83VjRiGMzCJsjvpOZ0HkoJa+RMe
-    DMy8c9gh7SNIsiJ0KsI6XPQTkzXY07ngKGlyQdhhk6C48ZoM3ko+ZS4RkE7wyw65bMmn
-    mX8Q==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793367670;
-    s=strato-dkim-0002; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=eoFocFLZvVXbjfcmuUeSDY1L+9vu4B3vE+nKBC2kn5U=;
-    b=o7awYZnNYwU0BahCQi9Z19d2YUI2sJvPsB8M2aXpB4F8xj6k3HYtD5cMJSezB4eOfC
-    oIAfhxHaqb/7ZBEF8eg3Qtoh2n/9BbK/KH4mXuRvQM4oW9YkwaRMY7Tw15ItWepVgtvV
-    ZW2uWemINK2x96mh3p3Gf28F2852rYuO1wU2IrbGHP1VTC9ytaUTXa8W4bAa6LebuP5K
-    yPnvo/ljPCgnVj8X0+HeZlP6pRj8H/u73+hqFG4T3NpS3MgMlg83iGqgeST9mSTATA/Y
-    RzSX17EsnL0IMajSEa00HTihRbOmMf6MN9KovIrW0dxGl03WsDj78yQY6TOBwzIfbAi4
-    LZtQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793367670;
-    s=strato-dkim-0003; d=iokpp.de;
-    h=References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Cc:Date:
-    From:Subject:Sender;
-    bh=eoFocFLZvVXbjfcmuUeSDY1L+9vu4B3vE+nKBC2kn5U=;
-    b=UjBo7i285Hs7RYht1Uzts0xeZF+trdps3HsFONunY6bWo9PIu7vy1jzUjy0OIpLEl0
-    ASt2k34A21sHhN4WT3DA==
-X-RZG-AUTH: ":LmkFe0i9dN8c2t4QQyGBB/NDXvjDB6pBSe9tgBDSDt0V0DBslXBtZUxPOub3IZuk"
-Received: from [10.176.237.223]
-    by smtp.strato.de (RZmta 55.6.3 AUTH)
-    with ESMTPSA id z831ad29UDf9UlU
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Fri, 30 Oct 2026 14:41:09 +0100 (CET)
-Message-ID: <101b87d76029565d274ae96d66c8a343cab910d3.camel@iokpp.de>
-Subject: Re: [PATCH v3] ufs: mcq: fix dev cmd abort path and add OCS poll
- after sq cleanup
-From: Bean Huo <beanhuo@iokpp.de>
-To: Kiwoong Kim <kwmad.kim@samsung.com>, linux-scsi@vger.kernel.org, 
- linux-kernel@vger.kernel.org, alim.akhtar@samsung.com, avri.altman@wdc.com,
-  jejb@linux.ibm.com, martin.petersen@oracle.com, bvanassche@acm.org, 
- kwangwon.min@samsung.com, hy50.seo@samsung.com, cpgs@samsung.com, 
- h10.kim@samsung.com
-Cc: stable@vger.kernel.org, stanleyjhu@google.com
-Date: Fri, 30 Oct 2026 14:41:08 +0100
-In-Reply-To: <20261030111045.982094-1-kwmad.kim@samsung.com>
-References: 
-	<CGME20261030111051epcas2p225fb4eb84bfbd747782b5641f3831053@epcas2p2.samsung.com>
-	 <20261030111045.982094-1-kwmad.kim@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=F0yaP9uR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wcCo+NTnWgGFGndYPNaK3OUFJss1lu7d64A/ezurWiyld6SIxyaVnP1WwZLs8UPT6fiQVUF84U9nJ0ciuETKHEu/8WG0Kb4L//IMLCw9RbVWTRQqNR1kX9+LPi3oX1sl6A2K4PufZVPZaDNUbDR6t6bZgOjXVLN4hce9iq+i/okTQ7I6WmCyCqyYapgoNmX2UO/5xoi7s1pHRO+qkEWadNfytlUlGWHR6jdV9KlC06tMDdEWD8mEqXGatu9zyu40Dc04I9WIKRtr853moQM/QrX0xAJp+NEAIlE6sIJEGhV2EfZxtXamEVYOcKDVf2nfHfDXxxTzcEvZgrfej3fZkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QajgQ3m8sW51c5RcS/pooZjG7k7Q7MFc2VdADBywgSI=;
+ b=E+qbjOXdaiVQ3v/Ik8DGNMBQqFssyJLuXXnX2dmmbzKNxNMeWDrKIKz3WqFNpD4YqQe3+MCa1RMpzFzH8WzG7Wb0Tx4/iRWthbUO4I0NM1SeHI3Y5qwqAsgtitmI2lEOpuL21h6CM4Q2ecPFw0J1b3UASjbAAFgE70dAS9ulh8UGOwyNI/41kFqGo05ib/JRGsIjo51NEhToGeyWeWxn5oKwOIFmD4RbcDy4TmcqsZ+GSeOPD04Ba+aE2FforG1SXDsKO5FQWThnd6mE9MVRUlHgMEClOP1aO87v5CAEGaecgTbcsGj5Pxgal5QaZmpbaPILsnpcsPv+21L8EDB3Gw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QajgQ3m8sW51c5RcS/pooZjG7k7Q7MFc2VdADBywgSI=;
+ b=F0yaP9uRmfsPdTe3ZhXvSuRcVVLWh9SoPmzvb+czb6tnap8umPXde1MURAKt4V8bmnJ3emeVcHzyTOrFL0lW6f/0/w6OQTYkSIu2CD6w+XsNbbR8B6uP1lit4+NkTPaCUUSQzZi4lr6g6eMkOqSRXhn/ESlM/nmAWCkcOM3IvUPjv/eGOzIFsdIcvGqLjJMob9DVuOVnRAtRuTcrGCHufr3uf9jyHXArdWsNvqTobMEjUfinzKRSc0aBEuJqeYRrdehzHUej8aboW8R6XhtxFSWPSrm7LSqeiP6iwpgyuGNQ/iLU3v4G1Gqms8alKUPL63YA16QjuDkdop4JomNbew==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by AM7PR04MB6870.eurprd04.prod.outlook.com
+ (2603:10a6:20b:107::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Fri, 30 Oct
+ 2026 13:42:19 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 13:42:18 +0000
+Date: Fri, 30 Oct 2026 15:42:14 +0200
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: laixiangwu <laixiangwu@cmss.chinamobile.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Lucas Stach <l.stach@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	dri-devel@lists.freedesktop.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/imx/dcss: Fix clock leak on blkctl init failure
+Message-ID: <auSeCkGy5qPQDEcL@vm>
+References: <20261030083342.1531-1-laixiangwu@cmss.chinamobile.com>
+ <20261030111304.2205-1-laixiangwu@cmss.chinamobile.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030111304.2205-1-laixiangwu@cmss.chinamobile.com>
+X-ClientProxiedBy: AS4P191CA0054.EURP191.PROD.OUTLOOK.COM
+ (2603:10a6:20b:657::12) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,109 +103,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|AM7PR04MB6870:EE_
+X-MS-Office365-Filtering-Correlation-Id: a33183cf-fb80-4b3d-0edc-08df368b9da3
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|19092799006|1800799024|7416014|376014|261022105027099003|261022075727099003|56012099006|10067099003|18002099003|22082099003|4143699003|11063799006|261028144727099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	EcD9CjkoEmVFXHIAEsblRfESkREEEgTz7XzT/XY84Apd/qrBvlJ9CgVaUZNiL7x76OjRfYPHUK+INNlL7RFpDuE6RNnHJ69n+tPTVCcGnQXV7qKUofBUtlooKcfjWj44DnaVbdPWeWfyAvwaibexy1E+lYLSm/DuUbkRxpewmWe4tW9Nvx+eKnaY5ugTvpnDdXY2BZbtFysU2y0FUC3Ej62kaluvic4IShuwTI7ttVYl+rbZ207SmdSn+SNIqNYHWf/xch2vZKoVipCF0bPUQ1Dm3V2wslTgaOrcrSjfZlgJE4t9c5J/WM9srkFBJGo4myUBqOd/8jyZhICLfmWnOnWCHisDbdqpVcetLg8FF9aqMFOtkIv2/MDiZf2BhFssEXZHP8uRmL4FG5KQ5knvIPpEoUkDyEtcHJOxkoVAffbjNjZZRuEo6QMbfp6HaG6Aw//OdGBsWEEDzmRI2xwEshca2+xV/KfFPwJ2vb40zjAg5W0OL60vWdh+DfT99L1D22WblNDjcW58lzOAG327PVbkU3dtTwebciF3bg+zlC+jwXXsz3QnDjU8VFzsFYjYAv3BYZoG7x1M4ONZnc5+T/A37pE1MKE929izPb+H/zMxM/DiijNea3AFq/BfjF8FzOWh+oIScRLyUA96AgratFBs+BIm/uJRW2gMmkQPu48=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(19092799006)(1800799024)(7416014)(376014)(261022105027099003)(261022075727099003)(56012099006)(10067099003)(18002099003)(22082099003)(4143699003)(11063799006)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?28u0W85JNRGZdAsVfh1qBlpOkcZjHBD633nvurfsKPX1+tjqaFF2SlezGZLC?=
+ =?us-ascii?Q?+qHxWSj5IpmJS5V0n6D0oyLxzFweCekt9xmkEYMatwkw4Tw/vQeu+OGsunPG?=
+ =?us-ascii?Q?9PRvidpe0IUa63HAC784+iLZAjIrCqdulIDKJia7Ksw2riKEaztR+iuJFCCo?=
+ =?us-ascii?Q?pRQvvIJwNJ64ypodI3b1p47gNq/reIyhvELFnCgY35Iu1eAb2QmjEHIuCp2+?=
+ =?us-ascii?Q?lDrSYy9awbQxBrs0J1QqvmFyD/vgHUJfPZTm1t7cA3rTGsHt4ejHUBqSUFXE?=
+ =?us-ascii?Q?hvnA256gWXXdRWCP/ClvVni+EOfprwVwcblHjxRDprDpS4Du4+NMgTrct8YU?=
+ =?us-ascii?Q?CoEsIeSe2XAha4MyL/SE0ITinYqsXe9Q15s4hmj03YeynXSBL32pxVK5Xeu0?=
+ =?us-ascii?Q?LTI5O+veNRmY0Ur/AdhyhJ5Jx3k1orNtmpgpn0GpSRC38ZKZiuWzrJ/XG+IR?=
+ =?us-ascii?Q?iMbDsoZ0xmaJnUezwPUtkOaC4CrGcA03LTMdvuzLVabxUqVJ6NpKCAjCTlqj?=
+ =?us-ascii?Q?DuGA+2/M77GCR0KQxnqcr25R7mgUqiykzO83XCQsJLHA99iYczCmnzYmRpQT?=
+ =?us-ascii?Q?NyLMO4qS6qsIgyhGeoSxL0HD9EuY+N1/sohAxXh6dHvpnyP9GQCeCm/j4E+1?=
+ =?us-ascii?Q?Hnb4KKkHiDwe2JKGmyntBTfUW73uPhVfeCRH9ybNWBnj+933a62fumeEImzl?=
+ =?us-ascii?Q?rqDtlj+QsAwOdNRAXTf18yyqtfNyPkWHGDDT5krA4hh1o4aF9ROfkRMOVjeV?=
+ =?us-ascii?Q?VZZ8FZe852z7K+0f9Cc/C+00ctt2CgHFYtUdHmEkTlHaZf9is4qTySyl5NW/?=
+ =?us-ascii?Q?VfVwR+HGGIUXdhARHqC+UmC0p8ML+GDWB4UC7HEi9zvjVT6hm3E+x5wO2+Iy?=
+ =?us-ascii?Q?yWqjFL4nNQKv8ZtWngHCQC6K0dnJbMJzQ7XYGLyt3swk5uYBFqvKoCBLTJHn?=
+ =?us-ascii?Q?3Mhb9rqWRyGvFbaiHarjGkUSbfNoUqhds/ZgyaS5aL2Hq93ymxclIA0Ug9nw?=
+ =?us-ascii?Q?juPZlz4KjYX5+vYQ7n51CDbMm1B7U1FayaxOLER/IluqUxmmGUFztG1Zgp+L?=
+ =?us-ascii?Q?c9E5ssgP4O/k4YZbGnmq74yR/Jc0ROLShJXWSXE8nV5CtLJ8hfwG8i8JRr8A?=
+ =?us-ascii?Q?ez+8rs77aQXFCzCVTebIgiKRo9RM8flhiJlHNJXpXMiszxy5Kk2HA+bm8+HX?=
+ =?us-ascii?Q?ZgNC3pt1mrB4Z1XZl8lT4cyoosXIJsAFHDUFYFDSkH+jdjfI9OCWSj/9Wp91?=
+ =?us-ascii?Q?wQZL8iLHuYVadz0tbvDzUca2XSVSlBVZcELeP9K12PmojZgIia09qKapLzo7?=
+ =?us-ascii?Q?2YP81zHwi51+BOEeCNPJxuvfHJ6KfzIqTqpVyy+/F2DXNUNMGUQJ657oxV5T?=
+ =?us-ascii?Q?vfHdCDS4+2Cy7XPkK9NPVi1fdU3HBccgAgAZLFi9yKLdh+PUGLgDEJlM9sEC?=
+ =?us-ascii?Q?tG0wz+iG/KN40EonXqdS1bX+kAXrb8VPx/kOZOQcIHK6+m3C2RLFt8UUzIY5?=
+ =?us-ascii?Q?m5iVia6y7bchD3U5OMjFLthtKCScvgi0QlxL7Fe5iOgOZqBlZUk/3S7jUgqV?=
+ =?us-ascii?Q?414xOKbbmy+vuiyRAmRGK3d2vRs1KOiMz6vsscsgqOu7xPTHqYuqvFZIQAjo?=
+ =?us-ascii?Q?1qOlHbUemJulqqbQT3qeGSLXQnWAHetOCl9tFovDG83p6t+oTu+QPaa1H5QP?=
+ =?us-ascii?Q?8EESn5vEKBZnI+z10/HPh+NytuYH/UOHLILq5WhDn7+oaU7Si6mHCTY38orT?=
+ =?us-ascii?Q?/9ZnNkNFOA=3D=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a33183cf-fb80-4b3d-0edc-08df368b9da3
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 13:42:18.4885
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OwyEQT9H7CMqmHcnLHCjzJ2VFYVpMqetXsa0UpHo7hXhuI/ggMaYxp0S2DTbKvv9yvKASmOwZIS3MS9gQNyGWw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6870
 
+On Fri, Oct 30, 2026 at 07:13:03PM +0800, laixiangwu wrote:
+> dcss_submodules_init() enables the DCSS clocks before initializing the
+> submodules, but if the first submodule (blkctl) fails to initialize the
+> function returns directly, without disabling the clocks again. All the
+> later error paths already jump to err_clocks, which calls
+> dcss_clocks_disable().
+> 
+> Since the clocks are only devm-managed for their reference (devm_clk_get),
+> a blkctl init failure leaves all five DCSS clocks prepared and enabled.
+> 
+> Jump to err_clocks so the clocks are disabled like on the other error
+> paths.
+> 
+> Also rename the error labels of dcss_submodules_init() to the more
+> common err_<x> style, which describes what is cleaned up from each
+> label on, and update the gotos accordingly.
+> 
+> Fixes: 9021c317b770 ("drm/imx: Add initial support for DCSS on iMX8MQ")
+> Suggested-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 
-Hi Kiwoong,=C2=A0
+Thanks, but the fix is yours. I merely suggested some cosmetic changes. :)
 
-I think this should be two patches, each needs different fix tag:
-=20
-On Fri, 2026-10-30 at 20:10 +0900, Kiwoong Kim wrote:
-> In MCQ mode, ufshcd_mcq_abort() falls through to ufshcd_try_to_abort_task=
-()
-> for all timed-out commands. However, device management commands (query, N=
-OP)
-> use reserved requests and are not SCSI I/O commands. The ABORT TASK task
-> management function is designed for SCSI I/O UPIUs and is not applicable =
-to
-> device management UPIUs.
+> Signed-off-by: laixiangwu <laixiangwu@cmss.chinamobile.com>
 
-This is true only since 08b12cda6c44 ("scsi: ufs: core: Switch to
-scsi_get_internal_cmd()"), v6.19. Before that, a timed-out query went throu=
-gh
-ufshcd_wait_for_dev_cmd() -> ufshcd_clear_cmd() and never reached
-ufshcd_try_to_abort_task(). you need to add fix tag for it.
+Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 
->=20
-> Fix this by checking ufshcd_is_scsi_cmd() in ufshcd_try_to_abort_task(). =
-When
-> the request is a reserved (device management) command, skip the TM path a=
-nd
-> call ufshcd_clear_cmd() directly instead.
-
-
-> Additionally, extend ufshcd_mcq_sq_cleanup() to poll the OCS field in the
-> UTRD of a device management command after a successful SQ_CUS poll. UFSHC=
-I
-> does not specify the order between the OCS update and the SQ_CUS update, =
-so
-> OCS may still be stale when cleanup returns. Without this poll, a late
-> response to a timed-out query can arrive while a retry is already in flig=
-ht,
-> leaving the host with two query contexts and raising IS.UTPES.
->=20
-> The poll is limited to device management commands because
-> ufshcd_compl_one_cqe() copies the OCS from the CQE into the UTRD only for
-> them. For SCSI commands, the OCS in the UTRD stays
-> OCS_INVALID_COMMAND_STATUS, so polling it would always time out.
->=20
-> The poll waits until OCS is no longer OCS_INVALID_COMMAND_STATUS or
-> MCQ_POLL_US elapses. -ETIMEDOUT is returned only if OCS is still
-> OCS_INVALID_COMMAND_STATUS after the poll. Any other value, such as
-> OCS_ABORTED reported by the host controller for the cleaned-up request,
-> means the cleanup has completed.
->=20
-> --
-
-I didn't understand why here there is "--", this shoudl be "---"?
-
-> Here is the timeline of an actual case for this that happened with kernel
-> 6.18.
-
-
-> 1. The host sent a query but the device didn't respond with it for a long
-> time.
->=20
-> [ 7384.156142] [4:=C2=A0 kworker/u40:5:10671] exynos-ufs 38300000.ufs:
-> ufshcd_mcq_sq_cleanup, hwq 0: cleanup return code (RTC) 0
-> [ 7384.156154] [4:=C2=A0 kworker/u40:5:10671] exynos-ufs 38300000.ufs:
-> ufshcd_query_flag: Sending flag query for idn 14 failed, err =3D -11
->=20
-> 2. So after the query was timed out, the driver did SQ cleanup.
-> Then the host updated CQ update and raised IS.CQES,
-> Unfortunately, complete() was called the driver's ISR afterward.
->=20
-> 3. The driver started to retried the query. In the meantime, it set OCS t=
-o
-> 0xF.
-> Then the driver didn't wait for completion due to the previous complete()
-> call,
-> and just checked OCS.
-
-
-this is another patch, and OCS poll patch needs a fixes tag too, for the MC=
-Q
-abort support.=20
-
-
->=20
-> [ 7384.156163] [4:=C2=A0 kworker/u40:5:10671] exynos-ufs 38300000.ufs:
-> ufshcd_query_flag: Sending flag query for idn 14 failed, err =3D 15
->=20
-> 5. The driver retried the query again, but the device didn't return anyth=
-ing,
-> so the query was also timed-out.
->=20
-> [ 7385.660108] [3:=C2=A0 kworker/u40:5:10671] exynos-ufs 38300000.ufs:
-> ufshcd_query_flag: Sending flag query for idn 14 failed, err =3D -11
->=20
-> 6. A few seconds later, the device returned the response of the 1st query=
-,
-> but since the host was holding two query contexts and couldn't handle it,
-> it raised IS.UTPES.
->=20
-> Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
->=20
->=20
-
-Kind regards,=20
-Bean
+-- 
+Thanks,
+Laurentiu
