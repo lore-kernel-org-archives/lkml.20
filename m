@@ -1,60 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793360831;
-	b=V33pXeb35kM39bGKr77+NqO3U3hbbRxeV0yIQ58XWt/aR31u4IDJ6Lch60KH6VgSnkEe
-	 p9AuKZbLxkjt2nsTm6NJEAL/mLBNWy/1t6yoUOkJeWVSLoJEHiX7pY2nalHQVPLcQ4uax
-	 OQSZGgqfILFdA5R8IPJjRpz/FFx9mf5j2C8V5vugvtar5Ph1CJW1/6kQtrw0tWFyWxJe4
-	 KB/5YDiaCcAZrwc2VRSIllCUKaPssFmx92P9cupZRWyxdIPzD6LjzzLfKBZPFaLV5CQzO
-	 xAnZp/PFA59WaGeAutuRW9/tlFbK4dk49CivnbETJFnS8prFc1tC52yT5fdMIMEUAKw==
+	t=1793360835;
+	b=pi8muJQQRh+QuMERonkdviVZZ8CFdW4viSlcjSGfpTcSLEnE7hdPNa2eK20M9abElIgn
+	 NQLiyyT3vZVrdBcfS7towPn9jQACQuJv76u+2ofilzEdD4PmJEM9L6Vhl+fRvzFw4KjT4
+	 P5GXNLg8HastfD9wW+JECeaVv9nRJxPLrkZhUVnAJijYMZSB9982p6PJlK6ABc0PUwvZG
+	 /AXCIwVUpZJKPi33Ca7C8eu1Dz8PoONxp8MkJ8rZtkuR0lAVUfrddjJ/w5WpmVWHVVVE2
+	 nnZhL+52/m52eVHPnuN0LocXQ116fSmgrWRo5ldIb1FqFEB+13VYCaFH21k0hn5QnCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793360831;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ZHnthCPj5A6KgOWJmAMgtWXYoYKIGFyJsExFrwrVca4=;
-	b=30rjNceowBQXxiq6p48vEZ1HDvOKebiu7Zon291M1nSyW9P1YQ1yom3V91hAXcySmlK1
-	 SD0UTQfJboKsIxPvruQ+F3olCGTKIvSLkTvH2t3M7pPGBVigs1dP6Susc65+hVhCGWQWH
-	 KxZgMTEkXX/quXbbk3DfPr+AbAdEMRmESsolF252dA8u5s8T9qlyuzJ5P/9nzSPzVgUcN
-	 MlaguCMJC3BqI2Rx7qUMfJqomIy9W63k7VV/o6psQ61KTT9LjCGZqpaT0CyvCyV6bHmlI
-	 UzoDsXUayn761xvyoWT69dv3ItvY9W3Egen4zrHcVH8sgc/eGAhuOwmsp0ujQmoZFPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793360835;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nbz/Vjri7OOyBPqFDAm2yR3HQ9KSPqNqIywAM0GHwt8=;
+	b=WMcdB5F8pNJ40qJxhV9WACtFIhcMlSCzTF1jlv0vQjOlvmuu6I4mVROA6ydYtOqpsLBS
+	 hCiOqm3IwDaV5nHfYB+7SDsVrOGPm1GopDky9S9T89RJqjxe935elsNc3EeP35DS6E+rz
+	 dtIXfIkt8dcUEfq1BlE4ZWfdOOmLM3pjXkjfv9HElR/zlrOVX6QJPgzBecJmiPR2XslkM
+	 Muvi8cWUC3fImiHP8GH1L3jMMZM88JHfSUXA37GP6otO8NBu5XltfNasj0A9rV1pMDsh4
+	 Ksb/4cLskKpSGZA9RQF2xBptMhrS1eUnQYvalsN7aHMRzlJcDnf0hnjA+7C9zrvL5vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2WTb1m5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=jclark.com;
+	spf=pass smtp.mailfrom=jclark.com;
+	dkim=pass header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=me6KKni+;
+	arc=none smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E88606A31C;
-	Fri, 30 Oct 2026 11:47:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEFA606A33A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:47:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDEFA606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2WTb1m5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7B81F0093A;
-	Fri, 30 Oct 2026 11:47:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793360830;
-	bh=ZHnthCPj5A6KgOWJmAMgtWXYoYKIGFyJsExFrwrVca4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=T2WTb1m5MkLrfB9+44eh/42hi2IX9gXdgu1uxKd3v6Lb1zaOMP0VTYVYUh9wSeSri
-	 9LzOLUTxzkt9JJwU5/UZRq4KcgcQXwn4ZYw0FkxcnY7p2/Dyn82ow6oHrYYuLtsVIo
-	 3AblVupXhu5/7LukPGMeiTNfRtwTVkCPQ5BUOrLnWqFO8T9jOB7ofQPUcpGOQCIiG5
-	 qdWIsHWl63LslyYg/lYIkfp5nn23zYXh448NRj1nxo+qeJQ6P4ZeVd2w2zhYxOTuWK
-	 JWpgFrZe8r97iImXmQ2vZb4eSieJMWoSKQJugyxaiEJzB0UENAFFGLVjV/+hg6jJ9e
-	 OU+CFMq9s5ESQ==
-Subject: Re: [PATCH 3/3] selftests: net: add ioam6 ECMP test (RFC 9486 C2)
-From: netdev-bot+sashiko@kernel.org
-To: hangbin.liu@linux.dev
-Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- justin.iurman@gmail.com, shuah@kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- liuhangbin@kylinos.cn
-Date: Fri, 30 Oct 2026 11:47:09 +0000
-Message-ID: <179336082983.3134.2219805582819533763@kernel.org>
-In-Reply-To: <20261028-ipv6_ioam_ecmp-v1-3-9b6715b6f4c0@kylinos.cn>
-References: <20261028-ipv6_ioam_ecmp-v1-3-9b6715b6f4c0@kylinos.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20260707.gappssmtp.com header.i=@jclark-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=me6KKni+
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e9d1114320so4647955ad.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:47:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=jclark-com.20260707.gappssmtp.com; s=20260707; t=1793360833; x=1793965633; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nbz/Vjri7OOyBPqFDAm2yR3HQ9KSPqNqIywAM0GHwt8=;
+        b=me6KKni+y5jQl0eqMOFJYUaWQNTL3kewbOTUsbbEjTCdl5uMB1oDszxhD86U2hYlSK
+         z2avVrm6AuD8o3CqmMkj+k1MbFK6t+uwQPJoIpPE9zyi7ZU/vTIoqJoP1PtT2VFOx/VP
+         dzG6l8AMKADqVDy3P/whtrlFdLss7qbPXIdYiuzEKG4CNTx33YhUmEdOmL+ICFiy4ato
+         Jk1CFrzN9awcUfuezxTU8PTBejtkL7v5r39xmF23Ran7SDUZjKe8BCcW3PQVZUKwxazd
+         +4C3ocx+lRSAvAzyxcCBCkS9lWFg8mKwyWMwLnMTV7015P17KI83v8jXFEZ81w6MC/C4
+         Kgqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793360833; x=1793965633;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nbz/Vjri7OOyBPqFDAm2yR3HQ9KSPqNqIywAM0GHwt8=;
+        b=RceGunn2zSAqjV93SLfR6NFauio0t/39szU9bNjrhAVs6vkz9yGAZLgr5sNq5CtG9s
+         7JfwlX4OK7C/vjriHnyKL5u2nnJ3oisnPjY39t8jiVHpd3XUluxbKp046hHcgpSfRpn/
+         vlwgWrEVPhLckDInKh71vfw9bQYTusFNCcEpvzz3Z5BVbIw6KUttUO2G86IkBTIpOYMg
+         Y36lAgTDFikbRjwLwHZOhaRuYSPzgV9DR3U+FG6okJpeKSytww2zsx/QnUcOJVjrT/F8
+         9gEGO7TNMICodsDoXHK8451piJ4g59mS/CeDb0kL0quEofGmmgn9uuR1XdoyfBSqNyR0
+         1OmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxLAu9e6TkC97rcXwDGsl3b8PN97l3NCWdw5YAOcxh7lJ/RHJG5mQpjA2j6x1citOfW2zAh6IZGfZZ7cqY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmO8QHLSSpmKEdui696KxImJQeQaF9dxF8jAHKRdXVza9FlIVz
+	1TgiPQrDwYlSBl28rThP966frUiUV59JvYldeWq3cF1xsQsmmiNWnyte3kSmE9EOHg==
+X-Gm-Gg: AYBFou3Z9eHdDcYdzjaSkLQxKpf1dnRJnC4by3kkyYsNy43MMl0SFdKjx1/5/lkSt6d
+	lmHpgrVeqLVzUYChLOOMoFPF8RJ93KN55NhDXKv4sCdzXM9PPZOLZhduqWMrl8NRr33ceZPIxAx
+	htWlwyPwK0/0fqscW0hAhOkbMmBET1f0/IGnc83cIM/LEuI3wEE8hVQ314txcBsGA2OZxfyREP5
+	NkB6CxWHZAaJxoZaNG96cG1sC0e+qiewaM54KsLI+EuyGh4E/gsjkjPedCPxQ5gy7fqdNowYfWT
+	Y017nMW5fSrAaWZ4p6Rcu3infIqOK3sM2vdJEDd2gcvL7fhBA0nFPQnmInJsmasGkIz2YwciHhs
+	XjKH7XipbNCvKkrqss9IJGBsWr9eR0ltg4tb3aMxzEIvUXimlB24Yff/lY8mLc3/FgbfpwgHTHK
+	GFh8kObnSkAOSU650mBUK27BXMoHQ1ivN3M+qQan1ra2W3ID1YJ+XzAZ80yaczQmZgG25TjA3Bt
+	xhcXjoKVvIoMdtDOzAinYDaZ2WXz7d5Z7WetbxSPtHdgHyCbpziIUGf5h1WSjaB/8HN+amtccwH
+	Ou5tA+KXXf2KQyvskq6k/zQCLZIZ0FfLQz8LjCi7/TfU8ShxpT0amIJGkRBZugeip4Mdcg184ZX
+	BJD8cDs6jvRAwm8wz
+X-Received: by 2002:a17:903:124a:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2eb36495fe9mr21504985ad.14.1793360832911;
+        Fri, 30 Oct 2026 04:47:12 -0700 (PDT)
+Received: from cantal.lan ([58.136.77.93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392ba7d3sm6025725ad.75.2026.10.30.04.47.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 04:47:11 -0700 (PDT)
+From: James Clark <jjc@jclark.com>
+To: Matthias Kaehlcke <mka@chromium.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Douglas Anderson <dianders@chromium.org>,
+	Ravi Chandra Sadineni <ravisadineni@chromium.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	linux-gpio@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: [PATCH] usb: misc: onboard_usb_dev: don't defer the USB device probe
+Date: Fri, 30 Oct 2026 18:47:05 +0700
+Message-ID: <20261030114705.3159093-1-jjc@jclark.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,257 +102,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
+On a BeagleY-AI with BeagleBoard's device tree, kernels since commit
+f918e3804498 ("arm64: enable HAVE_SHARED_GPIOS for all ARM64 platforms")
+no longer boot to a usable system. The log repeats "hub 1-1:1.0: USB hub
+found" for the on-board TUSB8041 hub every few milliseconds, with no USB
+disconnect in between. The flood of uevents stalls udev and the boot ends
+in emergency mode. Reverting that commit makes the board boot normally
+again.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 5
+The underlying problem is in onboard_usb_dev. Both peer hub nodes in this
+device tree carry the same reset-gpios, so the GPIO is now a shared one,
+and with CONFIG_GPIO_SHARED_PROXY=m (the default) the hub's platform
+probe is legitimately deferred until udev has loaded that module. The
+bootloader leaves the hub running, so the USB core enumerates it long
+before, and the USB device probe finds the platform device without
+driver data.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+At that point, onboard_dev_usbdev_probe() returns -EPROBE_DEFER. This is
+what causes the problem. The driver has generic_subclass set, so
+usb_probe_device() has already run the generic probe, which configured
+the device and bound the interface drivers. Each binding is a
+deferred-probe trigger, and the driver core re-triggers when a trigger
+happened during a probe that then deferred. So the device is re-probed
+straight away, reconfigured, its interfaces bound again, and so on for
+as long as the platform device remains unbound. This is not specific to
+shared GPIOs: it happens whenever the platform probe is deferred, and
+briefly whenever onboard_usb_dev is a module.
 
-- [Medium] The compatibility probe in MAIN (lines 308-315) only checks
-  that an inline-mode IOAM trace can be attached (`encap ioam6 mode…
-- [Medium] In MAIN, `setup_topology || { log_test_skip "Setup failed.";
-  exit ...; }` (line 305) runs before `trap cleanup EXIT` (line 306).
-- [Low] The commit message and the ioam6_ecmp.sh header comment describe
-  scenario 2 differently from what the script does.
-- [Low] ioam6_ecmp.sh skips the whole test when
-  /proc/sys/net/ipv4/fib_multipath_hash_seed is missing (lines 300-303).
-- [Low] The comment in set_beta_tnl() (lines 139-143) says "ip6_tnl
-  caches the outer dst per CPU for a few seconds".
-- [Low] setup_topology() does not check the return value of the multipath
-  route install, which is the core of the test (`ip -netns $ns_beta -6…
-- [Low] setup_tunnel() (lines 274-287) decides whether the test loaded
-  ip6_tunnel only from `lsmod | grep -q ip6_tunnel`.
+Bind to the USB device anyway, with NULL drvdata. When the platform
+probe finishes, it already schedules attach_usb_driver_work to
+re-attach the USB driver; extend it to also walk the USB devices and
+attach the ones that are bound to this driver but have no drvdata. This
+ensures the USB device always has a driver.
 
---
+It doesn't work to return -ENXIO: the driver core takes this as the
+driver declining the device, but the device is then left without a
+driver, and a device without a driver can't be resumed once it has
+autosuspended, which a hub with empty ports does right away. Nor does
+it work to return -ENODEV: the USB core then binds the generic driver,
+and driver_attach() doesn't rebind a device that already has one.
 
-selftests: net: add ioam6 ECMP test (RFC 9486 C2)
+With this change the BeagleY-AI boots normally with that commit in
+place.
 
-This adds ioam6_ecmp.sh. The test checks that, with hash policy 0, the
-ECMP nexthop chosen for a packet carrying IOAM options is the same as
-for the packet without them. It covers a transit node forwarding
-inline-inserted IOAM Hop-by-Hop packets, and an encapsulating node
-doing the ioam6 encap re-lookup with a plain ip6ip6 tunnel as the
-baseline.
+Fixes: 8bc063641ceb ("usb: misc: Add onboard_usb_hub driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: James Clark <jjc@jclark.com>
+---
+I found this by booting commit 85b4bc79dde7 (net/main during the 7.4
+merge window) on a BeagleY-AI with BeagleBoard's device tree. A coding
+agent identified the problem, explained it to me and proposed an initial
+fix, which was revised multiple times on the basis of local Sashiko
+reviews. I verified that the patch fixed the problem on top of commit
+d89e1d186ec9.
 
-> diff --git a/tools/testing/selftests/net/ioam6_ecmp.sh b/tools/testing/selftests/net/ioam6_ecmp.sh
-> new file mode 100755
-> index 0000000000000..c5c82884c7579
-> --- /dev/null
-> +++ b/tools/testing/selftests/net/ioam6_ecmp.sh
-> @@ -0,0 +1,349 @@
-> +#!/bin/bash
-> +# SPDX-License-Identifier: GPL-2.0+
+On this board the platform probe asserts the hub's reset line, so the
+hubs re-enumerate and are probed with the platform device already
+bound. The path where attach_usb_driver_work adopts a USB device that
+was bound with NULL drvdata has therefore not been exercised. It needs a
+board whose platform probe does not reset the hub.
 
-[ ... ]
+#regzbot introduced: f918e3804498
 
-> +# 2) encapsulating node: beta itself encapsulates (ioam6 encap mode,
-> +#    tunnel dst = original dst, tunnel src pinned) over a multipath
-> +#    route. The ioam6 re-lookup hashed NEXTHDR_HOP instead of the
-> +#    transformed packet's real nexthdr (IPPROTO_IPV6). The baseline is
-> +#    the same encapsulation without the IOAM option: a plain ip6ip6
-> +#    tunnel over the same multipath route, with the same outer
-> +#    addresses.
+ drivers/usb/misc/onboard_usb_dev.c | 76 ++++++++++++++++++++++++++----
+ 1 file changed, 67 insertions(+), 9 deletions(-)
 
-[Severity: Low]
-Is "tunnel dst = original dst" accurate here? The commit message says
-the same thing:
-
-  - encapsulating node re-lookup: the forwarder itself encapsulates
-    (ioam6 encap mode, tunnel dst equal to the original dst) over a
-    multipath route, with a plain ip6ip6 tunnel as the
-    identical-packet-without-IOAM baseline.
-
-The script sends to 2001:db8:3::2, but set_beta_ioam_encap() installs
-this route:
-
-  2001:db8:3::2/128 encap ioam6 mode encap ... tundst 2001:db8:2:1::2
-
-So the tunnel dst is not the original dst. The topology comment further
-down describes this correctly.
-
-If the tunnel dst really were the original dst, the re-lookup would
-resolve back to the same ioam6 route:
-
-net/ipv6/ioam6_iptunnel.c:ioam6_output() {
-    ...
-		if (orig_dst->lwtstate == dst->lwtstate)
-			dst_cache_set_ip6(&ilwt->cache,
-					  &ilwt->null_rt.dst, &fl6.saddr);
-    ...
-}
-
-In that case orig_output would be used and the multipath route would
-never be consulted.
-
-The ip6ip6 baseline is also not an identical packet on the wire.
-ip6_tnl_xmit() pushes an encap-limit Destination Options header when
-encap_limit >= 0, and it sets the flow label with ip6_make_flowlabel()
-after the route lookup. Only the hash inputs at beta's lookup match.
-
-Could the commit message and this header comment be updated to match
-what the test actually does?
-
-[ ... ]
-
-> +set_beta_tnl()
-> +{
-> +	# Recreate the tunnel: ip6_tnl caches the outer dst per CPU for a
-> +	# few seconds, and neither the route change below nor the
-> +	# fib_multipath_hash_seed write resets it. A stale cache would
-> +	# resolve the outer sibling under a previous seed (or on another
-> +	# CPU), making the baseline flip between attempts of one seed.
-
-[Severity: Low]
-This isn't a bug, but is "for a few seconds" accurate? ip6_tnl_xmit()
-reads the cache with dst_cache_get(&t->dst_cache), and
-dst_cache_per_cpu_get() only drops an entry in two cases:
-
-net/core/dst_cache.c:dst_cache_per_cpu_get() {
-    ...
-	if (unlikely(!time_after(idst->refresh_ts,
-				 READ_ONCE(dst_cache->reset_ts)) ||
-		     (READ_ONCE(dst->obsolete) && !dst->ops->check(dst, idst->cookie)))) {
-    ...
-}
-
-That means an explicit dst_cache_reset(), or an obsolete dst that fails
-->check(). There is no time-based expiry, so a cached outer dst can
-stay indefinitely.
-
-Recreating the tunnel for every seed is still the right workaround. The
-comment, though, could lead someone to replace the recreation with a
-sleep.
-
-[ ... ]
-
-> +set_beta_ioam_encap()
-> +{
-> +	ip -netns "$ns_beta" -6 route replace 2001:db8:3::2/128 \
-> +		encap ioam6 mode encap tunsrc 2001:db8:2:1::1 tundst 2001:db8:2:1::2 \
-> +		trace prealloc type 0x800000 ns 0 size 12 dev veth1
-> +}
-
-[Severity: Medium]
-What happens on a kernel or iproute2 that supports ioam6 inline and
-encap modes but not the tunsrc attribute? The compat check in MAIN
-only probes inline mode, so it passes, and setup_tunnel() succeeds.
-
-This route install would then fail on every seed, and run_scenario()
-takes this path:
-
-		if ! $ioam; then
-			RET=$ksft_fail
-			log_test "$desc (ioam route setup failed, seed $seed)"
-
-The result is 12 hard FAILs instead of a SKIP. ioam6.sh already treats
-tunsrc as a feature under test.
-
-Is the tunsrc pin needed at all? Without it, ioam6_do_encap() calls
-ipv6_dev_get_saddr() on the original dst device (veth1), which should
-pick 2001:db8:2:1::1 anyway.
-
-[ ... ]
-
-> +	# The ECMP route under test (scenario 1 hashes its selection at
-> +	# beta's input; scenario 2 at the encapsulating re-lookup).
-> +	ip -netns "$ns_beta" -6 route add 2001:db8:2:1::2/128 \
-> +		nexthop via 2001:db8:2:1::2 dev veth1 \
-> +		nexthop via 2001:db8:2:2::2 dev veth2
-
-[Severity: Low]
-Should this route add check its return value? If it fails, beta still
-has the connected 2001:db8:2:1::/64 prefix on veth1, so all traffic to
-2001:db8:2:1::2 leaves through veth1 and arrives on gamma's veth0.
-
-measure_link() would then return "A" for both variants on every seed.
-run_scenario() would report PASS even though no ECMP route exists.
-
-Adding "|| return 1" here would catch this.
-
-[ ... ]
-
-> +setup_tunnel()
-> +{
-> +	if ! lsmod 2>/dev/null | grep -q "ip6_tunnel"; then
-> +		modprobe ip6_tunnel &>/dev/null
-> +		lsmod 2>/dev/null | grep -q "ip6_tunnel" || \
-> +			ip a 2>/dev/null | grep -q "ip6tnl0" || return 1
-> +		ip6tnl_loaded=1
-> +	fi
-
-[Severity: Low]
-Can this unload an ip6_tunnel module the test did not load? Consider
-lsmod being unavailable or failing while modprobe works, with
-ip6_tunnel already loaded:
-
-  - the first grep fails;
-  - modprobe ip6_tunnel succeeds as a no-op;
-  - grep ip6tnl0 matches the existing fallback device in the init
-    netns;
-  - ip6tnl_loaded=1 is set.
-
-cleanup() then runs:
-
-		modprobe -r ip6_tunnel &>/dev/null
-
-This removes the module if nothing else is using it.
-
-When ip6_tunnel is built in, lsmod does not list it either, so
-ip6tnl_loaded=1 is set in that case too. The later modprobe -r then
-fails harmlessly. ioam6.sh uses the same heuristic.
-
-[ ... ]
-
-> +if [ ! -e /proc/sys/net/ipv4/fib_multipath_hash_seed ]; then
-> +	log_test_skip "Kernel without CONFIG_IP_ROUTE_MULTIPATH."
-> +	exit "${EXIT_STATUS}"
-> +fi
-
-[Severity: Low]
-Should tools/testing/selftests/net/config be updated for this test?
-fib_multipath_hash_seed only exists with CONFIG_IP_ROUTE_MULTIPATH.
-That option depends on CONFIG_IP_ADVANCED_ROUTER, neither has a
-default, and neither is in the net selftests config fragment.
-
-On a kernel built from a minimal base plus that fragment, this test
-would always SKIP.
-
-CONFIG_IPV6_TUNNEL, which scenario 2 needs, is not listed explicitly
-either. It only gets enabled because CONFIG_IPV6_GRE=m selects it.
-
-> +
-> +setup_topology || { log_test_skip "Setup failed."; exit "${EXIT_STATUS}"; }
-> +trap cleanup EXIT
-
-[Severity: Medium]
-Can this leak ns_alpha, ns_beta and ns_gamma? setup_ns has already
-created them by the time setup_topology() returns failure. The trap is
-installed only after this exit, so cleanup_all_ns never runs and the
-namespaces and any veths stay on the host.
-
-setup_topology() can fail after setup_ns through the veth "|| return 1"
-paths. Its exit status is also that of its last command:
-
-	tc -n "$ns_alpha" filter add dev veth0 ingress pref 1 \
-                protocol ipv6 flower skip_hw ip_proto icmpv6 type 1 action drop
-
-That command fails on a kernel without cls_flower or act_gact.
-setup_ns only cleans up when ip netns add itself fails, and lib.sh
-does not install an EXIT trap.
-
-As a side effect, a missing flower is reported as "Setup failed.", and
-the later "Cannot install tc flower measurement filters" skip is never
-reached for that cause.
-
-Would installing the trap before calling setup_topology() fix this?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028-ipv6_ioam_ecmp-v1-0-9b6715b6f4c0%40kylinos.cn
+diff --git a/drivers/usb/misc/onboard_usb_dev.c b/drivers/usb/misc/onboard_usb_dev.c
+index c60406240416..aac4e29c8233 100644
+--- a/drivers/usb/misc/onboard_usb_dev.c
++++ b/drivers/usb/misc/onboard_usb_dev.c
+@@ -43,6 +43,7 @@
+ #define USB5744_CREG_BYPASS_UDC_SUSPEND		BIT(3)
+ 
+ static void onboard_dev_attach_usb_driver(struct work_struct *work);
++static struct onboard_dev *_find_onboard_dev(struct device *dev);
+ 
+ static struct usb_device_driver onboard_dev_usbdev_driver;
+ static DECLARE_WORK(attach_usb_driver_work, onboard_dev_attach_usb_driver);
+@@ -301,6 +302,47 @@ static const struct attribute_group onboard_dev_group = {
+ __ATTRIBUTE_GROUPS(onboard_dev);
+ 
+ 
++/*
++ * Attach a USB device that was bound by onboard_dev_usbdev_probe() while its
++ * platform device was still unbound. The device lock serialises this with
++ * the probe and with an unbind. This walks the USB bus, not the driver's
++ * device list: unbinding a device holds its lock while it waits for all
++ * references to its node on the driver's list to be dropped, so an iterator
++ * over that list that takes the device lock would deadlock with it.
++ */
++static int onboard_dev_attach_usbdev(struct usb_device *udev, void *data)
++{
++	struct device *dev = &udev->dev;
++	struct onboard_dev *onboard_dev;
++	int err;
++
++	/* Unlocked pre-check, so as not to wait for every USB device's lock. */
++	if (READ_ONCE(dev->driver) != &onboard_dev_usbdev_driver.driver)
++		return 0;
++
++	device_lock(dev);
++
++	if (dev->driver != &onboard_dev_usbdev_driver.driver ||
++	    dev_get_drvdata(dev))
++		goto out;
++
++	onboard_dev = _find_onboard_dev(dev);
++	if (IS_ERR_OR_NULL(onboard_dev))
++		goto out;
++
++	err = onboard_dev_add_usbdev(onboard_dev, udev);
++	if (err)
++		dev_err(dev, "failed to attach to %s: %pe\n",
++			dev_name(onboard_dev->dev), ERR_PTR(err));
++	else
++		dev_set_drvdata(dev, onboard_dev);
++
++out:
++	device_unlock(dev);
++
++	return 0;
++}
++
+ static void onboard_dev_attach_usb_driver(struct work_struct *work)
+ {
+ 	int err;
+@@ -308,6 +350,8 @@ static void onboard_dev_attach_usb_driver(struct work_struct *work)
+ 	err = driver_attach(&onboard_dev_usbdev_driver.driver);
+ 	if (err)
+ 		pr_err("Failed to attach USB driver: %pe\n", ERR_PTR(err));
++
++	usb_for_each_dev(NULL, onboard_dev_attach_usbdev);
+ }
+ 
+ #if IS_ENABLED(CONFIG_USB_ONBOARD_DEV_USB5744)
+@@ -497,7 +541,10 @@ static int onboard_dev_probe(struct platform_device *pdev)
+ 	/*
+ 	 * The USB driver might have been detached from the USB devices by
+ 	 * onboard_dev_remove() (e.g. through an 'unbind' by userspace),
+-	 * make sure to re-attach it if needed.
++	 * make sure to re-attach it if needed. The work also attaches USB
++	 * devices that were probed while this platform device was still
++	 * unbound (e.g. because this probe was deferred), see
++	 * onboard_dev_usbdev_probe().
+ 	 *
+ 	 * This needs to be done deferred to avoid self-deadlocks on systems
+ 	 * with nested onboard hubs.
+@@ -606,14 +653,9 @@ static struct onboard_dev *_find_onboard_dev(struct device *dev)
+ 
+ 	/*
+ 	 * The presence of drvdata indicates that the platform driver finished
+-	 * probing. This handles the case where (conceivably) we could be
+-	 * running at the exact same time as the platform driver's probe. If
+-	 * we detect the race we request probe deferral and we'll come back and
+-	 * try again.
++	 * probing. Without it the USB device can't be attached to the platform
++	 * device yet; return NULL and let the caller decide what to do.
+ 	 */
+-	if (!onboard_dev)
+-		return ERR_PTR(-EPROBE_DEFER);
+-
+ 	return onboard_dev;
+ }
+ 
+@@ -635,6 +677,21 @@ static int onboard_dev_usbdev_probe(struct usb_device *udev)
+ 
+ 	dev_set_drvdata(dev, onboard_dev);
+ 
++	/*
++	 * The platform device may not be bound yet (e.g. because its probe
++	 * was deferred). Bind to the USB device anyway, with NULL drvdata,
++	 * and let the platform driver attach it once it has probed (see
++	 * attach_usb_driver_work). Requesting probe deferral here wouldn't
++	 * work: the generic probe has already bound the interface drivers,
++	 * which triggers deferred probing, so the device would be re-probed
++	 * in a loop until the platform device is bound. Returning -ENXIO
++	 * doesn't work either: the device is then left without a driver and
++	 * can't be resumed once it has autosuspended. Returning -ENODEV
++	 * hands it to the generic driver for good.
++	 */
++	if (!onboard_dev)
++		return 0;
++
+ 	err = onboard_dev_add_usbdev(onboard_dev, udev);
+ 	if (err)
+ 		return err;
+@@ -646,7 +703,8 @@ static void onboard_dev_usbdev_disconnect(struct usb_device *udev)
+ {
+ 	struct onboard_dev *onboard_dev = dev_get_drvdata(&udev->dev);
+ 
+-	onboard_dev_remove_usbdev(onboard_dev, udev);
++	if (onboard_dev)
++		onboard_dev_remove_usbdev(onboard_dev, udev);
+ }
+ 
+ static const struct usb_device_id onboard_dev_id_table[] = {
