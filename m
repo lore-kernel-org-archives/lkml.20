@@ -1,88 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793360627;
-	b=VeCw6kwRMdBGmTb+tLQ5I5Vq3IWFtH3S2klJ2uD2UuVaVvq4s8pimbg5qu034qE8qfaN
-	 rugwGsgaj1pDNVDo2tpZUYIcl2OocFoqDq0D5xQ4jww+RgvECny8kg4zhCFUgS6I/ifRk
-	 +89wRf5zD4j0S4lKft6lVHlBgxxBAbrYhzJmU8Ny917n4Zud0gvy82IKlBZr2hRLVbOVH
-	 DxBEcp+4fD7pcXHm0oTQceDlirBWOtfMA8rWvn/OWqQHz+BA8Jzi9GzdZvAVsVRwRu6tE
-	 oC+4xEUujgmJz2u9XZaSbNV6O08ikyuYky/vTb7XgfkGXHyxMr2x3gNv7vln3WsuHUA==
+	t=1793360667;
+	b=I7axdJUFwW+mnKox5atSEdqWfp+Q832Dx/qb2n+ncV3nfmXGff6H8d3+DJkR1iYg/CZE
+	 XYdjfRWEoAqfKsjxx8llXA9EW7y+naaczNFtz8s3ByCmTFqRtSZF+6nwxXLW67tpBnzqW
+	 njnJ65YHIJyOEsOVfw/v+hx4arUMhRGNWAxl6/z79YKb5XNwpKRjQnkyWK0YYFFkegVdc
+	 UCYnHxIDQkT3Mlf7dphvdLfpCJp5VJlvLLvRDHQbKks/fuIGD2ZyFzwSwCTB681YL586p
+	 xfoWzlxsL6BJmv9+NL4ZzSGy/wqpeLTAaCjGINPUqCh9Rx6Uqbov5rEl0WjYkEUCKjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793360627;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=28PCckgDhGD/ZLp9OHCQjH3mpXja8gxz92m6X/6oBYs=;
-	b=sVCKe3iRiv0/QgyYpV4BeuVfGh3BCVL3SpIysXTZnqFWeLtExRHk1EsDFF6ld9TxK4UQ
-	 mO7Vij8e18FGDEPyE+FbBbYTSKbS7yX08+YOgFND9018vQuTvYuQYAdU0b02TI96IsiDO
-	 jq5oWpQcUAEoOLJ9YInmGTeqAqilDN7zGPieCFQN15cIf8RGNwreAhVLw0XYMEcTpYigJ
-	 poTtY233KWzX+FEEQ8RMuetdwUbwFHKdzQG2LMQT333SmkNvYWeYullSHU8yMZrmeG1EY
-	 kNZ9GAz30gwXxmg6qABAN8x/zUrv+u+1hZ2WJqqR2acb7D6dH5DqhDNMX38JG3i52SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793360667;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Patchwork-Hint:Organization;
+	bh=K2dB0Ql9grwDChzbfX2B4Ey5mwC/vTUQxp839fTyFno=;
+	b=PuYaln8jxHgCpzWSbNSkwISbvGJLde9H+Q8gbl2XMBxZDq5BdMQ0STge/1zeuW0MjtZu
+	 N02/vcl5J1geu/GEjyS7rPhWs22CMo6tlVBQ2Y0NO42IxyHfnl6524M7lqQnT4Z+MEEVE
+	 GKw7xbq7r69wIfi/hJxQ4QoNlDULgpDk+yUtfRlgnLrynbGIqedQtQEFum2bk/k5VFLPU
+	 4BH10bzEw0+FdrvGimauOsmc0Sc4TlL0FPe1hnPJaLkqJ00VyOtSozSTsHMm0ZNnKNdxC
+	 kWXfbmeZJZUiqW24OBsyHv3POeDL/yAwBvE3yWj28lcnrBC+9hZZm93tHdIVmXz12OQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BrRcfepc;
-	arc=none smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=V8AdulUL;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A17606A31C
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:43:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79A17606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F73606A31A
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 11:44:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7F73606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=BrRcfepc
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b45f9ec1ceso627590a12.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:43:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793360626; x=1793965426; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=28PCckgDhGD/ZLp9OHCQjH3mpXja8gxz92m6X/6oBYs=;
-        b=BrRcfepciz2w83GNcZbxHrJ2h/DD4uYz5bujei/G8If+M64RnJr1m0opOigiTXRwux
-         uIOzF8dGYeRVyprDCL2z9h0k2rneEVLWdfSOt3Ll4OAYv+WT8MYxtaotoBh0WJN5UHiq
-         EarDp7MVeY16oksd9RM+KmcY+xOzl8Q5EyWt+J3kDdKsgm68J6op3DfoTw8XZCaaOeSk
-         f50avOJeBH2NkLcAwZwDkuoDe79qQ0ObNb18JeaBm0hFzP8ZdnXOVmYyDsyABusdi3IZ
-         qwet0ZXiocIjYi1KjQajjr874HEA1mT3ijQakyjUPHzlOtSRKNN/3yuyuRTwfpOY5Ilw
-         Vmdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793360626; x=1793965426;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=28PCckgDhGD/ZLp9OHCQjH3mpXja8gxz92m6X/6oBYs=;
-        b=mKvAr73OMP627Jmpj0nSvGszJtK5+1Li1XyK/EfrwRCLG2zUxv+tCRT0BkYMNUTB5E
-         oYLSpyV39/MoADTJsWq/cI9DvXEozFNlbcXFl49yHAXnOScJ10sjudqRI568TkYNlNSU
-         CcHtPfzPBHkgG4ydFq/J5avEI/AgDW+rEbdm8TdTnkTWc/gWQEpUtKdRXXuC2ovcjoyL
-         tavD/iuRsQNCw31uTb52z8h5GQRKTu3bTJ4yKsBJtWkb5skXPJBoIDA2DMBubn67kOGH
-         IK0GKtwZLwkzO9D94UZwFVHwtBSZDEfx0J2JH7KV/cIJAwlNMI6ZaXhkwcYL8BIQvp+3
-         tTlg==
-X-Forwarded-Encrypted: i=1; AKwUvBxCwbbK+WyHCCu8DHkQzET6Ko/ibeJNP9AS9bigwoY2EVFzmrN+F9qDyzQoIhbzOlvgHFnKnbWR81ThsIE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJ3dwsfwOQkMCMVjixfK5A19QzLifTYch95dmRsnYiu4OC1IpX
-	XIpDr6nHzYqyKnP9p8jSHsF0Ms6E5w9TVIqhroO4HrGZCkZf6msmaTy6qJDxvsbrojk=
-X-Gm-Gg: AYBFou3o5s+DhZN62ZVRyiNqF86ufV13CG586x+jvymnB0gii1VMpyJlX9w6kYsEJXL
-	gUNBceCUDxSgbuRCUkFShWxIrMQjtQOLPpqrEMa8QBzUfNPgFjHHc0/yNMKXpKaXZ2K/OiUUdHm
-	rRnqT0p4VZudI5arru0M9UrrxYeuwyvbN3AQe9zqMOJj5OF/D7baYgN84gZtFDVCNigIRZRytrT
-	AWBCXLIEGNS1ajFMvPhEPDSQnvCQcXHdCUm79veW1AEwxK9VxozA8/LXS+vuncPeWRPvgAnZAk0
-	D4T37JRsNLjnBY/qAOiXw92CHNEoB5mjsuywtM0XeSsvWL6rlGOL0KT6JB7NyBRyWS+opBszDS2
-	t2dokwOHp+6/BpfS91yO8EpZ6hwmeqREGpanCeRMJLYjwWip2XSgcHci8iotO+7OkSPx3k1atWH
-	vVPPs81gJOC72B4KtS41kL73vbArWhAfY/3/XQ5php4acZid9JCwJfqUaKPMMpIGsOAKLA1D/m0
-	UQUezQ+NmOKeggW6D34+1XLklkcdgQuH0tcRooZs+pjSSJ2aC5PoZy35uUhC5csb7jTeaWnxBoP
-	N59orNgQbD9bFasXbheW6+tm+8PnE5FgeeZez3u3KWS+QWpChz7TNyqtIKruxZLucNzBpWyTjAY
-	k1FV13CgiUuJYfqfADHlL
-X-Received: by 2002:a17:906:9f84:b0:c41:b94c:4538 with SMTP id a640c23a62f3a-c4ca7af1b6cmr189766166b.47.1793360625856;
-        Fri, 30 Oct 2026 04:43:45 -0700 (PDT)
-Received: from puffmais2.c.googlers.com (180.192.141.34.bc.googleusercontent.com. [34.141.192.180])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe1003fsm57506466b.44.2026.10.30.04.43.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 04:43:45 -0700 (PDT)
-From: =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-Date: Fri, 30 Oct 2026 11:43:33 +0000
-Subject: [PATCH 6.6.y 6.1.y] kbuild: link-vmlinux.sh: improve detection of
- third pass requirement
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=V8AdulUL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793360666; x=1824896666;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=x8TvwLzSHqdTbx1HgAAtb/ADR1txxIEQrI2u8aFySlM=;
+  b=V8AdulULeadkCDgAHNtu3wjNvFFSw5cbzBlqXKR7BAtt3hWn7lxLK8F3
+   Abj7PKD3owkzgxcH+wmq2dGzKns7dKs+77HxZ7kXqkM+lllzh13nsH1aQ
+   tc6dYWtX4qXxUozfyL7N8aybUzdTGRAdTOiQxlsfbgewL4cFbNx9Tu6Yr
+   US69J4oc7EAZe0wtZ1hbXvSnsg4v9V9GM3oBvbQv1pAu6agDkuK9yKYZC
+   eaxowXykcNS9ddQwOUTgPOPhMvneWfLYiTgbqSIfErYnlbxdmspizNt0Q
+   kT6GNR6wiDWtO/WwO1OhUjGorg3zWCuAvV1hMLphZjaN7SU6G/5G12mIe
+   A==;
+X-CSE-ConnectionGUID: iz4kIBXjSd2HG2olo9Ee1A==
+X-CSE-MsgGUID: BiR25mb1QCWQukvTwomJ2w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="2153569"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2153569"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 04:44:25 -0700
+X-CSE-ConnectionGUID: dUGh3GZZSfWnVLY/c5JscA==
+X-CSE-MsgGUID: GtI3xy5jTpm+UPu/72vcvg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5755803"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.244.58])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 04:44:20 -0700
+Date: Fri, 30 Oct 2026 13:44:16 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Harry Wentland <harry.wentland@amd.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+	Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+	nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] drm/dp: Always use enhanced framing for DPCD r1.2+
+Message-ID: <auSDEOoWZWcgbvzZ@intel.com>
+References: <20261029101826.72773-1-dmitrymalovanyy@gmail.com>
+ <20261029101826.72773-2-dmitrymalovanyy@gmail.com>
+ <auR8R7G5S8hv5R0e@intel.com>
+ <59106a36510e33e851f76c877f41952b11a8c774@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,122 +98,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261030-linux-kallsyms-fix-6-6-v1-1-91a57d3197cd@linaro.org>
-X-B4-Tracking: v=1; b=H4sIAOSC5GoC/x2MwQ7CMAxDf2XKmVTtpuXAryAOa5tBRCmoEWjTt
- H9fQL742bI3UG7CCudug8ZfUXlVg3DqIN2nemOUbAy97yn4wWOR+lnwMZWi61NxlgXJlOI4x5x
- HohTBxu/GVv2PL0CO3PpLyQUz130/AEyI3AB4AAAA
-X-Change-ID: 20261030-linux-kallsyms-fix-6-6-cb5fbdd566cb
-To: stable@vger.kernel.org
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- kernel-team@android.com, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
-X-Mailer: b4 0.14.3
+In-Reply-To: <59106a36510e33e851f76c877f41952b11a8c774@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 
-commit 14b8b4bf2d7bd5d58c17adbeed0edfda1dfc1a7f upstream.
+On Fri, Oct 30, 2026 at 01:36:31PM +0200, Jani Nikula wrote:
+> On Fri, 30 Oct 2026, Ville Syrj‰l‰ <ville.syrjala@linux.intel.com> wrote:
+> > On Thu, Oct 29, 2026 at 11:18:22AM +0100, Dmytro Malovanyi wrote:
+> >> DP 1.2 section 2.2.1.1 says "An upstream device interoperating with a
+> >> downstream device with DPCD Revision of 1.2 or higher must enable
+> >> Enhanced Framing Mode". So for r1.2+ the DPCD revision is enough, the
+> >> DP_ENHANCED_FRAME_CAP bit does not need to be checked.
+> >> 
+> >> Some sinks get this bit wrong. The Xiaomi Monitor A24i (P24FBA-RAGL)
+> >> sets it in the base receiver caps, but clears it in the extended
+> >> receiver caps at 0x2200, which are the ones we use:
+> >> 
+> >>   base:     12 0a c4 01 01 00 01 80 02 00 06 00 00 00 81
+> >>   extended: 14 0a 44 00 01 00 01 80 02 02 06 00 00 00 81
+> >> 
+> >> Through a USB4 dock (CalDigit Element 5) the link trains without
+> >> enhanced framing (0x202-0x204: 77 77 81), but the sink never syncs to
+> >> the stream (SINK_STATUS 0x205: 00) and shows "No signal". Forcing RBR
+> >> does not change it. Connected directly to the laptop the same sink
+> >> syncs without enhanced framing, at RBR, HBR and HBR2.
+> >> 
+> >> Make drm_dp_enhanced_frame_cap() return true for DPCD r1.2+. This
+> >> changes behaviour for every driver using the helper, but only for sinks
+> >> which already violate the spec by not setting the bit.
+> >> 
+> >> Tested on i915 (Arrow Lake-U), with the dock the link now uses enhanced
+> >> framing (0x101: 84) and the sink syncs (0x205: 03).
+> >> 
+> >> Fixes: a1d926527b79 ("drm/i915: implement EXTENDED_RECEIVER_CAPABILITY_FIELD_PRESENT")
+> >> Cc: stable@vger.kernel.org
+> >> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/issues/17719
+> >> Suggested-by: Jani Nikula <jani.nikula@linux.intel.com>
+> >> Signed-off-by: Dmytro Malovanyi <dmitrymalovanyy@gmail.com>
+> >> ---
+> >>  include/drm/display/drm_dp_helper.h | 4 ++++
+> >>  1 file changed, 4 insertions(+)
+> >> 
+> >> diff --git a/include/drm/display/drm_dp_helper.h b/include/drm/display/drm_dp_helper.h
+> >> index 5b05a7fbe..4f20f60db 100644
+> >> --- a/include/drm/display/drm_dp_helper.h
+> >> +++ b/include/drm/display/drm_dp_helper.h
+> >> @@ -160,6 +160,10 @@ drm_dp_max_lane_count(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+> >>  static inline bool
+> >>  drm_dp_enhanced_frame_cap(const u8 dpcd[DP_RECEIVER_CAP_SIZE])
+> >>  {
+> >> +	/* DP 1.2 2.2.1.1: enhanced framing is mandatory for DPCD r1.2+ */
+> >
+> > DP_ENHANCED_FRAME_CAP is also mandatory so I think this needs
+> > a bit more detailed explanation.
+> 
+> Commit message not enough?
 
-It can happen that symbol sizes within .tmp_vmlinux1.kallsyms.o and
-.tmp_vmlinux2.kallsyms.o differ, without affecting file size on disk
-because of section alignment and/or padding emitted by the assembler.
+On its face the check looks completely redundant, so without further
+justification someone is likely to just remove it.
 
-link-vmlinux.sh doesn't detect this case currently and keeps using
-.tmp_vmlinux2.kallsyms.o to link the final vmlinux. Due to the
-different symbol sizes, other symbols are shifted within the final
-image compared to .tmp_vmlinux2, and the final comparison of System.map
-against "${kallsyms_sysmap}" fails with the message:
+> 
+> I think the wording in the specs suggest that with DPCD r1.2+ you should
+> just enable enhanced framing regardless of the cap.
+> 
+> BR,
+> Jani.
+> 
+> >
+> >> +	if (dpcd[DP_DPCD_REV] >= 0x12)
+> >> +		return true;
+> >> +
+> >>  	return dpcd[DP_DPCD_REV] >= 0x11 &&
+> >>  		(dpcd[DP_MAX_LANE_COUNT] & DP_ENHANCED_FRAME_CAP);
+> >>  }
+> >> -- 
+> >> 2.50.1 (Apple Git-155)
+> 
+> -- 
+> Jani Nikula, Intel
 
-    Inconsistent kallsyms data
-    Try "make KALLSYMS_EXTRA_PASS=1" as a workaround
-
-This can happen in particular if the linker emits additional symbols
-that might have different names between our (re-)linking steps, e.g.
-because those names depend on the virtual address of the symbol. Linker
-stubs for ARM errata work-arounds are one such case.
-
-These changed symbol names can cause the output of the token
-compression of kallsyms.c to change due to the changed symbol substring
-count, which in turn can change the size of the kallsyms_names symbol
-itself, causing the potential shift of subsequent symbol addresses in
-.tmp_vmlinux2.kallsyms.o and therefore the final image.
-
-Update link-vmlinux.sh to not rely on file size of
-.tmp_vmlinux?.kallsyms.o alone but to also consider symbol offsets
-within to resolve this, and do a third pass if required.
-
-[AD: kallsymso_prev is already tracked by kallsyms_step() here, so only
- add kallsymso_changed() and use it]
-
-Signed-off-by: Andr√© Draszik <andre.draszik@linaro.org>
-Tested-by: Nathan Chancellor <nathan@kernel.org>
-Reviewed-by: Nicolas Schier <nsc@kernel.org>
-Signed-off-by: Nicolas Schier <nsc@kernel.org>
-Signed-off-by: Andr√© Draszik <andre.draszik@linaro.org>
----
-This patch fixes an actual problem people are seeing in various
-different kernel versions.
-
-No versions from more recent kernels apply cleanly on 6.6 and a minor
-context update was necessary.
-
-The bug was introduced by 7e2b37c971a2 ("kbuild: kallsyms allow
-3-pass generation if symbols size has changed") in v4.10.
-
-This version of the patch applies cleanly against 6.6 and 6.1, can you
-please apply it to both branches.
-
-Cheers,
-Andre'
----
- scripts/link-vmlinux.sh | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
-
-diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index ad16e25a62ce..2b8746f7bcc8 100755
---- a/scripts/link-vmlinux.sh
-+++ b/scripts/link-vmlinux.sh
-@@ -144,6 +144,18 @@ gen_btf()
- 	printf "${et_rel}" | dd of=${2} conv=notrunc bs=1 seek=16 status=none
- }
- 
-+# Check if kallsymso_prev and kallsymso differ
-+# If symbol sizes within ${kallsymso} change, any symbols within vmlinux are
-+# likely to shift, invalidating ${kallsymso}.
-+# Since file size can remain unchanged even if symbol sizes change, compare the
-+# actual symbols instead of relying on file size only.
-+kallsymso_changed()
-+{
-+	${NM} -n "${kallsymso_prev}" > "${kallsymso_prev}.sym"
-+	${NM} -n "${kallsymso}" > "${kallsymso}.sym"
-+	! cmp -s "${kallsymso_prev}.sym" "${kallsymso}.sym"
-+}
-+
- # Create ${2} .S file with all symbols from the ${1} object file
- kallsyms()
- {
-@@ -271,7 +283,12 @@ if is_enabled CONFIG_KALLSYMS; then
- 	size1=$(${CONFIG_SHELL} "${srctree}/scripts/file-size.sh" ${kallsymso_prev})
- 	size2=$(${CONFIG_SHELL} "${srctree}/scripts/file-size.sh" ${kallsymso})
- 
--	if [ $size1 -ne $size2 ] || [ -n "${KALLSYMS_EXTRA_PASS}" ]; then
-+	# Due to alignment, file size of the kallsymso object file might remain
-+	# unchanged even if individual symbols within change size. Changed
-+	# symbol sizes can still shift other symbols, though. Therefore, don't
-+	# rely on file size alone.
-+	if [ $size1 -ne $size2 ] || kallsymso_changed || \
-+			[ -n "${KALLSYMS_EXTRA_PASS}" ]; then
- 		kallsyms_step 3
- 	fi
- fi
-
----
-base-commit: 0aebf2870d53a8d97e02a99e2103ea0b38950c1b
-change-id: 20261030-linux-kallsyms-fix-6-6-cb5fbdd566cb
-
-Best regards,
 -- 
-Andr√© Draszik <andre.draszik@linaro.org>
-
+Ville Syrj‰l‰
+Intel
