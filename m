@@ -1,44 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.217
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793325308;
-	b=e8/6ahVBHmaH3Q1iCPM6mQOJchrLwg1BIjJMV8rN4MDg2VvYNlpDLYqzm1vrHWzwshIX
-	 js4nXhCL5Z+OlZffzyWIVAFXPQM+AHCqtxkidNdDkWwghRFEnWHXhAIBcPgUirXLqBl8u
-	 yErvhIjbPPFpH5h0zuWTiTEICS+Ft5LXfZGCkaIZjpoY7tWwfBUR2ND3V7QrQ8bqHJM9a
-	 PnF8NrHKQvdCUwPF3cD3mmTPsyrphMUQ22MrAkdihULiWtZJW5Y77GwzScKHvfC89D7we
-	 XvqBi2LKrABMzSmj8jzX2vyOQRU6ckSNs5bvuB+KZCStaO1bOtn7wUEi+NKs3vUfVFw==
+	t=1793325339;
+	b=sy8v8hAgdR2hcNqQrox2KZqWKiDHlLjUsTN79M7NXF2jZzh4l/HtINgbcp3U9ysK6N45
+	 CjPTbKURnHWGIyANLJy8URxbjAyoQu2cSFQNk2WX7jD//XZiRfw1nfSv/C39au2/sZEsL
+	 RwhySOvgDe03T+VvvUzTZrtmaLUjzGYGRq6/gtyTVpP0ONGMPtuY2XPkBh/OtUyDqHRDI
+	 gOR9U5L4bVPEjG4DQyBG5XugDnaePyctM/Y7MUuLBtQN7rAj84nmoKL0//u0dZRnFt6c3
+	 uOT3N0t/taKlsxdsnvNFdex+RnigLJ3ZNsZjhEBGEsd1QRYJVe4FuQ7LQQJEVfRWptQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793325308;
-	h=Received:DKIM-Signature:Mime-Version:Content-Type:Date:Message-Id:Cc:
-	 Subject:From:To:In-Reply-To:References:Content-Transfer-Encoding;
-	bh=Bxo8jJFd0r8cFUbwZTI2sPMZTh9847a0AbtlpmmJS3Y=;
-	b=q3Ll9xuJUtQFohn0DTNxJwB+HsZxYOFRLnvL1M8SUiXyxSg3U6UIkJLQThMNpAlOZnnC
-	 VY01Gl7YWxCd8I1fFBuCakghnkGkQVO8tAQ8meYmE8SULHdi19Qa4PfNmjEOBbHOl0R4g
-	 vLkngNmaGYJh1Gj1KhVB3BgzLBsJo/VyGold6iHDZIg1MqCExDo7Lqr0KzKe2zQuqjGiU
-	 mkm92yHzuv74WxiaQ8IykGp3PhjlHD6szv1bd2V+OmI+OIb/qtcHhbnNQYl8RMLDJU/mu
-	 M5U0PwcqIeFy3R3rU50MiL7aAcSL3GmDBOlYFnz9Sx3cSq1C/Vk/TXGG/gule0jINJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793325339;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=NW47OZGG+imSFWQTUojgxKaRsVA/dxTDAH6Z79eqPk4=;
+	b=3ShaKOdDUOSIBw9g7Zj8t0G+5dvc2iECZMYrpLirIx2HdvImWUt8+t0OROMEJ3maKDWU
+	 noRdA8PHt42fHKOqVMwIwtZLcrZxmV5KJeaOqdSpGHgCSer0n0m5zYuVa4qdVXZFciG+v
+	 jbhaCXjJB9aZr3saep7JANhTKLPWz5P+jVsjjQsbZWlwqdGB6fU3gpB8pkup1zQHEd8Vl
+	 ckfkOPLri9LXfSCKY8uS0zWIrv2bo6Bp76bKwcoPfRJ3C11fwAPwe+ZJDD47jKheh2wzY
+	 taYgQPpa19fLtOZ1jwCSQkkvnkLk4sSDQwIEWZ7IEg3p8Haa2+NXmncfz93EtyHIWAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dKOWrRsJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tJinQgl7;
+	arc=none smtp.remote-ip=95.215.58.217
+Received: from mta1.migadu.com (out-217.mta1.migadu.com [95.215.58.217])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2A2606A31C;
-	Fri, 30 Oct 2026 01:55:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56DB0606A323
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 01:55:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56DB0606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dKOWrRsJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E3951F00919;
-	Fri, 30 Oct 2026 01:55:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793325307;
-	bh=Bxo8jJFd0r8cFUbwZTI2sPMZTh9847a0AbtlpmmJS3Y=;
-	h=Date:Cc:Subject:From:To:In-Reply-To:References;
-	b=dKOWrRsJLVmZrcKzJ4TataGEgTAQ0s4UdHiybjyG4H3n0RXWwwhy6363+GHzqi7N5
-	 ix4oHUMEsiXCUodANrkqdl/1BVH+MZZXnCggVOGG0r9GU2RW0TMU64nJwXa56cdA9u
-	 bAib/zp9RRwmTaT2hZNVaAsLBgzmSiXSBH7fQ1mwDVBaQOIu9lUQwTItS0o4YgLH+i
-	 UbPxU9IVErjLR0bwv02yIN5az4AlaBXAhBQprNDbETEBIxc+QJYiFb3jQOPyvCVaBu
-	 40/zUJFqGRRZ6xD1wrBD2Nmu/++4d2PsUc5lmTUOsMam3lroK/eA556x8VogXi9bBU
-	 nARS5O1b3RKnA==
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tJinQgl7
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yLibGXRg0x614xy7jj1umLLnLSoSQ8rxXuFtkSyAjTw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793325336; v=1; x=1793930136;
+ b=tJinQgl73cr3AUsCPm6B+YtFCqmb7GEy7gRNXN1Ncvnor1T3bPpjZNMlreCZ6Im6e2wSkI1F
+ twibpD/2a6cx4UBL8xznzC7Rj5gmRvDynXTyjbjomOjWdixbUPIYb78y5hd4XRCHD5ujWxUOz/x
+ SG3SuSCSmmfttwXvvbeosLaM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6e53ba925bba0fe2;
+	Fri, 30 Oct 2026 01:55:29 +0000
+X-Mizu-Trace-ID: 6e53ba925bba0fe2
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <96dfb9b7-1eaf-4bb2-8136-9a2478e1a068@linux.dev>
+Date: Fri, 30 Oct 2026 09:55:17 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -47,93 +57,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=0127f86fc4a58c91f388809e3d2707f04403f9e1da5ca1b482b2ae563e30;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Fri, 30 Oct 2026 09:55:02 +0800
-Message-Id: <DMHSRIU2XCB0.35RV6ADY6W1IE@kernel.org>
-Cc: "Alessio Belle" <alessio.belle@imgtec.com>, "Luigi Santivetti"
- <luigi.santivetti@imgtec.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Yixun Lan"
- <dlan@kernel.org>, <imagination@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>
-Subject: Re: [PATCH] drm/imagination: retry runtime idle when firmware is
- not yet idle
-From: "Troy Mitchell" <troy@kernel.org>
-To: "Baihui Liang" <liangbaihui@linux.spacemit.com>
-In-Reply-To: <20261029-img-pm-autosuspend-v1-1-26851840a34e@linux.spacemit.com>
-References: <20261029-img-pm-autosuspend-v1-1-26851840a34e@linux.spacemit.com>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v5 5/6] libbpf: Add log_opts support for
+ bpf_link_create
+To: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Cc: bpf@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Shuah Khan <shuah@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Hangbin Liu <liuhangbin@gmail.com>, Martin Karsten <mkarsten@uwaterloo.ca>,
+ Masashi Honma <masashi.honma@gmail.com>, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20261026154948.99408-1-leon.hwang@linux.dev>
+ <20261026154948.99408-6-leon.hwang@linux.dev>
+ <CAEf4BzbW4zwL-9j8e2B6KNXVNwsfWyMSAo_RsGCqv-nu_yGhTg@mail.gmail.com>
+Content-Language: en-US
+From: Leon Hwang <leon.hwang@linux.dev>
+In-Reply-To: <CAEf4BzbW4zwL-9j8e2B6KNXVNwsfWyMSAo_RsGCqv-nu_yGhTg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
---0127f86fc4a58c91f388809e3d2707f04403f9e1da5ca1b482b2ae563e30
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On 30/10/26 00:22, Andrii Nakryiko wrote:
+> On Mon, Oct 26, 2026 at 8:51 AM Leon Hwang <leon.hwang@linux.dev> wrote:
 
-Hi Baihui,
+[...]
 
-On Thu Oct 29, 2026 at 4:38 PM +0800, Baihui Liang wrote:
-> Returning -EBUSY from ->runtime_idle() prevents the PM core from
-> retrying the idle check. Schedule an autosuspend so the idle state
-> can be re-evaluated once the firmware reaches ROGUE_FWIF_POW_IDLE.
->
-> Signed-off-by: Baihui Liang <liangbaihui@linux.spacemit.com>
-> ---
-> Tested on SpacemiT K3 (PowerVR Rogue BXM-4-64) by running vulkaninfo
-> repeatedly. Without this change the device intermittently stayed
-> runtime-active after the last user went away, because the firmware had
-> not yet reached ROGUE_FWIF_POW_IDLE when the idle check ran. With the
-> change the device reliably suspends.
-> ---
->  drivers/gpu/drm/imagination/pvr_power.c | 11 ++++++++++-
->  1 file changed, 10 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/im=
-agination/pvr_power.c
-> index eb4b6ecdf4f..6f38249ffcb 100644
-> --- a/drivers/gpu/drm/imagination/pvr_power.c
-> +++ b/drivers/gpu/drm/imagination/pvr_power.c
-> @@ -434,7 +434,16 @@ pvr_power_device_idle(struct device *dev)
->  	struct drm_device *drm_dev =3D platform_get_drvdata(plat_dev);
->  	struct pvr_device *pvr_dev =3D to_pvr_device(drm_dev);
-> =20
-> -	return pvr_power_is_idle(pvr_dev) ? 0 : -EBUSY;
-> +	if (pvr_power_is_idle(pvr_dev))
-> +		return 0;
-> +
-> +	/*
-> +	 * Firmware not yet idle; reject but schedule autosuspend so
-> +	 * runtime_idle() can be retried.
-> +	 */
-> +	pm_runtime_autosuspend(dev);
+>> @@ -960,12 +970,12 @@ int bpf_link_create(int prog_fd, int target_fd,
+>>                         return libbpf_err(-EINVAL);
+>>                 break;
+>>         default:
+>> -               if (!OPTS_ZEROED(opts, flags))
+>> +               if (!OPTS_ZEROED(opts, iter_info_len))
+> 
+> semantically cleaner would be to use log_opts here instead of
+> iter_info_len, send in a follow up?
 
-If I read the PM core correctly, when this autosuspend timer fires it
-calls ->runtime_suspend() directly rather than retrying
-->runtime_idle(), so this looks equivalent to returning 0. Could the
-real issue be the pm_runtime_put() in pvr_watchdog_worker(), which
-perhaps should be pm_runtime_put_autosuspend()?
+Will do.
 
-> +
-> +	return -EBUSY;
->  }
-> =20
->  static int
+> 
+>>                         return libbpf_err(-EINVAL);
+>>                 break;
+>>         }
+>>  proceed:
+>> -       fd = sys_bpf_fd(BPF_LINK_CREATE, &attr, attr_sz);
+>> +       fd = __sys_bpf_fd(BPF_LINK_CREATE, &attr, attr_sz, log_opts);
+>>         if (fd >= 0)
+>>                 return fd;
+>>         /* we'll get EINVAL if LINK_CREATE doesn't support attaching fentry
+>> @@ -975,6 +985,10 @@ int bpf_link_create(int prog_fd, int target_fd,
+>>         if (err != -EINVAL)
+>>                 return libbpf_err(err);
+>>
+>> +       /* bpf_raw_tracepoint_open() does not support log_opts */
+>> +       if (log_opts)
+>> +               return libbpf_err(err);
+>> +
+>>         /* if user used features not supported by
+>>          * BPF_RAW_TRACEPOINT_OPEN command, then just give up immediately
+>>          */
+>> diff --git a/tools/lib/bpf/bpf.h b/tools/lib/bpf/bpf.h
+>> index 826d9cc9ab65..fe3b7fd8512b 100644
+>> --- a/tools/lib/bpf/bpf.h
+>> +++ b/tools/lib/bpf/bpf.h
+>> @@ -422,7 +422,10 @@ union bpf_iter_link_info; /* defined in up-to-date linux/bpf.h */
+>>  struct bpf_link_create_opts {
+>>         size_t sz; /* size of this struct for forward/backward compatibility */
+>>         __u32 flags;
+>> -       union bpf_iter_link_info *iter_info;
+>> +       union {
+>> +               union bpf_iter_link_info *iter_info;
+>> +               struct bpf_log_opts *log_opts;
+>> +       };
+>>         __u32 iter_info_len;
+> 
+> in a follow up, let's add comment next to iter_info above and
+> iter_info_len here that these are deprecated and that iter.info and
+> iter.info_len should be used instead
+> 
+Will add comment when adding log_opts support for BPF_TRACE_ITER in
+libbpf in near future.
 
---=20
-Troy Mitchell
+Thanks,
+Leon
 
---0127f86fc4a58c91f388809e3d2707f04403f9e1da5ca1b482b2ae563e30
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCauP49gAKCRCYCe+A+TM0
-L0hwAP9eNE++iKtZwfItKoa5Ce0VIc5lPf242yrrDF5VaIkx8QD+JwWLmwTRebkd
-XinBsGjYMNrSzC78VKKxAT9MxMy9WAk=
-=W/PY
------END PGP SIGNATURE-----
-
---0127f86fc4a58c91f388809e3d2707f04403f9e1da5ca1b482b2ae563e30--
