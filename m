@@ -1,47 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.238.236.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793362042;
-	b=dbrNS+3+wforGE5IjXK17cMjrMCPcRtv5z10KIu8c2vxHfXmJqiqhu6ZcZF5pkWcrgs9
-	 NPVU56PGJ3CoZj0wKwiGjeRatML+b++9aQN5uMlO0fiFwo2H/U8Kyt9d4GMO67OO+FqxW
-	 spkAhkZwQCcAt/p68bJe7QDqgZ35/bTds7qJipUDWstuPujA9X4hV29wPuKTcxZDT6tX+
-	 j6AFr8JGgyUgzc92RazQ/k1hn7c9RB0eoWDvP6bT8bX/bQTsFg2Wt6sRAqiNy0sfNs++W
-	 VX1yA8541WJnSL8rV2f/YWNAN1+x4Ci63f1/Kz8i+0hWu6josCJYR8/eFVtf3Fcp3uQ==
+	t=1793362044;
+	b=atUkhKDe33hI2YsdWfhZWfqfVXzl7F7BcIyEulkzywlz2W28r+JrF2kjWCMetStzkb/K
+	 0bsmy/jHStL5M72ajKgu9CpSyaj2dB1QiJHIe/0rujei2AHJsG5YAjnWd8QjqKI+wOwVB
+	 lqEH2D5OvO78nf8gUkGvcqpPYV+py5Nrzs6U7WAH47CMVKehNPofjgY8ABn2xGbFX3lIM
+	 wmislCy18ZW/MORyp99OgL2yKXNFddVfXahVuVtGQosfnb9zDgft2XwMHjOinZ8IacbZI
+	 IZWk2xRdp2E3L0ALrBzSktqaTTWrz5zZ46Vl9kdPb15LP/B84D7SK1KAqU+65N9dyJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793362042;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/Gi1IckIhqUdQtIJUelqlSYskWT7RGo5RrXfipXft/Q=;
-	b=fSSzQyyf6MKXGGKzk1sxjOBnGr2rGREs27LIDUEew65ZJvkRID4IddKrAfupVyQjdWoK
-	 E+CZWA7yzux2TJwYNrAK48MXTcD8bgjKFYWHi4NfnXBbSOZvAJVYamt78CNJ+pSTXGL5b
-	 BR7Bab9/62XGUl6Y1cRPRba9t2GlzrvZ0oOFcA03VJERtUcBpVgINuhC1Z0vaKc3qcOWU
-	 nwoU/jjnfiyiZK+oQfe8jIQHkX+gQgdvkPJTgOtT2LH3/+BelOlf/mSXj9CXcuOaPumMH
-	 ekAbNOsfwdhDhoJMMyT4o/C0voVlJuIwLZbS0fRJp1Ln33Da/yV28EvNS1TjrAPgmnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793362044;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3oAdiQL1BBq/8Wx7+7+nnqKAavDIGqolwKSp3zNe53I=;
+	b=Wr1K77Fnccpm4aXYM0HukQtGi8fVoNZYeQoHn8wyINxHPARxtOzg5OvJ7SN7doErPIom
+	 U134TFsGNnhMHE2o9ICaKNYVF6S64D9oUtcILaQBd18Z6Abp4/jiw1wUqxXQ1ImHm9wHb
+	 UkcsZ8HNvxisryZwWk0607jHQ+hca6LewpbijQ8jYtyrQKh+sjeb6cJAUG/DYJ+Hot0Ll
+	 qIqzfbbp5EC/TENf7yu199Jlq2qgEWk0Q/C5S4b7MF2/RNVcvBBCVIymYYDH5SYBrC5ur
+	 8D6FL6P91QjOifcVelx3prSL7j9GsqJY6BzE3K1icVPdrrMKf/4tN52h2mzzwqWw9JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XMpp4U2E;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=kemnade.info;
+	spf=pass smtp.mailfrom=kemnade.info;
+	dkim=pass header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=GGswo4Q7;
+	arc=none smtp.remote-ip=178.238.236.174
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBE3606A31A;
-	Fri, 30 Oct 2026 12:07:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EEA606A31E;
+	Fri, 30 Oct 2026 12:07:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0EEA606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XMpp4U2E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B12E1F000C1;
-	Fri, 30 Oct 2026 12:07:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793362041;
-	bh=/Gi1IckIhqUdQtIJUelqlSYskWT7RGo5RrXfipXft/Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XMpp4U2EBnq/ChSvt+2F8+1LQqYYiyWjZTItaleMhM4swDrTYGfQSCVIzdpM9qAfi
-	 aySjrvphf+BH6mJgRyNcimK5ff424rW9DPqKQ83sI+/W4obQSidkuU2l22hneW+CR+
-	 bx/IQOd+5Ij39NW+/Zkde188/lvMl69ZYoPETTCIlvLlMUsGtIAlUViUny+6WVLX25
-	 pXxyQSaG4U/KGbgO1+ajwH/uqNhTQOfjBw95j3cKxDdbstSyPnnFBqkcaOgavwLdZv
-	 ET66zHN+7sdPADrhka5TA7yBUgVuPjH3QVHZWbooTTJ1UnrizTmLhYqn5eMTWjZqm8
-	 fPsayiKfCA9vQ==
-Message-ID: <a9d1b3c8-e7c0-475e-9fd8-408670ed4f2b@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=GGswo4Q7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=3oAdiQL1BBq/8Wx7+7+nnqKAavDIGqolwKSp3zNe53I=; t=1793362043; x=1794571643; 
+	b=GGswo4Q7HNBjO4TfOrDi533WVeLpu59cRClXWYh0gpDWgaqTjoYJnO8+pvf6UcH2rLHZKbThxQq
+	viNF6E6i5bqdgDSES5G929idm8vQjuxXFaqnVQhyT2TTBQJf6sBc7dVQ7vRtt408Jn6Nl9JEa3riK
+	U5YbTj4tUKJSv2xNTJd5ea/AGHKN53vsxRBdRfGfJW31LtKHmk5ZqQMUdEW8vUN6zuN+48ZSmbwa9
+	0We4Q4+JbchU/sTlIA6kNimHCLaIYpLaSZi7+nZNv7bDc8u73tomUSG+FEZPhpc1sU/AYoTR8CX/j
+	bQjBbtCZli+pQXsLyE70BKEN36sIlIKxEQEg==;
 Date: Fri, 30 Oct 2026 13:07:13 +0100
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Ettore Chimenti <ettore.chimenti@linaro.org>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman
+ <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
+ <tony@atomide.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Christopher
+ Obbard <chris.obbard@oss.qualcomm.com>, Andrew Goodbody
+ <andrew.goodbody@linaro.org>, Paul Walmsley <paul@pwsan.com>, Russell King
+ <linux@armlinux.org.uk>, Rouven Czerwinski <rouven.czerwinski@linaro.org>,
+ linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 7/9] ARM: dts: omap: dm816x: Remove hwmod code for
+ USB
+Message-ID: <20261030130713.3a404d50@kemnade.info>
+In-Reply-To: <20261028-patch-ektor5-dm8168-dts-v2-7-4544429251e2@linaro.org>
+References: <20261028-patch-ektor5-dm8168-dts-v2-0-4544429251e2@linaro.org>
+	<20261028-patch-ektor5-dm8168-dts-v2-7-4544429251e2@linaro.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,73 +70,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: add lltc,ltc2387
-To: Nicolae-Daniel Deaconescu <Nicolae-daniel.Deaconescu@analog.com>
-Cc: sergiu.cuciurean@analog.com, jic23@kernel.org, dlechner@baylibre.com,
- nuno.sa@analog.com, andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, ukleinek@kernel.org, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pwm@vger.kernel.org
-References: <20261029-rustling-scrupulous-peacock-5e6b03@quoll>
- <20261030120232.269585-1-Nicolae-daniel.Deaconescu@analog.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261030120232.269585-1-Nicolae-daniel.Deaconescu@analog.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 30/10/2026 13:02, Nicolae-Daniel Deaconescu wrote:
-> On Thu, 29 Oct 2026 10:47:47 +0100, Krzysztof Kozlowski wrote:
->> Drop tag.
+On Wed, 28 Oct 2026 17:06:08 +0100
+Ettore Chimenti <ettore.chimenti@linaro.org> wrote:
+
+> From: Andrew Goodbody <andrew.goodbody@linaro.org>
 > 
-> I'll drop Assisted-by in v2, and run checkpatch --strict on both patches.
+> Remove the hwmod property from the USB controller node and the matching
+> code from the hwmod data file as this is now deprecated.
+> 
+> Signed-off-by: Andrew Goodbody <andrew.goodbody@linaro.org>
+> Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
+> ---
+>  arch/arm/boot/dts/ti/omap/dm816x.dtsi      |  1 -
+>  arch/arm/mach-omap2/omap_hwmod_81xx_data.c | 21 ---------------------
+>  2 files changed, 22 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> index b839ee29e9eb..55f4b91fa1fc 100644
+> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
+> @@ -576,7 +576,6 @@ uart3: serial@48024000 {
+>  		/* NOTE: USB needs a transceiver driver for phys to work */
+>  		usb: target-module@47400000 {
+>  			compatible = "ti,sysc-omap4", "ti,sysc";
+> -			ti,hwmods = "usb_otg_hs";
+>  			reg = <0x47400000 0x4>,
+>  			      <0x47400010 0x4>;
+>  			reg-names = "rev", "sysc";
 
+As I have also some hwmod -> ti-sysc conversions cooking, I think I have
+an idea why you put these two in one file. Doing this in lockstep should
+be justified in the commit message.
 
-And the rest of the review as well?
+I guess you have removed this and seem a fat WARN().
+Analyzing omap_hwmod.c I found that every module action is guarded by
+if (oh->_state != _HWMOD_STATE_INITIALIZED)
+So I think it is time to just denoise that WARN(), since the
+originial authors probably did not have ti-sysc conversion in mind.
+I will prepare a patch for that. But then you can add that snippet to patch 6.
 
-Best regards,
-Krzysztof
+While merging this patches we just have to ensure that the hwmod removal
+comes after adding ti,sysc stuff.
+
+Regards,
+Andreas
+
+> diff --git a/arch/arm/mach-omap2/omap_hwmod_81xx_data.c b/arch/arm/mach-omap2/omap_hwmod_81xx_data.c
+> index 9b5c728fb7da..b9735b507d6b 100644
+> --- a/arch/arm/mach-omap2/omap_hwmod_81xx_data.c
+> +++ b/arch/arm/mach-omap2/omap_hwmod_81xx_data.c
+> @@ -646,26 +646,6 @@ static struct omap_hwmod_ocp_if dm814x_default_l3_slow__usbss = {
+>  	.user		= OCP_USER_MPU,
+>  };
+>  
+> -static struct omap_hwmod dm816x_usbss_hwmod = {
+> -	.name		= "usb_otg_hs",
+> -	.clkdm_name	= "default_l3_slow_clkdm",
+> -	.main_clk	= "sysclk6_ck",
+> -	.prcm		= {
+> -		.omap4 = {
+> -			.clkctrl_offs = DM81XX_CM_DEFAULT_USB_CLKCTRL,
+> -			.modulemode = MODULEMODE_SWCTRL,
+> -		},
+> -	},
+> -	.class		= &dm81xx_usbotg_class,
+> -};
+> -
+> -static struct omap_hwmod_ocp_if dm816x_default_l3_slow__usbss = {
+> -	.master		= &dm81xx_default_l3_slow_hwmod,
+> -	.slave		= &dm816x_usbss_hwmod,
+> -	.clk		= "sysclk6_ck",
+> -	.user		= OCP_USER_MPU,
+> -};
+> -
+>  static struct omap_hwmod_class_sysconfig dm816x_timer_sysc = {
+>  	.rev_offs	= 0x0000,
+>  	.sysc_offs	= 0x0010,
+> @@ -1250,7 +1230,6 @@ static struct omap_hwmod_ocp_if *dm816x_hwmod_ocp_ifs[] __initdata = {
+>  	&dm816x_l4_hs__emac1,
+>  	&dm81xx_l4_hs__sata,
+>  	&dm81xx_alwon_l3_slow__gpmc,
+> -	&dm816x_default_l3_slow__usbss,
+>  	NULL,
+>  };
+>  
+> 
+
