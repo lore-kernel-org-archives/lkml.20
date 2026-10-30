@@ -1,19 +1,20 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.129
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.116
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793348247;
-	b=WRsGULU47neF0bH9iAySig/L7CKh6btCTSuZVVyTs2eVGyvaJKM1QRS/R/9CxIuTdWh5
-	 4Dn9GSlBZ5H2HIYIGmo2IQ/opHmfa0rvXc1NhWX/fv2h57FEM/c9OFh2XeUY/lL8SnBm1
-	 Kn+mSVmJpVs1q6EgU3JDHt3f2Pujv0EHMMLcu3RF5onujYK/chu3WlGN2otV9D6EwuF8k
-	 39sdp0AZ61+qDXtVzBFs7Twup1hSXtKFkasrXJQ7+B2decj8iowec0alCAoYdghAa5BPZ
-	 afCjH8S7xB7Qr+h4pPWuXSM6DLi+3JKfJdZ7DwH+/p8tcICFvvOVJxspZRSi6t+1oTA==
+	b=qwK4O8XjCCyOwFiwCqcLzK90kofdavOfT8pxubdxRgY5p17UwK1p1yBz0+/W4KDLrqlW
+	 xIvlVX9DYv/Bgvmz4h/w/sOvjyz72AsP6szrNlq5QD6CgfGOj/VO6bcuCiopbr3h8sROp
+	 tyeHI4FEalOz744HzOz9Aq9b5mz0WRFIzDpU5tvoGuQd+Rb6bQSdXuNnB1FQ4NR1oVvvo
+	 xNKIo1ilFY1PHDd5kDva6QqpHdgVQGTPf3twrtWWdZrtcvc49t8XDFEXN3W45BX+htxSi
+	 5ArHsCayjk56dozOMNh3CJ6JKhnpIk7QZ8oOdd3ovLks/vWCRSDqP0lGec75QyhfLvg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793348247;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -23,53 +24,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Or1fmHbK264ZYZ6ugepa2A88iZBHWfZvo8gWLmIwKzk=;
-	b=GPgrQXbPswFJYUPoMWk/wyCjQX4c1pFP1ALjJYScL0yXA3BHlgQx26qgXnBI1Q18V95S
-	 tg4hBCcw705qkRBB5u3ievr0AtH09tT4zF9VqFAsPEbvTlSTG6Jh8C2mFV52gpXAro9Aa
-	 TYUEVJrIx0ykE/8Nx2YqvaKtrcYK4HOwEuk1o3w/aMMgByQHQX66ZWqZOLQldrVSOlv6c
-	 Vgr/9T02bNFpvdeMDgX+kkt0MMzh1JR7yUFic6SVtLd34Nyvx72CjqoQ3PwrBbW3PBo6z
-	 b2jDUilmPw7VLqE2vbgox4uq6v9fGXOMl4whxjPrY3+1JDJCBvWsP4HfN2lKHKhfuzw==
+	bh=ure8BORdfSzZS8B1AD+zOHJsl/LI0bgNUu4AJZpvVKo=;
+	b=3sPuLqxaKNskK+GEbJuZUGlYjsAM30s+xGyk4vm34ztez6WlrRgxay+Z6xKS+cqhXxYa
+	 oXKQ9zaxdufwo4gd1cHACk+3Sz4lIXRho2thQVzW1jcmQ0qKt6BsUc54zsCYHHTib9bU3
+	 e8RNIs+OAJS47HxW41IsLu0MqEs0KJzLKovPPI/hsbx3zQ2mTeeVJDncAuIeZxmkffuRo
+	 pMgqAfacLQUtJfgKuV6EUpAT8X/PTBO/IPdaM6dT4pVRUgb6xwxR41aPJqfM5eeXPiAd8
+	 ORFMDOveiZz5qX180uDalZbStOJPzZhEQW8uOfz7pNdmOg1ug/FmrXqZeQD5ASgqLZA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=deeproute.ai;
 	spf=pass smtp.mailfrom=deeproute.ai;
-	dkim=pass header.d=deeproute.ai header.i=@deeproute.ai header.a=rsa-sha256 header.s=selector1 header.b=sDF9z7uM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.17.129
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2129.outbound.protection.partner.outlook.cn [139.219.17.129])
+	dkim=pass header.d=deeproute.ai header.i=@deeproute.ai header.a=rsa-sha256 header.s=selector1 header.b=Psnd4VCw;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.116
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2116.outbound.protection.partner.outlook.cn [139.219.146.116])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79856606A31E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 619CC606A31D;
 	Fri, 30 Oct 2026 08:17:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79856606A31E
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 619CC606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=deeproute.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deeproute.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=deeproute.ai header.i=@deeproute.ai header.a=rsa-sha256 header.s=selector1 header.b=sDF9z7uM
+	dkim=pass (1024-bit key, unprotected) header.d=deeproute.ai header.i=@deeproute.ai header.a=rsa-sha256 header.s=selector1 header.b=Psnd4VCw
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NNll4AyF9f/SrXqi3OgdRdFaSdBClmPFgXMmdnzXoGgSGpzmZuvGcwxhpJgpwcu4j0BzAigh3s+KcMZfrFtqb8PQ3KrdFKnGBpp6uM8sR0TsvbijgjQQ3QNWS+UUnGlPmdg913jnzE5CDoqUxaZbR8L1WZArYHmfEVdeVIxKyvHSz5cY1kCbPk3uJcF5HLUaBNPKkYVSTa3M5CconkrfGkuNHWvq8qN9NkMR/AntjE6dEI0IvGsXiteERDDJtpGYM1A2V8J1ajqf1y+u4owTD4bHYOkGuOJL1GlkVzXSuRVoDMLuHad++on/lHeT1e1x55Nzl4PSH0LOQ8LMLJYWKw==
+ b=ZEt5Od/lsEVfcNaFyClkenx4d+YSKnx+tmozGzS3YpaWZqlC/Roi9hR9JUtZXrO53TLgBmc+6PJ9JcD3sVs4OgGVHIpMXvi5qMgh70AyhiBEBwsFml/Deg5txOnDTAK8DC4hMk+c3CAYbbPm8eL0kBrTTZjyZ1mbUewOzsnjUtq2RjygJL4QuJs2oo6c3q2s1/N1MFIrUR6Y+2Bh6lPgHvXquqtaeD5FHHEAILQMYkx4oQ+1aNI3GqXjjd5w7jsnGT2jt6fnpz85HrPCiZSr6b8hoeTUykN359Um2Q83ho4LzFj3uzfhCEVqs3L/yc9FnJ2t4fItdPj7aPxSOUZ3Tg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Or1fmHbK264ZYZ6ugepa2A88iZBHWfZvo8gWLmIwKzk=;
- b=JFHCmq3Pjyfb1KIm2ixDedwdIZFT2sZXGP8EbQNd19iinepZbzL+u+p8u9hAaYAkHWbo1scqlexAy1tsyFxeYqZdsIbLFY1Nd8ysLHwOxFGVieD73pTXygnwjkNRvKxerKRcgKzwsD3az+NyrYLsOXGzW7Nf2/pDIqfO+QQes6vF3dqe15kpDoElE5kKRdFG8HItwtrD2yx1L14daA42hzhU3ywHo7OEagjkuqoi12TXpB+aJNTqJDaUPG8HfVdlLKS1QJo6QDeZRUzCLKbE0yWAu2IzVX5kjLztaFIDDnGJ3pcz8M83GdjOEUuIHXVKxiHu/brtxaOBSc+tz2ix8g==
+ bh=ure8BORdfSzZS8B1AD+zOHJsl/LI0bgNUu4AJZpvVKo=;
+ b=GDcTLy7oC5cbf5r5p+9O3oD1eRlkhz7KBYQbJDW21I/pk9n/1pex8cFzDm7CbUNkdktH6+VRRfR8ZEusSKxrrjIN9X69SFi5vpT4FNCJQ2Dm3YSIXRTrnNgB1/4MopZfCWspjMjXq2G1zLJxEPR2Ase+T+kVHjoeoOCKW4zsvo5yAqibaywsQdJ2DNq/tj3+BKd6WD60h0Xh518ATnMDg3dxdj962u42Uq/iMMp4Y+yeDrFZ/R9I1Dii1gd0FAStade+DjTlZEqAYATcrIcV4rSV8fNMRN/9k3DbU40h6YctY5DfAWmONjzBk0yrhblcM9VAOLim+comlRcKm72lVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=deeproute.ai; dmarc=pass action=none header.from=deeproute.ai;
  dkim=pass header.d=deeproute.ai; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=deeproute.ai;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Or1fmHbK264ZYZ6ugepa2A88iZBHWfZvo8gWLmIwKzk=;
- b=sDF9z7uMOOiKoHDsmbgRr2TdnTfy31+vUXR6KHh1lzM2m44dpHtUtL+K+NMoSmOs1Qx4tPZS8NiauIkMckxwMUQn0AFrFxuL6iXkJRJs8NMEydPeqaeoaSquqkhsSgYv7R7uxIAFDB/IbZgQ9cPD48pIkrYghC/54nl+IVtUoCk=
+ bh=ure8BORdfSzZS8B1AD+zOHJsl/LI0bgNUu4AJZpvVKo=;
+ b=Psnd4VCwXVhUn2pei9pe6/Kv/a//d524zAZ8L/t+dugkw2y22vCG16MREAflkHh0ZD4dOC5BGQ1YdRFlzqPkopC3/sjXZR4ZgRQg4AyPuB9O/YovK/WcgYpMPATa9bzwlYMO/Dt1rDx/T+mQmY/EgjBEA6rDDrYeMGi5sskC/M0=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=deeproute.ai;
 Received: from ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:1::5) by ZQ0PR01MB1239.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:1c::11) with Microsoft SMTP Server (version=TLS1_2,
+ (2406:e500:c550:1::5) by ZQ0PR01MB1157.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:1a::7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 08:17:16 +0000
+ 2026 08:17:17 +0000
 Received: from ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn
  ([fe80::197a:1934:4b5b:4520]) by
  ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn ([fe80::197a:1934:4b5b:4520%3])
- with mapi id 15.21.0569.008; Fri, 30 Oct 2026 08:17:16 +0000
+ with mapi id 15.21.0569.008; Fri, 30 Oct 2026 08:17:17 +0000
 From: Jingxuan Xie <jingxuanxie@deeproute.ai>
 To: netdev@vger.kernel.org
 Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
@@ -84,10 +85,12 @@ Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
 	John Ogness <john.ogness@linutronix.de>,
 	linux-kernel@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev
-Subject: [RFC net v2 0/2] af_packet: retire TPACKET_V3 blocks without waiting for copiers
-Date: Fri, 30 Oct 2026 08:17:02 +0000
-Message-ID: <20261030081704.251652-1-jingxuanxie@deeproute.ai>
+Subject: [RFC net v2 1/2] af_packet: prepare the virtio header before reserving an RX frame
+Date: Fri, 30 Oct 2026 08:17:03 +0000
+Message-ID: <20261030081704.251652-2-jingxuanxie@deeproute.ai>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261030081704.251652-1-jingxuanxie@deeproute.ai>
+References: <20261030081704.251652-1-jingxuanxie@deeproute.ai>
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain
 X-ClientProxiedBy: SH0PR01CA0008.CHNPR01.prod.partner.outlook.cn
@@ -103,121 +106,126 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ0PR01MB0982:EE_|ZQ0PR01MB1239:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e9a80bf-33a6-46c8-ec6e-08df365e359e
+X-MS-TrafficTypeDiagnostic: ZQ0PR01MB0982:EE_|ZQ0PR01MB1157:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59b291e0-0e0f-4ac4-eb16-08df365e3643
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|52116014|23010399003|366016|376014|38350700014|56012099006|261028144727099003|261022105027099003|261026140227099003|261026121527099003|261021123027099003|261022075727099003|10067099003|261021135927099003|261021121427099003|261009223027099003|18002099003;
+	BCL:0;ARA:13230040|23010399003|52116014|376014|366016|1800799024|38350700014|56012099006|261009223027099003|261026130827099003|261026140227099003|261026135527099003|261026121527099003|261028144727099003|261021133027099003|261021135927099003|261021130227099003|261021123027099003|261022113327099003|261022105027099003|261022075727099003|261021121427099003|261022115727099003|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	M3JScAB/k7lVOmjLkoHF+ZtENET9reZpQvIhEsRFyJjullzwI4qtT65osSITSdlXnlL0zYtZ7Tjuw0EDAkmc6ahYPXayq0/24dRel6OSxbr/SweHi2lvZwBcUoQpHC6M314nIcV4f0B2H/JeVgEd4EVsHcotrGhiETMqZjU1Q4GpULxGIsawbv6QF9K2cHQhhG7PzUsruCwx+vmEEPgHrFcL+NtcnrQAnTjMz2Kji+2EHg00p986f+mTNXTqIWB4xsZWoaIYx4Mn1eXgQ38CBsfkBCuVfnPqjEuFbm8FuG4HpGzdyil440v08PeWjtIHNOu+N/Ogslt3v4bX7Ba+q3/zADRlLg3E6i8juU6LmiUMJB83at3NfmikGOhf37a6Q3DtRaYFsy2kmiMG3HeJW/xWIOo0rqp2kp2aFx0HXzyu2oQ6Hn4+9HnKT3LjHj4o769FSImT7z8OwWuTd7e4dEl8tkGTUeYK8hV1sf2F37HUIGa2i61zRRif8gH0Eah5PJAfEQS5pHiPKSYvlXNLv2TWgow0cqDZyaIL6cjgGXWYI18Q/WZUpYYC35mKBlhj
+	5BXq/crFKU+rMf4YI/MbE012eVCHUqzKLNjI2gaWL4U0wlZFAG9oPaqA+I6Ss34j6o7NFjX5iFeauj1R4kPN8vfsnoPSBwYWEgQnhi0xdu2iZ5D/mcqFcKy/ghSIr/8THV2c6Ac+ya9JzplO4EUjgxU3UwhpIWRDf9rchKpzZXP11mpuQKR2nIByEkB8oohFrX0lhaR8wDIPFKUYQUsg2yp/emF7kAv+svcRYNpEdjjKj9xocpoY8t2YCXsbC+rsfrgs6xjRWWCHKS7Y/2/HG/mUb1WTCRTRnElyWXOCJFcVMl0jFSLrpMR0HOQ5AO7I+5EiZKJ3BjPsZ7RaFZbEcUyAs2wQT35rxWogfdoL2/TEnaF5NOKnxhs+JUxlaWmzs2L5zebzL5ht2j5iG6wfe4tial6cFPk+iL1tVdtKNmcSNvvN2d2Hz5IrndCH5EUfZVGRPDvvRbFyG0jNFgGrFQV6yqUrBJ1eU2zW0KACp2qQMhfLZ4hT3YZy0Syg6GxuSHP33T0bOgYwB4RzhsK59wWd4mrxSzd/dvpQhvOM1OcFebk8xwIYE/bzV+Mw3CVU
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(23010399003)(366016)(376014)(38350700014)(56012099006)(261028144727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261021123027099003)(261022075727099003)(10067099003)(261021135927099003)(261021121427099003)(261009223027099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(52116014)(376014)(366016)(1800799024)(38350700014)(56012099006)(261009223027099003)(261026130827099003)(261026140227099003)(261026135527099003)(261026121527099003)(261028144727099003)(261021133027099003)(261021135927099003)(261021130227099003)(261021123027099003)(261022113327099003)(261022105027099003)(261022075727099003)(261021121427099003)(261022115727099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UoqGgUUUUXV3HsDurEYIqPwr4bdRadwi9dzpbNJdxtiG+Uw0LRQh6nDrBwYU?=
- =?us-ascii?Q?TIn6Ej8v7SsSI3rHkMk5CaISXH5Togls2WECwP4Is7ze257GzDYCF77tzrNK?=
- =?us-ascii?Q?U7ypW74MtT7jsIyzAxUN8YM8d+hjsHLFdRM6pzqoULmu5rJkNWgreMW+j4Ok?=
- =?us-ascii?Q?35SHd0BqEp34AUeKwPEsIDRmbQtaIDmAOm1ycBKbEp62/Vf2zYkpspwr+nA4?=
- =?us-ascii?Q?tkq1Ba4f0gS7aCixrMr9FSzMIar/lqmveyIrBZ0m+vLb2ZSWnXeJ+5T2NcM5?=
- =?us-ascii?Q?/kd9Xi/0OccqiKNitYjWJBGfOE91n68ifL2jfXOhrLBqMINDlePclonoN7qs?=
- =?us-ascii?Q?o6BzuAPkLrYMiXDYQDbRHkPXqbk3D4UAVjKX1hmeA0wYd+7SrzhItLv2Z0oC?=
- =?us-ascii?Q?hmNyvOrpWF/PDOk/JaWgk5hjs9RGFsw0uJi5/wnQ+t5Yft+vt5aud4RpGNzg?=
- =?us-ascii?Q?IvE4G5dN3N4oknmbMYAuw/H2hNrnC28l6J07Bfv+Eym1iDmc77YIDi+mVxNu?=
- =?us-ascii?Q?6ymTg7Zw7EgQRr3xZYGQjc0U3umjJ+tSh/BKcB3pbr7uOjt3d2wwK3VdNqaq?=
- =?us-ascii?Q?lSvsvcp4yzKWVCmvYVQyA2V4yBLje/i2cMKyLSxoZgs8IUCIMuXRbS6mp7l/?=
- =?us-ascii?Q?WdsrSXjKcSYLQtOEbbAWzmhAylgATUJLn23+adHKefVcCq/uv/cJZLWOYmvH?=
- =?us-ascii?Q?Asn5yysyiB1ul8ujk8640OO6UBWxcRuLviImvdjIjBxoXQKFs2M1KqcDoudb?=
- =?us-ascii?Q?USpGZMDaJvCD1EKu6hkco5s1Nx+ypa9xhRiyN7wnCErZUkze3rcU3pZgTrkO?=
- =?us-ascii?Q?iacl8o3BlwMgENG7ycvy0oiXJb7SCorcErvGMKUTqTh2KPdJcSyoLdvXMUOe?=
- =?us-ascii?Q?5erQtUiToY3dAuBrBUGTmFcs3k/E4cJWazyMHCCvenNoJJHumo85WWqYDD2J?=
- =?us-ascii?Q?Q+dkK05cwWDGAR+GOUE7e5329oU4F4x47u/IyDNnh+r7+DVnJBmbunJw+I3U?=
- =?us-ascii?Q?T4MbmURfhEP4Z5r9FXwlimgG5ZIMC5ju5/ztuv4nuik+boCAljrsCq5OhgoX?=
- =?us-ascii?Q?SYtjwSfp5XnPmxTUQt+aXDQsvrKNlJFKdsf/YVLcRFU0ldatEcI8DPRk26Zg?=
- =?us-ascii?Q?0WfWAyXC8CSUiSbgrLFs86lQ5/z2pSU5FMB+pR4bsfDzH+suK0c5kYdr+f4W?=
- =?us-ascii?Q?Kg/m1XwCI+/r9BuMOHV4f7ZscuirZ6++rirTEZw1fW8Pyjk344UvTGkHFU8R?=
- =?us-ascii?Q?t1X9iopHkS6V6y0j6ShOYQjxqOnZQGjkp/AN4m8gnYOTA6jpj2cN3smd78TK?=
- =?us-ascii?Q?um29th01N7m7MqNo6zqV46MqUPkq0MWSn14zpXGagszps6HaxvBNotagATuY?=
- =?us-ascii?Q?jHSkt3bCn9r6JN4O5xRS6cQBNYAM0h2b6BLBagC2Vk7URUGtuwCPJypfWb9y?=
- =?us-ascii?Q?7/Oi8ShWES3ITqex79SVcyu5UjX1n1V64UtOn7va7sSkIHchqULGK9vqVci4?=
- =?us-ascii?Q?JM6RKYkxmVm4JGJIGkMLFrNcRhRc/ZWN1AKNDIRC+gPM2M8u4CkFZm5ijZcB?=
- =?us-ascii?Q?gvphO89YZpxZbx0FvagkWDf5LpK9MADhSTwTAv5RYALdn6CcIWMIXchSj9IR?=
- =?us-ascii?Q?cpl68l9/EyE24LnzavA2IMtBSACgMkAb9CWkFUPx//7F5gqHCZ6nIzoKiWtd?=
- =?us-ascii?Q?DSjANX1QVE71dNl4wVoa+Q7TzWkcYf07MfruJFb6VoGtntqBXXKpsyR1anoO?=
- =?us-ascii?Q?u7MEJP1Y4A=3D=3D?=
+	=?us-ascii?Q?cVo76Tx0AFr9I9RyBe9flte1W6MMo9Nu6yq9zURXoDm/q9EPVS5VIj1hsjlk?=
+ =?us-ascii?Q?jtMcv14o6YnXpJoWJYd5dqgoMH18EftF6yiwnsNYp5bRNKYZJXTKfVgqG79w?=
+ =?us-ascii?Q?57/VcchIBK6e10uD0q4bvr0AcW35gVYVSzfdUrg/303hHK9VBFaqykxe+MO2?=
+ =?us-ascii?Q?hGWt+VNMzPjVsfdESmM593MEwvo1J+xGJV/UzEfNZox08J8iULmwBqANn+CS?=
+ =?us-ascii?Q?ieJqb8PRVKYcyhgGfM7sQxbKP6jPjw1Uk0ELJkr3N6v/Fgyl9sCtuXglzMVm?=
+ =?us-ascii?Q?RafVi+FnQgz9uAREl5KBf1Lipz9CAxzXyAGdkWEuos2CzmPcAsvnv7WiHzC/?=
+ =?us-ascii?Q?heiJ39SOmvYouS8FXzO1skbYeifThIK7uz0t8BmgxdQPw0ewSLk5hmwtuk6r?=
+ =?us-ascii?Q?rSRcybkF/8NGPhB2XePQ/8HYuqJeUFgyLrSmwzNNQ92Eb/sKSJdDiSVBkps+?=
+ =?us-ascii?Q?LBO9x5TvMNp/YBqqLMYy/CRmddvqMHUFA8VBFLWygUw2CLSIDdu/x3ttBPQy?=
+ =?us-ascii?Q?1ATFQ8UQvfToqaTIcB5dan52zGLvwTP2QWl7cPgnv3uR8U8SeSSP7ln2q51+?=
+ =?us-ascii?Q?ijqadaVXOw7rF4E83AgEDjEWoekXLBOzvsenZits6MBryi/uefL4RupCNNgZ?=
+ =?us-ascii?Q?jptYo1TTgLDG5qc3zlolyUCWcSBxJrgPHXW5GUa1eAM9YRd3dJC0ue5jLvky?=
+ =?us-ascii?Q?qyVdvcZDdELAqhe7DALF5qJmKQJO6/UmO17haQb2Plzp64WedkZYbI+tzMnM?=
+ =?us-ascii?Q?LjTIjZHuB2NBkbVUOCH2Z4YB1B291oay3T4AsMzqIi7YxR7yvEQgtXHDia1q?=
+ =?us-ascii?Q?lqMEf7Hf8iEcLpbB5ObWC7SiWNrMPOrMzK3mkCg7gDYXRA4st/k1HltJijju?=
+ =?us-ascii?Q?fyu4DcatoGAHnnZBh9YxpNP7e9/X43RVCdLQOpLCbenhu3mWqxrjMkQr1Oka?=
+ =?us-ascii?Q?3Mb9lMyI9kK4Zx7DOQoF+NUgkc6N+0C4rzQrwyURLHyjpojYaiRlJK0xm76p?=
+ =?us-ascii?Q?XYn7gNzkjgFpOpoC2LbSjbGiLUiXtrBCOasZSZd9YAg4vIB4iLuNZ8f128kM?=
+ =?us-ascii?Q?OO2UKRegq2XbCMEQrxv9VlqVV/t5P8Sd7UgvZum56lJ1xSA7OLV9YU1jmbtF?=
+ =?us-ascii?Q?f9kcwdjzSPZ3mMWEsblmEhLpWBFWbg0uC7L6X4SJwClDFbT6LvMdeTVzUc8J?=
+ =?us-ascii?Q?wmxUBk84PIqdXfFcntjmFzK4LOR056uaFLhWz9lndGKySC/CZ9QroiToVlhr?=
+ =?us-ascii?Q?0vW4VRDTkgcjlzcn6gSgahjiQQbA653pngTpVKDh1kdAP4rqzuuOjXNt+4pC?=
+ =?us-ascii?Q?MX/Nxa2EACeizuQHE+BtZ8N+9s0WG2taLrbK8r14WstuUGB83ImR7IydYT3C?=
+ =?us-ascii?Q?NOo6K07kFaMCf8dr1DDM088H0RZFh/uBqYg8Zvyt7WPjBblMo1gxlGbeT3Zx?=
+ =?us-ascii?Q?XlzMWRz0B8mkM15WZqyj8ugAR3qLm5iMIYNUXsO5OTJLoSgVCzGqdX7q1hrd?=
+ =?us-ascii?Q?XcK8Ee3yUri53738u73xlXh3Xxdp1JvRkFJ9e8GhDc/WctfKMguBJOlbzQQn?=
+ =?us-ascii?Q?zEogJREn+vP73vCJeHLNW3kvwpCVjFA3MRQDkG6rrz9CSnA9ho3TomMCoG17?=
+ =?us-ascii?Q?soP3xqmraEYa6WVKIFIzShdtx0cGcQxZReMLYIX5jUgjq8MaJwVU6PbucBd/?=
+ =?us-ascii?Q?S0eiPSu2MzP8CuD5PICRqY3roCBQJVEkBqUxsn3bMJ7a5cuQQz5COTBjLJ5a?=
+ =?us-ascii?Q?BfjeTYpTGQ=3D=3D?=
 X-OriginatorOrg: deeproute.ai
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e9a80bf-33a6-46c8-ec6e-08df365e359e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59b291e0-0e0f-4ac4-eb16-08df365e3643
 X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB0982.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 08:17:16.5128
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 08:17:17.5871
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: df535b4a-68e6-4339-a092-afa4f2c24fcc
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tQn/RdjvU19ota0zcTg3LNJunqw7nPqRQS6Zi3/UoLgY4KBb+EXLJo3xLwfBZMAhebt6+H0Oj88prG+f2i8YgYwDB7DqDOzBE+hcC+pESS8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1239
+X-MS-Exchange-CrossTenant-UserPrincipalName: uxToovAo+8OnFNA9WqPZl6k/bBbN39SxlcYKY7d6HwyOE7QgMmZssgzmGxAhUy+22pt3rHyJYG3xjIoP2DrFQlaMMlsJ7N6ncbBqBSyzzXM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1157
 
-This revision keeps asynchronous block retirement but removes completion-si=
-de
-queue locking, the four-state enum, the eight-block publication budget and
-the workqueue used in v1. Private copy accounting now lives in the existing
-pgv allocation. Packet allocation and the existing retirement timer publish
-ready blocks in order under their existing receive queue lock.
+From: jingxuanxie <jingxuanxie@deeproute.ai>
 
-A preempted copier in a sealed block does not prevent capture into the next
-available block. Copy completion only performs a release decrement. In the
-absence of further traffic, publication may wait for a later timer callback;
-there is no hard bound under RT starvation. A finite ring can still exhaust.
+An RX virtio-header conversion can fail after packet_current_rx_frame()
+has reserved space in a TPACKET_V3 block and increased its packet count.
+Releasing the copy lock on that error path does not remove the incomplete
+record from the block.
 
-Patch 1 independently moves virtio RX-header preparation ahead of frame
-reservation. Patch 2 implements the retirement change. Neither patch changes
-the mmap layout or adds a UAPI.
+Prepare the header in a local variable before reserving a frame, and copy
+it to the reserved frame only after conversion succeeds. Keep drop
+accounting, notification and copy_skb cleanup on conversion failure.
+This also keeps conversion out of the receive queue critical section.
 
-Changes since v1, in response to Willem de Bruijn:
-- Split virtio header preparation into its own patch.
-- Remove the second receive queue lock acquisition from copy completion.
-- Remove the state enum, separate metadata allocation and worker lifecycle.
-- Replace the fixed publication budget with a loop over existing ready bloc=
-ks.
-- Use release completion and acquire observation of per-block counts.
-- Permit idle delivery to wait for the existing retirement timer.
+Assisted-by: LLM
+Signed-off-by: Jingxuan Xie <jingxuanxie@deeproute.ai>
+---
+ net/packet/af_packet.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-Testing: ARM64 QEMU virt, four CPUs, PREEMPT_RT and lockdep. The unmodified
-retirement logic blocks sender B behind a deliberately delayed copier A.
-With v2, B completes capture before A is released, for full-block and timer
-retirement; idle delivery, block sequence, lengths and payload are checked.
-The delay is introduced by validation-only kernel instrumentation and is
-not included in this series. Ordinary psock_tpacket and psock_fanout pass
-on uninstrumented RT and non-RT builds. External validation tests exercise
-the actual private helpers; LKMM tests check multi-copier ordering.
-
-The ready-block loop has no fixed work budget: a large ready backlog can
-lengthen the receive queue critical section. A validation case publishes
-1000 blocks in one call. This tradeoff is explicitly retained for review.
-Separate RT KASAN and strict KCSAN runs pass the helper checks, psock tests,
-delayed-copy tests and concurrent-close test without sanitizer reports.
-Patch 1 also passes an independent malformed-GSO runtime check. ARM64 W=3D1
-packet-object builds pass for each patch and under allyesconfig/allmodconfi=
-g.
-QEMU does not establish hardware NIC or Orin integration acceptance.
-
-v1:
-https://lore.kernel.org/netdev/20261028070528.139531-1-jingxuanxie@deeprout=
-e.ai/
-
-Review:
-https://lore.kernel.org/netdev/willemdebruijn.kernel.31ae9fde05c@gmail.com/
-
-Base: fcc00b15cb21a6de76826e5012b2c758505f5e65 (net/main).
-
-jingxuanxie (2):
-  af_packet: prepare the virtio header before reserving an RX frame
-  af_packet: retire TPACKET_V3 blocks without waiting for copiers
-
- net/packet/af_packet.c | 162 +++++++++++++++++++++----------------------
- net/packet/internal.h  |   9 ++-
- 2 files changed, 88 insertions(+), 83 deletions(-)
-
-
-base-commit: fcc00b15cb21a6de76826e5012b2c758505f5e65
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index 823e0911c910..7b3e1e27f777 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -2273,6 +2273,7 @@ static int tpacket_rcv(struct sk_buff *skb, struct ne=
+t_device *dev,
+ 	__u32 ts_status;
+ 	unsigned int slot_id =3D 0;
+ 	int vnet_hdr_sz =3D 0;
++	struct virtio_net_hdr vnet_hdr;
+=20
+ 	/* struct tpacket{2,3}_hdr is aligned to a multiple of TPACKET_ALIGNMENT.
+ 	 * We may add members to them until current aligned size without forcing
+@@ -2375,6 +2376,14 @@ static int tpacket_rcv(struct sk_buff *skb, struct n=
+et_device *dev,
+ 			vnet_hdr_sz =3D 0;
+ 		}
+ 	}
++	if (vnet_hdr_sz &&
++	    virtio_net_hdr_from_skb(skb, &vnet_hdr, vio_le(), true, 0)) {
++		drop_reason =3D SKB_DROP_REASON_PACKET_SOCK_ERROR;
++		atomic_inc(&po->tp_drops);
++		sk->sk_data_ready(sk);
++		sk_skb_reason_drop(sk, copy_skb, drop_reason);
++		goto drop_n_restore;
++	}
+ 	spin_lock(&sk->sk_receive_queue.lock);
+ 	h.raw =3D packet_current_rx_frame(po, skb,
+ 					TP_STATUS_KERNEL, (macoff+snaplen));
+@@ -2388,16 +2397,9 @@ static int tpacket_rcv(struct sk_buff *skb, struct n=
+et_device *dev,
+ 		__set_bit(slot_id, po->rx_ring.rx_owner_map);
+ 	}
+=20
+-	if (vnet_hdr_sz &&
+-	    virtio_net_hdr_from_skb(skb, h.raw + macoff -
+-				    sizeof(struct virtio_net_hdr),
+-				    vio_le(), true, 0)) {
+-		if (po->tp_version <=3D TPACKET_V2)
+-			__clear_bit(slot_id, po->rx_ring.rx_owner_map);
+-		else
+-			prb_clear_blk_fill_status(&po->rx_ring);
+-		goto drop_n_account;
+-	}
++	if (vnet_hdr_sz)
++		memcpy(h.raw + macoff - sizeof(vnet_hdr), &vnet_hdr,
++		       sizeof(vnet_hdr));
+=20
+ 	if (po->tp_version <=3D TPACKET_V2) {
+ 		packet_increment_rx_head(po, &po->rx_ring);
 --=20
 2.25.1
