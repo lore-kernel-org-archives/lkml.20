@@ -1,58 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.75
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793356824;
-	b=ja4ea21criNEFlNFRTEltj3+Mwc31fi4gTB8P3JDv+ajamLCb7tPLDKMEYDSPQQcsKh0
-	 0s26tP9wRanH/JCeAIRl+vPfcNQenhUWaBFp9Vp1BnmO3xs0MvzZP18iTg2NPiD0RIWpP
-	 8PlMfM/uyDI9pa/mGBaVerUt3LLfwW5LEA7GYIco75Xe9RUHeCZNZ15ntLU0GKiVFb5wz
-	 4zf5JHeZXQu3LENjWkyaFS2vn4soVQ84SSp0i0Gxop4YSiP9DCHYiAAfPQeibwPn7iZDx
-	 oD3WqHuwGL436mgH5FO9v3gqyqm8G8AUPhV0CLFekM8U/8wSqAufqUw6x8uHe51a/fw==
+	t=1793356837;
+	b=hatGTah1QEY6/+bW+A5YjjRkhZqaMwbu5qvQ/rHv7QEA5ZmC2OOzV5nnK0gPjNrz7UHr
+	 XqwlrN8Nr4aMxWWHlKjwtUl7mwQGwjkHqwdpG/e2e3DuZ6CSRO0y401JQqD6ny/Br+Jnk
+	 PRx4nCDIxXWFisdSm1bvg5pfQCFVpa8jCzc+4XGIPZF8iItC4QeQtobLxK3G4ZWcpPgAr
+	 76yuJW9aoxDgsDsjQ0bf6n4y6AW28+m+VLUsG9LfEm+rllb9fYR0y0QAHzio3U5j7eJUf
+	 9Q9e+x8OE3uMjdaXkP3VvszTUvUEHrDFl23t++s6C4BR2HzQ6Bu/Wzs/L5eqvn3+zzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356824;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=BferNNNSUC7kWb64+z5TVBx4txrLwdHxxuPVfWleFJA=;
-	b=uMb+TkNOQnAdVO83O5/mETqUfvcL5+8jsN9tvSSyNmadFsgnxv/f46EO19zRnQGxV9e0
-	 wqoccAD1iuwSECKZp3Oe6KbV6SerscsT5Qh0kKws2IxH20NYNmKtESY09kLLxlAhNBC5R
-	 jweZtBxAABAGEc1s7NWgAFuVnH5U9tuKdNsH8uFyj9ERoLQXGTPw6P5ZxF5fAOydaMKCn
-	 BsTWCXGetr13kkFzSQcgAfzom02UyTU5xW0jj6zf1iLI4WNFtBmQ0qqqDavuZkifNDbtr
-	 e0drJKqINF6CDm1YXX2ak0ddbVSpNJRVSk5rYPT6poCgV4jAGnLrDx2pFhH2vIqxmYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356837;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=pvWiGhrTNAzK7aAEaulPXx3JNKfuDMHI4rCQcPEIeC0=;
+	b=O90AZQIs0TQtvwVWJFXCGq5PNxyLbSmN7Nk2QpxDGZQVekXa8kwiJsgSapQnYRLgGEfU
+	 7UQa7zOjuLcQ502+HOy09E9BNKbNjAMgC5R5JORUqOivqvXWuq22Qw3bWJTSOcFfCpdkM
+	 RJRpxfQwdQcpqMl2BZCvo+pG27X8c0Q8nNZMflrP67cK7ntk8pKg/uft4ODR3LIiss/Yk
+	 6rJiErq72uPCvMi5UiskDki+Ckx+ucDT3wn0SxbWl3X/XzgXkePs2baVdTAbLqB+uFkv8
+	 Qs7s9RnQIK4vDb3vDDbtPJYPYV+R7Q6gTmVOjz+JGqR5vpmtk3d7HNMpshA79VQVNsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=bQqVNsJ9;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fyeRihqv;
+	arc=none smtp.remote-ip=74.125.225.75
+Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com [74.125.225.75])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A2A606A334
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:40:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88A2A606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30348606A31E
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 10:40:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30348606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=bQqVNsJ9
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
-	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
-	bh=BferNNNSUC7kWb64+z5TVBx4txrLwdHxxuPVfWleFJA=; b=bQqVNsJ9TULcVmtJzq8Fzt5gNU
-	aDJwD4xCDD3bYi6fovyA5fEHvJHwO93tTXM2NJ+5qVE+vrgZ7rrdVFmMooO76NrY+uafPrZr8+jRB
-	LA8tDYI7hPDp+tfW2jbYH59fa7vu+1S/OE+eVrZHnU8/bX2nPuCBKfkDYGhpSYQXQIfbk0BDP68gX
-	we0c4TIpAh3jiA6FcvwQAQoTs8aXDl9uHonOIoh46Ipj9mfH23wO37enLphxJ5Ow8QUCg3PYuRbiu
-	kguMfG3Two2iUYlzV7LFlbpktjdhcQnwI2FKPLNqhBDf8GCxDjzvK2ANk78Fwy6JKyBtXAwkw2isI
-	0/zc9Jnw==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xMk1s-003lCZ-2j;
-	Fri, 30 Oct 2026 10:40:13 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Fri, 30 Oct 2026 03:29:45 -0700
-Subject: [PATCH] ipmi:kcs: Rate limit the invalid state warning
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=fyeRihqv
+Received: by mail-wr2-f11.google.com with SMTP id ffacd0b85a97d-48b0a195dbcso28411f8f.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 03:40:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793356835; x=1793961635; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pvWiGhrTNAzK7aAEaulPXx3JNKfuDMHI4rCQcPEIeC0=;
+        b=fyeRihqvtIyW3JW9mdFT1KgJ0Enpjqpzy59ZzvSWqO6bHvlbro6C5QJduVM370/jWv
+         eyhzwbuq1jv8DQX4AuNtPJcbQ+lhvDt3F5QHOPsmtFCUSnm5QkKAab/P7r/u6rLGdTHX
+         YFgVUhmGuxvaVsqvGmEkbbX/Sd7JzpgjeO+nCJb7pbTM0gmES29yV4uY2n4Z7Mcay5wu
+         cBfEvmocAWGPnCoQPe1jjpZwxVEsC9UnYGILN2EfpcrMzLjtKtWGqOqdmxHcLkvnMszp
+         b81AHgePItYfSEN7UtM8UD2Z/JVFdAhfNXZmXjyrXF6O6oM4/1w6Kc6V17rLCca3yeZO
+         V8ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793356835; x=1793961635;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=pvWiGhrTNAzK7aAEaulPXx3JNKfuDMHI4rCQcPEIeC0=;
+        b=SqJXLg0BiOPLDd9v/esyVlw7VVkiyhj4t1FMwlDF3DuJeu2891xNjiTp44vVoq3bbJ
+         CBNGBpAQiUVcBD71JgymP+Cr3cOpvfolHqGWrroqGaKQzW0jbaVaIR0DSuKrEmyGtKvH
+         +hG629hGNas4CjLfhrKnnvO10q+DKMLPH/eaInIgGwvLyB54icnVn3xIVK/6Heq0wzLY
+         Zdh1T/1VGLtUISrK8f9ARRPbaZqwu6+x+B9PgtkYYL8UGzZ64fBprDfDNBrcB7rzaVKw
+         qSECJCs3pqd7tawLdLpY4lmjEfoA1c2phHR27td7jvORMa1LOpX338+EA+pMLh/+O9PH
+         xSNw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcbiAKTlVLEttp/LvwIwEJV054aemVchyNcd/BPyhD0gn24oZsNTgyepf517hLY1l/9k1ud53h2f7lWOY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoUtLi+4ynbIzsdG3MRZrOpJO3i4pvGXgNTkukPuRAnHAo4uK+
+	IMxWbxZ4vFQTLzlVjwNuRCPW8HizA3Jw/jV4ZfSGQToMA1OGMz2SSXFHFtlpkkVGkt8=
+X-Gm-Gg: AYBFou29Z8IUp+p+fIOrGRFRqRsBAs6JVei7fWIemlMeBSyTP/Dx0h1PC29Tii8TSMU
+	GfCeJUOxGzdTnDjuMq/MCMMHFqN10T01rKMWqdi4ah09jW16MKIaAVkG8oZx1R3SBrCM2nZuo6w
+	HeU0l8wZlKfSMoVLY63q5/d1ZroLkcc4pdI5hd1E7gOysi242Qf+/XxTemo2kHwqwYIQtXO37eZ
+	F1YHV8wzKaaUipIJKa/6Tec44sxQvKpdZmqtJg+ihX5wMoBFVvAKyEfwzAdYyvSLD46CB1Md7mD
+	fuDFm2ctqPLmakOpW3wXVzai+vqNt3N+4o4M6JppjRmdfvk6HvyoQBx0D/p10Pc8LasKmFbG4Nd
+	AWOxFY+GfVWZoRNouoKaWyG22IHMWurXmd8KgFIJTXDGMgIfno49S4b8RTLTBEBDUsSMHIn/DPt
+	2BclX0wQ/kUHs9hlVyGStjz8yUEhcTt0Pp1yrV8mFTue1kp8A0HJ7ZjYLh3MSRlvotmvlLUea+I
+	HEKBO5lK3ZICRUXZevVaTFoEdiSOtpauAbh4ZDUxx4G0A5aZgpI2F9kn3MYnfyT11JlFS+tm7uG
+	0cmDy9PayS1iERSatLMFoKGj9EWnj4Q0107FX03ntfKbjmANon9DIUDgIaKZEC9vlHKV7jtTDg2
+	8no8ctf1ClVTtZn4zxcENliO+AYE0h8hNpExjV5LoJLqJvFA=
+X-Received: by 2002:a05:600c:4e08:b0:4a1:9c71:9f17 with SMTP id 5b1f17b1804b1-4ac17287d04mr43924345e9.9.1793356835493;
+        Fri, 30 Oct 2026 03:40:35 -0700 (PDT)
+Received: from z13-ek5.local ([151.40.161.170])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f3229dbsm128054145e9.1.2026.10.30.03.40.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 03:40:33 -0700 (PDT)
+From: Ettore Chimenti <ettore.chimenti@linaro.org>
+Date: Fri, 30 Oct 2026 11:40:30 +0100
+Subject: [PATCH] ARM: OMAP2+: ti81xx: use non-scalable voltage domains
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,93 +94,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-ipmi-v1-1-f84d5fa1fa6c@debian.org>
-X-B4-Tracking: v=1; b=H4sIAJ1x5GoC/x3MQQqAIBAF0KsMf52gk0V4lWghNdUsMlGIILp70
- DvAe1ClqFQEelDk0qpnQiDXEOY9pk2MLggEttw721qj+VATmbn1rptl8GgIuciq99+M0/t+n+j
- yzlYAAAA=
-X-Change-ID: 20261030-ipmi-a2223415ce84
-To: Corey Minyard <corey@minyard.net>
-Cc: openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
- kernel-team@meta.com, Dan Melnic <dmm@meta.com>, 
- Breno Leitao <leitao@debian.org>
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2604; i=leitao@debian.org;
- h=from:subject:message-id; bh=j4PbfNKz6Zd45z0q5j+Q/zlb6uBQGKW5KuZSdFWxv/M=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq5HQIqt3HkycfhcmvFMuBuuGjsL3kQt97ppol7
- buKGAbw3RqJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCauR0CAAKCRA1o5Of/Hh3
- bY1xD/4q2/csiOitXckBDFyLkn7NT87hsfNRL7pe2g6SRc/5DiDhEbZ17dTJ8cMQB40YdtA13aO
- /pbMD5OwFvWT7R6EARoNpeHfGVvxXvK+fFgnqMasEIu1qhKHX4+fDlCsJfWiJFsWZuw11HkBli8
- FIZDeLCnJJEzeO7dx9z+YNMXDtQ+jRQANSb1M1yjNTQeWWpmHKKIo8qJewy9zLoWQA7C/9OUfwe
- UlE8iwNOD97bJeQEf1xwXlpiME7oKMjkd/bzTEMpzYR7sO9h1VnoV3MAdq97M/Llb3fiABnKo8c
- ZEbKuTPiaZzma5O8hl2Kd4BKZvax/UHFQNpwFVX4IhcP+8tcSIG3dqI4xoahnuaM7VX7Ojpwlxp
- mk9In1KKzSxVRQd6N5qKIopFglXUwtn/+hqmFLyq7NajeFaYxH79qmkyArTgl50dihKet46YFfA
- Kzzenz0mQYEQvibzIMWMkjEmxWczelDpFxKseh0uB9zzM2v3rqc0hcMGoN6nWYsduPodSCK62Oi
- qUkj6rYIrefxsL0XnlqQbaOwBubjOEzsbN3+4FV8i3pB0Z0D59Txm1lHj6gP7fXvIvbw5OJQrsH
- NrCyq/3mfrQ2TsQm/WmYy3m8iFaT2EEjpJeoNQw+Iya5DRK01Yltk62ZKJaKm8L/86JHa2ki6ZZ
- qVb2B7gIDtPgjIg==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+Message-Id: <20261030-patch-ektor5-dm81xx-vd-v1-1-8ba90608c25b@linaro.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ7CIBBA0as0s3YSoKLoVYyLAoMdjS0B2pA0v
+ buoy7f4f4NMiSnDtdsg0cqZ56lBHjpw4zA9CNk3gxLqJEUvMA7FjUivMieN/m1krbh6NEL7o7K
+ Xsw0GWhwTBa6/8e3+d17sk1z53mDfP5nUuDB6AAAA
+X-Change-ID: 20261030-patch-ektor5-dm81xx-vd-805d42b97bf8
+To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ Andrew Goodbody <andrew.goodbody@linaro.org>, 
+ Rouven Czerwinski <rouven.czerwinski@linaro.org>
+Cc: linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Ettore Chimenti <ettore.chimenti@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793356832; l=2174;
+ i=ettore.chimenti@linaro.org; s=20261014; h=from:subject:message-id;
+ bh=fW7+0/WXEVB4unwZegY0rWJvXAG1+Sm+jd3ooJSV6oE=;
+ b=oBDmhYYvqpRgRr++FtlQcR0z2LNcib+56DwS5KNiU4zDkyTp3TRXHEVXIBVFdwnKuwGqasWY8
+ MfXTTatdE9LAITQKNQgQKdE0Sd1c2Jhbzs++0H3zLwYKN3G4EJQI+Yl
+X-Developer-Key: i=ettore.chimenti@linaro.org; a=ed25519;
+ pk=wCaUblFVaqhuBTQt/hAtysafsAaEsqj/yOD9SPlz6NM=
 
-start_kcs_transaction() warns each time it is asked to start a
-transaction while the KCS state machine is busy. The warning is not
-rate limited, so if the SI layer believes the interface is idle while
-the state machine is still running, every message sent to the BMC logs
-another line.
+TI81xx SoCs reuse omap3xxx_voltagedomains_init(), which registers the
+OMAP34xx/36xx voltage domains for every SoC except AM35xx. Those
+domains are marked scalable and reference OMAP3 Voltage Controller and
+Voltage Processor instances, which do not exist on DM814x/DM816x, and
+no PMIC data is registered for these SoCs either.
 
-Kernels carrying commit c608966f3f9c ("ipmi: fix msg stack when IPMI is
-disconnected") hit this. When the interface is declared hosed, the
-state machine is reset to KCS_ERROR0 rather than KCS_IDLE, and keeps
-walking the error states while the SI layer, which treats it as idle,
-tries to start new messages.
+As a result, omap_voltage_late_init() tries to set them up on every
+boot and bails out early with:
 
-One host logged 29K of these lines in four days, several per second:
+  omap_voltage_late_init: Could not get sys clk.
 
-  [Thu Oct 29 14:55:54 2026] ipmi_si dmi-ipmi-si.0: KCS in invalid state 9
-  [Thu Oct 29 14:55:55 2026] ipmi_si dmi-ipmi-si.0: KCS in invalid state 7
-  [Thu Oct 29 14:55:55 2026] ipmi_si dmi-ipmi-si.0: KCS in invalid state 8
-  [Thu Oct 29 14:55:55 2026] ipmi_si dmi-ipmi-si.0: KCS in invalid state 9
-  [Thu Oct 29 14:55:55 2026] ipmi_si dmi-ipmi-si.0: KCS in invalid state 7
+Adding a "sys_ck" clock alias would only push the failure further into
+omap_vc_init_channel() and omap_vp_init(), which then complain about
+missing PMIC data.
 
-Across hosts running such kernels at Meta fleet, about 887 million of
-these lines were logged in one week, all for states 6 to 9 (KCS_ERROR0
-to KCS_ERROR3).
+TI81xx has no voltage scaling support in mainline, so, as done for
+AM35xx in commit ddf536d0d7e1 ("ARM: OMAP: AM3517/3505: fix crash on
+boot due to incorrect voltagedomain data"), register the non-scalable
+voltage domains instead. They still provide the "mpu_iva", "core" and
+"wkup" domains needed by the powerdomain data, and
+omap_voltage_late_init() now skips them.
 
-That commit was reverted by commit 5d09ee1bec87 ("Revert "ipmi: fix msg
-stack when IPMI is disconnected""), but nothing bounds the warning if
-the two layers get out of sync again.
-
-Use dev_warn_ratelimited(), as the SI layer already does for its
-transaction warnings, given it is cheap and will protect us from this
-crazy flood.
-
-Reported-by: Dan Melnic <dmm@meta.com>
-Signed-off-by: Breno Leitao <leitao@debian.org>
+Tested-by: Andrew Goodbody <andrew.goodbody@linaro.org>
+Signed-off-by: Ettore Chimenti <ettore.chimenti@linaro.org>
 ---
- drivers/char/ipmi/ipmi_kcs_sm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+This patch has been tested on DM8168-EVM only. It will affect also
+DM814x boards, but seems that the problem probably affects every DM81xx
+SoC.
+---
+ arch/arm/mach-omap2/voltagedomains3xxx_data.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/char/ipmi/ipmi_kcs_sm.c b/drivers/char/ipmi/ipmi_kcs_sm.c
-index c89055db39e52e..ae0399ccd82196 100644
---- a/drivers/char/ipmi/ipmi_kcs_sm.c
-+++ b/drivers/char/ipmi/ipmi_kcs_sm.c
-@@ -271,7 +271,8 @@ static int start_kcs_transaction(struct si_sm_data *kcs, unsigned char *data,
- 		return IPMI_REQ_LEN_EXCEEDED_ERR;
+diff --git a/arch/arm/mach-omap2/voltagedomains3xxx_data.c b/arch/arm/mach-omap2/voltagedomains3xxx_data.c
+index e98a3f289c27..478f5eb2a17f 100644
+--- a/arch/arm/mach-omap2/voltagedomains3xxx_data.c
++++ b/arch/arm/mach-omap2/voltagedomains3xxx_data.c
+@@ -119,7 +119,7 @@ void __init omap3xxx_voltagedomains_init(void)
+ 	omap3_voltdm_mpu.vc_param = &omap3_mpu_vc_data;
+ 	omap3_voltdm_core.vc_param = &omap3_core_vc_data;
  
- 	if ((kcs->state != KCS_IDLE) && (kcs->state != KCS_HOSED)) {
--		dev_warn(kcs->io->dev, "KCS in invalid state %d\n", kcs->state);
-+		dev_warn_ratelimited(kcs->io->dev, "KCS in invalid state %d\n",
-+				     kcs->state);
- 		return IPMI_NOT_IN_MY_STATE_ERR;
- 	}
- 
+-	if (soc_is_am35xx())
++	if (soc_is_am35xx() || soc_is_ti81xx())
+ 		voltdms = voltagedomains_am35xx;
+ 	else
+ 		voltdms = voltagedomains_omap3;
 
 ---
-base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261030-ipmi-a2223415ce84
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+change-id: 20261030-patch-ektor5-dm81xx-vd-805d42b97bf8
 
 Best regards,
 --  
-Breno Leitao <leitao@debian.org>
+Ettore Chimenti <ettore.chimenti@linaro.org>
 
