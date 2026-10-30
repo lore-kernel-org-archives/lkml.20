@@ -1,69 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793323699;
-	b=NZkg+cySjt4xMLaoAkOlgkRNb4bxCLEA43nfGzFAbdeXPrhJadsUXI7mGFCOIF/iGQ/z
-	 8/zA6OddlJB1pvt90OtSlBUSBdM5z2reXA7Sxb0phtf/A0+9uMlXGPbbyW47/42bVBG9N
-	 L+mbKVBR3u7/1v1vLxGztKHnf14EHBS5n605PTJNUlgR10n+ILk7rEOl5gLw4VFKNSqcK
-	 a8BQubKD2kyZSUyDUgpQ1QknDFvz+yQcu1LPNtrZojkzcZNaYJzsLd/I2VMs9BXUqmGLl
-	 N69LEQWrSD5wYWmMrfDPP/cKcrvKy/hxpyL7sNpDXTnDuoVJAkbTV/+Fka397gRT4kw==
+	t=1793323766;
+	b=NErp/DwEYlU7qJml28GuKhciU2FlLUkzy7Ke5UKBK/Qh3QlqvnHydt9E+IaaCYM2kcPw
+	 6hM5940g/RqKSMdartykcbXYL8BbhGO6BrYl8lxPCPJZM41FQ33C0UhliWr978xUGVybi
+	 36Hj8UMDF3XfZzpxFgk0Il3lDV6lhqXVx93icuhIyGX9RY5hAQLREWd6owUENlQ8D9Csp
+	 Oq9OmpOKtRB3hTtMfVR0JNfgPnMtw9z4XOefoLgmLd5cX2IqDUe7n0aMbkr0M0sh2D2C5
+	 0o9SoRZ7VCE+aRxPFEZdjvppEelwIjWzJcYZH+BjXdrU/o0zzi6XyoNuYnsC35kKRpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793323699;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ko4ls3qqVzlXNxfX8a12H6URoQecw8b9jhJGN2hC6OU=;
-	b=cIeBhdZMk5wtgBLZM4HafzVLEgKkqqDouUmBr7r16aw17yjuD71pi064U+SN+24eC1Qx
-	 aS/bavtEANy7odK5FK/InJ7D36zS62KqpahNxnigiuxmUql7ZLNNth70xL5E4uYvIY3S/
-	 6yN2wxQ1KZLdVsyyzMbD5Cu90Fmj8v5aqMF6HTZK0OHQxoj1JIKwctKJIMceKAFbzVuBm
-	 grvvfWRRVDkyvQ1RztLrpxWZ1hKHMvC9EbcKZL61dfWb8anhHaggS/DErSWI4uBHwcsEX
-	 mdzx4UiyfWU2s3i1DzgfeecumlDuLHhu/fvQjKuGgW8i6XUV5NJh2wzNjNEYhz/+Asw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793323766;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4fJnUETMpqbsY8C/libV4lplZBPSHZVwnBnVZzL/9aw=;
+	b=0NNXhYEmGaGpXK2Zru2QnBrd9oOFwhKHpS65f470bZL7q2ZgEHAu2ksD8uiEhA8VVLNp
+	 bS0J/OnMfZobLds1AqUiceT2fK5X0rJtgXI+nmellQCBsTMUQYsXRRze9foHKkRHshstg
+	 qibOCoDSlR2oyXZV2+fzPRnRWsmS1wzH+JLueAjAUmQLtQXVgPdfxiHLm+4oJM24Ywts1
+	 4hTi2wptBRJYwhmrGyJiiHQadRYKCpVbDDJplMZ3Z1UfyyFw6R6FsXXlEge/8/X6n+i2+
+	 PUYvf7mv8nYRBUo4DRD2rIrO1ZUDYEUL6QkEYXR6ic4P2wORV+AoW/O2fSzlk9CgnKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TP066uO9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AF6606A31A;
-	Fri, 30 Oct 2026 01:28:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2AF6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 2ac56d20d40111f19a56ed5b684f684d-20261030
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d9dd9a9e-0abc-435d-bb0d-7869c202ddda,IP:0,U
-	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:25
-X-CID-META: VersionHash:7db8b62,CLOUDID:754df53d9fe5c0d59af7f0c20fcefc06,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50|99
-	,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 2ac56d20d40111f19a56ed5b684f684d-20261030
-X-User: huangwei@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <huangwei@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 519817670; Fri, 30 Oct 2026 09:28:10 +0800
-From: Huang Wei <huangwei@kylinos.cn>
-To: Craig Hesling <craig@hesling.com>
-Cc: Johan Hovold <johan@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	leStoppe <lestoppe@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	huangwei@kylinos.cn
-Subject: Re: [PATCH] USB: serial: simple: narrow OWON match to avoid breaking VDS1022
-Date: Fri, 30 Oct 2026 09:28:05 +0800
-Message-Id: <20261030012805.4087311-1-huangwei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <fa1ec0429fe8c1287c126b50989f1cffe2567a86.camel@hesling.com>
-References: <20260810091322.2201740-1-huangwei@kylinos.cn> <fa1ec0429fe8c1287c126b50989f1cffe2567a86.camel@hesling.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2DA0606A31A;
+	Fri, 30 Oct 2026 01:29:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TP066uO9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B0981F000C1;
+	Fri, 30 Oct 2026 01:29:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793323765;
+	bh=4fJnUETMpqbsY8C/libV4lplZBPSHZVwnBnVZzL/9aw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TP066uO9J9qysREH3m7rGEB3uEH6nAC5R5SDdk7oZ3CZaEDX5rpD8ryZizXdXzbMD
+	 Py1m8h9x+fDsf5f5Q8GWrmGb2f1vJS5TvGVEzw6kp0m0umLdvolut0gqy+/29gMR1A
+	 KR6skYDlcspZcv7iShbuhE2DiTpDoLdMwersx+KVCE4j96akac4VggA1RkB8lHS8E0
+	 PuI8yqMusM9kZZGLu28dpA0aplF1B+Muq3kkG5zg4eEWvduRF+GYe0mlFBJmQDWaws
+	 ZuYN8jceb2TxY62ubgymGw7sAB963VuHBKEcEeNq/QXmwkO+va0lTYohqPmau0Da1D
+	 kPc9Fg/KfrtKg==
+Date: Thu, 29 Oct 2026 18:29:24 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Kanak Shilledar <kanak.shilledar@axis.com>
+Cc: Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] riscv: dts: thead: th1520: Cleanup with
+ dt-check-style
+Message-ID: <auPy9Hwg5nXDb9fR@thelio>
+References: <20261002-fix-dts-th1520-v1-0-9a8810091d47@axis.com>
+ <20261002-fix-dts-th1520-v1-2-9a8810091d47@axis.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,38 +64,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-fix-dts-th1520-v1-2-9a8810091d47@axis.com>
 
-Hi Craig,
+On Fri, Oct 02, 2026 at 03:43:34PM +0200, Kanak Shilledar wrote:
+> Fix warnings related to "property-order" and "required-blank-lines"
+> reported from krzk's recent updates to dt-check-style tool. Leave
+> out reordering of the nodes as it creates a very bit diff. After this
 
-Thanks for weighing in, and for the background on the original
-intent - that closes the loop on the question from August.
+I will change this to "very big diff" when applying.
 
-On binding the VDS1022's serial interface: the practical issue is
-that the userspace ecosystem for it already exists and runs on
-libusb - leStoppe's tool is the florentbr/Owon-VDS1022 one, and
-that is exactly what made this a regression: it worked out of the
-box before commit 4cc01410e1c1, and the kernel binding broke it
-immediately. Pre-claiming the interface breaks real users today,
-whatever the merits of a serial-based toolchain would be.
+> patch only the following warnings remain which can be fixed in future
+> work:
+> 
+> 	thead/th1520.dtsi:221: [child-name-order] child node 'oscillator' out of name order
+> 	thead/th1520.dtsi:227: [child-name-order] child node '32k-oscillator' out of name order
+> 	thead/th1520.dtsi:248: [property-name] property name "snps,wr_osr_lmt" is using discouraged style
+> 	thead/th1520.dtsi:249: [property-name] property name "snps,rd_osr_lmt" is using discouraged style
+> 	thead/th1520.dtsi:253: [child-name-order] child node 'aon' out of name order
+> 
+> Fix these warnings to make the file more readable and maintainable
+> along with that to make it more compliant with the devicetree
+> specifications.
+> 
+> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
 
-The "looks like serial" point is also subtler than it appears -
-plenty of devices expose two bulk endpoints without being serial,
-and the VDS1022's protocol is binary request/response with the
-framing done in the tool (leStoppe mentioned even the SCPI
-commands need enabling through the tool's socket, so it is not
-plain-text SCPI-over-tty like the HDS200). A generic serial
-binding gets you a tty speaking a private binary protocol, which
-only helps if someone writes matching userspace.
-
-Your end goal is not wrong though - if a serial-based VDS1022 tool
-shows up someday, the tuple match keeps the interface available and
-it can be bound deliberately at that point. What we shouldn't do is
-claim it speculatively and break the existing libusb users.
-
-On the HDS272S older-firmware check - that would be genuinely
-useful whenever you get to it, no urgency. The commit-message dump
-and leStoppe's VDS1022 dump are the only two data points either way.
-
-Thanks,
-Huang Wei
+Reviewed-by: Drew Fustini <fustini@kernel.org>
