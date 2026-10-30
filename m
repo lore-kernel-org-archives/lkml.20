@@ -1,90 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793334093;
-	b=MS4Rc9lqLr74GzJULCnRhbZMNsTVe6vPIp2Y3hBO9QKM1TLdnN9YADvjm6Th5P5W48vL
-	 Yat5EoWUYlbkjgbDQYMnCmj/OJeD0v1g+SUZGN4DwFs6PEr5qNZmsUvhJYm5g5bI7f1YJ
-	 TmaJWmtoWFbdrNLDFf76pz34EnlAQMFs57dS/8f3+Z4f+Hp/tkTjER1PNzLhxEMIbOwri
-	 H55FPgzZ0UqjiBrK5Xk1wLilqJjaejTqKKaSHtTDLM15xVTGn+oBFO0qZYVqz2nlxgwbK
-	 f1KplXAsnYU9GXhp5AAD7GsrDwfDAmRJf07aRlAyh1ncqNQKF9GDYPDzssvmtkPNWZg==
+	t=1793334110;
+	b=vIQdIt257vWUoFSqMt5NLmobkbd1RyaZG43kuy5jbrKRmIPx0e9sTh0mZ1dCzv4GP7kg
+	 KqsExQBmb8tfwAGXlYh09G7XAyNfXNNmyaHXgCpq6kCoK4dTLfA032OwihPnYMNUdkczi
+	 otTVZvam5vpYfj8Vhp805R+JF3aTn+n30B6HpmOVHS/9m/+Hrl7YXAyVtE6GVSAI15Kx/
+	 068gSDo84dZ1OZnNzoY7noi1IzqOejSMrXXGwpu5wDN7ggPCvSYREe3kgf9GjNplNeGL0
+	 tEtZORR8Xnf4n8w0NEQOZNz6KoOeFL9YYY3IUUO2R5FbQk+UM04rdd9XS1Kag4aLHwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793334093;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793334110;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=m+UvCR40zLeBZiNhlvIBvCGxKCDmbVOiWwxKAegnpmc=;
-	b=M3CTC0orT6RXb3GHKlLhDDGHC5p9qBVzEL2in1YKvRUl4FjxA2xJOTm/RpEp4fOxWZ7q
-	 D5ebJjH5Mh9nhkWjq2ejZnBLZhvXOxnSK48NZKhkXsJxwZ4ZvS+ZCx+ORSq8Etj5byNkE
-	 VtjVvQ0S/TovQlYQQzmyh7wgRKH27H+N70R4atzJlTG5vqKMZ1oxcb/lfkIT4jf95Dv1w
-	 +dTWLs29rkhHQPiZ51eqmp2K3gm6VJEkiK99CC8ZlGGGRNMNvER4vBlaYHRWZty3BPw/P
-	 4atbMmvECU4g07QEL/agHwREFfHcyr0gy8TJnqI/qBoe8Gl4IxtlBVoinBlIcVwmXqw==
+	bh=sQmqYXwhPEoOIU+cSSlto5ZT2a+PGkxqqNn7RgX5NXs=;
+	b=EghdgGLNMV/b5ZQ939rgQd3qFNfardVcDM1UNBNlYN4V/aO99InqnDSdiggLQBxIAHqL
+	 ifDfNIZGTRNDPm2bl1bBBv/RcSwXr5f2GVqPzg/RE82UlnkQtIKo0ezEUAIHXas6sWtq6
+	 IDNXXHTu9Xu0BL9O+QwmjImj53k5ggu4UG94hRpjJfYOId9qXXJ4SMj9BGJhaSSb75kEY
+	 zZrx4/zt8n8DINzNuZ4TXP2xAtKWwlwh8oRikXHBFVrtLOqvXSOx2sn6A3jvGX05QZUiL
+	 VIen0xvIcg59V7WA6H1bW4Ta4HcwmQEc4xf7YJ1srj/TcM8BbmJYaA2OVtMqbCr3Mpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=openai.com;
 	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=aw21dDBZ;
-	arc=none smtp.remote-ip=209.85.161.50
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=Wifjvk9Q;
+	arc=none smtp.remote-ip=209.85.167.170
+Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com [209.85.167.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6069606A31A
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:21:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6069606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C87606A31D
+	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 04:21:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2C87606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=aw21dDBZ
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6b1afdf5196so81270eaf.2
-        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:21:32 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=Wifjvk9Q
+Received: by mail-oi1-f170.google.com with SMTP id 5614622812f47-4b28d9537bcso232556b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 29 Oct 2026 21:21:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1793334092; x=1793938892; darn=vger.kernel.org;
+        d=openai.com; s=google; t=1793334109; x=1793938909; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m+UvCR40zLeBZiNhlvIBvCGxKCDmbVOiWwxKAegnpmc=;
-        b=aw21dDBZ39a0BZ1Pwg/laBtRlVRZ9zJrcVN/8T3X44Th5/D73o9RLTgP1OBRddcEfI
-         GV26wzWBoEuuw7MH/35MaEL1fB9tx69z7D9OMTt3GHMNFayr42/D+aUMMnA/J27N9oO8
-         pE9GhNIdop9I5hAIL3PXyHU62WrcVThEkHHJo=
+        bh=sQmqYXwhPEoOIU+cSSlto5ZT2a+PGkxqqNn7RgX5NXs=;
+        b=Wifjvk9QHpX3sDnV1u9EjAM+z8pfyMKSggxgf12jYYnhxtPnNR0PmmJFV2VFx79Ccv
+         mcceEvSRLAEp0EqiHIFMr21tfvtlgQhFfqVRRktD/E6r34jadH3vcaaBLvA0dqG+B1Qy
+         1HsQmobNCqUjc8tLHwKwgJDipuOWsgoeihM9k=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793334092; x=1793938892;
+        d=1e100.net; s=20260707; t=1793334109; x=1793938909;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=m+UvCR40zLeBZiNhlvIBvCGxKCDmbVOiWwxKAegnpmc=;
-        b=ksYQfKV7BIpU2asiVoCOgzZr/a2/3uPcABojcsTeg7OVGejSD8vl+ZmwKu+ioX+fg5
-         JnyMNsi7uEQnogtotOw4OwPop7RJxc8vau+zySCAlWq9miY/vx2L+DVWvdxR7j9OotQx
-         J7d8U1htWGfgq5w7pHJNz1Ekrev++EAXDKRkEj0DlT2AW7IlHYkgIY3gSbMzRp1AsdrG
-         DhapcJHShqJUk32BBpooHtwwOEmonQ+iBCcqOQMPt5m1DLDcJqd9N6t/+0jVpMsujln5
-         EyLDanWfmvgR2Jo9e1xFiRy/56x5E4kytB+/L/IRuCJaU/Z2vxJ4TvH8tCZjSpBQuaGu
-         ZcGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxCL2gAKeoaf4COsvrRD/wkueJLc0wv6VROQxfUL5wkQ+TzAPh/VG5ezmkG1WtyUjkw3tA7dh8YfZE0QGY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLCBfcFpOEaqC1WU6QlcspNVg7Om0Y4w9ZZpfX7O0dwyDCgK0AM
-	WC2WwXNblj2eawuaIq/kXeKFTYCk2Jt8IYsXOaoyWQfk8Qxb2O+hl5LwJANsp4mlCFM=
-X-Gm-Gg: AYBFou3gAKrtT7ov1BMqzLFnWwPI6xNhSavYvrqiuRRyaCVNpHKWU8xZ3MaaVQKQ/Dw
-	NO7NF7wY6By5fpjMzd4u4yNofXbI4vKfofJscTisq8nNGxRfMsXY8AyAfxEswz2EIguvWQbrXv4
-	ugUxdJ03BsUnbfkanRF24qGQP+CMwNb0+WY7I9xnXUtzsVmcsBmMFO9tG9dnLapFgB/CfBhO31b
-	OvYsYcvLFgDUjARyZDzdaJh8agvAgsyDgLrArTUGvwGaxXeCY5oO5zpZ3REGyCENeJmONTvJrTx
-	HVCk6Z74GLEamf07rZAmFuFda/qAXeLJ6u6zkJm+DrE5EYo2wjUgr9ztGPiM6CpuR0/w0al8xgO
-	WBYLqbknetNSe/NMDEFASTsjgYUYzy2MsTKvKPHdIAhQVDN22+6fBNJj9kvqaEa9ZRZO+EW/qF6
-	Gic8MAMq5sLTlTTLrEPS3GItBAZHJUMHrZ7txKJEqRPVykfx1OUO641Bn+eVutnzBsSkvxA2i7a
-	fXJwi75p97ctM75PCahcu/Dktp6cDB6jhDiirnCZ71Zf56bH7eMdI7jnZqqhe932Wbbz4zAD0Hr
-	fJF+XVPXZcLpvpfXE+dBEzJA2D3uupzQwknYEaVrrxqRVG1BouPvRJWVyj0Em6R4/Q4YLPnkxaz
-	SKtB7zEFtm8plH+vcA/DDA/cS9nIWgQ==
-X-Received: by 2002:a05:6820:806:b0:701:e4ae:d394 with SMTP id 006d021491bc7-714f2a0774bmr778691eaf.75.1793334091650;
-        Thu, 29 Oct 2026 21:21:31 -0700 (PDT)
+        bh=sQmqYXwhPEoOIU+cSSlto5ZT2a+PGkxqqNn7RgX5NXs=;
+        b=m/sJOSWK4ACiw+PPi12uWkHBS0WN2UTkrFDpf1pwnXZlyO9wJqJ8gM+Vz4kIyuqc2n
+         z9hejS78ISWpH1zHUGVUWn7v9QQ+u2YCo9KxrOccscEnQ3zxgdEkhbtsl8ed1t4rhTe4
+         WkEzUQ3TPYKqkLP6xqU/ujjkbJFUcbDsVp7H7TqJX89wYN/j5vVVzKrfWlfug7bQKmsg
+         B+6fOpCrxdIGayGLIiATy/gT8hOvmgZcSUX7S5LmFzWm8DleWAitGGcwVPy67B0xTxCT
+         BhlIG1WtJZAqI/Bq///GOPH6nNX1G6sA6MmmiNA7VresSkz6JLfQk8g4DTrfQfs772aw
+         p2qQ==
+X-Forwarded-Encrypted: i=1; AKwUvByxXHuwBVbhDYUu41WSRXgV2WZcI5UyJ98Hngro9waFF9GFi2zWOVZNJmxJtbeqapunKYVjGqslAmUV5OY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNzPekQQK+qvAn2QWU+MYvEFspLeQ1AETxtNILDUEI5wTxG4nw
+	gQbWO7IE2LGmj+UimmtHbxRe4ipdVxfhAoOAAtUvPkiJaPmLQkA6pQH2pHD+NL/PAfU=
+X-Gm-Gg: AYBFou1TTxlkt3Ls8fDOTPyThG/a5kXufhjZXiNUd2nO8KsbArccI9tOM9vp9WcID5D
+	ubay0cjl2avBYpQBAicVhHLEGc0DYVrZm4qvx/uPKFpXLLh5QXaqtfF2Y4cKtbjZ92w9hBI/qog
+	gOvj49p6WT+NVEZQ4adr0V80aPSWNUBUeCQwCQZJMsxgdFA3GBMFXSs7BoGESZergyHtNR7TOel
+	XH9BXGb3NcN25g8qd58gtj5sVZH1MYvrLlJ1VSpHjR/BUGWaES1tBVT4e0E7nR4ODsI6W3tutMu
+	sa9u8nhXPhkDkROLYo9NKtFEOYhUvxROaDLVy5sE/8bXjwEAFdcYHvFKIHKglc9Z5v03L4MK5WG
+	ZyQHxyp7cEehbuC01z+vLmDvJ1xafRdNV1z8cM2++CELQFXRwCEbVdAw2fxHq+QnXKxKY3ywYhu
+	HBCjVrrTtILt8A3Her4q4SRvp+rsiYpViDd4LM5b5ZOn3+w109CmUhHcYicP4rMHdg+KzIddbNf
+	ZAyjzxZeyVLxiVikv0j24elTGUmjohgF4MBJCYjGNBLqPxrdN9jnaFnDUyoct6sVJU5Lb76j7f+
+	xP+uE0zSytdm9QbWTz3BOwjc1Fm3Lv422iqzk0Mfj3ERC6K3lGsPQjaV8FDGHZFVmSCcd8zprXN
+	Xd9nuvZ803kz+UNosvtk4msC2Cn5gNg==
+X-Received: by 2002:a05:6808:c122:b0:4c5:38f1:80cf with SMTP id 5614622812f47-563ef9c93bdmr2524160b6e.21.1793334108882;
+        Thu, 29 Oct 2026 21:21:48 -0700 (PDT)
 Received: from com-75606.corp.openai.org ([199.47.143.5])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a90af4c879sm807971fac.13.2026.10.29.21.21.30
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fd93451sm704647b6e.3.2026.10.29.21.21.47
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 29 Oct 2026 21:21:31 -0700 (PDT)
+        Thu, 29 Oct 2026 21:21:48 -0700 (PDT)
 From: Kyle Zeng <kylebot@openai.com>
-To: linux-afs@lists.infradead.org
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	netdev@vger.kernel.org,
+To: b.a.t.m.a.n@lists.open-mesh.org
+Cc: Marek Lindner <marek.lindner@mailbox.org>,
+	Simon Wunderlich <sw@simonwunderlich.de>,
+	Antonio Quartulli <antonio@mandelbit.com>,
+	Sven Eckelmann <sven@narfation.org>,
 	linux-kernel@vger.kernel.org,
 	outbounddisclosures@openai.com
-Subject: [PATCH] rxrpc: Serialize client connection IDR updates
-Date: Thu, 29 Oct 2026 21:21:29 -0700
-Message-ID: <20261030042129.73690-1-kylebot@openai.com>
+Subject: [PATCH] batman-adv: mcast: validate tracker padding before forwarding
+Date: Thu, 29 Oct 2026 21:21:46 -0700
+Message-ID: <20261030042146.73797-1-kylebot@openai.com>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -97,142 +98,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The common connection destructor calls rxrpc_kill_client_conn() for
-service connections as well as client connections.  A service connection
-gets its CID from the peer and never owns an entry in local->conn_ids.
-Its destruction can therefore remove an unrelated client connection.
+A multicast tracker with an even number of destinations needs two
+padding bytes after its destination list. batadv_mcast_forw_packet()
+currently only checks that the count field and the addresses fit in
+the tracker TVLV.
 
-The final reference can be dropped by the service reaper or a call
-destruction worker, outside the owning local endpoint's I/O thread.
-Client connection destruction can also run off-thread, and can remove an
-ID already released by rxrpc_unbundle_conn().  These writers can race
-idr_alloc_cyclic(), corrupting the radix tree and its RCU callbacks.  A
-second removal can also delete a new owner after an ID has been reused.
+If an unpadded even tracker is compacted to an odd number of
+destinations, batadv_mcast_forw_shrink_update_headers() includes those
+missing padding bytes in the amount to remove. The subsequent memmove
+can then write two bytes past the old packet tail. With no tailroom,
+this corrupts skb_shared_info.
 
-Only run client cleanup for client connections.  Restore a per-local IDR
-writer lock and the client-ID ownership flag, clearing the flag under the
-lock when releasing the ID.  Serialize IDR destruction with the same
-lock.  This covers deferred final puts without changing connection
-expiry or the RCU lookup path.
+Include the required padding in the existing tracker length check.
+This rejects the malformed tracker before either received or locally
+generated packets can reach the compactor.
 
-Fixes: 9d35d880e0e4 ("rxrpc: Move client call connection to the I/O thread")
+Fixes: 2dfe644a1ce0 ("batman-adv: mcast: shrink tracker packet after scrubbing")
+Cc: stable@vger.kernel.org
 Signed-off-by: Kyle Zeng <kylebot@openai.com>
 ---
 I have a reproducer for this issue and can share via DM
 
- net/rxrpc/ar-internal.h  |  2 ++
- net/rxrpc/conn_client.c  | 17 ++++++++++++++---
- net/rxrpc/conn_object.c  |  3 ++-
- net/rxrpc/local_object.c |  1 +
- 4 files changed, 19 insertions(+), 4 deletions(-)
+ net/batman-adv/multicast_forw.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
-index 865f05fe37ab..5e49fe0f4a6f 100644
---- a/net/rxrpc/ar-internal.h
-+++ b/net/rxrpc/ar-internal.h
-@@ -377,6 +377,7 @@ struct rxrpc_local {
- 	bool			dead;
- 	bool			service_closed;	/* Service socket closed */
- 	struct idr		conn_ids;	/* List of connection IDs */
-+	spinlock_t		conn_ids_lock;	/* Lock for conn_ids */
- 	struct list_head	new_client_calls; /* Newly created client calls need connection */
- 	spinlock_t		client_call_lock; /* Lock for ->new_client_calls */
- 	struct sockaddr_rxrpc	srx;		/* local address */
-@@ -472,6 +473,7 @@ enum rxrpc_call_completion {
-  * Bits in the connection flags.
-  */
- enum rxrpc_conn_flag {
-+	RXRPC_CONN_HAS_IDR,		/* Has a client conn ID assigned */
- 	RXRPC_CONN_IN_SERVICE_CONNS,	/* Conn is in peer->service_conns */
- 	RXRPC_CONN_DONT_REUSE,		/* Don't reuse this connection */
- 	RXRPC_CONN_PROBING_FOR_UPGRADE,	/* Probing for service upgrade */
-diff --git a/net/rxrpc/conn_client.c b/net/rxrpc/conn_client.c
-index 48519f0de185..4c2db83fceae 100644
---- a/net/rxrpc/conn_client.c
-+++ b/net/rxrpc/conn_client.c
-@@ -40,12 +40,16 @@ static void rxrpc_activate_bundle(struct rxrpc_bundle *bundle)
- }
+diff --git a/net/batman-adv/multicast_forw.c b/net/batman-adv/multicast_forw.c
+index ac97cd8b81dc..9ffed1f237b6 100644
+--- a/net/batman-adv/multicast_forw.c
++++ b/net/batman-adv/multicast_forw.c
+@@ -950,8 +950,11 @@ static int batadv_mcast_forw_packet(struct batadv_priv *bat_priv,
  
- /*
-- * Release a connection ID for a client connection.
-+ * Release a client connection ID exactly once.  The final reference may be
-+ * dropped outside the local endpoint's I/O thread.
-  */
- static void rxrpc_put_client_connection_id(struct rxrpc_local *local,
- 					   struct rxrpc_connection *conn)
- {
--	idr_remove(&local->conn_ids, conn->proto.cid >> RXRPC_CIDSHIFT);
-+	spin_lock(&local->conn_ids_lock);
-+	if (test_and_clear_bit(RXRPC_CONN_HAS_IDR, &conn->flags))
-+		idr_remove(&local->conn_ids, conn->proto.cid >> RXRPC_CIDSHIFT);
-+	spin_unlock(&local->conn_ids_lock);
- }
+ 	dest = (u8 *)mcast_tracker + sizeof(*mcast_tracker);
  
- /*
-@@ -56,6 +60,7 @@ static void rxrpc_destroy_client_conn_ids(struct rxrpc_local *local)
- 	struct rxrpc_connection *conn;
- 	int id;
+-	/* check if full tracker tvlv is within skb length */
++	/* check if full tracker tvlv, including padding, is within skb length */
+ 	tvlv_len = sizeof(*mcast_tracker) + ETH_ALEN * num_dests;
++	if (!(num_dests % 2))
++		tvlv_len += 2;
++
+ 	if (tvlv_len > skb_network_header_len(skb))
+ 		return -EINVAL;
  
-+	spin_lock(&local->conn_ids_lock);
- 	if (!idr_is_empty(&local->conn_ids)) {
- 		idr_for_each_entry(&local->conn_ids, conn, id) {
- 			pr_err("AF_RXRPC: Leaked client conn %p {%d}\n",
-@@ -65,6 +70,7 @@ static void rxrpc_destroy_client_conn_ids(struct rxrpc_local *local)
- 	}
- 
- 	idr_destroy(&local->conn_ids);
-+	spin_unlock(&local->conn_ids_lock);
- }
- 
- /*
-@@ -162,15 +168,20 @@ rxrpc_alloc_client_connection(struct rxrpc_bundle *bundle)
- 	if (!conn)
- 		return ERR_PTR(-ENOMEM);
- 
-+	spin_lock(&local->conn_ids_lock);
- 	id = idr_alloc_cyclic(&local->conn_ids, conn, 1, 0x40000000,
- 			      GFP_ATOMIC | __GFP_NOWARN);
-+	if (id >= 0) {
-+		conn->proto.cid = id << RXRPC_CIDSHIFT;
-+		set_bit(RXRPC_CONN_HAS_IDR, &conn->flags);
-+	}
-+	spin_unlock(&local->conn_ids_lock);
- 	if (id < 0) {
- 		kfree(conn);
- 		return ERR_PTR(id);
- 	}
- 
- 	refcount_set(&conn->ref, 1);
--	conn->proto.cid		= id << RXRPC_CIDSHIFT;
- 	conn->proto.epoch	= local->rxnet->epoch;
- 	conn->out_clientflag	= RXRPC_CLIENT_INITIATED;
- 	conn->bundle		= rxrpc_get_bundle(bundle, rxrpc_bundle_get_client_conn);
-diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
-index 0ece717db0f8..bae95cadd72b 100644
---- a/net/rxrpc/conn_object.c
-+++ b/net/rxrpc/conn_object.c
-@@ -332,7 +332,8 @@ static void rxrpc_clean_up_connection(struct work_struct *work)
- 	rxrpc_purge_queue(&conn->rx_queue);
- 	rxrpc_free_skb(conn->tx_response, rxrpc_skb_put_response);
- 
--	rxrpc_kill_client_conn(conn);
-+	if (rxrpc_conn_is_client(conn))
-+		rxrpc_kill_client_conn(conn);
- 
- 	conn->security->clear(conn);
- 	key_put(conn->key);
-diff --git a/net/rxrpc/local_object.c b/net/rxrpc/local_object.c
-index 169f9dfdaa77..5a7acd595e11 100644
---- a/net/rxrpc/local_object.c
-+++ b/net/rxrpc/local_object.c
-@@ -140,6 +140,7 @@ static struct rxrpc_local *rxrpc_alloc_local(struct net *net,
- 		memcpy(&local->srx, srx, sizeof(*srx));
- 		local->srx.srx_service = 0;
- 		idr_init(&local->conn_ids);
-+		spin_lock_init(&local->conn_ids_lock);
- 		get_random_bytes(&tmp, sizeof(tmp));
- 		tmp &= 0x3fffffff;
- 		if (tmp == 0)
 
 base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
 -- 
