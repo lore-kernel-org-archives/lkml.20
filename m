@@ -1,57 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.22
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793343576;
-	b=PlwI+czPrfJ7/zmXfpo59OSrP7eeVk73IWOudpf7KAdkH1PFXmZ0Hgxb2OZpovbmfJFc
-	 1OHdnumf3oqvfWkyzNTnJV7vbpaaFjBk7lG7lsMHiOAL90H6sBMge+8l8TogpmqiJuvIR
-	 oljEcsBqhDRJWW+HsEPyU1SBP4F9bYFObVeoBUWtE93d5lU3o27AaNLrZa2dVbNXwe8fM
-	 goT51nuixcbYHBtXzgnTYPlbV9VOQap46vOsnAhSytI8G3BnXNgLnwOhy4jczVQMig6BR
-	 O57QlCOKn5FpPt32amopR+IYSkw6sYFhoF0+bEumkl4EyWJOlRlJSbuKhMNmE3e1Szg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793343576;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Cs9D0HY32Cso7YnxVSoyyLLlor/aF98StXHYbAJIbtM=;
-	b=yOXSvAwW5PtmNiJqArF4yYthw2/6BYj31v0T4SPSiqvm68dC2x4hrZc9IjFHFcT7e/ch
-	 ar0s5Rj+wpHNsC68Ri1qsyHGzcChl3GndodPXEEgakk5wxT+sYY7IWylAt8fF1XlN35p7
-	 f1lF6cMd7k0RDP/Lqaf3wRUyAHmxDKxFA5CKeB4CcrobNgqPOYiMU9FfffuDbmVPnmki3
-	 hZpsBXmbx7yrSe2OydWLxcamEUAp1+UX8kzij05Z/ZqTiolw1KJyyhMoAUpr+0Ye3xyCG
-	 wUsvVDhR0mWfi/1lLndN5e6QNi8Nnhot4dxLuUmbAtvVQAocLsBBj22Cka7rdziihZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	dkim=pass header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b="rQ/lO6+M";
-	arc=none smtp.remote-ip=109.224.244.22
-Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.19
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793343582;
+	b=uqJZou7aC7OtUMDomY62s4JVA6EOjzGaS7KRafkj2w7rfSdKvsjluExB2B9IDjGY8d3l
+	 I9r+vL7daAWil/3JcYZHj9tJ+KCmYJBwj3rMxvQ0N8V2dnWW/oVBdeKUs4apV+u/UwhNS
+	 rOL5E2mMs+nxnLwQuaSIeS3Qh9dDUbCDxhMpjvG7srle6h85F5LB104m9L6k4LYzWPcve
+	 EamIvSxanbQl0Ukw3RIsjMtZI2w1+MYrDDpLUZZiqNOWD5W5TutmXQstkmapfhFCE2TKu
+	 i31DFlYebsXp+uaqNVT5BEM+ka+v44HQNPfqPi+fzy8R0x++Gr/IW8DdhZGax6UeCYg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793343582;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=MM67aKZa2k2c6bKq+gBbl3F1MAGEAQchHa0lPFGtDy8=;
+	b=H36zjZgUlRq5LnmlfBA8NoQO/uo9kUD/O2GdPf7XjuNUDV/TSmfOG7s5RhNPV6VTjW7t
+	 f5NqwwiXi27/RBod1XmZbySS/mMKSrKCg28mPyUW4K2XX3etJt6/1vk0xXpXQfped23eO
+	 Bd+sSFmMPvEV47YmOImbZwvGSOnL5mY0TK6BknDMgyEnFAbleVDLqf82wyqy+Z9VldN/3
+	 YlUZAHqCap3IrxQWJV0Oekbdk60SUX1goCHO76N5DDSMhJYnOs9TxJy9c2m3a61lDD3pP
+	 rnijIT2/cRQWU+9qOt/xpejLlWI7QR5ev8OrAqgSo69G1U66o+YgjB+tl9pR8A8yJ8g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nxp.com;
+	spf=pass smtp.mailfrom=nxp.com;
+	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=izXGW7YM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.19
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013019.outbound.protection.outlook.com [40.107.162.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CFB606A31C;
-	Fri, 30 Oct 2026 06:59:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85CFB606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ADCD606A31A;
+	Fri, 30 Oct 2026 06:59:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7ADCD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=1g4.org header.i=@1g4.org header.a=rsa-sha256 header.s=protonmail header.b=rQ/lO6+M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1793343573; x=1793602773;
-	bh=Cs9D0HY32Cso7YnxVSoyyLLlor/aF98StXHYbAJIbtM=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=rQ/lO6+MM6O0c9Lri28+sr03loz1eKU8Moh/sR8lKA2yMySoq1XuhynlwKOUVJPIq
-	 9+rEIgCWiQGQY+j57N8lvhdif2jGUOZDMQM9NWaOnjdady6levdVLKFmSzzbMl3/Jj
-	 3Uxm+nXIUoQadHtmXNQT982D6CPLQozBUqtdhZt7aClt1OMaFng2AnextvBcWewKPl
-	 p/dHZf8rq55/+h93GJwO3NNH1tPay13VmjjuKwB/iGwMbMxvaMW5J/Yl8YeYndu4ml
-	 7lPB0ECAGEyDgERnN8/zkjQHMJ78i9dqNxschgO/JJxSQPY6DfxaRCiL8XDr/gkH4m
-	 ImYNbJwlh5qVw==
-Date: Fri, 30 Oct 2026 06:59:28 +0000
-To: acme@kernel.org, namhyung@kernel.org
-From: Paul <p@1g4.org>
-Cc: peterz@infradead.org, mingo@redhat.com, mark.rutland@arm.com, alexander.shishkin@linux.intel.com, jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com, james.clark@linaro.org, alexey.budankov@linux.intel.com, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, Paul Moses <p@1g4.org>
-Subject: [PATCH] perf record: Skip affinity for per-thread mmap buffers
-Message-ID: <20261030065857.2157899-1-p@1g4.org>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 30567b2a5a2c3d284c4b55dfa40f2fb37edd2741
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=izXGW7YM
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mgUDo7/xZJBLgESW1nYl0zz+QdY+TPEZsLpo/YiQYRsoVPujiw58WEiXzL19J1VhHZDtQIpXZwyLSTDRjL3bbc6RTkscGx1yRK2kcCdx5L8BX/UhXT9HEd+OtvLKFe+asyK11Fs56AdV2MCSQnDsUvL3KpgcWuBi5CHHO67zpVPXRhZTaUDR+Hi8Pznekfi/69mOU2z58wOUmfqF/Y6K2H7RqbwUKdEOvrwNahIfAjdEn5j+zUr/BPxWyvB/VQtwiBbcNpxtynYoR7i/qqkGdr9Saov+23M+FEC3942l7ZgQ/cq0uSa8p1TR8qxgxrv5v+15UKG1Pg0SvrKeDjLJ/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=MM67aKZa2k2c6bKq+gBbl3F1MAGEAQchHa0lPFGtDy8=;
+ b=VY58Dl9m+yKtY1d9BS73IjJxQ9ST8Fbo7NDRFwinwsdW0GCAy+SC6IEHBodJnydAcCo88y3wcDdEu/ogBkbFJij1K7YbfTSHe9CVIWdswZMsHnvjL5TJf6p4065aXaLNr4K57SfVzGHzIYMWJ38KLt/6ie5OSlV7mIqAz8wb4iFhPVE/LnM4VzXny+CgWVdnbDDhuYHSfzf0Der11EpN8DaH08r+1LpMhvonJEvx4yNqOnfpTNKwcfUujnB0RS8lVfWCjuUSnPJrWWxymM82nHnrTWNouchay0rkuCnlJPt8HiSPJZhXM0AwLR2+hjsXPW+YzsR2QiRgbmul0J4F7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=MM67aKZa2k2c6bKq+gBbl3F1MAGEAQchHa0lPFGtDy8=;
+ b=izXGW7YM16KyQ9YvUM9Zgaye43hmLqqXvJtd7hVpHj9aNvhSYm9nxVFiC7XCA1E6jLfjYPTxbgPOYCPs8iJxEMm6hmiaF4chcfAS2Y2al+4xNgUZXE49Lk5YturtMURBOiWaBDsRzlL0yLT8yHFMugTx44jerIPSff+DGc8GqJN5u4WfyR0noTZKqLcB/5ccHSCwfEdlyhvGVq+nj/57f8wlLyHQnXZ0WIQ2jwWbZcDa0/qMQckVSFtO071MTnCd4GG7zULKrQYZs+fD2K1Z6LiJq2QGFD3Rl4b2xbYnVC/O3nuFaPrjbm077j6woPCrKuoFTvgNn24+j6dOoKFpVw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
+ by AS8PR04MB8561.eurprd04.prod.outlook.com (2603:10a6:20b:420::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Fri, 30 Oct
+ 2026 06:59:38 +0000
+Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
+ ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0569.009; Fri, 30 Oct 2026
+ 06:59:38 +0000
+Date: Fri, 30 Oct 2026 15:01:15 +0800
+From: Liu Ying <victor.liu@nxp.com>
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v7 06/15] drm/imx: dc-crtc: Disable at boot
+Message-ID: <auRAu8P3JDfSV7Sh@raspi>
+References: <20261026-imx8-dc-prefetch-v7-0-a0b50cc4fc65@nxp.com>
+ <20261026-imx8-dc-prefetch-v7-6-a0b50cc4fc65@nxp.com>
+ <auH8X0tITcU72fk5@vm>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auH8X0tITcU72fk5@vm>
+X-ClientProxiedBy: SI3PR02CA0014.apcprd02.prod.outlook.com
+ (2603:1096:4:295::6) To MI9PR04MB350878.eurprd04.prod.outlook.com
+ (2603:10a6:290:c0::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,101 +111,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|AS8PR04MB8561:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ffa6725-6a7d-412a-7c7a-08df36535cef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|7416014|366016|1800799024|19092799006|4143699003|11063799006|56012099006|261009223027099003|261026140227099003|261028144727099003|261022105027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ZpzPkgIzuDwRuqMwx76dtHetOqSXl73p1M2tbpr2BH0NbfyQTyYjiYoEroUU2ZbsbgTc3OBAQm6sAAcFsXNPniA9OJxG3l4/9kPqCrUjHM7SdAKtqEpwkUNl5hGYSgZTx5TO8Mk18bJ90dCrO/f2r2UZ+DLMOtNw1aChdUV0r5s70rOE+9MgI7VOlRM3EXVOE72PN8v2AQKANzAdXtwLQDDS/IKD78fJOLm72unTei4kn5sInIjVFUVeGvo3iEGh8dVy/QKl1E+d1CoI09vHweD501hKkKmWoRAniYppfNaV9yFbtPMA7B9bq+nDor7AkQNzi3yAnFOEiBO1OvtB5CbsyivSNFrPOGw5JfKP1YQb3NfShdxxeseMVS5iPf2+umm8SPn/7TvEX9U4+0/J8RPM44Q8L7p90YQP2xTFUe+KP+qrpnyq5YVOIJmPkcFz6FsjlqpQIwuQFPrlFNlZDJA36Pe2iaIBNmsHQLg7uL5NqsVYQ5wz16Y5OeJcfUpIwmN/YKGavTEwwyNxkk4tkNKy/WywlJ3F5R1w+rhLPBsUTLhKzsLxQP/PfROmOJSOgcx1n3Ht6rvRYIqVuoklV92qSr7b5QFX/x/LP8nf/4jnP4mzKLztexZvnWsYNxCCfOJj4chCgX3UVqW4REVRBvGU731LvGdnOnoCHYD36Fw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(19092799006)(4143699003)(11063799006)(56012099006)(261009223027099003)(261026140227099003)(261028144727099003)(261022105027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?LaVzPSQyzO4RtfUXS0bIPfnYi8sy3wGRKZDW22g+bK/rCKyu5WT/+JbmUiTI?=
+ =?us-ascii?Q?4dt1ngs8mW+dqeDLgJwQCG6yVClx7I2Km4d64faF3FZlbRAtj39VU7zAOMoF?=
+ =?us-ascii?Q?S8NHkmoH4uqO/Iu5vthW/yYVXnlYGw0MXws3N+1e+gmni9vJeK9IamagkwLb?=
+ =?us-ascii?Q?iJ1uXW690Ukslca6l5dJIpyh/vMWpApWhls8OhZi8hUEMk50P7nf2h95RUV6?=
+ =?us-ascii?Q?Z7x/rdUoRflXeipiJ/TjryksfxIVm9Yrw9CJ1ETkLnMmPqKkr91WFFuxM/1H?=
+ =?us-ascii?Q?mHYs5jWkpSFWib8yJrb05PVtUUJ2fGm3OPMX/zjBpiD3gfom4NjeYDibRZJ2?=
+ =?us-ascii?Q?fhJ8boZk9lLhxvi/VmyLTCKGMnYT2wEh+nKs42bpsI6VIo7OggXW+O5lZxhE?=
+ =?us-ascii?Q?jyVx5GCp1Idgme46dGyVNJY2DyLA1FeoumiCj+rK2ihF+dUV746CY+7+5GLQ?=
+ =?us-ascii?Q?5NCSjZNmrwK/tz2ISh/LZXJImnO+4uquUuERyeH2KjCO+U21JQBMH0iJ0N6L?=
+ =?us-ascii?Q?GqCiRjm3eKz3kUEntKkr4nNBQ9FCE1eiqc3vVvqIqUIfvYcxdvUD8vq+eZLC?=
+ =?us-ascii?Q?7hnF8EAtXsXksD1/XxarzaI21BQF7vC9+VgHhr06TfPfwqqaEGYFUAEHq+dO?=
+ =?us-ascii?Q?qywTbPjGbl/ADni1GeXWkcKuLDw17I5yFA/8eKD8pVSiBttSNQpTsLw+ZtEo?=
+ =?us-ascii?Q?znSgBesrmziTxgZyO99VarrAWTWDHadHQXzEF/WgfAAUu87+pQVghB4B2Uzx?=
+ =?us-ascii?Q?Gl3Qc+ZoxC/Hq+7+tqafTQ3I/u3gkUleNoFkTVYL00F9uGh7YlonfMxKJfkB?=
+ =?us-ascii?Q?xxUbqfLBOTvwugc5FPZoXkVTFz0v7mWtWosIngx5gVq8kXMAydFUa+faR5tW?=
+ =?us-ascii?Q?yFp65sRcFAoAtDdlB7T+QJbDVK6IB4KtzFd4qp/reYbEuTmwCgcgRefgKhN3?=
+ =?us-ascii?Q?wa5rOpAuf/xujpRWCLH+dk4lJ/B9y3jUwtbIJxE3ZzJEWm5HjOspKB4YKmT9?=
+ =?us-ascii?Q?ujN5kNi1g8+blWZyHECJbgl09OQFatVeWlUBjVTnrL/R+3N95VlrwaI+JTlb?=
+ =?us-ascii?Q?YkPC1mInt2G1CIZ6HqdtNGrlGWWcc6/sBuV69L20+wgW2L1ueCvB4pZy7MeH?=
+ =?us-ascii?Q?11KyBaLRfHDbra4t4j71ZCJlyW1RgRacuF3hC8JIrNCS21SNP6V1icNx40xI?=
+ =?us-ascii?Q?gfFKvt6vOmtsC2643yFtwqSjhV5WvGo2+gV8IWs+BU8bQNm/cZGIP9aMYLkD?=
+ =?us-ascii?Q?JZB2mB+YVO687QWNYtRTh9zsxSBFdh+BGMwa/EIXSIlbVl+yO1qFCiy4FItJ?=
+ =?us-ascii?Q?OFRwejL6qmW1dCXqRucqJfLZOOJXUUJAoXWaG0hQbYy0ggK6dQHngRk8++Ww?=
+ =?us-ascii?Q?YGapudFVuhWnVeFTosM0Umz+zvtu7d+OE+pZCOGrIjjnvnmSCvBJbaE0sZt6?=
+ =?us-ascii?Q?1aa+2tc9EhFjee5RCzNexe5IdHBf/a9WAFvgdqs0bsOlp4Vz2b3x2da1Ct0x?=
+ =?us-ascii?Q?BI6R3LkITulylUHyjYhbpQ9AFoSeHn65vw3AQIlgJ33La0sTzvOcptX3w7En?=
+ =?us-ascii?Q?88wX9sbIMSaENmaMCrnUh7wlvz6o4v5rcGfPC0yQapZ2w/TtmRWNJZNVJnU5?=
+ =?us-ascii?Q?Nleexiy6ZE+MUzFfZdNjWLHoao30wlm8NaHfuP/dwiX5xNmFQ0QYVSDTkyyM?=
+ =?us-ascii?Q?cOq/quLUlfyZAp6M/YIEbjV+nM8RJg57/Q2/m7N+Sd3SMRizA3N8lrtULnJN?=
+ =?us-ascii?Q?zZQuXidj5w=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ffa6725-6a7d-412a-7c7a-08df36535cef
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 06:59:37.9905
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6xibwtnVSCEPJECvmDMjrgbgTfSl7QLuLFXsmVmqE3w/RQb4FI9Euodl5l2LgHwCG8kvvbRronut3M1PwQOMGg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8561
 
-From: Paul Moses <p@1g4.org>
+On Thu, Oct 29, 2026 at 11:30:06AM +0200, Laurentiu Palcu wrote:
+> On Mon, Oct 26, 2026 at 06:05:11PM +0800, Liu Ying wrote:
 
-Per-thread mmap buffers use CPU -1 to mean any CPU. Combining --per-thread
-with --affinity=3Dcpu passes this value to __set_bit() when constructing th=
-e
-reader affinity mask, causing an out-of-bounds bitmap access and SIGSEGV.
+[...]
 
-Program received signal SIGSEGV, Segmentation fault.
-0x0000555555f3488e in mmap.mmap ()
-#0  0x0000555555f3488e in mmap.mmap ()
-#1  0x0000555555e2f7bf in mmap_per_evsel (evlist=3Devlist@entry=3D0x7fffedc=
-c1150, ops=3Dops@entry=3D0x7fffffffaf50, idx=3Didx@entry=3D0, mp=3Dmp@entry=
-=3D0x7fffffffaf70, cpu_idx=3Dcpu_idx@entry=3D0, thread=3Dthread@entry=3D0, =
-_output=3D0x7fffffffaf08, _output_overwrite=3D0x7fffffffaf04, nr_mmaps=3D0x=
-7fffffffaf0c) at evlist.c:598
-#2  0x0000555555e2ef96 in mmap_per_thread (evlist=3D0x7fffedcc1150, ops=3D0=
-x7fffffffaf50, mp=3D0x7fffffffaf70) at evlist.c:650
-#3  perf_evlist__mmap_ops (evlist=3D0x7fffedcc1150, ops=3D0x7fffffffaf50, m=
-p=3D0x7fffffffaf70) at evlist.c:748
-#4  0x0000555555f2150d in evlist.mmap_ex ()
-#5  0x0000555555db0b0a in record.open ()
-#6  0x0000555555dadea7 in __cmd_record ()
-#7  0x0000555555daca89 in cmd_record ()
-#8  0x0000555555e27d53 in run_builtin ()
-#9  0x0000555555e277cf in main ()
-rip            0x555555f3488e      0x555555f3488e <mmap.mmap+382>
-rax            0x7fffef9e9bd0      140737213537232
-rbx            0x7fffedd249a0      140737183369632
-rcx            0x3ffffffffffffff   288230376151711743
-rdx            0x8000000000000000  -9223372036854775808
-rsi            0x0                 0
-rdi            0x7fffef9e9bd0      140737213537232
-   0x555555f34876 <mmap__mmap+358>:=09movswq 0x10(%rbx),%rcx
-   0x555555f3487b <mmap__mmap+363>:=09mov    0xb8(%rbx),%rax
-   0x555555f34882 <mmap__mmap+370>:=09mov    $0x1,%edx
-   0x555555f34887 <mmap__mmap+375>:=09shl    %cl,%rdx
-   0x555555f3488a <mmap__mmap+378>:=09shr    $0x6,%rcx
-=3D> 0x555555f3488e <mmap__mmap+382>:=09or     %rdx,(%rax,%rcx,8)
-   0x555555f34892 <mmap__mmap+386>:=09lea    0x17711b(%rip),%r14        # 0=
-x5555560ab9b4 <verbose>
-   0x555555f34899 <mmap__mmap+393>:=09cmpl   $0x2,(%r14)
-   0x555555f3489d <mmap__mmap+397>:=09jne    0x555555f348f7 <mmap__mmap+487=
->
-   0x555555f3489f <mmap__mmap+399>:=09mov    0xb8(%rbx),%rdi
-   0x555555f348a6 <mmap__mmap+406>:=09mov    0xc0(%rbx),%esi
-   0x555555f348ac <mmap__mmap+412>:=09lea    -0x430(%rbp),%r12
+> > +void dc_crtc_disable_at_boot(struct drm_crtc *crtc)
+> 
+> Shouldn't this function return int in order to propagate a potential error to
+> dc_drm_bind()? For example, if pm_runtime_resume_and_get() fails, or frame
+> index isn't moving, wouldn't it be better for dc_drm_bind() to fail as well?
 
-Only construct and apply reader affinity masks for buffers with a
-nonnegative CPU. Skip the reader-side bitmap operations as well, since
-per-thread buffers no longer allocate an affinity mask.
+Will make it return an integer.
 
-Fixes: 8384a2600c7d ("perf record: Adapt affinity to machines with #CPUs > =
-1K")
-Signed-off-by: Paul Moses <p@1g4.org>
----
- tools/perf/builtin-record.c | 2 +-
- tools/perf/util/mmap.c      | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/tools/perf/builtin-record.c b/tools/perf/builtin-record.c
-index a57987851cf0..d7c8f490cb62 100644
---- a/tools/perf/builtin-record.c
-+++ b/tools/perf/builtin-record.c
-@@ -1565,7 +1565,7 @@ static struct perf_event_header finished_init_event =
-=3D {
-=20
- static void record__adjust_affinity(struct record *rec, struct mmap *map)
- {
--=09if (rec->opts.affinity !=3D PERF_AFFINITY_SYS &&
-+=09if (map->core.cpu.cpu >=3D 0 && rec->opts.affinity !=3D PERF_AFFINITY_S=
-YS &&
- =09    !bitmap_equal(thread->mask->affinity.bits, map->affinity_mask.bits,
- =09=09=09  thread->mask->affinity.nbits)) {
- =09=09bitmap_zero(thread->mask->affinity.bits, thread->mask->affinity.nbit=
-s);
-diff --git a/tools/perf/util/mmap.c b/tools/perf/util/mmap.c
-index 358e70c4f3ed..be3dffdaede8 100644
---- a/tools/perf/util/mmap.c
-+++ b/tools/perf/util/mmap.c
-@@ -292,8 +292,8 @@ int mmap__mmap(struct mmap *map, struct mmap_params *mp=
-, int fd, struct perf_cpu
- =09=09return -1;
- =09}
-=20
--=09if (mp->affinity !=3D PERF_AFFINITY_SYS &&
--=09=09perf_mmap__setup_affinity_mask(map, mp)) {
-+=09if (cpu.cpu >=3D 0 && mp->affinity !=3D PERF_AFFINITY_SYS &&
-+=09    perf_mmap__setup_affinity_mask(map, mp)) {
- =09=09pr_debug2("failed to alloc mmap affinity mask, error %d\n",
- =09=09=09  errno);
- =09=09return -1;
---=20
-2.56.GIT
-
-
+-- 
+Regards,
+Liu Ying
