@@ -1,75 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793382217;
-	b=nVDEkp5idOUPMQhN7hMFGNza+RBfEIeWEfp2X1swvu72hVcf9g92DeC115spe2HJ3O4/
-	 xFkjaYHprQib+4h+nz2OOBX215fxvEOyFVtKegRg2qCemQw/B242qqUW4UtpsEr+qb+mC
-	 5JwvylB+hHBk/4WXNAYTDsfbZeOn7rb2vjcJNXB0aj7DHvoRP9DZc6ikWV+r824B0ZNnP
-	 4t6FxG2hu/SykMdxBH3ak3YJqMh3zVzBvTyGeU4owxdCHCdrW35R8DuuQH5catJZ5l/3x
-	 sHwxvTwhPqktA6hvd/0V3y5qI+8qfxEE4jogAL6MycSPHcPAOQNxZfpUtDUsJvgCc7w==
+	t=1793382238;
+	b=A48MD6Dzco68ZfMco/j8J7ZDjf53ErH95+h6qRZWNgIvMHcg9lqTTyX6yuuzZZToAIfR
+	 qtJzYdJZISWDwG3TgoOc+3X2RLPdW+fE2YWStFg2R/VyfoDe9uwntSYyTtXwHct8b0rFb
+	 azjAf9MRqpyunE7BMJQX3eHYDjGc1nzI0L8AAIs8HoXIYGBr2R4tdd5uKI9+1gdHh/D3H
+	 f5zBgXrsaPm2S923C8nTKFOlyMs108Sxz3xaE3aE2aAQaGNs10bmVRnTzj/K8U8NE3NJB
+	 ansfr8+iYb3tIyGWqJgHmyQVYWamGtBBd8idxIJ+jy04yorOG6QIzBoaEY+ZmJ/+F6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793382217;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=tcHOtSM7nWeoLlpUcnG0DJSKH+xxx+L3ZutLIf41pi4=;
-	b=lyaC9u+rNiYXPBB1nbvhz5qKe+aQY9ol1oL2P/W7kKkAqOVk4AaDBuXqLbtiuZQs+R/P
-	 jbG1yQkNiU+TFK7cebybflN8I4I5Aty0Dy3JlO/5La747lsDAZlGDIoYgCyuoXCWSeZ8T
-	 k4hHUG60QRHlkqloE1qtPbcESlkajSK2TOexjqASGh52ARBc9TYZKHTp9U21ER9G3a1je
-	 Rcsl2Qtag4SUh0oz4/fnTdb0M5okk3PGWsti2yQ4hQ4p8o9mLj+VGxRy2zyI1NO4q3mLS
-	 ghA14H5fyd8g93Udu48CMK3l9zVtLIFKZlcWXTYVS5lch7ahjQL6HXK0EXsa0zRYnmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793382238;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
+	 X-Proofpoint-Reinject:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=dmCogxK77f9L99Jbim+9FwtzvMEbyM9QKgF4tLZQJMg=;
+	b=RsYE5DUaCJTqTCyxrwcy4qTKpcaFCGNDH5bT1TC97xjv7yQyEKPqC4s5ey9RlK161WS2
+	 k+si6tIQHzoJhvLH6ob/Uz39lL1zDHhG9LKaono1EnsvzlclcJOSEnH56MzqhkcYEsken
+	 YVdgazkRFUOSSmd4c3xdcENq6fjIzP1avnJrwEOASVbw3HAS7XVSJTA+kRoV0Y2UUiwfR
+	 Bsj0maotIxs9S+nPjFXY0+ZT3Td+7fVH2oTteYyV/ludU7y9fV2fIoPxCGIS5zqhK74Vq
+	 CPHHAZ1lsnztgDii67Twu8/Pe8OS7J9ClcV2JL/qcT7A6zXUmavxuh9mQ8MUEnLCHPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UU7NstOu;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b="dAep/+yC";
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEC1606A31D
-	for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:43:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DEC1606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24E8606A31A;
+	Fri, 30 Oct 2026 17:43:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E24E8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UU7NstOu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793382215;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=tcHOtSM7nWeoLlpUcnG0DJSKH+xxx+L3ZutLIf41pi4=;
-	b=UU7NstOuigl0jAbaXLPgorvlmStUcCRxnt0KJPEF0fFzNbpVHtXxgLvppmfYUA0aAjo8YT
-	qbsaSK9cKgdiDcySkTheMj8hJB8TJZmVsTTwSigaNnJqv+44N2KLFQwxNJi9QJuRXzisi9
-	LM8GZPi2uvkpR0OnenjiqUxZ8hmSzxE=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-503-puZ9tqTHM_K_IgTZt7FYHQ-1; Fri,
- 30 Oct 2026 13:43:29 -0400
-X-MC-Unique: puZ9tqTHM_K_IgTZt7FYHQ-1
-X-Mimecast-MFC-AGG-ID: puZ9tqTHM_K_IgTZt7FYHQ_1793382208
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C2FEB1954B06;
-	Fri, 30 Oct 2026 17:43:27 +0000 (UTC)
-Received: from thuth-p1g4.redhat.com (unknown [10.44.32.94])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id EDD563000B78;
-	Fri, 30 Oct 2026 17:43:24 +0000 (UTC)
-From: Thomas Huth <thuth@redhat.com>
-To: Arnd Bergmann <arnd@arndb.de>,
-	Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Vincenzo Frascino <vincenzo.frascino@arm.com>
-Cc: soc@lists.linux.dev,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH] selftests: vDSO: Fix header search list for vgetrandom-chacha.S
-Date: Fri, 30 Oct 2026 18:43:23 +0100
-Message-ID: <20261030174323.370687-1-thuth@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=dAep/+yC
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69UEi5uY1563939;
+	Fri, 30 Oct 2026 17:43:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=dmCogx
+	K77f9L99Jbim+9FwtzvMEbyM9QKgF4tLZQJMg=; b=dAep/+yC1vt1r9dWxQ4Uhu
+	WwTd2/Q0pcqdTkoMHVBuptXoVV44W1i1TRNx+8XJ0xCSIEitWfKsHlyVw7iEMt52
+	E+svu+W4W7dIHB7dsw79p2v28GayTgPZLSHlUmK6C3l/M6OI+oPW+VqeFII29r9/
+	iaaMNYS6w1zbOBY5abpY3fyfa9rlZbmzzg/TjELhIyCuWp9fyMsUJeDbbhUgvNK6
+	eqRtAVIQ/LUsQsNJRaN5rb2n2gCldExCrZid+g+D++2dnc9gn/SjSGkkBr4f6lQz
+	+s75CaAwofc2yN6qBGj1+ywVMS5ZDyf51yiThrLu/kXY1tJyJKPwRsOqTOB4XU+A
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hmeay40k2-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 30 Oct 2026 17:43:43 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69UEZ6vq649977;
+	Fri, 30 Oct 2026 17:43:42 GMT
+Received: from smtprelay06.dal12v.mail.ibm.com ([172.16.1.8])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hm69e5jyx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 30 Oct 2026 17:43:42 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (smtpav06.dal12v.mail.ibm.com [10.241.53.105])
+	by smtprelay06.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69UHhgLN32637692
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 30 Oct 2026 17:43:42 GMT
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 0D88A5805F;
+	Fri, 30 Oct 2026 17:43:42 +0000 (GMT)
+Received: from smtpav06.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BFA4D58043;
+	Fri, 30 Oct 2026 17:43:38 +0000 (GMT)
+Received: from [9.61.35.48] (unknown [9.61.35.48])
+	by smtpav06.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Fri, 30 Oct 2026 17:43:38 +0000 (GMT)
+Message-ID: <9574eb9f-050c-4148-a785-11782ada856c@linux.ibm.com>
+Date: Fri, 30 Oct 2026 23:13:37 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,45 +86,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nvme-tcp: fix use-after-free in nvme_tcp_free_ctrl()
+To: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
+        linux-nvme@lists.infradead.org
+Cc: kbusch@kernel.org, axboe@kernel.dk, hch@lst.de, sagi@grimberg.me,
+        hare@kernel.org, wagi@kernel.org, kanie@linux.alibaba.com,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261030170151.49844-1-christian.aurichzm@gmail.com>
+Content-Language: en-US
+From: Nilay Shroff <nilay@linux.ibm.com>
+In-Reply-To: <20261030170151.49844-1-christian.aurichzm@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: giY5zcBIL79cCB5buaIlIzQCqJ6eyoQ6
+X-Proofpoint-GUID: EnmkZ-YXCTJk_MOYnOkq82nA2_Uz5YST
+X-Authority-Analysis: v=2.4 cv=eZyo7LEH c=1 sm=1 tr=0 ts=6ae4d74f cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8 a=vwH2LiGPTe3qxVmh5OkA:9 a=QEXdDO2ut3YA:10
+ a=ZXulRonScM0A:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDA2OCBTYWx0ZWRfXy0WVDTX59TB9
+ GgeUx4BBLWPwZt5mB0WO66d9jzvp4nRe+hNN9y+BeSp/ODw5pwzdrJU/fTa8bv0eniFh+H1UtJ/
+ 9JMzjvBXGW9gWCg72mtHToiiJi44SEA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDA2OCBTYWx0ZWRfX+iHEHKvduLgt
+ Dnfn+Bd88H4lAhzgeA5vcvaJiPoXRMazyPQoOYwVN56KGK7b8LBpyd1E0cpUVzeyZ018qzNoTxQ
+ vg6Igi/aArvlCtw8QtMfa4IXLo5VYMUQCdvTbQmD76lpqVRSQbleDkgQbZG7EIEzSvAjb7Evsux
+ aLLugUZ/I1WQnUUd6+NMxpWvxufyWlR1ujGtPV4B++8PxgpeJ5xfEwSxtyysPp2HD2mqZqXZOwA
+ kg/rw4bARgfjeqPFgtEI3yzLis92QDeUYL3KgJl2GXHVPqKkDyBhhLLGWIPx4b8JGdOCoQ72wYE
+ YEWnxeD5b8vPMS+r0Ik4ZlxmX4YR85A8uxNhBlF3rCzv954MjPnngASf6F9yD7sSMN3ikE7N+Fr
+ 0zB2XP4vclvuHxe8Kthst1T/AENV/x1iA/TSv/OiLl4HhGTwjp/FdGnQDzLCAaIqkzoBz5CVlSc
+ kmVe/4Y0ZoH/PjASeXw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ impostorscore=0 adultscore=0 suspectscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300068
 
-On aarch64, vgetrandom-chacha.S includes the assembler file from
-arch/arm64/kernel/vdso/vgetrandom-chacha.S, and that includes
-<asm/assembler.h> which in turn includes lots of system header files.
-For this, we should make sure that the kernel headers of the
-*current* kernel are in the search path of the compiler, otherwise
-we end up including headers from /usr/include of the current distro
-instead, and this is calling for trouble! Thus use $(KHDR_INCLUDES)
-here to make sure that we are using the right header files.
-(This issue has been found in a patch series that replaces __ASSEMBLY__
-with __ASSEMBLER__ in the various kernel headers and finally stops
-defining __ASSEMBLY__ in the kernel makefiles - when vgetrandom-chacha.S
-now tries to include a header from /usr/include the compilation fails
-since those headers still require __ASSEMBLY__ to fence away the C code)
+On 10/30/26 10:31 PM, Christian Aurich Zanettini Martins wrote:
+> nvme_tcp_free_ctrl() reads ctrl->ctrl.opts to know how many queue
+> mutexes to destroy. When creating the controller fails,
+> nvmf_create_ctrl() frees opts as soon as nvme_tcp_create_ctrl()
+> returns, but a concurrent open of the character device can hold the
+> last reference to the controller. With CONFIG_DEBUG_KOBJECT_RELEASE,
+> which delays the release, every failed connect reads freed memory:
+> 
+>    BUG: KASAN: slab-use-after-free in nvme_tcp_free_ctrl+0x38b/0x430
+>    Read of size 4 at addr ffff888005b93740 by task kworker/2:1/51
+> 
+> Keep the size of the queue array in the controller and use it instead.
+> 
+> Fixes: 2eeeaa9c1ff0 ("nvme-tcp: Validate the queue state under the queue lock in the address attribute")
+> Cc:stable@vger.kernel.org
+> Signed-off-by: Christian Aurich Zanettini Martins<christian.aurichzm@gmail.com>
 
-Signed-off-by: Thomas Huth <thuth@redhat.com>
----
- See this link for the build failure:
- https://lore.kernel.org/oe-kbuild-all/9e294bfd-4704-42a5-a704-f301f4afe042@app.fastmail.com/
-
- tools/testing/selftests/vDSO/Makefile | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/vDSO/Makefile b/tools/testing/selftests/vDSO/Makefile
-index a61047bdcd576..1af346ac87081 100644
---- a/tools/testing/selftests/vDSO/Makefile
-+++ b/tools/testing/selftests/vDSO/Makefile
-@@ -37,7 +37,8 @@ $(OUTPUT)/vdso_test_getrandom: CFLAGS += -isystem $(top_srcdir)/tools/include \
-                                          -isystem $(top_srcdir)/include/uapi
- 
- $(OUTPUT)/vdso_test_chacha: vgetrandom-chacha.S
--$(OUTPUT)/vdso_test_chacha: CFLAGS += -idirafter $(top_srcdir)/tools/include \
-+$(OUTPUT)/vdso_test_chacha: CFLAGS += $(KHDR_INCLUDES) \
-+                                      -idirafter $(top_srcdir)/tools/include \
-                                       -idirafter $(top_srcdir)/tools/include/generated \
-                                       -idirafter $(top_srcdir)/arch/$(SRCARCH)/include \
-                                       -idirafter $(top_srcdir)/include \
--- 
-2.56.0
-
+Looks good to me:
+Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
