@@ -1,57 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793404650;
-	b=SZzwu5OnPKBNCpdLBjT0CK5xO/t1EP1ausyEdEFmRpTI6sXcHSdaEgQIi01pLSOyZpTb
-	 3LYg7HSthP8/VImdIRP69U0Qu4i3ubq1VncpjkU35TsVV0eRIRIWW28ZpZZ/W0TLKmG6q
-	 DFOKFo6oR3hJ4+wue7hvs5kBBzIxFTaE1AMW+FfuHrt6FmO9FCZ8mmaC4KX3K+kRPbgAz
-	 AK1s4N3JOh6HKKbw0XUxY/x8LQDuR7k8+re4PEw6AYa4n8H+t3LQH3FNJxFN1Of4DP+sd
-	 wJLsK7/GvHCcTFs/k/g9pzB6gRVLetu/BK96LohWKeK0JgQxealERuklJZ74d979Gkg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793404650;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=3EuxvSewNdXujnqS9ssYqa7k7KdCysDqjb7ER7jH6jU=;
-	b=E7O3fvqFeg0fjJdtBcBZEadqiCYufPyjycCH6GJndYcs8hieEBaz8jRSgNvGQPkllI6Z
-	 9MFrXHH84fWglBXUfg1bRNt7oSz3cx1fuDNz1IxzVam64BFHkFQse/U+en+d1NWfDuCiN
-	 bYlqAtxDISHQf+nlvhy7NJ9X102zpLAkPj4ksURwlf5YmyxsmQ4qV90jj0I+KMQkqO9G9
-	 JeJe0F99FSySfe71TNh5lHmW0QoBpoBS/uEtAJrCkAme9YsxiX9AqTZORfRbt4OuqDvcI
-	 g+vPPleLYjcGjSOVT0Fcivstji8MY+QWYVpVxsrW7WIHgnDJLzuvmbu4V318/uaEQaw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aUy+mhUK;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793404658;
+	b=qseCcNyKLYqunl0PHBt3jrACqnP6O7kEwRhcF9EfqFPpX7IbsjPrxt62e6Z0/UI/QeES
+	 epVHqwL77FjAHX5Dnb8/b/zAr1NFaL9CHHkbSBIQF31+IXC3WpJWfvsZBoh2giQahoVr0
+	 yPcrafhxFa2thbKR3ShvOaLBH1BohdXx/gVv+OcoWlGNVRMhyQ+sW2vhRj6ZytzQkFvOl
+	 c6Ry/8QUGlFrOu8k2RmXNmGDZ+ps8nruoI/QYQ+0YSLB5Uu51IGWYrY9hFU9Xru8QqDBv
+	 IRKyls1DcSNLh0Gn/PGuSfBCKLQFfxQJYWx2Y/AXCOz5o5rZW9aVnZ6iQM4v4DmsG8g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793404658;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=4yzPnyew9QEMmru9umOoTOA+WxUeqUnPHxZ35Kso82c=;
+	b=cFw1k8zJMram/TyyZOe3FXQuZu8uYiI0C+ub4ZyVNBF+KWCJWSR0rma5ZjClJRofFgcS
+	 0x/sUw3kDL2Hcw3fLk6KdHecSk7fyqiQLllZxO+aM1oqMzf2EY84Y1Kwm1CPOoWl4z7i/
+	 U+fk4toB9QLuioADEoV95WiEIHOlcu6qX/1PV38vtEELahrvt0c/kwP0bokKGrVUjgaJF
+	 0hMRHATJRmqXD/k3viUmXefxNWehgfqSVn40VVLUnz/5dVEO9qgZ4RQAHkwAfCtqqAGrs
+	 VncwUbxzZDT0WEuc2D6QOBHvISOhZ65V9UlABmbBeVjBFq0RDh8x1AhIRzOWdUuhlwg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F/enRrYW";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9AB606A31A;
-	Fri, 30 Oct 2026 23:57:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE783606A323;
+	Fri, 30 Oct 2026 23:57:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aUy+mhUK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 954F51F000C1;
-	Fri, 30 Oct 2026 23:57:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F/enRrYW
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793404657;
+	b=on4HdvmjDM3bNSPkHLImF3vmmStTJxVPn92lVhW542O0DSaO+cmv/UM/AtoTzNX8gIHN
+	 AizNPX7FdL93lcAq18ZCg9U2f+YxT/VJ1zSqGMU+myZ+dxV0yGDuUYcElBM8UgksXrY2N
+	 u1uOiJFikb8Og1szmTmBCTN1hnX6L73Dz54pgxh1CmismcN/wdHQamzjDBA+AXX0xxNdE
+	 ZFBCYcEy2kylb27VU/tV5hHPQKvTRVWqKC2qOlal+NfoDlo5okVvUDi7hK4UriVXQZf7s
+	 4n6H4G41gtnbs0AzxJvkkQcJg0wMklbADs7ZGlOvZHfmhn994wuWTKjVLzH0pginoEQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793404657;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=4yzPnyew9QEMmru9umOoTOA+WxUeqUnPHxZ35Kso82c=;
+	b=PPjLS1zxx5WMi5G149fFwFgjyWIe/NgWW1hEPLG/saaTMLqhLqwlEfs9FLWvV8YxDtH5
+	 DJSo2Jqd0TJdjyen5HtTr6+RoEnx7SfbZd6pbMIpqJ1eK72TNMoUs8DnB24qOPFge3eQn
+	 AlU+k3qyfN2EuwmvsOdFekespPIRcdzbxaxzzQvtJ+WG6gTJid2KfOd3TJzCFErF49TMa
+	 hmLQakQ1Cd0+5T4dAWZjMi9N+G7I0S/KGZQ2Dk3Wis74oUgL5ovuGF43OABjqf7h95rkd
+	 WdG3gQffWDfuYcbtMNm38twynZOONQfV7oLLpXp2CzyWx+//ajdT90K/7Iso8UkdlWA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 099801F000C1;
+	Fri, 30 Oct 2026 23:57:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793404649;
-	bh=3EuxvSewNdXujnqS9ssYqa7k7KdCysDqjb7ER7jH6jU=;
-	h=From:To:Cc:Subject:Date;
-	b=aUy+mhUKlPKj1k00PKbTZpkFkKrS3+kMpmdSwLcIpi6goyoc+1q+TfcNL0aD0W9Yt
-	 blWj39Bpsm2omJ3oxc4A3nfCzxwZZrcBRTeiOxEGqbSqccSrXeOccywf1GNJp5fYro
-	 d9qGdXt7OCs67PLCK5sorexaNEuel2Rngrc7AzBeAa9lSV67vjN3/oLUJ/U7qdo6Hz
-	 bFsKBEcNKqiJfHdYLEIY6z/TkKqF3aS98aF97zpvFBQ0WwDn2SaILWaTtxUY/etqKm
-	 v7bq6T1w8x0fnS6o9ozW/4WxDiYra2wCntLHPrDesy4iJLLmWM6ZJt6tuUBFop0zfC
-	 Je2rOQagLbWew==
-From: Tejun Heo <tj@kernel.org>
-To: sched-ext@lists.linux.dev
-Cc: David Vernet <void@manifault.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	David Dai <david.dai@linux.dev>,
-	linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>
-Subject: [PATCH v2 sched_ext/for-7.4-fixes] sched_ext: Fix stale pick when a wakeup resets the donor during dispatch
-Date: Fri, 30 Oct 2026 13:57:28 -1000
-Message-ID: <20261030235728.4098872-1-tj@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1793404657;
+	bh=4yzPnyew9QEMmru9umOoTOA+WxUeqUnPHxZ35Kso82c=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=F/enRrYW6Gphbzj2+AhfjOx37f6LaueGAYR+9r11qrnYnQfED+10jAM1VIktmq0Xu
+	 N0vUXBhVz6W0oFDojXSj6KflWmSdKI6U5Te/lswv1cfOv9u1OS1wYvqOQL/4l/oQ8l
+	 4VcYl3ReckM/SD+pTkDVVbTyJFgIUa6Dnnkte2QhbBHhCu754hL2Q9tMjDnXewyWZt
+	 4gzC45norGCkx1aNIqBebzxxu9VitwtzWZk0sXjU0YZDRRrErRWwkf9hOapj4s/1io
+	 YGITfIB+YvbTK6IEetYioYhDFkFqNTx3QadkCNo+VVmT7HWmLrsf4hXTS7j4NgzWDQ
+	 ZjBO1QpRWQaiw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7DF0A442E0;
+	Fri, 30 Oct 2026 23:57:36 +0000 (UTC)
+From: Alessandro Petrozzelli via B4 Relay <devnull+apetrozzelli.gmail.com@kernel.org>
+Date: Sat, 31 Oct 2026 00:57:36 +0100
+Subject: [PATCH wireless-next] wifi: rt2x00: rt2800lib: fallback to default
+ RF config when EEPROM_NIC_CONF0 is 0x0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,154 +83,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261031-fix-rt2800-eeprom-nic-conf0-zero-v1-1-a118ee775fcb@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAO8u5WoC/yWNQQrCMBBFr1Jm7cAkQgheRVzUZKIjmpRJqsXSu
+ xt1+fj891aorMIVDsMKyk+pUnIHsxsgXMd8YZTYGSxZZ2hvMMmC2qwnQuZJywOzBAwlJ8I3a8E
+ xJO+TizE6gq6ZlPvnlzjCS5TvXCtmXhqc/nOdzzcO7ZuBbfsA3K2+U5MAAAA=
+X-Change-ID: 20261031-fix-rt2800-eeprom-nic-conf0-zero-acf88f6ddd60
+To: Stanislaw Gruszka <stf_xl@wp.pl>, 
+ Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Alessandro Petrozzelli <apetrozzelli@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2104;
+ i=apetrozzelli@gmail.com; h=from:subject:message-id;
+ bh=pnGNieAmqP5yjIcLc5cLxsweQychWUXH4HwSO++3Q88=;
+ b=owEBbQKS/ZANAwAKAeWL0WdUYlOYAcsmYgBq5S7vWn4nbiRcMvaqp7EBX+ss33CIwrO2HUe/T
+ h2jFTDGzTuJAjMEAAEKAB0WIQRWwqGiWlKpzW9/svzli9FnVGJTmAUCauUu7wAKCRDli9FnVGJT
+ mBdED/9zrG+b/kXudUEdQEzyWBsqeX5A8CLKQffEcyJbIXZ377ujdJSn+slF/duO2lK+t/ezl0j
+ HJmq/mfblroGPK1Fi8oqVStcyb2oy0TjcjtCH6tcndFu8tEbHKoJauSfHaVaDxVBPI/cGGCvUxw
+ 7hRPKkGrZa1vN7+2lNItzTEFZ63ruXKyF8tQfhbJm2nH1DCObCeXpd0v9rQTRSbMMUN/wZz2yOZ
+ pXi0kTkpFI3Yu6pAmizOpL2rd63CXnwCloYIhhvMjTknimowjSEptJzv2WK3NcV2ZmJ9Oy46sky
+ a6VpYKId1GYhV5RG2zzcfLCRTdwjoJKX25iSehmXQGDUWJ1ZnLuNtwN+NJtYikEp03ifn6Lly3N
+ 8iF/NxIiGif5hXAZQffJMpQC/Ove1xY4G05nITD32LcsQcS1OBSTGvfvynDzwYyGwEaMy8ZMuSQ
+ ylFFKvPX6FyBULTIVnBM4josv2srr/GUxHb19brtpQh1NmMgBHL/YmciHR2MPhODsthauZbAIb6
+ nDMXNrnTlBG9Owo86IozepfohFYpOE2Zv36I9P+t6KG+pLRHwfGqovoMPhD5r9JITrxCX0ZOaxv
+ ZeoaH5OadjfyFo77gkpiXIMKiqqC8FYVyovlUCf68Ybg1FUCqTKlL1TPa5NAPziwERqWaL4EFRt
+ Ose45R/z35s7cOQ==
+X-Developer-Key: i=apetrozzelli@gmail.com; a=openpgp;
+ fpr=56C2A1A25A52A9CD6F7FB2FCE58BD16754625398
+X-Endpoint-Received: by B4 Relay for apetrozzelli@gmail.com/default with
+ auth_id=1366
+X-Original-From: Alessandro Petrozzelli <apetrozzelli@gmail.com>
+Reply-To: apetrozzelli@gmail.com
+Content-Transfer-Encoding: 7bit
 
-With proxy execution, do_pick_task_scx() passes rq->donor to dispatch_one()
-as @prev. Unlike rq->curr, the donor can be moved to another CPU by a wakeup
-while dispatch_one() has the rq lock dropped:
+From: Alessandro Petrozzelli <apetrozzelli@gmail.com>
 
-1. dispatch_one() drops the rq lock, e.g. to move a task from another CPU.
-2. Another CPU wakes the donor, which proxy execution migrated to this CPU.
-   proxy_needs_return() dequeues it and resets the donor to rq->curr, and
-   the wakeup enqueues it, possibly on another CPU.
-3. dispatch_one() sees @prev queued and returns SCX_DSP_PREV.
-4. do_pick_task_scx() returns @prev, and this CPU runs a task that is queued
-   on another rq.
+On some Ralink PCI/PCIe wireless cards, such as the AzureWave AW-NE766
+(Ralink RT2790 / RT2872, PCI ID 1814:0781, subsystem 1814:2790) bundled
+in the ASUS EeeBox PC B202, reading EEPROM_NIC_CONF0 returns 0x0000
+instead of 0xffff when the EEPROM word is uninitialized.
 
-sched_proxy_block_task() resets the donor the same way when another CPU sets
-@prev's policy to SCHED_EXT or moves it to another BPF scheduler, and blocks
-@prev instead.
+Currently, rt2800_validate_eeprom() only triggers the default RF2820
+(1T2R) configuration fallback when EEPROM_NIC_CONF0 is 0xffff, unlike
+other EEPROM validation checks in the same function (such as LNA gain
+fields) which already check for both 0x00 and 0xff. As a result,
+EEPROM_NIC_CONF0_RF_TYPE remains 0x0000 and rt2800_init_eeprom() aborts
+device initialization with -ENODEV:
 
-Whatever dispatch concluded, and whatever it does with @prev after the drop,
-is about a task this CPU no longer owns. rq_modified_above() catches the
-reset only when rq->curr is in a class above ext, and the dl_server pick
-skips the check.
+  rt2x00_set_rt: Info - RT chipset 2872, rev 0200 detected
+  rt2800_init_eeprom: Error - Invalid RF chipset 0x0000 detected
+  rt2x00lib_probe_dev: Error - Failed to allocate device
 
-Restart the pick when @prev is no longer the donor, as dispatch_core_pick()
-already does after a lock drop. dispatch_one() tests after each step that
-can drop the lock, and scx_dispatch_sched() decides per ops.dispatch() call
-whether to hand @prev over, which also covers a class or scheduler change
-across a drop. The donor only ever changes to rq->curr during a pick, so the
-retried pick can't go stale again.
+Since 0x0000 is never a valid RF_TYPE (valid chipsets start at
+RF2820 = 0x0001), extend the EEPROM_NIC_CONF0 fallback check to also
+handle 0x0000 so that these cards initialize and operate properly.
 
-7a3a6bfbd62a ("sched: Rework prev_balance() to avoid stale prev references")
-closed the same window in prev_balance() by reading rq->donor instead of
-taking @prev. That doesn't work here, as the dispatch never evaluated
-rq->curr, which may not even be a sched_ext task.
-
-Verified with a synthetic reproducer.
-
-v2: Also cover rq lock drops inside dispatch (sashiko).
-
-Fixes: c6fe97c34a1a ("sched: Allow enabling proxy exec with sched_ext")
-Signed-off-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Alessandro Petrozzelli <apetrozzelli@gmail.com>
 ---
- kernel/sched/ext/ext.c     | 20 +++++++++++++++++++-
- kernel/sched/ext/inlines.h | 29 ++++++++++++++++++++++++++---
- 2 files changed, 45 insertions(+), 4 deletions(-)
+ drivers/net/wireless/ralink/rt2x00/rt2800lib.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index cd923f9f1f2a..43cf98c1d511 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -3407,6 +3407,12 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
- 		rq->scx.cpu_released = false;
- 	}
+diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+index 2e2e382b6..dda5ba2ad 100644
+--- a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
++++ b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+@@ -11047,7 +11047,7 @@ static int rt2800_validate_eeprom(struct rt2x00_dev *rt2x00dev)
+ 		return retval;
  
-+	/* the ecaps sync may have dropped the rq lock */
-+	if (scx_dsp_prev_stale(rq, prev)) {
-+		verdict = SCX_DSP_RETRY;
-+		goto out;
-+	}
-+
- 	if (prev->sched_class == &ext_sched_class) {
- 		update_curr_scx(rq);
- 
-@@ -3449,8 +3455,19 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
- 	}
- 
- 	verdict = scx_dispatch_sched(root_sch, rq, prev, false);
--	if (verdict != SCX_DSP_NONE)
-+
-+	/* scx_dispatch_sched() may have dropped the rq lock */
-+	if (scx_dsp_prev_stale(rq, prev))
-+		verdict = SCX_DSP_RETRY;
-+
-+	switch (verdict) {
-+	case SCX_DSP_RETRY:
-+		goto out;
-+	case SCX_DSP_NONE:
-+		break;
-+	default:
- 		goto has_tasks;
-+	}
- 
- 	/*
- 	 * Didn't find another task to run. Keep running @prev unless its own
-@@ -3517,6 +3534,7 @@ static enum scx_dsp_verdict dispatch_one(struct rq *rq, struct task_struct *prev
- 		     rq->scx.nr_immed))
- 		scx_schedule_reenq_local(rq, 0);
- 
-+out:
- 	rq->scx.flags &= ~SCX_RQ_IN_DISPATCH;
- 	return verdict;
- }
-diff --git a/kernel/sched/ext/inlines.h b/kernel/sched/ext/inlines.h
-index 1e39d12678c4..fb0c58927d42 100644
---- a/kernel/sched/ext/inlines.h
-+++ b/kernel/sched/ext/inlines.h
-@@ -18,9 +18,28 @@ enum scx_dsp_verdict {
- 	SCX_DSP_NONE,		/* nothing to run */
- 	SCX_DSP_LOCAL,		/* local DSQ has tasks */
- 	SCX_DSP_PREV,		/* keep running @prev */
--	SCX_DSP_RETRY,		/* pick helpers only: restart the pick */
-+	SCX_DSP_RETRY,		/* restart the pick */
- };
- 
-+/**
-+ * scx_dsp_prev_stale - Test whether dispatch's @prev went stale
-+ * @rq: rq being dispatched for
-+ * @prev: @rq's donor when dispatch started
-+ *
-+ * With proxy execution, @prev is the donor and may not be the running task.
-+ * Another CPU can reset the donor to rq->curr while dispatch has the rq lock
-+ * dropped. Dispatch restarts the pick when that happened and doesn't hand the
-+ * old donor to the BPF scheduler.
-+ *
-+ * During a pick, the donor only ever changes to rq->curr. Only __schedule() on
-+ * this CPU sets a different donor, after the pick, so the restarted pick takes
-+ * rq->curr as @prev and can't go stale again.
-+ */
-+static inline bool scx_dsp_prev_stale(struct rq *rq, struct task_struct *prev)
-+{
-+	return sched_proxy_exec() && unlikely(prev != rq->donor);
-+}
-+
- /*
-  * One user of this function is scx_bpf_sub_dispatch() which can be called
-  * recursively as sub-sched dispatches nest. Always inline to reduce stack usage
-@@ -33,8 +52,7 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
- 	struct scx_dsp_ctx *dspc = &this_cpu_ptr(sch->pcpu)->dsp_ctx;
- 	int nr_loops = SCX_DSP_MAX_LOOPS;
- 	s32 cpu = cpu_of(rq);
--	bool prev_on_sch = (prev->sched_class == &ext_sched_class) &&
--		scx_task_on_sched(sch, prev);
-+	bool prev_on_sch;
- 
- 	if (scx_consume_global_dsq(sch, rq))
- 		return SCX_DSP_LOCAL;
-@@ -106,6 +124,11 @@ scx_dispatch_sched(struct scx_sched *sch, struct rq *rq,
- 			rq->scx.sub_dispatch_prev = prev;
- #endif
- 
-+		/* the dispatch so far may have dropped the rq lock */
-+		prev_on_sch = !scx_dsp_prev_stale(rq, prev) &&
-+			      prev->sched_class == &ext_sched_class &&
-+			      scx_task_on_sched(sch, prev);
-+
- 		SCX_CALL_OP(sch, dispatch, rq, scx_cpu_arg(cpu),
- 			    prev_on_sch ? prev : NULL);
- 
--- 
-2.56.0
+ 	word = rt2800_eeprom_read(rt2x00dev, EEPROM_NIC_CONF0);
+-	if (word == 0xffff) {
++	if (word == 0xffff || word == 0x0000) {
+ 		rt2x00_set_field16(&word, EEPROM_NIC_CONF0_RXPATH, 2);
+ 		rt2x00_set_field16(&word, EEPROM_NIC_CONF0_TXPATH, 1);
+ 		rt2x00_set_field16(&word, EEPROM_NIC_CONF0_RF_TYPE, RF2820);
+
+---
+base-commit: 2c50cd5d10e8723797f28c7978f1f61688e0c0d2
+change-id: 20261031-fix-rt2800-eeprom-nic-conf0-zero-acf88f6ddd60
+
+Best regards,
+--  
+Alessandro Petrozzelli <apetrozzelli@gmail.com>
+
 
